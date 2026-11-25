@@ -1,91 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795615248;
-	b=ibiHCOHkPN/Zj187uRV/KXzfXoEseqxxrE6CNnD1trmKKljSTqjyPoGPkvo35SlT1wgZ
-	 0TH0ZpwZ5KS/mJktVHiU3cRHS4EW1GFaAXFKahPL2PK2POMpI5s7Y2KYlAswq4uZgQF0y
-	 pkQqdBcSrL9PfDYEnz/SDsDzdbAowO7Sf26mlbZbTWCuSv5B7J47+j66Fycr2A6ZUMpgC
-	 LuTii/SAvSex29Tqxch0w2IGyi3Ja+jmOGVGYn5SPtYpd1k9R264V/Gox+fLIM53OS4zB
-	 1UvgZ2JOybfyK4Z7pkhr+c55lEB5/LK2/u96cUbpW+ZRVpsHUMEw6bKc6+ixKt1JMCQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795615248;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Z0bHnKY18Sj6WcXxQyinu2JH9QaCsosfzwkAijHIYb4=;
-	b=c5C2/VmOMPulCUYL2Bk4xLIS4YWlkiyzvwkqBY2fS8qTsbQ9IwlDJRSw9/iIeTcuoDZ7
-	 JSbSOROrXBKW/v0UoQzSmY7ebkhLx4fVdb+S0o3YYc5htRs51k7IagsDPu11ap0+m2/we
-	 uRM1ao2DXtajacCW/1xaeMzokupQEmHPDL0XevuYDGI5tQM1W0JmWsOTIRQhsmwjR3gz4
-	 mzV9l01tqFG51KhWOiPVBYFgoVlppYjvqLjPGJptI+DT6McKNdN+jcWw7yoi869gz+R8f
-	 hQgBWH8nMl6kjJ+1m6e+jbA6RiCeq0XM8ahOLHAflp8V3azFzRygCQpQqXueLE857kw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UbWI4eZe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795615276;
+	b=SQ3lfPX5+uvoAtMAFyAc81j1yvxdUx71CNmbu5WT1CrxOHd5U2g6r7enkpfFBGCIPnLx
+	 qFTVcjgeJX+eGYtyPtBHh2SCUoACMDVo05dN7mlIPf+d79GpweHiW/6lTfMkag1kMvjEc
+	 HmxVDxsmKLLjRx0tzkb46CyrXiHR+mRzXfGrXpkJeSOU6rQgLKjlAcRF7AVPzy3m2PY5W
+	 +kyOzZV9B1ifIlQASahsywPKoVhVSa2paGPVq/DqiqwJiXezEaMGDTOH+DV5/oc5i/of4
+	 HsiM9DHxBYnCOmdiSuafXowq7XRXTXRclnjkr7SxZ6AGKcTL4N5NKT8NQcKJV2NNZ2w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795615276;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=xPs5f4A0Tob3CyDOsj13BsPyaIL8a+4YC+Rj1isrcw8=;
+	b=tRldjNz9MhImQxXEuyxofQIVSVSH+65eSLqEHh76Mym6o6IuQWubyLl7/BqLYby43w7s
+	 HM+U2dwPZbf4ZlesUYF61BFX02w6Y8uc74Zlb2FYepgp00b4nxjndeTJGF0mR9XGhw1bR
+	 GQs0dYkUTVGoDYxaJN4yA6BUjCbewS0VJjtlnJqzFS/Yp0IMQpkbbgMyYJfY8ZQdWLjRs
+	 Q04BAkKQ5GyX3TY9+2uYY4Bc+LcduTBHhcDT5bGKf30QlKVTHRuzS+WJeIL/bTCdFHzQ/
+	 Qy551OK00AULBfvVVpkfejULI/shDG4bFQwpqyyC05G2rGU7fsFgKWYAoQHlIptBQKg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=AVaw6qij;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC18606A32D
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:00:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD64606A321;
+	Wed, 25 Nov 2026 14:01:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FD64606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UbWI4eZe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37B241F000D3;
-	Wed, 25 Nov 2026 14:00:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795615248;
-	bh=Z0bHnKY18Sj6WcXxQyinu2JH9QaCsosfzwkAijHIYb4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UbWI4eZeRteujIZd5MPk06V94cl1sNONzrM0toh6SKwb7AwYFjj8MtCdX3pZaD416
-	 R88GcU8SpSfviZfMXfm964s5ba1erNPxBTEXZbaDo6XworvzdEfUd3vYk24/L/qi+g
-	 TuZ7PM7WMT6rcWlOhGenYOvFvykt+W+OO7LJIApiWJIFsPmUqcmzMVWVv44ufA3rky
-	 tLYAmePdpmENS2V/EiZ/5oBd8ZMtDO1rjL8ppIoSpPIAipadH9QGe/ePaCldERRDOo
-	 nqAiz9axllYYwC/MU5rHKU0N7dFXDsnv3p6DgG8PEJqOWqv64KlKq7jY+tqOtp7jv6
-	 y5tIZ03Jfw3fA==
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 82BF71980047;
-	Wed, 25 Nov 2026 09:00:42 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-12.internal (MEProxy); Wed, 25 Nov 2026 09:00:45 -0500
-X-ME-Sender: <xms:CeoGa2sbyq-knPaAr3polUCbTbAfusbSEbQkIuv3RGnGMDeE4I0IpA>
-    <xme:CeoGa5XUKPcBCJPbEyYstOF2hF5CZuHf8u0_gDMsgSIBKBgaSp8f4AMl65r0kymk4
-    6IpJz6zjcIMAjwll9tB_wwZqtlLcCs9sI-2RPpw8cu5Pqt0zY_kZDLI>
-X-ME-Received: <xmr:CeoGa63VkcYmI44d81-pIkWLwEJV3_2mriNLyrNKXgF5TBl-s4g4hEvoXsA>
-X-ME-Proxy-Cause: dmFkZTE1O4eBS6dBEH9F3C68qqyjyJ1vnOzgFGQ7e1lDYlMXiP0Bqwgudxue3EzhshTdfZ
-    wxdOsHNh21Us4t2qr8NIs2D82OWq8GrNR1+ApgjQnugMMUoOefB61JIxFry+YnlrEEPH0k
-    1lulqQ/KbfKwP3+h1Eq7NvvIazNhJ+RPZPqAUo6W6yvezRDAuG1Y9F4WydegAGsGXmWudY
-    uU/N0qF8rm1u8E23C3PBv/eYYSy65rIJIibXjAFAeda30En8uHkgplstM2XZioKLBowZJu
-    OQY/fboU+VsjF9UxxOTbEw3f2yad/ggXJ3hOpEq6coiUonOsSwIgZaZ/EJfocaRDTuU9B2
-    bpLH5GD503xlV1pw+X3TwoVttniLzFa5tkg/BlSGvpUUmV95buRKk+ZEFQkeCc6gNdHDR9
-    cZknIrGoR1hZBn+WTQ4ax3Cm/YYmBNK6WUDb2wLj/L4AojiXVzVUGY9OlSme68dHnVCJPC
-    EBZDvP5pgx4DOZIu8Pcv3syC6zvvEJQ++fneb7YiYAACWex4c8LaUOQ8NOxhFFt+6aqcCQ
-    ara+dxH+3HxYKIl4QBtspz+zZnTvm4tdjBZMgMgZS92PFHfDbLm6/QNtlRk3cKCE/HMKfa
-    vRoeL7e0y6AjGDREEe0jC3Ar91Wm0pEXHArWXQP9hAdrsG4pq4nqvpDQTPig
-X-ME-Proxy: <xmx:CeoGayfGny5F21riOaLOveSjwn-EJAzPaJzk4-vqnbHv7Pj2nN2sfg>
-    <xmx:CuoGa_VqJrc_CqPIcNU_aqo4LWnmsfqTTBV008mUeuWEwrI1fvFrAA>
-    <xmx:CuoGaw86kLMVxJ-7NBMr55J-FMvV0cQxvHDDazJAmckz17uJpjue6A>
-    <xmx:CuoGa0ixiJ8Vgnu-6JNrddSNMUl08zogEhc0hAW983Iq7YrEfhFSpA>
-    <xmx:CuoGa9VZt9XGvySBLdrZn4-zvJMAa5b6m1fu_TiYaJjV86Zb5hFoyQGY>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 25 Nov 2026 09:00:41 -0500 (EST)
-Date: Wed, 25 Nov 2026 14:00:40 +0000
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: YinFengwei <fengwei_yin@linux.alibaba.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	James Morse <james.morse@arm.com>, Jinjie Ruan <ruanjinjie@huawei.com>, 
-	Vladimir Murzin <vladimir.murzin@arm.com>, Ada Couprie Diaz <ada.coupriediaz@arm.com>, 
-	Marc Zyngier <maz@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Liao Chang <liaochang1@huawei.com>, Ashok Raj <ashok.raj@oss.qualcomm.com>, 
-	Doug Anderson <dianders@chromium.org>, Pengjie Zhang <zhangpengjie2@huawei.com>, 
-	Cong Wang <cwang@multikernel.io>, kernel-team@meta.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] firmware: arm_sdei: Do not signal event 0 to a
- masked PE
-Message-ID: <awblcOnI8JVhpmPK@shutemov.name>
-References: <20261124194707.1030653-1-kas@kernel.org>
- <20261124194707.1030653-2-kas@kernel.org>
- <awavUsKX4XLRMbUq@U-V2QX163P-2032.local>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=AVaw6qij
+Received: from pengutronix.de (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
+	(Authenticated sender: mkl@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 9788E200033;
+	Wed, 25 Nov 2026 15:01:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795615268;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xPs5f4A0Tob3CyDOsj13BsPyaIL8a+4YC+Rj1isrcw8=;
+	b=AVaw6qijL9sB64GGQtb+4AnGO4q1SMiVqVZOoY7KfgYMJQKi0EMIZzOgtVHoZvKg0VSMS2
+	9NOob1fXRkom+BJO/os73IoB7dqXLrkgAN8OGLthFxTUpcp0NpBewmx580rDANbGK2NOXU
+	BP8EypqZYy15+a+VuwOfB+x5bybQ6rZs6BClSSWEOGOXKyhQT1iatNnIA7TqbLFTyx72Tx
+	Xph8L9wBGT/xZqTzQM6s+lch0he890EXKx9SA0GrhmwJueHepz+XjSZFccDBF1CmAKetVR
+	8b71//zXKM9jiklLqyiCw9bc9FFhiQ3W0hfdwwyxR80IBINtLMjPp6+ZZaUhTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795615268;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xPs5f4A0Tob3CyDOsj13BsPyaIL8a+4YC+Rj1isrcw8=;
+	b=dElgK/igdiYA29p0fvkQsD/K/L9c89nkgBlDHA1dnUh2JlDucAC76heyQZ1VrLLfX/RkLL
+	/n0R5zJqefUKk5Owc2x8zRIHsdkR1vTm/Fgmc+qA5lpKWZwUtwt0Our3Le1a9ayHoVVwjK
+	a+3doS1ZOPal1s29JTyXSqWmYsnm0GXnxAZ+SJyTS8eU83gaFEKL56LdKeNU+WTKqrhhSH
+	24N/8zIoaeMvRrdGvTIpaHSEl7HfTNL7aUY6wHj3R22god8oyQzAaqMZVkGQP+ZkeCLNgu
+	DtZiqnmpSB2Xl7fq1lJzPaDlUiPMWRA8yB/ezrbEEL9ptaClMxXOUPhDeNLT7A==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=mkl@pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795615268; a=rsa-sha256;
+	cv=none;
+	b=CvxV1kWrOoj0nUZq9FbqDAYIkWqoXbAy7Zij3DV7/VaBQZcG9vGG7ZO+JtGYLe2HNtcKS/
+	iN0pQFGbVCIcSD/NhEYaUVkeiyyPNzY6QLWraL0+PqCNFVJmEODFsyB8NGwMw0dpMSNkS4
+	t+FOAqqvxHrD1hdFGRxcibOVD4OmnPgz/27AHdt6q9+eaGeBbTHTPjgSetrbz3oTuGo+7N
+	qR0HAQWFB9bQabtiDAs+yahsv7D/fZoJofkna2QWGXdyla72HYKAEnJIXlYwcxCpbLOhIg
+	70D5Hic8ch8crjbvy/GbV+dsU0LxsT06z7f/ANcaXVESKDqPCl63SqhbwuXuOA==
+Date: Wed, 25 Nov 2026 15:01:08 +0100
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org, 
+	linux-can@vger.kernel.org, kernel@pengutronix.de, Oliver Hartkopp <socketcan@hartkopp.net>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH net 01/12] can: bcm: copy the CAN frames outside of
+ lock_sock()
+Message-ID: <20261125-lavender-pig-of-imagination-fe91b5-mkl@pengutronix.de>
+References: <20261124085757.1093632-1-mkl@pengutronix.de>
+ <20261124085757.1093632-2-mkl@pengutronix.de>
+ <179551104023.3294.3966794215800671203@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,83 +90,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="f24icvnqsmeicx75"
 Content-Disposition: inline
-In-Reply-To: <awavUsKX4XLRMbUq@U-V2QX163P-2032.local>
+In-Reply-To: <179551104023.3294.3966794215800671203@kernel.org>
 
-On Wed, Nov 25, 2026 at 05:50:10PM +0800, YinFengwei wrote:
-> Hi Kirill,
-> 
-> On Tue, Nov 24, 2026 at 07:47:04PM +0000, Kiryl Shutsemau (Meta) wrote:
-> > The SDEI NMI backtrace signals event 0 to every other CPU, idle ones
-> <snip>
-> > +static void sdei_block_signal(void)
-> > +{
-> > +	struct sdei_pe *pe = this_cpu_ptr(&sdei_pe);
-> > +	unsigned long flags;
-> > +
-> > +	/*
-> > +	 * A panic from an SDEI event or a pseudo-NMI may have left the lock
-> > +	 * held by this CPU. The CPUs that could signal it are stopped by now.
-> > +	 */
-> > +	if (panic_on_this_cpu()) {
-> > +		WRITE_ONCE(pe->unmasked, false);
-> If the panic didn't take the lock, should lock be taken
-> just like "else" path?
 
-If another CPU holds it at this point, that CPU was stopped in the
-middle of signalling this one, and it will never drop the lock. The
-panic would hang on it.
+--f24icvnqsmeicx75
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH net 01/12] can: bcm: copy the CAN frames outside of
+ lock_sock()
+MIME-Version: 1.0
 
-If nobody holds it, there is nothing for it to keep out. This runs at
-the end of smp_send_stop(), after the other CPUs have been stopped. A
-sender stopped after it took the lock has either counted its signal,
-which sdei_wait_in_flight() waits for, or never sent one.
+On 24.11.2026 09:04:00, netdev-bot+sinfo@kernel.org wrote:
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
 
-Telling the two apart takes a trylock, and on failure we would go ahead
-without the lock anyway.
+The issues in the CAN protocols BCM, RAW and ISOTP fixed in patches
+#1...#7 were found by LLM review. They can lead to block the RTNL by an
+unprivileged user, but have not been observed in the wild.
 
-> > +	} else {
-> > +		raw_spin_lock_irqsave(&pe->lock, flags);
-> > +		WRITE_ONCE(pe->unmasked, false);
-> > +		raw_spin_unlock_irqrestore(&pe->lock, flags);
-> > +	}
-> > +
-> > +	sdei_wait_in_flight(pe);
-> > +}
-> > +
-> >  static int sdei_pm_notifier(struct notifier_block *nb, unsigned long action,
-> >  			    void *data)
-> >  {
-> > +	struct sdei_pe *pe = this_cpu_ptr(&sdei_pe);
-> >  	int rv;
-> >  
-> >  	WARN_ON_ONCE(preemptible());
-> >  
-> >  	switch (action) {
-> >  	case CPU_PM_ENTER:
-> > +		/*
-> > +		 * Leave alone a PE that is masked already: before
-> > +		 * sdei_cpuhp_up(), or after sdei_cpuhp_down(), as cpuidle runs
-> > +		 * until CPU_OFF. CPU_PM_EXIT must not unmask it.
-> > +		 */
-> > +		if (!pe->unmasked)
-> I am wondering whether READ_ONCE() should be used here?
+Patch #8 fixes problem with configuration of certain classes of older
+CAN-FD hardware, found by LLM, not observed in the wild.
 
-No.
+Patches #9...10 fix problems with the netlink attribute sizing, found by
+LLM, not observed in the wild.
 
-We read the flag of this CPU, and only this CPU writes pe->unmasked.
-The notifier runs with IRQs off, so no store can race with this load.
+Patch #11 fixes a information leak of up to 8 bytes of kernel memory to
+out USB URBs, found by LLM.
 
-What can still interrupt it, a stop or a panic from an SDEI event or a
-pseudo-NMI, does not return here.
+Patch #12 fixes a probe failure on of a driver on m68k/coldfire, found
+by human review, not observed in the wild.
 
-READ_ONCE()/WRITE_ONCE() are for sdei_event_signal(), which reads the
-flag from another CPU.
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by LLM and not proven at runtime). If it was triggered
+>    please include the symptoms, like the stack trace or kernel messages.
+>
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account.
+>
+> *IMPORTANT*: If you do repost (for other reasons) - please include
+> the relevant info in the cover letter or commit messages.
 
-Left plain, KCSAN will report it if that ever changes. See item 5 under
-"Use of Plain C-Language Accesses" in
-tools/memory-model/Documentation/access-marking.txt.
+regards,
+Marc
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--f24icvnqsmeicx75
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCawbqIgAKCRDMOmT6rpmt
+0pNtAQCWO8ec5l2bMRKI8jYsDO5ikgamoaLdohpb5KSIkOVZ9QD9FXwWK3KWIoDM
+ZklqoUbx+3t1alr9F+qNYT/OZi1TtA8=
+=Rwxo
+-----END PGP SIGNATURE-----
+
+--f24icvnqsmeicx75--
