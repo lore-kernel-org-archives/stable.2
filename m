@@ -1,57 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618548;
-	b=nb199rPeQ4ks1MpCMdmNrvrlydyQCI5MK5bzIAr2Ftq9yObwJuhhDhdAX+zQIZdDLYuq
-	 ScjqEZeU/FfZcIuEbieTbuIeOywD4AuX7zsUCxdyv9Ro9MM7jZjkrB/LsMk+UDnXjSt40
-	 GvCPUX4mcrie2WysWaji56WfQpQE9RnAOxuw3T3wZeDij/e8RPNwVsgVpzSUZ8yD8y5Zz
-	 Nq0ZwyznktsG1WCJqu03k+Qlrc0VqexckLI8GqrhsTOtF9rAy/eEn+kyol3BcT6SqRyL5
-	 NsRcVi/6D2NA4/r4MNHTY8Q/7dT/C+dY+CY6O6I4C9YVHaby0GiRu+au1BPN7rs2tJg==
+	t=1795618549;
+	b=QitdGeSTCQ1GgN+qAaOd+sHZAAYz3PsppeKAacN4xtfqo/M0fXhJLofE82kN6WnoBh/f
+	 7j/kvQpl1TT4NmbmNDASqwjPcS0u6rjU+SifC3ElMqcqLnPdyA4sxuIXNgqsjJhNYdEcT
+	 dL3fs4uQAizXvIBjFJiD2whxneCLvNOpfjbgsKIXebUk5G/gtDYkljFxJqNZ3jr8etXfF
+	 5l9tawdatFdaYC3GJ41CDxc7kM229tKc4kHih2yKgRftNWbRxbCOFg/0VG+qGQjYX1+sL
+	 tmTj92mvkgmOuPpVBcgnFl/zxTcEfmXqM+oPVSkKPhg1j/p7Uqo39BW4MpjIjdPvDSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618548;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618549;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9zBX1W61qvZBVHtLAT9PwZY/iKLd9hIs0OL/9T3MhD8=;
-	b=CqU0P+OEZlCWKH0GTLwfm7BiOBuPRBeyBncUFQKx1cAw4RFr6ViqG86HyJFi2TX7bWZi
-	 kSKMn/ObGv16nD3lIbCVPTDPHhq1JtzNpMLA6FOgPsed7JtWPCkthaAi82tTrjAMR1RK5
-	 CjT+OfUgc8tGHLnHrkSZOAECs/Gc+VqiGWVcoE0h/Nux8/9HJKFz64VzbJxgYnP1o2zJw
-	 o/GJqGB24NCJA569Z04HNS4zrmQH8YKUYcT8sGu0kg1yRI5B2zKGWNL8JJ8xwYJdLwM4T
-	 1hVmhvme3qCZMpB7tBIjwB+YGI87LZCfHr2HsvgJrmLtRuXlBE5aQn1Gy3X8ajMDn4g==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Ky5/DVWCT+V55W5t+UNuzapzNswg5TrugYch6+vkafU=;
+	b=o6sUiDZgrItQRZKVflwpxZUF6BB9zTnOp7/W5xeAKDsLzRp8TIaAZIv8zXyEbNKqAag/
+	 g/mnDK+ACd8Q8Aqc3gLyk580hhH/8lqp1j9hqzjQVFC2Lr0Yu1F1LQcHfTSp6ci7IlQSG
+	 XZe/WMHRENNjisMBbZEjkZ4fQ4DJ32TjDf30X9mylBFeCFbDGwCoGdBSq1RoHjzvZGeGq
+	 wlHufuLrrqHyWUtMu0pg3C4AM9pwKssKO+OtjGoSoa2//0M5XXTcC76Md78DsBrqmt4j4
+	 9EexcOQtz6t6EGzvJv25tBYCZcHzBU4HAZOu8e86LkPuOE1QXxDwoJBKCGlT2DM4chw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JTj9ZL/U";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Fx/WzDNG";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1195606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:55:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78376606A32A;
+	Wed, 25 Nov 2026 14:55:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTj9ZL/U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B48201F0093E;
-	Wed, 25 Nov 2026 14:55:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795618548;
-	bh=9zBX1W61qvZBVHtLAT9PwZY/iKLd9hIs0OL/9T3MhD8=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Fx/WzDNG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD0D81F000EF;
+	Wed, 25 Nov 2026 14:55:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795618549;
+	bh=Ky5/DVWCT+V55W5t+UNuzapzNswg5TrugYch6+vkafU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JTj9ZL/UWh5avi28MblO6KhZ9uy4wwyOUfn6ZvQF4Alp5QFGvcJuwB3OD05mL7V7F
-	 AFx/RaFl1kdnwosLdi4OD0oHkd47ru5cZQaBiSNvziVdzfR/azfBYem44d2c/WyDSB
-	 9UN4uH8VNGEf3uOrC6Gz0XAw2GOPr77MXhJgCazSR0e1xW+kt60jsIg1lthfqM/586
-	 fH17PljS9IXrGu60MtS8XXmKZf6BPwbAWAPFIZf9D3Ff7EKuF2x0149tKdru+aDzQS
-	 ouyuKeIovT7QI6XTAwo1HZx3AE8UnZBVA7SDge6bGGCdQD4ES6hDONBHxjr8SqYxNm
-	 wnLsQQj351W9w==
-From: Sasha Levin <sashal@kernel.org>
+	b=Fx/WzDNG3X/d0xVmaMpHdj4w2d6DWtr9aKUamSwUAZZ3wR2/JY7Yr2rYFSuBimy4Z
+	 YpRzoMn93tdeHYp8C3QDUivOpXoYwtiv2C/FSRyJo1OGEauu29W31hzzLZQbnxLxJr
+	 Uidwaap+YCnGlOpF7fDs9OrCvF7Ib9eB7Qm6ziWc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Hyunwoo Kim <imv4bel@gmail.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Chris Mason <mason@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Keith Busch <kbusch@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] tcp: do not coalesce segments after FIN
-Date: Wed, 25 Nov 2026 09:55:46 -0500
-Message-ID: <20261125145522.4171559-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112554-ocelot-scope-e6ac@gregkh>
-References: <2026112554-ocelot-scope-e6ac@gregkh>
+Subject: [PATCH 7.3 0260/1005] nvmet-rdma: take a device off the list last
+Date: Wed, 25 Nov 2026 15:26:38 +0100
+Message-ID: <20261125143827.829205570@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,135 +68,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hyunwoo Kim <imv4bel@gmail.com>
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 1c46780dec48893b8c25fd5e33a3127e8dc39dd4 ]
+------------------
 
-A FIN consumes a sequence number. If another FIN segment is coalesced
-into an skb that already carries FIN, end_seq advances to account for
-the additional FIN, but tcp_flags still contains only one FIN bit.
+From: Chris Mason <mason@kernel.org>
 
-When the preceding gap is filled and tcp_ofo_queue() processes the
-coalesced skb, rcv_nxt advances to the skb's end_seq. When the receive
-path consumes all data in the skb, copied_seq advances by the data
-length and one sequence number for FIN. If three or more FIN segments
-have been coalesced into one skb, tcp_inq() can still return a positive
-value after the receive queue becomes empty and the SOCK_DONE adjustment
-is applied.
+[ Upstream commit 86ae3841aea4e29d7ac08d5614ca3823dc8dfbc9 ]
 
-TCP_ZEROCOPY_RECEIVE is another consumer affected by this state.
-tcp_zerocopy_receive() takes its length from tcp_inq() and follows
-skb->next without checking for the end of the receive queue.
+nvmet_rdma_remove_one() disconnects the queues of a device and flushes
+nvmet-wq, but since commit a3dd7d0022c3 it returns right away if the
+device isn't on device_list. nvmet_rdma_free_dev(), run by the release
+work of the last queue, takes the device off that list first and frees
+the SRQs and the PD afterwards. A device removal in between finds
+nothing on the list, returns, and the RDMA core frees the device under
+ib_dealloc_pd().
 
-Software kTLS receive is one consumer affected by this state. When
-strp->copy_mode is false, tls_strp_msg_consume() calls the TCP helper
-tcp_read_done() to consume the current TLS record. In the reproducer,
-tcp_read_done() consumed the record data and one FIN before freeing the
-receive skb.
+Free the SRQs and the PD first and unlist the device last, so the
+remove callback finds it and its flush waits for the release work.
 
-When kTLS looked for the next record, tcp_inq() reported at least
-TLS_HEADER_SIZE bytes even though the receive queue was empty.
-tcp_recv_skb() returned NULL, so tls_strp_load_anchor_with_queue() hit
-WARN_ON_ONCE() and returned without updating the anchor.
-
-Since tcp_inq() had reported at least TLS_HEADER_SIZE,
-tls_strp_read_sock() proceeded to tls_strp_check_queue_ok().
-skb_shinfo(strp->anchor)->frag_list still pointed to the freed receive
-skb. tls_strp_check_queue_ok() then read TCP_SKB_CB(first)->seq through
-the stale pointer, causing a use-after-free.
-
-The reproducer followed this call path:
-
-  tls_rx_rec_done()
-    tls_strp_msg_consume()
-      tcp_read_done()                       // frees the receive skb
-    tls_strp_check_rcv()
-      tls_strp_read_sock()
-        tls_strp_load_anchor_with_queue()   // returns after WARN_ON_ONCE()
-          tcp_recv_skb() == NULL
-        tls_strp_check_queue_ok()
-          TCP_SKB_CB(first)->seq            // reads the freed receive skb
-
-KASAN reported:
-
-  BUG: KASAN: slab-use-after-free in tls_strp_check_queue_ok.isra.0+0x5f/0x100
-  Read of size 4 at addr ffff888103169ca8 by task ktls-server/71
-  ...
-  Call Trace:
-   <TASK>
-   ...
-   tls_strp_check_queue_ok.isra.0+0x5f/0x100
-   tls_strp_check_rcv+0x2a9/0x400
-   ...
-   tls_sw_recvmsg+0x3ce/0xa10
-   ...
-   sock_recvmsg+0xea/0x100
-   __sys_recvfrom+0x142/0x1f0
-   ...
-   __x64_sys_recvfrom+0x76/0x90
-   do_syscall_64+0xdd/0x4a0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   ...
-   </TASK>
-  ...
-  Freed by task 71:
-   ...
-   napi_skb_cache_put+0x24/0xf0
-   skb_attempt_defer_free+0x183/0x3b0
-   tcp_read_done+0x2d4/0x340
-   tls_strp_msg_consume+0x45/0x80
-   tls_sw_recvmsg+0x3c4/0xa10
-   ...
-
-In tcp_try_coalesce(), skip coalescing when the destination skb already
-carries FIN. tcp_add_backlog() calls skb_try_coalesce() directly instead
-of using this helper, so add the same check there. Since both paths check
-only the destination skb, a final segment carrying data and FIN can still
-be coalesced into an skb without FIN when the other coalescing checks pass.
-
-Fixes: e93a0435f809 ("tcp: allow segment with FIN in tcp_try_coalesce()")
-Fixes: 4f693b55c3d2 ("tcp: implement coalescing on backlog queue")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/au3HMfqNW3_DRMqS@v4bel
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: adapted context to use mptcp_skb_can_collapse() and the TLS decrypted check in place of tcp_skb_can_collapse_rx(), adding the same two FIN checks. ]
+Fixes: a3dd7d0022c3 ("nvmet-rdma: Don't flush system_wq by default during remove_one")
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Sagi Grimberg <sagi@grimberg.me>
+Cc: Chaitanya Kulkarni <kch@nvidia.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/tcp_input.c | 4 ++++
- net/ipv4/tcp_ipv4.c  | 2 ++
- 2 files changed, 6 insertions(+)
+ drivers/nvme/target/rdma.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
-index 2efd492f40001..cb020f26b27dd 100644
---- a/net/ipv4/tcp_input.c
-+++ b/net/ipv4/tcp_input.c
-@@ -4846,6 +4846,10 @@ static bool tcp_try_coalesce(struct sock *sk,
- 		return false;
- #endif
+diff --git a/drivers/nvme/target/rdma.c b/drivers/nvme/target/rdma.c
+index aab43d2aa0485..a1914f9a1b30f 100644
+--- a/drivers/nvme/target/rdma.c
++++ b/drivers/nvme/target/rdma.c
+@@ -1197,13 +1197,18 @@ static void nvmet_rdma_free_dev(struct kref *ref)
+ 	struct nvmet_rdma_device *ndev =
+ 		container_of(ref, struct nvmet_rdma_device, ref);
  
-+	/* Nothing follows a FIN. */
-+	if (unlikely(TCP_SKB_CB(to)->tcp_flags & TCPHDR_FIN))
-+		return false;
++	nvmet_rdma_destroy_srqs(ndev);
++	ib_dealloc_pd(ndev->pd);
 +
- 	if (!skb_try_coalesce(to, from, fragstolen, &delta))
- 		return false;
++	/*
++	 * Only delete from the device list once all RDMA resources are torn
++	 * down because nvmet_rdma_remove_one waits for the release work only
++	 * if the device still is on the list.
++	 */
+ 	mutex_lock(&device_list_mutex);
+ 	list_del(&ndev->entry);
+ 	mutex_unlock(&device_list_mutex);
  
-diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-index 6eb0270275343..59b3e88b5efeb 100644
---- a/net/ipv4/tcp_ipv4.c
-+++ b/net/ipv4/tcp_ipv4.c
-@@ -1883,6 +1883,8 @@ bool tcp_add_backlog(struct sock *sk, struct sk_buff *skb,
- #ifdef CONFIG_TLS_DEVICE
- 	    tail->decrypted != skb->decrypted ||
- #endif
-+	    /* Nothing follows a FIN, see tcp_try_coalesce() */
-+	    (TCP_SKB_CB(tail)->tcp_flags & TCPHDR_FIN) ||
- 	    !mptcp_skb_can_collapse(tail, skb) ||
- 	    thtail->doff != th->doff ||
- 	    memcmp(thtail + 1, th + 1, hdrlen - sizeof(*th)))
+-	nvmet_rdma_destroy_srqs(ndev);
+-	ib_dealloc_pd(ndev->pd);
+-
+ 	kfree(ndev);
+ }
+ 
 -- 
 2.53.0
+
+
 
