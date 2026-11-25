@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795604573;
-	b=f1RrS++CfcfwoFKAYrYxl9o+WyAmli7pY5xhyQQ4ey+TTi8/TQCCFq+L2IsS8FNMVwrK
-	 DPrjY/y9a8DAy1zQzEtygFWdpdjCsCtitjzFJ4wFPG2e8xN9eojTd4MrbmUNicYsdkG+A
-	 ZPW5gfB/Xpvtfc3TEc72Eq0KTrwnwmwEHjPSNolv3GnifocjLyT/qiEHZ6cI8aEnq7y5V
-	 GN3oqxoXcf1woJTtevB1tpScWN6czx7vSUPHZ3CJpb+oG+OTlzUW5g8UnWiyrdkHiiWA9
-	 wxpwrIsJZCQW5WjZ8L6q4oT7QlSFet95vzRASMqujO4cbKn3xeEHSLGWWE8/dOe7aEQ==
+	t=1795604577;
+	b=QbZm3S9SDaLb7chO6Nd9Pi8votCvT5/A3o8jiUhy++6krIEV7AQ78nXpCnuEFiLfjkNL
+	 YXZiPIj86ROHZ3dBRr/KyltFdoPoPlz4X/6wjhsyNfMiAKoUarQQMSUbWTcRK5ihkuyOa
+	 4FeeUn/ClhLJWvUP0mr7HDzEKEu4jqu0y1jUTBHF6R3m5OvJqedXxfIevQ2VA7yha7vtO
+	 0DlfLWwC7anaPU5Rq0fAUizJfIW//8+XKACUweRfCLqAwVZm24FuVo4zs5UhP4pgBnnDd
+	 WREOh/VM9C3vF182mId9pVhnuRj6f2v0LSA/NOJg2ePd5N3Yk2fcLTyRNUzi4V859SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795604573;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795604577;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=96PvHLI5/3IQQcPYB1a6jATWj5jKAqIET4uaQk6SFyQ=;
-	b=Vmd3g8MDILei7gsNx4eTR5owjZE7ev+qZZmCnsclsIO//xA9/pTSgubW7X/w+olxNgJl
-	 yJ1MX/6Il0PXAz1ajRyTP8ToRzZULIflNMTl5zG91FD28P/lSoFvqLgZr0fY4X4d3NHr/
-	 75B0pQp4JrUpBhHwT5XbfvJGsouEgx2l8Y7N3pNXj3XWh/e4exQAlrzH0/NvESTAEunCw
-	 jo3p/syjAsAofo6ImDps0SJndlquzUKw67xuPU29Uqan/YWX+bXc3ka0WTVDDlT1lXR46
-	 v7jlBKeAcL0nQw+3qfDaw3zBffHK7WGnfuw30rPOsJAGBkZoc1xN7utpcdbE3ALPgIw==
+	bh=xhFXVn9MZ1JyxWqdXxLte9PP9GT/ax9q5r8zTQm0+Ls=;
+	b=G1rluWfc3sKK2pElRyWKWAMVAe8ICNA/foKLTNUBtXeKe7kV0gsCL0NUFHPvNVyo+zmP
+	 L/jco5c3+ESed/XIMKM6Q0Ql7gg6dZ7MWSz6pkUJYFCg3rMLDI0pPLr5jXKJQ7akWaYwH
+	 /X4+SwL621rRpAK+MKahVUcKHVouIfK7385OP39Lr4Qtnbd6ExL1ZFqBRz/xuoMlyYkAy
+	 FFYqbdM0JZy5UMH+GTp7lNLNfo87NaF39W7A/v+W+iJQZ3OzImDDl5gGOl7Rm7cUnwa4H
+	 xSUxSEW1RhJNPB/RdzgqFZ3TZD/jO+DopC9SiU9GwyXrIXEDHRkyumqtve3DMnN63Nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=g55ZiRG1;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HTlbUDhw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C35FD606A333
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:02:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4277C606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:02:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=g55ZiRG1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B43D01F000D8;
-	Wed, 25 Nov 2026 11:02:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HTlbUDhw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A89F1F000D4;
+	Wed, 25 Nov 2026 11:02:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795604573;
-	bh=96PvHLI5/3IQQcPYB1a6jATWj5jKAqIET4uaQk6SFyQ=;
+	s=korg; t=1795604576;
+	bh=xhFXVn9MZ1JyxWqdXxLte9PP9GT/ax9q5r8zTQm0+Ls=;
 	h=Subject:To:Cc:From:Date;
-	b=g55ZiRG1VvmsK58wuBBfUuQpgNsBwVhR073YviXSwn0dI77FEx8BBzLVHRruPszuK
-	 2xYlqypePindtRen/Jz/MrO6K93qcLCWZzVRIcHKDc2W4bsLlbOl+XEqrim+ECs0Kb
-	 u7Hm3jQtT3FCKHSLnGp0sxV2PVDBSkPdtFKExMA4=
-Subject: FAILED: patch "[PATCH] ovl: bump the impure dir version when linking a file with" failed to apply to 6.12-stable tree
+	b=HTlbUDhwKjR/NTPs2aGNo3JyN1sVXNoHTXys8AFmISQkxXg/6wbN2dLT41cLwrZM+
+	 nytb0hMIhYOb+uLb4tn+MpAIiENsNpiwACVvaddH3DXPWCIPOb+rmskF9HBJA2BjgM
+	 gdfsHZzMMb3ojiNDSm29wwJT15GWFlLEf2jojxjI=
+Subject: FAILED: patch "[PATCH] ovl: bump the impure dir version when linking a file with" failed to apply to 6.6-stable tree
 To: daejun7.park@samsung.com,amir73il@gmail.com,sashiko-bot@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:44:48 +0100
-Message-ID: <2026112548-unwatched-prevent-2781@gregkh>
+Message-ID: <2026112548-glamorous-playroom-3ca9@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 86e2facd8630cc2fdec6ea80c53e370b26b441d9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112548-unwatched-prevent-2781@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112548-glamorous-playroom-3ca9@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
