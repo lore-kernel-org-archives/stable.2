@@ -1,47 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603252;
-	b=p8vDAuwpe4qpoe6V6LsnWC+qweqlub3PUriVG2T5IVIErXII1PEMH8JIBlkdeDPUxsM6
-	 VTG7RoMtlez0JanwwnLzOt81iPiJoBl095Hpg1J6+UcqHdaNnIzBN1YzXHYrT1RDJQC0O
-	 tohKPZvN9VGK9upbOsCKQ5QpLLIDUK779PGAgIg5Xx19bclIqyZF0OuNjhtfgXJ8axf8T
-	 8JaUGsnwSmTlDLsaCrJBcsJm5njpFAY83a6X7YXx5/+Wr9tb34A/m/PKufNfGaUf2GUk1
-	 b+5X8pK7kcUiN+gly82AydIHoa2niz/Da46A4hGGfvG5rPkkdwxwVN+5mZqwkPZlwjg==
+	t=1795603346;
+	b=vpSOSuI9bY3jt9dHW10kUEFmAKeU32dkGZbi33SeRWUkV8neVHGAdbxtrDNusJLpgFj+
+	 0m6DcsvwERMNYmdHO6gn7LKclCOQSEqEeweYcXbcSd1A0bjwt7LbEqYT6uMVycPD0/wn7
+	 hNuuXqtIWg4QjbZ2yXnARtkTIAWwVa/6/v+9y91hhjQGaJgxBpntulEAODo9F9G7+KC3m
+	 u+3g3wM+/00K9TD7jWwV81q7EAGvNqc4Yg6PxkcPQfLzni34td6HXYceJvDXZ691ljkN5
+	 ttVmn2iKrqTYE9ZgOy3Z8SRg/DmXuFJcx3E/5idVuhZphZNvIUNq7RxhAHRloeY52AQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603252;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2Ap2wCrH88cbRg0hgRMS+e/Qf5rcyCdRYMdjLraV22o=;
-	b=S0GZSwJeWQ4vNO3tN81nYmyy+bn7rgyp4HG5+RYuTTX5m12+KNPUfBkqqaSkJ5g+EbSr
-	 Ig4LgX9YHIcR69IF7ktfB8YImfeFdBxDWF3Ci7iMYJPDnYnGfMtc2uEU9Eb0VnVhWlDZF
-	 IBBH8JALgKVr0625c9QknH2QbT5ctJ1TTjPJ7WszIqSnVvSinO6f5dTQLzVaLDZzTokKY
-	 5+Kg1Lb4nOhAOmmH8LQWKI+Om8tWRTIiv8bpDgQpwUoG6TKYFF6KK1T+a1qp9F2gRijCz
-	 l2C9jI4wwTFvAkT7WYKawOZYeUeHqTezskxG3ica7A3XZ/5pL1eIan3dxj0KLgw5emw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603346;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=2itv7AcVBputKhN6p3kMxHNEdUzZvUrvuaoBxgjz4ao=;
+	b=mI9sUQtkaKZ9trrIeYA1wZWXa4J1H5GRXAsKBgg0UDVZ4vw7PCekgkBjq+a4utwG2dGA
+	 yTNEGihaVpKCmt9Gzyb+dSU05bdoaQaa3ytTV0k3EQu2XdLlu0d4HKQek1QjtwBxO659P
+	 ohp3WW1uoPiLe0f52yQzCgwG/AaT+sf2G7dKs4ogbHK8q+La8BXfBVU6F/al5B7F5UguQ
+	 RH85dgiz8/+SeN8VLa8mut7H3Q21x0twD04CZzjTGH1yNR0FP7kwLxQBVQLnJ/EcRYQyV
+	 BWPOPCiA9O5ziq6e2nBknNpmRm9PyUPGvYXZvi/yO7DW85V5lp6DY6PGKDfPGK/0j0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RApmQ3rs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GTOC9omH;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB8B606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:40:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E649606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:42:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E649606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RApmQ3rs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD80E1F000CF;
-	Wed, 25 Nov 2026 10:40:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603252;
-	bh=2Ap2wCrH88cbRg0hgRMS+e/Qf5rcyCdRYMdjLraV22o=;
-	h=Subject:To:Cc:From:Date;
-	b=RApmQ3rsherzwd7vXmy9LbK+dC8QecQ002G4tfdQAcHy0keRN8RGcks4WxEepLCge
-	 Fse9C2aEnqktfaIrcoqRDgGaSZPqmTA2vPQXU2ox8mk9/BNzODTKlVjiwbrs0RHqPm
-	 1ePQj6yX3ZInPPwNhHe2IS87KoNQhD2Ys+OurC0U=
-Subject: FAILED: patch "[PATCH] ksmbd: skip metadata-only stream opens in the delete check" failed to apply to 7.3-stable tree
-To: icb@fastmail.org,linkinjeon@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:35:07 +0100
-Message-ID: <2026112507-uncivil-cesarean-e13f@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GTOC9omH
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so71917005e9.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 02:42:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795603344; x=1796208144; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2itv7AcVBputKhN6p3kMxHNEdUzZvUrvuaoBxgjz4ao=;
+        b=GTOC9omHlN755K9A45vsxlj2kZzH2TydJr26tT2j1VdKH9AuU2YpjdDZrdVu+PvyNw
+         FjD3/41LirizaeyE51QeopzgMvhb00wccT5F+DmamieIWvGOpYd8mhXlkklBrAqpUEPB
+         eX1cFlBg0IZ6I06TcveXFCS1CsxjnhOYxeTOJv/4P/fYS21byIWQa0uWI0wcCYEoJiY7
+         I3xO4QUwcocd5fZN31rbnVLiZejYU+mGtwBRIKZNz3IGyN1ZLOE+eEorxL5pA/9p7YkJ
+         6/w4cqjt8ZnhZ/zTdb6HCv5SxBGWFIMsWYgQeArmIA2xsnkr7bLOSmuHz9mG4+ftnZsX
+         Qaew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795603345; x=1796208145;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2itv7AcVBputKhN6p3kMxHNEdUzZvUrvuaoBxgjz4ao=;
+        b=GvxGlCM3awGoaZeTzXV/msqI9Zs8Jw2blGPDFEtVCc1g5XIKEbvIs0GQVZs7thGrhL
+         8y/C91H5nUq1m5DDHZaZqAkGmDLwpSX9iIWU/zesQ12sNbrlb6L20mqysjLXRCseDtg/
+         Xu8vwUelVs4v7lT6jqbPNfEqczmvCBj8VNikXRstYVxZkVXkWJs1nnnSghGv1UpvpP7A
+         cFEikn+oEPaq5e7GLnXNDtq9YRAlr4rD4qdLBBMA51XhkzTXtQZGNJknuac7DcDRnlpA
+         h3dw+07NuHsSUVnSP2sLmi7YnMOZkTLPuKjtEK4GJSdviY1vfq3yIPiBtu8CdveXAOTj
+         s8Sg==
+X-Forwarded-Encrypted: i=1; AL+hErGIKEMGSrUqVHzzTwKes9R4RzZhWBtxnrIKAwmyiKWQlBOK8nztjwud7r5/kv76T39+H1PC4rQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9uZRXTJd/P+Ix1Louxrn2YX1PPlVvKwyhIh1DYJh6XnbZnFeDo
+	aY7yPWzO8E3wiLGY3rxSz7yfLJ1ygIGlwOlzbxxFeYhG0g58YW/l5+Pf
+X-Gm-Gg: AZFdTZdODGIKY63QeYQp0AlyEEq44qzLCHxcDt4pTWtT9WGRv0CDKNJvB27CmAu7ZxF
+	NZPu8DSi/jLObaZG3u0iwV1vXjsH+7LQ77bukrCjXNhf0/NNNlEoVldnCjQo7keUaA3cAvvGs1C
+	k08E/KpIlMJecGNIUdT1gSMRsNlt575u5rm4gmvS7Ilqm07m3qZG1PYxay37ZLYfGjONB0VZlZr
+	LurKG8XToGZpO2SDCYq+yCnoDtrzeZJJrjnMLgn2gE6zNpLSjaiDeUO+mjnI4jBJ+HZBzufknmg
+	LABtn7L7G5+1J/6BdMixFR8yfxxL/AyyJLbqdKDanolX4AR2nMdZC6Ch1Um84psNz5mRoCIiNZa
+	v9otYRsdmYm/dgIMiQPEZrqAVZPMfmBoFo8TgCSYqYDFuhUeS+esz/u80YEHN0hYxV0xw09bxBM
+	rhwFSvEiCHtbn+f6K8QMjkV0/hz7MongbUmTY7J8NeqBQi23LjYsyBZSnCRLIeuTmpDiwKmixEN
+	yfW38ZAdujYLdGTSCZIbEV6qXJOm79s11g2TY7y8Q6twDbkKEX7iEjelF+UJFRl8XHLNdRBs/+k
+	MLX4ugFfKrTu5gj/DgHcq8o/bph2J2tOv+IOySvs/DNIh3yoqTALGBWxYTT4DB7Cs8ibO9fEDIG
+	ShV3C7w==
+X-Received: by 2002:a7b:cbc8:0:b0:4a1:d49e:9ce with SMTP id 5b1f17b1804b1-4bb860f6ae9mr298157935e9.2.1795603344300;
+        Wed, 25 Nov 2026 02:42:24 -0800 (PST)
+Received: from ubuntu-f6bvp (lfbn-idf1-1-304-238.w86-195.abo.wanadoo.fr. [86.195.26.238])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b2050f1sm33160630f8f.38.2026.11.25.02.42.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 02:42:23 -0800 (PST)
+From: Bernard Pidoux <bernard.f6bvp@gmail.com>
+To: ertanuj96@gmail.com
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	ralf@linux-mips.org,
+	netdev@vger.kernel.org,
+	linux-hams@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] net: rose: fix OOB read in CCITT facility parsing
+Date: Wed, 25 Nov 2026 11:41:57 +0100
+Message-ID: <20261125104157.265662-1-bernard.f6bvp@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112418-freebee-tasting-68ba@gregkh>
+References: <20261123183818.24508-1-ertanuj96@gmail.com> <2026112418-freebee-tasting-68ba@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,70 +106,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+Hi Tanuj,
 
-The patch below does not apply to the 7.3-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Thank you for the fix. I take care of the ROSE code in the out-of-tree
+repository Greg mentioned, and I run these modules on a small ROSE/FPAC
+network, so here is a review.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+The bug is real. rose_parse_ccitt() never checks that the 0xC0 entry
+fits in what is left of the facilities field, while
+rose_parse_national() does. I reproduced it in user space by building
+rose_parse_facilities(), rose_parse_national() and rose_parse_ccitt()
+unchanged with AddressSanitizer: a 4-byte facilities field
+"00 0F C9 0A" (CCITT, DEST_NSAP, l = 10, the 10 bytes missing) at the
+end of the buffer gives a heap-buffer-overflow read in
+rose_parse_ccitt() (the memcpy() from p + 7). With your patch the entry
+is rejected and AddressSanitizer stays quiet.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
-git checkout FETCH_HEAD
-git cherry-pick -x 2f14fe2d589583ce649b2bf1b449cc9839abda8b
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112507-uncivil-cesarean-e13f@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+Two points in the commit message are not right, though:
 
-Possible dependencies:
+- It is not only 6.12 and older. 6.18.y has the same code (checked in
+  v6.18.65), and so does the out-of-tree repository.
 
+- The data read past the buffer does not reach user space. When
+  rose_parse_ccitt() returns more than it was given,
+  rose_parse_facilities() catches it with
+  WARN_ON(len >= facilities_len) and returns 0. Both callers,
+  rose_rx_call_request() and rose_route_frame(), then clear the call,
+  and the facilities struct, a local variable, is dropped. getsockname()
+  and getpeername() never see it. The user-space test above goes the
+  same way: the WARN_ON fires and the parse fails.
 
+So the effect is an out-of-bounds read of up to about 20 bytes past the
+facilities field, and a WARN that any ROSE neighbour can trigger from
+the air or over AXUDP with a crafted CALL REQUEST, which means a reboot
+on a system with panic_on_warn set. That is still worth fixing, and
+your two lines are the right fix.
 
-thanks,
+As Greg said, please open a pull request at
 
-greg k-h
+  https://github.com/linux-netdev/mod-orphan
 
------------------- original commit in Linus's tree ------------------
+with the commit message updated as above (and the answer to the netdev
+bot's question about how the bug was found). Once it is merged there,
+it will go to the stable maintainers for 6.12.y and 6.18.y with the
+next batch of fixes from that repository. If you would rather not deal
+with GitHub, tell me and I will carry it there with you as the author.
 
-From 2f14fe2d589583ce649b2bf1b449cc9839abda8b Mon Sep 17 00:00:00 2001
-From: Ian Bridges <icb@fastmail.org>
-Date: Thu, 5 Nov 2026 21:53:45 -0600
-Subject: [PATCH] ksmbd: skip metadata-only stream opens in the delete check
+Reviewed-by: Bernard Pidoux <bernard.f6bvp@gmail.com>
 
-A metadata-only named-stream open without FILE_SHARE_DELETE blocks a
-later DELETE open of the file. It also blocks setting the file delete
-pending.
-
-Ignore a stream open unless its effective access includes data, execute
-or delete access. Reuse the sharing-access helper so overwriting a
-stream, or creating one on an existing file, still counts as
-FILE_WRITE_DATA. The Time Machine AFP_AfpInfo synthesis keeps only its
-requested access.
-
-Fixes: 19043971c947 ("ksmbd: honor stream delete sharing for base file")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-
-diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
-index f9079c529d07..c846023e5ada 100644
---- a/fs/smb/server/vfs_cache.c
-+++ b/fs/smb/server/vfs_cache.c
-@@ -420,7 +420,12 @@ bool ksmbd_has_stream_without_delete_share(struct ksmbd_file *fp)
- 		if (file_inode(fp->filp) != file_inode(prev_fp->filp))
- 			continue;
- 
--		if (!(prev_fp->saccess & FILE_SHARE_DELETE_LE)) {
-+		/*
-+		 * A stream open with no right in FILE_SHARE_CHECKED_ACCESS_LE,
-+		 * implied writes included, never conflicts.
-+		 */
-+		if (!(prev_fp->saccess & FILE_SHARE_DELETE_LE) &&
-+		    ksmbd_sharing_daccess(prev_fp) & FILE_SHARE_CHECKED_ACCESS_LE) {
- 			ret = true;
- 			break;
- 		}
-
+73 de Bernard, F6BVP
