@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795624812;
-	b=lL6Nu6FQHupMQoG4XB2TiPBCOh18Br8/y2jKFZuleZlYKBqRPlplWQmXrZCGtuFdP50a
-	 8/SgVJajZwF6zT8SzGsvqIBlFn4+Y3CfNvFhJKkJbNLBbokLkUiJJoPYZn3Utn68t2dpX
-	 0l1VwKJLpmPy0+qw9bkIRZO0csJ4dAdqTGBLfGCXa968K3soLm11SWHGV6XD6BmjEWafw
-	 6aLAgiTysi6fAv86RqddgAz3qBJU+Jiv2thn4LMDipMQkvulFdINcwYnjFB3zhDYeTTU0
-	 iHBO2mQBr/4XVRDV6TCb+ZL/q43Nj0sQbMQ7rf3sIL4D3MgE/i25EWb6wvHbayoFYpA==
+	t=1795624813;
+	b=Hb4vuBtlPPfFrbjR7NnBnmAYtIH0uz3zlw5yc/rQWEpZYqMGuM/7tZl1BCibCV6d+WJ1
+	 gypvdEx76xY6oL7fo4mj37yarn79EzqZfpoAFgKkvQ1VMJAKoSvmEcpMZvpedlVUy+ong
+	 U6DckNbdBAA2YmTid8kS7gJMIjHl5lE2Ztsg2TAv//UJrgv5ztLwabCxdKTGDTz89CF7j
+	 O/9uGwofyt1x4YNBMP67AnRk/Q+i9bfaT7+NsLcS1ScaPwRrDdD7oRmoHQukdE9LNmOqC
+	 0MCKGu3T+zDa2Mg84CDLA0QW8MrkfGfgXIegj8Us8X9zqxyeoFtmyG4oWu2zWwiNc6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795624812;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795624813;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=XGzfWJQ47/870gyuOMbUB5YEqIZqvi53u0tYNdJdn0c=;
-	b=xHRDnzs2vXAEmSWTJbMCru1MqPRODqf/HaAEtJXwruYc4UtJ+PbS6jF1EDeLpja2YOu5
-	 +TWhcW7t4fNwXEFM78YHRNY+CKDSj1XUhlCGw3+BmGxoMXYWGZepLEhBGPlBWNU+NsO7A
-	 t12cyBgvtZUDmd2lJEGs0qCfaPz+xkQkgbtoY0HbAWQiPeNk1htJsjwLFmSvEFuqufu+4
-	 r+i1Vbi/ukXxIAUWWPd+gCDAljUugvipYK3IkjRWhMUw6sLArRv3IWpqHgCCEmMW7f7QW
-	 2MdZVfFJNYiBLUvqC6oqb8HXEhAucoxRe42R0rgomAVJ5TYq2lVSC4XWwNAiL0nKYlA==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=pc6pYcZbYXYzN1/aINRQINMrkacZUp4zDnpgnUxEcZE=;
+	b=EeWGW5xp7YPPSu8vTGb6qBuLmHE7VHCuzYosPfTDVM3HMDh7BOJgPFmGxineE/Ro+QGq
+	 h1bKDBe43LooY2UUiI6xjykWpRZbD11tkKu3AnlIyUbzV257VJ4g4B5IL8YTdNNlQCgn2
+	 H1Sq0VI+19OrNlGDlvHOYaQl0NLvCys9/maq6Faa0WiE7+PyZ+vs9VvLrxc9dFv77aTwe
+	 hq2t7pM1sqrKUSPDHwJMw202O4cNk9Mg51XgfB/nX/eYI+XVlBRZP6cf/KP8fK6ENyb6Z
+	 4L93dzCxDii/aHLuTzOnNGoZAI9n4fV9PyDYfK+yDkeCasfDfDvm1TzwpaujxtEA9mA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="U/7XacBd";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Plpcbcd4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03329606A33A
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:40:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6222606A33A;
+	Wed, 25 Nov 2026 16:40:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U/7XacBd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23FE61F000C4;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Plpcbcd4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA1581F000D2;
 	Wed, 25 Nov 2026 16:40:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795624811;
-	bh=XGzfWJQ47/870gyuOMbUB5YEqIZqvi53u0tYNdJdn0c=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795624812;
+	bh=pc6pYcZbYXYzN1/aINRQINMrkacZUp4zDnpgnUxEcZE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U/7XacBdXE9R8XSAyGhxuXXJvt7xyPH2Jx0uFTlf7lDTjsywoGwJdEZq98auRxpUz
-	 rMjd5kom8Tosv9VQm1yD47OadUObPJuMGqgJYQAeOzIIeTH76G6pIEs2WCW7k+ogvN
-	 nFnWQmeP9/sGoGKR4Yt35VyS0cPaUhuNlNWoEARpCEwoTvCjss8OjM8B4d5JvORxd/
-	 N2PulJkyeo7M/y2HF/CropVmKJ000p2oHmXWOqBrrDZonNW7s+245BU9J0X+OhGuXq
-	 4aRNKHicTOd7Xl+oG7HC26mxry8zAJvLssy6/ClZ6IjWcT+Nam0RoFlqx4nY5M0U65
-	 Jf/LZdpj97ZLQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=Plpcbcd4Cux9U6Wabev5OH/jAnznn3qhsFohCbHMNHHFrYMeI+Y1D5SDFq/gkhjg+
+	 7rBXRFMrcfHFVKWEO8B7ajaM8Qjno4KZbt1kpGtL9tYx3IyzuUpgfHMbi7ISMk1wpv
+	 /ezBkTiUFWqyRp4bFhDxStY3/ue7Tm4+qLVb0EdY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Mark Bloch <mbloch@nvidia.com>,
+	Shay Drori <shayd@nvidia.com>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 1/2] buffer: Document mmb_mark_buffer_dirty()
-Date: Wed, 25 Nov 2026 11:40:08 -0500
-Message-ID: <20261125163943.826475-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112543-dipped-sultry-a7a2@gregkh>
-References: <2026112543-dipped-sultry-a7a2@gregkh>
+Subject: [PATCH 6.12 313/816] net/mlx5: Lag, free steering resources on LAG destroy failure
+Date: Wed, 25 Nov 2026 15:31:01 +0100
+Message-ID: <20261125143856.444634493@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,41 +66,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 6c8b7651d06f635fe3d8789eda493eda3b4d13ef ]
+------------------
 
-Add kernel-doc for mmb_mark_buffer_dirty().
+From: Mark Bloch <mbloch@nvidia.com>
 
-Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-Link: https://patch.msgid.link/20260828205429.3678204-5-willy@infradead.org
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Stable-dep-of: d4fdde3257a5 ("fs: set I_METADATA_WRITEBACK in mmb_mark_buffer_dirty()")
+[ Upstream commit deceb70d1303105e4368a19b251a6fd94428eb11 ]
+
+When firmware fails to destroy LAG, driver returns before releasing the
+steering resources, leaking the associated software objects.
+
+The bond is no longer eligible for offload, and the driver cannot
+prevent its teardown. Release the steering resources even if LAG
+destruction fails. Preserve the error logging and return the original
+error after cleanup.
+
+Fixes: da6b0bb0fc73 ("net/mlx5: Lag, use steering to select the affinity port in LAG")
+Signed-off-by: Mark Bloch <mbloch@nvidia.com>
+Reviewed-by: Shay Drori <shayd@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+Link: https://patch.msgid.link/20261104183947.772195-1-tariqt@nvidia.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/buffer.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/fs/buffer.c b/fs/buffer.c
-index ed966fa73b1ba..30e7f2cc2386f 100644
---- a/fs/buffer.c
-+++ b/fs/buffer.c
-@@ -618,6 +618,14 @@ void write_boundary_block(struct block_device *bdev,
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c b/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
+index f055aac1b436a..dd0da4081bad1 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
+@@ -734,7 +734,6 @@ int mlx5_deactivate_lag(struct mlx5_lag *ldev)
+ 				      "Failed to deactivate VF LAG; driver restart required\n"
+ 				      "Make sure all VFs are unbound prior to VF LAG activation or deactivation\n");
+ 		}
+-		return err;
  	}
+ 
+ 	if (test_bit(MLX5_LAG_MODE_FLAG_HASH_BASED, &flags)) {
+@@ -744,7 +743,7 @@ int mlx5_deactivate_lag(struct mlx5_lag *ldev)
+ 	if (mlx5_lag_has_drop_rule(ldev))
+ 		mlx5_lag_drop_rule_cleanup(ldev);
+ 
+-	return 0;
++	return err;
  }
  
-+/**
-+ * mmb_mark_buffer_dirty - Mark a metadata buffer dirty.
-+ * @bh: The buffer to mark dirty.
-+ * @mmb: The list of buffers to add the buffer to.
-+ *
-+ * Mark the buffer dirty and add it to the list if it is not already on
-+ * a list.
-+ */
- void mmb_mark_buffer_dirty(struct buffer_head *bh,
- 			   struct mapping_metadata_bhs *mmb)
- {
+ bool mlx5_lag_check_prereq(struct mlx5_lag *ldev)
 -- 
 2.53.0
+
+
 
