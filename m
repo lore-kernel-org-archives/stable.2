@@ -1,49 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608292;
-	b=kAHrK6lbTd5aYwEiDpMU2SXvazCXV/lBbsdxUkngwlUyj+TKD1HeCV1rMCT0Im+/K9lG
-	 SR4ycMf+L8EuXFlArZBvXtFYupwCLJDmqYdX3bWHkZeVxFzBm1O/QzVOKhpabzArbdTFn
-	 r7SdVDYTnCYnNU+VGPU5qEMnI6dlqE5/u+YTpsTOldgyPGQNQLhSWishvNlYequ395Xsz
-	 jD6j478aQGfrnumRlOhHjhfFU1KYjYEdCA1QJdBgERep7Jo7i+2ITf+eKVPlMK7ncSPGS
-	 BGh5baSYbbGVuUI5hVRGPzXUL2hcjcWmtSFv+KecQ4guYGD2FE8lR3p/Tib+z8yyEAQ==
+	t=1795608304;
+	b=E6QkhV+3mByH/KURbDw6vkdKztNV6sS7FG0FESgW2fYMtJHJO0Qx5M1Zhdu8Boa9MO/8
+	 0xRsWiNGrvcDl1AQJGskRyikapKduIhZvvXLnBB2Na+sMLHpBerR+pQnV/Sa+pakw+fbA
+	 2PcRxpAeyq4jfMnEanzDI/9eQUKi6kNaxDLrIbQl0kETusKGWHkHdWTIAoqFAPU11koS2
+	 1XW3wJptmIODwb2LnNQ6Owxm7Lzwwj+h4EZFNSfpUljKkUMisldM4cixGaXLg0xwGOBzs
+	 nW3tVeqLsjQ1gD48Lr48DVyLuFys699ncVr+dJbIJZxmdUXBY0qRlAUX3njRHZ+jYMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608292;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=PghfIw5FkDOWeuIpOC4fp+g5iHrz81XWJyRUzrTRwCA=;
-	b=gaSstFq5EOXs24G9zB4Qw2GCph8eORHVNCw6VglJAwCDzpvSobVO5nBlhoVr07mhxQdq
-	 Kp9nxf/mqyQU3Ll1+qTjzlrLDj9AM3kbmt1YNFvc0nLqd6Ofg3W25GXrY+bkjZee9oez3
-	 3vryCeUpe91xoO5dsBvxZT+kaX/Ured3bAGSS6WI4fAZ/jHHC1FDAlzMGP4zttoEHS07B
-	 i5rjm6D7xxbyyewDPj2wYDDM/r7GnpEKM5Mk6zGdQ5/Yw0iUWN+K+TaLmhtfo73kJGjE7
-	 hwc0+GGD+g4tNTtLcfsLofWtc2q+/bAKtySGJ92Jua5y23AV68XqlSnbnxw9bbHcxmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608304;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Ih65/oGSJHtSJA9oe4qJThI65ICY3VNsPVVNUXVAzhQ=;
+	b=YDko9RrfzCHMukOv7Ta7VGZBSxMfRyEWpnnmH+WiJQpF25Nwt32m/Br6yZ00zvuku9eJ
+	 THQEfy9nuF036kWQfYQ/ToukoET3zgouub4A56VJK6dDaIwuSDn5iPQGLn9B+50yd5bjv
+	 UM7EHEYPL6u075wmt2yeRQwH7520Fy251IrVIMX85otjkpC3j3EGauXbE1B6ClKb7h5KI
+	 VRoVHeRz7uhYpo/ZxzS839UqIcD0RItS03bncOXlyoSgHMis3GSdYftIqhl4B84BO1vLn
+	 Mpyw3rzXpZkq5mDUXk71O4TciQC0rFROkgZDFX0/mo7r8rH+CYf6snuOyaWRV1s0DOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=le6mXG5g;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NzNbMPsK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 512B5606A31E;
-	Wed, 25 Nov 2026 12:04:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132AA606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:05:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=le6mXG5g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1685B1F000D1;
-	Wed, 25 Nov 2026 12:04:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795608291;
-	bh=PghfIw5FkDOWeuIpOC4fp+g5iHrz81XWJyRUzrTRwCA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=le6mXG5gFsuHR9GZAlf2bLTFh2WVDklnebyY7jI5vwZxtnG5Wy60JVmlvU+VI6TX7
-	 zYxTVaIR+bEhE7JuvPXgRwh0O7Z6OhRZaeAbOmtSjwENOkZt8B0j0/n8sO62cPvx+p
-	 GxW+LgQZ6cvEAqY4IewGfo6AGbTGlu0IaNIXq3/P4PloB0J/qVse3QYlnnLA/uibb9
-	 KHiK746SDEIleDq7sBIrJgOLOgAtAIxX4vV9UwPaN1S3DpMSeGQ/h+k8VQ6FbEhteF
-	 oUVbylCEobt9lqLStwTFOwB3GqQ3DU4MJIsa6PHlZbBHNRrPWlO7UR6vLiYvfBrz4V
-	 krNRwfONwyg0Q==
-From: Christian Brauner <brauner@kernel.org>
-Date: Wed, 25 Nov 2026 13:04:27 +0100
-Subject: [PATCH 1/2] libfs: don't copy the child's ctime to the parent
- directory
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NzNbMPsK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C5541F000D8;
+	Wed, 25 Nov 2026 12:05:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795608303;
+	bh=Ih65/oGSJHtSJA9oe4qJThI65ICY3VNsPVVNUXVAzhQ=;
+	h=Subject:To:Cc:From:Date;
+	b=NzNbMPsKEfhqHxFw6U6yVuWeYgdPxBZmtdconyLqm+kWsqBphnJ0JLOsoR+GbJ3Zw
+	 OsciFHuh/R5vHduPInezbFBOs9scH0XzHm9lwdPyW+eufxuHVbFOJKFVF5Ov54L2Xg
+	 WdgX3FSE1D8z7A5XeWCl9L6kE2wh060otWGMYps4=
+Subject: FAILED: patch "[PATCH] comedi: comedi_bond: Fix leak of opened device references" failed to apply to 6.18-stable tree
+To: abbotti@mev.co.uk,gregkh@linuxfoundation.org,stable@kernel.org,vulab@iscas.ac.cn
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 25 Nov 2026 12:27:37 +0100
+Message-ID: <2026112537-rocklike-strive-9f66@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,70 +51,118 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-work-libfs-mgtime-v1-1-8022a81d0b9e@kernel.org>
-References: <20261125-work-libfs-mgtime-v1-0-8022a81d0b9e@kernel.org>
-In-Reply-To: <20261125-work-libfs-mgtime-v1-0-8022a81d0b9e@kernel.org>
-To: Jeff Layton <jlayton@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, Josef Bacik <josef@toxicpanda.com>, 
- linux-fsdevel@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-04696
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1832; i=brauner@kernel.org;
- h=from:subject:message-id; bh=ydmLsipCJR9WepNKTHyAeGjqs+DJAXxw0rk3lS/y+zE=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSznbt1OHrFxUulpfsWblwxae+9E6d5OZXf3Arf8+cVx
- +MZGydMndxRysIgxsUgK6bI4tBuEi63nKdis1GmBswcViaQIQxcnAIwkeabjAwrmT2MHxxmm25l
- 8omziUWI4z2DcfPspo9JfQaqJUv3vGJnZNilbyo/K3Xqbo5HZ278Ondox5WVjnvbp0RcdI1u7Vi
- uOIsFAA==
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-simple_link() and __simple_unlink() copy the child's new ctime into the
-parent directory. With multigrain timestamps that ctime is only
-fine-grained if the child was queried and copying it drops the parent's
-I_CTIME_QUERIED flag. So a queried tmpfs directory keeps its ctime and
-mtime across link(), unlink() and rmdir() as long as the coarse clock
-hasn't ticked. shmem_rename2() unlinks the victim of a rename the same
-way, so a rename over an entry from another directory changes nothing
-at all that userspace could see, size and link count included.
 
-Give the directory its own inode_set_ctime_current() call.
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Fixes: 234d8895e3ad ("tmpfs: add support for multigrain timestamps")
-Cc: stable@vger.kernel.org # v6.13+
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/libfs.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+To reproduce the conflict and resubmit, you may use the following commands:
 
-diff --git a/fs/libfs.c b/fs/libfs.c
-index 96a6e9b1535fb..07331e829c133 100644
---- a/fs/libfs.c
-+++ b/fs/libfs.c
-@@ -754,8 +754,8 @@ int simple_link(struct dentry *old_dentry, struct inode *dir, struct dentry *den
- {
- 	struct inode *inode = d_inode(old_dentry);
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x fa0858523f07f8dd71d89b221f4422c3b8096d90
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112537-rocklike-strive-9f66@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From fa0858523f07f8dd71d89b221f4422c3b8096d90 Mon Sep 17 00:00:00 2001
+From: Ian Abbott <abbotti@mev.co.uk>
+Date: Tue, 3 Nov 2026 17:36:10 +0000
+Subject: [PATCH] comedi: comedi_bond: Fix leak of opened device references
+
+bonding_attach() calls do_dev_config() to open other comedi devices
+specified by the user and tries to make use of them as part of the
+'bonding' device.  If it successfully opens the other device but cannot
+use it (either because it does not any subdevices of a type the
+'bonding' device can use, or because of some error that occurs while
+dealing with its subdevices) then it is left in the open state and the
+fact that it is open does not get recorded by the 'bonding' device, so
+the reference to the opened device gets lost.  Fix it by closing the
+opened device if it could not be bound to the 'bonding' device.
+
+To match previous behavior, if the opened device is unsuitable then
+ignore it (after closing it).  The opened devices recorded by the
+'bonding' device will eventually get closed by bonding_detach() even if
+bonding_attach() returns an error.
+
+Fixes: 3cf840f65ad5 ("Staging: comedi: add comedi_bond driver")
+Cc: stable <stable@kernel.org>
+Reported-by: Wentao Liang <vulab@iscas.ac.cn>
+Link: https://lore.kernel.org/lkml/20261103063301.1025860-1-vulab@iscas.ac.cn
+Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
+Link: https://patch.msgid.link/20261103173610.89687-1-abbotti@mev.co.uk
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+diff --git a/drivers/comedi/drivers/comedi_bond.c b/drivers/comedi/drivers/comedi_bond.c
+index a10cfbd04c72..3764ece90f82 100644
+--- a/drivers/comedi/drivers/comedi_bond.c
++++ b/drivers/comedi/drivers/comedi_bond.c
+@@ -184,7 +184,9 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
+ 		char file[sizeof("/dev/comediXXXXXX")];
+ 		int minor = it->options[i];
+ 		struct comedi_device *d;
+-		int sdev = -1, nchans;
++		int sdev = -1;
++		int nchans;
++		int nope = 1;
+ 		struct bonded_device *bdev;
+ 		struct bonded_device **devs;
  
--	inode_set_mtime_to_ts(dir,
--			      inode_set_ctime_to_ts(dir, inode_set_ctime_current(inode)));
-+	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
-+	inode_set_ctime_current(inode);
- 	inc_nlink(inode);
- 	ihold(inode);
- 	d_make_persistent(dentry, inode);
-@@ -788,8 +788,8 @@ void __simple_unlink(struct inode *dir, struct dentry *dentry)
- {
- 	struct inode *inode = d_inode(dentry);
+@@ -223,11 +225,14 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
+ 				dev_err(dev->class_dev,
+ 					"comedi_get_n_channels() returned %d on minor %u subdev %d!\n",
+ 					nchans, minor, sdev);
+-				return -EINVAL;
++				nope = -EINVAL;
++				break;
+ 			}
+ 			bdev = kmalloc_obj(*bdev);
+-			if (!bdev)
+-				return -ENOMEM;
++			if (!bdev) {
++				nope = -ENOMEM;
++				break;
++			}
  
--	inode_set_mtime_to_ts(dir,
--			      inode_set_ctime_to_ts(dir, inode_set_ctime_current(inode)));
-+	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
-+	inode_set_ctime_current(inode);
- 	drop_nlink(inode);
- }
- EXPORT_SYMBOL(__simple_unlink);
-
--- 
-2.53.0
+ 			bdev->dev = d;
+ 			bdev->minor = minor;
+@@ -248,14 +253,23 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
+ 				dev_err(dev->class_dev,
+ 					"Could not allocate memory. Out of memory?\n");
+ 				kfree(bdev);
+-				return -ENOMEM;
++				nope = -ENOMEM;
++				break;
+ 			}
+ 			devpriv->devs = devs;
+ 			devpriv->devs[devpriv->ndevs++] = bdev;
++			nope = 0;	/* keeps the device open */
+ 
+ 			/* Append dev:subdev to devpriv->name */
+ 			seq_buf_printf(&s, "%u:%u ", bdev->minor, bdev->subdev);
+ 		}
++
++		if (nope) {
++			/* Opened device cannot be used, so close it. */
++			comedi_close_from(d, dev->minor);
++			if (nope < 0)
++				return nope;
++		}
+ 	}
+ 
+ 	if (!devpriv->nchans) {
 
