@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795608355;
-	b=uVLnpy5N7QJzdBazoNmOVyYMievScw4OMH/aKedeyfjCBe7NxoG9a+8Bs7isGBGXyzEZ
-	 MUrtQlUpFup0J0RI38ZtQSFWf6UlwXK69ZujS/nkioRUvH18TQIokb/N1KQwvX/0mtAAy
-	 56aN4Dn6rB1Y6BxDPBJKN9yh5IKJl3MqIEWasZxmveXo+I5dc+LRgtVO4sMd6hM9E/EP1
-	 fKvwCUu7RxT8UZ3Ze9XSsDn4RYzKMrQXrlmtBG54O30VrQvlAqsu8yXpxYK8dl8Id74C1
-	 +4DzFa8Dmrg5fDJBLGJ5Sw9NHxCaNsKb1AW6yY7n/7q/JWPloGSakZDUE8ka8R1lbZQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608355;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=mmpzCTGF7idKvkeds9ux4PCjDdw81921HPWjTxWauKM=;
-	b=l/dp4GRFqpqfdZDKzMSPfWOtXe4DAdGaT7R1Fs6TQMFx0iu42EsJ3BD43G601S/Gmmty
-	 thTkeIRB7h3BPoOxJWfFeHnFoJoppRujIdF4797kZco1YCg7K9+vLEEJn8jsZ7sTu7wZN
-	 H164KsXPVxP9VYT7IrOG2RtnWWNZHWnPYbWmNtPWKWsHv1HtQkkKcVk8ZBM5fGrBAa3ub
-	 cI5LjrelYpAEg3vIyidNvulHhRaxKz0aJ/xi9TEccWDdVzEejE00CxW1aUwYl3vUMU9sC
-	 9W5IYT85tBhEyVjfNNDlV9JZ4EDpyjJ3KjAS2ghPrzMZ99lZycN1IJRgdydoAKH8e0g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pjX6QKXG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795608358;
+	b=WHtMPxi51dVx6kt5eRgZJlk811i9T6bfDb0/kqpu1Lc0mgpF1f2MjmAPVmCMwf2KqIs0
+	 OSiBnXJ9tEnwwPX262IBbviSQYe1+lu1o86jeIvmRVcIWHMC1CPY7Hwob7Yq/Kd8nzhKM
+	 jk4DsaM+dgv1+N9MPRpP9kz6YrlIZu1rfo4PTGIe1DhstgdnvqUxxB4WkX/GLjmFD0PfZ
+	 xmyZD5lI17LuHUte6dz4T8ptY1Vx17x34FRoxeOo5OpMSQ7B5OAuVal4V893N5rCdswOI
+	 29c/4nB93A4GGCscXWL+YjMTkIRZKAfk4b2tRTwBmh5IEc1Lt2xumbUZxyqX5sa/zTg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608358;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=d6OUJ/FECAkY1Ou64lpwJ4DlUE0jzopiRUmbSx0I5J0=;
+	b=vnQ+X/GtTgYsFxEaat39yz4ozNNokvB3GI+hPjuBzVuMsFIHBwHpOf95FggjWJnVLhnW
+	 ERHEXfK/sqs4eSus3JErFvT6N18AE07FVxPaXPN7nT69rbsaptZqTiV8us0T67IA4PFh+
+	 Yp6YsDvKRgQnXypRk0HP19eRKE6KdVqj/cQItxozLK780yY+CQFLTi34358MG4oeqcVLE
+	 yAT74oLkz2UKCZiGbED+/L9ZLcSRWu6Joa21TgE/mxtdy51irqXPDhWK9jxEMs8VRlC9F
+	 hcrScHfFyJd7U9f0s6jPhNugANgndFXLBWW7i4miq6PIl8PlCzBYma2fjcP3oBK1j+Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TOTp8iGU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C10606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:05:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29C10606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA563606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:05:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pjX6QKXG
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4a7b8abe209so4382341f8f.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 04:05:54 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795608353; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TyHN01nSdUof9SxorseIePwQeW4xfc6UT1RJExsmFMPNGL+z1KrEc+AtEcrqw6TpWY
-         IrjDg2O6OH7s+AIsEcCVtDnugdPsI8kCuQOvtgu8tKow245S8UAeEVmw+wg6FHofmsWP
-         Wl2gkJNGjYlpg2Lr1xnP/2a1qp6iskAV+COTqYk7VQ/5Ya4U7fqp3gB/DLlrFYrhAHJb
-         bqkFiBPuwAYRgyFKhE63vARnktLNvoyl7Smjk4eGMgYvBESp2Xcv4uAJKdgPETO06plO
-         wVKwSNOgboFMWgFw1oLMTWWmBKjfC6aoQQm7u/EoReZf+GuIWXuseMNcCM33UM9DL0Rw
-         Wz4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mmpzCTGF7idKvkeds9ux4PCjDdw81921HPWjTxWauKM=;
-        fh=P5KxzgmIE7YzVSza6vzOD/Gy0bljkDE6Mgm2um3y/gY=;
-        b=d2stqPqFx3EPRtTVu1N+NhPrqAjjeEU5AaD/KVpdOz+Beg2hYuZMd05Q6hAc3GY3LT
-         RiKuGer/NRaYyyDVibJJJkorVE5hSxyBIfB43JpIfN23YnnqCK04wLRaX7ZRiXVffVKI
-         hG7g7kucI5LS/+cn6GXWTs71CxYiwlTiCkSAzalswaaU3/LWKinY9gnySD2he1C5FJx/
-         Xh+L9OCwMXzSjnxe2eDBgP4E+It578Ro0hFKV3Wq0Rrj2SDz22GJTcFun2yvuYocg3rM
-         +iRRiy8ENiI1ZJ37IR/S83QaSWTTq031V2q4jCIHoCeGdq45NclruyTlp9YENIluGBue
-         Bfww==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795608353; x=1796213153; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mmpzCTGF7idKvkeds9ux4PCjDdw81921HPWjTxWauKM=;
-        b=pjX6QKXG1IYWPuNjl0k+8QjE5ymS8vtEytzSOtJkfs1RHFY0DcWjq5Ki3RkEBzUwjr
-         fET2ZoGdpDQVz76KNEMLQ3W3K4BGMAqGag+pH2GQDU8ylUe9pUwzC9r10veWdEZhjwFf
-         RVfga+T1900YQda9M99rTh3z82hVG8MYmNK5nq6POAKh1DSNZmbD4OeZl4P7IG/ruDyt
-         e1TOEFMvwZsON5XeNlcDp70bR/0lYIKov3PlwK+VAn9QLLQo52NE0o17/I7r1j3n+Sl6
-         cxWNQuMvE0tun2uMMH4uMbUmrTM5cOVIjjaDXz8yjG8O7Vv5XfB7f3KvBmtBwISInZOY
-         dL/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795608353; x=1796213153;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mmpzCTGF7idKvkeds9ux4PCjDdw81921HPWjTxWauKM=;
-        b=CSruSMf4MlrqDQPzZFeVLFMSWhAzoTSQ6KAsKJfgZ617Ic/mJ4G2ZpViYinHUW+jfB
-         ns/Awwe4C2xb2Pikl+93wDQctL4OJt6S1jRw/kwdfAHPB6kncoy6TWeyYYZ5Q65HSbpc
-         RFcjlETqfijivnkYGgsUsx9TBDHCkT/5757f/H9ToWkkzc0p3acDdHwMaUiU/C/oH0L+
-         UOGalAA6gnTclTMxlMlr4OP9tRAb05q3vfJpK3rfsYeC/C6E/Rn1lPHsTQjvbq+qmtN3
-         +dORY2uUwWxozL/5B/oG0LGpCjV85VS/HUIo6/5BGnEgDKo+miOvkjXZHjxhAefGOyxy
-         uSig==
-X-Forwarded-Encrypted: i=1; AL+hErFaxnwnEjo6ceL+xSIxOWHd7rbDZiHfG5SdYUoIA2DccyahIhUaFquXQRZ0RIutrQOIuqV7cn4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/j00WAtAu8j6GuvDxSLq/p/MKfAIc1T7w6lpMdbSj7f0+LkXEj
-	wW9DNNDrb/AYCs4LdX26yhV3vIquQ7ShfsqhLqFtP7dzij3Mj11oLxkmLcI2kIUeqceEWdg0Ata
-	mqgc3qnOzTDqNIceOnQ8alHd779CepGb09UhQe0+T
-X-Gm-Gg: AZFdTZdFAXacvp4fIFdZo7Q1EH1Fnf90GaXuq6gnhryNRG6cgUyygnxEP1YfU+KPGWM
-	w5X3e8/FgKA3hpeRs7RHuzz01IJ8oqYKTjpSxod/CqQcXvdydb/ndd2uYHVw+kgOqsBogBNXd7s
-	5EU1mKAJm4rpyHSYkF1w4iXStKBCyJFg9oYMuyVTt3RzisxzN74Lv1dCUB1IBYkKCtRaPhpoQKZ
-	tCXbctMJoaf8XJ/RVdr4rS1fS9XjyraMprEXxfzpoRV8B7dlhgiQJSJ6fIkhDYKfYvgAd7+yld5
-	xYXuK4kmOyL1QHKOam+557RSwScyJqmTyKvdF6Ba6gNU12oRIakOFy9U1xlALM7HaT20gcnKWEv
-	tyk+kL6zSImYEDxg/67hr8Hkn3KK2KXbQRyAnTMhVlG8pXFdcjHYEvdfZK8A0gj6Nko1DiKTeuK
-	cz9qly3cs9tvt4v++Uk9J0N71YTKdHnEM8GKURS42K0LFr
-X-Received: by 2002:a05:6000:490a:b0:4b7:80c1:11bd with SMTP id
- ffacd0b85a97d-4b780c1127cmr8568730f8f.35.1795608352904; Wed, 25 Nov 2026
- 04:05:52 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TOTp8iGU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 421FF1F000C0;
+	Wed, 25 Nov 2026 12:05:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795608357;
+	bh=d6OUJ/FECAkY1Ou64lpwJ4DlUE0jzopiRUmbSx0I5J0=;
+	h=Subject:To:Cc:From:Date;
+	b=TOTp8iGUeXqPqeHXBNpSQ+CFn84GRktYMfhDao+XTTJ7ZVAl9luMVpUY/Yhtwao+u
+	 XOOAD/U1asJqqNiR0iRbLDpF8tWO3NZEg04HlT3AU8J8pmyA82XS25dYcXDbwrIz5s
+	 V9ymfgqgdWyBst5rjOexntRaz0GS2sPizzcNa8QQ=
+Subject: FAILED: patch "[PATCH] serial: rda: free the interrupt on shutdown" failed to apply to 5.10-stable tree
+To: josef@toxicpanda.com,afaerber@suse.de,arnd@arndb.de,gregkh@linuxfoundation.org,jirislaby@kernel.org,manivannan.sadhasivam@oss.qualcomm.com,olof@lixom.net,stable@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 25 Nov 2026 12:32:41 +0100
+Message-ID: <2026112541-comfort-tidiness-5bde@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,65 +51,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261118-ordered-wq-cancel-v1-0-916e01f9affe@google.com>
- <20261118-ordered-wq-cancel-v1-1-916e01f9affe@google.com> <2efd4eef27cbd033bae9e4f5d5ba30bb@kernel.org>
-In-Reply-To: <2efd4eef27cbd033bae9e4f5d5ba30bb@kernel.org>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Wed, 25 Nov 2026 12:05:38 +0000
-X-Gm-Features: Aa3M54oB_Bc5JJabfyDqaJiI78UWC2_tVPgPCR0cvXKqYj-o-7hWp3ZKJEhfypQ
-Message-ID: <CAH5fLgh7b7vFj4y7Pi-s2-4KuwUQg1C1HD6VdDTTkd+xRWaURg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] workqueue: fix cancel_work_sync() on ordered workqueues
-To: Tejun Heo <tj@kernel.org>
-Cc: Lai Jiangshan <jiangshanlai@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Boqun Feng <boqun@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Philipp Stanner <phasta@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
-	=?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
-	Rodrigo Vivi <rodrigo.vivi@intel.com>, Boris Brezillon <boris.brezillon@collabora.com>, 
-	Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
-	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 25, 2026 at 12:29=E2=80=AFAM Tejun Heo <tj@kernel.org> wrote:
->
-> Hello, Alice.
->
-> On Wed, Nov 18, 2026 at 05:09:51PM +0000, Alice Ryhl wrote:
-> > +             if (unlikely(pwq->wq->flags & __WQ_ORDERED)) {
-> > +                     struct pool_workqueue *oldest_pwq =3D
-> > +                             list_first_or_null_rcu(&pwq->wq->pwqs,
-> > +                                                    struct pool_workqu=
-eue,
-> > +                                                    pwqs_node);
-> > +
-> > +                     if (oldest_pwq)
-> > +                             offq_pool =3D oldest_pwq->pool;
-> > +             }
->
-> @pwq still has @work queued on it here, so it's linked on wq->pwqs and th=
-e
-> list can't be empty. Maybe drop the NULL check? e.g.
->
->   if (unlikely(pwq->wq->flags & __WQ_ORDERED))
->         offq_pool =3D list_entry_rcu(pwq->wq->pwqs.next, struct pool_work=
-queue,
->                                    pwqs_node)->pool;
->
-> Thanks.
 
-Updated!
+The patch below does not apply to the 5.10-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-While I have you, is there any chance you could look at
-https://lore.kernel.org/all/20261119-rust-workqueue-v4-0-707c68994940@googl=
-e.com/
-?
+To reproduce the conflict and resubmit, you may use the following commands:
 
-If possible, once folks from the Rust side have reviewed it, I'd like
-to land it through drm-rust-next together with the things that depend
-on it.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git checkout FETCH_HEAD
+git cherry-pick -x 859f7c56709b161a72b629b6f2f1384dcd374404
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112541-comfort-tidiness-5bde@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
-Alice
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 859f7c56709b161a72b629b6f2f1384dcd374404 Mon Sep 17 00:00:00 2001
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Tue, 27 Oct 2026 12:06:46 +0100
+Subject: [PATCH] serial: rda: free the interrupt on shutdown
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+rda_uart_startup() requests the interrupt, and nothing ever frees it.
+It is not shared, so once the port has been closed, the next startup
+fails with -EBUSY and the port cannot be opened any more.
+
+Free it in rda_uart_shutdown().
+
+Fixes: c10b13325ced ("tty: serial: Add RDA8810PL UART driver")
+Cc: stable <stable@kernel.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: "Andreas Färber" <afaerber@suse.de>
+Cc: Olof Johansson <olof@lixom.net>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Link: https://patch.msgid.link/20261027-tty-llm-v1-20-99b0202ae546@linuxfoundation.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+diff --git a/drivers/tty/serial/rda-uart.c b/drivers/tty/serial/rda-uart.c
+index 87fa30d68687..9c1785771cbb 100644
+--- a/drivers/tty/serial/rda-uart.c
++++ b/drivers/tty/serial/rda-uart.c
+@@ -471,6 +471,8 @@ static void rda_uart_shutdown(struct uart_port *port)
+ 	rda_uart_write(port, val, RDA_UART_CTRL);
+ 
+ 	uart_port_unlock_irqrestore(port, flags);
++
++	free_irq(port->irq, port);
+ }
+ 
+ static const char *rda_uart_type(struct uart_port *port)
+
