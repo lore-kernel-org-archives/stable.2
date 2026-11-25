@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603007;
-	b=alNmEeKdaYA2c3IWcKJcozla0GXtvaQEK8AKTc8rR4G8De/BksGiVNjdQ8an/0U0qD9o
-	 OjG6N431QXs2BMhWbiGygPQHHqbImJUPqY436ljl2XYFTYe/ePebbD5h3Bg5is9XXcuUB
-	 baVF+FdcQLWfVoh2qjA7OoDpKJxI24gxXAYrr1ehx58r0LwTxE/azGJqqTDErB0fH7mZq
-	 XU206hzdEyvJ9i3MCoengnLvZ5Ct6t54+mZDbYUmJr0+RjxubWBi0+SbytiPr52RLl/mU
-	 mIRca+7QilsDntUwCLPD4TVrjsfkE7ENkonRg0D0fFhRunFhIqY6jKgZDR82DCE5JLA==
+	t=1795603010;
+	b=bBJThbJPm0rxZjT8FcfjO/ZxTUNVB1Qr71Vq8ACMCj4I6swvzwMwdEZyFo+7KqpPyfqm
+	 HQqm2XB8MP9TuiTN4t8jUNZ23QqBP34wSYLh6iVLs6vNpI+EIUk2gcBE/PZNtLSGIbtG3
+	 AKqjoPyxrvUJA4juDnR8EW/+KaFPQzM/IluybuAs18rQ8iZRQHqdDM9ImJlLa5nWt50Uz
+	 OkgomQ1P1M8ncF1YKH9LjXL38UARQTVeP3c2NvEozi4+sDGvDtpg5sfzyDLmtrc0+xd9A
+	 +9MAtv8odmp3gsLOHPoG2Y92YU3oD+6R8Pl3E/o3yxUs7vBQbmsx9JoTGNfyaWmeDbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603007;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603010;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=E+oOSCUAijh3xzHZxCpGsXhg3dr6/UZ7qv32CMbwxgo=;
-	b=EUxLTy6aFBpem5Rp3UjZ95lULBLQbThW6xVh7KF0H7NxRpquVGZuaTNRVkk5+V5dC3De
-	 Z/j74Sz4BCAhaO4TeGyHJTtVbNnDIHoi32n4bADnsl0h/uXmFzK3YyIZdZRZvnFL09IpQ
-	 STylpCpSgx7c2NRf6W4iJJ+E+CebzZD6k4v9t3pTI2dc0mZ6o1hfJpBxlPl5DJL6xjIk6
-	 86wW8+jj52Yud1w4Ux/2D6QYFnhr7NgjhtzZbgWtC6Tu2d3qM7zwbGE5sw2SQdbBmbCjt
-	 RQSD3qeWHq9Y6UktPyZTYMpTyYuw9I0Xg6EsaOHSh3AeIhY2ehTNM4cY3CUbAofvqUw==
+	bh=dZVfrZicoo5RkKi0P0/c7PtFmHbHEo4Jl+AwXCsUZkI=;
+	b=Ba+n5+Vp/buvya2yP1TFPfnuoAkbFj8msXkQQBYATWvr3CsKcGosBX/9sHGIkEmIYlBe
+	 ct6zZmKDp4T5zc90rCsAsC03VGrhrdJAfXbCOjT0IEIofbqRZQJPK3GP8ZERqu0WCN6jK
+	 fAP9pIj57e1ILVnIWB6006Pe7Uqy2+TmXUL0HjRGwHlTOUXikMm8s6pJtuf1rmVkFqfoW
+	 Bbp/+KMFnJo+14NGiLWsSrH5+g567nZRW4imaBubdbag0To3ZNMzxhTCi85SeMJqA+8+R
+	 9g7VaLk2drpjpMGLm9IMtRMqhcW2GJFNnMCmC3DLdwHJk6PD53CXqjObMgyY/AOLMCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="KpOg/wHU";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cHQKJnQx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC3C606A33D
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:36:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49155606A33C
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:36:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KpOg/wHU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CB421F000CF;
-	Wed, 25 Nov 2026 10:36:46 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cHQKJnQx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 928441F000E0;
+	Wed, 25 Nov 2026 10:36:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603007;
-	bh=E+oOSCUAijh3xzHZxCpGsXhg3dr6/UZ7qv32CMbwxgo=;
+	s=korg; t=1795603010;
+	bh=dZVfrZicoo5RkKi0P0/c7PtFmHbHEo4Jl+AwXCsUZkI=;
 	h=Subject:To:Cc:From:Date;
-	b=KpOg/wHUqDhG3JwT38BmZnfQ/w4LznUzpM49N+XTIR7RCNZUz/ni90Wc0aWCZPgjZ
-	 P4hknL39yxpMNFtyeOHgA11Y3GosCw4VppUn7CV4/zLsgEeqQvbbMxMhHadx2Zg4JV
-	 D8CHEKk1pFHAvs0mGhi5rUX62slOASJVTXp8ZB00=
-Subject: FAILED: patch "[PATCH] sched/core: Do not touch SMT siblings that have not joined" failed to apply to 6.6-stable tree
+	b=cHQKJnQxxv8YKj5E6CzZBJOpAYgllhOKa87HKBm6wF8S1zgtB76YTa1F5DG06O7Yw
+	 73wB+ZWXtaBOQwQb2Ma8j33Oh7hPkmno4wDV/ju5rkCkuu+Ldz4v7DncCV7JwU9zQh
+	 vQaEVwxlLqHhVNY0PVRDZNdWoOolSdHWX5vHLClU=
+Subject: FAILED: patch "[PATCH] sched/core: Do not touch SMT siblings that have not joined" failed to apply to 6.1-stable tree
 To: snishika@redhat.com,mingo@kernel.org,peterz@infradead.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:21:42 +0100
-Message-ID: <2026112542-icy-ligament-ef12@gregkh>
+Date: Wed, 25 Nov 2026 11:21:43 +0100
+Message-ID: <2026112543-yard-attire-c13b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x ec6f6731538e0d45872eb279fdeb477bed152d6f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112542-icy-ligament-ef12@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112543-yard-attire-c13b@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
