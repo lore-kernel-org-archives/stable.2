@@ -1,57 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.128.210.58
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795628045;
-	b=caaooJ2NrzpZxuF8Jeu7jsPOwOVj3kDnaTQopk681nEBF9sH48eW81yRA0/c7+pI7MrH
-	 U+xbeGh51PpSdJ1zOIqQtzar4D47r3jfS/GAgXgmkY9ocdq+p37n0+8FHLoIatzE6hGk1
-	 k0NfXvlLPrNP5p0KhuF+Wfu1SpDFOZx4ZsKzcApv8r171/dTUfAMQF8mV7OaLxzfE52mi
-	 mfON96rcJu7BGI1e3p3PtpSsDZdMxp6DT8/pPsvD3YqYXw7fLuPMk683/R7xJnsY4Bgoc
-	 MwdKkD9EnPQQ6fRp3Pe6UhuDw2KQELz3TumtrKbKEVUlHwmCT0rDZWYYWPsaZro9KJQ==
+	t=1795628171;
+	b=AU+k6QBGZXf06VwXsz2jFJiZwN2Q2/Ct0Ifh58jnAaEDrAVMKiBfRNvstqrkr0FySo9K
+	 p69iReYwanvnaPM4fZkw1BCF1aYGo9iJYP9No1Y2gbxq70YSSFHTEqoM0VDweAfZSnj90
+	 WdD5cUhXLrjT82i3SiQDshowkVSMQ/TSzm/bHawR8QNSD8AfrOmT7MmJ+Qd/cOXaKCfCb
+	 PlecUZYqEBicHcN1gQvTuR1+PyUFpgWvIH3xLN+ZjoPtuY2NYOYESzSDr3BbNgDo5hmKN
+	 XbOQ8waxayub1n6RDrUvwblbI6cnJIuyOWcGBf7hSdkrjjspsghJrWSCg7FzT2RGzWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795628045;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lU7UAIgI9CyUCZsuIIYmZpPJHaKhZZHl7DYSw6EZjM8=;
-	b=c9tt4f4q/Xefv9M3Y3uAUnbFwrJx92Emzg1JP4SUc+VaBwE8zwAiRCR4W1XUPq8GHjB6
-	 HEBLCNL3MVGGqoTc/tlA0n7R1/pj3SiKOyre/KZmewnKALQByifPnjlV+83KNB3vl3M3A
-	 2u81MnMhiVZcXEJCcz02feb3LG56RzVeIdxnzR8zuyYgmBbmPr7bOdxHgQdsTWrLhSOaP
-	 dl42iHDCD0dJxBHyx15ovH+4ZUsJBBpscJUSdlNnabKnTsIJFQhV9UDKsSY5dhUWSUDnA
-	 RyGnD3X2RkHz4UyP0kQTJUSeUwMI+IYmjzNpBGLc6nWcdwUVg+/Y8uIwSryO+Z7q+Fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795628171;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=377pTLSGSXrscJCII3JdwjfQC2zfQbvXJ8yg35cPLEM=;
+	b=JWhKG5PP2lC3RRzApchRL5bUvtX66gTneSRBCKHLiZLifA1zCWGB+UDBJhzWxt1KeZCk
+	 53hsfGaDkviZr9s6pIyZmwMgo5tTi/rVSv3/nJchfwFa0jtgYntHLthwbJk/g0I44MBt+
+	 gTWdTfSnJRZT6I4L9uLpYuIOotSZnKMTtb0ZaVZN3C361S8Ww0zxQzfevh9YTQWpC+5aD
+	 WA5wySKzn+o5nQYfBs/WquK27fY5BkEopM+Fphbvpw+oPTPm4MJjtNgMeZckbO0CC/Swe
+	 BKRFvwKJZepTEzNw3Cwzb89s0uPzwW1rw2sksXqcobSQOS+PpRZ1rArfGXRWiAE5SMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GFrR7M9P;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=librecast.net;
+	spf=pass smtp.mailfrom=librecast.net;
+	dkim=pass header.d=librecast.net header.i=@librecast.net header.a=rsa-sha256 header.s=2026110900 header.b=L6s36W+Z;
+	arc=none smtp.remote-ip=185.128.210.58
+Received: from bregans-0.gladserv.net (bregans-0.gladserv.net [185.128.210.58])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4523E606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:34:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577B2606A31E;
+	Wed, 25 Nov 2026 17:36:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 577B2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=librecast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=librecast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GFrR7M9P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C48271F000C0;
-	Wed, 25 Nov 2026 17:34:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795628045;
-	bh=lU7UAIgI9CyUCZsuIIYmZpPJHaKhZZHl7DYSw6EZjM8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GFrR7M9PXofAmQtSV4sGUeIM5dYAcPOKicL+GCNnWoYsSnO4A6pTwMn4P14CbiKes
-	 z6qhbjlHn6eSPPdbLIEJF9hFIjAX6imkbR5+k8wroTPIOE0FOi+MIgMZDv1URpLr5S
-	 T0nNtcSqi92bZQ4ZeokGSM+c/zydf9TjTVOKzvL0PCHgW0hW5hwavYtf+wRvhiYiWr
-	 fHV9uuO6zhaArWHh/wMoU1pjzlQhH+dCGdfyRfzLJLHJ5YjpZiCZu34KzSFSV+TdJI
-	 eL0rbP7f4CNGo0CFSD6VjN366JSdWb4ZPT7cA+8DQiH2txJ5MpRH6S0OUyoRTqzicM
-	 /PDWFwl7hDPjw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] cpufreq: Fix updates of cached resolved frequency and index
-Date: Wed, 25 Nov 2026 12:33:59 -0500
-Message-ID: <20261125173332.948887-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125173332.948887-1-sashal@kernel.org>
-References: <2026112539-twine-magnify-87fa@gregkh>
- <20261125173332.948887-1-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=librecast.net header.i=@librecast.net header.a=rsa-sha256 header.s=2026110900 header.b=L6s36W+Z
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=librecast.net; s=2026110900; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=377pTLSGSXrscJCII3JdwjfQC2zfQbvXJ8yg35cPLEM=; t=1795628169; x=1796492169; 
+	b=L6s36W+ZNuXu4T1x2mZXXvNcWriDj32AnoVvWg+UemwD3P0nxANI1Mj5q1qRqw1VRXHTc+dmqMu
+	vnG/UvaK8Zwyi4cU8q6bPTECP7qrgv674wUmAqO2mYMI4uFKgzxop24rMlAA6i/o17QJGg+eOdB/4
+	Hqx4xw1zn1WP2KmPGKNKMatFI1n3zDMrCMAaI+DEktP0m039oD9MyuAE97EdrMTWW1I9uSl5fjgjf
+	9tQuMAcOSg58JVNqjq5DNjTMyXnNv/qWeaWUD5BRQGSZeBAGJNIy6n2SF8ZnhbnMHsny1mSRk0x47
+	F7YwZ+i61lG3+HpQbrg4qbs/gIXsWLcdMc6w==;
+Date: Wed, 25 Nov 2026 18:36:02 +0100
+From: Brett A C Sheffield <bacs@librecast.net>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.18 000/990] 6.18.66-rc1 review
+Message-ID: <awccggbZzLcs9f46@karahi.librecast.net>
+References: <20261125143822.072087159@linuxfoundation.org>
+ <awcOeGCwL3jSzG5f@karahi.librecast.net>
+ <2026112522-prankish-audience-6229@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,157 +70,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <2026112522-prankish-audience-6229@gregkh>
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+On 2026-11-25 18:10, Greg Kroah-Hartman wrote:
+> On Wed, Nov 25, 2026 at 05:36:08PM +0100, Brett A C Sheffield wrote:
+> > On 2026-11-25 15:22, Greg Kroah-Hartman wrote:
+> > > This is the start of the stable review cycle for the 6.18.66 release.
+> > > There are 990 patches in this series, all will be posted as a response
+> > > to this one.  If anyone has any issues with these being applied, please
+> > > let me know.
+> > > 
+> > > Responses should be made by Fri, 27 Nov 2026 14:36:57 +0000.
+> > > Anything received after that time might be too late.
+> > > 
+> > > The whole patch series can be found in one patch at:
+> > > 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.66-rc1.gz
+> > > or in the git tree and branch at:
+> > > 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> > > and the diffstat can be found below.
+> > 
+> > Similar build failure as for 6.12.120-rc1:
+> > 
+> >   LD [M]  drivers/gpu/drm/amd/amdgpu/amdgpu.o
+> >   AR      drivers/gpu/built-in.a
+> >   AR      drivers/built-in.a
+> > make[1]: *** [/usr/src/linux-stable-rc/Makefile:2051: .] Error 2
+> > make: *** [Makefile:248: __sub-make] Error 2
+> > 
+> > Reverting 4d1bfec69f617f91af00b5cb9b86cae8850049ab fixes the build.
+> 
+> Again, can you show the real error?
 
-[ Upstream commit 75120f31aed010c326b28d7c80d22314df34d9a8 ]
+fs/nfs/nfs4proc.c: In function ‘nfs4_proc_unlck’:
+fs/nfs/nfs4proc.c:7331:24: error: variable ‘cbnl’ has initializer but incomplete type
+ 7331 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                        ^~~~~~~~~~~~~~~~~~~
+fs/nfs/nfs4proc.c:7331:54: error: ‘struct cb_notify_lock_args’ has no member named ‘cbnl_valid’
+ 7331 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                                                      ^~~~~~~~~~
+fs/nfs/nfs4proc.c:7331:67: error: excess elements in struct initializer [-Werror]
+ 7331 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                                                                   ^~~~~
+fs/nfs/nfs4proc.c:7331:67: note: (near initialization for ‘cbnl’)
+fs/nfs/nfs4proc.c:7331:44: error: storage size of ‘cbnl’ isn’t known
+ 7331 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                                            ^~~~
+fs/nfs/nfs4proc.c:7335:33: error: ‘struct nfs_client’ has no member named ‘cl_lock_waitq’; did you mean ‘cl_rpcwaitq’?
+ 7335 |                 __wake_up(&clp->cl_lock_waitq, TASK_NORMAL, 0, &cbnl);
+      |                                 ^~~~~~~~~~~~~
+      |                                 cl_rpcwaitq
+fs/nfs/nfs4proc.c:7331:44: error: unused variable ‘cbnl’ [-Werror=unused-variable]
+ 7331 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |
 
-The cached resolved frequency and index, cached_target_freq and
-cached_resolved_idx, respectively, may be updated concurrently if
-cpufreq_driver_resolve_freq() is called by the schedutil governor
-while cpufreq_set_policy() is running for the same policy.  Those
-concurrent updates are not synchronized in any way and the values
-written by cpufreq_set_policy(), if it wins the race, may confuse
-drivers using those policy fields [1].
-
-To address this, use the observation that the only place where
-cached_target_freq and cached_resolved_idx need to be updated is
-cpufreq_driver_resolve_freq() because the only legitimate users of
-them are .fast_switch() driver callbacks.  Although cached_resolved_idx
-is also used in __cpufreq_driver_target(), that is in fact unnecessary
-and it is better to use a local variable for storing the frequency
-table index in that function.
-
-Accordingly, rearrange __resolve_freq() and its callers so that
-cached_target_freq and cached_resolved_idx are only updated in
-cpufreq_driver_resolve_freq().
-
-The cached_target_freq initialization in cpufreq_set_policy() is still
-needed, but move it after stopping the old governor and before starting
-the new one to avoid racing with cpufreq_driver_resolve_freq().
-
-Fixes: f9ccdec24d91 ("cpufreq: Reuse cpufreq_driver_resolve_freq() in __cpufreq_driver_target()")
-Fixes: 151717690694 ("cpufreq: Make policy min/max hard requirements")
-Reported-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Closes: https://lore.kernel.org/linux-pm/20261105140357.1331894-1-zhongqiu.han@oss.qualcomm.com/ [1]
-Co-developed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Signed-off-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Reviewed-by: Christian Loehle <christian.loehle@arm.com>
-Tested-by: Christian Loehle <christian.loehle@arm.com>
-Cc: All applicable <stable@vger.kernel.org> # 342d3a73c5db cpufreq: Force passing target frequency to driver during resume
-Cc: All applicable <stable@vger.kernel.org> # 166207cac451 cpufreq: Cache post-resolution target frequency in __resolve_freq()
-Link: https://patch.msgid.link/3472677.aeNJFYEL58@rafael.j.wysocki
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-[ sashal: Dropped the missing cpufreq_update_pressure() context line from the cpufreq_set_policy() hunk, so only the early cached_target_freq = UINT_MAX removal remains. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/cpufreq/cpufreq.c | 31 ++++++++++++++++++++-----------
- 1 file changed, 20 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index e8d4d0ca1fdc5..d6284f9e02cff 100644
---- a/drivers/cpufreq/cpufreq.c
-+++ b/drivers/cpufreq/cpufreq.c
-@@ -537,7 +537,7 @@ EXPORT_SYMBOL_GPL(cpufreq_disable_fast_switch);
- static unsigned int __resolve_freq(struct cpufreq_policy *policy,
- 				   unsigned int target_freq,
- 				   unsigned int min, unsigned int max,
--				   unsigned int relation)
-+				   unsigned int relation, unsigned int *idx_p)
- {
- 	unsigned int idx;
- 
-@@ -547,9 +547,10 @@ static unsigned int __resolve_freq(struct cpufreq_policy *policy,
- 		return target_freq;
- 
- 	idx = cpufreq_frequency_table_target(policy, target_freq, min, max, relation);
--	policy->cached_resolved_idx = idx;
--	policy->cached_target_freq = policy->freq_table[idx].frequency;
--	return policy->cached_target_freq;
-+	if (idx_p)
-+		*idx_p = idx;
-+
-+	return policy->freq_table[idx].frequency;
- }
- 
- /**
-@@ -580,7 +581,10 @@ unsigned int cpufreq_driver_resolve_freq(struct cpufreq_policy *policy,
- 	if (unlikely(min > max))
- 		min = max;
- 
--	return __resolve_freq(policy, target_freq, min, max, CPUFREQ_RELATION_LE);
-+	policy->cached_target_freq = __resolve_freq(policy, target_freq, min, max,
-+						    CPUFREQ_RELATION_LE,
-+						    &policy->cached_resolved_idx);
-+	return policy->cached_target_freq;
- }
- EXPORT_SYMBOL_GPL(cpufreq_driver_resolve_freq);
- 
-@@ -2351,12 +2355,13 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
- 			    unsigned int relation)
- {
- 	unsigned int old_target_freq = target_freq;
-+	unsigned int idx = 0;
- 
- 	if (cpufreq_disabled())
- 		return -ENODEV;
- 
- 	target_freq = __resolve_freq(policy, target_freq, policy->min,
--				     policy->max, relation);
-+				     policy->max, relation, &idx);
- 
- 	pr_debug("target for CPU %u: %u kHz, relation %u, requested %u kHz\n",
- 		 policy->cpu, target_freq, relation, old_target_freq);
-@@ -2389,7 +2394,7 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
- 	if (!cpufreq_driver->target_index)
- 		return -EINVAL;
- 
--	return __target_index(policy, policy->cached_resolved_idx);
-+	return __target_index(policy, idx);
- }
- EXPORT_SYMBOL_GPL(__cpufreq_driver_target);
- 
-@@ -2657,14 +2662,14 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
- 	 * concurrently by cpufreq_driver_resolve_freq() during the update.
- 	 */
- 	freq = __resolve_freq(policy, new_data.max, new_data.min, new_data.max,
--			      CPUFREQ_RELATION_H);
-+			      CPUFREQ_RELATION_H, NULL);
- 	if (freq != policy->max) {
- 		WRITE_ONCE(policy->max, freq);
- 		policy->update_limits = true;
- 	}
- 
- 	freq = __resolve_freq(policy, new_data.min, new_data.min, new_data.max,
--			      CPUFREQ_RELATION_L);
-+			      CPUFREQ_RELATION_L, NULL);
- 	freq = min(freq, policy->max);
- 	if (freq != policy->min) {
- 		WRITE_ONCE(policy->min, freq);
-@@ -2673,8 +2678,6 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
- 
- 	trace_cpu_frequency_limits(policy);
- 
--	policy->cached_target_freq = UINT_MAX;
--
- 	pr_debug("new min and max freqs are %u - %u kHz\n",
- 		 policy->min, policy->max);
- 
-@@ -2700,6 +2703,12 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
- 		cpufreq_exit_governor(policy);
- 	}
- 
-+	/*
-+	 * Initialize cached_target_freq while no governor is running to avoid
-+	 * racing with cpufreq_driver_resolve_freq(), which updates it.
-+	 */
-+	policy->cached_target_freq = UINT_MAX;
-+
- 	/* start new governor */
- 	policy->governor = new_gov;
- 	ret = cpufreq_init_governor(policy);
 -- 
-2.53.0
-
+Brett Sheffield (he/him)
