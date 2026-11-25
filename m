@@ -1,58 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795609529;
-	b=nPfrQrnxtiJTXEbMN7KjM41rPMubCts6kq7foSccKwgCydL4IyQSF2iFERtGHDadwiXV
-	 gXFsbhzOXSFuYAR87txiRFl0ZLlb587TOLoGWiyKMIb827vgJ9qKEXiHE46hFopIrUaAl
-	 8TeZcbKueZbVI9tqnyrN+suwT1AcIZXcHBlHMp58QVzBAeANKb3m0Z/QokQbr2AzQ1rVT
-	 ZPUBrcu95dKL5UpPv0tatWx+MZ+TYcU/eurDGa3GjIS1arXwt0DcDjPy3wbT94s2QCUg+
-	 bqHmKtf0MGoz4jn993swuAJ88wZB4AbvfsRG+X4ZXpBXf6g7T/EE85mL0WkUFV3V9+Q==
+	t=1795609535;
+	b=Sey29t5+WLxTd7Fgq96sGfxkgNO0CIp1JEpFwDLgFrFKOzGHlu1UhtUKGPCAim74pUgU
+	 Z0gJyF5WG35iwCRXMLOpiizvf9+KhilheV0j8oZLCvrAQ9SDoZBJENEC7yrz6jw+9ftrE
+	 C6GxqnytFAYR4yj4egjJeEHKaPpw6hJ81F1RTAHvRQ+h2IaEaid8xoVspP2/vL27oXnxq
+	 6Gyhs7TzFm6fnpEMl0GE5+Z4gPf3GiFts3YmtRrtfpxG3r7sREbMfQSNXonNBtWhEgn8E
+	 12/Zlgs8hlIAQwG2oQXnkfCKBxd/qDxDYkhmMdZzlLm6rcchYi3Glw2dswzfps1fnLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795609529;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795609535;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=3cweuxzJfLVp8WrEgRssiB6rvSwpbNFQB7nXvM8QjKs=;
-	b=gh5Y9yEKXOdJT1+rzbi6QH7qMsxoPJwufs0slAl6ikvpQDK5c29uvofLsM0cNrM+spqz
-	 Awrc4wrkOocM34BXJ88vqk5XGV6uEQjVQHcBumtj13y7IZAtLo+x4HhjMkZtez29a0/hy
-	 3brNUFg8PWCaDkEVOSX49cPSEd0ir1YqDY5TFvxzg7womgBfY4pQtRSA1FxlLMKxw8aOf
-	 gk7r70lm1U339uC1I6w02NVEhYacX4/kG5ZnXMDyi3GcQsyqFkFtDqvBJRRtfmvu59uUY
-	 ZQpcjMXbmNVW2yA9MIy48qSZJG/BrBoqBGvxmyxWl1ht1pL33mldqJqOFcbOtK+dqLQ==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nxtDC3jdfJKgfps5gESrfwqzSgq84MOBPAMS/1JAwyE=;
+	b=46cg54egFxbWJ+4Ectgw8Q1uXXP7HMKbfFlhTK0BZ0FQUdlQjvoAMGnaODMD9oQrJGYH
+	 eWDSuvspiqcZaS8TAnWO6t0GQYOHk1rgMxJMVJsxKHLjO8l+aFptq/MpKFT3KRq2Q2lyj
+	 FJ0gL8NLVdyrUt2OuIqyZC+BrAOLqfKV8K9imlslVEyig+ECYwlr7lKnZ0nmn/xZA3pyd
+	 9BWgXWdt8UW3H6yUY1if9xlKnjRBVVyMK7EX4fWX/US9nHctLDIpF29FJ+4GXQDqxHHpI
+	 zh9+NycqPMYMxjQya4cR+xQ0Yo0iw+bEFb+3UDkJAdWaQQQ70+EXKT9RXc2slaS6O4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fsAtUa/G";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MCeAj4a8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B46606A323;
-	Wed, 25 Nov 2026 12:25:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16C9B606A321;
+	Wed, 25 Nov 2026 12:25:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fsAtUa/G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D0A01F000C4;
-	Wed, 25 Nov 2026 12:25:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MCeAj4a8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49C3A1F000D1;
+	Wed, 25 Nov 2026 12:25:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795609529;
-	bh=3cweuxzJfLVp8WrEgRssiB6rvSwpbNFQB7nXvM8QjKs=;
+	s=k20260515; t=1795609534;
+	bh=nxtDC3jdfJKgfps5gESrfwqzSgq84MOBPAMS/1JAwyE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fsAtUa/GQdQKpLbKezuab3FKplO/4Br2NkD1n89RJ3iMTdAoahkjWcJPXxsWSi8Wn
-	 nog33ezhVCvuu48Sy1UIvbrcI+h0DITF0u6TB6jjgYt6AREaUSjDecjOli1Y9HGfQL
-	 MizGA3CxHe+oYjhf93JzEMDPhBDu12qXci6pRTgNGKFjoRGFQvHEXrj9CzPd6deYZv
-	 WOyqwuXcpUGVFE1RR2X2B3qcgZX6xWSlR5aZ47sRkqXMDnVGACkc2FQ1yquoI5VcaV
-	 FhkVHdWU5mUUi5C5qR8Yn7i8/rjxYcdBzVCmcIeoxKzjpBTTtWoQP5oOPlov7b5yNy
-	 4+ey9tleeRBCg==
-Date: Wed, 25 Nov 2026 17:55:23 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
-Cc: Tyler Baker <tyler.baker@oss.qualcomm.com>,
-	Jens Wiklander <jenswi@kernel.org>,
-	Sumit Garg <sumit.garg@kernel.org>,
-	op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org,
-	Vincent Donnefort <vdonnefort@google.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] tee: shm: sync DMA memory for the device before it is
- lent
-Message-ID: <awbTs4Ad041c1AjO@sumit-xelite>
-References: <20261113-tee-shm-dma-sync-v1-1-19d4efdfb4cd@oss.qualcomm.com>
- <CAGgiveWm-xH_SjA5QrBJx6NtQhWyQWMw2FvfSd9SfG-wghpwmw@mail.gmail.com>
+	b=MCeAj4a8W7rINlxO/Of5E3o7tRlESKGuvFS6zHS9be26Y/3Nbmh3vUMQGLAuJwNxI
+	 /utv0W/IsWq31cCt0HDg/L8zSW6eUVRMyQnFJTHAQJk9B0p0lJgC6hcIdq8SDVekcC
+	 KMjb1cXYE8CBE+n+BkVzwWAVR7j/vXMExEsJwCPwlpmpk5wGJZEm2BlFFVh6jxSvBh
+	 yTjOBg0FIH/cIj/5J1+BWS2AYpL9nkiAU0ktUFUyUDYfvUazGOWHeoNlwwZiVDzLb+
+	 uOkybob6UmN3C/mTY1Qt2VY00p/jG1DUv0GCZ6uYil8F+4/K2hB3Sy52TCqevWFob6
+	 lcZtlj3N/NWDw==
+Date: Wed, 25 Nov 2026 12:25:24 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "chenglong.ma" <longpareto@gmail.com>
+Cc: "Michael S . Tsirkin" <mst@redhat.com>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, kvm@vger.kernel.org, virtualization@lists.linux-foundation.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 2312891301@qq.com, blum@kernel.org, 
+	co+6dcbccedc9ec6452@bugs.sh, eperezma@redhat.com, fangxy@xiaopeng.com, jasowangio@gmail.com, 
+	kmehltretter@gmail.com, linfeng.sun.dev@gmail.com, lirongqing@baidu.com, 
+	oss.patchbox@gmail.com, p@1g4.org, phx0fer@gmail.com, physicalmtea@gmail.com, 
+	sergiiushakov@google.com, shubham@octane.security, stable@vger.kernel.org, 
+	stjepan.poljak@gmail.com, syzbot+13df72e0dc4be5c62215@syzkaller.appspotmail.com, 
+	tavhadia@gmail.com, tjdqudcks0424@naver.com, tz2294@columbia.edu, 
+	xieyongji@bytedance.com, xmei5@asu.edu, yuz08559@gmail.com, zenghui.yu@linux.dev, 
+	zhaimingbing@cmss.chinamobile.com, zhangjiao2@cmss.chinamobile.com
+Subject: Re: [GIT PULL] vhost,virtio,vdpa: bugfixes
+Message-ID: <awbTgufgR4Uge1kJ@gremlin>
+References: <20261104081535-mutt-send-email-mst@kernel.org>
+ <awWOpS3HR_2FTN3I@gremlin>
+ <20261125060533.1296-1-longpareto@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,78 +67,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGgiveWm-xH_SjA5QrBJx6NtQhWyQWMw2FvfSd9SfG-wghpwmw@mail.gmail.com>
+In-Reply-To: <20261125060533.1296-1-longpareto@gmail.com>
 
-On Tue, 24 Nov 2026 at 09:52:00 +0100, Jens Wiklander wrote:
->Hi,
+On Wed, Nov 25, 2026 at 02:05:32PM +0800, chenglong.ma wrote:
+> On Tue, Nov 24, 2026 at 01:51:29PM +0000, Lorenzo Stoakes (ARM) wrote:
+> > It looks like it doesn't need VM_IO anyway, the other changes in the patch
+> > make it redundant AFAICT, so you should send something like the below with
+> > a Fixes pointing at bb2e6f166547:
 >
->On Fri, Nov 13, 2026 at 2:22 PM Tyler Baker
-><tyler.baker@oss.qualcomm.com> wrote:
->>
->> tee_shm_alloc_dma_mem() returns dma_alloc_pages() memory without the
->> dma_sync_single_for_device() that the DMA API requires before a device
->> uses it. dma_alloc_pages() zeroes the pages through the cacheable
->> linear map, so the zeroes can still be dirty in the cache when the
->> optee protected memory pool lends the pages and a Secure Data Path TA
->> writes them through its secure mapping. A later eviction of those
->> lines overwrites the TA's data.
->>
->> On an Eliza EVK with OP-TEE as the FF-A SPMC, a TA decrypts into a
->> protected buffer, a read of all RAM through /proc/kcore evicts the
->> lines, and the TA's digest of the buffer no longer matches:
->>
->>   frame 0: 0e534d8c..., reference d98ddba1...
->>
->> Sync the allocation for the device before returning it.
->>
->> Fixes: ab09dd6d9201 ("tee: add tee_shm_alloc_dma_mem()")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Tyler Baker <tyler.baker@oss.qualcomm.com>
->> ---
->> Vincent's direct-map series [1] cleans the range in
->> dma_zap_direct_map() before the lend, which also covers this when it
->> can unmap. It returns -ENODEV without any cache maintenance when there
->> is no lendable pool and the direct map cannot change (arm64 with
->> rodata=noalias or rodata=off), and it is not a stable candidate.
->>
->> On a dma-coherent TEE device the sync does nothing. teedev->dev is not
->> configured from firmware, so it is not coherent today.
->>
->> Without the fix the TA's data is lost:
->>   https://lava.infra.foundries.io/scheduler/job/554467#L2262
->> With it, the data is intact after the scan and 50 lend rounds:
->>   https://lava.infra.foundries.io/scheduler/job/563840#L1979
->>   https://lava.infra.foundries.io/scheduler/job/563840#L2008
->>
->> [1] https://lore.kernel.org/all/20261111110738.872947-1-vdonnefort@google.com/
->> ---
->>  drivers/tee/tee_shm.c | 3 +++
->>  1 file changed, 3 insertions(+)
->>
->> diff --git a/drivers/tee/tee_shm.c b/drivers/tee/tee_shm.c
->> index 5c47a36916c45..70a273a425f88 100644
->> --- a/drivers/tee/tee_shm.c
->> +++ b/drivers/tee/tee_shm.c
->> @@ -297,6 +297,9 @@ struct tee_shm *tee_shm_alloc_dma_mem(struct tee_context *ctx,
->>         if (!page)
->>                 goto err_put_teedev;
->>
->> +       dma_sync_single_for_device(&teedev->dev, dma_addr,
->> +                                  page_count * PAGE_SIZE, DMA_BIDIRECTIONAL);
->> +
->>         dma_mem = kzalloc_obj(*dma_mem);
->>         if (!dma_mem)
->>                 goto err_free_pages;
->>
->> ---
+> Sorry about that: it went to security@kernel.org (hence no lore thread),
+> I did not test it on 7.4-rc, and you're right that VM_IO is redundant,
+> since vduse_domain_set_map() is the only way vhost-vdpa entries reach
+> the domain iotlb and it already rejects anything backed by the domain
+> file.
+
+Please, in future, when you submit something for a kernel release, test your
+change against that kernel release :) or get your LLM to ;)
+
 >
->Looks good. Sumit, do you agree?
+> I'll send the one-liner with Fixes: bb2e6f166547 and your Reported-by
+> and Suggested-by once I have actually run it on current mainline.
 
-Looks like a reasonable fix to me, feel free to add:
+Thanks!
 
-Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+>
+> Thanks for catching this.
 
--Sumit
+--
+Cheers, Lorenzo
