@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795636372;
-	b=oiITnOm/beIhNeLyFtqEIigi/CVC1A6DAZ6ijB7od3E2h3JseBTuBYQOYKtmqI+bGcSc
-	 U8jbpzs/hRTg6R/RUUEwWKEChrL4HFWU4DHqbHWsqThRyPgTjLkDEbAupCpt6x8FMQHZU
-	 yOALnBsdpPyGnKx7r5HDVDNOaGsCnI4mSYWV/itVZ5u2LhEd+rDX4hpELKlcYyM6Fq1aa
-	 x2uyBVZeYievRPLCTbYKM3+uCqrT0HVYGbL/2ZARxZfkcfSfw9nEJj7JbFiss2RrtA3Fq
-	 atHWosCvYv1bn+JQu+eoWWymB55LFW+wrnyQAZy3/IaIfkMJI9+UEno1/mC7fH+av+g==
+	t=1795636436;
+	b=FsmZYVjOAAmVJFwT7DlALQyz4KkROZ4xhJTHHeik5wRE5YdEgbjtrYsm62Ojq4Xqm3zX
+	 pgGNWqCqYjoxvroDYQ8v0FESZ/W86/fBBpzX1xMzgtKi13CSJ64k7vuLwONf+ZW1zvNvj
+	 9QtiTGIEiQfyHiX01s2/1iG+0BknQ00OLOsa05Jng+IPMhs3YFZGYWLO36Nhra9U58v+N
+	 YFoZep+X3dydB9r8HrNuUhpTWOVIZdJuNHRYDqKm9z/eKesRT4RrTQeePHtmMxB8mGHvd
+	 xCSqOcbDOTqX21CQT/w/4HROAAwSBr+WwiHhavC4hB1CTWE/QqOKDzaNHgKMfFoGaKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795636372;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795636436;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=771LoipZJO/8ERQ1PZCD3ey20RmJy0Hxd1wuy7sH7k0=;
-	b=ED/tl+UskGh4smMzxd48p/4tO7JbVtuUSYLYg71QaB1bix7xRIUteF9jYUJd08d+IxdO
-	 OJxzH5BDI85GOTYeKkHXQhIG5dkbExEt5vRza7UVmMj8XXI+FxGABl52nkmKwHFVemaZz
-	 EOdbMq/ggO+yGzoPZU9PtOoPBvga3lYyUIkpM/d+u2SeGmUyUIoPqatpFl7tMMYrJCFPh
-	 YDOcYp/se/iVCjs36IKHghVfBBYxJ6O7Rnjp4ioTuGQx7xZHWjqRGq0lFurHOHyekZib5
-	 tuqN4PUD4pnrYO+Uwg8V2q9F7dndEf41K2ZOQ6aO2RHR1OfSd4xXPzofK75ngs/uO3g==
+	bh=piA3tdsYv0jMp4XGqlY3Ean8SXbJXbgWpyZNEndGtnU=;
+	b=m+f8My8d2yMsKYG/FckNjoDjX7OIXellXLGskxoeRwkhIp2i8bn+REs5yGsG9pWwGPGA
+	 linJDS9TFc103khNaZ3ojcg6ZOvByOi3tMv/b5VlAja1ZCtjrkjdgGf4+8D9U/Rginydw
+	 +UkTbzpdyyWkiwBULchN1kqEm9vxaPNtidLpaMptFuE3d3FwwObDf+QRAo5rDj9tI6Zcb
+	 zFy4VGWbPoVi3mZqgHi4fmMPpnzzFp9e60nJssPkKpoX1YsPcSHBFgDBJV7Rb9wvYXGfS
+	 lhiY7UA1HgWBfOsu1htj7Z/QQjnAx3/LwgnBzkThrk5q4FjKwoSAvahByqlyUV9ri6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="h/Ulaqop";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RiePbo4x;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E06606A333
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:52:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3236C606A326
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:53:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h/Ulaqop
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 548F11F000CF;
-	Wed, 25 Nov 2026 19:52:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RiePbo4x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CF121F000CA;
+	Wed, 25 Nov 2026 19:53:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795636371;
-	bh=771LoipZJO/8ERQ1PZCD3ey20RmJy0Hxd1wuy7sH7k0=;
+	s=k20260515; t=1795636435;
+	bh=piA3tdsYv0jMp4XGqlY3Ean8SXbJXbgWpyZNEndGtnU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=h/UlaqopGe7p7jqcpjBS7ML8tV5Bvz6nJr8E6gK7H1hE8PCUp3a1oiHExuCET20Hg
-	 pZZxjpzRc2Savqfv3XoB3X79g2nIeyrWjOUFp1sHEu8D7ZOIUMCrit/WpYABDvH70h
-	 u97X5yIvDesUN9lHiOjbOF2l5c/IsSR89b2mVyK6MmYy+EogG5TpiHhORZBYzCFqZ8
-	 EpdZ87uE+ueeUKjPazKnNQlzAGoVWjygjCEBDWcqE6LLCdtXzMW/KVQmvQGvBEPEMx
-	 ZR10v8QMh46GjGtBaiT5BynTl7E20iCA4LZpEWJIxGfi7wWvgevhd50aUcith6Tjiy
-	 gDK2XsHLOn/+g==
+	b=RiePbo4xjt4G/RukEovUelXUNPJmBhmhx2Um23lcqmz330AvmoqsxGC8J8PFYNd2m
+	 qXvAMqjCEph3hrluLruGKU7wvyvl+snK7wVZbI7ENwTG0bskBvfgPoGC57CA5epc9v
+	 jtAYXt87MUP7KAISuJVXwzdAJ3JBkYYDH3ghbAfnDeYKC+MQWqwzBTWN3MaoAGcyUd
+	 8ZrupbmLB/ShgUjK308gKqAUpX4PDQKCMMCYxne/wc6UShr8eMunRwO0S9AkHWAb/8
+	 hLTti3keXer+EvH4cJDP39tTteHSB6Qr2msyhF8gU3d1S2Ey8RO+XHrwfcmfMX5LnP
+	 vho/dyUdxWx5Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] tracing/probes: Enable newly appended probe when target event is enabled
-Date: Wed, 25 Nov 2026 14:52:49 -0500
-Message-ID: <20261125195221.1297809-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] tracing/probes: Fix BTF bitfield parsing and out-of-bounds buffer write
+Date: Wed, 25 Nov 2026 14:53:54 -0500
+Message-ID: <20261125195327.1299557-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112510-straw-prozac-0c98@gregkh>
-References: <2026112510-straw-prozac-0c98@gregkh>
+In-Reply-To: <2026112522-acuteness-scowling-4447@gregkh>
+References: <2026112522-acuteness-scowling-4447@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,117 +62,167 @@ Content-Transfer-Encoding: 8bit
 
 From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-[ Upstream commit 72d3a5cb0cd7335553549aaffecc683e3ecc0c43 ]
+[ Upstream commit 9b6e9d6a11090ac34516c45f48663b37ac94a9b1 ]
 
-Unlike kprobe events, fprobe and uprobe events only register their
-underlying probes when the trace event is enabled. When a new probe is
-appended to an existing multiprobe fprobe or uprobe event that is
-already enabled, the appended probe is linked into the event's probe
-list without being registered.
+BTF bitfield parsing in trace_probe.c assumes a 64-bit (8-byte) container
+when computing FETCH_OP_MOD_BF shift amounts and basesize, whereas the
+preceding store instruction only allocates and writes the field's fetch
+type size (which may be 1, 2, or 4 bytes when kflag=1). At runtime,
+fetch_apply_bitfield() performs an 8-byte read-modify-write on the
+smaller ring buffer slot, corrupting adjacent ring buffer data or writing
+past the end of the event record.
 
-As a result, the newly appended probe never fires until the event is
-disabled and re-enabled. Moreover, disabling an fprobe event calls
-unregister_fprobe() on the unregistered fprobe, and opening or closing a
-perf event on an enabled uprobe event dereferences a NULL tu->uprobe in
-uprobe_apply().
+In addition, signed bitfields with bit widths other than 8/16/32/64 fail
+to resolve a fetch type, bitfields whose width is a multiple of 8 inside
+a larger integer or spanning a byte boundary fail to emit FETCH_OP_MOD_BF
+or select a container wide enough for bitoffs + bitsize, kflag=0 bitfield
+offsets >= 8 bits are not folded into the byte offset, and big-endian
+architectures use the little-endian left-shift formula in
+parse_btf_bitfield().
 
-Register and enable the newly appended fprobe or uprobe immediately when
-the target event is already enabled.
+Compute the bitfield byte and bit offsets consistently during field
+lookup, select the smallest unsigned fetch type that covers the bit
+offset and bit width, and calculate the FETCH_OP_MOD_BF parameters from
+the selected fetch type size for both big- and little-endian bitfields.
 
-Link: https://lore.kernel.org/all/179455849798.403392.135678786198324285.stgit@devnote2/
+Link: https://lore.kernel.org/all/179455850711.403392.10512730891220678403.stgit@devnote2/
 
-Fixes: 41af3cf587f4 ("tracing/uprobe: Add multi-probe per uprobe event support")
-Fixes: 2db832ec9090 ("tracing: fprobe-events: Register fprobe-events only when it is enabled")
+Fixes: c440adfbe302 ("tracing/probes: Support BTF based data structure field access")
 Cc: stable@vger.kernel.org
 Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-[ sashal: Dropped the fprobe hunks, which have no counterpart here, and kept only the uprobe changes, moving trace_uprobe_enable() and filter_func_t earlier with a forward declaration of uprobe_perf_filter. ]
+[ sashal: Re-indented the BTF field loop one level deeper, and used mtype in place of the upstream container_type helper variable, because this tree has the loop inline instead of a separate helper. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_uprobe.c | 56 ++++++++++++++++++++++++-------------
- 1 file changed, 37 insertions(+), 19 deletions(-)
+ kernel/trace/trace_probe.c | 61 ++++++++++++++++++++++++++++----------
+ 1 file changed, 46 insertions(+), 15 deletions(-)
 
-diff --git a/kernel/trace/trace_uprobe.c b/kernel/trace/trace_uprobe.c
-index cf5dc4b456eee..d18669586afab 100644
---- a/kernel/trace/trace_uprobe.c
-+++ b/kernel/trace/trace_uprobe.c
-@@ -443,6 +443,28 @@ static bool trace_uprobe_has_same_uprobe(struct trace_uprobe *orig,
- 	return false;
- }
- 
-+typedef bool (*filter_func_t)(struct uprobe_consumer *self, struct mm_struct *mm);
-+
-+#ifdef CONFIG_PERF_EVENTS
-+static bool uprobe_perf_filter(struct uprobe_consumer *uc, struct mm_struct *mm);
-+#else
-+#define uprobe_perf_filter NULL
-+#endif
-+
-+static int trace_uprobe_enable(struct trace_uprobe *tu, filter_func_t filter)
-+{
-+	struct inode *inode = d_real_inode(tu->path.dentry);
-+	struct uprobe *uprobe;
-+
-+	tu->consumer.filter = filter;
-+	uprobe = uprobe_register(inode, tu->offset, tu->ref_ctr_offset, &tu->consumer);
-+	if (IS_ERR(uprobe))
-+		return PTR_ERR(uprobe);
-+
-+	tu->uprobe = uprobe;
-+	return 0;
-+}
-+
- static int append_trace_uprobe(struct trace_uprobe *tu, struct trace_uprobe *to)
+diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
+index ac31528b981b6..33fb1a42bbad3 100644
+--- a/kernel/trace/trace_probe.c
++++ b/kernel/trace/trace_probe.c
+@@ -439,6 +439,18 @@ static const char *fetch_type_from_btf_type(struct btf *btf,
  {
- 	int ret;
-@@ -462,10 +484,22 @@ static int append_trace_uprobe(struct trace_uprobe *tu, struct trace_uprobe *to)
+ 	u32 intdata;
  
- 	/* Append to existing event */
- 	ret = trace_probe_append(&tu->tp, &to->tp);
--	if (!ret)
--		dyn_event_add(&tu->devent, trace_probe_event_call(&tu->tp));
-+	if (ret)
-+		return ret;
- 
--	return ret;
-+	if (trace_probe_is_enabled(&tu->tp)) {
-+		ret = trace_uprobe_enable(tu,
-+			trace_probe_test_flag(&tu->tp, TP_FLAG_PROFILE) ?
-+			uprobe_perf_filter : NULL);
-+		if (ret) {
-+			trace_probe_unlink(&tu->tp);
-+			return ret;
-+		}
++	if (ctx->last_bitsize) {
++		u32 bits = ctx->last_bitsize + ctx->last_bitoffs;
++
++		if (bits <= 8)
++			return "u8";
++		if (bits <= 16)
++			return "u16";
++		if (bits <= 32)
++			return "u32";
++		return "u64";
 +	}
 +
-+	dyn_event_add(&tu->devent, trace_probe_event_call(&tu->tp));
+ 	/* TODO: const char * could be converted as a string */
+ 	switch (BTF_INFO_KIND(type->info)) {
+ 	case BTF_KIND_ENUM:
+@@ -476,10 +488,6 @@ static const char *fetch_type_from_btf_type(struct btf *btf,
+ 			case 64:
+ 				return "u64";
+ 			}
+-			/* bitfield, size is encoded in the type */
+-			ctx->last_bitsize = BTF_INT_BITS(intdata);
+-			ctx->last_bitoffs += BTF_INT_OFFSET(intdata);
+-			return "u64";
+ 		}
+ 	}
+ 	/* TODO: support other types */
+@@ -632,6 +640,12 @@ static int parse_btf_field(char *fieldname, const struct btf_type *type,
+ 			/* Add anonymous structure/union offset */
+ 			bitoffs += anon_offs;
+ 
++			type = btf_type_skip_modifiers(btf, field->type, NULL);
++			if (!type) {
++				trace_probe_log_err(ctx->offset, BAD_BTF_TID);
++				return -EINVAL;
++			}
 +
-+	return 0;
+ 			/* Accumulate the bit-offsets of the dot-connected fields */
+ 			if (btf_type_kflag(mtype)) {
+ 				bitoffs += BTF_MEMBER_BIT_OFFSET(field->offset);
+@@ -639,12 +653,15 @@ static int parse_btf_field(char *fieldname, const struct btf_type *type,
+ 			} else {
+ 				bitoffs += field->offset;
+ 				ctx->last_bitsize = 0;
+-			}
+-
+-			type = btf_type_skip_modifiers(btf, field->type, NULL);
+-			if (!type) {
+-				trace_probe_log_err(ctx->offset, BAD_BTF_TID);
+-				return -EINVAL;
++				if (BTF_INFO_KIND(type->info) == BTF_KIND_INT) {
++					u32 intdata = btf_type_int(type);
++
++					bitoffs += BTF_INT_OFFSET(intdata);
++					if ((bitoffs % 8) ||
++					    BTF_INT_BITS(intdata) != BYTES_TO_BITS(type->size) ||
++					    !is_power_of_2(type->size))
++						ctx->last_bitsize = BTF_INT_BITS(intdata);
++				}
+ 			}
+ 
+ 			ctx->offset += next - fieldname;
+@@ -790,13 +807,22 @@ static const struct fetch_type *find_fetch_type_from_btf_type(
  }
  
- /*
-@@ -1104,22 +1138,6 @@ print_uprobe_event(struct trace_iterator *iter, int flags, struct trace_event *e
- 	return trace_handle_return(s);
- }
- 
--typedef bool (*filter_func_t)(struct uprobe_consumer *self, struct mm_struct *mm);
--
--static int trace_uprobe_enable(struct trace_uprobe *tu, filter_func_t filter)
--{
--	struct inode *inode = d_real_inode(tu->path.dentry);
--	struct uprobe *uprobe;
--
--	tu->consumer.filter = filter;
--	uprobe = uprobe_register(inode, tu->offset, tu->ref_ctr_offset, &tu->consumer);
--	if (IS_ERR(uprobe))
--		return PTR_ERR(uprobe);
--
--	tu->uprobe = uprobe;
--	return 0;
--}
--
- static void __probe_event_disable(struct trace_probe *tp)
+ static int parse_btf_bitfield(struct fetch_insn **pcode,
++			      const struct fetch_type *t,
+ 			      struct traceprobe_parse_context *ctx)
  {
- 	struct trace_uprobe *tu;
+ 	struct fetch_insn *code = *pcode;
+ 
+-	if ((ctx->last_bitsize % 8 == 0) && ctx->last_bitoffs == 0)
++	if ((ctx->last_bitsize == 0 ||
++	     ctx->last_bitsize == BYTES_TO_BITS(t->size)) &&
++	    ctx->last_bitoffs == 0)
+ 		return 0;
+ 
++	if (ctx->last_bitsize == 0 ||
++	    BYTES_TO_BITS(t->size) < (ctx->last_bitsize + ctx->last_bitoffs)) {
++		trace_probe_log_err(ctx->offset, BAD_BITFIELD);
++		return -EINVAL;
++	}
++
+ 	code++;
+ 	if (code->op != FETCH_OP_NOP) {
+ 		trace_probe_log_err(ctx->offset, TOO_MANY_OPS);
+@@ -805,9 +831,13 @@ static int parse_btf_bitfield(struct fetch_insn **pcode,
+ 	*pcode = code;
+ 
+ 	code->op = FETCH_OP_MOD_BF;
+-	code->lshift = 64 - (ctx->last_bitsize + ctx->last_bitoffs);
+-	code->rshift = 64 - ctx->last_bitsize;
+-	code->basesize = 64 / 8;
++#ifdef __BIG_ENDIAN_BITFIELD
++	code->lshift = ctx->last_bitoffs;
++#else
++	code->lshift = BYTES_TO_BITS(t->size) - (ctx->last_bitsize + ctx->last_bitoffs);
++#endif
++	code->rshift = BYTES_TO_BITS(t->size) - ctx->last_bitsize;
++	code->basesize = t->size;
+ 	return 0;
+ }
+ 
+@@ -891,6 +921,7 @@ static int parse_btf_arg(char *varname,
+ }
+ 
+ static int parse_btf_bitfield(struct fetch_insn **pcode,
++			      const struct fetch_type *t,
+ 			      struct traceprobe_parse_context *ctx)
+ {
+ 	trace_probe_log_err(ctx->offset, NOSUP_BTFARG);
+@@ -1570,7 +1601,7 @@ static int finalize_fetch_insn(struct fetch_insn *code,
+ 	} else if (IS_ENABLED(CONFIG_PROBE_EVENTS_BTF_ARGS) &&
+ 		   ctx->last_type) {
+ 		/* If user not specified the type, try parsing BTF bitfield. */
+-		ret = parse_btf_bitfield(&code, ctx);
++		ret = parse_btf_bitfield(&code, parg->type, ctx);
+ 		if (ret)
+ 			return ret;
+ 	}
 -- 
 2.53.0
 
