@@ -1,95 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795634622;
-	b=d9qO/xgj2EDayL21izvqMMYuolJZwURBlL1oaYOY1xTPbocKr0HsuGVU2fEEAW40Iwas
-	 IRLh6sCbX/GSNEczA6S/N63VlnRStadix//0o4SuUS/BaNa0mB9KZgFs3OI8J3D++gBE9
-	 XShkl8qATA9r6kzbp/86g3L9C/eepjeQmMpEo7gfTOQ0bMR1rBzwM4sAXMLkhbN8fTd5h
-	 fDdivWbvGYSYYmOuerI8JNvDnmRy+7g7503WrHlbw3FCBEKPgkV5LXszr08GtPYaFUuyQ
-	 tErh42SAJSJy/8c+aXvQHIGOlTrFnX7KTSy08HOrNlPrDsvDGXkAAQ7SpFhDxbvvcMg==
+	t=1795634733;
+	b=FEXspBVSKgubcEYMMRjH1uLk27LMd5IsP/UVZ28Wu7YjhDDxWLS3at3vPDK8lZ80w+GB
+	 yRhcqDI6rDDjaVNL/6Y6iqPDVN3m/cNv8k4Uu3EbfNBvBtoe/+dtIelknOe7qG9aUVq2U
+	 wZy+Bdrc80WKHE9vdzzdaYY7mEoRjDQf16ooEHGjdwO8pYRMtEyjvsL+GQ0E7YGXkwqKS
+	 yxLw+ETG5eCiRTVF/pSTWWYvetd0ThY20DUn8Uev6NCXGLm3QO/2SQ/cTuhd1wqHvZjoj
+	 hn71J/H6Lhd/KeXhLT1niYIB7FSEfQKK+CGKY6bkawJS/1XQKB33PVu2B5sSHxYJzcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795634622;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xrbqO5ltApkYwdYD3qZQSLfK8KscIUV+8il5u80/3Pw=;
-	b=dNC4FeS2jHQpccBuD+SdsAEmkuduQO5u7s0boGNyVrhIjrflKCUO37ARMjNzBwyDNvss
-	 9Im9n5goCWREqTsgsHo0DhEz1VWS3JfoXGIvXuEw8lEQkHwDzZNrsv+mUn7b7mT/gSHPX
-	 OjM6hmgPZp5pbpzXsMCcs21kbLCyxp7ePW7ilL/lHMcan4o9nvor/y1wtW+scg+LK7bKq
-	 We9247f59PvR45vLo9/x8PNEZ2CJt8DL8lJqtiT7D3g0+jy8DliZ3+IRdZ6f7dYp6BQ4n
-	 zSplSYtyQeIc/zMbAOOqAUG6N9IKB3EAd0005wg5u/RU4bEpmHqxIUPssb1+c/r0P8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795634733;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=DUEAU9nEFxu8fd9l74XoyOIb5fuZv2poWMXvg7eJmT0=;
+	b=fIfWzSLfhQs/T38B+Paspwm6fa9lKgHf0841TVqD08HPwxPn/s/OsvaT4FfbBNWJuxLF
+	 OO1jl2XnyUrkQ2A45dqDVVTPZRhoWqEi/7oQ6+FJj6ipSeWNpM5jg0FvShvX14vbO2eKR
+	 B5M1yty+zNbGXVSzY1G3q4nJYFDgBfq6bOSozDHpWI3thHnfnTPRp2S3CL25r331Wm1e9
+	 1fgJI4JoViIl5BibJYe8y2I/z7E7sOJp7epcxKhZ286llv/gB6XNRJVE9aHIHOHdzkj9a
+	 a6Zhxx969jgpfj5+iWE/KxSdB4MlWxYs/c5rKf0E1s56cgVvQO+RsVlKMB8SDPWn/GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=trailofbits.com;
-	spf=pass smtp.mailfrom=trailofbits.com;
-	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=dL2qKoXf;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EFT30KzT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A8F606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:23:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85A8F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D006606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:25:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=dL2qKoXf
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2f02ee04378so49603575ad.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:23:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1795634622; x=1796239422; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xrbqO5ltApkYwdYD3qZQSLfK8KscIUV+8il5u80/3Pw=;
-        b=dL2qKoXfGzBI6B7NKOXigDwU5PxOzEuvWofo76UVvP/l00kjTMObxTIdZvjQy+Fe37
-         hF9oBV4Y2IMTjh9PmVUR0K/knPY2pMi+TwF97lNrZLqxL40W7dKP4g9EPiomrsKxZLgM
-         J/cps4/5g3h35YWPB3c6S22j8WlS8KnMf1upj4rUxWywQHOPMldJF+7B6uGugq9gT17H
-         BeH2tWL6aP1tHOcv1zwe9NaJYYpsBm6FjoTecXSPqYHkVD3cME9B061HAgm3SVtO+NS1
-         0DjbbElY5WlseYhgZBtRjVzS0ld+oANXealst7A7C9DHRCaYWObxxucH6u4x4EU1BkCN
-         GzPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795634622; x=1796239422;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xrbqO5ltApkYwdYD3qZQSLfK8KscIUV+8il5u80/3Pw=;
-        b=cRv2t7/0DX4qq3CmcLcndtvX9KzKGtNR/zYG3UjhzzsjkHE/mLcaDkhYmta7G35Ws9
-         iBZDA7ETQc3W2F+AjDjpWwDbQg92Sf1ZGBtMMMecca2kpwGVFKF0cqtUTp4J0TKAWHjW
-         xVfX21vT1t8YxQ6RE7NTGbCDWhs6nH7pwz+WYrtyAw18FkHSvtRRCM1UNadI+ctN4feu
-         1PuQcPGMLTT4K1G5NTh91kBKa3KzSDyxpEgbhreGAxNAYLONmHnRF25EwRwluPdwXcs+
-         fdpDtVXwwx+afzPvcufB9wv6x+kiLgb/pEfS4pBsQ1YrrzMo3zBXRXvJGzHLz5uXYZxc
-         ZEaw==
-X-Gm-Message-State: APuU4Z9krkJxCMDgrNg0TJHR2ebdjlZCPFK2zVtpeh26UVJ1f0yR/HXo
-	AJCuAyG5U1vbMWr95VsoF82Tp/eq/Dxgq0hr4zRffBRevWN+aHKDV74cmDRGT6MImuoAPW74X4K
-	MJCyYf+c=
-X-Gm-Gg: AZFdTZe6hds/ZlXXNCxnJmwwBzittGsXmirOEGU/DT9y5RbgC8HEsoSp+E6cQhb1FIU
-	gr0+khK9v1Cc6qzuwWuDGeZMeXYO+ECf6LGTEJzFHNakgwBXXXOtz1LqHqoMtwWHpLDv8QZlHSQ
-	/yhYr0UsH7nbazU2pBPycSApy1pVTLlgLqIPPFS9TysukY8NmXTSBR391vaVcoLfVf11LbIE8Ui
-	/ig20r4yGPM4exOzOwLDWbQbpTeLH1jo6MnSeTFGB6Sd+IekO+Q+tQY79DRgBpzfcfJwsycEaqr
-	iWsMIcrujN1cFhiIFFzuY3AHy+gw4Jh25AhimMwQFXih6qBLToqG+WXnPp6CdWA7lVFYP2NiLs2
-	BPySPRyk3wOj5ZBf18Z3/IhNffz6LyLpPtTt16rPfvQ99jshYqHRse5ftIl5SgSWLzTacnC+RTK
-	88Efxr8Yk0HkeGFFPDQmWs+JWeH3Qxe74PGZ8xYgMGXfTjEc8O5zo6FgfQTeiPHgjfNW+QZ8GAv
-	HZ3M1JcUBoeHexi4Y+w3noCR/Xo8U8AkmE/jNfW5LaEK8t3YuP8r/Xi2tdsbxz7aQoRi9wY8DWx
-	mGPj8rXyXExoz3SWCl0o5VDfA6n2VQxk7sD5U8Ac8q8F2FpBDsGYKDGqPOxpYbCHyvE19P1cVYa
-	FVun0Y85U+KQB11jT7gnqElxu+A==
-X-Received: by 2002:a17:903:4b03:b0:2ed:ebc:460f with SMTP id d9443c01a7336-2f03f2118f0mr193132015ad.33.1795634621862;
-        Wed, 25 Nov 2026 11:23:41 -0800 (PST)
-Received: from localhost.localdomain ([2603:8003:6d40:6669:75a7:83bd:63db:baa9])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f0dbe86sm91925275ad.32.2026.11.25.11.23.40
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 25 Nov 2026 11:23:41 -0800 (PST)
-From: Artem Dinaburg <artem@trailofbits.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EFT30KzT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6874A1F000D8;
+	Wed, 25 Nov 2026 19:25:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795634733;
+	bh=DUEAU9nEFxu8fd9l74XoyOIb5fuZv2poWMXvg7eJmT0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EFT30KzTAOtqXoxCq6NnoeXZ0vgdSbdieLec53uxRsfdN7JN+iaD7QJRIv5JK64me
+	 IjkdiAe8EqXdx8jqUhof+kXUZ5bjG4e8TBhDLcdzRo+gRrQyBkAkBwdV+8+OLSYRaq
+	 OWkdFiqyMMdZEAebFcsu+MaOVtO5i45JBFrs3zT8nT5x0NY68S8fj+mnIQy1l7bkua
+	 dnM2ZY40AhuH7DvGCyCekmCrlS3VvXa8PHfPzFoipS1wEVdam7iWC4KNRyuAo/I9vM
+	 HYMFuwHxZzQbPQnuAow/ZPt5Yn4h2NQlXOMnzh4eHad5+JLNzkHgX4SU2BLuOS2AOA
+	 KRsZqP/4+PMWQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: davem@davemloft.net,
-	edumazet@kernel.org,
-	horms@kernel.org,
-	jamesburton@meta.com,
-	kuba@kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com
-Subject: [PATCH 6.18.y] netlink: do not free nlk->groups while lockless readers can use it
-Date: Wed, 25 Nov 2026 14:23:38 -0500
-Message-ID: <20261125192338.48141-1-artem@trailofbits.com>
+Cc: Jiwoo Kim <arpe1618@gmail.com>,
+	stable@kernel.org,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] ksmbd: pin parent dentries in SMB2 CREATE ACL path
+Date: Wed, 25 Nov 2026 14:25:31 -0500
+Message-ID: <20261125192512.1244971-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112519-filing-unpaid-50b8@gregkh>
+References: <2026112519-filing-unpaid-50b8@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,202 +60,144 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@google.com>
-Date: Fri, 11 Sep 2026 16:08:04 +0000
+From: Jiwoo Kim <arpe1618@gmail.com>
 
-[ Upstream commit ceac0de741bfb47ca255eee075257b3bb31f0651 ]
+[ Upstream commit 0383a66dabd7aa06237b9b24713c03656abeffe4 ]
 
-netlink_realloc_groups() uses krealloc() under netlink_table_grab().
-Whenever NLGRPSZ(groups) lands in a different kmalloc bucket, the old
-bitmap is freed immediately.
+smb2_open() and smb_inherit_dacl() read a child's d_parent without a
+dentry reference. A concurrent SMB request can move the child and
+remove the parent while CREATE uses its inode for permission, status,
+and ACL inheritance work. A remote SMB race with concurrent opener and
+mover connections on a writable KSMBD acl_xattr share triggered an
+8-byte slab-use-after-free read in get_cached_acl on tmpfs and ext4
+KASAN guests. With oops=panic, it also caused an Oops and kernel panic
+on an ext4 guest.
 
-Two readers of nlk->groups / nlk->ngroups do not hold the netlink
-table lock:
+Take a parent dentry reference around each parent inode or ACL access
+in these paths and release it when the operation completes. Treat a
+negative parent dentry as -ENOENT for the affected operation.
 
-1) sk_diag_dump_groups(). Hashed (bound) sockets are dumped from the
-   rhashtable walk in __netlink_diag_dump(), which only holds RCU.
-   Only the mc_list part of the dump takes nl_table_lock.
+On a tmpfs KASAN QEMU guest, two 3,000-round reproducer instances
+completed without a KASAN report or Oops; SMB remained reachable. On
+an ext4 non-KASAN QEMU guest with oops=panic, a 2,000-operation no-race
+control and two 5,000-round reproducer instances completed without an
+Oops or panic. An SMB health probe still succeeded.
 
-2) netlink_native_seq_show() (/proc/net/netlink), whose walk has been
-   lockless since commit 21e4902aea80 ("netlink: Lockless lookup with
-   RCU grace period in socket release").
+OpenAI Codex assisted with finding the bug, generating the SMB race
+reproducer, drafting this fix and changelog, and running the tests.
 
-Both can read a freed buffer, and sk_diag_dump_groups() can also read
-past the end of the old (smaller) buffer if it happens to load the old
-@groups pointer together with the new @ngroups value, copying the
-result into a NETLINK_DIAG_GROUPS attribute.
-
-This is the same class of bug that commit f773608026ee ("netlink:
-access nlk groups safely in netlink bind and getname") fixed for bind()
-and getname(); these two readers were missed. Simply grabbing the table
-lock in sk_diag_dump_groups() is not an option, because it is also
-called with nl_table_lock already held from the mc_list section of the
-dump.
-
-Make the lockless readers safe instead:
-
-- Allocate a new bitmap and free the old one after an RCU grace period,
-  instead of relying on the implicit kfree() done by krealloc().
-
-- Publish @groups before @ngroups, both with release semantics, and have
-  the lockless readers load @ngroups first. A reader can then never pair
-  the new (bigger) size with the old (smaller) buffer, and a reader
-  picking up the new pointer while still seeing the old size is
-  guaranteed to see the initialized bitmap.
-
-netlink_realloc_groups() is called from process context (bind() and
-setsockopt()), so kfree_rcu_mightsleep() can be used, once the table
-has been released.
-
-Fixes: 21e4902aea80 ("netlink: Lockless lookup with RCU grace period in socket release")
-Fixes: ad202074320c ("netlink: Use rhashtable walk interface in diag dump")
-Reported-by: James Burton <jamesburton@meta.com>
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260911160804.917099-1-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-[ Backport to 6.18.y: context adjusted in netlink_native_seq_show(),
-  where 6.18.y prints sock_i_ino() with "%-8lu" instead of "%-8llu";
-  the code change is identical to upstream. ]
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@kernel.org
+Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: adjusted include list and used non-const struct mnt_idmap *idmap in smb_inherit_dacl() to match older context. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Hi,
+ fs/smb/server/smb2pdu.c | 39 +++++++++++++++++++++++++++++++--------
+ fs/smb/server/smbacl.c  |  9 ++++++++-
+ 2 files changed, 39 insertions(+), 9 deletions(-)
 
-Please apply this backport to 6.18.y. It fixes CVE-2026-98284.
-
-The fix is in 7.2.8 and in mainline since 7.3. It carries no stable tag
-and so far has been backported only to 7.2.y. The upstream commit does
-not apply to 6.18.y as a plain patch because of one context line; a
-three-way cherry-pick gives the same result as this patch.
-
-Compiled net/netlink/af_netlink.o and net/netlink/diag.o with
-CONFIG_WERROR=y on 6.18.65 from a cumulative x86_64 tree, with and
-without the current queue-6.18 patches. No kernel boot or runtime test
-was performed.
-
-An LLM was used to prepare this backport and to check applicability and
-stable-queue history; I reviewed the result.
-
-Thanks,
-Artem Dinaburg
-
- net/netlink/af_netlink.c | 42 ++++++++++++++++++++++++++++++++--------
- net/netlink/diag.c       | 20 +++++++++++++++----
- 2 files changed, 50 insertions(+), 12 deletions(-)
-
-diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
-index fb7785a59af5..e62c25865fd2 100644
---- a/net/netlink/af_netlink.c
-+++ b/net/netlink/af_netlink.c
-@@ -923,9 +923,9 @@ netlink_update_subscriptions(struct sock *sk, unsigned int subscriptions)
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index f35ce9f7c322b..d287bef38af92 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -3415,16 +3415,32 @@ int smb2_open(struct ksmbd_work *work)
  
- static int netlink_realloc_groups(struct sock *sk)
- {
-+	unsigned long *new_groups, *old_groups = NULL;
- 	struct netlink_sock *nlk = nlk_sk(sk);
- 	unsigned int groups;
--	unsigned long *new_groups;
- 	int err = 0;
- 
- 	netlink_table_grab();
-@@ -939,18 +939,37 @@ static int netlink_realloc_groups(struct sock *sk)
- 	if (nlk->ngroups >= groups)
- 		goto out_unlock;
- 
--	new_groups = krealloc(nlk->groups, NLGRPSZ(groups), GFP_ATOMIC);
--	if (new_groups == NULL) {
-+	/* Can not use krealloc(), because the old buffer might be freed
-+	 * immediately, while lockless readers (netlink diag dump and
-+	 * /proc/net/netlink) can still be looking at it.
-+	 */
-+	new_groups = kzalloc(NLGRPSZ(groups), GFP_ATOMIC);
-+	if (!new_groups) {
- 		err = -ENOMEM;
- 		goto out_unlock;
+ 			if ((daccess & FILE_DELETE_LE) ||
+ 			    (req->CreateOptions & FILE_DELETE_ON_CLOSE_LE)) {
+-				rc = inode_permission(idmap,
+-						      d_inode(path.dentry->d_parent),
+-						      MAY_EXEC | MAY_WRITE);
++				struct dentry *parent = dget_parent(path.dentry);
++				struct inode *parent_inode = d_inode(parent);
++
++				if (parent_inode)
++					rc = inode_permission(idmap, parent_inode,
++							      MAY_EXEC | MAY_WRITE);
++				else
++					rc = -ENOENT;
++				dput(parent);
+ 				if (rc)
+ 					goto err_out;
+ 			}
+ 		}
  	}
--	memset((char *)new_groups + NLGRPSZ(nlk->ngroups), 0,
--	       NLGRPSZ(groups) - NLGRPSZ(nlk->ngroups));
-+	old_groups = nlk->groups;
-+	if (old_groups)
-+		memcpy(new_groups, old_groups, NLGRPSZ(nlk->ngroups));
-+
-+	/* Publish the new bitmap and its content: pairs with the address
-+	 * dependency in lockless readers, which can pick up the new pointer
-+	 * while still seeing the old (smaller) nlk->ngroups.
-+	 */
-+	smp_store_release(&nlk->groups, new_groups);
-+
-+	/* Then publish the new size: pairs with smp_load_acquire() from
-+	 * lockless readers, so that they can not read NLGRPSZ(new ngroups)
-+	 * bytes from the old buffer.
-+	 */
-+	smp_store_release(&nlk->ngroups, groups);
  
--	nlk->groups = new_groups;
--	nlk->ngroups = groups;
-  out_unlock:
- 	netlink_table_ungrab();
+-	rc = ksmbd_query_inode_status(path.dentry->d_parent);
++	{
++		struct dentry *parent = dget_parent(path.dentry);
 +
-+	if (old_groups)
-+		kfree_rcu_mightsleep(old_groups);
-+
- 	return err;
- }
- 
-@@ -2718,12 +2737,19 @@ static int netlink_native_seq_show(struct seq_file *seq, void *v)
- 	} else {
- 		struct sock *s = v;
- 		struct netlink_sock *nlk = nlk_sk(s);
-+		const unsigned long *groups;
-+
-+		/* Lockless read : netlink_realloc_groups() can change
-+		 * nlk->groups under us. The old buffer is freed after an
-+		 * RCU grace period, and this walk is RCU protected.
-+		 */
-+		groups = READ_ONCE(nlk->groups);
- 
- 		seq_printf(seq, "%pK %-3d %-10u %08x %-8d %-8d %-5d %-8d %-8u %-8lu\n",
- 			   s,
- 			   s->sk_protocol,
- 			   nlk->portid,
--			   nlk->groups ? (u32)nlk->groups[0] : 0,
-+			   groups ? (u32)groups[0] : 0,
- 			   sk_rmem_alloc_get(s),
- 			   sk_wmem_alloc_get(s),
- 			   READ_ONCE(nlk->cb_running),
-diff --git a/net/netlink/diag.c b/net/netlink/diag.c
-index b8e58132e8af..16de6618e0be 100644
---- a/net/netlink/diag.c
-+++ b/net/netlink/diag.c
-@@ -12,12 +12,24 @@
- static int sk_diag_dump_groups(struct sock *sk, struct sk_buff *nlskb)
- {
- 	struct netlink_sock *nlk = nlk_sk(sk);
++		if (!d_inode(parent)) {
++			dput(parent);
++			rc = -ENOENT;
++			goto err_out;
++		}
++		rc = ksmbd_query_inode_status(parent);
++		dput(parent);
++	}
+ 	if (rc == KSMBD_INODE_STATUS_PENDING_DELETE) {
+ 		rc = -EBUSY;
+ 		goto err_out;
+@@ -3478,10 +3494,17 @@ int smb2_open(struct ksmbd_work *work)
+ 	if (created) {
+ 		int posix_acl_rc;
+ 		struct inode *inode = d_inode(path.dentry);
 -
--	if (nlk->groups == NULL)
-+	unsigned long *groups;
-+	unsigned int ngroups;
+-		posix_acl_rc = ksmbd_vfs_inherit_posix_acl(idmap,
+-							   &path,
+-							   d_inode(path.dentry->d_parent));
++		struct inode *parent_inode;
++		struct dentry *parent;
 +
-+	/* Hashed sockets are dumped from the rhashtable walk, which only
-+	 * holds rcu_read_lock(), while netlink_realloc_groups() can replace
-+	 * nlk->groups and nlk->ngroups at any time.
-+	 *
-+	 * Read nlk->ngroups first : this pairs with smp_store_release()
-+	 * from netlink_realloc_groups(), so that we can not use the new
-+	 * (bigger) size with the old (smaller) buffer. The old buffer is
-+	 * freed after an RCU grace period.
-+	 */
-+	ngroups = smp_load_acquire(&nlk->ngroups);
-+	groups = READ_ONCE(nlk->groups);
-+	if (!groups)
- 		return 0;
++		parent = dget_parent(path.dentry);
++		parent_inode = d_inode(parent);
++		if (parent_inode)
++			posix_acl_rc = ksmbd_vfs_inherit_posix_acl(idmap, &path,
++								   parent_inode);
++		else
++			posix_acl_rc = -ENOENT;
++		dput(parent);
+ 		if (posix_acl_rc)
+ 			ksmbd_debug(SMB, "inherit posix acl failed : %d\n", posix_acl_rc);
  
--	return nla_put(nlskb, NETLINK_DIAG_GROUPS, NLGRPSZ(nlk->ngroups),
--		       nlk->groups);
-+	return nla_put(nlskb, NETLINK_DIAG_GROUPS, NLGRPSZ(ngroups), groups);
- }
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index cf429f6bf0573..f2f4e20429611 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -7,6 +7,7 @@
+  */
  
- static int sk_diag_put_flags(struct sock *sk, struct sk_buff *skb)
+ #include <linux/fs.h>
++#include <linux/dcache.h>
+ #include <linux/slab.h>
+ #include <linux/string.h>
+ #include <linux/mnt_idmapping.h>
+@@ -1200,7 +1201,7 @@ int smb_inherit_dacl(struct ksmbd_conn *conn,
+ 	struct smb_acl *parent_pdacl;
+ 	struct smb_ntsd *parent_pntsd = NULL;
+ 	struct smb_sid owner_sid, group_sid;
+-	struct dentry *parent = path->dentry->d_parent;
++	struct dentry *parent;
+ 	struct mnt_idmap *idmap = mnt_idmap(path->mnt);
+ 	int inherited_flags = 0, flags = 0, i, nt_size = 0, pdacl_size;
+ 	int rc = 0, pntsd_type, ppntsd_size, acl_len, aces_size;
+@@ -1210,8 +1211,14 @@ int smb_inherit_dacl(struct ksmbd_conn *conn,
+ 	char *aces_base;
+ 	bool is_dir = S_ISDIR(d_inode(path->dentry)->i_mode);
+ 
++	parent = dget_parent(path->dentry);
++	if (!d_inode(parent)) {
++		dput(parent);
++		return -ENOENT;
++	}
+ 	ppntsd_size = ksmbd_vfs_get_sd_xattr(conn, idmap,
+ 					    parent, &parent_pntsd);
++	dput(parent);
+ 	if (ppntsd_size <= 0)
+ 		return -ENOENT;
+ 
+-- 
+2.53.0
+
