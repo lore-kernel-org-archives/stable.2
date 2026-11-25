@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795622758;
-	b=jP2EvUo3Dk5qz7jRcyNca3LjqZPO0ibAm7v81+v8Y3XsWgDpdsjtBQiU+ATSSOY2zwkc
-	 hfzT0Gltu827HU+lNJGPI2S0AboWRAUGjeNU7+VtvDB56EO/tgmhxvQxqwJ3bSI/oYXOL
-	 IEyAwRzFXMuADLFKV6pJXA1azoeAFFjkaGqFP2it7VaaOPmUQCT0y0P4BwW+AS30RHnrk
-	 K9syCpSkTpEk8cOeTylJSR6Dl/KvBpeMODw2/O/Xj2AHhhMAJA6PUkqifnZ1wp2DOxhfX
-	 gagbl4/WdFRka/Tg6NO4QQvu3CiJQmGS3u3VBDTNZ2q7qnzr4emhQYYGTv0FJf1iNfQ==
+	t=1795622759;
+	b=enormnvPsxfmPeytXCFS8Nvl0Zzzlw1gmlLZiRXMz2VPGqKw/0cnxhPQE/nOPn1ZjdwH
+	 84e899emOleTeAfQ4dk+klIOIYkLEwIfmAi51ByYdlVgryY8dSAtbwFWQhNmkZrSZ38D3
+	 dzVBq1fNihPLNUYKSNDt49+ie0H5A1IdpaBEjlj8ylW5DSwZv30MM7xHil2VCqBCCwPar
+	 MeIzA7alPNYmOF4v0O3MiG2ydx0wkUFD7Nb2QP3k62URAaYD8jEc/YKGa9GF80J5GIO0N
+	 Eg66dBXJreRsD71/653XuotSTpbPqehoaKzisBaD5rpPdhWWqxwgMopCrixkEpmUwbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622758;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622759;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mh9EBSoQb68f83g1fNNMXt7KE2DBZuzoF4MXsQZetIo=;
-	b=1Da2uJW3tquAJF6jqRgRAIL14DqDVttV/QYYt7gcWSiLpFny7wr2YYXYJxa0SoIRO7Ji
-	 Tv8Jl2VbeFs1aBqmaldQRQrM+me60O1fajXkn5brXg2Qat+Nom/sPqT3Ezxl8MZjEb+N/
-	 KacoCub6tmggagfMwbZZk9bAq9o1wP8/Fh8NX9caVQt6QjRor2AaO8I3dtSC4lPe2B5+T
-	 AXMd+xWOqoTybZpjCRFPl7hyvoXZPAPb6/R+KOaH5vlS7hoCpEloqZi2pvZBtTMKA9diG
-	 l+6LsBrKogAoUrNPShT3GcMuVdUsjl+S3ZlXQbZlmPjltHkZU9Sp6CKxrDeSpMGhQRg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=n+lcWk8nFXuj15CLzKZy48yFh/JghwtdCILy6VfNx+U=;
+	b=R3mLiRh35yiW7kr02vvoI0ZOOToWl8AhiIKo8CRIZv8vsY7w9nPVoNrJ10Ht+EVXHzjU
+	 tmXghewhTiyaTW3eL7RiYzapR+VSZKETtK7Y2P78SeqIZcWTrya7s6QMWQRMiwhQvxtaq
+	 du2Dy9aopuxe3JwsRCHDXpSOt/dtnJLvkijDjdS9q0ERAJtQiuOXo/fj8dxbItACRqekp
+	 dF7Sss/2X+MethejMtgLpu2thC8lndIK9KaD6nnLsrZlyAy4eNhPqYgpPReykj2FtrF4J
+	 Lr56pLiUCc2dKhu3Z26MsU71ikLZMTuOeYDD90MdtQUR0uqxWGzQUayUL/Q4QcVbEQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tC3KBU60;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J6WZkdRK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F685606A31E;
-	Wed, 25 Nov 2026 16:05:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75DEF606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:05:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tC3KBU60
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AE0D1F000C4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J6WZkdRK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC971F000CF;
 	Wed, 25 Nov 2026 16:05:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795622758;
-	bh=mh9EBSoQb68f83g1fNNMXt7KE2DBZuzoF4MXsQZetIo=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795622759;
+	bh=n+lcWk8nFXuj15CLzKZy48yFh/JghwtdCILy6VfNx+U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=tC3KBU60+Ug151IbBtA25NxUAaMWnmNla3yPaeShee9fECSCDHC+pKg13u9F4kgtk
-	 nnsspKkFm6jmt8tAPk9qzMRydA/u7GtOw+qDW/xXLxptqqeoINrsmg18Kq/jE+J2st
-	 gEpQmOJ6tIKX+AXDiGsIV0q6FrqnsgH67+/Lc5UA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=J6WZkdRK6chx67yAaEyapkIv52nbSf8QhgEPivl70X71CGxBicQceQfnoJ5jvBPaJ
+	 t0jffxfC8JwcN4s1Cg8phUqo7srLbbaPiX4sPN5WqoQhegmTVwpivG8g+ka7WgY+4U
+	 8Mau63B5fzEL4T6HD55DdJ2AE0KCHUIyPhDpv4L4Sj2LfdDsjpuMjHWrNLNkRVDgWu
+	 esWA47rSHYRyAElViRgSgwWm08FCi/647etjWCC30suJTd4LhO4qbpZ0dBE2JRKeT2
+	 L7PpJRamWeOY9FGSUYshUEW+mTpnrhk6oJSFLFnhxf3qknMUUN50zg5brEzAPs01rf
+	 RhRiTSi2DKyPA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Dudu Lu <phx0fer@gmail.com>,
+Cc: Eric Dumazet <edumazet@kernel.org>,
+	syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	Naman Gulati <namangulati@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 636/990] net-sysfs: reject a one-entry RPS flow table
-Date: Wed, 25 Nov 2026 15:33:23 +0100
-Message-ID: <20261125143836.991983142@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.6.y] net: wait for in-flight device unregistrations before netns dismantle
+Date: Wed, 25 Nov 2026 11:05:56 -0500
+Message-ID: <20261125160533.661169-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112529-elephant-appendix-fdec@gregkh>
+References: <2026112529-elephant-appendix-fdec@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,65 +64,160 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Eric Dumazet <edumazet@kernel.org>
 
-------------------
+[ Upstream commit c164a431a646983275d0076ff5b0e4c326fbc10b ]
 
-From: Dudu Lu <phx0fer@gmail.com>
+A device can be unregistered by a context other than the cleanup_net()
+of its own netns, for instance a veth whose peer in another netns is
+deleted. If references on it are still held, it stays in
+netdev_wait_allrefs_any(), which rebroadcasts NETDEV_UNREGISTER every
+second.
 
-[ Upstream commit 24927bdf0f62f63470a065c21d80fff7e4e9f207 ]
+Meanwhile its netns can be dismantled: default_device_exit_batch()
+only takes care of devices still listed in the netns, then pernet exit
+handlers free their state, and finally struct net is freed while the
+device still points to it.
 
-store_rps_dev_flow_table_cnt() accepts rps_flow_cnt == 1.  For count == 1
-the round-up loop leaves mask == 0, which is stored as log == 0 in the
-tag (tag_ptr |= ilog2(mask) + 1).  get_rps_cpu() then calls
-rfs_slot() -> hash_32(hash, rps_tag_to_log(tag_ptr)) with log == 0:
+The rebroadcasts then run notifiers against torn down pernet state, or
+freed memory. Three instances were reported so far:
 
-  include/linux/hash.h:68
-	return __hash_32(val) >> (32 - bits);   /* bits == 0 -> shift by 32 */
+ - netdev_genl_netdevice_event(): net->genl_sock is NULL [1]
+ - nh_netdev_event(): net->nexthop.devhash is NULL [2]
+ - nf_tables netdevice notifiers: use-after-free of the nftables
+   pernet storage [3]
 
-The shift by 32 is undefined and yields the full 32-bit hash, which is
-used to index the one-entry rps_dev_flow[] table unchecked:
+but any notifier using dev_net(dev) is affected, as is
+netdev_wait_allrefs_any() itself (__rtnl_net_lock(dev_net(dev)) with
+CONFIG_DEBUG_NET_SMALL_RTNL=y).
 
-  UBSAN: shift-out-of-bounds in ./include/linux/hash.h:68:24
-  shift exponent 32 is too large for 32-bit type 'unsigned int'
-   __ubsan_handle_shift_out_of_bounds+0x11c/0x208
-   get_rps_cpu+0x12fc/0x1344
-   netif_rx_internal+0x1e0/0x4d4
+This was prevented by rtnl_lock_unregistering() until I removed it
+in commit 8a4fc54b07d7 ("net: get rid of rtnl_lock_unregistering()"),
+considering only the loopback dependency, and missing the notifiers one.
 
-rps_dev_flow[] is then read (rflow->cpu) and written (last_qtail) out of
-bounds on the packet path.  Require at least two entries.
+Restore a per-netns counter of devices sitting in netdev_run_todo(),
+and make default_device_exit_batch() wait for it to reach zero, after
+it has unregistered all devices of the dying netns(es). At this point
+no new unregistration can be started for these netns.
 
-Fixes: f3483c8e1da6 ("net: rfs: hash function change")
-Signed-off-by: Dudu Lu <phx0fer@gmail.com>
-Link: https://patch.msgid.link/20261021155522.67521-1-phx0fer@gmail.com
+Unlike the old barrier, this only waits for devices of the netns being
+dismantled and runs after their own devices are gone.
+
+Tested on a KASAN kernel with a debug-only hack holding a reference
+on a veth device for 5 seconds after its unregistration: a nexthop
+on the veth in netns X, delete its peer from init_net, then delete X.
+Without this patch, the nexthop_flush_dev() null-ptr-deref from [2]
+triggers. With it, no splat; netns churn and dismantle of a netns
+whose own device is held still work.
+
+[1] https://lore.kernel.org/netdev/6adf9f64.6200f071.51519.0ed1.GAE@google.com/
+[2] https://lore.kernel.org/netdev/20261105114707.3030737-1-bsdhenrymartin@gmail.com/
+[3] https://lore.kernel.org/netdev/20261105114817.3033625-1-bsdhenrymartin@gmail.com/
+
+Fixes: 8a4fc54b07d7 ("net: get rid of rtnl_lock_unregistering()")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/netdev/6adf9f64.6200f071.51519.0ed1.GAE@google.com/
+Reported-by: Henry Martin <bsdhenrymartin@gmail.com>
+Closes: https://lore.kernel.org/netdev/20261105114707.3030737-1-bsdhenrymartin@gmail.com/
+Closes: https://lore.kernel.org/netdev/20261105114817.3033625-1-bsdhenrymartin@gmail.com/
+Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+Reviewed-by: Naman Gulati <namangulati@google.com>
+Link: https://patch.msgid.link/20261105144543.1624238-1-edumazet@kernel.org
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Context lines adapted to the older overflow checks and vmalloc code; the added if (!mask) return -EINVAL; block is otherwise identical to upstream. ]
+[ sashal: Reused the existing per-netns dev_unreg_count instead of adding dev_unreg_pending, and dropped the rtnl_net_flush_workqueue() call, which doesn't exist here. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/core/net-sysfs.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ net/core/dev.c | 37 ++++++++++++++++++++++++++++++++++---
+ 1 file changed, 34 insertions(+), 3 deletions(-)
 
-diff --git a/net/core/net-sysfs.c b/net/core/net-sysfs.c
-index 3a3a92f3a314c..e408f0b6786b7 100644
---- a/net/core/net-sysfs.c
-+++ b/net/core/net-sysfs.c
-@@ -1101,6 +1101,14 @@ static ssize_t store_rps_dev_flow_table_cnt(struct netdev_rx_queue *queue,
- 		 */
- 		while ((mask | (mask >> 1)) != mask)
- 			mask |= (mask >> 1);
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 95beb4b402d0c..bc92801822a4c 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -9837,6 +9837,13 @@ static void net_set_todo(struct net_device *dev)
+ 	atomic_inc(&dev_net(dev)->dev_unreg_count);
+ }
+ 
++/* Paired with net_set_todo(). @net must not be used after this call. */
++static void net_unreg_done(struct net *net)
++{
++	if (atomic_dec_and_test(&net->dev_unreg_count))
++		wake_up(&netdev_unregistering_wq);
++}
 +
-+		/* Require at least two entries. A one-entry table rounds up
-+		 * to mask == 0, which encodes log == 0 in the tag.
-+		 * get_rps_cpu() then computes hash_32(hash, 0), a shift by 32.
-+		 */
-+		if (!mask)
-+			return -EINVAL;
+ static netdev_features_t netdev_sync_upper_features(struct net_device *lower,
+ 	struct net_device *upper, netdev_features_t features)
+ {
+@@ -10695,6 +10702,7 @@ void netdev_run_todo(void)
+ 		if (unlikely(dev->reg_state != NETREG_UNREGISTERING)) {
+ 			netdev_WARN(dev, "run_todo but not unregistering\n");
+ 			list_del(&dev->todo_list);
++			net_unreg_done(dev_net(dev));
+ 			continue;
+ 		}
+ 
+@@ -10705,8 +10713,11 @@ void netdev_run_todo(void)
+ 	}
+ 
+ 	while (!list_empty(&list)) {
++		struct net *net;
 +
- 		/* On 64 bit arches, must check mask fits in table->mask (u32),
- 		 * and on 32bit arches, must check
- 		 * RPS_DEV_FLOW_TABLE_SIZE(mask + 1) doesn't overflow.
+ 		dev = netdev_wait_allrefs_any(&list);
+ 		list_del(&dev->todo_list);
++		net = dev_net(dev);
+ 
+ 		/* paranoia */
+ 		BUG_ON(netdev_refcnt_read(dev) != 1);
+@@ -10721,11 +10732,10 @@ void netdev_run_todo(void)
+ 		if (dev->needs_free_netdev)
+ 			free_netdev(dev);
+ 
+-		if (atomic_dec_and_test(&dev_net(dev)->dev_unreg_count))
+-			wake_up(&netdev_unregistering_wq);
+-
+ 		/* Free network device */
+ 		kobject_put(&dev->dev.kobj);
++
++		net_unreg_done(net);
+ 	}
+ }
+ 
+@@ -11913,6 +11923,17 @@ static void __net_exit default_device_exit_net(struct net *net)
+ 	}
+ }
+ 
++static bool __net_exit netns_dev_unreg_pending(const struct list_head *net_list)
++{
++	struct net *net;
++
++	list_for_each_entry(net, net_list, exit_list) {
++		if (atomic_read(&net->dev_unreg_count))
++			return true;
++	}
++	return false;
++}
++
+ static void __net_exit default_device_exit_batch(struct list_head *net_list)
+ {
+ 	/* At exit all network devices most be removed from a network
+@@ -11940,6 +11961,16 @@ static void __net_exit default_device_exit_batch(struct list_head *net_list)
+ 	}
+ 	unregister_netdevice_many(&dev_kill_list);
+ 	rtnl_unlock();
++
++	/* Devices of these netns unregistered from another context
++	 * (e.g. a veth whose peer was deleted) can still be waiting
++	 * in netdev_run_todo() for their last references, while
++	 * NETDEV_UNREGISTER is rebroadcast for them. Wait for them
++	 * before pernet exit handlers tear down the state used by
++	 * netdevice notifiers, and before the netns is freed.
++	 * No new unregistration can start: all devices are unlisted.
++	 */
++	wait_event(netdev_unregistering_wq, !netns_dev_unreg_pending(net_list));
+ }
+ 
+ static struct pernet_operations __net_initdata default_device_ops = {
 -- 
 2.53.0
-
-
 
