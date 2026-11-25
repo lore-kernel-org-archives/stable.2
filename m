@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795623891;
-	b=URN0+RQ1GZ9RNbU9URTSCtCumz80YpbS5coYrvUnvEtZVS4shLcdzX7jREXSmmJCRmvm
-	 SiLi92+9EDCE4O+90XG5qxNnJLeG35lGXhyYq4Bk+1fZlyz54IxN8YYsG6WvLFYZdKkLJ
-	 9e8mwMplEWSeOtT2jdQo5YZ8rLRVnBTrvYMBv86O9HRLVT+UgBtpBK2C2ScEkGeM3h0lI
-	 kKvNQGSDCQ97+QrVdQhWIa6Bl/HI2mVTLw1To9HRQAcYR7zEahtf2E4RpYINOUi2iXTsI
-	 PRtQXsksNobg0uRMC/vr5IE4F+bhLF2Z/HnWlrSMYVhlTrLH1V4cNNr65GsElAR5e/g==
+	t=1795623893;
+	b=bsQ8oHYsQqs0WUauC6XPS+APjGyu3dRQ5NAx/2gmd1r/ZhPw5eeYb+3QzO0Q2H4IF9kJ
+	 9xTrYetoBBVcOJIx7IqTd/r2zxRedYYfRmw0ReEZqs2qot54/Pu7hYgiQTDwzJZnKWF2W
+	 PvKF0ARZUstCXfFXRfltT1ZfvrMcjzBsH8u8HmhQ9ht9uRUcz0sjsr6ZfQs5zTgQIW8UY
+	 PLNEq/mAr7mqvEgQxqotushmVpvmdUPbD4GkHmVnd7Ss1I/0CIBY3jyX8vyhEdBg2lCuN
+	 l3J5x4HuCuRkXEWFXyqoZl+qB978Edtil+fRc+LxQgph4C0j41HTiUbL35VTpCK9mwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795623891;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795623893;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ma4mzjWhpShyDpQPNe0brUgZT5jpL3fvyQdIJKmPY9c=;
-	b=D7J71Zy06cR0bkSFA3/8afqPVza8EszJH0DZ7RHtN43O4ZckSfOLKHSTptlhX3tajaKi
-	 eLHjTPw1DiU/E9Y7/8AxtMFJY+pIxdxr7YSW7MpYLUMULihwQssiCj1mobi0fIMa6Xfet
-	 w2ueUTGiR6Y/6RmQQfM7xJXeAiKVr0fsogDGFqFPnZnD9Jia8CpJdUMje+AvQb8sqTgZc
-	 UGG7XrwKAKaSlRVne+p+Aek5FBAyX0ISnWvZ5lNVfPPYZPI8q11LO2vsKI8sFVro0Hyxb
-	 yC7FUoSCbNLskV8OOwGAhnK3cq1cVdFqiprdzkBd8GoKr1UHFmWVU/2N0PoKJ5WbpcA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=EKwhLGSrPM6ieQodp5aYXMn7gIDTiCt6yJFgzHne0go=;
+	b=jD1YInZEFDPHQkaNRX0mD7NSKVNOhx3VZ2uwRKQBkbqLjN/szbWojsytbxuGuCC/+Kh5
+	 Lt4622YxHGbo7lZ7aYo/yvkITYA6i0OBYTcRM0uV3ZfILzz4QbzU9SGMCcka/0sTnm/SO
+	 5p4FrmvHJkt+wfzNofL5+8zDmovDf5EAT0MPBFyBYvXOR8ciTRCrAjzpqzHnc6gKKtVFo
+	 LlX9ELU/E1RtDbe7vuuKiLLAccR4Ccv6P3ZGipt2NRejQiYMCn1dFqB7BE7Q0ingvetdD
+	 rPMLx9ozNeGf5FiVJS8LHOWORTfer9dC6OvErgu6s0tl3EpSNghvdbwcZdBv7kb7NYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PIxGMZLf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XVsTINRB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1360606A323;
-	Wed, 25 Nov 2026 16:24:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C934C606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:24:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PIxGMZLf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 176A21F000CF;
-	Wed, 25 Nov 2026 16:24:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795623890;
-	bh=ma4mzjWhpShyDpQPNe0brUgZT5jpL3fvyQdIJKmPY9c=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XVsTINRB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F2561F000C0;
+	Wed, 25 Nov 2026 16:24:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795623893;
+	bh=EKwhLGSrPM6ieQodp5aYXMn7gIDTiCt6yJFgzHne0go=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PIxGMZLfKna3QquO0SBtIfOLZxpTlpC9nVo6bjmz3mv4syNofWAsCnpVujCNDV2qP
-	 7gc7xyzgJQ6MvBGb4/Z+AxPHXMeNYaf88F+Up98mKPsIHOJa0/kukBQZ437b9w9gyN
-	 9kDGocVNcKG7Xdh5Tb2mEV2ntOIWrDlmx5UoYcJQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=XVsTINRBSeEHu9Sz+jlVQXMSLCgvyLBVGBLU2+qIHphHPqehWTXc/lGQkCx7XI5y0
+	 POg+6GNXN9iWTbbXbDcT+Ebz43xnkYTXCT16xUduAJ6DiTYxx2AySQ/nMiQeKG6xQq
+	 IFiMxTb7UY5rfREN4OSnUW4NUwUFtjFnL6fR5NGeHfUlzp37M9u2BwLY7BZhW2qGD1
+	 0QOaF5PFjxKQhW5qVumXmEZoC1IBOu2nxKMmBTdUBFfDo6nbt4ANO4ySIVrU37hWGu
+	 w7+11oHaHV06iLEhDEDpWdvNIUCs6tiSTYJZW+umahUGKqBOMu6I5WT/lhw4csB7nN
+	 wPV/dcWs3tLFw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	Florent Carli <fcarli@gmail.com>,
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Julia Lawall <julia.lawall@inria.fr>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 018/816] sched: Provide idle_rq() helper
-Date: Wed, 25 Nov 2026 15:26:06 +0100
-Message-ID: <20261125143849.638065032@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
-References: <20261125143849.205329330@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.10.y 1/2] cpufreq: intel_pstate: Clear HWP desired on suspend/shutdown and offline
+Date: Wed, 25 Nov 2026 11:24:50 -0500
+Message-ID: <20261125162445.772981-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112549-wobble-pastor-7c26@gregkh>
+References: <2026112549-wobble-pastor-7c26@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,130 +61,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-------------------
+[ Upstream commit dbea75fe18f60e364de6d994fc938a24ba249d81 ]
 
-From: Peter Zijlstra <peterz@infradead.org>
+Commit a365ab6b9dfb ("cpufreq: intel_pstate: Implement the
+->adjust_perf() callback") caused intel_pstate to use nonzero HWP
+desired values in certain usage scenarios, but it did not prevent
+them from being leaked into the confugirations in which HWP desired
+is expected to be 0.
 
-commit 1e0a2ba7afb1b60f02599093d84b72ce62ad11c0 upstream.
+The failing scenarios are switching the driver from the passive
+mode to the active mode and starting a new kernel via kexec() while
+intel_pstate is running in the passive mode.
 
-A fix for the dl_server 'requires' idle_cpu() usage, which made me
-note that it and available_idle_cpu() are extern function calls.
+To address this issue, ensure that HWP desired will be cleared on
+offline and suspend/shutdown.
 
-And while idle_cpu() is used outside of kernel/sched/,
-available_idle_cpu() is not.
-
-This makes it hard to make idle_cpu() an inline helper, so provide
-idle_rq() and implement idle_cpu() and available_idle_cpu() using
-that.
-
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-[ Florent: rq->ttwu_pending only exists with CONFIG_SMP in 6.12 ]
-Signed-off-by: Florent Carli <fcarli@gmail.com>
+Fixes: a365ab6b9dfb ("cpufreq: intel_pstate: Implement the ->adjust_perf() callback")
+Reported-by: Julia Lawall <julia.lawall@inria.fr>
+Tested-by: Julia Lawall <julia.lawall@inria.fr>
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Stable-dep-of: 02e77af824d5 ("cpufreq: intel_pstate: Clear last written P-state value on suspend")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/sched.h   |  1 -
- kernel/sched/sched.h    | 28 ++++++++++++++++++++++++++++
- kernel/sched/syscalls.c | 32 +-------------------------------
- 3 files changed, 29 insertions(+), 32 deletions(-)
+ drivers/cpufreq/intel_pstate.c | 32 ++++++++++++++++++++++++++++++--
+ 1 file changed, 30 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 7f0fb62df348e..efee6139c6af6 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -1895,7 +1895,6 @@ static inline int task_nice(const struct task_struct *p)
- extern int can_nice(const struct task_struct *p, const int nice);
- extern int task_curr(const struct task_struct *p);
- extern int idle_cpu(int cpu);
--extern int available_idle_cpu(int cpu);
- extern int sched_setscheduler(struct task_struct *, int, const struct sched_param *);
- extern int sched_setscheduler_nocheck(struct task_struct *, int, const struct sched_param *);
- extern void sched_set_fifo(struct task_struct *p);
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 598dd26fe5a69..27de9290235e7 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1390,6 +1390,34 @@ static inline u32 sched_rng(void)
- #define cpu_curr(cpu)		(cpu_rq(cpu)->curr)
- #define raw_rq()		raw_cpu_ptr(&runqueues)
+diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstate.c
+index 546c582787f21..fd8c1192c57dd 100644
+--- a/drivers/cpufreq/intel_pstate.c
++++ b/drivers/cpufreq/intel_pstate.c
+@@ -908,9 +908,16 @@ static void intel_pstate_hwp_offline(struct cpudata *cpu)
+ 		 */
+ 		value &= ~GENMASK_ULL(31, 24);
+ 		value |= HWP_ENERGY_PERF_PREFERENCE(cpu->epp_cached);
+-		WRITE_ONCE(cpu->hwp_req_cached, value);
+ 	}
  
-+static inline bool idle_rq(struct rq *rq)
-+{
-+	if (rq->curr != rq->idle || rq->nr_running)
-+		return false;
-+#ifdef CONFIG_SMP
-+	if (rq->ttwu_pending)
-+		return false;
-+#endif
-+	return true;
-+}
++	/*
++	 * Clear the desired perf field in the cached HWP request value to
++	 * prevent nonzero desired values from being leaked into the active
++	 * mode.
++	 */
++	value &= ~HWP_DESIRED_PERF(~0L);
++	WRITE_ONCE(cpu->hwp_req_cached, value);
 +
-+/**
-+ * available_idle_cpu - is a given CPU idle for enqueuing work.
-+ * @cpu: the CPU in question.
-+ *
-+ * Return: 1 if the CPU is currently idle. 0 otherwise.
-+ */
-+static inline bool available_idle_cpu(int cpu)
-+{
-+	if (!idle_rq(cpu_rq(cpu)))
-+		return 0;
-+
-+	if (vcpu_is_preempted(cpu))
-+		return 0;
-+
-+	return 1;
-+}
-+
- #ifdef CONFIG_SCHED_CORE
- static inline struct cpumask *sched_group_span(struct sched_group *sg);
+ 	value &= ~GENMASK_ULL(31, 0);
+ 	min_perf = HWP_LOWEST_PERF(cpu->hwp_cap_cached);
  
-diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index b51b39a109e01..f31fcdcfe6734 100644
---- a/kernel/sched/syscalls.c
-+++ b/kernel/sched/syscalls.c
-@@ -201,37 +201,7 @@ int task_prio(const struct task_struct *p)
-  */
- int idle_cpu(int cpu)
- {
--	struct rq *rq = cpu_rq(cpu);
--
--	if (rq->curr != rq->idle)
--		return 0;
--
--	if (rq->nr_running)
--		return 0;
--
--#ifdef CONFIG_SMP
--	if (rq->ttwu_pending)
--		return 0;
--#endif
--
--	return 1;
--}
--
--/**
-- * available_idle_cpu - is a given CPU idle for enqueuing work.
-- * @cpu: the CPU in question.
-- *
-- * Return: 1 if the CPU is currently idle. 0 otherwise.
-- */
--int available_idle_cpu(int cpu)
--{
--	if (!idle_cpu(cpu))
--		return 0;
--
--	if (vcpu_is_preempted(cpu))
--		return 0;
--
--	return 1;
-+	return idle_rq(cpu_rq(cpu));
+@@ -2723,6 +2730,27 @@ static int intel_cpufreq_cpu_exit(struct cpufreq_policy *policy)
+ 	return intel_pstate_cpu_exit(policy);
  }
  
- /**
++static int intel_cpufreq_suspend(struct cpufreq_policy *policy)
++{
++	intel_pstate_suspend(policy);
++
++	if (hwp_active) {
++		struct cpudata *cpu = all_cpu_data[policy->cpu];
++		u64 value = READ_ONCE(cpu->hwp_req_cached);
++
++		/*
++		 * Clear the desired perf field in MSR_HWP_REQUEST in case
++		 * intel_cpufreq_adjust_perf() is in use and the last value
++		 * written by it may not be suitable.
++		 */
++		value &= ~HWP_DESIRED_PERF(~0L);
++		wrmsrl_on_cpu(cpu->cpu, MSR_HWP_REQUEST, value);
++		WRITE_ONCE(cpu->hwp_req_cached, value);
++	}
++
++	return 0;
++}
++
+ static struct cpufreq_driver intel_cpufreq = {
+ 	.flags		= CPUFREQ_CONST_LOOPS,
+ 	.verify		= intel_cpufreq_verify_policy,
+@@ -2732,7 +2760,7 @@ static struct cpufreq_driver intel_cpufreq = {
+ 	.exit		= intel_cpufreq_cpu_exit,
+ 	.offline	= intel_pstate_cpu_offline,
+ 	.online		= intel_pstate_cpu_online,
+-	.suspend	= intel_pstate_suspend,
++	.suspend	= intel_cpufreq_suspend,
+ 	.resume		= intel_pstate_resume,
+ 	.update_limits	= intel_pstate_update_limits,
+ 	.name		= "intel_cpufreq",
 -- 
 2.53.0
-
-
 
