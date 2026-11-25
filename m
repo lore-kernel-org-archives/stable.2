@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603213;
-	b=BJ13MIy64ykEYYVFC/XuiFRJbLKh7DqaV/o3H3vfbD3KCOMAcxsSyJkZ6YjKe1NBSooI
-	 Ps96lR8qZD+YGxy3kLt4ww6MnL7a16N8GPtnpvWqMectnwAB9GxxGvMuXvdrl3pWeE8s5
-	 K5h5Mhbn8nuM6hB+WD+Vbcst0PuKamR6AJvLXN2YS/TdHJN3xslsNh3EGuP7NnWutvfTF
-	 WWPsClmX9rDBouYtBnAE8uCoLQ3aDTUNnTIH712O5eYHfQAruyGaWaQrssbS8siLUnZaN
-	 ZxDKTC+suEhyi5TxLw+D+a3qdn30nboCKzo61oLg8iRzNYu0gtX5c7YQfugsoz0NcpQ==
+	t=1795603216;
+	b=HilVkldTGZsvg2B4j39i3bqjLtDPM0PYNaKjQIYI05DOIb7tF9gp6nPSCs5JpZCYn9lE
+	 jKPY4hMiRQKymxwNNsMIW8yblZ7v5rLz8xWooNCREHa7d0pQpdkW47bGHOpcMJaJqypHv
+	 WOnEKqPoH8Inf528yRiNzKHR7Np7RgnAqDlbIQQhoURpo3r7r1bToFPm8McoouvVUo3OS
+	 3Y7bcIxVD7W6DqA8cMEvYSx6OF4q7eMq4uS1Qg5CVLerHrbc1542VwAaupvPXK5jVvUPB
+	 6LbiaTs5hujE98y5GsRyl5YzuS65Nj6x1QZ+xiTRQZn8rphEJd3d35o7haXpNU/FinQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603213;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603216;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pR06fffBSa4/KTKMPF7qPtZ187JR6Lva82Iuee2Bl40=;
-	b=DttexGknInIsHXmhV++BpxPrwlGbVMcLC9QGsI7njrhVHiCMWzXnjfMHuFMB6UWuq7fr
-	 1Nvv+O7OgUlvGtWGQoUt2sNPoaX7jQ6bqhmZ0MPAS/uQH+TJAlo/M0DGWAe9ylKtIKFVR
-	 8NibuzH+BTG0UcMcLblj3xIp5QW1XNyNMmGz70bioVG+GTgysyEc/QxOzrtkJWnsVo2CE
-	 1FuQFqQLOk9WliR1bgPqwyWrYks4c4ZuPsZ9Sub0+lVDQpuE1YCUzhq4ShtIw2ARpMBB5
-	 VitXgU2t2HfCgrg08CNZ0g4O2Yt12XwosBQaiev+e/0blKHiPMD5j8ao3xdZ88zI2dQ==
+	bh=QoKTTqVT3Ql3gGt1pfGOrDGPzKrNQ4YG4m5bw+2gldA=;
+	b=Aq7cgViT3I3I1OVMBWFZD/u6nhGygQuBCoH261D39lU8Y/kmuUypmnIriunvAP57l2sk
+	 cs10t3ZWI/oEzbuxHpMzusa5IoXfhB5JOfaReIhNxVxkGdkitVkFexoJ1IsJ26qPSZb0Z
+	 LGRs/rPmINhalZbJAIBqUvB0ca/MHwb9UaL+EoyH6d6w41jNm+7PEr4negHNn44oBKFS2
+	 8DviHrryds+U/8qEhZdlJjlPOb1ndBV6eRxBhHYbnUObbuc6SezFLKRF1Vk817yul6gqG
+	 In7+t6ZmagbbERP+X2nTJoy0nVqlbXXpXLnHbiGhdHlUnoVCX5w30vTltonekTYJtlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Be2FoaA5;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Pp9hb4lO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1CE606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:40:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091D2606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:40:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Be2FoaA5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B38D1F000C4;
-	Wed, 25 Nov 2026 10:40:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Pp9hb4lO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5975A1F000C0;
+	Wed, 25 Nov 2026 10:40:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603213;
-	bh=pR06fffBSa4/KTKMPF7qPtZ187JR6Lva82Iuee2Bl40=;
+	s=korg; t=1795603215;
+	bh=QoKTTqVT3Ql3gGt1pfGOrDGPzKrNQ4YG4m5bw+2gldA=;
 	h=Subject:To:Cc:From:Date;
-	b=Be2FoaA57uhbMCnwxLNzXTWz+fSEIm7IMNdQW+7tyOThua1GdzKIgo22PbpmXC7E9
-	 V/Bwnpb4hv/PgZ1jQP3igWKiEzAZVqbCwDsCtrWA3AV0adcBDjm9xQaWXkh9Kdwddy
-	 V31t9XZUzAWQzFdmUd/UzknE1kO6FnrMRVz4+dyA=
-Subject: FAILED: patch "[PATCH] wifi: mac80211_hwsim: ignore non-generic netlink releases" failed to apply to 6.18-stable tree
+	b=Pp9hb4lOWNjS/AF/lYnwg067BEE2tJ1+XBGzjykgeggaUEJmEUonPRvS4cqvrrgCv
+	 yLCaTJ0Nto46nl3A13FHo+vcbK8Af8kMcvP4UmfKSm+GNtJQj8cLTU5ycane2ZmRgg
+	 SGm78gcpTQwLsQWBEL+tWHQnlyjbnQL5xVGSi0I8=
+Subject: FAILED: patch "[PATCH] wifi: mac80211_hwsim: ignore non-generic netlink releases" failed to apply to 5.15-stable tree
 To: enderaoelyther@gmail.com,johannes.berg@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:30:24 +0100
-Message-ID: <2026112524-postnasal-bullion-f08c@gregkh>
+Date: Wed, 25 Nov 2026 11:30:25 +0100
+Message-ID: <2026112525-context-bulk-d4fc@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 989f47c56e48d442d79497a25ed946d029c4dc53
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112524-postnasal-bullion-f08c@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112525-context-bulk-d4fc@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
