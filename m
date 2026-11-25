@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795621201;
-	b=4+ySgP/GTWpwxjhE1g+olLvUwMMTC2w436MWUUQDJaapFqZIVEiAzvzxpEa2jHcBhMKr
-	 UDTpty5gYyYV0umrIi+SQKf4LSJsegfW0O+YMU+a1Jbe6uPET0pLz3r6Zc6GKcna9fKC7
-	 /E1Ru8hLrMasNs+gcQKvtNpQSMVPWCiD+WBpqL8IwGG6tTQG8DPhvqPmNvQhev2F3bhOv
-	 0AvYb/paVUOn4GdWsMsBtmVLirkvbyb9BtNH08wdVXDXr/SOW1oRtUqynBF/VPX+lsBAe
-	 7yrd1+PcgtMHHx2vDFahGbLDsmDeGTmQdCoEJ5EKBE83mBFTT0mNJAJz4X9tQrvOxbQ==
+	t=1795621202;
+	b=ajyPeJYRMBtv5U6ISsxXuW3tpZa1+iEmaFp8Hjdhijil9ehkc/s0EwcNdBL7x3XfkntW
+	 EUkYta/0ua1+J1aorKIeRMdyekfBBgk/ZtfaFi9Bfymqrt9Ngxli8+mOVskiMt5qH72f+
+	 0erYkoUEG9ErY6VWLbjv85nZqP76FmMOnTu6DwOxle6ID+yEH20HLTKfJz+oE5BmVjq+N
+	 4K9R9yChkPpKONm4pfXWz1ilG2yiCHTCsbf6f48XUHPN9EMoF8yhtNN7TqnOTptFHKqjM
+	 9x/8zvSrXSAr1VDBxQAQ6J2M08EN2Bt31LPyuxdHD3cp9HBozBGCCrbBKy36bbh6vHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795621201;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795621202;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=66ZeZ1/CYrb4zSP8xui2/DsDjALzq4RYSlVogetHf4k=;
-	b=fRtI0iXUX549rmz/9FzYg9eQsqmsMF4KjYCXz0EDStXzvhev/+PHZrcHnPv0db7C6Uzl
-	 lgcaXGdbHm7bgE08SBAkcjT55AYiZuLeJ1x4GYgPuhEKpDrCYj1pJSELShL6+ikqvymoj
-	 UjvOt5ioiHjZhjxxRQeWqZhTN2JYi4LzYBABYXE7tdBhmCBkPvJHz1yNWc7gs3VRmAFEh
-	 Ifn4Rxxr3RQseWK3Ib1/kDEiQzaOgkYYdefFbnyu6wirYwHUj8Al1sfnulOeIf0yUPmaC
-	 6o8je8SIkg6rCz5Xg9yh9L9m/yHD1+KHkKLBBtZ9Gfq2y414JX0oFd/0nC000bYPUlA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=TZUELQMD0BFljWicUL80pL3XG+bxCmlOhhwZYU9CTpU=;
+	b=pEBJjiGI9azZencwVjRdGojRIhMElRIM4ulAtjVuJlqPKPdH69ecfNrjdifMa+0K1+K1
+	 xLyWWtQuVERCvO9a1jOm1+KodlX5AlX6Gle7QN3td7Su58yTdlXhdefSzXfcvBdSK/KRf
+	 dfuQ/32kcP85m4NkVH9BYBzkKC4OcivWlFcPg20556ftT0foMYw6Z/kNzM+//Gu9W2P4H
+	 i+N3egXMgfAoCanMT0QNiZaX+FWJYGjC08P5u2NrTwTuOjKqaNUvK3tlpJkIRkqaPoSkg
+	 QVjM6nRScedHEVa76nFdrH45ffd8sDskxMxY9J4g7hx+2wRXLQ2EBo2ANKunOmpaobw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HFIvuBCM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SoF1lIL2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096C8606A696;
-	Wed, 25 Nov 2026 15:40:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 835AB606A32C
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:40:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HFIvuBCM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3619E1F000C0;
-	Wed, 25 Nov 2026 15:40:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795621200;
-	bh=66ZeZ1/CYrb4zSP8xui2/DsDjALzq4RYSlVogetHf4k=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SoF1lIL2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 232B11F000C6;
+	Wed, 25 Nov 2026 15:40:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795621202;
+	bh=TZUELQMD0BFljWicUL80pL3XG+bxCmlOhhwZYU9CTpU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HFIvuBCMOXDgGw0QbrqJx6NHs6RpLS9BRGbUs/bVeueS3moHSAgRRHbaJMOmFQMk9
-	 0jBi424GXXb/WXmfFFoCntTGu+cHfQ285/sfMpE6mckRy2ojPe7qhtx1vnrcY8KjJx
-	 KaXOZFKsOec/pJpNBdApKKSGI4xHtONEVTiqg+20=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=SoF1lIL2vOTnoaUvb6L5XW48DUvw0WhtCcGm5TW3RP8fa8Zkg47pYgbYRXO3m0yDy
+	 tiSn2O5b/Jiw9d8sz3VTf4aKVc3vUnr0YhcOovHmg8auxuPffHTEEyczgCv7gFx61c
+	 jgL+OC6RWMJYBL3p7XEhMhhvMS3uameYklQtNKdtGGnZF6LRaV0T/ocC+zpa050HL2
+	 P32vyNV+a7AHBHaTR1zzTk+jhDWZABwZ5szQaEbFUdaLIE9uzC6cgMmzMvIa/lzXDn
+	 MVh9DuvPBEiBJwlkVNBOD6Tjsko7RhUQgob73D35zgO8cJpejYn26jTN1L/P5pVfgx
+	 YDR8gZT/nEpPg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Linfeng Sun <linfeng.sun.dev@gmail.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
+Cc: Pin-yen Lin <treapking@google.com>,
+	Debarghya Kundu <debarghyak@google.com>,
+	Harshitha Ramamurthy <hramamurthy@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 151/990] vdpa_sim: serialize IOTLB updates with dataplane access
-Date: Wed, 25 Nov 2026 15:25:18 +0100
-Message-ID: <20261125143825.628488560@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y] gve: Fix race between stats query and queue reconfig
+Date: Wed, 25 Nov 2026 10:39:59 -0500
+Message-ID: <20261125153939.449977-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112501-keep-deserving-4f60@gregkh>
+References: <2026112501-keep-deserving-4f60@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,100 +63,203 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Pin-yen Lin <treapking@google.com>
 
-------------------
+[ Upstream commit 7de69da15088ac2add08eb2b5f5c0a79fd461c1e ]
 
-From: Linfeng Sun <linfeng.sun.dev@gmail.com>
+Fix a concurrency bug where network statistics queries race with queue
+reconfiguration or interface teardown, causing a Use-After-Free (UAF) or
+NULL pointer dereference.
 
-[ Upstream commit 8517ed4429a2eefd002dce00ea46e23e6714350b ]
+Currently, statistics queries access priv->tx and priv->rx without
+locking. When an interface is brought down or reconfigured,
+gve_queues_mem_remove() frees these arrays. A concurrent stats query
+can dereference freed queue structures and crash the kernel.
 
-The simulator translates IOTLB entries into iovecs or bvecs under
-iommu_lock, then drops the lock before copying data. A concurrent DMA
-unmap can delete the mapping and release its pinned backing pages while
-the copy is still in progress, leading to a UAF in _copy_from_iter().
+This issue was discovered and actually triggered by the
+drivers/net/stats.py selftest. When an interface was brought down,
+querying per-queue statistics via Netlink caused a kernel NULL pointer
+dereference in gve_get_rx_queue_stats():
 
-Use the existing simulator mutex to serialize DMA map changes with the
-full backend work function. Also make vhost-vdpa stop device access before
-unpinning the backing pages. Otherwise, waiting in the simulator DMA unmap
-callback happens after the pages have already been released and cannot
-protect their lifetime.
+  BUG: kernel NULL pointer dereference, address: 00000000000000a0
+  RIP: 0010:gve_get_rx_queue_stats+0x17/0x50 [gve]
+  Call Trace:
+   <TASK>
+   netdev_stat_queue_sum+0x11c/0x250
+   netdev_nl_stats_by_netdev+0x21b/0x2d0
+   netdev_nl_qstats_get_dumpit+0xd2/0x220
+   genl_dumpit+0x32/0x90
+   netlink_dump+0x1d2/0x450
+   __netlink_dump_start+0x1db/0x2a0
+   genl_family_rcv_msg_dumpit+0x9b/0x100
+   ...
 
-Keep iommu_lock for the IOTLB table itself and avoid adding a second
-long-lived lock to the simulator.
+The per-queue stats callbacks run under the netdev instance lock, so
+this NULL dereference is not a race; it happens on any query while the
+interface is down.
 
-I found this bug myself, though the patch was written with AI assistance.
+Additionally, concurrent stats queries during queue reconfiguration can
+race with gve_queues_mem_remove(), causing a Use-After-Free.
+This affects gve_get_stats(), which does not hold the instance lock.
+gve_handle_report_stats() also runs without it; it is stopped before
+queue teardown, but can still read priv->rx[idx] while the single-queue
+restart path rewrites it.
 
-Fixes: 2c53d0f64c06 ("vdpasim: vDPA device simulator")
-Assisted-by: OpenAI-Codex:GPT-5
-Signed-off-by: Linfeng Sun <linfeng.sun.dev@gmail.com>
-Message-ID: <20260911-fix-vdpa-iotlb-lifetime-v3-1-8766d371748e@gmail.com>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Fix this by introducing stats_lock to serialize stats queries against
+queue teardown. In gve_queues_mem_remove(), queue pointers are set to
+NULL under stats_lock before freeing. Stats readers acquire the lock
+and verify pointers are non-NULL before reading counters.
+The per-queue stats callbacks already run under the instance lock, but
+take stats_lock as well for consistency.
+The single-queue restart path also rewrites priv->rx[idx] in place, so
+gve_rx_queue_stop() and gve_rx_queue_start() do those writes under
+stats_lock as well.
+
+This change was tested using the DQO RDA queue format.
+
+Cc: stable@vger.kernel.org
+Fixes: f5cedc84a30d ("gve: Add transmit and receive support")
+Fixes: 2e5e0932dff5 ("gve: add support for basic queue stats")
+Co-developed-by: Debarghya Kundu <debarghyak@google.com>
+Signed-off-by: Debarghya Kundu <debarghyak@google.com>
+Signed-off-by: Pin-yen Lin <treapking@google.com>
+Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
+Link: https://patch.msgid.link/20261109182036.2910559-2-hramamurthy@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: Dropped the two per-queue stats callback hunks since that code doesn't exist in this tree, and adjusted context plus the lock span in gve_queues_start() to match the older code. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/vdpa/vdpa_sim/vdpa_sim.c | 4 ++++
- drivers/vhost/vdpa.c             | 3 ++-
- 2 files changed, 6 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/google/gve/gve.h      |  5 +++++
+ drivers/net/ethernet/google/gve/gve_main.c | 22 ++++++++++++++++++++--
+ 2 files changed, 25 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/vdpa/vdpa_sim/vdpa_sim.c b/drivers/vdpa/vdpa_sim/vdpa_sim.c
-index 44055778b6940..50a28e35d185a 100644
---- a/drivers/vdpa/vdpa_sim/vdpa_sim.c
-+++ b/drivers/vdpa/vdpa_sim/vdpa_sim.c
-@@ -716,6 +716,7 @@ static int vdpasim_dma_map(struct vdpa_device *vdpa, unsigned int asid,
- 	if (asid >= vdpasim->dev_attr.nas)
- 		return -EINVAL;
+diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
+index e19d722e8e9a1..3e768c64a5776 100644
+--- a/drivers/net/ethernet/google/gve/gve.h
++++ b/drivers/net/ethernet/google/gve/gve.h
+@@ -802,6 +802,11 @@ struct gve_priv {
+ 	struct workqueue_struct *gve_wq;
+ 	struct work_struct service_task;
+ 	struct work_struct stats_report_task;
++	/* Protects the priv->tx/priv->rx arrays, the in-place rewrite of
++	 * priv->rx[idx] and the queue counts against stats readers that do
++	 * not hold the netdev instance lock.
++	 */
++	spinlock_t stats_lock;
+ 	unsigned long service_task_flags;
+ 	unsigned long state_flags;
  
-+	mutex_lock(&vdpasim->mutex);
- 	spin_lock(&vdpasim->iommu_lock);
- 	if (vdpasim->iommu_pt[asid]) {
- 		vhost_iotlb_reset(&vdpasim->iommu[asid]);
-@@ -724,6 +725,7 @@ static int vdpasim_dma_map(struct vdpa_device *vdpa, unsigned int asid,
- 	ret = vhost_iotlb_add_range_ctx(&vdpasim->iommu[asid], iova,
- 					iova + size - 1, pa, perm, opaque);
- 	spin_unlock(&vdpasim->iommu_lock);
-+	mutex_unlock(&vdpasim->mutex);
+diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
+index 974b493d712d2..a620dc6bc52ef 100644
+--- a/drivers/net/ethernet/google/gve/gve_main.c
++++ b/drivers/net/ethernet/google/gve/gve_main.c
+@@ -112,6 +112,7 @@ static void gve_get_stats(struct net_device *dev, struct rtnl_link_stats64 *s)
+ 	int num_tx_queues;
+ 	int ring;
  
- 	return ret;
- }
-@@ -736,6 +738,7 @@ static int vdpasim_dma_unmap(struct vdpa_device *vdpa, unsigned int asid,
- 	if (asid >= vdpasim->dev_attr.nas)
- 		return -EINVAL;
- 
-+	mutex_lock(&vdpasim->mutex);
- 	spin_lock(&vdpasim->iommu_lock);
- 	if (vdpasim->iommu_pt[asid]) {
- 		vhost_iotlb_reset(&vdpasim->iommu[asid]);
-@@ -743,6 +746,7 @@ static int vdpasim_dma_unmap(struct vdpa_device *vdpa, unsigned int asid,
++	spin_lock_bh(&priv->stats_lock);
+ 	num_tx_queues = gve_num_tx_queues(priv);
+ 	if (priv->rx) {
+ 		for (ring = 0; ring < priv->rx_cfg.num_queues; ring++) {
+@@ -139,6 +140,7 @@ static void gve_get_stats(struct net_device *dev, struct rtnl_link_stats64 *s)
+ 			s->tx_bytes += bytes;
+ 		}
  	}
- 	vhost_iotlb_del_range(&vdpasim->iommu[asid], iova, iova + size - 1);
- 	spin_unlock(&vdpasim->iommu_lock);
-+	mutex_unlock(&vdpasim->mutex);
++	spin_unlock_bh(&priv->stats_lock);
+ }
  
+ static int gve_alloc_flow_rule_caches(struct gve_priv *priv)
+@@ -1345,9 +1347,13 @@ static void gve_queues_mem_remove(struct gve_priv *priv)
+ 	struct gve_rx_alloc_rings_cfg rx_alloc_cfg = {0};
+ 
+ 	gve_get_curr_alloc_cfgs(priv, &tx_alloc_cfg, &rx_alloc_cfg);
+-	gve_queues_mem_free(priv, &tx_alloc_cfg, &rx_alloc_cfg);
++
++	spin_lock_bh(&priv->stats_lock);
+ 	priv->tx = NULL;
+ 	priv->rx = NULL;
++	spin_unlock_bh(&priv->stats_lock);
++
++	gve_queues_mem_free(priv, &tx_alloc_cfg, &rx_alloc_cfg);
+ }
+ 
+ /* The passed-in queue memory is stored into priv and the queues are made live.
+@@ -1361,6 +1367,7 @@ static int gve_queues_start(struct gve_priv *priv,
+ 	int err;
+ 
+ 	/* Record new resources into priv */
++	spin_lock_bh(&priv->stats_lock);
+ 	priv->tx = tx_alloc_cfg->tx;
+ 	priv->rx = rx_alloc_cfg->rx;
+ 
+@@ -1375,9 +1382,11 @@ static int gve_queues_start(struct gve_priv *priv,
+ 	else
+ 		priv->num_xdp_queues = 0;
+ 
++	gve_init_sync_stats(priv);
++	spin_unlock_bh(&priv->stats_lock);
++
+ 	gve_tx_start_rings(priv, 0, tx_alloc_cfg->num_rings);
+ 	gve_rx_start_rings(priv, rx_alloc_cfg->qcfg->num_queues);
+-	gve_init_sync_stats(priv);
+ 
+ 	err = netif_set_real_num_tx_queues(dev, priv->tx_cfg.num_queues);
+ 	if (err)
+@@ -2155,6 +2164,7 @@ void gve_handle_report_stats(struct gve_priv *priv)
+ 	if (!gve_get_report_stats(priv))
+ 		return;
+ 
++	spin_lock_bh(&priv->stats_lock);
+ 	be64_add_cpu(&priv->stats_report->written_count, 1);
+ 	/* tx stats */
+ 	if (priv->tx) {
+@@ -2219,6 +2229,7 @@ void gve_handle_report_stats(struct gve_priv *priv)
+ 			};
+ 		}
+ 	}
++	spin_unlock_bh(&priv->stats_lock);
+ }
+ 
+ /* Handle NIC status register changes, reset requests and report stats */
+@@ -2468,8 +2479,10 @@ static int gve_rx_queue_stop(struct net_device *dev, void *per_q_mem, int idx)
+ 	gve_turnup_and_check_status(priv);
+ 
+ 	gve_per_q_mem = (struct gve_rx_ring *)per_q_mem;
++	spin_lock_bh(&priv->stats_lock);
+ 	*gve_per_q_mem = priv->rx[idx];
+ 	memset(&priv->rx[idx], 0, sizeof(priv->rx[idx]));
++	spin_unlock_bh(&priv->stats_lock);
  	return 0;
  }
-diff --git a/drivers/vhost/vdpa.c b/drivers/vhost/vdpa.c
-index e4ddaf0e5abc6..62c2ea705b38b 100644
---- a/drivers/vhost/vdpa.c
-+++ b/drivers/vhost/vdpa.c
-@@ -974,6 +974,8 @@ static void vhost_vdpa_pa_unmap(struct vhost_vdpa *v, struct vhost_iotlb *iotlb,
- 	unsigned long pfn, pinned;
  
- 	while ((map = vhost_iotlb_itree_first(iotlb, start, last)) != NULL) {
-+		/* Stop device access before releasing the pinned pages. */
-+		vhost_vdpa_general_unmap(v, map, asid);
- 		pinned = PFN_DOWN(map->size);
- 		for (pfn = PFN_DOWN(map->addr);
- 		     pinned > 0; pfn++, pinned--) {
-@@ -983,7 +985,6 @@ static void vhost_vdpa_pa_unmap(struct vhost_vdpa *v, struct vhost_iotlb *iotlb,
- 			unpin_user_page(page);
- 		}
- 		atomic64_sub(PFN_DOWN(map->size), &dev->mm->pinned_vm);
--		vhost_vdpa_general_unmap(v, map, asid);
- 		vhost_iotlb_map_free(iotlb, map);
- 	}
+@@ -2520,7 +2533,9 @@ static int gve_rx_queue_start(struct net_device *dev, void *per_q_mem, int idx)
+ 		return -EAGAIN;
+ 
+ 	gve_per_q_mem = (struct gve_rx_ring *)per_q_mem;
++	spin_lock_bh(&priv->stats_lock);
+ 	priv->rx[idx] = *gve_per_q_mem;
++	spin_unlock_bh(&priv->stats_lock);
+ 
+ 	/* Single-queue creation requires quiescence on all queues */
+ 	gve_turndown(priv);
+@@ -2556,7 +2571,9 @@ static int gve_rx_queue_start(struct net_device *dev, void *per_q_mem, int idx)
+ 	 * which needs the rtnl lock, will not run till this func returns and
+ 	 * its caller gives up the lock.
+ 	 */
++	spin_lock_bh(&priv->stats_lock);
+ 	memset(&priv->rx[idx], 0, sizeof(priv->rx[idx]));
++	spin_unlock_bh(&priv->stats_lock);
+ 	return err;
  }
+ 
+@@ -2663,6 +2680,7 @@ static int gve_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	}
+ 	INIT_WORK(&priv->service_task, gve_service_task);
+ 	INIT_WORK(&priv->stats_report_task, gve_stats_report_task);
++	spin_lock_init(&priv->stats_lock);
+ 	priv->tx_cfg.max_queues = max_tx_queues;
+ 	priv->rx_cfg.max_queues = max_rx_queues;
+ 
 -- 
 2.53.0
-
-
 
