@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795598758;
-	b=EFd8KRsX/SqSDCQpZ/1ngD3PT64xTvxln6H9KdGIgslvCBLUePXvCsEv+kP5f6nXhlFQ
-	 EAxwlBEdflFJdtY0Djy+nZ4J89+chunyEgHOYWJQC45EwvFqErXA/CgxWiJkrChD08Nu/
-	 SkUap8wuim3x+//oVonv99kaKX3+/ZcA1Gjm3Eb4gptwuTZYe2TesvgrNC8T2aJ2o0Y1B
-	 VSzk8nqCG+298SSbXbWhBOTPP6Nwggm3nX0K6Tu/y6txZaK55UboqEo8hGjBJ8K7QRwRr
-	 JUC9EqrAclZmiXtvRZtqmu812W0Cj8J8Ahr54PAaJZ51sCzYtcr01RMap7O9jAaATUQ==
+	t=1795598761;
+	b=G3R6rOsavzm6wgfummULsa+R8ih7W9FKMTYyM3lmBWFvUY4/DA6Y/J4MqzrkYyn7x24d
+	 oVLAbf/2eXe6lBxF/ThW82mKSKSYPHy5/6s2cjaxI6+UztXTCbZR4dxX3Cpv7tFldhP16
+	 GyBst/QHRiV8I6RVj4aH4n9CwqPx+njKOmMIPGVhhKUtkGKFhoDNXQLgACadgoG+7ItYg
+	 fO+rl8QLvb9xYNBIOY7c9Ws5xqdOeQVgXzPMY15u0cbYaKmEs2nh3Fe1Xx4ua6syDedeS
+	 RPt01jBntpiT5+c0F+NR6U5OyjPn2cKitrPX4T6JnBAgFhDyGCRURD9Du2PCEvlZS7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795598758;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795598761;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4MZ7KsFTipMP49NOYJoHHLmio+bw0xyr8JHsFcR1n90=;
-	b=jrWvxiQhpy7K1NZB9yl6w04ueUvgHy6M7Cm8Flk6TtNxgGTCLq0TGll4vFZF2M0n/vUL
-	 +B8zgPHCW7E+BZdJuvVkTIagOTV1TGoJEVruq8dFom+LNSbEPGivQaGi3iMAmy0iX8UFH
-	 o2W98IaB1bw9L0Y4wp8p1mGTsjvD/lz1R3sDLR3iZeKKqo1whOKeCNh5SEjYj+uZmSsko
-	 vGRewpJyaTOkE2q/GFGc6qWJrivt0LU0WN97AFkE/ojGtQP2whO1lAt0dSIr+ZztQg0iJ
-	 2x/xhtDptfksrnSVLbgyhWsK5J0ZOb/89wNjcdP09kTUf+XPvbRibPNRUBNuWQ9Zh7A==
+	bh=JtVhgvPmRuzXtGNGaJcVjSCdlqMuak9nQjX8THBleQc=;
+	b=pXHv61Ji6pixGW5FhLtGhKz9a7hruEKWmVdMd6TzvN1kjpuTTPLPc62kcgFmgSKcA9gy
+	 DG5OxEDaC1wT+26f2zcpMiytEmPXQCgrA5sgo62TeI5cbdUkrqOtKZ4ZyqhGKNVMk+9rS
+	 rWMGCPVhGtRLQx2Ch25zsBLBMK43OJtX0TNTgFC++iyryCWMobWtGlyFBU+igXAMrnr5a
+	 sevVD6i/3S07/11tdOXKsW0iotvowUtbD7OFmgB4Aoqo4zxSjG15ZmFKM1XFpnthVOlXP
+	 GUq2P8Fakl4ASRxVz7iTCsbC0tyeDTxFiY1Q/lOxqewdV85IUbzSwxJsR+NqdJ0/JUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0IqgORic;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="RPd6tg/F";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E863606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:25:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2053606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:26:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0IqgORic
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A97011F000CF;
-	Wed, 25 Nov 2026 09:25:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RPd6tg/F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A26E31F000EC;
+	Wed, 25 Nov 2026 09:26:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795598758;
-	bh=4MZ7KsFTipMP49NOYJoHHLmio+bw0xyr8JHsFcR1n90=;
+	s=korg; t=1795598761;
+	bh=JtVhgvPmRuzXtGNGaJcVjSCdlqMuak9nQjX8THBleQc=;
 	h=Subject:To:Cc:From:Date;
-	b=0IqgORicLmxmWzpvhwl7x7gp9sI8G7A26l1fl+fGyzNoacO0RlHdl6uCvWaGTEmHM
-	 /z+gLGpHU23Vs5EdukKPsIIrt3o2LJ1A1rrbMf9YC0xjbl1P0zcvDtPlWo+zWpUnlX
-	 yT/x7jaGl4BIhn8EUC9FcfuEnlIy2/mRRavtva2s=
-Subject: FAILED: patch "[PATCH] Bluetooth: L2CAP: Only accept LE responses to outstanding" failed to apply to 5.15-stable tree
+	b=RPd6tg/FsHuHm7zguo9WwXZrroacc7iv8jGiyNME6PXtpg5K7LQgjkzc6qh4if7/B
+	 vQwVly5bxgQjRKtP+yuNrHXC/Hpk4rUBdjkcuUv3VVK+uGHF1laqu49SIVKFrtE3G6
+	 uUxa3in04lefkDh49gUeoXBvnVwKwaltzgyWoq5E=
+Subject: FAILED: patch "[PATCH] Bluetooth: L2CAP: Only accept LE responses to outstanding" failed to apply to 6.1-stable tree
 To: enderaoelyther@gmail.com,luiz.von.dentz@intel.com,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 10:18:22 +0100
-Message-ID: <2026112522-footing-browbeat-6ce9@gregkh>
+Message-ID: <2026112522-clean-mouth-4dc2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x f50b32aa233d4687af2d241ddcb572da969e8989
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112522-footing-browbeat-6ce9@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112522-clean-mouth-4dc2@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
