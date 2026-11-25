@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603145;
-	b=KqraixkcsccxK4KnMzMU3toE4ChpJRfHZQz4s+9eH3V9dgNV9fPQdXOqmITikcI8hS1H
-	 asFZXx3KvDI/mDQLFIIgjEkDe93cZjBBoHpBsTerABCrKSosLHoxb/zzHEeJH4kOy9US3
-	 3KiSIjvOEE4Q94fE/V2wa1dLlMcRr0WvcukT97atL9gcKoOZMuD68PAlvKSJHLXLOgzUm
-	 ZjSj/HRyB5U8Q4eR1bYgY3gzSMw+Dx6xIPKJ110405DXwmeI3VBmhn4M/8srlmo1VE5CQ
-	 vX+blOwfGxsr8vdArH6LPLjLz7VQedUIVdXpPDtYw7/KwohWSccoi3e6CJ95s6F+9kg==
+	t=1795603149;
+	b=toEunzLzYaACgT/jTl3sd46uNOkP6vNNdIBDYsJ8scmIwSjyhXK5v1nhg7b2G9ZrqmSr
+	 w3yu5XfdzLEXvZ0Qa89bRnUTGOdmoDnvkz3e+IKP+5idgE1qd/IbACV56xT7NvCXNqm84
+	 LRDc31xhMD+MO7U368Olr7zu40tCQvcrwIY+YVmz0xWef9dzjEqNg4AsUfM+v9Mt8lQyB
+	 lMgJHySJsrs8QyZV75uSfzNAX5R/R4PojrqFVHeVBr4rE+PDvmymPJvrIxUMHKcgE6a45
+	 DLCj7f9IoxeqTDpfaxe91igeolV9C8hWH2CgZAJI+4bJkOFPTLn+Q1QdTaiWYtZFD7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603145;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603149;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=jc8M6Han+P6dFsSMRTgux7roPwpriK5NI+bDckyttP0=;
-	b=RSGgshEfUU9jCOZm5gRXCB0a2gjxrtSeSKIEalC38zbiYm58QOcLsP7p/N6XRPTVs413
-	 gtpAbnnyIAbv32fx7MjCv+5vJauCLr8TFIpfqUzXToPOpz9VX3wP5bZB0CC719q0CYv2T
-	 y8BSNcxW3rG0+nousVW2xE4QCQGEZe8xAnMyiBNkvaMeIA3qT1HjeGL70fG9IgTXfO2MT
-	 neXKZT2S7U/Hlt6yA0zfOyIONwG5eprVg8mP+2s7p8ovwl3rvV06vCvvnnLHoKQCwnnee
-	 RKZBCFt7bRBbtjfDFVPJ4rTTvIyzSUxPFLiKr6sRL8HVfgGU9g825KtE1/PVfO1E3Dw==
+	bh=07lj8MIelbR0SG7svAmI1+0KWEv/v1ssCtgT5YMgLf4=;
+	b=zYhRYwBEAKIoxAQ8zJC+dloe75UQj915jy08GJI32WWhgd+t9kyc62PoZps559wC21jq
+	 B/Osw0diqke8xJ4TyrfM4aUYR17lFThJRpjmX0JY2pcgBLbmCIxjdUM98OY1sYghmkbt/
+	 MjMUw/oM3TCURvYjBQZ6V3xyXh4/a/LM7m2aTyJ8p5gWvYMl6V/VhpbwtJoosoZt6+XzS
+	 EA0qR9rNbCUNAvDgZSfQ9iYmQqW6HB0vJXd156R3LcF2vQkea3prQSfKbrTIqeuC059JY
+	 Rvj/TjWTu+mFkwG70NQegyDKRmpHyf6CeC9ZsOifriGyLLMu7e9jB2nTKNvHjQCYh7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xHCfYByt;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BR+hi3ai;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0B4606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:39:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DFAF606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:39:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xHCfYByt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32E451F000C0;
-	Wed, 25 Nov 2026 10:39:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BR+hi3ai
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F3FF1F000C0;
+	Wed, 25 Nov 2026 10:39:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603145;
-	bh=jc8M6Han+P6dFsSMRTgux7roPwpriK5NI+bDckyttP0=;
+	s=korg; t=1795603148;
+	bh=07lj8MIelbR0SG7svAmI1+0KWEv/v1ssCtgT5YMgLf4=;
 	h=Subject:To:Cc:From:Date;
-	b=xHCfYBytr7+Oj4TMnyl1EG1hvziaImrZxeorvdtSWT5sDJEgyIXkj59UjdNQ2jl/j
-	 nHEvXuDdjMjZ9mAsLKGhLK3+dbBeNMWts/DuIeqQ7raoTS/7rjXxt8nRLdkBUTBdkj
-	 QJzDSgN6+oKZWWSAuMG5ySHNi5LI6UKl/dO9iCpI=
-Subject: FAILED: patch "[PATCH] ksmbd: skip metadata-only opens in sharing checks" failed to apply to 5.15-stable tree
+	b=BR+hi3aikmUMnSmAxMpU1GjWALjeWNeZmmTb9Whk3xMWe+QmAwjFYWksI5elMM4M6
+	 UPNIxlNXPMAdz2FB8P25zjElAHCfIOPKrWk2owG27iVVt1rFU/N0pLWheH/WpW035y
+	 I4qyc5DBOR16Wq6HR5++uuq/bnzBC5Hc7k/8w+2s=
+Subject: FAILED: patch "[PATCH] ksmbd: skip metadata-only opens in sharing checks" failed to apply to 6.1-stable tree
 To: icb@fastmail.org,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:26:35 +0100
-Message-ID: <2026112535-multitask-canon-efb2@gregkh>
+Message-ID: <2026112535-quickness-ethanol-2d2b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 81fefb6c635489e71e286d1465b6dd1d0a27ceec
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112535-multitask-canon-efb2@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112535-quickness-ethanol-2d2b@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
