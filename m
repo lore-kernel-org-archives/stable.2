@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795616114;
-	b=14rIx7d+Z5rEa7Kyl4YcfCcw/wdxgE71uXAkwjarI7BYCXpmFz63GdTQUzCW+mz9E9Dh
-	 6PR/nCI+G/FJ0SfTmmJ0qh1GkHF8QsZlrjqHS+qi6evyVqPDwpNjO3peCASKBxGrVwF0E
-	 b3AmTp+GBq+6KFeN3U1/5uhrzyDsjGeK7aKvXnQGE2Fpv+zx55bpSdL3KRFwbtkkiy7Co
-	 cVUAmau7vkXI+dMo3XTXMJGOGPRzNThp26js+YwRa62rqoKc1GTQphezXSAFtmRBBaxhu
-	 X/qks+7YVmj2kmz8nxOxdQUEreXbBjm6hUyrxF3sZRSetJv7uz5jLbkh75rIO/NwkuA==
+	t=1795616115;
+	b=rZh1igvc53Rnsu8SN3yFoaRJUb1+rNX/dtw18AjxSQ+0MwVGfOpT+DGQBouqlIFo+0s3
+	 YmiqfyDkvRY9yZ3cnf0EKWj7QU4Bk52MMhu48feko0mrljjkRLwVNx7juhuHtAnDuqb94
+	 DF23GQFIkX9BJhXVvKQ7p6+niDuHMny0RTb/HWVUT/d4zErAhN14UOxpYnF4CTNvDN1CB
+	 RpmLbDNlVJyacNxkVBmIXXXC1Lsem/Rj5gmmVI9f6S776irxIWGyYsi9VdHXQLkVxFqDx
+	 ElQUYIOMKCByxx/+mvITQbrKB1sdfcuDMEBTFOOfvE7o/8ShUeg1yVdHfeen8DSpS/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795616114;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795616115;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=khM9e9PdssTSli3e34PBJItuouqfZ7EJL3XJV+m3hEU=;
-	b=E74TDpmUqG794SJTO/EsbhRZdIcNn0P3dAumhv62o0FZIhni2GWV2NxdP07SjIcizA58
-	 Is79nDYRE6UilVjRC768H8wFAtVvkxGB3dX6ND+2Giu4++bgD17shWILggYtTs51YEacD
-	 YZSCXMkahsx9CEQO9uXeKA1N5PyvDSkebUg0seQRXw20WszFq37Qg8vstdGb5I3870sI0
-	 kkqv0b0UP58MBGBh2oSXZQ2Q5pwRjiYBywIDt8AcIy6ZHW7cZj52kSWZ00AAwnsTR6hgP
-	 AvI6t6Vq0C20fbpbn0oUtYXZguCmIJ3NNKGWWbP9bWkhezPLXZMSazIqWVmThQzQ8Nw==
+	bh=3zCBmA88hpRkhrtX5/EeZJChNGSTM3Tk4F9CZNL8GqQ=;
+	b=BCmZMdEK147L0Hq2RLWrqiHSiDmPn+FuOwo74XhQ6ZswW6/Tvvz3E/t1r0oFjMIOdVzd
+	 s+++rtTyI35H36c/rGLxk+ZA+1ijUBopuwbxqreilcYNuexgEAmv6aItSdvACU5XcMMB9
+	 1Ou3iySBVMneU++pAibBz3Il9/Q+/54AErqGqFii1c8MG0r35q9D2KEv6T3/MTI2Jzkn2
+	 phYeqTCTiMwVf0R7ddgJ25VOUscum86E5MhyZZYIGCKnCPr7C35JBR/Ksd+F8TtGmmer6
+	 vNLwwVmOPBCjDYvN6BT0UYSXWyGhLefsnLA4/thlhGVOr/dTIuxfW5dOV3+00BSCjsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MD8upZBi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BnwOttN4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC95606A32E;
-	Wed, 25 Nov 2026 14:15:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F89606A32D;
+	Wed, 25 Nov 2026 14:15:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MD8upZBi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E813E1F000C6;
-	Wed, 25 Nov 2026 14:15:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BnwOttN4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F87A1F000E1;
+	Wed, 25 Nov 2026 14:15:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795616113;
-	bh=khM9e9PdssTSli3e34PBJItuouqfZ7EJL3XJV+m3hEU=;
+	s=k20260515; t=1795616115;
+	bh=3zCBmA88hpRkhrtX5/EeZJChNGSTM3Tk4F9CZNL8GqQ=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MD8upZBirAQjC66IJG6viYZMNbwOZoJ4fJc1PFdGCz4Jf4VlN6Vmmk/bc3Dwv1890
-	 2+j8zTlnIFqrsSdsQMdJPhfS0xD0cXty7rfe0PTAQVSrNi0+r122tLGxKs/q2sS8BH
-	 rFPcWTYMdbnvF+RRmkHJ10P78bnCmQpncVibzLgSaPV4l8TlUAJ98LRils0blqgq9G
-	 w3RAUbASVhuiditgDndHaIRyX2WxBYXdp/vD97ZtI3oh/2/lA0T+nfwNq6SeoYqePT
-	 gqYWF4zdxYJvvBTTNi08t9csvz1N0GUP9gaa6Jc8tPoUTiUgNjbjeaBVPIEnRMsoQP
-	 783cerc692Olg==
-Subject: Re: [PATCH net v4 2/3] net/sched: act_gate: refuse schedule entries
- shorter than 10 us
+	b=BnwOttN4Y1xHMkRB80Oav20e8M36qjaLQeodvuoNcfME/G9Ggw4ecH47yxkljUFIo
+	 ymF/WW9b9ckd/16wOlh7zlUFQ13/Z1qgfmF47FMZUlJaqjg8PRDqQUBuJfigK/hdyz
+	 67MvsMwRfuKcyCQE/HfhCZ4kxwpSpHU3l0qOeGfTNCIAk2Ks8AgNj8bzIHDTbjnpeL
+	 jTd0dsc7y/EGOE43ab5EoV0OO9BcTi/1IdVzYqzKG6ljE+km1Blv+iNeugkMFjy7Ui
+	 vwPtHHIKQyzUNWeY+C9GLlIOjJZ8znYucJrrtfJR6dozlbmlDBzKvuhSi0Q2+/xKYj
+	 JzvZ+/oYQMQTg==
+Subject: Re: [PATCH net v4 3/3] selftests: tc-testing: act_gate: cover the new
+ cycle time and interval limits
 From: netdev-bot+sashiko@kernel.org
 To: jhs@mojatatu.com
 Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
@@ -49,11 +49,11 @@ Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
  horms@kernel.org, alexei.starovoitov@gmail.com, victor@mojatatu.com,
  Po.Liu@nxp.com, stable@vger.kernel.org,
  syzbot+0054fed3dc9085390f51@syzkaller.appspotmail.com, shawnq1@163.com
-Date: Wed, 25 Nov 2026 14:15:12 +0000
-Message-ID: <179561611250.3135.13753422220190315891@kernel.org>
-In-Reply-To: <ACT-WEXM.v4.r0.20261124074514-2@mojatatu.com>
-References: <ACT-WEXM.v4.r0.20261124074514-2@mojatatu.com>
-X-sashiko-severity: High
+Date: Wed, 25 Nov 2026 14:15:14 +0000
+Message-ID: <179561611414.3135.147725315288144189@kernel.org>
+In-Reply-To: <ACT-WEXM.v4.r0.20261124074514-3@mojatatu.com>
+References: <ACT-WEXM.v4.r0.20261124074514-3@mojatatu.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -66,10 +66,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 5 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 2 · Low: 2
+Critical: 0 · High: 0 · Medium: 2 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -77,209 +77,170 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] The 10 us floor only limits a single gate action.
-- [Medium] The commit message says the bug needs 'CAP_NET_ADMIN in the
-  initial user namespace (netlink_capable() checks init_user_ns, so a…
-- [Medium] The commit message says 'An act_gate schedule is not tied to a
-  device, so unlike taprio there is no frame time to derive a bound…
-- [Low] entry_policy still declares TCA_GATE_ENTRY_INTERVAL as a plain `{
-  .type = NLA_U32 }`, while fill_gate_entry() enforces the new 10000 ns…
-- [Low] The 'Some context' paragraph says 'The request that reproduces
-  the cycle-time stall also carries a 1 ns entry interval'.
+- [Medium] The four new negative tests in tools/testing/selftests/tc-
+  testing/tc-tests/actions/gate.json (2c35, 92b8, 8265 and 5c47) re-run…
+- [Medium] Tests 92b8 and 8265 in gate.json pass the decimal string
+  9223372036854775808 (2^63) as base-time and cycle-time, and expect the…
+- [Low] The boundary tests 7d1f and 9f10 in gate.json add a gate action
+  with base-time and cycle-time 9223372036854775807 (KTIME_MAX).
 
 --
 
-net/sched: act_gate: refuse schedule entries shorter than 10 us
+selftests: tc-testing: act_gate: cover the new cycle time and interval limits
 
-This commit changes fill_gate_entry() so that act_gate schedule entries
-must be at least 10 us long (GATE_MIN_INTERVAL_NSEC). Before, only a zero
-interval was refused. The goal is to stop the soft hrtimer that
-gate_timer_func() re-arms from keeping a CPU busy in the timer softirq.
+This adds seven tdc test cases for the gate action. They cover the new
+KTIME_MAX bound on base-time and cycle-time and the 10 us minimum schedule
+entry interval. The negative cases re-run the failing command and match the
+error text that tc prints.
 
-Closes: https://sashiko.dev/#/patchset/tencent_4ED9536B0375C96183B2244CF7709768C605@qq.com
-
-> Some context:
-> The request that reproduces the cycle-time stall also carries a 1 ns
-> entry interval.  With the cycle time derived from the entries, that alone
-> sets a 1 ns timer period: the report covers both defects.
-
-[Severity: Low]
-Which request does this paragraph mean?
-
-The earlier commit in this series, "net/sched: act_gate: bound the cycle
-time and start time arithmetic", documents a cycle-time reproducer that
-uses TCA_GATE_BASE_TIME = 1, TCA_GATE_CYCLE_TIME = 0xffffffffffffffff and
-"one schedule entry of 1000000 ns". That is 1 ms, not 1 ns.
-
-The second sentence is accurate. gate_timer_func() advances
-current_close_time by next->interval, so a single 1 ns entry does set a
-1 ns period.
-
-If this refers to a different reproducer, such as the Sashiko one, could
-the message name it? As written, the two commits disagree about which
-input triggers which defect.
-
-> Conditions to recreate the bug:
-> CONFIG_NET_ACT_GATE=y, and CAP_NET_ADMIN in the initial user namespace
-> (netlink_capable() checks init_user_ns, so a user namespace of its own
-> does not help), in a new network namespace:
-
-[Severity: Medium]
-Is this accurate for every way a gate action can be created?
-
-The init_user_ns check is only in the standalone RTM_NEWACTION path:
-
-net/sched/act_api.c:tc_ctl_action() {
-    ...
-	if ((n->nlmsg_type != RTM_GETACTION) &&
-	    !netlink_capable(skb, CAP_NET_ADMIN))
-		return -EPERM;
-    ...
-}
-
-A gate action can also be created inline with a classifier, for example:
-
-  tc filter add dev lo ingress matchall action gate sched-entry close 1
-
-That goes through:
-
-  RTM_NEWTFILTER
-    tc_new_tfilter()
-      tcf_exts_validate_ex()
-        tcf_action_init()
-          tcf_gate_init()
-
-The only capability check on that path is relative to the netns:
-
-net/core/rtnetlink.c:rtnetlink_rcv_msg() {
-    ...
-	if (kind != RTNL_KIND_GET && !netlink_net_capable(skb, CAP_NET_ADMIN))
-		return -EPERM;
-    ...
-}
-
-So it looks like an unprivileged user who runs unshare -Urn can set up
-the 1 ns stall on kernels without this patch.
-
-With Cc: stable on this patch, could the reachability description be
-corrected? Backport and security triage will rely on it.
-
-> diff --git a/net/sched/act_gate.c b/net/sched/act_gate.c
-> index 4835f65439011..797562dbde693 100644
-> --- a/net/sched/act_gate.c
-> +++ b/net/sched/act_gate.c
-> @@ -25,6 +25,11 @@ static struct tc_action_ops act_gate_ops;
->   */
->  #define GATE_ENTRIES_MAX	1024U
->  
-> +/* An entry shorter than this lets the next expiry land before the softirq
-> + * servicing the current one can finish, so the timer stays permanently behind.
-> + */
-> +#define GATE_MIN_INTERVAL_NSEC	10000U
-
-[Severity: High]
-Does a per-entry floor bound the total timer softirq load on a CPU?
-
-Each gate action owns a soft hrtimer (HRTIMER_MODE_ABS_SOFT). That timer
-re-arms itself on every expiry with no exit condition:
-
-net/sched/act_gate.c:gate_timer_func() {
-    ...
-	gact->current_close_time = ktime_add_safe(gact->current_close_time,
-						  next->interval);
-    ...
-	hrtimer_set_expires(&gact->hitimer, close_time);
-
-	spin_unlock(&gact->tcf_lock);
-
-	return HRTIMER_RESTART;
-}
-
-Nothing limits how many gate actions a netns can have. tcf_gate_init()
-calls tcf_idr_check_alloc() with a u32 index, and every filter with an
-inline action gate creates a new instance and starts a new timer.
-
-The commit message puts one expiry at a few hundred ns. At that cost,
-about 33 actions with a single 10000 ns entry each, created from a task
-pinned to one CPU, would keep that CPU fully busy in the timer softirq.
-
-On the debug or PREEMPT_RT kernels the message mentions, where an expiry
-costs a few us, 3 to 5 actions would be enough.
-
-Wouldn't that bring back the "holds a CPU in the timer softirq for as
-long as it exists" condition this patch is meant to remove? Fully fixing
-it seems to need a limit on the combined load, for example a per-netns
-cap on active gate timers or on their total expiry rate.
+> diff --git a/tools/testing/selftests/tc-testing/tc-tests/actions/gate.json b/tools/testing/selftests/tc-testing/tc-tests/actions/gate.json
+> index db645c22ad7be..1c910e07c41c9 100644
+> --- a/tools/testing/selftests/tc-testing/tc-tests/actions/gate.json
+> +++ b/tools/testing/selftests/tc-testing/tc-tests/actions/gate.json
+> @@ -347,5 +347,194 @@
 
 [ ... ]
 
-> @@ -199,8 +204,10 @@ static int fill_gate_entry(struct nlattr **tb, struct tcfg_gate_entry *entry,
->  	if (tb[TCA_GATE_ENTRY_INTERVAL])
->  		interval = nla_get_u32(tb[TCA_GATE_ENTRY_INTERVAL]);
->  
-> -	if (interval == 0) {
-> -		NL_SET_ERR_MSG(extack, "Invalid interval for schedule entry");
-> +	if (interval < GATE_MIN_INTERVAL_NSEC) {
-> +		NL_SET_ERR_MSG_FMT(extack,
-> +				   "Entry interval must be at least %u ns",
-> +				   GATE_MIN_INTERVAL_NSEC);
->  		return -EINVAL;
->  	}
+> +    {
+> +        "id": "2c35",
+> +        "name": "Reject gate action with a schedule entry below the minimum interval",
+
+[ ... ]
+
+> +        "cmdUnderTest": "$TC action add action gate sched-entry close 9999ns index 100",
+> +        "expExitCode": "255",
+> +        "verifyCmd": "$TC action add action gate sched-entry close 9999ns index 100 2>&1",
+> +        "matchPattern": "RTNETLINK answers: Invalid argument",
 
 [Severity: Medium]
+Will this pattern match when tc is built with libmnl?
+
+On this path, fill_gate_entry() in net/sched/act_gate.c sets an extack
+message before it fails:
+
+    NL_SET_ERR_MSG_FMT(extack, "Entry interval must be at least %u ns",
+                       GATE_MIN_INTERVAL_NSEC);
+    return -EINVAL;
+
+The extack pointer is passed down unchanged:
+
+    tc_ctl_action()->tcf_action_add()->tcf_action_init()->
+        tcf_action_init_1()->tcf_gate_init()
+
+A tc linked against libmnl prints "Error: Entry interval must be at least
+10000 ns." and does not print the "RTNETLINK answers: ..." line. The
+matchPattern would then find zero matches, but matchCount requires one.
+
+The same applies to 92b8, 8265 and 5c47. Those values fail the
+NLA_POLICY_FULL_RANGE(NLA_U64, &gate_time_range) check in gate_policy
+during nla_parse_nested() in tcf_gate_init(). That check sets the "integer
+out of range" extack, so tc prints "Error: integer out of range."
+instead.
+
+tools/testing/selftests/net/bpf_offload.py already expects tc to print the
+"Error: ..." form, and warns "libmnl missing?" when it is absent.
+
+With a tc built without libmnl the patterns do match. But the strerror text
+matches any -EINVAL or -ERANGE, so it can't show that the 10 us floor or
+the KTIME_MAX bound caused the refusal.
+
 The commit message says:
 
-  An act_gate schedule is not tied to a device, so unlike taprio there is
-  no frame time to derive a bound from
+    tc does not pass the action path's extended acknowledgment back to the
+    caller, so the negative cases re-run the failing command and match the
+    kernel's own error text instead of relying on the exit code alone.
 
-Does that hold for offloaded gate actions? act_gate is offloaded as
-FLOW_ACTION_GATE to 802.1Qci PSFP hardware in sja1105, felix_vsc9959,
-ocelot_flower, enetc and sparx5.
+Is this accurate? The text matched here is iproute2's strerror output, and
+the kernel does deliver the extack on this path.
 
-fill_gate_entry() runs for every gate action before the offload path
-does, including flower skip_sw rules. sja1105 accepts much finer
-schedules than 10 us:
+Would it work better to match the kernel strings ("Entry interval must be
+at least 10000 ns", "integer out of range"), or to use a regex that accepts
+both output forms?
 
-drivers/net/dsa/sja1105/sja1105_vl.c:sja1105_vl_gate() {
-    ...
-		div_s64_rem(entries[i].interval,
-			    sja1105_delta_to_ns(1), &rem);
-		if (rem) {
-			NL_SET_ERR_MSG_MOD(extack,
-					   "Interval must be multiple of 200 ns");
-			rc = -ERANGE;
-			goto out;
-		}
+[ ... ]
 
-		if (!entries[i].interval) {
-			NL_SET_ERR_MSG_MOD(extack,
-					   "Interval cannot be zero");
-    ...
-}
+> +    {
+> +        "id": "92b8",
+> +        "name": "Reject gate action with a base time above S64_MAX",
 
-Schedules such as "sched-entry OPEN 5000 -1 -1 sched-entry CLOSE 5000
--1 -1" used to install on sja1105. They now fail with -EINVAL and "Entry
-interval must be at least 10000 ns". The driver's zero-interval check also
-becomes unreachable.
+[ ... ]
 
-The software hrtimer still runs for offloaded actions, so the CPU cost
-argument may still justify the floor. Could the commit message say that
-this rejects schedules that offload hardware used to accept? With
-Cc: stable, the new limit would also reach deployed TSN setups.
+> +        "cmdUnderTest": "$TC action add action gate base-time 9223372036854775808 sched-entry close 10000ns index 200",
+
+[Severity: Medium]
+Does 2^63 reach the kernel as 0x8000000000000000 on every architecture?
+
+In iproute2, get_s64() fails with ERANGE for this string, so tc falls back
+to get_time64(). That function parses the string with strtod() and assigns
+the double to an __s64. Converting 2^63 to int64 is undefined in C.
+
+On x86-64, cvttsd2si gives 0x8000000000000000, which is above KTIME_MAX,
+so the kernel refuses it.
+
+On arm64 (FCVTZS), and likewise on riscv, powerpc and s390, the conversion
+saturates to 0x7fffffffffffffff, which is exactly KTIME_MAX.
+
+The bound in gate_time_range in net/sched/act_gate.c is inclusive:
+
+    static const struct netlink_range_validation gate_time_range = {
+        .min = 0,
+        .max = KTIME_MAX,
+    };
+
+Tests 7d1f and 9f10 rely on KTIME_MAX being accepted. On those
+architectures, cmdUnderTest would exit 0 instead of 255. verifyCmd would
+then fail with EEXIST, not with the out of range error.
+
+The cycle-time value in 8265 has the same problem. 5c47 covers the
+base-time bound deterministically with -1. 8265 is the only refusal test
+for the cycle-time upper bound, so on non-x86 hosts that bound would go
+untested.
+
+The preceding commit, "net/sched: act_gate: bound the cycle time and start
+time arithmetic", already notes that iproute2 rewrites out of range values
+through strtod().
+
+Could 92b8 and 8265 fail on a correct kernel on arm64?
+
+[ ... ]
+
+> +    {
+> +        "id": "7d1f",
+> +        "name": "Add gate action with the maximum base time",
+
+[ ... ]
+
+> +        "cmdUnderTest": "$TC action add action gate base-time 9223372036854775807 sched-entry close 10000ns index 201",
+> +        "expExitCode": "0",
+> +        "verifyCmd": "$TC action get action gate index 201",
+> +        "matchPattern": "index 201",
 
 [Severity: Low]
-This isn't a bug, but could the minimum go in the policy instead of being
-open-coded? entry_policy still declares the interval as a plain u32:
+This isn't a bug, but should this check the stored base-time rather than
+only the index? The same question applies to "index 301" in 9f10.
 
-	[TCA_GATE_ENTRY_INTERVAL]	= { .type = NLA_U32 },
+Other tests in this file check the read-back value, for example "base-time
+200s" in 7189, "cycle-time 200s" in a721 and "base-time 400s" in 3719.
 
-With NLA_POLICY_MIN(NLA_U32, GATE_MIN_INTERVAL_NSEC), nla_parse_nested()
-would report the bad attribute in extack, and the policy would advertise
-the correct range.
+As written, 7d1f and 9f10 would still pass if the kernel clamped, zeroed or
+replaced the value. For example, tcf_gate_init() replaces a cycle-time of
+0 with the cycle derived from the entries.
 
-Also, when TCA_GATE_ENTRY_INTERVAL is missing, interval stays 0 and the
-user is told the interval must be at least 10000 ns, even though no
-interval was sent. Would NL_SET_ERR_ATTR_MISS describe that case better?
+The commit message says:
+
+    An entry interval of exactly 10000 ns installs and reads back with the
+    interval it was given, and so do a base time and a cycle time of exactly
+    KTIME_MAX.
+
+It also claims coverage of "both ends of the cycle time range". Only the
+upper bound is tested. An explicit cycle-time 0, which the preceding commit
+keeps valid as "derive from entries", is not covered.
+
+Similarly, c873 matches "interval 10us". tc prints intervals with %.3g
+scaling, so any stored interval from 10000 to about 10049 ns gives the
+same text. The test can't confirm that exactly 10000 ns was stored.
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/ACT-WEXM.v4.r0.20261124074514%40mojatatu.com
