@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795619115;
-	b=kU1rHuBTVmoo+H0hGFbFTN3uG1asfnm3xdedK0k6lv/umcG4ATidLOaWwhX6nzCBGk66
-	 kh1Rt2s+9M8sgu0i/QTL9DFyTq1t/dsgulnShoUzLHwmLyADDZIKQ7sg/cUmhuGE+81ht
-	 F3KX6+ppIGS/MZLLjmwzjDwHnre54uuqinRhXU3yjwXtkxEB73uYWrszd6h1lBuzO2qoJ
-	 AuC0NegbvWvHydYKJOpPp6EhcCXK94AEIQ+KwVAr6aY5hY+LxkyPyoqjJyQLIJW4ZrT2M
-	 oEuKnfYdrjhOfD/9k6JLIux1OfIUOlPJZ4J7NRfltXRpALWZCuf8A5chvAwJFAeWzhg==
+	t=1795619116;
+	b=smdqNduSHcYc3xY7WYFxM64BVqsEx2gAP7FZIhz84mj6CayOIOBHsNTQFqOqM05onBSY
+	 fWT5holOJr8TfJkxKdUF/dbQWOziO5t+U5UHvyY+eRncnbh45Xy1rvaUr0V00PzsCQTQO
+	 ypLLaUOERJ2Q/+21UThmFWSmjh//rORGCHHDXJQlsFDGQshUDSWh8um9BUYTOlrAbilnW
+	 HHheLu8YHYpT/iqXpi2wOTPzX4ZzOYl3K0y+I4KJ0WH0qekPlNMYHY8HGExvTCFUUyU/x
+	 FoN0vPWpyVrhxtsbNJMTkr7YmvwBKGYRf3dMeWmMqIHsi0NVJB2r5bRGolCFh8u2JkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795619115;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795619116;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=keBNKkOuEJqVu0zQcwfqLOtccpo6GKEsYjSZ1/SYHiQ=;
-	b=19ZuaY6DPNXYlGWCo57b4WnKvf8SwyOSrc96pOF8r1tNpIP8DOV5OzJpy8voPxuBQ3ka
-	 0FV8jyKrTygrBiqZo1duldzdnVUM+BbnyQURoHZlqI/kUaDYXZll0fGH/ak0mXLijabzG
-	 mINm174HHWMuiYjhSKWF0svGdLwPD1Y1ccn+9k49fI8JMnM9THEwBYnOvZOOGwbPXaT4q
-	 RlRRRkP+7jOrOMItZOi7i4FiehQYRe5MH1iKZcOHkQwJYthMtgLeIHncNSYQNf/SfNf5I
-	 j1eMk+wxC+oeMns8iK2DEBw2CDgbLQFwRWRAMtd3IRxAAjlJuunp05dg5wThtjOYsyA==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=JuCAiGiP6ch73ajTEFd3MClrq9aQxxIbvItwKrRw9zM=;
+	b=LoTpFaVanfYPovBknT6kK/Vr0fbJzni0nkdK51TMAYTLvPEaeOB9of5hTQ+ZSVUkUEea
+	 pke0WjGngkfSz53bcbWoUJWYRKaxw6iYMflvkomIDY5b4fF65b/V6OUlSFTbqbYceiQjM
+	 aW9Ja4GgmlIzWuLm44vGm0Gi/QZQeyQI8oY+1sTvetEGonfVuu/hdF51OZMzErC41Y5xk
+	 jZHjM5inm4MgagmaoO0KXvUbKVul+1xdBlbEemeX22f5gZ2IrS85axlqyJ4njOLhHPU3d
+	 g0T/tV/6/PT37gw81x3tzjnZsVQoueHOmXXYUi0hz80YFALHiKeCjiU87sv7TQjXgNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hdjfvn7G;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IHcnpggi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EAB6606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:05:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFA7606A31E;
+	Wed, 25 Nov 2026 15:05:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hdjfvn7G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70A711F000C4;
-	Wed, 25 Nov 2026 15:05:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795619115;
-	bh=keBNKkOuEJqVu0zQcwfqLOtccpo6GKEsYjSZ1/SYHiQ=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IHcnpggi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D59941F000D0;
+	Wed, 25 Nov 2026 15:05:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795619116;
+	bh=JuCAiGiP6ch73ajTEFd3MClrq9aQxxIbvItwKrRw9zM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Hdjfvn7Gvhs3lfu5Ybimyj9iFT9jjK54AGL1RFoDRJRk65pn5McTpktPa5SkTZQOj
-	 Jh68wfMAPfF37bNvpg8g/SN/1/Iy+Yo3U8zKO6Y0pfYZFQg3VWECbUfSZweGFd5T7n
-	 /iAjMGgbPpoUNJg8Oc0y1SdJSJ5/M981HKOV558M6L81NuGqvMSx+O0beND2mhv/7B
-	 R2UiQUb+4Sibp/MWjYwwQSS3boRrmoouw7bOJMjtfbzYOFUrertFh4F3U5zsNZ2Ual
-	 oSNoRLIi3tlbISxNRSpU6jEZtnl6zgzINUfjpYSeoRvLLdOxt4Ng/Awt+DCggLDgvp
-	 8Q7o5Cny4+HYQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=IHcnpggiHkR3b6k7ItQc6fx+YIuGbfLTdQKp0PiotJDFKL3gdT9BNC9Mg6WkF5D6X
+	 gR4Aw3u/X7N3ANahXcBHk7aFQw0PJcj+q4/ESGMXrX0ay0B7ZEVY01/eEdY6GS9U2W
+	 TZneYaXA5mdE6vvX/pDwBtwbbZ1Ydn8iahcHOPXQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Chuck Lever <chuck.lever@oracle.com>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Anna Schumaker <Anna.Schumaker@Netapp.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Ivan Vecera <ivecera@redhat.com>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Petr Oros <poros@redhat.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/4] xprtrdma: Clean up synopsis of frwr_mr_unmap()
-Date: Wed, 25 Nov 2026 10:05:09 -0500
-Message-ID: <20261125150506.11963-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112557-renewal-pyramid-fc9e@gregkh>
-References: <2026112557-renewal-pyramid-fc9e@gregkh>
+Subject: [PATCH 7.3 0493/1005] dpll: notify about a reference sync pair only if it was added
+Date: Wed, 25 Nov 2026 15:30:31 +0100
+Message-ID: <20261125143833.294242606@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,54 +66,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <chuck.lever@oracle.com>
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 9d53378c2c145991fb5bc986c82eb9030212c2ea ]
+------------------
 
-Commit 7a03aeb66c41 ("xprtrdma: Micro-optimize MR DMA-unmapping")
-removed the last use of the @r_xprt parameter in this function, but
-neglected to remove the parameter itself.
+From: Ivan Vecera <ivecera@redhat.com>
 
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
-Signed-off-by: Anna Schumaker <Anna.Schumaker@Netapp.com>
-Stable-dep-of: 1fa415883c37 ("xprtrdma: serialize unmap_sync with xprt_disconnect")
+[ Upstream commit 7a3837929d049dac1f931620f30b100993ce2594 ]
+
+dpll_pin_ref_sync_pair_add() sends a pin change notification even when
+xa_insert() fails and nothing has changed. zl3073x gets -EBUSY when
+another channel has already added the same pair and ignores it, so user
+space is notified about a change that did not happen.
+
+Send the notification only after a successful insert.
+
+Found by code review. Reproduced on a ZL30732A board with kprobes on
+dpll_pin_ref_sync_pair_add() and __dpll_pin_change_ntf(): loading the
+driver adds one pair twice and the add failing with -EBUSY sends a
+notification. With this patch it does not, and the successful add still
+does. A test module adding one pair twice shows the same on the monitor
+group.
+
+Fixes: 58256a26bfb3 ("dpll: add reference sync get/set")
+Signed-off-by: Ivan Vecera <ivecera@redhat.com>
+Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+Reviewed-by: Petr Oros <poros@redhat.com>
+Link: https://patch.msgid.link/20261105131145.1010406-2-ivecera@redhat.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/xprtrdma/frwr_ops.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/dpll/dpll_core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/net/sunrpc/xprtrdma/frwr_ops.c b/net/sunrpc/xprtrdma/frwr_ops.c
-index a0d49580dcb87..a82eefe5e6b58 100644
---- a/net/sunrpc/xprtrdma/frwr_ops.c
-+++ b/net/sunrpc/xprtrdma/frwr_ops.c
-@@ -54,7 +54,7 @@ static void frwr_cid_init(struct rpcrdma_ep *ep,
- 	cid->ci_completion_id = mr->mr_ibmr->res.id;
- }
+diff --git a/drivers/dpll/dpll_core.c b/drivers/dpll/dpll_core.c
+index 8389983f42569..277692d12d3d1 100644
+--- a/drivers/dpll/dpll_core.c
++++ b/drivers/dpll/dpll_core.c
+@@ -1081,7 +1081,8 @@ int dpll_pin_ref_sync_pair_add(struct dpll_pin *pin,
+ 	mutex_lock(&dpll_lock);
+ 	ret = xa_insert(&pin->ref_sync_pins, ref_sync_pin->id,
+ 			ref_sync_pin, GFP_KERNEL);
+-	__dpll_pin_change_ntf(pin);
++	if (!ret)
++		__dpll_pin_change_ntf(pin);
+ 	mutex_unlock(&dpll_lock);
  
--static void frwr_mr_unmap(struct rpcrdma_xprt *r_xprt, struct rpcrdma_mr *mr)
-+static void frwr_mr_unmap(struct rpcrdma_mr *mr)
- {
- 	if (mr->mr_device) {
- 		trace_xprtrdma_mr_unmap(mr);
-@@ -73,7 +73,7 @@ void frwr_mr_release(struct rpcrdma_mr *mr)
- {
- 	int rc;
- 
--	frwr_mr_unmap(mr->mr_xprt, mr);
-+	frwr_mr_unmap(mr);
- 
- 	rc = ib_dereg_mr(mr->mr_ibmr);
- 	if (rc)
-@@ -84,7 +84,7 @@ void frwr_mr_release(struct rpcrdma_mr *mr)
- 
- static void frwr_mr_put(struct rpcrdma_mr *mr)
- {
--	frwr_mr_unmap(mr->mr_xprt, mr);
-+	frwr_mr_unmap(mr);
- 
- 	/* The MR is returned to the req's MR free list instead
- 	 * of to the xprt's MR free list. No spinlock is needed.
+ 	return ret;
 -- 
 2.53.0
+
+
 
