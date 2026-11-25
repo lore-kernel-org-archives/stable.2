@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625905;
-	b=RUzT+G2/F4urmeKXGZZv+IwKGZUqD4VCiA4MfnoF7kdpCtFilceSBvgZcTKYwpRhZgLJ
-	 rFryzbRkBalRUAvrsdWf/ff1/xvuze9/K6XGn9NzmFMXQKdOJWrzjlxMV8YNkt9GgETKZ
-	 o5ADc4lQcqjv0z1NCSIZzDa2JycAPfm5j54AniiCKyFvdhO9gil+7lTykUxjZATPVcKJZ
-	 DUGTW3vGuZzvalu8QigYfZMjG+t9Ft/kBoaDUZNOOqXo2G8ne8BoL58Q1ENQnJ2bwCjsn
-	 Jqzi3262GOVtzE+9mhzm19C/OqAtcESjFdVkJCiEH9U8+UuIOuFsxrMzvtYmS5qVMZQ==
+	t=1795625908;
+	b=IXjEufxzeIYXdovNOROTzTkrlAjByINHiGrqWF5OZ3mRpUKNcFvcoeq4leerDlsV3/TM
+	 kwrGRkXek18k5+E4zdKgT5vyllX5+mUBx4iacITdo8HPpJ2Tbjbpc2ltVJizhbz/53Mew
+	 vlNWOskP4IudV0LhVCFcCNpNkb0da3GYqJE8DRHXHR6JTuPRZ2a805Nbzbv/aCSHsNIn4
+	 x7uv8yK69qSd88H4NpfYRKgIwSEO5DAd7tJ89JNxVy6TxDAeAnR8Q9ULwy0lGU7WRYRXw
+	 nLpUTsAw0h8TcwB8uOXKB8Ce9hzH4vSxnA7U+vxJUfpgSs6Xz7CldYW9oIppoMnF7FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625905;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625908;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=bzXZ9FGw86w+nDTWJA4P7gF3eNDyS96sJgwUKvRQO3k=;
-	b=gw8HK0N0vUUQ25q/3fX9ufAZk12+TMhiRFfqoHG2V21kmIZtdkDpCAS4ljFswiEY5aU3
-	 IojSoQHvjGICMWjpPQEwdkVddidkbMe4tuojOcwXWsiNDn0gnrvirJiaMo8tEx/dlQMnD
-	 fsJJwiC2dJY5rlRkEnBQJ7auTZQtz11QVXr9klj6k7GiRT+VBQ0zTqvrgl8VRhNkUyqi4
-	 oJG3lmveIQ08vUj1sqo3LS6Ddl+vnfW8rDkHxnwugdNyn+Dk4o4X4IYzBkvjSZuFWesnT
-	 tMzN2/lKg4kW0F1kLbbOPJZafOh4azMevY4AkCMbpXikLvbqmg8B7fFzC5MdGoFp2sw==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=qv4iNTJ+AQQDCUtT0wwzHAerAX8Bxk2K/rcnN4Ixj2k=;
+	b=oUkOF9Bhicr0845Etvv7aU/5CccdsCd+QO/U4BA+P3+/zJisT1ZrWsEg16L7vu6W3AOm
+	 bAbD/wusH7UvlbI+7wWSpQ17oheTbFrbT1eSTx+DY10JXhQfqlrY3WTmLHhD9xW9Mzbpt
+	 RksNgV6OWfsf9mZAajWNzyHxeenCCdaPWsPn7Nib3JLoaA10T9NEuchvW84M4gclcK71w
+	 2BfTs0vP5uvSMO+9icOxMNETTbNiMJEJw7dJA8G0uxY7j5HFShd36OjhCS8o3pWHkGAp3
+	 5R4Etja5H2un4QCOiS3PyRR3nWNmQ4dBdh7Oa7phrEK8k2QjftXWZEUHVKpmpjPWX9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m9WwiInX;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IAjfBBi9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1B6606A331
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:58:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A9A9606A31E;
+	Wed, 25 Nov 2026 16:58:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m9WwiInX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D6391F000C6;
-	Wed, 25 Nov 2026 16:58:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795625905;
-	bh=bzXZ9FGw86w+nDTWJA4P7gF3eNDyS96sJgwUKvRQO3k=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IAjfBBi9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3C621F000C6;
+	Wed, 25 Nov 2026 16:58:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795625907;
+	bh=qv4iNTJ+AQQDCUtT0wwzHAerAX8Bxk2K/rcnN4Ixj2k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m9WwiInXX+RMzuNUgRkC4k3VICoZxPz7YLSSOo9oehzcD/YGwldMnEVX5FIgopCjS
-	 Mo5/zeeRL+/SlbVjHaTHS1aektb3TUQcFUIx/7FVSAIwELO3fXmOz8LoAjiMJkKMIx
-	 kWZuSgdDq5xQieR/VAerDY/JUhRuSyFrzJcCC7Dw1rFzRU/GUVRO8BW02yowq+LM0z
-	 Y2oY63WPb5V9DCNOtTt3tGag1/fRZqXeTzxlniVTyoBAjuitAAU6o7g6a/xznkC+bq
-	 CU846+Q/YxILYlNoS2jsT3P14LIAAxOu+K4iJRGFkb+i3VU7jqesNEmOc0A3ZM8O7q
-	 NpDOKpMjNTQQw==
-From: Sasha Levin <sashal@kernel.org>
+	b=IAjfBBi9Cdlo7oRyazJ5YkQMxvi5woKNgXdFbl4AooZpHvakKb6S6dj/2aAIMaEW7
+	 QAv/bewekrPw3ha3lzOMDjyzWYk9hT12dRbo34J8sf4DYDfflu5y/qArrTzChqdTaa
+	 No9mKeQIeRKNQooHdCU0CIhWUkRftJVZAvA/uCMc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Tim Menninger <tmenninger@everpuredata.com>,
-	Anna Schumaker <anna.schumaker@hammerspace.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] pNFS: avoid repeatedly cancelling I/O for the same lseg
-Date: Wed, 25 Nov 2026 11:58:23 -0500
-Message-ID: <20261125165805.915532-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112559-dairy-rocklike-b00b@gregkh>
-References: <2026112559-dairy-rocklike-b00b@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Zhao Li <enderaoelyther@gmail.com>,
+	Johannes Berg <johannes.berg@intel.com>
+Subject: [PATCH 6.12 670/816] wifi: mac80211: bound pending IBSS station allocations
+Date: Wed, 25 Nov 2026 15:36:58 +0100
+Message-ID: <20261125143904.686990817@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,107 +63,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tim Menninger <tmenninger@everpuredata.com>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 9e28836b480c66cca4c3d391177f5b3a50927f7d ]
+------------------
 
-Commit b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is
-recalled or revoked") added I/O cancellation when a layout segment is
-invalidated while outstanding references remain.
+From: Zhao Li <enderaoelyther@gmail.com>
 
-The invalid segment stays on the layout's segment list until those
-references drain. Subsequent scans can find it again and repeatedly
-invoke the layout driver's cancel_io() callback. For flexfiles, this
-cancels matching RPC tasks and disconnects data server RPC clients.
-During RPC/RDMA data server recovery, repeated cancellation can cause a
-reconnect loop that consumes essentially all client CPU and prevents
-forward progress.
+commit 3029ca2112d7bee4d3e3eadd02decdb3eddb9485 upstream.
 
-Record cancellation requests per mirror stripe in the flexfiles layout
-segment. Each stripe is cancelled at most once, regardless of how many
-times the invalid segment is encountered. A per-stripe bitmap rather
-than a single per-segment bit preserves the ability to cancel I/O to a
-different device after an earlier device-specific cancellation.
+Delaying the IBSS station worker while frames arrive from new peers can
+retain an unbounded number of station allocations.
 
-Cancellation is best-effort. An RPC that has already passed the
-layout-validity check may not yet be visible to the cancellation
-scan. Such I/O retains its lseg reference and remains subject to
-the normal RPC completion and recovery paths. Suppress repeated
-cancellation and disconnect requests without changing the existing
-lseg lifetime and deferred layout-return accounting.
+The receive-side limit counts installed stations, while new allocations
+wait on incomplete_stations until process context inserts them. The list
+lock does not cover the interval between allocation and list insertion.
 
-This reproduced on 6.8.0, 7.0.0, and 7.4.0-rc1. It was tested on
-7.4.0-rc1 with sustained pNFS/flexfiles I/O over RPC/RDMA while
-restarting the NFS service on a data server. Without it, repeated
-cancellation led to a reconnect loop and no workload recovery. With it,
-the client recovered after the data server returned.
+Reserve one of 128 pending slots per interface before allocation. Release
+the reservation on allocation failure, after the worker inserts or frees
+the station, and when disconnect frees the pending list.
 
-Fixes: b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is recalled or revoked")
+LLM assistance was used to find the bug and review.
+
+Fixes: 8bf11d8d0811 ("mac80211: delay IBSS station insertion")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
-Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
-[ sashal: adapted cancelled_stripes bitmap to one bit per mirror, since this tree has no per-stripe dss_count and ff_layout_cancel_io() takes no devid, and dropped __counted_by and a differing include context. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Link: https://patch.msgid.link/20261028142235.15428-3-enderaoelyther@gmail.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/nfs/flexfilelayout/flexfilelayout.c | 11 +++++++++++
- fs/nfs/flexfilelayout/flexfilelayout.h |  1 +
- 2 files changed, 12 insertions(+)
+ net/mac80211/ibss.c        |   13 ++++++++++++-
+ net/mac80211/ieee80211_i.h |    1 +
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout/flexfilelayout.c
-index a9945db35ec81..d7436c98a9b32 100644
---- a/fs/nfs/flexfilelayout/flexfilelayout.c
-+++ b/fs/nfs/flexfilelayout/flexfilelayout.c
-@@ -11,6 +11,7 @@
- #include <linux/nfs_mount.h>
- #include <linux/nfs_page.h>
- #include <linux/module.h>
-+#include <linux/bitmap.h>
- #include <linux/sched/mm.h>
+--- a/net/mac80211/ibss.c
++++ b/net/mac80211/ibss.c
+@@ -698,6 +698,7 @@ static void ieee80211_ibss_disconnect(st
+ 		spin_unlock_bh(&ifibss->incomplete_lock);
  
- #include <linux/sunrpc/metrics.h>
-@@ -267,6 +268,7 @@ static void _ff_layout_free_lseg(struct nfs4_ff_layout_segment *fls)
- {
- 	if (fls) {
- 		ff_layout_free_mirror_array(fls);
-+		bitmap_free(fls->cancelled_stripes);
- 		kfree(fls);
+ 		sta_info_free(local, sta);
++		atomic_dec(&ifibss->incomplete_sta_count);
+ 		spin_lock_bh(&ifibss->incomplete_lock);
  	}
- }
-@@ -553,6 +555,12 @@ ff_layout_alloc_lseg(struct pnfs_layout_hdr *lh,
- 		fls->mirror_array[i]->report_interval = be32_to_cpup(p);
+ 	spin_unlock_bh(&ifibss->incomplete_lock);
+@@ -1213,9 +1214,18 @@ void ieee80211_ibss_rx_no_sta(struct iee
+ 	band = chanctx_conf->def.chan->band;
+ 	rcu_read_unlock();
  
- out_sort_mirrors:
-+	fls->cancelled_stripes = bitmap_zalloc(fls->mirror_array_cnt,
-+					       gfp_flags);
-+	if (!fls->cancelled_stripes) {
-+		rc = -ENOMEM;
-+		goto out_err_free;
++	if (!atomic_add_unless(&ifibss->incomplete_sta_count, 1,
++			       IEEE80211_IBSS_MAX_STA_ENTRIES)) {
++		net_info_ratelimited("%s: No room for a new IBSS STA entry %pM\n",
++				     sdata->name, addr);
++		return;
 +	}
- 	ff_layout_sort_mirrors(fls);
- 	ret = &fls->generic_hdr;
- 	dprintk("<-- %s (success)\n", __func__);
-@@ -2201,6 +2209,9 @@ static void ff_layout_cancel_io(struct pnfs_layout_segment *lseg)
++
+ 	sta = sta_info_alloc(sdata, addr, GFP_ATOMIC);
+-	if (!sta)
++	if (!sta) {
++		atomic_dec(&ifibss->incomplete_sta_count);
+ 		return;
++	}
  
- 	for (idx = 0; idx < flseg->mirror_array_cnt; idx++) {
- 		mirror = flseg->mirror_array[idx];
-+		/* Do not cancel a stripe again while this lseg drains. */
-+		if (test_and_set_bit(idx, flseg->cancelled_stripes))
-+			continue;
- 		mirror_ds = mirror->mirror_ds;
- 		if (IS_ERR_OR_NULL(mirror_ds))
- 			continue;
-diff --git a/fs/nfs/flexfilelayout/flexfilelayout.h b/fs/nfs/flexfilelayout/flexfilelayout.h
-index 1d4294c6a7ec4..4757aa633d1ea 100644
---- a/fs/nfs/flexfilelayout/flexfilelayout.h
-+++ b/fs/nfs/flexfilelayout/flexfilelayout.h
-@@ -99,6 +99,7 @@ struct nfs4_ff_layout_segment {
- 	u64				stripe_unit;
- 	u32				flags;
- 	u32				mirror_array_cnt;
-+	unsigned long			*cancelled_stripes;
- 	struct nfs4_ff_layout_mirror	*mirror_array[];
- };
+ 	/* make sure mandatory rates are always added */
+ 	sband = local->hw.wiphy->bands[band];
+@@ -1668,6 +1678,7 @@ void ieee80211_ibss_work(struct ieee8021
+ 			ieee80211_ibss_finish_sta(sta);
+ 			rcu_read_unlock();
+ 		}
++		atomic_dec(&ifibss->incomplete_sta_count);
+ 		spin_lock_bh(&ifibss->incomplete_lock);
+ 	}
+ 	spin_unlock_bh(&ifibss->incomplete_lock);
+--- a/net/mac80211/ieee80211_i.h
++++ b/net/mac80211/ieee80211_i.h
+@@ -634,6 +634,7 @@ struct ieee80211_if_ibss {
  
--- 
-2.53.0
+ 	spinlock_t incomplete_lock;
+ 	struct list_head incomplete_stations;
++	atomic_t incomplete_sta_count;
+ 
+ 	enum {
+ 		IEEE80211_IBSS_MLME_SEARCH,
+
 
