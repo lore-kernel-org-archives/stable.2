@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795622729;
-	b=MaQZFDyIVY7SwNHhjbAAfqhhQar+77VIV8QO928q20cTdOSbkdIlwjUwsuD0qW3MoQWD
-	 0gm2FcNaBxiZprOqv/83InJdfC+2wGAF1ZSin/9KweBFAVAzOx29mudTNifcdqzgPB9kF
-	 Wydrb2OL/2IQhdRGVCOVk1FqJCVybimCNNTfGAEQaJw4TX4MpclFtDQIacwIcLgRRdDG2
-	 z0MAw2+3zBTVMlsKLsEIPoF2xSQntpLWkEOtq1FKXW2QaifiFwjlXNtDKjL6Qrm2nw0xL
-	 vpu9Xi1V9oFdT/eDbA/4XHiNEqSiVsTIHqrre7fIO+ZtV5z66HEK3xqFnXF07J3OriQ==
+	t=1795622730;
+	b=EQkWLmZ357sVv2C3cBpLis5V4j4a+hN2rig4BXTpz9zEicbadXasYlaAf526tLVkz35c
+	 iHZ7oz/Uitq4AHKX2UHY7q51Y96rLLcNs+TTn2dIlGPcRfJOUC/YZcqt0R4TsFMQXo0an
+	 99PSwSmUEtzjNXqg3XRVPhGK3kj9xoGhNsqE/qYX7Pg7HMr0x2F7mtHcVlp0brW8vKxeB
+	 lkigWUvRvkVFwqouMR6UpZlKQawLFSKWjcMEKq+942whpWkXoUxGmANQG7a6Kkb7vzdzF
+	 SMNJOVcOqVGxUVtu9t107H/xhRtDNBaucyO53qib+4xk2ULrKSYgArwpjAAFt326igA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622729;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622730;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ocJFE65424RBkYhq7IYhmYTHJX/v8QmnCVL2QkS1FFk=;
-	b=YGwrRLvE8dryOXE+hxjor/F1fa/6XHqjeq7DFEm0+QF+BvVNies04GtljutGEZ6tkaxT
-	 g96V9X4IEsXXHFNyhBN3o+VfS4S66/JfVXlllVXp2Zp5Zx5m57vAFbt19XEK1zr/1KecO
-	 +GKHSO7Le4NC+dDswXya6AdxK+McDCdq3rahsza1Nnj/Qf5OTT/d6Ivx7l5jCnVQYvdHv
-	 5gsTJR3tCxUykyGE95llS3q85uhKp38xY8sHlEccWzVG8eQHBbxUVOj2bdFPJs9sIJDOB
-	 0hvB9ueZw8fbiqFYNIj7DqJr0PJgvhppHMmJD7PMTSKr7GgVxug7FXBXZ/7ENOC+a1A==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=2cOd+xJlutwOjtSPxu+5oZFY75gXTd78WY1kPRng22M=;
+	b=2bhEBt9QyJe1s3YTMkhLaAc/j4WGis1z29YCoCba9Xio7ohZyIOdd5qSgNoTKsWRtzY2
+	 NpFxSRQSLgBuVoL9KPFGRFkOTHZJL21FtNY4K7ZtloYGWhor/W1dc9YZrQ0Wm3PpFsVwL
+	 QCIBKm2yxD4CYBRezsbdlH2i8m40yHIycm4PgXjOfOAt+N3U6tdNDKWHFddIiv4B9Pp4D
+	 z7safK8UCp6EsTUmMI6ESD0UlGdK3daso24boun+eev8OcjrxMp3pIpVTx2qdB/bAVQI2
+	 /z6+FdOpttB90nK4vM6RD0Abwj56j+r2GmY2VRsdy7B3A733Ig5A9rDNt5meSnwvoww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pn1to5IJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FdH7Vj22;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4030F606A321;
-	Wed, 25 Nov 2026 16:05:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48803606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:05:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pn1to5IJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 780E51F000C4;
-	Wed, 25 Nov 2026 16:05:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795622729;
-	bh=ocJFE65424RBkYhq7IYhmYTHJX/v8QmnCVL2QkS1FFk=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FdH7Vj22
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 575D31F000C0;
+	Wed, 25 Nov 2026 16:05:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795622730;
+	bh=2cOd+xJlutwOjtSPxu+5oZFY75gXTd78WY1kPRng22M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=pn1to5IJU0DzT9WmNdXKK9btjKr2d6J0Ninc2XJp3BeDj9P/iDv/CeCpb+UJQBBiz
-	 XYqMe3kv20OtlBGgalJ4dQguPcWvcJH1ucdsKlx1u/rk3zXX5/0iPhs11ixHj826dC
-	 6IdpAjC6XF1oAubtsFbI23osA+AMFqd5EdaRKIjE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=FdH7Vj22fP+Mb4IVSOkdHg3zltXeRGouuadZ2eQr31OfmkcbIsaIjue0R+eucU6id
+	 9ZPh2ZPFUqGZVHJfxVT+LtLRdVG9Iw+HXsM7nUhupWp8GXB5NO9Ejs2qs7TOULRGV3
+	 b+hhQcBe2OVvMJa3V8uU1pbWWQfrOY8SC8Nt1sWMUiU/hZDBBgY1g7Y+Vik2bab8vU
+	 TEDWdNNlTiSJbyel/LbL832lo9p5j3nW+TXU8B05Rj7wYS13PgudkKPGErkSZLSN1P
+	 A2/5YRFJtcQjkehTh7R2y7y2+6mUBnxN5netAnU/n1jZ5BsC9rYXhXFT69dcmthyfQ
+	 1r8hgErcQKH/A==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Waiman Long <longman@redhat.com>,
-	Guopeng Zhang <zhangguopeng@kylinos.cn>,
-	Tejun Heo <tj@kernel.org>,
+Cc: Zihan Xi <zihanx@nebusec.ai>,
+	Vega <vega@nebusec.ai>,
+	Luxing Yin <root@tr0jan.top>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 628/990] cgroup/cpuset: Find furthest isolated ancestor for invalidated isolated partition
-Date: Wed, 25 Nov 2026 15:33:15 +0100
-Message-ID: <20261125143836.808158490@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.15.y] netfilter: nf_dup: preserve guard across NFQUEUE reinjection
+Date: Wed, 25 Nov 2026 11:05:28 -0500
+Message-ID: <20261125160509.666912-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112552-deputy-ipad-7bcb@gregkh>
+References: <2026112552-deputy-ipad-7bcb@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,213 +63,104 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Zihan Xi <zihanx@nebusec.ai>
 
-------------------
+[ Upstream commit 82052e5b5ec36504fe1b9c3c28a711a78fcacf37 ]
 
-From: Waiman Long <longman@redhat.com>
+NFQUEUE can suspend traversal of a duplicated packet while the task-local
+duplication guard is set. The output call then returns and clears the guard
+before a later verdict resumes hook traversal.
 
-[ Upstream commit 0bce85ff2cc0f7f7d8de16f5fdfc0ae7d29f21f1 ]
+Save the guard in the queue entry and restore it while reinjection
+continues hook traversal. Preserve and restore the verdict task's prior
+state, including nested synchronous reinjection.
 
-Commit 46b885416c27 ("cgroup/cpuset: Fix a missing isolated_cpus
-update in update_cpumasks_hier()") searches for the closet partition
-root ancestor to determine if the isolated CPUs in a to be invalidated
-isolation partition should be removed from isolated_cpus or not.
-
-As reported by sashiko, this method may not work when there is a deeply
-nested isolated partition hierarchy. For instance, Consider a nested
-hierarchy A0 -> A1 -> A2 -> A3 where all four are PRS_ISOLATED:
-
-  A0: effective_xcpus = 0-4
-  A1: effective_xcpus = 1-4
-  A2: effective_xcpus = 2-4
-  A3: effective_xcpus = 3-4
-
-When A1 shrinks its exclusive_cpus from 1-4 to 1-2, A2 will update it
-effective_xcpus to 2. A3 will find its closet partition root ancestor
-A2 and decides that its effective_xcpus 3-4 should be removed from
-isolated_cpus which is incorrect.
-
-Address this corner case by adding a new isolated_cpus_release() helper
-to replace the existing ancestor_partition() helper. This new helper
-will search for the furthest isolated partition root ancestor to decide
-if some or all of its isolated CPUs should be removed from isolated_cpus
-and also perform the removal when appropriate.
-
-The is_remote_partition() and is_local_partition() helpers are also
-moved up so they can be used in earlier functions.
-
-There are other pre-existing problems that will still prevent the
-above test case to work correctly. These problems will be addressed in
-subsequent patches.
-
-Fixes: 46b885416c27 ("cgroup/cpuset: Fix a missing isolated_cpus update in update_cpumasks_hier()")
-Signed-off-by: Waiman Long <longman@redhat.com>
-Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-Signed-off-by: Tejun Heo <tj@kernel.org>
-[ sashal: Replaced the upstream cs->remote_partition check in is_remote_partition() with this tree's remote_sibling list test, and adjusted context around the plain isolated_cpus_update(). ]
+Fixes: cd58bcd9787e ("netfilter: xt_TEE: have cloned packet travel through Xtables too")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+[ sashal: Replaced the per-task in_nf_duplicate guard with the per-CPU nf_skb_duplicated, moved the nf_reinject() edits into nf_queue.c, and dropped the DEBUG_NET_WARN_ONCE assertion and its missing header. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/cgroup/cpuset.c | 104 +++++++++++++++++++++--------------------
- 1 file changed, 53 insertions(+), 51 deletions(-)
+ include/net/netfilter/nf_queue.h |  1 +
+ net/netfilter/nf_queue.c         | 13 ++++++++++---
+ 2 files changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 751ea3d6dcc0a..54ee036020e05 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -1348,6 +1348,16 @@ static void reset_partition_data(struct cpuset *cs)
- 		cpumask_copy(cs->effective_cpus, parent->effective_cpus);
+diff --git a/include/net/netfilter/nf_queue.h b/include/net/netfilter/nf_queue.h
+index 3e0b166747516..6ff855d21d563 100644
+--- a/include/net/netfilter/nf_queue.h
++++ b/include/net/netfilter/nf_queue.h
+@@ -21,6 +21,7 @@ struct nf_queue_entry {
+ 	struct net_device	*physout;
+ #endif
+ 	struct nf_hook_state	state;
++	bool			in_nf_duplicate;
+ 	u16			size; /* sizeof(entry) + saved route keys */
+ 
+ 	/* extra space to store route keys */
+diff --git a/net/netfilter/nf_queue.c b/net/netfilter/nf_queue.c
+index 74d85f7a4f557..eec4a4bcf67f6 100644
+--- a/net/netfilter/nf_queue.c
++++ b/net/netfilter/nf_queue.c
+@@ -220,6 +220,7 @@ static int __nf_queue(struct sk_buff *skb, const struct nf_hook_state *state,
+ 	*entry = (struct nf_queue_entry) {
+ 		.skb	= skb,
+ 		.skb_dev = skb->dev,
++		.in_nf_duplicate = this_cpu_read(nf_skb_duplicated),
+ 		.state	= *state,
+ 		.hook_index = index,
+ 		.size	= sizeof(*entry) + route_key_size,
+@@ -317,21 +318,26 @@ void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
+ 	const struct nf_hook_entry *hook_entry;
+ 	const struct nf_hook_entries *hooks;
+ 	struct sk_buff *skb = entry->skb;
++	bool old_in_nf_duplicate;
+ 	const struct net *net;
+ 	unsigned int i;
+ 	int err;
+ 	u8 pf;
+ 
++	local_bh_disable();
++	old_in_nf_duplicate = __this_cpu_read(nf_skb_duplicated);
++
+ 	net = entry->state.net;
+ 	pf = entry->state.pf;
+ 
++	__this_cpu_write(nf_skb_duplicated, entry->in_nf_duplicate);
+ 	hooks = nf_hook_entries_head(net, pf, entry->state.hook);
+ 
+ 	i = entry->hook_index;
+ 	if (WARN_ON_ONCE(!hooks || i >= hooks->num_hook_entries)) {
+ 		kfree_skb(skb);
+ 		nf_queue_entry_free(entry);
+-		return;
++		goto out;
+ 	}
+ 
+ 	hook_entry = &hooks->hooks[i];
+@@ -354,9 +360,7 @@ void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
+ 	switch (verdict & NF_VERDICT_MASK) {
+ 	case NF_ACCEPT:
+ 	case NF_STOP:
+-		local_bh_disable();
+ 		entry->state.okfn(entry->state.net, entry->state.sk, skb);
+-		local_bh_enable();
+ 		break;
+ 	case NF_QUEUE:
+ 		err = nf_queue(skb, &entry->state, i, verdict);
+@@ -370,5 +374,8 @@ void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
+ 	}
+ 
+ 	nf_queue_entry_free(entry);
++out:
++	__this_cpu_write(nf_skb_duplicated, old_in_nf_duplicate);
++	local_bh_enable();
  }
- 
-+static inline bool is_remote_partition(struct cpuset *cs)
-+{
-+	return !list_empty(&cs->remote_sibling);
-+}
-+
-+static inline bool is_local_partition(struct cpuset *cs)
-+{
-+	return is_partition_valid(cs) && !is_remote_partition(cs);
-+}
-+
- /*
-  * isolated_cpus_update - Update the isolated_cpus mask
-  * @old_prs: old partition_root_state
-@@ -1363,6 +1373,45 @@ static void isolated_cpus_update(int old_prs, int new_prs, struct cpumask *xcpus
- 		cpumask_andnot(isolated_cpus, isolated_cpus, xcpus);
- }
- 
-+/*
-+ * isolated_cpus_release - Remove the relevant CPUs in @xcpus from isolated_cpus
-+ * @cs: the current cpuset
-+ * @xcpus: the set of effective xcpus to be considered for removal
-+ *
-+ * This function is called when an isolated partition is invalidated or when
-+ * some of its effective xcpus are to be removed from isolated_cpus due to
-+ * changes in parent cpuset. The given @xcpus must be modifiable as the function
-+ * will update its value to determine the right set of CPUs to be removed.
-+ */
-+static void isolated_cpus_release(struct cpuset *cs, struct cpumask *xcpus)
-+{
-+	struct cpuset *ancestor = parent_cs(cs);
-+	struct cpuset *iancestor = NULL;
-+
-+	/*
-+	 * Search the furthest isolated partition root ancestor available
-+	 * until top_cpuset or a remote partition root is hit.
-+	 */
-+	for (; ancestor; ancestor = parent_cs(ancestor)) {
-+		if (ancestor->partition_root_state == PRS_ISOLATED)
-+			iancestor = ancestor;
-+		if (is_remote_partition(ancestor))
-+			break;
-+	}
-+
-+	/*
-+	 * If a furthest isolated partition acnestor is found, use it to
-+	 * determine which of the CPUs in @xcpus should be removed from
-+	 * isolated_cpus. Otherwise, all of them will be removed.
-+	 */
-+	if (iancestor && !cpumask_andnot(xcpus, xcpus, iancestor->effective_xcpus))
-+		return; /* No CPU should be removed from isolated_cpus */
-+
-+	spin_lock_irq(&callback_lock);
-+	isolated_cpus_update(PRS_ISOLATED, PRS_ROOT, xcpus);
-+	spin_unlock_irq(&callback_lock);
-+}
-+
- /*
-  * partition_xcpus_add - Add new exclusive CPUs to partition
-  * @new_prs: new partition_root_state
-@@ -1621,16 +1670,6 @@ static int compute_trialcs_excpus(struct cpuset *trialcs, struct cpuset *cs)
- 	return rm_siblings_excl_cpus(parent, cs, excpus);
- }
- 
--static inline bool is_remote_partition(struct cpuset *cs)
--{
--	return !list_empty(&cs->remote_sibling);
--}
--
--static inline bool is_local_partition(struct cpuset *cs)
--{
--	return is_partition_valid(cs) && !is_remote_partition(cs);
--}
--
- /*
-  * remote_partition_enable - Enable current cpuset as a remote partition root
-  * @cs: the cpuset to update
-@@ -2239,25 +2278,6 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
- 	rcu_read_unlock();
- }
- 
--/*
-- * ancestor_partition - Find and return the closest valid partition root ancestor
-- * @cs: the current cpuset
-- *
-- * Return: The closet partition root ancestor cpuset
-- */
--static struct cpuset *ancestor_partition(struct cpuset *cs)
--{
--	struct cpuset *ancestor = parent_cs(cs);
--
--	/*
--	 * The top_cpuset is always a valid partition root which will stop
--	 * the loop if it is reached.
--	 */
--	while (!is_partition_valid(ancestor))
--		ancestor = parent_cs(ancestor);
--	return ancestor;
--}
--
- /*
-  * update_cpumasks_hier - Update effective cpumasks and tasks in the subtree
-  * @cs:  the cpuset to consider
-@@ -2361,7 +2381,6 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
- 		 */
- 		if ((cp != cs) && old_prs) {
- 			int parent_prs = parent->partition_root_state;
--			struct cpumask *del_cpus = NULL;
- 
- 			switch (parent_prs) {
- 			case PRS_ROOT:
-@@ -2375,32 +2394,15 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
- 				 * child partition roots become invalid too.
- 				 *
- 				 * For a to be invalidated isolated partition,
--				 * its isolated CPUs may or may not need to be
--				 * removed from isolated_cpus depending on if
--				 * its closest partition root ancestor is a root
--				 * or isolated partition. With a PRS_ISOLATED
--				 * ancestor, the CPUs are checked against its
--				 * effective xcpus to see if any of them needed
--				 * to be removed.
-+				 * call return_isolated_cpus() to remove the
-+				 * relevant CPUs from isolated_cpus.
- 				 */
- 				if (is_partition_valid(cp))
- 					new_prs = -old_prs;
- 
- 				if (old_prs == PRS_ISOLATED) {
--					struct cpuset *ancestor = ancestor_partition(cp);
--
--					if (ancestor->partition_root_state == PRS_ROOT)
--						del_cpus = cp->effective_xcpus;
--					else if (cpumask_andnot(tmp->delmask,
--								cp->effective_xcpus,
--								ancestor->effective_xcpus))
--						del_cpus = tmp->delmask;
--
--					if (del_cpus) {
--						spin_lock_irq(&callback_lock);
--						isolated_cpus_update(old_prs, new_prs, del_cpus);
--						spin_unlock_irq(&callback_lock);
--					}
-+					cpumask_copy(tmp->delmask, cp->effective_xcpus);
-+					isolated_cpus_release(cp, tmp->delmask);
- 				}
- 				WRITE_ONCE(cp->prs_err,
- 					   is_partition_invalid(parent)
+ EXPORT_SYMBOL(nf_reinject);
 -- 
 2.53.0
-
-
 
