@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603518;
-	b=QArk2jiVaEYxDIN6BWWDPGu8yHh9rs+bGiR1+2YffX51p+ar/+C2w10bsxYW4P0Rno3c
-	 yUuk9KuFBKhVO3rKA+Gr/Zky3ZrxSJBpgT1b8xJeiRpOly0bBvXQiLmeEGCChbGIUjrn7
-	 DTHbi7Z1EJ6ZoC/hRTBPDvLGSsI2x9PWr8l49ANWMMi+Mc/ekFVs8UPG05WXko0xAdBo/
-	 Xep3rfQX0lFA1KBffRcwbpvIUNWr63lloh4u5h8bPAfi2Fk8FW0wlx1E65Oy3q+a31lLc
-	 2auQ0ivAHo1uCKzXeOiIWKW0X02P6G7p9N9I56PWWDebl6csMwYGdf5th48biOc4N0Q==
+	t=1795603521;
+	b=I04iUFa1yEvXDj2duB1QMHC4qeQDlFn08hb4TzViKBfMVnd99lP079COPpZ+JEW/8qCM
+	 iNpZWXrF2RYaxvzRe8y5jALuz0tv2a0N5fpGGAww1Ib+AWcRl8Z/63Xt6H4N45DuGtcTJ
+	 s9QqhnfuRjDtjXUJ0rqMZx7ekWwwq5+51sJXJALaBozjcA12V6px8/9gLX6lldwS8VS2P
+	 rO9jn8og6k4kNYgOUO8bT/P7WkYAe9GBmBqR8zhpPY/Q2BmFEAs+Xlq8LdSPJLix1eHoe
+	 yxJranzgahUrslcvDVYbUgwUHDt4ka3ZXTcosRii2yCmzTzgjCeUTKI10h5/VwrmnXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603518;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603521;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Hdmn2v1UWMGye85BKAQml731rR2LVysV0ncxnPt3VJA=;
-	b=xjM73/hsoSDmJ90Zy3S+2PPMyD8F1M09G776Jr1lWOy28oShnN2o0sNhAFmos93WCtYe
-	 Cp0+hT6y+1n9dOfocf1PhYAbUaFeTjxyip76B7kbLtrEo/ohCK0xnP6bsNn/uiUGfh8vx
-	 MogvgtrsVQh8f4LJ31jxlkhfT+DiFHo2ZrWtLKF9+OJJTxWb2Gy1P1bCv0DgJTiFfuu/7
-	 g6I6YSzpX+zM9TOzLrSFzOoxWIPlH6C9XUQlZQq2YWWDwxUZhdv5yjO+eN+1dOIJkJbrv
-	 uU8BjaZjAhA+ZugZqjct0B+rlOt4FWfquglRSzxMqZun3K1UDofi4KvlNAxNBsENw1Q==
+	bh=T7crWW398PplhWJFDcUegBMqprzeSu9sblXj/B/6m00=;
+	b=B367z2BrP12L0Ummz04coTdiR4hTsYKPxKbszGc9ifT2bI3VbVnOOmlo+kdtLL3rCOAJ
+	 GcO4fVjiMOHWRW7fRd0C74Dsd3eUORPMCkKQbffdGOjeQDAyIydGr1uvTR60d+i/t4eof
+	 Q/aI4TAnS1oOoib5cTAiA6Tq7Iz6/98eyhZnJUdJAN+JjAOw+XpFOjiobosyDRYpxxzOq
+	 VJ/3CnjHVcW1RWqbQIhZBXfaDIFWG/6j6yR3aZXh3SNvDqSP/8Yr8XM8ue/cs7FoFEPU9
+	 Qo1ugzBu43uajt+YLkyaV1pkhpVBOek95pBkKK8lkufykbgKK2b78zJa+OA0aKor9Ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YcntHQvx;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WJQMPP8O;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 440E1606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:45:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE13606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:45:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YcntHQvx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55F781F000C6;
-	Wed, 25 Nov 2026 10:45:17 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WJQMPP8O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 216A01F000C6;
+	Wed, 25 Nov 2026 10:45:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603517;
-	bh=Hdmn2v1UWMGye85BKAQml731rR2LVysV0ncxnPt3VJA=;
+	s=korg; t=1795603520;
+	bh=T7crWW398PplhWJFDcUegBMqprzeSu9sblXj/B/6m00=;
 	h=Subject:To:Cc:From:Date;
-	b=YcntHQvxKZhl2G1TnLDodNzT3iYfgFkQR3DyEFrATg37KLk+6PxMbGQ4+oYecY/XM
-	 dTKbsqqkgYbiZbn/jgBZ1iXcAEuh9AnZkO2tv76rbUxndAfGbP/jNNzgiYu1dfXOeV
-	 j6FCyQ5nVKUJTR/FWPsLgzF0VIwlnXfgiKQHn5Og=
-Subject: FAILED: patch "[PATCH] ksmbd: keep group denials when a POSIX ACL entry decides" failed to apply to 6.18-stable tree
+	b=WJQMPP8OBhuxOm/Tgf26ZlAp0HDSdLs4oFAif1r0oP9JjXIuRRYw0f24uZKm33e2z
+	 IiUv+8/OawB7uRAb5pfW5IqajGMeJRs4AE+6DDLeiKSArQdcxQHI3G3ZxCz6suhkfT
+	 M5dnYlQej5MQ1VhtK4KFPfjGN6y+jrNnZ+A8ffLU=
+Subject: FAILED: patch "[PATCH] ksmbd: keep group denials when a POSIX ACL entry decides" failed to apply to 6.6-stable tree
 To: icb@fastmail.org,linkinjeon@kernel.org,sashiko-bot@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:36:11 +0100
-Message-ID: <2026112511-cufflink-wool-8a84@gregkh>
+Date: Wed, 25 Nov 2026 11:36:12 +0100
+Message-ID: <2026112512-uncloak-mammogram-c33f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x b0af9a3e6b1534d353ca6ac23caaf46127f62e4a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112511-cufflink-wool-8a84@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112512-uncloak-mammogram-c33f@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
