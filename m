@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795624222;
-	b=sNC7jXzUT13mrBbjhWDZbCGqPS3HyQDzWEx3xzCPOyteHOQfy8ZayljMMqn7JHqzEZys
-	 R6qfN+yZzODMIiscOUgbpa6iFkdPgBVK1ZOGnJ1ox7oH2yWB8SJXZIYpJr/YhaCbrXenw
-	 4o3aczfQfMSaqDoeb2ZAfRr2sfOHEIETMp4lDaLBHCeYGX//M8kOqfhQ1POUfJV00Eone
-	 szm08RtTHEqgx2i5XnAgSSe6ulq4joufxKpwe4ff1ryauSFrfYqq6N2yXTM5tjUs3IKFl
-	 T3Pc1dKZA9CD0TLk+20Q+qmfNUNjOr9Hd1RSaDI9/o3m5LeZGtxdzpnAXVC1+t7nOTg==
+	t=1795624224;
+	b=PgGKS0+F7dxCgoN5bFbCMqQFrc/MR/Nb9lP88yFZw4XcPLDOvSX27EXtlrRG8tmq9KoQ
+	 2oNz3IYUFlKRLTDd2HBWOd7JTKWcC4YpfNRa9iJ5VAaSnOSN2g4nciX1q/XvjibDcarmp
+	 TzOSah7GW6DaVNkuMH1Wp2EetdihD9PqMVksJuOIgdkbQsliGEQ+xQ4xkgwQKxbWjvwov
+	 H6FzBZg9rsCebjLU6qaDIU+UZgM7c3rl30CCq6Uesm2j/hyrprvVhR2E6AC//GMI1B9wU
+	 Ll5duBlzzNZMDWMxNsVqVzI2d6hYTWgmYorylVKgNwbRTZOY6RB5UO3u4zpw5bX44iA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795624222;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795624224;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=plsPeRbdt3XJb2LcioIV1gOQf2fXrQ/d7TW6wySLtmc=;
-	b=M8atgi7iYjqGDVGaz9S8d22OBE/kjxsCcXPUwShdoudhUUdaKa+pMHzKfnCBgA1l2Tlu
-	 I1XM6+jNzods1uLCb+o6jQYhAYjflR5/iAWVCllaPNuZcpEG0aLBFA1qwaudFIuvvkUPu
-	 HfH3HzdvF1VBYM4Sr75gOVLSXg6bUWfxwkMA6Z4rv9sgNSVVTd3mWsc00PKI6YBKsxnYQ
-	 uL9ye7byDj/wXYplZa1oKSLID9nHgNc7TNsUt7yY4xrgBltOkjTskAduPXPd6A0f/7w5J
-	 15zWqWn6qs12jcRXvQL94i6vJr0BhUuAGDNdR+vYFGOd3bMmQQITryHJN5kp0RCkrXw==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=kNcikwiPj9Qu91Q2jQ6TmCXZwuxsb4K5vTmWX8QzysY=;
+	b=44WCo3KCQvSwySXwqzFFMyJOIZ5MAXFGO7i3cAR2lkaJA0N2bKFcyOaeDnsMhEUOR4BL
+	 H5stRL04sGqqozJ13Thg5uj3A2v0XpBUiqufuCg9Iqp3w2Q9BBNNgWfxsIGlRhYr0w/9L
+	 Co71900O23Y3MY9r6icB9WagyW6XO6FxuSe8RnSz82f6rbzAn9BMYqPuSnnLlTzl25poo
+	 rzLRrd4c9GZEu2zBvyNcB3Gq1U4er51iRsNra+2wP7C5prEMQ9Oaoz0juB1Oy2lpV/6gZ
+	 pM+iPA4btsolBoh+3bD3Ureb/Urt3VyHhF8aDx07vKOw6T6ibZUXqcZmtEYdm/AxgWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQTnNjrG;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="mOS/AIg4";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C776B606A339
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:30:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9607C606A31E;
+	Wed, 25 Nov 2026 16:30:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQTnNjrG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B0FE1F000D2;
-	Wed, 25 Nov 2026 16:30:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795624222;
-	bh=plsPeRbdt3XJb2LcioIV1gOQf2fXrQ/d7TW6wySLtmc=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mOS/AIg4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DD171F000D1;
+	Wed, 25 Nov 2026 16:30:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795624223;
+	bh=kNcikwiPj9Qu91Q2jQ6TmCXZwuxsb4K5vTmWX8QzysY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XQTnNjrGFTpPqFx4fsPEVFunwpq83dKHGc+6o76yzl16e9yQYAAvGs+tBsuugm4yn
-	 pxvMqiP1WLGfVBxn8sYqs/IsluYiZBzWH1KrnKvlIy/FpzHVftldy97pm00zCwUJpr
-	 57PlwjDBG3OVtfoAXCNSAH6bBYsJJojg69fyJizfF55W9IUrSZFUldShrUlPYJNsaG
-	 pw7cGIi4uzRQROTmf3tUHnoaD69xLnCJdh2HZfpadBoh5sPLDF59KvqRRMvRAb91Wh
-	 DiHJj2r0/5f/b9XPexZ0RNKupvzNu16hbbOaIOZYq0zcicAIAlvBGB2c+6xT1+mxld
-	 PnIxL0SJUGLLg==
-From: Sasha Levin <sashal@kernel.org>
+	b=mOS/AIg4mXXkaJhIaE9JeQs9p/mYAUDAE6Dw77d8Pl1TGbNGtqxqGF7iUpU1plV3C
+	 5XIhrYmP44epNEA4UF0Mh9qQGqlxG8HoviQs261DlhF82FUdCZsl2IcwHCVCsdmEUA
+	 efY3oLUsNNyAYs/NHi+zZjiPaASqE/4ht2nY6hJY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Zak Brighton Knight <zakbrightonknight@gmail.com>,
-	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Doug Smythies <dsmythies@telus.net>,
-	Christian Loehle <christian.loehle@arm.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] cpufreq: Improve suspend-resume synchronization
-Date: Wed, 25 Nov 2026 11:30:19 -0500
-Message-ID: <20261125163002.810185-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112513-parasail-absolve-96dd@gregkh>
-References: <2026112513-parasail-absolve-96dd@gregkh>
+Subject: [PATCH 6.12 122/816] net: stmmac: drop split frames on AF_XDP zero-copy RX
+Date: Wed, 25 Nov 2026 15:27:50 +0100
+Message-ID: <20261125143852.032738181@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,261 +65,160 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit eee2a44e4e2b41c0699919a550d41cc38daa4f42 ]
+------------------
 
-The suspend-resume synchronization in the cpufreq core is not perfect
-because the global cpufreq_suspended variable is set at the end of
-cpufreq_suspend() after stopping governors for all of the active
-policies, so the governor .limits() callback may run via
-cpufreq_governor_limits() after stopping the governor and before
-setting cpufreq_suspended which is questionable.  Likewise, the
-governor .limits() callback may run between clearing cpufreq_suspended
-in cpufreq_resume() and starting the governor.
+From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
 
-Address this by adding a per-policy "suspended" flag that is always
-read under the policy rwsem and is updated under it when the governor
-is stopped in cpufreq_suspend() and when the governor is restarted in
-cpufreq_resume().
+[ Upstream commit 834ec95308320cbd8c162d86788ab95cc3fd6bf8 ]
 
-Also make cpufreq_resume() use the cpus_read_lock guard to reflect
-what is done in cpufreq_suspend() and call cpufreq_exit_governor() for
-policies that were suspended during a system suspend transition and
-are inactive during the subsequent system resume (to avoid leaking an
-inactive policy with a stopped governor that has not exited yet).
+stmmac_rx_zc() assumes a 1:1 mapping between a received frame and an
+XSK pool buffer and drops any frame that spans more than one RX
+descriptor:
 
-Fixes: 8e30444e1530 ("cpufreq: fix cpufreq suspend/resume for intel_pstate")
-Fixes: b1b12babe3b7 ("cpufreq: update 'cpufreq_suspended' after stopping governors")
-Cc: All applicable <stable@vger.kernel.org>
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Tested-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
-Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
-Tested-by: Doug Smythies <dsmythies@telus.net>
-Tested-by: Christian Loehle <christian.loehle@arm.com>
-Link: https://patch.msgid.link/4796894.LvFx2qVVIh@rafael.j.wysocki
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-[ sashal: Replaced guard()/scoped_guard() cpufreq_policy_write and cpus_read_lock guards with explicit down_write/up_write and cpus_read_lock/unlock using goto unlock, and adjusted pr_err messages to match the older code. ]
+        /* XSK pool expects RX frame 1:1 mapped to XSK buffer */
+        if (likely(status & rx_not_ls)) {
+                xsk_buff_free(buf->xdp);
+                buf->xdp = NULL;
+                dirty++;
+                count++;
+                goto read_again;
+        }
+
+The non-last descriptors are freed and dropped, but the frame is not
+marked as errored. When the poll reaches the last descriptor of the
+same frame, error is still 0, so the fragment is handled as a complete
+frame: it is passed to the XDP program, copied into an skb on XDP_PASS,
+or converted for XDP_TX. The tail starts in the middle of the original
+payload at a predictable offset and, parsed as a fresh frame (len == 0),
+stmmac_rx_buf1_len() reports the full dma_buf_sz length for it even
+though the DMA engine only wrote the tail remainder into that buffer, so
+the reads extend past the received bytes and can reach beyond the end of
+the XSK pool buffer. GMAC4 always enables jumbo frames (GMAC_CONFIG_JE
+in GMAC_CORE_INIT), so an on-link peer can trigger such a split even
+when the interface MTU is left at 1500.
+
+Set error when the 1:1 mapping check drops a descriptor, so the
+remaining descriptors of the frame - including the last one - are
+drained and released with xsk_buff_free() instead of being processed as
+a new frame. Account every freed buffer with dirty and count the
+dropped frame once in the poll budget / rx_pkt_n. The direct 1:1
+mapping drop also increments rx_dropped.
+
+Use a bit test instead of an equality test for discard_frame.
+Commit 644b8437ccef9e ("net: stmmac: dwmac4: report Rx checksum errors
+in status") made dwmac4_wrback_get_rx_status() set discard_frame on
+RDES3_ERROR_SUMMARY and OR in csum_none on RDES1_IP_HDR_ERROR or
+RDES1_IP_PAYLOAD_ERROR, so it can return discard_frame | csum_none.
+The old "status == discard_frame" test missed that value and delivered
+frames with CRC, overflow, watchdog or giant errors to the stack in
+stmmac_rx() - or to XDP/XSK in stmmac_rx_zc() - when they also failed
+the IP checksum. The change therefore affects the regular RX path, not
+only zero-copy. The bit test is also required for the
+discard_frame | rx_not_ls value returned for non-last legacy
+descriptors below.
+
+Normalize the legacy normal and enhanced descriptor callbacks to report
+rx_not_ls together with discard_frame for non-last descriptors. This
+allows both stmmac_rx_zc() and stmmac_rx() to drain split frames on
+dwmac100 and dwmac1000 instead of reparsing the final fragment as a new
+packet.
+
+Fixes: bba2556efad6 ("net: stmmac: Enable RX via AF_XDP zero-copy")
+Fixes: 644b8437ccef9e ("net: stmmac: dwmac4: report Rx checksum errors in status")
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+Link: https://patch.msgid.link/20261027-stmmac-xdp-fixes-v2-2-10eae8a093a8@oss.qualcomm.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/cpufreq/cpufreq.c | 98 +++++++++++++++++++++++++++++----------
- include/linux/cpufreq.h   |  3 ++
- 2 files changed, 76 insertions(+), 25 deletions(-)
+ .../net/ethernet/stmicro/stmmac/enh_desc.c    |  2 +-
+ .../net/ethernet/stmicro/stmmac/norm_desc.c   |  2 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 21 ++++++++++++-------
+ 3 files changed, 15 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index fcddf5c41814b..e5807fb4eb3eb 100644
---- a/drivers/cpufreq/cpufreq.c
-+++ b/drivers/cpufreq/cpufreq.c
-@@ -34,6 +34,9 @@
- static LIST_HEAD(cpufreq_policy_list);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
+index 963579518405c..9833db1fed0c4 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
+@@ -210,7 +210,7 @@ static int enh_desc_get_rx_status(struct stmmac_extra_stats *x,
  
- /* Macros to iterate over CPU policies */
-+#define for_each_policy(__policy)	\
-+	list_for_each_entry(__policy, &cpufreq_policy_list, policy_list)
-+
- #define for_each_suitable_policy(__policy, __active)			 \
- 	list_for_each_entry(__policy, &cpufreq_policy_list, policy_list) \
- 		if ((__active) == !policy_is_inactive(__policy))
-@@ -1923,6 +1926,16 @@ int cpufreq_generic_suspend(struct cpufreq_policy *policy)
- }
- EXPORT_SYMBOL(cpufreq_generic_suspend);
- 
-+static void cpufreq_suspend_policy(struct cpufreq_policy *policy)
-+{
-+	down_write(&policy->rwsem);
-+
-+	cpufreq_stop_governor(policy);
-+	policy->suspended = true;
-+
-+	up_write(&policy->rwsem);
-+}
-+
- /**
-  * cpufreq_suspend() - Suspend CPUFreq governors.
-  *
-@@ -1945,11 +1958,8 @@ void cpufreq_suspend(void)
- 	pr_debug("%s: Suspending Governors\n", __func__);
- 
- 	for_each_active_policy(policy) {
--		if (has_target()) {
--			down_write(&policy->rwsem);
--			cpufreq_stop_governor(policy);
--			up_write(&policy->rwsem);
--		}
-+		if (has_target())
-+			cpufreq_suspend_policy(policy);
- 
- 		if (cpufreq_driver->suspend && cpufreq_driver->suspend(policy))
- 			pr_err("%s: Failed to suspend driver: %s\n", __func__,
-@@ -1961,6 +1971,35 @@ void cpufreq_suspend(void)
- 	cpus_read_unlock();
- }
- 
-+static void cpufreq_resume_policy(struct cpufreq_policy *policy, bool start)
-+{
-+	down_write(&policy->rwsem);
-+
-+	if (!policy->suspended)
-+		goto unlock;
-+
-+	policy->suspended = false;
-+
-+	if (policy_is_inactive(policy)) {
-+		/*
-+		 * The policy was active when it was suspended, so its governor
-+		 * is still there.  Let the governor go.
-+		 */
-+		cpufreq_exit_governor(policy);
-+		goto unlock;
-+	}
-+
-+	if (!start)
-+		goto unlock;
-+
-+	if (cpufreq_start_governor(policy))
-+		pr_err("%s: Failed to start governor for policy: %p\n",
-+		       __func__, policy);
-+
-+unlock:
-+	up_write(&policy->rwsem);
-+}
-+
- /**
-  * cpufreq_resume() - Resume CPUFreq governors.
-  *
-@@ -1970,35 +2009,38 @@ void cpufreq_suspend(void)
- void cpufreq_resume(void)
- {
- 	struct cpufreq_policy *policy;
--	int ret;
- 
- 	if (!cpufreq_driver)
- 		return;
- 
-+	cpus_read_lock();
-+
- 	if (unlikely(!cpufreq_suspended))
--		return;
-+		goto unlock;
- 
- 	cpufreq_suspended = false;
- 
- 	if (!has_target() && !cpufreq_driver->resume)
--		return;
-+		goto unlock;
- 
- 	pr_debug("%s: Resuming Governors\n", __func__);
- 
--	for_each_active_policy(policy) {
--		if (cpufreq_driver->resume && cpufreq_driver->resume(policy)) {
--			pr_err("%s: Failed to resume driver: %p\n", __func__,
--				policy);
--		} else if (has_target()) {
--			down_write(&policy->rwsem);
--			ret = cpufreq_start_governor(policy);
--			up_write(&policy->rwsem);
-+	for_each_policy(policy) {
-+		int ret = 0;
- 
-+		if (cpufreq_driver->resume && !policy_is_inactive(policy)) {
-+			ret = cpufreq_driver->resume(policy);
- 			if (ret)
--				pr_err("%s: Failed to start governor for policy: %p\n",
--				       __func__, policy);
-+				pr_err("%s: Failed to resume driver: %p\n", __func__,
-+				       policy);
- 		}
-+
-+		if (has_target())
-+			cpufreq_resume_policy(policy, ret == 0);
+ 	if (unlikely(!(rdes0 & RDES0_LAST_DESCRIPTOR))) {
+ 		x->rx_length++;
+-		return discard_frame;
++		return discard_frame | rx_not_ls;
  	}
+ 
+ 	if (unlikely(rdes0 & RDES0_ERROR_SUMMARY)) {
+diff --git a/drivers/net/ethernet/stmicro/stmmac/norm_desc.c b/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
+index 68a7cfcb1d8f3..c08846da03eb7 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
+@@ -77,7 +77,7 @@ static int ndesc_get_rx_status(struct stmmac_extra_stats *x,
+ 
+ 	if (unlikely(!(rdes0 & RDES0_LAST_DESCRIPTOR))) {
+ 		x->rx_length++;
+-		return discard_frame;
++		return discard_frame | rx_not_ls;
+ 	}
+ 
+ 	if (unlikely(rdes0 & RDES0_ERROR_SUMMARY)) {
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 3bfc2522b2fc3..62527de9874e0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -5387,18 +5387,21 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
+ 							   &rx_q->dma_erx[entry],
+ 							   status);
+ 		}
+-		if (unlikely(status == discard_frame)) {
+-			xsk_buff_free(buf->xdp);
+-			buf->xdp = NULL;
+-			dirty++;
 +
-+unlock:
-+	cpus_read_unlock();
- }
++		if (unlikely(!error && (status & discard_frame))) {
+ 			error = 1;
+ 			if (!priv->hwts_rx_en)
+ 				rx_errors++;
+ 		}
  
- /**
-@@ -2368,12 +2410,17 @@ __weak struct cpufreq_governor *cpufreq_fallback_governor(void)
- 	return NULL;
- }
- 
-+static bool cpufreq_is_suspended(struct cpufreq_policy *policy)
-+{
-+	return cpufreq_suspended || policy->suspended;
-+}
+-		if (unlikely(error && (status & rx_not_ls)))
+-			goto read_again;
+ 		if (unlikely(error)) {
++			xsk_buff_free(buf->xdp);
++			buf->xdp = NULL;
++			dirty++;
 +
- static int cpufreq_init_governor(struct cpufreq_policy *policy)
- {
- 	int ret;
- 
--	/* Don't start any governor operations if we are entering suspend */
--	if (cpufreq_suspended)
-+	/* Don't start any governor operations for suspended policies. */
-+	if (cpufreq_is_suspended(policy))
- 		return 0;
- 	/*
- 	 * Governor might not be initiated here if ACPI _PPC changed
-@@ -2416,7 +2463,7 @@ static int cpufreq_init_governor(struct cpufreq_policy *policy)
- 
- static void cpufreq_exit_governor(struct cpufreq_policy *policy)
- {
--	if (cpufreq_suspended || !policy->governor)
-+	if (cpufreq_is_suspended(policy) || !policy->governor)
- 		return;
- 
- 	pr_debug("%s: for CPU %u\n", __func__, policy->cpu);
-@@ -2431,7 +2478,7 @@ int cpufreq_start_governor(struct cpufreq_policy *policy)
- {
- 	int ret;
- 
--	if (cpufreq_suspended)
-+	if (cpufreq_is_suspended(policy))
- 		return 0;
- 
- 	if (!policy->governor)
-@@ -2456,7 +2503,7 @@ int cpufreq_start_governor(struct cpufreq_policy *policy)
- 
- void cpufreq_stop_governor(struct cpufreq_policy *policy)
- {
--	if (cpufreq_suspended || !policy->governor)
-+	if (cpufreq_is_suspended(policy) || !policy->governor)
- 		return;
- 
- 	pr_debug("%s: for CPU %u\n", __func__, policy->cpu);
-@@ -2467,7 +2514,7 @@ void cpufreq_stop_governor(struct cpufreq_policy *policy)
- 
- static void cpufreq_governor_limits(struct cpufreq_policy *policy)
- {
--	if (cpufreq_suspended || !policy->governor)
-+	if (cpufreq_is_suspended(policy) || !policy->governor)
- 		return;
- 
- 	pr_debug("%s: for CPU %u\n", __func__, policy->cpu);
-@@ -2687,7 +2734,8 @@ void cpufreq_update_policy(unsigned int cpu)
- 	 * -> ask driver for current freq and notify governors about a change
- 	 */
- 	if (cpufreq_driver->get && has_target() &&
--	    (cpufreq_suspended || WARN_ON(!cpufreq_verify_current_freq(policy, false))))
-+	    (cpufreq_is_suspended(policy) ||
-+	     WARN_ON(!cpufreq_verify_current_freq(policy, false))))
- 		goto unlock;
- 
- 	refresh_frequency_limits(policy);
-diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-index 0f978ddb65d15..bf215983f126e 100644
---- a/include/linux/cpufreq.h
-+++ b/include/linux/cpufreq.h
-@@ -140,6 +140,9 @@ struct cpufreq_policy {
- 	/* Per policy boost enabled flag. */
- 	bool			boost_enabled;
- 
-+	/* The policy has been suspended. */
-+	bool			suspended;
++			if (status & rx_not_ls)
++				goto read_again;
 +
- 	 /* Cached frequency lookup from cpufreq_driver_resolve_freq. */
- 	unsigned int cached_target_freq;
- 	unsigned int cached_resolved_idx;
+ 			count++;
+ 			continue;
+ 		}
+@@ -5407,8 +5410,9 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
+ 		if (likely(status & rx_not_ls)) {
+ 			xsk_buff_free(buf->xdp);
+ 			buf->xdp = NULL;
++			rx_dropped++;
++			error = 1;
+ 			dirty++;
+-			count++;
+ 			goto read_again;
+ 		}
+ 
+@@ -5585,7 +5589,8 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 							   &rx_q->dma_erx[entry],
+ 							   status);
+ 		}
+-		if (unlikely(status == discard_frame)) {
++
++		if (unlikely(status & discard_frame)) {
+ 			page_pool_put_page(rx_q->page_pool, buf->page, 0, true);
+ 			buf->page = NULL;
+ 			error = 1;
 -- 
 2.53.0
+
+
 
