@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795622442;
-	b=LKw44j9vYW8A9GZE927q7vsyudhCY6w2va7K4MKqBCvgr7zZto3T6TfSVOniQGWwzANG
-	 Z/yMFzrVPkgYBV9J94Dg7484hkTJc/I1sypZht3Eru5juqSxsbeYOXhMunvCPA52fbkjy
-	 jY9IlZWt6Ulwm7GxkCqXKZ0ph8jWzaFANLGjpRzf1xmT8TkGnYerzdu2+KATsuktCYaV6
-	 wdIgL88/95pNrzurRn4dPZP4rw+ER7oMv9LM5hyEi05w4h1rQv98z1Vy80O1CE9FsZh2q
-	 QIqlMIITTzY78sPcPl8d4SNp2F9uRYGcxQMku2zi0r8b4nRdwarxylplnob5q2SAuSQ==
+	t=1795622443;
+	b=ejZm1Z7v+wPJkvMNXYmuDxla7jbIyeRWZZR6NP3+lYGnEpBZayxNk2QUtUKBuFETDUlM
+	 xskZOGjOgghnt8VVNwH3/E0S1SbRZbkwsZ4XrXIRXQDvzw4CI5GR3noix/SehZ7ORKEKi
+	 G0dHVSO/5dz3FENQVOBwmcRVWxbsDPG0bkRld1fhbwcdKKdrISGCtc6HkVdujeWYBDgAg
+	 LM3GvEuK+9HYdr3GjvrIcq1UN5WZPzY6LXC63zwVVK2yWGdOx5swuJFL8uZMpgzL5qYOw
+	 2geaK1zGtVfTAfeD3D5OEJQ9jr1RbtBu5gM1IEC/p34cym7xDa4/Vrj87OMxxVipQNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622442;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622443;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/VUlKNPjpTtIIIInKXjLbsmJKX7lEmdpeG6bZtJksHA=;
-	b=z2Qigt3bZuqfr3I9z+1aQE+Wddb39MFEyEup3xqP72MUq0rHfCc27PxKUUWahA2IEsLS
-	 Y9Fdb5jzD4f8TXGyBL5MN8piAFlKAcEsiOfOuQLkRywxVnk2MHAm5s7Fh2I7n8flVSGxd
-	 VY0JZMGgJtlHM+/ZW54IAZamlaj3sKMD5SH/L2kmRTMJrOBcIwg76M3xvmDZxvwkbGpdb
-	 OQGZe4ydA+o/E2WfRI4a+7lMwXrPjwKjjM0L/SGDY7/i64nU6DrNMI0JU55Mjho+Y8rL8
-	 LG6RGQ7Hv6eoZwOpiYNgtmaRhie0e1ia2Eru+eEdJCa0pY9FTiawjhk6FqwEq+Zz5dw==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=TydKDuDtGKdVdGp3jYNg3T/lR1FW/iYXf4FIDnTGMxY=;
+	b=KEjTOG9S2VvAPq7tCADzxguaBnpIDRBGIGhfz/ZI246b6wYp/QDMMiXCXreHlIdDA4OT
+	 IUlPlcYH95cE5jYhUpmrs6xdsglazMPKOOZCDfuuhsMr5VBztEe6v7kokqNN55T9xjsH0
+	 Vo3jI0dV+mglp8rZypc5W/5bX9y+CjZaY9gm+nLLMumQIuHJpoEkEMAPqyMMVDwxnShP5
+	 pDE82xWiG6lHSvFxRx1T39oWduSV3QpNBjWUmfhaa1e8OLlFLoX5k4Svfn4/IqgGjNbod
+	 Os8Y3HaN5972WPPUst6Kz3oWxI4dxWeQiD1pk7nLPTHAnVy+xGl5PdDoWa7t0S20OpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Jf6g08C+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kOrBJwHY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A44F606A31E;
-	Wed, 25 Nov 2026 16:00:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52494606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:00:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Jf6g08C+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08CF71F000C4;
-	Wed, 25 Nov 2026 16:00:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795622441;
-	bh=/VUlKNPjpTtIIIInKXjLbsmJKX7lEmdpeG6bZtJksHA=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kOrBJwHY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0966E1F000CA;
+	Wed, 25 Nov 2026 16:00:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795622442;
+	bh=TydKDuDtGKdVdGp3jYNg3T/lR1FW/iYXf4FIDnTGMxY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jf6g08C+MnMyp4zSCL9vmP9FIRjSyORH6et7SudpK7BnQHLb7Z7PJRZtp7xTlYPXd
-	 gNQ/SJc61QG57jDOWzucCmli41wnC+dJ3k2a7O0CAbixxx8Ob0uRnyaFN7wjPGNnSY
-	 5bGuj8eyHrmpXeQkzPeeYn+g7dUqUxfGmYqyyAMc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=kOrBJwHY6ayo7ybmtSRx4E4min1rbGGFMxH2lYtom8YeKdhbVhzNfn/ur9+vmi6/Q
+	 LpWUe5ZeAsyv1/80oW5HJxIRrl5Ty1244XT8XBv5RUb//eZddAGqrKDDTTzzeanSTE
+	 mb8QjzsDZ0B0MQuFKl+83JBzzwaZ8ajjBmU9AZNrFBCm0A0fYBkX+3B0P1wrUX0QYH
+	 EQfIYe79TpgHmLFn7ZrhCK1/Yf+avydcBodXrLYUV5Z7Wf59doRTcKj9mm0eVfh21M
+	 wxjdPkpbXI5EN6LyDakuDGH/dvCXm9sDhB7ZkYXnYeW3RiIuLBEQQD8q5q9fjpc15B
+	 X5joCkxRrEKDg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Alexei Starovoitov <ast@kernel.org>,
+Cc: Pin-yen Lin <treapking@google.com>,
+	Joshua Washington <joshwash@google.com>,
+	Jordan Rhee <jordanrhee@google.com>,
+	Harshitha Ramamurthy <hramamurthy@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 537/990] bpf: Fix overflow of jump offset in may_goto expansion
-Date: Wed, 25 Nov 2026 15:31:44 +0100
-Message-ID: <20261125143834.670852425@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y] gve: Block invalid ring sizes when device options are 0
+Date: Wed, 25 Nov 2026 11:00:40 -0500
+Message-ID: <20261125160021.616799-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112543-engaging-jailbreak-1e71@gregkh>
+References: <2026112543-engaging-jailbreak-1e71@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,141 +64,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Pin-yen Lin <treapking@google.com>
 
-------------------
+[ Upstream commit edc9a730ad3c98662047a76db2d7f26ea4350b2e ]
 
-From: Alexei Starovoitov <ast@kernel.org>
+On older device versions, minimum ring sizes in the device option are
+reported as 0. The driver imports these 0 values, allowing userspace
+(`ethtool -G`) to request invalidly small ring sizes.
 
-[ Upstream commit 8a12a00f6c5dba70a6d908fe27a3c980d42b9515 ]
+This issue was discovered and actually triggered by the
+drivers/net/ring_reconfig.py selftest (ringparam test case). Halving the
+ring size down to 1 triggered a kernel NULL pointer dereference in
+gve_tx_alloc_rings_dqo():
 
-may_goto is expanded into 'if AX == 0 goto off + 5' when it's timed,
-off + 2 when it's not and off - 1 when it jumps backward. The sum is
-stored into 16-bit off without a range check, so may_goto +32763
-turns into:
+  BUG: kernel NULL pointer dereference, address: 0000000000000002
+  RIP: 0010:gve_tx_alloc_rings_dqo+0x1c4/0x510 [gve]
+  Call Trace:
+   <TASK>
+   gve_queues_mem_alloc+0x29/0xa0 [gve]
+   gve_adjust_config+0x1b/0x140 [gve]
+   gve_set_ringparam+0x1f4/0x250 [gve]
+   ethnl_set_rings+0x260/0x440
+   ...
 
-  if r12 == 0x0 goto pc-32768
+Fix this by falling back to the driver's default minimum ring sizes
+(GVE_DEFAULT_MIN_RX_RING_SIZE and GVE_DEFAULT_MIN_TX_RING_SIZE) whenever
+the device option reports minimum ring sizes as 0.
+The device reports either both minimum ring sizes or neither, so a
+single fallback for both is sufficient.
 
-and the prog jumps backward when may_goto expires.
+This change was tested using the DQO RDA queue format.
 
-Emit 'if AX != 0 goto +1; gotol' when the offset doesn't fit and
-compute the offset from the number of insns in the expansion.
-JITs that don't support gotol will reject such prog.
-
-Fixes: 011832b97b31 ("bpf: Introduce may_goto instruction")
-Fixes: e723608bf428 ("bpf: Add verifier support for timed may_goto")
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Link: https://patch.msgid.link/20260924233130.1213812-6-alexei.starovoitov@gmail.com
-[ sashal: Ported the may_goto overflow fix into verifier.c, since this tree has no fixups.c, and used the older do_misc_fixups() and is_may_goto_insn() names. ]
+Cc: stable@vger.kernel.org
+Fixes: ed4fb326947d ("gve: add support to read ring size ranges from the device")
+Signed-off-by: Pin-yen Lin <treapking@google.com>
+Reviewed-by: Joshua Washington <joshwash@google.com>
+Reviewed-by: Jordan Rhee <jordanrhee@google.com>
+Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
+Link: https://patch.msgid.link/20261109182036.2910559-4-hramamurthy@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: Backport adapts the field path to the flat priv->default_min_ring_size and uses option_length < sizeof(**dev_op_modify_ring) instead of == 8 to avoid reading truncated option fields. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/bpf/verifier.c | 68 ++++++++++++++++++++++++++++---------------
- 1 file changed, 44 insertions(+), 24 deletions(-)
+ drivers/net/ethernet/google/gve/gve_adminq.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 13864488b5a07..407526349ccfa 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -22735,6 +22735,30 @@ static int add_hidden_subprog(struct bpf_verifier_env *env, struct bpf_insn *pat
- 	return 0;
- }
+diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net/ethernet/google/gve/gve_adminq.c
+index 36acbcd8f62a4..579c66aae1c70 100644
+--- a/drivers/net/ethernet/google/gve/gve_adminq.c
++++ b/drivers/net/ethernet/google/gve/gve_adminq.c
+@@ -188,7 +188,9 @@ void gve_parse_device_option(struct gve_priv *priv,
+ 		*dev_op_modify_ring = (void *)(option + 1);
  
-+/*
-+ * Expand may_goto: load the count from the stack, jump to the target of
-+ * may_goto when it is zero, then the tail that updates the count.
-+ * Use gotol when the target is too far for 16-bit offset of a conditional jump.
-+ */
-+static int may_goto_expand(struct bpf_insn *insn_buf, int off, int stack_off,
-+			   const struct bpf_insn *tail, int tail_cnt)
-+{
-+	int cnt = 0;
-+
-+	/* Forward jump has to step over the tail */
-+	off = off >= 0 ? off + tail_cnt : off - 1;
-+
-+	insn_buf[cnt++] = BPF_LDX_MEM(BPF_DW, BPF_REG_AX, BPF_REG_10, stack_off);
-+	if (off == (s16)off) {
-+		insn_buf[cnt++] = BPF_JMP_IMM(BPF_JEQ, BPF_REG_AX, 0, off);
-+	} else {
-+		insn_buf[cnt++] = BPF_JMP_IMM(BPF_JNE, BPF_REG_AX, 0, 1);
-+		insn_buf[cnt++] = BPF_JMP32_A(off >= 0 ? off : off - 1);
-+	}
-+	memcpy(insn_buf + cnt, tail, tail_cnt * sizeof(*tail));
-+	return cnt + tail_cnt;
-+}
-+
- /* Do various post-verification rewrites in a single program pass.
-  * These rewrites simplify JIT and interpreter implementations.
-  */
-@@ -23015,6 +23039,18 @@ static int do_misc_fixups(struct bpf_verifier_env *env)
- 
- 		if (is_may_goto_insn(insn) && bpf_jit_supports_timed_may_goto()) {
- 			int stack_off_cnt = -stack_depth - 16;
-+			/*
-+			 * AX is used as an argument to pass in stack_off_cnt
-+			 * (to add to r10/fp), and also as the return value of
-+			 * the call to arch_bpf_timed_may_goto.
-+			 */
-+			struct bpf_insn tail[] = {
-+				BPF_ALU64_IMM(BPF_SUB, BPF_REG_AX, 1),
-+				BPF_JMP_IMM(BPF_JNE, BPF_REG_AX, 0, 2),
-+				BPF_MOV64_IMM(BPF_REG_AX, stack_off_cnt),
-+				BPF_EMIT_CALL(arch_bpf_timed_may_goto),
-+				BPF_STX_MEM(BPF_DW, BPF_REG_10, BPF_REG_AX, stack_off_cnt),
-+			};
- 
- 			/*
- 			 * Two 8 byte slots, depth-16 stores the count, and
-@@ -23031,22 +23067,8 @@ static int do_misc_fixups(struct bpf_verifier_env *env)
- 			 * after subtraction, rinse and repeat.
- 			 */
- 			stack_depth_extra = 16;
--			insn_buf[0] = BPF_LDX_MEM(BPF_DW, BPF_REG_AX, BPF_REG_10, stack_off_cnt);
--			if (insn->off >= 0)
--				insn_buf[1] = BPF_JMP_IMM(BPF_JEQ, BPF_REG_AX, 0, insn->off + 5);
--			else
--				insn_buf[1] = BPF_JMP_IMM(BPF_JEQ, BPF_REG_AX, 0, insn->off - 1);
--			insn_buf[2] = BPF_ALU64_IMM(BPF_SUB, BPF_REG_AX, 1);
--			insn_buf[3] = BPF_JMP_IMM(BPF_JNE, BPF_REG_AX, 0, 2);
--			/*
--			 * AX is used as an argument to pass in stack_off_cnt
--			 * (to add to r10/fp), and also as the return value of
--			 * the call to arch_bpf_timed_may_goto.
--			 */
--			insn_buf[4] = BPF_MOV64_IMM(BPF_REG_AX, stack_off_cnt);
--			insn_buf[5] = BPF_EMIT_CALL(arch_bpf_timed_may_goto);
--			insn_buf[6] = BPF_STX_MEM(BPF_DW, BPF_REG_10, BPF_REG_AX, stack_off_cnt);
--			cnt = 7;
-+			cnt = may_goto_expand(insn_buf, insn->off, stack_off_cnt,
-+					      tail, ARRAY_SIZE(tail));
- 
- 			new_prog = bpf_patch_insn_data(env, i + delta, insn_buf, cnt);
- 			if (!new_prog)
-@@ -23058,16 +23080,14 @@ static int do_misc_fixups(struct bpf_verifier_env *env)
- 			goto next_insn;
- 		} else if (is_may_goto_insn(insn)) {
- 			int stack_off = -stack_depth - 8;
-+			struct bpf_insn tail[] = {
-+				BPF_ALU64_IMM(BPF_SUB, BPF_REG_AX, 1),
-+				BPF_STX_MEM(BPF_DW, BPF_REG_10, BPF_REG_AX, stack_off),
-+			};
- 
- 			stack_depth_extra = 8;
--			insn_buf[0] = BPF_LDX_MEM(BPF_DW, BPF_REG_AX, BPF_REG_10, stack_off);
--			if (insn->off >= 0)
--				insn_buf[1] = BPF_JMP_IMM(BPF_JEQ, BPF_REG_AX, 0, insn->off + 2);
--			else
--				insn_buf[1] = BPF_JMP_IMM(BPF_JEQ, BPF_REG_AX, 0, insn->off - 1);
--			insn_buf[2] = BPF_ALU64_IMM(BPF_SUB, BPF_REG_AX, 1);
--			insn_buf[3] = BPF_STX_MEM(BPF_DW, BPF_REG_10, BPF_REG_AX, stack_off);
--			cnt = 4;
-+			cnt = may_goto_expand(insn_buf, insn->off, stack_off,
-+					      tail, ARRAY_SIZE(tail));
- 
- 			new_prog = bpf_patch_insn_data(env, i + delta, insn_buf, cnt);
- 			if (!new_prog)
+ 		/* device has not provided min ring size */
+-		if (option_length == GVE_DEVICE_OPTION_NO_MIN_RING_SIZE)
++		if (option_length < sizeof(**dev_op_modify_ring) ||
++		    be16_to_cpu((*dev_op_modify_ring)->min_rx_ring_size) == 0 ||
++		    be16_to_cpu((*dev_op_modify_ring)->min_tx_ring_size) == 0)
+ 			priv->default_min_ring_size = true;
+ 		break;
+ 	case GVE_DEV_OPT_ID_FLOW_STEERING:
 -- 
 2.53.0
-
-
 
