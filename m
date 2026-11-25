@@ -1,96 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.181
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795606263;
-	b=uK6yGSrG7yJ3MznwdWnUZMoqvJluQIXegx0/54xeILstmxuScw/XTcgiFluBA9XY2rSR
-	 kD4AXW7bRFdrnJwmsZ0cIS4dv2XBk3fNZmEz0MqssvA6MDMtp/3qz89zK1uXN6KeXz7lV
-	 slJ90Rol5Qyq7uVnn9x+NmkG+GggPC9ESOhtHsEukUTeqqmbMu+gH1ERmW6JC4BRCoZV1
-	 NOJxJMH6jXkHCMAHeBvkUDVqLEPBXr2PRzHrhG3UFo8BubQrYQrgu0uq5ZixkASRbXYBq
-	 QxlQ/9XodmXTmssWf4YwSx0yFCmQeLxLJ7Ykg1qbc//QSc33ZI2z91ylPD0y4LtVrRw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606263;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:MIME-Version:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=7+deDl3BmMnasRerW8PQ74sNqnJDNHW+TUk5KdDuYGY=;
-	b=JwnaKwBOcDOJye+P50Bt5DyYDcXIJ6lRXpuBu5t0sMAd2Q9ovM/Cj/I0KFACetPBc2Jp
-	 0Zr+hv4ozFeqoRy+Dhti2ur9REG6ihvdDECh9UHTkUH7XXVGkHO4yDAh624d/wbpIJXq9
-	 mPgO7B3JLn1HxG2IH/0/pJwTFeJdD3QzvppnEbiGaOI+b4RKQ+EIMccydlZ1QmweiKMcd
-	 463DgzGI+PRWE8aw1plQOq+scwnwotqKXpPzQ2DGaQW247qn6xRVOMqRTH8b+UmUKrnFd
-	 vZQIWsFGY27dMuhs8jeReMk6uZj80QAZpMQleIovl1OqPxSVl1071Dmn5jPyD1F30HQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=certik.com;
-	spf=pass smtp.mailfrom=certik.com;
-	dkim=pass header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b="Ua/xf+Ee";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.181
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795606309;
+	b=f/ppBohz9TpisKDG3//IFO2LGDcXq1/lTG5IfZmSeltztP53vQHEkTpVCE8L2CPLqmyj
+	 Ws03QMbJHRL/ixeA14kwrSN8attgFOocLcg2MQQzYil52IKiuJf3lW0EWeHwhKGtjWfNg
+	 3YCfjj6QDZkORvB/nzo96OIxCvyHx9Bin1Hge2sd+z+Iwvjzpn/zXM9XduPrpyS2Z7DfO
+	 ufTC48WVmi6OJrLHX6dfOMzzf2d5kMtGeO1hqZ/1UMZmqIwIZ23G2+1uq7dqviUUrA+cZ
+	 cihHfFjWkePT0W/c3mxyqQVCSC7bGrpKREvkQBuruXvJYKicbxAXiHHZlMPy7iDo2WQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606309;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Ao/CrNRDxoHexA7SzI94J/u4SLyp1w67v7Lhim1kS+A=;
+	b=D5W4xrOFTPc+oDhfp9FLuOaVKOyIJJ5Oq/1P346gWDOwHV4DCx8xNhft2UpnV31+wG86
+	 d1NR0r8kjGYzRJx8bk6wlgQc4F3SAS8NK6AIoY+DwiyWxhqF+zkRxoTsYeuKW267eOTm8
+	 q12nRGdwXtDeHyR5XCYBcPkrpwhSDW+w6VgZJU8qJUoRTTxCy3q0eanr8nUQUBXRGfl6E
+	 gXAUdy3vcrlV/Eb5WbU0oI5Hl1xEXazAXAOqZ3WpmrQSxx4QwOKFAwE3NOXKIGiG6hqXy
+	 oF9yDLKXUtv/rPY73QpkpzI9/QGEOlpKgE7LbRyHFSbmRQEt1SdW59wZGGveLeJU4wQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pPdbfMim;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8AD606A329
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:31:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D8AD606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=certik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=certik.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D39606A33A
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:31:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=Ua/xf+Ee
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8b51389f58cso61411817b3.3
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 03:31:02 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795606261; cv=none;
-        d=google.com; s=arc-20260327;
-        b=THwRfcJ3eVx/CGvYvcTYkknbnSxVAXbqTPQg87v/QUW980QfcTnfKlRc0mx2Yqt2XK
-         FUHFPEV9pB6wO3sv2TEMDWN9GmLMeiUttWMUt52pkae8M7MLpVRgCU1EV8rSenaDtnOG
-         BxJAXXcpYZsRHg6rIpVfnDdCext/RwbyNj0tYeyNhkhYPSv3n8LXEbo7wAv4O29aJOye
-         Jh6oBrmGr9/YWvOOLxsDoPWikyOshUcDR41WMpSJgGxyf/xmzovrJcxZzaeIKIt9mZ8F
-         pFJ2oCMYjipmD268v31PTovny3koUSlxXJM7O64XV2hPJ7qSjFr4wg7oA/UAA2l2+gO/
-         UcyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=7+deDl3BmMnasRerW8PQ74sNqnJDNHW+TUk5KdDuYGY=;
-        fh=a+VyiPSWVLuR4h9u2bWYNYNFbmFuYlVNYPmRnbtbmPA=;
-        b=HxIlKEMzLdDXh/qZdnJhOTIpVjeHgEXDGMUeZwrQqnrwKLKeB4FFhoQr3AYdDlp0YX
-         Dkss5a2dMjcSEG3RxAZ9dyFyz1noxZISBPvHu7l4fFBO0DPB3/B351525HEEzjkIFyZ/
-         jgrXhvm2CKXDZAJXvdEcspIWMMH7OQVutPxfNqnvpl3gj5gkvdH6ewNAuQMyUAfNReT7
-         tGSiKejBHmF4D4ZeKOdai/UOCmKXCTjLooE0tZDzloA2ZxFSw3q7oU3PAOofLXPPIsJ7
-         WGFYyhyOXPV0nttQQD9+6kGPcK7Deqriy8yFWVfIq7Hg7GrnuKP2vrXQThQaFRMqB0iI
-         kryA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=certik.com; s=google; t=1795606261; x=1796211061; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7+deDl3BmMnasRerW8PQ74sNqnJDNHW+TUk5KdDuYGY=;
-        b=Ua/xf+Eeq/gBpPHD5Ll/Hjfmkp3BBSM1ZsOIqV2tJK1ylWmsHa+sNbxeDAD3mV69HA
-         WmmlMp42PE7xW8FRs5ntpA6ZFyNFgMdTXwaVfp8f8u+mD1pVNEedfBawyCA9POBl5FFv
-         0cL+Fg8yMrs04DjFlbGprzGLANexU3wI/l+Fo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795606261; x=1796211061;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=7+deDl3BmMnasRerW8PQ74sNqnJDNHW+TUk5KdDuYGY=;
-        b=txYHuh2yM6SoZaRhsYjXgOlJ/l8gnbd+0jtII8ET/MHkugMxUTAa3M8L1W03c9kN68
-         EiZIgO+d8Z+nf0gGrMw0WSaJCcn2B0lU/S/RR/xdVQlCDb+EKaMNYqZFW/kR3GH4gpXX
-         yMrPbc2+FszJMEjL+t7EIQBoedDpPuvO1BXyv+pXPpuftlR91hnRL2NgPYEig6KmWhqA
-         o2KUT0bCJtX1kK6CGM/LBvW2x9A62ZcwWznpNJJ9LM44UyqqwaAXOhkl4qx131vlboRz
-         Xh2e22WxZ6G7aohKF/saZ4RkNRdENkDQHHhktlaiy/1tsroYRO71TWhQWrXRri/r3Fcd
-         Aobg==
-X-Gm-Message-State: APuU4Z8aZDRrBgKRG0RHPSy5U/uwYa3aMUOZq1t8+iS4Y26PUoOjjzNb
-	eX14IiTfzmJ5vmLRNKaLkbocil6/mnrdEFcU3r/a1eNWU+2CBZ3YWs5fEjANZUdG8D3tqCb/WkW
-	DPhbCR0WtYm1dUN7tRNo1uwJCMbq2uWa4XOW3ORpn5mMCCLpZbvWBI+k=
-X-Gm-Gg: AZFdTZevTTpdXMZynipWTdmeyZxiqZ3Mjcq8Rlyf64WBFFaZsrHwq7Qn78MUAnuNhVo
-	I6ZVTmN5XfIJlNNW9zyzYACd+7a9KcwLZg/hyV6ebMJX2feniro4RZI36Ehe4febr1uDV2cDgpi
-	WnvDln09MZ6CUFwL95o+IDAjOobDreXOapwNQ4KCSV7KOnHjpJqVnhzD2K2qlhuysIv+cLfZtqH
-	LFTnCpdph0TPXISQgQURITS18JJz0O8o+cNCgR9o23gqLRwFi2wuC33K9RhjnINGJUF3brNeqYi
-	dvuef6kQMPIG7+CWwiCeYjyOmaUaRU3fKOWt+0XczKCRmxaQFlUY+dN2tfzyxe/3yf6ZUhixHMa
-	QsaIE7Z+GmaEwUjLWWL42mhaoulrYtROKAqqEQP5/G/WLc12FeMsiSyBi2atvt+jruH7ZtbTPK0
-	v3tFngXabk5UGlRyuRNY+2mNxSrmXKG6jRcj0bfRI7s6y5IZoWicMX4PLzGZjKqMnEBfPe9nZE/
-	av9v+lbnIEwO9gO1b+hVttC7GhdoZcKv8gk
-X-Received: by 2002:a05:690c:6e8b:b0:8b4:e8c4:238d with SMTP id
- 00721157ae682-8b520522fdemr57535227b3.105.1795606261197; Wed, 25 Nov 2026
- 03:31:01 -0800 (PST)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 25 Nov 2026 05:31:00 -0600
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pPdbfMim
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E3F31F000D1;
+	Wed, 25 Nov 2026 11:31:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795606309;
+	bh=Ao/CrNRDxoHexA7SzI94J/u4SLyp1w67v7Lhim1kS+A=;
+	h=Subject:To:Cc:From:Date;
+	b=pPdbfMimij43+CDRllUOiH42p9XmQqOhCj5TzACtCPlaSv92puNMF8rXyzAAfH1Dz
+	 hwQKm7sC/fjJaP8QMPcCBGljPxpbTkNlhrT1DxBAYdZuPGUtJkW5E/0PzrEInMf+gD
+	 8L4q9n5Z1uufkBE+WAIBedWYP9wfrC6FZYo2ew9o=
+Subject: FAILED: patch "[PATCH] dm: fail a REQ_PREFLUSH bio with data when its preflush fails" failed to apply to 6.6-stable tree
+To: daejun7.park@samsung.com,mpatocka@redhat.com,tj@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 25 Nov 2026 12:18:17 +0100
+Message-ID: <2026112517-activator-retract-73ba@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,323 +51,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Dickson Wu <dickson.wu@certik.com>
-Date: Wed, 25 Nov 2026 05:31:00 -0600
-X-Gm-Features: Aa3M54qnIKv2cHFcxtnYznnMaWaKKpFSmroNuvo3mQpecfDkftNz1iBAu2lMlZc
-Message-ID: <CAFaZ9epaxok_j7R-5075bWyHiUM99JQGKZbJnMfgcb=hOencPw@mail.gmail.com>
-Subject: [PATCH 6.1.y] btrfs: fix xattr replace when multiple xattrs are
- packed in the same item
-To: stable@vger.kernel.org
-Cc: Filipe Manana <fdmanana@suse.com>, Qu Wenruo <wqu@suse.com>, David Sterba <dsterba@suse.com>, 
-	linux-btrfs@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-From: Filipe Manana <fdmanana@suse.com>
 
-commit 858bee1c77857aabcc2327cd32dd8266332de332 upstream.
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-If we have a btrfs_dir_item item that packs multiple xattrs and then we
-replace the value of one of them (with the setxattr(2) family of syscalls)
-with another value of a different size, we end up not having a fully
-initialized btrfs_dir_item, resulting in a corruption that the tree
-checker will detect at extent buffer writeback time.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-This is because in btrfs_setxattr() when we find a btrfs_dir_item with
-multiple xattrs (due to the crc32c hash of their name being the same)
-we delete one of the xattr items (btrfs_dir_item) and then insert a new
-one, but the deletion and insertion results in shifting existing data in
-the leaf and therefore when the new value of a xattr has a different size,
-the new btrfs_dir_item is placed in a leaf section that was not
-initialized and we only copy the value's data and set the value's length
-in the new btrfs_dir_item, without setting the name, the name's length,
-the key (which must be all zeroes for xattrs), flags (BTRFS_FT_XATTR) and
-transaction ID.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x e92cd41e8e5ee5616c6c7cd4378661d942f0a7c0
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112517-activator-retract-73ba@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
-The following script reproduces the issue:
+Possible dependencies:
 
-  $ cat test.sh
-  #!/bin/bash
 
-  DEV=/dev/sdi
-  MNT=/mnt/sdi
 
-  mkfs.btrfs -f $DEV
-  mount $DEV $MNT
+thanks,
 
-  touch $MNT/testfile
+greg k-h
 
-  # Add two xattrs that, on btrfs, have the same hash (crc32c) for their
-  # name and therefore are packed into the same btrfs_dir_item.
-  setfattr -n user.foobar -v 123 $MNT/testfile
-  setfattr -n user.WvG1c1Td -v qwerty $MNT/testfile
+------------------ original commit in Linus's tree ------------------
 
-  # Verify the xattrs are present.
-  echo "xattrs before:"
-  getfattr --absolute-names --dump $MNT/testfile
+From e92cd41e8e5ee5616c6c7cd4378661d942f0a7c0 Mon Sep 17 00:00:00 2001
+From: Daejun Park <daejun7.park@samsung.com>
+Date: Thu, 12 Nov 2026 10:35:29 +0900
+Subject: [PATCH] dm: fail a REQ_PREFLUSH bio with data when its preflush fails
 
-  # Now replace the value of the foobar xattr with a significantly larger
-  # value.
-  setfattr -n user.foobar -v abcdefghijklmnopqrstuvwxyz $MNT/testfile
+For a bio with REQ_PREFLUSH and data, dm core may send an empty flush
+first. If the flush fails, __dm_io_complete() still reissues the bio
+without REQ_PREFLUSH and drops the error. When that write succeeds,
+the XFS log keeps running and fsync() can return 0.
 
-  # Check the xattrs have the expected values.
-  echo "xattrs after:"
-  getfattr --absolute-names --dump $MNT/testfile
+End the bio with the flush error instead of writing the data, as
+blk-mq does.
 
-  umount $MNT
+Fixes: 6a8736d10cb4 ("dm: relax ordering of bio-based flush implementation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Acked-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 
-Running it:
-
-  $ ./test.sh
-  (...)
-  xattrs before:
-  # file: /mnt/sdi/testfile
-  user.WvG1c1Td="qwerty"
-  user.foobar="123"
-
-  xattrs after:
-  # file: /mnt/sdi/testfile
-  user.WvG1c1Td="qwerty"
-
-So the "user.foobar" xattr is missing and there was a transaction abort
-when unmounting the fs with the following traces in dmesg:
-
-  $ dmesg
-  [869800.159271] BTRFS warning (device sdi): access to eb bytenr
-30474240 len 16384 out of range start 16015 len 25964
-  [869800.159293] ------------[ cut here ]------------
-  [869800.159296] WARNING: fs/btrfs/extent_io.c:4408 at
-report_eb_range+0x44/0x60 [btrfs], CPU#8: getfattr/2605179
-  [869800.168961] Modules linked in: btrfs dm_thin_pool (...)
-  [869800.190527] CPU: 8 UID: 0 PID: 2605179 Comm: getfattr Tainted: G
-       W           7.3.0-rc3-btrfs-next-244+ #1 PREEMPT(full)
-  [869800.193726] Tainted: [W]=WARN
-  [869800.194502] Hardware name: QEMU Standard PC (i440FX + PIIX,
-1996), BIOS rel-1.16.2-0-gea1b7a073390-prebuilt.qemu.org 04/01/2014
-  [869800.197576] RIP: 0010:report_eb_range+0x44/0x60 [btrfs]
-  [869800.198985] Code: 48 8b 7b 18 (...)
-  [869800.203531] RSP: 0018:ffffce4541937d58 EFLAGS: 00010246
-  [869800.204609] RAX: 0000000000000000 RBX: ffff8dde054b8738 RCX:
-0000000000000000
-  [869800.206137] RDX: 0000000000000000 RSI: 0000000000000001 RDI:
-ffffffffc04c92a0
-  [869800.207645] RBP: 0000000000003e8f R08: 0000000000000000 R09:
-3fffffffffefffff
-  [869800.226175] R10: ffffce4541937a88 R11: 0000000000000003 R12:
-000000000000656c
-  [869800.227594] R13: ffff8dde14be800f R14: 000000000000656c R15:
-0000000000000069
-  [869800.229097] FS:  00007f59023bb780(0000)
-GS:ffff8de5788ed000(0000) knlGS:0000000000000000
-  [869800.231137] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-  [869800.232321] CR2: 0000558dc45e6a78 CR3: 0000000765b16004 CR4:
-0000000000370ef0
-  [869800.233783] Call Trace:
-  [869800.234330]  <TASK>
-  [869800.234791]  read_extent_buffer+0x4d/0x100 [btrfs]
-  [869800.235898]  btrfs_listxattr+0x199/0x240 [btrfs]
-  [869800.236912]  vfs_listxattr+0x51/0xa0
-  [869800.237683]  listxattr+0x7e/0x100
-  [869800.238398]  path_listxattrat+0x9e/0x190
-  [869800.239117]  do_syscall_64+0x89/0x470
-  [869800.239877]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-  [869800.240914] RIP: 0033:0x7f59024cdcb7
-  [869800.241686] Code: f0 ff ff 73 (...)
-  [869800.245353] RSP: 002b:00007ffd056dcdb8 EFLAGS: 00000246
-ORIG_RAX: 00000000000000c2
-  [869800.246892] RAX: ffffffffffffffda RBX: 00007ffd056df2e2 RCX:
-00007f59024cdcb7
-  [869800.248853] RDX: 0000000000006600 RSI: 0000558dc45e0470 RDI:
-00007ffd056df2e2
-  [869800.250514] RBP: 00007ffd056df2e2 R08: 0000000000006600 R09:
-0000000000006600
-  [869800.252295] R10: 0000000000000004 R11: 0000000000000246 R12:
-00000000ffffff9c
-  [869800.254105] R13: 0000558dc45e0470 R14: 0000000000006600 R15:
-0000000000000000
-  [869800.255931]  </TASK>
-  [869800.256529] ---[ end trace 0000000000000000 ]---
-  [869800.260071] page: refcount:2 mapcount:0 mapping:000000007ccfc77f
-index:0x1d10 pfn:0x608c69
-  [869800.260075] memcg:ffff8dde00344d40
-  [869800.260076] aops:btree_aops [btrfs] ino:1
-  [869800.260151] flags:
-0x17fffc00000402a(uptodate|lru|private|writeback|node=0|zone=2|lastcpupid=0x1ffff)
-  [869800.260154] raw: 017fffc00000402a fffff4adc773d4c8
-fffff4adc48f3d88 ffff8de36504ba30
-  [869800.260155] raw: 0000000000001d10 ffff8dde054b8738
-00000002ffffffff ffff8dde00344d40
-  [869800.260156] page dumped because: eb page dump
-  [869800.260157] BTRFS critical (device sdi): corrupt leaf: root=5
-block=30474240 slot=5 ino=257, invalid location key type, have 46,
-expect 132 or 1
-  [869800.260161] BTRFS info (device sdi): leaf 30474240 gen 9 total
-ptrs 6 free space 15629 owner 5
-  [869800.260163] BTRFS info (device sdi): refs 3 lock_owner 0 current 2550294
-  [869800.260164] 	item 0 key (256 INODE_ITEM 0) itemoff 16123 itemsize 160
-  [869800.260165] 		inode generation 3 transid 0 size 0 nbytes 16384
-  [869800.260166] 		block group 0 mode 40755 links 1 uid 0 gid 0
-  [869800.260167] 		rdev 0 sequence 0 flags 0x0
-  [869800.260168] 		atime 1790340637.0
-  [869800.260169] 		ctime 1790340637.0
-  [869800.260169] 		mtime 1790340637.0
-  [869800.260170] 		otime 1790340637.0
-  [869800.260170] 	item 1 key (256 INODE_REF 256) itemoff 16111 itemsize 12
-  [869800.260172] 		index 0 name_len 2
-  [869800.260172] 	item 2 key (256 DIR_ITEM 982728850) itemoff 16073 itemsize 38
-  [869800.260173] 		location key (257 1 0) type 1
-  [869800.260174] 		transid 9 data_len 0 name_len 8
-  [869800.260175] 	item 3 key (257 INODE_ITEM 0) itemoff 15913 itemsize 160
-  [869800.260176] 		inode generation 9 transid 9 size 0 nbytes 0
-  [869800.260177] 		block group 0 mode 100664 links 1 uid 0 gid 0
-  [869800.260177] 		rdev 0 sequence 0 flags 0x0
-  [869800.260178] 		atime 1790340638.38778502
-  [869800.260179] 		ctime 1790340638.38778502
-  [869800.260179] 		mtime 1790340638.38778502
-  [869800.260180] 		otime 1790340638.38778502
-  [869800.260180] 	item 4 key (257 INODE_REF 256) itemoff 15895 itemsize 18
-  [869800.260181] 		index 2 name_len 8
-  [869800.260182] 	item 5 key (257 XATTR_ITEM 751495445) itemoff 15779
-itemsize 116
-  [869800.260183] 		location key (0 0 0) type 8
-  [869800.266052] 		transid 9 data_len 6 name_len 13
-  [869800.266053] 		location key (8243121639454149888 46
-7229457603934778967) type 0
-  [869800.266055] 		transid 113 data_len 26 name_len 0
-  [869800.266056] 		location key (8608196880778817904 120 162425) type 9
-  [869800.266057] 		transid 8391162079612502016 data_len 26982 name_len 25964
-  [869800.266058] BTRFS error (device sdi): block=30474240 write time
-tree block corruption detected
-  [869800.266091] ------------[ cut here ]------------
-  [869800.266092] WARNING: fs/btrfs/disk-io.c:336 at
-btree_csum_one_bio+0x20b/0x220 [btrfs], CPU#7: kworker/u50:7/2550294
-  [869800.268392] Modules linked in: btrfs dm_thin_pool (...)
-  [869800.365851] CPU: 7 UID: 0 PID: 2550294 Comm: kworker/u50:7
-Tainted: G        W           7.3.0-rc3-btrfs-next-244+ #1
-PREEMPT(full)
-  [869800.368937] Tainted: [W]=WARN
-  [869800.369834] Hardware name: QEMU Standard PC (i440FX + PIIX,
-1996), BIOS rel-1.16.2-0-gea1b7a073390-prebuilt.qemu.org 04/01/2014
-  [869800.372778] Workqueue: writeback wb_workfn (flush-btrfs-3821)
-  [869800.374314] RIP: 0010:btree_csum_one_bio+0x20b/0x220 [btrfs]
-  [869800.375915] Code: 89 44 24 04 (...)
-  [869800.380639] RSP: 0018:ffffce4548e3f7d0 EFLAGS: 00010246
-  [869800.382008] RAX: 0000000000000000 RBX: ffff8dde054b8738 RCX:
-0000000000000000
-  [869800.383850] RDX: 0000000000000000 RSI: 0000000000000001 RDI:
-ffff8de091c2ddc0
-  [869800.385710] RBP: ffff8dde196a2000 R08: 0000000000000000 R09:
-3fffffffffefffff
-  [869800.387388] R10: ffffce4548e3f500 R11: 0000000000000003 R12:
-ffffce4548e3f7d8
-  [869800.388973] R13: ffff8dde196a2000 R14: ffff8de36504b750 R15:
-ffff8dde4c497b00
-  [869800.390414] FS:  0000000000000000(0000)
-GS:ffff8de5788ad000(0000) knlGS:0000000000000000
-  [869800.392002] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-  [869800.393160] CR2: 000055cd6e92ad5c CR3: 00000007cb264001 CR4:
-0000000000370ef0
-  [869800.394595] Call Trace:
-  [869800.395113]  <TASK>
-  [869800.395570]  btrfs_submit_bbio+0x872/0x890 [btrfs]
-  [869800.397284]  write_meta_extent_buffer+0x70/0x80 [btrfs]
-  [869800.398940]  btree_writepages+0x141/0x4f0 [btrfs]
-  [869800.400426]  ? get_random_u32+0x8a/0xf0
-  [869800.401417]  ? build_slab_freelist+0x47/0x130
-  [869800.402574]  ? preempt_count_add+0x6b/0xa0
-  [869800.403633]  ? _raw_spin_lock_irqsave+0x23/0x50
-  [869800.404807]  ? _raw_spin_unlock_irqrestore+0x22/0x40
-  [869800.406085]  ? alloc_from_new_slab+0x18f/0x330
-  [869800.407223]  do_writepages+0xc6/0x160
-  [869800.408191]  ? refill_objects+0xd8/0x300
-  [869800.409211]  __writeback_single_inode+0x42/0x350
-  [869800.410408]  writeback_sb_inodes+0x231/0x560
-  [869800.411511]  wb_writeback+0x8a/0x300
-  [869800.412440]  wb_workfn+0xbf/0x460
-  [869800.413291]  ? _raw_spin_unlock+0x14/0x30
-  [869800.414328]  ? finish_task_switch.isra.0+0xb9/0x380
-  [869800.415105]  process_one_work+0x1d1/0x3d0
-  [869800.416633]  worker_thread+0x1c4/0x330
-  [869800.417467]  ? __pfx_worker_thread+0x10/0x10
-  [869800.418452]  kthread+0xfc/0x130
-  [869800.419257]  ? __pfx_kthread+0x10/0x10
-  [869800.420089]  ret_from_fork+0x1f7/0x2c0
-  [869800.420863]  ? __pfx_kthread+0x10/0x10
-  [869800.421654]  ret_from_fork_asm+0x1a/0x30
-  [869800.422484]  </TASK>
-  [869800.422953] ---[ end trace 0000000000000000 ]---
-  [869800.424005] BTRFS error (device sdi state A): Transaction 9 aborted (-EIO)
-  [869800.424010] BTRFS: error (device sdi state A) in
-__btrfs_run_delayed_items:1162: errno=-5 IO failure
-  [869800.424011] BTRFS info (device sdi state EA): forced readonly
-  [869800.424013] BTRFS warning (device sdi state EA): Skipping commit
-of aborted transaction.
-  [869800.424014] BTRFS: error (device sdi state EA) in
-cleanup_transaction:2076: errno=-5 IO failure
-
-Fix this by always setting all fields in the new btrfs_dir_item when we
-replace an existing xattr.
-
-Fixes: 5f5bc6b1e2d5 ("Btrfs: make xattr replace operations atomic")
-Reviewed-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: Filipe Manana <fdmanana@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-[ adapted to 6.1: use btrfs_set_dir_type() for BTRFS_FT_XATTR ]
-Signed-off-by: Dickson Wu <dickson.wu@certik.com>
----
-6.1.y doesn't have this fix yet. 6.6.y and newer already took it
-(7a53bb4668b3 in 6.6.y). This is the same change as the 6.6.y backport
-except for one call: 6.1 still names the setter btrfs_set_dir_type(),
-which upstream later renamed to btrfs_set_dir_flags(). It writes the
-same on-disk field.
-
-Tested on v6.1.193:
-- x86_64 allmodconfig W=1 build of fs/btrfs/xattr.o, base vs patched,
-  no new warnings
-- booted the patched kernel under QEMU/KVM with
-  CONFIG_BTRFS_FS_RUN_SANITY_TESTS=y
-- ran the reproducer from the commit message, plus a second colliding
-  name pair, on fresh btrfs images. The unpatched kernel loses the
-  replaced xattr and reports a corrupt leaf on unmount. The patched
-  kernel keeps both xattrs with no btrfs errors.
-- I haven't run fstests on it.
-
-The backport and the test runs were prepared with AI coding tools
-(OpenAI Codex agents, with review by Claude). I went over the result
-before signing off.
-
- fs/btrfs/xattr.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/fs/btrfs/xattr.c b/fs/btrfs/xattr.c
-index 5bb8d8c86311..d7eb340c818a 100644
---- a/fs/btrfs/xattr.c
-+++ b/fs/btrfs/xattr.c
-@@ -170,6 +170,7 @@ int btrfs_setxattr(struct btrfs_trans_handle
-*trans, struct inode *inode,
- 		const u16 old_data_len = btrfs_dir_data_len(leaf, di);
- 		const u32 item_size = btrfs_item_size(leaf, slot);
- 		const u32 data_size = sizeof(*di) + name_len + size;
-+		unsigned long name_ptr;
- 		unsigned long data_ptr;
- 		char *ptr;
-
-@@ -198,8 +199,16 @@ int btrfs_setxattr(struct btrfs_trans_handle
-*trans, struct inode *inode,
- 		ptr = btrfs_item_ptr(leaf, slot, char);
- 		ptr += btrfs_item_size(leaf, slot) - data_size;
- 		di = (struct btrfs_dir_item *)ptr;
-+		memzero_extent_buffer(leaf, (unsigned long)ptr +
-+				      offsetof(struct btrfs_dir_item, location),
-+				      sizeof(struct btrfs_disk_key));
-+		btrfs_set_dir_type(leaf, di, BTRFS_FT_XATTR);
-+		btrfs_set_dir_transid(leaf, di, trans->transid);
-+		btrfs_set_dir_name_len(leaf, di, name_len);
- 		btrfs_set_dir_data_len(leaf, di, size);
-+		name_ptr = (unsigned long)(di + 1);
- 		data_ptr = ((unsigned long)(di + 1)) + name_len;
-+		write_extent_buffer(leaf, name, name_ptr, name_len);
- 		write_extent_buffer(leaf, value, data_ptr, size);
- 		btrfs_mark_buffer_dirty(leaf);
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index a73355c0125c..38eaae8ac9b4 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -983,7 +983,7 @@ static void __dm_io_complete(struct dm_io *io, bool first_stage)
+ 	if (requeued)
+ 		return;
+ 
+-	if (unlikely(requeue_flush_with_data)) {
++	if (unlikely(requeue_flush_with_data) && !io_error) {
+ 		/*
+ 		 * Preflush done for flush with data, reissue
+ 		 * without REQ_PREFLUSH.
+@@ -991,7 +991,7 @@ static void __dm_io_complete(struct dm_io *io, bool first_stage)
+ 		bio->bi_opf &= ~REQ_PREFLUSH;
+ 		queue_io(md, bio);
  	} else {
--- 
-2.43.0
+-		/* done with normal IO or empty flush */
++		/* done with normal IO, empty flush or failed preflush */
+ 		if (io_error)
+ 			bio->bi_status = io_error;
+ 		bio_endio(bio);
+
