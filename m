@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795623579;
-	b=1WtX+n4UvLvVPaElqjAcVuLBWOrWxwsbcbt5CxXYpGJUg2hOo+IVhgmMboX9HYV/5qzq
-	 OHx9C3juijCefpainayU7LAPOHp4S8tW0qc68R9n8sfFDnIQrQ8nhSpHlD6mbsim2VQGc
-	 1xW9yKv8Zqdq8AEYEznoL9K2Gz986YOJKKZ1KGW06cKIC8vVezQy7t0udolUNRj1+W2HR
-	 L2qKfPFuhw90OLtHL8O++NrYuuRw9ClOemTgxx6e0x6BQSkVoZkKwyrqV9YEfH5aFsiV2
-	 HodMj7zXImJXZNzZuqe+gzzXiDPSUwOjpSQNyzkPc3/D6qv0Qu6GaqemIdZ3UKZwp3w==
+	t=1795623581;
+	b=Wh39XkPFzHKlzCm92dz3CW6yrDOPIbbDcypdiNKnkh6YkevLf3UFGvfGpQ+OG600Xqns
+	 Tr2aGh3uwYMzwOhjFp7Z268v1xPKV9+F92dGbllJsrukopasWTTjQ4Zgyjxn0iXfaOrPV
+	 cK/tSpJ5In+F21cZIRyzmmI1QJOrSUtIG0Dm7LuV1Eqve/vqQy7QkNVme9V+CUMWvhAOG
+	 kBaInMqN/D4WOKld6NaXRZY6KY+rP+H2ITvQEFnTzsplFMfz0TRvgPfGKNqa2IqKeyFY8
+	 4fGR9FMeLqNOT+mnPfmPFgEa1usRldZMlIxl4rJYB9QPziehgrA1of1AQYqWOzx1uqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795623579;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795623581;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=JsCuso79c79ch6nsb3nVcREEnkpftlhiDvnpAlluKF8=;
-	b=3VMJmC83r6XXYrj2sHCGbzCpFOfcoFudf3cIGCatQW6vKxGOsrniwq8cPlT/UZugl2xl
-	 f3eQ1Ur8+z1cqV873LrS6hEpTD/CDJ4sBKbYuxgswOWyxEMelIY7SCLeqUu17gckiIsMB
-	 ZYftXosyb/FBKpKpztG4cRM5kh4Z+7g7RzprVJIBSKHLIh9ZBHZIWZyQjVDv8jGJkKmCO
-	 DONljmC+4tYVoSwcnP15YZw/LsQPNuyTvxbq0i3vsDjjQS8+UA0hnZtyB/jZu443xiDJ7
-	 ODP6wvLe8doTOGIlDzWGFJQ/ed7+YFTCIrwXTcxeEKKtJTeh8uVnR6cTUIY1PQ/3uHQ==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=DNaWGkPQUV8PyCKualnGIre00P30moFU+a+R3cX45KQ=;
+	b=4Va6wtSUH6D/WZOAN1rfW67Q8xmFxa29sZLkIo06AogD9bg2WtOCdXA5TL8OTeQgdWHj
+	 7M++rHyT7xqnBnv3KFYldtt/CTHTdlznvDQgVVjH5q7D4QmeZMTaRD/IpSB08RDcuDrqJ
+	 TD46rKhME87yBeVJXHD1Lt05RjO06o/JXqkwNDEEW/bOWy+4As+y0VaBLdgWfHns2Wc03
+	 aFy4Df6palFqwwDrMAM4qxgkqnv2lmhXcxmQ74X1Qb2GvBGOu50E97X7PspBDo8YHUkBW
+	 MiytJ9i5qU1VWIOHZVKg9BiAt80mzxGxA4oNBibeQX0uaWqBd/2n23RuKH2v5caKQqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cdBcZwf0;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oHreoWlw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4233C606A32A
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:19:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3938B606A31E;
+	Wed, 25 Nov 2026 16:19:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cdBcZwf0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B721B1F000CF;
-	Wed, 25 Nov 2026 16:19:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795623578;
-	bh=JsCuso79c79ch6nsb3nVcREEnkpftlhiDvnpAlluKF8=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oHreoWlw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61DA41F000CF;
+	Wed, 25 Nov 2026 16:19:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795623580;
+	bh=DNaWGkPQUV8PyCKualnGIre00P30moFU+a+R3cX45KQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cdBcZwf08wI8qrW4gS3uqds55UhjuRPAc518sq85l/dw+zZFBXhGdefGClicxwnxN
-	 KG6Ycn4G0zslMrNLZz2+ooT1JZar3JS6ARYmxpJxVfmJuuomDD2kL9TS0gOGuLU1Xb
-	 aVk2gVsKPWRPtUZi/JK2lmPuZ0M0C4AFtJxUrsqq1O5yRuMYybUIDkEXADPjbx25/H
-	 byUvgMNiPjCqlC4aja25fMsDQmnlqCcBP9S9/ff3HBQ/6veFrZbS6kdYW22VSGEAHP
-	 KbdR3an/eeSEVGOBMZJBBFn6P5pa0wqs5O0hjPjfZZs5f6sIXxpX8urMUTnQl7p5v6
-	 ojVVTDM4OKvKw==
-From: Sasha Levin <sashal@kernel.org>
+	b=oHreoWlwRKLjrhnhCCNrld6xLwGGGlqMugQhOc/9KOWN19MegBLrCkcwAeZNselQ3
+	 YDMt0RtzNPt99QEwCn/Zrs3D2eCU7vfWxGVxXvV5KasLwe3QRFuWke5q1C/UZhr89w
+	 m+iAD03i4o+APScZQjpm6mdu0amV9dhRrEmb/hSo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Zak Brighton Knight <zakbrightonknight@gmail.com>,
-	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Doug Smythies <dsmythies@telus.net>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] cpufreq: Improve suspend-resume synchronization
-Date: Wed, 25 Nov 2026 11:19:36 -0500
-Message-ID: <20261125161902.759382-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112512-smith-jot-037d@gregkh>
-References: <2026112512-smith-jot-037d@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
+	stable <stable@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>
+Subject: [PATCH 6.18 906/990] usb: uas: ignore UAS for ASMT135x bridges (174c:55aa)
+Date: Wed, 25 Nov 2026 15:37:53 +0100
+Message-ID: <20261125143843.230263033@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,252 +62,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit eee2a44e4e2b41c0699919a550d41cc38daa4f42 ]
+------------------
 
-The suspend-resume synchronization in the cpufreq core is not perfect
-because the global cpufreq_suspended variable is set at the end of
-cpufreq_suspend() after stopping governors for all of the active
-policies, so the governor .limits() callback may run via
-cpufreq_governor_limits() after stopping the governor and before
-setting cpufreq_suspended which is questionable.  Likewise, the
-governor .limits() callback may run between clearing cpufreq_suspended
-in cpufreq_resume() and starting the governor.
+From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
 
-Address this by adding a per-policy "suspended" flag that is always
-read under the policy rwsem and is updated under it when the governor
-is stopped in cpufreq_suspend() and when the governor is restarted in
-cpufreq_resume().
+commit fafd23d61494461256d374f67c121f2712e1af2f upstream.
 
-Also make cpufreq_resume() use the cpus_read_lock guard to reflect
-what is done in cpufreq_suspend() and call cpufreq_exit_governor() for
-policies that were suspended during a system suspend transition and
-are inactive during the subsequent system resume (to avoid leaking an
-inactive policy with a stopped governor that has not exited yet).
+The ASMedia chip detection in uas_use_uas_driver() assumes that every
+device with idVendor/idProduct 174c:5106 or 174c:55aa reporting a
+config.MaxPower of 0 is an ASM1153 with working UAS.
 
-Fixes: 8e30444e1530 ("cpufreq: fix cpufreq suspend/resume for intel_pstate")
-Fixes: b1b12babe3b7 ("cpufreq: update 'cpufreq_suspended' after stopping governors")
-Cc: All applicable <stable@vger.kernel.org>
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Tested-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
-Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
-Tested-by: Doug Smythies <dsmythies@telus.net>
-Tested-by: Christian Loehle <christian.loehle@arm.com>
-Link: https://patch.msgid.link/4796894.LvFx2qVVIh@rafael.j.wysocki
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-[ sashal: Replaced the upstream guard()/scoped_guard() cpufreq_policy_write helpers with explicit down_write()/up_write() on policy->rwsem, using goto unlock in place of early returns, and adjusted context in cpufreq_update_policy() and struct cpufreq_policy. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+ASMT135x bridges (iProduct "ASMT135x") share the same 174c:55aa id and
+also report MaxPower == 0, so they take the "ASM1153, do nothing"
+path — but their UAS implementation is broken:
+
+- The first READ(16) issued by sd probing times out after 30 s;
+  enumeration only completes after a uas_eh_abort_handler plus a full
+  uas_eh_host_reset_handler cycle:
+
+    scsi 3:0:0:0: Direct-Access  ASMT  ASMT135x  0  PQ: 0 ANSI: 6
+    sd 3:0:0:0: [sdb] tag#26 uas_eh_abort_handler 0 uas-tag 1 inflight: CMD IN
+    sd 3:0:0:0: [sdb] tag#26 CDB: Read(16) 88 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00
+    scsi host3: uas_eh_host_reset_handler start
+    usb 6-2: reset SuperSpeed USB device number 2 using xhci_hcd
+    scsi host3: uas_eh_host_reset_handler success
+
+- Under concurrent load the bridge stalls: all inflight commands (20+
+  UAS tags in the captured incident, mixed READ(16)/WRITE(16)) hit the
+  30 s UAS timeout in the same event, forcing repeated abort/reset
+  cycles and eventually a USB disconnect.  Writes dropped mid-flight
+  during these resets returned zeros to the filesystem (observed as
+  XFS metadata corruption on the mounted volume).
+
+- Sequential-write throughput is ~45 MiB/s under UAS versus ~136 MiB/s
+  after disabling UAS (usb-storage BOT mode), which is fully stable:
+  several tens of GiB written without a single error.
+
+- Bulk reads of healthy LBA ranges do work under UAS (~190 MiB/s, no
+  errors); the failure pattern is command-timeout at enumeration and
+  under queue depth / write load, not a broken transfer path.
+
+Since 174c:55aa is shared across several ASMedia bridges and enclosure
+rebrandings, distinguish the ASMT135x by its product string — the same
+approach used for the HIKSEMI MD202 check a few lines below.  The
+product strings of working bridges using the same id ("ASM1053E",
+"ASM1153", "ASM1153E", "ASM1351", vendor rebrands such as "YZWY_TECH")
+do not contain "ASMT135", so the match is safe.
+
+Verified on an ORICO enclosure (iManufacturer "ASMT", iProduct
+"ASMT135x", bcdDevice 1.00) attached through an Alpine Ridge TB3 dock:
+with the equivalent usb-storage quirks parameter (174c:55aa:u) the
+device is completely stable.
+
+Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+Cc: stable <stable@kernel.org>
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
+Link: https://patch.msgid.link/20261014165741.35758-1-olivier.kaloudoff@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/cpufreq/cpufreq.c | 89 +++++++++++++++++++++++++++++----------
- include/linux/cpufreq.h   |  3 ++
- 2 files changed, 69 insertions(+), 23 deletions(-)
+ drivers/usb/storage/uas-detect.h |    8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index f56958e539b69..8fc5f1fb62bdd 100644
---- a/drivers/cpufreq/cpufreq.c
-+++ b/drivers/cpufreq/cpufreq.c
-@@ -34,6 +34,9 @@
- static LIST_HEAD(cpufreq_policy_list);
- 
- /* Macros to iterate over CPU policies */
-+#define for_each_policy(__policy)	\
-+	list_for_each_entry(__policy, &cpufreq_policy_list, policy_list)
-+
- #define for_each_suitable_policy(__policy, __active)			 \
- 	list_for_each_entry(__policy, &cpufreq_policy_list, policy_list) \
- 		if ((__active) == !policy_is_inactive(__policy))
-@@ -1956,6 +1959,14 @@ int cpufreq_generic_suspend(struct cpufreq_policy *policy)
- }
- EXPORT_SYMBOL(cpufreq_generic_suspend);
- 
-+static void cpufreq_suspend_policy(struct cpufreq_policy *policy)
-+{
-+	down_write(&policy->rwsem);
-+	cpufreq_stop_governor(policy);
-+	policy->suspended = true;
-+	up_write(&policy->rwsem);
-+}
-+
- /**
-  * cpufreq_suspend() - Suspend CPUFreq governors.
-  *
-@@ -1978,11 +1989,8 @@ void cpufreq_suspend(void)
- 	pr_debug("%s: Suspending Governors\n", __func__);
- 
- 	for_each_active_policy(policy) {
--		if (has_target()) {
--			down_write(&policy->rwsem);
--			cpufreq_stop_governor(policy);
--			up_write(&policy->rwsem);
--		}
-+		if (has_target())
-+			cpufreq_suspend_policy(policy);
- 
- 		if (cpufreq_driver->suspend && cpufreq_driver->suspend(policy))
- 			pr_err("%s: Failed to suspend driver: %s\n", __func__,
-@@ -1994,6 +2002,35 @@ void cpufreq_suspend(void)
- 	cpus_read_unlock();
- }
- 
-+static void cpufreq_resume_policy(struct cpufreq_policy *policy, bool start)
-+{
-+	down_write(&policy->rwsem);
-+
-+	if (!policy->suspended)
-+		goto unlock;
-+
-+	policy->suspended = false;
-+
-+	if (policy_is_inactive(policy)) {
-+		/*
-+		 * The policy was active when it was suspended, so its governor
-+		 * is still there.  Let the governor go.
-+		 */
-+		cpufreq_exit_governor(policy);
-+		goto unlock;
-+	}
-+
-+	if (!start)
-+		goto unlock;
-+
-+	if (cpufreq_start_governor(policy))
-+		pr_err("%s: Failed to start governor for CPU%u's policy\n",
-+		       __func__, policy->cpu);
-+
-+unlock:
-+	up_write(&policy->rwsem);
-+}
-+
- /**
-  * cpufreq_resume() - Resume CPUFreq governors.
-  *
-@@ -2003,11 +2040,12 @@ void cpufreq_suspend(void)
- void cpufreq_resume(void)
- {
- 	struct cpufreq_policy *policy;
--	int ret;
- 
- 	if (!cpufreq_driver)
- 		return;
- 
-+	guard(cpus_read_lock)();
-+
- 	if (unlikely(!cpufreq_suspended))
- 		return;
- 
-@@ -2018,19 +2056,18 @@ void cpufreq_resume(void)
- 
- 	pr_debug("%s: Resuming Governors\n", __func__);
- 
--	for_each_active_policy(policy) {
--		if (cpufreq_driver->resume && cpufreq_driver->resume(policy)) {
--			pr_err("%s: Failed to resume driver: %s\n", __func__,
--				cpufreq_driver->name);
--		} else if (has_target()) {
--			down_write(&policy->rwsem);
--			ret = cpufreq_start_governor(policy);
--			up_write(&policy->rwsem);
-+	for_each_policy(policy) {
-+		int ret = 0;
- 
-+		if (cpufreq_driver->resume && !policy_is_inactive(policy)) {
-+			ret = cpufreq_driver->resume(policy);
- 			if (ret)
--				pr_err("%s: Failed to start governor for CPU%u's policy\n",
--				       __func__, policy->cpu);
-+				pr_err("%s: Failed to resume driver: %s\n", __func__,
-+				       cpufreq_driver->name);
- 		}
-+
-+		if (has_target())
-+			cpufreq_resume_policy(policy, ret == 0);
- 	}
- }
- 
-@@ -2410,12 +2447,17 @@ __weak struct cpufreq_governor *cpufreq_fallback_governor(void)
- 	return NULL;
- }
- 
-+static bool cpufreq_is_suspended(struct cpufreq_policy *policy)
-+{
-+	return cpufreq_suspended || policy->suspended;
-+}
-+
- static int cpufreq_init_governor(struct cpufreq_policy *policy)
- {
- 	int ret;
- 
--	/* Don't start any governor operations if we are entering suspend */
--	if (cpufreq_suspended)
-+	/* Don't start any governor operations for suspended policies. */
-+	if (cpufreq_is_suspended(policy))
- 		return 0;
- 	/*
- 	 * Governor might not be initiated here if ACPI _PPC changed
-@@ -2458,7 +2500,7 @@ static int cpufreq_init_governor(struct cpufreq_policy *policy)
- 
- static void cpufreq_exit_governor(struct cpufreq_policy *policy)
- {
--	if (cpufreq_suspended || !policy->governor)
-+	if (cpufreq_is_suspended(policy) || !policy->governor)
- 		return;
- 
- 	pr_debug("%s: for CPU %u\n", __func__, policy->cpu);
-@@ -2473,7 +2515,7 @@ int cpufreq_start_governor(struct cpufreq_policy *policy)
- {
- 	int ret;
- 
--	if (cpufreq_suspended)
-+	if (cpufreq_is_suspended(policy))
- 		return 0;
- 
- 	if (!policy->governor)
-@@ -2498,7 +2540,7 @@ int cpufreq_start_governor(struct cpufreq_policy *policy)
- 
- void cpufreq_stop_governor(struct cpufreq_policy *policy)
- {
--	if (cpufreq_suspended || !policy->governor)
-+	if (cpufreq_is_suspended(policy) || !policy->governor)
- 		return;
- 
- 	pr_debug("%s: for CPU %u\n", __func__, policy->cpu);
-@@ -2509,7 +2551,7 @@ void cpufreq_stop_governor(struct cpufreq_policy *policy)
- 
- static void cpufreq_governor_limits(struct cpufreq_policy *policy)
- {
--	if (cpufreq_suspended || !policy->governor)
-+	if (cpufreq_is_suspended(policy) || !policy->governor)
- 		return;
- 
- 	pr_debug("%s: for CPU %u\n", __func__, policy->cpu);
-@@ -2736,7 +2778,8 @@ void cpufreq_update_policy(unsigned int cpu)
- 	 * -> ask driver for current freq and notify governors about a change
- 	 */
- 	if (cpufreq_driver->get && has_target() &&
--	    (cpufreq_suspended || WARN_ON(!cpufreq_verify_current_freq(policy, false))))
-+	    (cpufreq_is_suspended(policy) ||
-+	     WARN_ON(!cpufreq_verify_current_freq(policy, false))))
- 		goto unlock;
- 
- 	refresh_frequency_limits(policy);
-diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-index a77efb227bc27..0bcd173db3355 100644
---- a/include/linux/cpufreq.h
-+++ b/include/linux/cpufreq.h
-@@ -147,6 +147,9 @@ struct cpufreq_policy {
- 	/* Per policy boost enabled flag. */
- 	bool			boost_enabled;
- 
-+	/* The policy has been suspended. */
-+	bool			suspended;
-+
- 	 /* Cached frequency lookup from cpufreq_driver_resolve_freq. */
- 	unsigned int cached_target_freq;
- 	unsigned int cached_resolved_idx;
--- 
-2.53.0
+--- a/drivers/usb/storage/uas-detect.h
++++ b/drivers/usb/storage/uas-detect.h
+@@ -78,6 +78,8 @@ static int uas_use_uas_driver(struct usb
+ 	 * ASM1051 - with broken (*) uas support
+ 	 * ASM1053 - with working uas support, but problems with large xfers
+ 	 * ASM1153 - with working uas support
++	 * ASMT135x - broken uas support, shares the ASM1153 MaxPower == 0
++	 *            signature, identify it by its product string
+ 	 *
+ 	 * Devices with these chips re-use a number of device-ids over the
+ 	 * entire line, so the device-id is useless to determine if we're
+@@ -99,7 +101,11 @@ static int uas_use_uas_driver(struct usb
+ 			(le16_to_cpu(udev->descriptor.idProduct) == 0x5106 ||
+ 			 le16_to_cpu(udev->descriptor.idProduct) == 0x55aa)) {
+ 		if (udev->actconfig->desc.bMaxPower == 0) {
+-			/* ASM1153, do nothing */
++			if (udev->product && strstr(udev->product, "ASMT135")) {
++				/* ASMT135x, broken uas */
++				flags |= US_FL_IGNORE_UAS;
++			}
++			/* else ASM1153, do nothing */
+ 		} else if (udev->speed < USB_SPEED_SUPER) {
+ 			/* No streams info, assume ASM1051 */
+ 			flags |= US_FL_IGNORE_UAS;
+
 
