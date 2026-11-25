@@ -1,59 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=184.106.54.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=184.106.54.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795628842;
-	b=VtczZ61koG0Yqf1RkKrNkxHIdEUnzldae1LEBFmmG0z7Yv7fe+g/c25oPI65lwerCoUi
-	 lzBIwfGNuBAb6t/LlRvyPPJUkuld1UsmwBNXRZZyV6+q3j+2lEpnA5OPio9+zDrB8hChl
-	 icP5TEo1NmCk7ZnHpFiHbuijNRiN1u6QhXpX5fAaBlAX+9LKleZT7LykkPScmbNQPpkqh
-	 v95Zbqvxf55M760SkPnzUNEfIT4avK6lns+4XUVxjRznaqqtIu5TGO+zLb3BW3YrEaFUf
-	 NoIKDAYEe10/n9WEz1fbdgRZAzUTQatc73s0+oFZ6FUdWNPBI2CfETw6fBLPfuLCQXA==
+	t=1795628884;
+	b=t+0ZSJUpWsLyN9RePNaSWO7znb7v50p6oFPfwb1LzTnGIYj9ymPYdF0RWuSkytZnAkZ7
+	 S4rShC+Ix1WEaj9pBykh6UmIdUGhvzbuD221YYPeAgSGLtmZxO84nFdMZHITM+XzZPJiS
+	 waOJLy37tjjf1ShDIyuVs7vkLKexlQ+pI4Hk1eRIATen4g7ZzXUGZW/oxTnv1k8yxRg0V
+	 gvStWIxKEvHgGk2ylyoc5y1wC/yqnrIoZRXO/EvnVdz63jPB4s9xZ/XhJW3XKBKe2IDCK
+	 AWr9xTqYpB1+mUhYT8E7ygfK6F4uxeH1SorXFvsbbV++Lamq8rxGHx6aJdQ0PhrleZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795628842;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795628884;
 	h=DMARC-Filter:DKIM-Signature:X-Auth-ID:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Classification-ID;
-	bh=gsdil1Y1eWYO2VuNBJgyxnTbW9x5mKIdpLHF51e5qEM=;
-	b=BHx+ImevksXvJvQESxo1q9r3ENjrU9rrjXNJAJyyPQBCe5OtPsL2A1JSCDry4T1CMaU5
-	 P7c0fExkKxahlqbAaU6Vp2gSv8jG0v45uMMWrssEtiGTjQofC+w3uz5vX4hoVuag9/Nhd
-	 9t8vwUW+bMmFbQ+ctHYO/5WZds0PgxUWKCpOL7LnVhKZukh1ybRPgDr3GISQKNAwc5MAg
-	 Ps+NDxaGdmt4z2hmdoYAq0fToZodrnDsb0y7TeC3sftgT0rE4NZkzT5Dv92UM32Frl9Uu
-	 ZkIPi79WH9Ff0YuWQqnd9IEUxRkxkaaxFAPuxVw0pVklFJkRywYS59fiGFuW1s66o0A==
+	bh=Ouye9XqaGOW9Uo7wNavgS/PiT6SE5ZMYbgUJM7iodok=;
+	b=FHx1KpkN3d2er+g1zU7IQdgwYuXK20dbvdqB34Qbju8ZIb4f8U5WuiYuzFfz+/S41iop
+	 nSsexP0DOIEFe9ckFUQrSoTintAeSPMDH3lC38oRPEdjtBqjMvH/QrkWJqX1EipMvqm32
+	 aLzN0QLpTvIs6NIf/nDZqCoYhUEi2xqlHrPd2/pNZgyg81u7pB8315e347sIuGPObugnG
+	 90OP4NTA+p18CsDSMfQ6l0cyr2BtCrE74QKbg+xRDw0ckBcaZDNj7ItLF1IZc2JfQCZ46
+	 1/gKiitBXdC2t6SIL7BFLLq/6rebEJqKcBGFYsPqfBFsb2Gsstbezs64hP2T0NkDozw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mev.co.uk;
 	spf=pass smtp.mailfrom=mev.co.uk;
-	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=hr9syddL;
-	arc=none smtp.remote-ip=184.106.54.64
-Received: from smtp64.ord1d.emailsrvr.com (smtp64.ord1d.emailsrvr.com [184.106.54.64])
+	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=SjL4YBSQ;
+	arc=none smtp.remote-ip=184.106.54.112
+Received: from smtp112.ord1d.emailsrvr.com (smtp112.ord1d.emailsrvr.com [184.106.54.112])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B78F606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:47:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B78F606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9518606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:48:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9518606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=hr9syddL
+	dkim=pass (1024-bit key) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=SjL4YBSQ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
-	s=20221208-6x11dpa4; t=1795628835;
-	bh=bnkbiLA3BLa7/rRLEg015OvSWbBHuT4brSwYlKTAV7M=;
+	s=20221208-6x11dpa4; t=1795628876;
+	bh=V3w/j6zmBNdtLOjWqsa/PcWC/nZeLgn4zGRwl6r0F70=;
 	h=From:To:Subject:Date:From;
-	b=hr9syddLxoteUw3cIgsmNB2favkSpueRHM2pZQ24TfYNYP6p0PH6AaHbAbD3DNEX/
-	 VRQEMb+sl7F8kWFDavpCWlK4g0vaNpjf5S8GUQMnFnTSH7Mmazzln11981OfHd7wdX
-	 w85NcDzMmx2fhapQL737j3jinSuCg5adVbMfiBMc=
+	b=SjL4YBSQQOzkXcw3ylkTj6Jpc+UvXMESauUM8wB2KPqEhB0PhNcfL+omCNAAE/CFu
+	 eJcVPGCF4byv7OSkD70zLTL1rNkmuOrMc+EiOXTfBViuhPhF71xKgDC+4DZTPpgqnD
+	 aX7u21jst9pVy7EIpkI/rqyWyx/sTd67HmpLa9/Y=
 X-Auth-ID: abbotti@mev.co.uk
-Received: by smtp17.relay.ord1d.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id 9F637202B5;
-	Wed, 25 Nov 2026 12:47:14 -0500 (EST)
+Received: by smtp23.relay.ord1d.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id 2294A20254;
+	Wed, 25 Nov 2026 12:47:56 -0500 (EST)
 From: Ian Abbott <abbotti@mev.co.uk>
 To: stable@vger.kernel.org
 Cc: Ian Abbott <abbotti@mev.co.uk>,
 	stable <stable@kernel.org>,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 5.10.y] comedi: comedi_bond: Fix leak of opened device references
-Date: Wed, 25 Nov 2026 17:47:00 +0000
-Message-ID: <20261125174700.735835-1-abbotti@mev.co.uk>
+Subject: [PATCH 5.15.y] comedi: comedi_bond: Fix leak of opened device references
+Date: Wed, 25 Nov 2026 17:47:46 +0000
+Message-ID: <20261125174746.735868-1-abbotti@mev.co.uk>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112539-devotee-transform-b74e@gregkh>
-References: <2026112539-devotee-transform-b74e@gregkh>
+In-Reply-To: <2026112539-sandy-vicinity-2260@gregkh>
+References: <2026112539-sandy-vicinity-2260@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,7 +64,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Classification-ID: 3baced67-01e3-4155-8916-744b4aadb0ec-1-1
+X-Classification-ID: 4807092e-8523-4689-8cef-2801b78667e5-1-1
 
 commit fa0858523f07f8dd71d89b221f4422c3b8096d90 upstream.
 
@@ -93,13 +93,13 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 (cherry picked from commit fa0858523f07f8dd71d89b221f4422c3b8096d90)
 Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
 ---
- drivers/staging/comedi/drivers/comedi_bond.c | 24 ++++++++++++++++----
+ drivers/comedi/drivers/comedi_bond.c | 24 +++++++++++++++++++-----
  1 file changed, 19 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/staging/comedi/drivers/comedi_bond.c b/drivers/staging/comedi/drivers/comedi_bond.c
+diff --git a/drivers/comedi/drivers/comedi_bond.c b/drivers/comedi/drivers/comedi_bond.c
 index 4392b5927a99..a8b9c21d1dc3 100644
---- a/drivers/staging/comedi/drivers/comedi_bond.c
-+++ b/drivers/staging/comedi/drivers/comedi_bond.c
+--- a/drivers/comedi/drivers/comedi_bond.c
++++ b/drivers/comedi/drivers/comedi_bond.c
 @@ -182,7 +182,9 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
  		char file[sizeof("/dev/comediXXXXXX")];
  		int minor = it->options[i];
