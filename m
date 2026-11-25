@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603171;
-	b=YTpAzvLzRE7i1cruy8W/DBy+F2MctjLIgkOzem2wRDfSq0Fb8mhSTyHjl8C9DycgzS3g
-	 aCWpdDxA88KZWXkln4EACaAujJTDpH50IAxyWJFSilSIQHBUROccN8awqzaORTdZdSwt5
-	 +htNrEbMBhYjFXMO7Pa671VX+iKlUrmc00FMhOMOYVt01xY6Urrd8RtpGzynqUM8bjspq
-	 2E4e8wDLqxt/6R97x7Q+Za/MbChNAAIDMaYjzuUPgwlEfalJy+Kj/yBWrqV9w5U3u+FBR
-	 ujWA0LYH6LWgkem8AT4IKWCWhToSDl3bOMI2qQ6/uP+Yf5sL8+tRW+/hLx7WFRG9gMw==
+	t=1795603174;
+	b=Kplhxc65Ajyiz9K35PcLyPouJlzP1OtcyQjrnECSs0bO8oobn6VGrgNA1UvqKvJP4H0n
+	 ohbnLoAgWQ4F7bDoz7cTMu2ctxtuJe/5W2YAbSOgB154dY4LBE5lW0ZHaicr4b0JcHK4D
+	 ep9xIYihdC4uf4QQExSnIqxB50uBMZq9T72mYg/e++JkRMqysfqDAqmleshtTxuTV2nc3
+	 pQD3rijGoW2lUkLfXvNrQsGoikrKMFhMPof2WWh6G6nWJsNLAt6qY1mTguNB4gGUwYGZp
+	 5yAvCfHMhKEgfJ3GvTT+IyHZGlmCP5nkbJHGDCX+RZLetYNLngqc8NcFZVgWi8zES4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603171;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603174;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xdxw2Kl0C6eyVWFI8g+KKvBuhDHU6AxKxavw91J57ak=;
-	b=ztWHJciKMWdJfOUAkhf8uSOcvAZ4D19KKvpDlhqp6Tli35uaW9j//W5WcQaQnJuXFBFO
-	 wEWAjommEnlXpB23XaoCtf8e2y962QWj3MTlplA7HMcwESRkGIZQQyhRVH8HoIc17kSrc
-	 V4GCNs4b0e6e6UaHtUvam1Be9kpvi49PbU/pwME659cJNhrC5N3Fi7jZV1Y1wHGxJzdet
-	 XHRR282mAOkks2Yh1hayk/kCy7Fg/QMDCOmCOOA6KVGCIjJD2X+XO5TUdcwRTJF4zC9f8
-	 VQg8Q+G+Gs9N6me7YvpprzYgTAiQKAl6IN2Hrg2XQqLBXeEv5kxBgCfmr0CoM7a4HyA==
+	bh=sl6atouphjspkLKYKDaJuCSFRJD+hMxRsC7Oku5xdnI=;
+	b=1thJFQm8fpoIEgWvnsTgSH5enXhLHugakuZPvgJZuh3j2oGKKJLeLZ5NuM2h1ZTzTsi0
+	 2LX32qYM7wT8HzxNx0FXn8uDdbR51PV00LS21dwOuLB0HvRC3YY1hBe/BXaFBXj7tt0hi
+	 jjubhjM7e0k8zVoZk+irdRz5+Vivf612/YjxRrYhUjs6lN4/i1oeNe7NERalv//eoAlIx
+	 WGS4a27V1tZl5KndMsRknHHGSqgtFGzEcdlRS70/Gf/pzOQRL/BWDKDlJjfDIh4eGu87D
+	 PBx1oe93QOANOJMQxR1b5YSpTF8376rCAVoobg9i7QEzVDtECOV/KL31f1vrzkRXW+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="YNlRlU/w";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=H6LzZarT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D72F606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:39:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DAD606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:39:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YNlRlU/w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E2B61F000CA;
-	Wed, 25 Nov 2026 10:39:30 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=H6LzZarT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EEE21F000C4;
+	Wed, 25 Nov 2026 10:39:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603170;
-	bh=xdxw2Kl0C6eyVWFI8g+KKvBuhDHU6AxKxavw91J57ak=;
+	s=korg; t=1795603174;
+	bh=sl6atouphjspkLKYKDaJuCSFRJD+hMxRsC7Oku5xdnI=;
 	h=Subject:To:Cc:From:Date;
-	b=YNlRlU/wR01E6yhH7uZDUrKQ+XWE0ZvRLpJGxKNvk8/dh1EBFG5ZTsmTCAjbn3eGu
-	 7T8iplt6v1eXggaM9iRiWcL8CWBwSO5ekYeG3rreCoMx+4FnYfUqjHnyI357KfBPhr
-	 fyzAcXqRWPdT9XcgX/oIp/KyxRdhHDCbgsjNzS34=
-Subject: FAILED: patch "[PATCH] tracing/probes: Enable newly appended probe when target event" failed to apply to 5.15-stable tree
+	b=H6LzZarTsaaq0fCWtBcnnmt9CINPEjwJlT2d8UQZKEQzn0tyIddy81UNIo5ujN65A
+	 3u+fmx6Jw4J/vC/UUOMjTTN9T7BQSHc4K/Ms6lWnzsP+CsMZWMbVuFEJ3/miZGsF8c
+	 cgjbM2INC0+9DRl7CJCMdMQcXKnIOZHFP9Ixo+UA=
+Subject: FAILED: patch "[PATCH] tracing/probes: Enable newly appended probe when target event" failed to apply to 6.1-stable tree
 To: mhiramat@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:29:11 +0100
-Message-ID: <2026112511-playmaker-native-61fd@gregkh>
+Message-ID: <2026112511-upchuck-striking-2706@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 72d3a5cb0cd7335553549aaffecc683e3ecc0c43
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112511-playmaker-native-61fd@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112511-upchuck-striking-2706@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
