@@ -1,88 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795646567;
-	b=wTX61PrLLoVYbUInPLK0MSb4zXlzThPzKm/YPvBltsQWu4hQPZ6Zaly33eiKZWqW/oVi
-	 3egT44YOD2AwxqBaG/NMg/Iji70uS3j5Mg/wrykBWbsfpNTa/8WMY+jWrQd9c9mNqgqVx
-	 eNSsYBQAewe8a6cyPWzNYZdy5yiXM2RVsfjCd+b+tvMWtiCXLVc7IpMcyABU0IF9S2h8p
-	 VJRLZYc7jyOa8L+quqSPD/TkhACrapIlSmpzsxkB4Q+It5aLGbTogyVGFlTH8rwlwLOVK
-	 VyYdHCCy/YB0ubEUc3Db4UQ1jjpLDOzGvLHN31SusJtC0TpugtrrmhnORI3HsQa5SFg==
+	t=1795647087;
+	b=vJ05ez3yALICHBW0qjW2D5gtes46ejVeSe7FOQmfeJhDcVLy+78r63tisvpBMzNZwdhn
+	 utpUV2BEd7MrA87Nofz3aMjKxheOGdKOWWfKe0GNNVNXvaeOzwnFkqg42AewyyLYjpr0l
+	 aqprtuiXtvz5L5+vd4xHguTDItKTYQM/IYN06vw7zoGaSVHP00+LbqBKT73XxujK/ocxP
+	 rgXz5wCCSED3oxDMh67/q6hRlpnmZph45mUuYdMCSVpRxMgOSqFN6j5sFU+W7CKTPhPk0
+	 zO3/13xmBjiGECkuwNZ6YAOFNBuL8JvG2Xn8wxdwR18ZNas/au8tyPcSsNw4CM//hPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795646567;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=wIfAdkxQcsRohaTqE06fnblD43O9O+Djz5eJ6myvDxo=;
-	b=nmgMLxeSy+59DeH7VOe4jmPGEPZ34pMFlszhAn9NKqF5nD4Yq6SB72RrbJ1gWkZ6wKuu
-	 J8MDRnse6ZN7OEX1I+bjCRfTv2mywe5eT0ZiryZjT+wMYwXhB9bzVMNNI2VJt6W4ldLl5
-	 MthW+/xBPO1AXulCJmGS6rKjkpwLeYo1tCPh+b7cyK8RxXGHHDCwJo1EH0B/0QvSHoEsU
-	 WVck+nsvzrxB7FlLge8UJheFrnoOVCkq5f6FfoSRHM29JT/eGOJzLSTGonCypa1V8gQsg
-	 U+q2PyivUEPbg6x7xFAhlyIJUI4UIelFehXP3nfL8WiTKXm9sgkXHRkIDeqfGff1B2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795647087;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=XiEaXyK4wnqo/lld8izd+mPMlTH01p0W9lNsSXFPEr4=;
+	b=5KzX0TEUU+fQ2oqLD3RKxS/RliK85g0cxM5HwmFp0laI/GCFHt7CxS36sjPgSWiefHx7
+	 flCB0RFl7RRCnae7o7tfwMnJGqMB7Nsm3mHMK1jGr/HflApBII1DTlW41QzNBZ8B0Tna1
+	 JTpDk/D3OyRNPHdNOVAPa6i5QMLZR6mqDxGFswWYfH0JvIjIXYaVSIAo+gcJpvARl2K79
+	 /5yLm4DwD3cv0o4e0pVYe2imqw6Uf+EL5DQl0H8QTAZEtESXLPE6BGMfW3ncZFzA84BWc
+	 OClMGwUaHUHeyoNztZ3f7YW0PTrjiMkTUmN3qyXZRC9nyKPdaH5xtIsWL3kXFrlfOtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fOc3quFb;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AAM8pxul;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D67BF606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 22:42:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D67BF606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1234E606A332;
+	Wed, 25 Nov 2026 22:51:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fOc3quFb
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e46e449e8so4112077f8f.3
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:42:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795646565; x=1796251365; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wIfAdkxQcsRohaTqE06fnblD43O9O+Djz5eJ6myvDxo=;
-        b=fOc3quFbvMOr8pjf6uuYEU3G7FG3saZ3sIflZpe4/3Jjar+j/YaqYx0MFeMcK3ky5M
-         VBx5YCTXm5H43vlqnDw41XCtvMnkwlaEuCYU4zXglbyhQXYTO11Bt7k8yBrwRo8NRcLW
-         OpydcC43c+x4htgp/azQefJUEio7e/c0HlB9rnZXyA9CHcBeYwmnYwJf++Q9UsOkhHEh
-         kGnSP34qaUSaIjAZHiL022Toc8quFYQ7Ctjw28WP6ywMi2zgxR8IkZRSLajvFAzpqGs6
-         Zpp9KvTLcNslNAKnFIT83nVsBCi8g4ONVgk3K4xq8MumPcrD0dQG+Z5+2BMxLIN/sgI6
-         68ZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795646565; x=1796251365;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wIfAdkxQcsRohaTqE06fnblD43O9O+Djz5eJ6myvDxo=;
-        b=M6/spOiY2JAMIykhh56OJMCxrnuEqgB2llS/c6ADkSvLU2P3AfVhwbtjE1LzniXjB0
-         wOHgnAz5KmrYmORdfMQJPAQNKKjs3coDGuryul0BNX4a6RvWRltuj3AD6hq+HGlIrael
-         dxZ8Dj3pW4bkFKsXVBTCST/QH6mpNbdRkuJIo6v8y/VtHFYpCoM5NWGTkRTOq2tL8GAG
-         vdGkuOrgrQklm17FrHTkOY9Af0Z99XCzHD78tXLBltDZGECBtPNrhlcCBkWuF7fr5obd
-         Soci5IZY5quoWZYWSR7lfBXTIc/auncd1xexDWs3z4E8bRbGpwoYJwivuJyb6zG49Ern
-         m61g==
-X-Forwarded-Encrypted: i=1; AL+hErF4vfAM0p/Rcdx87djrUxTu9cb4x8vKVvX8OfHjv0G+LXJZBk4/J0blpBsJzIAlr/1mUEY2gj0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+OdNpVUFe0HHm5N2DpIN3XqF00iFdoVqPitlKx1fyWVSF1Bsaw
-	qCo5qrVa9sdK/5E2cop57YIY0mDJeG906G4aTvkr1B+gnRGMW0DW8tIV
-X-Gm-Gg: AZFdTZe4iI//nIF2ECwXzEbet2vSg3w7GEMRwf6vGkGoyR6j6nRyr7nRNm030mRWwGC
-	mTtlFZTvbpBsDN1iS0o73h8dwVv9/0GsqDX4iHf5yHSrRozpfIQq123Ha/5h/WjAQHRc+k8Veso
-	tbdmY+8YZnZGlpIAAJMzl6mEjTJ6KJ1TumfmlKFEa/VV/3ernp7idD4xjCh8xcYu9c6PY92nqto
-	r6MnsDOhGzHVW2DTG4hcfDseQsMISwJDCcHGkyBQ6IvpL+aUSv17W/PVM2Uj4CT5/FOiO5HV93u
-	GvSXzqJS7T3OdeseoyfmFeqTE4RRMPOraQ+TDLMJn8LvnRVECeBN/HjnLdraYNieFWsM/e5nS7J
-	rNo+orfiPaCiHsqr7jIAsIDQoTqpjJZtXSkWXrsvuFaRe4SYpGtJkSJVSHNUyPJ5yQuWWcboZlY
-	p0wnLmhFAk1RLUpzMI6WGDZulm8NwqMSpBN0UPvnPuIWqUjP6QK1oxuAp6UspeYDF5oCj2NoMEZ
-	hh9J9IUxxDDUOHHeSRtcq2rEky+sl9MSMsRIh89y8qQFLP2tFJiGss82ZPd5Lau8RUVdS+cLMLT
-	51N2MGEGvWGZ6P4+UnPmz29c4Q==
-X-Received: by 2002:a05:600c:5493:b0:4a2:8c5:5e5 with SMTP id 5b1f17b1804b1-4bb8881c734mr412295055e9.7.1795646565114;
-        Wed, 25 Nov 2026 14:42:45 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8538b2c5sm544402355e9.5.2026.11.25.14.42.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Nov 2026 14:42:44 -0800 (PST)
-Message-ID: <b7c6eafc-43ef-4434-8423-fc8733911571@gmail.com>
-Date: Wed, 25 Nov 2026 23:42:43 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AAM8pxul
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 264F81F000D2;
+	Wed, 25 Nov 2026 22:51:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795647086;
+	bh=XiEaXyK4wnqo/lld8izd+mPMlTH01p0W9lNsSXFPEr4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AAM8pxulDq4TCwh7/7+vcCxkTJGss+cIX1YrGhtlWy+rp14kajXzbRhLczZMNvbL/
+	 t0oxHKGiDkUCQj77OdWqwGuGTvVWv6olXGXDnn1UlNrQAbKdxYgJ5udgJOWuj5g6Kp
+	 aK/R3iiP+opUZaUbDVgsye66y5lEZXH7hZjKVTuseo3ZmQfCNmSEUYtEz+wVM3IQUU
+	 hU51s7DAFhFDIx13KX+G6lqdntTP2kkyzttOBsa4lxni1cjMm6askFAG+IRh3Bq0ho
+	 UcV6WaExu58QkVIdLMkEWnJyomaUICrL+ROOldMEi4/3Jj9xfDn5L91HUBgtZpD8wh
+	 IMMtoK55AxuZQ==
+Message-ID: <f5ff8f43-c75c-4b19-b683-fdff0c6dd7ae@kernel.org>
+Date: Wed, 25 Nov 2026 23:51:21 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,100 +52,151 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/rmap: avoid reusing batched TLB flush generations
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Ying Huang <huang.ying.caritas@gmail.com>
-Cc: linux-mm@kvack.org, linux-rt-devel@lists.linux.dev,
- linux-riscv@lists.infradead.org, stable@vger.kernel.org,
- Kirk Swidowski <swidowski@google.com>,
- Huang Ying <ying.huang@linux.alibaba.com>
-References: <20261125-rmap-v2-1-0ba817662eac@kernel.org>
+Subject: Re: [PATCH] mm/gup: fault in ranges that start at address 0
+To: Hengyu Liang <hengyul@cs.unc.edu>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>,
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261125173202.3636133-1-hengyul@cs.unc.edu>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261125-rmap-v2-1-0ba817662eac@kernel.org>
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261125173202.3636133-1-hengyul@cs.unc.edu>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/25/26 10:34 AM, David Hildenbrand (Arm) wrote:
-> mm->tlb_flush_batched packs a 15-bit pending and a 15-bit flushed
-> counter into one atomic_t, and resets both once pending gets large.
-> flush_tlb_batched_pending() updates flushed with a cmpxchg() against the
-> value it read before flushing.
+On 11/25/26 18:32, Hengyu Liang wrote:
+> Commit a7797e74bd39 ("mm/gup: clean up codes in fault_in_xxx()
+> functions") made the loops of fault_in_readable(), fault_in_writeable()
+> and fault_in_safe_writeable() stop when the current address is 0, to
+> detect an overflow.
 > 
-> If the counters get reset and reach that same value again while
-> flush_tlb_mm() is running, the cmpxchg() succeeds and unmaps that
-> happened in the meantime are considered flushed. A later zap can then
-> skip the flush and leave stale writable TLB entries behind.
+> However, the loops then do not run at all for a range that starts at
+> address 0, and the functions report that nothing was faulted in. As of
+> now, a write() from a buffer at address 0 fails with EFAULT when the
+> page is mapped but not present yet.
 > 
-> Use two separate counters, never reset pending, and let the flusher
-> simply store the pending value it read before flushing. To keep pending
-> from wrapping around to flushed, pull flushed to pending - 1 once
-> pending is more than INT_MAX ahead.
+> The issue can be reproduced with this program, run as root:
 > 
-> Preventing the wrapping is primarily required because
-> try_to_unmap_flush() as called from migration and reclaim code does
-> *not* go through flush_tlb_batched_pending(), as it does not iterate
-> MMs. So if nothing in the MM triggers flush_tlb_batched_pending(), there
-> would be a problem.
+>     #include <fcntl.h>
+>     #include <stdio.h>
+>     #include <sys/mman.h>
+>     #include <unistd.h>
 > 
-> As the separate counters are no longer read atomically together, we must
-> read "flushed" before "pending" (acquire/release), so a reader can never
-> pair a just moved-forward "flushed" value with an older "pending" value.
+>     int main(void)
+>     {
+>             int fd = open("file", O_WRONLY | O_CREAT, 0644);
 > 
-> We'll leave the barrier() between clearing the PTE and incrementing
-> "pending" alone for now: it should be a smp_mb__before_atomic(), but
-> existing arch code (x86: inc_mm_tlb_gen(), arm64: dsb(ishst) before the
-> TLBI, riscv: fully-ordered xchg() in ptep_get_and_clear()) implies a
-> barrier. This should be cleaned up or documented separately.
-> 
-> As dup_mm() copies the counters using memcpy() while they can get
-> updated concurrently, a newly forked child could end up with "flushed"
-> being "pending + 1" and we could skip a later flush in the child. In
-> theory, this might have been possible before (load tearing), but two
-> separate counters make that easier to trigger. So let's just reset them to
-> 0 during fork(). Put it into the existing init_tlb_flush_pending() and
-> rename the function to make the name better match the wider scope.
-> 
-> Note: if a flusher stalls between reading "pending" and storing it,
-> while "pending" advances by an exact multiple of 2^32, the counters
-> could compare equal and we could miss a flush. The same applies to a
-> writer that stalls while moving "flushed" forward.
-> 
-> That is irrelevant in practice: both hold the PTL, so without PREEMPT_RT
-> they cannot get preempted, and wrapping within the ~20s soft lockup and
-> RCU stall timeouts would require more than 200 million batched unmaps
-> per second on a single mm, which is impossible in practice. Even with
-> PREEMPT_RT or long vCPU preemption, we would need minutes of unmap and
-> refault churn while the stalled task stays off the CPU, which is highly
-> unlikely and not a realistic attack vector.
-> 
-> This effectively adds 4 bytes to mm_struct. However, on common 64-bit
-> configs it fits into the existing padding, leaving the size unchanged.
-> 
-> [ david: use atomic_t instead of atomic64_t, reset counters during fork(),
->          adjust description ]
-> 
-> Fixes: 5ee2fa2f0636 ("mm/rmap: fix potential batched TLB flush race")
-> Cc: stable@vger.kernel.org
-> Reported-by: Kirk Swidowski <swidowski@google.com>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> Reviewed-by: Huang Ying <ying.huang@linux.alibaba.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>             mmap(NULL, 4096, PROT_READ | PROT_WRITE,
+>                  MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, -1, 0);
+>             printf("%zd\n", write(fd, NULL, 7));
+>             return 0;
+>     }
 
-LGTM:
+Thanks for the report.
 
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Ah, so we require root, because usually we have vm.mmap_min_addr limits in place.
+
+Where we disallow mapping to address 0 for good reasons ;)
+
+> 
+> Before commit a7797e74bd39 ("mm/gup: clean up codes in fault_in_xxx()
+> functions"), the result is:
+> 
+>     7
+> 
+> After that commit, the result is:
+> 
+>     -1
+> 
+> With this patch, the result is the same as before that commit.
+> 
+> This patch will stop the loops when the current address is below the
+> start address instead, which is only the case after an overflow.
+> 
+> Fixes: a7797e74bd39 ("mm/gup: clean up codes in fault_in_xxx() functions")
+> Cc: stable@vger.kernel.org # v6.16
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+> ---
+> I found this while comparing the behavior of different kernel versions.
+> I used an LLM to analyze the problem and to draft the patch and this
+> message, and I analyzed the result myself.
+
+Okay, but you did not actually run into this yourself, right?
+
+Doing some research, mapping to address 0 should not really have any users.
+
+There are some legacy dosem and wine emulators, but looks like that's only a
+problem for 32bit and all legacy.
+
+Likely this is "nobody cares" and we don't need CC stable.
+
+> 
+> Tested on v7.4-rc3 with KASAN and lockdep: with the buffer at address 0
+> and at 0x10000, on ext4, tmpfs and xfs, write(), pwritev() and O_DIRECT
+> reads and writes give the same results as before commit a7797e74bd39.
+> 
+>  mm/gup.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/mm/gup.c b/mm/gup.c
+> index 2b405cce2ca5..a174e93327e9 100644
+> --- a/mm/gup.c
+> +++ b/mm/gup.c
+> @@ -2074,7 +2074,7 @@ size_t fault_in_writeable(char __user *uaddr, size_t size)
+>  		return size;
+>  
+>  	/* Stop once we overflow to 0. */
+These comments are not really correct anymore. We don't stop once we overflow to
+0 anymore.
+
+Likely we want to be more careful when calcualting+handling end instead.
 
 -- 
-cheers,
-jose a. p-a
+Cheers,
+
+David
