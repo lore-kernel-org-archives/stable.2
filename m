@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795622485;
-	b=IZgOP8yH1ZvY4vdOnH/oWYymKmJ4R85nu1zBGTFlEC34qEmXT/1YcUBy++8rB0cbTVFk
-	 TDJAGiRQ24aElBHu0PaeHd2fQKpll27PxIiQ9RnRVZ8nLARcS0iVglV8bcaF/UPZd3iU8
-	 sfCkYG1AFHxMqicAjfN4O1tU1LSV7nwKr7sFsLGfmpMBmekpVSK+DWhpYNTdV5FrSt3CH
-	 +JMOlcYnN/wq7Wg0rW4DYkXBsEkLysRG4lLoCoNlWBvE1/3fUDlCa8EXt/oWrm/xIOeTy
-	 ZGe5MwiPdF85bYK+zsBFYDxakCQKETyFlt+0WlEQCmpDKA/2Xou60VppAO2pRCnU13Q==
+	t=1795622486;
+	b=Iq/QweA1RhcrNHfUJUQxvod7bX0TpUmv5YVGxcrf4XQO2vavYcTAZQyowdCqNEABpGEW
+	 q8mAygx3QxN77Z29J6dKqp+L9cDhrxQHPnI/TLTx5Gj5Edyl009pK05mraT9TkNRin7p/
+	 Ld6//Z+gIX+Zrdf/keXHqrlcwlYs5bTMJsCZfrhUdFiNFvK6zyJigbnmfW6MPF84DSKoq
+	 uYN3YsQijUXZ0sqCidvVN6irgyDDLRRy23DyeloMVHEDa5StHHyCR6OBw9uhi7hrMUJtd
+	 f5fDTXM4wWDooo7gHUXjp4C7iULi+VPrSu7w/gNjboFMTB1rbetT19ookdK4pHc5duw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622485;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622486;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=i7ghuWXl39NES6qC7AC/IxUwquCS7WvDHYvOWdMOHAA=;
-	b=bvGp++hUf/nB+9z8/qrifsZeU77Mcpz/9WRlotSoG9W5Q2/zEPsp+OfKmLVZDODV6TxZ
-	 bT9XyvaGi+Y2xqP2p8eojRaO8rMjMJjJqhW2fmYSgEYpPALZ9Buraj6kHeAE2JxDUzl1V
-	 LPNFgQOgMUwzfkwkFi6aLEDK3j+VsDmJ2/K7hyYlNPbvYpB4zTdIKW7OsQSqiVMg2Wp6Q
-	 kq9KUIYmaau913KTnF+92EKT/SRUldPKVPVpO105KOPLRem3JwOSYZeZTuMgwLrhfUpVJ
-	 BkUmJ1MKGC6n7RrkTVhnZW1N7a3Z0UhyWj0zDqu8VjbIjPRwzww4LynYMnQzMTM0jQQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Fkko/aMGewiM92jMgvtOcyrWo3xpKtVLyHJyy/X6Amk=;
+	b=qAMBuDEJEEIDvcIIVxdhIJsUA2kSG62/iWWEdkEaKmvTQ7YFVbIvJhffhbJPx0QN/EJF
+	 oZNz5kLoI4U9bYPhRk4U6kr/pIuqNeVIB/nstcDlQj9Cvw4tWKHjrqCWdNZzC3V1Lfz1v
+	 XnnOq9TjSXyxnHq6SbeyCl4G5290GpSmFTw+UjJ/ZImXHGclrIrfMuYPAGKyGdTUE1IIq
+	 43OgbPvkdBefS3Ig6ffzwIpHwDlaW83MS4Rd66Rl5qKtR8tNVY3bl5PhWUTwZYDuN75Ly
+	 kqts0mbqnymWt2Dfz6aKmZMfun4BfOWqY6lSicgT2tDRLI4DcR8rF7nXIQ8F1yz5VSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XORtGNzq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F8h0tkGn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85851606A33E;
-	Wed, 25 Nov 2026 16:01:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ACB9606A33E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:01:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XORtGNzq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97A7E1F000CF;
-	Wed, 25 Nov 2026 16:01:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795622485;
-	bh=i7ghuWXl39NES6qC7AC/IxUwquCS7WvDHYvOWdMOHAA=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F8h0tkGn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DC9B1F000EE;
+	Wed, 25 Nov 2026 16:01:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795622486;
+	bh=Fkko/aMGewiM92jMgvtOcyrWo3xpKtVLyHJyy/X6Amk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XORtGNzqVsfuWkfzqRX8+ncjRpjlBkz0WwhMwW4i2M5SZv/episrm5pZgrZOgwTCS
-	 K7y8cr9GofN2SptK9bnloKydhz+zH8+mKX0to89las4NhdegeBC5ZjiQX9fakJwE50
-	 6kvplLtaitun/R51R1KKMXFETdhvoUG9xo8ISwbk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=F8h0tkGnwvFEeXm1SF/t0JvsDdWNVxv0FdOPUxtosXjwsNuN3DEFTDr2b2rQnLp7o
+	 dvA8CrDxblRlQjGVVFHyts+/B/fJtIuIQ8dEa/MQ2M947/FNe/o6CTFFrGM+4UesuC
+	 sk6gcOIVKSFMPWaF1jxgBTJdPup5iEQoOOaav12vyxlE483rlanZ/7sLyiRc9hZawK
+	 1BsJUDU8+ZLZ0yjS4ggf52ANOEUeQwEtxj1NOx3FYMLdZ0j4J7LEUuj1t90QyE9NIE
+	 IJWsCMcJxWZNEX8rwF3Y+3YngIZ4yBLSG5+4k2f0W/J6qcufCZrvLXNaEotKdAviB+
+	 YRWs14i6zCdYg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Danish Khateeb <danishkhateeb03@gmail.com>,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+Cc: Kuniyuki Iwashima <kuniyu@amazon.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 554/990] tools/nolibc: fix readdir_r() with 64-bit directory offsets
-Date: Wed, 25 Nov 2026 15:32:01 +0100
-Message-ID: <20261125143835.075169821@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y 2/4] socket: Print pf->create() when it does not clear sock->sk on failure.
+Date: Wed, 25 Nov 2026 11:01:20 -0500
+Message-ID: <20261125160115.575356-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261125160115.575356-1-sashal@kernel.org>
+References: <2026112501-gilled-capsize-0004@gregkh>
+ <20261125160115.575356-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,74 +61,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Kuniyuki Iwashima <kuniyu@amazon.com>
 
-------------------
+[ Upstream commit 4bbd360a5084d8f890f814327e1d9fbb1f0f6fa1 ]
 
-From: Danish Khateeb <danishkhateeb03@gmail.com>
+I suggested to put DEBUG_NET_WARN_ON_ONCE() in __sock_create() to
+catch possible use-after-free.
 
-[ Upstream commit 00c81514ad49110574e4b9bdbc448551004161f2 ]
+But the warning itself was not useful because our interest is in
+the callee than the caller.
 
-readdir_r() stores the result of _sys_lseek() in an int. Directory
-offsets are opaque cookies which can use all 64 bits: ext4, for
-instance, gives 64-bit processes 63-bit hashes, and
-0x7fffffffffffffff as the offset after the last entry. Truncated to an
-int, such an offset is negative about half the time, and readdir_r()
-takes it for an error.
+Let's define DEBUG_NET_WARN_ONCE() and print the name of pf->create()
+and the socket identifier.
 
-Since commit 4ada5679f18d ("tools/nolibc/dirent: avoid errno in
-readdir_r"), readdir_r() fails at the first entry whose offset has
-bit 31 set, which on ext4 is usually one of the first few, and returns
-the truncated offset as the error number. Before that, only -1 counted
-as an error, which the last entry always hits: readdir_r() then
-returned errno, usually 0, without filling in the entry, so the caller
-got the previous entry a second time and never saw the last one.
+While at it, we enclose DEBUG_NET_WARN_ON_ONCE() in parentheses too
+to avoid a checkpatch error.
 
-32-bit processes get 31-bit hashes from ext4 and are not affected.
+Note that %pf or %pF were obsoleted and will be removed later as per
+comment in lib/vsprintf.c.
 
-Keep the offset in an off_t.
-
-Fixes: 665fa8dea90d ("tools/nolibc: add support for directory access")
-Assisted-by: LLM
-Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
-Link: https://patch.msgid.link/20260925211600.119116-2-danishkhateeb03@gmail.com
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
-[ sashal: Renamed _sys_lseek() to sys_lseek() in the readdir_r() hunk, since this tree still uses the older helper name. ]
+Link: https://lore.kernel.org/netdev/202410231427.633734b3-lkp@intel.com/
+Signed-off-by: Kuniyuki Iwashima <kuniyu@amazon.com>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20241024201458.49412-1-kuniyu@amazon.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 82052e5b5ec3 ("netfilter: nf_dup: preserve guard across NFQUEUE reinjection")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/include/nolibc/dirent.h | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ include/net/net_debug.h | 4 +++-
+ net/socket.c            | 4 +++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/tools/include/nolibc/dirent.h b/tools/include/nolibc/dirent.h
-index 61a122a60327d..be0eaefea7a41 100644
---- a/tools/include/nolibc/dirent.h
-+++ b/tools/include/nolibc/dirent.h
-@@ -67,6 +67,7 @@ int readdir_r(DIR *dirp, struct dirent *entry, struct dirent **result)
- 	struct linux_dirent64 *ldir = (void *)buf;
- 	intptr_t i = (intptr_t)dirp;
- 	int fd, ret;
-+	off_t off;
+diff --git a/include/net/net_debug.h b/include/net/net_debug.h
+index 4a79204c8d306..47f7a4a878b9f 100644
+--- a/include/net/net_debug.h
++++ b/include/net/net_debug.h
+@@ -149,9 +149,11 @@ do {								\
  
- 	if (i >= 0)
- 		return EBADF;
-@@ -86,9 +87,9 @@ int readdir_r(DIR *dirp, struct dirent *entry, struct dirent **result)
- 	 * readdir() can only return one entry at a time.
- 	 * Make sure the non-returned ones are not skipped.
- 	 */
--	ret = sys_lseek(fd, ldir->d_off, SEEK_SET);
--	if (ret < 0)
--		return -ret;
-+	off = sys_lseek(fd, ldir->d_off, SEEK_SET);
-+	if (off < 0)
-+		return -off;
  
- 	entry->d_ino = ldir->d_ino;
- 	/* the destination should always be big enough */
+ #if defined(CONFIG_DEBUG_NET)
+-#define DEBUG_NET_WARN_ON_ONCE(cond) (void)WARN_ON_ONCE(cond)
++#define DEBUG_NET_WARN_ON_ONCE(cond) ((void)WARN_ON_ONCE(cond))
++#define DEBUG_NET_WARN_ONCE(cond, format...) ((void)WARN_ONCE(cond, format))
+ #else
+ #define DEBUG_NET_WARN_ON_ONCE(cond) BUILD_BUG_ON_INVALID(cond)
++#define DEBUG_NET_WARN_ONCE(cond, format...) BUILD_BUG_ON_INVALID(cond)
+ #endif
+ 
+ #endif	/* _LINUX_NET_DEBUG_H */
+diff --git a/net/socket.c b/net/socket.c
+index b63029bfdee92..63d4acccb5f2c 100644
+--- a/net/socket.c
++++ b/net/socket.c
+@@ -1561,7 +1561,9 @@ int __sock_create(struct net *net, int family, int type, int protocol,
+ 		/* ->create should release the allocated sock->sk object on error
+ 		 * and make sure sock->sk is set to NULL to avoid use-after-free
+ 		 */
+-		DEBUG_NET_WARN_ON_ONCE(sock->sk);
++		DEBUG_NET_WARN_ONCE(sock->sk,
++				    "%ps must clear sock->sk on failure, family: %d, type: %d, protocol: %d\n",
++				    pf->create, family, type, protocol);
+ 		goto out_module_put;
+ 	}
+ 
 -- 
 2.53.0
-
-
 
