@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795597905;
-	b=dzbCBCiMeAeiavVontSXC9ALF1OLQ+BXE5jM7dC/l5D+2rOoT7AqNzC0zMAGl1d2ESoQ
-	 APZLGE5/s4WUsnWRg5pzAm+noI82Y9XeXGYgucUVBDEDCVmEz5D3NNLPVDXaTVyG2LAx0
-	 mv4ACLxzNioDrORDNhDg9d+DQadgiQDd6qq3/BzSx5v0x2iL9zKEvJ6mRMOqj1J7kwemR
-	 0jeQK9WAMykTLIT2xo3ysdiKBxkx+Dj4wSxLbBXD+dWy2Upx+RbIFaobUL758QvYkEqWM
-	 1a/ATPV7WfQeZI6EsIFnlWdIHCbmKAOl2zxK2jTNmpdhxvKVCG1F+CpTM9wPy4mYyow==
+	t=1795597909;
+	b=AjGKk4aqyNd3ykbW0uzONE0lKEfuTP05u/RVSKQSqVWTSDA+WDfVeYZgMvHwBDJRQclQ
+	 1bUa02knH7cZbCZrglASXSrs2VQgvgBECX5bwu9xX4bUPZoXMi+sFtPBbaKA8QBKebEKE
+	 8yFJnvMfPq5OWTKDkrqVPj8in6VESSRMFa7GM22uv/fGjLpLnGIsiJ/xAQyqB10hmgoGQ
+	 8BM1xm3pjnjxtp2BvqsIDFQPpcfaeL9+AbbyMXOyjooouowgqzEaotqYp2m4SghCh8Us8
+	 FsdkWk/+1zIRFVtf4UUHsNZeobCOWVdq+gcZKHT/SflXi8n4fcO2mGuDuFkuIKO/ltg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795597905;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795597909;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=jL7hmqz8BI7WA33ki2o+KJXoeljcxJ6Z+XP0iy5jTjM=;
-	b=KQF1fz2qn+dMZHgiuwJY68FXwcdwbnW++DnsMD8t9LJ4+K70m/ExbY/32XT7nj3ftRjx
-	 /W5T5KM8E3Or7FuuE81QgTz6ai4LhGuDpfkj5JCzjtm5rFOj82ewRoR90WsOFTPh18yBO
-	 tgH6mXVSb7bdXYuCENC1+c5LdXgqtxdLzW2iZgzD9FZ2cNi1lYUid217UKqMz72KvQBdQ
-	 umUSjRE9//ZB+d4gfAMus2+HPrA/JyU8qyPMbePouq9u/dAxAtbcyWRO8UhQLkmjShKqw
-	 Gh/ZaUghpyLGl4Sb3gCJOcyv0jaLyZivdOsTSsXd72jCm0nwNc4Wg1FKQm7Cb0PP2xw==
+	bh=8CIrKV1FZIAjIn+HTC5giAI93/BtITTf1IQ7scdhzGc=;
+	b=XY6QawxaM2oq14Oe3ODURHPxA/nxxO0H6j6MAlECBWEWif4ThhMPs6H9MtPDr6XQEETZ
+	 7+KTLZRxxsSYlCxjjYXGPhGQ5/B/NSkhJNTEEfvEGVPANHVuYP0U84UacXwIg9LLZwwJH
+	 WGo3dFBMy7f/JjHD7yPoX9Phrs5SpLVdzLBXtg+H6VUNnjqM+bAkErZaNNQ4N1SrTNs0x
+	 CdxvCKG5KTP/XJeZCAnkN0Hq6dq0v+sE8ZNvPke1CIoeswi0CsnlEIrcO2+wbQmcgOU4k
+	 Pj6IVUWi0p1zo4MA29P+2OORbbdDPc8nu+rlBq7sYAb1lAvjxlKyXPLzcleACl37VFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=deJfwaiu;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xMcdw0hn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96A03606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:11:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E707606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:11:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=deJfwaiu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A272E1F000CA;
-	Wed, 25 Nov 2026 09:11:44 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xMcdw0hn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 114691F000CA;
+	Wed, 25 Nov 2026 09:11:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795597905;
-	bh=jL7hmqz8BI7WA33ki2o+KJXoeljcxJ6Z+XP0iy5jTjM=;
+	s=korg; t=1795597908;
+	bh=8CIrKV1FZIAjIn+HTC5giAI93/BtITTf1IQ7scdhzGc=;
 	h=Subject:To:Cc:From:Date;
-	b=deJfwaiu648i9FtyGUwHatUs+CCOj5c1SGBHxv2GnVXyA/kgkmC7kVhNnkbtZarSa
-	 IVtquubLLnRuMcnkVxIfrWFq+j2LoX8CZ1e6rzk1iSd9/zgMrt/ZvyxyF9icq2nGcV
-	 4V5FrCaOdHvZKOzClFr+hzrRCxtcDd7FnlX3SKa8=
-Subject: FAILED: patch "[PATCH] gve: Fix link flap after ethtool ops" failed to apply to 6.6-stable tree
+	b=xMcdw0hn+/l8xu+wSF7o3OGEIfggA/OYKNX9lR98KTargH4zd3lpBm+0YPiFdA+Ry
+	 JNaFeLROYDgXGnwExH4K5Nu1R45++ZBJO/kyqHipLW1DMI1tNSPTWCzUAaAP70ak9/
+	 7DCIueNZcNGZBr800ahQBkxRttkMwc5pQjscn4Z4=
+Subject: FAILED: patch "[PATCH] gve: Fix link flap after ethtool ops" failed to apply to 5.10-stable tree
 To: treapking@google.com,hramamurthy@google.com,joshwash@google.com,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 09:59:54 +0100
-Message-ID: <2026112554-dyslexic-canteen-943e@gregkh>
+Date: Wed, 25 Nov 2026 09:59:55 +0100
+Message-ID: <2026112555-unsorted-splashy-f7ba@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x b1a53c452457d003909ea5a55fb8190012dac947
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112554-dyslexic-canteen-943e@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112555-unsorted-splashy-f7ba@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
