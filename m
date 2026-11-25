@@ -1,95 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596416;
-	b=lsmr6rBeIAJkZiBCLt+x+JsWrnd3PxsicRlnKYWeMfR429YYFD0ggcNY1yBvEYzuAZIq
-	 UU29jDkwiEGE2vX1Ke9a1dGMJVQJipCeyIlxyBZb1ExWUzdLqJCYCmARCFpEIx1TIZTkl
-	 W7TYM5L50DJvSkb8/dIgJgL2rZiKCdc5dR5Gqco68aG5CauAfybh9Go++Si0owejGl/x6
-	 OMHbZjQXagGLqZhO8AL/mZjacaS0fu9W7Ka5wB1OeOjHTaZlpJY2jqLV/PnTpqmtHw2Kl
-	 BkhJkt5fxDFmvy4aaBhhNecLxOEVwqoObJxKtbw5+pkwvAkeo13EuGxkQAF9bEibzxw==
+	t=1795596474;
+	b=3O7hxHH3sc3F6g3kx5bI9OjU4dLpsk4upeTeEbfqS0aTRTQII81Te8qKRFwDZ/hKhqQe
+	 QIA3BCp8N+CPTnFkXddym49ZQ3aa5tI8zzBOTWGL0e3sD4HHrC9TrzYPbRIruEvsYxxBc
+	 pbgBpDliFapRpSMm6Bh2Z2vwwOO+XiZCMP5EYcBjHlD1rdX4S/boq1PbQjB+hp2jVWDZu
+	 CkptBj8zE4/0OdIfd3q+thljiwQh7NmsQvelcE2K9ODNUZuwLdh/RnU+zzvVGitliow6d
+	 5oDJqjSExjQ7eNnQD85adUR4F53ITLcHfdSJlIA4BSMa43W5nh2Du2spclPFpoBz3WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596416;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=gKIID75y2cmNlMXRd1MhTd86fNY6fAdmhSMsDM5aV/Q=;
-	b=JHIeocM+N2ZOSjwzUMHqSMDcY8f1F4jWSCuBd5SyCSfwkBlGa7B2Mo+KQwPZB0KCAqaH
-	 On5IGW0DoxpcxfCIA9LrOy2yqS9aobzOWfHzT4wXejJa2kGE2C3QL7QolTjhgT7sVJZB4
-	 r7fcetHdqlF/atytzPM7DPSbteJHFciy60nJdtz72GPLIasS1ll4sZMqkhtXPxYuvmp8x
-	 p7tb7cOfnviy8T7YMxPxAmx/n+ExENDc9eXOyYrJ3AutW4VZGsrcY6AhJzxoeoSLJxyk1
-	 u5uQYZobfkWMqkGcONtkRKhxBC5/lRZsD/4y4iY8HwU/fOvGDSzn1mGirC3XOoc8O9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596474;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=WLw5iSLUAmy5ESjmbTA6ThiW5AF9rDmQb0R0/WJ6aCs=;
+	b=Y0dShPuusIhpNOUnvKwFuE2p/wQhTwKADJexhb0SMhhjumWtxTmTaqpKLQeF/31+VPfl
+	 M809BhDlMZJ6Rxx8iHi9Rm8YuZiUB8aNLvm1hepp/5ctr7D06QlEEmYDPQOzAbtyFjjFK
+	 KRnCIHWLNv0oerpEJgMm2UjBHPmz9izfTT3QAPu1hKHmt+U3TE+7qKk4Nyui8QC6EcEo/
+	 Do8OrsGKR3BG5uxZdXC2mJnDhay41r5C0h1V55F5kpExlKosnstmSnkCkQ219suzQ8TXY
+	 FWcuZLURZ217Jkht/nrvMoqjMaNJekUJGdTYY6DUIP+6YBp+qyOxi+egYQG7DZF1Mfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fVJgIzVQ;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=xWfccdjs;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OO3e4siu;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="G5/pHpGg";
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=uThUAfA+;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 506BB606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:46:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 506BB606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4354606A327;
+	Wed, 25 Nov 2026 08:47:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4354606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fVJgIzVQ
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3b4ab53a966so491368a91.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 00:46:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795596416; x=1796201216; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gKIID75y2cmNlMXRd1MhTd86fNY6fAdmhSMsDM5aV/Q=;
-        b=fVJgIzVQUDo0SHmzV1oXinNoS3IEbtSaCl5C0hhFa6u4okslMXZuRPP1/sE1WiEaSt
-         uGkBZpyVkBMM8TG3tNupmqxvXUF8tBlvl7FmAAd4t7c4tLlgget2lEK+3MnDSNWXpjIM
-         LQiK+VY0JOprNjTxLMQ8HSLhKOACJPdkQOyvYu6tjxedmQgDeIB4szcK+Ks6OFgZILhd
-         tGCllSv8DXP/lEEhUKk6YeHJvvHdIP/y6wYbt5WlwmtGUev3ODHIqUkrFT4fdlSxOCxe
-         SOL0annlCqBUipJwv5paTKlpRq6+K65Z/PV6rXXu4pyBP5LDKlKHOk7YacECCkayebCZ
-         XYxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795596416; x=1796201216;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gKIID75y2cmNlMXRd1MhTd86fNY6fAdmhSMsDM5aV/Q=;
-        b=pAzWwrLLsv+xn/HWSazXUT17PtmCyx1NeWh3PkSmI8BAykC0p05fXW/ESKM8n9vPDe
-         p5vpdr0xnLzwwl1dMInRX9kE/4rPkSS+cqrl6PIuNrq6ohTEOiQwJ3Gl5JY8uDiHwE5T
-         J/XR/b++gY+E47q3mJwWLYAcKGTLdjcGs3sMhrzWJt/tYxKUi0gSZqYpIUlMPedDUY2T
-         JJYQss1AJ6aX46p1iMkNKM9VaAiZlA4Ia6nJrYeNsjMBX+EoAWM7Qk0eY7WJzQ77z5wf
-         K+XBMPxOaDIG7REnqBajjyMZhPzjxuUVFgYcTwd5uhsjxfeGXLJc2Dt6IL+5jy46I61E
-         6Mxw==
-X-Forwarded-Encrypted: i=1; AL+hErF5HAfB0y8blOWJYKJRV+pqirN6J+dgVMJqhr5kMXKI8HFIsC3Xmm1OmVkamgeSLd4qBI7UP1g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8g1S8Yv1ujMqqgUf8WI34QRszmd2htdVWhiSwvkHlpVTY7XkrJ
-	8M+Yh9BoSe5IIdA4ycqrit2weJu6IFyFgqlRc/usoG1a6ZqEnAhTMiPS
-X-Gm-Gg: AZFdTZfk/4mazC7szXNSkn5LgW4sDCvvnCgmZjiiw7osfAJLoogTlsM/kiJcs2N4y5w
-	DzALDe1nFMbGY1lOVg9N04W080tbi3n/Ps1TR15mwDxzF4HuL08lFqfepNYsDWjt8bthYqWN4kY
-	BZXwYeBqcYrpzMF4AAyV6qziwOCgCIsEwIc9FL6S3j7z2N54OVLEEiHCuI6JACH3T20AiuZiBBH
-	riMIMbHjMTOU+ZRaFszeEBss/dyVTr4H3e31BD7cLc2vSR/4nEwdEqCFtXgrpWpivpVW5Q4P88I
-	YopPak5Ots5yGLvtgOlL/MokfjaHP3nBazr/Wqnta3Y0pG9s9pBtal2LuveRF0D0HkRmqTzfj1S
-	2XVoHCpHmsW92adxVU8vvKLZJQFb0KADfW/NkZII9BQ7Zrmx2ua+lf+15WDWR9GXhJ2OW1dI37d
-	0+sGje7E2lNQcp77TG8yH2Co+8XP+sVGmEDTxIV67KUqjY5aIJQXMxvwktV7Wef5i4foWtBmDiF
-	77rExoAxAbUeI7cC0RVaNltuPqQSPift9ZJdoLf8rx0EmuaJJHzg9BDGrHh3pAcKtSjLu4/TNN0
-	jRZ76k78+eP5OHOAY4LBmTV+LaCZnNPTAHOkepFKpR6fYIETP6ggGRs=
-X-Received: by 2002:a17:90b:442d:b0:3b0:d0be:f02c with SMTP id 98e67ed59e1d1-3b41c98a095mr26665706a91.6.1795596415710;
-        Wed, 25 Nov 2026 00:46:55 -0800 (PST)
-Received: from mi-ThinkCentre-M760t.mioffice.cn ([43.224.245.234])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405d97356sm28973549a91.13.2026.11.25.00.46.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 00:46:55 -0800 (PST)
-From: Wenwu Hou <hwenwur@gmail.com>
-To: rostedt@goodmis.org
-Cc: mhiramat@kernel.org,
-	mathieu.desnoyers@efficios.com,
-	frederic@kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Wenwu Hou <hwenwur@gmail.com>
-Subject: [PATCH v2] tracing/hwlat: Bind the sampler kthread instead of setting its affinity
-Date: Wed, 25 Nov 2026 16:46:00 +0800
-Message-ID: <20261125084600.2306377-1-hwenwur@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=xWfccdjs;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OO3e4siu;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=G5/pHpGg;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=uThUAfA+
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BA8D221F6C;
+	Wed, 25 Nov 2026 08:47:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795596465; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WLw5iSLUAmy5ESjmbTA6ThiW5AF9rDmQb0R0/WJ6aCs=;
+	b=xWfccdjs+1brj5kF+U2+aXs2cxkUEyD9UIBRARlzVvl9saKhVrlGVeG2182x+XRHh74x4L
+	30ISI2+aHO20dRWdE5nYT7+NRhq0mYp8xn9klblBfquFqjIwNfnnZuxyxjGaW4tqecXeGt
+	WzDf6SwJBfcMUEHQhMU7A+wf52Seuso=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795596465;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WLw5iSLUAmy5ESjmbTA6ThiW5AF9rDmQb0R0/WJ6aCs=;
+	b=OO3e4siu057blVR7oduuGttVRQ6uVbk+AYp0GveOXc/5mOKgZ2gVhEscpe/X8sc4cmWVPx
+	11du91yR2QjGURAQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795596463; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WLw5iSLUAmy5ESjmbTA6ThiW5AF9rDmQb0R0/WJ6aCs=;
+	b=G5/pHpGgJ+KX/BAPyqrfkORLpvZZ2w2sPOsdSr9Aa6d/S0BTaAsj041hgU6q8Xx7Es/HO4
+	vCWtNLkkgWw69gT3KFSZkNdF4TImelbmEdC00v6oGMOc5Mhe2eGGphFvBf5ZxMVhq2WwUS
+	/kZAgJWDINutbQZW2YZaZV5zvw8ht9A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795596463;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WLw5iSLUAmy5ESjmbTA6ThiW5AF9rDmQb0R0/WJ6aCs=;
+	b=uThUAfA+mQDqsC3uBXC/kZ6qobt/aiXkG2wPdqYaV56ahkHKu4SUllbMGqyh6QdYUxnTHe
+	76GoEn2qMIcPHnCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 90A7F134CA;
+	Wed, 25 Nov 2026 08:47:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 0yVvG6+gBmvGfQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 25 Nov 2026 08:47:43 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 2440E27BBD; Wed, 25 Nov 2026 09:47:39 +0100 (CET)
+Date: Wed, 25 Nov 2026 09:47:39 +0100
+From: Jan Kara <jack@suse.cz>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: David Hildenbrand <david@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Lorenzo Stoakes <ljs@kernel.org>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Michal Hocko <mhocko@kernel.org>, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 5/5] mm/filemap: refuse releasing maybe_dma_pinned
+ folios
+Message-ID: <fsmnfotflgrddrlak24cve7vkcjkellsgb3xbei5ysxvmqnul6@byvxblm4dtqm>
+References: <20261119-gup-dirty-what-v1-0-236d69f25c24@suse.de>
+ <20261119-gup-dirty-what-v1-5-236d69f25c24@suse.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,118 +124,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261119-gup-dirty-what-v1-5-236d69f25c24@suse.de>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MISSING_XM_UA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[37];
+	ARC_NA(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	R_RATELIMIT(0.00)[to_ip_from(RLc5chj8mdhigtayhgqted7wkp)];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
+X-Spam-Score: -12.80
 
-start_single_kthread() sets the affinity of the kthread it just created
-before waking it up, but kthread_affine_node() overrides that mask on the
-first wake-up. See commit 60ba9c38b931 ("kthread: Comment on the purpose
-and placement of kthread_affine_node() call").
+On Thu 19-11-26 20:10:48, Pedro Falcato wrote:
+> Some callers, like folio_unmap_invalidate(), call filemap_release_folio()
+> without any care for folio refcounts. This is on purpose. As
+> folio_unmap_invalidate() states, invalidate_inode_pages2() needs stronger
+> guarantees, and "can't afford to leave folios behind because
+> shrink_folio_list() has a temp ref on them". Ok.
+> 
+> Use folio_maybe_dma_pinned() universally, in filemap_release_folio(). This
+> has a much lower false positive rate, and should be ok enough for most
+> serious cases.
+> 
+> While here, properly assert that no folio passed to release_folio is
+> mapped.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: d824ec2a1546 ("mm: do not reclaim private data from pinned page")
+> Signed-off-by: Pedro Falcato <pfalcato@suse.de>
 
-In round-robin mode, move_to_next_cpu() compares save_cpumask against
-current->cpus_ptr, sees the replaced mask, and switches the tracer to
-MODE_NONE on its very first iteration:
+Looks good to me. Feel free to add:
 
-  hwlat_detector: cpumask changed while in round-robin mode,
-  switching to mode none
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-So the tracer no longer migrates across tracing_cpumask. More importantly,
-tracing_cpumask is not honoured at all, and with isolcpus=/nohz_full= the
-thread cannot run on the isolated CPUs it is meant to sample.
+and we'll see whether there's some path which actually required private
+data on pinned page to be freed in some cornercase :)
 
-Use kthread_bind_mask() to preserve the initial affinity, including
-isolated CPUs. Clear PF_NO_SETAFFINITY once the single sampler thread
-starts to allow userspace affinity changes and cgroup migration.
+								Honza
 
-The mask is now computed and validated before kthread_create(), which also
-avoids creating a thread when tracing_cpumask has no online CPU in common:
-cpumask_first() returned nr_cpu_ids there and cpumask_set_cpu() then wrote
-past the end of the mask.
-
-Tested on a 4-vCPU KVM guest, bit 0 of the mask is CPU 0:
-
-  mode        mask    before                    after
-  none        0b0101  Cpus_allowed_list: 0-3    0,2
-  round-robin 0b1111  mode -> none, no migrate  migrates 1 2 3 0
-  round-robin 0b0101  mask 0-3, no migrate      migrates 0 2
-  per-cpu     0b0110  2 threads, cpus 1,2      2 threads, cpus 1,2
-
-Fixes: d1a89197589c4 ("kthread: Default affine kthread to its preferred NUMA node")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wenwu Hou <hwenwur@gmail.com>
----
-Changes in v2:
-- Clear PF_NO_SETAFFINITY under current->pi_lock when the single sampler
-  thread starts, preserving userspace affinity changes and cgroup migration.
-  Keep PF_NO_SETAFFINITY set for per-CPU threads.
-- Update the commit message
-
-v1: https://lore.kernel.org/linux-trace-kernel/20261111020755.1422284-1-hwenwur@gmail.com/
-
- kernel/trace/trace_hwlat.c | 33 +++++++++++++++++++++++++--------
- 1 file changed, 25 insertions(+), 8 deletions(-)
-
-diff --git a/kernel/trace/trace_hwlat.c b/kernel/trace/trace_hwlat.c
-index 3fe274b84f1c2..52478ad8030d0 100644
---- a/kernel/trace/trace_hwlat.c
-+++ b/kernel/trace/trace_hwlat.c
-@@ -353,8 +353,21 @@ static void move_to_next_cpu(void)
-  */
- static int kthread_fn(void *data)
- {
-+	unsigned long flags;
- 	u64 interval;
- 
-+	/*
-+	 * kthread_bind_mask() sets PF_NO_SETAFFINITY to keep the initial
-+	 * affinity from being overridden by kthread_affine_node(). Clear it
-+	 * now to allow userspace affinity changes and cgroup migration, but
-+	 * keep per-CPU threads bound to their CPUs.
-+	 */
-+	if (hwlat_data.thread_mode != MODE_PER_CPU) {
-+		raw_spin_lock_irqsave(&current->pi_lock, flags);
-+		current->flags &= ~PF_NO_SETAFFINITY;
-+		raw_spin_unlock_irqrestore(&current->pi_lock, flags);
-+	}
-+
- 	while (!kthread_should_stop()) {
- 
- 		if (hwlat_data.thread_mode == MODE_ROUND_ROBIN)
-@@ -423,15 +436,12 @@ static int start_single_kthread(struct trace_array *tr)
- 	if (kdata->kthread)
- 		goto out_put_cpus;
- 
--	kthread = kthread_create(kthread_fn, NULL, "hwlatd");
--	if (IS_ERR(kthread)) {
--		pr_err(BANNER "could not start sampling thread\n");
--		cpus_read_unlock();
--		return -ENOMEM;
--	}
--
- 	/* Just pick the first CPU on first iteration */
- 	cpumask_and(current_mask, cpu_online_mask, tr->tracing_cpumask);
-+	if (cpumask_empty(current_mask)) {
-+		cpus_read_unlock();
-+		return -EINVAL;
-+	}
- 
- 	if (hwlat_data.thread_mode == MODE_ROUND_ROBIN) {
- 		next_cpu = cpumask_first(current_mask);
-@@ -440,7 +450,14 @@ static int start_single_kthread(struct trace_array *tr)
- 
- 	}
- 
--	set_cpus_allowed_ptr(kthread, current_mask);
-+	kthread = kthread_create(kthread_fn, NULL, "hwlatd");
-+	if (IS_ERR(kthread)) {
-+		pr_err(BANNER "could not start sampling thread\n");
-+		cpus_read_unlock();
-+		return -ENOMEM;
-+	}
-+
-+	kthread_bind_mask(kthread, current_mask);
- 
- 	kdata->kthread = kthread;
- 	wake_up_process(kthread);
+> ---
+>  mm/filemap.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index f9e34144c53c..4fa75663b7f3 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -4571,8 +4571,11 @@ bool filemap_release_folio(struct folio *folio, gfp_t gfp)
+>  	struct address_space * const mapping = folio->mapping;
+>  
+>  	BUG_ON(!folio_test_locked(folio));
+> +	VM_WARN_ON_FOLIO(folio_mapped(folio), folio);
+>  	if (!folio_needs_release(folio))
+>  		return true;
+> +	if (folio_maybe_dma_pinned(folio))
+> +		return false;
+>  	if (folio_test_writeback(folio))
+>  		return false;
+>  
+> 
+> -- 
+> 2.56.1
+> 
 -- 
-2.43.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
