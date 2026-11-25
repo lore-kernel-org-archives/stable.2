@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795602848;
-	b=5rVkNqR1cqiDscOUfDAleNxPvxMXXmZGQY3IUzud7p8Ra8F2WlPuSaqCKUMLWtmoWbCS
-	 GdsQpf+U15AKXMIDphokRd+o+awLYyJCMEsIofNjSaDQCI28z327mdoCYfOKa+QC00RA0
-	 xJjYYCuRoZxPaosDY9vKPwkergoJ7SV8voxWsvZ1DOsri0h9ERcIbnYKe1CZhD1DrKlC2
-	 szO6Y2IU71UVId/7ZJRADHzl1fP25vXcamzq9IO44Y5kBlshqJDqQ9ljQvvM4ctv1caqU
-	 MBIhClij6jOFYmUk3mOJQ20o86Kqsazu2IylLA6JZyJkZkfgvFgssr5ZZ6HrFCL8MWg==
+	t=1795602851;
+	b=n3oV2cjmidFkZ1FSc0zNro2CMDYE2X6M8ohuzqK3t9RFe/fzM0A6mbFpQw9xgE3T6DWH
+	 0BVY5fxsz0lCK59rgPOPxG//3VMHeqV+5PGUuSWmNc1XG4pz+zb/1DwwxmJqPRclvqo1V
+	 eqL4N85Z2tYPTAgIGyL0teX2x9OU9QOIES7CWxA/fQpII7Hb4kCRt+QDq94l0DZWYfJDh
+	 hN8TEbrllvOlywVfC3h0g+HhJpJvMnnOw2XhHdmuGJgwlUuk5/kb44rR1EhsK+Tj7VFlF
+	 pG20MP1c/BoMtjTG3Jjw6UQfrJ+uZvGk/az9QDhbt+oP8TKP0DrgCotqw2IK5Rnqy8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602848;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602851;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EXEZ6XhLvaTPT1HCqtfaztVvcb+qfiQJMPTbXIXWUQw=;
-	b=oly4fB+1GmmNYWRWYmLT+4HI0p7MZ3HWrTND2A2fQjl9P/JBK2rRSwxkzXoDyRZIUUQ/
-	 qLEgxQLgocC+nKsK/G/vEsVo5QsGbGaq/e66iX4X8s3p88F98TIGsQ+7AN08e7jhdZZ0a
-	 LpDwFs/0AKHco5UTu+y0JEsjispvZQCHxl+K2KsRfoneHv7ds8I2GCD19SwJL3uadSkQ2
-	 P8G+euxwPmBPEDr/uZORyX7KdBPw/Dxv4InvMvFsWeJZP0JzRlA7GnEUrl8FpJmZYXoAM
-	 YiBt3SvDIPlKhpbN6w/IbOsapvLYZ+y3zOGoQP0fGydMD+gmrZIMdUXglZucRNeN9VQ==
+	bh=CrW037HRT/G1LpPCarG5hqhoHME0yMXLPVfi/KovOME=;
+	b=GIJDeKqKLjcDn3dDvRo9zejoZdr+pEJy9OFbOF/gzge3MX4bCxw9zvbPEWW6bZkjG1wx
+	 RTg6vODbkwRUsa+YSzxCVPJbcOnvEvnRKbeKe+yCEBfgH//iP8MkCoQwluPiW2tQgx+5j
+	 hAd/PDquAKOidc43pxeiMq6bLExO+zyCnPpmY3TMc1BVMo1VW7Vmh3lOnKJXooDkYtdKx
+	 Zoj8F0EbghlxRGrHtNhW9coybHzgdZuzZsmAuuzHQeC+T5USEDrT8QB52sqwxVlUu0Qdc
+	 CG4ISbaOubNvznhAZnHxhFpbu4Z5v0uz8DJ1rHayqistKlduExA3wVSzua3npMoIqjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="NJCTY/BK";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wxakV4eJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E70D606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:34:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44DFB606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:34:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NJCTY/BK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27D241F000EC;
-	Wed, 25 Nov 2026 10:34:06 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wxakV4eJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 001211F000EC;
+	Wed, 25 Nov 2026 10:34:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795602847;
-	bh=EXEZ6XhLvaTPT1HCqtfaztVvcb+qfiQJMPTbXIXWUQw=;
+	s=korg; t=1795602850;
+	bh=CrW037HRT/G1LpPCarG5hqhoHME0yMXLPVfi/KovOME=;
 	h=Subject:To:Cc:From:Date;
-	b=NJCTY/BKhsywoVxpBfyg5Lllcz7VNT3c2zv3s2B5uMlPPXVWL8n5g0VVCto9S6KXU
-	 mRQoDMc0ewjlSdtCk0d+URxUGgCsURg6EEVbgH4xSKaUjiYHkAHMCVya8ZMLOfc1OT
-	 CXjIAbIgL8VrFRK0jDPqUh2H0HgE/Ap2ZtBFL5Xc=
-Subject: FAILED: patch "[PATCH] spi: tegra210-quad: Unmap DMA buffers on transfer timeout" failed to apply to 6.1-stable tree
+	b=wxakV4eJf8MWNByKe61H6p9W+YSmEL2r0P2tyi3TfL1UotvSLOsz7+txnetdAjcT4
+	 +Q4eVB6svw4R/gA+QNDWiiEDwrTROz2yJfZVrDIaP6Qtw4fl4yIZO6afqmzn6MfbNl
+	 UtefQ56gznM4q63pMBlMtuVnAbXcqmSeOUEHEyoM=
+Subject: FAILED: patch "[PATCH] spi: tegra210-quad: Unmap DMA buffers on transfer timeout" failed to apply to 6.6-stable tree
 To: va@nvidia.com,broonie@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:15:05 +0100
-Message-ID: <2026112505-prevent-strung-69c6@gregkh>
+Message-ID: <2026112505-skewed-creme-8c67@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x d04ad85dd8015713b0b2531b5b934fe67828d741
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112505-prevent-strung-69c6@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112505-skewed-creme-8c67@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
