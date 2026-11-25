@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795622019;
-	b=JK8KAprjgIlu0dtafwYEHg5qNecvwd/LYRNuOw9Lzvf/NotghUS10toQecrmkEVsakev
-	 aThd+imsunihzzHy0JB1RA5QqleXJdY2J8DTypR7UdSgtKRAL9bELCuSodF68rtfS7Y4U
-	 XoapKD7pPY8KnvqxjA1QPy6bbcx8+Axpe1EBpY0Sn1ABtcbqs4Kt1ZRoss0DhGd2PAdwL
-	 2IxIDsL25czZ0rOdrHH7oeZk24FBN83h2HTOh1BOZbSBt4aPuZavJmhMWexNigJd+WZ5x
-	 rNdgSxnAMS8dOPync8z3KIl4aDuVm5k/5ONGf+GExpi/FAqDW0D16cgA30YUtQrCVaA==
+	t=1795622020;
+	b=THjy1C85OiGWOs5sVcyWjztC4QuC42kQJ6Bf/vxE08MqzvMGwZHXb5EtTzHAS3lj60y5
+	 TxzlVW3Yb5wXWjNKeSe7xPVLd8dWF2orwTjW2sHyj+dxjkP9Btvq5vX9Ybv2t09RyD2Pu
+	 o+YDQbgV4x4ab9uLzd9jmJEYPSpJBDCmvbDuzW0mOIfharcQOR5YCuYccaSNLZ69iw2+y
+	 NEqpYaDf8hnC6OpvMs8EmjoUb0mGYzFDJg7RG3HhUWEviez/Js7+1acfZpBkrMK7xCq/s
+	 fKybS9plxZEWKnomAQtscS0fmV3C27c/ccxHHh0ORGnBSMwcsFYC/VGpU91LCnsoOkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622019;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622020;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Z4SZN8qYoG73Pcoe3mxJHK/aEIEuWtWNKSFox503Qh0=;
-	b=46wdV7YeaLCPEuDP8fgk5oazjPk5QJHtiJiGQ1TK7Td0VOI1mbdP1xvQPz85k7NCVbkg
-	 +hz3LnHhfSauxsJL+RC113l3EVPPHr87zDoXrbAfp2EAMherW1/L9VMFgQZzZKdz7xtS4
-	 wpr5fM+gpZjkaTmxjYupiHc5Yae3gW78jt0M83tP0KRGQyTJ/p/HqCyk/EpZzgmrfJ7es
-	 b0pYEriuQ6hHYQSGL3abOBgDs+uXclA0Wq8ANP9jPChbJ0s5aj8A80my1Iq/9ghKwrogV
-	 T39hNaaf7J8z88uRyHHP2k9vNRSJmbIrlhjX7NF3xuGve7eiUdz4WQ45MvUi7KF430A==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=XEaFl2781q84roaIM8T4OQcDTbeeWB+IVgnBqc4CVQs=;
+	b=yQiBGKO+TNCm1JgF1KXXMD673rUUkw7WIImJTYHdmYnKXjvSASJ6GLRSVWm2IMPikDPB
+	 7UfuhA5lJhmbEpCsl59pC6ywSzoHKyrAeSrTNy2bcmpV8g3/SHhBo5fDCTSCw+9mqkj8B
+	 m8VOvyO/Nmwk7pEfEPhCoyzm4+iFr8eP43C95aA7vDya6s9Ace5EPBLlEXLTDciPnLcaJ
+	 DPW/ks3/HdZk7toeo745e9onC9FiLNRf2HLGmGubr/OCf0g4eELvOCTyN2771hXpJlGcp
+	 QuE/cqSuhBLSWwYqB7OZ1iKC2FPoKmxwtXvlM4WcqEPP7xOTSshb6QbOnmRVUEcB+KQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fGMHGDCf;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OWULr6io;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8C1606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:53:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C61606A327;
+	Wed, 25 Nov 2026 15:53:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fGMHGDCf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91DB21F000C0;
-	Wed, 25 Nov 2026 15:53:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795622019;
-	bh=Z4SZN8qYoG73Pcoe3mxJHK/aEIEuWtWNKSFox503Qh0=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OWULr6io
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7031E1F000CF;
+	Wed, 25 Nov 2026 15:53:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795622020;
+	bh=XEaFl2781q84roaIM8T4OQcDTbeeWB+IVgnBqc4CVQs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fGMHGDCfXPljhAd2mFQxO92VKXTuCj5e2rlr2EEYKllriNsZcfWtywmTTGuxSpCEX
-	 QoslFN7/lXd7nfhtlOwD4zuHpcfzII2FvnUyAvY+JQVeSOGBHJk2vkwnhiZcApNhs5
-	 JFgOzwvW7JKC4D0LI4LBkIGRceVsNG6YKL4n6MxfbRQc+DiiW4HXyW93Smni9PAFCL
-	 diKF2JW8aUyy3f9xcNXtuJfozH9/s8Bh51mIjb4D4c/IF5NL2s9N9j//Q012oKuSH+
-	 xm/LtbA/BmlxXRFtkn+T+7SUmZTLo+eMgqsQY/+sRkyUHLZ/zPJPE5sI/lQ3Vyl5p0
-	 5zg97rYCi0tNQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=OWULr6ioVlP8ijafO0Ctzh0n/S4QRsS1H53fxmbpRuweF/3web8r6X5U6xKCkaM0H
+	 0OI0Fw0CxvuLzkJUHUvvp1eUQyWWh604ITmy4ARUwGIWDE7qK+q+HCk4cY9dFOai11
+	 Ag2cKDxC9inVHaqRytVOWw26MpQAYKG6AZ4IO+oA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Hongyang Zhao <hongyang.zhao@thundersoft.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] netfilter: nf_dup: preserve guard across NFQUEUE reinjection
-Date: Wed, 25 Nov 2026 10:53:37 -0500
-Message-ID: <20261125155317.604321-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112551-expiring-pursuant-4942@gregkh>
-References: <2026112551-expiring-pursuant-4942@gregkh>
+Subject: [PATCH 6.18 360/990] ASoC: qcom: common: Add generic headset jack helpers
+Date: Wed, 25 Nov 2026 15:28:47 +0100
+Message-ID: <20261125143830.523405491@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,104 +64,145 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zihan Xi <zihanx@nebusec.ai>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 82052e5b5ec36504fe1b9c3c28a711a78fcacf37 ]
+------------------
 
-NFQUEUE can suspend traversal of a duplicated packet while the task-local
-duplication guard is set. The output call then returns and clears the guard
-before a later verdict resumes hook traversal.
+From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
 
-Save the guard in the queue entry and restore it while reinjection
-continues hook traversal. Preserve and restore the verdict task's prior
-state, including nested synchronous reinjection.
+[ Upstream commit 7f8dd07370f8c17f8f98f0fa98691635828b0dac ]
 
-Fixes: cd58bcd9787e ("netfilter: xt_TEE: have cloned packet travel through Xtables too")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-[ sashal: Replaced the task flag current->in_nf_duplicate with the per-CPU nf_skb_duplicated and moved the nf_reinject() change into nf_queue.c, dropping the DEBUG_NET_WARN_ONCE check. ]
+qcom_snd_wcd_jack_setup() combines creation of the card-level headset
+jack with the WCD-specific operation of attaching jack detection to
+codecs on the TX codec DMA links. External codecs connected over MI2S
+also provide component jack detection, but cannot use the WCD-specific
+DAI filtering.
+
+Factor the common jack allocation, DAPM pin registration and headset
+button mappings into a private initializer. Reuse it from the existing
+WCD path and add a generic setup helper which attaches the jack to every
+codec component in a runtime.
+
+Treat -ENOTSUPP as a no-op because snd_soc_component_set_jack() uses it
+for components which do not provide a set_jack callback.
+
+Add a matching cleanup helper so machine drivers can detach component
+jack detection when the DAI link exits. The WCD setup behavior remains
+unchanged.
+
+Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+Link: https://patch.msgid.link/20260904-rubikpi-next-20260605-v3-3-f49146d85af3@thundersoft.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Stable-dep-of: 704251f9dad3 ("ASoC: qcom: x1e80100: recreate the headset jack on card rebind")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/netfilter/nf_queue.h |  1 +
- net/netfilter/nf_queue.c         | 13 ++++++++++---
- 2 files changed, 11 insertions(+), 3 deletions(-)
+ sound/soc/qcom/common.c | 61 +++++++++++++++++++++++++++++++++++------
+ sound/soc/qcom/common.h |  3 ++
+ 2 files changed, 56 insertions(+), 8 deletions(-)
 
-diff --git a/include/net/netfilter/nf_queue.h b/include/net/netfilter/nf_queue.h
-index 4cf158b5ea698..1aedf2967a56f 100644
---- a/include/net/netfilter/nf_queue.h
-+++ b/include/net/netfilter/nf_queue.h
-@@ -21,6 +21,7 @@ struct nf_queue_entry {
- 	struct net_device	*physout;
- #endif
- 	struct nf_hook_state	state;
-+	bool			in_nf_duplicate;
- 	bool			nf_ct_is_unconfirmed;
- 	u16			size; /* sizeof(entry) + saved route keys */
+diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
+index b021537f27ff1..71cbdd1a44ca2 100644
+--- a/sound/soc/qcom/common.c
++++ b/sound/soc/qcom/common.c
+@@ -356,13 +356,11 @@ static struct snd_soc_jack_pin qcom_headset_jack_pins[] = {
+ 	},
+ };
  
-diff --git a/net/netfilter/nf_queue.c b/net/netfilter/nf_queue.c
-index 2579f94e37444..7f3c24dccf015 100644
---- a/net/netfilter/nf_queue.c
-+++ b/net/netfilter/nf_queue.c
-@@ -218,6 +218,7 @@ static int __nf_queue(struct sk_buff *skb, const struct nf_hook_state *state,
- 	*entry = (struct nf_queue_entry) {
- 		.skb	= skb,
- 		.skb_dev = skb->dev,
-+		.in_nf_duplicate = this_cpu_read(nf_skb_duplicated),
- 		.state	= *state,
- 		.hook_index = index,
- 		.size	= sizeof(*entry) + route_key_size,
-@@ -315,21 +316,26 @@ void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
- 	const struct nf_hook_entry *hook_entry;
- 	const struct nf_hook_entries *hooks;
- 	struct sk_buff *skb = entry->skb;
-+	bool old_in_nf_duplicate;
- 	const struct net *net;
- 	unsigned int i;
- 	int err;
- 	u8 pf;
+-int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
+-			    struct snd_soc_jack *jack, bool *jack_setup)
++static int qcom_snd_headset_jack_init(struct snd_soc_card *card,
++				      struct snd_soc_jack *jack,
++				      bool *jack_setup)
+ {
+-	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
+-	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
+-	struct snd_soc_card *card = rtd->card;
+-	int rval, i;
++	int rval;
  
-+	local_bh_disable();
-+	old_in_nf_duplicate = __this_cpu_read(nf_skb_duplicated);
+ 	if (!*jack_setup) {
+ 		rval = snd_soc_card_jack_new_pins(card, "Headset Jack",
+@@ -386,6 +384,55 @@ int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
+ 		*jack_setup = true;
+ 	}
+ 
++	return 0;
++}
 +
- 	net = entry->state.net;
- 	pf = entry->state.pf;
- 
-+	__this_cpu_write(nf_skb_duplicated, entry->in_nf_duplicate);
- 	hooks = nf_hook_entries_head(net, pf, entry->state.hook);
- 
- 	i = entry->hook_index;
- 	if (WARN_ON_ONCE(!hooks || i >= hooks->num_hook_entries)) {
- 		kfree_skb(skb);
- 		nf_queue_entry_free(entry);
--		return;
-+		goto out;
- 	}
- 
- 	hook_entry = &hooks->hooks[i];
-@@ -352,9 +358,7 @@ void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
- 	switch (verdict & NF_VERDICT_MASK) {
- 	case NF_ACCEPT:
- 	case NF_STOP:
--		local_bh_disable();
- 		entry->state.okfn(entry->state.net, entry->state.sk, skb);
--		local_bh_enable();
++int qcom_snd_headset_jack_setup(struct snd_soc_pcm_runtime *rtd,
++				struct snd_soc_jack *jack, bool *jack_setup)
++{
++	struct snd_soc_dai *codec_dai;
++	struct snd_soc_card *card = rtd->card;
++	int rval, i;
++
++	rval = qcom_snd_headset_jack_init(card, jack, jack_setup);
++	if (rval)
++		return rval;
++
++	for_each_rtd_codec_dais(rtd, i, codec_dai) {
++		rval = snd_soc_component_set_jack(codec_dai->component, jack, NULL);
++		if (rval != 0 && rval != -ENOTSUPP) {
++			dev_warn(card->dev, "Failed to set jack: %d\n", rval);
++			qcom_snd_headset_jack_cleanup(rtd);
++			return rval;
++		}
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(qcom_snd_headset_jack_setup);
++
++void qcom_snd_headset_jack_cleanup(struct snd_soc_pcm_runtime *rtd)
++{
++	struct snd_soc_dai *codec_dai;
++	int i;
++
++	for_each_rtd_codec_dais(rtd, i, codec_dai)
++		snd_soc_component_set_jack(codec_dai->component, NULL, NULL);
++}
++EXPORT_SYMBOL_GPL(qcom_snd_headset_jack_cleanup);
++
++int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
++			    struct snd_soc_jack *jack, bool *jack_setup)
++{
++	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
++	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
++	struct snd_soc_card *card = rtd->card;
++	int rval, i;
++
++	rval = qcom_snd_headset_jack_init(card, jack, jack_setup);
++	if (rval)
++		return rval;
++
+ 	switch (cpu_dai->id) {
+ 	case TX_CODEC_DMA_TX_0:
+ 	case TX_CODEC_DMA_TX_1:
+@@ -404,8 +451,6 @@ int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
+ 	default:
  		break;
- 	case NF_QUEUE:
- 		err = nf_queue(skb, &entry->state, i, verdict);
-@@ -368,5 +372,8 @@ void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
  	}
- 
- 	nf_queue_entry_free(entry);
-+out:
-+	__this_cpu_write(nf_skb_duplicated, old_in_nf_duplicate);
-+	local_bh_enable();
+-
+-
+ 	return 0;
  }
- EXPORT_SYMBOL(nf_reinject);
+ EXPORT_SYMBOL_GPL(qcom_snd_wcd_jack_setup);
+diff --git a/sound/soc/qcom/common.h b/sound/soc/qcom/common.h
+index 02b24caec485e..6705e135ccd77 100644
+--- a/sound/soc/qcom/common.h
++++ b/sound/soc/qcom/common.h
+@@ -24,6 +24,9 @@ int qcom_snd_apply_dai_tdm_slots_cfg(struct snd_soc_pcm_runtime *rtd,
+ 				     const struct qcom_snd_tdm_slot_cfg *cpu_cfg,
+ 				     const struct qcom_snd_tdm_slot_cfg *codec_cfg);
+ int qcom_snd_apply_dai_tdm_slots(struct snd_soc_pcm_runtime *rtd);
++int qcom_snd_headset_jack_setup(struct snd_soc_pcm_runtime *rtd,
++				struct snd_soc_jack *jack, bool *jack_setup);
++void qcom_snd_headset_jack_cleanup(struct snd_soc_pcm_runtime *rtd);
+ int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
+ 			    struct snd_soc_jack *jack, bool *jack_setup);
+ int qcom_snd_dp_jack_setup(struct snd_soc_pcm_runtime *rtd,
 -- 
 2.53.0
+
+
 
