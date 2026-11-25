@@ -1,50 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795577150;
-	b=Jm0y+9bfB0d0+cIO+0Un2nb8QpbGLO/vvONjo99al1cIN3UWVmzhODUi4BVKqtPvy8ok
-	 d2kOKRN4DvLYcJPb89sDZShHeaSdCsGysOVf8DNoK+jYCi+AB1nfNpIXSXMXU6B3fydx9
-	 eiSAqyXQpTdHQV2dp+XqQa0ApgFH1f3TiJT9pjgQWlCTHvPbrDUSRez/ah/bR0D6gc+7g
-	 DpjloEjDtK0gsuYfDibTpAu25ZLy2mqu0s6Z50mW7bvFnskWNx6epYx4GyGoki2s8b8/P
-	 oE+RgJTDb8Ktes4s721lPcGJkWzuR9iiGPLBwdOwxUExGZpiOaCI1a4QaM81fOfqINw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795577150;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=tC8xcrm3ejU9CdNZ6nVE0qye16pWf3mz7U1WG3ag+Sw=;
-	b=V88DmsRXhJXLktRLDp63ZvVEFYzWWQfNZiTnB+9EsqGD/wvQNoTvx3iKpinz1FKUctUu
-	 f0nIAdjWGUg1gPl4iEWhGwfBTM1v69qkcxvwyJPQ/E7pzMjtd26uJAy3WUK76Oz9B3BfK
-	 JoE9WMsdcs/X0ZapvsK4LNCVRav0dwZADHP+7eGMrP/KenjZtbeXPcex0HIo10GhBD4zx
-	 H9OmtysZLcpaRUmQzgQH+/3QpgqIaoh4mklgZ3AeIIMteETg1vaerm93fMDYLuzwnncW2
-	 Y5HPy8U+mfN0wlxhQ04jfO60cIynH3V80Aax2HvQYqCxngi4QatCxs3U8yqGnx5BfrQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=EgOIVQK0;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795577317;
+	b=C0kGCXeP87E7f6F47ySAwsrFwPXm5RxHmeXSw8sg5g/v03AmAPA4r7TRzFgKJKx3vYak
+	 Aq6uBbcdxrx/JDDyRg0QtEGXwLqCdgPPJlMUdhC8Od3Rr/RZDvqr3QkZ9Kzz42w2I3fof
+	 pXt6KVBhUG2wNyxfPHBL1bU7mrs5SMc0zmIhj9Z6rLLN0Y/uW3rnO21H2GCLwYnNyUY99
+	 NgsiM3m0R9OFMegdkZXWxuTj1HUhR0N3Btr1KJu5AVv3tEIAEbPpE71VkXZzp7Dg0dP8R
+	 I5zRFiA3xxtFd3HGXe1OSVgRuF95fNm+MssGyqJg5V7D0WrjpKhgN8Gh4Wo1VPkoRyw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795577317;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=eVOao2kSoPsHbrBTrVlhM55djOW3pr1LawZArVs2fJk=;
+	b=2V4PN66vDnMIuZh1TYY7q48gYzSu7vLD0t4Eh6NYEpDK+88cd711udQGZ71u1bgCTmxz
+	 UaEXcSK/xc9Rk0fH13cj6yYv9ajQpDVHgj2MWTF9m0JlM2hS3VuJ8n9/bJRGcoOPOeW3m
+	 P37JdyNhNYtbCb09yJyZ1DOy4pVMpZBzgkOGBA9dsJfgqLbbse13Waw1hBcL5HoTfUeg+
+	 it0A6ThZfdSnalh9XmYwkvhV3aD0dqAKUzRtVKvzb8CcABXa4QKPCYJIfYExCykS+h8ty
+	 rwUK9PgVrUP+SMFzDMtqg2hiYnE+g3rUDiN0d3qDsyw4unCChwyGYfOwEXwO92jgJrg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CKrE2NJm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.52
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9C7606A327;
-	Wed, 25 Nov 2026 03:25:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA9C7606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF64F606A32C
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 03:28:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF64F606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=EgOIVQK0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=tC8xcrm3ejU9CdNZ6nVE0qye16pWf3mz7U1WG3ag+Sw=;
-	b=EgOIVQK0kNJ5jP4udtd3YF5sKBHfXysrDkywMAStCn66xtE/s/XcYNXKgZp7CD
-	3ca1bJG669qGtYCBHoVRRPlIdr1sdD6H47yBroVP4NuEdznCSnUYK9napvUgb7I2
-	0gIUh0cjqLPkbfqzLCivvBopunbw1WVLD7Wr27KDo50DI=
-Received: from [IPV6:2409:8900:1a90:8163:30cc:9d3c:47b5:d01f] (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDXXywVVQZr+f9OKA--.44825S2;
-	Wed, 25 Nov 2026 11:25:10 +0800 (CST)
-Message-ID: <4c9826bf-a0c1-4d6b-9b6b-a2e2bc88a8ce@163.com>
-Date: Wed, 25 Nov 2026 11:25:09 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CKrE2NJm
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5c1479be604so3948282e87.1
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 19:28:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795577315; cv=none;
+        d=google.com; s=arc-20260327;
+        b=R08BSG9n9oWZ6x5ViN4Haj/pPWK84wwz4IUDnMYqzBtm2x70U9aW6zyrQ8qaa9cSIA
+         4WKdgW6mG9Db8Tta6gpUCKMLOimWRJfnGTt8QO2ENz64cs+i29DWISSykLGWr6SGRl8z
+         ofHYqNIhBCsRMa5aB+GwX3bq5LDreTEvRzK0lf7bxs/Yod8aB6knNxmR8XG5NCDYyDaU
+         eHkT36U5K+EirJX4lW7t5m2Zfll/zOW+cLhdqRcCrc4mT2zuzUP5u3AXSvcEbDmhbbsN
+         3/ovaKjKIxGE8quDuG8g1npjDSyQhCAhghoVnKLA/bXXmQ7VZaKluZ0a9s7HXb6RExaU
+         JNDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=eVOao2kSoPsHbrBTrVlhM55djOW3pr1LawZArVs2fJk=;
+        fh=bWV0O0GnW89sosy72fwKqgzVch6LdgaiL/QLi+KjiDs=;
+        b=BiasPPOWIxEp1a9VrIVzfjQ3euiFwou6yqglHilO14s7LkM/F6D728dqG+WNFHx7dY
+         J3fyyvT9MKSr3gDNj8ISEyQQY4BJDi49xN81cJJm1k6N+7TV8xKx5sYplyqX+z+k1hu9
+         GB4i2tMDlj8WzQKJZTinf2rGPOkKE8gr0vr5Fg4z3BEz94g2uEzG7SC0URHZlcpla2jy
+         c2qr+JiUxacyDbht0uaTg38Iu/B1KNQan3x22jDJSEFKcEJzdGVe8C3F0Xeaje15oiO5
+         ooPkhaLYBeAUtguFrKvcwweutIJNC1fuqbf5qOKOtndz2TSgW0cQtX8/XUH4/RhIdjhW
+         zIVA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795577315; x=1796182115; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eVOao2kSoPsHbrBTrVlhM55djOW3pr1LawZArVs2fJk=;
+        b=CKrE2NJmlO2x2coP0veBjV43Ou6wO02utmDWOdQSD0IkTjr3J6lG9f9RqRUMJs53A2
+         hJprCmuxtWzih2y0dy4DOnGYV8UFqsLFMPI4kG2gOnaPvNpjIhM1Kl6o6+W8BXvYtw0m
+         NXxJGK6jX2k4C7T9oqL6OKmnX+rwIQ++IbMcNRyOpuG5ejw0UqUyBEH2QNeB3H1LHV8S
+         zTLR/1GbP2eDY+gj9cyba75/ol5+p0UJIi22lqyT7BJxORrSmtnxzcV5xE+EiFnTCJ6d
+         xB/pPs80i9Wl7WMnvqO0buCYNyxR17vRt23KyQR/Sz6+CoSICQSpitl2qJfc17VRxke6
+         L68g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795577315; x=1796182115;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eVOao2kSoPsHbrBTrVlhM55djOW3pr1LawZArVs2fJk=;
+        b=z0O6xKQ4f3NbiQRhszzuh+/SE7hQv+As+zaUbaQt5cw8f62oR38FcJvoDMJUJNhB+d
+         m//MVVPMlTdYyzLUXtCuus5XbXZbhrX6wqteGmAPopVKQpIRgPT8xs4bROuidBi7p3kU
+         oyxrKU84snN058Tmg/D0MEhUcHV8r/cXGyG/Rh+xoUevGPNRGrgB3ULrhwy+yjcQdOfC
+         XtqtZEvzC1+DrOFzRiaBOx5p4D7m8TyqannG284ilh4bODSV3ynOo3dcp22XldLcIsyx
+         18ysj7JofB1f+8O1J8tHZI5kw7S7gdijRuFAF4uGkSNuBIN6w9OBVXrAUh4K1Dy/dY+/
+         Jkmw==
+X-Forwarded-Encrypted: i=1; AL+hErFA9Vu+gsNTLsISJfQFPtqXZtx9TR9bgEeP/TaqyPHaqyZUJPeI2E3yY11RUH6EJ4zjR78djQA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z85jEv9LGMubk4d/gI6kbRRSZSO+P5UjQb5yaldXzJ4Z4ZmtwEW
+	5jSqrSQo57nMEs00WGZHvfuEpvaGUWmY4HIpdFhptvo1uMCP1ZdRt6NsnDtAD9vqgKRzGmWjDFG
+	NdV2Z9MNNU4Q9e44A+My0If2w/eokgfcjPPCniYs=
+X-Gm-Gg: AZFdTZdpGVu7F5Y2ceAg4t6BehjxkkY8+oqB968XHjbPzeOg5gZhgr2nDATzRgaow1+
+	yZK+i+fbBf77oSwmQl6Hetvnw+pdLpAByDmWHEMjleJxCVuZttC2PMd+Z48Swlg104qwFlRZhiG
+	+XMmn4wHigdPz4oqoX98mtpC9o7v5BJfVApNwYFUNU+2Rku6RssvmZrk0KW7czryvOjoYVZl/Ap
+	cY3Ynh986oZPAFuVuNafk5GQTbn6bCsCEbk588gxZ+Ouw4U0n+1bYTxmWBYGLQ+rlSzGKZkXEBy
+	uduYE8Ei+7fVR7m0Jk3jrx7LRxim7Qn19N6lfQx4rk/dG+Wj485026E5/EeLcM66XVsvP6smEeN
+	DxOHGQTytwn+55CgcyTWL95gGBD2IfplgcfJPauQ=
+X-Received: by 2002:a05:6512:8346:b0:5bf:f7e7:85eb with SMTP id
+ 2adb3069b0e04-5c1bc7fea99mr2659579e87.21.1795577314677; Tue, 24 Nov 2026
+ 19:28:34 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,153 +104,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9] ntfs: trim the sizes after a short write
-To: Ernest Borowski <ernest.borowski.git@proton.me>
-Cc: Zhan Xusheng <zhanxusheng1024@gmail.com>, linkinjeon@kernel.org,
- hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- zhanxusheng@xiaomi.com, stable@vger.kernel.org
-References: <20261124025932.2360848-1-zhanxusheng1024@gmail.com>
- <1b7886b3-0529-46b8-bed8-56d31d7305f5@163.com>
- <179552385440.2421003.16146153406926819876.b4-reply@b4>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <179552385440.2421003.16146153406926819876.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXXywVVQZr+f9OKA--.44825S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxKw1xJr1kKrWDur1kCFWxZwb_yoW7XrWrpF
-	9I9F9IkFs2yr4xGrn7Ka1UXa1F9rZ8JrW3JFyUWa1UZr9xCwn2vF17KFWY9FW0y392q3y5
-	JF4vv3ykAryDZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UhFxUUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6ha2gWsGVRY3HwAA3N
+References: <20261122-u-serial-console-dequeue-v2-0-820f355827e6@gmail.com>
+ <20261122-u-serial-console-dequeue-v2-1-820f355827e6@gmail.com> <awP_a5IqlYHPvx-G@qmqm.qmqm.pl>
+In-Reply-To: <awP_a5IqlYHPvx-G@qmqm.qmqm.pl>
+From: Fabricio Akio <fabricioakio@gmail.com>
+Date: Wed, 25 Nov 2026 00:27:56 -0300
+X-Gm-Features: Aa3M54q3-u3iR8PfW5c1rCzULwKjC42ht9kSn9FSOQhdbTrBvX5w3OxzVNEj4Ks
+Message-ID: <CANxzQdFNudKjwSO0cA3Leizo9PmZgDJkZtEfEnBWL7H+xYwCLQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] usb: gadget: u_serial: Publish the console only
+ under port_lock
+To: =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Neill Kapron <nkapron@google.com>, 
+	Krystian Kaniewski <krystianmkaniewski@gmail.com>, Brian Ellis <brianellis@gotenna.com>, 
+	Ai Chao <aichao@kylinos.cn>, Prashanth K <prashanth.k@oss.qualcomm.com>, 
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Nov 23, 2026 at 09:55:07AM +0100, Micha=C5=82 Miros=C5=82aw wrote:
+> Note that there is `if (port->console) return` just at the start of this
+> function. If there is indeed a race here, that should be taken into
+> account.
 
+gserial_set_console() and gserial_free_line() hold ports[port_num].lock
+across gs_console_init() and gs_console_exit(). The initial call from
+gserial_alloc_line() during configfs function creation runs before the
+function's console attribute is exposed. That makes the early check safe.
 
-在 2026/11/24 20:37, Ernest Borowski 写道:
-> Hi Baolin, Xusheng,
-> 
-> On Tue, Nov 24, 2026 at 05:10:32PM +0800, liubaolin wrote:
->> Could an async direct write still miss this cleanup if it fails after
->> submitting some BIOs?
-> 
-> Yes.  I tested a 6 MiB O_DIRECT write at offset 0 into a file with
-> 6 MiB reserved by FALLOC_FL_KEEP_SIZE (volume free space filled with
-> 0xee, source buffer unmapped after 4 MiB).  Through io_submit(), the
-> write fails with -EFAULT, the file stays at 6 MiB, and the last 2 MiB
-> read back as 0xee, even after a remount.  The same write through
-> pwritev() returns -EFAULT to ntfs_file_write_iter(), where the rollback
-> that predates v9 resets the size to 0.
-> 
->> Would using IOMAP_DIO_FORCE_WAIT for writes that advance
->> initialized_size let us handle this through the existing rollback?
-> 
-> Yes.  With the forced wait, the async write reaches the rollback and
-> behaves like the sync one.  ext4 also waits for extending direct writes
-> and fails non-blocking ones (IOCB_NOWAIT, e.g. from io_uring) with
-> -EAGAIN before changing anything, so the caller retries them in
-> blocking mode.  ntfs needs the same -EAGAIN return so that the forced
-> wait does not block an io_uring submitter.  Resident attributes need it
-> too, since the write makes them non-resident first.  On top of v9:
-> 
-> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-> index f3bdc54595..86297a1633 100644
-> --- a/fs/ntfs/file.c
-> +++ b/fs/ntfs/file.c
-> @@ -762,12 +762,13 @@ static const struct iomap_dio_ops ntfs_write_dio_ops = {
->   	.end_io			= ntfs_file_write_dio_end_io,
->   };
->   
-> -static ssize_t ntfs_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
-> +static ssize_t ntfs_dio_write_iter(struct kiocb *iocb, struct iov_iter *from,
-> +				   unsigned int dio_flags)
->   {
->   	ssize_t ret;
->   
->   	ret = iomap_dio_rw(iocb, from, ntfs_dio_iomap_next,
-> -			&ntfs_write_dio_ops, 0, NULL, 0);
-> +			&ntfs_write_dio_ops, dio_flags, NULL, 0);
->   	if (ret == -ENOTBLK)
->   		ret = 0;
->   	else if (ret < 0)
-> @@ -955,6 +956,21 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
->   	if (ret <= 0)
->   		goto out_lock;
->   
-> +	/*
-> +	 * A direct write that moves the initialized size waits for its I/O
-> +	 * (see ntfs_dio_write_iter() below), which a non-blocking one must
-> +	 * not do, and a resident attribute is written through the page cache
-> +	 * or made non-resident first.  Have the caller retry such a write
-> +	 * blocking before anything is changed, as ext4 does for extending
-> +	 * direct writes.
-> +	 */
-> +	if (iocb->ki_flags & IOCB_NOWAIT && iocb->ki_flags & IOCB_DIRECT &&
-> +	    (!NInoNonResident(ni) ||
-> +	     iocb->ki_pos + ret > ni->initialized_size)) {
-> +		ret = -EAGAIN;
-> +		goto out_lock;
-> +	}
-> +
->   	err = ntfs_file_modified(iocb);
->   	if (err) {
->   		ret = err;
-> @@ -1001,8 +1017,17 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
->   		goto out;
->   	}
->   
-> +	/*
-> +	 * The sizes were moved to end before the I/O, and only the rollback
-> +	 * at out: takes them back if the write fails.  An asynchronous write
-> +	 * returns -EIOCBQUEUED once it has submitted bios and reports a later
-> +	 * failure, such as a fault on its source or an I/O error, only on
-> +	 * completion, which would skip the rollback.  Wait for such a write
-> +	 * to complete.
-> +	 */
->   	if (NInoNonResident(ni) && iocb->ki_flags & IOCB_DIRECT)
-> -		ret = ntfs_dio_write_iter(iocb, from);
-> +		ret = ntfs_dio_write_iter(iocb, from, end > old_init_size ?
-> +					  IOMAP_DIO_FORCE_WAIT : 0);
->   	else
->   		ret = iomap_file_buffered_write(iocb, from, ntfs_write_iomap_next,
->   				&ntfs_iomap_folio_ops, NULL);
-> 
-> Results on ntfs-next f674e4b6c315 with 512 B, 4 KiB, 16 KiB and 64 KiB
-> clusters, on Ubuntu 26.04 and Arch Linux.  The async and sync cases
-> write three files per cluster size; the RWF_NOWAIT case is a fully
-> mapped 4 MiB pwritev2() into a zero-size file, either reserved or new
-> and empty ("-": not run):
-> 
->                                          ntfs-next  + v9      + v9 + diff
->    async write, old data readable        24 of 24   24 of 24  0 of 24
->    sync write, old data readable         0 of 24    0 of 24   0 of 24
->    RWF_NOWAIT, reserved file, -EAGAIN    -          0 of 8    8 of 8
->    RWF_NOWAIT, new empty file, -EAGAIN   -          0 of 8    8 of 8
->    killed_write_mmap                     FAIL       pass      pass
->    short_write_size                      FAIL       pass      pass
->    keep_size_short_write                 FAIL       pass      pass
->    killed_short_write                    pass       pass      pass
-> 
->    ntfs-next:              https://github.com/xerrni/linux-ntfs/actions/runs/45384651132
->    ntfs-next + v9:         https://github.com/xerrni/linux-ntfs/actions/runs/45387762427
->    ntfs-next + v9 + diff:  https://github.com/xerrni/linux-ntfs/actions/runs/45387767567
-> 
-> The test is tests/aio_dio_partial.sh (with tests/aio_dio_partial.c) and
-> the diff is patches/v9-dio-force-wait.diff in
-> https://github.com/xerrni/linux-ntfs.
-> 
-> The bug predates v9, but the fix is small and only extends this
-> patch's rollback to async writes, so I think it belongs in this patch
-> rather than in a follow-up.  Xusheng, could you fold it into v10?  My
-> Co-developed-by and Signed-off-by on v9 cover it too.
-> 
-> Thanks,
-> Ernest
-
-Hi Ernest,
-   Thanks for reproducing this and for the fix and thorough testing.
-   I agree that folding this into v10 makes sense.
-
-Thanks,
-Baolin
-
+The race is later in gs_console_init(). After it sets port->console
+and before it takes port_lock, gserial_connect() can take port_lock,
+set port->port_usb and attach a request to the console. Init then
+takes port_lock, sees port->port_usb set and attaches a second
+request, overwriting the first. Moving the assignment under port_lock
+closes that window.
