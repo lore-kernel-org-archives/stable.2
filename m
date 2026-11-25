@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795602890;
-	b=Nvo8yukF+JVSHRWT0FKhi41UbdA+4mr78MBy3dKBl0Lcnj06a/tkxzOahGrh2lTGtHAY
-	 lsYmILGB0AoGo7ZWMKfnbufBEroMd+THlv0t1ygFU/Uja/JPEBCyn8LvEV1gqVH4KG5Df
-	 uK466gO8UVzaJLexOLfIXy8fhC3IgizPL03quf7nq/idH+vq8bcX8576oRd3MKRTD9MDe
-	 e4Rof4XIM8cA+JMqnZCZ8wDRkSSysTCiIS/C9lXgVRAePlyC97GYZuUVusdkFf9+im3gM
-	 sdrOx8q+zz8ZLCrfB19OW2T/KOFQgK7XaltHiRXoRlEC18TFPo1mdC+aMm2TEOxscIA==
+	t=1795602893;
+	b=dMNzqNiL4t/t7vYVHg0/yzSOIDMJPJILkwzhuE/uNsg9T+vwUWXxz90R/XMKEPqaXCci
+	 GyMdHYURd0MTGuTft4UzT4USK/eDCat9R8T6Y0J4g0zkPSmQQLtjv1o0f8Q5XCQ5Ndk9M
+	 cr4LRiRsagy6UCgLOTwl/1gWSgBqzi36/aBL+bXFysV8EbhTP+H4zVZ8p7QUETy3lEMic
+	 Mnw4mnC7x9uTDY8iELJV42EHNexQ6a4zY8F6AJaB0ob5wxEHaR5RJA5MfwCQRFxK4HGUc
+	 ND4nHozlxfiTmKcTV7qMp3xpORoCcDb8hf2CG1h85lIFJAwJCstBTDCd+HLJv3R72hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602890;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602893;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xKiA4BeRSG2dCgIOjXWR8DLU9HKgkDhJOSGbkfuyEJ4=;
-	b=IwYDdsDccr+Ig2exD2FFrkw+ZSfm1wg33ZTjDPCaNq1qXgKgtnTWGZKJyHQ26/Yf27Q6
-	 kZftlYycGhTk3cbxc6jZsx0Argap0yhfOWpPBtnX+84iygbb2T8YHdSUu9Dq/6RJeODSs
-	 A3LBG/wf4zJjr0UIM0pQ8mlde2bYvEw8y7H/Q66YKxcJ/PWsWADl1WdHmsWSYHIKfNeZk
-	 q420XLfUaSn/AZaSLVRmWOa0g1pY/Lb/2YeeT+zTYQ4Z5jw2xMkQ+n+dCsFmpbFPtt2uj
-	 eJuFvArMCwEcTohePbLZlyVFs37z0kvcFP/knvHXe2WpVc0UjoXOnzZEhVFVCi7+7nw==
+	bh=ZWckMRa8W7xp8SSnG48IyPuD0jWdz+4JJrcFBOBzFpg=;
+	b=HAd4bOyg3NocbqxPdS1OrUX2veuP3EYrSWTTG3zdkbQ3Rby3lojuD8FPMBL3vvlkvad7
+	 sPag2/Z7gmGtcsuje8XUqC+je6bLkauLZ039UaVwtIRgS4LEuwXf6LQI4IvEW4RGn8kuG
+	 uxcUQJjC1NBJpGKINbNI35GtLQLDrazyJ1bTp+sDTYCpmU9r9qSnf5CuJ+RXR+yyLaZFp
+	 TTl+PuOru0utsUKpOjiVWqFlYGQV1YE2xroJ2zaRBz3GXk3WpjmdeW2RBAPbcWjcPxwHy
+	 p7k3BsvhBs36G0IVHMebGr8f/wEtFfzP4/kHeSMvevH/CqXdGVR3bxa6zlu4f6bOmoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DBZJYFPC;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=p91sMKa0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA55E606A329
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:34:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A50606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:34:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DBZJYFPC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 051FF1F000C4;
-	Wed, 25 Nov 2026 10:34:49 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=p91sMKa0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E27891F000C6;
+	Wed, 25 Nov 2026 10:34:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795602890;
-	bh=xKiA4BeRSG2dCgIOjXWR8DLU9HKgkDhJOSGbkfuyEJ4=;
+	s=korg; t=1795602893;
+	bh=ZWckMRa8W7xp8SSnG48IyPuD0jWdz+4JJrcFBOBzFpg=;
 	h=Subject:To:Cc:From:Date;
-	b=DBZJYFPCAab5aKazRbgp9a8tnHaJmyrKDUyAdD7Bykpn2AbYMYThFrWqRuFsNDHPK
-	 5KPzPRwgI6VV7q/W9XrRxUW+ZE4ZmYOrXMFaGAVa1SyX1xPN13v9fPp/ZLcQOKg+ty
-	 5V0PjL3X0p/p2NouTohi1CIeWxOE+etbiKDu/CWw=
-Subject: FAILED: patch "[PATCH] kprobes: Switch ftrace ops when adding probe with" failed to apply to 6.6-stable tree
+	b=p91sMKa0gICNB79RlkkKY6GXz+H7bv14+UaS6BEDjVBWLYLKptNBsZYOfvGAMHqkb
+	 2nasWFK6MGl4wMk791OWaYtpcGlzY6JNFwcNodjuGx9lCynPeBqNWdTffumrQspdJa
+	 2QOp0s0S+fYxFUrFckD9kILpHuaBWbvsLVkY7lz4=
+Subject: FAILED: patch "[PATCH] kprobes: Switch ftrace ops when adding probe with" failed to apply to 6.1-stable tree
 To: mhiramat@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:17:28 +0100
-Message-ID: <2026112528-ascend-plastic-6007@gregkh>
+Message-ID: <2026112528-barn-hardhat-f9d4@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x f60f98881b54b0cf36b61f41c91fbd93b76a2d9c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112528-ascend-plastic-6007@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112528-barn-hardhat-f9d4@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
