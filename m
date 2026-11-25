@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608432;
-	b=Y6h/69qVzb7qtsV8x3jnOGzGPNKnmdKbEdNDbzfRpNESZRh9NVTqDRRoWEXSzrg9ixLQ
-	 CkllD+M8rOUx3leHtVtTj3HrwQdUwDNBwfUl9VHjL3YsNbw1XStmYghM1tDUbVUbvOyGb
-	 7cii/zOGHJTkix/rnIyUZhGDDXmwdXpOJV5Pxxj8vxjEEADf9K60K2UiehrFdIlewrpaj
-	 plCZ1ESFlJrv7PvZfRPYDe0cn7otO55IXk+GTF0otvQZwv9g2gtGa+vqoQB56RlaX8lZt
-	 HD8aeDEz878wVEmb4L005HBvxdlQDWycdINKaWJxSc5PmXyfL+35AdbWnMVAyIeR5JQ==
+	t=1795608435;
+	b=5Xzlc7IJ2Z1/rAwc2LixT56X5K2Lmnho8LEPPI6G38aRnjPgH9PlH8/sCi9h0bUnRA6m
+	 P+svfYEbeui0nYULKDiRdGFhx++vpF494v33HfxGZDodSaYUJNaMFu2r49yH7EevheXZL
+	 5Im1IaycoUtnLDP0E8vsjfTEs7Zg86OlhAEvwK+ApilS6lCqT3e2zvDUSC//KtEyIH25c
+	 AN5l/yUk5XZSMBLIolAESbR7OmTZtXOeLqE8ZQczVLZfXDtPH2dWAcVTJ2xkjUsfWL5hg
+	 cTneg1IA1KLqVLCipyn/pGpfTQ4tKsZxVpvXaYcFUiA52Hs/J6krKkZY4TcstwweBwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608432;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608435;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=qNoO+8j3BI11TC4vh/vj48sn8KYcPhAIP1hMEKJW4vc=;
-	b=m2eJjTNQ2oyrg6BbwQQVv3ZEq7kLnPMKiXXTU4/8Mr9YXyDksrFDLTgssFtjUflbea+o
-	 yDfTXIlF9oV9OUNUCOeXnT3uQmcbTLFTBcfST8ECgjv1/AJg4TJFZbHuhkRqgo7UWpOdr
-	 uz6dKTwu9U40zPs7O36VFfhMe3Q7YxiXc0dV8w/Q6Myt6byV95rnCe+iPV9Ipem6iRHkB
-	 kwvVKY2YGGaZ966/xg4iqyPxrVe8nZXjY14J/T/O1Wvgg/NfAgK1m67hUEk/F9kPfJAqF
-	 mrIjQPgDM40Gz8Jk2RYmfOjGupGv++DfpjNGCPqKHNH7/YxbimihLv7yFya+hEYOyFQ==
+	bh=+rOLiqpzdSLGEYhoBnqN0bKJCewZRZWs5yvngZ6ZObU=;
+	b=AKWtI1m6BK5e5L2katyUPKjVtenGk/7yvzDiDnwX+qxLDsWiEyElnnYQ2ytkpsS20L4K
+	 GnksSR4PFJH0ypZ/Tmslpk4m7OiXdAB55LeJpMjl3bS2LQL/ql3HPXrMkrqQOJo60vYD+
+	 DrlbD0KZXFq7OCdJ/Frick7Fick9N/elAeOAhIXEoIYW5riXrGvoIdW4SIohSVd/bqvNo
+	 RZDlQtBl5TBAiE/vIowKa/0HK/lAF2HvLUCXOXkbGELXN1Xeg6NiC1UUcLBYoxaj+eJIr
+	 I/mV2cO5EPbBUkc8itGKMQKkJVA11hbNbPhmEF/AXkiD/okmxoBMd1n3Y2z73OyufpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gdPi4ZjD;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mfW51FqR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C870606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:07:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E577B606A329
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:07:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gdPi4ZjD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D3691F000CA;
-	Wed, 25 Nov 2026 12:07:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mfW51FqR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3455E1F000D0;
+	Wed, 25 Nov 2026 12:07:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795608431;
-	bh=qNoO+8j3BI11TC4vh/vj48sn8KYcPhAIP1hMEKJW4vc=;
+	s=korg; t=1795608434;
+	bh=+rOLiqpzdSLGEYhoBnqN0bKJCewZRZWs5yvngZ6ZObU=;
 	h=Subject:To:Cc:From:Date;
-	b=gdPi4ZjDvf/QWXXu9OcR/ripmyHsVnC1PJaOPbtZuKW71CWcDXpNDX26ccYQwiH9O
-	 Kkx8agBuH7GcHiuoDY5Fo7I4ZrwgpM+zxDjNgNL7qQ6KRrzCl0VzT6ZLJ97t4BcIh7
-	 qfgOnJvhJChJD8NX+7mICPu8r/J52SYI3GE4TJPc=
-Subject: FAILED: patch "[PATCH] usb: dwc3: gadget: Wait for End Transfer completion on ep" failed to apply to 6.1-stable tree
+	b=mfW51FqRDYyoAMpmlQKNspzlJma3fseUV1Zun0tm04F1jYo/I/Izwk519gt3llDOs
+	 aLrSWLIoS6ZdI66LYgPs8N+/x0bgsDVSaoMb7PxEWyaJvH+2Lt+vIc6LE7AJcoV+5K
+	 Np3AwpYU4AbO2WKjdTuweGcJXCWzZBEZPj5dH2SU=
+Subject: FAILED: patch "[PATCH] usb: dwc3: gadget: Wait for End Transfer completion on ep" failed to apply to 5.10-stable tree
 To: Thinh.Nguyen@synopsys.com,gregkh@linuxfoundation.org,selvarasu.g@samsung.com,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:41:38 +0100
-Message-ID: <2026112538-freebase-eggshell-85bc@gregkh>
+Date: Wed, 25 Nov 2026 12:41:39 +0100
+Message-ID: <2026112539-slogan-net-78bf@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 1338410c21a5710b7ba88057034d35367ba0f054
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112538-freebase-eggshell-85bc@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112539-slogan-net-78bf@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
