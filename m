@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795635450;
-	b=aN7m4UjibcptfNjHQIS5032T2y6hnPfoX7UiIsOYz2aOT1q//hk89sPzgA60P/rAZhgH
-	 r/asqddeiHyR0yrFH5FxW4te8AqRWNZHigs/UJM0xmhLbAjgu5LRL+MQeZvD0P+msq5LS
-	 ws7lyAlFmCFzCvnelCKcFtYO6ahY90Wct45A/uDJY0zhtHXHGDsb9uklCfibF/xvxXcGk
-	 ZCSDtU3NnnG/eFKg60eE9iFCuLPAYLNRYt1F6RwXhbfGEpP2w+D47nSW/4fU0HKT4Q15L
-	 L0k4Y8Lyl55J8kTxygfZtLkuuPMXVnats9C2IPq7q9cE6y4FWyKC+jwMFjTHMUwdkIA==
+	t=1795635522;
+	b=l96AWWTr5FgrCs6ynDPCtDnd/SpnBXvTMEoZAVkZuNSObEy9g6zC7l6yJd5RDoVtLglx
+	 g0uNc46zjuL3C7HwCg1nh9V/z29ZSxr8KCQ3aYWa+1e/5WxLdwbHgh6hT3ujWqrSIJxNp
+	 F8XBYDXuXzahnTDWjzr0a9irK1g1hGOH0WhfATq9miXl9CUyQfvkakJFg8K1PL3KtbFsf
+	 MfoEVvITyAG2QvQWHEilnUHYLPXwRngHez4c+r1No3zhpTdyK+K4SiP8THrwEscYBOo8F
+	 OvxlG6TMdvnfJd12ibaXeeBiq+qutFaheHibn5Vm0eoQCncHPmuiuj9jLK1WVVIofJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795635450;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Z6jlZPPB+BcFemLIrqZoyihzS+S4RZWy1BG4jrkI0t0=;
-	b=UhqymlofQxth/ek/i1CmZV0JATzeNZN1kkCQhq3dhclEtP7zu4SVxZGqucXotqI6/o0E
-	 K/1kWnw/aYk8b0vZsM+mNH3rjHWqeq5Zw7pg8ek1QDhliaj7dLDLImM4ALljSMXfks0b1
-	 EAS+XdUuk/oURHvXc8Bi+VlQyKG/qYj7cT6FCZvu8C08aBhnQR1vkKBjhFrgDH4lcM0ZT
-	 mRNbqoje/Nai8nrDtG/iCqJJ0CSVFH6+/Ht2FttHJXgldoQ20nWNpkw4biBabiAWatBH9
-	 oiV37zJtyXGIKjRhAFlk1lGBA+PvV9eNcqZqG1CFIAGNZkUtCT9j7eayU27cGMo7YNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795635522;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6wTnULH75vJSwiwoODIMLxKb+zlMScOTEx4i9CMk/nc=;
+	b=iZI8MvMsSRRzG2Y5goi0fzn2cy4jARQGCQ1+XVcJNaAbNeh337ykkHINtFXemhNr1IAV
+	 xodXAeIDcMDcQwNfgD4Vu0fJa6xGiuig8+KmjaSg7kKVGkr9K7MrL1nJPkYvrHuV4gPMa
+	 zS+gYzXbKeVv2UBPpoj0KEksLiihEyBJqZtzJHkE4ktZ3czQCEk7B3IezQCrDGO0GZwfJ
+	 0D0CwzMe6yS2rVgRAzsyv53AhND3c6+kyu/F/FaNr2pnZmem8pStdzzgPQ9zSMSrGZq58
+	 7MP6G9iWnfIPKy+oxVqpOJ2wMXSOLfXhus3WjXQoqfm34T3kZn7uXi1COBd1Qy83zug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oa600321;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k+FCSUCv;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BEF606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:37:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D58606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:38:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49D58606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oa600321
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 071F21F000D8;
-	Wed, 25 Nov 2026 19:37:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795635449;
-	bh=Z6jlZPPB+BcFemLIrqZoyihzS+S4RZWy1BG4jrkI0t0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oa600321EXTMXJUavJ90DCcquELvpf02Nhuc0TgSzAPR2er0rru3LJFptdy/4yhYn
-	 veXh1Jqi/kv1rp2CJ6k00Q3w+DA789Gd/82hmYCcwGnMOZsb+SNzStZOw/6kT0SpFn
-	 A8ciEYb/OpnjMDCEBhDoAY2pVYzyOW6PjGcHrNa30KQp5HpWk7G+2o3Wfle5xk9NWB
-	 VIG6XzA/t3n0fFX1lRDIibkA0u0CS6vqsWPTUoS21zh/1/I9YjHXqC7U48an42vCBr
-	 S9sUaj64pct/trKTRQ62xAXZyRRTinmFUGtPCZHvWV7vHcowuIv1NkJgHmpj3KtJkb
-	 dju2NRKO+Vjww==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ian Bridges <icb@fastmail.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] ksmbd: let the parent's DACL grant DELETE and FILE_READ_ATTRIBUTES
-Date: Wed, 25 Nov 2026 14:37:27 -0500
-Message-ID: <20261125192718.1186906-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112510-rice-courier-add3@gregkh>
-References: <2026112510-rice-courier-add3@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k+FCSUCv
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1b5786e099cso4621043c88.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:38:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795635520; x=1796240320; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6wTnULH75vJSwiwoODIMLxKb+zlMScOTEx4i9CMk/nc=;
+        b=k+FCSUCvDpX4i/W8kPyZVk3YdLizmtnxCmt94XBilrEbAtxCeVAY0AZqZt4CSnwLLi
+         NFh9VxBs4haSQhz5kcrOua4Gbeu0Fk3cMgDmu9kMFJqpNA48JBcEFTy8O73hnL6dfM6X
+         FXct+cBNtBbtY/8mha1f9bwXKySLUk6pgCUC359CSmkyDlqo5vVrYk5aSZJw2dJLFaRx
+         /OZrrv2nu8YQZXVG8G99mW7fiyQS6Ok6WD7UhGvNilS6uH9V2AgOx71VikZtni7Ql6gD
+         IeF6TVXz42LTK9s6NEGpIytWKWuoZxFZiJz34oX1uKgyfotGNoEpmEGdegbv8n17iUrd
+         scpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795635520; x=1796240320;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6wTnULH75vJSwiwoODIMLxKb+zlMScOTEx4i9CMk/nc=;
+        b=HIZ8sl9yQvZeW7PSV9iJi1KB/baDvjS1xXGidMzJiFpU9Rl9ZjrfVutkNW4BhDDy2P
+         Orch03Yj0WHJrHlSdkZbo8YZwR2iGNeX2uRnLdRdN/CGeIDGJwPgyqGK1YYB0E+7KLl1
+         JTpvXwMCorNzAarRddHDtPuDZZtRgUtxbOXKkj+OGzHfXY4DNPqa0HOjVxcRGLvGyqDO
+         TH0A7kLC17jqwEXVpd31nUmITctBhxTZj4jW4dJQ39B0yoIKhXGvptld7XpU23Vlne2z
+         OLCczoKxNvo635p/mF7wLfLhMQLk09u2Q/zf7Yu9t50V0qCfUTK3mbGzs5LjA+yOpxmy
+         /ScA==
+X-Forwarded-Encrypted: i=1; AL+hErFFfhx3NFy0TRpdkzAXXw2opLJ08RYBRCktCU2gA18w+YlqPH7bqNj7pjyq1P8g/RIKOWZgsck=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/1lYhc9Ceux5IFoIxr8F/NB4trNlckMHRalf4vANF2OqHXGs7q
+	Lt9fCPT/Wv6IuBkJk2R9Rbbh9VRY09eYQDOoGNZR2ATYMkuFQL0aNPtj
+X-Gm-Gg: AZFdTZcGOOePzJ41WDbqrraOa5SWjkBuunVUNyKv8zhpxDZwDzR2hHN1/geSbt89xVQ
+	bpsfCRr8jBIn5c8z+aUIaxd95YgB9kGLQ+qLcbGiInE+ulqSiCoJAvW/gYOOk/NiFt49x8KPYoz
+	s0/J3Q170Pj/6K1rFNEVj/uNpNS5OAiJTQDmlj+IiR0EJUOdCvw13rbOfUIeiCM9iGzL8JnFTIa
+	DSYxiByz2tDhzZab2CrDO/agFrAfeEKrjz/RWbMjM98xLxosn65EL1M/coMnfIJoCm3AJEfIhUF
+	Wo74l4BlPJ3NyZSkNX6NO92kFHUaX3mDJk6D0kJ/jWExZQsKeogxSQeYDc38O+o8z+yeyZq+quL
+	+zPkOuD1vKVHyENAzL8G+d/7amI0eEOF4fMgDbbxzT3nmHFQBnUPN3PxTNjDd29ekr4cClhf7Xi
+	1usUcQn89oQpndvNRPZuuhGFHY02uZMJZ5R7pGvdqAgx2XR5bLqYWQdJ3QIUKaYtK+7ukzcxl0l
+	L05ZueWXnUIE9fUuyyy/3CH+1zPWYZTiu9gXOSKlQi/S17SmYnXDGTWvJxZG2OepbZ5djrG3tjk
+	1BqOTbQV6LK+5LXiTOs698kJ0vAySvNbV31KqvdyN3dhVY+qtufJGoivf8EWwJ3S6g8=
+X-Received: by 2002:a05:7022:170d:b0:1b5:1c22:6fea with SMTP id a92af1059eb24-1b5566a60efmr17005635c88.0.1795635520254;
+        Wed, 25 Nov 2026 11:38:40 -0800 (PST)
+Received: from localhost.localdomain (wood.seclab.cs.ucsb.edu. [128.111.49.37])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b562a82b3fsm50810012c88.5.2026.11.25.11.38.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 11:38:39 -0800 (PST)
+From: Praneeth Balasubramanian <praneethb2002@gmail.com>
+To: Lee Duncan <lduncan@suse.com>,
+	Chris Leech <cleech@redhat.com>,
+	Mike Christie <michael.christie@oracle.com>
+Cc: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	open-iscsi@googlegroups.com,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Praneeth Balasubramanian <praneeth@ucsb.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] scsi: iscsi_tcp: Take sk_callback_lock in the recv work
+Date: Wed, 25 Nov 2026 11:38:26 -0800
+Message-Id: <20261125193826.3466197-1-praneethb2002@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <4fc02402-4ab3-42d0-8dbf-d0a36a125e43@oracle.com>
+References: <4fc02402-4ab3-42d0-8dbf-d0a36a125e43@oracle.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,231 +106,119 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ian Bridges <icb@fastmail.org>
+From: Praneeth Balasubramanian <praneeth@ucsb.edu>
 
-[ Upstream commit 4ab80fd4d1f1c4363b336ddb3d8818ea37c4997d ]
+With recv_from_iscsi_q=1, iscsi_sw_tcp_data_ready() queues
+conn->recvwork, and iscsi_sw_tcp_recv_data_work() runs the receive path
+under lock_sock() only. The data_ready path runs it under
+read_lock_bh(&sk->sk_callback_lock) and returns early when sk_user_data
+is NULL. The work does neither, and that causes two problems.
 
-FILE_DELETE_CHILD on a directory can grant DELETE on its children.
-FILE_LIST_DIRECTORY can similarly grant FILE_READ_ATTRIBUTES. Because
-ksmbd checks only the child's DACL, it can refuse rename, deletion and
-attribute opens that the parent permits.
+First, on teardown, iscsi_sw_tcp_release_conn() calls
+iscsi_sw_tcp_conn_restore_callbacks(), which clears sk->sk_user_data,
+and only then flushes recvwork in iscsi_suspend_rx(). Work that runs in
+between processes a socket whose callbacks were already restored. If
+the socket is in TCP_CLOSE or TCP_CLOSE_WAIT, iscsi_sw_sk_state_check()
+then dereferences NULL->session. With a delay added at the start of the
+work to widen this window, a target-side connection close gives:
 
-When the child does not grant an explicitly requested DELETE or
-FILE_READ_ATTRIBUTES, check the parent for FILE_DELETE_CHILD or
-FILE_LIST_DIRECTORY. Use exact SID matching, evaluate group allows and
-denies, and exclude guest and anonymous sessions from Authenticated
-Users. Fail closed on non-inherit-only object deny ACEs, missing or
-unreadable parent DACLs and the mount root.
+  Oops: general protection fault, probably for non-canonical address ...
+  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
+  Workqueue: iscsi_q_3 iscsi_sw_tcp_recv_data_work
+  RIP: 0010:iscsi_sw_tcp_recv_data+0x219/0x420
 
-For the strict parent check, let applicable group and OWNER RIGHTS ACEs
-decide before the POSIX ACL fallback. Otherwise a POSIX ACL entry can
-hide a FILE_DELETE_CHILD grant.
+Second, the receive path was written to run with BHs disabled. For
+example, __iscsi_complete_pdu() takes session->frwd_lock with
+spin_lock(), and iscsi_check_transport_timeouts() takes the same lock
+from a timer. From the work, BHs are enabled. With lockdep, an
+unmodified kernel booted with recv_from_iscsi_q=1 reports as soon as
+reads run:
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+  WARNING: inconsistent lock state
+  inconsistent {IN-SOFTIRQ-W} -> {SOFTIRQ-ON-W} usage.
+  kworker/u10:2/55 [HC0[0]:SC0[0]:HE1:SE1] takes:
+  (&session->frwd_lock){+.?.}-{3:3}, at: __iscsi_complete_pdu+0x4f7/0x2420
+  {IN-SOFTIRQ-W} state was registered at:
+    _raw_spin_lock+0x2e/0x40
+    iscsi_check_transport_timeouts+0x4c/0x5d0
+    call_timer_fn+0x19f/0x630
+  ...
+   *** DEADLOCK ***
+
+Take sk_callback_lock with read_lock_bh() in the recv work, as
+iscsi_sw_tcp_data_ready() does. The receive path then runs with BHs
+disabled, as it does from softirq, and is skipped once sk_user_data has
+been cleared.
+
+The unlocked sk_user_data read was found with an LLM-based tool that
+checks callers against the locking rules stated in kernel comments.
+
+Fixes: f1d269765ee2 ("scsi: iscsi: Run recv path from workqueue")
+Suggested-by: Mike Christie <michael.christie@oracle.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Praneeth Balasubramanian <praneeth@ucsb.edu>
 ---
- fs/smb/server/smbacl.c | 99 ++++++++++++++++++++++++++++++++++--------
- 1 file changed, 81 insertions(+), 18 deletions(-)
 
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index c3be25f2db87b..ef376c8a789cd 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1487,6 +1487,11 @@ static bool smb_sid_is_owner_rights(const struct smb_sid *sid)
- 	       !compare_sids(sid, &sid_owner_rights);
+Notes:
+    v2:
+    - Take sk_callback_lock in the recv work and skip the receive path once
+      sk_user_data is NULL, as Mike Christie suggested. v1 passed conn
+      into iscsi_sw_sk_state_check() instead. That avoided the NULL
+      dereference but still let the work run after the callbacks were
+      restored.
+    - I went with taking the lock rather than calling iscsi_suspend_rx()
+      before restoring the callbacks. Taking it with read_lock_bh() also
+      fixes the frwd_lock report above, which reordering the teardown alone
+      would not.
+    v1 and review: https://lore.kernel.org/all/4fc02402-4ab3-42d0-8dbf-d0a36a125e43@oracle.com/
+    
+    This was found by an LLM-based static analysis (GPT-5.6) that checks
+    kernel code against the rules stated in its comments, as part of
+    research at UCSB SecLab. The patch and changelog were drafted with
+    Claude Opus 5.5. I reviewed the patch and take responsibility for it.
+    
+    Testing: two QEMU VMs on next-20261023 with KASAN and lockdep, an LIO
+    target and an open-iscsi initiator booted with
+    iscsi_tcp.recv_from_iscsi_q=1, using CHAP and continuous reads.
+    
+    - The teardown race: both initiator kernels had a 20 ms msleep() added
+      at the start of iscsi_sw_tcp_recv_data_work(), and the TCP connection
+      was closed from the target side. The unpatched kernel oopsed as
+      above. The patched kernel ran three times with no oops and no lockdep
+      report. In one run, a test-only print showed the work reaching the
+      new check after the callbacks were restored, with the socket in
+      TCP_CLOSE, and skipping the receive path. The race needs the delay to
+      hit reliably.
+    - The frwd_lock report: it appeared in all 10 unpatched runs in this
+      mode, including runs without the delay, and in none of the patched
+      runs.
+    
+    The patch applies to mainline 9ba46df34488 and to next-20261116.
+
+ drivers/scsi/iscsi_tcp.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/scsi/iscsi_tcp.c b/drivers/scsi/iscsi_tcp.c
+index 9260b1c9b0e0..6d802b84f7ad 100644
+--- a/drivers/scsi/iscsi_tcp.c
++++ b/drivers/scsi/iscsi_tcp.c
+@@ -160,7 +160,15 @@ static void iscsi_sw_tcp_recv_data_work(struct work_struct *work)
+ 	struct sock *sk = tcp_sw_conn->sock->sk;
+ 
+ 	lock_sock(sk);
+-	iscsi_sw_tcp_recv_data(conn);
++	/*
++	 * Teardown clears sk_user_data under sk_callback_lock before it
++	 * flushes this work. Take the lock like iscsi_sw_tcp_data_ready()
++	 * so the recv path never runs after the callbacks are restored.
++	 */
++	read_lock_bh(&sk->sk_callback_lock);
++	if (sk->sk_user_data)
++		iscsi_sw_tcp_recv_data(conn);
++	read_unlock_bh(&sk->sk_callback_lock);
+ 	release_sock(sk);
  }
  
-+static unsigned int smb_parent_derived_rights(struct ksmbd_conn *conn,
-+					      const struct path *path, int uid,
-+					      bool authenticated,
-+					      unsigned int want);
-+
- int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			__le32 *pdaccess, __le32 raw_daccess, int uid,
- 			bool authenticated, bool strict)
-@@ -1507,16 +1512,19 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	unsigned int grp_allowed = 0, grp_denied = 0, bits;
- 	struct smb_ace *others_ace = NULL;
- 	bool or_ace = false, obj_deny = false, au_ace = false, member, counted;
-+	bool grp_ace = false;
- 	struct posix_acl_entry *pa_entry;
- 	unsigned int sid_type = SIDOWNER;
- 	unsigned short ace_size;
- 	bool is_owner, owner_rights = false;
- 	bool maximal = *pdaccess & FILE_MAXIMAL_ACCESS_LE;
- 	/*
--	 * MAXIMUM_ALLOWED requests match every session against
--	 * Authenticated Users.
-+	 * MAXIMUM_ALLOWED requests that are not strict match every session
-+	 * against Authenticated Users and do not count ACEs for the
-+	 * caller's groups. Strict ones match SIDs as explicit requests do.
- 	 */
--	bool authusers = authenticated || maximal;
-+	bool open_max = maximal && !strict;
-+	bool authusers = authenticated || open_max;
- 	vfsuid_t vfsuid;
- 
- 	ksmbd_debug(SMB, "check permission using windows acl\n");
-@@ -1550,13 +1558,16 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		/*
- 		 * An empty (present, zero-ACE) DACL grants no access to
- 		 * anyone except the object owner's implicit READ_CONTROL
--		 * and WRITE_DAC (MS-DTYP 2.4.5). Deny every other caller,
--		 * deny the owner any access beyond those two bits, and do
--		 * not let trailing bytes after a zero-ACE DACL become an
--		 * implicit grant.
-+		 * and WRITE_DAC (MS-DTYP 2.5.3.2), besides what the parent
-+		 * grants. Deny every other right, and do not let trailing
-+		 * bytes after a zero-ACE DACL become an implicit grant.
- 		 */
- 		if (is_owner)
- 			allowed = READ_CONTROL | WRITE_DAC;
-+		if (!strict)
-+			allowed |= smb_parent_derived_rights(conn, path, uid,
-+							     authenticated,
-+							     requested & ~allowed);
- 		if (maximal)
- 			requested |= allowed;
- 		if (!allowed || requested & ~allowed)
-@@ -1569,9 +1580,10 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	/*
- 	 * Evaluate the DACL in order (MS-DTYP 2.5.3.2). access_bits collects
- 	 * the result for the ACEs that apply to the caller, without its groups
--	 * for MAXIMUM_ALLOWED. grp_granted collects what ACEs for the caller's
--	 * groups, or OWNER RIGHTS for the owner, grant. It is used when the
--	 * SID lookup and POSIX ACL fallback below do not decide.
-+	 * for a MAXIMUM_ALLOWED request that is not strict. grp_granted
-+	 * collects what ACEs for the caller's groups, or OWNER RIGHTS for the
-+	 * owner, grant. It is used when the SID lookup and POSIX ACL fallback
-+	 * below do not decide.
- 	 */
- 	ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
- 	aces_size = pdacl_size - sizeof(struct smb_acl);
-@@ -1616,8 +1628,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		     compare_sids(&sid_owner_rights, &ace->sid) &&
- 		     !member))
- 			goto next_ace;
--		/* An explicit request counts only SIDs that match exactly */
--		if (!maximal && !member &&
-+		/* Other requests count only SIDs that match exactly */
-+		if (!open_max && !member &&
- 		    !smb_sid_equal(&sid, &ace->sid) &&
- 		    !smb_sid_equal(&sid_everyone, &ace->sid) &&
- 		    !(authusers && smb_sid_equal(&sid_authusers, &ace->sid)) &&
-@@ -1627,10 +1639,11 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		bits = le32_to_cpu(ace->access_req);
- 		switch (ace->type) {
- 		case ACCESS_ALLOWED_ACE_TYPE:
-+			grp_ace |= counted;
- 			if (counted)
- 				grp_allowed |= bits;
--			/* MAXIMUM_ALLOWED takes no group grants */
--			if (maximal && member)
-+			/* An open's MAXIMUM_ALLOWED takes no group grants */
-+			if (open_max && member)
- 				break;
- 			if (counted)
- 				grp_granted |= bits;
-@@ -1638,10 +1651,11 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			break;
- 		case ACCESS_DENIED_ACE_TYPE:
- 		case ACCESS_DENIED_CALLBACK_ACE_TYPE:
-+			grp_ace |= counted;
- 			if (counted)
- 				grp_denied |= ~grp_allowed & bits;
--			/* MAXIMUM_ALLOWED takes no group denials either */
--			if (!(maximal && member))
-+			/* nor group denials */
-+			if (!(open_max && member))
- 				denied |= ~access_bits & bits;
- 			break;
- 		}
-@@ -1656,6 +1670,9 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			access_bits |= READ_CONTROL | WRITE_DAC |
- 				FILE_READ_ATTRIBUTES | DELETE;
- 		access_bits &= ~denied;
-+		/* An object deny ACE could deny the parent's rights */
-+		if (!open_max && obj_deny)
-+			access_bits = 0;
- 		if ((raw_daccess & FILE_GENERIC_EXECUTE_LE) &&
- 		    S_ISREG(d_inode(path->dentry)->i_mode) &&
- 		    (access_bits & GENERIC_READ_FLAGS) == GENERIC_READ_FLAGS)
-@@ -1712,10 +1729,13 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		posix_acls = get_inode_acl(d_inode(path->dentry), ACL_TYPE_ACCESS);
- 		/*
- 		 * An Authenticated Users ACE keeps the POSIX ACL from deciding,
--		 * also for sessions that it does not match.
-+		 * also for sessions that it does not match. For a strict
-+		 * MAXIMUM_ALLOWED request, ACEs for the caller's groups or
-+		 * OWNER RIGHTS decide before the POSIX ACL, unless the DACL has
-+		 * an object deny ACE, which ksmbd does not parse.
- 		 */
- 		if (!IS_ERR_OR_NULL(posix_acls) && !found && !others_ace &&
--		    !au_ace) {
-+		    !au_ace && !(strict && maximal && grp_ace && !obj_deny)) {
- 			unsigned int id = -1;
- 
- 			pa_entry = posix_acls->a_entries;
-@@ -1776,6 +1796,10 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			 */
- 			if (!obj_deny)
- 				allowed |= grp_granted;
-+			if (!strict)
-+				allowed |= smb_parent_derived_rights(conn, path, uid,
-+								     authenticated,
-+								     requested & ~allowed);
- 			if (maximal)
- 				requested |= allowed;
- 			if (!allowed || requested & ~allowed) {
-@@ -1821,6 +1845,45 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	return rc;
- }
- 
-+/*
-+ * Return the rights in @want that @path gets from its parent directory:
-+ * DELETE if the parent's DACL grants FILE_DELETE_CHILD, and
-+ * FILE_READ_ATTRIBUTES if it grants FILE_LIST_DIRECTORY
-+ * (MS-FSA 2.1.5.1.2.1). A parent with no DACL, or with one that ksmbd
-+ * cannot read, gives nothing. Callers pass only rights that the request
-+ * names.
-+ */
-+static unsigned int smb_parent_derived_rights(struct ksmbd_conn *conn,
-+					      const struct path *path, int uid,
-+					      bool authenticated,
-+					      unsigned int want)
-+{
-+	struct path parent = { .mnt = path->mnt };
-+	__le32 granted = FILE_MAXIMAL_ACCESS_LE;
-+	unsigned int rights = 0;
-+	int rc;
-+
-+	if (!(want & (DELETE | FILE_READ_ATTRIBUTES)))
-+		return 0;
-+
-+	/* The root of the mount, or a disconnected dentry, has no parent */
-+	if (path->dentry == path->mnt->mnt_root || IS_ROOT(path->dentry))
-+		return 0;
-+
-+	parent.dentry = dget_parent(path->dentry);
-+	/* Strict, so the parent's own parent is not consulted */
-+	rc = smb_check_perm_dacl(conn, &parent, &granted, 0, uid,
-+				 authenticated, true);
-+	dput(parent.dentry);
-+	if (rc || granted == FILE_MAXIMAL_ACCESS_LE)
-+		return 0;
-+	if (granted & FILE_DELETE_CHILD_LE)
-+		rights |= DELETE;
-+	if (granted & FILE_LIST_DIRECTORY_LE)
-+		rights |= FILE_READ_ATTRIBUTES;
-+	return rights & want;
-+}
-+
- int set_info_sec(struct ksmbd_conn *conn, struct ksmbd_tree_connect *tcon,
- 		 const struct path *path, struct smb_ntsd *pntsd, int ntsd_len,
- 		 bool type_check, bool get_write)
 -- 
-2.53.0
+2.25.1
 
