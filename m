@@ -1,47 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795602764;
-	b=aOwHrP+MpICw7cbpQR8N3R4Og4Kuont5oo4O8cRrHsuWbnULojvelR1z0xqcdkVJNTwc
-	 k5XKzX6KMsc41fyoq4gyrxCFyewFENQj3AebFx11I336XWAeKT5ZRVGgD3lnq/QyoG9lf
-	 YM06xelX62UvNPn5XilqcBgouYFwqiMQrbSYXGq4uPs9YLfViJGd9xa4R4QkeWyMi26eX
-	 s1DfucBGcbe7V8Za85LVhlLKxkShkmqlUumZjpC651ZEwC0QTQIJL1inJOhl0jFQ0tURs
-	 WHesD2qYUJd2WuAHeO/0fqnvqevj8fQGeoXY208izAyN3QDYhbWSO2jk/v4dfZuDIsg==
+	t=1795602779;
+	b=nq0Jb2zhqb2YnfGaE+lSOfzxpYTgkJ0TndmPZPLX/KCEup3wSEKHzvIWksvvPEqwev/N
+	 q05pLt+6Sdq5JslB27T2J/k8u9vl4yw5NgRX4tIH3LKDZhWk2BjVf/uKyH2XB0ExZJNRM
+	 ATm6mrnmx+YGTl1N3TyodRIuIQbcZiVP/HIxY7fao3cpMR1uRNyaWkuJ+LNvl4Wax+p58
+	 rLb7uOvBDM4YVxfNLpNogqQyWhfRvCYjudANihGpIS4M/yZk/wKkHNkZHo8KDNB0jTDNN
+	 Ons7skVDd1SalVRAIxkfat5cXpBdyrSjcTTdL7GmUUqwmkzFWrFf5NFb613JbOl5+1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602764;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=TXCkUOXDF3I36axi5vCtjoemJxQ/NJLR6K6kMo135mY=;
-	b=cw8iZv2hJ4Fhhv5GG00ja74H1oUyeUYqYrN/4ibsK3KgYP28+ySQLK9xvWo4FH+nBYSp
-	 grE8Y0hcTv1FFLQfiMfFfPvM1ag/zGNvb5klFh1XcEW9H/ScOlnynwGdQKR38fkUdhF09
-	 JGoU0ki9epq2y2SPAqZMuB6M4ZCylKXZdFBkvwGTNbVmWmt+mja6RavVWHzpF4JZWeaKT
-	 WeR+ZTIPC/aEYdW1TkE8veB7oIh7z3siG3j6puLHF76qcHkBtDuMtKylWvT7LeQ73H7Dy
-	 R4oWpbTrkUdbN2vpQoAEmBSiEt1ZpWzvGbItof2rWcxXANBquMEzm2rJPmwCXJcb/Ug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602779;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=v9g3Spbz9SEtCo7yUgTL6YRQAf/hoxvLHrjUObnvhas=;
+	b=UuZgyJZdpSrFQ7pFd2AZhaEZ8gNalglGi9dqmS24Aog+Tcow6ZpYulGPT6mMs68I6i5I
+	 fnqxwGJtIuA30PbtSZjKqXuCcVdX7dwmytBuo5EFT5nB9kNVwL19zRav4vFNJUS2VTuaj
+	 p2JlSE0/txdLKmcJVqASujK1xtPeKw22ReThjSKKOh2XCIUe3L4tt8EKPPWB/6Lq+W7dU
+	 p587eFjmdYXXvI6lYUH+2aCKFeJKFdekUJTm0EWML1AL0Cdn4D62kyUEwxQcEsC2CNSU0
+	 2KJoClrAiBs+CjQ5hT8NH58vpaU7e9WMVB6DJVxx0IdTDAWCE+uQM0dmPv9M/+2EU6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dMvGTc3g;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sAQ5W7A6;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F41606A31E;
-	Wed, 25 Nov 2026 10:32:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0DBB606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:32:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0DBB606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dMvGTc3g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 061D51F000C0;
-	Wed, 25 Nov 2026 10:32:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795602763;
-	bh=TXCkUOXDF3I36axi5vCtjoemJxQ/NJLR6K6kMo135mY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dMvGTc3g91I7s+GClN+r5DJOUK7vt/3ZP3Ee5JXCT5uyb7zD8tIxpDIXDY5nQFVjf
-	 xILdDYJUp4DF2mkplQ5Q6rfoFS7/+wICChtkV+bGRod3o3AozgaG9oPliOO2eWdjPN
-	 oXoMAyEmxqEcEvx2aYqN6FNjYElM87maQ41FTp4GWWjqX7pL4syqb7RqCx3Pfu4BT+
-	 PZbTilhA4sq0cB+dRZlqBDlBp+HTiZ6TMAaYeVTYvc4+ZxVqZLgBSKoS1o+MJ2ptTY
-	 oBkbjX9txmy2XXoO2Ft45LfQdRcyfjhT7av8DrXBE1dZCvqjKEUxI5hUzJcaewjNGo
-	 Jbypigy2xTSTQ==
-Message-ID: <1d53b4e0-a442-4964-af3b-b10f8cfb1210@kernel.org>
-Date: Wed, 25 Nov 2026 11:32:37 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sAQ5W7A6
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4a357b1c649so3231534f8f.3
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 02:32:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795602777; x=1796207577; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=v9g3Spbz9SEtCo7yUgTL6YRQAf/hoxvLHrjUObnvhas=;
+        b=sAQ5W7A6TR3G1yVOG+eIXQXJoQh4uwISIH18TPln9VcIT2N178QAk+zIXv7hgWvjSi
+         kbTMbL+a89cWFnYEvS4wyTPaGBVIu8Tp6KqzhgurywDFZo2jbG/oZuXSRzlfswNXHAKO
+         fExr/qu7gfNwFCVpSjmU82w/dW1rP1qLTt8LDBgxNiPfMFlfAy9491/Bwu+XiCLUm8Hp
+         83p2edIKT9kLmR86z0gym61gXnIdqVESHeeiHO5it9/+vl+3vpRdBTNX4Kl1btm1tqU2
+         iv2yU+PNr5CvTjfVenuRG8heH0vPDLF/+a/XM1Jb2WLDXPDKbFn5MejPhnccrdwV9ZJS
+         X4Og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795602777; x=1796207577;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=v9g3Spbz9SEtCo7yUgTL6YRQAf/hoxvLHrjUObnvhas=;
+        b=1/u5BjkRsZnH/qA33fzHziT7+N7++IhhR0o95lS/twfmiZbDIXfZj1kCgy7A21zm5B
+         k0g+LlzP/BhkbVbcXnakBI/2s2pPgGbSSGxK8R0pq8lOMN2flUvb2aq0W1AlvcSeDtG0
+         MESShi3k1jsopsFp/aF0o4upkPLGsn2CWwcNHIRch/yO45rud7H/nfcAWTdYEXNS87g4
+         j3MNuIKzEYXcmybFMU+kS/BUqJg2nH70SV49qh8cuFDuWz0+vj8aNBz5V6ZfAoaxtgMS
+         P0s0x1ed68LvL2lTwKz6tGkNao+Rhao/7WeUSVSA5biCCzNDmZkdX5TWo3arzlE6WF0e
+         7uBQ==
+X-Gm-Message-State: APuU4Z9tAU53CjMjnMwV+nUamZlGe5bX9AkF5vIukJ5No45Jwx1WteQD
+	Ie57dTqpgBjxC7TZM8O5u+aLmbCWQ44eudmMLd0pwH008TtFh2kPZ5JPzVFmMg==
+X-Gm-Gg: AZFdTZdJLiZekJ4/00LMrqzgWg6NGdCQRw6xZ2pFEvfHPkQWOwDpMXXrAc/inzXHBDK
+	B8Jhk/VCBtavWCGqOGSZu+IALCgi7sZxEN2NTad662/PZsLMYEVK8bmid0gSy9pK0IiLbqnH/FW
+	60h1x1wytp5mPjfZvLvTFtfE8TpKNOTwOEOnwES2qmAF21BJ2gVIZqA83q202rAjRlXzEoC/j41
+	SU8vxH0kNW3ShyH7KTpeus6gJdzLVd0jH1Zp+E8o89vKWySGwc91uFqj4OnH0V5DVuvTtyV7mqm
+	dOkBVlH3lA5rnuP+W6H8MlxwQMK0K9b3/uQfWMZpTm8wxaDHRvYY0W49LpdEPbSWJ8HC79AHRQ6
+	hWcs9P3QWcyMAU2NSYM6nszk1xzyDk0wUACi7wR6tS8/0grroCyYjyl7DA+zvvaTYcJDJ+Y0Kz+
+	Zz4Kv3MsBSb9kSvuyB7Kk1Uhoxrq8spA9ierHoPffjE+XVyYVwjp2jT6OXyNjz+UAUGTALVn1/Z
+	mGIxJqw+oL7Jv37fZMbyvWEb9c0CzAj+8pzWvlYLBcGE8lBRKs/gdGKB2BSARZo/E9S2Ke7Ah8W
+	djpWLRGvQmvAsD+uXft9Fi497DaWh02KiBk1DJ3IARipIkPKj7dHGrFi9OeiEVW8WaA6T2NEe3C
+	/BC+pCoQia5gs6jj3pkS2i5E7+AwDQgevDphypg33dkkQN2ANHc5bhYmFBj7+17bSrf2xYMrflY
+	eXo67cgEOS1l1cj0M2Q2MpJ8mOzpNDKzTa/Jm38QzsssROu9CD0Q0l1JAgBXTessrVbvsc630ku
+	qbve9gp488rBGiCSw==
+X-Received: by 2002:a05:6000:2512:b0:4b7:75cf:37fc with SMTP id ffacd0b85a97d-4b775cf386amr8119712f8f.52.1795602776688;
+        Wed, 25 Nov 2026 02:32:56 -0800 (PST)
+Received: from longitude (2a02-8434-fda5-4201-fb56-7a23-de2e-e3d4.rev.sfr.net. [2a02:8434:fda5:4201:fb56:7a23:de2e:e3d4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab9cf005f2sm27424238f8f.45.2026.11.25.02.32.56
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 02:32:56 -0800 (PST)
+From: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
+To: stable@vger.kernel.org
+Subject: [PATCH 6.18.y] tools/bootconfig: Close only opened braces in compact output
+Date: Wed, 25 Nov 2026 11:32:29 +0100
+Message-ID: <89e26475cf9f34274a05eb3d79b91efdaf088b83.1795602749.git.edumucelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112513-impure-slighted-13c6@gregkh>
+References: <2026112513-impure-slighted-13c6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,145 +98,146 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] mm/ksm: do not inherit ksm_zero_pages counter or
- PTE markers on fork
-To: "Xu Xin (vivo)" <xu.xin@linux.dev>
-Cc: akpm@linux-foundation.org, chengming.zhou@linux.dev,
- donettom@linux.ibm.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- stable@vger.kernel.org, Karl Mehltretter <kmehltretter@gmail.com>
-References: <20261124130143.128411-1-xu.xin@linux.dev>
- <20261124130310.131140-1-xu.xin@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261124130310.131140-1-xu.xin@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/24/26 14:03, Xu Xin (vivo) wrote:
-> As documented in Documentation/admin-guide/mm/ksm.rst, ksm_zero_pages
-> accounts only for zero pages actually placed by KSM.  However, the
-> current implementation wrongly accounts for forked zero-page PTEs as
-> KSM's contribution, inflating both the child's per-mm counter and the
-> global ksm_zero_pages counter.
-> 
-> Originally, commit e2942062e01d ("ksm: count all zero pages placed by
-> KSM") marked KSM-placed zero-page PTEs with the dirty bit for unmap
-> accounting, but forgot to clear this marker during fork().  Later, to
-> prevent ksm_might_unmap_zero_page() from underflowing the counters on
-> child exit[1], commit 4d6fc29f3634 ("mm/ksm: fix incorrect KSM counter
-> handling in mm_struct during fork") kept the child's inherited per-mm
-> counter and added it to the global counter.
-> 
-> Instead of inflating the counters, fix the root cause by resetting the
-> child's mm->ksm_zero_pages to 0 in ksm_fork() and clearing the KSM
-> zero-page marker via ksm_fork_pte() when copying present PTEs in
-> copy_present_ptes().  With the marker cleared,
-> ksm_might_unmap_zero_page() will not decrement the counters on child
-> exit, MADV_UNMERGEABLE in the child will not unnecessarily unshare
-> inherited zero pages, and the global counter remains untouched.
-> 
-> [1] https://lore.kernel.org/all/53a7bf3d-843d-4e19-b0a3-cc6852fe72c1@redhat.com/
-> 
-> Fixes: 4d6fc29f3634 ("mm/ksm: fix incorrect KSM counter handling in mm_struct during fork")
-> Cc: stable@vger.kernel.org
-> Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
-> Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
-> ---
-> Changes in v4:
-> - Replace the comments of ksm_fork_pte() with what David suggested.
-> 
->  Documentation/admin-guide/mm/ksm.rst |  7 ++++++-
->  include/linux/ksm.h                  | 24 +++++++++++++++++++++---
->  mm/memory.c                          |  5 ++++-
->  3 files changed, 31 insertions(+), 5 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/mm/ksm.rst b/Documentation/admin-guide/mm/ksm.rst
-> index c329ca747b8c..8968ae3f55c0 100644
-> --- a/Documentation/admin-guide/mm/ksm.rst
-> +++ b/Documentation/admin-guide/mm/ksm.rst
-> @@ -214,7 +214,12 @@ stable_node_dups
->          number of duplicated KSM pages
->  ksm_zero_pages
->          how many zero pages that are still mapped into processes were mapped by
-> -        KSM when deduplicating.
-> +        KSM when deduplicating. Note: on fork(), the child process does not
-> +        inherit the ``ksm_zero_pages`` counter, and any inherited KSM-placed
-> +        zero-page mappings are converted into ordinary shared zero-page
-> +        mappings. Consequently, these mappings are neither accounted for in
-> +        the child's counter nor unshared when ``MADV_UNMERGEABLE`` is called
-> +        in the child.
->  
->  When ``use_zero_pages`` is/was enabled, the sum of ``pages_sharing`` +
->  ``ksm_zero_pages`` represents the actual number of pages saved by KSM.
-> diff --git a/include/linux/ksm.h b/include/linux/ksm.h
-> index 596c04ca7326..276bee5af80a 100644
-> --- a/include/linux/ksm.h
-> +++ b/include/linux/ksm.h
-> @@ -32,6 +32,16 @@ void __ksm_exit(struct mm_struct *mm);
->   */
->  #define is_ksm_zero_pte(pte)	(is_zero_pfn(pte_pfn(pte)) && pte_dirty(pte))
->  
-> +/*
-> + * Strip KSM information from the PTE for the child to simplify
-> + * ksm_zero_pages accounting, and to indicate each deduplicated zeropage
-> + * only once towards the user.
-> + */
-> +static inline pte_t ksm_fork_pte(pte_t pte)
+commit 26fa92f351d4993428268afebf6c60c987477af5 upstream.
 
-One nit: this should be called ksm_fork_zero_pte().
+A key may have both a value and subkeys. When it has only one subkey,
+xbc_show_compact_tree() can print that subkey using dotted notation
+without opening a brace. During backtracking, however, it treats the
+value node followed by a subkey as evidence that a brace was opened.
 
-I can fixup when applying.
+For example, a.b=v, a.b.c=w and a.z=q are printed with the brace for a
+closed before z. Reading that output back changes a.z into the root key
+z, silently changing the configuration.
 
-With that
+Check the key children when deciding whether to close a brace. Skip the
+value child, and account for a sole subkey that itself has both a value
+and subkeys, since that combination is not compacted. This follows the
+conditions used to open braces without keeping a depth-indexed array.
+Extend the mixed-value/subkey sample to cover the lost sibling.
 
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+The stable test script only checks whether the good samples can
+be attached. Add the compact-output comparison for the extended
+mixed-value/subkey sample and add its expected output file.
 
+Link: https://lore.kernel.org/all/6ad67e4cda05238cd173c99e820a85de2c13f5fc.1794337724.git.edumucelli@gmail.com/
+
+Fixes: e5efaeb8a8f5 ("bootconfig: Support mixing a value and subkeys under a key")
+Cc: stable@vger.kernel.org
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Signed-off-by: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
+---
+Hi Greg,
+
+Thanks for the notice. The formatter hunk applies unchanged to
+6.18.y. I added the expected output and a comparison to the stable
+test script. The comparison fails before the fix and passes after
+it. The full bootconfig suite passes with the backport.
+
+Thanks,
+Eduardo
+
+ tools/bootconfig/main.c                       | 29 ++++++++++++++-----
+ .../samples/exp-good-mixed-kv1.bconf          |  7 +++++
+ tools/bootconfig/samples/good-mixed-kv1.bconf |  5 ++++
+ tools/bootconfig/test-bootconfig.sh           |  6 ++++
+ 4 files changed, 40 insertions(+), 7 deletions(-)
+ create mode 100644 tools/bootconfig/samples/exp-good-mixed-kv1.bconf
+
+diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
+index 6f5d60045f..43f0a7fa87 100644
+--- a/tools/bootconfig/main.c
++++ b/tools/bootconfig/main.c
+@@ -39,6 +39,23 @@ static int xbc_show_value(struct xbc_node *node, bool semicolon)
+ 	return i;
+ }
+ 
++/* Match the conditions under which the compact formatter opens braces. */
++static bool xbc_node_needs_braces(struct xbc_node *node)
++{
++	struct xbc_node *child = xbc_node_get_child(node);
++
++	if (child && xbc_node_is_value(child))
++		child = xbc_node_get_next(child);
++	if (!child)
++		return false;
++	if (child->next)
++		return true;
++
++	/* A single subkey with both a value and subkeys is not compacted. */
++	child = xbc_node_get_child(child);
++	return child && xbc_node_is_value(child) && child->next;
++}
++
+ static void xbc_show_compact_tree(void)
+ {
+ 	struct xbc_node *node, *cnode = NULL, *vnode;
+@@ -99,14 +116,12 @@ static void xbc_show_compact_tree(void)
+ 			node = xbc_node_get_parent(node);
+ 			if (!node)
+ 				return;
+-			if (!xbc_node_get_child(node)->next)
++			if (!depth || !xbc_node_needs_braces(node))
+ 				continue;
+-			if (depth) {
+-				depth--;
+-				for (i = 0; i < depth; i++)
+-					printf("\t");
+-				printf("}\n");
+-			}
++			depth--;
++			for (i = 0; i < depth; i++)
++				printf("\t");
++			printf("}\n");
+ 		}
+ 		node = xbc_node_get_next(node);
+ 	}
+diff --git a/tools/bootconfig/samples/exp-good-mixed-kv1.bconf b/tools/bootconfig/samples/exp-good-mixed-kv1.bconf
+new file mode 100644
+index 0000000000..0b8b2f59da
+--- /dev/null
++++ b/tools/bootconfig/samples/exp-good-mixed-kv1.bconf
+@@ -0,0 +1,7 @@
++key = "value";
++key.subkey = "another-value";
++a {
++	b = "v";
++	b.c = "w";
++	z = "q";
++}
+diff --git a/tools/bootconfig/samples/good-mixed-kv1.bconf b/tools/bootconfig/samples/good-mixed-kv1.bconf
+index 1761547dd0..35442ee62b 100644
+--- a/tools/bootconfig/samples/good-mixed-kv1.bconf
++++ b/tools/bootconfig/samples/good-mixed-kv1.bconf
+@@ -1,3 +1,8 @@
+ # value -> subkey pattern
+ key = value
+ key.subkey = another-value
++
++# A valued parent with one subkey must not close its enclosing brace.
++a.b = v
++a.b.c = w
++a.z = q
+diff --git a/tools/bootconfig/test-bootconfig.sh b/tools/bootconfig/test-bootconfig.sh
+index 7594659af1..9e308129a7 100755
+--- a/tools/bootconfig/test-bootconfig.sh
++++ b/tools/bootconfig/test-bootconfig.sh
+@@ -182,6 +182,12 @@ for i in samples/good-* ; do
+ done
+ 
+ 
++echo "Compact output keeps siblings under their parent"
++xpass $BOOTCONF -a samples/good-mixed-kv1.bconf $INITRD
++$BOOTCONF $INITRD > $OUTFILE
++xpass cmp samples/exp-good-mixed-kv1.bconf $OUTFILE
++
++
+ echo
+ echo "=== Summary ==="
+ echo "# of Passed: $(expr $NO - $NG - 1)"
+
+base-commit: 4700e3adf3b24b39dd4929e9c6d62811ba3ccea8
 -- 
-Cheers,
+2.53.0
 
-David
