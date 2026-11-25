@@ -1,75 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795645333;
-	b=45HRJgct0mnU9lpModKK7vtitkHxsXP6VhB7KNwbvWJLQcv4ZnYpfIsvY4Q8VNaYNAYy
-	 jflc9HC706d/PgRabnI7kesbyPTo2d4nbQQxMvpwTQNzH0wC3+4EnsVXdLwx3lbIHkP04
-	 Tp5uMOTO96Qt2Kdq83mGRqlPU21qN5w4m6p+62B0B+y+YywnLTwfjWuE0D4r2dXTdwvyi
-	 D4jOoroLK5g3b3bFfU4t0UzIit+FlpfeAlB8Ub2ZD85AtZRz8GvvI94yuXDW+65pmaBBo
-	 z7Y8jB1IfDB2poL8PtCy0H4v6srn9SdQZ5Jgo2JE0LxdO1i1JoUpOYTxzE3klpxkqDQ==
+	t=1795645381;
+	b=eWqFW7avXfFLGa+rnxgh6ZzttzvCINUJAbgUwxgfliFuTOVNvMyw3WUCmYWqxaLxQIaD
+	 8/2s4lxsSDTTamlYhKAvRCQ4ReYDFocSPmIo4LzNLb9t20mlCr7ZcLT/rgI7G50XZCD/1
+	 TP+syz6N7OCSkb/OmgyLKNsfy0CxrVEPgRrHjGOvgyY4BAp2HuJXUra1m46B1ZVW6BVjR
+	 Pz30vqqQ7iqFktuYafdYNDAHV1gEPWF6gBSAA/lfrL8M0slUYFXcnBJqgsd++xJEckE+z
+	 ODo42kKrf20wJuUQGK9zmOdhbHQlvqbCs4OMcHZyt1cLVvf6R2sB646kVQjIl8d+6bA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795645333;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795645381;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=SKmb0CjpLP4ITLhIHnRihH0kGoAN8DUIdYytp7QeTFg=;
-	b=O5Iu1wbvMNY/nroOpI2m8lyrRJjsQ9RGgFBHTiflps7B9E7dptDOros7nJsHAOQEqTUj
-	 OkMQeCHLPTMTpQvW0LVHlG2VdIBm8oX5hmCFcK/FLSezXgwlqYuPCvDQ0LAWfIaakOVTs
-	 vrrBuenI2KXpMbKJjhVp4nXMOqCCBaGCLr4JsFqjeH9tpGqBOPAob7f4J5DOLIwinXVti
-	 qbsaKStjMXkVB/W/BT5FikgOYIAp6nhZU9sy1Z/xsSORIQu4kQtLx0zxJx6QM2s4i0Dfr
-	 FuLqbOiqkig8udihfaL7xi9HHyxmTLlOrNOBQJWD+6e3bBRKxcsJhxon4kZGQ8CsyWg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=saxPFKG+rhZTmLkXlKqgvY2cUG00OsPZ3b/bnhubjfM=;
+	b=4sn0oduF1BsWPM89llxUeut9e9CagMq3B+CyLhsYcJKMashRiZjkfiCMv337XheY9lzF
+	 t/WoW9PHbtyeTE3PUqnN5jKQKZYeOIERl7+PZD6GdxxsXJDlh7uGJ/JrobzOlyPUAwCvw
+	 t8GR1B9jTQ0IlrDcA1CCBh30sTzR2Pe1Ao4B+DV2w5nlVb1+uPcXiPLRSc+pJwvkavVyD
+	 SeufSWiBTe1YtBALJy+PS/Dbhq9phkedjncEYbxszqE1bkBnA6f8oq5Bbh21fKMRWbVAV
+	 5V1OUxgzvbxGTeECStvHdi4pPBnx4PC1BwXcdgdTg0RE3Rtovv/icFCEDjQbq8jcOyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--elkin.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="C7vmu//r";
-	arc=none smtp.remote-ip=74.125.82.69
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CL6KyJDJ;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF6D606A336
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 22:22:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AF6D606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E57606A32A
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 22:23:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81E57606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--elkin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=C7vmu//r
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1b55f4f3bb8so3608403c88.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:22:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CL6KyJDJ
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-384c78aa0dbso8368224eec.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:23:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795645332; x=1796250132; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SKmb0CjpLP4ITLhIHnRihH0kGoAN8DUIdYytp7QeTFg=;
-        b=C7vmu//rPE7qJxsInMDe3csjs+tO4/QDVHFDSIvT+y17NQiLq3mxOmMeX4DsnNWdMY
-         bWqHcoTd7rsR18nOTJeMc/w5fSlUAcgZZznl0L6GZ0QoNzfxRZ1cfPRUuA3ApA6sR+RU
-         d7A/D2mUlaZpWNJtO0CZtIilTiE4ODtGckcGiAJ+QQcKUXBoHcMCDI9eeG+XTzFXxwcb
-         +AUSZRlNnCEltt2Vqoe8X7iMOHgPC4BKe2gucFk+itlmeNPP3wQ8dTXTVcisOQXi1yQF
-         6bOqruEiFGguX062f7H0OnezvGrT4M9vYsUfBIjzmSnOa5ceuonw3by5TitiOH83I69y
-         eNVw==
+        d=google.com; s=20260707; t=1795645380; x=1796250180; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=saxPFKG+rhZTmLkXlKqgvY2cUG00OsPZ3b/bnhubjfM=;
+        b=CL6KyJDJvrxgWGfXy5oUei2+yEspwD2M+cVwOJtfh6sS0+4NU3cs8mcjUgi6UtpLH9
+         0oaj7LsK08s7gNoJrvM7d5NkgPbrjDMwre7h2Cl+dkvGNUPH2Hl4PN9IAS2tLQgpniat
+         qy07Qbw+zGZHvQD1xfC3WSAQDq10KyM/3hE+vCDobQpYxvoFrhKT4E4rWjTmJjHS+1d5
+         FLlLAnTIGwTCyOftz3qonltx1CZoZAaKWcPMBcwsmHPlGgy3k06CKMjBGKtvh6paZ2Ki
+         doxZ5umHhx/ZUDPPSjlw2jqIMdJGb/ufsLv3B4oisuoV3n6Af7CSlunSATGTNqCsPCi6
+         thzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795645332; x=1796250132;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SKmb0CjpLP4ITLhIHnRihH0kGoAN8DUIdYytp7QeTFg=;
-        b=XQ73iD4DJf+2ne8pgj3tR6M5EW8+pnMY8wDiLs73NjB9nMSlr8WMXnW9gTinteSaLM
-         fXsjTypcBngL7nmkStzMnDvSJp0ufCjDBqRBZ6fS/rltgFRVQdHZsY2NYj1gR+u8fqqM
-         IbJeYO2bZCIlsRRbFNDzpsE4tZrJAKrHXo0+b4wsCEpyC2pNOsY3RSBj2uHyCj9ted2B
-         S8sMScWNZNrpa2tfAuHEgMX9Xpc7ZutZO5nTyXAgIb0+nl/ZE+3FkQ9Sb3CawbR+9mDh
-         SKBzBiFWO2pN89n3RibEoahAiDa9aRPjyqzREXnLuln2tiGRFQubKDEXCR/gvQ/UW6WW
-         32MA==
-X-Forwarded-Encrypted: i=1; AL+hErGHiTYjFY0GsAS8ElmpQxWJKltwdFNbEzp+V5WdG1D12DgFQEd3EnuqhJHeS9vTyR314/5tbIU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+M6+giaEiG1JVv+fcyPCIEosPl3DgBRwihMjJCtI+KyvRcJDWm
-	OAKCccMzDToL7OYHkW557wDa5TOhvAiS/9izkyYlf4UK27koLlevfLCMGX3p8ODSKMQnRdyNn3M
-	ESw==
-X-Received: from dlgw19-n1.prod.google.com ([2002:a05:701a:cc93:10b0:1b5:7477:ff02])
- (user=elkin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:2701:b0:1b2:43cc:48
- with SMTP id a92af1059eb24-1b5568e8253mr16557418c88.33.1795645331978; Wed, 25
- Nov 2026 14:22:11 -0800 (PST)
-Date: Wed, 25 Nov 2026 22:21:02 +0000
-In-Reply-To: <20261125222102.1430675-1-elkin@google.com>
+        d=1e100.net; s=20260707; t=1795645380; x=1796250180;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=saxPFKG+rhZTmLkXlKqgvY2cUG00OsPZ3b/bnhubjfM=;
+        b=sMhpXfM4A27c7ZRUgiKKnt8UW1BT/WeqYm04tVPK07i/SpFceSLBQLfDjt/YhnTfeA
+         va7DWuPNSHyMWX7z+9AbTerueWVLWtYTS9/qAw9eIFGV+XWzuq2MpXDHA20j+H+7+HUy
+         shS6/AG86QU2FxIDZcDqO61AjMwHA+zcQvf1pn5PCin1/e7M2CLVVdFesYp5eWgTcqyN
+         Fw7UJTDWiOFL4Ma+Knip8vR9a+HMseOKeAONW6KM2rizrvvdaYP8CMs+9ZXDg70eStmS
+         XooW48r1pmjTdvlsB6MAUNbVlkkV7hrbCxRw0FBAm57k7xpDPd2g7eRtpFkl1QD+57R4
+         h5qg==
+X-Forwarded-Encrypted: i=1; AL+hErFGZ886MrwSKMjZuWvKcyrAX/dXuwOynFjiSd/pYYSYO9Ay5YTqFweqr37+9833I6lImW7Grjc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/H4sorGlvzmG9X+9Z2aNRUl/pCf5O8/BS0zAz+8aXZrROCiwwk
+	OLVdedXBvJYYY22UZPVc5DklFhS4UGnaJgRCQJooEVdCrmmmtuxSEABktinMbv2svoLbYC5SSlA
+	3cg==
+X-Received: from dlgx13-n2.prod.google.com ([2002:a05:701a:cccd:20b0:1b5:26be:e863])
+ (user=elkin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:7f01:b0:1b2:490b:6fdd
+ with SMTP id a92af1059eb24-1b5568aeb2bmr16509476c88.24.1795645379375; Wed, 25
+ Nov 2026 14:22:59 -0800 (PST)
+Date: Wed, 25 Nov 2026 22:22:12 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,137 +76,118 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261125222102.1430675-1-elkin@google.com>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
-Message-ID: <20261125222102.1430675-3-elkin@google.com>
-Subject: [PATCH 2/2] media: s2255: advance marker pointer and use unaligned
- reads in save_frame
+Message-ID: <20261125222212.1434148-1-elkin@google.com>
+Subject: [PATCH] usb: chipidea: udc: clean up bounce buffer and DMA mapping on
+ enqueue error
 From: Elkin Cruz <elkin@google.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	llvm@lists.linux.dev, irogers@google.com, Elkin Cruz <elkin@google.com>, 
-	stable@vger.kernel.org
+To: Peter Chen <peter.chen@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, Xu Yang <xu.yang_2@nxp.com>, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, irogers@google.com, 
+	Elkin Cruz <elkin@google.com>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-In save_frame(), pdword was initialized once from transfer_buffer before
-the marker-search loop and never updated as jj incremented, repeatedly
-inspecting offset 0 instead of scanning through the transfer buffer.
+In _hardware_enqueue(), sglist_do_bounce() allocates a bounce buffer and
+scatterlist table in hwreq->sgt and swaps hwreq->req.sg and
+hwreq->req.num_sgs to point at the bounce table. If
+usb_gadget_map_request_by_dev(), prepare_td_for_sg() /
+prepare_td_for_non_sg(), or hw_ep_prime() subsequently fails,
+_hardware_enqueue() returned without unwinding the bounce table, DMA
+mapping, or allocated TD nodes. Because failed requests are never added
+to hwep->qh.queue, _hardware_dequeue() and _ep_nuke() never clean them
+up, leaking the bounce buffer and leaving hwreq->req.sg corrupted.
 
-Derive pdata from pipe_info->transfer_buffer + jj on each iteration and
-read the 32-bit little-endian marker and header fields via get_unaligned()
-and get_unaligned_le32() since jj advances one byte at a time.
+When hw_ep_prime() fails, flush the endpoint and restore TD_TERMINATE in
+the queue head and any linked predecessor TD before freeing allocated TD
+nodes, unmapping the request, and calling sglist_do_debounce(hwreq,
+false).
 
-Fixes: 3fa0060526ea ("V4L/DVB: s2255drv: fixes for big endian arch")
+Fixes: edfcc455c85c ("usb: chipidea: udc: create bounce buffer for problem sglist entries if possible")
 Cc: stable@vger.kernel.org
 Signed-off-by: Elkin Cruz <elkin@google.com>
 ---
- drivers/media/usb/s2255/s2255drv.c | 34 ++++++++++++++++--------------
- 1 file changed, 18 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/media/usb/s2255/s2255drv.c b/drivers/media/usb/s2255/s2255drv.c
-index 9ddc13c99a81..9b6979c811e2 100644
---- a/drivers/media/usb/s2255/s2255drv.c
-+++ b/drivers/media/usb/s2255/s2255drv.c
-@@ -31,6 +31,7 @@
- #include <linux/videodev2.h>
- #include <linux/mm.h>
- #include <linux/vmalloc.h>
-+#include <linux/unaligned.h>
- #include <linux/usb.h>
- #include <media/videobuf2-v4l2.h>
- #include <media/videobuf2-vmalloc.h>
-@@ -1716,23 +1717,24 @@ static int save_frame(struct s2255_dev *dev, struct s2255_pipeinfo *pipe_info)
- 	if (frm->state == S2255_READ_IDLE) {
- 		u32 jj;
- 		unsigned int cc;
--		__le32 *pdword; /*data from dsp is little endian */
--		int payload;
-+		u32 payload;
+I am trying out new Clang static analysis checks for kernel bug
+classes, and they flagged this code as possibly buggy. The findings
+were triaged/fixed and commit descriptions were drafted with help of AI,
+then checked against linux-next (not runtime-tested on hardware).
+
+Thanks,
+Elkin
+
+ drivers/usb/chipidea/udc.c | 29 ++++++++++++++++++++++++++---
+ 1 file changed, 26 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/usb/chipidea/udc.c b/drivers/usb/chipidea/udc.c
+index 98658b65b936..dad7087fc0cf 100644
+--- a/drivers/usb/chipidea/udc.c
++++ b/drivers/usb/chipidea/udc.c
+@@ -681,6 +681,7 @@ static int _hardware_enqueue(struct ci_hw_ep *hwep, struct ci_hw_req *hwreq)
+ 	struct ci_hdrc *ci = hwep->ci;
+ 	int ret = 0;
+ 	struct td_node *firstnode, *lastnode;
++	struct td_node *prevlastnode = NULL;
+ 	unsigned int bounced_size;
+ 	struct scatterlist *sg;
  
- 		if (pipe_info->cur_transfer_size < 20)
- 			return -EINVAL;
+@@ -705,7 +706,7 @@ static int _hardware_enqueue(struct ci_hw_ep *hwep, struct ci_hw_req *hwreq)
+ 	ret = usb_gadget_map_request_by_dev(ci->dev->parent,
+ 					    &hwreq->req, hwep->dir);
+ 	if (ret)
+-		return ret;
++		goto err_debounce;
  
- 		/* search for marker codes */
--		pdata = pipe_info->transfer_buffer;
--		pdword = (__le32 *)pdata;
- 		for (jj = 0; jj <= (pipe_info->cur_transfer_size - 20); jj++) {
--			switch (*pdword) {
-+			__le32 marker, resp;
+ 	if (hwreq->sgt.sgl) {
+ 		/* We've mapped a bigger buffer, now recover the actual size */
+@@ -719,7 +720,7 @@ static int _hardware_enqueue(struct ci_hw_ep *hwep, struct ci_hw_req *hwreq)
+ 		ret = prepare_td_for_non_sg(hwep, hwreq);
+ 
+ 	if (ret)
+-		return ret;
++		goto err_unmap;
+ 
+ 	lastnode = list_entry(hwreq->tds.prev,
+ 		struct td_node, td);
+@@ -740,7 +741,6 @@ static int _hardware_enqueue(struct ci_hw_ep *hwep, struct ci_hw_req *hwreq)
+ 		struct ci_hw_req *hwreqprev;
+ 		int n = hw_ep_bit(hwep->num, hwep->dir);
+ 		int tmp_stat;
+-		struct td_node *prevlastnode;
+ 		u32 next = firstnode->dma & TD_ADDR_MASK;
+ 
+ 		hwreqprev = list_entry(hwep->qh.queue.prev,
+@@ -790,8 +790,31 @@ static int _hardware_enqueue(struct ci_hw_ep *hwep, struct ci_hw_req *hwreq)
+ 
+ 	ret = hw_ep_prime(ci, hwep->num, hwep->dir,
+ 			   hwep->type == USB_ENDPOINT_XFER_CONTROL);
++	if (ret) {
++		hw_ep_flush(ci, hwep->num, hwep->dir);
++		hwep->qh.ptr->td.next = cpu_to_le32(TD_TERMINATE);
++		if (prevlastnode)
++			prevlastnode->ptr->next = cpu_to_le32(TD_TERMINATE);
++		/* Ensure dQH/dTD link termination is visible before freeing TDs */
++		wmb();
++		goto err_unmap;
++	}
+ done:
+ 	return ret;
 +
-+			pdata = pipe_info->transfer_buffer + jj;
-+			marker = get_unaligned((__le32 *)pdata);
-+			switch (marker) {
- 			case S2255_MARKER_FRAME:
- 				dprintk(dev, 4, "marker @ offset: %u [%x %x]\n",
- 					jj, pdata[0], pdata[1]);
- 				offset = jj + PREFIX_SIZE;
- 				bframe = 1;
--				cc = le32_to_cpu(pdword[1]);
-+				cc = get_unaligned_le32(pdata + 4);
- 				if (cc >= MAX_CHANNELS) {
- 					dprintk(dev, 0,
- 						"bad channel\n");
-@@ -1741,7 +1743,7 @@ static int save_frame(struct s2255_dev *dev, struct s2255_pipeinfo *pipe_info)
- 				/* reverse it */
- 				dev->cc = G_chnmap[cc];
- 				vc = &dev->vc[dev->cc];
--				payload = le32_to_cpu(pdword[3]);
-+				payload = get_unaligned_le32(pdata + 12);
- 				if (payload < PREFIX_SIZE ||
- 				    payload > vc->req_image_size) {
- 					vc->bad_payload++;
-@@ -1749,7 +1751,7 @@ static int save_frame(struct s2255_dev *dev, struct s2255_pipeinfo *pipe_info)
- 					return -EINVAL;
- 				}
- 				vc->pkt_size = payload;
--				vc->jpg_size = le32_to_cpu(pdword[4]);
-+				vc->jpg_size = get_unaligned_le32(pdata + 16);
- 				break;
- 			case S2255_MARKER_RESPONSE:
- 				if (pipe_info->cur_transfer_size - jj - 20 <
-@@ -1757,14 +1759,15 @@ static int save_frame(struct s2255_dev *dev, struct s2255_pipeinfo *pipe_info)
- 					jj = pipe_info->cur_transfer_size - 20;
- 				else
- 					jj += DEF_USB_BLOCK;
--				pdata = pipe_info->transfer_buffer + jj;
--				if (le32_to_cpu(pdword[1]) >= MAX_CHANNELS)
-+				cc = get_unaligned_le32(pdata + 4);
-+				if (cc >= MAX_CHANNELS)
- 					break;
--				cc = G_chnmap[le32_to_cpu(pdword[1])];
-+				cc = G_chnmap[cc];
- 				if (cc >= MAX_CHANNELS)
- 					break;
- 				vc = &dev->vc[cc];
--				switch (pdword[2]) {
-+				resp = get_unaligned((__le32 *)(pdata + 8));
-+				switch (resp) {
- 				case S2255_RESPONSE_SETMODE:
- 					/* check if channel valid */
- 					/* set mode ready */
-@@ -1783,19 +1786,18 @@ static int save_frame(struct s2255_dev *dev, struct s2255_pipeinfo *pipe_info)
- 					wake_up(&dev->fw_data->wait_fw);
- 					break;
- 				case S2255_RESPONSE_STATUS:
--					vc->vidstatus = le32_to_cpu(pdword[3]);
-+					vc->vidstatus =
-+						get_unaligned_le32(pdata + 12);
- 					vc->vidstatus_ready = 1;
- 					wake_up(&vc->wait_vidstatus);
- 					dprintk(dev, 5, "vstat %x chan %d\n",
--						le32_to_cpu(pdword[3]), cc);
-+						vc->vidstatus, cc);
- 					break;
- 				default:
- 					pr_info("s2255 unknown resp\n");
- 				}
--				pdata++;
- 				break;
- 			default:
--				pdata++;
- 				break;
- 			}
- 			if (bframe)
++err_unmap:
++	list_for_each_entry_safe(firstnode, lastnode, &hwreq->tds, td) {
++		dma_pool_free(hwep->td_pool, firstnode->ptr, firstnode->dma);
++		list_del_init(&firstnode->td);
++		firstnode->ptr = NULL;
++		kfree(firstnode);
++	}
++	usb_gadget_unmap_request_by_dev(ci->dev->parent,
++					&hwreq->req, hwep->dir);
++err_debounce:
++	if (hwreq->sgt.sgl)
++		sglist_do_debounce(hwreq, false);
++	return ret;
+ }
+ 
+ /**
 -- 
 2.56.1.839.g22a8290db9-goog
 
