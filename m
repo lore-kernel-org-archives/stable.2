@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596646;
-	b=TYtewSdukED1w4EB7UIzbChk/H+Ft9LHQXkJBTj1lY4iL6fVo6YgFRefOGXOEYGX7u+7
-	 sc0ZhZsuENyH14niGR8df1xZKWiA9mSYoY3M/I+Cpq39g+A7YaSJQhMJaMzBfuSJycnsi
-	 Fzt8foVVsposfAiwB8ydtx2KXrCBdTW9EBLJuNQ/OIYjPRCj9iD2TqIJMph/X4SLZWgED
-	 As6hPAPZLeS3+YLCUTdFq54DX0uB7OPLzNbc8v1QBmdgAYTkIjK456TbRRKs8l2YFvTki
-	 ifuinS+Mr8OvBxKLMxHEWROSjzqMehmhANXQUBp2teSh5LadfSlZO8Dfb2ehODPujdQ==
+	t=1795596650;
+	b=H5XEKmOm0pRmXmCkZbA/fhvrBpopjwvzHWJgrr6hFro5Ve5NPTb7ZXdRDNH/mwwGNSHK
+	 JSYjHlF5Sf/kZfv2dyJSvImue0wdhQAmOqtHiDfP+C8SmMq/u1pzy5F5e60giBryCIZGH
+	 RZsa3FyNO/QW5AaV4VEQYKf2tCdgG3KZ1BfjZp3XlfH9xdjoNZEdx9DZyBfLRbkg2CQJV
+	 9amjXcGhgLsG5IH6TFvMaAmYLcVcCEfztgT0cHN9gCblOhFxuhYNGcOY8X99AtMy5EgPB
+	 4TJx+q8WXN8dlB65PsG9HsuOSFjMbGGSiA4MhAWz/Vgq7LlkNixxJRpqTs6Ws3Z04tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596646;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596650;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=oabWMTk0nbmO998kASQLPEf1TKCHiJfS4gzMdfWYFtw=;
-	b=TxNG1apkLMNQjE6OHVyOZWbbFJEJZy7UGJ+6cA0MMFPPDJbWNP6Yk769itss6ViVJX/C
-	 TtiLhJO1gSqKQbCyDCKDl87zVp9yRTsH1EQM43453BetZpm5OK4+/psXbk2hmOpGeE0+j
-	 00Pd3A8I3vaIEkxYTuyhKEH7xeQBGUmBTdkXs/2shNgMHf9RDmTBlYIZyrkAc/F7jdx8r
-	 N77Tw22Nwma0m+J7xnt3/14ENPoHghbV1GqRpijllqBtehpf2H54qI+S76CkSwdQyfYaI
-	 RSGJl/xEiG120c1JIFJ+mQAfc7XEJfHtNNOUmsvlXtJZEJopTf65/nJROyv/Oyi4Tmg==
+	bh=DrjcUQEzpPzbsbvwxX4MztNPUXE+25WcXqcwELQkwC8=;
+	b=DdA4XeGzwjiGBJzwgK77F35guIGgvFPfuD17dguSCX/Cp0+YGpAjKg+EfAVxJgrYcu5e
+	 gx89Jrf+O1QBu4UU9JQYkGnKhVVv+Nolw6myTwIxEVYxJsaEjmN/L46oQqL4qySA9jKRp
+	 VnFlapQnMX7GBCe3p7p2LTGIhWrEd3HKFUZ5u0IXb5qGZE9dnIOeXzpL+WHPXvSgt2sz9
+	 mYgVD0tMAo3AkUvQqoxlpRPhfqNSHnKFM1s94UHZcanVbtC3WQ7stU/P3UhGVhr07BpDj
+	 z2QjGTLZUyIwRGNaWqFsauMhug0z8YEh9cmK30g4WKj/4M+IMNljfgZ46K2eQc2d8cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VYDI6eec;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TF9xwStT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC695606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:50:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE17F606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:50:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VYDI6eec
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF4B81F000EB;
-	Wed, 25 Nov 2026 08:50:45 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TF9xwStT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DB4E1F000CA;
+	Wed, 25 Nov 2026 08:50:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795596646;
-	bh=oabWMTk0nbmO998kASQLPEf1TKCHiJfS4gzMdfWYFtw=;
+	s=korg; t=1795596649;
+	bh=DrjcUQEzpPzbsbvwxX4MztNPUXE+25WcXqcwELQkwC8=;
 	h=Subject:To:Cc:From:Date;
-	b=VYDI6eecXq8RTU7Ge3ckBY377rVeuMvnMA/ehU9jstyb9Q8RCXe7Z9myG3QwLvKVl
-	 XV+1K4zLHkfQOIVXc9XtEu724LoeVhh0csM8k7BU9uedqbljT4rwDe+nujMP9peY87
-	 70X0OOWRguU8xzod9/46tAldRIR2pIBM42niqcwo=
-Subject: FAILED: patch "[PATCH] tsacct: Keep task begin times stable across suspend" failed to apply to 5.15-stable tree
-To: dennylin0707@gmail.com,oleg@redhat.com,tglx@kernel.org
+	b=TF9xwStTQyY0BFbQRAr1Ma/zqSy7iminlTsrvm1D+b5litJ4BKRUSCg9+X1IhikVZ
+	 F4y9CnK20QPhmJdPkf7trqmn/OYbz7JGO53IexqwHOuQoKaZWDUl3q39Qc788JrQm5
+	 CXTMRaXgUeqQvt1ka/JPYcb/28hnCzXmv7Hrwl2E=
+Subject: FAILED: patch "[PATCH] tools/bootconfig: Close only opened braces in compact output" failed to apply to 6.12-stable tree
+To: edumucelli@gmail.com,mhiramat@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 09:47:52 +0100
-Message-ID: <2026112551-crimson-possible-5207@gregkh>
+Date: Wed, 25 Nov 2026 09:48:13 +0100
+Message-ID: <2026112513-patronize-spinster-cf95@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x c49b3c20a2d0b22700e2100a527e68e829ece7f0
+git cherry-pick -x 26fa92f351d4993428268afebf6c60c987477af5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112551-crimson-possible-5207@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112513-patronize-spinster-cf95@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,65 +79,104 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c49b3c20a2d0b22700e2100a527e68e829ece7f0 Mon Sep 17 00:00:00 2001
-From: Hungyu Lin <dennylin0707@gmail.com>
-Date: Fri, 30 Oct 2026 05:42:27 +0000
-Subject: [PATCH] tsacct: Keep task begin times stable across suspend
+From 26fa92f351d4993428268afebf6c60c987477af5 Mon Sep 17 00:00:00 2001
+From: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
+Date: Tue, 10 Nov 2026 20:08:45 +0100
+Subject: [PATCH] tools/bootconfig: Close only opened braces in compact output
 
-bacct_add_tsk() derives ac_btime and ac_btime64 by subtracting a
-CLOCK_MONOTONIC elapsed duration from CLOCK_REALTIME. MONOTONIC stops
-during suspend while REALTIME continues, so querying an existing task
-after resume moves its reported begin time forward by the time spent
-suspended.
+A key may have both a value and subkeys. When it has only one subkey,
+xbc_show_compact_tree() can print that subkey using dotted notation
+without opening a brace. During backtracking, however, it treats the
+value node followed by a subkey as evidence that a brace was opened.
 
-Calculate the begin time from the wall-clock boot timestamp and the
-task's CLOCK_BOOTTIME start timestamp instead. This accounts for suspend
-and adds the nanoseconds before truncating to seconds. Keep ac_etime and
-ac_tgetime on CLOCK_MONOTONIC and retain the existing rebasing when the
-wall clock is adjusted.
+For example, a.b=v, a.b.c=w and a.z=q are printed with the brace for a
+closed before z. Reading that output back changes a.z into the root key
+z, silently changing the configuration.
 
-The new begin time can be negative: setting CLOCK_REALTIME is bounded
-by CLOCK_MONOTONIC, which excludes suspend, rather than CLOCK_BOOTTIME.
-A permitted backward clock adjustment after suspend can therefore put
-the task's begin time before the epoch. Clamp ac_btime64 at zero too,
-instead of wrapping in the unsigned field, and retain its positive range.
+Check the key children when deciding whether to close a brace. Skip the
+value child, and account for a sole subkey that itself has both a value
+and subkeys, since that combination is not compacted. This follows the
+conditions used to open braces without keeping a depth-indexed array.
+Extend the mixed-value/subkey sample to cover the lost sibling.
 
-Fixes: f3cef7a99469 ("[PATCH] csa: basic accounting over taskstats")
-Reported-by: Oleg Nesterov <oleg@redhat.com>
-Suggested-by: Thomas Gleixner <tglx@kernel.org>
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Link: https://lore.kernel.org/all/6ad67e4cda05238cd173c99e820a85de2c13f5fc.1794337724.git.edumucelli@gmail.com/
+
+Fixes: e5efaeb8a8f5 ("bootconfig: Support mixing a value and subkeys under a key")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/20130611200600.GA15168@redhat.com
-Link: https://lore.kernel.org/r/alpine.DEB.2.21.1911071335320.4256@nanos.tec.linutronix.de
-Link: https://patch.msgid.link/20261030054227.35453-3-dennylin0707@gmail.com
+Signed-off-by: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-diff --git a/kernel/tsacct.c b/kernel/tsacct.c
-index 5c153106e642..48320684c7c0 100644
---- a/kernel/tsacct.c
-+++ b/kernel/tsacct.c
-@@ -24,7 +24,7 @@ void bacct_add_tsk(struct user_namespace *user_ns,
- 	const struct cred *tcred;
- 	u64 utime, stime, utimescaled, stimescaled;
- 	u64 now_ns, delta;
--	time64_t btime;
-+	struct timespec64 btime;
+diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
+index 6f476e3c06b8..d3f840c5adce 100644
+--- a/tools/bootconfig/main.c
++++ b/tools/bootconfig/main.c
+@@ -68,6 +68,23 @@ static int xbc_show_value(struct xbc_node *node, bool semicolon)
+ 	return i;
+ }
  
- 	BUILD_BUG_ON(TS_COMM_LEN < TASK_COMM_LEN);
- 
-@@ -39,9 +39,11 @@ void bacct_add_tsk(struct user_namespace *user_ns,
- 	do_div(delta, NSEC_PER_USEC);
- 	stats->ac_etime = delta;
- 	/* Convert to seconds for btime (note y2106 limit) */
--	btime = ktime_get_real_seconds() - div_u64(delta, USEC_PER_SEC);
--	stats->ac_btime = clamp_t(time64_t, btime, 0, U32_MAX);
--	stats->ac_btime64 = btime;
-+	getboottime64(&btime);
-+	btime = timespec64_add(btime, ns_to_timespec64(tsk->start_boottime));
-+	stats->ac_btime = clamp_t(time64_t, btime.tv_sec, 0, U32_MAX);
-+	/* Setting the clock back after suspend can make btime negative. */
-+	stats->ac_btime64 = max_t(time64_t, btime.tv_sec, 0);
- 
- 	if (tsk->flags & PF_EXITING)
- 		stats->ac_exitcode = tsk->exit_code;
++/* Match the conditions under which the compact formatter opens braces. */
++static bool xbc_node_needs_braces(struct xbc_node *node)
++{
++	struct xbc_node *child = xbc_node_get_child(node);
++
++	if (child && xbc_node_is_value(child))
++		child = xbc_node_get_next(child);
++	if (!child)
++		return false;
++	if (child->next)
++		return true;
++
++	/* A single subkey with both a value and subkeys is not compacted. */
++	child = xbc_node_get_child(child);
++	return child && xbc_node_is_value(child) && child->next;
++}
++
+ static void xbc_show_compact_tree(void)
+ {
+ 	struct xbc_node *node, *cnode = NULL, *vnode;
+@@ -128,14 +145,12 @@ static void xbc_show_compact_tree(void)
+ 			node = xbc_node_get_parent(node);
+ 			if (!node)
+ 				return;
+-			if (!xbc_node_get_child(node)->next)
++			if (!depth || !xbc_node_needs_braces(node))
+ 				continue;
+-			if (depth) {
+-				depth--;
+-				for (i = 0; i < depth; i++)
+-					printf("\t");
+-				printf("}\n");
+-			}
++			depth--;
++			for (i = 0; i < depth; i++)
++				printf("\t");
++			printf("}\n");
+ 		}
+ 		node = xbc_node_get_next(node);
+ 	}
+diff --git a/tools/bootconfig/samples/exp-good-mixed-kv1.bconf b/tools/bootconfig/samples/exp-good-mixed-kv1.bconf
+index 8346287d9251..0b8b2f59da31 100644
+--- a/tools/bootconfig/samples/exp-good-mixed-kv1.bconf
++++ b/tools/bootconfig/samples/exp-good-mixed-kv1.bconf
+@@ -1,2 +1,7 @@
+ key = "value";
+ key.subkey = "another-value";
++a {
++	b = "v";
++	b.c = "w";
++	z = "q";
++}
+diff --git a/tools/bootconfig/samples/good-mixed-kv1.bconf b/tools/bootconfig/samples/good-mixed-kv1.bconf
+index 1761547dd05c..35442ee62b75 100644
+--- a/tools/bootconfig/samples/good-mixed-kv1.bconf
++++ b/tools/bootconfig/samples/good-mixed-kv1.bconf
+@@ -1,3 +1,8 @@
+ # value -> subkey pattern
+ key = value
+ key.subkey = another-value
++
++# A valued parent with one subkey must not close its enclosing brace.
++a.b = v
++a.b.c = w
++a.z = q
 
