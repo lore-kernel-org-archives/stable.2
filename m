@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795627023;
-	b=bL3t2OvapnHRgOIhBWUHtZl3ETGaEx2gF9JmTmGcmoYMlEHLGUiXawnoVteoF8/aywGX
-	 u/fQq861kV0tIqiekTryIr5XX7ci+q6chc164gCEz/SbVTBtqG0FlQFBVncopQRpxmmUp
-	 3N1YFlVst9WwO1dqIOQkxCxHJQVDFyrMyd3DG0U2WZSim2pSHae63+1GCfnvREywkwvVc
-	 NreKmQkVmO9Qbt5bPdqb3hhoE+BSjT3GaCw9gj0wgBehF69oIeQDfJVqvLdf9K+SZAjyK
-	 Yj5FX0nE0GmTD3gEGLatlobvJnFGRGpuRdrJGoqxREP3tZUvoGe78gvYcQz9MQ7EgAw==
+	t=1795627024;
+	b=t6FzobszgXHmwfsh8L/Lpz2rkbF0x/o1tj8AO2CW1+IYdXzfVcoPrJz9IF52u7xcQQ+I
+	 yjsvaJNn8lOM9kydRQ5WM5biBkW3UJZ9H7FcWHVQrptLj0LmcwUuk+9ODehyZ2SlBtTXp
+	 vRMqwDn91pVBQ4/wMjdEpvz7/vDhunKztbPXsE2bAHTQTBpRHCGaY4XUxtR0wZMDwoDfb
+	 zKc9j2juU7MwogxE6G1gJDKJk7J+I/viZRI8sjD/vul9b70PvxMYxds6S5qughU74Shh4
+	 9J9dvMXNUsygfCJF/CcmF4MwGFvcuDHujAZTjtVgOVkJnFBEBmVyQmygkslPkCUtoRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795627023;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795627024;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=QciimEVXM+GUgEQggmOeTUHAxRTQOySiKJJRnVPeBoQ=;
-	b=ldNR9HWnnrg2k9zvTgdPYNjOBxBoXj+bX5iijbjOvbMTfGsnsRNhugrki+tgAja1JlaW
-	 g0DLQeM8dJc5eGf/ZaIHHdVHbXG2l0cmvw7wxltbQYXFP4TFYxMz/GoFKbj1EKKJwaefw
-	 mosLAU/WK5xx5Z7NOO9MMbXXf0tu02SHBCldcXfTtMuy8NXRAp5AY8yHHi74odU9lJbEn
-	 epeTbtdwSAc1ZP4bIVM2hzTb+63fdhz9/XC5p+Wf3B00vXlm7EBrepMEoHBaxVW5KCT/4
-	 l+dZJJDSQakTAVeNJBLlWfXy9jWqnr7tlEJ48SN0ARaZ3G6N/hm6bY5asaIooQvHsYA==
+	bh=NEezloxu3BKJpHEwEDxoAVZlc4svB1WwrzlqJPWzJA4=;
+	b=DT1VXxKR8C9/dGh1NTJ2Y96uOXx4jEFVRfOZakO6OzlJZvt4fDe1qm2tEmoOEo+XWD05
+	 wmbQwwE38vYXp7jhW91/pGQK6SIMhnhUPDCK+zS6dqEls9EEoEaLD8TEAMALcLVuYhfgE
+	 2JMUcCeyPOUDBhs1x4vdFc/lnFXP7AAcQhZpvxIB6zX7I1VFH3S1CgCF2wbqeAiMWXETe
+	 HL0gu03gVjY9js16AQTbHwIdU2BfaXqnEXcAgU48D3fW6308VsRCXaXqKWeD7uREXls9S
+	 xfUbwgNFb7MD29ovEjVC/gttBWsJwRfFs4BXywwrEQwkfES7WGwQuMz/He4PhWAsUCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f2b7aSXS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCgIkb+3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7171B606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:17:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B801B606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:17:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f2b7aSXS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432371F000C0;
-	Wed, 25 Nov 2026 17:17:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCgIkb+3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B2F31F000C4;
+	Wed, 25 Nov 2026 17:17:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795627022;
-	bh=QciimEVXM+GUgEQggmOeTUHAxRTQOySiKJJRnVPeBoQ=;
+	s=k20260515; t=1795627023;
+	bh=NEezloxu3BKJpHEwEDxoAVZlc4svB1WwrzlqJPWzJA4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f2b7aSXSQbOc2tiW+kTP9rI4y5evloyXxWCL8McjrkbJuEZr5A4CF+Cabh9viEFf8
-	 Z19I4ORg74v9e4EWxNClWzZaKaWUh763qSsIanHW/fme0ul+U1jdGy2roL9y343aJE
-	 fPAevmHtbMvh07cXtc1x5711j5ZskK+ZdiNF7Mt+SL1GTh3n0WAUuIyfZzDLQu+ebk
-	 0zrR/GyY2DTpZkKn7+qxSJzJVzmt6q07e0uR7QXG0XYKsDidtmSfZ5oKFCsUlqJ2hj
-	 hQ+nEYOZpx71IaoMYZzfhzwzylNaY2hUxezt9RpPWtqU4Ds+dWBjwL3jKyn4rkvnny
-	 k6x4HiNHFzsHA==
+	b=NCgIkb+3/RgUmGv5FdSLVCGcSu5g6Q460MSVH0uwqdhci/jQPYi7o4JcWhu3ok+Nf
+	 ChHSJQET1SL+iZqmQ+X+CXDM++hRVnwnjF9nSdXA+7YBY++swZGWwXzaf1PFTn/OXk
+	 g6v9c0URwAsQiI4KZfJSorHPial/XkiEUlo0gXu2wzcDDxz4odD7qYLo0vRVAP7t/p
+	 iCmOzsXalxljGB5EGTHz+2xvuNIPM/5BPdTtPK/EHQnRLddv2HqEbUq7oLxdNjoQAM
+	 0phPm+aM3DfP/eQoL/coqS3uXjpRBQsKJtuvk8e0SVI0cPA+O4ATh58V8l8zwg8FI4
+	 eHT1YsLK/OHSA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
 	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] watchdog: rz: Discard pm_runtime_put() return values
-Date: Wed, 25 Nov 2026 12:16:59 -0500
-Message-ID: <20261125171644.939435-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] watchdog: rzv2h: Use pm_runtime_put_sync()
+Date: Wed, 25 Nov 2026 12:17:00 -0500
+Message-ID: <20261125171644.939435-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112533-wand-debit-0e45@gregkh>
+In-Reply-To: <20261125171644.939435-1-sashal@kernel.org>
 References: <2026112533-wand-debit-0e45@gregkh>
+ <20261125171644.939435-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,63 +62,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-[ Upstream commit f52defa7b830abbba6b26df503ca42c0b2f20abe ]
+[ Upstream commit ca800e625d18a9f5b19f94ab837ceb3fccdca22f ]
 
-Failing a watchdog stop due to pm_runtime_put() returning a negative
-value is not particularly useful.
+pm_runtime_put() may trigger the idle check after pm_runtime_disable()
+is run as part of devm_pm_runtime_enable()'s cleanup action, leaving
+runtime PM active.
 
-Returning an error code from pm_runtime_put() merely means that it has
-not queued up a work item to check whether or not the device can be
-suspended and there are many perfectly valid situations in which that
-can happen, like after writing "on" to the devices' runtime PM "control"
-attribute in sysfs for one example.  It also happens when the kernel is
-configured with CONFIG_PM unset.
+Use pm_runtime_put_sync() to ensure the idle check runs synchronously.
 
-Accordingly, update rzg2l_wdt_stop() and rzv2h_wdt_stop() to simply
-discard the return value of pm_runtime_put().
-
-This will facilitate a planned change of the pm_runtime_put() return
-type to void in the future.
-
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
-Link: https://patch.msgid.link/3340071.5fSG56mABF@rafael.j.wysocki
-Stable-dep-of: ca800e625d18 ("watchdog: rzv2h: Use pm_runtime_put_sync()")
+Fixes: f6febd0a30b6e ("watchdog: Add Watchdog Timer driver for RZ/V2H(P)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Link: https://patch.msgid.link/20261001165201.763882-3-prabhakar.mahadev-lad.rj@bp.renesas.com
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+[ sashal: Replaced pm_runtime_put() with pm_runtime_put_sync() only in rzv2h_wdt_stop(), dropping the RZ/T2H-only hunk and its context lines because that support is absent here. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/watchdog/rzg2l_wdt.c | 4 +---
- drivers/watchdog/rzv2h_wdt.c | 4 +---
- 2 files changed, 2 insertions(+), 6 deletions(-)
+ drivers/watchdog/rzv2h_wdt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/watchdog/rzg2l_wdt.c b/drivers/watchdog/rzg2l_wdt.c
-index 11bbe48160ec9..0dfa94f48e2b6 100644
---- a/drivers/watchdog/rzg2l_wdt.c
-+++ b/drivers/watchdog/rzg2l_wdt.c
-@@ -132,9 +132,7 @@ static int rzg2l_wdt_stop(struct watchdog_device *wdev)
- 	if (ret)
- 		return ret;
- 
--	ret = pm_runtime_put(wdev->parent);
--	if (ret < 0)
--		return ret;
-+	pm_runtime_put(wdev->parent);
- 
- 	return 0;
- }
 diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.c
-index c29c94f0b6295..2342e29962d23 100644
+index 2342e29962d23..1ad1c326084fb 100644
 --- a/drivers/watchdog/rzv2h_wdt.c
 +++ b/drivers/watchdog/rzv2h_wdt.c
-@@ -140,9 +140,7 @@ static int rzv2h_wdt_stop(struct watchdog_device *wdev)
+@@ -140,7 +140,7 @@ static int rzv2h_wdt_stop(struct watchdog_device *wdev)
  	if (ret)
  		return ret;
  
--	ret = pm_runtime_put(wdev->parent);
--	if (ret < 0)
--		return ret;
-+	pm_runtime_put(wdev->parent);
+-	pm_runtime_put(wdev->parent);
++	pm_runtime_put_sync(wdev->parent);
  
  	return 0;
  }
