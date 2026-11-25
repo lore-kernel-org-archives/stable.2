@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795617644;
-	b=ddw+PsRiCpj6mxB6tDJD4ibuvMFLs7DpfNji+0iD3Z/OujREvM0LCgK1yl/0rY77B8eP
-	 fZ7oQ++wwda3R/dnvqBGhlONxOS/2XRrN9JuQ1bK7tWE9yse2vShicWfx3zb/5pzGKLT3
-	 uKwJB1IzJgww8u5Nycu2Bqwp1kMRSprpcHSihMQnEPKLU5X8X1onhTjI5VvWdN39ir/Ux
-	 crpxxJouAi2Lq3Qqfm6REF/wfG+iy2wqesfuOqyqAcwq065KoUNSlvOlu3Xjd12vhk87G
-	 XGIn41trz7HrptrZzZ8h09exGg/K9d7rM12fg9kw0Txkf7bitepOtsGPTz2JR2okq2Q==
+	t=1795617646;
+	b=1Yc1MgIVwZwzskN8Qx/L9vyaSH/4vpWXv31rmK9k8pLI09zigMrd9BxCfW9lugaJ89u9
+	 TRP6P20jh9fPWP5xJh4ZzfZTTdo0WaZI/byBCxLRAdrugCtlK/LvEPxBwi4Gx8aKJbklU
+	 bXOSttfMbZJYVOv+4stTqZY3CI5u+gB1AwekhjvtJic2P2PMPyEtYRw/SK4zBosiDEcpc
+	 CLa6yQAkmJU0bHiIiJlA3AX0ZAeeFHQTleYSd+o0HreBt69RpgNe5Ls7inZQMtVQAOaVT
+	 4M/9huN9QcJ+0KolxIhzgOigdmqKTDbJknEF/xdGXaGGT7h8P8ArGZMqyFKtjNhvT3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795617644;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795617646;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=tSlQeAJsXaFgmpS37w+bRLJuJbbERP8OnlhaPJT/3Vo=;
-	b=MKgubPJuDCn5dUKIZBL0VXleIkv/LbsMNFpnAlFf2hT5Uy6624FsxrMCt/2HHjeuKe6m
-	 1Hz3KQ4AWYmvo/Y55vlMoUnOOAZHFu6qMFR8ts3NfI0c1d1OB5RWv6//ohFMP/ejFBv4/
-	 huqh+EKQ2cYuS0dMfuPgLtdwlZzrdHm/L6LyQ+vDvUc474TBR02MbyqBfWk/4O3Icjo1I
-	 8TFl0lZJ/XU1B1RtKMMXZW4jHHobf90NmTZ/aRBz+5zBhQj5qyGUfJtzskplyC6Z/ryEM
-	 qM278NUzaFzK6/EzLJeMeB6f2WP1cbnuGRIZlOyF8VjjNzbrjKkBvkn016CJG3CAF3w==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=jGZKHNETnUIrnzDLr1EEAgSFc/+yGzaG2BJTwxdKe+k=;
+	b=sCzbwsQvEEcuZX/bKnQh77bwFmx1AxqjWG1ySLh6DQgJ2tUJNMRSraDZgFsN/JZwIHUU
+	 IaLpK8ZXKoFjflNBqdgxuZR1wyxaOIFKa2vvQSBWsa96Jk4nNZGAui7wVtKqHN4ymCD2d
+	 Ete+tc4pOBC6Aiv2s1YYpFuVOQq9eZ0cnKexlk+eOFqvD6Jb9NJJH3ca/Jc8ggCxPjVZt
+	 esUFkRPHlF+VKO2FtaSfYoEaHIxjWLEN05L6W8sAPMSpHLkQU3ceN2GBOmL4grjLKlJ2a
+	 8pVsgdSfqzCsSWZ7JtJ48cUWFup0Od+3lWbtrLOHsq9BESepWubWwqgFp2IDQA3Pb7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RMzMhnnS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YARZT9ho;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE007606A329;
-	Wed, 25 Nov 2026 14:40:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB10E606A6A0
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:40:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RMzMhnnS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFF2F1F000E6;
-	Wed, 25 Nov 2026 14:40:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795617644;
-	bh=tSlQeAJsXaFgmpS37w+bRLJuJbbERP8OnlhaPJT/3Vo=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YARZT9ho
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F8961F000C6;
+	Wed, 25 Nov 2026 14:40:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795617646;
+	bh=jGZKHNETnUIrnzDLr1EEAgSFc/+yGzaG2BJTwxdKe+k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RMzMhnnSIkmy9U9Yl8xrzLap5x9elPkNmeBVpOR0/yHWqcZZdyxGb/Lg8r43VVZ1o
-	 9yFw3NSKg2AWMXAai8QNJNA/J+IcbMMCdM2GezmCt/1bcWByEjrbfzKDkjMqM0TWiL
-	 0XHnRUmtep1XcRpK0qz8fL/QzE3ST11X1lE4RUHA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=YARZT9hoaDKvqEZ0Y6aycF0IvKRDmwbwy7D22GfEg5pS1SknBqjTs4WfmVkEWU+aw
+	 l8A0zPMUDaPCJXtc2m24hNY+C06a9zQkXtAQl74+TaPFKBACj1uHOnbKiD9EJEjjqm
+	 nnpvrnx1OwF53+fhIMUoQpA+s+6XlrWksdRj/23WfINtfi3f3oxQJSzzrCtWgfMy5W
+	 fjFvK5kLI5QpopBGI9rYxbQMFrwgV9goUzmKjLtskpXEp2NR7uzUqZoHPls/W/hwT1
+	 9z9CtBm4d1sNucn/J+0pnccQ/J3DWOYGYl4Tckn/48rihjaHr+4fA/uQULC+Xz9Vjz
+	 /bladhg1m6Bzw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Haobin Wu <853555@gmail.com>,
-	Christian Schoenebeck <linux_oss@crudebyte.com>,
-	Dominique Martinet <asmadeus@codewreck.org>,
+Cc: Rongzheng Wang <testwrzwrz@gmail.com>,
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Jason Xing <kerneljasonxing@gmail.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0031/1005] 9p: skip intermediate directory entry name copy in p9dirent_read()
-Date: Wed, 25 Nov 2026 15:22:49 +0100
-Message-ID: <20261125143822.466071546@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y] xsk: defer software checksum until the skb is complete
+Date: Wed, 25 Nov 2026 09:40:44 -0500
+Message-ID: <20261125144028.4032388-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112511-clergyman-gulf-c3af@gregkh>
+References: <2026112511-clergyman-gulf-c3af@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,112 +64,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+From: Rongzheng Wang <testwrzwrz@gmail.com>
 
-------------------
+[ Upstream commit f2eddafbfcc004098425fee7c5664adbe29152d7 ]
 
-From: Haobin Wu <853555@gmail.com>
+When XDP_UMEM_TX_SW_CSUM is used with multi-buffer TX, xsk_skb_metadata()
+calls skb_checksum_help() while only the first descriptor has been added to
+the skb. The checksum therefore covers just the first fragment, and
+skb_checksum_help() sets ip_summed to CHECKSUM_NONE, so the remaining
+fragments are never included in the checksum.
 
-[ Upstream commit 8bb0279930cc90975f03bad4d83282613e5f57fa ]
+Move the software checksum calculation to the point where the last
+descriptor has been added to the skb.
 
-v9fs_dir_readdir_dotl() decodes each entry of a Rreaddir reply with
-p9dirent_read(), which parses it through p9pdu_readf("Qqbs"). The 's'
-conversion in p9pdu_vreadf() already allocates a NUL-terminated copy
-of the name from the wire buffer; p9dirent_read() then strscpy()s that
-copy into the fixed 256-byte p9_dirent::d_name and frees the original.
+On a checksum failure the packet is now dropped instead of being returned
+to the application for a retry. This path is not reachable with the
+existing metadata validation, but the behavior change is intentional.
 
-The wire format carries the name length in 16 bits, so a name longer
-than 255 bytes is valid on the wire and may well be valid on the
-server's filesystem, but it makes strscpy() return -E2BIG.
-v9fs_dir_readdir_dotl() turns that into -EIO and aborts getdents64(),
-so every entry after the long one disappears from the listing.
-
-Drop the second copy: keep the string allocated by p9pdu_vreadf() in
-p9_dirent and let v9fs_dir_readdir_dotl(), its only user, free it once
-dir_emit() has consumed it. p9_dirent is a short-lived stack object, so
-the string's lifetime does not change.
-
-Note that the VFS only rejects names of PATH_MAX bytes or more in
-verify_dirent_name(), so after this change a name between NAME_MAX and
-PATH_MAX is returned by getdents64() even though any later lookup on it
-fails with -ENAMETOOLONG. The next patch skips such entries.
-
-Fixes: 7751bdb3a095 ("9p: readdir implementation for 9p2000.L")
-Closes: https://github.com/microsoft/WSL/issues/41192
-Signed-off-by: Haobin Wu <853555@gmail.com>
-Reviewed-by: Christian Schoenebeck <linux_oss@crudebyte.com>
-Message-ID: <20260918024851.51229-2-853555@gmail.com>
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
+Fixes: 11614723af26 ("xsk: Add option to calculate TX checksum in SW")
+Cc: stable@vger.kernel.org
+Reviewed-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+Reviewed-by: Jason Xing <kerneljasonxing@gmail.com>
+Signed-off-by: Rongzheng Wang <testwrzwrz@gmail.com>
+Link: https://patch.msgid.link/20261104034809.24545-2-testwrzwrz@gmail.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ sashal: Open-coded the final-descriptor software checksum call in the xmit loop and removed the early one inline, since there is no metadata helper split, and drop uses cancel-reservation semantics. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/9p/vfs_dir.c         |  6 +++++-
- include/net/9p/client.h |  2 +-
- net/9p/protocol.c       | 12 ++----------
- 3 files changed, 8 insertions(+), 12 deletions(-)
+ net/xdp/xsk.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/fs/9p/vfs_dir.c b/fs/9p/vfs_dir.c
-index 323f85352f6a4..733ec42258bc6 100644
---- a/fs/9p/vfs_dir.c
-+++ b/fs/9p/vfs_dir.c
-@@ -196,8 +196,12 @@ static int v9fs_dir_readdir_dotl(struct file *file, struct dir_context *ctx)
- 			if (!dir_emit(ctx, curdirent.d_name,
- 				      strlen(curdirent.d_name),
- 				      QID2INO(&curdirent.qid),
--				      curdirent.d_type))
-+				      curdirent.d_type)) {
-+				kfree(curdirent.d_name);
- 				return 0;
-+			}
-+
-+			kfree(curdirent.d_name);
- 
- 			ctx->pos = curdirent.d_off;
- 			rdir->head += err;
-diff --git a/include/net/9p/client.h b/include/net/9p/client.h
-index 55c6cb54bd254..0a1de81c8cd8b 100644
---- a/include/net/9p/client.h
-+++ b/include/net/9p/client.h
-@@ -270,7 +270,7 @@ struct p9_dirent {
- 	struct p9_qid qid;
- 	u64 d_off;
- 	unsigned char d_type;
--	char d_name[256];
-+	char *d_name;
- };
- 
- struct iov_iter;
-diff --git a/net/9p/protocol.c b/net/9p/protocol.c
-index 67b0586d807f9..d4335884e0c08 100644
---- a/net/9p/protocol.c
-+++ b/net/9p/protocol.c
-@@ -770,7 +770,7 @@ int p9dirent_read(struct p9_client *clnt, char *buf, int len,
- {
- 	struct p9_fcall fake_pdu;
- 	int ret;
--	char *nameptr;
-+	char *nameptr = NULL;
- 
- 	fake_pdu.size = len;
- 	fake_pdu.capacity = len;
-@@ -785,15 +785,7 @@ int p9dirent_read(struct p9_client *clnt, char *buf, int len,
- 		return ret;
+diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
+index 1bc966669ec96..028791b80fbbc 100644
+--- a/net/xdp/xsk.c
++++ b/net/xdp/xsk.c
+@@ -952,12 +952,6 @@ static struct sk_buff *xsk_build_skb(struct xdp_sock *xs,
+ 				skb->csum_start = hr + csum_start;
+ 				skb->csum_offset = csum_offset;
+ 				skb->ip_summed = CHECKSUM_PARTIAL;
+-
+-				if (unlikely(xs->pool->tx_sw_csum)) {
+-					err = skb_checksum_help(skb);
+-					if (err)
+-						goto free_err;
+-				}
+ 			}
+ 		}
  	}
+@@ -1052,6 +1046,15 @@ static int __xsk_generic_xmit(struct sock *sk)
+ 			continue;
+ 		}
  
--	ret = strscpy(dirent->d_name, nameptr, sizeof(dirent->d_name));
--	if (ret < 0) {
--		p9_debug(P9_DEBUG_ERROR,
--			 "On the wire dirent name too long: %s\n",
--			 nameptr);
--		kfree(nameptr);
--		return ret;
--	}
--	kfree(nameptr);
-+	dirent->d_name = nameptr;
- 
- 	return fake_pdu.offset;
- }
++		if (unlikely(xs->pool->tx_sw_csum &&
++			     skb->ip_summed == CHECKSUM_PARTIAL)) {
++			err = skb_checksum_help(skb);
++			if (unlikely(err)) {
++				xsk_drop_skb(skb);
++				goto out;
++			}
++		}
++
+ 		err = __dev_direct_xmit(skb, xs->queue_id);
+ 		if  (err == NETDEV_TX_BUSY) {
+ 			/* Tell user-space to retry the send */
 -- 
 2.53.0
-
-
 
