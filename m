@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795622412;
-	b=VhJmzUAy7JRi98HhSxopm/IburZuA/BXUQPxSqUK78hoHmq5utEJSpTqoSkA/06jZ4lp
-	 Htk0CscDz8yJbcyhM09JWr50V3hI4Omda92FZ37FPqBmNF3Zf9UG9G7iKxi8ngODieIFE
-	 jFnmwCAcma3Gh6PqLw8yIXfevi9LLjnXrDppvKYxY6IBi1cK/Y0igQB3H1lF2yee+h+xk
-	 igcSH/2tPPE6xXOcaPrOo7uFqhFl+40rVFshME2s+HTtt7+ub5EZ8/Sb1QU2014k1g1jz
-	 u37PyPQVhWjNOKP4s3kuiZUOBrklnws2OFaoqYgWlwM2GWyFCas67ppK2LgQ8KEAhPA==
+	b=MLyuVXxRPw6f/bEos8WlBJbxXJfIRbzcU5KhmAIm3eu1Ng/Rnlviri8NG7JamkKvMcXu
+	 Dr/kqOspcT73RBIypPrwbyHuGnIbdWyutUVSCeDzbgDszYpl7P3tpP1LWYll+ve1pzQmN
+	 9+2a6islVvuc1LcHXxApuILfkHF7HsUv4KckQRvHZ+Zragw+D1ZO7SouV6yMsulD0PZR9
+	 J+69GRZu6KoUwsntJNXdxrVR3Q44VMNZbh/IVTWp6dsPcihQmqfi/+RNy2GvIQMo4lFNG
+	 qr8EVFq8EOMdryN4jgTQs98P818JPCHDromvyZzoum+hQ8ECWil8iw28nr5+CzjBohw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795622412;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=YhXJS5gyozZVPKyMsAvvSK19t/5oYBPdTvAYWjK5YyQ=;
-	b=MNT+oHfSp55iVLGzuzVxEOjN6XFNSdYMoxtEyYPFVtl7QvxsZvbiDhhcYsE00LJevhKd
-	 /YmPcN77/1zucM11PJhCMrRLVxfx/62qBXWosQKUvvyfA+ZHCOXrRfrsW/Vb+jGODIyIb
-	 fVGAxHoMKknNMtviW/TV1vTpTmF9IzxIms3q3AdzEPiAf2LzCIYc20qnX7zPGFFJzBBSy
-	 8Y/0pcG9TfCbT6xtrTod7qlUGRzYuD7eatRGa7Xk6v9xKLsePHPIB1byLqla+rgUy7OQm
-	 BIHbI8tEjGOvbS4Ocd8fA3M+3JnNP6Q5BBcZDpGO76ehzCgIyMWnYWdF8D1FXa2IkUw==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cpeA4tKkSKjJctEjHQN3uuDS5Mbd8j7fPlJxAvZG5vI=;
+	b=O41IKkV3rodxsS4wRbfhTiID7eq6rhvOBB0ItR+YEcdbSGzv5JrX9ldbxgy0/O9Q0wwB
+	 /8z/YEV0QAWtO1DRS0+UkudxYlPzzGpuhCMZZD+LIoCV5ciih0F4L/Ou5oVoquIZhSkAS
+	 Wo/4yJguOaD2rIymvNYjeXZcNmp48madRLcsAMSQIcDAjBbc8iGDvU5bvUuBoQUYd3ngg
+	 Kltfa3gmDlSx40yYV3bIIFML7IpexCZ/htQFO2jZK2K64zIyF9ItLqiVqcUJ4q6HgucSF
+	 l7xvHZjwINM64wM9+bIw9+RTu1VgIOOZDrncUXqkG6kkh85r0ISSb5xuwGRIk51IMzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oK0zLXMi;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="dh9/Ieq8";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 176D4606A32C
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:00:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBFB606A33B;
+	Wed, 25 Nov 2026 16:00:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oK0zLXMi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D361C1F000ED;
-	Wed, 25 Nov 2026 16:00:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795622411;
-	bh=YhXJS5gyozZVPKyMsAvvSK19t/5oYBPdTvAYWjK5YyQ=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dh9/Ieq8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB38F1F008B2;
+	Wed, 25 Nov 2026 16:00:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795622412;
+	bh=cpeA4tKkSKjJctEjHQN3uuDS5Mbd8j7fPlJxAvZG5vI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oK0zLXMi3e3T8yogKHBstxvBTEepfPKnCYcx6YBcjcmFXa6LprqvupUUgsY2YwfLo
-	 TsHhplMM97XrGr2EGnWEVwxGZ71rmzXl81KEuU9CvrH8s9gzPKqd2Eakd/uXH4RqLD
-	 RC0HiDqNH+J8dXvfQ5TCXNWQsruzhB0P+jwEHqqsynKsPAyG768Xo5lAGNl0a5M2/r
-	 MyyUgQW+k3uNycf++fTAJwgGPBHWflipWetHNDdNL6cxZKKWqsnNeXmlf1h8LpVAHC
-	 6ZWJlT+4mFK+P7mqe1pCXhjWdLahoQV5doOW4+rbT6W2CPQoABVtebk7b7GPdJgxyl
-	 auNd/GPP+/qeA==
-From: Sasha Levin <sashal@kernel.org>
+	b=dh9/Ieq80awP/HDQfLMQUqy95ZB7WyonS2C75NsngxJKwz2UVij3tN+53qyC/bn5Y
+	 jvjLgZlSaCVhxjL+Y6Ea6CfSW8oV3jQreh6anhJz5IHm85o79zT1YYvNzK78WK5T49
+	 eT86cgkoaWIcpgkMnU/4my5tVUoLzuYqfyuMRkWw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Tate Whiteberg <whiteberg@arista.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] netfilter: nf_dup: preserve guard across NFQUEUE reinjection
-Date: Wed, 25 Nov 2026 11:00:09 -0500
-Message-ID: <20261125155944.642713-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112552-outrage-proton-1df4@gregkh>
-References: <2026112552-outrage-proton-1df4@gregkh>
+Subject: [PATCH 6.18 528/990] serial: 8250_mid: wait for LSR tx empty before setting termios
+Date: Wed, 25 Nov 2026 15:31:35 +0100
+Message-ID: <20261125143834.460117999@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,104 +64,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zihan Xi <zihanx@nebusec.ai>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 82052e5b5ec36504fe1b9c3c28a711a78fcacf37 ]
+------------------
 
-NFQUEUE can suspend traversal of a duplicated packet while the task-local
-duplication guard is set. The output call then returns and clears the guard
-before a later verdict resumes hook traversal.
+From: Tate Whiteberg <whiteberg@arista.com>
 
-Save the guard in the queue entry and restore it while reinjection
-continues hook traversal. Preserve and restore the verdict task's prior
-state, including nested synchronous reinjection.
+[ Upstream commit 1c305d5f1daabd317a60b6a2e2ac6b1aff7e05df ]
 
-Fixes: cd58bcd9787e ("netfilter: xt_TEE: have cloned packet travel through Xtables too")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-[ sashal: adapted to use the per-CPU nf_skb_duplicated guard instead of current->in_nf_duplicate, and moved the nf_reinject changes into nf_queue.c with its older WARN_ON_ONCE/kfree_skb code. ]
+If mid8250_set_termios is called while data is still in transmission,
+the corresponding register updates will corrupt the transmission.
+
+Fix this by locking the port and and waiting for the transmitter to
+empty before performing updates. It is necessary to wait for both
+UART_LSR_THRE and UART_LSR_TEMT to ensure the final character is sent.
+
+Fixes: f549e94effa1 ("serial: 8250_pci: add Intel Penwell ports")
+Signed-off-by: Tate Whiteberg <whiteberg@arista.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Link: https://patch.msgid.link/20260831165911.2029839-3-whiteberg@arista.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/netfilter/nf_queue.h |  1 +
- net/netfilter/nf_queue.c         | 13 ++++++++++---
- 2 files changed, 11 insertions(+), 3 deletions(-)
+ drivers/tty/serial/8250/8250_mid.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/include/net/netfilter/nf_queue.h b/include/net/netfilter/nf_queue.h
-index 4cf158b5ea698..1aedf2967a56f 100644
---- a/include/net/netfilter/nf_queue.h
-+++ b/include/net/netfilter/nf_queue.h
-@@ -21,6 +21,7 @@ struct nf_queue_entry {
- 	struct net_device	*physout;
- #endif
- 	struct nf_hook_state	state;
-+	bool			in_nf_duplicate;
- 	bool			nf_ct_is_unconfirmed;
- 	u16			size; /* sizeof(entry) + saved route keys */
+diff --git a/drivers/tty/serial/8250/8250_mid.c b/drivers/tty/serial/8250/8250_mid.c
+index 82656645b8a64..c02ecb96e8b6f 100644
+--- a/drivers/tty/serial/8250/8250_mid.c
++++ b/drivers/tty/serial/8250/8250_mid.c
+@@ -7,6 +7,7 @@
+  */
  
-diff --git a/net/netfilter/nf_queue.c b/net/netfilter/nf_queue.c
-index 2579f94e37444..7f3c24dccf015 100644
---- a/net/netfilter/nf_queue.c
-+++ b/net/netfilter/nf_queue.c
-@@ -218,6 +218,7 @@ static int __nf_queue(struct sk_buff *skb, const struct nf_hook_state *state,
- 	*entry = (struct nf_queue_entry) {
- 		.skb	= skb,
- 		.skb_dev = skb->dev,
-+		.in_nf_duplicate = this_cpu_read(nf_skb_duplicated),
- 		.state	= *state,
- 		.hook_index = index,
- 		.size	= sizeof(*entry) + route_key_size,
-@@ -315,21 +316,26 @@ void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
- 	const struct nf_hook_entry *hook_entry;
- 	const struct nf_hook_entries *hooks;
- 	struct sk_buff *skb = entry->skb;
-+	bool old_in_nf_duplicate;
- 	const struct net *net;
- 	unsigned int i;
- 	int err;
- 	u8 pf;
+ #include <linux/bitops.h>
++#include <linux/cleanup.h>
+ #include <linux/module.h>
+ #include <linux/pci.h>
+ #include <linux/rational.h>
+@@ -209,6 +210,7 @@ static void mid8250_set_termios(struct uart_port *p, struct ktermios *termios,
+ 				const struct ktermios *old)
+ {
+ 	unsigned int baud = tty_termios_baud_rate(termios);
++	struct uart_8250_port *up = up_to_u8250p(p);
+ 	struct mid8250 *mid = p->private_data;
+ 	unsigned short ps = 16;
+ 	unsigned long fuart = baud * ps;
+@@ -231,11 +233,16 @@ static void mid8250_set_termios(struct uart_port *p, struct ktermios *termios,
+ 	}
  
-+	local_bh_disable();
-+	old_in_nf_duplicate = __this_cpu_read(nf_skb_duplicated);
+ 	rational_best_approximation(fuart, mid->board->freq, w, w, &mul, &div);
+-	p->uartclk = fuart * 16 / ps;		/* core uses ps = 16 always */
+ 
+-	writel(ps, p->membase + INTEL_MID_UART_PS);		/* set PS */
+-	writel(mul, p->membase + INTEL_MID_UART_MUL);		/* set MUL */
+-	writel(div, p->membase + INTEL_MID_UART_DIV);
++	scoped_guard(spinlock_irq, &p->lock) {
++		p->uartclk = fuart * 16 / ps;	/* core uses ps = 16 always */
 +
- 	net = entry->state.net;
- 	pf = entry->state.pf;
++		serial8250_wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
++
++		writel(ps, p->membase + INTEL_MID_UART_PS);	/* set PS */
++		writel(mul, p->membase + INTEL_MID_UART_MUL);	/* set MUL */
++		writel(div, p->membase + INTEL_MID_UART_DIV);
++	}
  
-+	__this_cpu_write(nf_skb_duplicated, entry->in_nf_duplicate);
- 	hooks = nf_hook_entries_head(net, pf, entry->state.hook);
- 
- 	i = entry->hook_index;
- 	if (WARN_ON_ONCE(!hooks || i >= hooks->num_hook_entries)) {
- 		kfree_skb(skb);
- 		nf_queue_entry_free(entry);
--		return;
-+		goto out;
- 	}
- 
- 	hook_entry = &hooks->hooks[i];
-@@ -352,9 +358,7 @@ void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
- 	switch (verdict & NF_VERDICT_MASK) {
- 	case NF_ACCEPT:
- 	case NF_STOP:
--		local_bh_disable();
- 		entry->state.okfn(entry->state.net, entry->state.sk, skb);
--		local_bh_enable();
- 		break;
- 	case NF_QUEUE:
- 		err = nf_queue(skb, &entry->state, i, verdict);
-@@ -368,5 +372,8 @@ void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
- 	}
- 
- 	nf_queue_entry_free(entry);
-+out:
-+	__this_cpu_write(nf_skb_duplicated, old_in_nf_duplicate);
-+	local_bh_enable();
+ 	serial8250_do_set_termios(p, termios, old);
  }
- EXPORT_SYMBOL(nf_reinject);
 -- 
 2.53.0
+
+
 
