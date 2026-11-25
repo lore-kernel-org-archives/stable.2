@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795622485;
-	b=bsl6cEvVNMtK7rhbVNpjQyNsqXojmKvYmc1WzqXPyG5zjMDbq9FZJIqZ+ua/JYM63iu6
-	 fYpOF8REkP5tOu3Z7NURhLxDYsrdM47EK3ExYcF55GnLsAXijGmJJK2F59e5K18BQ+tX4
-	 89V0snaA2HMOaDoCBaURHmOJFl3iYf6tSMLp2AABPzQb0H9Gw55WwEe4HMwUP87drlFSj
-	 EWSS+BaM5hDhdZKuavANC6IyMeewOYP0LTHyizoyX1JL8Hwm4cYSw8IcpB+Hk2sJpZ6se
-	 ErcjFCHF6dqIVzl+zXkL98ZPa36HJOQG9YHot9S8SyFzefRKCM2vTSb1Ss5DZFDUHOQ==
+	b=IZgOP8yH1ZvY4vdOnH/oWYymKmJ4R85nu1zBGTFlEC34qEmXT/1YcUBy++8rB0cbTVFk
+	 TDJAGiRQ24aElBHu0PaeHd2fQKpll27PxIiQ9RnRVZ8nLARcS0iVglV8bcaF/UPZd3iU8
+	 sfCkYG1AFHxMqicAjfN4O1tU1LSV7nwKr7sFsLGfmpMBmekpVSK+DWhpYNTdV5FrSt3CH
+	 +JMOlcYnN/wq7Wg0rW4DYkXBsEkLysRG4lLoCoNlWBvE1/3fUDlCa8EXt/oWrm/xIOeTy
+	 ZGe5MwiPdF85bYK+zsBFYDxakCQKETyFlt+0WlEQCmpDKA/2Xou60VppAO2pRCnU13Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795622485;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5wi0RTWvr5zNAwNppzKz6wh41SHaUYeBDlJyohBo0W0=;
-	b=MKjs6HiRwFX4YpHGv1gMYG6tpsmhrUwtUiHCQ8NiV+O/nC6ByyKuHdckiRSTeIvG0ir3
-	 CnNfWQ3I6Er8qw/z+nh3QX9vpzxksnhdvxPULDhp2DaoT7SIbjRZTDmLYW8EQKn+IBYSp
-	 avDEpF12MiALraKPC4a2dzgpIG2nHTV6hOy8MrA5F6laM1pxeXbsbncsoJQxuyNnL4t55
-	 Y+cuoVJCkyDjla6evFTh42YCvYVyWlfb6VTHt+UukDqczqWZiEesf9SxDPFDvBxRHDzem
-	 DUSQs7+ZlRC8nre5A0iiasvxwde6u+x5S44xVLWSNRzO1kDTkx7HelREPMVgkuCHogg==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=i7ghuWXl39NES6qC7AC/IxUwquCS7WvDHYvOWdMOHAA=;
+	b=bvGp++hUf/nB+9z8/qrifsZeU77Mcpz/9WRlotSoG9W5Q2/zEPsp+OfKmLVZDODV6TxZ
+	 bT9XyvaGi+Y2xqP2p8eojRaO8rMjMJjJqhW2fmYSgEYpPALZ9Buraj6kHeAE2JxDUzl1V
+	 LPNFgQOgMUwzfkwkFi6aLEDK3j+VsDmJ2/K7hyYlNPbvYpB4zTdIKW7OsQSqiVMg2Wp6Q
+	 kq9KUIYmaau913KTnF+92EKT/SRUldPKVPVpO105KOPLRem3JwOSYZeZTuMgwLrhfUpVJ
+	 BkUmJ1MKGC6n7RrkTVhnZW1N7a3Z0UhyWj0zDqu8VjbIjPRwzww4LynYMnQzMTM0jQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KUsWRpU8;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XORtGNzq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B92606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:01:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85851606A33E;
+	Wed, 25 Nov 2026 16:01:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KUsWRpU8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E76781F000C0;
-	Wed, 25 Nov 2026 16:01:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795622484;
-	bh=5wi0RTWvr5zNAwNppzKz6wh41SHaUYeBDlJyohBo0W0=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XORtGNzq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97A7E1F000CF;
+	Wed, 25 Nov 2026 16:01:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795622485;
+	bh=i7ghuWXl39NES6qC7AC/IxUwquCS7WvDHYvOWdMOHAA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KUsWRpU8VmT5B2rPsJqcDIUw2paO00R/2Yltpk5Lkj957nVXRUNNpDWsN22wku4zv
-	 0KQEPHrcVW/Bd2Ra6AsCI+ZQvtGerXBYIIRJleh6s0HOhkiSzTlQKWihw2QS3c+0+G
-	 U6IZ/UN6lewZOfjpe/gR7OSWzdUlKgwLVTf1yWf2d8i4/7rL8ybbh+FSi1+Gr5T/0X
-	 GMZA1s5ExdhvaNU82if0+LIOXLwRvrXQetO67vskVjqugZh8sjyvabkJnfwoeofHP3
-	 MZfI88skEAZTcz8HQL6HWrvowas9TLfygxXaGcYH6LdMG+VgJ9rg/4LM7NMVJuDfrd
-	 ela9IQK5oZ2vg==
-From: Sasha Levin <sashal@kernel.org>
+	b=XORtGNzqVsfuWkfzqRX8+ncjRpjlBkz0WwhMwW4i2M5SZv/episrm5pZgrZOgwTCS
+	 K7y8cr9GofN2SptK9bnloKydhz+zH8+mKX0to89las4NhdegeBC5ZjiQX9fakJwE50
+	 6kvplLtaitun/R51R1KKMXFETdhvoUG9xo8ISwbk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Ignat Korchagin <ignat@cloudflare.com>,
-	Kuniyuki Iwashima <kuniyu@amazon.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Danish Khateeb <danishkhateeb03@gmail.com>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/4] net: warn, if pf->create does not clear sock->sk on error
-Date: Wed, 25 Nov 2026 11:01:19 -0500
-Message-ID: <20261125160115.575356-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112501-gilled-capsize-0004@gregkh>
-References: <2026112501-gilled-capsize-0004@gregkh>
+Subject: [PATCH 6.18 554/990] tools/nolibc: fix readdir_r() with 64-bit directory offsets
+Date: Wed, 25 Nov 2026 15:32:01 +0100
+Message-ID: <20261125143835.075169821@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,46 +62,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ignat Korchagin <ignat@cloudflare.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 48156296a08c615a6baae514096c4b2e543d1157 ]
+------------------
 
-All pf->create implementations have been fixed now to clear sock->sk on
-error, when they deallocate the allocated sk object.
+From: Danish Khateeb <danishkhateeb03@gmail.com>
 
-Put a warning in place to make sure we don't break this promise in the
-future.
+[ Upstream commit 00c81514ad49110574e4b9bdbc448551004161f2 ]
 
-Suggested-by: Kuniyuki Iwashima <kuniyu@amazon.com>
-Signed-off-by: Ignat Korchagin <ignat@cloudflare.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@amazon.com>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20241014153808.51894-9-ignat@cloudflare.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 82052e5b5ec3 ("netfilter: nf_dup: preserve guard across NFQUEUE reinjection")
+readdir_r() stores the result of _sys_lseek() in an int. Directory
+offsets are opaque cookies which can use all 64 bits: ext4, for
+instance, gives 64-bit processes 63-bit hashes, and
+0x7fffffffffffffff as the offset after the last entry. Truncated to an
+int, such an offset is negative about half the time, and readdir_r()
+takes it for an error.
+
+Since commit 4ada5679f18d ("tools/nolibc/dirent: avoid errno in
+readdir_r"), readdir_r() fails at the first entry whose offset has
+bit 31 set, which on ext4 is usually one of the first few, and returns
+the truncated offset as the error number. Before that, only -1 counted
+as an error, which the last entry always hits: readdir_r() then
+returned errno, usually 0, without filling in the entry, so the caller
+got the previous entry a second time and never saw the last one.
+
+32-bit processes get 31-bit hashes from ext4 and are not affected.
+
+Keep the offset in an off_t.
+
+Fixes: 665fa8dea90d ("tools/nolibc: add support for directory access")
+Assisted-by: LLM
+Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+Link: https://patch.msgid.link/20260925211600.119116-2-danishkhateeb03@gmail.com
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+[ sashal: Renamed _sys_lseek() to sys_lseek() in the readdir_r() hunk, since this tree still uses the older helper name. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/socket.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ tools/include/nolibc/dirent.h | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/net/socket.c b/net/socket.c
-index a143b8f577bd9..b63029bfdee92 100644
---- a/net/socket.c
-+++ b/net/socket.c
-@@ -1559,9 +1559,9 @@ int __sock_create(struct net *net, int family, int type, int protocol,
- 	err = pf->create(net, sock, protocol, kern);
- 	if (err < 0) {
- 		/* ->create should release the allocated sock->sk object on error
--		 * but it may leave the dangling pointer
-+		 * and make sure sock->sk is set to NULL to avoid use-after-free
- 		 */
--		sock->sk = NULL;
-+		DEBUG_NET_WARN_ON_ONCE(sock->sk);
- 		goto out_module_put;
- 	}
+diff --git a/tools/include/nolibc/dirent.h b/tools/include/nolibc/dirent.h
+index 61a122a60327d..be0eaefea7a41 100644
+--- a/tools/include/nolibc/dirent.h
++++ b/tools/include/nolibc/dirent.h
+@@ -67,6 +67,7 @@ int readdir_r(DIR *dirp, struct dirent *entry, struct dirent **result)
+ 	struct linux_dirent64 *ldir = (void *)buf;
+ 	intptr_t i = (intptr_t)dirp;
+ 	int fd, ret;
++	off_t off;
  
+ 	if (i >= 0)
+ 		return EBADF;
+@@ -86,9 +87,9 @@ int readdir_r(DIR *dirp, struct dirent *entry, struct dirent **result)
+ 	 * readdir() can only return one entry at a time.
+ 	 * Make sure the non-returned ones are not skipped.
+ 	 */
+-	ret = sys_lseek(fd, ldir->d_off, SEEK_SET);
+-	if (ret < 0)
+-		return -ret;
++	off = sys_lseek(fd, ldir->d_off, SEEK_SET);
++	if (off < 0)
++		return -off;
+ 
+ 	entry->d_ino = ldir->d_ino;
+ 	/* the destination should always be big enough */
 -- 
 2.53.0
+
+
 
