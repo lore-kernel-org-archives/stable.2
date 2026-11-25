@@ -1,56 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795630178;
-	b=w7KnIofPrG4O+y+CaU4Qgj9VVYuZD3yI7tDPNl/jyaYpmcfmID8f8l4h15G0CuuW2gnS
-	 ZnLt7HzWdvznUOKjk6Wm0Cg2bh0UyU9zGDn+1mUCuo+Ktfl8NnfiRdEHpSFhwqjdm5wI7
-	 k4H0hxUEJK21y+bEQHRf3wHua2ZGCF9JiJOANQrI0rBv1ipinHoXiNtCgZacxJZ1tILeA
-	 s/mUPAyDKN04+vPeA9owO4scSSVzMDgxjVGNJ7Mg+ZrS+afp0AHXE22DA4tCMOCzfz+R+
-	 dMB6nv5WyvrErF0hJAOi7nNDe2lYPbbSAOZXmqys725C7WGYsyqXwWk5Rkf2sn64ZTA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795630178;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
-	bh=Z0sd2p2w8g/E6dKVKe7xrIpR79ZuVn/raKaxHWztKwc=;
-	b=J145uVVWRI+MWyYakyMQid9MRsEX75msoIKA5ZY5RuKCAjdQu708B6k1Y6Ytn1fck02G
-	 7qZ2cncgjWH/ndbWb2qNi+EL6OyA2iDFhMy9YoJ1xbeM6UtdcC/eTwJPxMHaZUNgfwYKZ
-	 qTjXA64EclYgxGFhH//rI0QyMvQTHlov+uy6GgyBqPPBxIsopznOEHyxK/4JEbSDNrOYc
-	 O07RUwcxWFtE8/LB95FU+KE21Vq/X/nLxesP2rLWmxfAMV3HE3U59au3oc0PzasvNg4y3
-	 P75iW2Kcyzl43KFHA6W0877CrFYB6JtITl/iB1llWr5AJLFEqTD1I6V2XnmZ2E7gXZQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=cmE66od4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.112
-Received: from sender6-pp-f112.zoho.com (sender6-pp-f112.zoho.com [165.173.180.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.45
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795630217;
+	b=TxyJXnXbcFtoXkKKorEWT94es7MeD2xvc5/lDEqylIFiS9F52lCwGdBuyodV8RGKxDHh
+	 SKDhrW9RFI92fkvu8AZfMY5wXvShEf5TbCloPhk/h5tIdcfHdttvdf2CVYihik5/5ftxU
+	 zMXbTwW/dSAERZni4Lp9KjwcrlSf0uNv5s/tO/qQjhY+TJ8/1a8eDbR1Klto2vRoPxn+R
+	 ZtMxFwYgH87zhFdU+0XbglBzHEyPVapp/5PZsn+TwfX6FJP7VB5hiEPvCDxpvf7btr9jw
+	 67QFw5Q81Ng+cZ3ELoTqXwKxfQHpsd2r4BB4kugfms860HdB2gkzZnoqHlO+Gcso/vQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795630217;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=D3ALQHcgOfAhUAKhVbZdjihQ4c8Hm2EiPI8oXAafIGM=;
+	b=4GH5pdbFlBq4jrT9JEfA5/vKfC+sNd5/HFS6lwvapXmsdkXe1PDncoSbwNPA7QOUr3nt
+	 8zUYLbeI8YoqtIq/OyqEyytY0W3hq/rS51HoxWbPaGVf65TSwUJOdgE442Az0Vj3XQpX7
+	 KILjuwlwTyTTyAzWW8fuxy/lKJhGSve4JsU8fWz5ZhbVRd+sLyE++h8FazUrXPwRi1v+G
+	 +2T2G9NeTUU41MzjxXVVWuZXFTJYTF4bfb1GMyJ7pe3HNMdXVTgReKG98VZt7/XAqMHzI
+	 PZaaBvZQ3ZQ3zf5rEFKEtE5+Vm9oPAx/8IdHOcM2gx5N3ewK/dKwpOi8EH5/CF21bzA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b="YdXtTz/v";
+	arc=none smtp.remote-ip=74.125.224.45
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20CA3606A321;
-	Wed, 25 Nov 2026 18:09:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20CA3606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 377D9606A326
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:10:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 377D9606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=cmE66od4
-ARC-Seal: i=1; a=rsa-sha256; t=1795630131; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=QxiU+s9v9q2SkB5V5fSeHtQYYL0xGyXzmiza+Ux07EJNmbqa4EoIb+8PW0m1/QU4ZhPJ2gqKwbNClZz+vq6LzO9ukkzt+f8mY3qxm140NbD+dKwuBuDvsOcqBlStMIkmr9+ejEwkDXYUqGFbMDOWj0hqr2+jGnqGWPKb+mp5cvs=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795630131; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Z0sd2p2w8g/E6dKVKe7xrIpR79ZuVn/raKaxHWztKwc=; 
-	b=dn9J6TYq4QLMtInEef/9GrrpIPbdqBsD66bZj0ftmBXfjuF7qy2slEZa57vfvLB9DDCM1cqOKt7+7az+SZ+ALtfiCPlQlSxI1cDYrH4qHChhQhcW3U7fwZpDpNqu1PpSDQ+FdRTezBdLWeXjLNau4F/Ztq1OFpY2jFpgeKVaf9k=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=cmE66od48+2Ls6ZauvNgqxBjkgWf3VEC01oKWJOhvRYoNZd0K5WaJmG/XuJNeDWc9zPZ5KefjrtU21aThtXErngYR8wzePLvMi4MDxaSJHJ0xoEGD7jGYnCJI+vd9y120kTj5+KWgyyP4M8yr7TtvheK9Ij/npuTbksaXeMjh9/Oeuf8LELg1+jXpK2tt2damJoO2JFJaJniWvWMAreZWsveBm41RBRJ63gl+IXAOSCF40MEz2EBQKFzd/6fBRmZJJFQSZQ7CUZe7WXvkCT1uQzZBQlcqOU1nP36Zfz3RztXJ5+zaPOPZn83bjdpgPTYpCpj0RfU/vKFj1WtoQSmrA==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=Z0sd2p2w8g/E6dKVKe7xrIpR79ZuVn/raKaxHWztKwc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795630128785648.309770875165;
-	Wed, 25 Nov 2026 10:08:48 -0800 (PST)
-From: Rong Zhang <i@rong.moe>
-Date: Thu, 26 Nov 2026 02:08:20 +0800
-Subject: [PATCH v3 2/8] platform/x86: lenovo-ymc: Serialize WMI event
- handling
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=YdXtTz/v
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-67db0791748so7079634d50.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:10:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1795630216; x=1796235016; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=D3ALQHcgOfAhUAKhVbZdjihQ4c8Hm2EiPI8oXAafIGM=;
+        b=YdXtTz/v6Nm4qzgVyt4tU1Dm9vGEsroperK4W3BGilBnyGrVMOM6MIT5XJD2rcDogB
+         AWuqcPc7rOYnD9e+HpsWAPKiW9DYo6OEiOtdmUiLKvIuxOHtWDuJHlD/vCKafPsJxQLC
+         BXllwZhuRD1IwujoB6aBtVMXSWBjO++oCGjBlQYfo24feoz8A4QtCZhzrClzWJOySJkX
+         +xT/ureqEuqX7lIeo6TLrqv1qZbU8hEhJweFrf0dfdpjPJpNItgT6YU6OW4VThEXW6+m
+         cm09thM45wrjt173UXANGAdABSORsn4HM3CBs7dMDTus+al+tGpQ23jXx/OE/f0h4gvn
+         cJag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795630216; x=1796235016;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D3ALQHcgOfAhUAKhVbZdjihQ4c8Hm2EiPI8oXAafIGM=;
+        b=LvoXzYrMnFJ8gZkai5Ls3GNeBbMRnX4OGQ5YRO/HlLxyniKSIp9/vpKRtTpVZDWqpC
+         srdFNlFkU9mbOPSDfloxTBBgzAUAHhARbWrU7SznSLSqaEpGBammNWWB3gB7FH0iew0N
+         4T6fdOu3V9Z6IDh+TfMslzI5sLzyKOa15fab2n913zCR/p/zcg0+ZJAc3lsAFqHxw+53
+         l3/rfpi3tHun6Ta+Sg9M2oHMFvkF22y08MsEhb9Y3FBp0W//WA53Jw+2V/AA0RmOdVjg
+         O/ImuZBRMWyatm32KwceI45I2FPSYvnD1cf/dc+LZ91f7FIzq/PFZd9V3GaozW+GUyI6
+         MS6w==
+X-Forwarded-Encrypted: i=1; AL+hErFnFwcfkHNNF8b4K1JGRnIjMpDtDkEV+WaxghlDpjg6xO9NytygcQgDLOshVr6eMfdKxW4bgWY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+OU5bAGYzplQN8JQqnmLKrR432z+njTDxa4Q/a834i0sHRxsIb
+	4V2bjjBRKypnStN7C0NqCCxwI3b3cf8AA+YI21QXBaF7cJ21fvV0pN071RR1mA/YMg==
+X-Gm-Gg: AZFdTZcSv+i1gq3dN3Jk5RsZt/8irD5T2wlyaeC8YhSE/KWy1ZAgr2VR9n7ZCVpBIib
+	sDOQ7fX6xVizv0pS7MiU32BkA7ugrTRH01qk3k1vPI2WpZ2v/LL5Qd8vFET6G5g1C2Qh5kpu+PI
+	ZkXXuhBAHv+BiEjf0UXkahtKqZlscFRei2VXx9HwpnzGvQz0XdA1PktNNnEveivCcUAx5y3kSou
+	AQyhqDDkHaM1qdr69wJf+GQhD2pvgsAsDHsYAGS6oGbjizDvyiOJE/olfBrAjSC/K5T7Pf2nYkg
+	g7N6UhAUKQ6JVhJfwQGFSH1oxputKCfSoSe6QcbHfPEjeouUmGgNcUlHDjE+0QapmhJTULSKtWV
+	10wYL3MQ8l/lyxom8TISvKr8UU80lfaZscmpSxfd9Ylx4uh5U4Ul0t4PxZNlSRpPeWvgYZMLram
+	Jn2+qV4zQCD0sg8L4MeyXvPxlb3E2D0chPI4FaENuhy6+L0USl7Qui/yEC0vDTsr3+zvPa7WYjI
+	eQdy5iRzltom3u+hgBTR7nMPY0cCXCEy4PAJNBz/oNZXFi2V/WNYnXX+6BcSy7d1dSp52i7Ip97
+	8r7JHCpueoBqbuvMMGFEdTe1ZOrgmQSEMwKRhKb7YfgxcAf6wRoy6Q==
+X-Received: by 2002:a05:690e:400a:b0:67e:4934:63dd with SMTP id 956f58d0204a3-67e49347cb2mr1238903d50.15.1795630216103;
+        Wed, 25 Nov 2026 10:10:16 -0800 (PST)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67df330bfb1sm9206152d50.6.2026.11.25.10.10.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 10:10:15 -0800 (PST)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: Pavel Hofman <pavel.hofman@ivitera.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] ALSA: pcm: oss: Refine slave hw_params after setting format
+Date: Wed, 25 Nov 2026 13:10:05 -0500
+Message-ID: <20261125181005.3683575-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,90 +97,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-ymc-82yl-v3-2-e30842671ec3@rong.moe>
-References: <20261126-ymc-82yl-v3-0-e30842671ec3@rong.moe>
-In-Reply-To: <20261126-ymc-82yl-v3-0-e30842671ec3@rong.moe>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
- "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Gergo Koteles <soyer@irl.hu>, Ike Panhc <ikepanhc@gmail.com>, 
- Andrew Kallmeyer <kallmeyeras@gmail.com>
-Cc: Eduard Aliman <edialiman20@gmail.com>, 
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mahir Faisal <mahirfaisalantiq33@gmail.com>, Rong Zhang <i@rong.moe>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-ce4c1
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-WMI events may arrive in parallel, causing race conditions, e.g.,
+Commit 93d7d38fa61d ("ALSA: aloop: add DSD formats") added DSD_U8 to
+the formats of snd-aloop. Before that, its narrowest format had 16 bits.
 
-  CPU1				CPU2
-  query: posture A
-  				query: posture B
-  				input report B
-  input report A
-  				trigger EC with B
-  trigger EC with A
+However, snd_pcm_oss_change_params_locked() sets the slave format with
+_snd_pcm_hw_param_set(), which does not refine the parameters, while
+the access, rate and channels before it are set with refining helpers.
+snd_pcm_oss_period_size() then reads a buffer size maximum that is
+still computed for the narrowest format, now DSD_U8, so the OSS period
+doubles. With the default U8 client format, the doubled period no
+longer fits in the format plugin, and snd_pcm_plugin_alloc() returns
+-ENOMEM. As of now, an OSS program that asks snd-aloop for 8 channels
+at 192 kHz gets ENOMEM from SNDCTL_DSP_SPEED and from every later
+ioctl on the same file.
 
-Fix it by serializing lenovo_ymc_notify() with a mutex.
+The issue can be reproduced with this program, where card 1 is
+snd-aloop:
 
-Fixes: e82882cdd241 ("platform/x86: Add driver for Yoga Tablet Mode switch")
-Cc: stable@vger.kernel.org
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-Tested-by: Eduard Aliman <edialiman20@gmail.com>
-Signed-off-by: Rong Zhang <i@rong.moe>
+    #include <fcntl.h>
+    #include <stdio.h>
+    #include <sys/ioctl.h>
+    #include <sys/soundcard.h>
+
+    int main(void)
+    {
+            int fd = open("/dev/dsp1", O_WRONLY | O_NONBLOCK);
+            int ch = 8, rate = 192000, blk = 0;
+
+            ioctl(fd, SNDCTL_DSP_CHANNELS, &ch);
+            if (ioctl(fd, SNDCTL_DSP_SPEED, &rate) < 0)
+                    perror("SNDCTL_DSP_SPEED");
+            if (ioctl(fd, SNDCTL_DSP_GETBLKSIZE, &blk) < 0)
+                    perror("SNDCTL_DSP_GETBLKSIZE");
+            printf("block size %d\n", blk);
+            return 0;
+    }
+
+Before that commit, it prints "block size 65536". After that commit,
+the result is:
+
+    SNDCTL_DSP_SPEED: Cannot allocate memory
+    SNDCTL_DSP_GETBLKSIZE: Cannot allocate memory
+    block size 0
+
+This patch will set the format with snd_pcm_hw_param_set(), which
+refines the parameters, as is done for the channels just before.
+
+Fixes: 93d7d38fa61d ("ALSA: aloop: add DSD formats")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 ---
- drivers/platform/x86/lenovo/ymc.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+I found this while comparing the behavior of different kernel versions.
+I used an LLM to analyze the problem and to draft the patch and this
+message, and I analyzed the result myself.
 
-diff --git a/drivers/platform/x86/lenovo/ymc.c b/drivers/platform/x86/lenovo/ymc.c
-index 70f3ae20d3e3..eba22600161e 100644
---- a/drivers/platform/x86/lenovo/ymc.c
-+++ b/drivers/platform/x86/lenovo/ymc.c
-@@ -10,9 +10,11 @@
- #include <linux/acpi.h>
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/cleanup.h>
- #include <linux/dmi.h>
- #include <linux/input.h>
- #include <linux/input/sparse-keymap.h>
-+#include <linux/mutex.h>
- #include <linux/wmi.h>
- #include "ideapad-laptop.h"
- 
-@@ -60,6 +62,7 @@ static const struct dmi_system_id allowed_chasis_types_dmi_table[] = {
- 
- struct lenovo_ymc_private {
- 	struct input_dev *input_dev;
-+	struct mutex mutex; /* Protects event handling. */
- };
- 
- static const struct key_entry lenovo_ymc_keymap[] = {
-@@ -82,6 +85,8 @@ static void lenovo_ymc_notify(struct wmi_device *wdev, union acpi_object *data)
- 	acpi_status status;
- 	int code;
- 
-+	guard(mutex)(&priv->mutex);
-+
- 	status = wmi_evaluate_method(LENOVO_YMC_QUERY_GUID,
- 				LENOVO_YMC_QUERY_INSTANCE,
- 				LENOVO_YMC_QUERY_METHOD,
-@@ -137,6 +142,10 @@ static int lenovo_ymc_probe(struct wmi_device *wdev, const void *ctx)
- 	if (!input_dev)
- 		return -ENOMEM;
- 
-+	err = devm_mutex_init(&wdev->dev, &priv->mutex);
-+	if (err)
-+		return err;
-+
- 	input_dev->name = "Lenovo Yoga Tablet Mode Control switch";
- 	input_dev->phys = LENOVO_YMC_EVENT_GUID "/input0";
- 	input_dev->id.bustype = BUS_HOST;
+The missing refine is older than that commit, so the patch also halves
+the default fragment size on other cards that offer a format narrower
+than the one in use. On snd-dummy (U8 and S16_LE) with S16_LE, one
+channel at 48 kHz now gets 4096 bytes instead of 8192.
 
+With "ALSA: pcm: oss: Compare max buffer size in bytes" in for-next,
+the program above no longer fails, but it prints "block size 131072"
+until this patch is applied.
+
+Tested on for-linus (5a6fcabe156e) and for-next (486060b97284) with
+KASAN and lockdep. On snd-aloop, a grid of 1 to 128 channels at 8 to
+192 kHz gives the same results as before that commit, and SETFRAGMENT,
+mmap and a playback and capture pair work as before.
+
+ sound/core/oss/pcm_oss.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
+index 66162caa45d4..3c2ac8966d5e 100644
+--- a/sound/core/oss/pcm_oss.c
++++ b/sound/core/oss/pcm_oss.c
+@@ -921,7 +921,8 @@ static int snd_pcm_oss_change_params_locked(struct snd_pcm_substream *substream)
+ 		goto failure;
+ 	}
+  format_found:
+-	err = _snd_pcm_hw_param_set(sparams, SNDRV_PCM_HW_PARAM_FORMAT, sformat, 0);
++	err = snd_pcm_hw_param_set(substream, sparams,
++				   SNDRV_PCM_HW_PARAM_FORMAT, sformat, 0);
+ 	if (err < 0)
+ 		goto failure;
+ 
+
+base-commit: 5a6fcabe156e91c6ef2435a74f2d16e6dd39f7c7
 -- 
-2.55.0
+2.53.0
 
