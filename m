@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606026;
-	b=tggw+uCj9SYrrKWpGA+jDVQlgYm0rMaw6jVjVSJ/7D/iHeb6aLQ2m9m4lF3ZKlANax6q
-	 DHPx1UyrOhjfpgJVvO4Ya0KdssRyCxHCHFugqW4yJL01pr9EITQAVUFYEHMWlhZMEarza
-	 rEqWARduXKZvDxb6ZfoDg+D/y21fw3/E7i1Zdi0IFOUW+2k7y/KBtTJNAA5r/yhBWcO88
-	 uYF8bEf0NO++4mtj72Miy+a/1X2nsZdOUrMpBEdKvBUjVl+Dn+lW3a0eh0uHF/KXv1BXr
-	 LdGAxYqJHvlUFUw6KJMHwJOgMNCQLXDkFxZ8w94CW+kz442ufaH8Ca7KoLRRiDqi62A==
+	t=1795606028;
+	b=lfKIdLyhb3/f0V+DCJNkYfJSPM47b/3iVCMzqfKfTel3vYEy9mAQE43JLV3/KgN29XKn
+	 6/DNvGB1ZUAqg69V7WmtTAQ+lUcx14gFclVsDSP+LtJFz2WERiFIV2SK+zfbpNfTvvFj1
+	 MvW2YqJoOYUzEp1M4ycZWj87sOxTt3FTzC4KMR8NV94LxRFyrLlCz+CJVnSuBP0NCj0BL
+	 1vzfXsmZQiG32+fuUsgabfPh0SjgpsU0zJ1GGhKxIPZTgEIMIgzkW73LMxFOBvxqjaUPE
+	 JNmCPMxhiKk3nvqX2ZMkwuWibfBB5ZR37ieRfm8CFoJa+RwsVmOnAl2yd/rDCQMCGlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606026;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606028;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=BtC9cnb1zbGTmiwP7gKNJmpCatCycVb17NReVxAg0kY=;
-	b=Eo17i3OluXXnjv1ZICCgEjhVn2DQWYWvvi8WszVqUcxRJ+McSurewDdk4B+c8rtNQb3e
-	 FBt9EHzigS9IZPawQFbaR5W/kZB4CL5ZZxsQ+ubLnG4FDoMlIla7wukxGdJ40XWLKZ+AD
-	 8kI3S9BGC3mAUfuPxA/POQTA7/ZDGD8s/3gKeln9IWs1ZaE8CtRZp/dJNe17m7daIbe8J
-	 3Mgdk3HEwMUuErt1lNxqIfd6QRil81pKy09Jv9w7fE6MiZfsgBMDEc0psOoqgt0tW4BG5
-	 +ASQ3Cj3Mg8kgk4HnQEduUXChPikomKoMnAoJBEywNBPzX3Mww3fEl6LAkLLnGdZLmQ==
+	bh=D6F3z19SZqW7XHdWamh8daMAcqVDokifytHCuAwf79I=;
+	b=G/3Xy9Wwo3ECi6eMjqOJ9/f14/3la2iw1h0s7udIu687OfluWD8wsuOY5vCMLP7U/UP9
+	 XLYQX1iX5mURxigv8XRrHaoYo9Yx3B7PLJO5L6Jeum8Rux7xTBjyLgt5ur1PbjakOfX7e
+	 nt8QWu+ZOSw4jVhv2UOAD9POu/B4FvcZDG9mqSaV1Obc8T9oSNEDNq/wowkuwBmuHz3Ru
+	 U80ZpImiSJSWMB5Do1P32gMB2DhMWdbtm+LimLqeVZvxYA9ixgxy7zY3WB2y7r5TkCKkl
+	 VJMKmoO1xeyxBb8sZXJheewtZckr7QCJnT3S3Fm5+k+SLSbhi+Sj9KmQI09LMaXUIOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=roFA1Iyw;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=I3X9V3fL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B065606A329
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:27:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B20606A334
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:27:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=roFA1Iyw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 910E11F0089F;
-	Wed, 25 Nov 2026 11:27:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=I3X9V3fL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4DEB1F000E0;
+	Wed, 25 Nov 2026 11:27:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606025;
-	bh=BtC9cnb1zbGTmiwP7gKNJmpCatCycVb17NReVxAg0kY=;
+	s=korg; t=1795606028;
+	bh=D6F3z19SZqW7XHdWamh8daMAcqVDokifytHCuAwf79I=;
 	h=Subject:To:Cc:From:Date;
-	b=roFA1Iywgpmx3MN0Ri53q8s26lJIUray6FbjpG6P2Gkq3JExTT686GTsdBvNdvaCD
-	 HtFi8JRFsxuC9+ImK+uc3u40rGzYc9vfPlXqe4M9zwdIDtcOmKCVGVqIwOQzxI4eR1
-	 P7EpvhkOps6WCCb3KUk8w0giVGh4caQw3R3UNlcY=
-Subject: FAILED: patch "[PATCH] smb: client: validate descriptor headers before query result" failed to apply to 6.6-stable tree
-To: pkfxxxing@gmail.com,linkinjeon@kernel.org,pc@manguebit.org
+	b=I3X9V3fLxelXTyxZgvO61pjMOfgwCyagydiltzW6XMwFB9i/LNEh8stFat1/o+C9w
+	 7SPelTCmv+gygCqk+xp4chVsEOiLXXg8Iul0ES2oC9qo/Rq+jyLiE/t4ZnjTuPQMac
+	 UrbER4AgiE9w18IkvIqHatCMcgC33Z9mJHpEMGe0=
+Subject: FAILED: patch "[PATCH] smb: client: don't write back through O_DIRECT handles" failed to apply to 6.18-stable tree
+To: pc@manguebit.org,dhowells@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:13:07 +0100
-Message-ID: <2026112507-depraved-reappear-7196@gregkh>
+Date: Wed, 25 Nov 2026 12:14:11 +0100
+Message-ID: <2026112511-snuff-emerald-e34c@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x ffb59029c0d52bf76fdd2678f5d6fd13e26220dd
+git cherry-pick -x 0e85145af984f7cae2aadaa694cb8612009027ac
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112507-depraved-reappear-7196@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112511-snuff-emerald-e34c@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,86 +79,86 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ffb59029c0d52bf76fdd2678f5d6fd13e26220dd Mon Sep 17 00:00:00 2001
-From: liuyong <pkfxxxing@gmail.com>
-Date: Fri, 6 Nov 2026 18:48:35 +0800
-Subject: [PATCH] smb: client: validate descriptor headers before query result
- allocation
+From 0e85145af984f7cae2aadaa694cb8612009027ac Mon Sep 17 00:00:00 2001
+From: Paulo Alcantara <pc@manguebit.org>
+Date: Sun, 1 Nov 2026 13:02:11 -0300
+Subject: [PATCH] smb: client: don't write back through O_DIRECT handles
 
-query_info() uses the server's returned length instead of the caller's
-minimum when a dynamic result is requested. A zero-length ACL response
-can therefore return ZERO_SIZE_PTR to id_mode_to_cifs_acl(), whose
-ownership-change path reads dacloffset before checking the header size.
-A KASAN-enabled test shows a read at address 0x20 and a kernel Oops.
+Writeback uses the first writable handle of the inode, which may have
+been opened with O_DIRECT.  Such handles are opened with
+FILE_NO_INTERMEDIATE_BUFFERING, for which Windows rejects any unaligned
+I/O with STATUS_INVALID_PARAMETER.  Writeback of partly dirty pages and
+of the unaligned tail of a file through one of them fails, so netfs ends
+it with the folios clean and the data never reaches the server.
 
-Validate the returned range and the caller's minimum before allocating
-the dynamic result. Keep the reported length zero if validation fails.
+xfstests generic/051, where fsstress mixes both kinds of opens, loses
+about 1% of its writes this way:
 
-Use the security descriptor header size as the minimum in SMB2_query_acl().
-DACL-only and SACL-only xattr queries do not require owner and group SIDs,
-so enforcing MIN_SEC_DESC_LEN would reject short descriptors that these
-queries could previously return. The rewrite paths validate the required
-owner/group SIDs and DACL separately before using their contents.
+  smb3_write_err: ... offset=0xde90d7 len=0xbd0b rc=-22
 
-These issues were discovered and fixed by Qihoo 360's Tulongfeng
-multi-agent system.
+All the rejected writes in a network capture were unaligned writes on a
+no-buffering handle; none of the aligned ones, and none of the unaligned
+ones on regular handles, were.
 
-Fixes: 9ee2afe5207b ("cifs: prevent copying past input buffer boundaries")
-Cc: stable@vger.kernel.org
-Signed-off-by: liuyong <pkfxxxing@gmail.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Prefer a handle that was not opened with O_DIRECT, and use one that was
+only if there is no other.
+
+Fixes: 1013e760d10e ("SMB3: Don't ignore O_SYNC/O_DSYNC and O_DIRECT flags")
+Reviewed-by: David Howells <dhowells@redhat.com>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: stable@vger.kernel.org
 
-diff --git a/fs/smb/client/cifsacl.h b/fs/smb/client/cifsacl.h
-index 31b51a8fc256..ebc1b7c08c6a 100644
---- a/fs/smb/client/cifsacl.h
-+++ b/fs/smb/client/cifsacl.h
-@@ -93,18 +93,4 @@ struct owner_group_sids {
- 	struct owner_sid group;
- } __packed;
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index d3ca688b6aba..dbf980fcf05b 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -1891,6 +1891,7 @@ enum cifs_find_flags {
+ 	FIND_WITH_DELETE	= (1U << 1),
+ 	FIND_NO_PENDING_DELETE	= (1U << 2),
+ 	FIND_OPEN_FLAGS		= (1U << 3),
++	FIND_NO_DIRECT		= (1U << 4),
+ };
  
--/*
-- * Minimum security identifier can be one for system defined Users
-- * and Groups such as NULL SID and World or Built-in accounts such
-- * as Administrator and Guest and consists of
-- * Revision + Num (Sub)Auths + Authority + Domain (one Subauthority)
-- */
--#define MIN_SID_LEN  (1 + 1 + 6 + 4) /* in bytes */
--
--/*
-- * Minimum security descriptor can be one without any SACL and DACL and can
-- * consist of revision, type, and two sids of minimum size for owner and group
-- */
--#define MIN_SEC_DESC_LEN  (sizeof(struct smb_ntsd) + (2 * MIN_SID_LEN))
--
- #endif /* _CIFSACL_H */
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index da2cf8fcee87..7de6b0b2d116 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -4027,6 +4027,14 @@ query_info(const unsigned int xid, struct cifs_tcon *tcon,
- 				ses->Suid, info_class, (__u32)info_type);
+ #define   MID_FREE 0
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index 0767eb5f4687..aa2d09dac44c 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -255,9 +255,15 @@ static void cifs_begin_writeback(struct netfs_io_request *wreq)
+ 	struct cifs_io_request *req = container_of(wreq, struct cifs_io_request, rreq);
+ 	int ret;
  
- 	if (dlen) {
-+		rc = smb2_validate_iov(le16_to_cpu(rsp->OutputBufferOffset),
-+				       le32_to_cpu(rsp->OutputBufferLength),
-+				       &rsp_iov, min_len);
-+		if (rc) {
-+			*dlen = 0;
-+			goto qinf_exit;
-+		}
-+
- 		*dlen = le32_to_cpu(rsp->OutputBufferLength);
- 		if (!*data) {
- 			*data = kmalloc(*dlen, GFP_KERNEL);
-@@ -4081,7 +4089,8 @@ SMB2_query_acl(const unsigned int xid, struct cifs_tcon *tcon,
+-	ret = cifs_get_writable_file(CIFS_I(wreq->inode), FIND_ANY, &req->cfile);
++	ret = cifs_get_writable_file(CIFS_I(wreq->inode), FIND_NO_DIRECT,
++				     &req->cfile);
+ 	if (ret) {
+-		cifs_dbg(VFS, "No writable handle in writepages ret=%d\n", ret);
++		ret = cifs_get_writable_file(CIFS_I(wreq->inode), FIND_ANY,
++					     &req->cfile);
++	}
++	if (ret) {
++		cifs_dbg(VFS, "%s: couldn't find writable handle: %d\n",
++			 __func__, ret);
+ 		return;
+ 	}
  
- 	return query_info(xid, tcon, persistent_fid, volatile_fid,
- 			  0, SMB2_O_INFO_SECURITY, extra_info,
--			  SMB2_MAX_BUFFER_SIZE, MIN_SEC_DESC_LEN, data, plen);
-+			  SMB2_MAX_BUFFER_SIZE, sizeof(struct smb_ntsd),
-+			  data, plen);
- }
+@@ -2722,7 +2728,7 @@ int __cifs_get_writable_file(struct cifsInodeInfo *cifs_inode,
+ 	}
  
- int
+ 	if (test_bit(CIFS_INO_TMPFILE, &cifs_inode->flags))
+-		find_flags = FIND_ANY;
++		find_flags &= FIND_NO_DIRECT;
+ 
+ 	cifs_sb = CIFS_SB(cifs_inode);
+ 
+@@ -2752,6 +2758,9 @@ int __cifs_get_writable_file(struct cifsInodeInfo *cifs_inode,
+ 		    !open_flags_match(cifs_inode, open_flags,
+ 				      open_file->f_flags))
+ 			continue;
++		if ((find_flags & FIND_NO_DIRECT) &&
++		    (open_file->f_flags & O_DIRECT))
++			continue;
+ 		if (OPEN_FMODE(open_file->f_flags) & FMODE_WRITE) {
+ 			if (!open_file->invalidHandle) {
+ 				/* found a good writable file */
 
