@@ -1,93 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795630217;
-	b=TxyJXnXbcFtoXkKKorEWT94es7MeD2xvc5/lDEqylIFiS9F52lCwGdBuyodV8RGKxDHh
-	 SKDhrW9RFI92fkvu8AZfMY5wXvShEf5TbCloPhk/h5tIdcfHdttvdf2CVYihik5/5ftxU
-	 zMXbTwW/dSAERZni4Lp9KjwcrlSf0uNv5s/tO/qQjhY+TJ8/1a8eDbR1Klto2vRoPxn+R
-	 ZtMxFwYgH87zhFdU+0XbglBzHEyPVapp/5PZsn+TwfX6FJP7VB5hiEPvCDxpvf7btr9jw
-	 67QFw5Q81Ng+cZ3ELoTqXwKxfQHpsd2r4BB4kugfms860HdB2gkzZnoqHlO+Gcso/vQ==
+	t=1795630234;
+	b=BMw2hXSRJbSS4JyazaxThzsW5b6O6HQiIExSIwh9cUeKFwoPdEmzU3Kb8Xf4We6qW8Tq
+	 dpdXr83nP+wPg5+KhKe6d5REGArHw9pboHQ7IwYVNn0R7QYyO+e+beXe2qLbqVJTr/jY/
+	 EB7PGNhZPoUX7sLT12TtWbjilfKNALN1he2GCQtpFoQnmpfvGYxirdBJzP23q0xBNWl3x
+	 6/qNHwq8GUqlMRWzo3PpqFPbfFhIIada9aloHdUDvcGUDoxQXFzClx/6VP7jC79XJDSbU
+	 dZGlArvMXIngP6idxflkM9tFR8lAQXEIRgUaR64eimiGTK6/H2F+aLxd1GiOUE9hmVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795630217;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=D3ALQHcgOfAhUAKhVbZdjihQ4c8Hm2EiPI8oXAafIGM=;
-	b=4GH5pdbFlBq4jrT9JEfA5/vKfC+sNd5/HFS6lwvapXmsdkXe1PDncoSbwNPA7QOUr3nt
-	 8zUYLbeI8YoqtIq/OyqEyytY0W3hq/rS51HoxWbPaGVf65TSwUJOdgE442Az0Vj3XQpX7
-	 KILjuwlwTyTTyAzWW8fuxy/lKJhGSve4JsU8fWz5ZhbVRd+sLyE++h8FazUrXPwRi1v+G
-	 +2T2G9NeTUU41MzjxXVVWuZXFTJYTF4bfb1GMyJ7pe3HNMdXVTgReKG98VZt7/XAqMHzI
-	 PZaaBvZQ3ZQ3zf5rEFKEtE5+Vm9oPAx/8IdHOcM2gx5N3ewK/dKwpOi8EH5/CF21bzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795630234;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=aazdsFJdydPkDwPUPcHqqU9AYDCucpKW1m1694cDDFQ=;
+	b=2h1ptJDntnQu9rtTJOyksulg3qTy8OYPtm5Zvxkj0VvoM+62X55Uv3NXwSAQJr5ZFaRr
+	 yn/k3fLxVTqLgm8t9mQ4THVEd/jIghGzlX0E2xm1SvbxHfIOlo6y73mILzqd94mknoCGF
+	 0qoOA7/0d/+BMm3O0PyXhYCjn7fLEQ8t0KqtYqkHSpiT4NRriypObtEhtuoHALnH2vniO
+	 +HkF3Ty+0rrX8voEAPjZr4zchh4GmFLbQqCNZYuGAAHjgncHvfnmsWKTKFMTbAy5NKXF5
+	 2X+UUvXNPPjakvvvHGg/KSlLqHtpHnnjVvpesM2Cvba38MKEt72yDw8Rx4p32Xn0QWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b="YdXtTz/v";
-	arc=none smtp.remote-ip=74.125.224.45
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=gentwo.org;
+	spf=pass smtp.mailfrom=gentwo.org;
+	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=jBJvuCOw;
+	arc=none smtp.remote-ip=62.72.0.81
+Received: from gentwo.org (gentwo.org [62.72.0.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 377D9606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:10:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 377D9606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502EC606A337;
+	Wed, 25 Nov 2026 18:10:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 502EC606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=YdXtTz/v
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-67db0791748so7079634d50.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:10:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1795630216; x=1796235016; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D3ALQHcgOfAhUAKhVbZdjihQ4c8Hm2EiPI8oXAafIGM=;
-        b=YdXtTz/v6Nm4qzgVyt4tU1Dm9vGEsroperK4W3BGilBnyGrVMOM6MIT5XJD2rcDogB
-         AWuqcPc7rOYnD9e+HpsWAPKiW9DYo6OEiOtdmUiLKvIuxOHtWDuJHlD/vCKafPsJxQLC
-         BXllwZhuRD1IwujoB6aBtVMXSWBjO++oCGjBlQYfo24feoz8A4QtCZhzrClzWJOySJkX
-         +xT/ureqEuqX7lIeo6TLrqv1qZbU8hEhJweFrf0dfdpjPJpNItgT6YU6OW4VThEXW6+m
-         cm09thM45wrjt173UXANGAdABSORsn4HM3CBs7dMDTus+al+tGpQ23jXx/OE/f0h4gvn
-         cJag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795630216; x=1796235016;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D3ALQHcgOfAhUAKhVbZdjihQ4c8Hm2EiPI8oXAafIGM=;
-        b=LvoXzYrMnFJ8gZkai5Ls3GNeBbMRnX4OGQ5YRO/HlLxyniKSIp9/vpKRtTpVZDWqpC
-         srdFNlFkU9mbOPSDfloxTBBgzAUAHhARbWrU7SznSLSqaEpGBammNWWB3gB7FH0iew0N
-         4T6fdOu3V9Z6IDh+TfMslzI5sLzyKOa15fab2n913zCR/p/zcg0+ZJAc3lsAFqHxw+53
-         l3/rfpi3tHun6Ta+Sg9M2oHMFvkF22y08MsEhb9Y3FBp0W//WA53Jw+2V/AA0RmOdVjg
-         O/ImuZBRMWyatm32KwceI45I2FPSYvnD1cf/dc+LZ91f7FIzq/PFZd9V3GaozW+GUyI6
-         MS6w==
-X-Forwarded-Encrypted: i=1; AL+hErFnFwcfkHNNF8b4K1JGRnIjMpDtDkEV+WaxghlDpjg6xO9NytygcQgDLOshVr6eMfdKxW4bgWY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+OU5bAGYzplQN8JQqnmLKrR432z+njTDxa4Q/a834i0sHRxsIb
-	4V2bjjBRKypnStN7C0NqCCxwI3b3cf8AA+YI21QXBaF7cJ21fvV0pN071RR1mA/YMg==
-X-Gm-Gg: AZFdTZcSv+i1gq3dN3Jk5RsZt/8irD5T2wlyaeC8YhSE/KWy1ZAgr2VR9n7ZCVpBIib
-	sDOQ7fX6xVizv0pS7MiU32BkA7ugrTRH01qk3k1vPI2WpZ2v/LL5Qd8vFET6G5g1C2Qh5kpu+PI
-	ZkXXuhBAHv+BiEjf0UXkahtKqZlscFRei2VXx9HwpnzGvQz0XdA1PktNNnEveivCcUAx5y3kSou
-	AQyhqDDkHaM1qdr69wJf+GQhD2pvgsAsDHsYAGS6oGbjizDvyiOJE/olfBrAjSC/K5T7Pf2nYkg
-	g7N6UhAUKQ6JVhJfwQGFSH1oxputKCfSoSe6QcbHfPEjeouUmGgNcUlHDjE+0QapmhJTULSKtWV
-	10wYL3MQ8l/lyxom8TISvKr8UU80lfaZscmpSxfd9Ylx4uh5U4Ul0t4PxZNlSRpPeWvgYZMLram
-	Jn2+qV4zQCD0sg8L4MeyXvPxlb3E2D0chPI4FaENuhy6+L0USl7Qui/yEC0vDTsr3+zvPa7WYjI
-	eQdy5iRzltom3u+hgBTR7nMPY0cCXCEy4PAJNBz/oNZXFi2V/WNYnXX+6BcSy7d1dSp52i7Ip97
-	8r7JHCpueoBqbuvMMGFEdTe1ZOrgmQSEMwKRhKb7YfgxcAf6wRoy6Q==
-X-Received: by 2002:a05:690e:400a:b0:67e:4934:63dd with SMTP id 956f58d0204a3-67e49347cb2mr1238903d50.15.1795630216103;
-        Wed, 25 Nov 2026 10:10:16 -0800 (PST)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67df330bfb1sm9206152d50.6.2026.11.25.10.10.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 10:10:15 -0800 (PST)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Cc: Pavel Hofman <pavel.hofman@ivitera.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] ALSA: pcm: oss: Refine slave hw_params after setting format
-Date: Wed, 25 Nov 2026 13:10:05 -0500
-Message-ID: <20261125181005.3683575-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=jBJvuCOw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1795630233;
+	bh=PW5cjO4zVuWmr+Vc4tjomkbgnxKceK86WHlBvpMe3N0=;
+	h=From:Date:Subject:To:Cc:From;
+	b=jBJvuCOwqycfhmWjkdSJF7ENLmj/xlACCo8dGrLuG3jhrQLM/g6glZYsl74IkD6ZA
+	 bJiHW5hIIfqldjRdgvAVpap27HAZXejBhGzHPAP8drnmrhxFCjjsi51KSg6vUAWA/k
+	 3TaZg0v7Mnal+OXstJ3nNrO2tTFY6TWwWUvLzdgs=
+Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTPS id 290EC401B0;
+	Wed, 25 Nov 2026 10:10:33 -0800 (PST)
+From: Shubhang Kaushik <sh@gentwo.org>
+Date: Wed, 25 Nov 2026 10:10:25 -0800
+Subject: [PATCH v2] PM: EM: Fix netlink performance-domain dump pagination
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,95 +55,132 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261125-pm-em-dump-v2-1-a28e132f8b0c@gentwo.org>
+X-B4-Tracking: v=1; b=H4sIAJAkB2sC/23MQQ6CMBCF4auQWTuGFlKqK+9hWAidlllASYtVQ
+ 3p3K2uX/0vet0OkwBThWu0QKHFkv5SQpwrG6bE4QjalQdZSCSFbXGekGc1zXrGubSMHra1RI5T
+ DGsjy+8DufemJ4+bD57CT+K1/mSRQoLYXoTrTNt0w3hwt28uffXDQ55y/rJWqqaUAAAA=
+X-Change-ID: 20261124-pm-em-dump-00f32b88fd6c
+To: Lukasz Luba <lukasz.luba@arm.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>, Donald Hunter <donald.hunter@gmail.com>, 
+ Changwoo Min <changwoo@igalia.com>, Shubhang Kaushik <shubhangpk@gmail.com>, 
+ Christoph Lameter <cl@gentwo.org>
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
+ linux-pm@vger.kernel.org, stable@vger.kernel.org, 
+ Shubhang Kaushik <sh@gentwo.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795630233; l=3335;
+ i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
+ bh=PW5cjO4zVuWmr+Vc4tjomkbgnxKceK86WHlBvpMe3N0=;
+ b=WOEqKRNwC7ibhIfs8oHOD0A5Ytc+Pz6GxJZG/2IilyUS30Iq8yLvUffNEWKeDa8YvMTF+Z9q6
+ H1qRXjDGqyUCfK3HqdApbAHXvwbQgAz67KB+VemV5rPB+YPe0Wr48iX
+X-Developer-Key: i=sh@gentwo.org; a=ed25519;
+ pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
 
-Commit 93d7d38fa61d ("ALSA: aloop: add DSD formats") added DSD_U8 to
-the formats of snd-aloop. Before that, its narrowest format had 16 bits.
+GET_PERF_DOMAINS dumps performance domains through:
 
-However, snd_pcm_oss_change_params_locked() sets the slave format with
-_snd_pcm_hw_param_set(), which does not refine the parameters, while
-the access, rate and channels before it are set with refining helpers.
-snd_pcm_oss_period_size() then reads a buffer size maximum that is
-still computed for the narrowest format, now DSD_U8, so the OSS period
-doubles. With the default U8 client format, the doubled period no
-longer fits in the format plugin, and snd_pcm_plugin_alloc() returns
--ENOMEM. As of now, an OSS program that asks snd-aloop for 8 channels
-at 192 kHz gets ENOMEM from SNDCTL_DSP_SPEED and from every later
-ioctl on the same file.
+  netlink_dump()
+    -> dev_energymodel_nl_get_perf_domains_dumpit()
+      -> for_each_em_perf_domain()
+        -> __em_nl_get_pd_for_dump()
 
-The issue can be reproduced with this program, where card 1 is
-snd-aloop:
+The dump handler rebuilds its local cursor from cb->args[0] on each
+callback. When the response skb fills, it returns -EMSGSIZE and the
+netlink core sends the nonempty skb before retrying the dump. However,
+the updated cursor is not saved in cb->args[0], so the retry restarts at
+domain zero.
 
-    #include <fcntl.h>
-    #include <stdio.h>
-    #include <sys/ioctl.h>
-    #include <sys/soundcard.h>
+For example, if domains 0 and 1 fit in the first skb but domain 2 does
+not, every subsequent callback emits domains 0 and 1 again and never
+progresses beyond domain 2. The handler also advances the cursor before
+encoding the domain and finalizes its partially encoded message on
+failure.
 
-    int main(void)
-    {
-            int fd = open("/dev/dsp1", O_WRONLY | O_NONBLOCK);
-            int ch = 8, rate = 192000, blk = 0;
+Advance the cursor only after a domain has been encoded successfully,
+cancel incomplete messages, and store the next domain index in
+cb->args[0]. Return skb->len whenever data was written so netlink_dump()
+sends the current chunk and continues the dump, propagating errors only
+when skb->len is zero.
 
-            ioctl(fd, SNDCTL_DSP_CHANNELS, &ch);
-            if (ioctl(fd, SNDCTL_DSP_SPEED, &rate) < 0)
-                    perror("SNDCTL_DSP_SPEED");
-            if (ioctl(fd, SNDCTL_DSP_GETBLKSIZE, &blk) < 0)
-                    perror("SNDCTL_DSP_GETBLKSIZE");
-            printf("block size %d\n", blk);
-            return 0;
-    }
-
-Before that commit, it prints "block size 65536". After that commit,
-the result is:
-
-    SNDCTL_DSP_SPEED: Cannot allocate memory
-    SNDCTL_DSP_GETBLKSIZE: Cannot allocate memory
-    block size 0
-
-This patch will set the format with snd_pcm_hw_param_set(), which
-refines the parameters, as is done for the channels just before.
-
-Fixes: 93d7d38fa61d ("ALSA: aloop: add DSD formats")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Fixes: 380ff27af25e ("PM: EM: Add dump to get-perf-domains in the EM YNL spec")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shubhang Kaushik <sh@gentwo.org>
 ---
-I found this while comparing the behavior of different kernel versions.
-I used an LLM to analyze the problem and to draft the patch and this
-message, and I analyzed the result myself.
+Changes in v2:
+- Return skb->len whenever data has been written to the skb, propagating
+  negative error codes only when skb->len == 0.
 
-The missing refine is older than that commit, so the patch also halves
-the default fragment size on other cards that offer a format narrower
-than the one in use. On snd-dummy (U8 and S16_LE) with S16_LE, one
-channel at 48 kHz now gets 4096 bytes instead of 8192.
+Testing:
+- Validated dev-energymodel YNL spec and exercised GET_PERF_DOMAINS
+  dumps via tools/net/ynl/pyynl/cli.py on an 80-core Ampere Altra,
+  including registering 4 test performance domains and forcing
+  per-domain -EMSGSIZE splits across multiple netlink_dump() chunks.
 
-With "ALSA: pcm: oss: Compare max buffer size in bytes" in for-next,
-the program above no longer fails, but it prints "block size 131072"
-until this patch is applied.
+Link to v1: https://lore.kernel.org/r/20261124-pm-em-dump-v1-1-8f9167d437bc@gentwo.org
+---
+ kernel/power/em_netlink.c | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
-Tested on for-linus (5a6fcabe156e) and for-next (486060b97284) with
-KASAN and lockdep. On snd-aloop, a grid of 1 to 128 channels at 8 to
-192 kHz gives the same results as before that commit, and SETFRAGMENT,
-mmap and a playback and capture pair work as before.
-
- sound/core/oss/pcm_oss.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
-index 66162caa45d4..3c2ac8966d5e 100644
---- a/sound/core/oss/pcm_oss.c
-+++ b/sound/core/oss/pcm_oss.c
-@@ -921,7 +921,8 @@ static int snd_pcm_oss_change_params_locked(struct snd_pcm_substream *substream)
- 		goto failure;
- 	}
-  format_found:
--	err = _snd_pcm_hw_param_set(sparams, SNDRV_PCM_HW_PARAM_FORMAT, sformat, 0);
-+	err = snd_pcm_hw_param_set(substream, sparams,
-+				   SNDRV_PCM_HW_PARAM_FORMAT, sformat, 0);
- 	if (err < 0)
- 		goto failure;
+diff --git a/kernel/power/em_netlink.c b/kernel/power/em_netlink.c
+index 1f68d456a713c08d7a4f690e88c03182f6ee3ef1..4e85439ed76d240e013cf372dcbc77b3af28d598 100644
+--- a/kernel/power/em_netlink.c
++++ b/kernel/power/em_netlink.c
+@@ -80,19 +80,25 @@ static int __em_nl_get_pd_for_dump(struct em_perf_domain *pd, void *data)
+ 	void *hdr;
+ 	int ret;
  
+-	if (ctx->idx++ < ctx->start)
++	if (ctx->idx < ctx->start) {
++		ctx->idx++;
+ 		return 0;
++	}
+ 
+ 	info = genl_info_dump(ctx->cb);
+ 	hdr = genlmsg_iput(ctx->skb, info);
+-	if (!hdr) {
+-		genlmsg_cancel(ctx->skb, hdr);
++	if (!hdr)
+ 		return -EMSGSIZE;
+-	}
+ 
+ 	ret = __em_nl_get_pd(pd, ctx->skb);
++	if (ret) {
++		genlmsg_cancel(ctx->skb, hdr);
++		return ret;
++	}
++
+ 	genlmsg_end(ctx->skb, hdr);
+-	return ret;
++	ctx->idx++;
++	return 0;
+ }
+ 
+ struct em_nl_doit_ctx {
+@@ -166,7 +172,15 @@ int dev_energymodel_nl_get_perf_domains_dumpit(struct sk_buff *skb,
+ 		.cb = cb,
+ 	};
+ 
+-	return for_each_em_perf_domain(__em_nl_get_pd_for_dump, &ctx);
++	int ret;
++
++	ret = for_each_em_perf_domain(__em_nl_get_pd_for_dump, &ctx);
++	cb->args[0] = ctx.idx;
++
++	if (ret && !skb->len)
++		return ret;
++
++	return skb->len;
+ }
+ 
+ static int __em_nl_get_pd_table_size(const struct em_perf_domain *pd)
 
-base-commit: 5a6fcabe156e91c6ef2435a74f2d16e6dd39f7c7
+---
+base-commit: 4dce97c6c265544342e716e62fd24bbb232590c5
+change-id: 20261124-pm-em-dump-00f32b88fd6c
+
+Best regards,
 -- 
-2.53.0
+Shubhang Kaushik <sh@gentwo.org>
 
