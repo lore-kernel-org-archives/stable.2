@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795602964;
-	b=mIPM06fXCqZFO0BUGOamsqoj49M+8yvqa1T/1qskUO3BSzC877BDRaMKcMhgkvPnr+v0
-	 l5QGv4gWaTLWGud7lv2zqP9q568k1RgKep4lxyYr7qGUNNtoVEu+fMqTO1NeIJZKC0nfi
-	 km9p91zyd9dTXx5rfEfDUBkcitydL+veImUsWES45odU6BWkFUNr9RxxMM979E1dr1Xi5
-	 qHEhh8KK5gDPb8g1LvLUUn/N5d9IEvzAZKTH5+cwHAcWz643qV2VxXNqyjKggsFJT1ssU
-	 gStgRJDa6BwOG1s5n73OAq3yyNyePWDRbcSLfEMsfszyb6U6BNaw2CJizCwguduekuA==
+	t=1795602967;
+	b=cnp3U4yo1k19NpMmfxgKrcdyHUpJ+p1hFBnrcAIN2exK+l7viNnUI13Iv0RHPKFNm5ty
+	 VG4cHpqBqBNBO1cCm/YIH1SeVCqt5ehLmiCpWNwna9pknpkSHRvdrzHaUlJ1rep5+uh4f
+	 cPReFggE34cqfrugUbG4Fu5wOI0oAn3r10SqQJ3x3DP0y/VX/4AAzfLVh8Lt0w1+pgn80
+	 Io38xWWEZIeEAdvjd8tsaxccDQJ4lSIa1gaxDhZ5ybXcPGTQ3pybBxNXm74VETMkLLOJX
+	 HJLJPLTn8deloz4yQz13vQS5W9rC9qprw50W7wtrDposRwlH3Yj1rWPD0n3e+SSJ2xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602964;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602967;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2bk9xggul2wwGxLczadFxGEIn/iUgpfWpH06p3Q5YSQ=;
-	b=U6Trl9ZSoDClcq+pSiB48FOENmWLfm/yZshuwuqfQ8nq1pXanKA38leNzVIzERhtm7Hv
-	 tdcQi2Fg1ws4/xast1gGXKUPlD1Yr7JeIyn5JQ04aqWcerf5hHOnEKD3QImJg7nGKg0AJ
-	 sj0lUIN+GyP09pJP/WrW1IysP/NUY/HPDqYjR4bBswqJwEplFv/ER1GUZ55fKV8IahePX
-	 Fc50J9v0zx7AIway3MVnhdWF7hfhH/ge51WfH4Nhcb3H0DVx3uTapC9f0JsmgT/hVXT1J
-	 szrLltGm4KRdyzoadfwb+NVRETcDd2Xq2fayHr43YwAG9zp7xDr6CH9zvHblF3zublw==
+	bh=9wZZOlC1ETPf9vEF5d9fCp4P/vZk+JvckMl58fjUKfg=;
+	b=HRqIw/5jfYHywRD5EvQsSAjkplyK+2BkdqcHFNe/pidIPaH+yGzj5OknKCvMOSK1k89m
+	 9w5EDHmpmESNKNb1x95vgj4mKxZPR1I0fRMFTPrvP4xeUdWv13XAlIzUHaDm/3wzKNIMz
+	 nqq+nrHLy4Njg610QMKIZKoleuX9KxriU978P6NkOq6JywYFInZRG6PivbDva5cMeZ6GC
+	 HHDkvFT8cNh2XElsjjNHC4znCRe3bWHAvWROA4bMZtjuYHo6cauAbtCeEae9kQcj7Ywnf
+	 k8SD2JEsfRujzMcnc3vhftCuuEpxST1CRKYTUflMaCmd3vOy/hxhFkqfwZI98FpxUzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x8+IMLXV;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zc0IzuAE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE0F606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:36:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C69606A336
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:36:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x8+IMLXV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7D071F000D1;
-	Wed, 25 Nov 2026 10:36:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zc0IzuAE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBE5E1F000EF;
+	Wed, 25 Nov 2026 10:36:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795602964;
-	bh=2bk9xggul2wwGxLczadFxGEIn/iUgpfWpH06p3Q5YSQ=;
+	s=korg; t=1795602967;
+	bh=9wZZOlC1ETPf9vEF5d9fCp4P/vZk+JvckMl58fjUKfg=;
 	h=Subject:To:Cc:From:Date;
-	b=x8+IMLXVMiU7PPtUwiJSVs6c6BgFOftai2VKLBKDBe207X2TLrnTtPOcRxOievhOE
-	 4kOENj+lY+lCO0uSbaGn1bE+NRqG+AjBrw1LRUoEZGNMNMAu+k5NEgN/aj7Sa6/lk4
-	 DVZbJkEL0ACrv/4MkPuKNitXx4Ubi8STtHQPkcK8=
-Subject: FAILED: patch "[PATCH] s390/dasd: Re-initialize RCD buffer with "V1.0" before every" failed to apply to 5.10-stable tree
-To: sth@linux.ibm.com,axboe@kernel.dk,hoeppner@linux.ibm.com
+	b=zc0IzuAEzcsMFmtUY6PzNJ0vf7Xaaj3bimYJVDM8wDru1XTUsWXSKd110XX/7x0yq
+	 wQV3G8yNGCiOoKSXyJ/BS2Dm6UkbqEUT788ts9qswCRMPi0xFcCUVu+M0t2PnmB63r
+	 igGE29hscXWoP+DjFXzjKLiARWQQWrTifYz6gjFk=
+Subject: FAILED: patch "[PATCH] sched/deadline: Fix spurious -EPERM for migration-disabled" failed to apply to 6.6-stable tree
+To: parri.andrea@gmail.com,bigeasy@linutronix.de,juri.lelli@redhat.com,mingo@kernel.org,peterz@infradead.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:20:17 +0100
-Message-ID: <2026112517-reunion-tubeless-87d7@gregkh>
+Date: Wed, 25 Nov 2026 11:20:48 +0100
+Message-ID: <2026112548-gutless-blizzard-1ebb@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,23 +51,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 25cdc1f63227a1ea69a1ec823a8a860e33299169
+git cherry-pick -x 6616bffa9b52da1338cf8bff9882404e02b9e361
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112517-reunion-tubeless-87d7@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112548-gutless-blizzard-1ebb@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,192 +79,140 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 25cdc1f63227a1ea69a1ec823a8a860e33299169 Mon Sep 17 00:00:00 2001
-From: Stefan Haberland <sth@linux.ibm.com>
-Date: Thu, 12 Nov 2026 11:26:06 +0100
-Subject: [PATCH] s390/dasd: Re-initialize RCD buffer with "V1.0" before every
- start
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 6616bffa9b52da1338cf8bff9882404e02b9e361 Mon Sep 17 00:00:00 2001
+From: Andrea Parri <parri.andrea@gmail.com>
+Date: Mon, 2 Nov 2026 14:54:19 +0100
+Subject: [PATCH] sched/deadline: Fix spurious -EPERM for migration-disabled
+ tasks
 
-Under z/VM the Read Configuration Data (RCD) buffer has to start with
-EBCDIC "V1.0" to request the virtual device SNEQ that carries the
-minidisk UIT. The request and the response share the same buffer:
-CP evaluates the magic on the way out and the RCD data is written into
-the same buffer on the way back.
+sched_setattr() can refuse to make a task SCHED_DEADLINE with -EPERM,
+even though the task's affinity covers the whole root domain. A retry
+can succeed, but the error blames an affinity the task does not have.
 
-The magic is only written when the request is built and again in
-read_conf_cb() when the original request fails.
+__sched_setscheduler() tests p->cpus_ptr, which is not always the task's
+affinity. When a task is scheduled out inside a migrate_disable() section,
+migrate_disable_switch() points p->cpus_ptr at the current CPU until
+migrate_enable(). On PREEMPT_RT every spinlock_t holder is in such a
+section, so ordinary kernel work opens the window. Elsewhere, seccomp
+filters run in one.
 
-Several restart paths do not run that callback:
- - ERP use the same buffer and if the same error occurs again,
-   the ERP restarts the existing ERP request;
-   if a different error occurs, it adds another ERP request.
-   Neither re-initializes the magic.
- - Terminated (timed out) ERP requests, killed requests and requests
-   requeued after the last path was gone are restarted without it.
- - dasd_sleep_on_immediately() overwrites cqr->callback, so read_conf_cb()
-   never ran for dasd_eckd_read_conf_immediately(), and its fastpath
-   retries in dasd_int_handler() do not call a callback either.
+Test p->cpus_mask instead, which keeps the task's affinity and is what
+sched_getaffinity() reports. This should be safe because an admitted
+task's cpus_mask covers the root domain, so set_cpus_allowed_dl() moves
+no bandwidth when migrate_enable() restores p->cpus_ptr.
 
-If such a restart succeeds, z/VM omits the virtual device SNEQ, the UID
-of that path is built without the UIT and the paths are reported as
-"Not all channel paths lead to the same device" although they lead to
-the same minidisk.
+The following program, run as root, had 553679, 453720 and 424623 of its
+1000000 requests refused on three boots of a 4-CPU PREEMPT_RT guest, and
+236182, 217174 and 237183 without PREEMPT_RT. With this applied the count
+is 0, also with lockdep, and a task pinned to one CPU is still refused:
 
-Every start of a request, whatever path led to it, goes through
-dasd_start_IO(). Add an optional prepare_io function to the request
-that dasd_start_IO() calls before every start of the request and of
-its ERP requests, and use it to write the magic for RCD requests.
+  #define _GNU_SOURCE
+  #include <errno.h>
+  #include <linux/filter.h>
+  #include <linux/seccomp.h>
+  #include <pthread.h>
+  #include <stddef.h>
+  #include <stdint.h>
+  #include <stdio.h>
+  #include <sys/syscall.h>
+  #include <unistd.h>
 
-The ERP handling stays unchanged. read_conf_cb() is no longer needed
-and is removed, which also gets rid of its memset() that only cleared
-a single byte.
+  #define REQUESTS 1000000
+  #define INSNS 300
 
-Fixes: 5915a873fcb1 ("[S390] dasd: re-initialize read_conf buffer for retries")
+  struct attr {
+      uint32_t size, policy;
+      uint64_t flags;
+      int32_t nice;
+      uint32_t prio;
+      uint64_t runtime, deadline, period;
+  };
+
+  static volatile int stop;
+  static volatile pid_t target;
+
+  static long set(struct attr a)
+  {
+      a.size = sizeof(a);
+      return syscall(SYS_sched_setattr, target, &a, 0);
+  }
+
+  static void *worker(void *arg)
+  {
+      struct sock_filter f[INSNS + 1];
+      struct sock_fprog prog = { .len = INSNS + 1, .filter = f };
+      int i;
+
+      /* Reading the arguments keeps seccomp from caching the result */
+      for (i = 0; i < INSNS; i++)
+          f[i] = (struct sock_filter)
+              BPF_STMT(BPF_LD | BPF_W | BPF_ABS,
+                       offsetof(struct seccomp_data, args));
+      f[INSNS] = (struct sock_filter)
+          BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ALLOW);
+      syscall(SYS_seccomp, SECCOMP_SET_MODE_FILTER, 0, &prog);
+
+      target = syscall(SYS_gettid);
+      while (!stop)
+          syscall(SYS_getppid);
+      return arg;
+  }
+
+  static void *hog(void *arg)
+  {
+      while (!stop)
+          ;
+      return arg;
+  }
+
+  int main(void)
+  {
+      pthread_t t[9];
+      long refused = 0;
+      int i;
+
+      pthread_create(&t[0], NULL, worker, NULL);
+      while (!target)
+          usleep(100);
+      for (i = 1; i < 9; i++)
+          pthread_create(&t[i], NULL, hog, NULL);
+      for (i = 0; i < REQUESTS; i++) {
+          /* SCHED_DEADLINE, 2us every 1s */
+          if (set((struct attr){ .policy = 6, .runtime = 2000,
+                                 .deadline = 1000000000,
+                                 .period = 1000000000 }) && errno == EPERM)
+              refused++;
+          set((struct attr){ .policy = 0 }); /* SCHED_OTHER */
+      }
+      stop = 1;
+      for (i = 0; i < 9; i++)
+          pthread_join(t[i], NULL);
+      printf("%ld of %d requests refused\n", refused, REQUESTS);
+      return 0;
+  }
+
+An LLM helped find this bug and write this patch and its test.
+
+Fixes: af449901b84c ("sched: Add migrate_disable()")
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Acked-by: Juri Lelli <juri.lelli@redhat.com>
 Cc: stable@vger.kernel.org
-Reviewed-by: Jan Höppner <hoeppner@linux.ibm.com>
-Signed-off-by: Stefan Haberland <sth@linux.ibm.com>
-Link: https://patch.msgid.link/20261112102608.1057852-3-sth@linux.ibm.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Link: https://patch.msgid.link/20261102135420.244745-1-parri.andrea@gmail.com
 
-diff --git a/drivers/s390/block/dasd.c b/drivers/s390/block/dasd.c
-index d74ef737ae26..3a55c937d0d6 100644
---- a/drivers/s390/block/dasd.c
-+++ b/drivers/s390/block/dasd.c
-@@ -1396,6 +1396,7 @@ int dasd_start_IO(struct dasd_ccw_req *cqr)
- 		cqr->status = DASD_CQR_ERROR;
- 		return -EIO;
- 	}
-+	dasd_start_IO_prepare(cqr);
- 	cqr->startclk = get_tod_clock();
- 	cqr->starttime = jiffies;
- 	cqr->retries--;
-diff --git a/drivers/s390/block/dasd_eckd.c b/drivers/s390/block/dasd_eckd.c
-index 53f823a9310e..efaf117e39f4 100644
---- a/drivers/s390/block/dasd_eckd.c
-+++ b/drivers/s390/block/dasd_eckd.c
-@@ -845,20 +845,29 @@ static int dasd_eckd_compare_path_uid(struct dasd_device *device,
- 	return memcmp(&device_uid, &path_uid, sizeof(struct dasd_uid));
- }
- 
-+/*
-+ * The RCD buffer has to start with EBCDIC "V1.0" to show support for
-+ * virtual device SNEQ. The RCD data is written into the same buffer, so
-+ * a failed attempt may already have overwritten the magic. Re-initialize
-+ * it before every start, including restarts by ERP requests.
-+ */
-+static void dasd_eckd_rcd_prepare_io(struct dasd_ccw_req *cqr)
-+{
-+	struct ccw1 *ccw = cqr->cpaddr;
-+	__u8 *rcd_buffer = dma32_to_virt(ccw->cda);
-+
-+	rcd_buffer[0] = 0xE5;
-+	rcd_buffer[1] = 0xF1;
-+	rcd_buffer[2] = 0x4B;
-+	rcd_buffer[3] = 0xF0;
-+}
-+
- static void dasd_eckd_fill_rcd_cqr(struct dasd_device *device,
- 				   struct dasd_ccw_req *cqr,
- 				   __u8 *rcd_buffer,
- 				   __u8 lpm)
- {
- 	struct ccw1 *ccw;
--	/*
--	 * buffer has to start with EBCDIC "V1.0" to show
--	 * support for virtual device SNEQ
--	 */
--	rcd_buffer[0] = 0xE5;
--	rcd_buffer[1] = 0xF1;
--	rcd_buffer[2] = 0x4B;
--	rcd_buffer[3] = 0xF0;
- 
- 	ccw = cqr->cpaddr;
- 	ccw->cmd_code = DASD_ECKD_CCW_RCD;
-@@ -875,33 +884,10 @@ static void dasd_eckd_fill_rcd_cqr(struct dasd_device *device,
- 	cqr->retries = 256;
- 	cqr->buildclk = get_tod_clock();
- 	cqr->status = DASD_CQR_FILLED;
-+	cqr->prepare_io = dasd_eckd_rcd_prepare_io;
- 	set_bit(DASD_CQR_VERIFY_PATH, &cqr->flags);
- }
- 
--/*
-- * Wakeup helper for read_conf
-- * if the cqr is not done and needs some error recovery
-- * the buffer has to be re-initialized with the EBCDIC "V1.0"
-- * to show support for virtual device SNEQ
-- */
--static void read_conf_cb(struct dasd_ccw_req *cqr, void *data)
--{
--	struct ccw1 *ccw;
--	__u8 *rcd_buffer;
--
--	if (cqr->status !=  DASD_CQR_DONE) {
--		ccw = cqr->cpaddr;
--		rcd_buffer = dma32_to_virt(ccw->cda);
--		memset(rcd_buffer, 0, sizeof(*rcd_buffer));
--
--		rcd_buffer[0] = 0xE5;
--		rcd_buffer[1] = 0xF1;
--		rcd_buffer[2] = 0x4B;
--		rcd_buffer[3] = 0xF0;
--	}
--	dasd_wakeup_cb(cqr, data);
--}
--
- static int dasd_eckd_read_conf_immediately(struct dasd_device *device,
- 					   struct dasd_ccw_req *cqr,
- 					   __u8 *rcd_buffer,
-@@ -921,7 +907,6 @@ static int dasd_eckd_read_conf_immediately(struct dasd_device *device,
- 	clear_bit(DASD_CQR_FLAGS_USE_ERP, &cqr->flags);
- 	set_bit(DASD_CQR_ALLOW_SLOCK, &cqr->flags);
- 	cqr->retries = 5;
--	cqr->callback = read_conf_cb;
- 	rc = dasd_sleep_on_immediately(cqr);
- 	return rc;
- }
-@@ -959,7 +944,6 @@ static int dasd_eckd_read_conf_lpm(struct dasd_device *device,
- 		goto out_error;
- 	}
- 	dasd_eckd_fill_rcd_cqr(device, cqr, rcd_buf, lpm);
--	cqr->callback = read_conf_cb;
- 	ret = dasd_sleep_on(cqr);
- 	/*
- 	 * on success we update the user input parms
-diff --git a/drivers/s390/block/dasd_int.h b/drivers/s390/block/dasd_int.h
-index 26ecf9f47d2e..53c450036fe1 100644
---- a/drivers/s390/block/dasd_int.h
-+++ b/drivers/s390/block/dasd_int.h
-@@ -147,6 +147,8 @@ struct dasd_ccw_req {
- 	void *data;			/* pointer to data area */
- 	struct irb irb;			/* device status in case of an error */
- 	struct dasd_ccw_req *refers;	/* ERP-chain queueing. */
-+	/* optional prepare function called before every start_io, must not sleep */
-+	void (*prepare_io)(struct dasd_ccw_req *cqr);
- 	void *function; 		/* originating ERP action */
- 	void *mem_chunk;
- 
-@@ -892,6 +894,19 @@ static inline void *dasd_get_callback_data(struct dasd_ccw_req *cqr)
- 	return cqr->callback_data;
- }
- 
-+/*
-+ * Walk down the ERP chain to the original CQR and call its
-+ * prepare_io function if set.
-+ */
-+static inline void dasd_start_IO_prepare(struct dasd_ccw_req *cqr)
-+{
-+	/* ERP requests use the prepare function of the original request */
-+	while (cqr->refers)
-+		cqr = cqr->refers;
-+	if (cqr->prepare_io)
-+		cqr->prepare_io(cqr);
-+}
-+
- static inline bool dasd_req_conflict(struct dasd_ccw_req *cqr1,
- 				     struct dasd_ccw_req *cqr2)
- {
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index 45a127deeadd..fb8f332074b8 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -628,7 +628,7 @@ int __sched_setscheduler(struct task_struct *p,
+ 			 * the entire root_domain to become SCHED_DEADLINE. We
+ 			 * will also fail if there's no bandwidth available.
+ 			 */
+-			if (!cpumask_subset(span, p->cpus_ptr) ||
++			if (!cpumask_subset(span, &p->cpus_mask) ||
+ 			    rq->rd->dl_bw.bw == 0) {
+ 				retval = -EPERM;
+ 				goto unlock;
 
