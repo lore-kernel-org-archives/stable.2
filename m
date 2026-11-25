@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608311;
-	b=NQ/b/uY+3i3L2n2KmVnasnvMnK4CQ7pxem56kXIajY5BNUCQJRLG65HIMkMjXjLADA+y
-	 y/Vzs6Ylt32T1aD+WGiuspfBi/uJmoxR5GwabVbMB6WZvAxrIRgWmUBj7MXZ/mSnvb5kI
-	 +aKbG0pvhbMGP8+alKgIzTCIxvDzHlayMOYjJ2ZuHRso2rY32kLJj9zMqymTd7u54939L
-	 7lCy2MfxFwjcYl5LCZf+yyctkVH8mwE74YgVFiXS3LIO25fEw64GhVaFYKSNZnV6K6aBg
-	 dHNSX31z8+dUWT5rKginGyYHw6G/F9CZEN2ilhHnI/tYbnAshHIRTA8C4yEYzCFYelQ==
+	t=1795608314;
+	b=Ffzqf0tVXn6Fk8TkZXMJGcB5G+YPaCIWabG3cmV9RDydEiqYaKs2nPMIKb+boS/TJmvG
+	 E3Sn6toHWWFduSSvUy+z06YzYWLfOo2YZiKjH4u+rUEfiRaZ1Mt6EUH4rPVwEq7/SsE7K
+	 lvISA87mkEY+G2kSH9MHOcbIDt/6Mx6yIVVBrySpxd0z0ndFLSpwk81Lp/Y7sOFa4/bfu
+	 AwmfvuWrrWmM8MJE1sLBXDvQnTpuExtnZdT9Yb8ATYAv5s8w7CYrY9qWkG+5bom1pDofW
+	 r1wOkUmzNhzht8fTIaX+02JGq9e/2eRxG2L4c8JwUP4AiEWoA2ETYdvdSyGCdMcOMvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608311;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608314;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=i7o59x2iqYlOWUW501HZ/z0VNP1vHARpYT9U+Qekh0Y=;
-	b=4og0YM+FdM1DGysZcQachmuopFI962cl/La1x0ztdSgOPEj72/jj4GGORIYAq6A519bO
-	 HcIr6wMi6o+hGvSnD0hglg+XDKKfKF42B4qvHbl153laX+XzR7GZC/s2XYr7d31Jk05gq
-	 QHNL16NazsyzKDslo/2q6Ki0Kw0V9ebC8xNXQ4/D6AZBs012+KEgTIn7RV1eR1oykKmmV
-	 bPSODMkeRk0gM0yBkLEM6Xa4SKvjtytScwFfR7Q7HDrsyp5OzYOszwenV9rKEGS8AA/W/
-	 5rejP9gtGaVayxeEJe9JwEmmsboT7Akw/rgijbzr8fzjeYm/3absRDSy2YLW/7USUmg==
+	bh=p6IEtKhcHHIBoSOimFvROMOhSVYN0H84C6BcuTMgQTU=;
+	b=G97V/XM6StPCiItWr3q/bRL87OO7UsjpYfDQaPf0DJShG4eZvDtpIQlQAJXCPKmpgYAZ
+	 vJCrGLOQ6lotN/2OYxancg333secqMZXScCx1hQBVEM99sEOKN1G25n0xZ3bYHqF98IPm
+	 Pf+DNrFplI/c7enA4wKlADegLemxyj6cil6i4El5BsBDhxeHqbYDcYDx/vG0xb+GReWnE
+	 s8tBQsuvzeFgeQgPot5s6c6AjPegGuYndY3qXG6F0N0+FN4BOF/zPN7mC1kek92vYzjko
+	 qZ02FkGALjhJRi1npJw0RdlwfFaG5KVUycNb/TxomAcIZ9KCP9ZZ5AtDkaGHVp/0Oog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="y/nacUQr";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oSp55UPd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF05E606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:05:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A75606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:05:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=y/nacUQr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89D1A1F000CF;
-	Wed, 25 Nov 2026 12:05:09 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oSp55UPd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD7BE1F000CF;
+	Wed, 25 Nov 2026 12:05:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795608310;
-	bh=i7o59x2iqYlOWUW501HZ/z0VNP1vHARpYT9U+Qekh0Y=;
+	s=korg; t=1795608313;
+	bh=p6IEtKhcHHIBoSOimFvROMOhSVYN0H84C6BcuTMgQTU=;
 	h=Subject:To:Cc:From:Date;
-	b=y/nacUQrzaxSXjfTD+s1WVHcOd5SecUBZ1C4brZIlks+iLj60oYtW75hVWzxK4vIy
-	 ZxmHyPOmvp81n05MwEhnZDGYNEkMyDSlfJSBKFoMvx9N5sODQbDrj0U5wSWjD92hHN
-	 EBH8NyQ/cUfiStJd4jVS0+YGZFnybqJ+vhy9PIoA=
-Subject: FAILED: patch "[PATCH] comedi: comedi_bond: Fix leak of opened device references" failed to apply to 6.6-stable tree
+	b=oSp55UPd53PFQLpruUyt8g5uqWABeEKVeXkuGDiiqxiPTsaQYB2GgnCjkKqp8IqHp
+	 wPuZxrXrgbkHOxnEme9xRvnfnP6YCWXCSfSm0nIpBC2dmDrHSGV0FhWJ9VZab96oLQ
+	 nF4ZTZl+zbYsPmKWjh7+5L1M2LUfWlWU/FdDp8Gk=
+Subject: FAILED: patch "[PATCH] comedi: comedi_bond: Fix leak of opened device references" failed to apply to 6.1-stable tree
 To: abbotti@mev.co.uk,gregkh@linuxfoundation.org,stable@kernel.org,vulab@iscas.ac.cn
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 12:27:38 +0100
-Message-ID: <2026112538-scuba-bok-ba4f@gregkh>
+Message-ID: <2026112538-proofs-decibel-82bf@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x fa0858523f07f8dd71d89b221f4422c3b8096d90
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112538-scuba-bok-ba4f@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112538-proofs-decibel-82bf@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
