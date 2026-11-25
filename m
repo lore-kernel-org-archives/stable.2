@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625159;
-	b=Swv3I8xHcokei+8SaHHVCe90bc9H8OKJK7ZCds+M3QiwtFnI7AbLCeGJH5gwwCMEOijX
-	 B5/BeQ0XmM8J6XlC5wiiBMBWsFQ7xAJpbYMD8DMxSP7jM1E7yoYrubtXF6s4SGBBucr97
-	 g/Vwb+ASekhfEv7lN/8EzAPotJE4JVFEhBbkGnaPln0GOIR48i0uTIJG5Gx2piqXSTkcm
-	 /oxRXR/WLeNFiQG8Fyo2vHj4w5FppmN/mZ0hNcaaTnGGJdis2qJNcOnrBQA+kbPYqoUS2
-	 CpKOpSQbHiqTQ/abys2RBj3JWUvd1EELDkv9q5ixweveb6tV8oSwXvsxZd0EJ2grJPw==
+	t=1795625164;
+	b=v79ZdA5KtA/khlpx1wnNGVd1mIXaXWD5Ubs+DA26Zl1UZPizM4PZL8ef0jtmZLBc69Lh
+	 AYz5RvavPPMh9igi36FjjpqHNa3cJpk8eAAGDhDTh9MQqPsFeFC3FjdMW1ISW69a6JPRt
+	 lT5XQ0SgqXKXHl2maJm/yNj1cwVqvpclLKOpp0OXCFa28Ujjtz1H260A0VTsp+QM40CLB
+	 1q5qw1MGRxlXfTbT4So2Nw/ko2ogbaRUgvmX8YhTA+VfTxILr4/CWg5yJyPrw5KbTWDtv
+	 aVC7IWBuokt28SL4A8aAjiVtSCqoSTRBtxWglGHeToKSIZNXcT7lPk5TAazntnp+92w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625159;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625164;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=cqUwYW0Z9r3mpmMKIs2i/vz9aPZFdEcomWRwyQfhIrw=;
-	b=NqeHbQAGgO2rhxJRbcPIfLcnSMzRO4fhz63Dh3Aw6d11gZ+LA9BX901pmmxzVFOjEkih
-	 R3mhyYjL63FUmRDdBmxNz/2tmSdoofYHaoE/qwjNCXbfvHRmtTOLm2WEruN7TpvXn7lZf
-	 49D7m2TLE/JbboDckL+/96VS1wSEEvkc+oG/duZVubBS+WyGDIsagCCDp/f9/Hd5coucT
-	 w8hmp36D50XYOiyIT+euVPuN599MjQzAbvzbUJKjOJmOXsXa6oHsp9E6U8qOJj1pPCsTQ
-	 OfKULZ9T4WCUdoB8WQT/CVCnB+H/SvJdRYd4z0OKlx4/Bo/jV1YPz7rTTDLfPbZH6TA==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=MtTsc/ey/CqXFVUGITNeSta7clININdKBZxNWxFltyk=;
+	b=v5zVUuPLLp9Lwe2oYIWzlhWLmD53dJ2VK15gcLBMv/lo0QxC3HiVp+UyzDqtsX1CiyY0
+	 erOsYLXE3czw6KI0gEVwmIHvpuryMZJDsWocUy7ZUkPVkkO/WFdm7oSY6uBe+FEBIX/Sn
+	 4DDfRK/xysLO86FCV1eTUKQqdf4HanfKTSBODvH3Zm8tKQsYKYltMx59vMLwt8DDpfUu2
+	 1VPbwW0KWGUlZCC+jT8hmYTJor0AJCa95ephnox/riW5P8F166dF5Lg74SNbl4O8tgKcC
+	 hqJQVMVgG1EFK9SBSd/J6yAsbETUwa2NS5ylEODP3OfiZn16lG7gQPgeeFyNCtN2u3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=akKUnKjI;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=asWkUfeZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B62606A327
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:45:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED2B4606A321;
+	Wed, 25 Nov 2026 16:46:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=akKUnKjI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE6CF1F000D0;
-	Wed, 25 Nov 2026 16:45:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795625158;
-	bh=cqUwYW0Z9r3mpmMKIs2i/vz9aPZFdEcomWRwyQfhIrw=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=asWkUfeZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E00A1F000EC;
+	Wed, 25 Nov 2026 16:46:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795625163;
+	bh=MtTsc/ey/CqXFVUGITNeSta7clININdKBZxNWxFltyk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=akKUnKjIZoCN73KNP3/u4FUqji3cmAsYqw4UW3FEw5X7amhtULmHkWeCPOjFfd8Nd
-	 oh2THq8j58oRhWu51mnr0UkD53KUVgqazp88rkrh3uizwbbjoUHAy6JTSvp9CNXnWr
-	 qxlPqwSjVwHydu38XeCPHCehOVl0WyCbMIkLGn6L2ROV45K6vd/KkQAbtYPIsQr1wA
-	 rv5x4enUa4FS/g9PuV1kQw5ROLxo+hWFJ1cxW6WmEqpdPz1BKbqUKsQJUuO2/M+W8G
-	 5RWWCxinnH3KySSAhGyKvyddOprbiCy/JEQhCJAGqfiTVEppMlHqLEoZy93377b8an
-	 MNatp+SD2m+jg==
-From: Sasha Levin <sashal@kernel.org>
+	b=asWkUfeZlJOO0+gNhn8CShBuHrwZdOoCqlKA327F7zs751FbFgMIkka+nqmrCIQRx
+	 7kPfrMzVBycMLGygWBNgUHLOygwb+k3M5wkp1wa3n6h4md67S4wZtRxf2b6p+3XzCZ
+	 QUjZtZ4JtJ+hpUnfxoaHDjBMzfBZ1rfeMi3xKIhM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Tim Menninger <tmenninger@everpuredata.com>,
-	Anna Schumaker <anna.schumaker@hammerspace.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Hao Sun <sunhao.th@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] pNFS: avoid repeatedly cancelling I/O for the same lseg
-Date: Wed, 25 Nov 2026 11:45:56 -0500
-Message-ID: <20261125164533.860584-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112557-unbolted-power-ae17@gregkh>
-References: <2026112557-unbolted-power-ae17@gregkh>
+Subject: [PATCH 6.12 428/816] bpf: Fix uninit read for helper mem args on partially spilled slots
+Date: Wed, 25 Nov 2026 15:32:56 +0100
+Message-ID: <20261125143859.100764049@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,108 +64,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tim Menninger <tmenninger@everpuredata.com>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 9e28836b480c66cca4c3d391177f5b3a50927f7d ]
+------------------
 
-Commit b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is
-recalled or revoked") added I/O cancellation when a layout segment is
-invalidated while outstanding references remain.
+From: Hao Sun <sunhao.th@gmail.com>
 
-The invalid segment stays on the layout's segment list until those
-references drain. Subsequent scans can find it again and repeatedly
-invoke the layout driver's cancel_io() callback. For flexfiles, this
-cancels matching RPC tasks and disconnects data server RPC clients.
-During RPC/RDMA data server recovery, repeated cancellation can cause a
-reconnect loop that consumes essentially all client CPU and prevents
-forward progress.
+[ Upstream commit b3861495d2b2f7459cddf49e63fa0758ba430583 ]
 
-Record cancellation requests per mirror stripe in the flexfiles layout
-segment. Each stripe is cancelled at most once, regardless of how many
-times the invalid segment is encountered. A per-stripe bitmap rather
-than a single per-segment bit preserves the ability to cancel I/O to a
-different device after an earlier device-specific cancellation.
+check_stack_range_initialized() takes the spilled register path when
+bpf_is_spilled_reg(ss) holds, which, however, only looks at the last
+byte of the slot. Hence, a partially spilled scalar (on the lower part)
+bypasses the check and the following loads:
 
-Cancellation is best-effort. An RPC that has already passed the
-layout-validity check may not yet be visible to the cancellation
-scan. Such I/O retains its lseg reference and remains subject to
-the normal RPC completion and recovery paths. Suppress repeated
-cancellation and disconnect requests without changing the existing
-lseg lifetime and deferred layout-return accounting.
+0: (b7) r1 = 1                        ; R1=1
+1: (63) *(u32 *)(r10 -8) = r1         ; R1=1 R10=fp0 fp-8=????1
+2: (18) r1 = 0x0                      ; R1=map_ptr(map=rb,ks=0,vs=0)
+4: (bf) r2 = r10                      ; R2=fp0 R10=fp0
+5: (07) r2 += -8                      ; R2=fp-8
+6: (b7) r3 = 8                        ; R3=8
+7: (b7) r4 = 0                        ; R4=0
+8: (85) call bpf_ringbuf_output#130
+...
 
-This reproduced on 6.8.0, 7.0.0, and 7.4.0-rc1. It was tested on
-7.4.0-rc1 with sustained pNFS/flexfiles I/O over RPC/RDMA while
-restarting the NFS service on a data server. Without it, repeated
-cancellation led to a reconnect loop and no workload recovery. With it,
-the client recovered after the data server returned.
+When executed, it dumps the uninit four bytes:
+	RINGBUF: 01 00 00 00 ff ff ff ff
 
-Fixes: b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is recalled or revoked")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
-Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
-[ sashal: Adapted the ff_layout_cancel_io() hunk to this tree's older one-argument version with no devid filter or RCU, placing the cancelled_stripes guard after the mirror_ds check. ]
+This is the same root cause as the non-fetch atomic case fixed in
+commit 5a84b4424db8 ("bpf: Fix uninit read for non-fetch atomics on
+partially spilled slots").
+
+Fix by only taking the spilled register path for the bytes marked
+STACK_SPILL, so the rest of the slot goes through the usual checks.
+
+Fixes: 354e8f1970f8 ("bpf: Support <8-byte scalar spill and refill")
+Suggested-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Signed-off-by: Hao Sun <sunhao.th@gmail.com>
+Link: https://lore.kernel.org/bpf/20260925082814.1554771-1-sunhao.th@gmail.com
+Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfs/flexfilelayout/flexfilelayout.c | 12 ++++++++++++
- fs/nfs/flexfilelayout/flexfilelayout.h |  1 +
- 2 files changed, 13 insertions(+)
+ kernel/bpf/verifier.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout/flexfilelayout.c
-index f45508bd30f6e..48c769f05b8a2 100644
---- a/fs/nfs/flexfilelayout/flexfilelayout.c
-+++ b/fs/nfs/flexfilelayout/flexfilelayout.c
-@@ -11,6 +11,7 @@
- #include <linux/nfs_mount.h>
- #include <linux/nfs_page.h>
- #include <linux/module.h>
-+#include <linux/bitmap.h>
- #include <linux/file.h>
- #include <linux/sched/mm.h>
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index 63bb703e0a64d..8666fb0ea3b75 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -7812,7 +7812,12 @@ static int check_stack_range_initialized(
+ 			goto mark;
+ 		}
  
-@@ -337,6 +338,7 @@ static void _ff_layout_free_lseg(struct nfs4_ff_layout_segment *fls)
- {
- 	if (fls) {
- 		ff_layout_free_mirror_array(fls);
-+		bitmap_free(fls->cancelled_stripes);
- 		kfree(fls);
- 	}
- }
-@@ -652,6 +654,12 @@ ff_layout_alloc_lseg(struct pnfs_layout_hdr *lh,
- 		fls->mirror_array[i]->report_interval = be32_to_cpup(p);
- 
- out_sort_mirrors:
-+	fls->cancelled_stripes = bitmap_zalloc(
-+		fls->mirror_array_cnt * dss_count, gfp_flags);
-+	if (!fls->cancelled_stripes) {
-+		rc = -ENOMEM;
-+		goto out_err_free;
-+	}
- 	ff_layout_sort_mirrors(fls);
- 	ret = &fls->generic_hdr;
- 	dprintk("<-- %s (success)\n", __func__);
-@@ -2548,6 +2556,10 @@ static void ff_layout_cancel_io(struct pnfs_layout_segment *lseg)
- 			mirror_ds = mirror->dss[dss_id].mirror_ds;
- 			if (IS_ERR_OR_NULL(mirror_ds))
- 				continue;
-+			/* Do not cancel a stripe again while this lseg drains. */
-+			if (test_and_set_bit(idx * mirror->dss_count + dss_id,
-+					     flseg->cancelled_stripes))
-+				continue;
- 			ds = mirror->dss[dss_id].mirror_ds->ds;
- 			if (!ds)
- 				continue;
-diff --git a/fs/nfs/flexfilelayout/flexfilelayout.h b/fs/nfs/flexfilelayout/flexfilelayout.h
-index ec69cd1c3ae96..311df9306b055 100644
---- a/fs/nfs/flexfilelayout/flexfilelayout.h
-+++ b/fs/nfs/flexfilelayout/flexfilelayout.h
-@@ -109,6 +109,7 @@ struct nfs4_ff_layout_segment {
- 	u64				stripe_unit;
- 	u32				flags;
- 	u32				mirror_array_cnt;
-+	unsigned long			*cancelled_stripes;
- 	struct nfs4_ff_layout_mirror	*mirror_array[] __counted_by(mirror_array_cnt);
- };
- 
+-		if (is_spilled_reg(&state->stack[spi]) &&
++		/*
++		 * Only the bytes marked STACK_SPILL hold the spilled register.
++		 * The rest of a narrowly spilled slot keeps its previous type
++		 * and must be initialized on its own.
++		 */
++		if (*stype == STACK_SPILL &&
+ 		    (state->stack[spi].spilled_ptr.type == SCALAR_VALUE ||
+ 		     env->allow_ptr_leaks)) {
+ 			if (clobber) {
 -- 
 2.53.0
+
+
 
