@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795610815;
-	b=1WBxHDG2qK0gk1sqXsG8y0pgcNmvwPaPGx8Mwy+McmggF/FlV0zAh07Ph8pZXgzGSWqN
-	 M7IHpEaJNK+v0SAresynBbeazcbZJxMitdcZc02mfQb4Ve1DDl1zaqEx8YzfPBQ8C6qOX
-	 F0twmxzC+ePtVvZNoAQLmCPujD1eJ+Z0tfzoFe4GPkRWgVDTwLJcJNUseIIRVfbBJH/rS
-	 FXi2jpQaDo5xouebe+tM9tcCn0JsuvU8OpOk7A2K4UFncLqLNjjVHWtDq52sNhrZZ1/pR
-	 IeNKu53tUUDAvqDGAv5M9M7nT4rFk7DIJm+Q6TMuNCIbuhBFB9oDbxuV5H8tzov1Ttw==
+	t=1795610819;
+	b=ANyO/jXPi2EQwReZ9WOZlc6GLd+UCh90mjtDlt2IkVLDbHmqyvPZTa4FTFA8LdJj3E4J
+	 alO0rZiwCsViIFJq3lTBNV5jMbHTpt5UwnNQQ4Ru/OetADaxy8KdHH42VqNjIvCQSRIf4
+	 J48ZtPi4BMFjifWT02CCH4aB7mvn/1z2w1Re3wZPelBZA8j4ZHDwjGcWOu7fwc61nf41j
+	 FMf4PoxFTge410yXfXRMAVodm2XPRKajUrRq6CK30sGr7OQgQWhhNU5CbhNMJaS8auAGU
+	 9SrYAL1rcD+6VpYOoHJiMlcMk8KXvsH9SpAL4aTLHXgVpwYGnDsBJl+K7DQCSff5c6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795610815;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795610819;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bFAkAdVYcnpCJ4077iU1L76CBshM5KqIw2m9PnM3KUA=;
-	b=F+oaUi1cDOhZXtgFCtqjryDKsXCdr/7oKeMxOwExqBAVoAE/1gywWmEEGJKjneL0/kZQ
-	 /rldmEXp5IPADXpsy1G0HQqIcH1X6tslM8vY2iGT+rtZB6oI0lNZcmtfBCwUtOfraLgGr
-	 vnS8GH+zdy3Q4MY+wdzn6OGPWDV4EQDJb2AaE2xQaYHiU156DQ9KdMVNJf7rwpULWNltf
-	 NTJ2kCBuGimL6KN/OpllKRwS8BsN6kb8jKt6bYhLJ6eGKrkxLyXq7oR3UxqnMmfgbhh3P
-	 igKvQFNc2EN1719E+kPt+XQAffk//HZxiSnZaxb4fLfv6bDApZEmGJ7ITJ/j4F/ooug==
+	bh=8SZc+DeionhtRrfIBQbUdgyzsh/BCgUsjsAERfOrwX4=;
+	b=dfRMBfrmvoGxxcmEKRbVQFieNtPqVHs59+S9akdBVY3T55E5eYdjOvEPHi6GfJjXjy6h
+	 p0MAgaYYqlEr7SmhJuJ5dLB49nMuWB1QZcJBo3ASxURNJ6s7LZCddZhkVHHycFzFbHskT
+	 geviQGKDuTvGgsUhQcKopKZJcJLkJQBcfmScoY/uTTwCWK+v6twYmNPpQmmsQj183WLAq
+	 LrDiCyJcwrR76oiGuWKVt7mZzyOJjd/zdkSYk8CxQ1eslzfG9QWSIqNSBw4+fFlEmUYJz
+	 eCRlbL+S8w6I0k4R8eQ5wjl1K7sNhZjLRzOLdLmN+JgoADhch+m5aeiV/cWg7v2gAsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="l5UBFAY/";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vwtu+FMA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC823606A332
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:46:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F4F606A333
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:46:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=l5UBFAY/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17CB71F000CF;
-	Wed, 25 Nov 2026 12:46:54 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vwtu+FMA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 738261F000EC;
+	Wed, 25 Nov 2026 12:46:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795610815;
-	bh=bFAkAdVYcnpCJ4077iU1L76CBshM5KqIw2m9PnM3KUA=;
+	s=korg; t=1795610819;
+	bh=8SZc+DeionhtRrfIBQbUdgyzsh/BCgUsjsAERfOrwX4=;
 	h=Subject:To:Cc:From:Date;
-	b=l5UBFAY/kJiLCpfuktdERdiPUux6BboW9KB+gh7taOqzpfkQlJN7qrhxbE5kBkCIy
-	 NVEC+TV8O3vAowo7FrEkldzia5waEYeHblCaqDPgggZkTdqWW6c7rM4W0icHMQ4Gfr
-	 AyxnKbFX+GJnNMtVpKylvHb0tc5rKgqW5xq0Wu1s=
-Subject: FAILED: patch "[PATCH] iio: temperature: hid-sensor-temperature: Use per-instance" failed to apply to 5.10-stable tree
-To: ch@murgatroid.com,jonathan.cameron@oss.qualcomm.com,joshua.crofts1@gmail.com,srinivas.pandruvada@linux.intel.com
+	b=vwtu+FMAGQz/E8JXoIg2FtfR6mmoMNArgLRgVjKo8nsE+REINc+4VY44fkSX3IAQ6
+	 9vM3Us+ONFZYvGTdC1MMqXaRWFeKF25iBpZbpTTA/8pzo1m3ii2dCRGOD5keOdvge7
+	 sgrzZhpfsoWEJyrN6Gj4CcXvjo3mScMHqx2bwgAo=
+Subject: FAILED: patch "[PATCH] iio: trigger: free the trigger ID after device_del()" failed to apply to 5.10-stable tree
+To: lcy8047@gmail.com,jonathan.cameron@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 13:44:52 +0100
-Message-ID: <2026112552-salvation-spyglass-56fb@gregkh>
+Date: Wed, 25 Nov 2026 13:45:08 +0100
+Message-ID: <2026112508-sinister-decency-b03e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 36eeb26031e90eeb81bbac3d3acad61d23fcbdf3
+git cherry-pick -x d32bf759801e6df23038dc834622a122ec76a4dd
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112552-salvation-spyglass-56fb@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112508-sinister-decency-b03e@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,75 +79,43 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 36eeb26031e90eeb81bbac3d3acad61d23fcbdf3 Mon Sep 17 00:00:00 2001
-From: Christopher Hoover <ch@murgatroid.com>
-Date: Sun, 18 Oct 2026 19:34:19 -0700
-Subject: [PATCH] iio: temperature: hid-sensor-temperature: Use per-instance
- callbacks
+From d32bf759801e6df23038dc834622a122ec76a4dd Mon Sep 17 00:00:00 2001
+From: Changyul Lee <lcy8047@gmail.com>
+Date: Fri, 6 Nov 2026 12:47:37 -0500
+Subject: [PATCH] iio: trigger: free the trigger ID after device_del()
 
-hid-sensor-temperature keeps a single static struct
-hid_sensor_hub_callbacks for all instances and overwrites its pdev in
-every probe.  With two temperature sensors, input reports for one are
-delivered with the other's platform device; once that device is
-removed, platform_get_drvdata() returns NULL and
-temperature_capture_sample() dereferences it:
+iio_trigger_unregister() returns the trigger ID to iio_trigger_ida
+before device_del() removes the "trigger<N>" device. A trigger
+registered in between can get the same ID, and its device_add() fails:
 
-  BUG: kernel NULL pointer dereference, address: 00000000000003a8
-  RIP: 0010:temperature_capture_sample+0xd/0x50 [hid_sensor_temperature]
+  sysfs: cannot create duplicate filename '/bus/iio/devices/trigger0'
 
-The oops happens in sensor_hub_raw_event() with the hub's spinlock
-held, so the hub's removal then hangs.  It reproduces with two uhid
-devices that each declare a temperature sensor, one destroyed while
-the other still sends input reports.
+For example, adding a sysfs trigger while an hrtimer trigger is being
+removed through configfs, or the other way around, hits this because the
+two paths do not share a lock.
 
-Keep the callbacks in struct temperature_state, as the other HID
-sensor drivers (accel, gyro, als, ...) do.
+Free the ID after device_del(), as the error path of
+iio_trigger_register() already does, and drop the "Possible issue in
+here" comment.
 
-Fixes: 59d0f2da3569 ("iio: hid: Add temperature sensor support")
+Fixes: 1637db44413e ("Staging: IIO: Trigger support added to core.")
+Signed-off-by: Changyul Lee <lcy8047@gmail.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Christopher Hoover <ch@murgatroid.com>
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-diff --git a/drivers/iio/temperature/hid-sensor-temperature.c b/drivers/iio/temperature/hid-sensor-temperature.c
-index 5e3262e461f4..ae67daff6df5 100644
---- a/drivers/iio/temperature/hid-sensor-temperature.c
-+++ b/drivers/iio/temperature/hid-sensor-temperature.c
-@@ -15,6 +15,7 @@
- struct temperature_state {
- 	struct hid_sensor_common common_attributes;
- 	struct hid_sensor_hub_attribute_info temperature_attr;
-+	struct hid_sensor_hub_callbacks callbacks;
- 	struct {
- 		s32 temperature_data;
- 		aligned_s64 timestamp;
-@@ -181,11 +182,6 @@ static int temperature_parse_report(struct platform_device *pdev,
- 	return ret;
+diff --git a/drivers/iio/industrialio-trigger.c b/drivers/iio/industrialio-trigger.c
+index fc4651490d42..1078ffa8e06a 100644
+--- a/drivers/iio/industrialio-trigger.c
++++ b/drivers/iio/industrialio-trigger.c
+@@ -105,9 +105,8 @@ void iio_trigger_unregister(struct iio_trigger *trig_info)
+ 	scoped_guard(mutex, &iio_trigger_list_lock)
+ 		list_del(&trig_info->list);
+ 
+-	ida_free(&iio_trigger_ida, trig_info->id);
+-	/* Possible issue in here */
+ 	device_del(&trig_info->dev);
++	ida_free(&iio_trigger_ida, trig_info->id);
  }
- 
--static struct hid_sensor_hub_callbacks temperature_callbacks = {
--	.send_event = &temperature_proc_event,
--	.capture_sample = &temperature_capture_sample,
--};
--
- /* Function to initialize the processing for usage id */
- static int hid_temperature_probe(struct platform_device *pdev)
- {
-@@ -237,9 +233,13 @@ static int hid_temperature_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, indio_dev);
- 
--	temperature_callbacks.pdev = pdev;
-+	temp_st->callbacks = (struct hid_sensor_hub_callbacks) {
-+		.send_event = temperature_proc_event,
-+		.capture_sample = temperature_capture_sample,
-+		.pdev = pdev,
-+	};
- 	ret = sensor_hub_register_callback(hsdev, HID_USAGE_SENSOR_TEMPERATURE,
--					   &temperature_callbacks);
-+					   &temp_st->callbacks);
- 	if (ret)
- 		goto error_remove_trigger;
+ EXPORT_SYMBOL(iio_trigger_unregister);
  
 
