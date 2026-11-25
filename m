@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795598727;
-	b=1ThEbg6NDMCzahsU7BkksuXva9SyXr0vq47jA5v01GZ5RajkyzSouye8CqlM8pDOYOzd
-	 qjp0DVxclegh1NrowTrOgC8u5LNRm0wUG10K6umUfGc/D52NS/fc9QdAAYtAvlm762HvB
-	 PkwnKCe7dOUdraM4UztKRGrYDIDnJIg4RL5KArojZH9Pbw54HLa4X0PfXE6kiIhHzNUge
-	 URaNl+ZvlAmaqn0H/4LqDPEmmgFFr/gGtMViaitULriZJ8qiY411wgMWxUomuhQRrctei
-	 ikT1gsgyWzLiQqZV4e8R3gWyU0S0AKLRztTngcooW1eplhpn2QoxAnSYcO5LKUKUJnQ==
+	t=1795598730;
+	b=NNqHIIXOfK/UeVMcw/m07Q3P0kF7L6sVjYXGge690e1eeWTilmh2my8c5ocifyHp8p+4
+	 3fgUWOfnOmDfAyA0k17TbpHLHkvEof3U0SkKykBeJJzRoleSLgf9jlcx32wlmwi1lB7Lk
+	 AMtEZfI3205z98UjEkjnRA5bAeDw9LB4pI6nYvvFfAon4D+xmSJRkhixhzy6fG/46cQu3
+	 j44ilvdYf0mCfYfHJj9OSat31wfCInON6C2+u8RF+d0juNpaAieIhyKmh7zL4LbqFNZ3f
+	 C6AqlEPNS8O75BilKG59nQ40rg0QUHbdOZjOnFjZzekSeN31Qnu23nU9zUXvDpPUGgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795598727;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795598730;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ktcjucnqdTrMnCRIyRtkkWnit46bU99D/QGVW7mPPk0=;
-	b=S5oIHuAKp5lZEwwWsUDUamaTm1X26NLB272KVP/bNwbh3CnssdXC8+hkLPZaG8M86ikF
-	 maMRcmLyNoFbXTm2xNkDfoVO+AaQihp/kp1pAXQ/Rlpi4kukz7c84ZfirOhvvhv6Rz/hj
-	 I7RTUkhNT7dFxjbKqBWbbYOpsXAM3VzGigjg4Y3xrmfpPbwtgJDIkL7PzkZ+/PMCP/N0j
-	 0Bp5mm+hJblt66atQQ5yq13v30QBYJFtLLjkEKYgOf9JLvBOFzTPoLKjUFu0wSshjbV2J
-	 Dx4WoQsLCdRCrqUFZnhJbaBHDLEeUA1p8gCvtg5u4sPgnzi5Wh/aPoWEOfyybARLqJg==
+	bh=MWXG/5o8xXSscDae02nFwr3+AtZebAH8n35z7ReWjnY=;
+	b=bfO+2sCXmuoMBtD74xZynUhIJNPn9Ng+aj4q0hutEYwUFxMiR+e/0W26MBECJdPDNM6W
+	 RyIcphQgqwL3HKZMly+zLwzzgoBXqNCCBEwmPnxMFm4yTrF7FWUPwVZwWjhoUsqd4EjMG
+	 A54R3vZdKC3hFoT68mvdxrmWwa2McgvLuE5ZXEU43MEVDOQUMdjLtNZUjKXFh8x3Wi6eb
+	 N7PmiJL3uz+yIY0xop+EgVSGVqWTiAskI92iXGxket69BWZxZkaTID+jxIfk74A6J0kCC
+	 Ocz1qT4tciX6SZ2YUUpia0OnCnjO36/te9JI7fYSTf7xoWCnOyRC/ixX4kgjRFJ0N/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YRHWV4PK;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U3N4tmAe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91835606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:25:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D535B606A32E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:25:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YRHWV4PK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AC1C1F000C4;
-	Wed, 25 Nov 2026 09:25:26 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U3N4tmAe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A44F1F000CA;
+	Wed, 25 Nov 2026 09:25:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795598726;
-	bh=ktcjucnqdTrMnCRIyRtkkWnit46bU99D/QGVW7mPPk0=;
+	s=korg; t=1795598730;
+	bh=MWXG/5o8xXSscDae02nFwr3+AtZebAH8n35z7ReWjnY=;
 	h=Subject:To:Cc:From:Date;
-	b=YRHWV4PKcD32kbSw0//Go4Y6hM3m3rLylCoGiM1C0fJ64hf9oom0S8xiDetOddBLh
-	 +JohtCCaz2caNeBlOu/fN9mqNVohiIxwUdnYRmKamuAI8RIAEaQzf/YXssbaLJ0IhA
-	 mc0N35dypr5baMvs2oj6FAfLlyvmwCOHcIvYHxuA=
-Subject: FAILED: patch "[PATCH] Bluetooth: btusb: fix use-after-free in force_poll_sync" failed to apply to 6.18-stable tree
+	b=U3N4tmAexx2SsnPfMTMNGuaU/AGI26X1cPbMVI+U95hHta0xYGPiOq7YquAisrKxD
+	 5Nx+hE479R8lctL12ptkhIykmkbFlF6oQn3ihbIjYc9mUqdCKhn30v0a30A+GAVbf/
+	 0+OJM2p8+ELEAwSbufETaByJ3VuQT25CZJTLqVJI=
+Subject: FAILED: patch "[PATCH] Bluetooth: btusb: fix use-after-free in force_poll_sync" failed to apply to 6.6-stable tree
 To: 25031212351@stu.xidian.edu.cn,byu@xidian.edu.cn,luiz.von.dentz@intel.com,wencheng@xidian.edu.cn
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 10:17:42 +0100
-Message-ID: <2026112542-sheet-unloaded-b161@gregkh>
+Date: Wed, 25 Nov 2026 10:17:43 +0100
+Message-ID: <2026112543-dislodge-padded-0851@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 868c886f45f7c10dc888b94c6993352702a84d04
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112542-sheet-unloaded-b161@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112543-dislodge-padded-0851@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
