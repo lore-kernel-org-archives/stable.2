@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606332;
-	b=P5xRo4j/5159gV5GBZXGOYtBTg8G8HwKycM4aXuNaiku0sG97BWjXSECwcPCQ7kAbMFp
-	 8M0awViqy4bSrMXP81I+ZBllgYdChUDjd/n/2QZsN0JCZCYtG93ds33uBGwJEMU+46Lx6
-	 0WaiZ7QBNc0EyBVlIwvcDmjh7mE2idBjusLUykENDorlcC49B0v+z1ZQaa4e33IC0601F
-	 LnVgDfHMsnAhu8+AZhyJ+F4kpTBCc7sy8HJkYFx2XXgueuiXCsgHvzMEYA+dAUlTkRrwH
-	 IHtPCXYYaNUMQ8yoKAegJlkQOiav2ByY4USCrhRuo+jdgd5H+Bx2h2RODeTIJb0ry/Q==
+	t=1795606335;
+	b=bPcbE3wriDYcTKzZ6LWuMzBaRhmoW+OywtzhHyFcscd7fK+i9NS/35GtfXnZC81w+Q4y
+	 sbtcpvB7I4WoXDUzRiqTHaunr/SIBvcGL6eV6/ywz322C18pjojHKG9MvRif1G8jTYWPi
+	 Nh19Xgc0zBaygSunbeRxZAKpC7erg4WCpexoIpWu93QpUMbd56BZ+uqXr4jxMY5pOzAXk
+	 sbngsn2Nud/y0vdXIDcRg2MCJtDR7bRwi8AmKR6amUsvJeAvIuuI5okNiAapn006QRUpK
+	 rTgRGc8f+QrpC0UcJ7OO4aWICulqIFYu5Bl8GzssyI6orxmtOKGFwZXXoPm+ua5SsWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606332;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606335;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=LWG0NoS2gMNI6wMq1SZUma9XWgiUcuTmuYMS9ZFYKeY=;
-	b=5HKjmNA0vmO3chqk2iFjgURiNvPEqXKxGAAw6N5ZfBmFEkJ9Zjc8x5xjfIy+qNx3mN+F
-	 XbX8hPcoA57IpQEdDRhGAgZMykWqxLDk3QMdJHiZgXqK2KBJjKDDmWU2hlos4PnZ/XaDC
-	 XtRuxHxT4v1r+a1Re1Xynxk1mIv3BhE7Hcq3hyU+n+zkf/eYmJdGO6jzV1xggJmdXyWP8
-	 zlrVgEx5RKTMWb+BR+mxfHYM/A0DnsINC4SDeXtzHNr0wby75LRlBFnFPhDUplUX4hMzF
-	 r83DsZ6O7EAKh7RFbEMEUIo9aivNjdcJTZcxCKdc7wObeOKEwMZ6dtNjd1pGFIDtW7w==
+	bh=iFencG2x5rYFqaeiZEZGvrfhLEcvP8sy92g8NT2hNOU=;
+	b=YIkOC0aCd1Q+pM7mGOmvG0BK1sk712NsZw0Uf3xT/5eRw35ENXkp2PXEel7fwiWMq14j
+	 VjZn6nZ4wW+nhQ+wFRJWTuhKcpiMh+ijD9/MtI569AtxZJDScOnqhOE/m6Pq+GjF7x3Dt
+	 BkNoF3hfjzh+89EHyYssfCsBhNLsgjtgGvdjMwPgF9gggBDUAaiu9RoWxuaJx5lohnTsX
+	 ybyHb7sT5qIv7MmTwpwTB/SfumUlQHZvR6rE+gngkO2c1wA5W4lg4FvCDE+hNCs1Tw7u5
+	 3pRHztKk6PTHJVfFvNp7V3ZUh/N0h0CSPnnTMc9CW66PeNm8yH8VNV82rxy50onMwpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AV7VWuwU;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2HSIB0os;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8A5606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:32:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C55C3606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:32:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AV7VWuwU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CA091F000E6;
-	Wed, 25 Nov 2026 11:32:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2HSIB0os
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0A11F000D0;
+	Wed, 25 Nov 2026 11:32:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606332;
-	bh=LWG0NoS2gMNI6wMq1SZUma9XWgiUcuTmuYMS9ZFYKeY=;
+	s=korg; t=1795606335;
+	bh=iFencG2x5rYFqaeiZEZGvrfhLEcvP8sy92g8NT2hNOU=;
 	h=Subject:To:Cc:From:Date;
-	b=AV7VWuwU9y7sgcdNKrMOIv8wnUwnrJeJpDQgh/EEiD10ZvPrcekVMO9fl9/zNW/8L
-	 RSYPGywgaa2OG0KSZlnn01wOrtG7WxmaonUFJTf/a0SL2IdvnmatzJ8v0RCucgRneg
-	 YAX/mRmAd3/f4BXh9HFVkVOkotWiURJ7v59uBW2A=
-Subject: FAILED: patch "[PATCH] dm: fix infinite loop in dm_blk_do_report_zones()" failed to apply to 5.15-stable tree
+	b=2HSIB0osuA9WHXZaxkLWC7JSwBGUuSLhh2xoTPK9UELQ72wWT02npyiWTZlrxTHer
+	 JPcR5RyxWSRxhJUEismcTUZqlcYr40h/gdIzHG4E0/fnxY/6DNZlMJ+khyAuag67e3
+	 kY4/8LJXAxG92lDiByPIsLcWAki1fSn8VFRpObdw=
+Subject: FAILED: patch "[PATCH] dm: fix infinite loop in dm_blk_do_report_zones()" failed to apply to 6.1-stable tree
 To: mkbund@amazon.com,dlemoal@kernel.org,mpatocka@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 12:18:28 +0100
-Message-ID: <2026112528-skyline-strongbox-22b3@gregkh>
+Message-ID: <2026112528-skipper-aware-9168@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 648320de920b30ae1730bbf0e8b86c0df0fb490a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112528-skyline-strongbox-22b3@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112528-skipper-aware-9168@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
