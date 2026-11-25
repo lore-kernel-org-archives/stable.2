@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795622372;
-	b=UtS9/H5HcjBdzA3LmgvYK818VAWPGgHLPPzV2Zm9omHecbCAjM5PbnP5QVwcjspTG4Rg
-	 NRDm54WcXNDGNcVtxH7cH/oHDieQuyd0zxCaig7Jg0z7gSArvXWnQuTGqluUNS8Z8mNm+
-	 905wQk2Fxeb/1/wTj6R0s37HPo8Ri8z+pfwO7c7wVapIEHvQdMBdUPbMzRhZqgRCT+dh0
-	 +go43+qamMlvJiRSbfKoHrNUy3y5WCwql5O6XoEtrjgPZ5ZUW59xN2ZBFYnHsej11M5AT
-	 NYtGJSt+HquJUR4kc+2QmgDt8L/+8jHSJDRir3VcBfAV4f4C8BfET8nXJBuEboob5iA==
+	t=1795622373;
+	b=ajTO0+Db8gJr0kft13DCjmOR2kgwt30ON8bA94/sMCqmq8CxhC7a4G2SxUyFTKR3g+e7
+	 fTXpFNpNfODV1jLfUarcEm92yw8cdmiDFt4LO8+YCsTg2/xtF+UWCNsAMA9IIGfwtQyYq
+	 sfH3tiTXDEE1szuBVvzqmAAv1v1goTCeJOhHU+GgdQAd+6UCW2O2l0UoX/7xvgCIfvY4T
+	 ZBYSjYHTzOtVO1Xq2PoZ0URGKLEc8b8l+e6w8lcmtpT10OL/t5qD8ANdv2rzGnTD9RQtr
+	 AkNRZ4BytLYIK2w/uAJ4q3aeKK5Wj5SPOqwhq+1AJviJAeBZx1ysjc/LPJYv3Agw1NA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622372;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622373;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=IX67dhVAVPOqcuumhpeAkRkcdb32lQ2mnonIXwac7UY=;
-	b=FA9hQTssLMYt6xxfGPDZ5TgL4GoJQuoYcfhRDdS561yPNmMhh4iWfgFx7yv9J8PocsUt
-	 Pc98leVgIZ01cl4jmllrcLySTwd6OoU04fHRdfSlhqx2isBogm/hWl2m92V2qvGFrTkEa
-	 MKyKPzfZ4wUZlfv0WYBtEhV+rK038pj5CSluHJE8z9v18DnUI6au92RQiy/T82dKyQXgZ
-	 nIVKppeI+OmgsHjawb20eHiVDeFGms8T9UT8BFjIvjVsuwMvJpTywSpAkzTOT1HGamTDp
-	 WbI6ZBnMJMB8dqoqM4j7HjpLdQ/3Vn23Y+rzdX1yESw/rRxPoIEzBZ3390+A7F75ZpA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=XJL1ybkRsDna5i6HUgQb+nGNi8JKW7vDET7tRDscuZM=;
+	b=qhdGIqC5hE7AJKHfj6TypwF9IcYAPs5DOguzg6l7RyKpEoAxlRhBg/uk77WMpVV/Dp07
+	 kfpKi/1bOA56R8Gv6T589bNhbcNaUrjcApeZwipKpeAMLxKLOLW/v6s0zt2Sa+xmT1xst
+	 jU+5PTEFhkfBB6XtbVUuBNNGrdWYRu35xNIKGybWLAKH4kxbfE7BpNvWoIROUcj2A2lnG
+	 /F9642S4lY+As8aRz2alnS6ye8VIeGz24GwxrvXMqcldBMbzAaNCgEsmz0dUbhM/h0WQq
+	 XBhKtM7D+EFOOk9HvuR2PKm0XO7ylgNRdaPCifJ79ZveTSopgSmHXrPji6H/tYqjnqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WGN5DlDQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ed0pQDDd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D20E606A327;
-	Wed, 25 Nov 2026 15:59:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FB8606A327
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:59:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WGN5DlDQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D89F81F000CF;
-	Wed, 25 Nov 2026 15:59:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795622371;
-	bh=IX67dhVAVPOqcuumhpeAkRkcdb32lQ2mnonIXwac7UY=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ed0pQDDd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE4D51F000D1;
+	Wed, 25 Nov 2026 15:59:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795622372;
+	bh=XJL1ybkRsDna5i6HUgQb+nGNi8JKW7vDET7tRDscuZM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WGN5DlDQgjl7Bxs6DjwX3cZHPFe4O1e81j81DUQkxYtx0kCPl+O2p5KgB2dTIlrWs
-	 pS/KHJHA0DR3nCoMd8gY840rCd5a8uFWb7CI7p53iAgfqKxD8vbfue9GKBhBhwNvCD
-	 BYAtg+ohj1sp/tWJWaOmYcCEJT9X6QNHm7TPHLFY=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=Ed0pQDDd6G/3ELuLm9DXbtCwWpkiwqoBdrfcGsjXcmOntjZmxYTbfSoxSSeQHbJ5D
+	 2nZfmpMA81P2DN1iTBNZ0suodZC7z5ZUW4PFCpwn96BGg1qmZaw6OV7kk0zf8YR1AE
+	 KOxY+x5bmvPu0ChmDZ1hBBEcLbolteFO0gOA1hephLRV+8fI/HbxIq0PyBpfk9InjW
+	 YZYz6Ets2kd8b7BYUQVzjbWq2RoVOiM1QdJxPQRd13yy8GMW1HLv9tlS5GlceevO4P
+	 5/90RambtoBhIPGYoFR3b7WBa7HC7iGwnOSiFqC5uSIF4L+vfwmlnLqhuIWPrelN11
+	 2PFRPXV4yo7iQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Vinod Koul <vkoul@kernel.org>,
+Cc: Eric Dumazet <edumazet@kernel.org>,
+	syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	Naman Gulati <namangulati@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 516/990] phy: samsung: usbdrd: propagate GS101 PIPE3 lock failures
-Date: Wed, 25 Nov 2026 15:31:23 +0100
-Message-ID: <20261125143834.183521822@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y] net: wait for in-flight device unregistrations before netns dismantle
+Date: Wed, 25 Nov 2026 10:59:30 -0500
+Message-ID: <20261125155906.641582-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112529-purify-proven-454f@gregkh>
+References: <2026112529-purify-proven-454f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,263 +64,169 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Eric Dumazet <edumazet@kernel.org>
 
-------------------
+[ Upstream commit c164a431a646983275d0076ff5b0e4c326fbc10b ]
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+A device can be unregistered by a context other than the cleanup_net()
+of its own netns, for instance a veth whose peer in another netns is
+deleted. If references on it are still held, it stays in
+netdev_wait_allrefs_any(), which rebroadcasts NETDEV_UNREGISTER every
+second.
 
-[ Upstream commit 2ef1e78ef7223eb16d9cf20814a1b2873456f671 ]
+Meanwhile its netns can be dismantled: default_device_exit_batch()
+only takes care of devices still listed in the netns, then pernet exit
+handlers free their state, and finally struct net is freed while the
+device still points to it.
 
-The GS101 PIPE3 initialization checks the PMA PLL lock and then checks
-the CDR lock. The PLL helper returns an error, but the GS101 PIPE3 init
-path dropped that result. The CDR helper only logged a timeout. PHY
-initialization could therefore still return success after either the PLL
-or the selected receive lane had not locked.
+The rebroadcasts then run notifiers against torn down pernet state, or
+freed memory. Three instances were reported so far:
 
-Make the in-file SoC-specific phy_init hook return an int so helpers
-with real failure results can propagate them through the existing PHY
-init paths. Keep the register-only helpers returning success and use the
-new return path to report the GS101 CDR wait failure. Other SoC helper
-paths keep their previous success behavior.
+ - netdev_genl_netdevice_event(): net->genl_sock is NULL [1]
+ - nh_netdev_event(): net->nexthop.devhash is NULL [2]
+ - nf_tables netdevice notifiers: use-after-free of the nftables
+   pernet storage [3]
 
-Fixes: 32267c29bc7d ("phy: exynos5-usbdrd: support Exynos USBDRD 3.1 combo phy (HS & SS)")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260623135349.42739-1-pengpeng@iscas.ac.cn
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
-[ sashal: Dropped the exynosautov920 hunks because that driver support doesn't exist in this tree; the remaining hunks apply unchanged apart from context and offsets. ]
+but any notifier using dev_net(dev) is affected, as is
+netdev_wait_allrefs_any() itself (__rtnl_net_lock(dev_net(dev)) with
+CONFIG_DEBUG_NET_SMALL_RTNL=y).
+
+This was prevented by rtnl_lock_unregistering() until I removed it
+in commit 8a4fc54b07d7 ("net: get rid of rtnl_lock_unregistering()"),
+considering only the loopback dependency, and missing the notifiers one.
+
+Restore a per-netns counter of devices sitting in netdev_run_todo(),
+and make default_device_exit_batch() wait for it to reach zero, after
+it has unregistered all devices of the dying netns(es). At this point
+no new unregistration can be started for these netns.
+
+Unlike the old barrier, this only waits for devices of the netns being
+dismantled and runs after their own devices are gone.
+
+Tested on a KASAN kernel with a debug-only hack holding a reference
+on a veth device for 5 seconds after its unregistration: a nexthop
+on the veth in netns X, delete its peer from init_net, then delete X.
+Without this patch, the nexthop_flush_dev() null-ptr-deref from [2]
+triggers. With it, no splat; netns churn and dismantle of a netns
+whose own device is held still work.
+
+[1] https://lore.kernel.org/netdev/6adf9f64.6200f071.51519.0ed1.GAE@google.com/
+[2] https://lore.kernel.org/netdev/20261105114707.3030737-1-bsdhenrymartin@gmail.com/
+[3] https://lore.kernel.org/netdev/20261105114817.3033625-1-bsdhenrymartin@gmail.com/
+
+Fixes: 8a4fc54b07d7 ("net: get rid of rtnl_lock_unregistering()")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/netdev/6adf9f64.6200f071.51519.0ed1.GAE@google.com/
+Reported-by: Henry Martin <bsdhenrymartin@gmail.com>
+Closes: https://lore.kernel.org/netdev/20261105114707.3030737-1-bsdhenrymartin@gmail.com/
+Closes: https://lore.kernel.org/netdev/20261105114817.3033625-1-bsdhenrymartin@gmail.com/
+Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+Reviewed-by: Naman Gulati <namangulati@google.com>
+Link: https://patch.msgid.link/20261105144543.1624238-1-edumazet@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: adjusted context for a missing dev_mc_genid field in struct net, and moved the wait_event placement relative to the rtnl_net_flush_workqueue() call. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/phy/samsung/phy-exynos5-usbdrd.c | 66 +++++++++++++++++-------
- 1 file changed, 47 insertions(+), 19 deletions(-)
+ include/net/net_namespace.h |  1 +
+ net/core/dev.c              | 35 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 36 insertions(+)
 
-diff --git a/drivers/phy/samsung/phy-exynos5-usbdrd.c b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-index 93ac302de1eb0..966a894d91b76 100644
---- a/drivers/phy/samsung/phy-exynos5-usbdrd.c
-+++ b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-@@ -418,7 +418,7 @@ struct exynos5_usbdrd_phy;
- struct exynos5_usbdrd_phy_config {
- 	u32 id;
- 	void (*phy_isol)(struct phy_usb_instance *inst, bool isolate);
--	void (*phy_init)(struct exynos5_usbdrd_phy *phy_drd);
-+	int (*phy_init)(struct exynos5_usbdrd_phy *phy_drd);
- 	unsigned int (*set_refclk)(struct phy_usb_instance *inst);
- };
+diff --git a/include/net/net_namespace.h b/include/net/net_namespace.h
+index f659d1efcd3ce..7b53eb6c21798 100644
+--- a/include/net/net_namespace.h
++++ b/include/net/net_namespace.h
+@@ -68,6 +68,7 @@ struct net {
+ 	spinlock_t		rules_mod_lock;
  
-@@ -655,7 +655,7 @@ exynos5_usbdrd_apply_phy_tunes(struct exynos5_usbdrd_phy *phy_drd,
+ 	unsigned int		dev_base_seq;	/* protected by rtnl_mutex */
++	atomic_t		dev_unreg_pending; /* devices in netdev_run_todo() */
+ 	u32			ifindex;
+ 
+ 	spinlock_t		nsid_lock;
+diff --git a/net/core/dev.c b/net/core/dev.c
+index bd1b0f10d9374..426f6d2e19524 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -10145,6 +10145,14 @@ atomic_t dev_unreg_count = ATOMIC_INIT(0);
+ static void net_set_todo(struct net_device *dev)
+ {
+ 	list_add_tail(&dev->todo_list, &net_todo_list);
++	atomic_inc(&dev_net(dev)->dev_unreg_pending);
++}
++
++/* Paired with net_set_todo(). @net must not be used after this call. */
++static void net_unreg_done(struct net *net)
++{
++	if (atomic_dec_and_test(&net->dev_unreg_pending))
++		wake_up(&netdev_unregistering_wq);
+ }
+ 
+ static netdev_features_t netdev_sync_upper_features(struct net_device *lower,
+@@ -11034,6 +11042,7 @@ void netdev_run_todo(void)
+ 		if (unlikely(dev->reg_state != NETREG_UNREGISTERING)) {
+ 			netdev_WARN(dev, "run_todo but not unregistering\n");
+ 			list_del(&dev->todo_list);
++			net_unreg_done(dev_net(dev));
+ 			continue;
+ 		}
+ 
+@@ -11043,8 +11052,11 @@ void netdev_run_todo(void)
+ 
+ 	cnt = 0;
+ 	while (!list_empty(&list)) {
++		struct net *net;
++
+ 		dev = netdev_wait_allrefs_any(&list);
+ 		list_del(&dev->todo_list);
++		net = dev_net(dev);
+ 
+ 		/* paranoia */
+ 		BUG_ON(netdev_refcnt_read(dev) != 1);
+@@ -11063,6 +11075,8 @@ void netdev_run_todo(void)
+ 
+ 		/* Free network device */
+ 		kobject_put(&dev->dev.kobj);
++
++		net_unreg_done(net);
+ 	}
+ 	if (cnt && atomic_sub_and_test(cnt, &dev_unreg_count))
+ 		wake_up(&netdev_unregistering_wq);
+@@ -12298,6 +12312,17 @@ static void __net_exit default_device_exit_net(struct net *net)
  	}
  }
  
--static void exynos5_usbdrd_pipe3_init(struct exynos5_usbdrd_phy *phy_drd)
-+static int exynos5_usbdrd_pipe3_init(struct exynos5_usbdrd_phy *phy_drd)
- {
- 	u32 reg;
- 
-@@ -668,6 +668,8 @@ static void exynos5_usbdrd_pipe3_init(struct exynos5_usbdrd_phy *phy_drd)
- 	reg = readl(phy_drd->reg_phy + EXYNOS5_DRD_PHYTEST);
- 	reg &= ~PHYTEST_POWERDOWN_SSP;
- 	writel(reg, phy_drd->reg_phy + EXYNOS5_DRD_PHYTEST);
++static bool __net_exit netns_dev_unreg_pending(const struct list_head *net_list)
++{
++	struct net *net;
 +
-+	return 0;
- }
- 
- static void
-@@ -778,7 +780,7 @@ exynos5_usbdrd_usbdp_g2_v4_pma_check_pll_lock(struct exynos5_usbdrd_phy *phy_drd
- 	return err;
- }
- 
--static void
-+static int
- exynos5_usbdrd_usbdp_g2_v4_pma_check_cdr_lock(struct exynos5_usbdrd_phy *phy_drd)
- {
- 	static const unsigned int timeout_us = 40000;
-@@ -804,9 +806,11 @@ exynos5_usbdrd_usbdp_g2_v4_pma_check_cdr_lock(struct exynos5_usbdrd_phy *phy_drd
- 			((phy_drd->orientation == TYPEC_ORIENTATION_NORMAL)
- 			 ? 0
- 			 : 2), reg);
-+
-+	return err;
- }
- 
--static void exynos5_usbdrd_utmi_init(struct exynos5_usbdrd_phy *phy_drd)
-+static int exynos5_usbdrd_utmi_init(struct exynos5_usbdrd_phy *phy_drd)
- {
- 	u32 reg;
- 
-@@ -828,6 +832,8 @@ static void exynos5_usbdrd_utmi_init(struct exynos5_usbdrd_phy *phy_drd)
- 	reg = readl(phy_drd->reg_phy + EXYNOS5_DRD_PHYTEST);
- 	reg &= ~PHYTEST_POWERDOWN_HSP;
- 	writel(reg, phy_drd->reg_phy + EXYNOS5_DRD_PHYTEST);
-+
-+	return 0;
- }
- 
- static int exynos5_usbdrd_phy_init(struct phy *phy)
-@@ -864,7 +870,9 @@ static int exynos5_usbdrd_phy_init(struct phy *phy)
- 	writel(reg, phy_drd->reg_phy + EXYNOS5_DRD_PHYUTMICLKSEL);
- 
- 	/* UTMI or PIPE3 specific init */
--	inst->phy_cfg->phy_init(phy_drd);
-+	ret = inst->phy_cfg->phy_init(phy_drd);
-+	if (ret)
-+		goto disable_clks;
- 
- 	/* reference clock settings */
- 	reg = inst->phy_cfg->set_refclk(inst);
-@@ -887,9 +895,10 @@ static int exynos5_usbdrd_phy_init(struct phy *phy)
- 	reg &= ~PHYCLKRST_PORTRESET;
- 	writel(reg, phy_drd->reg_phy + EXYNOS5_DRD_PHYCLKRST);
- 
-+disable_clks:
- 	clk_bulk_disable_unprepare(phy_drd->drv_data->n_clks, phy_drd->clks);
- 
--	return 0;
-+	return ret;
- }
- 
- static int exynos5_usbdrd_phy_exit(struct phy *phy)
-@@ -1150,7 +1159,7 @@ static void exynos7870_usbdrd_phy_isol(struct phy_usb_instance *inst,
- 			   EXYNOS7870_USB2PHY_ENABLE, val);
- }
- 
--static void exynos7870_usbdrd_utmi_init(struct exynos5_usbdrd_phy *phy_drd)
-+static int exynos7870_usbdrd_utmi_init(struct exynos5_usbdrd_phy *phy_drd)
- {
- 	u32 reg;
- 
-@@ -1238,6 +1247,8 @@ static void exynos7870_usbdrd_utmi_init(struct exynos5_usbdrd_phy *phy_drd)
- 	if (phy_drd->drv_data->phy_tunes)
- 		exynos5_usbdrd_apply_phy_tunes(phy_drd,
- 					       PTS_UTMI_POSTINIT);
-+
-+	return 0;
- }
- 
- static int exynos7870_usbdrd_phy_init(struct phy *phy)
-@@ -1251,11 +1262,11 @@ static int exynos7870_usbdrd_phy_init(struct phy *phy)
- 		return ret;
- 
- 	/* UTMI or PIPE3 specific init */
--	inst->phy_cfg->phy_init(phy_drd);
-+	ret = inst->phy_cfg->phy_init(phy_drd);
- 
- 	clk_bulk_disable_unprepare(phy_drd->drv_data->n_clks, phy_drd->clks);
- 
--	return 0;
-+	return ret;
- }
- 
- static int exynos7870_usbdrd_phy_exit(struct phy *phy)
-@@ -1302,10 +1313,12 @@ static const struct phy_ops exynos7870_usbdrd_phy_ops = {
- 	.owner		= THIS_MODULE,
- };
- 
--static void exynos2200_usbdrd_utmi_init(struct exynos5_usbdrd_phy *phy_drd)
-+static int exynos2200_usbdrd_utmi_init(struct exynos5_usbdrd_phy *phy_drd)
- {
- 	/* Configure non-Samsung IP PHY, responsible for UTMI */
- 	phy_init(phy_drd->hs_phy);
-+
-+	return 0;
- }
- 
- static void exynos2200_usbdrd_link_init(struct exynos5_usbdrd_phy *phy_drd)
-@@ -1405,11 +1418,11 @@ static int exynos2200_usbdrd_phy_init(struct phy *phy)
- 	exynos2200_usbdrd_link_attach_detach_pipe3_phy(inst);
- 
- 	/* UTMI or PIPE3 specific init */
--	inst->phy_cfg->phy_init(phy_drd);
-+	ret = inst->phy_cfg->phy_init(phy_drd);
- 
- 	clk_bulk_disable_unprepare(phy_drd->drv_data->n_clks, phy_drd->clks);
- 
--	return 0;
-+	return ret;
- }
- 
- static int exynos2200_usbdrd_phy_exit(struct phy *phy)
-@@ -1463,7 +1476,7 @@ exynos5_usbdrd_usb_v3p1_pipe_override(struct exynos5_usbdrd_phy *phy_drd)
- 	writel(reg, regs_base + EXYNOS850_DRD_SECPMACTL);
- }
- 
--static void exynos850_usbdrd_utmi_init(struct exynos5_usbdrd_phy *phy_drd)
-+static int exynos850_usbdrd_utmi_init(struct exynos5_usbdrd_phy *phy_drd)
- {
- 	void __iomem *regs_base = phy_drd->reg_phy;
- 	u32 reg;
-@@ -1569,6 +1582,8 @@ static void exynos850_usbdrd_utmi_init(struct exynos5_usbdrd_phy *phy_drd)
- 
- 	if (ss_ports)
- 		exynos5_usbdrd_usb_v3p1_pipe_override(phy_drd);
-+
-+	return 0;
- }
- 
- static int exynos850_usbdrd_phy_init(struct phy *phy)
-@@ -1582,12 +1597,13 @@ static int exynos850_usbdrd_phy_init(struct phy *phy)
- 		return ret;
- 
- 	/* UTMI or PIPE3 specific init */
-+	ret = 0;
- 	scoped_guard(mutex, &phy_drd->phy_mutex)
--		inst->phy_cfg->phy_init(phy_drd);
-+		ret = inst->phy_cfg->phy_init(phy_drd);
- 
- 	clk_bulk_disable_unprepare(phy_drd->drv_data->n_clks, phy_drd->clks);
- 
--	return 0;
-+	return ret;
- }
- 
- static int exynos850_usbdrd_phy_exit(struct phy *phy)
-@@ -1636,11 +1652,12 @@ static const struct phy_ops exynos850_usbdrd_phy_ops = {
- 	.owner		= THIS_MODULE,
- };
- 
--static void exynos5_usbdrd_gs101_pipe3_init(struct exynos5_usbdrd_phy *phy_drd)
-+static int exynos5_usbdrd_gs101_pipe3_init(struct exynos5_usbdrd_phy *phy_drd)
- {
- 	void __iomem *regs_pma = phy_drd->reg_pma;
- 	void __iomem *regs_phy = phy_drd->reg_phy;
- 	u32 reg;
-+	int ret;
- 
- 	exynos5_usbdrd_usbdp_g2_v4_ctrl_pma_ready(phy_drd);
- 
-@@ -1662,8 +1679,11 @@ static void exynos5_usbdrd_gs101_pipe3_init(struct exynos5_usbdrd_phy *phy_drd)
- 		 SECPMACTL_PMA_INIT_SW_RST);
- 	writel(reg, regs_phy + EXYNOS850_DRD_SECPMACTL);
- 
--	if (!exynos5_usbdrd_usbdp_g2_v4_pma_check_pll_lock(phy_drd))
--		exynos5_usbdrd_usbdp_g2_v4_pma_check_cdr_lock(phy_drd);
-+	ret = exynos5_usbdrd_usbdp_g2_v4_pma_check_pll_lock(phy_drd);
-+	if (ret)
-+		return ret;
-+
-+	return exynos5_usbdrd_usbdp_g2_v4_pma_check_cdr_lock(phy_drd);
- }
- 
- static int exynos5_usbdrd_gs101_phy_init(struct phy *phy)
-@@ -1688,7 +1708,15 @@ static int exynos5_usbdrd_gs101_phy_init(struct phy *phy)
- 	 */
- 	exynos5_usbdrd_phy_isol(inst, false);
- 
--	return exynos850_usbdrd_phy_init(phy);
-+	ret = exynos850_usbdrd_phy_init(phy);
-+	if (ret) {
-+		exynos5_usbdrd_phy_isol(inst, true);
-+		if (inst->phy_cfg->id == EXYNOS5_DRDPHY_UTMI)
-+			regulator_bulk_disable(phy_drd->drv_data->n_regulators,
-+					       phy_drd->regulators);
++	list_for_each_entry(net, net_list, exit_list) {
++		if (atomic_read(&net->dev_unreg_pending))
++			return true;
 +	}
++	return false;
++}
 +
-+	return ret;
+ static void __net_exit default_device_exit_batch(struct list_head *net_list)
+ {
+ 	/* At exit all network devices most be removed from a network
+@@ -12325,6 +12350,16 @@ static void __net_exit default_device_exit_batch(struct list_head *net_list)
+ 	}
+ 	unregister_netdevice_many(&dev_kill_list);
+ 	rtnl_unlock();
++
++	/* Devices of these netns unregistered from another context
++	 * (e.g. a veth whose peer was deleted) can still be waiting
++	 * in netdev_run_todo() for their last references, while
++	 * NETDEV_UNREGISTER is rebroadcast for them. Wait for them
++	 * before pernet exit handlers tear down the state used by
++	 * netdevice notifiers, and before the netns is freed.
++	 * No new unregistration can start: all devices are unlisted.
++	 */
++	wait_event(netdev_unregistering_wq, !netns_dev_unreg_pending(net_list));
  }
  
- static int exynos5_usbdrd_gs101_phy_exit(struct phy *phy)
+ static struct pernet_operations __net_initdata default_device_ops = {
 -- 
 2.53.0
-
-
 
