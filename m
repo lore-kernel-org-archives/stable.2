@@ -1,59 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618748;
-	b=12kuBoZlgw/EczMDxsoiAFsNDrLbjXysB+1IcmWfvpOZ/wpDGGMcVQB31C863uDXfYOL
-	 0XHTHSaGaeG0EDba9jQ+XVg/ySdkGlJipUzBLYQvfmTOL0szRhmMBwe8d6R5K1XoKoQd8
-	 jUVOZBtFRSfjyRWo3UOG76r7FNa7MHhvz56NuNAl/GK7MRU8DNueNai6zS50J37naElnh
-	 sT6M3idV2J7lm4aYWzICNm7MT02lu6sVAbB14eDEG+d/0pzc09C471+fvaX8+uNNpkAcx
-	 6YAvfAxJ8dMofrOUjUuPvcGrYprZGR1e5TC9ahKqkOp1cPrgca8CbM+rZwMLMh80V+g==
+	t=1795618749;
+	b=GBTuqvRIxV7/xg1A/pxXDaXTv3StwZ/mBLrncjmbdHNIiv3iXHVrAQRDArG4Wcl++y3P
+	 zgixrQsFv+NAfuT7OvKisEoFY02R891Zvmv+CH84nznPlFNIAf2c1eaPrfuUBsN/UPX1i
+	 Bj58CWlvXwTSnCUpYLeKFr0A6/atVNZLwXPRrsA+Ywq+uAHB0eLMmsu+mBl5pG9G2mGbV
+	 MPrnXdoFQDL7c7FQx7+pGFGOJqATuPdNOEbeq7f3rFzVgEUpxqt/iP9Oh7WQ136AFoLuZ
+	 toVyYhT8kidyd2tX5Xs6itvAnmbvI6KK0usZyMW6GyFJqpNdIpo+2hNennCuJt7u3xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618748;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=KcTwL1jtlxXxOriVfO7ydr7SGdlqmyQTjuc6EcBw+FU=;
-	b=Jvadgc+6fPF6+ZoAqHVcrxvlIbwy5ULIn2Air/JujWvBsMjAf1xYhKJNCQFS6j22oD57
-	 U3LIrcJ47+0ru9G4wB8NsUJWMNXwQ8Ppm7NJ6/FG7H7ZiCSyAwyogyQbStPvRmfcOfLF/
-	 QeQgPnESqIvp71ZicWYozMftUk5KmEuCmwcmZriVIutWLVDbP1vdcv/yJD3UCS/BZUn2T
-	 T2bjULAUBo9kS2PfinpUwx/SnGB43ZDZT0u3YyQ8//8MfFCBoSAGudjRAByoOrDMHGHWM
-	 b7OMsc4nZinrKl65qPK0upct9B277cTSLq/0zJ6tcyzrw2vJ/lmX+xK9Q6jgrRhGyjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618749;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
+	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
+	 Date:Message-ID;
+	bh=WaBB5B/if+G2CrxRviqNKyS6myrOTSCbwtrsP+UqNzI=;
+	b=iHF8XTYOK0ghkMO+SxR+heJ5cb7oxfsF/zXVdPSCiJtuJ9jlsjPqc12q0THSG6lyyUTE
+	 lJqOmDdyeoD6yQV9ssNxj5wCIsAqPrRlH+PPHuWCogudH9nE4kWpgtgiWzHUYPteEgtNt
+	 Ryo7+NqH8oxUQT1ohkt7Lo+fSkbEGRNmN8Xe5YCkqZdvi46AL8h3v0a54dFzvjd4wYU4m
+	 enzirNcJND8OtU/h5UIB4Px4G/Y7Z6xtXYkGiJN/10Bwsl3Z6H1Elf+z29dee85AbjAA3
+	 MOfNQ9agmWkkcqB6XtgKHw8wNfJB7b5EYaVGSwoPhnYYap3N6RqxhplXTOfZAuYa37w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="T0oF4/ty";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=kernelci.org;
+	spf=pass smtp.mailfrom=kernelci.org;
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=daZqjra7;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 964FD606A31E;
-	Wed, 25 Nov 2026 14:59:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE05606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:59:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADE05606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=T0oF4/ty
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8282D1F000CF;
-	Wed, 25 Nov 2026 14:59:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795618748;
-	bh=KcTwL1jtlxXxOriVfO7ydr7SGdlqmyQTjuc6EcBw+FU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=T0oF4/tyC4ps+15Z3qtrVqiPJxQp0Q0cTHbGpSSs5YvFuKr6fn14jdS96DDHT2iw1
-	 HcjKP80NsZ2/RjP2RKiJ1GuCCmjiKsmKTzs1+G6HetFgxBXbA/2iWm0KXipYLQ0hVW
-	 pDP9NpUV8ScnYtfkkyHDsTJz6oubdg02KE8lER7Y=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Greg Thelen <gthelen@google.com>,
-	"Pratyush Yadav (Google)" <pratyush@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0377/1005] kho: check fdt_phys in is_kho_boot()
-Date: Wed, 25 Nov 2026 15:28:35 +0100
-Message-ID: <20261125143830.569051429@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=daZqjra7
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1b546061d58so13301081c88.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 06:59:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernelci.org; s=google; t=1795618748; x=1796223548; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WaBB5B/if+G2CrxRviqNKyS6myrOTSCbwtrsP+UqNzI=;
+        b=daZqjra7dNqbDdDJK1n958jCExjfzMjs2M6ts+BO3bm1vzUh4t35s3+QICgmuqqqIb
+         hDnEfVIFL4iFK6Y+Xjv3W/TgeBJ4OWy67ZpikdMI67U1WCN/QBBm5EEfCvnDXSYimKbf
+         OFLzzTAhTU/BsiBukRbiAJns5CmvvFwUlKNFoXzK25G/RVap7TLaWfCejDoO9CAxzOu4
+         RDbhg2UkxHnen8ER1PWUtmsg1eK6tXvrxLakUjj4FH2hTUcWyZcxL+CRWemQ9pmMJDlN
+         k7JV9xGPIhpAp85tHjbM2ZeaR5/hvXAOsxkVuR+wJlvzjM6URQ6LpGMblQyvyXfJXthN
+         1zaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795618748; x=1796223548;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WaBB5B/if+G2CrxRviqNKyS6myrOTSCbwtrsP+UqNzI=;
+        b=jW5TaM1VP3WUf8fne+mK3tqWjVJPgUFENcK7LnFb8Av4/IWgfjB++6TroCq8OsSzd1
+         SpI40v9CEk/8IrMdfSSYMO3CeHIXAfyBnUwOS2jjigia5yHLYz37Guzrq7fcq2oB+Mdi
+         VakBCDYj6RSJHjI9hVHjvJPPGSXGApJ0LoYckpFCfl7Ml8P+7eTEsA5SGL+oQD73IH94
+         zdZVxdduJVidwpWO1Qy36aHegwUCwqC9CNdKra4dhPLqQI3CGquM70seSuOt9BLbZGrZ
+         qBz9s2WsaZer7rxdgGhP1LmPsMyCSfxM2wDpc1+Q3/06m+2t7j8AptP6Ab5eVvAussUL
+         UbzA==
+X-Gm-Message-State: APuU4Z9Iaz0BcdyyGqI87Po8+hcb4i0rZ1VzrhKJfuBK+NBqw3cX1yQy
+	kstbyh9Jbg6Ww0qheEzK1tRgNeNRgsHhruY/RzSIDnAOgv8MClkOKKPUMFcSZVaCXx4nRyICclm
+	XgSfR
+X-Gm-Gg: AZFdTZdDW+uIrO/iR2ddK4fcG8bOeBdSAr7Sqy3mHFIEBckZs3AE31Tm0TV3kaMYF3k
+	iBcLocHXK6bWJ6gUQwGTyAO781J9lD3x5LnjiQ2s3Xqf43MXu2E43Dub5xl99TpD9biCcYX5uRI
+	X634RCOSvJlCnS1iqk9y9oFqxkewGpt1EXyaOf+mz5yTeGMGFfrkImv8ldlmLoZODaDfYwOPcj6
+	9b+PBeU9Kws2tnC9UoPtd2g7sAGIK4kx828BT8tVBEIWh/3LmdSmcSxtBaRSU39IusapQ5N2+uc
+	YFcth65vwATIdlX7n9wD/85nEej8ErAzby0YNQUPLBfvpivZDbq1UA8MkIq6coZvgRW//DuVrCM
+	X2Ev9yYGJUilUW6vi9yMn4FzLiWSt54cRp+h48go26pPrFBZVxEb80EcB0OVWv4RtxbPA7pWXP8
+	oNmUkflhYOius5AkdxJkDliKzTy38FRnfcfr2Gi2cNcbT8o/ruNYqA4TV1cwcM1MyuuVQapb6PA
+	Q7lsYThdp+3PfGmq0t3VZNRKu2VWG0WAjubYfrFfsKyrCDOp+Kuo1CTPycajL0U6rmXBq+7JiP9
+	mUcFaaMs5u9AuEU8fgT3EictCJJe8IRRfaPMiD2khC7t
+X-Received: by 2002:a05:701b:428a:20b0:1b5:1a0d:b544 with SMTP id a92af1059eb24-1b5568a145bmr19987619c88.7.1795618747430;
+        Wed, 25 Nov 2026 06:59:07 -0800 (PST)
+Received: from 52d83ede7c60 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b55ff0e4e6sm35646615c88.11.2026.11.25.06.59.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 06:59:07 -0800 (PST)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,60 +90,74 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: [REGRESSION] stable-rc/linux-7.3.y:
+ (build)kernel/sched/ext/ext.c:4223:17:
+ error: implicit declaration of func...
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: stable@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Wed, 25 Nov 2026 14:59:06 -0000
+Message-ID: <179561874650.101431.4430229759480466436@kernelci.org>
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+Cc from: regression/stable-rc.yaml
 
-------------------
+New build issue found on stable-rc/linux-7.3.y:
 
-From: Greg Thelen <gthelen@google.com>
-
-[ Upstream commit 58c5852ca96c58cdfdb9646870b217fc54d06a97 ]
-
-is_kho_boot() is called early in boot before the linear memory map is
-initialized, so calling phys_to_virt() via kho_get_fdt() there is
-invalid.
-
-On arm64 (and similarly in upcoming riscv64 support), this triggers
-BUG_ONs in debug builds, such as:
-
-  kernel BUG at ./arch/arm64/include/asm/memory.h:377!
-  Internal error: Oops - BUG: 00000000f2000800 [#1] SMP
-  Call trace:
-   is_kho_boot+0x2c/0x38 (P)
-   efi_init+0x94/0xf8
-   setup_arch+0xf0/0x240
-   start_kernel+0x84/0x490
-   __primary_switched+0x88/0x98
-
-Use kho_in.fdt_phys in is_kho_boot() directly instead of translating it
-to a virtual address.
-
-Fixes: d6d511639185 ("kexec: introduce is_kho_boot()")
-Signed-off-by: Greg Thelen <gthelen@google.com>
-Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-Link: https://patch.msgid.link/20261023054518.3258350-1-gthelen@google.com
-[Pasha: massaged the changelog]
-Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/liveupdate/kexec_handover.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+kernel/sched/ext/ext.c:4223:17: error: implicit declaration of function ‘scx_reset_task_fields’; did you mean ‘scx_set_task_sched’? [-Wimplicit-function-declaration] in kernel/sched/build_policy.o (kernel/sched/build_policy.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
-diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-index 3c87c2a3d6f09..ab55b77119d64 100644
---- a/kernel/liveupdate/kexec_handover.c
-+++ b/kernel/liveupdate/kexec_handover.c
-@@ -1631,7 +1631,7 @@ EXPORT_SYMBOL_GPL(kho_restore_free);
-  */
- bool is_kho_boot(void)
- {
--	return !!kho_get_fdt();
-+	return !!kho_in.fdt_phys;
- }
- EXPORT_SYMBOL_GPL(is_kho_boot);
- 
--- 
-2.53.0
+Log excerpt:
+=====================================================
+In file included from kernel/sched/build_policy.c:71:
+kernel/sched/ext/ext.c: In function ‘__scx_disable_and_exit_task’:
+kernel/sched/ext/ext.c:4223:17: error: implicit declaration of function ‘scx_reset_task_fields’; did you mean ‘scx_set_task_sched’? [-Wimplicit-function-declaration]
+ 4223 |                 scx_reset_task_fields(task_rq(p), p);
+      |                 ^~~~~~~~~~~~~~~~~~~~~
+      |                 scx_set_task_sched
+  CC      block/blk-cgroup-rwstat.o
+  CC      fs/stack.o
+kernel/sched/ext/ext.c: In function ‘scx_bpf_dsq_reenq_task’:
+kernel/sched/ext/ext.c:10432:20: error: implicit declaration of function ‘kf_switch_rq_lock’; did you mean ‘switch_rq_lock’? [-Wimplicit-function-declaration]
+10432 |         entry_rq = kf_switch_rq_lock(src_rq, &flags);
+      |                    ^~~~~~~~~~~~~~~~~
+      |                    switch_rq_lock
+kernel/sched/ext/ext.c:10432:18: error: assignment to ‘struct rq *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
+10432 |         entry_rq = kf_switch_rq_lock(src_rq, &flags);
+      |                  ^
+  CC      arch/arm64/mm/init.o
+  CC      security/integrity/ima/ima_appraise.o
+kernel/sched/ext/ext.c:10450:9: error: implicit declaration of function ‘kf_restore_rq_lock’ [-Wimplicit-function-declaration]
+10450 |         kf_restore_rq_lock(src_rq, entry_rq, flags);
+      |         ^~~~~~~~~~~~~~~~~~
+  CC      crypto/krb5/krb5_api.o
 
+=====================================================
 
+When fixing this issue, please attribute this report according to the
+patch submission rules:
 
+Reported-by: kernelci.org bot <bot@kernelci.org>
+
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:d8297e60fdf63bc24ae0a50880622d674e44b036
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  15fae5bad807ac3cbe5fa7319a897a72db112bd7
+
+# Builds where the incident occurred:
+
+## defconfig+netdev+nfs-root-boot+kselftest on (arm64):
+- compiler: gcc-14
+- config: https://files.kernelci.org/kbuild-gcc-14-arm64-nfsboot-6b06f369286e1965ecb3ace1/.config
+- dashboard: https://d.kernelci.org/build/maestro:6b06f369286e1965ecb3ace1
+
+#kernelci issue maestro:d8297e60fdf63bc24ae0a50880622d674e44b036
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
