@@ -1,58 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795620954;
-	b=s1nXKQtApakA+zpEqArylmnABo+EWowlB5P1W3/fykCjs6/TmiKu51NENiLS8rWj+G1i
-	 y6z9UMTDaX388tJ/PNXnYs/O29OJVVCsXZeDl/uQCIuWIooUOulKLlmRS30EbXTpLXp+R
-	 FFtqblbGF8R8XrBH0zrFgkxlmAuwZOCWZcTwF0amFABZvCwuAtWzNLb0O0iO8mbNiPnwM
-	 Y/TUFYjSProZD0FDiMtzV+dn0fkQKCtpr5bWo/UNl/YL2Co9juZRb5Aymu+yHbxCrnpKH
-	 dBXLwXcgHD2TRzN3BHSdxB+Eddp7lhbtqYn8NZEfwW9WL2FC2S0275G8btXwoFjkYIA==
+	b=OdNYcWOTZM+CoqYiaYGu5HfwcSZXjfQJ+YigFw1a1cDIfAbdgIzCiDfJW8yaasZq4f5o
+	 dHqO6jAnbWiBuFg8yUO3lYVbHl6KdIRVFR+SVfkOzGazR34vGvh6cY34CSHCjfGL61DiB
+	 NxvaZ/AkFjBZwuXFaT2K/iEBofo+3Nm2atxJYxIKTbryy4NzNFYTG65LXOjHA2chqdOTG
+	 rj/QOGmjMWUBeT2Zx/paAZYjrvPYrB7GP1TRlL/wqnpezZErqxJefJ8RqBqjpDGU/WQ6v
+	 DYky1/j+hDLXKEBtY2IGv0/0+mXB6hYdKRpkUFXaZHi8XE85DCe+9ALFA6kfpJsVq3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795620954;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=4fletcACAk0JQBQv4Y+PLbasbrRhedWqViNf0fwJCvM=;
-	b=rg8G4KEaelbKcH0hJBdRqmHyQYG9fxE4NcWroz/nK1AFSdJHBQ3RkHBnHNTniqjswhSb
-	 y8/rTR6osQslbhTlCVMWif9P0cgE9ZJv1DnPLikZAFFC6bzln44+uLtwi8QPFDPvuhp+t
-	 e4xUfhyBVmKmFLt2wF3b9RbSjaE3/uoQUVwedzda+6VEvcBCmXn3Jx58LYA/6UoUJXBk+
-	 gY8/UM54ME0WmiZVMRMeHdajystD7r0FblAboqgnwKhURSrpk0zK3v2IvHNixMtyVsoVa
-	 XOPuvFiBu15ONzR36JfNmYLYWhry3DNgbl22kmMV8Ke2j5L086baMqHs36p/aV+Ysmw==
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=VuxqO60SfIBEuqsK6n4/P79x+kzhDZYWP7FbuCsCQ34=;
+	b=edb++NxDS/sXTcLb265I46Q0Xvo3h4FWQC4nkFgmaA1eL8oAcf1e0V4H0TjClo2FgK9J
+	 uEGDLXIJk2JkYu7cTbrSfB4Yu9XwHqWxmTRlNwPUXcBXhzgyEoUtUTW+XvXgF4cpHsJYb
+	 39VMPm9hMJ2UgcJUnPgzEA27mJB7is9or38DREHOCi8VoYF+DIgBP/n/CrvcslzO/nu9j
+	 bcD7d5hcbrqrvKi6qj70LcTR7DrhwjmnI3b2rsHtpeNJjatnUElZdNHpbnEgKHH51qtyo
+	 MhA30o4Medf/wQhru1DXAi3ZQWAOkfAdmLaxnnCayCy6wDj4PW1fr8ghlXbbUBA1pkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U1UCP+7A;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="SVPIy/Ce";
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07C660A2617;
-	Wed, 25 Nov 2026 15:35:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A2460A383B;
+	Wed, 25 Nov 2026 15:35:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65A2460A383B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U1UCP+7A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95C451F000D8;
-	Wed, 25 Nov 2026 15:35:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795620954;
-	bh=4fletcACAk0JQBQv4Y+PLbasbrRhedWqViNf0fwJCvM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U1UCP+7A0gcRbCFVG1TZWMWDrAY+sYgTNPfEwCWpecLHTsdCbUwGOavyxU07xucgJ
-	 Omc/eXNWxWPDNu/F/DBowkna9J10CU6rJ/FXNx2V73PiSLnp/kx+CC93lzZWx79b6j
-	 +rdF9LaMGmYp4jVdtNyd4b4nJX5xZFDsvlFnAR6o=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SVPIy/Ce
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795620953; x=1827156953;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=TpcPUxXUMiuSzfXM00FOshGXSknpfhiuyV6xSE4ppbE=;
+  b=SVPIy/CeHobiWaw0Nnkgu1fSr9TGxSU8XaJ0EMXl38VYbA3pYCO9De47
+   GFhRQjGwuXp3laHz2OaKCxCfCZ6FWBqMrqFJdUZ2IMk/CKMWbUd1Bho/6
+   AHeX+Po5RfEP0dkPlb5nGn1DEGBuU20eVP3ntOVkvl3mLg1n1Dxhp9Eo2
+   dn7672awqqwvI3azvgazg6b/ii0ANOXqGF2ircyJqj2OXx8g2kW4sYjFQ
+   6Yw0foeaN37IPSqMdXvqcaWVLtiBt7jDUe+x4rqdIDU1gYUVjqgb9iafe
+   1Y+4cXD+xkTym2zfamlQfbX+o4/8lmyAeZlaiJHtAJRVqJ56k10F+gT6k
+   A==;
+X-CSE-ConnectionGUID: x8f1IUaRQhqFJEp2+PY0tw==
+X-CSE-MsgGUID: 5cYYTHncS22hJun4Jl05yQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4434294"
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="4434294"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 07:35:52 -0800
+X-CSE-ConnectionGUID: DQ2nQHpGR1G6/Pu9chbd5w==
+X-CSE-MsgGUID: nY4lbNS/TT29N6hdU37N9Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="12480861"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.244.1])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 07:25:22 -0800
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Barret Rhoden <brho@google.com>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 076/990] 9p: treat read return values of 0 as EOF
-Date: Wed, 25 Nov 2026 15:24:03 +0100
-Message-ID: <20261125143823.868176367@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	kai.vehmanen@linux.intel.com,
+	yung-chuan.liao@linux.intel.com,
+	broonie@kernel.org
+Subject: [PATCH stable 6.18.y backport] ASoC: SOF: Intel: lnl: Enable offload for UAOL link
+Date: Wed, 25 Nov 2026 17:26:02 +0200
+Message-ID: <20261125152602.22513-1-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,59 +81,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+commit fdfbd9ff86a145f09978ab49305ed7acfad66a1d upstream.
 
-------------------
+The handling of UAOL (USB Audio Offload Link) is similar to SSP and DMIC,
+it is handled by the DSP firmware.
+Set the offload enable for it similar to SSP and DMIC.
 
-From: Barret Rhoden <brho@google.com>
-
-[ Upstream commit a3a6212c7d67baebebd0e4c2cf2ae1b75eb9231e ]
-
-If your 9p server shares a synthetic file system such as sysfs, the file
-size from stat often disagrees with the actual file size.
-
-Treat non-error reads of 0 as EOF, except in the case where the request
-was for 0 bytes.
-
-Tested:
-	git@github.com:hugelgupf/p9.git, served "/" on 10.0.2.2
-
-	bash-5.3# mount -t 9p -o trans=tcp,port=12345,cache=none 10.0.2.2 /tmp/foo
-	bash-5.3# cat /tmp/foo/sys/devices/system/cpu/online
-	0-47
-
-Fixes: eb497943fa21 ("9p: Convert to using the netfs helper lib to do reads and caching")
-Signed-off-by: Barret Rhoden <brho@google.com>
-Message-ID: <20260702090941.1298188-1-brho@google.com>
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: <stable@vger.kernel.org> # 6.18.x
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Link: https://patch.msgid.link/20260520150639.25301-3-peter.ujfalusi@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ Peter: Adjusted to the int returning hdac_bus_eml_enable_offload() as
+  commit 978152b2cab5 ("ASoC: SOF: Intel: hda-mlink/lnl: Convert offload
+  enable functions to void") is not backported. The helper is renamed from
+  hdac_bus_offload_dmic_ssp() to hdac_bus_set_dsp_offload() to match
+  upstream, since it now also handles UAOL.
+  Firmware built with UAOL support reads the UAOL registers and crashes if
+  the host has not granted the DSP access to them. ]
 ---
- fs/9p/vfs_addr.c | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/soc/sof/intel/lnl.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/fs/9p/vfs_addr.c b/fs/9p/vfs_addr.c
-index 0a77ce5d11767..de2b1f8cdc0e6 100644
---- a/fs/9p/vfs_addr.c
-+++ b/fs/9p/vfs_addr.c
-@@ -100,6 +100,7 @@ static void v9fs_issue_read(struct netfs_io_subrequest *subreq)
- 	char *target;
- 	unsigned long long pos = subreq->start + subreq->transferred;
- 	int total = 0, err, len, n;
-+	size_t to_read = iov_iter_count(&subreq->io_iter);
+diff --git a/sound/soc/sof/intel/lnl.c b/sound/soc/sof/intel/lnl.c
+index 2f3222040f98..7b859bb9dea4 100644
+--- a/sound/soc/sof/intel/lnl.c
++++ b/sound/soc/sof/intel/lnl.c
+@@ -20,8 +20,8 @@
+ #include "lnl.h"
+ #include <sound/hda-mlink.h>
  
- 	if (S_ISLNK(rreq->inode->i_mode)) {
- 		/* p9_client_readlink() must not be called for legacy protocols
-@@ -132,6 +133,8 @@ static void v9fs_issue_read(struct netfs_io_subrequest *subreq)
- 		__set_bit(NETFS_SREQ_CLEAR_TAIL, &subreq->flags);
- 	if (pos + total >= i_size_read(rreq->inode))
- 		__set_bit(NETFS_SREQ_HIT_EOF, &subreq->flags);
-+	if (!err && !total && to_read)
-+		__set_bit(NETFS_SREQ_HIT_EOF, &subreq->flags);
- 	if (!err && total) {
- 		subreq->transferred += total;
- 		__set_bit(NETFS_SREQ_MADE_PROGRESS, &subreq->flags);
+-/* this helps allows the DSP to setup DMIC/SSP */
+-static int hdac_bus_offload_dmic_ssp(struct hdac_bus *bus, bool enable)
++/* Configure DSP offload for DMIC/SSP/UAOL */
++static int hdac_bus_set_dsp_offload(struct hdac_bus *bus, bool enable)
+ {
+ 	int ret;
+ 
+@@ -35,7 +35,8 @@ static int hdac_bus_offload_dmic_ssp(struct hdac_bus *bus, bool enable)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	return 0;
++	return hdac_bus_eml_enable_offload(bus, true,
++					   AZX_REG_ML_LEPTR_ID_INTEL_UAOL, enable);
+ }
+ 
+ static int lnl_hda_dsp_probe(struct snd_sof_dev *sdev)
+@@ -46,17 +47,17 @@ static int lnl_hda_dsp_probe(struct snd_sof_dev *sdev)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	return hdac_bus_offload_dmic_ssp(sof_to_bus(sdev), true);
++	return hdac_bus_set_dsp_offload(sof_to_bus(sdev), true);
+ }
+ 
+ static void lnl_hda_dsp_remove(struct snd_sof_dev *sdev)
+ {
+ 	int ret;
+ 
+-	ret = hdac_bus_offload_dmic_ssp(sof_to_bus(sdev), false);
++	ret = hdac_bus_set_dsp_offload(sof_to_bus(sdev), false);
+ 	if (ret < 0)
+ 		dev_warn(sdev->dev,
+-			 "Failed to disable offload for DMIC/SSP: %d\n", ret);
++			 "Failed to disable offload for DMIC/SSP/UAOL: %d\n", ret);
+ 
+ 	hda_dsp_remove(sdev);
+ }
+@@ -69,7 +70,7 @@ static int lnl_hda_dsp_resume(struct snd_sof_dev *sdev)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	return hdac_bus_offload_dmic_ssp(sof_to_bus(sdev), true);
++	return hdac_bus_set_dsp_offload(sof_to_bus(sdev), true);
+ }
+ 
+ static int lnl_hda_dsp_runtime_resume(struct snd_sof_dev *sdev)
+@@ -80,7 +81,7 @@ static int lnl_hda_dsp_runtime_resume(struct snd_sof_dev *sdev)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	return hdac_bus_offload_dmic_ssp(sof_to_bus(sdev), true);
++	return hdac_bus_set_dsp_offload(sof_to_bus(sdev), true);
+ }
+ 
+ static int lnl_dsp_post_fw_run(struct snd_sof_dev *sdev)
 -- 
-2.53.0
-
-
+2.56.1
 
