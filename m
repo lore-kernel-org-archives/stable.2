@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618753;
-	b=a7jr36nQW5djXgWPN38kPJg+FakSfFjXWEnoiLwm0KjNQlZ0GZoLGLOLCsXGAKBqyf8S
-	 F6PMeyfTCar6e17rIPQ2MjT6lFFkYrDwEIqkp0QI/34hZKV5ENuO+plpxT8iNfBtIBzV0
-	 D/stPrlhRlHuyXmeCOq6ulUx7AXJV92SvnykcFRIBa24WNddvxeL5WJOcerF1HqCwnGrt
-	 J03xACYk8gE1B99CfTJjCSgkwnF6SS+rtwBEGaWSuqdv3mL0ffXobjPLyqQCINmUwiGnT
-	 a3UqhGe3PZFpPrr9gqG57fzJmjcHdeivCyF2pitna8XXLIx7u3PXncEqNuzW5eyORMA==
+	t=1795618754;
+	b=QT+7b+noY2YyxHUNW4Qw1HA/StTmmkgk1c9BZoqshUEGRgiGjxcZ2ncLxwDVlb6rM5a0
+	 5Rrdg79rqOZQ5LijSg90XOMLI/UZEWGMIbWxs0AvsGD54SKw8H9o7wkfLNfNXIEuWHdqO
+	 3nmjxGe5oH2N3bZbnQx5lw5y17Yk+dbDDTthVOwK0x1h4yurQZ3M7mJMEokTKMmDOWSx1
+	 O3wV6BxK8a5cyZUtrkR7zExHgSeIpePNgwoAmk0Dj/WECVvufR1RvYm9IzK6YKQEihbcn
+	 VAvMu5EK+piZi5/3VzB9jSErtfY1TSScxJtZ2Z9OMEYFLH690gcvAU2U2+dS86FHmoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618753;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618754;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
 	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
 	 Date:Message-ID;
-	bh=GMrbuN1pF4jHva1q7hR4tCRd4RCYxjzLSNkfzkv12LU=;
-	b=WxctQq5RkIBvcYgrL9HArObrgbHA8q7YWL3wuwyd9WlX9xVXGtJYWS4+ONsselNpKTGO
-	 /jUp0D/fhLuOLQsWGsUxSm5QKQlIFUj+Mj2+X4AHTh3+kf7mlM/ddcCSnAwhiy8Gv9i1A
-	 sKA958TyznEq6b0qRkF4q8xEZRv5gBd0Q716L/xA49E1AA1I9XIRE81eU+qpU9U9Pit5S
-	 sYnSmukN5SUKn2dYpCUayGyAl1mZtLztNesUniPgYfCDATiREFgjq/1VggOP8BtOwK/KO
-	 ZgB4OZQGQAr2H6Hstgm5eRwub3aAFcXnDd8Y8Zn9NfTcPlLjgICgTKNt+4eA+iY+WQg==
+	bh=8UEIir17Skw21TkKSz8A3QMYMoRVWE0BGlhNJdL4Zco=;
+	b=p+tSzLXKlRIo6ISqNcclCXHkx0BwS48o0VIXPe1DM+x0NLVmLoYz6BexeTfvdrCg8iPh
+	 nxSaL+BmtlYTV7iORfCvycBaMUnUStilwWlg/AOHUO/TdOclKCVemOW4c+CoU9PmjxHae
+	 zSjc+u4pdQJnG+NuQbpqiG7GojNECMFYBITiVc++mZzenIq9fsH07NHMj9kH9incsUI5t
+	 NnamWubHvERIFlx+jWDMT0mDkT4818pxSCcR4FVYU7LS4btavOM5PnarjyAzxPAOqiAjQ
+	 N5wNl/3LaR2c4ZGLB6rAnNmKJ0hpm37TZnl/XELV9xFOacriYxG3uMKa9ghtoDBS+Ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kernelci.org;
 	spf=pass smtp.mailfrom=kernelci.org;
-	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=HiPHgNgW;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=h6UHlJcH;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4C8606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:59:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F4C8606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E930E606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:59:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E930E606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=HiPHgNgW
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-15ea896ddc8so9761266c88.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 06:59:12 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=h6UHlJcH
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-33fb4680717so160918eec.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 06:59:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1795618752; x=1796223552; darn=vger.kernel.org;
+        d=kernelci.org; s=google; t=1795618753; x=1796223553; darn=vger.kernel.org;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=GMrbuN1pF4jHva1q7hR4tCRd4RCYxjzLSNkfzkv12LU=;
-        b=HiPHgNgWxe8hEhZpeWSL/ibByrf17J4TN77DmPvU1EAWzTy/jTfSDTYxjE/c8grOU1
-         n21MgcYB1y42m2Wxg1q0yPB0HX+WcnaRHnQtneTew10xoD4gSMtY2MuIXiGMOtTjfgD/
-         fMrp+IbWO72q3gkyNq2nHstIu/4Cstfit7FBdB5Ox+1gZv2tzk7batH/cKSlSRnrMcb/
-         VXKknHt4lN4VWY633Qfxuf1TNbUrL1xZeJYKwX6UCC6zbbNZw2EaRRf1eAOoR+Wb8c2n
-         OA8kbF6qWTCVbBDaDTMV/42+824GaH5RKvnIH6brDsRm9RRz5qdUN8dOjhqH4mF+eNTn
-         EfgA==
+        bh=8UEIir17Skw21TkKSz8A3QMYMoRVWE0BGlhNJdL4Zco=;
+        b=h6UHlJcHcgww3NSOmgVJOUSpcFAJjrpG5bbKfj1+njEXgF1iIOQG0mxJsxgn0JLjcg
+         lfcTPYDb7SMHBxYIxNLqLzwTEKz3bV1aXvMHFxi1jApZ4X3vSrEbV71FAYhU73G4vkSE
+         12aTJTqBRELzm84nK5+yYeKPF2jcHOp0O2dqMsXvZgSqzvdD+8gKNDqKSw7kMvi2FIoW
+         DhmzrucSC2E9uqKWaGzPRjHbi7UcdCCOALw1ukhjysA1l+FxV1+3ihww1f9AY8n76jcg
+         jtmIOlo0uJgtr1Su3V653ktOPo4Nbpnc7PR85aifDa0n2A+2imQFf8JEk4FX6z9e9oOw
+         a+lA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795618752; x=1796223552;
+        d=1e100.net; s=20260707; t=1795618753; x=1796223553;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GMrbuN1pF4jHva1q7hR4tCRd4RCYxjzLSNkfzkv12LU=;
-        b=k+Y51uzK/Gzp07bYyxC6g73dWRE/naNV8cCYKWKuVBLqSOq6Z0KRllm3sQvVBbt+nf
-         DUJBIyftVm3Z+yEKS0OJUKWOs+kLG4Hn7XQm+p2S9SA31viTgPQHCX5cdEl5n3t5KTco
-         yXYkirUMAzT0r/2xeYxc8StJ2KBUdl3rKGWoNTI65gcFNFElbA3IGPVYbdLhTqedLlNA
-         nZ3VduDI7NMs9uuxa7wsc6kqpUk7FIwiTjNtgUw8eTqqlGV2zJ1HuPM4jhF8eCPckB9M
-         3I1E1FmWeRj1zMQm5gi1yRDVWN6eqFLdCaEiFbxcOMNox2WRB0+MTo1QOdgkl6q7uznZ
-         nPOw==
-X-Gm-Message-State: APuU4Z/HU83cW/iYInpQF4aah8k42o9/HsPTOuNmvoRCJeHQhH/QU52l
-	86iClETLvZ7iSvFfD8LrWDgNm8V1/eqPKTQaO2xi2hNviwbXp/00W5cu0Xbh3Ff8htO6cBWWovp
-	NdRYs
-X-Gm-Gg: AZFdTZfb6/CmnTYA+Krqum3i9LzZxtK00PJEBJcllty61dBKowQ5QET/XqxYKpHUuWB
-	x2+41+ex5/FhwmVZkbqQvLyOYmbEUZl6DJCOISRcXagVvy/pI3mzPtr6zEZx7hxennuwLbvgPYI
-	q2dFVWi9pUEJpk/YLvFDxBGoHZ/KLnyzXOXMs4LU9QdVFJsF9Jy761KoKVMIDpGK9rtzGrEFYtL
-	Jya9o0UyHYaU+rztG7lOcwD73xqOYtWtUAt/bBq/SUJlh73IJ9x8IiC3AOWmQ8ohXFOkw9iETwb
-	AUDtfoD/RuyT1bxDUqgPxmOOTZPnOdYWOAE9C3SIzo1Mz/VJtbjp+7fIASjqdFzZxmL6G9gZ4JT
-	qNvbKkiuDxGEeHVE87K4pmq5HUskXqphNndSXNsuI+cQbmPFiZDpYVpmXQ6GW5+r1R5FipBHuX7
-	yXAoUocFRNes3DccwBt2MUvahLUUufTfwsMDN6y+ECdg+wxlvjtnon7SFOB1qLFHwh9v+ScF335
-	YM27k0TKDfnZXsK9Wh9yyEsMo+T+zKJOoCqVZMQK8OP3s0WbKIMyDVbEctk6T63dHUw/dtLV23A
-	h2NjbpWKszGRgo9vhm/jFg==
-X-Received: by 2002:a05:7022:4181:b0:1b2:42db:8a1d with SMTP id a92af1059eb24-1b5568c8f3dmr22541283c88.29.1795618751969;
-        Wed, 25 Nov 2026 06:59:11 -0800 (PST)
+        bh=8UEIir17Skw21TkKSz8A3QMYMoRVWE0BGlhNJdL4Zco=;
+        b=uHZbWMCFQaej+ibKp2NZp1gVKGAHwqgGf1PrHCWMC3IOI/lSfBYPQobjvYz8AEJ7PS
+         ohCF++DjegH082wppNv/Yt9s9DKeyzTtDX7E//4fOKxZso+0gp1waOVRg+AvcXjtysAq
+         GH1bVN4SElLc0RsebJQywb0z/9phPsBjLTAGQ5/qKf612RHwgwkWGATjAL1nMFT7zTEc
+         pUyW7Mok/67rhKjNsTIpRgY3j6X5G9MSEIs/CtrJwaCfNTIAg2nhRtQR4+/+iB37/Uot
+         kGMyifMGnI0QQSG8Tjm+5lXZeCNc6msLqXAbzK0v7ni2tlJAeOEjxfTG19wDIkYfpOxW
+         cpPQ==
+X-Gm-Message-State: APuU4Z/fvQ7CtjDqn7J14t/qxEuqlgqbh1GQokXPfd07wm9RadpiMDwq
+	3W6a8fKBe9AdLHecpOtndileny26Som6iDZftLLcWDfAJJjvlUK9CsyCFPYp7VKDM5mpiMxN/tk
+	SetXy
+X-Gm-Gg: AZFdTZfr3Gdc86MydYbSZMeIkE1/RgFm6v+3biV31BofcfF5Y00eYd7HxqCjt4RNPGJ
+	Yr1ee/b7fDhcfTvUmQU9zBw6Uu3WYZyYqR/ofnePklCqBn8Ys7aWvMHoimqq/im9W5pjDhR6jS0
+	fsa3AIMfTBAoPjNUS5DzAKqeyyrvy5u5uvbcRTJ5Dvp1PbGRG47qNSRfQF89hWapV9ZpcmBJ2kr
+	lJrzsrKyIh27zWHFMDX8B/S2OY/z//sgg2bo7Pg3t8k9A4e5MnrHHFb/qx6wZfd+hofrNZ7haUY
+	Ppec2r2yvy9RsjLpb3AmT/xqDrTAQmwgJ/3tIpwNp+fAo5OvObB2p3uynPsALuV7qCgELZEBGLy
+	MqQqUbhcd+K2TKD0PXAiCWArQZ4kAMAyMqH1gNEqIB2abFJgMj/lV1fkBaD33BeBQDJ1k9OT8x+
+	ZTVgViD7g9SPcdYJ0su+eGGEWZOUhTpNUlMVxYuvSUaEryF4o2kgDh9J+bGLx8p3vpQ/SHHAQbD
+	i4ry4VNEuzn6Np/eLDCm4Jhi1fhbUdYmrgRnCwbk0MVAMB6L/FbDu51oLjZSNcLk3JowVhoU7VO
+	RBs74NBY+a3SfK1aFfN6VA==
+X-Received: by 2002:a05:7301:df48:b0:386:a5d0:15d9 with SMTP id 5a478bee46e88-386a5d018c8mr12210345eec.37.1795618752962;
+        Wed, 25 Nov 2026 06:59:12 -0800 (PST)
 Received: from 52d83ede7c60 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b556829d31sm69560381c88.9.2026.11.25.06.59.11
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38566cd46c5sm67607680eec.11.2026.11.25.06.59.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 06:59:11 -0800 (PST)
+        Wed, 25 Nov 2026 06:59:12 -0800 (PST)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,37 +89,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-5.15.y: (build)variable has incomplete
- type
- 'struct cb_notify_lock_args' in fs/nfs...
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?q?=5BREGRESSION=5D_stable-rc/linux-6=2E18=2Ey=3A_=28build=29variable?=
+ =?utf-8?q?_=E2=80=98cbnl=E2=80=99_has_initializer_but_incomplete_type_in_fs?=
+ =?utf-8?q?/nfs/nfs4p=2E=2E=2E?=
 From: KernelCI bot <bot@kernelci.org>
 To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
 Reply-To: kernelci@lists.linux.dev
-Date: Wed, 25 Nov 2026 14:59:11 -0000
-Message-ID: <179561875066.101431.1493392377635775644@kernelci.org>
+Date: Wed, 25 Nov 2026 14:59:12 -0000
+Message-ID: <179561875212.101431.7093342870032313401@kernelci.org>
 
 Cc from: regression/stable-rc.yaml
 
-New build issue found on stable-rc/linux-5.15.y:
+New build issue found on stable-rc/linux-6.18.y:
 
 ---
-variable has incomplete type 'struct cb_notify_lock_args' in fs/nfs/nfs4proc.o (fs/nfs/nfs4proc.c) [logspec:kbuild,kbuild.compiler.error]
+variable ‘cbnl’ has initializer but incomplete type in fs/nfs/nfs4proc.o (fs/nfs/nfs4proc.c) [logspec:kbuild,kbuild.compiler.error]
 ---
 
 Log excerpt:
 =====================================================
-/tmp/kci/linux/fs/nfs/nfs4proc.c:7058:30: error: variable has incomplete type 'struct cb_notify_lock_args'
- 7058 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
-      |                                            ^
-/tmp/kci/linux/fs/nfs/nfs4proc.c:7058:10: note: forward declaration of 'struct cb_notify_lock_args'
- 7058 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
-      |                        ^
-/tmp/kci/linux/fs/nfs/nfs4proc.c:7062:19: error: no member named 'cl_lock_waitq' in 'struct nfs_client'
- 7062 |                 __wake_up(&clp->cl_lock_waitq, TASK_NORMAL, 0, &cbnl);
-      |                            ~~~  ^
-2 errors generated.
+fs/nfs/nfs4proc.c:7331:24: error: variable ‘cbnl’ has initializer but incomplete type
+ 7331 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                        ^~~~~~~~~~~~~~~~~~~
+fs/nfs/nfs4proc.c:7331:54: error: ‘struct cb_notify_lock_args’ has no member named ‘cbnl_valid’
+ 7331 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                                                      ^~~~~~~~~~
+fs/nfs/nfs4proc.c:7331:67: error: excess elements in struct initializer [-Werror]
+ 7331 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                                                                   ^~~~~
+fs/nfs/nfs4proc.c:7331:67: note: (near initialization for ‘cbnl’)
+fs/nfs/nfs4proc.c:7331:44: error: storage size of ‘cbnl’ isn’t known
+ 7331 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                                            ^~~~
+fs/nfs/nfs4proc.c:7335:33: error: ‘struct nfs_client’ has no member named ‘cl_lock_waitq’; did you mean ‘cl_rpcwaitq’?
+ 7335 |                 __wake_up(&clp->cl_lock_waitq, TASK_NORMAL, 0, &cbnl);
+      |                                 ^~~~~~~~~~~~~
+      |                                 cl_rpcwaitq
+fs/nfs/nfs4proc.c:7331:44: error: unused variable ‘cbnl’ [-Werror=unused-variable]
+ 7331 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                                            ^~~~
+cc1: all warnings being treated as errors
 
 =====================================================
 
@@ -131,18 +143,23 @@ Reported-by: kernelci.org bot <bot@kernelci.org>
 For complete logs and details about the environment used, see the issue
 on the KernelCI dashboard:
 
-- dashboard: https://d.kernelci.org/i/maestro:f9c7a96186c330773c3b7ab59e78751090a3da55
+- dashboard: https://d.kernelci.org/i/maestro:4ea9099c04756562789a42faa282e9f79086510c
 - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  dff336abbc2b3923b31da85cfe6cd094c4bc0d48
+- commit HEAD:  2a9f2c755feca19315a7f06d3ca477059f4c16af
 
 # Builds where the incident occurred:
 
-## x86_64_defconfig+kselftest+x86-board on (x86_64):
-- compiler: clang-21
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6b06ef21286e1965ecb35f05
+## i386_defconfig on (i386):
+- compiler: gcc-14
+- config: https://files.kernelci.org/kbuild-gcc-14-i386-6b06f2a7286e1965ecb3a0a5/.config
+- dashboard: https://d.kernelci.org/build/maestro:6b06f2a7286e1965ecb3a0a5
 
-#kernelci issue maestro:f9c7a96186c330773c3b7ab59e78751090a3da55
+## x86_64_defconfig+aws-ec2+aws-ec2-arch-x86_64 on (x86_64):
+- compiler: gcc-14
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6b06f2e3286e1965ecb3a4c2
+
+#kernelci issue maestro:4ea9099c04756562789a42faa282e9f79086510c
 
 --
 This is an experimental report format. Please send feedback in!
