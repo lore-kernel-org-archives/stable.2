@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795610780;
-	b=UM17cQLN4ex1DjOLtuINa/umf28g9ZTVoJriTmMkhMEYTra3zGkQ6TgCDFe2oA9+jibp
-	 pdDdaQdm6lfLo9FdTSP5HAOigePDwS/IdXEB814bsAjdWcd6lj9bHT3YLqrhlQxi/lmPb
-	 mV8ELgEYZPwshxNKbCwlzNeR+NGS1Txt4f0e6IdRUHQXCs0ed8VCRIDbDMSMz5ECuteDH
-	 eatUUyDzSkUfwkvN0iAg1fafj51fyZaUs4sw7L0zReIFtnvtY2y5boRwD1RLoc5r0ExXC
-	 Tk2nEfHltLqk+U5MaShVlNM9VwCfVZ1SBjOf5d2H7JDhwGVyx4zhBSR6NeXxc8Rclpg==
+	t=1795610783;
+	b=zdz3Tm5oF5GrJv2130U2NSyPkKYLpZc81k28G3gpsai5Cx7ZP5WNq8+iEa4Dzpq0vz9E
+	 ZBYTEUmonhUtMyJiW52f7tJnReUggvKviK+4DbVJsfC1ycVg2Z8pLEWTmzXL0AKm9tAzX
+	 kBlTM0uzGQLv3til5dHd03d1+yvTUbODahokrY1MXqOpP/FTBMp2hX9w66IhG5ZxmbjOm
+	 0h3EOd4saHrZFxyDSDXDc9coEpo5ptYZOP07H1iaqALH1yVAh+ifO0leKcWCu010cBE62
+	 n5RyRvQubUfx3Cy9veUupKVE7tsaUQd8HrDYOPcF8Dw/mDO0YFM39W9urhe2RD08zGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795610780;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795610783;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=oGW/LJuUm11Ts+Hh/DVvbmSN4rfLz7rjp1D5dIKKXBw=;
-	b=QcTXoz4ukQ4evCZwBbFx9LZjxecoLLG9PUQKj14Plv1JY+VrllNvAmO3BwxyNnB121gF
-	 VekFobQ8WJjxkAQ+4RIi5NRrDoH5yfUr49ZDu6eJIElp5DhA9v77hzV4e5UGg1nFNs84q
-	 PnEfo1rzKE/Tl8EeOx5ADnbF15tnrnC9TDlISN+Z5YONigdb1P7TRdM0ODE10vcACH9us
-	 I092Gaohv+MhWeAdl9mUVQkfyVaFgxgjp12ZA3FMoonjlaGzzPPZT2Pdr+3ZLpVSWBlOp
-	 qEH0pDkEnNZwnwWP3r79r6MAuQBY0duuaOhYpbgzvRxxDDdlnybzw8vIAohXPdvLnzg==
+	bh=+y8miHSxK1R/sdVPuHZW5EAQgEri6iJuH7WFtJEaA3U=;
+	b=ft3dcf+Xo28qOolnf7d8JaOQUyjlU8yUgwabrxxwffdHq0ADM5h2bkXPTxh7dc9QJwwg
+	 Ks4TwX7wCLew1lp7N3q3aCm4hL8HB84Cq4R2wor8huvzyW79ouzYPPSIHEPPrY6i+49SH
+	 SWPoOkC9D7lAaUvK+3Z02ybFjBKcg51QCVV2JY2H9oxnPzUiHzIPPr8GVGB3PK4JVxAoH
+	 ACrKZyXXpzk2+EZtiZ78DjEPh9JsPd3dcGd61HJmQ690Hfk617ogCkObhtD8ke8g06jyv
+	 qBs4bc6RVtgWUHjuXNS1JszXsvgJUmYV+xUeNaRiOXCZrl0D9/9t1CIoZwiuHNupYQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VH5dhMjy;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="1/thK5Wt";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7FB606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:46:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F009606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:46:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VH5dhMjy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9DCA1F000C6;
-	Wed, 25 Nov 2026 12:46:19 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1/thK5Wt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E7ED1F000CA;
+	Wed, 25 Nov 2026 12:46:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795610780;
-	bh=oGW/LJuUm11Ts+Hh/DVvbmSN4rfLz7rjp1D5dIKKXBw=;
+	s=korg; t=1795610783;
+	bh=+y8miHSxK1R/sdVPuHZW5EAQgEri6iJuH7WFtJEaA3U=;
 	h=Subject:To:Cc:From:Date;
-	b=VH5dhMjyfmVWfKXgq8pr0Tae7qQ+nsBhexFrr20iOukHimXe5MRSRATlb9g89pLqc
-	 nip5AapspgExx2FqCw0aWNnzYzg3AarIjtJSn2oCyEFEIocjzEGl8Gt/IoCFnD3G0e
-	 XEh161yMtTKzpRuTKf8Y0HXZIm5va4tdekFV4NmY=
-Subject: FAILED: patch "[PATCH] iio: proximity: sx9360: fix sampling frequency write and" failed to apply to 6.6-stable tree
+	b=1/thK5WtCnqAYvQpRj+Ys5n3Lk0R6eXQSa1rlFF2buLgTeYw5WAte+lq3H0UIpVKS
+	 /R/cndojyZpfSTSmYxI86QK4dPt3/MXvAiUX6dawZQz3h/okyJ4UKRQioCuU5voU2h
+	 78qPsyYAQn3EhXXBur8lCACuH5GqLARwFCmWjLvQ=
+Subject: FAILED: patch "[PATCH] iio: proximity: sx9360: fix sampling frequency write and" failed to apply to 6.1-stable tree
 To: kapoorarnav43@gmail.com,jonathan.cameron@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 13:44:29 +0100
-Message-ID: <2026112529-defeat-example-b448@gregkh>
+Date: Wed, 25 Nov 2026 13:44:30 +0100
+Message-ID: <2026112530-uncommon-jaundice-fa9d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x d252425c1533bfacd5940faa3371af82196bff5b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112529-defeat-example-b448@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112530-uncommon-jaundice-fa9d@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
