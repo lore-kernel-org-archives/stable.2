@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795625210;
-	b=n1sOlU3IAV2+PedcLDIrkPYCUer1ysHBl/xSwptit7k4asPm+CFi/avVqoTKuJKm+7jD
-	 0+psz2w67MaIQv9oiGi3nDrdx4L+DQ6Tpgp31dfaFkYLLxQTGsxX6M2DOuQ4n8WcV3qTI
-	 nwQz1bLS75hbtLhI6Jt+/fmEutHtqiRJzY2IBRemnFfFxUzBbm4rwQk78oeeWmcFq9k53
-	 QicU1JVDxjGh8DTXfw+bK4XTqER4SkNFVxXHw3CQqs7ojI8AapzTlOYPIhicQmm4TzRSj
-	 M6vBFxiSJDCUcldhkDoDbznxsE8I8lCx7V7e/lJOJi0/FMM9TjqJsVrhSVVpdKHG4cA==
+	b=bIzxgNxhKj4zxgnP4oFgo6wrS2AGmwQ7B5OU9rVepaHjpSrIVZ0xZq5kp2I2mmpy5Zd/
+	 mi0t/3ypsFEjaWkKU6NaPnEtiI5uW5XZwWBj3A24w7Xo4MW9OytnQ5+xBcwUBGJKqWGeg
+	 VGIQw/UG+uN6LnHVaFiSqWVBKlOpv+I0WLyrEjZWY/tgCIOTMe/RgE+2z8RnY2AQMzv0y
+	 xcrUDjxLjApjLDRQcBJISUk4X0nYSV8XKVDpJWJADjxfWZbiFdf3W4HCvAx1vCncsbqrY
+	 aczF0JfvjtHQWR1ze7gCkW4m3sLChET+8u32OG+fKqgu7W5ptiWLq/CT/3K88LtePkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795625210;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=jCYGES/H5LZ0b0IsjqOM6bf/Ja0eYO/RFbke6mIAV9Y=;
-	b=NGeKb2ZcqhiLFQzWoAzViz2Fzt70cEVMlFLHbZpHQlh8jovPzTDWLLaZ643/+0pgtZQX
-	 eomSmhQ00FI5JYvPUtenIGSNf4t8+FDcmj3W6ZE53hKXPeZfolU3eXYNGPOBMyTMP5p1L
-	 udiiVcM1e65HmuFiL2bf2NqfprTS92+qCAoBqp4XttcyIg0SN9Z+mZGyZoV9wrEATEwux
-	 /mPwfzSizUFuaeE+CzTnYkx6jBI2TS+WpusRXKrSuMCDFofCzAE9+rXYEf60Q1vFgexyH
-	 K1twxiD1HytFznEq5c5G1fhyk2x04UwMRxFQEgvtDOLkM82m/AF1bm/E7wZ8NyTRy7Q==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=VnotZzpvHyJMTMKvT52qivvGZm1oy56beyj5jokOAxA=;
+	b=cBGPuQM9uX8Xt/h+OzLDn03124Chbm3JXaYV8E0IGVlZyvmfABlmOMVQiD4cVZU2X2TB
+	 1oJdtmMcrYKRBMNC8Ul8ulX2HnegfIumwKpM88OFNMX6i2ly0J+rcoO8aSxVcQhUreowC
+	 Cc6qAvs/yHbT7UR8cAne85lUSYQmRVSEmtewSJeSWRjrctZfYqH6ta3Sd/d1/obRNy+xB
+	 IspN2iCnuWj29jZEcHxInYujpmBECe0kv6tn3fLh+rC0kbXFF/F5e107/K5/xuupjwfIC
+	 qr+LbfmnrMd6TIC9V7/6seOk6jqlmW/a7dxXu49ed7UB0ZSCg554v5GqGhKmCXfClSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FlwoE9sK;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FLhuCZBx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A1F606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:46:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAF6606A329;
+	Wed, 25 Nov 2026 16:46:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FlwoE9sK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 308E01F000C4;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FLhuCZBx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D34741F000C0;
 	Wed, 25 Nov 2026 16:46:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795625209;
-	bh=jCYGES/H5LZ0b0IsjqOM6bf/Ja0eYO/RFbke6mIAV9Y=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795625210;
+	bh=VnotZzpvHyJMTMKvT52qivvGZm1oy56beyj5jokOAxA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FlwoE9sKnwkVooO3PSL/OdobgCcCTlEx31K58u1Fb93b7mRlZ+zBcckTMvVAa4QIY
-	 Vi+qTA0Mxg0Scd6VzursBmeurDwl2oBPYv8IWuvAFFsi8Xbq/GLioRnqJY5WlXJcpx
-	 aVoMTaWq+6JisEn+akODViv/P8rKvpdhK+hidNlFPObOcz0oIXpZP0InY45L4QE5Bt
-	 zZekaEljThB28jfMC04v1tqDMtWfSESXuz3hAad6WAlf6aSMZSgYn8hEy6ZkH3sRKE
-	 oH3sjcvt0JpaI/c0rSKgT4Wq2+RrRdyaCsvXAdrUA9HJMYYZgnVs+3lz3P/X/vKtD1
-	 rLSDWWXwTFktA==
-From: Sasha Levin <sashal@kernel.org>
+	b=FLhuCZBx810NGYQTRrXy2x/eImuAnbLz3/zDKvLfgT/dlx48hlrSxQkm/xwKGwn/3
+	 mV2DiXokLPUSY9w1H3U0oMmsj8HyhyW9Mw72NOdy/NPXgvldg0jq+ud+p88Ba3BTgP
+	 eKAF8lwHYyLHU8DeEZCu3yqWVeUYYSOBlej3n9E8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Vishwaroop A <va@nvidia.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+	Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/3] spi: tegra210-quad: Unmap DMA buffers on transfer timeout
-Date: Wed, 25 Nov 2026 11:46:44 -0500
-Message-ID: <20261125164620.858638-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125164620.858638-1-sashal@kernel.org>
-References: <2026112504-attempt-reliant-a017@gregkh>
- <20261125164620.858638-1-sashal@kernel.org>
+Subject: [PATCH 6.12 442/816] powerpc/interrupt: Use early_radix_enabled() in NMI real-mode guard
+Date: Wed, 25 Nov 2026 15:33:10 +0100
+Message-ID: <20261125143859.420654437@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,74 +66,99 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vishwaroop A <va@nvidia.com>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit d04ad85dd8015713b0b2531b5b934fe67828d741 ]
+------------------
 
-tegra_qspi_start_dma_based_transfer() maps the client TX/RX buffers with
-dma_map_single() via tegra_qspi_dma_map_xfer(). The matching unmap only
-happens in handle_dma_based_xfer(), which runs from the interrupt bottom
-half.
+From: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
 
-When wait_for_completion_timeout() expires and tegra_qspi_handle_timeout()
-cannot establish that the hardware finished, it returns an error without
-the bottom half ever having run. Both transfer paths then abort the
-transfer with tegra_qspi_dma_stop(), reset the controller and clear
-curr_xfer, but never unmap the buffers. Every genuine transfer timeout
-therefore leaks the streaming DMA mappings for that chunk, which
-gradually exhausts the IOVA space on systems with an IOMMU in front of
-QSPI.
+[ Upstream commit 644ffb02746690c0ebfe143e066f81c9bde2975e ]
 
-Unmap the transfer after stopping DMA on both timeout error paths. The
-unmap is placed after tegra_qspi_dma_stop() so the DMA engine is
-quiesced before the mappings go away.
+radix_enabled() uses a jump label which is only valid after
+setup_feature_keys() is called. Before that point, on a pSeries
+hash guest, early_check_vec5() clears MMU_FTR_TYPE_RADIX in
+cur_cpu_spec->mmu_features, but the jump label has not yet been patched,
+so radix_enabled() incorrectly returns true.
 
-The recovery paths that do reach handle_dma_based_xfer() unmap there
-themselves. The preceding patch makes tegra_qspi_dma_unmap_xfer() a no-op
-once the mapping is released, so this cleanup cannot unmap twice or run
-against a chunk that was never mapped.
+The dangerous usage window where it goes wrong in early_setup():
 
-Fixes: 921fc1838fb0 ("spi: tegra210-quad: Add support for Tegra210 QSPI controller")
-Cc: stable@vger.kernel.org # with "spi: tegra210-quad: Track DMA mapping state"
-Signed-off-by: Vishwaroop A <va@nvidia.com>
-Link: https://patch.msgid.link/20261026111412.3843954-4-va@nvidia.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+    early_setup:
+        configure_exceptions();
+        <exceptions can happen now, and handler enter/exit can be invoked>
+        <those could use radix_enabled(), which returns stale true>
+        setup_feature_keys();
+        <jump labels set up; post this it is safe to use radix_enabled()>
+
+If an NMI occurs in this window, !radix_enabled() evaluates to false in
+DEFINE_INTERRUPT_HANDLER_NMI. The handler fails to skip NMI entry in real
+mode and attempts to access memory outside the Real Mode Area (RMA),
+hanging the boot.
+
+Since common interrupt wrappers do not have the context of early or late,
+using early_radix_enabled() is the safer option. It does a plain bitmask
+check against cur_cpu_spec->mmu_features and is correct at all times.
+
+Console logs from a pSeries HASH guest showing values across boot stages:
+
+[    0.000000] DEBUG: after early_init_devtree: early_radix_enabled=0 radix_enabled=1 (mismatch means NMI real-mode check is unsafe!)
+[    0.000000] DEBUG: after configure_exceptions (DANGEROUS WINDOW): early_radix_enabled=0 radix_enabled=1
+[    0.000000] DEBUG: after setup_feature_keys (jump labels initialized): early_radix_enabled=0 radix_enabled=0 (should now match!)
+[    0.057124] DEBUG: post secondary CPU bringup: early_radix_enabled=0 radix_enabled=0 (should match!)
+
+Console logs from a RADIX guest showing values across boot stages:
+
+[    0.000000] DEBUG: after early_init_devtree: early_radix_enabled=1 radix_enabled=1 (mismatch means NMI real-mode check is unsafe!)
+[    0.000000] DEBUG: after configure_exceptions (DANGEROUS WINDOW): early_radix_enabled=1 radix_enabled=1
+[    0.000000] DEBUG: after setup_feature_keys (jump labels initialized): early_radix_enabled=1 radix_enabled=1 (should now match!)
+[    0.057016] DEBUG: post secondary CPU bringup: early_radix_enabled=1 radix_enabled=1 (should match!)
+
+Add the missing #include <asm/mmu.h> in alphabetical order since
+early_radix_enabled() is declared there.
+
+Fixes: 8d0e21012743 ("powerpc/mce: Avoid nmi_enter/exit in real mode on pseries hash")
+Signed-off-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Reviewed-by: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
+Link: https://patch.msgid.link/20260909123240.58786-1-venkat88@linux.ibm.com
+[ sashal: Moved the pseries-hash real-mode NMI guards from the upstream DEFINE_INTERRUPT_HANDLER_NMI macro to the two static inline functions interrupt_nmi_enter_prepare() and interrupt_nmi_exit_prepare(), with the include context adjusted. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/spi/spi-tegra210-quad.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ arch/powerpc/include/asm/interrupt.h | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/spi/spi-tegra210-quad.c b/drivers/spi/spi-tegra210-quad.c
-index 8caf17a32e397..1b28dcce8372e 100644
---- a/drivers/spi/spi-tegra210-quad.c
-+++ b/drivers/spi/spi-tegra210-quad.c
-@@ -1261,10 +1261,12 @@ static int tegra_qspi_combined_seq_xfer(struct tegra_qspi *tqspi,
- 					dev_err(tqspi->dev, "transfer timeout\n");
+diff --git a/arch/powerpc/include/asm/interrupt.h b/arch/powerpc/include/asm/interrupt.h
+index 23638d4e73ac0..bf25db6848ce8 100644
+--- a/arch/powerpc/include/asm/interrupt.h
++++ b/arch/powerpc/include/asm/interrupt.h
+@@ -72,6 +72,7 @@
+ #include <asm/firmware.h>
+ #include <asm/ftrace.h>
+ #include <asm/kprobes.h>
++#include <asm/mmu.h>
+ #include <asm/runlatch.h>
  
- 					/* Abort transfer by resetting pio/dma bit */
--					if (tqspi->is_curr_dma_xfer)
-+					if (tqspi->is_curr_dma_xfer) {
- 						tegra_qspi_dma_stop(tqspi);
--					else
-+						tegra_qspi_dma_unmap_xfer(tqspi, xfer);
-+					} else {
- 						tegra_qspi_pio_stop(tqspi);
-+					}
+ #ifdef CONFIG_PPC_IRQ_SOFT_MASK_DEBUG
+@@ -326,7 +327,7 @@ static inline void interrupt_nmi_enter_prepare(struct pt_regs *regs, struct inte
+ 	 */
+ 	if (IS_ENABLED(CONFIG_PPC_BOOK3S_64) &&
+ 	    firmware_has_feature(FW_FEATURE_LPAR) &&
+-	    !radix_enabled())
++	    !early_radix_enabled())
+ 		return;
  
- 					/* Reset controller if timeout happens */
- 					tegra_qspi_reset(tqspi);
-@@ -1377,8 +1379,10 @@ static int tegra_qspi_non_combined_seq_xfer(struct tegra_qspi *tqspi,
- 				/* Real timeout - clean up and fail */
- 				dev_err(tqspi->dev, "transfer timeout\n");
- 
--				if (tqspi->is_curr_dma_xfer)
-+				if (tqspi->is_curr_dma_xfer) {
- 					tegra_qspi_dma_stop(tqspi);
-+					tegra_qspi_dma_unmap_xfer(tqspi, xfer);
-+				}
- 
- 				tegra_qspi_handle_error(tqspi);
- 				ret = -EIO;
+ 	/*
+@@ -355,7 +356,7 @@ static inline void interrupt_nmi_exit_prepare(struct pt_regs *regs, struct inter
+ 		nmi_exit();
+ 	} else if (IS_ENABLED(CONFIG_PPC_BOOK3S_64) &&
+ 		   firmware_has_feature(FW_FEATURE_LPAR) &&
+-		   !radix_enabled()) {
++		   !early_radix_enabled()) {
+ 		// no nmi_exit for a pseries hash guest taking a real mode exception
+ 	} else if (IS_ENABLED(CONFIG_KASAN)) {
+ 		// no nmi_exit for KASAN in real mode
 -- 
 2.53.0
+
+
 
