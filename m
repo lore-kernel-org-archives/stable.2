@@ -1,65 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795622611;
-	b=K3z+bxNIHKfJ8H5BlY+DO/jYPetJHaow8RQz1rtjjvFKcsG6FyJhVESsWWuHjme1pju8
-	 vhQii/gzjJbtLUNSn09e7HObUdxSWo4TgTX0esmCSbhzrR/w7AsD6aPrEOZwggm06+pdg
-	 +3AZj9oQtILugq27iEdwdQYuhRgr2KfrMifoNx8vqzT1x1MsEKZGlIX1QB8fslj3AtIv3
-	 v2TjOXSDoVI4G/hcLruMKZjTabmH6Wn4Q7jOhNNXzEGHEv/lqoHQofGYBv9g7N3Fs6Fts
-	 pjJJVWk8BuANwxrOElrBR8tRE0RuT/5N7vuvrPZI+Jofg39ji2wj2MUECxkCHnWrLag==
+	t=1795622617;
+	b=Dwzqrvl5TNomwbv4BCp378PnAUGK9x0NRk5ZljARh2mwFB4aGp6zx9zymBAmIE5T+/GW
+	 Ah2rinm6b7pZ8NGXgU6dC4rcYahZo1+mGNcnyMigQrYSegHiGWSkz2wPTd8lGxbcYFI0u
+	 OTft7R96H4KfN7YSEue9usUYirZnPpgd7QWiNmO4BCA2b6WFGtt4/6E8rYKlmcFVTnX4a
+	 20XHB8pGZfJR6Bh+l4sDMdUd3IDc1ktG6F9cGBmD6nm4QJe1tL4vNOd7bkOynMnX9h16n
+	 bSNqSoQGNvbkNY8Nl0FX3GOYwYYC1m6HhFiW3+p5kySIKpckcXveB9dwGnGLcQ0jEJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622611;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=30XKkNhBHtAMZ1vAF0bhL3GbSzopE2QJq9kezQdjGYg=;
-	b=ELAHP+PuLUaX8KWYvB57Fbgb+u9O39eOvrJ9oypHqYQ7Wfu2peOiZpkBP4GAlC8eQ5Ad
-	 +MF2WJUr4uIEFZvbuYQp+VtEcgt886JF4V29iaydnKMbxrCQHpyrZzaK6p8qVG+43GSov
-	 iC/hjzrwWCUUqZT8yxlPzS4M0RXK8HRXSWX5xNH2UEzoYlMF8byG+htzxDbohe0WU2bf8
-	 w8TQW1tE4A1/b6J6bZl/qrgjfON+j/JKyKDb6GzZAPiIr/Ya5JykajIEYdl1iFnY0ZUau
-	 EqB/AbUmcQJLO9z8b+p9tUobSPebJvhGnujQNrXO8jiIBDvHJm8ZHj3JXKlpev2LM5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622617;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=sRpeaOJ4RRbywfh3USsDc5STCW0r2UrR6rNWGYeezX8=;
+	b=h+stnMKRwUM2wlyOB27SS+se8Urf2LyJyQhaCDS45xcRUcjCQ7gUMX26KSOlyql7uvNe
+	 9eOrWlViFuIwcGHVm3kbk4pDgiiWQVgsl8BvDnpBGB5R3xyX4ZwpdP61+XfSPw9XGCE7g
+	 j5fmCuA1anhC0TNBy6edoQ1CbcCb33xbv28WUp1xpm6wcqkKNc0iL2F0sxzR0v/9B4Oac
+	 gpeON9Gt2vv017uSyhg2lGqx/DllQ9z53WX/749DgkhfsSlvAeOBuWKJuhRibHdXaaXxl
+	 Pdwgg1w5IBHrdB8ZhQXIkhxKfeRJw+EJb0r5DA5neFoFVIxja/d7rS+IY1lajMje4zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i6SWBrU5;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=h0EEpfEU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3682606A323;
-	Wed, 25 Nov 2026 16:03:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C80606A31E;
+	Wed, 25 Nov 2026 16:03:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i6SWBrU5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 751DF1F000C6;
-	Wed, 25 Nov 2026 16:03:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795622610;
-	bh=30XKkNhBHtAMZ1vAF0bhL3GbSzopE2QJq9kezQdjGYg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=i6SWBrU53SoAoY4XVv51y4e4x0Jp0sD5V7g3exv5dhvF3IoVwyfcvYj8wnOxpbHm3
-	 vAkPEU4OiboV/4elRz6moNKq0g77W1eP8t6VLEm9ewAPYKAdbT5yhkg1Gtwtc0j0r+
-	 9m1dooFw5bc9CPOET6zEV0xPjdMW9IH4nZIyOJI+tKr0O2nqyS/1ieGKX6LjZVeOxT
-	 cT9Ttay1gmej0EPnl983itB3LINzno+ewMiwD65zAqYgBskXDaJjqOXWrcXADwNeSv
-	 MhQqjWfSMyLT7BCYAU5WL5BG0yIhyikmgPsUX5ohJAfJvTROUExNNHVHCPKF8mm4Dn
-	 e1La2Qot17ENg==
-Date: Wed, 25 Nov 2026 06:03:29 -1000
-Message-ID: <1357055318f5d596a81026dc1e2a7ad6@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Lai Jiangshan <jiangshanlai@gmail.com>, Jonathan Corbet <corbet@lwn.net>,
- Boqun Feng <boqun@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] workqueue: fix cancel_work_sync() on ordered workqueues
-In-Reply-To: <20261125-ordered-wq-cancel-v2-1-13620a09773f@google.com>
-References: <20261125-ordered-wq-cancel-v2-1-13620a09773f@google.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=h0EEpfEU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B48881F000D1;
+	Wed, 25 Nov 2026 16:03:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795622616;
+	bh=sRpeaOJ4RRbywfh3USsDc5STCW0r2UrR6rNWGYeezX8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=h0EEpfEU23ZxmxFD/ZTLii5K0ny49Ahpv9QnGf5sTWrjDlwkWsRv1e3qnJKn78ibi
+	 r1DFgvMrl7NJwjy5ypY0w2B5YFo1RP7I2NAhZI6hQEgvdxuUiLi/g1NJcUPAJkAxTQ
+	 72rfdvffhinTOrA3joOJeCa+rQMLA47oXmTq8Mks=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Kang Yang <kang.yang@oss.qualcomm.com>,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
+	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 549/990] wifi: ath12k: fix skb leak on monitor PPDU ID wraparound
+Date: Wed, 25 Nov 2026 15:31:56 +0100
+Message-ID: <20261125143834.958761732@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,12 +64,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Applied to wq/for-7.4-fixes with "# v6.11+" added to the stable tag.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Thanks.
+------------------
 
---
-tejun
+From: Kang Yang <kang.yang@oss.qualcomm.com>
+
+[ Upstream commit 97b144b82e2388efef1f78269626d61de0480feb ]
+
+ath12k_dp_mon_comp_ppduid() updates *ppdu_id and returns
+msdu_ppdu_id to indicate that a PPDU transition was detected.
+
+When PPDU IDs wrap around, msdu_ppdu_id can be 0. In that case
+the function updates *ppdu_id but returns 0, causing
+ath12k_wifi7_dp_rx_mon_mpdu_pop() to interpret the result as
+"no PPDU update" and continue processing the MPDU.
+
+The MSDUs are then linked into head_msdu while their RX
+descriptors have already been detached. Later,
+ath12k_wifi7_dp_rx_mon_dest_process() detects the PPDU
+mismatch and exits with the partially built MSDU chain,
+leaking the SKBs.
+
+kmemleak reports the leak through:
+  kmemleak_alloc()
+  __netdev_alloc_skb()
+  ath12k_dp_rx_bufs_replenish()
+  ath12k_wifi7_dp_rx_mon_dest_process()
+
+Fix this by returning a boolean value from
+ath12k_dp_mon_comp_ppduid() so the update notification is
+independent of the actual PPDU ID value.
+
+Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
+
+Fixes: 72bfbf19b7da ("wifi: ath12k: add support to reap and process mon dest ring")
+Signed-off-by: Kang Yang <kang.yang@oss.qualcomm.com>
+Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Reviewed-by: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260916060325.854-6-kang.yang@oss.qualcomm.com
+Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+[ sashal: Kept the function static in dp_mon.c and dropped the header hunk, since this tree has no prototype; only the return type changed to bool. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/wireless/ath/ath12k/dp_mon.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath12k/dp_mon.c b/drivers/net/wireless/ath/ath12k/dp_mon.c
+index cfd9ea83887aa..2cb4e0bb0221a 100644
+--- a/drivers/net/wireless/ath/ath12k/dp_mon.c
++++ b/drivers/net/wireless/ath/ath12k/dp_mon.c
+@@ -1860,24 +1860,23 @@ ath12k_dp_rx_mon_buf_done(struct ath12k_base *ab, struct hal_srng *srng,
+ 	return DP_MON_STATUS_REPLINISH;
+ }
+ 
+-static u32 ath12k_dp_mon_comp_ppduid(u32 msdu_ppdu_id, u32 *ppdu_id)
++static bool ath12k_dp_mon_comp_ppduid(u32 msdu_ppdu_id, u32 *ppdu_id)
+ {
+-	u32 ret = 0;
+-
+ 	if ((*ppdu_id < msdu_ppdu_id) &&
+ 	    ((msdu_ppdu_id - *ppdu_id) < DP_NOT_PPDU_ID_WRAP_AROUND)) {
+ 		/* Hold on mon dest ring, and reap mon status ring. */
+ 		*ppdu_id = msdu_ppdu_id;
+-		ret = msdu_ppdu_id;
+-	} else if ((*ppdu_id > msdu_ppdu_id) &&
+-		((*ppdu_id - msdu_ppdu_id) > DP_NOT_PPDU_ID_WRAP_AROUND)) {
++		return true;
++	}
++	if ((*ppdu_id > msdu_ppdu_id) &&
++	    ((*ppdu_id - msdu_ppdu_id) > DP_NOT_PPDU_ID_WRAP_AROUND)) {
+ 		/* PPDU ID has exceeded the maximum value and will
+ 		 * restart from 0.
+ 		 */
+ 		*ppdu_id = msdu_ppdu_id;
+-		ret = msdu_ppdu_id;
++		return true;
+ 	}
+-	return ret;
++	return false;
+ }
+ 
+ static
+-- 
+2.53.0
+
+
+
