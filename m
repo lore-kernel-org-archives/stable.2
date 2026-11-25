@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795601613;
-	b=kGTJTmTPAxyQZJ6Xa7Nh3PZI/7alHdOpChotR1ku+1TqTHZ8NOcHUkDabNZJOfpGjoNc
-	 SSxfuDIdGIWkUa0klmnlzHkUqgSnISEFKVF3Sec/d1onU8jbZiK50bIbBLXE8zhYM8Ieq
-	 tzQnHOws1UU2LGX+oeGyOgcFrscNIqGdodlhYWQDneFSOZwP1HOJlaNnSOsTTC1C0vk4K
-	 u/Mglf1EIJ27GIr72MrDNjO51+m3juAMl2hYH3L788efS7/84J2u1lTIXz5ukhylRpy0z
-	 BGklQ5uVyS5WwSgmVMnq5K3lxpRSTC3/vFmTAXJRsTQSaerqw74bPMUZ0y0+RP3cmfQ==
+	t=1795601616;
+	b=nYnzCFmglQapvNtGzatE28eHfNdrU6BwySsqGHB+ne7YadV3nK94iP3KRZpVcDm9WKXb
+	 5kQ/4n3S+mJunl/wsnGmGe0uUUr9IecD/o+FsCWcNnIJZswmhvKbsfL/+WOOVwEb1ZWfF
+	 0xswYmMlGzo/jTVdj0II5jhGaUP0MTsGedNgxJB6ZE6Z7gH2pUBYoRdAchzN0gXjTkV7j
+	 ez+0fJmTM9PnCmGFdS3gFjQUWIKEWRc00cnSkV8CbRhkUaShGIb2EfTFhCdfHaAW4bvaw
+	 4GlWaZ78tCy7pHSaK+Zn/N+7NJvynfuibv05eM7i2Kko21baCBtSlaPPGzcM5JHf93g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795601613;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795601616;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EEuMfBmB4BNA9KpW4BxkgF2WvHdjMh1K4Vg8JwO9O7s=;
-	b=mndWZQIKOZkfh1dqWRqQCSbns/lOhrV5ixxl9+8KLHO0H18Yol0UBtMOuYZA6dIl5xpz
-	 KRFwW8CMOtfQUFSOxgwEs2me8pFpnVNA97eTy9xloINFQBZmcSPjNFtQGUdFrB6IUvL4l
-	 gbza4x8rkl7fLM4DELVpya4dFNTgt1AelqDtQncR0l/PYTvlzeQEZ0j1qHNcB6w3tuvxM
-	 EkNRzFt5pfO1L8FhHAzM1JZIWyLWOyrIEiZQujykyKY1ikGdLH3Qxd8UMCGuqtfcYAFdR
-	 85ZM5IY41LcPU+m7/DbtPvrbK/8Ew4wGWbiG+ZarEVi9YG+goC7V7qbmzDjV+ylLq8w==
+	bh=u+NnRrseRMMXG7ltLZVXZ/7aoJ8bs36X2sE897XK4u4=;
+	b=4B+SNf9gnVqS61eB5pYTp9l2iU+vwuOKxUzvlKYk4ohO8zCbTVAdgfI9LHvcaQFwzJkN
+	 CfKarLx219nwpqDmKQzSkFtZ/Rxtlkru/rV3zt0dcr0qa1j66Yp8JAilrZUI2N2UhZ7xb
+	 Q1LJXtKsBtEQhHlY5uh2S6qP4t+oMGFaijQ6hbLn5E3wKsaWQnXWQY6qgI4E2M7K6iRc4
+	 a3qHKRsnkxYnmuV7zAy4+ni8PnVyGf5fEnNdPdkUzWTisjEZ1Oj8wUFegklgtQ28Jq4kx
+	 ifa37DMWpAvjTnaBN6mRSZNrq38AT0W8EMN5IL5q9q1s+6Gp+hmSIelLR01WWadjqTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=n9yWH1zD;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QK9tL1XT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 554A0606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:13:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63301606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:13:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=n9yWH1zD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4E211F000C6;
-	Wed, 25 Nov 2026 10:13:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QK9tL1XT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CCA61F000C0;
+	Wed, 25 Nov 2026 10:13:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795601613;
-	bh=EEuMfBmB4BNA9KpW4BxkgF2WvHdjMh1K4Vg8JwO9O7s=;
+	s=korg; t=1795601616;
+	bh=u+NnRrseRMMXG7ltLZVXZ/7aoJ8bs36X2sE897XK4u4=;
 	h=Subject:To:Cc:From:Date;
-	b=n9yWH1zDQw7AAjGbS8UGZGGGu0KuRCiJ4FV87I6rK72TIsObIKhi8rptV4NlaaFrY
-	 CCRQi/tuBDRITMbgG5i88erA8q0w/N4IT09nZSGkv3gOLzodAO6lCOC4xZ30uw9rsU
-	 dBFh/oP6J/YIo6DhzhrayMsTiGul2t5QHLnY0SNM=
-Subject: FAILED: patch "[PATCH] cpufreq: Force passing target frequency to driver during" failed to apply to 5.10-stable tree
+	b=QK9tL1XToc/KDk1hXe36qtuco6sdIO29aOxyI7lDgCWnKkGrR2bYciHr6XqnyoERF
+	 F8ifWOXDZuh3mKrL+wy0u+L+gCQvaZSGq+SjJksjOU/K4jKSTF85QM/I3FQo0XkzB8
+	 6au92Am+ctNsWXtEJxxxh/gEiN6aVfMDT3O/hoRc=
+Subject: FAILED: patch "[PATCH] cpufreq: Force passing target frequency to driver during" failed to apply to 5.15-stable tree
 To: rafael.j.wysocki@intel.com,christian.loehle@arm.com,dsmythies@telus.net,stable@vger.kernel.org,viresh.kumar@linaro.org,zakbrightonknight@gmail.com,zhongqiu.han@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:10:10 +0100
-Message-ID: <2026112510-gauntlet-tightness-db8f@gregkh>
+Message-ID: <2026112510-sectional-unfrozen-00aa@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 342d3a73c5dbc2f1cd0c5142e2d11bda4dc54cd7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112510-gauntlet-tightness-db8f@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112510-sectional-unfrozen-00aa@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
