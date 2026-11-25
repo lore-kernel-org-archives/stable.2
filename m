@@ -1,57 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.14.198.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606356;
-	b=JkCb0M8Pks1aLStMjm2Lv1M3QiNtXUIDoo8GjIf4UtEdO3/qBfPfWtbEspIvy5xqgxfs
-	 ZAXMJWXJoiydkH2PFq9Cy7l+w5OHdT6F83I7W7T8HG4ABYTwBdID8HOfSY0m+1B/3Pl5n
-	 m8RySYCk8CMFTFW5GRrAWQjI6Rgmh78ILN0TrYuEGQTD4sO9mDOh7SqdR6k7pCE7thaaQ
-	 0gbWUCpSIs7wg9M4VbYdddEtNsTE65C2J5RIPyxD6NbwvKXqe4wBD7vpMh4KoHHQQLfvS
-	 7gU+u0wylbnULlgTBvQ8rKZelmfaxSZR7qM/Llzzw6DV+OYSFaNlwRK4TDBUPTrFw5Q==
+	t=1795606358;
+	b=ws0ZOrfPRnhlcQgfIjxXTvWBUXkwvnIigsDZVIFmP7Ot4t1TIxDe/mc3z6pk3k2CgFlu
+	 Ynn0MqiDJ24PHUJ9DRRQFmmRhW7VsZ1BXISdNWZjZ5GklQn/yYZS1o+fZO9T3mDF35OjO
+	 upbAhq3pALv+qF29oHEvY/CzUmLvZn2dJsVYqt5A91cBDlcfRUUBVOCni/REQhK0Clztp
+	 KGMOXfzO+4+46mu4DO45odQAZ8GX7rQFphadTDWCmH4xwSZf5Jf9AocCc/l+OcPJhGmt5
+	 7MpKvMXy4oBrxRfzSnf9nMp5Tp69+bOMAQCLKLc1zYZvWTBHbr67TIPWxpMCurfqKuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606356;
-	h=DMARC-Filter:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Received:
-	 DKIM-Signature;
-	bh=b5/u/al/otVDeJI7AX/e/YrAlHDpoWQ4QAjq8dJ7v/s=;
-	b=WpVMjQejj0gTOLHqjSNIy/62bZbRMhRfWgVpSdFxHlkF/4WG0hGL0DMqSAawhHodaV7O
-	 7ZNX+mJ0cKi552/Aqz909HaJelUIhRO0QIXlOLgWdu8cIXpVTJ3Ah9U7Kt3+PirqR+0RH
-	 Fke11m1ubNIv7kjKqw8hknfXfkPpAbkalxfwiR/bmtR9/ZjcgL1hIFaYgbbfJoS8Aed90
-	 3pK3jDFxeXy/TFI1IymUtQOcCjxXL+/v86yKfh7hl95OsdHNlFyUJc8GGJS6Apz1Q2hHb
-	 Rj/81IrNmSHBY/D5nsPf+76Jp4rxU2N3aDgsJXSt3Bj1T5D8Xe+f7bkppVanihBVBsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606358;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=PTffZoUMjIdRV4TFZJzorYrqtKAidV/RAwLl43/yTfs=;
+	b=ofKBBAKksHwLcv/9giO9g+7Vk1I2bTGG+rtFg+7QDi4ObFUR2aFnECTs/wpUFRfFhvpX
+	 0yWanYHmTdX6OlQW2wC/LLpmUW1TDlOgJRwwOVlad+gTrjbt33xJdhgL+GXolR2+0oaHO
+	 8IRYl0BTKQXB1YfECbDeVFSwR5gqYLnT7+3F04BJ/Fia1l0OYDq8dXL8ndf4sXqW4IeIB
+	 F/jksZ0VoWJKceAOcFDVQdO1x+B18SoFw580ewpmgFmfWCIMy0vwP1LsSIIu3xeX9hFga
+	 CQlfkgg5hYBd4s5ftrsZYlBPqj2KyapSzxUO6U0JcHugoER2BEuFiUFxx6LnsY/QdPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rimpianto.com;
-	spf=pass smtp.mailfrom=rimpianto.com;
-	dkim=pass header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b="SNEht/71";
-	arc=none smtp.remote-ip=46.14.198.178
-Received: from mail.rimpianto.com (mail.rimpianto.com [46.14.198.178])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a1lsVn9m;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F8EC606A327;
-	Wed, 25 Nov 2026 11:32:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F8EC606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rimpianto.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rimpianto.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 772E4606A33B
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:32:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=SNEht/71
-Authentication-Results: mail.rimpianto.com;
-	auth=pass (plain)
-From: Federico Musto <federico@rimpianto.com>
-To: Chris Snook <chris.snook@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Federico Musto <federico@rimpianto.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v5 1/2] net: atl1c: wait for in-flight RX polls before the link-down ring reset
-Date: Wed, 25 Nov 2026 12:31:19 +0100
-Message-ID: <20261125113120.99743-2-federico@rimpianto.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261125113120.99743-1-federico@rimpianto.com>
-References: <20261125113120.99743-1-federico@rimpianto.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a1lsVn9m
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA2E11F000F4;
+	Wed, 25 Nov 2026 11:32:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795606358;
+	bh=PTffZoUMjIdRV4TFZJzorYrqtKAidV/RAwLl43/yTfs=;
+	h=Subject:To:Cc:From:Date;
+	b=a1lsVn9mtGmbynPD+XOxobquTRBY+FCu63wCFa4bz906Qq85f/nV3bwDCtFLOH3l2
+	 /0V7xOGAeCwxNsxzZ6/UqnUPFytsIUbAWU8Pzo6Swb28JPMcQbs8sYrzVnR6Kw3KqP
+	 S3zstJzkjvij5sBO1vMD7ZG02D2AX7tr7ozF0+VE=
+Subject: FAILED: patch "[PATCH] dm: fix use-after-free when dm_get_device() widens the open" failed to apply to 5.15-stable tree
+To: mtsai@redhat.com,mpatocka@redhat.com,noreply@anthropic.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 25 Nov 2026 12:18:40 +0100
+Message-ID: <2026112540-charm-recliner-c6ca@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,199 +51,346 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-Received: from localhost (Unknown [127.0.0.1])
-	by mail.rimpianto.com (Haraka) with ESMTPSA id 455A4CB8-EA41-4A84-AB6F-0475A2A7EF25.2
-	envelope-from <federico@rimpianto.com>
-	tls TLS_AES_256_GCM_SHA384 (authenticated bits=0);
-	Wed, 25 Nov 2026 12:31:21 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rimpianto.com;
- h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
- Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=s20260314391;
- t=1795606281; bh=b5/u/al/otVDeJI7AX/e/YrAlHDpoWQ4QAjq8dJ7v/s=;
- b=SNEht/71rCBfAMMscYpIupiYDUAXc9a3GxJ2NruecOOVZUynNx7CR/GRsia491DnV61jNkK1h
- eJyIsHHeS+Q3RlvNSw8mGuWViXscmIjwRI85Q2RDsLQSFyMXVq8KA9+sGiOmkH0H9057Lu4Bqfc
- WunUFvmTrbMYRIPUFPcGAjIQ2scKtEZd/QeqsL5rwqKU5IrcarEciRC5xehyfQrPRLlmRCpXJSt
- IyOZORvacQ4EaFyAAzmCIhrbx4rifaG2d2+Q4DTSM1+Vh/tmvCbZ2T6n8OeoR0FDevWvQYfFG+P
- pdHHIhiH9c5bkCa4vhy9zQTdQWZgVxvIK8Qg4BJJhmXA==
 
-When the PHY reports link down, the work item calls
-atl1c_check_link_status(), which resets the MAC, frees every RX buffer
-and zeroes the ring indices through atl1c_reset_dma_ring(), then posts
-fresh buffers through atl1c_configure(). Nothing keeps the RX poll away
-while it does so: atl1c_irq_disable() masks the device interrupt and
-waits for the hard interrupt handler only, and atl1c_clean_rx() tests
-the carrier only when it is entered. A poll that passed that test before
-the carrier went off keeps walking the RRD ring on another CPU while the
-work item frees the same buffers. Both can unmap and free the same skb,
-or the poll can hand the stack an skb the work item has already freed.
 
-Once the carrier is off, wait until no RX poll is in flight before
-touching the rings. NAPI_STATE_SCHED is held for the whole poll, so
-observing it clear on every RX queue means no poll is running, and a
-poll that starts later sees the carrier off and returns without looking
-at the rings. NAPI does not have to be disabled.
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-The handshake is a store-buffer pattern: the work item stores the
-carrier-off state and then loads NAPI_STATE_SCHED, while the scheduling
-side stores NAPI_STATE_SCHED (the cmpxchg in napi_schedule_prep()) and
-the poll then loads the carrier.  With a full barrier between store and
-load on both sides, either the work item sees the poll or the poll sees
-the carrier off.  The cmpxchg provides it on the scheduling side; an
-explicit smp_mb() after netif_carrier_off() provides it here, so that
-the wait does not depend on how that function sets its bit.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-napi_disable() is not used because it cannot be made safe here without
-serialising the work item against atl1c_down() first: the two can run
-concurrently (MTU change, ethtool, suspend), a second napi_disable() on
-an already disabled NAPI sleeps holding the netdev instance lock, and
-the napi_enable() of the first caller then blocks on that lock.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x c834161ded1a141a58d5f03b24f6894291222c96
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112540-charm-recliner-c6ca@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
-The same concurrency shapes the wait. atl1c_close() and atl1c_down() set
-__AT_DOWN before quiescing NAPI; if the bit appears while the wait runs,
-a teardown is under way that will napi_disable() and reset the rings
-itself, so the work item must leave them alone rather than reset without
-having waited. The wait is also bounded: a poll that never finishes
-would otherwise stall the work item with interrupts masked. In both
-cases the rings are left untouched and the handler runs again on the
-next link-change event.
+Possible dependencies:
 
-Only the work item waits. atl1c_up() also calls
-atl1c_check_link_status(), before napi_enable(): no poll can run there,
-and a disabled NAPI keeps NAPI_STATE_SCHED set, so the wait would only
-spin. It passes false and the link-down path runs unchanged.
 
-Found by code inspection; the race has not been reproduced.
 
-Fixes: 5e5c0964d9b9 ("atl1c: do MAC-reset when PHY link down")
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From c834161ded1a141a58d5f03b24f6894291222c96 Mon Sep 17 00:00:00 2001
+From: Ming-Hung Tsai <mtsai@redhat.com>
+Date: Fri, 6 Nov 2026 19:59:22 +0100
+Subject: [PATCH] dm: fix use-after-free when dm_get_device() widens the open
+ mode
+
+There's an UAF bug in dm_get_device(): when a table construction calls
+dm_get_device() on the same device twice with widen access mode (e.g.,
+read-only first then read-write), the second dm_get_device() calls
+upgrade_mode(), which reopens the device in upgraded mode, making
+previously returned dm_dev* a stale pointer.
+
+Fixing approaches:
+- Add per-mode views (dm_dev_ref) from a per-device dm_dev_internal to
+  multiple table_devices.
+- Keep reusing the dm_dev_ref when the requested mode is included, i.e.,
+  a read-only reference can reuse the read-write opened device within a
+  table.
+- Maintain a canonical block_device pointer in dm_dev_internal for
+  handling the DM_TABLE_DEPS ioctl.
+
+Also tweak the way of mode sharing check in find_ref() to
+"(x & mask) == mask". The result stays the same to the previous
+upgrade_mode() guard "(x | mask) == x".
+
+Pros: keep the relationship between dm_dev_internal and table_device:
+one dm_dev_internal per device, regardless the mode, so the output of
+DMM_TABLE_DEPS ioctl unchanged.
+
+Cons: extra dm_dev_ref allocation.
+
+Note that now the table_device's count not necessarily mean the number
+tables referecing this <dev, mode> pair, since we're allowing multiple
+references within a table.
+
+Signed-off-by: Ming Hung Tsai <mtsai@redhat.com>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+Fixes: 86f1152b117a ("dm: allow active and inactive tables to share dm_devs")
 Cc: stable@vger.kernel.org
-Signed-off-by: Federico Musto <federico@rimpianto.com>
----
-New in v4. The Sashiko review flagged this race on v2 and again on v3 of
-the next patch: pre-existing, but made worse by a free in the same
-window.
 
-v4 -> v5, after the Sashiko AI review of v4:
- - on __AT_DOWN, skip the link-down reset instead of proceeding without
-   waiting: the concurrent teardown resets the rings after
-   napi_disable(), so the work item no longer touches them while a poll
-   may be live;
- - bound the wait (~0.5-1 s) and skip the reset on timeout with a
-   ratelimited warning, so a threaded busy-poll (which keeps
-   NAPI_STATE_SCHED set while the interface is up) cannot hang the work
-   item with interrupts masked;
- - wait only on the work-item path: atl1c_check_link_status() takes a
-   bool and atl1c_up() passes false, because it runs before
-   napi_enable() where a disabled NAPI keeps NAPI_STATE_SCHED set;
- - order the carrier-off store before the NAPI_STATE_SCHED sampling with
-   an explicit smp_mb(): the handshake is a store-buffer pattern, the
-   scheduling side is ordered by the cmpxchg in napi_schedule_prep().
-
-Not addressed, both pre-existing: the TX side of the same reset
-(atl1c_clean_tx() and atl1c_xmit_frame() against atl1c_clean_tx_ring()),
-and the missing serialisation between the work item and the callers of
-atl1c_down().
----
- .../net/ethernet/atheros/atl1c/atl1c_main.c   | 65 ++++++++++++++++++-
- 1 file changed, 62 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-index eddd840..afab3e1 100644
---- a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-+++ b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-@@ -248,7 +248,52 @@ void atl1c_reinit_locked(struct atl1c_adapter *adapter)
- 	clear_bit(__AT_RESETTING, &adapter->flags);
- }
+diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
+index 8f945f0aeda5..4a7cb0926c17 100644
+--- a/drivers/md/dm-ioctl.c
++++ b/drivers/md/dm-ioctl.c
+@@ -1794,7 +1794,7 @@ static void retrieve_deps(struct dm_table *table,
+ 	deps->count = count;
+ 	count = 0;
+ 	list_for_each_entry(dd, dm_table_get_devices(table), list)
+-		deps->dev[count++] = huge_encode_dev(dd->dm_dev->bdev->bd_dev);
++		deps->dev[count++] = huge_encode_dev(dd->bdev->bd_dev);
  
--static void atl1c_check_link_status(struct atl1c_adapter *adapter)
-+#define ATL1C_POLL_SYNC_TRIES 500
-+
-+/* atl1c_clean_rx() looks at the carrier only when it is entered.  A poll
-+ * that passed that test before the carrier went off keeps walking the RRD
-+ * ring.  NAPI_STATE_SCHED is held for the whole poll, and a poll that
-+ * starts later sees the carrier off and returns without touching the
-+ * rings, so once the bit is observed clear on every RX queue no poll is
-+ * running and none can start.
-+ *
-+ * Only the link-change work item needs the wait: atl1c_up() calls
-+ * atl1c_check_link_status() before napi_enable(), when no poll can run,
-+ * and a disabled NAPI keeps NAPI_STATE_SCHED set, so waiting there would
-+ * only spin.
-+ *
-+ * Returns false when the caller must leave the rings alone:
-+ *  - __AT_DOWN is set: a concurrent close, down or suspend is tearing the
-+ *    device down and resets the rings itself, after napi_disable();
-+ *  - the wait timed out: a poll is not finishing (threaded busy-poll
-+ *    keeps NAPI_STATE_SCHED set while the interface is up).  Resetting
-+ *    under a running poll is the race this wait exists to avoid.
-+ */
-+static bool atl1c_rx_poll_sync(struct atl1c_adapter *adapter)
-+{
-+	int i;
-+
-+	for (i = 0; i < adapter->rx_queue_count; ++i) {
-+		int tries = ATL1C_POLL_SYNC_TRIES;
-+
-+		while (test_bit(NAPI_STATE_SCHED,
-+				&adapter->rrd_ring[i].napi.state)) {
-+			if (test_bit(__AT_DOWN, &adapter->flags))
-+				return false;
-+			if (!tries--) {
-+				dev_warn_ratelimited(&adapter->pdev->dev,
-+						     "RX poll won't finish, skipping link-down reset\n");
-+				return false;
-+			}
-+			usleep_range(1000, 2000);
-+		}
-+	}
-+
-+	return true;
-+}
-+
-+static void atl1c_check_link_status(struct atl1c_adapter *adapter,
-+				    bool sync_polls)
+ 	param->data_size = param->data_start + needed;
+ }
+diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
+index a483f49dd4ce..db1ec4ae8e56 100644
+--- a/drivers/md/dm-table.c
++++ b/drivers/md/dm-table.c
+@@ -165,14 +165,16 @@ int dm_table_create(struct dm_table **result, blk_mode_t mode,
+ 
+ static void free_devices(struct list_head *devices, struct mapped_device *md)
  {
- 	struct atl1c_hw *hw = &adapter->hw;
- 	struct net_device *netdev = adapter->netdev;
-@@ -265,6 +310,20 @@ static void atl1c_check_link_status(struct atl1c_adapter *adapter)
- 	if (!link) {
- 		/* link down */
- 		netif_carrier_off(netdev);
-+		if (sync_polls) {
-+			/* Store-buffer pattern against the poll: we store
-+			 * carrier-off and then load NAPI_STATE_SCHED, the
-+			 * scheduling side stores NAPI_STATE_SCHED
-+			 * (napi_schedule_prep()) and the poll then loads the
-+			 * carrier.  A full barrier on each side guarantees that
-+			 * either we see the poll or the poll sees the carrier
-+			 * off.  The cmpxchg provides it there; do not depend on
-+			 * how netif_carrier_off() sets its bit here.
-+			 */
-+			smp_mb();
-+			if (!atl1c_rx_poll_sync(adapter))
-+				return;
+-	struct list_head *tmp, *next;
++	struct dm_dev_internal *dd, *dd_next;
++	struct dm_dev_ref *ref, *ref_next;
+ 
+-	list_for_each_safe(tmp, next, devices) {
+-		struct dm_dev_internal *dd =
+-		    list_entry(tmp, struct dm_dev_internal, list);
+-		DMWARN("%s: dm_table_destroy: dm_put_device call missing for %s",
+-		       dm_device_name(md), dd->dm_dev->name);
+-		dm_put_table_device(md, dd->dm_dev);
++	list_for_each_entry_safe(dd, dd_next, devices, list) {
++		list_for_each_entry_safe(ref, ref_next, &dd->refs, list) {
++			DMWARN("%s: dm_table_destroy: dm_put_device call missing for %s",
++			       dm_device_name(md), ref->dm_dev->name);
++			dm_put_table_device(md, ref->dm_dev);
++			kfree(ref);
 +		}
- 		hw->hibernate = true;
- 		if (atl1c_reset_mac(hw) != 0)
- 			if (netif_msg_hw(adapter))
-@@ -349,7 +408,7 @@ static void atl1c_common_task(struct work_struct *work)
- 	if (test_and_clear_bit(ATL1C_WORK_EVENT_LINK_CHANGE,
- 		&adapter->work_event)) {
- 		atl1c_irq_disable(adapter);
--		atl1c_check_link_status(adapter);
-+		atl1c_check_link_status(adapter, true);
- 		atl1c_irq_enable(adapter);
+ 		kfree(dd);
  	}
  }
-@@ -2435,7 +2494,7 @@ static int atl1c_up(struct atl1c_adapter *adapter)
- 	if (unlikely(err))
- 		goto err_up;
+@@ -218,12 +220,27 @@ static struct dm_dev_internal *find_device(struct list_head *l, dev_t dev)
+ 	struct dm_dev_internal *dd;
  
--	atl1c_check_link_status(adapter);
-+	atl1c_check_link_status(adapter, false);
- 	clear_bit(__AT_DOWN, &adapter->flags);
- 	for (i = 0; i < adapter->tx_queue_count; ++i)
- 		napi_enable(&adapter->tpd_ring[i].napi);
--- 
-2.54.0 (Apple Git-157)
+ 	list_for_each_entry(dd, l, list)
+-		if (dd->dm_dev->bdev->bd_dev == dev)
++		if (dd->bdev->bd_dev == dev)
+ 			return dd;
+ 
+ 	return NULL;
+ }
+ 
++/*
++ * See if the device is already open with a mode that covers the
++ * requested one.
++ */
++static struct dm_dev_ref *find_ref(struct dm_dev_internal *dd, blk_mode_t mode)
++{
++	struct dm_dev_ref *ref;
++
++	list_for_each_entry(ref, &dd->refs, list)
++		if ((ref->dm_dev->mode & mode) == mode)
++			return ref;
++
++	return NULL;
++}
++
+ /*
+  * If possible, this checks an area of a destination device is invalid.
+  */
+@@ -303,31 +320,6 @@ static int device_area_is_invalid(struct dm_target *ti, struct dm_dev *dev,
+ 	return 0;
+ }
+ 
+-/*
+- * This upgrades the mode on an already open dm_dev, being
+- * careful to leave things as they were if we fail to reopen the
+- * device and not to touch the existing bdev field in case
+- * it is accessed concurrently.
+- */
+-static int upgrade_mode(struct dm_dev_internal *dd, blk_mode_t new_mode,
+-			struct mapped_device *md)
+-{
+-	int r;
+-	struct dm_dev *old_dev, *new_dev;
+-
+-	old_dev = dd->dm_dev;
+-
+-	r = dm_get_table_device(md, dd->dm_dev->bdev->bd_dev,
+-				dd->dm_dev->mode | new_mode, &new_dev);
+-	if (r)
+-		return r;
+-
+-	dd->dm_dev = new_dev;
+-	dm_put_table_device(md, old_dev);
+-
+-	return 0;
+-}
+-
+ /*
+  * Note: the __ref annotation is because this function can call the __init
+  * marked early_lookup_bdev when called during early boot code from dm-init.c.
+@@ -360,7 +352,9 @@ EXPORT_SYMBOL(dm_devt_from_path);
+ 
+ /*
+  * Add a device to the list, or just increment the usage count if
+- * it's already present.
++ * it's already present with a mode that covers the requested one.
++ * Otherwise open the device again with the requested mode, so the
++ * dm_devs returned earlier stay valid.
+  */
+ int dm_get_device(struct dm_target *ti, const char *path, blk_mode_t mode,
+ 		  struct dm_dev **result)
+@@ -368,6 +362,7 @@ int dm_get_device(struct dm_target *ti, const char *path, blk_mode_t mode,
+ 	int r;
+ 	dev_t dev;
+ 	struct dm_dev_internal *dd;
++	struct dm_dev_ref *ref;
+ 	struct dm_table *t = ti->table;
+ 
+ 	BUG_ON(!t);
+@@ -380,30 +375,46 @@ int dm_get_device(struct dm_target *ti, const char *path, blk_mode_t mode,
+ 		return -EINVAL;
+ 
+ 	dd = find_device(&t->devices, dev);
+-	if (!dd) {
++	if (dd) {
++		ref = find_ref(dd, mode);
++		if (ref) {
++			refcount_inc(&ref->count);
++			goto out;
++		}
++	} else {
+ 		dd = kmalloc_obj(*dd);
+ 		if (!dd)
+ 			return -ENOMEM;
+-
+-		r = dm_get_table_device(t->md, dev, mode, &dd->dm_dev);
+-		if (r) {
+-			kfree(dd);
+-			return r;
+-		}
+-
+-		refcount_set(&dd->count, 1);
+-		list_add(&dd->list, &t->devices);
+-		goto out;
+-
+-	} else if (dd->dm_dev->mode != (mode | dd->dm_dev->mode)) {
+-		r = upgrade_mode(dd, mode, t->md);
+-		if (r)
+-			return r;
++		INIT_LIST_HEAD(&dd->refs);
+ 	}
+-	refcount_inc(&dd->count);
++
++	ref = kmalloc_obj(*ref);
++	if (!ref) {
++		r = -ENOMEM;
++		goto bad;
++	}
++
++	r = dm_get_table_device(t->md, dev, mode, &ref->dm_dev);
++	if (r) {
++		kfree(ref);
++		goto bad;
++	}
++	refcount_set(&ref->count, 1);
++
++	/* A device in the list always has at least one ref */
++	if (list_empty(&dd->refs)) {
++		dd->bdev = ref->dm_dev->bdev;
++		list_add(&dd->list, &t->devices);
++	}
++	list_add_tail(&ref->list, &dd->refs);
+ out:
+-	*result = dd->dm_dev;
++	*result = ref->dm_dev;
+ 	return 0;
++
++bad:
++	if (list_empty(&dd->refs))
++		kfree(dd);
++	return r;
+ }
+ EXPORT_SYMBOL(dm_get_device);
+ 
+@@ -453,23 +464,28 @@ static int dm_set_device_limits(struct dm_target *ti, struct dm_dev *dev,
+  */
+ void dm_put_device(struct dm_target *ti, struct dm_dev *d)
+ {
+-	int found = 0;
+ 	struct list_head *devices = &ti->table->devices;
+ 	struct dm_dev_internal *dd;
++	struct dm_dev_ref *ref;
+ 
+-	list_for_each_entry(dd, devices, list) {
+-		if (dd->dm_dev == d) {
+-			found = 1;
+-			break;
+-		}
+-	}
+-	if (!found) {
+-		DMERR("%s: device %s not in table devices list",
+-		      dm_device_name(ti->table->md), d->name);
++	list_for_each_entry(dd, devices, list)
++		list_for_each_entry(ref, &dd->refs, list)
++			if (ref->dm_dev == d)
++				goto found;
++
++	DMERR("%s: device %s not in table devices list",
++	      dm_device_name(ti->table->md), d->name);
++	return;
++
++found:
++	if (!refcount_dec_and_test(&ref->count))
+ 		return;
+-	}
+-	if (refcount_dec_and_test(&dd->count)) {
+-		dm_put_table_device(ti->table->md, d);
++
++	dm_put_table_device(ti->table->md, d);
++	list_del(&ref->list);
++	kfree(ref);
++
++	if (list_empty(&dd->refs)) {
+ 		list_del(&dd->list);
+ 		kfree(dd);
+ 	}
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index 12c26f42ce51..a73355c0125c 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -1588,7 +1588,7 @@ static void __send_empty_flush(struct clone_info *ci)
+ 			 */
+ 			clone = alloc_tio(ci, NULL, 0, &len, GFP_NOIO);
+ 			atomic_add(1, &ci->io->io_count);
+-			bio_set_dev(clone, dd->dm_dev->bdev);
++			bio_set_dev(clone, dd->bdev);
+ 			clone->bi_end_io = clone_endio;
+ 			dm_submit_bio_remap(clone, NULL);
+ 		}
+diff --git a/drivers/md/dm.h b/drivers/md/dm.h
+index 7a795979ec72..34f58060243f 100644
+--- a/drivers/md/dm.h
++++ b/drivers/md/dm.h
+@@ -37,10 +37,26 @@
+ 
+ /*
+  * List of devices that a metadevice uses and should open/close.
++ * There is one dm_dev_internal per device. It holds one dm_dev_ref
++ * for each mode that the targets opened the device with.
+  */
+ struct dm_dev_internal {
+ 	struct list_head list;
+-	refcount_t count;
++	struct block_device *bdev;
++	struct list_head refs;
++};
++
++/*
++ * One open of a device with one mode, shared by the targets of a table.
++ * dm_get_device() reuses a dm_dev_ref whose mode covers the requested
++ * mode, and adds a new one only when none does. So the dm_dev_refs of
++ * a device have different modes, and a table holds each table_device
++ * at most once. table_device->count is still the number of tables that
++ * use the table_device.
++ */
++struct dm_dev_ref {
++	struct list_head list;
++	refcount_t count;	/* dm_get_device() calls that returned dm_dev */
+ 	struct dm_dev *dm_dev;
+ };
+ 
 
