@@ -1,95 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.128.210.58
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795627561;
-	b=JRIIgAqC+ybNFAHS3Yrmx5wI5cxeO7X9R2641D6087otjutGwfvgmmY95Lj/aDKFj3jV
-	 21as88L4lYCxjn8uEiSAhm0a44tbU8VfON08NACuOlCG8zylewNs+GPPcUqa19mKzPopN
-	 ZhUjbKunVjAer78Gu1zVLYKj1NsG5j9rNME7k/ufqFpHagNq86Mqoyd8R/6q5U0YcRflg
-	 8135iFEMyd99KjLbrqWtm3k1/fmgm6Rh2QAlVP6Hv8LxARPmYvdLk1/eA9U4lVfZlfkWp
-	 T2+n3Fi1bWgVNVwYPPSIVfsTXpQ+V79YIpmPTviucABz4LZDeCN+U+fu+5IIZhNonsg==
+	t=1795627592;
+	b=csNSkQ/eHZlbp5H8NrMt+1YndbuW/YB6rDErhk8w4HQm5GZJTUancBcgTUypkh2B09gn
+	 UR6X1pSmZhltN2k5fbsrXrT7klJWbKQXVb/y34nEencRBNIe85bt99/bsokmq8znj1ZW7
+	 EyV4m+SnXSapp5t3Kh2Cf6dh5xv21oFR2W692oV5kcm91WP4vuX4+hSMBnn+KrlqNQjCu
+	 tyWMDon6/fHUfgRA+QdJmBDY7S+1NP4QXyZ9FrBjy8TdpYUabbjENK8s/wOQmG0CPZziD
+	 j34shTaUm4FQ6oElyRgGw8v6GGnuyR/b7ucznn2k+8VSCvaKGRB0CG2acXLo5cryKvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795627561;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=0eeo8xLsFVG8280bwD1Dy/maRtfEJTegVNCHlzkxjN0=;
-	b=V9t1JOwaNZqKSiFgM2ZfMWynDp145kMjKzf/1ytVvJ3dwKCWLhiMHLNaH2uFDKEPsRgp
-	 X79A1BogtKm0JtUoYGXVLntI2JiV6K1wirFloOnN5ZpVMTqVD6LhqMvMRmnwWePScbwLQ
-	 SzobOjAsoghlLuf52WQwJQj0c4VlGT114VkvCsFx03h4imJ0j1PKAXsezNoTrYpxTzME2
-	 2OpxUipUo4eUlcUYncoVauptUDD2vR+jJbw1i8/DbWAo2ieN5SSd2uVNUds8+OWXu6jue
-	 69Wa0UNf62A30a2YcfV4MtTv2y0ayXtyL12DHXP/EIFdqoRG3v8KctwQnxw+1JI5W/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795627592;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=JstmfSkb+NU61BDbHfVoDsey+CLK6rf72wXZJgfJDWM=;
+	b=mLucqqYbhzRNeeTPlip6z4DC7cpqntIpRgVCNjCY3Y/hNb09bpvLBiESp4ilVHEzFr3c
+	 uDW6vCnPtlMdRrkcMpypRmOu0VTilNvpClVdYjpeEcRCylSz8FMbZvsC3hKol/MGWJNvB
+	 5KTw0nhAXXY07EjJEKchDHl38buy8QiMb3t1gvP75JNALjMsVzatRMjg2h5bMiRjlKwY0
+	 Z8uji3jEaZtTkaJObbjakHolZYs81QruQx7Cb0aZcHYqgi7NUujc56o+YSoiinikajTuM
+	 C7vrxJFzZVIOx3W52aEaufJ9352tcKkiFXAbtui6W6Y8giuG8PBP/m9r1BjdrEn7c2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=AhlMVtYQ;
-	arc=none smtp.remote-ip=209.85.210.54
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=librecast.net;
+	spf=pass smtp.mailfrom=librecast.net;
+	dkim=pass header.d=librecast.net header.i=@librecast.net header.a=rsa-sha256 header.s=2026110900 header.b=NMk5KAOl;
+	arc=none smtp.remote-ip=185.128.210.58
+Received: from bregans-0.gladserv.net (bregans-0.gladserv.net [185.128.210.58])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61139606A327
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:26:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61139606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF732606A321;
+	Wed, 25 Nov 2026 17:26:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF732606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=librecast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=librecast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=AhlMVtYQ
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-862b98b2e47so2398292a34.2
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:26:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel.dk; s=google; t=1795627560; x=1796232360; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0eeo8xLsFVG8280bwD1Dy/maRtfEJTegVNCHlzkxjN0=;
-        b=AhlMVtYQtXwuGlojJFFQ/LyFKUKcecQlrArIY2llF9sBnChbckaK+XHwZmzN0lrLtg
-         /yMQTJuo3kDRlehpGgDWXpFbWyC6eiTlHe4O2W6KtfyoHIByA2tWKef5nk1gqqKHhNiF
-         9Fg6XCeSkKcv3hfQrHpn861yS0paY/ycapDyuK+609lmLtqQAWKMTLNULyEtSUZrijID
-         ZmZ1gLNl+DLgd40aGwg7+TS3h1TPwFcjNoN9y1kr5jGn9wZdexmJh9n8zlHf35mXn/Ti
-         yRmmXR7TWRHFefvtmDi+PqREAqwXLsAQ31qwEA6l4O5jlCbDT1oJwiW8hlOFRAa7Tqj4
-         iWwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795627560; x=1796232360;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0eeo8xLsFVG8280bwD1Dy/maRtfEJTegVNCHlzkxjN0=;
-        b=FbxVP/s5ymBDicVgu6Wucy1+6eDeHfQshbaCab1D8ZL2LCeAPIynfAOTx4bQeYcpyR
-         lLIPgVn2TXfqcnxFvz10cNUyk28gfS0gqEYpR09qjqY8jKW4T/Z0476S9Gg176h/P8xE
-         ynhvGttk2/QqrctJSoJljy7lfeAAL3t3RZcWeTPKRkidZ9c6hfNT2sWDOXlTmDrASVu7
-         XWnCGq5ke37aHfBX8qCG8jGJM994gRIjLR1pg+fKBMXAIthHsoAPQbkY7vMCLioqgeKy
-         Ws2GxIE54saz0bMLzdrPFpteIzObXcDNAxHie2+Y355SEJgtBppe/EJUUgXLL8+2wtIV
-         liqA==
-X-Forwarded-Encrypted: i=1; AL+hErHmgdBjsGtc0duHZUjiaaodaexpzC22aJwxKzAOcrPR3uzU059uFaSZkdunjnJ+ZnvWRLJa9y4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z990zTR1zE6CUTmjEgjWWrZAamKspWTZfTk/OE/dQjV/OHRb5Wj
-	AbRAuv/5jsKG1c6KqVCByrTFgm8snhb8pgezFmW++ZAC4hZcbDE76ZUkW+GRbN3oAYo=
-X-Gm-Gg: AZFdTZc8LGYAt8kwFxLFDDweT5PtVBGrg3MxJn067IvfoTsyFooVESuoEC89Lv6yQR5
-	VHG++Uvrd9mK3a+LFBxE0mH1BHiQNH5qZ1PUFEFouxvQ0nR0fb9+iOIyHoLm8uLGYXzM+QJZpJ+
-	QfOjeG6HZ/RGI+Gi26BtTm/kuz9I02woezzYHpg5a+Nrs5DqdGna/xq5zqZZkXsLVeUN01Aog49
-	MvywI4Brb3SkVBjiO5ets2iuKLVD5o56rkyl0LxD75JYpt6Z7w4PK4w1d0x4zxP+dxvMOxr+LLy
-	uT3VsyCjb8rP2QtYtmLW6WBWm+Lr9qhZRTcFK359suF+POKbKRQQdmTZnWLPjaTcDBlmgVVaGZo
-	Vj59EXczZqsK0mRT7fJgonvexp6OrrlSvlqAmtLSJqCgQIwHfT2KrK3+UKwtjS3W/xYUfC3Qc9K
-	YV0jl9uY2ZkTY5tEzPUrN+Oujedg7F19OpWwVuBwKV0p2WNcA75160gMZ/vb40QK0DT6R8asztZ
-	jl3+1UuHFxijxHGwhYQ884MoERvs+T82Iu8EJDz2OBIo5cCWsu0SVWedWbYE0P8RC8gRrCW0XLt
-	xfA8VRSKOD5KlsTl+auCmd+ira3JyI7LddEVDa736gg7PMpxLFQxHatmSy1aKJZrLdgOzNDGfc7
-	KWVllnV1ZLEr4NRfXaQopT1284rlDdKmdYA3h2zvQCwxX9xU=
-X-Received: by 2002:a05:6830:2e13:b0:822:95ff:43f3 with SMTP id 46e09a7af769-863157b02famr24543779a34.24.1795627557598;
-        Wed, 25 Nov 2026 09:25:57 -0800 (PST)
-Received: from [192.168.0.102] ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8631682200esm13061193a34.2.2026.11.25.09.25.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 09:25:56 -0800 (PST)
-From: Jens Axboe <axboe@kernel.dk>
-To: Louis Thiery <thiery.louis@gmail.com>
-Cc: io-uring@vger.kernel.org, Pavel Begunkov <asml.silence@gmail.com>, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261119232935.1708458-1-thiery.louis@gmail.com>
-References: <20261119232935.1708458-1-thiery.louis@gmail.com>
-Subject: Re: [PATCH] io_uring/net: don't charge the folio offset to
- truesize for managed frags
-Message-Id: <179562755579.12696.13061594470426753053.b4-ty@b4>
-Date: Wed, 25 Nov 2026 10:25:55 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=librecast.net header.i=@librecast.net header.a=rsa-sha256 header.s=2026110900 header.b=NMk5KAOl
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=librecast.net; s=2026110900; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=JstmfSkb+NU61BDbHfVoDsey+CLK6rf72wXZJgfJDWM=; t=1795627590; x=1796491590; 
+	b=NMk5KAOljFJi9/8rFDf+IbhjmVXf9i5QA/r66bbo+azVqR0nasnDSQtudGAr619Q/GDBmE+ESoj
+	foCeZwzYoX/FigTMxwu8gpwA+ndbLxqHYxrL8ms6J3f/Bhy+j8SpxbojH59dx3AZI6Al5VtF+Y9KF
+	FVSXWUYH5j9emVI0lLuv8OW1FQDRjLQAM9kQvyFU91BWag6lZTTspg9YOa3R+nQb0KLBwS3880O6c
+	SX83+dWsbaWycfLRMOi5F48ailEYMUq/Z6KauBJvFmywR7egwkTVwxYxmaKMW07IYWkVuaatpZs8c
+	2m8nt+yFoAb+O2n6L7L6B+ZeZ+aRjgMJIcqQ==;
+Date: Wed, 25 Nov 2026 18:26:23 +0100
+From: Brett A C Sheffield <bacs@librecast.net>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/816] 6.12.120-rc1 review
+Message-ID: <awcaP4DG5A3hT0uK@karahi.librecast.net>
+References: <20261125143849.205329330@linuxfoundation.org>
+ <awcMgK7ss_gQtDs9@karahi.librecast.net>
+ <2026112507-among-disclose-3713@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,29 +70,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2026112507-among-disclose-3713@gregkh>
 
-
-On Thu, 19 Nov 2026 23:29:35 +0000, Louis Thiery wrote:
-> Registered buffers backed by huge pages are coalesced into one bvec per
-> folio, so bv_offset is relative to the folio, not to a 4K page.
-> io_sg_from_iter() adds PAGE_ALIGN(bv_len + bv_offset) to the skb
-> truesize, which charges the socket for the whole run-up inside the
-> folio. A 64K send from 1.5MB into a 2MB THP folio adds about 1.6MB of
-> truesize, and sk_wmem_queued fills long before any real memory is used.
+On 2026-11-25 18:10, Greg Kroah-Hartman wrote:
+> On Wed, Nov 25, 2026 at 05:27:44PM +0100, Brett A C Sheffield wrote:
+> > On 2026-11-25 15:25, Greg Kroah-Hartman wrote:
+> > > This is the start of the stable review cycle for the 6.12.120 release.
+> > > There are 816 patches in this series, all will be posted as a response
+> > > to this one.  If anyone has any issues with these being applied, please
+> > > let me know.
+> > > 
+> > > Responses should be made by Fri, 27 Nov 2026 14:37:39 +0000.
+> > > Anything received after that time might be too late.
+> > > 
+> > > The whole patch series can be found in one patch at:
+> > > 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.120-rc1.gz
+> > > or in the git tree and branch at:
+> > > 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> > > and the diffstat can be found below.
+> > 
+> > Build failure:
+> > 
+> >   CC [M]  drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp2_transition.o
+> >   LD [M]  drivers/gpu/drm/amd/amdgpu/amdgpu.o
+> >   AR      drivers/gpu/built-in.a
+> >   AR      drivers/built-in.a
+> > make[1]: *** [/usr/src/linux-stable-rc/Makefile:1983: .] Error 2
+> > make: *** [Makefile:224: __sub-make] Error 2
 > 
-> [...]
+> That doesn't show the actual build error :(
 
-Applied, thanks!
+Apologies. Here tis:
 
-[1/1] io_uring/net: don't charge the folio offset to truesize for managed frags
-      commit: aaa55c8ff9147b1ce1ba50267aa9f080d469a963
+  CC [M]  drivers/gpu/drm/radeon/radeon_encoders.o
+  CC      fs/ext4/acl.o
+fs/nfs/nfs4proc.c: In function ‘nfs4_proc_unlck’:
+fs/nfs/nfs4proc.c:7281:24: error: variable ‘cbnl’ has initializer but incomplete type
+ 7281 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                        ^~~~~~~~~~~~~~~~~~~
+fs/nfs/nfs4proc.c:7281:54: error: ‘struct cb_notify_lock_args’ has no member named ‘cbnl_valid’
+ 7281 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                                                      ^~~~~~~~~~
+fs/nfs/nfs4proc.c:7281:67: warning: excess elements in struct initializer
+ 7281 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                                                                   ^~~~~
+fs/nfs/nfs4proc.c:7281:67: note: (near initialization for ‘cbnl’)
+fs/nfs/nfs4proc.c:7281:44: error: storage size of ‘cbnl’ isn’t known
+ 7281 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                                            ^~~~
+fs/nfs/nfs4proc.c:7285:33: error: ‘struct nfs_client’ has no member named ‘cl_lock_waitq’; did you mean ‘cl_rpcwaitq’?
+ 7285 |                 __wake_up(&clp->cl_lock_waitq, TASK_NORMAL, 0, &cbnl);
+      |                                 ^~~~~~~~~~~~~
+      |                                 cl_rpcwaitq
+fs/nfs/nfs4proc.c:7281:44: warning: unused variable ‘cbnl’ [-Wunused-variable]
+ 7281 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                                            ^~~~
 
-Best regards,
+
 -- 
-Jens Axboe
-
-
-
+Brett Sheffield (he/him)
