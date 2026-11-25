@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608476;
-	b=O6jtg5aDRf7L2FpqYhsc+YpwvRGC9YSdc4rSxxzYpvc/7H9OdSsthdqFClgT7Au6/JRS
-	 ErEjAjWPzE9sjytoRNI4w3999sHfTP38A7SLc24BslhvsMwSGREbMBAOoEhDCrRzZUa7T
-	 ZpIUzOYTUNN4rJyQpTgFJZhgVkfpkkzGEL5NO9IMZI+IJBT3kdFrmZPkW0Otcp2rF91HC
-	 VJSsQcDgE/RD1l8N1X6C20y2zRPxXsvBZpmqIF3UJmmK0VGwrlcZX1glRq+sRSVyVFeD7
-	 +9+Rapsj3/+w1CSGrJrUf231Li5stkzCdsFA9PZvsLEc1dqqVAUCOJUYB85ki20bZ/Q==
+	t=1795608479;
+	b=JV3znFLvfP9DfQ6rU3KlCuqri6enI+M25dFRI47f0pqeI5Ik5B4afX/Lduq2vvrOMCSK
+	 6R+HvN5DwRvShf+S8JxHqUiBbJqHVw307nKSeHFNcdBQQozhpzoPl8+BONy7za16nx29F
+	 zlj/Mk2IcGeGXvoB+KOcnRJyuZNy4Fh9Swmkfl0i0OQscByZ9Zav8axAljrqQLqesXt/Z
+	 4VUtsrdZdydSYMbl2ed3sHladdvWSgBBwfHrSr2S0s3R8KTvQu7d9/HbJo76KW5se50uB
+	 6jyUtna+a4CcVMass+INfA/KIy92XxwTkwBH3AyVRzRNNzqYheJcJm1+0jKUXKvLIqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608476;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608479;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=8MNvVGZt/BkvCVoFHwjPC0Q53bd3U5ntec6QmARSXZA=;
-	b=Tk53iISdD2nBa6z9a45qTSvutPTUQeJLAukyLvU8K9HLa4exg+otx/IlaU8dgxlXr3ko
-	 DNdaWzvhN9h8VihDpdcbhge3AvQxWIp7YGttlNGa4Em5QTj2fE7xhpixlufvaN1Mm1FNk
-	 +//g7rWycf5Hda4PBn/ZzaMiqz1sGHLfh8weKs686MCh746CBi0lj05VqjGCzi22ZKjaQ
-	 D8JmSeJ5445v2x/fa6yYwK0gB/DKniko7Zw2RV9oI0/tTK9Tm/Rc8ufUnlkROHivyHGAM
-	 uvX0Hm73pLA1U0OyxbDZ7NVvs+sftaADStCzPJk71Kc9XTQza9EG52fJL02msjdhOeQ==
+	bh=TjtdjspfSiAopOr+TNiPMYK1GybqYM2tN4EEzTd3gUc=;
+	b=Hg8PcwQJblRLuMVPrnmB8z+Tqx3uLCK8JORIVhVIIinQgKp5tb/IVPqVlBdyXqWoePqF
+	 JpruYsw0EEo2K9YA/bs+EMMvrRPxO8/OOy1VAtsYLcPr6loRdlRc90Q1vakg8W70fxNnn
+	 XwbX4dj54jkRMxzKmpKhzH5Hi+/pnoMdK5oe+SXay409r/tL8r5OUBcYiVQn5W20qrdtu
+	 fbhcZ3R0y7EmD4jVmQnfjLIEcnFLMCoi93t5i45b1AcGKCPHDePcCkp1/Kb1i/P5rLeeF
+	 yTbmr60mKGKKoDAn8g44EU7vqW9Cy8KPFArVbN2f1SpqDbP0u+hOYeAYtuguLuLyMfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=V86gqJQS;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pCEDw9h4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB09606A32A
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:07:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9DA606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:07:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=V86gqJQS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F8871F000C4;
-	Wed, 25 Nov 2026 12:07:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pCEDw9h4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C0841F000C6;
+	Wed, 25 Nov 2026 12:07:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795608476;
-	bh=8MNvVGZt/BkvCVoFHwjPC0Q53bd3U5ntec6QmARSXZA=;
+	s=korg; t=1795608478;
+	bh=TjtdjspfSiAopOr+TNiPMYK1GybqYM2tN4EEzTd3gUc=;
 	h=Subject:To:Cc:From:Date;
-	b=V86gqJQSdFaXFKB7iqmanq+NhNL5gvvldHGhx0kMv1fg1fEDudXW65/FTdzZe5o5j
-	 4Q0PvpoRmmBD0lHFcdm+b1Vy4WX57bmgt/S2Am90MhAipJkK6i3iUAxAoJeXAYGwAK
-	 IKfpu5AvEJB76vBV+40ESCgg/jBeL4mQNAzqnPp0=
-Subject: FAILED: patch "[PATCH] w1: w1_therm: lock the list of slaves for the bulk read" failed to apply to 6.1-stable tree
+	b=pCEDw9h4S7C+USxWWm3mz0al9dflrtuM1mxXZJDPS85hJ/HFUwKdlc+kUu6BdgYMt
+	 uVqBh6Nu8+4cXVjqJq6o1cyHEWZdQkjeEg1ZlGAwMCt8Yauq7b+PFXhRTre1xXadYF
+	 Wx3MA47OX/M5q4pcLDXzt7cmAjw8hBo2dOnL+XVo=
+Subject: FAILED: patch "[PATCH] w1: w1_therm: lock the list of slaves for the bulk read" failed to apply to 5.10-stable tree
 To: josef@toxicpanda.com,gregkh@linuxfoundation.org,krzysztof.kozlowski@oss.qualcomm.com,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:44:05 +0100
-Message-ID: <2026112505-foe-shrill-7cc1@gregkh>
+Date: Wed, 25 Nov 2026 12:44:06 +0100
+Message-ID: <2026112506-level-cogwheel-41b2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 1e46334d38e0217f5d255dc6fd63243593052f8e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112505-foe-shrill-7cc1@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112506-level-cogwheel-41b2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
