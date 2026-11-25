@@ -1,101 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795566177;
-	b=uaBogjA94efWBZHuhI0TMBoWAQbvGORqknpNYcpIBEdSqcnM8oC3mG9yklFdm3PitsGT
-	 aazp6xYEE+cUX/CsWvFeGjYUYC2QrCuDYv55hBNfEZyEgoWvWXHDA5Kji5yWcvuECUlzQ
-	 dvhHwplvBp8GMGowmdtvAOr50DS337GKvoiW5W2PATnldWKVXRJvVz0IoVF8Gv85HRrAa
-	 ChrMMFc90bwEJ6GMB3tbW75XnkGpNUiJ1dZ5P3pIDkle+DKcUQtI1pWaJ1xz8guQGsjqJ
-	 oVLpR+1M20weYcgMx9t0NF4Kn2n7Y1B6+pZlXLrfQqAsCss5fEAvXXXmc6EoEnr+ahQ==
+	t=1795566315;
+	b=dqHhPrTFSlcaTPIfGudodX6n2Co5r7gv1oTTO9va7IsRfina7eCV9pJvAHzqvlR/brpN
+	 8Zgi/QSU8NWLhzujfmApK/YQE0QthB+DqNPbjDkHbQhTXOtrVuzB/ibjF4O8anuRuhDIy
+	 0YykRFJMTofEHf2/fmIIa3aKs+6DjZFR+A+ha0BvvGYI5OL8Pnh4EqokvaNr6Nmj77kGP
+	 Uj3yGbUTxz2EclITezI46d0g4uJ3Qn9kLIrnJCSSu1I0x/mJygJ03p4DCa/ETjEndPp9X
+	 SYI+jTDsU2+Y+NseSssbxNNYKaOY+mTwRM2do5eS8Be7Mq/FR1MCPx53ZhG+6YYpSfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795566177;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=c7sK3HiswYiBR3BUWinqF/pjgDocEFdhpnqkaPcX0Mw=;
-	b=h9zYAhDbD5/52veHKPA2QAEsvMcTh0yKJgWLH/rp4yip3nm4B3x3tMZSobhrc3/20Ya4
-	 fBkJMm/KjdDuzY62BmneF0U0vhs2Reb1nOuFEshPzOh9hSH8OYGCg/4OjqRXsR7QhQTBh
-	 3Pe8/Hsrtj5cUVgYkLlu0S+JSoXga194u6spqc/pri+dA6tCoTkVLMNGb3pAAO6Hmf+Tr
-	 R4y191WjHEMAYGmDmV9o1PzZhfJNm42pu+mFFdsclZf6bUnJHzbzox9G9tt4pXxaTXiV5
-	 bmaPZ2ZA9F4WyjGSCZwOsVO9lyAI5NSPuPb++UkKa8LXiJgnJIq+hGa9MH8lo6MnOEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795566315;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Symlo491TPdhJrREXQmOnSha527963qk4UMvwZkfuiE=;
+	b=w0r5QCCfkAVb+z0EzuEMUHEo6tnIBH1/kvJT8zVZ4TZeXf8WCKe9gr5uFiOx3aKrExSk
+	 pqhqAR6IMNU9Tw3dYtzfZz+yik+AKt81xO3yI2xoubdnM294x1IRJXfQAnJOru6lpf7rS
+	 fx83ejkexwzMgaTKn0/p/o3qnwnWaNAkslmvbn0ugN3ei9kYUGUqV7wXf5chLgBbTQxMK
+	 ILaum5Cz+AJDbyjXmapEkT3BnjsytG7b5EnThy3Vaf+d2FMw46jfGCbYTo4YwWu2lQH1e
+	 llhawXmXySKqUIj5kemEH2sZ71qu79b4bRz5aSnCxB5yTqI9yTJAR0vGyk6mMGtuzYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=openvpn.net;
-	spf=pass smtp.mailfrom=openvpn.com;
-	dkim=pass header.d=openvpn.net header.i=@openvpn.net header.a=rsa-sha256 header.s=google header.b=Sy0vYPk1;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CIWMMnP6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E8C3606A330
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 00:22:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E8C3606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=openvpn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openvpn.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D329606A31E;
+	Wed, 25 Nov 2026 00:25:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=openvpn.net header.i=@openvpn.net header.a=rsa-sha256 header.s=google header.b=Sy0vYPk1
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4b79502c27aso50874035e9.1
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:22:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openvpn.net; s=google; t=1795566175; x=1796170975; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c7sK3HiswYiBR3BUWinqF/pjgDocEFdhpnqkaPcX0Mw=;
-        b=Sy0vYPk1cozpkelPBK5zopcg/tq/bbrII5RY5Ay9pe2Zpk7LWGfOfnDYRUnczkIhKy
-         fPvbYbJoJpReRWPrgHlK1zVpJRyNYzGYCsYoCj8OExCZIiX0cGWmyDggZVw0fVe8Fq3/
-         nJCDjltN3+CFgsTkasypBw+a8+bVCYCyBs6V3xpUk9BGyDIBLoM3HgJD5gN5W/f7aqqo
-         pjkRj3+trg8E0sHWwEthvpagwagPkTp/w/4X5A6U1fgltC9RpRolndNy9F9axqbOU4Aj
-         8P0kPii5pupVxKN+H7AbjVrJZDUX7D26KYzakQzAlo7GeGrAnqI4XzB2EGCYzlqAM6D4
-         AEyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795566175; x=1796170975;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c7sK3HiswYiBR3BUWinqF/pjgDocEFdhpnqkaPcX0Mw=;
-        b=cCe/PMjYn2KHxFmteUnibsBtdQNw9ufcyvqwpW0MK+Pmll1t/ay5cM0TtkbZqmaijR
-         nIcgxUVigdfQpGSi9QE/AIN1VFEFcnCjYsXS365O1gJYE0I0Cn4wz7DnKxlegOsJPqxs
-         nrY5+bSK0Ur6XKXuvXk5WdPJYFRJGsbHCGwiWePXHyzj+rPcxAR8moB1y45pHfvA4nmf
-         yQkHMljSlmB/68NXRz0EYmgYYGk6Rl+blG4ZPNA0lbMzaZjScEddGKOU4mNCNs+wOW47
-         ygCnyVZrLlHc4oTFUKFwQsXVv+UfpchGWabvoUXA7+S3atkTITgmGpI/rYmfdJwo5yHu
-         qazA==
-X-Forwarded-Encrypted: i=1; AL+hErG4SHaodDK3XHk6kH2rZ4c5Mhh7DTfsXAl0U1IGNk2QCjWZgb4hksl0U9TmN7mAec9y1FIM43M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9sHKGU/blODu3QbTVzKTyGwgGXHWMvnTYtTS/TyxTHowgEDh+O
-	yP/B9WbOUR2i/1vBWwvS2ctBpTzrRB4M8ylNTShl6cWVoi3KLNIw4D/avfPeLkbWGTgYfblXr1l
-	Q08IhdvXiRPbLk/heBuxaZtyqyfElXPC4dAgCzUcDaBoT4LU6pZo=
-X-Gm-Gg: AZFdTZePadskAqH5QM5Mk8ESdyL8c6YBFTelQzPuNoqiAhoMPcJ4qHwTrl0kN/jazq2
-	Pj0FDmUlpP09KG2fmJqs9GC2sctd7F8OykNk3ICZTUgYO8+qs8Zjo9gDiQZSfAaR8ekxjHRM/mY
-	7ewXi4rhEhIanN2tDTZh8T4ZSHjgm1U1ADQj9dKvpG/zPLkr4RxIiWpYQ34HRCNxoeOObi/E7KA
-	sQD7wd0pkB9igOneN96UWRjbYKu+AV/bQqQ+i+ex39o0LyAX8G7auqKIrUWNM4ncLjphoWtC+XU
-	FSm+LHzPKRb6wtW1GyrRPPlNLxT0wWgo/cMdK5OGFZB/dwmUAWGD5Hv4wuD3FpeaAwPxMJyQp9n
-	IGsXPwE8WGjDL6AIXTQ1NQ2GjQouqLbGRf1EIcG1/hACkahbSnM5wECLBOqtdhwxqhqKLOy8Edd
-	+76S18TEmZ3EPEeuCFHlETjDCeSzc9QWFGnvxOkKmYPhXSPHTWcWg7cGi/ISPc2Wmu4tW7p2Zv1
-	smGMc3kYCrklSuyCPRuVbWlVgy6rDlETTtdssU3hLd0Arhnp3u5bQkyTZnSrQkGNDMWhVRBuFoe
-	UcgqwKZ5RZIi/6L9PQEVEfdnAi72StnqCNZi4NeAeqooVVET1Jem
-X-Received: by 2002:a05:600c:64c6:b0:4bb:6fd3:5aaa with SMTP id 5b1f17b1804b1-4bb887c30fbmr290488115e9.3.1795566175644;
-        Tue, 24 Nov 2026 16:22:55 -0800 (PST)
-Received: from inifinity.homelan.mandelbit.com ([2001:67c:2fbc:1:5c82:5cd3:7bc5:2809])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab69bf630esm31518448f8f.16.2026.11.24.16.22.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 16:22:55 -0800 (PST)
-From: Antonio Quartulli <antonio@openvpn.net>
-To: netdev@vger.kernel.org
-Cc: Antonio Quartulli <antonio@openvpn.net>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Ralf Lici <ralf@mandelbit.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CIWMMnP6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B37C1F000C0;
+	Wed, 25 Nov 2026 00:25:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795566314;
+	bh=Symlo491TPdhJrREXQmOnSha527963qk4UMvwZkfuiE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=CIWMMnP6ZEeenbdNqfqBhWWv6qeNJmxAmW5C47UB7GUGTSsrzqkPJBB0IV4qt+hAU
+	 f6iHkP3y78pPfgGBY3NbwZZfc1tj6pqf+7yv8C+EJBBflsVIMGzTPHj81/h2qbsQ8j
+	 vnDp8v8o2p++9RnJNsJNTn6CimjoqOt1gBU13B6j2zOAKHgtfRlYnS5OenihQBCuCp
+	 HzOjSTmUXCV4d39zfB/R3oUVrsGbIPM8XKk49+XSZT5IF6OWFVLSjNZ612vt7Mb0zR
+	 TQyJDO/r4sURu1N6jaVRnb8K2fIdmgLIXU5eltHWP5XAc4UZdmGndLkhVKQloTKLuu
+	 v4VNldkEctKgQ==
+Date: Tue, 24 Nov 2026 18:25:13 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Samiullah Khawaja <skhawaja@google.com>
+Cc: Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Kevin Tian <kevin.tian@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
+	Anthony Pighin <anthony.pighin@nokia.com>,
+	Dave Jiang <dave.jiang@intel.com>, Dan Williams <djbw@kernel.org>,
+	Ionut Nechita <ionut.nechita@windriver.com>, kvm@vger.kernel.org,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH net 7/7] selftests: ovpn: avoid calling freeaddrinfo() on NULL
-Date: Wed, 25 Nov 2026 01:22:38 +0100
-Message-ID: <20261125002239.1191542-8-antonio@openvpn.net>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125002239.1191542-1-antonio@openvpn.net>
-References: <20261125002239.1191542-1-antonio@openvpn.net>
+Subject: Re: [PATCH v2] vfio/pci: Only lock the upstream bridge if the reset
+ may need it
+Message-ID: <20261125002513.GA1197529@bhelgaas>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,34 +61,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261124212842.1934651-1-skhawaja@google.com>
 
-ovpn_parse_remote() always calls freeaddrinfo() on its exit path, but
-result is NULL when no vpnip was passed (with or without a remote host).
+On Tue, Nov 24, 2026 at 09:28:42PM +0000, Samiullah Khawaja wrote:
+> Commit 962ae6892d8b ("vfio/pci: Lock upstream bridge for
+> vfio_pci_core_disable()") makes vfio_pci_core_disable() trylock the
+> upstream bridge before resetting the device, and skips the reset if the
+> trylock fails.
+> 
+> All VFs of a PF have the same upstream bridge. Take a device with two
+> VFs, both used by one process. When the process is killed, both VFs can
+> be released at the same time. The first one takes the bridge lock and
+> does its FLR, the second one fails the trylock and is never reset.
+> 
+> The bridge lock is only needed for a bus reset, which is done through
+> the bridge. Add pci_reset_function_needs_bridge_lock(), which returns
+> false if there is no upstream bridge, if bus resets are disabled for the
+> device, or if the device is a VF. Use it in vfio_pci_core_disable() and
+> pci_reset_function() to only lock the bridge when it is needed.
+> 
+> Fixes: 962ae6892d8b ("vfio/pci: Lock upstream bridge for vfio_pci_core_disable()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
 
-POSIX does not allow passing NULL to freeaddrinfo(). glibc tolerates
-it, while musl dereferences the pointer and ovpn-cli segfaults.
+Applied to pci/reset for v7.5, thanks!
 
-Only free result when getaddrinfo() actually returned a list.
+Minor conflict with Ionut's "PCI: Don't block bridge config access
+while waiting for the device lock", so double check if you have a
+chance:
+https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git/log/?h=reset
 
-Fixes: 0bd9cfebc1c9 ("selftests/net: ovpn: fix getaddrinfo memory leak in ovpn_parse_remote()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Antonio Quartulli <antonio@openvpn.net>
----
- tools/testing/selftests/net/ovpn/ovpn-cli.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/tools/testing/selftests/net/ovpn/ovpn-cli.c b/tools/testing/selftests/net/ovpn/ovpn-cli.c
-index 00b80bc5157f..a6f0f6be43a7 100644
---- a/tools/testing/selftests/net/ovpn/ovpn-cli.c
-+++ b/tools/testing/selftests/net/ovpn/ovpn-cli.c
-@@ -1888,7 +1888,8 @@ static int ovpn_parse_remote(struct ovpn_ctx *ovpn, const char *host,
- 
- 	ret = 0;
- out:
--	freeaddrinfo(result);
-+	if (result)
-+		freeaddrinfo(result);
- 	return ret;
- }
- 
+> ---
+> v2:
+> - Replace pci_reset_needs_bridge_lock() with
+>   pci_reset_function_needs_bridge_lock() as suggested by Alex, and use it
+>   in pci_reset_function() too.
+> ---
+>  drivers/pci/pci.c                | 25 ++++++++++++++++++++++---
+>  drivers/vfio/pci/vfio_pci_core.c |  3 ++-
+>  include/linux/pci.h              |  1 +
+>  3 files changed, 25 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index 7c6f2aba8144..cc6647d091f7 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -5256,6 +5256,24 @@ int __pci_reset_function_locked(struct pci_dev *dev)
+>  }
+>  EXPORT_SYMBOL_GPL(__pci_reset_function_locked);
+>  
+> +/**
+> + * pci_reset_function_needs_bridge_lock - check whether a function reset of
+> + * @dev may need the upstream bridge to be locked
+> + * @dev: PCI device to check
+> + *
+> + * A bus reset of @dev is done through its upstream bridge, so the caller must
+> + * hold the bridge lock. The bridge doesn't need to be locked if there is no
+> + * upstream bridge, if bus resets are disabled for @dev, or if @dev is a VF.
+> + *
+> + * Return: true if a function reset of @dev may be a bus reset.
+> + */
+> +bool pci_reset_function_needs_bridge_lock(struct pci_dev *dev)
+> +{
+> +	return pci_upstream_bridge(dev) &&
+> +	       !(dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET) && !dev->is_virtfn;
+> +}
+> +EXPORT_SYMBOL_GPL(pci_reset_function_needs_bridge_lock);
+> +
+>  /**
+>   * pci_init_reset_methods - check whether device can be safely reset
+>   * and store supported reset mechanisms.
+> @@ -5313,10 +5331,11 @@ int pci_reset_function(struct pci_dev *dev)
+>  		return -ENOTTY;
+>  
+>  	/*
+> -	 * If there's no upstream bridge, no locking is needed since there is
+> -	 * no upstream bridge configuration to hold consistent.
+> +	 * The upstream bridge only needs to be locked if the reset may be a
+> +	 * bus reset, which is done through the bridge.
+>  	 */
+> -	bridge = pci_upstream_bridge(dev);
+> +	bridge = pci_reset_function_needs_bridge_lock(dev) ?
+> +		 pci_upstream_bridge(dev) : NULL;
+>  	if (bridge)
+>  		pci_dev_lock(bridge);
+>  
+> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+> index fcbb2da860e2..5dcbefd2eba4 100644
+> --- a/drivers/vfio/pci/vfio_pci_core.c
+> +++ b/drivers/vfio/pci/vfio_pci_core.c
+> @@ -777,7 +777,8 @@ void vfio_pci_core_disable(struct vfio_pci_core_device *vdev)
+>  	 * overwrite the previously restored configuration information.
+>  	 */
+>  	if (vdev->reset_works) {
+> -		bridge = pci_upstream_bridge(pdev);
+> +		bridge = pci_reset_function_needs_bridge_lock(pdev) ?
+> +			 pci_upstream_bridge(pdev) : NULL;
+>  		if (bridge && !pci_dev_trylock(bridge))
+>  			goto out_restore_state;
+>  		if (pci_dev_trylock(pdev)) {
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index aa3765a20a96..aee6a178a535 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -1486,6 +1486,7 @@ void pcie_print_link_status(struct pci_dev *dev);
+>  int pcie_reset_flr(struct pci_dev *dev, bool probe);
+>  int pcie_flr(struct pci_dev *dev);
+>  int __pci_reset_function_locked(struct pci_dev *dev);
+> +bool pci_reset_function_needs_bridge_lock(struct pci_dev *dev);
+>  int pci_reset_function(struct pci_dev *dev);
+>  int pci_reset_function_locked(struct pci_dev *dev);
+>  int pci_try_reset_function(struct pci_dev *dev);
+> 
+> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+> -- 
+> 2.56.1.831.g720f3f5937-goog
+> 
