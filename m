@@ -1,47 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795604599;
-	b=A4vh7JU5b2TOHrvpAzUJHg+UUZHUKvNlokhgqASnAfqQnaIcc0sP5ESFuXuoI0WPvdEe
-	 9OkB1mQc8oid5S0MFoe7adYuSROKn1p+U1wJd+zXzJl0nQXS5YoAPlQdekZBBVXXPOCdN
-	 XLeI43QPvxV0phWNc8JCy0N4uhEYURMrGLh95u0E6pEs8qDO6XQ+91ecBug24AqYP1T6U
-	 r6HPh7QCPahAS0txGLoNf3J3navQGyMH06U14j5IZheDHX4I8R7trE9I5MSvfsLsHxP0I
-	 BkVC8dRq+8TO8cpR6wQJBiyWSRN0qjCP6L03HGvg9L86XOGnVjBQJ+i6c2lSA0V8GDw==
+	t=1795604635;
+	b=EbcIpP8u0GfjW++bn1PgZRWH8ZwyT28SfoC83tOYltRWQ67yEgxH6DbiTw3StLeaHSDx
+	 mCgbdq2kDNy16rQ8uoKp6p/j2KW+Cp4qcJwJ4z0XTngRoZqKi5/6L1c4iYyJDoiFHUBhr
+	 6NxNjdRYwkbYRPi71T88V79fcN529gvWsit+wAmuYh+xL2UjF3l+waCegUg2n06zcWedL
+	 JirCCv2UOjk87Dwu/8V1gl2kXPS+7L2xKhZUNFsF3AsG3KxARrN24wa9FXVSUVDzyUjQH
+	 RBxPh/PN2Ru4ZY21GHKV6PJWHj0C3GNyOb8hMc2X7ARrMCkihkcDAe8/YbiQY9Xujug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795604599;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=y4sbTNFZwXkb1hQqemRpQKMyNugPud6leKyDPiq/YP4=;
-	b=G1MG8V9GibjpHB9DtHqEZ1jXzZTNGNIdAEwVEZt7E4cHItIfO/hlwptPRXWaMj9IG0AU
-	 6ULWsPiZeJrd2D4EDmquyLJCZcBwpuHm+ZVGYNUWZ64DGJnwTIg68rmXYsc2zXh+GJNGm
-	 OHH8ClctXYrS3fomsPOeTHS3ud/m3uKXYGjk7bSpVCA35WjuL5O5jZ2iNZfu0RroScG7R
-	 dQyRFO+1BxL1A1OknQda5vBbegByxJVmT3MPrJ2I1gz2BLbLFSnoMyONK6KPDdzTOiOqQ
-	 b8YE3tmNvraUugpmh3b3Q6M72JnkBEOCdNlQoZZzLqiRMLLE/e5S8RVtOlewiXej4Sw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795604635;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0kNQWd4xFKVKn6MSVwE1lsRc4X4V5piL50Xtk3okz4Q=;
+	b=HsQ8Wuhk+QdMtGGzSo4yqUZWP09z2NXP+dUNYPgjFtI7qeBriA089/PcuesZS8Sd+pZ1
+	 Qoh0AZ2ZTgen1Zag7HiDO9hymFaH7eFuE7+lfIqJ4x99o82EGL6kri0TrRiVPsE3avHq+
+	 Q/lE1gj62miymOzo1ojZ+ZT2iRHoY376pqkriS/i+MyIPFfI1yHqy4/Knlw2tAtvtOS0N
+	 uFUnFLSvGFj//rZnBU/u+n6oKXL9Mc0eAVT9nG0T/VMvlx8pNZPVjTCtdhUoYebr4P4ry
+	 MePOnToctQxOEHh8eyefuiXi6zZQWKRbZNsmNgicdmFvVUa45U+10G9Vw9nQznF/hpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x7TIgzZX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tEJETcDI;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B2E606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:03:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C65606A33D
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:03:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93C65606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x7TIgzZX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EAC21F000CA;
-	Wed, 25 Nov 2026 11:03:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795604598;
-	bh=y4sbTNFZwXkb1hQqemRpQKMyNugPud6leKyDPiq/YP4=;
-	h=Subject:To:Cc:From:Date;
-	b=x7TIgzZXEmKT7SB1I+VcK99758s7xN42iNXSvSJSMV8P1XExPYyeWB7/1k4B/BMJ/
-	 1T9du3TaLoMYDvRBFOe7RlnYcIh/hAcAAm3rGm8Fkgzk/fSnyayb8GzZopATx5AJ5m
-	 Kon0MUppuvuZfQNJY/LvC3GI40OYDFXmSgQtxzfw=
-Subject: FAILED: patch "[PATCH] ovl: reject different lower idmaps on the same fs" failed to apply to 6.1-stable tree
-To: Jeremy.Jean@oss.cyber.gouv.fr,amir73il@gmail.com,brauner@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:46:00 +0100
-Message-ID: <2026112500-shrivel-harmony-7572@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tEJETcDI
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-38431138772so7248384eec.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 03:03:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795604634; x=1796209434; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0kNQWd4xFKVKn6MSVwE1lsRc4X4V5piL50Xtk3okz4Q=;
+        b=tEJETcDI9nkCss/hKuXkAaC9GvIz08tJYkSrVU4Oe69bDT0B66YUaL+J69XjRnBVMD
+         Ahp9NLL1bEKf6C9NL6GGrrzrPU2zSHu3En0rsnhcf2usHpCDfyQWDyHFUGUQlLEetzte
+         /fgEt8ue46CS7/fi9c0QHCJ1zMmjpviN/o83uV9sIDP38eWQ+NO+kU0id6Gt41JKOQUs
+         1KurRA9D8cpc2/QU2eRf5F66A6AJ7/9niMKrjpiIg8pxK28Mg+Vbkx9/7HjPtkDqX+xO
+         C7i8OI7DcesHsNNnD+jgPDxNijanItWp8h0zKHYWDgHGLxptDPhsIfMFCd+PZCDXAwUR
+         ZnOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795604634; x=1796209434;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0kNQWd4xFKVKn6MSVwE1lsRc4X4V5piL50Xtk3okz4Q=;
+        b=TvBQaDAK6kpel0MAHH44gwGAS6xC9e9MJUHSl/HcQjHADcHDthb0pyVhXX2/YClWIm
+         cAeS/23uptYfuASbfWOYWmUYqBvO0/Xz5a+dkafYM2fPT+ilg8IPBwL5oD8B41gZKyXQ
+         W7tGJpjxsQ2akRQuoSn2JsU2+O5DmeNC1oYifjJmcXO+2F9YZ0WmlYvdN6X4MYqNaqNC
+         gnpDJXSHWzN6VwZedFFL6f14oeqoFF1VTF7XPPQaFbQTR9E8GAABroFiW/v93De5ouyg
+         50pHA3uxoRNvnfe4yITk/bXobA+DTHxocx1sbwkvuG2pQ5WiiajUGwhCSJlvPqCc8dJx
+         eiog==
+X-Forwarded-Encrypted: i=1; AL+hErHBlHOZOvryRg3ogrLDaCEV+ACJqdajG6J+QI6Oubpup+2saPtM4V41gBWHby+PidSZNm75FYs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9L66o3mDVl+eNJriBwHGwt67cmXp4950TjsEVW5ya2Bb+sWkSi
+	+2/ONP1oV4LKRIPg/i7BytZeSfQ3O56Jch8nH4cphNxVPh2DkobBZLR1
+X-Gm-Gg: AZFdTZcI+dqaoIaydSlj2R3o1V5RHqgLF7vB0YmRLthg+gv3gkaGHNrPZt11UCsriUw
+	25gVTCbpTgtLZhNpbgFQaoy8Tgpk40jwjwHKQb1FAaT+W2dBZwBjq80enLoyK4sn86+JjLMCJAR
+	wxARFBcTHhCWAXu38zUgfCCyThv9cHk82emfmFCD5XL9/Vhy63fbQJRToVF2KApRiqYUoR87ZCS
+	bchu6UZ0GiM6jYEuKToI4K+xMzwYGAE/0kurQcgf7qWi4/c3Ecf5HHJ982wsI1pfwspmFeIn5dz
+	V2uAY61iWaCCzOIqiBTdAfmoZPRhVnzU7YJNyYNdJPclv6sh55nB8CueqUeJ9VYNKL+mOhnvh+W
+	XM/wnsXLpp1fLbOb5CiHFCDKrtwoxcBg0PUAHIua8iESPC82p5/mQ99sSfu6op01w3ALwAnzQaW
+	5H7x95rU/dJciZwVoAJrkzl4c9UaiMLZiBiOr4C8qbIRAVHSJFI7AFQvNs242j79d1jffcBfDU+
+	Y69rH9aKWsqoUr4jF6Q4umu9nOhkGdXNOn7S9nHSQo/IKIhDelNgO1t1/iwt+b1aae44ZoVw4eP
+	7+1RFzVCO4XfT6XToiQBGPM4xU94SZdZ6YD/fxUcpX5jJuOr2VUpVezcInl+PMj7kBLVjaJx6A=
+	=
+X-Received: by 2002:a05:7300:ce8f:b0:375:7be3:1bbd with SMTP id 5a478bee46e88-38570b336f4mr16085568eec.23.1795604633460;
+        Wed, 25 Nov 2026 03:03:53 -0800 (PST)
+Received: from BenDellReactive ([117.20.154.221])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385f68bc0adsm49317327eec.13.2026.11.25.03.03.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 03:03:52 -0800 (PST)
+From: Benjamin Dornel <benjamindornel@gmail.com>
+To: Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+	Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org,
+	Kees Cook <kees@kernel.org>,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Benjamin Dornel <benjamindornel@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH wireless] wifi: iwlwifi: mld: fix net-detect wakeup report after kzalloc_flex()
+Date: Wed, 25 Nov 2026 19:03:47 +0800
+Message-ID: <20261125110347.884775-1-benjamindornel@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,106 +100,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Since commit 69050f8d6d07 ("treewide: Replace kmalloc with kmalloc_obj
+for non-scalar types"), the net-detect wakeup info and its matches are
+allocated with kzalloc_flex(). Both flexible arrays are annotated with
+__counted_by(), so on compilers that support __builtin_counted_by_ref()
+(clang >= 19, gcc >= 15) kzalloc_flex() also sets the counters,
+n_matches and n_channels, to the allocated sizes.
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+iwl_mld_set_netdetect_info() still uses those counters as the next free
+index, so every match and channel is written past the end of its
+allocation, matches[0..n-1] are left NULL, and the counters end up
+doubled. cfg80211_net_detect_results() then dereferences matches[0] on
+every net-detect wakeup that reports a match:
 
-To reproduce the conflict and resubmit, you may use the following commands:
+  Oops: general protection fault, kernel NULL pointer dereference 0x20
+  RIP: 0010:cfg80211_report_wowlan_wakeup+0x46a/0x680 [cfg80211]
+  Call Trace:
+   iwl_mld_wowlan_resume+0x9d9/0xe40 [iwlmld]
+   iwl_mld_resume+0x1d/0x50 [iwlmld]
+  Workqueue: async async_run_entry_fn
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x 720f40c05b2785406121da0151543751204f2953
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112500-shrivel-harmony-7572@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+(0x20 is the offset of ssid.ssid_len in struct cfg80211_wowlan_nd_match.)
+Without panic_on_oops the machine is left wedged mid-resume.
 
-Possible dependencies:
+Fill both arrays using local indices and store the number of entries
+actually filled in, as iwlmvm already does. Also stop setting a match's
+channels when they can't be reported, rather than leaving n_channels at
+the allocated size, and report the matches found so far if an
+allocation fails instead of returning with n_matches unset.
 
+Seen on an Intel BE200 (iwlmld) in a Dell Pro 14 Plus with kernel 7.3.5
+built with clang 23, with net-detect armed via
+"iw phy phy0 wowlan enable net-detect interval 10000 matches ssid <ssid>"
+and that SSID in range during s2idle (also with pm_test=devices). With
+this change the same setup reports the match and resumes normally.
 
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 720f40c05b2785406121da0151543751204f2953 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Date: Wed, 11 Nov 2026 22:42:26 +0000
-Subject: [PATCH] ovl: reject different lower idmaps on the same fs
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-Overayfs mounted with index=on or nfs_export=on require file handle
-support from backing filesystems.
-
-Overlay file handles identify a backing filesystem, but not the lower
-mount used to decode it. If lower layers share a superblock and use
-different idmaps, a handle can decode through the wrong layer.
-
-Record the first idmap on a private lower clone for each backing
-filesystem. Fail if another clone has a different idmap. Comparing
-the private clones prevents mount_setattr() from changing the checked
-state. Distinct idmap objects are treated as ambiguous.
-
-Fixes: bc70682a497c ("ovl: support idmapped layers")
-Suggested-by: Christian Brauner <brauner@kernel.org>
-Link: Link: https://lore.kernel.org/all/20260925-server-hager-riskieren-06116eded213@brauner/
+Fixes: 69050f8d6d07 ("treewide: Replace kmalloc with kmalloc_obj for non-scalar types")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+Signed-off-by: Benjamin Dornel <benjamindornel@gmail.com>
+---
+ drivers/net/wireless/intel/iwlwifi/mld/d3.c | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
 
-diff --git a/fs/overlayfs/ovl_entry.h b/fs/overlayfs/ovl_entry.h
-index ac07e8769f9b..5b2f1b930daa 100644
---- a/fs/overlayfs/ovl_entry.h
-+++ b/fs/overlayfs/ovl_entry.h
-@@ -24,6 +24,8 @@ struct ovl_config {
- struct ovl_sb {
- 	struct super_block *sb;
- 	dev_t pseudo_dev;
-+	/* Idmap of the first lower layer on this fs */
-+	const struct mnt_idmap *lower_idmap;
- 	/* Unusable (conflicting) uuid */
- 	bool bad_uuid;
- 	/* Used as a lower layer (but maybe also as upper) */
-diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index ad623e392122..e61aab1999d3 100644
---- a/fs/overlayfs/super.c
-+++ b/fs/overlayfs/super.c
-@@ -1143,6 +1143,29 @@ static int ovl_get_layers(struct super_block *sb, struct ovl_fs *ofs,
- 			return err;
- 		}
+diff --git a/drivers/net/wireless/intel/iwlwifi/mld/d3.c b/drivers/net/wireless/intel/iwlwifi/mld/d3.c
+index 77e4850..e67a22a 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mld/d3.c
++++ b/drivers/net/wireless/intel/iwlwifi/mld/d3.c
+@@ -1423,11 +1423,11 @@ iwl_mld_set_netdetect_info(struct iwl_mld *mld,
+ 			   struct iwl_mld_netdetect_res *netdetect_res,
+ 			   unsigned long matched_profiles)
+ {
+-	int i;
++	int i, n_matches = 0;
  
-+		/*
-+		 * Lower file handles identify the lower fs, but not the layer,
-+		 * so with different idmaps on the same lower fs, index and
-+		 * nfs_export may decode a file handle through a layer with the
-+		 * wrong idmap.  Following copy up origin without index is only
-+		 * used for st_ino, which does not depend on the idmap.
-+		 */
-+		if (i < nr_merged_lower &&
-+		    (ofs->config.index || ofs->config.nfs_export)) {
-+			const struct mnt_idmap *idmap = mnt_idmap(mnt);
-+			struct ovl_sb *fs = &ofs->fs[fsid];
-+
-+			if (!fs->lower_idmap) {
-+				fs->lower_idmap = idmap;
-+			} else if (fs->lower_idmap != idmap) {
-+				pr_err("lower layer '%pd2' conflicts with idmap of another lower layer on the same fs, mount with '-o index=off,nfs_export=off' to override.\n",
-+				       l->path.dentry);
-+				iput(trap);
-+				kern_unmount(mnt);
-+				return -EINVAL;
-+			}
+ 	for_each_set_bit(i, &matched_profiles, netdetect_cfg->n_match_sets) {
+ 		struct cfg80211_wowlan_nd_match *match;
+-		int idx, j, n_channels = 0;
++		int idx, j, n_channels = 0, n_set = 0;
+ 		struct iwl_scan_offload_profile_match *matches =
+ 			(void *)netdetect_res->matches;
+ 
+@@ -1436,10 +1436,9 @@ iwl_mld_set_netdetect_info(struct iwl_mld *mld,
+ 				hweight8(matches[i].matching_channels[k]);
+ 		match = kzalloc_flex(*match, channels, n_channels);
+ 		if (!match)
+-			return;
++			break;
+ 
+-		netdetect_info->matches[netdetect_info->n_matches] = match;
+-		netdetect_info->n_matches++;
++		netdetect_info->matches[n_matches++] = match;
+ 
+ 		/* We inverted the order of the SSIDs in the scan
+ 		 * request, so invert the index here.
+@@ -1451,17 +1450,21 @@ iwl_mld_set_netdetect_info(struct iwl_mld *mld,
+ 		       netdetect_cfg->match_sets[idx].ssid.ssid,
+ 		       match->ssid.ssid_len);
+ 
+-		if (netdetect_cfg->n_channels < n_channels)
++		if (netdetect_cfg->n_channels < n_channels) {
++			match->n_channels = 0;
+ 			continue;
 +		}
+ 
+ 		for_each_set_bit(j,
+ 				 (unsigned long *)&matches[i].matching_channels[0],
+ 				 sizeof(matches[i].matching_channels)) {
+-			match->channels[match->n_channels] =
++			match->channels[n_set++] =
+ 				netdetect_cfg->channels[j]->center_freq;
+-			match->n_channels++;
+ 		}
++		match->n_channels = n_set;
+ 	}
 +
- 		/*
- 		 * Make lower layers R/O.  That way fchmod/fchown on lower file
- 		 * will fail instead of modifying lower fs.
++	netdetect_info->n_matches = n_matches;
+ }
+ 
+ static void
+-- 
+2.56.1
 
