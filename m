@@ -1,103 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795629350;
-	b=pRQkSoEVMvgBFoDf87NZ6MQciiRL3UegykytNg6XbL97yRK+ti/DDkmSzaifQXFHd0pI
-	 YjXoxpzIJXPuQYrHukvx2rO8z5eA6E4iuu3WMhtXsdT/u7SIwGME4mq0GjaBJiU02I9/r
-	 ZfvWhqkp8r+BBK0UgxvXC6IAzNu7BXalgT9rrH3tY/03cmsQcH1oCp3HTNv/7pzkvCJtn
-	 pb+a0YesNkzYMBWVJgKu0x6x2isvWptcZOOYGUlsm9JXu3sxvmHSPfIONDCj4313a/G2S
-	 8DXxh9zZjTcR1ykd3vGuNg7Ik7Qc+9MhncKcYIgxZByT1EwKywOsFfXkRFSRAcpsfqw==
+	t=1795629361;
+	b=yxhyErUM0CjnDFSscwikVIIPuCO87fEzqjDKn2SKURSrjMry6zIZo2EHaEJW7jeR4XZ5
+	 pXlFnpp1V+Bw7+FfmBgHodVfB225t1PwoMJegQ0fcWUVpmsoDZK/QSnC0m0uMEp5+lfAZ
+	 AgpmtKBwgxAplw8c4WVyK7DVUvQsxb7sJvtsjx6kXaB0Uj/JdQ9zVt/P+uT3aaui8RraK
+	 d6AgswyIM+0aLL4fcGgAfEvS1TLpX+FtbK7rD2mMfmlXuDETRqZYc5snpSYujMhe/hpn9
+	 moRRzoG9TBN84y9ecL0uP5fq0KVva9RWqx9Nnnz9zl/rFoXdxsNBgtrhBEWxOzaoxzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795629350;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZhgvvGhr19GJBCcJ3nyYAHYL8qsS8Qu8flUoaHfsv+4=;
-	b=iPfdfPTb6fDd51uVQ1ZufeaJxrQCsLmjQ4QUQ8FTtCIV6bbROnia17kNuy/2wc1HSwk7
-	 SAK8SwOk7pioUwjFPDLVtAHcYwr7+5VeqJXODYoz35hd4OkRMPUzGlikJCbTOqWOQrTnr
-	 J6K8cBmF5lm9/fR2EqeNR0x3ktEvJwGNHr5ZVEW4kTurGRAiDbrVcb89o1lXjDZF/qF/b
-	 YrywwjBY2Fz/yJU1DMya4DLUjvvtrD31AiBVPy42rRHK3PnWdwE3ATGb3Ut6aEPr1SXaz
-	 a0WPv18hahNfjvT5VYVqLqgqzUngVC5l0OrLJFVLca4Zk5zRhQJ+/yF4D8wPlmZT6sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795629361;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=9IIZfaql8LeK8VO1e8BPbRSxHG7/xq9HBPgSYzMas8M=;
+	b=lHx0H7LGtseMsKIqhuVK6UkE/lfSzOPYV/Do+dPlzal7VtUV/urbnNNT6GR6sYGv7lpL
+	 gD6MEbTmC06SbPD8MWnJJGiS9jyElL8ewWioJBCYYzkOPScILr4Oed3g2e3nJzy5xG642
+	 bGVHsMPqm2FKGk6cJraqaOXf7b+lofCdXJ1ssyxbiOkCRZka03/12F7nT+8hfo6kK9pVH
+	 F5LkRaaP6PVyamarrt+7Hso5AN7Np1mC+4WEFaBcHQDypPAhvacHQ6LIggTVl+yDjoVA/
+	 DsmdmB/B/KGhCp+9YWUqen7JwYbJ/7c7PVKhPt9y2nthQaSQjMB7ZgF53E2MXbJt/Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=nM473gLh;
-	arc=none smtp.remote-ip=209.85.160.177
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Y/LIYqOa";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0EF3606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:55:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0EF3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C81606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:56:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=nM473gLh
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5363316fa0cso63330121cf.3
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:55:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1795629349; x=1796234149; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZhgvvGhr19GJBCcJ3nyYAHYL8qsS8Qu8flUoaHfsv+4=;
-        b=nM473gLhDt8L/AJd71rb7S0acFRmXcxuz14+e2lo8uQc+NdtG5xkQav60aRPMBb/MN
-         gpXZdrYOiuIgSZDDd7rHOb4JNczuwWoUuTAycUVrhtyac1v4YoF6ULTz7x0hodXNenpT
-         1iEgT+UaS2OxnKWIjAOcUo9wguQQi0DtexdJUIvU2cYDKsbfXNJiPJ2UJHHjg0AFUdl/
-         lwtDRt9A6dtMUgTXS3ktbG1CYUYJ5ip+LCct/huS0rreCifzPVHnU/ZPNPA8hYkYzsOc
-         5snmpulZ1L88WXu/rnUo3WoM6eTvor835r8zO+jxN5Nzh88vlPSiDzZVpYfH8veC4k2V
-         R2Hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795629349; x=1796234149;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZhgvvGhr19GJBCcJ3nyYAHYL8qsS8Qu8flUoaHfsv+4=;
-        b=rz89wOcJItQRYSkjnIUC+yyjbNEkaWQp0Ei3Hjo56VO6kyrzYunJBzUiXG5DORVaKc
-         sGuj3tC7AYBlCQ42xrM94RDj8zGEnMDC9oYW7XIBmviy6ykl5kUiEldGJxGv0oY4jY3z
-         LTOEaNlXxr6URTJDGClcHfXAqe0CPmpkmGqNhyNma5qpk6P3UGKkvBZ/+OQ/z+1BJRu4
-         MeYv+kOGUOYf3Jn182DAp4ITGueliiK8RNmi3ib/uvjXzIFhjzicgUFimjAWHe9D0/vc
-         J84KaVOS/jtxYVRaltZulz/5uuYtkFwIrU/2HZNSkjy9f3ASsRta/lNV4GB4M7jiFyjJ
-         tDew==
-X-Forwarded-Encrypted: i=1; AL+hErEpyM7QgxG1v8k/a4D6jqRoE7g2zFw4z28pPeFZOCxVJLUqWzDzTKRKjjDO3uTnXT7St3V8QlA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9InRKpi2nPNDaeV0BAwFnvmoi4KplOiVF/LV3j9KP64uvPS37V
-	RLHJQY13qme6uz8teZdQKTkBKLpb72IPLMAgby6uImoZnYhyRHz6U6lvv+h5YZacpdo=
-X-Gm-Gg: AZFdTZfOQCsYT8tEjv1yQ0HKA1rzqzkpxR3vH9W96oL3mSzWdINnOg4Ff1QucJui/mp
-	58WT9rxE5Bj1LCVxf2wuWZqufxi4o7YN7EQdzPnTGkBBLJuRBj4u33mwR93qdr0EFeWmMyXUTjn
-	+lcAWf5VkKmXbujSKCIMj7r/r0YC49JxfoHsNY1779XjX5hcgzdhoyE713QAFOEvK0jymYC3er4
-	n836hcP1APV+DVq8kwp2oYS0wTjszFgqSr0RIJ0tQm9D1JWEH7aEjTCd9Qk+51psIKOpW5zKO+F
-	8dmday6CJPgsji/7sGDV8Ej0AHH+aUpXL8tn1Zg+cqIeHbVHalcv3zrTqppeKxOJW+rbvL/Q9Mh
-	OEQH3V+LAUyobm9flZZntEESPHx8sOjPMp3eWt95OVNIzp0mL8Opvlu5lvB4go4W090seFFpa8r
-	u1Ps95EqTD1rGVTy+SfbQzAggOZul/XfciaCfY00zoVO/wRIQ04Tm1sMLq0dGUqTDxTeJEzB/Is
-	VXjKIN9tbnoJXLpjkMN/1cUlaCSPtIsQufXyKl+wEKlwggZJGcpnm56/bSzDSl3F97Yw7YxqWT+
-	ILxt/Q==
-X-Received: by 2002:ac8:5706:0:b0:536:3760:e6cb with SMTP id d75a77b69052e-55d769e9387mr335085841cf.14.1795629348805;
-        Wed, 25 Nov 2026 09:55:48 -0800 (PST)
-Received: from ziepe.ca ([142.177.118.84])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55dbb8546ecsm18274511cf.4.2026.11.25.09.55.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 09:55:47 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xWHDf-0000000298s-0hJB;
-	Wed, 25 Nov 2026 13:55:47 -0400
-Date: Wed, 25 Nov 2026 13:55:47 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, will@kernel.org,
-	robin.murphy@arm.com, honghuan@amd.com,
-	Leon Romanovsky <leonro@nvidia.com>, joro@8bytes.org,
-	prakash.gupta@oss.qualcomm.com, iommu@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] Revert "iommu/dma: simplify dma_iova_destroy() and drop
- the free_iova helper"
-Message-ID: <20261125175547.GM246011@ziepe.ca>
-References: <CGME20261125135138eucas1p141ba6b5e09623562e2033e290fba811c@eucas1p1.samsung.com>
- <20261125135120.1126571-1-sibi.sankar@oss.qualcomm.com>
- <a3722347-4b88-41ad-926b-455530020c6b@samsung.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y/LIYqOa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98BF41F000ED;
+	Wed, 25 Nov 2026 17:56:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795629361;
+	bh=9IIZfaql8LeK8VO1e8BPbRSxHG7/xq9HBPgSYzMas8M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Y/LIYqOaAMxc/HaoKjsFQ9Eofj0PMu1ORGc4IJHtNqbai3bPFoAXVDs/5c2rVHqtH
+	 Mc3gFaEMRb8IfxqjN2F+ArRXmt1X/nsB9VNvXgEGBemxwPg72K5zzXAXRqiKlZPqaN
+	 ahzpNoAAFojOmkjI68okgI6EI16i6ASOxlAPFhS8fHwA0fItmxfJdMVf1D8JxI4bGe
+	 ZrzypMK4IzBdDsxAQvwv/i+CkhMocUdf5yrBRqq54vb9lLjahlogNCNG83TxxIM8iI
+	 FOJLi7DqEL0KMTh/+bsc1pu3VF+nX46dJphj8OT6OxR4WVtohPK2V9rvNZB/WJZA4n
+	 p//UIJFL6JAQQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] kprobes: Switch ftrace ops when adding probe with post_handler
+Date: Wed, 25 Nov 2026 12:55:59 -0500
+Message-ID: <20261125175539.1074874-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112529-fragility-commence-4ad2@gregkh>
+References: <2026112529-fragility-commence-4ad2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,76 +58,150 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a3722347-4b88-41ad-926b-455530020c6b@samsung.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 25, 2026 at 06:21:06PM +0100, Marek Szyprowski wrote:
-> On 25.11.2026 14:51, Sibi Sankar wrote:
-> > This reverts commit 1acce29926d93f3eba427696fe3da6451504dae2.
-> >
-> > Before this commit, dma_iova_destroy() unmapped through
-> > __iommu_dma_iova_unlink(..., free_iova=true), which set
-> > iotlb_gather.queued from cookie->fq_domain, skipped iommu_iotlb_sync()
-> > and freed the IOVA with the queued gather, exactly like
-> > __iommu_dma_unmap(). After it, dma_iova_destroy() calls
-> > dma_iova_unlink() and then dma_iova_free():
-> >
-> >   - dma_iova_unlink() never marks its gather as queued and always calls
-> >     iommu_iotlb_sync() after iommu_unmap_fast().
-> >   - dma_iova_free() passes a NULL gather to iommu_dma_free_iova(), so
-> >     the IOVA goes straight back to the allocator through
-> >     free_iova_fast() and never through queue_iova().
-> >
-> > DMA-FQ domains therefore get strict invalidation on this path. That
-> > includes the block layer's blk_rq_dma_map() path, which NVMe uses for
-> > all data transfers, so iommu.strict=0 has no effect on NVMe I/O.
-> >
-> > hw/sw details: Qualcomm Glymur CRD: SMMUv3 with no RANGE_INV,
-> > 	       4K pages; NVMe SSD on PCIe Gen5 x4
-> >
-> > Fio sequential read/write numbers:
-> >   Domain                          seq write    seq read
-> >   DMA (strict)                    2694 MiB/s   2693 MiB/s
-> >   DMA-FQ (lazy), flush queue      2707 MiB/s   2803 MiB/s
-> >     bypassed (this regression)
-> >   DMA-FQ (lazy), flush queue      10.6 GiB/s   11.9 GiB/s
-> >     used by dma_iova_destroy()
-> >
-> > Fixes: 1acce29926d9 ("iommu/dma: simplify dma_iova_destroy() and drop the free_iova helper")
-> > Cc: stable@vger.kernel.org # v7.3+
-> > Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-> 
-> 
-> The performance data clearly shows that the flush queue was there for
-> the reason. Together with this revert it would probably make sense to
-> apply the v1 of the reverted patch:
-> 
-> https://lore.kernel.org/all/20260701092033.422867-1-honghuan@amd.com/
-> 
-> Leon, do You see any other option?
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-Oh, there are a couple of issues here too, and reverting isn't fixing
-the main problem with this..
+[ Upstream commit f60f98881b54b0cf36b61f41c91fbd93b76a2d9c ]
 
-The issue is the assumption we can separate the sync from the free:
+When an ftrace-based kprobe is registered without a post_handler, it is
+armed using kprobe_ftrace_ops. If a second probe with a post_handler is
+subsequently registered at the same address, register_aggr_kprobe() sets
+ap->post_handler to aggr_post_handler, but leaves the probe armed using
+kprobe_ftrace_ops.
 
-       if (!iotlb_gather.queued)
-               iommu_iotlb_sync(domain, &iotlb_gather);
-       if (free_iova)
-                iommu_dma_free_iova(domain, addr, size, &iotlb_gather);
+When the probe is later disarmed or disabled, disarm_kprobe_ftrace()
+checks whether p->post_handler is non-NULL and attempts to disarm from
+kprobe_ipmodify_ops. This fails with -ENOENT, decrements
+kprobe_ipmodify_enabled below zero, leaves the probe armed on
+kprobe_ftrace_ops, and aborts unregistration, leading to a use-after-free
+if the probe module is unloaded.
 
-We cannot. The gather must always be retired, either be calling
-iommu_iotlb_sync() or by calling iommu_dma_free_iova(). It can never
-just be left dangling.
+Switch the armed probe from kprobe_ftrace_ops to kprobe_ipmodify_ops in
+register_aggr_kprobe() outside of text_mutex and cpus_read_lock to avoid
+lockdep and deadlock issues when modifying ftrace code. Defer adding the
+new probe onto ap->list until the ftrace ops switch completes so that the
+new probe's handlers are not published prematurely while ap is still on
+kprobe_ftrace_ops, and mark ap disabled if rollback re-arming fails.
+Also restore ftrace ops registration and counter if ftrace_set_filter_ip()
+fails in __disarm_kprobe_ftrace().
 
-Further you can't call iommu_dma_free_iova() with a NULL gather once
-unlink has been called. That risks things out of order where the
-rbtree can show the freed iova before the associated queued flush has
-happened. That is a correctness issue.
+Link: https://lore.kernel.org/all/179440641120.328088.15542754095040659094.stgit@devnote2/
 
-I suppose the resolution here is to feed the gather up the call chain
-and allow it to be retired correctly instead of trying to short
-circuit it inside the API.
+Fixes: 5dd7caf0bdc5 ("kprobes: Skip clearing aggrprobe's post_handler in kprobe-on-ftrace case")
+Cc: stable@vger.kernel.org
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+[ sashal: Adapted to older context: kept the older error message text, used cpus_read_lock()/unlock() instead of scoped_guard, and kept the ret == 0 check in the final block. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ kernel/kprobes.c | 53 ++++++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 44 insertions(+), 9 deletions(-)
 
-Jason
+diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+index 4f2d0638644c8..cc491e663a686 100644
+--- a/kernel/kprobes.c
++++ b/kernel/kprobes.c
+@@ -1097,9 +1097,14 @@ static int __disarm_kprobe_ftrace(struct kprobe *p, struct ftrace_ops *ops,
+ 	(*cnt)--;
+ 
+ 	ret = ftrace_set_filter_ip(ops, (unsigned long)p->addr, 1, 0);
+-	WARN_ONCE(ret < 0, "Failed to disarm kprobe-ftrace at %pS (%d)\n",
+-		  p->addr, ret);
+-	return ret;
++	if (WARN_ONCE(ret < 0, "Failed to disarm kprobe-ftrace at %pS (%d)\n",
++		      p->addr, ret)) {
++		if (*cnt == 0)
++			register_ftrace_function(ops);
++		(*cnt)++;
++		return ret;
++	}
++	return 0;
+ }
+ 
+ static int disarm_kprobe_ftrace(struct kprobe *p)
+@@ -1382,16 +1387,12 @@ static void cleanup_rp_inst(struct kretprobe *rp)
+ NOKPROBE_SYMBOL(cleanup_rp_inst);
+ 
+ /* Add the new probe to ap->list */
+-static int add_new_kprobe(struct kprobe *ap, struct kprobe *p)
++static void add_new_kprobe(struct kprobe *ap, struct kprobe *p)
+ {
+ 	if (p->post_handler)
+ 		unoptimize_kprobe(ap, true);	/* Fall back to normal kprobe */
+ 
+ 	list_add_rcu(&p->list, &ap->list);
+-	if (p->post_handler && !ap->post_handler)
+-		ap->post_handler = aggr_post_handler;
+-
+-	return 0;
+ }
+ 
+ /*
+@@ -1426,6 +1427,8 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
+ {
+ 	int ret = 0;
+ 	struct kprobe *ap = orig_p;
++	bool reset_post_handler = false;
++	bool ftrace_switch_ops = false;
+ 
+ 	cpus_read_lock();
+ 
+@@ -1475,15 +1478,45 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
+ 			    | KPROBE_FLAG_DISABLED;
+ 	}
+ 
++	if (p->post_handler && !ap->post_handler) {
++		reset_post_handler = true;
++		if (kprobe_ftrace(ap) && !kprobes_all_disarmed &&
++		    !kprobe_disabled(ap))
++			ftrace_switch_ops = true;
++		else
++			ap->post_handler = aggr_post_handler;
++	}
++
+ 	/* Copy ap's insn slot to p */
+ 	copy_kprobe(ap, p);
+-	ret = add_new_kprobe(ap, p);
++	if (!ftrace_switch_ops)
++		add_new_kprobe(ap, p);
+ 
+ out:
+ 	mutex_unlock(&text_mutex);
+ 	jump_label_unlock();
+ 	cpus_read_unlock();
+ 
++	if (ret == 0 && ftrace_switch_ops) {
++		/*
++		 * Must switch ftrace ops outside of text_mutex and cpus_read_lock
++		 * to prevent deadlocks when ftrace code modification acquires text_mutex.
++		 */
++		ret = disarm_kprobe_ftrace(ap);
++		if (ret)
++			return ret;
++
++		ap->post_handler = aggr_post_handler;
++		ret = arm_kprobe_ftrace(ap);
++		if (ret) {
++			ap->post_handler = NULL;
++			if (arm_kprobe_ftrace(ap))
++				ap->flags |= KPROBE_FLAG_DISABLED;
++			return ret;
++		}
++		add_new_kprobe(ap, p);
++	}
++
+ 	if (ret == 0 && kprobe_disabled(ap) && !kprobe_disabled(p)) {
+ 		ap->flags &= ~KPROBE_FLAG_DISABLED;
+ 		if (!kprobes_all_disarmed) {
+@@ -1491,6 +1524,8 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
+ 			ret = arm_kprobe(ap);
+ 			if (ret) {
+ 				ap->flags |= KPROBE_FLAG_DISABLED;
++				if (reset_post_handler)
++					ap->post_handler = NULL;
+ 				list_del_rcu(&p->list);
+ 				synchronize_rcu();
+ 			}
+-- 
+2.53.0
+
