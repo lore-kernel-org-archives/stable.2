@@ -1,120 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596309;
-	b=Z6DzYoWOPJ2/SXY8XI5dufxUVRiCEDBtW5RWVNd3KOsBqn7Adg9PpteMRagqk5BK1kV1
-	 A/mROJ3yGB4pAhqdzG5G/h+lgi1uWSH7sTuOOraGADXKJBilUtOLDVJsv+4nnCKnYVqma
-	 ks43Nne22hBAG8Oa6sl+S+LXQtSz3twOt2GJVeXldT7OlBRFSIiDzRmP/vzIJaakGyleI
-	 JWSBwu/t6JcnQWLqvAZO/tGlYjqZlrdS872PRTNrm9i0ZlseRhVJct85c4H0gkYGSyTxa
-	 alwNrG2C1/VPD+dmy7YOW/Rr73xUdkC5ZBEHoIyP3XHlgV75e52O6R8kO6g47oV+RAQ==
+	t=1795596416;
+	b=lsmr6rBeIAJkZiBCLt+x+JsWrnd3PxsicRlnKYWeMfR429YYFD0ggcNY1yBvEYzuAZIq
+	 UU29jDkwiEGE2vX1Ke9a1dGMJVQJipCeyIlxyBZb1ExWUzdLqJCYCmARCFpEIx1TIZTkl
+	 W7TYM5L50DJvSkb8/dIgJgL2rZiKCdc5dR5Gqco68aG5CauAfybh9Go++Si0owejGl/x6
+	 OMHbZjQXagGLqZhO8AL/mZjacaS0fu9W7Ka5wB1OeOjHTaZlpJY2jqLV/PnTpqmtHw2Kl
+	 BkhJkt5fxDFmvy4aaBhhNecLxOEVwqoObJxKtbw5+pkwvAkeo13EuGxkQAF9bEibzxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596309;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=xIQGPFCJd67xaKCihbcJC3tux5xClyxULhK31mQOmgA=;
-	b=iLErAtVwGgrTgjfqugaWCc+QyxkoAgMtIFs9OhXxiPmrFPR/VjnOlHMmp/TkoCOqWEFN
-	 z2C9g3eVsgg47DxyZzpWe0YFMIJ/4AhNQVTE/SGqXhwFCNqpdyKppafpdUhhm27DGgHiX
-	 K4zbiixJlEfmOfHlJTwy2JF4IgV2TIhL+Ap4eEapLqhEpmjJbqBndcHjaBPY42h3hweh8
-	 DWwL4KUSKXcfWfZW8ABTmaUAjRTQ90pwEKoXIeGXZXpkUE1m0ybtJu6Yi/EwBXnYaiH8W
-	 ro+7LeryYxu9lbKDzAQboexir5eZoBWwXPX+I4rflFrd/wCjm5reVZxaXYPNJ3w1yuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596416;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=gKIID75y2cmNlMXRd1MhTd86fNY6fAdmhSMsDM5aV/Q=;
+	b=JHIeocM+N2ZOSjwzUMHqSMDcY8f1F4jWSCuBd5SyCSfwkBlGa7B2Mo+KQwPZB0KCAqaH
+	 On5IGW0DoxpcxfCIA9LrOy2yqS9aobzOWfHzT4wXejJa2kGE2C3QL7QolTjhgT7sVJZB4
+	 r7fcetHdqlF/atytzPM7DPSbteJHFciy60nJdtz72GPLIasS1ll4sZMqkhtXPxYuvmp8x
+	 p7tb7cOfnviy8T7YMxPxAmx/n+ExENDc9eXOyYrJ3AutW4VZGsrcY6AhJzxoeoSLJxyk1
+	 u5uQYZobfkWMqkGcONtkRKhxBC5/lRZsD/4y4iY8HwU/fOvGDSzn1mGirC3XOoc8O9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="1R4oRQ/i";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Xseqmy5b;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="1R4oRQ/i";
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Xseqmy5b;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fVJgIzVQ;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81AE606A31E;
-	Wed, 25 Nov 2026 08:45:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A81AE606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 506BB606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:46:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 506BB606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=1R4oRQ/i;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Xseqmy5b;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=1R4oRQ/i;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Xseqmy5b
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 78AE61F747;
-	Wed, 25 Nov 2026 08:45:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1795596306; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xIQGPFCJd67xaKCihbcJC3tux5xClyxULhK31mQOmgA=;
-	b=1R4oRQ/iWiVF3GfygHgPI9xqm0DU0PL/33RSEd0kAHFOjj03JbHnGcDeKjPUuZVKUfQ/C3
-	se0iiVMXGurVPeKjOHJAJnk/StmPKNjpbtuFJjiXHDzF2B6Iiqw2/KkYzF02DFKI3odKHe
-	4PRjahV3Nz4geMoybs+TdWwUp9oQtfo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1795596306;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xIQGPFCJd67xaKCihbcJC3tux5xClyxULhK31mQOmgA=;
-	b=Xseqmy5b9lVtcOfm6N7qVKeOgqlUYxNKD7bCD3QFJ2Xcfd0l+ZHy35FU1NbGLHKMQyqpAk
-	Kdvq0lCqAMg4XqBg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1795596306; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xIQGPFCJd67xaKCihbcJC3tux5xClyxULhK31mQOmgA=;
-	b=1R4oRQ/iWiVF3GfygHgPI9xqm0DU0PL/33RSEd0kAHFOjj03JbHnGcDeKjPUuZVKUfQ/C3
-	se0iiVMXGurVPeKjOHJAJnk/StmPKNjpbtuFJjiXHDzF2B6Iiqw2/KkYzF02DFKI3odKHe
-	4PRjahV3Nz4geMoybs+TdWwUp9oQtfo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1795596306;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xIQGPFCJd67xaKCihbcJC3tux5xClyxULhK31mQOmgA=;
-	b=Xseqmy5b9lVtcOfm6N7qVKeOgqlUYxNKD7bCD3QFJ2Xcfd0l+ZHy35FU1NbGLHKMQyqpAk
-	Kdvq0lCqAMg4XqBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4D533134CA;
-	Wed, 25 Nov 2026 08:45:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id FrpCChKgBmvYegAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 25 Nov 2026 08:45:06 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id C7C0F27BBB; Wed, 25 Nov 2026 09:45:01 +0100 (CET)
-Date: Wed, 25 Nov 2026 09:45:01 +0100
-From: Jan Kara <jack@suse.cz>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: David Hildenbrand <david@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Lorenzo Stoakes <ljs@kernel.org>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Michal Hocko <mhocko@kernel.org>, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 4/5] mm/vmscan: be more careful when releasing FS
- metadata if buffer_heads_over_limit
-Message-ID: <wm57zjtvdpexvbfygmdggw2ytsazelyds4rt3mtx6oy6u72mke@rhviuzp26rt6>
-References: <20261119-gup-dirty-what-v1-0-236d69f25c24@suse.de>
- <20261119-gup-dirty-what-v1-4-236d69f25c24@suse.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fVJgIzVQ
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3b4ab53a966so491368a91.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 00:46:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795596416; x=1796201216; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gKIID75y2cmNlMXRd1MhTd86fNY6fAdmhSMsDM5aV/Q=;
+        b=fVJgIzVQUDo0SHmzV1oXinNoS3IEbtSaCl5C0hhFa6u4okslMXZuRPP1/sE1WiEaSt
+         uGkBZpyVkBMM8TG3tNupmqxvXUF8tBlvl7FmAAd4t7c4tLlgget2lEK+3MnDSNWXpjIM
+         LQiK+VY0JOprNjTxLMQ8HSLhKOACJPdkQOyvYu6tjxedmQgDeIB4szcK+Ks6OFgZILhd
+         tGCllSv8DXP/lEEhUKk6YeHJvvHdIP/y6wYbt5WlwmtGUev3ODHIqUkrFT4fdlSxOCxe
+         SOL0annlCqBUipJwv5paTKlpRq6+K65Z/PV6rXXu4pyBP5LDKlKHOk7YacECCkayebCZ
+         XYxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795596416; x=1796201216;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gKIID75y2cmNlMXRd1MhTd86fNY6fAdmhSMsDM5aV/Q=;
+        b=pAzWwrLLsv+xn/HWSazXUT17PtmCyx1NeWh3PkSmI8BAykC0p05fXW/ESKM8n9vPDe
+         p5vpdr0xnLzwwl1dMInRX9kE/4rPkSS+cqrl6PIuNrq6ohTEOiQwJ3Gl5JY8uDiHwE5T
+         J/XR/b++gY+E47q3mJwWLYAcKGTLdjcGs3sMhrzWJt/tYxKUi0gSZqYpIUlMPedDUY2T
+         JJYQss1AJ6aX46p1iMkNKM9VaAiZlA4Ia6nJrYeNsjMBX+EoAWM7Qk0eY7WJzQ77z5wf
+         K+XBMPxOaDIG7REnqBajjyMZhPzjxuUVFgYcTwd5uhsjxfeGXLJc2Dt6IL+5jy46I61E
+         6Mxw==
+X-Forwarded-Encrypted: i=1; AL+hErF5HAfB0y8blOWJYKJRV+pqirN6J+dgVMJqhr5kMXKI8HFIsC3Xmm1OmVkamgeSLd4qBI7UP1g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8g1S8Yv1ujMqqgUf8WI34QRszmd2htdVWhiSwvkHlpVTY7XkrJ
+	8M+Yh9BoSe5IIdA4ycqrit2weJu6IFyFgqlRc/usoG1a6ZqEnAhTMiPS
+X-Gm-Gg: AZFdTZfk/4mazC7szXNSkn5LgW4sDCvvnCgmZjiiw7osfAJLoogTlsM/kiJcs2N4y5w
+	DzALDe1nFMbGY1lOVg9N04W080tbi3n/Ps1TR15mwDxzF4HuL08lFqfepNYsDWjt8bthYqWN4kY
+	BZXwYeBqcYrpzMF4AAyV6qziwOCgCIsEwIc9FL6S3j7z2N54OVLEEiHCuI6JACH3T20AiuZiBBH
+	riMIMbHjMTOU+ZRaFszeEBss/dyVTr4H3e31BD7cLc2vSR/4nEwdEqCFtXgrpWpivpVW5Q4P88I
+	YopPak5Ots5yGLvtgOlL/MokfjaHP3nBazr/Wqnta3Y0pG9s9pBtal2LuveRF0D0HkRmqTzfj1S
+	2XVoHCpHmsW92adxVU8vvKLZJQFb0KADfW/NkZII9BQ7Zrmx2ua+lf+15WDWR9GXhJ2OW1dI37d
+	0+sGje7E2lNQcp77TG8yH2Co+8XP+sVGmEDTxIV67KUqjY5aIJQXMxvwktV7Wef5i4foWtBmDiF
+	77rExoAxAbUeI7cC0RVaNltuPqQSPift9ZJdoLf8rx0EmuaJJHzg9BDGrHh3pAcKtSjLu4/TNN0
+	jRZ76k78+eP5OHOAY4LBmTV+LaCZnNPTAHOkepFKpR6fYIETP6ggGRs=
+X-Received: by 2002:a17:90b:442d:b0:3b0:d0be:f02c with SMTP id 98e67ed59e1d1-3b41c98a095mr26665706a91.6.1795596415710;
+        Wed, 25 Nov 2026 00:46:55 -0800 (PST)
+Received: from mi-ThinkCentre-M760t.mioffice.cn ([43.224.245.234])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405d97356sm28973549a91.13.2026.11.25.00.46.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 00:46:55 -0800 (PST)
+From: Wenwu Hou <hwenwur@gmail.com>
+To: rostedt@goodmis.org
+Cc: mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com,
+	frederic@kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Wenwu Hou <hwenwur@gmail.com>
+Subject: [PATCH v2] tracing/hwlat: Bind the sampler kthread instead of setting its affinity
+Date: Wed, 25 Nov 2026 16:46:00 +0800
+Message-ID: <20261125084600.2306377-1-hwenwur@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -124,84 +99,118 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261119-gup-dirty-what-v1-4-236d69f25c24@suse.de>
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MISSING_XM_UA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[37];
-	ARC_NA(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	R_RATELIMIT(0.00)[to_ip_from(RLc5chj8mdhigtayhgqted7wkp)];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -12.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Transfer-Encoding: 8bit
 
-On Thu 19-11-26 20:10:47, Pedro Falcato wrote:
-> Namely, don't call ->release_folio() for mapped or referenced folios.
-> Since this is the active list, there's no actual point in doing
-> unmapping. In fact, that would be counterproductive for active folios.
-> 
-> So, gate on !mapped && may_release_folio.
-> 
-> Reported-by: David Hildenbrand <david@kernel.org>
-> Cc: stable@vger.kernel.org
-> Fixes: d824ec2a1546 ("mm: do not reclaim private data from pinned page")
-> Signed-off-by: Pedro Falcato <pfalcato@suse.de>
+start_single_kthread() sets the affinity of the kthread it just created
+before waking it up, but kthread_affine_node() overrides that mask on the
+first wake-up. See commit 60ba9c38b931 ("kthread: Comment on the purpose
+and placement of kthread_affine_node() call").
 
-This is OK with me but so feel free to add:
+In round-robin mode, move_to_next_cpu() compares save_cpumask against
+current->cpus_ptr, sees the replaced mask, and switches the tracer to
+MODE_NONE on its very first iteration:
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+  hwlat_detector: cpumask changed while in round-robin mode,
+  switching to mode none
 
-Just given buffer_heads_over_limit is a HIGHMEM thing and given how much we
-care (not) about HIGHMEM, maybe just completely ripping out the whole
-buffer_heads_over_limit logic is a better "solution"? I mean it's a crude
-heuristic anyway and for struct buffer_head to occupy significant portion
-of ZONE_NORMAL, you'd have to have several GB of pagecache with buffers
-which means the machine has to have quite some highmem which makes the
-setup even more dubious...
+So the tracer no longer migrates across tracing_cpumask. More importantly,
+tracing_cpumask is not honoured at all, and with isolcpus=/nohz_full= the
+thread cannot run on the isolated CPUs it is meant to sample.
 
-								Honza 
+Use kthread_bind_mask() to preserve the initial affinity, including
+isolated CPUs. Clear PF_NO_SETAFFINITY once the single sampler thread
+starts to allow userspace affinity changes and cgroup migration.
 
-> ---
->  mm/vmscan.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index d80bbb607a15..986742d7fb6a 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -2217,7 +2217,10 @@ static void shrink_active_list(unsigned long nr_to_scan,
->  		if (unlikely(buffer_heads_over_limit)) {
->  			if (folio_needs_release(folio) &&
->  			    folio_trylock(folio)) {
-> -				filemap_release_folio(folio, 0);
-> +				if (!folio_mapped(folio) &&
-> +				    filemap_may_release_folio(folio, 1)) {
-> +					filemap_release_folio(folio, 0);
-> +				}
->  				folio_unlock(folio);
->  			}
->  		}
-> 
-> -- 
-> 2.56.1
-> 
+The mask is now computed and validated before kthread_create(), which also
+avoids creating a thread when tracing_cpumask has no online CPU in common:
+cpumask_first() returned nr_cpu_ids there and cpumask_set_cpu() then wrote
+past the end of the mask.
+
+Tested on a 4-vCPU KVM guest, bit 0 of the mask is CPU 0:
+
+  mode        mask    before                    after
+  none        0b0101  Cpus_allowed_list: 0-3    0,2
+  round-robin 0b1111  mode -> none, no migrate  migrates 1 2 3 0
+  round-robin 0b0101  mask 0-3, no migrate      migrates 0 2
+  per-cpu     0b0110  2 threads, cpus 1,2      2 threads, cpus 1,2
+
+Fixes: d1a89197589c4 ("kthread: Default affine kthread to its preferred NUMA node")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wenwu Hou <hwenwur@gmail.com>
+---
+Changes in v2:
+- Clear PF_NO_SETAFFINITY under current->pi_lock when the single sampler
+  thread starts, preserving userspace affinity changes and cgroup migration.
+  Keep PF_NO_SETAFFINITY set for per-CPU threads.
+- Update the commit message
+
+v1: https://lore.kernel.org/linux-trace-kernel/20261111020755.1422284-1-hwenwur@gmail.com/
+
+ kernel/trace/trace_hwlat.c | 33 +++++++++++++++++++++++++--------
+ 1 file changed, 25 insertions(+), 8 deletions(-)
+
+diff --git a/kernel/trace/trace_hwlat.c b/kernel/trace/trace_hwlat.c
+index 3fe274b84f1c2..52478ad8030d0 100644
+--- a/kernel/trace/trace_hwlat.c
++++ b/kernel/trace/trace_hwlat.c
+@@ -353,8 +353,21 @@ static void move_to_next_cpu(void)
+  */
+ static int kthread_fn(void *data)
+ {
++	unsigned long flags;
+ 	u64 interval;
+ 
++	/*
++	 * kthread_bind_mask() sets PF_NO_SETAFFINITY to keep the initial
++	 * affinity from being overridden by kthread_affine_node(). Clear it
++	 * now to allow userspace affinity changes and cgroup migration, but
++	 * keep per-CPU threads bound to their CPUs.
++	 */
++	if (hwlat_data.thread_mode != MODE_PER_CPU) {
++		raw_spin_lock_irqsave(&current->pi_lock, flags);
++		current->flags &= ~PF_NO_SETAFFINITY;
++		raw_spin_unlock_irqrestore(&current->pi_lock, flags);
++	}
++
+ 	while (!kthread_should_stop()) {
+ 
+ 		if (hwlat_data.thread_mode == MODE_ROUND_ROBIN)
+@@ -423,15 +436,12 @@ static int start_single_kthread(struct trace_array *tr)
+ 	if (kdata->kthread)
+ 		goto out_put_cpus;
+ 
+-	kthread = kthread_create(kthread_fn, NULL, "hwlatd");
+-	if (IS_ERR(kthread)) {
+-		pr_err(BANNER "could not start sampling thread\n");
+-		cpus_read_unlock();
+-		return -ENOMEM;
+-	}
+-
+ 	/* Just pick the first CPU on first iteration */
+ 	cpumask_and(current_mask, cpu_online_mask, tr->tracing_cpumask);
++	if (cpumask_empty(current_mask)) {
++		cpus_read_unlock();
++		return -EINVAL;
++	}
+ 
+ 	if (hwlat_data.thread_mode == MODE_ROUND_ROBIN) {
+ 		next_cpu = cpumask_first(current_mask);
+@@ -440,7 +450,14 @@ static int start_single_kthread(struct trace_array *tr)
+ 
+ 	}
+ 
+-	set_cpus_allowed_ptr(kthread, current_mask);
++	kthread = kthread_create(kthread_fn, NULL, "hwlatd");
++	if (IS_ERR(kthread)) {
++		pr_err(BANNER "could not start sampling thread\n");
++		cpus_read_unlock();
++		return -ENOMEM;
++	}
++
++	kthread_bind_mask(kthread, current_mask);
+ 
+ 	kdata->kthread = kthread;
+ 	wake_up_process(kthread);
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.43.0
+
