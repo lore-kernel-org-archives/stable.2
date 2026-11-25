@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795602967;
-	b=cnp3U4yo1k19NpMmfxgKrcdyHUpJ+p1hFBnrcAIN2exK+l7viNnUI13Iv0RHPKFNm5ty
-	 VG4cHpqBqBNBO1cCm/YIH1SeVCqt5ehLmiCpWNwna9pknpkSHRvdrzHaUlJ1rep5+uh4f
-	 cPReFggE34cqfrugUbG4Fu5wOI0oAn3r10SqQJ3x3DP0y/VX/4AAzfLVh8Lt0w1+pgn80
-	 Io38xWWEZIeEAdvjd8tsaxccDQJ4lSIa1gaxDhZ5ybXcPGTQ3pybBxNXm74VETMkLLOJX
-	 HJLJPLTn8deloz4yQz13vQS5W9rC9qprw50W7wtrDposRwlH3Yj1rWPD0n3e+SSJ2xA==
+	t=1795602971;
+	b=xPU4uJjcNGIKOcyX3VH2O9gd7FmLpm1FMis8G+lrbtot3oq4OEQPtL1uH0EUolkiAHCk
+	 Ui9EBjAkh4fITnfDVkYZ61uFyIspnb37DmCirk37En0m5OKigFrXBQDzfRq1HFXCx/+ko
+	 i9nXFp9uyTmZNNRHh07yyL+BSg1UWUr6/32+PcONklL58WdYQ1AM8rwz883mjY6VtwNgr
+	 NCegpDjuL2OIqEVeQpbV8DR9i2+YNK+ycRqhROz59ClSRIUWqdK5WAdbPtyRbGWOp+fHJ
+	 qPhnFxw8AioJDrW9GoFwjLzl2NGQt+vgr8CdjSu4uFCqJX7Fq2vUymVqR3i3o14RZ8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602967;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602971;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=9wZZOlC1ETPf9vEF5d9fCp4P/vZk+JvckMl58fjUKfg=;
-	b=HRqIw/5jfYHywRD5EvQsSAjkplyK+2BkdqcHFNe/pidIPaH+yGzj5OknKCvMOSK1k89m
-	 9w5EDHmpmESNKNb1x95vgj4mKxZPR1I0fRMFTPrvP4xeUdWv13XAlIzUHaDm/3wzKNIMz
-	 nqq+nrHLy4Njg610QMKIZKoleuX9KxriU978P6NkOq6JywYFInZRG6PivbDva5cMeZ6GC
-	 HHDkvFT8cNh2XElsjjNHC4znCRe3bWHAvWROA4bMZtjuYHo6cauAbtCeEae9kQcj7Ywnf
-	 k8SD2JEsfRujzMcnc3vhftCuuEpxST1CRKYTUflMaCmd3vOy/hxhFkqfwZI98FpxUzw==
+	bh=3Vrn6seoQ+lQzD7B/RRxRWsCSQT35+rIi1V0ztJj+50=;
+	b=NKdRrUpc4sDDoBRc3+0S48CzCFu9kswVliehdEWe4ToAl8YQbqlv7SZqOiKJgwflpkfu
+	 /PXSnj/J8Oz8xAT6FKl5C4tsrIp1DLcTTbMieR2+9iv2xYzAdLZsMTYdYYAXe/hfTPOH/
+	 zE1Db1IsIXUBKZqBUc9TnFKaGy2tlVaSQ3q8J8aMGvMR8xp5MejwAPTsfzarHdtSnCYjB
+	 PuuT56BjDS2VyVFKjRSaxl+x7PqJT8bC6aSo+R+IhvzMobTdvPQ38qfjD4S/7K/AkSgFY
+	 2PgBFEDLI2xL7H9g7XRfEDGLYSyJ7o83+ZbZCb//hsVm7pWyMgMcA7X10MarqD0ST6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zc0IzuAE;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=H5BIESGN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C69606A336
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:36:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C51606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:36:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zc0IzuAE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBE5E1F000EF;
-	Wed, 25 Nov 2026 10:36:06 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=H5BIESGN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B0F31F00A00;
+	Wed, 25 Nov 2026 10:36:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795602967;
-	bh=9wZZOlC1ETPf9vEF5d9fCp4P/vZk+JvckMl58fjUKfg=;
+	s=korg; t=1795602970;
+	bh=3Vrn6seoQ+lQzD7B/RRxRWsCSQT35+rIi1V0ztJj+50=;
 	h=Subject:To:Cc:From:Date;
-	b=zc0IzuAEzcsMFmtUY6PzNJ0vf7Xaaj3bimYJVDM8wDru1XTUsWXSKd110XX/7x0yq
-	 wQV3G8yNGCiOoKSXyJ/BS2Dm6UkbqEUT788ts9qswCRMPi0xFcCUVu+M0t2PnmB63r
-	 igGE29hscXWoP+DjFXzjKLiARWQQWrTifYz6gjFk=
-Subject: FAILED: patch "[PATCH] sched/deadline: Fix spurious -EPERM for migration-disabled" failed to apply to 6.6-stable tree
+	b=H5BIESGN+xt+hBbaelCMrPl/tPNxRzLSY0LNwuB3ZpY31sEOXWbsQcWCcr4PLE5t2
+	 NbeOJCuS/9mIv+TW/KWPxAv9pnDFOSYkhM9pt3XEYu0FHdbk4IYblY5PLiQMRYJlAW
+	 zB5bVXmEQKR1INSzSNXMjK3DXQKs70j7UtgWutLM=
+Subject: FAILED: patch "[PATCH] sched/deadline: Fix spurious -EPERM for migration-disabled" failed to apply to 6.1-stable tree
 To: parri.andrea@gmail.com,bigeasy@linutronix.de,juri.lelli@redhat.com,mingo@kernel.org,peterz@infradead.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:20:48 +0100
-Message-ID: <2026112548-gutless-blizzard-1ebb@gregkh>
+Date: Wed, 25 Nov 2026 11:20:49 +0100
+Message-ID: <2026112549-ecosphere-evergreen-83b0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 6616bffa9b52da1338cf8bff9882404e02b9e361
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112548-gutless-blizzard-1ebb@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112549-ecosphere-evergreen-83b0@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
