@@ -1,98 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795617529;
-	b=dq1j+IJHy9Pcy/R4gX9GfX8O7/WmfzES7+aAqjtjjlVRymho/duRemBpvv9n23WhGwbJ
-	 7+8fsgOFy4vA1KTFW9H6ZBruZjlXLePE+Y9HbEu6FSUDRNGrJcODbu9usVnAwUPdQLUY4
-	 GLRUCYKd+8q4UpF5kfmOebZEyvomoY5CjVfJ8abdExjQvaMPN87DioLmsNQP+eQEFPPmC
-	 ewzF/QiZ2rytzzRsZri2452loLlirWxZO8V6hpG0ylrt0EfQmT8Y2LLTRZpitNCeJq8w6
-	 zegPemPQp6xIVO+mh82roCJKX+R/PjEWkwlaDmHUlufb6ds1WuT+u33mKD1CWl5iY7Q==
+	t=1795617537;
+	b=wmjenSnoP0Vz8mWUByHfKHxpP9ZBa9BialLMc8djh7ahs9Wabwy6rXRvtrM6HfimM1Fi
+	 beVc4X/S43ttNqK7+dzrvmOjoTWBkOe2TszNRX4YoZBRIN7lT5gkXipu+IVW5NgIWktq4
+	 e0H3Q55MgqRYlOZxKsbiuSw79Gz4q3svmp5qNR8NvNqdpDRHZyD5usv4eF6OY2XCTTirT
+	 I+KknslAX8+GThixJAxdgJYFCJ+bHtDnC9Du62lrTi4YnP03MdhN6FaeFKgTkGAM4YRtm
+	 UBMt+TTuXIBJlxJ39JMUEDiBtVR+EWWcJrhjTLWLxO9sXXjIRibMnpS7txrlar4L00Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795617529;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795617537;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=KCNbPva4mF5XpGmktWSlUa7O0FkwlEdc1yHh6KRJCrU=;
-	b=gHZIibp3smOpdCadA4fb6lVYu1ZddF6eO30/mqer8IJzAUNMAuPznOGBV8T1DTzK+KEF
-	 REzc5VdQfXRZYyU193JIVXyQGipCpj32grP2HDQ4G6ZTvqu//2Z8qLot7WpjVx7J2oiH8
-	 RzNprK3zDYZsXMagRMX6PXhRagy2nVCoW1IiCK8NVjYHijYkZx+75Y4+PwJ4RdvfyF1Xd
-	 hwEMcSKPSGm6527ZBuFIVMKh6grltjr5pfqjTu3QSpd2JEMc3YN7fPc5p5J2qeOTNZ6J3
-	 FI6wf326dyk7YEdk03DLvJu1AOoaZj6wHo8wop6GBS32MMyvnH8OQZAkghIGyxOqMCQ==
+	bh=PFpdKkGx1COzx30VD31Htes3d68SOzYlmTVDc/xRoS0=;
+	b=vVFGieiwPvwUle+kElNraGVA6LX3CrKTYhEW2rKW9bo8Dm1frhjy3QQc6NjY833Kj/a9
+	 sorkNnIrBh989j+aWcIhkYjVB8A/SvqK/t7q8PmS7eGDE5QLggpxc+/m6icgyMtILzDqQ
+	 BmzHyGuXCOwmREYt3a2womLroWP3pDZrXhJWsEy8kgun+df3CE4iKmGkoiymtHKLFLpHr
+	 g4J5KV6N33LTOshOvXmPpUvhMhDs2N6WEIflJIgYonW9xQ4YOS5DBf953p9Wiozu/tSEH
+	 /nkN+zmpBBJ65W0y8Oo0hFrQKpKezRznyZciqF1TwyWOXg5WX51sLmmS2TSLi9VgmNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=e2b.dev;
-	spf=pass smtp.mailfrom=e2b.dev;
-	dkim=pass header.d=e2b.dev header.i=@e2b.dev header.a=rsa-sha256 header.s=google header.b=X9nev+gb;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSChKAq2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B207606A32E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:38:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B207606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=e2b.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=e2b.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C949606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:38:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=e2b.dev header.i=@e2b.dev header.a=rsa-sha256 header.s=google header.b=X9nev+gb
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so47241905e9.3
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 06:38:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=e2b.dev; s=google; t=1795617528; x=1796222328; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KCNbPva4mF5XpGmktWSlUa7O0FkwlEdc1yHh6KRJCrU=;
-        b=X9nev+gb29dK/PZhEUG0om2mx2tvAWC8Drd9Ue/pqjwJmae7sCJYZfqPIJx54is2kD
-         m60KFv5wCeweYOM+cOUhZN8DC7OWm6yqx/sF1/Yq+KcUGNmVwC76TAxeeyzYFZG2tUm/
-         BhoBl6rop+Rcsv8ogi0XJ569w8OFy77gCm/PFyzCcc9UbnkwrZ5whLvgAQRIIDr16Hz+
-         KR+3bo6ZnG0fJUB8xCIa/7xox/jN3dyrL6q3exf8Uy5140xe277hUxIpdh+jc2k349IQ
-         EzWfbVK/yfWYvDBqVAPbWJjpNZAZrA3W0L9oasgX1+FVuD8pZYE6wRndFE1BSbDqT4P7
-         94UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795617528; x=1796222328;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KCNbPva4mF5XpGmktWSlUa7O0FkwlEdc1yHh6KRJCrU=;
-        b=IQG6FH5/R0YdgAMaM5wMpi/xpContggHyLfjaGj0ExqFtw9xUaOobyZximyY9E60wv
-         0pimwg/piRjK/1MjMM9PnLdh81gg05UUhvthARj3yj8nQFXvj3slRX3bSj8i7Cvi/XVt
-         kDlRu81qoITsXmli0VWdRn2HEjRcz+CWBNP8rbCpifmWni4k4rpJLH1OQNOLqC+/u2Gu
-         COewnQwtRlD3gRCuaiu9AytQ+XnLUVugzC2+YL0FSJh3uSsf0Ipnl1IGKhelNLBC4LW6
-         G81kbBqPh0RQi1bjMopgkz3XkwaZtzAoa4BxALWNBIVnfoj8G5jQvSq8amydFNNoJkRh
-         dstA==
-X-Forwarded-Encrypted: i=1; AL+hErGT0SL/OFznDRCjESQZe9d64xV7INYG8FwHsQ4KHkA4SvdqOv3bGg0GJWdnMePM4Y6soNxq1uw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/X6i1cDacA7C0Ja/WohlW8jljA8lG1tCFhrDnbScZOhug7NH1r
-	LFAmy8kO0vktq2PLRmPVPwqbqwyAM3MODjfsch+hBSmziHXJF/Xf3BFgABNiK4qWpW4=
-X-Gm-Gg: AZFdTZdNiq8y6e+0NWmt3422e5iuoTPtmVXNXB7KaV0fBYweMXyQzPyVBvaY6fatVNe
-	ZqVn/19Cwy446Qg3oJyqKPBlysTtpqrKTO5SMUlRPbYCDP0ugaParadnPzm3waOP2+EmMbhtIBM
-	vGzsMj4xKvWwnmDTxU8ERrmRqeV4z0AH8P3sbd5lOeFyadRzzBSx3yr/+CfBowTadqW9J5GQoMc
-	rcNNxA9xCIRUmRFau0ZCp5DY9H97R/ZJs+hu1cmSbOYKbGMzJLHEM1K634ps+6gPOiSlDIgv2iT
-	E+xx152Ltmpy9dAyrvhMvNvgnHm8lLsF7LXhxk4T+uVLVD5O9DXr3rCByo4INWUG9snXVUf05iW
-	1s29QO6shZmt5gK9tOTAtRzzRPJ0ovEv6atAdK5mu4QIuWLwR+ikBE0/AhAhIdmzxQRssGOD16n
-	xz1F23TnffI+IdRJDPEj1Kgky/GhhOHBVM04qbPq+R4GqcBndNlQHA1NagUOaVUZNWy19GNFGIx
-	MwpocMTPUL9sxhf0A3DwtSPU5v5XXdJRl1n950AweMTgvuaQMiUACwuKxgrqQMjGkL8AwpNbmE8
-	tchfk8zEWuHVAtH08nLsuUG0PyDOmlV3O5Hv8M2VHFjiavM5y3U=
-X-Received: by 2002:a05:600c:820d:b0:4bb:5de1:e923 with SMTP id 5b1f17b1804b1-4bb887c33f7mr352292285e9.4.1795617527720;
-        Wed, 25 Nov 2026 06:38:47 -0800 (PST)
-Received: from fedora.sphynx-tuna.ts.net ([2001:1ae9:6617:a200:4752:c78a:bea5:1bc3])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8849e598sm491648735e9.8.2026.11.25.06.38.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 06:38:47 -0800 (PST)
-From: =?UTF-8?q?Petr=20Van=C4=9Bk?= <petr.vanek@e2b.dev>
-To: "Theodore Ts'o" <tytso@mit.edu>,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Jan Kara <jack@suse.cz>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>
-Cc: =?UTF-8?q?Petr=20Van=C4=9Bk?= <petr.vanek@e2b.dev>,
-	stable@vger.kernel.org,
-	linux-ext4@vger.kernel.org
-Subject: [PATCH] ext4: recompute the inode checksum after restoring inline data
-Date: Wed, 25 Nov 2026 15:38:39 +0100
-Message-ID: <20261125143841.928615-1-petr.vanek@e2b.dev>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSChKAq2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F1811F000C6;
+	Wed, 25 Nov 2026 14:38:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795617537;
+	bh=PFpdKkGx1COzx30VD31Htes3d68SOzYlmTVDc/xRoS0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SSChKAq27ZyK2Q+i6dJSOgHqdRH/AqkKLH1tUl/f8r4wdA2BxDbnYmqFJiDTZuVV1
+	 E4SMOQSZvAbbe77bRxOKsNHsQinhbDbbggKeNT+oWWKoOtT46ImN5cNsx+f6The3uc
+	 Ob1s6LlLyHfUd/ku0lzb0Q0Z0keU2ufUV79Ju//lL29KSGpPQTI4PcXj5+XD6fnn32
+	 4t/nwWA5fRNXwhNzbYGTQ+X8R/Jd/wJJq+qa/f5cxb312tblPAUyEGNhmugTt5Xd+S
+	 xw65FJyGrN2bBUds4Y6ny2TpLYRoQ9N6XcICjziJc4Ou3PnoaJEPcesBdCwiM1ypLq
+	 Ph41ZAgsPuq9A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ij@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/4] tcp: use BIT() macro in include/net/tcp.h
+Date: Wed, 25 Nov 2026 09:38:52 -0500
+Message-ID: <20261125143848.4131839-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112553-cresting-chimp-b365@gregkh>
+References: <2026112553-cresting-chimp-b365@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,65 +65,72 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-ext4_restore_inline_data() recreates the system.data xattr with
-ext4_create_inline_data(), which marks the inode dirty and so sets its
-checksum, and only then copies the saved bytes into the raw inode with
-ext4_write_inline_data().  Unless something dirties the inode again
-before it is written out, the inode reaches the disk with a checksum
-that does not match its contents.
+From: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
 
-Failed inline data conversions take this path, for example an mmap write
-to a small inline file on a full filesystem:
+[ Upstream commit 0114a91da67263c56612ff19a6aa0992466e7756 ]
 
-  mkfs.ext4 -O inline_data /dev/vdb 64M
-  mount /dev/vdb /mnt
-  xfs_io -f -c "pwrite -S 0x61 0 42" /mnt/small
-  xfs_io -f -c "falloc 0 64m" /mnt/fill                # ENOSPC, fs is full
-  xfs_io -c "mmap -rw 0 42" -c "mwrite 0 1" /mnt/small # SIGBUS
-  umount /mnt; mount /dev/vdb /mnt
-  cat /mnt/small                                       # EBADMSG
+Use BIT() macro for TCP flags field and TCP congestion control
+flags that will be used by the congestion control algorithm.
 
-The read after the remount fails with:
+No functional changes.
 
-  [    1.203967] EXT4-fs error (device vdb): ext4_lookup:1635: inode #4097: comm cat: iget: checksum invalid
-
-Mark the inode dirty again after ext4_write_inline_data(), so the
-checksum written to disk covers the restored data.
-
-The Fixes tag is based on code analysis: ext4_restore_inline_data() has
-called ext4_create_inline_data() before ext4_write_inline_data() since
-that commit.  The failure reproduces on v5.19 and later; older kernels
-were not tested.
-
-Fixes: 3c47d54170b6 ("ext4: let add_dir_entry handle inline data properly")
-Cc: stable@vger.kernel.org
-Signed-off-by: Petr Vaněk <petr.vanek@e2b.dev>
+Signed-off-by: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
+Reviewed-by: Ilpo Järvinen <ij@kernel.org>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+Stable-dep-of: 1c46780dec48 ("tcp: do not coalesce segments after FIN")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-This patch was developed with the help of an AI coding assistant
-(Claude Opus via OpenCode).  It analysed the bug, wrote the fix and the
-changelog, and built the QEMU test setup; I reviewed the change and the
-test results.
+ include/net/tcp.h | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
 
-Tested with the reproducer above in QEMU (x86_64, KASAN and lockdep
-enabled) on 7.4-rc5 with and without the patch; e2fsck is clean after
-the patched run.  Not tested: xfstests, other architectures.
-
- fs/ext4/inline.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
-index acdc65ce47960..360c06441c8f1 100644
---- a/fs/ext4/inline.c
-+++ b/fs/ext4/inline.c
-@@ -1111,6 +1111,8 @@ static void ext4_restore_inline_data(handle_t *handle, struct inode *inode,
- 	}
- 	ext4_write_inline_data(inode, iloc, buf, 0, inline_size);
- 	ext4_set_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA);
-+	/* Update the inode checksum to cover the restored data. */
-+	ext4_mark_inode_dirty(handle, inode);
- }
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index 23f619a1b41a6..ba8748976259a 100644
+--- a/include/net/tcp.h
++++ b/include/net/tcp.h
+@@ -26,6 +26,7 @@
+ #include <linux/kref.h>
+ #include <linux/ktime.h>
+ #include <linux/indirect_call_wrapper.h>
++#include <linux/bits.h>
  
- struct buffer_head *ext4_inline_getblk(struct super_block *sb,
+ #include <net/inet_connection_sock.h>
+ #include <net/inet_timewait_sock.h>
+@@ -911,14 +912,14 @@ static inline u32 tcp_rsk_tsval(const struct tcp_request_sock *treq)
+ 
+ #define tcp_flag_byte(th) (((u_int8_t *)th)[13])
+ 
+-#define TCPHDR_FIN 0x01
+-#define TCPHDR_SYN 0x02
+-#define TCPHDR_RST 0x04
+-#define TCPHDR_PSH 0x08
+-#define TCPHDR_ACK 0x10
+-#define TCPHDR_URG 0x20
+-#define TCPHDR_ECE 0x40
+-#define TCPHDR_CWR 0x80
++#define TCPHDR_FIN	BIT(0)
++#define TCPHDR_SYN	BIT(1)
++#define TCPHDR_RST	BIT(2)
++#define TCPHDR_PSH	BIT(3)
++#define TCPHDR_ACK	BIT(4)
++#define TCPHDR_URG	BIT(5)
++#define TCPHDR_ECE	BIT(6)
++#define TCPHDR_CWR	BIT(7)
+ 
+ #define TCPHDR_SYN_ECN	(TCPHDR_SYN | TCPHDR_ECE | TCPHDR_CWR)
+ 
+@@ -1110,9 +1111,9 @@ enum tcp_ca_ack_event_flags {
+ #define TCP_CA_UNSPEC	0
+ 
+ /* Algorithm can be set on socket without CAP_NET_ADMIN privileges */
+-#define TCP_CONG_NON_RESTRICTED 0x1
++#define TCP_CONG_NON_RESTRICTED		BIT(0)
+ /* Requires ECN/ECT set on all packets */
+-#define TCP_CONG_NEEDS_ECN	0x2
++#define TCP_CONG_NEEDS_ECN		BIT(1)
+ #define TCP_CONG_MASK	(TCP_CONG_NON_RESTRICTED | TCP_CONG_NEEDS_ECN)
+ 
+ union tcp_cc_info;
 -- 
-2.56.1
+2.53.0
 
