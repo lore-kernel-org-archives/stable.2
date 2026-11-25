@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795621954;
-	b=M5ZMOdS7idT23pJhP5INsEAkJxPVb1RUkug7KfC8w5irUZ7pft8N5hTB8E2JUvcvbHoU
-	 1H/Ggc9Kkz58ssS5zdIxqi3XE8NeRaSlRKD48vCtxDyF76j9KGzgCXZ11t11ZmbwnADEZ
-	 n6eZja6R7rUFgl5o7/OzAGZ+A0UEr1X8JeaX9m+IyA9IHWym5rBZo6YzByKCNEYviYo2k
-	 Y1onOTccFWogDervdcAZiQlHO3Alyviy0tRUlbc777QRFPYhyGDZvmLaepsjw1V1GMRlf
-	 z2bsNdXGh5HnjmwjHcnaL4QJcO30GbyxqRjYY3wBNFaZd3TaJItMJZCjNUKBeqe48MA==
+	b=TI6hn+wXd0sfrAv0y+qXBX+1GMUP2eN2Uo7jijzDStiS84aLq9iFbBxHb2cBkJe6bs/n
+	 wr70YnJbSxeiyoNZKWOQSoEhRolY/SFrJvzjHxwwkfFilJ23jfwx2E289PwUn5x5ShW4v
+	 zadvSgxB6x8FbQftB7MV9VLMXM8QiBjZzyx+zDBsjIjLSOIfczvEYDiNCba7LtkTicI97
+	 7Og/iXRPrKH6fSO3aeE0meqaI+Zi6Alinzl5MGMzEJ/23tMFRIEI5QI8NvsHKGdGGAirF
+	 If26SElLTsRFrJI5rNqsbvtqgs9SIpp7IrB6yK1sxW5WqNVrTg0cBKL7BDM8zeadadg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795621954;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=jQBex68K2QiXH3Kf/7MEl9XLPhgfuKiEV4NKzI4Jr8s=;
-	b=auFwtQjKXvnRUHncdVrhQ6vfKKBX0oIgvH/14gXQLmblA8GM65lcaCFkEexr5CkuZn/u
-	 /g+hBsxj/3JhoeYx0FUBNYf3/pMrmU54trI+MQisn/1skGjqvC0AKvOzSy8DAHAj8Doed
-	 3pEdX48Nz4Y4r9KSej7+q7071h7FIyUxF2p9DtHVJZcbhkWLeuTYA5ujyjllWJHivNcGN
-	 Uf/Yui+kQNgiQ+J8eh9d3PyH8haPlWReZa//znSsaffBtRkLyu9OnyETa6nEV/kKSYDrz
-	 FlhszoWXLbB9cYfPoTeckEmo5+GbztJ4/2EYUavdV01TXDSzZnEZolUu1/aX0WOu65w==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=qf+xoc8dXL4YXhCtAx8mfpZvw/SJHhVMGYMJCjCcTFc=;
+	b=tmGx+BsrN4utznV4qssqpeNOVxNUnicaL1J4hqKsMJ297v30gbfrSCI6g18GLlaFUf9j
+	 nGLZlA01AcKSRTwUVIbVXRIBS2C+V/EhvyjDsff8XFFWRRyQyjXFHAsC94AIyC9X40QBJ
+	 uKfMImRnN4XvGc8Q8D+J9CWF1c662m2qyH3F6m7MffQ8DYjtEkDvLdGKDQ9EK/i5S1Es4
+	 TNt2YFmbOro8JO7jjO+OGKDSPJhh+xTeTHe4xWIwo+cQ08tubfAF7/Ox7gRQZT+RpUV6C
+	 z1iYmsu19pMB2gH3MxyeXqXLqAZGNy3uSWlH9WzFH6c8i5BHoWe7MsjSvxrE2PFWSTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KPxPWeoD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=idSW7IUE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F293606A321;
-	Wed, 25 Nov 2026 15:52:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF96606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:52:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KPxPWeoD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DB001F000C4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=idSW7IUE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B99C41F000D1;
 	Wed, 25 Nov 2026 15:52:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795621953;
-	bh=jQBex68K2QiXH3Kf/7MEl9XLPhgfuKiEV4NKzI4Jr8s=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795621954;
+	bh=qf+xoc8dXL4YXhCtAx8mfpZvw/SJHhVMGYMJCjCcTFc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KPxPWeoDmbhG/8ObEvGbhpvbARltYsLnR/0pKcrhw9p2SO9RNNN91a4qDHRJKgqkb
-	 YW/SzqwvfeK3ACCtaP4fZ9ltG66ACG1IwDfhaV/rzE5F17V/EMwjAyGzd4YhRXFE6c
-	 BmPslh5OZcpNwY4LzghoXleAjsB+u1NgetT+M9YQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=idSW7IUEU9/NJDPyH0OgUKKC4Fqukt2uPF7T0XEnIaingxK8AZ16NYMzVs3gQAIF1
+	 zSHPrDInGaXklwXGdSv9zfxzb3+549KHo9inaf4nPllrW4K/j/ypEuGnm1zFjeepI/
+	 OTv3aLnh+LMGb4by3UpblSS4B2Y1QonBUwiFuFux0YtH4AIXUym1R2JZyZur9HgVIk
+	 4vnVLNcJVEFogMYhGW75cHyzpucmeamOPj+3iIKd419ev4Q2p2dNtSoN8sdDu3uqsQ
+	 dzb822DMPOax+5VFTbCfL/zyiFPS/sGlND5nP7TRGBnoIdmlQiz+c0Txc54q7OHMln
+	 +r1xzHCpbQm9Q==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Avi Weiss <thnkslprpt@gmail.com>,
+Cc: Tim Menninger <tmenninger@everpuredata.com>,
 	Anna Schumaker <anna.schumaker@hammerspace.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 383/990] NFS: restore directory index when resuming readdir
-Date: Wed, 25 Nov 2026 15:29:10 +0100
-Message-ID: <20261125143831.064845036@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.15.y] NFSv4: Prevent indefinite waits for out-of-order OPEN stateids
+Date: Wed, 25 Nov 2026 10:52:32 -0500
+Message-ID: <20261125155217.604733-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112553-vanish-hangup-421f@gregkh>
+References: <2026112553-vanish-hangup-421f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,51 +61,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Tim Menninger <tmenninger@everpuredata.com>
 
-------------------
+[ Upstream commit 151d95a1e696979a7d54b23c96338754be2fcc1f ]
 
-From: Avi Weiss <thnkslprpt@gmail.com>
+When processing an out-of-order OPEN stateid on an NFSv4.1 or later
+mount, nfs_set_open_stateid_locked() waits for stateid updates to be
+processed in order. A five-second timeout is intended to prevent
+indefinite waits when preceding updates never arrive.
 
-[ Upstream commit 89b91409b2342e7629b1271eba315a0f06495247 ]
+However, each iteration calls schedule_timeout() with a fresh
+five-second timeout. An update to the shared open state can wake the
+caller without satisfying its ordering check. The remaining timeout
+is then discarded, and the next iteration starts another full wait.
 
-nfs_readdir() restores the cached folio index and cookie when
-resuming directory iteration, but leaves current_index at zero.
-In 32-bit index mode, nfs_readdir_search_for_cookie() then
-reports a folio-relative offset instead of the absolute entry
-position.
+Under sustained concurrent OPEN/CLOSE activity on the same open state,
+repeated wakeups can prevent the timeout from ever expiring. Some
+tasks can remain stuck in update_open_stateid() while others continue
+making progress.
 
-Restore current_index from the saved logical folio index before
-searching the cache.
+Compute a single deadline on entry and pass only the remaining time
+to schedule_timeout(). Once the deadline expires, take the existing
+timeout path rather than starting another wait. This prevents
+wakeups from extending the wait indefinitely.
 
-This solution relies on the current behavior of
-nfs_readdir_seek_next_array(), where folio_index advances by
-one and current_index advances by nfs_readdir_array_maxentries()
-for each full, nonterminal folio.
+Observed on Linux 6.8.0 and reproduced on 7.3.0 with 96 concurrent
+O_RDWR|O_TRUNC open/close loops on one NFSv4.1/TCP file (nconnect=16).
+Ten workers made no progress for over 300 seconds while others ran.
+With the fix, all workers resumed after transient stalls.
 
-Fixes: f648022faa68e ("NFS: Convert readdir page cache to use a cookie based index")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+Fixes: c9399f21c215 ("NFSv4: Fix OPEN / CLOSE race")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
 Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
+[ sashal: Dropped the && !nfs_current_task_exiting() term from the if (!fatal_signal_pending(current)) context line, since this tree lacks that helper. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfs/dir.c | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/nfs/nfs4proc.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
-index ca91e48dc7973..bd35069ffe5cd 100644
---- a/fs/nfs/dir.c
-+++ b/fs/nfs/dir.c
-@@ -1255,6 +1255,8 @@ static int nfs_readdir(struct file *file, struct dir_context *ctx)
- 	spin_lock(&file->f_lock);
- 	desc->dir_cookie = dir_ctx->dir_cookie;
- 	desc->folio_index = dir_ctx->page_index;
-+	desc->current_index = (loff_t)desc->folio_index *
-+			      nfs_readdir_array_maxentries();
- 	desc->last_cookie = dir_ctx->last_cookie;
- 	desc->attr_gencount = dir_ctx->attr_gencount;
- 	desc->eof = dir_ctx->eof;
+diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
+index 53e454a3194b8..0a4f8862e785d 100644
+--- a/fs/nfs/nfs4proc.c
++++ b/fs/nfs/nfs4proc.c
+@@ -1704,6 +1704,8 @@ static void nfs_set_open_stateid_locked(struct nfs4_state *state,
+ {
+ 	DEFINE_WAIT(wait);
+ 	int status = 0;
++	unsigned long deadline = jiffies + 5 * HZ;
++	signed long remaining;
+ 	for (;;) {
+ 
+ 		if (nfs_stateid_is_sequential(state, stateid))
+@@ -1737,7 +1739,8 @@ static void nfs_set_open_stateid_locked(struct nfs4_state *state,
+ 		trace_nfs4_open_stateid_update_wait(state->inode, stateid, 0);
+ 
+ 		if (!fatal_signal_pending(current)) {
+-			if (schedule_timeout(5*HZ) == 0)
++			remaining = (long)(deadline - jiffies);
++			if (remaining <= 0 || schedule_timeout(remaining) == 0)
+ 				status = -EAGAIN;
+ 			else
+ 				status = 0;
 -- 
 2.53.0
-
-
 
