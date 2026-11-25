@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603013;
-	b=NYFv+/5mNt8bFHXFUjKLZzDUANj2DKfkDoL9NNJMuEE1Hiqgvwysit1mbrLM0Tqv4Syu
-	 TRMda33PuqcJQ1QT8ZYLI/5SNy+PKpQriekQeQKpYkGxNSIegY7+w896RNKWl1aho14k6
-	 M5HBZGwOY27jwdWNRrVPazc1zWTxPK6eev2rJ59lKyaitfNBPXRY7NzY+4Tzkc39a73/4
-	 bemFd7bZy96+O62G+6H5Cyv/v4gBrgTNnDgKnoBtLwsVMbw/nhUOZ9j1B6hIe9tn6Lfnq
-	 qofw/I4K2Nt9oyToMFzXLsnN3uUuAQqQJ0bRVJuep+z2h5SiyWDhiZueBUn/ntJ97vQ==
+	t=1795603017;
+	b=h3ucW8uPnATBoh/x2uLAdwy7m1uEfDwGEw6bTyJvZk/r/HgfAAWcfAXwKw1av84KVffN
+	 dDheBGLHR8a0dSs+6/bUGqW8Ctn0a3CNwRebgh6wRuK8L/B5g/mgLd6JiKXgni6angtSo
+	 tZ9tmCRuMl03ffoDMUJGyE8d4a+OPVmPtBvbT8gKOxf+pEUpZjhgT3y0qmQZhXOj1HoJl
+	 WEBZM6aVF9Z8FKezVHP0u6LCl603IpbVU8cOGJwPAEswz3WB4vMpa2TLPRiToW+IjQ9EA
+	 MeEeuwrbu/J+QbNhhBSYmUcTtg2A36dFaEUs1JEdlrg8Au7s3hSLLk3/wHIvSrgBHmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603013;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603017;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=3t+YeK78p5PIvVts9wVloABBxy1qB+lIwptaWp/UfLg=;
-	b=Fbgl0ZZKBUM/mwD4gxrh5rF2OyIf+i3ehFViNRt2CLDorRLpqi9IBGMboYeLB/5w8oDP
-	 WomiBg0hdAKddZHQZTvJCLza7qDq862F3oF8Sthn74gqCR+YzRrntLYSp88j4QnIWSFco
-	 tJTMF0u7PKffaSAJHsz5XBwKZLW6L+trJtUy/KtVDYBI1V0r3zqYYCrTmb5WSFqQGdMx3
-	 N5pMzTa7Theax02IvCrWzrBpOSOfPnrgFfKQWrHBUcCQOth3VvGOjwHNnySVJUFqRgy/O
-	 /6y51vqoZHc1tax1sk1UfZqk7fIy9ik6R1SYIBQYv0rh7BrVPI+9FdCFULtQAMucWtg==
+	bh=1eIq8aP/XFr9R0NPH7w6dUkMS82px5YQJtUJ+JolQvI=;
+	b=UPntSnwdWLUaGiPDzvGurDucompPvlAzOLxlFI8hdCzfN4g3zNbUleGh3nUKSfcf9o7i
+	 hHoL3f59f1O4tVjrh4y7dVd7AvTASFDLtQBRhzzahgXyDwBCiSgbFSJikj6rnPBXgVZHa
+	 bMUIEIgdqonh3+DPwgsoS2AhHgabTEB4yX+MatpaZUBon7j7uNiWO2URZtoSMfdRmcxv7
+	 e2EVJCcmZWBm+3n/yra710S/U1igCtIMgNNDcKDIM66izfzibS4ESDYVKiSws4GQN8H5u
+	 2iPn0p7OlA9MZrGGevS4xM5NjPziyXJV8cIMdTKPUYZwzel+6Mua3rFUSe6157tXGQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Yk4TuYOU;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LYe1QFkP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33C1606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:36:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A72606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:36:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Yk4TuYOU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D985F1F000C6;
-	Wed, 25 Nov 2026 10:36:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LYe1QFkP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24E051F000D2;
+	Wed, 25 Nov 2026 10:36:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603013;
-	bh=3t+YeK78p5PIvVts9wVloABBxy1qB+lIwptaWp/UfLg=;
+	s=korg; t=1795603016;
+	bh=1eIq8aP/XFr9R0NPH7w6dUkMS82px5YQJtUJ+JolQvI=;
 	h=Subject:To:Cc:From:Date;
-	b=Yk4TuYOUTXerwMjX9IXwvF2pSqstdqMTuzSFULAsPkb/Gn5TF8svHDh2JlWPWQH0k
-	 eXe4oGz0NNHNPCJ7YtqBChmdKmA2gcFwLTwLgzsSj9+W843NwMINT2u6sYUBpBmBU8
-	 bUjMN+K0Wqf/4DTbNnTzwEus1XKrReOL5u6dGUEA=
-Subject: FAILED: patch "[PATCH] sched/core: Do not touch SMT siblings that have not joined" failed to apply to 5.15-stable tree
-To: snishika@redhat.com,mingo@kernel.org,peterz@infradead.org
+	b=LYe1QFkPwyfQ4j7NUJBEyaqpC5HgqWPeynd51f+G4rQN11OzYmZP/0dtBb0RwGVWb
+	 VhTSLxjr88Sk34pwwaU3MPuoc962o2IN+nljBPZu2GPtLKTaH+8XfKuDKuWanDVpr9
+	 okiq9rDLsa9ZgA1D3EoKEkayN0PdLQLFv6QHyO2E=
+Subject: FAILED: patch "[PATCH] sched_ext: Fix stale pick when the donor changes during" failed to apply to 6.18-stable tree
+To: tj@kernel.org,arighi@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:21:44 +0100
-Message-ID: <2026112544-rug-sasquatch-146c@gregkh>
+Date: Wed, 25 Nov 2026 11:22:02 +0100
+Message-ID: <2026112502-outboard-reload-fa22@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x ec6f6731538e0d45872eb279fdeb477bed152d6f
+git cherry-pick -x 9ce6fca02867911ba79bc3664219effe8c7be8f4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112544-rug-sasquatch-146c@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112502-outboard-reload-fa22@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,171 +79,163 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ec6f6731538e0d45872eb279fdeb477bed152d6f Mon Sep 17 00:00:00 2001
-From: Seiji Nishikawa <snishika@redhat.com>
-Date: Wed, 4 Nov 2026 11:20:04 +0900
-Subject: [PATCH] sched/core: Do not touch SMT siblings that have not joined
- the core yet
+From 9ce6fca02867911ba79bc3664219effe8c7be8f4 Mon Sep 17 00:00:00 2001
+From: Tejun Heo <tj@kernel.org>
+Date: Sat, 31 Oct 2026 06:28:03 -1000
+Subject: [PATCH] sched_ext: Fix stale pick when the donor changes during
+ dispatch
 
-When a CPU comes online, it is added to cpu_smt_mask() of its siblings
-before sched_core_cpu_starting() sets its rq->core to the core leader.
-For example, on x86, ap_starting() calls set_cpu_sibling_map() first,
-and calls notify_cpu_starting() after that. This order is intended.
+Dispatch takes rq->donor as @prev and can drop the rq lock. With proxy
+execution, @prev may not be the running task, and another CPU can reset the
+donor to rq->curr meanwhile, through proxy_needs_return() on a wakeup or
+sched_proxy_block_task() on a class or scheduler change. The wakeup case:
 
-Before sched_core_cpu_starting() runs, rq->core of the new CPU still
-points to its own rq. But rq->core_enabled of the new CPU is already
-set. __sched_core_flip() sets it for all possible CPUs, also for
-offline CPUs, and CPU offline does not clear it. So __rq_lockp() of the
-new CPU returns its own rq->__lock. It does not return the core wide
-lock.
+1. dispatch_one() drops the rq lock, e.g. to move a task from another CPU.
+2. Another CPU wakes the donor, which proxy execution migrated to this CPU.
+   proxy_needs_return() dequeues it and resets the donor to rq->curr, and
+   the wakeup enqueues it, possibly on another CPU.
+3. dispatch_one() sees @prev queued and returns SCX_DSP_PREV.
+4. do_pick_task_scx() returns @prev, and this CPU runs a task that is queued
+   on another rq.
 
-If a sibling CPU runs pick_next_task() for SCHED_CORE at this time, it
-checks all CPUs in cpu_smt_mask(). It calls update_rq_clock() and
-pick_task() for the rq of the new CPU. But it holds only its own core
-lock, not the lock of the new CPU. Then lockdep shows this warning in
-update_rq_clock().
+Under core scheduling, the core pick runs dispatch for the sibling rqs with
+each sibling's donor as @prev, and a sibling can switch @prev out while
+dispatch has the lock dropped.
 
-  debug_locks && !(lock_is_held(&(__rq_lockp(rq))->dep_map) != 0)
-  WARNING: kernel/sched/sched.h:1666 at update_rq_clock+0x40a/0xd20 kernel/sched/core.c:875, CPU#0: syz-executor251/5712
-  Call Trace:
-   <TASK>
-   pick_next_task kernel/sched/core.c:6375 [inline]
-   __schedule+0x1c69/0x6920 kernel/sched/core.c:7199
-   preempt_schedule_irq+0x4e/0x90 kernel/sched/core.c:7606
+Whatever dispatch concluded, and whatever it does with @prev after the drop,
+is about a task the rq no longer owns, whether it keeps @prev running or
+hands it to ops.dispatch().
 
-The next loops in pick_next_task() also change rq_i->core_pick of this
-rq, and can call resched_curr() for it, without its lock.
-resched_curr() has the same lockdep_assert_rq_held() check.
-__sched_core_account_forceidle() also checks all CPUs in the same mask.
+rq_modified_above() catches the change only when rq->curr is in a class
+above ext, and the dl_server pick skips that check. dispatch_core_pick()
+retries after a lock drop, but by then dispatch has used @prev.
 
-CPU offline does not have this problem. remove_siblinginfo() and
-sched_core_cpu_dying() both run in take_cpu_down() under stop_machine.
-So no sibling CPU can be in pick_next_task() at that time.
+Restart the pick when @prev is no longer the donor. dispatch_one() tests
+after each step that can drop the lock, and scx_dispatch_sched() decides per
+ops.dispatch() call whether to hand @prev over, which also covers a class or
+scheduler change across a drop.
 
-Fix this. In these loops, skip a sibling CPU if its rq->core is
-different from our rq->core. At run time, rq->core of a CPU is changed
-by sched_core_cpu_starting(), sched_core_cpu_deactivate() and
-sched_core_cpu_dying(). The first two hold sched_core_lock(), and
-sched_core_lock() takes the rq locks of all CPUs in the SMT mask. The
-last one runs under stop_machine, as written above. So while we hold
-our core lock, the result of this check does not change. A CPU that is
-not in the core yet will pick its own tasks. The comment in the
-reschedule loop of pick_next_task() already expects this case.
+With proxy execution alone, the donor only ever changes to rq->curr during a
+pick, so the retried pick can't go stale again. Under core scheduling, the
+restart goes through the core pick, which already retries after any lock
+drop.
 
-I tested this with the syzbot C reproducer in QEMU. The two vCPUs were
-SMT siblings (-smp 2,sockets=1,cores=1,threads=2). Without this patch,
-the warning came after about 100 seconds. Just before the warning, a
-debug print showed that the loop on CPU 0 saw CPU 1 with rq->core
-pointing to CPU 1 itself, and cpu_online() was false for CPU 1. With
-this patch, the same state still happened, but there was no warning
-in more than 2 hours.
+7a3a6bfbd62a ("sched: Rework prev_balance() to avoid stale prev references")
+closed the same window in prev_balance() by reading rq->donor instead of
+taking @prev. That doesn't work here, as dispatch never evaluated the new
+donor, which may not even be a sched_ext task.
 
-Fixes: 3c474b3239f1 ("sched: Fix Core-wide rq->lock for uninitialized CPUs")
-Closes: https://syzkaller.appspot.com/bug?extid=681e729b2cf0d4860042
-Reported-by: syzbot+681e729b2cf0d4860042@syzkaller.appspotmail.com
-Signed-off-by: Seiji Nishikawa <snishika@redhat.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261104022004.3810619-1-snishika@redhat.com
+Verified with synthetic reproducers for both cases.
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 1a088d4576f5..5ed660f099a5 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -6297,7 +6297,6 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
- 	__must_hold(__rq_lockp(rq))
- {
- 	struct task_struct *next, *p, *max;
--	const struct cpumask *smt_mask;
- 	bool fi_before = false;
- 	bool core_clock_updated = (rq == rq->core);
- 	unsigned long cookie;
-@@ -6344,8 +6343,6 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
- 
- 	prev_balance(rq, rf);
- 
--	smt_mask = cpu_smt_mask(cpu);
--
- restart:
- 	need_sync |= !!rq->core->core_cookie;
- 
-@@ -6413,7 +6410,7 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
- 	 * Tie-break prio towards the current CPU
- 	 */
- 	max = NULL;
--	for_each_cpu_wrap(i, smt_mask, cpu) {
-+	for_each_core_cpu_wrap(i, rq) {
- 		rq_i = cpu_rq(i);
- 
- 		/*
-@@ -6446,7 +6443,7 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
- 	 * For each thread: try and find a runnable task that matches @max or
- 	 * force idle.
- 	 */
--	for_each_cpu(i, smt_mask) {
-+	for_each_core_cpu(i, rq) {
- 		rq_i = cpu_rq(i);
- 		p = rq_i->core_pick;
- 
-@@ -6491,7 +6488,7 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
- 	 * their task. This ensures there is no inter-sibling overlap between
- 	 * non-matching user state.
- 	 */
--	for_each_cpu(i, smt_mask) {
-+	for_each_core_cpu(i, rq) {
- 		rq_i = cpu_rq(i);
- 
- 		/*
-diff --git a/kernel/sched/core_sched.c b/kernel/sched/core_sched.c
-index 43e0bde3038e..d56be1c31435 100644
---- a/kernel/sched/core_sched.c
-+++ b/kernel/sched/core_sched.c
-@@ -241,7 +241,6 @@ int sched_core_share_pid(unsigned int cmd, pid_t pid, enum pid_type type,
- /* REQUIRES: rq->core's clock recently updated. */
- void __sched_core_account_forceidle(struct rq *rq)
- {
--	const struct cpumask *smt_mask = cpu_smt_mask(cpu_of(rq));
- 	u64 delta, now = rq_clock(rq->core);
- 	struct rq *rq_i;
- 	struct task_struct *p;
-@@ -273,7 +272,7 @@ void __sched_core_account_forceidle(struct rq *rq)
- 		delta = div_u64(delta, rq->core->core_forceidle_occupation);
+v2: Also cover rq lock drops inside dispatch (sashiko).
+
+v3: Don't keep a stale @prev after ops.dispatch() (sashiko).
+
+v4: Also cover a sibling switching @prev out under core scheduling. Retitle.
+
+Fixes: 7b0888b7cc19 ("sched_ext: Implement core-sched support")
+Fixes: c6fe97c34a1a ("sched: Allow enabling proxy exec with sched_ext")
+Cc: stable@vger.kernel.org # v6.12+
+Signed-off-by: Tejun Heo <tj@kernel.org>
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
+
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index cd923f9f1f2a..e533c1a5c56d 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -3407,6 +3407,12 @@ static enum scx_dsp_verdict dispatch_one(struct rq *rq, struct task_struct *prev
+ 		rq->scx.cpu_released = false;
  	}
  
--	for_each_cpu(i, smt_mask) {
-+	for_each_core_cpu(i, rq) {
- 		rq_i = cpu_rq(i);
- 		p = rq_i->core_pick ?: rq_i->curr;
++	/* the ecaps sync may have dropped the rq lock */
++	if (scx_dsp_prev_stale(rq, prev)) {
++		verdict = SCX_DSP_RETRY;
++		goto has_tasks;
++	}
++
+ 	if (prev->sched_class == &ext_sched_class) {
+ 		update_curr_scx(rq);
  
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 1d76950dbb0a..92134ce326a4 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1534,6 +1534,25 @@ static inline raw_spinlock_t *__rq_lockp(struct rq *rq)
- 	return &rq->__lock;
- }
+@@ -3449,6 +3455,10 @@ static enum scx_dsp_verdict dispatch_one(struct rq *rq, struct task_struct *prev
+ 	}
  
-+/*
-+ * A CPU coming online is set in cpu_smt_mask() before
-+ * sched_core_cpu_starting() links its rq->core to the core leader.
-+ * Until then it does not share the core-wide lock, so it must not be
-+ * touched as part of the core.
+ 	verdict = scx_dispatch_sched(root_sch, rq, prev, false);
++
++	/* scx_dispatch_sched() may have dropped the rq lock */
++	if (scx_dsp_prev_stale(rq, prev))
++		verdict = SCX_DSP_RETRY;
+ 	if (verdict != SCX_DSP_NONE)
+ 		goto has_tasks;
+ 
+diff --git a/kernel/sched/ext/inlines.h b/kernel/sched/ext/inlines.h
+index 1e39d12678c4..5dce394e0813 100644
+--- a/kernel/sched/ext/inlines.h
++++ b/kernel/sched/ext/inlines.h
+@@ -18,9 +18,32 @@ enum scx_dsp_verdict {
+ 	SCX_DSP_NONE,		/* nothing to run */
+ 	SCX_DSP_LOCAL,		/* local DSQ has tasks */
+ 	SCX_DSP_PREV,		/* keep running @prev */
+-	SCX_DSP_RETRY,		/* pick helpers only: restart the pick */
++	SCX_DSP_RETRY,		/* restart the pick */
+ };
+ 
++/**
++ * scx_dsp_prev_stale - Test whether dispatch's @prev went stale
++ * @rq: rq being dispatched for
++ * @prev: @rq's donor when dispatch started
++ *
++ * @prev can stop being @rq's donor while dispatch has the rq lock dropped. With
++ * proxy execution, @prev may not be the running task, and another CPU can reset
++ * the donor to rq->curr. With core scheduling, the core pick runs dispatch for
++ * the sibling rqs too, and a sibling can switch @prev out. Dispatch restarts
++ * the pick when that happened and doesn't hand the old donor to the BPF
++ * scheduler.
++ *
++ * With proxy execution alone, the donor only ever changes to rq->curr during a
++ * pick. Only __schedule() on this CPU sets a different donor, after the pick,
++ * so the restarted pick takes rq->curr as @prev and can't go stale again. Under
++ * core scheduling, the restart goes through the core pick, which already
++ * retries whenever dispatch dropped the lock.
 + */
-+static inline bool sched_core_sibling(struct rq *rq, struct rq *rq_i)
++static inline bool scx_dsp_prev_stale(struct rq *rq, struct task_struct *prev)
 +{
-+	return rq_i->core == rq->core;
++	return (sched_proxy_exec() || sched_core_enabled(rq)) && unlikely(prev != rq->donor);
 +}
 +
-+#define for_each_core_cpu(i, rq) \
-+	for_each_cpu(i, cpu_smt_mask(rq->cpu)) \
-+		if (sched_core_sibling(rq, cpu_rq(i)))
-+
-+#define for_each_core_cpu_wrap(i, rq) \
-+	for_each_cpu_wrap(i, cpu_smt_mask(rq->cpu), rq->cpu) \
-+		if (sched_core_sibling(rq, cpu_rq(i)))
-+
- extern bool
- cfs_prio_less(const struct task_struct *a, const struct task_struct *b, bool fi);
+ /*
+  * One user of this function is scx_bpf_sub_dispatch() which can be called
+  * recursively as sub-sched dispatches nest. Always inline to reduce stack usage
+@@ -33,8 +56,7 @@ scx_dispatch_sched(struct scx_sched *sch, struct rq *rq,
+ 	struct scx_dsp_ctx *dspc = &this_cpu_ptr(sch->pcpu)->dsp_ctx;
+ 	int nr_loops = SCX_DSP_MAX_LOOPS;
+ 	s32 cpu = cpu_of(rq);
+-	bool prev_on_sch = (prev->sched_class == &ext_sched_class) &&
+-		scx_task_on_sched(sch, prev);
++	bool prev_on_sch;
  
+ 	if (scx_consume_global_dsq(sch, rq))
+ 		return SCX_DSP_LOCAL;
+@@ -106,6 +128,11 @@ scx_dispatch_sched(struct scx_sched *sch, struct rq *rq,
+ 			rq->scx.sub_dispatch_prev = prev;
+ #endif
+ 
++		/* the dispatch so far may have dropped the rq lock */
++		prev_on_sch = !scx_dsp_prev_stale(rq, prev) &&
++			      prev->sched_class == &ext_sched_class &&
++			      scx_task_on_sched(sch, prev);
++
+ 		SCX_CALL_OP(sch, dispatch, rq, scx_cpu_arg(cpu),
+ 			    prev_on_sch ? prev : NULL);
+ 
+@@ -116,7 +143,9 @@ scx_dispatch_sched(struct scx_sched *sch, struct rq *rq,
+ 
+ 		scx_flush_dispatch_buf(sch, rq);
+ 
+-		if ((prev->scx.flags & SCX_TASK_QUEUED) && prev->scx.slice)
++		/* ops.dispatch() and the flush may have dropped the rq lock */
++		if (!scx_dsp_prev_stale(rq, prev) &&
++		    (prev->scx.flags & SCX_TASK_QUEUED) && prev->scx.slice)
+ 			return SCX_DSP_PREV;
+ 		if (rq->scx.local_dsq.nr)
+ 			return SCX_DSP_LOCAL;
 
