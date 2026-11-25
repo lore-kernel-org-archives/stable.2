@@ -1,54 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795598297;
-	b=Ks26Pjv3l2Voc4+8CXQX/5qg2nBeGyWbpIp+mG0sY9ox1LC+SjmPCdjR3jcD/U+czAgX
-	 R4NgA4XXi7qS56uBWP6QKc4kLb1IpPk65WaIExkbD8EcADO9A7wCEdLotgnFwKdHqOzpP
-	 j8VNfoIMSB+OgGeaqasA3O/VH2F4+m5e0jjMpDOiGT7c8xVZ7fn/vUfsHFjx9wcrs+xP4
-	 hB1h3QYAT3Wci/FlEnGS6RAcXs58nHi93OnohSqEtmCSvZcJlyAoZvk7cuQCcWn/fHcZp
-	 0B/ub2D7xjl7ZJqvX2XeWNB57p1SgC5IbdQaNAPiK61HrGWWxrTWIdcFdIRSmMi3Q4Q==
+	t=1795598352;
+	b=wlfPUh3Hx6RZrAi2KMWtGTIj1zv6cJ7QuD1GWKePTtHA4hK+ivw5Mo55HFAV6cVvMWZ/
+	 hkPk7uf+hdrOR2OzGAdhzpkSr34QN7LAbjR4ojkvYcUtueofHK/CQw35mbIXQQ5ZxUVvQ
+	 SSlEeNrcOQs0i+5fxD6CVN6JtvBxFoKzlfF8c6y3MoKnps52mEBQmE5bVIc6YTHLn4hsY
+	 eTQdPv25b7J+6b83s8ozoBc9b3hZIoj8PI0NcguJEPVnMPrzCJTQHYRP6gFOLwADF6cbd
+	 dNti77xoNcMza3B4bsXLZDuO1W9+czleToxKLBKCkvJtKq+mPnQADBVqQzcAQNKcPCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795598297;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=k1W9OmdCC0DgTyjGeBPm2sl1bkiKos1oNbZwzoUDpAM=;
-	b=audlTHp2aN1zFO+iyo05U4CILTyDNd/emtYrJJ6GEKH2UcbG7bbQgbkGhaXpGpm2KofI
-	 aRzh9ZAMGEnFLnhRTZ3h/JXKBMua7AjTc/9Iq6HodIWbSspcAdjTbZIqf7RbhppqF5k0I
-	 NnvDMZy9kVfKw5uA/HF6aYafmRLvds3GYS7U6DTQdElxt0BivT5hhOQcsyj7ltfv7bjeG
-	 vauo8XMb/shhe8sZTi4bfbAQZCkJdaJY1lxE4rQVx1zuu2PwRJH3sRd8QrqE1AggkoXm9
-	 ge6sPAM+NscUw0FUuGgPzxUlk4LIBNfOdPXfV7Y7kKmZi2CwIeYeALqY4br3eH5uq4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795598352;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=fAo+SUdWw8IPNJsn0IwIsl5VrDmLwF+WpUivd2tJar4=;
+	b=01So5RZvW1ra/rZIy45yWgi8sDFXurnIfeYSUQ27S8x5KumWu0OJqNOfamYhdTGczAyy
+	 +wIdg1mgR/pULQdKNg4WIYcSW/Dz7W99yfGqekDYc9g1CcFugQfAkRLnYAGPZFZAWpSdl
+	 BOquz6SAaV2Oyjft5zcNR93N7oH0N/E4knTLL6JKjGj0z116+4pGo90ZedcCBGSNxJxL0
+	 ULHfU01zgMQ4EEb3tts77evOn78PmRy6hKCDCbd6D7/TzSIqJ+r+OtPneIVjzS5fwMTtO
+	 yS9tUsY0IJo05clwYNkz4aeL/IEGq48uZIebZL0MXFrLTk2ZybktrKFLy4n8QW4dubA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8EC0C606A33E;
-	Wed, 25 Nov 2026 09:18:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EC0C606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=k1W9OmdCC0
-	DgTyjGeBPm2sl1bkiKos1oNbZwzoUDpAM=; b=lQJKG9fjOCloiBxDBBSZlBSr6U
-	+yL0HiNGXnI5ihSaDxrVNIUQaBes/T/CoshTcgK7SS4iNIM8PlgS6PCelxQzt/Oo
-	0djgrFg8zLDknPEmGG/ufVQI8f4WC+sAZq2IMJb3H5PtQGJ8ibdPb2VIYDfyKBqd
-	HFiXeiW0RZ5sYE+aQ=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.108])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkC2_gO0pwZrgwE0Ag--.13180S4;
-	Wed, 25 Nov 2026 17:18:05 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH v3 2/2] media: go7007: return pending buffers on stop_streaming()
-Date: Wed, 25 Nov 2026 17:17:39 +0800
-Message-Id: <20261125091739.5866-3-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ieRYNdSd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2749606A68C;
+	Wed, 25 Nov 2026 09:19:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ieRYNdSd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E57031F000D8;
+	Wed, 25 Nov 2026 09:19:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795598352;
+	bh=fAo+SUdWw8IPNJsn0IwIsl5VrDmLwF+WpUivd2tJar4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ieRYNdSd01MN6n81no8M7mgH5h/kK3WEx1KRbfDdae6DKqHvU9SprXC7utnqZJU/1
+	 CsRVgCmoPEAGue+cPNYXtJZwG3RFa872GCFNk5z/2QbAQtxcvJ4VYbEIySxPSp+ys8
+	 ul16TYZGMBJB68fRtdfjCl3YDnqutlL5JMjBAwSdDeMTRRSwmuviq99GuevyYmH9fi
+	 gR8AJxmXh9mA2YvZJJoTd7t8wWbVDmY5au5yaYQCmXuLzlZTYyRv4mo8iuvFW4dWYy
+	 mAZxxKYjNmaqJDCuUp4sqZJg98vWiTb7vm7hH+F8QwYMVM5qI/VJdXEmN1hZklv00W
+	 4yUngMTr0gtyA==
+Message-ID: <7b89db31-3c69-4845-a46f-6bf42b3ab0a1@kernel.org>
+Date: Wed, 25 Nov 2026 10:19:02 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,75 +51,141 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkC2_gO0pwZrgwE0Ag--.13180S4
-X-Coremail-Antispam: 1UD129KBjvJXoW7KF48ZrW5Zr47Ww4DAF1UKFg_yoW8tF1rpF
-	WFvFyakrW5tF4UCa1UGw12ga45C3Z7Z3y7CayFkw4rZF15JFWUua409ayjgr4Utw4xZ3WI
-	yryDAFW7Ca15Cr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmqb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv
-	6xkF7I0E14v26r4UJVWxJr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcV
-	AaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0E
-	x4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x
-	0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_GFWl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC
-	6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWw
-	C2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_
-	JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJV
-	WUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIY
-	CTnIWIevJa73UjIFyTuYvjxUIBHqUUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUID2sFqFm40gAAs2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/rmap: avoid reusing batched TLB flush generations
+To: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Ying Huang <huang.ying.caritas@gmail.com>, linux-mm@kvack.org,
+ linux-rt-devel@lists.linux.dev, linux-riscv@lists.infradead.org,
+ stable@vger.kernel.org, Kirk Swidowski <swidowski@google.com>
+References: <20261124-rmap-v1-1-e3dc48a4b527@kernel.org>
+ <87a4mxthsn.fsf@DESKTOP-5N7EMDA>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <87a4mxthsn.fsf@DESKTOP-5N7EMDA>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The vb2 framework hands buffers to the driver through buf_queue() and
-expects stop_streaming() to give the buffers that are still owned by the
-driver back with VB2_BUF_STATE_DONE or VB2_BUF_STATE_ERROR.
+On 11/25/26 09:51, Huang, Ying wrote:
+> Hi, David,
+> 
+> "David Hildenbrand (Arm)" <david@kernel.org> writes:
+> 
+>> mm->tlb_flush_batched packs a 15-bit pending and a 15-bit flushed
+>> counter into one atomic_t, and resets both once pending gets large.
+>> flush_tlb_batched_pending() updates flushed with a cmpxchg() against the
+>> value it read before flushing.
+>>
+>> If the counters get reset and reach that same value again while
+>> flush_tlb_mm() is running, the cmpxchg() succeeds and unmaps that
+>> happened in the meantime are considered flushed. A later zap can then
+>> skip the flush and leave stale writable TLB entries behind.
+>>
+>> Use two separate counters, never reset pending, and let the flusher
+>> simply store the pending value it read before flushing. To keep pending
+>> from wrapping around to flushed, pull flushed to pending - 1 once
+>> pending is more than INT_MAX ahead.
+>>
+>> Preventing the wrapping is primarily required because
+>> try_to_unmap_flush() as called from migration and reclaim code does
+>> *not* go through flush_tlb_batched_pending(), as it does not iterate
+>> MMs. So if nothing in the MM triggers flush_tlb_batched_pending(), there
+>> would be a problem.
+>>
+>> As the separate counters are no longer read atomically together, we must
+>> read "flushed" before "pending" (acquire/release), so a reader can never
+>> pair a just moved-forward "flushed" value with an older "pending" value.
+>>
+>> We'll leave the barrier() between clearing the PTE and incrementing
+>> "pending" alone for now: it should be a smp_mb__before_atomic(), but
+>> existing arch code (x86: inc_mm_tlb_gen(), arm64: dsb(ishst) before the
+>> TLBI, riscv: fully-ordered xchg() in ptep_get_and_clear()) imply a
+>> barrier. This should be cleaned up or documented separately.
+>>
+>> Note: if a flusher stalls between reading "pending" and storing it,
+>> while "pending" advances by an exact multiple of 2^32, the counters
+>> could compare equal and we could miss a flush. The same applies to a
+>> writer that stalls while moving "flushed" forward.
+>>
+>> That is irrelevant in practice: both hold the PTL, so without PREEMPT_RT
+>> they cannot get preempted, and wrapping within the ~20s soft lockup and
+>> RCU stall timeouts would require more than 200 million batched unmaps
+>> per second on a single mm, which is impossible in practice. Even with
+>> PREEMPT_RT or long vCPU preemption, we would need minutes of unmap and
+>> refault churn while the stalled task stays off the CPU, which is highly
+>> unlikely and not a realistic attack vector.
+>>
+>> This effectively adds 4 bytes to mm_struct. However, on common 64-bit
+>> configs it fits into the existing padding, leaving the size unchanged.
+>>
+>> Fixes: 5ee2fa2f0636 ("mm/rmap: fix potential batched TLB flush race")
+>> Cc: stable@vger.kernel.org
+>> Reported-by: Kirk Swidowski <swidowski@google.com>
+>> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+>> [ david: use atomic_t instead of atomic64_t, adjust description ]
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> 
+> Except the fork issue pointed out by Harry, the patch looks good to me.
+> Thanks for fixing this problem.  Feel free to add my
+> 
+> Reviewed-by: Huang Ying <ying.huang@linux.alibaba.com>
 
-go7007_stop_streaming() instead just re-initializes go->vidq_active,
-dropping any pending buffers without returning them to vb2.  That leaves
-owned_by_drv_count elevated and makes __vb2_queue_cancel() report a
-driver bug when the queue is cancelled.
+Thanks!
 
-Return every pending buffer with VB2_BUF_STATE_ERROR and clear
-go->active_buf, which may still point into the list.
-
-Fixes: 7955f03d18d1 ("[media] go7007: move out of staging into drivers/media/usb.")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/media/usb/go7007/go7007-v4l2.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/usb/go7007/go7007-v4l2.c b/drivers/media/usb/go7007/go7007-v4l2.c
-index 0b32cb58142b..6ab067d56b7c 100644
---- a/drivers/media/usb/go7007/go7007-v4l2.c
-+++ b/drivers/media/usb/go7007/go7007-v4l2.c
-@@ -440,6 +440,7 @@ static int go7007_start_streaming(struct vb2_queue *q, unsigned int count)
- static void go7007_stop_streaming(struct vb2_queue *q)
- {
- 	struct go7007 *go = vb2_get_drv_priv(q);
-+	struct go7007_buffer *vb, *tmp;
- 	unsigned long flags;
- 
- 	go7007_stream_stop(go);
-@@ -449,7 +450,11 @@ static void go7007_stop_streaming(struct vb2_queue *q)
- 	call_all(&go->v4l2_dev, video, s_stream, 0);
- 
- 	spin_lock_irqsave(&go->spinlock, flags);
--	INIT_LIST_HEAD(&go->vidq_active);
-+	list_for_each_entry_safe(vb, tmp, &go->vidq_active, list) {
-+		list_del(&vb->list);
-+		vb2_buffer_done(&vb->vb.vb2_buf, VB2_BUF_STATE_ERROR);
-+	}
-+	go->active_buf = NULL;
- 	spin_unlock_irqrestore(&go->spinlock, flags);
- 	v4l2_ctrl_grab(go->mpeg_video_gop_size, false);
- 	v4l2_ctrl_grab(go->mpeg_video_gop_closure, false);
 -- 
-2.34.1
+Cheers,
 
+David
