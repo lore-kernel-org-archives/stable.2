@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795624751;
-	b=YWI3IDp/GBdC3iMRNSOZRXGv9gkg0u0tFzDD+hmmZjZ/ancXJG5rs5kCD3y+wyAR8Sq7
-	 DPRM0qIpXwIkaAr4JDsqWPA3f+2EwUxzjIXhnlXkTxFC/2Apk1mIOA+zk748jt2qWACHo
-	 g+Qf6wfxBfdWDZ292A1Nkl0Q44Afm/8jIkOR4gFc7QFLscZ5sT2DhjNyrdfX0XS9vikes
-	 1txrjk7Uis82yHOH66GTSbUopbyzCFicdb2snTjZN0vvmG4HqRdZeWWSDTUD3nn/l+zZW
-	 x3iR+8Tc0s0EHBuJM6xtNGcqOYemobxgM0ytwT4jhwM6te7jp8w3yHL3NIJeoFIsiiQ==
+	t=1795624752;
+	b=LrogzBnhBHONGTqCnoCEFkxoTthKvoLBW2UuDlxp9b6HVNJCm6LZFODqw10AUo8A8i44
+	 IIyMqvC2EYg6bODIuL8ZsAX8W+FB2B702JcVQ/HLLq9jsKurxMmXqUMq4iJmqoFrk81AS
+	 WWV77ghDwQzQZNPwJpv1suf4OyDwt7Ta8KvcsD5bdsqc+NsqbAgpvxHUzLezEmdLkfy8C
+	 UNw4WX2YuPh2rEJ+KWcDt4qQBafxSOehMClvRGmu/pCxU7soInXkE1Oul+S0uKa6yDvDD
+	 yoWJnLxv0ipSyjOPcMvUuuCprr5ABd3JWe3S/i2mFnI/gpsnIqZbT9r/wUv0R64pXbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795624751;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795624752;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/sVep4Xm2Sp6M25vUxaDDZDqQuLbM2/VK0aCHnShjVE=;
-	b=QOMeYy1/OPZU7pB7jGD8ZIiLFn9dJdLMforWxBOrJkgjPEqe7PV7ZX+X4qrFlj1IwHU+
-	 FWOhAwf+V1zDHYcF434yDAaTewhNfFo8rAAoHGruzWiw9yhPKw9zqQ+UuO6UKmQxdb/0n
-	 E6VaMQaEMU/RqDwe/tCQWGSHYAB3j57srM5nNlJrYijOcLc+GSU6UocFUYa1OmuoCjijo
-	 3XiGH877ufXWrCXzLZM1GLEH6Z2X0GqD4fsmCVlpkbW5dJKNFfpA485iROoBb3gQR+ye+
-	 pLxwvGpEHL9982XVmzB0qnteYIQARAltWvhKSgKArOeKhMsPxSHHhVb3tzqWo6e3Zzw==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=dXw6L3HYrvYA5t0+ybuOaJd5T1GUSya2q2DDZE4JmU8=;
+	b=YKIgvlNwOFLG375xYwJg4A0J9rld43qDs0QCioAf5/YBBmjvRtCT2xQTNtvEJe3iOY9G
+	 ADtUb81an3iazkRQUWhiO8AOwCqylFDGHW0GNV0CSHXs5lU4so60xtHDg8DVGD3ChPtzA
+	 jqGfvoLBwM+66we3ASmSgWRz2klwMQI8v/Z4XtB139+SBaPbmI3uXhN6U2DH4uCOSoj8T
+	 eJruDr/FnXUuoOT87nbvNENmGJ7XenLz9LBC2iqv+5gIRmjC9Wl7crvJ7ftj88YIinMzQ
+	 EmS5yRlB7C+waO3pVha2e7gJNc/kb6riyJXhQSAISOirRYAzK3ageiD4YCg+BdnbE1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LNmd6K5g;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cE62oZDb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E645606A338
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:39:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E48C606A338;
+	Wed, 25 Nov 2026 16:39:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LNmd6K5g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74DD51F000C4;
-	Wed, 25 Nov 2026 16:39:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795624751;
-	bh=/sVep4Xm2Sp6M25vUxaDDZDqQuLbM2/VK0aCHnShjVE=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cE62oZDb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0BF11F000CA;
+	Wed, 25 Nov 2026 16:39:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795624752;
+	bh=dXw6L3HYrvYA5t0+ybuOaJd5T1GUSya2q2DDZE4JmU8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LNmd6K5gztn/P2jIBk4Vjz8cFTCzen0nVLNG76JjxLxgKUGTsgcSHP5TKRfG0jSg0
-	 0AjIG2zfnmCVo9jR/lebR8SNeBO0M3VRzToMOZoS92OTD6ZeOOHylgqqACPiFGRRRh
-	 Ljv7lmZ2I7sDVOshtT9NsNomYfbiutILxS+JbqhV0L0U19aVD/ie+OCjRQqBtcVEWN
-	 9cnA8mbftgil/MGo9sVujShKTKNWNFIyv3BYk4j6ZoR6WtjdGBRvQnIL0pGQIOivZ7
-	 67nMFGZlYWSULmQrXR2pf+JX6F3/kCEURk9g0ZiTiGUXbu6trgdY4gSoKGjEMZN6DQ
-	 ElImSXwslwb+Q==
-From: Sasha Levin <sashal@kernel.org>
+	b=cE62oZDb3pb6lH+KA/itHVR2IEds4B8fxd99T48V0nxEmt5lAqnl/mHQ2NVaEA+ol
+	 WCkaZlzBeYReZ5Bel+WfsxkiWHunebtAhGzfrXqMqLgDv3zlWjXSIJMbvnxO6hwiBO
+	 rEQdqxa6VZJG/OeOHPyFARb1idrhiGWAUfa3Jnak=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Hyunjung Ko <hj351016@gmail.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Olga Kornievskaia <aglo@umich.edu>,
+	Jeff Layton <jlayton@kernel.org>,
+	Trond Myklebust <trond.myklebust@hammerspace.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] tpm: flush timeout work outside buffer_mutex to avoid deadlock
-Date: Wed, 25 Nov 2026 11:39:08 -0500
-Message-ID: <20261125163851.838129-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112528-stimulant-rarity-a146@gregkh>
-References: <2026112528-stimulant-rarity-a146@gregkh>
+Subject: [PATCH 6.12 296/816] nfs: fix utimensat() for atime with delegated timestamps
+Date: Wed, 25 Nov 2026 15:30:44 +0100
+Message-ID: <20261125143856.058490447@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,59 +65,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hyunjung Ko <hj351016@gmail.com>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit c22052a012698ce56d599d75b669d55778521c7c ]
+------------------
 
-tpm_common_read() calls flush_work(&priv->timeout_work) under
-priv->buffer_mutex, but tpm_timeout_work() also takes buffer_mutex, so a
-running timeout work deadlocks the flush. Flush after unlocking; the timer
-is deleted under the lock, so no new work can be queued.
+From: Jeff Layton <jlayton@kernel.org>
 
-Fixes: 9488585b21be ("tpm: add support for partial reads")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Link: https://lore.kernel.org/r/20261108165812.676876-1-hj351016@gmail.com
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-[ sashal: Replaced timer_delete_sync() with the older del_timer_sync() name that this tree uses; the rest matches upstream. ]
+[ Upstream commit 16d99dce938ecbbc703843a31fb951acca46af27 ]
+
+xfstest generic/221 is failing with delegated timestamps enabled.  When
+the client holds a WRITE_ATTRS_DELEG delegation, and a userland process
+does a utimensat() for only the atime, the ctime is not properly
+updated. The problem is that the client tries to cache the atime update,
+but there is no mtime update, so the delegated attribute update never
+updates the ctime.
+
+Delegated timestamps don't have a mechanism to update the ctime in
+accordance with atime-only changes due to utimensat() and the like.
+Change the client to issue an RPC in this case, so that the ctime gets
+properly updated alongside the atime.
+
+Fixes: 40f45ab3814f ("NFS: Further fixes to attribute delegation a/mtime changes")
+Reported-by: Olga Kornievskaia <aglo@umich.edu>
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Signed-off-by: Trond Myklebust <trond.myklebust@hammerspace.com>
+Stable-dep-of: a38d7cc8c90f ("NFS: update ctime for atime-only UTIME_NOW requests")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/char/tpm/tpm-dev-common.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ fs/nfs/inode.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
 
-diff --git a/drivers/char/tpm/tpm-dev-common.c b/drivers/char/tpm/tpm-dev-common.c
-index 1bfdcb9794e20..98b35c4e8bc8c 100644
---- a/drivers/char/tpm/tpm-dev-common.c
-+++ b/drivers/char/tpm/tpm-dev-common.c
-@@ -132,6 +132,7 @@ ssize_t tpm_common_read(struct file *file, char __user *buf,
- {
- 	struct file_priv *priv = file->private_data;
- 	ssize_t ret_size = 0;
-+	bool flush = false;
- 	int rc;
- 
- 	if (!size)
-@@ -164,9 +165,18 @@ ssize_t tpm_common_read(struct file *file, char __user *buf,
- 	if (!priv->response_length) {
- 		*off = 0;
- 		del_timer_sync(&priv->user_read_timer);
--		flush_work(&priv->timeout_work);
-+		flush = true;
- 	}
- 	mutex_unlock(&priv->buffer_mutex);
-+
-+	/*
-+	 * tpm_timeout_work() takes buffer_mutex, so flush it after dropping
-+	 * the mutex to avoid a deadlock; the timer is deleted above, so no new
-+	 * timeout work can be queued once the mutex is released.
-+	 */
-+	if (flush)
-+		flush_work(&priv->timeout_work);
-+
- 	return ret_size;
- }
- 
+diff --git a/fs/nfs/inode.c b/fs/nfs/inode.c
+index 28f7acecb3f82..f29c4ff16b29f 100644
+--- a/fs/nfs/inode.c
++++ b/fs/nfs/inode.c
+@@ -747,14 +747,7 @@ nfs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 	} else if (nfs_have_delegated_atime(inode) &&
+ 		   attr->ia_valid & ATTR_ATIME &&
+ 		   !(attr->ia_valid & ATTR_MTIME)) {
+-		if (attr->ia_valid & ATTR_ATIME_SET) {
+-			if (uid_eq(task_uid, owner_uid)) {
+-				spin_lock(&inode->i_lock);
+-				nfs_set_timestamps_to_ts(inode, attr);
+-				spin_unlock(&inode->i_lock);
+-				attr->ia_valid &= ~(ATTR_ATIME|ATTR_ATIME_SET);
+-			}
+-		} else {
++		if (!(attr->ia_valid & ATTR_ATIME_SET)) {
+ 			nfs_update_delegated_atime(inode);
+ 			attr->ia_valid &= ~ATTR_ATIME;
+ 		}
 -- 
 2.53.0
+
+
 
