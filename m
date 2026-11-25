@@ -1,55 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625397;
-	b=HcQ1/CvN8bELenJzjG0S0sfisN96BB+R1dNQD72T+5KwckIyVPrliRFIUWDd3NqFzEN9
-	 Q4JVQlxT7GA/8fX4suDRfZ04HHiXt9tcHQrLbBzi19OB5bbBSTyfzMXI4K62k5fxtnIz4
-	 8zsif2XViH9tFcBU3ku1fQF+mHyagQO/zARUWYlDj0QbW58Q8xkb8hGreaIfaIR5YGLKf
-	 pNF6C0zgJkMuCJaHl77mEoHLBztufpRG3m5rg18elLVZ+ceIMP228H9igS66t2leqBAnb
-	 p187nYu8tBtIfPBnTE1TBrqxDGLDcn0mB3TBp5snT5hwOld2EwJ7bn1wbhmjCO+a5Nw==
+	t=1795625392;
+	b=NkxNyeZgcKtlwDNPmb/1/vhloj8n9aVH7xGf2k7Xt5BJrroJH26/0fqbBEosB7v8Fl7V
+	 fA3qxpIGeWxZUtVI+pvZgS6kh216yspGd+BWI6N9cT03yEOEh/OCPb0PoNeuFucFSSPIP
+	 UpThilkAwdHS3OFtWI8dpZ1Jkpm1m+P+995wTW2UtW1B59w1fGgBKHA/6Zaw8qgmNjUAz
+	 Hbm4a+033n3H2WNjW+yviKKbWGuDVaQCWwA6Yz92LuH3CiPy957GTeXJa+XUEKl8dLyel
+	 QTmKoeRsmrRLr+nC4WbRXYJ0+L2AbSDe95BCiW0+YhqQLBLzssV4TU9or3b+paYdL3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625397;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TQg9fN6wCWSAmm7lHgcrbpk+lZkIpEHPQF1tUXhhy3Y=;
-	b=UKtQpXFnQoZz8/RwcPof7127VA2+E3pcsU8MC/XVurgzJ+ph5wkRpzE6W82WqN2So5fZ
-	 LLBgUFcjN3cZemrPSmt/OzxdayBw+FL0B11h2ZyxCut45EWVoEmJhUJ5hXjOrMNBsZRdq
-	 /SjtbGm+O/Ltg4BHNwpcakOsPfHaxtpxZX+B/px7tHcl7FBKTTehfx0dJ8z7yYjj+RvGY
-	 DlCgbBpmr9NkVMUWpSeBDLu0nWsRI6U4/2krBgU2P9mMZylaIBDjHahV0sb0RalbcFzCQ
-	 VpqIeotTDkaw0eRvEwbC1leo9W0A+V876EOx19PH41OZUN46QlN35q0peCt7Q+UOSSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625392;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=64OLG8P0V/vt+DC2pOIDmvx8cJ65cBuW3hhgyyT0Ems=;
+	b=k5GlnYfVqF09ymH/MtGyJ5JCqxwGIfOsf3yTIam6MhDb+RYL9IbLzwCDYSQYsbXkXPDY
+	 kFGTJL1vxq4V3U2vZoMhUJtO3S75PmmMysCgfy02ySvePHVJP/4+LC+kutboeeU5DHgfn
+	 7kWojzLRMktY/9lR6bw3ZRHE+Fs7lPgxrLcPm0r1bHYx+JzaxtAjSuciOJN1euOUmCr6e
+	 uB/bCL3851w6Xv5jDHFXK38nRa0uC2+iXbHBbrRxaWVZniJg8cOZWZZircM5NRXcJt7Ox
+	 jXG3WajAJf/ScHvs91ya+y7UwuhygRHpba0B406FlWB/eAc5H7Q19xJAsLRYqruLALg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IDLN3vQH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5LoiPZE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C7D606A32D
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:49:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5407606A326;
+	Wed, 25 Nov 2026 16:49:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IDLN3vQH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E96181F000C4;
-	Wed, 25 Nov 2026 16:49:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5LoiPZE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EFDB1F000C0;
+	Wed, 25 Nov 2026 16:49:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795625396;
-	bh=TQg9fN6wCWSAmm7lHgcrbpk+lZkIpEHPQF1tUXhhy3Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IDLN3vQHbgptVhhA5WSMa28vBDh3PlwBq3Ii+BYlb16D8981QjwnhLrp+K81g0OPN
-	 8IykyL9J96hFJO8F1j9krmC8KCW/2HYS7EAARK1GcCn8W1Bcaqquuv06iAHGfkIEBl
-	 9PM4ZoKawAiLURf2oj5Odc1d3ulglp2sJ174HU+QuQJmSWiM3o9kT4QslFBC28lhZ9
-	 tcvIEXehG6C/gfatEysdCFQIJ/pP26+YY4uA+3RTXdVFC3kkUx4gaN9+hUCMv9zxq5
-	 JbhYGkHsMiaGWeUcHvc1AUPYuNL3iARttiavLha9lHjKX+h8ht2vqjtmuipt1ClHqk
-	 fZvPFmkSezvaQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Vishwaroop A <va@nvidia.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] spi: tegra210-quad: Track DMA mapping state
-Date: Wed, 25 Nov 2026 11:49:54 -0500
-Message-ID: <20261125164932.884171-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112554-emblaze-hedge-b23c@gregkh>
-References: <2026112554-emblaze-hedge-b23c@gregkh>
+	s=k20260515; t=1795625392;
+	bh=64OLG8P0V/vt+DC2pOIDmvx8cJ65cBuW3hhgyyT0Ems=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=H5LoiPZEwvP7HnPA+yPxlM0TA5e7zWy0aoOpA4KgAyJdjpUqFR3UBhJ5jZ9oHZbch
+	 o9nDOCNfuKudS0waCP09gww9Ikqhj4ovPgtWnKVq//UAk2rOl/6cthgVuHBhYZQ0EW
+	 svV+Rqi5OX3iR0yKO4as0oU98Ab3Vd8MhLmec/Shb+BlL788Ctj4ba3XwhWYPgp2np
+	 YFck8Cgu+bydUTJZaAqauVaxYlo7Wf4dFsxyRZp+/VhrEXHwQRt2zGA8cG5Hunm3kI
+	 2TIj14FJIYdoRpYNs2+XUpmLr1sjTMzNAGO/FR4EM2od2cP45K9UjINOunI39ZDpHP
+	 vpTeK66MnTeWw==
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,117 +49,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] media: qcom: camss: tpg: Skip the unnamed test pattern
+ menu entries
+From: bod@kernel.org
+To: George Neacsu <geocausa@gmail.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>, linux-media@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261016-camss-tpg-menu-skip-v1-1-0a0a24e36316@gmail.com>
+References: <20261016-camss-tpg-menu-skip-v1-1-0a0a24e36316@gmail.com>
+Date: Wed, 25 Nov 2026 16:49:47 +0000
+Message-Id: <179562538779.462348.10497766296807730990.b4-reply@b4>
+X-Mailer: b4 0.17-dev-cdd92
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1294; i=bod@kernel.org;
+ h=from:subject:message-id; bh=bCmQQ4xCxmxyTsgqO+Fyl7t/ecS15PDAtJNMfxXszCs=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBrBxGsRXKqFB9Im0TwnQHVHPy+svq/qNqixbqN5
+ w+ovsa0DY+JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCawcRrAAKCRAicTuzoY3I
+ OrgqD/9z4/VgGGVC31GSC1ca1LvX0ZZeukfTdDrPAKqAUodKphzebkOUdaqtMMRVnBDbHYlCV1v
+ VnxwAfbeCDGK5r1AnJz5p7aK2rOyfe2cHQ0v9TtPP5o8B7JCx2llgB4SusIWoYV4PxFPie57umI
+ 7IWNHjdv57yKUpKqQzx1WsslPeZ8P+lSBZf4OHhzjH/WpmL2R9+541Ib1F4RufIis3IIAeJ475Y
+ mEABlneR3WBv/EBg6UjrgJqQzyshTDpQ25GsGoGmDjF8CpzanHV+S1iAg2Bj/IbZqFHGVfdtLZg
+ Qf5PkbijDMoBGuIH5xU/w+TXiwx2EVfVX1TclCp2OnkBFEIz64Lwx7vTR8H/DsGNytp5GtAAwam
+ 8xGG/DBd2JduS6E/eV/F97I91yDv6ZuS9EsSR8J9KR+JWK+TEO5veMkavOsW6Bc8uQP1BK65qrd
+ MB3CL03jjj4ocrPvONbmnwN002QkTuOcNIWFdYkPsA2Z3TGww4wg+egcxgE6C/R7hO1DyIfkTBq
+ 04IILDXiNjqBqoO+H7BhE/Pyd03kQclTN+r75uqjOVQizeg1X6FfBPkHReaAMT1+6i3yJOzeW/X
+ o3Xgrt7z31sbI1chIS/+xP5yHi84fjKQcAOF2i3sRn9Cm5597B8tlQF82C2gHx1NE4gi05gBqsa
+ iYkh/1w76x+ZfvA==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-From: Vishwaroop A <va@nvidia.com>
+On 2026-10-16 15:55 +0100, George Neacsu wrote:
+> The gen1 TPG names its test patterns in testgen_payload_modes[], which
+> is indexed by the hardware payload mode, so entries 3, 4, 7 and 8 are
+> NULL. The V4L2_CID_TEST_PATTERN menu is created with that array, a
+> maximum of TPG_PAYLOAD_MODE_NUM_SUPPORTED_GEN1 and no skip mask, so
+> setting the control to one of the gaps makes
+> v4l2_ctrl_type_op_validate() dereference a NULL name. The oops leaves
+> the control handler lock held, and a later rmmod of qcom-camss then
+> hangs in v4l2_ctrl_handler_free(). v4l2-compliance -m /dev/media0 does
+> both on X1E80100.
+> 
+> Skip the menu entries that have no name, so the core rejects those
+> values with -EINVAL and VIDIOC_QUERYMENU leaves them out.
+> 
+> Tested on the Surface Pro 11 (X1E80100) with next-20261015: the menu
+> lists 0, 1, 2, 5, 6 and 9, setting 3, 4, 7 or 8 returns -EINVAL,
+> v4l2-compliance -m /dev/media0 completes without an oops, and qcom-camss
+> unloads and loads again.
+> 
+> Fixes: 51fe835c485b ("media: qcom: camss: tpg: Add TPG support for multiple targets")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: George Neacsu <geocausa@gmail.com>
 
-[ Upstream commit 7b9e6f7bc13c0259b192d0a964e802d4ad53b8b8 ]
-
-tegra_qspi_dma_unmap_xfer() assumes a streaming mapping is always
-outstanding and recomputes its length from the live
-tqspi->curr_dma_words. Nothing records whether tegra_qspi_dma_map_xfer()
-mapped anything, so neither assumption holds.
-
-For a multi-chunk transfer, handle_dma_based_xfer() unmaps the chunk that
-just completed, recalculates the parameters for the next chunk, which
-overwrites curr_dma_words, and re-arms the hardware. If
-tegra_qspi_start_dma_based_transfer() then fails at its
-tegra_qspi_dma_map_xfer() call, nothing is mapped. That early return also
-sits above the smp_store_release() that clears tqspi->trans_status, so the
-previous chunk's QSPI_RDY survives, and the re-arm's return value is never
-checked, so handle_dma_based_xfer() returns IRQ_HANDLED without completing
-the transfer.
-
-The caller times out, tegra_qspi_handle_timeout() sees the stale QSPI_RDY,
-concludes the transfer completed and calls handle_dma_based_xfer() again.
-No DMA completion arrives, so num_errors is incremented and
-tegra_qspi_dma_unmap_xfer() runs with nothing mapped. t->tx_dma then holds
-either the DMA_MAPPING_ERROR sentinel or, if the RX mapping was the one
-that failed, the preceding chunk's address that has already been released.
-Behind an IOMMU the latter frees an IOVA that may since have been
-reallocated.
-
-Record whether a mapping is outstanding and the length that was mapped,
-and return early from tegra_qspi_dma_unmap_xfer() when there is nothing to
-release. is_dma_mapped is only updated under tqspi->lock, or on the timeout
-path after synchronize_irq() and cancel_work_sync() have quiesced the ISR
-and the bottom half.
-
-Also skip releasing the TX mapping on the RX failure path unless a TX
-mapping was created; t->tx_dma is uninitialised when t->tx_buf is NULL.
-
-Fixes: 921fc1838fb0 ("spi: tegra210-quad: Add support for Tegra210 QSPI controller")
-Suggested-by: Mark Brown <broonie@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Vishwaroop A <va@nvidia.com>
-Link: https://patch.msgid.link/20261026111412.3843954-3-va@nvidia.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ sashal: Backport uses tqspi->dev for the DMA map/unmap calls instead of the separate tx_dma_dev/rx_dma_dev devices used upstream. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- drivers/spi/spi-tegra210-quad.c | 31 ++++++++++++++++++++++++++-----
- 1 file changed, 26 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/spi/spi-tegra210-quad.c b/drivers/spi/spi-tegra210-quad.c
-index 8af5892ac738e..75841e0dc20a3 100644
---- a/drivers/spi/spi-tegra210-quad.c
-+++ b/drivers/spi/spi-tegra210-quad.c
-@@ -207,6 +207,17 @@ struct tegra_qspi {
- 	bool					is_packed;
- 	bool					use_dma;
- 
-+	/*
-+	 * Set while a streaming mapping created by
-+	 * tegra_qspi_dma_map_xfer() is outstanding, together with the
-+	 * length that was handed to dma_map_single(). is_curr_dma_xfer
-+	 * only records that the last armed chunk took the DMA path,
-+	 * which is not the same thing: a chunk whose mapping failed
-+	 * leaves the DMA path flagged with nothing mapped.
-+	 */
-+	bool					is_dma_mapped;
-+	unsigned int				dma_map_len;
-+
- 	u32					command1_reg;
- 	u32					dma_control_reg;
- 	u32					def_command1_reg;
-@@ -586,22 +597,32 @@ static int tegra_qspi_dma_map_xfer(struct tegra_qspi *tqspi, struct spi_transfer
- 	if (t->rx_buf) {
- 		t->rx_dma = dma_map_single(tqspi->dev, (void *)rx_buf, len, DMA_FROM_DEVICE);
- 		if (dma_mapping_error(tqspi->dev, t->rx_dma)) {
--			dma_unmap_single(tqspi->dev, t->tx_dma, len, DMA_TO_DEVICE);
-+			if (t->tx_buf)
-+				dma_unmap_single(tqspi->dev, t->tx_dma,
-+						 len, DMA_TO_DEVICE);
- 			return -ENOMEM;
- 		}
- 	}
- 
-+	tqspi->dma_map_len = len;
-+	tqspi->is_dma_mapped = true;
-+
- 	return 0;
- }
- 
- static void tegra_qspi_dma_unmap_xfer(struct tegra_qspi *tqspi, struct spi_transfer *t)
- {
--	unsigned int len;
-+	if (!tqspi->is_dma_mapped)
-+		return;
- 
--	len = DIV_ROUND_UP(tqspi->curr_dma_words * tqspi->bytes_per_word, 4) * 4;
-+	if (t->tx_buf)
-+		dma_unmap_single(tqspi->dev, t->tx_dma,
-+				 tqspi->dma_map_len, DMA_TO_DEVICE);
-+	if (t->rx_buf)
-+		dma_unmap_single(tqspi->dev, t->rx_dma,
-+				 tqspi->dma_map_len, DMA_FROM_DEVICE);
- 
--	dma_unmap_single(tqspi->dev, t->tx_dma, len, DMA_TO_DEVICE);
--	dma_unmap_single(tqspi->dev, t->rx_dma, len, DMA_FROM_DEVICE);
-+	tqspi->is_dma_mapped = false;
- }
- 
- static int tegra_qspi_start_dma_based_transfer(struct tegra_qspi *tqspi, struct spi_transfer *t)
--- 
-2.53.0
+bod
 
