@@ -1,47 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606424;
-	b=UxyfsglB4YbxWkBFvjcs7H9xTy+OJF8Q+oUKY1fRgfX+7dgXbKF065h7AOVLokE3i+CI
-	 +8YeUYZh0IUw39SAn6ZNGsBizH77s7FC8poBQKMUNaevr5VSjsBrxYpP4MqDJZz/uHHsN
-	 kQC0zLgM9yHWDt/7kORvi3sAlE201v9mzU087QFZT1xSadTCw1OHhGtS5O++k453pqNK0
-	 CejmysUjy5z3Rr40vjJ7d3/qYo2UAMmbh6ziKqGXNfdEk6H7NGSj9kKKY66bg0gOUC5k5
-	 6UW+JYcTe8+nzsX3HnIWbdUDkToIQ78cfu2dVVqoAdD0MGmL3oHHUL5879BGvog9B+w==
+	t=1795606452;
+	b=LuWgicSmsKHO/O1A7lSu9KnU3UHmC0ls5J0dpzMc0TstD7Iunfh2VoIRNPsGkVwr6+rq
+	 o+nzatKr52CN619HH1pFy6FJ+LnroZqe9xnoVlkaNiiHiOAqPJZS5pLnXbujoR11wXjA9
+	 xWC3SadQSmqk+ORv44RcJ5qwMRLBJq+0IIfPieBsHEZvpbq7MITiU4bjIfKPGR3SSgsLt
+	 MxY/BAuNi5hI5NFgSkYGXsuJkdSEclORrmnUKWSVgsYVI04B9LMN314zJAa8mSx/cM/jr
+	 3mZ+VyCmNIrDx4A/AIw6HK1mXX7VIWeOWueAxwnqxy/Z9HOCz7/QrtrbydEiBdhKFkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606424;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=LgOQyVkJ42nDmUsd5Ma/OkSnH2YgFNOVYXEcjfTiFbI=;
-	b=l9+/YNfvOEJPbCz5OXB2IAtmVtmv3craLruFPE7Bh7naTkp2ilrBMFafwo0VzHEz+L/7
-	 S0J/Cmda3QitPxYypqDLwYA5qixlxSqHGNxpRiCDOK6WTO2tStFYjrCr4DjrGHp4guzuC
-	 xjKSd0LIWteKDIFiE1kRNtMHXJEdNfMhB6nElPYwZSy0e8y29vljzzQTbn1SqifbgbOyj
-	 qu6dfzvQW4SW0gtPBlJCxK6qF2ABXeNPwvupl8NR/389lXTspODxaQTLX692lCEl1y3dv
-	 VDKDzmxeS/0mNNuWlpQhyF1JncgRaBpaYTC7CjV8MGoIwSQPPesIeMea1v+rdQ/z9HA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606452;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=G9DtsXcfz4y+IZgCUkf0GaIAzu44qcRml02dPTNgx/8=;
+	b=qJ8oB4XIqikGBUnSKBMLlAkuxrvb9b0e5bJDRUWTLwFZFe1MMC3gASLXP2ZrbM67pAwZ
+	 nluaeSvLwLuQ4x+sulK32AaBd2GSW2CqP0drheTIS5YXOOqWRlVDvkjhniAyfcksMpFXW
+	 aqunWgevNqwlde5vI8K/XhkntvozLYYhcrnnE5dOXQLI0NQEp4e4K3oWnICVn043fNIMk
+	 MJ3v0+p0isC6Wk/9OFg5U5XWWtTlWZBvIwy4QIHrUu/5fbh/NlkUbsn+Di4bmmnc/cnbC
+	 IIBuIHQiATzlBxoFnEIh7Ygzwa+9DYjOJmDsl7r5j15xclHtPtt2GxEExjrkW0s58Ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OdUMo71O;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mCB1hAko;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9226606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:33:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00BC9606A333;
+	Wed, 25 Nov 2026 11:34:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00BC9606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OdUMo71O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35F661F000C4;
-	Wed, 25 Nov 2026 11:33:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606424;
-	bh=LgOQyVkJ42nDmUsd5Ma/OkSnH2YgFNOVYXEcjfTiFbI=;
-	h=Subject:To:Cc:From:Date;
-	b=OdUMo71OhPav+OAaepDVBrfNaSwTaGgQzu5x521FuAnSYhfJyA7VDS9JET3cl/zAN
-	 j3ZqUB0bXS33eAecr6LUk9g2nigXk3OHQJ8aZeu5go8yV3yG6YdVM+aYijWgjhLUEJ
-	 7xZUVUQBOya3Vw4p+3k0xpaqAfe0LFecn8s1pBLE=
-Subject: FAILED: patch "[PATCH] dm snapshot: split discards on chunk boundaries" failed to apply to 6.1-stable tree
-To: chencheng@fnnas.com,mpatocka@redhat.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:25:41 +0100
-Message-ID: <2026112541-handbrake-curtain-5903@gregkh>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mCB1hAko
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795606452; x=1827142452;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=fMsAeJ0c7n73+oW7qS3cdLS2Wtgb2G4gCGLgjIUYl98=;
+  b=mCB1hAkof/qAkU/YUshoYcncwF1o24IYqxTGmFA0gvFxaH1ZYeloofqE
+   +DqIVKdaYQ+QB3TuRAgrFfqUbvkr21IsD0sps46WWDGtmQco/vTeamx43
+   0mwGpq33Hvxr6bJFOlNyHwl6++JVAmyb+2KRZjfYplOW14oNppTAAm6Ma
+   IyAPfm+qDzrhXEyo5w+CeLn/M8cjteoYTafKUKknM179tmPbpDAakATcm
+   MRkyc3dteXGxJS28OUasIMGR5/83/1y10mITVTfge4/+BlZWtojmRFYWn
+   nzsrsyFHNOF6WhH7yvbzGCu2FK0zxcCT0lurcY8JUXoi30WIwZ8nyTMq9
+   Q==;
+X-CSE-ConnectionGUID: v9I3QGsdTICG7YwFiaZBdA==
+X-CSE-MsgGUID: /nM14pTvQ5a4weCQ1WTVJg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4360646"
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="4360646"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 03:34:11 -0800
+X-CSE-ConnectionGUID: ZhjG67rZRPKeRun9bRDfUw==
+X-CSE-MsgGUID: o17WY9CCQAG8Z3ghnBYZ1w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="11954522"
+Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.36])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 03:34:09 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id A76F411F920;
+	Wed, 25 Nov 2026 13:34:12 +0200 (EET)
+Date: Wed, 25 Nov 2026 13:34:12 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Cc: Lixu Zhang <lixu.zhang@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: Re: [PATCH] usb: ljca: fix NULL pointer dereference on events for
+ callback-less clients
+Message-ID: <awbHtFvxuSfbO4rw@kekkonen.localdomain>
+References: <20261120150143.2591-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,63 +86,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261120150143.2591-1-25031212351@stu.xidian.edu.cn>
 
+On Fri, Nov 20, 2026 at 11:01:43PM +0800, YuanZhe Liu wrote:
+> ljca_handle_event() dispatches an incoming event message to the first
+> client whose type matches the message type and calls that client's event
+> callback without checking that a callback is registered.  Only the GPIO
+> client calls ljca_register_event_cb(); the I2C and SPI clients never do,
+> so their event_cb stays NULL for as long as the adapter is bound, while
+> they are present in adap->client_list.
+> 
+> A device that sends a message without LJCA_ACK_FLAG and with the type of
+> such a client therefore makes the driver call a NULL function pointer
+> from the URB completion handler:
+> 
+>   BUG: kernel NULL pointer dereference, address: 0000000000000000
+>   #PF: supervisor instruction fetch in kernel mode
+>   RIP: 0010:0x0
+>   Call Trace:
+>    ljca_handle_event drivers/usb/misc/usb-ljca.c:217 [inline]
+>    ljca_recv+0x651/0x850 drivers/usb/misc/usb-ljca.c:295
+>    __usb_hcd_giveback_urb+0x238/0x550 drivers/usb/core/hcd.c:1657
+> 
+> Check event_cb under client->event_cb_lock and skip the call when no
+> callback is registered.  The same lock is taken by
+> ljca_register_event_cb() and ljca_unregister_event_cb(), so the check
+> cannot be invalidated before the call.
+> 
+> Fixes: acd6199f195d ("usb: Add support for Intel LJCA device")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Thanks!
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Acked-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x 4fe2c2baad01da64d47f1a0c8fc093df994bcef5
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112541-handbrake-curtain-5903@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 4fe2c2baad01da64d47f1a0c8fc093df994bcef5 Mon Sep 17 00:00:00 2001
-From: Chen Cheng <chencheng@fnnas.com>
-Date: Fri, 30 Oct 2026 17:21:28 +0800
-Subject: [PATCH] dm snapshot: split discards on chunk boundaries
-
-dm-snapshot did not set ti->max_discard_granularity when it allows
-discards, so a discard could reach the target unaligned, or spanning
-several chunks.  Set the flag, so dm splits discards on chunk
-boundaries.
-
-Fixes: 2e6023850e17 ("dm snapshot: add optional discard support features")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chen Cheng <chencheng@fnnas.com>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-
-diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
-index 31676ee05514..e49427bdbeef 100644
---- a/drivers/md/dm-snap.c
-+++ b/drivers/md/dm-snap.c
-@@ -1358,8 +1358,10 @@ static int snapshot_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 
- 	ti->private = s;
- 	ti->num_flush_bios = num_flush_bios;
--	if (s->discard_zeroes_cow)
-+	if (s->discard_zeroes_cow) {
- 		ti->num_discard_bios = (s->discard_passdown_origin ? 2 : 1);
-+		ti->max_discard_granularity = true;
-+	}
- 	ti->per_io_data_size = sizeof(struct dm_snap_tracked_chunk);
- 
- 	/* Add snapshot to the list of snapshots for this origin */
-
+-- 
+Sakari Ailus
