@@ -1,47 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795609417;
-	b=SFBs7Qb7uDcfcJw34M4Bz3b3T+/bugNYVfT88D5K2tUy3kJycrFwbHOJvYzcY4IB5V+l
-	 mGsIgPAMfN/xb4nrHDlP9TxTp6EMiassR8A1+yw35/UC4MpLddOp+1XUjhgT0EvrK5nHv
-	 bGjZDQhpwllv3N8/xnzI7OvnCqUJ/DrVNCYj9F5uoDyTydUkY3eaWEed4dP6nG2QSG9Ba
-	 +IuKeLohTqS9kUDEr17F+md7aNL4gZy5DFsk9aHsnTAkJCeXKFn9a6vovtukeilvMRRzF
-	 UbDF+WkWFATrWdGlgWOioVKgvWzMEO25Bk9CClcjEXwkXcizKdxKavplPmdzk9KAP5Q==
+	t=1795609414;
+	b=t82+sCc9ToYiLuZo1Oh13whIQ7P/2ACSybkgseIjnMxnpQDShkhqboGdPSR882icaGLW
+	 Fl1hrsywSiUeFKT2gNSjcBzqtH38Qx4QL+02nZf2nDDoeOMrdLuCfHa/XEDbZwF6Ui46O
+	 HWHObh0ngZwZL54hV0hlrlj2qoFyIx9cV0VEIU7riTfruC9ONcPa7/yQkf1gh4blG7EFK
+	 tAZ6CwSCjNuNPo05ZMtdImPfpIs3mrx+fhoNx/B7Hk2+3dAHaqNazkZ2iqsLBDEVqd9s+
+	 odhVQ7sS92hMOKeHjXiVldTYPuPbKE5ydbXfahHTXgWQjr7zNVyIsUATugb7OtPB3fQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795609417;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=PooGKXx7luGlvBAxDmMNH90fhM0kc1UE8TsEEXO9qtI=;
-	b=sVUMOFJ1kuWbG6ixf3rPveZgJfelPtyhdYIcWXO2O0yE8o2/6PM02xbQpNGh1NbWAi40
-	 2DMVNGR96EHV+t8LobUUkPUqpDXVs5HASOh0cxbiKLGA1P4Z0xHSZpv81NBZJx9aJk/32
-	 rfFXKPYqKio2j6l0Rp0YPFBt9z2hvOVBErEcvDnc1yInR2Ab/GX8258btclByo26xUUcq
-	 yHaP4f/EdoLzZAuooPfdbHtQiiGQoDxmq7LGZRZUrHtHW+B4mU66eiNXw87do6VqeBXdb
-	 eC+v2pAIlsLoK01EkxF3DLsMQ+qGrmJyiHN5Alz1FUiLDZZALEPL+TXmoa5MHH3gtDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795609414;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=3JcPl0u0zEmTMYTdUq4KTpzhdgRKbxbY1Uoa4zzd3fI=;
+	b=3OibTOQY3mERxQIw9fVuI2xHuKfuoSBkXT/aJC147mq9KDIByl9pNybcBj9V4ed0r4/X
+	 dM+vEUPmVH785+SiOWJSpJJKZoEM69AMx2gGwYjwu0/3aA4cSaI6SRx9ic1TMzPquZacO
+	 wNbVhL6jomtCrUDaVNDx0w4cZ325o3mo3HRTGB1H1WqSCEqvtY9mHJOr8Sj3cW22POTLb
+	 K53B0pd4g7xzBwiImgGVkg9EWBEqXehBrexpBOAA9Ux5caqIC5wCHV+3he8fJ7SlBeSTo
+	 d7tsIbbOqtWHOaJI3J/qqkBpJ/fr3hWssEC5n2PsrKGTyciBy+dtHp/xGAxpvMfv6Xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=K1qEG3gk;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MWCNC3c7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B81C606A33A
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:23:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A326606A31E;
+	Wed, 25 Nov 2026 12:23:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=K1qEG3gk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466C81F000CF;
-	Wed, 25 Nov 2026 12:23:36 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MWCNC3c7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 187CE1F000CF;
+	Wed, 25 Nov 2026 12:23:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795609416;
-	bh=PooGKXx7luGlvBAxDmMNH90fhM0kc1UE8TsEEXO9qtI=;
-	h=Subject:To:Cc:From:Date;
-	b=K1qEG3gkbSs38LiLMADc86CLEvhlzFMXRv5KVQFdoiHdubsxnHlxrqnceGQvI4P02
-	 c7lBtXa9HZe7UFx9SAWyfmBKC059FUo2i9ciVPUY6tDlHJ1hHnVTG6A7kF2uG3j3tj
-	 gC6gsLMRgmqawsZNqNcqbzUOL+Dx//gPMqR07eUI=
-Subject: FAILED: patch "[PATCH] drm/amdgpu/mes: skip unmap queue notification during GPU" failed to apply to 7.3-stable tree
-To: Prike.Liang@amd.com,alexander.deucher@amd.com,jinhuieric.huang@amd.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 13:15:54 +0100
-Message-ID: <2026112554-easeful-grove-7e8f@gregkh>
+	s=korg; t=1795609413;
+	bh=3JcPl0u0zEmTMYTdUq4KTpzhdgRKbxbY1Uoa4zzd3fI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MWCNC3c7myMqGLFjmRL+vw46So9XVuf0vNTJrrSCbgGCHqk6VIEmsEEmN1RPmUZqc
+	 jahHxQ/dHU+etQeQpyjBC0DS2jKyrTw8r2Z34epxOxm7tJ/tEmGVcYEFqGdbkDkThN
+	 wb35FU/WtX2L6zWyKNyeMf05BtYI8Yuov5QdZU7I=
+Date: Wed, 25 Nov 2026 13:12:20 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Zhu GuangLei <zhugl3@xiaopeng.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
+	liuwb@xiaopeng.com, stable@vger.kernel.org
+Subject: Re: [PATCH v3] misc/pvpanic: share the shutdown handler across
+ devices
+Message-ID: <2026112547-dayroom-proofing-0658@gregkh>
+References: <20261125091520.173803-1-zhugl3@xiaopeng.com>
+ <20261125115602.72420-1-zhugl3@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,82 +55,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261125115602.72420-1-zhugl3@xiaopeng.com>
 
+On Wed, Nov 25, 2026 at 07:56:02PM +0800, Zhu GuangLei wrote:
+> Each pvpanic device registers its own power-off handler at
+> SYS_OFF_PRIO_LOW. register_sys_off_handler() accepts only one handler
+> per non-default priority, so when a second pvpanic device is probed the
+> registration fails with -EBUSY and the driver logs "Could not register
+> sys_off_handler". The handler that did get registered notifies every
+> device on the list, but it is owned by the first device. Once that
+> device is unbound, or its shutdown event is masked through sysfs, the
+> handler is unregistered and the remaining device stops reporting
+> shutdowns even though its events mask still has PVPANIC_SHUTDOWN set.
+> 
+> Register a single handler for the driver and keep it as long as at
+> least one device has the shutdown event enabled. Serialize updates of
+> the events mask and of the handler registration with a mutex, and also
+> update the mask under the list spinlock, which is the only lock taken
+> by the panic and power-off paths.
+> 
+> The shutdown event only reaches pvpanic when no higher priority
+> power-off handler, such as the ACPI one, turns the machine off first.
+> Tested on a v6.18 based guest booted with acpi=off under QEMU 8.2.2
+> (TCG) with two pvpanic-pci devices created with events=7: after
+> unbinding the first device, or masking its shutdown event through
+> sysfs, and powering off, QEMU did not receive the shutdown byte (0x4)
+> without this change and does receive it with it.
+> Masking the shutdown event on a single device still suppresses the
+> write.
+> 
+> OpenAI Codex was used to write the code change and the QEMU test
+> scripts, and to run the tests. GitHub Copilot was used to review the
+> change, to rewrite this changelog and to prepare v2.
+> 
+> Fixes: 7b51b1373321 ("misc/pvpanic: add support for normal shutdowns")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhu GuangLei <zhugl3@xiaopeng.com>
 
-The patch below does not apply to the 7.3-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
-git checkout FETCH_HEAD
-git cherry-pick -x dcae66f5b9fe539e897aacca8e28bfe802478095
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112554-easeful-grove-7e8f@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
-
-Possible dependencies:
-
-
+Please slow down, there is no rush, at MOST do a new version after
+waiting 24 hours for others to review and catch up.  Usually a few days
+is fine.
 
 thanks,
 
 greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From dcae66f5b9fe539e897aacca8e28bfe802478095 Mon Sep 17 00:00:00 2001
-From: Prike Liang <Prike.Liang@amd.com>
-Date: Tue, 13 Oct 2026 12:54:13 +0800
-Subject: [PATCH] drm/amdgpu/mes: skip unmap queue notification during GPU
- reset
-
-amdgpu_mes_userq_notify_unmap_work_handler() submits a MES misc op
-without holding reset_domain->sem, so it can ring the MES doorbell while
-the GPU is being reset:
-
-  WARNING: amdgpu_device.c:928 at amdgpu_device_skip_hw_access+0x73/0x90 [amdgpu]
-  Workqueue: events amdgpu_mes_userq_notify_unmap_work_handler [amdgpu]
-  Call Trace:
-   amdgpu_mm_wdoorbell64+0x20/0x70 [amdgpu]
-   mes_v11_0_ring_set_wptr+0x71/0x80 [amdgpu]
-   amdgpu_ring_commit+0x5b/0xa0 [amdgpu]
-   mes_v11_0_submit_pkt_and_poll_completion.constprop.0+0x207/0x520 [amdgpu]
-   mes_v11_0_misc_op+0x8b/0x240 [amdgpu]
-   amdgpu_mes_notify_unmap_queue+0xa3/0x110 [amdgpu]
-   amdgpu_mes_userq_notify_unmap_work_handler+0x24/0x70 [amdgpu]
-
-Only send the notification when reset_domain->sem can be trylocked. The
-work re-arms itself while the HW queues are oversubscribed, so the
-notification is retried once the reset has finished.
-
-Fixes: c0431e1aecdb ("drm/amdgpu/userq: create the same workaround of oversubscription timer")
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-Cc: Eric Huang <jinhuieric.huang@amd.com>
-Reviewed-by: Eric Huang <jinhuieric.huang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 6c7eee33c1487ed68a41d9d0a5bd932ad32b15d1)
-Cc: stable@vger.kernel.org
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 8d813c68450b..384510c343cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -1191,7 +1191,11 @@ static void amdgpu_mes_userq_notify_unmap_work_handler(struct work_struct *work)
- 					       userq_notify_unmap_work.work);
- 	struct amdgpu_device *adev = mes->adev;
- 
--	amdgpu_mes_notify_unmap_queue(adev);
-+	/* MES is unusable during GPU recovery; the re-arm below retries later */
-+	if (down_read_trylock(&adev->reset_domain->sem)) {
-+		amdgpu_mes_notify_unmap_queue(adev);
-+		up_read(&adev->reset_domain->sem);
-+	}
- 
- 	/* Re-arm if still oversubscribed */
- 	if (atomic_read(&mes->userq_hw_queue_count) >
-
