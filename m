@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795645683;
-	b=aAXzOEaaFW900Vp6eaKyPTZ9dPmY6bwDp3ddkeOrW+iSmmBW5b1Ruxk0NW/z2ivWEpdK
-	 qXdizLrpmEfucp/wpfo+QOhoqfbQytIQshAvJHQrdWJ8YUyVmy9viGueGRRSBqg61QMxZ
-	 jyLjmqMb3YDtlPiiCrmK1yuOzFYQftOMBZxAZ8MLOuAxUstFXsmQkH5xYjueVDg2LcH2Q
-	 M/jyfTzhNW0Y3aAULhc+r6fsM44MYpc95tkLLE9QzWA/Y6t0X0scqOIvyNoTPnAINIh4I
-	 pFLvsYHXirNEuK30ylN/gBuWblK2tVHC+HEt6W5u1cdgWMsSVG8T7TUwfyywuajfelQ==
+	t=1795645709;
+	b=Ap8macCSloIXjWnxHvNMqf/QXVK1ec+377p+E9LCCxm0mab86YbPFt7IJgCHsquB0otv
+	 HyJ86bmH7yZJ2vKQf9wvgaAUcJmb9IzLYxHc277L6mU5shqN3sRhJMZC+/bMB6Ze2k7l1
+	 eFHnS8D+Sf5lqXw4ezgKaEaH4K4bjbfKYJi/XBRERceN8pu7C36sS+8jLYWHyuarK8w/f
+	 eONRlMMQShk2xYmQylypEmUcZnrZGf50LO+j4PjWJujepzKy7Yh1iY1Q5rN32u+mJB5I6
+	 ltl8IWSpel4wVu4UcfrYYO6z80wWG0YXgXmxa1Uq8nQmOY4+q2ewPSa8c12HKzecCow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795645683;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795645709;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
 	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=pGLqG+R6IwEUEhnoQECM2DID9vMzArkmStKfaJkmTj8=;
-	b=ajH4Djd8WscK4iu/5g9zVSn5VCgFF2NvZQS7hEBjGSx4g69F0SwbHN8ygEHwdBXjOw6Q
-	 qWZJ96k+EECMcZmdAYYux4FyBI3PYU9k1ty8BB53wp/pHYMWAY6W+jy93bxwLG1rf3r9a
-	 /AjbD27A2YvvP5Brkrq0nxgbd+4vcYuzCyewPMEdwSiADiGwaCbLaSpoNR13CRPhQxFoM
-	 Zes++wCZ9d85bh3cZE8XBeiHp6O/om5JqCLrn4EEaSHV9dYo3EGX9DM/j+1CLK+oGPhrg
-	 ffelK+cLtGzCsboPjdBxEsQw9Qh5jpDx700NcH+24puqZ8sUFWy5UaLmSNzDjmv9EYw==
+	bh=bB9dahbauIY6gVR9GUf26/TEEIOmcwn74D5zXKoaRTs=;
+	b=1jmjR+n6MW2xFrVWrGDfo3vheFnjZjBKd14B1vNZqBArVY3sqD3PhcWKFsE6J6VopYae
+	 R/mF+2kU02pkQV+ZnZrXdLPUz75dJjOwbb1vdIZMdJqJXJs5rvgApF3AgZJwZKZZkcOL1
+	 28qFHLTBCNmLm+Qj3zl5wR51JxO88uDskzA5cebWRyD55YLiuwU8DxFon+MPBeU3yMjOr
+	 5MUP9Ru7225smKclcQ8iwRoe6KYy5BCqjfKi7jaFFjHtKPKq1TPA5FkBfXxZ2UI4j9mLL
+	 USh2Xanw0fb9m3vYaUOfYid7GmaosE9/M800xOpGXexUZQJD76rovFLAXUHpokwo2sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--elkin.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SosT4sDy;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gEuAIfW2;
+	arc=none smtp.remote-ip=74.125.82.198
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B96606A327
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 22:28:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0B96606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3278A606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 22:28:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3278A606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--elkin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SosT4sDy
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-386ad819860so2722838eec.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:28:02 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gEuAIfW2
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-375bac6bd21so6455587eec.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:28:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795645682; x=1796250482; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1795645708; x=1796250508; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pGLqG+R6IwEUEhnoQECM2DID9vMzArkmStKfaJkmTj8=;
-        b=SosT4sDyOt1HfjO6iaoT9gFbof7lS4I0lDR/WMLwVLNXoMEUNWzr1RqwPhy/Gmg8ix
-         JuO5Z1Vn9bdOjy3JC8MG5wrhutcdkluIoQIRLKMZRiL+lE2GicNLMdO6GI/NcwI+QuZp
-         hQpe6p5WecbT3WD88rI4bNQKj/25IJ/L3WBvNRCkLth6AmHRSCPOON2wpo3guxIuhIKh
-         dsIjkubS3h40Kpo3ByKH/romcRHVGIaMuPLWsVvJXIGalng8DwbDB4irCWhYzEJl+jvC
-         Pheibqk2YNNRkxObn5ZvGep4EMV/1jQXjPcdP0q0TE7IEA4uwvHMXFkr79unESX7mtdn
-         wpEw==
+        bh=bB9dahbauIY6gVR9GUf26/TEEIOmcwn74D5zXKoaRTs=;
+        b=gEuAIfW2PwwuZoWNRspnLc6yTnLsXF4VrYR69h/SaRXixoHcD++1Er7TnVuIcgATxq
+         LDRSPcab9ONssZt805d131zL+AcHL2t3U8L5HADpSvbVhN3GSOMNW9e6mtTnzougCeyn
+         oPpd4N47tlnfiyT/3d5tvNgb8zA3KCCjrCmCFJYiLsHZkQecTi3LVjof4Hk078j+ymmn
+         3nLiBV1kEKz+c0tqRA46C7CuRuFKwIxndqXlq3BUtw/J/rDqfuJ4IkPbZIUWGYtDp/6R
+         SpAZ7Xb/9eSW/a3V1dsdNa3PLZBtzysvovrSXdi1ZfLm6eCu/uJZFkQMabzwVbn+BsYk
+         H4cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795645682; x=1796250482;
+        d=1e100.net; s=20260707; t=1795645708; x=1796250508;
         h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pGLqG+R6IwEUEhnoQECM2DID9vMzArkmStKfaJkmTj8=;
-        b=p65GndxNjqz/SFVy8/jFVozj38iR5nUDKML5nAFP81iXwCenvwbAkpbXjesp89p229
-         MBtfTM8QkTPvr9/4f7XuwAuvcWNd8VHVVhkT3K8322KmJ45HENCjdVTzn0W8MsEUtr4S
-         uJ2wDx0AW4H/v08bb6tVsFM1/v5nhw2zhTNaAGF1ZUovN688hP36U0GDfLz3EkWLgUF4
-         pZq2Qb5oI+1Z93oOkIlTgwR3zjavj1L5CChL8688VmzZSypFvNp+aNiZWAUJgQ1kv07B
-         pYxxwe2JhqMN3pYaHLgXK7o0E9Zs3hFAyR+3/TXDwZZ6WtS7IkISKtoMYa+dwkn88YY4
-         uy2w==
-X-Forwarded-Encrypted: i=1; AL+hErGrzNiYDVqC26dV5GCjRlvceycyYnbaBDzIbNApSeyiAuyWUdO29pQHtzicQ79ryvhlL8U9J9M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+rg3m79mHG3zSRD1Cyi7LRvsQdKCLc7VXdCy8qpIBebVFcx3bR
-	lXqJcFnIHzY7gH16jhsAvUteqpDJLcPCuzmdKQDPfXHZuWvsESpkxMQppXH7GO5Nr2dw+vYBL6n
-	vpg==
-X-Received: from dycmv2.prod.google.com ([2002:a05:693c:2802:b0:386:b5d2:c426])
- (user=elkin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:dc3:b0:386:ce5a:41aa
- with SMTP id 5a478bee46e88-386ce5a47f9mr3340721eec.13.1795645681576; Wed, 25
- Nov 2026 14:28:01 -0800 (PST)
-Date: Wed, 25 Nov 2026 22:27:29 +0000
+        bh=bB9dahbauIY6gVR9GUf26/TEEIOmcwn74D5zXKoaRTs=;
+        b=Yt8Ms/wDiSpLgHRpWpWs69RGoWWrqoZgsl/9XkWaYwGyg+JQDia88JHNLCO7lgdfsB
+         zURWnndrZYTJrR69kL0jvNJrqUXtVmrWygGDtYfDez+oyj7DCq3pYWKYlzisdm8SHSI/
+         wciIRaR8hrdqu6USOFpWhmciwCPWuuPnCwpzdAgXLW6H00HNhEd5Vwo4J6CSNawghaji
+         RW6HMEMLQcaYFaAg6Dx+OzAntQhjVipduyz7w0zYfcGLW/uFcuFe47kIvwfMOUmGaseB
+         4FWZ4h9spTRarWPxDxGMwxq8Uy3kSRi9M2VQ4o9tsfdds2PwLYlI0BqLFncp1dikXY6v
+         LuJA==
+X-Forwarded-Encrypted: i=1; AL+hErHSOz8xE1EWz1i8yAr9hY+rjYgsXJIOlca2/ppzZL9VBknAfiS2KARLOZTYBYkKYb38zONPfKk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9rTqYtUdXhgSAfghGrQZnPP6kdG33Zy5lOPfE4KR99IYuStiJm
+	XM+9gOl7hKBy2kdJw9UfMfLJkE0rFbRuJPF4uwmKGsjyzBiKHD4OwUrWqsGEpErdy8esucc9tQ9
+	8DQ==
+X-Received: from dleb17-n1.prod.google.com ([2002:a05:701b:4251:10b0:1a7:f7dd:f258])
+ (user=elkin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:2706:b0:192:a481:361
+ with SMTP id a92af1059eb24-1b5568c12e0mr18196883c88.7.1795645707988; Wed, 25
+ Nov 2026 14:28:27 -0800 (PST)
+Date: Wed, 25 Nov 2026 22:28:02 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,37 +77,29 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
-Message-ID: <20261125222729.1450842-1-elkin@google.com>
-Subject: [PATCH] sched/core: Avoid atomic cpuset_lock() in __sched_setscheduler()
+Message-ID: <20261125222802.1451781-1-elkin@google.com>
+Subject: [PATCH] media: cx231xx: clamp bulk buffer copy length to vb2 plane size
 From: Elkin Cruz <elkin@google.com>
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, irogers@google.com, 
-	Elkin Cruz <elkin@google.com>, stable@vger.kernel.org
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev, irogers@google.com, Elkin Cruz <elkin@google.com>, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-When Magic SysRq-N invokes normalize_rt_tasks(), it holds
-read_lock(&tasklist_lock) in atomic context and calls
-__sched_setscheduler(p, &attr, false, false) with pi == false to reset
-real-time and deadline tasks to SCHED_NORMAL.
+In cx231xx-417, start_streaming() initializes bulk URB buffers of size
+320 * max_pkt_size (up to 163,840 bytes for 512-byte USB 2.0 bulk
+endpoints), whereas queue_setup() allocates vb2 plane buffers of size
+mpeglinesize * mpeglines (65,536 bytes by default). Passing unchecked
+len into buffer_filled() overflows the destination vb2 plane buffer
+when actual_length exceeds the plane size.
 
-For a SCHED_DEADLINE task, dl_policy(p->policy) is true, so
-__sched_setscheduler() calls cpuset_lock() (mutex_lock(&cpuset_mutex))
-while in atomic context under tasklist_lock and then skips
-cpuset_unlock() on exit because unlocking is gated on if (pi), leaving
-cpuset_mutex permanently locked.
+Guard against non-positive lengths in buffer_filled(), clamp the copy
+length to vb2_plane_size(), and record the payload length via
+vb2_set_plane_payload().
 
-Guard cpuset_lock() with pi (matching the non-atomic caller contract,
-where switched_from_dl() releases deadline utilization under rq/dl_bw
-spinlocks) and call cpuset_unlock() on exit whenever cpuset_locked is
-set.
-
-Fixes: 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex")
-Signed-off-by: Elkin Cruz <elkin@google.com>
+Fixes: 64fbf4445526 ("[media] cx231xx: Added support for Carraera, Shelby, RDx_253S and VIDEO_GRABBER")
 Cc: stable@vger.kernel.org
+Signed-off-by: Elkin Cruz <elkin@google.com>
 ---
 
 I am trying out new Clang static analysis checks for kernel bug
@@ -118,38 +110,34 @@ then checked against linux-next (not runtime-tested on hardware).
 Thanks,
 Elkin
 
- kernel/sched/syscalls.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/media/usb/cx231xx/cx231xx-417.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index a5ff3c47e9ea..f44fc426404c 100644
---- a/kernel/sched/syscalls.c
-+++ b/kernel/sched/syscalls.c
-@@ -575,7 +575,7 @@ int __sched_setscheduler(struct task_struct *p,
- 	 * SCHED_DEADLINE bandwidth accounting relies on stable cpusets
- 	 * information.
- 	 */
--	if (dl_policy(policy) || dl_policy(p->policy)) {
-+	if (pi && (dl_policy(policy) || dl_policy(p->policy))) {
- 		cpuset_locked = true;
- 		cpuset_lock();
- 	}
-@@ -724,11 +724,11 @@ int __sched_setscheduler(struct task_struct *p,
- 	head = splice_balance_callbacks(rq);
- 	task_rq_unlock(rq, p, &rf);
+diff --git a/drivers/media/usb/cx231xx/cx231xx-417.c b/drivers/media/usb/cx231xx/cx231xx-417.c
+index 55af8b9f2038..0b3e856f6d21 100644
+--- a/drivers/media/usb/cx231xx/cx231xx-417.c
++++ b/drivers/media/usb/cx231xx/cx231xx-417.c
+@@ -1297,15 +1297,18 @@ static void buffer_filled(char *data, int len, struct urb *urb,
+ {
+ 	void *vbuf;
+ 	struct cx231xx_buffer *buf;
++	size_t copy_len;
  
--	if (pi) {
--		if (cpuset_locked)
--			cpuset_unlock();
-+	if (cpuset_locked)
-+		cpuset_unlock();
-+
-+	if (pi)
- 		rt_mutex_adjust_pi(p);
--	}
+-	if (list_empty(&dma_q->active))
++	if (len <= 0 || list_empty(&dma_q->active))
+ 		return;
  
- 	/* Run balance callbacks after we've adjusted the PI chain: */
- 	balance_callbacks(rq, head);
+ 	buf = list_entry(dma_q->active.next, struct cx231xx_buffer, list);
+ 
+ 	/* Fill buffer */
+ 	vbuf = vb2_plane_vaddr(&buf->vb.vb2_buf, 0);
+-	memcpy(vbuf, data, len);
++	copy_len = min_t(size_t, len, vb2_plane_size(&buf->vb.vb2_buf, 0));
++	memcpy(vbuf, data, copy_len);
++	vb2_set_plane_payload(&buf->vb.vb2_buf, 0, copy_len);
+ 	buf->vb.sequence = dma_q->sequence++;
+ 	buf->vb.vb2_buf.timestamp = ktime_get_ns();
+ 	list_del(&buf->list);
 -- 
 2.56.1.839.g22a8290db9-goog
 
