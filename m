@@ -1,60 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795621719;
-	b=ui59w31PcUS9hgh6mKJOCV3Vb495/wCH7XGwMZ4Ur6IlVmdIHP1FBq28rHfShtquIITK
-	 /cWj2cHC1uin84WApEWtKYUsahvpSlB5fUOliQVYSx4E0EXpn1S1eVwZhL5j2IDephlvP
-	 YJKY2dZbvQlXPaM00mGemMofoyCYYBptna94PMGVzR1UllILBKfWmM0C9hvJCEy5Li7//
-	 ZBvXFCaxAZyr+gGYTBQeVOV+4dTLbyaWbVeYeXZA7FJICk/vx3qeSok8h+JwBbJIIJRq1
-	 bq0QDFQl1hDtiIlHsCR3do0Wl3wI8+LmGSCw7sRX++Lv2+3D+EkhggvGv/bxY61BVGA==
+	t=1795621721;
+	b=Pms40Xvh1XmaxrRMh9eK7KlkQZrDEvUWyGlMGXGCOhPFyx4AnBrTyV6DuVY9+il1AsVv
+	 K2Y1fquPwtX9wCjK4RV4xZDiZZKx15I/s5QtyyDbv6cpptq91UVeCyjmoFsjJqf9WUeyj
+	 J08I97GoBA7mFFc3rpQ9kyDcQ++V1flDMD8wigpgXmWd7AUUOdwosoknKilmYjGc6wj1C
+	 laBkdRCEcwlYIPpRJfVPddszLPB3tEhFrCogBxpqiPP5swnRd6FkFfHj0dUMrixpI7NFd
+	 wsO1mH6Fj6DOP5Hl5eQoIhwWQRCz8FmX6GpM5Elcr/tn1P533smJ7mcx513tT+TyUbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795621719;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795621721;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=GLfo6Y8B6mJlsnQwfPVT6MDhrpSBqknviga8Z/SluNI=;
-	b=gWc8hpo+lnXc76GQbO1xBuB7nqkalWmj+TJIF/DyV1xw9fg7U3qlWFNKnw5UtUljOE7y
-	 qgz/kiZEyLoKssVRI4b4tObI1xpwy0xlVk18vRwDFUi4ancOUtP0Mqkk6b3UPWKK3iqrX
-	 M8oHXNWLgr87moiPMy950p9lzYzxFHI8PBp0H343CCMEYsxuVTEf1VJVwJN3jFKu3hH/O
-	 V9EoDltdSLlK1ht9w0SBHPuj/aHzWIMnBjrWJsFGbxYFudKCxONNkCMHtIBrKEdL3oyr9
-	 1dhmYNHhFeWaBAIeSm7BiVYVvZZ//7XU8/uOWo20ovjfKLVvZz//886lnC4F7vFlrJg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Xqy/cnntJwhR5FQgS+mIMw/XKK5JM5UfQXSLF1KToqg=;
+	b=ZLRQunolLsCTQCD6xAJWogXV0mDsvFN2IN8/IiDa5N9sAZGkMbEF2FYdXvrPQLZxWaAk
+	 3MzYGP4OsnJyayhu2NajSn677s7vjJtgCIAbUp1RIuB7It4s3wxDTjvOOBxm+A5qcNnOy
+	 uwC4N3swmjAVLx/TYLjoe+V40xFEFGclHk8+3pVsoZeD0oF4e4everkkAnShqJA4F0mAT
+	 xVnw5LZ2b0SACNaZGTkrs0qWd31uZNAwHT8itfp0muVtv7xHV6MLXgenUg4w8XlCwytfe
+	 UdUKJUL69YVB2iSBZ5unb9fCtKBwLrQV2jYBqX1RB9rjG9NahA98wJ0vvxEx7f906Kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Uyd3r7+Y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O1NQC95p;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F98606A32A;
-	Wed, 25 Nov 2026 15:48:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DCEC606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:48:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Uyd3r7+Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 011931F000C4;
-	Wed, 25 Nov 2026 15:48:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795621719;
-	bh=GLfo6Y8B6mJlsnQwfPVT6MDhrpSBqknviga8Z/SluNI=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O1NQC95p
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3544B1F000C0;
+	Wed, 25 Nov 2026 15:48:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795621720;
+	bh=Xqy/cnntJwhR5FQgS+mIMw/XKK5JM5UfQXSLF1KToqg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Uyd3r7+YtE/0UJVov7oa+mu52fMFBfTgMGVe82HUKSU6fkqX8t5CXu51uMxrEI/a1
-	 0PBjTlEKUvS3zhKgPo2eNwu3bXBbx5TdjSt+z+oIux73zqaDvp0whosnEtCn9vU5xD
-	 ECTHSYA+E3nesSEVbI/BrTqWfhrgWAjaBLBi0YyI=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=O1NQC95pnITtePkz3h8V+HR6XzTq45O5UWD52M7EIEk5q/Dk22P1vCbV9Tj2rPYPk
+	 D8/ogghDqswcPuA7sETFasMNQG0agpeRKbRxxH5/h+9C+U2PCgZABCmuvPt6jUj8s0
+	 Z258udTi/xDSbqwsh4P8CwH2ihUUpZ1SqoAN4Pj85v7Hr840mggDNRYibceLCRqom+
+	 rXLAc6nh5d2indmXKAd2/MmjmPBe6SC/1CYOX/qOpacCyKWN3zbl/MqcBcENCOWule
+	 bkkSe7//J65zuf/vDcQI43PasRCkOL8ufzMq3OKp+kt1MHNF38ba/moiA036rbDh5O
+	 APbCw6aouvTDw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Ridge Lomont <cyridge@proton.me>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
+Cc: Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 316/990] x86/kcfi: Dont emit KCFI_REFERENCE() in modules
-Date: Wed, 25 Nov 2026 15:28:03 +0100
-Message-ID: <20261125143829.493198717@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.10.y] net: gro: do not undo remote checksum offload on merged packets
+Date: Wed, 25 Nov 2026 10:48:38 -0500
+Message-ID: <20261125154814.588118-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112510-gently-tweezers-f0da@gregkh>
+References: <2026112510-gently-tweezers-f0da@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,86 +61,105 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Eric Dumazet <edumazet@kernel.org>
 
-------------------
+[ Upstream commit c817ec1b06875b98460fbd19591be541bc3fa924 ]
 
-From: Ridge Lomont <cyridge@proton.me>
+skb_gro_flush_final_remcsum() calls skb_gro_remcsum_cleanup() to undo
+the checksum adjustment done by skb_gro_remcsum_process() when the
+packet was not consumed by GRO.
 
-[ Upstream commit fb685de78e6bf79e49854e7d149f69b125583de5 ]
+When the inner handler merged the packet (NAPI_GRO_CB(skb)->same_flow
+is set), grc->offset can no longer be trusted:
 
-KCFI_REFERENCE() takes the address of a symbol so that the compiler
-emits its __kcfi_typeid_ symbol, which the SYM_TYPED_FUNC_START()
-assembly implementing it needs. It is used from arch/x86 headers for
-__clear_pages_unrolled(), copy_page(), __memset() and __memmove(), and
-all of that assembly is built into vmlinux.
+- skb_gro_receive() either gives the frags or the head of the skb
+  to the held packet, or uses __skb_pull(skb, offset) before adding
+  the skb to the frag_list of the held packet.
 
-Modules include the same headers, so with CONFIG_CFI=y every module
-also gets an __ADDRESSABLE() reference to each of these symbols in
-.discard.addressable. This serves no purpose there, and since
-__clear_pages_unrolled() is EXPORT_SYMBOL_GPL, modpost now rejects any
-GPL-incompatible module that includes <linux/mm.h>:
+- skb_gro_receive_list() uses skb_pull(skb, skb_gro_offset(skb)).
 
-  ERROR: modpost: GPL-incompatible module repro.ko uses GPL-only
-  symbol '__clear_pages_unrolled'
+grc->offset is relative to the original skb->data, so the 2-byte
+read-modify-write done by skb_gro_remcsum_cleanup() can land in
+the payload of a packet which now belongs to the GRO packet.
+pskb_may_pull() can also be called on this frag_list member.
 
-even though the module never uses the symbol. This makes OpenZFS
-impossible to build against CFI kernels; its configure checks fail
-in the same way and are misreported as CONFIG_DEBUG_LOCK_ALLOC.
+With fraglist GRO, this can also be a use-after-free:
+pskb_may_pull(skb, skb_gro_offset(skb)) in skb_gro_receive_list()
+or udp_gro_receive_segment() releases the first page fragment if it
+only contains headers. NAPI_GRO_CB(skb)->frag0 and frag0_len are not
+updated, so skb_gro_remcsum_cleanup() takes the fast path and writes
+through frag0 into a page the skb no longer holds a reference on.
+The non merged case, where frag0 is used after this pull, is handled
+in the following patch.
 
-scripts/module.lds.S does not help here: modpost checks <module>.o
-before the final link, and even after it the discarded section only
-loses its relocations, the undefined symbols stay in .symtab, where
-the module loader resolves them with the same license check.
+For skbs merged by skb_gro_receive(), the cleanup can be skipped:
+the skb is freed, or its headers are rebuilt from the head skb in
+skb_segment().
 
-Only emit the reference when building vmlinux.
+Fraglist members keep their own inner headers, as skb_segment_list()
+only copies the link-layer and tunnel headers from the head skb.
+Their checksum can not be right in all cases: a packet forwarded with
+its tunnel header needs the original value, while a VXLAN packet
+decapsulated locally needs the adjusted one, as vxlan_remcsum() only
+adjusts the head skb. Make skb_gro_receive_list() refuse packets with
+skb->remcsum_offload set, so that fraglist members never carry an
+adjusted checksum.
 
-Tested on x86_64 with clang 23.1.3 and CONFIG_CFI=y, with both
-CONFIG_LTO_CLANG_FULL=y (the configuration from the Fixes: commit) and
-CONFIG_LTO_CLANG_THIN=y: vmlinux links without warnings and still contains
-__kcfi_typeid___clear_pages_unrolled, __kcfi_typeid_copy_page,
-__kcfi_typeid___memset and __kcfi_typeid___memmove. It boots in QEMU
-with no CFI failures. A minimal module with MODULE_LICENSE("Proprietary")
-including <linux/mm.h> fails modpost before this change and builds and
-loads after it. OpenZFS builds against a CFI kernel with this change,
-and its pool, encryption, checksum and send/recv operations run
-without CFI failures, in QEMU and on a desktop with CFI enforcing.
+This affects VXLAN (VXLAN_F_REMCSUM_NOPARTIAL) and GUE
+(FOU_F_REMCSUM_NOPARTIAL).
 
-Fixes: 9b041a4b66b3 ("x86/mm: Ensure clear_page() variants always have __kcfi_typeid_ symbols")
-Assisted-by: LLM
-Signed-off-by: Ridge Lomont <cyridge@proton.me>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Acked-by: Nathan Chancellor <nathan@kernel.org>
-Link: https://github.com/openzfs/zfs/issues/18092
-Link: https://patch.msgid.link/20261027-kcfi-reference-modules-v2-1-3a3247f15806@proton.me
+This was found while fixing a report from Taesoo Kim and Cen Zhang,
+who used LLM assisted code analysis and provided reproducers.
+
+Fixes: 26c4f7da3e41 ("net: Fix remcsum in GRO path to not change packet")
+Cc: stable@vger.kernel.org
+Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+Link: https://patch.msgid.link/20261104151042.1157782-2-edumazet@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: adjusted the remcsum cleanup to the older tree layout: code lives in netdevice.h and skbuff.c, and uses skb_gro_header_fast() instead of skb_gro_header(), with different surrounding context. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/compiler.h | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ include/linux/netdevice.h | 8 +++++++-
+ net/core/skbuff.c         | 7 +++++++
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/compiler.h b/include/linux/compiler.h
-index 5b45ea7dff3e5..2911b9e622929 100644
---- a/include/linux/compiler.h
-+++ b/include/linux/compiler.h
-@@ -248,10 +248,13 @@ void ftrace_likely_update(struct ftrace_likely_data *f, int val,
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 55be695d50532..34007d0cb68ac 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -3125,7 +3125,13 @@ static inline void skb_gro_remcsum_cleanup(struct sk_buff *skb,
+ 	void *ptr;
+ 	size_t plen = grc->offset + sizeof(u16);
  
- #endif /* __KERNEL__ */
+-	if (!grc->delta)
++	/* Once merged, grc->offset can not be trusted: the frags or head
++	 * of this skb now belong to the GRO packet, or skb->data was pulled
++	 * past the headers before adding it to a frag_list.
++	 * skb_gro_receive_list() does not merge packets with an adjusted
++	 * checksum, other merged packets do not use their headers anymore.
++	 */
++	if (!grc->delta || NAPI_GRO_CB(skb)->same_flow)
+ 		return;
  
--#if defined(CONFIG_CFI) && !defined(__DISABLE_EXPORTS) && !defined(BUILD_VDSO)
-+#if defined(CONFIG_CFI) && !defined(__DISABLE_EXPORTS) && !defined(BUILD_VDSO) && \
-+	!defined(MODULE)
- /*
-  * Force a reference to the external symbol so the compiler generates
-- * __kcfi_typid.
-+ * __kcfi_typid. Only vmlinux needs it, as that is where the assembly
-+ * using the typeid lives; in a module it would only add a reference to
-+ * the symbol, which fails modpost if the symbol is GPL-only.
-  */
- #define KCFI_REFERENCE(sym) __ADDRESSABLE(sym)
- #else
+ 	ptr = skb_gro_header_fast(skb, grc->offset);
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index 408e4b9935a10..bd0818d7f90be 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -3895,6 +3895,13 @@ int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
+ 		     NAPI_GRO_CB(skb)->flush))
+ 		return -E2BIG;
+ 
++	/* Fraglist members keep their own headers. Their checksum can not
++	 * be right both for a forwarded packet and for a decapsulated one,
++	 * if remote checksum offload adjusted it.
++	 */
++	if (unlikely(skb->remcsum_offload))
++		return -EINVAL;
++
+ 	if (NAPI_GRO_CB(p)->last == p)
+ 		skb_shinfo(p)->frag_list = skb;
+ 	else
 -- 
 2.53.0
-
-
 
