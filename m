@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795636025;
-	b=PiqNZL6fqprHBslNAFGz3dwkmKD/mBn1JbuygjN/kYZXQBMpnFC+f67AxA16RtKHdm7P
-	 p70yVs5Qv3gnM9zYcEtKyDSIj5iZbtRTOpTYBcxiLLtE1T2wSR7MX1fBQQBQWPnyEVfCx
-	 Pih3VYf8H+IKHuwW2j74lgwlkokSkZYnQCJR0kvQGjFmOO1Z7iGWn4eSw7aHPKr0zujSQ
-	 c0FoxJ6s8rSBuGbRa/drcd4uT9UxqA+MHzgvnT8qAeSbhA5ULtwWu36L+SXfk+AmyBIXU
-	 9WdVlV+bCxEkvPkNtSWWGI5+hd2kLyPXGF2hq3xdziGq9DtU3KGTHuVngVfk3pusPHQ==
+	t=1795636026;
+	b=4081UYN4eMqjKr5XhrtHKzkjgsto7mYF3bcObkD5amHNhSYkY0nFzSnUjf4OGuAbCCwP
+	 zokmoFCB5wXkU8x82Qhjw6bieb/tQiabGrcXgjM+efqD4M9kNHQcxgO6u/3WJueIwb4pV
+	 vcJsy/B863kXMWnpsEnQQYv/E+kOL0ahpirvYY4/nhVR07ZcbfEEsFPu1ALOhrFQzB1a+
+	 8LhFpwEan5DFMKRzTn2/+YBf2n+WKFXQY/re2M1f1QHmK7BUcRjDX6NRNF6ei4bsS5nxy
+	 2xYb+frhCxFZMaS5VeUoZUqIz7DJvuAgS0vz/4QxMWGhn95YqiWWQnBdZFt1Wc58LFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795636025;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795636026;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=kqAKDv/8K1e5Yc1gDXxHPwdQrFNAd8oErwKtUE5FYVY=;
-	b=EZqQvTHVpN49w91lRs5UkVvW3NpaBC1Egwvj5zj7prDWzhc9jxMBHcp58tYZ3bIsew5F
-	 IuLPC6HZ6KZ2jUe/BYyV57+Ty3LAi3YSavUweyLHIdP29yNvYGTrQ531AVR7DFkSXi4af
-	 U5ZhiwvoVkTHrP71h+flsQq9dOxleE4+BKrwwSjb7+d1LN6vhbMuDf0+qprozvujBiu6b
-	 6JQbfUehFCua9hy/lywl/+PAD230q26xdNl/ymjtTxcHRl0CHoNdcdpHmSyBp3qFez3ml
-	 wlWM70J+feNRUI96R0qkfwgpICrUhZa/1MD8zdS3NswrCggtPKEtA3vAiKYcCd43OSQ==
+	bh=LIRwkauZxqSG1ki52vsU5a1xUINinaPXINZ0IVCPowY=;
+	b=DUWX/izsMZm8JsgNnEw6Dww0iusBU4vZiQ5rSahT4Vs8oEJ+6TgZ1TjLq1nh/Ydh1ZGZ
+	 zaPAuPcadBHpG/2aiqd1FXxh7trKjG0UCWO9b539EAqjyJ/OXeHf/RCSefXSnRalJ5raW
+	 6vvrxtM98YbBKd5ikfVufmLDTwpb2BM2EMzbXj9Ah4/wp2tyHTchJQLRKnQfrj4gxJt4w
+	 /T+Hz8nia5UdWXZ5Ri6jxOI0cDubSoHsCRYGIv33g1oRHmHpUJnYGWo6EZM8/gxJrMlD/
+	 +Kyhf6U46HOaujedjE2K1ALLj+krBBXxXyDa7udTdq/oUM0WF8914jkFgzVsMRk3mng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="H3w/pQeh";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HNmj7HyD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1E9606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:47:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8E0606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:47:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H3w/pQeh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3FBC1F000D1;
-	Wed, 25 Nov 2026 19:47:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HNmj7HyD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D54C1F000C4;
+	Wed, 25 Nov 2026 19:47:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795636025;
-	bh=kqAKDv/8K1e5Yc1gDXxHPwdQrFNAd8oErwKtUE5FYVY=;
+	s=k20260515; t=1795636026;
+	bh=LIRwkauZxqSG1ki52vsU5a1xUINinaPXINZ0IVCPowY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H3w/pQehjzivzMHyPwO6uAg9Gdv6DZm5T3Q8nOt0sOoJyGEJu1ZoTatcpnMYrPDuY
-	 m1WNRCeMXgtV2wqx0BvC2gRo4xrkea2LGmuapWhTIwHauYWt2dzqhHZ7IwEuG6iza7
-	 TOzdqUb8wUaSAkXgEC3S0DUnTaGa6A2KmYKfgOFIDOyzS+bEXcZaq3K8cjKhzeqi3R
-	 yStkW4KlNoGwo6rrrLkQIThsl6/o+DZVIZllJaJPk68ripB1d/qsAKbnhxZABSkpX8
-	 nTRCAd+hJEe26tNgrtM+9eAvhBgybWWBDQbkzowCr5zStJdBe3hKDsqIqn5IOOb0n3
-	 WGeYR0WDEUB9g==
+	b=HNmj7HyDs6ztmUBHMDui30sKSJL1cb6UaRuCM/aUWtRz+s3rQv+EWYRU6pryaerik
+	 dn58m2y0Ou4i7QM0kfUOugF2UZZkpBi26wzJCjLnO9hpSfPnjZkrHFReYFl3sln4hd
+	 i3MN5Azd9JrsQD+JWuAgj+2Tlh2OuDgu8IeiUZwsRHX71VjEyKcCsGrznJi70rMgEy
+	 OPig4OKU+xam+JDdhGEIfw3Ovpsa3VNE+9dhIFZyU+oupYnI3BLpVC2rPDfQewMfLF
+	 ILWXcPVYRGSFz4Jy4Srrh6cYio55lCYVx1DaSuu9T7wIidAHeXGDza6/ahSTf+VtKO
+	 6rK0p291liKtQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tejun Heo <tj@kernel.org>,
-	Andrea Righi <arighi@nvidia.com>,
+Cc: Jiwoo Kim <arpe1618@gmail.com>,
+	stable@kernel.org,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] sched_ext: Fix ops.enqueue/dispatch() calls before ops.cpu_online()
-Date: Wed, 25 Nov 2026 14:47:03 -0500
-Message-ID: <20261125194630.1239202-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ksmbd: pin parent dentries in SMB2 CREATE ACL path
+Date: Wed, 25 Nov 2026 14:47:04 -0500
+Message-ID: <20261125194629.1256948-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112526-mobster-foe-f1b5@gregkh>
-References: <2026112526-mobster-foe-f1b5@gregkh>
+In-Reply-To: <2026112519-enlisted-ripping-26f8@gregkh>
+References: <2026112519-enlisted-ripping-26f8@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,222 +62,142 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tejun Heo <tj@kernel.org>
+From: Jiwoo Kim <arpe1618@gmail.com>
 
-[ Upstream commit 2227a34ff7bfcf6112931039e3554f4b70b65ab9 ]
+[ Upstream commit 0383a66dabd7aa06237b9b24713c03656abeffe4 ]
 
-ops.cpu_online() documents that the cpu doesn't call ops.enqueue() or
-ops.dispatch() before that op. Both are gated on SCX_RQ_ONLINE, which
-follows the core's rq online state through the ext class's rq_online and
-rq_offline hooks. On a runtime cpu up, sched_cpu_activate() runs:
+smb2_open() and smb_inherit_dacl() read a child's d_parent without a
+dentry reference. A concurrent SMB request can move the child and
+remove the parent while CREATE uses its inode for permission, status,
+and ACL inheritance work. A remote SMB race with concurrent opener and
+mover connections on a writable KSMBD acl_xattr share triggered an
+8-byte slab-use-after-free read in get_cached_acl on tmpfs and ext4
+KASAN guests. With oops=panic, it also caused an Oops and kernel panic
+on an ext4 guest.
 
-1. set_cpu_active() marks the cpu active.
-2. cpuset_cpu_active() rebuilds the sched domains synchronously, and
-   rq_attach_root() puts the rq online as the cpu is active now. The
-   rq_online hook sets SCX_RQ_ONLINE.
-3. scx_rq_activate() calls the root's ops.cpu_online().
+Take a parent dentry reference around each parent inode or ACL access
+in these paths and release it when the operation completes. Treat a
+negative parent dentry as -ENOENT for the affected operation.
 
-Between 2 and 3, ops.enqueue() can be called for tasks woken or migrated
-onto the cpu, and ops.dispatch() can run on it.
+On a tmpfs KASAN QEMU guest, two 3,000-round reproducer instances
+completed without a KASAN report or Oops; SMB remained reachable. On
+an ext4 non-KASAN QEMU guest with oops=panic, a 2,000-operation no-race
+control and two 5,000-round reproducer instances completed without an
+Oops or panic. An SMB health probe still succeeded.
 
-The hooks can't call the ops. They run under the rq lock with IRQs off while
-the ops can be sleepable BPF programs, and handle_hotplug() needs the
-rebuilt sched domains for its idle topology update.
+OpenAI Codex assisted with finding the bug, generating the SMB race
+reproducer, drafting this fix and changelog, and running the tests.
 
-Track SCX_RQ_ONLINE in handle_hotplug() alone. Set it right after the root's
-ops.cpu_online(). Clear it and move the cpu's tasks to its local DSQ when
-the cpu goes down. Sched domain rebuilds, which take a live cpu's rq offline
-and online again, no longer touch the flag, so a remote dispatch can't see
-it cleared by a rebuild and bounce to the global DSQ.
-
-Between 2 and 3, tasks that land on the cpu now go to its local DSQ without
-ops.enqueue(), and with sub-schedulers a task whose scheduler lacks caps on
-the cpu is admitted anyway and counted in SCX_EV_SUB_FORCED_ADMIT. Both
-already happen between 1 and 2.
-
-Fixes: 60c27fb59f6c ("sched_ext: Implement sched_ext_ops.cpu_online/offline()")
-Cc: stable@vger.kernel.org # v6.12+
-Signed-off-by: Tejun Heo <tj@kernel.org>
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
-[ sashal: Inlined the drain loop into handle_hotplug() since drain_offline_rq() doesn't exist here, and dropped the sub-scheduler, ecaps and rescue-flush parts and the path split into ext/ files. ]
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@kernel.org
+Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: Replaced idmap with user_ns throughout and dropped the <kunit/visibility.h> include, since this tree's smbacl.c has no KUnit hooks and the smbacl.c context lines differ. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/ext.c   | 84 ++++++++++++++++++++++++--------------------
- kernel/sched/sched.h |  9 ++---
- 2 files changed, 50 insertions(+), 43 deletions(-)
+ fs/smb/server/smb2pdu.c | 39 +++++++++++++++++++++++++++++++--------
+ fs/smb/server/smbacl.c  |  9 ++++++++-
+ 2 files changed, 39 insertions(+), 9 deletions(-)
 
-diff --git a/kernel/sched/ext.c b/kernel/sched/ext.c
-index b3a6d60709403..5fe3f4aaa16c7 100644
---- a/kernel/sched/ext.c
-+++ b/kernel/sched/ext.c
-@@ -1244,11 +1244,11 @@ static void direct_dispatch(struct scx_sched *sch, struct task_struct *p,
- static bool scx_rq_online(struct rq *rq)
- {
- 	/*
--	 * Test both cpu_active() and %SCX_RQ_ONLINE. %SCX_RQ_ONLINE indicates
--	 * the online state as seen from the BPF scheduler. cpu_active() test
--	 * guarantees that, if this function returns %true, %SCX_RQ_ONLINE will
--	 * stay set until the current scheduling operation is complete even if
--	 * we aren't locking @rq.
-+	 * Test both cpu_active() and %SCX_RQ_ONLINE. %SCX_RQ_ONLINE is set
-+	 * after the root's ops.cpu_online() and cleared when the cpu goes down.
-+	 * cpu_active() test guarantees that, if this function returns %true,
-+	 * %SCX_RQ_ONLINE will stay set until the current scheduling operation
-+	 * is complete even if we aren't locking @rq.
- 	 */
- 	return likely((rq->scx.flags & SCX_RQ_ONLINE) && cpu_active(cpu_of(rq)));
- }
-@@ -1369,7 +1369,7 @@ static void set_task_runnable(struct rq *rq, struct task_struct *p)
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 70150e016e6f7..cd01774de5f0c 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -3188,16 +3188,32 @@ int smb2_open(struct ksmbd_work *work)
+ 
+ 			if ((daccess & FILE_DELETE_LE) ||
+ 			    (req->CreateOptions & FILE_DELETE_ON_CLOSE_LE)) {
+-				rc = inode_permission(user_ns,
+-						      d_inode(path.dentry->d_parent),
+-						      MAY_EXEC | MAY_WRITE);
++				struct dentry *parent = dget_parent(path.dentry);
++				struct inode *parent_inode = d_inode(parent);
++
++				if (parent_inode)
++					rc = inode_permission(user_ns, parent_inode,
++							      MAY_EXEC | MAY_WRITE);
++				else
++					rc = -ENOENT;
++				dput(parent);
+ 				if (rc)
+ 					goto err_out;
+ 			}
+ 		}
  	}
  
- 	/*
--	 * list_add_tail() must be used. scx_bypass() and rq_offline_scx()
-+	 * list_add_tail() must be used. scx_bypass() and handle_hotplug()
- 	 * depend on tasks being appended to the runnable_list.
- 	 */
- 	list_add_tail(&p->scx.runnable_node, &rq->scx.runnable_list);
-@@ -2154,7 +2154,7 @@ static int balance_one(struct rq *rq, struct task_struct *prev)
- 	/*
- 	 * scx_rq_online() can't be used. Its cpu_active() test goes false
- 	 * before CPU hotplug waits for an RCU grace period, and
--	 * rq_offline_scx() moves this CPU's tasks to the local DSQ only after
-+	 * handle_hotplug() moves this CPU's tasks to the local DSQ only after
- 	 * the wait. The grace period can depend on those tasks running.
- 	 */
- 	if (unlikely(!SCX_HAS_OP(sch, dispatch)) ||
-@@ -2655,6 +2655,25 @@ static void handle_hotplug(struct rq *rq, bool online)
- 	struct scx_sched *sch = scx_root;
- 	int cpu = cpu_of(rq);
- 
-+	if (!online) {
-+		struct task_struct *p, *n;
+-	rc = ksmbd_query_inode_status(path.dentry->d_parent);
++	{
++		struct dentry *parent = dget_parent(path.dentry);
 +
-+		guard(rq_lock_irqsave)(rq);
-+		update_rq_clock(rq);
-+		rq->scx.flags &= ~SCX_RQ_ONLINE;
-+
-+		/*
-+		 * An offline CPU no longer calls ops.dispatch(). Re-enqueue its
-+		 * tasks onto the local DSQ so that they run here and
-+		 * balance_push() moves them off.
-+		 */
-+		list_for_each_entry_safe_reverse(p, n, &rq->scx.runnable_list, scx.runnable_node) {
-+			if (p->scx.dsq == &rq->scx.local_dsq)
-+				continue;
-+			guard(sched_change)(p, DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK);
++		if (!d_inode(parent)) {
++			dput(parent);
++			rc = -ENOENT;
++			goto err_out;
 +		}
++		rc = ksmbd_query_inode_status(parent);
++		dput(parent);
 +	}
+ 	if (rc == KSMBD_INODE_STATUS_PENDING_DELETE) {
+ 		rc = -EBUSY;
+ 		goto err_out;
+@@ -3251,10 +3267,17 @@ int smb2_open(struct ksmbd_work *work)
+ 	if (created) {
+ 		int posix_acl_rc;
+ 		struct inode *inode = d_inode(path.dentry);
+-
+-		posix_acl_rc = ksmbd_vfs_inherit_posix_acl(user_ns,
+-							   &path,
+-							   d_inode(path.dentry->d_parent));
++		struct inode *parent_inode;
++		struct dentry *parent;
 +
- 	atomic_long_inc(&scx_hotplug_seq);
++		parent = dget_parent(path.dentry);
++		parent_inode = d_inode(parent);
++		if (parent_inode)
++			posix_acl_rc = ksmbd_vfs_inherit_posix_acl(user_ns, &path,
++								   parent_inode);
++		else
++			posix_acl_rc = -ENOENT;
++		dput(parent);
+ 		if (posix_acl_rc)
+ 			ksmbd_debug(SMB, "inherit posix acl failed : %d\n", posix_acl_rc);
  
- 	/*
-@@ -2662,8 +2681,14 @@ static void handle_hotplug(struct rq *rq, bool online)
- 	 * stable here. Note that we can't depend on scx_enabled() test as the
- 	 * hotplug ops need to be enabled before __scx_enabled is set.
- 	 */
--	if (unlikely(!sch))
-+	if (unlikely(!sch)) {
-+		/* no root to notify, set %SCX_RQ_ONLINE right away */
-+		if (online) {
-+			guard(rq_lock_irqsave)(rq);
-+			rq->scx.flags |= SCX_RQ_ONLINE;
-+		}
- 		return;
-+	}
- 
- 	if (scx_enabled())
- 		scx_idle_update_selcpu_topology(&sch->ops);
-@@ -2677,6 +2702,18 @@ static void handle_hotplug(struct rq *rq, bool online)
- 			 SCX_ECODE_ACT_RESTART | SCX_ECODE_RSN_HOTPLUG,
- 			 "cpu %d going %s, exiting scheduler", cpu,
- 			 online ? "online" : "offline");
-+
-+	if (online) {
-+		/*
-+		 * The cpu must not call ops.enqueue() or ops.dispatch() before
-+		 * the root's ops.cpu_online(). The core's rq online state can't
-+		 * gate them, as the sched domain rebuild in
-+		 * sched_cpu_activate() can put @rq online before this function
-+		 * runs. Set %SCX_RQ_ONLINE here.
-+		 */
-+		guard(rq_lock_irqsave)(rq);
-+		rq->scx.flags |= SCX_RQ_ONLINE;
-+	}
- }
- 
- void scx_rq_activate(struct rq *rq)
-@@ -2689,34 +2726,6 @@ void scx_rq_deactivate(struct rq *rq)
- 	handle_hotplug(rq, false);
- }
- 
--static void rq_online_scx(struct rq *rq)
--{
--	rq->scx.flags |= SCX_RQ_ONLINE;
--}
--
--static void rq_offline_scx(struct rq *rq)
--{
--	struct task_struct *p, *n;
--
--	rq->scx.flags &= ~SCX_RQ_ONLINE;
--
--	/* sched domain rebuilds call rq_offline with the CPU staying alive */
--	if (cpu_active(cpu_of(rq)))
--		return;
--
--	/*
--	 * An offline CPU no longer calls ops.dispatch(). Re-enqueue its tasks
--	 * onto the local DSQ so that they run here and balance_push() moves
--	 * them off.
--	 */
--	list_for_each_entry_safe_reverse(p, n, &rq->scx.runnable_list, scx.runnable_node) {
--		if (p->scx.dsq == &rq->scx.local_dsq)
--			continue;
--		guard(sched_change)(p, DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK);
--	}
--}
--
--
- static bool check_rq_for_timeouts(struct rq *rq)
- {
- 	struct scx_sched *sch;
-@@ -3438,9 +3447,6 @@ DEFINE_SCHED_CLASS(ext) = {
- 	.task_woken		= task_woken_scx,
- 	.set_cpus_allowed	= set_cpus_allowed_scx,
- 
--	.rq_online		= rq_online_scx,
--	.rq_offline		= rq_offline_scx,
--
- 	.task_tick		= task_tick_scx,
- 
- 	.switching_to		= switching_to_scx,
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index ad7b72317f0f2..8036105f57c09 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -773,9 +773,10 @@ struct cfs_rq {
- /* scx_rq->flags, protected by the rq lock */
- enum scx_rq_flags {
- 	/*
--	 * A hotplugged CPU starts scheduling before rq_online_scx(). Track
--	 * ops.cpu_on/offline() state so that ops.enqueue/dispatch() are called
--	 * only while the BPF scheduler considers the CPU to be online.
-+	 * Set right after the root's ops.cpu_online() when a CPU comes up and
-+	 * cleared when the CPU goes down, see handle_hotplug(). A hotplugged
-+	 * CPU starts scheduling before %SCX_RQ_ONLINE is set. ops.enqueue() and
-+	 * ops.dispatch() are called for the CPU only while the flag is set.
- 	 */
- 	SCX_RQ_ONLINE		= 1 << 0,
- 	SCX_RQ_CAN_STOP_TICK	= 1 << 1,
-@@ -3925,7 +3926,7 @@ extern void balance_callbacks(struct rq *rq, struct balance_callback *head);
-  * Typically this must be called while holding task_rq_lock, since most/all
-  * properties are serialized under those locks. There are currently two
-  * exceptions to this rule in sched/ext which only hold rq->lock: scx_bypass()
-- * and rq_offline_scx().
-+ * and handle_hotplug().
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index cb434c7539e02..e021c6bf79682 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -7,6 +7,7 @@
   */
  
- /*
+ #include <linux/fs.h>
++#include <linux/dcache.h>
+ #include <linux/slab.h>
+ #include <linux/string.h>
+ #include <linux/mnt_idmapping.h>
+@@ -1184,7 +1185,7 @@ int smb_inherit_dacl(struct ksmbd_conn *conn,
+ 	struct smb_acl *parent_pdacl;
+ 	struct smb_ntsd *parent_pntsd = NULL;
+ 	struct smb_sid owner_sid, group_sid;
+-	struct dentry *parent = path->dentry->d_parent;
++	struct dentry *parent;
+ 	struct user_namespace *user_ns = mnt_user_ns(path->mnt);
+ 	int inherited_flags = 0, flags = 0, i, ace_cnt = 0, nt_size = 0, pdacl_size;
+ 	int rc = 0, num_aces, pntsd_type, ppntsd_size, acl_len, aces_size;
+@@ -1193,8 +1194,14 @@ int smb_inherit_dacl(struct ksmbd_conn *conn,
+ 	char *aces_base;
+ 	bool is_dir = S_ISDIR(d_inode(path->dentry)->i_mode);
+ 
++	parent = dget_parent(path->dentry);
++	if (!d_inode(parent)) {
++		dput(parent);
++		return -ENOENT;
++	}
+ 	ppntsd_size = ksmbd_vfs_get_sd_xattr(conn, user_ns,
+ 					    parent, &parent_pntsd);
++	dput(parent);
+ 	if (ppntsd_size <= 0)
+ 		return -ENOENT;
+ 
 -- 
 2.53.0
 
