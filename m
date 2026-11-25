@@ -1,56 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795634215;
-	b=PAjfHxsRFaW1XWs4Xbkdy7Jjqd/DtvxTzYYetPAegesLNYPdOEwb0nCZ+W/EiQzS855g
-	 u3jZ0PCTKXO+dcbmQ0kpLv24wAxdBtc3HFoDwGA5vF7CYuXnUuWooEjLQEyBl9fU8aOjV
-	 yDX9vqc+ntQiu8XS6qIdWsxkR1nxwMXf3eJCDXnR3VYHPCvkNY4HhkvcJjspRqD8sVqjQ
-	 +zLQfJsmouOREwf6n61yR8462zvcBY+hpxmfnsXLFaf2ULpRF6QKa5Suhc6PB4Sso2pMP
-	 jaY+MVbSU/689P1E8l0Mvilp/mRqjcUuFCmnT3leUnLcr22tme/GsIXCnyAZQW60QTw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795634215;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3WxXdBVjkLfURBBFpG70MIEr6vdwbVg1Ep0sI7UtiGs=;
-	b=v1iyefeRa/5uNZk6EiCtwGiXbrFz6e4M6CSLrItlO9wDalbiRS8jqDhQDneY/8alH7iI
-	 31VGU64oqDipTDDnANO3s2GMjI0jHts5+xTylGNwkDtPRjxziRqYRPeNe/wA5FHbvLizN
-	 Z2cv3XwTujRNfY9e0vhMV+ficp064SPWpgc8deVna88alVgncDGb3O8yOft2Q1zSM6C6I
-	 z4v65maU22geMHvTC8fl0H2gMsxsE2C0XX2MDLyRbnBR8rd3BBm6M/1Ey5jlu4HggCoLi
-	 8FOcxye10RvzLFo5Nzk2nzULHoIFEs3YOnviBnPvsSBYMyndAE9NTPA1F25QZ4URhaw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LvfjMxzo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795634233;
+	b=GSgDE9zunfCTgMaQAjccaZivX1ux8CSCN5BPFmdPQohaoiT0gklBuZNmxqSqXV0ri1oq
+	 gE7c6/oeiGD7FHm3Yyfb6+CRGAZaOhwzS1XjLYwMRwkn5kbZHRF/yimI+LKgAY3kC8EPD
+	 deQ8K3Ywxae1ZrLaCERPD0tYE9P8DWTtdYVw1i7qDXCfJy6wJJpvZ7MoDXdCRrByxzifC
+	 7w/RGbGRjGSC5jPUrwVe3pE4qXHWZaV9A47L+zVxfyWBubqDcpB8lWNiKB6S6UYR1auly
+	 KS++YsSVj9yMLhH2fmjxEnv/Z8VB65tDRflxDwRYBARrGPosESGDGIdMEQ5Sl5dOPcQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795634233;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=6zdB/rQeLDq3D894FluXdu2Y35sjCX21XfyveRyDSBA=;
+	b=UlU/1SX7IkqRGFhbJNt8Lhv36a/T+ShSMN2dShedfMqiWGHum5gm5xWsX5xvCxRZJ9Qr
+	 CLwtPRsBQX2QM7eEvxltub1V5yQe1c4jKzpFR0FYBQvkrndQGLMes5y0Ava99QrFRDL+h
+	 TuUe0nMRght2k3anC34cLiiZIshxmLCn2aiAzcpCxlZHZpNfCkfa/SOzHDam6jmTdn12h
+	 vf29pB0DSzJegz/R2i+TShJsDeQ4qInh1eXBQe6xXKmb37IfEMj1SsrIU81BbCS/AmJRa
+	 7Kg/Gxd0UQ3e6YLIV+NWHkx/BEJ1uwcfjnin65qPeNW54G369xiZy8EkDYEJesDY3jA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Xdgf1B6I;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=oSCRW3SU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799C8606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:16:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D72606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:17:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38D72606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LvfjMxzo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07D251F000C0;
-	Wed, 25 Nov 2026 19:16:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795634214;
-	bh=3WxXdBVjkLfURBBFpG70MIEr6vdwbVg1Ep0sI7UtiGs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LvfjMxzoni923uXITWrMOC/Q+aQ7g1jYXHrW2OPwy8k3TFN6W8TGldK6yHfETOKoK
-	 wg0BUaWimUhKb71pynk2xCJd8sDvow1Cgn8/aKthItGAQxM5MPCVedIWZRnxgI4UYs
-	 qFxTLhhSvf2Ghilo88zBDCVBQasAQllc68CXZNM1dxD1y3k5oVtQV//L7NrSuAsKUV
-	 CnzWYXq6iMEcG8JBwTdy3RU2keQOdoogPAzFEIOPjVB3iDAEb9WIYmt2wlIN2XC4eA
-	 IBesTsgD+exZTZpbBtKlEJx0vzBn5bLibG98Pyc4a0DV/JBQzCOeFM0yfzyQrvrdrI
-	 9sb9WjTp9q1DA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jiwoo Kim <arpe1618@gmail.com>,
-	stable@kernel.org,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] ksmbd: pin parent dentries in SMB2 CREATE ACL path
-Date: Wed, 25 Nov 2026 14:16:52 -0500
-Message-ID: <20261125191634.1219747-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112518-afternoon-zookeeper-3970@gregkh>
-References: <2026112518-afternoon-zookeeper-3970@gregkh>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Xdgf1B6I;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=oSCRW3SU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795634232;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6zdB/rQeLDq3D894FluXdu2Y35sjCX21XfyveRyDSBA=;
+	b=Xdgf1B6I4CtrtGl9jGctkH1PMDe8+8zU79EOK87tEO717JiWiYB9MtP8k45YDpM6PEYPEd
+	SrJTZqJDck9LgL3fFr0OkG+6fQLEhtOWcnbbAxDL9ZlamvHCUj3MTk8qxXHga16AdT2F6S
+	A+8FxQu1bOjAHRqs/Bhho+ZccNoWeA4=
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-617-CV0NETqgMVmKKnI6sJkaag-1; Wed, 25 Nov 2026 19:17:10 +0000
+X-MC-Unique: CV0NETqgMVmKKnI6sJkaag-1
+X-Mimecast-MFC-AGG-ID: CV0NETqgMVmKKnI6sJkaag_1795634229
+Received: by mail-lf1-f72.google.com with SMTP id 2adb3069b0e04-5c31c624c20so1003735e87.2
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:17:09 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795634228; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kDn28ANG3u3J8Mo1BdHVYl16RNEaFt1PnQLbCYbTvCkOx4zeho1VmPVJ7iZTX2WGju
+         8SSJ0NDl69uK2MDTsc3RUiy9dwoWVaKqlQrVa2epAVQqcxZcUselRhSZH9uWvAxGLedL
+         PdjAJ+svjoNVQAxNhwyMCipcZ9cMx/dpvSQlcDODHXVh4nDPP7lOQju6LshLRZOtwRFo
+         /eG1VZX7sh0QCKOCQcgwdkCYjDWJ9/zWk2R+luwdLZTh3/YbW+qBlYIcK9OMPHlSyEtr
+         HAg0Uke5O1bylTgXe+DZ7tEEMLAc123xYoqwtvxUKkgpzHLsNtAz4y4Y2Qx4GQO2a21g
+         8C1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6zdB/rQeLDq3D894FluXdu2Y35sjCX21XfyveRyDSBA=;
+        fh=Pi6SNO9t0473HuoNcj8cAjyQDW1/Qxjv1eNgji9lTHo=;
+        b=Vvxwbfj0z4pEL+2uibJgEPhyXfN0Q+d0m4jh9tJWq1zDWun8QvOsuV3y6KoPe2/j5/
+         mA+d7NqlPlFug2nWi8moeUghjLd+fhejzvr7CFkPeIhTCPnGWD2NLNyaZfpXnEwqUisB
+         hj3bWEkZFqXYvhyu9eNsgsCA1qSDBlAumro2dP3AA1VCwlt6+dawDjAARjtfzJhb18xc
+         qs2JDMAspOiXnAQQIe38oZFDuvplZIykxF0gVVI5pCrlmhGKz9d6u7UxwbS+5fxnOSrP
+         axwcI03tvOcRmw7Eeqbogp0+yVZyELSclMA+YYHLC5ojHZ+Rc33olXYdRtspMI0DR9rO
+         BAkg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1795634228; x=1796239028; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6zdB/rQeLDq3D894FluXdu2Y35sjCX21XfyveRyDSBA=;
+        b=oSCRW3SU+XVThO7Kye4978us7jRRSrpkMEnLAof0Eu/KIR8HsDbWGC7moFOGTMpYG2
+         5L85JVEV23Sigp5s0SvgyyLSu3DwjfAuFnqNMfdDdKLaZybCo8kfv/csPdMZrByzH3Bz
+         wwwcrhGiCjfjcS9NrOLTU/3D8tyQoZx6i9lwXkNjbKmFJu80ySpRuZ2nCaXQtqs8c9hd
+         8qXz2CBulleqLTN9KLUBSEgu7Abd5ztlBoshdiJtgxv4uhzrH3teBU51e7c30NOTHY+x
+         8m/aSQpt6zz9dnea3TKJokwOCB5eARNBPv+9pr8lrxptqzv5vnpUulKdjyzLH+htzO/7
+         rGZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795634228; x=1796239028;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6zdB/rQeLDq3D894FluXdu2Y35sjCX21XfyveRyDSBA=;
+        b=AqmlDptKJBqCmL8P/vZ0ic5rSbSNnjgu1DzkcjlYjDPnzV3qiAkPgIBApcTKliXy9+
+         6SZDbN+tr9EM9Ff+JepU27FJFhzCzxtaEfT2ZOSUdazFd1mWfLq+8M7i+0A7XuhcSr6G
+         w8oLvoMdWieIqQXJQ2udZVNQV/ha6cymLS1oP5VFt+73BI3FkXgSSro9LqvFqUCyll6z
+         oILvB0Iq/ctWtG5PEffQNbN3kQXUPA7rSm/6wlZb2zazWIh7VYe2Ks4O4/CLpYVw2g2i
+         OK7jyFb4rJ+hs4/5cL7F/UEMe86jYNp0sKY1jgl7UuYjAxXGJYn/zZiDgKUQ+Y5oheZI
+         DRoQ==
+X-Forwarded-Encrypted: i=1; AL+hErG0lpCyYRtxo9goGLYNWPNBuH6mAP48NAYDwA9aBqVqYZ57eS2BfXIzKXJpk2L0byBp5u9B8KQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8pQgnW4xkYCg+06n6MP27fvB+kbPQ+hgIMtm1QSugCGzc4LnNC
+	4FWsJ6v/IlIIT2xT4syjUs3TbCgwLWpgXB9MtDqM9W0QIPf+7P2YRT8PResDkzm0NYvRBbkusH+
+	1uRwXeK4PpDDhppre5a9M2LOv9hBVBMw9csGRFJWwJO3WuJxrb7pQ0fBidFg2u1Z8UB/55pDtnk
+	h3UdOZVvxhdL7Xg6Z5+lcrbYviuhIQLQw=
+X-Gm-Gg: AZFdTZefT/jJw+s/Ax4RZqBgE8tL1SIUHjBvBPdLj8BwV4XtD7PXlRcArR+w7axDWov
+	ip9NXiV62o+joaC4qcaRxNA3EadcStpWe1puq7cedKrVNVTQIP7isNbLemWDoxPcV9VDmWSBS5j
+	LfpJ5OpV8vaXbPzYeuCDlwpKdJmphZ8w1/XR4czRlcLhldR6evFwekuXBirPnoXz798a4hYM6aC
+	DY/nbkU6GaVba4CngrrH5q7qsRB1CvCkIczciaGc3ywyFQgMhwH189yOjNyu5ObS79ETFY9Cbk=
+X-Received: by 2002:a05:6512:33ca:b0:5c1:57b6:5ffd with SMTP id 2adb3069b0e04-5c1bc552d9emr6331067e87.0.1795634228579;
+        Wed, 25 Nov 2026 11:17:08 -0800 (PST)
+X-Received: by 2002:a05:6512:33ca:b0:5c1:57b6:5ffd with SMTP id
+ 2adb3069b0e04-5c1bc552d9emr6331053e87.0.1795634228074; Wed, 25 Nov 2026
+ 11:17:08 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,144 +125,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261119-bug-dm-thin-rcu-gp-v3-0-c80ecc475e1e@linux.dev> <20261119-bug-dm-thin-rcu-gp-v3-2-c80ecc475e1e@linux.dev>
+In-Reply-To: <20261119-bug-dm-thin-rcu-gp-v3-2-c80ecc475e1e@linux.dev>
+From: Ming Hung Tsai <mtsai@redhat.com>
+Date: Thu, 26 Nov 2026 03:16:55 +0800
+X-Gm-Features: Aa3M54pe6gUnH3xtgi3WUj1GWiGz9BVqRKh8waNkvHN9vH0Lj5E79L-u9RV6F0w
+Message-ID: <CALjSBEtdn0PUx0WNsSDojK976JGg66ZqjEmUutuB-XwH1n=q4g@mail.gmail.com>
+Subject: Re: [PATCH v3 2/3] dm thin: keep a thin on active_thins until its
+ last reference is dropped
+To: dm-devel@lists.linux.dev
+Cc: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
+	Mikulas Patocka <mpatocka@redhat.com>, Benjamin Marzinski <bmarzins@redhat.com>, linux-kernel@vger.kernel.org, 
+	Qiliang Yuan <qiliang.yuan@linux.dev>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Jiwoo Kim <arpe1618@gmail.com>
+On Thu, Nov 19, 2026 at 7:12=E2=80=AFPM Qiliang Yuan <qiliang.yuan@linux.de=
+v> wrote:
+>
+> get_first_thin() and get_next_thin() let the pool worker process the
+> thins on pool->active_thins without holding rcu_read_lock() while it
+> does: they take a reference on a thin under the lock, and
+> get_next_thin() continues from that thin in a new read-side section.
+> thin_dtr() takes the thin off the list, waits for a grace period and
+> then for the references still held.
+>
+> Once thin_dtr() has removed a thin that the worker holds, nothing
+> updates its list.next pointer any more. If the thin after it is removed
+> and freed before the worker calls get_next_thin(), the walk continues
+> from freed memory:
+>
+>   BUG: KASAN: slab-use-after-free in get_next_thin+0x8b/0x240 [dm_thin_po=
+ol]
+>   Write of size 4 at addr ff11000116371cc8 by task kworker/u128:0/13
+>   Workqueue: dm-thin do_worker [dm_thin_pool]
+>   Call Trace:
+>    get_next_thin+0x8b/0x240 [dm_thin_pool]
+>    process_deferred_bios+0x34/0x650 [dm_thin_pool]
+>    do_worker+0x2b7/0x4f0 [dm_thin_pool]
+>    process_one_work+0x8ce/0x1850
+>    worker_thread+0x639/0x1190
+>   Allocated by task 2290:
+>    thin_ctr+0x130/0x1260 [dm_thin_pool]
+>    dm_table_add_target+0x65f/0xf60 [dm_mod]
+>    table_load+0x1c2/0x480 [dm_mod]
+>   Freed by task 2391:
+>    kfree+0x15d/0x550
+>    thin_dtr+0x21c/0x2c0 [dm_thin_pool]
+>    dm_table_destroy+0x13c/0x570 [dm_mod]
+>    __dm_destroy+0x2eb/0x5d0 [dm_mod]
+>    dev_remove+0x2f1/0x3c0 [dm_mod]
+>
+> Mark the thin as dying in thin_dtr() instead of removing it, and take it
+> off the list only after the last reference is dropped, so that removing
+> its neighbours keeps its list.next valid. Take references with
+> refcount_inc_not_zero() and skip dying thins, so that thin_dtr() only
+> waits for the references already taken, and have requeue_bios() and
+> error_retry_list_with_code() skip dying thins as they skipped the thins
+> already off the list.
 
-[ Upstream commit 0383a66dabd7aa06237b9b24713c03656abeffe4 ]
+The code looks correct to me. These notes are only for the record. The
+two checks in thin_tryget() have different roles.
 
-smb2_open() and smb_inherit_dacl() read a child's d_parent without a
-dentry reference. A concurrent SMB request can move the child and
-remove the parent while CREATE uses its inode for permission, status,
-and ACL inheritance work. A remote SMB race with concurrent opener and
-mover connections on a writable KSMBD acl_xattr share triggered an
-8-byte slab-use-after-free read in get_cached_acl on tmpfs and ext4
-KASAN guests. With oops=panic, it also caused an Oops and kernel panic
-on an ext4 guest.
+refcount_inc_not_zero() is what makes the patch correct. Once the
+count reaches zero, no walker can take the thin again, so
+list_del_rcu() is safe after wait_for_completion() returns.
 
-Take a parent dentry reference around each parent inode or ACL access
-in these paths and release it when the operation completes. Treat a
-negative parent dentry as -ENOENT for the affected operation.
+The dying flag is only a hint. As Ben said, it is racy. It keeps the
+old behavior of taking the thin off the list early, so thin_dtr()
+mostly waits for the references already taken. For the ref-less
+readers (requeue_bios() and error_retry_list_with_code()), the dying
+check keeps most of them away, but their actual safety comes from the
+synchronize_rcu() after list_del_rcu().
 
-On a tmpfs KASAN QEMU guest, two 3,000-round reproducer instances
-completed without a KASAN report or Oops; SMB remained reachable. On
-an ext4 non-KASAN QEMU guest with oops=panic, a 2,000-operation no-race
-control and two 5,000-round reproducer instances completed without an
-Oops or panic. An SMB health probe still succeeded.
+> With a test-only 3 s msleep() added to the worker after each thin it
+> processes, thins 1 and 2 of a pool with three thins are suspended and
+> then removed while the worker holds thin 1. Trials in which KASAN reports
+> a slab-use-after-free in get_next_thin():
+>
+>                  before (trials)   after (trials)   change
+>   KASAN report            3 of 3           0 of 5     -100%
 
-OpenAI Codex assisted with finding the bug, generating the SMB race
-reproducer, drafting this fix and changelog, and running the tests.
+Two thins are enough. Suspend both thins, let the worker sleep while
+it holds thin 1, and then remove thin 1 and thin 2. When the worker
+wakes up, get_next_thin() follows thin 1's stale list.next to the
+freed thin 2:
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@kernel.org
-Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: Dropped the <kunit/visibility.h> context include and changed const struct mnt_idmap *idmap to non-const struct mnt_idmap *idmap to match the older tree's code. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/server/smb2pdu.c | 39 +++++++++++++++++++++++++++++++--------
- fs/smb/server/smbacl.c  |  9 ++++++++-
- 2 files changed, 39 insertions(+), 9 deletions(-)
+    dmsetup suspend thin_1
+    dmsetup suspend thin_2
+    # make the worker sleep while it holds thin_1
+    dmsetup remove thin_1 &    # thin_dtr() unlinks thin_1, then waits
+    dmsetup remove thin_2      # thin_dtr() unlinks and frees thin_2
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index aae6e9adf2e84..c46b537bdab8a 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -3438,16 +3438,32 @@ int smb2_open(struct ksmbd_work *work)
- 
- 			if ((daccess & FILE_DELETE_LE) ||
- 			    (req->CreateOptions & FILE_DELETE_ON_CLOSE_LE)) {
--				rc = inode_permission(idmap,
--						      d_inode(path.dentry->d_parent),
--						      MAY_EXEC | MAY_WRITE);
-+				struct dentry *parent = dget_parent(path.dentry);
-+				struct inode *parent_inode = d_inode(parent);
-+
-+				if (parent_inode)
-+					rc = inode_permission(idmap, parent_inode,
-+							      MAY_EXEC | MAY_WRITE);
-+				else
-+					rc = -ENOENT;
-+				dput(parent);
- 				if (rc)
- 					goto err_out;
- 			}
- 		}
- 	}
- 
--	rc = ksmbd_query_inode_status(path.dentry->d_parent);
-+	{
-+		struct dentry *parent = dget_parent(path.dentry);
-+
-+		if (!d_inode(parent)) {
-+			dput(parent);
-+			rc = -ENOENT;
-+			goto err_out;
-+		}
-+		rc = ksmbd_query_inode_status(parent);
-+		dput(parent);
-+	}
- 	if (rc == KSMBD_INODE_STATUS_PENDING_DELETE) {
- 		rc = -EBUSY;
- 		goto err_out;
-@@ -3501,10 +3517,17 @@ int smb2_open(struct ksmbd_work *work)
- 	if (created) {
- 		int posix_acl_rc;
- 		struct inode *inode = d_inode(path.dentry);
--
--		posix_acl_rc = ksmbd_vfs_inherit_posix_acl(idmap,
--							   &path,
--							   d_inode(path.dentry->d_parent));
-+		struct inode *parent_inode;
-+		struct dentry *parent;
-+
-+		parent = dget_parent(path.dentry);
-+		parent_inode = d_inode(parent);
-+		if (parent_inode)
-+			posix_acl_rc = ksmbd_vfs_inherit_posix_acl(idmap, &path,
-+								   parent_inode);
-+		else
-+			posix_acl_rc = -ENOENT;
-+		dput(parent);
- 		if (posix_acl_rc)
- 			ksmbd_debug(SMB, "inherit posix acl failed : %d\n", posix_acl_rc);
- 
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 42a638d1d2b97..1bd816153e542 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -7,6 +7,7 @@
-  */
- 
- #include <linux/fs.h>
-+#include <linux/dcache.h>
- #include <linux/slab.h>
- #include <linux/string.h>
- #include <linux/mnt_idmapping.h>
-@@ -1200,7 +1201,7 @@ int smb_inherit_dacl(struct ksmbd_conn *conn,
- 	struct smb_acl *parent_pdacl;
- 	struct smb_ntsd *parent_pntsd = NULL;
- 	struct smb_sid owner_sid, group_sid;
--	struct dentry *parent = path->dentry->d_parent;
-+	struct dentry *parent;
- 	struct mnt_idmap *idmap = mnt_idmap(path->mnt);
- 	int inherited_flags = 0, flags = 0, i, nt_size = 0, pdacl_size;
- 	int rc = 0, pntsd_type, ppntsd_size, acl_len, aces_size;
-@@ -1210,8 +1211,14 @@ int smb_inherit_dacl(struct ksmbd_conn *conn,
- 	char *aces_base;
- 	bool is_dir = S_ISDIR(d_inode(path->dentry)->i_mode);
- 
-+	parent = dget_parent(path->dentry);
-+	if (!d_inode(parent)) {
-+		dput(parent);
-+		return -ENOENT;
-+	}
- 	ppntsd_size = ksmbd_vfs_get_sd_xattr(conn, idmap,
- 					    parent, &parent_pntsd);
-+	dput(parent);
- 	if (ppntsd_size <= 0)
- 		return -ENOENT;
- 
--- 
-2.53.0
+The suspend step is needed on kernels before v6.19. Before
+be4addb1914f ("dm: Fix deadlock when reloading a multipath table"),
+thin_postsuspend() always called noflush_work(), which queues a work
+item on the ordered pool workqueue and waits for it. Removing an
+active device runs the presuspend and postsuspend hooks, so the
+removal waited until the worker returned. By then the worker had
+dropped thin 1, so the bug did not trigger. A suspended device skips
+the hooks on removal and goes straight to thin_dtr().
+
+The walkers in pool_suspend_active_thins() and
+pool_resume_active_thins() hit the same bug. To reproduce it there,
+put the sleep in those walkers instead. It then runs in the dmsetup
+process, not on the pool workqueue, so the suspend step is not needed.
+
+> Fixes: 17181fb7a0c3 ("dm thin: fix a race in thin_dtr")
+> Cc: stable@vger.kernel.org
+> Reported-by: Benjamin Marzinski <bmarzins@redhat.com>
+> Closes: https://lore.kernel.org/r/avz7qDWd2g-uubmL@redhat.com
+> Co-developed-by: Benjamin Marzinski <bmarzins@redhat.com>
+> Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+> Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
 
