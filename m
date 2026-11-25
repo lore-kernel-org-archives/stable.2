@@ -1,56 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795636320;
-	b=zE0E2bCDF1tdIc/GeMaVt0FTD3MACIvWjG1YtzSSFInglfuuAXKC32CZ0soeJ4CB8px/
-	 2+RxmH9nAlsU+v0Cr81aoYMyV2WAK38RTFiLGysUd4KtdIQGPIW60KoBu3K9RrLsLlf46
-	 IEhl5AQ208f21vWRbEWni0MBbxXpgtmAy+rz0RbDCp6dBRcwD5V1k2zsSyiEq5ULm5NkW
-	 vvDhtY2xw4NAh/aRS/Tsp19vNwyRR52SDWC9qMGUMDHoIIzt2+DmvGVCD0FXJc3CMe6IS
-	 qS8kUvgM+G0L6OydXPkADwdSFlObf38odruWb2TOzzK4rlfDQ+tC76zUdMn5oKwKFug==
+	t=1795636372;
+	b=oiITnOm/beIhNeLyFtqEIigi/CVC1A6DAZ6ijB7od3E2h3JseBTuBYQOYKtmqI+bGcSc
+	 U8jbpzs/hRTg6R/RUUEwWKEChrL4HFWU4DHqbHWsqThRyPgTjLkDEbAupCpt6x8FMQHZU
+	 yOALnBsdpPyGnKx7r5HDVDNOaGsCnI4mSYWV/itVZ5u2LhEd+rDX4hpELKlcYyM6Fq1aa
+	 x2uyBVZeYievRPLCTbYKM3+uCqrT0HVYGbL/2ZARxZfkcfSfw9nEJj7JbFiss2RrtA3Fq
+	 atHWosCvYv1bn+JQu+eoWWymB55LFW+wrnyQAZy3/IaIfkMJI9+UEno1/mC7fH+av+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795636320;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795636372;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=OpspEMXb1tk5lPSLu8kW8I6k0IEzm+zQ2o2v+fqM0Ig=;
-	b=3fVXXWaBimpAOYC96/KTJHFD2r7/rHa3+l74R/6NakIQtciCVCiG70f4sb1ZCuI+cubr
-	 qMR93mX+Eo5xPgYBUvGkAKJJ+T8lQVPY7DuSxTLZ0VUho8vOLQTzKWVhTyox6zzPtzfTt
-	 eFdZ+LswLEhKaU8Z4zLzOC4U8WOeZ0R4F0iVYrtF7PKdIm6/u6Uk4rVOIKyUQ/TSuup2q
-	 +kmXMKgDXloqyNTkr1Rz7+VpWmWAELlJ++abG2GOokd4m8tcp9fwlT7j/bgtTwpTYLons
-	 vVTyrJV+rN9kVrpwF0yJtZM+wxJbAogMQ/VSapkfilsFsd/pkyGNIK3v6yW/2gtltYQ==
+	bh=771LoipZJO/8ERQ1PZCD3ey20RmJy0Hxd1wuy7sH7k0=;
+	b=ED/tl+UskGh4smMzxd48p/4tO7JbVtuUSYLYg71QaB1bix7xRIUteF9jYUJd08d+IxdO
+	 OJxzH5BDI85GOTYeKkHXQhIG5dkbExEt5vRza7UVmMj8XXI+FxGABl52nkmKwHFVemaZz
+	 EOdbMq/ggO+yGzoPZU9PtOoPBvga3lYyUIkpM/d+u2SeGmUyUIoPqatpFl7tMMYrJCFPh
+	 YDOcYp/se/iVCjs36IKHghVfBBYxJ6O7Rnjp4ioTuGQx7xZHWjqRGq0lFurHOHyekZib5
+	 tuqN4PUD4pnrYO+Uwg8V2q9F7dndEf41K2ZOQ6aO2RHR1OfSd4xXPzofK75ngs/uO3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LvbvR4Cw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="h/Ulaqop";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF90606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:52:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E06606A333
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:52:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LvbvR4Cw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392621F000C6;
-	Wed, 25 Nov 2026 19:51:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h/Ulaqop
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 548F11F000CF;
+	Wed, 25 Nov 2026 19:52:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795636319;
-	bh=OpspEMXb1tk5lPSLu8kW8I6k0IEzm+zQ2o2v+fqM0Ig=;
+	s=k20260515; t=1795636371;
+	bh=771LoipZJO/8ERQ1PZCD3ey20RmJy0Hxd1wuy7sH7k0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LvbvR4Cwl41xJh0QREOeuLQsMUcXV/jYxU/jnvQ0KhiVnklGIjJEeG6MGpcrC3yxv
-	 FK5f7R50VG+y2YqRlMuDnegQmI3bnZDBf7PKZcnsOnmTFiBQetjIPy03uSBDOBO1Tu
-	 dY/qOLnuK7JHMeh0A6K/9dKY3A5kaAUCnNBjVXrx/eyDXYL1OsJgNxpsIjW5RjPtGz
-	 HScvgNgFp1awV7AiY+KfH/IwDUxl7hhn6jrfquk6goZNYntLXmVKTeRa4z0bCn/QD9
-	 gvakZtVlbgE4I5hNuBa/hbK+pbY0dGu1CuvClrIhaHn7Kkg8xLUPiUdqCCS9XQb1wl
-	 ojI0R8CKCYPqQ==
+	b=h/UlaqopGe7p7jqcpjBS7ML8tV5Bvz6nJr8E6gK7H1hE8PCUp3a1oiHExuCET20Hg
+	 pZZxjpzRc2Savqfv3XoB3X79g2nIeyrWjOUFp1sHEu8D7ZOIUMCrit/WpYABDvH70h
+	 u97X5yIvDesUN9lHiOjbOF2l5c/IsSR89b2mVyK6MmYy+EogG5TpiHhORZBYzCFqZ8
+	 EpdZ87uE+ueeUKjPazKnNQlzAGoVWjygjCEBDWcqE6LLCdtXzMW/KVQmvQGvBEPEMx
+	 ZR10v8QMh46GjGtBaiT5BynTl7E20iCA4LZpEWJIxGfi7wWvgevhd50aUcith6Tjiy
+	 gDK2XsHLOn/+g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiwoo Kim <arpe1618@gmail.com>,
-	stable@kernel.org,
-	Namjae Jeon <linkinjeon@kernel.org>,
+Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ksmbd: pin parent dentries in SMB2 CREATE ACL path
-Date: Wed, 25 Nov 2026 14:51:57 -0500
-Message-ID: <20261125195133.1297528-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] tracing/probes: Enable newly appended probe when target event is enabled
+Date: Wed, 25 Nov 2026 14:52:49 -0500
+Message-ID: <20261125195221.1297809-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112520-subheader-ship-7f49@gregkh>
-References: <2026112520-subheader-ship-7f49@gregkh>
+In-Reply-To: <2026112510-straw-prozac-0c98@gregkh>
+References: <2026112510-straw-prozac-0c98@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,142 +60,119 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiwoo Kim <arpe1618@gmail.com>
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-[ Upstream commit 0383a66dabd7aa06237b9b24713c03656abeffe4 ]
+[ Upstream commit 72d3a5cb0cd7335553549aaffecc683e3ecc0c43 ]
 
-smb2_open() and smb_inherit_dacl() read a child's d_parent without a
-dentry reference. A concurrent SMB request can move the child and
-remove the parent while CREATE uses its inode for permission, status,
-and ACL inheritance work. A remote SMB race with concurrent opener and
-mover connections on a writable KSMBD acl_xattr share triggered an
-8-byte slab-use-after-free read in get_cached_acl on tmpfs and ext4
-KASAN guests. With oops=panic, it also caused an Oops and kernel panic
-on an ext4 guest.
+Unlike kprobe events, fprobe and uprobe events only register their
+underlying probes when the trace event is enabled. When a new probe is
+appended to an existing multiprobe fprobe or uprobe event that is
+already enabled, the appended probe is linked into the event's probe
+list without being registered.
 
-Take a parent dentry reference around each parent inode or ACL access
-in these paths and release it when the operation completes. Treat a
-negative parent dentry as -ENOENT for the affected operation.
+As a result, the newly appended probe never fires until the event is
+disabled and re-enabled. Moreover, disabling an fprobe event calls
+unregister_fprobe() on the unregistered fprobe, and opening or closing a
+perf event on an enabled uprobe event dereferences a NULL tu->uprobe in
+uprobe_apply().
 
-On a tmpfs KASAN QEMU guest, two 3,000-round reproducer instances
-completed without a KASAN report or Oops; SMB remained reachable. On
-an ext4 non-KASAN QEMU guest with oops=panic, a 2,000-operation no-race
-control and two 5,000-round reproducer instances completed without an
-Oops or panic. An SMB health probe still succeeded.
+Register and enable the newly appended fprobe or uprobe immediately when
+the target event is already enabled.
 
-OpenAI Codex assisted with finding the bug, generating the SMB race
-reproducer, drafting this fix and changelog, and running the tests.
+Link: https://lore.kernel.org/all/179455849798.403392.135678786198324285.stgit@devnote2/
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@kernel.org
-Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: Replaced raw d_parent accesses with dget_parent()/dput() as upstream does, adapting user_ns for idmap, pntsd_size for ppntsd_size, and the missing kunit include context. ]
+Fixes: 41af3cf587f4 ("tracing/uprobe: Add multi-probe per uprobe event support")
+Fixes: 2db832ec9090 ("tracing: fprobe-events: Register fprobe-events only when it is enabled")
+Cc: stable@vger.kernel.org
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+[ sashal: Dropped the fprobe hunks, which have no counterpart here, and kept only the uprobe changes, moving trace_uprobe_enable() and filter_func_t earlier with a forward declaration of uprobe_perf_filter. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ksmbd/smb2pdu.c | 39 +++++++++++++++++++++++++++++++--------
- fs/ksmbd/smbacl.c  |  9 ++++++++-
- 2 files changed, 39 insertions(+), 9 deletions(-)
+ kernel/trace/trace_uprobe.c | 56 ++++++++++++++++++++++++-------------
+ 1 file changed, 37 insertions(+), 19 deletions(-)
 
-diff --git a/fs/ksmbd/smb2pdu.c b/fs/ksmbd/smb2pdu.c
-index bb4695b61ec39..5505b775ab190 100644
---- a/fs/ksmbd/smb2pdu.c
-+++ b/fs/ksmbd/smb2pdu.c
-@@ -3161,16 +3161,32 @@ int smb2_open(struct ksmbd_work *work)
+diff --git a/kernel/trace/trace_uprobe.c b/kernel/trace/trace_uprobe.c
+index cf5dc4b456eee..d18669586afab 100644
+--- a/kernel/trace/trace_uprobe.c
++++ b/kernel/trace/trace_uprobe.c
+@@ -443,6 +443,28 @@ static bool trace_uprobe_has_same_uprobe(struct trace_uprobe *orig,
+ 	return false;
+ }
  
- 			if ((daccess & FILE_DELETE_LE) ||
- 			    (req->CreateOptions & FILE_DELETE_ON_CLOSE_LE)) {
--				rc = inode_permission(user_ns,
--						      d_inode(path.dentry->d_parent),
--						      MAY_EXEC | MAY_WRITE);
-+				struct dentry *parent = dget_parent(path.dentry);
-+				struct inode *parent_inode = d_inode(parent);
++typedef bool (*filter_func_t)(struct uprobe_consumer *self, struct mm_struct *mm);
 +
-+				if (parent_inode)
-+					rc = inode_permission(user_ns, parent_inode,
-+							      MAY_EXEC | MAY_WRITE);
-+				else
-+					rc = -ENOENT;
-+				dput(parent);
- 				if (rc)
- 					goto err_out;
- 			}
- 		}
- 	}
++#ifdef CONFIG_PERF_EVENTS
++static bool uprobe_perf_filter(struct uprobe_consumer *uc, struct mm_struct *mm);
++#else
++#define uprobe_perf_filter NULL
++#endif
++
++static int trace_uprobe_enable(struct trace_uprobe *tu, filter_func_t filter)
++{
++	struct inode *inode = d_real_inode(tu->path.dentry);
++	struct uprobe *uprobe;
++
++	tu->consumer.filter = filter;
++	uprobe = uprobe_register(inode, tu->offset, tu->ref_ctr_offset, &tu->consumer);
++	if (IS_ERR(uprobe))
++		return PTR_ERR(uprobe);
++
++	tu->uprobe = uprobe;
++	return 0;
++}
++
+ static int append_trace_uprobe(struct trace_uprobe *tu, struct trace_uprobe *to)
+ {
+ 	int ret;
+@@ -462,10 +484,22 @@ static int append_trace_uprobe(struct trace_uprobe *tu, struct trace_uprobe *to)
  
--	rc = ksmbd_query_inode_status(path.dentry->d_parent);
-+	{
-+		struct dentry *parent = dget_parent(path.dentry);
-+
-+		if (!d_inode(parent)) {
-+			dput(parent);
-+			rc = -ENOENT;
-+			goto err_out;
+ 	/* Append to existing event */
+ 	ret = trace_probe_append(&tu->tp, &to->tp);
+-	if (!ret)
+-		dyn_event_add(&tu->devent, trace_probe_event_call(&tu->tp));
++	if (ret)
++		return ret;
+ 
+-	return ret;
++	if (trace_probe_is_enabled(&tu->tp)) {
++		ret = trace_uprobe_enable(tu,
++			trace_probe_test_flag(&tu->tp, TP_FLAG_PROFILE) ?
++			uprobe_perf_filter : NULL);
++		if (ret) {
++			trace_probe_unlink(&tu->tp);
++			return ret;
 +		}
-+		rc = ksmbd_query_inode_status(parent);
-+		dput(parent);
 +	}
- 	if (rc == KSMBD_INODE_STATUS_PENDING_DELETE) {
- 		rc = -EBUSY;
- 		goto err_out;
-@@ -3224,10 +3240,17 @@ int smb2_open(struct ksmbd_work *work)
- 	if (created) {
- 		int posix_acl_rc;
- 		struct inode *inode = d_inode(path.dentry);
--
--		posix_acl_rc = ksmbd_vfs_inherit_posix_acl(user_ns,
--							   &path,
--							   d_inode(path.dentry->d_parent));
-+		struct inode *parent_inode;
-+		struct dentry *parent;
 +
-+		parent = dget_parent(path.dentry);
-+		parent_inode = d_inode(parent);
-+		if (parent_inode)
-+			posix_acl_rc = ksmbd_vfs_inherit_posix_acl(user_ns, &path,
-+								   parent_inode);
-+		else
-+			posix_acl_rc = -ENOENT;
-+		dput(parent);
- 		if (posix_acl_rc)
- 			ksmbd_debug(SMB, "inherit posix acl failed : %d\n", posix_acl_rc);
++	dyn_event_add(&tu->devent, trace_probe_event_call(&tu->tp));
++
++	return 0;
+ }
  
-diff --git a/fs/ksmbd/smbacl.c b/fs/ksmbd/smbacl.c
-index adf9d2d2e108e..ff74bce96b4ed 100644
---- a/fs/ksmbd/smbacl.c
-+++ b/fs/ksmbd/smbacl.c
-@@ -7,6 +7,7 @@
-  */
+ /*
+@@ -1104,22 +1138,6 @@ print_uprobe_event(struct trace_iterator *iter, int flags, struct trace_event *e
+ 	return trace_handle_return(s);
+ }
  
- #include <linux/fs.h>
-+#include <linux/dcache.h>
- #include <linux/slab.h>
- #include <linux/string.h>
- #include <linux/mnt_idmapping.h>
-@@ -1033,7 +1034,7 @@ int smb_inherit_dacl(struct ksmbd_conn *conn,
- 	struct smb_acl *parent_pdacl;
- 	struct smb_ntsd *parent_pntsd = NULL;
- 	struct smb_sid owner_sid, group_sid;
--	struct dentry *parent = path->dentry->d_parent;
-+	struct dentry *parent;
- 	struct user_namespace *user_ns = mnt_user_ns(path->mnt);
- 	int inherited_flags = 0, flags = 0, i, ace_cnt = 0, nt_size = 0, pdacl_size;
- 	int rc = 0, num_aces, pntsd_type, pntsd_size, acl_len, aces_size;
-@@ -1042,8 +1043,14 @@ int smb_inherit_dacl(struct ksmbd_conn *conn,
- 	char *aces_base;
- 	bool is_dir = S_ISDIR(d_inode(path->dentry)->i_mode);
- 
-+	parent = dget_parent(path->dentry);
-+	if (!d_inode(parent)) {
-+		dput(parent);
-+		return -ENOENT;
-+	}
- 	pntsd_size = ksmbd_vfs_get_sd_xattr(conn, user_ns,
- 					    parent, &parent_pntsd);
-+	dput(parent);
- 	if (pntsd_size <= 0)
- 		return -ENOENT;
- 
+-typedef bool (*filter_func_t)(struct uprobe_consumer *self, struct mm_struct *mm);
+-
+-static int trace_uprobe_enable(struct trace_uprobe *tu, filter_func_t filter)
+-{
+-	struct inode *inode = d_real_inode(tu->path.dentry);
+-	struct uprobe *uprobe;
+-
+-	tu->consumer.filter = filter;
+-	uprobe = uprobe_register(inode, tu->offset, tu->ref_ctr_offset, &tu->consumer);
+-	if (IS_ERR(uprobe))
+-		return PTR_ERR(uprobe);
+-
+-	tu->uprobe = uprobe;
+-	return 0;
+-}
+-
+ static void __probe_event_disable(struct trace_probe *tp)
+ {
+ 	struct trace_uprobe *tu;
 -- 
 2.53.0
 
