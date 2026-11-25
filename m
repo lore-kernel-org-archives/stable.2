@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795623875;
-	b=r/yKm2Dk2QHRgPdgOffQmXnia1OiVW9Roe3ovqFk1NIFo+CgOuvytYzrfLa8hQp3iBxg
-	 f2UD9SXtaoUeXsv0aq8yaIsTQF82z4zfybvu/R8867jMza9nmmeo4KVP0BW84/Le6qXV9
-	 550kH0Rp8f2a6N0mRsnEbzop3hsBoVKWmLYofZ9iB2WYnqskXaeozrSHQ01vau5PLLoeN
-	 s2uEtlgn51vO1xi9YG9kRFuXplmMv3xLTadM06Td9WBGk4/k5624ZWWnIzKMHEVcrZSwn
-	 OzPN/5DhtgTqtqgqsH+rXcyIwYvhoM8h52Bu3+RV0TO2QrdN8YMnoD1twn85iQpup7Q==
+	t=1795623877;
+	b=Rfu5LWOHViNSJIBXBGiHCiPAZw6Yx+NywlLpTnz9CjCCLbek9g9QhNf9kJIjHb/saCHC
+	 yLdyB6qvvIZc6WCZ9aJCz/EzDJjjx9eEKiC8+GtiTtR0yWUWi7GC/85aC42aHom3/x5zv
+	 6pj147RbqZ6LTczPpJOkuaFSayJ0YgCD0tzO9mEYmisO9AgMPfrFQ6M04CDpy/qcTXm9s
+	 KMsP5uiLyJbwVC2eDO8J0kdpu96GrIZgrgTPpKDG9Nyx3zGe3gYnUCKUppNm1FpidLEZa
+	 +XGRxhi1ePLog+C7GBCJltUm1S9E1/1RM/SlBtWlky9xWgolQdyVV8kK1zNThPydNLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795623875;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=kkCh1t6laxPHhpHX2WIMFbZ6xXCzotlafQu+yAz2SNg=;
-	b=KcSDBw9tUCffT6hKMs08DJfQjNkQrPKV3r89Y/zenqPHGV0RB7h8ryoBxFVj5UseEcdF
-	 zi6Vtc3WdDp2GqWtY6y6IBvEkm3aK22WftqU45gWMPiGi5OmXMeudDp30e/eFbTL4014F
-	 orXk/Ld8Ulj958h5/v+7ux4SVIlwz4397pE/wVMG1cpsDINQpIs0e/bTET0GivE7PwL0C
-	 MuI1TK8/ID9kW1DjNX4vuyRAbwCFiM1EKi912XO46wqqUCmI92SuR5YbHcPrAFsLStASy
-	 VpiapR2ArhMTdIAKP3L0p7k2C2ji5TZLA/XLmqFJlk1QFzqTeuYSipLRFZq2wt7blXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795623877;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=oDFTFosBzQG0VfMl98eS0TLW4cOq9rDdBGbG0JR7/Ok=;
+	b=u5KlS9peVTpgbm44IWhQV4YrenzztnNfdDvDUJAn3TNQQWR385Z6gO3/XgSmIO2ut1R5
+	 9An8ptWnX2GiO8cicb7OhUwoBaJfTnMUlbGLoo3CdWX1OaAu4WbVRU1WS904TGlyHDu2g
+	 3ePmtWmGYKeXxUqeF9uMBaRY7OenltU4QLHH0kyYuJ5P9L1uNI3n/FbEyGDIjUa8xPO/H
+	 k+w946aC3QoLjDTOXmhFw3OGYw15vyywCQ0zUrqPzZ7IwIH8XVRcUjuP8Vn7H5pbEhkHu
+	 9ypM7quFThIKKHG9vLLv4ULYIDA8y5Kk7U6AEYuI64E9eve50dNwQOfJoUkOahedOeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0d3jzcFr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KpfcYpPd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342E4606A31E;
-	Wed, 25 Nov 2026 16:24:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5AE1606A323;
+	Wed, 25 Nov 2026 16:24:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0d3jzcFr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BEDB1F000C4;
-	Wed, 25 Nov 2026 16:24:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795623875;
-	bh=kkCh1t6laxPHhpHX2WIMFbZ6xXCzotlafQu+yAz2SNg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=0d3jzcFrg2no+a01qDwO1g95US3EnHi9AzrBKdlZLH9e6fJLQhNgmjpf6dP4u+s1J
-	 y/u7Eb4W3cIImihSDI8cry1LPtXN8cQd9So+NNV2rOKRT7KmjkW3FjcucUWGvH9oxq
-	 vE2L/0PVWze7xn2VS78hgjt4DkWp5FyzPeVlQ+js=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Krittikun Wongnin <krittikunwongnin@gmail.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 013/816] ACPI: PM: Add Acer Aspire A515-53G to dmi_leave_unused_power_resources_on[]
-Date: Wed, 25 Nov 2026 15:26:01 +0100
-Message-ID: <20261125143849.523686458@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
-References: <20261125143849.205329330@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KpfcYpPd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24C691F000C4;
+	Wed, 25 Nov 2026 16:24:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795623877;
+	bh=oDFTFosBzQG0VfMl98eS0TLW4cOq9rDdBGbG0JR7/Ok=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KpfcYpPddVppreFVMWSuxzh9nGhWX+7dReoJZ9KcUE5jydGICOfQskl3gfZqqxpHH
+	 6Fzy3ndjRz17PAPx1ekbZqbAdTR01zW9GCmTCU0ufzqEBu4p1h51b8qYisslDkl8BK
+	 KVjeDYVEIINSb9NNQFymANGe10JQlPI1Zk+kQnfTaLRXyL2kH7RJmAvEIHF+YLBPkD
+	 v2louP04ieiQPC4WDQIoMBy4rrRvggBDiyNsUPzf1+GZx5D7pNB8bxsN8Zxg6EPMn9
+	 f8K4Te2WvAsww89xV9AZdedu8Whr7yOJL+rKBsugK3oVNrXvuKusj8bO8745XYh9il
+	 MISPUZYq/QqxQ==
+Date: Wed, 25 Nov 2026 17:24:34 +0100
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Wenwu Hou <hwenwur@gmail.com>, mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com, linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] tracing/hwlat: Bind the sampler kthread instead of
+ setting its affinity
+Message-ID: <awcLwio_qyE3d1bL@localhost.localdomain>
+References: <20261125084600.2306377-1-hwenwur@gmail.com>
+ <awbklFE66PIMKFop@localhost.localdomain>
+ <20261125103822.2129a7ec@gandalf.local.home>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,88 +61,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261125103822.2129a7ec@gandalf.local.home>
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+Le Wed, Nov 25, 2026 at 10:38:22AM -0500, Steven Rostedt a écrit :
+> On Wed, 25 Nov 2026 14:37:24 +0100
+> Frederic Weisbecker <frederic@kernel.org> wrote:
+> 
+> > >  static int kthread_fn(void *data)
+> > >  {
+> > > +	unsigned long flags;
+> > >  	u64 interval;
+> > >  
+> > > +	/*
+> > > +	 * kthread_bind_mask() sets PF_NO_SETAFFINITY to keep the initial
+> > > +	 * affinity from being overridden by kthread_affine_node(). Clear it
+> > > +	 * now to allow userspace affinity changes and cgroup migration, but
+> > > +	 * keep per-CPU threads bound to their CPUs.
+> > > +	 */
+> > > +	if (hwlat_data.thread_mode != MODE_PER_CPU) {
+> > > +		raw_spin_lock_irqsave(&current->pi_lock, flags);
+> > > +		current->flags &= ~PF_NO_SETAFFINITY;
+> > > +		raw_spin_unlock_irqrestore(&current->pi_lock, flags);  
+> > 
+> > This is not pretty but moreover, is it a good idea to let the user override
+> > that affinity?
+> 
+> No, but we used to. Perhaps we should make that not possible instead? :-/
 
-------------------
+Right, the affinity should only be changed by the kernel if tracing_cpumask is
+written. Otherwise it doesn't seem to make sense to let the user play with the
+affinity.
 
-From: Krittikun Wongnin <krittikunwongnin@gmail.com>
-
-[ Upstream commit 8eb2754ef96d77d870d6b1ef1e0e8470c892b6b4 ]
-
-On the Acer Aspire A515-53G (Whiskey Lake + NVIDIA GeForce MX230), the
-dGPU behind root port RP05 (00:1c.4) falls off the bus during boot and
-is unusable until the next power cycle:
-
-  nvidia 0000:02:00.0: Unable to change power state from D3cold to D0, device inaccessible
-  NVRM: The NVIDIA GPU 0000:02:00.0 ... has fallen off the bus
-
-The firmware ships two SSDTs which both provide power management for
-the dGPU:
-
- - One SSDT defines \_SB.PCI0.RP05.PC01 together with
-   RP05._PR0/_PR2/_PR3 = { PC01 }.
-
- - A second SSDT defines \_SB.PCI0.RP05.PCRP (_STA initially One,
-   _OFF calls \_SB.PCI0.HGOF, which puts the link into L2/L3 and drops
-   the dGPU power enable GPIO) and its own RP05._PR0/_PR2/_PR3/_S0W.
-   The latter fail to load:
-
-     ACPI BIOS Error (bug): Failure creating named object [\_SB.PCI0.RP05._PR0], AE_ALREADY_EXISTS
-
-As a result PCRP is not referenced by any device and
-acpi_turn_off_unused_power_resources() turns it off right after the
-ACPI namespace scan. This cuts power to the dGPU, but PC01 still
-believes it is on, so its _ON method is a no-op when the PCI core later
-tries to bring the GPU back to D0.
-
-Windows does not turn off unused power resources, so the dGPU works
-there.
-
-Add the machine to dmi_leave_unused_power_resources_on[], like the
-THUNDEROBOT ZERO which has a similar SSDT bug. With this change the
-dGPU stays on the bus and the nvidia driver binds. Runtime PM of the
-dGPU is unaffected, as it is handled through PC01: with no driver
-bound and power/control set to auto, RP05 reaches D3cold and the GPU
-comes back to D0 on resume.
-
-Link: https://lore.kernel.org/r/CADS-TgDQ1G8vrTQLJeQ3RTBVFTyMe0C+5p2=UBKS=EFCDFuaxw@mail.gmail.com/
-Signed-off-by: Krittikun Wongnin <krittikunwongnin@gmail.com>
-[ rjw: Subject and changelog tweaks ]
-Link: https://patch.msgid.link/20261013074245.4327-1-krittikunwongnin@gmail.com
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/acpi/power.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/acpi/power.c b/drivers/acpi/power.c
-index aaa07997fdf31..d2c3ec958e4aa 100644
---- a/drivers/acpi/power.c
-+++ b/drivers/acpi/power.c
-@@ -1073,6 +1073,19 @@ static const struct dmi_system_id dmi_leave_unused_power_resources_on[] = {
- 			DMI_MATCH(DMI_BOARD_NAME, "NLCC 001"),
- 		},
- 	},
-+	{
-+		/*
-+		 * Acer Aspire A515-53G: Two SSDTs both define power resources
-+		 * for the dGPU root port RP05 ('PC01' and 'PCRP'). Only PC01 ends
-+		 * up in RP05's _PR0/_PR3, so 'PCRP' is shut down on
-+		 * initialization, cutting power to the NVIDIA dGPU behind the
-+		 * back of 'PC01' and making the dGPU unavailable.
-+		 */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Aspire A515-53G"),
-+		},
-+	},
- 	{}
- };
- 
 -- 
-2.53.0
-
-
-
+Frederic Weisbecker
+SUSE Labs
