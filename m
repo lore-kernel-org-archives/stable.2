@@ -1,63 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795616108;
-	b=c/AHnHnHp4fbTiFYey9ShYgzKwKFAnI/UgnQOe/KesczsxF8/do7EnaDYOYRNfHw8k9U
-	 Y6r05/YAqUqJsCn3zl4jqsYqMJ7+e8Ncf+ycOm4aWyPJ8Fd359hUDfgE9z1sj/1n5gsAv
-	 9CK0NeXY1WtG0dYluLfSy/eE71R9GHD7JAMRrdgzkNFDI5izoWUov4RbJluLHFzghd1QJ
-	 VevdXiI1CyyGfaRaqWxArDJBQ45EEVuMZ5ye/8O3bgYdceUeoLjoktkqhv24NDVsgKkqM
-	 oVmS9yjFTvkKNA0RRtr3tYjuEemviuyOchm1JENn3XWP1V7jX9R95015bwhubkHpK7w==
+	t=1795616112;
+	b=tz4xD/kakgVDiHIYv64iJHh2oydG0lQZJ49jvhiS4SaYt3CmbFo/rwqeos17SOKW/CU2
+	 Xdam+oqw9tcGTXUJAagSWmB+qrzTd44Gli7ovzrqq2p+kflCqlXcFbZhcMsVst7ctJWLD
+	 cjgZ6oA1RLqI2G9PIDaAIWmWCCkp0plW0GkLY6lZTE1PeKLFkPdobXWDBFtEqfxnnYAz2
+	 b7F1aDiU2LLvSv6tjSRZRnPgBZbl1VgPSJWqjOOqLoPXsDzFHDtLH/szB+mMqLto1cONU
+	 ccqHG7uj9jWcaDzZH9auiaS+mMhkrMD6/+94UhUn+NpPRmdrW5+hv5yxaOPXys0vpqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795616108;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=d/+qYvyLZHeG1kOykHPXzeEZDLRzhRfnNwJtUaDjUd4=;
-	b=sxrR8CBzK2RlJDjrcqSYR5HlAtfyZpk+9gZMxwAcAZjbSq/VEioJeTcTZ1SY24w4Z5Db
-	 pw5xdfW+tqsdIZ2TZ7hEgckITNCovylwM+SzLXNrHA9GkNub2bnPu8DnPf+pMKoSOXNgK
-	 9apvdE2/Jx/ea/fdX2yP3Ji+kU1tNn4w0fKnbDq72grd9jdaID6JdDseKVZlrFOrPKTqg
-	 OeUEWqqcpmJBQMljuIUg8y5/gTgD7rLFxXGNs6v1CdHwCrm26+6qhG8ZtfnXgkpfA2hy5
-	 L+NIQ4N8L63vIcojCH4EPK5kUHfdHDKG7doiLgu0igcXCYHlMbJR9G4Aewt4528tfUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795616112;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=iOavuhXclhOaHI/0seHjhELa4YY7Qjxg+BB6UCL4ORE=;
+	b=JGzPoUShDXDwzPDvpnhvC6HuxhZ7iwJYT1fMLgwd50QsK0WaJOZsmJYuDy655GZwADi0
+	 kb6okhg1ETf898sOLSVvE1a2FFDC9ofGG69aoWn5l87E0yeiHH+y0XJC0s0KXgvQcT2Tt
+	 DQNFW6gRaoGzm/Dp6bgGYMHa0YI2rvijwVjs8/jd4mNBiy5XaPlTMD55QzAeIuYRPm4UN
+	 fLX6cz+Ro1jOBjQHi8uiQ0sK1Zz8xvtxmHyyOS45CEUHtSdl+wRktfPZMFH3VuZlsxqEJ
+	 ByDDNf8qHMCGTF2SCVErn7FCKkj1fcSwYLZuGdYTz3C6by0jkIH17L2NKKiw0/LAisw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mgpMkxzh;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CB683606A32A
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:15:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB683606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehHpva6p;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A47606A32C;
+	Wed, 25 Nov 2026 14:15:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mgpMkxzh
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 213FB339;
-	Wed, 25 Nov 2026 06:15:04 -0800 (PST)
-Received: from raptor (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 150F23F763;
-	Wed, 25 Nov 2026 06:15:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795616106; bh=bW3E4SbeYQhH2zRyHlW+z0xxKv0+xWnfrGDaIYNZ9II=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mgpMkxzhZM1KtRa0AA6hXuxobdOzkN0nHaqk3xtbg2XuiZUU6TszYdViptBjz1Wqn
-	 5L8+m00c5+r2Zxd3X+FB+f1zGxRUtVudw2fBrvZqnI9Iqmvo4NnNCdJDztOObwioJk
-	 3dDIyGxa18ywS6pLGCjd5en3pKT+ICHWU83IFkrw=
-Date: Wed, 25 Nov 2026 14:15:02 +0000
-From: Alexandru Elisei <alexandru.elisei@arm.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Mika =?utf-8?B?UGVudHRpbMOk?= <mpenttil@redhat.com>, linux-mm@kvack.org,
-	Aveline Noir <jm5905938@gmail.com>,
-	Ralph Campbell <rcampbell@nvidia.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
-	Shuah Khan <shuah@kernel.org>, David Hildenbrand <david@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] lib/test_hmm: invalidate all mirrors on device-private
- migration
-Message-ID: <awbtZjtII9h1oJ5R@raptor>
-References: <bae41f6fc4114357a8a74c8b958f2bdc.1@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehHpva6p
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 328C71F000C6;
+	Wed, 25 Nov 2026 14:15:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795616112;
+	bh=iOavuhXclhOaHI/0seHjhELa4YY7Qjxg+BB6UCL4ORE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ehHpva6pKhTh2KvNEUIvq2bfyqRjGVrM4AJG005LpJ+GxClpNJpbpOeawcpqTktFd
+	 FFOuHnoqcuivWmIL8wMmzLcZAIie3bDqa8N6u6mpl2pPYI6IBZXFETKG8y5dX93i4+
+	 Bl7QRas+k4DKYvypNpWTEFZ6shIg1mi5R5pnHppbnafElS6xS+UZ+aaGFDETwbghLP
+	 ZZmJxw5uXFQ2ylE2wR1dEW84IJWDnjYEq9TpliDOGD809P5TyS56CmCam3KLACUY0X
+	 ingurqTG4XpvGAbjKKdFkdspeakzqRveNhsNMUsCpZ8Dq5S6ZeYFTae0xEx182+b/u
+	 95YDmkDbBAqjg==
+Subject: Re: [PATCH net v4 1/3] net/sched: act_gate: bound the cycle time and
+ start time arithmetic
+From: netdev-bot+sashiko@kernel.org
+To: jhs@mojatatu.com
+Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, willemb@google.com,
+ horms@kernel.org, alexei.starovoitov@gmail.com, victor@mojatatu.com,
+ Po.Liu@nxp.com, stable@vger.kernel.org,
+ syzbot+0054fed3dc9085390f51@syzkaller.appspotmail.com, shawnq1@163.com
+Date: Wed, 25 Nov 2026 14:15:10 +0000
+Message-ID: <179561611071.3135.17430122131465607714@kernel.org>
+In-Reply-To: <ACT-WEXM.v4.r0.20261124074514-1@mojatatu.com>
+References: <ACT-WEXM.v4.r0.20261124074514-1@mojatatu.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,215 +65,160 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bae41f6fc4114357a8a74c8b958f2bdc.1@linux-foundation.org>
 
-Hi,
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-I tried to test this patch, applied on top of v7.4-rc4.
+Low priority / nit picks for your consideration:
 
-With the changes to the migrate_anon_huge_fault test, but with no changes to
-lib/test_hmm.c, to see if the test fails without the fix to the kernel, I get a
-kernel fault:
+- [Low] The v3 -> v4 changelog says v4 bounds base_time and cycle_time
+  "at KTIME_MAX rather than S64_MAX" and gives as a reason that "the v3…
 
-[   95.571212] Unable to handle kernel paging request at virtual address ffff7fffdfe00000
-[   95.571221] Mem abort info:
-[   95.571223]   ESR = 0x0000000096000004
-[   95.571225]   EC = 0x25: DABT (current EL), IL = 32 bits
-[   95.571228]   SET = 0, FnV = 0
-[   95.571230]   EA = 0, S1PTW = 0
-[   95.571231]   FSC = 0x04: level 0 translation fault
-[   95.571234] Data abort info:
-[   95.571235]   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
-[   95.571237]   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-[   95.571239]   GCS = 0, Overlay = 0, DirtyBit = 0
-[   95.571242] swapper pgtable: 4k pages, 48-bit VAs, pgdp=00000001cc71d000
-[   95.571245] [ffff7fffdfe00000] pgd=0000000000000000, p4d=0000000000000000
-[..]
-[   95.692002] pc : __pi_memcpy_generic+0x110/0x230
-[   95.696623] lr : dmirror_do_read+0x7c/0xf0
-[..]
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but
+  gate_timer_func() (net/sched/act_gate.c:119), which this patch…
 
-decode_stacktrace.sh says that happens in lib/test_hmm.c:503.
+--
 
-This looks more serious that the use-after-free that KASAN reported.
+net/sched: act_gate: bound the cycle time and start time arithmetic
 
-With the changes to the test and to the kernel, I get this error when running
-the test:
+The netlink policy now limits TCA_GATE_BASE_TIME and TCA_GATE_CYCLE_TIME
+to the range [0, KTIME_MAX]. gate_get_start_time() now works out the part
+of the cycle still ahead of now and adds it with ktime_add_safe(), so the
+result saturates instead of wrapping. gate_timer_func() reuses that helper
+when it falls behind and restarts the walk at the first entry.
 
-$ sudo tools/testing/selftests/mm/hmm-tests -r hmm.hmm_device_private.migrate_anon_huge_fault
-# [INFO] detected hugetlb page size: 2048 KiB
-# [INFO] detected hugetlb page size: 32768 KiB
-# [INFO] detected hugetlb page size: 64 KiB
-# [INFO] detected hugetlb page size: 1048576 KiB
-TAP version 13
-1..1
-# Starting 1 tests from 1 test cases.
-#  RUN           hmm.hmm_device_private.migrate_anon_huge_fault ...
-# hmm-tests.c:2156:migrate_anon_huge_fault:Expected *(int *)buffer->mirror (0) == (npages - 1) * self->page_size / sizeof(int) (523264)
-# migrate_anon_huge_fault: Test terminated by assertion
-#          FAIL  hmm.hmm_device_private.migrate_anon_huge_fault
-not ok 1 hmm.hmm_device_private.migrate_anon_huge_fault
-# FAILED: 0 / 1 tests passed.
-# Totals: pass:0 fail:1 xfail:0 xpass:0 skip:0 error:0
+Link: https://lore.kernel.org/netdev/20261022144732.61188-1-shawnq1@163.com/
+Link: https://lore.kernel.org/netdev/20260827191547.4004973-2-kuba@kernel.org/
+Link: https://lore.kernel.org/netdev/20260827121751.33dac8aa@kernel.org/
+Link: https://lore.kernel.org/netdev/DN37NBGPJJG9.2DSVDCKS3UYTV@gmail.com/
 
-Might be something on my side? I'll investigate further, but I'm not very
-familiar with the code.
+> diff --git a/net/sched/act_gate.c b/net/sched/act_gate.c
+> index 711cf24435409..4835f65439011 100644
+> --- a/net/sched/act_gate.c
+> +++ b/net/sched/act_gate.c
 
-Thanks,
-Alex
+[ ... ]
 
-On Tue, Nov 24, 2026 at 10:53:38PM -0800, Andrew Morton wrote:
-> From: Andrew Morton <akpm@linux-foundation.org>
-> Subject: lib/test_hmm: invalidate all mirrors on device-private migration
-> Date: Sun, 22 Nov 2026 08:53:12 -0800
-> 
-> When one open of the fake HMM device migrates a folio to device-private
-> memory, a second open can fault the same address into its mirror page
-> table. The second mirror then stores the inaccessible device page, which
-> can oops the kernel when dmirror_do_read() copies from it. Store the
-> corresponding RAM backing subpage instead.
-> 
-> That conversion also makes the backing page's lifetime significant to
-> the second mirror. migrate_vma_setup() notifies all mirrors before CPU
-> faultback, but dmirror_interval_invalidate() skips the notification for
-> every open on the same device. The faulting open clears only its own
-> XArray entry. The other open can read or write the backing page after
-> migrate_vma_finalize() frees it. Aveline reported a KASAN use-after-free
-> and stale data through the second open.
-> 
-> Handle migration invalidation for every mirror under its mutex. This
-> clears pointers before faultback can free the backing pages and waits
-> for an active mirror read or write. During system-to-device migration,
-> the migrating open installs new entries after migration; other opens
-> refault on their next access. Remove the now redundant XArray erase
-> from the faultback copy loop.
-> 
-> Extend the PMD migration selftest to read its last device-private
-> subpage through a second open, then fault it back to RAM, change it,
-> and read the new value through that open. The trigger is available to
-> a process permitted to open /dev/hmm_dmirror* when CONFIG_TEST_HMM is
-> enabled; it does not depend on physical GPU hardware.
-> 
-> [akpm@linux-foundation.org: fix device-private backing subpage selection]
-> Link: https://lore.kernel.org/r/20261122015246.d8b6b98ff5a8157168156339@linux-foundation.org
-> Link: https://lore.kernel.org/r/179535872126.34.4789080961796247940.b4-reply@b4
-> Fixes: b2ef9f5a5cb3 ("mm/hmm/test: add selftest driver for HMM")
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> Reported-by: Aveline Noir <jm5905938@gmail.com>
-> Cc: Ralph Campbell <rcampbell@nvidia.com>
-> Cc: Jason Gunthorpe <jgg@ziepe.ca>
-> Cc: Leon Romanovsky <leon@kernel.org>
-> Cc: Mika Penttil?? <mpenttil@redhat.com>
-> Cc: Shuah Khan <shuah@kernel.org>
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Liam R. Howlett <liam@infradead.org>
-> Cc: Vlastimil Babka <vbabka@kernel.org>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Cc: Michal Hocko <mhocko@suse.com>
-> Cc: <stable@vger.kernel.org>
-> 
->  lib/test_hmm.c                         |   20 +++++++-----------
->  tools/testing/selftests/mm/hmm-tests.c |   25 +++++++++++++++++++++++
->  2 files changed, 33 insertions(+), 12 deletions(-)
-> 
-> --- a/lib/test_hmm.c~lib-test_hmm-invalidate-all-mirrors-on-device-private-migration
-> +++ a/lib/test_hmm.c
-> @@ -292,6 +292,12 @@ static int dmirror_do_fault(struct dmirr
->  		page = hmm_pfn_to_page(*pfns);
->  		WARN_ON(!page);
+> @@ -108,13 +108,10 @@ static enum hrtimer_restart gate_timer_func(struct hrtimer *timer)
+>  	now = gate_get_time(gact);
 >  
-> +		if (is_device_private_page(page)) {
-> +			struct folio *folio = page_folio(page);
-> +			struct page *backing = BACKING_PAGE(&folio->page);
-> +
-> +			page = backing + folio_page_idx(folio, page);
-> +		}
->  		entry = page;
->  		if (*pfns & HMM_PFN_WRITE)
->  			entry = xa_tag_pointer(entry, DPT_XA_TAG_WRITE);
-> @@ -327,14 +333,6 @@ static bool dmirror_interval_invalidate(
->  {
->  	struct dmirror *dmirror = container_of(mni, struct dmirror, notifier);
->  
-> -	/*
-> -	 * Ignore invalidation callbacks for device private pages since
-> -	 * the invalidation is handled as part of the migration process.
-> -	 */
-> -	if (range->event == MMU_NOTIFY_MIGRATE &&
-> -	    range->owner == dmirror->mdevice)
-> -		return true;
+>  	if (ktime_after(now, close_time)) {
+> -		ktime_t cycle, base;
+> -		u64 n;
 > -
->  	if (mmu_notifier_range_blockable(range))
->  		mutex_lock(&dmirror->mutex);
->  	else if (!mutex_trylock(&dmirror->mutex))
-> @@ -1198,7 +1196,6 @@ static vm_fault_t dmirror_devmem_fault_a
->  
->  			src_page = pfn_to_page(page_to_pfn(spage) + i);
->  
-> -			xa_erase(&dmirror->pt, addr >> PAGE_SHIFT);
->  			addr += PAGE_SIZE;
->  			copy_highpage(dst_page, src_page);
->  		}
-> @@ -1822,9 +1819,8 @@ static vm_fault_t dmirror_devmem_fault(s
->  	}
->  	migrate_vma_pages(&args);
->  	/*
-> -	 * No device finalize step is needed since
-> -	 * dmirror_devmem_fault_alloc_and_copy() will have already
-> -	 * invalidated the device page table.
-> +	 * The migration notifier has invalidated all mirror page tables
-> +	 * before the backing pages can be freed.
->  	 */
->  	migrate_vma_finalize(&args);
->  err:
-> --- a/tools/testing/selftests/mm/hmm-tests.c~lib-test_hmm-invalidate-all-mirrors-on-device-private-migration
-> +++ a/tools/testing/selftests/mm/hmm-tests.c
-> @@ -2087,6 +2087,7 @@ TEST_F(hmm, migrate_anon_huge_fault)
->  	void *old_ptr;
->  	void *map;
->  	int pagemap_fd;
-> +	int fd2 = -1;
->  	int *ptr;
->  	int ret;
->  
-> @@ -2143,12 +2144,36 @@ TEST_F(hmm, migrate_anon_huge_fault)
->  		}
->  
->  		close(pagemap_fd);
-> +
-> +		/* Read a device-private subpage through another open. */
-> +		fd2 = hmm_open(variant->device_number);
-> +		ASSERT_GE(fd2, 0);
-> +		buffer->ptr = (char *)map + (npages - 1) * self->page_size;
-> +		ret = hmm_dmirror_cmd(fd2, HMM_DMIRROR_READ, buffer, 1);
-> +		buffer->ptr = map;
-> +		ASSERT_EQ(ret, 0);
-> +		ASSERT_EQ(buffer->cpages, 1);
-> +		ASSERT_EQ(*(int *)buffer->mirror,
-> +			  (npages - 1) * self->page_size / sizeof(int));
+> -		cycle = p->tcfg_cycletime;
+> -		base = ns_to_ktime(p->tcfg_basetime);
+> -		n = div64_u64(ktime_sub_ns(now, base), cycle);
+> -		close_time = ktime_add_ns(base, (n + 1) * cycle);
+> +		gate_get_start_time(gact, p, &close_time);
+> +		gact->current_close_time = close_time;
+> +		next = list_first_entry(&p->entries,
+> +					struct tcfg_gate_entry, list);
 >  	}
 >  
->  	/* Fault pages back to system memory and check them. */
->  	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
->  		ASSERT_EQ(ptr[i], i);
+>  	gact->next_entry = next;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but since gate_timer_func() is
+being reworked here: can the callback rewrite the expiry of a timer that
+has already been queued again underneath it?
+
+Take an RTM_NEWACTION replace that keeps basetime, clockid and tk_offset
+the same. need_cancel is then false in tcf_gate_init(), so
+hrtimer_cancel() is skipped:
+
+    need_cancel = ret != ACT_P_CREATED &&
+                  gate_timer_needs_cancel(basetime, old_basetime,
+                                          tko, old_tk_offset,
+                                          timer_clockid, old_clockid);
+    ...
+    spin_lock_bh(&gact->tcf_lock);
+    ...
+    gate_start_timer(gact, start);
+    spin_unlock_bh(&gact->tcf_lock);
+
+If the timer is expiring on another CPU at that moment, the sequence
+looks like this:
+
+CPU1 (soft hrtimer softirq)
+__run_hrtimer()
+  dequeues the timer, drops cpu_base->lock
+  gate_timer_func()
+    spin_lock(&gact->tcf_lock)     <- spins
+
+CPU2
+tcf_gate_init()
+  spin_lock_bh(&gact->tcf_lock)
+  gate_start_timer()
+    hrtimer_start()                <- timer queued again on CPU1's base,
+                                      expiry = min(start, old expiry)
+  spin_unlock_bh(&gact->tcf_lock)
+
+CPU1
+    hrtimer_set_expires(&gact->hitimer, close_time);
+    return HRTIMER_RESTART;
+  if (restart == HRTIMER_RESTART && !timer->is_queued)   <- skipped
+
+At that point hrtimer_set_expires() writes node.expires and _softexpires
+on a node that is already linked into the timerqueue rbtree. It does this
+without cpu_base->lock, and the node is never re-sorted.
+
+Would that leave the gate timer in the leftmost position with a future
+key? If so, __hrtimer_run_queues() would stop at it, and other soft
+hrtimers on the same clock base and CPU would wait until the gate's new
+expiry.
+
+This patch accepts cycle_time values up to KTIME_MAX on replace, so
+close_time can saturate near KTIME_SEC_MAX. Could those other timers then
+be held off indefinitely? hrtimer_forward() has WARN_ON(timer->is_queued)
+to enforce this same rule.
+
+Would either of these avoid it:
+
+  - cancel the timer on every replace, outside tcf_lock, or
+  - have the callback skip its re-arm when the timer was queued again
+    under it?
+
+> @@ -173,13 +170,20 @@ static const struct nla_policy entry_policy[TCA_GATE_ENTRY_MAX + 1] = {
+>  	[TCA_GATE_ENTRY_MAX_OCTETS]	= { .type = NLA_S32 },
+>  };
 >  
-> +	if (fd2 >= 0) {
-> +		/* This open must not retain the freed device backing page. */
-> +		ptr[(npages - 1) * self->page_size / sizeof(*ptr)] = -1;
-> +		buffer->ptr = (char *)map + (npages - 1) * self->page_size;
-> +		ret = hmm_dmirror_cmd(fd2, HMM_DMIRROR_READ, buffer, 1);
-> +		buffer->ptr = map;
-> +		ASSERT_EQ(ret, 0);
-> +		ASSERT_EQ(buffer->cpages, 1);
-> +		ASSERT_EQ(buffer->faults, 1);
-> +		ASSERT_EQ(*(int *)buffer->mirror, -1);
-> +		ASSERT_EQ(close(fd2), 0);
-> +	}
-> +
->  	buffer->ptr = old_ptr;
->  	hmm_buffer_free(buffer);
->  }
-> _
-> 
+> +static const struct netlink_range_validation gate_time_range = {
+> +	.min = 0,
+> +	.max = KTIME_MAX,
+> +};
+
+[Severity: Low]
+This isn't a bug, but the v3 -> v4 notes say:
+
+  - Bound base_time as well as cycle_time, and bound both at KTIME_MAX
+  rather than S64_MAX: bounding one attribute's value does not bound the
+  start time the timer is armed with, and the v3 range still computes a
+  negative ktime_t for some accepted pairs.
+
+Is the "KTIME_MAX rather than S64_MAX" part accurate? In
+include/linux/time64.h:
+
+  #define KTIME_MAX			((s64)~((u64)1 << 63))
+
+That is 0x7fffffffffffffff, which is the same value as S64_MAX. So
+switching the constant does not change gate_time_range.max.
+
+What actually prevents negative or wrapped start times in v4 seems to be
+two other changes: the new base_time bound, and the ktime_add_safe()
+computation in gate_get_start_time(). The selftests patch later in this
+series also names its tests "above S64_MAX" while testing the KTIME_MAX
+bound.
+
+Could the notes describe those changes instead?
+
+>  static const struct nla_policy gate_policy[TCA_GATE_MAX + 1] = {
+>  	[TCA_GATE_PARMS]		=
+>  		NLA_POLICY_EXACT_LEN(sizeof(struct tc_gate)),
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/ACT-WEXM.v4.r0.20261124074514%40mojatatu.com
