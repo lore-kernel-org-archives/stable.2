@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795638634;
-	b=rY5UVC8AjJJpDEuaB0tRDvp9vpZSCHVVw07NCdQ+6E6hXQFwx1W8LO1+nRQpNTId+KJe
-	 9NPQADaCUuvblIcVr1KCBjzBazwhcD3qjxPWcupcfnZacoWcVstVoA0kewcXfXyGzdJGO
-	 N5FIMzQWrfPqji8I67AcT1CCo079er30wqSubtJucgHrDl2TsiC80wEAUkFKiUNr8cn0a
-	 u5hHj/QQOOelbCk3TwPb3J8o81v5JKn79xC3NOk65yrrytoiTbHV1pBgRJMqkS/Web9XX
-	 UpBB/2wx46VKlXCax8npsyudiqoh50lLUN0hZXBBBuudmqNoAN2K0PXTairOfbcDuTw==
+	t=1795639036;
+	b=frWmijEOC4O9JM7oCn77ZSMh1YhTgcs1X/qHtI4KYQruQqpf12ecAX48wkDbkoSy3Ds+
+	 Gc1RkIMEIFi+2qFlupXch44S33ZCRZRS9yABVMId6RDEtjPPF3WE06FQH4smhqAeyE8Ad
+	 6Xk+qnnIbBa8RCnQLhKEBRnwYu6bCm64wFsveMzDKSTjge/ASPXxmJkcQdGbPwy+ovpIj
+	 zSzV4lBGq9Hbvt8hrG71hswUEPCU6TeFuhSm8buSIOaU2Rciv5cKfeLvtkc0Bma0jepu/
+	 hwSj4F11R6DRjHOYi3Cc/xhLn1ZI5N6NQzQcGu42md75yGlbWiOFbRnWZAgLMdDhC3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795638634;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795639036;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Jeb3e/S863yyKCvz2KfE2Ydd74t5eqXn4o1HTrz4Vnk=;
-	b=EXiA/jDRCEQbqilrpUxzMtl5mIgU/bUybc/7IS2647i6h/3gsSpcJGR8Gl5UyJ+7hpI+
-	 75bRmCoAo4xXrT8iijVl6aFOox4/bUnxN7caTo3yrxi2Ap4wq/XsNOmzJsSXQvmt8w7uZ
-	 eY5pEOwRw5Rb/Oyq9lkp4BSi+PMHgtZeaxAOiIPbOVXUZXQIeJfPRtardQeaw4t5D+FgL
-	 VKxX/bmEYsRKr/7x2r7rDvYoBcWnsdaArixum/IPLeQS7rn3uSV6uYYIXy/+CGCAPynuv
-	 czfaAIKy+pFRAWvdPIQiG/fygLd1dXqWt0uwE2R/YQG+LsNya3ZHGdItebgRQ1CjUWQ==
+	bh=YfE5Nsaam9raimIAGJfkOSiO5vhzJmJVbn5xiySEvSQ=;
+	b=XHbRW+rcmVuA8wsC6vbHP1ujgRou8VrMU8vg+ruzwt3b/asLbB9p4av0RLcnha+8WakL
+	 uvNqQd7FqipCITHWZQZLztDnjQTQnoMh/jO7SYRAneub/hfEuYaH6jAZ3GoSBfnpZkjQH
+	 dEge7IVmtJjG63tHobVMmf3ARXtAPBY7ZI6YakxdZnL1NWn8OfaPFJeRFYurhzEFl7MBv
+	 okaE1+kEOG3zVbSxOibohq8pKKKtC8shC6YLZxI9Nr/Uf7YHUboN6NaFncbW7eLyrU9h0
+	 N5R0iH8h5+/T627MyBp9e9KL6qUHT9rKB38IFBfbqIRtVUuovQif6bqlm8Ek8HbMjPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L+Mzh0i/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CmcriStL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F333606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:30:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7CE7606A334
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:37:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L+Mzh0i/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB45A1F000C0;
-	Wed, 25 Nov 2026 20:30:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CmcriStL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8B271F000D1;
+	Wed, 25 Nov 2026 20:37:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795638634;
-	bh=Jeb3e/S863yyKCvz2KfE2Ydd74t5eqXn4o1HTrz4Vnk=;
+	s=k20260515; t=1795639036;
+	bh=YfE5Nsaam9raimIAGJfkOSiO5vhzJmJVbn5xiySEvSQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L+Mzh0i/VHPFsmUhtCNMmJEkg+Regha5Ypd/p4g1nBsUSAouUs9NqgRe5vGnjoMIA
-	 VfuLXLQYSAhjMhcVYEmvDna2/SoEfXI0PINdLiQDEDGaA1tcNYLQKPLy6kQdLlFlg6
-	 lzJ7JSoPkAjAPHp0a+H0sb3TkI/Q/g50e1a+DebufBl7DBYuhp/eZm+CGzLnHDoeKd
-	 QzAB9iIx/NwSW0Iuu78IhtNn0lX0b1n820d5qSIQuSQUQLJHMBQhYlHSRwQaz8HPgf
-	 n5md+6GmPuGRwS2coqdt8CRVlxjZpvQLVZiwmewmoyjRpWsu+RZBLkjpkNXa9wAFUJ
-	 yczigPBORcTHw==
+	b=CmcriStL5gqpr99yHfiUaomG8vsbrWrzq9sPqeHXO/b0NIIAFVwCKAuy0c5YjAcWl
+	 DSNKd8t6IFUKJSTQehOoItTTpR4wfRKY5YyRftRJGev1HLeuvE4xQ7R5l5B3OLG9oN
+	 tq2iJ/r35wSGpo/5aZP77ONP3/gVOTvNEMqIbLfv9gPsY8gdZZGYgVIjDoVv4NGGMg
+	 yonnrOpV0X6xcK4AP9vZeKk/GuXTxlMXAkVjievwg93rG2uuuqUGvE3CXM2ZwDcorP
+	 OaWp5biOY4s8WA+9ysb2PTfAQNRA1fYsm29yfG7541aQ+ko2jGQsMAViQecBGYF0sF
+	 5+/BXYeo6Z36g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ian Bridges <icb@fastmail.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
+Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] ksmbd: skip metadata-only stream opens in the delete check
-Date: Wed, 25 Nov 2026 15:30:32 -0500
-Message-ID: <20261125203027.1420028-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] tracing/probes: Fix user-space dereference string array store type
+Date: Wed, 25 Nov 2026 15:37:14 -0500
+Message-ID: <20261125203703.1441513-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112507-uncivil-cesarean-e13f@gregkh>
-References: <2026112507-uncivil-cesarean-e13f@gregkh>
+In-Reply-To: <2026112543-bobsled-cofounder-303b@gregkh>
+References: <2026112543-bobsled-cofounder-303b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,49 +60,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ian Bridges <icb@fastmail.org>
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-[ Upstream commit 2f14fe2d589583ce649b2bf1b449cc9839abda8b ]
+[ Upstream commit 2721573e6c6faaba2e31f352f2c02ec5f3ecf5e9 ]
 
-A metadata-only named-stream open without FILE_SHARE_DELETE blocks a
-later DELETE open of the file. It also blocks setting the file delete
-pending.
+When finalizing a string array argument (e.g. +0u(%reg):string[N]),
+finalize_fetch_insn() advances the instruction pointer to a new slot
+for the store operation before checking whether the preceding operation
+was FETCH_OP_UDEREF. As a result, user-space dereference string arrays
+with type "string" emit FETCH_OP_ST_STRING (kernel memory read) instead
+of FETCH_OP_ST_USTRING.
 
-Ignore a stream open unless its effective access includes data, execute
-or delete access. Reuse the sharing-access helper so overwriting a
-stream, or creating one on an existing file, still counts as
-FILE_WRITE_DATA. The Time Machine AFP_AfpInfo synthesis keeps only its
-requested access.
+Check for FETCH_OP_UDEREF before advancing the instruction pointer.
 
-Fixes: 19043971c947 ("ksmbd: honor stream delete sharing for base file")
+Link: https://lore.kernel.org/all/179455854396.403392.18073771811100192405.stgit@devnote2/
+
+Fixes: e65f7ae7f4da ("tracing/probe: Support user-space dereference")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+[ sashal: Adapted to older code: the string store logic sits inline in traceprobe_parse_probe_arg_body() rather than finalize_fetch_insn(), and the context uses FETCH_OP_DATA instead of FETCH_OP_IMMSTR. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Depends on <20261125195014.1296732-1-sashal@kernel.org>
+ kernel/trace/trace_probe.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
- fs/smb/server/vfs_cache.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
-index c6999ed4e6d67..e0b78623d7b62 100644
---- a/fs/smb/server/vfs_cache.c
-+++ b/fs/smb/server/vfs_cache.c
-@@ -344,7 +344,12 @@ bool ksmbd_has_stream_without_delete_share(struct ksmbd_file *fp)
- 		if (file_inode(fp->filp) != file_inode(prev_fp->filp))
- 			continue;
- 
--		if (!(prev_fp->saccess & FILE_SHARE_DELETE_LE)) {
-+		/*
-+		 * A stream open with no right in FILE_SHARE_CHECKED_ACCESS_LE,
-+		 * implied writes included, never conflicts.
-+		 */
-+		if (!(prev_fp->saccess & FILE_SHARE_DELETE_LE) &&
-+		    ksmbd_sharing_daccess(prev_fp) & FILE_SHARE_CHECKED_ACCESS_LE) {
- 			ret = true;
- 			break;
+diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
+index f5df2a2d3681d..9fdd0cbf50143 100644
+--- a/kernel/trace/trace_probe.c
++++ b/kernel/trace/trace_probe.c
+@@ -679,6 +679,8 @@ static int traceprobe_parse_probe_arg_body(const char *argv, ssize_t *size,
+ 	ret = -EINVAL;
+ 	/* Store operation */
+ 	if (parg->type->is_string) {
++		bool is_uderef;
++
+ 		if (!strcmp(parg->type->name, "symstr")) {
+ 			if (code->op != FETCH_OP_REG && code->op != FETCH_OP_STACK &&
+ 			    code->op != FETCH_OP_RETVAL && code->op != FETCH_OP_ARG &&
+@@ -696,6 +698,8 @@ static int traceprobe_parse_probe_arg_body(const char *argv, ssize_t *size,
+ 				goto fail;
+ 			}
  		}
++
++		is_uderef = (code->op == FETCH_OP_UDEREF);
+ 		if (!strcmp(parg->type->name, "symstr") ||
+ 		    (code->op == FETCH_OP_IMM || code->op == FETCH_OP_COMM ||
+ 		     code->op == FETCH_OP_DATA) || code->op == FETCH_OP_TP_ARG ||
+@@ -715,8 +719,7 @@ static int traceprobe_parse_probe_arg_body(const char *argv, ssize_t *size,
+ 			}
+ 		}
+ 		/* If op == DEREF, replace it with STRING */
+-		if (!strcmp(parg->type->name, "ustring") ||
+-		    code->op == FETCH_OP_UDEREF)
++		if (!strcmp(parg->type->name, "ustring") || is_uderef)
+ 			code->op = FETCH_OP_ST_USTRING;
+ 		else if (!strcmp(parg->type->name, "symstr"))
+ 			code->op = FETCH_OP_ST_SYMSTR;
 -- 
 2.53.0
 
