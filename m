@@ -1,59 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625095;
-	b=YsxiE9OHypXF4LgEpKJenMQ6cD6tqnM7XLnClhQz0aeQy083fVPHWLmHGZcPGrYt3CLs
-	 6dAsYLZJxxnurmyV6P0hh0ul17sbscne4Qx/RHaFt7TLTLYAbt/M4a9OtunJOSwmjlFTD
-	 zdE9jeoq9PUfq7Js08d4JRRtWoZOPnf7uy7CtV87TbGvaeHi0M4Js34iGK3ijA173FVsX
-	 qQ7mXjErqKg+NfQQdCDfuNbHZkbjcYKGbdNH+xi+KRbWjVJ55PkGZdJwMsB37jQkmOxSn
-	 L8mV2Q4OvFs4fuSMzBA5KrNrX8C1Tp9o+ps7u3pTAU+GO3LjfkvDi0czFFhW8O54p/w==
+	t=1795625098;
+	b=A1JDeLEN3pRFB8dfXlxHLgW80tjn+8f27tizUFJq1zX0vhLxMDCvR3oHebNV0P832Fut
+	 6cJdngYodanDRssjzMa0EqqPUsu/epeyZKFybWpcF/PQFWrGOGeCo38NOY1MFA8oQ3oI5
+	 5hqQ2Sqjb3uFXn/E2Kqr0nepjWF1o0HfvYS8Arf0p9L1G1UBCePaJploFbyHZSOpy3Jkc
+	 4Y+goCh+Du0iaSMvgYX0BMYwiyaXhsPUc7ULzw6U0H9dmD73YrBwxxw2up9yaKumasKsE
+	 W2ytdSu7qk2WXbE3l3EYrfV+aJ2Jz8JbZBBPKNVp03wA5XwpLvzXt3zxjK7pn6Psegw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625095;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=hSQSrstuLfcsHvoDBo3wCi7c7n6I/PfNCsuvQEScw+8=;
-	b=xqYtBZkYvSolI926NTgUsVVlHyxZuSVqpLHuFR29AB85aGkqumTnWY9ZhUuv6IRDCLCJ
-	 S6bR2wP//VlazVXvugnDCvtw15GCTlgqwiF/+qNHCZAxIqIIMDuRsHP3b+cEQLvfqifvE
-	 KXbvVAkvz46RUmdrqP7XgUYsjtHGXQ7VDWClQR048m3tEIgcW4UHhN9GTg8VtgjItyBKt
-	 nKEzBJfi3h6efZdyAFRn3gEA7kWHoidTlwZpuBRVl49K1FF82wo8+Sga9J5CWp/J5PSH0
-	 XbjxFTZoMvNwhOIU3v054bmNwJrDUlcimzfZrUz+NfscbDU3SlWkhTgQEzfoI0djJEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625098;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-Spam-Flag:X-Spam-Level:
+	 X-Spamd-Result:X-Spam-Score;
+	bh=+J4EEOaBt5pd8NJS5/yzH261i79GmuENAxdyKKnkldI=;
+	b=YhoWXK2m0JopcFmacWPo18avnLNvhJu0cTvXnJf3mMfAjwYyNVvl73VAMKFBEswSbxyy
+	 +FCLu/PA59zxWdo2F+nq76qRUuJ7OQ5MSQHssA3h6UApPA0Uj+RYUEPoEYgnb8ZnQDJl8
+	 gNiWTw/iMSJ6HjvzLoryUcEZ9G3gzg1E1ZSttLUEDyoAM+zMr0yMQ15gBM8hBPTvLN3Ul
+	 gfn4Dnk+gTgZkT9uUS3JD9KEtiMUNG280DrV/qIoXTqhJJnzK8BQ62d8WVDmXM2caAlES
+	 QpDg6deYVNLeMZ4FakC3Y/NuT9W9yOc2fi1HRLxM4mNaaxVABY+Op7qVqjV+EDUBcsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="t/9cvXRY";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=IHKopKpd;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+8a0GsZM;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=IHKopKpd;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+8a0GsZM;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D0A606A321;
-	Wed, 25 Nov 2026 16:44:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ACAF606A326;
+	Wed, 25 Nov 2026 16:44:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ACAF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=t/9cvXRY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 065111F000C4;
-	Wed, 25 Nov 2026 16:44:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795625095;
-	bh=hSQSrstuLfcsHvoDBo3wCi7c7n6I/PfNCsuvQEScw+8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=t/9cvXRYeBkBKnLitXp6bGY9ujqY9gtgnaj8H7B3CyTvUGNsIw7Z4CUHPTL63djlm
-	 mQEudjl0sTgl7KOGgnV2GUxYSfuhgYbHLA+V73GqnV1A6MlxnCJex7iPXu0mrGC8tK
-	 POuywfQcoY2ez2wC8HmQqki7MiJTlhw5VToYWujU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 404/816] phy: samsung: usbdrd: propagate GS101 PIPE3 lock failures
-Date: Wed, 25 Nov 2026 15:32:32 +0100
-Message-ID: <20261125143858.548434299@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
-References: <20261125143849.205329330@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=IHKopKpd;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+8a0GsZM;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=IHKopKpd;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+8a0GsZM
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 8C8E91FABC;
+	Wed, 25 Nov 2026 16:44:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795625095; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+J4EEOaBt5pd8NJS5/yzH261i79GmuENAxdyKKnkldI=;
+	b=IHKopKpd1FGBl907HDL/oxUWFtr1BTgUjZccbguG0/qQ40flSOHAFy7mno+V1COb5ywgMm
+	+1vSIL5ntmMoi9eO/YeXj8nb1vcN04051I+BomtoRqI7bmt0TsknjIgJKcAE485U8pJYvE
+	9WZjYBavGZDGQqMoV2rYf29wF1t/4p8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795625095;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+J4EEOaBt5pd8NJS5/yzH261i79GmuENAxdyKKnkldI=;
+	b=+8a0GsZMcHcdDhDXazmR5PzLE19k4xdEf/2pkSKkbAjlKo6Dxb27oqz0fgVMhhxoBjEB9/
+	WYtXmj9e28yIVPDg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795625095; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+J4EEOaBt5pd8NJS5/yzH261i79GmuENAxdyKKnkldI=;
+	b=IHKopKpd1FGBl907HDL/oxUWFtr1BTgUjZccbguG0/qQ40flSOHAFy7mno+V1COb5ywgMm
+	+1vSIL5ntmMoi9eO/YeXj8nb1vcN04051I+BomtoRqI7bmt0TsknjIgJKcAE485U8pJYvE
+	9WZjYBavGZDGQqMoV2rYf29wF1t/4p8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795625095;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+J4EEOaBt5pd8NJS5/yzH261i79GmuENAxdyKKnkldI=;
+	b=+8a0GsZMcHcdDhDXazmR5PzLE19k4xdEf/2pkSKkbAjlKo6Dxb27oqz0fgVMhhxoBjEB9/
+	WYtXmj9e28yIVPDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5DC46134CA;
+	Wed, 25 Nov 2026 16:44:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id /2l0DYcQB2uadAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 25 Nov 2026 16:44:55 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id CEC5A27CCD; Wed, 25 Nov 2026 17:44:54 +0100 (CET)
+Date: Wed, 25 Nov 2026 17:44:54 +0100
+From: Jan Kara <jack@suse.cz>
+To: Petr =?utf-8?B?VmFuxJtr?= <petr.vanek@e2b.dev>
+Cc: Theodore Ts'o <tytso@mit.edu>, 
+	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+	Zhang Yi <yi.zhang@huawei.com>, stable@vger.kernel.org, linux-ext4@vger.kernel.org
+Subject: Re: [PATCH] ext4: recompute the inode checksum after restoring
+ inline data
+Message-ID: <56f56udp6ehob2wu4xmhihux5wnll3s3yy34kzztuuetuvwual@3dc3c2aac2l2>
+References: <20261125143841.928615-1-petr.vanek@e2b.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,212 +117,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261125143841.928615-1-petr.vanek@e2b.dev>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	URIBL_BLOCKED(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,system.data:url,e2b.dev:email,suse.cz:email];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -11.30
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+On Wed 25-11-26 15:38:39, Petr Vaněk wrote:
+> ext4_restore_inline_data() recreates the system.data xattr with
+> ext4_create_inline_data(), which marks the inode dirty and so sets its
+> checksum, and only then copies the saved bytes into the raw inode with
+> ext4_write_inline_data().  Unless something dirties the inode again
+> before it is written out, the inode reaches the disk with a checksum
+> that does not match its contents.
+> 
+> Failed inline data conversions take this path, for example an mmap write
+> to a small inline file on a full filesystem:
+> 
+>   mkfs.ext4 -O inline_data /dev/vdb 64M
+>   mount /dev/vdb /mnt
+>   xfs_io -f -c "pwrite -S 0x61 0 42" /mnt/small
+>   xfs_io -f -c "falloc 0 64m" /mnt/fill                # ENOSPC, fs is full
+>   xfs_io -c "mmap -rw 0 42" -c "mwrite 0 1" /mnt/small # SIGBUS
+>   umount /mnt; mount /dev/vdb /mnt
+>   cat /mnt/small                                       # EBADMSG
+> 
+> The read after the remount fails with:
+> 
+>   [    1.203967] EXT4-fs error (device vdb): ext4_lookup:1635: inode #4097: comm cat: iget: checksum invalid
+> 
+> Mark the inode dirty again after ext4_write_inline_data(), so the
+> checksum written to disk covers the restored data.
+> 
+> The Fixes tag is based on code analysis: ext4_restore_inline_data() has
+> called ext4_create_inline_data() before ext4_write_inline_data() since
+> that commit.  The failure reproduces on v5.19 and later; older kernels
+> were not tested.
+> 
+> Fixes: 3c47d54170b6 ("ext4: let add_dir_entry handle inline data properly")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Petr Vaněk <petr.vanek@e2b.dev>
 
-------------------
+Yeah, looks easy enough. Feel free to add:
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-[ Upstream commit 2ef1e78ef7223eb16d9cf20814a1b2873456f671 ]
+								Honza
 
-The GS101 PIPE3 initialization checks the PMA PLL lock and then checks
-the CDR lock. The PLL helper returns an error, but the GS101 PIPE3 init
-path dropped that result. The CDR helper only logged a timeout. PHY
-initialization could therefore still return success after either the PLL
-or the selected receive lane had not locked.
-
-Make the in-file SoC-specific phy_init hook return an int so helpers
-with real failure results can propagate them through the existing PHY
-init paths. Keep the register-only helpers returning success and use the
-new return path to report the GS101 CDR wait failure. Other SoC helper
-paths keep their previous success behavior.
-
-Fixes: 32267c29bc7d ("phy: exynos5-usbdrd: support Exynos USBDRD 3.1 combo phy (HS & SS)")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260623135349.42739-1-pengpeng@iscas.ac.cn
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
-[ sashal: Dropped the exynos7870, exynos2200 and exynosautov920 phy_init conversions (SoCs not present), and adapted the CDR helper and exynos850 phy_init to the older code without phy_mutex or scoped_guard. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/phy/samsung/phy-exynos5-usbdrd.c | 51 +++++++++++++++++-------
- 1 file changed, 37 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/phy/samsung/phy-exynos5-usbdrd.c b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-index 28d02ae60cc14..ad4a7dfa1ab32 100644
---- a/drivers/phy/samsung/phy-exynos5-usbdrd.c
-+++ b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-@@ -355,7 +355,7 @@ struct exynos5_usbdrd_phy;
- struct exynos5_usbdrd_phy_config {
- 	u32 id;
- 	void (*phy_isol)(struct phy_usb_instance *inst, bool isolate);
--	void (*phy_init)(struct exynos5_usbdrd_phy *phy_drd);
-+	int (*phy_init)(struct exynos5_usbdrd_phy *phy_drd);
- 	unsigned int (*set_refclk)(struct phy_usb_instance *inst);
- };
- 
-@@ -579,7 +579,7 @@ exynos5_usbdrd_apply_phy_tunes(struct exynos5_usbdrd_phy *phy_drd,
- 	}
- }
- 
--static void exynos5_usbdrd_pipe3_init(struct exynos5_usbdrd_phy *phy_drd)
-+static int exynos5_usbdrd_pipe3_init(struct exynos5_usbdrd_phy *phy_drd)
- {
- 	u32 reg;
- 
-@@ -592,6 +592,8 @@ static void exynos5_usbdrd_pipe3_init(struct exynos5_usbdrd_phy *phy_drd)
- 	reg = readl(phy_drd->reg_phy + EXYNOS5_DRD_PHYTEST);
- 	reg &= ~PHYTEST_POWERDOWN_SSP;
- 	writel(reg, phy_drd->reg_phy + EXYNOS5_DRD_PHYTEST);
-+
-+	return 0;
- }
- 
- static void
-@@ -686,7 +688,7 @@ exynos5_usbdrd_usbdp_g2_v4_pma_check_pll_lock(struct exynos5_usbdrd_phy *phy_drd
- 	return err;
- }
- 
--static void
-+static int
- exynos5_usbdrd_usbdp_g2_v4_pma_check_cdr_lock(struct exynos5_usbdrd_phy *phy_drd)
- {
- 	static const unsigned int timeout_us = 40000;
-@@ -703,7 +705,7 @@ exynos5_usbdrd_usbdp_g2_v4_pma_check_cdr_lock(struct exynos5_usbdrd_phy *phy_drd
- 			phy_drd->reg_pma + EXYNOS9_PMA_USBDP_TRSV_REG03C3,
- 			reg, (reg & locked) == locked, sleep_us, timeout_us);
- 	if (!err)
--		return;
-+		return 0;
- 
- 	dev_err(phy_drd->dev,
- 		"timed out waiting for CDR lock (l0): %#.8x, retrying\n", reg);
-@@ -715,9 +717,11 @@ exynos5_usbdrd_usbdp_g2_v4_pma_check_cdr_lock(struct exynos5_usbdrd_phy *phy_drd
- 	if (err)
- 		dev_err(phy_drd->dev,
- 			"timed out waiting for CDR lock (l2): %#.8x\n", reg);
-+
-+	return err;
- }
- 
--static void exynos5_usbdrd_utmi_init(struct exynos5_usbdrd_phy *phy_drd)
-+static int exynos5_usbdrd_utmi_init(struct exynos5_usbdrd_phy *phy_drd)
- {
- 	u32 reg;
- 
-@@ -739,6 +743,8 @@ static void exynos5_usbdrd_utmi_init(struct exynos5_usbdrd_phy *phy_drd)
- 	reg = readl(phy_drd->reg_phy + EXYNOS5_DRD_PHYTEST);
- 	reg &= ~PHYTEST_POWERDOWN_HSP;
- 	writel(reg, phy_drd->reg_phy + EXYNOS5_DRD_PHYTEST);
-+
-+	return 0;
- }
- 
- static int exynos5_usbdrd_phy_init(struct phy *phy)
-@@ -775,7 +781,9 @@ static int exynos5_usbdrd_phy_init(struct phy *phy)
- 	writel(reg, phy_drd->reg_phy + EXYNOS5_DRD_PHYUTMICLKSEL);
- 
- 	/* UTMI or PIPE3 specific init */
--	inst->phy_cfg->phy_init(phy_drd);
-+	ret = inst->phy_cfg->phy_init(phy_drd);
-+	if (ret)
-+		goto disable_clks;
- 
- 	/* reference clock settings */
- 	reg = inst->phy_cfg->set_refclk(inst);
-@@ -798,9 +806,10 @@ static int exynos5_usbdrd_phy_init(struct phy *phy)
- 	reg &= ~PHYCLKRST_PORTRESET;
- 	writel(reg, phy_drd->reg_phy + EXYNOS5_DRD_PHYCLKRST);
- 
-+disable_clks:
- 	clk_bulk_disable_unprepare(phy_drd->drv_data->n_clks, phy_drd->clks);
- 
--	return 0;
-+	return ret;
- }
- 
- static int exynos5_usbdrd_phy_exit(struct phy *phy)
-@@ -1067,7 +1076,7 @@ exynos5_usbdrd_usb_v3p1_pipe_override(struct exynos5_usbdrd_phy *phy_drd)
- 	writel(reg, regs_base + EXYNOS850_DRD_SECPMACTL);
- }
- 
--static void exynos850_usbdrd_utmi_init(struct exynos5_usbdrd_phy *phy_drd)
-+static int exynos850_usbdrd_utmi_init(struct exynos5_usbdrd_phy *phy_drd)
- {
- 	void __iomem *regs_base = phy_drd->reg_phy;
- 	u32 reg;
-@@ -1171,6 +1180,8 @@ static void exynos850_usbdrd_utmi_init(struct exynos5_usbdrd_phy *phy_drd)
- 
- 	if (ss_ports)
- 		exynos5_usbdrd_usb_v3p1_pipe_override(phy_drd);
-+
-+	return 0;
- }
- 
- static int exynos850_usbdrd_phy_init(struct phy *phy)
-@@ -1184,11 +1195,11 @@ static int exynos850_usbdrd_phy_init(struct phy *phy)
- 		return ret;
- 
- 	/* UTMI or PIPE3 specific init */
--	inst->phy_cfg->phy_init(phy_drd);
-+	ret = inst->phy_cfg->phy_init(phy_drd);
- 
- 	clk_bulk_disable_unprepare(phy_drd->drv_data->n_clks, phy_drd->clks);
- 
--	return 0;
-+	return ret;
- }
- 
- static int exynos850_usbdrd_phy_exit(struct phy *phy)
-@@ -1235,11 +1246,12 @@ static const struct phy_ops exynos850_usbdrd_phy_ops = {
- 	.owner		= THIS_MODULE,
- };
- 
--static void exynos5_usbdrd_gs101_pipe3_init(struct exynos5_usbdrd_phy *phy_drd)
-+static int exynos5_usbdrd_gs101_pipe3_init(struct exynos5_usbdrd_phy *phy_drd)
- {
- 	void __iomem *regs_pma = phy_drd->reg_pma;
- 	void __iomem *regs_phy = phy_drd->reg_phy;
- 	u32 reg;
-+	int ret;
- 
- 	exynos5_usbdrd_usbdp_g2_v4_ctrl_pma_ready(phy_drd);
- 
-@@ -1261,8 +1273,11 @@ static void exynos5_usbdrd_gs101_pipe3_init(struct exynos5_usbdrd_phy *phy_drd)
- 		 SECPMACTL_PMA_INIT_SW_RST);
- 	writel(reg, regs_phy + EXYNOS850_DRD_SECPMACTL);
- 
--	if (!exynos5_usbdrd_usbdp_g2_v4_pma_check_pll_lock(phy_drd))
--		exynos5_usbdrd_usbdp_g2_v4_pma_check_cdr_lock(phy_drd);
-+	ret = exynos5_usbdrd_usbdp_g2_v4_pma_check_pll_lock(phy_drd);
-+	if (ret)
-+		return ret;
-+
-+	return exynos5_usbdrd_usbdp_g2_v4_pma_check_cdr_lock(phy_drd);
- }
- 
- static int exynos5_usbdrd_gs101_phy_init(struct phy *phy)
-@@ -1287,7 +1302,15 @@ static int exynos5_usbdrd_gs101_phy_init(struct phy *phy)
- 	 */
- 	exynos5_usbdrd_phy_isol(inst, false);
- 
--	return exynos850_usbdrd_phy_init(phy);
-+	ret = exynos850_usbdrd_phy_init(phy);
-+	if (ret) {
-+		exynos5_usbdrd_phy_isol(inst, true);
-+		if (inst->phy_cfg->id == EXYNOS5_DRDPHY_UTMI)
-+			regulator_bulk_disable(phy_drd->drv_data->n_regulators,
-+					       phy_drd->regulators);
-+	}
-+
-+	return ret;
- }
- 
- static int exynos5_usbdrd_gs101_phy_exit(struct phy *phy)
+> ---
+> This patch was developed with the help of an AI coding assistant
+> (Claude Opus via OpenCode).  It analysed the bug, wrote the fix and the
+> changelog, and built the QEMU test setup; I reviewed the change and the
+> test results.
+> 
+> Tested with the reproducer above in QEMU (x86_64, KASAN and lockdep
+> enabled) on 7.4-rc5 with and without the patch; e2fsck is clean after
+> the patched run.  Not tested: xfstests, other architectures.
+> 
+>  fs/ext4/inline.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
+> index acdc65ce47960..360c06441c8f1 100644
+> --- a/fs/ext4/inline.c
+> +++ b/fs/ext4/inline.c
+> @@ -1111,6 +1111,8 @@ static void ext4_restore_inline_data(handle_t *handle, struct inode *inode,
+>  	}
+>  	ext4_write_inline_data(inode, iloc, buf, 0, inline_size);
+>  	ext4_set_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA);
+> +	/* Update the inode checksum to cover the restored data. */
+> +	ext4_mark_inode_dirty(handle, inode);
+>  }
+>  
+>  struct buffer_head *ext4_inline_getblk(struct super_block *sb,
+> -- 
+> 2.56.1
+> 
 -- 
-2.53.0
-
-
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
