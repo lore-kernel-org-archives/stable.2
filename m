@@ -1,61 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795621767;
-	b=q68K52/lNH8GxK7atj+HetKqdDR1PccVNI/pD6ZDJ3SuQSpW1+vTFxthlbG5U4CsDuzO
-	 Co4nZvzcJU5cjzMgMOActHdNZRXGK/rYd/esLbCny943zFxciw2N57Oh1LrUzCJiWmun9
-	 nw6US1PPP+pk041OFI6vJhXURohWCuNLvaQZ/48Vd+XbCT9UGwSwXhT8mKP/9cjFLvEkC
-	 59AmBe1o2TiZU9Ov5VJfqRNP8YwOjSzSG5+5BbP+K9jFb52c19sdrgtkTT+Q4+5N+ynnp
-	 eX0s47ZV2DVUW93rW+szrSSwC9M6DijEFZDinLNuOJJEWRj6NlUDsLdEF+90JrmRDzg==
+	b=VkAIafXjNoH/b4WQogC+CJo1xhwcuDbLha04VQCREo6yvhdt6qUAZvubturnOa2U2to3
+	 PyS4KTLVpdqtS0uIwAT4ffcRR5p0UyjqA1+u+BDxXpxGwjPkJLLxGcee0WYwn4iU3z8WV
+	 8wwvlSopAl541jVg59IdMWQkioZo8kqJHeKAxR4iVUjO4wa1HOxbvJQziDRahN034UYHP
+	 qZadsp358iQsZsQZjwOBhhY5L585PK3a/t4hazueP4VzjNq/o7e/xZDTHQ+nfJblsx2BN
+	 AIbrNOG/THL09/vTS76XdkC8o9ntgxdxO46QCiBYkq3dJ7DhrTiVBWOuf0C7BbzgwuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795621767;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=FY9TbKbDC+GYfStePA1DHQuUhvmdSM/1oHjQZCTxbvs=;
-	b=vt/8WJV+fz9Ua0xFXisHoo8GUKqO9IJ5DHPWkRxc9mKEMAvHo7tO7Fjc1uvbkr1cQfHD
-	 Zl3tHBz8xV8KCHd1zaQ/UhD1+gscZj2x8w34AqYrgNMRA79RU6h4O9kywCtWqNjd51/qP
-	 zOX/gg4p2xvbKb1lujgwrPJQ9ZtbRywfRKiY3wZIE2P1oTrtVAAZ7DQSHcl3pH2qEs2xx
-	 UY/dgO1dD5LAmdyrDKwzFHIyTnb47nLIeO4lpWXKEa4kDkKRQcy99auJt9hQCtqMzRRje
-	 elwiUG8Ocp9bno5bU7aWP54QULIXStYvbZQ971Vn0BscyTKU4qJR2qkGfaScL1CEGQg==
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=jxE1/+fib+yfqKL7hQTdhQN4mMmRO0JPMa9EfCUn0qo=;
+	b=phzOPdRPxLjKtSjKXNnSDMPlleo8Zz925BDMXzmZ/ssJofmtzUfDgTQ6BIdR9niyzF3d
+	 9zwV6giowwxf07AYo9zLUnIUMWNTxG7AKXjcwNqBioPGwD4xZxxYd+/BsnAUzgjxtw3n1
+	 Qrh5N+BGezs0l/4D/oapuG2+Ni5u2PHH4iBPos38KSFAE+/deqTun4KrcL0mPT6ORkP5y
+	 IPJIsmy/WYaMuBKRaUfl4qhrkJKpER4zx9ksZ+b9T5DhWHLI/e+Qj1Br+4HOa7ET1AbqI
+	 I4lalvwLVMFVhdlSMSvmqqi+x9uug6VNJ1l7Fv3fmDyRBanRzENEtkvU9/qBRfWQhXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="0/s2tpuS";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i5kZ8cZO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44CD3606A32C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFF4606A321;
 	Wed, 25 Nov 2026 15:49:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0/s2tpuS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 673801F000D3;
-	Wed, 25 Nov 2026 15:49:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795621766;
-	bh=FY9TbKbDC+GYfStePA1DHQuUhvmdSM/1oHjQZCTxbvs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=0/s2tpuSHhVJSC8SbgPVimRJJatUjH1clKob77Lhe0eacGkXe9yhG6/70DCKCIv0N
-	 z+OzFddkdqhySJ4XWDnjInWpmnKKG4VuZ6IiDZiYy3Uu51hr3goZNNWsZSxNMaNGvB
-	 PgrKtrjDhFUbqwuLBEUsHnvJDkZMpqhPc8Vj208k=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Sashiko <sashiko-bot@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 330/990] calipso: do not charge request socket options to the listener
-Date: Wed, 25 Nov 2026 15:28:17 +0100
-Message-ID: <20261125143829.817412009@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i5kZ8cZO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE83B1F0089F;
+	Wed, 25 Nov 2026 15:49:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795621767;
+	bh=jxE1/+fib+yfqKL7hQTdhQN4mMmRO0JPMa9EfCUn0qo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=i5kZ8cZOJdNawYlTRVZPrmVOMxIFTkM0kiZawV34piEHw6o69PTf6ibI0YHGXLjIR
+	 P65Ri51slfGoIgKk5Ve9nairo6xIQsrrh01Ptt/hhs5y0g5NtFJbpG3OO2cBS6TBtf
+	 aYTAB+MIPqEgvPa+x5VNhZWW2zIJEMvtSJ2lZjgggIRw0hcIYXCFQhxM4+lJcEh77u
+	 V+W0ozXT1ZBt6IqK8umIJVhykebDfasoq3/vc7lamO+xxVwrBnAo9j+zXr/jonRJu+
+	 baZF0ZA0WFg+IK6tH3wN4BdqYZk3PHdWxmY6cG0eL2nSELpffitOOZNB0yHLB/q5IP
+	 Lc5rVueipSK0Q==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Wed, 25 Nov 2026 15:48:51 +0000
+Subject: [PATCH v3 3/4] mm/memory: do not report OOM if insert_pfn() races
+ a huge fault
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,127 +53,192 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261125-huge-pfnmap-fault-races-v3-3-bbc44489341b@kernel.org>
+References: <20261125-huge-pfnmap-fault-races-v3-0-bbc44489341b@kernel.org>
+In-Reply-To: <20261125-huge-pfnmap-fault-races-v3-0-bbc44489341b@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>, 
+ Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>, 
+ Roman Kisel <romank@linux.microsoft.com>, 
+ Saurabh Sengar <ssengar@linux.microsoft.com>, 
+ Naman Jain <namjain@linux.microsoft.com>, 
+ Michael Kelley <mhklinux@outlook.com>
+Cc: ljs@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Eliav Farber <farbere@amazon.com>, stable@vger.kernel.org, 
+ "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
+ "Gregory Price (Meta)" <gourry@gourry.net>, 
+ "T.J. Mercier" <tjmercier@google.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5213; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=lulZtlCT/rNCjAjKCr+HKwrQyF0d8uLYpS1OwrjQtF0=;
+ b=kA0DAAoWz53NioHifxQByyZiAGsHA2mhDlQLMwrVll+T6x3OJmlGz+sUf7yA+uhcY1XxtA7OJ
+ oh1BAAWCgAdFiEE5/QXv1IUVp6J0E9Gz53NioHifxQFAmsHA2kACgkQz53NioHifxTFnAD/dwjG
+ uETKFncRNcYNGPcRyVQtP1yTsTyK13o4QO3NZLAA/1enaaGEuUE5n3YP+4M1KOg2Is7jcC8f3lV
+ U5IwR48oF
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+A driver that implements both ->fault and ->huge_fault must anticipate
+concurrent use of both.
 
-------------------
+This can happen, for example, if a user calls prctl(PR_SET_THP_DISABLE)
+concurrent with faulting, as that only holds the mmap write lock and thus
+does not exclude faulting threads stabilised by VMA lock.
 
-From: Eric Dumazet <edumazet@kernel.org>
+This is not currently safely handled by insert_pfn(), however, which
+obtains its PTE entry via get_locked_pte(), and treats a NULL return value
+as an allocation failure, returning VM_FAULT_OOM.
 
-[ Upstream commit b4a2cc6d748d3056a25812dcf5f5377a59afd02f ]
+The issue is that get_locked_pte() also returns NULL if the PMD entry is
+not a page table which can happen if a concurrent huge fault installs a
+huge PMD entry between __handle_mm_fault() observing the PMD entry to be
+empty and insert_pfn() being invoked.
 
-calipso_req_setattr() and calipso_req_delattr() allocate ireq->ipv6_opt
-with ipv6_renew_options(), which charges the listener sk_omem_alloc
-through sock_kmalloc().
+This can result in VM_FAULT_OOM being reported incorrectly.
 
-tcp_v6_reqsk_destructor() frees ireq->ipv6_opt without uncharging it,
-so each request socket leaks its options size from the listener
-budget. Once sysctl_optmem_max is reached, sock_kmalloc() fails,
-calipso_req_setattr() returns -ENOBUFS, and tcp_v6_route_req() drops
-all subsequent SYN packets. __sk_destruct() also reports an optmem
-leakage when the listener is destroyed.
+Fix this by introducing and using __get_locked_pte() which returns -ENOMEM
+if a page table allocation fails or -EBUSY if raced.
 
-Uncharging in tcp_v6_reqsk_destructor() would not be correct: after a
-migration, req->rsk_listener is no longer the socket that was charged.
+This allows insert_pfn() to return VM_FAULT_OOM only when an allocation
+fails and VM_FAULT_NOPAGE otherwise so the fault is retried.
 
-These options belong to the request socket, there is no reason to
-charge them to the listener. Change ipv6_renew_options() to use
-kmalloc() when its sk argument is NULL, and use this from
-calipso_req_setattr() and calipso_req_delattr(),
-like cipso_v4_req_setattr() which uses kzalloc().
+The same change is applied to insert_page(), which only impacts DAX (which
+has its own locking), however even in this case DAX can be impacted the
+page table can be freed by madvise(..., MADV_DONTNEED) if CONFIG_PT_RECLAIM
+is set.
 
-Note:
+This means that insert_page() now propagates the returned error, so -EBUSY
+in the case of a race, resulting in the fault being retried.
 
-After this patch, calipso_req_setattr() and calipso_req_delattr()
-no longer need the listener. Commit 10876da918fa ("calipso: Fix
-null-ptr-deref in calipso_req_{set,del}attr().") could be reverted
-in net-next (also removing the then unused sk variables), so that
-CALIPSO works with SYN cookies.
+Similarly, update walk_to_pmd() to return -EBUSY if it encounters a huge
+PUD leaf.
 
-Fixes: e1adea927080 ("calipso: Allow request sockets to be relabelled by the lsm.")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/netdev/179378292255.488856.6917577451813010963@kernel.org/
-Signed-off-by: Eric Dumazet <edumazet@kernel.org>
-Cc: Kuniyuki Iwashima <kuniyu@google.com>
-Cc: Paul Moore <paul@paul-moore.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Acked-by: Paul Moore <paul@paul-moore.com>
-Link: https://patch.msgid.link/20261104150318.1156620-1-edumazet@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+And finally, update insert_pages() to return -EBUSY under the same
+circumstances for consistency.
+
+Target the commit introducing the first driver able to do this.
+
+Reported-by: Eliav Farber <farbere@amazon.com>
+Closes: https://lore.kernel.org/all/20261112051440.16140-3-farbere@amazon.com/
+Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
+Cc: stable@vger.kernel.org
+Suggested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- net/ipv6/calipso.c | 12 ++++--------
- net/ipv6/exthdrs.c |  5 +++--
- 2 files changed, 7 insertions(+), 10 deletions(-)
+ mm/memory.c | 50 +++++++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 41 insertions(+), 9 deletions(-)
 
-diff --git a/net/ipv6/calipso.c b/net/ipv6/calipso.c
-index 5775ab1c39c04..ae0cf6520f21c 100644
---- a/net/ipv6/calipso.c
-+++ b/net/ipv6/calipso.c
-@@ -1220,7 +1220,7 @@ static int calipso_req_setattr(struct request_sock *req,
- 	if (IS_ERR(new))
- 		return PTR_ERR(new);
+diff --git a/mm/memory.c b/mm/memory.c
+index 20b818bcdfbc..2230c2079c9a 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2383,19 +2383,48 @@ static int walk_to_pmd(struct mm_struct *mm, unsigned long addr, pmd_t **pmdp)
+ 	pmd = pmd_alloc(mm, pud, addr);
+ 	if (!pmd)
+ 		return -ENOMEM;
++	/* We may have raced a huge PUD fault. */
++	if (pud_trans_unstable(pud))
++		return -EBUSY;
  
--	txopts = ipv6_renew_options(sk, req_inet->ipv6_opt, IPV6_HOPOPTS, new);
-+	txopts = ipv6_renew_options(NULL, req_inet->ipv6_opt, IPV6_HOPOPTS, new);
- 
- 	kfree(new);
- 
-@@ -1228,10 +1228,8 @@ static int calipso_req_setattr(struct request_sock *req,
- 		return PTR_ERR(txopts);
- 
- 	txopts = xchg(&req_inet->ipv6_opt, txopts);
--	if (txopts) {
--		atomic_sub(txopts->tot_len, &sk->sk_omem_alloc);
-+	if (txopts)
- 		txopt_put(txopts);
--	}
- 
+ 	*pmdp = pmd;
  	return 0;
  }
-@@ -1261,14 +1259,12 @@ static void calipso_req_delattr(struct request_sock *req)
- 	if (calipso_opt_del(req_inet->ipv6_opt->hopopt, &new))
- 		return; /* Nothing to do */
  
--	txopts = ipv6_renew_options(sk, req_inet->ipv6_opt, IPV6_HOPOPTS, new);
-+	txopts = ipv6_renew_options(NULL, req_inet->ipv6_opt, IPV6_HOPOPTS, new);
++/*
++ * Map and lock the PTE entry for addr, allocating page tables as necessary.
++ *
++ * Returns 0 on success, -ENOMEM if a page table could not be allocated, or
++ * -EBUSY if we raced and didn't find a page table.
++ */
++static int __get_locked_pte(struct mm_struct *mm, unsigned long addr,
++			    pte_t **ptep, spinlock_t **ptl)
++{
++	pmd_t *pmd;
++	pte_t *pte;
++	int err;
++
++	err = walk_to_pmd(mm, addr, &pmd);
++	if (err)
++		return err;
++	if (pte_alloc(mm, pmd))
++		return -ENOMEM;
++	pte = pte_offset_map_lock(mm, pmd, addr, ptl);
++	if (!pte)
++		return -EBUSY;
++
++	*ptep = pte;
++	return 0;
++}
++
+ pte_t *get_locked_pte(struct mm_struct *mm, unsigned long addr,
+ 		      spinlock_t **ptl)
+ {
+-	pmd_t *pmd;
++	pte_t *pte;
  
- 	if (!IS_ERR(txopts)) {
- 		txopts = xchg(&req_inet->ipv6_opt, txopts);
--		if (txopts) {
--			atomic_sub(txopts->tot_len, &sk->sk_omem_alloc);
-+		if (txopts)
- 			txopt_put(txopts);
--		}
- 	}
- 	kfree(new);
- }
-diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
-index 38f15948237c6..f680df587769c 100644
---- a/net/ipv6/exthdrs.c
-+++ b/net/ipv6/exthdrs.c
-@@ -1284,7 +1284,7 @@ static void ipv6_renew_option(int renewtype,
-  * not copied into the new set of options.
-  *
-  * The new set of options is allocated from the socket option memory
-- * buffer of @sk.
-+ * buffer of @sk, or with kmalloc() if @sk is NULL.
-  */
- struct ipv6_txoptions *
- ipv6_renew_options(struct sock *sk, struct ipv6_txoptions *opt,
-@@ -1312,7 +1312,8 @@ ipv6_renew_options(struct sock *sk, struct ipv6_txoptions *opt,
+-	if (walk_to_pmd(mm, addr, &pmd))
++	if (__get_locked_pte(mm, addr, &pte, ptl))
  		return NULL;
+-	return pte_alloc_map_lock(mm, pmd, addr, ptl);
++	return pte;
+ }
  
- 	tot_len += sizeof(*opt2);
--	opt2 = sock_kmalloc(sk, tot_len, GFP_ATOMIC);
-+	opt2 = sk ? sock_kmalloc(sk, tot_len, GFP_ATOMIC) :
-+		    kmalloc(tot_len, GFP_ATOMIC);
- 	if (!opt2)
- 		return ERR_PTR(-ENOBUFS);
+ static bool vm_mixed_zeropage_allowed(struct vm_area_struct *vma)
+@@ -2497,9 +2526,8 @@ static int insert_page(struct vm_area_struct *vma, unsigned long addr,
+ 	retval = validate_page_before_insert(vma, page);
+ 	if (retval)
+ 		goto out;
+-	retval = -ENOMEM;
+-	pte = get_locked_pte(vma->vm_mm, addr, &ptl);
+-	if (!pte)
++	retval = __get_locked_pte(vma->vm_mm, addr, &pte, &ptl);
++	if (retval)
+ 		goto out;
+ 	retval = insert_page_into_pte_locked(vma, pte, addr, page, prot,
+ 					mkwrite);
+@@ -2553,7 +2581,7 @@ static int insert_pages(struct vm_area_struct *vma, unsigned long addr,
  
+ 		start_pte = pte_offset_map_lock(mm, pmd, addr, &pte_lock);
+ 		if (!start_pte) {
+-			err = -EFAULT;
++			err = -EBUSY;
+ 			goto out;
+ 		}
+ 		for (pte = start_pte; pte_idx < batch_size; ++pte, ++pte_idx) {
+@@ -2865,10 +2893,14 @@ static vm_fault_t insert_pfn(struct vm_area_struct *vma, unsigned long addr,
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	pte_t *pte, entry;
+ 	spinlock_t *ptl;
++	int err;
+ 
+-	pte = get_locked_pte(mm, addr, &ptl);
+-	if (!pte)
++	err = __get_locked_pte(mm, addr, &pte, &ptl);
++	if (err == -ENOMEM)
+ 		return VM_FAULT_OOM;
++	/* We may have raced a huge fault, if so, retry the fault. */
++	if (err)
++		return VM_FAULT_NOPAGE;
+ 	entry = ptep_get(pte);
+ 	if (!pte_none(entry)) {
+ 		if (mkwrite) {
+
 -- 
-2.53.0
-
-
+2.56.1
 
