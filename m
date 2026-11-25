@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618765;
-	b=ULEz9Iz2gR9tpwLhvM0i9aC7NuLe6w2aR7h1L4GJKAVmeCnx+a3zHI3Ck2daj1t9RPxR
-	 eDjkmxDatTstqXmwS09a8gzk23VssRBERJYU7VnOIMsgZpFMBLxly0/5vdIv9RQh2ewRU
-	 6zhwaL5PSaU/GmWptXlXQgNhUgyBmiPGxhWLthZXaxsxE2/8i5cMkWdsJiyxAiydbLwzO
-	 g7I+v/U7+Enxc95ZYA8exPUbTcOUAIdTF3WQ9QHVok4n/DDto7+PgZI8GxM2gC4C0XFH5
-	 gxOuCNeSJeWNs2qyK4A87+IdZ0PDlFGrH7hSQlGrN2YvYEHlhO2n6VL6F8a5TUdTkRg==
+	t=1795618766;
+	b=vn+W6FCyMqrI7PxEO6UodPFocDsaDV1oafZjHsoHc/UXplkbWiWFEc8iRgkYsOrO1jtt
+	 We99FQMwtDVyF88fWsZpa/oqiNNwSiWV0qE4oTQqLdpl6DhfXeYCKgrb+48rc0o3ihF7Q
+	 VEoqKSe7+K0rJefbZ+/xsA8ktOhJNQXF2sZA44c3FAwh/9Du8UwMj2Mec6RkRdRTYjnkz
+	 4gM5jFAtY8sNNwqHq3sI7MR4xPFCrawjDqQvRzTmGk18bv8qmT4UsgK6vJ5Cx/7ob72qG
+	 1GQzV/GnJoWi9jEvpN27rWKxtX8+jImBKCXYljrV2Nc6SNq8BorSvtZop6K1CoJHAiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618765;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618766;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
 	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
 	 Date:Message-ID;
-	bh=/0yh464ng8srGrg/lUEZN7EHFsSWdLFFB4DglyIaZPw=;
-	b=gktwDPuJ31sziCM3tKq8rEySM9BBBwk/1HSb69YPoYAqEdVgtpbSpOFz42tRgjzN4TuQ
-	 cgrgSJ5FDl8zmW0O4g7pQAM/GGluBoQaRNYlOKETshv66jc4eNuekKlk6s0eqxn7t0KRD
-	 HFAGQnVuvczKOaB0OKorEtESySk0XaklKOJDMpwK+1PWj3rmST7eXa2qkzEtHz9s3Fvqg
-	 tuap72sYqqjgymLgLHKhlkTMC6bSgIAlEBUjA4eKgt3Ejz+HVWSQAi350UVz2HuXHM4An
-	 X5ONlRsHBH/Jlr9/4mPHzzZGg+EihQPvMWoQ18Hvlpc+2SuEDWXl76H6qdBZ1avCJ5w==
+	bh=aRJ706injhx0Jn9dXwTQml/VY5kYGXNGV8m5r1Tumc4=;
+	b=yG+RQoxlSpZtsQysCr5DchiJyNKsm5aOilZbHhy1lSDqy6aYVgiZ5LQ7gWd7ErYeN4j5
+	 5geF4d6h6oN/yId/nxQW0hvaAkAHNhsvuZLi0tUiZ+0qdwupnTzCqA4xHT1uPjHTGCOHy
+	 xnWizDQ5hVYvP7rG2TL8UAsY1rBr9k1/1pbktaCFPHUP5dONNPeDQHxJ1AG1+z4tCumaN
+	 6g6CjRGw6ci7fjjVDFfL+7Zj72izs2Gg6DXi7kZ093pzjtNQvHchMyRiSO4yMlMdGtXAs
+	 D+airE9PwXmnWETso1xXt+xmxattE/xCCxLYUtSezAnXOD/5EQACcRDE6K/XqXxUK1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kernelci.org;
 	spf=pass smtp.mailfrom=kernelci.org;
-	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=N3B9dFuS;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=AWbAXi3h;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E1BC606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:59:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E1BC606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4404D606A330
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:59:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4404D606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=N3B9dFuS
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso7779425c88.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 06:59:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=AWbAXi3h
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-38692f62b22so6773456eec.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 06:59:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1795618764; x=1796223564; darn=vger.kernel.org;
+        d=kernelci.org; s=google; t=1795618765; x=1796223565; darn=vger.kernel.org;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=/0yh464ng8srGrg/lUEZN7EHFsSWdLFFB4DglyIaZPw=;
-        b=N3B9dFuS2m2P6ysntOZ+HQA5VVv0rPUlfb2lAAv3kRqDWK8qzzS54S4CrVqREHM7PI
-         TYzBAW0UeQ+hzvLiwQj7bUfyqmvzmNgvZzfr/sgbtiJG631zHDT5Rpl9G5Zw//W0PSAp
-         SDNiMKtzEYONkx92mCkAEcKbVibqZ6G9MKwcibRggmWbTouEmVG/g8DB9DRFrvDGN1Ev
-         VeoA2VyWdqwhV0L3UPtyGfYsLkQBQ7t4MY0Zjb5T+PR9RXVc+pKJrjd3vhsTvT1WPv4G
-         f3ocSB3ZfMa6M+fs67+FSpBB2fFT4xuOr3lKhkn0xgf/azQgv9HcnQkB/ixFsUdPEXww
-         wjJQ==
+        bh=aRJ706injhx0Jn9dXwTQml/VY5kYGXNGV8m5r1Tumc4=;
+        b=AWbAXi3hc3p3uvJKczWmE6wePrFqlU7cJVusKW+0uH2QLMsyn8QG/mdSXsO/5R2QP3
+         lzMn6nQJ3Dzyc+WTsYGC+GEzyIbnE4K5P/5FVqkunLHzI5VGVhUNylpL/ghmJwqcw1Ag
+         kMcz01Cul+/8IFdC7mRuLPd9X0gn2DY5OEF97iiYHgmybjSpSl+Czjkml5lhH8rWsUhe
+         Fc2cYrYpOs2iySpRjeJLqJskOIbyrWAqMjRjITeiFQBUWxQLtH4KdLCMHTFgoDIiQE3H
+         dFberTfSlF0CJZgXtODwvBZVUqY7liLS+zhiJkPp9PKIHt6nuxrYcEylsw4aMhH4/heJ
+         30vQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795618764; x=1796223564;
+        d=1e100.net; s=20260707; t=1795618765; x=1796223565;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/0yh464ng8srGrg/lUEZN7EHFsSWdLFFB4DglyIaZPw=;
-        b=a0ToaA0y2h58gZ+X5Oqy9fZaDjISVgsZSpYcaE/BXDRvxkrxRoLKa4LP5Dy6zJpFVC
-         QO/O9aw68X1gbE4FPME2k2TqxbX9iG00HjTXrW+sVmC9coNi+ATzAVzGkgSv+prc/0+B
-         qn7S+cVQUBy4L/e04dSTxWGBn3xQIjlPw355l1ZYk2i7sSjVUyE+6nuKSAJNEmU6Tc+I
-         CJhZtoXMVnnpVe/uCdFJSkvpVCPN1SVH7zZ8DgeXwRK4Xn3thm5xhnl6aJm8rOT1wnGg
-         d4xdxMFQ/7/z6xgdD5GdHXSP8SD8xFeWpCSmZbZPdkwusrZmM/PS2bgJmlPGQjs3HHc6
-         px5A==
-X-Gm-Message-State: APuU4Z/pKKGasRIbV5krVHYFxUsHVT8Y71JUyqPlglRoxUunzyUcBIwe
-	zE/dMEshwranKaKqOgKKkbJeewcLl7tKE9yd+0qN9VzESRn3tpJlT6p2dNpSr8mZXL8zxdUcDJY
-	+T0k+
-X-Gm-Gg: AZFdTZdIbu57GOfaQKRIRsbYoxl/WhLlpaWOBA7abF+hgMr9VuK+nNgWl/KjZm9Gy5D
-	2fYvPtn30PKaiKFe73isvy46jUpG0EGp2B+8kC2zzUedxY6Pj3HSyG/0SuGFmUfmaCqkZsxFJfV
-	KZwH9CazpFNA/3RtM5wFaQ0gpylfQSjLSIFRLgbf+cfrrgcEowrpQVKs2bmWQNEPeo0xjWHEZ+y
-	bywp0VVSYMp4SA6cuJ4heZfByLuAbDzqaWloti2vuGWo/UHHh5BOp1+cTRmtXyYUVTUxvLyrE75
-	te7Bs6I+HLpg3JpxA3iI2pZf3sV1CRB9Uv6UwJT9yRXNwAYR4nVJ5jtLunDu4H1Ic9Xa2yDRSbJ
-	ksJl0efY7fSD47ibr62tHRSobrs84yHhm94O6BPflZeMV/KboHPSiNkZ2yTdma+K5raz8GlKPPk
-	qF3tLxjxB5hVV93vAySwysT1Ljx7tfP55doxEodquUKV5WrSE3mmugjO2I+/20qe7zpoEJed4QJ
-	uZrWiF5ckuOlh9Etta7JC4KdlEgmOZwvEYFON3+eeracc/55XIix52C3eUhXyRwwpG/m0Dutfmg
-	UJQkCVH0u2Xyi0Y3/BsRrw==
-X-Received: by 2002:a05:7022:ea8a:b0:149:49c:233 with SMTP id a92af1059eb24-1b5568bd774mr16217818c88.27.1795618764060;
-        Wed, 25 Nov 2026 06:59:24 -0800 (PST)
+        bh=aRJ706injhx0Jn9dXwTQml/VY5kYGXNGV8m5r1Tumc4=;
+        b=elMMB+jtWlt+iNDUOYVrrlECfSqSzWfrgqy6jefi+av0m5W0dlCzmBzESl0k5sPU9o
+         uxG3KwC/8yDkeq6FSfQ5chZ0ieSKv4n+HYzwezEyPYYt0KHgG4jMdG52aO7GuHbJ0gNm
+         EicNjHkaMm+an0SB5akevQEUwM0DkI0mZ0O0bljk+0woe71QiC754gtAGZkWRpw+eMof
+         ulaBvs1kYGw42KM0ROnMz5eAyq4qHP4Wf9ajgJFSr/T9SrZEiFqZ8Sbzt7u5cS9paXvR
+         RMdYBZ28ZQWI/n0OLwfwa3Y1bbto5KpwHCAveUFdyUo96g1s/WWC4jU3OT7r1dBw3hvw
+         wLDw==
+X-Gm-Message-State: APuU4Z+maUy7qiX+6FOF3QNbB0o9GxszdDoYg+leOWai85IbTv+WrKMp
+	QDOO7WHGc0TLB+A21rNtrt8JTL82bsIX+Mh4vXTZMT5ALEcCzsmnq+eXRW+LOo3HYr9SSv1Pjpz
+	CI4vZ
+X-Gm-Gg: AZFdTZe7GxgVGQo1vWQahHKcubCWnI/1fMxJ1u6SxneIO14cMpeaxsj9TTea7a18i/H
+	PMXNtR9XHW8J/qFOuzOppJLvydUkphb+EPmQyvIEQ0p0x5/abkX1Ede/c8UJvwGtN26pcuR2YqN
+	i5XGPMPGxKj6cnylhqo2hTmiFrlvodGHpfNFHQXbRxh2OLrz/pahN3Vurrv4tcNF2iV0kcA/00c
+	ArTEc90s7WrTQxsdxm7C+P+Dq4qrKnAW7j3s0Pjz5+QNsnvYe7lCpNHwwGqoRgSbTrZXuFA47TT
+	BkEpx9M69vpNkjo4tA7UeozGf5Y3+nGLH7FdVGl5RkI3VH+slRPwFZuPXF58CeLJZJXdVNsL/wh
+	aqtWe9emoh6O8neUcn+CNmzN0kOdZwGnplcjVz7jyqJcTwTNQj2rSqlp37tVuuNIQGz85XgDNP+
+	rDB5PwlHH7TEUHDNmtuStmm0WRMOphPmq/0E9xhCqCAfO2oUGfCOBW8yBqjLYPaRJv3hLR+ZOTo
+	Tkqpt8kcTmM8JJ0j2hMrMredMF69nC9Kywoye29FKOCpcTkX9NcVdfJdn/TzjFegNw2mDwZEIHS
+	7eeZp41YUeIRQ/vS0Yb7rw==
+X-Received: by 2002:a05:7300:c8cc:b0:386:6116:c389 with SMTP id 5a478bee46e88-3866116c625mr15083264eec.15.1795618765106;
+        Wed, 25 Nov 2026 06:59:25 -0800 (PST)
 Received: from 52d83ede7c60 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b55682d301sm43722223c88.10.2026.11.25.06.59.23
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e7f59sm56718860eec.6.2026.11.25.06.59.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 06:59:23 -0800 (PST)
+        Wed, 25 Nov 2026 06:59:24 -0800 (PST)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -91,29 +91,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Subject: 
- =?utf-8?q?=5BREGRESSION=5D_stable-rc/linux-5=2E15=2Ey=3A_=28build=29implicit?=
- =?utf-8?q?_declaration_of_function_=E2=80=98init=5Fflush=5Ffput=E2=80=99_?=
- =?utf-8?q?=5B-Wimplicit-func=2E=2E=2E?=
+ =?utf-8?q?=5BREGRESSION=5D_stable-rc/linux-5=2E15=2Ey=3A_=28build=29variable?=
+ =?utf-8?q?_=E2=80=98cbnl=E2=80=99_has_initializer_but_incomplete_type_in_fs?=
+ =?utf-8?q?/nfs/nfs4p=2E=2E=2E?=
 From: KernelCI bot <bot@kernelci.org>
 To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
 Reply-To: kernelci@lists.linux.dev
-Date: Wed, 25 Nov 2026 14:59:23 -0000
-Message-ID: <179561876319.101431.2553020983322933006@kernelci.org>
+Date: Wed, 25 Nov 2026 14:59:24 -0000
+Message-ID: <179561876429.101431.6272745812113444473@kernelci.org>
 
 Cc from: regression/stable-rc.yaml
 
 New build issue found on stable-rc/linux-5.15.y:
 
 ---
-implicit declaration of function ‘init_flush_fput’ [-Wimplicit-function-declaration] in init/do_mounts_rd.o (init/do_mounts_rd.c) [logspec:kbuild,kbuild.compiler.error]
+variable ‘cbnl’ has initializer but incomplete type in fs/nfs/nfs4proc.o (fs/nfs/nfs4proc.c) [logspec:kbuild,kbuild.compiler.error]
 ---
 
 Log excerpt:
 =====================================================
-init/do_mounts_rd.c:277:9: error: implicit declaration of function ‘init_flush_fput’ [-Wimplicit-function-declaration]
-  277 |         init_flush_fput();
-      |         ^~~~~~~~~~~~~~~
+fs/nfs/nfs4proc.c:7058:24: error: variable ‘cbnl’ has initializer but incomplete type
+ 7058 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                        ^~~~~~~~~~~~~~~~~~~
+fs/nfs/nfs4proc.c:7058:54: error: ‘struct cb_notify_lock_args’ has no member named ‘cbnl_valid’
+ 7058 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                                                      ^~~~~~~~~~
+fs/nfs/nfs4proc.c:7058:67: warning: excess elements in struct initializer
+ 7058 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                                                                   ^~~~~
+fs/nfs/nfs4proc.c:7058:67: note: (near initialization for ‘cbnl’)
+fs/nfs/nfs4proc.c:7058:44: error: storage size of ‘cbnl’ isn’t known
+ 7058 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                                            ^~~~
+fs/nfs/nfs4proc.c:7062:33: error: ‘struct nfs_client’ has no member named ‘cl_lock_waitq’; did you mean ‘cl_rpcwaitq’?
+ 7062 |                 __wake_up(&clp->cl_lock_waitq, TASK_NORMAL, 0, &cbnl);
+      |                                 ^~~~~~~~~~~~~
+      |                                 cl_rpcwaitq
+fs/nfs/nfs4proc.c:7058:44: warning: unused variable ‘cbnl’ [-Wunused-variable]
+ 7058 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
+      |                                            ^~~~
+  CC      drivers/char/agp/backend.o
+  CC      drivers/acpi/acpica/nsinit.o
+  CC      drivers/tty/vt/vt.o
 
 =====================================================
 
@@ -125,63 +145,33 @@ Reported-by: kernelci.org bot <bot@kernelci.org>
 For complete logs and details about the environment used, see the issue
 on the KernelCI dashboard:
 
-- dashboard: https://d.kernelci.org/i/maestro:2ec7f95b047127b9345e8aa6c45946115752003e
+- dashboard: https://d.kernelci.org/i/maestro:044a1bfa5349651d841a609fb3ee80373667f8ce
 - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
 - commit HEAD:  dff336abbc2b3923b31da85cfe6cd094c4bc0d48
 
 # Builds where the incident occurred:
 
-## 32r2el_defconfig on (mips):
+## i386_defconfig on (i386):
 - compiler: gcc-14
-- config: https://files.kernelci.org/kbuild-gcc-14-mips-32r2el_defconfig-6b06f110286e1965ecb392ab/.config
-- dashboard: https://d.kernelci.org/build/maestro:6b06f110286e1965ecb392ab
+- config: https://files.kernelci.org/kbuild-gcc-14-i386-6b06ef73286e1965ecb36028/.config
+- dashboard: https://d.kernelci.org/build/maestro:6b06ef73286e1965ecb36028
 
-## defconfig on (loongarch):
+## i386_defconfig+kselftest on (i386):
 - compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6b06f10b286e1965ecb392a8
+- config: https://files.kernelci.org/kbuild-gcc-14-i386-kselftest-6b06ef84286e1965ecb3606c/.config
+- dashboard: https://d.kernelci.org/build/maestro:6b06ef84286e1965ecb3606c
 
-## defconfig on (s390):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6b06f121286e1965ecb393a4
-
-## defconfig+netdev+nfs-root-boot+ltp+crypto+ima on (arm64):
-- compiler: gcc-15
-- config: https://files.kernelci.org/kbuild-gcc-15-arm64-nfsboot-ltp-6b06f0e5286e1965ecb3926d/.config
-- dashboard: https://d.kernelci.org/build/maestro:6b06f0e5286e1965ecb3926d
-
-## imx_v6_v7_defconfig on (arm):
+## x86_64_defconfig+kselftest+x86-board on (x86_64):
 - compiler: gcc-14
 - config: None
-- dashboard: https://d.kernelci.org/build/maestro:6b06ef36286e1965ecb35fb2
+- dashboard: https://d.kernelci.org/build/maestro:6b06efac286e1965ecb3630a
 
-## multi_v7_defconfig on (arm):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6b06f001286e1965ecb3640e
-
-## multi_v7_defconfig on (arm):
+## x86_64_defconfig+lab-setup+x86-board+kselftest on (x86_64):
 - compiler: gcc-15
 - config: None
-- dashboard: https://d.kernelci.org/build/maestro:6b06f0a9286e1965ecb39135
+- dashboard: https://d.kernelci.org/build/maestro:6b06efa4286e1965ecb36303
 
-## multi_v7_defconfig+kselftest on (arm):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6b06f0b5286e1965ecb3914b
-
-## multi_v7_defconfig+netdev+nfs-root-boot+ltp+crypto+ima on (arm):
-- compiler: gcc-15
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6b06f0ad286e1965ecb3913c
-
-## ppc64le_defconfig on (powerpc):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6b06f04c286e1965ecb36556
-
-#kernelci issue maestro:2ec7f95b047127b9345e8aa6c45946115752003e
+#kernelci issue maestro:044a1bfa5349651d841a609fb3ee80373667f8ce
 
 --
 This is an experimental report format. Please send feedback in!
