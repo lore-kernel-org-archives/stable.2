@@ -1,54 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.12.53.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795642194;
-	b=3ucjoPd0wIR+9OfHu1Ra9FG6Tusd+6t4Oqt9Z215BM4+j77Wpk+1B2Fp9f1gOJL9ABqT
-	 6TnROs0nQQVzECQlu1tKwNpYgt+vMBaWa9Cv3UcRofm6/ULIzerqqR0Vj6EeM+QZtCSKh
-	 Gley97GdS5+bVKECO31nvRhCyf2gafbtdsv86z6TL3SV8bvblddFwFGNdkfm0InZR0OKq
-	 5qmwuJvU12B9cLR1Z7zB5gcBBA5mqNyAKSKiPKq0b56/FzhG0Q+XxUtffV9ebLeRxrvnM
-	 OqPgGXz14pEsaftGmsue234N0LApQL1DXL1i9WW6GlcIs6uUXxX619YdUUfdqTHNRlg==
+	t=1795642317;
+	b=QvgIfMuGJv8dV3LQ0w6DWeFezZykouhR4gajpd5uuolcYHcdnuIoAuP0WpqTY4SZwUBy
+	 gK8ySvgaf8PxGyaJbDreNy+yWthmeJwlZR4/HLqh1v+Jh0VDjT9wgs5V6Tmi+L7Z+FUKi
+	 4nEQu0q0EvCmuGkKGPRG4u/lu5E1XRFYuihJmuz8UQ5o1HJsCRJ3jg3u8V7mfG0LacLFq
+	 iak3TIWr2m/ngzyBAbyHwuGK+i6uj+UxQcuEmGNBbqphvDoubzTYNuLtYSFLjIvmhw6/Z
+	 H5LLsHYg8zEo2fK0aMIfY2gHc8YIZ3vnkp3UFtqY8SCXBd6+0G39Rnh8sWdFimoAjrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795642194;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=nweU+CAUs6qDkjRnEXG0BocdTF5YLDwigq3zPXOFKf0=;
-	b=brDx6Ff+l3fMEvbeeOzX56Ytmvbkdzrnyz2kKEuf3jlHfDu3s0rIT+d1y0gv9ddPX7FC
-	 JdCSZmStcodj20SG289HtGl7v9lIIMz8SoEOgzyDgg9cf39gEkaIsxoFRv8umq8m4lGiX
-	 ipS4lpsnSnYqnXoliJvdcZydU4LIsA4SdTAzCMmUIcKpkaZPyJrzmbfMqa2Ml1akcWYpE
-	 DzeHVuf8qYCbhRSlhRxviTgne2XoLXX9pbqy6TZQrsvBWkhmydhCn4RXS3e5OYZvz1Pt4
-	 +YwEYCsI6zvOXHyVIOAA1mIniKCKeoQSh/uBY4hP+AulatyAK5a/BWobA81kUj6Tg/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795642317;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=njXw7uBGnQm1a3Z3XCMRbG3czIZqupOT3FL6jxYSW6o=;
+	b=U8lGewg1X2GrW5tLVnxsiwApG5mpNqKDZL429LMf8Yzn6uBaoFHYxAc0P4GZfaG3WeGM
+	 x2Os/41I7S+/4A146Ja73qGn/Eo7Q6OwR89KBvi9pSRqoGEb3SUlezO3ZNP6SIIPvhiX/
+	 x4rF4HFd9otKGB5fEMyBWo2N96Yi8ggm+mTH7ciCbloBw5F3cQn/ohi0WFtMsJVtzAP/N
+	 1AVEbZTOyL5s/uJvVWmAvbsleIjY4nWLP+9kO3Nq+fjzmVK2Uzvn3W2OlVVl/oxbNsZg+
+	 vGGp9SFRt/ZhDa3rNWc8BL/7YHJmrjWCvJnee8lScIKpNv6z85kPe1bJDNMFn77lxLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJaYq7P9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=VAP3QEj+;
+	arc=none smtp.remote-ip=52.12.53.23
+Received: from pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.12.53.23])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72C5B606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 21:29:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23629606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 21:31:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23629606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJaYq7P9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D97251F000C4;
-	Wed, 25 Nov 2026 21:29:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795642194;
-	bh=nweU+CAUs6qDkjRnEXG0BocdTF5YLDwigq3zPXOFKf0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AJaYq7P96pbgQ16Hpq/w2aYeMyOv6rBUr1Q309vkYUqSdVKzbmBSFZu3iRqnXeSBW
-	 rc+VbCFM6bgF9h+JjZBPxsWb3UtnrKOTt5oc5RUcgkZVqdfLZb7ApJ0pXCkOE5ioRL
-	 Rkc3QF+kcT9F06Aake7XmAelhVYjkLIt2neBRFHah1BHOPdrhXD/rAE2FqUil/liTG
-	 XTdJ9zMlIWkAl5dFtb+OG1aI7GISsqjmDd7ZQxZ5R4a02MLPDXqusm/bnD2lhgwkrk
-	 VM2POT6sXNPzUS37flbegtgKGdB7GiPWmgJykWLJyCTs1c6L4QoD6UWQuOxCvWKWFV
-	 cRyiNIZJ5cBqQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] tracing/probes: Reject array count on non-dereference string sources
-Date: Wed, 25 Nov 2026 16:29:52 -0500
-Message-ID: <20261125212930.1536052-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112524-broadband-national-e3ac@gregkh>
-References: <2026112524-broadband-national-e3ac@gregkh>
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=VAP3QEj+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1795642317; x=1827178317;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=njXw7uBGnQm1a3Z3XCMRbG3czIZqupOT3FL6jxYSW6o=;
+  b=VAP3QEj+54HIPefrmq52lstd2BWyJvKzM6kSsx9eQG2B3cwjCexwwK6m
+   gdOnU1JJRdaY0RGq/HKFbRCEICokAq5qcBAwzvBRhLAshs7eXYMZGpnV0
+   VoAIJxhRbp7/OU+ulLCyev5FpAHI8K+oLUqFaQKueP+8X87obYLg5EJN8
+   MPtISBKNIV0+iBswDcTfp4hFxWuQvZDkjCMQjDYgrkpaX/eJDIRDsS6y8
+   wndkL6Q+rXG50sqHLkZ1qV/aV4OU4pAnRCBQQFzZA/U5H5sVolVzuowSH
+   22/rhUDnC4cW8cj8MANBqlxbSEISD/DzE3NywHpR2M116y7/mfx7icaX3
+   A==;
+X-CSE-ConnectionGUID: PdIFDzkORvykTmGeKE9CuA==
+X-CSE-MsgGUID: CokavZiQS4CSoZ6T26b2hg==
+X-IronPort-AV: E=Sophos;i="6.27,233,1787011200"; 
+   d="scan'208";a="34975072"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 21:31:56 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:1882]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.8.86:2525] with esmtp (Farcaster)
+ id fea4c9dc-1e20-4a57-96cf-4f49083b365f; Wed, 25 Nov 2026 21:31:56 +0000 (UTC)
+X-Farcaster-Flow-ID: fea4c9dc-1e20-4a57-96cf-4f49083b365f
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.57;
+ Wed, 25 Nov 2026 21:31:56 +0000
+Received: from dev-dsk-mkbund-2b-9ea2efba.us-west-2.amazon.com (10.2.100.138)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.57;
+ Wed, 25 Nov 2026 21:31:56 +0000
+From: Mark Bundschuh <mkbund@amazon.com>
+To: <stable@vger.kernel.org>
+CC: Mark Bundschuh <mkbund@amazon.com>, Mikulas Patocka <mpatocka@redhat.com>,
+	Damien Le Moal <dlemoal@kernel.org>
+Subject: [PATCH 6.6.y] dm: fix infinite loop in dm_blk_do_report_zones()
+Date: Wed, 25 Nov 2026 21:31:41 +0000
+Message-ID: <20261125213141.1359087-1-mkbund@amazon.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <2026112527-crate-icy-9c5c@gregkh>
+References: <2026112527-crate-icy-9c5c@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,59 +85,57 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+[ Upstream commit 648320de920b30ae1730bbf0e8b86c0df0fb490a ]
 
-[ Upstream commit 0941144ebeaf3ce46c80711f00e935921eb28b21 ]
+If the device underlying a zoned target is removed, its capacity is set
+to 0 and blkdev_report_zones() returns 0 without reporting any zones.
+The mapped device keeps its old capacity, so args->zone_idx and
+args->next_sector never advance and dm_blk_do_report_zones() loops
+forever. On non-preemptible kernels this causes soft lockups and RCU
+stalls.
 
-The runtime array loop (FETCH_OP_LP_ARRAY) for string types requires a
-preceding memory dereference instruction so it can advance the pointer
-address on each iteration. Non-dereference string sources such as $comm,
-immediate strings, and eprobe event fields cannot be indexed as pointer
-arrays, but finalize_fetch_insn() still accepts an array count on them
-and emits an invalid FETCH_OP_LP_ARRAY sequence.
+The following sequence of commands triggers the hang:
 
-Reject string array counts when the preceding operation is not a memory
-dereference.
+modprobe scsi_debug zbc=managed dev_size_mb=1024 zone_size_mb=64
+udevadm settle
+echo '0 2097152 linear /dev/sda 0' | dmsetup create lin
+echo 1 > /sys/block/sda/device/delete
+blkzone report -o 0 -c 1 /dev/mapper/lin
 
-Link: https://lore.kernel.org/all/179455855309.403392.4197028577158545202.stgit@devnote2/
+Fix this by returning -EIO when a target reports no zones. The target
+always maps args->next_sector, so a zero return means the underlying
+device no longer covers that sector.
 
-Fixes: 40b53b771806 ("tracing: probeevent: Add array type support")
+Fixes: d41003513e61 ("block: rework zone reporting")
 Cc: stable@vger.kernel.org
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-[ sashal: adapted to the pre-refactor function layout with a goto fail error path, and added FETCH_OP_TP_ARG to the fail-path kfree loop to avoid leaking the eprobe field name. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Mark Bundschuh <mkbund@amazon.com>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+[ Context differs due to commit: fdb9aed869f3 ]
+Signed-off-by: Mark Bundschuh <mkbund@amazon.com>
 ---
- kernel/trace/trace_probe.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/md/dm-zone.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
-index e9f09576c1e45..bf7d424058e00 100644
---- a/kernel/trace/trace_probe.c
-+++ b/kernel/trace/trace_probe.c
-@@ -704,6 +704,12 @@ static int traceprobe_parse_probe_arg_body(const char *argv, ssize_t *size,
- 			 * For the symstr, it doesn't need to dereference, thus
- 			 * it just get the value.
- 			 */
-+			if (parg->count && (code->op != FETCH_OP_DEREF &&
-+					    code->op != FETCH_OP_UDEREF)) {
-+				trace_probe_log_err(offset + (t ? (t - arg) : 0),
-+						    BAD_STRING);
-+				goto fail;
-+			}
- 			code++;
- 			if (code->op != FETCH_OP_NOP) {
- 				trace_probe_log_err(offset, TOO_MANY_OPS);
-@@ -777,7 +783,8 @@ static int traceprobe_parse_probe_arg_body(const char *argv, ssize_t *size,
- 	if (ret) {
- 		for (code = tmp; code < tmp + FETCH_INSN_MAX; code++)
- 			if (code->op == FETCH_NOP_SYMBOL ||
--			    code->op == FETCH_OP_DATA)
-+			    code->op == FETCH_OP_DATA ||
-+			    code->op == FETCH_OP_TP_ARG)
- 				kfree(code->data);
- 	}
- 	kfree(tmp);
+diff --git a/drivers/md/dm-zone.c b/drivers/md/dm-zone.c
+index eb9832b22b14..c7d373afa0f4 100644
+--- a/drivers/md/dm-zone.c
++++ b/drivers/md/dm-zone.c
+@@ -42,6 +42,8 @@ static int dm_blk_do_report_zones(struct mapped_device *md, struct dm_table *t,
+ 					      nr_zones - args.zone_idx);
+ 		if (ret < 0)
+ 			return ret;
++		if (!ret)
++			return -EIO;
+ 	} while (args.zone_idx < nr_zones &&
+ 		 args.next_sector < get_capacity(disk));
+ 
+
+base-commit: 5139929c698c273e07cb0635732f6a918a7b8e78
 -- 
-2.53.0
+2.50.1
 
