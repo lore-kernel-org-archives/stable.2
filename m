@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795609464;
-	b=1bA/3xDPmZW6YcQ0Mmm9hu6XFtM/tuo9kGjhwXOG+f0xl8FUHsO8Mr+q3HOvg5sLQMVc
-	 YYWidD2fI8lyEaW6hwDMs05F+sJGwMRJ5zxS0AsyD/4jv8n3s6kLYnn4PglR6mO910NNk
-	 6dBUomJSC8aLDu5nfJvKGT4I3RgwyD+py8gWRLXdEe9J6i8IZQdJRVVLIrC8+yOhD/9Y5
-	 nyMxLpgbxeQcdKbpYHf1TF/jRmKS+8bY3XNtdYCFSL01gad7qdNypSf3EWzpoIX3U0r6D
-	 Rm+V14IQxQwG2hFc4/DQ56nmKuWR1q/HitIdfVaIUp2LGI7T1hIrOCn8mt2XVLhsLqQ==
+	t=1795609466;
+	b=2N2bnH6SpGCMYgp7QmIyhMRYRiuli2Nq9OqwDAkdSLYbFbPT5I4yCU92BVNthP7hyvgN
+	 5VEVUCu7ha0yLbt4i3vlis9zYQZiFSbpOVszloAVIs8iGanzEqeNCTDKCJL/RwJKIW8+2
+	 CUeBa16yZGczLRb77yn3P2L0P37D5rmv/lDq1OOqnRpRHpCfLUMNdhDOoq8n7JTyvejVR
+	 05f2KRS5RDxDe2+BF42lzSTjSXWelAQOelx9bQKWSe5adEGKRxAphqr/fxpmpMBCHEvMi
+	 ek59cSy2O9/TYXppGEhw3p1wMXIdVLVjBsVsj1ma1RTw9I2ns5RXQG8mb5ZLQ2sqHqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795609464;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795609466;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/FqhdKanTefm3LCWZ11jqR7QbOtDPjGCmVxGVxQNEgw=;
-	b=fKpRxr8ccr3LQ8wf1geNe/D9Xchrb+T+yBFFMlQ+W+zHZtuk+peviNa6U2/SKFNmNQOk
-	 qGiUGwKO0pVLbI/zypoWwZZinMubCLZr3i7tTWSlthNyyXnplRE4OVppP2Hb1+ihIupiz
-	 ATXFvvpQu8viB4ZoEniCNUYSI1rAxd81Ih3kS7PIBeUgNeyN33ZOKXLySWbV40TigfvhB
-	 RA5MI4IehyRRIwSZk69vRIvqiqE+XeNz5IuVPwUfE0aJQIDpACZJ2z64p46oPT+OAD62y
-	 EMv9W4HYLCnxAfoo5lx2aNVUywT2S/vtBhPVfxDf8a1UQ13MPevfgktwOj7g6tbo2sA==
+	bh=70wfmpckLJY7t4y0Fx97f10KuExiQiQfEVKXZ+Zm+bU=;
+	b=zFMiSkPxK0lTsFm1nBRyEyM6lo5thvE2da9odl7dzyn3rpxhL6RikCmf/zkf5tHreVQd
+	 yVhqGwOgU9F878HZbMIHnWApAldybhPCSmTJx29MueRWfvhiMnwLmf+TsnFq7NVtan2eU
+	 Z6NToIx0H2pU7TabQZ7MhD12L9RGklYyDYWEmm2WkGwlYOv3JRGj7kG5PrOQWgDboX9Ps
+	 eiYCeuXq1SPusvXCfZZkMg8CfIahASeQ1ma3zBkj8MAgXX6WZc8tJHHecXq26O+NGr3Us
+	 dpyI4UCujiFYpLz/kktj2YfUGDXLGF+KMaAxNKCxwUHMdXYsyDGavnIZFl1pCLS01Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ja1XhLdQ;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ph0EmpHN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A83606A32E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:24:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7269606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:24:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ja1XhLdQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA9121F000C6;
-	Wed, 25 Nov 2026 12:24:22 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ph0EmpHN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9BA41F000CA;
+	Wed, 25 Nov 2026 12:24:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795609463;
-	bh=/FqhdKanTefm3LCWZ11jqR7QbOtDPjGCmVxGVxQNEgw=;
+	s=korg; t=1795609466;
+	bh=70wfmpckLJY7t4y0Fx97f10KuExiQiQfEVKXZ+Zm+bU=;
 	h=Subject:To:Cc:From:Date;
-	b=Ja1XhLdQQ6qvnlbnzcXbWRjjz7ehf4gt6UKcQJWDYFiqxnjor4/NFtOrVKE2j1mgL
-	 V/5F1uQAYixQfDLaa0NVGfduwycMfly3f5PqTaHXWTFgsIswgXiR6cggU4UmFkHxQf
-	 6LVYe2iv14PA9MruzKQLF8lYje65SagLAus4oU1s=
-Subject: FAILED: patch "[PATCH] iio: imu: inv_icm42600: fix parsing of all FIFO frames for" failed to apply to 5.10-stable tree
+	b=Ph0EmpHN8BDKOxU7naSzm90r5mjrc8Z81nvxXxOfKNdO2pnxi59GlKCoqZ/97F75j
+	 3wNfuyJOmFPYB+IBjKMQX99ilGfypkbBh/NqxS0FpKiRNpuKmA37KmLun+zedzErLV
+	 R/Z0rlKbyqWC6R9V1qm0+GOrCFFt8vAIIFtyhv50=
+Subject: FAILED: patch "[PATCH] iio: imu: inv_icm42600: fix parsing of all FIFO frames for" failed to apply to 6.1-stable tree
 To: jean-baptiste.maneyrol@tdk.com,jonathan.cameron@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 13:21:58 +0100
-Message-ID: <2026112558-churn-itinerary-e5f4@gregkh>
+Message-ID: <2026112557-lustiness-canning-81fb@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 4a141623442888458d147f4e61fe47411c0e4e17
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112558-churn-itinerary-e5f4@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112557-lustiness-canning-81fb@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
