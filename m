@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795623622;
-	b=ZIP6zQ4WuQSOZe3Oq9aqVRl+Xenifi15Pxlm1Wqcia8ywvVL3wj1KNHdTfGI1oSv0Otm
-	 mEgESr4E0hSKTIVazPeoe06mBezw5el6qnq/ymjHKhu+SphF1+i9oGny32txpaEVCC7AN
-	 PLwqQe/uQE77q/Mvidcum/Uduj9ySLbIfKl3e2/lmFgIWeo4vsR1q0n3E6zN9emNGOdJ1
-	 MisEvQdxAiQMEa7Y7Juef3hJsJVNnAzPtMQoSmIsLBBt5rYby9HnovLc01yuZCcv4XAs+
-	 C7ci3ZG6brBLJVHdHQwr8HRwGuFKopkf/7REuME312qQ6rjz/l9AVwyab+RiCma2j8w==
+	t=1795623623;
+	b=fXREBugUskbFRqWoNoxaRCX7HsQ+GU6tITgarzDnkeZltt+Gb8Qjb6y0rvdg0Tfu0FTu
+	 Xn6jZKWTYOdCJZ80ml8UrCJfXw5LyilMQw408o0XIYZmk+qXrX2MCBWLL1+7O42NPkpvM
+	 DbcfNYcaM9WbS81wSFo9E3gH47gNfaOydnuqqdqBV+2h06QCvi5wOcei28Zodus3KHKdJ
+	 ivCa6xs4wHHcT3F0IC2aS9NLOLlheJq9HFkdDFseILVEjV++AG/bAlMMG6iWxw4V9vwyD
+	 RrkgDKjYqylVzEwO4TdQzwUNFDIh9XRoS5X/pGNK5JhrewiEeUMMe5omV99DOEkM1PA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795623622;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795623623;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=QjPkHM/kOguYZhoZF/tMExtz1uKUC5vM+ra91+4gT+s=;
-	b=lq88rUQfFVlJ4T+YUltWC4ZAnNdgIWzqXdL2aFZk4sFtwgwHy/E/7bQgjGwXQ1Puk7av
-	 gWDp8odONAy+QomQQh3RZpeuJN5aEg3QcpRJ2JRj6dFVYw8HBS6YkUpt4P9MlrakaZ8ZV
-	 HdvA7mQQkL1JYQDPa62r9vBzW3xLwGWWf7fERDzWmB/mhQItVQ+nj5S33Lm4X/LSGbQcD
-	 +Vl+f6RWKd1LGYZgsuknYTeAgfkw9kldl+fjJffJVY8P6Wa1+EQUn8vtujqxMbBN6Jpec
-	 QtDYmdl2HqU7yTwlXItAkM1TiBoI1E9+9/7p0ifrixj0uJN0m0FjO18PpzxjQZzwMIw==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=PMrW6KH+Cl482WQ+OLL0YigBVzRIRc0Ebc4XcKqwRy4=;
+	b=4TJrWzNjFUsArDU/wXUlhErlGr212MSyHqEZgVjPiitsOX53tb/NkZBEhVvxhIWeqZ5j
+	 5aC79F9WS9FL7BAoXH53agOVoAVL+I4VadkjXrU7yLrUU0yns4lpTx7HCYtZTa/rFFPJk
+	 ZBE7bwrVPLgKm0BOoPx/wtNjKiS01p+WGqqDgnKQHm+2OLjxGlu1XzmsGBRCRU3wLvfB0
+	 Y26UV3Rdv3eamBWQvAaFYYcTdlFcCP1LIhLFmxps+fiq7BxymqO0NJDMZz0uUNypod89G
+	 WjUd6/UaZZAW+ypi0+tecQPRzqH3gMMb8sS1Ps5001alg9Kj24HrSyxg/1dnK7/RQdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C6VcaDhJ;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QEKPZ38j;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8945A606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:20:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89EE606A31E;
+	Wed, 25 Nov 2026 16:20:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C6VcaDhJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD0B01F000CA;
-	Wed, 25 Nov 2026 16:20:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795623622;
-	bh=QjPkHM/kOguYZhoZF/tMExtz1uKUC5vM+ra91+4gT+s=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QEKPZ38j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99FA61F000D2;
+	Wed, 25 Nov 2026 16:20:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795623623;
+	bh=PMrW6KH+Cl482WQ+OLL0YigBVzRIRc0Ebc4XcKqwRy4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C6VcaDhJdJRMF0UirA/r8US/IJEcWWnPyIgG5q07nAbjw1c1O/SycjGG7YyERwyKQ
-	 A1a67QGIxVEjY/jCjvlcg3BjP+tT8+CVOzdmZioaLJoKNUyVLS/z3gXYkNRLS6FvrK
-	 KkRgyN/6vyBGEK3vn9UdpYebM2kAShTBMsYxfMLlsHkuPO5gaqtrZJLaJvdQD2ekGa
-	 X28b9Ha6WIp6P99+zxctdPQp5PTnWMua8Lx+lbAn7z3efKZBGYtNEEsk2DUwAuIzxU
-	 9AuojzvAKhvUgFLC7ZF/+gSq/lMFHftdIfAzDAYRwn5NxlqNZDxcAq4wXfW97V9zIZ
-	 ARN1lEOA+fIyA==
-From: Sasha Levin <sashal@kernel.org>
+	b=QEKPZ38j4kB7YwhnStdxtFQjmJylXXGUGQUvUwB5hAeo1V+ZcgzvHwHfPOzof7AJh
+	 spAbB1OjjjZLFEePncxVhqqeRxcCWM5YuU/0JFpgW4G+cfGqdH9q/WFojcjNE41Ey7
+	 WXbllU6fsMrXKx/ZticLIveacZ3pMZGZN3oFl4X0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Cheng Yongkang <teel4res@gmail.com>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] fs/splice: clamp an over-reported write_iter result
-Date: Wed, 25 Nov 2026 11:20:20 -0500
-Message-ID: <20261125162000.768655-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112546-patronage-comfort-c01e@gregkh>
-References: <2026112546-patronage-comfort-c01e@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	stable <stable@kernel.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Subject: [PATCH 6.18 918/990] usb: dwc3: gadget: Reject requests to a disabled endpoint
+Date: Wed, 25 Nov 2026 15:38:05 +0100
+Message-ID: <20261125143843.506105590@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,56 +63,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Cheng Yongkang <teel4res@gmail.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 2d956723e82cddae8ff8e9da99a666217b02065f ]
+------------------
 
-iter_file_splice_write() builds a bvec iterator of at most
-sd.total_len - left bytes and passes it to ->write_iter().  It then
-subtracts the returned length from sd.total_len and walks the pipe
-buffers by that length.  A ->write_iter() implementation that reports
-more bytes than the iterator held makes sd.total_len underflow and the
-dismissal loop advance pipe->tail past pipe->head, releasing a zeroed
-pipe buffer:
+From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
 
-  Splice Exceeded! ret=7 tot=1 left=0
-  Oops: general protection fault
-  RIP: 0010:iter_file_splice_write+0xb6f/0x1170
+commit 5eb11b1647b0534b3a61a21473d77ebf4ffbed7c upstream.
 
-Commit a3de58b12ce0 ("netfs: Fix unbuffered write error handling")
-added the warning for this condition but only reports it.  Clamp the
-return value to the size of the iterator that was actually handed to
-->write_iter(), so the pipe accounting stays consistent even when a
-producer violates the iterator contract.
+__dwc3_gadget_ep_disable() releases the lock while giving back requests,
+and DWC3_EP_ENABLED is only cleared afterward. A function driver can
+queue a new request in this window, and the driver would start a
+transfer on an endpoint that is already disabled in hardware.
 
-Fixes: 8d0207652cbe ("->splice_write() via ->write_iter()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
-Link: https://patch.msgid.link/179328314072.648427.13388575162083843840@gmail.com
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Adapted the call site to the older vfs_iter_write(out, &from, &sd.pos, 0) interface, so the context differs, while the clamp and the WARN_ONCE conversion are unchanged. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Clear DWC3_EP_ENABLED before giving back the requests, and reject
+requests queued to an endpoint that is not enabled.
+
+Fixes: 72246da40f37 ("usb: Introduce DesignWare USB3 DRD Driver")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Link: https://patch.msgid.link/4ceab6aa5d6af0e4780f9d3a964fd5d8168a0a02.1792542945.git.Thinh.Nguyen@synopsys.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/splice.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/usb/dwc3/gadget.c |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/fs/splice.c b/fs/splice.c
-index fb149d15c2bc2..120a6307f06d2 100644
---- a/fs/splice.c
-+++ b/fs/splice.c
-@@ -690,6 +690,12 @@ iter_file_splice_write(struct pipe_inode_info *pipe, struct file *out,
- 		ret = vfs_iter_write(out, &from, &sd.pos, 0);
- 		if (ret <= 0)
- 			break;
-+		if (unlikely(ret > sd.total_len - left)) {
-+			WARN_ONCE(1,
-+				  "Splice Exceeded! ret=%zd tot=%zu left=%zu\n",
-+				  ret, sd.total_len, left);
-+			ret = sd.total_len - left;
-+		}
+--- a/drivers/usb/dwc3/gadget.c
++++ b/drivers/usb/dwc3/gadget.c
+@@ -1087,6 +1087,8 @@ static int __dwc3_gadget_ep_disable(stru
+ 	reg &= ~DWC3_DALEPENA_EP(dep->number);
+ 	dwc3_writel(dwc, DWC3_DALEPENA, reg);
  
- 		sd.num_spliced += ret;
- 		sd.total_len -= ret;
--- 
-2.53.0
++	dep->flags &= ~DWC3_EP_ENABLED;
++
+ 	dwc3_remove_requests(dwc, dep, -ESHUTDOWN);
+ 
+ 	dep->stream_capable = false;
+@@ -1998,7 +2000,8 @@ static int __dwc3_gadget_ep_queue(struct
+ {
+ 	struct dwc3		*dwc = dep->dwc;
+ 
+-	if (!dep->endpoint.desc || !dwc->pullups_connected || !dwc->connected) {
++	if (!(dep->flags & DWC3_EP_ENABLED) || !dep->endpoint.desc ||
++	    !dwc->pullups_connected || !dwc->connected) {
+ 		dev_dbg(dwc->dev, "%s: can't queue to disabled endpoint\n",
+ 				dep->name);
+ 		return -ESHUTDOWN;
+
 
