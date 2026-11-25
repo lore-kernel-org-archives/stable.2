@@ -1,101 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795646097;
-	b=ZWE2wrXu+NdwxnNZ5fq4cRv+H7axdTuzvohpeng4ud45e6FmHtQpkQKPT6U1ZofFXroM
-	 rpOcjuYgJX+8Okyu0oI0A5Mc9/YBb4hfKg3c64DS+zWLfp9cAheqpl/7CVaJ8FKxLhk05
-	 BXPOfC9UUdlEFTASE9deh9ZyTyrYi7hbIURTfknFHHLuy/yZhPJilGl9cpuJAsHbXTi49
-	 ZPMS73J/R4dU5a8mUtuejKcClMgYXotVhfk5g/2I1k+Zv6d4t/PRNgchOyRbWXiXtaAE3
-	 6bJ4+LtsEfk5FckrYHQe2nYjYEJYwvR0X/sr0Yxee6C55O8gS7A0FnL1Ae4vzzpT3uw==
+	t=1795646102;
+	b=sRzeqi16wFclNuPX/LXb0I5R3qReK2z1jZzqasPLvfOM9P06ieiEA93Xh33uxxBrPsUg
+	 gkVc2ertqgi9+QzHI4yfDFPikwNKp+WzWfSddoZ6LPB1Kw+r6X5a5HWFbOzGYrRyK+csY
+	 QgeAo51jHQvTN70eM3HwW80AXUgQJ1aIhLIKhoiyoa9v+opxQPy8POY1km+HFSaMNY2SE
+	 M8mx9AsIa1YTGQGzQihA61pJH4PkqTi3kHFVljsZOpWqHGUbR/JEYpNoe3eNQYq5KqBlX
+	 bapX97A1UHsSQsgc+jTx93oQP4ytI98zZqG6ZpOlVDzzXKvbOOEltouMA7NUZqFmKyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795646097;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=OLNYMcQ2Y1oIxnqaAzxlR1bRdVnHH6Z3Siej5MTnqR8=;
-	b=uw1NCOMF6da6zI9kDdJgJobhm5QLlAcB6Io+/rWr6xpxbF6IXPrItjVfVDmOyQS3315k
-	 0NMI9T836vDtMp2t/6ge8FSI91yAeCOCm1OfqHMCu/rJ0x65GKpMBHHtdcT4lDDv63KTb
-	 pyncq0F3cEe9V1w4fBN+YS4CGlyT9JTAmBAxdJ75GO03Hs3Ir6j0lnbnrQens01R/+ToV
-	 CzeGXqqk6xrCIXkhu8bG887l41HI9HX143v7kwIW7Fu9N78dBGuYW2TI3zALpeZ/7mP3y
-	 FHYBxPEoZ7gglOnfmg00A2FFuRTclQIsGefjwYppiUSe6jvKEDJFUx6KGobZcEUMCNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795646102;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=rfL5x6QN4uMtbxP3f8hbUSFP2Tb3L1Ge5tQU0VKhPiU=;
+	b=vlCdDXpuGB24ax6qj/6Oa+DjIYsHdR/F3qbNDU7RKTxmwfd3xgqVaFGZ2aBwuHCwYmL2
+	 wqjlZ7w9J6uwhMdOwljDxaacnEnvBj+Kngw1aFDuZSg9nLl5AP0Kdo9RFHRv2jFMMKPch
+	 SwOkYEzFYbOLO0mG/3n4qwNiw3AHKCSGXbovrzVfxXxTDTaAjIyA7ZDq/9RMRRj5VgAlE
+	 ggWZYHpgTZpNe3kuKk6iQ5EYLwb6bBTrfWhyoOTDtiDHcQHrUr+konJdKtKG9v3UgIBwj
+	 LNKwlXg12Y2u+l9K8elta9imeiGupE0fBih6sXFDyVgJkp+P6upwgos9toy+f/paVAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CsISQOf1;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b9nyDQ2J;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1921606A333
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 22:34:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1921606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C424B606A339;
+	Wed, 25 Nov 2026 22:35:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CsISQOf1
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3b41188c8b9so4486454a91.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:34:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795646096; x=1796250896; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OLNYMcQ2Y1oIxnqaAzxlR1bRdVnHH6Z3Siej5MTnqR8=;
-        b=CsISQOf1o4qiv5EEtNLT/UKO6YzVvMBXURsmLIJJDDZdp2FDLlixMlmv+7GtyKg3wg
-         tLKOwvPIIxOyGgURlHpanhNpCcNEazC806pIuN8wFOeFHqqFqTWSIU0bHB+LalQtUEpm
-         HS13XAz48ZNkPCStFs3Z7LHvxJHK9bnlHhEl02bAdaFVs0uN+2AFr2O2vkgf9lod9103
-         KWiH0BMIrATh0WvnfW2frvKc49jMcXB3EjHBiZzXYDPLwkb2BCTYD7j+aOqrdu/F8mWD
-         f//OMb60/+mHeFcgvezJ+eb/FV2MCY4Gv1Au4uTxGVXQzWGVcRIC4tCJ/BYOmU+nEW9Y
-         Ub+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795646096; x=1796250896;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OLNYMcQ2Y1oIxnqaAzxlR1bRdVnHH6Z3Siej5MTnqR8=;
-        b=MFjH3fCYn2QJaIqcC33bHZ88GvjPju9t4ooG6fD3jw9j9pTQxuclZQADQLGnQ3VEQ/
-         IavDS4Kt1HKnvq2yth+g8V6pDioHU4I0rnzbZn7k6bHer0MmzrhffHeV0nOUCAEv9UHs
-         qn8lnjlCRxTrJVa47GI0FPr+ICnTRVZqemrmoKCA++Vap0D+Bt2xn1V4mkCXCX55qAA1
-         SOHyLCwWzakfNml11rK15A2BZgUy+MEv1zqimHPsIlUw9d7dAr5CijZyioe/Nm4RRoL9
-         kqAfT1950ss6Ur0ISV3unxyTPZopd++wMv71gtnb1UfcK7h0RmEJh5mhh+3VbmawOO2Z
-         tacw==
-X-Forwarded-Encrypted: i=1; AL+hErFQjLQOAizxheq0THqvp6R5/UNh+GIqgK57QjTakbqhUEUINXM0x113p4+UtSMHvcZcx7+jyB0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z92IwuJJH35bThny0PAf8+LisxOLJHgwc/H6FPul5O8ulTzllSJ
-	W/2L04DCqSFYCfMho+eLeqH7kC8EXL5yWFitR6Pi6XUbhgSGpu6uYQwv
-X-Gm-Gg: AZFdTZfdxWw4phQoBKy9HzoYGOixasGO5sdGrmFyo3ZW+e2OzvwrC/uZKhDiPRnSLWO
-	qjYRoK8QQg1ex1lRLD1nceLTqIDz3kAC+HZ5pJR7iugZIa9bHqh5C6xM018gOrOcrs3jjt4tVio
-	N7KzEsPeVrKRcW4C6NPr7Qys5RcOSe32PHkjJTz/WaLqiZ9+iS2Q/XUxLCzHfkOCOvdQaSimCAC
-	XqtVLl96HdCCKRjd+oNC9aakNp8vPTwqkdxJpQHKDU/zj+3Zi7FwmahSO7T3pXq/Tfs6jMdZk3h
-	HeFBVG9BXgG+NzQ5n2ihs8nHFh9DDPKQwuNKSfTDEVXfMU5DsZhS+j9wnyVuSoc99gP4TzW/zn9
-	zVUlBxv6KMOkZ/rlAsjzwE8pvIYXjfxX/lqS3AjpHYIL5QlDw1M1mxxqOxiJm9U0II09YlhV5zO
-	vzwrfoxqcy5++71K3UjkzoBIlLQx14yz6rL8n6ZOSaIYJFeyhIf2/Twj8yu9z+YZaguutx5vxQs
-	hdm45SCMmTwOodfYHHWx6BgcO3UO2e/t8zWivr7b9VdkTrjoACvcxffh0oO/UIpMCYNrHAYTUTf
-	rJMoycmxCDt3+L4GmlF0ULMUjY6nXqmIqEtuKg5bo+SVN5VpDQ==
-X-Received: by 2002:a17:90b:2e49:b0:3a4:b0f3:6597 with SMTP id 98e67ed59e1d1-3b41c58ae4dmr17896124a91.0.1795646096100;
-        Wed, 25 Nov 2026 14:34:56 -0800 (PST)
-Received: from localhost.localdomain ([112.170.44.210])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdebb45c972sm907029a12.20.2026.11.25.14.34.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 14:34:55 -0800 (PST)
-From: Junyoung Jang <graypanda.inzag@gmail.com>
-To: Miklos Szeredi <miklos@szeredi.hu>
-Cc: Junyoung Jang <graypanda.inzag@gmail.com>,
-	Sasha Levin <sashal@kernel.org>,
-	Gwanhyun Lee <gwanhyunlee@gmail.com>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Bernd Schubert <bernd@bsbernd.com>,
-	Amir Goldstein <amir73il@gmail.com>,
-	fuse-devel@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 6.12.y 6.6.y 6.1.y v2] fuse: fix fuse_set_nowrite() race with parallel direct writes
-Date: Thu, 26 Nov 2026 07:34:46 +0900
-Message-ID: <20261125223447.651208-1-graypanda.inzag@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026-11-23-1-daily-reply-0006@kernel.org>
-References: <20261123141024.2476753-1-graypanda.inzag@gmail.com> <2026-11-23-1-daily-reply-0006@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b9nyDQ2J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E2E1F000D8;
+	Wed, 25 Nov 2026 22:34:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795646102;
+	bh=rfL5x6QN4uMtbxP3f8hbUSFP2Tb3L1Ge5tQU0VKhPiU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=b9nyDQ2J/RIU42aEm7BmZJbfvXcRFNipTjhfwdSgRn0KzkRLJdvdxcUi9aMl1YWyy
+	 TMHtFurAtb3rTwa/SqNviyHbah/r8l0b9Jj7s43SnuUcATIvotOlhb91ZJGwL1W9M8
+	 Ip9bBn89Ra7CmDp/hoab/W4xrVJS6qW4XbFBQMct+5eso2M/+mWCzUfSUjhaX79JVK
+	 h8DYuAWlix+O3sgFNPzVew0i8bcRct4KI0fiYeEbJ0JQH3SstmPi8gQte0qYzfsMYP
+	 EcT6sgUk9AqPVGaMPCTh+LNfFYpAIKt90ZC/1tdl47XLlkSKII75q4vHiiMfUpzzGz
+	 qGK/u2K08DVjg==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Wed, 25 Nov 2026 23:33:04 +0100
+Subject: [PATCH 06/21] hugetlbfs: fix deadlock between hole punching and
+ memory failure
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,115 +53,187 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261125-hugetlb_fixes_2-v1-6-db27fd2f71a8@kernel.org>
+References: <20261125-hugetlb_fixes_2-v1-0-db27fd2f71a8@kernel.org>
+In-Reply-To: <20261125-hugetlb_fixes_2-v1-0-db27fd2f71a8@kernel.org>
+To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Jinmeng Zhou <jinmengzhou22@gmail.com>, Hongfu Li <lihongfu@kylinos.cn>, 
+ Andrea Arcangeli <aarcange@redhat.com>, 
+ Mike Kravetz <mike.kravetz@oracle.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Dave Airlie <airlied@redhat.com>, 
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Gerd Hoffmann <kraxel@redhat.com>, Mike Rapoport <rppt@kernel.org>, 
+ Mel Gorman <mel@csn.ul.ie>, Dave McCracken <dave.mccracken@oracle.com>, 
+ Andy Whitcroft <apw@shadowen.org>, Adam Litke <agl@us.ibm.com>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Rik van Riel <riel@surriel.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
+ Lance Yang <lance.yang@linux.dev>, James Houghton <jthoughton@google.com>, 
+ Yang Shi <shy828301@gmail.com>, Suren Baghdasaryan <surenb@google.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
+ Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Matthew Brost <matthew.brost@intel.com>, Byungchul Park <byungchul@sk.com>, 
+ Alistair Popple <apopple@nvidia.com>, 
+ Wanpeng Li <liwanp@linux.vnet.ibm.com>, Andi Kleen <ak@linux.intel.com>, 
+ Kenneth W Chen <kenneth.w.chen@intel.com>, Hugh Dickins <hugh@veritas.com>, 
+ Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+ Joern Engel <joern@logfs.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Michal Hocko <mhocko@suse.cz>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@linux.vnet.ibm.com>, 
+ KAMEZAWA Hiroyuki <kamezawa.hiroyu@jp.fujitsu.com>, 
+ "Kirill A. Shutemov" <kirill@shutemov.name>, 
+ Sasha Levin <sasha.levin@oracle.com>, 
+ Guillaume Morin <guillaume@morinfr.org>, Wanpeng Li <liwp.linux@gmail.com>
+Cc: linux-mm@kvack.org, Jason Gunthorpe <jgg@ziepe.ca>, 
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ Andrew Morton <akpm@osdl.org>, linux-doc@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5106; i=david@kernel.org;
+ h=from:subject:message-id; bh=8Ks2EUC02lGqJ75Fw8MnkFmyG7Ap+d4rJhnmmYI1Rhc=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLZk1RcNk/jPB8lsK6CY6/E85woho3/zc0WJMVvMX3g7
+ /D7xfopHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAExE8jzDf8fJ9sIrVruEJDzt
+ lPhmECz0s2C7kZcZi/S5vZP+qO9hKWdkeJb0ILqSp4Zr/3OtJBHnRRb9h9SeSs/Vvmt0Q++LUfk
+ eFgA=
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-In 6.12.y, 6.6.y, and 6.1.y, queuing a FUSE_WRITE_CACHE request clears
-folio writeback immediately while keeping the request in fi->writepages
-until the daemon replies. Pending requests can outlive a cached file
-handle if write_inode_now() fails in fuse_flush() and returns before
-fuse_sync_writes(), or if a cached mmap drops its last file reference
-via munmap() without calling fuse_flush().
+From: Chris Mason <mason@kernel.org>
 
-Once the cached file is released, FOPEN_PARALLEL_DIRECT_WRITES allows
-concurrent direct writes under inode_lock_shared(). While one writer
-holds FUSE_NOWRITE and waits for the pending request, another can enter
-fuse_set_nowrite() and hit BUG_ON(fi->writectr < 0).
+Punching a hole that isn't aligned to the huge page size can deadlock
+against memory_failure() on a mapped folio at the edge of the hole.
 
-Fix this by waiting on fi->page_waitq in fuse_set_nowrite() while
-fi->writectr < 0 before setting FUSE_NOWRITE, and still running
-fuse_sync_writes() in fuse_flush() when write_inode_now() fails. Wake
-waiters in __fuse_release_nowrite() rather than fuse_release_nowrite()
-because fuse_do_setattr() calls __fuse_release_nowrite() directly on
-success, including under a shared inode lock via fuse_direct_IO() ->
-fuse_do_truncate().
+hugetlbfs_punch_hole() locks and zeroes the partial folios with
+i_mmap_rwsem held for write, following the hugetlbfs locking order
+documented in mm/rmap.c: i_mmap_rwsem before the folio lock.
 
-Mainline is unaffected since commit 0c58a97f919c ("fuse: remove tmp
-folio for writebacks and internal rb tree") removed fi->writepages and
-keeps folio writeback active until the daemon replies. Fix the ordering
-directly in the stable trees rather than backporting that larger rework.
+However, try_memory_failure_hugetlb() locks the folio first, and then
+collects the processes to kill under i_mmap_rwsem:
 
-This bug was found with an in-house LLM-based tool, and the root cause,
-reproducers, and fix were manually verified by the authors.
+    hugetlbfs_punch_hole()              try_memory_failure_hugetlb()
+    ======================              ============================
+    i_mmap_lock_write()
+                                        folio_lock()
+    hugetlbfs_zero_partial_page()       hwpoison_user_mappings()
+      filemap_lock_hugetlb_folio()        collect_procs_file()
+        waits for the folio lock            i_mmap_lock_read()
+                                              waits for the writer
 
-Fixes: 153524053bbb ("fuse: allow non-extending parallel direct writes on the same file")
-Cc: stable@vger.kernel.org
-Co-developed-by: Gwanhyun Lee <gwanhyunlee@gmail.com>
-Signed-off-by: Gwanhyun Lee <gwanhyunlee@gmail.com>
-Signed-off-by: Junyoung Jang <graypanda.inzag@gmail.com>
+In fact, the documentation is outdated: hugetlbfs_punch_hole() is the
+*only* one that still takes i_mmap_rwsem before the folio lock. All
+other scenarios always take the folio lock before the i_mmap_rwsem.
+
+Only memory failure can deadlock with the hole punch:
+
+* truncation and hole punching of full folios are serialized against it
+  through the inode lock
+* unmap_ref_private() holds the lock of an anon folio, not of a page
+  cache folio that the hole punch zeroes
+* migration only tries to take the i_mmap_rwsem.
+
+There is no need to zero the partial folios under i_mmap_rwsem. The lock
+only protects the VMA tree and PMD table sharing, nothing about zeroing;
+the inode lock and the folio lock are sufficient.
+
+Let's fix it by only holding i_mmap_rwsem while unmapping the full
+folios of the hole.
+
+Update the documented locking order in mm/rmap.c and the function
+comment above hugetlb_folio_mapping_lock_write().
+hugetlb_folio_mapping_lock_write() could now take the lock
+unconditionally, but we leave that for a separate change.
+
+The order of the folio lock and i_mmap_rwsem now matches the one for
+other folios, which is nice.
+
+This has low urgency, as the race shouldn't really happen all that often
+in practice (never seen).
+
+Fixes: 68d32527d340 ("hugetlbfs: zero partial pages during fallocate hole punch")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Chris Mason <mason@kernel.org>
+[ david: adjust comment and description ]
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
-Changes in v2:
-- Move wake_up(&fi->page_waitq) into __fuse_release_nowrite() to cover
-  the shared-lock fuse_do_setattr() path pointed out by Sasha Levin.
-- Verify and target 6.12.y, 6.6.y, and 6.1.y together.
-- v1: https://lore.kernel.org/r/20261123141024.2476753-1-graypanda.inzag@gmail.com
+ fs/hugetlbfs/inode.c | 6 ++----
+ mm/hugetlb.c         | 3 +--
+ mm/rmap.c            | 4 ++--
+ 3 files changed, 5 insertions(+), 8 deletions(-)
 
-This single patch applies cleanly to linux-6.12.y, linux-6.6.y, and
-linux-6.1.y. Tested with KASAN and lockdep in QEMU on 6.12.119,
-6.6.163, and 6.1.193 using unprivileged FUSE daemons (UID 1000 via
-fusermount3) against the close -EIO and dirty mmap/munmap reproducers.
-Also reproduced the v1 missed-wakeup hang on the shared-lock
-fuse_do_truncate() -> fuse_do_setattr() path using an artificial delay
-and confirmed v2 completes cleanly across 6.12.y, 6.6.y, and 6.1.y.
-Standalone C reproducers are available on request.
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index 4a92f31c88e1a..2e8672ae2fd52 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -684,8 +684,6 @@ static long hugetlbfs_punch_hole(struct inode *inode, loff_t offset, loff_t len)
+ 		return -EPERM;
+ 	}
+ 
+-	i_mmap_lock_write(mapping);
+-
+ 	/* If range starts before first full page, zero partial page. */
+ 	if (offset < hole_start)
+ 		hugetlbfs_zero_partial_page(h, mapping,
+@@ -693,10 +691,12 @@ static long hugetlbfs_punch_hole(struct inode *inode, loff_t offset, loff_t len)
+ 
+ 	/* Unmap users of full pages in the hole. */
+ 	if (hole_end > hole_start) {
++		i_mmap_lock_write(mapping);
+ 		if (mapping_mapped(mapping))
+ 			hugetlb_vmdelete_list(mapping,
+ 					      hole_start >> PAGE_SHIFT,
+ 					      hole_end >> PAGE_SHIFT, 0);
++		i_mmap_unlock_write(mapping);
+ 	}
+ 
+ 	/* If range extends beyond last full page, zero partial page. */
+@@ -704,8 +704,6 @@ static long hugetlbfs_punch_hole(struct inode *inode, loff_t offset, loff_t len)
+ 		hugetlbfs_zero_partial_page(h, mapping,
+ 				hole_end, offset + len);
+ 
+-	i_mmap_unlock_write(mapping);
+-
+ 	/* Remove full pages from the file. */
+ 	if (hole_end > hole_start)
+ 		remove_inode_hugepages(inode, hole_start, hole_end);
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 0f3db932266d7..befa2670cb03f 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -1871,8 +1871,7 @@ void init_new_hugetlb_folio(struct folio *folio)
+  * Find and lock address space (mapping) in write mode.
+  *
+  * Upon entry, the folio is locked which means that folio_mapping() is
+- * stable.  Due to locking order, we can only trylock_write.  If we can
+- * not get the lock, simply return NULL to caller.
++ * stable. If we cannot get the lock immediately, we simply return NULL.
+  */
+ struct address_space *hugetlb_folio_mapping_lock_write(struct folio *folio)
+ {
+diff --git a/mm/rmap.c b/mm/rmap.c
+index fe354fa6cc43a..f35b671d26514 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -49,8 +49,8 @@
+  *   hugetlb_fault_mutex (hugetlbfs specific page fault mutex)
+  *     vma_lock (hugetlb specific lock for pmd_sharing)
+  *       mapping->invalidate_lock (when allocating page cache folios)
+- *         mapping->i_mmap_rwsem (also used for hugetlb pmd sharing)
+- *           folio_lock
++ *         folio_lock
++ *           mapping->i_mmap_rwsem (also used for hugetlb pmd sharing)
+  */
+ 
+ #include <linux/mm.h>
 
-FUSE maintainers: could you please consider an Acked-by for this
-stable-only fix?
-
- fs/fuse/dir.c  | 10 ++++++++--
- fs/fuse/file.c |  5 +++--
- 2 files changed, 11 insertions(+), 4 deletions(-)
-
-diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
-index 54fcf91272a0..aaf364fe0e7b 100644
---- a/fs/fuse/dir.c
-+++ b/fs/fuse/dir.c
-@@ -1821,8 +1821,13 @@ void fuse_set_nowrite(struct inode *inode)
- 
- 	BUG_ON(!inode_is_locked(inode));
- 
--	spin_lock(&fi->lock);
--	BUG_ON(fi->writectr < 0);
-+	for (;;) {
-+		spin_lock(&fi->lock);
-+		if (fi->writectr >= 0)
-+			break;
-+		spin_unlock(&fi->lock);
-+		wait_event(fi->page_waitq, READ_ONCE(fi->writectr) >= 0);
-+	}
- 	fi->writectr += FUSE_NOWRITE;
- 	spin_unlock(&fi->lock);
- 	wait_event(fi->page_waitq, fi->writectr == FUSE_NOWRITE);
-@@ -1841,6 +1846,7 @@ static void __fuse_release_nowrite(struct inode *inode)
- 	BUG_ON(fi->writectr != FUSE_NOWRITE);
- 	fi->writectr = 0;
- 	fuse_flush_writepages(inode);
-+	wake_up(&fi->page_waitq);
- }
- 
- void fuse_release_nowrite(struct inode *inode)
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index f733a0f78114..b1646a452cc4 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -538,13 +538,14 @@ static int fuse_flush(struct file *file, fl_owner_t id)
- 		return 0;
- 
- 	err = write_inode_now(inode, 1);
--	if (err)
--		return err;
- 
- 	inode_lock(inode);
- 	fuse_sync_writes(inode);
- 	inode_unlock(inode);
- 
-+	if (err)
-+		return err;
-+
- 	err = filemap_check_errors(file->f_mapping);
- 	if (err)
- 		return err;
-
-base-commit: e2e4b92c2b2a3ae78423cb343951cb5d2241b405
 -- 
-2.43.0
+2.56.1
 
