@@ -1,47 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795598063;
-	b=MWMlmJJxcpHQLwHUD1i9ZUWGtDtuB6K+wmL42HZxFAFEXBrYZUkOWzd+rhMVLYbvUubb
-	 HbqYiTINWZ5bo2zaIl3b2J333kDFvWe06t3Ojja8VopU1ryfWPbyHwT3U0id//rmC0Li/
-	 rPCNvpeMzrR5r2SWDigvziz+B/LeGAWgOB0MjI/V/gOH2csAvNnMRvjfVxnypj0bFqeca
-	 wxkqQXgf0bCxUc+gkcZubIuNQgywSV9hAJ7Ot3EHPFsWdmtE3Mb5YzK5+rwD/lo0uZ8U+
-	 cSNYGTJEXd9Kt2or1l70ozT6SzddNhn7UkZQId3fSKx0OsLSbcwV40C78cf45ByvYHg==
+	t=1795598075;
+	b=fkbfEbjCSjRFDN0hfasTL18Sn/37JKMuwKTXK4NoWYxl20MvgD0S0HPs4+4BNtxkAbfm
+	 d0sKlRmHAXxXxD6mTtDEBMTXNPD3UKvu5p5SgrjfwdWXs+BOQ7647MSB5hfawqCUQxtrR
+	 dGdSX2BCNYBZC8RwA1oztx+c9Hn/UsjNYYecVNKzdHO6p7Km2/9+KtexzwbQXI4JBi+5H
+	 JVSASXDDu7vjnYqP1h7B2yRQGEBkBYMN2ZuSWM7Dm9Ldmqt3+dCidyTFD476KkJ4UJneI
+	 CyUxn+69NXRwZl/vU+99cSUe7xsWaWAWkl7hYDKi3+755W8rha05mzPwFp94kL/XqeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795598063;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=DzlBRi0VIX67y2fzWAH6GYw78LJJsjYLA0G13pLhwqE=;
-	b=xoatTHX58g+bO5LUg5tw+601oKuyBF0CXjF22hpreLVt31pPnkId0GizMxcVFrkyvBNn
-	 wkP4kBm6KFm2xuzFV4wJJUHB6j28xSmntk8bODkz4VYtsT+wYvEh0Jm8aKm4UVFY81dl9
-	 yMI8TsIC+FYvT/tizcjffS5uaCn9IOe8tVsqaCwva1AaSS++lllI/aRT1l1tTzHqCFZFd
-	 if6vLRQxdTKmiJ9NnszZDXEJg4HezirIy3jHc327dZUWqJTt13+DgNL31D0PnSRy2qCtE
-	 jure7BA12X0iAC66ivGzq0BmIisamz5yBj+H3HpGmyfsDUYih/bGdTxJOQTOYIvERWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795598075;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=9ruMhBL6geZHtZpeVeqePM4fPGxZEpg6PQ9GdOn9Qfc=;
+	b=29GZ//2uovaiXzhMkhO8P5kfdw1SgLcL4y5hhkKhxd+r2NVkkv8aLBbTwv2qAn9DDOWy
+	 0p3m3ogImCEglZw95scCcG6C50Rn3KgSIlj7y2LFsfSG/tdK+FM393jUIXWcFlOUTLi6z
+	 zlOWXoUZn7FcYMBJMoqC8tyWeTE1z/D4S/czQqk7iBxZgkIo0PKBK6LiLDBg3784rGFLz
+	 4x+29QtLfB3txKQ5doPUjVi73tyqXJ/jXJ6cUUyn3F1uJXdsZzoENc56hRGZx+tcMIx3T
+	 Eu0dnaE8/clY+VapdWaxXl+nzFUlmbKtvJD+EedcrBcskvTkNSttA1RS9Tc+A9q59cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uG97jrkT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=x3G2Yh+W;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BX6TdYFy;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=x3G2Yh+W;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BX6TdYFy;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4828606A692
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:14:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9AB606A68F;
+	Wed, 25 Nov 2026 09:14:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E9AB606A68F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uG97jrkT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AC091F000CF;
-	Wed, 25 Nov 2026 09:14:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795598063;
-	bh=DzlBRi0VIX67y2fzWAH6GYw78LJJsjYLA0G13pLhwqE=;
-	h=Subject:To:Cc:From:Date;
-	b=uG97jrkTAYsPYpESI1Oo6Tv1N28KekIYHxDZ2FqSvFECu78DuNqZqwFeUiF9cg5LH
-	 vXazDpqGLtcCqUM99P4TfvP/kYS/Csik5IcTamKeYRYvJ3wG7jct9d+vmmdFgOLazI
-	 kMG6OkgdqxNJSmq9Hf/dvZfL0oUsCTo4PUADHo+I=
-Subject: FAILED: patch "[PATCH] netfilter: nf_dup: preserve guard across NFQUEUE reinjection" failed to apply to 6.12-stable tree
-To: zihanx@nebusec.ai,pablo@netfilter.org,root@tr0jan.top,vega@nebusec.ai
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 10:10:01 +0100
-Message-ID: <2026112501-gilled-capsize-0004@gregkh>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=x3G2Yh+W;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BX6TdYFy;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=x3G2Yh+W;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BX6TdYFy
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A5FCE1F456;
+	Wed, 25 Nov 2026 09:14:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795598072; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9ruMhBL6geZHtZpeVeqePM4fPGxZEpg6PQ9GdOn9Qfc=;
+	b=x3G2Yh+WF8bse2bC62OJJaDoSphgPQQV5gJgM8+KNL0txwsG45ahWusw4L/hZo1OD6j/q6
+	C5rl1V7XJjK04M/WpBwOPdFENLOHK+NgMG1ew84cFE8Xk/sC4w/lkGxIrBEFwmb/qrxyqm
+	JiYEkZjBOnsS7ck8uGt9bcBw4sel3IY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795598072;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9ruMhBL6geZHtZpeVeqePM4fPGxZEpg6PQ9GdOn9Qfc=;
+	b=BX6TdYFy9nKZNMhG8YeDvFJ4MGChj9K8CkJWw0Y32c4LF6QEM5Gl11K3mKe2Okz1D6UPdw
+	g/ZdUtFMJKyLoeBg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795598072; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9ruMhBL6geZHtZpeVeqePM4fPGxZEpg6PQ9GdOn9Qfc=;
+	b=x3G2Yh+WF8bse2bC62OJJaDoSphgPQQV5gJgM8+KNL0txwsG45ahWusw4L/hZo1OD6j/q6
+	C5rl1V7XJjK04M/WpBwOPdFENLOHK+NgMG1ew84cFE8Xk/sC4w/lkGxIrBEFwmb/qrxyqm
+	JiYEkZjBOnsS7ck8uGt9bcBw4sel3IY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795598072;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9ruMhBL6geZHtZpeVeqePM4fPGxZEpg6PQ9GdOn9Qfc=;
+	b=BX6TdYFy9nKZNMhG8YeDvFJ4MGChj9K8CkJWw0Y32c4LF6QEM5Gl11K3mKe2Okz1D6UPdw
+	g/ZdUtFMJKyLoeBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7B3141339F;
+	Wed, 25 Nov 2026 09:14:32 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id v3WvFfimBmsDGgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 25 Nov 2026 09:14:32 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 0981627BD4; Wed, 25 Nov 2026 10:14:28 +0100 (CET)
+Date: Wed, 25 Nov 2026 10:14:28 +0100
+From: Jan Kara <jack@suse.cz>
+To: Henry Martin <bsdhenrymartin@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+	Andrew Morton <akpm@linux-foundation.org>, Nhat Pham <nphamcs@gmail.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm: report all-zero cachestat for DAX mappings
+Message-ID: <mixn4cl5mnx5e2o3e5tlklaa5ynlu6qadorrlpifywqstbep2w@o6tylgke5umz>
+References: <20261125030432.274396-1-bsdhenrymartin@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,142 +111,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261125030432.274396-1-bsdhenrymartin@gmail.com>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[infradead.org,suse.cz,linux-foundation.org,gmail.com,cmpxchg.org,vger.kernel.org,kvack.org];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.com:email]
+X-Spam-Score: -12.80
 
+On Wed 25-11-26 11:04:32, Henry Martin wrote:
+> filemap_cachestat() treats every xarray value entry as a workingset
+> shadow.  On DAX mappings, value entries are DAX exceptional entries:
+> same value bit, different bit layout (flags in the low bits, pfn
+> above).  Decoded as a shadow, a DAX entry yields a bogus node id;
+> NODE_DATA() for it can be NULL, and lru_gen_test_recent() then
+> dereferences it:
+> 
+>   Oops: general protection fault
+>   RIP: 0010:lru_gen_test_recent+0xde/0x300
+>   Call Trace:
+>    workingset_test_recent
+>    filemap_cachestat
+>    __x64_sys_cachestat
+> 
+> Any writable file on a DAX mount triggers this once an mmap write
+> fault has populated entries.
+> 
+> DAX mappings have no page cache, so none of the cachestat fields
+> make sense for them.  Skip the xarray walk for them and report all
+> zeros, and document the behaviour in the syscall's kernel-doc.
+> 
+> This issue was discovered by Tencent CodeBuddy Security.
+> Cc: stable@vger.kernel.org
+> Fixes: cf264e1329fb ("cachestat: implement cachestat syscall")
+> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Looks good. Feel free to add:
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x 82052e5b5ec36504fe1b9c3c28a711a78fcacf37
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112501-gilled-capsize-0004@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+								Honza
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 82052e5b5ec36504fe1b9c3c28a711a78fcacf37 Mon Sep 17 00:00:00 2001
-From: Zihan Xi <zihanx@nebusec.ai>
-Date: Fri, 16 Oct 2026 16:14:17 +0000
-Subject: [PATCH] netfilter: nf_dup: preserve guard across NFQUEUE reinjection
-
-NFQUEUE can suspend traversal of a duplicated packet while the task-local
-duplication guard is set. The output call then returns and clears the guard
-before a later verdict resumes hook traversal.
-
-Save the guard in the queue entry and restore it while reinjection
-continues hook traversal. Preserve and restore the verdict task's prior
-state, including nested synchronous reinjection.
-
-Fixes: cd58bcd9787e ("netfilter: xt_TEE: have cloned packet travel through Xtables too")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-
-diff --git a/include/net/netfilter/nf_queue.h b/include/net/netfilter/nf_queue.h
-index 86021c55ba3c..4a8cefd8398d 100644
---- a/include/net/netfilter/nf_queue.h
-+++ b/include/net/netfilter/nf_queue.h
-@@ -23,6 +23,7 @@ struct nf_queue_entry {
- 	struct net_device	*physout;
- #endif
- 	struct nf_hook_state	state;
-+	bool			in_nf_duplicate;
- 	bool			nf_ct_is_unconfirmed;
- 	u16			size; /* sizeof(entry) + saved route keys */
- 
-diff --git a/net/netfilter/nf_queue.c b/net/netfilter/nf_queue.c
-index 166d05e994ac..bd603e3a99a5 100644
---- a/net/netfilter/nf_queue.c
-+++ b/net/netfilter/nf_queue.c
-@@ -219,6 +219,7 @@ static int __nf_queue(struct sk_buff *skb, const struct nf_hook_state *state,
- 	*entry = (struct nf_queue_entry) {
- 		.skb	= skb,
- 		.skb_dev = skb->dev,
-+		.in_nf_duplicate = current->in_nf_duplicate,
- 		.state	= *state,
- 		.hook_index = index,
- 		.size	= sizeof(*entry) + route_key_size,
-diff --git a/net/netfilter/nfnetlink_queue.c b/net/netfilter/nfnetlink_queue.c
-index 90d887546f7d..a8aa7ad832c3 100644
---- a/net/netfilter/nfnetlink_queue.c
-+++ b/net/netfilter/nfnetlink_queue.c
-@@ -44,6 +44,7 @@
- #include <net/sock.h>
- #include <net/tcp_states.h>
- #include <net/netfilter/nf_queue.h>
-+#include <net/net_debug.h>
- #include <net/netns/generic.h>
- 
- #include <linux/atomic.h>
-@@ -365,21 +366,30 @@ static void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
- 	const struct nf_hook_entry *hook_entry;
- 	const struct nf_hook_entries *hooks;
- 	struct sk_buff *skb = entry->skb;
-+	bool old_in_nf_duplicate;
- 	const struct net *net;
- 	unsigned int i;
- 	int err;
- 	u8 pf;
- 
-+	DEBUG_NET_WARN_ONCE(current->in_nf_duplicate &&
-+			    !entry->in_nf_duplicate,
-+			    "%s called with unexpected duplication guard",
-+			    __func__);
-+	local_bh_disable();
-+	old_in_nf_duplicate = current->in_nf_duplicate;
-+
- 	net = entry->state.net;
- 	pf = entry->state.pf;
- 
-+	current->in_nf_duplicate = entry->in_nf_duplicate;
- 	hooks = nf_hook_entries_head(net, pf, entry->state.hook);
- 
- 	i = entry->hook_index;
- 	if (!hooks || i >= hooks->num_hook_entries) {
- 		kfree_skb_reason(skb, SKB_DROP_REASON_NETFILTER_DROP);
- 		nf_queue_entry_free(entry);
--		return;
-+		goto out;
- 	}
- 
- 	hook_entry = &hooks->hooks[i];
-@@ -402,9 +412,7 @@ static void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
- 	switch (verdict & NF_VERDICT_MASK) {
- 	case NF_ACCEPT:
- 	case NF_STOP:
--		local_bh_disable();
- 		entry->state.okfn(entry->state.net, entry->state.sk, skb);
--		local_bh_enable();
- 		break;
- 	case NF_QUEUE:
- 		err = nf_queue(skb, &entry->state, i, verdict);
-@@ -418,6 +426,9 @@ static void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
- 	}
- 
- 	nf_queue_entry_free(entry);
-+out:
-+	current->in_nf_duplicate = old_in_nf_duplicate;
-+	local_bh_enable();
- }
- 
- /* return true if the entry has an unconfirmed conntrack attached that isn't owned by us
-
+> ---
+> Changes in v2:
+> - Return all zeros for DAX mappings instead of counting DAX entries as
+>   cached, per Jan Kara's suggestion (Nhat Pham agreed).  This also drops
+>   the dirty-accounting gap and the inaccurate PMD-order claim from v1.
+> - Document the DAX behaviour in the syscall's kernel-doc.
+> 
+> Link: https://lore.kernel.org/linux-mm/lh4cnpy2kw3tdtmhubwhhvim25kxpqxo6xttt7sihyx7x5hqdf@3tvivew2qh7m/ [Jan Kara]
+> Link: https://lore.kernel.org/linux-mm/CAKEwX=Py7W0vOwxKdWMCZu3d=BbF2OkgDt6Tu_AHhEJZ06w0ew@mail.gmail.com/ [Nhat Pham]
+> Link: https://sashiko.dev/#/patchset/20261123030014.3116755-1-bsdhenrymartin@gmail.com?part=1
+> 
+>  mm/filemap.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index a1b2ca5b933cb..4f6fd1f4caedb 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -4779,7 +4779,8 @@ static inline bool can_do_cachestat(struct file *f)
+>   * The `flags` argument is unused for now, but is included for future
+>   * extensibility. User should pass 0 (i.e no flag specified).
+>   *
+> - * Currently, hugetlbfs is not supported.
+> + * Currently, hugetlbfs is not supported.  DAX mappings have no page
+> + * cache, so cachestat() always reports all zeros for them.
+>   *
+>   * Because the status of a page can change after cachestat() checks it
+>   * but before it returns to the application, the returned values may
+> @@ -4824,7 +4825,10 @@ SYSCALL_DEFINE4(cachestat, unsigned int, fd,
+>  		csr.len == 0 ? ULONG_MAX : (csr.off + csr.len - 1) >> PAGE_SHIFT;
+>  	memset(&cs, 0, sizeof(struct cachestat));
+>  	mapping = fd_file(f)->f_mapping;
+> -	filemap_cachestat(mapping, first_index, last_index, &cs);
+> +
+> +	/* DAX mappings have no page cache; report all zeros. */
+> +	if (!dax_mapping(mapping))
+> +		filemap_cachestat(mapping, first_index, last_index, &cs);
+>  
+>  	if (copy_to_user(cstat, &cs, sizeof(struct cachestat)))
+>  		return -EFAULT;
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
