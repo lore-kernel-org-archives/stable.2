@@ -1,61 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795617999;
-	b=QMR053J8kA0QkWvtIbz7YUvVSWjBJztLaOyHZ7cgN//GGqiVgFXYFgjl7Bh/2CpkPMFU
-	 cdW2v+Y0ENA3Hw9zF2TMYRSfBHmctQwCTewvd/LBxNkGe2VOl1Uay8ZbcbtjkU3MAuawP
-	 DMMnliSNMGwVQZnb/ZZdqvusngNX+UAhpDtyarWzbYvzrsfx5l49n8JwtO8IL23+rWMwM
-	 uTB4/5hT6a/KHei3C+qnWhxPbOFHmCFq90iGDJ74k1pDiKQ4TQ3M2kaYelyMFeOtZ1iit
-	 JW4p5fn4gF7hWeu0ogqZF6dSPoLYKbV1MrxH6twGRzEfTlA3crq9P3JAx2ABpRMGkbA==
+	t=1795618000;
+	b=C+EN0JV/CpAmCpjdoqDBEiUZMY0Rh3LRujRuwqYw0wSKrQvl0cNxPato6N9cJiTpY5Lu
+	 A6VkRaH1TK5JZedfyQgUmeocnb2FOjR0M/43BKJoKuiNpicbgoxBQUxZwtigg7inN+uIq
+	 +Vo/5Dd1cFgus3SGLBzGZm03Dg/NSNsSa2CFsTBgZjVLPgZoQMsiifRyhg9iQaknsmPrx
+	 L0kiWomKXwP7heZVZ1tgvYswK25P+wmbQfXTmElYBHf6b7GOxYWXAvxiK14ycmQu0rgdz
+	 HZMhU7aHuwHFJN8XeBCjBVCXEJ5i461cmpVxjUncEYml+3LY6oY7nvAdpY2HGKRO6WQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795617999;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=b9kKcVig7H0iZ/2XHKm7Sh1wjiLoMyVkdbjeEKEr+ec=;
-	b=KkB0D/TYvSOB4NTIuhCq6rCfSb7ruYzGhI/dyGZNNq7dD4Hb87d/u8t0uRQtEyDYzv5b
-	 9TB9XYe+1aL7d16TrDFiovgZziSL0VRGrPTXIaAo+X7Taq/du6aAmDetjIUjkLL74Ztau
-	 F9tjgvv8fqqKijw4wLlOMYlDAZBeU7ZQLf09+vCwfBPqfgUKk2AvlJJLbBvgbXtcJDIZt
-	 sXRGcPY2u7Dtzq4oSpN9jDrkAHOFziqM9pjcjEySCISGB8WjcU+IioYdDqZnvgCbCsvwg
-	 LoEflzM6x6OiwM113YXx7JD6xC1NXUwyvnn9GfQe7A3EKfDLPl7trzZMnsSRG/IEnIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618000;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=uiUB9Ce4fCrQU9CaLPSNKXUE3ksxtKbzKcp+QgGsah0=;
+	b=lHN29VM6DBVMRp5snFpoO8j/IR/Oe52Idsf3631FdqgNyEMD01nz0ya+wLzNXkRXKfIz
+	 NzWIPxoy3i20HM1ZQPzAdXAvfP/v7ChfcbaZ6oqjVtA35Vjh922L+3KRMhjII2ozutrWe
+	 9MiBncT2FlOwecByKx64fIReshdcHsH7CNTQ+Iw/qHtIyvQbsTvwTNL9ikpJrjzgYJheS
+	 oEj3Dmol6dBpcqPChOkcKT/byDKgZUhiSBRaHjrCDW30x1gyLtdzTc8odznEvfDOI6V4k
+	 pglCB7dFNHujNx195f13q6Ov3aWf/7GVdlMxMYy6RWfPhxyYxNJPBpT/U7vJPJEfzGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KP76lbip;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="L/uDypw+";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D5CD606A687;
-	Wed, 25 Nov 2026 14:46:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21770606A32D;
+	Wed, 25 Nov 2026 14:46:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KP76lbip
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDF771F000C0;
-	Wed, 25 Nov 2026 14:46:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795617998;
-	bh=b9kKcVig7H0iZ/2XHKm7Sh1wjiLoMyVkdbjeEKEr+ec=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=KP76lbipDeb/PW4wJXqDQQ4iuiHoNaLs55ljwYkFpKSkSohkfjU9BRfhjZHq6U9yd
-	 rmQf5H/wUGz/cNZvhBBA1vK9iGLhE0MfOnITpyxtErUqEJKfuJW2TRyiI7eYp23QFH
-	 ZV4NVH55IhALmIN9fG9onSaiRbF4TWxpPz+BMXnD+ZG6wQSqD5THOwjFsmPfXfR3bE
-	 prt0XqqkyZr+Yr1CyqJl35Rb8V+yEvE947KOOCHaQCsI7bk1LgmzrNhIiKvBCzsGZN
-	 jpKE94alGxGgVBSmZ3RAhsNAuOcr0rGDJUcXtND0yJC3HkE89UD17XaJzA1iojqPz2
-	 BJ7qCYLy2KN+A==
-Subject:
- Re: [PATCH net v4 5/5] net: wwan: iosm: validate the command parameter length
-From: netdev-bot+sashiko@kernel.org
-To: fangxy@xiaopeng.com
-Cc: loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com,
- netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch, horms@kernel.org,
- johannes@sipsolutions.net, maoyixie.tju@gmail.com, zhugl3@xiaopeng.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 25 Nov 2026 14:46:37 +0000
-Message-ID: <179561799736.3135.13611936052638387312@kernel.org>
-In-Reply-To: <20261121141850.73754-6-fangxy@xiaopeng.com>
-References: <20261121141850.73754-6-fangxy@xiaopeng.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=L/uDypw+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72C701F000CF;
+	Wed, 25 Nov 2026 14:46:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795618000;
+	bh=uiUB9Ce4fCrQU9CaLPSNKXUE3ksxtKbzKcp+QgGsah0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=L/uDypw+JkamRi0kvQ2zUDVseGYf1TecmoMpA0L407leu/ZOpn3c927i6H47+Vmu6
+	 6407cudfXHbDdGc69PXP0uXYT0L8E0OC/fPUCyovocRnDcYGa1yvM13sEqZySpfEmh
+	 SI+D9RRknrilHU2R3C/PJbUeyS0GrmuQ3lhDNFFo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 0141/1005] net: stmmac: fix XDP RX buffer DMA sync length
+Date: Wed, 25 Nov 2026 15:24:39 +0100
+Message-ID: <20261125143825.042884579@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,104 +62,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+------------------
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
 
-- [Medium] The new parameter-length check never uses the device-supplied
-  cmdh->cmd_len, which is what delimits a command in this wire format.
+[ Upstream commit 363ff816277d4c7064514b160e655bed1dfb3ed8 ]
 
---
+stmmac_rx() bounded the DMA sync length by the largest data_end seen
+before and after the XDP program and passed it to page_pool_put_page()
+on the XDP_CONSUMED path. bpf_xdp_adjust_tail() zeroes the grown area,
+which dirties the CPU cache, but a later negative adjust only moves
+data_end back. If the program grows and then shrinks the tail, both
+endpoints miss the zeroed range, so those dirty cache lines are not
+written back before the page is reused.
 
-net: wwan: iosm: validate the command parameter length
+The length was also wrong since commit 88095728511e ("net: stmmac: fix
+rx Scatter-Gather support") moved the page_pool DMA window to offset 0
+and set max_len to dma_buf_sz + page_offset: the driver still
+subtracted buf->page_offset, so it synced [base, data_end - page_offset)
+instead of [base, data_end).
 
-This patch passes a parameter length to the iosm MUX command decoders.
-Each decoder checks it against the parameter union member its command
-type uses and returns -EMSGSIZE when the member does not fit. The length
-comes from skb->len for MUX Lite, and from next_cmd_index or skb->len for
-commands in an aggregated command block.
+On a non-coherent platform those dirty lines can be evicted after the
+device has DMA'd the next frame into the recycled page and corrupt it.
 
-> diff --git a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
-> index 3f93d72937858..b2bd53c5ba30f 100644
-> --- a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
-> +++ b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+Sync the whole page_pool DMA window on the XDP_CONSUMED path with
+page_pool_recycle_direct(), as the PASS path and page_pool allocation
+already do. The device only writes [page_offset, page_offset +
+dma_buf_sz), so syncing [base, base + max_len) covers every cache line
+it can touch, regardless of how the program adjusted the packet.
 
-[ ... ]
+Fixes: be8b38a722e6 ("net: stmmac: Add support for XDP_TX action")
+Fixes: 88095728511e ("net: stmmac: fix rx Scatter-Gather support")
+Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+Link: https://patch.msgid.link/20261027-stmmac-xdp-fixes-v2-6-10eae8a093a8@oss.qualcomm.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c   | 17 ++---------------
+ 1 file changed, 2 insertions(+), 15 deletions(-)
 
-> @@ -315,18 +329,26 @@ static int ipc_mux_dl_cmds_decode_process(struct iosm_mux *ipc_mux,
->  static void ipc_mux_dl_cmd_decode(struct iosm_mux *ipc_mux, struct sk_buff *skb)
->  {
->  	struct mux_lite_cmdh *cmdh = (struct mux_lite_cmdh *)skb->data;
-> +	size_t hdr_len = offsetof(struct mux_lite_cmdh, param);
-> +	size_t param_len = skb->len > hdr_len ? skb->len - hdr_len : 0;
-
-[Severity: Medium]
-Should param_len also be limited by cmdh->cmd_len here?
-
-The kernel-doc for struct mux_lite_cmdh defines cmd_len as the length of
-the command:
-
- * @cmd_len:		Length (in bytes) of the command. This length shall
- *			include the header size. Minimum value: 0x10
-
-The encoders, ipc_mux_lite_add_cmd() and ipc_mux_acb_add_cmd(), also set
-it to the header plus the parameter size, and skb_put() exactly that
-much:
-
-	cmdh->cmd_len = cpu_to_le16(offsetof(struct mux_lite_cmdh, param) +
-				    param_size);
-	...
-	skb_put(acb->skb, le16_to_cpu(cmdh->cmd_len));
-
-Take an OPEN_SESSION_RESP that arrives with cmd_len = hdr_len + 4, so it
-carries only the response code, with more bytes after it in the received
-buffer. Would it still pass the new check in
-ipc_mux_dl_cmdresps_decode_process()?
-
-	if (param_len < sizeof(param->open_session_resp))
-		return -EMSGSIZE;
-
-	/* Resume the control application. */
-	acb->got_param.open_session_resp = param->open_session_resp;
-
-The reads now stay within skb->len. But the bytes after the command would
-still be copied into acb->got_param. Then complete(&ipc_mux->channel->ul_sem)
-would wake ipc_mux_session_open(), which uses those bytes as the response
-and as ul_head_pad_len. A short FLOW_CTL would also have its mask read
-from bytes beyond cmd_len.
-
-ipc_mux_dl_acb_decode() seems to have the same gap. Each aggregated
-command's extent comes from next_cmd_index or skb->len, not from its own
-cmd_len:
-
-	cmd_end = next_cmd_index ? next_cmd_index : skb->len;
-	param_len = cmd_end - cmd_index - hdr_len;
-
-So padding before the next command counts as parameter. For the last
-command, the rest of the skb does too.
-
-The commit message names this case as the bug being fixed:
-
-  "a truncated OPEN_SESSION_RESP copies bytes past the command into
-   acb->got_param"
-
-It also says:
-
-  "cmd_len is passed to the decoder unchanged."
-
-Would bounding the length by something like min(param_len, cmd_len -
-hdr_len), when cmd_len >= hdr_len, be needed to cover the truncated
-command case completely?
-
-[ ... ]
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 896ec37961a94..7149b14bdad48 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -5877,8 +5877,6 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 			len -= ETH_FCS_LEN;
+ 
+ 		if (!skb) {
+-			unsigned int pre_len, sync_len;
+-
+ 			/* Each frame starts here: reset the FCS handling */
+ 			fcs_stripped = false;
+ 
+@@ -5896,29 +5894,18 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 			xdp_prepare_buff(&ctx.xdp, page_address(buf->page),
+ 					 buf->page_offset, buf1_len, true);
+ 
+-			pre_len = ctx.xdp.data_end - ctx.xdp.data_hard_start -
+-				  buf->page_offset;
+-
+ 			ctx.priv = priv;
+ 			ctx.desc = p;
+ 			ctx.ndesc = np;
+ 
+ 			skb = stmmac_xdp_run_prog(priv, &ctx.xdp);
+-			/* Due xdp_adjust_tail: DMA sync for_device
+-			 * cover max len CPU touch
+-			 */
+-			sync_len = ctx.xdp.data_end - ctx.xdp.data_hard_start -
+-				   buf->page_offset;
+-			sync_len = max(sync_len, pre_len);
+-
+ 			/* For Not XDP_PASS verdict */
+ 			if (IS_ERR(skb)) {
+ 				unsigned int xdp_res = -PTR_ERR(skb);
+ 
+ 				if (xdp_res & STMMAC_XDP_CONSUMED) {
+-					page_pool_put_page(rx_q->page_pool,
+-							   virt_to_head_page(ctx.xdp.data),
+-							   sync_len, true);
++					page_pool_recycle_direct(rx_q->page_pool,
++								 virt_to_head_page(ctx.xdp.data));
+ 					buf->page = NULL;
+ 					rx_dropped++;
+ 					goto next;
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261121141850.73754-1-fangxy%40xiaopeng.com
+2.53.0
+
+
+
