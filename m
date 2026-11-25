@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795624034;
-	b=k7xnx+QRmuZjD1OXfmzMwY7HKy+Q7R8mxhwBJGjZ25Ta58abrQeaQiJOs03LxkKTaJrt
-	 UYuBIwXqtvCFzIhKTKP1bPi6rpFP5Sh7oc+rjcg/Xbp2ddPLYHFlky3uEgTKA6iTzpJ7H
-	 D6dAygFKprPhWtKh2Eunm92kepSipnhSc0p5bddDC9KfgJlIRjtKI4IPKm1ud1Wd5++Ln
-	 gTsPX6r0NI0sVQvJW8VCqInECDe1C3ieKzTJAnHrDNk3XmkMoE5quFmQHfo8My96vXenh
-	 hehrkKGhQfRPCb97MD1wpLFFVpEXeEV9O5Lt+I5KeplVAxkI+RMe6bFtJb4BUPqtAVw==
+	t=1795624035;
+	b=vf8MRTn4xjhp8ltj6TY8J1/SebC/V4mki4qd08AmLPFB287RnYRnVzrlVLD5OgjRPbfJ
+	 c2iYbhx9rq12IyltohxSpWTAn/t7QPLL0H7MbWxTruYmc5rapQ7euB3Lzv1Ind+WTZ6qp
+	 jG11ve774Te+WH8PvCQvgFNL40USM1ePgkwudfMpmt5e5LLSzE0lqY360XmNGAxfUq7xv
+	 YiWHXfmMM0TD4S+reyQ6UAmpFxHoyl7GuaFt99+B5VrhsKVCjddgGb0VlgFe/urTfPRHV
+	 Uq6tiNhWL9IwWw1rM1H3Tkv7g9sSTehFYaNCkR6G49JGOq2LDTm/TnPmR6Q/hctF68A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795624034;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795624035;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=YCvUO4/178AvEnXYzVKRrhXwJvlH1+af7djF6DrQ+Hk=;
-	b=HnyW4D6nhkkoD622SJofSRBmG1SmVgEjFgVx4VpCpndO2YXaKUdY1BHzjVEqvJtOPZzc
-	 ERFBE9bySTU9nfyxWnAaAxnmuJNnvJQGhc9xijcbemHz8o2eH4CPXOq74XpdldBcbHzzP
-	 p+kat1jY23Mv6IVshJfdwSbgKxA1IsrRrD5EyciX7qryFyBCa723yuqRAqIQ2ozgshT0O
-	 ke0FgTBWg+DRbGvhl4MQV6lRTofDu0RGbU49FJAIBZQdRwYjOxQhh3zbOt7nCidCRqO/e
-	 bTbD8Q/aB7WGXICbQNAbuuO6SedF50tOHKps/I4eeQBPulFpC/GJeDvo5VAUKKhdk7w==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=MtmVIbsSd6S7YtCG8BhZUXLPPbHCSuM+MeGtsA6meiE=;
+	b=e4hdGXInZcNZDtkrVVDVlFl2qvrNfoOdYVgXTuP6B6PPTpksKKds4h8VWF3K6s8qJ7mG
+	 rI4RNtym1f4CWvmal7U6bwomXESGlpQoQzTrmby1iISMQBMPE5CbKY3agwPMTjMhWwtL7
+	 17+wRXYjuuGc6TwnBpeReUcYY6q6ZLr+VXYT6yISJKNZSB09GT0srV0X0k7ZljjdoCW35
+	 LvHYwzZojEy5B7tIoW6zP4DjhFG6zGRzMjiWuJbvwjKt6SbyC8vJEEIQ8T/kXlW8xEsp3
+	 R5Vhe+VkVnSNyuOCnrbe9sOD5FGOOgEqCqJbHoI4vZd5zKLRnQyjq3wzPeLtNRTm42w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DSPkGOG7;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Iw/rOeNA";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE84606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:27:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B183D606A327;
+	Wed, 25 Nov 2026 16:27:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DSPkGOG7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BB781F000E6;
-	Wed, 25 Nov 2026 16:27:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795624034;
-	bh=YCvUO4/178AvEnXYzVKRrhXwJvlH1+af7djF6DrQ+Hk=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Iw/rOeNA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3DD91F000E1;
+	Wed, 25 Nov 2026 16:27:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795624035;
+	bh=MtmVIbsSd6S7YtCG8BhZUXLPPbHCSuM+MeGtsA6meiE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DSPkGOG7IsRmhRC44IzSgaXq3yGWUdFBMYEt89jpHgTe33NDXnzsj7kvju2fT9378
-	 YWliu07v7jtnvhndFLt7DkxH/gco4H4hhHXOp2D1b6gNx6RjmPRQai/ecAkLjyvwMx
-	 R70SCMIaDIt3aApIJ+2FhfhrIjMBvJnO7jElw9sjwIZG1K+id8Gep8Pg6icyFx02/D
-	 vM2/d67TUEGB+/pnCx63i9VXP0xt6NJYryK90dzmBBzKfgxxJ3fwHPD1H4QJ3vNHbg
-	 F9YgccDb2si0SkvioqewRjCFSmV5LQpdwczTKdvw8G3R2bdp3+QGNosgvYxNbDqoaC
-	 q+Vb85BUpZUTw==
-From: Sasha Levin <sashal@kernel.org>
+	b=Iw/rOeNAbPbam5f1u0m3HuaB7UhV87qAyyYBMLef7D84xUnZBJIiJ1mnZJcUWZ3lJ
+	 V0YIvCP9IXeDA7RlMsgOQBdaPFdM9JmD+P+nSkuom37DnJZz8of4xe8usHBGJa6KDO
+	 qg5towBmiQ8nA5V+jTKlIBREVej1PJpSapVCHY/c=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
-	Lifeng Zheng <zhenglifeng1@huawei.com>,
-	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Filippo Falezza <effeffe99@gmail.com>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] cpufreq: Avoid redundant target() calls for unchanged limits
-Date: Wed, 25 Nov 2026 11:27:11 -0500
-Message-ID: <20261125162652.774210-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112508-whenever-distress-43ae@gregkh>
-References: <2026112508-whenever-distress-43ae@gregkh>
+Subject: [PATCH 6.12 064/816] wifi: ath10k: Stop unanswered temperature reads
+Date: Wed, 25 Nov 2026 15:26:52 +0100
+Message-ID: <20261125143850.702242532@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,104 +65,103 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Viresh Kumar <viresh.kumar@linaro.org>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 9801be8bef65dbcbc40c1a9c2f03d70ed67a5d30 ]
+------------------
 
-Drivers setting CPUFREQ_NEED_UPDATE_LIMITS expect target() to be
-invoked even if the target frequency remains unchanged, so they can
-update their internal policy limits state.
+From: Filippo Falezza <effeffe99@gmail.com>
 
-Currently the core invokes target() unconditionally whenever the
-requested frequency matches policy->cur for such drivers, even if
-policy->min and policy->max haven't changed since the previous update.
+[ Upstream commit 2a87e367c62856b87a90f745c6b7d2eb91e0c51f ]
 
-Track pending policy limit updates explicitly and skip redundant
-target() invocations when neither the target frequency nor the
-effective limits changed.
+Reading the ath10k hwmon temperature sends WMI_PDEV_GET_TEMPERATURE and
+waits up to 5 s (ATH10K_THERMAL_SYNC_TIMEOUT_HZ) for the reply event,
+holding conf_mutex. Not all firmware answers: the WCN3990 firmware
+WLAN.HL.3.3.1-00694-QCAHLSWMTPLZ-1 on a Motorola Moto G 5G Plus
+codename nairo (SM7250) never sends the event, so every read of
+temp1_input stalls for 5 s, logs
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-Reviewed-by: Lifeng Zheng <zhenglifeng1@huawei.com>
-Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Link: https://patch.msgid.link/d0107c364b709abca21acf88072220bc05478594.1779423281.git.viresh.kumar@linaro.org
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Stable-dep-of: 342d3a73c5db ("cpufreq: Force passing target frequency to driver during resume")
+  ath10k_snoc 18800000.wifi: failed to synchronize thermal read
+
+and returns -ETIMEDOUT. Tools that read all hwmon sensors, such as
+lm-sensors, hang for 5 s on every run, and configuration changes of the
+interface wait for conf_mutex in the meantime.
+
+Whether the firmware answers cannot be told from the chip: firmware that
+answers and firmware that does not both advertise
+WMI_SERVICE_THERM_THROT, and WCN3990 firmware differs between devices.
+Instead, remember that the running firmware did not answer, and return
+-EOPNOTSUPP right away on later reads. Forget it when the firmware
+starts, so that a restarted or updated firmware is asked again.
+
+The first read after each firmware start still takes 5 s when the
+firmware does not answer. Reads on firmware that answers are unchanged.
+
+Fixes: e98199a8c27f ("ath10k: enable QCA6174/QCA9377 to read the chip temperature")
+Signed-off-by: Filippo Falezza <effeffe99@gmail.com>
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Link: https://patch.msgid.link/20261027-ath10k-temperature-v2-1-0793e80d73bc@gmail.com
+Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/cpufreq/cpufreq.c | 31 ++++++++++++++++++++++---------
- include/linux/cpufreq.h   |  3 +++
- 2 files changed, 25 insertions(+), 9 deletions(-)
+ drivers/net/wireless/ath/ath10k/core.c    | 1 +
+ drivers/net/wireless/ath/ath10k/thermal.c | 9 ++++++++-
+ drivers/net/wireless/ath/ath10k/thermal.h | 2 ++
+ 3 files changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index 962faa2463db6..94f611512cfc8 100644
---- a/drivers/cpufreq/cpufreq.c
-+++ b/drivers/cpufreq/cpufreq.c
-@@ -2407,9 +2407,13 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
- 	 * exactly same freq is called again and so we can save on few function
- 	 * calls.
+diff --git a/drivers/net/wireless/ath/ath10k/core.c b/drivers/net/wireless/ath/ath10k/core.c
+index f9b51d98d20bb..e3dcf034c8725 100644
+--- a/drivers/net/wireless/ath/ath10k/core.c
++++ b/drivers/net/wireless/ath/ath10k/core.c
+@@ -2979,6 +2979,7 @@ int ath10k_core_start(struct ath10k *ar, enum ath10k_firmware_mode mode,
+ 	clear_bit(ATH10K_FLAG_CRASH_FLUSH, &ar->dev_flags);
+ 
+ 	ar->running_fw = fw;
++	ar->thermal.broken = false;
+ 
+ 	if (!test_bit(ATH10K_FW_FEATURE_NON_BMI,
+ 		      ar->running_fw->fw_file.fw_features)) {
+diff --git a/drivers/net/wireless/ath/ath10k/thermal.c b/drivers/net/wireless/ath/ath10k/thermal.c
+index 8b15ec07b1071..9b81f9ae58d74 100644
+--- a/drivers/net/wireless/ath/ath10k/thermal.c
++++ b/drivers/net/wireless/ath/ath10k/thermal.c
+@@ -75,6 +75,12 @@ static ssize_t ath10k_thermal_show_temp(struct device *dev,
+ 		goto out;
+ 	}
+ 
++	/* Don't stall every read on firmware that never answers */
++	if (ar->thermal.broken) {
++		ret = -EOPNOTSUPP;
++		goto out;
++	}
++
+ 	reinit_completion(&ar->thermal.wmi_sync);
+ 	ret = ath10k_wmi_pdev_get_temperature(ar);
+ 	if (ret) {
+@@ -90,7 +96,8 @@ static ssize_t ath10k_thermal_show_temp(struct device *dev,
+ 	time_left = wait_for_completion_timeout(&ar->thermal.wmi_sync,
+ 						ATH10K_THERMAL_SYNC_TIMEOUT_HZ);
+ 	if (!time_left) {
+-		ath10k_warn(ar, "failed to synchronize thermal read\n");
++		ath10k_warn(ar, "failed to synchronize thermal read, not asking again until the firmware restarts\n");
++		ar->thermal.broken = true;
+ 		ret = -ETIMEDOUT;
+ 		goto out;
+ 	}
+diff --git a/drivers/net/wireless/ath/ath10k/thermal.h b/drivers/net/wireless/ath/ath10k/thermal.h
+index 1f4de9fbf2b30..d1fb5b958c37c 100644
+--- a/drivers/net/wireless/ath/ath10k/thermal.h
++++ b/drivers/net/wireless/ath/ath10k/thermal.h
+@@ -19,6 +19,8 @@ struct ath10k_thermal {
+ 	/* protected by conf_mutex */
+ 	u32 throttle_state;
+ 	u32 quiet_period;
++	/* the running firmware did not answer a temperature request */
++	bool broken;
+ 	/* temperature value in Celsius degree
+ 	 * protected by data_lock
  	 */
--	if (target_freq == policy->cur &&
--	    !(cpufreq_driver->flags & CPUFREQ_NEED_UPDATE_LIMITS))
--		return 0;
-+	if (target_freq == policy->cur) {
-+		if (!(cpufreq_driver->flags & CPUFREQ_NEED_UPDATE_LIMITS) ||
-+		    !policy->update_limits)
-+			return 0;
-+
-+		policy->update_limits = false;
-+	}
- 
- 	if (cpufreq_driver->target) {
- 		/*
-@@ -2669,6 +2673,7 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
- {
- 	struct cpufreq_policy_data new_data;
- 	struct cpufreq_governor *old_gov;
-+	unsigned int freq;
- 	int ret;
- 
- 	memcpy(&new_data.cpuinfo, &policy->cpuinfo, sizeof(policy->cpuinfo));
-@@ -2701,12 +2706,20 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
- 	 * compiler optimizations around them because they may be accessed
- 	 * concurrently by cpufreq_driver_resolve_freq() during the update.
- 	 */
--	WRITE_ONCE(policy->max, __resolve_freq(policy, new_data.max,
--					       new_data.min, new_data.max,
--					       CPUFREQ_RELATION_H));
--	new_data.min = __resolve_freq(policy, new_data.min, new_data.min,
--				      new_data.max, CPUFREQ_RELATION_L);
--	WRITE_ONCE(policy->min, new_data.min > policy->max ? policy->max : new_data.min);
-+	freq = __resolve_freq(policy, new_data.max, new_data.min, new_data.max,
-+			      CPUFREQ_RELATION_H);
-+	if (freq != policy->max) {
-+		WRITE_ONCE(policy->max, freq);
-+		policy->update_limits = true;
-+	}
-+
-+	freq = __resolve_freq(policy, new_data.min, new_data.min, new_data.max,
-+			      CPUFREQ_RELATION_L);
-+	freq = min(freq, policy->max);
-+	if (freq != policy->min) {
-+		WRITE_ONCE(policy->min, freq);
-+		policy->update_limits = true;
-+	}
- 
- 	trace_cpu_frequency_limits(policy);
- 
-diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-index 69034172a7558..fa5d92d408a8c 100644
---- a/include/linux/cpufreq.h
-+++ b/include/linux/cpufreq.h
-@@ -145,6 +145,9 @@ struct cpufreq_policy {
- 	/* Per policy boost supported flag. */
- 	bool			boost_supported;
- 
-+	/* Pending policy->min/max update for the driver */
-+	bool			update_limits;
-+
- 	/* The policy has been suspended. */
- 	bool			suspended;
- 
 -- 
 2.53.0
+
+
 
