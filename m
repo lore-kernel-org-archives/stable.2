@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606096;
-	b=odFpbAZIM+muSNZFkQ2OC9MDwzu7rCUcUmhqqcOTSk3mOTyZDrUXJfR8YLRYAsAJ/LkZ
-	 Z5XHUuNprfofIuogy6nb1lJErUqAo3IiK1qouDyzaqGv7NSe5nC1CYZWE6ZEm5bEhNoCC
-	 hB8GiwCpPakY7rUaSy/kpaG7vXldzYvpx9vgbf+bkLn03HDq91TdnNEuHH/3/pcXfpTlK
-	 D++nwwHwUFI8mmJ1jaFz9oE0ISXdC0xf7RrU7+hMirimPxA4zd7tKCuMUrCInt+SMIxMO
-	 zqGf6gxj9II6opUC3OuqDkHycgbXgRFDUb1WP0/ny2PPIXAE9njUCf86N4eqfeWf5iQ==
+	t=1795606099;
+	b=DCR94GcpdIxsZYfXhhAVCaLMSxZEZkHs0gujwxFEF1dH7WGlHc0kTX9X1xJOLM/eGHvC
+	 lRdWeoDz3J8Xpz+LdO5TFGdY0yJ5S768v9tE4OZJtZdgcUbPuF/MKUaAjU8KerGxgj5PZ
+	 PcXZKBGDK0i4rqDACdvpA9kbTEnAMgAQzl91PnmeyMd0jYu0DPBovJlXnDs9rS4Ckoehl
+	 R9UjhVG6PsjnG+vRVbUmXuEhE+lEg8pT66ngbZxYF/gI6EdI867icTfrVxsoti1+BEyJS
+	 uBkbAOW1BPBm/NDFkjliwFg5or/9Sw57bxf8vbdI/qyCRnnbQuFwI6tu73otazlf4dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606096;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606099;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=0K+fdoUR6ATks/QFdv2uLIhm5I5ZF4Y8+0xBE8JLAfQ=;
-	b=QAaUgP4VbBd0Rp89HDoL955XmjZEOUOMXIaPryBb2ZQ/rTB0RneYB3O1Ix8irsVM3+Nd
-	 vZCnxo4uxVLjNaCerITD5VyD8Udd65/Nr1t4HiUjkGf9b7KTU4onwDBCH5pibvTRFBypH
-	 /KYPFxuh8tcO7s4E3me/O6axSCfYcpUm1NeZp55fHjbVCqHLSqy0woFWNQ0SY7LelxA3z
-	 7LSrpZbnCAQ9NLqRo/TTdrJ7KaAIcsxu+XbJkUaqT97Dnwhr8m0YXC9hTkrx/PGlpys7E
-	 dcN+/9OhTu/iTkSI4RF0kiJsdDjOe6C6I1GrupC+avmo0SBiJupfa+IRtNFBFXOHjyw==
+	bh=/4ppV3m1hgJnXfbCJ21OIXII8HaiQAESVEv6yKunL88=;
+	b=YPQLnmys091wLfhC9dkXLht7SWIvvCk3drUgs9975iJoHf+RZJe0Wi+Gs3EBKRSA2Dib
+	 2CFIrMh+Zl7WOG5LsA3J7YGLOr1SU/dNTMS/fqopBmSfKnmwc+Kb1nZbHdcHp4aNhbooI
+	 g9gVS5xiNa1UC2C06FxD1yhlwAH/9n4iL7rWhApdWiTzJiTnMZPfiFlHEO6KWbWD/4dZr
+	 9JsaHS/FJifPN1CuFCA2606UF6qs+EOh0TUsxhzOTuDB/BL43TZhx0xkTqjuk5E1O7Sch
+	 4SaiOPcSBCwcYc8W/yQH+tGqDel1CEFdKvnURCO7bz7bb96NTbyuwKrf3cfmczVlSTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AKUPN8To;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mYbDWe47;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79300606A335
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:28:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90CB8606A326
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:28:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AKUPN8To
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49C291F000C6;
-	Wed, 25 Nov 2026 11:28:15 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mYbDWe47
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 909241F000C4;
+	Wed, 25 Nov 2026 11:28:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606095;
-	bh=0K+fdoUR6ATks/QFdv2uLIhm5I5ZF4Y8+0xBE8JLAfQ=;
+	s=korg; t=1795606099;
+	bh=/4ppV3m1hgJnXfbCJ21OIXII8HaiQAESVEv6yKunL88=;
 	h=Subject:To:Cc:From:Date;
-	b=AKUPN8To3k9FdohUgUc9GI/32UFeVzjUu7G3SXOJpXFFd10wINjwRR1YcdsY+g3M9
-	 2CnWaqE3cBeNPsVWfGAS/KbpX9U6RA+Pt5/x+S2d4BDmc8zigZgsGy6l6PAh9qNKEs
-	 jXFDy7A0Gxk5Y4onXG9PGB3LX2LzTy/b206c01ok=
-Subject: FAILED: patch "[PATCH] smb: client: let umount -f stop waiting for reconnects on" failed to apply to 5.10-stable tree
+	b=mYbDWe47Jal29VQinT7blC16UFKJ1MmYE5PUWtvVOcWkbVWT4+CiraaklK2r0jsj4
+	 X4XBm5tt6oooxSRP0i5w7AqUMnxG7Cfx59xdgfI+KcZGNOX2BI0TSS0uIqCZbUYd1m
+	 DI6PnR9o/y7ZeBPAtyUmaDOSU4aad6s+AZIUx1hg=
+Subject: FAILED: patch "[PATCH] smb: client: let umount -f stop waiting for reconnects on" failed to apply to 5.15-stable tree
 To: pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 12:15:46 +0100
-Message-ID: <2026112546-kinsman-claim-5095@gregkh>
+Message-ID: <2026112545-referable-curtsy-b54a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x f8ea398448ce4adf32493649ab6665ab1f858d10
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112546-kinsman-claim-5095@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112545-referable-curtsy-b54a@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
