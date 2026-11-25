@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606391;
-	b=vjni9cySZsej6ruo3NZ0dKs7r58f+bKLWIziQpfc8sc7iqA3nSCmO2A0RDnKDVvdwmhf
-	 WoDqkhIcMl1maqVUdpErBL0PPUNUV8a2CwqiiDL3yEaGIBnEGpHUYNO4IDN4wN1EY6kn4
-	 8T3SWxAWADmHb+DBXXcOvFJHqlhiRRvtm1NH/rl/+bcJ0LW+gbOP+2HKcw84KeX/t3JP/
-	 qY+3brcjhpHy2MDJHMsUoybZbjPiAkhFSq6eqpjefPID+x1I8SW037ItLXu6t0QoP0KTf
-	 vgEqHDe+pkJbWseBfImk4UkJvEAaQrR6q/21vGftreulqVLTcIikr41UKLUMR3euBTw==
+	t=1795606394;
+	b=SfoIiErgzqO/fCVjzGXfHYbhrgvgOo7s9Zc3L2ix+CMgms66Bql4/uIzTIcLweIK+I1G
+	 KoSaLfjQFgw3x2bHPED2gG9GdS34uHM+r+ShjhrstrFN6Dbd4548awUAe1ITINwY+497l
+	 E36vOqas7dETEDlUwqgBqLQtvpu+dymz1R/SpxugXhuoHkN1ScNnXbfjec79wGbdWxQzi
+	 i7DuW4TgVXVClrGvfHVy7QGSgGhfXDUZjVCH9eUQuW2Ghie37CqplGdO64ruuGGq9EMvk
+	 TYmwwlvqd3TjxTUqpzRsHwUH3dZkFaLXSdlxif4rpjjPnrvNBYUuEJJArYN54zg0H8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606391;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606394;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=0AsmtBjt8SA3ZT+qg/P2OJShnTacqj9ZKer8R/sIl6g=;
-	b=BoSUHPyo8HLzWNthz+KuhciRn9hGYdrgkxNH/AB+J0avdYSHYIIwHS9ZdeeLI+xqUdTX
-	 9+dqTah8TDZOrT5MjTCVridjn5UhoLtvQhFpJdxFQQ4zdIXKnxSs1/viTPYRRF6x18RfB
-	 afJsR2JM95beRCcN2MMrzjjGajSUeGhLf0GOWD2wowlou7qVluQKxIyZSOcnKJm4VPZzB
-	 uoJZ0EDr1wRrRhKvkPaidvB2UglIPaJA0ewtlsidRwgYd5grfZV7P0hOYvbUiE2oj3318
-	 xmw88pWVOWevzKbciNN+PRBngn3qoFleQovme3LnfbdVgx8EHpoBmSwtKivJ+RqahOQ==
+	bh=7v7pRybIQgAjKNT2eMVhg68jR/kdfTOjTvBtVb2gYQI=;
+	b=NdWut1XXNYBP1/V87NUoL/eRVBo7aucHJNbRT88QA0IKO5/YOgsonSPx2uQsbofVc1hO
+	 oA5Pi2Oe2Ob8CclmEKBmZTWrRA/LZ1AvV96MOyK3oF6kjk1twVbibs9qUfE12RcAX64V+
+	 85m3VOncdT9KmL0ntAOFKJ9HieFqgcAYXzLPnlZxEL8Bxcfbr4tWVbhMSR7YqCu7Y+M9H
+	 7D3E4kcsG5Tp88KTu/QuyAF/E5OfRs3BDdbFEvOWpTTZ9eGee5xxDj0KQ/w4XNRw1H6Dc
+	 KJu1Od8do3cHQsQ4TaRDs1/LRTCB44NFprJlYr2u0ByBkQ9eMQV7dsOR8vsb3zEPcLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2v4n3QAD;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bNTJats5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF6C606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:33:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20815606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:33:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2v4n3QAD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 346F51F000E6;
-	Wed, 25 Nov 2026 11:33:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bNTJats5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 690F41F000D2;
+	Wed, 25 Nov 2026 11:33:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606390;
-	bh=0AsmtBjt8SA3ZT+qg/P2OJShnTacqj9ZKer8R/sIl6g=;
+	s=korg; t=1795606394;
+	bh=7v7pRybIQgAjKNT2eMVhg68jR/kdfTOjTvBtVb2gYQI=;
 	h=Subject:To:Cc:From:Date;
-	b=2v4n3QADnGaM1Egb8XmUC2gXkmp0UIpyEPES3KQR/jK3FAZ4HqgCawwnOy452wkXJ
-	 4sobsMOuAxjyx1eX1bU2f1zIJWNgRdXu/mxDtlWt1NXevpPJONtZ0bAQe2zJrIwpbY
-	 aH+v/d6vwWgklK1ophCa0N2ThB6CJVrdhCwghlLE=
-Subject: FAILED: patch "[PATCH] dm-verity: don't restart or panic on errors during system" failed to apply to 5.10-stable tree
-To: weijiang.zhou@unisoc.com,hongyu.jin@unisoc.com,mpatocka@redhat.com
+	b=bNTJats5pcR4p+1R6f0KzglaNhbqVo2nLvzxn5JDinLjHF32lUs7r2vd5EKKZOQiE
+	 UBudbxTf5oeqmaHe8G49GFaxoqyApV4JwQHYUwW+GgiRQkxMeyCmOV4RCe3ikc4xd4
+	 GNHhvwB2KxgfVNyqma/d4WYZ5nAA76PbeBbXfQvU=
+Subject: FAILED: patch "[PATCH] dm persistent data: don't ignore writeback errors" failed to apply to 5.15-stable tree
+To: mpatocka@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:20:17 +0100
-Message-ID: <2026112517-most-helium-cf76@gregkh>
+Date: Wed, 25 Nov 2026 12:20:46 +0100
+Message-ID: <2026112546-flirt-danger-e920@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 47930d1236d2988cdc580c10d3af21b6b02d7ece
+git cherry-pick -x fa887f2ebee7aff97eb87b3365939616ade09774
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112517-most-helium-cf76@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112546-flirt-danger-e920@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,84 +79,46 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 47930d1236d2988cdc580c10d3af21b6b02d7ece Mon Sep 17 00:00:00 2001
-From: Weijiang Zhou <weijiang.zhou@unisoc.com>
-Date: Wed, 11 Nov 2026 20:24:42 +0100
-Subject: [PATCH] dm-verity: don't restart or panic on errors during system
- shutdown
+From fa887f2ebee7aff97eb87b3365939616ade09774 Mon Sep 17 00:00:00 2001
+From: Mikulas Patocka <mpatocka@redhat.com>
+Date: Fri, 6 Nov 2026 19:48:02 +0100
+Subject: [PATCH] dm persistent data: don't ignore writeback errors
 
-Commit 252bd1256396 ("dm verity: skip verity work if I/O error when system
-is shutting down") stopped I/O errors during shutdown from triggering a
-restart, since devices may legitimately be gone by then. Errors that reach
-verity_handle_err(), e.g. through a failed hash block read followed by a
-failed FEC attempt, are not covered and still call kernel_restart() or
-panic().
+An error returned by ie_cache_writeback could be silently overwritten by
+another successful ie_cache_writeback. This commit fixes disk_ll_commit,
+so that it doesn't ignore the error and returns it immediatelly.
 
-During a reboot that is both wrong (nothing is corrupt) and harmful: it
-races with the reboot already in progress and replaces its reason with
-"dm-verity device corrupted", which bootloaders such as Android's treat as
-a verity failure and switch the device to EIO mode.
-
-Apply the same shutdown check in verity_handle_err(). Corruption is still
-logged, recorded in hash_failed and reported via uevent, and the I/O still
-fails.
-
-Signed-off-by: Hongyu Jin <hongyu.jin@unisoc.com>
-Signed-off-by: weijiang.zhou <weijiang.zhou@unisoc.com>
 Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Fixes: 252bd1256396 ("dm verity: skip verity work if I/O error when system is shutting down")
+Assisted-by: Claude:claude-opus-5
 Cc: stable@vger.kernel.org
+Fixes: 6b06dd5a9722 ("dm space map disk: cache a small number of index entries")
 
-diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-index 6d589867623c..451c75e30a8f 100644
---- a/drivers/md/dm-verity-target.c
-+++ b/drivers/md/dm-verity-target.c
-@@ -170,6 +170,15 @@ static void verity_hash_at_level(struct dm_verity *v, sector_t block, int level,
- 		*offset = idx << (v->hash_dev_block_bits - v->hash_per_block_bits);
- }
+diff --git a/drivers/md/persistent-data/dm-space-map-common.c b/drivers/md/persistent-data/dm-space-map-common.c
+index 22a551c407da..833aefb0ab99 100644
+--- a/drivers/md/persistent-data/dm-space-map-common.c
++++ b/drivers/md/persistent-data/dm-space-map-common.c
+@@ -1190,17 +1190,20 @@ static dm_block_t disk_ll_max_entries(struct ll_disk *ll)
  
-+/*
-+ * Skip verity work in response to I/O error when system is shutting down.
-+ */
-+static inline bool verity_is_system_shutting_down(void)
-+{
-+	return system_state == SYSTEM_HALT || system_state == SYSTEM_POWER_OFF
-+		|| system_state == SYSTEM_RESTART;
-+}
-+
- /*
-  * Handle verification errors.
-  */
-@@ -219,6 +228,15 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,
- 	if (v->mode == DM_VERITY_MODE_LOGGING)
- 		return 0;
- 
-+	/*
-+	 * Devices may already be quiesced (e.g. UFS set offline by its
-+	 * shutdown hook), so a failure here does not imply corruption.  Fail
-+	 * the I/O but do not restart or panic, which would also override the
-+	 * reboot reason of the shutdown already in progress.
-+	 */
-+	if (verity_is_system_shutting_down())
-+		return 1;
-+
- 	if (v->mode == DM_VERITY_MODE_RESTART)
- 		kernel_restart("dm-verity device corrupted");
- 
-@@ -593,15 +611,6 @@ static int verity_verify_io(struct dm_verity_io *io)
- 	return r;
- }
- 
--/*
-- * Skip verity work in response to I/O error when system is shutting down.
-- */
--static inline bool verity_is_system_shutting_down(void)
--{
--	return system_state == SYSTEM_HALT || system_state == SYSTEM_POWER_OFF
--		|| system_state == SYSTEM_RESTART;
--}
--
- static void restart_io_error(struct work_struct *w)
+ static int disk_ll_commit(struct ll_disk *ll)
  {
- 	kernel_restart("dm-verity device has I/O error");
+-	int r = 0;
++	int r;
+ 	unsigned int i;
+ 
+ 	for (i = 0; i < IE_CACHE_SIZE; i++) {
+ 		struct ie_cache *iec = ll->ie_cache + i;
+ 
+-		if (iec->valid && iec->dirty)
++		if (iec->valid && iec->dirty) {
+ 			r = ie_cache_writeback(ll, iec);
++			if (unlikely(r))
++				return r;
++		}
+ 	}
+ 
+-	return r;
++	return 0;
+ }
+ 
+ int sm_ll_new_disk(struct ll_disk *ll, struct dm_transaction_manager *tm)
 
