@@ -1,58 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795623757;
-	b=FDKUIx8bzcvJsAUASQtIVertr8bIEmvO+0x2MY0PXC+CsZw7OahoDtoqpBzdgHa589hp
-	 1ipzvya7xPvm5LvzTyqVhupOqHL6fHlsMVTrFRHDFN76vQ/no8a4J/Binn5o6CY3i2/yz
-	 Yn1iJZ+UHagNEJd2XPWCsAkPjw1i4+rAUUyNuMEFBuKTGIqVdYK0Oo8BP4dTM76XqELQl
-	 T9FDUP8Ss+7HDxFPmapuZBdSGAE9JEMAnbaVJO7MG+YRVBr7YVtxSPPfIS9l6N/oijzDR
-	 R091gQS1gIRPoy2arSwlnyjHblIZSt8WnZovMrTdSFl3u7jykIt0pZv2knz9JGtllJQ==
+	t=1795623753;
+	b=vikA4kotKPqqgn5wj+sL0WOSNIfMjgPsvjdgG3Ta2S5Q2nQZbUR6SuxG5l8ZZ/i8kjEG
+	 wa4Fc+ggl/1PVND0fY1hKrGSPTSQha2uRG7/BIXdQ+FNNIieQxPb8/Z1gF/SVT4j0NmXs
+	 BzwHwzNu/VTCTBsZWlCZmjXPF6Z0107/eSZs4MyezMAy2fE6zd9l5RKHcqT45/+mqNruk
+	 iziDVAHWU/1OSARR5Y1Ks4+vyCj6+kp5jyknNruAdIr3AeDyQIGuaAEdAjWePsEkCxG9b
+	 7S+uM6rUtpHqNjRYYU2qoF4sPXSiuUctHfL7xU8w8s/KARBx2IwZAXdxLmXbNO9bHrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795623757;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=XQq3JvZTXAhxSJ/4nCrQ9moQCzRATUiklcVf83kMteg=;
-	b=WkluKMNtfcy2dCKHXWlcsVxuhTshjzOeRhVaE7FyfrWhjRNgNtWjKqGyveZg5eW59lGZ
-	 WKHhvFFfk2Xx9Yo4JwItf4j3pOgDZN0n+FMK5jb26magQA4ZPmsTaXnTSYnOWMgT4KAuC
-	 E0nwOux+6xkLOaiMmlM7YDqK5t0m7dw1/d3ecXafvtUJHkBT+jeSI/hhQGdrYzmj7S0uX
-	 2pRuqcVIxx3WZbW72u6SqSmcQVYUT0X6i5zVTfJZmnfehE08FEQ57YKXA1Rv3wlwhs8zM
-	 SzxuHAeH4yZQzPu5bVeqaHmZ3RyOOVli4LGVrVqzqpeFVVEo9s0mKhLqG+nSsOqWygw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795623753;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=zO3jrdhEnmUIwCLxdDgA0M0mbsXtRg5HEy71KWF/dKo=;
+	b=MfCqn6tSRuAGnBX3e0RfWj3rVCpTUiLZOS4bztF0Uzve0YTTWyrAEwCJ4sd2ugq4l5JM
+	 1T7ZcPBuoUjqJfZOO1MPOh9DsnCJdEiZyYCsv0Q1oX4Gr46ezuX4JvmbNPIo65QNbcULG
+	 kxvUzwLVpixZQzsH73PBsbcD59GXaU7j0MpUJuc9BMtlwwA/fo5DiPqAruHBtXJ2lov71
+	 XCQmaZUIfY4/W9GWI0LtrVQmanQdz62mtT3eTab3FYBO3+nDGJwH0QMjtnKre0CprUGyR
+	 hSgs98BYQNxBE08ESxcuGjUkzbfPF36vRdt967jJeJzGzb6JUpF9FyaHSg+HHNKLbkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XD+9oT46;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=kPJTuCFA;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cCtEgoHt;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=P6m5Oicl;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=WFbgdzp1;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2CB8606A321;
-	Wed, 25 Nov 2026 16:22:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9665606A31E;
+	Wed, 25 Nov 2026 16:22:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9665606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XD+9oT46
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A56751F000D1;
-	Wed, 25 Nov 2026 16:22:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795623757;
-	bh=XQq3JvZTXAhxSJ/4nCrQ9moQCzRATUiklcVf83kMteg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XD+9oT46yrhT/F4R/Xe+mWmSoq8cHdfiHA8Wa6gPzuw8L0Dgg7hSK+l1SAjKw9mk7
-	 9BD9cqRZCYrrfCxrk02U9x0M36YRv1JDJAfTSbTl/7YUfz4BhQZVf+R37cJgI6zw6z
-	 z5aZx6mcGmYyfYGXDXHaw0rJ98TAPHq1MeZYbQaY=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Alexander Sarmanow <as@discnull.de>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH 6.18 960/990] iio: light: vcnl4035: Fix reversed ALS mode bit
-Date: Wed, 25 Nov 2026 15:38:47 +0100
-Message-ID: <20261125143844.474593827@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=kPJTuCFA;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cCtEgoHt;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=P6m5Oicl;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=WFbgdzp1
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id E777222193;
+	Wed, 25 Nov 2026 16:22:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795623750; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zO3jrdhEnmUIwCLxdDgA0M0mbsXtRg5HEy71KWF/dKo=;
+	b=kPJTuCFAMzVt/e5q1xwNrz9gl80d1Jt4Hrzsfg1o0t7diPubvcehoZZKCOTUAiXyB74xSp
+	wANwtJMw26a2NsiYJZJe5J/dlVe7yAYvBYRb9KykFHsK1W94GpIGM4gbEVT5z4nLV4o8UE
+	9AzdhORJAx1DY7kHW7XwaQcsNfUo38I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795623750;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zO3jrdhEnmUIwCLxdDgA0M0mbsXtRg5HEy71KWF/dKo=;
+	b=cCtEgoHtZrwTAFhmVwP8ROKhKJvDsmX0aVhPFIFanpseAQ7dJIbbh2Zdhd4Yy8OIgDLPrP
+	n/tqyk+UbHEmKnBg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795623748; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zO3jrdhEnmUIwCLxdDgA0M0mbsXtRg5HEy71KWF/dKo=;
+	b=P6m5OiclXJsYUEF9sWPyt8NhNRZQBG07gWLfI5y2gQeh/Ekt3suqaPOOgjdoqK9VqzKBD7
+	CLcAUp1u3aSQjC4CT8NN4voYNIUHSu6MxyLH0jUMjK4TMezlO8nEtrHFj/Yuwxgi1DYK+q
+	iUkX2tF7Wvpl3h9aEYvZlJbcs2fAAJs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795623748;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zO3jrdhEnmUIwCLxdDgA0M0mbsXtRg5HEy71KWF/dKo=;
+	b=WFbgdzp1HwA539nqqiTRkQ0+AyjPPR8bDP7R4dPmbXDtkwVYu2trC2ki8eIZDqZnW1LlIr
+	zRViLsJMFkifAzCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C6E80134CA;
+	Wed, 25 Nov 2026 16:22:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 50wyKkQLB2uNXQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 25 Nov 2026 16:22:28 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 6288B27CBB; Wed, 25 Nov 2026 17:22:20 +0100 (CET)
+Date: Wed, 25 Nov 2026 17:22:20 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jeff Layton <jlayton@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Josef Bacik <josef@toxicpanda.com>, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] libfs: don't copy the child's ctime to the parent
+ directory
+Message-ID: <p6qdkphjcljduzvkw6ljnrmwqfefo7vmo3i6doyzc2ejcmgfuw@2yzyh4ububgq>
+References: <20261125-work-libfs-mgtime-v1-0-8022a81d0b9e@kernel.org>
+ <20261125-work-libfs-mgtime-v1-1-8022a81d0b9e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,46 +111,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261125-work-libfs-mgtime-v1-1-8022a81d0b9e@kernel.org>
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	URIBL_BLOCKED(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.com:email]
+X-Spam-Score: -12.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+On Wed 25-11-26 13:04:27, Christian Brauner wrote:
+> simple_link() and __simple_unlink() copy the child's new ctime into the
+> parent directory. With multigrain timestamps that ctime is only
+> fine-grained if the child was queried and copying it drops the parent's
+> I_CTIME_QUERIED flag. So a queried tmpfs directory keeps its ctime and
+> mtime across link(), unlink() and rmdir() as long as the coarse clock
+> hasn't ticked. shmem_rename2() unlinks the victim of a rename the same
+> way, so a rename over an entry from another directory changes nothing
+> at all that userspace could see, size and link count included.
+> 
+> Give the directory its own inode_set_ctime_current() call.
+> 
+> Fixes: 234d8895e3ad ("tmpfs: add support for multigrain timestamps")
+> Cc: stable@vger.kernel.org # v6.13+
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-------------------
+Good catch! Feel free to add:
 
-From: Alexander Sarmanow <as@discnull.de>
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-commit 6bcabc30b89f31e2925647d1ffa5a0e4b7919829 upstream.
+								Honza
 
-According to the datasheet (table 2) the ALS_SD bit behaves the opposite
-way the current ALS mode defines are set, writing 0 powers the sensor
-and writing 1 shuts it down.
-
-The current driver thinks the ALS is up while it's actually shut down
-and it's down when the systems powers it up.
-
-Fixes: 55707294c4eb ("iio: light: Add support for vishay vcnl4035")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexander Sarmanow <as@discnull.de>
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/iio/light/vcnl4035.c |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
---- a/drivers/iio/light/vcnl4035.c
-+++ b/drivers/iio/light/vcnl4035.c
-@@ -44,8 +44,8 @@
- #define VCNL4035_DEV_ID_MASK		GENMASK(7, 0)
- 
- /* Default values */
--#define VCNL4035_MODE_ALS_ENABLE	BIT(0)
--#define VCNL4035_MODE_ALS_DISABLE	0x00
-+#define VCNL4035_MODE_ALS_ENABLE	0x00
-+#define VCNL4035_MODE_ALS_DISABLE	BIT(0)
- #define VCNL4035_MODE_ALS_INT_ENABLE	BIT(1)
- #define VCNL4035_MODE_ALS_INT_DISABLE	0
- #define VCNL4035_DEV_ID_VAL		0x80
-
-
+> ---
+>  fs/libfs.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/libfs.c b/fs/libfs.c
+> index 96a6e9b1535fb..07331e829c133 100644
+> --- a/fs/libfs.c
+> +++ b/fs/libfs.c
+> @@ -754,8 +754,8 @@ int simple_link(struct dentry *old_dentry, struct inode *dir, struct dentry *den
+>  {
+>  	struct inode *inode = d_inode(old_dentry);
+>  
+> -	inode_set_mtime_to_ts(dir,
+> -			      inode_set_ctime_to_ts(dir, inode_set_ctime_current(inode)));
+> +	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
+> +	inode_set_ctime_current(inode);
+>  	inc_nlink(inode);
+>  	ihold(inode);
+>  	d_make_persistent(dentry, inode);
+> @@ -788,8 +788,8 @@ void __simple_unlink(struct inode *dir, struct dentry *dentry)
+>  {
+>  	struct inode *inode = d_inode(dentry);
+>  
+> -	inode_set_mtime_to_ts(dir,
+> -			      inode_set_ctime_to_ts(dir, inode_set_ctime_current(inode)));
+> +	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
+> +	inode_set_ctime_current(inode);
+>  	drop_nlink(inode);
+>  }
+>  EXPORT_SYMBOL(__simple_unlink);
+> 
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
