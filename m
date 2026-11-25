@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608390;
-	b=n+pRmMmxamld8O+cU9sQU10NEuVjxHiU1ixwjyMYfBlbjdRq13t1mYtR6Tz/rOzBxRcg
-	 GnyBWcNcD/sjxdmROrRGgiekPVsF0Q+6GCpy/kl4CLaBa6MXFteBZ3+bi9p9tJMRsEt5Z
-	 jv0T4BqSU4SSaiBlhqFGfYNt+NUBGqGa6gyx2B/3GJv2EP4Jm4ONFxuO4TbJodgjop2zQ
-	 C0xdXpqrzlYNdl47SEjaQFaTfICa/NMs8wrLMrkjZZ4DofX+pX1VD6Io++Dh9JT5VQslA
-	 D8fLcwwDBuiLsI0j+hmc8F5be+Sq9gCAoX0XBgPCCwUaqiVwYTBKhDDOqHjFWwQ2HtQ==
+	t=1795608393;
+	b=fpXZk/jXtd2Fo8vq0JuSgE+NnIWXc/kZzzr/lWHOO5fidUYPd+RV54iZOWhfAzNUBmLe
+	 NqcENF85OJ10WIgHY8tywtSuemYNx6e5Rioqv2GGSEf9rd1yocC95mq6rh/ID8oYDDOM1
+	 Kd/3Q5G9FtyrBkr+otPc77YO5swp+dCp136RERPiwLBwJR0/S/4kQDBYIv12yDRQbuBKn
+	 c+TQ4BD3otsjb1nK4UQHRiA7TFFayz8EOkkomBc0PYwfffkAtCt0oliRDuG+RldbeMn6E
+	 LkNPwG/6oGr5f7HeCVtXykHWtXGAPzOCk3cAfixiP9atmdL454pd1Rx1X3z4Olf5k6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608390;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608393;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=8PljwAoXo1yVVZTGjshLRIAMHmnGcaAnPYnUQLVyOUk=;
-	b=dSHg9Lknl/dEBLXA9zSAorLQ8q78u+oDYyz3cS3sGhwuLzqyxLU6c/Wh4X7gPr360qpV
-	 Bw1jMKPiIvX/1XdydRaylBbsjLfr+KwN8nZTiFp6nrTOiXR1NE23yeGMsExXIwQx0iYzK
-	 yXaO7KedUJWqVIIE++5NdKLynh9xqmuuVAIrHsxMEECUw4TeMUBgnrQVckxAme2yV3nYr
-	 pLAlMjWK13q6LTbyclAUMGrZmN4OP0HENCDoBJrm2Jd3oDKTUqiodS/CxDPv/0/dWILis
-	 b/58x0JeOUWItoMZJSW9AiXB6ZkLerAfykbO/v8TMzEgFmigFo5mFfbyyrz/iCCy+HQ==
+	bh=AqyJCwu6zwHp7lHX7mxbMkQMqIFhTeLi29BwNeRrFzo=;
+	b=gxRbbTXo96A93xBzhbP01r9152LbTDlY1pwOS+bGm3z+Xcj/op7nandjD3MBRh6RoTBb
+	 cbAoV3CXcdKZIB3xLTfeHjbItkuszIWRMfeTlTi5RpHnv6yFAgBvMmykPn44UZCMO8UOt
+	 lBHJm2xX6JX7smEGoUR1ymTVNSa0Fec66o3pEcgcTll6pFN4K/IsKSWhM29LwUE6KUevP
+	 d7xuEZjLYxVieNTU5LF8x6hOcAxToKUfs0rH/MpcFvGp3C6HbsOxfkEy4oqyXWQ6DrnIw
+	 c8w4U/8LRBzWhWW7ADGgUueDd8q0LxlvYzhwAHnByX1KG9vX+I1d6zYBjAc40G/CnEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FFuHeE8C;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=D5pJCo0X;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3DF606A32D
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:06:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98200606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:06:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FFuHeE8C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40B0C1F000C6;
-	Wed, 25 Nov 2026 12:06:29 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=D5pJCo0X
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D8D71F000C0;
+	Wed, 25 Nov 2026 12:06:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795608389;
-	bh=8PljwAoXo1yVVZTGjshLRIAMHmnGcaAnPYnUQLVyOUk=;
+	s=korg; t=1795608393;
+	bh=AqyJCwu6zwHp7lHX7mxbMkQMqIFhTeLi29BwNeRrFzo=;
 	h=Subject:To:Cc:From:Date;
-	b=FFuHeE8C2IxudNJ0nZ5DQpo2pdWhnOKdbAqZw/cmyy7KCs/d9D1wbQprhqKU0VuLg
-	 Qeho6aptj4DorO/FqXjrtGPU7/ya6SPNwwGF+fTv0AsK5/u+maPJWIW5eQqElCiHIC
-	 4LVyMMsAgQp9OwZq6gY+CjCVq/4IuZAgdeNCVWvg=
-Subject: FAILED: patch "[PATCH] usb: xhci: disable the correct slot on alloc_dev failure" failed to apply to 5.10-stable tree
+	b=D5pJCo0XRGCvdQoHHJg/UW4E5AtzYFibWBvSJeXvcQ3xcZqso80OKgHhdCQFnLdu5
+	 Ag1Xu/MlO+fGC4e1pVVxb/CUpt9zAmeRvXhr/fqpId40t2PlowhixgJxJl6uNp88u2
+	 +gbKj4B5hzCt4ylTDvrXtwTXXbLFdnt1VrHyjX2g=
+Subject: FAILED: patch "[PATCH] usb: xhci: disable the correct slot on alloc_dev failure" failed to apply to 6.1-stable tree
 To: raoxu@uniontech.com,gregkh@linuxfoundation.org,mathias.nyman@linux.intel.com,niklas.neronin@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 12:35:04 +0100
-Message-ID: <2026112504-tradition-brigade-4312@gregkh>
+Message-ID: <2026112503-encourage-croak-8fc9@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2f2fe3201029ffc215b46ac40a0a9587715bc43a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112504-tradition-brigade-4312@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112503-encourage-croak-8fc9@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
