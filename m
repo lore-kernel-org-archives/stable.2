@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795622759;
-	b=enormnvPsxfmPeytXCFS8Nvl0Zzzlw1gmlLZiRXMz2VPGqKw/0cnxhPQE/nOPn1ZjdwH
-	 84e899emOleTeAfQ4dk+klIOIYkLEwIfmAi51ByYdlVgryY8dSAtbwFWQhNmkZrSZ38D3
-	 dzVBq1fNihPLNUYKSNDt49+ie0H5A1IdpaBEjlj8ylW5DSwZv30MM7xHil2VCqBCCwPar
-	 MeIzA7alPNYmOF4v0O3MiG2ydx0wkUFD7Nb2QP3k62URAaYD8jEc/YKGa9GF80J5GIO0N
-	 Eg66dBXJreRsD71/653XuotSTpbPqehoaKzisBaD5rpPdhWWqxwgMopCrixkEpmUwbg==
+	t=1795622761;
+	b=SC1EMnM7Fz8bE99IIqEi4Ev7QRYzHTUxdOIQ06+J5JshQ36blQeN4N3SQ3q7ytMYgOSi
+	 Pahi4drwjXcb/PU8CMF39xkC5Nnqfn+rvlH7NBqljEBsBOYLsqo6HcMKO8mVltPd4Qpe4
+	 wvLiDnFcxUHk60U5oZfOrBDGB7jWqlOnzhI73U0SRxK+gOYV5s/3J0qDj/VQOpnQvYMzP
+	 Ad4xldBFd6nPGXptV3+Y2n8fIWtRa4vUK6I2DFwlGDfhHEC1ofZpAr+OdwRM8nqA//hh/
+	 21cB1dyGCYXvhmApGRi+LFJWAwsoXuaQUb+MIx9AfwghbpHSUpBa7VQxMv1y+rQHKSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622759;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622761;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=n+lcWk8nFXuj15CLzKZy48yFh/JghwtdCILy6VfNx+U=;
-	b=R3mLiRh35yiW7kr02vvoI0ZOOToWl8AhiIKo8CRIZv8vsY7w9nPVoNrJ10Ht+EVXHzjU
-	 tmXghewhTiyaTW3eL7RiYzapR+VSZKETtK7Y2P78SeqIZcWTrya7s6QMWQRMiwhQvxtaq
-	 du2Dy9aopuxe3JwsRCHDXpSOt/dtnJLvkijDjdS9q0ERAJtQiuOXo/fj8dxbItACRqekp
-	 dF7Sss/2X+MethejMtgLpu2thC8lndIK9KaD6nnLsrZlyAy4eNhPqYgpPReykj2FtrF4J
-	 Lr56pLiUCc2dKhu3Z26MsU71ikLZMTuOeYDD90MdtQUR0uqxWGzQUayUL/Q4QcVbEQA==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=k46yHtsYymgyb+9l0pX/+O+Ay8HzbBHIBOoWtweN73c=;
+	b=yjyF2LOtAnYerRdgehNEyvDsP+e7UsLRPIFfaMt35fDAbGmZoxEixoqrzz8eJjrcRh3o
+	 +WHQAgxPCWZr8BdBU4URYinSs1XVRxDl6UGep4Jcb5PFgIzBEUICjff9CkplZq7TYUQ8p
+	 wtg3nloLby+B7y5ZyebcMLxxGwJc01Fv39NLJkWWEB0nsiUX6Nda6rJNpuUC9l7yw7N1j
+	 VUT0xoN7WAkLKlXTs+3trhW5NvNVL5GaHj+keFxuQoEVHwCbz7BisryrO2OahGpurNyDq
+	 OApiOHtcBfV1jQsKKKkeQCgezt5Qwb52tvrYGeoYdn5pHbQ3Y5VWXZCbi2ftGZNsfYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J6WZkdRK;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PHsuvNnP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75DEF606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:05:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E848E606A329;
+	Wed, 25 Nov 2026 16:06:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J6WZkdRK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC971F000CF;
-	Wed, 25 Nov 2026 16:05:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795622759;
-	bh=n+lcWk8nFXuj15CLzKZy48yFh/JghwtdCILy6VfNx+U=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PHsuvNnP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 448451F000C0;
+	Wed, 25 Nov 2026 16:06:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795622760;
+	bh=k46yHtsYymgyb+9l0pX/+O+Ay8HzbBHIBOoWtweN73c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J6WZkdRK6chx67yAaEyapkIv52nbSf8QhgEPivl70X71CGxBicQceQfnoJ5jvBPaJ
-	 t0jffxfC8JwcN4s1Cg8phUqo7srLbbaPiX4sPN5WqoQhegmTVwpivG8g+ka7WgY+4U
-	 8Mau63B5fzEL4T6HD55DdJ2AE0KCHUIyPhDpv4L4Sj2LfdDsjpuMjHWrNLNkRVDgWu
-	 esWA47rSHYRyAElViRgSgwWm08FCi/647etjWCC30suJTd4LhO4qbpZ0dBE2JRKeT2
-	 L7PpJRamWeOY9FGSUYshUEW+mTpnrhk6oJSFLFnhxf3qknMUUN50zg5brEzAPs01rf
-	 RhRiTSi2DKyPA==
-From: Sasha Levin <sashal@kernel.org>
+	b=PHsuvNnP0LtWZe6YyV7hk3+tb8VfSWiC2mNTFFoqe4bX2qDF9Lx262FgGs/gQWzHe
+	 NdhMGtlaTezKSetrHrwsjFPvE0/n2iayx48AvXa9r8g5rC0PLoM4gGzg3kWUlTT09F
+	 kez4SL6GnaKstfLz1w7X3FI5KEhwd1TzAiCIscRA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@kernel.org>,
-	syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	Naman Gulati <namangulati@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Rishikesh Jethwani <rjethwani@purestorage.com>,
+	Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] net: wait for in-flight device unregistrations before netns dismantle
-Date: Wed, 25 Nov 2026 11:05:56 -0500
-Message-ID: <20261125160533.661169-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112529-elephant-appendix-fdec@gregkh>
-References: <2026112529-elephant-appendix-fdec@gregkh>
+Subject: [PATCH 6.18 637/990] tls: keep TX and RX hardware offload on the same device
+Date: Wed, 25 Nov 2026 15:33:24 +0100
+Message-ID: <20261125143837.015143132@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,160 +64,135 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@kernel.org>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit c164a431a646983275d0076ff5b0e4c326fbc10b ]
+------------------
 
-A device can be unregistered by a context other than the cleanup_net()
-of its own netns, for instance a veth whose peer in another netns is
-deleted. If references on it are still held, it stays in
-netdev_wait_allrefs_any(), which rebroadcasts NETDEV_UNREGISTER every
-second.
+From: Rishikesh Jethwani <rjethwani@purestorage.com>
 
-Meanwhile its netns can be dismantled: default_device_exit_batch()
-only takes care of devices still listed in the netns, then pernet exit
-handlers free their state, and finally struct net is freed while the
-device still points to it.
+[ Upstream commit 1c8a70075235cd733095532a97f2405037c52a7b ]
 
-The rebroadcasts then run notifiers against torn down pernet state, or
-freed memory. Three instances were reported so far:
+After TX is offloaded on device A, a route change, or a change in the
+usable-slave set of an 802.3ad or balance-xor (layer3+4) bond, can make
+RX setup program device B. tls_device_attach() sees the existing TLS
+destructor and keeps ctx->netdev pointing at A. The RX driver state on B
+is then untracked: tls_dev_resync() and tls_dev_del() are invoked on A
+for a context it never created, and neither socket close nor
+NETDEV_DOWN on B calls tls_dev_del() for B, so the driver context leaks.
+The reverse setup order has the same problem.
 
- - netdev_genl_netdevice_event(): net->genl_sock is NULL [1]
- - nh_netdev_event(): net->nexthop.devhash is NULL [2]
- - nf_tables netdevice notifiers: use-after-free of the nftables
-   pernet storage [3]
+Check the shared device binding under device_offload_lock before each
+tls_dev_add(). Permit the first attachment and a second direction on the
+same device. Reject a different device, including when the old binding
+was cleared by NETDEV_DOWN: the TLS destructor remains installed and
+tls_device_attach() cannot establish a new binding. Setup then falls
+back to software for the requested direction.
 
-but any notifier using dev_net(dev) is affected, as is
-netdev_wait_allrefs_any() itself (__rtnl_net_lock(dev_net(dev)) with
-CONFIG_DEBUG_NET_SMALL_RTNL=y).
+The RX check precedes allocation and software setup. TX uses its existing
+resource unwind path without calling the driver. Document the shared
+binding and clarify that fallback is per direction.
 
-This was prevented by rtnl_lock_unregistering() until I removed it
-in commit 8a4fc54b07d7 ("net: get rid of rtnl_lock_unregistering()"),
-considering only the loopback dependency, and missing the notifiers one.
+This issue was discovered during code review and subsequently
+reproduced on hardware using mlx5 and TLS 1.2 AES-GCM-128.
 
-Restore a per-netns counter of devices sitting in netdev_run_todo(),
-and make default_device_exit_batch() wait for it to reach zero, after
-it has unregistered all devices of the dying netns(es). At this point
-no new unregistration can be started for these netns.
+Changing the route between TX and RX setup installed the second
+direction on a different device. Driver traces showed successful adds
+on both devices, but both deletes at socket close targeted the first
+device, leaving an orphaned context on the second. Both setup orders
+reproduced the leak, even though all current core TLS context counters
+returned to zero. No crash was observed.
 
-Unlike the old barrier, this only waits for devices of the netns being
-dismantled and runs after their own devices are gone.
+With the fix, the same tests correctly fall back to software for the
+second direction and leave no orphaned hardware context.
 
-Tested on a KASAN kernel with a debug-only hack holding a reference
-on a veth device for 5 seconds after its unregistration: a nexthop
-on the veth in netns X, delete its peer from init_net, then delete X.
-Without this patch, the nexthop_flush_dev() null-ptr-deref from [2]
-triggers. With it, no splat; netns churn and dismantle of a netns
-whose own device is held still work.
-
-[1] https://lore.kernel.org/netdev/6adf9f64.6200f071.51519.0ed1.GAE@google.com/
-[2] https://lore.kernel.org/netdev/20261105114707.3030737-1-bsdhenrymartin@gmail.com/
-[3] https://lore.kernel.org/netdev/20261105114817.3033625-1-bsdhenrymartin@gmail.com/
-
-Fixes: 8a4fc54b07d7 ("net: get rid of rtnl_lock_unregistering()")
-Cc: stable@vger.kernel.org
-Reported-by: syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/netdev/6adf9f64.6200f071.51519.0ed1.GAE@google.com/
-Reported-by: Henry Martin <bsdhenrymartin@gmail.com>
-Closes: https://lore.kernel.org/netdev/20261105114707.3030737-1-bsdhenrymartin@gmail.com/
-Closes: https://lore.kernel.org/netdev/20261105114817.3033625-1-bsdhenrymartin@gmail.com/
-Signed-off-by: Eric Dumazet <edumazet@kernel.org>
-Reviewed-by: Naman Gulati <namangulati@google.com>
-Link: https://patch.msgid.link/20261105144543.1624238-1-edumazet@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Reused the existing per-netns dev_unreg_count instead of adding dev_unreg_pending, and dropped the rtnl_net_flush_workqueue() call, which doesn't exist here. ]
+Fixes: 4799ac81e52a ("tls: Add rx inline crypto offload")
+Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
+Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
+[ sashal: Kept the branch's kzalloc(sizeof(*context), GFP_KERNEL) instead of upstream's kzalloc_obj(*context) and placed the new tls_device_can_attach() check just before it. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/core/dev.c | 37 ++++++++++++++++++++++++++++++++++---
- 1 file changed, 34 insertions(+), 3 deletions(-)
+ Documentation/networking/tls-offload.rst | 16 ++++++++++------
+ net/tls/tls_device.c                     | 24 ++++++++++++++++++++++++
+ 2 files changed, 34 insertions(+), 6 deletions(-)
 
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 95beb4b402d0c..bc92801822a4c 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -9837,6 +9837,13 @@ static void net_set_todo(struct net_device *dev)
- 	atomic_inc(&dev_net(dev)->dev_unreg_count);
+diff --git a/Documentation/networking/tls-offload.rst b/Documentation/networking/tls-offload.rst
+index 7354d48cdf926..7ed28e40f1702 100644
+--- a/Documentation/networking/tls-offload.rst
++++ b/Documentation/networking/tls-offload.rst
+@@ -76,12 +76,16 @@ During driver initialization device sets the ``NETIF_F_HW_TLS_RX`` and
+ pointer in the :c:member:`tlsdev_ops` member of the
+ :c:type:`struct net_device <net_device>`.
+ 
+-When TLS cryptographic connection state is installed on a ``ktls`` socket
+-(note that it is done twice, once for RX and once for TX direction,
+-and the two are completely independent), the kernel checks if the underlying
+-network device is offload-capable and attempts the offload. In case offload
+-fails the connection is handled entirely in software using the same mechanism
+-as if the offload was never tried.
++TLS cryptographic connection state is installed separately for RX and TX
++on a ``ktls`` socket. For each direction, the kernel checks if the underlying
++network device is offload-capable and attempts the offload. If offload fails,
++that direction is handled in software as if offload had never been tried.
++
++Both hardware directions share one device binding. Once one direction is
++offloaded, the other direction must use the same device. If a route change
++selects a different device, or ``NETDEV_DOWN`` has cleared the binding,
++hardware offload of the other direction is declined and it uses software
++instead.
+ 
+ Offload request is performed via the :c:member:`tls_dev_add` callback of
+ :c:type:`struct tlsdev_ops <tlsdev_ops>`:
+diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
+index 2c661e17efb8f..c49798486ea52 100644
+--- a/net/tls/tls_device.c
++++ b/net/tls/tls_device.c
+@@ -1030,6 +1030,20 @@ int tls_device_decrypted(struct sock *sk, struct tls_context *tls_ctx)
+ 	return tls_device_reencrypt(sk, tls_ctx);
  }
  
-+/* Paired with net_set_todo(). @net must not be used after this call. */
-+static void net_unreg_done(struct net *net)
++/* Both directions share ctx->netdev. A second direction must use that
++ * device; after NETDEV_DOWN clears it, no new direction can be offloaded.
++ */
++static bool tls_device_can_attach(struct tls_context *ctx, struct sock *sk,
++				  struct net_device *netdev)
 +{
-+	if (atomic_dec_and_test(&net->dev_unreg_count))
-+		wake_up(&netdev_unregistering_wq);
++	struct net_device *ctx_netdev;
++
++	ctx_netdev = rcu_dereference_protected(ctx->netdev,
++					       lockdep_is_held(&device_offload_lock));
++	return sk->sk_destruct != tls_device_sk_destruct ||
++	       ctx_netdev == netdev;
 +}
 +
- static netdev_features_t netdev_sync_upper_features(struct net_device *lower,
- 	struct net_device *upper, netdev_features_t features)
+ static void tls_device_attach(struct tls_context *ctx, struct sock *sk,
+ 			      struct net_device *netdev)
  {
-@@ -10695,6 +10702,7 @@ void netdev_run_todo(void)
- 		if (unlikely(dev->reg_state != NETREG_UNREGISTERING)) {
- 			netdev_WARN(dev, "run_todo but not unregistering\n");
- 			list_del(&dev->todo_list);
-+			net_unreg_done(dev_net(dev));
- 			continue;
- 		}
- 
-@@ -10705,8 +10713,11 @@ void netdev_run_todo(void)
+@@ -1165,6 +1179,11 @@ int tls_set_device_offload(struct sock *sk)
+ 		goto release_lock;
  	}
  
- 	while (!list_empty(&list)) {
-+		struct net *net;
-+
- 		dev = netdev_wait_allrefs_any(&list);
- 		list_del(&dev->todo_list);
-+		net = dev_net(dev);
- 
- 		/* paranoia */
- 		BUG_ON(netdev_refcnt_read(dev) != 1);
-@@ -10721,11 +10732,10 @@ void netdev_run_todo(void)
- 		if (dev->needs_free_netdev)
- 			free_netdev(dev);
- 
--		if (atomic_dec_and_test(&dev_net(dev)->dev_unreg_count))
--			wake_up(&netdev_unregistering_wq);
--
- 		/* Free network device */
- 		kobject_put(&dev->dev.kobj);
-+
-+		net_unreg_done(net);
- 	}
- }
- 
-@@ -11913,6 +11923,17 @@ static void __net_exit default_device_exit_net(struct net *net)
- 	}
- }
- 
-+static bool __net_exit netns_dev_unreg_pending(const struct list_head *net_list)
-+{
-+	struct net *net;
-+
-+	list_for_each_entry(net, net_list, exit_list) {
-+		if (atomic_read(&net->dev_unreg_count))
-+			return true;
++	if (!tls_device_can_attach(ctx, sk, netdev)) {
++		rc = -EOPNOTSUPP;
++		goto release_lock;
 +	}
-+	return false;
-+}
 +
- static void __net_exit default_device_exit_batch(struct list_head *net_list)
- {
- 	/* At exit all network devices most be removed from a network
-@@ -11940,6 +11961,16 @@ static void __net_exit default_device_exit_batch(struct list_head *net_list)
+ 	ctx->priv_ctx_tx = offload_ctx;
+ 	rc = netdev->tlsdev_ops->tls_dev_add(netdev, sk, TLS_OFFLOAD_CTX_DIR_TX,
+ 					     &ctx->crypto_send.info,
+@@ -1235,6 +1254,11 @@ int tls_set_device_offload_rx(struct sock *sk, struct tls_context *ctx)
+ 		goto release_lock;
  	}
- 	unregister_netdevice_many(&dev_kill_list);
- 	rtnl_unlock();
-+
-+	/* Devices of these netns unregistered from another context
-+	 * (e.g. a veth whose peer was deleted) can still be waiting
-+	 * in netdev_run_todo() for their last references, while
-+	 * NETDEV_UNREGISTER is rebroadcast for them. Wait for them
-+	 * before pernet exit handlers tear down the state used by
-+	 * netdevice notifiers, and before the netns is freed.
-+	 * No new unregistration can start: all devices are unlisted.
-+	 */
-+	wait_event(netdev_unregistering_wq, !netns_dev_unreg_pending(net_list));
- }
  
- static struct pernet_operations __net_initdata default_device_ops = {
++	if (!tls_device_can_attach(ctx, sk, netdev)) {
++		rc = -EOPNOTSUPP;
++		goto release_lock;
++	}
++
+ 	context = kzalloc(sizeof(*context), GFP_KERNEL);
+ 	if (!context) {
+ 		rc = -ENOMEM;
 -- 
 2.53.0
+
+
 
