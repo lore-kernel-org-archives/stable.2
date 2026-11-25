@@ -1,97 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795697293;
-	b=RmHfLMgAoBkCyKaToESxs3jYMAJD9IvjKZRLrzFn6XoB1aoxeawbfnB30hj0ILK1dCo9
-	 9qfbf4ytjkJAJ19y5RAWHWsR5HaY+BW6iAPEqj7Xp1HcQtBS7fgH6lUiSA2Aspq4XdWSt
-	 LVTeQA+8SDMPlwkypk6uLwGX0XN+XqijpmMvLh7pXbGJw34CdzJKC5ohpe0ofNnhh7di2
-	 SUWzAxtLc+LjQ7URzDK7mE7OBKwYO9Px0j/htl88a70FSymZYKSUp7tlPAGvflk9WOmvV
-	 lM/tWnE6yI8ZSkz+FZXOXxDjYioKXdHJSDCYIbbXwKhaurmYMESNMWjwGL/DYXIlDiQ==
+	t=1795697335;
+	b=t0iOSOnaluId2udFTxVUqi/JJamtGiZWZeVafymbhARhfiTDckzZAPJ4WgdPBiDt5A+7
+	 WfNg1Vwdhj1a1DfkfOov4RTVSUpIp4wNYqsqHtU/sJHrLnHjN7IeG/xIOnEIHH+NzriPi
+	 Yjvmp7qkP03g0TAJ2xJJDWLuDy4JdSu//6cyp/HqU3QYdcoAvBtOCThJ8YhF10neEDQKs
+	 0kYEsSDiN61jW+G+IAyBOytVFdjLF2BS5mhDLfiy2Mr8kNhk7V32YMcKB52D87uPfHK/K
+	 51ZHdDTD7IbeVreLDu4kjIn/GNGr+ZFFOvWRjuXJNek7ZL4bF6tHbib+Xv9eDDE2KeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795697293;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=8UXmhjzmrSz9c7UGZC3PvW2Va1zzLFwfvXp87xtgrDI=;
-	b=cGf9SVZJdseka/LbcpXN6bTo2e8fiIeAwKerVmYIeX+nsyTKU1fB0130jMB/rsPVmBAU
-	 /rCIInt3Zp9W4ot4WBEDPHw3xx+3vXom8hfXassNqcKV0PCtzh3m6Urh2FAA6CTsbmLS2
-	 jJkgR6fR8NmETmki6mI/r+2RyX778AXbZ88EHCOM860F3gwUyir5sMcRhqaZ4m9Mt4B0d
-	 puJHD+QSdXD+bIbRTR8nHhTSwmyvfdr9W5rrIyJTBD+SUrbadvIxKI3opxE7VIZrskriQ
-	 gJhTSnVdtzkeyOvgoDDcDxZ8oO1vEBFVVvcO7oafLLxvsRFPEWhNng1u9ZNFvA6JU8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795697335;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=c65ZXA+WD4acqy3H/mw/ujfvEs+dg5xu8/jhbbs8vd4=;
+	b=uSSrvQI4X74TDLPBTISrXDfHIEDmULFSE+7z9idmp7pW8U+0P2u5O+Lrkmp/IYqbOjz+
+	 c2fceYzBx5rof2PDXlL8JNjCXa7E1ji9Ig/6tDdu2ruHcjcO58QYnZEGnJ//+46E3qoXF
+	 LpZJjwwVacOkO9+0fNO+MOaOV0bJepBLVO5j6A68WpCP/vQLtPTHQJOM6c+1CkqVWZC0x
+	 PJsiJ9FJI428yGNtBqG3oXIAe5pwLA5GAORgHVb82w0JEpQIu5TVm9TBMWIz9l30HIcWd
+	 pYSb07Wnh4Va25hsp1lKpuWMKRCJJF2C2NKgiGqTgRbW1OkDgp8pNaMjr/QCh6dz7sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NRd6IM2n;
-	arc=none smtp.remote-ip=74.125.227.132
-Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UpQJ/fMF";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB58606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 12:48:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCB58606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86126606A327;
+	Thu, 26 Nov 2026 12:48:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NRd6IM2n
-Received: by mail-pj2-f4.google.com with SMTP id 98e67ed59e1d1-3b497279c25so2038824a91.0
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:48:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795697292; x=1796302092; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8UXmhjzmrSz9c7UGZC3PvW2Va1zzLFwfvXp87xtgrDI=;
-        b=NRd6IM2nMKDbRQaG0Ara5j45MRa5HNcGGGOv9QmXi88i3V4kx9O1RUtaft1LqiJHKU
-         oRzc7zM5wNS0f1gbek0tsZZu857dTzMgDfwsr9x99nsBtV5aZvZ2yZR3bM6mcy/S490z
-         EgGm87JPBxho7Asm2iGgyZCcpq94GXlUnNbXcGqdXzxTj/VkouXfSbPdcPCTk6YkHvSy
-         NDqDNMcI9GQfNqCl0PwwiD92MgpBkhlPav0oJbv3dVOf4WuW/NSctBO+YSYpD/TXqW72
-         hk9qomN8IK5prBkHJWqNbdK9er0jKAMf4uJLmdJmFktcYM2qmVvPyy0yN92tw1PQFhP+
-         BgUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795697292; x=1796302092;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8UXmhjzmrSz9c7UGZC3PvW2Va1zzLFwfvXp87xtgrDI=;
-        b=wSxr1wZot1Jtex1AcxWY7AOlrSYJ/upAWoKHJoUNPeWVrSPpdWA8769P/sF0alEwYv
-         bWwAB5qWp/WlT7I9Iw9Zrvvrqb5hb+9eElMQFjoSOWw6z5lJc5Lm6LyB9JU8rMi/4dqj
-         sF6T4QzZRXuIALSvFCY3Oab8pbL6LWnc2FlKgd1AX7eHjyaxmr5i31gnfE/9LCA0llPm
-         YhYIsemeAFMR7c/U34ZTe1F0gxEseyz5f9Um2b1LbDTRfK9E84uRch8BM1BpzmT9nsLy
-         lNvXXmvcIUTa36fJRLsPxQJUeRkSzB7dB+/YgrnX6Wcp3sePYyBtuFHVYawUlmG+JAfc
-         5gGg==
-X-Forwarded-Encrypted: i=1; AL+hErHKLKFBrb/Or1phEgj08Hil5Qe0njLM+dDIEKPa4VyDJpiq/R4mHsucW5dLKjzvWA41wpYuoTo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9TbPgU13gfWjtrmR3LeN6h9v30/IYtcflULKXqmvwxgrLAcpQD
-	lrCqRNJRRprJORzbQDkxtP0yXsdr561BqLw3ufUnw+uiIs4OkZo37vh6
-X-Gm-Gg: AZFdTZfCHDt68n0z0runhCBXTHVVBUGDW0TawU9D4FzzanpzuPy8gNrez24QlWuVtVW
-	2A6jhbjKtGOpDu+JnYhOYibiIysKr1ygpd58EiwkgUUJ5TDtNq2S0lLnNfBnFb9mgJAOXXbdKjd
-	md1fT4a/kxKmDhPNtIB/8Dp34sQnJn2j2MTJqVg8wTENOtYN2EMibJObTW6xtqsiFUsyhxrX9Cv
-	KQYw8P6BbV80Nto3xjlMtjI5K2bZEIcqMq0EL+ue884k9p47IdwBZQtDLfCyRB7GD2u2ExWfqww
-	72ZXmFkLJ3f3n3MYupWH7BrRc/ypqasWl4PigDswIKFULXVOHPcIDn8zLVEtP/aPvMJjGbRwIO/
-	xVZwFnWACZDnmbAo2bStsgDNM0crlmGPdXEUNIsbZlrXMLGyIn2rAyi1hZsX2YhCfuthVwCfuUw
-	HZVFECAXI8Nr/sEVz2w0rmSA5B2i99NZ0tNOw3RpvhOqelIq0qgiBbwmOnhIaVd4UM0tskULWDe
-	kjQ++kzq8M5r25kxyV8I3HE9PP3sLiTusNtpP44n0hqyAtZGBR5YUazEcPv+y6nSGQ4rl6uNyYy
-	iQEi3usU0uXt1dcZWKMzZ2621SMfq3cyQTtLRzgqhhUzeSHtKU8VB7rC7SY=
-X-Received: by 2002:a17:90a:e705:b0:3ad:aa1a:312e with SMTP id 98e67ed59e1d1-3b41c7e127cmr20237965a91.3.1795697292077;
-        Thu, 26 Nov 2026 04:48:12 -0800 (PST)
-Received: from amax.cluster.local ([115.233.223.43])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405d1361fsm35201528a91.6.2026.11.26.04.48.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 04:48:11 -0800 (PST)
-From: l1za0.sec@gmail.com
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Kent Gibson <warthog618@gmail.com>,
-	Linus Walleij <linusw@kernel.org>
-Cc: linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haocheng Yu <l1za0.sec@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] gpio: cdev: fix memory leak in lineinfo_changed_notify
-Date: Thu, 26 Nov 2026 20:47:51 +0800
-Message-Id: <20261126124751.3184158-1-l1za0.sec@gmail.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260922-gpio-cdev-stack-leak-fixes-v3-1-7a0c7a4299d5@oss.qualcomm.com>
-References: <20260922-gpio-cdev-stack-leak-fixes-v3-1-7a0c7a4299d5@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UpQJ/fMF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7AB21F000D4;
+	Thu, 26 Nov 2026 12:48:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795697334;
+	bh=c65ZXA+WD4acqy3H/mw/ujfvEs+dg5xu8/jhbbs8vd4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=UpQJ/fMFpNSyFO98filCx2eRXrpJ2NZHss3Le2oXfPzKH3qUn7x/nnWTdyBjDdZB3
+	 g76AG53lfp3GYAq5jcq/vj3IthkOmMjK2gHNFaslLF+VjUHwHa76usYYVeqFhXbh+F
+	 7d+i+omrkAhioGn2GxLeiNUwEoiRKkQjvRwJZc0wvrs6PyAKxOHdigMQjOSfLhD6YH
+	 8mIVZdZMh5Zy0swfznhAjt5SgLow9lX9RJQ3cPg2JQ5xRbvHJ29A8AKK6iADRcU+EE
+	 2BM9s4leRMUGTk/NRoWShfh0a6o5OqAQJWuWcGVnf+hiduBUu7uI7B7N9qlufrwuYl
+	 eaE8zsHKoh/vw==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, Chen Yuxi <chenyuxi19@huawei.com>
+Cc: peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com, 
+ daniel.baluta@nxp.com, kai.vehmanen@linux.intel.com, 
+ pierre-louis.bossart@linux.dev, Vijendar.Mukunda@amd.com, 
+ ranjani.sridharan@linux.intel.com, perex@perex.cz, tiwai@suse.com, 
+ sound-open-firmware@alsa-project.org, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, yeweihua4@huawei.com
+In-Reply-To: <20261119082506.2485543-1-chenyuxi19@huawei.com>
+References: <20261119082506.2485543-1-chenyuxi19@huawei.com>
+Subject: Re: [PATCH] ASoC: SOF: Intel: hda: Fix NULL deref in hw_params and
+ hw_free
+Message-Id: <179562983890.358726.2657120156068501057.b4-ty@b4>
+Date: Wed, 25 Nov 2026 18:03:58 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,49 +63,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1139; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=sYArD0D0S+9HGrIYuzuumthglu+sEmIuB4K6TbgArpQ=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI5tDZNOBs6f4edhUX/GqtzE1O/2tztuGFTdrc0w7XI5
+ POX49OOd5SyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAilTMZ/nDluLA88PlWbf0x
+ pvt8bMFdwY47D/K+hG1Tqo25PjG6/gkjw9aKrt/6+yPM3m7RMK3NjpogvXXTPDner6F3tSQ69iw
+ z4AMA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-From: Haocheng Yu <l1za0.sec@gmail.com>
+On Thu, 19 Nov 2026 08:25:06 +0000, Chen Yuxi wrote:
+> ASoC: SOF: Intel: hda: Fix NULL deref in hw_params and hw_free
 
-Commit 1feb5d39b05a ("gpio: cdev: fix kernel stack leak to
-user-space in error path") made gpio_desc_to_lineinfo() return an error
-when the GPIO chip guard cannot be acquired, introducing a new error
-path in lineinfo_changed_notify().
+Applied to
 
-This error path can be reached when a watched line changes state while
-its GPIO chip is being removed. The state-change path may decide to
-emit a notification while the chip is still present, but before
-gpio_desc_to_lineinfo() enters its own SRCU read-side critical section,
-gpiochip_remove() may clear gdev->chip. The newly acquired chip guard
-then observes a NULL chip and gpio_desc_to_lineinfo() returns -ENODEV.
-Driver unbind, hot-unplug, or device-tree overlay removal can create
-this race with line request, release, or configuration changes.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
 
-At this point lineinfo_changed_notify() drops the file reference and
-returns, but it neither frees the newly allocated notification context
-nor queues the work that normally takes ownership of and frees it.
+Thanks!
 
-Free the context before returning to avoid leaking it whenever the race 
-is hit.
+[1/1] ASoC: SOF: Intel: hda: Fix NULL deref in hw_params and hw_free
+      https://git.kernel.org/broonie/sound/c/4c30a6661e53
 
-Fixes: 1feb5d39b05a ("gpio: cdev: fix kernel stack leak to user-space in error path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Haocheng Yu <l1za0.sec@gmail.com>
----
- drivers/gpio/gpiolib-cdev.c | 1 +
- 1 file changed, 1 insertion(+)
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
-index 5d53bfcdf726..1146198415f8 100644
---- a/drivers/gpio/gpiolib-cdev.c
-+++ b/drivers/gpio/gpiolib-cdev.c
-@@ -2535,6 +2535,7 @@ static int lineinfo_changed_notify(struct notifier_block *nb,
- 	ret = gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
- 	if (ret) {
- 		fput(fp);
-+		kfree(ctx);
- 		return NOTIFY_DONE;
- 	}
- 
--- 
-2.43.0
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
