@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795624709;
-	b=LoZLXjr/Q/mYQL6EjoqUdx4m2Auio/tQnW3z7W29W3d3+0fXd/RZoCOq6/dOuPfQb0mE
-	 xdwas50t2ZUjGRvQIBMuSjt9Vq9QEnrOws8wvvzgS9PtGIPvkB69V7xwYcFe9RpVCEhpS
-	 KdPomx2n2YScqBHpKI0SM8adUwW+xtfTmAvUY7sNc/2Oupq0QLuWuMTEtEXuqnzczt+qi
-	 0ijDK3aI2NmUY9Lp05bYL2QvgVAAt336FKwndteiNoPJqANA9J3L/V2I0j8DSvTpRTlhU
-	 UPm+BWsaiQ/n5ycRNocnvXj/sXbJmi+oMRWP6LgXt2FfeIrZudvGLqPnaBRqd+XdKTQ==
+	b=yiXMXFtX1KUyi6q8IOj6Fd4QdztLbfPJgXIphKW0xyIgXGfnq4JTekLfRKxRqHcFmI3K
+	 kkYloOfLZgL8EcoqDkj6fPJvaCaNMFDdhCJCQzjeBiqGp3zADVgD82b7tweWZWNxTkgQK
+	 mUV5sp8RVaiL9kYnDvLnaQkzAFGxAxDf4O0YmBjVHWyVsOlbXIIZGO1GE4un2R58TdQic
+	 xHMPfTSC5f29G8YuMbQpenwGdWRA9ulOysw2foWHmArp8BYePJiAeevZQBkEP11oKGAFR
+	 U2abS1mmzum0S2L/QaxSs1gPsPZUk+kktKsKLA0hxgM5nlmxqsgayxIOQLfaWN6Pqug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795624709;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=j6H1Wsa6fvuonAX8PxIpDtjvY3seVVvgqRGJnBVNAFU=;
-	b=08Lv1gM7/siOSXOkRbVPd0WN+6w+0CY1NwTsEFocAN4bnCaZuwBSVDJQ7TJkgK0IJL0R
-	 SJ6b4OoSJsJPXDIthx/kspZAOYkg8JxCgn+aWjFytnRgOusK3PLnVAmElNZKqQLa3gXHQ
-	 4LqIPIBRE9msPrjO1Eikik4aVWhweGZw9nRoC3f+B7UDewgJenRfgGFFXn0ii4sAm7sSm
-	 wS7+hk0XJw4Nfj89jtKFL3rET4XNLQbtESteizA34OLdktVOMc2cXo0o7KKrA9Jp7gO4z
-	 jVbeK3qvVaVJ1flqWkigH9weL9eJdRdja9vLUkUBKUFxwW1pHJiDN+YlmeS0Aymw+Eg==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=hoyaycmQx7cwOUl+8YWMOoo8o69elLZx0gwnEFUIEy0=;
+	b=FAbYgP8GcznLQhDycST31SCt0CWXKGlxkONtI135csKKwTDn0m6HOmJDAy5JLmByV4li
+	 6kFyIDMi4OIKxle9gl++X2AHDedxPAgWSJ3KesRsYCo8S7IPoxy/k7FSsAL3ZCdVjniff
+	 tZWlbTN2Tah2qELIpi0eO7bphjO2B0uKE8f2ikKpnm4p44MGvsRz/5pDLJGRrrw6HNfSn
+	 CWrZv7iKU1JqbRIVKAJv436brAfg2sRKwj3gjgifWXCXrsaF4RC2hQ/U53Pk99f3vspGE
+	 tlWir5jQKAPyFEgSytkk3/eGOiwuuyB46yf/lQHYaixrI8i4s4ovtrDSAqTGMpEq23w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LrxFNI0K;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="fDIpZI/E";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7439606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:38:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C35B3606A33E;
+	Wed, 25 Nov 2026 16:38:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LrxFNI0K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F08D21F000D0;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fDIpZI/E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 224991F000C6;
 	Wed, 25 Nov 2026 16:38:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795624709;
-	bh=j6H1Wsa6fvuonAX8PxIpDtjvY3seVVvgqRGJnBVNAFU=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795624709;
+	bh=hoyaycmQx7cwOUl+8YWMOoo8o69elLZx0gwnEFUIEy0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LrxFNI0KnI2ZBcI/HP29B9MWXm0lRecwQgbLhd3R9P6M3Y8NEX72NzAV8d1ZIMe/O
-	 b4y+YCi4STz1bqbNmdQ6jD91F+isLbKqtF9Q/VpzwUGLpgCwNdPq0HSVl2RxrFVxYZ
-	 vp7WkVVfSOSAXjZUOZhLaZyqhzncptDhWV3G8hldc95CjtdMB+c1uBLi8KTWmFc+j+
-	 JiXiKvjut9rG6ZwtPCmPNlggAoq2ZEOK2WuXoe/LVjGJIvIMnqoS8kwf8aNWV/GsiG
-	 mrpx6M+cb/394w0EvH2htzEZx4B2WZILjGqP5scmvIAwOzX5RSt+Uut2kSoq9NceaB
-	 ytMu1BTzK79tw==
-From: Sasha Levin <sashal@kernel.org>
+	b=fDIpZI/Ee0ZEUUoUCvjlQjZuV1AeKXoT7OXnoVuBzHCws0yVhOZ67qVFQLHHMvhaO
+	 SVDJzgmYehjb7UUor5ZfFvwqALzJdGVmUYnqVw0Znpq4j7nC9KZxK7s1Asxg6fYl6F
+	 5wQaWJyM3us81/ghnV3dUqDiKQy79hPZDxsPIXZk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/4] cpufreq: Reuse cpufreq_driver_resolve_freq() in __cpufreq_driver_target()
-Date: Wed, 25 Nov 2026 11:38:23 -0500
-Message-ID: <20261125163734.823203-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125163734.823203-1-sashal@kernel.org>
-References: <2026112528-unscrew-recall-9dd7@gregkh>
- <20261125163734.823203-1-sashal@kernel.org>
+Subject: [PATCH 6.12 283/816] gpiolib: of: return -ENOENT from of_gpio_count() stub
+Date: Wed, 25 Nov 2026 15:30:31 +0100
+Message-ID: <20261125143855.758504005@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,109 +65,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Viresh Kumar <viresh.kumar@linaro.org>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit f9ccdec24d91ffddf1c6f4173b0e191fc08c7d14 ]
+------------------
 
-__cpufreq_driver_target() open codes cpufreq_driver_resolve_freq(), lets
-make the former reuse the later.
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-Separate out __resolve_freq() to accept relation as well as an argument
-and use it at both the locations.
+[ Upstream commit e20e4b8cda2b4d7dd32dbd2c0875a15d92545f04 ]
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Stable-dep-of: 166207cac451 ("cpufreq: Cache post-resolution target frequency in __resolve_freq()")
+gpiod_count() and its firmware backends are expected to return either a
+positive number of GPIOs or a negative error code (-ENOENT) when no
+GPIOs are assigned. However, the !CONFIG_OF_GPIO stub for
+of_gpio_count() returns 0 instead of -ENOENT. This causes gpiod_count()
+to skip the platform_gpio_count() fallback (which triggers when
+count < 0) and erroneously return 0 to callers.
+
+Change the stub to return -ENOENT to match the real of_gpio_count()
+implementation and the other error-returning stubs in gpiolib-of.h.
+
+Fixes: f626d6dfb709 ("gpio: of: Break out OF-only code")
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Link: https://patch.msgid.link/20261105-b4-gpiolib-free-v3-3-bb47ad58642d@gmail.com
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/cpufreq/cpufreq.c | 42 ++++++++++++++++++++-------------------
- 1 file changed, 22 insertions(+), 20 deletions(-)
+ drivers/gpio/gpiolib-of.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index 69b7cd1146bbb..20df0efcfdc59 100644
---- a/drivers/cpufreq/cpufreq.c
-+++ b/drivers/cpufreq/cpufreq.c
-@@ -529,19 +529,8 @@ void cpufreq_disable_fast_switch(struct cpufreq_policy *policy)
- }
- EXPORT_SYMBOL_GPL(cpufreq_disable_fast_switch);
- 
--/**
-- * cpufreq_driver_resolve_freq - Map a target frequency to a driver-supported
-- * one.
-- * @policy: associated policy to interrogate
-- * @target_freq: target frequency to resolve.
-- *
-- * The target to driver frequency mapping is cached in the policy.
-- *
-- * Return: Lowest driver-supported frequency greater than or equal to the
-- * given target_freq, subject to policy (min/max) and driver limitations.
-- */
--unsigned int cpufreq_driver_resolve_freq(struct cpufreq_policy *policy,
--					 unsigned int target_freq)
-+static unsigned int __resolve_freq(struct cpufreq_policy *policy,
-+		unsigned int target_freq, unsigned int relation)
+diff --git a/drivers/gpio/gpiolib-of.h b/drivers/gpio/gpiolib-of.h
+index 16d6ac8cb156c..a90fd075d9569 100644
+--- a/drivers/gpio/gpiolib-of.h
++++ b/drivers/gpio/gpiolib-of.h
+@@ -36,7 +36,7 @@ static inline void of_gpiochip_remove(struct gpio_chip *gc) { }
+ static inline int of_gpio_count(const struct fwnode_handle *fwnode,
+ 				const char *con_id)
  {
- 	target_freq = clamp_val(target_freq, policy->min, policy->max);
- 	policy->cached_target_freq = target_freq;
-@@ -550,7 +539,7 @@ unsigned int cpufreq_driver_resolve_freq(struct cpufreq_policy *policy,
- 		unsigned int idx;
- 
- 		idx = cpufreq_frequency_table_target(policy, target_freq,
--						     CPUFREQ_RELATION_L);
-+						     relation);
- 		policy->cached_resolved_idx = idx;
- 		return policy->freq_table[idx].frequency;
- 	}
-@@ -560,6 +549,23 @@ unsigned int cpufreq_driver_resolve_freq(struct cpufreq_policy *policy,
- 
- 	return target_freq;
+-	return 0;
++	return -ENOENT;
  }
-+
-+/**
-+ * cpufreq_driver_resolve_freq - Map a target frequency to a driver-supported
-+ * one.
-+ * @policy: associated policy to interrogate
-+ * @target_freq: target frequency to resolve.
-+ *
-+ * The target to driver frequency mapping is cached in the policy.
-+ *
-+ * Return: Lowest driver-supported frequency greater than or equal to the
-+ * given target_freq, subject to policy (min/max) and driver limitations.
-+ */
-+unsigned int cpufreq_driver_resolve_freq(struct cpufreq_policy *policy,
-+					 unsigned int target_freq)
-+{
-+	return __resolve_freq(policy, target_freq, CPUFREQ_RELATION_L);
-+}
- EXPORT_SYMBOL_GPL(cpufreq_driver_resolve_freq);
- 
- unsigned int cpufreq_policy_transition_delay_us(struct cpufreq_policy *policy)
-@@ -2257,13 +2263,11 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
- 			    unsigned int relation)
- {
- 	unsigned int old_target_freq = target_freq;
--	int index;
- 
- 	if (cpufreq_disabled())
- 		return -ENODEV;
- 
--	/* Make sure that target_freq is within supported range */
--	target_freq = clamp_val(target_freq, policy->min, policy->max);
-+	target_freq = __resolve_freq(policy, target_freq, relation);
- 
- 	pr_debug("target for CPU %u: %u kHz, relation %u, requested %u kHz\n",
- 		 policy->cpu, target_freq, relation, old_target_freq);
-@@ -2287,9 +2291,7 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
- 	if (!cpufreq_driver->target_index)
- 		return -EINVAL;
- 
--	index = cpufreq_frequency_table_target(policy, target_freq, relation);
--
--	return __target_index(policy, index);
-+	return __target_index(policy, policy->cached_resolved_idx);
- }
- EXPORT_SYMBOL_GPL(__cpufreq_driver_target);
+ #endif /* CONFIG_OF_GPIO */
  
 -- 
 2.53.0
+
+
 
