@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795622872;
-	b=dxvbZnRfN7ensy/+jnlTCSv5nmWHXZW+V7CIAQdHUoGTK/n6ak8mZ6WvaVE/t6VR9eIU
-	 o9D5Lkatj3Ev+Mkcynlerkst6iOMjPXB6zRkk3ka9pZbFOZiIspVtvwKW+eNt82IaQGTe
-	 SdH7pAvuOf14Ep+IQr9cg194pquGVlT2nKXM7gyxnkbpU8vmfzWJHJh0xamz08CYGrm41
-	 WYW3+RDuML917fRCXhbjvW48WT2PfnPgNILbyYrERkf1Ym7F65AetLGN0AhuPKmBbH9wj
-	 Q4KldchG8MuRxWr7Nh8nfZLloA7ys3YZH8RH+K+G1A6ftK0zderBuTNpKnlZp5+qBog==
+	t=1795622874;
+	b=a57Kl6NUylT0BF/8wN2NDSECUw+3odAhlY35QbNWSuqLLrIJUC8BR0zC+zMV6txCmytS
+	 vUr7U4wBtTDiGJKPD+MQCOmk1/XQlFPd1ozdPw3jKH4YaCyskEYZReauFbu873sdD+7lp
+	 5OcSObq76GITm2oMIL6dKFQZSlcIYgbZrdqarFbQgym3bXsgis0vKYYr1YqNx6y9rqubK
+	 FqKMEJuVpYd8BgiNqyXkMg0JPUtuLUp8/x5C2waAFNwLt75aoOiplKlW52qBxjVbIpQie
+	 YDbp2Pm0R1PN5iZ72xvXbqkTL5WuHFMPWlU1QS6BTZmGnxOR5qtEG0eAs/7Y6l60Qow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622872;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622874;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=edwjgHEs/f/PNXhvTOTJ+KqvpGk2IfreeUNTD8ATHnc=;
-	b=fXrLksD3Qh7ELk0rkNrsTiNz5Kzqhl+7jn3lx68WTi9vsceRPvhjNUD37+OMcF4gKC3y
-	 ZPj5TxvQKbEU2vZA2q58DDCDWjuVIMg1CIfmeWFM87yUC7HFFc6P/vDdfcg2CtEuw442x
-	 0PHrZ88YDfD5+SjyTAt1f/kRfXsGZT3LQISZk+V8MCWV1IzrW8vcvOETj3IDfdZkrb2Ot
-	 m6iNFsmTHYUDcC8mhq8ykn8jeggPacDjTLa7E+T44p38y8/vO46UD8lMOnGm+r5ESfWpV
-	 kKJJbdzh32j4QQYqY/7Rp2MsRhdfxzxXy25qB0FwbkvoC6uxwYkS6bNUCyBOcVdOqzQ==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=rUT+0v+86nCRGat1cIClSBX5I+yjt9qb416W/oIuyFQ=;
+	b=IMuN22Wq9lP2AVL59sZHBLPg8hJTPtogrSoGwY5tQt2kfHtQBJR+kspBjMA7NZK7bwaW
+	 xdMuVTTDC2MYogsVOQ8tZf+2t85WQpqqFdAVikS4VvbLaGe1a+LbmtsVnbg8ef4xwdyO6
+	 H36Pyu1kEtuY7HmxNQK+9XHQjufqmPmRxGdgJ0+52I/ulRIBP75HvpNb9AWam92uUrN4H
+	 MWv0oN5a1klxUkNsHzrbgY6z8VVs7tiOmdZo1j+37vYE1WWRT32dqjcOu/1ELEjOKxgfy
+	 eGoMqIZiEpidDX6zVtgFhwLX2vkbaoUh89vY0CeOhcZgVx46k66nHTtp7rx/mgt8C1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nVXJ7fGQ;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=poG7BQuK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339C4606A327
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:07:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F4DF606A31E;
+	Wed, 25 Nov 2026 16:07:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nVXJ7fGQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BA9F1F000C6;
-	Wed, 25 Nov 2026 16:07:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795622872;
-	bh=edwjgHEs/f/PNXhvTOTJ+KqvpGk2IfreeUNTD8ATHnc=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=poG7BQuK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83FE21F000C6;
+	Wed, 25 Nov 2026 16:07:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795622874;
+	bh=rUT+0v+86nCRGat1cIClSBX5I+yjt9qb416W/oIuyFQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nVXJ7fGQKDsRv2DjQD0ohM4YaiQFKgVbhR+ZkPd9CN6Dp1kKfw+x+VyOXVUHgt9hm
-	 MmuywLeoSyKDT5m0bvHfkjOj3eBjtIudUTWdaG6SnOUqDV6xsJ0547mOz/pxG/lGPt
-	 wQfbOLE1pQ/jERTED1Su2eb+GzkSbArwltT88BuxLe1Xu/DEI+/ATy7ezHbAOTGawU
-	 IQHeDO9QuBq46EKfzopR5qJ0u4uS+NfLsVb/fJrgnkYi0x7RgeJcQ3delISPJJtycv
-	 pnAvWi4mdjEKaS6uBOwqUJMMIplaD3em91Do9FrW3je4gvKNKC82bUD+FcYAIr4GdO
-	 5KrRctECDZmgQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=poG7BQuKAOd+xJ1J3rWJQAdBlFO95fp5cd93ReOSAJNNzEqv4Ywha5iBjQEuIAy7C
+	 /KQdTi4cwguVQ2/16kQLWH7xj0Xb2Wyd580SnN0I7Nw/TuoGzQW8O+qH4+3nyDduut
+	 mxIhZ/y8spKmeFK+zzhmIFGPuG5Xr/bqC0cKKcvI=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Zhao Li <enderaoelyther@gmail.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] Bluetooth: L2CAP: Only accept LE responses to outstanding requests
-Date: Wed, 25 Nov 2026 11:07:49 -0500
-Message-ID: <20261125160655.662669-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112520-anything-mahogany-763c@gregkh>
-References: <2026112520-anything-mahogany-763c@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Chuck Lever <cel@kernel.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: [PATCH 6.18 676/990] libfs: make i_rwsem the lock of the offset tree
+Date: Wed, 25 Nov 2026 15:34:03 +0100
+Message-ID: <20261125143837.920690139@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,207 +63,182 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhao Li <enderaoelyther@gmail.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit f50b32aa233d4687af2d241ddcb572da969e8989 ]
+------------------
 
-The LE and ECRED response handlers match channels by identifier without
-checking whether they sent the request. An incoming channel stores the
-identifier chosen by the peer, so an unsolicited response can bypass
-deferred setup, delete an established channel, or leave an unaccepted
-socket and channel allocated after l2cap_chan_del().
+From: Christian Brauner <brauner@kernel.org>
 
-Extend the BR/EDR lookup from commit a518b9a9ef6e ("Bluetooth: L2CAP:
-Only accept connection responses to outstanding requests") to LE.
-Require the matching connect-request flag and add a reconfigure-request
-flag. Check reconfigure identifiers under the channel lock, since
-BT_RCVMTU can replace a request without the connection lock. Match all
-members of a rejected ECRED request, which share one identifier.
+commit e7d73cef9726bea49de97ae1fd76405df4050a75 upstream.
 
-A reconfigure request can outlive close(). Complete it even in
-BT_DISCONN, and call the close callback after deletion to release an
-orphaned socket. Otherwise deletion cancels the timer and removes the
-channel before the disconnect response or the channel timeout can close
-it.
+The offset tree of a directory is only changed with the directory's
+i_rwsem held exclusive and offset_readdir() walks it with i_rwsem held
+shared. But the maple tree doesn't know that. It is set up with its
+internal spinlock, which every mtree_*() helper takes, and readdir takes
+rcu_read_lock() around each lookup.
 
-AI assistance was used.
+The next patch makes readdir keep one ma_state across dir_emit(), which
+can sleep. That is safe because no writer can run while readdir holds
+i_rwsem. But the maple tree only allows keeping a ma_state across a
+sleep if it is protected by the tree's lock. A reader that relies on
+rcu_read_lock() has to mas_pause() before it drops it, and that means a
+walk from the root for every entry again.
 
-Fixes: f1496dee9cbd ("Bluetooth: Add initial code for LE L2CAP Connect Request")
-Fixes: 71fb419724fa ("Bluetooth: Fix handling of L2CAP Command Reject over LE")
-Fixes: 15f02b910562 ("Bluetooth: L2CAP: Add initial code for Enhanced Credit Based Mode")
-Cc: <stable@vger.kernel.org> # 5.7.x: a518b9a9ef6e: Bluetooth: L2CAP: Only accept connection responses to outstanding requests
-Cc: <stable@vger.kernel.org> # 5.7.x
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-[ sashal: Dropped the lockdep_assert_held() and __must_hold() annotations, since this tree lacks them; the l2cap_le_command_rej() and l2cap_ecred_reconf_rsp() logic is otherwise unchanged. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+So tell the tree what protects it. Initialize it with
+MT_FLAGS_LOCK_EXTERN and the directory's i_rwsem as its lock and switch
+the writers from the mtree_*() helpers to the mas_*() api. They all run
+with i_rwsem held exclusive already. With lockdep enabled the maple tree
+now also checks that every writer holds i_rwsem exclusive.
+
+Nothing can reach the offset tree anymore when the directory inode is
+destroyed. So clear the external lock with mt_on_stack() and destroy the
+tree with __mt_destroy() instead of taking i_rwsem in ->destroy_inode().
+
+Cc: stable@vger.kernel.org # v6.14+
+Link: https://patch.msgid.link/20261101-work-libfs-offset_readdir-v2-1-c621125b56d1@kernel.org
+Reviewed-by: Chuck Lever <cel@kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- include/net/bluetooth/l2cap.h |  1 +
- net/bluetooth/l2cap_core.c    | 78 +++++++++++++++++------------------
- 2 files changed, 40 insertions(+), 39 deletions(-)
+ fs/libfs.c         |   46 +++++++++++++++++++++++++++++-----------------
+ include/linux/fs.h |    2 +-
+ mm/shmem.c         |    2 +-
+ 3 files changed, 31 insertions(+), 19 deletions(-)
 
-diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
-index 84f557d354cae..b864d50bb5e59 100644
---- a/include/net/bluetooth/l2cap.h
-+++ b/include/net/bluetooth/l2cap.h
-@@ -749,6 +749,7 @@ enum {
- 	FLAG_DEFER_SETUP,
- 	FLAG_LE_CONN_REQ_SENT,
- 	FLAG_ECRED_CONN_REQ_SENT,
-+	FLAG_ECRED_RECONF_REQ_SENT,
- 	FLAG_PENDING_SECURITY,
- 	FLAG_HOLD_HCI_CONN,
- 	FLAG_DEL,
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index fdf92a3d57455..7ac5dd0fb6fe4 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -139,23 +139,12 @@ static struct l2cap_chan *l2cap_get_chan_by_dcid(struct l2cap_conn *conn,
- 	return c;
+--- a/fs/libfs.c
++++ b/fs/libfs.c
+@@ -264,17 +264,18 @@ static long dentry2offset(struct dentry
+ 	return (long)dentry->d_fsdata;
  }
  
--static struct l2cap_chan *__l2cap_get_chan_by_ident(struct l2cap_conn *conn,
--						    u8 ident)
--{
--	struct l2cap_chan *c;
+-static struct lock_class_key simple_offset_lock_class;
 -
--	list_for_each_entry(c, &conn->chan_l, list) {
--		if (c->ident == ident)
--			return c;
--	}
--	return NULL;
--}
--
- /* Our connection request has been sent and is still outstanding */
- static bool l2cap_chan_connect_pending(struct l2cap_chan *chan)
+ /**
+  * simple_offset_init - initialize an offset_ctx
+  * @octx: directory offset map to be initialized
++ * @dir: the directory @octx belongs to
+  *
++ * The directory's i_rwsem is the lock of the offset map. Writers hold it
++ * exclusive, offset_readdir() holds it shared.
+  */
+-void simple_offset_init(struct offset_ctx *octx)
++void simple_offset_init(struct offset_ctx *octx, struct inode *dir)
  {
- 	return chan->state == BT_CONNECT &&
--	       test_bit(CONF_CONNECT_PEND, &chan->conf_state);
-+	       (test_bit(CONF_CONNECT_PEND, &chan->conf_state) ||
-+		test_bit(FLAG_LE_CONN_REQ_SENT, &chan->flags));
+-	mt_init_flags(&octx->mt, MT_FLAGS_ALLOC_RANGE);
+-	lockdep_set_class(&octx->mt.ma_lock, &simple_offset_lock_class);
++	mt_init_flags(&octx->mt, MT_FLAGS_ALLOC_RANGE | MT_FLAGS_LOCK_EXTERN);
++	mt_set_external_lock(&octx->mt, &dir->i_rwsem);
+ 	octx->next_offset = DIR_OFFSET_MIN;
  }
  
- /* Other channels may hold the same ident for a response they still have
-@@ -167,7 +156,7 @@ static struct l2cap_chan *__l2cap_get_connect_chan_by_ident(struct l2cap_conn *c
- 	struct l2cap_chan *c;
+@@ -297,12 +298,13 @@ int simple_offset_add(struct offset_ctx
+ 	unsigned long offset;
+ 	int ret;
  
- 	list_for_each_entry(c, &conn->chan_l, list) {
--		if (c->ident == ident && l2cap_chan_connect_pending(c))
-+		if (l2cap_chan_connect_pending(c) && c->ident == ident)
- 			return c;
- 	}
- 	return NULL;
-@@ -4964,7 +4953,7 @@ static int l2cap_le_connect_rsp(struct l2cap_conn *conn,
- 	BT_DBG("dcid 0x%4.4x mtu %u mps %u credits %u result 0x%2.2x",
- 	       dcid, mtu, mps, credits, result);
- 
--	chan = __l2cap_get_chan_by_ident(conn, cmd->ident);
-+	chan = __l2cap_get_connect_chan_by_ident(conn, cmd->ident);
- 	if (!chan)
- 		return -EBADSLT;
- 
-@@ -5501,9 +5490,10 @@ static inline int l2cap_ecred_conn_rsp(struct l2cap_conn *conn,
- 		struct l2cap_chan *orig;
- 		u16 dcid;
- 
--		if (chan->ident != cmd->ident ||
-+		if (chan->state != BT_CONNECT ||
- 		    chan->mode != L2CAP_MODE_EXT_FLOWCTL ||
--		    chan->state == BT_CONNECTED)
-+		    !test_bit(FLAG_ECRED_CONN_REQ_SENT, &chan->flags) ||
-+		    chan->ident != cmd->ident)
- 			continue;
- 
- 		l2cap_chan_hold(chan);
-@@ -5718,23 +5708,24 @@ static inline int l2cap_ecred_reconf_rsp(struct l2cap_conn *conn,
- 
- 	BT_DBG("result 0x%4.4x", result);
- 
--	if (!result) {
--		list_for_each_entry(chan, &conn->chan_l, list) {
--			if (chan->ident == cmd->ident)
--				chan->ident = 0;
--		}
--		return 0;
--	}
--
- 	list_for_each_entry_safe(chan, tmp, &conn->chan_l, list) {
--		if (chan->ident != cmd->ident)
-+		/* Reconfiguration updates ident with only chan->lock held. */
-+		if (data_race(READ_ONCE(chan->ident)) != cmd->ident)
- 			continue;
- 
- 		if (!l2cap_chan_hold_unless_zero(chan))
- 			continue;
- 		l2cap_chan_lock(chan);
- 
--		l2cap_chan_del(chan, ECONNRESET);
-+		if (chan->ident == cmd->ident &&
-+		    test_and_clear_bit(FLAG_ECRED_RECONF_REQ_SENT, &chan->flags)) {
-+			if (result) {
-+				l2cap_chan_del(chan, ECONNRESET);
-+				chan->ops->close(chan);
-+			} else {
-+				chan->ident = 0;
-+			}
-+		}
- 
- 		l2cap_chan_unlock(chan);
- 		l2cap_chan_put(chan);
-@@ -5748,25 +5739,33 @@ static inline int l2cap_le_command_rej(struct l2cap_conn *conn,
- 				       u8 *data)
- {
- 	struct l2cap_cmd_rej_unk *rej = (struct l2cap_cmd_rej_unk *) data;
--	struct l2cap_chan *chan;
-+	struct l2cap_chan *chan, *tmp;
- 
- 	if (cmd_len < sizeof(*rej))
- 		return -EPROTO;
- 
--	chan = __l2cap_get_chan_by_ident(conn, cmd->ident);
--	if (!chan)
--		goto done;
-+	list_for_each_entry_safe(chan, tmp, &conn->chan_l, list) {
-+		/* Reconfiguration updates ident with only chan->lock held. */
-+		if (data_race(READ_ONCE(chan->ident)) != cmd->ident)
-+			continue;
- 
--	chan = l2cap_chan_hold_unless_zero(chan);
--	if (!chan)
--		goto done;
-+		if (!l2cap_chan_hold_unless_zero(chan))
-+			continue;
- 
--	l2cap_chan_lock(chan);
--	l2cap_chan_del(chan, ECONNREFUSED);
--	l2cap_chan_unlock(chan);
--	l2cap_chan_put(chan);
-+		l2cap_chan_lock(chan);
-+		if (chan->ident == cmd->ident &&
-+		    ((chan->state == BT_CONNECT &&
-+		      (test_bit(FLAG_LE_CONN_REQ_SENT, &chan->flags) ||
-+		       test_bit(FLAG_ECRED_CONN_REQ_SENT, &chan->flags))) ||
-+		     test_bit(FLAG_ECRED_RECONF_REQ_SENT, &chan->flags))) {
-+			l2cap_chan_del(chan, ECONNREFUSED);
-+			chan->ops->close(chan);
-+		}
++	MA_STATE(mas, &octx->mt, 0, 0);
 +
-+		l2cap_chan_unlock(chan);
-+		l2cap_chan_put(chan);
-+	}
+ 	if (dentry2offset(dentry) != 0)
+ 		return -EBUSY;
  
--done:
- 	return 0;
+-	ret = mtree_alloc_cyclic(&octx->mt, &offset, dentry, DIR_OFFSET_MIN,
+-				 DIR_OFFSET_MAX, &octx->next_offset,
+-				 GFP_KERNEL);
++	ret = mas_alloc_cyclic(&mas, &offset, dentry, DIR_OFFSET_MIN,
++			       DIR_OFFSET_MAX, &octx->next_offset, GFP_KERNEL);
+ 	if (unlikely(ret < 0))
+ 		return ret == -EBUSY ? -ENOSPC : ret;
+ 
+@@ -315,7 +317,9 @@ static int simple_offset_replace(struct
+ {
+ 	int ret;
+ 
+-	ret = mtree_store(&octx->mt, offset, dentry, GFP_KERNEL);
++	MA_STATE(mas, &octx->mt, offset, offset);
++
++	ret = mas_store_gfp(&mas, dentry, GFP_KERNEL);
+ 	if (ret)
+ 		return ret;
+ 	offset_set(dentry, offset);
+@@ -330,13 +334,14 @@ static int simple_offset_replace(struct
+  */
+ void simple_offset_remove(struct offset_ctx *octx, struct dentry *dentry)
+ {
+-	long offset;
++	long offset = dentry2offset(dentry);
++
++	MA_STATE(mas, &octx->mt, offset, offset);
+ 
+-	offset = dentry2offset(dentry);
+ 	if (offset == 0)
+ 		return;
+ 
+-	mtree_erase(&octx->mt, offset);
++	mas_erase(&mas);
+ 	offset_set(dentry, 0);
  }
  
-@@ -7628,6 +7627,7 @@ static void l2cap_ecred_reconfigure(struct l2cap_chan *chan)
- 	pdu->scid[0] = cpu_to_le16(chan->scid);
+@@ -394,16 +399,20 @@ int simple_offset_rename_exchange(struct
+ 	long new_index = dentry2offset(new_dentry);
+ 	int ret;
  
- 	chan->ident = l2cap_get_ident(conn);
-+	set_bit(FLAG_ECRED_RECONF_REQ_SENT, &chan->flags);
++	MA_STATE(old_mas, &old_ctx->mt, old_index, old_index);
++	MA_STATE(new_mas, &new_ctx->mt, new_index, new_index);
++
+ 	if (WARN_ON(!old_index || !new_index))
+ 		return -EINVAL;
  
- 	l2cap_send_cmd(conn, chan->ident, L2CAP_ECRED_RECONF_REQ,
- 		       struct_size(pdu, scid, 1), pdu);
--- 
-2.53.0
+-	ret = mtree_store(&new_ctx->mt, new_index, old_dentry, GFP_KERNEL);
++	ret = mas_store_gfp(&new_mas, old_dentry, GFP_KERNEL);
+ 	if (WARN_ON(ret))
+ 		return ret;
+ 
+-	ret = mtree_store(&old_ctx->mt, old_index, new_dentry, GFP_KERNEL);
++	ret = mas_store_gfp(&old_mas, new_dentry, GFP_KERNEL);
+ 	if (WARN_ON(ret)) {
+-		mtree_store(&new_ctx->mt, new_index, new_dentry, GFP_KERNEL);
++		mas_set(&new_mas, new_index);
++		mas_store_gfp(&new_mas, new_dentry, GFP_KERNEL);
+ 		return ret;
+ 	}
+ 
+@@ -418,11 +427,14 @@ int simple_offset_rename_exchange(struct
+  * @octx: directory offset ctx that is about to be destroyed
+  *
+  * During fs teardown (eg. umount), a directory's offset map might still
+- * contain entries. xa_destroy() cleans out anything that remains.
++ * contain entries. __mt_destroy() cleans out anything that remains.
++ * Nothing can reach the map of a directory that is being destroyed, so
++ * this runs without the directory's i_rwsem.
+  */
+ void simple_offset_destroy(struct offset_ctx *octx)
+ {
+-	mtree_destroy(&octx->mt);
++	mt_on_stack(octx->mt);
++	__mt_destroy(&octx->mt);
+ }
+ 
+ /**
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -3781,7 +3781,7 @@ struct offset_ctx {
+ 	unsigned long		next_offset;
+ };
+ 
+-void simple_offset_init(struct offset_ctx *octx);
++void simple_offset_init(struct offset_ctx *octx, struct inode *dir);
+ int simple_offset_add(struct offset_ctx *octx, struct dentry *dentry);
+ void simple_offset_remove(struct offset_ctx *octx, struct dentry *dentry);
+ void simple_offset_rename(struct inode *old_dir, struct dentry *old_dentry,
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -3183,7 +3183,7 @@ static struct inode *__shmem_get_inode(s
+ 		inode->i_size = 2 * BOGO_DIRENT_SIZE;
+ 		inode->i_op = &shmem_dir_inode_operations;
+ 		inode->i_fop = &simple_offset_dir_operations;
+-		simple_offset_init(shmem_get_offset_ctx(inode));
++		simple_offset_init(shmem_get_offset_ctx(inode), inode);
+ 		break;
+ 	case S_IFLNK:
+ 		/*
+
 
