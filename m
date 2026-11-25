@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606323;
-	b=48ny1eY7PerRSbU+Meei/VQZCg354QCvF+Znv17w8vt49KIo6dgpFKsuuO0I1MhLFhrO
-	 DbPUqLNkepC0krER+m1CPJjk6HSdI2NmAwpVPCjhF1UkXuXXQgsQOK3Tfvsr7KF+dZVaX
-	 9xhmTmlJWFC+Fkygf3af8e8ymwemxwfiTL7P78u7cSDqPEGJrK4UAY+1EbLhWMWpNLZiR
-	 ugeDSbj9QtPOVvt69vPXvBMmueA/LCsfLyD8yxA6E1F0iHAZ9hUmIGG6b6skIsCipKyq5
-	 0gtTwyL/ze09tZjdFf0OMFkS9A5i3XFp8IpErVhMmoznGayANJ4aQkNLerDejkJ52HQ==
+	t=1795606326;
+	b=cs9QIJWcmTfBOwr0FhRV01xSr8O+VxdD/Y3WlT+WyYhgHXk954Gwt6BhWNMeJkcvekq+
+	 XqGrdqngLasnmEeU4kGWIR4UuXnNsM+vAkAPR/t/v+Tg9eXyAYS9d8JVRXI2v6E4caa6l
+	 CasRhmkVaasa72Y0m0N9diFW4EfptdHutJChA4fVqzNJSNdbRwnHz1qnzeAS6AYfdsAdN
+	 UoTihGHse+9VyC8gaL2w8gMX/tW5zHnu3LeRsI7JmMXyueUyfq5xqMA7VcaikLC1ogmpy
+	 2slqCvHxRAyCEMfWYRF+G7bbDX3CDAs5ynnWGgWMmTuWsKUzha/wXRQQcPbSjRinFrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606323;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606326;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=tAeV3ktciSEV+OAgaTb0EJCJtbQ1g5t5ATtyvCOrjc8=;
-	b=5FfOC044dOmBchQncCY1B77PgCu2YooDMJuT3n60zBuqWS442OBM5gopkMKPuSKUUTxg
-	 V2TfhvE/WaqA2ieHOKBP5ohsZzsvH/vU1LJjFBbnFjgdYXRvGpCgSKnsIBBrfcnHnXZp8
-	 5TM38Y+qPSxSkIrozk9uZwFWPTQbG2eFmtSBElBpdNsiupMd4+/8j0CC2uJhoH3pLEWO6
-	 UlK5s3PKS2x9Nj2Npb0Ro9qV2+5sJBf4KCAihxLl1FFtU9wCNHXNaUS8b0ZTfSZKoTXGe
-	 z/dPQDaiDttaZ+gZZ3pj6VBl5bfH9xrXsIH9JYqW54xoV+4d0reoCujPGjOsS8KoVtA==
+	bh=uK2ZurwbsozA4kPqoVpHr44f8qakx2x9DdtvsV85WLE=;
+	b=rkuxmfFpgHGR7I65Jy0poW8PaBedbrSmX9ZgPfB810RsOqUPxHY476UGlENQiHP2aezg
+	 eJhdA/4VCTkNmOzXovsYGKRIt+pj9zY5Kl8kE7onr6TAuReB1YtGBeTHO7cMFIea7qkOy
+	 F3sn7nEQmDDl3Phj6WYs1CbRshCy8Jb7xWvqQYzuubA9/uVZog8n9bbrOAgvqvzEgVnAY
+	 aqfECdlngZXMyGhcgsYyK68VnswVAWAm45BFiopK12DQHa0eCWMUXiqhwnHesEcLRIHDM
+	 OCViG15iHNuipdbv6fM6/5v8G7aB/OGG+HCQVCxE/PbnHMFneJX0CQx9Xjywzjglm4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=W2Jcb+ka;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jnnjechI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBFDC606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:32:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43165606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:32:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=W2Jcb+ka
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCC201F000D2;
-	Wed, 25 Nov 2026 11:32:01 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jnnjechI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E8B61F000E1;
+	Wed, 25 Nov 2026 11:32:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606322;
-	bh=tAeV3ktciSEV+OAgaTb0EJCJtbQ1g5t5ATtyvCOrjc8=;
+	s=korg; t=1795606325;
+	bh=uK2ZurwbsozA4kPqoVpHr44f8qakx2x9DdtvsV85WLE=;
 	h=Subject:To:Cc:From:Date;
-	b=W2Jcb+katPPMJVa6zKSJbJ/1/iAt6qnNDmIIwU2eL02nPs80jQofWFLPFPMgMvLpd
-	 jF1Mux7on/OJHVMUO/cU3QXivupKV+b2XA6lyrJ9n/ae9KsT/yC84/DjSSM2J+yR0W
-	 G1Vx5pk3aEZ/737XN/A7dh6PwNSrKsvrEJzvc3YU=
-Subject: FAILED: patch "[PATCH] dm: fail a REQ_PREFLUSH bio with data when its preflush fails" failed to apply to 5.15-stable tree
-To: daejun7.park@samsung.com,mpatocka@redhat.com,tj@kernel.org
+	b=jnnjechI4EzY5DXYAnVuJlu0NSpMhuDqAIaf3WqOurKhuRJqdDXgJWhRGpucQpj/k
+	 DuAaHMEGFiDoMjszGbJFi2tGopHO+wa9IJQPJI/nXwWM9N8TqGbETBDvjFnLC2ARJl
+	 rK3E6PEnkTlmpT5J9s99kWDBHMMzouvLm1zDIWmU=
+Subject: FAILED: patch "[PATCH] dm: fix infinite loop in dm_blk_do_report_zones()" failed to apply to 6.6-stable tree
+To: mkbund@amazon.com,dlemoal@kernel.org,mpatocka@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:18:18 +0100
-Message-ID: <2026112517-confetti-saloon-c0b5@gregkh>
+Date: Wed, 25 Nov 2026 12:18:27 +0100
+Message-ID: <2026112527-crate-icy-9c5c@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x e92cd41e8e5ee5616c6c7cd4378661d942f0a7c0
+git cherry-pick -x 648320de920b30ae1730bbf0e8b86c0df0fb490a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112517-confetti-saloon-c0b5@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112527-crate-icy-9c5c@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,45 +79,47 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e92cd41e8e5ee5616c6c7cd4378661d942f0a7c0 Mon Sep 17 00:00:00 2001
-From: Daejun Park <daejun7.park@samsung.com>
-Date: Thu, 12 Nov 2026 10:35:29 +0900
-Subject: [PATCH] dm: fail a REQ_PREFLUSH bio with data when its preflush fails
+From 648320de920b30ae1730bbf0e8b86c0df0fb490a Mon Sep 17 00:00:00 2001
+From: Mark Bundschuh <mkbund@amazon.com>
+Date: Mon, 19 Oct 2026 19:28:19 +0000
+Subject: [PATCH] dm: fix infinite loop in dm_blk_do_report_zones()
 
-For a bio with REQ_PREFLUSH and data, dm core may send an empty flush
-first. If the flush fails, __dm_io_complete() still reissues the bio
-without REQ_PREFLUSH and drops the error. When that write succeeds,
-the XFS log keeps running and fsync() can return 0.
+If the device underlying a zoned target is removed, its capacity is set
+to 0 and blkdev_report_zones() returns 0 without reporting any zones.
+The mapped device keeps its old capacity, so args->zone_idx and
+args->next_sector never advance and dm_blk_do_report_zones() loops
+forever. On non-preemptible kernels this causes soft lockups and RCU
+stalls.
 
-End the bio with the flush error instead of writing the data, as
-blk-mq does.
+The following sequence of commands triggers the hang:
 
-Fixes: 6a8736d10cb4 ("dm: relax ordering of bio-based flush implementation")
+modprobe scsi_debug zbc=managed dev_size_mb=1024 zone_size_mb=64
+udevadm settle
+echo '0 2097152 linear /dev/sda 0' | dmsetup create lin
+echo 1 > /sys/block/sda/device/delete
+blkzone report -o 0 -c 1 /dev/mapper/lin
+
+Fix this by returning -EIO when a target reports no zones. The target
+always maps args->next_sector, so a zero return means the underlying
+device no longer covers that sector.
+
+Fixes: d41003513e61 ("block: rework zone reporting")
 Cc: stable@vger.kernel.org
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Acked-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Mark Bundschuh <mkbund@amazon.com>
 Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index a73355c0125c..38eaae8ac9b4 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -983,7 +983,7 @@ static void __dm_io_complete(struct dm_io *io, bool first_stage)
- 	if (requeued)
- 		return;
+diff --git a/drivers/md/dm-zone.c b/drivers/md/dm-zone.c
+index 35916c6e490e..9ddbb67e97e5 100644
+--- a/drivers/md/dm-zone.c
++++ b/drivers/md/dm-zone.c
+@@ -33,6 +33,8 @@ static int dm_blk_do_report_zones(struct mapped_device *md, struct dm_table *t,
+ 					      nr_zones - args->zone_idx);
+ 		if (ret < 0)
+ 			return ret;
++		if (!ret)
++			return -EIO;
+ 	} while (args->zone_idx < nr_zones &&
+ 		 args->next_sector < get_capacity(md->disk));
  
--	if (unlikely(requeue_flush_with_data)) {
-+	if (unlikely(requeue_flush_with_data) && !io_error) {
- 		/*
- 		 * Preflush done for flush with data, reissue
- 		 * without REQ_PREFLUSH.
-@@ -991,7 +991,7 @@ static void __dm_io_complete(struct dm_io *io, bool first_stage)
- 		bio->bi_opf &= ~REQ_PREFLUSH;
- 		queue_io(md, bio);
- 	} else {
--		/* done with normal IO or empty flush */
-+		/* done with normal IO, empty flush or failed preflush */
- 		if (io_error)
- 			bio->bi_status = io_error;
- 		bio_endio(bio);
 
