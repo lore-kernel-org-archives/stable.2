@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603226;
-	b=nKDRH+qgZ9VCMy77LtF7WgqknBLleslUKvrwohzwxzmTcfIUriDw9vaXQc2zOBdFQMq6
-	 NAvJ1UpMqFQPl10WohoWteyau0Pd4j8WNJfVnysc5mh0uiQb1M5Xa1dEwLY3sHvYKjE5F
-	 xdBSPdYEY00NUrmITlXj8NruIOy0lrVp/kfJc+2n8QE5OdDeILmioxS/3CguXirS47RXE
-	 LrruvOQUGMlcJ9Sn7GBlXSGAlDAoCBnQfYt0ReMZBazJVjIZwHHd0eV0sRhu6N5dEdKKn
-	 N21uwmCfxQChYmngMixtxYGwTNzkhrzbsxASstqIzJ3mBW7ixR4nHtgQK9lJSxuT9yw==
+	t=1795603227;
+	b=ErlB6H5gaVzCxJ4nbWViwVsAbp3c51O6j6o1XzVYPqsy0TOmhXCzJ0eWQgCENYJIRerY
+	 Tgnrs5dCAgZZCvYvQNCns8b54tBBifHt4g7TBMOLwJAKfYMo1LZiL1kh0lAeos74ysppU
+	 xFso9kO8uKn2LLlEJVRLS5+CXLdFktH5s0bCdiq1H5ozetslbpTpytVX7KzbCUjXI4k9c
+	 04lFWnFEXYNiQl5tkIruryWSqnmb+mRdiMPCKfDWeGNFACGSNAA1+PE+hDVBIgj7uWc5x
+	 GV/zFYvmbdFqZxg9A0goPacqckVYgE+fz6kIB6j7+b6h0DqHQ2lFWlLE5qyfzeW/7iA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603226;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603227;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=NZipUcVcHdBknGUjkGG12XLaDn9eCMRayIr3W6ZIRCM=;
-	b=HlErKIXXSFbN3NsyNUF+wSBEG9jTWKNq7IPPQFfNZt2gYvVgc4Ee9XxgkFW9kClwAk39
-	 eULk4oR1BEvmc2oOyC6TE3Etws7mYriOsyXtXUvhsLH7VJo+adoNw/uSt6dZOENrzIZlm
-	 UQ2CT/yc/bVUY7Gf1RtysmpzxDUqUcRLklberN2TGI1wyxCMK0wzSPYJA69ODVq0VhRlp
-	 CbLIMF4SQnz3kfFVo1cuo/J3LtlC6Girq9/NuW0Vo1ILvLfMwE/hWFHv7Osxs74yBo9Mc
-	 zp/ucCwXi5V4HrzRlRQlZdkuVVw+jo1pC2tSaU2J+Ly/mCMFqt9jvxqaC0yTD6ypNhQ==
+	bh=5s0ac+QMelxSd/2e8RO+qxSk0eZ8AkmR2391mVfNhzQ=;
+	b=nVAAcdKZNTcLGyokB64PLNJYVAV0q9tm3xNMn3MoENebCnBafZWGsQrMEpYd3v+Ng/kH
+	 IfWzg7sXBjFKRxmyngqe+knu5szWb+Nq4ZxuRNTlJS+6nwRgBKDkirsH8+jI4RTVjpt9H
+	 qGrsx46w9kcWwIFDk4p/V/GBYx3j6UOwGTkbdqpNpgxAdskwGCiPHiRqJAiu8TYQbDa4F
+	 R2CGspoVkJh1bu7pG9xGkc/ufz6O9DJaGns1nuDVi6JqBcDocnRJYLb2nzXVJZNGCgZMI
+	 GQKnE8IBnnv8vBVkHFe2tsfliVjg0IIb0jJSwDYaVMgFygpSFHQInzOAKVaisOw8H8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=bLKCsdEr;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ikt1OSKQ;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 735EC606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:40:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 735EC606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CAA9606A33D
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:40:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CAA9606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=bLKCsdEr
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so53166525e9.3
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 02:40:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ikt1OSKQ
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso30171315e9.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 02:40:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795603225; x=1796208025; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1795603226; x=1796208026; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NZipUcVcHdBknGUjkGG12XLaDn9eCMRayIr3W6ZIRCM=;
-        b=bLKCsdErWzJ9jYGeHEu6N9jIXtfIdUs81THE41qS9IDVV2RKL4LKXvlfdJOy0KR2c2
-         sDyXgmN1W3x8UKItAcM7NynnFysGUWXA27frAxdheCRHzSdW5w9cdbFi4H4LuHv8RjQ+
-         JTZnbFz2k1UqMJ27XPrnRLBoa43WcPtdxgOa0YdDcoX+zMerwgz+LAzkJcZc5iLd1Xo5
-         Jo89P9a5qjzfrRxGLAHr4Ywq6yy2M6rZCVxwA5G4AkGNWALsnZWS8Y1O/PL615+o3Yr6
-         RprHL2jbp3T7t2wusdqEMrN+E04TAvvXychyP4vTHywdUS5ViQnK/mLgiyEBjdfCJn8S
-         n4Ow==
+        bh=5s0ac+QMelxSd/2e8RO+qxSk0eZ8AkmR2391mVfNhzQ=;
+        b=ikt1OSKQhF0cl+Cfqg2qnmVpv6U6ITZocmbnwaivaif/7jhIK2vhIme81MEPVl2Wwc
+         5nnPTR8GGKlWjH/w5V7xfKJSqwslXHN6CbZO/XdQ3XQQOxVFWzOjCE/Gj7qT2m2q0Nin
+         zbQ7BU9BasLjHigpkASjaca5d1kDJiyEvM4BWC2ASm9Qqy16mplCX0qOgAZLEF2hJdMO
+         MztBAXW94aBB8zGIfCh/ybVoFnBBHF5XReb3f97OQVJ7+XziF/TRgqtvHEHB4clGwHvw
+         WViWZ0keGITC5Y4BK/cOUFtLs4ZEOkGfT2OlO6BCjP+IkqPu7g8fSOOdy/5gZvGTF7Zq
+         ulVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795603225; x=1796208025;
+        d=1e100.net; s=20260707; t=1795603226; x=1796208026;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NZipUcVcHdBknGUjkGG12XLaDn9eCMRayIr3W6ZIRCM=;
-        b=Lp4dEAsngKB4cRmIKrxKlcSavTlw8q0uSawgoNgj1W7ewM5klbKOrm7JJ5eBy4fTvL
-         2IpRL6Zfumb45g3JNQxU9318CRYr9NuY9ipRI/mbL7ehwxOCjIXzX22GfoZ5Ndzo8f7v
-         Jw8Nr0vVInTyK5lfswoUfwxYXVDRUAicAucWE6RCe0vrS+/hl5NkgPDzUjX/KKenLncu
-         MIm8R+wUBMCAZKpFEmvbvymxkcseKD1SS1BW0Xb2dG7oqu1sR2oTbnIJzbNP3LHPxbmq
-         T5CRxZo/qK7ZjGcFYUpCPkI0Q3PAqWugiegsef3ff+dgD5PbdrGMO31BqNhAaeyVrM8o
-         LliQ==
-X-Forwarded-Encrypted: i=1; AL+hErGOJ7Tjzu1yjNlIt40zThOR5uvTH87coJ4eNje1+7Zt/tpJWGsxnFxdo7IKV+V00PgOJ72rUmA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8aRyKoa0Afa1gZLoOoRzrXcMpZZwRXNUG83/aQ9T6gc+73dq9x
-	vOqovzi7EJa7qOJaKmznU6lGOvzqVwUqPf2YsQTScCMP/UZSayEBsUCA5W6kPPi/9Vc=
-X-Gm-Gg: AZFdTZeGGjLMnO2HPpjVtd5vxTFW3QkC/cA9CAGS7DbxzSqZ5JN97x4rNHhsFTmuHVC
-	qVri+07/csxC/lqpDFjeUC9Kn5WqLh8/uqv3rWCr6l/ivWrd4fyKuI1qSfhkLglvJ8d27fzk4Bf
-	yhY2mPLa2vI7NLtz/17AUjgcIMPdcUE5KDaGPnq0ZPST4QAQ1+ZMBm/llRDgwh36+pPE6NEtgSZ
-	iiTRncF+blp5FefWxFMpL9wpGbaIYi0ozoJHsxAlcjmP2iUE+rmwhNoPjEx2lQt+dVQdA2fbR5W
-	W1uJtvbQCYBYTmOPETkQAEJ1/Ii0KGLELaA1Lp4w/gebmKxLzOQiUHCffpDecSr2wcsjLzxwpcs
-	DctcNT3SCi7APKZ2HOMsF0MGJ4DJJg4+OpaxW9d7fRB8vsTdUfOMzl+bEs44FfgAJTPbf6HyEk7
-	EMvT+Dxb3PZv7iDcUbfHxWjp/Yc2jueF7bosf/42r+JIXG9Y66kCYMjPlwR03qsHLAys7ZGZs0H
-	npV7STfM22oeXzdZl2W2DvwoZZFSM+Chae9LxBXl886KX8Q7UKPXW1QyZJAaGiL4vvHx8ZeXXlM
-	Qx4geD+ISeRiMfk15GvR0HzSMds8bXGLV7jaeeRXnZ1CyyNHzA==
-X-Received: by 2002:a05:600c:6290:b0:4bb:741d:eba with SMTP id 5b1f17b1804b1-4bb88824a5bmr351028555e9.13.1795603224592;
-        Wed, 25 Nov 2026 02:40:24 -0800 (PST)
+        bh=5s0ac+QMelxSd/2e8RO+qxSk0eZ8AkmR2391mVfNhzQ=;
+        b=cjPLbxGftmQyBPmWukr7Z0/Fa7I4AZELQiEvKMemwU/et8CQYiOr1p+71/2bnx1N9R
+         4CRNzaAj+qDgzR3XsChhfaKmsSLPwmy8C0lu5ds5O61I+ySwNuCR45L+pL6Y6hb88doG
+         tVnqSHMBHVWtzoVigD2JRb8ZOzT/CRqNuHoxyv1e+snfu4PR2LDTA1bu1BTei7Lh1j1J
+         9appEukUPP6eplv9VRN7se8b2T2YpkObSbkcVkoDNl2BGkakm1CHqCRbwbRZCL8dNbT5
+         wrp+B3A/I8LhJw3/zRc2I4qjtuxlbpUBhOWgWUo/AEmItrdiwU1FFT/8YMSbtIpgly4M
+         1X2w==
+X-Forwarded-Encrypted: i=1; AL+hErGl1rrThRILBYrwyvA686if45R5UYJn1h9c8nePBTFGmRe1JgsbhitQU9KII/P/KcYkc7VijgI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9TA4pZIxLygCx7cRzkTS3svD1Po6/WXKEtAesF2cICyavsk+2k
+	YAFCSpJISnvkQ14HkKVYRxrPvUKu+MOSxQ9dRNEDNoW9+JEQLH//k88a5dqx8mGDiI8=
+X-Gm-Gg: AZFdTZcUeL3qxy94HTmxGP7rtfhqECd581rljBHWLi2HV4YCnIeJH/Rq6sS5ZVU/Y8f
+	3UQaartA4g0nuZkEu3sCMq8OmEJ5G6nmVAS2CG6g5KzWAqJLTJyvLi6qLZTIQygVAMTjq/Oc7h6
+	fXBtie3dPZCUtcnNz5kZTGDrHpMRwdBkP5PmhjN3bNLStS4B3OKjO+sLH1NnS6kdtTD8Ztkorns
+	iMVRIFuTrFeS4uUasU2zMMlCBrYBHBTTpOxnMyPkaoKQSmLdqpx8lKsHuN7KMsTf3pFunfi25nL
+	XC3viK+pzYhm5QURp0PRr1P2ecjZijnpBcH3NkYGZosJwWtTg2CGegJBWTcFxzKsy+QIWJtwcmK
+	QBCP+gvaT5DeMHn0r4MEOonHkiM8lWWjVxrqFBQ7zLzEClOiZZR7olrNEco3gYvrWB58vy4blZi
+	dH2qJ4cR9FSGd864uI92ajMtSaC3W+jhtvybsPhX4Ol57w9E8zjDYH+8XdNywvF4y6zotYyq2n2
+	dEtio/ThcfiUDKbL14vU+M6eRMDC03IPMAZ0vFH1bckpaRmbB4NOWS67Vgh8vXLfLkk/fSmu4Kq
+	FgBWi6Ha7uUhVE78Nk0o7bgrFIUuH/v9GXoP8EbDiu7wNEaL0Ws=
+X-Received: by 2002:a05:600c:6219:b0:4a1:d087:f6ab with SMTP id 5b1f17b1804b1-4bb8880badfmr335126885e9.18.1795603225469;
+        Wed, 25 Nov 2026 02:40:25 -0800 (PST)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
         by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb88442995sm527792685e9.2.2026.11.25.02.40.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 25 Nov 2026 02:40:24 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Wed, 25 Nov 2026 11:40:18 +0100
-Subject: [PATCH v2 2/3] usb: typec: tcpm: unregister stale partner sink
- capabilities
+Date: Wed, 25 Nov 2026 11:40:19 +0100
+Subject: [PATCH v2 3/3] usb: typec: tcpm: destroy worker after reset_port()
+ in unregister_port()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-topic-tcpm-core-fixes-v2-2-aede2a3471f4@linaro.org>
+Message-Id: <20261125-topic-tcpm-core-fixes-v2-3-aede2a3471f4@linaro.org>
 References: <20261125-topic-tcpm-core-fixes-v2-0-aede2a3471f4@linaro.org>
 In-Reply-To: <20261125-topic-tcpm-core-fixes-v2-0-aede2a3471f4@linaro.org>
 To: Badhri Jagan Sridharan <badhri@google.com>, 
@@ -103,61 +103,66 @@ To: Badhri Jagan Sridharan <badhri@google.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Guenter Roeck <groeck@chromium.org>, Igor Paunovic <royalnet026@gmail.com>
 Cc: linux-usb@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>, 
- stable@vger.kernel.org
+ stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1490;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1626;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=07EBmlzjWFz7CQysUew3EdpbM6jzq//b4VdC+IUafRE=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBrBrsVTjlFXTwyIa/88RmT/8Oft7pgmvbnEtdCiEKN
- EdTnAS2JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCawa7FQAKCRB33NvayMhJ0cVaEA
- C9hJ0BZ8J34QldTFCJpP+6LsaDNNn1J/qKTLhtuw1vNht9CRYRfYdRLAhHwO+sJ2yP6Mv7Q7GfBi/d
- wpKSR553XEvhLBX2B5dh+i9OiPpGcNfNF3Sb+7XWwwTSg9Mxjk8zv9cFPi2KWXI8ULXOLHHt89a6Om
- HKmHF/dj98/z2p7x5HFeiV92G3jPMuNojDdGLdRpNs+jtfxBJ/dsd8oN4xE1yyjts0jEcqXqGIQTma
- ii5J4jrIeM+jYNkQlnkZkJdTWM35/2YFXwJ4ksjcAruvO/Akil7WwJ2zGco1G2pqVKhKm4cILEQjrG
- 5smjMZWZWovh5TVI3PKp1Ms4YYmTTeba2SNDiNFuqdN7IqR+NEaRVMbUn3DPsXalJqgQFTGbzGkMIm
- ROIkc7ytdY7HMf/PbDyK3TQo51RKwDrxrOW2obWOkD/pFyzq16CE8m0IKm8yww5LrU2+hbxOGZ3+o0
- FMEXKhPwqnW8KXPqy4WwgRExFb+nFIMmN1+kQlAO6zTFgvse8CSDWoUgHWx8+a3cOe8OH3KXNPFmqW
- 383oNbqNDFXJE0XZeygZ6qwovp7oACpw6v8FbnEsoFYp7ahNz9SBsqSqc6ZQZYFQCvYTaPyoibacvI
- fSpYs5FjWs7AAgyfA+z4EMmWTQe8h4rPfeDWS6lNkVgv3pmNw+cQvx/GlSAg==
+ bh=PMXF1eyiUQFfoUh1ooyaEy7iCltnT1EynG7cG6UKHlQ=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBrBrsWd9Yl2ueKRDKjbMonlpOADg2gVz8KPetQZGvJ
+ eP8MaKyJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCawa7FgAKCRB33NvayMhJ0S8REA
+ COn4KfWJ+qx7gZ7l7EgluUtIPxWit6pbM/PEJffourLtGPHL4sTz1w3uQtIDaYarskvHdnfHsbLbC2
+ h3RVn8OrI31xOd8fKsyNPALL6Jq165dTINkfPtE8MMMl71rqCGltb+h9qB018hk87amyy/047hNwpE
+ +Jqh5Y9VWL1VvBJEYMmUApespEJVEzaQLCAzQOFbUllzFxRb7o4cGaDsDdVVVPM1dpN1aU2jPCiwmL
+ ixLJAO38mGlHA5AusFXvKQG935pHpZDF7NW3Uh4SXEkD2gNU3BQGcL7EaPBdJ8K7HXOGa/En16Rd8j
+ Bj6l/zXcfDiFubN5XpNn7MrVYYGFyaBdhwwVWNyzVfinCQfRyauJnqPt4Wq0IRsQtVqC27iOi+Qz3l
+ FQitfkIxRZUlLd+6/vK5yy/ACd3jUUEzzy08XPdR1GPilyzHgdEpFbE1NMB+RpfbuY/9vqzLft5I02
+ md3HX5E3RjFIvjXuZoDG7XuyKR0lG+6ChJ0PvsRdEqP2MisCiyK+e0M8GO40gmEYGTp2Ks+aYbaxMU
+ ovi6bqmmuMAkoAg0VftAJYTCjU1+EbxdIgJyEMX8/83fN77timseQtQOy6p1ggLqu48569jMHf9Kmt
+ 8SFpLn5xijKtApfTWrbd4m9Zy5ij6IZMuWkVZoXERE0t7oKqglm4AqKV48lg==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-tcpm_register_sink_caps() registers a new "sink-capabilities" device
-under the partner USB PD object every time a Sink_Capabilities message
-is received, but the previously registered one is only removed on
-detach.
+When calling tcpm_reset_port() after destroying the worker and the
+associated hrtimers, the TCPM implementation may still send some
+TCPM events and call back into the TCPM core and encounter a NULL port->wq.
 
-sink_cap_done is cleared on Hard Reset, so the sink capabilities are
-queried and registered again on the same partner: registering a second
-device with the same name under the same parent fails, and the stale
-capabilities stay exposed in sysfs.
-
-Unregister the previous capabilities before registering the new ones.
+Move the power_supply_put_system_batteries() & tcpm_reset_port() earlier,
+since it's the last function that calls into TCPM callback.
 
 Cc: stable@vger.kernel.org
-Fixes: 8203d26905ee ("usb: typec: tcpm: Register USB Power Delivery Capabilities")
-Assisted-by: LLM
+Fixes: 98d00deb6ae4 ("usb: typec: tcpm: fix use-after-free of the kthread worker on port unregister")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/sashiko-outbox-224916@kernel.org/
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- drivers/usb/typec/tcpm/tcpm.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/usb/typec/tcpm/tcpm.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-index 20e18bca649e..d0abe8100742 100644
+index d0abe8100742..5e68ce2ea1ac 100644
 --- a/drivers/usb/typec/tcpm/tcpm.c
 +++ b/drivers/usb/typec/tcpm/tcpm.c
-@@ -3559,6 +3559,11 @@ static int tcpm_register_sink_caps(struct tcpm_port *port)
- 	struct usb_power_delivery_capabilities_desc caps = { };
- 	struct usb_power_delivery_capabilities *cap;
+@@ -9025,6 +9025,10 @@ void tcpm_unregister_port(struct tcpm_port *port)
+ 	int i;
  
-+	if (port->partner_sink_caps) {
-+		usb_power_delivery_unregister_capabilities(port->partner_sink_caps);
-+		port->partner_sink_caps = NULL;
-+	}
+ 	port->registered = false;
 +
- 	if (!port->partner_pd)
- 		port->partner_pd = usb_power_delivery_register(NULL, &desc);
- 	if (IS_ERR(port->partner_pd))
++	power_supply_put_system_batteries(port->fixed_batt, port->fixed_batt_cnt);
++	tcpm_reset_port(port);
++
+ 	kthread_destroy_worker(port->wq);
+ 	port->wq = NULL;
+ 
+@@ -9033,9 +9037,6 @@ void tcpm_unregister_port(struct tcpm_port *port)
+ 	hrtimer_cancel(&port->vdm_state_machine_timer);
+ 	hrtimer_cancel(&port->state_machine_timer);
+ 
+-	power_supply_put_system_batteries(port->fixed_batt, port->fixed_batt_cnt);
+-	tcpm_reset_port(port);
+-
+ 	tcpm_port_unregister_pd(port);
+ 
+ 	for (i = 0; i < ARRAY_SIZE(port->port_altmode); i++)
 
 -- 
 2.34.1
