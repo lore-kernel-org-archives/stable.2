@@ -1,47 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.14.198.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606355;
-	b=3nTn/mL6jZxPOo0grR5jtHOcm3lb7WY4UpbupKe41u7IkI5wBTNi0ksovK4M3DqE5aqW
-	 Nt9MvAPWETJ+ePVOOkOW3WeEMzNiCB49+FzwiV2cTtP32/z6jCU7BD4jLwqLW4RzfqHQO
-	 XdvdpRduIleoDzBjx6oOT5MJ7SGMe4aBdScDIaRoFNSWlQ0IF5V6uCPk8xN2qPKMsXTBK
-	 rQUZjZryM3++MbtD7oWsUcxp7sjm5QEY0wiEANRe/yBvNNEKIPOxUpQTegEmAkgbQn2EM
-	 oOa5WYkJrfW9zAr7ssbJDV6AQCo57su+XfqaIbSFAiGiqhQgABBU/lir7dadi5iDa+w==
+	t=1795606356;
+	b=j6T01JERtaq4lKC5OS4w+DejeDZFahE5QFGSh3bVSbfL1A5guwE68pNsOMxVpRZyjoz1
+	 q87NPhd5d9sDdAan/VA84c4Uct+cUxNoaw5RGhYPAd2e4+OG9ZycG/lxJSAdte4aW7RH8
+	 GSWNWg+s5EOKwowkHUuUb+iB7orsaST2YwUVUn6ftgzyXuwnEqgiAikPH5o1/iwezkgx1
+	 x0AiYJcOM5UhI8E6QUahwRHs6GnoSQtLUCfmwKHoG7b5aVsa/8xG2t0hoagVThDlLBDv4
+	 Kh+E1FVmqZxiDsghyx2BuZFIPQEetXNff4L7Bu7qgaZu4W7+ukRKtBn35J7kmeD77Fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606355;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=BLmOg9RLSv+qB+M1h/XwBSDbXgByQp+lGqUG24OUMMk=;
-	b=PFD1JSs3pnppeacl71H0GklYq3QazYWT2wH68Wa5OWVsg703w29xAjkntUJxXbcZxEjI
-	 NvsRzD4zLsEEbSzMZkSneVZTQSq5XXvwJ57hCPD445wSSTTHeCprgUbkZSfzTN8Zp/Fkh
-	 MbfcXkXjdgT6noLt02T6HsGUX98VVLtYHWzt9hhbDsUTotlLj/WHrc9Gz4dyjMTFmk5xx
-	 DR00t+1l/fgRDYbuQY55ov1mah/k0dx0UZQkMer4cLf52RNcx34Kt3dMt8xdXw/cubZx1
-	 mPFEp6GJDrp9lWVpRxfti45/1ytYEezvfsdSi/N9kph1ykE52FNwayPa/xe9eYa+nQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606356;
+	h=DMARC-Filter:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Received:
+	 DKIM-Signature;
+	bh=oUfViTe7jR/bW0Md+dhz69VSMNtCwOaxO6F2hRcC7hQ=;
+	b=ofQuUTGMWsWFYK6UJDaYa50srPGx0s0uiiQ9uAFG2xuSUWXUiYK0jaQGKRJtaUN8dIEk
+	 jcnoM+0rmVBFxZi0zqZJImSYjzLsicCDP6Hwt6zXZNkvQZ95/hCdhxeAlhKfpLVM3uFns
+	 yHda3FRjQ6giXq1gcsXNVpUNwim7xhL2/ROUDbB4xq8biz58eFmDVi+UwqWdqYfJrCJyx
+	 VM0waB3YAxQfITh33+hR3FlLWUWWvIUMgBCanTgWc+ZWtsiB7nUoAyxst4zIyWAtk5H7P
+	 ZwlER7l/lz4Q+ibattnY/qoXKYgvO+EER3GjmJ5uSWXo4o8orvobOWOYWyD6ZR/cGLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cexUk+HC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rimpianto.com;
+	spf=pass smtp.mailfrom=rimpianto.com;
+	dkim=pass header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=RONVmQiN;
+	arc=none smtp.remote-ip=46.14.198.178
+Received: from mail.rimpianto.com (mail.rimpianto.com [46.14.198.178])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE07B606A32A
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:32:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cexUk+HC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F60C1F000D1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F8B4606A326;
 	Wed, 25 Nov 2026 11:32:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606355;
-	bh=BLmOg9RLSv+qB+M1h/XwBSDbXgByQp+lGqUG24OUMMk=;
-	h=Subject:To:Cc:From:Date;
-	b=cexUk+HCrh1cBLqyQZCRE1FY/LsAVkiD7HX8XAUgvHgq02G0VFpRuXydtUKN1IcCY
-	 ib1OkTQd3dcq+EEgQhYlbCG5hH5qPVT5kBpW5sitvsq0O+UqDskql7eZfBOaAHUTle
-	 EVjNxzc8zrrY7hTVoG2MztRBdOf79vLxFe8LZa8U=
-Subject: FAILED: patch "[PATCH] dm: fix use-after-free when dm_get_device() widens the open" failed to apply to 5.10-stable tree
-To: mtsai@redhat.com,mpatocka@redhat.com,noreply@anthropic.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:18:40 +0100
-Message-ID: <2026112540-keg-disabled-e7cf@gregkh>
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F8B4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rimpianto.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rimpianto.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=RONVmQiN
+Authentication-Results: mail.rimpianto.com;
+	auth=pass (plain)
+From: Federico Musto <federico@rimpianto.com>
+To: Chris Snook <chris.snook@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Federico Musto <federico@rimpianto.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v5 2/2] net: atl1c: free the RX buffer when the descriptor reports an error
+Date: Wed, 25 Nov 2026 12:31:20 +0100
+Message-ID: <20261125113120.99743-3-federico@rimpianto.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261125113120.99743-1-federico@rimpianto.com>
+References: <20261125113120.99743-1-federico@rimpianto.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,346 +61,262 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
+Received: from localhost (Unknown [127.0.0.1])
+	by mail.rimpianto.com (Haraka) with ESMTPSA id 455A4CB8-EA41-4A84-AB6F-0475A2A7EF25.3
+	envelope-from <federico@rimpianto.com>
+	tls TLS_AES_256_GCM_SHA384 (authenticated bits=0);
+	Wed, 25 Nov 2026 12:31:21 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rimpianto.com;
+ h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
+ Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=s20260314391;
+ t=1795606281; bh=oUfViTe7jR/bW0Md+dhz69VSMNtCwOaxO6F2hRcC7hQ=;
+ b=RONVmQiN+UOez6zmbCe6O32sBwD+GLj+MYVxAg0F3DX7UUnNDrOl6FuZ8orUiJ+rLuyv/TNFa
+ kCEfFR/gCkt7DKpe0EB4I+/obmwomZBmwLlJo01Ilofw1IwTqAEcKfdZSV5hjtOHWQ1jtsB0LJr
+ 8qa5TVohAqvjv75Vw2CtxMaiZZHCBYagDUpCk5wFPk/y0zIJPPhh75OaT3JAcyW2P8MNkqN+G8M
+ HpfbvAWqy6nb2V9Rx9hmlT6ZM663aNaDpQsPANGw2RO99/dBhl9DWc5f4QBwtD6lYqimUQ3VeAV
+ lxkg1tO7MKRIDTX09MAnPhEeD2UgvnLBB3+B3Hu/H9Yw==
 
+atl1c_clean_rx() drops a frame whose return descriptor (RRD) carries
+RRS_RX_ERR_SUM or RRS_802_3_LEN_ERR by calling atl1c_clean_rfd(), which
+only marks the RFD free and clears the skb pointer. Nothing unmaps the
+DMA mapping and nothing frees the skb, so every errored frame - CRC,
+alignment, truncation, runt - leaks one skb and one DMA mapping. The
+driver uses a 32-bit DMA mask, so on a host without an IOMMU each of
+those mappings also pins a swiotlb slot.
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Unmap the buffer and free the skb before the RFD is recycled.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Freeing makes the RFD index and count found in the RRD matter more than
+they did. Both are written by the device and neither is checked: the
+index field is 12 bits wide for a ring of 512 entries, and the count can
+be 0 to 15 while one RFD per frame is all the driver handles. A wrong
+index used to leak a buffer; it would now unmap and free one the device
+still owns, or one outside the ring. So validate the RRD first, the way
+alx_clean_rx_irq() does for the same descriptor layout: the count must
+be 1, the index must be the one the driver expects back next
+(rfd_ring->next_to_clean) and that slot must hold a buffer. Otherwise
+touch no buffer and schedule a reset through ATL1C_WORK_EVENT_RESET, as
+the interrupt handler does on ISR_ERROR. After the check the slot is
+addressed through the driver's own index, in the good receive path too,
+which took the unchecked index from the descriptor in the same way.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x c834161ded1a141a58d5f03b24f6894291222c96
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112540-keg-disabled-e7cf@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+Reading the descriptor is now ordered as well: a dma_rmb() separates the
+valid-bit test on word3 from the rest of the descriptor. The control
+dependency does not order the loads, and word0 now decides whether a
+reset is scheduled; without the barrier a stale word0 - the ring is zero
+after open and after every reset - would schedule a spurious one on
+weakly ordered CPUs.
 
-Possible dependencies:
+The check also covers two cases the count was left to cause. An RRD with
+a count of 0 was never consumed and RX stalled on it, in an endless loop
+inside the poll when it also had an error bit set. A good RRD with a
+count above 1 was consumed without recycling its RFDs.
 
+Count an errored descriptor as work, so that the refill runs when a poll
+sees no good frame. Clear the RRD ring on reset: the RRD and RFD rings
+advance in step, so an RRD left over from before a reset would pass the
+check above and release a freshly posted buffer the device still owns.
 
+The hardware already counts these frames in its own error counters,
+which atl1c_get_stats() reports, so no software counter is added here.
 
-thanks,
+Found by code inspection; the error path has not been exercised on
+hardware.  The RRD validation has been runtime-tested only on a
+single-queue device presenting as an AR8151 (emulated), not on genuine
+Atheros hardware and not on a multi-queue device.
 
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From c834161ded1a141a58d5f03b24f6894291222c96 Mon Sep 17 00:00:00 2001
-From: Ming-Hung Tsai <mtsai@redhat.com>
-Date: Fri, 6 Nov 2026 19:59:22 +0100
-Subject: [PATCH] dm: fix use-after-free when dm_get_device() widens the open
- mode
-
-There's an UAF bug in dm_get_device(): when a table construction calls
-dm_get_device() on the same device twice with widen access mode (e.g.,
-read-only first then read-write), the second dm_get_device() calls
-upgrade_mode(), which reopens the device in upgraded mode, making
-previously returned dm_dev* a stale pointer.
-
-Fixing approaches:
-- Add per-mode views (dm_dev_ref) from a per-device dm_dev_internal to
-  multiple table_devices.
-- Keep reusing the dm_dev_ref when the requested mode is included, i.e.,
-  a read-only reference can reuse the read-write opened device within a
-  table.
-- Maintain a canonical block_device pointer in dm_dev_internal for
-  handling the DM_TABLE_DEPS ioctl.
-
-Also tweak the way of mode sharing check in find_ref() to
-"(x & mask) == mask". The result stays the same to the previous
-upgrade_mode() guard "(x | mask) == x".
-
-Pros: keep the relationship between dm_dev_internal and table_device:
-one dm_dev_internal per device, regardless the mode, so the output of
-DMM_TABLE_DEPS ioctl unchanged.
-
-Cons: extra dm_dev_ref allocation.
-
-Note that now the table_device's count not necessarily mean the number
-tables referecing this <dev, mode> pair, since we're allowing multiple
-references within a table.
-
-Signed-off-by: Ming Hung Tsai <mtsai@redhat.com>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
-Fixes: 86f1152b117a ("dm: allow active and inactive tables to share dm_devs")
+Fixes: 43250ddd75a3 ("atl1c: Atheros L1C Gigabit Ethernet driver")
 Cc: stable@vger.kernel.org
+Signed-off-by: Federico Musto <federico@rimpianto.com>
+---
+v4 -> v5, after the Sashiko AI review of v4:
+ - add dma_rmb() between the valid-bit test on word3 and the reads of the
+   rest of the descriptor; the RRD ring is zeroed after a reset, so a
+   stale word0 would otherwise read as rfd_num 0 and schedule a spurious
+   reset on weakly ordered CPUs;
+ - no other change.
 
-diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-index 8f945f0aeda5..4a7cb0926c17 100644
---- a/drivers/md/dm-ioctl.c
-+++ b/drivers/md/dm-ioctl.c
-@@ -1794,7 +1794,7 @@ static void retrieve_deps(struct dm_table *table,
- 	deps->count = count;
- 	count = 0;
- 	list_for_each_entry(dd, dm_table_get_devices(table), list)
--		deps->dev[count++] = huge_encode_dev(dd->dm_dev->bdev->bd_dev);
-+		deps->dev[count++] = huge_encode_dev(dd->bdev->bd_dev);
- 
- 	param->data_size = param->data_start + needed;
- }
-diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-index a483f49dd4ce..db1ec4ae8e56 100644
---- a/drivers/md/dm-table.c
-+++ b/drivers/md/dm-table.c
-@@ -165,14 +165,16 @@ int dm_table_create(struct dm_table **result, blk_mode_t mode,
- 
- static void free_devices(struct list_head *devices, struct mapped_device *md)
- {
--	struct list_head *tmp, *next;
-+	struct dm_dev_internal *dd, *dd_next;
-+	struct dm_dev_ref *ref, *ref_next;
- 
--	list_for_each_safe(tmp, next, devices) {
--		struct dm_dev_internal *dd =
--		    list_entry(tmp, struct dm_dev_internal, list);
--		DMWARN("%s: dm_table_destroy: dm_put_device call missing for %s",
--		       dm_device_name(md), dd->dm_dev->name);
--		dm_put_table_device(md, dd->dm_dev);
-+	list_for_each_entry_safe(dd, dd_next, devices, list) {
-+		list_for_each_entry_safe(ref, ref_next, &dd->refs, list) {
-+			DMWARN("%s: dm_table_destroy: dm_put_device call missing for %s",
-+			       dm_device_name(md), ref->dm_dev->name);
-+			dm_put_table_device(md, ref->dm_dev);
-+			kfree(ref);
-+		}
- 		kfree(dd);
+Runtime validation of the RRD check so far covers an emulated
+single-queue AR8151 only; Tested-by: on genuine Atheros hardware, in
+particular multi-queue, is welcome.
+
+This patch applies textually only on top of patch 1/2; please keep the
+two together.
+
+v3 -> v4, after the Sashiko AI review of v3:
+ - validate the RFD count and index of the RRD against
+   rfd_ring->next_to_clean, and that the slot holds a buffer, before any
+   buffer is touched; reset on a mismatch, as alx_clean_rx_irq() does;
+ - address the buffer through the driver's own index in the error path
+   and in the good path; atl1c_clean_rfd() takes nothing from the
+   descriptor any more;
+ - drop the multi-RFD loop added in v3: a count other than 1 resets;
+ - a count of 0 no longer leaves the RRD unconsumed;
+ - new patch 1/2 for the link-down reset race.
+
+Pre-existing and left to a separate patch: word3 is __le32 but is read
+without conversion.
+
+v4: https://lore.kernel.org/netdev/20261117225521.19689-1-federico@rimpianto.com/
+v3: https://lore.kernel.org/netdev/20261103225218.19206-1-federico@rimpianto.com/
+v2: https://lore.kernel.org/netdev/20261102215253.68185-1-federico@rimpianto.com/
+v1: https://lore.kernel.org/netdev/20261027115156.17128-1-federico@rimpianto.com/
+---
+ .../net/ethernet/atheros/atl1c/atl1c_main.c   | 104 ++++++++++--------
+ 1 file changed, 59 insertions(+), 45 deletions(-)
+
+diff --git a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
+index afab3e1..8383203 100644
+--- a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
++++ b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
+@@ -971,8 +971,9 @@ static void atl1c_clean_rx_ring(struct atl1c_adapter *adapter, u32 queue)
+ 		buffer_info = &rfd_ring->buffer_info[j];
+ 		atl1c_clean_buffer(pdev, buffer_info, 0);
+ 	}
+-	/* zero out the descriptor ring */
++	/* zero out the descriptor rings */
+ 	memset(rfd_ring->desc, 0, rfd_ring->size);
++	memset(rrd_ring->desc, 0, rrd_ring->size);
+ 	rfd_ring->next_to_clean = 0;
+ 	rfd_ring->next_to_use = 0;
+ 	rrd_ring->next_to_use = 0;
+@@ -1904,23 +1905,16 @@ static void atl1c_clean_rrd(struct atl1c_rrd_ring *rrd_ring,
  	}
  }
-@@ -218,12 +220,27 @@ static struct dm_dev_internal *find_device(struct list_head *l, dev_t dev)
- 	struct dm_dev_internal *dd;
  
- 	list_for_each_entry(dd, l, list)
--		if (dd->dm_dev->bdev->bd_dev == dev)
-+		if (dd->bdev->bd_dev == dev)
- 			return dd;
- 
- 	return NULL;
- }
- 
-+/*
-+ * See if the device is already open with a mode that covers the
-+ * requested one.
-+ */
-+static struct dm_dev_ref *find_ref(struct dm_dev_internal *dd, blk_mode_t mode)
-+{
-+	struct dm_dev_ref *ref;
-+
-+	list_for_each_entry(ref, &dd->refs, list)
-+		if ((ref->dm_dev->mode & mode) == mode)
-+			return ref;
-+
-+	return NULL;
-+}
-+
- /*
-  * If possible, this checks an area of a destination device is invalid.
-  */
-@@ -303,31 +320,6 @@ static int device_area_is_invalid(struct dm_target *ti, struct dm_dev *dev,
- 	return 0;
- }
- 
--/*
-- * This upgrades the mode on an already open dm_dev, being
-- * careful to leave things as they were if we fail to reopen the
-- * device and not to touch the existing bdev field in case
-- * it is accessed concurrently.
-- */
--static int upgrade_mode(struct dm_dev_internal *dd, blk_mode_t new_mode,
--			struct mapped_device *md)
--{
--	int r;
--	struct dm_dev *old_dev, *new_dev;
--
--	old_dev = dd->dm_dev;
--
--	r = dm_get_table_device(md, dd->dm_dev->bdev->bd_dev,
--				dd->dm_dev->mode | new_mode, &new_dev);
--	if (r)
--		return r;
--
--	dd->dm_dev = new_dev;
--	dm_put_table_device(md, old_dev);
--
--	return 0;
--}
--
- /*
-  * Note: the __ref annotation is because this function can call the __init
-  * marked early_lookup_bdev when called during early boot code from dm-init.c.
-@@ -360,7 +352,9 @@ EXPORT_SYMBOL(dm_devt_from_path);
- 
- /*
-  * Add a device to the list, or just increment the usage count if
-- * it's already present.
-+ * it's already present with a mode that covers the requested one.
-+ * Otherwise open the device again with the requested mode, so the
-+ * dm_devs returned earlier stay valid.
-  */
- int dm_get_device(struct dm_target *ti, const char *path, blk_mode_t mode,
- 		  struct dm_dev **result)
-@@ -368,6 +362,7 @@ int dm_get_device(struct dm_target *ti, const char *path, blk_mode_t mode,
- 	int r;
- 	dev_t dev;
- 	struct dm_dev_internal *dd;
-+	struct dm_dev_ref *ref;
- 	struct dm_table *t = ti->table;
- 
- 	BUG_ON(!t);
-@@ -380,30 +375,46 @@ int dm_get_device(struct dm_target *ti, const char *path, blk_mode_t mode,
- 		return -EINVAL;
- 
- 	dd = find_device(&t->devices, dev);
--	if (!dd) {
-+	if (dd) {
-+		ref = find_ref(dd, mode);
-+		if (ref) {
-+			refcount_inc(&ref->count);
-+			goto out;
-+		}
-+	} else {
- 		dd = kmalloc_obj(*dd);
- 		if (!dd)
- 			return -ENOMEM;
--
--		r = dm_get_table_device(t->md, dev, mode, &dd->dm_dev);
--		if (r) {
--			kfree(dd);
--			return r;
--		}
--
--		refcount_set(&dd->count, 1);
--		list_add(&dd->list, &t->devices);
--		goto out;
--
--	} else if (dd->dm_dev->mode != (mode | dd->dm_dev->mode)) {
--		r = upgrade_mode(dd, mode, t->md);
--		if (r)
--			return r;
-+		INIT_LIST_HEAD(&dd->refs);
- 	}
--	refcount_inc(&dd->count);
-+
-+	ref = kmalloc_obj(*ref);
-+	if (!ref) {
-+		r = -ENOMEM;
-+		goto bad;
-+	}
-+
-+	r = dm_get_table_device(t->md, dev, mode, &ref->dm_dev);
-+	if (r) {
-+		kfree(ref);
-+		goto bad;
-+	}
-+	refcount_set(&ref->count, 1);
-+
-+	/* A device in the list always has at least one ref */
-+	if (list_empty(&dd->refs)) {
-+		dd->bdev = ref->dm_dev->bdev;
-+		list_add(&dd->list, &t->devices);
-+	}
-+	list_add_tail(&ref->list, &dd->refs);
- out:
--	*result = dd->dm_dev;
-+	*result = ref->dm_dev;
- 	return 0;
-+
-+bad:
-+	if (list_empty(&dd->refs))
-+		kfree(dd);
-+	return r;
- }
- EXPORT_SYMBOL(dm_get_device);
- 
-@@ -453,23 +464,28 @@ static int dm_set_device_limits(struct dm_target *ti, struct dm_dev *dev,
-  */
- void dm_put_device(struct dm_target *ti, struct dm_dev *d)
+-static void atl1c_clean_rfd(struct atl1c_rfd_ring *rfd_ring,
+-	struct atl1c_recv_ret_status *rrs, u16 num)
++/* Recycle the RFD the driver expects back next.  The caller owns the skb. */
++static void atl1c_clean_rfd(struct atl1c_rfd_ring *rfd_ring)
  {
--	int found = 0;
- 	struct list_head *devices = &ti->table->devices;
- 	struct dm_dev_internal *dd;
-+	struct dm_dev_ref *ref;
+-	u16 i;
+-	u16 rfd_index;
+-	struct atl1c_buffer *buffer_info = rfd_ring->buffer_info;
++	struct atl1c_buffer *buffer_info;
  
--	list_for_each_entry(dd, devices, list) {
--		if (dd->dm_dev == d) {
--			found = 1;
+-	rfd_index = (rrs->word0 >> RRS_RX_RFD_INDEX_SHIFT) &
+-			RRS_RX_RFD_INDEX_MASK;
+-	for (i = 0; i < num; i++) {
+-		buffer_info[rfd_index].skb = NULL;
+-		ATL1C_SET_BUFFER_STATE(&buffer_info[rfd_index],
+-					ATL1C_BUFFER_FREE);
+-		if (++rfd_index == rfd_ring->count)
+-			rfd_index = 0;
+-	}
+-	rfd_ring->next_to_clean = rfd_index;
++	buffer_info = &rfd_ring->buffer_info[rfd_ring->next_to_clean];
++	buffer_info->skb = NULL;
++	ATL1C_SET_BUFFER_STATE(buffer_info, ATL1C_BUFFER_FREE);
++	if (++rfd_ring->next_to_clean == rfd_ring->count)
++		rfd_ring->next_to_clean = 0;
+ }
+ 
+ /**
+@@ -1934,6 +1928,7 @@ static int atl1c_clean_rx(struct napi_struct *napi, int budget)
+ 		container_of(napi, struct atl1c_rrd_ring, napi);
+ 	struct atl1c_adapter *adapter = rrd_ring->adapter;
+ 	u16 rfd_num, rfd_index;
++	u32 rrs_word0;
+ 	u16 length;
+ 	struct pci_dev *pdev = adapter->pdev;
+ 	struct net_device *netdev  = adapter->netdev;
+@@ -1952,47 +1947,66 @@ static int atl1c_clean_rx(struct napi_struct *napi, int budget)
+ 		if (work_done >= budget)
+ 			break;
+ 		rrs = ATL1C_RRD_DESC(rrd_ring, rrd_ring->next_to_clean);
+-		if (likely(RRS_RXD_IS_VALID(rrs->word3))) {
+-			rfd_num = (rrs->word0 >> RRS_RX_RFD_CNT_SHIFT) &
+-				RRS_RX_RFD_CNT_MASK;
+-			if (unlikely(rfd_num != 1))
+-				/* TODO support mul rfd*/
+-				if (netif_msg_rx_err(adapter))
+-					dev_warn(&pdev->dev,
+-						"Multi rfd not support yet!\n");
+-			goto rrs_checked;
+-		} else {
++		if (!RRS_RXD_IS_VALID(rrs->word3))
++			break;
++
++		/* Order the rest of the descriptor after the valid bit: on
++		 * weakly ordered CPUs word0 can otherwise be read before
++		 * the device's write of this RRD is visible, and a stale
++		 * word0 (the ring is zeroed after a reset) would schedule
++		 * a spurious reset.
++		 */
++		dma_rmb();
++		rrs_word0 = le32_to_cpu(rrs->word0);
++		rfd_num = (rrs_word0 >> RRS_RX_RFD_CNT_SHIFT) &
++			RRS_RX_RFD_CNT_MASK;
++		rfd_index = (rrs_word0 >> RRS_RX_RFD_INDEX_SHIFT) &
++			RRS_RX_RFD_INDEX_MASK;
++		buffer_info = &rfd_ring->buffer_info[rfd_ring->next_to_clean];
++
++		/* The RRD is written by the device.  Its RFD index field is
++		 * wider than the ring, and only one RFD per frame is
++		 * supported.  Check both against the driver's own ring state,
++		 * and that the slot holds a buffer, before anything is
++		 * unmapped or freed.  When they disagree there is no telling
++		 * which buffers the device still owns: leave them all alone
++		 * and reset.
++		 */
++		if (unlikely(rfd_num != 1 ||
++			     rfd_index != rfd_ring->next_to_clean ||
++			     !buffer_info->skb)) {
++			dev_err_ratelimited(&pdev->dev,
++					    "RRD out of sync: RFD count %u index %u, expected index %u%s; resetting\n",
++					    rfd_num, rfd_index,
++					    rfd_ring->next_to_clean,
++					    buffer_info->skb ? "" : " (no buffer)");
++			set_bit(ATL1C_WORK_EVENT_RESET, &adapter->work_event);
++			schedule_work(&adapter->common_task);
+ 			break;
+ 		}
+-rrs_checked:
+-		atl1c_clean_rrd(rrd_ring, rrs, rfd_num);
++
++		atl1c_clean_rrd(rrd_ring, rrs, 1);
++		dma_unmap_single(&pdev->dev, buffer_info->dma,
++				 buffer_info->length, DMA_FROM_DEVICE);
++		skb = buffer_info->skb;
++		atl1c_clean_rfd(rfd_ring);
++
+ 		if (rrs->word3 & (RRS_RX_ERR_SUM | RRS_802_3_LEN_ERR)) {
+-			atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
+ 			if (netif_msg_rx_err(adapter))
+ 				dev_warn(&pdev->dev,
+ 					 "wrong packet! rrs word3 is %x\n",
+ 					 rrs->word3);
++			kfree_skb_reason(skb, SKB_DROP_REASON_NOT_SPECIFIED);
++			/* The RFD has been recycled, so count the drop as
++			 * work: the refill after the loop only runs when
++			 * some was done.
++			 */
++			work_done++;
+ 			continue;
+ 		}
+ 
+ 		length = le16_to_cpu((rrs->word3 >> RRS_PKT_SIZE_SHIFT) &
+ 				RRS_PKT_SIZE_MASK);
+-		/* Good Receive */
+-		if (likely(rfd_num == 1)) {
+-			rfd_index = (rrs->word0 >> RRS_RX_RFD_INDEX_SHIFT) &
+-					RRS_RX_RFD_INDEX_MASK;
+-			buffer_info = &rfd_ring->buffer_info[rfd_index];
+-			dma_unmap_single(&pdev->dev, buffer_info->dma,
+-					 buffer_info->length, DMA_FROM_DEVICE);
+-			skb = buffer_info->skb;
+-		} else {
+-			/* TODO */
+-			if (netif_msg_rx_err(adapter))
+-				dev_warn(&pdev->dev,
+-					"Multi rfd not support yet!\n");
 -			break;
 -		}
--	}
--	if (!found) {
--		DMERR("%s: device %s not in table devices list",
--		      dm_device_name(ti->table->md), d->name);
-+	list_for_each_entry(dd, devices, list)
-+		list_for_each_entry(ref, &dd->refs, list)
-+			if (ref->dm_dev == d)
-+				goto found;
-+
-+	DMERR("%s: device %s not in table devices list",
-+	      dm_device_name(ti->table->md), d->name);
-+	return;
-+
-+found:
-+	if (!refcount_dec_and_test(&ref->count))
- 		return;
--	}
--	if (refcount_dec_and_test(&dd->count)) {
--		dm_put_table_device(ti->table->md, d);
-+
-+	dm_put_table_device(ti->table->md, d);
-+	list_del(&ref->list);
-+	kfree(ref);
-+
-+	if (list_empty(&dd->refs)) {
- 		list_del(&dd->list);
- 		kfree(dd);
- 	}
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 12c26f42ce51..a73355c0125c 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -1588,7 +1588,7 @@ static void __send_empty_flush(struct clone_info *ci)
- 			 */
- 			clone = alloc_tio(ci, NULL, 0, &len, GFP_NOIO);
- 			atomic_add(1, &ci->io->io_count);
--			bio_set_dev(clone, dd->dm_dev->bdev);
-+			bio_set_dev(clone, dd->bdev);
- 			clone->bi_end_io = clone_endio;
- 			dm_submit_bio_remap(clone, NULL);
- 		}
-diff --git a/drivers/md/dm.h b/drivers/md/dm.h
-index 7a795979ec72..34f58060243f 100644
---- a/drivers/md/dm.h
-+++ b/drivers/md/dm.h
-@@ -37,10 +37,26 @@
+-		atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
  
- /*
-  * List of devices that a metadevice uses and should open/close.
-+ * There is one dm_dev_internal per device. It holds one dm_dev_ref
-+ * for each mode that the targets opened the device with.
-  */
- struct dm_dev_internal {
- 	struct list_head list;
--	refcount_t count;
-+	struct block_device *bdev;
-+	struct list_head refs;
-+};
-+
-+/*
-+ * One open of a device with one mode, shared by the targets of a table.
-+ * dm_get_device() reuses a dm_dev_ref whose mode covers the requested
-+ * mode, and adds a new one only when none does. So the dm_dev_refs of
-+ * a device have different modes, and a table holds each table_device
-+ * at most once. table_device->count is still the number of tables that
-+ * use the table_device.
-+ */
-+struct dm_dev_ref {
-+	struct list_head list;
-+	refcount_t count;	/* dm_get_device() calls that returned dm_dev */
- 	struct dm_dev *dm_dev;
- };
- 
+ 		/* A link partner whose l2mtu is larger than ours can hand us a
+ 		 * frame that does not fit the buffer the hardware was given:
+-- 
+2.54.0 (Apple Git-157)
 
