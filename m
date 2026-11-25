@@ -1,57 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.129
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795594320;
-	b=u4126Ch5N/2P8AzjyrBa2jeZLEUumw0bOIsOpBScEWJ2putl+hd3IizL+iODmOs4UMh7
-	 3lftynA8wqDePp0Y+fwMPwBYcMYEnqO6XHB8ryG5tZhUrqihGLdIr9DsPWE61tWQfblsZ
-	 OVtTr9N630db85jpd+nLsGyrJ93uRLn/iwzCqC8LSG4zMJsa/kRl2kd6UzHKeB+ojQnmD
-	 SJUyeVlEUnokfJhpN15RCJQiUqYIvEuaOhNDDach7R0k07UlhM0+VtYlW3H8lPB7JBTn5
-	 QQDlkOvWKdaJpon1CcG0O9l281EVIBatOEGpBbiUcD9sGSJDGYITNWJrf68N6O7h7Rw==
+	t=1795594794;
+	b=DsG6NG8k9sX8o+36Omw+Qk64rr1CC0Tb5lLtyFh1BkZbaMOUYNcvJppapBZbqaklitby
+	 ezEaD3yJ4c3hkiMARYIIZ2s5XAvlrgw85/JrSuWv5/4v1isTsoodyoKUVtKVutQwF6AAX
+	 U3wNiiXJoAmGbwAD0nxpAiCA1bhXHWqUUbQwWi1gCA97xgwmFWWZPbz7r8jkDZQg9N1tf
+	 jTJWCHyDsFZsVOMrhwB5J73XtFM3kY4OQ1BAHaKVS9LekEYWfJ2TZ2rHq2rVPhXjDw8sw
+	 vxs97nscYmsgQfmuKSg+ziSe3W7XD7n0OyrtRCcahsavc5dPG6PckmAPSQWtoxOVRFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795594320;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=60qPSuL02yf4E8cV0OFKfMQ2IwLGtFiY03C+ToXioh4=;
-	b=GK1Dr3TmgfUEcJ+vg+kzDC1wV7q0LaO+Tho1BaN9IKGEbPzVNRtzd9mptNa2OcvyFOFC
-	 zt8o8qu7t7sgo1tG0WSgEgc0xaWtiWOw4uz5y+7TzaXjEKKhB+4Xbs+8aNZ0JeOIWAbbt
-	 pPflYeN4VZrWSDitnm0j0BZXLmwQSk6FebWLkWoX6lQDRuMEyz0E7BSHt0vzFeBE79Pbw
-	 PoJ5wBmjeMQcFG5pOjh+spz6cQX6J+gwYpb90305xBq1i5oCeMRBZd/XGiO2Y9PL7yBR+
-	 /4P8OuXJqOTwhbUnHjMkyqjurJ1jsLdYx5ehRXrPEs/vijTiMTpzi2eCdSN7Fh9v3JA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795594794;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=xu5nzEsZd0l35GVhHFCh0SlG77LpEEgxmOzFQfr3Xr4=;
+	b=ink/Y4RKMlz7uWsFtvn62TX4tueUErxPRthCItsYePhXdJDSbp27+TjwGpfAfpzgHEMi
+	 g76UzxKq3bbVQCYWTXwGzHDjwQHIk9Yryb2kVJ0dY41xDgF1ACLM/9TWIONd9oc54gqWu
+	 FXFOYCHRpDOmKyXU9BYd4xySz04jPyIxlT7NiRaWsqX4wIyOh9EajbGsKVLeCQR4W4Bf1
+	 +TvokyG/0t53cMn06J8vvoNajU9Jwi/h4GouPF7vCIm9ZFdsGNXNeHtOXUWQc6dzf1cMB
+	 WPUeyX3pWsJqXkgJSqK6LHl7e2fkO7S/BEUTrvqFSWU3EyJROZK01qy9fiMdEV2ah6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHHMqsvV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=UDXCoVVT;
+	arc=none smtp.remote-ip=54.204.34.129
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D777E606A323;
-	Wed, 25 Nov 2026 08:12:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8959A606A31E;
+	Wed, 25 Nov 2026 08:19:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8959A606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHHMqsvV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AC5E1F000D1;
-	Wed, 25 Nov 2026 08:11:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795594320;
-	bh=60qPSuL02yf4E8cV0OFKfMQ2IwLGtFiY03C+ToXioh4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DHHMqsvVzThMCz+StJjIJHdtI1IthlXZywrIf+n/gm1K+FQVthJamxxVxkkG01UU0
-	 r2LvKrj0cxj729fHoKBqif5Ai6zRuF6Rnku6m/kIjTHBVjfj5oMk0txiDHga9wpsPi
-	 Z0IiIvtZAdSrWvE9ptIN5ElABw0gVuAn+nNdjeqXXT5IPxR3BTkmAQJxF9oMovdSFo
-	 qHHnaxbzqrAnROpJK2JSAKvDYhn1IfDKCnWhdjdX5bgWvnolCvw/C707dsl5KDjkTg
-	 ahHthuJoG+ToChVe5FQhz/CjLnNkK2NEh0ae2S5TZkiU/mSsiPwPlm6h+KgNrVfrIU
-	 uJNHzMsXfY2Yw==
-Date: Wed, 25 Nov 2026 09:11:57 +0100
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: phil.williams@advisoft.co.nz
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Mario Tesi <martepisa@gmail.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: imu: st_lsm6dsx: set ts_sensitivity on parts
- without freq_fine
-Message-ID: <awaYTa63V-LnP-T-@lore-desk>
-References: <20261125-st-lsm6dsx-ts-fallback-v2-1-ea0ea2512070@advisoft.co.nz>
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=UDXCoVVT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1795594758;
+	bh=xu5nzEsZd0l35GVhHFCh0SlG77LpEEgxmOzFQfr3Xr4=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=UDXCoVVTDgdKi8dBF1232bxuyGzzv3SqbF/heeBPfMQQ0dcbSjB7YGgD4Tysny147
+	 01zhOwXX/QdiVl+ANhmlLmP9hEDjSu9aDObXu+GFpWIW1XuVAKsKl3QRXYhM/tI0oa
+	 DNZPjM22hxtdL0DMBjAh1S4fDIxFll2ks77vbC60=
+X-QQ-mid: zesmtpsz6t1795594751t2eb92d61
+X-QQ-Originating-IP: qqS8CVJIZvW3wddgupBQu1lX3rm7FFgkSfJu9wwGnEM=
+Received: from localhost.localdomain ( [61.183.83.60])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 25 Nov 2026 16:18:40 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 8163225211566540910
+EX-QQ-RecipientCnt: 8
+From: Wentao Guan <guanwentao@uniontech.com>
+To: raoxu@uniontech.com
+Cc: gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	pawell@cadence.com,
+	peter.chen@kernel.org,
+	stable@vger.kernel.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH] usb: cdnsp: fix NULL pointer dereference during system resume
+Date: Wed, 25 Nov 2026 16:18:31 +0800
+Message-ID: <961901B5BBBE3741+20261125081830.304847-2-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <7B818A718E70C344+20261125080021.3907332-1-raoxu@uniontech.com>
+References: <7B818A718E70C344+20261125080021.3907332-1-raoxu@uniontech.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,114 +74,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="GTDYvITx/AJlzXec"
-Content-Disposition: inline
-In-Reply-To: <20261125-st-lsm6dsx-ts-fallback-v2-1-ea0ea2512070@advisoft.co.nz>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: Ntq8+Af3r9XFXzCz68jJstO4wYtttlyMQ3FYw7g+ltVo3fOrna9XeAW2
+	7lbjWDLY50gIaEcGq30GgyxvKFMOn742oTK3BgROYdvxMgVV9nBkXoaDyjwhVwAKMFwMuNQ
+	Kkt6+SPGXpcL1RRLxuV1swcNaVfydpwFTR7gAMwmmp+9MByZai04L6mzy7c6RsXaw0vo3Y2
+	XdDjKjEpBMiDa3upfk+DwOj68hjwRqrAkWDRprThiIieLgChl+GqSdKpqMhsSPwTEl5cLob
+	asshj/DJ8fTOz54aXkC5xtjeeqdaWMOF2pgTRSASy5ovwCNmv3ZcOrOoCTCJjIOQ7PjfEYC
+	ifKndVTYsKVnMahA2e/aT7tgXB394nX2XhPSMUvU19T2yhWayRhT1Py7ASKOvRgc3pKXkq1
+	V3CIEF4bVk8/fpHky423nimi66nXBHjxj7tK4R6k9i9CaTdn+H3FkJ/8NRgMSAqDu4LaZyq
+	Iwp4NI6dER8SvyaM8BtJaCeCE6rl2GIeDZMgznEK1pB6+qkdHAaQe9hT+MbZyvb+7Hey+QR
+	7FLvBMl6GxGOgPH2bnPWdDwktnTCEL8uSIWe4yYgzmqZ45PDSHIERH4tB5akhLcfFoBfRtS
+	RS8I0ClQCF1TPR5TXmywQYzy0AGiEjPz/iihXFfAss5Dt7hRJWG2hLjussPURvRAb/pcv0Y
+	WW2VeBGQHrG/8f8yZAQO4yz+KDQQig4Bod42jR83cOndWGsSlhc9wbG7gf6Qphg0bokcU4B
+	L/dGqvLefmSu+Oz+m8R/9+FMmAMWuapetnqdZUI9gqQD/uBvq5ydgOcHz9DRU1bXeyGRN2n
+	HHiNdtYLwXPI+V8RbyAHG8BpvhjZvX3qxhWMyBUL1QY+WX8umIMt8yWF0b7IWHSUGNaJn3L
+	Kwp/yf0BL5aMHH/AnyKRfriSDO1hApqenAvWdl2+RwmTri8m1BdVK/pFsBGUC2hp9BeywT/
+	pni+yqrzGzK+Z0cBu3um+7JBfd8X39iCge598U+nDfiHol0IQPVYT6C8Jq0qs3QodbE2shr
+	x2YNMcNzKNFARed6L+qP7QVznRny3Z6x8U7HtYoQA9WSWCkPA2TGEyS68v7IlICBXLHPwKX
+	TfKykIo/BDw
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
---GTDYvITx/AJlzXec
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-> From: Phil Williams <phil.williams@advisoft.co.nz>
->=20
-> Commit 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
-> calculation") takes the FIFO timestamp scale from ts_sensitivity.
-> That field is only filled in for parts that have freq_fine. The
-> untagged-FIFO parts are left at zero:
->=20
->   LSM6DS3
->   LSM6DS3H
->   LSM6DSL, LSM6DSM, ISM330DLC and LSM6DS3TR-C
->=20
-> st_lsm6dsx_read_fifo() multiplies the raw counter by hw->ts_gain, so
-> every sample is published with the timestamp taken when the buffer
-> was enabled. The accelerometer and gyroscope values still update.
-> Userspace that integrates attitude from the timestamp delta treats a
-> stuck timestamp as dt =3D 0.
->=20
-> Set ts_sensitivity to the previous fixed scale of 25000 ns/tick on
-> those entries. They have no freq_fine register, so ts_trim_coeff is
-> left unset and no trim is applied.
->=20
-> Fixes: 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp calcula=
-tion")
+> cdnsp_gadget_suspend() now always disconnects the gadget and stops
+> the controller, even when the link is already in U3. cdnsp_stop()
+> disables the slot and clears active_port, but leaves the cached
+> link_state unchanged.
+> 
+> If the controller retains its context across system suspend,
+> cdnsp_gadget_resume() may call __cdnsp_gadget_wakeup() based on
+> the stale U3 state. This dereferences active_port, which is NULL.
+> Port-status event handling cannot restore active_port at this
+> point because resume holds pdev->lock.
+> 
+> Remove the obsolete wakeup call from the resume path. The previous
+> connection has already been torn down during suspend, and
+> cdnsp_run() puts the enabled ports into RXDETECT. Let normal
+> port-status event handling establish the new connection.
+> 
+> Fixes: eae6460f6173 ("usb: cdnsp: fix wakeup from S3 after controller context loss")
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
 > Cc: stable@vger.kernel.org
-
-Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
-
-> Suggested-by: Lorenzo Bianconi <lorenzo@kernel.org>
-> Suggested-by: Jonathan Cameron <jic23@kernel.org>
-> Signed-off-by: Phil Williams <phil.williams@advisoft.co.nz>
 > ---
-> Resending inline. The first copy went out as an attachment.
-> No code changes.
-> ---
-> Changes in v2:
-> - Drop the ts_gain fallback in st_lsm6dsx_init_hw_timer() and set
->   .ts_sensitivity =3D 25000 in the LSM6DS3, LSM6DS3H and LSM6DSL settings
->   entries instead (Lorenzo, Jonathan).
-> - Leave .ts_trim_coeff unset on those entries since they have no
->   freq_fine register (Francesco).
-> - Link to v1: https://lore.kernel.org/r/20261116-st-lsm6dsx-ts-fallback-v=
-1-1-8ace30afbfb5@advisoft.co.nz
-> ---
->  drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c | 3 +++
->  1 file changed, 3 insertions(+)
->=20
-> diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c b/drivers/iio/i=
-mu/st_lsm6dsx/st_lsm6dsx_core.c
-> index 823f8ac66..dffaf76b5 100644
-> --- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-> +++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-> @@ -434,6 +434,7 @@ static const struct st_lsm6dsx_settings st_lsm6dsx_se=
-nsor_settings[] =3D {
->  				.addr =3D 0x09,
->  				.mask =3D GENMASK(5, 3),
->  			},
-> +			.ts_sensitivity =3D 25000,
->  		},
->  		.event_settings =3D {
->  			.sources =3D {
-> @@ -601,6 +602,7 @@ static const struct st_lsm6dsx_settings st_lsm6dsx_se=
-nsor_settings[] =3D {
->  				.addr =3D 0x09,
->  				.mask =3D GENMASK(5, 3),
->  			},
-> +			.ts_sensitivity =3D 25000,
->  		},
->  		.event_settings =3D {
->  			.sources =3D {
-> @@ -802,6 +804,7 @@ static const struct st_lsm6dsx_settings st_lsm6dsx_se=
-nsor_settings[] =3D {
->  				.addr =3D 0x09,
->  				.mask =3D GENMASK(5, 3),
->  			},
-> +			.ts_sensitivity =3D 25000,
->  		},
->  		.shub_settings =3D {
->  			.page_mux =3D {
->=20
-> ---
-> base-commit: fa2933aac170dd19c6a7f0d7b81a8f537e40915c
-> change-id: 20261116-st-lsm6dsx-ts-fallback-cd21f1d1e30e
->=20
-> Best regards,
-> -- =20
-> Phil Williams <phil.williams@advisoft.co.nz>
->=20
->=20
+>  drivers/usb/cdns3/cdnsp-gadget.c | 3 ---
+>  1 file changed, 3 deletions(-)
+> 
+> diff --git a/drivers/usb/cdns3/cdnsp-gadget.c b/drivers/usb/cdns3/cdnsp-gadget.c
+> index 2830b595d632..350e45f511f5 100644
+> --- a/drivers/usb/cdns3/cdnsp-gadget.c
+> +++ b/drivers/usb/cdns3/cdnsp-gadget.c
+> @@ -2160,9 +2160,6 @@ static int cdnsp_gadget_resume(struct cdns *cdns, bool lost_power)
+> 
+>  	ret = cdnsp_run(pdev, max_speed);
+> 
+> -	if (!context_lost && pdev->link_state == XDEV_U3)
+> -		__cdnsp_gadget_wakeup(pdev);
+> -
+>  unlock:
+>  	spin_unlock_irqrestore(&pdev->lock, flags);
 
---GTDYvITx/AJlzXec
-Content-Type: application/pgp-signature; name=signature.asc
+Reviewed-by: Wentao Guan <guanwentao@uniontech.com>
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCawaYTQAKCRA6cBh0uS2t
-rNj6AP0ZLLu+r9WFBN6TAHJvfaI+XaWS6Iox74yGJGLRxbjbkgEA0MVKYd/uZCGS
-T6tY+qZXRIX+NwszYmhuddioXSuVNAI=
-=EB38
------END PGP SIGNATURE-----
-
---GTDYvITx/AJlzXec--
+BRs
+Wentao Guan
