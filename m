@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596665;
-	b=PRGvNmkd50RB0Q/3LT7OnWSfzGmgPqU0Nmb6u41nqNBurvzcUL3KNQo+/2T6u+o41ACK
-	 nBF/T3QYhOt+FShzyzwAmOLtS7fYSkhNhTWtWKrn86wtxzaPYTweG9L3hgvaprehJFnYZ
-	 JsiO27n8Qy5HkWSuWG27xUAppSDFVRW3R1joERJajbVuCjKWjhtYrYhYMvDpMvK4C3iIV
-	 qIpPerOPJZ+ZlBpRQSXAlCvQX/Q8PsqV2udbLJa0spglcOCIAI6twO2xWSyij8Hnvp9P/
-	 6E8XUS8LMqr3V77Q8VeQgKVUd3QXV+CSaOnaBz4rEQItdNlNLKsgbARGBjUSU/hNBtg==
+	t=1795596668;
+	b=f46Fo7HmBMSm91M+YjauD/Px90WkpU6yj2FUK1aNG4yfN0DIslnKxZ+DnKGHEONkVa5O
+	 TJVwsrusa9njjSI2hZlUZxKc8jANbboLEw8z72nZvXEJPDNgdv3qG+FSbHqNTUbUQ7FfH
+	 V+BXDyxMzBjU7HdbYFUJ/0qVOxTUNRZ2TINxuU0nBDQpkw4FbrgF4YmrIpf7ZsQ3OYykU
+	 RHlhtsPeWygP9lIWma6YYa06M0Ze7B8s99IJw3Ig4srkcbO0MCe1xiq9EThO+SaspgdSF
+	 whCH/wKp5s0J8zG28SCKQjp0tcQtA9BlC7aGYvZexJOsZe/qVlTAJxn8haugASYkhBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596665;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596668;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=3hletO6dVrJTYum4k5ntmmWYxwtUeWkRHNRc7SLsLrg=;
-	b=wWZWdMDy7nieOYK8i2ubrV6JxflQwnxhQ3qgeB/+f1isetnStlud/0+sRElHrrS/8zQO
-	 9WhiQtEn6RWI3ITrsYy1TWCY6Gf+Az3Ml8nHr/Cc9UDZcd6Bhx6dlzOxt/G7TOfnn43bY
-	 m8T8JtFH5XY4XrcZ8PA77Gf23pj3360aDxudCzONDbTWgLlj+fOs5+TRxQQ2kSAtgubYs
-	 xAks8zgELm+KVVJoo1fVuy8xOoH9FPTjNZVbZtHIAG0ko5fRsJtZlKyyiBxSq9yS2k8jU
-	 WMiaSJwnnh9QtHwYkPmjRASxe+aPtraQZjQpF3Q/swJckQdGSj/AjxhDeG9yfzWF5Hg==
+	bh=jYWdB+BOywmrpBLUuEFWkrPUt1e4iKCW79020SJs5Es=;
+	b=ClAKOJYGkU5vnPLmocXyktVGc34tMLou3+zR6YfiGDk+bzancWRBZZUMC3sVQwhnyFEu
+	 iyNtaYgTeT7vxpoKtjeC40XWis91qdx+C4oVMK1dyXMQHDnJYtw1KMLex5OA+BE3fI1Xv
+	 pQA65h3jd3DPWAFu6F5OoEsQR8ANdOKy2C+HLCdwW5eCTqRqC0Wq1IKIxsfA2bE4QWKIQ
+	 nXKtd1d2zUkwkaNPBl02pq0NS4EyzraAJZbzt1uP6JwkxBco4W7gCZN11ZwPzsGPnRlIg
+	 cqYe5QeflRyM7NmPjR6zlrYujvFnZBmvJYpPL1q9oymbtmIWQw5yCQO9yP2vhtuqlIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LHaEbjuj;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UQ0jvjQ4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75E3606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:51:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 901D3606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:51:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LHaEbjuj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E60C1F000C0;
-	Wed, 25 Nov 2026 08:51:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UQ0jvjQ4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1B841F000C4;
+	Wed, 25 Nov 2026 08:51:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795596665;
-	bh=3hletO6dVrJTYum4k5ntmmWYxwtUeWkRHNRc7SLsLrg=;
+	s=korg; t=1795596668;
+	bh=jYWdB+BOywmrpBLUuEFWkrPUt1e4iKCW79020SJs5Es=;
 	h=Subject:To:Cc:From:Date;
-	b=LHaEbjujF3wAjyTcuLfxlPh32klP3I62MagZ6jep0vSLp9DxtgfU09NvKx4Cu+WB4
-	 7+KflYQ4adWuonR9CQ+72qcrSPKBySwJzkIH2+2wOojqp940J63IhNEOI2tl03Usbb
-	 Zn8idscFwXNVBSoVkDgV9iyNjlL8i18DyhCYakEw=
-Subject: FAILED: patch "[PATCH] tcp: free saved_syn after an RCU grace period" failed to apply to 6.18-stable tree
+	b=UQ0jvjQ496umJdGbty8DVm3gm+DkFkUsM3YZzi1fgX5VYcMB8eLJuUsXLjXH6LPf+
+	 AIQQoOl2B4OG3MgCTJqMqbywCndSAGZZh6AZ3VkUI36Aa+dreG5NXaa1j93WcIopww
+	 bvb0IHwW7+I9sa7n1NWhkYopQiIqLPJW2lM49LAk=
+Subject: FAILED: patch "[PATCH] tcp: free saved_syn after an RCU grace period" failed to apply to 6.12-stable tree
 To: x-professor@outlook.com,edumazet@kernel.org,kuba@kernel.org,kuniyu@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 09:48:35 +0100
-Message-ID: <2026112535-duly-drier-c965@gregkh>
+Date: Wed, 25 Nov 2026 09:48:36 +0100
+Message-ID: <2026112536-tweak-sushi-fb9e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2b9fd1a0abf0c1c7200be7a33cfeeca1c68089b6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112535-duly-drier-c965@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112536-tweak-sushi-fb9e@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
