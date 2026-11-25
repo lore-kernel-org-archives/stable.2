@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618352;
-	b=4HGjje3QUzq9qacKmQz+98pFV2RY3oocEYgDC9HHYGsWVyR97Ww9yWT8dJYD3XLVhI+P
-	 LrvJH7mPk0OhOz1dzAD6zkgXxTfSJEP9x/qKzsLpw0RyzrX4e5kafko3uVyCDF53ykCWT
-	 /QgI7pIV50obHMWLZlfVgKJV93oFa2UuMLDwkjh0wf4Ve/gzq+L0toJVejDspGXJoiRJu
-	 AsYd99jyFFv5hIfrnBOueNuQbp7zE+bFuAg8RFJoDPrSOSXmay0L+O/N7at1jg2UDkTt8
-	 ZN14cg1ZmoygWnZdlpM7YEejgT8vpq6qjLwqCV+G6iy6SK3zKZQr6eg1FcMv/F2+6ug==
+	t=1795618353;
+	b=CnuEED0mIvwMr9IFLXg0t2Lxk3tLfZPYuvKwYFU4ifh6gtvgUfd1uSKJYccLwBesdqGv
+	 vN8pqqKcb2CmWgU+WuHPlR+SI6BDew+RTXbK1eX8Uc/SBjejfgaEI8xQPHlOs9UwCyftk
+	 zmoqPYol8EJmsArQuYmn458Htva68Z7dwC4cFSoJuyvUxeEnQV+e0Pv6E2BXDe5x6qZnl
+	 2D58h5EA7DE9qXJeOp2c+dHqdzK3E3bpXPhz6KYpjlb+ESQi1LqUhX4v72YIonsxYOX2r
+	 9m/Ypbn9qNETEyfCRA9BGWsRSunTEW4msEUf+rk9MKXCIsAt580OoqDQeV3L5Y8BGkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618352;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618353;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=yxKcnOPCUTn9GESrFAeZPx/Ll5zsj6ugvHc+mQe+yQ4=;
-	b=tRTJ2wez/8uDEULntRSMwSioSRx/ZpnBYsLeSiz8zcuU6+M0P4Hs38Dy6VYKSS86/Px0
-	 55wzldusRhKDVaWN/GzeWhlKmkXlDkYrHCi6ht6Knda/OtLC1nJPSzZh7h1FxOeIeiFcB
-	 Ej27iarmBSk+GVXmgUefaI//vYRwszq7Tdn0hkwSz4ABkU2z0hdQXNQjkug9riyGkNG8N
-	 sRL8c7aiiEtoQQaL8nlAiTwMTpUUzVs3aCmBpZDAIDdJ9j9SPT59jPgct+mOBH7W7vrlZ
-	 1B8LDVknte6FHAHUk9Q6NHj5fc4IwAdlSm0OgQCOLk+j7dqSlFiB3qwUetCLzO+GmNA==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=rDtn62xPDxLzMtbL0yxNvVBs1QSZyas94Eg7gg77U0U=;
+	b=cqaL/epX+0jfyq+IUNVazy3MpBZWSb7oNJLUIt6QP8BVOKTG1oI8iIyX9ooNcP5wh0Oi
+	 daIib4jWbNyBD6y3IFPLZKfSs653lL72SJBNSyDU1DAh0eRsMAGmVgOo26/Y7QHE5gpNp
+	 AAAk0FhlJ/5OKWC1GRcmC3SKq681S4crFyQFqzTph2yJFNp1Hux7oL19uMYF4xISWEr90
+	 QlQqIYD/Whti4sdHjMFgfunv9BWkL4tmEIaomzdVUKbicaHHCEaxp6zepUXiRNjiYWPIk
+	 ggG7qAM3/drox9MX2cJEnDu3McIsf43GGLHZ1XU3JLXVbmu75dSuH1XhwTgfroi594g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ewvjpoZn;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=meKOixtQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1740C606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:52:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E221606A32C;
+	Wed, 25 Nov 2026 14:52:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ewvjpoZn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0012F1F000D8;
-	Wed, 25 Nov 2026 14:52:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795618351;
-	bh=yxKcnOPCUTn9GESrFAeZPx/Ll5zsj6ugvHc+mQe+yQ4=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=meKOixtQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3599A1F000CA;
+	Wed, 25 Nov 2026 14:52:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795618352;
+	bh=rDtn62xPDxLzMtbL0yxNvVBs1QSZyas94Eg7gg77U0U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ewvjpoZnKOK0BkMAolveLsD4+6bpfi69Mv0hjjSf5UDMlMfQYiw73VkVuizUUWny+
-	 LbusSnpD9Lt/ke+W9PKisJBLL+1Tr+MZDyDSivmdh2DmYNuiIormohpcLsNXfFoIo1
-	 F4+86qcNT3JrxhFN8eywbZ2xlsDOi4KyVlW8wgaIo87OIGhySvdYImzQ/d8zZ2BNjl
-	 qztSYp4B/L8iH7Pv1WvCbwoaZW6h/TMiFAnP8UBPaEtZLZDPfV3iXbXB0PDQ23Owzr
-	 1SDKx0j7sxFKq2b0frswhQIxDOIMoj/ff6XiClUhyFC06YMX/CGReFhuEsK9MHpZH6
-	 b4ate35e/tBdw==
-From: Sasha Levin <sashal@kernel.org>
+	b=meKOixtQK9zht7QiAHuqJ/x7q0o51iJFiybFUhJ3cIWssvq/pACHv1zW7LAjolZ10
+	 N9ECGYe/ARgbOhcJUjj2+z0NDWwNMlLMw5nWnCLQasc4vYTUWIEdEBfSzcNaslu2zo
+	 sR0tJZrGdeONBhEx6IfiKIJeE438toTjxZ3fVSZ8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] tcp: move __reqsk_free() out of line
-Date: Wed, 25 Nov 2026 09:52:28 -0500
-Message-ID: <20261125145222.4129111-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112535-duly-drier-c965@gregkh>
-References: <2026112535-duly-drier-c965@gregkh>
+Subject: [PATCH 7.3 0252/1005] net: dsa: b53: Enable IGMP and MLD control packet CPU copies
+Date: Wed, 25 Nov 2026 15:26:30 +0100
+Message-ID: <20261125143827.642303071@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,91 +64,188 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@google.com>
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 22c1264415ef0d4564dd74e3de66e1895d3f7bc0 ]
+------------------
 
-Inlining __reqsk_free() is overkill, let's reclaim 2 Kbytes of text.
+From: Florian Fainelli <florian.fainelli@broadcom.com>
 
-$ scripts/bloat-o-meter -t vmlinux.old vmlinux.new
-add/remove: 2/4 grow/shrink: 2/14 up/down: 225/-2338 (-2113)
-Function                                     old     new   delta
-__reqsk_free                                   -     114    +114
-sock_edemux                                   18      82     +64
-inet_csk_listen_start                        233     264     +31
-__pfx___reqsk_free                             -      16     +16
-__pfx_reqsk_queue_alloc                       16       -     -16
-__pfx_reqsk_free                              16       -     -16
-reqsk_queue_alloc                             46       -     -46
-tcp_req_err                                  272     177     -95
-reqsk_fastopen_remove                        348     253     -95
-cookie_bpf_check                             157      62     -95
-cookie_tcp_reqsk_alloc                       387     290     -97
-cookie_v4_check                             1568    1465    -103
-reqsk_free                                   105       -    -105
-cookie_v6_check                             1519    1412    -107
-sock_gen_put                                 187      78    -109
-sock_pfree                                   212      82    -130
-tcp_try_fastopen                            1818    1683    -135
-tcp_v4_rcv                                  3478    3294    -184
-reqsk_put                                    306      90    -216
-tcp_get_cookie_sock                          551     318    -233
-tcp_v6_rcv                                  3404    3141    -263
-tcp_conn_request                            2677    2384    -293
-Total: Before=24887415, After=24885302, chg -0.01%
+[ Upstream commit 3362cb822ea750399a15b741713181fd8560bd17 ]
 
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20260204055147.1682705-5-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 2b9fd1a0abf0 ("tcp: free saved_syn after an RCU grace period")
+IGMPv2 reports and MLDv1 reports are addressed to the multicast group
+itself. Once the first listener is installed in the ARL table, subsequent
+reports can follow that entry without reaching the CPU. The bridge then
+fails to learn additional listeners, although static MDB forwarding works.
+
+Enable the high-level protocol classifiers so that IGMP and MLD control
+packets are copied to the CPU independently of the multicast ARL lookup.
+Retain normal L2 forwarding by clearing the CPU-only forwarding modes,
+and preserve unrelated protocol-control fields.
+
+Handle the BCM5395's 16-bit register and different classifier fields
+separately from the 32-bit layout on the BCM531xx, BCM5301x and newer
+integrated RoboSwitch families, including BCM7445, BCM7278 and BCM4908.
+Export the helper and call it from bcm_sf2_sw_setup() as well, since SF2
+uses its own setup operation instead of b53_setup(). This also restores
+the classifiers after the switch reset on resume. Leave older devices
+with different IGMP controls untouched, and propagate register access
+failures during setup.
+
+The SF2 setup integration and BCM4908 chip gate were updated with
+assistance from OpenAI Codex in response to review feedback.
+
+Fixes: 5d65b64a3d97 ("net: dsa: b53: Add support for MDB")
+Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Link: https://patch.msgid.link/20261028235100.3892374-2-florian.fainelli@broadcom.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/request_sock.h      |  9 +--------
- net/ipv4/inet_connection_sock.c | 10 ++++++++++
- 2 files changed, 11 insertions(+), 8 deletions(-)
+ drivers/net/dsa/b53/b53_common.c | 57 ++++++++++++++++++++++++++++++++
+ drivers/net/dsa/b53/b53_priv.h   |  1 +
+ drivers/net/dsa/b53/b53_regs.h   | 17 ++++++++++
+ drivers/net/dsa/bcm_sf2.c        |  5 +++
+ 4 files changed, 80 insertions(+)
 
-diff --git a/include/net/request_sock.h b/include/net/request_sock.h
-index cd4d4cf71d0d2..e5108d0b14d72 100644
---- a/include/net/request_sock.h
-+++ b/include/net/request_sock.h
-@@ -124,14 +124,7 @@ static inline struct sock *skb_steal_sock(struct sk_buff *skb,
- 	return sk;
+diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
+index 0880310c9ce3f..e54f6d4d1f7bb 100644
+--- a/drivers/net/dsa/b53/b53_common.c
++++ b/drivers/net/dsa/b53/b53_common.c
+@@ -836,6 +836,59 @@ void b53_brcm_hdr_setup(struct dsa_switch *ds, int port)
  }
+ EXPORT_SYMBOL(b53_brcm_hdr_setup);
  
--static inline void __reqsk_free(struct request_sock *req)
--{
--	req->rsk_ops->destructor(req);
--	if (req->rsk_listener)
--		sock_put(req->rsk_listener);
--	kfree(req->saved_syn);
--	kmem_cache_free(req->rsk_ops->slab, req);
--}
-+void __reqsk_free(struct request_sock *req);
- 
- static inline void reqsk_free(struct request_sock *req)
- {
-diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index 1f75a4a94cad4..e70dd99c2f912 100644
---- a/net/ipv4/inet_connection_sock.c
-+++ b/net/ipv4/inet_connection_sock.c
-@@ -934,6 +934,16 @@ struct request_sock *inet_reqsk_alloc(const struct request_sock_ops *ops,
- }
- EXPORT_SYMBOL(inet_reqsk_alloc);
- 
-+void __reqsk_free(struct request_sock *req)
++int b53_enable_mcast_snooping(struct b53_device *dev)
 +{
-+	req->rsk_ops->destructor(req);
-+	if (req->rsk_listener)
-+		sock_put(req->rsk_listener);
-+	kfree(req->saved_syn);
-+	kmem_cache_free(req->rsk_ops->slab, req);
-+}
-+EXPORT_SYMBOL_GPL(__reqsk_free);
++	u16 val16;
++	u32 val;
++	int ret;
 +
- static struct request_sock *inet_reqsk_clone(struct request_sock *req,
- 					     struct sock *sk)
++	/* Older switches use different IGMP controls, not HL_PRTC_CTRL. */
++	if (is5325(dev) || is5365(dev) || dev->chip_id == BCM5389_DEVICE_ID ||
++	    is5397_98(dev) || is63xx(dev))
++		return 0;
++
++	/* IGMPv2 and MLDv1 reports use the group's destination MAC. Once
++	 * the first listener is offloaded, ordinary multicast forwarding
++	 * can keep subsequent reports from reaching the bridge CPU.
++	 */
++
++	/* BCM5395 has a narrower register and a single IGMP classifier.
++	 * Its ICMPv6 classifier also covers MLD.
++	 */
++	if (dev->chip_id == BCM5395_DEVICE_ID) {
++		ret = b53_read16(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL, &val16);
++		if (ret)
++			return ret;
++
++		val16 |= HL_PRTC_IGMP_IP_EN_5395 | HL_PRTC_ICMPV6_EN;
++		/* Zero forwarding modes copy control traffic to the CPU
++		 * independently of the ARL lookup, retaining L2 forwarding.
++		 */
++		val16 &= ~(HL_PRTC_IGMP_FWD_MODE_5395 |
++			   HL_PRTC_ICMPV6_FWD_MODE);
++
++		return b53_write16(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL,
++				   val16);
++	}
++
++	ret = b53_read32(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL, &val);
++	if (ret)
++		return ret;
++
++	val |= HL_PRTC_IGMP_RPTLVE_EN | HL_PRTC_IGMP_QRY_EN |
++	       HL_PRTC_IGMP_UKN_EN | HL_PRTC_MLD_RPTDONE_EN |
++	       HL_PRTC_MLD_QRY_EN;
++	/* Zero forwarding modes copy control traffic to the CPU
++	 * independently of the ARL lookup, retaining L2 forwarding.
++	 */
++	val &= ~(HL_PRTC_IGMP_RPTLVE_FWD_MODE | HL_PRTC_IGMP_QRY_FWD_MODE |
++		 HL_PRTC_IGMP_UKN_FWD_MODE | HL_PRTC_MLD_RPTDONE_FWD_MODE |
++		 HL_PRTC_MLD_QRY_FWD_MODE);
++
++	return b53_write32(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL, val);
++}
++EXPORT_SYMBOL(b53_enable_mcast_snooping);
++
+ static void b53_enable_cpu_port(struct b53_device *dev, int port)
  {
+ 	u8 port_ctrl;
+@@ -1334,6 +1387,10 @@ static int b53_setup(struct dsa_switch *ds)
+ 			b53_disable_port(ds, port);
+ 	}
+ 
++	ret = b53_enable_mcast_snooping(dev);
++	if (ret)
++		return ret;
++
+ 	return b53_setup_devlink_resources(ds);
+ }
+ 
+diff --git a/drivers/net/dsa/b53/b53_priv.h b/drivers/net/dsa/b53/b53_priv.h
+index 29cca7945df71..c4d2a41c714f6 100644
+--- a/drivers/net/dsa/b53/b53_priv.h
++++ b/drivers/net/dsa/b53/b53_priv.h
+@@ -504,6 +504,7 @@ static inline struct gpio_desc *b53_switch_get_reset_gpio(struct b53_device *dev
+ /* Exported functions towards other drivers */
+ void b53_imp_vlan_setup(struct dsa_switch *ds, int cpu_port);
+ int b53_configure_vlan(struct dsa_switch *ds);
++int b53_enable_mcast_snooping(struct b53_device *dev);
+ void b53_get_strings(struct dsa_switch *ds, int port, u32 stringset,
+ 		     uint8_t *data);
+ void b53_get_ethtool_stats(struct dsa_switch *ds, int port, uint64_t *data);
+diff --git a/drivers/net/dsa/b53/b53_regs.h b/drivers/net/dsa/b53/b53_regs.h
+index 54a278db67c9f..cfdb5ed383260 100644
+--- a/drivers/net/dsa/b53/b53_regs.h
++++ b/drivers/net/dsa/b53/b53_regs.h
+@@ -274,6 +274,23 @@
+ /* Revision ID register (8 bit) */
+ #define B53_REV_ID			0x40
+ 
++/* High-level protocol control (16 bit on BCM5395, otherwise 32 bit) */
++#define B53_HL_PRTC_CTRL			0x50
++#define   HL_PRTC_ICMPV6_EN		BIT(4)
++#define   HL_PRTC_ICMPV6_FWD_MODE		BIT(5)
++#define   HL_PRTC_IGMP_IP_EN_5395		BIT(6)
++#define   HL_PRTC_IGMP_FWD_MODE_5395	BIT(8)
++#define   HL_PRTC_IGMP_RPTLVE_EN		BIT(9)
++#define   HL_PRTC_IGMP_RPTLVE_FWD_MODE	BIT(10)
++#define   HL_PRTC_IGMP_QRY_EN		BIT(11)
++#define   HL_PRTC_IGMP_QRY_FWD_MODE	BIT(12)
++#define   HL_PRTC_IGMP_UKN_EN		BIT(13)
++#define   HL_PRTC_IGMP_UKN_FWD_MODE	BIT(14)
++#define   HL_PRTC_MLD_RPTDONE_EN		BIT(15)
++#define   HL_PRTC_MLD_RPTDONE_FWD_MODE	BIT(16)
++#define   HL_PRTC_MLD_QRY_EN		BIT(17)
++#define   HL_PRTC_MLD_QRY_FWD_MODE		BIT(18)
++
+ /* Broadcom header RX control (16 bit) */
+ #define B53_BRCM_HDR_RX_DIS		0x60
+ 
+diff --git a/drivers/net/dsa/bcm_sf2.c b/drivers/net/dsa/bcm_sf2.c
+index de3efa3ce9a75..f3b56ea87b07b 100644
+--- a/drivers/net/dsa/bcm_sf2.c
++++ b/drivers/net/dsa/bcm_sf2.c
+@@ -1059,6 +1059,7 @@ static int bcm_sf2_sw_setup(struct dsa_switch *ds)
+ {
+ 	struct bcm_sf2_priv *priv = bcm_sf2_to_priv(ds);
+ 	unsigned int port;
++	int ret;
+ 
+ 	/* Enable all valid ports and disable those unused */
+ 	for (port = 0; port < priv->hw_params.num_ports; port++) {
+@@ -1074,6 +1075,10 @@ static int bcm_sf2_sw_setup(struct dsa_switch *ds)
+ 	b53_configure_vlan(ds);
+ 	bcm_sf2_enable_acb(ds);
+ 
++	ret = b53_enable_mcast_snooping(priv->dev);
++	if (ret)
++		return ret;
++
+ 	return b53_setup_devlink_resources(ds);
+ }
+ 
 -- 
 2.53.0
+
+
 
