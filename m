@@ -1,52 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795629693;
-	b=4+HBONEOl6cY8bYR5RroaHV/Ej6BJPnxZeGyJHJuHnzWGbecVnnHfRl5HwPgSbEKPqJW
-	 3r86xr2URDCSWxLMDPLG4VQkd2iPqjjrj3wWo3Q8Pxaf6L6O7k/4cZ4bYIMPs1mSURWPK
-	 Lme3QIZdgoTgROUPAyc4xyLZWeZV+gL+lBe1p+i+TZKuKJYqWQYfdsu7tngsYkBDUtheQ
-	 qbKcd7WDux6LLvydq7xS90iuHCTtS0MBRjblFP1qila/SHzbl7WETjnOaXCFdvlbzdVVT
-	 vA3HWgD6I3T0rNug5dX5/4xAqWp7WGyh3vIfcZj435Pur37JFApIAXZSJKBdUTArgjw==
+	t=1795629695;
+	b=CZAkXAADj92Q0PTA/O0EDqZKp2Ht2XrM2f9NkjThHEakbuaatHbkj7uNYhtbahVX4p2N
+	 Ag3LrMn2yitTg/sHNfHIS3jcNgh/kPeH3WDReMqFUtKpK68ZvvqpgCOPoI5wbUSlRMeXW
+	 BuVs7O3rp2RsTkNLds4Hm2SYpHTdpEOZb/+og/Srl0fdPOK+GiXoVw2JQMRw7nmdP3P6L
+	 nuXpym+6YXyBvUVon3rbM6zYcw5fBRM2DWF5iOuFsvmba+e5y9Tl/o1Ra97rpMp+czV7t
+	 rx4NUsdVNv2UxTgM5dL7dbozKUyWJKTdLjD85GjzED1GQCTIs7YZCpNHd1dzkUYoSfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795629693;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795629695;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=GhckhVkhEIYmRyJ1d2QuTkr08W2wGtkdinci48+4vmQ=;
-	b=NuyGjB7veLdJDN6oMdT6kkd3ZcOZMtH4PR5EfiC4ZxefiQDeGwvYPendvNMEyglG+FTo
-	 y2TzuqoqKNws6lXmTnjjg7NzowYpeO0v+TugWNmWn8+0VzCeCXtI1HrLPsPaMnKNXb8RU
-	 BoKXgGp8kkTV/xLurjBDTAgTfKCfpjZBYOI9isCjGfozjlnsplSQtCfa0TGNbDwYgJnux
-	 lACB6EOh6CW6MwehiueKE1Px5T3PqJZmOmzDPQqnYgxWJlYyBoLRrhhH6x5+zl6Yr2CEu
-	 yUjPptxKbzfVFbxeGMdeh0qe9yyamq72VT7KStRBjlrgD2oEmtn5wT7w12utEo2OZ/A==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=wKMfKv0JFAudZla4qlMuc49XCQTs+deFAPw9abCanPs=;
+	b=Y226n5uIHMYlLwQ7EQ/S8PWoB1NeSoka4l8I4RvI/cHMKbFpJS5yIaonVBz59RUVcl8G
+	 KqasXappHkPTLI40xjimhWQ+j3H0sKJMUYjSLKradFyj2+Cfnh+itrRWx+y0Q8mgY1k1J
+	 E9TudLxatesuTu3Ps6gaXMk+YqZyiDL3aw9Kscpths95hCWYT+1RFKK56flUr2IrBN7CI
+	 caIBeuMKDCbN2mXotK5ed4Jcrecv2u61TLaetptvuN9LQ5LIWeQeZOvb/2+rjuDA2pAQv
+	 15uEwg8H2nHu8ei2aovr3JOAUrK8Z7nm3jrqDREH9mMy/A/q7I8xMdJfz88fjdtuXww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EuuVbsrH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebl3FGsy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A08606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:01:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5EA606A326
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:01:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EuuVbsrH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC4781F000D2;
-	Wed, 25 Nov 2026 18:01:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebl3FGsy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27A0C1F000D3;
+	Wed, 25 Nov 2026 18:01:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795629693;
-	bh=GhckhVkhEIYmRyJ1d2QuTkr08W2wGtkdinci48+4vmQ=;
+	s=k20260515; t=1795629694;
+	bh=wKMfKv0JFAudZla4qlMuc49XCQTs+deFAPw9abCanPs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EuuVbsrHCbYUTmv/ud7PIRwg9t9XCYKTzl/Bkigr26ld/bczDUEjB56FXKCD+KF8x
-	 rLUOB1kQNIn28cEm/M7qWggg/3cdI7BU8GOho3VjwKW+LqHievFQGViOP5N0gZoh/v
-	 b7JPKqSMFhEf+x/g5237BmSX7LSo8tvjgdziQtT+3WtSNj3aA+5NhvCvhZSbVkkHIo
-	 VcQmJzp5Im3WBCudu7lhvDAkDHd8yyK/MLjELo0kS4MUGbDF4JXWWynk+/m0QKsaEF
-	 zvm/wPc0dcLYzea0QPjdM09p+SzsN5wLEW4WqaSexOsjjt+LpgCqJF0yuv8/KsPnUE
-	 kGH/gCxHPrsxg==
+	b=ebl3FGsyonJZsUuR5J2KybkhLytX0KbPZbvfgsI174FkKpK7pMmzLSOb5r0RQiRyK
+	 rfLvwnUt5bupP1oNfG++tvIiBFq5HMTiLLRJJ3UNamSnp2hGh8iZA4kWDvoPHmiJFe
+	 KC16hcNKiHOiNvhNdPWJ0ivDxk8L5qSfe1eZ7uPeDnYzI4taXB2AcXEixxxd8WngSF
+	 aU5Gj91s+91svywhEDuvMXVdqGlA0bsekkE254OoCCMFAUC/CkTdLiMDvxRT5Jb6B9
+	 adJS12RgF0MCzfqJpjETr1X6PA4sEt9023V/IbfqeMxOs1LIuACF7RSWTUfqzmuz6u
+	 FrXmJy7dC9p+w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Heiko Carstens <hca@linux.ibm.com>,
-	Stefan Haberland <sth@linux.ibm.com>,
+Cc: Stefan Haberland <sth@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	=?UTF-8?q?Jan=20H=C3=B6ppner?= <hoeppner@linux.ibm.com>,
+	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/5] s390/dasd: use new address translation helpers
-Date: Wed, 25 Nov 2026 13:01:27 -0500
-Message-ID: <20261125180055.1102849-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 4/5] s390/dasd: Fix typo 'immediatly' -> 'immediately'
+Date: Wed, 25 Nov 2026 13:01:28 -0500
+Message-ID: <20261125180055.1102849-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261125180055.1102849-1-sashal@kernel.org>
 References: <2026112515-random-remodeler-3b18@gregkh>
@@ -60,689 +63,144 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Heiko Carstens <hca@linux.ibm.com>
+From: Stefan Haberland <sth@linux.ibm.com>
 
-[ Upstream commit c0bd39601c13ab08e961d77a90dfeeff56056353 ]
+[ Upstream commit ae6f19236b5ae4eef4df2780d51bee19add0eba8 ]
 
-Use virt_to_dma32() and friends to properly convert virtual to physical and
-physical to virtual addresses so that "make C=1" does not generate any
-warnings anymore.
+Fix typo in function name dasd_sleep_on_immediatly().
 
-Reviewed-by: Stefan Haberland <sth@linux.ibm.com>
-Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+Suggested-by: Heiko Carstens <hca@linux.ibm.com>
+Reviewed-by: Jan Höppner <hoeppner@linux.ibm.com>
+Signed-off-by: Stefan Haberland <sth@linux.ibm.com>
+Link: https://patch.msgid.link/20261112102608.1057852-2-sth@linux.ibm.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 Stable-dep-of: 25cdc1f63227 ("s390/dasd: Re-initialize RCD buffer with "V1.0" before every start")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/s390/block/dasd.c          |  4 +-
- drivers/s390/block/dasd_3990_erp.c | 14 ++---
- drivers/s390/block/dasd_alias.c    |  6 +-
- drivers/s390/block/dasd_eckd.c     | 98 +++++++++++++++---------------
- drivers/s390/block/dasd_eer.c      |  2 +-
- drivers/s390/block/dasd_fba.c      | 28 ++++-----
- 6 files changed, 76 insertions(+), 76 deletions(-)
+ drivers/s390/block/dasd.c       |  4 ++--
+ drivers/s390/block/dasd_alias.c |  2 +-
+ drivers/s390/block/dasd_eckd.c  | 14 +++++++-------
+ drivers/s390/block/dasd_int.h   |  2 +-
+ 4 files changed, 11 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/s390/block/dasd.c b/drivers/s390/block/dasd.c
-index 7ec6e9f5d815a..0a98812f87ff2 100644
+index 0a98812f87ff2..de5f0a8b85c08 100644
 --- a/drivers/s390/block/dasd.c
 +++ b/drivers/s390/block/dasd.c
-@@ -4003,7 +4003,7 @@ static struct dasd_ccw_req *dasd_generic_build_rdc(struct dasd_device *device,
- 
- 	ccw = cqr->cpaddr;
- 	ccw->cmd_code = CCW_CMD_RDC;
--	ccw->cda = (__u32)virt_to_phys(cqr->data);
-+	ccw->cda = virt_to_dma32(cqr->data);
- 	ccw->flags = 0;
- 	ccw->count = rdc_buffer_size;
- 	cqr->startdev = device;
-@@ -4047,7 +4047,7 @@ char *dasd_get_sense(struct irb *irb)
- 
- 	if (scsw_is_tm(&irb->scsw) && (irb->scsw.tm.fcxs == 0x01)) {
- 		if (irb->scsw.tm.tcw)
--			tsb = tcw_get_tsb(phys_to_virt(irb->scsw.tm.tcw));
-+			tsb = tcw_get_tsb(dma32_to_virt(irb->scsw.tm.tcw));
- 		if (tsb && tsb->length == 64 && tsb->flags)
- 			switch (tsb->flags & 0x07) {
- 			case 1:	/* tsa_iostat */
-diff --git a/drivers/s390/block/dasd_3990_erp.c b/drivers/s390/block/dasd_3990_erp.c
-index 07f886029a358..3e920acfa2d42 100644
---- a/drivers/s390/block/dasd_3990_erp.c
-+++ b/drivers/s390/block/dasd_3990_erp.c
-@@ -220,7 +220,7 @@ dasd_3990_erp_DCTL(struct dasd_ccw_req * erp, char modifier)
- 	memset(ccw, 0, sizeof(struct ccw1));
- 	ccw->cmd_code = CCW_CMD_DCTL;
- 	ccw->count = 4;
--	ccw->cda = (__u32)virt_to_phys(DCTL_data);
-+	ccw->cda = virt_to_dma32(DCTL_data);
- 	dctl_cqr->flags = erp->flags;
- 	dctl_cqr->function = dasd_3990_erp_DCTL;
- 	dctl_cqr->refers = erp;
-@@ -1603,7 +1603,7 @@ dasd_3990_erp_action_1B_32(struct dasd_ccw_req * default_erp, char *sense)
- {
- 
- 	struct dasd_device *device = default_erp->startdev;
--	__u32 cpa = 0;
-+	dma32_t cpa = 0;
- 	struct dasd_ccw_req *cqr;
- 	struct dasd_ccw_req *erp;
- 	struct DE_eckd_data *DE_data;
-@@ -1708,7 +1708,7 @@ dasd_3990_erp_action_1B_32(struct dasd_ccw_req * default_erp, char *sense)
- 	ccw->cmd_code = DASD_ECKD_CCW_DEFINE_EXTENT;
- 	ccw->flags = CCW_FLAG_CC;
- 	ccw->count = 16;
--	ccw->cda = (__u32)virt_to_phys(DE_data);
-+	ccw->cda = virt_to_dma32(DE_data);
- 
- 	/* create LO ccw */
- 	ccw++;
-@@ -1716,7 +1716,7 @@ dasd_3990_erp_action_1B_32(struct dasd_ccw_req * default_erp, char *sense)
- 	ccw->cmd_code = DASD_ECKD_CCW_LOCATE_RECORD;
- 	ccw->flags = CCW_FLAG_CC;
- 	ccw->count = 16;
--	ccw->cda = (__u32)virt_to_phys(LO_data);
-+	ccw->cda = virt_to_dma32(LO_data);
- 
- 	/* TIC to the failed ccw */
- 	ccw++;
-@@ -1762,7 +1762,7 @@ dasd_3990_update_1B(struct dasd_ccw_req * previous_erp, char *sense)
- {
- 
- 	struct dasd_device *device = previous_erp->startdev;
--	__u32 cpa = 0;
-+	dma32_t cpa = 0;
- 	struct dasd_ccw_req *cqr;
- 	struct dasd_ccw_req *erp;
- 	char *LO_data;		/* struct LO_eckd_data */
-@@ -2413,7 +2413,7 @@ static struct dasd_ccw_req *dasd_3990_erp_add_erp(struct dasd_ccw_req *cqr)
- 		tcw = erp->cpaddr;
- 		tsb = (struct tsb *) &tcw[1];
- 		*tcw = *((struct tcw *)cqr->cpaddr);
--		tcw->tsb = virt_to_phys(tsb);
-+		tcw->tsb = virt_to_dma64(tsb);
- 	} else if (ccw->cmd_code == DASD_ECKD_CCW_PSF) {
- 		/* PSF cannot be chained from NOOP/TIC */
- 		erp->cpaddr = cqr->cpaddr;
-@@ -2424,7 +2424,7 @@ static struct dasd_ccw_req *dasd_3990_erp_add_erp(struct dasd_ccw_req *cqr)
- 		ccw->flags = CCW_FLAG_CC;
- 		ccw++;
- 		ccw->cmd_code = CCW_CMD_TIC;
--		ccw->cda      = (__u32)virt_to_phys(cqr->cpaddr);
-+		ccw->cda      = virt_to_dma32(cqr->cpaddr);
- 	}
- 
- 	erp->flags = cqr->flags;
-diff --git a/drivers/s390/block/dasd_alias.c b/drivers/s390/block/dasd_alias.c
-index c9740ae88d1a6..e77393e6f63ab 100644
---- a/drivers/s390/block/dasd_alias.c
-+++ b/drivers/s390/block/dasd_alias.c
-@@ -443,7 +443,7 @@ static int read_unit_address_configuration(struct dasd_device *device,
- 	ccw->cmd_code = DASD_ECKD_CCW_PSF;
- 	ccw->count = sizeof(struct dasd_psf_prssd_data);
- 	ccw->flags |= CCW_FLAG_CC;
--	ccw->cda = (__u32)virt_to_phys(prssdp);
-+	ccw->cda = virt_to_dma32(prssdp);
- 
- 	/* Read Subsystem Data - feature codes */
- 	memset(lcu->uac, 0, sizeof(*(lcu->uac)));
-@@ -451,7 +451,7 @@ static int read_unit_address_configuration(struct dasd_device *device,
- 	ccw++;
- 	ccw->cmd_code = DASD_ECKD_CCW_RSSD;
- 	ccw->count = sizeof(*(lcu->uac));
--	ccw->cda = (__u32)virt_to_phys(lcu->uac);
-+	ccw->cda = virt_to_dma32(lcu->uac);
- 
- 	cqr->buildclk = get_tod_clock();
- 	cqr->status = DASD_CQR_FILLED;
-@@ -747,7 +747,7 @@ static int reset_summary_unit_check(struct alias_lcu *lcu,
- 	ccw->cmd_code = DASD_ECKD_CCW_RSCK;
- 	ccw->flags = CCW_FLAG_SLI;
- 	ccw->count = 16;
--	ccw->cda = (__u32)virt_to_phys(cqr->data);
-+	ccw->cda = virt_to_dma32(cqr->data);
- 	((char *)cqr->data)[0] = reason;
- 
- 	clear_bit(DASD_CQR_FLAGS_USE_ERP, &cqr->flags);
-diff --git a/drivers/s390/block/dasd_eckd.c b/drivers/s390/block/dasd_eckd.c
-index d1722be091396..fcf1c4b65b638 100644
---- a/drivers/s390/block/dasd_eckd.c
-+++ b/drivers/s390/block/dasd_eckd.c
-@@ -286,7 +286,7 @@ define_extent(struct ccw1 *ccw, struct DE_eckd_data *data, unsigned int trk,
- 		ccw->cmd_code = DASD_ECKD_CCW_DEFINE_EXTENT;
- 		ccw->flags = 0;
- 		ccw->count = 16;
--		ccw->cda = (__u32)virt_to_phys(data);
-+		ccw->cda = virt_to_dma32(data);
- 	}
- 
- 	memset(data, 0, sizeof(struct DE_eckd_data));
-@@ -396,7 +396,7 @@ static void locate_record_ext(struct ccw1 *ccw, struct LRE_eckd_data *data,
- 			ccw->count = 22;
- 		else
- 			ccw->count = 20;
--		ccw->cda = (__u32)virt_to_phys(data);
-+		ccw->cda = virt_to_dma32(data);
- 	}
- 
- 	memset(data, 0, sizeof(*data));
-@@ -542,11 +542,11 @@ static int prefix_LRE(struct ccw1 *ccw, struct PFX_eckd_data *pfxdata,
- 	ccw->flags = 0;
- 	if (cmd == DASD_ECKD_CCW_WRITE_FULL_TRACK) {
- 		ccw->count = sizeof(*pfxdata) + 2;
--		ccw->cda = (__u32)virt_to_phys(pfxdata);
-+		ccw->cda = virt_to_dma32(pfxdata);
- 		memset(pfxdata, 0, sizeof(*pfxdata) + 2);
- 	} else {
- 		ccw->count = sizeof(*pfxdata);
--		ccw->cda = (__u32)virt_to_phys(pfxdata);
-+		ccw->cda = virt_to_dma32(pfxdata);
- 		memset(pfxdata, 0, sizeof(*pfxdata));
- 	}
- 
-@@ -613,7 +613,7 @@ locate_record(struct ccw1 *ccw, struct LO_eckd_data *data, unsigned int trk,
- 	ccw->cmd_code = DASD_ECKD_CCW_LOCATE_RECORD;
- 	ccw->flags = 0;
- 	ccw->count = 16;
--	ccw->cda = (__u32)virt_to_phys(data);
-+	ccw->cda = virt_to_dma32(data);
- 
- 	memset(data, 0, sizeof(struct LO_eckd_data));
- 	sector = 0;
-@@ -828,7 +828,7 @@ static void dasd_eckd_fill_rcd_cqr(struct dasd_device *device,
- 	ccw = cqr->cpaddr;
- 	ccw->cmd_code = DASD_ECKD_CCW_RCD;
- 	ccw->flags = 0;
--	ccw->cda = (__u32)virt_to_phys(rcd_buffer);
-+	ccw->cda = virt_to_dma32(rcd_buffer);
- 	ccw->count = DASD_ECKD_RCD_DATA_SIZE;
- 	cqr->magic = DASD_ECKD_MAGIC;
- 
-@@ -856,7 +856,7 @@ static void read_conf_cb(struct dasd_ccw_req *cqr, void *data)
- 
- 	if (cqr->status !=  DASD_CQR_DONE) {
- 		ccw = cqr->cpaddr;
--		rcd_buffer = phys_to_virt(ccw->cda);
-+		rcd_buffer = dma32_to_virt(ccw->cda);
- 		memset(rcd_buffer, 0, sizeof(*rcd_buffer));
- 
- 		rcd_buffer[0] = 0xE5;
-@@ -1547,7 +1547,7 @@ static int dasd_eckd_read_features(struct dasd_device *device)
- 	ccw->cmd_code = DASD_ECKD_CCW_PSF;
- 	ccw->count = sizeof(struct dasd_psf_prssd_data);
- 	ccw->flags |= CCW_FLAG_CC;
--	ccw->cda = (__u32)virt_to_phys(prssdp);
-+	ccw->cda = virt_to_dma32(prssdp);
- 
- 	/* Read Subsystem Data - feature codes */
- 	features = (struct dasd_rssd_features *) (prssdp + 1);
-@@ -1556,7 +1556,7 @@ static int dasd_eckd_read_features(struct dasd_device *device)
- 	ccw++;
- 	ccw->cmd_code = DASD_ECKD_CCW_RSSD;
- 	ccw->count = sizeof(struct dasd_rssd_features);
--	ccw->cda = (__u32)virt_to_phys(features);
-+	ccw->cda = virt_to_dma32(features);
- 
- 	cqr->buildclk = get_tod_clock();
- 	cqr->status = DASD_CQR_FILLED;
-@@ -1616,7 +1616,7 @@ static int dasd_eckd_read_vol_info(struct dasd_device *device)
- 	ccw->cmd_code = DASD_ECKD_CCW_PSF;
- 	ccw->count = sizeof(*prssdp);
- 	ccw->flags |= CCW_FLAG_CC;
--	ccw->cda = (__u32)virt_to_phys(prssdp);
-+	ccw->cda = virt_to_dma32(prssdp);
- 
- 	/* Read Subsystem Data - Volume Storage Query */
- 	vsq = (struct dasd_rssd_vsq *)(prssdp + 1);
-@@ -1626,7 +1626,7 @@ static int dasd_eckd_read_vol_info(struct dasd_device *device)
- 	ccw->cmd_code = DASD_ECKD_CCW_RSSD;
- 	ccw->count = sizeof(*vsq);
- 	ccw->flags |= CCW_FLAG_SLI;
--	ccw->cda = (__u32)virt_to_phys(vsq);
-+	ccw->cda = virt_to_dma32(vsq);
- 
- 	cqr->buildclk = get_tod_clock();
- 	cqr->status = DASD_CQR_FILLED;
-@@ -1816,7 +1816,7 @@ static int dasd_eckd_read_ext_pool_info(struct dasd_device *device)
- 	ccw->cmd_code = DASD_ECKD_CCW_PSF;
- 	ccw->count = sizeof(*prssdp);
- 	ccw->flags |= CCW_FLAG_CC;
--	ccw->cda = (__u32)virt_to_phys(prssdp);
-+	ccw->cda = virt_to_dma32(prssdp);
- 
- 	lcq = (struct dasd_rssd_lcq *)(prssdp + 1);
- 	memset(lcq, 0, sizeof(*lcq));
-@@ -1825,7 +1825,7 @@ static int dasd_eckd_read_ext_pool_info(struct dasd_device *device)
- 	ccw->cmd_code = DASD_ECKD_CCW_RSSD;
- 	ccw->count = sizeof(*lcq);
- 	ccw->flags |= CCW_FLAG_SLI;
--	ccw->cda = (__u32)virt_to_phys(lcq);
-+	ccw->cda = virt_to_dma32(lcq);
- 
- 	cqr->buildclk = get_tod_clock();
- 	cqr->status = DASD_CQR_FILLED;
-@@ -1935,7 +1935,7 @@ static struct dasd_ccw_req *dasd_eckd_build_psf_ssc(struct dasd_device *device,
- 	}
- 	ccw = cqr->cpaddr;
- 	ccw->cmd_code = DASD_ECKD_CCW_PSF;
--	ccw->cda = (__u32)virt_to_phys(psf_ssc_data);
-+	ccw->cda = virt_to_dma32(psf_ssc_data);
- 	ccw->count = 66;
- 
- 	cqr->startdev = device;
-@@ -2291,7 +2291,7 @@ dasd_eckd_analysis_ccw(struct dasd_device *device)
- 		ccw->cmd_code = DASD_ECKD_CCW_READ_COUNT;
- 		ccw->flags = 0;
- 		ccw->count = 8;
--		ccw->cda = (__u32)virt_to_phys(count_data);
-+		ccw->cda = virt_to_dma32(count_data);
- 		ccw++;
- 		count_data++;
- 	}
-@@ -2305,7 +2305,7 @@ dasd_eckd_analysis_ccw(struct dasd_device *device)
- 	ccw->cmd_code = DASD_ECKD_CCW_READ_COUNT;
- 	ccw->flags = 0;
- 	ccw->count = 8;
--	ccw->cda = (__u32)virt_to_phys(count_data);
-+	ccw->cda = virt_to_dma32(count_data);
- 
- 	cqr->block = NULL;
- 	cqr->startdev = device;
-@@ -2677,7 +2677,7 @@ dasd_eckd_build_check(struct dasd_device *base, struct format_data_t *fdata,
- 		ccw->cmd_code = DASD_ECKD_CCW_READ_COUNT;
- 		ccw->flags = CCW_FLAG_SLI;
- 		ccw->count = 8;
--		ccw->cda = (__u32)virt_to_phys(fmt_buffer);
-+		ccw->cda = virt_to_dma32(fmt_buffer);
- 		ccw++;
- 		fmt_buffer++;
- 	}
-@@ -2887,7 +2887,7 @@ dasd_eckd_build_format(struct dasd_device *base, struct dasd_device *startdev,
- 			ccw->cmd_code = DASD_ECKD_CCW_WRITE_RECORD_ZERO;
- 			ccw->flags = CCW_FLAG_SLI;
- 			ccw->count = 8;
--			ccw->cda = (__u32)virt_to_phys(ect);
-+			ccw->cda = virt_to_dma32(ect);
- 			ccw++;
- 		}
- 		if ((intensity & ~0x08) & 0x04) {	/* erase track */
-@@ -2902,7 +2902,7 @@ dasd_eckd_build_format(struct dasd_device *base, struct dasd_device *startdev,
- 			ccw->cmd_code = DASD_ECKD_CCW_WRITE_CKD;
- 			ccw->flags = CCW_FLAG_SLI;
- 			ccw->count = 8;
--			ccw->cda = (__u32)virt_to_phys(ect);
-+			ccw->cda = virt_to_dma32(ect);
- 		} else {		/* write remaining records */
- 			for (i = 0; i < rpt; i++) {
- 				ect = (struct eckd_count *) data;
-@@ -2937,7 +2937,7 @@ dasd_eckd_build_format(struct dasd_device *base, struct dasd_device *startdev,
- 						DASD_ECKD_CCW_WRITE_CKD_MT;
- 				ccw->flags = CCW_FLAG_SLI;
- 				ccw->count = 8;
--				ccw->cda = (__u32)virt_to_phys(ect);
-+				ccw->cda = virt_to_dma32(ect);
- 				ccw++;
- 			}
- 		}
-@@ -3880,7 +3880,7 @@ dasd_eckd_dso_ras(struct dasd_device *device, struct dasd_block *block,
- 	}
- 
- 	ccw = cqr->cpaddr;
--	ccw->cda = (__u32)virt_to_phys(cqr->data);
-+	ccw->cda = virt_to_dma32(cqr->data);
- 	ccw->cmd_code = DASD_ECKD_CCW_DSO;
- 	ccw->count = size;
- 
-@@ -4149,11 +4149,11 @@ static struct dasd_ccw_req *dasd_eckd_build_cp_cmd_single(
- 			ccw->cmd_code = rcmd;
- 			ccw->count = count;
- 			if (idal_is_needed(dst, blksize)) {
--				ccw->cda = (__u32)virt_to_phys(idaws);
-+				ccw->cda = virt_to_dma32(idaws);
- 				ccw->flags = CCW_FLAG_IDA;
- 				idaws = idal_create_words(idaws, dst, blksize);
- 			} else {
--				ccw->cda = (__u32)virt_to_phys(dst);
-+				ccw->cda = virt_to_dma32(dst);
- 				ccw->flags = 0;
- 			}
- 			ccw++;
-@@ -4285,7 +4285,7 @@ static struct dasd_ccw_req *dasd_eckd_build_cp_cmd_track(
- 				ccw[-1].flags |= CCW_FLAG_CC;
- 				ccw->cmd_code = cmd;
- 				ccw->count = len_to_track_end;
--				ccw->cda = (__u32)virt_to_phys(idaws);
-+				ccw->cda = virt_to_dma32(idaws);
- 				ccw->flags = CCW_FLAG_IDA;
- 				ccw++;
- 				recid += count;
-@@ -4873,7 +4873,7 @@ static struct dasd_ccw_req *dasd_eckd_build_cp_raw(struct dasd_device *startdev,
- 		ccw->count = 57326;
- 		/* 64k map to one track */
- 		len_to_track_end = 65536 - start_padding_sectors * 512;
--		ccw->cda = (__u32)virt_to_phys(idaws);
-+		ccw->cda = virt_to_dma32(idaws);
- 		ccw->flags |= CCW_FLAG_IDA;
- 		ccw->flags |= CCW_FLAG_SLI;
- 		ccw++;
-@@ -4892,7 +4892,7 @@ static struct dasd_ccw_req *dasd_eckd_build_cp_raw(struct dasd_device *startdev,
- 			ccw->count = 57326;
- 			/* 64k map to one track */
- 			len_to_track_end = 65536;
--			ccw->cda = (__u32)virt_to_phys(idaws);
-+			ccw->cda = virt_to_dma32(idaws);
- 			ccw->flags |= CCW_FLAG_IDA;
- 			ccw->flags |= CCW_FLAG_SLI;
- 			ccw++;
-@@ -4949,9 +4949,9 @@ dasd_eckd_free_cp(struct dasd_ccw_req *cqr, struct request *req)
- 				ccw++;
- 			if (dst) {
- 				if (ccw->flags & CCW_FLAG_IDA)
--					cda = *((char **)phys_to_virt(ccw->cda));
-+					cda = *((char **)dma32_to_virt(ccw->cda));
- 				else
--					cda = phys_to_virt(ccw->cda);
-+					cda = dma32_to_virt(ccw->cda);
- 				if (dst != cda) {
- 					if (rq_data_dir(req) == READ)
- 						memcpy(dst, cda, bv.bv_len);
-@@ -5101,7 +5101,7 @@ dasd_eckd_release(struct dasd_device *device)
- 	ccw->cmd_code = DASD_ECKD_CCW_RELEASE;
- 	ccw->flags |= CCW_FLAG_SLI;
- 	ccw->count = 32;
--	ccw->cda = (__u32)virt_to_phys(cqr->data);
-+	ccw->cda = virt_to_dma32(cqr->data);
- 	cqr->startdev = device;
- 	cqr->memdev = device;
- 	clear_bit(DASD_CQR_FLAGS_USE_ERP, &cqr->flags);
-@@ -5156,7 +5156,7 @@ dasd_eckd_reserve(struct dasd_device *device)
- 	ccw->cmd_code = DASD_ECKD_CCW_RESERVE;
- 	ccw->flags |= CCW_FLAG_SLI;
- 	ccw->count = 32;
--	ccw->cda = (__u32)virt_to_phys(cqr->data);
-+	ccw->cda = virt_to_dma32(cqr->data);
- 	cqr->startdev = device;
- 	cqr->memdev = device;
- 	clear_bit(DASD_CQR_FLAGS_USE_ERP, &cqr->flags);
-@@ -5210,7 +5210,7 @@ dasd_eckd_steal_lock(struct dasd_device *device)
- 	ccw->cmd_code = DASD_ECKD_CCW_SLCK;
- 	ccw->flags |= CCW_FLAG_SLI;
- 	ccw->count = 32;
--	ccw->cda = (__u32)virt_to_phys(cqr->data);
-+	ccw->cda = virt_to_dma32(cqr->data);
- 	cqr->startdev = device;
- 	cqr->memdev = device;
- 	clear_bit(DASD_CQR_FLAGS_USE_ERP, &cqr->flags);
-@@ -5271,7 +5271,7 @@ static int dasd_eckd_snid(struct dasd_device *device,
- 	ccw->cmd_code = DASD_ECKD_CCW_SNID;
- 	ccw->flags |= CCW_FLAG_SLI;
- 	ccw->count = 12;
--	ccw->cda = (__u32)virt_to_phys(cqr->data);
-+	ccw->cda = virt_to_dma32(cqr->data);
- 	cqr->startdev = device;
- 	cqr->memdev = device;
- 	clear_bit(DASD_CQR_FLAGS_USE_ERP, &cqr->flags);
-@@ -5338,7 +5338,7 @@ dasd_eckd_performance(struct dasd_device *device, void __user *argp)
- 	ccw->cmd_code = DASD_ECKD_CCW_PSF;
- 	ccw->count = sizeof(struct dasd_psf_prssd_data);
- 	ccw->flags |= CCW_FLAG_CC;
--	ccw->cda = (__u32)virt_to_phys(prssdp);
-+	ccw->cda = virt_to_dma32(prssdp);
- 
- 	/* Read Subsystem Data - Performance Statistics */
- 	stats = (struct dasd_rssd_perf_stats_t *) (prssdp + 1);
-@@ -5347,7 +5347,7 @@ dasd_eckd_performance(struct dasd_device *device, void __user *argp)
- 	ccw++;
- 	ccw->cmd_code = DASD_ECKD_CCW_RSSD;
- 	ccw->count = sizeof(struct dasd_rssd_perf_stats_t);
--	ccw->cda = (__u32)virt_to_phys(stats);
-+	ccw->cda = virt_to_dma32(stats);
- 
- 	cqr->buildclk = get_tod_clock();
- 	cqr->status = DASD_CQR_FILLED;
-@@ -5491,7 +5491,7 @@ static int dasd_symm_io(struct dasd_device *device, void __user *argp)
- 	ccw->cmd_code = DASD_ECKD_CCW_PSF;
- 	ccw->count = usrparm.psf_data_len;
- 	ccw->flags |= CCW_FLAG_CC;
--	ccw->cda = (__u32)virt_to_phys(psf_data);
-+	ccw->cda = virt_to_dma32(psf_data);
- 
- 	ccw++;
- 
-@@ -5499,7 +5499,7 @@ static int dasd_symm_io(struct dasd_device *device, void __user *argp)
- 	ccw->cmd_code = DASD_ECKD_CCW_RSSD;
- 	ccw->count = usrparm.rssd_result_len;
- 	ccw->flags = CCW_FLAG_SLI ;
--	ccw->cda = (__u32)virt_to_phys(rssd_result);
-+	ccw->cda = virt_to_dma32(rssd_result);
- 
- 	rc = dasd_sleep_on(cqr);
- 	if (rc)
-@@ -5568,9 +5568,9 @@ dasd_eckd_dump_ccw_range(struct dasd_device *device, struct ccw1 *from,
- 
- 		/* get pointer to data (consider IDALs) */
- 		if (from->flags & CCW_FLAG_IDA)
--			datap = (char *)*((addr_t *)phys_to_virt(from->cda));
-+			datap = (char *)*((addr_t *)dma32_to_virt(from->cda));
- 		else
--			datap = phys_to_virt(from->cda);
-+			datap = dma32_to_virt(from->cda);
- 
- 		/* dump data (max 128 bytes) */
- 		for (count = 0; count < from->count && count < 128; count++) {
-@@ -5639,7 +5639,7 @@ static void dasd_eckd_dump_sense_ccw(struct dasd_device *device,
- 		       scsw_dstat(&irb->scsw), scsw_cstat(&irb->scsw),
- 		       req ? req->intrc : 0);
- 	len += sprintf(page + len, "Failing CCW: %px\n",
--		       phys_to_virt(irb->scsw.cmd.cpa));
-+		       dma32_to_virt(irb->scsw.cmd.cpa));
- 	if (irb->esw.esw0.erw.cons) {
- 		for (sl = 0; sl < 4; sl++) {
- 			len += sprintf(page + len, "Sense(hex) %2d-%2d:",
-@@ -5682,7 +5682,7 @@ static void dasd_eckd_dump_sense_ccw(struct dasd_device *device,
- 		/* print failing CCW area (maximum 4) */
- 		/* scsw->cda is either valid or zero  */
- 		from = ++to;
--		fail = phys_to_virt(irb->scsw.cmd.cpa); /* failing CCW */
-+		fail = dma32_to_virt(irb->scsw.cmd.cpa); /* failing CCW */
- 		if (from <  fail - 2) {
- 			from = fail - 2;     /* there is a gap - print header */
- 			dev_err(dev, "......\n");
-@@ -5732,12 +5732,12 @@ static void dasd_eckd_dump_sense_tcw(struct dasd_device *device,
- 		       (irb->scsw.tm.ifob << 7) | irb->scsw.tm.sesq,
- 		       req ? req->intrc : 0);
- 	len += sprintf(page + len, "Failing TCW: %px\n",
--		       phys_to_virt(irb->scsw.tm.tcw));
-+		       dma32_to_virt(irb->scsw.tm.tcw));
- 
- 	tsb = NULL;
- 	sense = NULL;
- 	if (irb->scsw.tm.tcw && (irb->scsw.tm.fcxs & 0x01))
--		tsb = tcw_get_tsb(phys_to_virt(irb->scsw.tm.tcw));
-+		tsb = tcw_get_tsb(dma32_to_virt(irb->scsw.tm.tcw));
- 
- 	if (tsb) {
- 		len += sprintf(page + len, "tsb->length %d\n", tsb->length);
-@@ -5943,7 +5943,7 @@ static int dasd_eckd_read_message_buffer(struct dasd_device *device,
- 	ccw->count = sizeof(struct dasd_psf_prssd_data);
- 	ccw->flags |= CCW_FLAG_CC;
- 	ccw->flags |= CCW_FLAG_SLI;
--	ccw->cda = (__u32)virt_to_phys(prssdp);
-+	ccw->cda = virt_to_dma32(prssdp);
- 
- 	/* Read Subsystem Data - message buffer */
- 	message_buf = (struct dasd_rssd_messages *) (prssdp + 1);
-@@ -5953,7 +5953,7 @@ static int dasd_eckd_read_message_buffer(struct dasd_device *device,
- 	ccw->cmd_code = DASD_ECKD_CCW_RSSD;
- 	ccw->count = sizeof(struct dasd_rssd_messages);
- 	ccw->flags |= CCW_FLAG_SLI;
--	ccw->cda = (__u32)virt_to_phys(message_buf);
-+	ccw->cda = virt_to_dma32(message_buf);
- 
- 	cqr->buildclk = get_tod_clock();
- 	cqr->status = DASD_CQR_FILLED;
-@@ -6037,14 +6037,14 @@ static int dasd_eckd_query_host_access(struct dasd_device *device,
- 	ccw->count = sizeof(struct dasd_psf_prssd_data);
- 	ccw->flags |= CCW_FLAG_CC;
- 	ccw->flags |= CCW_FLAG_SLI;
--	ccw->cda = (__u32)virt_to_phys(prssdp);
-+	ccw->cda = virt_to_dma32(prssdp);
- 
- 	/* Read Subsystem Data - query host access */
- 	ccw++;
- 	ccw->cmd_code = DASD_ECKD_CCW_RSSD;
- 	ccw->count = sizeof(struct dasd_psf_query_host_access);
- 	ccw->flags |= CCW_FLAG_SLI;
--	ccw->cda = (__u32)virt_to_phys(host_access);
-+	ccw->cda = virt_to_dma32(host_access);
- 
- 	cqr->buildclk = get_tod_clock();
- 	cqr->status = DASD_CQR_FILLED;
-@@ -6303,14 +6303,14 @@ static int dasd_eckd_query_pprc_status(struct dasd_device *device,
- 	ccw->count = sizeof(struct dasd_psf_prssd_data);
- 	ccw->flags |= CCW_FLAG_CC;
- 	ccw->flags |= CCW_FLAG_SLI;
--	ccw->cda = (__u32)virt_to_phys(prssdp);
-+	ccw->cda = virt_to_dma32(prssdp);
- 
- 	/* Read Subsystem Data - query host access */
- 	ccw++;
- 	ccw->cmd_code = DASD_ECKD_CCW_RSSD;
- 	ccw->count = sizeof(*pprc_data);
- 	ccw->flags |= CCW_FLAG_SLI;
--	ccw->cda = (__u32)virt_to_phys(pprc_data);
-+	ccw->cda = virt_to_dma32(pprc_data);
- 
- 	cqr->buildclk = get_tod_clock();
- 	cqr->status = DASD_CQR_FILLED;
-@@ -6404,7 +6404,7 @@ dasd_eckd_psf_cuir_response(struct dasd_device *device, int response,
- 	psf_cuir->ssid = device->path[pos].ssid;
- 	ccw = cqr->cpaddr;
- 	ccw->cmd_code = DASD_ECKD_CCW_PSF;
--	ccw->cda = (__u32)virt_to_phys(psf_cuir);
-+	ccw->cda = virt_to_dma32(psf_cuir);
- 	ccw->flags = CCW_FLAG_SLI;
- 	ccw->count = sizeof(struct dasd_psf_cuir_response);
- 
-diff --git a/drivers/s390/block/dasd_eer.c b/drivers/s390/block/dasd_eer.c
-index c956de711cf78..0f53bf0d50ff0 100644
---- a/drivers/s390/block/dasd_eer.c
-+++ b/drivers/s390/block/dasd_eer.c
-@@ -492,7 +492,7 @@ int dasd_eer_enable(struct dasd_device *device)
- 	ccw->cmd_code = DASD_ECKD_CCW_SNSS;
- 	ccw->count = SNSS_DATA_SIZE;
- 	ccw->flags = 0;
--	ccw->cda = (__u32)virt_to_phys(cqr->data);
-+	ccw->cda = virt_to_dma32(cqr->data);
- 
- 	cqr->buildclk = get_tod_clock();
- 	cqr->status = DASD_CQR_FILLED;
-diff --git a/drivers/s390/block/dasd_fba.c b/drivers/s390/block/dasd_fba.c
-index 3be974d65f50e..1ff7c1f816883 100644
---- a/drivers/s390/block/dasd_fba.c
-+++ b/drivers/s390/block/dasd_fba.c
-@@ -78,7 +78,7 @@ define_extent(struct ccw1 * ccw, struct DE_fba_data *data, int rw,
- 	ccw->cmd_code = DASD_FBA_CCW_DEFINE_EXTENT;
- 	ccw->flags = 0;
- 	ccw->count = 16;
--	ccw->cda = (__u32)virt_to_phys(data);
-+	ccw->cda = virt_to_dma32(data);
- 	memset(data, 0, sizeof (struct DE_fba_data));
- 	if (rw == WRITE)
- 		(data->mask).perm = 0x0;
-@@ -98,7 +98,7 @@ locate_record(struct ccw1 * ccw, struct LO_fba_data *data, int rw,
- 	ccw->cmd_code = DASD_FBA_CCW_LOCATE;
- 	ccw->flags = 0;
- 	ccw->count = 8;
--	ccw->cda = (__u32)virt_to_phys(data);
-+	ccw->cda = virt_to_dma32(data);
- 	memset(data, 0, sizeof (struct LO_fba_data));
- 	if (rw == WRITE)
- 		data->operation.cmd = 0x5;
-@@ -257,7 +257,7 @@ static void ccw_write_zero(struct ccw1 *ccw, int count)
- 	ccw->cmd_code = DASD_FBA_CCW_WRITE;
- 	ccw->flags |= CCW_FLAG_SLI;
- 	ccw->count = count;
--	ccw->cda = (__u32)virt_to_phys(dasd_fba_zero_page);
-+	ccw->cda = virt_to_dma32(dasd_fba_zero_page);
+@@ -2572,7 +2572,7 @@ static inline int _dasd_term_running_cqr(struct dasd_device *device)
+ 	return rc;
  }
  
- /*
-@@ -523,11 +523,11 @@ static struct dasd_ccw_req *dasd_fba_build_cp_regular(
- 			ccw->cmd_code = cmd;
- 			ccw->count = block->bp_block;
- 			if (idal_is_needed(dst, blksize)) {
--				ccw->cda = (__u32)virt_to_phys(idaws);
-+				ccw->cda = virt_to_dma32(idaws);
- 				ccw->flags = CCW_FLAG_IDA;
- 				idaws = idal_create_words(idaws, dst, blksize);
- 			} else {
--				ccw->cda = (__u32)virt_to_phys(dst);
-+				ccw->cda = virt_to_dma32(dst);
- 				ccw->flags = 0;
- 			}
- 			ccw++;
-@@ -585,9 +585,9 @@ dasd_fba_free_cp(struct dasd_ccw_req *cqr, struct request *req)
- 				ccw++;
- 			if (dst) {
- 				if (ccw->flags & CCW_FLAG_IDA)
--					cda = *((char **)phys_to_virt(ccw->cda));
-+					cda = *((char **)dma32_to_virt(ccw->cda));
- 				else
--					cda = phys_to_virt(ccw->cda);
-+					cda = dma32_to_virt(ccw->cda);
- 				if (dst != cda) {
- 					if (rq_data_dir(req) == READ)
- 						memcpy(dst, cda, bv.bv_len);
-@@ -672,7 +672,7 @@ dasd_fba_dump_sense(struct dasd_device *device, struct dasd_ccw_req * req,
- 	len += sprintf(page + len, "in req: %px CS: 0x%02X DS: 0x%02X\n",
- 		       req, irb->scsw.cmd.cstat, irb->scsw.cmd.dstat);
- 	len += sprintf(page + len, "Failing CCW: %px\n",
--		       (void *) (addr_t) irb->scsw.cmd.cpa);
-+		       (void *)(u64)dma32_to_u32(irb->scsw.cmd.cpa));
- 	if (irb->esw.esw0.erw.cons) {
- 		for (sl = 0; sl < 4; sl++) {
- 			len += sprintf(page + len, "Sense(hex) %2d-%2d:",
-@@ -701,7 +701,7 @@ dasd_fba_dump_sense(struct dasd_device *device, struct dasd_ccw_req * req,
- 		for (count = 0; count < 32 && count < act->count;
- 		     count += sizeof(int))
- 			len += sprintf(page + len, " %08X",
--				       ((int *)phys_to_virt(act->cda))
-+				       ((int *)dma32_to_virt(act->cda))
- 				       [(count>>2)]);
- 		len += sprintf(page + len, "\n");
- 		act++;
-@@ -710,18 +710,18 @@ dasd_fba_dump_sense(struct dasd_device *device, struct dasd_ccw_req * req,
+-int dasd_sleep_on_immediatly(struct dasd_ccw_req *cqr)
++int dasd_sleep_on_immediately(struct dasd_ccw_req *cqr)
+ {
+ 	struct dasd_device *device;
+ 	int rc;
+@@ -2620,7 +2620,7 @@ int dasd_sleep_on_immediatly(struct dasd_ccw_req *cqr)
  
- 	/* print failing CCW area */
- 	len = 0;
--	if (act < ((struct ccw1 *)phys_to_virt(irb->scsw.cmd.cpa)) - 2) {
--		act = ((struct ccw1 *)phys_to_virt(irb->scsw.cmd.cpa)) - 2;
-+	if (act < ((struct ccw1 *)dma32_to_virt(irb->scsw.cmd.cpa)) - 2) {
-+		act = ((struct ccw1 *)dma32_to_virt(irb->scsw.cmd.cpa)) - 2;
- 		len += sprintf(page + len, "......\n");
- 	}
--	end = min((struct ccw1 *)phys_to_virt(irb->scsw.cmd.cpa) + 2, last);
-+	end = min((struct ccw1 *)dma32_to_virt(irb->scsw.cmd.cpa) + 2, last);
- 	while (act <= end) {
- 		len += sprintf(page + len, "CCW %px: %08X %08X DAT:",
- 			       act, ((int *) act)[0], ((int *) act)[1]);
- 		for (count = 0; count < 32 && count < act->count;
- 		     count += sizeof(int))
- 			len += sprintf(page + len, " %08X",
--				       ((int *)phys_to_virt(act->cda))
-+				       ((int *)dma32_to_virt(act->cda))
- 				       [(count>>2)]);
- 		len += sprintf(page + len, "\n");
- 		act++;
-@@ -738,7 +738,7 @@ dasd_fba_dump_sense(struct dasd_device *device, struct dasd_ccw_req * req,
- 		for (count = 0; count < 32 && count < act->count;
- 		     count += sizeof(int))
- 			len += sprintf(page + len, " %08X",
--				       ((int *)phys_to_virt(act->cda))
-+				       ((int *)dma32_to_virt(act->cda))
- 				       [(count>>2)]);
- 		len += sprintf(page + len, "\n");
- 		act++;
+ 	return rc;
+ }
+-EXPORT_SYMBOL(dasd_sleep_on_immediatly);
++EXPORT_SYMBOL(dasd_sleep_on_immediately);
+ 
+ /*
+  * Cancels a request that was started with dasd_sleep_on_req.
+diff --git a/drivers/s390/block/dasd_alias.c b/drivers/s390/block/dasd_alias.c
+index e77393e6f63ab..57c591028d4eb 100644
+--- a/drivers/s390/block/dasd_alias.c
++++ b/drivers/s390/block/dasd_alias.c
+@@ -759,7 +759,7 @@ static int reset_summary_unit_check(struct alias_lcu *lcu,
+ 	cqr->buildclk = get_tod_clock();
+ 	cqr->status = DASD_CQR_FILLED;
+ 
+-	rc = dasd_sleep_on_immediatly(cqr);
++	rc = dasd_sleep_on_immediately(cqr);
+ 	return rc;
+ }
+ 
+diff --git a/drivers/s390/block/dasd_eckd.c b/drivers/s390/block/dasd_eckd.c
+index fcf1c4b65b638..fa3363394ea15 100644
+--- a/drivers/s390/block/dasd_eckd.c
++++ b/drivers/s390/block/dasd_eckd.c
+@@ -887,7 +887,7 @@ static int dasd_eckd_read_conf_immediately(struct dasd_device *device,
+ 	set_bit(DASD_CQR_ALLOW_SLOCK, &cqr->flags);
+ 	cqr->retries = 5;
+ 	cqr->callback = read_conf_cb;
+-	rc = dasd_sleep_on_immediatly(cqr);
++	rc = dasd_sleep_on_immediately(cqr);
+ 	return rc;
+ }
+ 
+@@ -5111,7 +5111,7 @@ dasd_eckd_release(struct dasd_device *device)
+ 	cqr->buildclk = get_tod_clock();
+ 	cqr->status = DASD_CQR_FILLED;
+ 
+-	rc = dasd_sleep_on_immediatly(cqr);
++	rc = dasd_sleep_on_immediately(cqr);
+ 	if (!rc)
+ 		clear_bit(DASD_FLAG_IS_RESERVED, &device->flags);
+ 
+@@ -5166,7 +5166,7 @@ dasd_eckd_reserve(struct dasd_device *device)
+ 	cqr->buildclk = get_tod_clock();
+ 	cqr->status = DASD_CQR_FILLED;
+ 
+-	rc = dasd_sleep_on_immediatly(cqr);
++	rc = dasd_sleep_on_immediately(cqr);
+ 	if (!rc)
+ 		set_bit(DASD_FLAG_IS_RESERVED, &device->flags);
+ 
+@@ -5220,7 +5220,7 @@ dasd_eckd_steal_lock(struct dasd_device *device)
+ 	cqr->buildclk = get_tod_clock();
+ 	cqr->status = DASD_CQR_FILLED;
+ 
+-	rc = dasd_sleep_on_immediatly(cqr);
++	rc = dasd_sleep_on_immediately(cqr);
+ 	if (!rc)
+ 		set_bit(DASD_FLAG_IS_RESERVED, &device->flags);
+ 
+@@ -5283,7 +5283,7 @@ static int dasd_eckd_snid(struct dasd_device *device,
+ 	cqr->status = DASD_CQR_FILLED;
+ 	cqr->lpm = usrparm.path_mask;
+ 
+-	rc = dasd_sleep_on_immediatly(cqr);
++	rc = dasd_sleep_on_immediately(cqr);
+ 	/* verify that I/O processing didn't modify the path mask */
+ 	if (!rc && usrparm.path_mask && (cqr->lpm != usrparm.path_mask))
+ 		rc = -EIO;
+@@ -5925,7 +5925,7 @@ static int dasd_eckd_read_message_buffer(struct dasd_device *device,
+ 	cqr->block = NULL;
+ 	cqr->expires = 10 * HZ;
+ 	set_bit(DASD_CQR_VERIFY_PATH, &cqr->flags);
+-	/* dasd_sleep_on_immediatly does not do complex error
++	/* dasd_sleep_on_immediately does not do complex error
+ 	 * recovery so clear erp flag and set retry counter to
+ 	 * do basic erp */
+ 	clear_bit(DASD_CQR_FLAGS_USE_ERP, &cqr->flags);
+@@ -5957,7 +5957,7 @@ static int dasd_eckd_read_message_buffer(struct dasd_device *device,
+ 
+ 	cqr->buildclk = get_tod_clock();
+ 	cqr->status = DASD_CQR_FILLED;
+-	rc = dasd_sleep_on_immediatly(cqr);
++	rc = dasd_sleep_on_immediately(cqr);
+ 	if (rc == 0) {
+ 		prssdp = (struct dasd_psf_prssd_data *) cqr->data;
+ 		message_buf = (struct dasd_rssd_messages *)
+diff --git a/drivers/s390/block/dasd_int.h b/drivers/s390/block/dasd_int.h
+index fa5e070fd0c1c..923468a28b03c 100644
+--- a/drivers/s390/block/dasd_int.h
++++ b/drivers/s390/block/dasd_int.h
+@@ -888,7 +888,7 @@ void dasd_schedule_device_bh(struct dasd_device *);
+ void dasd_schedule_block_bh(struct dasd_block *);
+ int  dasd_sleep_on(struct dasd_ccw_req *);
+ int  dasd_sleep_on_queue(struct list_head *);
+-int  dasd_sleep_on_immediatly(struct dasd_ccw_req *);
++int  dasd_sleep_on_immediately(struct dasd_ccw_req *);
+ int  dasd_sleep_on_queue_interruptible(struct list_head *);
+ int  dasd_sleep_on_interruptible(struct dasd_ccw_req *);
+ void dasd_device_set_timer(struct dasd_device *, int);
 -- 
 2.53.0
 
