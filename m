@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795634512;
-	b=dSDHC0av+tOzlO5flrkMUEdFog22uq4SeIOf/lymcoqwIq4XzAs5nZF4pU/QCHFwYW96
-	 TMZRQRG4LAGxTjmO+AdVFyDAv/0RHevEid07XrYSR0/pQR72CPSZ0bd2NtW1jeevlcNK+
-	 f8OvkPKpELAMm1ItxsoFZPtUwdSyeSc/U6aaiDw2qZultHNL+NtIDlH912NfD6KnWaNIK
-	 e6qf9TMAIkGkQOPsXksGQdle6PYVYEd2Kei4R1YXYC5xeIWLFUYiek6fIbSYgGF0Q1RwK
-	 HuSUX+o30ufRX6zdV5e34v2Y97l6XQicKlwVxBPPjbIXKKuhmx2Hnti5aJgAbGJKYsw==
+	t=1795634516;
+	b=sAV4Juw78Giq7QMX4n0wJNyK/vdrNIxiypQ3ACROXYLb/Trio8B4r5wXVpR70eki5kUH
+	 PJTGisCE9xjVoR2w5xw62GhTVqkbmLmGOu5/2AkrEvt9L36pYE2eOO0Hn9/0ghqa7W/Uo
+	 k0ZZpd6/79xYzvd0YvtabRXMLrISN+i+E5pSpeOMHQbv9dWqxB1lohc2g34Vl9B1g9R/I
+	 ITFdZgZUDUVPNFp3vZayz6QBwFpxN6WxbHXAaEqaOvmwXuGSo0DKZEG0YU0HYhu1fGw1C
+	 8vcyk5Vqhx+mPvPx6Yot6C7CZGSio4zZfgqr/gT6bkNpycTwHK3Oz7b+/7Exqqdqz9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795634512;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795634516;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=dGBogPPAs5PPSXqLGheeCan1W4XIe4Tub6Pl6oJnBA0=;
-	b=V/pwWcwXDcI3Sp2Uj0GznzQQQqYqOehgJ3sLbTaFZZi/mlzebimghAMi7aLtr5Xb1E7d
-	 cFeLXJYSq7ZQTzoqXZi8/VjopT2rSqXjz+yNpBX2WIQD5r2XAVVx2K8hmyRyIKAvcNJGv
-	 4GBaWdl5xekKohIxnHtuwsFnq01rUzHovAHOJIvguQI5rkA3PwzLWTK+NwgIJDZYQifXR
-	 AzHcN3vbxGIrOhiuUpuSalvRxft9l0n/BYA9P4rCDuoTr0QXLhLCLNPT3CPO2XO4S/7y6
-	 X2Mm3moJalUteIbHBftY39FQIkfj+PudN8yUzC129tzl1PV1+TX9MRRQWPPnhPWymCg==
+	bh=2uDwQIer1N/KvqzoVWPQmhubuH/lhNBvRfjkFHtSrws=;
+	b=SOCucdKoGE6aWY8i5hOUscxXeJdv21hAIqF9+nHgnncnnr7go1IH7MbwXDo5HFQERMBv
+	 3xsERqxRU+bvviEomIYpEavrVqyOAUnrClFBLlYoXbR6AmpuGvO1+8S2Y3Ly0Is/eXkUy
+	 pWQQPPhhvZBOV4WDd5X1viSdRPGfIbz6g5lhBt2WHEa5D1wHa+bNBSfqqKZ6XwPHe0bvx
+	 Ca3W9frJdfX9KjoJMTay6hJNzCWEA/Mt7KBuddePTZHjHOu8IoFduwFRymcjNa6rbMwhE
+	 AzIwJyqUDdmY4J3Iy39XFT+DW357mbtqhTNl/gyhDtETtptvMlmnh+g0ZuTfKA2wtKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aTv0QEfj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=meaewS8k;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F3C606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:21:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5819606A326
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:21:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aTv0QEfj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78D311F000D4;
-	Wed, 25 Nov 2026 19:21:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=meaewS8k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D8F81F000E0;
+	Wed, 25 Nov 2026 19:21:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795634511;
-	bh=dGBogPPAs5PPSXqLGheeCan1W4XIe4Tub6Pl6oJnBA0=;
+	s=k20260515; t=1795634515;
+	bh=2uDwQIer1N/KvqzoVWPQmhubuH/lhNBvRfjkFHtSrws=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aTv0QEfjuCCi+3SBREYXPG1XUHgVMEw70HJj1xWpx+nsmBkVwuekK2YL/yWf5XVVe
-	 4xFotnlyEg1ocCCz+eVWjSGpLnw59W/CeVg+84Hka8S5FKngtJdF0cDpRuyH0Z7fD0
-	 WyFUBr3xThHxg9A+vDjxmgBOkleLb2Wnc6O0FBYBSbz9KIlMrHQpu0+NDDFMyvXO0G
-	 ISzc2ZPKxd3X/Ww0hoox7M3B1dz/rLua6P669D1ZmazXJFbbg79xud6KE1yEW1m8Tc
-	 V6gItuIguTd7MzwnovplVwDUG7Z8mS/+guqJULdEeIA6OTkbEsvxEpJuDWliQe1SY/
-	 N2T6U4ShzQNbg==
+	b=meaewS8kWSwV+YjprGRNq7u4hQFqa/N9mSR2C6q57AcX8cH7qJXZuDR+i3gU+y6Zx
+	 g90scB7BPmHUkFGSaR77yPttoPkz9hhzof5rJrZKYxUMKzXnmH57JMsOtIAEXdxW6A
+	 BvJV7KB5TNiD2n2q/LqDYZRJmMQasBfoF7TkFiLSwXKPRTUsRAQCwx6naKDTAgxpfM
+	 tx7wgxt2qEq2rcBFM5/f3ik8+9nFRffF2dq/NA3TNvLE4zL3m1+lDpA+WliQR5TZPp
+	 XlTls83QMeRwxsCzyyktJGdedWKzRl76Nzp3abE1ONdB6c0G0jWxVzj7C4N2IQbAVX
+	 Yl4c29s8uBdaQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Seiji Nishikawa <snishika@redhat.com>,
-	syzbot+681e729b2cf0d4860042@syzkaller.appspotmail.com,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
+Cc: Jiwoo Kim <arpe1618@gmail.com>,
+	stable@kernel.org,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] sched/core: Do not touch SMT siblings that have not joined the core yet
-Date: Wed, 25 Nov 2026 14:21:48 -0500
-Message-ID: <20261125192037.1218839-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] ksmbd: pin parent dentries in SMB2 CREATE ACL path
+Date: Wed, 25 Nov 2026 14:21:53 -0500
+Message-ID: <20261125192109.1231499-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112542-icy-ligament-ef12@gregkh>
-References: <2026112542-icy-ligament-ef12@gregkh>
+In-Reply-To: <2026112518-cranberry-chaperone-0cf3@gregkh>
+References: <2026112518-cranberry-chaperone-0cf3@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,177 +62,142 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Seiji Nishikawa <snishika@redhat.com>
+From: Jiwoo Kim <arpe1618@gmail.com>
 
-[ Upstream commit ec6f6731538e0d45872eb279fdeb477bed152d6f ]
+[ Upstream commit 0383a66dabd7aa06237b9b24713c03656abeffe4 ]
 
-When a CPU comes online, it is added to cpu_smt_mask() of its siblings
-before sched_core_cpu_starting() sets its rq->core to the core leader.
-For example, on x86, ap_starting() calls set_cpu_sibling_map() first,
-and calls notify_cpu_starting() after that. This order is intended.
+smb2_open() and smb_inherit_dacl() read a child's d_parent without a
+dentry reference. A concurrent SMB request can move the child and
+remove the parent while CREATE uses its inode for permission, status,
+and ACL inheritance work. A remote SMB race with concurrent opener and
+mover connections on a writable KSMBD acl_xattr share triggered an
+8-byte slab-use-after-free read in get_cached_acl on tmpfs and ext4
+KASAN guests. With oops=panic, it also caused an Oops and kernel panic
+on an ext4 guest.
 
-Before sched_core_cpu_starting() runs, rq->core of the new CPU still
-points to its own rq. But rq->core_enabled of the new CPU is already
-set. __sched_core_flip() sets it for all possible CPUs, also for
-offline CPUs, and CPU offline does not clear it. So __rq_lockp() of the
-new CPU returns its own rq->__lock. It does not return the core wide
-lock.
+Take a parent dentry reference around each parent inode or ACL access
+in these paths and release it when the operation completes. Treat a
+negative parent dentry as -ENOENT for the affected operation.
 
-If a sibling CPU runs pick_next_task() for SCHED_CORE at this time, it
-checks all CPUs in cpu_smt_mask(). It calls update_rq_clock() and
-pick_task() for the rq of the new CPU. But it holds only its own core
-lock, not the lock of the new CPU. Then lockdep shows this warning in
-update_rq_clock().
+On a tmpfs KASAN QEMU guest, two 3,000-round reproducer instances
+completed without a KASAN report or Oops; SMB remained reachable. On
+an ext4 non-KASAN QEMU guest with oops=panic, a 2,000-operation no-race
+control and two 5,000-round reproducer instances completed without an
+Oops or panic. An SMB health probe still succeeded.
 
-  debug_locks && !(lock_is_held(&(__rq_lockp(rq))->dep_map) != 0)
-  WARNING: kernel/sched/sched.h:1666 at update_rq_clock+0x40a/0xd20 kernel/sched/core.c:875, CPU#0: syz-executor251/5712
-  Call Trace:
-   <TASK>
-   pick_next_task kernel/sched/core.c:6375 [inline]
-   __schedule+0x1c69/0x6920 kernel/sched/core.c:7199
-   preempt_schedule_irq+0x4e/0x90 kernel/sched/core.c:7606
+OpenAI Codex assisted with finding the bug, generating the SMB race
+reproducer, drafting this fix and changelog, and running the tests.
 
-The next loops in pick_next_task() also change rq_i->core_pick of this
-rq, and can call resched_curr() for it, without its lock.
-resched_curr() has the same lockdep_assert_rq_held() check.
-__sched_core_account_forceidle() also checks all CPUs in the same mask.
-
-CPU offline does not have this problem. remove_siblinginfo() and
-sched_core_cpu_dying() both run in take_cpu_down() under stop_machine.
-So no sibling CPU can be in pick_next_task() at that time.
-
-Fix this. In these loops, skip a sibling CPU if its rq->core is
-different from our rq->core. At run time, rq->core of a CPU is changed
-by sched_core_cpu_starting(), sched_core_cpu_deactivate() and
-sched_core_cpu_dying(). The first two hold sched_core_lock(), and
-sched_core_lock() takes the rq locks of all CPUs in the SMT mask. The
-last one runs under stop_machine, as written above. So while we hold
-our core lock, the result of this check does not change. A CPU that is
-not in the core yet will pick its own tasks. The comment in the
-reschedule loop of pick_next_task() already expects this case.
-
-I tested this with the syzbot C reproducer in QEMU. The two vCPUs were
-SMT siblings (-smp 2,sockets=1,cores=1,threads=2). Without this patch,
-the warning came after about 100 seconds. Just before the warning, a
-debug print showed that the loop on CPU 0 saw CPU 1 with rq->core
-pointing to CPU 1 itself, and cpu_online() was false for CPU 1. With
-this patch, the same state still happened, but there was no warning
-in more than 2 hours.
-
-Fixes: 3c474b3239f1 ("sched: Fix Core-wide rq->lock for uninitialized CPUs")
-Closes: https://syzkaller.appspot.com/bug?extid=681e729b2cf0d4860042
-Reported-by: syzbot+681e729b2cf0d4860042@syzkaller.appspotmail.com
-Signed-off-by: Seiji Nishikawa <snishika@redhat.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261104022004.3810619-1-snishika@redhat.com
-[ sashal: Adapted the hunks to the older pick_next_task() (it has a prev argument and no restart: label), keeping its existing max = NULL declaration and need_sync assignment. ]
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@kernel.org
+Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: Dropped the kunit/visibility.h include context and adapted const struct mnt_idmap *idmap to non-const struct mnt_idmap *idmap for the older tree's smbacl.c. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/core.c       |  8 +++-----
- kernel/sched/core_sched.c |  3 +--
- kernel/sched/sched.h      | 19 +++++++++++++++++++
- 3 files changed, 23 insertions(+), 7 deletions(-)
+ fs/smb/server/smb2pdu.c | 39 +++++++++++++++++++++++++++++++--------
+ fs/smb/server/smbacl.c  |  9 ++++++++-
+ 2 files changed, 39 insertions(+), 9 deletions(-)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index ae06385109049..77b690f9726cb 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -6081,7 +6081,6 @@ static struct task_struct *
- pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
- {
- 	struct task_struct *next, *p, *max = NULL;
--	const struct cpumask *smt_mask;
- 	bool fi_before = false;
- 	bool core_clock_updated = (rq == rq->core);
- 	unsigned long cookie;
-@@ -6133,7 +6132,6 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 115960cc93994..82d1225dd7e8f 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -3442,16 +3442,32 @@ int smb2_open(struct ksmbd_work *work)
  
- 	put_prev_task_balance(rq, prev, rf);
- 
--	smt_mask = cpu_smt_mask(cpu);
- 	need_sync = !!rq->core->core_cookie;
- 
- 	/* reset state */
-@@ -6188,7 +6186,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
- 	 *
- 	 * Tie-break prio towards the current CPU
- 	 */
--	for_each_cpu_wrap(i, smt_mask, cpu) {
-+	for_each_core_cpu_wrap(i, rq) {
- 		rq_i = cpu_rq(i);
- 
- 		/*
-@@ -6210,7 +6208,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
- 	 * For each thread: try and find a runnable task that matches @max or
- 	 * force idle.
- 	 */
--	for_each_cpu(i, smt_mask) {
-+	for_each_core_cpu(i, rq) {
- 		rq_i = cpu_rq(i);
- 		p = rq_i->core_pick;
- 
-@@ -6255,7 +6253,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
- 	 * their task. This ensures there is no inter-sibling overlap between
- 	 * non-matching user state.
- 	 */
--	for_each_cpu(i, smt_mask) {
-+	for_each_core_cpu(i, rq) {
- 		rq_i = cpu_rq(i);
- 
- 		/*
-diff --git a/kernel/sched/core_sched.c b/kernel/sched/core_sched.c
-index a57fd8f27498f..681baa739fbcf 100644
---- a/kernel/sched/core_sched.c
-+++ b/kernel/sched/core_sched.c
-@@ -239,7 +239,6 @@ int sched_core_share_pid(unsigned int cmd, pid_t pid, enum pid_type type,
- /* REQUIRES: rq->core's clock recently updated. */
- void __sched_core_account_forceidle(struct rq *rq)
- {
--	const struct cpumask *smt_mask = cpu_smt_mask(cpu_of(rq));
- 	u64 delta, now = rq_clock(rq->core);
- 	struct rq *rq_i;
- 	struct task_struct *p;
-@@ -271,7 +270,7 @@ void __sched_core_account_forceidle(struct rq *rq)
- 		delta = div_u64(delta, rq->core->core_forceidle_occupation);
+ 			if ((daccess & FILE_DELETE_LE) ||
+ 			    (req->CreateOptions & FILE_DELETE_ON_CLOSE_LE)) {
+-				rc = inode_permission(idmap,
+-						      d_inode(path.dentry->d_parent),
+-						      MAY_EXEC | MAY_WRITE);
++				struct dentry *parent = dget_parent(path.dentry);
++				struct inode *parent_inode = d_inode(parent);
++
++				if (parent_inode)
++					rc = inode_permission(idmap, parent_inode,
++							      MAY_EXEC | MAY_WRITE);
++				else
++					rc = -ENOENT;
++				dput(parent);
+ 				if (rc)
+ 					goto err_out;
+ 			}
+ 		}
  	}
  
--	for_each_cpu(i, smt_mask) {
-+	for_each_core_cpu(i, rq) {
- 		rq_i = cpu_rq(i);
- 		p = rq_i->core_pick ?: rq_i->curr;
+-	rc = ksmbd_query_inode_status(path.dentry->d_parent);
++	{
++		struct dentry *parent = dget_parent(path.dentry);
++
++		if (!d_inode(parent)) {
++			dput(parent);
++			rc = -ENOENT;
++			goto err_out;
++		}
++		rc = ksmbd_query_inode_status(parent);
++		dput(parent);
++	}
+ 	if (rc == KSMBD_INODE_STATUS_PENDING_DELETE) {
+ 		rc = -EBUSY;
+ 		goto err_out;
+@@ -3505,10 +3521,17 @@ int smb2_open(struct ksmbd_work *work)
+ 	if (created) {
+ 		int posix_acl_rc;
+ 		struct inode *inode = d_inode(path.dentry);
+-
+-		posix_acl_rc = ksmbd_vfs_inherit_posix_acl(idmap,
+-							   &path,
+-							   d_inode(path.dentry->d_parent));
++		struct inode *parent_inode;
++		struct dentry *parent;
++
++		parent = dget_parent(path.dentry);
++		parent_inode = d_inode(parent);
++		if (parent_inode)
++			posix_acl_rc = ksmbd_vfs_inherit_posix_acl(idmap, &path,
++								   parent_inode);
++		else
++			posix_acl_rc = -ENOENT;
++		dput(parent);
+ 		if (posix_acl_rc)
+ 			ksmbd_debug(SMB, "inherit posix acl failed : %d\n", posix_acl_rc);
  
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 47aebf155c3a0..688c35934becf 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1256,6 +1256,25 @@ static inline raw_spinlock_t *__rq_lockp(struct rq *rq)
- 	return &rq->__lock;
- }
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index 42a638d1d2b97..1bd816153e542 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -7,6 +7,7 @@
+  */
  
-+/*
-+ * A CPU coming online is set in cpu_smt_mask() before
-+ * sched_core_cpu_starting() links its rq->core to the core leader.
-+ * Until then it does not share the core-wide lock, so it must not be
-+ * touched as part of the core.
-+ */
-+static inline bool sched_core_sibling(struct rq *rq, struct rq *rq_i)
-+{
-+	return rq_i->core == rq->core;
-+}
-+
-+#define for_each_core_cpu(i, rq) \
-+	for_each_cpu(i, cpu_smt_mask(rq->cpu)) \
-+		if (sched_core_sibling(rq, cpu_rq(i)))
-+
-+#define for_each_core_cpu_wrap(i, rq) \
-+	for_each_cpu_wrap(i, cpu_smt_mask(rq->cpu), rq->cpu) \
-+		if (sched_core_sibling(rq, cpu_rq(i)))
-+
- bool cfs_prio_less(const struct task_struct *a, const struct task_struct *b,
- 			bool fi);
- void task_vruntime_update(struct rq *rq, struct task_struct *p, bool in_fi);
+ #include <linux/fs.h>
++#include <linux/dcache.h>
+ #include <linux/slab.h>
+ #include <linux/string.h>
+ #include <linux/mnt_idmapping.h>
+@@ -1200,7 +1201,7 @@ int smb_inherit_dacl(struct ksmbd_conn *conn,
+ 	struct smb_acl *parent_pdacl;
+ 	struct smb_ntsd *parent_pntsd = NULL;
+ 	struct smb_sid owner_sid, group_sid;
+-	struct dentry *parent = path->dentry->d_parent;
++	struct dentry *parent;
+ 	struct mnt_idmap *idmap = mnt_idmap(path->mnt);
+ 	int inherited_flags = 0, flags = 0, i, nt_size = 0, pdacl_size;
+ 	int rc = 0, pntsd_type, ppntsd_size, acl_len, aces_size;
+@@ -1210,8 +1211,14 @@ int smb_inherit_dacl(struct ksmbd_conn *conn,
+ 	char *aces_base;
+ 	bool is_dir = S_ISDIR(d_inode(path->dentry)->i_mode);
+ 
++	parent = dget_parent(path->dentry);
++	if (!d_inode(parent)) {
++		dput(parent);
++		return -ENOENT;
++	}
+ 	ppntsd_size = ksmbd_vfs_get_sd_xattr(conn, idmap,
+ 					    parent, &parent_pntsd);
++	dput(parent);
+ 	if (ppntsd_size <= 0)
+ 		return -ENOENT;
+ 
 -- 
 2.53.0
 
