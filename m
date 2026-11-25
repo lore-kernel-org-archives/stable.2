@@ -1,59 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795627479;
-	b=fmqdsFbrxBxu5qdzsddjJPl3eJ/WSMry/JLkJBP/VlE6+25CdFyeOmX5vpJvmv6dPbsd
-	 d3B/5ykuSqY4NWBHZzuXgQqvvtOx2H0m4EBZ4TtRjQaMhsVoExO+VDaQWqE4T9sp7jSbZ
-	 G1+wQUew5iCzzJWdU96I1GrqmQD7Z1zFOwYaGcw94QA91yIKTMS0VXHB8SvJpk5bYU3pS
-	 q8VLgj9j3rhJz5C3JsXj0WLgxbuMNT49GiPwpOlyr7TY9eQYadMZWMlXt6alG4tl5MXfU
-	 LugL/faSQxOBIXu4WniZ1CFZTKV57YyzDCX6nNoWih7ne9L+Ql3bUg4oOByXdREd0HQ==
+	t=1795627561;
+	b=JRIIgAqC+ybNFAHS3Yrmx5wI5cxeO7X9R2641D6087otjutGwfvgmmY95Lj/aDKFj3jV
+	 21as88L4lYCxjn8uEiSAhm0a44tbU8VfON08NACuOlCG8zylewNs+GPPcUqa19mKzPopN
+	 ZhUjbKunVjAer78Gu1zVLYKj1NsG5j9rNME7k/ufqFpHagNq86Mqoyd8R/6q5U0YcRflg
+	 8135iFEMyd99KjLbrqWtm3k1/fmgm6Rh2QAlVP6Hv8LxARPmYvdLk1/eA9U4lVfZlfkWp
+	 T2+n3Fi1bWgVNVwYPPSIVfsTXpQ+V79YIpmPTviucABz4LZDeCN+U+fu+5IIZhNonsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795627479;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=M888vKappwe2zYkS19VKvXfEjrIQNvRIDcpXUkuwOIE=;
-	b=c9hd9fChUMBC5G2TPdJb3Bji8fVLCLGRpbBojFP/Scxxa0CKq9rH81wqpxWYMV8kca0+
-	 wB4GOjti046wPnBnkdcELtGMCRHelC4I6PYqyZqvWCi83JQ0yJJieX0mJDGCYuN5HLmdb
-	 C1YYkVbMaGsBxMkCTL0qHWjlOvI8nESsO4q0P29LYxYEvZp6BQYMRXHPMpzSgI8pUMRqj
-	 b+GHBxdvU8WB0z5I8oRlB1yBRx5+kh5ho4cLb/dfYAPl5mi64mzEIcpXfJBXNQr+oVKup
-	 1V8tn4ymCT3Fps0dzlfmZb9PkcM6Z/mVHe0myMs7CxyT516B8TxWHvv+rtG4yk/cyqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795627561;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=0eeo8xLsFVG8280bwD1Dy/maRtfEJTegVNCHlzkxjN0=;
+	b=V9t1JOwaNZqKSiFgM2ZfMWynDp145kMjKzf/1ytVvJ3dwKCWLhiMHLNaH2uFDKEPsRgp
+	 X79A1BogtKm0JtUoYGXVLntI2JiV6K1wirFloOnN5ZpVMTqVD6LhqMvMRmnwWePScbwLQ
+	 SzobOjAsoghlLuf52WQwJQj0c4VlGT114VkvCsFx03h4imJ0j1PKAXsezNoTrYpxTzME2
+	 2OpxUipUo4eUlcUYncoVauptUDD2vR+jJbw1i8/DbWAo2ieN5SSd2uVNUds8+OWXu6jue
+	 69Wa0UNf62A30a2YcfV4MtTv2y0ayXtyL12DHXP/EIFdqoRG3v8KctwQnxw+1JI5W/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nNA12725;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=AhlMVtYQ;
+	arc=none smtp.remote-ip=209.85.210.54
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40792606A31E;
-	Wed, 25 Nov 2026 17:24:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61139606A327
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:26:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61139606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nNA12725
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B94D61F000D0;
-	Wed, 25 Nov 2026 17:24:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795627478;
-	bh=M888vKappwe2zYkS19VKvXfEjrIQNvRIDcpXUkuwOIE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nNA12725Eoq3tBPslRiyD0obv1bywzrdswxrL8Z+PO1YVzyvMSJ7fvk7SJ4nTYy+t
-	 WNU87wsl5cZHxXXCmLCiHOoDb/CzhKjppuw+/yO0cZJF/9OrI1gQH7lkibYAtCyllI
-	 vjK8nVoAiqchxxSFfI15kmqchVQF9fiBKSmdNzxSYx5CKXyDK9h9lpYO6wpLcURtDL
-	 96QRrmw+iPbWH9jN3XKkn6HWnTndD+TQZZBGpBPNHS2mRhx1Eg4/enT6nQ30OIOAnN
-	 7Ak7oSMAJD46GTfluerTW0Sb4gopl72AJ1VqsbllIoJK1p1S5U0l5hYMvM8D5hAOY7
-	 p7Wx7y8tVQXOA==
-From: cem@kernel.org
-To: cem@kernel.org
-Cc: linux-xfs@vger.kernel.org,
-	hch@lst.de,
-	sandeen@sandeen.net,
-	dgc@kernel.org,
-	aalbersh@kernel.org,
-	bfoster@redhat.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/2] xfs: force all shared extent swap to use rmap shared path
-Date: Wed, 25 Nov 2026 18:24:21 +0100
-Message-ID: <20261125172426.132084-3-cem@kernel.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125172426.132084-1-cem@kernel.org>
-References: <20261125172426.132084-1-cem@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=AhlMVtYQ
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-862b98b2e47so2398292a34.2
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:26:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel.dk; s=google; t=1795627560; x=1796232360; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0eeo8xLsFVG8280bwD1Dy/maRtfEJTegVNCHlzkxjN0=;
+        b=AhlMVtYQtXwuGlojJFFQ/LyFKUKcecQlrArIY2llF9sBnChbckaK+XHwZmzN0lrLtg
+         /yMQTJuo3kDRlehpGgDWXpFbWyC6eiTlHe4O2W6KtfyoHIByA2tWKef5nk1gqqKHhNiF
+         9Fg6XCeSkKcv3hfQrHpn861yS0paY/ycapDyuK+609lmLtqQAWKMTLNULyEtSUZrijID
+         ZmZ1gLNl+DLgd40aGwg7+TS3h1TPwFcjNoN9y1kr5jGn9wZdexmJh9n8zlHf35mXn/Ti
+         yRmmXR7TWRHFefvtmDi+PqREAqwXLsAQ31qwEA6l4O5jlCbDT1oJwiW8hlOFRAa7Tqj4
+         iWwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795627560; x=1796232360;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0eeo8xLsFVG8280bwD1Dy/maRtfEJTegVNCHlzkxjN0=;
+        b=FbxVP/s5ymBDicVgu6Wucy1+6eDeHfQshbaCab1D8ZL2LCeAPIynfAOTx4bQeYcpyR
+         lLIPgVn2TXfqcnxFvz10cNUyk28gfS0gqEYpR09qjqY8jKW4T/Z0476S9Gg176h/P8xE
+         ynhvGttk2/QqrctJSoJljy7lfeAAL3t3RZcWeTPKRkidZ9c6hfNT2sWDOXlTmDrASVu7
+         XWnCGq5ke37aHfBX8qCG8jGJM994gRIjLR1pg+fKBMXAIthHsoAPQbkY7vMCLioqgeKy
+         Ws2GxIE54saz0bMLzdrPFpteIzObXcDNAxHie2+Y355SEJgtBppe/EJUUgXLL8+2wtIV
+         liqA==
+X-Forwarded-Encrypted: i=1; AL+hErHmgdBjsGtc0duHZUjiaaodaexpzC22aJwxKzAOcrPR3uzU059uFaSZkdunjnJ+ZnvWRLJa9y4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z990zTR1zE6CUTmjEgjWWrZAamKspWTZfTk/OE/dQjV/OHRb5Wj
+	AbRAuv/5jsKG1c6KqVCByrTFgm8snhb8pgezFmW++ZAC4hZcbDE76ZUkW+GRbN3oAYo=
+X-Gm-Gg: AZFdTZc8LGYAt8kwFxLFDDweT5PtVBGrg3MxJn067IvfoTsyFooVESuoEC89Lv6yQR5
+	VHG++Uvrd9mK3a+LFBxE0mH1BHiQNH5qZ1PUFEFouxvQ0nR0fb9+iOIyHoLm8uLGYXzM+QJZpJ+
+	QfOjeG6HZ/RGI+Gi26BtTm/kuz9I02woezzYHpg5a+Nrs5DqdGna/xq5zqZZkXsLVeUN01Aog49
+	MvywI4Brb3SkVBjiO5ets2iuKLVD5o56rkyl0LxD75JYpt6Z7w4PK4w1d0x4zxP+dxvMOxr+LLy
+	uT3VsyCjb8rP2QtYtmLW6WBWm+Lr9qhZRTcFK359suF+POKbKRQQdmTZnWLPjaTcDBlmgVVaGZo
+	Vj59EXczZqsK0mRT7fJgonvexp6OrrlSvlqAmtLSJqCgQIwHfT2KrK3+UKwtjS3W/xYUfC3Qc9K
+	YV0jl9uY2ZkTY5tEzPUrN+Oujedg7F19OpWwVuBwKV0p2WNcA75160gMZ/vb40QK0DT6R8asztZ
+	jl3+1UuHFxijxHGwhYQ884MoERvs+T82Iu8EJDz2OBIo5cCWsu0SVWedWbYE0P8RC8gRrCW0XLt
+	xfA8VRSKOD5KlsTl+auCmd+ira3JyI7LddEVDa736gg7PMpxLFQxHatmSy1aKJZrLdgOzNDGfc7
+	KWVllnV1ZLEr4NRfXaQopT1284rlDdKmdYA3h2zvQCwxX9xU=
+X-Received: by 2002:a05:6830:2e13:b0:822:95ff:43f3 with SMTP id 46e09a7af769-863157b02famr24543779a34.24.1795627557598;
+        Wed, 25 Nov 2026 09:25:57 -0800 (PST)
+Received: from [192.168.0.102] ([96.43.243.2])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8631682200esm13061193a34.2.2026.11.25.09.25.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 09:25:56 -0800 (PST)
+From: Jens Axboe <axboe@kernel.dk>
+To: Louis Thiery <thiery.louis@gmail.com>
+Cc: io-uring@vger.kernel.org, Pavel Begunkov <asml.silence@gmail.com>, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20261119232935.1708458-1-thiery.louis@gmail.com>
+References: <20261119232935.1708458-1-thiery.louis@gmail.com>
+Subject: Re: [PATCH] io_uring/net: don't charge the folio offset to
+ truesize for managed frags
+Message-Id: <179562755579.12696.13061594470426753053.b4-ty@b4>
+Date: Wed, 25 Nov 2026 10:25:55 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,117 +99,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-From: Carlos Maiolino <cem@kernel.org>
 
-Currently when swapping inodes with shared extents in a rmap enabled FS,
-we enforce the rmap updates to use the rmap_shared path only when the
-target inode has shared extents, but we should also be using the
-rmap_shared path for the case when only the source inode's extent is
-shared.
+On Thu, 19 Nov 2026 23:29:35 +0000, Louis Thiery wrote:
+> Registered buffers backed by huge pages are coalesced into one bvec per
+> folio, so bv_offset is relative to the folio, not to a 4K page.
+> io_sg_from_iter() adds PAGE_ALIGN(bv_len + bv_offset) to the skb
+> truesize, which charges the socket for the whole run-up inside the
+> folio. A 64K send from 1.5MB into a 2MB THP folio adds about 1.6MB of
+> truesize, and sk_wmem_queued fills long before any real memory is used.
+> 
+> [...]
 
-Reported-by: Lauri Gates <lauri.gates@gmail.com>
-Fixes: 1f08af52e7c9 ("xfs: implement swapext for rmap filesystems")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Carlos Maiolino <cmaiolino@redhat.com>
----
-V2: Use a transaction roll when setting reflink flag to the inodes if we
-need to do update flags. I was initially avoiding doing so but seems
-like any attempt to fix it without logging the change always risks to
-leave a timebomb behind.
+Applied, thanks!
 
- fs/xfs/xfs_bmap_util.c | 52 +++++++++++++++++++++++++++++++-----------
- 1 file changed, 39 insertions(+), 13 deletions(-)
+[1/1] io_uring/net: don't charge the folio offset to truesize for managed frags
+      commit: aaa55c8ff9147b1ce1ba50267aa9f080d469a963
 
-diff --git a/fs/xfs/xfs_bmap_util.c b/fs/xfs/xfs_bmap_util.c
-index 73e7db3203c0..2ba896f65e0f 100644
---- a/fs/xfs/xfs_bmap_util.c
-+++ b/fs/xfs/xfs_bmap_util.c
-@@ -1302,17 +1302,6 @@ xfs_swap_extent_rmap(
- 	xfs_filblks_t			ilen;
- 	xfs_filblks_t			rlen;
- 	int				nimaps;
--	uint64_t			tip_flags2;
--
--	/*
--	 * If the source file has shared blocks, we must flag the donor
--	 * file as having shared blocks so that we get the shared-block
--	 * rmap functions when we go to fix up the rmaps.  The flags
--	 * will be switch for reals later.
--	 */
--	tip_flags2 = tip->i_diflags2;
--	if (ip->i_diflags2 & XFS_DIFLAG2_REFLINK)
--		tip->i_diflags2 |= XFS_DIFLAG2_REFLINK;
- 
- 	offset_fsb = 0;
- 	end_fsb = XFS_B_TO_FSB(ip->i_mount, i_size_read(VFS_I(ip)));
-@@ -1399,12 +1388,10 @@ xfs_swap_extent_rmap(
- 		offset_fsb += ilen;
- 	}
- 
--	tip->i_diflags2 = tip_flags2;
- 	return 0;
- 
- out:
- 	trace_xfs_swap_extent_rmap_error(ip, error, _RET_IP_);
--	tip->i_diflags2 = tip_flags2;
- 	return error;
- }
- 
-@@ -1547,6 +1534,41 @@ xfs_swap_change_owner(
- 	return error;
- }
- 
-+/*
-+ * If either file has shared blocks, both may own shared blocks once the extents
-+ * are exchanged, so set reflink flag on both and init the CoW fork.
-+ *
-+ * rmap code chooses how to process each extent based on the reflink flag on the
-+ * inode being remapped.  Both at runtime and when log recovery attempts to
-+ * replay deferred bmap intents.
-+ */
-+static int
-+xfs_extents_set_reflink(
-+	struct xfs_trans	**tpp,
-+	struct xfs_inode	*ip,
-+	struct xfs_inode	*tip)
-+{
-+	int			error;
-+
-+	if (xfs_is_reflink_inode(ip) == xfs_is_reflink_inode(tip))
-+		return 0;
-+
-+	ip->i_diflags2 |= XFS_DIFLAG2_REFLINK;
-+	tip->i_diflags2 |= XFS_DIFLAG2_REFLINK;
-+	xfs_ifork_init_cow(ip);
-+	xfs_ifork_init_cow(tip);
-+	xfs_trans_log_inode(*tpp, ip, XFS_ILOG_CORE);
-+	xfs_trans_log_inode(*tpp, tip, XFS_ILOG_CORE);
-+
-+	error = xfs_trans_roll(tpp);
-+	if (error)
-+		return error;
-+
-+	xfs_trans_ijoin(*tpp, ip, 0);
-+	xfs_trans_ijoin(*tpp, tip, 0);
-+	return 0;
-+}
-+
- int
- xfs_swap_extents(
- 	struct xfs_inode	*ip,	/* target inode */
-@@ -1705,6 +1727,10 @@ xfs_swap_extents(
- 	src_log_flags = XFS_ILOG_CORE;
- 	target_log_flags = XFS_ILOG_CORE;
- 
-+	error = xfs_extents_set_reflink(&tp, ip, tip);
-+	if (error)
-+		goto out_trans_cancel;
-+
- 	if (xfs_has_rmapbt(mp))
- 		error = xfs_swap_extent_rmap(&tp, ip, tip);
- 	else
+Best regards,
 -- 
-2.56.1
+Jens Axboe
+
+
 
