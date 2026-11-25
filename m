@@ -1,66 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.128.210.58
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795628171;
-	b=AU+k6QBGZXf06VwXsz2jFJiZwN2Q2/Ct0Ifh58jnAaEDrAVMKiBfRNvstqrkr0FySo9K
-	 p69iReYwanvnaPM4fZkw1BCF1aYGo9iJYP9No1Y2gbxq70YSSFHTEqoM0VDweAfZSnj90
-	 WdD5cUhXLrjT82i3SiQDshowkVSMQ/TSzm/bHawR8QNSD8AfrOmT7MmJ+Qd/cOXaKCfCb
-	 PlecUZYqEBicHcN1gQvTuR1+PyUFpgWvIH3xLN+ZjoPtuY2NYOYESzSDr3BbNgDo5hmKN
-	 XbOQ8waxayub1n6RDrUvwblbI6cnJIuyOWcGBf7hSdkrjjspsghJrWSCg7FzT2RGzWg==
+	t=1795628248;
+	b=T1a6LG9JynGBRemSBfGIjz9jbwohThIdEc8nYLI4/NgyEGC0VczQ9GHMgF5H/7JBNFmP
+	 mVnxvtK0bSKvnGw24V4PHB6b7W55+UqovljAW05o0o7/8CKLvvojRjdVetyBL1aMBJA3K
+	 683lWgBtjv9Tm1OIc+WajP21/Ldxr8hEy/DO3e1KbGhWWj+T91VbDknYkGvMEt40iAfhb
+	 saMeCg8LbRHM/xkpUMELYNmqf0+THsKZBbqtOCqhrd1VJ3yQt+HJDjsuS3K0JozCmgbbC
+	 eT3vfQ6xWA+EFVx9ZhBMK9YLOkIuPJP6BCFx5SrfbBXvaEtn1V8WN4UvkDSswPn2mVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795628171;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=377pTLSGSXrscJCII3JdwjfQC2zfQbvXJ8yg35cPLEM=;
-	b=JWhKG5PP2lC3RRzApchRL5bUvtX66gTneSRBCKHLiZLifA1zCWGB+UDBJhzWxt1KeZCk
-	 53hsfGaDkviZr9s6pIyZmwMgo5tTi/rVSv3/nJchfwFa0jtgYntHLthwbJk/g0I44MBt+
-	 gTWdTfSnJRZT6I4L9uLpYuIOotSZnKMTtb0ZaVZN3C361S8Ww0zxQzfevh9YTQWpC+5aD
-	 WA5wySKzn+o5nQYfBs/WquK27fY5BkEopM+Fphbvpw+oPTPm4MJjtNgMeZckbO0CC/Swe
-	 BKRFvwKJZepTEzNw3Cwzb89s0uPzwW1rw2sksXqcobSQOS+PpRZ1rArfGXRWiAE5SMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795628248;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=1lt8qmlVVGVjX5sSHj45W3CqUYld15dlvGb3fkTKRJ4=;
+	b=Dty5iI8hjops+Uw7A+CTgZWrFZhCl9I8o4pUu2yi/uq0t05dEGV/du43x4l6doZJE/Gl
+	 CbxatXKDm0vAGTlllXMTKaO4Xp0EX8e0aL5C7LjAM42BCNKPYbH14WrW4iJeu/M2/3iDq
+	 zdrbZKs16xHqGfimcAruxJkPIRolSe7QzY61yjsKIrcVqSYBA+DkZYcq3wLjP07Fy3rhc
+	 3crRVbuyV8fANflpfFlLIqG3sfDN66zTq4QfgXc7KCy5QCgZcXtJIF/oi4LiZBA26/coI
+	 ViIzU+xJqjmtibiE4IE8UvUYfCMP8lfDImxS1I/0ihIR3swaYgRhpL6kG1mXe63uyGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=librecast.net;
-	spf=pass smtp.mailfrom=librecast.net;
-	dkim=pass header.d=librecast.net header.i=@librecast.net header.a=rsa-sha256 header.s=2026110900 header.b=L6s36W+Z;
-	arc=none smtp.remote-ip=185.128.210.58
-Received: from bregans-0.gladserv.net (bregans-0.gladserv.net [185.128.210.58])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GjVocdpY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577B2606A31E;
-	Wed, 25 Nov 2026 17:36:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 577B2606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=librecast.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=librecast.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C21606A329
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:37:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=librecast.net header.i=@librecast.net header.a=rsa-sha256 header.s=2026110900 header.b=L6s36W+Z
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=librecast.net; s=2026110900; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=377pTLSGSXrscJCII3JdwjfQC2zfQbvXJ8yg35cPLEM=; t=1795628169; x=1796492169; 
-	b=L6s36W+ZNuXu4T1x2mZXXvNcWriDj32AnoVvWg+UemwD3P0nxANI1Mj5q1qRqw1VRXHTc+dmqMu
-	vnG/UvaK8Zwyi4cU8q6bPTECP7qrgv674wUmAqO2mYMI4uFKgzxop24rMlAA6i/o17QJGg+eOdB/4
-	Hqx4xw1zn1WP2KmPGKNKMatFI1n3zDMrCMAaI+DEktP0m039oD9MyuAE97EdrMTWW1I9uSl5fjgjf
-	9tQuMAcOSg58JVNqjq5DNjTMyXnNv/qWeaWUD5BRQGSZeBAGJNIy6n2SF8ZnhbnMHsny1mSRk0x47
-	F7YwZ+i61lG3+HpQbrg4qbs/gIXsWLcdMc6w==;
-Date: Wed, 25 Nov 2026 18:36:02 +0100
-From: Brett A C Sheffield <bacs@librecast.net>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.18 000/990] 6.18.66-rc1 review
-Message-ID: <awccggbZzLcs9f46@karahi.librecast.net>
-References: <20261125143822.072087159@linuxfoundation.org>
- <awcOeGCwL3jSzG5f@karahi.librecast.net>
- <2026112522-prankish-audience-6229@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GjVocdpY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E98831F000CF;
+	Wed, 25 Nov 2026 17:37:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795628247;
+	bh=1lt8qmlVVGVjX5sSHj45W3CqUYld15dlvGb3fkTKRJ4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GjVocdpYkjiXszkidT4il7LvUbhDNhcRUgsd7EXkmHriu6IQWuU7LtHf9kLCR/y7e
+	 c+cP9VhQp5Czf0EwHvURVb8e43PH5ETWDOteVqe24hBnCMzkjSbCn2QEg/twZFOgZ2
+	 LQQYJtq3D44VQ2C1Vw+YvQw8OSLZN2+MvXD1gG7GiJoXmWqJhO+hzrRhZti2IjO0Ve
+	 37Pb7rb+Ffw2N8zsnAgJ5ngLEs2/HzlWY8eJyrxqIlUEpnoYZb1nVmcyZh+MSpmHO9
+	 oI7RwTSkuPfYmj0JIr2PoD2SfWlHXWzg0uaJXLQllcNB5h6faVJXaakHPEGT8g/4Zs
+	 H11XxdwwrIFEA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Anton Lundin <glance@ac2.se>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3.y] hwmon: (nct6775) Handle dual use registers
+Date: Wed, 25 Nov 2026 12:37:25 -0500
+Message-ID: <20261125173720.995218-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112508-excuse-mankind-5ea0@gregkh>
+References: <2026112508-excuse-mankind-5ea0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,61 +59,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <2026112522-prankish-audience-6229@gregkh>
 
-On 2026-11-25 18:10, Greg Kroah-Hartman wrote:
-> On Wed, Nov 25, 2026 at 05:36:08PM +0100, Brett A C Sheffield wrote:
-> > On 2026-11-25 15:22, Greg Kroah-Hartman wrote:
-> > > This is the start of the stable review cycle for the 6.18.66 release.
-> > > There are 990 patches in this series, all will be posted as a response
-> > > to this one.  If anyone has any issues with these being applied, please
-> > > let me know.
-> > > 
-> > > Responses should be made by Fri, 27 Nov 2026 14:36:57 +0000.
-> > > Anything received after that time might be too late.
-> > > 
-> > > The whole patch series can be found in one patch at:
-> > > 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.66-rc1.gz
-> > > or in the git tree and branch at:
-> > > 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> > > and the diffstat can be found below.
-> > 
-> > Similar build failure as for 6.12.120-rc1:
-> > 
-> >   LD [M]  drivers/gpu/drm/amd/amdgpu/amdgpu.o
-> >   AR      drivers/gpu/built-in.a
-> >   AR      drivers/built-in.a
-> > make[1]: *** [/usr/src/linux-stable-rc/Makefile:2051: .] Error 2
-> > make: *** [Makefile:248: __sub-make] Error 2
-> > 
-> > Reverting 4d1bfec69f617f91af00b5cb9b86cae8850049ab fixes the build.
-> 
-> Again, can you show the real error?
+From: Anton Lundin <glance@ac2.se>
 
-fs/nfs/nfs4proc.c: In function ‘nfs4_proc_unlck’:
-fs/nfs/nfs4proc.c:7331:24: error: variable ‘cbnl’ has initializer but incomplete type
- 7331 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
-      |                        ^~~~~~~~~~~~~~~~~~~
-fs/nfs/nfs4proc.c:7331:54: error: ‘struct cb_notify_lock_args’ has no member named ‘cbnl_valid’
- 7331 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
-      |                                                      ^~~~~~~~~~
-fs/nfs/nfs4proc.c:7331:67: error: excess elements in struct initializer [-Werror]
- 7331 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
-      |                                                                   ^~~~~
-fs/nfs/nfs4proc.c:7331:67: note: (near initialization for ‘cbnl’)
-fs/nfs/nfs4proc.c:7331:44: error: storage size of ‘cbnl’ isn’t known
- 7331 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
-      |                                            ^~~~
-fs/nfs/nfs4proc.c:7335:33: error: ‘struct nfs_client’ has no member named ‘cl_lock_waitq’; did you mean ‘cl_rpcwaitq’?
- 7335 |                 __wake_up(&clp->cl_lock_waitq, TASK_NORMAL, 0, &cbnl);
-      |                                 ^~~~~~~~~~~~~
-      |                                 cl_rpcwaitq
-fs/nfs/nfs4proc.c:7331:44: error: unused variable ‘cbnl’ [-Werror=unused-variable]
- 7331 |                 struct cb_notify_lock_args cbnl = { .cbnl_valid = false };
-      |
+[ Upstream commit ca1abdd1a9b9ce51713a18c8905bf10579533c3b ]
 
+The REG_TARGET register has different meaning, depending on if pwm is in
+thermal_cruise or speed_cruise.
+
+This means we can't assume it's always word sized, so we need to handle
+it differently depending on which mode we're in.
+
+The code already does this, but the register was configured as word
+sized for the speed_cruise mode, which would do the wrong thing in
+thermal_cruise mode.
+
+Fixes: 6c009501ff20 ("hwmon: (nct6775) Add support for NCT6102D/6106D")
+Fixes: 29c7cb485b32 ("hwmon: (nct6775) Integrate new model nct6116")
+Fixes: 437b3c2a4bdc ("hwmon: (nct6775) Add support for NCT6126D")
+Cc: stable@vger.kernel.org
+Signed-off-by: Anton Lundin <glance@ac2.se>
+Link: https://patch.msgid.link/20261109082511.851377-2-glance@ac2.se
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/hwmon/nct6775-core.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/hwmon/nct6775-core.c b/drivers/hwmon/nct6775-core.c
+index 759ea3d1286e3..9096be35448bb 100644
+--- a/drivers/hwmon/nct6775-core.c
++++ b/drivers/hwmon/nct6775-core.c
+@@ -1153,14 +1153,12 @@ bool nct6775_reg_is_word_sized(struct nct6775_data *data, u16 reg)
+ 	case nct6106:
+ 		return reg == 0x20 || reg == 0x22 || reg == 0x24 ||
+ 		  (reg >= 0x59 && reg < 0x69 && (reg & 1)) ||
+-		  reg == 0xe0 || reg == 0xe2 || reg == 0xe4 ||
+-		  reg == 0x111 || reg == 0x121 || reg == 0x131;
++		  reg == 0xe0 || reg == 0xe2 || reg == 0xe4;
+ 	case nct6116:
+ 		return reg == 0x20 || reg == 0x22 || reg == 0x24 ||
+ 		  reg == 0x26 || reg == 0x28 || reg == 0x59 || reg == 0x5b ||
+ 		  reg == 0xe0 || reg == 0xe2 || reg == 0xe4 || reg == 0xe6 ||
+-		  reg == 0xe8 || reg == 0x111 || reg == 0x121 || reg == 0x131 ||
+-		  reg == 0x191 || reg == 0x1a1;
++		  reg == 0xe8;
+ 	case nct6775:
+ 		return (((reg & 0xff00) == 0x100 ||
+ 		    (reg & 0xff00) == 0x200) &&
 -- 
-Brett Sheffield (he/him)
+2.53.0
+
