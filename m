@@ -1,54 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795628981;
-	b=MmESA3ofqV9TPJL9kUbPqc0zIDofn1QQfAnIDr/K0vrAfgGEgwalFH2uxMCWeDF8m+zB
-	 lYuMjV4e+k8wy67fu5QE1vfTsTJQYmWe3Z7f3tpM+6TkyvIhOEdQQtwPgvP+wDCdu2mIe
-	 JlOap8S6xypDxq55Km5kA4z1ugmqb3AGk/hRFBIl4iSEA8dYdjied8pfsvj3R6GUJGDaU
-	 hRcOcrigs6U0gJrHB9zmBSnlHqOL5VnLwyUFb+yBGFtK9KGMWRXpJ5WKaAOtXX9F3/4be
-	 rsPVAi93oQy7UMhbjRxD3kyuncFifvM2JGmXYtWTHnQrJzHvQV1LprOftLK10o2tvPQ==
+	t=1795629013;
+	b=2rVQRuijqI2RFmaOFbM7a+FlxxtzAQzRONhaJH30OcwxRiqI7QjjhH26nT3i95A50qf/
+	 oAUxNPgQofo3t2c4Hcofy54PJsazfTUJIpMm3SJ83BcMbP0CI9Fz5kmfH4wU7o57/zOzH
+	 3oDVMedPS6r4vDsDHRx/HSuMX5x4+8ABa/JFAcLg8pcjJReiXluGEAHASsgAz2mh4XLZC
+	 Hn0PddtmOfKu4NotyH7aevkvdYxPRqUPGg6q5mRxk+V2kUrAUD2QkH3Q+B6Ll00IcoHn4
+	 9w56aDc6Hxcsvj9epBpoAVo0zjWmZ0s6Oklq3pQcZY7OEquPsHCLhw9HR3wsweO/yUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795628981;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uySkP+5sxNylgt6fs5CpygCl25AsXDw7BalnMfsy3/o=;
-	b=jPkyQV8fhHNjJtPi1pW+Xbn27xQ9KVMzgR3mmplQunHU2BhBt1N3XZih1BLg8PhSK/hJ
-	 pr05TUiJnGJwT2rjOZQo/rkPzTJUgJhpAs9F6zhi5sqvAzwceqzO8YPQ+xBlM7k7Jde+a
-	 OOdEMSuO+VrMPJNsR7lbZY9Vu65x+nQ/YxpsDN3fDMFBFYmFnP53esbe26NvNjGlSAnUS
-	 +0pv33GsNdj/sZJCqBQKHgX1V03Gk68V8Q0eZO+5YYJypFTvdemoE5peh9UCUgfMGfibE
-	 JEEKYKGy1b0Y+Sci3O+sr8AmG6cuUbODnVKJe+yFdrJnJXulm0/l1yGPV1CYWj7PXJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795629013;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=iVdPOcw1bs6hdzSnoCmlTQe9oM25xdIMmK+wXSHKTBo=;
+	b=oY/0LI1FyD9HicxV4C4YuK0mXSsR3u6tp46BpgfLTfW4iZxLvMHovtm5UlguxBSSJCdU
+	 1o+cHjRrtwubxORX9XBHX80+7lTIbgwaBQ+xEePctP5p97xglNGB1OzrNylTdV/0CvnDi
+	 nPNL3THPapQY+jHbfA2nA/NL8uYTfInfjBTAMeE7S/53e93KXIuArjIXe+XqUzznGSZi0
+	 BZdKcUGTCgBXpcN61vQoC7s8/NXDm9vKBNDnGMCL9C5dKK//xEYzhdh1uZuAB6bidlTLy
+	 8Ku+Zv6Lhb25pbOaeIU5bqVGJl6BTvHstOQycAZPXF3Njwxo6ClMdci5t+ILNmptv8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K3vA8WgA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=VAa13JZp;
+	arc=none smtp.remote-ip=209.85.128.176
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685FE606A332
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:49:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2E00606A327
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:50:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2E00606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K3vA8WgA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 387AB1F000CA;
-	Wed, 25 Nov 2026 17:49:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795628980;
-	bh=uySkP+5sxNylgt6fs5CpygCl25AsXDw7BalnMfsy3/o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K3vA8WgAMPxGtVsUaVczZ8NJcJ5EsiQKn5607WbXKZNLQy73QAhBghpr5D9AX0vr+
-	 v5YXF8y8mo9JvdrbyztJOBQxZDe2eQfdRohizm0N2A8H2NhVglTFj89/JYqCCLMVuI
-	 HuGREaOdNe4qFZXjx3RX86gH8RBLgIk4ge5xFa/IkjjTPQn23snTw2LIe0QU32ESwE
-	 FxP66A3zs93KFZ1wPQIU8FYwlZOv1EdksJhAz3bGjY9StNjCqcjal05zFE2lYZAA9U
-	 OeOBj1kxIfeSFwSdzjj/CPADt2VOSQ5v+Kje9M3oRCzBFgA9yufnlgMVWQOa9zOsb2
-	 lb/LhN9NXP8Kg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] kprobes: Switch ftrace ops when adding probe with post_handler
-Date: Wed, 25 Nov 2026 12:49:38 -0500
-Message-ID: <20261125174917.1037795-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=VAa13JZp
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8b4c685c751so53955227b3.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:50:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1795629012; x=1796233812; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iVdPOcw1bs6hdzSnoCmlTQe9oM25xdIMmK+wXSHKTBo=;
+        b=VAa13JZp07sBbOtWf3GoIBMIBQheUsIZTo3rZc0GmkeFHLHaPzAoIRZd7GdDmnRrRJ
+         3a3EO/RwOxQes9cJgDIvwhUr1psiHVxzS9QV4IISmDTLGCktmYY6IZgzxLA4FBa+FGDS
+         soP+EpDUm4KUe9avhBaeI7zdedR4GdIObTjNQLG4RKn+7UPwCHaMCQ0xAdbQx4mcreMu
+         AV9h4tGyOnXg0pL1/BbDlCA6KK538ImkSkkhNaOxG3eU1ojjwZs+SGbOaNzp4LweZvDN
+         n+gdgxejXIxaDbctTrOng4qUiBRJ8JpiNV8Cud+pfPDHdJAz8KsZoq9JrP7yNm6XH3Bu
+         miCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795629012; x=1796233812;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iVdPOcw1bs6hdzSnoCmlTQe9oM25xdIMmK+wXSHKTBo=;
+        b=kg1DaAFiAmcZ6021p8nLkLODVJlVZF6ItW2JISL02Ra7xN8p2geT/MXnsptpZRTLu6
+         +d4tkq65vC0Pba+i1X7My5iyNmmSyz0PFUGeLpEKGX3kqWR3iyjBPshBkUd74e226ExG
+         P8vnr4sRPcNAOx5gp5UaCV6YoXohPcDuQ5xTgr0gPFK8KQo+eH/t2D3jG+Kehw1MSP2l
+         LIilk8SAz6RvIlljKBneAIWa+XfgSKPGHz6MtYxzk5eFTarQg9NkcdefFjM3Piy0T3J2
+         WjMk70NIda/vlzogZDVvRbjNAqON9prZIP1dAQJgN5zDrF++VN5DzqC6XWKyxiZdrMwX
+         4MrA==
+X-Forwarded-Encrypted: i=1; AL+hErE7DdHZfsSWq7lKaE506lr232yvjoUXad4ws/+cAnV6LRh5sj2xjIZ3y1ozBqfXkU2kZkgG+Xg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/AD1mbWhK1IE2mhyIeDi4jhYpay0fUwWPPgE+Jog/q0vDZG/9U
+	Z7uv0CI6QoJoQAgwr+drofZ9a1VLSOuI4zmgZRx+K9PuZqSIT/KVYU9VpE+2Pn6JKdvKxDPqsNQ
+	Mfz93xxzh
+X-Gm-Gg: AZFdTZfwVygItkNFmPH5s/HXw9Z907OqO5VAZEvUKlNpYzqAJkxlz9j96K6KvEnZqDH
+	JhSBJvSYFoT0OH1AO/8VDqRgpJTbzPBvWJv26owmZ/AOtYfh18iurKtpr7JBEss+7ejt6kbdt1K
+	i6n7zFgigSf+WL8yXVm+1lQD1pN/c4zZWrbxgapN1FgNB/x4rpyvMMkPfIhR/z+yPKe4rv43iAT
+	qUlokIIBioU6dI45+kDQwWaqMyZ5WBw1gXa4v6h/rFpA8QTu8iPzaL3DEwHrUK5PxLD4WK0/2OH
+	1y86mQdWebN8jX8BnpBAit3cVy4l9int5SDf4IK2IACV7vL+wXdenU5cIME5+5d5QxeNc0EDAqi
+	hPfmhovKeYgNiAVvAN0UnenWBlD1ADQ44X5EoH570+uPXC+Z3CoRZMbqKeeeol4g9KSOf6o/dSL
+	vYWR9czKtxwrxAhO7ISp4x6SYyYWERpq7blkxxApKfF3KmKufDC8vNHL3083wHNsaUnQ3OKnZN6
+	5WqMVSAaFHyaiEREeLLmpDbTD4dlizRoIsHF125hIhjdw8NhLQQ7+WeyLyomAo7p3DnxmEWyMRZ
+	oXgEtf1ApVKBkVu3c0APACV6Jev1Ivv1eC8s7ANB/8ILxvVodQ0=
+X-Received: by 2002:a05:690c:4448:b0:8b2:e4cf:c399 with SMTP id 00721157ae682-8b520435b9emr76177847b3.18.1795629011607;
+        Wed, 25 Nov 2026 09:50:11 -0800 (PST)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b52034f7absm75322567b3.41.2026.11.25.09.50.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 09:50:11 -0800 (PST)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Cc: gfs2@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] gfs2: restart rename when a signal interrupts the glock wait
+Date: Wed, 25 Nov 2026 12:50:07 -0500
+Message-ID: <20261125175007.3659558-1-hengyul@cs.unc.edu>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112529-observer-seventy-3bee@gregkh>
-References: <2026112529-observer-seventy-3bee@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,148 +98,98 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Commit 11d763f0b0af ("gfs2: Retries missing in gfs2_{rename,exchange}")
+made gfs2_glock_async_wait() interruptible. It returns -EINTR when a
+signal is pending.
 
-[ Upstream commit f60f98881b54b0cf36b61f41c91fbd93b76a2d9c ]
+However, -EINTR goes back to user space as it is, and the system call
+is not restarted. As of now, rename() and renameat2() on gfs2 fail
+with EINTR when a signal arrives while they wait for a glock, also
+when the signal only stops and continues the process.
 
-When an ftrace-based kprobe is registered without a post_handler, it is
-armed using kprobe_ftrace_ops. If a second probe with a post_handler is
-subsequently registered at the same address, register_aggr_kprobe() sets
-ap->post_handler to aggr_post_handler, but leaves the probe armed using
-kprobe_ftrace_ops.
+The issue can be reproduced with:
 
-When the probe is later disarmed or disabled, disarm_kprobe_ftrace()
-checks whether p->post_handler is non-NULL and attempts to disarm from
-kprobe_ipmodify_ops. This fails with -ENOENT, decrements
-kprobe_ipmodify_enabled below zero, leaves the probe armed on
-kprobe_ftrace_ops, and aborts unregistration, leading to a use-after-free
-if the probe module is unloaded.
+    mkfs.gfs2 -O -p lock_nolock -j 1 /dev/vda
+    mount /dev/vda /mnt
+    mkdir /mnt/a /mnt/b
+    for i in $(seq 12000); do echo > /mnt/a/$i; done
+    umount /mnt; mount /dev/vda /mnt
+    mv /mnt/a/* /mnt/b/ &
+    while kill -STOP $!; do kill -CONT $!; sleep 0.005; done
 
-Switch the armed probe from kprobe_ftrace_ops to kprobe_ipmodify_ops in
-register_aggr_kprobe() outside of text_mutex and cpus_read_lock to avoid
-lockdep and deadlock issues when modifying ftrace code. Defer adding the
-new probe onto ap->list until the ftrace ops switch completes so that the
-new probe's handlers are not published prematurely while ap is still on
-kprobe_ftrace_ops, and mark ap disabled if rollback re-arming fails.
-Also restore ftrace ops registration and counter if ftrace_set_filter_ip()
-fails in __disarm_kprobe_ftrace().
+Before commit 11d763f0b0af ("gfs2: Retries missing in
+gfs2_{rename,exchange}"), mv moves all 12000 files.
 
-Link: https://lore.kernel.org/all/179440641120.328088.15542754095040659094.stgit@devnote2/
+After that commit, the result for 783 of the files is:
 
-Fixes: 5dd7caf0bdc5 ("kprobes: Skip clearing aggrprobe's post_handler in kprobe-on-ftrace case")
+    mv: cannot move '/mnt/a/10' to '/mnt/b/10': Interrupted system call
+
+With this patch, mv moves all 12000 files again.
+
+This patch will return -ERESTARTSYS instead, as gfs2_statfs_slow()
+does for its glock wait, so that the system call is restarted.
+
+Fixes: 11d763f0b0af ("gfs2: Retries missing in gfs2_{rename,exchange}")
 Cc: stable@vger.kernel.org
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-[ sashal: Replaced scoped_guard(cpus_read_lock) with cpus_read_lock()/unlock(), placed the new ftrace-switch block accordingly, and kept the existing ret == 0 guard; newer-tree context lines are absent. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 ---
- kernel/kprobes.c | 53 ++++++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 44 insertions(+), 9 deletions(-)
+I found this while comparing the behavior of different kernel versions.
+I used an LLM to analyze the problem and to draft the patch and this
+message, and I analyzed the result myself.
 
-diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-index f2bcfae09fd9d..e392d4dedb84b 100644
---- a/kernel/kprobes.c
-+++ b/kernel/kprobes.c
-@@ -1096,9 +1096,14 @@ static int __disarm_kprobe_ftrace(struct kprobe *p, struct ftrace_ops *ops,
- 	(*cnt)--;
- 
- 	ret = ftrace_set_filter_ip(ops, (unsigned long)p->addr, 1, 0);
--	WARN_ONCE(ret < 0, "Failed to disarm kprobe-ftrace at %pS (error %d)\n",
--		  p->addr, ret);
--	return ret;
-+	if (WARN_ONCE(ret < 0, "Failed to disarm kprobe-ftrace at %pS (error %d)\n",
-+		      p->addr, ret)) {
-+		if (*cnt == 0)
-+			register_ftrace_function(ops);
-+		(*cnt)++;
-+		return ret;
-+	}
-+	return 0;
- }
- 
- static int disarm_kprobe_ftrace(struct kprobe *p)
-@@ -1297,16 +1302,12 @@ static inline void free_rp_inst(struct kretprobe *rp)
- }
- 
- /* Add the new probe to ap->list */
--static int add_new_kprobe(struct kprobe *ap, struct kprobe *p)
-+static void add_new_kprobe(struct kprobe *ap, struct kprobe *p)
- {
- 	if (p->post_handler)
- 		unoptimize_kprobe(ap, true);	/* Fall back to normal kprobe */
- 
- 	list_add_rcu(&p->list, &ap->list);
--	if (p->post_handler && !ap->post_handler)
--		ap->post_handler = aggr_post_handler;
--
--	return 0;
- }
- 
- /*
-@@ -1340,6 +1341,8 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
- {
- 	int ret = 0;
- 	struct kprobe *ap = orig_p;
-+	bool reset_post_handler = false;
-+	bool ftrace_switch_ops = false;
- 
- 	cpus_read_lock();
- 
-@@ -1389,15 +1392,45 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
- 			    | KPROBE_FLAG_DISABLED;
+Since commit a098f26d3b80 ("gfs2: Get rid of sd_async_glock_wait"),
+signals are only checked while a glock is still pending, so fewer
+renames fail: 60 of the 12000 files on gfs2 for-next. The stable trees
+that have commit 11d763f0b0af do not have that one, so the change is a
+single line there.
+
+Application impact (Ubuntu 26.04 user space): rsync 3.4.1 updates
+12000 small files on gfs2 while its processes are stopped and
+continued every 5 ms (kill -TSTP / -CONT). On v6.19, rsync exits with
+0. On v7.0, it exits with 23 after 267 "rename ... Interrupted system
+call" errors, and those files keep their old content.
+
+Tested on gfs2 for-next (9aa0082cf969) with lock_nolock, KASAN and
+lockdep: rename, RENAME_EXCHANGE and directory renames no longer fail
+under a SA_RESTART handler or under stop / continue. A handler without
+SA_RESTART still gets EINTR.
+
+ fs/gfs2/glock.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
+index aa11168255e9..05e6b0f6ccc7 100644
+--- a/fs/gfs2/glock.c
++++ b/fs/gfs2/glock.c
+@@ -1318,7 +1318,7 @@ int gfs2_glock_async_wait(unsigned int num_gh, struct gfs2_holder *ghs,
+ 		if (!glocks_pending(num_gh, ghs))
+ 			break;
+ 		if (signal_pending(current)) {
+-			ret = -EINTR;
++			ret = -ERESTARTSYS;
+ 			break;
+ 		}
+ 		ret = schedule_timeout(ret);
+@@ -1329,7 +1329,7 @@ int gfs2_glock_async_wait(unsigned int num_gh, struct gfs2_holder *ghs,
+ 			break;
+ 		}
+ 		if (signal_pending(current)) {
+-			ret = -EINTR;
++			ret = -ERESTARTSYS;
+ 			break;
+ 		}
  	}
+@@ -1363,7 +1363,7 @@ int gfs2_glock_async_wait(unsigned int num_gh, struct gfs2_holder *ghs,
+ 	return ret;
  
-+	if (p->post_handler && !ap->post_handler) {
-+		reset_post_handler = true;
-+		if (kprobe_ftrace(ap) && !kprobes_all_disarmed &&
-+		    !kprobe_disabled(ap))
-+			ftrace_switch_ops = true;
-+		else
-+			ap->post_handler = aggr_post_handler;
-+	}
-+
- 	/* Copy ap's insn slot to p */
- 	copy_kprobe(ap, p);
--	ret = add_new_kprobe(ap, p);
-+	if (!ftrace_switch_ops)
-+		add_new_kprobe(ap, p);
+ interrupted:
+-	ret = -EINTR;
++	ret = -ERESTARTSYS;
+ 	goto out;
+ }
  
- out:
- 	mutex_unlock(&text_mutex);
- 	jump_label_unlock();
- 	cpus_read_unlock();
- 
-+	if (ret == 0 && ftrace_switch_ops) {
-+		/*
-+		 * Must switch ftrace ops outside of text_mutex and cpus_read_lock
-+		 * to prevent deadlocks when ftrace code modification acquires text_mutex.
-+		 */
-+		ret = disarm_kprobe_ftrace(ap);
-+		if (ret)
-+			return ret;
-+
-+		ap->post_handler = aggr_post_handler;
-+		ret = arm_kprobe_ftrace(ap);
-+		if (ret) {
-+			ap->post_handler = NULL;
-+			if (arm_kprobe_ftrace(ap))
-+				ap->flags |= KPROBE_FLAG_DISABLED;
-+			return ret;
-+		}
-+		add_new_kprobe(ap, p);
-+	}
-+
- 	if (ret == 0 && kprobe_disabled(ap) && !kprobe_disabled(p)) {
- 		ap->flags &= ~KPROBE_FLAG_DISABLED;
- 		if (!kprobes_all_disarmed) {
-@@ -1405,6 +1438,8 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
- 			ret = arm_kprobe(ap);
- 			if (ret) {
- 				ap->flags |= KPROBE_FLAG_DISABLED;
-+				if (reset_post_handler)
-+					ap->post_handler = NULL;
- 				list_del_rcu(&p->list);
- 				synchronize_rcu();
- 			}
+
+base-commit: 9aa0082cf969a9973ec6554586753c53211ab799
 -- 
 2.53.0
 
