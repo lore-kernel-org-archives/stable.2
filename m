@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795609479;
-	b=sLYPNNh3dRNgNg4iolvhDqkRPqjvBZ91uPmmtdlD9uF6OwV/A0Aw7IAvZ3ogWW9oIwk6
-	 KKo9lf3Na0VxZKrufMjE5sjf5EnQ0u/XHboueeNjCDLdctPyK+xMyO9HxvOE1mJJ1VfP6
-	 kNiMqUaoS7PyHdi6X6Y+7wb7/Qq2dEZpKc1I/HQCREinIYY4xXEl8rdHcQab62xpW52ym
-	 IFQrhUoXVgMO/FJXjkpNCqAejUV7LZzPWrL+FsrLf8hk52/ezvleKZ7NGm25qrv5jjMAT
-	 FRLqyaODwKADAB/qTk1z3i1TU0nNPtKAz61vWD9LnBjkXPCDLG7EkxWcihGJzWsPgzw==
+	t=1795609482;
+	b=TaaFpT5sCxw8gWT38CVIDCN/Y0AFlMITdoSYlgOjOmIIktQtOO7ijz7B9Wg4EndqIAoA
+	 cKr8d9zm47W1XqmtSBruShJ7Xdzb3oEGScAUpTUGgFCZ/dcN6sx9jwHEn9hkARcXuUh4I
+	 Tx0T6skkQRZ75gfrTTvHBdbN/pGXvOL7L5m6WWwNGd6IpZYTC8mGn0zrk2YaETJvmUuKn
+	 GnJ5Jx9mfR1xB+MNYj1G47a9lfMPF+3jf0gkIzeJO9Pl8KtWfdDtKwLdxtkJ12fpTnNmV
+	 lMmlqKMwqEX6inwf+iZw2QwAA/Ifv/fdsnaCIDGB3jmYtmCTG/XZDPcmKmdwt02XeCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795609479;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795609482;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=k6NlBvv3yMg8XuuiTwlmIHcZ2u6IDtDE3yvVG65Ya4M=;
-	b=GHNNArkCALmAvtOIei+VpvMSEu4VepCUI7to7K/251E0EFSmbjbuxk4yMhC9ZPNJepuC
-	 85UejQSr9utPtxkJWwlDbWDCaI0jocJolq6LU/+NA+5aQ/vv20jfw2Ra2IVIlP4QwRYwv
-	 aqBWxqg+Kng0g19yaQ8q3nvuQUKgG1g74P86xkD6nrywsjfrpI6Ef+dKb8NiFARxFUmaf
-	 ZFQGj1VOaDdp+s4mVowgit8Z1cYCyKYvn6cG1lE0Vu5HvFV23lk49UaoxFOZb603+0zIC
-	 l60R+ph82dIUwWaDmhGgQpsmlJw6TLdqdtadiG4pSjsi4I9AZ91gzmOaqbhAUpPX9WA==
+	bh=Pu4ySdfhY5dL3ulclz6qix/8xHU5UTV9Vb91bAohhIY=;
+	b=zylDMtchxGZE2GNeAB+d6UTkBh6GnXQohEiSNLncuEuInGAnIex/UNeI4ZNumPPz66Yh
+	 mBeMakI5rSae4DbfSyQQnWTwOAl9yvrRG5+zGeAUKStzARRikzPPfDv4Zqg0XlzuuGf/D
+	 G/SQnC1qd19I7ZlAsEnPcmCeNM6JBAThGziJpZzHoCkr6lJaA0FMaCPcQV16TjVp8cVd6
+	 +zKgvQVEH+xeRjhX37tbnuir0X4nGwZJvPtXH0WzwLx9LGopk7OZC/2MbzLU2J5HxEi/M
+	 vtMn+Z0JMGoQ+JWjt/h7ofquiByfQDDcP0/zqldHnhry4BvEMZhTQWaQZM/JmWiOZ/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lS91uhLF;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Yn7KHN/t";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C609C606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:24:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72ED606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:24:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lS91uhLF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C97B1F000E1;
-	Wed, 25 Nov 2026 12:24:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Yn7KHN/t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFA781F000C6;
+	Wed, 25 Nov 2026 12:24:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795609479;
-	bh=k6NlBvv3yMg8XuuiTwlmIHcZ2u6IDtDE3yvVG65Ya4M=;
+	s=korg; t=1795609482;
+	bh=Pu4ySdfhY5dL3ulclz6qix/8xHU5UTV9Vb91bAohhIY=;
 	h=Subject:To:Cc:From:Date;
-	b=lS91uhLFmyREFRJ/KeKJMgiSyux29aDRzqapcucPJ9x7QSw6Ttcxq9R47qN9z25Hx
-	 fZ1k1S9Pe4doiv86MYJzIeDQnWotgu9L4NuqFGRCnhab++U/IRLKvoSW5mtTTkZcKy
-	 6DNXbewg5CWzxwnVlAIoCvDZ0Ip3GQ2KTFIPR4RM=
-Subject: FAILED: patch "[PATCH] iio: imu: inv_mpu6050: fix swapped accel and gyro startup" failed to apply to 6.1-stable tree
-To: kapoorarnav43@gmail.com,jean-baptiste.maneyrol@tdk.com,jonathan.cameron@oss.qualcomm.com
+	b=Yn7KHN/tnb/NBlInenKXtiCPinQKmDTPaKiSk82nYl3x8+VwNELZxBZfzwQB2dq7A
+	 uWNQ3j8MLN0kl0KaXWY9mW39fLIlfjIheQwwnqdBF+Z0HMbeqsDV4VcF7qfWc6Vt79
+	 02IZa43Q+oHCFzT8Ic67M1uNRLi/QUv3WjHANmBo=
+Subject: FAILED: patch "[PATCH] iio: inv_sensors: prevent timestamps going back in time in" failed to apply to 6.12-stable tree
+To: jean-baptiste.maneyrol@tdk.com,jonathan.cameron@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 13:22:18 +0100
-Message-ID: <2026112518-stamina-unsecured-16fe@gregkh>
+Date: Wed, 25 Nov 2026 13:22:38 +0100
+Message-ID: <2026112538-supper-bakeshop-1212@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3a5e2ca34cadd9d5993064884aa5b9c4f6d71dff
+git cherry-pick -x 3785dffc7c68751a8429ae6dd75804c14a5a7c7a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112518-stamina-unsecured-16fe@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112538-supper-bakeshop-1212@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,262 +79,87 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3a5e2ca34cadd9d5993064884aa5b9c4f6d71dff Mon Sep 17 00:00:00 2001
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
-Date: Sun, 11 Oct 2026 10:27:04 +0530
-Subject: [PATCH] iio: imu: inv_mpu6050: fix swapped accel and gyro startup
- times
+From 3785dffc7c68751a8429ae6dd75804c14a5a7c7a Mon Sep 17 00:00:00 2001
+From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Date: Tue, 20 Oct 2026 17:26:00 +0200
+Subject: [PATCH] iio: inv_sensors: prevent timestamps going back in time in
+ transitions
 
-struct inv_mpu6050_hw declares startup_time as { accel, gyro }, but
-every entry of hw_info[] initializes it positionally as
-{ *_GYRO_STARTUP_TIME, *_ACCEL_STARTUP_TIME }, so the two values are
-swapped for all chips.
+Ensure when computing first timestamp and when applying odr change,
+that the next timestamp will not be lower than the previous one.
 
-inv_mpu6050_switch_engine() waits for startup_time.gyro after enabling
-the gyroscope, so it waits for the accelerometer startup time instead,
-e.g. 20 ms instead of 60 ms on MPU6050 and 20 ms instead of 100 ms on
-ICM20602, and the first gyroscope samples can be read before the sensor
-has settled. Enabling only the accelerometer waits longer than needed.
+This way there is no risk to have a timestamp going back in time, meaning
+being lower than the previous one. It already can never happen without
+a transition because we are generating timestamps by adding the period
+to the last timestamp.
 
-Use designated initializers, so each value is assigned to the member it
-is named after.
-
-Fixes: e46a36d92da0 ("Add startup time for each chip using inv_mpu6050 driver")
-Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
-Acked-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Fixes: 0ecc363ccea7 ("iio: make invensense timestamp module generic")
 Cc: stable@vger.kernel.org
+Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
-index 1614f49be66c..7265a3c3de05 100644
---- a/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
-+++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
-@@ -150,7 +150,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6050,
- 		.fifo_size = 1024,
- 		.temp = {INV_MPU6050_TEMP_OFFSET, INV_MPU6050_TEMP_SCALE},
--		.startup_time = {INV_MPU6050_GYRO_STARTUP_TIME, INV_MPU6050_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6050_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6050_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_MPU6500_WHOAMI_VALUE,
-@@ -159,7 +162,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 512,
- 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_MPU6515_WHOAMI_VALUE,
-@@ -168,7 +174,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 512,
- 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_MPU6880_WHOAMI_VALUE,
-@@ -177,7 +186,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 4096,
- 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_MPU6000_WHOAMI_VALUE,
-@@ -186,7 +198,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6050,
- 		.fifo_size = 1024,
- 		.temp = {INV_MPU6050_TEMP_OFFSET, INV_MPU6050_TEMP_SCALE},
--		.startup_time = {INV_MPU6050_GYRO_STARTUP_TIME, INV_MPU6050_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6050_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6050_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_MPU9150_WHOAMI_VALUE,
-@@ -195,7 +210,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6050,
- 		.fifo_size = 1024,
- 		.temp = {INV_MPU6050_TEMP_OFFSET, INV_MPU6050_TEMP_SCALE},
--		.startup_time = {INV_MPU6050_GYRO_STARTUP_TIME, INV_MPU6050_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6050_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6050_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_MPU9250_WHOAMI_VALUE,
-@@ -204,7 +222,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 512,
- 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_MPU9255_WHOAMI_VALUE,
-@@ -213,7 +234,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 512,
- 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_ICM20608_WHOAMI_VALUE,
-@@ -222,7 +246,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 512,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_ICM20608D_WHOAMI_VALUE,
-@@ -231,7 +258,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 512,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_ICM20609_WHOAMI_VALUE,
-@@ -240,7 +270,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 4 * 1024,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_ICM20689_WHOAMI_VALUE,
-@@ -249,7 +282,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 4 * 1024,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_ICM20600_WHOAMI_VALUE,
-@@ -258,7 +294,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 1008,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_ICM20602_GYRO_STARTUP_TIME, INV_ICM20602_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_ICM20602_ACCEL_STARTUP_TIME,
-+			.gyro = INV_ICM20602_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_ICM20602_WHOAMI_VALUE,
-@@ -267,7 +306,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 1008,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_ICM20602_GYRO_STARTUP_TIME, INV_ICM20602_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_ICM20602_ACCEL_STARTUP_TIME,
-+			.gyro = INV_ICM20602_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_ICM20690_WHOAMI_VALUE,
-@@ -276,7 +318,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 1024,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_ICM20690_GYRO_STARTUP_TIME, INV_ICM20690_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_ICM20690_ACCEL_STARTUP_TIME,
-+			.gyro = INV_ICM20690_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{	.whoami = INV_IAM20380_WHOAMI_VALUE,
- 		.name = "IAM20380",
-@@ -284,7 +329,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 512,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_IAM20680_WHOAMI_VALUE,
-@@ -293,7 +341,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 512,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_IAM20680HP_WHOAMI_VALUE,
-@@ -302,7 +353,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 4 * 1024,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_IAM20680HT_WHOAMI_VALUE,
-@@ -311,7 +365,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 4 * 1024,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
+diff --git a/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c b/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
+index 8c9e81a77e68..9040da80f0c7 100644
+--- a/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
++++ b/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
+@@ -133,10 +133,15 @@ void inv_sensors_timestamp_interrupt(struct inv_sensors_timestamp *ts,
+ 		return;
+ 
+ 	/* no previous data, compute theoretical value from interrupt */
+-	if (ts->timestamp == 0) {
++	if (!ts->init) {
+ 		/* elapsed time: sensor period * sensor samples number */
+ 		interval = (s64)ts->period * (s64)sample_nb;
+-		ts->timestamp = timestamp - interval;
++		delta = timestamp - interval;
++		/* prevent next timestamp to be lower than the last one */
++		if ((delta + ts->period) > ts->timestamp)
++			ts->timestamp = delta;
++		ts->init = true;
++
+ 	}
+ 
+ 	/* update delta timestamps and estimated period */
+@@ -184,7 +189,7 @@ void inv_sensors_timestamp_apply_odr(struct inv_sensors_timestamp *ts,
+ 				     u32 fifo_period, size_t fifo_nb,
+ 				     unsigned int fifo_no)
+ {
+-	s64 interval;
++	s64 interval, timestamp;
+ 	u32 fifo_mult;
+ 
+ 	if (ts->new_mult == 0)
+@@ -207,7 +212,10 @@ void inv_sensors_timestamp_apply_odr(struct inv_sensors_timestamp *ts,
+ 		fifo_period = fifo_mult * ts->chip_period.val;
+ 		/* computes time interval between interrupt and this sample */
+ 		interval = (s64)(fifo_nb - fifo_no) * (s64)fifo_period;
+-		ts->timestamp = ts->it.up - interval;
++		timestamp = ts->it.up - interval;
++		/* prevent next timestamp to be lower than current one */
++		if ((timestamp + ts->period) > ts->timestamp)
++			ts->timestamp = timestamp;
+ 	}
+ }
+ EXPORT_SYMBOL_NS_GPL(inv_sensors_timestamp_apply_odr, "IIO_INV_SENSORS_TIMESTAMP");
+diff --git a/include/linux/iio/common/inv_sensors_timestamp.h b/include/linux/iio/common/inv_sensors_timestamp.h
+index 4f08204ede3b..91690778ae88 100644
+--- a/include/linux/iio/common/inv_sensors_timestamp.h
++++ b/include/linux/iio/common/inv_sensors_timestamp.h
+@@ -66,6 +66,7 @@ struct inv_sensors_timestamp {
+ 	u32 new_mult;
+ 	u32 period;
+ 	struct inv_sensors_timestamp_acc chip_period;
++	bool init;
  };
  
+ void inv_sensors_timestamp_init(struct inv_sensors_timestamp *ts,
+@@ -94,7 +95,7 @@ static inline void inv_sensors_timestamp_reset(struct inv_sensors_timestamp *ts)
+ 	ts->it = interval_init;
+ 	ts->delta = interval_init;
+ 	ts->delta_counter = 0;
+-	ts->timestamp = 0;
++	ts->init = false;
+ }
+ 
+ #endif
 
