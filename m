@@ -1,55 +1,95 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795627962;
-	b=wQXmDms0xq1d48KnD47i5yLv/ZMJky6+NxlD/X9WkMTWPmbrA70eJcuTRM3hRpDnadyf
-	 1HeDnGSsh0rusMpkwBgkb22ULuhQFJB0wtCRmb9Pk6NKr4fiRHS+ZqG5LdUzVKZ/1ZWot
-	 zw5WMObTMyuhvnNFRD7cFF3KOiQ4WyGIwLe46cWE+j0rGjFKjtT9JK2bP7rtGHQxInUuL
-	 1RUUC2uKy4u9lxVlCaLXpPmvPRserhHpSItnOoF1oAZ8dWrEQ5z1/0MwMAZ/uUEaoe2Oq
-	 g85ZEAtQf9MpYTOuPhzgJ9Sy4CaIjBZETxyRRT2aQt5Cr5QrEqXs+1XJgO6RVnvtFFw==
+	t=1795628026;
+	b=suGSCPGp4AcnueWq5EsF7wwZIqba3G9KXgpCFlW7ofXYnu8RqJD5RZ7H++U4a8oo51UF
+	 N2F4LmTNIB7mLr57+dGcigvAKKQFVcrcK0KUqiHi5E+EtD8Um7XsipIS3I6hhF6IvOXt7
+	 R+f4x3n+EYL4vDDsa6U0AmwqNjR8vl/yE0lt4kI7UEpZV+MGpoDjQF55yMjYeq+FR0IOf
+	 8M3UgoCqDmidnnVPLFaPw+6PzThP6vRa/7x80L3rF+UdUIQmCBMTWg2JELDIwR3g0yR6O
+	 3sMauT9DJrU0QJWMMIndX1WEczk39/GUQXw1+7wu4F06k4Utuci33T1BEAnDT1etQmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795627962;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=8pgMoBCNEkknejuMgBfT+a4tHIfF9le/4Hd0bRS37/c=;
-	b=EElztBKEdHp0iseVVE94EhjHykchC6a6JvaQCKN8JELSkhZNUCEaxXxnOnYPq408IQhW
-	 0RIm9OjtQggOH5nHwt4bOoLvcpSGtY5SOdgFHwJvzuThER7OwaJdlz+r3W5EN7sMub1wa
-	 tdoqUX7EuDtqPT/TeoIojol0KBCEE6wCJ009eOGTSPcvwcUwkM3KUSVNcWYmE0fisqNyj
-	 okenO2NFzjLRFnlg5z3fNX4M4y3u1Cc6MmXvMNWOSQpBnPBjPjxERJOM52LdvIaptWBTz
-	 /3Up8VnzpJQqU1Wa2tGIGwzCHR81mBch6H8mQyF2q5H8DqGqQUARhsG4rLarMsSN7HA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795628026;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=n/6bLDuC2MWLlkiw9AxsEw6O8WtH5WMIcohSXIYDu0M=;
+	b=iBc9ei6jtXu04zuXDEqjfcR5gPltZou72k6JljkHT39Hi+8K4fTmbYmwbJWCZlBsSDdg
+	 p6jE4XAK+Ck+v26dd41n4xWuY2H5fc6C8gkQe6I94nBF7jDCJGaxJVjK2PWBezau0Lgto
+	 JtRdcz0+GTIEGdDAkbkaUvw8g5HLAWMxPASeK8aQOCjmfmKtCzZo5cMIFzrBAfpmpTQ3+
+	 E2XIhlgBaxTe09a+LrMw9xGNyl3HTeRxpC1stDvVGOiGBHDCrgWJq1E+9uobssv2HjuIu
+	 LEu6TDRkNGQE2FIWprk1vV27H5UzkXs09uomnol/s9QYNW5k6ov97ZKtaj6UD0VSCgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ToXmq5CL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="a/qxYY7J";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83461606A32E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:32:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77518606A32C;
+	Wed, 25 Nov 2026 17:33:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ToXmq5CL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B27631F000C0;
-	Wed, 25 Nov 2026 17:32:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a/qxYY7J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DDE81F000D0;
+	Wed, 25 Nov 2026 17:33:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795627962;
-	bh=8pgMoBCNEkknejuMgBfT+a4tHIfF9le/4Hd0bRS37/c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ToXmq5CLfQPHgEdbaKPSbDQ07FaHKytDD/yQhXEkgfgCM0f1wF42Qa8RfB3HTpXWX
-	 4r0YJ+P8I8aD9c/g8cBbc2EmbysViK792fGe4uhyBC7N7dJvT8hxeLWup3icDOvvZl
-	 3gra0QK+dPt8tmOFJIQYwqnOdmHScx9ce07Ka5DpyUa4O1M19Ya+LhIJBV3CFvvdJG
-	 Jme7Wo/uHWYkEHtk6J4buB90LtT1R+1P0fXmnHwGWTF85UtCYT7XnpgwtQvnDQ4TCQ
-	 qZ0sxpEJHg09GwE5qc5uF9wtGPV4WxxenFEY2hzQONwVD7NfzMwVOP+pbGImTnWFTm
-	 N88kmuqKTpQZA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/4] kprobes: Switch ftrace ops when adding probe with post_handler
-Date: Wed, 25 Nov 2026 12:32:36 -0500
-Message-ID: <20261125173227.966424-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125173227.966424-1-sashal@kernel.org>
-References: <2026112527-vengeful-handrail-9419@gregkh>
- <20261125173227.966424-1-sashal@kernel.org>
+	s=k20260515; t=1795628025;
+	bh=n/6bLDuC2MWLlkiw9AxsEw6O8WtH5WMIcohSXIYDu0M=;
+	h=From:To:Cc:Subject:Date;
+	b=a/qxYY7Jx4KrcgPN7wnFjijIWU7q3OzxEz/YnyGrjKK+wKdSKLXB0JiYZCmn1FEbx
+	 KuFrM1k5cvs7x3jXRL5AoInar9bPon5j//iN1LK0CHxMplHitTrTVFUgLBGMK/ZXXu
+	 2r+rA/FZqP6CuoT1QEQI1aTeJ3iwP1dLEEgh8xnyWngBWVufuVa43dIFIx8Sr27WF8
+	 ULNP2gobeKLxNGEBml9IVoljcPiLkkXe2zBo+X4ngU4qMW2QnZCuZJdqVfAahkfuD/
+	 fdsO17cywQi1ZT+UKbdjDVGBUrF/N+L3Gvf8J4VwHcT0KqvTzek2rw/GgQnjdVWPeV
+	 Czphq7SKI763g==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 1463B198006A;
+	Wed, 25 Nov 2026 12:33:40 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Wed, 25 Nov 2026 12:33:42 -0500
+X-ME-Sender: <xms:9BsHa8rRwZ-B6dJQd39mb36_IfObKj3ULBUz0osEA8SPOXbM5snwEA>
+    <xme:9BsHa0BmVBwiapEMhuUKQ7fl9cA7S8lwQll8ZeGsqSmQ6a01r4dg_ALumhlGRoFWH
+    HTqZGW-BqY4arqLQMhitQAu3ZbFIXc_80kcEezB3sXoMRmC81PlFoo0>
+X-ME-Received: <xmr:9BsHa6fIg0J2dn0Sfc3E8WBKM7hPXB_i7PX_qRaXMWPCeXRrLqzinpf9oVs>
+X-ME-Proxy-Cause: dmFkZTEjneGXuSsh9t8RLA5fj7OcIMpddJIPpUqkcCDk1koCABNj0DB7+xf1dKOxMj9juV
+    tF/xhAcgiETRmldAJL4fSnEhurJbuWquoguflFdf5cgOeCJcEe9MP0oUfMBzJ0/hMO7Ail
+    h22HXZLf6H0rTSIZ9mjjY3jC09UdkvYKAJS20FoyaRQda/TTQNzNLog6Np+64GF8l9mToz
+    q0cauJaKUUBMxe+bwgi1iKWVZ5OkzDj2yLkDwcN6+LwolQ/4feGVmf6XcJ1jZppe/5nEV4
+    lJV66d31/jxmkXNOvdRk1UdK2Rzx/cQhOxp+eVwBZfETf9hpDaFDrDiGYe8iHaydo0eaVm
+    J+QAX2klsry1H6D4sR5zJV1+nrOT4PUKbqM4OevwQYzQzb7m4PvTN+k63p9NVReNy7kgkL
+    QdpCSmburxqhy/hzlKchbRPw7FHgm6h4p9+GX6Vm8Df7P6sKBPOmABxD827xs4jREwniYo
+    eT25z3JA8qNMNakVrKso781cLFrnlBRXUCCAqw8gfDhgJE7laynH0C5jmMPacW98WjiLpy
+    B8VO6dq/RAj38Whgsiz2yIe0xXSJzHs9N00zF9mdOLURLsgOVAIUlYrmXe5UScBDhMKRwn
+    cOi1nnvBHPcVkqDkHS0dHHnu9e9zHg1WZNeZp3iCVFa/8dRzhh5Oc2qMSEJw
+X-ME-Proxy: <xmx:9BsHa8IvTYgfK2V5VArj27Edso_U465UskkroKOd_XMs_XdOG6aFbQ>
+    <xmx:9BsHayurQ7qvPx5WRFasGvucq6ucyUOxWsNwt_FtHXxK2Y4QVtgi3A>
+    <xmx:9BsHa-bgH0VPYcK40-exctqVMUixUrrg_xb2TcZNMiUVwpfFZHp3tQ>
+    <xmx:9BsHay24mIwRuAQ6r_oPPnN5Ye6e8gDSzrAFl6tWzB6XLoxyK9YiQw>
+    <xmx:9BsHa0URsQasB42Xh2rpLAL_lRXL-cIGxOk9Pna-5bqINz-sv8Bh5i8e>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 25 Nov 2026 12:33:40 -0500 (EST)
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Pankaj Gupta <pankaj.gupta@amd.com>,
+	linux-efi@vger.kernel.org,
+	linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	stable@vger.kernel.org
+Subject: [PATCH] x86/efi: Handle EFI_UNACCEPTED_MEMORY in do_add_efi_memmap()
+Date: Wed, 25 Nov 2026 17:33:36 +0000
+Message-ID: <20261125173338.1250080-1-kas@kernel.org>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,144 +101,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+The EFI stub reports unaccepted memory to the kernel as E820 RAM.
+do_add_efi_memmap() has no case for EFI_UNACCEPTED_MEMORY and adds the
+same range again as E820_TYPE_RESERVED. e820__update_table() resolves
+the overlap in favour of the reserved type, so the kernel never uses
+the range.
 
-[ Upstream commit f60f98881b54b0cf36b61f41c91fbd93b76a2d9c ]
+do_add_efi_memmap() runs when soft reservation is enabled and the
+firmware marks any conventional memory EFI_MEMORY_SP; that takes no
+command-line option. It also runs with the add_efi_memmap boot
+parameter. A TDX or SEV-SNP guest booted either way loses the memory the
+firmware left unaccepted, and it does not show up in MemTotal.
 
-When an ftrace-based kprobe is registered without a post_handler, it is
-armed using kprobe_ftrace_ops. If a second probe with a post_handler is
-subsequently registered at the same address, register_aggr_kprobe() sets
-ap->post_handler to aggr_post_handler, but leaves the probe armed using
-kprobe_ftrace_ops.
+Add unaccepted memory as RAM, as the stub does. Without
+CONFIG_UNACCEPTED_MEMORY the kernel cannot accept it, so keep it
+reserved there.
 
-When the probe is later disarmed or disabled, disarm_kprobe_ftrace()
-checks whether p->post_handler is non-NULL and attempts to disarm from
-kprobe_ipmodify_ops. This fails with -ENOENT, decrements
-kprobe_ipmodify_enabled below zero, leaves the probe armed on
-kprobe_ftrace_ops, and aborts unregistration, leading to a use-after-free
-if the probe module is unloaded.
-
-Switch the armed probe from kprobe_ftrace_ops to kprobe_ipmodify_ops in
-register_aggr_kprobe() outside of text_mutex and cpus_read_lock to avoid
-lockdep and deadlock issues when modifying ftrace code. Defer adding the
-new probe onto ap->list until the ftrace ops switch completes so that the
-new probe's handlers are not published prematurely while ap is still on
-kprobe_ftrace_ops, and mark ap disabled if rollback re-arming fails.
-Also restore ftrace ops registration and counter if ftrace_set_filter_ip()
-fails in __disarm_kprobe_ftrace().
-
-Link: https://lore.kernel.org/all/179440641120.328088.15542754095040659094.stgit@devnote2/
-
-Fixes: 5dd7caf0bdc5 ("kprobes: Skip clearing aggrprobe's post_handler in kprobe-on-ftrace case")
+Fixes: 745e3ed85f71 ("efi/libstub: Implement support for unaccepted memory")
+Reported-by: Mike Rapoport <rppt@kernel.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
- kernel/kprobes.c | 55 +++++++++++++++++++++++++++++++++++++++---------
- 1 file changed, 45 insertions(+), 10 deletions(-)
+Build-tested only, with and without CONFIG_UNACCEPTED_MEMORY.
 
-diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-index 979ef378609f4..94ba6b957faa3 100644
---- a/kernel/kprobes.c
-+++ b/kernel/kprobes.c
-@@ -1114,9 +1114,14 @@ static int __disarm_kprobe_ftrace(struct kprobe *p, struct ftrace_ops *ops,
- 	(*cnt)--;
- 
- 	ret = ftrace_set_filter_ip(ops, (unsigned long)p->addr, 1, 0);
--	WARN_ONCE(ret < 0, "Failed to disarm kprobe-ftrace at %pS (error %d)\n",
--		  p->addr, ret);
--	return ret;
-+	if (WARN_ONCE(ret < 0, "Failed to disarm kprobe-ftrace at %pS (error %d)\n",
-+		      p->addr, ret)) {
-+		if (*cnt == 0)
-+			register_ftrace_function(ops);
-+		(*cnt)++;
-+		return ret;
-+	}
-+	return 0;
- }
- 
- static int disarm_kprobe_ftrace(struct kprobe *p)
-@@ -1245,16 +1250,12 @@ void kprobe_busy_end(void)
- }
- 
- /* Add the new probe to 'ap->list'. */
--static int add_new_kprobe(struct kprobe *ap, struct kprobe *p)
-+static void add_new_kprobe(struct kprobe *ap, struct kprobe *p)
- {
- 	if (p->post_handler)
- 		unoptimize_kprobe(ap, true);	/* Fall back to normal kprobe */
- 
- 	list_add_rcu(&p->list, &ap->list);
--	if (p->post_handler && !ap->post_handler)
--		ap->post_handler = aggr_post_handler;
--
--	return 0;
- }
- 
- /*
-@@ -1287,6 +1288,8 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
- {
- 	int ret = 0;
- 	struct kprobe *ap = orig_p;
-+	bool reset_post_handler = false;
-+	bool ftrace_switch_ops = false;
- 
- 	scoped_guard(cpus_read_lock) {
- 		/* For preparing optimization, jump_label_text_reserved() is called */
-@@ -1333,18 +1336,50 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
- 					| KPROBE_FLAG_DISABLED;
- 		}
- 
-+		if (p->post_handler && !ap->post_handler) {
-+			reset_post_handler = true;
-+			if (kprobe_ftrace(ap) && !kprobes_all_disarmed &&
-+			    !kprobe_disabled(ap))
-+				ftrace_switch_ops = true;
+ arch/x86/platform/efi/efi.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/arch/x86/platform/efi/efi.c b/arch/x86/platform/efi/efi.c
+index 5eb96c17883e..f03d5e984f2f 100644
+--- a/arch/x86/platform/efi/efi.c
++++ b/arch/x86/platform/efi/efi.c
+@@ -150,6 +150,12 @@ static void __init do_add_efi_memmap(void)
+ 		case EFI_PERSISTENT_MEMORY:
+ 			e820_type = E820_TYPE_PMEM;
+ 			break;
++		case EFI_UNACCEPTED_MEMORY:
++			if (IS_ENABLED(CONFIG_UNACCEPTED_MEMORY))
++				e820_type = E820_TYPE_RAM;
 +			else
-+				ap->post_handler = aggr_post_handler;
-+		}
-+
- 		/* Copy the insn slot of 'p' to 'ap'. */
- 		copy_kprobe(ap, p);
--		ret = add_new_kprobe(ap, p);
-+		if (!ftrace_switch_ops)
-+			add_new_kprobe(ap, p);
-+	}
-+
-+	if (ftrace_switch_ops) {
-+		/*
-+		 * Must switch ftrace ops outside of text_mutex and cpus_read_lock
-+		 * to prevent deadlocks when ftrace code modification acquires text_mutex.
-+		 */
-+		ret = disarm_kprobe_ftrace(ap);
-+		if (ret)
-+			return ret;
-+
-+		ap->post_handler = aggr_post_handler;
-+		ret = arm_kprobe_ftrace(ap);
-+		if (ret) {
-+			ap->post_handler = NULL;
-+			if (arm_kprobe_ftrace(ap))
-+				ap->flags |= KPROBE_FLAG_DISABLED;
-+			return ret;
-+		}
-+		add_new_kprobe(ap, p);
- 	}
- 
--	if (ret == 0 && kprobe_disabled(ap) && !kprobe_disabled(p)) {
-+	if (kprobe_disabled(ap) && !kprobe_disabled(p)) {
- 		ap->flags &= ~KPROBE_FLAG_DISABLED;
- 		if (!kprobes_all_disarmed) {
- 			/* Arm the breakpoint again. */
- 			ret = arm_kprobe(ap);
- 			if (ret) {
- 				ap->flags |= KPROBE_FLAG_DISABLED;
-+				if (reset_post_handler)
-+					ap->post_handler = NULL;
- 				list_del_rcu(&p->list);
- 				synchronize_rcu();
- 			}
++				e820_type = E820_TYPE_RESERVED;
++			break;
+ 		default:
+ 			/*
+ 			 * EFI_RESERVED_TYPE EFI_RUNTIME_SERVICES_CODE
+
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
 -- 
-2.53.0
+2.54.0
 
