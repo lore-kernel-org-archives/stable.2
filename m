@@ -1,45 +1,32 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625392;
-	b=NkxNyeZgcKtlwDNPmb/1/vhloj8n9aVH7xGf2k7Xt5BJrroJH26/0fqbBEosB7v8Fl7V
-	 fA3qxpIGeWxZUtVI+pvZgS6kh216yspGd+BWI6N9cT03yEOEh/OCPb0PoNeuFucFSSPIP
-	 UpThilkAwdHS3OFtWI8dpZ1Jkpm1m+P+995wTW2UtW1B59w1fGgBKHA/6Zaw8qgmNjUAz
-	 Hbm4a+033n3H2WNjW+yviKKbWGuDVaQCWwA6Yz92LuH3CiPy957GTeXJa+XUEKl8dLyel
-	 QTmKoeRsmrRLr+nC4WbRXYJ0+L2AbSDe95BCiW0+YhqQLBLzssV4TU9or3b+paYdL3Q==
+	t=1795625398;
+	b=z2eijaeznc9z0Z89FqJJaYFgdufFQgUy6xQyNHRKmERcwsRVT3WPchkwgodeQnvrMDGQ
+	 OydpKBYxS0c0i9aM7mOYd3fOQdNtjV/0p0qqMlsgXOCxZZUN0adbB5ICwysDZCDbRSZrG
+	 L8R+lXSql9NK2GNyIsS1nwvN8Ga361CapIlVledTDNoaxnw5Iv+DLpKSYblfmlRwEJMXi
+	 NYyDlWtl2N2m5L0RD/HjdD6357vnTUp6H7pBGKrKh41MI7nvYpPikWbLIcT5R1fLfv52A
+	 k/e91M/hmN1NjqPi0vutG+N0m0VGtO/TpK4uWIQHa4pxS9YbPT1KrA9AV+NMPItvSTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625392;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=64OLG8P0V/vt+DC2pOIDmvx8cJ65cBuW3hhgyyT0Ems=;
-	b=k5GlnYfVqF09ymH/MtGyJ5JCqxwGIfOsf3yTIam6MhDb+RYL9IbLzwCDYSQYsbXkXPDY
-	 kFGTJL1vxq4V3U2vZoMhUJtO3S75PmmMysCgfy02ySvePHVJP/4+LC+kutboeeU5DHgfn
-	 7kWojzLRMktY/9lR6bw3ZRHE+Fs7lPgxrLcPm0r1bHYx+JzaxtAjSuciOJN1euOUmCr6e
-	 uB/bCL3851w6Xv5jDHFXK38nRa0uC2+iXbHBbrRxaWVZniJg8cOZWZZircM5NRXcJt7Ox
-	 jXG3WajAJf/ScHvs91ya+y7UwuhygRHpba0B406FlWB/eAc5H7Q19xJAsLRYqruLALg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625398;
+	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
+	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=UezByG7U2h9IqUKFRk/D6mBTIPmbDfL92nk/JrUNots=;
+	b=GRQt8dpsbQmHAgoiz17gD0ZTDmXh6R0F8pi2aJgFr6hypRcWEpk/3jQOSdQh2WPnAGBC
+	 B3fX7/JWYKLCSQcCckpmHvRbmXgkBRvog0MtnIdr+RXY/5Y+ALNk6GeYLlwNxcGw/axBp
+	 TVCj1cmGh+WC8XLG2SZ5Dh3bPe0iQzIVbMbDom/8SbqNcaULMFkDDvvzj4YZ9wjWo1Met
+	 uUApPUCEa/uYrZbOq+hZYc0dGeWeCqc2xGWTO6sUCePCtpldHiXBTQLoX7lDcVHRdeC+9
+	 80EzjyuHsU6XDkYJ5hscp+zw1yXuGkjO5n6+SssZ9k7LMja1baaI+SHTrG1c+awDIVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5LoiPZE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5407606A326;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7560F606A32D;
+	Wed, 25 Nov 2026 16:49:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C5A31F000C0;
 	Wed, 25 Nov 2026 16:49:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5LoiPZE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EFDB1F000C0;
-	Wed, 25 Nov 2026 16:49:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795625392;
-	bh=64OLG8P0V/vt+DC2pOIDmvx8cJ65cBuW3hhgyyT0Ems=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=H5LoiPZEwvP7HnPA+yPxlM0TA5e7zWy0aoOpA4KgAyJdjpUqFR3UBhJ5jZ9oHZbch
-	 o9nDOCNfuKudS0waCP09gww9Ikqhj4ovPgtWnKVq//UAk2rOl/6cthgVuHBhYZQ0EW
-	 svV+Rqi5OX3iR0yKO4as0oU98Ab3Vd8MhLmec/Shb+BlL788Ctj4ba3XwhWYPgp2np
-	 YFck8Cgu+bydUTJZaAqauVaxYlo7Wf4dFsxyRZp+/VhrEXHwQRt2zGA8cG5Hunm3kI
-	 2TIj14FJIYdoRpYNs2+XUpmLr1sjTMzNAGO/FR4EM2od2cP45K9UjINOunI39ZDpHP
-	 vpTeK66MnTeWw==
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,64 +38,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] media: qcom: camss: tpg: Skip the unnamed test pattern
- menu entries
-From: bod@kernel.org
-To: George Neacsu <geocausa@gmail.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>, linux-media@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20261016-camss-tpg-menu-skip-v1-1-0a0a24e36316@gmail.com>
-References: <20261016-camss-tpg-menu-skip-v1-1-0a0a24e36316@gmail.com>
-Date: Wed, 25 Nov 2026 16:49:47 +0000
-Message-Id: <179562538779.462348.10497766296807730990.b4-reply@b4>
-X-Mailer: b4 0.17-dev-cdd92
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1294; i=bod@kernel.org;
- h=from:subject:message-id; bh=bCmQQ4xCxmxyTsgqO+Fyl7t/ecS15PDAtJNMfxXszCs=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBrBxGsRXKqFB9Im0TwnQHVHPy+svq/qNqixbqN5
- w+ovsa0DY+JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCawcRrAAKCRAicTuzoY3I
- OrgqD/9z4/VgGGVC31GSC1ca1LvX0ZZeukfTdDrPAKqAUodKphzebkOUdaqtMMRVnBDbHYlCV1v
- VnxwAfbeCDGK5r1AnJz5p7aK2rOyfe2cHQ0v9TtPP5o8B7JCx2llgB4SusIWoYV4PxFPie57umI
- 7IWNHjdv57yKUpKqQzx1WsslPeZ8P+lSBZf4OHhzjH/WpmL2R9+541Ib1F4RufIis3IIAeJ475Y
- mEABlneR3WBv/EBg6UjrgJqQzyshTDpQ25GsGoGmDjF8CpzanHV+S1iAg2Bj/IbZqFHGVfdtLZg
- Qf5PkbijDMoBGuIH5xU/w+TXiwx2EVfVX1TclCp2OnkBFEIz64Lwx7vTR8H/DsGNytp5GtAAwam
- 8xGG/DBd2JduS6E/eV/F97I91yDv6ZuS9EsSR8J9KR+JWK+TEO5veMkavOsW6Bc8uQP1BK65qrd
- MB3CL03jjj4ocrPvONbmnwN002QkTuOcNIWFdYkPsA2Z3TGww4wg+egcxgE6C/R7hO1DyIfkTBq
- 04IILDXiNjqBqoO+H7BhE/Pyd03kQclTN+r75uqjOVQizeg1X6FfBPkHReaAMT1+6i3yJOzeW/X
- o3Xgrt7z31sbI1chIS/+xP5yHi84fjKQcAOF2i3sRn9Cm5597B8tlQF82C2gHx1NE4gi05gBqsa
- iYkh/1w76x+ZfvA==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Subject: Re: [PATCH v7 05/14] PCI: rzg3s-host: Initialize the IRQ domains
+ after the IRQs are masked
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: Claudiu Beznea <claudiu.beznea@kernel.org>
+Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, 
+ robh@kernel.org, bhelgaas@google.com, p.zabel@pengutronix.de, 
+ geert+renesas@glider.be, magnus.damm@gmail.com, claudiu.beznea@tuxon.dev, 
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, 
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, stable@vger.kernel.org
+In-Reply-To: <20261019065025.2146539-6-claudiu.beznea@kernel.org>
+References: <20261019065025.2146539-1-claudiu.beznea@kernel.org>
+ <20261019065025.2146539-6-claudiu.beznea@kernel.org>
+Date: Wed, 25 Nov 2026 22:19:48 +0530
+Message-Id: <179562538809.5580.13436039230126479202.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1572;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=ZvF9ztr21DpWZoUrOG9CFbSng8ecM0Pad1c9yPt2Q7E=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBrBxGwZCu3h+uHdoIiCDAF21b017dHOkwcFi8ki
+ fqfxnYyYMaJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCawcRsAAKCRBVnxHm/pHO
+ 9UxjB/9Ny8WXQiS8iBiz2oORKmlANGxRSx2MwqCifikl3Pd1Gr/67B5vEr+dicvb6QKzfNyWPw+
+ x96y16moSYEPhWSNrwepreGGh41KmT+hxIwAwMKlLr0Zosy3hJbk1zyPqQlMogIvejSx3OdM01E
+ XtYh4jIPue8KwBTJMRj/nfwANlUKgTRcpw7sNCY0kbYqh+4iTtgfC5AYcS4R/SHBgewDHa/Stkv
+ /2o6+AhNMtOs6QsdnAp+gGJ+NCJhr4Pdt+XhZKqTMljWaT6ONCNqm6M8htRqcVr83VllXPXV7Lt
+ 2JWYZu+S93qzjAgbAoLujGU8NPaYXd4RvSTqBWZj5AQYlnyN
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On 2026-10-16 15:55 +0100, George Neacsu wrote:
-> The gen1 TPG names its test patterns in testgen_payload_modes[], which
-> is indexed by the hardware payload mode, so entries 3, 4, 7 and 8 are
-> NULL. The V4L2_CID_TEST_PATTERN menu is created with that array, a
-> maximum of TPG_PAYLOAD_MODE_NUM_SUPPORTED_GEN1 and no skip mask, so
-> setting the control to one of the gaps makes
-> v4l2_ctrl_type_op_validate() dereference a NULL name. The oops leaves
-> the control handler lock held, and a later rmmod of qcom-camss then
-> hangs in v4l2_ctrl_handler_free(). v4l2-compliance -m /dev/media0 does
-> both on X1E80100.
+On 2026-10-19 09:50 +0300, Claudiu Beznea wrote:
+> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 > 
-> Skip the menu entries that have no name, so the core rejects those
-> values with -EINVAL and VIDIOC_QUERYMENU leaves them out.
+> The IRQ domain initialization requests the interrupts and installs the
+> chained handlers before rzg3s_pcie_irq_init() masks the controller
+> interrupt sources. An interrupt left enabled (e.g. by the bootloader,
+> or latched from a previous controller state) could therefore fire
+> before the controller initialization is complete and be handled on
+> half-initialized state.
 > 
-> Tested on the Surface Pro 11 (X1E80100) with next-20261015: the menu
-> lists 0, 1, 2, 5, 6 and 9, setting 3, 4, 7 or 8 returns -EINVAL,
-> v4l2-compliance -m /dev/media0 completes without an oops, and qcom-camss
-> unloads and loads again.
+> Move the IRQ domain initialization after rzg3s_pcie_irq_init(), so that
+> all the interrupt sources are masked by the time the handlers are
+> installed.
 > 
-> Fixes: 51fe835c485b ("media: qcom: camss: tpg: Add TPG support for multiple targets")
+> Fixes: 7ef502fb35b2 ("PCI: Add Renesas RZ/G3S host controller driver")
 > Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: George Neacsu <geocausa@gmail.com>
+> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> ---
+> 
+> Changes in v7:
+> - none, this patch is new
+> 
+>  drivers/pci/controller/pcie-rzg3s-host.c | 31 ++++++++++++------------
+>  1 file changed, 15 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/controller/pcie-rzg3s-host.c
+> index cc985020d962..94345d6f0bee 100644
+> --- a/drivers/pci/controller/pcie-rzg3s-host.c
+> +++ b/drivers/pci/controller/pcie-rzg3s-host.c
+> @@ -1418,7 +1418,10 @@ static int rzg3s_pcie_host_init_port(struct rzg3s_pcie_host *host)
+>  	return ret;
+>  }
+>  
+> -static int rzg3s_pcie_host_init(struct rzg3s_pcie_host *host)
+> +static int
+> +rzg3s_pcie_host_init(struct rzg3s_pcie_host *host,
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
----
-bod
+This split seems unnecessary.
+
+- Mani
+
 
