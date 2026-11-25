@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795618353;
-	b=CnuEED0mIvwMr9IFLXg0t2Lxk3tLfZPYuvKwYFU4ifh6gtvgUfd1uSKJYccLwBesdqGv
-	 vN8pqqKcb2CmWgU+WuHPlR+SI6BDew+RTXbK1eX8Uc/SBjejfgaEI8xQPHlOs9UwCyftk
-	 zmoqPYol8EJmsArQuYmn458Htva68Z7dwC4cFSoJuyvUxeEnQV+e0Pv6E2BXDe5x6qZnl
-	 2D58h5EA7DE9qXJeOp2c+dHqdzK3E3bpXPhz6KYpjlb+ESQi1LqUhX4v72YIonsxYOX2r
-	 9m/Ypbn9qNETEyfCRA9BGWsRSunTEW4msEUf+rk9MKXCIsAt580OoqDQeV3L5Y8BGkw==
+	b=Kjt+uQwquakKSgDfdhqgFhwcli78Awxlbr9Z8dNi/VOrJMpUw8WcdBVG9A+tHm0Jf7iZ
+	 aYPYbvXLWaw3rVBNjWPZtp1Jsz7sU7ndempQmmZHH1WXU67+bW6IkPbVIcnk3GS2aAgfB
+	 msQRznal6IGg2XfxDVIuOlz0XEeA6k02dJqVo55g53Dh/ZXH04uYLpLQpZDQGqPh54WF/
+	 KLMGlJIUsI7LbLwlYaZT6kvQ2+osiYXJrak16Y9HkUSoEB/xoVNvITpjR2D9Izo2DvGuO
+	 zAP4ee57aNqXQVVvZXqdRQOd6a4B0siJTueBJtwwW8dtcBjua4p0XGFJQfJtGjkWjsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795618353;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=rDtn62xPDxLzMtbL0yxNvVBs1QSZyas94Eg7gg77U0U=;
-	b=cqaL/epX+0jfyq+IUNVazy3MpBZWSb7oNJLUIt6QP8BVOKTG1oI8iIyX9ooNcP5wh0Oi
-	 daIib4jWbNyBD6y3IFPLZKfSs653lL72SJBNSyDU1DAh0eRsMAGmVgOo26/Y7QHE5gpNp
-	 AAAk0FhlJ/5OKWC1GRcmC3SKq681S4crFyQFqzTph2yJFNp1Hux7oL19uMYF4xISWEr90
-	 QlQqIYD/Whti4sdHjMFgfunv9BWkL4tmEIaomzdVUKbicaHHCEaxp6zepUXiRNjiYWPIk
-	 ggG7qAM3/drox9MX2cJEnDu3McIsf43GGLHZ1XU3JLXVbmu75dSuH1XhwTgfroi594g==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=SqbF3v8iYFz1Y4dmeNcYh6Ul7+Rs9rtIyWAW0IeVJtI=;
+	b=umYiMccTqiM4pJTkxV7uFcFeSYfyNiCzw9fuMBUhqArwnWAWJNqJZ/K8ivpHSGyk7meZ
+	 z/y+FgPtqfes2rv1HSPs7gjguanT5kwKIK7ncfugYL7HSepE/vjf0FSTkoll9K07V6sgK
+	 s9Nh/QRa2fCS7/puX2hc9/lv5sYwkv9V/LIL5a2T3x3tLEeOVCvtBOIG9nmChNMjfeBoh
+	 hFvfAlgsP/qov+2UbEqoFYXqS0al82ODHA6IKrD4WpQkrEQGNmwvDLM5USZzkvB68nWFv
+	 ZHwydcienTtWRLAhoMef0Ss1TzvUiR0SFdX4dNecO8BozkQ2NLBDuONc6MeE2WX3kHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=meKOixtQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="B/8aVlky";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E221606A32C;
-	Wed, 25 Nov 2026 14:52:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6050C606A330
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:52:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=meKOixtQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3599A1F000CA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B/8aVlky
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 749401F000E1;
 	Wed, 25 Nov 2026 14:52:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795618352;
-	bh=rDtn62xPDxLzMtbL0yxNvVBs1QSZyas94Eg7gg77U0U=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795618353;
+	bh=SqbF3v8iYFz1Y4dmeNcYh6Ul7+Rs9rtIyWAW0IeVJtI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=meKOixtQK9zht7QiAHuqJ/x7q0o51iJFiybFUhJ3cIWssvq/pACHv1zW7LAjolZ10
-	 N9ECGYe/ARgbOhcJUjj2+z0NDWwNMlLMw5nWnCLQasc4vYTUWIEdEBfSzcNaslu2zo
-	 sR0tJZrGdeONBhEx6IfiKIJeE438toTjxZ3fVSZ8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=B/8aVlkyJ7H1NdG/SfNdvkhhxN4d6kkLuMO3t4nOZpSSGNxdt9q1R8DMHBFtw8cTT
+	 l66FQLQI1JA2qvyRmNM4Jq7/p16irg3WYVcUAvmv9JD8CRKvcXx7IIOHvPVrEJAP8F
+	 vBy0doS/OxdvII0MsB9mN4T6xRnWW3o/jCoOyu2ctA7Eww0SQDnHralGdrJGnec/8e
+	 3U+Qnmq5VwzG3mO4+GJ6KhoW4OzpPqkNlARLugIF0wOjBf9lnwT6rJ8qKcpijmYS1K
+	 Nm07lXm4qx3EwgZ5ZXv4B+1txGp1Hovp6xxFEFz67rNR0MpUWG4cpvALMuHdDKB1Pm
+	 7SiUz7ATeOzAA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Yingjie Wang <x-professor@outlook.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0252/1005] net: dsa: b53: Enable IGMP and MLD control packet CPU copies
-Date: Wed, 25 Nov 2026 15:26:30 +0100
-Message-ID: <20261125143827.642303071@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.18.y 2/2] tcp: free saved_syn after an RCU grace period
+Date: Wed, 25 Nov 2026 09:52:29 -0500
+Message-ID: <20261125145222.4129111-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261125145222.4129111-1-sashal@kernel.org>
+References: <2026112535-duly-drier-c965@gregkh>
+ <20261125145222.4129111-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,188 +64,164 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+From: Yingjie Wang <x-professor@outlook.com>
 
-------------------
+[ Upstream commit 2b9fd1a0abf0c1c7200be7a33cfeeca1c68089b6 ]
 
-From: Florian Fainelli <florian.fainelli@broadcom.com>
+tcp_reqsk_record_syn() allocates saved_syn separately from its request
+socket. bpf_sock_ops_get_syn() can load that pointer while processing a
+retransmitted SYN under RCU.
 
-[ Upstream commit 3362cb822ea750399a15b741713181fd8560bd17 ]
+There are two ownership transfers which can let another CPU reclaim the
+allocation while such a reader is still using it.
 
-IGMPv2 reports and MLDv1 reports are addressed to the multicast group
-itself. Once the first listener is installed in the ARL table, subsequent
-reports can follow that entry without reaching the CPU. The bridge then
-fails to learn additional listeners, although static MDB forwarding works.
+First, tcp_move_syn() transfers req->saved_syn to a newly created child
+socket. The child can be closed and tcp_saved_syn_free() can reclaim the
+allocation before a reader of the old request finishes.
 
-Enable the high-level protocol classifiers so that IGMP and MLD control
-packets are copied to the CPU independently of the multicast ARL lookup.
-Retain normal L2 forwarding by clearing the CPU-only forwarding modes,
-and preserve unrelated protocol-control fields.
+Second, inet_reqsk_clone() shallow-copies request_sock during request
+migration. After reqsk_migrate_reset() clears the old request pointer, the
+migrated clone owns it. However, a reader which already loaded the pointer
+from the old request can still be using it when the clone is released.
 
-Handle the BCM5395's 16-bit register and different classifier fields
-separately from the 32-bit layout on the BCM531xx, BCM5301x and newer
-integrated RoboSwitch families, including BCM7445, BCM7278 and BCM4908.
-Export the helper and call it from bcm_sf2_sw_setup() as well, since SF2
-uses its own setup operation instead of b53_setup(). This also restores
-the classifiers after the switch reset on resume. Leave older devices
-with different IGMP controls untouched, and propagate register access
-failures during setup.
+I found this through LLM-assisted concurrency fuzzing.
 
-The SF2 setup integration and BCM4908 chip gate were updated with
-assistance from OpenAI Codex in response to review feedback.
+Mark the request-socket saved_syn pointer as RCU protected and use RCU
+accessors for its reads and updates. Keep the full-socket pointer plain
+because all of its accesses hold the socket lock. Embed an rcu_head in
+struct saved_syn and use kfree_rcu() in both teardown paths. This lets a
+request-side reader which loaded the object before an ownership transfer
+finish.
 
-Fixes: 5d65b64a3d97 ("net: dsa: b53: Add support for MDB")
-Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
-Link: https://patch.msgid.link/20261028235100.3892374-2-florian.fainelli@broadcom.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+This follows commit e3f33b0a1d89 ("ipv4: free inet_opt and ireq_opt
+after an RCU grace period"), which fixed the same ownership-transfer
+pattern for IPv4 options.
+
+The issue was confirmed with KASAN on v7.3-16007-g36aad21d50d1 using
+temporary kernel instrumentation to widen the reader and request-migration
+window. KASAN reported a slab-use-after-free read in
+bpf_sock_ops_get_syn(), with the allocation freed by __reqsk_free() from
+reqsk_timer_handler(). The same explicit migration test completed without
+a report with deferred reclamation. A patched kernel without the delay
+instrumentation also completed a successful migration and seven saved-SYN
+reads without a KASAN report.
+
+Fixes: 0813a841566f ("bpf: tcp: Allow bpf prog to write and parse TCP header option")
+Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmitting SYN+ACKs.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Link: https://patch.msgid.link/38fa9f2cc476502e9b1c1fef09ebba1df5dd5901.1793795528.git.x-professor@outlook.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/dsa/b53/b53_common.c | 57 ++++++++++++++++++++++++++++++++
- drivers/net/dsa/b53/b53_priv.h   |  1 +
- drivers/net/dsa/b53/b53_regs.h   | 17 ++++++++++
- drivers/net/dsa/bcm_sf2.c        |  5 +++
- 4 files changed, 80 insertions(+)
+ include/linux/tcp.h             | 6 +++---
+ include/net/request_sock.h      | 3 ++-
+ net/core/filter.c               | 2 +-
+ net/ipv4/inet_connection_sock.c | 6 +++---
+ net/ipv4/tcp_input.c            | 2 +-
+ 5 files changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
-index 0880310c9ce3f..e54f6d4d1f7bb 100644
---- a/drivers/net/dsa/b53/b53_common.c
-+++ b/drivers/net/dsa/b53/b53_common.c
-@@ -836,6 +836,59 @@ void b53_brcm_hdr_setup(struct dsa_switch *ds, int port)
- }
- EXPORT_SYMBOL(b53_brcm_hdr_setup);
- 
-+int b53_enable_mcast_snooping(struct b53_device *dev)
-+{
-+	u16 val16;
-+	u32 val;
-+	int ret;
-+
-+	/* Older switches use different IGMP controls, not HL_PRTC_CTRL. */
-+	if (is5325(dev) || is5365(dev) || dev->chip_id == BCM5389_DEVICE_ID ||
-+	    is5397_98(dev) || is63xx(dev))
-+		return 0;
-+
-+	/* IGMPv2 and MLDv1 reports use the group's destination MAC. Once
-+	 * the first listener is offloaded, ordinary multicast forwarding
-+	 * can keep subsequent reports from reaching the bridge CPU.
-+	 */
-+
-+	/* BCM5395 has a narrower register and a single IGMP classifier.
-+	 * Its ICMPv6 classifier also covers MLD.
-+	 */
-+	if (dev->chip_id == BCM5395_DEVICE_ID) {
-+		ret = b53_read16(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL, &val16);
-+		if (ret)
-+			return ret;
-+
-+		val16 |= HL_PRTC_IGMP_IP_EN_5395 | HL_PRTC_ICMPV6_EN;
-+		/* Zero forwarding modes copy control traffic to the CPU
-+		 * independently of the ARL lookup, retaining L2 forwarding.
-+		 */
-+		val16 &= ~(HL_PRTC_IGMP_FWD_MODE_5395 |
-+			   HL_PRTC_ICMPV6_FWD_MODE);
-+
-+		return b53_write16(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL,
-+				   val16);
-+	}
-+
-+	ret = b53_read32(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL, &val);
-+	if (ret)
-+		return ret;
-+
-+	val |= HL_PRTC_IGMP_RPTLVE_EN | HL_PRTC_IGMP_QRY_EN |
-+	       HL_PRTC_IGMP_UKN_EN | HL_PRTC_MLD_RPTDONE_EN |
-+	       HL_PRTC_MLD_QRY_EN;
-+	/* Zero forwarding modes copy control traffic to the CPU
-+	 * independently of the ARL lookup, retaining L2 forwarding.
-+	 */
-+	val &= ~(HL_PRTC_IGMP_RPTLVE_FWD_MODE | HL_PRTC_IGMP_QRY_FWD_MODE |
-+		 HL_PRTC_IGMP_UKN_FWD_MODE | HL_PRTC_MLD_RPTDONE_FWD_MODE |
-+		 HL_PRTC_MLD_QRY_FWD_MODE);
-+
-+	return b53_write32(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL, val);
-+}
-+EXPORT_SYMBOL(b53_enable_mcast_snooping);
-+
- static void b53_enable_cpu_port(struct b53_device *dev, int port)
+diff --git a/include/linux/tcp.h b/include/linux/tcp.h
+index 7cc2ddcd9bc0d..9796c101b22d2 100644
+--- a/include/linux/tcp.h
++++ b/include/linux/tcp.h
+@@ -604,13 +604,13 @@ static inline void fastopen_queue_tune(struct sock *sk, int backlog)
+ static inline void tcp_move_syn(struct tcp_sock *tp,
+ 				struct request_sock *req)
  {
- 	u8 port_ctrl;
-@@ -1334,6 +1387,10 @@ static int b53_setup(struct dsa_switch *ds)
- 			b53_disable_port(ds, port);
+-	tp->saved_syn = req->saved_syn;
+-	req->saved_syn = NULL;
++	tp->saved_syn = unrcu_pointer(req->saved_syn);
++	RCU_INIT_POINTER(req->saved_syn, NULL);
+ }
+ 
+ static inline void tcp_saved_syn_free(struct tcp_sock *tp)
+ {
+-	kfree(tp->saved_syn);
++	kfree_rcu(tp->saved_syn, rcu);
+ 	tp->saved_syn = NULL;
+ }
+ 
+diff --git a/include/net/request_sock.h b/include/net/request_sock.h
+index e5108d0b14d72..8717559d028b9 100644
+--- a/include/net/request_sock.h
++++ b/include/net/request_sock.h
+@@ -40,6 +40,7 @@ struct request_sock_ops {
+ };
+ 
+ struct saved_syn {
++	struct rcu_head rcu;
+ 	u32 mac_hdrlen;
+ 	u32 network_hdrlen;
+ 	u32 tcp_hdrlen;
+@@ -69,7 +70,7 @@ struct request_sock {
+ 	struct timer_list		rsk_timer;
+ 	const struct request_sock_ops	*rsk_ops;
+ 	struct sock			*sk;
+-	struct saved_syn		*saved_syn;
++	struct saved_syn __rcu		*saved_syn;
+ 	u32				secid;
+ 	u32				peer_secid;
+ 	u32				timeout;
+diff --git a/net/core/filter.c b/net/core/filter.c
+index 8b76dd1201038..ec8ce9faca0c5 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -5931,7 +5931,7 @@ static int bpf_sock_ops_get_syn(struct bpf_sock_ops_kern *bpf_sock,
+ 			 * not be available.  It has to resort to
+ 			 * saved_syn (if it is saved).
+ 			 */
+-			saved_syn = inet_reqsk(sk)->saved_syn;
++			saved_syn = rcu_dereference(inet_reqsk(sk)->saved_syn);
+ 		else
+ 			saved_syn = tcp_sk(sk)->saved_syn;
+ 
+diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+index e70dd99c2f912..5f2ddb5a4ad23 100644
+--- a/net/ipv4/inet_connection_sock.c
++++ b/net/ipv4/inet_connection_sock.c
+@@ -897,7 +897,7 @@ reqsk_alloc_noprof(const struct request_sock_ops *ops, struct sock *sk_listener,
+ 	req_to_sk(req)->sk_prot = sk_listener->sk_prot;
+ 	sk_node_init(&req_to_sk(req)->sk_node);
+ 	sk_tx_queue_clear(req_to_sk(req));
+-	req->saved_syn = NULL;
++	RCU_INIT_POINTER(req->saved_syn, NULL);
+ 	req->syncookie = 0;
+ 	req->timeout = 0;
+ 	req->num_timeout = 0;
+@@ -939,7 +939,7 @@ void __reqsk_free(struct request_sock *req)
+ 	req->rsk_ops->destructor(req);
+ 	if (req->rsk_listener)
+ 		sock_put(req->rsk_listener);
+-	kfree(req->saved_syn);
++	kfree_rcu(unrcu_pointer(req->saved_syn), rcu);
+ 	kmem_cache_free(req->rsk_ops->slab, req);
+ }
+ EXPORT_SYMBOL_GPL(__reqsk_free);
+@@ -1011,7 +1011,7 @@ static void reqsk_queue_migrated(struct request_sock_queue *queue,
+ 
+ static void reqsk_migrate_reset(struct request_sock *req)
+ {
+-	req->saved_syn = NULL;
++	RCU_INIT_POINTER(req->saved_syn, NULL);
+ #if IS_ENABLED(CONFIG_IPV6)
+ 	inet_rsk(req)->ipv6_opt = NULL;
+ 	inet_rsk(req)->pktopts = NULL;
+diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
+index 41db56f936f06..ec956f96b77eb 100644
+--- a/net/ipv4/tcp_input.c
++++ b/net/ipv4/tcp_input.c
+@@ -7454,7 +7454,7 @@ static void tcp_reqsk_record_syn(const struct sock *sk,
+ 			saved_syn->network_hdrlen = skb_network_header_len(skb);
+ 			saved_syn->tcp_hdrlen = tcp_hdrlen(skb);
+ 			memcpy(saved_syn->data, base, len);
+-			req->saved_syn = saved_syn;
++			RCU_INIT_POINTER(req->saved_syn, saved_syn);
+ 		}
  	}
- 
-+	ret = b53_enable_mcast_snooping(dev);
-+	if (ret)
-+		return ret;
-+
- 	return b53_setup_devlink_resources(ds);
  }
- 
-diff --git a/drivers/net/dsa/b53/b53_priv.h b/drivers/net/dsa/b53/b53_priv.h
-index 29cca7945df71..c4d2a41c714f6 100644
---- a/drivers/net/dsa/b53/b53_priv.h
-+++ b/drivers/net/dsa/b53/b53_priv.h
-@@ -504,6 +504,7 @@ static inline struct gpio_desc *b53_switch_get_reset_gpio(struct b53_device *dev
- /* Exported functions towards other drivers */
- void b53_imp_vlan_setup(struct dsa_switch *ds, int cpu_port);
- int b53_configure_vlan(struct dsa_switch *ds);
-+int b53_enable_mcast_snooping(struct b53_device *dev);
- void b53_get_strings(struct dsa_switch *ds, int port, u32 stringset,
- 		     uint8_t *data);
- void b53_get_ethtool_stats(struct dsa_switch *ds, int port, uint64_t *data);
-diff --git a/drivers/net/dsa/b53/b53_regs.h b/drivers/net/dsa/b53/b53_regs.h
-index 54a278db67c9f..cfdb5ed383260 100644
---- a/drivers/net/dsa/b53/b53_regs.h
-+++ b/drivers/net/dsa/b53/b53_regs.h
-@@ -274,6 +274,23 @@
- /* Revision ID register (8 bit) */
- #define B53_REV_ID			0x40
- 
-+/* High-level protocol control (16 bit on BCM5395, otherwise 32 bit) */
-+#define B53_HL_PRTC_CTRL			0x50
-+#define   HL_PRTC_ICMPV6_EN		BIT(4)
-+#define   HL_PRTC_ICMPV6_FWD_MODE		BIT(5)
-+#define   HL_PRTC_IGMP_IP_EN_5395		BIT(6)
-+#define   HL_PRTC_IGMP_FWD_MODE_5395	BIT(8)
-+#define   HL_PRTC_IGMP_RPTLVE_EN		BIT(9)
-+#define   HL_PRTC_IGMP_RPTLVE_FWD_MODE	BIT(10)
-+#define   HL_PRTC_IGMP_QRY_EN		BIT(11)
-+#define   HL_PRTC_IGMP_QRY_FWD_MODE	BIT(12)
-+#define   HL_PRTC_IGMP_UKN_EN		BIT(13)
-+#define   HL_PRTC_IGMP_UKN_FWD_MODE	BIT(14)
-+#define   HL_PRTC_MLD_RPTDONE_EN		BIT(15)
-+#define   HL_PRTC_MLD_RPTDONE_FWD_MODE	BIT(16)
-+#define   HL_PRTC_MLD_QRY_EN		BIT(17)
-+#define   HL_PRTC_MLD_QRY_FWD_MODE		BIT(18)
-+
- /* Broadcom header RX control (16 bit) */
- #define B53_BRCM_HDR_RX_DIS		0x60
- 
-diff --git a/drivers/net/dsa/bcm_sf2.c b/drivers/net/dsa/bcm_sf2.c
-index de3efa3ce9a75..f3b56ea87b07b 100644
---- a/drivers/net/dsa/bcm_sf2.c
-+++ b/drivers/net/dsa/bcm_sf2.c
-@@ -1059,6 +1059,7 @@ static int bcm_sf2_sw_setup(struct dsa_switch *ds)
- {
- 	struct bcm_sf2_priv *priv = bcm_sf2_to_priv(ds);
- 	unsigned int port;
-+	int ret;
- 
- 	/* Enable all valid ports and disable those unused */
- 	for (port = 0; port < priv->hw_params.num_ports; port++) {
-@@ -1074,6 +1075,10 @@ static int bcm_sf2_sw_setup(struct dsa_switch *ds)
- 	b53_configure_vlan(ds);
- 	bcm_sf2_enable_acb(ds);
- 
-+	ret = b53_enable_mcast_snooping(priv->dev);
-+	if (ret)
-+		return ret;
-+
- 	return b53_setup_devlink_resources(ds);
- }
- 
 -- 
 2.53.0
-
-
 
