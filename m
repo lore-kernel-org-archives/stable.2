@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606413;
-	b=U/N58Pjxnozgtbp5cKFqQZ9+LFUQTjtUG+cZRDVUZBRrJDXQESaDIgxKapYxBA4RjozT
-	 07gemtgAqj2lnSRWvOGbVtDge4UpvY9Y221FKuWIZImLyQ8I4PCnC5//R8tCpjh82COdy
-	 4BAgmA4UI02CLXPUza/JqmUKJz2I36FD5ZekVdTICFxvzOS2ymquGAxZl7GiDTm2wn7z1
-	 ybNrAS8TIplplKRdcFYSQ0dB1GGQ+1/LjnsnLguY2O+f+dBt3NmM2nOXoAwWnhNq83Qc9
-	 5f298gia/pm/0jgOEbsb0AsN0FmH6ZfU9m4Md8QMH8MSlF+J9zyePn9Z0/oiOX1E+7Q==
+	t=1795606416;
+	b=g4x2lVFbPaDAk9Vlx2Fd27ERHz4nLOcaopFFL7GDvVtmr2yS3NA2xoeyJTdsNFMSxvrx
+	 fZQGt8kkoRxjb6IyKstfjBdpomJ0YMsE22n6BF1fiVHxRdFMTcY2v1tbjRpO9s8NwpT4H
+	 JK/xHzHtzjP82oEun+jJ3Cmm0XSeOLEicWTc/ocsvZeftm1zZdJp9dbHIebgkmVUkdNo1
+	 wyAUynqdlNwbskQPhgu/Sb0qXbdK4hxXI5aYRlyMr67kyx1NZLizR5jyl8WKQ8FnJrNXy
+	 B95cOnQ0c3NkH5IYdXAPNiW/10JhBxRJE5wQiwO2LDR+qiDDSAIBVmNDxfUpk3PfqlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606413;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606416;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=refvThfbKER27NjayOMX10La+lDNB04iTgPuTPeJr8E=;
-	b=Us0X8QnwViqobGIWBtRw+j/4OCs5k2WpXTubwXVR7hvVYvbHgDCnjALvxr3KqwS+tTyP
-	 1mGxeAboc4sm4sJ65XZJ4Gi+HRU6hhlGRU2xwrNc7UAuJBlAIGdxi81LRIXVXXa7vGT7v
-	 qwAapoMR3l3bhobXBl3EKVGQHhUjvZz+eYE89il11i7piHFislha+OdAC2uxzhbZjwh18
-	 2W4l1IxELQg8G/N690x9i6GFd4D/dUQOT5bJOVeiaARllCRtBcaSFyFUprbHxTbd0yjeg
-	 KeBiP2Qv47C5uz0baRwFMAFnHFrM7+f4KHIkdboH4v6GSG+ayHHRWajVH829EOpVvOQ==
+	bh=i5u0+aZ+4zBe8vsiyrT9Q9mmH8v2CrSKxwdimgnHb4Q=;
+	b=T/rTYkcBB/KEQ2bybzFc89lJCd7jnCzJyCENiFbdxVkkTx6m2PmHJeG3UHogOxbPawpM
+	 zff+vSebSy3a+1eKVQhLx37bGyyHbPDG8XQIIoGPEl+lPpa/pcCj5q20ODZzkjqomFIjX
+	 hTc/qj7Zs1uKNM2r5DAP0RjUp8RC7aGNmCecpVErQfoPr0PwOcJgoQ5OFctfHG9y5pRd5
+	 HUJU1XwLs/9DiL5u2xbEjbcuaPpMU5LqoT4MWf8gts99794gd/7mQw37UPxiAHVLvHzoY
+	 sMYJgVc9JCqXFumGxWXnxRo4yJpDIq/NIbSUmqpwJRlUxXTZaPJuGVTaa0LEfOYkHJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tY3BZaaM;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0chd5fo8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B4C5606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:33:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F34606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:33:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tY3BZaaM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB4811F000C6;
-	Wed, 25 Nov 2026 11:33:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0chd5fo8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5265E1F000D4;
+	Wed, 25 Nov 2026 11:33:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606412;
-	bh=refvThfbKER27NjayOMX10La+lDNB04iTgPuTPeJr8E=;
+	s=korg; t=1795606415;
+	bh=i5u0+aZ+4zBe8vsiyrT9Q9mmH8v2CrSKxwdimgnHb4Q=;
 	h=Subject:To:Cc:From:Date;
-	b=tY3BZaaM9/zuWlatcscQIOaI7VTw32w/ussluwkyhEI8x/4mhMcYMmY7jnCzg7W2s
-	 sje/dZSCj/kxce/QwU9FlRVRg2k0i3Jjg+dm/MTjTwEMaVToxypQaWMC+ioI54ay7/
-	 0eyzxgLsAQ0SA34hijsVVyFMtgeOTi/9IzX/etGk=
-Subject: FAILED: patch "[PATCH] dm-crypt: defer async write submission to write thread" failed to apply to 5.15-stable tree
-To: pepe.schlehofer@gmail.com,mpatocka@redhat.com
+	b=0chd5fo8TmpseU43yOUh9IGsiR0MCYE+qNKQvq4DRia3OabN+slneFp6P6az2NPpU
+	 oy60To+893EUYqkRt0ZBtngollAkmqLb2rhjwrSX9AbO6D+MZ2SJR6Hrxywz6fshk6
+	 z/NTsxlQBlQ3XfBc8d4GWcjQEAK/ld8IJkPQI+s0=
+Subject: FAILED: patch "[PATCH] vt: serialise the producers of the flip buffer" failed to apply to 5.10-stable tree
+To: mason@kernel.org,25181214217@stu.xidian.edu.cn,deller@gmx.de,gregkh@linuxfoundation.org,jirislaby@kernel.org,kees+treewide@kernel.org,liavmordouch@gmail.com,linux@joshua.hu,npitre@baylibre.com,rdunlap@infradead.org,ronan@rjp.ie,stable@kernel.org,tzimmermann@suse.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:22:21 +0100
-Message-ID: <2026112521-nibble-keg-edbd@gregkh>
+Date: Wed, 25 Nov 2026 12:24:48 +0100
+Message-ID: <2026112548-finale-enigmatic-9f31@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6fed9e26810f0b466dbcebe35a73d1fd48793ff5
+git cherry-pick -x 5d1d814408c1c8e797031eac8ddd40de1a9e8e93
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112521-nibble-keg-edbd@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112548-finale-enigmatic-9f31@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,53 +79,124 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6fed9e26810f0b466dbcebe35a73d1fd48793ff5 Mon Sep 17 00:00:00 2001
-From: Josef Schlehofer <pepe.schlehofer@gmail.com>
-Date: Thu, 5 Nov 2026 08:27:08 +0100
-Subject: [PATCH] dm-crypt: defer async write submission to write thread
+From 5d1d814408c1c8e797031eac8ddd40de1a9e8e93 Mon Sep 17 00:00:00 2001
+From: Chris Mason <mason@kernel.org>
+Date: Tue, 27 Oct 2026 12:06:27 +0100
+Subject: [PATCH] vt: serialise the producers of the flip buffer
 
-With no_write_workqueue, kcryptd_crypt_write_io_submit() submits the
-bio directly, even when called from kcryptd_async_done(). An async
-cipher may run this callback in softirq or with BH disabled, where
-submit_bio_noacct() must not be called because it can sleep.
+Typing on a virtual console while the console replies to an escape
+sequence can make the kernel write past the end of a buffer. A user who
+can write to the foreground console can cause this on purpose if they
+can also inject key events, through /dev/uinput or by writing to the
+/dev/input/event* node of a keyboard.
 
-Submit inline only when async is false. Async completions are sent to
-the write thread, as is already done for submit_from_crypt_cpus. Use
-the async flag rather than in_interrupt(), since callback context
-depends on the cipher driver. Sync ciphers still submit inline.
+Input for a tty goes through the flip buffer of its port. A driver
+inserts the data with tty_insert_flip_*() and then calls
+tty_flip_buffer_push() to pass it on to the line discipline. The insert
+functions take no lock: they check that the current struct tty_buffer
+has room, copy the data to offset ->used, and then advance ->used. So a
+flip buffer supports only one producer at a time, and a driver that has
+several must serialise them.
 
-Tested with cryptd in QEMU (x86_64 and arm64) with
-CONFIG_DEBUG_ATOMIC_SLEEP, and on a P2020 running 6.18.55 without it.
+Four functions feed the flip buffer of a virtual console:
 
-In QEMU:
+- put_queue(), puts_queue() and fn_send_intr() insert typed characters
+  and breaks for the keyboard handler. They run under kbd_event_lock.
+- respond_string() inserts the reply when a program writes an escape
+  sequence that requests one, such as a cursor position report. It runs
+  under the console lock.
 
-- 4k writes logging "sleeping function called from invalid context":
-  100/100 unpatched, 0/155 patched.
-- nr_requests=4 on a loop device: 0/6 unpatched runs completed,
-  4/4 patched runs completed.
+The keyboard handler gets its events from the input layer and feeds the
+foreground console. Key events that a program writes to /dev/uinput or
+to an event node reach it in the same way as typed keys.
 
-On the P2020, a warning in blk_mq_run_hw_queue() appeared in the
-6th unpatched run and did not appear in 30 patched runs.
+The keyboard handler and respond_string() share no lock, so they can
+interleave:
 
-Fixes: 39d42fa96ba1 ("dm crypt: add flags to optionally bypass kcryptd workqueues")
-Cc: stable@vger.kernel.org
-Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+    keyboard handler                respond_string()
+    ================                ================
+    room check passes
+                                    room check passes
+    memcpy() to offset used
+    used += len
+                                    memcpy() to offset used
+                                    used += len
+                                      /* used > size of the buffer */
 
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index 8853e9af1c3d..c0552a300e62 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -1982,8 +1982,9 @@ static void kcryptd_crypt_write_io_submit(struct dm_crypt_io *io, int async)
- 	/* crypt_convert should have filled the clone bio */
- 	BUG_ON(io->ctx.iter_out.bi_size);
+The room check subtracts ->used from the size, and both are unsigned.
+Once ->used exceeds the size, the result wraps, so the check always
+passes, and each later insert lands further past the buffer.
+
+Reproduced as root, with keys from a uinput keyboard and cursor position
+reports on the same console: KFENCE reported an out-of-bounds write
+1,024 bytes past the buffer in under 10 s.
+
+Fix this by taking port->lock, with interrupts disabled, around the
+insert and the push in these four functions. kbd_keycode() already takes
+port->lock under kbd_event_lock, so this lock ordering is not new.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable <stable@kernel.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>
+Cc: Nicolas Pitre <npitre@baylibre.com>
+Cc: Kees Cook <kees+treewide@kernel.org>
+Cc: Joshua Rogers <linux@joshua.hu>
+Cc: Chris Mason <mason@kernel.org>
+Cc: Helge Deller <deller@gmx.de>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Cc: Randy Dunlap <rdunlap@infradead.org>
+Cc: Ronan Pigott <ronan@rjp.ie>
+Cc: Liav Mordouch <liavmordouch@gmail.com>
+Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Link: https://patch.msgid.link/20261027-tty-llm-v1-1-99b0202ae546@linuxfoundation.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+diff --git a/drivers/tty/vt/keyboard.c b/drivers/tty/vt/keyboard.c
+index ef4a19aeb3ce..f4b742e091fb 100644
+--- a/drivers/tty/vt/keyboard.c
++++ b/drivers/tty/vt/keyboard.c
+@@ -322,15 +322,20 @@ int kbd_rate(struct kbd_repeat *rpt)
  
--	if ((likely(!async) && test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags)) ||
--	    test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags)) {
-+	if (likely(!async) &&
-+	    (test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags) ||
-+	     test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags))) {
- 		dm_submit_bio_remap(io->base_bio, clone);
- 		return;
- 	}
+ /*
+  * Helper Functions.
++ *
++ * A flip buffer allows one producer at a time, and respond_string() in vt.c
++ * feeds the same one under the console lock. So take the lock of the port.
+  */
+ static void put_queue(struct vc_data *vc, int ch)
+ {
++	guard(spinlock_irqsave)(&vc->port.lock);
+ 	tty_insert_flip_char(&vc->port, ch, 0);
+ 	tty_flip_buffer_push(&vc->port);
+ }
+ 
+ static void puts_queue(struct vc_data *vc, const char *cp)
+ {
++	guard(spinlock_irqsave)(&vc->port.lock);
+ 	tty_insert_flip_string(&vc->port, cp, strlen(cp));
+ 	tty_flip_buffer_push(&vc->port);
+ }
+@@ -587,6 +592,7 @@ static void fn_inc_console(struct vc_data *vc)
+ 
+ static void fn_send_intr(struct vc_data *vc)
+ {
++	guard(spinlock_irqsave)(&vc->port.lock);
+ 	tty_insert_flip_char(&vc->port, 0, TTY_BREAK);
+ 	tty_flip_buffer_push(&vc->port);
+ }
+diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
+index 7dbc0072a40a..6a6eb8b2a6de 100644
+--- a/drivers/tty/vt/vt.c
++++ b/drivers/tty/vt/vt.c
+@@ -1971,6 +1971,8 @@ static void csi_m(struct vc_data *vc)
+ 
+ static void respond_string(const char *p, size_t len, struct tty_port *port)
+ {
++	/* The keyboard handler feeds the same flip buffer. */
++	guard(spinlock_irqsave)(&port->lock);
+ 	tty_insert_flip_string(port, p, len);
+ 	tty_flip_buffer_push(port);
+ }
 
