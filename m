@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608453;
-	b=nanaMx5f5rdxZ2t9yUPdVrq67BSrhOwuWhw651TUslOvr1pgelwRhjj25rGbv4LxG8Nq
-	 RzXwumzOGtS2cEE26biqS9y8J/3FzOZWwSe5tfzaOdM7jorviWAcGPi+unTDJe8p/J7OX
-	 b1Dgw28Bc6TOEvsQQfyp28tLsajp7tHkiUMFvLlgju5BgU9QgSEk3NIcUVzmw+vIhlG22
-	 LVdDtMqyfKnCIRZrYac6t1wTcL8FvmUDxUXyGQhP1828Dh/anADYgn2w4y6TYqldkG3AK
-	 U/fGcdHt7CjbqXcZ/tRkvMa72LFRxcwzESrKyZ3mmvWAk7E+e6m5C6Q615MbvXDD8Pw==
+	t=1795608456;
+	b=LI4Zrkc657mHn8rFsHlgDU3nGj5/qa4UiyOVGgvMQR48b6KshFxJiJd8GbyoGc0JYPdO
+	 pqR4XhPpgEPPdrwa3p5k/ztp3DcoP7uSy7qZeoPUo/ejeYfu+iaVNzT7HH8iI4JOJK/kJ
+	 rIaEDuVONNnzPi43uzcuopxHs4yyAmCSxtifyj6nbY7ZCtLGhpZa0byfrKFNjtrJpH4dW
+	 /eb3XkM2A2kO/jqMHySsEc+MEAp43uFrk7lQpyAh/1dO7fxW6pTYBuJPW6rf9IOx5NBNt
+	 ZitFNVETxx61xUZ2lLBUlIjYdXDrjF+7hcK7Vr/xmRHmM23LI7UrJoiGBF1NKxNBTTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608453;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608456;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=PRZoJYXXt01C/CWBxsAGa0EvNYoBY9nYEO6YImqXUYw=;
-	b=DVwXrhoZ9kvyCW2wVUqI9BXRhDWUnmQpWQ2s0R7B5ibnlMgbnkWT4btmC4Rl3iGyHpT7
-	 13xCGTTLj4mMdIlh1Ph37gQ0XmHjkjy8ZYiGjTJM2/QUT3EvqWaGW+tQ5ThcGZwrgZLut
-	 pW3AO18Ff8SE2c4G304OAKTiBXnGZkKwQVxCPDe7hgiPm+o1/+ZJ/RYtjA1hron9iMaRF
-	 JeHIIADchrUSjsQFP4O0sDXseiPw65BFPRJIjwtuU8dhndYKLUwG43cVcb6Pbe7/RKLPS
-	 5xtRo3MWfdxHeavfsR3UUF+aMVJfwBjCGxUJiqXEVYsqKdWaLJ1eZUZH0LCBbJa+rpQ==
+	bh=1EeBeH0o1k4+jkE50hUy9xvrhe8xmimnZkM1wO1Zn9k=;
+	b=FRIOPQlXK3tF9Si+Qn1NknsF7KhXAo4zR2ztRtalvPiizqzNG14WOTEfRFlOvp+84m0p
+	 9qX5K0Ks+fLEeHMNGGe7SCOVeZjz33Y6ZFZOUxQ514RAhhreox46cXKyWURZZTZKlBQuU
+	 W2mwhh8Kf4VGJVfyCWeKA8aQeuMS6AyV+37ayrP2v3q69CGvQNa0CBDA2gOS7M16T0DQU
+	 S2Qo5bAH9gxapM8xBnJs59cHS0jCdIJ7Sz6H3Nvx+7CydvbUdFVY6sEPttCDFXkMReTNx
+	 79K344RnnY2CM9wAYJuEVWW/+uZFlm/QOxC9tmAEeY4VuBYez3DHicHGX/oVcPu9CJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gHxBOKnh;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0aB3Q22e;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37623606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:07:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09676606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:07:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gHxBOKnh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88E191F000C6;
-	Wed, 25 Nov 2026 12:07:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0aB3Q22e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BB531F000C4;
+	Wed, 25 Nov 2026 12:07:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795608453;
-	bh=PRZoJYXXt01C/CWBxsAGa0EvNYoBY9nYEO6YImqXUYw=;
+	s=korg; t=1795608455;
+	bh=1EeBeH0o1k4+jkE50hUy9xvrhe8xmimnZkM1wO1Zn9k=;
 	h=Subject:To:Cc:From:Date;
-	b=gHxBOKnhAHKfHEod+t+2kYI8sHVrmaDm2eGVJ3X3ll0VNHh1Nie2jP+UHrMBQVrp0
-	 gsPBjHlR34QsqAV+i8d2+XXL7PHAMc8+92fNBoo4Ib+6Wy9Wcs0fG4rcAex1voTj9q
-	 MIHsIYi+8+CZ8mJsZUmNJRusgcrSqGra8lRzpJRk=
-Subject: FAILED: patch "[PATCH] usb: dwc3: xilinx: re-assert resets on ZynqMP init error" failed to apply to 5.15-stable tree
-To: radhey.shyam.pandey@amd.com,Thinh.Nguyen@synopsys.com,gregkh@linuxfoundation.org,stable@kernel.org
+	b=0aB3Q22ergasJf4FR5X3QA4nsjopPDinyjw0Az/kII1zTosCV9ab0DA6bOdUn3Mex
+	 e7pRd+OGe/GOFxrzMsKc8hgwPYMRxaq+++SNLQXWFGSYh3A0P2O2RWnJpp/tvEBbrR
+	 5M5wp65447MAtRkOzG6QYFyj06jJxJ7CFnJjtSyE=
+Subject: FAILED: patch "[PATCH] xhci: give back TDs and clean up ep0 after disconnect" failed to apply to 7.3-stable tree
+To: yiyu@yiyuzhou.io,dennis@dsine.de,gregkh@linuxfoundation.org,mathias.nyman@linux.intel.com,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:42:03 +0100
-Message-ID: <2026112503-errant-undocked-dddf@gregkh>
+Date: Wed, 25 Nov 2026 12:42:43 +0100
+Message-ID: <2026112543-handcraft-impolite-2d69@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 7.3-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x f33f0dd2eb014bffda02ecfd182de3ddab058596
+git cherry-pick -x 6895dbdc19d927a2872bd4f111e1911874d5dce4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112503-errant-undocked-dddf@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112543-handcraft-impolite-2d69@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,170 +79,214 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f33f0dd2eb014bffda02ecfd182de3ddab058596 Mon Sep 17 00:00:00 2001
-From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Date: Mon, 28 Sep 2026 17:30:14 +0530
-Subject: [PATCH] usb: dwc3: xilinx: re-assert resets on ZynqMP init error
- paths
+From 6895dbdc19d927a2872bd4f111e1911874d5dce4 Mon Sep 17 00:00:00 2001
+From: Yiyu Zhou <yiyu@yiyuzhou.io>
+Date: Thu, 29 Oct 2026 22:43:24 +0200
+Subject: [PATCH] xhci: give back TDs and clean up ep0 after disconnect
 
-If reset deassert or PHY setup fails partway through
-dwc3_xlnx_init_zynqmp(), re-assert the resets that were already
-released before unwinding the PHY.
+Fix a regression in v7.3 introduced by the commits in the Fixes tags.
+Those patches avoid endpoint recovery and rapid state changes after
+the root port link is lost.
 
-Only undo the reset cycle the function actually performed. The cycle is
-skipped when no usb3-phy is present, because asserting the core resets
-can break a USB3 configuration that is live but missing from the device
-tree, so the error path skips it for the same reason. Asserting an
-already asserted reset is harmless, so one block covers however far the
-deasserts progressed.
+This caused a regression in device enumeration.
 
-Save the ZynqMP reset handles in driver private data so later probe
-teardown can re-assert released resets.
+It turns out that a subset of USB HID devices briefly disconnect during
+enumeration. USB core manages to resuscitate these devices without
+reallocating them, and thus continue using the same udev, xhci vdev and
+default control endpoint (ep0) of the device.
+xhci didn't give back or clean up halted TDs behind disconnected ports
+as it assumed that the disconnect cancels all URBs, and drops and frees
+all endpoints.
 
-Fixes: 84770f028fab ("usb: dwc3: Add driver for Xilinx platforms")
+This is not the case, so cancel and give back TDs on halted endpoint
+behind disconnected ports, make sure ep0 is cleared and in a proper state
+to continue working even after a link error or disconnect is detected.
+Also prevent new URBs until device is reset.
+
+One issue related to the TDs not being given back was seen on a PFU
+HHKB Professional HYBRID Type-S keyboard (04fe:0021).
+It drops off the bus about 300 ms after its first enumeration, while
+usbhid is still probing its third interface. The probe runs in hub_wq,
+so the disconnect is not handled until the probe returns.
+On a root port the HID descriptor request and its four retries in
+hid_get_class_descriptor() each wait for the full 5 second
+USB_CTRL_GET_TIMEOUT:
+
+  [57685.006036] usb 3-2: new full-speed USB device number 24 using xhci_hcd
+  ...
+  [57685.291304] hid-generic 0003:04FE:0021.0017: input,hidraw1: USB HID v1.11 Keyboard [PFU Limited HHKB-Hybrid] on usb-0000:00:14.0-2/input1
+  [57711.221083] usbhid 3-2:1.2: can't add hid device: -110
+  [57711.221613] usbhid 3-2:1.2: probe with driver usbhid failed with error -110
+  [57711.221842] usb 3-2: USB disconnect, device number 24
+
+[mn: merge EP_DROP_PENDING and link_inactive checks in xhci_urb_enqueue(),
+ return TDs and clean up ep0 on disconnect, rewrite commit message]
+
+Fixes: 042aad8d0db6 ("xhci: prevent endpoint recovery after roothub disconnect")
+Fixes: 7e0ef4332ed9 ("xhci: avoid xHC endpoint changes after disconnect or link error.")
 Cc: stable <stable@kernel.org>
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Link: https://patch.msgid.link/20260928120015.3152461-3-radhey.shyam.pandey@amd.com
+Closes: https://lore.kernel.org/all/20261010071811.20483-1-yiyu@yiyuzhou.io/
+Closes: https://lore.kernel.org/linux-usb/4MjB9K-2SoiA85WbI9iEig@dsine.de/
+Tested-by: Yiyu Zhou <yiyu@yiyuzhou.io>
+Tested-by: Dennis Wissel <dennis@dsine.de>
+Signed-off-by: Yiyu Zhou <yiyu@yiyuzhou.io>
+Co-developed-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+Link: https://patch.msgid.link/20261029204324.658845-2-mathias.nyman@linux.intel.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/usb/dwc3/dwc3-xilinx.c b/drivers/usb/dwc3/dwc3-xilinx.c
-index 8c63e02575f1..d2315573b3d3 100644
---- a/drivers/usb/dwc3/dwc3-xilinx.c
-+++ b/drivers/usb/dwc3/dwc3-xilinx.c
-@@ -48,6 +48,9 @@ struct dwc3_xlnx {
- 	void __iomem			*regs;
- 	int				(*pltfm_init)(struct dwc3_xlnx *data);
- 	struct phy			*usb3_phy;
-+	struct reset_control		*usb_crst;
-+	struct reset_control		*usb_hibrst;
-+	struct reset_control		*usb_apbrst;
- };
+diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
+index c23434001e9c..a1fa188680f5 100644
+--- a/drivers/usb/host/xhci-ring.c
++++ b/drivers/usb/host/xhci-ring.c
+@@ -65,6 +65,7 @@
+ static int queue_command(struct xhci_hcd *xhci, struct xhci_command *cmd,
+ 			 u32 field1, u32 field2,
+ 			 u32 field3, u32 field4, bool command_must_succeed);
++static void xhci_kill_endpoint_urbs(struct xhci_hcd *xhci, int slot_id, int ep_index);
  
- static void dwc3_xlnx_mask_phy_rst(struct dwc3_xlnx *priv_data, bool mask)
-@@ -112,7 +115,6 @@ static int dwc3_xlnx_init_versal(struct dwc3_xlnx *priv_data)
- static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
- {
- 	struct device		*dev = priv_data->dev;
--	struct reset_control	*crst, *hibrst, *apbrst;
- 	struct gpio_desc	*reset_gpio;
- 	int			ret = 0;
- 
-@@ -124,25 +126,25 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
- 		goto err;
+ /*
+  * Returns zero if the TRB isn't in this segment, otherwise it returns the DMA
+@@ -962,6 +963,24 @@ static void xhci_giveback_invalidated_tds(struct xhci_hcd *xhci, struct xhci_vir
  	}
+ }
  
--	crst = devm_reset_control_get_exclusive(dev, "usb_crst");
--	if (IS_ERR(crst)) {
--		ret = PTR_ERR(crst);
-+	priv_data->usb_crst = devm_reset_control_get_exclusive(dev, "usb_crst");
-+	if (IS_ERR(priv_data->usb_crst)) {
-+		ret = PTR_ERR(priv_data->usb_crst);
- 		dev_err_probe(dev, ret,
- 			      "failed to get core reset signal\n");
- 		goto err;
- 	}
- 
--	hibrst = devm_reset_control_get_exclusive(dev, "usb_hibrst");
--	if (IS_ERR(hibrst)) {
--		ret = PTR_ERR(hibrst);
-+	priv_data->usb_hibrst = devm_reset_control_get_exclusive(dev, "usb_hibrst");
-+	if (IS_ERR(priv_data->usb_hibrst)) {
-+		ret = PTR_ERR(priv_data->usb_hibrst);
- 		dev_err_probe(dev, ret,
- 			      "failed to get hibernation reset signal\n");
- 		goto err;
- 	}
- 
--	apbrst = devm_reset_control_get_exclusive(dev, "usb_apbrst");
--	if (IS_ERR(apbrst)) {
--		ret = PTR_ERR(apbrst);
-+	priv_data->usb_apbrst = devm_reset_control_get_exclusive(dev, "usb_apbrst");
-+	if (IS_ERR(priv_data->usb_apbrst)) {
-+		ret = PTR_ERR(priv_data->usb_apbrst);
- 		dev_err_probe(dev, ret,
- 			      "failed to get APB reset signal\n");
- 		goto err;
-@@ -156,19 +158,19 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
- 	 * absent.
- 	 */
- 	if (priv_data->usb3_phy) {
--		ret = reset_control_assert(crst);
-+		ret = reset_control_assert(priv_data->usb_crst);
- 		if (ret < 0) {
- 			dev_err(dev, "Failed to assert core reset\n");
- 			goto err;
- 		}
- 
--		ret = reset_control_assert(hibrst);
-+		ret = reset_control_assert(priv_data->usb_hibrst);
- 		if (ret < 0) {
- 			dev_err(dev, "Failed to assert hibernation reset\n");
- 			goto err;
- 		}
- 
--		ret = reset_control_assert(apbrst);
-+		ret = reset_control_assert(priv_data->usb_apbrst);
- 		if (ret < 0) {
- 			dev_err(dev, "Failed to assert APB reset\n");
- 			goto err;
-@@ -179,7 +181,7 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
- 	if (ret < 0)
- 		goto err;
- 
--	ret = reset_control_deassert(apbrst);
-+	ret = reset_control_deassert(priv_data->usb_apbrst);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to release APB reset\n");
- 		goto err_phy_exit;
-@@ -195,21 +197,21 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
- 		writel(PIPE_CLK_DESELECT, priv_data->regs + XLNX_USB_FPD_PIPE_CLK);
- 	}
- 
--	ret = reset_control_deassert(crst);
-+	ret = reset_control_deassert(priv_data->usb_crst);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to release core reset\n");
--		goto err_phy_exit;
-+		goto err_reset_assert;
- 	}
- 
--	ret = reset_control_deassert(hibrst);
-+	ret = reset_control_deassert(priv_data->usb_hibrst);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to release hibernation reset\n");
--		goto err_phy_exit;
-+		goto err_reset_assert;
- 	}
- 
- 	ret = phy_power_on(priv_data->usb3_phy);
- 	if (ret < 0)
--		goto err_phy_exit;
-+		goto err_reset_assert;
- 
- 	/* ulpi reset via gpio-modepin or gpio-framework driver */
- 	reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
-@@ -230,6 +232,21 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
- 
- err_phy_power_off:
- 	phy_power_off(priv_data->usb3_phy);
-+err_reset_assert:
-+	/*
-+	 * Undo only the reset cycle performed above.  That cycle is skipped
-+	 * when there is no usb3-phy.  The deasserts stay unconditional so a
-+	 * core the bootloader left in reset still comes up, but they are
-+	 * deliberately not paired with an assert here: resetting a USB3
-+	 * configuration that is live but missing from the device tree could
-+	 * break it.  Asserting an already asserted reset is harmless, so one
-+	 * block covers however far the cycle's deasserts got.
-+	 */
-+	if (priv_data->usb3_phy) {
-+		reset_control_assert(priv_data->usb_hibrst);
-+		reset_control_assert(priv_data->usb_crst);
-+		reset_control_assert(priv_data->usb_apbrst);
++static void xhci_cancel_ring_tds(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
++				 struct xhci_ring *ring, int td_status)
++{
++	struct xhci_td *tmp_td;
++	struct xhci_td *td;
++
++	/* Add all TDs on ring to cancelled td list */
++	list_for_each_entry_safe(td, tmp_td, &ring->td_list, td_list) {
++		if (list_empty(&td->cancelled_td_list)) {
++			list_add_tail(&td->cancelled_td_list,
++				      &ep->cancelled_td_list);
++			td->cancel_status = TD_DIRTY;
++			if (!td->status)
++				td->status = td_status;
++		}
 +	}
- err_phy_exit:
- 	phy_exit(priv_data->usb3_phy);
- err:
++}
++
+ static int xhci_reset_halted_ep(struct xhci_hcd *xhci, unsigned int slot_id,
+ 				unsigned int ep_index, enum xhci_ep_reset_type reset_type)
+ {
+@@ -993,33 +1012,64 @@ static int xhci_handle_halted_endpoint(struct xhci_hcd *xhci,
+ {
+ 	struct xhci_port *rhub_port = ep->vdev->rhub_port;
+ 	unsigned int slot_id = ep->vdev->slot_id;
++	bool disconnected = false;
++	struct xhci_ring *ring;
+ 	int err;
+ 
+-	/*
+-	 * Avoid resetting endpoint if link is inactive or device disconnected.
+-	 * Can cause host hang.
+-	 * Device will be reset to recover an inactive link, so don't do anything
+-	 */
++	/* link is inactive or device disconnected */
+ 	if (rhub_port->link_inactive || !rhub_port->connected) {
+ 		ep->ep_state |= EP_DROP_PENDING;
+-		return -ENODEV;
++		disconnected = true;
++		if (!td && ep->ep_index != 0) {
++			xhci_kill_endpoint_urbs(xhci, slot_id, ep->ep_index);
++			return -ENODEV;
++		}
+ 	}
+ 
+-	/* add td to cancelled list and let reset ep handler take care of it */
+-	if (reset_type == EP_HARD_RESET) {
+-		ep->ep_state |= EP_HARD_CLEAR_TOGGLE;
++	/* Add halted td to cancelled list and let reset ep handler take care of it */
++	if (reset_type == EP_HARD_RESET || disconnected) {
+ 		if (td && list_empty(&td->cancelled_td_list)) {
+ 			list_add_tail(&td->cancelled_td_list, &ep->cancelled_td_list);
+ 			td->cancel_status = TD_HALTED;
++			if (disconnected && !td->status)
++				td->status = -EPROTO;
+ 		}
+ 	}
+ 
++	/*
++	 * Avoid resetting non-ep0 endpoints if link is inactive or device
++	 * disconnected. Can cause host hang.
++	 * Endpoints other than ep0 won't restart before the device is reset or
++	 * the endpoint is dropped, so cancel all TDs, and give back non-ep0 TDs
++	 * now instead of letting them time out. Ep0 can survive a short device
++	 * disconnect during enumeration so reset ep0 normally and clean it up.
++	 */
++	if (disconnected) {
++		ring = td ? xhci_urb_to_transfer_ring(xhci, td->urb) : ep->ring;
++		xhci_cancel_ring_tds(xhci, ep, ring, -ESHUTDOWN);
++		if (ep->ep_index != 0) {
++			xhci_dbg(xhci, "Not resetting ep %u slot %u after disconnect\n",
++				 ep->ep_index, slot_id);
++
++			xhci_process_cancelled_tds(xhci, ep);
++			xhci_kill_endpoint_urbs(xhci, slot_id, ep->ep_index);
++			return -ENODEV;
++		}
++		/* hard-reset a halted disconnected ep0 */
++		xhci_dbg(xhci, "Reset and clean up ep0 slot %u after disconnect\n",
++			 slot_id);
++		reset_type = EP_HARD_RESET;
++	}
++
+ 	if (ep->ep_state & EP_HALTED) {
+ 		xhci_dbg(xhci, "Reset ep command for ep_index %d already pending\n",
+ 			 ep->ep_index);
+ 		return 0;
+ 	}
+ 
++	if (reset_type == EP_HARD_RESET)
++		ep->ep_state |= EP_HARD_CLEAR_TOGGLE;
++
+ 	err = xhci_reset_halted_ep(xhci, slot_id, ep->ep_index, reset_type);
+ 	if (err)
+ 		return err;
+@@ -1070,8 +1120,9 @@ static int xhci_invalidate_cancelled_tds(struct xhci_hcd *xhci, struct xhci_virt
+ 			continue;
+ 		}
+ 
+-		/* device disconnected or link error, ep will be dropped */
+-		if (ep->ep_state & EP_DROP_PENDING) {
++		/* device disconnected or link error, non-ep0 endpoints will be dropped */
++		if (ep->ep_state & EP_DROP_PENDING && ep->ep_index != 0) {
++			td_to_noop(xhci, ep, td, false);
+ 			td->cancel_status = TD_CLEARED;
+ 			continue;
+ 		}
+diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+index 30ac1bc4559b..b50a582be1fb 100644
+--- a/drivers/usb/host/xhci.c
++++ b/drivers/usb/host/xhci.c
+@@ -1665,12 +1665,6 @@ static int xhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+ 		goto free_priv;
+ 	}
+ 
+-	if (xhci->devs[slot_id]->rhub_port->link_inactive) {
+-		xhci_dbg(xhci, "Can't queue urb, port error, link inactive\n");
+-		ret = -ENODEV;
+-		goto free_priv;
+-	}
+-
+ 	if (xhci->xhc_state & XHCI_STATE_DYING) {
+ 		xhci_dbg(xhci, "Ep 0x%x: URB %p submitted for non-responsive xHCI host.\n",
+ 			 urb->ep->desc.bEndpointAddress, urb);
+@@ -1680,6 +1674,13 @@ static int xhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+ 
+ 	ep_state = &xhci->devs[slot_id]->eps[ep_index].ep_state;
+ 
++	if (xhci->devs[slot_id]->rhub_port->link_inactive ||
++	    *ep_state & EP_DROP_PENDING) {
++		xhci_dbg(xhci, "Can't queue urb, port disconnect or link inactive\n");
++		ret = -ENODEV;
++		goto free_priv;
++	}
++
+ 	if (*ep_state & (EP_GETTING_STREAMS | EP_GETTING_NO_STREAMS)) {
+ 		xhci_warn(xhci, "WARN: Can't enqueue URB, ep in streams transition state %x\n",
+ 			  *ep_state);
 
