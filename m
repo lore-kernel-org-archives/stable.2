@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795636223;
-	b=Nxy3YCyxiRhAi7nDQBJVIOeaNSpOePM8/kgCt3fgns3/Rbz33yULqTSu6WthYSwpuA0Q
-	 9gVRHn0Zo9hJ3dXGDpUzx3m8jpUMjz8350VDnimIBelYd+FvrHRBP1xrv5cIEm7it1iCr
-	 f3pZZ0uSs6pVPSYE7AKYXdtfRVhxlD5bRC0nZKyhrCL7k0zXMnVdMaEc1uc2ivzxwcqf9
-	 5II0kgwFAtb5sWbX48zTnJbl7HtrMNFiQuYiAUA4oXxEUJuQM6quxhJk/nv2KXyIze2KJ
-	 jqoVLOb2IEyV7jkbIiSg6S6dzgpKWKT3ymxGc0+6RqCjwwR6CegoQMSDXfz4ntysfJw==
+	t=1795636292;
+	b=gEoSdlRka6Wfqzf9jSOapB/zX0XHUqB1ThzBGRL826d0k2SqD+oMS7qnrUaPtScDz03k
+	 pzqLlKzLnc6u5XtYYJ3S0+pW9Y2fRugJ7OtKm0VGRcY0rU5xTTu6DC1Puw2XRQbo/iUYL
+	 9mxMPANtVEMHeikkbTu1N9Ux5MYDG3UfIkZR3kgCYfwHwRYRyVOkd3EqfIlRRNjvFtBLI
+	 CnyniLZN5o3qpRRF+w2U+de5T7tUo7j2Ipt/QLccSgHvkMV7/8q0b6mH3VBQoZroJAwal
+	 W/9gCJG0S0g3NOYD+EmSrVOI5ef454MxM/Zdcdj2Nl64GV8UK6uSoaYRnCkqcyr3eLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795636223;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795636292;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=CHPphcOBT1HbPAnwwi85joy3gLNDA7QhbWaoGa3Y5pQ=;
-	b=lrz6U5vbQ/BDFwy90uF2OFMG+6KcMgejhVQPPRRFGdiVJZU3SOYTTqeHsNtGRjvFbBl3
-	 f7HElPznd6EPA2HOcnDXp9xOqkVAw6l8fUfOdWPo+F14kvdxSMFpv2aPTMuElLT/qHOpE
-	 sJboJi58siAKQN2WjsgA+mMGROSiuhSHR/Q0FowyEOO01MLYzi2rjahoVN39NeM7e9XV9
-	 FIVdvj+oQl8bSjtg/EbImWTvtVN0Oq3lvhVLnEmw55UrvCupozVABn3Jwu8TlDMGM0J10
-	 gVwLlvvz1Qm3ycVOqjjzqgTbdMA2NLsgBzJeU5rOmx++b7jn58phsuwfyLBQC1dOQZA==
+	bh=TP4sSgtrQaPdGKO+jewno5/M2X6iSdLMjb/WbXhX1ns=;
+	b=xxaNtmadsxdsBkp0FFHupBjst1PqtHpxtd3z1GXyTmnFrf2kJpmt3MHdGyE+kBzhUxln
+	 MLpUlr9LyrQTJOuIZ4pnETxQ2MMnNMbPyiK6B63rwIrkTidiGI/HZvKCwgDheuf44NjVr
+	 K0BqAz2O32qKTFnmQ28HZN6NL6Z+FKQ7Kr3amN1rQo6PN+iGUfIG/oLnEdYPAl4llbX/U
+	 +7mPDCFmAHNPI89h/7pkwDfn4kh8rL9QcbL7YLD64jSsglLhYFYyoV58ckKnhU1CUFSy9
+	 kJ0aFsoLERpSXtapjpbPAE53jbyCg2DPBpuHnxnO4YcpaxINwaoXw9sGfypzIP5AEzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NI2ysyXE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O4+pleML;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54835606A337
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:50:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB001606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:51:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NI2ysyXE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47F4C1F000C4;
-	Wed, 25 Nov 2026 19:50:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O4+pleML
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFD901F000C0;
+	Wed, 25 Nov 2026 19:51:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795636222;
-	bh=CHPphcOBT1HbPAnwwi85joy3gLNDA7QhbWaoGa3Y5pQ=;
+	s=k20260515; t=1795636292;
+	bh=TP4sSgtrQaPdGKO+jewno5/M2X6iSdLMjb/WbXhX1ns=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NI2ysyXEEbJjDPozMKSdrdIwtQlnkJbuKJcnghvRjUo60U2bDkK3SMnT8rcB+3Wd+
-	 EV0RWL85P8Gl4xVYpcEqVlqiQtbE/xhNV/d0eMgu9Bpx/LPSH3tFwVnu86lWWEPeqa
-	 Z6pjTLtT3zbzGMCE9FPKvFfqWJV6KDwfUexsW384KqRzVQuEPdyKWyH0NX8wUSZdcn
-	 hoy82Nyk7C2lEs/cqJFP8tIj0yXfLDQqeT91Vd51tp7ERQlmR/6h0mlGsxBvKEydcr
-	 mawt0PGgpkmUeNTNIqjfA3e91GzzUeI4X+pJ0t9grrNdg5EcNm4qZnDyPg3lF76Jfw
-	 vAfGs9wMnGGDg==
+	b=O4+pleMLwNS6TDBfMJdeLpHbWqpqlLEPn2u3EabIDJ8hhfE69PIMGvfKNeFbRfIn/
+	 nly9i4Oum2fTOoXVEygiwSCUT3i8m4c3o9cmb6iaGI2AT6BpHvv+4ANeFRmtw9B+r7
+	 DYQgH/kPmVYWflnloqfyVj+O7URYtoZJWNUDMLayenOmhRPS2jAeH265YFqOoVybLb
+	 iQYIIPvClFcIJLYaf80JwR6qMksgfqgSN37SYYhhNszIldJu05djpPwGRonR6OHcfV
+	 Y9EoBuROyJOXv/m1lrDMDYxaEUv3+HDxCDc//0VFaEonFVIMDlDle5vfR4EoWeVkGE
+	 f/NCXl0eJhedQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ian Bridges <icb@fastmail.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
+Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] ksmbd: skip metadata-only opens in sharing checks
-Date: Wed, 25 Nov 2026 14:50:20 -0500
-Message-ID: <20261125195014.1296732-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] tracing/probes: Check enabled and busy state before unlinking sibling probes
+Date: Wed, 25 Nov 2026 14:51:30 -0500
+Message-ID: <20261125195118.1297012-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112530-spoof-absentee-8dbc@gregkh>
-References: <2026112530-spoof-absentee-8dbc@gregkh>
+In-Reply-To: <2026112557-mutual-apple-88a5@gregkh>
+References: <2026112557-mutual-apple-88a5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,219 +60,116 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ian Bridges <icb@fastmail.org>
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-[ Upstream commit 81fefb6c635489e71e286d1465b6dd1d0a27ceec ]
+[ Upstream commit f1d9b7a3fe99b4228acdbab3c744c29f7ffe86ef ]
 
-A READ_CONTROL open without sharing can block later reads, writes and
-deletes even though it holds no data, execute or delete access.
+When a multiprobe event is enabled or referenced (for example, by an
+eprobe, trigger, or open tracefs file) and a user attempts to delete the
+event or one of its probes via dynamic_events, checking
+trace_probe_has_sibling() before the enabled and busy checks allows the
+first probe to be unlinked and freed while the event is still active,
+only returning -EBUSY on the last sibling probe. For uprobe events,
+unlinking and freeing an enabled sibling probe without unregistering its
+uprobe_consumer also causes a use-after-free.
 
-Keep the existing attribute-only exception. For other pairs, require
-both effective access masks to hold one of those rights. MS-FSA
-2.1.5.1.2 grants FILE_WRITE_DATA when an open overwrites a file or
-stream, or creates a named stream on an existing file. Use that granted
-access for sharing checks while keeping the requested access on the
-returned handle.
+Ensure all four probe types (kprobe, fprobe, uprobe, and eprobe) verify
+that the event is neither enabled nor busy before unlinking any sibling
+probe.
 
-The Time Machine AFP_AfpInfo synthesis keeps its requested access.
-ksmbd implements FILE_SUPERSEDE by truncating the file, so count it as
-a write.
+Link: https://lore.kernel.org/all/179455848898.403392.17675270675769076596.stgit@devnote2/
 
-This also prevents an overwrite from truncating a file while another
-open that holds data, execute or delete access does not share writing.
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Fixes: ca89bc071d5e ("tracing/kprobe: Add multi-probe per event support")
+Fixes: 41af3cf587f4 ("tracing/uprobe: Add multi-probe per uprobe event support")
+Fixes: 7491e2c44278 ("tracing: Add a probe that attaches to trace events")
+Fixes: 334e5519c375 ("tracing/probes: Add fprobe events for tracing function entry and exit.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+[ sashal: Dropped the trace_fprobe.c hunk because this tree has no fprobe trace events; the kprobe, uprobe and eprobe hunks applied unchanged. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/smb2pdu.c    | 30 ++++++++++++++++++++++--------
- fs/smb/server/smb_common.c | 34 +++++++++++++++++++++++++++++++++-
- fs/smb/server/smb_common.h |  5 +++++
- fs/smb/server/vfs_cache.h  |  2 ++
- 4 files changed, 62 insertions(+), 9 deletions(-)
+ kernel/trace/trace_eprobe.c | 12 ++++++++----
+ kernel/trace/trace_kprobe.c |  8 ++++----
+ kernel/trace/trace_uprobe.c |  8 ++++++--
+ 3 files changed, 18 insertions(+), 10 deletions(-)
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 8f9773e0cf016..97c3f07244c54 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -3537,7 +3537,8 @@ static int smb2_set_ea(struct smb2_ea_info *eabuf, unsigned int buf_len,
+diff --git a/kernel/trace/trace_eprobe.c b/kernel/trace/trace_eprobe.c
+index 19116ed205da0..450dcfe11e1b8 100644
+--- a/kernel/trace/trace_eprobe.c
++++ b/kernel/trace/trace_eprobe.c
+@@ -84,14 +84,18 @@ static int eprobe_dyn_event_show(struct seq_file *m, struct dyn_event *ev)
  
- static noinline int smb2_set_stream_name_xattr(const struct path *path,
- 					       struct ksmbd_file *fp,
--					       char *stream_name, int s_type)
-+					       char *stream_name, int s_type,
-+					       bool *created)
+ static int unregister_trace_eprobe(struct trace_eprobe *ep)
  {
- 	struct mnt_idmap *idmap = mnt_idmap(path->mnt);
- 	size_t xattr_stream_size;
-@@ -3601,6 +3602,8 @@ static noinline int smb2_set_stream_name_xattr(const struct path *path,
- 	rc = ksmbd_vfs_setxattr(idmap, path, xattr_stream_name, NULL, 0, 0, false);
- 	if (rc < 0)
- 		pr_err("Failed to store XATTR stream name :%d\n", rc);
-+	else
-+		*created = true;
- 	return 0;
- }
+-	/* If other probes are on the event, just unregister eprobe */
+-	if (trace_probe_has_sibling(&ep->tp))
+-		goto unreg;
+-
+ 	/* Enabled event can not be unregistered */
+ 	if (trace_probe_is_enabled(&ep->tp))
+ 		return -EBUSY;
  
-@@ -4419,6 +4422,7 @@ int smb2_open(struct ksmbd_work *work)
- 	char *stream_name = NULL;
- 	bool file_present = false, created = false, already_permitted = false;
- 	bool app_instance_id_checked = false, app_instance_closed;
-+	bool stream_created = false;
- 	int share_ret, need_truncate = 0;
- 	u64 time, alloc_size = 0;
- 	umode_t posix_mode = 0;
-@@ -5151,7 +5155,8 @@ int smb2_open(struct ksmbd_work *work)
- 		rc = smb2_set_stream_name_xattr(&path,
- 						fp,
- 						stream_name,
--						s_type);
-+						s_type,
-+						&stream_created);
- 		if (rc)
- 			goto err_out;
- 		file_info = FILE_CREATED;
-@@ -5159,12 +5164,24 @@ int smb2_open(struct ksmbd_work *work)
- 
- 	fp->attrib_only = !(req->DesiredAccess & ~(FILE_READ_ATTRIBUTES_LE |
- 			FILE_WRITE_ATTRIBUTES_LE | FILE_SYNCHRONIZE_LE));
-+	need_truncate = !S_ISDIR(file_inode(filp)->i_mode) &&
-+			open_flags & O_TRUNC && !fp->attrib_only && !stream_name;
-+	/*
-+	 * Count the FILE_WRITE_DATA that MS-FSA 2.1.5.1.2 grants an overwrite,
-+	 * supersede included, or a new named stream on an existing file.
-+	 * An attribute-only open of the file is not truncated, and the
-+	 * synthesized AFP_AfpInfo stream is not created by the client.
-+	 */
-+	fp->implied_write = need_truncate ||
-+			    (stream_name &&
-+			     (open_flags & O_TRUNC ||
-+			      (file_present && stream_created)));
- 
- 	fp->is_posix_ctxt = posix_ctxt;
- 
- 	/* fp should be searchable through ksmbd_inode.m_fp_list
--	 * after daccess, saccess, attrib_only, and stream are
--	 * initialized.
-+	 * after daccess, saccess, attrib_only, implied_write, and
-+	 * stream are initialized.
- 	 */
- 	down_write(&fp->f_ci->m_lock);
- 	list_add(&fp->node, &fp->f_ci->m_fp_list);
-@@ -5185,11 +5202,8 @@ int smb2_open(struct ksmbd_work *work)
- 	if (file_present || created)
- 		path_put(&path);
- 
--	if (!S_ISDIR(file_inode(filp)->i_mode) && open_flags & O_TRUNC &&
--	    !fp->attrib_only && !stream_name) {
-+	if (need_truncate)
- 		smb_break_all_oplock(work, fp);
--		need_truncate = 1;
--	}
- 
- 	share_ret = ksmbd_smb_check_shared_mode(fp->filp, fp);
- 	if (!test_share_config_flag(work->tcon->share_conf, KSMBD_SHARE_FLAG_OPLOCKS) ||
-diff --git a/fs/smb/server/smb_common.c b/fs/smb/server/smb_common.c
-index 5ddefb5a7078c..9c962952082fb 100644
---- a/fs/smb/server/smb_common.c
-+++ b/fs/smb/server/smb_common.c
-@@ -695,10 +695,24 @@ static void smb_shared_mode_error(int error, struct ksmbd_file *prev_fp,
- 		    prev_fp->saccess, curr_fp->daccess);
- }
- 
-+/*
-+ * Sharing checks use fp->daccess plus the FILE_WRITE_DATA that MS-FSA
-+ * grants an open that overwrites data or creates a named stream.
-+ * fp->daccess keeps the open's own access.
-+ */
-+__le32 ksmbd_sharing_daccess(const struct ksmbd_file *fp)
-+{
-+	if (fp->implied_write)
-+		return fp->daccess | FILE_WRITE_DATA_LE;
-+	return fp->daccess;
-+}
++	/* If there's a reference to the dynamic event */
++	if (trace_event_dyn_busy(trace_probe_event_call(&ep->tp)))
++		return -EBUSY;
 +
- int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
++	/* If other probes are on the event, just unregister eprobe */
++	if (trace_probe_has_sibling(&ep->tp))
++		goto unreg;
++
+ 	/* Will fail if probe is being used by ftrace or perf */
+ 	if (trace_probe_unregister_event_call(&ep->tp))
+ 		return -EBUSY;
+diff --git a/kernel/trace/trace_kprobe.c b/kernel/trace/trace_kprobe.c
+index 4dbc2d8bc69c8..f8ce7fe47699e 100644
+--- a/kernel/trace/trace_kprobe.c
++++ b/kernel/trace/trace_kprobe.c
+@@ -531,10 +531,6 @@ static void __unregister_trace_kprobe(struct trace_kprobe *tk)
+ /* Unregister a trace_probe and probe_event */
+ static int unregister_trace_kprobe(struct trace_kprobe *tk)
  {
- 	int rc = 0;
- 	struct ksmbd_file *prev_fp;
-+	__le32 curr_access = ksmbd_sharing_daccess(curr_fp);
-+	__le32 access;
+-	/* If other probes are on the event, just unregister kprobe */
+-	if (trace_probe_has_sibling(&tk->tp))
+-		goto unreg;
+-
+ 	/* Enabled event can not be unregistered */
+ 	if (trace_probe_is_enabled(&tk->tp))
+ 		return -EBUSY;
+@@ -543,6 +539,10 @@ static int unregister_trace_kprobe(struct trace_kprobe *tk)
+ 	if (trace_event_dyn_busy(trace_probe_event_call(&tk->tp)))
+ 		return -EBUSY;
  
- 	/*
- 	 * Lookup fp in master fp list, and check desired access and
-@@ -719,6 +733,24 @@ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
- 		if (prev_fp->attrib_only != curr_fp->attrib_only)
- 			continue;
- 
-+		/*
-+		 * MS-FSA checks sharing per stream, so a named stream open's
-+		 * implied write is not a write against the primary stream.
-+		 * It still decides whether the pair is checked.
-+		 */
-+		access = curr_access;
-+		if (ksmbd_stream_fd(curr_fp) && !ksmbd_stream_fd(prev_fp))
-+			access = curr_fp->daccess;
++	/* If other probes are on the event, just unregister kprobe */
++	if (trace_probe_has_sibling(&tk->tp))
++		goto unreg;
 +
-+		/*
-+		 * Two opens conflict only if both hold a right in
-+		 * FILE_SHARE_CHECKED_ACCESS_LE (MS-FSA 2.1.5.1.2.1 and
-+		 * 2.1.5.1.2.2)
-+		 */
-+		if (!(ksmbd_sharing_daccess(prev_fp) & FILE_SHARE_CHECKED_ACCESS_LE) ||
-+		    !(curr_access & FILE_SHARE_CHECKED_ACCESS_LE))
-+			continue;
+ 	/* Will fail if probe is being used by ftrace or perf */
+ 	if (unregister_kprobe_event(tk))
+ 		return -EBUSY;
+diff --git a/kernel/trace/trace_uprobe.c b/kernel/trace/trace_uprobe.c
+index a930ef372ef42..4e50f405dc4d9 100644
+--- a/kernel/trace/trace_uprobe.c
++++ b/kernel/trace/trace_uprobe.c
+@@ -391,13 +391,17 @@ static int unregister_trace_uprobe(struct trace_uprobe *tu)
+ {
+ 	int ret;
+ 
+-	if (trace_probe_has_sibling(&tu->tp))
+-		goto unreg;
++	/* Enabled event can not be unregistered */
++	if (trace_probe_is_enabled(&tu->tp))
++		return -EBUSY;
+ 
+ 	/* If there's a reference to the dynamic event */
+ 	if (trace_event_dyn_busy(trace_probe_event_call(&tu->tp)))
+ 		return -EBUSY;
+ 
++	if (trace_probe_has_sibling(&tu->tp))
++		goto unreg;
 +
- 		if (!(prev_fp->saccess & FILE_SHARE_DELETE_LE) &&
- 		    curr_fp->daccess & FILE_DELETE_LE) {
- 			smb_shared_mode_error(SHARE_DELETE_ERROR,
-@@ -745,7 +777,7 @@ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
- 		}
- 
- 		if (!(prev_fp->saccess & FILE_SHARE_WRITE_LE) &&
--		    curr_fp->daccess & (FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE)) {
-+		    access & (FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE)) {
- 			smb_shared_mode_error(SHARE_WRITE_ERROR,
- 					      prev_fp,
- 					      curr_fp);
-diff --git a/fs/smb/server/smb_common.h b/fs/smb/server/smb_common.h
-index 7b9c5cfcb63b0..d481f02b365e8 100644
---- a/fs/smb/server/smb_common.h
-+++ b/fs/smb/server/smb_common.h
-@@ -69,6 +69,10 @@
- 		FILE_EXECUTE | FILE_DELETE_CHILD | \
- 		FILE_READ_ATTRIBUTES | FILE_WRITE_ATTRIBUTES)
- 
-+/* Rights that make an open take part in sharing checks */
-+#define FILE_SHARE_CHECKED_ACCESS_LE	(FILE_EXECUTE_LE | FILE_READ_DATA_LE | \
-+		FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE | FILE_DELETE_LE)
-+
- #define SMB_COM_NEGOTIATE		0x72 /* See MS-CIFS 2.2.2.1 */
- 
- /* See MS-CIFS 2.2.3.1 */
-@@ -186,6 +190,7 @@ int ksmbd_extract_shortname(struct ksmbd_conn *conn,
- 
- int ksmbd_smb_negotiate_common(struct ksmbd_work *work, unsigned int command);
- 
-+__le32 ksmbd_sharing_daccess(const struct ksmbd_file *fp);
- int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp);
- int __ksmbd_override_fsids(struct ksmbd_work *work,
- 			   struct ksmbd_share_config *share);
-diff --git a/fs/smb/server/vfs_cache.h b/fs/smb/server/vfs_cache.h
-index 84ca73f483143..c35e4ba8432c0 100644
---- a/fs/smb/server/vfs_cache.h
-+++ b/fs/smb/server/vfs_cache.h
-@@ -119,6 +119,8 @@ struct ksmbd_file {
- 
- 	bool				is_nt_open;
- 	bool				attrib_only;
-+	/* writes data on open, see ksmbd_sharing_daccess() */
-+	bool				implied_write;
- 	bool				allocation_size_set;
- 
- 	char				client_guid[16];
+ 	ret = unregister_uprobe_event(tu);
+ 	if (ret)
+ 		return ret;
 -- 
 2.53.0
 
