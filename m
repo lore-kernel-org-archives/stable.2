@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795604570;
-	b=J2CgvvlDNntzK8N/hLF6gE9XchjjPGREQE9PUBeh5Vy6cB3P0IkzB0lEV280RkBh6SoT
-	 ajbG8uDDUB78YS7OjRjPLR9qN2azHsgUOlYrbZdjMLd6N8v8Ffy4UJMFNlmD/+M3ilyTk
-	 ka6YqaecPNSd3s+JLxYtJYbqa1qaqM6nHj4r/z1LKTMYISMd5I7nB0DTdaJsuUU63AwCQ
-	 6glW1c2oDAIqJdqsex760V/7BcYO/5OwkvqNEB4suS4oIDnaO2FY5CEkYyor8y6EBAhYj
-	 7wnulIYam48jHix0nvWVhlfdGe+N6jlpw4rjTmlZGmB77WQtsgj8RWSqk2vfcdutPFw==
+	t=1795604573;
+	b=f1RrS++CfcfwoFKAYrYxl9o+WyAmli7pY5xhyQQ4ey+TTi8/TQCCFq+L2IsS8FNMVwrK
+	 DPrjY/y9a8DAy1zQzEtygFWdpdjCsCtitjzFJ4wFPG2e8xN9eojTd4MrbmUNicYsdkG+A
+	 ZPW5gfB/Xpvtfc3TEc72Eq0KTrwnwmwEHjPSNolv3GnifocjLyT/qiEHZ6cI8aEnq7y5V
+	 GN3oqxoXcf1woJTtevB1tpScWN6czx7vSUPHZ3CJpb+oG+OTlzUW5g8UnWiyrdkHiiWA9
+	 wxpwrIsJZCQW5WjZ8L6q4oT7QlSFet95vzRASMqujO4cbKn3xeEHSLGWWE8/dOe7aEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795604570;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795604573;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=7XKhHKqRUVmQyd3GY0LNlfbhsf8pLg8zustHcvtS02I=;
-	b=Ozy6B7KPoFDWWuFtFlBHK9SI6PO4EUMAImJ5b8+e4RXRZwBvVKolBYnkA7dpQ1pu1k9V
-	 mdXUkbnPFHcBmXMdmdySfgdd8x7S1t7yIhCg07JF76v0VHjuKKMLBxlytL37T0/rhKLny
-	 /OLo7gpQYadZ9ts9aLXPzJ3AvCu9uPJtpAsZNDNtKG9tatD9iDQC3D8OAtXEFMrL65s8+
-	 I1FfNTanzWHb5hdSi7wr4JUJHzpkLM4wh5L7blGQedmlSQ7kpXlT2a8FK/cwRXqbtRH3r
-	 ndFnSmmsqv3b3pIV/B08/HaAf+FZKWikSl0Br8nP81dVE24CBTylnzX5+U2zjcckb+w==
+	bh=96PvHLI5/3IQQcPYB1a6jATWj5jKAqIET4uaQk6SFyQ=;
+	b=Vmd3g8MDILei7gsNx4eTR5owjZE7ev+qZZmCnsclsIO//xA9/pTSgubW7X/w+olxNgJl
+	 yJ1MX/6Il0PXAz1ajRyTP8ToRzZULIflNMTl5zG91FD28P/lSoFvqLgZr0fY4X4d3NHr/
+	 75B0pQp4JrUpBhHwT5XbfvJGsouEgx2l8Y7N3pNXj3XWh/e4exQAlrzH0/NvESTAEunCw
+	 jo3p/syjAsAofo6ImDps0SJndlquzUKw67xuPU29Uqan/YWX+bXc3ka0WTVDDlT1lXR46
+	 v7jlBKeAcL0nQw+3qfDaw3zBffHK7WGnfuw30rPOsJAGBkZoc1xN7utpcdbE3ALPgIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1GmFbTWS;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=g55ZiRG1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1969D606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:02:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C35FD606A333
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:02:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1GmFbTWS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 524491F00A3E;
-	Wed, 25 Nov 2026 11:02:49 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=g55ZiRG1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B43D01F000D8;
+	Wed, 25 Nov 2026 11:02:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795604569;
-	bh=7XKhHKqRUVmQyd3GY0LNlfbhsf8pLg8zustHcvtS02I=;
+	s=korg; t=1795604573;
+	bh=96PvHLI5/3IQQcPYB1a6jATWj5jKAqIET4uaQk6SFyQ=;
 	h=Subject:To:Cc:From:Date;
-	b=1GmFbTWSheXE0XMnJbPc0vLuOG5PhuBJS+WHrL1Gwc5vHTbSmqDms6/GwxKJmcpnQ
-	 7PpV6hhaU6BGqZ2CLqhJKw3aG78PijhQta1GMhNa9pW6djGAHL9tU6zTfwqeXhvaNn
-	 iYNaPZuzdwLDkX8H2mh4S7qUdfLa7ZaVTy5NYUy4=
-Subject: FAILED: patch "[PATCH] ovl: fix leak of lowerdata redirect on ovl_get_inode()" failed to apply to 6.18-stable tree
-To: amir73il@gmail.com
+	b=g55ZiRG1VvmsK58wuBBfUuQpgNsBwVhR073YviXSwn0dI77FEx8BBzLVHRruPszuK
+	 2xYlqypePindtRen/Jz/MrO6K93qcLCWZzVRIcHKDc2W4bsLlbOl+XEqrim+ECs0Kb
+	 u7Hm3jQtT3FCKHSLnGp0sxV2PVDBSkPdtFKExMA4=
+Subject: FAILED: patch "[PATCH] ovl: bump the impure dir version when linking a file with" failed to apply to 6.12-stable tree
+To: daejun7.park@samsung.com,amir73il@gmail.com,sashiko-bot@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:43:40 +0100
-Message-ID: <2026112540-carnation-surplus-b95c@gregkh>
+Date: Wed, 25 Nov 2026 11:44:48 +0100
+Message-ID: <2026112548-unwatched-prevent-2781@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x f1b7e5534854043077bb72afc8d87ad1e0b283e0
+git cherry-pick -x 86e2facd8630cc2fdec6ea80c53e370b26b441d9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112540-carnation-surplus-b95c@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112548-unwatched-prevent-2781@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,48 +79,98 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f1b7e5534854043077bb72afc8d87ad1e0b283e0 Mon Sep 17 00:00:00 2001
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Sat, 7 Nov 2026 15:48:36 +0100
-Subject: [PATCH] ovl: fix leak of lowerdata redirect on ovl_get_inode()
- failure
+From 86e2facd8630cc2fdec6ea80c53e370b26b441d9 Mon Sep 17 00:00:00 2001
+From: Daejun Park <daejun7.park@samsung.com>
+Date: Thu, 12 Nov 2026 12:58:09 +0900
+Subject: [PATCH] ovl: bump the impure dir version when linking a file with
+ origin
 
-ovl_lookup_layers() moves d->redirect into oip.lowerdata_redirect and
-clears d->redirect before calling ovl_get_inode().  When ovl_get_inode()
-fails, it does not free oip.lowerdata_redirect, and ovl_lookup() frees
-the already cleared d->redirect, so the lowerdata redirect string is
-leaked.
+Linking a file with copy up origin into a non-merge impure dir does
+not bump the dir version. readdir then reuses the impure dir cache
+built before the link. It reports the upper inode number as d_ino of
+the new link, not st_ino.
 
-Clear d->redirect only after ovl_get_inode() has succeeded, like
-d->upperredirect, so that ovl_lookup() frees it on failure.
+Pass whether the linked file has an origin to ovl_dir_modified(), as
+rename and unlink do.
 
-Fixes: 2b21da920866 ("ovl: prepare to store lowerdata redirect for lazy lowerdata lookup")
-Closes: https://sashiko.dev/#/bug/linux-dabbd363-9c71-4915-af72-e2b5e75fa58e
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-98f207b6-3936-48e9-a40f-88f20be4db7b
+Fixes: 4edb83bb1041 ("ovl: constant d_ino for non-merge dirs")
 Cc: stable@vger.kernel.org
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 
-diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
-index a27479a10027..e25858c8dbcd 100644
---- a/fs/overlayfs/namei.c
-+++ b/fs/overlayfs/namei.c
-@@ -1366,15 +1366,16 @@ static int ovl_lookup_layers(struct ovl_lookup_ctx *ctx, struct ovl_lookup_data
- 		};
+diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
+index e0a164e22d67..8fec18dc5fc7 100644
+--- a/fs/overlayfs/dir.c
++++ b/fs/overlayfs/dir.c
+@@ -368,7 +368,7 @@ static bool ovl_type_origin(struct dentry *dentry)
+ }
  
- 		/* Store lowerdata redirect for lazy lookup */
--		if (ctx->ctr > 1 && !d->is_dir && !ctx->stack[ctx->ctr - 1].dentry) {
-+		if (ctx->ctr > 1 && !d->is_dir && !ctx->stack[ctx->ctr - 1].dentry)
- 			oip.lowerdata_redirect = d->redirect;
--			d->redirect = NULL;
--		}
+ static int ovl_create_upper(struct dentry *dentry, struct inode *inode,
+-			    struct ovl_cattr *attr)
++			    struct ovl_cattr *attr, bool origin)
+ {
+ 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
+ 	struct dentry *upperdir = ovl_dentry_upper(dentry->d_parent);
+@@ -393,7 +393,7 @@ static int ovl_create_upper(struct dentry *dentry, struct inode *inode,
+ 		ovl_set_opaque(dentry, newdentry);
+ 	}
  
- 		inode = ovl_get_inode(dentry->d_sb, &oip);
- 		if (IS_ERR(inode))
- 			return PTR_ERR(inode);
+-	ovl_dir_modified(dentry->d_parent, false);
++	ovl_dir_modified(dentry->d_parent, origin);
+ 	err = ovl_instantiate(dentry, inode, newdentry, !!attr->hardlink, NULL);
+ 	if (err)
+ 		goto out_cleanup;
+@@ -491,7 +491,7 @@ static int ovl_set_upper_acl(struct ovl_fs *ofs, struct dentry *upperdentry,
+ }
  
-+		if (oip.lowerdata_redirect)
-+			d->redirect = NULL;
-+
- 		ctx->inode = inode;
- 		if (ctx->upperdentry && !uppermetacopy)
- 			ovl_set_flag(OVL_UPPERDATA, ctx->inode);
+ static int ovl_create_over_whiteout(struct dentry *dentry, struct inode *inode,
+-				    struct ovl_cattr *cattr)
++				    struct ovl_cattr *cattr, bool origin)
+ {
+ 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
+ 	struct dentry *workdir = ovl_workdir(dentry);
+@@ -582,7 +582,7 @@ static int ovl_create_over_whiteout(struct dentry *dentry, struct inode *inode,
+ 		if (err)
+ 			goto out_cleanup_unlocked;
+ 	}
+-	ovl_dir_modified(dentry->d_parent, false);
++	ovl_dir_modified(dentry->d_parent, origin);
+ 	err = ovl_instantiate(dentry, inode, newdentry, hardlink, NULL);
+ 	if (err) {
+ 		ovl_cleanup(ofs, upperdir, newdentry);
+@@ -647,12 +647,12 @@ DEFINE_CLASS(ovl_override_creator_creds,
+ 
+ static int ovl_create_handle_whiteouts(struct dentry *dentry,
+ 				       struct inode *inode,
+-				       struct ovl_cattr *attr)
++				       struct ovl_cattr *attr, bool origin)
+ {
+ 	if (!ovl_dentry_is_whiteout(dentry))
+-		return ovl_create_upper(dentry, inode, attr);
++		return ovl_create_upper(dentry, inode, attr, origin);
+ 
+-	return ovl_create_over_whiteout(dentry, inode, attr);
++	return ovl_create_over_whiteout(dentry, inode, attr, origin);
+ }
+ 
+ static int ovl_create_or_link(struct dentry *dentry, struct inode *inode,
+@@ -687,12 +687,14 @@ static int ovl_create_or_link(struct dentry *dentry, struct inode *inode,
+ 		 */
+ 
+ 		if (attr->hardlink)
+-			return ovl_create_handle_whiteouts(dentry, inode, attr);
++			return ovl_create_handle_whiteouts(dentry, inode, attr,
++							   origin);
+ 
+ 		scoped_class(ovl_override_creator_creds, cred, original_creds, dentry, inode, attr->mode) {
+ 			if (IS_ERR(cred))
+ 				return PTR_ERR(cred);
+-			return ovl_create_handle_whiteouts(dentry, inode, attr);
++			return ovl_create_handle_whiteouts(dentry, inode, attr,
++							   origin);
+ 		}
+ 	}
+ 	return err;
 
