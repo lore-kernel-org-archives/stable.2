@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596635;
-	b=fVtRqYUSag9K5aWd4MivS+j1VrWFxsolDssB/f8P1p6RMFxb6yzYdDNcaL9EChOOQURT
-	 LyrVPZ2E6nQdw0+R6gaje9P5PXDlRl6RISfskTAyviH6sa0MaMfGi1VSoEmohZR5uJhR9
-	 sYQ6ZlFFGvAMK3L1YNm61zo210s92K09rMnOtCRCp5jT0CMjZ76TZE3ge0WnYBURik2CX
-	 X5HYhxa6jRtfxMzkdSNqJZYeF/8U4+3hq862dPdlUn9uAcoz659b6Na7I8Hon/DToOe2o
-	 QvvP+5S302knnxgs7AMonM+wSXz6UYTd+2t17iwe5PvwFLIDQ09MN9s6M3IHRHxP2vg==
+	t=1795596638;
+	b=APPUsl6vFN8ElFFxLo514MC9QrPPVCNfvivhjrb/7gPnwNC7rqzs3eIWVGB6y/doPC5T
+	 V7gtrOLV1hX/icoyyt7VyRr8R4DEY6ihtU5V6HurckjwcDx9pRVxhYzFWZPMEzJrPZhhf
+	 DwuMeL0umR4CkKFehhrfoIL3pHd7fB0g4w2VsrtAmPt2wp4JzuRLL/j0+vJ87azUYGPAi
+	 dM6+LKp5vRJAE+lrYc2usLzDF7tpsemdcL9d80Gd9TETJI/G+O3qsoJHoxriKq6zSGccb
+	 1sVeixuQDn5+9kSD/MFAOPVTGhy4cpLH24cFVnck86xboVmZ32bLnytHUfUhXXdkuNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596635;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596638;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=56MPax3KOQ0C8ykCYuiLg9crm/Fipm3MDVNbdm4iMeo=;
-	b=um+PZCpjnC2q6BXg2RDwJmz0IVfP7ZSWN1+P4gZk6JBkOP6JfxyM91dlFvFVQuhek7WH
-	 iVPCZr2T02Ojf/bgPycSx+ccUyf7SSPcXy4m5vKIQM8v3zYZklKfuRz5WtRQRvGiIu+77
-	 oDqBPtgWf0MmphSBdJuWXVNwFLAjrdiDA1vdbiNhJG10LSNom8nXYsf03ILYHVzRGgxqE
-	 LvSXfz0PlAqe/9ZZpvmdn9VkwfoorVEx/dT3A61KNtzFgbmK2U/R6MOXwMiZea/ZDBXxJ
-	 LjaAKwU5LeOV9qguqCRHC9RDDdJ55UhuOTObpLYMeQe2f20Qq7Y842ocvtSYjJwDu5w==
+	bh=bwzq8xQn5ZJR5o7aGUbK6kgJ4E+HNU1HSvR6dW/JqPk=;
+	b=GOTqxoF0USq8Wf03MLiweQOSEoDDOuIhGjpqJciUHnIpoiL8O5gMBUXxHN+V1DueCVpj
+	 btIsKTEcgHtTfdE87fRA3wnhRKa2bpt0ogXMdtoy5h4K3G0//ppga9ownbaYZsgwdlEVI
+	 yw2VEBrPBoDRFsEevJNzfA67tprMk/NaT31kiSL+fTVOeGli6TUSGnS2JHxb2NaznDj1B
+	 lZR+WBnNFKsK/knVzlaC0rgxmjtblzCPewEd/dXXgx8jpcn5+kT+VqNO2JK6Pg8+RJNSx
+	 hiu0CgZtlgi9OcmKyTSbH2D7x7LyuEn403Jmo9X2f22QYMPLUTINEQ9bbcZqtNBJZfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RJE0STvY;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zpqkSkHo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EFB8606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:50:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7ED606A32D
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:50:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RJE0STvY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A52DC1F000C0;
-	Wed, 25 Nov 2026 08:50:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zpqkSkHo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFEC11F000C0;
+	Wed, 25 Nov 2026 08:50:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795596634;
-	bh=56MPax3KOQ0C8ykCYuiLg9crm/Fipm3MDVNbdm4iMeo=;
+	s=korg; t=1795596637;
+	bh=bwzq8xQn5ZJR5o7aGUbK6kgJ4E+HNU1HSvR6dW/JqPk=;
 	h=Subject:To:Cc:From:Date;
-	b=RJE0STvYSBmGWKt6JodY01TcVkd8SyXAFvhcEQQnabaEVG9VRu/xmKfhdYpEe08vH
-	 C4DDSCE7oYltp5aO2R4S9HAfBOK0DLsHl5bKTlm1mD+Q9deT5KVPIcZ4+ykxJtelWx
-	 eJNnnc1sg+l2irul9Nvm5pGNW0tNnx6aZ9XG6K3M=
-Subject: FAILED: patch "[PATCH] xsk: defer software checksum until the skb is complete" failed to apply to 6.12-stable tree
-To: testwrzwrz@gmail.com,kerneljasonxing@gmail.com,maciej.fijalkowski@intel.com,pabeni@redhat.com,sdf@fomichev.me
+	b=zpqkSkHoS/iJ15hUWXA1GKpeUWqCzddvfIgQEss9wDa3TJcgBqjQyoOCW/ARXkgY+
+	 xK996keZmKlg2fYVzceWXxhp7dIlz9GfjppCz1woI878fexAFD0F2euRYfxcFiUXLH
+	 W3235URjFd3asbGAWFtB5/nNggM26mk+dFcq5NA8=
+Subject: FAILED: patch "[PATCH] vsock/virtio: clear vqs[] to avoid a UAF on a failed PM" failed to apply to 6.1-stable tree
+To: jrmmhm.kernel@eldare.de,kuba@kernel.org,sgarzare@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 09:47:11 +0100
-Message-ID: <2026112511-clergyman-gulf-c3af@gregkh>
+Date: Wed, 25 Nov 2026 09:47:39 +0100
+Message-ID: <2026112539-sudoku-footbath-dbe4@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x f2eddafbfcc004098425fee7c5664adbe29152d7
+git cherry-pick -x 2a24ba1694f14299fbde3fa107e5d56629f2f8b6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112511-clergyman-gulf-c3af@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112539-sudoku-footbath-dbe4@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,79 +79,92 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f2eddafbfcc004098425fee7c5664adbe29152d7 Mon Sep 17 00:00:00 2001
-From: Rongzheng Wang <testwrzwrz@gmail.com>
-Date: Wed, 4 Nov 2026 11:48:08 +0800
-Subject: [PATCH] xsk: defer software checksum until the skb is complete
+From 2a24ba1694f14299fbde3fa107e5d56629f2f8b6 Mon Sep 17 00:00:00 2001
+From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+Date: Mon, 9 Nov 2026 20:39:24 +0100
+Subject: [PATCH] vsock/virtio: clear vqs[] to avoid a UAF on a failed PM
+ restore
 
-When XDP_UMEM_TX_SW_CSUM is used with multi-buffer TX, xsk_skb_metadata()
-calls skb_checksum_help() while only the first descriptor has been added to
-the skb. The checksum therefore covers just the first fragment, and
-skb_checksum_help() sets ip_summed to CHECKSUM_NONE, so the remaining
-fragments are never included in the checksum.
+virtio_vsock_vqs_del() frees the virtqueues but leaves vsock->vqs[]
+pointing at them. If virtio_vsock_restore() then fails, the driver
+stays bound with a dangling vqs[], and the next freeze or unbind
+passes a freed virtqueue to virtqueue_detach_unused_buf():
 
-Move the software checksum calculation to the point where the last
-descriptor has been added to the skb.
+  BUG: KASAN: slab-use-after-free in virtqueue_detach_unused_buf
+   virtio_vsock_vqs_del (net/vmw_vsock/virtio_transport.c:785)
+   virtio_vsock_remove
+  Freed by task ...:
+   vp_del_vqs
+   virtio_vsock_freeze
 
-On a checksum failure the packet is now dropped instead of being returned
-to the application for a retry. This path is not reachable with the
-existing metadata validation, but the behavior change is intentional.
+Clear vqs[] after del_vqs() and when virtio_find_vqs() fails. Return
+early from virtio_vsock_vqs_del() when vqs[] is empty: the detach
+loops would pass NULL to virtqueue_detach_unused_buf(), and a second
+del_vqs() would free virtio-mmio's IRQ again, which only WARNs in
+free_irq() ("Trying to free already-free IRQ").
 
-Fixes: 11614723af26 ("xsk: Add option to calculate TX checksum in SW")
+Found with the help of Anthropic's Claude and reproduced on virtio-pci
+and virtio-mmio by failing the restore with failslab, without other
+kernel changes; the virtio-mmio WARN was found by the netdev Sashiko
+review and reproduced with v1 of this patch. With this patch neither
+report appears on virtio-pci or virtio-mmio guests, and the vsock
+vmtest.sh single-VM tests pass. A find_vqs() failure after some
+virtqueues were set up was not exercised.
+
+Fixes: bd50c5dc182b ("vsock/virtio: add support for device suspend/resume")
 Cc: stable@vger.kernel.org
-Reviewed-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
-Reviewed-by: Jason Xing <kerneljasonxing@gmail.com>
-Signed-off-by: Rongzheng Wang <testwrzwrz@gmail.com>
-Link: https://patch.msgid.link/20261104034809.24545-2-testwrzwrz@gmail.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
+Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
+Link: https://patch.msgid.link/20261109-vsock-restore-uaf-send-v4-1-1df8dfb5d5de@eldare.de
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
-index 28b3075eef85..f22f9a2cdbbe 100644
---- a/net/xdp/xsk.c
-+++ b/net/xdp/xsk.c
-@@ -1012,14 +1012,6 @@ static int xsk_skb_metadata(struct sk_buff *skb, void *buffer,
- 		skb->csum_start = hr + csum_start;
- 		skb->csum_offset = csum_offset;
- 		skb->ip_summed = CHECKSUM_PARTIAL;
--
--		if (unlikely(pool->tx_sw_csum)) {
--			int err;
--
--			err = skb_checksum_help(skb);
--			if (err)
--				return err;
--		}
- 	}
+diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+index 4f9aa9c4c3aa..cf63bc99f3cc 100644
+--- a/net/vmw_vsock/virtio_transport.c
++++ b/net/vmw_vsock/virtio_transport.c
+@@ -714,8 +714,10 @@ static int virtio_vsock_vqs_init(struct virtio_vsock *vsock)
+ 	atomic_set(&vsock->queued_replies, 0);
  
- 	if (flags & XDP_TXMD_FLAGS_LAUNCH_TIME)
-@@ -1031,6 +1023,15 @@ static int xsk_skb_metadata(struct sk_buff *skb, void *buffer,
- 	return 0;
+ 	ret = virtio_find_vqs(vdev, VSOCK_VQ_MAX, vsock->vqs, vqs_info, NULL);
+-	if (ret < 0)
++	if (ret < 0) {
++		memset(vsock->vqs, 0, sizeof(vsock->vqs));
+ 		return ret;
++	}
+ 
+ 	virtio_vsock_update_guest_cid(vsock);
+ 
+@@ -776,11 +778,19 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
+ 	vsock->event_run = false;
+ 	mutex_unlock(&vsock->event_lock);
+ 
++	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
++
+ 	/* Flush all device writes and interrupts, device will not use any
+ 	 * more buffers.
+ 	 */
+ 	virtio_reset_device(vdev);
+ 
++	/* After a failed restore no virtqueues are live, and a second
++	 * del_vqs() would free virtio-mmio's IRQ again (a WARN in free_irq()).
++	 */
++	if (!vsock->vqs[VSOCK_VQ_RX])
++		return;
++
+ 	mutex_lock(&vsock->rx_lock);
+ 	while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_RX])))
+ 		kfree_skb(skb);
+@@ -791,10 +801,10 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
+ 		kfree_skb(skb);
+ 	mutex_unlock(&vsock->tx_lock);
+ 
+-	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
+-
+ 	/* Delete virtqueues and flush outstanding callbacks if any */
+ 	vdev->config->del_vqs(vdev);
++
++	memset(vsock->vqs, 0, sizeof(vsock->vqs));
  }
  
-+static int xsk_skb_sw_csum(struct sk_buff *skb, struct xsk_buff_pool *pool)
-+{
-+	if (unlikely(pool->tx_sw_csum &&
-+		     skb->ip_summed == CHECKSUM_PARTIAL))
-+		return skb_checksum_help(skb);
-+
-+	return 0;
-+}
-+
- static struct sk_buff *xsk_build_skb_zerocopy(struct xdp_sock *xs,
- 					      struct xdp_desc *desc)
- {
-@@ -1278,6 +1279,12 @@ static int __xsk_generic_xmit(struct sock *sk)
- 			continue;
- 		}
- 
-+		err = xsk_skb_sw_csum(skb, xs->pool);
-+		if (unlikely(err)) {
-+			xsk_drop_skb(skb);
-+			goto out;
-+		}
-+
- 		err = __dev_direct_xmit(skb, xs->queue_id);
- 		if  (err == NETDEV_TX_BUSY) {
- 			/* Tell user-space to retry the send */
+ static int virtio_vsock_probe(struct virtio_device *vdev)
 
