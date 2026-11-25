@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608290;
-	b=DariqowEXvSBQWaHup+z5rbur0/dJE4jd2RHKT19D3F8gvcVaP61v5AfxW9moVjqyqCD
-	 timjWgRHnaJwwbv48nJhi50L2+kmjrOqAorh5EdKkYJObaaNd3gpDKxO5HvW/NG+09UuP
-	 KAh6MOilvpu8/pVPQc5rxlVx/yYUrE6oUsMYoGBKvcBxBlELqJVVGv1Q1RX7iXY1BNygi
-	 XegP5z3NiWwak3MAoqWuPK94jEoII3b/40qQuSfbOIO/Jkc/Dg5S59XzyPc9oVNk02SWW
-	 bAMkE7wVisyjj4WGDc+1S9ZiIgH04oBsyJ+kAQJKBWOWdoSALCfwgZrjczuIjDS+ISQ==
+	t=1795608292;
+	b=kAHrK6lbTd5aYwEiDpMU2SXvazCXV/lBbsdxUkngwlUyj+TKD1HeCV1rMCT0Im+/K9lG
+	 SR4ycMf+L8EuXFlArZBvXtFYupwCLJDmqYdX3bWHkZeVxFzBm1O/QzVOKhpabzArbdTFn
+	 r7SdVDYTnCYnNU+VGPU5qEMnI6dlqE5/u+YTpsTOldgyPGQNQLhSWishvNlYequ395Xsz
+	 jD6j478aQGfrnumRlOhHjhfFU1KYjYEdCA1QJdBgERep7Jo7i+2ITf+eKVPlMK7ncSPGS
+	 BGh5baSYbbGVuUI5hVRGPzXUL2hcjcWmtSFv+KecQ4guYGD2FE8lR3p/Tib+z8yyEAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608290;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=CPo50qO2PRidUlCI48Oz0XpVeY7AnksU4RM+i2sI4Q4=;
-	b=abebisz/BlzGgH6k04BIWkC99Skcqlm9/qcZKpZ2jTf9YmL3qiv3X2kVr+vEB/8YUjUQ
-	 tCIA/sKwpHTLQCm1K1vJ/tdUeS2V9to3jx8/Ca/CRy2vqemogyj2sxd5uUGzMwgMaO/ut
-	 RO/0zcHmOrJSSBt/m6shG7Y5leoHDLAT2r5uvQT+iXgbCO57jNgqWgLvRihKu4pUUrwcj
-	 XR8f/sCTxLlUsoQc5KE4yWk5cg7Eqjeh6z8Y07wB2c22ReLcG/LxJMyFQl/YAsU4HEXXP
-	 9kD94GwtWNNduz2hbUBkccvfEqZGFQSYTfgb9krrZg7jyUXj6H6nOdHhl/TJ3ZHiqEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608292;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=PghfIw5FkDOWeuIpOC4fp+g5iHrz81XWJyRUzrTRwCA=;
+	b=gaSstFq5EOXs24G9zB4Qw2GCph8eORHVNCw6VglJAwCDzpvSobVO5nBlhoVr07mhxQdq
+	 Kp9nxf/mqyQU3Ll1+qTjzlrLDj9AM3kbmt1YNFvc0nLqd6Ofg3W25GXrY+bkjZee9oez3
+	 3vryCeUpe91xoO5dsBvxZT+kaX/Ured3bAGSS6WI4fAZ/jHHC1FDAlzMGP4zttoEHS07B
+	 i5rjm6D7xxbyyewDPj2wYDDM/r7GnpEKM5Mk6zGdQ5/Yw0iUWN+K+TaLmhtfo73kJGjE7
+	 hwc0+GGD+g4tNTtLcfsLofWtc2q+/bAKtySGJ92Jua5y23AV68XqlSnbnxw9bbHcxmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b9VBq4B9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=le6mXG5g;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF793606A31E;
-	Wed, 25 Nov 2026 12:04:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 512B5606A31E;
+	Wed, 25 Nov 2026 12:04:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b9VBq4B9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E8231F000D2;
-	Wed, 25 Nov 2026 12:04:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=le6mXG5g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1685B1F000D1;
+	Wed, 25 Nov 2026 12:04:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795608289;
-	bh=CPo50qO2PRidUlCI48Oz0XpVeY7AnksU4RM+i2sI4Q4=;
-	h=From:Subject:Date:To:Cc;
-	b=b9VBq4B9N23N8o8Rz3rJwWdSB7leqeSGFQecFMcAcxD+oRpjnWNoQEGd2g9OAFZek
-	 +KVXXkNQnVFc1Vrm4hvQoocf2/SCfwn8IJX/pK4l50U4Mri77OimcmQBnIX/1uRDJ9
-	 igWKXzMrjJ0yr6FhAqpzRyu0m+TsyQ+WinkV9//GYwhgKmPxQL16eM1sia3fk+W+Ef
-	 t0f2qG4MZG1QPFblPwuvfXb3UP30HOL0OnJRo38JTK7uHSNQyPOQw48gLAIZ6n0+Pn
-	 8r/ZShEwWf1wHOt2dEh+vVv5kYLc6LKtH7ZiJPV3pON0VNKWt6/Bam1teuDH67+5wu
-	 qbhShPYJqlgtQ==
+	s=k20260515; t=1795608291;
+	bh=PghfIw5FkDOWeuIpOC4fp+g5iHrz81XWJyRUzrTRwCA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=le6mXG5gFsuHR9GZAlf2bLTFh2WVDklnebyY7jI5vwZxtnG5Wy60JVmlvU+VI6TX7
+	 zYxTVaIR+bEhE7JuvPXgRwh0O7Z6OhRZaeAbOmtSjwENOkZt8B0j0/n8sO62cPvx+p
+	 GxW+LgQZ6cvEAqY4IewGfo6AGbTGlu0IaNIXq3/P4PloB0J/qVse3QYlnnLA/uibb9
+	 KHiK746SDEIleDq7sBIrJgOLOgAtAIxX4vV9UwPaN1S3DpMSeGQ/h+k8VQ6FbEhteF
+	 oUVbylCEobt9lqLStwTFOwB3GqQ3DU4MJIsa6PHlZbBHNRrPWlO7UR6vLiYvfBrz4V
+	 krNRwfONwyg0Q==
 From: Christian Brauner <brauner@kernel.org>
-Subject: [PATCH 0/2] libfs: fix multigrain timestamps of tmpfs directories
-Date: Wed, 25 Nov 2026 13:04:26 +0100
-Message-Id: <20261125-work-libfs-mgtime-v1-0-8022a81d0b9e@kernel.org>
+Date: Wed, 25 Nov 2026 13:04:27 +0100
+Subject: [PATCH 1/2] libfs: don't copy the child's ctime to the parent
+ directory
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,53 +55,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6DIBCG4auYWRciEJrQqzRdAA46bcWGsT+J8
- e4VXb6Tb54FGAshw6VZoOCHmKa8hTo1EAefexTUbQ261WeltBXfqTzEk0JiMfYzjSisMs4a17p
- kOtj+XgUT/Xbzejua3+GOca5QXQTPKELxOQ71VEm5k/IgZR3Auv4BxEz4XZ4AAAA=
-X-Change-ID: 20261125-work-libfs-mgtime-513953909f3d
+Message-Id: <20261125-work-libfs-mgtime-v1-1-8022a81d0b9e@kernel.org>
+References: <20261125-work-libfs-mgtime-v1-0-8022a81d0b9e@kernel.org>
+In-Reply-To: <20261125-work-libfs-mgtime-v1-0-8022a81d0b9e@kernel.org>
 To: Jeff Layton <jlayton@kernel.org>
 Cc: Jan Kara <jack@suse.cz>, Josef Bacik <josef@toxicpanda.com>, 
  linux-fsdevel@vger.kernel.org, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-04696
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1613; i=brauner@kernel.org;
- h=from:subject:message-id; bh=hyRI8f8EzBB1XjIl344P4Wx37/LDhzauX0S0ElTo+n4=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSznbuZf6JIUer/IZ9O/07N86/ttlYJv25y5Ordfpvpa
- +L5N5O/d5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAExk4jdGhoeX9wSVX/DSFJl8
- 4SvP810hWSe3iUX1GLZOufDRLV5uYzIjw9Fo53cpDpMlRA24I5w+nmq6tyLvmfK3f59j/xx4cbY
- /lxsA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1832; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=ydmLsipCJR9WepNKTHyAeGjqs+DJAXxw0rk3lS/y+zE=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSznbt1OHrFxUulpfsWblwxae+9E6d5OZXf3Arf8+cVx
+ +MZGydMndxRysIgxsUgK6bI4tBuEi63nKdis1GmBswcViaQIQxcnAIwkeabjAwrmT2MHxxmm25l
+ 8omziUWI4z2DcfPspo9JfQaqJUv3vGJnZNilbyo/K3Xqbo5HZ278Ondox5WVjnvbp0RcdI1u7Vi
+ uOIsFAA==
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
 simple_link() and __simple_unlink() copy the child's new ctime into the
-parent directory. That doesn't work with multigrain timestamps. The
-child's ctime is only fine-grained if the child itself was queried and
-copying it clears the I_CTIME_QUERIED flag of the directory.
+parent directory. With multigrain timestamps that ctime is only
+fine-grained if the child was queried and copying it drops the parent's
+I_CTIME_QUERIED flag. So a queried tmpfs directory keeps its ctime and
+mtime across link(), unlink() and rmdir() as long as the coarse clock
+hasn't ticked. shmem_rename2() unlinks the victim of a rename the same
+way, so a rename over an entry from another directory changes nothing
+at all that userspace could see, size and link count included.
 
-tmpfs is the only multigrain filesystem that uses these helpers. So
-since v6.13 a tmpfs directory whose timestamps were queried can come out
-of link(), unlink(), rmdir() or a rename over an existing entry with the
-same ctime and mtime as before. If the renamed entry comes from another
-directory size and link count stay the same as well and userspace has
-no way to tell that the directory changed at all. In a VM that happened
-in 1738 of 2000 tries.
+Give the directory its own inode_set_ctime_current() call.
 
-Give the directory its own inode_set_ctime_current() call like the other
-multigrain filesystems do and add a selftest that checks the timestamps
-of the parent directory after each directory operation.
-
+Fixes: 234d8895e3ad ("tmpfs: add support for multigrain timestamps")
+Cc: stable@vger.kernel.org # v6.13+
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
-Christian Brauner (2):
-      libfs: don't copy the child's ctime to the parent directory
-      selftests/filesystems: test multigrain timestamps of tmpfs directories
+ fs/libfs.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
- fs/libfs.c                                        |   8 +-
- tools/testing/selftests/filesystems/.gitignore    |   1 +
- tools/testing/selftests/filesystems/Makefile      |   1 +
- tools/testing/selftests/filesystems/mgtime_test.c | 244 ++++++++++++++++++++++
- 4 files changed, 250 insertions(+), 4 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261125-work-libfs-mgtime-513953909f3d
+diff --git a/fs/libfs.c b/fs/libfs.c
+index 96a6e9b1535fb..07331e829c133 100644
+--- a/fs/libfs.c
++++ b/fs/libfs.c
+@@ -754,8 +754,8 @@ int simple_link(struct dentry *old_dentry, struct inode *dir, struct dentry *den
+ {
+ 	struct inode *inode = d_inode(old_dentry);
+ 
+-	inode_set_mtime_to_ts(dir,
+-			      inode_set_ctime_to_ts(dir, inode_set_ctime_current(inode)));
++	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
++	inode_set_ctime_current(inode);
+ 	inc_nlink(inode);
+ 	ihold(inode);
+ 	d_make_persistent(dentry, inode);
+@@ -788,8 +788,8 @@ void __simple_unlink(struct inode *dir, struct dentry *dentry)
+ {
+ 	struct inode *inode = d_inode(dentry);
+ 
+-	inode_set_mtime_to_ts(dir,
+-			      inode_set_ctime_to_ts(dir, inode_set_ctime_current(inode)));
++	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
++	inode_set_ctime_current(inode);
+ 	drop_nlink(inode);
+ }
+ EXPORT_SYMBOL(__simple_unlink);
+
+-- 
+2.53.0
 
