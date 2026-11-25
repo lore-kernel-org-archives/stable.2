@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795626379;
-	b=gYKUMXdjQHorTB3YH9zUGHRshsl9TPo4buNannuOURGVvOIK8qAZhCuiezcCL2eD1CBm
-	 oS4qhxhYg+jHzxuHv9+fLZPDB5e+oMJfv6C4ZRDhqCFJSgx+sUr1TxHu1oVQyky+bQTxq
-	 oVRH2MD5VsMPq+Hl07GKSo97uMnFn9JcD6T5rOACiCRJlTj4avz3UygqX+ENcXpJg7Mbq
-	 e0sX8611M64QeyfQ3hfVeVQCX9cWJ5aa/dqEIkKeFLLkM8lJCCfk+R1Ffs802X5lW8bZl
-	 s2UKXkw9K+F9eAUau4musoz40EQpbH3NUndrgoHrlogiRaO1CEda3UDKMTJahxsG+Jg==
+	t=1795626420;
+	b=NbGtpr18ijaBkIv237oIvY3RIw/d2AUAtSRjesFCBI9bwDvBd3xcnWcsg5Dpbwu9DxOT
+	 gTyJhjmap3r4zaxIrgKOzkBKx6GB3iZOvPxXiOcNe36ISmMZmaTPqAUlkoRdHsFEqwPva
+	 9S6xuryvIG7bzdnyJnpgv7ADIRCu2hO4M1SURyZUjf/otnGNoTrkaMP9WduYULJes8bd+
+	 zMuekbUCpTaWlAALP9rtFzF8a/pQyNnztWPJyM3oKyp1to5/g7mrs4ztA5OWW25GsaPcL
+	 lta+B6b/f5IpJ06oTKgCv2MyKjqEb2FJnGweuNLzEmRgp8Gg4U7FKSjbEScIAkQEczg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795626379;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795626420;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=CShp1yipgGG2IlA5x6oIwsNQlfND9Vdb+MoLnHG12Xs=;
-	b=noIJ9zD0pCZuEv5dpiE2qPJl2k6/qetgb1rEsgPYnuJX+BagZzMSwOiSAg12GU0HBrTL
-	 KVyWysBdqwhZ+Bhp+o9FuqFWBj9W7cj2NOTISuz7lt9rF5pX44/DJfdllYf3wcVNpFWug
-	 e6dRMdVwuXLCpkqUUfc0N6osaiaXPA9pNhC1n6DvdfkK0X9KlOkaBF9cRER7PMYJ0SJ5v
-	 tEtbB9GtMXktO7nqra12ikLU+epyI6feSTqcBbYrnK1pSO+khXrccjM3J/WUoRWdxhcmM
-	 V8/s8DzR0BmnUwDGlOvt37X/22F0i7z4OomqqSQK8X6vscEXY+l0RpeZ+0YMVLcQ4Kw==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=OXq4QeH496KxN/3PUTaOk/W24i54lVWNaBos6pdsNcc=;
+	b=MkJXtDvIyS0Hc3OInQvJXq2TWJRHoyN0kL5yZWhw3fN0NH0FJU4gFmecqllerrZlMCX3
+	 O+aeBLpbQVeaxvOeZCELVgzLl5YlLqp9q8Vd28I7DIoJgwJX8QvE5sku10EZDMY4UvEsT
+	 pTvNajVTqFq0k0a2qxuiFLDBU6uBZJ5cpKkFDUFrSk3H58fkvbmqQ54jlfdPWvU54fIT6
+	 ON1LN613giZdvCpDiDTbY+krRLAt13ZyMGFbU5BEcE7RcBDaxGFKB++g7dNuqS1sJMgrY
+	 FvB1OyX9xFbal6U9Wwmiznk/BOGXwFTfMLFgREshDwdbKdHSAxyjFUPfbOgX/4yIL7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="rVfFn/UQ";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmcQHNTo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE30D606A31E;
-	Wed, 25 Nov 2026 17:06:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD32606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:06:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rVfFn/UQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D98021F000C6;
-	Wed, 25 Nov 2026 17:06:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795626379;
-	bh=CShp1yipgGG2IlA5x6oIwsNQlfND9Vdb+MoLnHG12Xs=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmcQHNTo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6FE1F000C4;
+	Wed, 25 Nov 2026 17:06:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795626419;
+	bh=OXq4QeH496KxN/3PUTaOk/W24i54lVWNaBos6pdsNcc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=rVfFn/UQGEO9YNOFLFZ1viHcdsvaa1bvAreKtBdnYStz+kMn07U7kVB0PR7E8YTbh
-	 pVsI7rE4kUchginlm6gyT6EjYGqEhg4sukADV5pti0vUxJcbNklHeeLOYeAR6qdpTm
-	 T9PZmUXnsxwA5Qcc4maUr5V7fpRPp6KvHWDoAtS0=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=FmcQHNToOy3oZzv/EmYuBdFdDK+BXjFEqQp1VvxpKyBj86uBTgqwfYuYTvFfyd50w
+	 lztGqfXzvUNOS8lrPzUb/bBoq0dcpHKKrVCG5jns7NWNqdhv9xS3qYjFRFOhuSG2Rq
+	 IWrgoJFpJV4H0d40pY90JUFqDhS3t4irw1MlaAden/MB5+bsnaoKZ2ZBayq02AWPCb
+	 FHWRm8MRTEWiGu6SoSaupbEIjm2fobXv0YbXb/XjYvsap2rj0cEDEyZtFbXlXOGPX+
+	 SleItuz3zwyCBIsQ4MLxC+Uecbr2ZXmp1Ktp63JZUir7L+15rINPXHFGnWc8t5Ke88
+	 9M5xHFbXF6PlQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH 6.12 799/816] iio: trigger: Return an error when the trigger has no free irq
-Date: Wed, 25 Nov 2026 15:39:07 +0100
-Message-ID: <20261125143907.666260195@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
-References: <20261125143849.205329330@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Chen Ni <nichen@iscas.ac.cn>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] watchdog: npcm: Remove unnecessary NULL check before clk_prepare_enable/clk_disable_unprepare
+Date: Wed, 25 Nov 2026 12:06:56 -0500
+Message-ID: <20261125170651.922997-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112521-cartel-refresh-660a@gregkh>
+References: <2026112521-cartel-refresh-660a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,46 +62,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: Chen Ni <nichen@iscas.ac.cn>
 
-------------------
+[ Upstream commit ad3746700ae238a96a9a4244d02a2e8eb00f157e ]
 
-From: Karl Mehltretter <kmehltretter@gmail.com>
+clk_prepare_enable() and clk_disable_unprepare() already checked
+NULL clock parameter.Remove unneeded NULL check for clk here.
 
-commit dff701806ab6252f6a0fccba880c47cd09602625 upstream.
-
-iio_trigger_attach_poll_func() prints an error when all
-CONFIG_IIO_CONSUMERS_PER_TRIGGER irqs of the trigger are in use, but
-returns 0. The buffer of the extra consumer is enabled without a poll
-function.
-
-Disabling that buffer calls clear_bit() with a negative bit number and
-drops a module reference for the second time. On arm and arm64 the
-clear_bit() goes about 512 MB past the pool bitmap. That is an oops if
-the address is not mapped, and a bit cleared in unrelated memory if it
-is.
-
-Return the error from iio_trigger_get_irq().
-
-Fixes: 995438233579 ("iio: Fix error handling in iio_trigger_attach_poll_func")
-Cc: stable@vger.kernel.org
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
+Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+Link: https://lore.kernel.org/r/20250313084420.2481763-1-nichen@iscas.ac.cn
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Wim Van Sebroeck <wim@linux-watchdog.org>
+Stable-dep-of: 57c7cbe21acc ("watchdog: npcm: fix clock prepare leak when setting timeout on a running watchdog")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/industrialio-trigger.c |    1 +
- 1 file changed, 1 insertion(+)
+ drivers/watchdog/npcm_wdt.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
---- a/drivers/iio/industrialio-trigger.c
-+++ b/drivers/iio/industrialio-trigger.c
-@@ -292,6 +292,7 @@ int iio_trigger_attach_poll_func(struct
- 	if (pf->irq < 0) {
- 		pr_err("Could not find an available irq for trigger %s, CONFIG_IIO_CONSUMERS_PER_TRIGGER=%d limit might be exceeded\n",
- 			trig->name, CONFIG_IIO_CONSUMERS_PER_TRIGGER);
-+		ret = pf->irq;
- 		goto out_put_module;
- 	}
+diff --git a/drivers/watchdog/npcm_wdt.c b/drivers/watchdog/npcm_wdt.c
+index a5dd1c2301374..e62ea054bc618 100644
+--- a/drivers/watchdog/npcm_wdt.c
++++ b/drivers/watchdog/npcm_wdt.c
+@@ -68,8 +68,7 @@ static int npcm_wdt_start(struct watchdog_device *wdd)
+ 	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
+ 	u32 val;
  
-
+-	if (wdt->clk)
+-		clk_prepare_enable(wdt->clk);
++	clk_prepare_enable(wdt->clk);
+ 
+ 	if (wdd->timeout < 2)
+ 		val = 0x800;
+@@ -105,8 +104,7 @@ static int npcm_wdt_stop(struct watchdog_device *wdd)
+ 
+ 	writel(0, wdt->reg);
+ 
+-	if (wdt->clk)
+-		clk_disable_unprepare(wdt->clk);
++	clk_disable_unprepare(wdt->clk);
+ 
+ 	return 0;
+ }
+@@ -156,8 +154,7 @@ static int npcm_wdt_restart(struct watchdog_device *wdd,
+ 	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
+ 
+ 	/* For reset, we start the WDT clock and leave it running. */
+-	if (wdt->clk)
+-		clk_prepare_enable(wdt->clk);
++	clk_prepare_enable(wdt->clk);
+ 
+ 	writel(NPCM_WTR | NPCM_WTRE | NPCM_WTE, wdt->reg);
+ 	udelay(1000);
+-- 
+2.53.0
 
