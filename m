@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608339;
-	b=uDfRZFSpQJacluxNUDXaWPMRWup6izbDIzJKDFAIB95cuhi62yGiZtr2lUT1kEJBi8Cf
-	 RZuakZzO7jPtmjY+6ByoP+d46uwDQyK05M9ql78fegTvUYvAT1jjswu0OnOp/iYfpvjWY
-	 /X2P53zP/S01+J8XeBBC8N+a25BQiGz/7LXvEpTUyrMTRDgvUnTaX5KneB9sYD9tuaBiw
-	 AoctW+bgGydfcandPVT3i19xgZS3uE36PG/xbzRiaZDu0x784nN1c1tvmPSf4vmeWZx95
-	 ZrfKeiFSJjta3hlNHevPwoZiH59VnUhaiRILAbgh6IKphTL/WyUOD3N26BEuaYI1Btw==
+	t=1795608342;
+	b=vmYI+tTvwOyCpX45PkCdSRQqvIvwZEHXtVPK1m8+ZoSqdJBhV5CUWWbAha4avJr1ya5T
+	 6BI2K07YfdCcYM3edvCZ1YE/H4sxSBd0Lq5DD0rl1y2mei5qrDLAiSV6pzghQZEPmsfvc
+	 sUpDDcOjxrFm5OPomgwl0Yvq2iCQ6/IHvukyKPSgojX4hpJiRnCOyNf9AjO1boh+C0ECI
+	 kOnQimIvxpx1aeyGifx7kdlwHxNR4aGm9rmaT+GFwaLljWFdQNNHauMUPRgWlVxNwrGRC
+	 zemr9oY7vMQwLoka35MP8qjEeO8YBKRXHk9TU6Rxb4uEtxkiqSBmhhoOoRA5J3rntAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608339;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608342;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/rHU5/zDvoX+G7t9EpTRPLzUZiWZst3zBYAIZytjJLU=;
-	b=RF2foe3zSXj84pDKKgDKJpktOrWtLQc6m348/4/78nGzPB5V2iC+RSqK9rQuP3oGMIre
-	 3TBl7Jiks01elAcuhILomZRXtRY0v87Qrcc1baeusmB5F98pdwQwh0o8YcJcJM3f6Hpa5
-	 ZLyD/NF57HhRGfWyp4Z8G46/XjcRP5frE32/ExpWmx3TN+Qhz2ec1WssV3Hk8RdbfG8vV
-	 AlnXaoAnBsZXFNcDjJ6ZgvguvHKeZT1diYpCc9ptA35L3kUniX2mDUM2iVz1vDKPlie0q
-	 Ex1OCzGPj38PF7L7m/vtDTMvXi0ebSq7Ta9z06QaxByGXybPtV07wvvk9nNqA+JM3gA==
+	bh=sQwUwMr9Z8mvy0qjIlGsKs7awBmgb9BTBcvjrmV1Mao=;
+	b=VKY07HLsLIF8+5J68bv7RLzAB6EJP93/Yiuh6/UhJZgXs7cBZvZKCXvrisXrE3NAucef
+	 Zfier2xdcKTLZT+3uFZV5LpI2vHsJzOzi1syAsGBcCXaEaZs3E9bWo4ubHtILeyM7lWXg
+	 tGNqIW4Z+oOcOpiTQj1iKozTxHFUzAJN7raYL35rTT/6XujERtXtFGxxBXMwJfZ1ya++1
+	 cZbhhqjokpXij3ziQDVbyIxM+YLZ++Bw2aF877kSYRDP/CzhP1BF8awz3Ji6VlJCU0FZR
+	 R4af1SgJB7QjWsNT8iDnzREIVxo+lpPcVexu/cGBKlp+qLIZwU69EZP+ztetdBgc0fQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eZCIbvW1;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="xEjs8fI/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33932606A336
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:05:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF4BD606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:05:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eZCIbvW1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF4661F000CF;
-	Wed, 25 Nov 2026 12:05:37 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xEjs8fI/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 474CC1F000C4;
+	Wed, 25 Nov 2026 12:05:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795608338;
-	bh=/rHU5/zDvoX+G7t9EpTRPLzUZiWZst3zBYAIZytjJLU=;
+	s=korg; t=1795608341;
+	bh=sQwUwMr9Z8mvy0qjIlGsKs7awBmgb9BTBcvjrmV1Mao=;
 	h=Subject:To:Cc:From:Date;
-	b=eZCIbvW1jrVWQ1RHqidYg74sjQW3hoOHsq+OhbxujGLDYArLfn+TFTy7vt6Ug1OJt
-	 7FN4IwHQV6e1/r0qpWF8uoNa5zMev6YDqModPWX9SMQVlllCcV+LfiAfb5ktvpNxnJ
-	 Xs7SwZvX6UUzCD3YqCGVRfd1Z7aO6chjqwzaebI8=
-Subject: FAILED: patch "[PATCH] rust_binder: push BR_TRANSACTION_COMPLETE before" failed to apply to 6.18-stable tree
+	b=xEjs8fI/cyiF0qpikxYCwH4VH8YDfech4ZSzTkSaXFWD68dg2uIo/I118pDiZ/TX6
+	 iHimmt5Np1GzbJJoPGDxHjevHZiJWAfCh6baCB7SgNNNscXw0Uz8F2rIZepxs7zp4f
+	 tBvQeC9ik0v6/Q52mSQ/IDgN5ZF7FtmgfDI8Mdww=
+Subject: FAILED: patch "[PATCH] rust_binder: push BR_TRANSACTION_COMPLETE before" failed to apply to 7.3-stable tree
 To: aliceryhl@google.com,gregkh@linuxfoundation.org,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 12:31:53 +0100
-Message-ID: <2026112553-margin-rope-d6e2@gregkh>
+Message-ID: <2026112553-washbasin-jingling-2217@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 7.3-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
 git cherry-pick -x ff9de8571f05e8f62f9cbe29f38e0aedda9389cf
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112553-margin-rope-d6e2@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112553-washbasin-jingling-2217@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Possible dependencies:
 
