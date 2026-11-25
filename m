@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795609030;
-	b=CzGtwKjlQdhHpinosXKLDoa+NaZQbSHYc6qGyCxBBQzG5X7z0MTuB6aknNT3Zvmmp3CR
-	 WKKwBaFec0Fg4B5uVR1Hq8vVy9iah/TY7TNUGgL5xc35iFLwIXqungw22fDjsUMhcQJGz
-	 e7zcv4ti6qAKFhvzzFxyi+6rtbfe7h/gSEi1u9OJk911nJe8GULHuBYfeLMzcE+5CBnlM
-	 HpE2nFnaMGx38IpmfnTLmn1/DAf2WVnvC8MgcdT1UMQyvNRaQQB0T32kIKjbyXpJgmgPw
-	 hOEeteh0Qioj9lKgA9+Rv3l4/vmf4xVKQu02uvs4RRZymKKHqUUx/3ZoHJckzuB9zSA==
+	t=1795609031;
+	b=pUvKCWQOZ6+gGF9m5C7wUDB57oner0PgfNnNudDQ4pMnkoiDjKHev85K8ZUB+Q5lzYsu
+	 YrJrn5LhaK9IQl+VwmKzbMaGGQS4feD/CjQ8CYR18F0bJ2wdz6tTr0/RdK3sFpkBW2aUP
+	 jpIS12QbD9bLC324dI6DeRPAVpTar6oazc5MsFKuqgG6LuHHSdYM6U+c62J68ixiJqXSd
+	 xOdIi4WmSH9+dS54uVNDhJWd28b3/1KU+2DsC7BeE4AL/x10r4ok16/RTe1Z7My1WTd3y
+	 A3oGVaBS8tMr6yPJs9tLbvQ2++oHqII+dFQdB9bKKH7v5KMwn1kVZMjgp6lxjIlLDHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795609030;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795609031;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=w8tUVNHS/D38ZjyQ5CWDOY/UFQrlls5f0YWk/lFXuJA=;
-	b=IAxrtwd5V2zONPzo+bG6Xdfzpl/ZQ6acMe0OWlFv9EiqQoyt0tpAiTMXQJyV/Ko72kbP
-	 aRtmIFlWVhcl4jjUex8tx76E4NYfl8irzfSiawTEJdaBo2FAlwD7TU+lQVPcuJE9f0QhX
-	 aAbAas8CcgB5w3a2TZS9jPmgKx75dypXZLf2ph/OD8QYr+mAwxO1oSdURdTCpMU7Zeesp
-	 qIcO5cg+9wxt5tMOD30Y63h3xVzkt/V42wicA+/UGGffWle4oTC/R+9uIGmZZfvWna3yg
-	 73SWl3F/dRhkNbfEB27sHQ9XRZ6FKbaE5OzEu2zfrxuJdqt7/zlaF9j0G9joLkOHkXQ==
+	bh=Rulwleyh8bhvWAVb0QvlMS6II3FShQUJjsRscedmHGw=;
+	b=B73BatCNCXMd2T0gjZpE30VCK20jLKX9mt1ICIFciRh0aAdQCJbE8hg+LkcgV/kkz9L+
+	 z1Uri5sMt6FvSdr7je9iX2t9gxMJwn5N+BL+it8ggBS9yyTOyj/chXIN89oOBZhsr0E3R
+	 VCegps76kZFhMVffzxsZ3+B2pHzWPyKpxg02bfo9DydMFf0V+6xsZUsGRUf70S3JqVyKH
+	 IgmVfLVf6jBP1Yq3x3rEKem/albWlToMXrqaufeGlnFun4uIZrfc2Cc4hLa1eB0RtT1Y7
+	 KxkPbRZ23/bgaPXnkltPyG0hjznvqu4S3lcuVz1j10RMDfAhL/I3kaaGkhPA9vVok6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=p7Hgccfg;
-	arc=none smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=O5r7GYiS;
+	arc=none smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A9B606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBC2606A333
 	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:17:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35A9B606A326
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEBC2606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=p7Hgccfg
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c5133831027so809561566b.2
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 04:17:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=O5r7GYiS
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c5133831027so809563466b.2
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 04:17:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795609028; x=1796213828; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1795609029; x=1796213829; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=w8tUVNHS/D38ZjyQ5CWDOY/UFQrlls5f0YWk/lFXuJA=;
-        b=p7HgccfgldId0EFsZVtky/Yn1tZ+TXful4b/uTLUd3Uirf9ev2SvdKPgZk5QhA0Lt2
-         1qkohPw+/agFjbbWnIjR8WS+b4pwrBVFMLKrd6rFnoSVmqOWjMeRdeiZflR455d37vmA
-         aS5Dos4/2jRxZn/T8LGuudGN5NyJ9xj5d4vFV5gk0bhYygcymgiFmtdET3W51r6650UX
-         Ac8yo1SNPbHqdJbdJFsQfbY6ey2meedmWfjHbJT0FUl3wOwVuR1XP9tAgYOHvJJ53JTF
-         slJe0WZt2mhG3ZsRHBi4/xOQCcCGBmDA/XH7SZSeS8/ufvEVbJwqEUepD6XpOzwSdLz8
-         tZPw==
+        bh=Rulwleyh8bhvWAVb0QvlMS6II3FShQUJjsRscedmHGw=;
+        b=O5r7GYiSdiZ4ezUF5CMM0dsFvXvFdK4+E20x//x2UQMWvSRp0b9zkxupjfY+NYoVil
+         cVYIAWsXkQQ1PfzaXDcvtSx3/mRUFTEyvD76zT/6iOypE5vYa4p7WsH+tSq/H83BLFSg
+         TqWS36RHVS3UXn2R4CXOVcKPNu0b9/xcUV7hrp0xy/newLmtP8NzQaEZycTYyth7Gv/+
+         oFbHIR7yGGhhY0bUcu1PC01U/agNylKrJ0uFIy5o7C/0heJM+l0E2GsBNavEwCAlLbwN
+         9SipVLNjdsyFoU1k3v0LgRKewgTbUUjD5WwR+vwY/85Fr6dXrOX4RRmpVT6xGjs2zOFp
+         UrXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795609028; x=1796213828;
+        d=1e100.net; s=20260707; t=1795609029; x=1796213829;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=w8tUVNHS/D38ZjyQ5CWDOY/UFQrlls5f0YWk/lFXuJA=;
-        b=OLVGwRm1//4hxvPHFUGR9pAP81xfkSn7wmMbgBa9ylnjez64srUw4tyu31CNhZLAd0
-         118JDaNIXEmKrnRWDQV62mf+tnplE92okiYLhcW8ruXcA2mSip00DWke8qbk5yi0k2lA
-         Xiw0aImUmvbbgMNXEoQVoN7xG2a7+vDPmI5ZCRrQD9FgIj4JFWhZkcEA3mwtl8Mgd215
-         P9bcyjxAsCSKpruGA6ccGrWzR7MRQXIzafdxc3kyRkWx2onJgjRSpEE7ls9Z39ZNnz1R
-         sPusxlGu/vxufdddArA89SPyHFDjIlh2k4tkn5ztGeuQW9XWcyqVRq7NKorZXClUmTGS
-         Yk5Q==
-X-Forwarded-Encrypted: i=1; AL+hErG6sCqpz8vipb/LfnRBH/tYBXIpzHEpEYieezrLVOxjxi2s+rAwGRn15G5zuMV52FRChN6Kx40=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/5/XTMsF2gGYIYQd+sTueypVFjJR1gWSR9kQcFl3PHtcArgEMM
-	wx/k/P/bth4zOq/LJ+KTHaHuwm25jIUqVB482RghwNMy6avSjTTZ+j6Q3svLheI7nUA=
-X-Gm-Gg: AZFdTZdA/HGcEEGAEkQzGNZWDE1niLJGQ9wJSopaPZ5WxMG7igauYU7WoZvo5GQVClN
-	iRMdVx2sHcJ5toRTqFxTScb1SoxB0daTRP/h+WJUIf7tIZ50bMTmPd3MJxp0znO3WwwoehqgmzA
-	OA33jt54RxYi5G+3XzIKvJPll3TGfYL+7y+HcMqPgvO9sgsgkXpqA3eYPNskt6MjIOnhSh3zKLS
-	LxMALMEiMMzezRVbP/fNvkL6fKJcff64TGoc/hfdaeXm9PkVYmrgTOtkDof4+s2crVbQ4qkI6iE
-	fdWOoVIv9hPfXlWS8hbQlfKodH1eNwexu80Is8aCCYar6sIT4K8j96f4l1pObJUYLug2zwD4bkT
-	pC3NoZe6HlvidWZvP9SEIIs09Hlc6Mq0Ib1QQWBe/gwlHYI27yxNvBuc4uNxJHR/ab1FSNk0r+z
-	xWW6Z9BxNMd2c9rf/Iks2xvk7e7vWz/gXo0+wDaWvttG898VPP3rnF2ehTehzJEP7gYtSAe1KUq
-	64F/Z+ZGZdiKjM4P9Eyhr+NwLHK6NcFLAwRvOCFZRBGUqF3eL1vnB6CR65f2iNxWtssbeVy9Voz
-	YDOcza1SdfoHWZuwWHAEBTP0dxPq1DFtPvZ6wiZf/g+QezpvfeT0yreUISM9upKnLGuyWIxqLGP
-	i5O1Jny+j5bWFvpREWg==
-X-Received: by 2002:a17:906:3948:b0:c50:b0f1:abc9 with SMTP id a640c23a62f3a-c513a60eab9mr967680766b.18.1795609028530;
-        Wed, 25 Nov 2026 04:17:08 -0800 (PST)
+        bh=Rulwleyh8bhvWAVb0QvlMS6II3FShQUJjsRscedmHGw=;
+        b=BqAmeh8BGuQSfRdXNxoy4pb7pU3BG6jOlCH/8RO3gLDYYZfmKD6P2STmBfNH2+VOz6
+         QCxNg6tEAIWseMSQOW7lMl437gLiv52oYHxFlbckgBxiL0O+W5jndyqNxWNhaX5r2JFp
+         lPj/oSBvDcJEcfAoZq8GFCF8xWd1el8o8mG44ybbjsDk/3va0z7sPY62Wt8LmIWrpnSd
+         ijkDiUbb8AXRH+Xyb+ldqXnNARQU4CnEl7elOol8T8qra4WMuQCP3ote9ziR0+WTsgTZ
+         bQtI4df1guaYqjx2mZSVj4Qo1tS5dDWo+iw5cS3mR8VHB/DHig4iQFvY+MvurgydDaEw
+         Lz+w==
+X-Forwarded-Encrypted: i=1; AL+hErHVNWKu3A6DMB3rc1hZOSwstlouEWdRgdGaQdtGbNJMejulId4YREa6PD9MlppS9QJv++/yuJ0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z93cd/lka7OA9+pqL25SpEBWwlATHLxWjcpHN/YYo6e3YiH3Y/d
+	bE2P2uS1yMmr3GsZaj3IPqmc3MOSlCrCEbsaB91fnQ+vkDhsfPFmca1wWpV3L2Sk7lg=
+X-Gm-Gg: AZFdTZd+E8iMgbRGfoqt1sJOd2BMmbqDDmD3VLzovuiqYOQH2qLGqJrSFb19/HboZNC
+	9xhg48qAIKBMgrrdBhDJeNove54Vs23V1BoqaDrVaXWFBmeHSNUidYHDKdqJYlNmyZ79obm51/M
+	JLJN1RbFbu+7LQOEQdXsDMFcubtZgXVLtLv1QTpNKT8DK9O/EVMWa7/Iawtwyifl8/M1zaLHeKC
+	zge3GqJXD6N2UOYxquK727owrPi3WkeMYTREn1Cd2qEYhSxzVGzmLHw7HWU7ePcCKAprupoY6ay
+	5AGRK802TCd47HW43m4azZF/5PDbtvIFcuWfp7yfXHRECcijeFOzctdGq/bz1wGtt5NrjEe0/cL
+	YFh/5RNahTbfTmuWXYXvRvZ4mamZS6VudATXCdFoI8fnJnqLsi27+p4XQDFbJatpA2A5h4BHZFn
+	AfaxMWHP+aKedzMTf1kPO8S56jPT5CjvWPlJpEaQwPzeRfuj1JsaN8oukQNw9OE7kje16TWyBm+
+	3ssrFUSMSU1R5O6Y2NmsL90lj9JHFDaWp9otX44tKVlxaA2mpjpyFLcVktN9IttR2/NSlxh8gvG
+	Yi25un4R1AAbQ+942h9lNA/a0l0IHkp/dw8Hp9DOMqcb7bgzPmgf9lRCRqKrPFk+72WOcsDraoA
+	akzWMNyG+KtZYuSw5bA==
+X-Received: by 2002:a17:906:a11a:b0:c4c:d96e:80de with SMTP id a640c23a62f3a-c513a5dabbdmr1120945766b.8.1795609029062;
+        Wed, 25 Nov 2026 04:17:09 -0800 (PST)
 Received: from puffmais2.c.googlers.com (226.124.90.34.bc.googleusercontent.com. [34.90.124.226])
         by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ad00d2asm650611966b.3.2026.11.25.04.17.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 25 Nov 2026 04:17:08 -0800 (PST)
 From: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Date: Wed, 25 Nov 2026 12:16:55 +0000
-Subject: [PATCH v2 1/4] usb: typec: tcpm/tcpci_maxim: fix invalid wait
- context
+Date: Wed, 25 Nov 2026 12:16:56 +0000
+Subject: [PATCH v2 2/4] usb: typec: tcpm/tcpci_maxim: init wakeup before
+ irq
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261125-max77759-wait-v2-1-9914b985c00b@linaro.org>
+Message-Id: <20261125-max77759-wait-v2-2-9914b985c00b@linaro.org>
 References: <20261125-max77759-wait-v2-0-9914b985c00b@linaro.org>
 In-Reply-To: <20261125-max77759-wait-v2-0-9914b985c00b@linaro.org>
 To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
@@ -111,92 +111,56 @@ Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
  stable@vger.kernel.org
 X-Mailer: b4 0.14.3
 
-Lockdep reports the following with CONFIG_PROVE_RAW_LOCK_NESTING=y:
+max_tcpci_probe() requests the TCPC interrupt before it initialises
+the wakeup source of the device. Since the interrupt is level
+triggered, an already asserted alert can trigger the interrupt handler
+before devm_device_init_wakeup() is called. Its pm_wakeup_event() does
+nothing while the device has no wakeup source, so the wakeup event of
+such an early interrupt is not recorded, meaning the system is then not
+prevented from suspending for PD_ACTIVITY_TIMEOUT_MS while handling
+that alert.
 
-    [ BUG: Invalid wait context ]
-    swapper/0/0 is trying to lock:
-    (&dev->power.lock){-...}-{3:3}, at: pm_wakeup_dev_event+0x38/0x80
-    other info that might help us debug this:
-    context-{2:2}
-    locks held by swapper/0/0: 0, on CPU#0
-    Call trace:
-     _raw_spin_lock_irqsave+0x60/0x98
-     pm_wakeup_dev_event+0x38/0x80
-     max_tcpci_isr+0x2c/0x58 [tcpci_maxim]
-     __handle_irq_event_percpu+0xc4/0x4d8
-     handle_irq_event+0x4c/0x100
-     handle_level_irq+0xe8/0x188
+When the driver unbinds, devres works in reverse order and in this case
+removes the wakeup source before it frees the interrupt, which leaves a
+similar window.
 
-max_tcpci_isr() calls pm_wakeup_event(), which acquires two spinlocks
-(spinlock_t): dev->power.lock and the lock of the device's wakeup
-source. On PREEMPT_RT, spinlock_t turns into a sleeping lock. Since the
-interrupt is requested with IRQF_ONESHOT, max_tcpci_isr() is never
-force-threaded and runs in hard irq context even on PREEMPT_RT. Taking
-a sleeping lock in hard irq context is invalid, triggering the lockdep
-report above.
-
-Move pm_wakeup_event() to the interrupt thread max_tcpci_irq() instead.
-Drop max_tcpci_isr() altogether, since its chip->port check is already
-duplicated in max_tcpci_irq(), and request the interrupt without a
-primary handler.
-
-Note: Moving pm_wakeup_event() to the interrupt thread doesn't allow
-the system to suspend before the event is reported:
-suspend_device_irqs() uses synchronize_irq() to wait for the interrupt
-thread to finish, and pm_wakeup_pending() is checked after
-suspend_device_irqs() returns. Once suspend_device_irqs() has armed the
-wake interrupt, the interrupt core reports the wakeup itself and
-doesn't call the driver's handlers.
+Call devm_device_init_wakeup() before devm_request_threaded_irq(), so
+that the wakeup source exists for as long as the interrupt handler can
+run.
 
 Fixes: 6f413b559f86 ("usb: typec: tcpci_maxim: Chip level TCPC driver")
 Cc: stable@vger.kernel.org
 Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 Signed-off-by: André Draszik <andre.draszik@linaro.org>
 ---
- drivers/usb/typec/tcpm/tcpci_maxim_core.c | 16 +++-------------
- 1 file changed, 3 insertions(+), 13 deletions(-)
+ drivers/usb/typec/tcpm/tcpci_maxim_core.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/usb/typec/tcpm/tcpci_maxim_core.c b/drivers/usb/typec/tcpm/tcpci_maxim_core.c
-index a19f52515429..6e202171f57a 100644
+index 6e202171f57a..2bb306b6b1f9 100644
 --- a/drivers/usb/typec/tcpm/tcpci_maxim_core.c
 +++ b/drivers/usb/typec/tcpm/tcpci_maxim_core.c
-@@ -411,6 +411,8 @@ static irqreturn_t max_tcpci_irq(int irq, void *dev_id)
- 	irqreturn_t irq_return = IRQ_HANDLED;
- 	int ret;
- 
-+	pm_wakeup_event(chip->dev, PD_ACTIVITY_TIMEOUT_MS);
-+
- 	if (!chip->port)
- 		return IRQ_HANDLED;
- 
-@@ -430,18 +432,6 @@ static irqreturn_t max_tcpci_irq(int irq, void *dev_id)
- 	return irq_return;
- }
- 
--static irqreturn_t max_tcpci_isr(int irq, void *dev_id)
--{
--	struct max_tcpci_chip *chip = dev_id;
--
--	pm_wakeup_event(chip->dev, PD_ACTIVITY_TIMEOUT_MS);
--
--	if (!chip->port)
--		return IRQ_HANDLED;
--
--	return IRQ_WAKE_THREAD;
--}
--
- static int max_tcpci_start_toggling(struct tcpci *tcpci, struct tcpci_data *tdata,
- 				    enum typec_cc_status cc)
- {
-@@ -538,7 +528,7 @@ static int max_tcpci_probe(struct i2c_client *client)
+@@ -528,16 +528,16 @@ static int max_tcpci_probe(struct i2c_client *client)
  
  	chip->port = tcpci_get_tcpm_port(chip->tcpci);
  
--	ret = devm_request_threaded_irq(&client->dev, client->irq, max_tcpci_isr, max_tcpci_irq,
-+	ret = devm_request_threaded_irq(&client->dev, client->irq, NULL, max_tcpci_irq,
++	ret = devm_device_init_wakeup(chip->dev);
++	if (ret)
++		return dev_err_probe(chip->dev, ret, "Failed to init wakeup\n");
++
+ 	ret = devm_request_threaded_irq(&client->dev, client->irq, NULL, max_tcpci_irq,
  					(IRQF_TRIGGER_LOW | IRQF_ONESHOT), dev_name(chip->dev),
  					chip);
  	if (ret < 0)
+ 		return ret;
+ 
+-	ret = devm_device_init_wakeup(chip->dev);
+-	if (ret)
+-		return dev_err_probe(chip->dev, ret, "Failed to init wakeup\n");
+-
+ 	return 0;
+ }
+ 
 
 -- 
 2.56.1.831.g720f3f5937-goog
