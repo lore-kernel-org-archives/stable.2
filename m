@@ -1,59 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795619894;
-	b=DfQhAxGRcp3JGgNas2OAGtvB11y4zfgZXN7KGwNyyUDsxJqAE1kF1PKiPi1y7JdenXlK
-	 TZfeHWEJri5mmAYCt9cy1EmMsWIqHcdW3L5IX1n6LlPBW4+kr0ESLpomca67KTyUjI9Di
-	 67Q283I/N3VtIztZnWwRyGtllfHFwHhyCUovc1M47UtjaLHBViQzdPnWKvUl5NNauWsoY
-	 HoUocEo4vyFKYGPqZkZ2BYHpos/4zWNLc4WzaSKfSOmre5B98TUK1Ejci+UVsDscQLDm3
-	 /EUnQ9vKcaJRRRYraoFLSq+gVe2vtHYF6JEWIa5/XN33BBGQsGlUuJlUfmTYptU4c/Q==
+	t=1795619895;
+	b=b58Nk8+Od+pBxcyLWqaFcLMLXJ3XO9s9mycGf+g1H3IaJN77EHLX0VFXSGuxQM7jzS4i
+	 U6Lf03DBftVl+jFcGNCvrkXnpb1WEJZUQ/Dkzb9IyyJ9KVUcsk2U3lCo6SvuVCC6Tddt+
+	 kerejkNxVrUnkPXF9Ffd7dTHEw7WZ1747X8XhhUqQNSiv+nU1NEuD+6CJhC1VGOJSGqEf
+	 jgXAGT3iGT7uwWKjxW3lBdI2ygWq2pGV2tTB5qKWCsKN6sAhrOZCUpIeoxrgzaRo/I9f/
+	 MWxYIL2eUWBLGIBTqZlmz5QkKJLhDsIbsOc2Q6zUvfgA5kB398wosjRR2ntfXKm/Scw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795619894;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Om7BDLDWY+28kd5s8wV1BR+lGXEVf3yBHJkB35X8EPw=;
-	b=YCw0eL2BfV3l8RozLJSxKcBktM0kMU5levcxrnrIoO7BLslgWU5oOJOCEK5qC6s7NOrf
-	 abQ0rFXyrqY1emvhj1fUrsem1NWq6q5pWQum2xXwcVThUYTX9QhOnv/HsuQKe3LMpC30z
-	 UIhNdY4U8npu6tQfUzxWp2+RSXa2MmCE3p2aMh80PkHf1Jkmb9nfb5JqKrSU+qXsio/ch
-	 i2PbftlAIwZ3kVlDm97FYquwzAmFIeWrTqQ2FlKITLD0x5Swx9+VN2giKcGyVo/bqSKmj
-	 v1xbisP9JqAZ32XiW2Y7yKa2WMfWllYqidCqmqnYB41fIcWFfZJCWr5iSOwYvwpiNIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795619895;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=9v3KGObS3I4qmCXXeaq33Sk2gaD4E0N82i03n+h6Igw=;
+	b=t9C90T0QEYRDA+Hhu4+0kUjSM1Lkg5JPTARupY2kJGmNy4QPRkfxwtXZk1JptC5AhvTZ
+	 qr5+ShZIlHDhRsJ3BeiqN4KSR4Y77/PjnjEzLfaQExqAD4W509/7FuRS0ENngfayBfNs3
+	 g8Yfvek+fyTf58/nCxhYP/WM1OLUZMfDvlAV4X3jSQMtcL9L29Ubkg3UBMQQ/yD75RF75
+	 1fPSLlOllPsM5iAzCeQO6xa24j1WDKrOW8zT45pZiM5pE4LqiZQBlSQgjUBCQZoXvQClM
+	 bgmilNbt0FlHgOsRnpr5Vhfl6K65W6Ys6mKvoPlwvIi6CNZzSSwUQblS46M44fX+32A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eAyyZgv+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qlDEiflK;
+	arc=none smtp.remote-ip=209.85.208.176
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3F1606A321;
-	Wed, 25 Nov 2026 15:18:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91685606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:18:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91685606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eAyyZgv+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DE961F000C0;
-	Wed, 25 Nov 2026 15:18:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795619893;
-	bh=Om7BDLDWY+28kd5s8wV1BR+lGXEVf3yBHJkB35X8EPw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eAyyZgv+vkrczFrWUcFEqNnsedUtAqd5oJu855hPspBxwL5wRQ1TgYtl6mgHo8aVJ
-	 wAETHwQ+W1cpVac+zGd22cHSYdgSbg1qrGYhis7YHFbiVGnzV0txAgm8bqhC6SmoOg
-	 qIr/CJr6QhiItlNQ4L2CKF4qkdr7pN87ye0GKB34=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qlDEiflK
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3adff684a52so48036671fa.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 07:18:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795619894; x=1796224694; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9v3KGObS3I4qmCXXeaq33Sk2gaD4E0N82i03n+h6Igw=;
+        b=qlDEiflKUetv+4QYYL/mYdkoS+iEeG+DUNHlgb5S/T43X+SjRjP11S3HdqL44CbcNn
+         90/+ASGub/use9y6AKu3o2q+yVPjcuJCvWCa4L9RMoSisGcCCjsKSQbq7MEBsGE863Vh
+         mBsySexR8epsSZPrQJEF7Tt+zEmvOluImMYIDzjkcMymwbkOA+cFVffotgVBfAdzM1Op
+         sGqx16iMaIgDycX7HTMgwZ5ev6mLrJqNKdjSAUtsuU1VFJMEgkH+xsiXgkehyvvENVU4
+         XS7meC1Yt9HbgJDY3tmdgHAtwamcY4EKwYOThItuSmTERUt61ilRNfrt+rnvzQ6z7xNN
+         SyIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795619894; x=1796224694;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9v3KGObS3I4qmCXXeaq33Sk2gaD4E0N82i03n+h6Igw=;
+        b=sfGcpzwUkbK96z/Oo4Q7vRNDaRgZtYxCUgE8NT0NFT1iPp5+VchwbVxHssCnsjJ/9e
+         dtaWJ9yWuaQETAzyjg7/v0Rvxk3dtsVW+/D5MawEeJO7Rc4jyPVhj8M4hML/rC1VMSB0
+         g7yppE6bAaAw8B9DS8PX6W9+SsKc41f2ctVcu4odgrSBpMLSsmDJm2MXBGlyJE+P/2/z
+         ySvq9dm9Cth6Tyy27bQ5RNwyG2lvF15+ylAqh21C80Y4JI2HPJgCMU+UdYaRkESJ+9Y1
+         l3NvZovMAXIwdTLPA2+0bJesGMm0Dg6S+pnlskbEwzpVOlMVtLfBcoZQzwWxKZ75s7VG
+         gOdw==
+X-Gm-Message-State: APuU4Z+2XFCJFIp92m39ojAycv0lMnNB7nfPsEXGqtDxptszxv0DvK2d
+	ToYUPPXaTuYbelUF9C17+k0vtQX4ojC3M9oF/KWVEjwO8U9aLFiGM7QSgcimLLAE
+X-Gm-Gg: AZFdTZd2T1i0XehLDvqlJQUcTBh2HcmCMaq6Jlvvr9JhPqt/v5IIjByGbN+5V2z2Hgi
+	K0qI3PQCmTHIaf07S9V7S7Whaboavm8gVzdIVPmEg2/+NKoR5hKUeiZ2YN4YjKFK893BXfV3xwR
+	Da2BqgzhdjLfLdFZ5StpaYBD6E//oB9Ef7mR4mYwekFynnQtLA9/+LZvdG0l1KS57kESRtMxSlu
+	aTBTn8YPbaUQCeD2f7+/IXFG1rzIGk+qjvJlauQ7o9csxV4j6I98M6eyfIF6eRIYZDOg34SbxhW
+	jSxmqqoDrjr2jw3YeegCt6+FYOW28Pesj1wQ8QCaCx9iw9GQbhwegEJfnKYUSy5BxtHbwy8vw2R
+	+AcgKopo+vkjUpqT5iwjaiBtibYfgZcOBqehAxsb4ozDtigq1573Ljf7AWjUwFSUJ1qMpjf5mqq
+	sTEGnujHEhbzlFLeURSIxjzQuhja7uU5fRbR5dqb0LYoTBtWUuxVbNl5r0cyBAQGU1U3kDfCmDA
+	vsWEHdEc7lMZ0yRoyiahbPsZ5xtIR7Hl0+G+iZK/7Px28+VOxu/dT7eznyqKt9M9CtoJtH6y31f
+	9sby+KQheNSJ9IeEacnMMjiujpCpRD6giEObP8QlxqKNLuacp93P7TS0wyvcVL+wUzzuMo9uuVy
+	nLmvGas7TCVH2jEytPi5rs0jDCz6KqxenP1sodiLlenbOgB0DCX+cmbJs+UsVG6AzDWtEuo+Vqf
+	h1GRcXDPWyI6367iZpZb5fTd4kP93V36fomajd9bKP5w==
+X-Received: by 2002:a05:651c:a16b:b0:3ad:fcf7:950f with SMTP id 38308e7fff4ca-3ae7b7ce4dbmr46308491fa.13.1795619893330;
+        Wed, 25 Nov 2026 07:18:13 -0800 (PST)
+Received: from kapoor.iiserb.ac.in ([203.18.51.239])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae805253acsm52479311fa.22.2026.11.25.07.18.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 07:18:13 -0800 (PST)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Hengyu Liang <hengyul@cs.unc.edu>,
-	"Borislav Petkov (AMD)" <bp@alien8.de>,
-	"Mario Limonciello (AMD)" <superm1@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 7.3 0739/1005] x86/video: Preserve the default VGA fallback for legacy modes
-Date: Wed, 25 Nov 2026 15:34:37 +0100
-Message-ID: <20261125143839.067880686@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: [PATCH 6.6.y] iio: imu: inv_mpu6050: fix swapped accel and gyro startup times
+Date: Wed, 25 Nov 2026 20:48:03 +0530
+Message-ID: <20261125151805.343087-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112517-barrel-nylon-c582@gregkh>
+References: <2026112517-barrel-nylon-c582@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,66 +100,230 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+commit 3a5e2ca34cadd9d5993064884aa5b9c4f6d71dff upstream.
 
-------------------
+struct inv_mpu6050_hw declares startup_time as { accel, gyro }, but
+every entry of hw_info[] initializes it positionally as
+{ *_GYRO_STARTUP_TIME, *_ACCEL_STARTUP_TIME }, so the two values are
+swapped for all chips.
 
-From: Hengyu Liang <hengyul@cs.unc.edu>
+inv_mpu6050_switch_engine() waits for startup_time.gyro after enabling
+the gyroscope, so it waits for the accelerometer startup time instead,
+e.g. 20 ms instead of 60 ms on MPU6050 and 20 ms instead of 100 ms on
+ICM20602, and the first gyroscope samples can be read before the sensor
+has settled. Enabling only the accelerometer waits longer than needed.
 
-commit 3b4c98b47ba7c3c57bcf54fb85f54a854622041c upstream.
+Use designated initializers, so each value is assigned to the member it
+is named after.
 
-Commit
-
-  596b3678326d ("x86/video: Only fall back to vga_default_device() without screen info")
-
-made video_is_primary_device() rely exclusively on screen_info resources
-whenever any are available.
-
-However, screen_info_resources() also returns legacy I/O and memory ranges for
-VGA text modes. These ranges are not PCI BARs, so pci_find_resource() does not
-find them and the default VGA fallback is skipped. As a result, no device is
-primary in VGA text mode.
-
-On a SeaBIOS QEMU guest with bochs and VKMS, the boot VGA (bochs) loses its
-DRM boot_display attribute. VKMS registers fb0 and bochs registers fb1. VKMS
-is not a PCI device, so it is not primary either. With no primary device,
-fbcon keeps the console on fb0 and never remaps it to bochs. This can be
-checked with:
-
-  cat /sys/class/drm/card1/boot_display
-  stty -F /dev/tty1 size
-
-Without the fix, boot_display is missing and tty1 is 48 rows by 128 columns.
-With it, boot_display contains 1 and tty1 is 50 rows by 160 columns. VKMS only
-makes the console part visible. Without VKMS, tty1 has the same size with and
-without the fix, but boot_display is still missing without it.
-
-Use resource-based selection only for linear framebuffers. Fall back to
-vga_default_device() for legacy display modes, while keeping EFI and VESA
-framebuffer ownership authoritative.
-
-Fixes: 596b3678326d ("x86/video: Only fall back to vga_default_device() without screen info")
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: e46a36d92da0 ("Add startup time for each chip using inv_mpu6050 driver")
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+Acked-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261103031630.2085194-1-hengyul@cs.unc.edu
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ This tree has no IAM20380, IAM20680HP or IAM20680HT entries; the 16
+entries it has are converted the same way. ]
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
 ---
- arch/x86/video/video-common.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/iio/imu/inv_mpu6050/inv_mpu_core.c | 80 +++++++++++++++++-----
+ 1 file changed, 64 insertions(+), 16 deletions(-)
 
---- a/arch/x86/video/video-common.c
-+++ b/arch/x86/video/video-common.c
-@@ -45,7 +45,7 @@ bool video_is_primary_device(struct devi
+diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
+index a9a5fb266ef1..8faf39987d35 100644
+--- a/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
++++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
+@@ -146,7 +146,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6050,
+ 		.fifo_size = 1024,
+ 		.temp = {INV_MPU6050_TEMP_OFFSET, INV_MPU6050_TEMP_SCALE},
+-		.startup_time = {INV_MPU6050_GYRO_STARTUP_TIME, INV_MPU6050_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6050_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6050_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_MPU6500_WHOAMI_VALUE,
+@@ -155,7 +158,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 512,
+ 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_MPU6515_WHOAMI_VALUE,
+@@ -164,7 +170,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 512,
+ 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_MPU6880_WHOAMI_VALUE,
+@@ -173,7 +182,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 4096,
+ 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_MPU6000_WHOAMI_VALUE,
+@@ -182,7 +194,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6050,
+ 		.fifo_size = 1024,
+ 		.temp = {INV_MPU6050_TEMP_OFFSET, INV_MPU6050_TEMP_SCALE},
+-		.startup_time = {INV_MPU6050_GYRO_STARTUP_TIME, INV_MPU6050_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6050_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6050_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_MPU9150_WHOAMI_VALUE,
+@@ -191,7 +206,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6050,
+ 		.fifo_size = 1024,
+ 		.temp = {INV_MPU6050_TEMP_OFFSET, INV_MPU6050_TEMP_SCALE},
+-		.startup_time = {INV_MPU6050_GYRO_STARTUP_TIME, INV_MPU6050_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6050_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6050_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_MPU9250_WHOAMI_VALUE,
+@@ -200,7 +218,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 512,
+ 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_MPU9255_WHOAMI_VALUE,
+@@ -209,7 +230,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 512,
+ 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_ICM20608_WHOAMI_VALUE,
+@@ -218,7 +242,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 512,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_ICM20608D_WHOAMI_VALUE,
+@@ -227,7 +254,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 512,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_ICM20609_WHOAMI_VALUE,
+@@ -236,7 +266,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 4 * 1024,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_ICM20689_WHOAMI_VALUE,
+@@ -245,7 +278,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 4 * 1024,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_ICM20600_WHOAMI_VALUE,
+@@ -254,7 +290,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 1008,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_ICM20602_GYRO_STARTUP_TIME, INV_ICM20602_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_ICM20602_ACCEL_STARTUP_TIME,
++			.gyro = INV_ICM20602_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_ICM20602_WHOAMI_VALUE,
+@@ -263,7 +302,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 1008,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_ICM20602_GYRO_STARTUP_TIME, INV_ICM20602_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_ICM20602_ACCEL_STARTUP_TIME,
++			.gyro = INV_ICM20602_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_ICM20690_WHOAMI_VALUE,
+@@ -272,7 +314,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 1024,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_ICM20690_GYRO_STARTUP_TIME, INV_ICM20690_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_ICM20690_ACCEL_STARTUP_TIME,
++			.gyro = INV_ICM20690_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_IAM20680_WHOAMI_VALUE,
+@@ -281,7 +326,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 512,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ };
  
- #ifdef CONFIG_SCREEN_INFO
- 	numres = screen_info_resources(si, res, ARRAY_SIZE(res));
--	if (numres > 0) {
-+	if (numres > 0 && __screen_info_has_lfb(screen_info_video_type(si))) {
- 		for (i = 0; i < numres; ++i) {
- 			if (!(res[i].flags & IORESOURCE_MEM))
- 				continue;
-
+-- 
+2.53.0
 
