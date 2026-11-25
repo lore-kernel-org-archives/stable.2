@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795609426;
-	b=BUSr3HEzeYdNMrRaqOk7lZn6G61G80iAQ0eWf9Z8qXyAdXWAdyPbBGZHV3pX7fycEP0J
-	 II5bXVPe8wKdmN5fHKkdS8YI6PeIbB8sZG7yM0JOudD3Os31cAiaUNDkBlZaFt7IuTyer
-	 e/nFljwtTMtrv30EEh9aNUCRUQdqIcZCnSjs9/uB3MkBbjxR6q9e/+xQVjtRGPHhX5T7h
-	 LnLY6wvpLvtshItpyZ5EYyDHnbczEQd9teJ5RTvL5/r/ERa63tdMuQL3CJv/VHKfmOfBR
-	 u6oA+20UBxAVcww+myQvPUz/vu1AFYFli/8OcnKP0SALjUjiVoAuOCGtkd8wl6Nr7gw==
+	t=1795609429;
+	b=Px+6D7W05a8enUH/VCgshoY1r9OrZdlvfIEiIpbPu2bEwDMrzw5x+MjAsrW0sTCYviow
+	 TE5+a/TYDvwwU6dQrmm7XYebI/rnH3l++l6yrpsnAMHFA6nBhyrVkPOp7AyZDnBP7GeKi
+	 0Kl8ZsyKVkrhAOUAihI8Vwmb1ZoeMfWFHM2z6Wd0GJz7ywkgqY5feDMu2t316127hiw4L
+	 SOUoNKxY+ieHlal7ewT9g5JvqdDIUMkmCQTHfFvkisFWJNysv+9OPyDPD5R+UK5EVIHjT
+	 8soUt0YLa6K6z0ih6BfRj0FyqeONlqjX3cdZeOHT1NXz4+A/PbREzMrXl2zHeUnZwXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795609426;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795609429;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=V9J454Q0tNwNRqx37sqz+0oFshyC7DFjBdDWqikesP8=;
-	b=oWjY4ztaB7WpWm1rC3ru3BSDdgy/MVjTBGfsnF0KVqx7bK9s6CnWaBEi9J7RuyyCdLta
-	 HSfaKxquMDQ4/ACsncNAhjFxcteYjyTC6ByZW8c/0Yb6qY2h6ohW8K+ZzImsWEOcxdGtA
-	 XOQLsias2VBv3TYhY3THgh36HbV34YJOdv/JzH1HV3tUgygHEoy3U+eBTgI4/Mfb4MUZ6
-	 6sFTC4/++TBmfsCEmG1WWaapNfNcLxYxl61CUDKJ9raL8rBoXUVoWBXtiEpBYecgIamlp
-	 L+VSkEHdRHv8iIJFG0txXrsF5JuCG/ABbNon2H2BxkowZQijUMecepFwJSI5Fiws+Zg==
+	bh=xifUfNgYid6Ysp2b3KMr3OiN1rYqSjfCX9D3vmFNDo0=;
+	b=B69c8bkO8u/iN90JQEPTEvBb10irnJ+06EsD6ZNfOyNe2Ca5RvWtcZq1DGXZiwsOJyLF
+	 XbirKgXPlHubruZvf92So+YCj+H/GoN10ApTm4DXVX7ucv6HCymZYZjH6V0NQYyEXt8eK
+	 cLSPuMDEGfw4xEMKGbGPuE2JBTsrGPS6hdCv2S8cP/wmZJyew9YzP4HjF3TaFn8lBCzkL
+	 u5HSUyh6u+syFL7PViuCw4A/V9jHFD13su3qTA5zULxwBLKZyNh9WuE7DVys6qsXTI+za
+	 ekgVwbadDopTeNR1JR6KPzDi6my0mYFYif6j3QF++z/obPJlVCyyJh2DqeXas8PltqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nF4nHq+b;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=q4gSU4Yk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50248606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:23:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92C10606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:23:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nF4nHq+b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CCF81F000D3;
-	Wed, 25 Nov 2026 12:23:45 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=q4gSU4Yk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DC551F000CF;
+	Wed, 25 Nov 2026 12:23:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795609425;
-	bh=V9J454Q0tNwNRqx37sqz+0oFshyC7DFjBdDWqikesP8=;
+	s=korg; t=1795609429;
+	bh=xifUfNgYid6Ysp2b3KMr3OiN1rYqSjfCX9D3vmFNDo0=;
 	h=Subject:To:Cc:From:Date;
-	b=nF4nHq+bwc5dNQf6LOaQMyqDVRqKow1vH1O2HJh+OewPr+J0KJNSZZur/K9RbsoyH
-	 mJCozcHy5aFg/HTYACPWzeaJDDOkkK+GaIg1QyXPStZFrgW2+mY7l4AcdF1ET9AjKp
-	 077ll2RsUOBN2haaxIlpC3UOwI89gi5Ls8QiL/9g=
-Subject: FAILED: patch "[PATCH] USB: serial: io_edgeport: move initial termios update to" failed to apply to 5.15-stable tree
+	b=q4gSU4Yk2LIVNWepu7xeT+l36risKNfZf1dC0+eFaeOBRgmmXGz28BPM7vB6PiNoX
+	 2yfcz/z40z0eR7R4oYK20dtVLkiftyZDbw+sBzOJwS2ix930vbKubsVFbK1LMvAJKw
+	 C537cPAtINyEbwCxDtlH4YDp9DqQRoihnx095wGU=
+Subject: FAILED: patch "[PATCH] USB: serial: io_edgeport: move initial termios update to" failed to apply to 5.10-stable tree
 To: johan@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 13:17:43 +0100
-Message-ID: <2026112543-possible-impish-f0e1@gregkh>
+Date: Wed, 25 Nov 2026 13:17:44 +0100
+Message-ID: <2026112543-alright-levers-a3d2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x febadc65a4ef8d08a12e76d6ec50834d72cc0e59
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112543-possible-impish-f0e1@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112543-alright-levers-a3d2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
