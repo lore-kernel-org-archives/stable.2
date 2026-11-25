@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608425;
-	b=H/fd85k8MaKxYo2/nzrcO4PvnqbRSPqEZfv5bU8IBBZ8gsU96YsWBedYqTrgwaX5qV+V
-	 yIILyUBRN/xTs4CqQlHaR4KSLNo7G60TtNaSD17Mje1Kiqh4pl2M7d2bCBgVeFdn9ejA0
-	 m5E23z+s8kqRqK7mc61HwkIyedKbj7odsvaU1tqrWUx6xGOTLvaoAUYf2TFu8ttvQTQEj
-	 fGQWGwkPQ/Bd7YXVlCBCSLoqoIC5+bJKhexOsqIwoUsFzbTOtTaeLWqqdR/lJ5aJgJ8ZU
-	 wmRRObIQolrQKikyew1wfOTBRtNAfQINVBkugBZw+pRwEXhME05TlSvSgWwvYIPeYFQ==
+	t=1795608428;
+	b=jD2tON3bHFGMwc+F7Na12ZEW6ZKb1OUyT1z6MPbWay5Z+d3YLwgwDT8BPJTPDE0fPq0p
+	 MDS1zOiIkETwCCuZYVatLbssBqpb6G0er8InNIS+e409N6CC7BHFNG9TBjXcoeoZBQ9FE
+	 lH1F0UVBigDlmywOlwW7bqTWsQSxz/vn1DTR5J18X3S6e0jiHZjkX+UZuutzqmMpBm4zC
+	 03IxlY0sHuAT3UmdJWuB70C2xT53ElIjl4Z22qoRAm5TC1Md1wQuIT35Q+hEsPGGOEriC
+	 7UAaIqiMpX9LUyC6xE6lhaD/QyhdSWxYnuiDps5B9NzrCMbRpMaezqIn3+qfdBNMVmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608425;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608428;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=M2d85pdpEl6MwT1Dzjdmf1/FtLsxGEq0QUmnyMoAnKA=;
-	b=DE+dDLbZ36B2nn57btfLtWW4V0seOMjzoo8gKGt1dwnd7OzHXBO4NbWG/VE6y5mBXVZw
-	 FrV8zFc/MTVsaDHJ0saVrQvr+Cmmb4HkUcdc+4+cyf9ZvDKjXUWs6CX0szjXuCZ8dC/ax
-	 MyyMXRylDm1U2xBrNFuelgI55fxus9iOyw0E/zB6xXc7Cq5ZI5A4f3J6grUvdExf8j+4r
-	 rJ2bv7nqxD3SfS3JglQkDw6aWPSJvsNcoBP7Fcm9ZzO2itI3xyHDQsCiIJtBAnLuFZMNb
-	 pPkAJ/Gw+AQjajlAPQMwNw/a5JKX/WiEYX+okxnMZ8I4c1kvugqL9oDRFiBnJ7kYblQ==
+	bh=5TQyryhc80ZsmrNBe4vmqj+1AlmXV/srrsjIUot8MFg=;
+	b=euCoZbUMqw6WiIJP1OvZ5nDrLwEmzjVMif8sMC5yswbezvVYxR1QomymkTl4PWCoqLCY
+	 u1d1yTQxwAn3g4vsRxGrogaFOwGXa7onMKOHTPeJnA1xmS+OwR86Wf3JSuUSCS0Zh+953
+	 Xd81IEMbn5tCm1ewN/IH5bp2jtLFbnIdiWVDx0nW9NFr5L+2WxTS3CAqqcrqn9N8NVNEx
+	 EcVosTHg139keSycrcJJNpFZ70vFj16DsndqWX1mhyeI5GRTslgtzaz+JQ7Mi2JR4L6qU
+	 ejPFr3Uh9T4jiMZFN2DQyKZZkeWfUddLVvA1Tv37asGJyR5teg+n6Og+SLTcm3qOPQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=K9vQmJeF;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WMz6Olf4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7B5606A32A
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:07:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF88606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:07:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=K9vQmJeF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA1F91F000CF;
-	Wed, 25 Nov 2026 12:07:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WMz6Olf4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE6F1F000C4;
+	Wed, 25 Nov 2026 12:07:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795608425;
-	bh=M2d85pdpEl6MwT1Dzjdmf1/FtLsxGEq0QUmnyMoAnKA=;
+	s=korg; t=1795608428;
+	bh=5TQyryhc80ZsmrNBe4vmqj+1AlmXV/srrsjIUot8MFg=;
 	h=Subject:To:Cc:From:Date;
-	b=K9vQmJeFne81mPsgRS39fhgYuadXlYw+p3qhccR+aVYeDW/WrxAYalpX/YCIGPTQH
-	 Kopqtre+GFvBOuISXX89W8cZWeenfiH8G8+B5qwhgy9LbsYL0rWLwG0eH1Em8kkiot
-	 zKo8BJrCP3cZUZ6XCFwRbFASkGL0ZBWUXj9teb48=
-Subject: FAILED: patch "[PATCH] usb: dwc3: gadget: Track a timed out End Transfer" failed to apply to 5.10-stable tree
+	b=WMz6Olf48Ot1IMQkHFalA3wzRyLS11Btvqh14mEvCsydd2//0HOGRFZ6TdI5aMGB6
+	 baXCCC4kiYAazeeX7BkHExjVvinr/0Gaz3Ic0+iX/5mAmpMY3xFe9ilvNYxQtPZFUv
+	 j23F6a4DozBfMM7fOAeLx3GpxnRRQXKsym5ypjYQ=
+Subject: FAILED: patch "[PATCH] usb: dwc3: gadget: Track a timed out End Transfer" failed to apply to 5.15-stable tree
 To: Thinh.Nguyen@synopsys.com,gregkh@linuxfoundation.org,selvarasu.g@samsung.com,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 12:41:21 +0100
-Message-ID: <2026112521-mating-confiding-a0fa@gregkh>
+Message-ID: <2026112521-swinging-willed-f488@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x af91c6322e633504aa45de278f5d520f39d127be
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112521-mating-confiding-a0fa@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112521-swinging-willed-f488@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
