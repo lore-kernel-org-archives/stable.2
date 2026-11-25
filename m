@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795633723;
-	b=B6oDb/PiOfRZSbsrfukbXnz01m9970L+ovHGg2F2dGTJYduVAqNMlfhxSVJnaM6y6vi2
-	 Yz1zGn/fSFusINRAMpo5bTa/y/49mTSkcXScNyj6OUESE0OwIE42JqJbWDMbBMJ2IUy6i
-	 kI3RoUyq+U4IoWdlw5rBK4+IWGiATnwikBRaswdVgP4yVw3mYg21NaAqxL+jB2etEf9Ty
-	 wobnIw16Ko6btMSWeJuEuwzgHqma2BtGFiWWcuFh5VOSeNw/85xZ22Zj3PscGNMnCXsmb
-	 n3wmheXb/3Bp6kzPerfnlqojbWG1q2XnqJAw1ChXWXMv5DwutOI1or6NeWtApTfLHvw==
+	t=1795634002;
+	b=luCwYygRoO20FJ61P3P4nvO49o5Auz1XXDkQgGg1+PrPTWml5No1sE60GSWRc3ApwF/A
+	 8xYnPYe1IaaWvvRye2fv3em+WsDfx+/Beem80APXFRb7J0pg7oVfG1QLq4uqd6pCy/+Yj
+	 E68Y3ncXPyGzqj4S3A2/4CfYbhNruYAn55MCdoYHEDFayR1zpUFonqoxQOljXSh5gmPWz
+	 BacNO+cI79cCEtTsYBXiboNJSUdRFaYww/0ii5FaZ1EKWcg3/r+VU3P97OWUka7ePWsk5
+	 +9rcPj+vgFUFQZwHeUflxJ0Sjhsuf5qyywhakxmOOVEKphf+alO6/KqSzebOls597tA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795633723;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795634002;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WOq0577gJ6/VKeh5ZO/jxDvq0I8MDUO56ei5HVcF46k=;
-	b=tnzIZzYJ50u24Waf7pFQw4FyFOqjnpkkeuYIUcYIqTLNcEd9KCdQ/pmuryPWE1JSOwEr
-	 mvAlYoouoy/C8a/Eboem+X1Beh3Gh8NE3XKaG7Tj9AzEYM7P+dkqHNnEWcw0fcTzcrMeg
-	 Bt6YXc6wA79PkSOOcXUYu8rN46rl2TjCTpVB2QCbVdcM9YwvlgWHkNBWHiylBsIkoem30
-	 XfhEb/K15OKzcCnkeb9e4S5P3A26dHumSaiMAMb1icAcr4wp14TxpFOLYZV36DqlGfC6q
-	 laA3GHZWPRlo1Bq7Q0FA+Bi5cXAoC1cMQKgIgAWaMh0al1iAAeUe4h5dxWQQLz+Yt4Q==
+	bh=d624iT0QFBfMin1qi7DY1hpZDwu7RUlilM/P/VzQWYw=;
+	b=g38hWmDOdqwFEY6OyvLCFnPfqUdijE+614jOErMoHPU5+TYneMdXwli5/4640oopA80p
+	 d0D5bANUPh4p8x3D9ErYnscHqRU0Xktcrni3Ic1hB7ChRwnwoV6FEqlxyD0vePxRazboo
+	 5yt7BU9s2ZizYU3EV7oKZYQEDtLfp3mKkNkwRlxkHQCSf0nkE6P40611Y259uLMMcI9Y/
+	 el2YPBTPRzofXwMAku3J/6nvKLOm/0rSC5isXAb0whqC/PQeyxwbQSAjwimUSjw6b2U8M
+	 2zHVIn/GoyafQ/L2L6RAgEccQopdPAQj7xgzY2DJTTNsC4V8KIohPjJzS6R3HRJUB/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JSgaHCmq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCQkLwPD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA05C606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:08:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C25606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:13:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JSgaHCmq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CADE1F000D0;
-	Wed, 25 Nov 2026 19:08:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCQkLwPD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AF031F000C4;
+	Wed, 25 Nov 2026 19:13:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795633722;
-	bh=WOq0577gJ6/VKeh5ZO/jxDvq0I8MDUO56ei5HVcF46k=;
+	s=k20260515; t=1795634002;
+	bh=d624iT0QFBfMin1qi7DY1hpZDwu7RUlilM/P/VzQWYw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JSgaHCmqqjyTlMTbe0MRlrKIQ+GAeHtt7t3x2b5DKNefLW+kiin56C0iEWkHqAOEL
-	 CMcPlTtz1vASeV4hFwLInZgBmght6SsbhMP5dFb4oeO4leytpz8q7cl0tudVnxgSXV
-	 wrCXW2OggDISav9BixwERPPj9BF5XpeOItgWOe0CAp+Qn0pNWc6I/4vtmCX90ATpty
-	 itOTGaKKpegqqpkxmgrgGJCPCFAiu5gySclvoayrqn/q+n2/0VaMVSo1Myv8b2gMAW
-	 8kyQt3//nV3xU06Rt4LIQVc+VMsvfd2kGU1i+9pPkog9qo1zKaFMzKsstXG19U7Z/Y
-	 0x3VgXyounHWQ==
+	b=jCQkLwPDDfccQ5j+DXWIMUZ+MsWBZNZbqGsqKxQH7+7HDe11y3vu1WGREX/MxhvtY
+	 t5s6o5OVDEx8lpmyMBzGm2k/Y2ywj1J7NBEQIyA3WCaJmlYSpRrv+pwcG8k7m0WqOV
+	 LcPR+qhFILnl9373vkAJJiMwdQIvUkazed5+sk4o/4CVHrh4stdjA1sa+CESyf4oXL
+	 mJ6e6z2CYj7i+xV+LbLkqFplYLW/7i+/NPd4C1kcDM8yzIGWXDt/AhsYdABDyL4TfF
+	 BDDjWO1Zwh3Q22O3pgs6QHu+na2IrEqgbmaQ3ZBiHf5QO7nhydgzXpnkqMs952fV68
+	 /I7p1yAy69Ngw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Seiji Nishikawa <snishika@redhat.com>,
@@ -46,12 +46,12 @@ Cc: Seiji Nishikawa <snishika@redhat.com>,
 	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	Ingo Molnar <mingo@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] sched/core: Do not touch SMT siblings that have not joined the core yet
-Date: Wed, 25 Nov 2026 14:08:40 -0500
-Message-ID: <20261125190823.1174441-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] sched/core: Do not touch SMT siblings that have not joined the core yet
+Date: Wed, 25 Nov 2026 14:13:19 -0500
+Message-ID: <20261125191301.1207010-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112540-defiant-seventy-e466@gregkh>
-References: <2026112540-defiant-seventy-e466@gregkh>
+In-Reply-To: <2026112541-sloping-debtless-3dc0@gregkh>
+References: <2026112541-sloping-debtless-3dc0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -128,7 +128,7 @@ Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
 Cc: stable@vger.kernel.org
 Link: https://patch.msgid.link/20261104022004.3810619-1-snishika@redhat.com
-[ sashal: Dropped the local smt_mask and converted the loops to the new iterators, keeping this tree's existing max initialization and need_sync assignment because it lacks the restart label and annotation. ]
+[ sashal: adapted to the older pick_next_task() signature (no __must_hold), and context differs: max = NULL initialized at declaration, need_sync assigned with = and no restart label. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  kernel/sched/core.c       |  8 +++-----
@@ -137,10 +137,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  3 files changed, 23 insertions(+), 7 deletions(-)
 
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 3b51a93ba609c..d11274908ffc2 100644
+index 719186283bf91..a1d0b22e46b7a 100644
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -6044,7 +6044,6 @@ static struct task_struct *
+@@ -6078,7 +6078,6 @@ static struct task_struct *
  pick_next_task(struct rq *rq, struct rq_flags *rf)
  {
  	struct task_struct *next, *p, *max = NULL;
@@ -148,7 +148,7 @@ index 3b51a93ba609c..d11274908ffc2 100644
  	bool fi_before = false;
  	bool core_clock_updated = (rq == rq->core);
  	unsigned long cookie;
-@@ -6094,7 +6093,6 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+@@ -6128,7 +6127,6 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
  
  	prev_balance(rq, rf);
  
@@ -156,7 +156,7 @@ index 3b51a93ba609c..d11274908ffc2 100644
  	need_sync = !!rq->core->core_cookie;
  
  	/* reset state */
-@@ -6150,7 +6148,7 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+@@ -6184,7 +6182,7 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
  	 *
  	 * Tie-break prio towards the current CPU
  	 */
@@ -165,7 +165,7 @@ index 3b51a93ba609c..d11274908ffc2 100644
  		rq_i = cpu_rq(i);
  
  		/*
-@@ -6174,7 +6172,7 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+@@ -6208,7 +6206,7 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
  	 * For each thread: try and find a runnable task that matches @max or
  	 * force idle.
  	 */
@@ -174,7 +174,7 @@ index 3b51a93ba609c..d11274908ffc2 100644
  		rq_i = cpu_rq(i);
  		p = rq_i->core_pick;
  
-@@ -6220,7 +6218,7 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+@@ -6254,7 +6252,7 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
  	 * their task. This ensures there is no inter-sibling overlap between
  	 * non-matching user state.
  	 */
@@ -184,10 +184,10 @@ index 3b51a93ba609c..d11274908ffc2 100644
  
  		/*
 diff --git a/kernel/sched/core_sched.c b/kernel/sched/core_sched.c
-index 9ede71ecba7f8..fb64cf180d1f6 100644
+index 1ef98a93eb1df..8d7d60c970662 100644
 --- a/kernel/sched/core_sched.c
 +++ b/kernel/sched/core_sched.c
-@@ -241,7 +241,6 @@ int sched_core_share_pid(unsigned int cmd, pid_t pid, enum pid_type type,
+@@ -239,7 +239,6 @@ int sched_core_share_pid(unsigned int cmd, pid_t pid, enum pid_type type,
  /* REQUIRES: rq->core's clock recently updated. */
  void __sched_core_account_forceidle(struct rq *rq)
  {
@@ -195,7 +195,7 @@ index 9ede71ecba7f8..fb64cf180d1f6 100644
  	u64 delta, now = rq_clock(rq->core);
  	struct rq *rq_i;
  	struct task_struct *p;
-@@ -273,7 +272,7 @@ void __sched_core_account_forceidle(struct rq *rq)
+@@ -271,7 +270,7 @@ void __sched_core_account_forceidle(struct rq *rq)
  		delta = div_u64(delta, rq->core->core_forceidle_occupation);
  	}
  
@@ -205,10 +205,10 @@ index 9ede71ecba7f8..fb64cf180d1f6 100644
  		p = rq_i->core_pick ?: rq_i->curr;
  
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index ad7b72317f0f2..ea470cc608d51 100644
+index 27de9290235e7..855b7e39ae89d 100644
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
-@@ -1430,6 +1430,25 @@ static inline raw_spinlock_t *__rq_lockp(struct rq *rq)
+@@ -1453,6 +1453,25 @@ static inline raw_spinlock_t *__rq_lockp(struct rq *rq)
  	return &rq->__lock;
  }
  
