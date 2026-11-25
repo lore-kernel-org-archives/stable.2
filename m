@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596690;
-	b=YCh0yah8dj6YkYlofMwFIx+v0aTrKpztFlu4FCTwyUrhM28eSDVwyPnJ7QnVAJ5/E/Y4
-	 ThSRTyDeBVO2CcKW0rEuSTr9OgnJTV4JXvmkJB0uhLjPUQUHEmRIUw8r4T+61siTmLKRy
-	 2G5GyBUEvIiRTEIDR4gRw7R6cPYH6FHtal/P1DP3ETzkEw6jRr/aRegnDjPUGAn9sA39j
-	 QsYPPutXEY0cVgpT+NBcu0Lb2Mh6gA/xxz4xaHDrZCbnq3m74SEtxNFzJTjS7YxfcN0ka
-	 QnO3RGE5dkkbMGqKZSwWbWdH4fdAAlXyjrBAvh8dHC7DN36tRz+iQz7ck7D1Wbf7baA==
+	t=1795596693;
+	b=dZfTIRAviv/O4bWkmvQ6V1Dtow+hfQXXrdTD4nuF1wVItRf3UjZBVYgyUaG8yH5DsDN7
+	 TTWJLst5BRqFFve3RAVLZ3329+Xg8tlfZH97WGbi9HGkALNUScF3doiUtpOQhgw8bNs/y
+	 ihJ6IeCBGnYkFr1LUKmUUuRwuMmCYwZYoo+aYBj+ycXvZWQU1dJZU9GRLdUyfWZLtOVTS
+	 sc0u+QVrhfJYM2Fj1Clp7I02UT2uTMTTolc2vYuFXF2muOWHeZmDz+Rj2aa+JtPBVg6Vz
+	 aOewPZOtKTN9SXWgbHfGKMeGD2x0GuVuUNXIZBErp8RQ/eQUEp8DNPBqGwmX+vSrjaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596690;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596693;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=CRCf0ugahPQPuwZdfSuiNWeT3GZvKeuE8y9JQEZ009s=;
-	b=uw7OdT5YfrsqSnJAwvcErC5HGR93t9rKOf1468eXrcaOzzme8WohkEK3ZyV//YNbW4uD
-	 /axDrles9XdUjhOPASQ5Q/Q+P3F9nYtPT6NA8Gpr+jJP6WYlZ2F0/YaXTYmB0khlYlhCF
-	 YnM5qYlbn1IDgAhqdQgfzpcjMRPRweY4jee/TcDbTUqLnEIy1mbDACommG16tnBLYuOfh
-	 n1oKpwEpNequjgAoDHa5WIFgnPWcvvViZlAwC1QNuHf9SMTFpwGr/S0s+cnVZ6c+XryQm
-	 O8/Dd6GU4NriF1lR8gx86aR5Ijxtv8gPkVbp6gS9EEcbUMNgH/TmV90SRFjVu2HWWug==
+	bh=th/Jb5XW8S7DE4xTVbkbqKw7SeZ6R1lXcypd7dZCO3s=;
+	b=gV89FCSKcVMqKuIftMBF1N75ItKqjrjX0YryC0AhwKFgwgwW5C9VoLsu39AYr6Aaed10
+	 +BgAh2BTgcHrQLOTdvcax3P7Lrky/vKi4OnN+7l91HO16jZp2vVq5boHDvCdPgCRppBBL
+	 6bMIPLuXsJa1VBNSbOD/e+u4niIbU19CmXP+RVY1wJl0uy6OabUqA6bFEfTBF6T9jJCck
+	 V9l72G5C3E4t3xF6Vhdc/Y7Sdv2JsjjmbqbfNQhWBdINtOW+5yiBYcano7sirbpacrmoj
+	 AnhsWF5nCV8XXGNq9Fv8/GQU7ufrVsFrnl4Dk5pFlaPjBuXLpN1Aag7g8qUvk8LkuHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hI9rgs89;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="MkR9A/Bc";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8278D606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:51:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93839606A332
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:51:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hI9rgs89
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEABE1F000C4;
-	Wed, 25 Nov 2026 08:51:29 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MkR9A/Bc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDF8A1F000D3;
+	Wed, 25 Nov 2026 08:51:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795596690;
-	bh=CRCf0ugahPQPuwZdfSuiNWeT3GZvKeuE8y9JQEZ009s=;
+	s=korg; t=1795596693;
+	bh=th/Jb5XW8S7DE4xTVbkbqKw7SeZ6R1lXcypd7dZCO3s=;
 	h=Subject:To:Cc:From:Date;
-	b=hI9rgs89KExCw7kcGngvXLhPlj6l43WUgAE+mv/RLBBbwp5K8s7IA/j2gRONnt4Uw
-	 lW/D4+ujWlr2F4zXDnKOe9jCHWhKtwTkr55nPVH3x88HkBEiKT8GHjKubamZZMLNtL
-	 aDDym//PcVq0G42QUKq+c5qHsiJzWpCjsKZK9AHE=
-Subject: FAILED: patch "[PATCH] tcp: do not coalesce segments after FIN" failed to apply to 5.15-stable tree
+	b=MkR9A/BcJ8nP9eyg4DfeiGEqQ4a3/zQJ0ILZTyTSHCqb7azwLToLmQZjnMZ0LW8V3
+	 a5NOPM6yJq75guPdpXqkDKX+LFObUsv6EoI/YzTxkZwNZgD740mUjd5YM/ECszUOJs
+	 F70PUoF7HewjbmKmxuzy8JvP4sabf4BO6J6TNbKk=
+Subject: FAILED: patch "[PATCH] tcp: do not coalesce segments after FIN" failed to apply to 6.1-stable tree
 To: imv4bel@gmail.com,edumazet@kernel.org,kuba@kernel.org,kuniyu@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 09:48:55 +0100
-Message-ID: <2026112555-unlikable-figurine-6408@gregkh>
+Message-ID: <2026112555-figure-unmindful-3e90@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 1c46780dec48893b8c25fd5e33a3127e8dc39dd4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112555-unlikable-figurine-6408@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112555-figure-unmindful-3e90@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
