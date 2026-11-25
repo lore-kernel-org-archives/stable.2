@@ -1,77 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795649274;
-	b=oOLRUdiaD6JYBLN3013zmeXa+Q9gVkXQa+RYravxT70ttUKZnfrZ97nqy0uJL7Rdpp1q
-	 mUgaEAcEZKEbqMlN5eFk2VJK77lzToFsVKBiYSuGaeCY8WREhVlaMLj3AeOQ7PJqMTj5C
-	 MT27oOL6eDpDfzAAGl9BUYVaV7wfbtV900MjvRM3INPtcnRyGA7ALrQjm8AZho4n937BF
-	 aEw+iiE9aVl6OOj6GOGLbxB7zVlvjPeiKP3r71BAxeOSZ1UFtVuTm9yGqB3LJKI4NK3+c
-	 dUoMvU/kcC6+LkSAyV72apj+SE5mIWIPC7ikliZ+CeWH5CTkt3o7v4UrUpA9qQ51tDw==
+	t=1795649296;
+	b=WFsNOEBAevsIblL5Y0qftljF5C6ziDT3whUylLA4+w2kfmg9phK2znIEnhzlrK3nZou0
+	 1Jf7UGXe2Ti3jb9QiXL83nqYoH7FyuEsHimCstzBBZmtvpjk+V/z3E+IJM4mYJOyZNajg
+	 tSjvatNRy//OlLKvEVBUul66mmc1uEs+M0vJ873mML0OZZFMUHmF8SX+wlwKN990HmCsR
+	 WxhME7EeyeFmbyRNh4hvnpqvgz50sO+TTO3suRg+FC5yPERuqUd7BDsU1xpt9oFFVSr+g
+	 ZyEjskvx1IVMuGO1EqabZUEAVwHcKLeT3HhUsXvlOfdehuA3u8v8uDAUQOPsM+qpbUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795649274;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795649296;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:
 	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=rs01krc+wqBscjKS5ouFiuc/XjIr1tXXVQy7AXGKTpI=;
-	b=Rou7roT0B9OA7JC7f0rH8tYWUj6AbYfxqzIUSsqwBcfHbT+hG/lURv0+in48ALKQppyw
-	 TrNs0UP7EAi+urUznQ+BgKOuFX0/Me4uK9Tt/orET9spwvs8339zXgxmERxOkKmAwWZt7
-	 oJ6xUrWsFkFcCH3q81wxIKkemOpabVarNKfAhUTiOBY1id8zw1JggiOd5riEx1Ea9MBpI
-	 xusyNq4TQVzpgpyE8m8fsnrHC/l+Xycqlq5yQWWDv872FTVORcZPEx6613TxcuOWxUzsq
-	 0RaRPlzrTpz1eexg9KAd7TsWUbz3KCjQSAYKRiI7NeyBwFUZbJ3WfTlHq+jEn3nOzFw==
+	bh=YZKNPz9PG3QrKLxSqkizeV9QLKpF7n0r7auD7Pqs79w=;
+	b=o84gBEy4O/6x/N0rlzodzkg8oEKsfz7QD0RddVTepi2ppK92TqzLJ4j6CQAeqpl/bPes
+	 41i3ReRdpCg4WmLmEKtzUCMFADj2O9X27+1A3wdazvB54UJAQr5gvHqwZ5a24yjcVcg+P
+	 iTaM1FSjHLGxsIiO5acmaYTp8W17L8H5Yb5+X/aKziWCqD89bxDnS5Sf3V9qx8kJyDGWs
+	 UKc2yitUQAZ5cwVCSYPtah9b7XEACQAE4SYxwGzgE9vxPDS2FK0wDHjgsKOZfhMrfDGxO
+	 sCnzRIEL4lu8pdx8QwV4Ml3FwXuv4YCgdaXrlGW0jKRznvQJX2PsMbOOsRl7t3yMwpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PSEQeemw;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ElpfnpdH;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C894606A31E;
-	Wed, 25 Nov 2026 23:27:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C894606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB6D5606A321;
+	Wed, 25 Nov 2026 23:28:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB6D5606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PSEQeemw
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ElpfnpdH
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795649273; x=1827185273;
+  t=1795649296; x=1827185296;
   h=from:to:cc:in-reply-to:references:subject:message-id:
    date:mime-version:content-transfer-encoding;
-  bh=IqWWeEtddWMJJhPbjNAGipU35XPv+oibVCKPS2QATBM=;
-  b=PSEQeemwh6wAJu2C7hFtZ6Ki6ttLUASYEwqLUtiQiJpJfjsoMkt22NPN
-   6fcneTbCnsjrsyW8X53sC4ZI7S8EHSn0QoNGkc4KuqB+KCJqph1Wz5piT
-   wMZbHQ2a/pnrBzEVnL1oZDd6J/4jOiIwykci66VqXdF9qT/zZVjjCWc28
-   uO3xFoFuVJ7m2qa/Uh+vuXAAtI5hOtqmfsziRrRaCXqQjD0xPXTOxIUx8
-   hCQ6i9tHvf978zIACFYJg9K7sDfWfv4kd7+aVNllH4zXHwfXz6jbyiWlK
-   NQ7Viocs8J+iki+GOtGJpddQ0fhrmTbXC9J4fSmHUiUTSWHunHNJxI70Z
-   w==;
-X-CSE-ConnectionGUID: 9reLNfWSTcSIbaToxs+HWw==
-X-CSE-MsgGUID: rBBTTSTAQKO2w8nQdJ+B8g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4451069"
+  bh=ZoYqhiSJo7Aiz5L1iPTzKO6TEVFUUZQnz1R2hmjXZOU=;
+  b=ElpfnpdHc9DJgwc+sC5XPLz8VF+7TR17sL9Os7Eql+JvSHreabNhFHj1
+   mkKOzfRb1K3ucfw7yaDgMqnYUCUFKLwFY8ih9SUwXAT3yyUntQM39CnVQ
+   H7Zm40Q6L9bfVMIm/sfWEknvpFKhXen9/1IS9hBD1ufGMVuW9glsykK+j
+   AlXJ7Z/6fOE3MAo+goF0ZeUqfkD+sBSiW1NI3aIcC1h++04O/TZjb4wDR
+   Bx0Etbhc//qCpbyz6tHPwCOaHfahfZUXtqnrY1BOL/2sjq/Wv2ztwA67C
+   Qt1pt6xueDyjmkSo2pRBiD8BQR8ze7jTimzSzy5EpB3LV+CL2jELkYrX+
+   Q==;
+X-CSE-ConnectionGUID: 6EmV7Pr3Tn6H5yTeDK1/0g==
+X-CSE-MsgGUID: efSV4NDXRsWxd4AnsySR/g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4539575"
 X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="4451069"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 15:27:53 -0800
-X-CSE-ConnectionGUID: KRByZqxjQoe+boaOGiMPbA==
-X-CSE-MsgGUID: ejLiUDIDTuWVykIpDL34cw==
+   d="scan'208";a="4539575"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 15:28:16 -0800
+X-CSE-ConnectionGUID: ySWwS8pXRKyt5Bv96gY4qQ==
+X-CSE-MsgGUID: 9bpLFjIuQeekO9GEdUlceQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="11889592"
+   d="scan'208";a="11869117"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.96])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 15:27:51 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 15:28:13 -0800
 From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: platform-driver-x86@vger.kernel.org, 
- Bullo27 <matteo.bulloni.27@gmail.com>
-Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
- Hans de Goede <hansg@kernel.org>, stable@vger.kernel.org
-In-Reply-To: <20261121125207.12284-1-matteo.bulloni@mail.polimi.it>
-References: <20261121125207.12284-1-matteo.bulloni@mail.polimi.it>
-Subject: Re: [PATCH] platform/x86/amd/pmc: Add T14s Gen2 AMD (20XG) to
- s2idle quirk list
-Message-Id: <179564926576.9828.17218975210270395593.b4-ty@b4>
-Date: Thu, 26 Nov 2026 01:27:45 +0200
+To: Sebastian Reichel <sre@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: platform-driver-x86@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20261118-platform-arm64-t14s-ec-irq-suspended-v1-1-635eb3e7325e@oss.qualcomm.com>
+References: <20261118-platform-arm64-t14s-ec-irq-suspended-v1-1-635eb3e7325e@oss.qualcomm.com>
+Subject: Re: [PATCH] platform: arm64: lenovo-thinkpad-t14s: Keep the
+ interrupt off while suspended
+Message-Id: <179564928768.9828.8032613501238646797.b4-ty@b4>
+Date: Thu, 26 Nov 2026 01:28:07 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,18 +85,18 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15.2
 
-On Sat, 21 Nov 2026 13:52:07 +0100, Bullo27 wrote:
+On Wed, 18 Nov 2026 17:39:25 +0200, Abel Vesa wrote:
 
-> The ThinkPad T14s Gen 2 AMD is sold under two machine types, 20XF and
-> 20XG, but only 20XF is in the s2idle quirk list. On 20XG machines the
-> Lenovo BIOS SMI handler runs during the NVMe D3->D0 transition, so every
-> resume from s2idle stalls for about 10 seconds with a black screen.
+> The interrupt handler reads the event from the EC over I2C. Nothing
+> keeps it from running while the system is suspending or resuming, when
+> the I2C controller cannot be used.
 > 
-> Measured on a 20XGS08D00 (BIOS R1NET68W 1.38, Ryzen 7 PRO 5850U) with
-> pm_print_times: every PCI endpoint's pci_pm_resume_noirq returned after
-> ~10.32 s, all finishing at the same moment. With the s2idle_bug_mmio
-> workaround applied for 20XG, the same callbacks take 38-82 ms and the
-> stall is gone.
+> On resume the interrupts are enabled again after the noirq phase, while
+> runtime PM of the I2C controller stays disabled until its early resume.
+> An EC interrupt that is pending by then fails, and so does every further
+> one until the controller is back. On the ThinkPad T14s Gen 7 that showed
+> up as more than a thousand of these in a few milliseconds when resuming
+> from hibernation:
 > 
 > [...]
 
@@ -111,8 +111,8 @@ commit introduced in the most recent cycle or is clearly a regression
 fix.
 
 The list of commits applied:
-[1/1] platform/x86/amd/pmc: Add T14s Gen2 AMD (20XG) to s2idle quirk list
-      commit: aeff3c10c05e8dd07074d8ab5533af1c1fe2ff8a
+[1/1] platform: arm64: lenovo-thinkpad-t14s: Keep the interrupt off while suspended
+      commit: e5340c0623fb9cd699fbc095c5ef5976286c8134
 
 --
  i.
