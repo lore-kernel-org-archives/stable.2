@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603139;
-	b=nMt/UQwgGCX2f+KfaS/6kqEcE7CQ2cQXHwaSVcrGF68Mr94uIrYM+pGVqZptGYOIGuMv
-	 TlZ3sYgBoKoNONPjc5OExkbBf7LG/cUuDjG2IMrdRBmGwApCXrXsQYSmpDYm5e+8BTXK1
-	 YGxtkwPsDJh0wEDtTGDN4w9sZin5q/kgBzEqMWHpteZ2fr8vEOMjCXl/BGCKzqcjR0uIQ
-	 OwFsY7mioM+aNFLFmesJ0cmUmE1a3JTrYnxSohXroInfR8/sZYlzKuu2lgxTlwv8T9aKy
-	 dZ5PtwBlpr9Tq3O6R/+y/JpBjmlqGXv8kNhkOSmYB3qP34J5LN06vzv6sf3XFwfq/sg==
+	t=1795603142;
+	b=n3fKIvSiadLXHBt4VUYD4mER89qTxTjMwxydW2l9dkIOi2eZ76r/b8yeT7birNcLlziM
+	 hSzW6EWq1NYyZdFm3XF7nDvUtBMBFs9fys2cwfJ+hoEf15PIqT3zyEzaGDWSPV++5oDaB
+	 lGzKQvwbtNKEV+G5z190p89UOShwTNeIUdmXAt4IVNkRTDANvbVLb0qCAlHnYOQlISA3W
+	 BGC0WqKss9aVjgvdCEvAF9+wBcdEA1s6IkkLOTD4H1/jpl5y5yJOsemX2qp1qShRAlVmt
+	 +AU67xb3nx1ZL5Y8tWZLmgzuj0j68jMnyNjHULQMVfOx6a6xBP8BrTitPxQlPdjO08g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603139;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603142;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bdiw3saksymnoSRxKBE8y0wc9uVkCGZeAgG48PFWbTw=;
-	b=htjCquytfpZyiTYhM7+QC0uj31oa5LCy74CAkc40daKA0RqMxylVjp6rb6Oy1/HFzn3j
-	 DoUNSWGqiZ80e9v8utnV045e+LrC/D2AXWItttDGSyWaZOAtsmz7hmfX5bZBFqRVfwsST
-	 sZVbBPzonTL74SknyBu1QXDoPiEGi5yHKjDxIObDVadirlNoRRqGZWepcYeg+WkHobqNo
-	 ahCRGeOzMpZuAH3WlS46JDnKTKhEhz4uyb6Ly7s2HkCnqvAteFkFY0jsC2FVd3YgQXfWw
-	 MdZTW3Go3oEq6LVZQVC40bBHWGhTqy1cEpPCHSjzcD43clKE+rBL9EjGyNFrZA/dv8A==
+	bh=S2iyviek9Dkeoo6pbdyIXGAHqktq8OzjsUEu9ZHmJkU=;
+	b=4+E8lyndaUcmPrCrHqbhGogYL+AITZtVCxQJsLAE574jNv4+1mgefBCMzVqf7I3wFaKE
+	 by9haB4APoV4kmr4w7hGr9pWxF3gsjKkv6rNQA7/1Hi/7+0rc2ZvXSwNtobgITwsyb9iV
+	 O6Vx0iMenAmLvDz9ETueUrcka4qBg3onvuuWnlH1a0l0C5hTXYJ41z2jps3cZv/xYr1rT
+	 xtRLiojeyWT/Pj3ZNe22ko1ur5SfBpSOuLvlskmJES/5b/K4L4VKDE8BUYCG/Y3mrUx50
+	 O6An4eHvrFITmJ4i3pneX68DYkpOegfqtMGv9OAtmrWgGLNel0ObRwnPFy7cZcoXmug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0JpWo+8h;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Sqxd4Sj3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A705606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:38:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91324606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:39:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0JpWo+8h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D4851F000CA;
-	Wed, 25 Nov 2026 10:38:58 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Sqxd4Sj3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE9D31F000D0;
+	Wed, 25 Nov 2026 10:39:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603138;
-	bh=bdiw3saksymnoSRxKBE8y0wc9uVkCGZeAgG48PFWbTw=;
+	s=korg; t=1795603142;
+	bh=S2iyviek9Dkeoo6pbdyIXGAHqktq8OzjsUEu9ZHmJkU=;
 	h=Subject:To:Cc:From:Date;
-	b=0JpWo+8h5hQpiN+CDhty3IxHjlQx1PwxuRv15v6utsx3/kucReGTWoFlH35RUNVax
-	 XJgiCPUzDh6Mh5T8n1cEbOPQHpjmJPXLHEf7bN8m2rWpNlou9yYjgMRooEzE9zNRGG
-	 iQDuJF9Hi615ucEH0gGUHPp00ECUEa444kH+b22Q=
-Subject: FAILED: patch "[PATCH] ksmbd: skip metadata-only opens in sharing checks" failed to apply to 6.6-stable tree
+	b=Sqxd4Sj3jVFJC0+p/MjSaKyfTV4yAS7uD+sLJrq8QwvcX2L8n5kik1+MYH4nYFIc8
+	 4qAXM/LYKy4txdoVS+cnVEYI4kHgw/1sVIa6R5M33PCNmOf/1+Kx9KHIvmCNyDwKbi
+	 eCZTB3dBmL1sqtzxkIGg8+XjAPSORsrDLOB35cnI=
+Subject: FAILED: patch "[PATCH] ksmbd: skip metadata-only opens in sharing checks" failed to apply to 6.18-stable tree
 To: icb@fastmail.org,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:26:34 +0100
-Message-ID: <2026112534-datebook-attention-d944@gregkh>
+Message-ID: <2026112533-hate-urethane-a546@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 81fefb6c635489e71e286d1465b6dd1d0a27ceec
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112534-datebook-attention-d944@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112533-hate-urethane-a546@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
