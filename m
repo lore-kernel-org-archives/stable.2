@@ -1,60 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795624871;
-	b=CXb26WRrWH6kwObF3/u59S4am2cs93W9Y5qJHPUe+DwdEJI8Z92BVqrbJhRdblHxeF+X
-	 4ZXKYyikgCCz8LNi+SsGyPwTI6d40WvY6NnZBUBfidYXP/OzvF0dlDT/qyJiJ3T3Pjdcl
-	 onpIm5LD8ELS9+RuSfoAklCBn5ABlcDFYP6cUvM2vMcjtg/we53pllsyz5N+GP5d3KMMD
-	 bR2rtzqsK/Pwx9KpBqnpSOkS1JyoawB4Tko2Q99OsllG480n+SsFWTbrxC8y0ilsW8pQk
-	 5WlQ/Xne/arCEWbouT63cYS4V4ETjf5kxUMM51FdeRUtsunBQR9bzQUB/L5uhn0ZBNQ==
+	b=o63xwht+qCnDQeZoeBgaqrsitKsNaW01erDUdvvzA12T1rwUssbApwaxD/gl3Y7ih4f3
+	 peuqs6N+Q5InxNtgcBBLKePZO3GeFIsVTOUesUOS+wCUSF4Ns0JY/SsWnoDxyKafL0K8R
+	 Aq2h9veT2wmbSG9KfMCzkSiAgE+NfmT7g9XhT2dFUmhCVx/xRciPjSoVUFIaZV0wyYVPH
+	 qdVpGXmVYUeicdSJAkFi+7oJ7Zfo0hPHEA2DAy8aEvgr0EhyBSLYGGYAQyYMDziMRjddY
+	 A5t1YLHIJPyCzfeQ9N2jX44k8f3ZP0Cw7mBhQe9rEZVf+nIys5rgOM9EkRJ7pdeIrBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795624871;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=bdRrp6VsYYHoK4QGew9/mcQlGV0PIv1/k9p6By8yp1c=;
-	b=znKcL8xM7TnNVg0C4ebAUIefil28uFGKwUWsAoLXb6+NQaPp0J6rA5LECA0wND8ocTaa
-	 BMXkmM2An26prWwBw9Igcf9SD00+1JAIuN1LScXbMEboj6mDHHsAC7lM00SStaufcwOqc
-	 PBhQZjq+cUXwhslYPXSlCJO31cQqVsJRchvrwS7kvLpW+kypyvGUchrqKIKzraKv08xxt
-	 o/ZgVpIcLzg6IlbVdw9/0sKT3wzMs81arQbJrgfsTFcEZ+aQtarvFsi++0w+qYmPr8B/Q
-	 6mgaFvhrxI75Vlj/qRw2UWIEl97JvbIhqgS0epiBfGDcpTqek7rPVn/F4I9oq12zfjg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=oy3lYrVYPPnuLCoqRrv1KSoVWPSYSuc/wdbDRS8TFi0=;
+	b=mibREK+zRyxp9Wax9owQwEk9OKO8uHb+dWgyvjdjHLXjCaRSikhQL+S0dV9u6LRkmp04
+	 jjxivS0nuJmvTPg5DzkaJhRgiuRgeCUMs1YkNcfVlxpNXjecEQJuku/7GfRomJCoe5ZZ3
+	 +qPoJ3SR0hT26cV+4qS7h4Y4/GgNon9boYZVSj0OLNU+LNlCV4MtNEPWKVxmvbQiThETd
+	 EB9NW3CeLi5hCXJ2h2YpjrR+EYK4S9waC66JRelMo4kgw8XrPRlsrIBCzKV3lpEvjGJ8k
+	 js2+6Y4cN7peZy/+ZeC/GLmqs6dLgEmwa2zOEEKMLPBhab6CLAYHyH3mhdpZv+Og18g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0MKtdHS1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KxjEnIei;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1768606A327;
-	Wed, 25 Nov 2026 16:41:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90F7606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:41:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0MKtdHS1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8406C1F000CF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KxjEnIei
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FB7E1F000D1;
 	Wed, 25 Nov 2026 16:41:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795624871;
-	bh=bdRrp6VsYYHoK4QGew9/mcQlGV0PIv1/k9p6By8yp1c=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795624871;
+	bh=oy3lYrVYPPnuLCoqRrv1KSoVWPSYSuc/wdbDRS8TFi0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=0MKtdHS1nSqwAlO3NP3VHAHgO6TLKGO9/raZScwuaeILzE6Ubo0pIglS9Jf8PFemD
-	 vF4m9l3E3au7oRCrqPxi9Oa1Jiw57yZxkFs31MQ18pjCh7yfRNxJICWJL7LFLWE6sZ
-	 6ZLN3ZHFjyvip1e6gYHCj/vanKtLuFtgRiDP/gvM=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=KxjEnIei9g1pguAkwPza5i03z1u0HJT/xqm2UE8Zhmgag72d1f6qX+wbdNGgY969Y
+	 xRxv1NnYuHnyHEn7oNWmNVyy6pU9wGgstMqcxICuoQinp7LkLs+HkFVSoH0YwbPIlb
+	 s4+z5e5tE+pmL6ERyhEjtZXEiBs6Mt+Pjlo6RyhZyiObHQAlHPgke+ESAKdDFNVy/V
+	 4ZvNnLnnE3ibQr7BBvsVbDK/w/OGh0Fxlv8i5KMIDMSUlzHUxP2accIrCQcie2DlMP
+	 RrFvT9l5MlSW9tfSd0MvcbuXaQandq1AyzLe7BZFRyk8FvfgrExJBo42agtifurz+2
+	 9iJHYjKIPW4Ig==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Eric Dumazet <edumazet@google.com>,
-	Octavian Purdila <tavip@google.com>,
-	Neal Cardwell <ncardwell@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Benjamin Coddington <ben.coddington@hammerspace.com>,
+	Benjamin Coddington <bcodding@hammerspace.com>,
+	Tigran Mkrtchyan <tigran.mkrtchyan@desy.de>,
+	Anna Schumaker <anna.schumaker@hammerspace.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 334/816] net: rfs: add sock_rps_delete_flow() helper
-Date: Wed, 25 Nov 2026 15:31:22 +0100
-Message-ID: <20261125143856.930727961@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
-References: <20261125143849.205329330@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 7.3.y 1/3] NFSv4/flexfiles: report the intended opnum when DS connection setup fails
+Date: Wed, 25 Nov 2026 11:41:07 -0500
+Message-ID: <20261125164026.827651-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112557-foothold-septic-e646@gregkh>
+References: <2026112557-foothold-septic-e646@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,145 +63,150 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: Benjamin Coddington <ben.coddington@hammerspace.com>
 
-------------------
+[ Upstream commit 3a612faba5c40a59257db50e3a2da30c02a8c969 ]
 
-From: Eric Dumazet <edumazet@google.com>
+When nfs4_ff_layout_prepare_ds() cannot establish a connection to a
+data server, it records a device error with opnum OP_ILLEGAL, since no
+operation ever made it to the wire.  But servers can use the ff_ioerr4
+opnum to distinguish failed read-class operations from write-class
+operations when deciding how to recover the affected mirror -- a mirror
+that may have missed writes needs to be brought back in sync, while one
+that merely failed to serve a read does not.  OP_ILLEGAL gives the
+server nothing to act on.
 
-[ Upstream commit 9cd5ef0b8c04c46a15c8f5d002f02ea0d0477790 ]
+Every caller of nfs4_ff_layout_prepare_ds() knows which operation it
+was preparing to send, and the existing fail_return argument already
+divides the callers along the same boundary (false for READ, true for
+WRITE and COMMIT).  Replace the boolean with the intended opnum, derive
+the layout return decision from it, and report it in the tracked device
+error instead of OP_ILLEGAL.
 
-RFS can exhibit lower performance for workloads using short-lived
-flows and a small set of 4-tuple.
-
-This is often the case for load-testers, using a pair of hosts,
-if the server has a single listener port.
-
-Typical use case :
-
-Server : tcp_crr -T128 -F1000 -6 -U -l30 -R 14250
-Client : tcp_crr -T128 -F1000 -6 -U -l30 -c -H server | grep local_throughput
-
-This is because RFS global hash table contains stale information,
-when the same RSS key is recycled for another socket and another cpu.
-
-Make sure to undo the changes and go back to initial state when
-a flow is disconnected.
-
-Performance of the above test is increased by 22 %,
-going from 372604 transactions per second to 457773.
-
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reported-by: Octavian Purdila <tavip@google.com>
-Reviewed-by: Neal Cardwell <ncardwell@google.com>
-Link: https://patch.msgid.link/20250515100354.3339920-1-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 8c011697f76a ("tcp: do not resurrect a former listener with SO_ATTACH_REUSEPORT_[CE]BPF")
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Benjamin Coddington <bcodding@hammerspace.com>
+Reviewed-by: Tigran Mkrtchyan <tigran.mkrtchyan@desy.de>
+Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
+Stable-dep-of: 9e28836b480c ("pNFS: avoid repeatedly cancelling I/O for the same lseg")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/rps.h          | 24 ++++++++++++++++++++++++
- net/ipv4/inet_hashtables.c |  6 ++++--
- net/ipv4/udp.c             |  2 ++
- net/sctp/socket.c          |  2 +-
- 4 files changed, 31 insertions(+), 3 deletions(-)
+ fs/nfs/flexfilelayout/flexfilelayout.c    | 13 ++++++++-----
+ fs/nfs/flexfilelayout/flexfilelayout.h    |  2 +-
+ fs/nfs/flexfilelayout/flexfilelayoutdev.c | 14 ++++++++------
+ 3 files changed, 17 insertions(+), 12 deletions(-)
 
-diff --git a/include/net/rps.h b/include/net/rps.h
-index a93401d23d66e..6e98aa7655afe 100644
---- a/include/net/rps.h
-+++ b/include/net/rps.h
-@@ -122,6 +122,30 @@ static inline void sock_rps_record_flow(const struct sock *sk)
- #endif
- }
+diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout/flexfilelayout.c
+index a4ccd53c79e79..121c55f4a46d9 100644
+--- a/fs/nfs/flexfilelayout/flexfilelayout.c
++++ b/fs/nfs/flexfilelayout/flexfilelayout.c
+@@ -904,7 +904,7 @@ ff_layout_choose_ds_for_read(struct pnfs_layout_segment *lseg,
+ 		mirror_ds = ff_layout_get_mirror_ds(lseg->pls_layout, mirror,
+ 						    *dss_id);
+ 		ds = nfs4_ff_layout_prepare_ds(lseg, mirror, mirror_ds,
+-					       *dss_id, false);
++					       *dss_id, OP_READ);
+ 		if (IS_ERR(ds)) {
+ 			nfs4_ff_layout_put_deviceid(mirror_ds);
+ 			ret = ERR_CAST(ds);
+@@ -1183,7 +1183,7 @@ ff_layout_pg_init_write(struct nfs_pageio_descriptor *pgio,
+ 		mirror_ds = ff_layout_get_mirror_ds(pgio->pg_lseg->pls_layout,
+ 						    mirror, dss_id);
+ 		ds = nfs4_ff_layout_prepare_ds(pgio->pg_lseg, mirror,
+-					       mirror_ds, dss_id, true);
++					       mirror_ds, dss_id, OP_WRITE);
+ 		if (IS_ERR(ds)) {
+ 			nfs4_ff_layout_put_deviceid(mirror_ds);
+ 			if (!ff_layout_no_fallback_to_mds(pgio->pg_lseg))
+@@ -2277,7 +2277,8 @@ ff_layout_read_pagelist(struct nfs_pgio_header *hdr)
+ 		mirror->dss_count,
+ 		offset);
+ 	mirror_ds = ff_layout_get_mirror_ds(lseg->pls_layout, mirror, dss_id);
+-	ds = nfs4_ff_layout_prepare_ds(lseg, mirror, mirror_ds, dss_id, false);
++	ds = nfs4_ff_layout_prepare_ds(lseg, mirror, mirror_ds, dss_id,
++				       OP_READ);
+ 	if (IS_ERR(ds)) {
+ 		ds_fatal_error = nfs_error_is_fatal(PTR_ERR(ds));
+ 		goto out_failed;
+@@ -2374,7 +2375,8 @@ ff_layout_write_pagelist(struct nfs_pgio_header *hdr, int sync)
+ 		mirror->dss_count,
+ 		offset);
+ 	mirror_ds = ff_layout_get_mirror_ds(lseg->pls_layout, mirror, dss_id);
+-	ds = nfs4_ff_layout_prepare_ds(lseg, mirror, mirror_ds, dss_id, true);
++	ds = nfs4_ff_layout_prepare_ds(lseg, mirror, mirror_ds, dss_id,
++				       OP_WRITE);
+ 	if (IS_ERR(ds)) {
+ 		ds_fatal_error = nfs_error_is_fatal(PTR_ERR(ds));
+ 		goto out_failed;
+@@ -2481,7 +2483,8 @@ static int ff_layout_initiate_commit(struct nfs_commit_data *data, int how)
+ 	mirror = FF_LAYOUT_COMP(lseg, idx);
+ 	dss_id = calc_dss_id_from_commit(lseg, data->ds_commit_index);
+ 	mirror_ds = ff_layout_get_mirror_ds(lseg->pls_layout, mirror, dss_id);
+-	ds = nfs4_ff_layout_prepare_ds(lseg, mirror, mirror_ds, dss_id, true);
++	ds = nfs4_ff_layout_prepare_ds(lseg, mirror, mirror_ds, dss_id,
++				       OP_COMMIT);
+ 	if (IS_ERR(ds))
+ 		goto out_err;
  
-+static inline void sock_rps_delete_flow(const struct sock *sk)
-+{
-+#ifdef CONFIG_RPS
-+	struct rps_sock_flow_table *table;
-+	u32 hash, index;
-+
-+	if (!static_branch_unlikely(&rfs_needed))
-+		return;
-+
-+	hash = READ_ONCE(sk->sk_rxhash);
-+	if (!hash)
-+		return;
-+
-+	rcu_read_lock();
-+	table = rcu_dereference(net_hotdata.rps_sock_flow_table);
-+	if (table) {
-+		index = hash & table->mask;
-+		if (READ_ONCE(table->ents[index]) != RPS_NO_CPU)
-+			WRITE_ONCE(table->ents[index], RPS_NO_CPU);
-+	}
-+	rcu_read_unlock();
-+#endif
-+}
-+
- static inline u32 rps_input_queue_tail_incr(struct softnet_data *sd)
+diff --git a/fs/nfs/flexfilelayout/flexfilelayout.h b/fs/nfs/flexfilelayout/flexfilelayout.h
+index 24de108af2cf8..19b833f547416 100644
+--- a/fs/nfs/flexfilelayout/flexfilelayout.h
++++ b/fs/nfs/flexfilelayout/flexfilelayout.h
+@@ -269,7 +269,7 @@ nfs4_ff_layout_prepare_ds(struct pnfs_layout_segment *lseg,
+ 			  struct nfs4_ff_layout_mirror *mirror,
+ 			  struct nfs4_ff_layout_ds *mirror_ds,
+ 			  u32 dss_id,
+-			  bool fail_return);
++			  enum nfs_opnum4 opnum);
+ 
+ struct rpc_clnt *
+ nfs4_ff_find_or_create_ds_client(const struct nfs4_ff_layout_ds *mirror_ds,
+diff --git a/fs/nfs/flexfilelayout/flexfilelayoutdev.c b/fs/nfs/flexfilelayout/flexfilelayoutdev.c
+index 3cef6a4a51a70..fa4e9ddafea6f 100644
+--- a/fs/nfs/flexfilelayout/flexfilelayoutdev.c
++++ b/fs/nfs/flexfilelayout/flexfilelayoutdev.c
+@@ -378,7 +378,7 @@ ff_layout_get_mirror_ds(struct pnfs_layout_hdr *lo,
+  * @mirror_ds: referenced device node for the stripe, from
+  *	ff_layout_get_mirror_ds() (may be an ERR_PTR)
+  * @dss_id: DS stripe id to select stripe to use
+- * @fail_return: return layout on connect failure?
++ * @opnum: operation this connection is being prepared for
+  *
+  * Try to prepare a DS connection to accept an RPC call. This involves
+  * selecting a mirror to use and connecting the client to it if it's not
+@@ -386,8 +386,10 @@ ff_layout_get_mirror_ds(struct pnfs_layout_hdr *lo,
+  *
+  * Since we only need a single functioning mirror to satisfy a read, we don't
+  * want to return the layout if there is one. For writes though, any down
+- * mirror should result in a LAYOUTRETURN. @fail_return is how we distinguish
+- * between the two cases.
++ * mirror should result in a LAYOUTRETURN. @opnum is how we distinguish
++ * between the two cases. On failure, @opnum is also reported in the tracked
++ * device error so that the server can tell which class of I/O the client
++ * was unable to send to the mirror.
+  *
+  * Returns a pointer to a connected DS object on success or NULL on failure.
+  */
+@@ -396,7 +398,7 @@ nfs4_ff_layout_prepare_ds(struct pnfs_layout_segment *lseg,
+ 			  struct nfs4_ff_layout_mirror *mirror,
+ 			  struct nfs4_ff_layout_ds *mirror_ds,
+ 			  u32 dss_id,
+-			  bool fail_return)
++			  enum nfs_opnum4 opnum)
  {
- #ifdef CONFIG_RPS
-diff --git a/net/ipv4/inet_hashtables.c b/net/ipv4/inet_hashtables.c
-index e7b312f7cd98f..7035e35bea5e1 100644
---- a/net/ipv4/inet_hashtables.c
-+++ b/net/ipv4/inet_hashtables.c
-@@ -23,11 +23,12 @@
- #if IS_ENABLED(CONFIG_IPV6)
- #include <net/inet6_hashtables.h>
- #endif
--#include <net/secure_seq.h>
- #include <net/hotdata.h>
- #include <net/ip.h>
--#include <net/tcp.h>
-+#include <net/rps.h>
-+#include <net/secure_seq.h>
- #include <net/sock_reuseport.h>
-+#include <net/tcp.h>
- 
- u32 inet_ehashfn(const struct net *net, const __be32 laddr,
- 		 const __u16 lport, const __be32 faddr,
-@@ -783,6 +784,7 @@ void inet_unhash(struct sock *sk)
- 	if (sk_unhashed(sk))
- 		return;
- 
-+	sock_rps_delete_flow(sk);
- 	if (sk->sk_state == TCP_LISTEN) {
- 		struct inet_listen_hashbucket *ilb2;
- 
-diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
-index 22eee4fdd5d8d..4fc8263286f2e 100644
---- a/net/ipv4/udp.c
-+++ b/net/ipv4/udp.c
-@@ -119,6 +119,7 @@
- #if IS_ENABLED(CONFIG_IPV6)
- #include <net/ipv6_stubs.h>
- #endif
-+#include <net/rps.h>
- 
- struct udp_table udp_table __read_mostly;
- EXPORT_SYMBOL(udp_table);
-@@ -2050,6 +2051,7 @@ void udp_lib_unhash(struct sock *sk)
- 		struct udp_table *udptable = udp_get_table_prot(sk);
- 		struct udp_hslot *hslot, *hslot2;
- 
-+		sock_rps_delete_flow(sk);
- 		hslot  = udp_hashslot(udptable, sock_net(sk),
- 				      udp_sk(sk)->udp_port_hash);
- 		hslot2 = udp_hashslot2(udptable, udp_sk(sk)->udp_portaddr_hash);
-diff --git a/net/sctp/socket.c b/net/sctp/socket.c
-index 7734ca92335aa..3c8b9b8b07e03 100644
---- a/net/sctp/socket.c
-+++ b/net/sctp/socket.c
-@@ -8390,7 +8390,7 @@ static int sctp_hash(struct sock *sk)
- 
- static void sctp_unhash(struct sock *sk)
- {
--	/* STUB */
-+	sock_rps_delete_flow(sk);
- }
- 
- /* Check if port is acceptable.  Possibly find first available port.
+ 	struct nfs4_pnfs_ds *ds;
+ 	struct inode *ino = lseg->pls_layout->plh_inode;
+@@ -443,9 +445,9 @@ nfs4_ff_layout_prepare_ds(struct pnfs_layout_segment *lseg,
+ 	ff_layout_track_ds_error(FF_LAYOUT_FROM_HDR(lseg->pls_layout),
+ 				 mirror, dss_id, lseg->pls_range.offset,
+ 				 lseg->pls_range.length, NFS4ERR_NXIO,
+-				 OP_ILLEGAL, GFP_NOIO);
++				 opnum, GFP_NOIO);
+ 	ff_layout_send_layouterror(lseg);
+-	if (fail_return || !ff_layout_has_available_ds(lseg))
++	if (opnum != OP_READ || !ff_layout_has_available_ds(lseg))
+ 		pnfs_error_mark_layout_for_return(ino, lseg);
+ 	ds = ERR_PTR(status);
+ out:
 -- 
 2.53.0
-
-
 
