@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606042;
-	b=CAfJQMUZv7XKlpX/3hf9kf3m7YDGC7Ej4ryfe7UAWh40eBP3i6Map+oqzkc+JCDGOjfh
-	 iDkZHWLC4/qLxa9azKocLoWMAZqOFDIeHXsPVjU3slZl3asv+KQEk19XMvOUKQ69GwUeR
-	 wDRVEiDDtV1E6UuBxFPNbk/7DL2sSPhmQRh5c6LIuvh2VkfmY28eGY4s6r+fEDpCbg45b
-	 mCylGsbv5dBEQheu+dZbIIRu0fmjL9xsS5g4Zjz9GEhyNp7Sv1o1GUdxE8+T8SnpUiJm2
-	 CcexEBJn8B50r5Bmx4rokP4u9+7JLpqaSEB6mwPRDImUoUe7cDHyw+ylp0swNmshq7Q==
+	t=1795606045;
+	b=3RiS1gOFSc0xafJmTtLfOFAfFeagZKVxx7ga/+LzCeYOzN6lNBPqWv/vZjOue/9XxMQa
+	 GpQdWYp/KdIIwybmDDGPKoAvitO05LHFvuY/2N0kSs2Jb2rVltbOQPT/yTL5/B8bz3nrn
+	 tpEG1hSLD1XAlBLn87goQEMXXVvf8n0ODNE2/CPZslNUCw/5X9aPB2nwbS5pxf4Vb5Vqq
+	 PINqIx385oxwnt8+aN9F3ywDP0Zg07Z0rSq3KDGixGYSLTN13zNN94mGc2gy+QjHR2mE0
+	 JSilxy9ZiDQGasIJK5morPsEHesCA+4LpecKUQbDt8EA1Rbj8wDipWiqG0xxMISzwaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606042;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606045;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=A+f3lPwrIP4el6G5EknHcgQI2MygHbO4/BU6hZOs1do=;
-	b=oPlV6YwjDKnhXcMKswggDsieXmHnPk0zBHvmkyp8Ayr0IWdGqgFlE2/cBDuVyFwEQwpe
-	 LJ2WIXZewLVF6UVUvD5MU7edAtjBMmfb4JRi+fJLaXaCQ01v7igGtbNBsaYjW/SsiikCP
-	 XaV03YpMuR1b/wSPxA1TLfINR/5mqr79SqPTs0wxqsswc+yUHMZnbkqkzJG49EIgGvJRL
-	 8X2vQ9quTQdg8IasMKKOny3FEIS5+vPoiMBqhULpjpTrjpOFKK65b7NemKOpG0Epk5Rrq
-	 ZFkIZ8SQgAJgMag4IMh1zfXnNPG1Q0W5ahfo9WlzbCTOjcwDDDThhbpNFiMLe8Iedyw==
+	bh=dl8jWiLOngNrDSJSrc03hWl/5Arz+65Sb+s/2AgdWdM=;
+	b=Wa/HUsO55TfWdms/yOmsftCLavO+4aNipqScRlkV1x8TfMf2Lz6x1ClLYFzkZU+OSqYs
+	 lUEviBewL5dzkKgiGTg0xhYrzfOaY1++m6q3pE5GW5/ugURP6xL8b4Zb+/eXjvKMI3DI+
+	 /HFLGo4Q2vs6hhwK8Z1rxY63Sw/wFcfrJ7M9CpPa+aJmKWiMrZXzklRYptRYDc6kl54J2
+	 iwyy1D51+OOeDsaKMg36HYAqBRuQEJEWk+iPqRitsknxyhDrhVJrRc4lxaeaoWvQYpHZb
+	 Kx72YBYwWpAto5L4PNmcqQjB4Lld231tHkrldbn3U/YrKeqZbYHRUfn2tOlb18HSSqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zVH2Fjg6;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AaKB17Ho;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB23606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:27:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43186606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:27:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zVH2Fjg6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0CE71F000D2;
-	Wed, 25 Nov 2026 11:27:20 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AaKB17Ho
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 173BA1F000D0;
+	Wed, 25 Nov 2026 11:27:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606041;
-	bh=A+f3lPwrIP4el6G5EknHcgQI2MygHbO4/BU6hZOs1do=;
+	s=korg; t=1795606044;
+	bh=dl8jWiLOngNrDSJSrc03hWl/5Arz+65Sb+s/2AgdWdM=;
 	h=Subject:To:Cc:From:Date;
-	b=zVH2Fjg615gj1SGUcRLedPUJ4b1/E908xnAOeE1juO8Nnv63+iraqBcTWkEAdx9rT
-	 FX4j3fbwhGQDC67Hn4UEpQtn9TMaH/jfEvXneNaN1JPx2kNlE/OdgQF2XuwBa3Ol1y
-	 fMtgRIbk1L2zbYMHhg8v7bmRZgJKgM3ySvuFHx20=
-Subject: FAILED: patch "[PATCH] smb: client: don't write back through O_DIRECT handles" failed to apply to 5.10-stable tree
+	b=AaKB17HoWOusmwijWT1Uey2fMXIWrx0+a8AhYYLbaqxvM46zl5j74OdooKUqVzcBi
+	 sNXUFn6RC6TRkPtoOenGbG3snbtMXv7RoK04KB2Asd8TeH+pI6y6VivAn69tolqoIl
+	 T/fRlwYOafhTDMAR2/EX6Sr03hECpvuYaFweYa9E=
+Subject: FAILED: patch "[PATCH] smb: client: don't write back through O_DIRECT handles" failed to apply to 6.1-stable tree
 To: pc@manguebit.org,dhowells@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 12:14:13 +0100
-Message-ID: <2026112513-mom-afflicted-452b@gregkh>
+Message-ID: <2026112513-overspend-human-342b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 0e85145af984f7cae2aadaa694cb8612009027ac
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112513-mom-afflicted-452b@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112513-overspend-human-342b@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
