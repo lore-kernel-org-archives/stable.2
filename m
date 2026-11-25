@@ -1,55 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795638504;
-	b=wpWrWChsMfjcDgEYLpiSMVytNlE5cBwVgBoyZ6xxVrBvqs2oeI/FMGvIaVSezNdtp9N/
-	 oO9pKjN95yO07APczjzaZ6xm0gKU5YKv3MMz0ypfzSnEUFnA63BnO5kwv07Ngya3AGHsN
-	 4UaK94T41lEfFCfSDq03WWciH7zdNi1quqNmZlJHuMHgIdc+2q1LnzsyKFBvgkGE72QEb
-	 8ULqIGsUl5+DzZPzsZmh0Q/x85cSO+1u7rqb78lTvGtuTsxAMCCeqQwGX8c624ZmjSUw+
-	 AYYtwYintFhVOD/KIplS0prWKkXHaC7ANPWCkRnApjk4kWiEz59dquB7n8JQk/wSirQ==
+	t=1795638523;
+	b=L9d5RZ549WmvjmEJkOQoUe97YaQI2/MhPVwEkwwOJ0AsQoZzDLLUL7U0SNcgqKd//4Bw
+	 6VjjGOa8HQU37UAPjcRBWg278+khgTyuwa9TmMKTlCniNzZkTrWhnACEeF+lmlypBe9nb
+	 apPPBeaj1RRltoLx0jep2NCIjgavD6KIf0h3Tq3lAcYx3L1HLrCi4qinKQcaIb1XRZ1xb
+	 cv+7NTkucxKE6wOY6smc5hWXyTvDiTEj8R5m3jG9HljMYk9bb8kFHm9qjOL+LVc1vIjxZ
+	 cxdnHc9c9poUnVexDWdZwH+xm/E0Eg93n9LcZnRmrwF17dwt/tbV6M9TCpmicVmdvqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795638504;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hdv2cUD8CzHQThrd1+eINMsPYaY4koIN9GEHqmDNqn4=;
-	b=1Q37vTJ2rMR9na3+NiwfedTaOhAnDLVRasyliwoNFr0dzVB8LBpYj+0SQZ/7G4766ljh
-	 Y61w2m3hE2jO9P5YSpfOw3lK7ov8+J8YlSItHI7bknI+HckBxDOsiNP4sxIWYY5vXSr+o
-	 ZnCpHVqpq85S+FgE/X3Z6xhNxRF0zAQ1yLaxjW4cZp8QTa2vfHHFJZNXNUpbUdfvCSRds
-	 Fjt7k1yRuyk0OtH1Pt5dUhWGIT1wJE/7TcCczF1fFJTsIjkdHgnR0DypbCrV6JbnkBC1z
-	 VhYhbafj0D95MJ3e2JXkC7HiWtHMhw0q02Vggt5wxKkvRh2JJT6LG6ZxLUJDwCRzi9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795638523;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=mlda20IdlBMocoURp9TWLKJ60Nes7uXkahJoHZw/DJ8=;
+	b=0x2a/t0vJRhwbeWsufFfLSLh7VC0Rox5TY9PvLjK1JE94PNRY95g2UCFL2ShLNnGw/IC
+	 aNDrYlOo3zo5AmALtiCIVWjLKARunEEXHmi8+A6dLxkW+iYL+zjg5q0+ZySiSFqdytl65
+	 AB+Xp8XvWUgW4obKgaaEOSDDsHeK89GSly2rxGsyepChucjIgXniR12+9258w+Kzk+X27
+	 wGmgu1wSINqiL6rsQYmW/lF6rGQn56N+rDeLQifLIR00Nvl6GdY2dOZRjhRght7FfGdU7
+	 8pyRdQFTXqXOqhKqFJZDFEHN8KwEc+9DzvJUCa0F0lYKjXkUn6Uy6zIoZSMDVWABdVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AmSitKAq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DiG1zZbi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F253606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:28:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA53606A31E;
+	Wed, 25 Nov 2026 20:28:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AmSitKAq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68AE91F000C0;
-	Wed, 25 Nov 2026 20:28:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DiG1zZbi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB2F81F000C0;
+	Wed, 25 Nov 2026 20:28:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795638503;
-	bh=hdv2cUD8CzHQThrd1+eINMsPYaY4koIN9GEHqmDNqn4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AmSitKAq38zhuIOHv3lluSbpDW83xBMHed2l7PKUGCiqnSaGxeifONkuO5LVmopCM
-	 vAq1pccSY8X+x3jxVXbIGEyGkeGSGs7XvO0zu+FPEI7jy94dsqLb5a1r3yZ5hOgHWx
-	 dPwsREnNmjjHKzRWF2n3hZ+bvFRVWqtKqfqXg9YUJaLqP1fWiq/NrPe4+bLcHRXG4z
-	 2kRnTP/5pkdFVGcsVxB5C65epmMYNdTY6bq7Q/ZQowTXCQZkgFADkwZ8VZsuO6Yn4B
-	 wkXn8j5t+FgMSgqOsmhO6YvvTeYeslXdkImYRZ6nTzPB/Uu31Jh+FrFZ7CE/xnN/Kc
-	 epf5V8iUDqmHA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zhao Li <enderaoelyther@gmail.com>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] wifi: mac80211_hwsim: ignore non-generic netlink releases
-Date: Wed, 25 Nov 2026 15:28:22 -0500
-Message-ID: <20261125202816.1416123-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112524-postnasal-bullion-f08c@gregkh>
-References: <2026112524-postnasal-bullion-f08c@gregkh>
+	s=k20260515; t=1795638523;
+	bh=mlda20IdlBMocoURp9TWLKJ60Nes7uXkahJoHZw/DJ8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DiG1zZbiN1Nq+gt8o+cgdM/UN1yJvF1qwZse1G7KAnup1sujHnyoFtzcOWe3ZZWTR
+	 EdhpB1HDHsmI7s9wz3CNpzV2hozro1iLh1e6FG6B5Nq7Vf5IW10LVGAYtsG2+Y2tEm
+	 c5zT0hOpzYoM4m8xsxZOAEUMhGGLm9CQqx84ELTXx35rFZSl1zSDA0gjcKp1YaTdqb
+	 j7/gjZRyeJ+FOFyxzQzuRMUCZ3jYFXxGzw+XUcLC0mKFLdZcC2W6+dgqEMWZxtHRvE
+	 o94HB+WULzeZOXt+XQp1GlKbbTEPuJh/pusich2ZIqHAw+KzhuixEZ0YSLVDwZoHRR
+	 WI2/16RJgbdUQ==
+Date: Wed, 25 Nov 2026 13:28:37 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Nicolas Schier <nsc@kernel.org>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Julian Braha <julianbraha@gmail.com>, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, linux-kbuild@vger.kernel.org,
+	stable@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [PATCH v3 1/2] kbuild: Introduce CONFIG_CROSS_COMPILING
+Message-ID: <20261125202837.GB3625068@ax162>
+References: <20261124-x86-no-march-native-on-non-x86_64-v3-0-268354149c5f@kernel.org>
+ <20261124-x86-no-march-native-on-non-x86_64-v3-1-268354149c5f@kernel.org>
+ <25eaa926-c244-40a5-b7b9-e5182e601446@t-8ch.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,48 +69,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <25eaa926-c244-40a5-b7b9-e5182e601446@t-8ch.de>
 
-From: Zhao Li <enderaoelyther@gmail.com>
+On Wed, Nov 25, 2026 at 11:27:10AM +0100, Thomas Weißschuh wrote:
+> The expansion to bit width and endianess will be a lot of busy-work.
+> See the CC_CAN_LINK infrastructure.
 
-[ Upstream commit 989f47c56e48d442d79497a25ed946d029c4dc53 ]
+Yeah, fair enough.
 
-Closing an unrelated netlink socket can remove mac80211_hwsim radios or
-clear the active wmediumd registration when its port ID matches a generic
-netlink socket.
+> We already have host-architecture detection in kbuild through
+> scripts/subarch.include. So CC_HAS_MARCH_NATIVE could depend on
+> $(ARCH) = $(SUBARCH), after exporting SUBARCH. Or maybe give the
+> variable a better name, like HOSTARCH.
+> 
+> This would avoid the introduction of a new, not-really-correct flag
+> and also the whack-a-mole that Boris complained about.
 
-mac80211_hwsim_netlink_notify() handles every NETLINK_URELEASE event,
-but netlink port IDs are scoped by protocol. The notifier therefore treats
-a release from another protocol as a MAC80211_HWSIM socket release.
+Ah, thanks a lot for reminding me about SUBARCH! In looking around, I
+noticed that Kbuild already checks if SRCARCH = SUBARCH and exports
+cross_compiling=1 in that case, which means this patch should just
+become
 
-Ignore release notifications unless they come from NETLINK_GENERIC.
-
-LLM assistance was used to find the bug and review.
-
-Fixes: 7882513bacb1 ("mac80211_hwsim driver support userspace frame tx/rx")
-Fixes: e9ed49bf4c2c ("mac80211-hwsim: Add support for HWSIM_ATTR_DESTROY_RADIO_ON_CLOSE")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
-Link: https://patch.msgid.link/20261028141751.6728-2-enderaoelyther@gmail.com
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/wireless/virtual/mac80211_hwsim.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/virtual/mac80211_hwsim.c b/drivers/net/wireless/virtual/mac80211_hwsim.c
-index 89794c724858c..eecd6e2ee27e4 100644
---- a/drivers/net/wireless/virtual/mac80211_hwsim.c
-+++ b/drivers/net/wireless/virtual/mac80211_hwsim.c
-@@ -6747,7 +6747,7 @@ static int mac80211_hwsim_netlink_notify(struct notifier_block *nb,
- {
- 	struct netlink_notify *notify = _notify;
+diff --git a/scripts/Kconfig.toolchain b/scripts/Kconfig.toolchain
+index 2acbd40a38f1..a8b5258eac7e 100644
+--- a/scripts/Kconfig.toolchain
++++ b/scripts/Kconfig.toolchain
+@@ -97,6 +97,9 @@ config RUSTC_CLANG_LLVM_COMPATIBLE
+ 	  LTO) require the same LLVM major version to work properly. For best
+ 	  compatibility it is recommended that the exact same LLVM is used.
  
--	if (state != NETLINK_URELEASE)
-+	if (state != NETLINK_URELEASE || notify->protocol != NETLINK_GENERIC)
- 		return NOTIFY_DONE;
++config CROSS_COMPILING
++	def_bool $(success,test "$(cross_compiling)" = "1")
++
+ config ARCH_HAS_CC_CAN_LINK
+ 	bool
  
- 	remove_user_radios(notify->portid, hwsim_net_get_netgroup(notify->net));
+--
+
+unless we did not want the separate symbol, in which case patch two
+could just become
+
+diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
+index 6e7a366f0798..b40aaff6867d 100644
+--- a/arch/x86/Kconfig.cpu
++++ b/arch/x86/Kconfig.cpu
+@@ -217,6 +217,7 @@ config RUSTC_HAS_APXF
+ config X86_NATIVE_CPU
+ 	bool "Build and optimize for local/native CPU"
+ 	depends on X86_64
++	depends on $(success,test "$(cross_compiling)" = "")
+ 	depends on CC_HAS_MARCH_NATIVE
+ 	depends on !RUST || RUSTC_HAS_APXF
+ 	help
+--
+
+-tip folks, preferences?
+
 -- 
-2.53.0
-
+Cheers,
+Nathan
