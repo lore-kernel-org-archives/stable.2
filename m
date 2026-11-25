@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603017;
-	b=h3ucW8uPnATBoh/x2uLAdwy7m1uEfDwGEw6bTyJvZk/r/HgfAAWcfAXwKw1av84KVffN
-	 dDheBGLHR8a0dSs+6/bUGqW8Ctn0a3CNwRebgh6wRuK8L/B5g/mgLd6JiKXgni6angtSo
-	 tZ9tmCRuMl03ffoDMUJGyE8d4a+OPVmPtBvbT8gKOxf+pEUpZjhgT3y0qmQZhXOj1HoJl
-	 WEBZM6aVF9Z8FKezVHP0u6LCl603IpbVU8cOGJwPAEswz3WB4vMpa2TLPRiToW+IjQ9EA
-	 MeEeuwrbu/J+QbNhhBSYmUcTtg2A36dFaEUs1JEdlrg8Au7s3hSLLk3/wHIvSrgBHmw==
+	t=1795603020;
+	b=4x/HoBTFh+SJL05kPpzFSiyJWYGs1yN4Fp83+VFgD98qVvPBMgtfDww4gFM2dmhICcWf
+	 abysayeyZSg+Nxam/CuZPBBBtis6G4ZowzF58vgX+lQLhF8LChT7FTQ58r5LtJvirrHDp
+	 RnghfwHvxZGg79YcrSP/fgpn0Bbn+NCFRFV2fBwN4d0o3hJXBZ+UCegR4qfHzebJTybWU
+	 RoPhxdOdvIQeE4W+GB95j2N3RxEncWhelXw3Hq5Zb/lYcc/RqYqb7eINmHVP8er9KZmY1
+	 n5cNbJnPMJ36f47NPz0VXXW1RgBaQlkz4sVjA7Auzx9iwy8epC1qY0YZyD1/vKPja9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603017;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603020;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1eIq8aP/XFr9R0NPH7w6dUkMS82px5YQJtUJ+JolQvI=;
-	b=UPntSnwdWLUaGiPDzvGurDucompPvlAzOLxlFI8hdCzfN4g3zNbUleGh3nUKSfcf9o7i
-	 hHoL3f59f1O4tVjrh4y7dVd7AvTASFDLtQBRhzzahgXyDwBCiSgbFSJikj6rnPBXgVZHa
-	 bMUIEIgdqonh3+DPwgsoS2AhHgabTEB4yX+MatpaZUBon7j7uNiWO2URZtoSMfdRmcxv7
-	 e2EVJCcmZWBm+3n/yra710S/U1igCtIMgNNDcKDIM66izfzibS4ESDYVKiSws4GQN8H5u
-	 2iPn0p7OlA9MZrGGevS4xM5NjPziyXJV8cIMdTKPUYZwzel+6Mua3rFUSe6157tXGQQ==
+	bh=hjDb+EtE4w8u7MAUBHqSupnmrR3F6UBypA0MLNFWR/U=;
+	b=Cr9QIWRPa25JBMb3FRQxpmmBzPoZ16Vmh4IwnjYes/1+c8HdtahJgFRA0xhsNIGMao+t
+	 99V3IeRAGmzDHjeMR0Yet/C2FNMHhyENx4HHm+QK2q2ErbGdMDVrfPN5CBHvPsMaCgBcS
+	 g6k/PuPJ+AwlI2Ogdhqcp59fNN5C7MzCUdiRsfkSzZyoBrQbrHv76w8UDpmeWSxOzEURR
+	 0KoiZ79QxZBWWqS1YRSAYsw+ofzTmJHCrh2lIRqUDghcE5aRZA+egFx3Qr23eCgh378Hh
+	 C26GUP5YxbZdPl80ftmZh3/DnmViazQ1encyJ84YCHerYsp1bpJSkT1rQqcB06tSLiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LYe1QFkP;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Yir5NLER;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A72606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:36:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 229C1606A326
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:37:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LYe1QFkP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24E051F000D2;
-	Wed, 25 Nov 2026 10:36:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Yir5NLER
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DF431F000EF;
+	Wed, 25 Nov 2026 10:36:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603016;
-	bh=1eIq8aP/XFr9R0NPH7w6dUkMS82px5YQJtUJ+JolQvI=;
+	s=korg; t=1795603020;
+	bh=hjDb+EtE4w8u7MAUBHqSupnmrR3F6UBypA0MLNFWR/U=;
 	h=Subject:To:Cc:From:Date;
-	b=LYe1QFkPwyfQ4j7NUJBEyaqpC5HgqWPeynd51f+G4rQN11OzYmZP/0dtBb0RwGVWb
-	 VhTSLxjr88Sk34pwwaU3MPuoc962o2IN+nljBPZu2GPtLKTaH+8XfKuDKuWanDVpr9
-	 okiq9rDLsa9ZgA1D3EoKEkayN0PdLQLFv6QHyO2E=
-Subject: FAILED: patch "[PATCH] sched_ext: Fix stale pick when the donor changes during" failed to apply to 6.18-stable tree
+	b=Yir5NLERU/gU6OpccKiu6MqKGvGUhLaX9I2ZVmHdLIlDbVs9cuGcUwUmeFYd046Id
+	 SrMATiflPtS/hw09s3G3h2mmrmGTqFd5KRvjRsGQMleye+QFp5MWj0P6gu5b4b3LrH
+	 Ad+kOifZHBeLMxgN/JquKyh9f6+Nn1ErggW0aGO8=
+Subject: FAILED: patch "[PATCH] sched_ext: Fix stale pick when the donor changes during" failed to apply to 6.12-stable tree
 To: tj@kernel.org,arighi@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:22:02 +0100
-Message-ID: <2026112502-outboard-reload-fa22@gregkh>
+Date: Wed, 25 Nov 2026 11:22:03 +0100
+Message-ID: <2026112502-channel-ascension-591e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 9ce6fca02867911ba79bc3664219effe8c7be8f4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112502-outboard-reload-fa22@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112502-channel-ascension-591e@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
