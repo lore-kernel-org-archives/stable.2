@@ -1,94 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625261;
-	b=USDjvLA8ZIgEEqaNDrH84QzNzl9jK07FCe/DF4dz1qHJkh8uPuFgIY3BEcl4Oe7r8k1/
-	 5avmTl+92o7QUxbSNQl035e/33GghJexqVeKGcOMdkoTVHsN8ge/sdnffxsI20h2xMzff
-	 hsUUNQAwgwnx0Tp2sx6KllPmv9QY6lQyYGpfsAU+OuEdp+tsZDkUS7f6QYjdHUpFmDl1j
-	 r2IDBqSqORUPsq3DpsZjbPreRS1wbbu4TKIWzlWTNAAmNF6oWFnDiZaUbfc1syrkdiZGS
-	 XAYYtaCqoUhL6CLaRiLa9rUxgDUvVUYIiJi7NatDZ0WQDlvVKR7r5utmeacIQnwpgAg==
+	t=1795625262;
+	b=N4HBFH3WhlP1LKLgDpd5CHKnrys9rsYU3r5wrOHTLrlXml8Bcb1eH5e6BbyRiG7go5TG
+	 WlLaZ2+alrmNpiMi7ULbJ/dMmIbAc2VklhEXXoj6jTcWmu2/a39BRF6aWW4Ebv4hVYk7O
+	 dkWfED8quWrapYfG5BQcyrDDBZRubU4klMnoDXEg2yfF6+YDaF/6ZpisCZT72DvTwaI0Q
+	 ppvuFLWR6t81s0uJavUCaR43F2jBKkrx1/7a0v5e9KtOCYYPA2gle/oCH9yA+C/kdcSIS
+	 nsZXeeZ7qwGnALqmpfSfG6LjGUIqLUSs0jltRHinqgjTI2QMiITV0K7mGwCEb18utVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625261;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=k1C78Uc1W59p66k/nD/Zj6PrIT29VxqTwRjxHQ+aiV4=;
-	b=1rG42RSN5Pagr3lHxh6gFPU+WyiliaY5NN6L8scTVGdKxVZhPsJFB8dqEMGfQzNa2697
-	 IwGlGw5wX4fQdckXM6UEZJm3k1M4eD12TkeyRJ7BmRdXeodx+novK7VY9Qga00qiPj82Q
-	 K0C71R849F69I7JrikNhhcStXiBQYmiIh6hejeTS7ru7eWDhjSjOjf3n0M7ULsh7cbNkW
-	 o2YskZdYKqJ56RVZCbYQrid3QtfaojwG9rii/H/CzeBMgbQSEITCwe1HH7IMlbbXzt1BU
-	 WKHXo3hIHQijdFabfL3pRkkg9JEt6WkiNKDjPQ6uukn4uToWjEqGrv/29ehyI9eMRpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625262;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=9EgYzxtYiLN0vDmCYVSFMQKtkYCU8DSAa7SdGU1vdoM=;
+	b=ULgNRjUVYad3r8b8+w2DKp4ocgE/qNquEZdAHfyl+ETiNIxjju/NjZ5cGxPnUjKR9h/S
+	 Ntm1ijJ+oWfz2NrJMDS0Qu0uF8VOM6TEG8374FqLjtY22YntMxgrLJsfp4ynH0RFqQ86/
+	 yuXEUKUEAkBESF5X56tyaG2PkTTTPf4XsEp+ajk7sHDuyLq9glPnpdNZ5aFtzzRItQoOB
+	 M8aqzCBmnWVuOQmP7J7Bx4TV1l7QOmw/gG4Bno5Lq7RlDw9rTqrGkthpg9aH/xwAZ/iXb
+	 Fo1+fukgMKZnx1sbz+oECXynjoL5DiBV1O+A/koin6CBjSjQpxdiOs4tV3msOQ+8DPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rB4+0FqZ;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ueAeJMAQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF722606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:47:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF722606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE2D606A32C;
+	Wed, 25 Nov 2026 16:47:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rB4+0FqZ
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2f02ee04378so47962005ad.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:47:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795625260; x=1796230060; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k1C78Uc1W59p66k/nD/Zj6PrIT29VxqTwRjxHQ+aiV4=;
-        b=rB4+0FqZ1CZz21tsa67voyk2x6NXgq81CuBWayyF4UYmvBgatYBVaNcj/3ozmZ/iiM
-         Da08/9XHKbYf1SubiB0vnwwEfpk0cUM6dbMszpNggH1KM4iTht9Y2Qycao7aHdIFLIKO
-         weAIxXq1I4sRGtOJxXW6XFU1Pw5oqUyb1tCMu+Ks6RdklZBC+nzotf/WNkFKsIIP6tuW
-         OPAGrBEDHx/2Gu/lquPrKXhMrcQ7fanP0jl1JoF0T7kOJ1o6zExCytCUu+WanrH6GsCi
-         z2AxidbqRuqhFKtm8Q1IWm3dnCt8cAQGcfSJx5r2wEdC1HmXbDPeSnpuFWgG1WWF2lCb
-         e18Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795625260; x=1796230060;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k1C78Uc1W59p66k/nD/Zj6PrIT29VxqTwRjxHQ+aiV4=;
-        b=ObFgBklRDGnZNXydQFD/jadU6KQYEZ+hqKa49lz3P4KDADHjPuEgOHvzgLMOTg1X4F
-         X4AUsO3UStqx6YJ5K6PJgV/+yZ1LzOvbN/Tqf+Fjf2c5GB8Ra2mOxMwnWpv+7sM6qRY1
-         els5pUXfjfsfDl/1oIF79kUhG3KQZW0oHG1jhbs0soEoJ6iXj9LSvT8PvQN5E+dj35FH
-         CP4/KGVu++mmZIFpW//F41PO1WevtJFMuzYZaE99/yC0+JcV/wIl46VZxFZop8N7L8/i
-         GU28k/jNroUfQCw9LYdXMYNEGBQ8DCT/k+B8wIQbayR8t36ee8jtTveM6z39DY11Pwcm
-         4K7g==
-X-Forwarded-Encrypted: i=1; AL+hErGqVRgBdEXWRT4vdXOsqRVDknjOpq5zK5FlkleuKfP7F+ulA8OGNZ/syxHuEIaKFdwI9Sx/h70=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8N0wkRWq2oT5B0TuWbgUQ78dKyh9phOhP1O+iSIr/Q1RoQhIC2
-	YRDD4/5Ygddnn5uI/yH6GzU6cOLO2KhKcR8YQhcr/qRTZQXdEKsbDDbr
-X-Gm-Gg: AZFdTZcEhK2MN3rvctR7YUVnpeMb578zo5D0VituVXzNYh2rIQZsEbAJxgT96ZOZeeS
-	CAnG4STwM9toReH0py8UDCS7bOUVcrqV8eW3IdYy0ZzSD7Os1QIIq5qcPeRS/Xtn1P2aesMiBa6
-	4evSDaOwq1LxJdGICWFKG6vh61pJNOUkAKB3n9NQGUH+lGvTaK0F304JYWsabdispvlHbiDc3iu
-	K2cDA6KTv4kZItfg+dzXfCkjAuGD7yHRUBA/V6v+qJqwsPpnXWGcBoNUQl3dpYuOtpcehZ4mJE4
-	k1ecdoyUUqGJQ+rIcpYKdLNQqPI/ddzFpSUSDWVbDIkYgSXZnPLG70AgP/bdZ+aQV9o/VSf9HED
-	OQOPuRT8kHLQkhxUYHRL+0N3+3mtB6QwUwUddBPTtOIgvv4LBw7d8WfgL0BtAE3CkiE+nsU7fCl
-	iBf6aSOKp4KGBiLiO8kTzgVcmLrykAn5jj06vmYYMUo82m/quBjoQriffOOKXxDGCEYN9DsBvop
-	ZiIwhfjcWRF9HnkBlo/X2H6zLS/evC8uWPM6zgJhXq7X1j/FdLTS4++nHTAJu8wRBG4211e6YMT
-	RLIUku4V65wnZwIXkAfRP0gtNQ8NNdnHBcfQgHHajHDOWmWLfAQI+jgXMmw/2ezW
-X-Received: by 2002:a17:902:ce85:b0:2f0:3e44:4761 with SMTP id d9443c01a7336-2f03f25e801mr192769945ad.54.1795625260030;
-        Wed, 25 Nov 2026 08:47:40 -0800 (PST)
-Received: from cps-manycore-1 ([147.46.174.222])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f0dcbe3sm89876535ad.28.2026.11.25.08.47.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 08:47:39 -0800 (PST)
-From: Sechang Lim <rhkrqnwk98@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	bpf@vger.kernel.org,
-	Alexei Starovoitov <ast@kernel.org>,
-	Shen Yongchao <grayhat@foxmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] HID: bpf: fix use-after-free in hid_bpf_reg()
-Date: Wed, 25 Nov 2026 16:47:18 +0000
-Message-ID: <20261125164728.24914-1-rhkrqnwk98@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ueAeJMAQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D72DF1F000EC;
+	Wed, 25 Nov 2026 16:47:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795625262;
+	bh=9EgYzxtYiLN0vDmCYVSFMQKtkYCU8DSAa7SdGU1vdoM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ueAeJMAQGwaN7M0PFCO0NPsDEtS3zeF5z+D7omPs0BpbkFpJZRD+3218+SgoSMbZ+
+	 4VC2nddMPgpcWsIzSq4RSfOlNtREiWJAMIOKqc4+/7cHF5Q3kXOUxQLFUXI1KKbYpk
+	 UBzOQL1EFNQZZVcjTxyIfPtUK0qIeqQwi4dO1lng=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Marco Giunta <marco_giunta@outlook.it>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 457/816] ASoC: aw88399: skip BSTS check when boost converter is bypassed
+Date: Wed, 25 Nov 2026 15:33:25 +0100
+Message-ID: <20261125143859.769238073@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,47 +64,79 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hid_bpf_reg() keeps the reference from hid_get_device() in ops->hdev
-and adds ops to prog_list. After prog_list_lock is dropped, a concurrent
-hid_destroy_device() can put that reference and free the device. With
-hid_rdesc_fixup set, hid_bpf_reconnect() then runs on a freed device:
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-  BUG: KASAN: use-after-free in device_reprobe+0x111/0x1c0
-  Call Trace:
-   device_reprobe+0x111/0x1c0
-   hid_bpf_reg+0x3ce/0x420
-   bpf_struct_ops_link_create+0x39b/0x4e0
-   __sys_bpf+0xaca/0xc30
+------------------
 
-Hold an extra device reference until hid_bpf_reg() returns.
+From: Marco Giunta <marco_giunta@outlook.it>
 
-Fixes: ebc0d8093e8c ("HID: bpf: implement HID-BPF through bpf_struct_ops")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sechang Lim <rhkrqnwk98@gmail.com>
+[ Upstream commit 664824782df63013ba8686b649c625cac4793248 ]
+
+The sysst check in aw_dev_check_sysst() requires BSTS (boost finished)
+to assert, but on hardware where the boost converter is bypassed via
+external power supply (BSTCTRL10 register 0x69, EN_HVBAT bit 2 set),
+BSTS (SYSST register 0x01, bit 9) will never assert.
+
+The vendor's generic driver (aw883xx) handles this by reading EN_HVBAT and
+conditionally masking out BSTS from the sysst check. The in-tree driver
+missed this logic when the original code was ported upstream.
+
+Add the same conditional check, matching the vendor driver's
+aw_dev_sysst_check() implementation.
+
+Fixes: 8ade6cc7e261 ("ASoC: codecs: Add aw88399 amplifier driver")
+Signed-off-by: Marco Giunta <marco_giunta@outlook.it>
+Link: https://patch.msgid.link/SN6PR19MB2303FF1922BF5F876378066FFC8F2@SN6PR19MB2303.namprd19.prod.outlook.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ sashal: Ported to the single-file driver layout: the EPS_EN defines went into the local header and the BSTS-skip check into aw_dev_check_sysst(), since the upstream bsts_unreliable context is absent. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/bpf/hid_bpf_struct_ops.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/soc/codecs/aw88399.c | 13 +++++++++++++
+ sound/soc/codecs/aw88399.h |  5 +++++
+ 2 files changed, 18 insertions(+)
 
-diff --git a/drivers/hid/bpf/hid_bpf_struct_ops.c b/drivers/hid/bpf/hid_bpf_struct_ops.c
-index c90b68956cb3..e2512bd6e6b2 100644
---- a/drivers/hid/bpf/hid_bpf_struct_ops.c
-+++ b/drivers/hid/bpf/hid_bpf_struct_ops.c
-@@ -198,6 +198,7 @@ static int hid_bpf_reg(void *kdata, struct bpf_link *link)
- 		return PTR_ERR(hdev);
+diff --git a/sound/soc/codecs/aw88399.c b/sound/soc/codecs/aw88399.c
+index bba59885242d0..63c849a19da72 100644
+--- a/sound/soc/codecs/aw88399.c
++++ b/sound/soc/codecs/aw88399.c
+@@ -285,6 +285,19 @@ static int aw_dev_check_sysst(struct aw_device *aw_dev)
+ 	else
+ 		check_val = AW88399_BIT_SYSST_SWS_CHECK;
  
- 	ops->hdev = hdev;
-+	get_device(&hdev->dev);
++	/*
++	 * When an external power supply (EPS) is used to feed the amplifier
++	 * (EN_HVBAT bit in BSTCTRL10 set), the boost converter is bypassed,
++	 * and BSTS (boost finished) will never assert. Skip the BSTS check in
++	 * this case, matching the vendor driver's behavior.
++	 */
++	ret = regmap_read(aw_dev->regmap, AW88399_BSTCTRL10_REG, &reg_val);
++	if (ret)
++		return ret;
++
++	if (reg_val & (~AW88399_EPS_EN_MASK))
++		check_val &= ~AW88399_BSTS_FINISHED_VALUE;
++
+ 	for (i = 0; i < AW88399_DEV_SYSST_CHECK_MAX; i++) {
+ 		ret = regmap_read(aw_dev->regmap, AW88399_SYSST_REG, &reg_val);
+ 		if (ret)
+diff --git a/sound/soc/codecs/aw88399.h b/sound/soc/codecs/aw88399.h
+index 5e9cdf725d3dd..1e9fab17f28c3 100644
+--- a/sound/soc/codecs/aw88399.h
++++ b/sound/soc/codecs/aw88399.h
+@@ -446,6 +446,11 @@
+ #define AW88399_NOISE_GATE_EN_MASK	\
+ 	(~(((1<<AW88399_NOISE_GATE_EN_BITS_LEN)-1) << AW88399_NOISE_GATE_EN_START_BIT))
  
- 	mutex_lock(&hdev->bpf.prog_list_lock);
- 
-@@ -239,6 +240,7 @@ static int hid_bpf_reg(void *kdata, struct bpf_link *link)
- 		hid_bpf_reconnect(hdev);
- 	}
- 
-+	put_device(&hdev->dev);
- 	return err;
- }
- 
++#define AW88399_EPS_EN_START_BIT	(2)
++#define AW88399_EPS_EN_BITS_LEN		(1)
++#define AW88399_EPS_EN_MASK		\
++	(~(((1 << AW88399_EPS_EN_BITS_LEN) - 1) << AW88399_EPS_EN_START_BIT))
++
+ #define AW88399_WDT_CNT_START_BIT	(0)
+ #define AW88399_WDT_CNT_BITS_LEN	(8)
+ #define AW88399_WDT_CNT_MASK		\
 -- 
-2.56.1
+2.53.0
+
+
 
