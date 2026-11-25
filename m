@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795597030;
-	b=pteWycWYE4bt4iDJJZkIYaCLvkEIBZWKGDJJRjP1SIhDbr7XlYtJRrWaeQJyWwLILjFC
-	 Kjp399tX0+rSrpRh3zC0x0R7+vX2utF6Y3UklyB14jtXOoNKlPFxQ0A1GE6z5TWsK9Crh
-	 /DTRBWvkw5Dq+wL9G4jjG8Z6vxaupEWhPiHlJu0UeA7++7NlAqcPG6/7LqB+pLZ9PyAw9
-	 SPZFgPEw/fy0Jnu/K6fUM/g6m1DPhPxCt+aCoDvHgzZwfl38tnelwBqQaKi/wEhb69GjE
-	 yk5dwqyhgikxn9QoyO2kl7DrJznBa1LqnHryV59XX2wv1F860+cGLBtGlp1VBTmBwuw==
+	t=1795597033;
+	b=vNnI1tmee23eqjflKy6RglfDDQdBiycqHrxe40dbJgLlH0LSznpLovdIGojI8GMxroo2
+	 Rm0LzZBSE4km7K9GVF7ou8XF3dWdrZ0qRK6K25903KvKs1MTUDxpwM0Y0CZ9E/1jbT38D
+	 wchWEx7LhzYUTc5kUj9FdRX3vSvll90ihqaJ+zInzm2Lf/m22pHx3dGCTbTOojTxePYDB
+	 xtVfHjhgHD5lZ9oJ/THv1JbVTV4qK5JM8N5NiXypdhV2aTx1z6+1tlaPoilLY+ufOICbh
+	 ajstq4T1uaRNpyC4no80lbNOFb/0vabJTvnkMF13y/PxLuDC7ZvIX+ObRUMzd0vWWog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795597030;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795597033;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=wqia0flquICzj5qjsRHWm7ANySCPB2PbTni1TVSJQGc=;
-	b=yfE5ITDaX2o58IfF28Z6YWkOxOplNm7jQclBfRV/rG1Eo2KK/BMrrMxeuBIAJRkLw2wC
-	 5RoKagi7WCWnxSOTeVDRVC9vGVOf3/0D0wBTSTlAuCjWiY8chZdsUni/VUwRmllYwbiyG
-	 FgaYFKLMdXKieG2m/pMvmrgH+0h/gQxQQJWdno7NWZp6DP1SBA/myveez6RG9hTSgNCP8
-	 eqylDMbUH7m9SiMlV3xcQ4SJgF3daApBBAaPC9QAOmZ0yjU7195mDwxAGrXKcRwbFHPgU
-	 n2ZMI06DtVgVjfjdKx1RI8Fe6EookRjTCDNz511u7xjI0/EbIJUwBofADDNVJLCwK5A==
+	bh=4n4XxPDUdSPndmpdwPsCtjP3VLa9nltB6g0zgbPuels=;
+	b=dCR02qiX68mc6Vz1/QXd4Dp/dSUEE8fGncBKslRfjqHv5wlWSRVtYoJyO7M+sqwfQcvl
+	 2+CAWAEqGcAQPUGo5i++j8XEl5rnwjmdY00hH4ngQTXnzKWDXKCWxvO+6drdIk3hiN1mg
+	 B7NeWLeYI3/Lm4T55AFTZs9rjf4YzWTU/8ecJXU9Jq/WQvQ1G5/8325+V6mfhSAdSv9pV
+	 5FNZaH/tgzU19FEwYoYniQGiT6Oo8J5P8yOYOCHTmgvJxksgnnexh2qbjZJlmSV75fnDP
+	 CxcWl5B/csAox09JimbPCMhFeAijXhVDzODvXXHZE+HVPqve5qGBkuU0jZAOn/qL3qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2aAkWOSk;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=B9YoCO4a;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1B1606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:57:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8F7606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:57:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2aAkWOSk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 933D21F000C0;
-	Wed, 25 Nov 2026 08:57:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=B9YoCO4a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D59071F000C0;
+	Wed, 25 Nov 2026 08:57:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795597029;
-	bh=wqia0flquICzj5qjsRHWm7ANySCPB2PbTni1TVSJQGc=;
+	s=korg; t=1795597032;
+	bh=4n4XxPDUdSPndmpdwPsCtjP3VLa9nltB6g0zgbPuels=;
 	h=Subject:To:Cc:From:Date;
-	b=2aAkWOSkZyFjjlRAg3wGvIEGPkOPRearpxJPsbylz/N9wvIoJSDlvyZPPfkKuffCG
-	 /inte2hAqIOCUpw0dToDB7pG1Vsp5SVoLSzQy30lTlNWLN1/hMknrzNpEYfHlX8iyI
-	 KyhqLsJrS+iNc1u2/urbK9EFcpKw/Dw1UmaiTNU0=
-Subject: FAILED: patch "[PATCH] tcp: fix request_sock use-after-free during Fast Open" failed to apply to 6.1-stable tree
+	b=B9YoCO4aJn9sScT2lc1XT3lLyvgb8Wmbo9m6to5ItsThaUl2hFp/sCIiHE6vUq3dK
+	 TPQRzuM4P2I4uQW4YBD5hwUuS3O90SClnOVJopGoSHK4ds7vUsk+jctgQqsf1rXMVx
+	 H3UQrJDI7w9LUc0H++jLh/14nXE19uCfU+zZam0U=
+Subject: FAILED: patch "[PATCH] tcp: fix request_sock use-after-free during Fast Open" failed to apply to 5.10-stable tree
 To: imv4bel@gmail.com,kuba@kernel.org,kuniyu@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 09:56:54 +0100
-Message-ID: <2026112554-humility-number-8d19@gregkh>
+Date: Wed, 25 Nov 2026 09:56:55 +0100
+Message-ID: <2026112555-colonize-iphone-173b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 62754aad50d0b30938bd8ce30b43474ce502a2af
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112554-humility-number-8d19@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112555-colonize-iphone-173b@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
