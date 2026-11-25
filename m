@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606403;
-	b=WsRGD/MxlIG2NQDbPrmr0Uj5DkpoLqUpBT60qGPk4VvlVtNxTyYMjbf/m7ZDCFpcWTEd
-	 SO/j2JdeVG0hhOJjP/Qj4RtUmKDjNnnotpRUZOqoeB/p42LhmFehaHIAHn5HovtVqi5TY
-	 xWKKGbMMMqQW42R0i5bpouQfLtVqIKM7FRibCDxRufzrZHabrGJvL5tJZtceTJPMISgsV
-	 y2Xb6EVz9bxf6Eao32rCsKi2TenwDgKlGkccX6B1t8Um2tNpmwp2SZRuLA0dOzCuQBapy
-	 Ia5y8Ii8Zkqi/0Z4sdd5r5wcwEgFDAzOe7JqZERCm5CY4rvLjCJ+tN1D2naR/JTFT9w==
+	t=1795606407;
+	b=KtkSI+CZ1mi7pMJAj9Q4m9i0rr4kVDNLzXWHgsPoHWRY6Y2glaoAyGYTstd84yYa4lOv
+	 UZc3KOeA99GozDaYd5cZkL539ctDCH5Y5qpx0tJo+t3iY1Fnp6098rgmuuXIUgg+9/Ude
+	 Vr3CWW4Q9vz0f/pxpqNLWkvBu0zucyIFtZrqdvT1AQOlzp72UF4NKK+De1UWhemgDL/iV
+	 XzqvQCu72kT0/mJqc2JJlTezMd12hVNrlOIsXgS+clpwQnroG/erG2z3tTEK+4eMCHt9W
+	 cbGX/6tMAiFh7jA+gpdeJwbj32KQgtud8X5WveXTv2lk/exAEKXEOLV+IEQETed3UDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606403;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606407;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=85AjfoyOMPrzy08viR5iw2vZiewbm45tIB1g/98M75U=;
-	b=sH1IkFpYiW1XtPGpGi4MHEJIxa7PrsKSnYEHPpCTj9DLgMBnzQJOePFieK9F1UTURorj
-	 5edbD2AwwpgIK5XE0on0EcWVoVg6gFoOX/t21t3V67f2y9PKq+br6YS+q0gJdipKtR/ro
-	 pZNoWXHHtoXJ7R3tiST90qij3yTXiOioy4IJ9qVwLfUodFsaHMbk5vsg+7JUhf/Xu31fb
-	 LZy+S5xtTetQvt0RxruLqrArozlGqtdmpeu/ScbqozfIg+Rp+H/ZTLYSgp8M3uiolXU5E
-	 A7fCkdo3v4+67j8feEqHCBtj5800cEOsXIN299FmwRUXKUKroFGBfDC1KOsWIp7BbIQ==
+	bh=bbn40REh3nF2CMGBZbXQO9uCjYK0Da2VsB/sNfzadXU=;
+	b=W8Jocb2DpHWe5kQnphBvQJaZ1heez6pqhLa/8Hxd6slvtTZLgaulWYYA2X98IeQXL14l
+	 iNcFTxloMR/nFSV0K7nAJWOYJMqv8uj5zlD3nOi8waerJoitZn2Pvw5Xr2u1Z/dBjSHJg
+	 5iyHe1FDKuc7Jdv7aTLoLW03XM15DSsLPoNuG0yKzPRe4wTtCgrpqL/TCWrVGASfBeGTY
+	 0+haPSrWCZ6w/g9b7mIIpPszjyk7Rt6CouMKYWgqyws7Q+ve4BPhQDlLF/32KC28hS4Ts
+	 j1R9HO3T7Fl97ThtD0OAmPgLzuR3FGaFafw1YBmGMLAfEd7yOrAxNp62WMVmxUORSwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=F+ZVpxwV;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yV82GrJO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A23C606A32E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:33:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C0E606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:33:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=F+ZVpxwV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C00881F000CA;
-	Wed, 25 Nov 2026 11:33:22 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yV82GrJO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C35271F000CA;
+	Wed, 25 Nov 2026 11:33:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606403;
-	bh=85AjfoyOMPrzy08viR5iw2vZiewbm45tIB1g/98M75U=;
+	s=korg; t=1795606406;
+	bh=bbn40REh3nF2CMGBZbXQO9uCjYK0Da2VsB/sNfzadXU=;
 	h=Subject:To:Cc:From:Date;
-	b=F+ZVpxwVYVhllQeUZioKsK8G2knNKfYUUw5PAAXtbnC8e/dOHKbHpKaQj8nf+SHa9
-	 0Qs8sxDzaJ3PNqoUJJ/fFYbBT1AlLVGNeVwOH9f/oYMGkQVyP9MEhFO/1zB2DQ9JuZ
-	 U7Kym4FoOqTLJH41MUUNLsaoeo944N4L7E7RbVHY=
-Subject: FAILED: patch "[PATCH] dm snapshot: fix discard_granularity unit in" failed to apply to 6.1-stable tree
+	b=yV82GrJO2e+KdtIrWkuTxGaaxboXCFVBCDnMGL7PGZUeQv9uuczMphnhl9qIFnvTJ
+	 6GONXy+gq2/VNBZM65BXAShbySAgVG3SNeQYeN3rB61T8V8qyuzKcECxHdcld39ZUr
+	 sV6n7790YXcnmMsnTatxiy+TS/yIG0D+yIPWsJM8=
+Subject: FAILED: patch "[PATCH] dm snapshot: fix discard_granularity unit in" failed to apply to 5.10-stable tree
 To: wuyuehong@cmss.chinamobile.com,mpatocka@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:21:07 +0100
-Message-ID: <2026112507-headed-parade-2f77@gregkh>
+Date: Wed, 25 Nov 2026 12:21:08 +0100
+Message-ID: <2026112508-swooned-spherical-c717@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x d7216d7be2bbfdf3312695b6e41a4fc7c5e22902
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112507-headed-parade-2f77@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112508-swooned-spherical-c717@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
