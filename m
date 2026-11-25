@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606022;
-	b=t8VzmHyZfVYofH8mEB+q6NibF5fQsOPEtVbq5KUUpOtvzX6gkcYOpM3D4/4o2m8Wpt8O
-	 tb1RinZN9i2spatoQCBbIdAFgdtsYKh7gH8D9zJMWbg4Fn4eNY3Hq7lKWK2/N7iju84bm
-	 ZJ/3hv331HdVSNg/PfAvNR2qxBMwqDcdYRisU+qoYopvltyhTUx7nbd2BJxyH59eTouYl
-	 d3p2mb6TfG8xEQAoHVZ0HHsRNHEqmaS0m3ZqGAT6uVDxUD8jMZ3xN/4TU9hvml2zJLJW1
-	 tqq9oY+kCgCVlB3Nx8DnBHywiuedxdoZ23mYHUc9f8biR2YV0UEGZ4VpROLMca7GggQ==
+	t=1795606026;
+	b=tggw+uCj9SYrrKWpGA+jDVQlgYm0rMaw6jVjVSJ/7D/iHeb6aLQ2m9m4lF3ZKlANax6q
+	 DHPx1UyrOhjfpgJVvO4Ya0KdssRyCxHCHFugqW4yJL01pr9EITQAVUFYEHMWlhZMEarza
+	 rEqWARduXKZvDxb6ZfoDg+D/y21fw3/E7i1Zdi0IFOUW+2k7y/KBtTJNAA5r/yhBWcO88
+	 uYF8bEf0NO++4mtj72Miy+a/1X2nsZdOUrMpBEdKvBUjVl+Dn+lW3a0eh0uHF/KXv1BXr
+	 LdGAxYqJHvlUFUw6KJMHwJOgMNCQLXDkFxZ8w94CW+kz442ufaH8Ca7KoLRRiDqi62A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606022;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606026;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=dfqMWvoAFGxzoTXDbFGsnL6to6CDX0mAmgFYxlAxSf0=;
-	b=Ar2RkWm4hujHS7auJiGQNj3XUJJtfWJpMQtkKZaF9K+QCi9OeqnmGVcexPL2/J4m1q+9
-	 Eg5e1LRPvyvlU2gbBmeBXc2QEzbpyRDXJpbKGwMbZY/twlNvfgv8xpBQ59PoI587oPASl
-	 5CWs7twtDY/ouDccptYFA0u7cfW9OnPmI4TRn4t1yegl4PvCztp5noAgGoJcRyy3ewaNr
-	 /MMr0WK1Lck6XmkqzOSCKWDvzk+L2k0HmXyKtLAi939uK6qTTewrzJMsWXAs7TbARQOyH
-	 HaLuI9ItTWmooGlZRtV4Uh3bV03aPvHIMxrMELtAk8pOSCdSxlhQzxPVmqowgr0/5lw==
+	bh=BtC9cnb1zbGTmiwP7gKNJmpCatCycVb17NReVxAg0kY=;
+	b=Eo17i3OluXXnjv1ZICCgEjhVn2DQWYWvvi8WszVqUcxRJ+McSurewDdk4B+c8rtNQb3e
+	 FBt9EHzigS9IZPawQFbaR5W/kZB4CL5ZZxsQ+ubLnG4FDoMlIla7wukxGdJ40XWLKZ+AD
+	 8kI3S9BGC3mAUfuPxA/POQTA7/ZDGD8s/3gKeln9IWs1ZaE8CtRZp/dJNe17m7daIbe8J
+	 3Mgdk3HEwMUuErt1lNxqIfd6QRil81pKy09Jv9w7fE6MiZfsgBMDEc0psOoqgt0tW4BG5
+	 +ASQ3Cj3Mg8kgk4HnQEduUXChPikomKoMnAoJBEywNBPzX3Mww3fEl6LAkLLnGdZLmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Lct26Ion;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=roFA1Iyw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA499606A32C
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:27:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B065606A329
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:27:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Lct26Ion
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AC8C1F00A01;
-	Wed, 25 Nov 2026 11:27:01 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=roFA1Iyw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 910E11F0089F;
+	Wed, 25 Nov 2026 11:27:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606021;
-	bh=dfqMWvoAFGxzoTXDbFGsnL6to6CDX0mAmgFYxlAxSf0=;
+	s=korg; t=1795606025;
+	bh=BtC9cnb1zbGTmiwP7gKNJmpCatCycVb17NReVxAg0kY=;
 	h=Subject:To:Cc:From:Date;
-	b=Lct26IongB+lvFYomvihGxxIvKP1eqwbRtaL6tUuODVXwzC7UwR0VyQH2miAlC2mw
-	 8Kl3fov6YIdl8Kcci2wW7mOBf2OcGjHXihkv+onAARLgCa7Q5RdLCk6cpvP0TTCtg/
-	 daZjXaqgUCs3AenGI2SwK3i7GU/7DnbbFjVMqnjo=
-Subject: FAILED: patch "[PATCH] smb: client: validate descriptor headers before query result" failed to apply to 6.1-stable tree
+	b=roFA1Iywgpmx3MN0Ri53q8s26lJIUray6FbjpG6P2Gkq3JExTT686GTsdBvNdvaCD
+	 HtFi8JRFsxuC9+ImK+uc3u40rGzYc9vfPlXqe4M9zwdIDtcOmKCVGVqIwOQzxI4eR1
+	 P7EpvhkOps6WCCb3KUk8w0giVGh4caQw3R3UNlcY=
+Subject: FAILED: patch "[PATCH] smb: client: validate descriptor headers before query result" failed to apply to 6.6-stable tree
 To: pkfxxxing@gmail.com,linkinjeon@kernel.org,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 12:13:07 +0100
-Message-ID: <2026112507-oxidation-disperser-b8d1@gregkh>
+Message-ID: <2026112507-depraved-reappear-7196@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x ffb59029c0d52bf76fdd2678f5d6fd13e26220dd
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112507-oxidation-disperser-b8d1@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112507-depraved-reappear-7196@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
