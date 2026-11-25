@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795637134;
-	b=JvVzBQb7y5qEbM2Uz39iQgZxlTOo1bcTnORcTcHRV2Il+kuOdFP8WLWj3a7kxwcdcdky
-	 SeiOR/elwi+k5HAXyemdhu6eqWY5i3jYwTIF3a/oWby2MORo9wHL9GnXPEBxReSrklE/f
-	 fLW1yMnaVI7ctgMmp/mQ4qG8p0qjNcx6sXPQO5SoDorN9YA3S89HX+CQrGFe5ck2nbSL/
-	 pY8Zr2qoiKwQnDEA4152Y8lcrL3sYZdCh7VfEd7sZvOX30eokfvmIUlxeFsp3SwQfK4n1
-	 tskxpFQWZJfRlOT1eW4HKGneeppvHmLomTDqI24fKJ0Z9ULn1/HTbly7W/qQijPzvSA==
+	t=1795637141;
+	b=kRrwzoT1U2b3sCHRViKCsI4J1elt4IN8hwl4F+gldgon4A5qxxDAKP6494kJQ4DTL6II
+	 LkZ5yKN6dd1psoIUzlCdz+xOPiqAyPhodkMYQvC6ttnWOIECMEq3lntow41hZ1S7Bm+NJ
+	 USLTrBKByLO0CG6KWfYbDanl1lCvZ01dTngmdeKP1nZuwoO29mJhwYcuhSqScl+K+n0AR
+	 0tZVicgpGGczr7LNbDIbGsI/iDpu0a41JbUEpO0g7YnF0ZEFUPf+Q6w5+jL9cb/+GxlEA
+	 vNaTOGu61YmAMPn0WOLDLOWEJ4G8PXa/2o+csYI0RBcDUHfDZu9gnfeVY0tj/S5NzVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795637134;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795637141;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UT9YQEcKIpkRoEzVRw+8XrIEedJ9Tye3Afuslkg44n8=;
-	b=ofkJTVbncVWMFfWLCqPKZRjhTqQufRa3lxZTPB3X38ZHn3uQPh/hhUC12MwGyipwT+nC
-	 Q+fyAQAiWHedN2XzG9zTux1lO4FCDirbr6iShOWbx7EQpeJSTDCMm+EDZBnA0F99TQkhj
-	 ndtnX/UPSEKU5v8MSkxB19IdfZ/N39gXQ2Yhb97T7AiLO2clCYHKwkvoWfFQ/pJa/Vwdt
-	 qCLt4Ck2V31WieI2JanTpRvNOjAB4jPd349uKQEAwUc/lu2eoGm/SvbdhCGxANxcsWaDt
-	 zk7p5G8fUXHv35La2y035m6Nz3Z3QbQc9duBGj1Ce+EG6iHtYcfTClblm5keAwo3tpw==
+	bh=OQ3pdFfuC5dHCsS8SROaQ+APbcjVa/Uko2wqMYrYcyE=;
+	b=0LJ7sDhD6LlXwymtAjQD8FIfae43S4QwiB3UhAxGkRSjBdPWcoSmww99Z51w6eNQPqzE
+	 UZahwDFr0HgSQkunrCVth4iMO8DCHM2VGjo8bP6/Cb+xbGTRbmqE+8K+D3VraqHa/RrXf
+	 sm0Bb0EBO4oKVJhr8uhP83yebk8P8Fj09003ieZxEu9bq/dSEKc0vt4/EwOmJ8AZF5XOM
+	 y10blPYo5wXi8Ir5c9W8081kq3MB2qIfiTGTazKfcKWIrjUdXc0Gbl5hbyIuMEbT1K123
+	 J2ZwoVgL76nuYTpeHzwtxfKjI/GZnPVbRtt/UDrAgN4rr+BjRA69NStQUHKG66MnPRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BXwBq6X7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J32VUzPl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A46CC606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:05:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB0B606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:05:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BXwBq6X7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9F4D1F000C4;
-	Wed, 25 Nov 2026 20:05:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J32VUzPl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1891F1F000C4;
+	Wed, 25 Nov 2026 20:05:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795637134;
-	bh=UT9YQEcKIpkRoEzVRw+8XrIEedJ9Tye3Afuslkg44n8=;
+	s=k20260515; t=1795637140;
+	bh=OQ3pdFfuC5dHCsS8SROaQ+APbcjVa/Uko2wqMYrYcyE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BXwBq6X7iZPoDgj9dcMJ6LTLHKjKHW8q197V6YA7hBFfImDqYA8p45n4LIovEZTZV
-	 IULyj9pgwJTguWa4j9tVIdB+gJqJ31NKeBuLiqVM9fF5YXsR/6+gZSrV9pgDYqXeZj
-	 j1S1YESLwP2ZhPsn9KsBJ8yvsL4Z8zDuiew80V9A0rB1/IX/PWBbjRYVNjiXIx396g
-	 5QKcNGP3h7pdTVesB82d3oMptLZWvn2kliG4WbuFdtM6gzXv796y4yBe22t68m4i2L
-	 qg5a4H/25Ecj/5grcmQ1NPe4yFXGEtyM3ckGo3xDmLi5e93cpM2fXT3CDCPuLldNER
-	 MwPVRndNneEpA==
+	b=J32VUzPlwLTcfF+dpw54zN1Wf5ORoq+cZJRggZtiF89PTPaewNguFujMcT4nk7pzE
+	 31OrTDhp2sENDhgN0oDhN0feaQcazqh42/aBUvQf6zugbYQD5RJt+t6gPBcyyNWv/q
+	 1DBuQXg2iUuTu82VKj8hawNPUrpubRCFF3xHc+QoRbmi5JwWWQpJ1E/jd+UNbjfzSF
+	 l4OubIdJTWwZlbbL2XcDbYrG37qB52whzkv5s3pP6+cXv6YP3DlWqs0UvXgdxyUCLi
+	 2yPlFzLHdE4fnh09nYQXdhke9R8+2WMdZmx873OKmwyjx/t3w9+yUcf+jo6ocZKToW
+	 NNnEUUflB1hSw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+Cc: Ian Bridges <icb@fastmail.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] tracing/probes: Fix BTF bitfield parsing and out-of-bounds buffer write
-Date: Wed, 25 Nov 2026 15:05:32 -0500
-Message-ID: <20261125200449.1362278-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] ksmbd: skip metadata-only opens in sharing checks
+Date: Wed, 25 Nov 2026 15:05:38 -0500
+Message-ID: <20261125200512.1379367-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112523-subtly-saucy-1ef7@gregkh>
-References: <2026112523-subtly-saucy-1ef7@gregkh>
+In-Reply-To: <2026112534-datebook-attention-d944@gregkh>
+References: <2026112534-datebook-attention-d944@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,169 +61,218 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+From: Ian Bridges <icb@fastmail.org>
 
-[ Upstream commit 9b6e9d6a11090ac34516c45f48663b37ac94a9b1 ]
+[ Upstream commit 81fefb6c635489e71e286d1465b6dd1d0a27ceec ]
 
-BTF bitfield parsing in trace_probe.c assumes a 64-bit (8-byte) container
-when computing FETCH_OP_MOD_BF shift amounts and basesize, whereas the
-preceding store instruction only allocates and writes the field's fetch
-type size (which may be 1, 2, or 4 bytes when kflag=1). At runtime,
-fetch_apply_bitfield() performs an 8-byte read-modify-write on the
-smaller ring buffer slot, corrupting adjacent ring buffer data or writing
-past the end of the event record.
+A READ_CONTROL open without sharing can block later reads, writes and
+deletes even though it holds no data, execute or delete access.
 
-In addition, signed bitfields with bit widths other than 8/16/32/64 fail
-to resolve a fetch type, bitfields whose width is a multiple of 8 inside
-a larger integer or spanning a byte boundary fail to emit FETCH_OP_MOD_BF
-or select a container wide enough for bitoffs + bitsize, kflag=0 bitfield
-offsets >= 8 bits are not folded into the byte offset, and big-endian
-architectures use the little-endian left-shift formula in
-parse_btf_bitfield().
+Keep the existing attribute-only exception. For other pairs, require
+both effective access masks to hold one of those rights. MS-FSA
+2.1.5.1.2 grants FILE_WRITE_DATA when an open overwrites a file or
+stream, or creates a named stream on an existing file. Use that granted
+access for sharing checks while keeping the requested access on the
+returned handle.
 
-Compute the bitfield byte and bit offsets consistently during field
-lookup, select the smallest unsigned fetch type that covers the bit
-offset and bit width, and calculate the FETCH_OP_MOD_BF parameters from
-the selected fetch type size for both big- and little-endian bitfields.
+The Time Machine AFP_AfpInfo synthesis keeps its requested access.
+ksmbd implements FILE_SUPERSEDE by truncating the file, so count it as
+a write.
 
-Link: https://lore.kernel.org/all/179455850711.403392.10512730891220678403.stgit@devnote2/
+This also prevents an overwrite from truncating a file while another
+open that holds data, execute or delete access does not share writing.
 
-Fixes: c440adfbe302 ("tracing/probes: Support BTF based data structure field access")
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
 Cc: stable@vger.kernel.org
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-[ sashal: Adapted the upstream hunks to the inlined BTF field walk in parse_btf_field(), since the get_bitoffset_of_field() helper doesn't exist here, and passed parg->type at the call site in traceprobe_parse_probe_arg_body(). ]
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: adapted to older tree: non-const idmap pointer, different surrounding context, and path_put replaced by ksmbd_vfs_kern_path_unlock; some upstream-only fields and lines absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_probe.c | 61 ++++++++++++++++++++++++++++----------
- 1 file changed, 46 insertions(+), 15 deletions(-)
+ fs/smb/server/smb2pdu.c    | 30 ++++++++++++++++++++++--------
+ fs/smb/server/smb_common.c | 34 +++++++++++++++++++++++++++++++++-
+ fs/smb/server/smb_common.h |  5 +++++
+ fs/smb/server/vfs_cache.h  |  2 ++
+ 4 files changed, 62 insertions(+), 9 deletions(-)
 
-diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
-index 4265518ce967c..6503bb867305f 100644
---- a/kernel/trace/trace_probe.c
-+++ b/kernel/trace/trace_probe.c
-@@ -396,6 +396,18 @@ static const char *fetch_type_from_btf_type(struct btf *btf,
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index f35ce9f7c322b..f3c4b3c254c8a 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -2520,7 +2520,8 @@ static int smb2_set_ea(struct smb2_ea_info *eabuf, unsigned int buf_len,
+ 
+ static noinline int smb2_set_stream_name_xattr(const struct path *path,
+ 					       struct ksmbd_file *fp,
+-					       char *stream_name, int s_type)
++					       char *stream_name, int s_type,
++					       bool *created)
  {
- 	u32 intdata;
- 
-+	if (ctx->last_bitsize) {
-+		u32 bits = ctx->last_bitsize + ctx->last_bitoffs;
-+
-+		if (bits <= 8)
-+			return "u8";
-+		if (bits <= 16)
-+			return "u16";
-+		if (bits <= 32)
-+			return "u32";
-+		return "u64";
-+	}
-+
- 	/* TODO: const char * could be converted as a string */
- 	switch (BTF_INFO_KIND(type->info)) {
- 	case BTF_KIND_ENUM:
-@@ -433,10 +445,6 @@ static const char *fetch_type_from_btf_type(struct btf *btf,
- 			case 64:
- 				return "u64";
- 			}
--			/* bitfield, size is encoded in the type */
--			ctx->last_bitsize = BTF_INT_BITS(intdata);
--			ctx->last_bitoffs += BTF_INT_OFFSET(intdata);
--			return "u64";
- 		}
- 	}
- 	/* TODO: support other types */
-@@ -574,6 +582,12 @@ static int parse_btf_field(char *fieldname, const struct btf_type *type,
- 			/* Add anonymous structure/union offset */
- 			bitoffs += anon_offs;
- 
-+			type = btf_type_skip_modifiers(ctx->btf, field->type, &tid);
-+			if (!type) {
-+				trace_probe_log_err(ctx->offset, BAD_BTF_TID);
-+				return -EINVAL;
-+			}
-+
- 			/* Accumulate the bit-offsets of the dot-connected fields */
- 			if (btf_type_kflag(mtype)) {
- 				bitoffs += BTF_MEMBER_BIT_OFFSET(field->offset);
-@@ -581,12 +595,15 @@ static int parse_btf_field(char *fieldname, const struct btf_type *type,
- 			} else {
- 				bitoffs += field->offset;
- 				ctx->last_bitsize = 0;
--			}
--
--			type = btf_type_skip_modifiers(ctx->btf, field->type, &tid);
--			if (!type) {
--				trace_probe_log_err(ctx->offset, BAD_BTF_TID);
--				return -EINVAL;
-+				if (BTF_INFO_KIND(type->info) == BTF_KIND_INT) {
-+					u32 intdata = btf_type_int(type);
-+
-+					bitoffs += BTF_INT_OFFSET(intdata);
-+					if ((bitoffs % 8) ||
-+					    BTF_INT_BITS(intdata) != BYTES_TO_BITS(type->size) ||
-+					    !is_power_of_2(type->size))
-+						ctx->last_bitsize = BTF_INT_BITS(intdata);
-+				}
- 			}
- 
- 			ctx->offset += next - fieldname;
-@@ -718,13 +735,22 @@ static const struct fetch_type *find_fetch_type_from_btf_type(
- }
- 
- static int parse_btf_bitfield(struct fetch_insn **pcode,
-+			      const struct fetch_type *t,
- 			      struct traceprobe_parse_context *ctx)
- {
- 	struct fetch_insn *code = *pcode;
- 
--	if ((ctx->last_bitsize % 8 == 0) && ctx->last_bitoffs == 0)
-+	if ((ctx->last_bitsize == 0 ||
-+	     ctx->last_bitsize == BYTES_TO_BITS(t->size)) &&
-+	    ctx->last_bitoffs == 0)
- 		return 0;
- 
-+	if (ctx->last_bitsize == 0 ||
-+	    BYTES_TO_BITS(t->size) < (ctx->last_bitsize + ctx->last_bitoffs)) {
-+		trace_probe_log_err(ctx->offset, BAD_BITFIELD);
-+		return -EINVAL;
-+	}
-+
- 	code++;
- 	if (code->op != FETCH_OP_NOP) {
- 		trace_probe_log_err(ctx->offset, TOO_MANY_OPS);
-@@ -733,9 +759,13 @@ static int parse_btf_bitfield(struct fetch_insn **pcode,
- 	*pcode = code;
- 
- 	code->op = FETCH_OP_MOD_BF;
--	code->lshift = 64 - (ctx->last_bitsize + ctx->last_bitoffs);
--	code->rshift = 64 - ctx->last_bitsize;
--	code->basesize = 64 / 8;
-+#ifdef __BIG_ENDIAN_BITFIELD
-+	code->lshift = ctx->last_bitoffs;
-+#else
-+	code->lshift = BYTES_TO_BITS(t->size) - (ctx->last_bitsize + ctx->last_bitoffs);
-+#endif
-+	code->rshift = BYTES_TO_BITS(t->size) - ctx->last_bitsize;
-+	code->basesize = t->size;
+ 	struct mnt_idmap *idmap = mnt_idmap(path->mnt);
+ 	size_t xattr_stream_size;
+@@ -2558,6 +2559,8 @@ static noinline int smb2_set_stream_name_xattr(const struct path *path,
+ 	rc = ksmbd_vfs_setxattr(idmap, path, xattr_stream_name, NULL, 0, 0, false);
+ 	if (rc < 0)
+ 		pr_err("Failed to store XATTR stream name :%d\n", rc);
++	else
++		*created = true;
  	return 0;
  }
  
-@@ -759,6 +789,7 @@ static int parse_btf_arg(char *varname,
+@@ -2983,6 +2986,7 @@ int smb2_open(struct ksmbd_work *work)
+ 	char *name = NULL;
+ 	char *stream_name = NULL;
+ 	bool file_present = false, created = false, already_permitted = false;
++	bool stream_created = false;
+ 	int share_ret, need_truncate = 0;
+ 	u64 time;
+ 	umode_t posix_mode = 0;
+@@ -3563,7 +3567,8 @@ int smb2_open(struct ksmbd_work *work)
+ 		rc = smb2_set_stream_name_xattr(&path,
+ 						fp,
+ 						stream_name,
+-						s_type);
++						s_type,
++						&stream_created);
+ 		if (rc)
+ 			goto err_out;
+ 		file_info = FILE_CREATED;
+@@ -3571,10 +3576,22 @@ int smb2_open(struct ksmbd_work *work)
+ 
+ 	fp->attrib_only = !(req->DesiredAccess & ~(FILE_READ_ATTRIBUTES_LE |
+ 			FILE_WRITE_ATTRIBUTES_LE | FILE_SYNCHRONIZE_LE));
++	need_truncate = !S_ISDIR(file_inode(filp)->i_mode) &&
++			open_flags & O_TRUNC && !fp->attrib_only && !stream_name;
++	/*
++	 * Count the FILE_WRITE_DATA that MS-FSA 2.1.5.1.2 grants an overwrite,
++	 * supersede included, or a new named stream on an existing file.
++	 * An attribute-only open of the file is not truncated, and the
++	 * synthesized AFP_AfpInfo stream is not created by the client.
++	 */
++	fp->implied_write = need_truncate ||
++			    (stream_name &&
++			     (open_flags & O_TRUNC ||
++			      (file_present && stream_created)));
+ 
+ 	/* fp should be searchable through ksmbd_inode.m_fp_list
+-	 * after daccess, saccess, attrib_only, and stream are
+-	 * initialized.
++	 * after daccess, saccess, attrib_only, implied_write, and
++	 * stream are initialized.
+ 	 */
+ 	down_write(&fp->f_ci->m_lock);
+ 	list_add(&fp->node, &fp->f_ci->m_fp_list);
+@@ -3589,11 +3606,8 @@ int smb2_open(struct ksmbd_work *work)
+ 	if (file_present || created)
+ 		ksmbd_vfs_kern_path_unlock(&parent_path, &path);
+ 
+-	if (!S_ISDIR(file_inode(filp)->i_mode) && open_flags & O_TRUNC &&
+-	    !fp->attrib_only && !stream_name) {
++	if (need_truncate)
+ 		smb_break_all_oplock(work, fp);
+-		need_truncate = 1;
+-	}
+ 
+ 	share_ret = ksmbd_smb_check_shared_mode(fp->filp, fp);
+ 	if (!test_share_config_flag(work->tcon->share_conf, KSMBD_SHARE_FLAG_OPLOCKS) ||
+diff --git a/fs/smb/server/smb_common.c b/fs/smb/server/smb_common.c
+index 26604c7a96f43..cda54815a877f 100644
+--- a/fs/smb/server/smb_common.c
++++ b/fs/smb/server/smb_common.c
+@@ -664,10 +664,24 @@ static void smb_shared_mode_error(int error, struct ksmbd_file *prev_fp,
+ 		    prev_fp->saccess, curr_fp->daccess);
  }
  
- static int parse_btf_bitfield(struct fetch_insn **pcode,
-+			      const struct fetch_type *t,
- 			      struct traceprobe_parse_context *ctx)
++/*
++ * Sharing checks use fp->daccess plus the FILE_WRITE_DATA that MS-FSA
++ * grants an open that overwrites data or creates a named stream.
++ * fp->daccess keeps the open's own access.
++ */
++__le32 ksmbd_sharing_daccess(const struct ksmbd_file *fp)
++{
++	if (fp->implied_write)
++		return fp->daccess | FILE_WRITE_DATA_LE;
++	return fp->daccess;
++}
++
+ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
  {
- 	trace_probe_log_err(ctx->offset, NOSUP_BTFARG);
-@@ -1454,7 +1485,7 @@ static int traceprobe_parse_probe_arg_body(const char *argv, ssize_t *size,
+ 	int rc = 0;
+ 	struct ksmbd_file *prev_fp;
++	__le32 curr_access = ksmbd_sharing_daccess(curr_fp);
++	__le32 access;
+ 
+ 	/*
+ 	 * Lookup fp in master fp list, and check desired access and
+@@ -688,6 +702,24 @@ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
+ 		if (prev_fp->attrib_only != curr_fp->attrib_only)
+ 			continue;
+ 
++		/*
++		 * MS-FSA checks sharing per stream, so a named stream open's
++		 * implied write is not a write against the primary stream.
++		 * It still decides whether the pair is checked.
++		 */
++		access = curr_access;
++		if (ksmbd_stream_fd(curr_fp) && !ksmbd_stream_fd(prev_fp))
++			access = curr_fp->daccess;
++
++		/*
++		 * Two opens conflict only if both hold a right in
++		 * FILE_SHARE_CHECKED_ACCESS_LE (MS-FSA 2.1.5.1.2.1 and
++		 * 2.1.5.1.2.2)
++		 */
++		if (!(ksmbd_sharing_daccess(prev_fp) & FILE_SHARE_CHECKED_ACCESS_LE) ||
++		    !(curr_access & FILE_SHARE_CHECKED_ACCESS_LE))
++			continue;
++
+ 		if (!(prev_fp->saccess & FILE_SHARE_DELETE_LE) &&
+ 		    curr_fp->daccess & FILE_DELETE_LE) {
+ 			smb_shared_mode_error(SHARE_DELETE_ERROR,
+@@ -714,7 +746,7 @@ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
  		}
- 	} else if (IS_ENABLED(CONFIG_PROBE_EVENTS_BTF_ARGS) &&
- 		   ctx->last_type) {
--		ret = parse_btf_bitfield(&code, ctx);
-+		ret = parse_btf_bitfield(&code, parg->type, ctx);
- 		if (ret)
- 			goto fail;
- 	}
+ 
+ 		if (!(prev_fp->saccess & FILE_SHARE_WRITE_LE) &&
+-		    curr_fp->daccess & (FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE)) {
++		    access & (FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE)) {
+ 			smb_shared_mode_error(SHARE_WRITE_ERROR,
+ 					      prev_fp,
+ 					      curr_fp);
+diff --git a/fs/smb/server/smb_common.h b/fs/smb/server/smb_common.h
+index cc9556d261a6c..bee5c0a082570 100644
+--- a/fs/smb/server/smb_common.h
++++ b/fs/smb/server/smb_common.h
+@@ -110,6 +110,10 @@
+ #define SMB_COM_NEGOTIATE		0x72
+ #define SMB1_CLIENT_GUID_SIZE		(16)
+ 
++/* Rights that make an open take part in sharing checks */
++#define FILE_SHARE_CHECKED_ACCESS_LE	(FILE_EXECUTE_LE | FILE_READ_DATA_LE | \
++		FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE | FILE_DELETE_LE)
++
+ #define SMBFLG_RESPONSE 0x80	/* this PDU is a response from server */
+ 
+ #define SMBFLG2_IS_LONG_NAME	cpu_to_le16(0x40)
+@@ -337,6 +341,7 @@ int ksmbd_extract_shortname(struct ksmbd_conn *conn,
+ 
+ int ksmbd_smb_negotiate_common(struct ksmbd_work *work, unsigned int command);
+ 
++__le32 ksmbd_sharing_daccess(const struct ksmbd_file *fp);
+ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp);
+ int __ksmbd_override_fsids(struct ksmbd_work *work,
+ 			   struct ksmbd_share_config *share);
+diff --git a/fs/smb/server/vfs_cache.h b/fs/smb/server/vfs_cache.h
+index e54690a8e3a27..59b398e18bf1d 100644
+--- a/fs/smb/server/vfs_cache.h
++++ b/fs/smb/server/vfs_cache.h
+@@ -104,6 +104,8 @@ struct ksmbd_file {
+ 
+ 	bool				is_nt_open;
+ 	bool				attrib_only;
++	/* writes data on open, see ksmbd_sharing_daccess() */
++	bool				implied_write;
+ 
+ 	char				client_guid[16];
+ 	char				create_guid[16];
 -- 
 2.53.0
 
