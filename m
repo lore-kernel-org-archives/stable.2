@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795610825;
-	b=CzMKVu7YYwrTEMKKieWFRJgL0n1Nrn6SNaTVtZ7H+r4oBrQDkmG0iva3lB+Hbqbauoz6
-	 4OlP461SKcBzPrd7lLhFXuz1aWD5iHQUNVa/9TMYioar8M2/biFnNWQ0qW/RBz15+Z76N
-	 137wCz+4mIW+6qj/m9o9gE2eikJNBSumISroRGpL0c2FI58C4eFzJMISJT9cZRekNyIBv
-	 SMiIaSm/nWJa7RqwebkJ1ppPyMfdeIO3T4k3H4pqsL1Yzci3MSx2xMO05lo3C4n4Sb0OF
-	 0r31GscXFdmME+mGRdMREme79+C0UJxkaOe+NacDTPZ1C1Ihl8Fi3SYuMWW8hYdk4lw==
+	t=1795610829;
+	b=uQyp7diCBqkkR/ki6fDA25XoAvVJXt1Br4F7R+Y8td4116hrILTvy6bYPMbE80xsTGW8
+	 F7SwNoj81u8sMKOISPYfKW2lzLlu06pE3R57WlZM4UuNnIy671ZR3qDXgPlwQZnWK6s8R
+	 Vb/abAbg6K1709MkWq5F6RYp3iRZjeGxUCmu4zg+UF0vD7m4zwGdzOS6jbQFegBlqrl5R
+	 U4tH7ii4VSHNzoVqtHE0Ay587t9l79T7VWGlump/oL4j9EttNB0Jn3lhx16gkVBRh5Kif
+	 7OMvCM8EuJjY9FIiZ+hr1mTOaqNpkOKyKYFJvdehoPGJu36LTpzqtpeqJocYK6M1WhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795610825;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795610829;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=vJRihhtc/V+B2Sdh9Tjoiz1qdJevp9Srn7MAt5rqG2c=;
-	b=1CPu/xL1NPSPMxn9/uNGv73BEv/kaA99GKCd1EAsXHiKmP5hS8LEHWYO0XIoIqSh3Rq4
-	 Dt2g7fobbalZMkGHqmSlnU9NKB13fWHLL1YOU1vV6qr55p9yfju2fnTzn1NYBLhRCclfB
-	 W8VtnT1y5xj1UFCFLxWW8WKelBpDRB48GStZMkVduUQKrZgCbqbN/GrJ+6HPGwkfWHbB2
-	 5+svuIPKJgX6wlvPNCbtQ6X/Na1nvT0ece6eQgiDG5K+pa9vLbh635ENf+xt84p1KaKcL
-	 4Z6zFls05k19guz700ZARPJbxEG6JoGtrIcNjHc3+JNVhuMcf6y2lIU2X/SnjuYkGJQ==
+	bh=6jMJuCegK5ti/BCCt08Mj7MjgINWekGgd+ua/ij+xfE=;
+	b=o/qw5K6a5t9YYU7oebDRF2X8g5rADh3v9RM6YX7hrwHULBr2DATPBiw5T+JsWnBv8TAx
+	 cMEn+nvTH2UD6gWaMwZ/a7DFuFck//Bxrxocb5iDck+Hfav2cdo8JT2VSTYsrggs4Qh4z
+	 CFvkJcTBgXyfQ+kaRM35ohh106hT1yHOyKjCAnB1R80Erb/8QXSNRgNvRkfh+EwRjTsAA
+	 L1n0jvJhBp1xrxOH16+SNwfGY2tUyqZ79/Qm29aDrxEIA7wpyWEVheDiI4VeDahyQ0g8G
+	 RZ2TlDPRiiZq5zjiC40bc61G9vE/RgzZUAzRKzauWtK6gPcnX3EOWgTzf8zHDVBWKcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=r1JJdjKg;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Z4vF8EFE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93094606A68E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:47:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD96606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:47:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=r1JJdjKg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E29401F000ED;
-	Wed, 25 Nov 2026 12:47:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Z4vF8EFE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 567EE1F000D8;
+	Wed, 25 Nov 2026 12:47:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795610825;
-	bh=vJRihhtc/V+B2Sdh9Tjoiz1qdJevp9Srn7MAt5rqG2c=;
+	s=korg; t=1795610828;
+	bh=6jMJuCegK5ti/BCCt08Mj7MjgINWekGgd+ua/ij+xfE=;
 	h=Subject:To:Cc:From:Date;
-	b=r1JJdjKgDb6aRqOvEBjb+TeeLH9EDREzQw/Cp9SJeqIraPZdL5RwDWUUXxaS/vs16
-	 aEm8YMnmD07MdTCecJW2sC6BIh7IKRJa3WcDmos0Tgu+hB+78mxrlVWB3bHpZHnFXZ
-	 38EdUBIY8tDm9gV1mHG6DUH9tiWcdBrUMnLo7WXs=
-Subject: FAILED: patch "[PATCH] iio: common: scmi_sensors: fix truncating 64-bit divisions" failed to apply to 6.6-stable tree
+	b=Z4vF8EFEDQ5241daFcHCkRyT468Xxz5S657jbYN7BFQ+f38gaO0b12yeeBSIiQndP
+	 UsKzo+mbQvXzj5Kn3x0FNV6ghxDysPO4r4Da2kDqPA6b/1XYl30dNGeEdJqHK1ZSW5
+	 6gY/Bvzjgf3Cv7BYnvnYeqoC9kQrCqkQv6JYYo4Y=
+Subject: FAILED: patch "[PATCH] iio: common: scmi_sensors: fix truncating 64-bit divisions" failed to apply to 6.12-stable tree
 To: kapoorarnav43@gmail.com,andriy.shevchenko@intel.com,jonathan.cameron@oss.qualcomm.com,lkp@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 13:46:09 +0100
-Message-ID: <2026112509-daylight-datebook-adf1@gregkh>
+Message-ID: <2026112509-mulled-wreckage-c4e0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 043ececf147863fbd253687aa0b9edcac358a711
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112509-daylight-datebook-adf1@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112509-mulled-wreckage-c4e0@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
