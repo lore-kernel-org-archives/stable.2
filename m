@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795634205;
-	b=1HW49j1j5sLpkZXHNZ8UMdrAyx6fG+ZFTpR+osycEvAhAzKJEUS7CEXp6RYyR49J9IP5
-	 8LSXWK+1eQptixlZ2VAye8//xxA/sXpCGkyr2eGmh3Z97uwFBLSjq7Me1HONE821miAte
-	 y/BTkkGLeMh/wbLQsT+9hJBlH7f7XirKU6013IVA1lt44mGf++5Y+1ePd5bV7oL36QCZy
-	 Sknkjwvs86i1f1l7rRt52LxuPhZHCzRnlzr0d7oKhdBzF2Et22efhp/FIJvi6QU17pG95
-	 VW9FsJ9JRmQM5Z1kMUwQsPNczoXEKV2wJ1I8UT35tXVAU9b1vAUad+EnuQ1FQ00Tj9w==
+	t=1795634215;
+	b=PAjfHxsRFaW1XWs4Xbkdy7Jjqd/DtvxTzYYetPAegesLNYPdOEwb0nCZ+W/EiQzS855g
+	 u3jZ0PCTKXO+dcbmQ0kpLv24wAxdBtc3HFoDwGA5vF7CYuXnUuWooEjLQEyBl9fU8aOjV
+	 yDX9vqc+ntQiu8XS6qIdWsxkR1nxwMXf3eJCDXnR3VYHPCvkNY4HhkvcJjspRqD8sVqjQ
+	 +zLQfJsmouOREwf6n61yR8462zvcBY+hpxmfnsXLFaf2ULpRF6QKa5Suhc6PB4Sso2pMP
+	 jaY+MVbSU/689P1E8l0Mvilp/mRqjcUuFCmnT3leUnLcr22tme/GsIXCnyAZQW60QTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795634205;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795634215;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1ux/FgjsT3I3Vu9v7sULt4clceUBxFuDxyfP7OkBtb0=;
-	b=r+ZsPWIgzycmdoSxf/1HyplVssVv0MNwH85fZOQ450TkSaWzyw+Okqm3oppdN65r5DsT
-	 wdfhKMfUbZYN2s5/ws0cbsYmGr6jXsMjmXyB1PHYSpWQ1JAmXUZXJp3L45ndNnj9BMJGV
-	 2cHCoAaamt4pQZjUh1v1ysC7PdcV73MEUw0zPP4CduyvrASnCygvVZ4T53eDmKfGbgkAM
-	 omzrUSlIqujyZautLkq8lKlXUv9SzyyaoOUzNSqbXxIbhHwgiznhmHxjpB8r0fnPBbOFH
-	 ncI2nfyjQd78JJtuVbXOAxvmlrm8BzsiUX9HchLvXyzDACB5McZ+zIeEvEx13ot4XCg==
+	bh=3WxXdBVjkLfURBBFpG70MIEr6vdwbVg1Ep0sI7UtiGs=;
+	b=v1iyefeRa/5uNZk6EiCtwGiXbrFz6e4M6CSLrItlO9wDalbiRS8jqDhQDneY/8alH7iI
+	 31VGU64oqDipTDDnANO3s2GMjI0jHts5+xTylGNwkDtPRjxziRqYRPeNe/wA5FHbvLizN
+	 Z2cv3XwTujRNfY9e0vhMV+ficp064SPWpgc8deVna88alVgncDGb3O8yOft2Q1zSM6C6I
+	 z4v65maU22geMHvTC8fl0H2gMsxsE2C0XX2MDLyRbnBR8rd3BBm6M/1Ey5jlu4HggCoLi
+	 8FOcxye10RvzLFo5Nzk2nzULHoIFEs3YOnviBnPvsSBYMyndAE9NTPA1F25QZ4URhaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VRy+Nltz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LvfjMxzo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F13BC606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:16:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799C8606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:16:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VRy+Nltz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F274E1F000D0;
-	Wed, 25 Nov 2026 19:16:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LvfjMxzo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07D251F000C0;
+	Wed, 25 Nov 2026 19:16:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795634204;
-	bh=1ux/FgjsT3I3Vu9v7sULt4clceUBxFuDxyfP7OkBtb0=;
+	s=k20260515; t=1795634214;
+	bh=3WxXdBVjkLfURBBFpG70MIEr6vdwbVg1Ep0sI7UtiGs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VRy+NltziWSAWZ5E+YetNWkthjdWuX78FQ7CT+kWplz9zyfKM9vr3PxbR+LApy2fk
-	 46OXCcM6un2VD4IiY2wEgS62wk71nd+HYpQ+RUk41wiVNbFX4CelIUJd3meQpBxYw/
-	 rNTm1dXcWsGUBvyXdy3h51YkzcX3/rJKtcHQVRbufd47/okRsw/9krz5BPQpC9rNyg
-	 hGtTjoLucedRvEaZJ+q7m0AESXOH/ES4lrIVDclwn7siokpM3DUOaVcdckMBgwkQ8+
-	 MOYPS+Ev/lGbsnVN1Y+bsj5M4j3l7N4GAhV1SjXnR2l2AmPZE5stwCvGklAEcBL9P+
-	 7MUXl/M02tBIg==
+	b=LvfjMxzoni923uXITWrMOC/Q+aQ7g1jYXHrW2OPwy8k3TFN6W8TGldK6yHfETOKoK
+	 wg0BUaWimUhKb71pynk2xCJd8sDvow1Cgn8/aKthItGAQxM5MPCVedIWZRnxgI4UYs
+	 qFxTLhhSvf2Ghilo88zBDCVBQasAQllc68CXZNM1dxD1y3k5oVtQV//L7NrSuAsKUV
+	 CnzWYXq6iMEcG8JBwTdy3RU2keQOdoogPAzFEIOPjVB3iDAEb9WIYmt2wlIN2XC4eA
+	 IBesTsgD+exZTZpbBtKlEJx0vzBn5bLibG98Pyc4a0DV/JBQzCOeFM0yfzyQrvrdrI
+	 9sb9WjTp9q1DA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wahid Khan <wahidzk0091@gmail.com>,
-	Ian Bridges <icb@fastmail.org>,
+Cc: Jiwoo Kim <arpe1618@gmail.com>,
+	stable@kernel.org,
 	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 2/2] ksmbd: refuse to read a handle that is not open for reading
-Date: Wed, 25 Nov 2026 14:16:41 -0500
-Message-ID: <20261125191635.1197631-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y] ksmbd: pin parent dentries in SMB2 CREATE ACL path
+Date: Wed, 25 Nov 2026 14:16:52 -0500
+Message-ID: <20261125191634.1219747-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125191635.1197631-1-sashal@kernel.org>
-References: <2026112524-enamel-landslide-2197@gregkh>
- <20261125191635.1197631-1-sashal@kernel.org>
+In-Reply-To: <2026112518-afternoon-zookeeper-3970@gregkh>
+References: <2026112518-afternoon-zookeeper-3970@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,56 +62,141 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wahid Khan <wahidzk0091@gmail.com>
+From: Jiwoo Kim <arpe1618@gmail.com>
 
-[ Upstream commit 2fd145f8865bb1a6c38a3dc68fa44290008789d8 ]
+[ Upstream commit 0383a66dabd7aa06237b9b24713c03656abeffe4 ]
 
-smb2_create_open_flags() picks the open mode from the read and write
-bits of the desired access. FILE_EXECUTE and FILE_READ_ATTRIBUTES select
-neither, so a request for FILE_WRITE_DATA | FILE_EXECUTE |
-FILE_READ_ATTRIBUTES opens the file O_WRONLY.
+smb2_open() and smb_inherit_dacl() read a child's d_parent without a
+dentry reference. A concurrent SMB request can move the child and
+remove the parent while CREATE uses its inode for permission, status,
+and ACL inheritance work. A remote SMB race with concurrent opener and
+mover connections on a writable KSMBD acl_xattr share triggered an
+8-byte slab-use-after-free read in get_cached_acl on tmpfs and ext4
+KASAN guests. With oops=panic, it also caused an Oops and kernel panic
+on an ext4 guest.
 
-smb2_read() accepts FILE_READ_ATTRIBUTES and ksmbd_vfs_read() accepts
-FILE_EXECUTE, so a later READ on that handle passes both checks and
-reaches __kernel_read() on a file that has no FMODE_READ:
+Take a parent dentry reference around each parent inode or ACL access
+in these paths and release it when the operation completes. Treat a
+negative parent dentry as -ENOENT for the affected operation.
 
-  WARNING: fs/read_write.c:518 at __kernel_read
-   __kernel_read
-   ksmbd_vfs_read
-   smb2_read
-   handle_ksmbd_work
+On a tmpfs KASAN QEMU guest, two 3,000-round reproducer instances
+completed without a KASAN report or Oops; SMB remained reachable. On
+an ext4 non-KASAN QEMU guest with oops=panic, a 2,000-operation no-race
+control and two 5,000-round reproducer instances completed without an
+Oops or panic. An SMB health probe still succeeded.
 
-Any client that can open a file with write access on a share, including
-a guest session, can trigger it; with panic_on_warn it takes the machine
-down.
+OpenAI Codex assisted with finding the bug, generating the SMB race
+reproducer, drafting this fix and changelog, and running the tests.
 
-Return STATUS_ACCESS_DENIED when the file is not readable.
-
-Fixes: f44158485826 ("cifsd: add file operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
-Reviewed-by: Ian Bridges <icb@fastmail.org>
-Tested-by: Ian Bridges <icb@fastmail.org>
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@kernel.org
+Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: Dropped the <kunit/visibility.h> context include and changed const struct mnt_idmap *idmap to non-const struct mnt_idmap *idmap to match the older tree's code. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/vfs.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ fs/smb/server/smb2pdu.c | 39 +++++++++++++++++++++++++++++++--------
+ fs/smb/server/smbacl.c  |  9 ++++++++-
+ 2 files changed, 39 insertions(+), 9 deletions(-)
 
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index f9e4752b5bf2d..98adb812f8714 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -366,6 +366,10 @@ int ksmbd_vfs_read(struct ksmbd_work *work, struct ksmbd_file *fp, size_t count,
- 	if (ksmbd_stream_fd(fp))
- 		return ksmbd_vfs_stream_read(fp, rbuf, pos, count);
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index aae6e9adf2e84..c46b537bdab8a 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -3438,16 +3438,32 @@ int smb2_open(struct ksmbd_work *work)
  
-+	/* The access granted on open can include FILE_EXECUTE for a write-only file */
-+	if (!(filp->f_mode & FMODE_READ))
-+		return -EACCES;
+ 			if ((daccess & FILE_DELETE_LE) ||
+ 			    (req->CreateOptions & FILE_DELETE_ON_CLOSE_LE)) {
+-				rc = inode_permission(idmap,
+-						      d_inode(path.dentry->d_parent),
+-						      MAY_EXEC | MAY_WRITE);
++				struct dentry *parent = dget_parent(path.dentry);
++				struct inode *parent_inode = d_inode(parent);
 +
- 	if (!fp->is_posix_ctxt) {
- 		int ret;
++				if (parent_inode)
++					rc = inode_permission(idmap, parent_inode,
++							      MAY_EXEC | MAY_WRITE);
++				else
++					rc = -ENOENT;
++				dput(parent);
+ 				if (rc)
+ 					goto err_out;
+ 			}
+ 		}
+ 	}
+ 
+-	rc = ksmbd_query_inode_status(path.dentry->d_parent);
++	{
++		struct dentry *parent = dget_parent(path.dentry);
++
++		if (!d_inode(parent)) {
++			dput(parent);
++			rc = -ENOENT;
++			goto err_out;
++		}
++		rc = ksmbd_query_inode_status(parent);
++		dput(parent);
++	}
+ 	if (rc == KSMBD_INODE_STATUS_PENDING_DELETE) {
+ 		rc = -EBUSY;
+ 		goto err_out;
+@@ -3501,10 +3517,17 @@ int smb2_open(struct ksmbd_work *work)
+ 	if (created) {
+ 		int posix_acl_rc;
+ 		struct inode *inode = d_inode(path.dentry);
+-
+-		posix_acl_rc = ksmbd_vfs_inherit_posix_acl(idmap,
+-							   &path,
+-							   d_inode(path.dentry->d_parent));
++		struct inode *parent_inode;
++		struct dentry *parent;
++
++		parent = dget_parent(path.dentry);
++		parent_inode = d_inode(parent);
++		if (parent_inode)
++			posix_acl_rc = ksmbd_vfs_inherit_posix_acl(idmap, &path,
++								   parent_inode);
++		else
++			posix_acl_rc = -ENOENT;
++		dput(parent);
+ 		if (posix_acl_rc)
+ 			ksmbd_debug(SMB, "inherit posix acl failed : %d\n", posix_acl_rc);
+ 
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index 42a638d1d2b97..1bd816153e542 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -7,6 +7,7 @@
+  */
+ 
+ #include <linux/fs.h>
++#include <linux/dcache.h>
+ #include <linux/slab.h>
+ #include <linux/string.h>
+ #include <linux/mnt_idmapping.h>
+@@ -1200,7 +1201,7 @@ int smb_inherit_dacl(struct ksmbd_conn *conn,
+ 	struct smb_acl *parent_pdacl;
+ 	struct smb_ntsd *parent_pntsd = NULL;
+ 	struct smb_sid owner_sid, group_sid;
+-	struct dentry *parent = path->dentry->d_parent;
++	struct dentry *parent;
+ 	struct mnt_idmap *idmap = mnt_idmap(path->mnt);
+ 	int inherited_flags = 0, flags = 0, i, nt_size = 0, pdacl_size;
+ 	int rc = 0, pntsd_type, ppntsd_size, acl_len, aces_size;
+@@ -1210,8 +1211,14 @@ int smb_inherit_dacl(struct ksmbd_conn *conn,
+ 	char *aces_base;
+ 	bool is_dir = S_ISDIR(d_inode(path->dentry)->i_mode);
+ 
++	parent = dget_parent(path->dentry);
++	if (!d_inode(parent)) {
++		dput(parent);
++		return -ENOENT;
++	}
+ 	ppntsd_size = ksmbd_vfs_get_sd_xattr(conn, idmap,
+ 					    parent, &parent_pntsd);
++	dput(parent);
+ 	if (ppntsd_size <= 0)
+ 		return -ENOENT;
  
 -- 
 2.53.0
