@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795602829;
-	b=xC+bG5IAaO/6dElDtYLQsPkiYD9QB3GXJs7zdYJGj9Xs9bnmnceNdNFZwu17RsJIkNHX
-	 CKJMYnThs54ten+D0lmrp33VNAaaLm0T7Xk685dXKI/S2pyCGdecxCYRUJuHVIY89GbyQ
-	 iTkWB7xmfLWYe8SvW8R7fQo8K7AbreRxpcVJIOrQAkX5/Tfb3zBKB4hIsEzr+MBjp0H7x
-	 Iu5CUYk3EBOpgl6izTv0MizAiuDC+Aj6Wr8bikC3+xI8m5xEarz7AfW/0bALtljCukpg5
-	 x/7D0kcrdyE+cJ4J67NEgt7lDHCOV/6Wdrlzc2x3ldIuLg57Pm4t3M/vSxj78Cs9Gvg==
+	t=1795602832;
+	b=JSRvw/7W579VIDgYH5mCt/edqu6h1UtO0rSlwnNy3muuAOObug6r2UR/hTwtaeMNh1ZP
+	 nd00ey6w2Lut3/RGc/pC83HmPNVJpqDKKxpST7eWSumSKGMadMvhC0kiW5JA20z0LN632
+	 V1JL0QuWILgG2SmJOcidVsPpsfTV4uYr7MwLvr+Qt0fOOdoiIjegpnvJ5rouow52PU26I
+	 JheqIq+oZjMI5xCrUrFAMndoRTCHinJcXcoBOELvNX0QNmFlJIRF21voZ03XB8EwbfcVB
+	 1wFMpP28ctUHDGaiaOAEuUqM492cIQ+OSuLHPftsIQGKuClAMG9CO8cKZpbK1k/XoPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602829;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602832;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=X69SryzAWJEpBIblVaSeOHpDOKIpz6WvIv/pJ1shGHY=;
-	b=mYF8e/P8nD1fVkNotK6ibkeBfpNAiEmcn+Sc5hCTRA9RTxpVoyn8mglnxMUMR84z94o0
-	 R81h9Lfb6wRW1aH/fUhm/OeIiUGjvtJhZh/VXQZq0xYhPGC0f0uxgYibLV+AKbwlHiP44
-	 GtWeV6wUg3HyVOHR3Bo0ti1BfLWvk+0/i/7DfdWLtmdPARUjg2AXApNTS/UU4c6IGSFdp
-	 8X/0Y0B4M4pUvd7iDfwh+TG8zelM81EB0EK084JG/3inebHaIxR0tg7UgVYcC6CGNepSY
-	 yHA/AHrnOniS7/9NIfhuuL4HlxvkfHdOvE6mnOuA5bfb8WggPV96AZS2g21fljAGp+w==
+	bh=KDYuyQXYRAL4v9T9ZMTw4IzfgHZ1wOXTtOjfavR8U88=;
+	b=wmYiSUST16K/kEpJutFGFvfigldcb+TzjkelViIMeZhbe1u4e7qwQbNLqbZ7M6A/d27o
+	 rUnvQCxhUWrrA6RjAZt+O7INV41TyMqEAjjVdkYKcXtDVbs3cSVkj0tKciCv3hFhi9r/W
+	 6zU3RsA7DVQaDnRT4fOJBgBM702JpIJNOWD4d4+oT7irreBTwQOzUvEDgVrvDjwtlLLf1
+	 ud+aKefyQ0UX0M/gqAzYp9n3INDGGwfLkbBxffelrMXSVVP7Ezn6y+yBEMSppIFQ4P+Hz
+	 V40Az0STYD62iXQ3gKp8VDada6hrjfyERYoOfVNEWjPz3dDSjRZF6I8aBFsnrdl//Zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HlccMShY;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=N43gFciO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86428606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:33:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E385606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:33:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HlccMShY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BAA01F000C6;
-	Wed, 25 Nov 2026 10:33:48 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=N43gFciO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71D461F000C6;
+	Wed, 25 Nov 2026 10:33:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795602829;
-	bh=X69SryzAWJEpBIblVaSeOHpDOKIpz6WvIv/pJ1shGHY=;
+	s=korg; t=1795602832;
+	bh=KDYuyQXYRAL4v9T9ZMTw4IzfgHZ1wOXTtOjfavR8U88=;
 	h=Subject:To:Cc:From:Date;
-	b=HlccMShYpHi8H8Q2nk0Cf6hkMlf0PGGUTxIQWpPeqeHJ4HRKmrdSiZL6wCiFfLehI
-	 3GS1p050aZ9rNaE1byf9tMEzwbmrtNInnVBuGNm3ZXgtd1KSIchXgFyT/VeY6v7iTd
-	 I1Nfr4gM8sXXYlqylspnTEg0+TpXVAuU6OpRHuVU=
-Subject: FAILED: patch "[PATCH] spi: tegra210-quad: Track DMA mapping state" failed to apply to 6.12-stable tree
+	b=N43gFciOglatxBjgdlTNCw4Gi5Z1zzJLnarar5WnTRcrq9cHYeVEgapcZEmCVsqDL
+	 p8tWejEQE8LodSoZmKGJCxnefUNhZ+Gwem3UIMacZrgBj68Aoiv4tuTIID6smg59yK
+	 vFAUrPIyzj3DkriW/nKKHAI9lgU6IsA/kvgYhQMk=
+Subject: FAILED: patch "[PATCH] spi: tegra210-quad: Track DMA mapping state" failed to apply to 6.1-stable tree
 To: va@nvidia.com,broonie@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:14:53 +0100
-Message-ID: <2026112553-rudder-camera-262f@gregkh>
+Date: Wed, 25 Nov 2026 11:14:54 +0100
+Message-ID: <2026112554-tropics-manual-5667@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7b9e6f7bc13c0259b192d0a964e802d4ad53b8b8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112553-rudder-camera-262f@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112554-tropics-manual-5667@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
