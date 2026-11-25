@@ -1,73 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795593617;
-	b=kbAXf29K9HJZLQdZ8hSmAM+BVj8aQ2LGtG9kjzU53EUs3p2qQdsYtTCB07fZGdELLg1U
-	 kBKsEeRzahl6Hnx/aDrs8aZl1XXkx4ssUWbtElsniU3cB+zQXk06kyQGOrwJ82ilsNOH9
-	 XYWzY3zcyqlvUkPUVAVEWCNUvt3LYwiLLNcGlbHBIQdx0yTbUC/D1C9a62ViANQZL18uj
-	 f+m5Yo0hb/DnQO6vbFTSuiL/xoYcJVb37k0wcns9IXcZW1wR48x8o0/XZM3pQnjJmP9w8
-	 6ot/A4dgQ9fSTlgU49pv+gcKU9W5VrIsMGhP3ouRj25a9wuu58l9GLaxLLZWENrkyog==
+	t=1795593679;
+	b=nX/hwvZZ3acR5LQffbShvkTQbZIe0WoLWIwhj90stcMisJ9Iwarr+5s1jaAP7Qxqi+Jm
+	 AsLkiRk22OR1SNcsNOeLm8MNYZuBwSQPTE2noGMw0iHuFNbP0ei20PP2ndeT5jzfhn4el
+	 CkJZpKt5+KFeCecVzGhtMSdK1wa1C8KfUUA8szH4VhznAW4RHBm94SmS+RTltrJIi63Mc
+	 rnyblizuwvcgo608prR/8THxbDq5zQcJmWSmRaG8zFaGLWptABtuzfg3Jdn0DcmOueN+B
+	 L0TElhWxTvl1zYqUjYCfTsed26RN88hBCxjojyYApABs2Ylq8bcDt0RxYgDunhEz89w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795593617;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=3JXKHxrVmfq0TiEVcdvg17Zz9dDLxpeu9nQ6Vk0bf9U=;
-	b=pxr3AIkOQuG15AYRjbEf0CgmkA+MB26X6RO5v+VrCcMYvVhDUWDUYrb8X0OhrTVlmy0d
-	 wC+lG/4xMWUPrlbLscz5NgNFNWZ2Xz0AcAyILDB2xK0BvcGHl3GS8b5zI3uyveuPNH/Ud
-	 kAxbT3Xu9vcGYsL4BD+U9EyJ6hMN/wlchiBBIV6kVuuY/FgxbBISs6GvZuARtmmW/tb2N
-	 kilQUiFsjOrgpUX4QamtCsQt/+WIO70+FBV5ISVEDFD9sCHgaL2qrwJdP5hjIrQPN16gX
-	 Y+AJU8+BOJaf05SuREMHVVMuAoy+0XTBfAFx/KBPTukvO+J189t728IGHM2FxIyCs8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795593679;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=f4BDOrjWvnpZkSNCn7i4hODP7e8CFhLG3YbJwtbq2r8=;
+	b=kDlA/Y8ELyH27rx6SEHRfSeeQe5mBydI1v2WlUoFoC5uPfcUglivfZ3tkV7SzQpJevq0
+	 6hlV82zvvPvCV0dEA8esYwpGv6o8znUYFAaGLrg0ER/MS5fJYQ1Uiq85Apn04ZYM5O0Pt
+	 Mi17f0sshnF9NN82q5HB0pAmq/GOnIsm3hivCTMcQF4YGxgqFTi/pQn+21qhnmz6+EZTa
+	 8Py0Iz8tx6eWi8pBXfWSqGDULReVt1jXVU5C0NAkytMqnzujheosxyd/WqSp4nRvdRlGO
+	 raviyS+8KufLQl63UT7SSI6FFqx88XgcwE6XhAyQ18OQeNMoEyG/O0MfN9rPg/I2v/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dVZLEuUu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=m7cAnaND;
+	arc=none smtp.remote-ip=54.206.16.166
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC62D60A2610;
-	Wed, 25 Nov 2026 08:00:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E039606A31E;
+	Wed, 25 Nov 2026 08:01:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E039606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dVZLEuUu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91DA11F000C0;
-	Wed, 25 Nov 2026 08:00:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795593616;
-	bh=3JXKHxrVmfq0TiEVcdvg17Zz9dDLxpeu9nQ6Vk0bf9U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dVZLEuUu30Bp0Mh++rmExNRXqzfiexWadppURIK/+VKrCSdKwgsrU5sSKafqAoMVX
-	 RtpJk1zM4M8Ozkq3n2tUfIqN+dazbRh0Uk7tMt4ZKtCp7Ik1X2ra2vvZj3cHCkYNkX
-	 zuXHvYHAOKfV4dqS/c9v6ph+IVGU+V0EM3zsIhN334mSVLff8iGgpVz0EnVdps9F9v
-	 lvttxclF3v13FajsFkdWXUAd9uDcBXebqbW8913/zEe90DATxMaaeCz18gzbwRYCac
-	 3vztu/ALwxVnGZRTyZ/1AgydZcZmYQzBw8Vsp4D0WPSLc0s4EKB6yJgnt7x2ZIftB3
-	 QdvdlQRkUaauA==
-Date: Wed, 25 Nov 2026 00:00:15 -0800
-From: Oliver Upton <oupton@kernel.org>
-To: Dan Carpenter <dan@pereq.eu>
-Cc: Marc Zyngier <maz@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Christoffer Dall <c.dall@virtualopensystems.com>,
-	Rusty Russell <rusty@rustcorp.com.au>,
-	Marcelo Tosatti <mtosatti@redhat.com>,
-	Sebastian Ott <sebott@redhat.com>,
-	Eric Auger <eric.auger@redhat.com>,
-	James Morse <james.morse@arm.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <shuah@kernel.org>, Karthik Bhargavan <karthik@pereq.eu>,
-	=?iso-8859-1?Q?Cl=E9ment?= Blaudeau <clement@cryspen.com>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=m7cAnaND
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1795593640;
+	bh=f4BDOrjWvnpZkSNCn7i4hODP7e8CFhLG3YbJwtbq2r8=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=m7cAnaNDSb25xweNbzWEfE1coqCu9RK+W0BbYia6wAXgbLmxAIabmRLgLUwcv8QTc
+	 Y8xe0WfqtyLLLth36rwWT5HgnmAOHym+gfM5gPr7vJuBROL1oVVxzyRiHRGYwrisSb
+	 fVb9O/wP4L0dooVtb5KTiUJLMQ3qRtweQaVocE+U=
+X-QQ-mid: esmtpgz12t1795593624td5f0f43a
+X-QQ-Originating-IP: ANCK05klNgD3SRV1Ylh0egbkc17pc0M7nyJSwN8vr3o=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 25 Nov 2026 16:00:22 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 6911233739420315500
+EX-QQ-RecipientCnt: 7
+From: raoxu <raoxu@uniontech.com>
+To: pawell@cadence.com
+Cc: gregkh@linuxfoundation.org,
+	peter.chen@kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2 5/8] KVM: arm64: nv: Replace a pending SError when
- injecting a new one
-Message-ID: <awaVj0Aa6dMSksxX@kernel.org>
-References: <20261125-double_exception-v2-0-224689d8a764@pereq.eu>
- <20261125-double_exception-v2-5-224689d8a764@pereq.eu>
+Subject: [PATCH] usb: cdnsp: fix NULL pointer dereference during system resume
+Date: Wed, 25 Nov 2026 16:00:21 +0800
+Message-ID: <7B818A718E70C344+20261125080021.3907332-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,67 +71,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261125-double_exception-v2-5-224689d8a764@pereq.eu>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NhdiEwnVOUqEoYTBV85/Sbt1sDdyb/Ak6xUl/7CZDKPexW2/c8kH8QRl
+	HVCRBrFFVOLOa3BNnarsI07U2+zJYye2StVPPBprsvw/XX3VyfuhsGs1G0jzWYMm8EKaB/j
+	RobcY9buh17V3Csj5PoS7mZUOKJQmMWfk1Evf816TKuNEHwXXWNeC7nCvYzKC9Mf0Zvj7hj
+	RMf9AqoZoxWT0BAtErEpU3k5arwhxQ42M94rm59d3E/Yii6STLLMQsmAvBw8RTI1oGbUwzL
+	3alKrpJrCLJv1GMjpxLRcw3sdTPtNC216TYEDHfBAsc71rhI8ROTjV7rjay21Ady7Oejkx8
+	GmMzuCPlrWMC3X8ucJcexTViNFXd+ydtuWucmJSFbW48NjAZr1JqojpnGe+76PJNXUvUUuU
+	Yn1ze0eX3efyfzJZalfpO7E62n29l4wPrWoamhDsC8wxf4ExGy+QTZhO8R+kN8++HgoGufI
+	/VkLr8s1rYMfRXRBJC1T4eFNlUxrV1zgJJ0RNQGg7s44YT2FR5KlyvHLhso8KQhUNifEevN
+	qF7Uy0RqFN/nGkGb9/56Zu2/DzWr01OFlYqgA1cwrV4OgByU2uM8tbNGs3eluuDlEnvHqTB
+	YWK6BrG+wMgD30Pr/a9rH5rpRntm9EjKcUCYOf5jh0CDPi9NLxSOFGBPrxRxPZ1I2LLazRz
+	OEwCw6MhkCt4z+V1ZKpCRhQYAYG3GMZoF0B8h1Dw7KMxgei8O4ZpTRAJUuhhArwtnM+cD8Z
+	HNnvYBoOTjcGH7faDcRqpubeZX4otdHqeOZJMb2/51BJiCKdbEU3aUCoUHGbpT7bAN40RpQ
+	OFo6CQ78rkqhuLIOb8PGfQnVEN4t/6psjDtw8Vd1UvuCxQK7JY8RLYH8DUovoCOZPSXfetY
+	kAVGVHPwbmUq0/CW9E6NeER4lh2iT24+L0x6LLqPF/VN9+baKv6Uy2aS5g6EJ+9PsmLcvsO
+	F53Q1hCCWwEjVaGI4pJbM68Pphvyw6b0uX9/PUVqJvX3ciV+EN1DONPyfxJtNcTB2/WTucJ
+	wiZ17E0r5dkF8HR3DOFco1kr1M8Ak=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-Hi Dan,
+From: Xu Rao <raoxu@uniontech.com>
 
-On Wed, Nov 25, 2026 at 09:56:20AM +0300, Dan Carpenter wrote:
-> The kvm_inject_serror_esr() function injects SErrors as the name
-> implies.  The bug is that it doesn't handle already pending errors
-> correctly in nested virtualization.
-> 
-> In vanilla KVM the kvm_inject_serror_esr() function always sets
-> the SError to pending.  However with nested KVM, it might set it
-> to pending or it might deliver the SError directly.  We can only
-> have one pending error at a time.  Imagine we enter the function
-> with an SError pending already.  In the current code if we decide
-> to pend the new error that's fine, everything works.  However if
-> we decide to deliver it directly then the pend flags should be
-> cleared but they are not.  So we deliver the SError directly and
-> then the SError that was pending on the next exit or entry.
+cdnsp_gadget_suspend() now always disconnects the gadget and stops
+the controller, even when the link is already in U3. cdnsp_stop()
+disables the slot and clears active_port, but leaves the cached
+link_state unchanged.
 
-I could use a bit more color on how we got here. From what I can tell
-this state is only possible if userspace changed the routing / masking
-of the SError outside the context of a KVM_RUN. Otherwise, if the SError
-is deliverable on guest exit we perform the injection prior to exiting
-to userspace.
+If the controller retains its context across system suspend,
+cdnsp_gadget_resume() may call __cdnsp_gadget_wakeup() based on
+the stale U3 state. This dereferences active_port, which is NULL.
+Port-status event handling cannot restore active_port at this
+point because resume holds pdev->lock.
 
-Thanks,
-Oliver
+Remove the obsolete wakeup call from the resume path. The previous
+connection has already been torn down during suspend, and
+cdnsp_run() puts the enabled ports into RXDETECT. Let normal
+port-status event handling establish the new connection.
 
-> Clear the pend flags unconditionally at the start of the function.
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/sashiko-outbox-229065@kernel.org/
-> Fixes: ce66109cec86 ("KVM: arm64: nv: Take "masked" aborts to EL2 when HCRX_EL2.TMEA is set")
-> Fixes: 77ee70a07357 ("KVM: arm64: nv: Honor SError exception routing / masking")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dan Carpenter <dan@pereq.eu>
-> ---
-> v2: New patch
-> ---
->  arch/arm64/kvm/inject_fault.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/arch/arm64/kvm/inject_fault.c b/arch/arm64/kvm/inject_fault.c
-> index aa2011cc0d5a..0f6a89b65074 100644
-> --- a/arch/arm64/kvm/inject_fault.c
-> +++ b/arch/arm64/kvm/inject_fault.c
-> @@ -361,6 +361,10 @@ int kvm_inject_serror_esr(struct kvm_vcpu *vcpu, u64 esr)
->  {
->  	lockdep_assert_held(&vcpu->mutex);
->  
-> +	/* A new SError replaces any that is already pending. */
-> +	vcpu_clear_flag(vcpu, NESTED_SERROR_PENDING);
-> +	*vcpu_hcr(vcpu) &= ~HCR_EL2_VSE;
-> +
->  	if (is_nested_ctxt(vcpu) && kvm_serror_target_is_el2(vcpu))
->  		return kvm_inject_nested_serror(vcpu, esr);
->  
-> 
-> -- 
-> 2.53.0
-> 
-> 
+Fixes: eae6460f6173 ("usb: cdnsp: fix wakeup from S3 after controller context loss")
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/usb/cdns3/cdnsp-gadget.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/drivers/usb/cdns3/cdnsp-gadget.c b/drivers/usb/cdns3/cdnsp-gadget.c
+index 2830b595d632..350e45f511f5 100644
+--- a/drivers/usb/cdns3/cdnsp-gadget.c
++++ b/drivers/usb/cdns3/cdnsp-gadget.c
+@@ -2160,9 +2160,6 @@ static int cdnsp_gadget_resume(struct cdns *cdns, bool lost_power)
+
+ 	ret = cdnsp_run(pdev, max_speed);
+
+-	if (!context_lost && pdev->link_state == XDEV_U3)
+-		__cdnsp_gadget_wakeup(pdev);
+-
+ unlock:
+ 	spin_unlock_irqrestore(&pdev->lock, flags);
+
+--
+2.50.1
