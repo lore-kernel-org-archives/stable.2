@@ -1,94 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795602781;
-	b=dUNE+e8oLsajfxnn6/irItPvamTGp78vKemLV1t5Fbfe82tIL6GjbRVWqnmESPylYLWk
-	 5P6gNKwAt2e/+oYoqrmcOMK6IkIwM5j/7ioPR8LORgGF7LSVlvdfxhz5ojcIyAKojIMIM
-	 c436t7GWVzScDrdjFodZn/CwXPkmJCLfEcEm14X0V2/8g/x1MZAUIFpmNkVgdXnkqwGB3
-	 A/IMg/Ru0nG/U7ECW2jENNQw0hhdEPhXevoCsb6H1IPiLStkDLrZJ1ULxdl16276ewNMx
-	 WKWmf3yc+wQKw+pkMgRC6VVrn6gMwa2HHmBmOCIa08JW2EEcuQHgzOF8Pki+I2JI0HA==
+	b=4hDUERnYqYCbYLprGMjAPTLY5rDSDI9kK3JRTufa5krqOh5r2qkRmkiM/MzkdUyudms3
+	 iUmWTEdtDxAeL+Rw15lr9KpM4g7TFU98kelQ2B2HsFUxi0QfVY8q/F7eGEnfm9UFdDMj3
+	 DVJH3ORvClbt2b6ANf012hmbzoWXz0twoJJBUP8jv73qQ6R28HxzVJrbZRTM4xXFwKG90
+	 OalI/uSdOf1+vbP52SBhe9D61JHL+ZfqWnD+VYzx8PYJA+g8c4cOecwZhgOGdOISWug8i
+	 nkoy8narjZrq09JA0JtIIhKdWJh+x5HDQyiBh7lnsUYiJXeMs++CLmLJ1ObXYqJCR2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795602781;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=7xV916A+35SXl48r5rUtwZKMhyqpqrYz+QTIMIESbq8=;
-	b=plOy/xcFwdmLjnru6IK5RDE+ogoDNBMR+skcWvnBpsUDH6uCXH+qTIQdTULU1D29A3WN
-	 dgD0ZuwY8lNekbDLN3odEH+Q5BItA06DYE5XnKwcPbfl1YkFf0XnVU9CbifhE5/79Dc2Z
-	 T1WXdvxuVfK7gK8hwhAxpkA+VSLCeGL+eju5Chr5IdOX/bpAIAHB2E6dDY8hmg689ybC/
-	 5Bj3UOxpNuoBsduDBCCZgpGY4yXizwyT6vzgeX80JmJvYWio49IEwuBoRBKPniifwdg8/
-	 k48Qcb/kQDbFiNwhwfD+wlEiUKMda93pYJJ+mGafu2cl1wZrwp1sYTFEmmsRsbi9aww==
+	bh=D70B3ztBwMYUR86TjFMf+u8FJbSnTjMRLkpHsPBIJJc=;
+	b=GXjaI6USmZjyO+FbO8NYt/VhwdltS1D8UJNGZYC9nrR4QjbZ5HsvMDQVS6BzndW8D8DD
+	 owxSjv4Pb9ETegpMdmN2RXWxViNjVItDrI8vvgkmLu4NlsTtBv5jbkxwkcMHsQ/a/Mhk1
+	 ZGAIkjeuMnAsGYqc/mCQIh6dRmqokV/ycC8Dv+KR18hgSyc4xQOW1I0J2kCseZUZLAknz
+	 +PRz8Pz51hpNZDIe990CbyNAKL16XwEhTZz68QVhygs7HtiCsoNothlz83VutrWmrklqx
+	 vlUq9QGoAvl7ENliUu/wuZPrOQzmmDDEqZG8MmlD0jfgKyHuJbckvP74b/ruFbetavw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ivGrpQN1;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LQDSy5P3;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A4D606A330
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:33:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6A4D606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2630A606A331
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:33:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2630A606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ivGrpQN1
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4a7b8abe209so4296859f8f.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LQDSy5P3
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4bb6ba3b244so57175415e9.3
         for <stable@vger.kernel.org>; Wed, 25 Nov 2026 02:33:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20260707; t=1795602779; x=1796207579; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=7xV916A+35SXl48r5rUtwZKMhyqpqrYz+QTIMIESbq8=;
-        b=ivGrpQN1F9+Ei+uXeqi7ohc0WOmj7bUvp42bZvx1cSe/v5ndwbJw2OsIzUM4WWvr/g
-         ELyn//oU8a6kVxl1HfUTD/hjrVJgrj5ZRt3WnaNQMg0FtC6vUnVC+uEG+/VRxwTqps1m
-         n3ndmvflYyLA+beo2vy9wOrlbzySM5hinBD9KOYD6rX0fC4NEadsg5DkIjrbeSr/4dzO
-         dkOmbl9SQDvfSKRLzHkFe0wCpZU+wG8EQnojsXhf43qBIcm919d1MG2uFh4uCzGatscR
-         HlJ7xZtAFc/pXTGbBbsxc3aQUpqY3WrqV5u9JezD+VWYTI2x8yDoGrsAy6r/E+snsava
-         thmw==
+        bh=D70B3ztBwMYUR86TjFMf+u8FJbSnTjMRLkpHsPBIJJc=;
+        b=LQDSy5P3LhpyWBDIhwce6A4J2KJt96sfWchyEqgH9hxV7VhgmFqtvInpWZh74dDfzZ
+         1s3efsa6zkNYuwqxY/ZqQiJbS2Mh+Vi2FNVTsvMcjwucgaMR1TaqJJvhBonUP/bKD+uq
+         LR32jiEqtDpDIN+B3gZeIY8jqZjDWOxBUyzw42Ck2ERGy87T34oBPTjluQmItalLzLs0
+         WJnQEwyDvyppVrushipnZ8lQy5C5k6gnaQ4A29xk6Mxwtx3rb7h2fNxjT+weOtZuVc3R
+         Zh2CvBkEHFJC/M36SFaJkhuDUCPSxsDG64o8QqIo8aIp9nMds5k9QesppdFX5akGiGYF
+         rkFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1795602779; x=1796207579;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=7xV916A+35SXl48r5rUtwZKMhyqpqrYz+QTIMIESbq8=;
-        b=kAPWmQoG+nPYSoME74NJrTWIlXhUdlOXX/frIevN/9Ce69Y39aH+WRFFk4pxL+sveK
-         iufrJVtrSVCANiOTPJ/OiYYkWYMtbteRmV1SxF7+bhTE0U73o8B9DOBZV4/nAjjWUqDP
-         swPB5slbBKSIWnJEAOQpK5yjcpGCeUSxqxeJfcH4tWWl6I3MKtesz4bq/8bLlcUmY8kK
-         15+B91ivpUD9ZoL+8FAtgx9US2pKURaV7wGMvQRYrOM6CNDZTDszOsv8ktfZnjOhhtgJ
-         WZP7zH8pyP6nR0+ahEevPOM5E0L2I20DsW9d2myeA69pArc4QLagJOQ4wpN8m39OyWuQ
-         C2Zw==
-X-Gm-Message-State: APuU4Z9R+4eJ36esSrN5eJrruaCi0mKYr/cGePsK/tU/GHqFJHx1gWJi
-	8Zcy0xMisbznuv/Qc2TeJKEHeBTPi3Lee6Glh2h2fjxxk50iYEa04v3Inkaf0A==
-X-Gm-Gg: AZFdTZcoiXX5mXGwgUqzvvftD0Kveg5ifszNC2OQ/uGotWudDJ2eseG9yd20Kj9D3Tc
-	1DukSuHzE4ZjTpQu7/NHDL8DwgfHx+iJoln8FkA7FEv4x+X4Hoit4dBxYP/R3oWcpKhu84U7G84
-	HJU9I398WKjkOU2tSSlQ1j8HsrV3pTaLndXSNFxFhggzPrqHh+IjLUnWMiMpc/hGIkgAcUG1g//
-	64Amft4ZTcSzZyl1wtN+6yuasejpKQA82iwoy9vNBf6NmkpVipf81s66Rr8HFbtt6c/GNwoMYbz
-	BnRU50IMbvYP1HG/o+LHLxq6/Zz8OUIhS0StorQmOFMf4+x2VEzq8pM98mjrrALgSB23ziv4hj3
-	P9lGcFKUA5F7Xxl80t4IR+5awhgXh01TuFkCcu4iflCgKeoSr8tVrmkvfu+mggOf4fVU/T2eEwk
-	ifmoV894kbNLzWK8qTWYVz9ytjfYqxS3wijsKi1+UJIMf4r34QlLUpwVU7dwLFBbLiE/chyfqfS
-	nPaGGqkMjZW7F48YtHZ535fUWNEExAQ5vTLsM1BNJrHKV3elVMQMnmtRUwYUMcNGiXH06GT424W
-	8cGI7CgftEh3tmydFOikm6om7m2jDujhunndWp8Al9zPyg4hBoQVzmk9GslHEIIJougz7ww5Ier
-	hriHOwtatMvveB3//YUFKYf3d/zxs9GCmT85v3jhiJmcERGTrgiNWBkasUBE81NOfIhdE2UtVN5
-	BdlXWFtLFKQBRIjZHhhg+UczSyW6YAokhbVvA7cKpK+QJuFLmkPsrTX4rd+2FhDKl9u3zv83aay
-	5TNIUzfpMR8pmuTxX3nJpWdStIEosDU4x6NPhg=
-X-Received: by 2002:a05:6000:2b92:b0:4a9:cbb5:803f with SMTP id ffacd0b85a97d-4abb400a6c6mr22607073f8f.37.1795602778879;
-        Wed, 25 Nov 2026 02:32:58 -0800 (PST)
+        bh=D70B3ztBwMYUR86TjFMf+u8FJbSnTjMRLkpHsPBIJJc=;
+        b=fmrHxyGpFOg2uQQEsCvfSLocD+VP401Hr1zoGcEjca80iQEGV5RZJGUAKeNt/DCFM6
+         VNczJlTQAOrRXRilkdRtbaMhIdLeFZZIyYhvMmKHhXQwTgAi/bc7/MtjVy8HE040Exqm
+         JN+/UuK+oyscuGPH5h1RXlrtKWPZTmCwtlgChfdboo2ID+4ZTUuUaVAp8ydHGumG7qiV
+         DLOqHHksadBlBzKyvGEShGXzw/1VxUlR5XkjjRQU7nYdy4lIuSOYNIHPh7b+Eg0aP8SK
+         w7xixZKLsoOTjbcTQ6bE5U3YMWWhApQ+gkeKtzAaju9pO2pM3e3gDIqeNMNuFCwVkbCT
+         osSw==
+X-Gm-Message-State: APuU4Z81R1wd+YOnjfamy6GOl+YTd4ctQ/8tRHykyEz6fVBltovGIDlC
+	IrucIbZXURCMAVuOWovygSWwQQ822oGO+xJEXA6roIj/svatlaI/GBlShxovhg==
+X-Gm-Gg: AZFdTZdVkBjv7m80WIFrwPgXDsCwKDWQUt62hArBJ7KZoV3ddW5Ph0OHIR2HXpF0qQG
+	EH4fA9SCfD8xfjiD0CvZ+LNYEcGZUY4qQvUPolM0OIDHuxQSNZ8DyBWzF5RTG/iL3MMu+ch50Wm
+	WEKQJm3JACC/vnjfURR1gB/uSHqc6tMySGTuwveVMyPbD6RZQd84yjTvAKb4w/t9aoDNAWAcXFH
+	NtnH9afiZlNNNqqmCnoYJ10KeRq1qrxQ3XhhwlbySkqONO0n3PfPGGbx0+qBJNDpuESFQdc8iL0
+	KWcocMc3yxSEQLGasth+5lBr6FO0HJkRUnZBPqZOWbhhDAS+CfV6VWl1EU4RDdzGLsL+pROi7UU
+	zfORr9gdGTFvePpCrM4vhmbA76ttmAb6/NRQgc5XnFQFjUKuuZuSxzbo0YLFRTXOmZQqFjItHye
+	J03FY9AO5ig1dHpBV5evQcNFICst4XQtkY+AoNWXCZMy4NU093u9kC1zQsloerUT+6M0i5VamHv
+	5VkyfpJXKocEFIIcQfwxFaEmTFyU25GmOJ9Rp9LALosbZZ+bapMxO27VrPHwSAXAK9OVUI69U/m
+	+PlvIUGdta0vO/r0NDV5l1Ans3/E+lE39avnX23xrmgA9kha4ObC4urQN6PlC1yXz7f+l1YOWC7
+	jFAHxvlhP+c3lXHAlfaMze9bKOAIaZlpQmgh2MfNJp4J1crQJjZNQZyqpeeufPxub4xBkaAH92z
+	s6nWibbrlRroi70WXVHKAbX49cUOIhSy+R6qLReff27AXw67S1eqwXBjQ2myEFxKErW5RKQ7ZZI
+	yv7RbE0nBRJru05Cg==
+X-Received: by 2002:a05:600c:154e:b0:4a3:59ee:86b with SMTP id 5b1f17b1804b1-4bb887c3b63mr374460905e9.4.1795602779418;
+        Wed, 25 Nov 2026 02:32:59 -0800 (PST)
 Received: from longitude (2a02-8434-fda5-4201-fb56-7a23-de2e-e3d4.rev.sfr.net. [2a02:8434:fda5:4201:fb56:7a23:de2e:e3d4])
         by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab9cf005f2sm27424238f8f.45.2026.11.25.02.32.58
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 02:32:58 -0800 (PST)
+        Wed, 25 Nov 2026 02:32:59 -0800 (PST)
 From: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.1.y] tools/bootconfig: Close only opened braces in compact output
-Date: Wed, 25 Nov 2026 11:32:32 +0100
-Message-ID: <9ae7974f3fe787daa9758ac07b37e2150ae546f0.1795602751.git.edumucelli@gmail.com>
+Subject: [PATCH 5.15.y] tools/bootconfig: Close only opened braces in compact output
+Date: Wed, 25 Nov 2026 11:32:33 +0100
+Message-ID: <9f493c8011044edc5af3cb20ed7be18f6e9d0253.1795602751.git.edumucelli@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112514-demystify-mayday-8d49@gregkh>
-References: <2026112514-demystify-mayday-8d49@gregkh>
+In-Reply-To: <2026112515-salary-cover-90e1@gregkh>
+References: <2026112515-salary-cover-90e1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -131,7 +131,7 @@ Signed-off-by: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
 Hi Greg,
 
 Thanks for the notice. The formatter hunk applies unchanged to
-6.1.y. I added the expected output and a comparison to the stable
+5.15.y. I added the expected output and a comparison to the stable
 test script. The comparison fails before the fix and passes after
 it. The full bootconfig suite passes with the backport.
 
@@ -146,10 +146,10 @@ Eduardo
  create mode 100644 tools/bootconfig/samples/exp-good-mixed-kv1.bconf
 
 diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
-index 5429a7674b..c464ee6ed3 100644
+index 78b252ac38..f21090809a 100644
 --- a/tools/bootconfig/main.c
 +++ b/tools/bootconfig/main.c
-@@ -38,6 +38,23 @@ static int xbc_show_value(struct xbc_node *node, bool semicolon)
+@@ -33,6 +33,23 @@ static int xbc_show_value(struct xbc_node *node, bool semicolon)
  	return i;
  }
  
@@ -173,7 +173,7 @@ index 5429a7674b..c464ee6ed3 100644
  static void xbc_show_compact_tree(void)
  {
  	struct xbc_node *node, *cnode = NULL, *vnode;
-@@ -98,14 +115,12 @@ static void xbc_show_compact_tree(void)
+@@ -93,14 +110,12 @@ static void xbc_show_compact_tree(void)
  			node = xbc_node_get_parent(node);
  			if (!node)
  				return;
@@ -237,7 +237,7 @@ index a2c484c243..3fb38b8f31 100755
  echo "=== Summary ==="
  echo "# of Passed: $(expr $NO - $NG - 1)"
 
-base-commit: 1ca1436ccc68275d0b43b6a730b3940fcc46b7c2
+base-commit: 4f2df9a01754521fbba3493e8ad91ef65515e68c
 -- 
 2.53.0
 
