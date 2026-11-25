@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603106;
-	b=vcAWUejL3Ixm3P2AaRMYq5mrhRFPE3EdVkXPbSGvtlb7wK+gWyKl2lfy9pqakwQiMXd+
-	 NcssfWgjaTcK+TvzD38LoWXvOW7xlWuiof3JUbC+7aiegjgKVOkfhE+2Ywhqhf6Mns8s+
-	 nFsiEKoRYOdNaiU99BeWjWal0rgyeamkx6f3NPAUv1lNA1DPJ8M0GntjZlepq0+z0IAiR
-	 gngIqcg8O7xqmnk04T6vG/BFQ/7Rl8DdRvqW2it3EBRJ3BBO33osTufXsqzYHvlBX96ls
-	 Syug8yshFdxVUzikX8iKuMxKv8gMI/CCJPf+kiXHXxaLTYBSsefguE3/ACjVPzmsofw==
+	t=1795603109;
+	b=UvOk6hJvrU2Ztt8tUw6NM698lo6IyCJY8iN3xU5bDkzUCsDXMwiWn66c+HaJoj3BezxG
+	 U2/mYfzEGEq+edxYl/RjOgTyU8nX8ETr0vLdT2WUYbkYlmbUFdiOocCeN/Cf8AM5Kne4r
+	 DjMZYQX6xQEm/uICSPRFOClzYShL7EbCiXpcaA/o1LOwqUxBBpOjML9XzZtfBzmfPGD80
+	 g6EKd58HiIN8wfpYVLmKcEzo8PfTrhr8pWn9hVp0KG1i4MAaNIZa2p5ZGTOsLAjWZAUCs
+	 T7dTfd0M9msWZ16RDTiGtWRn0xlEy6zAHh5ucYCoqUm5bDj6Lj8lMuot+AEPPw3Ox9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603106;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603109;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=aSzV9vPL96b1MsSnUARPQtPcSa8KU0VwX9DE4K1IKEk=;
-	b=04UTedGvIecIsmhsMKG9dKEdjzNQM9bpbe2O9eqE68l0TMasipglkJC+EXj1XM3j7S88
-	 aLDOaO+o3PIlLnxccFRJ+Im7GYH9mabICLL96qU2Wbg+KTYSBVciqOYQAx8A46tygFeGY
-	 /WPVQeSdQhXY8AWatA4fFUTJti/kS02lYJ0C+rWjygGllRhR+VKDmjEBgkg43tWkX/5q7
-	 WWeqQQ9msALGBO7CA/rEEhnp2LsP7tZQ8a1p9WLJk8d0zGyqAnXCXHiDpl/E67I1vvbR4
-	 83zTOyXjzCUIJGzbf0cfZQ0ZwLiZvZqISLL5anaYgNHIIhq+ZFo/hkW5eHxuCNF2qqQ==
+	bh=+WwTzE0cKsPaUEwsFKrrfVlVMfNH3E6Yi0bNWsZAiBU=;
+	b=EOTiwrvjbTeRg9IGjqQDTxlYpmp/wCHG09FsRH5V8uf2Ta9Z48rAgwQ5sGbVDCIlVwqo
+	 9aShvRioStyWjQLz2ngdufneUaHwZOr3M5sfqnOv9jQt6MOW/5D0HWoHBfgkhJ7ESeO43
+	 qkHBjl/do2J96HQn9GGWPWd8bPADPbc69ExNLBJIXHmHVQj8SJB/wAolyVySZX7RMbTna
+	 CVYNUMoToEKKbWVNUyO7Ql4wf33m3P0g5sG/7PZ+GcGEGZvg/Hw3rdrRjXNPIudznrpNU
+	 SKKr8NYATnYB3HGG77nQUv1EtX6hJaZoHtfh70NMj+ZxondnGAH3TXRi65aHvLdEQ7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=inDTaDGp;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GTIke2QU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7665E606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:38:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 678DD606A330
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:38:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=inDTaDGp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C89651F000CA;
-	Wed, 25 Nov 2026 10:38:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GTIke2QU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9959C1F000D8;
+	Wed, 25 Nov 2026 10:38:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603106;
-	bh=aSzV9vPL96b1MsSnUARPQtPcSa8KU0VwX9DE4K1IKEk=;
+	s=korg; t=1795603109;
+	bh=+WwTzE0cKsPaUEwsFKrrfVlVMfNH3E6Yi0bNWsZAiBU=;
 	h=Subject:To:Cc:From:Date;
-	b=inDTaDGpry8RUIj37aHgY+29gI7T2aFR5PAIRN90utaE1OS6NnfaZdnvYdzsss/y+
-	 eooPlt/p8PLKqgHeikM15rCV/IN4eUgXv1eVAa5Z0xIBAPih47MkfDzrH4VZ+5n9gL
-	 WAZPfVHoFM9OOO2RzUxTv8UrWjpuIuwHaJbfrVEQ=
-Subject: FAILED: patch "[PATCH] ksmbd: pin parent dentries in SMB2 CREATE ACL path" failed to apply to 6.6-stable tree
+	b=GTIke2QUp2dLfAl1GrXmbqo2id5OiWF/nrSj3jFFcUYp9unGrcHfcbpx5GETZlpU7
+	 AkS5fUrR9BQbQH8NSqTCXhcETWLRSmi8qsS8l8mgiM0VEw5ZaE6nevNyENzpG7yEpX
+	 1DT3nGI6tiKqv5kxTpscx01Xh5sUQe234ieDI9x8=
+Subject: FAILED: patch "[PATCH] ksmbd: pin parent dentries in SMB2 CREATE ACL path" failed to apply to 5.15-stable tree
 To: arpe1618@gmail.com,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:26:19 +0100
-Message-ID: <2026112519-filing-unpaid-50b8@gregkh>
+Date: Wed, 25 Nov 2026 11:26:20 +0100
+Message-ID: <2026112520-subheader-ship-7f49@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 0383a66dabd7aa06237b9b24713c03656abeffe4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112519-filing-unpaid-50b8@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112520-subheader-ship-7f49@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
