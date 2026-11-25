@@ -1,65 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795638523;
-	b=L9d5RZ549WmvjmEJkOQoUe97YaQI2/MhPVwEkwwOJ0AsQoZzDLLUL7U0SNcgqKd//4Bw
-	 6VjjGOa8HQU37UAPjcRBWg278+khgTyuwa9TmMKTlCniNzZkTrWhnACEeF+lmlypBe9nb
-	 apPPBeaj1RRltoLx0jep2NCIjgavD6KIf0h3Tq3lAcYx3L1HLrCi4qinKQcaIb1XRZ1xb
-	 cv+7NTkucxKE6wOY6smc5hWXyTvDiTEj8R5m3jG9HljMYk9bb8kFHm9qjOL+LVc1vIjxZ
-	 cxdnHc9c9poUnVexDWdZwH+xm/E0Eg93n9LcZnRmrwF17dwt/tbV6M9TCpmicVmdvqA==
+	t=1795638531;
+	b=0G5Zk/F8RL13gpVZpwN5KgArBpc7REu9cptK+eehH8zNO6hxIfdNDtLJHVbHW2KQYKz8
+	 Tt8X3Xwlm9avMQUNXb0ubSzG3MjFAJKXt/stT8oaZ/MOnApNSdMMV/E8yI9t3gJfl4fzy
+	 MkzrwVCQ/6fB/V+nDItO/uG9K/gGVFR1za5qjN6m8tCd71+m8JRpcvjFVxPYwSCMW8CGq
+	 ZNbCSJoqXst2szfuHIlIoMdwUjHmv9hS19awPq48epdJsYnWSqNjHVHJNC9Puwolg0YKf
+	 JT+MFYWdoAq83VBWhiYGkNsnDpSnqoU36w0c1P4ZuIEb3LJJiPAMVKSOC1qjY2gEVPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795638523;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=mlda20IdlBMocoURp9TWLKJ60Nes7uXkahJoHZw/DJ8=;
-	b=0x2a/t0vJRhwbeWsufFfLSLh7VC0Rox5TY9PvLjK1JE94PNRY95g2UCFL2ShLNnGw/IC
-	 aNDrYlOo3zo5AmALtiCIVWjLKARunEEXHmi8+A6dLxkW+iYL+zjg5q0+ZySiSFqdytl65
-	 AB+Xp8XvWUgW4obKgaaEOSDDsHeK89GSly2rxGsyepChucjIgXniR12+9258w+Kzk+X27
-	 wGmgu1wSINqiL6rsQYmW/lF6rGQn56N+rDeLQifLIR00Nvl6GdY2dOZRjhRght7FfGdU7
-	 8pyRdQFTXqXOqhKqFJZDFEHN8KwEc+9DzvJUCa0F0lYKjXkUn6Uy6zIoZSMDVWABdVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795638531;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=PpLn6yPX3Eo+oazpEDgQlQXRkIYzVNNj+DW9Rynl9y0=;
+	b=cInPj35jxy4zdolAh3wAQui2wPyBNlyjLQHxmRLE4Ic8Fd6aAIrt8EO+//KD6GDVQrTg
+	 gIxw0nKRcUgAHnF7UHK7aHqWrrqITNlQj/RPEgC1jUC/42UpmHq4RefBZcYCxX2VEmz5B
+	 31th2BQNh+2q2C/mQvFo2+eG59dxDAgX1kDOHE6jPK8KPhsWnqD3RcD6H85MPQ6w6OCTK
+	 OvtMieqzi7cW3DQrLUQEOJtGbCg0qjNyGSi2ouGo8k3dxVI6sZpRXwL3rx2AseI6GYFx7
+	 vKurAwkO/qfabdWjvC4Kjrj7suCvS5miaUDYGercf7kd6JFuwtzZayi71n23Uxk1RDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DiG1zZbi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VFyNELfa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA53606A31E;
-	Wed, 25 Nov 2026 20:28:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EFA0606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:28:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DiG1zZbi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB2F81F000C0;
-	Wed, 25 Nov 2026 20:28:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VFyNELfa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 393251F000D0;
+	Wed, 25 Nov 2026 20:28:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795638523;
-	bh=mlda20IdlBMocoURp9TWLKJ60Nes7uXkahJoHZw/DJ8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DiG1zZbiN1Nq+gt8o+cgdM/UN1yJvF1qwZse1G7KAnup1sujHnyoFtzcOWe3ZZWTR
-	 EdhpB1HDHsmI7s9wz3CNpzV2hozro1iLh1e6FG6B5Nq7Vf5IW10LVGAYtsG2+Y2tEm
-	 c5zT0hOpzYoM4m8xsxZOAEUMhGGLm9CQqx84ELTXx35rFZSl1zSDA0gjcKp1YaTdqb
-	 j7/gjZRyeJ+FOFyxzQzuRMUCZ3jYFXxGzw+XUcLC0mKFLdZcC2W6+dgqEMWZxtHRvE
-	 o94HB+WULzeZOXt+XQp1GlKbbTEPuJh/pusich2ZIqHAw+KzhuixEZ0YSLVDwZoHRR
-	 WI2/16RJgbdUQ==
-Date: Wed, 25 Nov 2026 13:28:37 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Nicolas Schier <nsc@kernel.org>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Julian Braha <julianbraha@gmail.com>, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, linux-kbuild@vger.kernel.org,
-	stable@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [PATCH v3 1/2] kbuild: Introduce CONFIG_CROSS_COMPILING
-Message-ID: <20261125202837.GB3625068@ax162>
-References: <20261124-x86-no-march-native-on-non-x86_64-v3-0-268354149c5f@kernel.org>
- <20261124-x86-no-march-native-on-non-x86_64-v3-1-268354149c5f@kernel.org>
- <25eaa926-c244-40a5-b7b9-e5182e601446@t-8ch.de>
+	s=k20260515; t=1795638530;
+	bh=PpLn6yPX3Eo+oazpEDgQlQXRkIYzVNNj+DW9Rynl9y0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VFyNELfagjvGdAflM3U1S7dgGDWPsSXOXgjnH3cqATetAtsfYS84dX0/Paz+ZXKc2
+	 JlkwLw72swckvU46aoxGI+EHl785jEIDVWaLJModnDTkBWI1/Q/UHlwIPyYqB2f3KK
+	 0hSKMxrpDRHNfRsy5IYJS7Tx7MUiqgM4kopmXIA/tnPCZN3uBVhsaHe/joLO1mEKJB
+	 1YzTxernMxpXquO2N3LuHt2N+QPqCtMBmv9YoCbNUTlpi/du8cJ+UOPpa7ErpEM7Ed
+	 BIAchpfJ0401juuaY0Fghal1oQovBkTjzABO1FbT/2fN/GRAkNzOmobNUGTfBTxoHl
+	 MO8B5twSYYflw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] tracing/probes: Fix user-space dereference string array store type
+Date: Wed, 25 Nov 2026 15:28:49 -0500
+Message-ID: <20261125202832.1415785-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112543-secluding-hatchback-2d84@gregkh>
+References: <2026112543-secluding-hatchback-2d84@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,65 +58,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <25eaa926-c244-40a5-b7b9-e5182e601446@t-8ch.de>
 
-On Wed, Nov 25, 2026 at 11:27:10AM +0100, Thomas Weißschuh wrote:
-> The expansion to bit width and endianess will be a lot of busy-work.
-> See the CC_CAN_LINK infrastructure.
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-Yeah, fair enough.
+[ Upstream commit 2721573e6c6faaba2e31f352f2c02ec5f3ecf5e9 ]
 
-> We already have host-architecture detection in kbuild through
-> scripts/subarch.include. So CC_HAS_MARCH_NATIVE could depend on
-> $(ARCH) = $(SUBARCH), after exporting SUBARCH. Or maybe give the
-> variable a better name, like HOSTARCH.
-> 
-> This would avoid the introduction of a new, not-really-correct flag
-> and also the whack-a-mole that Boris complained about.
+When finalizing a string array argument (e.g. +0u(%reg):string[N]),
+finalize_fetch_insn() advances the instruction pointer to a new slot
+for the store operation before checking whether the preceding operation
+was FETCH_OP_UDEREF. As a result, user-space dereference string arrays
+with type "string" emit FETCH_OP_ST_STRING (kernel memory read) instead
+of FETCH_OP_ST_USTRING.
 
-Ah, thanks a lot for reminding me about SUBARCH! In looking around, I
-noticed that Kbuild already checks if SRCARCH = SUBARCH and exports
-cross_compiling=1 in that case, which means this patch should just
-become
+Check for FETCH_OP_UDEREF before advancing the instruction pointer.
 
-diff --git a/scripts/Kconfig.toolchain b/scripts/Kconfig.toolchain
-index 2acbd40a38f1..a8b5258eac7e 100644
---- a/scripts/Kconfig.toolchain
-+++ b/scripts/Kconfig.toolchain
-@@ -97,6 +97,9 @@ config RUSTC_CLANG_LLVM_COMPATIBLE
- 	  LTO) require the same LLVM major version to work properly. For best
- 	  compatibility it is recommended that the exact same LLVM is used.
- 
-+config CROSS_COMPILING
-+	def_bool $(success,test "$(cross_compiling)" = "1")
+Link: https://lore.kernel.org/all/179455854396.403392.18073771811100192405.stgit@devnote2/
+
+Fixes: e65f7ae7f4da ("tracing/probe: Support user-space dereference")
+Cc: stable@vger.kernel.org
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+[ sashal: Moved the store-op fix from finalize_fetch_insn() into the same inline block in traceprobe_parse_probe_arg_body(), and dropped a context comment that doesn't exist in this tree. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ kernel/trace/trace_probe.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
+index 4265518ce967c..08cac25e6a2fc 100644
+--- a/kernel/trace/trace_probe.c
++++ b/kernel/trace/trace_probe.c
+@@ -1384,6 +1384,8 @@ static int traceprobe_parse_probe_arg_body(const char *argv, ssize_t *size,
+ 	ret = -EINVAL;
+ 	/* Store operation */
+ 	if (parg->type->is_string) {
++		bool is_uderef;
 +
- config ARCH_HAS_CC_CAN_LINK
- 	bool
- 
---
-
-unless we did not want the separate symbol, in which case patch two
-could just become
-
-diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
-index 6e7a366f0798..b40aaff6867d 100644
---- a/arch/x86/Kconfig.cpu
-+++ b/arch/x86/Kconfig.cpu
-@@ -217,6 +217,7 @@ config RUSTC_HAS_APXF
- config X86_NATIVE_CPU
- 	bool "Build and optimize for local/native CPU"
- 	depends on X86_64
-+	depends on $(success,test "$(cross_compiling)" = "")
- 	depends on CC_HAS_MARCH_NATIVE
- 	depends on !RUST || RUSTC_HAS_APXF
- 	help
---
-
--tip folks, preferences?
-
+ 		if (!strcmp(parg->type->name, "symstr")) {
+ 			if (code->op != FETCH_OP_REG && code->op != FETCH_OP_STACK &&
+ 			    code->op != FETCH_OP_RETVAL && code->op != FETCH_OP_ARG &&
+@@ -1401,6 +1403,8 @@ static int traceprobe_parse_probe_arg_body(const char *argv, ssize_t *size,
+ 				goto fail;
+ 			}
+ 		}
++
++		is_uderef = (code->op == FETCH_OP_UDEREF);
+ 		if (!strcmp(parg->type->name, "symstr") ||
+ 		    (code->op == FETCH_OP_IMM || code->op == FETCH_OP_COMM ||
+ 		     code->op == FETCH_OP_DATA) || code->op == FETCH_OP_TP_ARG ||
+@@ -1420,8 +1424,7 @@ static int traceprobe_parse_probe_arg_body(const char *argv, ssize_t *size,
+ 			}
+ 		}
+ 		/* If op == DEREF, replace it with STRING */
+-		if (!strcmp(parg->type->name, "ustring") ||
+-		    code->op == FETCH_OP_UDEREF)
++		if (!strcmp(parg->type->name, "ustring") || is_uderef)
+ 			code->op = FETCH_OP_ST_USTRING;
+ 		else if (!strcmp(parg->type->name, "symstr"))
+ 			code->op = FETCH_OP_ST_SYMSTR;
 -- 
-Cheers,
-Nathan
+2.53.0
+
