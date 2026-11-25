@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795589799;
-	b=cvKTTruxTD1XAD1R9fdEmMTTfubP9RwgBA6Q9nhQg5m8qcC75V3au6LYYrkix1zWpaY6
-	 F2PbdWv6cVcYwjJBpBCYKQZINio9BGk+vIPUc3nRNu1gtIka00C7fe4VuB+1kS1K6/vjv
-	 d/u05/cLuHDGmTWKKuMWO3L8G44PI0zP/1GhPGreay9TdufSUIBz8b6jd+MhGNAQGaWem
-	 mt0q/IRcZKPxx+WT3tWSrB0hPiyrqevj7N7pM2GrBBfTgk1/8KK49apzfXZ2yOCnQFDZ7
-	 AOyMZ0SOmo5zSEwS9T9kG42E9hjoX7huxZHhormmsZCDjGW4WtI386gYLcnKNrtYIWA==
+	t=1795589802;
+	b=Nt7GOQlgnO51eurHXc/XMA+Xd7eTZk0omGd5HMh0F3WQxcKQV+LIjgolcCeB5J6GIrZF
+	 KdgBwGK0mcBDN4dRwqsRVC/GbVC1WiABLT32u2KrrUBFMLOWN6NmwHGFGewqmI7oPuoG2
+	 GhmkSNzK5uOzedIanY8pWBQv/EQ3phQzYFqPr2bQHafC7HHrbr9eZxEjuGaQGFsTaTh7A
+	 9+qxK9ybZmjJRoy4RjnHY3VzjBJzb0tj3lRM9ix8IxhmdoXILdiRtGEAsmnWOcY3FgJn8
+	 S+mPlYj3JzraviKTh3gdl8KDhxPleiignVlW5s73W4I9Dg6t3c+hJPNqJsfY3ZCgA1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795589799;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795589802;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=4BneDH3BrmldgDuSfaRvWpkmdpUNgHqyqEERpyedMrs=;
-	b=WrrgSIhHUIVCa8NrLGl6sYey64MSS6ob0f0S87h1Ktf9lXYx6tOfe20nrxQxh59bIWha
-	 KqqcJY0pmPEf+eeqAkxnNbCeFHzFDyLVRRDWq1cO6PWWSAWGES0K0A8NoATO/980wLEH0
-	 NuvdntcWV0bBGvEVdMMY6ore5x5mDnc6ncHirsrNmHdGWr3Pd8Yn07hinf2XxSTmksH7Y
-	 xrOh9gssMt6KMw4z2i2metpIX4Fa1hoBgZjAiwvGZGn1VLlgLJVWy3Cs/z19SZkQg1x1Z
-	 pAmpCwJIUyEHQnclmQZ3t9nB37h5AvZOv5M9FiA/lIDcXaX3Vu1ARhuzgEtuOzGL9Ww==
+	bh=CO0vZwWHnFlrPlO9I1IjS868FeGKeBrErc/5Mvm8QC0=;
+	b=StmmlzZEmaJIPYqWa6DaNuAHgMWoJoQDMaX/LEH0fIb0JhCigqoGcO5bJQaxpuk+5MfM
+	 TkVQZqapmwsEFJTApL6KMoOaWNQ/eCwPdCEVO3f/a3AUsu7Fkn+he+MYC/DKoARujely5
+	 uKDDxNepPNA1MlyS1xaHiTe+Eq4vbTFtqjm2bJFmD9fziSWr1YHnZkumDE55XrmSM4EsX
+	 UXu6Ppl37rwkRLUps7xas5QJJoEOsE9+NhJqHp8y9zj9RYrky5Ezu8oXZXrY+J8UwB7RA
+	 36WqO85tPATS4PqpJEX83I3Q/mVsEH2kMFjWm/j2aqYt2QT4lN48Wpp204Fe0gCDKaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pereq.eu;
 	spf=pass smtp.mailfrom=cryspen.com;
-	dkim=pass header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b="XBUlah9/";
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	dkim=pass header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b="W5U/UJS+";
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C109606A680
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 06:56:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C109606A680
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A525606A688
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 06:56:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A525606A688
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pereq.eu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cryspen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b=XBUlah9/
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-4ad6219f7d8so4674575f8f.0
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 22:56:38 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b=W5U/UJS+
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4a9be758734so3345470f8f.1
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 22:56:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=pereq.eu; s=google; t=1795589797; x=1796194597; darn=vger.kernel.org;
+        d=pereq.eu; s=google; t=1795589800; x=1796194600; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4BneDH3BrmldgDuSfaRvWpkmdpUNgHqyqEERpyedMrs=;
-        b=XBUlah9/GQf7hrF7Fc0I5v9Mld1l9uEgPBgSa5e60UnZPTMgSRfXCaR0GlgV8QtsEW
-         1l0+3I4zvi7ugP9docqB6bogu8Gcz+3Anw3I1KziFN/T4+OhQcLzpOcC81HZwvgt9xBs
-         LDr9jUk3cEoqQp7xe+AX5X8HwkkU4Zdh9NNYJIhlYeA4H7NYoc1BWGCT8QlfWStrsSk0
-         1KW71nEYkMXf/XZcyuNB+X6qqw6vtzX9DhNm0kca1awI9gioFCYhsw+fJWlOY24Y5ZPf
-         hr8GNgaiWxmZtStudQtaUeDZkWOWNpxD2oUuH01qEMF9GH9qzlW0HWGQyLgAbUPMG086
-         Gqvg==
+        bh=CO0vZwWHnFlrPlO9I1IjS868FeGKeBrErc/5Mvm8QC0=;
+        b=W5U/UJS+7cfwYVajRpOi1u5K/6enm8FRZrPwbeutwCW4xLqgOknI08L1TNMXxVbepI
+         NbhoW10qnRAA/6YxRG/xf6WHlyq7lrXl4tlqcWW0vl9JbeyAU2F3GWUmBIkHyfAcr10H
+         NiOhpglsfS50EIaUgLY5CoBeg1lqXcUUYcunr3nxmU049foJ0lSaknlm87DL8j1jE5b3
+         2JPHzJSOzbE2aOUFuJXAtR6mCyIxkqZoZ8ub7iJ4GUNATeuKGpJQLio5moQvND/BkYL+
+         uaZjEirGchKB3KaH91m02dg/WQmcrzfDBlVIBBWz7JVCKI6AkOhDFcWe2HjWBUSP+4nQ
+         E2VA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795589797; x=1796194597;
+        d=1e100.net; s=20260707; t=1795589800; x=1796194600;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4BneDH3BrmldgDuSfaRvWpkmdpUNgHqyqEERpyedMrs=;
-        b=aWCb8AmW4JpOH3YErK5W/bWyfDbxlfdhJ50Svpl9O8iSKic3ESt3bojZVLy96RHtmA
-         ImJY3rhKaf7BFMTFCaJBc88PvQ5858we8GfFTZi1lnPKrokcZiBTcu/3GYJES4WCchXa
-         VMUQur36QjWsKH0yXp/u45piIA/+uB1Bv7At2jJxWmm6jlO5QjTHAst0vLJEIv5QagP5
-         418+xr41/baNvUYKUXBrGsSWd1ZAbS2atFlG0hugxYTZ61zXvSvZZag73twyjXWtqPwP
-         Myfmd8V+BmGZJUVaNtW2dqVQ4HJQNRnIkVAbk0KQehrOpsdzrhitpma3FWqpmtUqKPag
-         nZUA==
-X-Forwarded-Encrypted: i=1; AL+hErE2V9VTuiP/gvr2I3sB4GvVEoRV3DRxyynjvHy/7twHCdEPrgO4Jx3u5zF9y6Po6uLMFREhqBo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ywtIqwMFIU3kRyJBBeN01zWEgj9NX3+JkHrWzMpUvAWK8eqAp
-	MVMjjynwqLaHPD6tibM9ZO6OYqwcKFlzjZ74iAbRUtKJbJUzqJ9pCnC1X3WJWPoenjE=
-X-Gm-Gg: AZFdTZeP9uSpWsLj2BwDjo26oxjT9cE1Q4y9I3n55LJ2T4u1w3DyavAB1pIfQGqZ6rv
-	cm0BrAwhqwQkOIfT1OtD9xHHdjHHRes1uVEImlx8IWxMDK8YJ5suoVjw6mIo7WLlFXLJW0xi2E6
-	L+BWHin0OOySK6wQIQcT45W/VScYn405LBHreuekh3aZhrfqAmKUyjOEK95BugaJvI2Df0RdL5j
-	vcDftqA2M9dM/WlPwIlgyPjHRAUB8cEiSCtg9pc6L7bh1ecAzYeyRkfugYXZaVK062nRVmqxoMu
-	V6LSQhz8jQDpHueg0OlAJTdFe/emr60YLk3nMPVMtOrsCt4bmb3yZU+QgpGQswxpcRSgnQaQNEQ
-	S7X/z4X99Yasp/9T+d3h0QVpOIBKUxPwDt7ub8+DqzyIq22RadlvojvSbmjTynYXSpTeo8nQ/Cw
-	ZZdAqn/o0MOb7mg9WQWAJNWZnsoraCEOlvQYXgcOD/4h24vEAXh+qj8hvwj7/N5NdT8iSlGexT2
-	RHAz2uXKvXLLzP6ojeQa+0H0oAZhglhayX4XdrF2uAXm5Bt9AiWISAL8/mjFwoOX3PFsog11AUC
-	dQmL9VhfjqDZCq919/4=
-X-Received: by 2002:adf:ee47:0:b0:4aa:5396:a792 with SMTP id ffacd0b85a97d-4abb514608bmr25076345f8f.23.1795589796866;
-        Tue, 24 Nov 2026 22:56:36 -0800 (PST)
+        bh=CO0vZwWHnFlrPlO9I1IjS868FeGKeBrErc/5Mvm8QC0=;
+        b=NGxcaor7X9p+tcKqHAYTxbFPG5SnTAhS3k8xAN7RKEo7e4j+4JyUCPwLxIVyVcWR2U
+         nR/zfI7O4MC2pb6bsrDf0CXIhd5dOG7V3k2ecZBIv/kEFIcxU4NKTXG1a8vrkwvNtdf1
+         fb5ZT4731MCNBnV4RkYQ3Tmy0UKgousV2Slr+TDmB49VkpicxweGI0jXpJWVRGqcWRro
+         Cf+SzhqdovnTo/u/O5OjQhm7Ge5WZNiPW/RE2W4g1+X+snusTvuiOU1138vlk5aYTR5B
+         x4+pjEOAVm2iZLanNip/C158oklpv838pERKePdTK6QQ3M8m/hxPpK+xLC63GlpLe53s
+         OMfw==
+X-Forwarded-Encrypted: i=1; AL+hErFAJ/amTbd1es8qfHaK8NsYboPQnFN17w9EdsDslJZqLVnXmqHFdMe+cIEogTlFv2sAEhwvltk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+7zfZllvhY9QBQs3ugM+j4U3hHv3AzvJzEEzAtq1dgXEIynMVp
+	1t2CzRUaMDqZb3hcXW4nA8rdLO4Z9NpLts0VIqaoXVbbssUv/JFXYzh8bOtUW6gx1ao=
+X-Gm-Gg: AZFdTZeAVTbc/5poTjq+PbD+PYwVSjDhhbQ5PMp68oVaELZgta6b3qInMiQ6nf+hFoI
+	RICc7LuFSPgoTkAUUzzf7Ax9n5CsOochgbKLe7tGQtGRehNoGsUJrNlsarDFB0N2t/P5/fuE1y5
+	x7SvbE4rG4ALVesLoveFGBt0ChCY521YciHEDsupez3etBHNGeSUQdG+O5uiZf+PvmrzRDgQgj5
+	AG8hscDItBPC2agM+gs16UtfLq7KqUrtvCR/wEqBstWjl7Gw+S67L7nahfuRAQwFHrFEL60TXUM
+	R0XqPVehrSv796m0PMsrVd7eDeiD6y/y/mRvd1XowdBYY1OTsR/1rt1kgzyY/PafF2dRdkdNKtz
+	LYaZEPyTz91bfFzD56UE48JWO3gcAnPnyy54cFpRC3GuEq47i19cARK4YvkbU7ZuzTWJspNjbyg
+	6msWdZBobS9nxbFRUmUrCRl7EmSAOgCFrDN8SGP/H+A2X9Jn+j0bnWN7b8+N1Aju3qP4QO3LKPu
+	YpoFLcgP1PaEx9M6E02QRfNZswYPloFYyRnUm/BYf05j4hKeulGgZWgBKdbi5BzStgmq6J2fYop
+	Focr/igIYDHozU/zejE=
+X-Received: by 2002:a05:6000:25ca:b0:4ac:7595:6f67 with SMTP id ffacd0b85a97d-4ac7595721cmr27351070f8f.40.1795589799898;
+        Tue, 24 Nov 2026 22:56:39 -0800 (PST)
 Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a67fe75sm36981016f8f.24.2026.11.24.22.56.35
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a680483sm32730554f8f.28.2026.11.24.22.56.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 22:56:36 -0800 (PST)
+        Tue, 24 Nov 2026 22:56:39 -0800 (PST)
 From: Dan Carpenter <dan@pereq.eu>
-Date: Wed, 25 Nov 2026 09:56:16 +0300
-Subject: [PATCH v2 1/8] KVM: arm64: Drop an incomplete MMIO access when
+Date: Wed, 25 Nov 2026 09:56:17 +0300
+Subject: [PATCH v2 2/8] KVM: arm64: Reset SP_EL1, ELR_EL1 and SPSR_EL1 when
  resetting a vcpu
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-double_exception-v2-1-224689d8a764@pereq.eu>
+Message-Id: <20261125-double_exception-v2-2-224689d8a764@pereq.eu>
 References: <20261125-double_exception-v2-0-224689d8a764@pereq.eu>
 In-Reply-To: <20261125-double_exception-v2-0-224689d8a764@pereq.eu>
 To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
@@ -118,37 +118,42 @@ Cc: Karthik Bhargavan <karthik@pereq.eu>,
  stable@vger.kernel.org
 X-Mailer: b4 0.16.0
 
-When a vcpu exits to userspace for an MMIO access, the next KVM_RUN
-completes it.  So for a read, the next run increments the PC counter
-and copies data from userspace to the destination vcpu register.
+Resetting a vcpu keeps the old values of SP_EL1, ELR_EL1 and SPSR_EL1.
+Commit e47c2055c68e ("KVM: arm64: Make struct kvm_regs userspace-only")
+changed the reset to only clear the general purpose registers, SP, PC
+and PSTATE, and later commits moved these three registers to the system
+register array without a reset value.  Commit 85d703746154 ("KVM: arm64:
+Fully zero the vcpu state on reset") fixed the FP registers and the
+32-bit SPSRs the same commit missed, but not these three.
 
-A reset should cancel the MMIO read/write access.  Otherwise the next
-run will copy memory from userspace to the vcpu and increment the PC
-which skips the first instruction.
+The impact is that the guest that boots next can read the previous
+kernel's stack pointer and exception return address.  KVM_GET_ONE_REG
+also returns the old values to userspace, and a rebooted VM doesn't
+start in the same state as a new one.
 
-Clear vcpu->mmio_needed in kvm_reset_vcpu().
+Zero them in kvm_reset_vcpu().
 
-Fixes: 45e96ea6b369 ("KVM: ARM: Handle I/O aborts")
+Fixes: e47c2055c68e ("KVM: arm64: Make struct kvm_regs userspace-only")
 Cc: stable@vger.kernel.org
 Signed-off-by: Dan Carpenter <dan@pereq.eu>
 ---
-v2: new patch
----
- arch/arm64/kvm/reset.c | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/kvm/reset.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/arch/arm64/kvm/reset.c b/arch/arm64/kvm/reset.c
-index 10eb7249aa9e..26081d273408 100644
+index 26081d273408..9c1b42890c96 100644
 --- a/arch/arm64/kvm/reset.c
 +++ b/arch/arm64/kvm/reset.c
-@@ -199,6 +199,7 @@ void kvm_reset_vcpu(struct kvm_vcpu *vcpu)
+@@ -199,6 +199,9 @@ void kvm_reset_vcpu(struct kvm_vcpu *vcpu)
  
  	/* Reset core registers */
  	kvm_reset_vcpu_core(vcpu);
-+	vcpu->mmio_needed = false;
++	__vcpu_assign_sys_reg(vcpu, SP_EL1, 0);
++	__vcpu_assign_sys_reg(vcpu, ELR_EL1, 0);
++	__vcpu_assign_sys_reg(vcpu, SPSR_EL1, 0);
+ 	vcpu->mmio_needed = false;
  
  	/* Reset system registers */
- 	kvm_reset_sys_regs(vcpu);
 
 -- 
 2.53.0
