@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795597966;
-	b=ZCKq/Fub7fQeBM5w085SwmF0F6Rz0ddGDh3SWf5QWVgBDoH0xSusJVPQ/iZ4MymERPtc
-	 TOaXWMHIStyNEvnZdRcd26r2OWfEFekib1IHqXQT4uonT2PWeQv3i1/hUlXe4+rs4/tUc
-	 DmWCM1+hzJohz0lzcFRNCyQVo4DBPHuaJPrl5YFzEwwpARxXFaOVKHcnjgEZQwPDXGJfH
-	 NDP5y/p/WRj/hTLHdd8MsdqEA1CNrdxPacLzAOD2bV/4j3rR7Xp9b9rQqOlbNtzcXYdea
-	 TMoRsaJwyihsqD7OW0tUbbqsCl+RlA4PbQU9aPaCiD9umaYyXVY0CsqDEcIQ5FkmMCA==
+	t=1795597970;
+	b=zIA+S29p0EUvo2wLarGD1Mlc/ZVG2nuN+Tyvtzm1B9DaqX2OqFMiQNY0p4TfvhCF14b0
+	 CA/QJeeWiiA0rWPKEUXs7Kcwkgd3rpvQClSqdC0rX0jz4dzDJr+1EyyYv+kVuxAUlL9Hv
+	 fPU34VHlYiANHMHV01duTbOD/w/FHNoCe4hEClrNDp45bpG/WVTVrYsNTac55Q4xxsY4c
+	 wNx9HoGvH7FJeopjYE72pxsO/Yl8XBTfsF+fzPI+lwIgWDQVarzTwepSvgTDYabQ5/prV
+	 O2Xdntyd+RqATUSLXVnMNyMw45XxvLyS4siOZYUOmmcjoBydnIZpCJsyb5++LvCsYnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795597966;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795597970;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fw8UrIZGLc7BKCGZZU5BbKdcA5gG1pvmaA74ZtjE1mc=;
-	b=HcilljZYJQ4vj9GWI8+jfbhOBkH0hBMVvSf5X0pNRqB+XEGfOJHbXM7czJ/bcwOog9ZL
-	 /hRbVW5mqzNIYJQPpQmbmtLkViLcSry3gJIFG+mFQEEneCzMgKpop/2v+2EBRiESltXMw
-	 H8U2/H6fQSZfoUr8JHPuVy8sGhDQbpV7CtgRXNCYvx18SA0wxE/PA7bUJM9519jOBM0lR
-	 wdJnjICZ9HWDBCXDQRfI6Iup+l1baJ7lzKsi3TiGNiS8tVVg75mTw0FkTE9itOh6ohb6L
-	 Z/mU9r6Wrr/T0cAMjVnOQBPePLJOWMxthyr+1lSyXC9hb8odvnrmJm7bzdP+CIBoUwg==
+	bh=pPfG62+fR/2HupTRwUMyejO9UU/n/l+Rv3IG+R24EHk=;
+	b=RMZ0N4np3D26V5bTiMzu6HS10N7x1JqX+8drpvs9ArrcA7yi6joq13l8Ow3pWznDz+Ox
+	 fDOxcz2q2rRoJ1lnWMfRcuVo09Lt7VticBJJF7Tk/jjT74WIiKyPZIaq8vLHZtpzoRdVG
+	 GucCsIRbcRz2zfGaTmBF6mbZmeaeBfK93F3uWeo6zp3WyJMNWIgj14tRTxyn6ybfzWdec
+	 li37/EDDB2cWbDCaZdoO3gM2rRgWvXgaU/37a1Q7qDdr1/VVvTOz+QC0bIBlGLdzeWieY
+	 yG0fPVZsbkZfwVbEZHyHsWpE5W80FcpiKXdv8b5XViwd1HeIjeWs43U/wYzMBYHs8/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="ViUl/lqT";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JwbU45sT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763A7606A334
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:12:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16EA1606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:12:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ViUl/lqT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDFBF1F000D2;
-	Wed, 25 Nov 2026 09:12:45 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JwbU45sT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DB391F000C0;
+	Wed, 25 Nov 2026 09:12:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795597966;
-	bh=fw8UrIZGLc7BKCGZZU5BbKdcA5gG1pvmaA74ZtjE1mc=;
+	s=korg; t=1795597969;
+	bh=pPfG62+fR/2HupTRwUMyejO9UU/n/l+Rv3IG+R24EHk=;
 	h=Subject:To:Cc:From:Date;
-	b=ViUl/lqTb5kBBLeSxtojAyD/Bnvmzpfwtv/f1wV+Q64G0Y/BwNFMQesufKMybtZ06
-	 DdzaSnOG/p1b4BuQKsQMkmGbU9BodZzvc0EH0dmI5mthG+bU5AtLZCvuZrMklpJ2+f
-	 0nBuN+1pWcfxEoviNq+sCsQ8pzBOKCdfB09BUs70=
-Subject: FAILED: patch "[PATCH] netfilter: nf_dup: preserve guard across NFQUEUE reinjection" failed to apply to 5.10-stable tree
-To: zihanx@nebusec.ai,pablo@netfilter.org,root@tr0jan.top,vega@nebusec.ai
+	b=JwbU45sTHNTMf8ynA21vxcAomuab0zAIeFV98ocAkoPe81zxQV7XcGroYEwgSijCN
+	 7Avw3QzkqBwtXDwiDzvMCnVuZslAbyrEHigOiqT/MEHyU1pxO59uFxtNWu8uyItXAF
+	 94IT3zcCffECXtY39nsOhrCum3Yn9R/qVQrjfQeE=
+Subject: FAILED: patch "[PATCH] netfs: keep the prepare_read errno when abandoning read" failed to apply to 6.12-stable tree
+To: pc@manguebit.org,dhowells@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 10:01:53 +0100
-Message-ID: <2026112553-fidelity-fetch-aa1e@gregkh>
+Date: Wed, 25 Nov 2026 10:03:00 +0100
+Message-ID: <2026112500-jalapeno-aerobics-0387@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 82052e5b5ec36504fe1b9c3c28a711a78fcacf37
+git cherry-pick -x d88a0c3a96fd6d7228d04532cecb23f23676aa2d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112553-fidelity-fetch-aa1e@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112500-jalapeno-aerobics-0387@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,114 +79,75 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 82052e5b5ec36504fe1b9c3c28a711a78fcacf37 Mon Sep 17 00:00:00 2001
-From: Zihan Xi <zihanx@nebusec.ai>
-Date: Fri, 16 Oct 2026 16:14:17 +0000
-Subject: [PATCH] netfilter: nf_dup: preserve guard across NFQUEUE reinjection
+From d88a0c3a96fd6d7228d04532cecb23f23676aa2d Mon Sep 17 00:00:00 2001
+From: Paulo Alcantara <pc@manguebit.org>
+Date: Sun, 1 Nov 2026 19:59:55 -0300
+Subject: [PATCH] netfs: keep the prepare_read errno when abandoning read
+ retries
 
-NFQUEUE can suspend traversal of a duplicated packet while the task-local
-duplication guard is set. The output call then returns and clears the guard
-before a later verdict resumes hook traversal.
+When ->prepare_read() fails while retrying a read,
+netfs_retry_read_subrequests() marks the subrequest failed and abandons
+the rest, which overwrites the error of every failed subrequest with
+-ENOMEM.  The reader then gets -ENOMEM for e.g. a handle that couldn't be
+reopened (-EHOSTDOWN, -ENOENT), a credit wait interrupted by a signal
+(-ERESTARTSYS) or umount -f (-EIO).  The first pass doesn't have this
+problem, as netfs_cancel_read() keeps the errno.
 
-Save the guard in the queue entry and restore it while reinjection
-continues hook traversal. Preserve and restore the verdict task's prior
-state, including nested synchronous reinjection.
+Record the errno of ->prepare_read() in the subrequest and keep the error
+of subrequests that already failed, using -ENOMEM only for those
+abandoned while still waiting for a retry.
 
-Fixes: cd58bcd9787e ("netfilter: xt_TEE: have cloned packet travel through Xtables too")
+Fixes: ee4cdf7ba857 ("netfs: Speed up buffered reading")
+Reviewed-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
 
-diff --git a/include/net/netfilter/nf_queue.h b/include/net/netfilter/nf_queue.h
-index 86021c55ba3c..4a8cefd8398d 100644
---- a/include/net/netfilter/nf_queue.h
-+++ b/include/net/netfilter/nf_queue.h
-@@ -23,6 +23,7 @@ struct nf_queue_entry {
- 	struct net_device	*physout;
- #endif
- 	struct nf_hook_state	state;
-+	bool			in_nf_duplicate;
- 	bool			nf_ct_is_unconfirmed;
- 	u16			size; /* sizeof(entry) + saved route keys */
+diff --git a/fs/netfs/read_retry.c b/fs/netfs/read_retry.c
+index 5bd8dee5a834..8a722995fa9d 100644
+--- a/fs/netfs/read_retry.c
++++ b/fs/netfs/read_retry.c
+@@ -28,6 +28,7 @@ static void netfs_retry_read_subrequests(struct netfs_io_request *rreq)
+ 	struct netfs_io_subrequest *subreq;
+ 	struct netfs_io_stream *stream = &rreq->io_streams[0];
+ 	struct list_head *next;
++	int ret;
  
-diff --git a/net/netfilter/nf_queue.c b/net/netfilter/nf_queue.c
-index 166d05e994ac..bd603e3a99a5 100644
---- a/net/netfilter/nf_queue.c
-+++ b/net/netfilter/nf_queue.c
-@@ -219,6 +219,7 @@ static int __nf_queue(struct sk_buff *skb, const struct nf_hook_state *state,
- 	*entry = (struct nf_queue_entry) {
- 		.skb	= skb,
- 		.skb_dev = skb->dev,
-+		.in_nf_duplicate = current->in_nf_duplicate,
- 		.state	= *state,
- 		.hook_index = index,
- 		.size	= sizeof(*entry) + route_key_size,
-diff --git a/net/netfilter/nfnetlink_queue.c b/net/netfilter/nfnetlink_queue.c
-index 90d887546f7d..a8aa7ad832c3 100644
---- a/net/netfilter/nfnetlink_queue.c
-+++ b/net/netfilter/nfnetlink_queue.c
-@@ -44,6 +44,7 @@
- #include <net/sock.h>
- #include <net/tcp_states.h>
- #include <net/netfilter/nf_queue.h>
-+#include <net/net_debug.h>
- #include <net/netns/generic.h>
+ 	_enter("R=%x", rreq->debug_id);
  
- #include <linux/atomic.h>
-@@ -365,21 +366,30 @@ static void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
- 	const struct nf_hook_entry *hook_entry;
- 	const struct nf_hook_entries *hooks;
- 	struct sk_buff *skb = entry->skb;
-+	bool old_in_nf_duplicate;
- 	const struct net *net;
- 	unsigned int i;
- 	int err;
- 	u8 pf;
+@@ -140,8 +141,11 @@ static void netfs_retry_read_subrequests(struct netfs_io_request *rreq)
  
-+	DEBUG_NET_WARN_ONCE(current->in_nf_duplicate &&
-+			    !entry->in_nf_duplicate,
-+			    "%s called with unexpected duplication guard",
-+			    __func__);
-+	local_bh_disable();
-+	old_in_nf_duplicate = current->in_nf_duplicate;
-+
- 	net = entry->state.net;
- 	pf = entry->state.pf;
+ 			/* Renegotiate max_len (rsize) */
+ 			stream->sreq_max_len = subreq->len;
+-			if (rreq->netfs_ops->prepare_read &&
+-			    rreq->netfs_ops->prepare_read(subreq) < 0) {
++			ret = 0;
++			if (rreq->netfs_ops->prepare_read)
++				ret = rreq->netfs_ops->prepare_read(subreq);
++			if (ret < 0) {
++				subreq->error = ret;
+ 				trace_netfs_sreq(subreq, netfs_sreq_trace_reprep_failed);
+ 				__set_bit(NETFS_SREQ_FAILED, &subreq->flags);
+ 				goto abandon;
+@@ -221,7 +225,9 @@ static void netfs_retry_read_subrequests(struct netfs_io_request *rreq)
+ 				part = netfs_limit_iter(&source, 0, part, stream->sreq_max_segs);
  
-+	current->in_nf_duplicate = entry->in_nf_duplicate;
- 	hooks = nf_hook_entries_head(net, pf, entry->state.hook);
- 
- 	i = entry->hook_index;
- 	if (!hooks || i >= hooks->num_hook_entries) {
- 		kfree_skb_reason(skb, SKB_DROP_REASON_NETFILTER_DROP);
- 		nf_queue_entry_free(entry);
--		return;
-+		goto out;
+ 			netfs_stat(&netfs_n_rh_download);
+-			if (rreq->netfs_ops->prepare_read(subreq) < 0) {
++			ret = rreq->netfs_ops->prepare_read(subreq);
++			if (ret < 0) {
++				subreq->error = ret;
+ 				trace_netfs_sreq(subreq, netfs_sreq_trace_reprep_failed);
+ 				__set_bit(NETFS_SREQ_FAILED, &subreq->flags);
+ 				goto abandon;
+@@ -257,7 +263,9 @@ static void netfs_retry_read_subrequests(struct netfs_io_request *rreq)
+ 		if (!test_bit(NETFS_SREQ_FAILED, &subreq->flags) &&
+ 		    !test_bit(NETFS_SREQ_NEED_RETRY, &subreq->flags))
+ 			continue;
+-		subreq->error = -ENOMEM;
++		if (!subreq->error ||
++		    !test_bit(NETFS_SREQ_FAILED, &subreq->flags))
++			subreq->error = -ENOMEM;
+ 		__set_bit(NETFS_SREQ_FAILED, &subreq->flags);
+ 		__clear_bit(NETFS_SREQ_NEED_RETRY, &subreq->flags);
  	}
- 
- 	hook_entry = &hooks->hooks[i];
-@@ -402,9 +412,7 @@ static void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
- 	switch (verdict & NF_VERDICT_MASK) {
- 	case NF_ACCEPT:
- 	case NF_STOP:
--		local_bh_disable();
- 		entry->state.okfn(entry->state.net, entry->state.sk, skb);
--		local_bh_enable();
- 		break;
- 	case NF_QUEUE:
- 		err = nf_queue(skb, &entry->state, i, verdict);
-@@ -418,6 +426,9 @@ static void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
- 	}
- 
- 	nf_queue_entry_free(entry);
-+out:
-+	current->in_nf_duplicate = old_in_nf_duplicate;
-+	local_bh_enable();
- }
- 
- /* return true if the entry has an unconfirmed conntrack attached that isn't owned by us
 
