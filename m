@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795598767;
-	b=4nCvIg+1ai2qV/rY3nHhil7BiY5pip7jmh3l+B8jcdQpIPzIUgrKl+ei0o/5yF20jeqz
-	 RNjCe6i0udFeY5hncHW5bsDGriy7qKX6irXbjAcnRX6T4Mev141iZ4ApYgj+Y6Bz+1uVy
-	 QzSx+nV1XspsEK2KzM61cXrVFZ66GSmzFwmjAGTfIPXv5J8w55myqLtK349bOwfSyoA93
-	 ZeNItJ8AumJ6LO+lh1Q2jUzlpe4LyqbXI/7GiXJL6WQ06CRitb3U+LeYbDsg7KuCIl8EO
-	 On1xm6D3dVt6pdTBj5T8Tl/plDKdap/gMhct9WmnyoJgmcucvQQ7PkNV3NQISWTeiWg==
+	t=1795598770;
+	b=ZL9gwSBCILzydLti+IuNNBfY6AQeZopqCY5BpaxpQ0YTnOHmKrwnNR8XpwbeMGv9eKAR
+	 5NqP9lvkfv/Ad8K+2nnjOn1JFfsYCCPMzylz4nsJkDqkarKgo2rXN1x03dUiJ8SmblRVH
+	 a4o4+/nbFzpnz/Crwddi3DRnpud3xpyl+fU+Q/XnTKcgvOcova1hYmUM+ZjhfDMpVlJSy
+	 OxwM8IQXdu64fI3CD8kENLHtIFCxwHNUeK8o+Ox5ISnunOvydfDfIBxLAMQcVq1SwBsOM
+	 Ezk9octU3SypPuO737cMK/qsituQNXmvC2cVY0bOVk9IhCV0UlFSlpxjcx3OXSqG73g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795598767;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795598770;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4ngtd+soSJIFIDX9jSSsWcx5KolgDQI7WsNSzIfKvWk=;
-	b=fn77t6gcLx/Hv4Fk+sILRbyibvFdS2BUa7eysqK7NmHaAxlrB0x2varZBYGELcUOJC9W
-	 xrW2uhK9Nxvuw/KQa2Hs1Fd220wnQAvycKnFtCImAoQZY+dYP25Y+4jOQ+h+TYQfDqmCe
-	 MLBYsfgLPJFwwx9zMwFAYnF7NDl11LZALxSznjn7NJSForPfQMrB9kCN/GuN5v4GjCS7e
-	 XE3bnfvwAMp0oh10/LyQp1br0gChMWitxMKz9vhoDrjrhfiRg38nWUf6ps5Np27SHlsa4
-	 YtcEOcIjdmmSmuTBTa5BuobX0uRwDBbDwsaBgdpzaM1hwlKaAHBATuWezdEroAlQsIA==
+	bh=OozzF5AdedkUULnaKEzqOKguJ7nV/xtJq71eCQ2uOvk=;
+	b=EXNM74+cfCijGd5qbdoK9/8TnWO6CFPUlhFgfNNUcfhNYQYyXw+iItvEtvsTVIA1Ut2o
+	 Z2dy5CebB/uD+vsZ1Fm2y6Up0+XCMW4krqrQnzxNm/f77iMgPz1PJs0Ua8kF+mK5e0KCt
+	 sRadJ2lUr8VPeEVQkfAOy2zDC9i5WtpSOcv1KLRqF8mpgn1+9ceO1Y++jzZBV8nFB9s9B
+	 HXqroxc0cWUvQc8xV91nmC9vwoD72mO3crpRrDaTXGBhncdzrOEDGieaW/lxhXRZlLMYV
+	 IlUJJN6LCXvGYGYlEC9j0NOCFaEb01W2zUR9w9I4LKzGUw018zVL4lUPpmha8N/S9Pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hkdvxsyC;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Za+48md7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC2A606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:26:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B601606A327
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:26:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hkdvxsyC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 190B31F000C4;
-	Wed, 25 Nov 2026 09:26:06 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Za+48md7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECCF21F000C6;
+	Wed, 25 Nov 2026 09:26:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795598767;
-	bh=4ngtd+soSJIFIDX9jSSsWcx5KolgDQI7WsNSzIfKvWk=;
+	s=korg; t=1795598770;
+	bh=OozzF5AdedkUULnaKEzqOKguJ7nV/xtJq71eCQ2uOvk=;
 	h=Subject:To:Cc:From:Date;
-	b=hkdvxsyCUuDQ6SS2G8f8EEOopS6F1Hqm/PUZSUpafo7iZkktxpNDG403XjrfW1x76
-	 cK7FEAj8juDxjsBGeFCN0d6m3REz0l1ktVC0MEGGrtjBI4/RFllqKgy/mdYSnQO/a0
-	 KGXf551LAVl3SO8sQVbd6l0q5C6wG+0a7oPffi7c=
-Subject: FAILED: patch "[PATCH] cgroup/cpuset: Correctly set isolated_cpus when switching" failed to apply to 6.12-stable tree
+	b=Za+48md70J5zhr40K1KE6hpOyHphK/VJRQHXJZFIx6b66gHk/hlu4FxLe+g2t3whX
+	 LNMsIPe7lpXi41p10oTjm9d1sdolIRSHRKJpkkQrL1ZBfzZ7VRBkIGSJfgtBdY8pOz
+	 m7SNfpH6kd/aKaVq6cLnetcpD5Cx7JG8ZeLjDLfg=
+Subject: FAILED: patch "[PATCH] cgroup/cpuset: Correctly set isolated_cpus when switching" failed to apply to 6.18-stable tree
 To: longman@redhat.com,ridong.chen@linux.dev,tj@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 10:18:32 +0100
-Message-ID: <2026112532-stitch-earthy-8c0e@gregkh>
+Message-ID: <2026112532-pellet-unvocal-7a50@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 56681bc448a80bb2473026b41c44c133766bc38d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112532-stitch-earthy-8c0e@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112532-pellet-unvocal-7a50@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
