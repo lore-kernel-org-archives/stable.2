@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606410;
-	b=2B2q0KWl8ZJuXam8XWquI95oOAetCL3QlxAow1bGzsPY3zEZGPKI1ym646p78tMeZZk3
-	 BOtcpTrNnYVbuqmflCtTGK5VWXgr2+oNbNbdGKj4+NoRu9JfMAlK5HXWv6Q69fa6lT3+H
-	 qG3lvOr6Wb1JDMOPTQhxOht/VUsQHLeBBBOgPaa6e5QeoHGfZWhR9et+OId8GsXhmxrka
-	 tSht+idAiHYFP/Q/Yzim3bE903/Iun1mfbLof5rxsSAZC9oaabCnYAk1dkj3Ifs5/Z2VX
-	 2WtFiMuOdWiPUXP+OwGtkKm1+XH8TP8FTDVaQ7nlvjZraMw9ORz/px3sf91P+7EhMmw==
+	t=1795606413;
+	b=U/N58Pjxnozgtbp5cKFqQZ9+LFUQTjtUG+cZRDVUZBRrJDXQESaDIgxKapYxBA4RjozT
+	 07gemtgAqj2lnSRWvOGbVtDge4UpvY9Y221FKuWIZImLyQ8I4PCnC5//R8tCpjh82COdy
+	 4BAgmA4UI02CLXPUza/JqmUKJz2I36FD5ZekVdTICFxvzOS2ymquGAxZl7GiDTm2wn7z1
+	 ybNrAS8TIplplKRdcFYSQ0dB1GGQ+1/LjnsnLguY2O+f+dBt3NmM2nOXoAwWnhNq83Qc9
+	 5f298gia/pm/0jgOEbsb0AsN0FmH6ZfU9m4Md8QMH8MSlF+J9zyePn9Z0/oiOX1E+7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606410;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606413;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=jF5LIC9Xe2rZRO3u3siolTQ/bd6eCpIV0KtzurRwpbM=;
-	b=s+mpruBz+XbebvIT5B/uNhqAx1gYeFSJO52I5y0vLpmg3IRikSixryc/GiDbbvu0KV62
-	 TyJDJP5YEv9CzJ1ceOip5QAp5eQE/EtEmRSgUOY8zfvBzmUjzpZXuLqE7n6cUX5j5g9U4
-	 t9wKe6aunQMvQH4N6z2sdaO2VqxOEJ4YdY8v0DIC+R9nWjqe0xaWVgLle2HYWv4G0p6dA
-	 5Ly7FwYCZRuupzI48mBVAnznE+gQ4BYlmf5+zS8UGPO2b6sJBcDlGuXHXpQorWuKCWdfC
-	 S9MOAge2V2LclBQixMn/scbASSjLA4KOA7HkYl+oM4MJk+ps61B7ypvtrbYq5guhbmw==
+	bh=refvThfbKER27NjayOMX10La+lDNB04iTgPuTPeJr8E=;
+	b=Us0X8QnwViqobGIWBtRw+j/4OCs5k2WpXTubwXVR7hvVYvbHgDCnjALvxr3KqwS+tTyP
+	 1mGxeAboc4sm4sJ65XZJ4Gi+HRU6hhlGRU2xwrNc7UAuJBlAIGdxi81LRIXVXXa7vGT7v
+	 qwAapoMR3l3bhobXBl3EKVGQHhUjvZz+eYE89il11i7piHFislha+OdAC2uxzhbZjwh18
+	 2W4l1IxELQg8G/N690x9i6GFd4D/dUQOT5bJOVeiaARllCRtBcaSFyFUprbHxTbd0yjeg
+	 KeBiP2Qv47C5uz0baRwFMAFnHFrM7+f4KHIkdboH4v6GSG+ayHHRWajVH829EOpVvOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wON21ePl;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tY3BZaaM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4DF606A32D
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:33:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B4C5606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:33:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wON21ePl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F118D1F000E1;
-	Wed, 25 Nov 2026 11:33:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tY3BZaaM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB4811F000C6;
+	Wed, 25 Nov 2026 11:33:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606409;
-	bh=jF5LIC9Xe2rZRO3u3siolTQ/bd6eCpIV0KtzurRwpbM=;
+	s=korg; t=1795606412;
+	bh=refvThfbKER27NjayOMX10La+lDNB04iTgPuTPeJr8E=;
 	h=Subject:To:Cc:From:Date;
-	b=wON21ePlBS/igP8uRv1no+2BeS+A2Yc+y9kXIqx9aU3u9YNVmo/3irKO/YyXjMrlF
-	 oNOpEMufveDLe6EIkYKKhnPzSzdB8c4nF1PgXccLtrcZPCK+kW0biR0gE2qdDTs2tH
-	 a66jsQ7HK4e1hAo1utrGmy6IvCygGOqwwCX1QBek=
-Subject: FAILED: patch "[PATCH] dm-crypt: defer async write submission to write thread" failed to apply to 5.10-stable tree
+	b=tY3BZaaM9/zuWlatcscQIOaI7VTw32w/ussluwkyhEI8x/4mhMcYMmY7jnCzg7W2s
+	 sje/dZSCj/kxce/QwU9FlRVRg2k0i3Jjg+dm/MTjTwEMaVToxypQaWMC+ioI54ay7/
+	 0eyzxgLsAQ0SA34hijsVVyFMtgeOTi/9IzX/etGk=
+Subject: FAILED: patch "[PATCH] dm-crypt: defer async write submission to write thread" failed to apply to 5.15-stable tree
 To: pepe.schlehofer@gmail.com,mpatocka@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 12:22:21 +0100
-Message-ID: <2026112521-babied-pebbly-f2aa@gregkh>
+Message-ID: <2026112521-nibble-keg-edbd@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 6fed9e26810f0b466dbcebe35a73d1fd48793ff5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112521-babied-pebbly-f2aa@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112521-nibble-keg-edbd@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
