@@ -1,61 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795614739;
-	b=wHmm9ILfwT4iYwYjRNqu2dIbmwudeXkbq8HydS8pQIIL0EVm1BLAQ7np4rWyrQmaxw+k
-	 E75VQXHk9MyMldgqmkaMvVJdx5m8Bc29sBrunbyiT2FYq/2BrN/nRbr1MhVmTMNMXlhZC
-	 GeONTdHJKX8XLnrOzGQ1Dcj4kaQ3gx5SXLcgVuX+7TTduloIdd8tPWKXaCzx0+/A7Xomb
-	 eAcHYp4zhL5/yb3UsVlS5Ipz5U7HH9biljsqVBcrejTTN69VeRwyJXQ1ER7pV9IApxu1A
-	 z3Uf3/aF2E1gWdHHhNVRJX9ZlzwurwP0SE6E+UxeVLJHjAlzUlKslpm7KNa98PA0iKw==
+	t=1795614884;
+	b=TZdEpWGyiEzHke7hemk9a0O79edaLXMbnz/AYz6KDI7PlxKw1SuxhssJ4GB0rThvjJ4R
+	 vDwYU9Awskcs0ES3I4z0+p7LvIqLcULBEgrLiyxbGM9geGk0Q/Uv9K6UcVk1NOIeIxzdx
+	 Zaqs9HRFHxbTjeUB9fbS3lSx3Xx8Qi9k2/bXpBJeS7vDtADs8TJg7lOmZvpzipiBGU1rf
+	 +Dzc7YcDAB0PQ+MzmwC3ktOl4YZJ0lv43L8lTXdlNz8+L3NhuMPEwUdDZe0XkdiQBkFpP
+	 DeQnOm4Fl0bFwu8FbbNMsFZAfmm0v4wOyf27FKm3oW5RAzyxGyPSnHbSSeBb07Y204g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795614739;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ih1VDTrU3FeJ2fsbtiUZSy/fzpLqeBrB/3Ho1Q8Vksg=;
-	b=0dSug2NULdRwEjeAAffRM86Pw62P+Wz3vDwCQmGdmyIBZ7nGWsSEbkFepklUmbfXdJl8
-	 rHS7gHY1Wf6MOrVVD1rsvvv7HXhMLklmLh/RZ259M3sbpmPDh0wG2y3IySjQftTPKl+2y
-	 gJwqC9VpITcAe8a3cUky71alAjZEo9FhJYg8qgJ3Ff3mO6BsGmw7aYBZCqAg0mqN3ES1b
-	 O2He9XBDohE2hoDmZissvIwwHODzMLOPyqi1oYQu3QpcHPQ/fzrYRJmI/61Ow49dfEIwF
-	 KKQ1R+BvCI/HwseBLdGvXE4imyUmh8m7p18RIKWMIpjjFlKo32ZQyyUJFHPLwS5GxtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795614884;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=tRMOVhjO91YgFyCjVHMcEDWOP+GyvWo/nClKImfdGdg=;
+	b=R8/SUZ88ssIXAyQQSWkVt+H4lRfefnBt+207MwG9BLBI++5Cnp4KCLtaNIQSWsnRnU9n
+	 rceUN+g7UeiNXH1hE8+ozcp7ouvrNurRKCDa/OQZx/NgtcxbDIMsTTqiFELQNxItpxeaH
+	 nHpWbuPwYUXnpfXofiY5rTP72nhKUhG0tTSm9UjsymxKrN+G13JpHzqg2WSWQ4WKR3eAo
+	 5f39y5Qwpg74z0b2n5ypSO6TN2w7rgwlNVvdH96E7uH3AhdBCtNdJsFIvmfxE5qAQu3Fl
+	 sthWSX6JYPRODPw5q/TTvYU/n2sS69ToV8/fIluBJv5hRzMcpArRgltalD+HdcC/8tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eassQ+eh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=i1favunH;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B774A606A330;
-	Wed, 25 Nov 2026 13:52:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0519C606A31E;
+	Wed, 25 Nov 2026 13:54:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0519C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eassQ+eh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E21D61F000EE;
-	Wed, 25 Nov 2026 13:52:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795614739;
-	bh=ih1VDTrU3FeJ2fsbtiUZSy/fzpLqeBrB/3Ho1Q8Vksg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eassQ+ehtNlIg7BCYm6d9K32YvY8qw6Lw2o1T2KIXMP1nElqmQXlEYtZ3auoJRGPs
-	 RuPLl0AlZn5mOfaiPEATfDF5yS2c9jSNMDDvEc2aB3teBrAHDvhqvQ0MilTw5woUrX
-	 r+0qd3DgUr8J04D3fhgoVd1Mx84QADjJiEWYndLt5edAv7x6+DpeHV7Vl+aDd+IcQh
-	 1ojyxYxC1kYLPCYAitx6iV/dJHFlHDlAbFcQmP57isDtbEc1BaI4smiZPDCiSmq5VS
-	 ltAC3lonKaXHrHdjEBqyBOf1CebpOHDeQUX4mcBbO+VEv83fNq1eCllKZOuRXUuBGD
-	 YyMs/2wdpZIAg==
-Date: Wed, 25 Nov 2026 13:52:17 +0000
-From: Harry Yoo <harry@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, Jann Horn <jannh@google.com>, 
-	Lance Yang <lance.yang@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Ying Huang <huang.ying.caritas@gmail.com>, linux-mm@kvack.org, 
-	linux-rt-devel@lists.linux.dev, linux-riscv@lists.infradead.org, stable@vger.kernel.org, 
-	Kirk Swidowski <swidowski@google.com>, Huang Ying <ying.huang@linux.alibaba.com>
-Subject: Re: [PATCH v2] mm/rmap: avoid reusing batched TLB flush generations
-Message-ID: <awboAcnWHZfsy8bg@thinkstation>
-References: <20261125-rmap-v2-1-0ba817662eac@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=i1favunH
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=tRMOVhjO91YgFyCjVHMcEDWOP+GyvWo/nClKImfdGdg=; b=i1favunHeeOjlEMSLGfU/YnsJ9
+	px8jbVsRxoTzvw/THacpoPIm6ZOBTxMRy0zNuJyVenny5Ca40XuomlQ1Hwn4ELxr3zILng8GXHxSG
+	XR27I453nvQL/DWPkmg14f2+NoThyNc2ZEv02vQ3lKmXCZiukAfn1aR2VzMLf6rGdw1g=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xWDS9-001KOd-PG; Wed, 25 Nov 2026 14:54:29 +0100
+Date: Wed, 25 Nov 2026 14:54:29 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
+Subject: Re: [PATCH] net: usb: mcs7830: skip zero-length register dump reads
+Message-ID: <7b103b24-51f6-4724-96ad-fe9b3d54831d@lunn.ch>
+References: <20261125071649.7052-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,78 +67,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261125-rmap-v2-1-0ba817662eac@kernel.org>
+In-Reply-To: <20261125071649.7052-1-25031212351@stu.xidian.edu.cn>
 
-On Wed, Nov 25, 2026 at 10:34:46AM +0100, David Hildenbrand (Arm) wrote:
-> mm->tlb_flush_batched packs a 15-bit pending and a 15-bit flushed
-> counter into one atomic_t, and resets both once pending gets large.
-> flush_tlb_batched_pending() updates flushed with a cmpxchg() against the
-> value it read before flushing.
-> 
-> If the counters get reset and reach that same value again while
-> flush_tlb_mm() is running, the cmpxchg() succeeds and unmaps that
-> happened in the meantime are considered flushed. A later zap can then
-> skip the flush and leave stale writable TLB entries behind.
-> 
-> Use two separate counters, never reset pending, and let the flusher
-> simply store the pending value it read before flushing. To keep pending
-> from wrapping around to flushed, pull flushed to pending - 1 once
-> pending is more than INT_MAX ahead.
-> 
-> Preventing the wrapping is primarily required because
-> try_to_unmap_flush() as called from migration and reclaim code does
-> *not* go through flush_tlb_batched_pending(), as it does not iterate
-> MMs. So if nothing in the MM triggers flush_tlb_batched_pending(), there
-> would be a problem.
-> 
-> As the separate counters are no longer read atomically together, we must
-> read "flushed" before "pending" (acquire/release), so a reader can never
-> pair a just moved-forward "flushed" value with an older "pending" value.
-> 
-> We'll leave the barrier() between clearing the PTE and incrementing
-> "pending" alone for now: it should be a smp_mb__before_atomic(), but
-> existing arch code (x86: inc_mm_tlb_gen(), arm64: dsb(ishst) before the
-> TLBI, riscv: fully-ordered xchg() in ptep_get_and_clear()) implies a
-> barrier. This should be cleaned up or documented separately.
-> 
-> As dup_mm() copies the counters using memcpy() while they can get
-> updated concurrently, a newly forked child could end up with "flushed"
-> being "pending + 1" and we could skip a later flush in the child. In
-> theory, this might have been possible before (load tearing), but two
-> separate counters make that easier to trigger. So let's just reset them to
-> 0 during fork(). Put it into the existing init_tlb_flush_pending() and
-> rename the function to make the name better match the wider scope.
-> 
-> Note: if a flusher stalls between reading "pending" and storing it,
-> while "pending" advances by an exact multiple of 2^32, the counters
-> could compare equal and we could miss a flush. The same applies to a
-> writer that stalls while moving "flushed" forward.
-> 
-> That is irrelevant in practice: both hold the PTL, so without PREEMPT_RT
-> they cannot get preempted, and wrapping within the ~20s soft lockup and
-> RCU stall timeouts would require more than 200 million batched unmaps
-> per second on a single mm, which is impossible in practice. Even with
-> PREEMPT_RT or long vCPU preemption, we would need minutes of unmap and
-> refault churn while the stalled task stays off the CPU, which is highly
-> unlikely and not a realistic attack vector.
-> 
-> This effectively adds 4 bytes to mm_struct. However, on common 64-bit
-> configs it fits into the existing padding, leaving the size unchanged.
-> 
-> [ david: use atomic_t instead of atomic64_t, reset counters during fork(),
->          adjust description ]
-> 
-> Fixes: 5ee2fa2f0636 ("mm/rmap: fix potential batched TLB flush race")
-> Cc: stable@vger.kernel.org
-> Reported-by: Kirk Swidowski <swidowski@google.com>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> Reviewed-by: Huang Ying <ying.huang@linux.alibaba.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
+On Wed, Nov 25, 2026 at 03:16:49PM +0800, YuanZhe Liu wrote:
+> mcs7830_get_regs() passes the user-supplied regs->len straight to
+> mcs7830_get_reg(), which submits a vendor control-IN request for that
+> many bytes.  ETHTOOL_GREGS accepts a zero length, and ethtool_get_regs()
+> still invokes the driver's get_regs() callback in that case, so a
+> zero-byte dump request reaches the driver.
 
-Looks good to me,
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+Take a step back. Think about the kAPI. Why pass 0?
 
--- 
-Cheers,
-Harry / Hyeonggon
+I think you are solving the problem in the wrong place. And you are
+playing whack-a-mole when there is no need.
+
+    Andrew
+
+---
+pw-bot: cr
