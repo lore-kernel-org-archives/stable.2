@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795617565;
-	b=0PCVIG/oSFD6q3CuiOL3DrASVLrP5SHpE23gg/uhJa+x6NJmfz8/ACZJw/1Atat6ivah
-	 IcRhuUXOROZrm6MDkT/PZ6kk6HaUfHHq3FHzB7SWeD4JUNNbBIStH295O3s/9Uzhz0wyY
-	 PyLYXPSm2LN+84v1pohk8LyprVPZJiHnKBhzZwpkW/pL4xxTdMAfxVR7pew43W9/A822P
-	 KxXRThUFrbdxjT/Gz2dHoW53HJRfWxJIPpe53/YPR4uwLXQgdMij3R1rBz/w5CgPVIMAc
-	 5MFdA3nOptcJKZIB0GNxtOhoszja2ogMxJkPBaRmccolIhU6gFRXs99SBiIagnwE8sA==
+	t=1795617574;
+	b=XeICBcrxWTnbwPAyRBXeKj2XBCaRWXKMbbekJjdIVmjk+Cv7CSJPUmFYVEY/jWLrBdsg
+	 yNr/HD8sgMKoqM2xdfz6fRlgT+HHk7Zg1lxGfz7kuztX8UUsChjlMQLr94FqEu+/PwpR8
+	 yIMFH5yCNHngbAy5KP1Q0EUj3zjB7GejmM/gQtgbchg/7HkmDIQgzJJQHzaxrVSUaAL4+
+	 P+slSQj09kH31IBlzi8fJrYil/M50qaEJACaUPBdxOJzRxqZfCyX/B8hSrQQ0SG3RkCll
+	 1PtAC2bjhK2c86d121vSJL0MrWb1ccQKSZDU58zCOtaP5cE9Z02JuKklQr3vCxaYiwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795617565;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795617574;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=OHYAweQuxjWb5lK3Be9JeIAN588o67p/wvSODKla0II=;
-	b=1o3Z6G8wuqmMGXvd4E5rmxh/PVOLMI0GJDYfgU+dR6NeUBKb14XQP44x1ZG3NhT7AH/G
-	 W7hrbJOQVhKRmviPhp91HzevWVM8sFNUC0Qn6/FExCARJAyZVarAKIP0ts0l/vXGSzxkn
-	 amuyAIwuunC8Uf6jOf00ksCk3HKgfv7hJH6Tz81vP20IrQyTXoFT3L6JQrwkpHsPP7D4c
-	 zdOHmRrJs9gteWFBFHQ14QZQ8RdR6LHNAD6fB4wbL7CEX56ODSjKHiExoAN94ybqSOjGA
-	 egtuTofSlVc5pT72E925Q87ij8kF0FipCFXkvEry3JMXceeuEvpf5YdTK/OY+SffMIQ==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=YGL8AAM+Rywzpq9uB50ZUd7o5Q5t6RYYQmAYETE2/9M=;
+	b=xvMo5IFFoANpiXg2OwENMxs8HMAVqHuitOUjoRurzDd4ngBzUOiDH+uvon+Skt2ONgsQ
+	 4O7P+X8rdxxNg7N1J+Wjf6YqmWf8GhFLflJSRE6T31krdtBnq5Ymq+HELZKTRFIGOsg3z
+	 7YYBf6vcFODTBkool3yIJZW7NSPWEZUaZ/DiRpiUkahLauNS2Y1Naz80ZjaWx6z5rET3I
+	 rEAxRYC8/ZYdYhpZGyLAetngrO+dNhS45SaS3PXoDJhFECTi0gwKN4AGsYRxuECzWopqt
+	 k7KVwPrLyNMpmi7k90y9dqHGpGJ7wPJTXHlLwSnyjgSQv+yKfc9HkGAcjFpnPxUZZZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z6egAHmN;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AJensEkC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DDF5606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:39:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96632606A31E;
+	Wed, 25 Nov 2026 14:39:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z6egAHmN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1D821F000D0;
-	Wed, 25 Nov 2026 14:39:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795617564;
-	bh=OHYAweQuxjWb5lK3Be9JeIAN588o67p/wvSODKla0II=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AJensEkC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 586271F000EC;
+	Wed, 25 Nov 2026 14:39:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795617573;
+	bh=YGL8AAM+Rywzpq9uB50ZUd7o5Q5t6RYYQmAYETE2/9M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z6egAHmNYfWeBQ4JJ21n0qz1AJXPRqB2bhEkh0iueIAU2Gwa4Eg51ZDNH5dIPRx4k
-	 95uD2hYIsxudy0D2Lr/PwO4QWC4aaa+XwLKxz5+HIhv50b+tE/axBrbNP0PdhhxAAb
-	 +TlBvy30C0ysCnsK0EterIL/t2w56dJkXa6hdpFrEu5zi+icwDV07t/sxJWZku3Z3r
-	 x7RjhysbsLDsNXSs2aaq4aqwei6v7GVHmAo0xLAAsIGSBACSF6b8uxTK50thsRVlxd
-	 FVo8W+4TWilg2C/cA8kCvBzYE+DRKDjKx99lTpNJ/cmjg7vUf2CkEvn3u9X+GdwkYT
-	 mwtZknlvVJycA==
-From: Sasha Levin <sashal@kernel.org>
+	b=AJensEkCbIj3wzWtLGlBeNkqB0uvwX+DMuAEyfAtvyh0xj3/U0vN5iLrS7V37Pjjo
+	 BlpHrDswRZtPgJgsPTVK/kozqO+E6ODjt8SQ+3uO1uaUVefx17gcDXlgOzv5z0sRMW
+	 EtDFb4telarRbee/t3M5WebDCSKtXHEJeSL/e2iM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Hungyu Lin <dennylin0707@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Thomas Gleixner <tglx@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Sashiko <sashiko-bot@kernel.org>,
+	Willem de Bruijn <willemb@google.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] tsacct: Keep task begin times stable across suspend
-Date: Wed, 25 Nov 2026 09:39:22 -0500
-Message-ID: <20261125143855.4152835-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112552-oversleep-submitter-9603@gregkh>
-References: <2026112552-oversleep-submitter-9603@gregkh>
+Subject: [PATCH 7.3 0001/1005] tun: clear stale skb->protocol of NAPI frags skbs
+Date: Wed, 25 Nov 2026 15:22:19 +0100
+Message-ID: <20261125143821.771647658@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,71 +66,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hungyu Lin <dennylin0707@gmail.com>
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit c49b3c20a2d0b22700e2100a527e68e829ece7f0 ]
+------------------
 
-bacct_add_tsk() derives ac_btime and ac_btime64 by subtracting a
-CLOCK_MONOTONIC elapsed duration from CLOCK_REALTIME. MONOTONIC stops
-during suspend while REALTIME continues, so querying an existing task
-after resume moves its reported begin time forward by the time spent
-suspended.
+From: Eric Dumazet <edumazet@kernel.org>
 
-Calculate the begin time from the wall-clock boot timestamp and the
-task's CLOCK_BOOTTIME start timestamp instead. This accounts for suspend
-and adds the nanoseconds before truncating to seconds. Keep ac_etime and
-ac_tgetime on CLOCK_MONOTONIC and retain the existing rebasing when the
-wall clock is adjusted.
+[ Upstream commit 3287cd714a853d9443c4a743eca010aedcfbbcdd ]
 
-The new begin time can be negative: setting CLOCK_REALTIME is bounded
-by CLOCK_MONOTONIC, which excludes suspend, rather than CLOCK_BOOTTIME.
-A permitted backward clock adjustment after suspend can therefore put
-the task's begin time before the epoch. Clamp ac_btime64 at zero too,
-instead of wrapping in the unsigned field, and retain its positive range.
+With IFF_NAPI_FRAGS, tun_napi_alloc_frags() gets its skb from
+napi_get_frags(). If GRO merged the previous frame with
+GRO_MERGED_FREE, that skb was recycled by napi_reuse_skb(), which does
+not reset skb->protocol set by napi_frags_skb() for the previous frame.
 
-Fixes: f3cef7a99469 ("[PATCH] csa: basic accounting over taskstats")
-Reported-by: Oleg Nesterov <oleg@redhat.com>
-Suggested-by: Thomas Gleixner <tglx@kernel.org>
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/20130611200600.GA15168@redhat.com
-Link: https://lore.kernel.org/r/alpine.DEB.2.21.1911071335320.4256@nanos.tec.linutronix.de
-Link: https://patch.msgid.link/20261030054227.35453-3-dennylin0707@gmail.com
-[ sashal: Replaced the upstream now_ns variable with a struct timespec64 btime declaration, adjusting the context lines for this tree's older bacct_add_tsk(). ]
+tun_get_user() calls tun_vnet_hdr_tnl_to_skb() before eth_type_trans(),
+so the virtio header checks see the protocol of the previous frame:
+GSO packets without VIRTIO_NET_HDR_F_NEEDS_CSUM are dissected with the
+wrong protocol. A following change checks the outer protocol of UDP
+tunnel GSO packets, which would then reject a valid frame when the two
+ethertypes differ.
+
+This needs GRO to hold packets across writes, and IFF_NAPI_FRAGS needs
+CAP_NET_ADMIN.
+
+Clear skb->protocol in tun_napi_alloc_frags(), like skbs allocated
+by tun_alloc_skb() or build_skb(). eth_type_trans() sets it later.
+
+Fixes: 90e33d459407 ("tun: enable napi_gro_frags() for TUN/TAP driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/netdev/179386753589.488856.11455181721004759454@kernel.org/
+Suggested-by: Willem de Bruijn <willemb@google.com>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+Link: https://patch.msgid.link/20261110213628.3476051-3-edumazet@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/tsacct.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/net/tun.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/kernel/tsacct.c b/kernel/tsacct.c
-index fd2f7a052fdd9..f9d08a7dbd17f 100644
---- a/kernel/tsacct.c
-+++ b/kernel/tsacct.c
-@@ -24,7 +24,7 @@ void bacct_add_tsk(struct user_namespace *user_ns,
- 	const struct cred *tcred;
- 	u64 utime, stime, utimescaled, stimescaled;
- 	u64 delta;
--	time64_t btime;
-+	struct timespec64 btime;
+diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+index 2ed348b953159..8a5ffd6904891 100644
+--- a/drivers/net/tun.c
++++ b/drivers/net/tun.c
+@@ -1500,6 +1500,12 @@ static struct sk_buff *tun_napi_alloc_frags(struct tun_file *tfile,
+ 	if (!skb)
+ 		return ERR_PTR(-ENOMEM);
  
- 	BUILD_BUG_ON(TS_COMM_LEN < TASK_COMM_LEN);
- 
-@@ -34,9 +34,11 @@ void bacct_add_tsk(struct user_namespace *user_ns,
- 	do_div(delta, NSEC_PER_USEC);
- 	stats->ac_etime = delta;
- 	/* Convert to seconds for btime (note y2106 limit) */
--	btime = ktime_get_real_seconds() - div_u64(delta, USEC_PER_SEC);
--	stats->ac_btime = clamp_t(time64_t, btime, 0, U32_MAX);
--	stats->ac_btime64 = btime;
-+	getboottime64(&btime);
-+	btime = timespec64_add(btime, ns_to_timespec64(tsk->start_boottime));
-+	stats->ac_btime = clamp_t(time64_t, btime.tv_sec, 0, U32_MAX);
-+	/* Setting the clock back after suspend can make btime negative. */
-+	stats->ac_btime64 = max_t(time64_t, btime.tv_sec, 0);
- 
- 	if (tsk->flags & PF_EXITING)
- 		stats->ac_exitcode = tsk->exit_code;
++	/* An skb recycled by napi_reuse_skb() keeps the protocol of a
++	 * previous frame. eth_type_trans() sets it after the virtio
++	 * header checks, which must not see a stale one.
++	 */
++	skb->protocol = 0;
++
+ 	linear = iov_iter_single_seg_count(it);
+ 	err = __skb_grow(skb, linear);
+ 	if (err)
 -- 
 2.53.0
+
+
 
