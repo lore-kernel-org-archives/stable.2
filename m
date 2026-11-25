@@ -1,58 +1,32 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625061;
-	b=J4Wvw0D4BdZp/HyMVf1ii2fYlBcVc1hftFLG1mgDfCRdR4Jw9yzlYb5EUFqQuggnffnw
-	 E+8sd9kz9Mj27OkjH31W60fy2RVaIBbMzk5liZkv55IIOwWTSE1UQWhy1KCYrd3wsSMJV
-	 /ZcDCxC/ULVJwdVIc+NDIVvg5plTYeio8MYgFscg+jh87ATG93+dDPJUF0tC+smLq+j6O
-	 jxfTkUFjPsEa5ThaggFDzh+V4wrmWV4dzhZIq/6aIldqy/O1t+JGOZOK+SiCLTKKl2cpi
-	 aZPYZFqG/0T40bgGL+PWPZfbgeNN2C0vG0pXynlMHh6Ghf/Lk5jec5et5kXAoQQkSJQ==
+	t=1795625063;
+	b=fVaR4Ctf1PMtiLwRbOlTLqDyYK6xzZSTPZnfFf+gGNKHiqINVIeKTJOzfINVEjJbSB6j
+	 X91SRqwB/KnaJpyqrqPvhOifhSKzW4aCjhXagOpkeRs3L2K/NQIfEQwcWn4nzLyPQxw0f
+	 l4C0Or6iNXffMk4lSnkvorL6PwVc5n2jSBP7YNHQ1koEoueoNhMKrkByNcizbyW3/aVl2
+	 GeIeSRf+JYKKuv7wBfwTJ0tnY+ovICIZ3d0fcmAe++ZoyTi4f8b2orCjPY5VZZogKjVur
+	 rbIGgoKdB2g3MOAx0htOqH4UfQcADhzJiY3ahsVWBpR5E/1WF9zOoAQKODxC8fdyGmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625061;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=yimQGhoKVB2vjb4c9Uu6Rpv1CAx1LsILo+nPgnpFjis=;
-	b=Ct3R+FwBz9mqSBs9RPG3bUCgqlNTJg5JTXkTLyHqzGVXHwcfBQ2utDrQssQpJhrS9cXU
-	 ittVEi7Raa8MzuBDBDcE0Y7zRk7mD12F0PRYgw43hKccTdXupU51gyzwUgvYoe3qBvFrv
-	 zEqnYAM80ewmXsLrtJPK7t1szWyRLVqt8DATfxw28toFccRhYvLG76P+KkVRC36aOrELz
-	 WtynQWBhQhvj94TKkdUCysC77cWmVa9w0MaI6ACsRs8PIDaJ8lCv6EEG4b+sRjv8hoSNR
-	 FdrbWJt17R0B8UB+6zIxkDu79QrBA0GQMCXP9hY7Ow/Wwh+JeLH6RXmfLGGbj+hPjNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625063;
+	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
+	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=Ufc5X5KPtSpN7LAkgIoRBGIIkQWdxqKwSyFbcVYvUyw=;
+	b=xmdLQwUIxOVGCY4nh86rV7pIdbrhQTDbGSvll21ChgKs4enaMHp6yHxMj9e02xyOF3Cq
+	 OXuH+nqaCiHBzVoVyYbyIyH9sc4dhH86tqK7KpR70/hsyeBHa2RMOHyBVNlmSfViqL8nl
+	 vkOjl1hZ4+luDNBtn/Jlk+BYhLZQ+K0WylSNzWhAQm9svLKN/x4cANHXFpHQXRru+hJN1
+	 ymcAPx0gr1+N+yB2JBphlvLvNIxhz10I4mcGpGtaCFx1L3Hxmfk1uzc6WoYQ3xh0aUykQ
+	 3IFh3cgW0PFOmJ+pbNO8b4spBQnvLAfdlOpehSo4hnWiLpQxQVfs8td5UD7e+8GXg7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uTB8tKHL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2B78606A331;
-	Wed, 25 Nov 2026 16:44:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uTB8tKHL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 276771F0093E;
-	Wed, 25 Nov 2026 16:44:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795625061;
-	bh=yimQGhoKVB2vjb4c9Uu6Rpv1CAx1LsILo+nPgnpFjis=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=uTB8tKHLNLXoCg5YSIDUs7FcElA+bNgoAsx1MisCXxqMEH83cjxV976VPkRU+m0H6
-	 rHLd8NOOFhpEr4LMV9/mF1srd8TJHJ6hj79tnelJ1lruwztjqiQe7Gx6s6/sGcgqOJ
-	 kAqZUfDyCWsu2he6Y2XDgQzOaKl91sASVDKC+b8Y=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 394/816] ASoC: sta32x: make power restoration transactional
-Date: Wed, 25 Nov 2026 15:32:22 +0100
-Message-ID: <20261125143858.320306753@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
-References: <20261125143849.205329330@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15565606A329;
+	Wed, 25 Nov 2026 16:44:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D72C71F01562;
+	Wed, 25 Nov 2026 16:44:17 +0000 (UTC)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,198 +36,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v7 04/14] PCI: rzg3s-host: Create the INTx IRQ domain
+ before setting the chained handlers
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: Claudiu Beznea <claudiu.beznea@kernel.org>
+Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, 
+ robh@kernel.org, bhelgaas@google.com, p.zabel@pengutronix.de, 
+ geert+renesas@glider.be, magnus.damm@gmail.com, claudiu.beznea@tuxon.dev, 
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, 
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, stable@vger.kernel.org
+In-Reply-To: <20261019065025.2146539-5-claudiu.beznea@kernel.org>
+References: <20261019065025.2146539-1-claudiu.beznea@kernel.org>
+ <20261019065025.2146539-5-claudiu.beznea@kernel.org>
+Date: Wed, 25 Nov 2026 22:14:13 +0530
+Message-Id: <179562505368.5580.2150497706749194750.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=663;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=aXar4x2N8gQJTl/ZNKcihlhafecP6Nche80dL3tuzYA=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBrBxBgJ5tVOCEmi1KWNu7mCRxmFtmxilxnXuP9L
+ kBY8bO0SzqJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCawcQYAAKCRBVnxHm/pHO
+ 9bbCB/4k9mZGKX6nhG0HCgb5ZCAGgrQy8JHmafqY14GtFQ+LkXDlSF4MW1BRMoBjZGAPUjrxfJL
+ 9gllCDF6w3rsFb0nD46Xkx1isl1vNuUNtaNjpk7eqEDspLzWKLxPEivM/G7twbNdH5nSmJfSRve
+ FfG8Pf+4AVfL3JX640uFaclAFAtDs2KlCGXRq/1rdKbkyi3VBfXxgMQlAuQcWN9EZaSuraudvbo
+ N7J5VnxNMBRQTgmrZPO5Li53OTZDSc8JDB3G+8fGZo0SDo4651ka30ZdHySqtRJkel+vsn0p6XF
+ F53Hg2YEVZ5m8XGPWoR+/KZPiCPO72f0uuFvkeL0VNAgbRYa
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+On 2026-10-19 09:50 +0300, Claudiu Beznea wrote:
+> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> 
+> rzg3s_pcie_init_irqdomain() installs the chained INTx handlers before
+> creating the INTx IRQ domain. irq_set_chained_handler_and_data() also
+> enables the interrupt, so an INTx interrupt arriving in between is
+> handled by rzg3s_pcie_intx_irq_handler() while host->intx_domain is
+> still NULL, leading to a NULL pointer dereference.
+> 
 
-------------------
+Did you observe the NULL ptr dereference on the device or just figuring it out
+from the code? If you have seen it, please include the log, otherwise just state
+it that it could be possible.
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-
-[ Upstream commit 3e71dc4508bc84862dc3644e3b6a5b966bff22ad ]
-
-sta32x_set_bias_level() enables the codec supplies, restores the
-coefficient and register state, and then starts the watchdog. Register
-access errors in the mute and coefficient helpers and the cache replay
-are discarded, allowing DAPM to publish STANDBY for a partially restored
-codec.
-
-Propagate every operation in the local restore transaction, including
-the final standby-state write. Start the watchdog only after that write
-succeeds. On failure, hold reset, mark the cache dirty, disable the
-supplies and report a cleanup failure while preserving the primary
-error. The DAPM bias callback consumes the returned error independently
-of component resume handling.
-
-Fixes: 54dc6cabe684 ("ASoC: sta32x: preserve coefficient RAM")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Link: https://patch.msgid.link/20260830141521.33246-1-pengpeng@iscas.ac.cn
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ sashal: Adapted the hunks to this tree's offsets and dropped the dapm context line, since the function has no dapm local here. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/codecs/sta32x.c | 101 +++++++++++++++++++++++++++++---------
- 1 file changed, 77 insertions(+), 24 deletions(-)
-
-diff --git a/sound/soc/codecs/sta32x.c b/sound/soc/codecs/sta32x.c
-index 122f832d90e05..5a4afd79fc0c7 100644
---- a/sound/soc/codecs/sta32x.c
-+++ b/sound/soc/codecs/sta32x.c
-@@ -345,27 +345,48 @@ static int sta32x_sync_coef_shadow(struct snd_soc_component *component)
- {
- 	struct sta32x_priv *sta32x = snd_soc_component_get_drvdata(component);
- 	unsigned int cfud;
--	int i;
-+	int i, ret;
- 
- 	/* preserve reserved bits in STA32X_CFUD */
--	regmap_read(sta32x->regmap, STA32X_CFUD, &cfud);
-+	ret = regmap_read(sta32x->regmap, STA32X_CFUD, &cfud);
-+	if (ret)
-+		return ret;
-+
- 	cfud &= 0xf0;
- 
- 	for (i = 0; i < STA32X_COEF_COUNT; i++) {
--		regmap_write(sta32x->regmap, STA32X_CFADDR2, i);
--		regmap_write(sta32x->regmap, STA32X_B1CF1,
--			     (sta32x->coef_shadow[i] >> 16) & 0xff);
--		regmap_write(sta32x->regmap, STA32X_B1CF2,
--			     (sta32x->coef_shadow[i] >> 8) & 0xff);
--		regmap_write(sta32x->regmap, STA32X_B1CF3,
--			     (sta32x->coef_shadow[i]) & 0xff);
-+		ret = regmap_write(sta32x->regmap, STA32X_CFADDR2, i);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_write(sta32x->regmap, STA32X_B1CF1,
-+				   (sta32x->coef_shadow[i] >> 16) & 0xff);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_write(sta32x->regmap, STA32X_B1CF2,
-+				   (sta32x->coef_shadow[i] >> 8) & 0xff);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_write(sta32x->regmap, STA32X_B1CF3,
-+				   sta32x->coef_shadow[i] & 0xff);
-+		if (ret)
-+			return ret;
-+
- 		/*
- 		 * chip documentation does not say if the bits are
- 		 * self-clearing, so do it explicitly
- 		 */
--		regmap_write(sta32x->regmap, STA32X_CFUD, cfud);
--		regmap_write(sta32x->regmap, STA32X_CFUD, cfud | 0x01);
-+		ret = regmap_write(sta32x->regmap, STA32X_CFUD, cfud);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_write(sta32x->regmap, STA32X_CFUD, cfud | 0x01);
-+		if (ret)
-+			return ret;
- 	}
-+
- 	return 0;
- }
- 
-@@ -373,15 +394,24 @@ static int sta32x_cache_sync(struct snd_soc_component *component)
- {
- 	struct sta32x_priv *sta32x = snd_soc_component_get_drvdata(component);
- 	unsigned int mute;
--	int rc;
-+	int restore_ret, ret;
- 
- 	/* mute during register sync */
--	regmap_read(sta32x->regmap, STA32X_MMUTE, &mute);
--	regmap_write(sta32x->regmap, STA32X_MMUTE, mute | STA32X_MMUTE_MMUTE);
--	sta32x_sync_coef_shadow(component);
--	rc = regcache_sync(sta32x->regmap);
--	regmap_write(sta32x->regmap, STA32X_MMUTE, mute);
--	return rc;
-+	ret = regmap_read(sta32x->regmap, STA32X_MMUTE, &mute);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sta32x->regmap, STA32X_MMUTE,
-+			   mute | STA32X_MMUTE_MMUTE);
-+	if (ret)
-+		return ret;
-+
-+	ret = sta32x_sync_coef_shadow(component);
-+	if (!ret)
-+		ret = regcache_sync(sta32x->regmap);
-+
-+	restore_ret = regmap_write(sta32x->regmap, STA32X_MMUTE, mute);
-+	return ret ?: restore_ret;
- }
- 
- /* work around ESD issue where sta32x resets and loses all configuration */
-@@ -797,8 +827,8 @@ static int sta32x_startup_sequence(struct sta32x_priv *sta32x)
- static int sta32x_set_bias_level(struct snd_soc_component *component,
- 				 enum snd_soc_bias_level level)
- {
--	int ret;
- 	struct sta32x_priv *sta32x = snd_soc_component_get_drvdata(component);
-+	int cleanup_ret, ret;
- 
- 	dev_dbg(component->dev, "level = %d\n", level);
- 	switch (level) {
-@@ -822,15 +852,28 @@ static int sta32x_set_bias_level(struct snd_soc_component *component,
- 				return ret;
- 			}
- 
--			sta32x_startup_sequence(sta32x);
--			sta32x_cache_sync(component);
-+			ret = sta32x_startup_sequence(sta32x);
-+			if (!ret)
-+				ret = sta32x_cache_sync(component);
-+			if (ret)
-+				goto restore_failed;
-+
-+			ret = regmap_update_bits(sta32x->regmap, STA32X_CONFF,
-+						 STA32X_CONFF_PWDN | STA32X_CONFF_EAPD,
-+						 0);
-+			if (ret)
-+				goto restore_failed;
-+
- 			sta32x_watchdog_start(sta32x);
-+			break;
- 		}
- 
- 		/* Power down */
--		regmap_update_bits(sta32x->regmap, STA32X_CONFF,
--				   STA32X_CONFF_PWDN | STA32X_CONFF_EAPD,
--				   0);
-+		ret = regmap_update_bits(sta32x->regmap, STA32X_CONFF,
-+					 STA32X_CONFF_PWDN | STA32X_CONFF_EAPD,
-+					 0);
-+		if (ret)
-+			return ret;
- 
- 		break;
- 
-@@ -848,6 +891,16 @@ static int sta32x_set_bias_level(struct snd_soc_component *component,
- 		break;
- 	}
- 	return 0;
-+
-+restore_failed:
-+	gpiod_set_value(sta32x->gpiod_nreset, 0);
-+	regcache_mark_dirty(sta32x->regmap);
-+	cleanup_ret = regulator_bulk_disable(ARRAY_SIZE(sta32x->supplies),
-+					     sta32x->supplies);
-+	if (cleanup_ret)
-+		dev_warn(component->dev, "Failed to disable supplies: %d\n",
-+			 cleanup_ret);
-+	return ret;
- }
- 
- static const struct snd_soc_dai_ops sta32x_dai_ops = {
--- 
-2.53.0
-
+- Mani
 
 
