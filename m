@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795621995;
-	b=lM99Esn2nJxbCC7FarhSCpLFA9KQKCu2ytfXA6HBcJy+yxx3HE+/hwJ2zh9RO/iVoZM9
-	 e600i7EkYNnFFuqPcEq9ltzJIGj2whVWtlP0GjFqndPq+Gqz7OVqAcfEhG8N+f1BYOPyu
-	 ZSa4IYVdhbF9h8XkoWsiw9qKFRF6mmq97hqHP56lh4TL0eqcnO2owRmtkRmyG0kAY4vkb
-	 PfzFZ7NjcA6hZWW5Dz0VAKAosBorIkMH40UbNKCc0sKuL1cGPldg4QvUVElgSIMfDpEuE
-	 2KdrVx3CX8MCX1hrPH7mQNUZDOXSwEsP8MuJi2B1FjCUhvHJ2KacqHC6TR6hMk4Q/Pw==
+	t=1795621998;
+	b=hCnwqN+6jyWM1nD9V327uBBdMd6M/8RIl/7WmbNYxgYLVe4r41litZWdGE8HQv53VxUC
+	 sa//L1egM5OnfsP8RzKqaKMXu+LX0MUqiWwc/ghUkTAtaulOZtCB9IjPD4Dg4IjZ2oOS9
+	 96iD55qWyqr8oMWwdS0t5BsP3+HCydDkBZrqFucQgycbaOpium2dThIBDTzZtMtMsDHqE
+	 QG8GYLcYP+cgSrSmkVsXe7aGAhWIsoH5zPLkBb9xYMMilagak7Vq+WY2FgikrlrEopULG
+	 MQXfPJXgnTHthhwyTNKS/fjSPKXwcfsAnOFIomvPQEMgfFksfbC3CUEq5r07UX/+MWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795621995;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795621998;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=pCBvwMEWPsZSao/TU3mEwhN0BiMhP7I+vZFr9xcnsLU=;
-	b=iSYr5q7Vy142W0DqtQwuypOgRqyKqHWxJM9ata7ruVSvflphDPl5WkSfQim1suYzhQOm
-	 B7eZYju/5FtRwwyZrJ9UC+cqMPWVjJa9N3EfV09iokWKluSOs7kVbJUWDqXEV3lMDeAQ4
-	 HnPLC72rNHSPdYFMBEcVZbjiFvOQ5fJrU4iUQz7ngkqVi6cSRnzLGGio4elmTJR6FGO8Z
-	 OlM0Q8u9ZMRBCAPVox1lpuZ0PbuKl/Ssh2C4h/z7CJ5ofRiXW5c8UBRrvQb7aGw2NTCJ2
-	 Vww5Merwxs7ZZ+rZWy6956n1SFjYdh0KNCAITokFUi2QeyfoP7mBptMn0gNrzDsEtlQ==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=c5NXnLWUStMrbAby/gGa3DtN2BUxG4pGvwa4n/kewfs=;
+	b=B7N0j6p5XiUFIq0fPpvci7SEkptKgzHqXdG8MkTRjwzrPzAgejWwKgNL0Xqw3Kk9VOEv
+	 xzi6LbJxnQ2BgyIs9xm/flThJPDvcgGV08Le6iET99lapwyGIm3vJY2o0LQ/DocRDWANN
+	 V03stC0mexeWwvBxXcIOO/JSYhoJYR+9Tvd7Faz26PqCDm0yliIlNVe0jKj11lt5TIKHD
+	 duuNewvMdtIKaDRxd/Qn/iAs3l/q3j209hywAVYYSqw0GyfVC0H8rjXh0H783L5YO0J3d
+	 45aAFAlGCW5rXrQqtdJvEyo9JCCPA150OgwQTXWCf/Mw4vg8kXVks+OQSBqVT7+xmlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=llsejW18;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XCxdedrh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C07606A327
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:53:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BA25606A31E;
+	Wed, 25 Nov 2026 15:53:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=llsejW18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECDAF1F000C0;
-	Wed, 25 Nov 2026 15:53:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795621994;
-	bh=pCBvwMEWPsZSao/TU3mEwhN0BiMhP7I+vZFr9xcnsLU=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XCxdedrh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EA811F000CF;
+	Wed, 25 Nov 2026 15:53:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795621997;
+	bh=c5NXnLWUStMrbAby/gGa3DtN2BUxG4pGvwa4n/kewfs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=llsejW18mFc57r97d/l7Nk0dQQ6jnH6lEHdXg8q5cLJfohTDtni981YydMCZr4qzB
-	 gGRaxptzhfgjn3JOw1TBEK3b8TKVB6wHdU39QuxAwzJ1b2NMqn7P5AUzC6S3iVr1eD
-	 IHUbLuvcsVlaE84K/UwqcGAKtL9VNHEQVf3EkISgZslzG1il5uJJoDL0VYIi8rHanV
-	 W1fc//vEPn/wc6kX6ppqR3KAQEIR2VfKsgBdTZqEb00Ue/RpVyCUQdMbXqCddhyVAX
-	 P7Awc5C8CfMOFbSDZwNlhlQKMOxmrp5cml2QVBdR3N5GfTBxVEjHGoQZGQ9Zd3iHMC
-	 dqqT7byu6jmiw==
-From: Sasha Levin <sashal@kernel.org>
+	b=XCxdedrhIi4xQfDA0snG925fnua8aqkZgSfSgBjVFYnFmI4fRyixASjz+N/zSGiMQ
+	 HmiL9UaWpcbOD1Cn/AVHPaKgbVWXtVQBZ+CPqePD6FGTt76EU/WESLggAQgAeucHdc
+	 HiYm191FD6YZRrzwm1DKxloDDj2ksDKTO/fKiZag=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@kernel.org>,
-	syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	Naman Gulati <namangulati@google.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] net: wait for in-flight device unregistrations before netns dismantle
-Date: Wed, 25 Nov 2026 10:53:11 -0500
-Message-ID: <20261125155248.603559-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112528-flail-frostbite-ecc5@gregkh>
-References: <2026112528-flail-frostbite-ecc5@gregkh>
+Subject: [PATCH 6.18 396/990] ice: xsk: do not free in-flight frags on XDP_TX completion
+Date: Wed, 25 Nov 2026 15:29:23 +0100
+Message-ID: <20261125143831.373500822@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,171 +63,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@kernel.org>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit c164a431a646983275d0076ff5b0e4c326fbc10b ]
+------------------
 
-A device can be unregistered by a context other than the cleanup_net()
-of its own netns, for instance a veth whose peer in another netns is
-deleted. If references on it are still held, it stays in
-netdev_wait_allrefs_any(), which rebroadcasts NETDEV_UNREGISTER every
-second.
+From: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
 
-Meanwhile its netns can be dismantled: default_device_exit_batch()
-only takes care of devices still listed in the netns, then pernet exit
-handlers free their state, and finally struct net is freed while the
-device still points to it.
+[ Upstream commit 5a9b5e315e101dfa02af5d8d3b27d893ba3e5566 ]
 
-The rebroadcasts then run notifiers against torn down pernet state, or
-freed memory. Three instances were reported so far:
+ice_xmit_xdp_tx_zc() takes the frags of a multi-buffer frame off
+pool->xskb_list but leaves XDP_FLAGS_HAS_FRAGS set on the head. When
+the head completes, xsk_buff_free() frees whatever is on the list at
+that point, which are the frags of a frame still being received.
 
- - netdev_genl_netdevice_event(): net->genl_sock is NULL [1]
- - nh_netdev_event(): net->nexthop.devhash is NULL [2]
- - nf_tables netdevice notifiers: use-after-free of the nftables
-   pernet storage [3]
+If ice_xmit_xdp_tx_zc() completes such a head while cleaning the ring
+before sending another frame, xsk_buff_get_frag() returns NULL and
+xsk_buff_xdp_get_dma() dereferences it.
 
-but any notifier using dev_net(dev) is affected, as is
-netdev_wait_allrefs_any() itself (__rtnl_net_lock(dev_net(dev)) with
-CONFIG_DEBUG_NET_SMALL_RTNL=y).
+Clear the flag on the head once its frags are on the ring. As
+xdp_get_buff_len() then covers only the head, count Rx bytes before
+running the XDP program, like libeth does.
 
-This was prevented by rtnl_lock_unregistering() until I removed it
-in commit 8a4fc54b07d7 ("net: get rid of rtnl_lock_unregistering()"),
-considering only the loopback dependency, and missing the notifiers one.
-
-Restore a per-netns counter of devices sitting in netdev_run_todo(),
-and make default_device_exit_batch() wait for it to reach zero, after
-it has unregistered all devices of the dying netns(es). At this point
-no new unregistration can be started for these netns.
-
-Unlike the old barrier, this only waits for devices of the netns being
-dismantled and runs after their own devices are gone.
-
-Tested on a KASAN kernel with a debug-only hack holding a reference
-on a veth device for 5 seconds after its unregistration: a nexthop
-on the veth in netns X, delete its peer from init_net, then delete X.
-Without this patch, the nexthop_flush_dev() null-ptr-deref from [2]
-triggers. With it, no splat; netns churn and dismantle of a netns
-whose own device is held still work.
-
-[1] https://lore.kernel.org/netdev/6adf9f64.6200f071.51519.0ed1.GAE@google.com/
-[2] https://lore.kernel.org/netdev/20261105114707.3030737-1-bsdhenrymartin@gmail.com/
-[3] https://lore.kernel.org/netdev/20261105114817.3033625-1-bsdhenrymartin@gmail.com/
-
-Fixes: 8a4fc54b07d7 ("net: get rid of rtnl_lock_unregistering()")
-Cc: stable@vger.kernel.org
-Reported-by: syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/netdev/6adf9f64.6200f071.51519.0ed1.GAE@google.com/
-Reported-by: Henry Martin <bsdhenrymartin@gmail.com>
-Closes: https://lore.kernel.org/netdev/20261105114707.3030737-1-bsdhenrymartin@gmail.com/
-Closes: https://lore.kernel.org/netdev/20261105114817.3033625-1-bsdhenrymartin@gmail.com/
-Signed-off-by: Eric Dumazet <edumazet@kernel.org>
-Reviewed-by: Naman Gulati <namangulati@google.com>
-Link: https://patch.msgid.link/20261105144543.1624238-1-edumazet@kernel.org
+Fixes: eeb2b5381038 ("ice: xsk: Tx multi-buffer support")
+Signed-off-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+Reviewed-by: Björn Töpel <bjorn@kernel.org>
+Link: https://patch.msgid.link/20261102124950.958345-5-maciej.fijalkowski@intel.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: dropped the nonexistent dev_mc_genid and rtnl_net_flush_workqueue() context lines, keeping only the added dev_unreg_pending field and wait_event(), with fuzz in netdev_run_todo(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/net_namespace.h |  1 +
- net/core/dev.c              | 35 +++++++++++++++++++++++++++++++++++
- 2 files changed, 36 insertions(+)
+ drivers/net/ethernet/intel/ice/ice_xsk.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/include/net/net_namespace.h b/include/net/net_namespace.h
-index 9a1d7ef17c4e9..9f16cca93227b 100644
---- a/include/net/net_namespace.h
-+++ b/include/net/net_namespace.h
-@@ -68,6 +68,7 @@ struct net {
- 	spinlock_t		rules_mod_lock;
+diff --git a/drivers/net/ethernet/intel/ice/ice_xsk.c b/drivers/net/ethernet/intel/ice/ice_xsk.c
+index 6dfc6fd34c886..2009744a9f6a4 100644
+--- a/drivers/net/ethernet/intel/ice/ice_xsk.c
++++ b/drivers/net/ethernet/intel/ice/ice_xsk.c
+@@ -494,6 +494,11 @@ static int ice_xmit_xdp_tx_zc(struct xdp_buff *xdp,
+ 	tx_desc->cmd_type_offset_bsz |=
+ 		cpu_to_le64(ICE_TX_DESC_CMD_EOP << ICE_TXD_QW1_CMD_S);
  
- 	unsigned int		dev_base_seq;	/* protected by rtnl_mutex */
-+	atomic_t		dev_unreg_pending; /* devices in netdev_run_todo() */
- 	u32			ifindex;
- 
- 	spinlock_t		nsid_lock;
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 91da33c29aa18..0ea4224874628 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -10793,6 +10793,14 @@ atomic_t dev_unreg_count = ATOMIC_INIT(0);
- static void net_set_todo(struct net_device *dev)
- {
- 	list_add_tail(&dev->todo_list, &net_todo_list);
-+	atomic_inc(&dev_net(dev)->dev_unreg_pending);
-+}
++	/* Each frag is now freed via its own Tx buffer. Completing the head
++	 * must not release what is on the pool's frag list at that time.
++	 */
++	xdp_buff_clear_frags_flag(head);
 +
-+/* Paired with net_set_todo(). @net must not be used after this call. */
-+static void net_unreg_done(struct net *net)
-+{
-+	if (atomic_dec_and_test(&net->dev_unreg_pending))
-+		wake_up(&netdev_unregistering_wq);
- }
+ 	return ICE_XDP_TX;
  
- static netdev_features_t netdev_sync_upper_features(struct net_device *lower,
-@@ -11682,6 +11690,7 @@ void netdev_run_todo(void)
- 		if (unlikely(dev->reg_state != NETREG_UNREGISTERING)) {
- 			netdev_WARN(dev, "run_todo but not unregistering\n");
- 			list_del(&dev->todo_list);
-+			net_unreg_done(dev_net(dev));
- 			continue;
+ busy:
+@@ -593,6 +598,7 @@ int ice_clean_rx_irq_zc(struct ice_rx_ring *rx_ring,
+ 		struct sk_buff *skb;
+ 		u16 stat_err_bits;
+ 		u16 vlan_tci;
++		u32 xdp_len;
+ 
+ 		rx_desc = ICE_RX_DESC(rx_ring, ntc);
+ 
+@@ -635,6 +641,7 @@ int ice_clean_rx_irq_zc(struct ice_rx_ring *rx_ring,
+ 
+ 		((struct libeth_xdp_buff *)first)->desc = rx_desc;
+ 
++		xdp_len = xdp_get_buff_len(first);
+ 		xdp_res = ice_run_xdp_zc(rx_ring, first, xdp_prog, xdp_ring,
+ 					 xsk_pool);
+ 		if (likely(xdp_res & (ICE_XDP_TX | ICE_XDP_REDIR))) {
+@@ -649,7 +656,7 @@ int ice_clean_rx_irq_zc(struct ice_rx_ring *rx_ring,
+ 			goto construct_skb;
  		}
  
-@@ -11693,8 +11702,11 @@ void netdev_run_todo(void)
+-		total_rx_bytes += xdp_get_buff_len(first);
++		total_rx_bytes += xdp_len;
+ 		total_rx_packets++;
  
- 	cnt = 0;
- 	while (!list_empty(&list)) {
-+		struct net *net;
-+
- 		dev = netdev_wait_allrefs_any(&list);
- 		list_del(&dev->todo_list);
-+		net = dev_net(dev);
- 
- 		/* paranoia */
- 		BUG_ON(netdev_refcnt_read(dev) != 1);
-@@ -11713,6 +11725,8 @@ void netdev_run_todo(void)
- 
- 		/* Free network device */
- 		kobject_put(&dev->dev.kobj);
-+
-+		net_unreg_done(net);
- 	}
- 	if (cnt && atomic_sub_and_test(cnt, &dev_unreg_count))
- 		wake_up(&netdev_unregistering_wq);
-@@ -13028,6 +13042,17 @@ static void __net_exit default_device_exit_net(struct net *net)
- 	}
- }
- 
-+static bool __net_exit netns_dev_unreg_pending(const struct list_head *net_list)
-+{
-+	struct net *net;
-+
-+	list_for_each_entry(net, net_list, exit_list) {
-+		if (atomic_read(&net->dev_unreg_pending))
-+			return true;
-+	}
-+	return false;
-+}
-+
- static void __net_exit default_device_exit_batch(struct list_head *net_list)
- {
- 	/* At exit all network devices most be removed from a network
-@@ -13055,6 +13080,16 @@ static void __net_exit default_device_exit_batch(struct list_head *net_list)
- 	}
- 	unregister_netdevice_many(&dev_kill_list);
- 	rtnl_unlock();
-+
-+	/* Devices of these netns unregistered from another context
-+	 * (e.g. a veth whose peer was deleted) can still be waiting
-+	 * in netdev_run_todo() for their last references, while
-+	 * NETDEV_UNREGISTER is rebroadcast for them. Wait for them
-+	 * before pernet exit handlers tear down the state used by
-+	 * netdevice notifiers, and before the netns is freed.
-+	 * No new unregistration can start: all devices are unlisted.
-+	 */
-+	wait_event(netdev_unregistering_wq, !netns_dev_unreg_pending(net_list));
- }
- 
- static struct pernet_operations __net_initdata default_device_ops = {
+ 		first = NULL;
 -- 
 2.53.0
+
+
 
