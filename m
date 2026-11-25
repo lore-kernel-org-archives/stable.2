@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596659;
-	b=QA36j6vNt/QfdeuGlLBLIlS32qDSvxhaMQuDNaDhLm97q+9Mbrh7Fjr0xljRKIUQV7gj
-	 TUMOuGEG7RoJSGPmVIA/bQ1/Fd6h15m5APuxp6opc++fKMT5Ezg0m4yOnuonj/HARScNA
-	 lmq8LDQ0YBjhg4LBnQgqcRjkh4N64YfG+FwTGgpIVzMxe5e2hENBEYzKccoJ14mxttii0
-	 LTJrCt4grgWogzTCMTB7FltTkIdoYKxpjCZl9GRWHvh14GGSVOjk9CGmFDgKe+gMuIGtX
-	 GcUXb0h5dX1tyM3y5GjNkO0El6oTdraAAPgKhzcihXqOB5WOJzy1oHjiDXCwug1qeiA==
+	t=1795596662;
+	b=Fpa0WoBg01Aix414CwtDvmKZcjAe88z9yt8z7Cy3PNA4TtN58i1oOsuAcreBWh1zb9Hc
+	 lMk/wBFutIHC735zCgPfvQvAYkDClVX+ZK3UFrphtq1hGzGdkbfHyx4jig4VwFJSedtjY
+	 3aP3jmkNgw8bLELsUHT0S7u7cWthGNJ4cpMwH25YISyquLA8sy/mz1hVytkvtwqOgxiUh
+	 eRYQAdFzb2KsTIPjRfGX+5R88uytiTcf58l4GpCgv0zCIFaUvpbf8iChLExDVRsxzbYzN
+	 AggRdHQy9QsiHF7+GWXweBjTlRATyhmlBKvc37m2yx79TX3py9EO3x1xGRvqF1KOExA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596659;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596662;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=gA6fEKGDMwzjLI728Usu390QTPAnlTr5kCqcQ4ZZb+0=;
-	b=Ea4zGsh+GFecFv8gmzIgYYysBIRsh7FOLJINK53rqXeEjG0OHn7kAiCp1DPB4aXJbjU4
-	 t5qs+WjODq+Z9aT/o5vqNdGDOGiX37b6oTl/5r1mXpwZlSGoR6wRDJ1cHsoRWvghytgB3
-	 yDMrAsNdu9uqoXVy04JAPRBTsSTjGGQBmiuu2EpVHhNtkgEFSPSCS+VUiupsSd30EoGeb
-	 EQg4f1xWGhp7/V+nVjImUIJ+BQ0Yv4b/cX+UG6zejiVbC+0sLA4ZrdLAVIIaCiBL2iVSF
-	 j+0xEJctNndzEavLMDdHYuCju+Uy/ZEEYWyE/v1YbMojGAce9msWWCATm7r24prteDQ==
+	bh=y36mqVCXZjxgNd+xiQwWPO/zljiX0t7Sn/3DThEO6h4=;
+	b=XJ8cpdYCKpsMVc9Ar1yAfyDrUjGW4+oXouuiXl1hkU5xC7sudMncBi6nOHzhg289IfZ3
+	 voyQ1MhzFmwzGtuOKUmTep1fh3AUECb1bsmEQXJpmvoCJD22E/mbp0l3aT0EHgkGKHF9M
+	 gEOh5bEUy5qtERAdlksJL/YuKJ9kqX6RB2gKsv5FZfMx77HICSqwL7Ro+YxACBKsancFF
+	 o1o8T6wnQi6+W5TIHV1spZddDakmgp81gNtmLCEHscE+b1AchsEw6ncM0Htics4GDWp42
+	 7d8BO0ga7dltG/ZmrEu5cK7nRWUyFeoxIFQlVKkL5r+IF1ZUayjhEhNsHg8D6jvC1ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wz3M+TKa;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sDHO6mpR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C3E606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:50:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB39D606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:51:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wz3M+TKa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE9FC1F000C6;
-	Wed, 25 Nov 2026 08:50:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sDHO6mpR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A4A21F000C4;
+	Wed, 25 Nov 2026 08:51:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795596658;
-	bh=gA6fEKGDMwzjLI728Usu390QTPAnlTr5kCqcQ4ZZb+0=;
+	s=korg; t=1795596661;
+	bh=y36mqVCXZjxgNd+xiQwWPO/zljiX0t7Sn/3DThEO6h4=;
 	h=Subject:To:Cc:From:Date;
-	b=wz3M+TKaCVUMMfBdLBDxbKOxN8bUNJ3rhHEKZ4u2JoI6X3GIxrDmU4VFj1kClEyBY
-	 EHD4/kPExK2rXNy42g+WHg+OuzFh4LFzovQ0tNZlEHoMeiJYgS+x9L19A29P1xaZXQ
-	 Gy0TtSXAI1SiOXP6Rlqiu8AjVu8PAEtqQ8UELXoE=
-Subject: FAILED: patch "[PATCH] tools/bootconfig: Close only opened braces in compact output" failed to apply to 6.6-stable tree
+	b=sDHO6mpRUmCto2YSwWqzjIwkDEWLAp7Zi4g7l8jsJBORHH5TTK1ggcmjcb9IhcG+m
+	 +bsx772412tiP33kOC0RM1f4GGtmLCPQ8BEgDA2SQWhvek1KMEOBGUwRwmB8XEbR7S
+	 plf8dYv2mIbNnHCExyLTAg/7YPYeKcRngxVZVqS8=
+Subject: FAILED: patch "[PATCH] tools/bootconfig: Close only opened braces in compact output" failed to apply to 5.15-stable tree
 To: edumucelli@gmail.com,mhiramat@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 09:48:14 +0100
-Message-ID: <2026112514-brewing-massager-d7b9@gregkh>
+Date: Wed, 25 Nov 2026 09:48:15 +0100
+Message-ID: <2026112515-salary-cover-90e1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 26fa92f351d4993428268afebf6c60c987477af5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112514-brewing-massager-d7b9@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112515-salary-cover-90e1@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
