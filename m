@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795643182;
-	b=i17HwLiJRBETmQt3nATz0VLZqi/IDHY8bSwzUIP+UP94EhOavcxFlu813nxMGjT7KTut
-	 rBmc15Fp1J5yEvS2tvtHwy/cZEJw+qCdS4PWEMBYUhzuxtaoex2BAqglGe4Gzg4h9Q8JG
-	 Qacg9kQF5H6Jbo+L3N2IQLGpzBuBHezJnoIgitPFRFHQMoE4+Ow8VVLQdg3iM2BsJ6Kat
-	 9NTejCsdY6A+bJZFCG/lsQ8cHidzf1lgZ6Clo/dqkgS8BEftc7aP4EmouTTSHoobLEdh/
-	 D1dtfA6BqptkjGaI0Omn67ie168TYNMFJDv+iDbJu0rKC0rOnF3Rh1rScTw58vx7ghA==
+	t=1795643653;
+	b=igLEIV1twylslCTslu/Pd/DoOf6g0uIoPk4oJYgeu7YmvJ/leJ5l6YcNtdGEFPl7ys8r
+	 Om+5K1ruu/mlcO9ceTeGNOAaHi9kiXd4sS7y8VhD18NUhxh92ekvONFDt5VmQBzZySseb
+	 VTLtpYyaFYcQelB3E0IC8pknGaqOhrP3BXTT+mHCzz9I5cQHZ2x6s+EvtK6zxrtDu/yNH
+	 UDLqLvFjNUE3IjXfQlvMNA753cp7Y+3tLMDm6Fg94f4QFYGn6tP8Vo5gjR3E/cB3bS/bv
+	 3otbziMiOKLq66iy7MJ/kv0//6TXhyPz8cp/sDyVFkzKqXYvNawF+ZxQ5TJ5nijpjZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795643182;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795643653;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=jgtTNB/8bbocTfRhVHcEg1OfuIMzxpxcjTFT2Q4Biuk=;
-	b=nvVpmG6MPbSdStdB89GKyG7i6LxOKWO+Ya77/J1qfWNzMcuxbSdqBWnepDNOHYB0YPkZ
-	 Xhvp5IyY2uF1j67uwRY+0ovQ4GiPclfnj2JMwT19zrWHPHtraa3u0a1CzBlIAfzdRXAxC
-	 hG0QNKUjRWZ1bpUHbj206y14i5xsK1LKTs0FZKf3tphDtTtXAe3X1+4r2DYQPGIaSLZlP
-	 SSFNnBGU9sXTCQSxFaBdOpy2Q3C7dZOfUU/U7LBM9gk5NZFRjG4ZdWxub/iH1pJyNyKvp
-	 d6xz1kGHoVgJ4t1Ttb/0Ow/sBQJ0qBaB6gVVL61rvHBCyX48YhAjkUbyQ9abYT7q90g==
+	bh=ASyxTytsyJdeC4wj3Hxc2O6cL/6JRH+qExmqHoKOGKQ=;
+	b=xjl4N4/bOmUGXaXrQQGIKpsdZKz9HsTug4YE7kGoG1Lhh+ziLMpA58Y0iK2jpKT18oCZ
+	 syCsPKk0FybE6lnEiaOb9isabZRScWGmAjhbac1HkCAZWBthImSsjd4OSNYHLCJZ/85YQ
+	 z//PnVC+HoqJs0X9MP+yQ/6cvvmVItb9E4qG/xZPN65ImBNix2DYyBeCN6RZyH+yiWGQj
+	 Tl4fQDUjvamC8UmPAnzqN1dk9GnUu2nYIanC+SIWAjWCDpiAKEoRFv1DcuK+C64VjrpyZ
+	 rzfXQd/2rApyGIrX/RYhG7AUBHqADxNKIOICb3pdwgo3Chi8zYdgOxB35O/tVAkUxnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KTw5+xvL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UqEh5Ny8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0F2606A327
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 21:46:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E99606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 21:54:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KTw5+xvL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AA311F000C4;
-	Wed, 25 Nov 2026 21:46:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UqEh5Ny8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B89071F000C0;
+	Wed, 25 Nov 2026 21:54:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795643182;
-	bh=jgtTNB/8bbocTfRhVHcEg1OfuIMzxpxcjTFT2Q4Biuk=;
+	s=k20260515; t=1795643653;
+	bh=ASyxTytsyJdeC4wj3Hxc2O6cL/6JRH+qExmqHoKOGKQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KTw5+xvLyofo95vcjNKBDyUBpOeuiVy91ZsCxSz+2mSj83/C/lwPQpthlTMG4Z7F6
-	 fnLChHFkjkFvWHfczPCHzXzvgZqYcmkdLeubheKOgZEPASA26NXwzgJIp9jnPn5VfF
-	 J9kxpurJJUD9fGL1u8twZVmEW6LdipgU4RqjNAFEre0Z9Qw/2EQ7M/t6M9F0UxHbSO
-	 T3MXX7iIzOmCLAtyrBklsWqHtkRJPhmIPmkBP363c/hy7x41ewme52GS/g17zg273U
-	 2N/YnxxVPHIGSQjFuq3N6awo6GEuSZ39glQKzOJCi7rR51AxDJtlCCl317BLEll2kZ
-	 aXPKardoFoQ2w==
+	b=UqEh5Ny8AYNJaaYS9uBnUuEA5d3bMPh52tr1MYhnRgbadMcMenIRgdLNig1mE66R2
+	 taBAB5uWD8Dm5Q95Ix7QmlWjBBKijgA7Bbof8lffpIvjK3Rk1htsuhfGS8eOG12FOp
+	 r5GQr6AuQkqm9wF78iNG0Jwdjbah/u1AB5H7dAQ9yujFjlehhYO19xNZnuIh7HPayt
+	 mB7qOQoTpdBYxyXhWf6ExDpBtlTtz2/55Y7Z42U+e53NYqdPQgiW7a5t9VvKOQKaJw
+	 LQXXEJd94rIUSS8YcMx3vI3ojFDPQr2q9ier1jCmYxfWEZDPGBETLymjKkGfPzbbY7
+	 Z507zmfwoTITA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
 	Linus Walleij <linusw@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] gpio: mvebu: fix sleeping-while-atomic in mvebu_gpio_level_irq_mask()
-Date: Wed, 25 Nov 2026 16:46:19 -0500
-Message-ID: <20261125214614.1571817-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] gpio: mvebu: fix sleeping-while-atomic in mvebu_gpio_level_irq_mask()
+Date: Wed, 25 Nov 2026 16:54:11 -0500
+Message-ID: <20261125215355.1590581-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125214614.1571817-1-sashal@kernel.org>
-References: <2026112518-hefty-profanity-1c49@gregkh>
- <20261125214614.1571817-1-sashal@kernel.org>
+In-Reply-To: <2026112518-tidy-payable-b8f5@gregkh>
+References: <2026112518-tidy-payable-b8f5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,31 +77,24 @@ Closes: https://sashiko.dev/#/bug/linux-6bee0c4f-384c-494c-868e-07c420195d13
 Reviewed-by: Linus Walleij <linusw@kernel.org>
 Link: https://patch.msgid.link/20261109-gpio-mvebu-sleeping-while-atomic-v2-1-41f070421e70@oss.qualcomm.com
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+[ sashal: Added .use_raw_spinlock = true to the single unnamed regmap config (which already has .fast_io), since this tree lacks the named and per-CPU configs upstream edits. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpio/gpio-mvebu.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpio/gpio-mvebu.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpio/gpio-mvebu.c b/drivers/gpio/gpio-mvebu.c
-index 8979e7358eedc..54ea31c1a6511 100644
+index 99b5734614ab7..7ccf01e4870b1 100644
 --- a/drivers/gpio/gpio-mvebu.c
 +++ b/drivers/gpio/gpio-mvebu.c
-@@ -610,6 +610,7 @@ static const struct regmap_config mvebu_gpio_regmap_config = {
- 	.reg_bits = 32,
+@@ -1046,6 +1046,7 @@ static const struct regmap_config mvebu_gpio_regmap_config = {
  	.reg_stride = 4,
  	.val_bits = 32,
+ 	.fast_io = true,
 +	.use_raw_spinlock = true,
  };
  
- static const struct regmap_config mvebu_gpio_percpu_regmap_config = {
-@@ -617,6 +618,7 @@ static const struct regmap_config mvebu_gpio_percpu_regmap_config = {
- 	.reg_bits = 32,
- 	.reg_stride = 4,
- 	.val_bits = 32,
-+	.use_raw_spinlock = true,
- };
- 
- static const struct regmap_config mvebu_pwm_regmap_config = {
+ static int mvebu_gpio_probe_raw(struct platform_device *pdev,
 -- 
 2.53.0
 
