@@ -1,60 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618495;
-	b=2OJai7mjA2+jCliV5Y9nyTCOVW4OITdBChz+vIawHQ24CBU4nn3HNslwWvE5q8Ah7TKP
-	 x+FLbkQTG5hcj7Y68CL3B+4D7JzvVAdtrScW32jCgwI3r1qUU+lW5F8PqPnV7oXqQQcqF
-	 sJQzq6SR4UafxvZ+wBLdK6oSp+dI4ldBaxauOJ0/MKoMlAgO+fNByouXksnpAjt0MYowW
-	 Bfwuwvi41eQqShYxQT4jG5iTNNqCFlglTL1OIAJf/qtu8PXsfgBQUI/n1ytivtTqtFH7I
-	 5FvmI/2Ff5xEWFy+EtNOUBSM9stogXPlPY2HOw5fcNZX19Bo7acjJNbWiDEZpHm98fw==
+	t=1795618497;
+	b=eLHko54ikXDkGKD9bv8f/BKcrQ2+Ea1cj7D6yCGUnMw2JmI8f2j9c8DabrRbfH2EJS0C
+	 dz+oK60Zt+pMPoFLZIMvDcwgPnTGiIl6y5lZU2uMPDx8kFyAZqap+BJQKo0mgZw+2mIQ/
+	 7S2f/Y2/fKHAQXRQ/+kvkoW76aBfEJHUE3QjITdCtRGFmr5Eaiy/4ZQpHfLLHFCX9VXV0
+	 Q7+5TWqKX/9uHbUYHp9yenubReFELR4IA5XZPN2eli+zwNvs0MEyCUrcf0En08IB2bUsI
+	 cV3hwoAzTiEuQhByUA3UfXifV4rZ+YQZJOo2xN/Wya5k5IN1RqXtzd3Y3P/9CGqNiPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618495;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618497;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=QOpCJNm9fJ+kxdBjuZWXUwBozCfv8GtozATWVTWrQno=;
-	b=wBtpHxXdY8mKmldltM4kkePI0u8TRZXOesVdTGFE3s86E8hBxnpSMXsLBoEMpVs9GWMe
-	 925jYA3v4jYDQkkIiBDPHlKDGZvdkFDY6vWmdu5bDGGDwxkGBal8fSh2UGcVQjUjIcWY9
-	 e0oidxG18145SMb1/a1Dk1D17NSMuop7CToFROr0gzObUcoKSoW3diC/SCp3hGeThmwZi
-	 PcuwRO3cfOX+r3nct5qYYCY9GMNUKhqbmVT85eLR9QemW4qTBIS5GlJXkKaewlLyN8kwh
-	 GyS6+C+OdZG3Kpo4uVqtgnQJmg7yGht9K0Ah4cIFTU7N4n6C5YBK91w8XJySHCglt5w==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=53aGqxQF1iJaRNRW8V9Vi+dBvXKjWm4em5xL6KM3Knk=;
+	b=rDM3013vbJkVHLRa3VxfsZGIIu5CSPwSQEI/tx8atWFpa9mJXjx5hD/U4lhf0BcbVosJ
+	 QSTOtmqZRpZQUuJuEPLl3+9jW0d63I0yWHtCRoYoPSgfxv2R3+UFAXMnsFKNfDD+phGXK
+	 KDVRN7G7n0Ni3rz+9UCNhgh+KBmOVO9LOH4M7ssJO+Zn/C20Og0QnI1noxRgN3yVQS+pl
+	 B7ukjeVCLYoEEYJfHHeAozAoFS5s3Ibt8IvHk0MBPr9BG4WL4iuuZKt9qowI2DAxOVTTU
+	 jFNaBvgVVKhxbDWX43/y4C5xXutZzCU+l+mOE78NSJheqoqexoOdPgUuxZS+M2hS/Qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ippLrULe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eNOyfeh5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3704606A31E;
-	Wed, 25 Nov 2026 14:54:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EAA6606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:54:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ippLrULe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0D941F000C4;
-	Wed, 25 Nov 2026 14:54:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795618495;
-	bh=QOpCJNm9fJ+kxdBjuZWXUwBozCfv8GtozATWVTWrQno=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eNOyfeh5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D3951F000CF;
+	Wed, 25 Nov 2026 14:54:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795618496;
+	bh=53aGqxQF1iJaRNRW8V9Vi+dBvXKjWm4em5xL6KM3Knk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ippLrULeGGHP7vHPPKFxxC/qGm4RsEKqudQRsdXjj0aQ7PX5KhxV5p1alQ0AiVMhV
-	 io7iIk3h9vzex3cHGj9MB1wRx/glRH9aLVyr9XV5H1Drvp62Ff3N6fAPCHEW3Cgymz
-	 gJ+UwwOLjUvuN3uuTyzvYbl+TYBGSir3YdNL8bxE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=eNOyfeh5lLzgd9xhsXFljKCrdkV16hTojRfplL/T9IOeAeYgZcj5R0h403vxWjFRY
+	 x+P7DbwDk5ngm3oT8hYx9QVrRcV+UnnboizsAJDT/bh1Y/LC/Ocx8xAIlkGcV+OEzi
+	 +mg/EjbmHZ21jwoSs0iqWnv9qUv3ZsYovCb0b+ghfdxoAq2FKUxij1r1i5E2Oy8JdN
+	 pOZOoYHFdECAHjee/yui6v0ADBkKaH5V3wOUkMo4ZmY7VjC9yJs/Bxdvt6S4/MOo19
+	 Ca/z1OxatGI9ypjl6mCNqW0NlJZG/f5JDHMZ0vH9NcOFPXbfqyH3oBZY2IHfCdSh1F
+	 nThJZMBy8TNDA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Frederic Konrad <fkonrad@amd.com>,
-	Srikanth Boyapally <srikanth.boyapally@amd.com>,
-	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Joas Antonio dos Santos <joasantonio108@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0297/1005] spi: cadence-quadspi: Fix race between DMA completion and transfer start
-Date: Wed, 25 Nov 2026 15:27:15 +0100
-Message-ID: <20261125143828.691835443@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.6.y] gtp: free the skb after handling an echo response
+Date: Wed, 25 Nov 2026 09:54:54 -0500
+Message-ID: <20261125145448.4175246-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112510-starved-striking-0546@gregkh>
+References: <2026112510-starved-striking-0546@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,61 +61,111 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-------------------
+[ Upstream commit f17b293d155f377e4cff582b8113991d2ad346d6 ]
 
-From: Frederic Konrad <fkonrad@amd.com>
+gtp0_handle_echo_resp() and gtp1u_handle_echo_resp() return the result
+of genlmsg_multicast_netns() to gtp_encap_recv().  When the netlink
+notification is delivered that result is 0, and gtp_encap_recv() treats
+0 as "the skb has been consumed":
 
-[ Upstream commit 059518f775baecc9803fc97787bd0b17558f8047 ]
+	switch (ret) {
+	case 1:
+		netdev_dbg(gtp->dev, "pass up to the process\n");
+		break;
+	case 0:
+		break;
+	case -1:
+		netdev_dbg(gtp->dev, "GTP packet has been dropped\n");
+		kfree_skb(skb);
+		ret = 0;
+		break;
+	}
 
-In cqspi_versal_indirect_read_dma(), the DMA transfer is started by
-writing CQSPI_REG_INDIRECTRD_START_MASK to the indirect read control
-register. Under certain timing conditions, the DMA completion interrupt
-may be triggered and complete the transfer before the completion
-structure is reinitialized.
+The echo response handlers only read from the skb and never free it or
+pass it on, so every echo response that is reported to a listener on the
+gtp multicast group leaks the skb.  Echo responses are handled for any
+peer when the UDP sockets were created by the kernel, so a remote host
+can leak memory on the receiver by sending GTP echo responses while a
+process with CAP_NET_ADMIN is subscribed to the gtp multicast group, for
+example a daemon that monitors echo responses.
 
-This creates a race where the completion event is lost, causing
-wait_for_completion_timeout() to time out even though the transfer has
-already completed, resulting in errors such as:
+The error paths do not leak but have a related problem.  -ENOMEM and the error from
+genlmsg_multicast_netns() (-ESRCH when nobody listens) are not -1, so
+they are returned unchanged to the UDP stack, which takes a negative
+value from encap_rcv() as a request to resubmit the packet to the
+protocol with that number.
 
-  spi-nor spi0.0: CS0: operation failed with -110
+Return -1 when the notification cannot be built, so that
+gtp_encap_recv() drops the skb, and consume the skb once the
+notification has been handed to netlink, whether or not anybody is
+listening.
 
-Fix this by reinitializing the completion structure before starting the
-DMA transfer, ensuring that any completion event generated after the
-transfer begins is correctly observed.
+Found by LLM-assisted source review, untested.
 
-Fixes: 1a6f854f7daa ("spi: cadence-quadspi: Add Xilinx Versal external DMA support")
-Signed-off-by: Frederic Konrad <fkonrad@amd.com>
-Signed-off-by: Srikanth Boyapally <srikanth.boyapally@amd.com>
-Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Link: https://patch.msgid.link/20261104071958.2405117-1-radhey.shyam.pandey@amd.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fixes: d33bd757d362 ("gtp: Implement GTP echo request")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Link: https://patch.msgid.link/20261110-gtp-echo-rsp-leak-v1-1-192c032f3dfa@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/spi/spi-cadence-quadspi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/net/gtp.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-quadspi.c
-index 5a5f1a852cbe8..c31e225f240a8 100644
---- a/drivers/spi/spi-cadence-quadspi.c
-+++ b/drivers/spi/spi-cadence-quadspi.c
-@@ -955,11 +955,11 @@ static int cqspi_versal_indirect_read_dma(struct cqspi_flash_pdata *f_pdata,
- 	writel(CQSPI_REG_VERSAL_DMA_DST_CTRL_VAL,
- 	       reg_base + CQSPI_REG_VERSAL_DMA_DST_CTRL);
+diff --git a/drivers/net/gtp.c b/drivers/net/gtp.c
+index 23a0dc9f578be..60c09d3b38ede 100644
+--- a/drivers/net/gtp.c
++++ b/drivers/net/gtp.c
+@@ -397,16 +397,19 @@ static int gtp0_handle_echo_resp(struct gtp_dev *gtp, struct sk_buff *skb)
  
-+	reinit_completion(&cqspi->transfer_complete);
+ 	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_ATOMIC);
+ 	if (!msg)
+-		return -ENOMEM;
++		return -1;
+ 
+ 	ret = gtp_genl_fill_echo(msg, 0, 0, 0, GTP_CMD_ECHOREQ, echo);
+ 	if (ret < 0) {
+ 		nlmsg_free(msg);
+-		return ret;
++		return -1;
+ 	}
+ 
+-	return genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
+-				       msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
++	genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
++				msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
++	consume_skb(skb);
 +
- 	writel(CQSPI_REG_INDIRECTRD_START_MASK,
- 	       reg_base + CQSPI_REG_INDIRECTRD);
++	return 0;
+ }
  
--	reinit_completion(&cqspi->transfer_complete);
--
- 	if (!wait_for_completion_timeout(&cqspi->transfer_complete,
- 					 msecs_to_jiffies(max_t(size_t, bytes_to_dma, 500)))) {
- 		ret = -ETIMEDOUT;
+ /* 1 means pass up to the stack, -1 means drop and 0 means decapsulated. */
+@@ -561,16 +564,19 @@ static int gtp1u_handle_echo_resp(struct gtp_dev *gtp, struct sk_buff *skb)
+ 
+ 	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_ATOMIC);
+ 	if (!msg)
+-		return -ENOMEM;
++		return -1;
+ 
+ 	ret = gtp_genl_fill_echo(msg, 0, 0, 0, GTP_CMD_ECHOREQ, echo);
+ 	if (ret < 0) {
+ 		nlmsg_free(msg);
+-		return ret;
++		return -1;
+ 	}
+ 
+-	return genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
+-				       msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
++	genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
++				msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
++	consume_skb(skb);
++
++	return 0;
+ }
+ 
+ static int gtp1u_udp_encap_recv(struct gtp_dev *gtp, struct sk_buff *skb)
 -- 
 2.53.0
-
-
 
