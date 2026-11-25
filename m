@@ -1,59 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795621105;
-	b=g4qchhzy8sSCqQjsQ7xwhJ6KYMZLxgAO53PNwL5+ywsuhtyLG+35fpAeam70WARFiaFv
-	 dbVIxBIJVMNB1DFsbGm1lZF53Q92GXPQC83H+YkI4hXplCRFiqFn5NKeTH+/IFuhDasjO
-	 qeADsDE/X07lw0BA5xGSeMvoq4pt77yNS5J0jJRUn2LwzVtiRRjBRfS0owmWyNSM99Ncg
-	 63brzEb23Z1kD9RBmR4QQoZU67Fv4L+2UinaW6LFYTNrEmoKgZTvDxoRrARLjdYpbUIJZ
-	 GU02OZgePZ58LGK2vQ8ghqynzQ8yrjorI80i+GBtoWmXbOuNGhCoOlpdWfObLokLIkg==
+	t=1795621107;
+	b=r0l6SWZXL7JlV4+vigtC1mtFgR+0+MB6svvoO3zTqJ3jQvci32AA0a+7CMcNo5UoxuJt
+	 7NveyroXOE2ED/Jv5auiJvvkbdudn/SJ1QdsLYjhmrJ2JbW2Br3pgl8mrfT7Y01feH6sH
+	 wvdO81QiTEOrnIJWWxuu+h44Jt1BJNdUH/OCbOMIT08Ca6xo9aB4co38RFoTrescTPYf0
+	 1rtKH7cyR3beX+ebJvwBO/w+0ZBMQrf8TmVgY9OjpLAmPoYQ/e0PvXmP89rtV836dn1EQ
+	 ljp6X1Sphn2sZVj8o+zUl2slAo6HwVV4miCmd3vVuVPlB5t2k0a3UcH16P8WHT9Q1Fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795621105;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=AX2VK8Br1R7BbmK/Qggqwkn18wdTbh3EJw2EW3oJH2s=;
-	b=rXwHWVTcWG+JHJxqL0Zp5vE4pZPg1Ylyzx5oa+d/sS5jSs6wznvPFaLIdIPEry65FFL4
-	 oc1JVo9MEH+Kt1JUDXh3DSiZwGac9kPtdyk6YP1ZI6vbABP6lpQ213eHHf7UN8bZAdWv5
-	 mpNYXb8yKvdrcKl10hm2WvEnQ2VVxjXSyMBxcPt78m7ql0DtA+gznYKUpmd6jSDGob807
-	 zIEAHpUPtio1tDSsGWIYMTXD9i8vUQtZJ6s0yRJgScmrdiX4wq7+Bras2ys1vEwUSMYnT
-	 PByWnNb3PtJL3REX1cnc9MgSh+AcKhk6jAAGZM4wJKsQwRe9e+OnHjxBlOLTpdoKLKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795621107;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=zKCR4oP/mX5BJ7mTpADOUsC3cnHnHzXBJf9HdDltW00=;
+	b=ckKa3yR6TkfvmGTDJGm8BwKLNo6B7ky495ofXX1fam3gw4v6D//jULtnB0eBTqDhUrPt
+	 Lpn7ewcHCGIzxK674v7QMxI6fNK2AllR6AAppdH8kbcqDoGaqTQqx/6KEnOSOKG9v8WrH
+	 9s0rFJU8+XmfIOlgfAjryOzcVIWCGkex7il4O1QXTOSDNlijlmtzYX72QBE4tZaKxcfa/
+	 hwrLiTt8B7ePSxsnyLJBt9bNt/GJ5H8CwkHwnoJVkJL5b4C30VOBPryL6rFcSQ4mD9Mfy
+	 zZkWVT4W5eJFGRvlPjGgPaCXNimWykdqj5RD6Y1DTktQ+OXG/ZilP6fxlLxm9n3pl9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=08xtOn1g;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=RujuUyP2;
+	arc=none smtp.remote-ip=216.40.44.12
+Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB850606A31E;
-	Wed, 25 Nov 2026 15:38:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B892D606A31E;
+	Wed, 25 Nov 2026 15:38:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B892D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=08xtOn1g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08CBB1F000C0;
-	Wed, 25 Nov 2026 15:38:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795621105;
-	bh=AX2VK8Br1R7BbmK/Qggqwkn18wdTbh3EJw2EW3oJH2s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=08xtOn1gF+jLY78Xe4mx5HK2zwWN6++HtbJt5JBNtSwVCksbCHvbjqVbjOfGmuji5
-	 LEPv9LWUPN+jKlkZ4s5XMcyMtzMsvWb5AUNzMNQXqqpC3kxv9VDovqVFEmBL8TLDaC
-	 7k2iIjS4ZSOV/6qFRSVTpGaC/q5LKx3XEwMrrS/s=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Xiang Mei <xmei5@asu.edu>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 124/990] bpf: Reset skb->cb after an lwt prog pushes an IP header
-Date: Wed, 25 Nov 2026 15:24:51 +0100
-Message-ID: <20261125143824.993645001@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=RujuUyP2
+Received: from omf07.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay03.hostedemail.com (Postfix) with ESMTP id 4EB4BA0FB2;
+	Wed, 25 Nov 2026 15:38:25 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf07.hostedemail.com (Postfix) with ESMTPA id 7154120037;
+	Wed, 25 Nov 2026 15:38:23 +0000 (UTC)
+Date: Wed, 25 Nov 2026 10:38:22 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: Wenwu Hou <hwenwur@gmail.com>, mhiramat@kernel.org,
+ mathieu.desnoyers@efficios.com, linux-trace-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] tracing/hwlat: Bind the sampler kthread instead of
+ setting its affinity
+Message-ID: <20261125103822.2129a7ec@gandalf.local.home>
+In-Reply-To: <awbklFE66PIMKFop@localhost.localdomain>
+References: <20261125084600.2306377-1-hwenwur@gmail.com>
+	<awbklFE66PIMKFop@localhost.localdomain>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,116 +62,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout06
+X-Rspamd-Queue-Id: 7154120037
+X-Stat-Signature: g1hnmyttzo9tnhqq1u7kt8xf6sj8zk7u
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18umlukJvwoHDIfgGPDrfhRzvlEEpeAWz0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=zKCR4oP/mX5BJ7mTpADOUsC3cnHnHzXBJf9HdDltW00=; b=RujuUyP2JA1/EKN9fCHIzUbuH/rHGhTDNiAYFJpsXYIG/rbIoNGXl8Vbn5eBNAqA1QJAvDtV3GHTjk8faEQHcknTT/rOqBpWj4wya71U/5otjtLhZJmOHAgP4fZJBWUaQPJKU91IsKLt8vv8nQQ3WF1sWHTJfRqqC6Vt7o/dlLg=
+X-HE-Tag: 1795621103-29035
+X-HE-Meta: U2FsdGVkX19yRzOLkjBZpHGVK2kE7mt94uJO6OGBXapd17g13p5lNTl4H5e6JHuZan1oeBo4aimNmcLhWh98oG2jiAIOx+yf7wwCw6pIxRYDyZ9Pv7Gsg9K4/cLKCQ6/0tPQ9Oin9huMX63XXFTYkjrXYHYd5FSJ2WKGVXQa2Mn0/jcAqnYDQE6+SPwEvNnQoAjvunl3rrgSciYMduevyX0V/4dOCVPNEPIbgkd1UK7fCu3NnxnLh5olHlkEDgsyxaSjP1G7wf6jojkOHKCckZlLyg4TX1SJdnGXqdr8M+J3iGur5noW+r1aZtLNtbHMF4y0bZ5YO/8/cx9m+rI8FAmUy4OIILzK
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+On Wed, 25 Nov 2026 14:37:24 +0100
+Frederic Weisbecker <frederic@kernel.org> wrote:
 
-------------------
+> >  static int kthread_fn(void *data)
+> >  {
+> > +	unsigned long flags;
+> >  	u64 interval;
+> >  
+> > +	/*
+> > +	 * kthread_bind_mask() sets PF_NO_SETAFFINITY to keep the initial
+> > +	 * affinity from being overridden by kthread_affine_node(). Clear it
+> > +	 * now to allow userspace affinity changes and cgroup migration, but
+> > +	 * keep per-CPU threads bound to their CPUs.
+> > +	 */
+> > +	if (hwlat_data.thread_mode != MODE_PER_CPU) {
+> > +		raw_spin_lock_irqsave(&current->pi_lock, flags);
+> > +		current->flags &= ~PF_NO_SETAFFINITY;
+> > +		raw_spin_unlock_irqrestore(&current->pi_lock, flags);  
+> 
+> This is not pretty but moreover, is it a good idea to let the user override
+> that affinity?
 
-From: Alexei Starovoitov <ast@kernel.org>
+No, but we used to. Perhaps we should make that not possible instead? :-/
 
-[ Upstream commit b3ad42f6183286ab376389a5d26edf7ee3bdba27 ]
-
-IPCB(skb)->opt holds the offsets from the network header to the IPv4
-options. But bpf_lwt_push_ip_encap() moves the network header and does not
-change IPCB(skb). Then ip_forward_options() and __ip_options_echo() use the
-old offsets on the pushed header. Thus the kernel corrupts the skb and the
-stack. If the family changes, the kernel also reads IP6CB(skb) as
-IPCB(skb), or the reverse. With CONFIG_IPV6_MIP6, it reads IPSKB_FORWARDED
-as frag_max_size and adds a needless fragment header.
-
-Reset skb->cb after the prog. bpf_lwt_push_ip_encap() cannot do it, because
-bpf_prog_run_save_cb() can restore skb->cb. For IPv4 in IPv4, clear
-IPCB(skb)->opt as ip_tunnel_xmit() does. If the family changes, clear the
-cb of the new family but keep iif, because ip6_forward() gets the input
-device from it. Behind a VRF, skb->skb_iif is the VRF device and cannot
-replace iif. Do nothing for IPv6 in IPv6, as in seg6_do_srh_encap().
-
-Do the reset in bpf_input() only after a push. Without a push,
-ip_forward_options() needs the offsets. Do it in bpf_xmit() before each
-reroute, because an lwt_xmit prog can also change the options. Thus after a
-reroute without a push, ip_options_fragment() leaves the options in all
-fragments, and ICMP errors echo none. After BPF_OK or BPF_REDIRECT the skb
-goes to a device, thus bpf_xmit() does no reset. The inner IPv4 checksum
-can still be wrong after ip_rcv_options() changes an option.
-
-Fixes: 52f278774e79 ("bpf: implement BPF_LWT_ENCAP_IP mode in bpf_lwt_push_encap")
-Reported-by: Xiang Mei <xmei5@asu.edu>
-Suggested-by: Daniel Borkmann <daniel@iogearbox.net>
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Link: https://patch.msgid.link/20261101190535.1454146-23-alexei.starovoitov@gmail.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/core/lwt_bpf.c | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
-
-diff --git a/net/core/lwt_bpf.c b/net/core/lwt_bpf.c
-index 7e011fd3a60ff..f215978d10a3b 100644
---- a/net/core/lwt_bpf.c
-+++ b/net/core/lwt_bpf.c
-@@ -86,6 +86,32 @@ static int run_lwt_bpf(struct sk_buff *skb, struct bpf_lwt_prog *lwt,
- 	return ret;
- }
- 
-+/*
-+ * skb->cb still describes the IP header that was the first one before the
-+ * prog ran. The option offsets in IPCB(skb)->opt are wrong for a pushed
-+ * header, and a header of the other family needs the other layout. iif
-+ * stays: behind a VRF skb->skb_iif is the L3 master and not the port.
-+ * bpf_lwt_push_encap() cannot do this, because bpf_prog_run_save_cb() can
-+ * restore skb->cb after the prog.
-+ */
-+static void bpf_lwt_reset_cb(struct sk_buff *skb, __be16 proto)
-+{
-+	int iif;
-+
-+	if (skb->protocol == proto) {
-+		if (proto == htons(ETH_P_IP))
-+			memset(&IPCB(skb)->opt, 0, sizeof(IPCB(skb)->opt));
-+	} else if (skb->protocol == htons(ETH_P_IP)) {
-+		iif = IP6CB(skb)->iif;
-+		memset(IPCB(skb), 0, sizeof(*IPCB(skb)));
-+		IPCB(skb)->iif = iif;
-+	} else {
-+		iif = IPCB(skb)->iif;
-+		memset(IP6CB(skb), 0, sizeof(*IP6CB(skb)));
-+		IP6CB(skb)->iif = iif;
-+	}
-+}
-+
- static int bpf_lwt_input_reroute(struct sk_buff *skb)
- {
- 	enum skb_drop_reason reason;
-@@ -120,6 +146,8 @@ static int bpf_lwt_input_reroute(struct sk_buff *skb)
- static int bpf_input(struct sk_buff *skb)
- {
- 	struct dst_entry *dst = skb_dst(skb);
-+	__be16 proto = skb->protocol;
-+	unsigned int len = skb->len;
- 	struct bpf_lwt *bpf;
- 	int ret;
- 
-@@ -128,6 +156,9 @@ static int bpf_input(struct sk_buff *skb)
- 		ret = run_lwt_bpf(skb, &bpf->in, dst, NO_REDIRECT);
- 		if (ret < 0)
- 			return ret;
-+		/* An lwt_in prog can change the length only with a push. */
-+		if (skb->len != len)
-+			bpf_lwt_reset_cb(skb, proto);
- 		if (ret == BPF_LWT_REROUTE)
- 			return bpf_lwt_input_reroute(skb);
- 	}
-@@ -307,6 +338,8 @@ static int bpf_xmit(struct sk_buff *skb)
- 		case BPF_REDIRECT:
- 			return LWTUNNEL_XMIT_DONE;
- 		case BPF_LWT_REROUTE:
-+			/* An lwt_xmit prog can also write to the options. */
-+			bpf_lwt_reset_cb(skb, proto);
- 			return bpf_lwt_xmit_reroute(skb);
- 		default:
- 			return ret;
--- 
-2.53.0
-
-
-
+-- Steve
