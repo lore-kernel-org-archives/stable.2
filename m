@@ -1,47 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795601738;
-	b=3k4VXxs4FL91iFGZMHvXX7kH53V4051htQTuxkBmvm1juoh5vNV3yxnoSby2dW5vqav1
-	 mdGSTvvpQqhfce90yOlnYwQ7t01R2ZyPcfnb1DZBDwgx7JqFOayMqSQORYMGPQNYjVnF/
-	 r9oRTHaT4/RNmXLvdXODf2yWrlwc3P1LTDfSD3fWc3IHXWOZMx06mdq28EesKNvAuT3Mr
-	 nkWlQGmPoDhpdy0c/D67ZCa3VZM29e6mdifomDTe9IaSbgkVmHJ9GyhRTIN4YW+ZwDTEm
-	 oeZbdDU5zZ5oq2QimmX5Rpq2ry5pJipDaNqsJxdGSimc3jgTTN1Yh1+LP2CtEoJWrAg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795601738;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=eqHXyc8WJEin7dgT8XNE7C77zQYt4IAJAZzyBASlFd8=;
-	b=VJKCbd/JkxLbW34CgO/NMnkPnP7Y7bEAuaFwE+W3xub5r4mEnEQNfNrR3FyU3mgaldAc
-	 g/8PBOFqcZktX3K60KTe1aRmMSoXx8AJLCWjqW9hTcV32Db19a1h/0+6gqwdtRycAJAMH
-	 uzgrnFcjbL9sglt+2tTCazgfHhET9HAD9yhyoQm9nKzGzj/0TpmA3VvbzFHIEnk5juBcU
-	 pzxQri/Ih0IetxoI8+PZ2XqzpqAeoCuXJY8oBNLk0Tda9JBgKT3uPTKL2QmRHFgru6x48
-	 yP4PXQHUvpTcpstLnCw6ICbqBGi+onmnKgvd0JKVTGtcyKTwVGtrSKzYTb3+4ShU3MQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UHQjKMNv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.3
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795601766;
+	b=16u/ol4dUyIeVWbhNAj+74k3fb6HJytF+7WoY6tCR3Kxz6dCWesiW+Td5SmMxNSy4M8e
+	 Uqr/NK+mBPHd/gIMVLkOXGIGaZNstRbujKgAAgZyiHlwDqvpepM1c0v46lfEnEo+Iedbp
+	 pqnObWWazBPB1kcLt89XU4pSBuhlKqARy6PthUL5OHLNcqZGczQohGLhbZtOBvCxT797r
+	 eCmiSWtRjN7vDkDODp+O1nl/iV103w5bpclLX/lDwaK2/QDnzx24vKzMDGr+//mLDNkD8
+	 fhCpIuT+j+tPtWAf2em9FGu7vPhANTkjl+6Ff42HS6teehj27lQPP+y3exh5fulNG9g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795601766;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=8hqibYh/g6E67vpD3DM/hceeU3qTFoSGKDTGH8gSBNM=;
+	b=xjOqpZEayjexFNT69f5nhMkDRiWwqUlC47OQEesGfnSRUPMBlGF8sN9ZnrugP5cbigoC
+	 NPXg97ilTXBAgBy7V/6iMb1+EKWZ9B+BcPFA/lR2tcLekZ1K1YuOFYRyYdH+wVc09HQYR
+	 1V80edx6OSe7jsPJ/yff/HIZGhyU0vsrHlAdl+8iBr65/zcyqCJc8RP4vxn2nlXARNsyF
+	 E/nXSse3IWuBGeMbNxpilIo0jtO3d8Ts+2oVdlbMgMvslNx8xcGk7VNrTHd8sjuUDjmuA
+	 uwcFQyTW1q4KnO3+Uxc6vqnQUUIcgzY5mmqZb49kCbT0Tn7q7le7/yElKUhcl/xtg2g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=renesas.com;
+	spf=pass smtp.mailfrom=renesas.com;
+	dkim=pass header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=o+dgep5b;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.3
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011003.outbound.protection.outlook.com [52.101.125.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD658606A335;
-	Wed, 25 Nov 2026 10:15:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E78606A327;
+	Wed, 25 Nov 2026 10:16:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6E78606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UHQjKMNv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0AD41F000C6;
-	Wed, 25 Nov 2026 10:15:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795601738;
-	bh=eqHXyc8WJEin7dgT8XNE7C77zQYt4IAJAZzyBASlFd8=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=UHQjKMNvOiHYUyjVzNV0kB45H4NH1B6EaI9P4mzK4PUeT+a4j4j7Wqvjv7AcA20a9
-	 NG9dG2KeGflAE+/JYN+XvSdydgMLmGIZSKJs2sLj9NX6k2fdlkrML8ASlHrnXemiIi
-	 27X3b3lRP2aZWPVo3WFzurKKIxHugrkrgjYrf4kiLgChbtVhPfEjJ/soW5Yci20fa7
-	 JyylEBJw+8jJNdQGWOHo08+sQgSpnFQj9LPOkImtVHizwfHaHccN2K3OofBi5jNUX1
-	 OAYlWueVzsadXA7b6UK9CRC6d/tEF4YpKePH5DEhmzCWGl+fPt5zDHUEdqE0AiWbe3
-	 YBpBwVqBf94Xw==
-Message-ID: <99e34b24-95b2-4153-9d65-1fded8f746cf@kernel.org>
-Date: Wed, 25 Nov 2026 11:15:35 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=o+dgep5b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bWeOn7rILS377PT6qsn7CgfUW9/ysxBbkxqbqDBjLhT7GyhWOlk16zUrr9IPxKZwg9/yGnm8RR1l+R8Qy1P+pZn4MEEFzklNtXYk07Q0F1/vGjd6Rhk1xaZnAImKktB6ftKTG5YpJOZa+LYv2rvBJ2pH3TUEgjr/3hdkYUvjAycyzXubS78/5RnWUDB2SHUBZvMFQKzlB4rWYrqzEbMicTtjRKHDPA00wQFoXd7+2jFJP8yqT6zCLGk69Huaxy2ktvOF/D2ki8ASyODvNYeSsOpckrIaGhohCBfcVyJ+vHXvHvxqKaDJK8ujJagZZoR8xMnwz/GIWJj7165N6J1ThA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8hqibYh/g6E67vpD3DM/hceeU3qTFoSGKDTGH8gSBNM=;
+ b=QKVgCQSnnkjAMTnr5GR1ck+NaJZDRFFNsyjK0G1dkqXMGCZ41K1ubafLhTGeEPMn6Jy9gnlXC1o2JIvgjnIJMUXzRDPwtZkUNUSuu0Jepu1XSOfa7T5O85DxEGTZEUbs45VLgOKMV4rVDxBxbeBxA7cw80SDBpZQAVU+QiZh6NmbOTWFd1BNFvnOwdENaFjWtInVu75xBdU+u99xUlL5lNNGo0UPLMkYCUAVTu6jcAwuPQ7YMHLQw0y4O9vfJUzUG4xoCKzC5dQ0KHCnkLFWoBqgvoF0JH0nvhpvhdL9xMU0lUhTDH6iXbWkpfq+SXZrXxtR+BWmF8nmMwLoiQD7vw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8hqibYh/g6E67vpD3DM/hceeU3qTFoSGKDTGH8gSBNM=;
+ b=o+dgep5bOrgDxQhKq97aVL+L6VktyCCSWtomVSnHOPhz/9Cn6m7dUOMWhylYs3Mdv8Gc15cHPd7CdwE3dDkgL0GlQLW48OW9/Ci/iqheFFesVoByqUKIJZNYMO/aXtXKZjpCGyjFABaRP1kfvv5i4fc9BZp5qWo90TfDBTweMXQ=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TY4PR01MB15109.jpnprd01.prod.outlook.com (2603:1096:405:283::5)
+ by TY7PR01MB13826.jpnprd01.prod.outlook.com (2603:1096:405:1fd::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Wed, 25 Nov
+ 2026 10:15:57 +0000
+Received: from TY4PR01MB15109.jpnprd01.prod.outlook.com
+ ([fe80::eaac:e6c3:ef79:e511]) by TY4PR01MB15109.jpnprd01.prod.outlook.com
+ ([fe80::eaac:e6c3:ef79:e511%6]) with mapi id 15.21.0662.004; Wed, 25 Nov 2026
+ 10:15:57 +0000
+Message-ID: <a394e1f4-1a4e-4dda-a39a-5ae7322dc849@renesas.com>
+Date: Wed, 25 Nov 2026 10:15:48 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] i3c: renesas: Fix MDYAD(x) field length
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Frank Li <Frank.Li@nxp.com>
+Cc: linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261001-divo-ssgrlpcsrc-2966-i3c_mdyad-v1-1-2250225e6d20@renesas.com>
+Content-Language: en-US
+From: Diogo Ivo <diogo.ivo.sx@renesas.com>
+In-Reply-To: <20261001-divo-ssgrlpcsrc-2966-i3c_mdyad-v1-1-2250225e6d20@renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0333.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ea::8) To TYYPR01MB15118.jpnprd01.prod.outlook.com
+ (2603:1096:405:1a1::11)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,261 +101,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v5] media: hdpvr: fix out-of-bounds read in hdpvr_read()
-To: 25031212351@stu.xidian.edu.cn,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Bin Yu <byu@xidian.edu.cn>,
- Cheng Wen <wencheng@xidian.edu.cn>
-References: <20261121102551.11263-1-25031212351@stu.xidian.edu.cn>
-Content-Language: en-US, nl
-In-Reply-To: <20261121102551.11263-1-25031212351@stu.xidian.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY4PR01MB15109:EE_|TY7PR01MB13826:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8109cfc-51cf-43be-eb25-08df4add186f
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|10067099003|56012099006|11063799006|261026121527099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003|261009221227099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	kzia0ciUKd4Rpyppbeo1YA55a7jWRc1SIGuUCdDP9psh5J4Ps0d9evpkuleVFSXuEW8txZKZ5pDUGO3u+4d8kWUJQ+coZBwNVmOdj2JLH2CfSAs5Bi2dLQgJ2HaUvI3R91R5YrnKC4cZeaOC1u2EsLUnDyfW5pyBN5IDSQ4DHqwvhuKWjCeHVn8oLApP5/Dvn/4+PuTEL7QeRstrIu1n14/G/y6EQDU/wULtYMqJ6ogTMfW5N3n62hr9pihncusLP8KIBuZsn81YoTWdItz4m9R98WsV9DZ1SOs16eEJrGsUEY6zc+nLcERk/qo2nXcGtxc4eZPrPWo6IorwURHL08tgmKTLQozBO/sFVYjBOvnkKvmeBhNjGz8V+NLU81RAbwO1EBuYl9x7U9M0qdOZ0XNaIC7Ospjh4/tDUCf8TQRPbSFWpwRZp8JgiCzMFf2hY8/agPqN/e7kU8aVdGITqfnB6fRk3QkgBI/+nUH/8M/5zZvmiLTUsZTLC4ykhMv5mb9kF0cu+gSNciep6zkwoudHv0+ce1U6ljWaQhCqMW5K6BPOhLXJUe5rz4QVMhwLpkou34/pxWCz4filS+fJroYDAdB4vtT+6n3sZL7A+rERk4keKeI2Cc3IO7eeOhHGekwMU/hc5MMYZAMzGev+2YoO2zm/5IL8LaVn2py+/SQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY4PR01MB15109.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(261026121527099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(261009221227099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VytDWWt2UkZ4NmdxUzlIeEd4dWpFN3VEcEdwQS9xVG9lelNSQnRVTnN1RHpX?=
+ =?utf-8?B?Q2dFc2s0VmVKalBucEo2SkpHSkFLVG5ZWEd0SCtETmptNCs0alVlMHdCZjhM?=
+ =?utf-8?B?cGxlb25FeHJtTTJwVG5aVmpvcW82ZU1tdHhRdlZNL0tRN2tkbEhiRFJ0ay9O?=
+ =?utf-8?B?UGVYOXl0RTBKaGdMSmlwZzliTnRQUXU5azNEVDVxMy85dG5jZE1xN1lCQlll?=
+ =?utf-8?B?Y0R0dGM5am9TeFRzVFlZOEE2MUJsTHRhb2ZtbFA0d3Y4eVZGWnovUzZGRVpp?=
+ =?utf-8?B?bGh0NUtFdXA3MWdjUUpNM1VPRUlkdElnT3J6UDJCMTFSZFB2OXFCQWhCL2F5?=
+ =?utf-8?B?L1NLdU5wVXpnenBjcmptbmdDM1RzYW80amZ3WFprMzZuL1dWSjNWZno4Zk5P?=
+ =?utf-8?B?Q2ZLZUt4QzZqWTYycmdSMTdSZ3JoTm9NblRzUUcxb2dwbnJneFdPQUQ2bWpa?=
+ =?utf-8?B?Q2tkaW5rRVEyMnlsUll0d1FIYkhwZnVGbFUxQXlPbmZQcmVwd1dxTGNFMHlj?=
+ =?utf-8?B?Qm1sZWljS25Jc1lLMHl2MCtFa1JRcGU0a2hoV2pialRqUE1rcjJDY0QyNTZ3?=
+ =?utf-8?B?UXhpeDhZZXhLNm92T1N6ZUZIaDZpYllhTGFwQXJabU9wMzAwa2tGeGEyL2gv?=
+ =?utf-8?B?b2JldVhDK1hwUGpoZE9QR0orMGVlakhBVFI0aE1DMlF2QzY3RkcvNWd6TjFF?=
+ =?utf-8?B?WjdSZUwrT1dmMkxhaFpsTUQ2NU1UZ1VzalNSK1JOaGF3eGQ4ajRFaDVOYkQ4?=
+ =?utf-8?B?TmgrbklFUVZzZDBjdXR3M0d0dU11Rm10UVgyaG1kSC8wa2o2NWd1RUpSaXF0?=
+ =?utf-8?B?cUh0K00zb3JpK3BJNmh2SkI4eFlYWlk1Q25QS3pxak1ueThJZW9JUkZDc2Jv?=
+ =?utf-8?B?VEZLVWdHcmtkYzF2cEYza0NXdUIxNGdzM3JOcHdoNktzVWpyMjViUFJWOGZi?=
+ =?utf-8?B?TTlQSlZ5ejVsajI5ckhYRFNQOFQvYWdFRHRORmlNQ3ByNnBKTlRZcnQwL01I?=
+ =?utf-8?B?TE95TjB0c3NaVWlhcFVBYlMxMWtRRy9VbEtRTFVxZ0NyRHJ5VTJ3ditxcXJ6?=
+ =?utf-8?B?R3YrQUtiOUZNVldMU2laU0kzK3dGaTZnMnc5UXU4OUNTVEJINU1ZalRPdmZD?=
+ =?utf-8?B?YmpYbFhrVmhiUnZ6NUZZYi8zRFFjRGd4eldJZk5vaExlUDQ5SElVOCtSVU1U?=
+ =?utf-8?B?TDA5YXdMQk5USVRUWllPMk1ZRDBaUWlkbVdNNllJRlBPWlRqTURvam5jVzRp?=
+ =?utf-8?B?eWx4ZWtuazM1STJsL2JxNUo4NTVMUDRlRzBhaFBKNWtaNk1wc1Vua2JiSnp3?=
+ =?utf-8?B?RVk1d2lnd2l4ZU9zakRWR3ViemtNUG9GaU5jU3g4OW5nNnNrTlNNQXBRUFhx?=
+ =?utf-8?B?bzd3UUlpRFZXT1EvbWszMVRaSWdSQ05VS0duSzdyOVdKN2tiQnh1SytIWTFw?=
+ =?utf-8?B?OVQ5RGREMVpwNG1WcHFFUGhYdVdiU05YdVkwd05oNHp0WTRST0dKVzgyY3NE?=
+ =?utf-8?B?VzlERVB6YmdYWll6aDJlZUFORmFCWC82V0xzVVpjOWxhQ3VxNk15ekR0dDF6?=
+ =?utf-8?B?aTBhUW8wVHRTc0JrQ3ovTVdoR0pPQkdUQXJONGluREM3dlJYeE42ZXROd2g1?=
+ =?utf-8?B?V2NSeEJGMzdvaUpXTTVZOFI2aVhWS3hzUnFIUEdNSXNrUEJkOTNHaklucGd6?=
+ =?utf-8?B?aEs5MkRTUmVQZFh5VjU4blJVbWp4MTVYK05lZm9LZWlLdDlLbXQyRStvNk9P?=
+ =?utf-8?B?aHVZK0Rmd2xIazBGaXVWVHlkZUs3ZVNmalNIWW0za3p1MFVLTUs5djMzd2xP?=
+ =?utf-8?B?S1E2ZzN0VjNyOE5Ta2dHSmdsdEQxTUZRc2htZ1dmWGRXT1hsOTgvWjVHenFH?=
+ =?utf-8?B?K0pUeFRlSGo1NUwzbERPL2RIcnRMQnB3WDNrcFU2S1h5M2NPSDlVRU4rQXFE?=
+ =?utf-8?B?WFM3Z2xYcHNyejM0amZFUFRlcWFLRU9HbFlvK2t3SG5wcGFNZnp6ZXVKN3hT?=
+ =?utf-8?B?OFYxUThDckZiU0NrY1M1cUdQanZSSHhmdTg2MWtQdVIzelVMTHliZnQ2ZEov?=
+ =?utf-8?B?dE5yamwxd2l1MVBpYTRXbjFnQ1FGQXFBVnVMcktWR3dsd0c0LzBTKzc4RENP?=
+ =?utf-8?B?VGo3ZWxaaUw1NGo3QnkyMUZjejZ6ci9rQkpjR1czUCtIVENoaWhoSFBGZU8r?=
+ =?utf-8?B?dEU0UlZERExFdlBITVl5SjdrK2dIb3duWm9jdnc0dzJuT3cyVFhwVDdSa0px?=
+ =?utf-8?B?anBJcXE5aHNnemRwdmMxWWY2Q2h0WDgrbXpHL1FQWHRsUkcwUm5IdFBkSDRR?=
+ =?utf-8?B?dDUvKzZPZ0ZwYm9RSkY3b25jVUc0blFmOGhwS1dCWEJoQXFDdTlMdz09?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8109cfc-51cf-43be-eb25-08df4add186f
+X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB15118.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 10:15:57.3336
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tnn5oAqwF+X2Sc6s9rLa9d3z4nzRvm/D3g1wWE84RJGitCpYXUJg4E9o6keyzT10qd8N6m3todlqy9ZoQ937Rw+9k2kSLd9a+rvtikQrVN8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7PR01MB13826
 
-On 21/11/2026 11:25, 25031212351@stu.xidian.edu.cn wrote:
-> From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Hi all,
+
+On 10/1/2026 4:10 PM, Diogo Ivo wrote:
+> Fix the length of the MDYAD(x) macro to be 7 bits as it represents an
+> I3C address, which is 7 bits. The length of this field was confirmed on
+> the documentation of the RZ/G3{E,L,S} SoCs.
 > 
-> hdpvr_read() computes the number of bytes left in the current buffer as
-> urb->actual_length - buf->pos and uses that as the length for
-> copy_to_user(). buf->pos is a plain unsigned int that is neither reset
-> when hdpvr_cancel_queue() recycles a buffer nor protected by
-> dev->io_mutex.
-> 
-> After hdpvr_stop_streaming() has killed the URBs, the buffers are put
-> back on the free list with their old position, and the worker resubmits
-> them with urb->actual_length reset to 0. If the next transfer completes
-> with less data than the position a reader has already consumed, the
-> subtraction yields a negative value. As rem is an int and count is a
-> size_t, the comparison "rem > count" is then true, so cnt becomes count
-> and copy_to_user() copies count bytes starting at
-> transfer_buffer + buf->pos, which can be past the end of the 8192 byte
-> transfer buffer. Two readers of the same video device can corrupt each
-> other's position in the same way, and buf->pos is read twice, once for
-> rem and once for the source address.
-
-There cannot be two readers active at the same time. I think that is
-actually the core bug: hdpvr_read does not return -EBUSY if another
-reader is already active.
-
-vidioc_encoder_cmd has those checks, but it is missing in hdpvr_read().
-
-I did some testing on my HDPVR, and I can confirm that it incorrectly
-allows for two simultaneous reads.
-
-This must be fixed.
-
-That will probably address most/all issues that this patch tries to correct.
-
-So make sure you can't have two readers at the same time, and see if that
-fixes the kasan issue. It might be that you still need to init buf->pos to 0
-in a few places, but most of this patch can be dropped.
-
-Regards,
-
-	Hans
-
-> 
-> A KASAN slab-use-after-free read of 4096 bytes was observed in
-> hdpvr_read() with the source address 1281 bytes past the end of the
-> transfer buffer; the pages following the buffer had been recycled as
-> slab pages. A second report with a 42 byte copy was 25 bytes past the
-> end of the buffer.
-> 
-> Fix this by reading the position once, by using min_t() so that a
-> negative remainder cannot be turned into a full-size copy, and by
-> accounting the consumed bytes in hdpvr_account_buffer(), which recycles
-> the buffer once it has been read completely: the position, the status
-> and the buffer lists are updated in the same critical section.
-> 
-> The helper only acts when the buffer still holds the transfer that was
-> read from. A reader can sleep in copy_to_user() while another reader or
-> a stream restart recycles and resubmits the buffer, and the new transfer
-> may start at offset 0 as well, so every buffer carries a generation that
-> is bumped on submission and is checked along with the position. For the
-> same reason the head of the receive list is re-read after each copy
-> instead of keeping a buffer that may meanwhile have been queued behind
-> the reader's back.
-> 
-> Reset buf->pos when hdpvr_cancel_queue() discards the buffers as well,
-> otherwise a restarted stream either skips the first bytes of the new
-> transfer or drops it entirely.
-> 
-> The buffer status is printed while dev->io_mutex is still held, as
-> print_buffer_status() walks both buffer lists.
-> 
-> Fixes: 9aba42efe85b ("V4L/DVB (11096): V4L2 Driver for the Hauppauge HD PVR usb capture device")
+> Fixes: d028219a9f148 ("i3c: master: Add basic driver for the Renesas I3C controller")
 > Cc: stable@vger.kernel.org
-> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
 > ---
-> v5:
->  - Bump a generation on every submission and check it when accounting the
->    consumed bytes: a reader that slept through a recycle and resubmission
->    could mistake the new transfer for the one it was reading, as both start
->    at offset 0.
->  - Re-read the head of the receive list after each copy instead of keeping
->    the buffer, so a reader never waits on a buffer that has been recycled
->    and resubmitted behind its back.
->  drivers/media/usb/hdpvr/hdpvr-video.c | 86 +++++++++++++++++++++------
->  drivers/media/usb/hdpvr/hdpvr.h       |  3 +
->  2 files changed, 70 insertions(+), 19 deletions(-)
+>   drivers/i3c/master/renesas-i3c.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/media/usb/hdpvr/hdpvr-video.c b/drivers/media/usb/hdpvr/hdpvr-video.c
-> index 4290b2367fa3..c7b55962d986 100644
-> --- a/drivers/media/usb/hdpvr/hdpvr-video.c
-> +++ b/drivers/media/usb/hdpvr/hdpvr-video.c
-> @@ -92,6 +92,8 @@ int hdpvr_cancel_queue(struct hdpvr_device *dev)
->  	list_for_each_entry(buf, &dev->rec_buff_list, buff_list) {
->  		usb_kill_urb(buf->urb);
->  		buf->status = BUFSTAT_AVAILABLE;
-> +		/* the data is discarded, the next transfer starts at 0 */
-> +		buf->pos = 0;
->  	}
->  
->  	list_splice_init(&dev->rec_buff_list, dev->free_buff_list.prev);
-> @@ -210,6 +212,8 @@ static int hdpvr_submit_buffers(struct hdpvr_device *dev)
->  		urb = buf->urb;
->  		urb->status = 0;
->  		urb->actual_length = 0;
-> +		buf->pos = 0;
-> +		buf->generation++;
->  		ret = usb_submit_urb(urb, GFP_KERNEL);
->  		if (ret) {
->  			v4l2_err(&dev->v4l2_dev,
-> @@ -246,6 +250,42 @@ static struct hdpvr_buffer *hdpvr_get_next_buffer(struct hdpvr_device *dev)
->  	return buf;
->  }
->  
-> +/*
-> + * Account the bytes consumed from a buffer and hand it back to the worker
-> + * once it has been read completely.
-> + *
-> + * The buffer may have been recycled and resubmitted, either by another
-> + * reader or after a stream restart, while copy_to_user() slept. Its
-> + * position and its place in the buffer lists then belong to the newer
-> + * transfer and must not be touched, so only act if the buffer still holds
-> + * the transfer that was read from. The generation tells the transfers
-> + * apart even when both of them started at offset 0.
-> + */
-> +static void hdpvr_account_buffer(struct hdpvr_device *dev,
-> +				 struct hdpvr_buffer *buf,
-> +				 unsigned int generation, unsigned int pos,
-> +				 unsigned int new_pos)
-> +{
-> +	bool recycled = false;
-> +
-> +	mutex_lock(&dev->io_mutex);
-> +	if (buf->generation == generation && buf->status == BUFSTAT_READY &&
-> +	    buf->pos == pos) {
-> +		buf->pos = new_pos;
-> +		if (new_pos >= buf->urb->actual_length) {
-> +			buf->pos = 0;
-> +			buf->status = BUFSTAT_AVAILABLE;
-> +			list_move_tail(&buf->buff_list, &dev->free_buff_list);
-> +			print_buffer_status();
-> +			recycled = true;
-> +		}
-> +	}
-> +	mutex_unlock(&dev->io_mutex);
-> +
-> +	if (recycled)
-> +		wake_up_interruptible(&dev->wait_buffer);
-> +}
-> +
->  static void hdpvr_transmit_buffers(struct work_struct *work)
->  {
->  	struct hdpvr_device *dev = container_of(work, struct hdpvr_device,
-> @@ -415,6 +455,7 @@ static ssize_t hdpvr_read(struct file *file, char __user *buffer, size_t count,
->  	struct urb *urb;
->  	int ret = 0;
->  	int rem, cnt;
-> +	unsigned int generation, buf_pos;
->  
->  	if (*pos)
->  		return -ESPIPE;
-> @@ -488,10 +529,25 @@ static ssize_t hdpvr_read(struct file *file, char __user *buffer, size_t count,
->  
->  		/* set remaining bytes to copy */
->  		urb = buf->urb;
-> -		rem = urb->actual_length - buf->pos;
-> -		cnt = rem > count ? count : rem;
-> +		generation = buf->generation;
-> +		buf_pos = buf->pos;
-> +		rem = urb->actual_length - buf_pos;
-> +		if (rem <= 0) {
-> +			/*
-> +			 * The buffer was recycled and refilled with less data
-> +			 * than this reader already consumed from it, so there
-> +			 * is nothing left to copy. Give it back to the worker
-> +			 * if it is still the buffer we were reading from.
-> +			 */
-> +			hdpvr_account_buffer(dev, buf, generation, buf_pos,
-> +					     buf_pos);
-> +
-> +			buf = hdpvr_get_next_buffer(dev);
-> +			continue;
-> +		}
-> +		cnt = min_t(int, rem, count);
->  
-> -		if (copy_to_user(buffer, urb->transfer_buffer + buf->pos,
-> +		if (copy_to_user(buffer, urb->transfer_buffer + buf_pos,
->  				 cnt)) {
->  			v4l2_err(&dev->v4l2_dev, "read: copy_to_user failed\n");
->  			if (!ret)
-> @@ -499,27 +555,19 @@ static ssize_t hdpvr_read(struct file *file, char __user *buffer, size_t count,
->  			goto err;
->  		}
->  
-> -		buf->pos += cnt;
->  		count -= cnt;
->  		buffer += cnt;
->  		ret += cnt;
->  
-> -		/* finished, take next buffer */
-> -		if (buf->pos == urb->actual_length) {
-> -			mutex_lock(&dev->io_mutex);
-> -			buf->pos = 0;
-> -			buf->status = BUFSTAT_AVAILABLE;
-> -
-> -			list_move_tail(&buf->buff_list, &dev->free_buff_list);
-> -
-> -			print_buffer_status();
-> +		hdpvr_account_buffer(dev, buf, generation, buf_pos,
-> +				     buf_pos + cnt);
->  
-> -			mutex_unlock(&dev->io_mutex);
-> -
-> -			wake_up_interruptible(&dev->wait_buffer);
-> -
-> -			buf = hdpvr_get_next_buffer(dev);
-> -		}
-> +		/*
-> +		 * The buffer may have been recycled and resubmitted to the
-> +		 * tail of the list while we copied, so re-read the head
-> +		 * instead of keeping it.
-> +		 */
-> +		buf = hdpvr_get_next_buffer(dev);
->  	}
->  err:
->  	if (!ret && !buf)
-> diff --git a/drivers/media/usb/hdpvr/hdpvr.h b/drivers/media/usb/hdpvr/hdpvr.h
-> index 84519c962cb4..4504fb58855a 100644
-> --- a/drivers/media/usb/hdpvr/hdpvr.h
-> +++ b/drivers/media/usb/hdpvr/hdpvr.h
-> @@ -139,6 +139,9 @@ struct hdpvr_buffer {
->  
->  	uint			pos;
->  
-> +	/* bumped every time a new transfer is started on the buffer */
-> +	unsigned int		generation;
-> +
->  	__u8			status;
->  };
->  
+> diff --git a/drivers/i3c/master/renesas-i3c.c b/drivers/i3c/master/renesas-i3c.c
+> index 28c0927a0179..8b264f72e55c 100644
+> --- a/drivers/i3c/master/renesas-i3c.c
+> +++ b/drivers/i3c/master/renesas-i3c.c
+> @@ -37,7 +37,7 @@
+>   #define  BCTL_BUSE		BIT(31)
+>   
+>   #define MSDVAD			0x18
+> -#define  MSDVAD_MDYAD(x)	FIELD_PREP(GENMASK(21, 16), x)
+> +#define  MSDVAD_MDYAD(x)	FIELD_PREP(GENMASK(22, 16), x)
+>   #define  MSDVAD_MDYADV		BIT(31)
+>   
+>   #define RSTCTL			0x20
+> 
+> ---
+> base-commit: 66b734f67a4a0a4c2313afb89033d5ab8b8f7523
+> change-id: 20261001-divo-ssgrlpcsrc-2966-i3c_mdyad-0ba701c9add9
+> 
+> Best regards,
+> --
+> Diogo Ivo <diogo.ivo.sx@renesas.com>
 
+Gentle ping on this patch.
+
+Thanks,
+Diogo
