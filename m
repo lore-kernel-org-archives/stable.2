@@ -1,60 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795604018;
-	b=sgFr4Ha5s7FGj2o5Iib3CMg8bBl3g5ezdRzmlSAfbtyDnDSeW3p/KSY0GIizn2XqopP+
-	 PB7vytxCKpe4sly0C1nWLSOzbGjY1lSR0TB8BkFatPmuVFsQJ3jAxW+Uvjvunml/8mm2F
-	 Gp4YaDoZfLCYRJyg4l4bOKclmoS9aTmBcCGESSAtCkxjKQ3grkCDyIq1Q1lNKf9KUKGzl
-	 0CPbhuCjqPonRT3DL/V0r6WKqDvDEbkBnUnwXuF22BWNQoYme446U+MnS2ibRyHNxdOiB
-	 Dggie8/rRMKourxZKq8OiFH2eLyDYgGTn9RcGka3GBGh/Wgf/CBCG29TTqRDRkPxH0g==
+	t=1795604186;
+	b=awrfi/1DjnJCbeugut9NDu5UaHdqZ2q8ni+yHkvjfIrKpWUNNLY+a03LvXV7uGX80FDQ
+	 XhxPzMRpIpjyQhwiTqMQbvJWfA7r+5Tei7oeJJeou/fJjDbmnA21yS81Aop5Nk+UMAECO
+	 U5+XQSKpv8hz8O1XrYfH9VPPnR8mgxnr6a+Ky1D894CR2BhVXluYQvB/VS9q44ClVRUx6
+	 4a/NsByT3WL1JWMdzp1sZFQPFIJBphslCxtHIumrVREpISrClqmuMnlsJu4tv36VdPx8/
+	 EGHYDIneaJU34o9DbwxnXL0puW2v73xmRQYZH7e0BzcEaCdftzQlsOjn2SnqOOHsz7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795604018;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=tWsJdisCnNUTJmEHgS/h0WoUaEKuAhcAElbM1LpemB4=;
-	b=CIn3BqMbwx/AzP2wU6/7/7RgQBCUX3hbKmBGP/2K1/u6/l4lF1ZBObxNec9mrqTCebCN
-	 vO/ocux1Qo8E19N+li3YB6oXlMpJnpiye6CqHJi0vygI/4q2LyV2jen6Kvv8n3UicSp4b
-	 12InnD+JxT/VMywaSvZh3s/hyks5yFU2h/smTO39Km8g01EdTUDxPwSh5eFj9+7CtVlF6
-	 LbckebMaMMn41LPzZo4BFwSygm6Yd/nu0uQ+WLqe6MLndsaWzwD0L5hxPInS9rvQZbYnU
-	 v2pVJHARnTsSJKcpYVOYz5nxbBl6lBZenPjBa84fDJfH6lTDUChTjrE7lqunocBpylw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795604186;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=FJOKwoI4nZDDgERDFtfVbeF2wwjtESDm04yE6n76iXo=;
+	b=4wWkGNboOSnakbiOJYYaQPl8hCEd3qMM9QFn2cXJL/mIYGl4FGq3dJNdUNN2B81AXU8s
+	 VgOf9fGOW/4Z10wNsWMi0gBi24U411zu/F7OqrmrrFjbQXScMKJFcRNs/ctyikOp6VfUb
+	 u7/CrEMQWN+YINfQuBkbzAMKqRCVNbfJIZwNSUl5lOA/E3s86EodRTQEk+H9W+DJQk5XZ
+	 M+rPVUe/Unv5BtIa2e1o5CHSAtOC8OtxuJ5LgbqH5AvsfOf5Cki8aPj8nQnAfw0lz1R8T
+	 At/ioqZxyR7OjjM65TIdM2JTUBAkQNpXDGAfE0noY9RJI5AGoC2IvhvnmB7n/8AStuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=PsX7C6IN;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uG5AoejD;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CCB2606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:53:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CCB2606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F2F606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:56:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69F2F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=PsX7C6IN
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261125105329euoutp026252b038b73716f4ccc27e1e6ed2ec5d~rRFU59U3i2375323753euoutp02d
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:53:29 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261125105329euoutp026252b038b73716f4ccc27e1e6ed2ec5d~rRFU59U3i2375323753euoutp02d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1795604009;
-	bh=tWsJdisCnNUTJmEHgS/h0WoUaEKuAhcAElbM1LpemB4=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=PsX7C6INOyWU4uuDG73v92fRc2SubDa3of/cmL5XL0D+qJ1asJZ6ANKUG4VUbyqPF
-	 b4CxQnlAFa/vv60WVDhCKsGzpNQ9zjshiMoF6TvD90Ua6Q5Yln3zqnmnCwey0qdd5c
-	 b+HGgl7O+oHluQiPMBONVljN6l2LsEbv18+sxGlQ=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261125105329eucas1p2d715a0441207737ec107c34452539dea~rRFUpzE1D2395023950eucas1p2R;
-	Wed, 25 Nov 2026 10:53:29 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261125105328eusmtip2ff03c8fe75050c8ba766a658a48b487b~rRFT-6FMT2375323753eusmtip2r;
-	Wed, 25 Nov 2026 10:53:28 +0000 (GMT)
-Message-ID: <c5dc8e9c-7fcf-44cd-8ed1-65c70d8c8bdd@samsung.com>
-Date: Wed, 25 Nov 2026 11:53:27 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uG5AoejD
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-49412eb1474so3626529f8f.3
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 02:56:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795604185; x=1796208985; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FJOKwoI4nZDDgERDFtfVbeF2wwjtESDm04yE6n76iXo=;
+        b=uG5AoejDVEKJJavEqPbereLnAU8Ll13LSLVcUCL8eUYTpcVslYfWhSmEKwt3SBWjpb
+         VUej4R5ove27BFmFWqgQEZgW/kNzN+bjCGHdXUE6tlC3w1o/eV4p90WX8hWQ7/io+dGL
+         jGL5Hxye9Fr95U//0dvbKmKG3R3BhilpHedV9TYyzzK/SLE5Jzw1GJ48+/fvs5P+NO7D
+         ygpvvQqTVAqqYwj06Vm97w0l+mh9kFaniPhDAltvmCyfpSaxzMMCeeRBgu8KDy5YBCBB
+         lz35EdmvGAKf+duNIkwMxGLr3fa9S3bdVs0MDReCCjIPJ5iM7R3Ww5vdAOX+H6Y6YMst
+         1dgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795604185; x=1796208985;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FJOKwoI4nZDDgERDFtfVbeF2wwjtESDm04yE6n76iXo=;
+        b=yaQQ2uNsbvh6YWHFjsUvPgBOZGa7G92UmnqxZa4iL4PrlW8J37ePMzIlh/u+D+Sy6S
+         5WmmJeB6POAPPfotVc+EBQqghQAqjjs2pQiaG5TzWT7fbNsVrOK9q2DDnVgxwkDhqk/E
+         EVIP3NSGpgvJvwfV9fvr69HRqlnHyjv8IEzb9dSxrBwb/HE+wDxuoypEdNsn8vRa3ZY8
+         pOiUOQ2kJ3QQ7faapcEYA6C+wZCx2XRAwYERH5tPj8zNDDNIJPoDKAhCht9y6E+H8KrT
+         V0yt4QHzkjyHLcyF2qhF+yfsse6ZIPPM59k8ucU6UJoQXxxb/ETHHx6H2iVv7zl1Ookq
+         i42g==
+X-Forwarded-Encrypted: i=1; AL+hErECfETxsE5woZdIJmbmVIBKvUcVr+GfMO4lR90jkTg9bJDsPz6DBD4ipIcYWZjUGRNO0Ofu3rQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9tvtSvyE2DIoz3f3Ij+Rdfhsddx3xEH5ztH7+h3oIR71GpE3+j
+	0a6GwKN/8qqOB+JMl+bGRz0nR1M4E9hM0w1skG1A4JsxPosIpDYos8w6
+X-Gm-Gg: AZFdTZdSZMOz8yC0wQTQGPipRNdISvSQe7RAFZSJ4NCafUiV3FKKU5cv0hRD0O2rSvp
+	q3Buzi5tqp15LgUuwK4O4CwvpP7Dcu34aqbozpDU8pZRrmhkTd//eCfevhDATTzd79WdW+EgtGV
+	ujfpAXleBKlCedy/ZVs8PgShlyo8q9sOuSOQqz9yX27gVhv+kCehooZ9DgA6V82HFfwyJBE3GIt
+	UX2uWcOh/TKf8CWBFoaxnADKuP5KMif0a7mskBscRP0zuoG8dv0Xc6ItuuwEkNOBxrQLxecBxUp
+	38XqZf1FTwZ7LC/mmI/GKqVNCn6qF3lukQN3jghwMKHTovF8wk2QozCdJelPaTPLfMg8Ab3i1HJ
+	/2QdWkfc900oweuyzV2P8cYYM4fRCKCt0dhODMUhsKRSCi60TMK6BEGC9YFAkFpiOZ7POLVr/JR
+	avQ1UjHfJUiMjSAOjy/W2m+8zEiPxO42e7mOdkKR73TB/t0N3hzTfywvu3YuVheDHtf4VWfhoWY
+	yz56rv/LiVhKmIep5ZzsW6kx8doigtudzLXeZXLiLucn97Sye0MHBBmy6/KmkeE+xKNeRu6SX0x
+	n6HVh4gi3GVqzdgvcRNXy0VTi9/YHLJesbvnUXezIRw/4REHWn2q8bIzEazFRM4EAb06hUT3YHq
+	mjiJqHB3bNTn2pw==
+X-Received: by 2002:a5d:6f13:0:b0:491:3fdd:af42 with SMTP id ffacd0b85a97d-4abb5cc19b5mr30289182f8f.37.1795604184433;
+        Wed, 25 Nov 2026 02:56:24 -0800 (PST)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6c61f558sm33988993f8f.58.2026.11.25.02.56.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 02:56:24 -0800 (PST)
+From: David Carlier <devnexen@gmail.com>
+To: dan.scally@ideasonboard.com,
+	jacopo.mondi@ideasonboard.com,
+	nayden.kanchev@arm.com
+Cc: mchehab@kernel.org,
+	hverkuil+cisco@kernel.org,
+	linusw@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: mali-c55: Serialise the ISP enable in the params and stats paths
+Date: Wed, 25 Nov 2026 10:56:06 +0000
+Message-ID: <20261125105621.239518-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,101 +102,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 1/4] soundwire: qcom: always set master port_params.num
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, Vinod Koul
-	<vkoul@kernel.org>
-Cc: Bard Liao <yung-chuan.liao@linux.intel.com>, Pierre-Louis Bossart
-	<pierre-louis.bossart@linux.dev>, Srinivas Kandagatla <srini@kernel.org>,
-	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	stable@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20261125103825.936939-2-srinivas.kandagatla@oss.qualcomm.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261125105329eucas1p2d715a0441207737ec107c34452539dea
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261125103844eucas1p19032e975aa03f8926e30212a5c3184a0
-X-EPHeader: CA
-X-CMS-RootMailID: 20261125103844eucas1p19032e975aa03f8926e30212a5c3184a0
-References: <20261125103825.936939-1-srinivas.kandagatla@oss.qualcomm.com>
-	<CGME20261125103844eucas1p19032e975aa03f8926e30212a5c3184a0@eucas1p1.samsung.com>
-	<20261125103825.936939-2-srinivas.kandagatla@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On 25.11.2026 11:38, Srinivas Kandagatla wrote:
-> qcom_swrm_compute_params() populates p_rt->port_params only when the
-> DT entry for that master port carries a valid word-length. If the DT
-> marks word-length as SWR_INVALID_PARAM, port_params is left
-> zero-initialised and the subsequent dpn_set_port_params() callback
-> sees port_num == 0, tripping the port_target() sanity check on the
-> capture path. The callback then also writes bps - 1 = 0xffffffff to
-> DPn_BLOCK_CTRL_1(offset, 0), which is outside the DPn register range.
->
-> Split the per-port assignment: always set num/flow_mode/data_mode so
-> that the callback receives a semantically correct port identifier,
-> and only derive bps from the DT when a word length is given. Guard
-> the callback so no register write is issued when bps is unset, and
-> bound-check p_rt->num against ctrl->nports before indexing
-> ctrl->pconfig[].
->
-> Reported-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> Closes: https://lore.kernel.org/all/20261125091150.2145177-1-m.szyprowski@samsung.com/
-> Fixes: 128eaf937adb ("soundwire: qcom: add support to missing transport params")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Only the capture devices hold isp->capture_lock around the
+mali_c55_pipeline_ready() check and the ISP enable or disable. When the
+last two queues to start are on different video devices, both can see
+a ready pipeline and both enable the ISP. The second call fails with
+-EALREADY and its queue's start_streaming_called flag is cleared, so
+the ISP is never disabled again and every later start fails.
 
-This fixes the issue I've observed.
+Take capture_lock in the params and stats paths too, and assert that it
+is held in mali_c55_pipeline_ready().
 
-Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+Cc: stable@vger.kernel.org
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: David Carlier <devnexen@gmail.com>
+---
+v2:
+- Add lockdep_assert_held() in mali_c55_pipeline_ready() (Jacopo)
+- Collect Linus's Reviewed-by
+ drivers/media/platform/arm/mali-c55/mali-c55-core.c   | 3 +++
+ drivers/media/platform/arm/mali-c55/mali-c55-params.c | 4 ++++
+ drivers/media/platform/arm/mali-c55/mali-c55-stats.c  | 4 ++++
+ 3 files changed, 11 insertions(+)
 
-
-> ---
->  drivers/soundwire/qcom.c | 19 ++++++++++++-------
->  1 file changed, 12 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-> index 65add9a74ffd..95444eee4c0b 100644
-> --- a/drivers/soundwire/qcom.c
-> +++ b/drivers/soundwire/qcom.c
-> @@ -1209,6 +1209,9 @@ static int qcom_swrm_port_params(struct sdw_bus *bus,
->  	struct qcom_swrm_ctrl *ctrl = to_qcom_sdw(bus);
->  	u32 offset = ctrl->reg_layout[SWRM_OFFSET_DP_BLOCK_CTRL_1];
->  
-> +	if (!p_params->bps)
-> +		return 0;
-> +
->  	return qcom_swrm_port_reg_write(ctrl, p_params->num,
->  					SWRM_DPn_BLOCK_CTRL_1(offset, p_params->num),
->  					p_params->bps - 1);
-> @@ -1341,15 +1344,17 @@ static int qcom_swrm_compute_params(struct sdw_bus *bus, struct sdw_stream_runti
->  
->  	list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
->  		list_for_each_entry(p_rt, &m_rt->port_list, port_node) {
-> +			if (p_rt->num == 0 || p_rt->num > ctrl->nports) {
-> +				dev_err(ctrl->dev, "master port %d out of range\n", p_rt->num);
-> +				return -EINVAL;
-> +			}
->  			pcfg = &ctrl->pconfig[p_rt->num];
->  			p_rt->transport_params.port_num = p_rt->num;
-> -			if (pcfg->word_length != SWR_INVALID_PARAM) {
-> -				sdw_fill_port_params(&p_rt->port_params,
-> -					     p_rt->num,  pcfg->word_length + 1,
-> -					     SDW_PORT_FLOW_MODE_ISOCH,
-> -					     SDW_PORT_DATA_MODE_NORMAL);
-> -			}
-> -
-> +			p_rt->port_params.num = p_rt->num;
-> +			p_rt->port_params.flow_mode = SDW_PORT_FLOW_MODE_ISOCH;
-> +			p_rt->port_params.data_mode = SDW_PORT_DATA_MODE_NORMAL;
-> +			if (pcfg->word_length != SWR_INVALID_PARAM)
-> +				p_rt->port_params.bps = pcfg->word_length + 1;
->  		}
->  
->  		list_for_each_entry(s_rt, &m_rt->slave_rt_list, m_rt_node) {
-
-Best regards
+diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+index 241a625f7284..bf80935c20d2 100644
+--- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
++++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+@@ -13,6 +13,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/iopoll.h>
+ #include <linux/ioport.h>
++#include <linux/lockdep.h>
+ #include <linux/of.h>
+ #include <linux/of_reserved_mem.h>
+ #include <linux/platform_device.h>
+@@ -510,6 +511,8 @@ bool mali_c55_pipeline_ready(struct mali_c55 *mali_c55)
+ 	struct mali_c55_params *params = &mali_c55->params;
+ 	struct mali_c55_stats *stats = &mali_c55->stats;
+ 
++	lockdep_assert_held(&mali_c55->isp.capture_lock);
++
+ 	/* Only wait for queues connected through enabled media links. */
+ 	return (!media_pad_remote_pad_first(&fr->pad) ||
+ 		vb2_start_streaming_called(&fr->queue)) &&
+diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-params.c b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
+index 16e895e3488e..6515c78c1bb2 100644
+--- a/drivers/media/platform/arm/mali-c55/mali-c55-params.c
++++ b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
+@@ -762,6 +762,8 @@ static int mali_c55_params_start_streaming(struct vb2_queue *q,
+ 	struct mali_c55 *mali_c55 = params->mali_c55;
+ 	int ret;
+ 
++	guard(mutex)(&mali_c55->isp.capture_lock);
++
+ 	ret = pm_runtime_resume_and_get(mali_c55->dev);
+ 	if (ret)
+ 		goto err_return_buffers;
+@@ -796,6 +798,8 @@ static void mali_c55_params_stop_streaming(struct vb2_queue *q)
+ 	struct mali_c55 *mali_c55 = params->mali_c55;
+ 	struct mali_c55_isp *isp = &mali_c55->isp;
+ 
++	guard(mutex)(&isp->capture_lock);
++
+ 	if (mali_c55_pipeline_ready(mali_c55)) {
+ 		if (v4l2_subdev_is_streaming(&isp->sd))
+ 			v4l2_subdev_disable_streams(&isp->sd,
+diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
+index a9c28b090b2a..cbd2a2f77da3 100644
+--- a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
++++ b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
+@@ -146,6 +146,8 @@ static int mali_c55_stats_start_streaming(struct vb2_queue *q,
+ 	struct mali_c55 *mali_c55 = stats->mali_c55;
+ 	int ret;
+ 
++	guard(mutex)(&mali_c55->isp.capture_lock);
++
+ 	ret = pm_runtime_resume_and_get(mali_c55->dev);
+ 	if (ret)
+ 		goto err_return_buffers;
+@@ -180,6 +182,8 @@ static void mali_c55_stats_stop_streaming(struct vb2_queue *q)
+ 	struct mali_c55 *mali_c55 = stats->mali_c55;
+ 	struct mali_c55_isp *isp = &mali_c55->isp;
+ 
++	guard(mutex)(&isp->capture_lock);
++
+ 	if (mali_c55_pipeline_ready(mali_c55)) {
+ 		if (v4l2_subdev_is_streaming(&isp->sd))
+ 			v4l2_subdev_disable_streams(&isp->sd,
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+2.55.0
 
