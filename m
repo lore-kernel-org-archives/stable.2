@@ -1,51 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.136.29.106
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795616447;
-	b=JzF/4ZL99/TVR7htLquFWalC1nBTn0I74k5WvXydX7+/LKXH/E1fn6KhVohDPWnULFIf
-	 Dj35tib3sBgezSvBXtuB9OYZjUyPKiafL+PdOKFSSnjILmocEtCQcQWpddUBTyevkQgwI
-	 ZH1RwZtQTRhpSlCK0g0jZyS4WVImLWbimDm7wWGx2Hw3GIypMOHsWY3lkjtPoZFR6tlJ1
-	 gAX94IA6XscaWsf6ae+M5InWnb4ggCgevT1QGm6aDKFefmYyk5/4M+T7s9yOugAYhocau
-	 jedas5UaV/d5z9KN+w0KFneX4scVNlJOylTQyD52q+xHWBg+PWT0Qi9mbx2D6CwPQAA==
+	t=1795616547;
+	b=5emMctMUTesHsFG4PEky0W3MpookOSzc/vBjc5mA8NIjnv2cLL3pKREdWVhka8EupFX7
+	 pe1rrRxuoBntiQ0nV1yRzycnLo4WHL9tjqaQ2PLL5hiTKc+nwQ+hn3jQBIBWeoFXxpXAC
+	 kgEjeoy677a97Rp7Y8Af3CdwE9ExOFOUlzaTUe2vQSxL1sfLRUk6EHE7oSU1L1zYD3Xnh
+	 yyjuJfj96Tl6trA0SVkOWs1H0Yy8NeqR4F99q8qu7AyTmVDLXs+dFZIj+fft1+Yy1m+Sj
+	 feKvYRnX9ugL9IjhsOfa81Qkpz6mt+EWHMAF0Z9XYaP/wwuphscmgdlFv/FdDq+4xRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795616447;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent:
-	 X-Bm-Milter-Handled:X-Bm-Transport-Timestamp;
-	bh=CqPZkR6s9fvAZktok9XJEnxIWf3C/I6wGKX26MKaVkk=;
-	b=uM8oGe4mkfGYuQEzAjl7/meT+tbXNcdmqGg3l5mulg1PCohupP4xXH9tze3auA1Ppree
-	 x7YECkn2YHxQMF61DPfSy2cg3lQMME7bImk+UVatxvKRCn1OUHvrpCesQ4YyttmTza8Nf
-	 wc7swZgH+bOdi+tqaSLBIAUZCDRatrP/QjwrSaEKQVPz/irPRUNDf8YfVxW7Yza7X+D1N
-	 jKyznRw7y/jPn5RhIcpn76I4Ph6PbNuEJuGMYs46xHkw4mhODjmvjO2zsIjIRnAJDcKrB
-	 ZXHqN8YO/vZmy6muJl99YEk1MkJQIii+S53p5tbT5nzBXP4zhpp58/8EHqF5B7L0vqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795616547;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=8pAN+cMNDAKpI0U2TXKKPxCHGtnx0QjdYb7WetjOVfA=;
+	b=HQuMl5AKiX6N0IMflrOQZPH2BHGDQX46tVkn2olAm2A1mbHaYn1MieLBig3QNISJ84f2
+	 3z9dpZ8bkvKG25TY2RlQEQQLAUy26B7iHOZSP3Szf3+SXCy6Y/AeNkfFQAnI1YbCCG2MX
+	 W4QUFBRUjTwy4fxj2i6KCYXAt4mSOJCDVxsrEPIRBCJSAAnCdJ80a91XD2bkOwdEnT4hl
+	 DdCLuXjVfdlWr8etF6Mt5Pq6kzSYUaMj65S+V7A4W/7H1p0yNefGk6z1o1arXbgIZYHU1
+	 TqawM11hvtv7Yh2tEcSWJZCkdeeQw3pGNZtaoR2D1jcKIrEZYie/Zq4/3C7nKDduCRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=proxmox.com;
-	spf=pass smtp.mailfrom=proxmox.com;
-	arc=none smtp.remote-ip=94.136.29.106
-Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095D6606A321;
-	Wed, 25 Nov 2026 14:20:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 095D6606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
-Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
-	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 5B39F42D01;
-	Wed, 25 Nov 2026 15:20:38 +0100 (CET)
-Date: Wed, 25 Nov 2026 15:20:36 +0100
-From: Gabriel Goller <g.goller@proxmox.com>
-To: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Willem de Bruijn <willemb@google.com>, Simon Horman <horms@kernel.org>, 
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>, Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, Vincent Jardin <vjardin@free.fr>, stable@vger.kernel.org
-Subject: Re: [PATCH net 0/2] ipv6: fix IPv6 scope check of the source address
- in a VRF
-Message-ID: <awbuXn2EYlusghUb@luna.proxmox.com>
-References: <20261123-for-upstream-ipv6-vrf-saddr-scope-v1-v1-0-f667ab150ade@free.fr>
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QQNt7T0i;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 33F42606A321;
+	Wed, 25 Nov 2026 14:22:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33F42606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QQNt7T0i
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6AF482F;
+	Wed, 25 Nov 2026 06:22:23 -0800 (PST)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BFBB03F763;
+	Wed, 25 Nov 2026 06:22:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795616546; bh=JMMVosT4VTiw7rOBFumnNRwKpJxvpO3L1Ux34kDKMME=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=QQNt7T0iVQmM94OhDwbo2jUVxlWiS0B4lQHGscliOaWAXcteupZw1IqicwsEEAxPv
+	 Az1K1rtUc5oVZuCBWnXAtCgLeG1Xmy9zNmEFL9WTaZkqF0l66mkQezTkvCyZ1a1wGO
+	 5E/Dul/2PTdpPER5DMjUevgq8g4Af4GBsV3ogi2g=
+Date: Wed, 25 Nov 2026 14:22:21 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Yadong Qi <yadong.qi@linux.alibaba.com>, will@kernel.org,
+	mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, ryan.roberts@arm.com, robh@kernel.org,
+	gregkh@linuxfoundation.org, ptg-linux-kernel@linux.alibaba.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] arm64: fixmap: fix missing break-before-make in
+ __set_fixmap()
+Message-ID: <awbvHVSX7sB8jzYA@arm.com>
+References: <20261123093505.974-1-yadong.qi@linux.alibaba.com>
+ <awW3Dw743-rw_-cf@arm.com>
+ <87mrqxto23.fsf@DESKTOP-5N7EMDA>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,18 +65,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261123-for-upstream-ipv6-vrf-saddr-scope-v1-v1-0-f667ab150ade@free.fr>
-User-Agent: NeoMutt/20260616
-X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
-X-Bm-Transport-Timestamp: 1795616437643
+In-Reply-To: <87mrqxto23.fsf@DESKTOP-5N7EMDA>
 
-Gave it a spin, consider:
+On Wed, Nov 25, 2026 at 02:36:36PM +0800, Huang, Ying wrote:
+> Catalin Marinas <catalin.marinas@arm.com> writes:
+> 
+> > On Mon, Nov 23, 2026 at 05:35:05PM +0800, Yadong Qi wrote:
+> >> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
+> >> index f66a0016dd02..5593d7e0d523 100644
+> >> --- a/arch/arm64/mm/fixmap.c
+> >> +++ b/arch/arm64/mm/fixmap.c
+> >> @@ -126,12 +126,19 @@ void __set_fixmap(enum fixed_addresses idx,
+> >>  
+> >>  	ptep = fixmap_pte(addr);
+> >>  
+> >> -	if (pgprot_val(flags)) {
+> >> -		__set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
+> >> -	} else {
+> >> +	/*
+> >> +	 * Break-before-make: when the slot still holds a valid mapping
+> >> +	 * (e.g. earlycon re-mapping FIX_EARLYCON_MEM_BASE), invalidate the
+> >> +	 * old entry and flush the TLB entries caching it before a new
+> >> +	 * mapping is installed, so old and new translations never coexist.
+> >> +	 */
+> >> +	if (pte_valid(__ptep_get(ptep))) {
+> >>  		__pte_clear(&init_mm, addr, ptep);
+> >> -		flush_tlb_kernel_range(addr, addr+PAGE_SIZE);
+> >> +		flush_tlb_kernel_range(addr, addr + PAGE_SIZE);
+> >>  	}
+> >> +
+> >> +	if (pgprot_val(flags))
+> >> +		__set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
+> >>  }
+> >
+> > I guess that's easier than getting the driver or earlycon code to do
+> > clear_fixmap().
+> 
+> Yes.  And because set_fixmap() flushes the tlb on x86, IMHO, it's a
+> little hard to justify the driver modification.
+> 
+> However, set_fixmap() only flushes the tlb on the local CPU instead of
+> broadcasting the flush, because fixmap is either per-CPU or used during
+> early boot.  In theory, we could follow that approach and perform a
+> local flush instead though the benefit may be marginal.
 
-Tested-by: Gabriel Goller <g.goller@proxmox.com>
-Reviewed-by: Gabriel Goller <g.goller@proxmox.com>
+Local TLBI won't work on arm64 since the page tables are shared (any CPU
+can speculatively load the TLB) and only FIX_VNCR has per-CPU entries.
 
-Thanks,
-Gabriel
-
+-- 
+Catalin
