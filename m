@@ -1,74 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795566720;
-	b=jPBWx1QI8TCNPtLIDuxxhz5x9Bll+y8htRJhStoyzH6x7fNiprELzaGrcpFO026RrRU1
-	 9EOi8luTcD2WMKiLesIoaIigLxjZPPzEpsPkIMbdSA68lraD0RvqYYGONmKFdOg24jUF7
-	 0dfnf40XnTwI8iIXtfqzKzqFHRidw74H2r2iesbNBTBM4xISjB3tbU2oeC/DouWQwZVQe
-	 89KWMMai4EETLnS9Je9P/4vc1kXSuVFFd3naFHEfraoWtRbllWQnSSGqV+ktU/zHEn935
-	 +DLzIBL2dsdbnjJKtm/36bYkwW6oziGwSo2vqSX7HFwHSsVfTTrDgLXZT0LTO7K4VYw==
+	t=1795567068;
+	b=A3dqjKu7WmNJmkY/Mh5LmUFE87S5fypnQGNQDRLx9IVT2GHS2XKILZVKVFiIy54FYOB3
+	 MxC5sscdSxMWVRt8bZdVT8xVzQ6rv0gWsxe++2f2yAhjlTUEnqyNqscgMQzmgwfG1j77k
+	 iiFufVKMk8aXbpPiqbiNRtISBVJB9rKFaxWDJrHd3uyJKE//gGIAECC02rkttD6gH3M+Q
+	 8NwfwVRQeYMaRdGe6XpgrCVOzCmym/ulU9rbI9MSNA/U0rvg/Z29D1k9VkHyD3xefN+G3
+	 9/znxIhsf7ze4Uely0LcAkVs0XNqV5uLosDs98Kqst1bP+gIzPEBovGyUMd/JCUG9TQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795566720;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=Gcn9k5RyT2SrLf7rw1mzgR9U0hO9J3AKAxDoC8pAHaE=;
-	b=sy/ZC3oOH+WS6XZ0yl9igEKaJHbWO6vPMWNokfl8vXHfdlAwek+H8ePI0qUNtwOMVq2o
-	 tDpjmD60hfQe2CawoUC6nY/uhMfpArI+zbZUDShpyPYGTRej1K7qli2/oxNMb3/Ntk0bN
-	 iLLGN0M9Sdik7qbC6i1MFBwr0du6/NYt/B8YiDDbgsT2+zMn/Gm0g8vGAzVM58fNm71E8
-	 +buy8GZjnhL1gzr6xhSDicTE+8zi0ohtIr5VGaTLKU1+SUI1k2dJGImd481wgO/AQVtak
-	 mRRlYXGvzrgIg1Oia2KPZ40OGcM9RPMFCkhfbGzI6+/987ByviNWTHV46Z6MX/neOBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795567068;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=bo3lCC5V/nyWJ201e089zcZ3P+nMdJPFjMVt5IoTp08=;
+	b=w0OkGnrJG7Boh9oEE8+GkHOq/dhbGYjEr3d0HwDE8iYg1mUy5mcleYlGT91d5O/MDlwj
+	 UFJ8fa7uYoZBA7jyDMuHEcSYudpkPqZNBMS8LVcva+j7mYlZY5DoooVmO1Nf22zMK7Aie
+	 bRP75uhyNR61OtMaQ81A/uDKd5VOnVQm88Ulh5+bE5MmC2aXbmfMWrlfmJvyN8EuHiz7y
+	 6uUYZA1v+RRgSRlB4MzMo8LMlJD+IhYzsizA6SEj2jNqD9HDSxcm8Sszb8PSd99GYpf8z
+	 ktfwFQr9MrV3FlQY+wo6bq4HrOvuteQzrNLraBmQkqioeZz2+fDiiz7cGBPWmcRJneA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--willemb.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XQwmHO9u;
-	arc=none smtp.remote-ip=209.85.222.199
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gythByQW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF6D606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 00:32:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FF6D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--willemb.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8736606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 00:37:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XQwmHO9u
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f33438950so901421185a.1
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:31:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795566719; x=1796171519; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Gcn9k5RyT2SrLf7rw1mzgR9U0hO9J3AKAxDoC8pAHaE=;
-        b=XQwmHO9u+G4hYbfjQQeoBtP0836u6rFMOum3quZGgd8jUKrOktAJVwEQuog3RtOmR0
-         /ry4sUgmBhTa0VJ+gsXi2il8IjEVQbkCKgqIxFm4In+weX8rQHoGRHvzFqFzB3Kd6WtV
-         Z5pZ94I09jYptL+vsSsRoXLBbi0yhwV3eCUMhQmYwmHJdSpC5cWLLWezW+If2da9/l9s
-         9IP7EBTwCDSaVwLhAYHmD5Pd5QyzOhLzNqf9+H1zdirHMjrf4TBLtNCd/Ni65Rxt0TfX
-         vS8nYnwvKz0RUdhL+Obbgtl1ieYbZFd82+sbfUP9wroXnbE4hVHL3U7XXMoLZ43y2iQJ
-         uO5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795566719; x=1796171519;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Gcn9k5RyT2SrLf7rw1mzgR9U0hO9J3AKAxDoC8pAHaE=;
-        b=eFC9RE1XdHYDxIkaih0tF6/7TDdDJ1rlINa7uDtIXm7l3tIJ3ajzLXgG8u8oxHqhrO
-         xQH+CVrINqtIXASBzcQlsVPDtwSKidGWY4y5ArUnOKpiDtjFZJSN5hS4uB3AayyWo1mW
-         6x3QdXPgflxAttpfV2vIsr1jHsNEBNcIRpvTyWUXDZBG2WwqhvHPb5lzGEtohZGYFu1Q
-         yEPWs69zVgY0DFMmQA5IjC9eR8hCfr/06mmJgD9DNZeDhucMmf1VmxVFeyXQXKltTun1
-         M6/4oqNhbEjOyA7/VUpdDMrGHh/8ZhNP8Vz5RBtgncmh7ZJCoefXCM8HiaBkVkyljkk1
-         hH5A==
-X-Forwarded-Encrypted: i=1; AL+hErFZPt9j6Ty3Y7aaxC+T/Xwe8CGZySEpokZq0DLkOD6WXAF60uMU82k4kLRHWCJPr9dIUuS3tYU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9XcwIxnFeTskCIb4EFDt80pN7jkX1ZmvaWiPL4O5xcGbtA4Mk7
-	V0Vy7IIwvxL11bDn3Dc29mOYm/vj6XhCP6BOex5V/Fmjpw+oDw+MmHeU8MsrvKZNvagUjM23+Ld
-	X7srFoxya+g==
-X-Received: from qvbld10.prod.google.com ([2002:a05:6214:418a:b0:921:2ee8:44dd])
- (user=willemb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:620a:6f0d:b0:939:6dea:374d
- with SMTP id af79cd13be357-949ba9d1fa6mr2800574685a.49.1795566718729; Tue, 24
- Nov 2026 16:31:58 -0800 (PST)
-Date: Tue, 24 Nov 2026 19:31:58 -0500
-In-Reply-To: <20261118143500.dualpi2.1.543a9a1be910-zhiqizhangg@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gythByQW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E7281F000C0;
+	Wed, 25 Nov 2026 00:37:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795567068;
+	bh=bo3lCC5V/nyWJ201e089zcZ3P+nMdJPFjMVt5IoTp08=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gythByQWbvBAETPOxA5Rbs6Xfkyznf7Yrm0cv3H2bUhjsoxzNzmKEu2H6dbmqwZz3
+	 e+iuviJRqMuQaq7mcWwLHcl+/Xyo2nr3MB6HrOTbe79oiTULEKqve7gu9WPnxwJwOV
+	 +IvnycubuE6HsrTiHqgYU6WhmMm8QG6749cDFD1/vYX+fqae8nh/TrcE2HMimeKEoW
+	 UFucx5G5NRpw2OyWUwVrAJWfoPzVcN2AVGZEVQW1zLv8fvgxR00YqoCZYufzzkJLTE
+	 7aC+3kiE67MGJJLBdIZ9z+lQGu/tkVUa+IrriNcC5DMVTdX25Q8G9jR6/aQIsvZWil
+	 QhGvkRBBoe0Tw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] mm/page_alloc: retry allocations that raced with a zonelist rebuild
+Date: Tue, 24 Nov 2026 19:37:45 -0500
+Message-ID: <20261125003341.3448163-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112441-trio-lethargic-5ff6@gregkh>
+References: <2026112441-trio-lethargic-5ff6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,59 +58,133 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261118143500.dualpi2.0.543a9a1be910-zhiqizhangg@gmail.com> <20261118143500.dualpi2.1.543a9a1be910-zhiqizhangg@gmail.com>
-Message-ID: <willemb.4158a0ba73d8@google.com>
-Subject: Re: [PATCH net 1/2] net/sched: dualpi2: refresh head timestamps after trimming
-From: willemb@google.com
-To: Zhiqi Zhang <zhiqizhangg@gmail.com>, netdev@vger.kernel.org
-Cc: jhs@mojatatu.com, jiri@resnulli.us, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	shuah@kernel.org, koen.de_schepper@nokia-bell-labs.com, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Zhiqi Zhang wrote:
-> Reducing limit or memory_limit in dualpi2_change() removes packets with
-> qdisc_dequeue_internal(), bypassing the timestamp refresh performed by
-> dequeue_packet(). The cached c_head_ts and l_head_ts can therefore refer
-> to a packet that has already been removed. If a queue is drained, its
-> timestamp remains nonzero.
+From: "Gregory Price (Meta)" <gourry@gourry.net>
 
-> get_queue_delays() continues reporting an increasing delay for the empty
-> queue, and calculate_probability() uses that delay as input to the PI2
-> controller. Partially trimmed queues also report the delay of the old
-> head instead of the retained head.
+[ Upstream commit bcfc8286f0cd5a74c827d502f9f1ad408d7eff30 ]
 
-> Refresh both cached timestamps from the internal queue heads after the
-> trim loop, while still holding the qdisc tree lock. head_enqueue_time()
-> returns zero when the corresponding queue is empty.
+Onlining the first block of a zone rebuilds every zonelist in place,
+shifting the slots after the new zone.  The iterator approves a slot,
+then the allocator loads the zone from it, so a GFP_KERNEL request can
+land in ZONE_MOVABLE and a nodemask request on a node outside its mask:
 
-> I identified this issue and reviewed the fix. I used OpenAI Codex for
-> root-cause analysis, drafting the fix and this changelog, and assistance
-> with regression-test development. Codex also performed automated
-> validation; the archived results are described below.
+  CPU 0                             CPU 1
+  prepare_alloc_pages()
+    first_zones_zonelist(nodemask {1})
+      slot 0 (NORMAL1) approved
+                                    online_pages()
+                                      build_all_zonelists()
+                                        [NORMAL1, NORMAL2, ...]
+                                        -> [MOVABLE1, NORMAL1, ...]
+  get_page_from_freelist()
+    zone = zonelist_zone(slot 0)    /* MOVABLE1 */
+    allocates from MOVABLE1
 
-> I reproduced the issue using Codex-assisted automated tests on an
-> unmodified arm64 net-tree kernel in QEMU, with real AF_PACKET traffic
-> in an isolated network namespace and HFSC ls/ul shaping to retain
-> packets. No source changes or fault injection were
-> used to trigger the bug. The companion kernel selftest covers C/L
-> dequeue, full and partial trimming, mixed queues and no-trim changes:
-> the baseline passes three controls and fails eight trimming checks;
-> the fixed kernel passes all 11. Runtime coverage is this DualPI2 selftest
-> on arm64. I also used Codex to build arm64 Images and compile the modified
-> object with W=1; additional build coverage is in the cover letter.
+zonelist_update_seq detects the rebuild, but only the slowpath's failure
+exits check it.
 
-> Fixes: 8f9516daedd6 ("sched: Add enqueue/dequeue of dualpi2 qdisc")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhiqi Zhang <zhiqizhangg@gmail.com>
+Check it whenever an allocation succeeds too, and if it changed, free
+the page and retry, as the memcg charge failure path does.  Eligible
+pages are dropped as well: zonelists only change when memory comes or
+goes, and a retry is simpler than rechecking the page.
 
-The selftest flagged checkpatch issues. It is also many LoC if only
-testing a single small issue. LLMs are good at generating tests, we
-cannot include all.
+Freeing the page does not undo a block the allocation claimed.  A
+GFP_KERNEL request that lands in a fresh ZONE_MOVABLE converts a free
+block to MIGRATE_UNMOVABLE, which stays until the zone's movable free
+list runs out and a movable allocation takes it back.
 
-Let's also include the original author.
+The fast and bulk paths read the seqlock's raw seqcount without waiting:
+an ALLOC_NOLOCK caller can be an NMI that interrupted the writer, and on
+PREEMPT_RT the seqlock accessor takes the spinlock.  A sample taken
+mid-write costs a retry, or NULL under ALLOC_NOLOCK.
+check_retry_zonelist() returns 0 when compiled out, so a backport
+without the hot-add change stays harmless.
 
-pw-bot: cr
+Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_zonelists")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Link: https://patch.msgid.link/20261101021340.2251928-9-gourry@gourry.net
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+[ sashal: Dropped the bulk-allocator and ALLOC_NOLOCK/FPI_NOLOCK parts, applied the fix in __alloc_pages_nodemask(), and used __free_pages() in place of __free_frozen_pages(). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/page_alloc.c | 27 ++++++++++++++++++++++++++-
+ 1 file changed, 26 insertions(+), 1 deletion(-)
+
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index cb0614988479a..9b928a4f11782 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -4346,12 +4346,25 @@ static unsigned int zonelist_iter_begin(void)
+ 	return 0;
+ }
+ 
++/*
++ * Never wait for the writer, which an ALLOC_NOLOCK caller in NMI may have
++ * interrupted. Read the raw seqcount: on PREEMPT_RT the seqlock accessor takes
++ * the spinlock while a write is in progress.
++ */
++static unsigned int zonelist_iter_sample(void)
++{
++	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
++		return raw_seqcount_begin(&zonelist_update_seq.seqcount.seqcount);
++
++	return 0;
++}
++
+ static unsigned int check_retry_zonelist(unsigned int seq)
+ {
+ 	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
+ 		return read_seqretry(&zonelist_update_seq, seq);
+ 
+-	return seq;
++	return 0;
+ }
+ 
+ /* Perform direct synchronous page reclaim */
+@@ -4952,6 +4965,12 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 	warn_alloc(gfp_mask, ac->nodemask,
+ 			"page allocation failure: order:%u", order);
+ got_pg:
++	/* A rebuild during the walk may have handed out an ineligible zone. */
++	if (page && check_retry_zonelist(zonelist_iter_cookie)) {
++		__free_pages(page, order);
++		page = NULL;
++		goto restart;
++	}
+ 	return page;
+ }
+ 
+@@ -5012,6 +5031,7 @@ __alloc_pages_nodemask(gfp_t gfp_mask, unsigned int order, int preferred_nid,
+ 	unsigned int alloc_flags = ALLOC_WMARK_LOW;
+ 	gfp_t alloc_mask; /* The gfp_t that was actually used for allocation */
+ 	struct alloc_context ac = { };
++	unsigned int zonelist_iter_cookie;
+ 
+ 	/*
+ 	 * There are several places where we assume that the order value is sane
+@@ -5024,6 +5044,7 @@ __alloc_pages_nodemask(gfp_t gfp_mask, unsigned int order, int preferred_nid,
+ 
+ 	gfp_mask &= gfp_allowed_mask;
+ 	alloc_mask = gfp_mask;
++	zonelist_iter_cookie = zonelist_iter_sample();
+ 	if (!prepare_alloc_pages(gfp_mask, order, preferred_nid, nodemask, &ac, &alloc_mask, &alloc_flags))
+ 		return NULL;
+ 
+@@ -5035,6 +5056,10 @@ __alloc_pages_nodemask(gfp_t gfp_mask, unsigned int order, int preferred_nid,
+ 
+ 	/* First allocation attempt */
+ 	page = get_page_from_freelist(alloc_mask, order, alloc_flags, &ac);
++	if (likely(page) && unlikely(check_retry_zonelist(zonelist_iter_cookie))) {
++		__free_pages(page, order);
++		page = NULL;
++	}
+ 	if (likely(page))
+ 		goto out;
+ 
+-- 
+2.53.0
+
