@@ -1,59 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618579;
-	b=vNzwqOeuEkBtBi9bX7Wprl89deCs2E/btbpVX4Qc9ee5lqokNoav2STo8WXPiZn5lZem
-	 dq9zfZ+EF1eEF6VuU6AtiVpl41bOoqmUmcOcDmk5492SLtsBzp77qfe5eF3JCZmhfsA4q
-	 Ucjv7zvZw8v1kZzOObSdotYcJJaI897HvZLC82pRSSuUg2IBEpAY9NlECL9K4FlvY9CDq
-	 CWvkOFWZOwvLuuNy5OdPcoZv+kNkTcUSqwYNvY7UOAudmPhDx1/IJSSerbhqzTCVDokGA
-	 2J53syC4iL4ntcRcXEyw1BGZdq/8rv6fhci9vexG0uVbSrDf1yW3TThVdv9OAoFKOiA==
+	t=1795618576;
+	b=fW2oDLi8LRP9BoisRaYOoQINH81wFNw5dTfvNFYu6vZVY/cbtkeftqfIqKnoSOhc5qn5
+	 1YuG+1qYvhsze7U9OAEr4YB08GlYqOXtjLij2UadRYGpeuylnNkc8KoihsLJnYkeZSO7j
+	 aI14CkSp/SD8j3o+rpY5cxkyWwRNTDHfqAL/3lIYJnqvV10e8Elxbbn/vCRgvL/9p/tjN
+	 21jN/3jBOXWvzQs2Z9fWBInzLUX3npJAMFTaELq6xEDDA0ugCkhQVanbJlfv6iooKVqx3
+	 l5784NxTUtwOTeWclEb5UeSu4bltXhBjMnDcjl3gHnasPilMJd1Y0rm0d+IwPiS7z9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618579;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=pHi4qJqawl7MDhnRczwYrx2/jM2RtyBMbjQfNi7CGy8=;
-	b=Z55WWBIHJzH1TZupV01XkTdWCMla0GS2jvfGTUh5sx+g/lFst+rO4rnha0i9t17aLxNj
-	 7kmGJUryzWzqOidaQuZhDnwSEy1FbGDhAqlYlD+OQOM2QiAN67Z74KiwZCjmBbDAVmFp+
-	 YgXG1q0hbLnn7mgHJa2WmDKBTvEeAvKsD3ljteRDl3MI7U1qtUuzIzK2ebe2Rfkr+oU2+
-	 R+awS61FaMV/b0EcqjbCIzt5nx1g75VCtmaX7SZ+EapGlO9aj/5I+eIMwvss1Ry+7RjZj
-	 lK7GGZfQLw63gskx+NPOdGB/OnfRSqPPjGSmleHQWOxGyhEB1IC6KXUwzCmi411hoIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618576;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=H2v9m8o2ZyN6mJNXof8J2YJUJ0qz0MjiMku6/OumPR8=;
+	b=Xvay945oTYwNRxEd5Pl+b1rJCtnV5pQMPd9oRD0gomOz9ht1ajCBVfvbdJKpSraxcXrY
+	 GLw+cbEJngBH+N3d930KGF0ojBjXHIit2dFtUif9p8mX1wD+i03E4LawpdZSShwhUqWZw
+	 JSDhJ/WeCNwTQ/BJKJWv6lybEvSIpn7OgIq3puUE75vsA48yKig13XnCXns7XAA0rImS/
+	 +aAlFjdarWGXoF9HY0eP+DWZd1NghDG9Q5C1cR3HGHO7q6CBEWDEoqEgR70ioFg8rbPey
+	 eaHp1DgNKzt0p+svyss0Kddj5P3zJbHO8vgzFfYDhKibUhmFLtaozwZ92aAPzaveyBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tpNmm0S7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=OYNxKfNH;
+	arc=none smtp.remote-ip=209.85.222.175
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38F1606A323;
-	Wed, 25 Nov 2026 14:56:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF9FE606A331
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:56:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF9FE606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tpNmm0S7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5F9A1F000E1;
-	Wed, 25 Nov 2026 14:56:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795618579;
-	bh=pHi4qJqawl7MDhnRczwYrx2/jM2RtyBMbjQfNi7CGy8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=tpNmm0S7/uKmNWQkdEnDfLHzl7HwQxg4/d7WD4eJWf/IsvS+tD/ecHn+skCUgPPTu
-	 H355a3Ae5I/0Lz45GV1+ikO8X+bjjzkcIPmqzBzLA4dzmDRkf5QemfejhWZbdNW+Cr
-	 jE+LOvBnPY6+8FrGdlDriT2i/gZwMY5h01pwSy7Y=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Dmitry Ilvokhin <d@ilvokhin.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0325/1005] MIPS: Alchemy: Register interrupt chips with the IRQ core
-Date: Wed, 25 Nov 2026 15:27:43 +0100
-Message-ID: <20261125143829.345820183@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=OYNxKfNH
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-949680e6d83so529763285a.3
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 06:56:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1795618575; x=1796223375; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=H2v9m8o2ZyN6mJNXof8J2YJUJ0qz0MjiMku6/OumPR8=;
+        b=OYNxKfNHfP6AwkYsERu63zDzJAQPUGhYsCT43HZkjStcluGygKe12LuAexit9a5c6I
+         2xHd+rFeUUWgQz3UD4v6ixaaQHjS+rxO6ULdO3fhPiUPK01Xq8/mBmvNXb1FFx0+5h+y
+         txmt8Qu7dTrHwsvfmdLvBZVh1tYGu5ws2UTAxhQ4QQZ6wJ9BJZ0AHoMR77wCIUE8irGw
+         yOJVXSOfdvyNe/kwEsFYcbGWMENmzqdQGwGisbGOpmrz0P+cscixGw43F3nRwhBp4hXK
+         oAi1vBIDqzDf2RFEYLAzJgTZsaAnHnNnhRfu705bDSb63uQLNQ3FjPvM/ZEIm9FBbf+L
+         49WA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795618575; x=1796223375;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=H2v9m8o2ZyN6mJNXof8J2YJUJ0qz0MjiMku6/OumPR8=;
+        b=IXEjSly9O679py5jTmoTF+DgezR0JSDIEcN9QDgsHWIFd6ngCB8+0rAPpTb8xYMkiL
+         diJkJMT0v36Q+/J0xGJLCpYUrS3pnaGmP1hSTIlcfPwh779v0vDj1B2Gi3x15orzGVvW
+         l1uNYMmjKYcRI3X2hxriGtnmaXZGM8ykgQi0ZdT+hSggRU7qKoEhc93UlAbjX7SH/XW9
+         KyVwvu/LbxadIflY1LafLhIz62KzzoPu2lAa3zlkojJKhn3oyoCHcg+vEVo4U3gANmav
+         984uEXv+V3YaClNsLHI0xT7kd1RTQQyinkyli26nHxW4DpofgMbMEkP/kd5tmytMOTve
+         vXTg==
+X-Forwarded-Encrypted: i=1; AL+hErEIwusOMH0RVxEWkVAZ7PZHbaY1Jrh7fZvIjut9IF3+HLj2gf3zs0L0k5fIIMm/2lr9ANJrvPw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/dn3NHMyj6k3qklbSZkdes/HjUz3izryvOMws9LXJULkoQYKiL
+	8/d2gTBa8TG0l8NKLbS/6Mbb0l9jQzrhDWx0ysG0ezWCU6QYpdUOAcwgIsS75TqXwOg=
+X-Gm-Gg: AZFdTZedf6yRxJgMVcXEvn8hzuSuosvFhPy2jxYEqemN8iLVGPZxSu7eNiPujhhneS3
+	ii74vwAXhMz24K3YHv/7lBEqIvScqZN7X1QUTfQ/i21rn8mHPpTe1b76I4qNiHy19xWOKH7pyEH
+	H5yEq9yQpQVz+Xj8Q3RQX5qwsMI3yjuOQKk5kd1XYyPL54qa5byz5CVBa4T+Z25fyQAlaEemzrm
+	O80ybMIVZM7qaM3xPZ01j0oI5KO1MkGFzxUwzQPT1C9ohVkFNo4H54XvqBJx8KHbglcIOKyyUzh
+	beS6btBupq5xkeTprYud4E8YYS/haRvieDP7L1k4aDQtXKE+MNqU6GghOH7HsFRB76DN/Q4OmZH
+	gJwxCjnJxIMC5NsHdZPwSPcjttTt/a3p9FXPmzygdQJL5DhrweZfkqSscC0yoL6rjOCVivn2iUn
+	kgoyZvOmuyr9ViNUPtqM5hwIvgW6QRgeGl4Ex8nX1+wSOzSirZYj9o2bNDQ0at6XVwrnrtkFGX8
+	wicsVxhEP2xECSQ2Xo04JZTroEk2iLziXHJk2kKpXTw3N9/BxPbwfLDq18o3GHHf1EsHOKDELf9
+	ohq8vw==
+X-Received: by 2002:a05:620a:2956:b0:949:9cf0:badd with SMTP id af79cd13be357-949bab2f511mr3135941485a.73.1795618574856;
+        Wed, 25 Nov 2026 06:56:14 -0800 (PST)
+Received: from ziepe.ca ([142.177.118.84])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb38c903sm1327013585a.19.2026.11.25.06.56.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 06:56:14 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xWEPt-00000001o1M-2tKn;
+	Wed, 25 Nov 2026 10:56:13 -0400
+Date: Wed, 25 Nov 2026 10:56:13 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Jaeyeong Lee <lee@jaeyeong.cc>, Artemy Kovalyov <artemyko@mellanox.com>,
+	Yishai Hadas <yishaih@mellanox.com>, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] RDMA/mlx5: Preserve DEVX objects after failed output
+ copy
+Message-ID: <20261125145613.GJ246011@ziepe.ca>
+References: <20261111105346.3220427-1-lee@jaeyeong.cc>
+ <20261115135123.GD42525@unreal>
+ <20261122103715.51731-1-lee@jaeyeong.cc>
+ <20261122103855.51859-1-lee@jaeyeong.cc>
+ <20261125131244.GB14811@unreal>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,76 +106,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261125131244.GB14811@unreal>
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+On Wed, Nov 25, 2026 at 03:12:44PM +0200, Leon Romanovsky wrote:
+> On Sun, Nov 22, 2026 at 10:39:01AM +0000, Jaeyeong Lee wrote:
+> > As requested, below is the full dmesg from the reproducer run.
+> 
+> <...>
+> 
+> > [   13.847526] mlx5_dct_repro: loading out-of-tree module taints kernel.
+>
+> What value does this change provide if it is based on an AI-generated sequence?
 
-------------------
+More importantly you are not allowed to call
+uobj_finalize_uobj_create() from new style methods, it is only for the
+old write interface. I guess it is in the wrong header.
 
-From: Florian Fainelli <f.fainelli@gmail.com>
+It should be uverbs_finalize_uobj_create() if you want to use this
+sequence.
 
-[ Upstream commit dd722e605bd6b5ac593475ad2ed76cd9d27cb2ef ]
+And it should probably cover devx_handle_mkey_indirect() as well.
 
-Alchemy initializes its interrupt chips through the set-type callbacks,
-which use irq_set_chip_handler_name_locked() to assign the chip and flow
-handler. This bypasses irq_set_chip() and its descriptor registration.
+The idea itself seems reasonable, once we have done the actual create
+command to FW it should use the normal destroy sequence. That is
+exactly why we have the finalize helper in the first place.
 
-Since /proc/interrupts switched to iterating the IRQ descriptor maple tree,
-the statically allocated Alchemy descriptors are no longer found. On an
-MTX-1, the file contains only the CPU header and ERR counter even though
-the timer, serial, Ethernet and PCI wireless interrupts work.
+But to do that right the entire obj_destroy should be removed.
 
-Register each IC0/IC1 interrupt chip through irq_set_chip() before setting
-the initial trigger type. Do the same for the Au1300 GPIC. Keep the locked
-set-type callbacks for later trigger changes.
+IDK about the claim that DRAIN_DCT can fail, but I suppose it is
+possible for a hostile userspace to immediately refcount any kind of
+object and cause its destruction to fail and that does seem like a
+legitimate problem to me, so this is worth adjusting.
 
-Fixes: 171cc0d9eed1 ("genirq/proc: Speed up /proc/interrupts iteration")
-Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
-Reviewed-by: Dmitry Ilvokhin <d@ilvokhin.com>
-Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/mips/alchemy/common/irq.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+Please send a v3.
 
-diff --git a/arch/mips/alchemy/common/irq.c b/arch/mips/alchemy/common/irq.c
-index 2403afcd2fb95..d2fa8731fb3c0 100644
---- a/arch/mips/alchemy/common/irq.c
-+++ b/arch/mips/alchemy/common/irq.c
-@@ -892,15 +892,21 @@ static void __init au1000_init_irq(struct alchemy_irqmap *map)
- 	mips_cpu_irq_init();
- 
- 	/* register all 64 possible IC0+IC1 irq sources as type "none".
-+	 * Register each chip with the IRQ core before setting its type so
-+	 * the descriptors are included in interrupt enumeration.
- 	 * Use set_irq_type() to set edge/level behaviour at runtime.
- 	 */
- 	for (irq_nr = AU1000_INTC0_INT_BASE;
--	     (irq_nr < AU1000_INTC0_INT_BASE + 32); irq_nr++)
-+	     (irq_nr < AU1000_INTC0_INT_BASE + 32); irq_nr++) {
-+		irq_set_chip(irq_nr, &au1x_ic0_chip);
- 		au1x_ic_settype(irq_get_irq_data(irq_nr), IRQ_TYPE_NONE);
-+	}
- 
- 	for (irq_nr = AU1000_INTC1_INT_BASE;
--	     (irq_nr < AU1000_INTC1_INT_BASE + 32); irq_nr++)
-+	     (irq_nr < AU1000_INTC1_INT_BASE + 32); irq_nr++) {
-+		irq_set_chip(irq_nr, &au1x_ic1_chip);
- 		au1x_ic_settype(irq_get_irq_data(irq_nr), IRQ_TYPE_NONE);
-+	}
- 
- 	/*
- 	 * Initialize IC0, which is fixed per processor.
-@@ -947,6 +953,7 @@ static void __init alchemy_gpic_init_irq(const struct alchemy_irqmap *dints)
- 
- 	/* register an irq_chip for them, with 2nd highest priority */
- 	for (i = ALCHEMY_GPIC_INT_BASE; i <= ALCHEMY_GPIC_INT_LAST; i++) {
-+		irq_set_chip(i, &au1300_gpic);
- 		au1300_set_irq_priority(i, 1);
- 		au1300_gpic_settype(irq_get_irq_data(i), IRQ_TYPE_NONE);
- 	}
--- 
-2.53.0
-
-
-
+Jason
