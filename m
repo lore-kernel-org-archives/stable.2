@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795626420;
-	b=NbGtpr18ijaBkIv237oIvY3RIw/d2AUAtSRjesFCBI9bwDvBd3xcnWcsg5Dpbwu9DxOT
-	 gTyJhjmap3r4zaxIrgKOzkBKx6GB3iZOvPxXiOcNe36ISmMZmaTPqAUlkoRdHsFEqwPva
-	 9S6xuryvIG7bzdnyJnpgv7ADIRCu2hO4M1SURyZUjf/otnGNoTrkaMP9WduYULJes8bd+
-	 zMuekbUCpTaWlAALP9rtFzF8a/pQyNnztWPJyM3oKyp1to5/g7mrs4ztA5OWW25GsaPcL
-	 lta+B6b/f5IpJ06oTKgCv2MyKjqEb2FJnGweuNLzEmRgp8Gg4U7FKSjbEScIAkQEczg==
+	b=xKmKemyWWoEZChoyO8AgLrL3GTJZPX8gIU561MhE/N4tH928ZZUj+gv+zePnqW38a3dC
+	 rSCPif/JmNOkygVZ5u0KHsHQQtFnfW3kp0KSomIcBDzop60D+1EtfYAkHjN5Jl6NHcdYS
+	 RZqyQUvINgNDM0xsK55hy9h0ByKMyQEXX/Pm6w/UqyGhzaU+Dochmw/BDezgzNW6f0BdO
+	 GvNH0R6fltoV2ZRs1S5NMB41I2FiX1hg5xEaP0bIFHvQj+AiR0DW6Eiq59Hx5giKy3jez
+	 lZsSNJy0UvLuhbSibtzMH3WsiTOtXsnoK9o9hFYLMxIEdrL8AAAEI2qkIMsKvP6E/Ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795626420;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=OXq4QeH496KxN/3PUTaOk/W24i54lVWNaBos6pdsNcc=;
-	b=MkJXtDvIyS0Hc3OInQvJXq2TWJRHoyN0kL5yZWhw3fN0NH0FJU4gFmecqllerrZlMCX3
-	 O+aeBLpbQVeaxvOeZCELVgzLl5YlLqp9q8Vd28I7DIoJgwJX8QvE5sku10EZDMY4UvEsT
-	 pTvNajVTqFq0k0a2qxuiFLDBU6uBZJ5cpKkFDUFrSk3H58fkvbmqQ54jlfdPWvU54fIT6
-	 ON1LN613giZdvCpDiDTbY+krRLAt13ZyMGFbU5BEcE7RcBDaxGFKB++g7dNuqS1sJMgrY
-	 FvB1OyX9xFbal6U9Wwmiznk/BOGXwFTfMLFgREshDwdbKdHSAxyjFUPfbOgX/4yIL7Q==
+	bh=ag3gpna2IK1CT6z9J/WrksIYkU0A7mGWJS4oAZohEg4=;
+	b=lPtl8rL72wOWUT8UAqMWD4/xCpZlN1iMi3JdiAFm/1KUCd8HS3RpV5A9i0Sbrxlvkww8
+	 NNjlmacwI2fROyb8e8o6dWRrmGje6+m2TAFYUUO5ZjtA58PkifNySdWkIrpP1ot4KwXc2
+	 DQ0RsTM4QGWobNVhU0OWP109xJDHNsJt/kiR4WeM3yjUQ/CVtmnfMnmSOdqgS7mmHH7HA
+	 r2cbyAAdK4q6DdXiKw7NCQJOX/2f1zS7PYvW7wjAAEHc+r/36ZaakDR+KzeJQvocxOjMC
+	 20TX15pvWBagNxouXb+Tsb+SajZp01FSL5eDCz35ZgYyY1MJ543k+4W1xREuCVEPreQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmcQHNTo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UW9vcOvy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD32606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:06:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAFED606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:07:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmcQHNTo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6FE1F000C4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UW9vcOvy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 162751F000C0;
 	Wed, 25 Nov 2026 17:06:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795626419;
-	bh=OXq4QeH496KxN/3PUTaOk/W24i54lVWNaBos6pdsNcc=;
+	s=k20260515; t=1795626420;
+	bh=ag3gpna2IK1CT6z9J/WrksIYkU0A7mGWJS4oAZohEg4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FmcQHNToOy3oZzv/EmYuBdFdDK+BXjFEqQp1VvxpKyBj86uBTgqwfYuYTvFfyd50w
-	 lztGqfXzvUNOS8lrPzUb/bBoq0dcpHKKrVCG5jns7NWNqdhv9xS3qYjFRFOhuSG2Rq
-	 IWrgoJFpJV4H0d40pY90JUFqDhS3t4irw1MlaAden/MB5+bsnaoKZ2ZBayq02AWPCb
-	 FHWRm8MRTEWiGu6SoSaupbEIjm2fobXv0YbXb/XjYvsap2rj0cEDEyZtFbXlXOGPX+
-	 SleItuz3zwyCBIsQ4MLxC+Uecbr2ZXmp1Ktp63JZUir7L+15rINPXHFGnWc8t5Ke88
-	 9M5xHFbXF6PlQ==
+	b=UW9vcOvy40MhnVqonHMrOEKC0uDXV2xEGk+Cf/q5j0cux/2HvznoDrd0Hi5CK67Ay
+	 3I3AjLDxtUiBUKLP6AeOWBkdqovim2C5sVwR8lnHS79F4TzZwvzs6h93muAqb3JitY
+	 zg2X+GGocXIsaXIPfxXYSrupjihqk8yXGTtZ/Ua4VhQu4e8l7oSPN8CrmKW12yI/Ue
+	 x4XhQxta2zoSjVvGyZmkMtCY7nlcB76an/XSzrkPOqIRH7FagF5yNrlyW/QXvIdpF8
+	 jchivHJZwKOFeA+aG0qIbqgxWQvtizh0DrgABeyNpvMQNik4+LT9sZ74ardGcc2OLS
+	 2H7LiemNNnDQA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chen Ni <nichen@iscas.ac.cn>,
+Cc: Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
 	Guenter Roeck <linux@roeck-us.net>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] watchdog: npcm: Remove unnecessary NULL check before clk_prepare_enable/clk_disable_unprepare
-Date: Wed, 25 Nov 2026 12:06:56 -0500
-Message-ID: <20261125170651.922997-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] watchdog: npcm: fix clock prepare leak when setting timeout on a running watchdog
+Date: Wed, 25 Nov 2026 12:06:57 -0500
+Message-ID: <20261125170651.922997-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112521-cartel-refresh-660a@gregkh>
+In-Reply-To: <20261125170651.922997-1-sashal@kernel.org>
 References: <2026112521-cartel-refresh-660a@gregkh>
+ <20261125170651.922997-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,58 +62,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chen Ni <nichen@iscas.ac.cn>
+From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
 
-[ Upstream commit ad3746700ae238a96a9a4244d02a2e8eb00f157e ]
+[ Upstream commit 57c7cbe21acc77291ec0fbdd4bd72aa259cf4986 ]
 
-clk_prepare_enable() and clk_disable_unprepare() already checked
-NULL clock parameter.Remove unneeded NULL check for clk here.
+npcm_wdt_start() unconditionally prepares and enables the watchdog
+clock, and npcm_wdt_stop() is the only place that disables it.
+npcm_wdt_set_timeout() calls npcm_wdt_start() again whenever the
+watchdog is already active, so every WDIOC_SETTIMEOUT ioctl issued
+while the watchdog is running takes one extra clock prepare/enable
+reference that is never dropped.
 
-Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
-Link: https://lore.kernel.org/r/20250313084420.2481763-1-nichen@iscas.ac.cn
+Split the register programming out of npcm_wdt_start() into a
+__npcm_wdt_start() helper that assumes the clock is already running,
+and call the helper from npcm_wdt_set_timeout() instead; only the
+watchdog .start callback (and the restart path, which intentionally
+keeps the clock) now acquires the clock.
+
+Fixes: af084fdccfaf ("watchdog: npcm: Enable clock if provided")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+Link: https://patch.msgid.link/20261109071004.1506-1-zhaofeng2@cmss.chinamobile.com
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-Signed-off-by: Wim Van Sebroeck <wim@linux-watchdog.org>
-Stable-dep-of: 57c7cbe21acc ("watchdog: npcm: fix clock prepare leak when setting timeout on a running watchdog")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/watchdog/npcm_wdt.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ drivers/watchdog/npcm_wdt.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/watchdog/npcm_wdt.c b/drivers/watchdog/npcm_wdt.c
-index a5dd1c2301374..e62ea054bc618 100644
+index e62ea054bc618..aff1ea1e6b62d 100644
 --- a/drivers/watchdog/npcm_wdt.c
 +++ b/drivers/watchdog/npcm_wdt.c
-@@ -68,8 +68,7 @@ static int npcm_wdt_start(struct watchdog_device *wdd)
+@@ -63,13 +63,11 @@ static int npcm_wdt_ping(struct watchdog_device *wdd)
+ 	return 0;
+ }
+ 
+-static int npcm_wdt_start(struct watchdog_device *wdd)
++static void __npcm_wdt_start(struct watchdog_device *wdd)
+ {
  	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
  	u32 val;
  
--	if (wdt->clk)
--		clk_prepare_enable(wdt->clk);
-+	clk_prepare_enable(wdt->clk);
- 
+-	clk_prepare_enable(wdt->clk);
+-
  	if (wdd->timeout < 2)
  		val = 0x800;
-@@ -105,8 +104,7 @@ static int npcm_wdt_stop(struct watchdog_device *wdd)
+ 	else if (wdd->timeout < 3)
+@@ -94,6 +92,15 @@ static int npcm_wdt_start(struct watchdog_device *wdd)
+ 	val |= NPCM_WTRE | NPCM_WTE | NPCM_WTR | NPCM_WTIE;
  
- 	writel(0, wdt->reg);
- 
--	if (wdt->clk)
--		clk_disable_unprepare(wdt->clk);
-+	clk_disable_unprepare(wdt->clk);
+ 	writel(val, wdt->reg);
++}
++
++static int npcm_wdt_start(struct watchdog_device *wdd)
++{
++	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
++
++	clk_prepare_enable(wdt->clk);
++
++	__npcm_wdt_start(wdd);
  
  	return 0;
  }
-@@ -156,8 +154,7 @@ static int npcm_wdt_restart(struct watchdog_device *wdd,
- 	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
+@@ -134,7 +141,7 @@ static int npcm_wdt_set_timeout(struct watchdog_device *wdd,
+ 		wdd->timeout = 2750;
  
- 	/* For reset, we start the WDT clock and leave it running. */
--	if (wdt->clk)
--		clk_prepare_enable(wdt->clk);
-+	clk_prepare_enable(wdt->clk);
+ 	if (watchdog_active(wdd))
+-		npcm_wdt_start(wdd);
++		__npcm_wdt_start(wdd);
  
- 	writel(NPCM_WTR | NPCM_WTRE | NPCM_WTE, wdt->reg);
- 	udelay(1000);
+ 	return 0;
+ }
 -- 
 2.53.0
 
