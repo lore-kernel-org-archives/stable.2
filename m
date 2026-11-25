@@ -1,59 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=184.106.54.104
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795628781;
-	b=FCt/H3DjSIaKkpeIAw/42sSaV/CZltwaeX0NSIJJdD4ws+j8Pnndc3zw7sYJiwvsHo6l
-	 ZEG2udQghLk9Z1uJPiHIsdRwSxnHLNAjoufjswrv45bPWdAlpx30NRgnjVte0sfsWK1kg
-	 Z6eyiNIogWzPiVbpu3QsRkUpVIb/i2EosShNhqQV2dRABCybW8M8m5k+qUGpA1bbc4V9d
-	 JHtUadupN/71Cv1OQXz/gkbWR40WJXGOfRNUIXGjG7+kHi7qLfDmM0PeiEwt21Zfuhatx
-	 WS516pVPsgzVUh5d6zMJ95DuXH3qNYyiDoukh25hxQc1r6FQNwHuxFiypVjWJyLD07A==
+	t=1795628796;
+	b=4inZ7cpjgnVHU3uSEYFKyGoxF587mJuB7sIYc1DrQKrV8m5di+QIuJHlMe/+WZnj3bft
+	 Gq5W/2VNiB15Nf0wt4woo/EDY1FgWKQip81MX0BvOrBeVq8kw6CFp19Aj/Fa1u6kfvV4O
+	 0IZx165DfwESPWdcTGDGeqRR52lTtJ8FpFjcIJncFCLoXUhPNZdK+pZK+SJdbrFVtdiGY
+	 LJc35vasPrz8Qu2d5JL2IsS4eSZfqadIbKrCOtPw3Mm0J5ryOAdkHM1ZbrMqnsUau2Ctk
+	 ioFqZpB9ogYZmAg0XkT/aXIAgW6lhwAbg8wt6YIYZtmQN8UbjIMQZTuBH8k7qlFEOTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795628781;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=CZMVuuW8Z0sZJ+4aQAdQdzXUhgbrzBTT6X7icn2CvQs=;
-	b=nPae8Y/b4a0r49uEFKBT0bkzT19UKzUzK2o+6urcKHhgJdsVyvNYG9+2hdq2rBNnCKZS
-	 42aNBn02gXwEQ3a/BY+kh1eybkqDF+nRHtc6vOtfFHUzuJJMtlZqGClEWEfvAeyKv02+i
-	 SiorjXc8FTEyt3zJ6FGw1pzjnKIgOBIq0cGtCix/d4L7gxNB5V1C+fvahx4BDM827p5qn
-	 tQkHPdgHN/LRJRJRL+/K5O9nlYkCEoauZa9GUYhXzrlQO9glemgrYjeMPbGRusVyU8pBP
-	 zDhslxjeJgyXm8WLTQdjKsgBA5dleKMmrn+awIBK+hu8Uic3XtYTgSCbQqhBfQlZHKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795628796;
+	h=DMARC-Filter:DKIM-Signature:X-Auth-ID:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Classification-ID;
+	bh=wN1N5SmhhRahrFdLRLG52pXG9GXvItu29SbUHZK/ll0=;
+	b=5Iz2vfWde32JH+lebqAr5lzNoCTb4ieqACYv8ivYiK8uGLpOeIFkY9JO/C66aN0r6MP/
+	 QXAYm8z3zf0hAj04Psa+zh1pjpxr47oriAdhlezZkrQYVuI9tS82R7vl1lYDrtySXo5kj
+	 A8oj/JagHuR7nqW8Tgfn9B9u4ZMXTdLR6wdMPjNldKNkrsoLdv7FHgZA2464wvEt1xpSw
+	 80dOyWym77vtSc4EKAqnTL5ZrEqRuWDfKTmHMATfzmVQcWrRP+vR4fmrd7PV8ZnlMQ02p
+	 pddtx+rh2kTZ/ltKhxlWsNDxQ0anSoiPLQ/DKtkLh0kqz3wh1v1IHIrWmZh8su/MYXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CUNnJIS4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=mev.co.uk;
+	spf=pass smtp.mailfrom=mev.co.uk;
+	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=ib1BEhH2;
+	arc=none smtp.remote-ip=184.106.54.104
+Received: from smtp104.ord1d.emailsrvr.com (smtp104.ord1d.emailsrvr.com [184.106.54.104])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B55606A321;
-	Wed, 25 Nov 2026 17:46:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B24606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:46:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6B24606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CUNnJIS4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 779801F000CA;
-	Wed, 25 Nov 2026 17:46:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795628780;
-	bh=CZMVuuW8Z0sZJ+4aQAdQdzXUhgbrzBTT6X7icn2CvQs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CUNnJIS4rVyaQunswSKTxipnPr62OzyIrx5hI3OyVeJz5DItVwoZ8FskEVPL/mWht
-	 maAyYnzZNyBf5auwxI2bAXBcJg+jTxpx5RraQbsNqLzQC29jY6qb5/bbB/D9wdfsg5
-	 Fb7irujXGZDAWz1Hc1eqC2t0yA+iqjSpYFjhvn8k8IOUnJj+Zlub5h4JG8ST80oE5g
-	 fJvpnihCwtdq6Ea0/ibzedEmOo3Kq6AAECs5Tk43NuSXHCVsEPJkiuy7alb6Ubv6ep
-	 i485jz4x6OxIKMSGKlmsgNEqYT/pdpBPCl1aLBj8isoocILXUZj6TZq/SR/bSSe3E9
-	 MZEyInZaHJ3zQ==
-From: cem@kernel.org
-To: cem@kernel.org
-Cc: linux-xfs@vger.kernel.org,
-	hch@lst.de,
-	sandeen@sandeen.net,
-	dgc@kernel.org,
-	aalbersh@kernel.org,
-	bfoster@redhat.com,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] xfs: force all shared extent swap to use rmap shared path
-Date: Wed, 25 Nov 2026 18:46:00 +0100
-Message-ID: <20261125174607.135959-3-cem@kernel.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125174607.135959-1-cem@kernel.org>
-References: <20261125174607.135959-1-cem@kernel.org>
+	dkim=pass (1024-bit key) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=ib1BEhH2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
+	s=20221208-6x11dpa4; t=1795628789;
+	bh=CbJBVlaa+xLVljF69QtXPkZrwPgsm7o1I7U08uOh1rk=;
+	h=From:To:Subject:Date:From;
+	b=ib1BEhH2tsm4UyAE33zPLnY4oizKx0r+JISUQacTMYwvX86nUV4hBLpaMNRNj0Nkt
+	 FHftAXr1MiZ8paZ5zCKKPucW8jMHKwNpAF7CIwkIZnbmm+pqqKLjQmXlFQj1ScYBxQ
+	 kwRRMvxGqImUHCheLHH3D8gHVfapdjpvdsZJ/hSA=
+X-Auth-ID: abbotti@mev.co.uk
+Received: by smtp22.relay.ord1d.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id 83761E01EB;
+	Wed, 25 Nov 2026 12:46:28 -0500 (EST)
+From: Ian Abbott <abbotti@mev.co.uk>
+To: stable@vger.kernel.org
+Cc: Ian Abbott <abbotti@mev.co.uk>,
+	stable <stable@kernel.org>,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH 6.12.y] comedi: comedi_bond: Fix leak of opened device references
+Date: Wed, 25 Nov 2026 17:46:20 +0000
+Message-ID: <20261125174621.735810-1-abbotti@mev.co.uk>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112538-privacy-unclip-9580@gregkh>
+References: <2026112538-privacy-unclip-9580@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,133 +64,99 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Classification-ID: 967c2ddb-5453-425f-95c2-0fee35c696d7-1-1
 
-From: Carlos Maiolino <cem@kernel.org>
+commit fa0858523f07f8dd71d89b221f4422c3b8096d90 upstream.
 
-Currently when swapping inodes with shared extents in a rmap enabled FS,
-we enforce the rmap updates to use the rmap_shared path only when the
-target inode has shared extents, but we should also be using the
-rmap_shared path for the case when only the source inode's extent is
-shared.
+bonding_attach() calls do_dev_config() to open other comedi devices
+specified by the user and tries to make use of them as part of the
+'bonding' device.  If it successfully opens the other device but cannot
+use it (either because it does not any subdevices of a type the
+'bonding' device can use, or because of some error that occurs while
+dealing with its subdevices) then it is left in the open state and the
+fact that it is open does not get recorded by the 'bonding' device, so
+the reference to the opened device gets lost.  Fix it by closing the
+opened device if it could not be bound to the 'bonding' device.
 
-Reported-by: Lauri Gates <lauri.gates@gmail.com>
-Fixes: 1f08af52e7c9 ("xfs: implement swapext for rmap filesystems")
-Cc: stable@vger.kernel.org
-Signed-off-by: Carlos Maiolino <cmaiolino@redhat.com>
+To match previous behavior, if the opened device is unsuitable then
+ignore it (after closing it).  The opened devices recorded by the
+'bonding' device will eventually get closed by bonding_detach() even if
+bonding_attach() returns an error.
+
+Fixes: 3cf840f65ad5 ("Staging: comedi: add comedi_bond driver")
+Cc: stable <stable@kernel.org>
+Reported-by: Wentao Liang <vulab@iscas.ac.cn>
+Link: https://lore.kernel.org/lkml/20261103063301.1025860-1-vulab@iscas.ac.cn
+Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
+Link: https://patch.msgid.link/20261103173610.89687-1-abbotti@mev.co.uk
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+(cherry picked from commit fa0858523f07f8dd71d89b221f4422c3b8096d90)
+Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
 ---
-V3: Remove redundant code I forgot to remove on V2...
+ drivers/comedi/drivers/comedi_bond.c | 24 +++++++++++++++++++-----
+ 1 file changed, 19 insertions(+), 5 deletions(-)
 
-V2: Use a transaction roll when setting reflink flag to the inodes if we
-need to do update flags. I was initially avoiding doing so but seems
-like any attempt to fix it without logging the change always risks to
-leave a timebomb behind.
-
- fs/xfs/xfs_bmap_util.c | 60 +++++++++++++++++++++++++++---------------
- 1 file changed, 39 insertions(+), 21 deletions(-)
-
-diff --git a/fs/xfs/xfs_bmap_util.c b/fs/xfs/xfs_bmap_util.c
-index 73e7db3203c0..4808bb728a95 100644
---- a/fs/xfs/xfs_bmap_util.c
-+++ b/fs/xfs/xfs_bmap_util.c
-@@ -1302,17 +1302,6 @@ xfs_swap_extent_rmap(
- 	xfs_filblks_t			ilen;
- 	xfs_filblks_t			rlen;
- 	int				nimaps;
--	uint64_t			tip_flags2;
--
--	/*
--	 * If the source file has shared blocks, we must flag the donor
--	 * file as having shared blocks so that we get the shared-block
--	 * rmap functions when we go to fix up the rmaps.  The flags
--	 * will be switch for reals later.
--	 */
--	tip_flags2 = tip->i_diflags2;
--	if (ip->i_diflags2 & XFS_DIFLAG2_REFLINK)
--		tip->i_diflags2 |= XFS_DIFLAG2_REFLINK;
+diff --git a/drivers/comedi/drivers/comedi_bond.c b/drivers/comedi/drivers/comedi_bond.c
+index 78c39fa84177..076aecae2c77 100644
+--- a/drivers/comedi/drivers/comedi_bond.c
++++ b/drivers/comedi/drivers/comedi_bond.c
+@@ -182,7 +182,9 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
+ 		char file[sizeof("/dev/comediXXXXXX")];
+ 		int minor = it->options[i];
+ 		struct comedi_device *d;
+-		int sdev = -1, nchans;
++		int sdev = -1;
++		int nchans;
++		int nope = 1;
+ 		struct bonded_device *bdev;
+ 		struct bonded_device **devs;
  
- 	offset_fsb = 0;
- 	end_fsb = XFS_B_TO_FSB(ip->i_mount, i_size_read(VFS_I(ip)));
-@@ -1399,12 +1388,10 @@ xfs_swap_extent_rmap(
- 		offset_fsb += ilen;
+@@ -221,11 +223,14 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
+ 				dev_err(dev->class_dev,
+ 					"comedi_get_n_channels() returned %d on minor %u subdev %d!\n",
+ 					nchans, minor, sdev);
+-				return -EINVAL;
++				nope = -EINVAL;
++				break;
+ 			}
+ 			bdev = kmalloc(sizeof(*bdev), GFP_KERNEL);
+-			if (!bdev)
+-				return -ENOMEM;
++			if (!bdev) {
++				nope = -ENOMEM;
++				break;
++			}
+ 
+ 			bdev->dev = d;
+ 			bdev->minor = minor;
+@@ -246,10 +251,12 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
+ 				dev_err(dev->class_dev,
+ 					"Could not allocate memory. Out of memory?\n");
+ 				kfree(bdev);
+-				return -ENOMEM;
++				nope = -ENOMEM;
++				break;
+ 			}
+ 			devpriv->devs = devs;
+ 			devpriv->devs[devpriv->ndevs++] = bdev;
++			nope = 0;	/* keeps the device open */
+ 			{
+ 				/* Append dev:subdev to devpriv->name */
+ 				char buf[20];
+@@ -260,6 +267,13 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
+ 					sizeof(devpriv->name));
+ 			}
+ 		}
++
++		if (nope) {
++			/* Opened device cannot be used, so close it. */
++			comedi_close(d);
++			if (nope < 0)
++				return nope;
++		}
  	}
  
--	tip->i_diflags2 = tip_flags2;
- 	return 0;
- 
- out:
- 	trace_xfs_swap_extent_rmap_error(ip, error, _RET_IP_);
--	tip->i_diflags2 = tip_flags2;
- 	return error;
- }
- 
-@@ -1547,6 +1534,41 @@ xfs_swap_change_owner(
- 	return error;
- }
- 
-+/*
-+ * If either file has shared blocks, both may own shared blocks once the extents
-+ * are exchanged, so set reflink flag on both and init the CoW fork.
-+ *
-+ * rmap code chooses how to process each extent based on the reflink flag on the
-+ * inode being remapped.  Both at runtime and when log recovery attempts to
-+ * replay deferred bmap intents.
-+ */
-+static int
-+xfs_extents_set_reflink(
-+	struct xfs_trans	**tpp,
-+	struct xfs_inode	*ip,
-+	struct xfs_inode	*tip)
-+{
-+	int			error;
-+
-+	if (xfs_is_reflink_inode(ip) == xfs_is_reflink_inode(tip))
-+		return 0;
-+
-+	ip->i_diflags2 |= XFS_DIFLAG2_REFLINK;
-+	tip->i_diflags2 |= XFS_DIFLAG2_REFLINK;
-+	xfs_ifork_init_cow(ip);
-+	xfs_ifork_init_cow(tip);
-+	xfs_trans_log_inode(*tpp, ip, XFS_ILOG_CORE);
-+	xfs_trans_log_inode(*tpp, tip, XFS_ILOG_CORE);
-+
-+	error = xfs_trans_roll(tpp);
-+	if (error)
-+		return error;
-+
-+	xfs_trans_ijoin(*tpp, ip, 0);
-+	xfs_trans_ijoin(*tpp, tip, 0);
-+	return 0;
-+}
-+
- int
- xfs_swap_extents(
- 	struct xfs_inode	*ip,	/* target inode */
-@@ -1705,6 +1727,10 @@ xfs_swap_extents(
- 	src_log_flags = XFS_ILOG_CORE;
- 	target_log_flags = XFS_ILOG_CORE;
- 
-+	error = xfs_extents_set_reflink(&tp, ip, tip);
-+	if (error)
-+		goto out_trans_cancel;
-+
- 	if (xfs_has_rmapbt(mp))
- 		error = xfs_swap_extent_rmap(&tp, ip, tip);
- 	else
-@@ -1713,14 +1739,6 @@ xfs_swap_extents(
- 	if (error)
- 		goto out_trans_cancel;
- 
--	/* Either inode may now own shared blocks; flag both, with CoW forks. */
--	if ((ip->i_diflags2 | tip->i_diflags2) & XFS_DIFLAG2_REFLINK) {
--		ip->i_diflags2 |= XFS_DIFLAG2_REFLINK;
--		tip->i_diflags2 |= XFS_DIFLAG2_REFLINK;
--		xfs_ifork_init_cow(ip);
--		xfs_ifork_init_cow(tip);
--	}
--
- 	/* Swap the cow forks. */
- 	if (xfs_has_reflink(mp)) {
- 		ASSERT(!ip->i_cowfp ||
+ 	if (!devpriv->nchans) {
 -- 
-2.56.1
+2.53.0
 
