@@ -1,53 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795566566;
-	b=H4DTwKjZh0fu2BkA20iT7q9ORt41OaOEUo7PW2bkIP72hVgeDDWDSOQsdEQUSSkERvmO
-	 pACwpQXgHeWwQ5qx7OFFVevj5rbBSKmG4BMnZIy+K7TkQkJLGCyxOQmilPgIcvBuQ7BjC
-	 FQzf8PqHxedz+nXwTR73HL8jfcuIDBaXCfrZ59GWAf6yW7Xmo1lVu3mdEfm2JCTi/CprB
-	 zsWU3kYOtizeQhnSZXIzO5i7Jyg66HqTrRI0mPn7eGkmzhVylTcS11LqZA3ThAoKyvvob
-	 AFVisLGTGfB63HJaMAPEtx85Kzcz4ed4VZi2zey1ICkGwO6+yqnDsQhtljyjSM/nkiQ==
+	t=1795566720;
+	b=jPBWx1QI8TCNPtLIDuxxhz5x9Bll+y8htRJhStoyzH6x7fNiprELzaGrcpFO026RrRU1
+	 9EOi8luTcD2WMKiLesIoaIigLxjZPPzEpsPkIMbdSA68lraD0RvqYYGONmKFdOg24jUF7
+	 0dfnf40XnTwI8iIXtfqzKzqFHRidw74H2r2iesbNBTBM4xISjB3tbU2oeC/DouWQwZVQe
+	 89KWMMai4EETLnS9Je9P/4vc1kXSuVFFd3naFHEfraoWtRbllWQnSSGqV+ktU/zHEn935
+	 +DLzIBL2dsdbnjJKtm/36bYkwW6oziGwSo2vqSX7HFwHSsVfTTrDgLXZT0LTO7K4VYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795566566;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=EFGoYii1SC1+bbZRrgGUgBUua7WO9ouNbjRGTkCeEYI=;
-	b=2Ay0KAaOpDmAKmS/KRiOFTcb0jKC1f/kGPw5iIkWD0zjX8wGhqtpd4Rf0iqqMN18PLk1
-	 c7rIj25xl/bhyUJoHa5U9ZeZa2v5/HtzYgUs1+ye2P3c5Wc88mCb99Al4XvL7sLi8i32J
-	 5Xi2eKja07waLhAuSGzn9+Kh79yKCJtU2cXfOvFXIlEcdGTgSUhSLra7KmFe8u/BiYvR5
-	 PnYSHEmAm+w5tK6jpNTODTBqhduoUpW1L/qz7WlE8EYLacCjMm4TMI86k6rWwrrRjs7G4
-	 BswRP2k/P/oLqPauKJuGiLakZxo+/dJmq/t4XB7ex2x5OEfdAL3KKmbOwe3kQ5BwriA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795566720;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=Gcn9k5RyT2SrLf7rw1mzgR9U0hO9J3AKAxDoC8pAHaE=;
+	b=sy/ZC3oOH+WS6XZ0yl9igEKaJHbWO6vPMWNokfl8vXHfdlAwek+H8ePI0qUNtwOMVq2o
+	 tDpjmD60hfQe2CawoUC6nY/uhMfpArI+zbZUDShpyPYGTRej1K7qli2/oxNMb3/Ntk0bN
+	 iLLGN0M9Sdik7qbC6i1MFBwr0du6/NYt/B8YiDDbgsT2+zMn/Gm0g8vGAzVM58fNm71E8
+	 +buy8GZjnhL1gzr6xhSDicTE+8zi0ohtIr5VGaTLKU1+SUI1k2dJGImd481wgO/AQVtak
+	 mRRlYXGvzrgIg1Oia2KPZ40OGcM9RPMFCkhfbGzI6+/987ByviNWTHV46Z6MX/neOBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UVtkqYVE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--willemb.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XQwmHO9u;
+	arc=none smtp.remote-ip=209.85.222.199
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA872606A31E;
-	Wed, 25 Nov 2026 00:29:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF6D606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 00:32:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FF6D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--willemb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UVtkqYVE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 141A81F000CF;
-	Wed, 25 Nov 2026 00:29:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795566566;
-	bh=EFGoYii1SC1+bbZRrgGUgBUua7WO9ouNbjRGTkCeEYI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=UVtkqYVEf6NtA5gxi3S0rdQNpRRBSmEaLl1BtoFmgWy4CWWvC5eRnx1jKQOO99qVj
-	 +MdqYunFW4TbGBGy7Z9umkmIjR8xsLget/7k1c3HsJdCTZLaO1mr6nRRiQOP0wZh6L
-	 Bj6Pav125NsImzsgaZsLLwbPr7zZMCQUuw2i7aZaY4p5w6Htd9gkuvdTs5rqYA84eV
-	 lCdbDCqe5Bx3dZbr+C6WamIXfK1zVMa+KwS50lqRDGZu/HS0ViOtFNG0SDFO7W8Mgf
-	 Qio+iR8T4ev15tk648F4G7wSQm7H8/ekS6kGCf97nko82Snv9s4ssvQNrTspCyv/7A
-	 Qsw4lj/7q26VQ==
-Date: Tue, 24 Nov 2026 14:29:25 -1000
-Message-ID: <2efd4eef27cbd033bae9e4f5d5ba30bb@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Lai Jiangshan <jiangshanlai@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Boqun Feng <boqun@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>, Matthew Brost <matthew.brost@intel.com>, =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Boris Brezillon <boris.brezillon@collabora.com>, Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] workqueue: fix cancel_work_sync() on ordered workqueues
-In-Reply-To: <20261118-ordered-wq-cancel-v1-1-916e01f9affe@google.com>
-References: <20261118-ordered-wq-cancel-v1-0-916e01f9affe@google.com> <20261118-ordered-wq-cancel-v1-1-916e01f9affe@google.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XQwmHO9u
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f33438950so901421185a.1
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:31:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1795566719; x=1796171519; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Gcn9k5RyT2SrLf7rw1mzgR9U0hO9J3AKAxDoC8pAHaE=;
+        b=XQwmHO9u+G4hYbfjQQeoBtP0836u6rFMOum3quZGgd8jUKrOktAJVwEQuog3RtOmR0
+         /ry4sUgmBhTa0VJ+gsXi2il8IjEVQbkCKgqIxFm4In+weX8rQHoGRHvzFqFzB3Kd6WtV
+         Z5pZ94I09jYptL+vsSsRoXLBbi0yhwV3eCUMhQmYwmHJdSpC5cWLLWezW+If2da9/l9s
+         9IP7EBTwCDSaVwLhAYHmD5Pd5QyzOhLzNqf9+H1zdirHMjrf4TBLtNCd/Ni65Rxt0TfX
+         vS8nYnwvKz0RUdhL+Obbgtl1ieYbZFd82+sbfUP9wroXnbE4hVHL3U7XXMoLZ43y2iQJ
+         uO5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795566719; x=1796171519;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Gcn9k5RyT2SrLf7rw1mzgR9U0hO9J3AKAxDoC8pAHaE=;
+        b=eFC9RE1XdHYDxIkaih0tF6/7TDdDJ1rlINa7uDtIXm7l3tIJ3ajzLXgG8u8oxHqhrO
+         xQH+CVrINqtIXASBzcQlsVPDtwSKidGWY4y5ArUnOKpiDtjFZJSN5hS4uB3AayyWo1mW
+         6x3QdXPgflxAttpfV2vIsr1jHsNEBNcIRpvTyWUXDZBG2WwqhvHPb5lzGEtohZGYFu1Q
+         yEPWs69zVgY0DFMmQA5IjC9eR8hCfr/06mmJgD9DNZeDhucMmf1VmxVFeyXQXKltTun1
+         M6/4oqNhbEjOyA7/VUpdDMrGHh/8ZhNP8Vz5RBtgncmh7ZJCoefXCM8HiaBkVkyljkk1
+         hH5A==
+X-Forwarded-Encrypted: i=1; AL+hErFZPt9j6Ty3Y7aaxC+T/Xwe8CGZySEpokZq0DLkOD6WXAF60uMU82k4kLRHWCJPr9dIUuS3tYU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9XcwIxnFeTskCIb4EFDt80pN7jkX1ZmvaWiPL4O5xcGbtA4Mk7
+	V0Vy7IIwvxL11bDn3Dc29mOYm/vj6XhCP6BOex5V/Fmjpw+oDw+MmHeU8MsrvKZNvagUjM23+Ld
+	X7srFoxya+g==
+X-Received: from qvbld10.prod.google.com ([2002:a05:6214:418a:b0:921:2ee8:44dd])
+ (user=willemb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:620a:6f0d:b0:939:6dea:374d
+ with SMTP id af79cd13be357-949ba9d1fa6mr2800574685a.49.1795566718729; Tue, 24
+ Nov 2026 16:31:58 -0800 (PST)
+Date: Tue, 24 Nov 2026 19:31:58 -0500
+In-Reply-To: <20261118143500.dualpi2.1.543a9a1be910-zhiqizhangg@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,31 +77,59 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20261118143500.dualpi2.0.543a9a1be910-zhiqizhangg@gmail.com> <20261118143500.dualpi2.1.543a9a1be910-zhiqizhangg@gmail.com>
+Message-ID: <willemb.4158a0ba73d8@google.com>
+Subject: Re: [PATCH net 1/2] net/sched: dualpi2: refresh head timestamps after trimming
+From: willemb@google.com
+To: Zhiqi Zhang <zhiqizhangg@gmail.com>, netdev@vger.kernel.org
+Cc: jhs@mojatatu.com, jiri@resnulli.us, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	shuah@kernel.org, koen.de_schepper@nokia-bell-labs.com, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
 
-Hello, Alice.
+Zhiqi Zhang wrote:
+> Reducing limit or memory_limit in dualpi2_change() removes packets with
+> qdisc_dequeue_internal(), bypassing the timestamp refresh performed by
+> dequeue_packet(). The cached c_head_ts and l_head_ts can therefore refer
+> to a packet that has already been removed. If a queue is drained, its
+> timestamp remains nonzero.
 
-On Wed, Nov 18, 2026 at 05:09:51PM +0000, Alice Ryhl wrote:
-> +		if (unlikely(pwq->wq->flags & __WQ_ORDERED)) {
-> +			struct pool_workqueue *oldest_pwq =
-> +				list_first_or_null_rcu(&pwq->wq->pwqs,
-> +						       struct pool_workqueue,
-> +						       pwqs_node);
-> +
-> +			if (oldest_pwq)
-> +				offq_pool = oldest_pwq->pool;
-> +		}
+> get_queue_delays() continues reporting an increasing delay for the empty
+> queue, and calculate_probability() uses that delay as input to the PI2
+> controller. Partially trimmed queues also report the delay of the old
+> head instead of the retained head.
 
-@pwq still has @work queued on it here, so it's linked on wq->pwqs and the
-list can't be empty. Maybe drop the NULL check? e.g.
+> Refresh both cached timestamps from the internal queue heads after the
+> trim loop, while still holding the qdisc tree lock. head_enqueue_time()
+> returns zero when the corresponding queue is empty.
 
-  if (unlikely(pwq->wq->flags & __WQ_ORDERED))
-  	offq_pool = list_entry_rcu(pwq->wq->pwqs.next, struct pool_workqueue,
-  				   pwqs_node)->pool;
+> I identified this issue and reviewed the fix. I used OpenAI Codex for
+> root-cause analysis, drafting the fix and this changelog, and assistance
+> with regression-test development. Codex also performed automated
+> validation; the archived results are described below.
 
-Thanks.
+> I reproduced the issue using Codex-assisted automated tests on an
+> unmodified arm64 net-tree kernel in QEMU, with real AF_PACKET traffic
+> in an isolated network namespace and HFSC ls/ul shaping to retain
+> packets. No source changes or fault injection were
+> used to trigger the bug. The companion kernel selftest covers C/L
+> dequeue, full and partial trimming, mixed queues and no-trim changes:
+> the baseline passes three controls and fails eight trimming checks;
+> the fixed kernel passes all 11. Runtime coverage is this DualPI2 selftest
+> on arm64. I also used Codex to build arm64 Images and compile the modified
+> object with W=1; additional build coverage is in the cover letter.
 
---
-tejun
+> Fixes: 8f9516daedd6 ("sched: Add enqueue/dequeue of dualpi2 qdisc")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhiqi Zhang <zhiqizhangg@gmail.com>
+
+The selftest flagged checkpatch issues. It is also many LoC if only
+testing a single small issue. LLMs are good at generating tests, we
+cannot include all.
+
+Let's also include the original author.
+
+pw-bot: cr
