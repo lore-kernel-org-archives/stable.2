@@ -1,55 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795636656;
-	b=VTa6A4PU0RapYxyJ4aBzacXfcVV3ukl7kv2fJbcSRFDbaeh2UmgpHBgVuIq5dF77WJA+
-	 XIEzXw+N3eXTLxMY0mkOWwEUw47E4dnnSn/7e7VHbbt30TBsfyJxvlthN6g/XwhXEUG/c
-	 jY85E+qoUvpq63vtnYgyOGYq1+bgDKzBtcmSORHgnALfdwnApFgBUJbVKerut75WEb12M
-	 CiF7vbQMCG7SJavI9ZkU65whhwySi03OkeSLgtdiNbP20lMw/7Sq6UgEBo+DDPR0iypUm
-	 Ss/LPbsYgtFiParU0s93mU0rmR2E4fLNJa7iMmwDIIZIqtM5NEue4Lw33QIA1rU1Ddg==
+	t=1795636662;
+	b=1m3AuHEXXl3uOQSU4XS3+F0dxScT9Y9PfGz94Cm6Se2C/wNiUuTWO1bMxty0Cf6g7uW0
+	 fK0c3CxnHS9Ip63KBmYQlnAyykE2AwTNlajZush+OJVLvTJkUt5QscF06W99Nj74qmGzF
+	 P3Eg3lzmVEtIPhWuCLYL/Ovk6ggbkLXXJfgMMkRm1Jv4mBYvYS68AfyGcn4fn783xJqAj
+	 ndR+CWsh+lWAG6btg2Szh4fayuW7xY0M/krf5GeTgm9bJAXBovCBxcziggv3lTOSlZtXg
+	 gY8hr5cY6O3mNiSm1rdSW/X59G0gZcALf8UcW9qWGh6VHpG4M1e1JPJW2o++MQXQ6QA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795636656;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=gNhA1I8mJCeXFmYqh+tXpfZwS/tliNzjaCEeU3xtpwI=;
-	b=GTF28AE6kmVq9CZx9tBOACAQVAYDoIUNwHhpEHIuAto2LY100knfxcC6KQluAxSq+81K
-	 Fcce382Yt6j3rZluvvo1PN7D9TrAHN6RNd4VWMiiut3T6kj7SwI3HQybKPTYIKg5ofT2q
-	 xu0Z9lRWktl/gB3vDTxRXzytUFG4g7NgB7KQnWFK6XHwSBlFsvdMsEuZKu8+0VRcPr1k1
-	 Ck6ucqY3nedRGDWj9+x5mGqASF/wjwRySLZpsig/T3i8BmrQnOfnfjlRuFsd7EQSZsBtq
-	 CqWelqtTCT/to5m1Rsgn1fbWHrwUhBcSeqDs0LaboiBBNyJfwhOdtHIwC25q2Z9XB7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795636662;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=FnWutwVHAzlegSMVJ4Kfkk7OIUcj8sfxBwSeQGcqrD4=;
+	b=o6YDG3ayZVJu9FbAVfMyTKGveJheA38d24++1yyH3C4QyZhOVwYALhPbU4zxa7wYCkqD
+	 IcNAsQ0mz0VVt6yoQu3pqcKsHSmgaJJ4Gm4ns6VlEnak1JqC6hPPsqOezrFosgxeX7xT9
+	 EAq6k/+O0EwwWdrqy8xZlQkLBijDwVh4kaUWbEbb3Dvf28dsJICLkOrh0nA6bx+5LkHj7
+	 yS7T2agSow4A63XKrnCZ+6U+Hj6rTXCnF7t+ziwyPPZAXx1rSxAfmfbDbcArqP0bQ/plR
+	 pH/WLruP3bFIbbQBgfOxXM+V3MrgDeYjqLxjo0+Geh2HpEwKDb4vS59/YyMdFqONXkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DqfgR8Dq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=trailofbits.com;
+	spf=pass smtp.mailfrom=trailofbits.com;
+	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=BJIbTReu;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE678606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:57:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3948606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:57:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3948606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DqfgR8Dq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2D5D1F000C4;
-	Wed, 25 Nov 2026 19:57:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795636656;
-	bh=gNhA1I8mJCeXFmYqh+tXpfZwS/tliNzjaCEeU3xtpwI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DqfgR8DqfjspjQNJ3/2ykqdPO5e5GKFxyl80TeDQDVQGWJ76FUQvy8e1twwXTw3tb
-	 ENcvdalKdevQ9rINoxac2PIpPewgd+vHD8S1Z/mNmJHWZr65J34qv9auNUJL9Sbnr2
-	 ogxhtlSDv0cWDNCBbxPKmWVyd79OcLAoqBrEFSsMjSGFZV6fwjHXkZ8ujGzVixEsZV
-	 pSZduGPBrpBTxdnDtlx0xyN5hEGJcqaqVCUcqq5n/wVAI4FncMvQxuX0LC5ATQUYof
-	 IUuaTTcBZBGonw/KApRgoISkMbpOEZTVCnsIEeh2G3JNQmemR+vGSFp7ssUX5AtxAT
-	 wsWQSt5pzFR9w==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=BJIbTReu
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1a2761c69fbso7857980c88.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:57:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1795636661; x=1796241461; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FnWutwVHAzlegSMVJ4Kfkk7OIUcj8sfxBwSeQGcqrD4=;
+        b=BJIbTReuQbMD2EPqIi2oK/iI7IFqoFFIRB9NyHmHtd8O/sYk+ilqqcXO+oJxkErXNl
+         4COQpCv+xRboHxL7oaaxZD0ziFIbxVOQXAeQkX10BXPdjfohhc85+DcaIdix42cjc+dg
+         hcD7MK9kaOZa0zLM+lf1pLuzJt/7d6BOAJT6XL/4s+HG7twLRzsd1FXwk5lUhwNbpStb
+         6rHUpptWd4sg+WjHPTAXkzTKUARYoFyN4LUTDd+tTGasG1rZ0Q7Ymvp03iFPI73IbtJ6
+         9GfKH9RhotXSZ+Vo9coboFv4S0eQVoRgtbUahK8EaQQeALr2X93QgVx+GwhD2Z3yo+RV
+         KLCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795636661; x=1796241461;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FnWutwVHAzlegSMVJ4Kfkk7OIUcj8sfxBwSeQGcqrD4=;
+        b=cyAVv+M90RqxkrXX5TT/t5h5IwYPUZd1JgIiUKtHRNsJFpZrSblUCZ7MxgtcbbR2sa
+         vh3/PkrZiQBzA8crr5wsXJR4JbLWZczm0/IHaBHoal46kr9xLT2FUnjYn+HtlohDarLW
+         0I6GV5SUjuVPLlzHgP8cPVf5aWhuHSQZxLVMVx2at0YxyLqIUg2ahliK0FCMQgdGekcs
+         fEtl348jQ2GMD9yP+tDnBoUXCZreba7P6u+hJKKw6JqngQKVLoa5BUgfeIgYDUjZ2phA
+         kZnQp4LHd8haKhf5J1rJ5wS6RmsKlFbOO4kIyyE6GiazcswPW+t3bSUjXKk2if3/0FPm
+         JuMg==
+X-Gm-Message-State: APuU4Z8IeNu1OCcg9gPEl0jD/UEFkhqVHqU91g4OjWmC1SeADETa0X4M
+	nxOrgrQT1upzLw/hhApAk75J9pEwGMlR2Evqblv1aDIoRH5K6cYBbEBdcvfcOzk6aR3VeM/6A1u
+	Jr8DBSfE=
+X-Gm-Gg: AZFdTZfRLiV0djpJASyMLSWS8uy/ND5e66GKlF029+7oajPoCV0qdjp/6Ty0gllopQL
+	LFZjduFBqKUr20Hd94s1pzm5W+LvuQlArn39o47Z1YzY3Jd51uQRt2NzK10U7KcpWSKSEQjbDdd
+	SKv7o2HALjW81if3rH/eBc/ve7n+yG01CT30WSe71MIkEoR5yX7Z9F6ZkGhG1UPw9Ufhqzq0362
+	92rR7LGVBkv9KGBoxGs8rZ3XUIeJR+mbA54PgsLggPKzFyGV6iOOU0NtZbT/4k2TIkyKMA9tjef
+	zOfdwMN6i+P6KRoSknsJfFXwk/iXOSpDk7LVm0AuGKOvShStvlOCWbBmiFXHaIHZI2xWo9YK50X
+	LLCiE/87nV0We+XR23/8BNkVESUSmxlsU6IFxH5hA/q+lLmE5ckxpLUClgs1+AL/FC6yK/O3Kix
+	3UNHyKK1D9GPZbMKLsz3UE/2xTkOrFavPcFdaVhF7hS8UxvpvoXvEvqJWRJly2DyFAJ46BivK5B
+	kXYAZL4o+58740pw53dLBP4hN6tcFpFeQP7o+tnYMuCcx/8uXsN1QbqRCGE5bIHrDV/0Xb04l2Z
+	pRDdm6lyJDNYff9ZLoCbFO/jFdMxjkTLYvVLlmABHDuoe5szPR60/hQdWOD+YO92Aoh5B743pAZ
+	g7PZbxPaRqMTr+j4eXp6cOXXEHvrYKJfUCCtmxgtotetyTCQ=
+X-Received: by 2002:a05:7301:3a82:b0:374:ea35:9069 with SMTP id 5a478bee46e88-3856fb67380mr17732201eec.39.1795636660967;
+        Wed, 25 Nov 2026 11:57:40 -0800 (PST)
+Received: from localhost.localdomain ([2603:8003:6d40:6669:75a7:83bd:63db:baa9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38566fdce48sm59596522eec.14.2026.11.25.11.57.39
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 25 Nov 2026 11:57:40 -0800 (PST)
+From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
-Cc: Tejun Heo <tj@kernel.org>,
-	Andrea Righi <arighi@nvidia.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] sched_ext: Fix ops.enqueue/dispatch() calls before ops.cpu_online()
-Date: Wed, 25 Nov 2026 14:57:34 -0500
-Message-ID: <20261125195704.1297432-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112526-otter-surface-473d@gregkh>
-References: <2026112526-otter-surface-473d@gregkh>
+Cc: ast@kernel.org,
+	cratiu@nvidia.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	herbert@gondor.apana.org.au,
+	horms@kernel.org,
+	ipsec@lists.linux.dev,
+	jhs@mojatatu.com,
+	joe@dama.to,
+	kuba@kernel.org,
+	mst@redhat.com,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	shawnq1@163.com,
+	steffen.klassert@secunet.com,
+	willemb@google.com
+Subject: [PATCH 6.18.y 0/5] net: validate GSO headers and preserve XFRM inner offsets
+Date: Wed, 25 Nov 2026 14:57:30 -0500
+Message-ID: <20261125195735.57472-1-artem@trailofbits.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,218 +108,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-From: Tejun Heo <tj@kernel.org>
+Hi,
 
-[ Upstream commit 2227a34ff7bfcf6112931039e3554f4b70b65ab9 ]
+Please apply these five patches to 6.18.y. Patch 2 fixes CVE-2026-53091;
+the others are its prerequisite and the upstream fixes that followed it.
 
-ops.cpu_online() documents that the cpu doesn't call ops.enqueue() or
-ops.dispatch() before that op. Both are gated on SCX_RQ_ONLINE, which
-follows the core's rq online state through the ext class's rq_online and
-rq_offline hooks. On a runtime cpu up, sched_cpu_activate() runs:
+1/5 be1b70ab21cb initialises shinfo->gso_segs for SKB_GSO_DODGY
+    packets. Patches 2 and 4 build on it. It applies unchanged.
+2/5 7fb4c1967011 pulls GSO headers into the linear area before
+    transmit accounting uses them and drops malformed packets. It
+    needed adaptation; see its backport note.
+3/5 fa90a3145c03 stops xfrm from overwriting inner header offsets set
+    by a tunnel. Without it, patch 2 drops VXLAN-over-IPsec GSO traffic.
+    It applies unchanged.
+4/5 c6648c9f3b51 bounds the segment count and accounted length of
+    untrusted GSO packets. Only its context differs from upstream.
+5/5 35d2d6e5ac0d rejects a negative TCP header offset in the code
+    added by patch 2. It applies unchanged.
 
-1. set_cpu_active() marks the cpu active.
-2. cpuset_cpu_active() rebuilds the sched domains synchronously, and
-   rq_attach_root() puts the rq online as the cpu is active now. The
-   rq_online hook sets SCX_RQ_ONLINE.
-3. scx_rq_activate() calls the root's ops.cpu_online().
+Patch 2 is in 6.6.160, 6.12.114 and 7.0.10, and in mainline since 7.1.
+It does not cherry-pick onto 6.18.y (checked on 6.18.57 and 6.18.65)
+because 6.18.y predates the qdisc_pkt_len_segs_init() rename and its
+pkt_segs accounting. Patch 5 is also in 6.6.163 and 6.12.118. All five
+changes are in 7.3.6.
 
-Between 2 and 3, ops.enqueue() can be called for tasks woken or migrated
-onto the cpu, and ops.dispatch() can run on it.
+Compiled net/core/dev.o, net/core/skbuff.o and net/xfrm/xfrm_output.o
+with CONFIG_WERROR=y on 6.18.65 with the whole series applied, from a
+cumulative x86_64 tree, with and without the current queue-6.18
+patches. The intermediate patches were not built separately. No kernel
+boot or runtime test was performed.
 
-The hooks can't call the ops. They run under the rq lock with IRQs off while
-the ops can be sleepable BPF programs, and handle_hotplug() needs the
-rebuilt sched domains for its idle topology update.
+An LLM was used to prepare these backports and to check applicability
+and stable-queue history; I reviewed the result.
 
-Track SCX_RQ_ONLINE in handle_hotplug() alone. Set it right after the root's
-ops.cpu_online(). Clear it and move the cpu's tasks to its local DSQ when
-the cpu goes down. Sched domain rebuilds, which take a live cpu's rq offline
-and online again, no longer touch the flag, so a remote dispatch can't see
-it cleared by a rebuild and bounce to the global DSQ.
-
-Between 2 and 3, tasks that land on the cpu now go to its local DSQ without
-ops.enqueue(), and with sub-schedulers a task whose scheduler lacks caps on
-the cpu is admitted anyway and counted in SCX_EV_SUB_FORCED_ADMIT. Both
-already happen between 1 and 2.
-
-Fixes: 60c27fb59f6c ("sched_ext: Implement sched_ext_ops.cpu_online/offline()")
-Cc: stable@vger.kernel.org # v6.12+
-Signed-off-by: Tejun Heo <tj@kernel.org>
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
-[ sashal: added a scx_rq_activate() call to the sched_cpu_deactivate() rollback in core.c, dropped sub-scheduler hunks, inlined the missing drain_offline_rq() helper, and moved the paths to kernel/sched/ext.c. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/sched/core.c  |  1 +
- kernel/sched/ext.c   | 82 +++++++++++++++++++++++---------------------
- kernel/sched/sched.h |  7 ++--
- 3 files changed, 47 insertions(+), 43 deletions(-)
-
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 719186283bf91..1e8b0b889d1c4 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -8271,6 +8271,7 @@ int sched_cpu_deactivate(unsigned int cpu)
- 	if (ret) {
- 		sched_smt_present_inc(cpu);
- 		sched_set_rq_online(rq, cpu);
-+		scx_rq_activate(rq);
- 		balance_push_set(cpu, false);
- 		set_cpu_active(cpu, true);
- 		sched_update_numa(cpu, true);
-diff --git a/kernel/sched/ext.c b/kernel/sched/ext.c
-index 7a4b23e48cc6f..63e83e55d170f 100644
---- a/kernel/sched/ext.c
-+++ b/kernel/sched/ext.c
-@@ -2003,11 +2003,11 @@ static void direct_dispatch(struct task_struct *p, u64 enq_flags)
- static bool scx_rq_online(struct rq *rq)
- {
- 	/*
--	 * Test both cpu_active() and %SCX_RQ_ONLINE. %SCX_RQ_ONLINE indicates
--	 * the online state as seen from the BPF scheduler. cpu_active() test
--	 * guarantees that, if this function returns %true, %SCX_RQ_ONLINE will
--	 * stay set until the current scheduling operation is complete even if
--	 * we aren't locking @rq.
-+	 * Test both cpu_active() and %SCX_RQ_ONLINE. %SCX_RQ_ONLINE is set
-+	 * after ops.cpu_online() and cleared when the cpu goes down.
-+	 * cpu_active() test guarantees that, if this function returns %true,
-+	 * %SCX_RQ_ONLINE will stay set until the current scheduling operation
-+	 * is complete even if we aren't locking @rq.
- 	 */
- 	return likely((rq->scx.flags & SCX_RQ_ONLINE) && cpu_active(cpu_of(rq)));
- }
-@@ -2114,7 +2114,7 @@ static void set_task_runnable(struct rq *rq, struct task_struct *p)
- 	}
- 
- 	/*
--	 * list_add_tail() must be used. scx_ops_bypass() and rq_offline_scx()
-+	 * list_add_tail() must be used. scx_ops_bypass() and handle_hotplug()
- 	 * depend on tasks being appended to the runnable_list.
- 	 */
- 	list_add_tail(&p->scx.runnable_node, &rq->scx.runnable_list);
-@@ -2831,7 +2831,7 @@ static int balance_one(struct rq *rq, struct task_struct *prev)
- 	/*
- 	 * scx_rq_online() can't be used. Its cpu_active() test goes false
- 	 * before CPU hotplug waits for an RCU grace period, and
--	 * rq_offline_scx() moves this CPU's tasks to the local DSQ only after
-+	 * handle_hotplug() moves this CPU's tasks to the local DSQ only after
- 	 * the wait. The grace period can depend on those tasks running.
- 	 */
- 	if (!SCX_HAS_OP(dispatch) || scx_rq_bypassing(rq) ||
-@@ -3511,6 +3511,29 @@ static void handle_hotplug(struct rq *rq, bool online)
- {
- 	int cpu = cpu_of(rq);
- 
-+	if (!online) {
-+		struct task_struct *p, *n;
-+
-+		guard(rq_lock_irqsave)(rq);
-+		update_rq_clock(rq);
-+		rq->scx.flags &= ~SCX_RQ_ONLINE;
-+
-+		/*
-+		 * An offline CPU no longer calls ops.dispatch(). Re-enqueue its
-+		 * tasks onto the local DSQ so that they run here and
-+		 * balance_push() moves them off.
-+		 */
-+		list_for_each_entry_safe_reverse(p, n, &rq->scx.runnable_list, scx.runnable_node) {
-+			struct sched_enq_and_set_ctx ctx;
-+
-+			if (p->scx.dsq == &rq->scx.local_dsq)
-+				continue;
-+
-+			sched_deq_and_put_task(p, DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK, &ctx);
-+			sched_enq_and_set_task(&ctx);
-+		}
-+	}
-+
- 	atomic_long_inc(&scx_hotplug_seq);
- 
- 	if (online && SCX_HAS_OP(cpu_online))
-@@ -3521,6 +3544,18 @@ static void handle_hotplug(struct rq *rq, bool online)
- 		scx_ops_exit(SCX_ECODE_ACT_RESTART | SCX_ECODE_RSN_HOTPLUG,
- 			     "cpu %d going %s, exiting scheduler", cpu,
- 			     online ? "online" : "offline");
-+
-+	if (online) {
-+		/*
-+		 * The cpu must not call ops.enqueue() or ops.dispatch() before
-+		 * ops.cpu_online(). The core's rq online state can't gate them,
-+		 * as the sched domain rebuild in sched_cpu_activate() can put
-+		 * @rq online before this function runs. Set %SCX_RQ_ONLINE
-+		 * here.
-+		 */
-+		guard(rq_lock_irqsave)(rq);
-+		rq->scx.flags |= SCX_RQ_ONLINE;
-+	}
- }
- 
- void scx_rq_activate(struct rq *rq)
-@@ -3533,36 +3568,6 @@ void scx_rq_deactivate(struct rq *rq)
- 	handle_hotplug(rq, false);
- }
- 
--static void rq_online_scx(struct rq *rq)
--{
--	rq->scx.flags |= SCX_RQ_ONLINE;
--}
--
--static void rq_offline_scx(struct rq *rq)
--{
--	struct task_struct *p, *n;
--
--	rq->scx.flags &= ~SCX_RQ_ONLINE;
--
--	/* sched domain rebuilds call rq_offline with the CPU staying alive */
--	if (cpu_active(cpu_of(rq)))
--		return;
--
--	/*
--	 * An offline CPU no longer calls ops.dispatch(). Re-enqueue its tasks
--	 * onto the local DSQ so that they run here and balance_push() moves
--	 * them off.
--	 */
--	list_for_each_entry_safe_reverse(p, n, &rq->scx.runnable_list, scx.runnable_node) {
--		struct sched_enq_and_set_ctx ctx;
--
--		if (p->scx.dsq == &rq->scx.local_dsq)
--			continue;
--		sched_deq_and_put_task(p, DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK, &ctx);
--		sched_enq_and_set_task(&ctx);
--	}
--}
--
- #else	/* CONFIG_SMP */
- 
- static bool test_and_clear_cpu_idle(int cpu) { return false; }
-@@ -4243,9 +4248,6 @@ DEFINE_SCHED_CLASS(ext) = {
- 	.select_task_rq		= select_task_rq_scx,
- 	.task_woken		= task_woken_scx,
- 	.set_cpus_allowed	= set_cpus_allowed_scx,
--
--	.rq_online		= rq_online_scx,
--	.rq_offline		= rq_offline_scx,
- #endif
- 
- 	.task_tick		= task_tick_scx,
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 27de9290235e7..0b1235d707ffd 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -777,9 +777,10 @@ struct cfs_rq {
- /* scx_rq->flags, protected by the rq lock */
- enum scx_rq_flags {
- 	/*
--	 * A hotplugged CPU starts scheduling before rq_online_scx(). Track
--	 * ops.cpu_on/offline() state so that ops.enqueue/dispatch() are called
--	 * only while the BPF scheduler considers the CPU to be online.
-+	 * Set right after ops.cpu_online() when a CPU comes up and cleared when
-+	 * the CPU goes down, see handle_hotplug(). A hotplugged CPU starts
-+	 * scheduling before %SCX_RQ_ONLINE is set. ops.enqueue() and
-+	 * ops.dispatch() are called for the CPU only while the flag is set.
- 	 */
- 	SCX_RQ_ONLINE		= 1 << 0,
- 	SCX_RQ_CAN_STOP_TICK	= 1 << 1,
--- 
-2.53.0
-
+Thanks,
+Artem Dinaburg
