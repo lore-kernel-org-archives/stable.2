@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795630394;
-	b=dhPWXGicLvelQRkAo3yWKgdqaAlAGlPs46DSEUA3ivZdSHVjqFkjV0Xk7iEhk7vY93fG
-	 NbVlKi3GbsZ7Jg6UihXjoPVHTiDzm+WwJbkS+BYqtwit7WT0gR9YGoRcnRDXQl/jh5bmO
-	 fUtDPNo1zpU4RFRTsfzO3N01Ngg60EQx7J7yWWyWQLrHKPesuSsdWbRMrUje8S4ZRORZD
-	 r8iCwnl490J/P0/1FAA2YltiEgmJRUgVESfzBAUwiKboJpF/kcCvDNnh03NzfXIur/5Yo
-	 mr9TeFDuEPMrt66hexU3mZiAQax96nC3VNIovB2syoaWe59PKSaN7PYszmKnNJ/sg8g==
+	t=1795630395;
+	b=yzs5IdI3wXztLHCp8n0iquc/r9m8JDJu92iFY6hkgPTjw4x5f7UJk5HsF4vMNSCFrMF5
+	 pfWhXBfRy7hws1qCe0CchGOIeqFZf3XBsXTN2Fd9oW0nyUGBgcftsLvnCeMreTVcSdeFb
+	 6i+pg9hXNb3YJlHcB7rIshnTwUHxp43hIAj1JTcjs6azlskzt+kTEv6JBY1CEMH+a8yW3
+	 TgCcKcd2z1tXfdm7v41ZrewB4QwplaXR0S+Jj/cgzUlMTEkhr44CiayBpvv7zptptiTQH
+	 5noDcGv1PjfZV34svTw0iUHAXQcldnH80WOMc7dnDj7W08f7OshrC7ceSlF4PRLlr7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795630394;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795630395;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=FVCbRJoajKG5utPysnRQqBbPky1DlmopFxWMzC+95Zc=;
-	b=BHpjTiMaRWprs+q1fP8Q16caK6XgktKu6Uq0bpoX/IMqczf8siTeildeaNPIHipHI4vs
-	 UlxPg+sNr1SnDmB8bZcjY8Pl7ItdVyTcTTk076giHFiT2eZ20ApTjpSwyJv7crC6eyGGr
-	 P7DXZp0MirHfoHeG1VRYMFzi58eid/AzjGjXGuezHFdtWN8qdg/I866eHrLhTlCwRuNn3
-	 fi3K544Jt4qsQPuzenCrlb1MCOHxZkBf+4WmFqJQKTxTcfjUm47XwmpPJjvtHx/yw429S
-	 xo8OtogKeZYaBJbh+7fcoyFizTJr/xCo8wjG0Eh15Kir+2PhzadmcV76DlrDFjXIUdA==
+	bh=yeqKLWN/BIA3gDuw/xB0G/ocvhr7rPiQbKgeJpECJzQ=;
+	b=Wf9GGPJPpRIDAwPmHaQVk3o6mOkOvbk3fBHXlziuisB29mn7h6x3nTKtjSIRVA6Xz9uG
+	 5hSr+hsnMSArHgpISbGU6P/aip6JCRGq8iYdZ3riTLhC2lg54l1Q/7N2bJzcLkS7rIjcp
+	 UgRBvHGbRCa3J9maI5xiZ2gICJKkeFqxGggk5tEkaMouUyqfYuLvE3naUO0K28fhzOnU6
+	 bDY0PxFJV0HDrwF7TMEB4AOpaEQXFH4trFOQHFxyyfkHkreeIw+ANpDychMbCut+mIiOv
+	 +aRB9MqqIG9sMwy7piS0VOtX/dzO/qORy9QQMUiiAPfSrEXBaswiwKQlrmZnNEDKWIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZRlXYrUD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mZ2nfKA+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F5F606A33F
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:13:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2A6606A32E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:13:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZRlXYrUD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFBA31F000EB;
-	Wed, 25 Nov 2026 18:13:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mZ2nfKA+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B89161F0089F;
+	Wed, 25 Nov 2026 18:13:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795630393;
-	bh=FVCbRJoajKG5utPysnRQqBbPky1DlmopFxWMzC+95Zc=;
+	s=k20260515; t=1795630395;
+	bh=yeqKLWN/BIA3gDuw/xB0G/ocvhr7rPiQbKgeJpECJzQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZRlXYrUD1dotPWxIQhqYzA5O3++pRU60MWXOQ/tkexsCnBxzrnfWWGW6W4HrN8J8N
-	 PaBdig3aUYHHIwWG7pjLQe9iqu4UsCOyiOcqd3nVGSqsnYgJ9SNAtYCqYCNthfpH0c
-	 9WcW1s0u9KauYNLkhzMYB/J1P5CELC/hB3TINrXd7Z20JruW7Z+IQIN2r6WZA9qhRn
-	 pPWekauog0reTj2AHNKRWN4e0suDJoBkM/Ea9G4jfqVN7QJd/S63JJkn8FkR8gQPe8
-	 ANsJChhZamGKHE66KLTmplBo4ODBkJN8xRvtQBj4Wre4Z3n2t8T71PPlzIRc9TIH48
-	 PLsCPku4dxpWw==
+	b=mZ2nfKA+h8WKV1puX+5Tl4A05ggzwvLGjLAc2Xd/BGtIZps7MRKU7sU2PJ1Za8HgO
+	 NfP4Ednimtp+icckSTMzQApe4xoRE2kJwB9PVCho+En+USn7VR2CLtPYcow710ACdM
+	 Ng8DNXzobW+GToeAEF6MEXzjyd44C07WVb+wuSAQgN6apjtmBCvF+TVA8mH+SyDWgO
+	 KtY1P13uX5T3pM2M1Ff/5dlznVL5VK7r7+ROVLIEzTAaVmfIyOsxV9/o3Rx2BZ1zkq
+	 34juyhOMlEyEiQ8ieIrd0oImaAWwHiiBJqhkVAljZrFxi6BptLFM8FNtuDZvrWmQwc
+	 G7kd2dRSa7vKw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Stefan Haberland <sth@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
 	=?UTF-8?q?Jan=20H=C3=B6ppner?= <hoeppner@linux.ibm.com>,
 	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 6/7] s390/dasd: Fix typo 'immediatly' -> 'immediately'
-Date: Wed, 25 Nov 2026 13:13:02 -0500
-Message-ID: <20261125181227.1137399-6-sashal@kernel.org>
+Subject: [PATCH 5.15.y 7/7] s390/dasd: Re-initialize RCD buffer with "V1.0" before every start
+Date: Wed, 25 Nov 2026 13:13:03 -0500
+Message-ID: <20261125181227.1137399-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261125181227.1137399-1-sashal@kernel.org>
 References: <2026112516-snowbound-attentive-b141@gregkh>
@@ -68,139 +67,194 @@ Content-Transfer-Encoding: 8bit
 
 From: Stefan Haberland <sth@linux.ibm.com>
 
-[ Upstream commit ae6f19236b5ae4eef4df2780d51bee19add0eba8 ]
+[ Upstream commit 25cdc1f63227a1ea69a1ec823a8a860e33299169 ]
 
-Fix typo in function name dasd_sleep_on_immediatly().
+Under z/VM the Read Configuration Data (RCD) buffer has to start with
+EBCDIC "V1.0" to request the virtual device SNEQ that carries the
+minidisk UIT. The request and the response share the same buffer:
+CP evaluates the magic on the way out and the RCD data is written into
+the same buffer on the way back.
 
-Suggested-by: Heiko Carstens <hca@linux.ibm.com>
+The magic is only written when the request is built and again in
+read_conf_cb() when the original request fails.
+
+Several restart paths do not run that callback:
+ - ERP use the same buffer and if the same error occurs again,
+   the ERP restarts the existing ERP request;
+   if a different error occurs, it adds another ERP request.
+   Neither re-initializes the magic.
+ - Terminated (timed out) ERP requests, killed requests and requests
+   requeued after the last path was gone are restarted without it.
+ - dasd_sleep_on_immediately() overwrites cqr->callback, so read_conf_cb()
+   never ran for dasd_eckd_read_conf_immediately(), and its fastpath
+   retries in dasd_int_handler() do not call a callback either.
+
+If such a restart succeeds, z/VM omits the virtual device SNEQ, the UID
+of that path is built without the UIT and the paths are reported as
+"Not all channel paths lead to the same device" although they lead to
+the same minidisk.
+
+Every start of a request, whatever path led to it, goes through
+dasd_start_IO(). Add an optional prepare_io function to the request
+that dasd_start_IO() calls before every start of the request and of
+its ERP requests, and use it to write the magic for RCD requests.
+
+The ERP handling stays unchanged. read_conf_cb() is no longer needed
+and is removed, which also gets rid of its memset() that only cleared
+a single byte.
+
+Fixes: 5915a873fcb1 ("[S390] dasd: re-initialize read_conf buffer for retries")
+Cc: stable@vger.kernel.org
 Reviewed-by: Jan Höppner <hoeppner@linux.ibm.com>
 Signed-off-by: Stefan Haberland <sth@linux.ibm.com>
-Link: https://patch.msgid.link/20261112102608.1057852-2-sth@linux.ibm.com
+Link: https://patch.msgid.link/20261112102608.1057852-3-sth@linux.ibm.com
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Stable-dep-of: 25cdc1f63227 ("s390/dasd: Re-initialize RCD buffer with "V1.0" before every start")
+[ sashal: adjusted context in dasd_eckd.c (memcmp against private->uid) and placed the dasd_int.h helper after a different neighboring declaration, since surrounding code differs in this tree. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/s390/block/dasd.c       |  4 ++--
- drivers/s390/block/dasd_alias.c |  2 +-
- drivers/s390/block/dasd_eckd.c  | 14 +++++++-------
- drivers/s390/block/dasd_int.h   |  2 +-
- 4 files changed, 11 insertions(+), 11 deletions(-)
+ drivers/s390/block/dasd.c      |  1 +
+ drivers/s390/block/dasd_eckd.c | 52 ++++++++++++----------------------
+ drivers/s390/block/dasd_int.h  | 15 ++++++++++
+ 3 files changed, 34 insertions(+), 34 deletions(-)
 
 diff --git a/drivers/s390/block/dasd.c b/drivers/s390/block/dasd.c
-index 31ea0c2e7bded..69df3813cfcfd 100644
+index 69df3813cfcfd..56cbf5bf97779 100644
 --- a/drivers/s390/block/dasd.c
 +++ b/drivers/s390/block/dasd.c
-@@ -2581,7 +2581,7 @@ static inline int _dasd_term_running_cqr(struct dasd_device *device)
- 	return rc;
- }
- 
--int dasd_sleep_on_immediatly(struct dasd_ccw_req *cqr)
-+int dasd_sleep_on_immediately(struct dasd_ccw_req *cqr)
- {
- 	struct dasd_device *device;
- 	int rc;
-@@ -2629,7 +2629,7 @@ int dasd_sleep_on_immediatly(struct dasd_ccw_req *cqr)
- 
- 	return rc;
- }
--EXPORT_SYMBOL(dasd_sleep_on_immediatly);
-+EXPORT_SYMBOL(dasd_sleep_on_immediately);
- 
- /*
-  * Cancels a request that was started with dasd_sleep_on_req.
-diff --git a/drivers/s390/block/dasd_alias.c b/drivers/s390/block/dasd_alias.c
-index e77393e6f63ab..57c591028d4eb 100644
---- a/drivers/s390/block/dasd_alias.c
-+++ b/drivers/s390/block/dasd_alias.c
-@@ -759,7 +759,7 @@ static int reset_summary_unit_check(struct alias_lcu *lcu,
- 	cqr->buildclk = get_tod_clock();
- 	cqr->status = DASD_CQR_FILLED;
- 
--	rc = dasd_sleep_on_immediatly(cqr);
-+	rc = dasd_sleep_on_immediately(cqr);
- 	return rc;
- }
- 
+@@ -1414,6 +1414,7 @@ int dasd_start_IO(struct dasd_ccw_req *cqr)
+ 		cqr->status = DASD_CQR_ERROR;
+ 		return -EIO;
+ 	}
++	dasd_start_IO_prepare(cqr);
+ 	cqr->startclk = get_tod_clock();
+ 	cqr->starttime = jiffies;
+ 	cqr->retries--;
 diff --git a/drivers/s390/block/dasd_eckd.c b/drivers/s390/block/dasd_eckd.c
-index f958f1859fb5c..0791cfa6b8d96 100644
+index 0791cfa6b8d96..ae5cd62847284 100644
 --- a/drivers/s390/block/dasd_eckd.c
 +++ b/drivers/s390/block/dasd_eckd.c
-@@ -885,7 +885,7 @@ static int dasd_eckd_read_conf_immediately(struct dasd_device *device,
- 	set_bit(DASD_CQR_ALLOW_SLOCK, &cqr->flags);
- 	cqr->retries = 5;
- 	cqr->callback = read_conf_cb;
--	rc = dasd_sleep_on_immediatly(cqr);
-+	rc = dasd_sleep_on_immediately(cqr);
- 	return rc;
+@@ -808,20 +808,29 @@ static int dasd_eckd_compare_path_uid(struct dasd_device *device,
+ 	return memcmp(&device_uid, &private->uid, sizeof(struct dasd_uid));
  }
  
-@@ -5093,7 +5093,7 @@ dasd_eckd_release(struct dasd_device *device)
++/*
++ * The RCD buffer has to start with EBCDIC "V1.0" to show support for
++ * virtual device SNEQ. The RCD data is written into the same buffer, so
++ * a failed attempt may already have overwritten the magic. Re-initialize
++ * it before every start, including restarts by ERP requests.
++ */
++static void dasd_eckd_rcd_prepare_io(struct dasd_ccw_req *cqr)
++{
++	struct ccw1 *ccw = cqr->cpaddr;
++	__u8 *rcd_buffer = dma32_to_virt(ccw->cda);
++
++	rcd_buffer[0] = 0xE5;
++	rcd_buffer[1] = 0xF1;
++	rcd_buffer[2] = 0x4B;
++	rcd_buffer[3] = 0xF0;
++}
++
+ static void dasd_eckd_fill_rcd_cqr(struct dasd_device *device,
+ 				   struct dasd_ccw_req *cqr,
+ 				   __u8 *rcd_buffer,
+ 				   __u8 lpm)
+ {
+ 	struct ccw1 *ccw;
+-	/*
+-	 * buffer has to start with EBCDIC "V1.0" to show
+-	 * support for virtual device SNEQ
+-	 */
+-	rcd_buffer[0] = 0xE5;
+-	rcd_buffer[1] = 0xF1;
+-	rcd_buffer[2] = 0x4B;
+-	rcd_buffer[3] = 0xF0;
+ 
+ 	ccw = cqr->cpaddr;
+ 	ccw->cmd_code = DASD_ECKD_CCW_RCD;
+@@ -838,33 +847,10 @@ static void dasd_eckd_fill_rcd_cqr(struct dasd_device *device,
+ 	cqr->retries = 256;
  	cqr->buildclk = get_tod_clock();
  	cqr->status = DASD_CQR_FILLED;
- 
--	rc = dasd_sleep_on_immediatly(cqr);
-+	rc = dasd_sleep_on_immediately(cqr);
- 	if (!rc)
- 		clear_bit(DASD_FLAG_IS_RESERVED, &device->flags);
- 
-@@ -5148,7 +5148,7 @@ dasd_eckd_reserve(struct dasd_device *device)
- 	cqr->buildclk = get_tod_clock();
- 	cqr->status = DASD_CQR_FILLED;
- 
--	rc = dasd_sleep_on_immediatly(cqr);
-+	rc = dasd_sleep_on_immediately(cqr);
- 	if (!rc)
- 		set_bit(DASD_FLAG_IS_RESERVED, &device->flags);
- 
-@@ -5202,7 +5202,7 @@ dasd_eckd_steal_lock(struct dasd_device *device)
- 	cqr->buildclk = get_tod_clock();
- 	cqr->status = DASD_CQR_FILLED;
- 
--	rc = dasd_sleep_on_immediatly(cqr);
-+	rc = dasd_sleep_on_immediately(cqr);
- 	if (!rc)
- 		set_bit(DASD_FLAG_IS_RESERVED, &device->flags);
- 
-@@ -5265,7 +5265,7 @@ static int dasd_eckd_snid(struct dasd_device *device,
- 	cqr->status = DASD_CQR_FILLED;
- 	cqr->lpm = usrparm.path_mask;
- 
--	rc = dasd_sleep_on_immediatly(cqr);
-+	rc = dasd_sleep_on_immediately(cqr);
- 	/* verify that I/O processing didn't modify the path mask */
- 	if (!rc && usrparm.path_mask && (cqr->lpm != usrparm.path_mask))
- 		rc = -EIO;
-@@ -5913,7 +5913,7 @@ static int dasd_eckd_read_message_buffer(struct dasd_device *device,
- 	cqr->block = NULL;
- 	cqr->expires = 10 * HZ;
++	cqr->prepare_io = dasd_eckd_rcd_prepare_io;
  	set_bit(DASD_CQR_VERIFY_PATH, &cqr->flags);
--	/* dasd_sleep_on_immediatly does not do complex error
-+	/* dasd_sleep_on_immediately does not do complex error
- 	 * recovery so clear erp flag and set retry counter to
- 	 * do basic erp */
- 	clear_bit(DASD_CQR_FLAGS_USE_ERP, &cqr->flags);
-@@ -5945,7 +5945,7 @@ static int dasd_eckd_read_message_buffer(struct dasd_device *device,
+ }
  
- 	cqr->buildclk = get_tod_clock();
- 	cqr->status = DASD_CQR_FILLED;
--	rc = dasd_sleep_on_immediatly(cqr);
-+	rc = dasd_sleep_on_immediately(cqr);
- 	if (rc == 0) {
- 		prssdp = (struct dasd_psf_prssd_data *) cqr->data;
- 		message_buf = (struct dasd_rssd_messages *)
+-/*
+- * Wakeup helper for read_conf
+- * if the cqr is not done and needs some error recovery
+- * the buffer has to be re-initialized with the EBCDIC "V1.0"
+- * to show support for virtual device SNEQ
+- */
+-static void read_conf_cb(struct dasd_ccw_req *cqr, void *data)
+-{
+-	struct ccw1 *ccw;
+-	__u8 *rcd_buffer;
+-
+-	if (cqr->status !=  DASD_CQR_DONE) {
+-		ccw = cqr->cpaddr;
+-		rcd_buffer = dma32_to_virt(ccw->cda);
+-		memset(rcd_buffer, 0, sizeof(*rcd_buffer));
+-
+-		rcd_buffer[0] = 0xE5;
+-		rcd_buffer[1] = 0xF1;
+-		rcd_buffer[2] = 0x4B;
+-		rcd_buffer[3] = 0xF0;
+-	}
+-	dasd_wakeup_cb(cqr, data);
+-}
+-
+ static int dasd_eckd_read_conf_immediately(struct dasd_device *device,
+ 					   struct dasd_ccw_req *cqr,
+ 					   __u8 *rcd_buffer,
+@@ -884,7 +870,6 @@ static int dasd_eckd_read_conf_immediately(struct dasd_device *device,
+ 	clear_bit(DASD_CQR_FLAGS_USE_ERP, &cqr->flags);
+ 	set_bit(DASD_CQR_ALLOW_SLOCK, &cqr->flags);
+ 	cqr->retries = 5;
+-	cqr->callback = read_conf_cb;
+ 	rc = dasd_sleep_on_immediately(cqr);
+ 	return rc;
+ }
+@@ -922,7 +907,6 @@ static int dasd_eckd_read_conf_lpm(struct dasd_device *device,
+ 		goto out_error;
+ 	}
+ 	dasd_eckd_fill_rcd_cqr(device, cqr, rcd_buf, lpm);
+-	cqr->callback = read_conf_cb;
+ 	ret = dasd_sleep_on(cqr);
+ 	/*
+ 	 * on success we update the user input parms
 diff --git a/drivers/s390/block/dasd_int.h b/drivers/s390/block/dasd_int.h
-index c71e44d49b1dd..81d3ff83ab58f 100644
+index 81d3ff83ab58f..7482ba96a490a 100644
 --- a/drivers/s390/block/dasd_int.h
 +++ b/drivers/s390/block/dasd_int.h
-@@ -866,7 +866,7 @@ void dasd_schedule_device_bh(struct dasd_device *);
- void dasd_schedule_block_bh(struct dasd_block *);
- int  dasd_sleep_on(struct dasd_ccw_req *);
- int  dasd_sleep_on_queue(struct list_head *);
--int  dasd_sleep_on_immediatly(struct dasd_ccw_req *);
-+int  dasd_sleep_on_immediately(struct dasd_ccw_req *);
- int  dasd_sleep_on_queue_interruptible(struct list_head *);
- int  dasd_sleep_on_interruptible(struct dasd_ccw_req *);
- void dasd_device_set_timer(struct dasd_device *, int);
+@@ -177,6 +177,8 @@ struct dasd_ccw_req {
+ 	void *data;			/* pointer to data area */
+ 	struct irb irb;			/* device status in case of an error */
+ 	struct dasd_ccw_req *refers;	/* ERP-chain queueing. */
++	/* optional prepare function called before every start_io, must not sleep */
++	void (*prepare_io)(struct dasd_ccw_req *cqr);
+ 	void *function; 		/* originating ERP action */
+ 	void *mem_chunk;
+ 
+@@ -825,6 +827,19 @@ static inline void *dasd_get_callback_data(struct dasd_ccw_req *cqr)
+ 	return cqr->callback_data;
+ }
+ 
++/*
++ * Walk down the ERP chain to the original CQR and call its
++ * prepare_io function if set.
++ */
++static inline void dasd_start_IO_prepare(struct dasd_ccw_req *cqr)
++{
++	/* ERP requests use the prepare function of the original request */
++	while (cqr->refers)
++		cqr = cqr->refers;
++	if (cqr->prepare_io)
++		cqr->prepare_io(cqr);
++}
++
+ /* externals in dasd.c */
+ #define DASD_PROFILE_OFF	 0
+ #define DASD_PROFILE_ON 	 1
 -- 
 2.53.0
 
