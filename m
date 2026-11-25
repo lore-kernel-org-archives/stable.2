@@ -1,92 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795620843;
-	b=yoicRKM93pugEMYCuf5KgE23UWYPc45CsQrTQvxQnEuQJehwIdDFq0UvDcQsEZ5bA0Vq
-	 Tvce1Ifae2A9WGPt5tWwsj84/34fxIPw45EZZ7xzcm0geF6NkiPiG44Gl+Z61beqZx2bu
-	 WAY8b/q0QQXqHUEHIt75j53L1wbar+ODTkNb5JAyMEHXBseXvyTOKxbkUs+6I7mQpZCY0
-	 7sJc/xN7YdpMe+SoDdxhur6n7uyNxt5vI205xEB1hsUdIO+SP2uNIL1fOY+sA0DiuQI05
-	 jvOzRjeiw3iIe4l9YrsaIwJ/jUEVz/gEwQjmvN1nYf/KbWjYPsNE7iZSQkPMVC81lsw==
+	t=1795620845;
+	b=1kNTBIuvGA2sO5Q7qgpA5EqILBFn2xz7FPxqrd0dCLx3IiX4LZSGOBjyjggoVvzk4qch
+	 YF9dCZ4SQ/RSQgiZ70fxd/IiJ+7yVJKgNj+UcpyA+3EWCPlBXFfYHNVy1LUBxCy3NfCcG
+	 zvGXT1pIReUCGIgpyzFOJGS38Knla1Fn3LHRpcF72ErSTb6hu0R9FevqnAImojvOp0Nph
+	 AjZ7jNZZglOSHjGQLyWfCJHyru4316r/+evYq3hiXb7vuHZObADYjbmaTLuQHFigo0STg
+	 68E1UZ0JUN9x7ux6bUr7qkuEiLmxifqsKdY1wRau2DozJqqCUAQpFWwSWen1UreEQhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795620843;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795620845;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=AmlInuRAzv7Cpvgg2VLMamWl8+9RADrDt0Vkc0yTRls=;
-	b=fT9+1Ro+rL4p0HeIWtz/IQzuw+ZI4kTDTQBmZw/pItviOMJ7dv8OHhmbmPXBFMu3ZGe3
-	 fi/D+jKjUCio5E+A1P2lmYzvOAKa5MRy0wiFE5P8heK4s35+2WKgvkyVSUnWW0eBsVniM
-	 QgSozZ++gV/wXLJ0xp+mZAux8lanLB5oHjkEJzHatG87kl7hkVO1rnAnRSbeg100gO34r
-	 kPC8zwTV1TKKiMCJIOn0G1pwPE4TEmSyyws6bgndSZvUjR2RLvF4dVcc+WeoEKRjH9iey
-	 +joi0gqngxECueJB6u99hb9MfzstpZxAD7LPcxlMeJKJNYy0/FDbj/WYOSLP8MRpP0A==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=5EkLsS3F0ijMKTYaBvJt0Q/rvP5+0LPkUT0gKOx0GCs=;
+	b=Gr3wplwR/TBgoQy4Gxdv+3jjfxZbtSItZWIBmuiteQq19mkOEY7Pi2C45DPQ1LqS7tvY
+	 D1N28lOZGBWPbmHJYqvScER58W3rF2JpwbuHnu4TvQwdOOYThvDqZGQNXg7jRxet62MY2
+	 duWpJxXw3PSkRwI4v464X1p81vjhz08BPHIc5LZ5Zbt/n9peBM2W8EYNf+2rMTTWV719U
+	 SjCiKn6/gsOgcw0pGiKezElm8tkYXX124lbjURFGgHUAu/qsjHwxqaXnmZB0UFX5xMQiJ
+	 Wi8xOp/SmR/9bYnObFwai+kkXmCSsgfPQ6D0bVT7xZaGcbI+adubrPr4YEQ/2iCJZ+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=o+Gc1VCt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MqO3B46v;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8AF7606A327;
-	Wed, 25 Nov 2026 15:34:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D70606A32E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:34:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=o+Gc1VCt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8B561F000D8;
-	Wed, 25 Nov 2026 15:34:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795620842;
-	bh=AmlInuRAzv7Cpvgg2VLMamWl8+9RADrDt0Vkc0yTRls=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MqO3B46v
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 480141F000C0;
+	Wed, 25 Nov 2026 15:34:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795620845;
+	bh=5EkLsS3F0ijMKTYaBvJt0Q/rvP5+0LPkUT0gKOx0GCs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=o+Gc1VCtXREjmuIPPfIH3UNk2FoFyS2IdUOCkjyRkNVLr5G34wNdYAgWeMKmtAwt3
-	 S7OcmVU21aGsv14RYVLf7Iiu2DHAzGD57oQbLog6QpH9NjoBwhgJseC5N+muJxKPML
-	 5WSKcN/+NFWyAS7ePF0ZfVcEXp4wEMsXIBPrzY4I=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=MqO3B46vsNFxgq4r/ifkHuIUhaN/5a2H9U3m1RTRVpiE6yegMByRpKiQhAo3/b7hD
+	 aiWMgUpyOWV/VVSvJzi2YoWrWdjHGFbs3ZWAl9fIkgQ44GK0sMm4nttDhP5NqYezgm
+	 h626TjM/6ZP06lYfTxJqSAyO7vRHD8gJAvZZOd48ZydjZ/C7QCVQbD3GnoAB15WILz
+	 YM7ka6It0DJuGdZrMJf3vgz9U+ci5d2LK7pnrLRhKmVu9zCDJVv3JrGUhbMFzv7j3Z
+	 zEXcYY+bWVd14W5mVoD4xQB7AluumWKKd1GLXwKGpWsNKrPdWukRaFTzKOiSskgjUt
+	 tOk+ylZ0FsRhg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Samarth Narang <samarth.colleges@gmail.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Mel Gorman <mgorman@techsingularity.net>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	=?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>,
-	Andrea Arcangeli <aarcange@redhat.com>,
-	Peter Xu <peterx@redhat.com>,
-	Bobby Powers <bobbypowers@gmail.com>,
-	Brian Geffon <bgeffon@google.com>,
-	Denis Plotnikov <dplotnikov@virtuozzo.com>,
-	Doug Gilbert <dgilbert@interlog.com>,
-	Hugh Dickins <hughd@google.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Martin Cracauer <cracauer@cons.org>,
-	Marty McFadden <mcfadden8@llnl.gov>,
-	Maya Gokhale <gokhale2@llnl.gov>,
-	Pavel Emelyanov <xemul@openvz.org>,
-	Rik van Riel <riel@surriel.com>,
-	Shaohua Li <shli@fb.com>,
-	James Houghton <jthoughton@google.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	SJ Park <sj@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Mohammed EL Kadiri <med08elkadiri@gmail.com>,
-	Sasha Levin <sashal@kernel.org>,
-	Xu Xin <xu.xin@linux.dev>
-Subject: [PATCH 6.18 040/990] mm/ksm: fix userfaultfd protection during merge and unmerge
-Date: Wed, 25 Nov 2026 15:23:27 +0100
-Message-ID: <20261125143823.028631131@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Eric Dumazet <edumazet@kernel.org>,
+	Taesoo Kim <tsgatesv@gmail.com>,
+	Cen Zhang <cenzhang@linux.microsoft.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] net: gro: invalidate frag0 after a pull
+Date: Wed, 25 Nov 2026 10:34:02 -0500
+Message-ID: <20261125153327.423833-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112523-decompose-earache-12ea@gregkh>
+References: <2026112523-decompose-earache-12ea@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,107 +61,195 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Eric Dumazet <edumazet@kernel.org>
 
-------------------
+[ Upstream commit 98d949a15ff9d3fffaa6983223178374aab92db6 ]
 
-From: Lance Yang <lance.yang@linux.dev>
+Since commit bd56a29c7a4e ("net: gro: change skb_gro_network_header()"),
+skb_gro_header_slow() no longer invalidates NAPI_GRO_CB(skb)->frag0
+after pskb_may_pull(). skb_gro_may_pull() keeps comparing against the
+frag0_len value set in skb_gro_reset_offset(), assuming that after a
+slow pull, all later accesses are beyond frag0_len.
 
-[ Upstream commit 990d6c2194a938a19a8cf94c6cfd75171345089b ]
+This is not true:
 
-KSM loses userfaultfd protection when replace_page() builds a new PTE from
-vma->vm_page_prot.  Dropping its uffd bit lets a subsequent write go
-through ordinary COW instead of userfaultfd write protection handling.
-For RWP, a merged page also becomes readable without faulting.
+- udp4_gro_receive() and udp6_gro_receive() read the network header
+  with skb_gro_network_header() after udp_gro_udphdr() pulled the
+  UDP header.
 
-Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
-have to handle unmerging.  An existing KSM page can be protected with RWP
-before MADV_UNMERGEABLE, so unmerging already needs fixing independently
-of preserving RWP during merging.
+- vxlan_gro_receive() calls skb_gro_remcsum_cleanup() at a lower
+  offset after the inner handlers pulled their headers.
 
-Unsharing replaces a shared page with a private one and should leave
-userfaultfd protection in place, as do_wp_page() already does for write
-protection.  Currently, an unshare fault reaches do_uffd_rwp() before it
-can proceed to do_wp_page().
+- skb_gro_remcsum_process() can pull beyond the inner Ethernet header
+  before eth_gro_receive() reads it.
 
-- With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
-  break_ksm() then reports success with a KSM page still merged.
+- napi_frags_skb() calls __skb_pull(skb, ETH_HLEN) after a slow pull,
+  so frag0 still points to the Ethernet header.
 
-- With asynchronous RWP, protection is cleared before unsharing.
+If the pull consumed the first page fragment, __skb_pull_tail() released
+it. If the head had to grow, pskb_expand_head() freed the old one.
+These reads, and the 2-byte write in skb_gro_remcsum_cleanup(), then
+access memory the skb no longer holds a reference on.
 
-Preserve the uffd bit when merging, and restore PAGE_NONE for RWP.  Let
-FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
-private copy as well.  Unsharing can then complete with RWP still armed
-for a subsequent access.
+esp4_gro_receive(), esp6_gro_receive(), skb_gro_receive_list() and
+udp_gro_receive_segment() also pull directly and never invalidated
+frag0.
 
-Link: https://lore.kernel.org/20261026130054.91461-1-lance.yang@linux.dev
-Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
-Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
-Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
-Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
-Signed-off-by: Lance Yang <lance.yang@linux.dev>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Xu Xin <xu.xin@linux.dev>"
-Cc: Chengming Zhou <chengming.zhou@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Jérôme Glisse <jglisse@redhat.com>
-Cc: Andrea Arcangeli <aarcange@redhat.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Bobby Powers <bobbypowers@gmail.com>
-Cc: Brian Geffon <bgeffon@google.com>
-Cc: Denis Plotnikov <dplotnikov@virtuozzo.com>
-Cc: Doug Gilbert <dgilbert@interlog.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Martin Cracauer <cracauer@cons.org>
-Cc: Marty McFadden <mcfadden8@llnl.gov>
-Cc: Maya Gokhale <gokhale2@llnl.gov>
-Cc: Pavel Emelyanov <xemul@openvz.org>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Shaohua Li <shli@fb.com>
-Cc: James Houghton <jthoughton@google.com>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Sean Christopherson <seanjc@google.com>
-Cc: SJ Park <sj@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Mohammed EL Kadiri <med08elkadiri@gmail.com>
-Cc: <stable@vger.kernel.org>
+Add skb_gro_frag0_invalidate(), which only clears frag0_len, and call
+it before each of these pulls. This is a single store in the slow path,
+and frag0 stays non NULL, so skb_gro_network_header() does not need
+a NULL test.
+
+frag0 must be invalidated even if the pull fails: __pskb_pull_tail()
+can return NULL after pskb_expand_head() freed the old head, for
+instance if a frag_list member has to be cloned or pulled.
+
+As frag0 is now invalidated before a pull that can fail,
+gro_try_pull_from_frag0() can see an skb whose linear part does not
+cover skb_gro_offset() while frag0 still points to the start of the
+packet, for instance after skb_gro_remcsum_cleanup() pulled a shorter
+length. Copying from frag0 would then corrupt the headers: only use
+frag0 while frag0_len is not zero, and use pskb_may_pull() otherwise.
+If this pull fails, for instance after a failed pskb_pull() in
+esp4_gro_receive(), do not hold the packet: later GRO lookups and
+gro_complete() handlers expect its headers in the linear part.
+
+This was found by Taesoo Kim and Cen Zhang, using LLM assisted code
+analysis, and confirmed with reproducers.
+
+Fixes: bd56a29c7a4e ("net: gro: change skb_gro_network_header()")
+Fixes: 9fd1ff5d2ac7 ("udp: Support UDP fraglist GRO/GSO.")
+Cc: stable@vger.kernel.org
+Reported-by: Taesoo Kim <tsgatesv@gmail.com>
+Reported-by: Cen Zhang <cenzhang@linux.microsoft.com>
+Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+Link: https://patch.msgid.link/20261104151042.1157782-3-edumazet@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/ksm.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ include/net/gro.h       | 10 ++++++++++
+ net/core/gro.c          | 20 ++++++++++++++++----
+ net/ipv4/esp4_offload.c |  1 +
+ net/ipv4/udp_offload.c  |  1 +
+ net/ipv6/esp6_offload.c |  1 +
+ 5 files changed, 29 insertions(+), 4 deletions(-)
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 78dc717633818..e6ddd74397b02 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -1419,6 +1419,10 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
- 	if (pte_soft_dirty(orig_pte))
- 		newpte = pte_mksoft_dirty(newpte);
+diff --git a/include/net/gro.h b/include/net/gro.h
+index 8cb718eae5b32..33768091ccf7f 100644
+--- a/include/net/gro.h
++++ b/include/net/gro.h
+@@ -163,9 +163,19 @@ static inline bool skb_gro_may_pull(const struct sk_buff *skb,
+ 	return likely(hlen <= NAPI_GRO_CB(skb)->frag0_len);
+ }
  
-+	/* Preserve uffd-wp when replacing the page. */
-+	if (pte_uffd_wp(orig_pte))
-+		newpte = pte_mkuffd_wp(newpte);
++/* A pull can release the page fragment frag0 points to, or reallocate
++ * skb->head, even if it fails. Call this before the pull, to make sure later
++ * skb_gro_header() and skb_gro_network_header() calls no longer use frag0.
++ */
++static inline void skb_gro_frag0_invalidate(struct sk_buff *skb)
++{
++	NAPI_GRO_CB(skb)->frag0_len = 0;
++}
 +
- 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
- 	/*
- 	 * No need to notify as we are replacing a read only page with another
+ static inline void *skb_gro_header_slow(struct sk_buff *skb, unsigned int hlen,
+ 					unsigned int offset)
+ {
++	skb_gro_frag0_invalidate(skb);
+ 	if (!pskb_may_pull(skb, hlen))
+ 		return NULL;
+ 
+diff --git a/net/core/gro.c b/net/core/gro.c
+index 3cf9855991efe..f85b9c4c3fbd7 100644
+--- a/net/core/gro.c
++++ b/net/core/gro.c
+@@ -249,6 +249,7 @@ int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
+ 	if (unlikely(skb->remcsum_offload))
+ 		return -EINVAL;
+ 
++	skb_gro_frag0_invalidate(skb);
+ 	if (!pskb_may_pull(skb, skb_gro_offset(skb))) {
+ 		NAPI_GRO_CB(skb)->flush = 1;
+ 		return -ENOMEM;
+@@ -463,12 +464,19 @@ static void gro_pull_from_frag0(struct sk_buff *skb, int grow)
+ 	}
+ }
+ 
+-static void gro_try_pull_from_frag0(struct sk_buff *skb)
++static bool gro_try_pull_from_frag0(struct sk_buff *skb)
+ {
+ 	int grow = skb_gro_offset(skb) - skb_headlen(skb);
+ 
+-	if (grow > 0)
++	if (grow <= 0)
++		return true;
++
++	/* frag0 can only be used if no pull happened. */
++	if (likely(NAPI_GRO_CB(skb)->frag0_len)) {
+ 		gro_pull_from_frag0(skb, grow);
++		return true;
++	}
++	return pskb_may_pull(skb, skb_gro_offset(skb));
+ }
+ 
+ static void gro_flush_oldest(struct napi_struct *napi, struct list_head *head)
+@@ -569,13 +577,17 @@ static enum gro_result dev_gro_receive(struct napi_struct *napi, struct sk_buff
+ 	if (NAPI_GRO_CB(skb)->flush)
+ 		goto normal;
+ 
++	/* Must be called before setting NAPI_GRO_CB(skb)->{age|last}.
++	 * A held packet must have its headers in the linear part.
++	 */
++	if (unlikely(!gro_try_pull_from_frag0(skb)))
++		goto normal;
++
+ 	if (unlikely(gro_list->count >= MAX_GRO_SKBS))
+ 		gro_flush_oldest(napi, &gro_list->list);
+ 	else
+ 		gro_list->count++;
+ 
+-	/* Must be called before setting NAPI_GRO_CB(skb)->{age|last} */
+-	gro_try_pull_from_frag0(skb);
+ 	NAPI_GRO_CB(skb)->age = jiffies;
+ 	NAPI_GRO_CB(skb)->last = skb;
+ 	if (!skb_is_gso(skb))
+diff --git a/net/ipv4/esp4_offload.c b/net/ipv4/esp4_offload.c
+index abd77162f5e75..2309468cfc3d4 100644
+--- a/net/ipv4/esp4_offload.c
++++ b/net/ipv4/esp4_offload.c
+@@ -37,6 +37,7 @@ static struct sk_buff *esp4_gro_receive(struct list_head *head,
+ 	__be32 seq;
+ 	__be32 spi;
+ 
++	skb_gro_frag0_invalidate(skb);
+ 	if (!pskb_pull(skb, offset))
+ 		return NULL;
+ 
+diff --git a/net/ipv4/udp_offload.c b/net/ipv4/udp_offload.c
+index 24f2cd86bbb5b..7df56d85ccacb 100644
+--- a/net/ipv4/udp_offload.c
++++ b/net/ipv4/udp_offload.c
+@@ -603,6 +603,7 @@ static struct sk_buff *udp_gro_receive_segment(struct list_head *head,
+ 			pp = p;
+ 		} else {
+ 			if (NAPI_GRO_CB(skb)->is_flist) {
++				skb_gro_frag0_invalidate(skb);
+ 				if (!pskb_may_pull(skb, skb_gro_offset(skb))) {
+ 					NAPI_GRO_CB(skb)->flush = 1;
+ 					return NULL;
+diff --git a/net/ipv6/esp6_offload.c b/net/ipv6/esp6_offload.c
+index 22895521a57d0..ca947cb94fb78 100644
+--- a/net/ipv6/esp6_offload.c
++++ b/net/ipv6/esp6_offload.c
+@@ -64,6 +64,7 @@ static struct sk_buff *esp6_gro_receive(struct list_head *head,
+ 	if (NAPI_GRO_CB(skb)->proto == IPPROTO_UDP)
+ 		encap_type = UDP_ENCAP_ESPINUDP;
+ 
++	skb_gro_frag0_invalidate(skb);
+ 	if (!pskb_pull(skb, offset))
+ 		return NULL;
+ 
 -- 
 2.53.0
-
-
 
