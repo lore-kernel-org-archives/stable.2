@@ -1,58 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625625;
-	b=ZWq0OsLvS3IlK3tu33gXA9NqN4Q68gCt0WEY/Chkx86tMq6c6g99cqTzpacNIhqob9/5
-	 TOJOGNcu4dJmY2vYlssmhsui428qUp89ADgbhMb+mRtXI6TsYTCICIZzBnB9g7epVwo3r
-	 PcIiEDmED/fpa1hZJWNqWPYec5YSuSSw9/VnIySb9UYOe1zTDQnpRIgBVaLni2lp/RSbP
-	 uNexGYVhUbDkyHbpqvDsioozAUYETv7a9Ms1NyeV9xFrJmdFy/t16Jw9QaFHJceIBFnhQ
-	 TRP3MzhzKldwr0Nf+p8Fpiy6s8KpnqM6G+AbRgxajw+URZu8+AtEmwUuYTeu2mMNC1A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625625;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=nz5gjD35IhvL1gSjJptzR5iUWw9NWrZ5KED9B0g0iHs=;
-	b=2ZXb+/De5MXYPR31YTLuqtDetRP7vmfsejI6NIQs6MYxe8CDQHtMhqGLixcN8G1q75Sk
-	 qJLwE4oC2iNRz/aL2+0Gk2WvLcGy4f2xrSTbJBcWW33QWxK0dH7gEDubDUjtGAR1uiIZC
-	 La1rHkj8TM8YFe1UjpQ5Lh7OAALQdEuS2+BohcjUTGBMOoPLO3FlBUcGibyK+Vh6RtpbG
-	 FLuf6Er6g0b1bHYaIrQ6GVBZLtC1BikFStgQj0jVBIxlivU9kPKSSfAZr/ZtMtW7WnT8R
-	 +/ERHEA5P1n2kThgNi750xxdWoi+kAqJEGguLEKS8Y/fSBVl0gdooSDPQE5JHOv+WqQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uHVxfmZ4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795625626;
+	b=teg1uX225oCZmKmzOVlcri3/w30p2V05mMNnEGr7MSBSU4rh9uxGRivmSnMFFLTh25vs
+	 5w0aInXYdw5Wlvng2CErPUCBKf6Roepkuokrrm1JhThDCN9hp+P3RLFT3WnVlgWDnJocH
+	 ggNNc3hHWgibf5MJzmuPuSFFb34TYf7OQdptWhRuWhupfiRwN58NUV8t5ffanL9RtSAjC
+	 T5Kmwn5atjaObnp8rQMNb/6B9kILxNMULu18uge6TgbGRhyOnGvY+9aT/zE2FgWX1TGcV
+	 8/EgQtQ9Bs5NCZLu/0MImZQK00bwh35z2uglzJYKLgpyxDUTkb6gDk0KfNhyGFWMt3w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625626;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=y6I1kRVE3hYZ2coRRuOSxwgvieaP/RE0STxbOhAoLZo=;
+	b=Aj2J2pxT/3CR6EEM+jcZn9MkRUJWa2ICVK5CS7BbJlW6SeM8ynUxl/N2WgWWozG5LGf4
+	 czr/IdwAK2a+/XteDUffCvGPC870rt9JjpSo4XKYtm6hG6JUtiZIJVpfslqR0DCN/NUsf
+	 0Ghg5B53hZeaUtfsQfb77qb9QwsdUwSTi+rF3JRi2pK0nr3tJRgJD1gIHwBEPQYEquVHq
+	 ktyc/vov4OPKczsttHoyv+A1ztT5gAGn7DD4MX7xEINsqw8W8ee9IruK9x57SAkAwadO9
+	 +spr9YTveKgOrxBVFKZXXMJ/A7TD2wubBhuBSRBQSW/3eUjorDKOmjGSe9l4XeoEbRA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mvista.com;
+	spf=pass smtp.mailfrom=mvista.com;
+	dkim=pass header.d=mvista.com header.i=@mvista.com header.a=rsa-sha256 header.s=google header.b=hGvI464C;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.43
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E877E606A31E;
-	Wed, 25 Nov 2026 16:53:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C99606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:53:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32C99606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mvista.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mvista.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uHVxfmZ4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B67E1F000CA;
-	Wed, 25 Nov 2026 16:53:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795625624;
-	bh=nz5gjD35IhvL1gSjJptzR5iUWw9NWrZ5KED9B0g0iHs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=uHVxfmZ44OrJDPkl2qREPTCXqSXdTt49U9SruvRZMPjnR+324AgBuywlG5hD5Ja6Z
-	 jvbL3RLtKCHvLsG+uWP9FGOts+L1CQOIV4Uw7SMP6GU5S0wyrX9gyDz3hA7XYf+SGw
-	 E57COL9aKv0mhDT0GMpV0vXoR1tsiDs4aFK505GY=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Igor Velkov <iav@iav.lv>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Ulf Hansson <ulfh@kernel.org>
-Subject: [PATCH 6.12 561/816] mmc: meson-gx: report the longest busy wait the controller can do
-Date: Wed, 25 Nov 2026 15:35:09 +0100
-Message-ID: <20261125143902.168691042@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
-References: <20261125143849.205329330@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key, unprotected) header.d=mvista.com header.i=@mvista.com header.a=rsa-sha256 header.s=google header.b=hGvI464C
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6df5e315bd1so4867613eaf.2
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:53:45 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795625625; cv=none;
+        d=google.com; s=arc-20260327;
+        b=I1mNtaUaChwFMMjTEEEfV3sY3h7mvQ/dT+dLlXXCxoYvqWQvjYHKxq0zzLLnKOgGsJ
+         EFDFWytp5CILK8pHeblMmjZfeMVKaU9RGsVRp9PPFpUuLrPE9BYsEGMMiEl8d4kLAmXC
+         /dfBfa7+V/8yK7EFrM6oO+WihZeQxRebczxwTTfgnxCIIr5CzkbqcpTXyfN3ga9RWrKy
+         4RYQyIUC/s7qmiCjqZEh7emHWUQ5HUHI1KeN8gp+r+4NXkamF2ahPad9Ohe8zk2NuZTH
+         iurY7Cw7AS0+V9LzL9w34FnS74aBdHlVydDyXim2DWC3WSX6z78LXkoJFpAWepP7JWmB
+         w3lg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=y6I1kRVE3hYZ2coRRuOSxwgvieaP/RE0STxbOhAoLZo=;
+        fh=mhiiaK9NNGhCN6GgfHLjkMjzBIV/oRn8D4kEi4Ivp2k=;
+        b=OplGiv4VvMNnhPZwWtqywwz6VmjUjvvIeNBkUZLXZ5DDiuXKNssSw/2CBaslIHZAMR
+         IyBNTDzkCVY+jd7fKXHmu88aMoPzYLY0AoLsqQvmGjXbrsw5uv5Zr44ohndW6gt9ZPaO
+         BDqNEFxYn2l02Mimou98T0tpe6B8GPLksDsSl6pet9pCT5s7/Tl11dOeMngq1PlEz6Y8
+         NCoVVvKTHHdjnTAXmJEFiRHg26q6eacYnQsjMIpJTNBqrzWuN931IEtus+IATjoE1lzn
+         CLJlWFIBkDqBKJ2LSoLGndEe+nL99rsyw/qi0Kh8EbxNgJhYoeAU47KaqFufvSKLCkF4
+         tynQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mvista.com; s=google; t=1795625625; x=1796230425; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y6I1kRVE3hYZ2coRRuOSxwgvieaP/RE0STxbOhAoLZo=;
+        b=hGvI464C0AxMtsNwh8cLAAu4p3H7ClkR3ytZXc/mKpA0QzHvuG+GZYRVu3n8G951U1
+         vG+vuM5by22tMC2Dm/jv/T03XUl9jPxItlYxccXA1IpAn02iOOM7ar0zIL7G3yeZlwdZ
+         QRYPIYSAbQJwTRCMm6K+6KxmdjmwytHw8onhw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795625625; x=1796230425;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=y6I1kRVE3hYZ2coRRuOSxwgvieaP/RE0STxbOhAoLZo=;
+        b=qDTfV7nsVwWEGwqGlxIInOL+DEJMtyQwvVU2x+onHG2K/S9rwyq8ATpQxO7kVD5WN+
+         uxNJHmB23IRYRw1bWD4Y+MpO9uQ5C794S1E4+LTfIpvJ/Dn3EvaKEQGfNuenBAAeJ/Hu
+         VobG0SygPD5lJuV+gRtwuMyFH/cuUPC0XJ8qFH6NavMKPacjCeMi37mZu7knZQnrVEVI
+         y98y0YXIPVYckhTFJm7aGitCvxc9Fn/bDYdJq4lqe+nCyX6V6T22/+j+usmTyDAbDkus
+         pokXShACsiMPjZ+gxWavb9XGvdr/85eyhZbCS5dgbBO+xGwFYbGdmZCPpxIY4/N86jom
+         cskw==
+X-Gm-Message-State: APuU4Z9aIDzaVEAj4hA91otphnmHDP+2uy6RTA1UvxluNaJR5WM/pp8C
+	j7x95pEhsgO83iWH+P+j35U2oSZJ0oMsJ/I1RcCt9dhJgQZ/q2ZcXD06RS32F/zoDYeXGovcAQB
+	QvMAOWxEnAGA708+XxmJ3siM7DJq4kx9feD6rcHR5colupGmEMUBW5kc=
+X-Gm-Gg: AZFdTZcDrNfhc6y7bKKGlpONMu1hJRrW4GjnZZLn4GDM1sjCdtD/h/+kACbB1IcubhD
+	Ec5VL2ZnqCM3JvT1I93aa49t7320NlYDHGFvTC7xPGv2PO74L6hR+tOBdAIJSBmAykeQ6vb7bFi
+	jV3U47CLgT2y4PT1/Ud02OkloRLTSmiSrFHb/nuuWfAK9wL9OC9Dv+l4GEG3gRD0fXp9BPyPXKn
+	AHuI2B5vNGrYT1be6S941ejrrxYbOdl/ks+1lD+RqMUdpMhJU4QrP4U4hhGeHWGPrvP/g8+29m0
+	b6xEctqRR/9ojOKsRWaKKJX/EYWbd4eSFU1KEudJ66GDsiDwAtCnKolm0tPalVr2GagHgFdSf36
+	n8ctcNun988PtQxaEzkRCrqcdFKQnif3/rBzSIpwnBhq8Mix3+re4oz+vz9VkppWFuNXBrJalJX
+	arTAbb2bgSi11KYuu+pzvk0F1/
+X-Received: by 2002:a05:6820:618:b0:71b:5db3:f1d4 with SMTP id
+ 006d021491bc7-71b5db3f385mr9217242eaf.34.1795625625087; Wed, 25 Nov 2026
+ 08:53:45 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,45 +97,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Hardik Gohil <hgohil@mvista.com>
+Date: Wed, 25 Nov 2026 22:23:33 +0530
+X-Gm-Features: Aa3M54rhm3iSfm_qbTVwPzeEG_EzKfrNYRNDVI6X7fgDH5zljBqKoB_sTfZt9v4
+Message-ID: <CAH+zgeGo9V_DRG_2yRAEw82bk6SMsV_JRxSOM28p7q02oTKE9A@mail.gmail.com>
+Subject: AI tools for CVE backporting/Fixing
+To: stable@vger.kernel.org, cve@kernel.org
+Cc: Greg KH <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+Hello All,
 
-------------------
+I was wondering if anyone is currently using, or is aware of, AI tools
+that can help with backporting kernel CVE patches or identifying and
+fixing kernel vulnerabilities.
 
-From: Igor Velkov <iav@iav.lv>
+If you have experience with any such tools or recommendations, please share.
 
-commit 18e9f7fb05ada68d491ff49165b9644f790e0e0c upstream.
-
-The driver does not set max_busy_timeout, so the core takes the host
-for one that can wait for busy indefinitely and sends erase and cache
-flush as R1b with busy timeouts of up to 60 s and 30 s. The CMD_CFG
-timeout field holds at most 32768 ms, so the controller times out first.
-
-Report 32768 ms as max_busy_timeout. The core then sizes discards to
-fit and, for a longer wait, sends R1 and polls for busy itself.
-
-Fixes: 51c5d8447bd7 ("MMC: meson: initial support for GX platforms")
-Cc: stable@vger.kernel.org
-Signed-off-by: Igor Velkov <iav@iav.lv>
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/mmc/host/meson-gx-mmc.c |    3 +++
- 1 file changed, 3 insertions(+)
-
---- a/drivers/mmc/host/meson-gx-mmc.c
-+++ b/drivers/mmc/host/meson-gx-mmc.c
-@@ -1180,6 +1180,9 @@ static int meson_mmc_probe(struct platfo
- 
- 	mmc->caps |= MMC_CAP_CMD23;
- 
-+	/* The longest busy wait the CMD_CFG timeout field can hold. */
-+	mmc->max_busy_timeout = SD_EMMC_CMD_TIMEOUT_MAX;
-+
- 	if (mmc->caps & MMC_CAP_SDIO_IRQ)
- 		mmc->caps2 |= MMC_CAP2_SDIO_IRQ_NOTHREAD;
- 
-
-
+Regards,
+Hardik
