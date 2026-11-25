@@ -1,62 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795622498;
-	b=cEhn+pYYibAhgHiGSMyKiiYOwg9wwdNFaVqOI387V70aeVI03myMRDlENZQwPDLJMsDg
-	 aUPwloTjzHwku1ikQlSHSy3iMiq0BjlrxFsBq+iWNWi9rH8I8sysag7JXii+3b9MM/Ag7
-	 NeZ8R2H7rqh7+A/f+3RxFGWYDRUb3iwjB3kAGzaJEa6posf9s6grnWDd1gl3OoxmUYefU
-	 R6mDA0h9ABW81xMTJPaZQIG+zV8aDzYNSWg1R6CV7ejvDv8mJQtZceo/J0P3YhHf+HP9s
-	 G8sNge1OcdK4cPAL2hjBK6tNMkFSzendOpCnRV+4glvJmb7GW+pgzCi/4jzk+e/W4fA==
+	t=1795622501;
+	b=AJOzksNZWO3IJ+ud3ppbXqO/JZW7d95HsvjVB+z3F0BJ96nF+DhkpG+lrt3toL3j/dq4
+	 CLt9CtjGPk4mUM2XNs2lKp7NGyvB7/QN5FAGFhtZh5Wzlxxt5smErhxtkx7MOmqg89Nfo
+	 r30Dgz0SOM3YnfKaWI9LL7TuvUUy9+C0kr/2iys9QFFR8Y3YQVWB9nXdcpzxToqlCXSDF
+	 Wg6hGQEkAYN2LuXuwMTPc7NfRDK5ETz4N2Oey4U8JgAadwEHdzP80b/KN3+I5Gklv4Ok3
+	 Y+TReO34c/5BQXMKJ2NhsYUdDCLvHI3XivnMPFaS+He57eJ8t1fXJMLALUoq9vrPLUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622498;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=gfbjNCNYsEeB2Qnd8KFZxuSbap8H42IpVTaNbAp8otI=;
-	b=whIJFTF4c8B+esq+QAZE+LWni4uDQuM0yxQmf5q7Ju16mblj2LBO1PB/ohCZB1SvgZzt
-	 rZ6GT7F0CIDd5RFmGLWt9MqX6qvKkHtqkwBKfJ3qSkrNExoz9CCuNDtiskvNJ8vs1jvqV
-	 0c6YNttSY2eEhziG9NnZ21tW1AqzAH5WDwFT0o41cNEnsz+Uhqhp+5oWgXgGfYviqQq0j
-	 7HJb14mafcmdiY/ZiFBq7KOcSSRFdD60laZnUqD2zmdVAug6bbqA3sQDWk34WrgnrNOaD
-	 9bk0bfD2Jx0hiKpEqwBWhj2k9wHRZwQm7m+g52a06JiSLkRwkmUuWdQQdke1c14Fnpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622501;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=KpsyoMrq8QFDKuaJNC38lM4n/9s4W8IMaJXnzULPzCc=;
+	b=snqnFUxXq2nLnzSOCdz9vr9dwDN20nP8/xmcRXf/uI60HTRpdGH1p2KRhirFPVtVZpkc
+	 cLxTzYTqVr3+j4xv+LvK/jxxUy3uj5g613VYQ2/OUzY6ZQfezIZBNpRv8UkZJxq6uFwfn
+	 o8RL7RyWyAEYBjvReJGGJ/yLA4edujrihlcRMY137xfs7aVZ9qrU6V6AFM0cyD56N5F3N
+	 QKcG0cHqY8S3g4ZjlXVYWBP6GIJoCvqmlAt2qbyQ2+FfVfcIdXA5wJvw8/VrxkJY/yZKK
+	 LDevEIxTAqc4HAeqy2it/naFlxLX0t0C5fFofgR7av6Hq1AVFgdBbht56W7q6zW9A2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=u49waXt2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HCuiBrPV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A727606A31E;
-	Wed, 25 Nov 2026 16:01:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 2BFCA606A329;
+	Wed, 25 Nov 2026 16:01:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=u49waXt2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CCC11F000C6;
-	Wed, 25 Nov 2026 16:01:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795622498;
-	bh=gfbjNCNYsEeB2Qnd8KFZxuSbap8H42IpVTaNbAp8otI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=u49waXt2/paeXKODxylhN66xukLiFJWUVxa9SdMFSOp5VnSfmxxHdY9C8TmTYLf0Q
-	 51wtaHAXl8+YyNYXCI02kcFFRJrS76hLma0QgJEWcAJ3XURyVpZ7jX7Avy04hjFytR
-	 7m3shN+45KGsZE7THMzdke7HlFMxSVmBKDLbjWYU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Abhishek Dubey <adubey@linux.ibm.com>,
-	Saket Kumar Bhaskar <skb99@linux.ibm.com>,
-	Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>,
-	R Nageswara Sastry <rnsastry@linux.ibm.com>,
-	Hari Bathini <hbathini@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 558/990] powerpc/bpf: Move out dummy_tramp_addr after Long branch stub
-Date: Wed, 25 Nov 2026 15:32:05 +0100
-Message-ID: <20261125143835.166881156@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HCuiBrPV
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id DC1A71F000C4;
+	Wed, 25 Nov 2026 16:01:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795622500;
+	bh=KpsyoMrq8QFDKuaJNC38lM4n/9s4W8IMaJXnzULPzCc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HCuiBrPV+Vda2f9OpEln1OADkYjDim7ja1XnIebWLpOEW3hUO4OyKj0hISym0fZvX
+	 zL+GDpjPfphxsEu8+JnQN7DDWvPhvC70xccRlp2J4wVi860m3Jk5Pu4VscvBEyK2Un
+	 nHuo6vneKOZL4oP2C7vcaiNIbJbf2zEQE+YEmqQOBlZIGon83NLu+cElvx5Ox/N1ak
+	 oOqGBLAc8r0xPC/rOOrBVQV1bs3Of1aWAp0d2Fnn9j2VzZA0115nJTsTUrxn59UK8k
+	 2fBVHLmvalW1IZwDk3Q2/MXaL6Qwu1CfUCzHqVIB7mCKAkrfG3k8xNYH3YrU82mWsV
+	 fDi88CDW3CZBg==
+Date: Wed, 25 Nov 2026 17:01:36 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, 
+	Khouloud Touil <ktouil@baylibre.com>, Linus Walleij <linusw@kernel.org>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] nvmem: keep write protection disabled while writers are
+ active
+Message-ID: <cifzn2uoh4lvfuamvezuthqcebz2oz7eqdldnbln6untros5f2@oav3dnjjiv4y>
+References: <20261117-submit-nvmem-wp-serialization-v1-v1-1-539d121f8f5e@gmail.com>
+ <8c0a616b-e7a5-4043-bc86-3bee5d0c9e48@kernel.org>
+ <p4nohmtiuicrys4i2ipwstdjt7sj3g2yyli4beygutkyn5ghky@d54oxjwiyzm4>
+ <CADvTj4ou6+gg8xK4p9623xr=mZecmrgPpV76pU_-h=qS23UUrg@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,183 +62,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADvTj4ou6+gg8xK4p9623xr=mZecmrgPpV76pU_-h=qS23UUrg@mail.gmail.com>
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+On Tue, Nov 24, 2026 at 09:48:31AM -0700, James Hilliard wrote:
+> On Tue, Nov 24, 2026 at 6:04 AM Bartosz Golaszewski <brgl@kernel.org> wrote:
+> >
 
-------------------
+...
 
-From: Abhishek Dubey <adubey@linux.ibm.com>
+> >
+> > Well, we have a use-counted gpio-shared-proxy, but this addresses real
+> > hardware components sharing pins. This is a case of "logical sharing"
+> > where you have a pin requested by the subsystem, which is then used by
+> > multiple consumers. Normally, we do this at the subsystem level, like in
+> > regulators - which BTW probably suffer from the same issue - but here
+> > it's more visible and more likely to be hit.
+> 
+> Both NVMEM writes use the same WP descriptor. They look like one
+> consumer to gpio-shared-proxy, so it can't tell when the last write
+> through that descriptor has finished.
+> 
 
-[ Upstream commit 6652b9941a6c9b6814ca6d2eb153dbf162b89a02 ]
+Sorry if I didn't make myself clear, I didn't mean we should use
+gpio-shared-proxy here - I meant, the "logical sharing" doesn't mtch the goal
+of gpio-shared-proxy.
 
-Move the long branch address field to the bottom of the long
-branch stub. This allows uninterrupted disassembly until the
-last 4/8 bytes. The last bytes exclusion is logically necessary to
-prevent disassembly failure, otherwise the actual program layout
-is never altered. Hence no effect on overall program size.
-Also, align dummy_tramp_addr field with 8-byte boundary.
+> > We can either address it here or we can possibly introduce a use-count
+> > helper for GPIO descriptors at the GPIOLIB level and re-use it in
+> > regulator core. In that case, we'll still need serialization but I don't
+> > like the idea of using a mutex and holding it over the entire operation.
+> 
+> The posted patch drops wp_lock before calling ops->reg_write(). The
+> mutex protects the writer count and the GPIO changes: the first writer
+> finishes deasserting WP before a second writer can enter, and only the
+> last writer reasserts it. The provider callbacks can still overlap.
+>
 
-Following is disassembler output for test program with moved down
-dummy_tramp_addr field:
-.....
-.....
-pc:68    left:44     a6 03 08 7c  :  mtlr 0
-pc:72    left:40     bc ff ff 4b  :  b .-68
-pc:76    left:36     a6 02 68 7d  :  mflr 11
-pc:80    left:32     05 00 9f 42  :  bcl 20, 31, .+4
-pc:84    left:28     a6 02 88 7d  :  mflr 12
-pc:88    left:24     14 00 8c e9  :  ld 12, 20(12)
-pc:92    left:20     a6 03 89 7d  :  mtctr 12
-pc:96    left:16     a6 03 68 7d  :  mtlr 11
-pc:100   left:12     20 04 80 4e  :  bctr
-pc:104   left:8      c0 34 1d 00  :
+Thanks for clarifying, I got confused by the usage of a non-scoped guard()
+but it's in a dedicated function.
 
-Failure log:
-Can't disasm instruction at offset 104: c0 34 1d 00 00 00 00 c0
-Disassembly logic can truncate at 104, ignoring last 8 bytes.
+> One detail for a shared helper is how to handle a GPIO error on the
+> last user. regulator_ena_gpio_ctrl() keeps its enable count if disabling
+> the GPIO fails. In NVMEM the last provider write has already finished,
+> so we return the error if restoring WP fails, but there is no writer
+> left to count.
+> 
 
-Update the dummy_tramp_addr field offset calculation from the end
-of the program to reflect its new location, for bpf_arch_text_poke()
-to update the actual trampoline's address in this field.
+Right. Maybe it is better to fix it locally for now.
 
-All BPF trampoline selftests continue to pass with this patch applied.
+> > How about a read-write semaphore, taking it for writing, checking if
+> > we'll need to set value and keeping it for writing during
+> > gpiod_set_value_cansleep() or - if not - calling downgrade_write() and
+> > running the actual nvmem callback allowing for concurrent operations as
+> > it is now?
+> 
+> If every writer starts with down_write(), a second writer still has to
+> wait while the first holds the downgraded read lock across its callback,
+> even though WP is already deasserted. Did you have a way for that
+> second writer to take the read side directly in mind?
+>
 
-Fixes: d243b62b7bd3 ("powerpc64/bpf: Add support for bpf trampolines")
-Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
-Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
-Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
-Reviewed-by: Hari Bathini <hbathini@linux.ibm.com>
-Acked-by: Hari Bathini <hbathini@linux.ibm.com>
-Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
-Link: https://patch.msgid.link/552225fc257381fb83d282b3040c6ad363246465.1789982239.git.skb99@linux.ibm.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/powerpc/net/bpf_jit_comp.c | 44 ++++++++++++++++++---------------
- 1 file changed, 24 insertions(+), 20 deletions(-)
+No, you're right, we need to wait until setting the value is done.
+Nevermind that comment.
 
-diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
-index 4a7f5108fe0fd..f23ed48c4e327 100644
---- a/arch/powerpc/net/bpf_jit_comp.c
-+++ b/arch/powerpc/net/bpf_jit_comp.c
-@@ -52,19 +52,19 @@ asm (
- void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context *ctx)
- {
- 	int ool_stub_idx, long_branch_stub_idx;
--	int ool_stub_sz;
-+	int stub_sz;
- 
- 	/*
-+	 * The dummy_tramp_addr field is placed at bottom of Long branch stub.
- 	 * Align the mis-aligned dummy_tramp_addr field in the fimage.
- 	 * The alignment NOP must appear before OOL stub, to make
- 	 * ool_stub_idx & long_branch_stub_idx constant from end.
- 	 *
- 	 * The fimage can be non 8-byte aligned, so final alignment depends
--	 * on start of fimage and the stub's instruction count offset. The
--	 * OOL stub size is 4 instructions (with CONFIG_PPC_FTRACE_OUT_OF_LINE)
--	 * or 3 instructions (without) before dummy_tramp_addr.
--	 *
--	 * Emit a NOP here if address is not SZL aligned.
-+	 * on start of fimage and the stub's instruction count. The
-+	 * stubs block has 11 instructions (with CONFIG_PPC_FTRACE_OUT_OF_LINE)
-+	 * or 10 instructions (without) before dummy_tramp_addr field. Emit a
-+	 * NOP if the address of dummy_tramp_addr is non aligned.
- 	 *
- 	 * In pass=0 when image==NULL, conservatively account for space
- 	 * required to accommodate alignment NOP. In case final pass skips
-@@ -72,8 +72,8 @@ void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context
- 	 * jited_len signifies correct program size.
- 	 */
- 
--	ool_stub_sz = IS_ENABLED(CONFIG_PPC_FTRACE_OUT_OF_LINE) ? 16 : 12;
--	if (!image || !IS_ALIGNED((unsigned long)fimage + ctx->idx*4 + ool_stub_sz, SZL))
-+	stub_sz = IS_ENABLED(CONFIG_PPC_FTRACE_OUT_OF_LINE) ? 44 : 40;
-+	if (!image || !IS_ALIGNED((unsigned long)fimage + ctx->idx*4 + stub_sz, SZL))
- 		EMIT(PPC_RAW_NOP());
- 
- 	/*
-@@ -94,28 +94,29 @@ void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context
- 
- 	/*
- 	 * Long branch stub:
--	 *	.long	<dummy_tramp_addr>  // 8-byte aligned
- 	 *	mflr	r11
- 	 *	bcl	20,31,$+4
--	 *	mflr	r12
--	 *	ld	r12, -8-SZL(r12)
-+	 *	mflr	r12	// lr/r12 stores pc of current(this) inst.
-+	 *	ld	r12, 20(r12) // offset(dummy_tramp_addr) from prev inst. is 20
- 	 *	mtctr	r12
--	 *	mtlr	r11 // needed to retain ftrace ABI
-+	 *	mtlr	r11	// needed to retain ftrace ABI
- 	 *	bctr
-+	 *	.long	<dummy_tramp_addr>  // SZL bytes aligned
- 	 */
--	if (image)
--		*((unsigned long *)&image[ctx->idx]) = (unsigned long)dummy_tramp;
--
--	ctx->idx += SZL / 4;
- 	long_branch_stub_idx = ctx->idx;
- 	EMIT(PPC_RAW_MFLR(_R11));
- 	EMIT(PPC_RAW_BCL4());
- 	EMIT(PPC_RAW_MFLR(_R12));
--	EMIT(PPC_RAW_LL(_R12, _R12, -8-SZL));
-+	EMIT(PPC_RAW_LL(_R12, _R12, 20));
- 	EMIT(PPC_RAW_MTCTR(_R12));
- 	EMIT(PPC_RAW_MTLR(_R11));
- 	EMIT(PPC_RAW_BCTR());
- 
-+	if (image)
-+		*((unsigned long *)&image[ctx->idx]) = (unsigned long)dummy_tramp;
-+
-+	ctx->idx += SZL / 4;
-+
- 	if (!bpf_jit_ool_stub) {
- 		bpf_jit_ool_stub = (ctx->idx - ool_stub_idx) * 4;
- 		bpf_jit_long_branch_stub = (ctx->idx - long_branch_stub_idx) * 4;
-@@ -1129,6 +1130,7 @@ static void do_isync(void *info __maybe_unused)
-  * bpf_func:
-  *	[nop|b]	ool_stub
-  * 2. Out-of-line stub:
-+ *	nop	// optional nop for alignment
-  * ool_stub:
-  *	mflr	r0
-  *	[b|bl]	<bpf_prog>/<long_branch_stub>
-@@ -1136,14 +1138,14 @@ static void do_isync(void *info __maybe_unused)
-  *	b	bpf_func + 4
-  * 3. Long branch stub:
-  * long_branch_stub:
-- *	.long	<branch_addr>/<dummy_tramp>
-  *	mflr	r11
-  *	bcl	20,31,$+4
-  *	mflr	r12
-- *	ld	r12, -16(r12)
-+ *	ld	r12, 20(r12)
-  *	mtctr	r12
-  *	mtlr	r11 // needed to retain ftrace ABI
-  *	bctr
-+ *	.long	<branch_addr>/<dummy_tramp>
-  *
-  * dummy_tramp is used to reduce synchronization requirements.
-  *
-@@ -1243,10 +1245,12 @@ int bpf_arch_text_poke(void *ip, enum bpf_text_poke_type poke_type,
- 	 * 1. Update the address in the long branch stub:
- 	 * If new_addr is out of range, we will have to use the long branch stub, so patch new_addr
- 	 * here. Otherwise, revert to dummy_tramp, but only if we had patched old_addr here.
-+	 *
-+	 * dummy_tramp_addr moved to bottom of long branch stub.
- 	 */
- 	if ((new_addr && !is_offset_in_branch_range(new_addr - ip)) ||
- 	    (old_addr && !is_offset_in_branch_range(old_addr - ip)))
--		ret = patch_ulong((void *)(bpf_func_end - bpf_jit_long_branch_stub - SZL),
-+		ret = patch_ulong((void *)(bpf_func_end - SZL), /* SZL: dummy_tramp_addr offset */
- 				  (new_addr && !is_offset_in_branch_range(new_addr - ip)) ?
- 				  (unsigned long)new_addr : (unsigned long)dummy_tramp);
- 	if (ret)
--- 
-2.53.0
+With the above clarifications:
 
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-
+Thanks,
+Bartosz
