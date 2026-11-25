@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795646442;
-	b=LVJY3xYYivqYcb1RzYVzBKz5pBM4XZdfDJI7fAt/kq1KcLRhfbnmZxYJhFiMfeGKxyLf
-	 lVWRrHR5c57J1nqMCWQ294KgyLAsiB5IJUcsq2h6lPK1j/1DKZGTd0zkIhQAWC1SUsawv
-	 bs0cmfYeBLbAYzzFty7gGngJd9zaVrDkg1RMR6GDO6lkxLWo3ZQEnj9h9+QLFZX1xaee/
-	 MmGzGACMNgIx/VazXExpoIisBbabEMzZSj0y/W6iVTPYD2+o4P25BYjdNexi3+BKz8oPO
-	 SrfNSDJuOpbdQ9q4AHjuQp29SUZS1oYGXiM/zrygv67qRWJ3Tdpd/f6J2EbtenzWn6w==
+	t=1795646524;
+	b=WgYXbGcQWora977t0V1+r9ArpsUX2cpXoMCTrp5qYTL5Z5LmlALfctIdaTC6c0XXe35S
+	 od+7KxP9RHEqOIctMDWDEtZZbF/T7Z9qD1bHXc7/FRR5kRQPJH01B/khujAp2SdYtdiMc
+	 +YdSpQSEAV7PXwJImsslHAqNanHX/Dk0MFitEdxzNh6Jkzb9NjCXLr5GoiVPTgG5ZOpV8
+	 RC7sA/8QvsMZQUvtJtarivBHiyJj+yDrMbjx1MAMDUE/nYS22JWc3VbRH3xQYTiUFZHSl
+	 lb2aGlfw9D3g8VzTn43u2qNptM8CvCzXOOqYjAwvuf7gn8Wcu5WIgCFKxEyCxIEy9Bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795646442;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795646524;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=HFEO3+Zpc0o9i9tlrP3rTUdlR6T3RFfXFEfEcMTXpBc=;
-	b=2MwRU1LQzZOBdoAVIEE/+p91A5SvvvllY7nCamU0/o1R4AhF6p8MmaDdwqQNejZoO6c0
-	 buSG+sNKBjSMCQWn0vmaxRrH3aLKs0AMGkOhWvmBJGeUjkqg4IEy0eHKjlEenJnNlYgAS
-	 P6sIT77F9BrD+Lk26vrgJiRBMKZPubG5GKu2dci9EXTIhwVmtXLfPtmqOCZ9H/e8t4pih
-	 D8HcT5+qCD0nyTJpAnTlCOnjAaU0tAySNTr302C/jBAcLpsVrjvnLFRGXFMkHVkZyD4vR
-	 hkq3mDyq53GSbnfdFI1JeN+nuxke45xswk4Xa7KGs+fIOBqF39xEvZswwsmR+UR9TBw==
+	bh=H4NFkvOqhZlZKcH0d3DimhfRfnyAZXpak6tvIkaL6TU=;
+	b=Wsw6n2ysZKaSox2c7OLo8dK6GGALq952qWB2h0cA+IB5+K7/6SDiQRxHT1REGKhWMkIU
+	 +uMaFFzfteVUKsAzHlGLDOYjqYjqs/i1mPc+YNZ1UCJHy1Lu9Y/5UA9ICDS0vViJibU2B
+	 wxZ4VdahFXPeINBSTJx5jci7AIC47dYgRrI4z4VGoVjolwZ6o4jJ9QnZuIaZoWQWbdcih
+	 doH1hJ/0F3YksQVHtHCO4EONDh38nghHOdajsIuQFij4yvRqYN+HdJojGehpNsbWwcjmv
+	 5SpjDs2/K4ZBtpjPJNBln6n5NDMgV0CcX4b+eJxrIbm/ROJOGWFV/BTG+llXn+cYnkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fF39pGtq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PeP9XiyS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 003FF606A31E;
-	Wed, 25 Nov 2026 22:40:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 923D6606A31E;
+	Wed, 25 Nov 2026 22:42:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fF39pGtq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02C51F000C0;
-	Wed, 25 Nov 2026 22:40:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PeP9XiyS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC5391F000CA;
+	Wed, 25 Nov 2026 22:41:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795646441;
-	bh=HFEO3+Zpc0o9i9tlrP3rTUdlR6T3RFfXFEfEcMTXpBc=;
+	s=k20260515; t=1795646524;
+	bh=H4NFkvOqhZlZKcH0d3DimhfRfnyAZXpak6tvIkaL6TU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fF39pGtqxxepy+KP0PC+Y5OKcM1qbgbvQ7TJG1E7JQ1LbKpysFsiO4+v8/8SzJf1w
-	 CwsMtXjhKZYoN1dD3aJN2guDN3cw5Dznx4xjInTNJCFHq2bKJcBeVKeaFX5Rk7LKVP
-	 cYSHh1VQdh2C4FAW/3az0ia3b9J0ilS0+xym14vm2ErXaZGbuupCVmH/grvPI3gBt9
-	 DMDfqHie2T45umUwG0j8L4KHIe7dUHIRbaFRM9+qQ3qNDnF8tg/sXkbSJjDMnSAwoI
-	 rGjJR1e4Wgf9wcRUhgXTja5yXcvjS78LNDqT7CBfsYHk9o5q+zPtm/bUjPUNXOF/lh
-	 56G1y+0j7M6jA==
-Message-ID: <6afabd96-1888-43d2-9ccb-73ca6702a004@kernel.org>
-Date: Wed, 25 Nov 2026 23:40:32 +0100
+	b=PeP9XiySufiIYOBzTaVRl8g5DseIuiYbuamSzgTdfW3vcfMGNinvwOiaaldlS/E49
+	 l7f4ayEQnloyq1iaOm7QbrJJ50xITbYg9gsTbBticLUHC3nLQ7+roARDAiJd3aWm8h
+	 OxhtDqMRDwDOlRN8BypBvTxkaslgc+ZMSeDH2MoA7XyX2oafTKRKViheaMzqTB4z/r
+	 Ib1GYeG/mCVXin0/lFHVAlo6omT7+q23M8s3nDfpjtjJyfcq1LHSRg0yGEMmYbR8zH
+	 I7FWlZNWQXpwFZwVzXW6WTOAwym0PgFgIKV0deEi6tPXEn4UeaQFvx62n1cNlOJQwl
+	 bnmUnU9XB+K4A==
+Message-ID: <16ad231f-0cba-40a0-992a-a0d430da5a91@kernel.org>
+Date: Wed, 25 Nov 2026 23:41:56 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,18 +52,17 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/huge_memory: check VMA end bounds in insert_pmd() and
- insert_pud()
-To: Elkin Cruz <elkin@google.com>, Zi Yan <ziy@nvidia.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
- irogers@google.com, stable@vger.kernel.org
-References: <20261125221911.1425213-1-elkin@google.com>
+Subject: Re: [PATCH] mm/migrate_device: use locked folio in
+ migrate_device_{range,pfns}()
+To: Elkin Cruz <elkin@google.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ linux-mm@kvack.org, Lorenzo Stoakes <ljs@kernel.org>,
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, irogers@google.com,
+ stable@vger.kernel.org
+References: <20261125222713.1450385-1-elkin@google.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -110,24 +109,39 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261125221911.1425213-1-elkin@google.com>
+In-Reply-To: <20261125222713.1450385-1-elkin@google.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/25/26 23:19, Elkin Cruz wrote:
-> insert_pmd() and insert_pud() only check that addr lies within
-> [vma->vm_start, vma->vm_end) without verifying that the full PMD or PUD
-> mapping fits below vma->vm_end. On a VMA whose end is not PMD- or
-> PUD-aligned, inserting a huge mapping at the tail straddles past
-> vma->vm_end.
+On 11/25/26 23:27, Elkin Cruz wrote:
+> migrate_device_range() and migrate_device_pfns() read a speculative
+> folio pointer via page_folio() prior to taking a reference or lock in
+> migrate_device_pfn_lock(). If the page splits or changes compound state
+> before lock acquisition, folio_nr_pages(folio) inspects stale state and
+> the nr > npages - i error path calls unpin_anon_rmap(), folio_unlock(),
+> and folio_put() on the unowned speculative pointer while leaking the
+> reference and lock on the folio actually locked by
+> migrate_device_pfn_lock().
 > 
-> Require vma->vm_end - addr >= HPAGE_PMD_SIZE in insert_pmd() and
-> vma->vm_end - addr >= HPAGE_PUD_SIZE in insert_pud().
+> Return the referenced, locked folio directly from
+> migrate_device_pfn_lock() and skip unlocked entries cleanly.
 > 
-> Fixes: 5cad465d7fa6 ("mm: add vmf_insert_pfn_pmd()")
-> Fixes: a00cc7d9dd93 ("mm, x86: add support for PUD-sized transparent hugepages")
+> Fixes: dc41e961a269 ("mm/migrate_device: avoid out-of-bounds writes for compound folios")
+> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Elkin Cruz <elkin@google.com>
+> ---
+> 
+> I am trying out new Clang static analysis checks for kernel bug
+> classes, and they flagged this code as possibly buggy. The findings
+> were triaged/fixed and commit descriptions were drafted with help of AI,
+> then checked against linux-next (not runtime-tested on hardware).
 
-Which users in the tree trigger this?
+Before you send any more: if you cannot reproduce it in the tree, don't report it.
+
+So can this here be reproduced?
+
+We're very interested in real bugs, but not in theoretical ones.
 
 -- 
 Cheers,
