@@ -1,47 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795600280;
-	b=IyF/zvAoRHYyTLkadXDgkLINXPt8vuYtgk9n0vMIwJ6NKg65lCNmYqVzttuDx11/FTXL
-	 fvTqSrNc/NQEdDBpGrRfVOXBWnrvyBiPuevl3mnJ3trh1a5AEx2MXoEDeyv04QObznT9r
-	 zvturWq3djmBEo4hSPZMwUfzF3Dmd9vVQ3amDJ12qDvg4Oi/m7S3UpwIyTxQ2Ep6PcMX8
-	 Qe0cJORUamLE/rDTOalp/PwmB4qVHTLg9SzvINv8pZzfcGH6mZNzojI3SOywpBSMeTV4y
-	 uwqVbcuPQN7dAod4EH0T6SnBQde3/CsyWgV6Nz/2RcYtDUYDaGDt1F6BmmBolBOWFUg==
+	t=1795600296;
+	b=4V/f4e7IUR8rl7MQB+LLU640/IRU3z6hr6TRZc7gGDr6Rp1afFrLwiLFhdqS0PMRi8jl
+	 CpzTV0hnC59o+Q54bx6s23fpzi+OfFA3JJu0QqsSczD7tQ301hGkTcqJctyKYi+T84JNd
+	 aZDg5o8NWv+Y23R3RdOKAo0Cpv9X9bxRUZCwzWs5Gp/IwlOKnxcY9R0Nmh3gfDpNOl3Hc
+	 +iQBuBQkMnt0YJr4xLUWO9CWFoxHRxlHamncCthX8FlYlBIM0kMSjfS9vRLLJv/cE7A82
+	 yougXpvptdm01r282zUdE14fMnGJnixbTYdAyl0WqBPUlWnHgiwuyV2uZViixQWm8lA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795600280;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=jmv3xb9lOeaRoTV64ecOUClydQWqD2s7c0t2Kcqyx58=;
-	b=YNKbVEXiXvXdr8CYynFhoJDP9Jp95O/G1k1doNI0PN6fjL/ZKet9NXGXD1yQ/sBGz9ZK
-	 8K1LzAFhi9A9CEYTYuDgakhmhQiTOl2T3Bk+2vBXxRJETc1IR9nkqWWfRP2g66+/d8sEH
-	 83RWV3ZQTw9LufwxS58h15jvDZo52ooRzW7moqv6kDwH0N7bh64+ZBTQJ3sCyqh75FUPo
-	 3XPEaYvdz4mcwo0FC5ykqJKe0zjfa5WAYvql43fjEKyK19+G8Taksg+fTH4hr7a/SsC+v
-	 UM0dFxzIZdTuTMrEib2LztJh5m1fN/iiYZRlqzhZpiUBVcac57eHgrriL8M26ErZHiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795600296;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ExEdfB9WwLHoUe7nHSiClkfqem+8Ndsrh2CmQFmZ+3c=;
+	b=sQ3yekCZUUAw88IjQavlXKj6rw71hwy6H3Uv1oYxjum6sBxTIc2df1GtsdQAQOi7NHKC
+	 rbWGJD2a0G7qRKdNlP17NwrpuK9Ux5un9KPSQKFKZ04DvcaQMqcbvRAue2n6+mU4oqrJu
+	 KEQCu/Vw7nj2pp4yBC11sf2KpindGuSZz6bZ/6dNuGkRknCKHKdti/jGEWUcQiFkMUfY4
+	 tQ3kv9hUwGIqZcAySLIPMbgP/91ytLrgZO+u8IqaP7qnpK/ZTvGIwZy/5W6yek1WpUhhy
+	 3Cam346VzcyeWPRpdgHvht025Y1lCuVnaIaCUxbA9A6q85w1jHkPaF/fQYBSQCK/zwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrQGH092;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=pereq.eu;
+	spf=pass smtp.mailfrom=cryspen.com;
+	dkim=pass header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b=ZOTq6OpF;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D430606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:51:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58363606A329
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:51:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58363606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pereq.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cryspen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrQGH092
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36CAC1F000E0;
-	Wed, 25 Nov 2026 09:51:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795600279;
-	bh=jmv3xb9lOeaRoTV64ecOUClydQWqD2s7c0t2Kcqyx58=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JrQGH092cVLRi1EcK8jsjJHfMRa2+y6DzBtkyAf0SKwERUjn8oCMoJ5Mb750q5oW4
-	 j+sbY10+0MrPs/z6eeyFkXnyIuuXM6ArGznK/IwW6tOy8udwwRV2XIw1r8DYuvy60E
-	 ipePbcMubCYDljc5MQfnapIUq6c8jKF83FI3CrRusUfHDoesvj9bWSrlmJMejQZvbS
-	 WmHh1IXHGSHbmhLKpjpQMCXv9vzJyQdhClOZv5TxLOMZuCWohdWnss0Y8KxBq25FHJ
-	 rLc0XRkAFpXEYQy2lDuTEAu2X/wweeD999lm4ocAq9FAsSBm5G2mSP9e34M02R8Q+q
-	 ++Hn/eC1H5JWg==
-Message-ID: <5b47ee1e-0b0c-4b0c-9db9-43c9fbaaec96@kernel.org>
-Date: Wed, 25 Nov 2026 10:51:16 +0100
+	dkim=pass (2048-bit key) header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b=ZOTq6OpF
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4a2f4ca0dcfso3154330f8f.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 01:51:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=pereq.eu; s=google; t=1795600295; x=1796205095; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ExEdfB9WwLHoUe7nHSiClkfqem+8Ndsrh2CmQFmZ+3c=;
+        b=ZOTq6OpFmLPEfwnp9q8dUA0AGMbQltxU+d0PUMHlX0ejPnYg8xRfbNG+MkMuq8ouPF
+         5RwWDOgzMMtcvTSE1C/hLlzuPiUQZYX3PnnJM9OCcyC4YCghxnmn2ED1I7REeawXpTCc
+         MyodRJH3uu2ySM5gCJ/RnduJiUL0Nhy4hv+PIvQmV/D1LKJfK2K6YOZlhp9JNcVh5a2t
+         LEDl9PGb5xEqTHmHMEv9sbGjoXm3iZeDTi5n+DkZ471czuXyZ1YJfsLVhMxtY1DpivDr
+         iRWqJ0kdppUTHXR3FCsll2AVQl7nQYqA+aC7/G4RW9Ncsk96ZIwgi+Vay6i6h04XGVfy
+         /Vtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795600295; x=1796205095;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ExEdfB9WwLHoUe7nHSiClkfqem+8Ndsrh2CmQFmZ+3c=;
+        b=pqzcDos8uuKg2/+9o1C5trBC0Pu3c59lf76y/qKkjoNi8lyjitq+jpDmy44Ojt2sVG
+         zFoPTqeUjD6CVE54v4lPOS3TqVCCRM3oZ/PUZk5q2rRE/1SSTA/d7D5qV5Iw+WGW7nfp
+         vaXX5M3fHlRxDpRc0UXmJTvNnqMjtLM3YtesTFe9l7hIKcJ7SdLe9ML9J/bJIQlgMEqI
+         vu72k+d/XtPbLH3C0GelZvXofDCdOQ5H0sIUKJvEKJjw6unhNMTRVSeCGtdbSQcLPNR5
+         mJUnOwFOhGEXjAZNtFoaIsNrzxHp6fPDOdIyX2J+RZ2hh5/K1x4BUejVm5APVV6rK9/9
+         UKuw==
+X-Forwarded-Encrypted: i=1; AL+hErF0WqhOpQ8eobdoX+VOTDJmjxm5ctzohk8XTyl3h9ZzrqPvQtYp9/iW6zjIlkLYiV3vzSbYoOc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/b/SIPVPO3RQrcPkd7ZSojEY4wnyFD+TfPBvbvGtOLn1Y9v0Yz
+	h8Yzd8UUEYIt47wwViBxNmTadwqDpjqhZX+vJNnx769ehjJqlhYIaH7c0bBoUwcq9k4=
+X-Gm-Gg: AZFdTZf89y79DJ+HSz951xYptZCQDe9deCl7a9JvMZG/+xfkf+gqEkjChHZDWhNh7Nm
+	zw607LF9S5+XhcHiIukG0hy8qEQ1eC7/gMcaNq2QRxLJ4d7zVXnPRYj//m71IadDOTpveKfnQ3y
+	P+QFuDKDH45FJ24m4LP6dmeDEteaAcggbCCIUHkILMBrplp7fZl8Sj1c8Nu53TkMgTlHD8JzPtu
+	yT4e/lIyz104SChwkh6yi/X45oH6KpcEPb2+MkMxd++1PTT0w7/68N/M8/Yg+wYfh7y5C3gXWND
+	hSwVkCohfFQrEarGBW9TFzDqx0s9pOX72XsYEn+hJX/c1dFrTBmseitTE7ko/ljJqJJp7XK8vAd
+	AOvb4ebDD0osfi+JRiJv33TFwy0bizrKgJzh+1rguWNwa9+1PCRewk/xK41N0IYtW1bnOT5hGbv
+	OTn25yhrtZWw83v0X1nvq/eyixD4BVpVaihDhtAmp1JgrYRLGlJqcH55BUcmGVHr7kZkCh0pGl2
+	Pbj9yhPFZ+9Tv7OLla/3eiHZeMn2/fjKHj/gOctTXrC9FOnhOq8SMphhmvRzrP6y0wlg3KjNGBN
+	okjnsU/0ZY6tJWsh5iQ=
+X-Received: by 2002:a05:6000:4617:b0:4a9:760f:1824 with SMTP id ffacd0b85a97d-4abb19c153bmr33040480f8f.21.1795600294485;
+        Wed, 25 Nov 2026 01:51:34 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b8b7888sm32867213f8f.42.2026.11.25.01.51.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 01:51:34 -0800 (PST)
+Date: Wed, 25 Nov 2026 12:51:30 +0300
+From: Dan Carpenter <dan@pereq.eu>
+To: Oliver Upton <oupton@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Christoffer Dall <c.dall@virtualopensystems.com>,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Marcelo Tosatti <mtosatti@redhat.com>,
+	Sebastian Ott <sebott@redhat.com>,
+	Eric Auger <eric.auger@redhat.com>,
+	James Morse <james.morse@arm.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Shuah Khan <shuah@kernel.org>, Karthik Bhargavan <karthik@pereq.eu>,
+	=?iso-8859-1?Q?Cl=E9ment?= Blaudeau <clement@cryspen.com>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 5/8] KVM: arm64: nv: Replace a pending SError when
+ injecting a new one
+Message-ID: <awavokPJT7G8J2fX@stanley.mountain>
+References: <20261125-double_exception-v2-0-224689d8a764@pereq.eu>
+ <20261125-double_exception-v2-5-224689d8a764@pereq.eu>
+ <awaVj0Aa6dMSksxX@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,116 +118,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18.y v2 0/2] mm/page_alloc: fix iomap buffered write
- regression from 5d8edfb900d5
-Content-Language: en-US
-To: Salvatore Dipietro <dipiets@amazon.it>, stable@vger.kernel.org
-Cc: dipietro.salvatore@gmail.com, Sasha Levin <sashal@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, linux-mm@kvack.org
-References: <20261113110259.2901456-1-dipiets@amazon.it>
- <20261116111734.3798483-1-dipiets@amazon.it>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20261116111734.3798483-1-dipiets@amazon.it>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <awaVj0Aa6dMSksxX@kernel.org>
 
-On 11/16/26 12:17, Salvatore Dipietro wrote:
-> Backport of 0e05a469c294 ("mm/page_alloc: avoid direct reclaim and
-> compaction for costly __GFP_NORETRY allocations") to 6.18.y. It fixes a
-> regression from 5d8edfb900d5 ("iomap: Copy larger chunks from userspace",
-> v6.6), which slows buffered writes under memory fragmentation.
-> Andrew and Vlastimil agreed it should go to stable [1].
+On Wed, Nov 25, 2026 at 12:00:15AM -0800, Oliver Upton wrote:
+> Hi Dan,
 > 
-> The series applies on top of Sasha's backport of 6ee3d87b9408 ("mm:
-> page_alloc: do not give all non-blocking requests reserve access") [2].
+> On Wed, Nov 25, 2026 at 09:56:20AM +0300, Dan Carpenter wrote:
+> > The kvm_inject_serror_esr() function injects SErrors as the name
+> > implies.  The bug is that it doesn't handle already pending errors
+> > correctly in nested virtualization.
+> > 
+> > In vanilla KVM the kvm_inject_serror_esr() function always sets
+> > the SError to pending.  However with nested KVM, it might set it
+> > to pending or it might deliver the SError directly.  We can only
+> > have one pending error at a time.  Imagine we enter the function
+> > with an SError pending already.  In the current code if we decide
+> > to pend the new error that's fine, everything works.  However if
+> > we decide to deliver it directly then the pend flags should be
+> > cleared but they are not.  So we deliver the SError directly and
+> > then the SError that was pending on the next exit or entry.
+> 
+> I could use a bit more color on how we got here. From what I can tell
+> this state is only possible if userspace changed the routing / masking
+> of the SError outside the context of a KVM_RUN. Otherwise, if the SError
+> is deliverable on guest exit we perform the injection prior to exiting
+> to userspace.
+> 
 
-Oops, while checking that I realized I don't like that this was backported
-without also b480cbb071020bd590a0dc0166635b448e9fc46b and especially
-9f2fd03c9bde366c928c9242fc9b2e2c5111a134. We didn't initially thought those
-worth backporting, but now they should, otherwise we have a weird
-combination of behavior for highatomic pageblocks in the stable kernels.
-Sasha can you see if those apply easily wherever 6ee3d87b9408 went, or need
-help? Thanks.
+Yes, but the main reason is that I'm changing the way
+kvm_nested_sync_hwstate() works in patch 7.  Now every stored SError
+stays in NESTED_SERROR_PENDING across handle_exit() so this situation
+will become more common.
 
-> Patch 1 is the other prerequisite, fe21f930d1e6, only moved from
-> mm/page_alloc.h to mm/internal.h. Patch 2 is adjusted for this tree, see
-> its changelog. Acks from Vlastimil and Johannes on these adjustments
-> would be appreciated.
-> 
-> Patch 2 keeps the mainline behaviour, including the THP defrag=always
-> case raised in the Sashiko review of v1 [3].
-> 
-> Built, booted and tested with pgbench simple-update (PostgreSQL 18.6,
-> 1024 clients, 96 threads, 1200s) on m8g.24xlarge (96 vCPU arm64),
-> 12x io2 RAID0 XFS, mean of 3 runs:
-> 
->   v6.18.63               87,278 TPS
->   v6.18.63 + series     154,670 TPS  (+77.2%)
-> 
-> Changes in v2:
-> - Dropped 6ee3d87b9408, now queued from Sasha's backport [2].
-> - Added my Signed-off-by to both patches.
+I will include that in the commit message when I resend.
 
-LGTM.
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-
-> 
-> v1: https://lore.kernel.org/all/20261113110259.2901456-1-dipiets@amazon.it/
-> 
-> [1] https://lore.kernel.org/all/1fc0caa5-43b1-487f-94cf-0d1aff4c03fd@kernel.org/
-> [2] https://lore.kernel.org/all/20261112171543.3069410-1-sashal@kernel.org/
-> [3] https://lore.kernel.org/all/sashiko-outbox-214380@kernel.org/
-> 
-> Johannes Weiner (1):
->   mm: page_alloc: remove ALLOC_NON_BLOCK from ALLOC_RESERVES
-> 
-> Salvatore Dipietro (1):
->   mm/page_alloc: avoid direct reclaim and compaction for costly
->     __GFP_NORETRY allocations
-> 
->  mm/internal.h   | 11 +++++------
->  mm/page_alloc.c | 12 +++++++++++-
->  2 files changed, 16 insertions(+), 7 deletions(-)
-> 
+regards,
+dan carpenter
 
