@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795624737;
-	b=djDuCDa9oFoefcnnl6DLz+fcd/I56O9TWjHafKcniH3+o+QbMIhfPPakUfnVnXSmJdU4
-	 QG+KqAlytn2m0RLGNW8RhXWURYF4jYShvm+3eCuws3bExyu7TvnCOizQxWOGYqfXpvBFK
-	 qeQfk9uATDJ3EAtf/qyo6nkvOuc0inSszufjiTBswJBdtGzF81VrFocFu5q+wcdxRIUcD
-	 pUi5TrZukomEeiZH2zdBcJISHrGNZBKQZcUjMTXfqy9Otu+NlEdjQQDJ+Hxj1XKjCaWxj
-	 kIaEsye572N8sUOawjp0i+KETV3TLRso36aTzhEUKoJQQRx5Pd8zRcucdl7U91TlYYA==
+	t=1795624738;
+	b=kQcxMKRHk4Wh2Lg35qPjv0/KtsAvbhSrx2+Pe8JqD1hWc6jZReyBeL2H1WS7GPTN+ECc
+	 VhBIhEg5jJI4BvbyJ1xffN//BDAueVSY756Tkn0UGQ/yK1hBLz89w1CzTO0M1SkNrT+s3
+	 /TePeSN0T9ebTaLgXco4kPVpp8VqpM80EYMdn+ikGwHde5hyPRihfZwpL/o7mPCNVUFR1
+	 xH16MehwrCwXoP/9aLH5icxtl7nJINzoBVH/2NdN06jIAxE3CDtMlrVggJC8YWidhuVV+
+	 UdMTwro+vo0YFcjoDj1JqwhstARNyywtk183K46ePeiZfDm26kSLD+g3lFigRc37eCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795624737;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795624738;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ja0Tu/KMR2mqnDKG/nYiXke5jkhTzGsagg5/U006clY=;
-	b=eEfgxK+hAmcvfSJhbCKEWzFDIAmpv0zWDR529bMl/IZaTHBz0Kz0dK38s4Qz37uPM4B5
-	 Vnn2s831LgznTm2NWcpIVdrdoHhlvcdKXSzBBIJAuhgpfCFIzDRfk0hn9Ze4ZXWBqlnaP
-	 rPZ0u66ctIzY1D6YGczy74+hiRkjqwSlwduO31TFD6tiw3J6kO7tdN8hDDqaD5tZaTUS8
-	 OVmUZ4npYPkZIk4aO9PrpDYk3rnX79IvMROhL54gOIgdmN8oJDN5Rwq6Krwz0YDuoeLN/
-	 rR22H7cEGQfLqWPTddZfsGC1owPNAHp4sjJsRKjVba6F/yFC8DQiQ76bftNFY38y06Q==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=BZm4qNUIXeKur3I3Af6n0t3IqACho/pd0phfQNjyWyI=;
+	b=X3LHJcUhyVicO21M4b0IQe7yNslZCdQ72Zf/0Q25ilp5Rc8ba+tSXTHLqMI5JAC2B+v2
+	 4O5MZtnWaVhtqe3lgUrUUSAXsh6/ZCvq+cULb6iyZ7Do+pBXbWz43/JM+rZMPMTEfQ6Wo
+	 WkYchK6B5y48KmDA0xLIZC0/IeMWLKCzCM+IzslxYyzqYfwJEtFj2lOIl5eGM4PD6T59X
+	 hGD394GTtRfbUQkzN3AVLsj80qQBoYkwa4FistVaaR7XCglB5H2k9Xnu+ql1NyYMStwBF
+	 Mmk6I8g/PZMLvKUlYfpmtI89T7X2pcfAF2wnOUt7cQ7YLAwDT4nEFmyMrKJ62sH5WUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Y8XBDWCr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=olBUE3GV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D22606A33B;
-	Wed, 25 Nov 2026 16:38:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D717606A685
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:38:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Y8XBDWCr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3E201F000D0;
-	Wed, 25 Nov 2026 16:38:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795624737;
-	bh=ja0Tu/KMR2mqnDKG/nYiXke5jkhTzGsagg5/U006clY=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=olBUE3GV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4F7D1F000C0;
+	Wed, 25 Nov 2026 16:38:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795624738;
+	bh=BZm4qNUIXeKur3I3Af6n0t3IqACho/pd0phfQNjyWyI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y8XBDWCrI4B220gz/tZ9ISp8s49G+7pOJ2TObzRthZQyZzPLVofAYto3PQ+vmd7MH
-	 qjauqR9b1blyrvfPXxSYO1dfGbl2uS/t+jVe9h9osbILzum6+A4l0MAgXNTq8hZbV5
-	 OsD6C1cynFw7SeHGk6tB/cT8+c286GHYto+i51H8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=olBUE3GV5wFjz6l7F7OY1MzcihDtmKx8xyVborLuA/6Bdi4BUt3w/ShPsIEaK+vYF
+	 N96alsA5B4Y8p1dj6nL/nYUljTyFRD/ukMGU/QCn1bA7wrdf1CCWcnIcAuRNnRk9Pp
+	 EFNO0SX17mmxbsi3R5Bt1Bi1t9+5UpZ6OP36xKkHgqXWCeI8FC4PcY0Asyh57WcMl3
+	 LW8JAqhEPCgUyucu8APevNHftogDuE+Z4dgT7jPx/+euMXNqs3fIntL4AN720pnDAK
+	 vwrXUUBz/xcLLGQlkP5/+bkb4KHnhA9XcEB+nRv9UEf21pHfoSSuhZylXlq7W0+g6F
+	 GXBjO2crYjz2A==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Samuel Leyva <samuelslg03idk@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Zhao Li <enderaoelyther@gmail.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 291/816] ASoC: amd: acp: es83xx: Enable speaker amplifier after the codec output
-Date: Wed, 25 Nov 2026 15:30:39 +0100
-Message-ID: <20261125143855.941175087@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
-References: <20261125143849.205329330@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.15.y] Bluetooth: L2CAP: Only accept LE responses to outstanding requests
+Date: Wed, 25 Nov 2026 11:38:56 -0500
+Message-ID: <20261125163833.818132-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112522-footing-browbeat-6ce9@gregkh>
+References: <2026112522-footing-browbeat-6ce9@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,103 +61,202 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: Zhao Li <enderaoelyther@gmail.com>
 
-------------------
+[ Upstream commit f50b32aa233d4687af2d241ddcb572da969e8989 ]
 
-From: Samuel Leyva <samuelslg03idk@gmail.com>
+The LE and ECRED response handlers match channels by identifier without
+checking whether they sent the request. An incoming channel stores the
+identifier chosen by the peer, so an unsolicited response can bypass
+deferred setup, delete an established channel, or leave an unaccepted
+socket and channel allocated after l2cap_chan_del().
 
-[ Upstream commit f392763d73356760eac3e4ab7c87b0855be0d4bb ]
+Extend the BR/EDR lookup from commit a518b9a9ef6e ("Bluetooth: L2CAP:
+Only accept connection responses to outstanding requests") to LE.
+Require the matching connect-request flag and add a reconfigure-request
+flag. Check reconfigure identifiers under the channel lock, since
+BT_RCVMTU can replace a request without the connection lock. Match all
+members of a rejected ECRED request, which share one identifier.
 
-The speaker amplifier GPIO is driven from a SUPPLY widget. DAPM powers
-supplies before the rest of the path, so the amplifier is enabled while
-the ES8316 headphone driver and charge pump, which also feed the
-speakers, are still powering up. This results in an audible pop every
-time the speaker output is powered on.
+A reconfigure request can outlive close(). Complete it even in
+BT_DISCONN, and call the close callback after deletion to release an
+orphaned socket. Otherwise deletion cancels the timer and removes the
+channel before the disconnect response or the channel timeout can close
+it.
 
-Move the speaker GPIO handling to the Speaker endpoint widget, which
-DAPM powers up last and powers down first, and give the codec output a
-short time to settle before enabling the amplifier.
+AI assistance was used.
 
-The headphone path is left unchanged: the Headphone endpoint widget
-shares its power-up rank with the codec output drivers, so moving it
-would not guarantee the same ordering, and it could not be tested.
-
-Fixes: 54fcd9dd44b2 ("ASoC: amd: acp: Add machine driver that enables sound for systems with a ES8336 codec")
-Signed-off-by: Samuel Leyva <samuelslg03idk@gmail.com>
-Link: https://patch.msgid.link/20261107232225.3838-3-samuelslg03idk@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fixes: f1496dee9cbd ("Bluetooth: Add initial code for LE L2CAP Connect Request")
+Fixes: 71fb419724fa ("Bluetooth: Fix handling of L2CAP Command Reject over LE")
+Fixes: 15f02b910562 ("Bluetooth: L2CAP: Add initial code for Enhanced Credit Based Mode")
+Cc: <stable@vger.kernel.org> # 5.7.x: a518b9a9ef6e: Bluetooth: L2CAP: Only accept connection responses to outstanding requests
+Cc: <stable@vger.kernel.org> # 5.7.x
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+[ sashal: Adapted to the older locking: added chan_lock around the channel loop in l2cap_ecred_reconf_rsp(), dropped the conn->lock assertion, and kept __l2cap_get_chan_by_ident() since it still has a user. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/amd/acp/acp3x-es83xx/acp3x-es83xx.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ include/net/bluetooth/l2cap.h |  1 +
+ net/bluetooth/l2cap_core.c    | 69 ++++++++++++++++++++++-------------
+ 2 files changed, 44 insertions(+), 26 deletions(-)
 
-diff --git a/sound/soc/amd/acp/acp3x-es83xx/acp3x-es83xx.c b/sound/soc/amd/acp/acp3x-es83xx/acp3x-es83xx.c
-index d39907b65afd2..47cc0b1c71e13 100644
---- a/sound/soc/amd/acp/acp3x-es83xx/acp3x-es83xx.c
-+++ b/sound/soc/amd/acp/acp3x-es83xx/acp3x-es83xx.c
-@@ -19,6 +19,7 @@
- #include <linux/input.h>
- #include <linux/io.h>
- #include <linux/acpi.h>
-+#include <linux/delay.h>
- #include <linux/dmi.h>
- #include "../acp-mach.h"
- #include "acp3x-es83xx.h"
-@@ -60,6 +61,8 @@ static const struct snd_pcm_hw_constraint_list constraints_channels = {
- #define ES83xx_12288_KHZ_MCLK_FREQ   (48000 * 256)
- #define ES83xx_48_MHZ_MCLK_FREQ      (48000 * 1000)
+diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
+index 57315b9dc059e..16fdd88d61fa4 100644
+--- a/include/net/bluetooth/l2cap.h
++++ b/include/net/bluetooth/l2cap.h
+@@ -774,6 +774,7 @@ enum {
+ 	FLAG_DEFER_SETUP,
+ 	FLAG_LE_CONN_REQ_SENT,
+ 	FLAG_ECRED_CONN_REQ_SENT,
++	FLAG_ECRED_RECONF_REQ_SENT,
+ 	FLAG_PENDING_SECURITY,
+ 	FLAG_HOLD_HCI_CONN,
+ 	FLAG_DEL,
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 8aaa30e65b5b6..179559dfbcca2 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -189,7 +189,8 @@ static struct l2cap_chan *l2cap_get_chan_by_ident(struct l2cap_conn *conn,
+ static bool l2cap_chan_connect_pending(struct l2cap_chan *chan)
+ {
+ 	return chan->state == BT_CONNECT &&
+-	       test_bit(CONF_CONNECT_PEND, &chan->conf_state);
++	       (test_bit(CONF_CONNECT_PEND, &chan->conf_state) ||
++		test_bit(FLAG_LE_CONN_REQ_SENT, &chan->flags));
+ }
  
-+#define ES83XX_AMP_ON_DELAY_MS	50
+ /* Other channels may hold the same ident for a response they still have
+@@ -201,7 +202,7 @@ static struct l2cap_chan *__l2cap_get_connect_chan_by_ident(struct l2cap_conn *c
+ 	struct l2cap_chan *c;
+ 
+ 	list_for_each_entry(c, &conn->chan_l, list) {
+-		if (c->ident == ident && l2cap_chan_connect_pending(c))
++		if (l2cap_chan_connect_pending(c) && c->ident == ident)
+ 			return c;
+ 	}
+ 	return NULL;
+@@ -5819,7 +5820,7 @@ static int l2cap_le_connect_rsp(struct l2cap_conn *conn,
+ 
+ 	mutex_lock(&conn->chan_lock);
+ 
+-	chan = __l2cap_get_chan_by_ident(conn, cmd->ident);
++	chan = __l2cap_get_connect_chan_by_ident(conn, cmd->ident);
+ 	if (!chan) {
+ 		err = -EBADSLT;
+ 		goto unlock;
+@@ -6381,9 +6382,10 @@ static inline int l2cap_ecred_conn_rsp(struct l2cap_conn *conn,
+ 		struct l2cap_chan *orig;
+ 		u16 dcid;
+ 
+-		if (chan->ident != cmd->ident ||
++		if (chan->state != BT_CONNECT ||
+ 		    chan->mode != L2CAP_MODE_EXT_FLOWCTL ||
+-		    chan->state == BT_CONNECTED)
++		    !test_bit(FLAG_ECRED_CONN_REQ_SENT, &chan->flags) ||
++		    chan->ident != cmd->ident)
+ 			continue;
+ 
+ 		l2cap_chan_hold(chan);
+@@ -6600,28 +6602,33 @@ static inline int l2cap_ecred_reconf_rsp(struct l2cap_conn *conn,
+ 
+ 	BT_DBG("result 0x%4.4x", result);
+ 
+-	if (!result) {
+-		list_for_each_entry(chan, &conn->chan_l, list) {
+-			if (chan->ident == cmd->ident)
+-				chan->ident = 0;
+-		}
+-		return 0;
+-	}
++	mutex_lock(&conn->chan_lock);
+ 
+ 	list_for_each_entry_safe(chan, tmp, &conn->chan_l, list) {
+-		if (chan->ident != cmd->ident)
++		/* Reconfiguration updates ident with only chan->lock held. */
++		if (data_race(READ_ONCE(chan->ident)) != cmd->ident)
+ 			continue;
+ 
+ 		if (!l2cap_chan_hold_unless_zero(chan))
+ 			continue;
+ 		l2cap_chan_lock(chan);
+ 
+-		l2cap_chan_del(chan, ECONNRESET);
++		if (chan->ident == cmd->ident &&
++		    test_and_clear_bit(FLAG_ECRED_RECONF_REQ_SENT, &chan->flags)) {
++			if (result) {
++				l2cap_chan_del(chan, ECONNRESET);
++				chan->ops->close(chan);
++			} else {
++				chan->ident = 0;
++			}
++		}
+ 
+ 		l2cap_chan_unlock(chan);
+ 		l2cap_chan_put(chan);
+ 	}
+ 
++	mutex_unlock(&conn->chan_lock);
 +
- static int acp3x_es83xx_headphone_power_event(struct snd_soc_dapm_widget *w,
- 					    struct snd_kcontrol *kcontrol, int event);
- static int acp3x_es83xx_speaker_power_event(struct snd_soc_dapm_widget *w,
-@@ -114,7 +117,7 @@ static struct snd_soc_jack_pin es83xx_jack_pins[] = {
- };
+ 	return 0;
+ }
  
- static const struct snd_soc_dapm_widget acp3x_es83xx_widgets[] = {
--	SND_SOC_DAPM_SPK("Speaker", NULL),
-+	SND_SOC_DAPM_SPK("Speaker", acp3x_es83xx_speaker_power_event),
- 	SND_SOC_DAPM_HP("Headphone", NULL),
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
- 	SND_SOC_DAPM_MIC("Internal Mic", NULL),
-@@ -122,9 +125,6 @@ static const struct snd_soc_dapm_widget acp3x_es83xx_widgets[] = {
- 	SND_SOC_DAPM_SUPPLY("Headphone Power", SND_SOC_NOPM, 0, 0,
- 			    acp3x_es83xx_headphone_power_event,
- 			    SND_SOC_DAPM_PRE_PMD | SND_SOC_DAPM_POST_PMU),
--	SND_SOC_DAPM_SUPPLY("Speaker Power", SND_SOC_NOPM, 0, 0,
--			    acp3x_es83xx_speaker_power_event,
--			    SND_SOC_DAPM_PRE_PMD | SND_SOC_DAPM_POST_PMU),
- };
+@@ -6630,27 +6637,36 @@ static inline int l2cap_le_command_rej(struct l2cap_conn *conn,
+ 				       u8 *data)
+ {
+ 	struct l2cap_cmd_rej_unk *rej = (struct l2cap_cmd_rej_unk *) data;
+-	struct l2cap_chan *chan;
++	struct l2cap_chan *chan, *tmp;
  
- static const struct snd_soc_dapm_route acp3x_es83xx_audio_map[] = {
-@@ -138,7 +138,6 @@ static const struct snd_soc_dapm_route acp3x_es83xx_audio_map[] = {
- 	 */
- 	{"Speaker", NULL, "HPOL"},
- 	{"Speaker", NULL, "HPOR"},
--	{"Speaker", NULL, "Speaker Power"},
- };
+ 	if (cmd_len < sizeof(*rej))
+ 		return -EPROTO;
  
+ 	mutex_lock(&conn->chan_lock);
  
-@@ -184,10 +183,13 @@ static int acp3x_es83xx_speaker_power_event(struct snd_soc_dapm_widget *w,
- 	struct acp3x_es83xx_private *priv = get_mach_priv(w->dapm->card);
+-	chan = __l2cap_get_chan_by_ident(conn, cmd->ident);
+-	if (!chan)
+-		goto done;
++	list_for_each_entry_safe(chan, tmp, &conn->chan_l, list) {
++		/* Reconfiguration updates ident with only chan->lock held. */
++		if (data_race(READ_ONCE(chan->ident)) != cmd->ident)
++			continue;
  
- 	dev_dbg(priv->codec_dev, "speaker power event: %d\n", event);
--	if (SND_SOC_DAPM_EVENT_ON(event))
-+	if (SND_SOC_DAPM_EVENT_ON(event)) {
-+		/* Let the codec output settle before enabling the amplifier */
-+		msleep(ES83XX_AMP_ON_DELAY_MS);
- 		priv->speaker_on = true;
--	else
-+	} else {
- 		priv->speaker_on = false;
+-	chan = l2cap_chan_hold_unless_zero(chan);
+-	if (!chan)
+-		goto done;
++		if (!l2cap_chan_hold_unless_zero(chan))
++			continue;
+ 
+-	l2cap_chan_lock(chan);
+-	l2cap_chan_del(chan, ECONNREFUSED);
+-	l2cap_chan_unlock(chan);
+-	l2cap_chan_put(chan);
++		l2cap_chan_lock(chan);
++
++		if (chan->ident == cmd->ident &&
++		    ((chan->state == BT_CONNECT &&
++		      (test_bit(FLAG_LE_CONN_REQ_SENT, &chan->flags) ||
++		       test_bit(FLAG_ECRED_CONN_REQ_SENT, &chan->flags))) ||
++		     test_bit(FLAG_ECRED_RECONF_REQ_SENT, &chan->flags))) {
++			l2cap_chan_del(chan, ECONNREFUSED);
++			chan->ops->close(chan);
++		}
++
++		l2cap_chan_unlock(chan);
++		l2cap_chan_put(chan);
 +	}
  
- 	gpiod_set_value_cansleep(priv->gpio_speakers, priv->speaker_on);
- 	gpiod_set_value_cansleep(priv->gpio_headphone, priv->headphone_on);
+-done:
+ 	mutex_unlock(&conn->chan_lock);
+ 	return 0;
+ }
+@@ -8493,6 +8509,7 @@ static void l2cap_ecred_reconfigure(struct l2cap_chan *chan)
+ 	pdu.scid    = cpu_to_le16(chan->scid);
+ 
+ 	chan->ident = l2cap_get_ident(conn);
++	set_bit(FLAG_ECRED_RECONF_REQ_SENT, &chan->flags);
+ 
+ 	l2cap_send_cmd(conn, chan->ident, L2CAP_ECRED_RECONF_REQ,
+ 		       sizeof(pdu), &pdu);
 -- 
 2.53.0
-
-
 
