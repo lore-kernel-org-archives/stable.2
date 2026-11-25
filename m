@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795598765;
-	b=BcG+asZuwDZ6DmSFtdFV8MhkmTS/QtCDCnq2O9wmdIaFHCN7Hhb515ql2udaAJ11u8oB
-	 fiaHjbPZApVyFiWb6YiLV77Pb0pR3RcmmtCqVAbgVST/Wsi8K2jok5eRq53BwjSvFxYm+
-	 s60Dfc4J3Qt68O75uWFe4DcWdb3pCBexL0wOe55dPrjHQZZXSDHWUZDz+1WPHtzkwSfH8
-	 o87cEScYrkbJSDCXfr+W4OT+SruoBVlIQvkCkOuEa6SbMtFxmtH67GSTIslRlr4lUjDo2
-	 KspcBMxGXG3AmlPFnvTRUUovyA1ZVje+ZKps4nHwJifTZAyukRrhzPfjVQjbuPeoH0g==
+	t=1795598767;
+	b=4nCvIg+1ai2qV/rY3nHhil7BiY5pip7jmh3l+B8jcdQpIPzIUgrKl+ei0o/5yF20jeqz
+	 RNjCe6i0udFeY5hncHW5bsDGriy7qKX6irXbjAcnRX6T4Mev141iZ4ApYgj+Y6Bz+1uVy
+	 QzSx+nV1XspsEK2KzM61cXrVFZ66GSmzFwmjAGTfIPXv5J8w55myqLtK349bOwfSyoA93
+	 ZeNItJ8AumJ6LO+lh1Q2jUzlpe4LyqbXI/7GiXJL6WQ06CRitb3U+LeYbDsg7KuCIl8EO
+	 On1xm6D3dVt6pdTBj5T8Tl/plDKdap/gMhct9WmnyoJgmcucvQQ7PkNV3NQISWTeiWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795598765;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795598767;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=nXkwoIWRYwuM0wyurKKQUJHmSw+qyw+nvPdYoUm2mQA=;
-	b=yeGSBqvybMBD4FBqkRvZCO+lQoUKyv+J72Hd3NFCnxOOkB3udb5VCja9bP2wauC/Cq7k
-	 yr76JPbHY1/nk+0xgmkVPuElCN1xcEZCzPY2gn8SRymL5P23ZNpjVcOs20q9Jz3QlhHNU
-	 OXStlOgvg1ri7vFJnpj9/RVcDyF323XBTDMyNigS7bYGBCUSBA4eEcl2hlrWUQqQcHHq/
-	 4cxgIv3YChlxn//dn4C8lQ4B7+WvHBHnD+doS1TwSQT22Z/G3hBjrj2bRc/x55PKhXEWj
-	 uK1gaA8tI0iEHZbi2CoWxdODlCprYrhWP0YorsQLpO2pKOKEJbZwmU8zwlbLLy3EvTw==
+	bh=4ngtd+soSJIFIDX9jSSsWcx5KolgDQI7WsNSzIfKvWk=;
+	b=fn77t6gcLx/Hv4Fk+sILRbyibvFdS2BUa7eysqK7NmHaAxlrB0x2varZBYGELcUOJC9W
+	 xrW2uhK9Nxvuw/KQa2Hs1Fd220wnQAvycKnFtCImAoQZY+dYP25Y+4jOQ+h+TYQfDqmCe
+	 MLBYsfgLPJFwwx9zMwFAYnF7NDl11LZALxSznjn7NJSForPfQMrB9kCN/GuN5v4GjCS7e
+	 XE3bnfvwAMp0oh10/LyQp1br0gChMWitxMKz9vhoDrjrhfiRg38nWUf6ps5Np27SHlsa4
+	 YtcEOcIjdmmSmuTBTa5BuobX0uRwDBbDwsaBgdpzaM1hwlKaAHBATuWezdEroAlQsIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="yat/pLy/";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hkdvxsyC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22377606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:26:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC2A606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:26:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yat/pLy/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB4501F000C4;
-	Wed, 25 Nov 2026 09:26:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hkdvxsyC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 190B31F000C4;
+	Wed, 25 Nov 2026 09:26:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795598764;
-	bh=nXkwoIWRYwuM0wyurKKQUJHmSw+qyw+nvPdYoUm2mQA=;
+	s=korg; t=1795598767;
+	bh=4ngtd+soSJIFIDX9jSSsWcx5KolgDQI7WsNSzIfKvWk=;
 	h=Subject:To:Cc:From:Date;
-	b=yat/pLy//jBEKc7jmZlfjeA4SfrxR+i5pZ01PPAZzyJXSVQHjVCCAHrb8TL3OXLjT
-	 OkeEMAUZfYQQLIt/xw2+mnoPJILg5Pf7Rp0+TgEr/QxA4N8Xi5uJ2sQzYsgXvSCeQc
-	 aYPJ3fjVpJzDbuoMkEf+XNrJ2mrSg8tyewF//oco=
-Subject: FAILED: patch "[PATCH] Bluetooth: L2CAP: Only accept LE responses to outstanding" failed to apply to 5.10-stable tree
-To: enderaoelyther@gmail.com,luiz.von.dentz@intel.com,stable@vger.kernel.org
+	b=hkdvxsyCUuDQ6SS2G8f8EEOopS6F1Hqm/PUZSUpafo7iZkktxpNDG403XjrfW1x76
+	 cK7FEAj8juDxjsBGeFCN0d6m3REz0l1ktVC0MEGGrtjBI4/RFllqKgy/mdYSnQO/a0
+	 KGXf551LAVl3SO8sQVbd6l0q5C6wG+0a7oPffi7c=
+Subject: FAILED: patch "[PATCH] cgroup/cpuset: Correctly set isolated_cpus when switching" failed to apply to 6.12-stable tree
+To: longman@redhat.com,ridong.chen@linux.dev,tj@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 10:18:23 +0100
-Message-ID: <2026112523-bobbing-relatable-c980@gregkh>
+Date: Wed, 25 Nov 2026 10:18:32 +0100
+Message-ID: <2026112532-stitch-earthy-8c0e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x f50b32aa233d4687af2d241ddcb572da969e8989
+git cherry-pick -x 56681bc448a80bb2473026b41c44c133766bc38d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112523-bobbing-relatable-c980@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112532-stitch-earthy-8c0e@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,206 +79,100 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f50b32aa233d4687af2d241ddcb572da969e8989 Mon Sep 17 00:00:00 2001
-From: Zhao Li <enderaoelyther@gmail.com>
-Date: Mon, 2 Nov 2026 20:47:34 +0800
-Subject: [PATCH] Bluetooth: L2CAP: Only accept LE responses to outstanding
- requests
+From 56681bc448a80bb2473026b41c44c133766bc38d Mon Sep 17 00:00:00 2001
+From: Waiman Long <longman@redhat.com>
+Date: Mon, 9 Nov 2026 21:24:00 -0500
+Subject: [PATCH] cgroup/cpuset: Correctly set isolated_cpus when switching
+ partition state
 
-The LE and ECRED response handlers match channels by identifier without
-checking whether they sent the request. An incoming channel stores the
-identifier chosen by the peer, so an unsolicited response can bypass
-deferred setup, delete an established channel, or leave an unaccepted
-socket and channel allocated after l2cap_chan_del().
+When update_prstate() is called to switch the partition state from
+root to isolated or vice versa, the whole effective_xcpus is passed to
+isolated_cpus_update(). However, if there are child partitions present,
+some of the effective_xcpus are dedicated to those child partitions
+and their partition states will remain the same or get invalidated in
+the case of child root partition with isolated parent in the latter
+update_cpumasks_hier() call. In the latter case, their exclusive CPUs
+will be returned to their parent.
 
-Extend the BR/EDR lookup from commit a518b9a9ef6e ("Bluetooth: L2CAP:
-Only accept connection responses to outstanding requests") to LE.
-Require the matching connect-request flag and add a reconfigure-request
-flag. Check reconfigure identifiers under the channel lock, since
-BT_RCVMTU can replace a request without the connection lock. Match all
-members of a rejected ECRED request, which share one identifier.
+Therefore isolated_cpus may be set incorrectly with child partitions
+underneath. Fix that by excluding their exclusive CPUs in computing
+the correct cpumask of exclusive CPUs used by that partition alone.
 
-A reconfigure request can outlive close(). Complete it even in
-BT_DISCONN, and call the close callback after deletion to release an
-orphaned socket. Otherwise deletion cancels the timer and removes the
-channel before the disconnect response or the channel timeout can close
-it.
+Add new test cases into test_cpuset_prs.sh to test for such cases.
 
-AI assistance was used.
+Fixes: 11e5f407b64a ("cgroup/cpuset: Keep track of CPUs in isolated partitions")
+Cc: stable@vger.kernel.org # v6.8+
+Signed-off-by: Waiman Long <longman@redhat.com>
+Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
+Tested-by: Ridong Chen <ridong.chen@linux.dev>
+Signed-off-by: Tejun Heo <tj@kernel.org>
 
-Fixes: f1496dee9cbd ("Bluetooth: Add initial code for LE L2CAP Connect Request")
-Fixes: 71fb419724fa ("Bluetooth: Fix handling of L2CAP Command Reject over LE")
-Fixes: 15f02b910562 ("Bluetooth: L2CAP: Add initial code for Enhanced Credit Based Mode")
-Cc: <stable@vger.kernel.org> # 5.7.x: a518b9a9ef6e: Bluetooth: L2CAP: Only accept connection responses to outstanding requests
-Cc: <stable@vger.kernel.org> # 5.7.x
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-
-diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
-index 54eddcdd341f..2a05bda8ab43 100644
---- a/include/net/bluetooth/l2cap.h
-+++ b/include/net/bluetooth/l2cap.h
-@@ -756,6 +756,7 @@ enum {
- 	FLAG_DEFER_SETUP,
- 	FLAG_LE_CONN_REQ_SENT,
- 	FLAG_ECRED_CONN_REQ_SENT,
-+	FLAG_ECRED_RECONF_REQ_SENT,
- 	FLAG_PENDING_SECURITY,
- 	FLAG_HOLD_HCI_CONN,
- 	FLAG_DEL,
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 70ad30b091e4..2e79e72fea51 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -144,24 +144,12 @@ static struct l2cap_chan *l2cap_get_chan_by_dcid(struct l2cap_conn *conn,
- 	return c;
- }
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 87600628e080..06ceeb0ac8c0 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -3073,12 +3073,32 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+ 						  cs->effective_xcpus, NULL))
+ 			err = PERR_HKEEPING;
+ 		else if (parent_prs == PRS_ISOLATED)
+-			err = PERR_ISOPARENT;
++			err = PERR_ISOPARENT;	/* old_prs should be isolated */
  
--static struct l2cap_chan *__l2cap_get_chan_by_ident(struct l2cap_conn *conn,
--						    u8 ident)
--	__must_hold(&conn->lock)
--{
--	struct l2cap_chan *c;
--
--	list_for_each_entry(c, &conn->chan_l, list) {
--		if (c->ident == ident)
--			return c;
--	}
--	return NULL;
--}
--
- /* Our connection request has been sent and is still outstanding */
- static bool l2cap_chan_connect_pending(struct l2cap_chan *chan)
- {
- 	return chan->state == BT_CONNECT &&
--	       test_bit(CONF_CONNECT_PEND, &chan->conf_state);
-+	       (test_bit(CONF_CONNECT_PEND, &chan->conf_state) ||
-+		test_bit(FLAG_LE_CONN_REQ_SENT, &chan->flags));
- }
- 
- /* Other channels may hold the same ident for a response they still have
-@@ -174,7 +162,7 @@ static struct l2cap_chan *__l2cap_get_connect_chan_by_ident(struct l2cap_conn *c
- 	struct l2cap_chan *c;
- 
- 	list_for_each_entry(c, &conn->chan_l, list) {
--		if (c->ident == ident && l2cap_chan_connect_pending(c))
-+		if (l2cap_chan_connect_pending(c) && c->ident == ident)
- 			return c;
- 	}
- 	return NULL;
-@@ -5073,7 +5061,7 @@ static int l2cap_le_connect_rsp(struct l2cap_conn *conn,
- 	BT_DBG("dcid 0x%4.4x mtu %u mps %u credits %u result 0x%2.2x",
- 	       dcid, mtu, mps, credits, result);
- 
--	chan = __l2cap_get_chan_by_ident(conn, cmd->ident);
-+	chan = __l2cap_get_connect_chan_by_ident(conn, cmd->ident);
- 	if (!chan)
- 		return -EBADSLT;
- 
-@@ -5621,9 +5609,10 @@ static inline int l2cap_ecred_conn_rsp(struct l2cap_conn *conn,
- 		struct l2cap_chan *orig;
- 		u16 dcid;
- 
--		if (chan->ident != cmd->ident ||
-+		if (chan->state != BT_CONNECT ||
- 		    chan->mode != L2CAP_MODE_EXT_FLOWCTL ||
--		    chan->state == BT_CONNECTED)
-+		    !test_bit(FLAG_ECRED_CONN_REQ_SENT, &chan->flags) ||
-+		    chan->ident != cmd->ident)
- 			continue;
- 
- 		l2cap_chan_hold(chan);
-@@ -5842,16 +5831,9 @@ static inline int l2cap_ecred_reconf_rsp(struct l2cap_conn *conn,
- 
- 	BT_DBG("result 0x%4.4x", result);
- 
--	if (!result) {
--		list_for_each_entry(chan, &conn->chan_l, list) {
--			if (chan->ident == cmd->ident)
--				chan->ident = 0;
--		}
--		return 0;
--	}
--
- 	list_for_each_entry_safe(chan, tmp, &conn->chan_l, list) {
--		if (chan->ident != cmd->ident)
-+		/* Reconfiguration updates ident with only chan->lock held. */
-+		if (data_race(READ_ONCE(chan->ident)) != cmd->ident)
- 			continue;
- 
- 		if (!l2cap_chan_hold_unless_zero(chan))
-@@ -5860,7 +5842,15 @@ static inline int l2cap_ecred_reconf_rsp(struct l2cap_conn *conn,
- 
- 		lockdep_assert_held(&chan->conn->lock);
- 
--		l2cap_chan_del(chan, ECONNRESET);
-+		if (chan->ident == cmd->ident &&
-+		    test_and_clear_bit(FLAG_ECRED_RECONF_REQ_SENT, &chan->flags)) {
-+			if (result) {
-+				l2cap_chan_del(chan, ECONNRESET);
-+				chan->ops->close(chan);
-+			} else {
-+				chan->ident = 0;
+-		if (!err)
+-			isolcpus_updated = true;
+-		else
++		if (err) {
+ 			disable_partition = true;
++		} else {
++			struct cgroup_subsys_state *css;
++			struct cpuset *child;
++
++			/*
++			 * Need to scan child partitions, if present, and
++			 * exclude their effective_xcpus from cs. In the case
++			 * of switching to isolated partition with child root
++			 * partitions, those child partitions will be
++			 * invalidated in update_cpumasks_hier().
++			 */
++			isolcpus_updated = true;
++			cpumask_copy(tmpmask.new_cpus, cs->effective_xcpus);
++			rcu_read_lock();
++			cpuset_for_each_child(child, css, cs) {
++				if (!is_partition_valid(child))
++					continue;
++				cpumask_andnot(tmpmask.new_cpus, tmpmask.new_cpus,
++					       child->effective_xcpus);
 +			}
++			rcu_read_unlock();
 +		}
+ 	} else {
+ 		/*
+ 		 * Switching back to member is always allowed even if it
+@@ -3112,7 +3132,7 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+ 	if (!is_partition_valid(cs))
+ 		reset_partition_data(cs);
+ 	else if (isolcpus_updated)
+-		isolated_cpus_update(old_prs, new_prs, cs->effective_xcpus);
++		isolated_cpus_update(old_prs, new_prs, tmpmask.new_cpus);
+ 	spin_unlock_irq(&callback_lock);
  
- 		l2cap_chan_unlock(chan);
- 		l2cap_chan_put(chan);
-@@ -5875,26 +5865,35 @@ static inline int l2cap_le_command_rej(struct l2cap_conn *conn,
- 	__must_hold(&conn->lock)
- {
- 	struct l2cap_cmd_rej_unk *rej = (struct l2cap_cmd_rej_unk *) data;
--	struct l2cap_chan *chan;
-+	struct l2cap_chan *chan, *tmp;
+ 	/* Force update if partition is disabled & update effective_xcpus */
+diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+index 2d4744f2d6ac..1e9e6b4c6f7b 100755
+--- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
++++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+@@ -556,6 +556,13 @@ TEST_MATRIX=(
+ 	" C2-6:X2-5:P1 CX3-6:P2 \
+ 	                    .      .   T:X4-6    .      .      .     0 A1:4-6|A2:4-6 A1:P1|A2:P-2 ."
  
- 	if (cmd_len < sizeof(*rej))
- 		return -EPROTO;
- 
--	chan = __l2cap_get_chan_by_ident(conn, cmd->ident);
--	if (!chan)
--		goto done;
-+	list_for_each_entry_safe(chan, tmp, &conn->chan_l, list) {
-+		/* Reconfiguration updates ident with only chan->lock held. */
-+		if (data_race(READ_ONCE(chan->ident)) != cmd->ident)
-+			continue;
- 
--	chan = l2cap_chan_hold_unless_zero(chan);
--	if (!chan)
--		goto done;
-+		if (!l2cap_chan_hold_unless_zero(chan))
-+			continue;
- 
--	l2cap_chan_lock(chan);
--	lockdep_assert_held(&chan->conn->lock);
--	l2cap_chan_del(chan, ECONNREFUSED);
--	l2cap_chan_unlock(chan);
--	l2cap_chan_put(chan);
-+		l2cap_chan_lock(chan);
-+		lockdep_assert_held(&chan->conn->lock);
++	# Switch PRS state (root <=> isolated) will properly update cpuset.cpus.isolated
++	# even if child partitions are present.
++	" C1-6:P1 C3-6:P1 C5-6:P2  .       .    P2      .      .     0 A1:1-2|A2:3-4|A3:5-6 \
++								       A1:P1|A2:P2|A3:P2 3-6"
++	" C1-6:P1 C3-6:P2 C5-6:P2  .       .    P1      .      .     0 A1:1-2|A2:3-4|A3:5-6 \
++								       A1:P1|A2:P1|A3:P2 5-6"
 +
-+		if (chan->ident == cmd->ident &&
-+		    ((chan->state == BT_CONNECT &&
-+		      (test_bit(FLAG_LE_CONN_REQ_SENT, &chan->flags) ||
-+		       test_bit(FLAG_ECRED_CONN_REQ_SENT, &chan->flags))) ||
-+		     test_bit(FLAG_ECRED_RECONF_REQ_SENT, &chan->flags))) {
-+			l2cap_chan_del(chan, ECONNREFUSED);
-+			chan->ops->close(chan);
-+		}
-+
-+		l2cap_chan_unlock(chan);
-+		l2cap_chan_put(chan);
-+	}
- 
--done:
- 	return 0;
- }
- 
-@@ -7765,6 +7764,7 @@ static void l2cap_ecred_reconfigure(struct l2cap_chan *chan)
- 	pdu->scid[0] = cpu_to_le16(chan->scid);
- 
- 	chan->ident = l2cap_get_ident(conn);
-+	set_bit(FLAG_ECRED_RECONF_REQ_SENT, &chan->flags);
- 
- 	l2cap_send_cmd(conn, chan->ident, L2CAP_ECRED_RECONF_REQ,
- 		       struct_size(pdu, scid, 1), pdu);
+ 	#
+ 	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
+ 	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
 
