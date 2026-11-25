@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795619830;
-	b=hdyHh2HwNGgJbU71G+ENR/2aOJxBvqQJPk2Xdz9kgsonmkgfF5ZFHYlgv8tr9G+Rrli8
-	 wT+YbNHUq7f5yucyDP8u+w37/SBf8bt2Rks6we6/YXj8uwVWeRTn6MkjJiWSyn3NhC17m
-	 k/RToH7NgoA+PgqVRb/j+x2gk4bY/WJjLXVphxrW1b8PSsEQvuAv5mE0JvYJ60Qh5tfpg
-	 JaIKx5jmIOCOOt4kfsOnEoNygp3a7Y4VFaLzEE69r77k9SBQOhcxQSCEQclHjvgR25eR6
-	 rt8TloB7YVehVAnO8lGY3YMME3+5PalY7xOd5Css575lxVxbM2U9HjEzTMn9CDMNtkg==
+	t=1795619831;
+	b=GkMCIlHpH8Ne4kbXx5q+a7chmbOdqWTlcf4feQPcpGHrFFWktNqIPL53YyhShx47aE3u
+	 DW3oNEr1rck7nPFy5MEhMQZ0DRFpbBbr1+Ix3gO8lkgv2E9avdPdtBpzDeL7DCA0KX7eZ
+	 JnQ5lCLr0WW/kYgalGP9+GfpImSJWnlg0WkZMA5UqHf62RIeAe5Wx+wKVMWY2gMcNHcvV
+	 E/xrxmgMuI48wy5kR5MkaV+ps/AquvrcFxUeseBKJblfzqsOqL3iTIln992xctIydttHZ
+	 sduB87BdsWlU4MvyxLP3fedUU3zvS29sX9Eiw1JIzkuMQ51LTd5MpxIk8QvfFMIr+7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795619830;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795619831;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=GdlJzTtBAq1PzkYH7MxZAWU8Esjt2X1Eu+1EQnTpHR0=;
-	b=oEBs+9M4RbcgQbT2zly/LEZz98dXLdgZznPFnH/mfIulGty3f0RAEyBtGUVLbGvNjq4n
-	 v7glNqzv/T80lmDrqIUUwQ2TJ8wkbpeSc8aC6khkpnnxZ3aWt4lqyAsq6iFqwqmO1mKPF
-	 AHIZWJKHkIRWeZD4HVK4xr3Vp9KqymYdRGLgt10yUwzFQW2yR7X4Pk8zjUMZfU48E/Bjv
-	 Vxvdlf1aViGAn/+kgF+6qDrafPwxoiEZ1dXI8+ReFEOO+okR0SWjCQsZA3m992xzOq/RA
-	 5KrLhX0pAsgGcGEp72VCCW8UkkGuazIT2Lj7WUnV+ObN7wkG7AywwjnKOeHb/J7cG1g==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=WRWSlTfct1vF6AGODQ0oncAqleqIAcVZtmm+qaRqAJo=;
+	b=1L+NWWDn3ku3cY0CAKj8EByb9lQZAqWjjFEZ55GhFNQxrhmdZjMsT6DUSt2UABFkeFl8
+	 0ZGGtKvBKVPnoKeaRbsQ/DibpZbgRUEd3TLKvui6KQPITYr08NpyNG/HQFm5OIErvtIKT
+	 3r9qLow5/m/HUh6yOgK6srePtMFhHzrz2AKh/p1FaXoIb5d8SHwK6n4+DW47YO4127IrT
+	 z/xGrxaxeT1Igerts9Hz2OvrzqBhemhUhGB86TGT/cjPV6JqE7+/4HQS/X3a9qhL7EEF2
+	 GLUPnZq4215ut4Fj8dvb2uTEn0xDfUA83jIxvqweGIkQS3ciAXa6qP4SGl9cLN/2jGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=L0z5KCQv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="N/zyJUHW";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27178606A330;
-	Wed, 25 Nov 2026 15:17:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA592606A698
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:17:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=L0z5KCQv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E8AD1F000C4;
-	Wed, 25 Nov 2026 15:17:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795619829;
-	bh=GdlJzTtBAq1PzkYH7MxZAWU8Esjt2X1Eu+1EQnTpHR0=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N/zyJUHW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D8561F000F0;
+	Wed, 25 Nov 2026 15:17:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795619831;
+	bh=WRWSlTfct1vF6AGODQ0oncAqleqIAcVZtmm+qaRqAJo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L0z5KCQvzT/SFIuFJklw9Qr+dZlQBjvRk+zh1Cu3L8rAt0OaQ/2A/19Bd1Z1MJpG0
-	 j6KzMxT6PJzPbMBG2TfnXUOWgN2W9Q3rMotx8Oc1IfyK6wIQ4jnzsoI56CulVdQI5U
-	 ubpA8wkjIWoJOxI1eDK876V8ZrRPKmqp8e+q26vo=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=N/zyJUHWNLWszs1D7WOcr8l79bDwKLJgC9S5LnpAmdL66ZtCMaegDjk4j34qT2a8G
+	 VYLEIN9zQ/qi/fvFH8M9W4t21x8tpBK9CjUZfmzra8T5dPmd5nLwvj1R+jK29sYhu+
+	 astKL5duprRxzCa/qDE3FyeF4Xa9I8B00sGUKWIrtVIIPFTAsVSB8NlShorJ50ie1h
+	 5pXKtfNmEIoLvPmngq2HT0TW97SG2a+DkMB44Av008UEf4DltQQZ3l//E1LMivDhLP
+	 ZON6T9+gpjIm55WYlx4nHhUbCSCsfcoiX8mOOkMYGjwkYjsh4/N48HEUVArwl4jMEW
+	 xHMQcLLOxUmFA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Johan Hovold <johan@kernel.org>
-Subject: [PATCH 7.3 0721/1005] software node: only let the owner release a managed node
-Date: Wed, 25 Nov 2026 15:34:19 +0100
-Message-ID: <20261125143838.647740346@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <liuwe@microsoft.com>,
+	Simon Horman <horms@kernel.org>,
+	Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] hv_netvsc: Stop PPI parsing on invalid metadata
+Date: Wed, 25 Nov 2026 10:17:07 -0500
+Message-ID: <20261125151652.51395-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261125151652.51395-1-sashal@kernel.org>
+References: <2026112517-devotion-snack-1302@gregkh>
+ <20261125151652.51395-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,86 +65,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+From: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
 
-------------------
+[ Upstream commit 19a227903e65c7a9c179156485660a4e017575fe ]
 
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+rndis_get_ppi() uses continue when a per-packet information entry has an
+invalid size or offset, or cannot hold the requested metadata. However,
+the remaining length and entry pointer are only updated at the bottom
+of the loop. Each error path therefore retries the same invalid entry
+indefinitely, repeatedly logging the error and preventing receive
+processing from completing.
 
-commit f8623ce596492d2e96ca57eeec992938d3d79f00 upstream.
+Return NULL on these validation failures instead of continuing. This
+terminates the lookup when malformed metadata is encountered while
+preserving the existing behavior for valid entries.
 
-device_create_managed_software_node() creates a node whose lifetime is
-tied to the device it was created for. software_node_notify_remove() is
-called for every device that has the node as its fwnode (primary OR
-secondary) and, if the node is managed, unconditionally detaches it from
-that device and drops the creation reference.
+The issue was reported through an internal bug-tracking system and
+confirmed by manual code inspection. The pre-fix hang has not been
+reproduced locally.
 
-This breaks when the node is shared with another device. Example: the
-i2c-designware copies the parent's fwnode to the adapter's struct device.
-When the adapter is deleted, it releases the reference that belongs to
-the owner and the latter ends up with a dangling pointer.
-
-Record the device's "manager" and only perform the actual release when
-notify is called for that "owner" device.
-
-Note that it was never the intention that managed software nodes would
-be shared, but descendants reusing ancestor firmware nodes is not
-uncommon and such use is hard to predict when allocating software nodes.
-
-Reported-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-Closes: https://lore.kernel.org/all/20261009164241.923756-2-balasubramani.vivekanandan@intel.com/
-Fixes: 151f6ff78cdf ("software node: Provide replacement for device_add_properties()")
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Fixes: 0f485f88656a ("drm/xe/i2c: use device_create_managed_software_node()")
-Reviewed-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-Tested-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Fixes: 44144185951a ("hv_netvsc: Add validation for untrusted Hyper-V values")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261102-swnode-only-owner-release-v1-1-ee4c9022a629@oss.qualcomm.com
-[ johan: drop temporary variable; skip clearing owner field;
-         mention reuse not intended in commit message ]
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
+Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
+Reviewed-by: Wei Liu <liuwe@microsoft.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/base/swnode.c |    7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/net/hyperv/rndis_filter.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
---- a/drivers/base/swnode.c
-+++ b/drivers/base/swnode.c
-@@ -29,6 +29,8 @@ struct swnode {
- 	struct fwnode_handle fwnode;
- 	const struct software_node *node;
- 	int id;
-+	/* Device the managed node's lifetime is tied to. */
-+	struct device *owner;
+diff --git a/drivers/net/hyperv/rndis_filter.c b/drivers/net/hyperv/rndis_filter.c
+index b26a354e1462f..bdf8eb4df4199 100644
+--- a/drivers/net/hyperv/rndis_filter.c
++++ b/drivers/net/hyperv/rndis_filter.c
+@@ -401,12 +401,12 @@ static inline void *rndis_get_ppi(struct net_device *ndev,
+ 		/* Validate ppi_offset and ppi_size */
+ 		if (ppi->size > len) {
+ 			netdev_err(ndev, "Invalid ppi size: %u\n", ppi->size);
+-			continue;
++			return NULL;
+ 		}
  
- 	/* hierarchy */
- 	struct ida child_ids;
-@@ -37,7 +39,6 @@ struct swnode {
- 	struct swnode *parent;
+ 		if (ppi->ppi_offset >= ppi->size) {
+ 			netdev_err(ndev, "Invalid ppi_offset: %u\n", ppi->ppi_offset);
+-			continue;
++			return NULL;
+ 		}
  
- 	unsigned int allocated:1;
--	unsigned int managed:1;
- };
- 
- static DEFINE_IDA(swnode_root_ids);
-@@ -1145,7 +1146,7 @@ int device_create_managed_software_node(
- 	if (IS_ERR(fwnode))
- 		return PTR_ERR(fwnode);
- 
--	to_swnode(fwnode)->managed = true;
-+	to_swnode(fwnode)->owner = dev;
- 	set_secondary_fwnode(dev, fwnode);
- 
- 	if (device_is_registered(dev))
-@@ -1208,7 +1209,7 @@ void software_node_notify_remove(struct
- 
- 	swnode_put(swnode);
- 
--	if (swnode->managed) {
-+	if (swnode->owner == dev) {
- 		set_secondary_fwnode(dev, NULL);
- 		swnode_put(swnode);
- 	}
-
+ 		if (ppi->type == type && ppi->internal == internal) {
+@@ -414,7 +414,7 @@ static inline void *rndis_get_ppi(struct net_device *ndev,
+ 			if (ppi->size - ppi->ppi_offset < ppi_size) {
+ 				netdev_err(ndev, "Invalid ppi: size %u ppi_offset %u\n",
+ 					   ppi->size, ppi->ppi_offset);
+-				continue;
++				return NULL;
+ 			}
+ 			return (void *)((ulong)ppi + ppi->ppi_offset);
+ 		}
+-- 
+2.53.0
 
