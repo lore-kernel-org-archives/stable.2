@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603155;
-	b=pxPi6Mp23Ovj3sFLPtVcbZZ5iXh+YlmotUWp00HzYvbmsRUMz8rQPDfQykEjxXdT+pWU
-	 l2NSHkPIAmBWVeDxmCSAhhaYMfJaEYmPe+KEJq8J85HdnDxngXkK2tg3AyvzL7pdcKIEB
-	 ORnVE+pCvzsqjWfeLo5D4dbi8s4h/527U1jM5gszKAffxwME3hbVjFBY9bTADFi1Lef5P
-	 hlDw/gTU+qJsOvrOjoOtmAS4wE+MF59du5qgroHoCl/ShWViMmNTYRKqvkZ4iW9I1WFrg
-	 EQJElRWsVrcL5BuhzOWR75mDRUCKakw8Ra0Czs4ghYsTgGtOD1a0lhdNl2rOcYMATJA==
+	t=1795603158;
+	b=KzaBnoB/YjZArFr4U1MnAh5mxVFq72xJ2Zs2Td+jvFzRYf9v5it080+wH6Rg5KFH015r
+	 4Tw5/rtKRGC5PNaYn3bB+JSnXl2XVXYpvxiXBrSCRKgoQCEuNabkWaagMwDYqCFDcArpO
+	 9lqr0I06O4eYvAFu1ADZNq1GWPGVOOwULf11jsXPd0iJeK8DOpp2lLcrmSTd1g9qbFWm5
+	 jucEZxcuab1DoWs27+WqW6Nj5WcY+u7WNNOLy9sjfRpsvsFbQhHsBgCifmiLj71kGmw47
+	 2pA4+CJoTREhcFSiXlSAWd4QZrtSADObgax8mQV1d8mTpw9HtKQfNKQerWm8DFEkDxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603155;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603158;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=kStDVthz+tHZPTHelvrGmCGu1W98xyp22dXSwDfOGjQ=;
-	b=QVWebDTynMAn3VJeedmlDrG70OIhG7DZKlK11HsR2vJ/HdciRmcUBjquSmAn0DVq3zDd
-	 vgzviL/6Ixxr0NvI0CSkunKLZtQhKRM/w17avuPAWZkfNQC9E5A6UeF0uBsvME+fhQQ47
-	 NugpNzWJSnTsNnU1hyYxGYxAp7njArXraia0KdZAfHGDv/gbvZ3V/J1oHVy3IbB4nKW3h
-	 bjPjx1ZRp+MYDDBQLasufaRdpHKBwBPPhbBQ874sb6cLuUMR49fmuTnx6g9sXu2ZWieRG
-	 NYd5VUuiSQVu6OmU8EBsWHMeAbp9jvFdSK0sVD3+mn8GjxUsZ7U6M9x54OIqYCp5VSA==
+	bh=EHzDHrtGEsZJjyuBALy74Q00h/uwqFl8EF/fr7X6ktE=;
+	b=QWSPjO/4HzuzEqutUA4hkFSHx32HD/kdNzINju14W+38+ytxSMCzuetbEW0rtxFh4EZh
+	 2cHkNUcmp7KaYorxeWg05y32ba95oE6d2onJokcj935Q9l2bzLklK5NKwQIFg/NixEOVg
+	 D9N767pyXJ4c1fMaHTe5F0mp2EL6fSoLyUszFNyg0cAtWl1OuZzaXmNrhKxOQg9sPdjWh
+	 B6wRDqq5qfpcQPgIubsozE2t/y4WfpEIvBiq3A9oQIjvFJ7ifKBekAC41tBQrCqEHekwC
+	 6LKTdU1gh/zvMQHRmVlyRJPpsVrEkLjoG7zQz3naOg7OAfZYDoxS/necAaCi0Osm8yQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LQno1XVL;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oKZvdPip;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E51606A32A
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:39:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FAA6606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:39:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LQno1XVL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01A301F000C0;
-	Wed, 25 Nov 2026 10:39:13 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oKZvdPip
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70F961F000D3;
+	Wed, 25 Nov 2026 10:39:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603154;
-	bh=kStDVthz+tHZPTHelvrGmCGu1W98xyp22dXSwDfOGjQ=;
+	s=korg; t=1795603158;
+	bh=EHzDHrtGEsZJjyuBALy74Q00h/uwqFl8EF/fr7X6ktE=;
 	h=Subject:To:Cc:From:Date;
-	b=LQno1XVLnyGN+IYhQBa4C/BeaznUVDHal7jnaGavNuICZamNIkHEFDhfis/JaU7wg
-	 I7lDIoI8Lg9PhhrzaNbj0yn3AVbkb1XNwCU39DZ6u2WMO7PhSZP4S5VRgEjFVmorzZ
-	 09mYSM1gigPzXVbNlrN9eOs+2kcB194y3rHAePNc=
-Subject: FAILED: patch "[PATCH] tracing/probes: Check enabled and busy state before unlinking" failed to apply to 5.15-stable tree
+	b=oKZvdPip2ri4BOrnm0ZekbRoZWU/LWHAvukY2rE/1eFP5Tp7onrP80YW/ZbybzVJM
+	 RGUubU/+LtEHnyA37KFiMJdv81ard3CmpAJlJY5akkWmawDUF5X15QWiTvJct8zPiW
+	 msW5yBB015RbCCZCvZZ8xXMA9TN1lQL9rZod7Oto=
+Subject: FAILED: patch "[PATCH] tracing/probes: Check enabled and busy state before unlinking" failed to apply to 6.1-stable tree
 To: mhiramat@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:28:57 +0100
-Message-ID: <2026112557-discourse-shopper-85ca@gregkh>
+Message-ID: <2026112557-mutual-apple-88a5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x f1d9b7a3fe99b4228acdbab3c744c29f7ffe86ef
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112557-discourse-shopper-85ca@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112557-mutual-apple-88a5@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
