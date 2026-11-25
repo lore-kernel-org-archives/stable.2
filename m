@@ -1,55 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795639400;
-	b=Mphsgc1PPjcmVqox+lc8LvFMPlDIxe7QHmja4jDXF7aGlO3b2PpIEz9ndUQL3wXNFzd2
-	 zmb8cVm0aVvDiubQW+hHFR8rYrLy8J4/ys3K6NQb3z7ymoN2e5gyzUDe+OJcud+iMp2aM
-	 Zp7RQjHktvaoTEVPIphdRVMam7UJowLKaeRUbCiRHeLg3WMc7rP4tPa67X5VtyIuJbr0b
-	 ryVTAOyByxrA/9uWvQLn+dQls0rv5PKEVtgFZFz+nbCN+Rc19r2kdydKYMbLUBS/ABXOT
-	 aThVwVdmtvknmk8ep4INCJiMsfRWNgp67yofJ57KldMp9vbXElt6771pz9v27Q66KGw==
+	t=1795639699;
+	b=zSXyD+7dP6//8Mz3yvbfDOGX+SQkcGAhHpMgW25hWCtPMfTXgwyMLkBhxh+FXMJYGPz1
+	 eoC4JC65LnRKnOz/+4JRs71N8eQBDpI06jVZN0JfXdzDnMDBT0RduwNOF4SI2HBHKunxj
+	 cojdI/kr4/XvmpGw/XDNmG+ju3L/ptHcrPq8RtuHG5yYZqSjY4st0/FHwh08bBQjMGV7h
+	 7BGPA4ivIV1UJyCnLqOkGVhsssN38jmVX+8WFL/3fFp578k+BZfl/FcjIQ8vCNWERyb2z
+	 ikqqMRB/goaiXcg3oWs2uXlLRLX9GYG5vrDs7nLT4m3DxI3G22CsJuYhTcAfU1w/Z3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795639400;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=8tcve+Ft0iJ4rDYFhambebnlg6LjtbHnwuU5CV41ECs=;
-	b=TzcXhzS6PVmTYEDc30e7beZ5UOayiMLzQt6QsOldeP99KzaDh30kedGhlA+ntm6ABwll
-	 dcBvJJtgBU71Crkzu6X6PC10FPtBPGwuwoXi2pDDcVVwYW5Lne4G54eQlxWqwpq0cHibe
-	 U1oWMuA/gKF6MmZxm9VyQ5FTXB9Aa8HNqX5ELAtScQhzAKcLreph6EG/Or2uK1P1zyFWZ
-	 5v12gbuXkOW9YXqGrKcnqFlGa7afx/X81YMpstmsGn19++eN9I1j7wXtcdLnexKB7KHt5
-	 zo3wvsnJv/iK22Sa+H9CJdBAhNtfEZ3mXd0c3gAUzkLgbG0szZtoWjaavlSh+Lk6kPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795639699;
+	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
+	 Message-Id;
+	bh=zDfIFTuxY9sMxl8pG0cnplIOmfvZtrsWweEREbvVxVM=;
+	b=TBIiw96AtHSCNiOVcg27z78FRVZ1cNH8D1KHjYvuf+dFkZkxXkPF7vMmfq/xmcMiNU4S
+	 LNuCJUgjssnhYT8ISY7DgYFG7tX/PFp1yArxgUyTuoxMEo0unonAgfEGbUq1nlzNDfLVC
+	 dUvNZKnsTDN8hoOZr2sSFtK65qD3aHnIjRZ9i8N3yLS0cemKysimw5HrIJfaOHH5OFM+h
+	 8FPzEx3p029kY2ydK0FbiDN/PAHAKcjpr+Yyc4/k0h8Nu1VVeAVqmty18NCvXLgnCRgqs
+	 w5ZjEL1J7yvAiAlBCVHtniV4WHdmbeNKa134G4oNQBq/zAaTUxdxfDR0/YGgLygB4oA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iRVDsjbk;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=1CCakkzK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2222D606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:43:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C961606A321;
+	Wed, 25 Nov 2026 20:48:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iRVDsjbk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB29D1F000CF;
-	Wed, 25 Nov 2026 20:43:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795639399;
-	bh=8tcve+Ft0iJ4rDYFhambebnlg6LjtbHnwuU5CV41ECs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iRVDsjbkyOL2WF76kHmepT7fJCLzgtr6eT4416KHL9vm3o1kRYmqTRo9qjJzmA9J1
-	 D0xCe8f2ysQ6syIW/+729BZXK4xkZ5WEXHYQeXo8jUNNGuqMsY36grBVuQErT/2JxU
-	 7Re+O5UWWVU51jfoE5tJQNOWkKMcFqBYR/rxHhjQO7Yqz7gf3pBx0TcaZOg9eXD1VI
-	 vjOvf5ANTqponVXy/HQzFSDXrxeEVx0TLL9BAxdx+KSmhN7mQ1ZUkISJB6OQKdrN+1
-	 MjSO0WoGjKY39UQRvuPnum3YjuPipZhgoZV5BBJxtwbzPlG7YQVwZsol+CLIOIo5q2
-	 H4AFwaO/HoobQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zhao Li <enderaoelyther@gmail.com>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] wifi: mac80211_hwsim: ignore non-generic netlink releases
-Date: Wed, 25 Nov 2026 15:43:17 -0500
-Message-ID: <20261125204312.1467689-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112524-chunk-drudge-e37b@gregkh>
-References: <2026112524-chunk-drudge-e37b@gregkh>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=1CCakkzK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2885E1F000C6;
+	Wed, 25 Nov 2026 20:48:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1795639698;
+	bh=zDfIFTuxY9sMxl8pG0cnplIOmfvZtrsWweEREbvVxVM=;
+	h=Date:To:From:In-Reply-To:References:Subject;
+	b=1CCakkzKq97aSuIxLd0QJyJUk2/QvIFntVR9EOpiX82n8QSYrKCwE/LoR/QoYAYVs
+	 gBbwIX4q4l1ItH7+t+sQh3KkLxquh6akEVCoUlMOGuSI5jyySCQZRaNoKTfMGHXRhd
+	 MFIF7raNdPA4TsPfjPhC7k3sPi9gEqy+DTsCvaQs=
+Date: Wed, 25 Nov 2026 12:48:17 -0800
+To: mm-commits@vger.kernel.org,willy@infradead.org,stable@vger.kernel.org,
+	nphamcs@gmail.com,jack@suse.cz,hannes@cmpxchg.org,bsdhenrymartin@gmail.com,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+In-Reply-To: <20261125030432.274396-1-bsdhenrymartin@gmail.com>
+References: <20261125030432.274396-1-bsdhenrymartin@gmail.com>
+Subject: + mm-report-all-zero-cachestat-for-dax-mappings.patch added to mm-hotfixes-unstable branch
+Message-Id: <20261125204818.2885E1F000C6@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,49 +53,98 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Zhao Li <enderaoelyther@gmail.com>
 
-[ Upstream commit 989f47c56e48d442d79497a25ed946d029c4dc53 ]
+The patch titled
+     Subject: mm: report all-zero cachestat for DAX mappings
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-report-all-zero-cachestat-for-dax-mappings.patch
 
-Closing an unrelated netlink socket can remove mac80211_hwsim radios or
-clear the active wmediumd registration when its port ID matches a generic
-netlink socket.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-report-all-zero-cachestat-for-dax-mappings.patch
 
-mac80211_hwsim_netlink_notify() handles every NETLINK_URELEASE event,
-but netlink port IDs are scoped by protocol. The notifier therefore treats
-a release from another protocol as a MAC80211_HWSIM socket release.
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Ignore release notifications unless they come from NETLINK_GENERIC.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-LLM assistance was used to find the bug and review.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-Fixes: 7882513bacb1 ("mac80211_hwsim driver support userspace frame tx/rx")
-Fixes: e9ed49bf4c2c ("mac80211-hwsim: Add support for HWSIM_ATTR_DESTROY_RADIO_ON_CLOSE")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
-Link: https://patch.msgid.link/20261028141751.6728-2-enderaoelyther@gmail.com
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/wireless/virtual/mac80211_hwsim.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-diff --git a/drivers/net/wireless/virtual/mac80211_hwsim.c b/drivers/net/wireless/virtual/mac80211_hwsim.c
-index 6731f0a3de1b3..1531c04ddfd51 100644
---- a/drivers/net/wireless/virtual/mac80211_hwsim.c
-+++ b/drivers/net/wireless/virtual/mac80211_hwsim.c
-@@ -6232,7 +6232,7 @@ static int mac80211_hwsim_netlink_notify(struct notifier_block *nb,
- {
- 	struct netlink_notify *notify = _notify;
+------------------------------------------------------
+From: Henry Martin <bsdhenrymartin@gmail.com>
+Subject: mm: report all-zero cachestat for DAX mappings
+Date: Wed, 25 Nov 2026 11:04:32 +0800
+
+filemap_cachestat() treats every xarray value entry as a workingset
+shadow.  On DAX mappings, value entries are DAX exceptional entries: same
+value bit, different bit layout (flags in the low bits, pfn above). 
+Decoded as a shadow, a DAX entry yields a bogus node id; NODE_DATA() for
+it can be NULL, and lru_gen_test_recent() then dereferences it:
+
+  Oops: general protection fault
+  RIP: 0010:lru_gen_test_recent+0xde/0x300
+  Call Trace:
+   workingset_test_recent
+   filemap_cachestat
+   __x64_sys_cachestat
+
+Any writable file on a DAX mount triggers this once an mmap write fault
+has populated entries.
+
+DAX mappings have no page cache, so none of the cachestat fields make
+sense for them.  Skip the xarray walk for them and report all zeros, and
+document the behaviour in the syscall's kernel-doc.
+
+This issue was discovered by Tencent CodeBuddy Security.
+
+Link: https://patch.msgid.link/20261125030432.274396-1-bsdhenrymartin@gmail.com
+Fixes: cf264e1329fb ("cachestat: implement cachestat syscall")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: <stable@vger.kernel.org>
+
+ mm/filemap.c |    8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+--- a/mm/filemap.c~mm-report-all-zero-cachestat-for-dax-mappings
++++ a/mm/filemap.c
+@@ -4789,7 +4789,8 @@ static inline bool can_do_cachestat(stru
+  * The `flags` argument is unused for now, but is included for future
+  * extensibility. User should pass 0 (i.e no flag specified).
+  *
+- * Currently, hugetlbfs is not supported.
++ * Currently, hugetlbfs is not supported.  DAX mappings have no page
++ * cache, so cachestat() always reports all zeros for them.
+  *
+  * Because the status of a page can change after cachestat() checks it
+  * but before it returns to the application, the returned values may
+@@ -4834,7 +4835,10 @@ SYSCALL_DEFINE4(cachestat, unsigned int,
+ 		csr.len == 0 ? ULONG_MAX : (csr.off + csr.len - 1) >> PAGE_SHIFT;
+ 	memset(&cs, 0, sizeof(struct cachestat));
+ 	mapping = fd_file(f)->f_mapping;
+-	filemap_cachestat(mapping, first_index, last_index, &cs);
++
++	/* DAX mappings have no page cache; report all zeros. */
++	if (!dax_mapping(mapping))
++		filemap_cachestat(mapping, first_index, last_index, &cs);
  
--	if (state != NETLINK_URELEASE)
-+	if (state != NETLINK_URELEASE || notify->protocol != NETLINK_GENERIC)
- 		return NOTIFY_DONE;
- 
- 	remove_user_radios(notify->portid, hwsim_net_get_netgroup(notify->net));
--- 
-2.53.0
+ 	if (copy_to_user(cstat, &cs, sizeof(struct cachestat)))
+ 		return -EFAULT;
+_
+
+Patches currently in -mm which might be from bsdhenrymartin@gmail.com are
+
+mm-report-all-zero-cachestat-for-dax-mappings.patch
 
