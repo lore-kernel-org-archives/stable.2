@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795618592;
-	b=nlXB3oiOl8dLCjAxd+AYJCXs1a2Iyp5kH/MXgUgJE4gu1FQ3nC1Rk9jJKn+aUkJvc8C6
-	 74HRv/udeJhXvZbOpCkYZ9R/WW0EC/iu/COmcTj4w+h+5NzQJEBliKbxu10lvApdCCZ12
-	 yULjCZnYSR8bfdguLH9dCHUqn2RN5gw8BQX7FWDSBUigM54u12GM0mVZwydi10GmW7qAy
-	 epEsVgwZbHHcfuyRmibrKDrtyvZxk0vGB6oduFXMymmwNQVltUGfwfqmzBrp8UL0Am1P7
-	 80gs25sG5DKoqzZtP2czm7CN8a7d5zrUHx4rZKIMkPJuK6gSEZ4N0s+ATzL2QrCxnVA==
+	b=kNeIjag6GBN1SakaedIFm1nIXiIOOG5depHzlJKWnmbC4e2Rotmi+qfjT0PowBd1BzU+
+	 a4z8a1GMlS4ECwlYg7YsBK5CeEsm4x0u1q6KOFpsCNuKR7uAfd6BaDHgZeRLUdMG+b59g
+	 b7Xys+6tvDWrgf+53DYAPrI/ke3iuf99DeZeQHs8aq75kdRkFRrcT+Oiy21B06vPIvk7O
+	 EtqRlFn6k6G4cCE4U4riiIKYeVp6TqjbRualqNikLA1XADAhzN3B9pKxqZu2IeyHcQ1yi
+	 cnkFp56XcWBTBN8wmODCoVuFZrkcg3dN/XvnBQgK0NZ19THf4xAXrHLb8vHYT83iQ7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795618592;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=EmL0veID+fhdMKWRuS1K4BGiTca6hvwlV/UjWDRwtDY=;
-	b=PL4k+g6S86SosewvfURD9Poxc9uN1aKCsgAWit8qADRt20+JlR9+lVwgnKLZFFDdKlo2
-	 D3iPxX2kFqIilRLRm1xDya1Pf7yCWXJEMuY4ukTAU5fSe8fjAaYHZ+r4xg47orFZ0Z/xk
-	 AwgYKrwLK55fvxKZw98nDadw/3P5PpGLWSU/mwbUKBphr2+iF6hwjUdn/6PrIsazAj2g6
-	 xANOvWpv0VqJSCjmH7XFJJsf12LdimI7XZpfJCcJu0S8fY2DSQX1qnrbXwf1JAUJKbNAk
-	 5Lr2HVKaLpNAIyqjM8ActoknPuk+8+RQ/jTRoRnbIITgqU5B3wUg0PQK76LLfkJegNA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=keBNKkOuEJqVu0zQcwfqLOtccpo6GKEsYjSZ1/SYHiQ=;
+	b=Ff11JdOvneV8DuBu6jtWtjWO/650javwfwlCsF+rYXSLKztL3ym0p8eKhXttyF8Hn+dR
+	 Mo4c2qq0EaSyW9hMiwLyZyLQbBsYW/ZGiU5SQnkhtJm1syDl2Wwde2Q4B7v9QM7GAfuMX
+	 erp9vJXGegsgMvP2aCLCfabuX8SPIjFe3pQk5q3JY0pkJGAU8zvMbMdbvrZSoVCF5f7SL
+	 8Lwrj3ypNpZj+fhDknTek/6NjxbG7pPi7JVNrtbNvgP0yyANyCbLq7g6BDTbaRt+lYFl4
+	 A0S/WBHElVZe6N7J/svrP6HjAx0DPql1yvnvnFQIutyiaHG1rqYN3mufPHtZJo9pSdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QzgXMDK3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PRhdmdtT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 989D7606A321;
-	Wed, 25 Nov 2026 14:56:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B400E606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:56:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QzgXMDK3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D51321F000D3;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PRhdmdtT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B6BD1F000D2;
 	Wed, 25 Nov 2026 14:56:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795618592;
-	bh=EmL0veID+fhdMKWRuS1K4BGiTca6hvwlV/UjWDRwtDY=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795618592;
+	bh=keBNKkOuEJqVu0zQcwfqLOtccpo6GKEsYjSZ1/SYHiQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QzgXMDK3CCOHOVk1gT9d0e3WECZ4CZm6GV24jyD8FQ3pO+jjpHiSd+ZHrdHOm8qct
-	 9O3L8OFjtm9QD/PWmTmJqqtI+OwQpyJMBP33OQqd39hcZAXHcQebfEleWuSyRfhanB
-	 bIT3qW1rsvHHZAeF4JMb361GGeZOdXh82OU+Wue0=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=PRhdmdtT0qHROMBaXl2oQ9oMpvCAyc2su/MW6LDuobv6Biu3bZZ1nsoRTzqB+sYKP
+	 6PXN+0QJeNJGnfx6hMhP3ZPrwG4HMWK2t+yqcVvS9U5uZeGDwI5gS2qIgNvjwFu6I9
+	 qlP9K2njZv3uKoEB2FURsOdbjqiIXwTFu1+AoU4rRG5DphOO9EunVxQdQgSDEwdwRO
+	 E8NrXs84JpJgV3c3uYG89lG+bdwRIhb/L1GRdDYwa2GTMiRIMJTg1ihk5a5URLyado
+	 MdlY2wOC2FoQS0GBTw1BeAq5eMutpbxvWECJtMi1Qacq5au3w562o42mI+J2SQ1ztL
+	 2GjRMnDp2bQ/A==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Anna Schumaker <Anna.Schumaker@Netapp.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0328/1005] MIPS: SB1250: Validate and update IRQ affinity
-Date: Wed, 25 Nov 2026 15:27:46 +0100
-Message-ID: <20261125143829.417746981@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.6.y 1/4] xprtrdma: Clean up synopsis of frwr_mr_unmap()
+Date: Wed, 25 Nov 2026 09:56:27 -0500
+Message-ID: <20261125145623.4186690-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112556-catchy-compost-16aa@gregkh>
+References: <2026112556-catchy-compost-16aa@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,56 +62,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+From: Chuck Lever <chuck.lever@oracle.com>
 
-------------------
+[ Upstream commit 9d53378c2c145991fb5bc986c82eb9030212c2ea ]
 
-From: Florian Fainelli <f.fainelli@gmail.com>
+Commit 7a03aeb66c41 ("xprtrdma: Micro-optimize MR DMA-unmapping")
+removed the last use of the @r_xprt parameter in this function, but
+neglected to remove the parameter itself.
 
-[ Upstream commit 456c965ca46c59a4a241c755e6565fd883a522f4 ]
-
-sb1250_set_affinity() selects the first online CPU in the requested
-affinity mask without checking whether such a CPU exists. If the
-intersection is empty, the resulting CPU index is invalid and must
-not be passed to cpu_logical_map().
-
-Reject affinity masks containing no online CPU with -EINVAL before
-accessing the CPU mapping or interrupt mapper registers.
-
-Also update the effective affinity mask to reflect the single logical
-CPU selected as the interrupt target.
-
-Fixes: 421d1563c662 ("mips: Validate online cpus in irq_set_affinity() callbacks")
-Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
-Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+Signed-off-by: Anna Schumaker <Anna.Schumaker@Netapp.com>
+Stable-dep-of: 1fa415883c37 ("xprtrdma: serialize unmap_sync with xprt_disconnect")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/mips/sibyte/sb1250/irq.c | 3 +++
- 1 file changed, 3 insertions(+)
+ net/sunrpc/xprtrdma/frwr_ops.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/arch/mips/sibyte/sb1250/irq.c b/arch/mips/sibyte/sb1250/irq.c
-index 2f08ad267a11e..d7a656cd7ec0c 100644
---- a/arch/mips/sibyte/sb1250/irq.c
-+++ b/arch/mips/sibyte/sb1250/irq.c
-@@ -76,6 +76,8 @@ static int sb1250_set_affinity(struct irq_data *d, const struct cpumask *mask,
- 	unsigned long flags;
+diff --git a/net/sunrpc/xprtrdma/frwr_ops.c b/net/sunrpc/xprtrdma/frwr_ops.c
+index a0d49580dcb87..a82eefe5e6b58 100644
+--- a/net/sunrpc/xprtrdma/frwr_ops.c
++++ b/net/sunrpc/xprtrdma/frwr_ops.c
+@@ -54,7 +54,7 @@ static void frwr_cid_init(struct rpcrdma_ep *ep,
+ 	cid->ci_completion_id = mr->mr_ibmr->res.id;
+ }
  
- 	i = cpumask_first_and(mask, cpu_online_mask);
-+	if (i >= nr_cpu_ids)
-+		return -EINVAL;
+-static void frwr_mr_unmap(struct rpcrdma_xprt *r_xprt, struct rpcrdma_mr *mr)
++static void frwr_mr_unmap(struct rpcrdma_mr *mr)
+ {
+ 	if (mr->mr_device) {
+ 		trace_xprtrdma_mr_unmap(mr);
+@@ -73,7 +73,7 @@ void frwr_mr_release(struct rpcrdma_mr *mr)
+ {
+ 	int rc;
  
- 	/* Convert logical CPU to physical CPU */
- 	cpu = cpu_logical_map(i);
-@@ -103,6 +105,7 @@ static int sb1250_set_affinity(struct irq_data *d, const struct cpumask *mask,
- 		____raw_writeq(cur_ints, IOADDR(A_IMR_MAPPER(cpu) +
- 					R_IMR_INTERRUPT_MASK));
- 	}
-+	irq_data_update_effective_affinity(d, cpumask_of(i));
- 	raw_spin_unlock_irqrestore(&sb1250_imr_lock, flags);
+-	frwr_mr_unmap(mr->mr_xprt, mr);
++	frwr_mr_unmap(mr);
  
- 	return 0;
+ 	rc = ib_dereg_mr(mr->mr_ibmr);
+ 	if (rc)
+@@ -84,7 +84,7 @@ void frwr_mr_release(struct rpcrdma_mr *mr)
+ 
+ static void frwr_mr_put(struct rpcrdma_mr *mr)
+ {
+-	frwr_mr_unmap(mr->mr_xprt, mr);
++	frwr_mr_unmap(mr);
+ 
+ 	/* The MR is returned to the req's MR free list instead
+ 	 * of to the xprt's MR free list. No spinlock is needed.
 -- 
 2.53.0
-
-
 
