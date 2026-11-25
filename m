@@ -1,97 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795599445;
-	b=EDY4ekmMXtcFgkmVDrvtRTqUKI9+8Y83IpwxVfLBGsToHV+lnNbCUVUjG8+ThedtemCw
-	 TpVa1aJ7dPZ7Cq5MJcL8WnuqS4fhQKsrF1Pc/gROHMhBO7wvXc/xLZYB4ii3UfN9a+Wqn
-	 1CqIImzoYV6bPcE2CGdXCJwyqGDP9hkdbbYTVjLGK+V5BgBBXUt9bc2Lw/rOX4sKWdnx8
-	 jMEDLCi2C6Y9DHtabXvrI1sm5LTvAN/uhEQPO1B2Ws41qQxNUYo9LjeO2p9vPZq/4zdjA
-	 aQAiGxspqy3zasNGfgYIXwhXn84gzlx4URLeOkkUFLhtZmsHbYM/4lSfjVDh0gJFPLA==
+	t=1795599469;
+	b=BX75Bix5U4CeEOgbRm/a6heuQ1GxVF2fhY0KL3cp/XqjnSGuRVD9Qn7hxY/Z3qXl73Su
+	 CBn5cVf/lV9xpV2SRVfKNvowb/AX8xjOXE4pUVmB/JBXCIU7bbD2J121/ggc1fRdEibMa
+	 QbmpAp5pP/sTojy9YVNIUbpVXqtpJM015FOV2OhFLL7AaVASoO647/mjr0N6JAOC3r1V9
+	 2HYP77CEEin/9YIDz8Fj9ffB063eoZ3XEsL5WqLC1iS5qgvH38rvudI+495QQPx2T21xI
+	 VBcG97PGV7EZBWTMH1NNsiUolq+1hxDtt/7Yi5oDWVlZt1sHMbfK10SwPI1fpuINC5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795599445;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=Uru4uc89gdbKTgL7oPQD/8sChQuJekgJ1PKHJDsBnDk=;
-	b=aQssbYA8Vgu+jfT5TDEWK6JYH9JwThqALao0qUxWmSLM0xF1j/jkfqI5mAfKVpUhaO24
-	 ivCKmhqiU3uAcxAIR+9EGDYNfjYYpGDMC2bb0YeMe9oclFbtwdJfGDKcpdy9ZTQPzH934
-	 kf7u1j+6s2zNa7BRXBEVNyIJW7iWN+aKkDkau5FAVghGYhkvWvbbZF1RNCRJkaNR5snlR
-	 YmRBdbW+jdVP/3iW+nFz7+FTxjJMeZvVTO5WwlxpQjLGGVgr5XqpuE1cJ7B3cNYIacXjg
-	 Km9+/p3duL40y75ZosB0ndoh9zBbqA9OJFD/uaL6JEKW3S65/Wy38H2JghTkWvn3BZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795599469;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=H/OW4CEWM4YFWjpU+/11jWkc2eIrxnh97AOZdrSoRuI=;
+	b=WWrVUYj9GTLe4BWM4pKAz90Zm/f2QTpuEIHx19Uqh4/2KDRgH7SCIkVIa/L+qRUufOt+
+	 +ndqhbnFa1mOiMqBXjbac2AeFfezkNEs40gXvaat89Gy9rGWC2nzNNq1vYLoVVZd2cNFN
+	 14IPApVUruN1hp/J5vpVX6WmTEP5AYFNwSclU9Ag2fOjev/YkF0SlGn7qmxa2qzu1EQuI
+	 pLX3RBH3N+l0nFp0nPZgwx7uI/NsUM01+isp0800MkYFRZUohZqs6kDV/pgEuenAsvTg4
+	 ytBavcRpCTloqR3AVsknN0BKWrwUVvEKQvbO/dfAE+CrFLU09AuYGGVfRT2LFKVMFlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z0dLjg41;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aWmUCHh8;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF332606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:37:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF332606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B14606A31E;
+	Wed, 25 Nov 2026 09:37:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9B14606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z0dLjg41
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4bb606491faso29549755e9.3
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 01:37:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795599443; x=1796204243; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Uru4uc89gdbKTgL7oPQD/8sChQuJekgJ1PKHJDsBnDk=;
-        b=z0dLjg41R3uLk2yeb8k5wxIB6q0Ke/05wkhEoBVYgl+hRx6El5jMIq6grFlpzdFuon
-         qF5yUr6pJs5UwqLBK1T8XZ5EoxNpDB9jO28H70rVYGQKIA2VZwvuONhWDs2ceMcoDWgt
-         j75aSwOvJWVHlSNd/0UZPtBRyOyubmhYJmAI7CHV+tuSN1HMki1uhpJwRo6IPN8GCR3J
-         OZq5nSUUWtaQ0wGfWsPBhFgGHYwz5YQdCkOSLYWDe2SES1Yi53sMnk24AOKsJeEL6IYR
-         NWDNhh8/c6LAHuZaTmPQBf4g13zU5LCGWjVQmbsozJyC/XkJ1UuP5SKQr3ZGLZ8N5NAE
-         dUlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795599443; x=1796204243;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Uru4uc89gdbKTgL7oPQD/8sChQuJekgJ1PKHJDsBnDk=;
-        b=tSNUsK+LLswhQS8MIs8FIdsLRwGgCYP/AxSkAc6LbwzBxjlBbmPtyXx1jHKhAcjs+5
-         cRctPsQHEsGFYrgzMlMGEp+C1VicjOpRaoEJrK3TJHtZGtMoVnh/wJSWXFOtlG5CqBtk
-         WNYiY4j+K09y1KNX51nLlQv93S4ajheMJepQi07dwAEZ/eJXO0jNLQPMmZPq0Qq/u8Bd
-         zlB1JUaVM0/dkFj2l0TrvR2xici5zER9QPu5RSLzIXWNq1zkv7EOmPsTWZXZ3ACgw07E
-         G9Ya2fSJ8rl/OVxirzPXzcn5FcPHjwLKuvOlV2561wrEIjMbAGuuODfjRr3tsdMn3IQ+
-         yd3A==
-X-Gm-Message-State: APuU4Z80urWZQcmnRsN4EDYKDPCpW02/T3WCUqnBDPWQJUc0B/zxRSTD
-	TV7cTRm/95GgeckuQc4iXRW2PUamFIvJhAyUy9L4AopqFo4nvQaG2llkzylBc+94
-X-Gm-Gg: AZFdTZeQn6pkAlIrZlmHWLr327oYPg1uPfDUOV2rJmMUybKZX1GMWmZSbRBgF0ulG3F
-	a8eeI2ZZyvf/X/RB4NUsdZ+kx8GZrHz6sGJTuvQ1bdwfPGRVtzXTECkkeVRR0atwASPBphm40wR
-	gLhkQKIlJahl12CfyA8mqqnWYlU7HhqJbSjwyG2CT/+kGsFUy3V2LYIW+YyODKKNt0T7jb5V/id
-	3zxGXxbmJJzemtQC9poy6EpKirdr5pUczrHMLYBMekcJiuwbek9z92b/yQjtrciLxnYf26bF7Fg
-	Lq1hUzu2dteuwzBqguNBIoxJl32kxEG+LTLbePWi5J7exiGBGIdugZfdLSRcSoXKpqY5RACDNx4
-	FucBviylAhGaKn3s9flq1wYc2lIwFjK8ONByTz8YkeSjfSXjMf8dzJZAxv5uSnZEFRzyjbIrRec
-	6wQnLoE2w1LjEi3B0BzLKeSq71ZqD2vvcdYoOF58RjF48Hbd9zQGG/Bz+OkBP90L8k11rqLPCZu
-	6swm4JM4PfLviLeJzcoJ6UB1MGOTCl+8LYixaMMbc/TOHljv6cxUgJwrIojElllfL2SsQOxpB0I
-	XhJb+i0mnjOWrq3xRYgDiaLXO5EJmgdakNNTIXgRsg==
-X-Received: by 2002:a05:600c:6092:b0:4bb:6ac0:6dc0 with SMTP id 5b1f17b1804b1-4bb8892097fmr322215805e9.29.1795599442922;
-        Wed, 25 Nov 2026 01:37:22 -0800 (PST)
-Received: from fedora ([5.131.7.59])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884a3a3dsm492567075e9.10.2026.11.25.01.37.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 01:37:22 -0800 (PST)
-From: Petr Vaganov <petrvaganoff@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Petr Vaganov <petrvaganoff@gmail.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Johan Hedberg <johan.hedberg@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	linux-bluetooth@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Subject: [PATCH 6.6] Bluetooth: hci_core: Fix not checking skb length on hci_scodata_packet
-Date: Wed, 25 Nov 2026 16:37:07 +0700
-Message-ID: <20261125093708.227125-1-petrvaganoff@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aWmUCHh8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795599469; x=1827135469;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=0s78Vf6PyUG/xWZ1rRAkii/3QHz1kfVqFuBSdG7BtD8=;
+  b=aWmUCHh8QJilzli7McbLQ6SW6MZts1ECyccJeuUHd+jBtMuxMCaYkkEd
+   1wLHa20mUAcKLwTiisEvag5R+qZIffHXWfrS6bv/+kOHB8Vxol5Y2kCwP
+   O6SIAYWtIGs2D8O4VPs4oQdJuqn78sljVyvsXzr+TacqvL5J66W3mFQD9
+   V4MCrEPAjUIV0kPkN+wo595b2CI4d2oOOGsc1Th1XdPUxRaG04ATk1i9j
+   FEpEmJ/dtLNNRquy0VjYM57O5hBdx0cyGERrkOHHyhAZnF+00WM1N+I9c
+   Byy+7NruRTqw+Z4tWHhVDdXs6RrNn0pXZuIxl2hxFBx2DgWmj2piichRE
+   g==;
+X-CSE-ConnectionGUID: 6arsJvI8Tdu6pHylGMek7A==
+X-CSE-MsgGUID: V3mTqCOSQua/PAiz2Y1qkQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4472670"
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="4472670"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 01:27:33 -0800
+X-CSE-ConnectionGUID: lihd4i8TTJep8Rmx8U6nrw==
+X-CSE-MsgGUID: VsbtQc9URdyYmjdB/nSAmA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="11796867"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa007.jf.intel.com with ESMTP; 25 Nov 2026 01:27:31 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 5F85298; Wed, 25 Nov 2026 10:27:30 +0100 (CET)
+Date: Wed, 25 Nov 2026 10:27:30 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Max Andreev <drunkbatya.js@gmail.com>
+Cc: Badhri Jagan Sridharan <badhri@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Kyle Tso <kyletso@google.com>, stable@vger.kernel.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	RD Babiera <rdbabiera@google.com>
+Subject: Re: [PATCH v2] usb: typec: tcpm: fix missed frs_sourcing_vbus() call
+ during FRS
+Message-ID: <awaqAnBF94n5t3sC@black.igk.intel.com>
+References: <2026112206-lapped-unvalued-8696@gregkh>
+ <20261122115639.2912666-1-drunkbatya.js@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,63 +85,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261122115639.2912666-1-drunkbatya.js@gmail.com>
 
-From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
++RD
 
-commit 59437cbb5781227567dec226aaa88c66a09ccc5a upstream.
+On Sun, Nov 22, 2026 at 11:56:38AM +0000, Max Andreev wrote:
+> Since commit 0908c5aca31e ("usb: typec: tcpm: AMS and Collision
+> Avoidance") the TCPC reports sourcing vbus while the port is still in
+> AMS_START with FR_SWAP_SEND as the upcoming state. Because of
+> _tcpm_pd_vbus_on() ignores this state, frs_sourcing_vbus() is never called
+> during FRS.
+> 
+> On Pixel 11 Pro XL after an FRS from sink to source the phone keeps
+> showing the charging indicator, and about 20 seconds later VBUS drops
+> and the attached device reboots.
+> 
+> Call frs_sourcing_vbus() from AMS_START when the upcoming state is
+> FR_SWAP_SEND.
+> 
+> Fixes: 0908c5aca31e ("usb: typec: tcpm: AMS and Collision Avoidance")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Max Andreev <drunkbatya.js@gmail.com
 
-This fixes not checking if skb really contains an SCO header otherwise
-the code may attempt to access some uninitilized/invalid memory past the
-valid skb->data.
+Looks okay to me, but just in case, let's wait for comments from
+Badhri, Kyle an RD.
 
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-[ Petr: add Fixes tag ]
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Petr Vaganov <petrvaganoff@gmail.com>
----
- net/bluetooth/hci_core.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+thanks,
 
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index 84d9a445e08d..67a13dca41bb 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -3838,18 +3838,22 @@ static void hci_acldata_packet(struct hci_dev *hdev, struct sk_buff *skb)
- /* SCO data packet */
- static void hci_scodata_packet(struct hci_dev *hdev, struct sk_buff *skb)
- {
--	struct hci_sco_hdr *hdr = (void *) skb->data;
-+	struct hci_sco_hdr *hdr;
- 	struct hci_conn *conn;
- 	__u16 handle, flags;
- 
--	skb_pull(skb, HCI_SCO_HDR_SIZE);
-+	hdr = skb_pull_data(skb, sizeof(*hdr));
-+	if (!hdr) {
-+		bt_dev_err(hdev, "SCO packet too small");
-+		goto drop;
-+	}
- 
- 	handle = __le16_to_cpu(hdr->handle);
- 	flags  = hci_flags(handle);
- 	handle = hci_handle(handle);
- 
--	BT_DBG("%s len %d handle 0x%4.4x flags 0x%4.4x", hdev->name, skb->len,
--	       handle, flags);
-+	bt_dev_dbg(hdev, "len %d handle 0x%4.4x flags 0x%4.4x", skb->len,
-+		   handle, flags);
- 
- 	hdev->stat.sco_rx++;
- 
-@@ -3867,6 +3871,7 @@ static void hci_scodata_packet(struct hci_dev *hdev, struct sk_buff *skb)
- 				       handle);
- 	}
- 
-+drop:
- 	kfree_skb(skb);
- }
- 
+> ---
+> v2: moved the trailers above the --- line
+> 
+> I'm not test theese changes on mainline, but tested on Pixel 11 Pro XL
+> vendor kernel 6.1 with the same _tcpm_pd_vbus_on() code, as i see
+> mainline tcpm.c is identical in this area.
+> 
+>  drivers/usb/typec/tcpm/tcpm.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+> index 51e5c72799f2..5caa649a92f1 100644
+> --- a/drivers/usb/typec/tcpm/tcpm.c
+> +++ b/drivers/usb/typec/tcpm/tcpm.c
+> @@ -6889,6 +6889,11 @@ static void _tcpm_pd_vbus_on(struct tcpm_port *port)
+>  			port->tcpc->frs_sourcing_vbus(port->tcpc);
+>  		tcpm_set_state(port, FR_SWAP_SNK_SRC_SOURCE_VBUS_APPLIED, 0);
+>  		break;
+> +	case AMS_START:
+> +		if (port->upcoming_state == FR_SWAP_SEND &&
+> +		    port->tcpc->frs_sourcing_vbus)
+> +			port->tcpc->frs_sourcing_vbus(port->tcpc);
+> +		break;
+>  
+>  	case PORT_RESET:
+>  	case PORT_RESET_WAIT_OFF:
+> -- 
+> 2.47.3
+
 -- 
-2.55.0
-
+heikki
