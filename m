@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795602874;
-	b=YZChrNePcgxN9rfyIn9uiFMESTf1d1Qm0ZIm95hhLk8BUn8byP0JjJtQfEF0HI7PfNwB
-	 ixMXwPDTjGfieDi/9l35EFR3eT/Q55g6Zeuqg7/rQrnUiMydoBa41hHr8DtyAUJuFxHWm
-	 cK4eImiUPhvO1YlxbQ5i07mF6B1UKF8FBDId5Ua454cgvNxPfHrKVivgXlvRPyoHi3Dr9
-	 2l2z59tsy/hmc/R4/T8Zp+0KTvyZppkAseIBjQnGk7tHbUhhxWWX1YA3bExmmqzCgUa2t
-	 FNCpailcEoz+E6ncAYycA5Py3ZwGpgbwhu4mh5i4+DdUwvwhyEZ1OIUlP3DdywnNsmg==
+	t=1795602877;
+	b=S5vzE7HI1SIZEXBidVbisiumhVab311QJQc0Db4fI0NkiUzq2lXzW3Z4iF4iolhLi88S
+	 BY36wiQM2oAJ42Gj80tObA4GRvgGfWsRoGY07+F8+gGeQEobSioZizSyRuPNy5VdYEuh9
+	 uHwhqJxrMmRttNLCy4bCUshHr1BYEOp30I4o8a77b29OKEza54rE5PE+OUHlvky9sC84d
+	 3+tVJ4kVzLukBlfiPjbGJscpey1NfzoQOTFukKws5kgs7tvYNVMQvB+rDtydPbVfiAVOy
+	 aOl15jNrRGUjx419UaYW/e3wd5j0QzHCM5SIDWzEGa5RrT5pbAEbXJeTtyYSReENnoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602874;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602877;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=48H4ncuNbMxvmZ8ze98nkscvwkt+OV3XwOSCzy6v2Pg=;
-	b=C3is7S6U7CRVxEtBfLt/0TvCMe+0FMy6gYgqOOdXD/ZR+PLPLK1h2ohI/7GDJMhK6d/h
-	 pt9bbJUvUd/YRoa8/NaQphp4GGoVZGEOSK0e+imMj/YVcy0No64yhXp67PVmfsK2+5Ujh
-	 NleQt8HeQVLIm3oJSyHgy81nZCbNpD+Lz5txKX6P8GmccVFuiVjkPvUautG94IkD481Am
-	 2PVbO9yiVnsxESz/hV0Z3eQySwWY8RUpbaqeMy+rxHgEXUL6yJfuG1WYKgaPq0++fTGVh
-	 mmPn+dirOXG4rr+/nsW3CZhmPMZ9FGLOEF7Hi7IIsfX54cazXHXcEGfpXjPMwdTqfbw==
+	bh=y2F1uftM4opemuLNm5Zyt7LNYiG48YhyBNgkU+4i9A4=;
+	b=2zkYjQYKllHpUporGVRzwdf8fHDG7Loo/zc8TguP6R7Xges3C6j+ZfWWAoJoEAveEGib
+	 aUppcp7+uP8RQmX+pt+VZFsFPuuEvetw+Mg04il6g9oJQSJKaOjEfC3iM1WN0H9/zbgbZ
+	 /OhCfAlmJXu4xh4o6yCevz3vgttuwZZxcJV4ASXt2ruZdwp0YWsSd7NngVXPBmRkaFuh7
+	 9fiQSp2vJv8zsa3jeKXJ6hPdg5cg28F2RCTk1hmw6LpE8bNspmJ9usUFybOD9EJO8RMJc
+	 +offePAYVCo3O0fjlMtas6c402Zg0whpZLHgXQ9DIJb11EmbnuCutIKhLCa2e+FO2HQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pxapVnV1;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KiWqgiOl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2242B60A2600
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:34:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C0F60A2613
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:34:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pxapVnV1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E9571F0093E;
-	Wed, 25 Nov 2026 10:34:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KiWqgiOl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D6E21F0093E;
+	Wed, 25 Nov 2026 10:34:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795602873;
-	bh=48H4ncuNbMxvmZ8ze98nkscvwkt+OV3XwOSCzy6v2Pg=;
+	s=korg; t=1795602876;
+	bh=y2F1uftM4opemuLNm5Zyt7LNYiG48YhyBNgkU+4i9A4=;
 	h=Subject:To:Cc:From:Date;
-	b=pxapVnV1p2MY3AX6OXQg90UmTuh7vUOqjjl49X8b/gr0/M9WX82l4JU6E9qbwUiCb
-	 QzWsWB0b5CiSSbpa810T4BsRGi9QwpBCzlG+03/UhDCOrG85vKekkUn31pDADCOAjZ
-	 Pkr+t6Q06hG8EIRX0GEzPM7jYteKGGInYaXPchYk=
-Subject: FAILED: patch "[PATCH] watchdog: rzv2h: Drop runtime PM handling from WDTDCR init" failed to apply to 6.12-stable tree
+	b=KiWqgiOln2XaiHdSusfPigj0Nja4/2BosNswqNApNT030uX/3Ww10ciQ0DY5l1uCR
+	 RKY+oKBgTQVtVuYudHgi1YLSHBx/p1ycFske6nfnN4szs4zC1R2HRfIaNSf4zFMrdE
+	 VNaXEpc4OW1HYTobyUJBMSRkMhf3cXQSNZU/dzAA=
+Subject: FAILED: patch "[PATCH] watchdog: rzv2h: Drop runtime PM handling from WDTDCR init" failed to apply to 6.18-stable tree
 To: prabhakar.mahadev-lad.rj@bp.renesas.com,linux@roeck-us.net
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:15:42 +0100
-Message-ID: <2026112542-doze-greedy-a67b@gregkh>
+Message-ID: <2026112542-lushness-factor-b18f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x f00afd5d8d5dc03994cb67246543d5c70571ebbe
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112542-doze-greedy-a67b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112542-lushness-factor-b18f@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
