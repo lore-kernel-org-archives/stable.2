@@ -1,61 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795622489;
-	b=RHbCJW6b3C60GVCQp4H79V/a4IHyuunM1CXEo5L7bMWrez3E1WlhunrnWzPf+41gqf6W
-	 X/Cy00ryaLkekjIVh4Z3jtJbfM2LVyJRXvpIoMoswicTK1mlFgXNClfdKLD91qzq2ezoN
-	 5o2A+co45WOY/+e+Z/cprdk5HWTe+l4i1p0vwBQoxcmXESZ8a7AWLJfM9wF1rccf7g1B/
-	 23MBxHTBpUjkRjQCg15zsSNGMqeUlfkqSJtrPpGiAYOAmMd8gq6XdhsOqYp64pCYqIhPL
-	 XP5k+SC6+n+WhjyG4oVLyJmlplb7veR464HMavVaVkZaHUPZxtYJx/TS+AamLKpNGqA==
+	t=1795622490;
+	b=iDj6mFx/gX+ub8oqWwSyGBNQTfML5ugFdBhyyiWb0qBgq2PM1uZV4hhJjCV++B6hI1XJ
+	 KEdrYYR83k8GV3uH9mKe7bRMQ1psUzYol6UmlsA86boUzAsekvzrLH4LMGV+mI7dwe/mF
+	 1iyIcpSAsQwsPAhvTWNlcQqU1RoWSHtI2yg83fzAnSeYkPHGJXo4sFqtCrZSGVo6m3ruG
+	 iJs8/S7aIt464lzPLpOgT7pVmmk7OdiaXIPRireUECXr4WlHoz5zbhBRVLTDZtAWnyrMd
+	 ctEP4joEBdvgxqQhhrUvRexNq//B79+AGrlradZcdA/JLLkMX4oFT6snnceeg6rbPng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622489;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622490;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=L4VhBun6s8kbKNduBM3HIL9aT4xNmBD9qwEyHJ8ijlA=;
-	b=lFCRKZUX3VcwtSy/P60eZbNJcGqdzB86zp5hLbZI6p0WSUETvIWi7aVuSJYHM7KLOCNb
-	 STXXbDiXEzz2JjEdjKWEbHFoSELERM2moVLmVtBGgNtFPt3SaJhngLI8/zItpjPd+jUd0
-	 MlNKGxOT4GTDIEcu/YCyyMlolL3KAAmhK7drC+dbiqNEirbq7inP0ZjU5bnbmV4JzNMsF
-	 PAVcR4kwbP2TbfFVhxHSXwkxIav/pJ/gpkHTHUUMVjkOZ5JuPmtiaSWJBxORGvV9yHgUM
-	 E+a0xt6AHKrsGpEHFdS1ZJ7GOqHxLivU675x+M5jVvO92WB1uAFrNpk2i6muNuBsJXQ==
+	bh=H4Zp2fQDgT90DM06NlRn0jpTg64cA1Ew4vwdM+v5GA0=;
+	b=5Q8P/yV1lRolZTnV1fXqFMRRdLJgxkNRb9WoWZUKhqzm5Ee9pmewzxSpYjMwUw0W2eOb
+	 GQ0P58Uz7EVX5fZKGor3CWa5IfTscrEadX3Wm0QOPx72PX4q6NenLphX4Tx8Ts+/qBOKX
+	 5iDOWqgsx2NvMHDj2LJt0uMPquHAGEu1x5q8DIHPkacb+9CSnDWkvucPWOLPWBVhbyYgW
+	 iSeHeZRcafgUNFZDwsh/zczU7/i11PeKI2AUxdEMUTekIx2YpGLoA02v+l8lKSUz+4qkC
+	 MZ6lNNRm6/JSpMEy9cTKKrEs6CN2xUHxGWCqsUVbouMEqIm12l0AjuYZFub8Lx29Fhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="NiG2yu/C";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FyTCLmA3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 298EF606A331
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:01:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D430606A334
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:01:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NiG2yu/C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAB6D1F000CF;
-	Wed, 25 Nov 2026 16:01:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FyTCLmA3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6E41F000D0;
+	Wed, 25 Nov 2026 16:01:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795622488;
-	bh=L4VhBun6s8kbKNduBM3HIL9aT4xNmBD9qwEyHJ8ijlA=;
+	s=k20260515; t=1795622489;
+	bh=H4Zp2fQDgT90DM06NlRn0jpTg64cA1Ew4vwdM+v5GA0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NiG2yu/Cor1K3UPv+iTc/rBoVsvHebjQreDuhfwiPv1twxLE76YhWCr6wf1gFEg9t
-	 uNA/cenGIZtGGnaMPjfuLOmEMzVCNVUCdo9TESBxxmw6eWhIAe3uzexqq7t/vg4TKR
-	 knjPoUX+Grw9brZpA9PoX3ltBccLw2dgWvy9FMm/ixAIcngDfM3npXPDinVG7++W5H
-	 szaXksFRpPqlL2Wyvp1SAVSBd7alVCRWUTrukumqBy7i/rAGUzkEi42C+atdHx8Xxl
-	 9HCrzrG2DvMbzHZp4pSfOV3LPnCHU7I/8XtGf3kgASYyB99iejK5pA/JyY2PdSKE06
-	 Zxr84TsnvFZow==
+	b=FyTCLmA3NlEPc590pZsH2EmjTzyFsQew8gYmYuef4ikDcuusGVGrMrj+P32l6E+eC
+	 KY+nhakzej745ZtDfD+ifwYNLwhbDCFtAmcsSsnO323+/DGRa2hKtMAc2Rr48wvLE/
+	 rXT1CeDJxGGSFW7TScJz9PgTp/Zu5MkB0mohzeSJMQOj6m6sUkoYyswKFtKSCJJO/p
+	 xemfNzohakRFiFrxelIB/KgVEVDpHkiWHok6+wAVlWuUgNf3BwuIZdkwa0geRhhocb
+	 PIl0Y3jvXnMHklPSeqGAbpymWcIZvEozhi62n1462OAZUpHAsfHg8oVaNSVoB1SHqN
+	 caOAQqlfxKi0g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
+Cc: Zihan Xi <zihanx@nebusec.ai>,
+	Vega <vega@nebusec.ai>,
+	Luxing Yin <root@tr0jan.top>,
 	Pablo Neira Ayuso <pablo@netfilter.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/4] netfilter: nf_dup{4, 6}: Move duplication check to task_struct
-Date: Wed, 25 Nov 2026 11:01:21 -0500
-Message-ID: <20261125160115.575356-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y 4/4] netfilter: nf_dup: preserve guard across NFQUEUE reinjection
+Date: Wed, 25 Nov 2026 11:01:22 -0500
+Message-ID: <20261125160115.575356-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261125160115.575356-1-sashal@kernel.org>
 References: <2026112501-gilled-capsize-0004@gregkh>
@@ -71,169 +64,121 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+From: Zihan Xi <zihanx@nebusec.ai>
 
-[ Upstream commit a1f1acb9c5db9b385c9b3eb1f27f897c06df49ae ]
+[ Upstream commit 82052e5b5ec36504fe1b9c3c28a711a78fcacf37 ]
 
-nf_skb_duplicated is a per-CPU variable and relies on disabled BH for its
-locking. Without per-CPU locking in local_bh_disable() on PREEMPT_RT
-this data structure requires explicit locking.
+NFQUEUE can suspend traversal of a duplicated packet while the task-local
+duplication guard is set. The output call then returns and clears the guard
+before a later verdict resumes hook traversal.
 
-Due to the recursion involved, the simplest change is to make it a
-per-task variable.
+Save the guard in the queue entry and restore it while reinjection
+continues hook traversal. Preserve and restore the verdict task's prior
+state, including nested synchronous reinjection.
 
-Move the per-CPU variable nf_skb_duplicated to task_struct and name it
-in_nf_duplicate. Add it to the existing bitfield so it doesn't use
-additional memory.
-
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Juri Lelli <juri.lelli@redhat.com>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>
-Cc: Ben Segall <bsegall@google.com>
-Cc: Mel Gorman <mgorman@suse.de>
-Cc: Valentin Schneider <vschneid@redhat.com>
-Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Fixes: cd58bcd9787e ("netfilter: xt_TEE: have cloned packet travel through Xtables too")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
 Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-Stable-dep-of: 82052e5b5ec3 ("netfilter: nf_dup: preserve guard across NFQUEUE reinjection")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/netfilter.h        | 11 -----------
- include/linux/sched.h            |  1 +
- net/ipv4/netfilter/ip_tables.c   |  2 +-
- net/ipv4/netfilter/nf_dup_ipv4.c |  6 +++---
- net/ipv6/netfilter/ip6_tables.c  |  2 +-
- net/ipv6/netfilter/nf_dup_ipv6.c |  6 +++---
- net/netfilter/core.c             |  3 ---
- 7 files changed, 9 insertions(+), 22 deletions(-)
+ include/net/netfilter/nf_queue.h |  1 +
+ net/netfilter/nf_queue.c         |  1 +
+ net/netfilter/nfnetlink_queue.c  | 17 ++++++++++++++---
+ 3 files changed, 16 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/netfilter.h b/include/linux/netfilter.h
-index 9b3357d8d8c3e..3ca1996a6daba 100644
---- a/include/linux/netfilter.h
-+++ b/include/linux/netfilter.h
-@@ -499,17 +499,6 @@ struct nf_defrag_hook {
- extern const struct nf_defrag_hook __rcu *nf_defrag_v4_hook;
- extern const struct nf_defrag_hook __rcu *nf_defrag_v6_hook;
- 
--/*
-- * nf_skb_duplicated - TEE target has sent a packet
-- *
-- * When a xtables target sends a packet, the OUTPUT and POSTROUTING
-- * hooks are traversed again, i.e. nft and xtables are invoked recursively.
-- *
-- * This is used by xtables TEE target to prevent the duplicated skb from
-- * being duplicated again.
-- */
--DECLARE_PER_CPU(bool, nf_skb_duplicated);
--
- /*
-  * Contains bitmask of ctnetlink event subscribers, if any.
-  * Can't be pernet due to NETLINK_LISTEN_ALL_NSID setsockopt flag.
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index efee6139c6af6..139735e265c5d 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -1021,6 +1021,7 @@ struct task_struct {
- 	/* delay due to memory thrashing */
- 	unsigned                        in_thrashing:1;
+diff --git a/include/net/netfilter/nf_queue.h b/include/net/netfilter/nf_queue.h
+index fc3e81c07364f..039622d489051 100644
+--- a/include/net/netfilter/nf_queue.h
++++ b/include/net/netfilter/nf_queue.h
+@@ -23,6 +23,7 @@ struct nf_queue_entry {
+ 	struct net_device	*physout;
  #endif
-+	unsigned			in_nf_duplicate:1;
- #ifdef CONFIG_PREEMPT_RT
- 	struct netdev_xmit		net_xmit;
- #endif
-diff --git a/net/ipv4/netfilter/ip_tables.c b/net/ipv4/netfilter/ip_tables.c
-index 4320f67df7baa..412419a249dad 100644
---- a/net/ipv4/netfilter/ip_tables.c
-+++ b/net/ipv4/netfilter/ip_tables.c
-@@ -270,7 +270,7 @@ ipt_do_table(void *priv,
- 	 * but it is no problem since absolute verdict is issued by these.
- 	 */
- 	if (static_key_false(&xt_tee_enabled))
--		jumpstack += private->stacksize * __this_cpu_read(nf_skb_duplicated);
-+		jumpstack += private->stacksize * current->in_nf_duplicate;
+ 	struct nf_hook_state	state;
++	bool			in_nf_duplicate;
+ 	bool			nf_ct_is_unconfirmed;
+ 	u16			size; /* sizeof(entry) + saved route keys */
  
- 	e = get_entry(table_base, private->hook_entry[hook]);
+diff --git a/net/netfilter/nf_queue.c b/net/netfilter/nf_queue.c
+index c0c9ea5fc4e19..e25966a09fe31 100644
+--- a/net/netfilter/nf_queue.c
++++ b/net/netfilter/nf_queue.c
+@@ -218,6 +218,7 @@ static int __nf_queue(struct sk_buff *skb, const struct nf_hook_state *state,
+ 	*entry = (struct nf_queue_entry) {
+ 		.skb	= skb,
+ 		.skb_dev = skb->dev,
++		.in_nf_duplicate = current->in_nf_duplicate,
+ 		.state	= *state,
+ 		.hook_index = index,
+ 		.size	= sizeof(*entry) + route_key_size,
+diff --git a/net/netfilter/nfnetlink_queue.c b/net/netfilter/nfnetlink_queue.c
+index 5d10a85a2f73d..1d827858155f9 100644
+--- a/net/netfilter/nfnetlink_queue.c
++++ b/net/netfilter/nfnetlink_queue.c
+@@ -37,6 +37,7 @@
+ #include <net/sock.h>
+ #include <net/tcp_states.h>
+ #include <net/netfilter/nf_queue.h>
++#include <net/net_debug.h>
+ #include <net/netns/generic.h>
  
-diff --git a/net/ipv4/netfilter/nf_dup_ipv4.c b/net/ipv4/netfilter/nf_dup_ipv4.c
-index ec94ee1051c77..d11d7e2e1307b 100644
---- a/net/ipv4/netfilter/nf_dup_ipv4.c
-+++ b/net/ipv4/netfilter/nf_dup_ipv4.c
-@@ -54,7 +54,7 @@ void nf_dup_ipv4(struct net *net, struct sk_buff *skb, unsigned int hooknum,
- 	struct iphdr *iph;
+ #include <linux/atomic.h>
+@@ -344,21 +345,30 @@ static void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
+ 	const struct nf_hook_entry *hook_entry;
+ 	const struct nf_hook_entries *hooks;
+ 	struct sk_buff *skb = entry->skb;
++	bool old_in_nf_duplicate;
+ 	const struct net *net;
+ 	unsigned int i;
+ 	int err;
+ 	u8 pf;
  
- 	local_bh_disable();
--	if (this_cpu_read(nf_skb_duplicated))
-+	if (current->in_nf_duplicate)
- 		goto out;
- 	/*
- 	 * Copy the skb, and route the copy. Will later return %XT_CONTINUE for
-@@ -86,9 +86,9 @@ void nf_dup_ipv4(struct net *net, struct sk_buff *skb, unsigned int hooknum,
- 		--iph->ttl;
++	DEBUG_NET_WARN_ONCE(current->in_nf_duplicate &&
++			    !entry->in_nf_duplicate,
++			    "%s called with unexpected duplication guard",
++			    __func__);
++	local_bh_disable();
++	old_in_nf_duplicate = current->in_nf_duplicate;
++
+ 	net = entry->state.net;
+ 	pf = entry->state.pf;
  
- 	if (nf_dup_ipv4_route(net, skb, gw, oif)) {
--		__this_cpu_write(nf_skb_duplicated, true);
-+		current->in_nf_duplicate = true;
- 		ip_local_out(net, skb->sk, skb);
--		__this_cpu_write(nf_skb_duplicated, false);
-+		current->in_nf_duplicate = false;
- 	} else {
- 		kfree_skb(skb);
++	current->in_nf_duplicate = entry->in_nf_duplicate;
+ 	hooks = nf_hook_entries_head(net, pf, entry->state.hook);
+ 
+ 	i = entry->hook_index;
+ 	if (!hooks || i >= hooks->num_hook_entries) {
+ 		kfree_skb_reason(skb, SKB_DROP_REASON_NETFILTER_DROP);
+ 		nf_queue_entry_free(entry);
+-		return;
++		goto out;
  	}
-diff --git a/net/ipv6/netfilter/ip6_tables.c b/net/ipv6/netfilter/ip6_tables.c
-index fb375ce7f916d..9110392c83f6d 100644
---- a/net/ipv6/netfilter/ip6_tables.c
-+++ b/net/ipv6/netfilter/ip6_tables.c
-@@ -292,7 +292,7 @@ ip6t_do_table(void *priv, struct sk_buff *skb,
- 	 * but it is no problem since absolute verdict is issued by these.
- 	 */
- 	if (static_key_false(&xt_tee_enabled))
--		jumpstack += private->stacksize * __this_cpu_read(nf_skb_duplicated);
-+		jumpstack += private->stacksize * current->in_nf_duplicate;
  
- 	e = get_entry(table_base, private->hook_entry[hook]);
- 
-diff --git a/net/ipv6/netfilter/nf_dup_ipv6.c b/net/ipv6/netfilter/nf_dup_ipv6.c
-index a8bb04bd94cf2..6da3102b7c1b3 100644
---- a/net/ipv6/netfilter/nf_dup_ipv6.c
-+++ b/net/ipv6/netfilter/nf_dup_ipv6.c
-@@ -48,7 +48,7 @@ void nf_dup_ipv6(struct net *net, struct sk_buff *skb, unsigned int hooknum,
- 		 const struct in6_addr *gw, int oif)
- {
- 	local_bh_disable();
--	if (this_cpu_read(nf_skb_duplicated))
-+	if (current->in_nf_duplicate)
- 		goto out;
- 	skb = pskb_copy(skb, GFP_ATOMIC);
- 	if (skb == NULL)
-@@ -64,9 +64,9 @@ void nf_dup_ipv6(struct net *net, struct sk_buff *skb, unsigned int hooknum,
- 		--iph->hop_limit;
+ 	hook_entry = &hooks->hooks[i];
+@@ -381,9 +391,7 @@ static void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
+ 	switch (verdict & NF_VERDICT_MASK) {
+ 	case NF_ACCEPT:
+ 	case NF_STOP:
+-		local_bh_disable();
+ 		entry->state.okfn(entry->state.net, entry->state.sk, skb);
+-		local_bh_enable();
+ 		break;
+ 	case NF_QUEUE:
+ 		err = nf_queue(skb, &entry->state, i, verdict);
+@@ -397,6 +405,9 @@ static void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
  	}
- 	if (nf_dup_ipv6_route(net, skb, gw, oif)) {
--		__this_cpu_write(nf_skb_duplicated, true);
-+		current->in_nf_duplicate = true;
- 		ip6_local_out(net, skb->sk, skb);
--		__this_cpu_write(nf_skb_duplicated, false);
-+		current->in_nf_duplicate = false;
- 	} else {
- 		kfree_skb(skb);
- 	}
-diff --git a/net/netfilter/core.c b/net/netfilter/core.c
-index f8346fee36b6b..49694f4b1baa4 100644
---- a/net/netfilter/core.c
-+++ b/net/netfilter/core.c
-@@ -31,9 +31,6 @@
- const struct nf_ipv6_ops __rcu *nf_ipv6_ops __read_mostly;
- EXPORT_SYMBOL_GPL(nf_ipv6_ops);
  
--DEFINE_PER_CPU(bool, nf_skb_duplicated);
--EXPORT_SYMBOL_GPL(nf_skb_duplicated);
--
- #ifdef CONFIG_JUMP_LABEL
- struct static_key nf_hooks_needed[NFPROTO_NUMPROTO][NF_MAX_HOOKS];
- EXPORT_SYMBOL(nf_hooks_needed);
+ 	nf_queue_entry_free(entry);
++out:
++	current->in_nf_duplicate = old_in_nf_duplicate;
++	local_bh_enable();
+ }
+ 
+ /* return true if the entry has an unconfirmed conntrack attached that isn't owned by us
 -- 
 2.53.0
 
