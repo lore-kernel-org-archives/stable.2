@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795620964;
-	b=lmxeK/fGPed/2clHkpJAcDwzth6mat5sQ+WdTzv11LT8OSeoKwpBY1sS6KfMCr42MuHG
-	 qaNamHCuo7lLv9GTRTQPU+n2piGDO7NR3iQPIgb6X43IF07kCiAxbue0nM/8PvxkHN9Ju
-	 CbtBQwWiySKKZ+iSYrpKns/e/P858cp/1aSJngJ0/ML8bKzpoadgzpVn5ftvvvPyXfFxj
-	 XBUoHTQTsHjDmNOrZwiyNofZo/fJHtMDAPzpfL896bOMUluqymEfTAbjHTV4kSuzAXnkB
-	 PssxS0joqsICDxuGrSoOKbpPNYyzn/LdBsnKEJ5Wfinnb3An5InmzjT9wfL7YbXVBwA==
+	t=1795620977;
+	b=3WlYCIO2rO0Wvw0DvS1aTXgVJBfMTEevlnUS4wg3gtngMKwsS2Sxo7LpWhap2JnbQsn0
+	 860LHx6NcAJAZjOutNfYPCiWbC1jFRWxfE6tPXDj2EDrrQQq0cpiHY8/mvWOsKWc45Gq4
+	 4EkKaiMiPot2lT5s9Fr76RlVNcfD3ndyp1DqMwGosmRfJPvL6vj1S4hQIBlkOFS3Hp6me
+	 VSRdizoggNXRmsAVpPzE2C5Kzsy5k9bFiUhPrlDQkD6pwbrZgzrxrab0xXOgRUEvPDIIT
+	 RJ0fXpyC4ch3SNvJm1yDcNbi0nsl//sfO08ygglbEeZtVQhVQkC5fQ7xhQPAHiMmpTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795620964;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795620977;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=IanN1f2xWKQ52YX4O0G0M76A2oD3TrMjyArRGba8wt8=;
-	b=WbIXw+8HrwOGn2PsC6IelYFAl4WyOW/n60HGCTd9PLzwGdzFt0k9jF3BWMFdlSJe0Xhm
-	 qzDlCpxmhoW9yX9uuyjs7anHVjO8VgxxPEDaeD0XK53HYGXC+yFUzhw7aPt9l92QHvJkL
-	 371bePgADgnQHV5U+9TS/qPo5lGGjlHIqgV1nZBXeJiSz/d0KSF/yZiab+gqObEi8WqbI
-	 LrQS8UT7J7nM8UqSetosVTiwWb0T5WURYzM5bODytjq8lQE6sfW0x38vHndOhtNCStx4a
-	 U/wn23Bnv70TGjB1u9VwaK7vnhcrVlPcjUhU5dvmS1r8otDBXoHtEBOed4crEfnNH7g==
+	bh=t1MBOOLuczWLPfetTjqi5Rkqod+e6oWWNHdHotspKTU=;
+	b=MWK2GDau6vPLA63LMGX/10JcaWCnJadQ1cOg8o3tnPAFRCq3gbBM/Yc2TwrhNgLelVRM
+	 wGub7v6POYruczWEfiLnDp7jKyi8ZbdPqoEAeF58PM8UVu0ioDtEEulIj3dbRiTDClFXv
+	 7le03l3xKK1Tpb4SklaJWnp5f+wJslRchF6FG7oSkcv6+zkCqkWLdmnwLSjIl+rdgawFY
+	 4yFe6U1H2GN67wNkmw/Sq4iO1HHjiNEVgH/kQHKwm4wSeH4lKu7ghLLV0jL8478aPFcuN
+	 BtVK77NXTkQAmDFGZp7Zyr7J3evQslkBLNaA5I/YjM/mfSF6QEYiPNfeEk28ZxlB53Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OryiMrGw;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WAvXXeN2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6754F607DE4B;
-	Wed, 25 Nov 2026 15:36:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFB9606A327;
+	Wed, 25 Nov 2026 15:36:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OryiMrGw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BF0F1F000CA;
-	Wed, 25 Nov 2026 15:36:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WAvXXeN2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6551F000D4;
+	Wed, 25 Nov 2026 15:36:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795620964;
-	bh=IanN1f2xWKQ52YX4O0G0M76A2oD3TrMjyArRGba8wt8=;
+	s=korg; t=1795620976;
+	bh=t1MBOOLuczWLPfetTjqi5Rkqod+e6oWWNHdHotspKTU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OryiMrGw/jP43Yo+UALiC4j7OJAQGOBXDKuCzQT0ZGmUmVJztNJVS+JWCFrBPRyO6
-	 hdeyqa7ZZnOuc02TndsvBYt6aVbvFsCbCuop4jRV7dhsROHEKCENrNlhCYbKlvxO2Q
-	 jWRVdoi4cXa+Hm2OXOthpGkQlTyj9vujDx7WQggs=
+	b=WAvXXeN2UTUd4q8V00aLmXwYpQ4gHgkoF/AaSaZ1SiVOtzHXuhADSgOSH++j++gYi
+	 FgJsSRmwhipyrIJ8c/68aTCJd1lWGHVNcvdi9fdqhEao6uKHVoPB4C82Bu5L0g9Wua
+	 jse6V2RCXbZYIbRvMCB49sLQNfJ+R8p3/vtMyHVY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>,
-	Dominique Martinet <asmadeus@codewreck.org>,
+	Filippo Falezza <effeffe99@gmail.com>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 079/990] 9p: fix kernel-doc warning for enum p9_session_flags
-Date: Wed, 25 Nov 2026 15:24:06 +0100
-Message-ID: <20261125143823.938668093@linuxfoundation.org>
+Subject: [PATCH 6.18 082/990] wifi: ath10k: Stop unanswered temperature reads
+Date: Wed, 25 Nov 2026 15:24:09 +0100
+Message-ID: <20261125143824.011476534@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
 References: <20261125143822.072087159@linuxfoundation.org>
@@ -68,98 +69,97 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+From: Filippo Falezza <effeffe99@gmail.com>
 
-[ Upstream commit d037e9c1b40c28eb57ea10947141cad3781b91a7 ]
+[ Upstream commit 2a87e367c62856b87a90f745c6b7d2eb91e0c51f ]
 
-kernel-doc cannot parse enum p9_session_flags, since its documentation
-comment is followed by #define lines instead of the enum declaration:
+Reading the ath10k hwmon temperature sends WMI_PDEV_GET_TEMPERATURE and
+waits up to 5 s (ATH10K_THERMAL_SYNC_TIMEOUT_HZ) for the reply event,
+holding conf_mutex. Not all firmware answers: the WCN3990 firmware
+WLAN.HL.3.3.1-00694-QCAHLSWMTPLZ-1 on a Motorola Moto G 5G Plus
+codename nairo (SM7250) never sends the event, so every read of
+temp1_input stalls for 5 s, logs
 
-  fs/9p/v9fs.h:31 : error: Cannot parse enum!
+  ath10k_snoc 18800000.wifi: failed to synchronize thermal read
 
-Move the three #define lines below the enum whose values they are
-derived from, and give V9FS_ACCESS_ANY and V9FS_ACCESS_MASK their own
-kernel-doc comments with the descriptions they had in the enum comment.
+and returns -ETIMEDOUT. Tools that read all hwmon sensors, such as
+lm-sensors, hang for 5 s on every run, and configuration changes of the
+interface wait for conf_mutex in the meantime.
 
-Also document the four enum members that had no description, using the
-corresponding mount option wording from
-Documentation/filesystems/9p.rst.
+Whether the firmware answers cannot be told from the chip: firmware that
+answers and firmware that does not both advertise
+WMI_SERVICE_THERM_THROT, and WCN3990 firmware differs between devices.
+Instead, remember that the running firmware did not answer, and return
+-EOPNOTSUPP right away on later reads. Forget it when the firmware
+starts, so that a restarted or updated firmware is asked again.
 
-Fixes: 76381a42e4a5 ("fs/9p: Add access = client option to opt in acl evaluation.")
-Assisted-by: LLM
-Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-Message-ID: <20261002035837.39703-1-emmaonana18@gmail.com>
-[Dominique: slight reword, also fixed typo in Doc/ for access=client]
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
+The first read after each firmware start still takes 5 s when the
+firmware does not answer. Reads on firmware that answers are unchanged.
+
+Fixes: e98199a8c27f ("ath10k: enable QCA6174/QCA9377 to read the chip temperature")
+Signed-off-by: Filippo Falezza <effeffe99@gmail.com>
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Link: https://patch.msgid.link/20261027-ath10k-temperature-v2-1-0793e80d73bc@gmail.com
+Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/filesystems/9p.rst |  2 +-
- fs/9p/v9fs.h                     | 26 ++++++++++++++++++--------
- 2 files changed, 19 insertions(+), 9 deletions(-)
+ drivers/net/wireless/ath/ath10k/core.c    | 1 +
+ drivers/net/wireless/ath/ath10k/thermal.c | 9 ++++++++-
+ drivers/net/wireless/ath/ath10k/thermal.h | 2 ++
+ 3 files changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/filesystems/9p.rst b/Documentation/filesystems/9p.rst
-index b014c7aabba4e..e80dae4dd62be 100644
---- a/Documentation/filesystems/9p.rst
-+++ b/Documentation/filesystems/9p.rst
-@@ -231,7 +231,7 @@ Options
- 			any
- 				v9fs does single attach and performs all
- 				operations as one user
--			clien
-+			client
- 				 ACL based access check on the 9p client
- 			         side for access validation
+diff --git a/drivers/net/wireless/ath/ath10k/core.c b/drivers/net/wireless/ath/ath10k/core.c
+index 9ae3595fb6986..f57105ad09759 100644
+--- a/drivers/net/wireless/ath/ath10k/core.c
++++ b/drivers/net/wireless/ath/ath10k/core.c
+@@ -2986,6 +2986,7 @@ int ath10k_core_start(struct ath10k *ar, enum ath10k_firmware_mode mode,
+ 	clear_bit(ATH10K_FLAG_CRASH_FLUSH, &ar->dev_flags);
  
-diff --git a/fs/9p/v9fs.h b/fs/9p/v9fs.h
-index a462bcbfc7da4..ea3cfdf2580f3 100644
---- a/fs/9p/v9fs.h
-+++ b/fs/9p/v9fs.h
-@@ -21,20 +21,16 @@
-  * @V9FS_ACCESS_SINGLE: only the mounting user can access the hierarchy
-  * @V9FS_ACCESS_USER: a new attach will be issued for every user (default)
-  * @V9FS_ACCESS_CLIENT: Just like user, but access check is performed on client.
-- * @V9FS_ACCESS_ANY: use a single attach for all users
-- * @V9FS_ACCESS_MASK: bit mask of different ACCESS options
-  * @V9FS_POSIX_ACL: POSIX ACLs are enforced
-+ * @V9FS_NO_XATTR: do not offer xattr functions on this mount
-+ * @V9FS_IGNORE_QV: ignore qid.version==0 as a marker to disable data cache
-+ * @V9FS_DIRECT_IO: disable data read/write cache
-+ * @V9FS_SYNC: disable data write cache
-  * @V9FS_NDENTRY_TIMEOUT_SET: Has negative dentry timeout retention time been
-  *                            overridden by negtimeout mount option
-  *
-  * Session flags reflect options selected by users at mount time
-  */
--#define	V9FS_ACCESS_ANY (V9FS_ACCESS_SINGLE | \
--			 V9FS_ACCESS_USER |   \
--			 V9FS_ACCESS_CLIENT)
--#define V9FS_ACCESS_MASK V9FS_ACCESS_ANY
--#define V9FS_ACL_MASK V9FS_POSIX_ACL
--
- enum p9_session_flags {
- 	V9FS_PROTO_2000U         = 0x01,
- 	V9FS_PROTO_2000L         = 0x02,
-@@ -49,6 +45,20 @@ enum p9_session_flags {
- 	V9FS_NDENTRY_TIMEOUT_SET = 0x400,
- };
+ 	ar->running_fw = fw;
++	ar->thermal.broken = false;
  
-+/**
-+ * V9FS_ACCESS_ANY - use a single attach for all users
-+ */
-+#define	V9FS_ACCESS_ANY (V9FS_ACCESS_SINGLE | \
-+			 V9FS_ACCESS_USER |   \
-+			 V9FS_ACCESS_CLIENT)
+ 	if (!test_bit(ATH10K_FW_FEATURE_NON_BMI,
+ 		      ar->running_fw->fw_file.fw_features)) {
+diff --git a/drivers/net/wireless/ath/ath10k/thermal.c b/drivers/net/wireless/ath/ath10k/thermal.c
+index 8b15ec07b1071..9b81f9ae58d74 100644
+--- a/drivers/net/wireless/ath/ath10k/thermal.c
++++ b/drivers/net/wireless/ath/ath10k/thermal.c
+@@ -75,6 +75,12 @@ static ssize_t ath10k_thermal_show_temp(struct device *dev,
+ 		goto out;
+ 	}
+ 
++	/* Don't stall every read on firmware that never answers */
++	if (ar->thermal.broken) {
++		ret = -EOPNOTSUPP;
++		goto out;
++	}
 +
-+/**
-+ * V9FS_ACCESS_MASK - bit mask of different ACCESS options
-+ */
-+#define V9FS_ACCESS_MASK V9FS_ACCESS_ANY
-+
-+#define V9FS_ACL_MASK V9FS_POSIX_ACL
-+
- /**
-  * enum p9_cache_shortcuts - human readable cache preferences
-  * @CACHE_SC_NONE: disable all caches
+ 	reinit_completion(&ar->thermal.wmi_sync);
+ 	ret = ath10k_wmi_pdev_get_temperature(ar);
+ 	if (ret) {
+@@ -90,7 +96,8 @@ static ssize_t ath10k_thermal_show_temp(struct device *dev,
+ 	time_left = wait_for_completion_timeout(&ar->thermal.wmi_sync,
+ 						ATH10K_THERMAL_SYNC_TIMEOUT_HZ);
+ 	if (!time_left) {
+-		ath10k_warn(ar, "failed to synchronize thermal read\n");
++		ath10k_warn(ar, "failed to synchronize thermal read, not asking again until the firmware restarts\n");
++		ar->thermal.broken = true;
+ 		ret = -ETIMEDOUT;
+ 		goto out;
+ 	}
+diff --git a/drivers/net/wireless/ath/ath10k/thermal.h b/drivers/net/wireless/ath/ath10k/thermal.h
+index 1f4de9fbf2b30..d1fb5b958c37c 100644
+--- a/drivers/net/wireless/ath/ath10k/thermal.h
++++ b/drivers/net/wireless/ath/ath10k/thermal.h
+@@ -19,6 +19,8 @@ struct ath10k_thermal {
+ 	/* protected by conf_mutex */
+ 	u32 throttle_state;
+ 	u32 quiet_period;
++	/* the running firmware did not answer a temperature request */
++	bool broken;
+ 	/* temperature value in Celsius degree
+ 	 * protected by data_lock
+ 	 */
 -- 
 2.53.0
 
