@@ -1,95 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795619411;
-	b=GWxhLg4D9kaCVdDRiPJjdANlswn46QWn7f89ChMVW+rKpCacD7LfycMU/PO1mxxRFmhJ
-	 gw7MVo3aDDjIj39YYJBjA4HCoxqmRmzH2yeYyButTLR40Qbw2+iu6LVvFdd+Bzru91zm8
-	 VarMSqjeRRKlVxNU+6x88xZOEb6mOL6jVLuNB6pWNn6HhvdqAS/W2bJD6FTIGGZvbSYWk
-	 ImhpH0AECiEFPESAeZro+oNcmCtEYyio4YzXNkzBDpGeOQBz+CCwKR6JKr0vXKdjrW34h
-	 GqYGHQTAJi62Rk1ngROfGvie98u9ZLzTgV6enj/TCkZbuJYSiUdrNBEtxiUckTBk7Gg==
+	t=1795619413;
+	b=eNC9+LxMjPonJ4warLM6X1CraziBECLifHqgqh6r3irjt/uvIa1b2h5UdLZmCrBKzMul
+	 hn3oGcfUvhI+54YrDUGCKwfCBcCEslTmtGSgAiQpBW1faWREh1E3cF1to4qDkOHhR27WO
+	 H8A1hOKHEEHfCg6Y6JKmmGHZazFpSE4mLQ9B9spx2LvkVOnPhEXrrKmQMdeK+tgV2cWnC
+	 N93AnfkXRzXNxz0OfGIK2hcw99tgvYNkR2ncv1SCA8UA+Jh100fjmv9WAzKAWg3Rkaj26
+	 w2GnNwdIEumeoXrd42s0m1cBjyWh2bfjAzubRnXjFpLE5IKn8257Vxyv9ygajqGphFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795619411;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=EF+OC6SrmcJN9bb1oTr6rcm/IGNnY94IzvBUEr43paY=;
-	b=UIuL7rcMwrB6+hAaRI/u6m+PD5HwYzBYlnq1l4Afc6BsQllX8rHL+4tyPXQzRSBdvqkR
-	 nURdSTTQtYuYXpydm9AcrzqlT6Bn1d2eADmReXWbpfLENcj22Y5aXR0hgtn89r9slTNrO
-	 ioW/zn1PdB+2mgM5UEng8fobuv5/iu65WiPP8Lg8xPFT3ZOW7CbeTgySaU/XAMWqKVLkl
-	 iotxQ679X8cmbXYI3GxUQEJJHllzNphiRWuHnt6A3x+r3AwTJAnmTmJYhJQGKts2iuUZk
-	 ZJfVuOt9Wi2iftazbq7MGXHRWfWWxwwrOuDa4LoMW7L2pHngpXiZMgNa+2wd1hRYYFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795619413;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Tceifa3OWSzxcwfRzCiwvmnSs1vQMCiUjBZWWcADBs8=;
+	b=FzF61jVf+jkKlEnKjeyd2U2wCRunwY+rsWECeSjXct7R58hW54Cvzd22NPbkglyVyKw6
+	 CwRgS2M7aujEQRHbSYA73DBuWm1FaUKULQCn+gMnHC+lud3GEKutfKm/u64oULjgaVerE
+	 23IdhY0PNtTv2neT9NRWsTtKgnx05fdq40JAR/gRHOGjg9WaaVxNuRzcERk4sD//nCenx
+	 HO+vngnFYkRxI82ba82HmtS5yVVppUdntKQaHLd324OEhXWzY7dRdwMWs6ABJ1UUcc+t9
+	 WDuWwYwnNPPzlwPT1XZkqLBPcVvAvjc9nS8g6/QRiRhaiJmFvtxum4hKeK0lqOiJECQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xSYJjEP7;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ugDnv1EV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FB5606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:10:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9FB5606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD1C1606A321;
+	Wed, 25 Nov 2026 15:10:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xSYJjEP7
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1b5786e099cso4190759c88.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 07:10:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795619410; x=1796224210; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EF+OC6SrmcJN9bb1oTr6rcm/IGNnY94IzvBUEr43paY=;
-        b=xSYJjEP7IaolPN5EGSOByl4nMO1XZzmUK+VKe6c9WTdvPBpq607rK11sHwMJ4ICIVn
-         FN6LpcUGDyGjIGX+uPzGFLrvXZ+6w5eeZjVDnb1O8GLAy0PQ+yv6admkoDW5nYCFcPir
-         cw3EKnKjcg+A8glCFkrOVBHGDbbL430MXsS8KdCDe01s1dXxwCZB13IvbK5X5qcb6d3c
-         laXywJJE2tmLG0ov1TbYgtasks2tvHpxd79pTW8BVoJwIXh6M9uZ7QtUpa0lqKvAfs9V
-         It3zzHrS3idyxgjirwQxyRwC6I8iFf4Nejj8zd8LYjVu40+bc5QlVmRvQblqN5OgGHmW
-         Bgqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795619410; x=1796224210;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EF+OC6SrmcJN9bb1oTr6rcm/IGNnY94IzvBUEr43paY=;
-        b=zsuR/BKqs1aFnlxTJXwqlZVXvOj9q1GAtOTy1QvPps/hchuadF8gCg64UBlH9AGuMD
-         np51Nu78UH827PTu9ibOIX2G1w/3ngGBz5YtWNtrg4N4jTxdAA66cbjGJL1e9+lZrYlh
-         bZOKgvg67xAgykvitpN3k0rOTh95255brjxeYvanwSwhl1eRCT43kJUiB+OXXRZvwUOq
-         OSZcQGcHIxwz1+ApDrNQEH/hAcWJpTiFQxnIU2xR7R7cAR+miNuQmsmDi4Nrud6BFP94
-         He4RRfJWJe+bGpm4RON5JfyUT7bGKiFIjvp2RVlIN8Jkfkp8nuPQ7QY15ebhI62fbnrJ
-         5JwA==
-X-Gm-Message-State: APuU4Z/JLNrBLXo/9F/Hshh6BiTXMFJ85JvF1SiROaJvE36fyU+2blbJ
-	xPMMwsI2+pJfddgmNJNG1HAH3/ebZlAfkjjvEuDKUjN47Yx7Jnr4woYR8Aqu0pEV
-X-Gm-Gg: AZFdTZfJbzadrbuLK1ib8tMjtKqH4JX26UxWnj1kU+7r8BrD5f4fr4sEe9BL/BSV5a9
-	jll2VxO1Pi+x1t0SKQL5I3x5jHM1tlU6OxzeuHBlSvoouMRhgnmGWqRrjM7x+G6xuW66p/YQr/D
-	ctTGDN2B6szwh1TxY+gCHEiaZwos2n/eJRm7HhHwxwuqO+cUzdsAlcnaJocTpkfF6vm1eyWuvoq
-	ZsL8IutSwb2ape5/aZeizXOEXrQbQNtrq2uwEXHPG2SuqzJr2hJ2txgkit9GhmlkfsGJy2sYBke
-	ca7cT1FrHVaIeWGFhZYumqmY2JuJCkcyxo6CfVAVczEcExs8rV/EVnhPOcmXGJB5zSnxQA10SUG
-	/F7Ng0QyYywz1IIrcVRs83nOPt+dXQitYad14OW+sVu+8TrMUOPGIZzLJViL1TcZu824RPRS25z
-	0vTCx6B7oDk8jIGWNAKnvZYSekcI4XG3ta4cdWRHgCcM9ReVgzPIxQYwB7VKwS3RUaisPk5cJLO
-	hJqMycnpkYwgUUBxGTBuEKaolQryua2jJHIjZgoaFxC5X5We38gtJlX+0mAwJEW+x7aCkpfQZe5
-	V9rD+ugAFNzy3qKPQyBYf/KM51YSJTSlkNkjNEuB+IV3UMkjU4P4tMSgfDpMTYfZbnb5VnC2xBy
-	GHnTh5pEgi/JGKJXBMb4YU1bwgCebQ8NW4IMwcEuXm6Z1hifViGJL+s6wt+Nu4MPKhIS/nwVdAN
-	mIT03ma+AapR0bIWwvLbkwxXnQGyfKmnaSzctcHqFDxQ==
-X-Received: by 2002:a05:7022:3a83:b0:184:992:c9ec with SMTP id a92af1059eb24-1b55693aaabmr24334832c88.38.1795619409694;
-        Wed, 25 Nov 2026 07:10:09 -0800 (PST)
-Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5567ff27bsm48240676c88.6.2026.11.25.07.10.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 07:10:09 -0800 (PST)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ugDnv1EV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3E31F000CA;
+	Wed, 25 Nov 2026 15:10:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795619413;
+	bh=Tceifa3OWSzxcwfRzCiwvmnSs1vQMCiUjBZWWcADBs8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ugDnv1EVgIxt22NWO0ckhFyqa2q0+QoZmWBuza0Jfp6PamjSriJBMQNaJyX57VY+f
+	 ex6gzhgiRkf1+P5puzxvjA0dFxzMQNk7m5+8uITo7RAE+xti6geswAHuhQ8neOy9Ru
+	 TKx9ArNTQ/eG9FbjJQjGb9eixDto2xzZTFnbMOxE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: kernel test robot <lkp@intel.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH 6.6.y] iio: common: scmi_sensors: fix truncating 64-bit divisions
-Date: Wed, 25 Nov 2026 20:40:02 +0530
-Message-ID: <20261125151004.341015-1-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112509-daylight-datebook-adf1@gregkh>
-References: <2026112509-daylight-datebook-adf1@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Shashank Mohan Jain <jain.sm@gmail.com>,
+	Jan Kara <jack@suse.cz>,
+	Jeff Layton <jlayton@kernel.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: [PATCH 7.3 0587/1005] errseq: dont let errseq_check_and_advance() hide later errors
+Date: Wed, 25 Nov 2026 15:32:05 +0100
+Message-ID: <20261125143835.498325224@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,122 +65,137 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 043ececf147863fbd253687aa0b9edcac358a711 upstream.
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-do_div() divides a 64-bit dividend by a 32-bit divisor: the divisor is
-stored in a uint32_t on all architectures. The driver passes 64-bit
-divisors to it in several places, so they are silently truncated:
+------------------
 
-- scmi_iio_set_odr_val() divides by uHz, which exceeds 32 bits for
-  sampling frequencies above ~4294 Hz.
-- convert_ns_to_freq() divides by interval_ns, which exceeds 32 bits
-  for update intervals of ~4.29 s and above. If its low 32 bits happen
-  to be zero, this is a division by zero.
-- scmi_iio_get_odr_val(), scmi_iio_convert_interval_to_ns(),
-  scmi_iio_sensor_update_cb() and scmi_iio_get_raw_available() divide
-  by int_pow(10, n), which returns u64 and exceeds 32 bits for n >= 10.
-  The SCMI exponent fields allow values down to -16.
+From: Shashank Mohan Jain <jain.sm@gmail.com>
 
-Truncation results in wrong sampling frequency, timestamp and
-raw_available values being reported to userspace.
+commit 94defd41d80f10bbe883c0c8d1b28d1665b6b153 upstream.
 
-Use div64_u64() and div64_u64_rem(), which take a 64-bit divisor.
+errseq_check_and_advance() reads the errseq_t, sets ERRSEQ_SEEN with a
+cmpxchg() and then advances *since to the value it computed, ignoring
+whether the cmpxchg() succeeded. When it fails because errseq_set()
+recorded a different error in the meantime, *since ends up holding a
+value that was never stored in the errseq_t.
 
-Fixes: f774117c96f9 ("iio/scmi: Adding support for IIO SCMI Based Sensors")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202606040245.XfmRpBhA-lkp@intel.com/
-Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+errseq_set() only bumps the counter when ERRSEQ_SEEN is set. So as long
+as nobody has seen the new error, recording the original errno again
+recreates exactly the old value, and once another subscriber marks it
+seen, it is equal to the stale *since. The next check through that
+cursor then reports nothing, although -ENOSPC was recorded after the
+value that check reported, and -EIO was recorded again after it
+returned:
+
+  cursor f                writeback              cursor g
+  --------                ---------              --------
+                          set(-EIO)
+  check_and_advance(&f)
+    old = [c, EIO]
+                          set(-ENOSPC)
+                          -> [c, ENOSPC]
+    cmpxchg() fails
+    f = [c, EIO, SEEN]
+    returns -EIO
+                          set(-EIO)
+                          -> [c, EIO]
+                          (no bump: unseen)
+                                                 check_and_advance(&g)
+                                                 -> [c, EIO, SEEN]
+                                                 returns -EIO
+  check_and_advance(&f)
+    [c, EIO, SEEN] == f
+    returns 0             <- -ENOSPC and the second -EIO are lost
+
+For file->f_wb_err this means that fsync() on one descriptor can return
+0 although writeback failed after the previous fsync() on that
+descriptor returned, when writeback errors race with fsync() on another
+descriptor of the same file. The same applies to syncfs() through
+sb->s_wb_err, which every file on the filesystem shares, and to the
+ext4 and jbd2 cursors on the block device mapping. The kernel-doc
+promises "Negative errno if one has been stored, or 0 if no new error
+has occurred".
+
+Retry with the value found when the cmpxchg() fails, so that *since is
+only ever advanced to a value that was actually stored with ERRSEQ_SEEN
+set. Every later errseq_set() then has to bump the counter, and the
+error is reported. The retry loop terminates because each iteration
+needs a concurrent update, like the loop in errseq_set().
+
+A TLA+ model of errseq_set() and errseq_check_and_advance(), checked
+with the TLC model checker, finds the lost error with the current code;
+with this change TLC checks that an error recorded after a check
+returned is always reported by the next check (exhaustively for two
+subscribers with three checks each, and one writer recording four
+errors or two writers recording two each). The KUnit race test added
+in the next patch misses the error in 1-6% of 2 million rounds on
+4-CPU UML before this change (depending on host load), and in none
+after it.
+
+Fixes: 84cbadadc6ea ("lib: add errseq_t type and infrastructure for handling it")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-[ Use NSEC_PER_SEC instead of HZ_PER_GHZ, which this tree's units.h
-doesn't have (same value, and what the old code used). ]
-Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
+Link: https://patch.msgid.link/20260927051726.71337-2-jain.sm@gmail.com
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/iio/common/scmi_sensors/scmi_iio.c | 27 +++++++++++-----------
- 1 file changed, 13 insertions(+), 14 deletions(-)
+ lib/errseq.c |   29 ++++++++++++++++++-----------
+ 1 file changed, 18 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/iio/common/scmi_sensors/scmi_iio.c b/drivers/iio/common/scmi_sensors/scmi_iio.c
-index 0c2caf3570db..0e931398aa9a 100644
---- a/drivers/iio/common/scmi_sensors/scmi_iio.c
-+++ b/drivers/iio/common/scmi_sensors/scmi_iio.c
-@@ -14,6 +14,7 @@
- #include <linux/iio/sysfs.h>
- #include <linux/kernel.h>
- #include <linux/kthread.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/scmi_protocol.h>
-@@ -71,8 +72,7 @@ static int scmi_iio_sensor_update_cb(struct notifier_block *nb,
- 		tstamp_scale = sensor->sensor_info->tstamp_scale +
- 			       const_ilog2(NSEC_PER_SEC) / const_ilog2(10);
- 		if (tstamp_scale < 0) {
--			do_div(time, int_pow(10, abs(tstamp_scale)));
--			time_ns = time;
-+			time_ns = div64_u64(time, int_pow(10, abs(tstamp_scale)));
- 		} else {
- 			time_ns = time * int_pow(10, tstamp_scale);
- 		}
-@@ -163,7 +163,7 @@ static int scmi_iio_set_odr_val(struct iio_dev *iio_dev, int val, int val2)
- 	mult = scnprintf(buf, sizeof(buf), "%llu", sf) - 1;
- 
- 	sec = int_pow(10, mult) * MICROHZ_PER_HZ;
--	do_div(sec, uHz);
-+	sec = div64_u64(sec, uHz);
- 	if (sec == 0) {
- 		dev_err(&iio_dev->dev,
- 			"Trying to set invalid sensor update value for sensor %s",
-@@ -238,13 +238,10 @@ static int scmi_iio_read_avail(struct iio_dev *iio_dev,
- 
- static void convert_ns_to_freq(u64 interval_ns, u64 *hz, u64 *uhz)
- {
--	u64 rem, freq;
-+	u64 rem;
- 
--	freq = NSEC_PER_SEC;
--	rem = do_div(freq, interval_ns);
--	*hz = freq;
--	*uhz = rem * 1000000UL;
--	do_div(*uhz, interval_ns);
-+	*hz = div64_u64_rem(NSEC_PER_SEC, interval_ns, &rem);
-+	*uhz = div64_u64(rem * MICROHZ_PER_HZ, interval_ns);
- }
- 
- static int scmi_iio_get_odr_val(struct iio_dev *iio_dev, int *val, int *val2)
-@@ -270,7 +267,8 @@ static int scmi_iio_get_odr_val(struct iio_dev *iio_dev, int *val, int *val2)
- 	mult = SCMI_SENS_CFG_GET_UPDATE_EXP(sensor_config);
- 	if (mult < 0) {
- 		sensor_interval_mult = int_pow(10, abs(mult));
--		do_div(sensor_update_interval, sensor_interval_mult);
-+		sensor_update_interval = div64_u64(sensor_update_interval,
-+						   sensor_interval_mult);
- 	} else {
- 		sensor_interval_mult = int_pow(10, mult);
- 		sensor_update_interval =
-@@ -397,9 +395,9 @@ static ssize_t scmi_iio_get_raw_available(struct iio_dev *iio_dev,
+--- a/lib/errseq.c
++++ b/lib/errseq.c
+@@ -162,7 +162,8 @@ EXPORT_SYMBOL(errseq_check);
+  * points to. If it does, then just return 0.
+  *
+  * If it doesn't, then the value has changed. Set the "seen" flag, and try to
+- * swap it into place as the new eseq value. Then, set that value as the new
++ * swap it into place as the new eseq value. If the swap fails because the
++ * value changed, retry with the new value. Then, set that value as the new
+  * "since" value, and return whatever the error portion is set to.
+  *
+  * Note that no locking is provided here for concurrent updates to the "since"
+@@ -184,24 +185,30 @@ int errseq_check_and_advance(errseq_t *e
+ 	 * to take the lock that protects the "since" value.
+ 	 */
+ 	old = READ_ONCE(*eseq);
+-	if (old != *since) {
++	while (old != *since) {
+ 		/*
+ 		 * Set the flag and try to swap it into place if it has
+ 		 * changed.
+ 		 *
+-		 * We don't care about the outcome of the swap here. If the
+-		 * swap doesn't occur, then it has either been updated by a
+-		 * writer who is altering the value in some way (updating
+-		 * counter or resetting the error), or another reader who is
+-		 * just setting the "seen" flag. Either outcome is OK, and we
+-		 * can advance "since" and return an error based on what we
+-		 * have.
++		 * If the swap fails, a writer or another reader changed the
++		 * value under us, so retry with the new value.  "since" must
++		 * only ever be set to a value that was stored with the SEEN
++		 * flag: errseq_set() does not bump the counter while the
++		 * flag is clear, so an unstored value could come back later
++		 * and hide the errors that were recorded in the meantime.
  		 */
- 		exponent = exponent - scale;
- 		if (exponent < 0) {
--			rem = do_div(resolution,
--				     int_pow(10, abs(exponent))
--				     );
-+			resolution = div64_u64_rem(resolution,
-+						   int_pow(10, abs(exponent)),
-+						   &rem);
- 			len = sysfs_emit(buf,
- 					"[%lld %llu.%llu %lld]\n", min_range,
- 					resolution, rem, max_range);
-@@ -504,7 +502,8 @@ static u64 scmi_iio_convert_interval_to_ns(u32 val)
- 	mult = SCMI_SENS_INTVL_GET_EXP(val);
- 	if (mult < 0) {
- 		sensor_interval_mult = int_pow(10, abs(mult));
--		do_div(sensor_update_interval, sensor_interval_mult);
-+		sensor_update_interval = div64_u64(sensor_update_interval,
-+						   sensor_interval_mult);
- 	} else {
- 		sensor_interval_mult = int_pow(10, mult);
- 		sensor_update_interval =
--- 
-2.53.0
+ 		new = old | ERRSEQ_SEEN;
+-		if (new != old)
+-			cmpxchg(eseq, old, new);
++		if (new != old) {
++			errseq_t cur = cmpxchg(eseq, old, new);
++
++			if (cur != old) {
++				old = cur;
++				continue;
++			}
++		}
+ 		*since = new;
+ 		err = -(new & ERRNO_MASK);
++		break;
+ 	}
+ 	return err;
+ }
+
 
