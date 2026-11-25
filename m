@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606111;
-	b=3a5qydmtLBOQ5p8tzKsVtu4+Pxoig+DtDqlArK6ytgGOwSG4Cb3Q2pxPMy4r5lbcg5Vr
-	 A7mFAvLWBtkauDcvK7ZsZaE3eDefIo/9S1kfDj4/odhZcMHTNtSLIGrK9KJ0hrbz2rN8B
-	 kEJkHU2BLXyRGepEIANlw3krlby+p0zD+/Zy0AjbffWs7axv97Enh1JtojcfMNDTsdsTY
-	 KKlMff0qVrJGlKHdOtwjj4cYU7h+8kHb0o+DvdpN7ZmI7pseuu3te0iSmL41bp/LNx/E9
-	 epjybfJeulRx7/JqqPMShR5kYK99PAggSHznn+ogZ2WlADo/fPUhFAKhjoXaAy6TKEQ==
+	t=1795606114;
+	b=QRkQCY5O0krOljmplyDTClfwIBCdtaX28Y2s/BHInx1TdMvNirdHXdjHKMLIYBI9VUPe
+	 mKJxYN68iig7EF915/tIfnXlzlVS3eaU86Ad5r1G0498pWxzLqB6uzvAKbCmfPx3XBNtE
+	 b7lSHdGuPe3fIfqVnF+ohdfdeNqE+mrBszIu5IdAs91P4QaTJYjiaQHeTuW+Thz31ovm4
+	 OqhOUkwkMp+8NNpr8T3mumWJh41PSP3G9ZxLQ0hDReDgn/lJ3JHVKmgFaWIGMVcMbG5pQ
+	 kUXJOZ8Q6gKkVjFY8EVmLZinuPDbWyl8c+vn78v02EURS6Er8eZwehd3z5rDzUnamHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606111;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606114;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Xr6s2WvdnLBginESml2EsMU92kUiaC9LlNBLkhZ7waI=;
-	b=vWDjrQ4esff3oLpspS0ZmRF+BMadyH9dAV7ZeF1I3tAVJVlq2fSCp5+ncFzN2KZwd+LB
-	 GGV2BrdpGVoVIfv6GwHZM+AD2XuD1Bu3rluSaSSUpmWZBIWdc9SgV0f0X+am/Uewyinyn
-	 ZxmInPt1AR60N6Ut9vAnJ9pfkXDbc/HJVUnS+z53OVYdziBDsg0JCWmwXzRjppwOmfHwH
-	 Ar12OtxlJeKZn9N00+UTOz6OzHJHPc/+fT51tdAL07DUuLZocdbPbcsQ1Pm+aqsL5Hvks
-	 JVeF7fWLpkSKqg9ge9ks18k6JwMIDPMkzyCOudTAb1X1ae1AHDc87So7eySuEBJwmRQ==
+	bh=ylQj3WteKmaN+lA+UdPf/mDNSyEoZlw0HhBTXvrW3mQ=;
+	b=KtYn0VQz4mvqhGpKpLoB6cJ4RBBw03crPyZa5G8/LSa5CuHmPo7J5K9kApKiG5Kv7963
+	 G6Pt5UnC4vspakLydjQJIiihwns9ug5u0RdgjdApf8FGs1ZFCD9oynhi2KjzkT5WGh/RC
+	 2aJknIcOwjsSlQ2D4yFOjLNyC6N6FBJ1BEpKUO7g2FfsLkFGSTmiv9URqhNUUQf9hMuJQ
+	 dOo+AfGY9hckaOWR1wxeAhsb8Pj8w7GQE0Fy0neP5NuZT9EWh3LrvbRdKZ71eVhhQOa1G
+	 rt6fpR2ZtvUf31Vgn8KzJVlKMKofAkmGHeODoUe86X72457yKgSYpFAMh2NXgYuphnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fdIK2EMF;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C8ArWV6f;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F0A2606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:28:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10D7606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:28:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fdIK2EMF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 832021F000C6;
-	Wed, 25 Nov 2026 11:28:30 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C8ArWV6f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B84C1F000C6;
+	Wed, 25 Nov 2026 11:28:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606111;
-	bh=Xr6s2WvdnLBginESml2EsMU92kUiaC9LlNBLkhZ7waI=;
+	s=korg; t=1795606113;
+	bh=ylQj3WteKmaN+lA+UdPf/mDNSyEoZlw0HhBTXvrW3mQ=;
 	h=Subject:To:Cc:From:Date;
-	b=fdIK2EMFx5gesEamR0j9kzQ0+wbRvv7Sohf4azIeYkMedAzHEwGlHyPKcE7ghyP9w
-	 mEYtPLb+DFhq2/89JkFVRMl9ljiX1OQgonbiTf0+LOfNzmrDHXODzgO/4ePkb55gtP
-	 /U34P1qLfaA6LeIEcQ0ShylvNaC/mVdukfOU6GSs=
-Subject: FAILED: patch "[PATCH] smb: client: stop reconnecting and replaying during a forced" failed to apply to 7.3-stable tree
+	b=C8ArWV6fz58qJO93HLLrckyoovU2hSSfpYGm0gAcI9RAXcw2T3Xh1WxncscYxe1hx
+	 JarScZl+16lfsgNAMOHlPfYe8H7a4ln33+BSMrSccXNMOg201e2HuFA7OmqVrzNtSN
+	 BMy9JkLlJ5Y79f3SILG2TwWzvTlc8XCdFbYWlaIM=
+Subject: FAILED: patch "[PATCH] smb: client: stop reconnecting and replaying during a forced" failed to apply to 6.18-stable tree
 To: pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:15:56 +0100
-Message-ID: <2026112556-safehouse-avenge-1b8d@gregkh>
+Date: Wed, 25 Nov 2026 12:15:57 +0100
+Message-ID: <2026112557-departure-jolt-36a7@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.3-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x f778a530f28546956e5f58db486fb74376f5d869
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112556-safehouse-avenge-1b8d@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112557-departure-jolt-36a7@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
