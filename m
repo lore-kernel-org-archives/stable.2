@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795617943;
-	b=uMyAiDONZ0GEqNd2/u0V/RdQZXogu/AfjQv7WnxcJF2HdWQbZkDb3gbUuaP3CGtYE3XD
-	 CWurO20o8SFyKbspiB6lp8PZ64ZVXUKQtsIT4H41PaVDYSKvUV54rg82UOq3jxUUY6KlQ
-	 yHs4lhsURzO0tBLy689ZUGzoKwZAUiSAQOaALjx9pYsAHSUMhC7eifUJ49PxxR8JY+GoV
-	 QaKsjuXKwGE4q3hOA5dsXXTw/9AjQ49ryARax45NBbWo5QjJo0LSMZIh0lkJByAv4Ns9Y
-	 pdgSwXgwfn6fLOq+oQfPoweozD6tJJv3/CStyMiRryqT60I1Odk3uKc+D4PmrX6op9A==
+	t=1795617944;
+	b=J7zTgjRSUOXBZTXZPjb28bpkGbE0JqvOHCK7spiXHXRztT4EQdxnb+yeODqL1UZHumk2
+	 zMm55lMzb91IZRZxGk/05cjEu92FRzdT0AirQmnxsZtlSMAmjXuCmce6RxY1gqkjTLrCA
+	 SrhwagFsVGKxMyJCIQ1TG77XenuVxQ2lbYj5YlE7RHuSODc34u08dQwn3QFjmX2sTX25T
+	 uF6f3ZQgI2zK4Fm+i46f36qN25c7L2jnH/h5xiEKrQ9p8o4VaWsjpjTFp8MZmEXHVplZ+
+	 iVMc8hS+ugzW9fAg8XmwjhJdGcIkt8glqTkBRBP1PLfwwOHtwPp6R2WOcKQXakrJ9JA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795617943;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795617944;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=16wXKuAkkPCdzCfTbwNdvYnC57p3Jqo55TMiWEFYH/c=;
-	b=WOb4o+nTvi/JT6HBt0Yuz0csmK0UGJkfsDgGNUC/fX+XUZOTvm/eJd1FEnbnjntfvVaV
-	 sUIOWK7BntWE9xnPfqQKYTlSjzcsuaDcjMkUC1inNL2730Ikhr5ArqSsG/TfnqwdmGsgL
-	 dnAd4MOhjEYBzA3I15FQTKArWo7q68Q4XgushoMUA0AMNLX5845MSO5yVC6pUX6wq7NfK
-	 g8DPK23q865N8TivQepsuNh57jl3LVlmq3q5vCiY+wuOqgKcDIPM8sLRNdjitrStbolPE
-	 bQnfBkVqjvqBPEWrg36ZeF5AsdrRXT/dLlzzimzvFxaGmdyTk2hz2RH6MNWhTsp06Tw==
+	bh=+wwizQyr68ME7reLRM81gcCFcVFWbbFlCSm858g52eg=;
+	b=JQIJIYE0mT/Cbhhw9JWCuo4II1dHXrDEyI9Zl9dQYuxrvjd+jNP954NJmZh1nEJYReH8
+	 wkVxt55P8wCDVlNHiuBBg1KhTIxvsOZuwre6roMBJ8RejYSAAa5f20r8PJg6zaPWUUPHS
+	 l91aCojhpBDbCu+jSqIpogGoGHF5h0zzeShj3jCtcmXygotOEgZnq6fcowv4co5Xx+veB
+	 GEgfngLZaaQy3UhtDVrTU9H21DDZl13kflzgQVhEuC4yRLs+qozUY/CS3NHz57gwgOIMM
+	 yewYnlf1wqvs/7YJvjajCdL76a1ugWdeMxRbfll3uwB+Nqp7YN9x1JFeOe2JKIj8p3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bWytcWaP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GvqQAXUu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFBC0606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:45:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7532E606A32A
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:45:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bWytcWaP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C07111F000C4;
-	Wed, 25 Nov 2026 14:45:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GvqQAXUu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E1B1F000E0;
+	Wed, 25 Nov 2026 14:45:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795617942;
-	bh=16wXKuAkkPCdzCfTbwNdvYnC57p3Jqo55TMiWEFYH/c=;
+	s=k20260515; t=1795617943;
+	bh=+wwizQyr68ME7reLRM81gcCFcVFWbbFlCSm858g52eg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bWytcWaPBpLt540os6e0Nis6/7cRsOTo87itzkPLyPs85SsBOyaLSixfHPCyonrQn
-	 oTjTlYHGpAMJAOaagP9MTrePPhr0wY99nwEoZZASpcGwefHLSvjGBH96gITeFtQ1i8
-	 I83xlDB+xNQZrNwl104BCsNiTI1deK4y/BqX+ESGzbnYKbxs8QBK+sNKxU1Bh9HmAc
-	 oH3Afq39iCKs7YlRDrZlUculuP5wKhxyizKeYfvcSVKiN4PU3bMLtNoao2gkcYzlfA
-	 MKYEhfgYqT35iv2zZOE8CiEHXuWCHmSd+jikriZn0q85/K6UXqUCQY/YghvR6CXSTp
-	 dtCcZsAB3PqWA==
+	b=GvqQAXUuvEAtE45eWybcqdCSVyW5Xf8i/i5oFpFzIGcDLHjS+W59LGKZOjPsLO7I8
+	 0EidgyKBysyJ/LWpf+wkFYk/n+gpxVAkkw+CpYcG4XenuWgZBUIW2556yZkevUxFAw
+	 1mM8U6ZETcXCkduHSS/XF1HxG1dyau10jy5m1LkDMgJ0H8+SWWGeYir52+V7TPQ2hG
+	 4ePW3sU/ZJmOyLD7VDUI1F96No7MXeQZnOI0jRXURdzB9ssG9Jb2AvcAjZ+KwytoRw
+	 WTWYzFsdJxllV/Tkj1/rZ1xN8zK4ffcHq48zYizx81k30w4VBlkNjhA/s2DCLCngBI
+	 ZxCIw1mD+pB2g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jeremy Harris <jgh@exim.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Neal Cardwell <ncardwell@google.com>,
+Cc: Hyunwoo Kim <imv4bel@gmail.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] tcp: fastopen: note that a child socket was created
-Date: Wed, 25 Nov 2026 09:45:39 -0500
-Message-ID: <20261125144533.4173150-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] tcp: fix request_sock use-after-free during Fast Open accept()
+Date: Wed, 25 Nov 2026 09:45:40 -0500
+Message-ID: <20261125144533.4173150-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112552-threefold-playset-c83a@gregkh>
+In-Reply-To: <20261125144533.4173150-1-sashal@kernel.org>
 References: <2026112552-threefold-playset-c83a@gregkh>
+ <20261125144533.4173150-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,65 +63,91 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jeremy Harris <jgh@exim.org>
+From: Hyunwoo Kim <imv4bel@gmail.com>
 
-[ Upstream commit bc2550b4e195754fbb24aac1f012d3dd9e3b4edc ]
+[ Upstream commit 62754aad50d0b30938bd8ce30b43474ce502a2af ]
 
-tcp: fastopen: note that a child socket was created
+Commit e3d95ad7da4f ("inet: avoid fastopen lock for regular accept()")
+made inet_csk_accept() check tfo_listener before taking fastopenq.lock
+to avoid taking the lock for connections that did not use Fast Open.
 
-This uses up the last bit in a field of tcp_sock.
+reqsk_fastopen_remove() clears tfo_listener while holding fastopenq.lock,
+then reads req->sk. If inet_csk_accept() concurrently observes
+tfo_listener after it has been cleared, it skips fastopenq.lock and
+drops the last reference to the request_sock. This can free the
+request_sock while reqsk_fastopen_remove() is still using it.
 
-Signed-off-by: Jeremy Harris <jgh@exim.org>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Neal Cardwell <ncardwell@google.com>
-Link: https://patch.msgid.link/20250423124334.4916-2-jgh@exim.org
+If the freed memory is reused for a new request_sock with req->sk ==
+NULL, the reset path in reqsk_fastopen_remove() can append the new
+request_sock to the original listener's list of requests that caused an
+RST. After the new request_sock is freed, the next append writes through
+the stale rskq_rst_tail into freed memory.
+
+KASAN reported the following use-after-free when writing
+fastopenq->rskq_rst_tail->dl_next = req:
+
+  BUG: KASAN: slab-use-after-free in reqsk_fastopen_remove+0x142/0x210
+  Write of size 8 at addr ffff888108230688 by task swapper/5/0
+  ...
+  Call Trace:
+   <IRQ>
+   ...
+   reqsk_fastopen_remove+0x142/0x210
+   tcp_check_req+0x96f/0xdd0
+   ...
+   tcp_rcv_state_process+0x19c/0x26b0
+   ...
+   tcp_v4_do_rcv+0x16e/0x490
+   tcp_v4_rcv+0x14a0/0x1af0
+   ...
+   ip_protocol_deliver_rcu+0x39/0x1e0
+   ip_local_deliver_finish+0x124/0x1e0
+   ip_local_deliver+0xfb/0x1e0
+   ...
+   </IRQ>
+
+To widen the race windows, mdelay(5) was added after newsk = req->sk,
+mdelay(20) after the if (req) reqsk_put(req) block, and mdelay(100)
+after tcp_rsk(req)->tfo_listener = false. The KASAN report above was
+reproduced with this kernel.
+
+For the lockless check, use tcp_sk(newsk)->syn_fastopen_child instead of
+tfo_listener, which reqsk_fastopen_remove() clears.
+
+syn_fastopen_child is a field of the Fast Open child TCP socket
+referenced by newsk, not of the request_sock. It is set before the child
+socket is added to the accept queue. The paths that call
+reqsk_fastopen_remove() in response to a remote ACK or RST do not clear
+this field.
+
+inet_csk_accept() uses this field to take fastopenq.lock only for Fast
+Open child sockets and rechecks tfo_listener while holding the lock.
+Connections that did not use Fast Open continue to avoid the lock.
+
+Fixes: e3d95ad7da4f ("inet: avoid fastopen lock for regular accept()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/avQKA_YTAThtbsYU@v4bel
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 62754aad50d0 ("tcp: fix request_sock use-after-free during Fast Open accept()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/tcp.h     | 3 ++-
- net/ipv4/tcp.c          | 1 +
- net/ipv4/tcp_fastopen.c | 1 +
- 3 files changed, 4 insertions(+), 1 deletion(-)
+ net/ipv4/inet_connection_sock.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/tcp.h b/include/linux/tcp.h
-index 00ea96fec2273..ea54a107f307c 100644
---- a/include/linux/tcp.h
-+++ b/include/linux/tcp.h
-@@ -384,7 +384,8 @@ struct tcp_sock {
- 		syn_fastopen:1,	/* SYN includes Fast Open option */
- 		syn_fastopen_exp:1,/* SYN includes Fast Open exp. option */
- 		syn_fastopen_ch:1, /* Active TFO re-enabling probe */
--		syn_data_acked:1;/* data in SYN is acked by SYN-ACK */
-+		syn_data_acked:1,/* data in SYN is acked by SYN-ACK */
-+		syn_fastopen_child:1; /* created TFO passive child socket */
+diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+index 6b6a195ca7954..7439996bdc0c2 100644
+--- a/net/ipv4/inet_connection_sock.c
++++ b/net/ipv4/inet_connection_sock.c
+@@ -683,7 +683,7 @@ struct sock *inet_csk_accept(struct sock *sk, struct proto_accept_arg *arg)
+ 	newsk = req->sk;
  
- 	u8	keepalive_probes; /* num of allowed keep alive probes	*/
- 	u32	tcp_tx_delay;	/* delay (in usec) added to TX packets */
-diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-index 69b4e194ba135..d1999b1cedaa1 100644
---- a/net/ipv4/tcp.c
-+++ b/net/ipv4/tcp.c
-@@ -3400,6 +3400,7 @@ int tcp_disconnect(struct sock *sk, int flags)
- 	tp->rack.reo_wnd_persist = 0;
- 	tp->rack.dsack_seen = 0;
- 	tp->syn_data_acked = 0;
-+	tp->syn_fastopen_child = 0;
- 	tp->rx_opt.saw_tstamp = 0;
- 	tp->rx_opt.dsack = 0;
- 	tp->rx_opt.num_sacks = 0;
-diff --git a/net/ipv4/tcp_fastopen.c b/net/ipv4/tcp_fastopen.c
-index ac4fa51240290..6ccee7480232d 100644
---- a/net/ipv4/tcp_fastopen.c
-+++ b/net/ipv4/tcp_fastopen.c
-@@ -404,6 +404,7 @@ struct sock *tcp_try_fastopen(struct sock *sk, struct sk_buff *skb,
- 				}
- 				NET_INC_STATS(sock_net(sk),
- 					      LINUX_MIB_TCPFASTOPENPASSIVE);
-+				tcp_sk(child)->syn_fastopen_child = 1;
- 				return child;
- 			}
- 			NET_INC_STATS(sock_net(sk),
+ 	if (sk->sk_protocol == IPPROTO_TCP &&
+-	    tcp_rsk(req)->tfo_listener) {
++	    tcp_sk(newsk)->syn_fastopen_child) {
+ 		spin_lock_bh(&queue->fastopenq.lock);
+ 		if (tcp_rsk(req)->tfo_listener) {
+ 			/* We are still waiting for the final ACK from 3WHS
 -- 
 2.53.0
 
