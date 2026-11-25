@@ -1,88 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795589817;
-	b=AIRf58DzRFejXbatiP5gjTpfZh2qScSdi14yFnB2G/UMW7yEtHaNzl3xoguiw96H+Z/D
-	 nZvRspP8LCIwDhzVq/PbDTY//oUmxzO0LdA+EXITsVIT8hCAFSh4i64X+K7ve3gGNko1d
-	 tg26yRFSR3GGDgyeMZ8XUbLje51Ul+i4XuDdcePhDzfKgoQQEUoAhN/SRGZDBzsRYOU1k
-	 5sSqI/LC4S7qMe6c3XsPSPuV7+H84uE5GIERjDchsh2ZFHCY2D4qeUI9oq0kltYjjGtWr
-	 PxorKMFZNjzbyrKDpwAyHqi2ewuI0YWlzTchSNhzvioj4nnKhDtGAPYuA7a1DmBi1CQ==
+	t=1795590501;
+	b=zWMcA2pw7ayF1O+hLLIrou5RRdp/tVIiO1a0bgLH9inIn9EgOTuXPXyOx9jgazNEv5hv
+	 usXrd2M8Cppnt22GNT7v50O3A+rq3NeOZYPnrnrFQuBdHCNAMojeGiLvkJcSPwEF2hIly
+	 vrGCuGvjhwm5hY+KX+y35/gX88divsuSNb1TazckR0JrX8u4u51oOwHAEnIxBzrN+Q4+6
+	 +UAeJFxR7yvzAWB1kvcWVFMf0aNgmH9+gm0WoFu4D8eOamZ1/MPs57NEoot+nZXbG348m
+	 jIEtzxcX+d/KBC7LYbFcu/7aMTzumV6EDlnA0s8C8eQNRxLrqIP0tkNHUhfpcdfEq5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795589817;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=zVlsemVCBduIoN4ovaejAaSJjefUyq+bd4EIprH6ZNw=;
-	b=GfnKElFHNIJQN0CC4lgCmbi4aNPkCj3QoGIIZ0T/mq01VLhKNs+yVw2JoOP7Cp0bm8Cg
-	 4OHJ9XP1vKnjQOVIdKh1KVnZJ2qBk6VeQrLLxwH5Yeu21i14EssdRFULcYBLoINd7r3CG
-	 jOSrJfHYL5hRGyFont7IbcIt7DlttD3Ue/nPkwBl1AlbTXOByeqMg600f2kHWw6XGZgVA
-	 m62N3dqtDuuMtgGDyJb9UL02ufX7qSjMmDNKdh6JscsQ4yuSvuOZXBntfPJZvjuM4l5bB
-	 dqMERu+5AFcxTd+GKK33LNZqhNYfrknRCzV7lFy6xq9fsjMU5e15PG4rInoreE1xShw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795590501;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=VymGh2xt1PlXFV+8vSa2twLhEcdpkPLNVW7EDDd1FJM=;
+	b=KgMGte4EKgw2x8oyZa1m3ZjlQ48kLZxsdxMVbq8DsW3qfir1fKv/AyLLZmzc2kjCbvgJ
+	 hjPbJrXaVc3A3fd2RfMnIE+7gjxa+CHacfUBP0HVhMiwDodb4t12KdF9rLfJNAFH6VieL
+	 e6JbLsZeU/myQZ7UeFxV31B8iuvjAmzrgjOv65mm3oNTpFIMJ3cktDM/tCegCB4YUvTeB
+	 fN8FxOe6CDFBTpeXcz/lvxJ2l8nsFBKUZxXg7+vociMmNUJhtpCvXI5KDdPmhh+qtY3PZ
+	 mydGx+Js6vtcN6umx4k6udrb4fKKxAJJRU3UKKzW5xwSuLZJqsmhB515t1I5YE66FcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pereq.eu;
-	spf=pass smtp.mailfrom=cryspen.com;
-	dkim=pass header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b="L/bC0BNw";
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=FQCk9SPm;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C67606A6B1
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 06:56:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9C67606A6B1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pereq.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cryspen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFBD2606A321;
+	Wed, 25 Nov 2026 07:08:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFBD2606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b=L/bC0BNw
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4bb6c7b6dbdso49667585e9.0
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 22:56:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=pereq.eu; s=google; t=1795589815; x=1796194615; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zVlsemVCBduIoN4ovaejAaSJjefUyq+bd4EIprH6ZNw=;
-        b=L/bC0BNw8p60yKTawZb8akw9qRBEit8DTwgLah0Va5O+VZIG0Ekgnh1B1AeEzKB3CB
-         XIwf89n+aIJWkQXQM8JT6Kh2WtaRI5b21ndVT5Hpv4JY0pKYbJNZ0hbEPbm/bPUpnZ5V
-         AhzAs2o99Y3CWxEj/SpBr19y8M1g8SOg8AGHuJm/Ylhe5ZNxdk8yEFbjMwOq43QpMxRm
-         TyafGotTKvOyomIaCK1cBvpeXknE6KAgdbQtuUQoVPmHF8XapYBBxHo8SCnOpW7IS7j1
-         xxWe0T6hyp15XzjPZuSC+H5HeKEQjtVPntYZmcUqnHSjL4aFFVtffiu2ujsg9m46h0ZO
-         SjPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795589815; x=1796194615;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zVlsemVCBduIoN4ovaejAaSJjefUyq+bd4EIprH6ZNw=;
-        b=DnerpGOHuo5eHgx0i3NaAtQAvTg2pKMuZd1id6WQZfGxmeZ9GgTwLZ0fv+oLs9yQDo
-         bCkGbt+Hm4svymbm6Jd0iZHtgByfxjhTOuWdWJPa1BTEKtUc/yxBwYbMZdSn/AAC4QPW
-         i9PQtJ1Y9tPEw5gFHcLaJ5pi2RtWQoxk8bDznq3PcJUnW0Y3qVBQ1cXkjXPSpZSvN/vq
-         +CJEeLF+tMnTc33DYz2xIcEg0rIzERCkUJJN0gA9d7m5PPEW8mEOfrWJaH5aJtJEGHVe
-         53dfhaE7hER7AtygRLVnobgDaRN2glX5Slqk4H1c7O0Gk4g7fjl2YLCjq/gKtgJM18fR
-         P5tQ==
-X-Forwarded-Encrypted: i=1; AL+hErEoUj9d61KymGSWLXIvfBBLkcLbHZBIhcEygRim9J7UJsMCr4toPhXTYFQ5BeW0slIau5Cvlck=@vger.kernel.org
-X-Gm-Message-State: APuU4Z80HY8aDRoZ0MA8m0n3UaXhpKCCY9m89TWW1GG4w/Q8rMx/K/I4
-	TFA80S+xVb05bhCvc5NvHxpSBHzm6V0+Nf4zWF7Ah9tPkHq0s/tuCP3rihq0RebZJGM=
-X-Gm-Gg: AZFdTZcfVilZ2ZbHGNWPnA8okUp4PxGS90Ppk+HoLwhAH+klN+PRU+gL1nwpHEJ+PuS
-	g0rQlbC2IDHN2sKoqkkrdPzgR6hqfguoAQ1HBZIPL1ZC7u4oIL3rwZBgYC1Gk2/5b31BPEEiGi9
-	94g36jp4x4qer2sAq6G3wftWrNBfsffwlUeNMFUMiziwOJcznffyQhoPOwr3O6H4GxNg9HrAPwH
-	XpoA73yvZiCAUS0D3LiDplso+gdih88aofmunJnDjTxrh4eVrzgKrudRqfuqXH1YS3EK7ReetqH
-	gHxitm79HrBkFuImbIoL1YzRvzMokB9NB48N1D4g7piycdXYbmpQUf/O+u/rHVDPxsbp7rHBEBM
-	+UzFI5raWpdNLVVKiFdOn535Rh87its2oI2WJc390WaJZaMmyeYB4ok27uaeSTLxe2uph4GwGuN
-	yde/CBSkAM8BBJ47l+kuvl/Ia22W+sVhZrMEY3C8JrqtPDDv+l8GDrIKREWQ7K9jwNTzZF9HUge
-	t7IgsLrBhDJYtgqFM5eYhUsCBjXIaXX+HF5RRPpHUMeasN5mYatr7vYLusPbqA3IP41jkNa5kRq
-	xUQ9+n7y7B6T5BwmGzEnb1Y/5OpjFzorSNmzbzOh
-X-Received: by 2002:a05:600c:64c9:b0:4bb:8701:bb14 with SMTP id 5b1f17b1804b1-4bb88804d1cmr371875465e9.5.1795589814958;
-        Tue, 24 Nov 2026 22:56:54 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884b7515sm681730385e9.13.2026.11.24.22.56.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 22:56:54 -0800 (PST)
-From: Dan Carpenter <dan@pereq.eu>
-Date: Wed, 25 Nov 2026 09:56:22 +0300
-Subject: [PATCH v2 7/8] KVM: arm64: nv: Re-inject a stored SError after the
- exit is handled
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=FQCk9SPm
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AP6YY8V687807;
+	Wed, 25 Nov 2026 07:08:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=VymGh2
+	xt1PlXFV+8vSa2twLhEcdpkPLNVW7EDDd1FJM=; b=FQCk9SPmU4wn1EnuGwwp7q
+	nsmyntmnozjKlxyZxZoelA1r5ZpKxY84ceLQzXR9uGQN23uuJzhzprAEPro/mmq2
+	GvfxeyIpykvcC8qDcYqOO/cSVCKqvVPTM1Bwr0OY2G1NUptxE1jOr24mNbS27fEb
+	SWJOxACotKmFz6Gr4bP3TxZDZ7fSKM7C8BulV4ZcqILxaRy9UhfHlCkK683RU4xo
+	SQfWl6BHrhr8t/C/8+aDEh72eJx1Uhrcm/j2NzxkXDTYlfX6KXF4MyZFTZI38juU
+	iuXHGpEXdXlb+/ozoUqYo5EWV4ll48P6V0xkvWQAXrNtbxKrjc7dtwKHaO7XUJLw
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4j34fab9jv-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 25 Nov 2026 07:08:04 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AP6JLIB3429557;
+	Wed, 25 Nov 2026 07:08:04 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4j5kfa1814-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 25 Nov 2026 07:08:04 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AP7800b52494668
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 25 Nov 2026 07:08:00 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1C81E20043;
+	Wed, 25 Nov 2026 07:08:00 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 24BB120040;
+	Wed, 25 Nov 2026 07:07:57 +0000 (GMT)
+Received: from [9.123.13.84] (unknown [9.123.13.84])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 25 Nov 2026 07:07:56 +0000 (GMT)
+Message-ID: <053512bb-0a86-4902-8a3e-79ceff20bcac@linux.ibm.com>
+Date: Wed, 25 Nov 2026 12:37:56 +0530
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,151 +86,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net/smc: fix sock reference leak on abort_work cancel
+To: Mahanta Jambigi <mjambigi@linux.ibm.com>, andrew+netdev@lunn.ch,
+        davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+        pabeni@redhat.com, alibuda@linux.alibaba.com,
+        dust.li@linux.alibaba.com
+Cc: hidayath@linux.ibm.com, pasic@linux.ibm.com, horms@kernel.org,
+        tonylu@linux.alibaba.com, guwen@linux.alibaba.com,
+        netdev@vger.kernel.org, linux-s390@vger.kernel.org,
+        linux-rdma@vger.kernel.org, stable@vger.kernel.org
+References: <20261124073602.2341904-1-mjambigi@linux.ibm.com>
+Content-Language: en-US
+From: Sidraya Jayagond <sidraya@linux.ibm.com>
+In-Reply-To: <20261124073602.2341904-1-mjambigi@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-double_exception-v2-7-224689d8a764@pereq.eu>
-References: <20261125-double_exception-v2-0-224689d8a764@pereq.eu>
-In-Reply-To: <20261125-double_exception-v2-0-224689d8a764@pereq.eu>
-To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
- Steffen Eiden <seiden@linux.ibm.com>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Zenghui Yu <yuzenghui@huawei.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, 
- Christoffer Dall <c.dall@virtualopensystems.com>, 
- Rusty Russell <rusty@rustcorp.com.au>, 
- Marcelo Tosatti <mtosatti@redhat.com>, Sebastian Ott <sebott@redhat.com>, 
- Eric Auger <eric.auger@redhat.com>, James Morse <james.morse@arm.com>, 
- Paolo Bonzini <pbonzini@redhat.com>, 
- Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>
-Cc: Karthik Bhargavan <karthik@pereq.eu>, 
- =?utf-8?q?Cl=C3=A9ment_Blaudeau?= <clement@cryspen.com>, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
- Dan Carpenter <dan@pereq.eu>, linux-kernel@vger.kernel.org, 
- kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDAyOCBTYWx0ZWRfX6SERPZcenYYp
+ GaRcyNicKCQqvcKSk++jH/J4T4CHAZeoM9BupXfJeKsf1GYNkijx3kyffHky4p1qgfsPH2HrLsO
+ B0lXicVgemz1pdHlcljuk8RsxaFkcziCsyVewgQHzUJp/Y4GRZaHMKEF6NWx9ln0n+ee6JnaMQU
+ dE8o5vmxDSGYLqBJdkpdZh55tLu0348ZztFnuuffF3+eIxDt94HJD+bhk5nr6uvhlXAekx9E+ju
+ kjENIJ5IZVr9H/3RH+7RfJFPjaBJc/yNGNHlqLQMspIY/6KwjHge/98tvXWhqu+oPmlv9BTTEts
+ HVyzhIvE2i8SS7apOr2vQm4s24svE0hOUGk+OcEYIhkL4nuFCeeTLhG9UrYHFBYil/M3h4VHq6b
+ 81UHyvzxWr58kw5KFn7FPrk4voCMbGG1ptuvDtuMbXnrYUtYZ/Y6JR8eN5W6k8lwb9wvDYexSgP
+ I8ikhsFz5YeyIkuMuyw==
+X-Proofpoint-ORIG-GUID: jvSgGNJ-DLXDb-hHbq137MwhvRGCdofC
+X-Authority-Analysis: v=2.4 cv=U6QHnuru c=1 sm=1 tr=0 ts=6b068955 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=9a-4vhIoUcUKDQ7W_AIA:9 a=QEXdDO2ut3YA:10
+ a=zY0JdQc1-4EAyPf5TuXT:22
+X-Proofpoint-GUID: 4-R3wwfbccyKmlCIz0foSPTXquLZ8SFL
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDAyOCBTYWx0ZWRfXy/rN2RoNFInB
+ NAlKWG0Pq8u0lrAGQCe5pkaVeDjKsl+qNtLZoIbflk8p3I71paRIUdcuix01ORuCLOj1rsa7QNF
+ ayLyhid0qc0dWeDOewAL7OGT90G43gE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-25_02,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 spamscore=0 impostorscore=0
+ clxscore=1015 bulkscore=0 suspectscore=0 adultscore=0 phishscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611250028
 
-KVM only has room for one pending exception or PC increment per vcpu.
-If something is already pending and we try to add another through
-kvm_pend_exception() or kvm_incr_pc(), it triggers a WARN().  If we add
-an exception on top of an exception, the first one is lost.  If we add a
-PC increment on top of an exception, the PC increment is lost and the
-trapped instruction runs again.
 
-Normally an exit handler records an exception or a PC increment, and
-__kvm_adjust_pc() commits it before the next guest entry.  However, with
-nested virtualization kvm_nested_sync_hwstate() can add an exception
-before the exit handler runs.  It re-injects a stored SError after the
-guest exits but before handle_exit(), which can pend the SError as an
-exception.  The exit handler then records its own on top, for example an
-HVC forwarded to the guest hypervisor, the FPAC for a failed ERETAA, or
-the PC increment for a trapped instruction it has emulated.  This
-triggers the WARN().
 
-In this situation where we have two exceptions, the correct order is to
-handle the exit first and then the SError.  Change the
-kvm_nested_sync_hwstate() function to only store the SError.  Then
-kvm_nested_flush_hwstate() uses __kvm_adjust_pc() to commit the exit
-handler's exception or PC increment, re-injects the SError, and the
-guest is entered.  The early re-injection was there so that a pending
-SError wakes the vcpu from WFI, so kvm_arch_vcpu_runnable() now treats
-a deliverable stored SError as a wakeup.
+On 24/11/26 1:06 pm, Mahanta Jambigi wrote:
+> smc_cdc_msg_validate() takes a reference on the socket before queueing
+> conn->abort_work, and smc_conn_abort_work() drops it when it runs. When
+> smc_conn_free() cancels the work while it is still pending, for example
+> because a close races with a failed CDC validation, the handler never
+> runs and the reference is leaked, so the SMC socket is never freed.
+> 
+> Drop the reference when cancel_work_sync() reports that it cancelled a
+> pending work.
+> 
+> Fixes: b286a0651e44 ("net/smc: handle incoming CDC validation message")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
+> ---
+>  net/smc/smc_core.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+> index a3164201c142..3c08be976de2 100644
+> --- a/net/smc/smc_core.c
+> +++ b/net/smc/smc_core.c
+> @@ -1276,6 +1276,7 @@ static void smc_buf_unuse(struct smc_connection *conn,
+>  /* remove a finished connection from its link group */
+>  void smc_conn_free(struct smc_connection *conn)
+>  {
+> +	struct smc_sock *smc = container_of(conn, struct smc_sock, conn);
+>  	struct smc_link_group *lgr = conn->lgr;
+> 
+>  	if (!lgr || conn->freed)
+> @@ -1298,8 +1299,9 @@ void smc_conn_free(struct smc_connection *conn)
+>  			smcd_buf_detach(conn);
+>  	} else {
+>  		smc_cdc_wait_pend_tx_wr(conn);
+> -		if (current_work() != &conn->abort_work)
+> -			cancel_work_sync(&conn->abort_work);
+> +		if (current_work() != &conn->abort_work &&
+> +		    cancel_work_sync(&conn->abort_work))
+> +			sock_put(&smc->sk);
+>  	}
+>  	/* The handshake can retry another device or SMC version with this
+>  	 * connection, so it must never stay registered in an lgr it left.
+> --
+> 2.50.1 (Apple Git-155)
+> 
+> 
 
-Fixes: 77ee70a07357 ("KVM: arm64: nv: Honor SError exception routing / masking")
-Fixes: ce66109cec86 ("KVM: arm64: nv: Take "masked" aborts to EL2 when HCRX_EL2.TMEA is set")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dan Carpenter <dan@pereq.eu>
----
-v2: No change
----
- arch/arm64/include/asm/kvm_emulate.h |  1 +
- arch/arm64/kvm/arm.c                 |  1 +
- arch/arm64/kvm/inject_fault.c        |  6 ++++++
- arch/arm64/kvm/nested.c              | 16 ++++++----------
- 4 files changed, 14 insertions(+), 10 deletions(-)
-
-diff --git a/arch/arm64/include/asm/kvm_emulate.h b/arch/arm64/include/asm/kvm_emulate.h
-index 2d7c82cfb8a4..ab2ec9078b76 100644
---- a/arch/arm64/include/asm/kvm_emulate.h
-+++ b/arch/arm64/include/asm/kvm_emulate.h
-@@ -48,6 +48,7 @@ void kvm_skip_instr32(struct kvm_vcpu *vcpu);
- void kvm_inject_undefined(struct kvm_vcpu *vcpu);
- void kvm_inject_sync(struct kvm_vcpu *vcpu, u64 esr);
- int kvm_inject_serror_esr(struct kvm_vcpu *vcpu, u64 esr);
-+bool kvm_nested_serror_deliverable(struct kvm_vcpu *vcpu);
- int kvm_inject_sea(struct kvm_vcpu *vcpu, bool iabt, u64 addr);
- int kvm_inject_dabt_excl_atomic(struct kvm_vcpu *vcpu, u64 addr);
- void kvm_inject_size_fault(struct kvm_vcpu *vcpu);
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index a148e80d0aef..2a2add60b72d 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -966,6 +966,7 @@ int kvm_arch_vcpu_runnable(struct kvm_vcpu *v)
- {
- 	bool irq_lines = *vcpu_hcr(v) & (HCR_EL2_VI | HCR_EL2_VF | HCR_EL2_VSE);
- 
-+	irq_lines |= kvm_nested_serror_deliverable(v);
- 	irq_lines |= (!irqchip_in_kernel(v->kvm) &&
- 		      (kvm_timer_should_notify_user(v) ||
- 		       kvm_pmu_should_notify_user(v)));
-diff --git a/arch/arm64/kvm/inject_fault.c b/arch/arm64/kvm/inject_fault.c
-index 0f6a89b65074..1d5dfd4b9e00 100644
---- a/arch/arm64/kvm/inject_fault.c
-+++ b/arch/arm64/kvm/inject_fault.c
-@@ -357,6 +357,12 @@ static bool kvm_serror_undeliverable_at_el2(struct kvm_vcpu *vcpu)
- 	return !(vcpu_el2_tge_is_set(vcpu) || vcpu_el2_amo_is_set(vcpu));
- }
- 
-+bool kvm_nested_serror_deliverable(struct kvm_vcpu *vcpu)
-+{
-+	return vcpu_get_flag(vcpu, NESTED_SERROR_PENDING) &&
-+	       !(vcpu_is_el2(vcpu) && kvm_serror_undeliverable_at_el2(vcpu));
-+}
-+
- int kvm_inject_serror_esr(struct kvm_vcpu *vcpu, u64 esr)
- {
- 	lockdep_assert_held(&vcpu->mutex);
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index 78d5b18dbd2d..f063c01c565a 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -2213,8 +2213,11 @@ void kvm_nested_flush_hwstate(struct kvm_vcpu *vcpu)
- 	if (!vcpu_has_nv(vcpu))
- 		return;
- 
--	if (unlikely(vcpu_test_and_clear_flag(vcpu, NESTED_SERROR_PENDING)))
-+	if (unlikely(vcpu_test_and_clear_flag(vcpu, NESTED_SERROR_PENDING))) {
-+		/* Commit the exit handler's exception first */
-+		__kvm_adjust_pc(vcpu);
- 		kvm_inject_serror_esr(vcpu, vcpu_get_vsesr(vcpu));
-+	}
- 
- 	vgic_v3_nested_update_mi(vcpu);
- 
-@@ -2231,18 +2234,11 @@ void kvm_nested_sync_hwstate(struct kvm_vcpu *vcpu)
- 
- 	/*
- 	 * We previously decided that an SError was deliverable to the guest.
--	 * Reap the pending state from HCR_EL2 and...
-+	 * Reap the pending state from HCR_EL2, and re-inject it from
-+	 * kvm_nested_flush_hwstate() once the exit has been handled.
- 	 */
- 	if (unlikely(__test_and_clear_bit(__ffs(HCR_EL2_VSE), hcr)))
- 		vcpu_set_flag(vcpu, NESTED_SERROR_PENDING);
--
--	/*
--	 * Re-attempt SError injection in case the deliverability has changed,
--	 * which is necessary to faithfully emulate WFI the case of a pending
--	 * SError being a wakeup condition.
--	 */
--	if (unlikely(vcpu_test_and_clear_flag(vcpu, NESTED_SERROR_PENDING)))
--		kvm_inject_serror_esr(vcpu, vcpu_get_vsesr(vcpu));
- }
- 
- /*
-
--- 
-2.53.0
+Worth looking into the bot's discovery/validation point.
+Patch looks good to me.
+Reviewed-by: Sidraya Jayagond <sidraya@linux.ibm.com>
 
