@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795623893;
-	b=bsQ8oHYsQqs0WUauC6XPS+APjGyu3dRQ5NAx/2gmd1r/ZhPw5eeYb+3QzO0Q2H4IF9kJ
-	 9xTrYetoBBVcOJIx7IqTd/r2zxRedYYfRmw0ReEZqs2qot54/Pu7hYgiQTDwzJZnKWF2W
-	 PvKF0ARZUstCXfFXRfltT1ZfvrMcjzBsH8u8HmhQ9ht9uRUcz0sjsr6ZfQs5zTgQIW8UY
-	 PLNEq/mAr7mqvEgQxqotushmVpvmdUPbD4GkHmVnd7Ss1I/0CIBY3jyX8vyhEdBg2lCuN
-	 l3J5x4HuCuRkXEWFXyqoZl+qB978Edtil+fRc+LxQgph4C0j41HTiUbL35VTpCK9mwg==
+	t=1795623894;
+	b=cByVV03jopCZX6RJxCyeUqTnIVs8AWyBU72PNQSOMWa2Qr351bMu0KUinSyaAa5YmGak
+	 0n4YU1KWcxw8/9mwEEfzAOKKuNF0E2XgIQOeSOGuieUo/lrfOJjuWELGwOhmgc5a+EtWc
+	 X3yJlGrKRcJ8T555xu3PUCk2+hWRLrQCXTp9N1j+//1I/LQ0Y1irR4BvvDVCrU2ZNgntq
+	 ebsjs+E7onhQWFJPVmhRMChy2uF+5FqQ9j7geE4Lfgw36A1rtXj2WIt1zRvrVOHHMVZ4G
+	 9EqxBArZBz59r8DOY8+KYpFDTrZY5qVabZWLlX9JjoD/EkM22nTQdp8ENJcHpR3ZxAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795623893;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795623894;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=EKwhLGSrPM6ieQodp5aYXMn7gIDTiCt6yJFgzHne0go=;
-	b=jD1YInZEFDPHQkaNRX0mD7NSKVNOhx3VZ2uwRKQBkbqLjN/szbWojsytbxuGuCC/+Kh5
-	 Lt4622YxHGbo7lZ7aYo/yvkITYA6i0OBYTcRM0uV3ZfILzz4QbzU9SGMCcka/0sTnm/SO
-	 5p4FrmvHJkt+wfzNofL5+8zDmovDf5EAT0MPBFyBYvXOR8ciTRCrAjzpqzHnc6gKKtVFo
-	 LlX9ELU/E1RtDbe7vuuKiLLAccR4Ccv6P3ZGipt2NRejQiYMCn1dFqB7BE7Q0ingvetdD
-	 rPMLx9ozNeGf5FiVJS8LHOWORTfer9dC6OvErgu6s0tl3EpSNghvdbwcZdBv7kb7NYw==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=trW7B/UXv3Vs3+GfZ5z2HVLLToxIMiTJNSDlNwIYwaU=;
+	b=cIfhPpGhREvqr1jPWGSJb6svzAzv+wasUyYYm0RQMs5kl0OeTetRFrPN8ZaxCWQKo1No
+	 pXvLTxXiycfq/PTS4k1oUE2YTwknjdkdjcMLmyjSb7+oZSpK13F544QT3FYoSvShsUCpF
+	 i09vrbSg50E5+1tuiOlwc4ZkVQkLCRHneGXXLbHi1iI8rPDYTfMwxsgedki72CoYv+4jU
+	 T/8w1y7MhEo6pNBJ97zA31L7EzKiYvm2jndauJLFKuSDTlXf0j+WuS2cyy5NJNfAAduCj
+	 2UVUynFoTSoE/h8rkAvGutRGAtIiUBfaI9QOIIQuA/XjNJVn+kdTFNfjWHEpVQCSfiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XVsTINRB;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RohcGuTr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C934C606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:24:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08CDB606A321;
+	Wed, 25 Nov 2026 16:24:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XVsTINRB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F2561F000C0;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RohcGuTr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1447B1F000CA;
 	Wed, 25 Nov 2026 16:24:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795623893;
-	bh=EKwhLGSrPM6ieQodp5aYXMn7gIDTiCt6yJFgzHne0go=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795623893;
+	bh=trW7B/UXv3Vs3+GfZ5z2HVLLToxIMiTJNSDlNwIYwaU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XVsTINRBSeEHu9Sz+jlVQXMSLCgvyLBVGBLU2+qIHphHPqehWTXc/lGQkCx7XI5y0
-	 POg+6GNXN9iWTbbXbDcT+Ebz43xnkYTXCT16xUduAJ6DiTYxx2AySQ/nMiQeKG6xQq
-	 IFiMxTb7UY5rfREN4OSnUW4NUwUFtjFnL6fR5NGeHfUlzp37M9u2BwLY7BZhW2qGD1
-	 0QOaF5PFjxKQhW5qVumXmEZoC1IBOu2nxKMmBTdUBFfDo6nbt4ANO4ySIVrU37hWGu
-	 w7+11oHaHV06iLEhDEDpWdvNIUCs6tiSTYJZW+umahUGKqBOMu6I5WT/lhw4csB7nN
-	 wPV/dcWs3tLFw==
-From: Sasha Levin <sashal@kernel.org>
+	b=RohcGuTrvXKuhPQow3tOlAEWQiAASLMgZMzX/WGeKLJ7bwA0FB8Dbs1KAAWrUQKgU
+	 OU+734DXWgqb/CUbNggkey4Gs6wFq0lQW4z40Y20+zL9Zhx8OXP7IqbH1NyFZ6OYU9
+	 aWJJEID5Ih6v+VB3+BU1S3QQzWJJpSBrG5L3Ndjw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Julia Lawall <julia.lawall@inria.fr>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Gabriele Monaco <gmonaco@redhat.com>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Florent Carli <fcarli@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] cpufreq: intel_pstate: Clear HWP desired on suspend/shutdown and offline
-Date: Wed, 25 Nov 2026 11:24:50 -0500
-Message-ID: <20261125162445.772981-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112549-wobble-pastor-7c26@gregkh>
-References: <2026112549-wobble-pastor-7c26@gregkh>
+Subject: [PATCH 6.12 019/816] sched/deadline: Fix server stopping with runnable tasks
+Date: Wed, 25 Nov 2026 15:26:07 +0100
+Message-ID: <20261125143849.660780255@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,92 +65,90 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit dbea75fe18f60e364de6d994fc938a24ba249d81 ]
+------------------
 
-Commit a365ab6b9dfb ("cpufreq: intel_pstate: Implement the
-->adjust_perf() callback") caused intel_pstate to use nonzero HWP
-desired values in certain usage scenarios, but it did not prevent
-them from being leaked into the confugirations in which HWP desired
-is expected to be 0.
+From: Gabriele Monaco <gmonaco@redhat.com>
 
-The failing scenarios are switching the driver from the passive
-mode to the active mode and starting a new kernel via kexec() while
-intel_pstate is running in the passive mode.
+commit ca1e8eede4fc68ce85a9fdce1a6c13ad64933318 upstream.
 
-To address this issue, ensure that HWP desired will be cleared on
-offline and suspend/shutdown.
+The deadline server can currently stop due to idle although fair tasks
+are runnable. This happens essentially when:
 
-Fixes: a365ab6b9dfb ("cpufreq: intel_pstate: Implement the ->adjust_perf() callback")
-Reported-by: Julia Lawall <julia.lawall@inria.fr>
-Tested-by: Julia Lawall <julia.lawall@inria.fr>
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Stable-dep-of: 02e77af824d5 ("cpufreq: intel_pstate: Clear last written P-state value on suspend")
+ * the server is set to idle, a task wakes up, the server stops
+ * a task wakes up, the server sets itself to idle and stops right away
+
+Address both cases by clearing the server idle flag whenever a fair task
+wakes up and accounting also for pending tasks in the definition of idle.
+
+Fixes: f5a538c07df2 ("sched/deadline: Fix dl_server stop condition")
+Signed-off-by: Gabriele Monaco <gmonaco@redhat.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/20260113085159.114226-3-gmonaco@redhat.com
+[ Florent: context conflict in dl_server_start(), which still
+  initializes the fair server in 6.12 ]
+Signed-off-by: Florent Carli <fcarli@gmail.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/cpufreq/intel_pstate.c | 32 ++++++++++++++++++++++++++++++--
- 1 file changed, 30 insertions(+), 2 deletions(-)
+ kernel/sched/deadline.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstate.c
-index 546c582787f21..fd8c1192c57dd 100644
---- a/drivers/cpufreq/intel_pstate.c
-+++ b/drivers/cpufreq/intel_pstate.c
-@@ -908,9 +908,16 @@ static void intel_pstate_hwp_offline(struct cpudata *cpu)
- 		 */
- 		value &= ~GENMASK_ULL(31, 24);
- 		value |= HWP_ENERGY_PERF_PREFERENCE(cpu->epp_cached);
--		WRITE_ONCE(cpu->hwp_req_cached, value);
- 	}
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index ea64ab4364f77..2da68de709135 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -1482,7 +1482,7 @@ update_stats_dequeue_dl(struct dl_rq *dl_rq, struct sched_dl_entity *dl_se, int
  
-+	/*
-+	 * Clear the desired perf field in the cached HWP request value to
-+	 * prevent nonzero desired values from being leaked into the active
-+	 * mode.
-+	 */
-+	value &= ~HWP_DESIRED_PERF(~0L);
-+	WRITE_ONCE(cpu->hwp_req_cached, value);
-+
- 	value &= ~GENMASK_ULL(31, 0);
- 	min_perf = HWP_LOWEST_PERF(cpu->hwp_cap_cached);
+ static void update_curr_dl_se(struct rq *rq, struct sched_dl_entity *dl_se, s64 delta_exec)
+ {
+-	bool idle = rq->curr == rq->idle;
++	bool idle = idle_rq(rq);
+ 	s64 scaled_delta_exec;
  
-@@ -2723,6 +2730,27 @@ static int intel_cpufreq_cpu_exit(struct cpufreq_policy *policy)
- 	return intel_pstate_cpu_exit(policy);
- }
+ 	if (unlikely(delta_exec <= 0)) {
+@@ -1663,8 +1663,8 @@ void dl_server_update(struct sched_dl_entity *dl_se, s64 delta_exec)
+  * | 8 |       B:zero_laxity-wait       |     |    |
+  * |   |                                | <---+    |
+  * |   +--------------------------------+          |
+- * |     |              ^     ^           2        |
+- * |     | 7            | 2   +--------------------+
++ * |     |              ^         ^       2        |
++ * |     | 7            | 2, 1    +----------------+
+  * |     v              |
+  * |   +-------------+  |
+  * +-- | C:idle-wait | -+
+@@ -1709,8 +1709,11 @@ void dl_server_update(struct sched_dl_entity *dl_se, s64 delta_exec)
+  *   dl_defer_idle = 0
+  *
+  *
+- * [1] A->B, A->D
++ * [1] A->B, A->D, C->B
+  * dl_server_start()
++ *   dl_defer_idle = 0;
++ *   if (dl_server_active)
++ *     return; // [B]
+  *   dl_server_active = 1;
+  *   enqueue_dl_entity()
+  *     update_dl_entity(WAKEUP)
+@@ -1825,6 +1828,7 @@ void dl_server_update(struct sched_dl_entity *dl_se, s64 delta_exec)
+  *   "B:zero_laxity-wait" -> "C:idle-wait"        [label="7:dl_server_update_idle"]
+  *   "B:zero_laxity-wait" -> "D:running"          [label="3:dl_server_timer"]
+  *   "C:idle-wait" -> "A:init"                    [label="8:dl_server_timer"]
++ *   "C:idle-wait" -> "B:zero_laxity-wait"        [label="1:dl_server_start"]
+  *   "C:idle-wait" -> "B:zero_laxity-wait"        [label="2:dl_server_update"]
+  *   "C:idle-wait" -> "C:idle-wait"               [label="7:dl_server_update_idle"]
+  *   "D:running" -> "A:init"                      [label="4:pick_task_dl"]
+@@ -1850,6 +1854,7 @@ void dl_server_start(struct sched_dl_entity *dl_se)
+ {
+ 	struct rq *rq = dl_se->rq;
  
-+static int intel_cpufreq_suspend(struct cpufreq_policy *policy)
-+{
-+	intel_pstate_suspend(policy);
-+
-+	if (hwp_active) {
-+		struct cpudata *cpu = all_cpu_data[policy->cpu];
-+		u64 value = READ_ONCE(cpu->hwp_req_cached);
-+
-+		/*
-+		 * Clear the desired perf field in MSR_HWP_REQUEST in case
-+		 * intel_cpufreq_adjust_perf() is in use and the last value
-+		 * written by it may not be suitable.
-+		 */
-+		value &= ~HWP_DESIRED_PERF(~0L);
-+		wrmsrl_on_cpu(cpu->cpu, MSR_HWP_REQUEST, value);
-+		WRITE_ONCE(cpu->hwp_req_cached, value);
-+	}
-+
-+	return 0;
-+}
-+
- static struct cpufreq_driver intel_cpufreq = {
- 	.flags		= CPUFREQ_CONST_LOOPS,
- 	.verify		= intel_cpufreq_verify_policy,
-@@ -2732,7 +2760,7 @@ static struct cpufreq_driver intel_cpufreq = {
- 	.exit		= intel_cpufreq_cpu_exit,
- 	.offline	= intel_pstate_cpu_offline,
- 	.online		= intel_pstate_cpu_online,
--	.suspend	= intel_pstate_suspend,
-+	.suspend	= intel_cpufreq_suspend,
- 	.resume		= intel_pstate_resume,
- 	.update_limits	= intel_pstate_update_limits,
- 	.name		= "intel_cpufreq",
++	dl_se->dl_defer_idle = 0;
+ 	/*
+ 	 * XXX: the apply do not work fine at the init phase for the
+ 	 * fair server because things are not yet set. We need to improve
 -- 
 2.53.0
+
+
 
