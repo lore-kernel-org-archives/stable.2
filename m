@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795597934;
-	b=yqu3wXbf1dPHMhKqYPVp1GBeBjPOoxXuG5nmQyUC2NabsS9ZH7SwcNlb1z6AVCuPFJdO
-	 PNbKvvcOp9KxXRxhZJTRqdIQXR+7zXv+uZYYPy/ZgOzZQN+9gJ2qO3K1u5RlcUsjUGdOb
-	 LDxlIJwIYYqkddEhkrNyLYiBW/SoHPAcBs3oKll97UL9R2FhdIHDxqe9ewktrr5fpw/rV
-	 Zg6wTtxQ6AXkIVh+FyidcU9zvcMuGsXLE6IL5iQnMMvRXy/PdUwg9p+fy6r/QOkX9mFU1
-	 NEFzUWoD883C71ccwLwRJO4w0U1tquGZIfG6+WpcdR1SSpoEwOEXOe/rpWp8nXsA6hA==
+	t=1795597937;
+	b=0eGmTt0Clfuc3u956kGntzjyDX6hQzaYuB/qTtX0yl/FCyyyUUsZS7ywN6qtlqBlWYUX
+	 29ddRKIHkWOCihl8yNxKaCXZTqGaA65K6S8+a3Qjwnmy/PBifjGpsRHbGv5wVAjE6hllE
+	 TsR2oOMuZq/qWjCF24we2x5vITTRSyX9wGW3zQ5780v3A+DO3L8TTr8t8UjWrgZY5koq2
+	 Fazwz7YhbpiRyBWHCq7vaP8rYwXrLDpGYny828QhDC16agI133LkYVILjbXp840TnOyTn
+	 eFRugjeRAGYLKoGP+af4/nO8U9mAe/Zr/gHKoRcxMAkK3gYfTSOywLKolELPJy5TF2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795597934;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795597937;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Pamqu5PAVETz+cHP91t/lxPfrMnYeScRL5PcyP7BDZY=;
-	b=xEsopYgNEILs4fupWzvlTqn2SKC1RGBwPeQY7PGCZuSs7UDl3EkDxRmPY65NCjMvw1Uz
-	 aMURCTqWUbsC4+96KW65HZ1odUbB/IRp5aP5+4qoW59BEtoADZxx1p+Wftn7YAQ5/zsa6
-	 AkIfRKpYZN26Mey8BNsQ3HtQstHezkBrs32JdfoDKa9TSDuVX3ZnLXNHyXYUsNhFjLNbp
-	 27KAw+zCiGiw6xfqw6+gqbj+5A6wZOOc63ijxriZHZ471vACrjomLydvLDMohbVWEBsP8
-	 6+LxiARiV8QW0xEzWDbbe5PoCkAyXqRma7MRBSQELvxhAXebN3zOhUBNGguiUencUhg==
+	bh=X1ZqySHtnjxludZgvu6I0X8CfoCIITQ2WGO4oo5fE64=;
+	b=pvwGStP7QbZLUOaAnkEc2422GnxLerciabL/g643gs+Vft/Vr8Bd9L8CAqnbkpM7GTzq
+	 QV4Jxp4S/29Yh37hqF/vSyiPn6Ql1D3mP1/oSQZio/LVoAxTyenEFineGgJ/9Ht7sNA1z
+	 2QhySZEUOQFaZE32bATO9zPQFUXJLobih7o6uDb2eeII+R/E4k/jnThZhAIdk/MeVotla
+	 iFgCr954fbZN0CrASBfFaoIFjZ+f/2eK4ROhZE367xyfEBzOpCb7tQip2di5qFIW77gGS
+	 M3CP+H2sphdQw6hKev0J3jK8YQpAxMPdhihifJ/wJVesq5EYKXb7fXeEgjxUxkdW5lQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nyaJUFXP;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="WtXkL/P8";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40FF8606A32A
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:12:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D025606A32D
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:12:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nyaJUFXP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55C171F000C4;
-	Wed, 25 Nov 2026 09:12:13 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WtXkL/P8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27A7E1F000CA;
+	Wed, 25 Nov 2026 09:12:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795597933;
-	bh=Pamqu5PAVETz+cHP91t/lxPfrMnYeScRL5PcyP7BDZY=;
+	s=korg; t=1795597936;
+	bh=X1ZqySHtnjxludZgvu6I0X8CfoCIITQ2WGO4oo5fE64=;
 	h=Subject:To:Cc:From:Date;
-	b=nyaJUFXPeVlSNGJByYB0XnwmPKte6fJrqmPRGeExgGy6zfP0DdUOoKyr+TJGDbApJ
-	 /8YkfJyui+Pz6Dl8ZJ5PFU/w6EBc1vDE8c02h0gmNmaIJUzPBvVMD0Z/ZkhmXhCR47
-	 5jEOtOVv76zxoqB5Ku9QH4SVmf4Wqo2gIlRBWwCM=
-Subject: FAILED: patch "[PATCH] gve: Fix race between stats query and queue reconfig" failed to apply to 5.10-stable tree
-To: treapking@google.com,debarghyak@google.com,hramamurthy@google.com,kuba@kernel.org
+	b=WtXkL/P8pGmD0Z2dZTTpuxkG9pFj0vhllxjOyFQHEVSR48eM+qoSoN2r9YFjgnvNM
+	 XW7PcMVuaZ4zehAVlFBKfErqJrZj52g7LCjfMqnbOW7WSZXZTANLaXck45uW844+do
+	 p3SX5oX79PCdtIieGLLzWK/OKsooRFMctE/kQsAY=
+Subject: FAILED: patch "[PATCH] hv_netvsc: Stop PPI parsing on invalid metadata" failed to apply to 5.10-stable tree
+To: ernis@linux.microsoft.com,davem@davem-thinkpadp1gen8.ibmlond.csb,haiyangz@microsoft.com,horms@kernel.org,liuwe@microsoft.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 10:00:04 +0100
-Message-ID: <2026112504-suffering-scorch-1939@gregkh>
+Date: Wed, 25 Nov 2026 10:00:17 +0100
+Message-ID: <2026112517-devotion-snack-1302@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7de69da15088ac2add08eb2b5f5c0a79fd461c1e
+git cherry-pick -x 19a227903e65c7a9c179156485660a4e017575fe
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112504-suffering-scorch-1939@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112517-devotion-snack-1302@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,247 +79,60 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7de69da15088ac2add08eb2b5f5c0a79fd461c1e Mon Sep 17 00:00:00 2001
-From: Pin-yen Lin <treapking@google.com>
-Date: Mon, 9 Nov 2026 18:20:33 +0000
-Subject: [PATCH] gve: Fix race between stats query and queue reconfig
+From 19a227903e65c7a9c179156485660a4e017575fe Mon Sep 17 00:00:00 2001
+From: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
+Date: Fri, 30 Oct 2026 02:34:59 -0700
+Subject: [PATCH] hv_netvsc: Stop PPI parsing on invalid metadata
 
-Fix a concurrency bug where network statistics queries race with queue
-reconfiguration or interface teardown, causing a Use-After-Free (UAF) or
-NULL pointer dereference.
+rndis_get_ppi() uses continue when a per-packet information entry has an
+invalid size or offset, or cannot hold the requested metadata. However,
+the remaining length and entry pointer are only updated at the bottom
+of the loop. Each error path therefore retries the same invalid entry
+indefinitely, repeatedly logging the error and preventing receive
+processing from completing.
 
-Currently, statistics queries access priv->tx and priv->rx without
-locking. When an interface is brought down or reconfigured,
-gve_queues_mem_remove() frees these arrays. A concurrent stats query
-can dereference freed queue structures and crash the kernel.
+Return NULL on these validation failures instead of continuing. This
+terminates the lookup when malformed metadata is encountered while
+preserving the existing behavior for valid entries.
 
-This issue was discovered and actually triggered by the
-drivers/net/stats.py selftest. When an interface was brought down,
-querying per-queue statistics via Netlink caused a kernel NULL pointer
-dereference in gve_get_rx_queue_stats():
+The issue was reported through an internal bug-tracking system and
+confirmed by manual code inspection. The pre-fix hang has not been
+reproduced locally.
 
-  BUG: kernel NULL pointer dereference, address: 00000000000000a0
-  RIP: 0010:gve_get_rx_queue_stats+0x17/0x50 [gve]
-  Call Trace:
-   <TASK>
-   netdev_stat_queue_sum+0x11c/0x250
-   netdev_nl_stats_by_netdev+0x21b/0x2d0
-   netdev_nl_qstats_get_dumpit+0xd2/0x220
-   genl_dumpit+0x32/0x90
-   netlink_dump+0x1d2/0x450
-   __netlink_dump_start+0x1db/0x2a0
-   genl_family_rcv_msg_dumpit+0x9b/0x100
-   ...
-
-The per-queue stats callbacks run under the netdev instance lock, so
-this NULL dereference is not a race; it happens on any query while the
-interface is down.
-
-Additionally, concurrent stats queries during queue reconfiguration can
-race with gve_queues_mem_remove(), causing a Use-After-Free.
-This affects gve_get_stats(), which does not hold the instance lock.
-gve_handle_report_stats() also runs without it; it is stopped before
-queue teardown, but can still read priv->rx[idx] while the single-queue
-restart path rewrites it.
-
-Fix this by introducing stats_lock to serialize stats queries against
-queue teardown. In gve_queues_mem_remove(), queue pointers are set to
-NULL under stats_lock before freeing. Stats readers acquire the lock
-and verify pointers are non-NULL before reading counters.
-The per-queue stats callbacks already run under the instance lock, but
-take stats_lock as well for consistency.
-The single-queue restart path also rewrites priv->rx[idx] in place, so
-gve_rx_queue_stop() and gve_rx_queue_start() do those writes under
-stats_lock as well.
-
-This change was tested using the DQO RDA queue format.
-
+Fixes: 44144185951a ("hv_netvsc: Add validation for untrusted Hyper-V values")
 Cc: stable@vger.kernel.org
-Fixes: f5cedc84a30d ("gve: Add transmit and receive support")
-Fixes: 2e5e0932dff5 ("gve: add support for basic queue stats")
-Co-developed-by: Debarghya Kundu <debarghyak@google.com>
-Signed-off-by: Debarghya Kundu <debarghyak@google.com>
-Signed-off-by: Pin-yen Lin <treapking@google.com>
-Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
-Link: https://patch.msgid.link/20261109182036.2910559-2-hramamurthy@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
+Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
+Reviewed-by: Wei Liu <liuwe@microsoft.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
 
-diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
-index b7ce6e8632db..1911d05eb697 100644
---- a/drivers/net/ethernet/google/gve/gve.h
-+++ b/drivers/net/ethernet/google/gve/gve.h
-@@ -957,6 +957,11 @@ struct gve_priv {
- 	struct workqueue_struct *gve_wq;
- 	struct work_struct service_task;
- 	struct work_struct stats_report_task;
-+	/* Protects the priv->tx/priv->rx arrays, the in-place rewrite of
-+	 * priv->rx[idx] and the queue counts against stats readers that do
-+	 * not hold the netdev instance lock.
-+	 */
-+	spinlock_t stats_lock;
- 	unsigned long service_task_flags;
- 	unsigned long state_flags;
- 
-diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
-index 2437cd8ba633..45868cc4dd25 100644
---- a/drivers/net/ethernet/google/gve/gve_main.c
-+++ b/drivers/net/ethernet/google/gve/gve_main.c
-@@ -69,6 +69,7 @@ static void gve_get_stats(struct net_device *dev, struct rtnl_link_stats64 *s)
- 	int num_tx_queues;
- 	int ring;
- 
-+	spin_lock_bh(&priv->stats_lock);
- 	num_tx_queues = gve_num_tx_queues(priv);
- 	if (priv->rx) {
- 		for (ring = 0; ring < priv->rx_cfg.num_queues; ring++) {
-@@ -96,6 +97,7 @@ static void gve_get_stats(struct net_device *dev, struct rtnl_link_stats64 *s)
- 			s->tx_bytes += bytes;
+diff --git a/drivers/net/hyperv/rndis_filter.c b/drivers/net/hyperv/rndis_filter.c
+index 9b6c44979b4e..2c30abf9faf8 100644
+--- a/drivers/net/hyperv/rndis_filter.c
++++ b/drivers/net/hyperv/rndis_filter.c
+@@ -401,12 +401,12 @@ static inline void *rndis_get_ppi(struct net_device *ndev,
+ 		/* Validate ppi_offset and ppi_size */
+ 		if (ppi->size > len) {
+ 			netdev_err(ndev, "Invalid ppi size: %u\n", ppi->size);
+-			continue;
++			return NULL;
  		}
- 	}
-+	spin_unlock_bh(&priv->stats_lock);
- }
  
- static int gve_alloc_flow_rule_caches(struct gve_priv *priv)
-@@ -642,9 +644,13 @@ static void gve_queues_mem_remove(struct gve_priv *priv)
- 	struct gve_rx_alloc_rings_cfg rx_alloc_cfg = {0};
- 
- 	gve_get_curr_alloc_cfgs(priv, &tx_alloc_cfg, &rx_alloc_cfg);
--	gve_queues_mem_free(priv, &tx_alloc_cfg, &rx_alloc_cfg);
-+
-+	spin_lock_bh(&priv->stats_lock);
- 	priv->tx = NULL;
- 	priv->rx = NULL;
-+	spin_unlock_bh(&priv->stats_lock);
-+
-+	gve_queues_mem_free(priv, &tx_alloc_cfg, &rx_alloc_cfg);
- }
- 
- static void gve_free_control_plane_resources(struct gve_priv *priv)
-@@ -1383,6 +1389,7 @@ static int gve_queues_start(struct gve_priv *priv,
- 	int err;
- 
- 	/* Record new resources into priv */
-+	spin_lock_bh(&priv->stats_lock);
- 	priv->tx = tx_alloc_cfg->tx;
- 	priv->rx = rx_alloc_cfg->rx;
- 
-@@ -1396,10 +1403,11 @@ static int gve_queues_start(struct gve_priv *priv,
- 	priv->rx_pages_per_qpl = rx_alloc_cfg->pages_per_qpl;
- 	priv->header_split_enabled = rx_alloc_cfg->enable_header_split;
- 	priv->rx_cfg.packet_buffer_size = rx_alloc_cfg->packet_buffer_size;
-+	gve_init_sync_stats(priv);
-+	spin_unlock_bh(&priv->stats_lock);
- 
- 	gve_tx_start_rings(priv, gve_num_tx_queues(priv));
- 	gve_rx_start_rings(priv, rx_alloc_cfg->qcfg_rx->num_queues);
--	gve_init_sync_stats(priv);
- 
- 	err = netif_set_real_num_tx_queues(dev, priv->tx_cfg.num_queues);
- 	if (err)
-@@ -2266,6 +2274,7 @@ void gve_handle_report_stats(struct gve_priv *priv)
- 	if (!gve_get_report_stats(priv))
- 		return;
- 
-+	spin_lock_bh(&priv->stats_lock);
- 	be64_add_cpu(&priv->stats_report->written_count, 1);
- 	/* tx stats */
- 	if (priv->tx) {
-@@ -2330,6 +2339,7 @@ void gve_handle_report_stats(struct gve_priv *priv)
- 			};
+ 		if (ppi->ppi_offset >= ppi->size) {
+ 			netdev_err(ndev, "Invalid ppi_offset: %u\n", ppi->ppi_offset);
+-			continue;
++			return NULL;
  		}
- 	}
-+	spin_unlock_bh(&priv->stats_lock);
- }
  
- /* Handle NIC status register changes, reset requests and report stats */
-@@ -2679,8 +2689,10 @@ static int gve_rx_queue_stop(struct net_device *dev, void *per_q_mem, int idx)
- 	gve_turnup_and_check_status(priv);
- 
- 	gve_per_q_mem = (struct gve_rx_ring *)per_q_mem;
-+	spin_lock_bh(&priv->stats_lock);
- 	*gve_per_q_mem = priv->rx[idx];
- 	memset(&priv->rx[idx], 0, sizeof(priv->rx[idx]));
-+	spin_unlock_bh(&priv->stats_lock);
- 	return 0;
- }
- 
-@@ -2734,7 +2746,9 @@ static int gve_rx_queue_start(struct net_device *dev,
- 		return -EAGAIN;
- 
- 	gve_per_q_mem = (struct gve_rx_ring *)per_q_mem;
-+	spin_lock_bh(&priv->stats_lock);
- 	priv->rx[idx] = *gve_per_q_mem;
-+	spin_unlock_bh(&priv->stats_lock);
- 
- 	/* Single-queue creation requires quiescence on all queues */
- 	gve_turndown(priv);
-@@ -2770,7 +2784,9 @@ static int gve_rx_queue_start(struct net_device *dev,
- 	 * which needs the rtnl lock, will not run till this func returns and
- 	 * its caller gives up the lock.
- 	 */
-+	spin_lock_bh(&priv->stats_lock);
- 	memset(&priv->rx[idx], 0, sizeof(priv->rx[idx]));
-+	spin_unlock_bh(&priv->stats_lock);
- 	return err;
- }
- 
-@@ -2786,9 +2802,15 @@ static void gve_get_rx_queue_stats(struct net_device *dev, int idx,
- 				   struct netdev_queue_stats_rx *rx_stats)
- {
- 	struct gve_priv *priv = netdev_priv(dev);
--	struct gve_rx_ring *rx = &priv->rx[idx];
-+	struct gve_rx_ring *rx;
- 	unsigned int start;
- 
-+	spin_lock_bh(&priv->stats_lock);
-+	if (!priv->rx)
-+		goto unlock;
-+
-+	rx = &priv->rx[idx];
-+
- 	do {
- 		start = u64_stats_fetch_begin(&rx->statss);
- 		rx_stats->packets = rx->rpackets;
-@@ -2796,20 +2818,32 @@ static void gve_get_rx_queue_stats(struct net_device *dev, int idx,
- 		rx_stats->alloc_fail = rx->rx_skb_alloc_fail +
- 				       rx->rx_buf_alloc_fail;
- 	} while (u64_stats_fetch_retry(&rx->statss, start));
-+
-+unlock:
-+	spin_unlock_bh(&priv->stats_lock);
- }
- 
- static void gve_get_tx_queue_stats(struct net_device *dev, int idx,
- 				   struct netdev_queue_stats_tx *tx_stats)
- {
- 	struct gve_priv *priv = netdev_priv(dev);
--	struct gve_tx_ring *tx = &priv->tx[idx];
-+	struct gve_tx_ring *tx;
- 	unsigned int start;
- 
-+	spin_lock_bh(&priv->stats_lock);
-+	if (!priv->tx)
-+		goto unlock;
-+
-+	tx = &priv->tx[idx];
-+
- 	do {
- 		start = u64_stats_fetch_begin(&tx->statss);
- 		tx_stats->packets = tx->pkt_done;
- 		tx_stats->bytes = tx->bytes_done;
- 	} while (u64_stats_fetch_retry(&tx->statss, start));
-+
-+unlock:
-+	spin_unlock_bh(&priv->stats_lock);
- }
- 
- static void gve_get_base_stats(struct net_device *dev,
-@@ -2935,6 +2969,7 @@ static int gve_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	}
- 	INIT_WORK(&priv->service_task, gve_service_task);
- 	INIT_WORK(&priv->stats_report_task, gve_stats_report_task);
-+	spin_lock_init(&priv->stats_lock);
- 	priv->tx_cfg.max_queues = max_tx_queues;
- 	priv->rx_cfg.max_queues = max_rx_queues;
- 
+ 		if (ppi->type == type && ppi->internal == internal) {
+@@ -414,7 +414,7 @@ static inline void *rndis_get_ppi(struct net_device *ndev,
+ 			if (ppi->size - ppi->ppi_offset < ppi_size) {
+ 				netdev_err(ndev, "Invalid ppi: size %u ppi_offset %u\n",
+ 					   ppi->size, ppi->ppi_offset);
+-				continue;
++				return NULL;
+ 			}
+ 			return (void *)((ulong)ppi + ppi->ppi_offset);
+ 		}
 
