@@ -1,55 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795594997;
-	b=tquEVpPuV4WHqb7BKo92CQdq+DbFVO20b2fswlWtcz3OdEfLYxwdMFyV/tAMc/BBFgAQ
-	 HzRD0MeY/AWniM1tpXzCGlUPYuu9t9dTCNOJaqY47ZVXtlyoH0IJkBlx/S8+z2qgLe4yQ
-	 yw83/g5LTIh2/8+WFvPFpHHJpSIPMjYf8hpSxTSBfQphkdUl+opO3MrPZpBOVBtCtc80K
-	 Ym0ZsvCL1EcEFkbtFusL2yS+lLZpCKtKdnLgHERRbcGwwO8XQsAnZ0vApbMmc+rvxNl6F
-	 kSbH8bwUM8WsPON7T9lsirYxppjnOXSwvr51Owns+5RBvwWQWibXxyspDah8uk6acSw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795594997;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=hsT7zBmMHOA0tSmt3vFfihAtL6RUpoMsSd3RGk73F2s=;
-	b=A+1gflXwYXWdCjSShW9mL6M/cM58cAtOMea7CF95VQgshierO4DThf4brMQVg+A0ikiZ
-	 2125XHRwZ2v43zwxJgT3h+zm/RfWFAwewhVBXylUMmL0UfjYTLFmBFVVzp4DM/n3xoOpY
-	 0We3ymQB/K8jJATPBmGPypf8OGQkrkxNW5QjfNTJzsnByr0+YeFmTcl7ZB4tN/Vr+Kak8
-	 qGZ5rmie4ToCufd1JKmYt+q9T7RyZEP2pBD0tyaZYvW0IYmWV1pGL3+kmIynVQ7vQLjxp
-	 eiyA8xdIuLg7o+RcP1Gn0iG25ZJdCW66MB95Mx365gRt/eay4F2Tczfaiw0vrCnbX4g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YZloInuI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.218.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1795595080;
+	b=cEwaMSlv5kNj06JaTdhumFhGZXnP+2WL8Ws4PAYRENSCLTgmfQ807HDlxJd2wpUsfDnH
+	 x26PMH/RqzfE9mEV6nvs3IOksoTFU83ZULruR+htY4CIdgpvH77GjxzxKqD6q7WkxPUls
+	 Rz39bC1iItD2YQPs8/9EwMmEvD53K17m099wTcknEJs4WorSPWK6OJUeGBY56bgiRBa/L
+	 ThskfiAFXjqJMxsByAFSkgZq3w30wLP5wsCGFjtGIkag8ntbbWm+s3LO8jZ2GQfc2r33c
+	 OX/xp9cktEZlzNhpZbsIqZj0Sy0r8YdtOTt4C/MjCvsTaS+/sctQ5ZIva+YIc8VWhdg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795595080;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 In-Reply-To:References:MIME-Version:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Content-Type;
+	bh=+OgTYY8n6yc3qcbD3zimkqKD2AWn/72ixSa4WihkrKk=;
+	b=x0K7mDuDMbVOwVcTjLsLVp/Ngz8v5/jL0V/Tibrdo/8KiUZ/LLer0goAz6EK1FVV+4iA
+	 WtSSiZVOFJ8HNaR8XvPAkJ3bO92nKBMibW38zqlhs0fTW76MKDE1YQTCF8WJwAbmwyjWF
+	 wymw9oJa6Xt6SSRncaT2ZyH/vFiG7E3lX/UMNySHT2gR9CZcH9AqpWDAJk2TTlehehB9m
+	 QW9NzG4HBs4jjEGV31NPGEJ9i473gZRBzO6fG4sMMweBytxzFUuo91BKoZ1KrkDnWshqf
+	 Pzbr7i3kh3rMc9KMbJBQ3lffBn9xK5BLblNpDP7EEYw7lFCgH5tW1TIuqHJPCDjTriA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JYnBbibw;
+	arc=fail smtp.remote-ip=209.85.218.51
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D4B606A32D
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:23:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC810606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:24:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC810606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YZloInuI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B028A1F000ED
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:23:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795594996;
-	bh=hsT7zBmMHOA0tSmt3vFfihAtL6RUpoMsSd3RGk73F2s=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YZloInuILkJ9lmMUSqL/V1E8ZE2MR7DT1FHtU5vmr1pynf0SQxxjVeQeMdQmCVdOU
-	 yI5vYa/MpHD51913RjFTE0cfACo+wFIrf/YlA2+0n2ByuZEuHOIiFSIN2MxoTdxOq6
-	 YQdPQHNk2d43l8aIC62EUfQ5OpRhtdKq3RVYmk61kUu7I3Wo83lhI1Bihi6LX3J1Gs
-	 xPyd1O68e+0uA3TiIzPNRDmP1QZvMcU27ndaND5Yx03x0lDJYvF3ZXDwQ82WcwthQc
-	 lnTas0aZN4TvJdDeJhA60y3x4W7yMTozdz0arecRmKxYV/HG+m5OCSjgLGKDVl7ITw
-	 ZyXG2yI59pwdg==
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-949b0d32315so461139485a.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 00:23:16 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFyM0A6lrIr0c5IBdbYtaOHECHBFABbNDNeTTKG7A8SvcBEiM9SXpb8M+ybP1I9jYBDGYGx/D0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8whxXpm3a2Jk1IdP8zZq8v26yY4GwMDuH++x4MSSRQmQCZxfPW
-	hFSmtc6LSSAOyvBEH2F7vCCYwnNvZCrMEeQtPj/WKOOhI5pNtwGufvoX0rveSwfjkodwjlTGFRJ
-	0zJJs8WAh4seu1xr8FxxnOqD91Z9dQ8o=
-X-Received: by 2002:a05:620a:6c18:b0:949:664e:e3e8 with SMTP id
- af79cd13be357-949ba997635mr2899642585a.34.1795594995906; Wed, 25 Nov 2026
- 00:23:15 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JYnBbibw
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c506a231b88so745446866b.3
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 00:24:39 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795595078; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JZnIXlqQXm82FJZYMLQvCFng7wsRgDffrOI13oq0KPUDiPLVrnwCzmLQY8KA65WAAb
+         sx3eDWKqVfzMXz5vLu6QBe2Dp2x6gV3eDZRZyGMpbENZ+2rwb7ULfP+Pq2KPyn0M/Gob
+         jCa2QoUtj2a8wOyzK92yQP3+5KNoR7LVQSjp7FS1GK1ZRIn6VLW8Fk5qlenPG77O1DQ5
+         9s7ZoJ9VoqAaIc7z8U0pR+h3j81BebLCTeSC2WZWCqwWzQUVpxOjap8nlFI4Qe4VWYXj
+         4ZYTowjX9I+DnmawmF9n5pJPrguJRl4sHk6wquztnAQtB+S4dePkKlCV2TNUjkuAEvsy
+         kxKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:mime-version:references:in-reply-to
+         :dkim-signature;
+        bh=+OgTYY8n6yc3qcbD3zimkqKD2AWn/72ixSa4WihkrKk=;
+        fh=/2W6HSBBbveIwLsECtVk7BoDNiU3956zFWTqF5QaDLw=;
+        b=JU7lV3StSaZc//tDv3iG8uC00BXn5WoI63nRKyLLtg65NkXPkg3LVthk8Ktwjj65vx
+         VsQO6bxw/CllTRX+dmxsiekG/ON3ehFVrBa8zoLqmcAvtvN3dNi4/IvG0/Ho0bjtw2XS
+         mabAANPBLdaELdXzlmL1kpChlOro9gZCf0A/aLIC210H00RJEfNhcjU2WF9QP5f0ePBh
+         8IGruv55qLjvkOr/LsLAZ1GDHUDPHWgNE8DS/8FKWDkBhspPguY1571Wh8hd6yGi5ZTK
+         vJLBuz/XF1z5GBXX3d8rQLcOoUTHSYGAHIhaNQUi1kpkxQrzm1rQ04pN/7q90p7Tickx
+         DMBw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795595078; x=1796199878; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:mime-version
+         :references:in-reply-to:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+OgTYY8n6yc3qcbD3zimkqKD2AWn/72ixSa4WihkrKk=;
+        b=JYnBbibwmphUIXBEAUa/kCRgqceDjAv/l0WaihxjyopfKawc6bFPMZ7cTmF1eUTr+L
+         TTTNgbOLg/4QD020Cx7XQt8dIw/AjE7UoUpmYOgEe+tNmFWjvyo9bA/bvacvwqZmcTyq
+         K1ML8TTAed1Ce7U87SlAAPCyU/VCU9Dy7KoXVTVlFqCPjY4yFZUWcvCvHc/PgjuldAwX
+         JPgWJ6HbXqGHBqXuaqCtwdvgJ1326sNr4ew0JiCNoeLtluQUnE2Ri5S5hnGSNlCRp9La
+         T3ZJquk487Xd8+GyuVbvi7Gqkn1rVwCQQZRLf0u/upQ5wKeu6zZ3GeQcGzgIa5481Xfq
+         gSGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795595078; x=1796199878;
+        h=content-type:to:subject:message-id:date:from:mime-version
+         :references:in-reply-to:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+OgTYY8n6yc3qcbD3zimkqKD2AWn/72ixSa4WihkrKk=;
+        b=VaPbekzyZq5nU3OPMvJEHmoCEhfRqVoalZ+DvJJnL9PitZuMJoOnZwH/bxK0XZ7+xh
+         5sqVzAsOHWy15cRS/xuGGjaJ+8/RRvPxTIUHGuhxIMKxMrZQG/P899pvioh1QP4mMzy6
+         B9kk8hKIxf6Eo5Cp626uxFzE9s5TaAZhExjrwfNa5xA4+6lvLJrlgFHNOTfYqqKmU9A+
+         sphhNM+03TxCOsm8rYe8vNA2nNRLaDEUd7GdIvXRPms46U5WLIhJj0O9E0F/ANThOT+h
+         gZWjS7oTRSj6qb9iU1scl0Qp6574bLYI2Fen2lGl3rO1OHr6L8M0uJBjkCusgazf4gM0
+         wGwg==
+X-Forwarded-Encrypted: i=1; AL+hErFGSy6XIFTrSiPez4oDB7TZwvLr3BLpchKNUUYIlwL7hlKqPQhZHFxI4IZxwlMCop7OSGkjYzU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/3fDLD1aYcjxafFHJC8hG9iuijJuJsp3Tts89WpjoKdsGbiUMn
+	sjUuBVzCawsXcdDyD/GTb2i3iJoopFDJmjFvOMXjmwSsP8XI+uG6j9OPrrBiFtjjxAurQtbBK+i
+	7BOMi6Ma88F+itLNnD1XOwMk8YlYIh/o=
+X-Gm-Gg: AZFdTZfTgAin1hevAIvYdAgzmctEYnkJ/8WDCrwpYkIqVZB09cVDESbmiZ/A1lCluPS
+	vJffZPvW1Iz4qFGdTwkMHX6xJ+TVjIf4iSnmf+aXTc6Zn5fHHMlaIe0vM+R5XMeDcsGXo/Rk3BN
+	n5aRrFj2/Kx5FOOKNC9HRxrjgvSoaSqy6Sxz3TWGLwGJHN3YzO4VQZjZOMkQjQzCgEqxk+BKgNX
+	lqZTXtqDZZPfw0l3J34gTQ1ofaSSnofFdPGnDFPi7d5Llk1XhwCdVBFaV+JTuC6cq34iuj05pDX
+	pBYFgfjeXsCnJPV3L+pnkCaNT6Ca3ayQtRfXElZnGViZ1DzGSoTegcSz55uN4qGSt9FK9Cjp6z8
+	TBCdos1Qf6pCDWZ6RXD2jyFBltqeFmDfid6H70A==
+X-Received: by 2002:a17:907:fd15:b0:c40:9e84:942a with SMTP id
+ a640c23a62f3a-c513aade153mr1426627166b.48.1795595077992; Wed, 25 Nov 2026
+ 00:24:37 -0800 (PST)
+Received: from 1087654160852 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 25 Nov 2026 08:24:37 +0000
+In-Reply-To: <20261125-ymc-82yl-v2-0-624bdcb3c50e@rong.moe>
+References: <20261125-ymc-82yl-v2-0-624bdcb3c50e@rong.moe>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,96 +107,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261125073931.1171242-1-hui.zhu@linux.dev>
-In-Reply-To: <20261125073931.1171242-1-hui.zhu@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Wed, 25 Nov 2026 16:23:02 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zvaxT+TD2P0ephTRsjAeVo+9NdavmmxLnuoj6d7P5UuQ@mail.gmail.com>
-X-Gm-Features: Aa3M54oYpLZLgx5RRSzL4wpUVCax0NId0FybUVL-U-z7-jqsoujZkX4qgzA3cgU
-Message-ID: <CAGsJ_4zvaxT+TD2P0ephTRsjAeVo+9NdavmmxLnuoj6d7P5UuQ@mail.gmail.com>
-Subject: Re: [PATCH v2] mm: mglru: reset the mm iteration cursor in try_to_inc_max_seq_nowalk()
-To: Hui Zhu <hui.zhu@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Harry Yoo <harry@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Hui Zhu <zhuhui@kylinos.cn>, stable@vger.kernel.org
+From: Eduard Aliman <edialiman20@gmail.com>
+Date: Wed, 25 Nov 2026 08:24:37 +0000
+X-Gm-Features: Aa3M54o67SCsnlpq9AQJICAL3atDqUTbJibGMy_iK-r2wySf-JoH44j30Oevkfs
+Message-ID: <CAA4HgY+tuBiz06+uq0nfBVfzmVCVPatb+9LGdFN8L3jOPSNfqg@mail.gmail.com>
+Subject: Re: [PATCH v2 0/7] platform/x86: ideapad-laptop: Trigger the EC on
+ YMC events following Windows behavior
+To: Rong Zhang <i@rong.moe>, Mark Pearson <mpearson-lenovo@squebb.ca>, 
+	"Derek J. Clark" <derekjohn.clark@gmail.com>, Hans de Goede <hansg@kernel.org>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Gergo Koteles <soyer@irl.hu>, Ike Panhc <ikepanhc@gmail.com>, 
+	Andrew Kallmeyer <kallmeyeras@gmail.com>, Eduard Aliman <edialiman20@gmail.com>, 
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Mahir Faisal <mahirfaisalantiq33@gmail.com>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 25, 2026 at 3:39=E2=80=AFPM Hui Zhu <hui.zhu@linux.dev> wrote:
->
-> From: Hui Zhu <zhuhui@kylinos.cn>
->
-> try_to_inc_max_seq_nowalk() advances mm_state->seq without walking the
-> mm_list, but unlike iterate_mm_list_nowalk() it leaves head and tail
-> alone. If it races with an ongoing page table walk, the cursor is left in
-> the middle of the fifo.
->
-> The next walker reads that as "this generation already started": it skips
-> reset_bloom_filter() and resumes after the cursor. The mm it visits are
-> the ones the aborted walk never reached, so they have no bits in the
-> filter being read and walk_pmd_range() descends into none of their PMDs.
-> try_to_shrink_lruvec() ignores the failed try_to_inc_max_seq() and keeps
-> evicting, so those hot folios are not promoted and refault in the parent
-> memcg, until head wraps around a generation later.
+Hi Rong,
 
-I'm not sure I follow this part. Even if the page table walk misses
-those hot folios, we can still detect references through rmap during
-eviction, can't we?
+I tested this v2 series (patches 1-7/7) on top of Linux 7.3.4 (Fedora 45)
+with ymc_ec_trigger=1 on a Lenovo Yoga 7 14ARP8, and it completely fixes
+the issue: folding into tablet mode now physically turns off the keyboard
+backlight, and unfolding restores it, matching Windows 11 behavior.
 
-We also have lru_gen_look_around() on the rmap path.
+Tested-by: Eduard Aliman <edialiman20@gmail.com>
 
-So missing those folios during aging doesn't necessarily mean they
-will be reclaimed and subsequently refault.
+Could you also add a DMI quirk entry for this model (matching
+DMI_SYS_VENDOR / DMI_PRODUCT_VERSION as in patch 7/7) so it works out of
+the box without setting ymc_ec_trigger=1 manually?
 
->
-> Reset head and tail with the seq increment, as iterate_mm_list_nowalk()
-> does. It is safe: get_next_mm() holds an mmgrab() reference and a
-> concurrent walker bails out at "walk->seq <=3D mm_state->seq" before
-> touching head again.
->
-> Only reachable from memcg_reparent_objcgs() -> max_lru_gen_memcg(); not a
-> memory safety issue, since lru_gen_del_mm() repoints head and tail under
-> mm_list->lock.
->
-> Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
-> Reviewed-by: Baoquan He <baoquan.he@linux.dev>
+DMI info on this machine:
+  sys_vendor: LENOVO
+  product_name: 82YM
+  product_version: Yoga 7 14ARP8
 
-I'm fine with the fix, but I'm not entirely convinced that everything
-in the changelog is accurate. :-)
+Thanks a lot for tracking this down!
 
-> ---
-> Changelog:
-> v2:
-> Drop the helper and keep the fix open-coded (Baoquan He).
->
->  mm/vmscan.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 6a1af9b92349..3601e58f2a69 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -4694,6 +4694,8 @@ static void try_to_inc_max_seq_nowalk(struct mem_cg=
-roup *memcg,
->                 spin_lock(&mm_list->lock);
->                 VM_WARN_ON_ONCE(mm_state->seq + 1 < max_seq);
->                 if (max_seq > mm_state->seq) {
-> +                       mm_state->head =3D NULL;
-> +                       mm_state->tail =3D NULL;
->                         WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
->                         success =3D true;
->                 }
-> --
-> 2.53.0
->
->
-
-Thanks,
-Barry
+Best regards,
+Eduard Aliman
