@@ -1,61 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625125;
-	b=fxr+pYMxqa0QKBm7cB7pKtGmojTc8zF0V5g+zyAB8iZuZWRaC8BH/VK0tH9Wzb3eMSlw
-	 usipfoTvDmOY1Zhz0xfShpOmFN47EJbVOqqpT+OkELRjERWd5OllnAWT4IozEOsrSPnXQ
-	 tp/yj2cDwnLwvUzZlEvb+qA7b/WDi8QA8ZW2Sf/UdqgypVMVQhMvZ1GZDKwlsQemI6uwB
-	 Kkg0cuwxUQJRlQ6IcrZD8hgJA0z5p0d8uIZ/mI8tR8z0a4TMlkH5SgLL/OVRAQ9wrW5d1
-	 1/3UDHRyOsmhfVE5Z7X/39HpLsUkq25Hmab7U7c3RZl8tUF3lITXDS1KoKMphxToMzA==
+	t=1795625128;
+	b=TTFPMNIXKfGSU2x6LD8bqbUyt1Khrfu1u3a+VG+Q+ImDCfhb8kXGW4zYSDaXBxdxjkNo
+	 ZLrdGNWR9szmFmmf6/LMSARZXGuNcxnPP58Lk6ds/fwqHXMoL9agBML0ILmCsPsk+CTWb
+	 ugoyKF7YrmdqD4KlHqs4tVYGp8slkQrJMtS+sXxgYrhVkjwMnfUJ92pGEJg/t3ZfTp1VZ
+	 PXpPdcRL1JS4Zbrg8nF2yWh5s1tSsKuO9poKpTBc07BruuhsZHKZGrqrF2X0Gpk3/iSlz
+	 uXed3XcMyhN5oM2MM4Bpipxg9yVgaIJfexq3Eym8EIxMS7EifTkHSHjgx/9VbUpA22A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625125;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625128;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=LOF+kp51zA8+GxCLTidDd55huwo1JaOGeSzDBzPyirQ=;
-	b=zTB0U2bNvjVuGeSbruJwSJ9uAJi+HEhsU/+xjBvRyU7Nvp8DI6Sy6US28wMnhDThWVc4
-	 HgJPQR+sEDukzLBCkbNR9r7DOEQUKn1tVAspU9qPEuTLdypdzFisYv6kyrLe0b9Oh/mvV
-	 16Khfg5yd7kBURkpCj2FAAiWA3VQagK+CtDeNOmhrUWH1dXuv/2Ok4LTH40HNuoUwEgsJ
-	 cR0j/YGaoJopIb6tGeZHX/bc06rahsh7ydhEiQafF35AYXEDsW8CAD0a0Nyyjkiybazg3
-	 pgXGsEzExwT7kwT1STr8kAzBunzkG93xrpmM81BqERlrdIO7fgCsAKBh+p9N81cHWCw==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=qnJd7InjJPGVJKwlILKiU52xshaP/XDtKARS1S/Yp7o=;
+	b=uWVp/XooXFPLM0JwaI7genuk9n8rTHd6K6009KvVH5LYKH8iCnh/8qG5FI+eSJESQHM8
+	 wOiPHPkGeOCsQ4bsWmqCE4fda9rv+Q1llMLEbhdrOIxv65Qepm84F6IRaWncvAhpfeqJE
+	 F8vEicaiVY+zcWI2Lst+GeZJhGKadGQJpFP4s5dhYsWv6pDU00KWpXHn8F7vBG3YVncqo
+	 ccj50IBe650Tf4rTgT/02cC/N6mEmGm8sNqXQA1h03dEeWIpAtlmCDfOcXuccE9RTJ7BT
+	 Wg962l3eUS1p1o4ViP8rDkvjcxc9RjztauwiVGn723eY8zUc98ItdoknFLGj59AS/dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cC1BcJa0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IOCthaIw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB475606A327;
-	Wed, 25 Nov 2026 16:45:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97298606A32C
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:45:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cC1BcJa0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED48A1F000C6;
-	Wed, 25 Nov 2026 16:45:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795625125;
-	bh=LOF+kp51zA8+GxCLTidDd55huwo1JaOGeSzDBzPyirQ=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IOCthaIw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F7E41F000CF;
+	Wed, 25 Nov 2026 16:45:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795625127;
+	bh=qnJd7InjJPGVJKwlILKiU52xshaP/XDtKARS1S/Yp7o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cC1BcJa0hfvtHFRm34Ki4EWIjv1ZbiB8X2q0eZrDolStcjDR7ABAB6So0X5/4wXMk
-	 EFmC0dT5UT1hoQsUTE1cveMrOpPGyRKXe4x8BkQBhQqPTfbQghKNv/xSNwARRmB/Dl
-	 mG2swUdD41wwJqVKsJnpIdixTsBUH2Xjbe2nY570=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=IOCthaIw+PPK5dFgxcI7USVFUeH00l+FcnBwjd5x8s75BYHqWpYtCS5kfEG5IX+ja
+	 U0n9oDMyBA+nIBb+zEZ5ouQL2RiYeGRkQRJ2gBPE+LfCqXVPa+SN762Vz7IDPQA/Li
+	 hj/AhgoEcZy2nhEPF98xURB1zsBqwEtw2u9H1ZujopRMhc/69HxvEzrSCPk6n3H3kZ
+	 SDYHsu/1yDicw8wG9xTyb2fHfyj2UAXLk47ydkueTsmKnNP/ixTR/2pgz7zySKx98P
+	 Dfl/JcDHqt89p7+FQXkG+ZkEpzLuGvRDl+H0rG2FZzIhfGL9Ea9Kbk0rXOOlSCMvGr
+	 IfCmwBgyRJ2vA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Sashiko <sashiko-bot@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	=?UTF-8?q?Robin=20R=C3=A4ber?= <robin.raebi@gmail.com>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Sasha Levin <sashal@kernel.org>,
-	Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH 6.12 413/816] drm/connector: hdmi: Handle reset() state allocation failure
-Date: Wed, 25 Nov 2026 15:32:41 +0100
-Message-ID: <20261125143858.755045521@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
-References: <20261125143849.205329330@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Hyunjung Ko <hj351016@gmail.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] tpm: flush timeout work outside buffer_mutex to avoid deadlock
+Date: Wed, 25 Nov 2026 11:45:26 -0500
+Message-ID: <20261125164459.866975-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112529-manhole-ranging-68d9@gregkh>
+References: <2026112529-manhole-ranging-68d9@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,60 +59,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: Hyunjung Ko <hj351016@gmail.com>
 
-------------------
+[ Upstream commit c22052a012698ce56d599d75b669d55778521c7c ]
 
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+tpm_common_read() calls flush_work(&priv->timeout_work) under
+priv->buffer_mutex, but tpm_timeout_work() also takes buffer_mutex, so a
+running timeout work deadlocks the flush. Flush after unlocking; the timer
+is deleted under the lock, so no new work can be queued.
 
-[ Upstream commit 54acd0c74eba2a2c9a726856f5fdc6f9e74ea2e1 ]
-
-In drmm_connector_hdmi_init(), if the reset callback fails to allocate
-memory, e.g. inside drm_atomic_helper_connector_reset(),
-connector->state will remain NULL.  This is unconditionally passed to
-drm_connector_attach_max_bpc_property(), leading to a NULL pointer
-dereference.
-
-Bail out with -ENOMEM if the reset callback leaves connector->state
-unset.
-
-Fixes: aadb3e16b8f3 ("drm/connector: hdmi: Add output BPC to the connector state")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260723015306.C94241F000E9@smtp.kernel.org/
-Link: https://lore.kernel.org/all/20260723015306.C94241F000E9@smtp.kernel.org/
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588 Orange Pi 5 Plus, dual HDMI
-Tested-by: Robin Räber <robin.raebi@gmail.com>
-Link: https://patch.msgid.link/20260901-dw-hdmi-qp-scramb-v11-2-bc12954a0688@collabora.com
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-[ sashal: Added a NULL check after reset() returning -ENOMEM, with braces added around the single reset() call because the older code lacks the newer state-allocation structure. ]
+Fixes: 9488585b21be ("tpm: add support for partial reads")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Link: https://lore.kernel.org/r/20261108165812.676876-1-hj351016@gmail.com
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+[ sashal: Adapted the timer call to the older API, using del_timer_sync() in place of timer_delete_sync(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/drm_connector.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/char/tpm/tpm-dev-common.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 6c1a49fe9fc66..8814c9b6907a3 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -526,8 +526,11 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
- 	 * drm_connector_attach_max_bpc_property() requires the
- 	 * connector to have a state.
- 	 */
--	if (connector->funcs->reset)
-+	if (connector->funcs->reset) {
- 		connector->funcs->reset(connector);
-+		if (!connector->state)
-+			return -ENOMEM;
-+	}
+diff --git a/drivers/char/tpm/tpm-dev-common.c b/drivers/char/tpm/tpm-dev-common.c
+index ff86a1fdb5cdc..ddd4434edd33e 100644
+--- a/drivers/char/tpm/tpm-dev-common.c
++++ b/drivers/char/tpm/tpm-dev-common.c
+@@ -129,6 +129,7 @@ ssize_t tpm_common_read(struct file *file, char __user *buf,
+ {
+ 	struct file_priv *priv = file->private_data;
+ 	ssize_t ret_size = 0;
++	bool flush = false;
+ 	int rc;
  
- 	drm_connector_attach_max_bpc_property(connector, 8, max_bpc);
- 	connector->max_bpc = max_bpc;
+ 	if (!size)
+@@ -161,9 +162,18 @@ ssize_t tpm_common_read(struct file *file, char __user *buf,
+ 	if (!priv->response_length) {
+ 		*off = 0;
+ 		del_timer_sync(&priv->user_read_timer);
+-		flush_work(&priv->timeout_work);
++		flush = true;
+ 	}
+ 	mutex_unlock(&priv->buffer_mutex);
++
++	/*
++	 * tpm_timeout_work() takes buffer_mutex, so flush it after dropping
++	 * the mutex to avoid a deadlock; the timer is deleted above, so no new
++	 * timeout work can be queued once the mutex is released.
++	 */
++	if (flush)
++		flush_work(&priv->timeout_work);
++
+ 	return ret_size;
+ }
+ 
 -- 
 2.53.0
-
-
 
