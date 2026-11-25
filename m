@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795597946;
-	b=ex2jwAwZwIfcEHgoU61bfVBTAGxJqya38x0lTUQFEptO+eAY6yXuc/h4FPnNMjFsiYLY
-	 moNMsrx1bznNBOmH6Xz7mReGwHxazaxdyjVB4U7P6BIi2WZnfBeQZROngsXy9EgNd/PCw
-	 ZJAint8CEvPpdwIVu+2cnmI/n4AoqsQ1qWTUS+eeZBCRA6eI9vPgE4lX9t0CK6VFO8ngf
-	 duwPAkIVopNUk1Ln8C/iqZHa5lv4JOWSF5uQWmVzVVBwkyIXDS2lCyC6XKaCFoO3ETJBX
-	 dwCL2Cvx0+QqunDzuzHLLvRQ/6FJXr1PXaaogaKSeQw1UjlUq/qWKMWumOZXzhiruQQ==
+	t=1795597949;
+	b=DdPdx9jjRNPCSUSac0aIt1tF8Z+qr84a4k07Gtjrq2ojTMcoam71oyz/UNVxl4DCnpTQ
+	 BbDMMJz5zVCQsR1K3jygnVlqHUGl9M4Eo+P00K4Iy+sCl6O3QzVGoJ6dfs5zs4RJWbf7I
+	 iVxo3OEW9I7xtUUHZ1e2d+zGM0D0JUcXXe+xruBBd7vsLdVhpyE9eb7vecIWk0Z9fqZG/
+	 FqLJL6VLHRiJpUvV678Y7Xl3PE0qsroqzje6yJsFbB3hVUezH6zN9HBqw9unkJwOGCKS3
+	 uS1W+MiJ8+jnR1+LylB+uAnD71gWGX3dpxHwjmC7UVdD2rys2+SsHCPtTepAsFz+HTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795597946;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795597949;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pbPqxcZICvoAN2+e0Yg7w0yu3/RiofaXWPz3APQw2vc=;
-	b=NGa/oV+2woeVmoWQPw70dlq7HuQ+gbf+sAAb/TZ6W638LG04eQTVcL6ocomJt42djmpS
-	 7Sxwoso/KwvHP7wi3vE3FmYcldgJYt89VS2pJgusPsqZudzuvtT0ECKcHV27yn0Xlog0+
-	 290oV3YNjnslSyT66vIe+e/uVITo2CKbMxh0tdTYcXrotVqJEzsMHYXMZjj43EDa6Uy3F
-	 C9rzquJCszVk2zvEc9rklPoZ2/tNh9XEH9oOI6o1FTR1r1C4ytt6Sq23hb+hQ1kS+JTwh
-	 pjCketBCTUFvixRn5pfKPqUGnWJdGrg0Ryszi998N9Nco7wAotTK731MP5uCDvUrUfw==
+	bh=xae5DZUmxLr6oI7oTh7Z+SLt8ewRs4psqQ4256WA5lU=;
+	b=Qv/iMEVTNT5hkw+fuCOOJs/m3jTPYP9hnGwdOnzRcRc15NC2M8hUOhp3qDWLwIzhfmXC
+	 gq6BbFn6GKzJQOKnruoSyK0g5q/+YkZ58dyzgxw8jjj9JAMoZUTb4RrhyQQIdKvYPC3jY
+	 1+L4E4PH/hVRUDHT03dyWuT97bdpOJZSqDK10dhx6WJGdnVkmz4MpGp9U0MBjgrK58pdG
+	 BlG9YMkjpQK8Ia2UaV44UdT+aP1F55S49hHbqxJ3yiUkgswYalJ0zyMJErrnqcLE+wkGx
+	 qAJ2dQLN+Q9kf2PmPv9J++wPkFg03wGqn3OTZljff8/E0b5ID7Am7p6pVvn97pviYHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=e+AhlKIn;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fJFf5hwS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D09606A692
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:12:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B34F606A333
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:12:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=e+AhlKIn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88C721F01561;
-	Wed, 25 Nov 2026 09:12:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fJFf5hwS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAD0E1F01569;
+	Wed, 25 Nov 2026 09:12:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795597946;
-	bh=pbPqxcZICvoAN2+e0Yg7w0yu3/RiofaXWPz3APQw2vc=;
+	s=korg; t=1795597949;
+	bh=xae5DZUmxLr6oI7oTh7Z+SLt8ewRs4psqQ4256WA5lU=;
 	h=Subject:To:Cc:From:Date;
-	b=e+AhlKInV55UK0G7WZYyppHXBX+XLq1ZjhHZEvd8Ykct/SM/amJEvDloGVW1Z4pz0
-	 p1+j33402CaqMKmQECnIqjvzeT6Wf3YyF6aL1nZcql99i0hRcjclXsRzoqUCMf+GzY
-	 jd5X6CQPvJBvHSadT+HDCrua3VBXsyfw0Ggnq6xY=
-Subject: FAILED: patch "[PATCH] net: gro: do not undo remote checksum offload on merged" failed to apply to 6.1-stable tree
+	b=fJFf5hwSG637JH5yBX6exMG4QKls6MtjQczZswLMXHFLACLnS8KIym9fAiQe6QYA2
+	 pEnnYyXydhZJ77TfrxIWOm/9UELk8C+Y4j7YtMtQqGk1alym50FoLl9+HjhKo24wPq
+	 81cU+iqbLvrP3yoBvcwYvdMB/QgEq/Pi3ENI6vCQ=
+Subject: FAILED: patch "[PATCH] net: gro: do not undo remote checksum offload on merged" failed to apply to 5.10-stable tree
 To: edumazet@kernel.org,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 10:01:09 +0100
-Message-ID: <2026112509-unpadded-abridge-f87f@gregkh>
+Date: Wed, 25 Nov 2026 10:01:10 +0100
+Message-ID: <2026112510-gently-tweezers-f0da@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x c817ec1b06875b98460fbd19591be541bc3fa924
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112509-unpadded-abridge-f87f@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112510-gently-tweezers-f0da@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
