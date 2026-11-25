@@ -1,60 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795629109;
-	b=xUA70f4gMOZ3NAatUjGoBs7B/ihZJ9qZa6ZByXVf6J9Ra8+OOxP+40+d+tETxChxoWeM
-	 DUDWq9rRNu6DjsWhcwzS3BBAl9ILWE0bH922PPAEdWoJo56Me3feIA5Kj2WD+hl3ynkjz
-	 RsPN6fj/GNtFfcIfATsuidfq26GRcOuhdvrJ7SAa0hIIZfkLOJR2SdRio3WiuDWNRpRIr
-	 KmEaZLzXpC8dvSPpK4vpyZ5PYWQjFiq1aNU/AjhWZtFYJdGAyMPzbX2g0S41kx0eHUMmt
-	 KowKyHAcBjtUlOkvsZxtFhJpCOLkaaIUBeygqz/Hq6S1z2IPOuN0CrgDra75dX4yvSw==
+	t=1795629142;
+	b=InPMUPtQJ4EQWSjrHuyRI1ygDpiM7IKIC1huGTCiDNqNgqDhK13Th4fsfeWS4zA/SmJj
+	 TqVxO0Qcy3UcG3BKiPj8wHJ461izMT+fU7urWw4i5/zyX+bcSD6ZQ1qDSLYEQ4+hbbj5r
+	 qjfDSWyCAueAVNlerhtYaBoc+Bi5NVHZDVMSBtzKV8vsAdZf0PdM+mnuZoOQBibOFxx5q
+	 8tLnRMYuTfIu9a4+D6cgyJzYIM1zxWcKwaTeCn8xhBmAJH7eiOzPTMHE679iGXoRw2mjv
+	 hqgz5ZE9jpnMlSnoQKBiWNH2vKz0f3UE9CWhCKj7SH3/uBGVwUHPNHLrEVkh61Ybvww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795629109;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rTXKee5W6zqiK4ZfFTcu1Eqg6D/HIb3gFzrTTVg62ig=;
-	b=mSmPT4hIpwHJ/xBjjkQ1r7dG1TUL5vK6kfw4HKdTv2vWvEqhB5i4SQsRGHZFkXpUC6GX
-	 c2vUZXMryWA1YHNDPEURVcagv+RnP99CKZaSXsYiZ5qxOYXBs0agvYAidy7VrXF8OF3Uc
-	 Llw8mrmELmRYszkuqrKj4yGwroB7UPLr19/ngOwrIdbYXxS22waQOGn9as/7vUatpi8Cx
-	 yeRrKbQy1gtMBEqvi49EzLDKwikLV29xFJQC8d8vhSjyVQa0YztZ3RCQ8s57i9Lz2vIH+
-	 /lW6DyrYZzAzcw29PM64ianUnPZeeRsHbAaOzaOv9cspBtX8f7zaUpqwMpzqvazmdDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795629142;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:Received:From:In-Reply-To:
+	 References:MIME-Version:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=0+MG6+0gHbyYQq/Q0s/NefIO/PQ2Tu2wSVhno+8Yx2A=;
+	b=lVMy3B6CqNe/eW3qnMgaoDzqYr7LQ/ua1CZcwDrsH5mW5HrBsjoudbtBORJ4GSxvY3Lm
+	 oa3JZm3hv3oFfG/lvtpl22Pxk660cMrfkxkj/uoL12stILSfWJ+sRlXUFXQE9fzkp+HzC
+	 GlYXyy/8pT7gQ+N18t9rBgIgX/Cw+hJHXeykybmnM/tm5NuEopB5fgwcyu8Fp1Lys7KR6
+	 1bOzat4E/B0R/StGAv1W2Xg6Tp8m8WkgRKvs6i8LpScJr6CXEpQ2cullhS51oUZ5R6jJK
+	 m7EPbKRgQlXyCmlVeRJUYgV1GYS+rxhv//W8j9OfOJacBgMupo5RRlRM1F4gkXB5Esg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="E/w1tDgI";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=OAzvLrB0;
+	arc=none smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9570606A684
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:51:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E8D606A32E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:52:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89E8D606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E/w1tDgI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 813431F00AD4;
-	Wed, 25 Nov 2026 17:51:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795629109;
-	bh=rTXKee5W6zqiK4ZfFTcu1Eqg6D/HIb3gFzrTTVg62ig=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E/w1tDgIaY6FHYnmWj1Z9NAsTiUZYMhvI6qwzSQB3LZn3AlkbZ3Yh6vfPm/NPyUqc
-	 OmWr2/JMQdv6Xcf/8xlw2FL2Aq9pwOtc1IE1AQgjVumvzNbyEB1VlpWux9DmKrL59X
-	 2v2A8bJmSmN1hHQDkqxnigOcLqOrm4ZTHrw7ff0XlqSlaG/8/V9RyttN58Lwnv8N7g
-	 JflcNxxHZlK5u5Cd8J7aXj2UkHG2f8Oh3XbFzVXRbJS84g4ij17ZKf1So6gVdkhrTb
-	 p19YoQAnVkH0aA+2cKRggsaEGx70VR6hx0oO0i+QqpdPdC3gIMgoKTanNFmq++0XBx
-	 9AVVl2R/dtR1Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	Waiman Long <longman@redhat.com>,
-	Kayra Cizmeci <kayracizmeci@gmail.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] sched/core: Fix cpuset_mutex double unlock in __sched_setscheduler()
-Date: Wed, 25 Nov 2026 12:51:47 -0500
-Message-ID: <20261125175132.1054321-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112525-vividness-eggshell-be18@gregkh>
-References: <2026112525-vividness-eggshell-be18@gregkh>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=OAzvLrB0
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4d5b2db4bbso1161821866b.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:52:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1795629139; x=1796233939; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0+MG6+0gHbyYQq/Q0s/NefIO/PQ2Tu2wSVhno+8Yx2A=;
+        b=OAzvLrB0OWE1iPxpRBcIihGMtwga8R+qGTKBq1iA2RWqJ8zKuwxIhpIYKjdy6ZPtSP
+         68iY63H9S81lQlwiKLsoa1c/h44fPrn+5sXkegNZPNMRiX+023Kr9qpT/Xp4eXh/BMaZ
+         4NZzPjJ1WvWH6xJWQPIjWj3p625norH8g4e8Y=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795629139; x=1796233939;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0+MG6+0gHbyYQq/Q0s/NefIO/PQ2Tu2wSVhno+8Yx2A=;
+        b=Xb8IL48hbJ5/CHrpx6I0U5yIHwhP4VXxNp59YGJGjPuQ2WJLqGIesYWpSOVVhwfa/r
+         Y+4obbiGC/Bvrqhn9JkldyQtCnPBItAvPEqXD6XDTqzNqSEgNUH8xN2EciC7tSZpMmfv
+         9I+ud5wumdrijzT5kT/9AGPzekQKPp+G6kYi+w9nhwaZV5og6Aqmxn2xpCBXpExUnQgT
+         fOVzgHAeJX+Nno9FH9E6D8PiaEXurbAZm7G0+I9t8EpeMXh8tqMFjR3VaQGZjWFtHCFR
+         zOeD4yr2cm2Ylqju/ZkT4QHexmmFFa0cVlJTMqD2BnA0UUHyZm725BM5S2sMOxCluU30
+         7llQ==
+X-Forwarded-Encrypted: i=1; AL+hErHCQq2s3D14Q/JQeeDU15uZYoKM1TLDuE/PKgHwEneMMsN9vgW4MI2MESs1wy7f7nm9J8L+AWk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8HrZvQOAdmDPwEUM05VVI1RvN+BJmZbJ62FwaObR6DgtdnDUKH
+	skFLnII+ZsNRVqC+ZJWmHECl1fdFYfGdJgQZWmctMW9XQ/oClxxL55X4hCzFQgIU7+SQKlQXYbC
+	yu/Quh9rgHg==
+X-Gm-Gg: AZFdTZczyDVYi7S0tFUZufqUAjdru7dpVD9+xv9oFbQCAEQ3FfbecY3AY32FfQHefk3
+	iWldw6zbCqz6JdnxgVBDkHkwJnp3qfp992X9Gnx+4hxmT6vSduIPms/K5WIlefIeCz6Saiijx9E
+	db6ND9YRrC6lHJXz1ZyMaDdzKW3HFbCq6VsbkWb14V+3DOHa06G8xBUKJIlactBh2k20GUZcFmD
+	yQbU5PJkk+oyrJUaKpTk8sfvyLJEydBHkX5Ji0pkZIe00lHawN1rk4oRQc7wywIttAaXT4waedE
+	zROsEnmVpMK+QdQs0dWxeC0zYixDvD9Qgc3Stj4602pAKs/NV4XoCgAoa3gI88QzkcYHCtPMTCw
+	JeEc6C1pvm6oiKM69RkuEkx3Mrv62Q/3JUaorBH+bH6N49GPOn5gmeWvIkadbFgSdzmZHCmBT53
+	JCIpZwYCRxB2d9nEihHvuomfiMFdq7rG+mFT/vXUrHN94PjEYOT33a9uWv/b8eUjiLYih7jlnB3
+	0BQQWqZmqnt9FG/tLgnGePZYbohuNUyFvRrnlWthcUhbBb/B1M62y/EosWgNGYDnf0dsWCsrNOK
+	NAgAi9ifPFxajU0+kb3/U66i4WsVE+g+mB7vAO1QyAkV6QD3pqNEzjQ/QY1CovyX2iYF7KkePEq
+	02/4=
+X-Received: by 2002:a17:907:9301:b0:c46:78af:6150 with SMTP id a640c23a62f3a-c5131585160mr1756983966b.2.1795629138974;
+        Wed, 25 Nov 2026 09:52:18 -0800 (PST)
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com. [209.85.208.50])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513afc6fb3sm666412266b.62.2026.11.25.09.52.17
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 09:52:18 -0800 (PST)
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6bab10842f8so6323989a12.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:52:17 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGvD1EYT69N5egHhLMMNwYhsTa/DDwo3oG96cMO5FPEEOm7XarMkE+5csfn1Y1ZKIPEiSBe+vc=@vger.kernel.org
+X-Received: by 2002:aa7:c0d8:0:b0:6b5:6b89:e3b0 with SMTP id
+ 4fb4d7f45d1cf-6ba1fc3dcfamr11863663a12.19.1795629137592; Wed, 25 Nov 2026
+ 09:52:17 -0800 (PST)
+Received: from 425495914135 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 25 Nov 2026 09:52:16 -0800
+From: Linus Torvalds <torvalds@linux-foundation.org>
+In-Reply-To: <CAHk-=wiTUE9vfMvHeGz+dgex_+sMicSHnf6Nt2_w1-SkOmu8ng@mail.gmail.com>
+References: <20261122-b4-sched-wait-intr-head-v2-0-4a764b64e8ce@columbia.edu>
+ <20261122-b4-sched-wait-intr-head-v2-1-4a764b64e8ce@columbia.edu>
+ <CAHk-=wj_eqNh+gNhCQh3exrL5Pmo5hbZBcL0W-4Ah_Nw0Kegzw@mail.gmail.com>
+ <awWSwmvaTwBxfU-r@redhat.com> <CAHk-=wj3GCXZohdFWWPAOkC_LHno4X0oQW+0sQFJzRMvjpODUg@mail.gmail.com>
+ <CAHk-=wgYc9vFEmyV0Ch_e49j6GOhUCMQMnMV4f1FLLvumZOmRw@mail.gmail.com>
+ <CAHk-=wgFnKO_O0fR_-O+i5yUGaDcz8_HwpM5QiLM4jPFYZb41Q@mail.gmail.com>
+ <awbMwBDP9TsJBmzV@redhat.com> <CAHk-=wiTUE9vfMvHeGz+dgex_+sMicSHnf6Nt2_w1-SkOmu8ng@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,171 +105,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Wed, 25 Nov 2026 09:52:16 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wiRbii1c78G2gwpKspaH1hj_VwLrur7NEBKn0GNduBvJA@mail.gmail.com>
+X-Gm-Features: Aa3M54pD_6kkJ5tspvLPVjU5eOwlU_YotXkRlOxaA6oY6c-rpN2ggFe7Zir-l2E
+Message-ID: <CAHk-=wiRbii1c78G2gwpKspaH1hj_VwLrur7NEBKn0GNduBvJA@mail.gmail.com>
+Subject: Re: [PATCH 3/7] eventpoll: don't claim real exclusivity for EPOLLEXCLUSIVE
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: mt4022@columbia.edu, Jens Axboe <axboe@kernel.dk>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Christian Brauner <brauner@kernel.org>, Michal Nazarewicz <mina86@mina86.com>, Wen Yang <wen.yang@linux.dev>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	tz2294@columbia.edu, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Andrea Parri <parri.andrea@gmail.com>
+On Wed, 25 Nov 2026 at 08:39, Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+>
+> On Wed, 25 Nov 2026 at 03:55, Oleg Nesterov <oleg@redhat.com> wrote:
+> >
+> > FYI, none of these patches can be applied, both patch and git-am complain
+> > "patch: **** malformed patch at line 34: *file, wait_queue_head_t *whead,"
+>
+> Grr. I was so proud of having finally figured out how to make gmail
+> send uncorrupted patches so that I could do it in my normal workflow.
 
-[ Upstream commit f7141257dd67d4936f906a6cfd1d0007721f6898 ]
+Ok, my thing no longer mangled whitespace, but it looks like
+"Encoding: 8bit" will still then cause line-wrapping even when sent as
+a raw message.
 
-A sched_setattr() with SCHED_FLAG_KEEP_POLICY on a SCHED_DEADLINE task
-unlocks cpuset_mutex twice if the task's policy changes concurrently:
+Fair enough, I think it's actually smtp rules that technically limit
+things to 80 character lines even though no modern mail transfer
+likely cares.
 
-  WARNING: bad unlock balance detected!
-  7.4.0-rc1 #1 Not tainted
-  -------------------------------------
-  repro/126 is trying to release lock (cpuset_mutex) at:
-  [<ffffffff9a17cacc>] __sched_setscheduler+0x9cc/0xc40
-  but there are no more locks to release!
-  ...
-  Call Trace:
-   print_unlock_imbalance_bug.part.0+0xfb/0x110
-   lock_release+0x286/0x2e0
-   __mutex_unlock_slowpath+0x1a/0x400
-   __sched_setscheduler+0x9cc/0xc40
-   __x64_sys_sched_setattr+0xa3/0x1b0
-   do_syscall_64+0x106/0x5f0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+So I just have to make my little thing send as quoted-printable. So
+hopefully *this* actually comes through properly.
 
-__sched_setscheduler() samples p->policy before taking any lock, and
-restarts from the recheck label if p->policy differs under the rq lock.
-The restart drops cpuset_mutex but leaves cpuset_locked set, so a pass
-that no longer needs the mutex still unlocks it on its way out:
+          Linus
 
-  CPU 1                                CPU 2
-  __sched_setscheduler(KEEP_POLICY)
-    policy = p->policy /* DEADLINE */
-                                       __sched_setscheduler(SCHED_OTHER)
-                                         p->policy = SCHED_OTHER
-    cpuset_locked = true
-    cpuset_lock()
-    rq = task_rq_lock(p)
-    oldpolicy != p->policy
-      cpuset_unlock()
-      goto recheck
-    /* no cpuset_lock() this time */
-    ...
-    if (cpuset_locked)
-      cpuset_unlock()
-
-Without CONFIG_DEBUG_MUTEXES, or CONFIG_DEBUG_RT_MUTEXES on PREEMPT_RT,
-nothing warns. The second unlock still clears the owner field regardless
-of who holds the mutex, so another task can lose cpuset_mutex inside its
-critical section. Entering SCHED_DEADLINE needs CAP_SYS_NICE, but a
-racing caller that owns the task does not need it if it samples a policy
-other than SCHED_DEADLINE.
-
-Clear cpuset_locked when dropping the mutex for the restart. This should be
-safe because the flag is only tested on the paths leaving the next pass,
-after that pass has set it again if it took the mutex.
-
-The following program, run as root, reproduces the splat, which no longer
-appears with this applied. On PREEMPT_RT it crashes the kernel within
-seconds, which this also fixes:
-
-  #define _GNU_SOURCE
-  #include <pthread.h>
-  #include <stdint.h>
-  #include <sys/syscall.h>
-  #include <unistd.h>
-
-  struct attr {
-      uint32_t size, policy;
-      uint64_t flags;
-      int32_t nice;
-      uint32_t prio;
-      uint64_t runtime, deadline, period;
-  };
-
-  static volatile int stop;
-  static volatile pid_t target;
-
-  static void set(struct attr a)
-  {
-      a.size = sizeof(a);
-      syscall(SYS_sched_setattr, target, &a, 0);
-  }
-
-  static void *sleeper(void *arg)
-  {
-      target = syscall(SYS_gettid);
-      while (!stop)
-          usleep(1000);
-      return arg;
-  }
-
-  static void *switcher(void *arg)
-  {
-      while (!stop) {
-          /* SCHED_DEADLINE, 2us every 1s */
-          set((struct attr){ .policy = 6, .runtime = 2000,
-                             .deadline = 1000000000,
-                             .period = 1000000000 });
-          set((struct attr){ .policy = 0 }); /* SCHED_OTHER */
-      }
-      return arg;
-  }
-
-  static void *racer(void *arg)
-  {
-      /* KEEP_POLICY | KEEP_PARAMS */
-      while (!stop)
-          set((struct attr){ .flags = 0x18 });
-      return arg;
-  }
-
-  int main(void)
-  {
-      pthread_t t[5];
-      int i;
-
-      pthread_create(&t[0], NULL, sleeper, NULL);
-      while (!target)
-          usleep(100);
-      pthread_create(&t[1], NULL, switcher, NULL);
-      for (i = 2; i < 5; i++)
-          pthread_create(&t[i], NULL, racer, NULL);
-      sleep(30);
-      stop = 1;
-      for (i = 0; i < 5; i++)
-          pthread_join(t[i], NULL);
-      return 0;
-  }
-
-An LLM helped find the PREEMPT_RT crash and write this patch and its test.
-
-Fixes: 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: Waiman Long <longman@redhat.com>
-Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
-Cc: stable@vger.kernel.org
-Link: https://sashiko.dev/#/patchset/20261016062629.2102883-1-sh_def%40163.com
-Link: https://patch.msgid.link/20261102134606.242743-1-parri.andrea@gmail.com
-[ sashal: Applied the same one-hunk change to __sched_setscheduler() in kernel/sched/core.c, since the upstream file for that function doesn't exist in this tree. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 23 Nov 2026 16:47:42 -0800
+Subject: [PATCH 3/7] eventpoll: don't claim real exclusivity for
+ EPOLLEXCLUSIVE
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index ae06385109049..d777139c7a909 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -7810,8 +7810,10 @@ static int __sched_setscheduler(struct task_struct *p,
- 	if (unlikely(oldpolicy != -1 && oldpolicy != p->policy)) {
- 		policy = oldpolicy = -1;
- 		task_rq_unlock(rq, p, &rf);
--		if (cpuset_locked)
-+		if (cpuset_locked) {
- 			cpuset_unlock();
-+			cpuset_locked = false;
-+		}
- 		goto recheck;
- 	}
- 
+An EPOLLEXCLUSIVE entry that wakes an epoll_wait()er returns 1, and
+because it was queued as an exclusive waiter that stops the wakeup walk.
+
+But nothing makes the epoll user consume the event: it may be killed,
+time out, pick another ready fd, or just not read.  Anything queued
+behind the entry - a blocked pipe reader, an accept()er, a recv()er -
+then sleeps with the event pending.
+
+Queue it with WQ_FLAG_POLL_EXCLUSIVE instead: still only one epoll
+instance is woken per wakeup, but real waiters are not skipped.
+
+Reported-by: Mani Tofigh <mt4022@columbia.edu>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Oleg Nesterov <oleg@redhat.com>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Juri Lelli <juri.lelli@redhat.com>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+---
+ fs/eventpoll.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/fs/eventpoll.c b/fs/eventpoll.c
+index b959af04772c..58c0cb845dc7 100644
+--- a/fs/eventpoll.c
++++ b/fs/eventpoll.c
+@@ -1626,9 +1626,8 @@ static void ep_ptable_queue_proc(struct file
+*file, wait_queue_head_t *whead,
+ 	pwq->whead = whead;
+ 	pwq->base = epi;
+ 	if (epi->event.events & EPOLLEXCLUSIVE)
+-		add_wait_queue_exclusive(whead, &pwq->wait);
+-	else
+-		add_wait_queue(whead, &pwq->wait);
++		pwq->wait.flags |= WQ_FLAG_POLL_EXCLUSIVE;
++	add_wait_queue(whead, &pwq->wait);
+ 	pwq->next = epi->pwqlist;
+ 	epi->pwqlist = pwq;
+ }
 -- 
-2.53.0
-
+2.56.0.313.g975a75ca90
