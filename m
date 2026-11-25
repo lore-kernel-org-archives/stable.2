@@ -1,97 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795627172;
-	b=s/EVfr3K9SzEYap9P3WHjOFDf8T+nYf/8h+4igz/CBIk0oKoLTI/DEeSTKxMmVg6Mh74
-	 1Sh9Y8kLjfy36HdPzUSFW3Z+m1zqnngAMk2hqwfh+szdEJAQOmHR2OSKNPuaK0cyzNY6W
-	 B9l1sNgO5IUpnzAdIaHtegeu8jSgyKjJ9e9mm8+q3Ld1wLS39QLHji1z6fTojaKHTxQv3
-	 Zr/Co84Jp6FbsRGuPjeXAVfk+MXidFdzxPCLRayGLk5Munp3WxidhUgMJXFUdGmxhY9wZ
-	 lXdMtUtCUAoTZ0l3Ro0SfdoMjSx4hGC2QJbqIxLKd65jTXRlLQUGzu2FCtDy2HDJkzA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795627172;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=gtfKMOmu50CH2ZfqiXKpmGMmRETZ2ynWP++k2I5UOuo=;
-	b=eBPGz0P6XG+o1hbGMGK5M6pDhzJhlJQfdbEtXnjfwteFA38F0Nfd5W/NjZJ3YqijYDSX
-	 1cOmLpZQgoq7KPuwPmsUCQPF+qo3kcU1vC0Aa62dvM8Gv+Ry04qBWdwn2kQTwak/e9bki
-	 wtc02lEaV08wXFUeSxZNtfMXQldfyi9278/tF3dQvIJJ9Vty9KOuuL9GTZfl00Xq2lp4B
-	 e6RWx8fmsNZqt/i6Gz5hs8GQ+QzSNt3S4H2u4qrYOjau337a7JGQ3qDwbzh4g/0cMI4Qk
-	 pYYL0PiVexSr1pMMAf5o8kx+sL7xfS307nVdFNlb4P2CvEfiaQ5YWiqH85ker1SjyeA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mvista.com;
-	spf=pass smtp.mailfrom=mvista.com;
-	dkim=pass header.d=mvista.com header.i=@mvista.com header.a=rsa-sha256 header.s=google header.b="A8D/16Jh";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.41
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795627272;
+	b=x93nN284hwg7UJGjTELFHn3B4c8fd29hP7pJk2ctshajgDCZdeHIZACEqoDaxNBGMx5T
+	 2IiEoaVdvNu8uyO3F1byc9k0F3ZFc8m8EhqkdVRM8MiIYxIAHQHXHwq/Pbn1jwWw+5XSH
+	 CPOE9np9Dikw/jl7dAWkAW5ABUw4s8aoajZ0XL/2k2xg0WlJ6HfU4d5SfkrmdDOnMK+Am
+	 HswBJ1jEug/OZ+CKNpKDPvjbZDaccdxYrLSlKdeA2Q8KhhcyECNSYhLasmZbVI/7Zqdon
+	 yRane4dkt31tMV/nS2ez332CPDeXgY9wh+DtQc4stCToR3qNU/bb8a8In2wFP+IJjtQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795627272;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=7b7m/DkpgEDQ+oJfz1rrmLJybl8GZzhKw2nRd5M9D9I=;
+	b=PoR4xItnP91PUgAILI5f5cEestysjoJN8mT/fEF2Bbqy9x2F4U8gisEpev1mb6gHvfUB
+	 ecy6+hOLxhNdTdwGdgkbAcRceVG1ip2qto6KA3qJiUW31bfRoLnEnZ29qkh/9bp9LA5pZ
+	 4M0NovQ8VmzcjomBUkl22goE2jW+zdLvVKJSrJ8NqQosvqhQKwr08BKt7cA0dAo1xL/b5
+	 KG08ThH6Ze6EkZV5oIvVsZdcj9sQinVsZ6JqOv3H5bE52HI9Xa0oq57Jnl5tR5NLGPkdq
+	 mGzvwKgRVYwGOjOSat/2Z2wKIXs+9QxT2I2cfjL28RnPzLQBjGpUfUrw+MkEtEIgntw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=OEi1ZWWc;
+	arc=none smtp.remote-ip=210.118.77.11
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56407606A330
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:19:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56407606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mvista.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mvista.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF92606A329
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:21:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FF92606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mvista.com header.i=@mvista.com header.a=rsa-sha256 header.s=google header.b=A8D/16Jh
-Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-71aed54d4c5so3530753eaf.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:19:32 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795627171; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FFvbn6TfTnbk6Y6RLa67uEEscmDdKAVz4nNkNGjNdikndl8E/a+MTiWVsncq+IB5bO
-         y062F3+MJ6EkAtRy8pfMuf/5zBxGwFhA3QjxkwxOl0oV8fSRoG3fmBqSSdij++cZiTZX
-         ffzjDlWzmk+g1jEzSyN1IHYoBmrZr/3h1g0Sa537gkF3qZpmaM0jwCs7LTtkycAoa5Rn
-         r3W7IIXERewE3pHLh4YopzrhWVrUANwkH5i/IgGooDPX5IHfFJP8/U3eXPr7casQ0rFl
-         nGixBRTEfPswE/WnScm0qtNstSBFZNr8RgRbQfeLYFu6phBkCv7UwNtlqwXoLaxJn0fU
-         ASoQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gtfKMOmu50CH2ZfqiXKpmGMmRETZ2ynWP++k2I5UOuo=;
-        fh=m1pZWZB/5Jfxk0L2kn9qnc8SXYetTw8DEh8YxMMpYng=;
-        b=KFx/oOyHWfnd7/yX8GZmj9K0WMVrOALQ1LyLYgryTXaOMJQuqg3wcII2qoXyjhQiXF
-         SVm1MHidIrw7A7m1CwxtBT0UTmQIixD5XnWQG4NmImovljwgjedh3pmy+TJzVZIkLkyE
-         nwchTqLXmUyq/wjZjgSHejZAaoPIQk+jVPivPrj75AfF/TZ2vXmltQXc0RBk8n6b5slJ
-         W3tBT+7A8+AAQDPZVnWKsXFe9jwXF24lqgz1oEykTIRcytINJgGnJrKOptwM22UrPuTY
-         sIXIeeSfswTaxnbIh4Woo5q7Qq18NTiD4Pu7D6e3mgb3KM0+KcALJX1Sl+935cibOWLK
-         QvAg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mvista.com; s=google; t=1795627171; x=1796231971; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gtfKMOmu50CH2ZfqiXKpmGMmRETZ2ynWP++k2I5UOuo=;
-        b=A8D/16Jh2X2r+VAttEEEyGth9vb+pBD9nkptar5kmgVlDYbNzT94leTwMU4KnrcKUP
-         sfF3t63s6a+f3DmA7j1TZb6WJVf+IJfmJVuVa96S23FBJm0DgkDs58YrcJoiEyDJKnne
-         1iNszPmoXGSY6FgpxS+kYUMSz3YAYByIkL/1k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795627171; x=1796231971;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gtfKMOmu50CH2ZfqiXKpmGMmRETZ2ynWP++k2I5UOuo=;
-        b=GcaQh2KIwCYZ80ZArA8twnfcsySXy+SNl7T3EOdytt+a+UTIcRbqbj3WOzduBWWlZY
-         sSQgmZvMIZHsCFcpPNpR7lEZw9e+1sk8UxEo23DNVoLxHoUO9jq37/5jZAncdxKZzVj3
-         wHXrJ8DXqZadQArw5u+VlmDbBNe/VDKY+Jhl1+aXCDgAsW96EKbPIfbuWWe5KlACTfhi
-         yZxvfogr6cJEnxcVUbEqRYRdK/MiYLIbxT6YOdvsM4mpw3ggP3uLu0UvjzmV0CeMOefH
-         IKTM7rQNhyPW0IBi2ptVArprXJapiO7JbIPGVF30ONiT4fF6XPIcOfrW6XnZjl7L2nx8
-         7CCA==
-X-Gm-Message-State: APuU4Z/afheGaGul0jF2wHo/KwpEvvovRMMJgQp7IJGHjl3JnCkuJB6s
-	rCWWXyNAa/c5uqbQEQyl/A2ZE6YdQZiM148dsZXutaDiQZSWRIiDiL7W356roUOK13JXVONgPYG
-	OOwFwh9hm7U62CH5Tv/bYUraZ75dmwDhbMrDOLwuhtA==
-X-Gm-Gg: AZFdTZdA04y819zoj2ztqFL5Hn/KIcy6bNIGZZ+mE2GJ2kOd/uOg/R4wDp/CpRAb3s0
-	+Qs4T2lkPCHwlNkDebbE5x1yYtVlOx9p30ykpxbeir9Esv7UcNQ0BOxHlnXKrTmQKx2nce1dOwG
-	msb/WrFgp3crG8U0CFCeXpWw+RpSUneW0ZGLU/vi3bVGtJUMvnGqMedbLVUggD2hnzdBJLaIQd5
-	1Y024NBeaPQXzEbAyOzE16cK98mfhme2D3Yfva5eFBh5/L8IKswpr5fFT2V5MMWe0EfciQ0p8QR
-	H6iLqErD2vZpeLI+CDiBi1tmHRJDodGYbE2Vo7aYI8BQDWNeqZx9cGKbON66I6CITYgGFw2OXbd
-	HWUJtLX96IA/qD4V5TMtTNSdr2w9zNRekw2e1Bpv2NNHj1UqaaUsTAYhtb+X6zoEyQ4wMAomr+f
-	PchPD3+dNtfyCaiYPnlNUf+EHC
-X-Received: by 2002:a05:6820:16a0:b0:6fb:171f:2bc7 with SMTP id
- 006d021491bc7-71b39299560mr15555338eaf.4.1795627171168; Wed, 25 Nov 2026
- 09:19:31 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=OEi1ZWWc
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261125172109euoutp0148c243669e40076789ec3a7f0dd7422d~rWXzbx0m20249102491euoutp01j
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:21:09 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261125172109euoutp0148c243669e40076789ec3a7f0dd7422d~rWXzbx0m20249102491euoutp01j
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1795627269;
+	bh=7b7m/DkpgEDQ+oJfz1rrmLJybl8GZzhKw2nRd5M9D9I=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=OEi1ZWWcaRDpTvP7CQulCBO/V49BJJgF86ryhAJXC5TgpZw4nuounp1poXWbcq9gM
+	 RaBAjfHKNacLXwS77OQipOMC8F/QJSM8DUNTWI0l0tXv3OEOR9J4XC8uYtAEdCb6OM
+	 69YhLX8W6BEeRRwkbZKlthpnlLDrPbsFipJRiToE=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261125172108eucas1p124b2bc0d3a1d4e2073e0f604d173d1df~rWXzGb1fk2718127181eucas1p1h;
+	Wed, 25 Nov 2026 17:21:08 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261125172107eusmtip29e62e06ad679156e3763d3a649334c3f~rWXxmyPNQ0516905169eusmtip2u;
+	Wed, 25 Nov 2026 17:21:07 +0000 (GMT)
+Message-ID: <a3722347-4b88-41ad-926b-455530020c6b@samsung.com>
+Date: Wed, 25 Nov 2026 18:21:06 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,33 +64,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAH+zgeGo9V_DRG_2yRAEw82bk6SMsV_JRxSOM28p7q02oTKE9A@mail.gmail.com>
- <2026112521-paramount-panoramic-2531@gregkh>
-In-Reply-To: <2026112521-paramount-panoramic-2531@gregkh>
-From: Hardik Gohil <hgohil@mvista.com>
-Date: Wed, 25 Nov 2026 22:49:19 +0530
-X-Gm-Features: Aa3M54oP7oY6OU18UeiY_5FtujTxx-01ifRRM0x8BO0KGlycTILhNyFLP02VDSk
-Message-ID: <CAH+zgeGEXm2crJT+gENkckm0o2xAACXHj4Lf4vxTD_nUXij4Hg@mail.gmail.com>
-Subject: Re: AI tools for CVE backporting/Fixing
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, cve@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] Revert
+ "iommu/dma: simplify dma_iova_destroy() and drop the free_iova helper"
+To: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, will@kernel.org,
+	robin.murphy@arm.com, honghuan@amd.com, Leon Romanovsky <leonro@nvidia.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>
+Cc: joro@8bytes.org, prakash.gupta@oss.qualcomm.com, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, stable@vger.kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20261125135120.1126571-1-sibi.sankar@oss.qualcomm.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261125172108eucas1p124b2bc0d3a1d4e2073e0f604d173d1df
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261125135138eucas1p141ba6b5e09623562e2033e290fba811c
+X-EPHeader: CA
+X-CMS-RootMailID: 20261125135138eucas1p141ba6b5e09623562e2033e290fba811c
+References: <CGME20261125135138eucas1p141ba6b5e09623562e2033e290fba811c@eucas1p1.samsung.com>
+	<20261125135120.1126571-1-sibi.sankar@oss.qualcomm.com>
 
-On Wed, Nov 25, 2026 at 10:41=E2=80=AFPM Greg KH <gregkh@linuxfoundation.or=
-g> wrote:
+On 25.11.2026 14:51, Sibi Sankar wrote:
+> This reverts commit 1acce29926d93f3eba427696fe3da6451504dae2.
 >
-> On Wed, Nov 25, 2026 at 10:23:33PM +0530, Hardik Gohil wrote:
-> > Hello All,
-> >
-> > I was wondering if anyone is currently using, or is aware of, AI tools
-> > that can help with backporting kernel CVE patches or identifying and
-> > fixing kernel vulnerabilities.
-> >
-> > If you have experience with any such tools or recommendations, please s=
-hare.
+> Before this commit, dma_iova_destroy() unmapped through
+> __iommu_dma_iova_unlink(..., free_iova=true), which set
+> iotlb_gather.queued from cookie->fq_domain, skipped iommu_iotlb_sync()
+> and freed the IOVA with the queued gather, exactly like
+> __iommu_dma_unmap(). After it, dma_iova_destroy() calls
+> dma_iova_unlink() and then dma_iova_free():
 >
-> Nothing special is needed, what have you tried that did not work?
+>   - dma_iova_unlink() never marks its gather as queued and always calls
+>     iommu_iotlb_sync() after iommu_unmap_fast().
+>   - dma_iova_free() passes a NULL gather to iommu_dma_free_iova(), so
+>     the IOVA goes straight back to the allocator through
+>     free_iova_fast() and never through queue_iova().
+>
+> DMA-FQ domains therefore get strict invalidation on this path. That
+> includes the block layer's blk_rq_dma_map() path, which NVMe uses for
+> all data transfers, so iommu.strict=0 has no effect on NVMe I/O.
+>
+> hw/sw details: Qualcomm Glymur CRD: SMMUv3 with no RANGE_INV,
+> 	       4K pages; NVMe SSD on PCIe Gen5 x4
+>
+> Fio sequential read/write numbers:
+>   Domain                          seq write    seq read
+>   DMA (strict)                    2694 MiB/s   2693 MiB/s
+>   DMA-FQ (lazy), flush queue      2707 MiB/s   2803 MiB/s
+>     bypassed (this regression)
+>   DMA-FQ (lazy), flush queue      10.6 GiB/s   11.9 GiB/s
+>     used by dma_iova_destroy()
+>
+> Fixes: 1acce29926d9 ("iommu/dma: simplify dma_iova_destroy() and drop the free_iova helper")
+> Cc: stable@vger.kernel.org # v7.3+
+> Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
 
-I have not tried any tools and looking for recommendation particularly
-for kernel CVE's
+
+The performance data clearly shows that the flush queue was there for
+the reason. Together with this revert it would probably make sense to
+apply the v1 of the reverted patch:
+
+https://lore.kernel.org/all/20260701092033.422867-1-honghuan@amd.com/
+
+Leon, do You see any other option?
+
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
