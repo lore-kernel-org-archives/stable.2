@@ -1,47 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596697;
-	b=ezqBGn22mIhh1BlPYqYGMzpnVxIcMNQHU8XCHwu/YCYnBzUUjTeC0E6On9v+1faq3RLf
-	 +Nz4EztJvrVgr3/MIDayGe4sraKNoukFxAX51CSFc44hoZjOo2UKfMBhqxawGqw8Nq/XY
-	 40EanYX3C49qgapwxWMQIFhmoZM8zL/tkYrngMag5BouxM+h49yUfKhAXCA654cb4Ms3z
-	 prx6ZSVIfE+qemLkNs1QDJEf2Dt4V4tMIb9seg0H0EvltY55hmadkm7M9Y6gh+n5SanPt
-	 ETkwhwxXEs9esV8kDjQK7L0rGabh3rpB/reIWKt+nyZGamwg3thvrmM+fXbbGlmWrMw==
+	t=1795596720;
+	b=GfF56hu52iaHXtrQO4TtsPex4uFBBjPwwNipAuysTjpGtvUKNch23XKR8dmNt73813LJ
+	 Pp74ny62qKXnOjozfLhIlbTHuV+fk/k0t1jviul0GquNln5E0XW3DaEfalVcDljPVp3Pv
+	 7hWAigPaRRfPi7Imh2cs8q7XYImJiZf81BBxZZuiUJmKdjkI4SE250vo5DMA1IiWk+yyD
+	 CzJsj9KxTRBEptsOLGuGYe4EBp3n7qN/mrYwy4thXzHi4gwL2jX+xHKXOrXdfTRvGbNZs
+	 6SJjaCwwvjrTLxrM6yCYGk8hHl5eIbHcr3WbluXQmJ5l+ccdwlL8s2szSEgp9oaiWuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596697;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+Xi0CHWq7EC/fP/kmo0ZYtZFBWEQgvi7EVxBzx8rvwk=;
-	b=NoSpMITa9DpascGoohSIgQ5SPf/haZhBQKFpRchuV58MLx7XMEYx6nPI0kKHS55HrSQt
-	 QyvdfREMrIJmPN+qA5+PQNmp72SXhlq5j+Hh4yhsTRhp384if1eDNpgUjsYRT1+k/nHqJ
-	 D2489FjYTmVv3y4J+xhSbr761VAjGNj7ftM9i9qujcvCDPgMw6yNSwUQoTHGU5omW2SH1
-	 PGW7A/JYI6i5LjhuN37s/IcV8UL4rvE5GtZi0asO1cI8DaVbbxjC9y/KR6RrGaUpxJusj
-	 Hed9UnDcMnTA875tWCWHE9IkC9RJnQxIUvMp9IVoInPqVB+j6MgXXE6a3sAteIqFrRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596720;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:In-Reply-To:References:Date:Message-ID:User-Agent:
+	 MIME-Version:Content-Type;
+	bh=CpS23/nwi76U/xfd1RwGp9LbeXJvRV6wntw7x0C4i80=;
+	b=K9J+E408/p8W0zPN+OfroNTyhr6wHwKlbfFEzsdqMel7wuvUWu9OwD63mZM+eZ4GnxGr
+	 D1+BU/jl5mry1VcAQUgzOpHN7DS5y009YYWptHeUm7qjsy5li7LDCRa9PYu2SD3v17/2/
+	 xjtXBrACsTuTtJsefnIxM/lDiUonYSLl0Kd6HFdIn/kB1kQmsKkQO664UklrFn3Ey5kFg
+	 WlH8/qfkrB9AUuvL0hfyglq/kLeVVbIjxyuWmSlXNcTfPrjzQaFRqNhmNukqQUIT89h0r
+	 ADjgd5wtW2LZMOtPpEb1biyGG1S85lowHMwW5GE+mw8T5N1G0XzO91L3uDGFrqVXWQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bCPiofld;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=PrrfGIvG;
+	arc=none smtp.remote-ip=115.124.30.113
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2221E606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:51:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CF2606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:51:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17CF2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bCPiofld
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2121B1F000C6;
-	Wed, 25 Nov 2026 08:51:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795596696;
-	bh=+Xi0CHWq7EC/fP/kmo0ZYtZFBWEQgvi7EVxBzx8rvwk=;
-	h=Subject:To:Cc:From:Date;
-	b=bCPiofldfup1NmjLhJ3wRIIFQuINS/sBhUHu7aDcVDd3Dj0JXn694ydyC7HpGIggu
-	 9Emz80FjrDnLlmbGusdWENJZbCN1fCjB1ovsR/8KlolqZTJ4IK3frbPuIbHKwJFA+a
-	 QEboxQlFngWw+tSJcdQ4mOc//0h0EktJQHCAMrjk=
-Subject: FAILED: patch "[PATCH] tcp: do not coalesce segments after FIN" failed to apply to 5.10-stable tree
-To: imv4bel@gmail.com,edumazet@kernel.org,kuba@kernel.org,kuniyu@google.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 09:48:56 +0100
-Message-ID: <2026112556-grit-paramedic-7e7d@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=PrrfGIvG
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1795596716; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=CpS23/nwi76U/xfd1RwGp9LbeXJvRV6wntw7x0C4i80=;
+	b=PrrfGIvGAojPJfNqzNx6ZEACFlbhf/Lz4t7tDDYchvTPSO5C0FaW4+vd0I7zJOhukwi2TxBzVbAn1bR6xaCI8LI/hNtkiTGR31ZDCgDvYEZVE3SU1iNhItzBGYJVxV96vpnbXi2lZL38lWO+8sXUaoEFTDnElRZyRQBU7AzwpQc=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R911e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=ying.huang@linux.alibaba.com;NM=1;PH=DS;RN=25;SR=0;TI=SMTPD_---0XFR2tqg_1795596713;
+Received: from DESKTOP-5N7EMDA(mailfrom:ying.huang@linux.alibaba.com fp:SMTPD_---0XFR2tqg_1795596713 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 25 Nov 2026 16:51:54 +0800
+From: "Huang, Ying" <ying.huang@linux.alibaba.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,  "Liam R. Howlett"
+ <liam@infradead.org>,  Vlastimil Babka <vbabka@kernel.org>,  Mike Rapoport
+ <rppt@kernel.org>,  Suren Baghdasaryan <surenb@google.com>,  Michal Hocko
+ <mhocko@suse.com>,  Rik van Riel <riel@surriel.com>,  Harry Yoo
+ <harry@kernel.org>,  Jann Horn <jannh@google.com>,  Lance Yang
+ <lance.yang@linux.dev>,  Andrew Morton <akpm@linux-foundation.org>,
+  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,  Clark Williams
+ <clrkwllms@kernel.org>,  Steven Rostedt <rostedt@goodmis.org>,  Paul
+ Walmsley <pjw@kernel.org>,  Palmer Dabbelt <palmer@dabbelt.com>,  Albert
+ Ou <aou@eecs.berkeley.edu>,  Alexandre Ghiti <alex@ghiti.fr>,  Ying Huang
+ <huang.ying.caritas@gmail.com>,  linux-mm@kvack.org,
+  linux-rt-devel@lists.linux.dev,  linux-riscv@lists.infradead.org,
+  stable@vger.kernel.org,  Kirk Swidowski <swidowski@google.com>
+Subject: Re: [PATCH] mm/rmap: avoid reusing batched TLB flush generations
+In-Reply-To: <20261124-rmap-v1-1-e3dc48a4b527@kernel.org> (David Hildenbrand's
+	message of "Tue, 24 Nov 2026 10:39:11 +0100")
+References: <20261124-rmap-v1-1-e3dc48a4b527@kernel.org>
+Date: Wed, 25 Nov 2026 16:51:52 +0800
+Message-ID: <87a4mxthsn.fsf@DESKTOP-5N7EMDA>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,156 +73,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=ascii
 
+Hi, David,
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+"David Hildenbrand (Arm)" <david@kernel.org> writes:
 
-To reproduce the conflict and resubmit, you may use the following commands:
+> mm->tlb_flush_batched packs a 15-bit pending and a 15-bit flushed
+> counter into one atomic_t, and resets both once pending gets large.
+> flush_tlb_batched_pending() updates flushed with a cmpxchg() against the
+> value it read before flushing.
+>
+> If the counters get reset and reach that same value again while
+> flush_tlb_mm() is running, the cmpxchg() succeeds and unmaps that
+> happened in the meantime are considered flushed. A later zap can then
+> skip the flush and leave stale writable TLB entries behind.
+>
+> Use two separate counters, never reset pending, and let the flusher
+> simply store the pending value it read before flushing. To keep pending
+> from wrapping around to flushed, pull flushed to pending - 1 once
+> pending is more than INT_MAX ahead.
+>
+> Preventing the wrapping is primarily required because
+> try_to_unmap_flush() as called from migration and reclaim code does
+> *not* go through flush_tlb_batched_pending(), as it does not iterate
+> MMs. So if nothing in the MM triggers flush_tlb_batched_pending(), there
+> would be a problem.
+>
+> As the separate counters are no longer read atomically together, we must
+> read "flushed" before "pending" (acquire/release), so a reader can never
+> pair a just moved-forward "flushed" value with an older "pending" value.
+>
+> We'll leave the barrier() between clearing the PTE and incrementing
+> "pending" alone for now: it should be a smp_mb__before_atomic(), but
+> existing arch code (x86: inc_mm_tlb_gen(), arm64: dsb(ishst) before the
+> TLBI, riscv: fully-ordered xchg() in ptep_get_and_clear()) imply a
+> barrier. This should be cleaned up or documented separately.
+>
+> Note: if a flusher stalls between reading "pending" and storing it,
+> while "pending" advances by an exact multiple of 2^32, the counters
+> could compare equal and we could miss a flush. The same applies to a
+> writer that stalls while moving "flushed" forward.
+>
+> That is irrelevant in practice: both hold the PTL, so without PREEMPT_RT
+> they cannot get preempted, and wrapping within the ~20s soft lockup and
+> RCU stall timeouts would require more than 200 million batched unmaps
+> per second on a single mm, which is impossible in practice. Even with
+> PREEMPT_RT or long vCPU preemption, we would need minutes of unmap and
+> refault churn while the stalled task stays off the CPU, which is highly
+> unlikely and not a realistic attack vector.
+>
+> This effectively adds 4 bytes to mm_struct. However, on common 64-bit
+> configs it fits into the existing padding, leaving the size unchanged.
+>
+> Fixes: 5ee2fa2f0636 ("mm/rmap: fix potential batched TLB flush race")
+> Cc: stable@vger.kernel.org
+> Reported-by: Kirk Swidowski <swidowski@google.com>
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> [ david: use atomic_t instead of atomic64_t, adjust description ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 1c46780dec48893b8c25fd5e33a3127e8dc39dd4
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112556-grit-paramedic-7e7d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+Except the fork issue pointed out by Harry, the patch looks good to me.
+Thanks for fixing this problem.  Feel free to add my
 
-Possible dependencies:
+Reviewed-by: Huang Ying <ying.huang@linux.alibaba.com>
 
+in the future versions after fixing the fork issue.
 
+---
+Best Regards,
+Huang, Ying
 
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 1c46780dec48893b8c25fd5e33a3127e8dc39dd4 Mon Sep 17 00:00:00 2001
-From: Hyunwoo Kim <imv4bel@gmail.com>
-Date: Fri, 6 Nov 2026 21:25:21 +0900
-Subject: [PATCH] tcp: do not coalesce segments after FIN
-
-A FIN consumes a sequence number. If another FIN segment is coalesced
-into an skb that already carries FIN, end_seq advances to account for
-the additional FIN, but tcp_flags still contains only one FIN bit.
-
-When the preceding gap is filled and tcp_ofo_queue() processes the
-coalesced skb, rcv_nxt advances to the skb's end_seq. When the receive
-path consumes all data in the skb, copied_seq advances by the data
-length and one sequence number for FIN. If three or more FIN segments
-have been coalesced into one skb, tcp_inq() can still return a positive
-value after the receive queue becomes empty and the SOCK_DONE adjustment
-is applied.
-
-TCP_ZEROCOPY_RECEIVE is another consumer affected by this state.
-tcp_zerocopy_receive() takes its length from tcp_inq() and follows
-skb->next without checking for the end of the receive queue.
-
-Software kTLS receive is one consumer affected by this state. When
-strp->copy_mode is false, tls_strp_msg_consume() calls the TCP helper
-tcp_read_done() to consume the current TLS record. In the reproducer,
-tcp_read_done() consumed the record data and one FIN before freeing the
-receive skb.
-
-When kTLS looked for the next record, tcp_inq() reported at least
-TLS_HEADER_SIZE bytes even though the receive queue was empty.
-tcp_recv_skb() returned NULL, so tls_strp_load_anchor_with_queue() hit
-WARN_ON_ONCE() and returned without updating the anchor.
-
-Since tcp_inq() had reported at least TLS_HEADER_SIZE,
-tls_strp_read_sock() proceeded to tls_strp_check_queue_ok().
-skb_shinfo(strp->anchor)->frag_list still pointed to the freed receive
-skb. tls_strp_check_queue_ok() then read TCP_SKB_CB(first)->seq through
-the stale pointer, causing a use-after-free.
-
-The reproducer followed this call path:
-
-  tls_rx_rec_done()
-    tls_strp_msg_consume()
-      tcp_read_done()                       // frees the receive skb
-    tls_strp_check_rcv()
-      tls_strp_read_sock()
-        tls_strp_load_anchor_with_queue()   // returns after WARN_ON_ONCE()
-          tcp_recv_skb() == NULL
-        tls_strp_check_queue_ok()
-          TCP_SKB_CB(first)->seq            // reads the freed receive skb
-
-KASAN reported:
-
-  BUG: KASAN: slab-use-after-free in tls_strp_check_queue_ok.isra.0+0x5f/0x100
-  Read of size 4 at addr ffff888103169ca8 by task ktls-server/71
-  ...
-  Call Trace:
-   <TASK>
-   ...
-   tls_strp_check_queue_ok.isra.0+0x5f/0x100
-   tls_strp_check_rcv+0x2a9/0x400
-   ...
-   tls_sw_recvmsg+0x3ce/0xa10
-   ...
-   sock_recvmsg+0xea/0x100
-   __sys_recvfrom+0x142/0x1f0
-   ...
-   __x64_sys_recvfrom+0x76/0x90
-   do_syscall_64+0xdd/0x4a0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   ...
-   </TASK>
-  ...
-  Freed by task 71:
-   ...
-   napi_skb_cache_put+0x24/0xf0
-   skb_attempt_defer_free+0x183/0x3b0
-   tcp_read_done+0x2d4/0x340
-   tls_strp_msg_consume+0x45/0x80
-   tls_sw_recvmsg+0x3c4/0xa10
-   ...
-
-In tcp_try_coalesce(), skip coalescing when the destination skb already
-carries FIN. tcp_add_backlog() calls skb_try_coalesce() directly instead
-of using this helper, so add the same check there. Since both paths check
-only the destination skb, a final segment carrying data and FIN can still
-be coalesced into an skb without FIN when the other coalescing checks pass.
-
-Fixes: e93a0435f809 ("tcp: allow segment with FIN in tcp_try_coalesce()")
-Fixes: 4f693b55c3d2 ("tcp: implement coalescing on backlog queue")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/au3HMfqNW3_DRMqS@v4bel
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
-index e971947083af..9963337efae1 100644
---- a/net/ipv4/tcp_input.c
-+++ b/net/ipv4/tcp_input.c
-@@ -5290,6 +5290,10 @@ static bool tcp_try_coalesce(struct sock *sk,
- 	if (!tcp_skb_can_collapse_rx(to, from))
- 		return false;
- 
-+	/* Nothing follows a FIN. */
-+	if (unlikely(TCP_SKB_CB(to)->tcp_flags & TCPHDR_FIN))
-+		return false;
-+
- 	if (!skb_try_coalesce(to, from, fragstolen, &delta))
- 		return false;
- 
-diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-index 0dc3b087665d..23a63a34a6fd 100644
---- a/net/ipv4/tcp_ipv4.c
-+++ b/net/ipv4/tcp_ipv4.c
-@@ -1957,6 +1957,8 @@ enum skb_drop_reason tcp_add_backlog(struct sock *sk, struct sk_buff *skb)
- 	    ((TCP_SKB_CB(tail)->tcp_flags ^
- 	      TCP_SKB_CB(skb)->tcp_flags) &
- 	     (TCPHDR_ECE | TCPHDR_CWR | TCPHDR_AE)) ||
-+	    /* Nothing follows a FIN, see tcp_try_coalesce() */
-+	    (TCP_SKB_CB(tail)->tcp_flags & TCPHDR_FIN) ||
- 	    !tcp_skb_can_collapse_rx(tail, skb) ||
- 	    thtail->doff != th->doff ||
- 	    memcmp(thtail + 1, th + 1, hdrlen - sizeof(*th)) ||
-
+[snip]
