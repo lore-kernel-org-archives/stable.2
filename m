@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606345;
-	b=IW/KbUq966siZrlTHp/Z8FgLu+lsPoU65/sC0yCLgV/PZI1QaoTybNkNMEG+5uUb88Cf
-	 GgruxK9beDQxgNloS5qqp5eSPSbbAsckEDKSp+YOIHSlh9DhwoTO8l/PWkiV37q+ofZE6
-	 Wecpbu1qIqGgRVgnq1z0NBj9JPShYbcQcEKTVAxHO1yxS50fNNqGxerR+bXxrraWi40Ev
-	 vVDflvkHcGmrHxSOFkXHSSxYbnVsXFRp1oHHmNZ2gdX73YoSxVU15EdK/EGOCcXUeeDl/
-	 /Uk5I66NKLq4UYCKFdpAFLbdlZPVhAYLca6Hs1BAf7GDrYMTJp37g0IajzGHUFD7eJQ==
+	t=1795606349;
+	b=yRPApMQE4xBWtlQwuNp3LvCBoZIxPrCtdqnVFFy7Xz1WUk4I0Lta/HGe+DK7yY+ZyJyo
+	 siXodXbmj8Y7YXq0pO0Tv7xNY++jHlTVpDYNwBs2p4rXG07U1umBk0hbXKmLvzXU7Hv5E
+	 VQNeqkRHn8H4C3ScTymgBTMNUxOuUIz59Ysoh7CGwFPO63YL/UlFCLhTevXuPPfE/+od6
+	 Us4MGGfam2RJ8hLNGRy6ci3QojI6YLsUvgJdze1osVb075YPI2SuahdzTFI5yRm7xO6xc
+	 fsPS+heWdgt6j1pwgaVKTri4IDX/XiRMdFF4jP3nxKlNuDiTz/x5segS/PB1yXtENhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606345;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606349;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=VdPAkw8W1I7jJWHBezia0/udev/aPrjOTgRruomS7rs=;
-	b=sfBOFmZ2cD9LhV8xflgHFlu0ymxcgBantxmlh9D5bvv/54oc+PU5Ur+48RNVcbUoK+uy
-	 LmYIgUCQkynX9TKROS+bCPYHtvDMNODNk2X5DVeRvqYp+YFCfTHHvwsNIv5WSDFWIQjPr
-	 qICkllX2f4wn7BpXYRQAlmB8fWHCXoDJc9gNWUcGfAaezkUnKRHNfPK1djvMPrCOFDubs
-	 DwcBetyfaSb3raf1sbpbwqkXkqe4p3qPfaOHhgf13vqmCxL3zt4R26zFzdK2yU6ZUzwqB
-	 yVncfwFFjXtCqjtK7lA2uxwgSy7xnnJbTN4PMa8fQGINJmggIJD+CsS+OS8MpK1oA8g==
+	bh=ItYl3fBK0DP67bFPdDHfn+xQYkKwjM6RDG2j57lzAZA=;
+	b=gWQZUpgTp2UfjdnReSSGmYZtt5+Id8rCAOW4L4cbtjYEM1OSCRdUvXpv5iu/gucS+vEH
+	 BaHzz48duCLrQPORN3UxzTJieQK08d3F8Fszp9ZerR/mhKuYyLIUO4X2RLt9aiZN7nGVj
+	 4SdKzk091BgOHnALGgn/g4Q4gWWFFwZWdSEcRGE+yJUHtpTc4C6xIHi0RaHOMQnSSRcpe
+	 gTSRLBqBy+1cyM0X7W1SRgp1e9ddre0Ah1ax22eJ1Cjd4p5/meCJRpNfECAUUau/C0q3k
+	 uSZRKC9QHbLGeUfbrTqjgwr8+k1stV2eyFS0xvpuHKwPBccMa+6GIUNvH3c70eJrljw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=v9UJtNy0;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ox3AMVQp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 915E2606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:32:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D66606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:32:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=v9UJtNy0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8B681F000C4;
-	Wed, 25 Nov 2026 11:32:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ox3AMVQp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 097461F000CF;
+	Wed, 25 Nov 2026 11:32:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606345;
-	bh=VdPAkw8W1I7jJWHBezia0/udev/aPrjOTgRruomS7rs=;
+	s=korg; t=1795606348;
+	bh=ItYl3fBK0DP67bFPdDHfn+xQYkKwjM6RDG2j57lzAZA=;
 	h=Subject:To:Cc:From:Date;
-	b=v9UJtNy0FFrObmL9GI3Rj6DqljHbRpabNYm9mF2cMCibWlwSoyQDWszul+bPhsHbu
-	 UU7+vwywB7rxYgmrS/xFXEar09vwS3NHu0xEqgSq3pt7+ngAlamBPfbT/HDLB/z8Cl
-	 NVBYa9TdsmzwrVmkrGu0bOHQre3rH9DWc3MOuswI=
-Subject: FAILED: patch "[PATCH] dm: fix use-after-free when dm_get_device() widens the open" failed to apply to 6.18-stable tree
+	b=ox3AMVQp0/C9F19RRbkmDrQXrxN/TfUZJ0fCsTz67qh7D8MdZPsv8r6kqhg5Eq+VN
+	 R9OShUohAYOcLjePud7EHQTkKMrSmBYnG0WPXuW0hJKTqEg2NAZIkyxtyw12a8j1Dy
+	 ih/6An68Z0vDkvgaV1+Q0JPBUz1AsXg/3CpfK+AI=
+Subject: FAILED: patch "[PATCH] dm: fix use-after-free when dm_get_device() widens the open" failed to apply to 6.1-stable tree
 To: mtsai@redhat.com,mpatocka@redhat.com,noreply@anthropic.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:18:38 +0100
-Message-ID: <2026112538-favorable-citable-c0d6@gregkh>
+Date: Wed, 25 Nov 2026 12:18:39 +0100
+Message-ID: <2026112539-barrel-unleaded-020b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x c834161ded1a141a58d5f03b24f6894291222c96
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112538-favorable-citable-c0d6@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112539-barrel-unleaded-020b@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
