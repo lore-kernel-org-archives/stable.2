@@ -1,57 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618378;
-	b=o11woP1+oK0Sr6bBn7Bh3Nr6+GAw8VJpsMJFeLY0qmoF3Kr1t1LQ4G/ZPzffZN21Hylq
-	 1mCasCdL+SjEI2xe98cavWN8G3s1hpQLlzi68WBFr0P63ayMvGcwQJ6fSpmRNHA0qterV
-	 vNbfgbQwKt4rs7M7p8+EdCbvVfwQUr65PA5Lr9pCJ3b5ujKJe8jLEDHIhBgUzAyEZ9uEA
-	 u0aopikGyGIVTCgg7v65Nt74qO9Qt53KjKPZs4jn4vneRoiCAcUumgC7kQm0RGcr1yLj5
-	 24SfCQuI6BYiss5sKqkelLJc9pVvN3ItyUuKPppZdscCctxGZFJc4CAy+xAxwLF0Dag==
+	t=1795618385;
+	b=xS8RGaa/qfWClf5J0l/TW+fK0SGqwEujYdR1v1qALFKDiBtA3SIbEASjFDGCN/tqebmy
+	 lyVIw1LDLSqHhiSY+z8diRdlCG1ZoeXWv6JzTSZoJeC42xSoNr9ZuJu73HzgIHTbMdPwY
+	 4bpgNv2Sml64iKYWjZfr/KMqXjFSzgR0/HEUQ/32BGk9jYEh0N8WEW7P2upCjs48LoBlg
+	 6zGY1EFHuKHFZAv1VKjeuPetwXwxTJcnNLLbp6e13e1VU6XCF/IlTsO3p8ro8Tc7asZcD
+	 JeHbp97sDNkQKhqvzj74PlDeI9F5WhFrwIwf82zWLZsI+YK8+251gUrZpQV5quGsYLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618378;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618385;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=B6ueqrnDWNZYiN70AH+FVnQPaGdmZ0RqDj5qUJ+sK+k=;
-	b=um/CyehmZLIX+y9nWitWToMH5ifZbM0PNxNIfDF4usBzEcrdOFA30637GxvGo+2uil1r
-	 yiv3L7nwfMrvgW+NfYngtdi5Y2HCy/NHiB41M3gwHcoqGGApVTmBUOHWJGlNQlbYUMewr
-	 X9YytNrgramSkeGlaA/3ABZY+Qofzu6AQQLwD4d1kx1BddJBmFt7kCBF5Qqmg9NlHxiPM
-	 SFsPlJ0zG+J0WDiT1mW/iJTXI13BXAKJu3UFh29y4QuGs4GOQoMHRQdO11E5fMTwsXV0E
-	 aQ7iRynTpwcWNBrmTN4+hPrDUZDrE4A2sXgKkhWUod0GgayBIcE5nXXvrGfb48BRBkg==
+	bh=YFh3APmYI2gJUsI87F9zce0qagq47IYF2IAXuncGaxs=;
+	b=VyoS1QU6cEF+nCrot5BARP+YSuVGFQJeM8WaCeW3RDI/69VV+1nhX1fSsm2VeaHCh0Yb
+	 OHVhgA5wMnBdlzDeUmug0Y4A+ndb18F7wEa9Ktd/wwW5nc5CUVo4XBtCDXibDxh1uK+lF
+	 104tXHZFICGTrSNXB11/u965hMOd7xmvRoQYfaIq3U8L53fOlXJ5kQHg/NdmbGmvaAsNt
+	 +0zisZca3jpFGwPG7fQrQh+h7wZO7tRIljrWnxlaK6d4gvsw1cChrl1AKtO8Eaid/9AQm
+	 t3wobDWTKINPu8WWC/FiW8rGcMuhJ5ma9KX26ZjmyWwxMf/uKE9FbZxZI5dgTy7tfrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ey8XD0QU;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1RUwLAPE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4A0606A335;
-	Wed, 25 Nov 2026 14:52:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79CA606A330;
+	Wed, 25 Nov 2026 14:53:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ey8XD0QU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F9B51F000D2;
-	Wed, 25 Nov 2026 14:52:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1RUwLAPE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F36CE1F000E0;
+	Wed, 25 Nov 2026 14:53:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795618377;
-	bh=B6ueqrnDWNZYiN70AH+FVnQPaGdmZ0RqDj5qUJ+sK+k=;
+	s=korg; t=1795618384;
+	bh=YFh3APmYI2gJUsI87F9zce0qagq47IYF2IAXuncGaxs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ey8XD0QUbXDptZ7CQt53URw2essNOPz5wjmNLT+I5UJhpf8nHTbTIbHWSZAgx4UbL
-	 uq8MBwAmryrMXD72XwYIY8whsW6bn1g6Le4kSxt/wyV8/21wlk2Vt2PF0tFGuzaU6Y
-	 +/fZO6h/RLf8VbwLYgsDMVuBWykjvtRA6M0UMy7g=
+	b=1RUwLAPElcAfv4thhmA3t12RFs68fpbvOcOpsearrFgonO/jdpkEDZoNGBNhF4Qzy
+	 5E0h3gEKMPzj9zh9Y8uSWPCyWp+S/3fsfKzPfJNjQVkov0YJDFa340ONxqy6zyas2e
+	 MjMVWGYP/YPOrTcJOpNCjf8L4mGPXmOWH4UQ2gE4=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Hannes Reinecke <hare@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Keith Busch <kbusch@kernel.org>,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	Jeff Chen <jeff.chen_1@nxp.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0259/1005] nvmet-tcp: limit the connections accepted per work run
-Date: Wed, 25 Nov 2026 15:26:37 +0100
-Message-ID: <20261125143827.806887133@linuxfoundation.org>
+Subject: [PATCH 7.3 0219/1005] wifi: nxpwifi: guard the 11ax response handlers against a detached command buffer
+Date: Wed, 25 Nov 2026 15:25:57 +0100
+Message-ID: <20261125143826.872861598@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
 References: <20261125143821.729802100@linuxfoundation.org>
@@ -73,68 +68,72 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 
-[ Upstream commit a029f1b2fb13e6ac6e1c2f27fba1d80b6e7cac51 ]
+[ Upstream commit 6a5cf549f4dcbd502db8cd00c5f49d20a2b9648f ]
 
-nvmet_tcp_accept_work() loops until there's nothing left to accept, and
-anyone opening and closing connections fast enough keeps it running
-indefinitely, since tearing down a dead connection takes long enough for
-more to arrive. Whoever flushes nvmet_wq waits for it: removing any
-other port of the target does in nvmet_port_release(), and so does
-unloading the rdma and fc modules.
+nxpwifi_wait_queue_complete() clears curr_cmd->data_buf when a
+synchronous command is interrupted, but nxpwifi_process_cmdresp() still
+hands that field to the response handler. The three handlers in 11ax.c
+store through it without checking, so a late response oopses.
 
-Accept a bounded number of connections per run and requeue the work. A
-flush doesn't wait for work queued behind it.
+Check the buffer first and return 0 when it is NULL, as the sta_cmd.c
+handlers that commit 068986fd6f2a5 ("wifi: nxpwifi: detach sync command
+buffer on interrupted wait") covers already do.
 
-Fixes: 872d26a391da ("nvmet-tcp: add NVMe over TCP target driver")
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Sagi Grimberg <sagi@grimberg.me>
-Cc: Chaitanya Kulkarni <kch@nvidia.com>
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+This is a local denial of service: it needs an interrupted synchronous
+command and a late response, both on the local host.
+
+Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Reviewed-by: Jeff Chen <jeff.chen_1@nxp.com>
+Signed-off-by: Jeff Chen <jeff.chen_1@nxp.com>
+Stable-dep-of: f17e2eda1630 ("wifi: nxpwifi: bound the TLV lengths in the 11AX_CFG response")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/target/tcp.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/net/wireless/nxp/nxpwifi/11ax.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
-index 8287f19741e80..8788cfd813b8f 100644
---- a/drivers/nvme/target/tcp.c
-+++ b/drivers/nvme/target/tcp.c
-@@ -102,6 +102,7 @@ MODULE_PARM_DESC(tls_handshake_timeout,
- #define NVMET_TCP_RECV_BUDGET		8
- #define NVMET_TCP_SEND_BUDGET		8
- #define NVMET_TCP_IO_WORK_BUDGET	64
-+#define NVMET_TCP_ACCEPT_BUDGET		16
+diff --git a/drivers/net/wireless/nxp/nxpwifi/11ax.c b/drivers/net/wireless/nxp/nxpwifi/11ax.c
+index dc1e747383eca..7e9127ae2f421 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/11ax.c
++++ b/drivers/net/wireless/nxp/nxpwifi/11ax.c
+@@ -205,9 +205,13 @@ int nxpwifi_ret_11ax_cfg(struct nxpwifi_private *priv,
+ 	struct host_cmd_11ax_cfg *he_cfg = &resp->params.ax_cfg;
+ 	struct nxpwifi_ie_types_header *header;
+ 	u16 left_len, tlv_type, tlv_len;
++	struct nxpwifi_11ax_he_cap_cfg *he_cap;
+ 	u8 ext_id;
+-	struct nxpwifi_11ax_he_cap_cfg *he_cap = &ax_cfg->he_cap_cfg;
  
- enum nvmet_tcp_send_state {
- 	NVMET_TCP_SEND_DATA_PDU,
-@@ -2073,9 +2074,9 @@ static void nvmet_tcp_accept_work(struct work_struct *w)
- 	struct nvmet_tcp_port *port =
- 		container_of(w, struct nvmet_tcp_port, accept_work);
- 	struct socket *newsock;
--	int ret;
-+	int ret, i;
- 
--	while (true) {
-+	for (i = 0; i < NVMET_TCP_ACCEPT_BUDGET; i++) {
- 		ret = kernel_accept(port->sock, &newsock, O_NONBLOCK);
- 		if (ret < 0) {
- 			if (ret != -EAGAIN)
-@@ -2084,6 +2085,9 @@ static void nvmet_tcp_accept_work(struct work_struct *w)
- 		}
- 		nvmet_tcp_alloc_queue(port, newsock);
- 	}
++	if (!ax_cfg)
++		return 0;
 +
-+	/* There may be more. Come to an end for those who flush nvmet_wq. */
-+	queue_work(nvmet_wq, &port->accept_work);
- }
++	he_cap = &ax_cfg->he_cap_cfg;
+ 	left_len = le16_to_cpu(resp->size) - sizeof(*he_cfg) - S_DS_GEN;
+ 	header = (struct nxpwifi_ie_types_header *)he_cfg->tlv;
  
- static void nvmet_tcp_listen_data_ready(struct sock *sk)
+@@ -346,6 +350,9 @@ int nxpwifi_ret_11ax_cmd(struct nxpwifi_private *priv,
+ 	struct host_cmd_11ax_cmd *he_cmd = &resp->params.ax_cmd;
+ 	struct nxpwifi_ie_types_data *tlv;
+ 
++	if (!ax_cmd)
++		return 0;
++
+ 	ax_cmd->sub_id = le16_to_cpu(he_cmd->sub_id);
+ 
+ 	switch (ax_cmd->sub_command) {
+@@ -584,6 +591,9 @@ int nxpwifi_ret_twt_cfg(struct nxpwifi_private *priv,
+ 	struct host_cmd_twt_cfg *twt_cfg_cmd = &resp->params.twt_cfg;
+ 	u16 action;
+ 
++	if (!twt_cfg)
++		return 0;
++
+ 	action = le16_to_cpu(twt_cfg_cmd->action);
+ 	twt_cfg->sub_id = le16_to_cpu(twt_cfg_cmd->sub_id);
+ 
 -- 
 2.53.0
 
