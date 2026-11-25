@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608770;
-	b=YM3xUjLfYogW0omrYsDKzPiwugSNbXg4fRvnBPCemfAHeq4GjKDjTDfaSLPsJB2N9xKW
-	 HJCHGyNsCiqGPtLwkR8kdzZKUe6jYvNGF4+gkDrDRGObpey3AOuWj/xB/A1wOOyb9sbNS
-	 XsPElNWI2+r5zMS2cjic2hW+k1Z0tt+nu5aN9tUVbY8DHmsaGXrVKnfn2+nTrprxj1jEI
-	 AkoUTnzfFijGIa/87MAS3IDdaKtRcEdFm8RCd/gOXzp/e2Db8WqECifX/QFX3qp3QBud1
-	 kctWNJ+Dz9qv4Sg+QOCO0Q+gO92dDiGV1jjOGclqlKJALJNn1jT9E5/ksO70q06ooag==
+	t=1795608772;
+	b=3EqNtZr5yHaYDRX43YtGyclbIvjhfSvcRrhiw+cA/EQxLbfO0ZcKjzhGcb2+u1oo4kTl
+	 ord5K0WaOG9l4sBgPRyjru1uRhaKijiqiHdaQG/8EdSho2ztgsKc/B/PP2OaoO82YQdWK
+	 A8teWOwUWQJATVYii/9P63EV3Uup/6s5jJzqYEJhTWZBVSIFVNa351NoYCxK8cDmmy0rp
+	 3IPLnqTBdcAQkjOn/6+SWyzmQNkFcUvF+f5Su9nk9/YSoL0YcUHITk8tfxds60oOkm2uZ
+	 0RMFQk+b99VJ0CoOyUrCeCW28n2AD8TvGF118Rvl8Q7eVTtruW/xiLwLinIcEE6YoqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608770;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608772;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=YvZ+MYm/tEerVMyhRfgrUkzK2+6reEodKLZZg+DwbmQ=;
-	b=iD3QBo5ELy3m8bWMvRO+wBZeMlMZHuny5+H46mYN3rdsFkZKKI60nPAPy/MiXRX0VBfI
-	 rQ8NB9yQpNiExA6OCW2/9d0+HnGs5oC2eTQGlfBxtBfyHB7WBwJQJZUV8y5/MXkBQinRH
-	 5D1VtPJathojzdiP+iXnfePNJdrrmezPgLNFmcoluX0XY04E7jVn5ZVK/9KjrWhVB9h4Y
-	 W6dVCqSf6YQHyKIsoEClftO188oxHStAe7+5VY/7HJWMZLZH/jfC9eJbATL5qK47vxezi
-	 /qUq1Q+75clxTUK2ryEz2MBocETTSCMDqzqWxCQbTPQ1ndDCQ/SUbuhErx33cB9RhUg==
+	bh=rYPqNNQTB0KS1iZP1Yah3x05x6is9oHmiMLVkcdjRCw=;
+	b=oMK3w1OHLTCEP+VylHw4X0tG4oYo2GBGZdYqlP5BuohgGTwYCjSDsg/KJvEpZFrmk9la
+	 WXWio51ioXiOeCFdzwxBFyW9sNlDyW+ZxiMP8itJfz/EgGko3O9xvHEUdRHSFfCYQ+nLS
+	 JECYfQtB8tywIywAP8zAIDOZL18ivUHSP6nTZTSNYRCg7Z9LPu5OJugjSVEfleX5rj8GE
+	 Xu8CBn7s4IABQ6zxLiCs1YdeP1VtynTb3hfZBmcumoG993hg226NDReAo8ER7DL1UqyVC
+	 d2R+Ffm/Ndm689nonr+K5lgKtgEYdYAJC0Innt42K1rivWc2t2gYfL4lSG+AE96Q1gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZDmtFYMz;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="emTxQ+5/";
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFBEF606A32A
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:12:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFBEF606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7960B606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:12:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7960B606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZDmtFYMz
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-386c4d2e2ccso2827371eec.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 04:12:49 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=emTxQ+5/
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-385d8a00598so8403939eec.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 04:12:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795608769; x=1796213569; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795608772; x=1796213572; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YvZ+MYm/tEerVMyhRfgrUkzK2+6reEodKLZZg+DwbmQ=;
-        b=ZDmtFYMzXcImZicAXIG8oXjEPLiR1MKbH9dxPWNJwHFEgNeAJC7LkbkdEV9lEelwmU
-         Bf49U3MLLDqAC0e28Oty2RTJDeOWsP+YmjsAoGldobmSHc7gWO5cJZuveAtcy7JhEqZ4
-         boRSIBrN9dNAjXCblnkl1W6JJqwZSWJ37kwnXRlajuPUIys++GMRUIohsUsBguX5fBbr
-         cUZ3JhPeSu74kdpn6V5yr+/ikAMSTynXUa6q8E4wclOwC2bBWc60POoFwnHo3hDgkjo8
-         vvXUHGPuCePYsT//3C05yj0GpFNXb8sgD5NOsEoceQ3JpSuQAV+WmRxAdJtfBvwQp6fi
-         6sEw==
+        bh=rYPqNNQTB0KS1iZP1Yah3x05x6is9oHmiMLVkcdjRCw=;
+        b=emTxQ+5/WwdMet3hczmEvvqlS8s/6vNiHs/wlvNhM6fF6pOBHmriEXXhMCR+KYoLWZ
+         9A+q+jaWvAdPjXdH17hfAV+zUL5jjLHE+ggvjs2a7cFhqjm99XzRoT0zncIQiKlRasJI
+         Hk7h61oOd9yXI9QDOav/WWh7nXxBTtHoSczRx7BS+otctELjiSmFc5xv0t/DbSLrru7s
+         mpsNduMCW929aLUw0YnthTSoHylbs+G1CYT+DpiyV+qIz/WB4yhyEaXnnHZEAAqGAyiX
+         BsmY8DQ7G6dZUIwxDWLOymIh7IhgX/9ylxltMHiYR9qfegB9rjCKyHuzM49TevFRKFB2
+         raNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795608769; x=1796213569;
+        d=1e100.net; s=20260707; t=1795608772; x=1796213572;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YvZ+MYm/tEerVMyhRfgrUkzK2+6reEodKLZZg+DwbmQ=;
-        b=lYGy5+XBG8ednvd2tRUtA7N6kTvnink8tn5g3p2jRYCdvG5k9x/k2M+UbLk0hlsM29
-         NbA3a7S81Flmx6TJNgEOUxotyMp/40XMOX2EbZuKUaFfsdosI0HQ3eRezCtsY1Zh7Qvb
-         TWYRn3TQCPDDJpEUHU2q88841QnaItQXTlFhnNCvNxv2SpW7ojEdEnDFkvla2XRBV+zf
-         wAo84MXfrrH47FNB6K9Sjg8O7fFT29mkgfHaM26zxzJJ6VJlYvJQU9K2U9xi7xeqsIP3
-         EK37oFsGgiX4mUEHyi+K8VR0RAmS5NSb3TVvcPdtx4gF4bdHSEeHkDbmqg6FfW9mVALg
-         DMpA==
-X-Forwarded-Encrypted: i=1; AL+hErGpnAsMLnQSYTl6YOcReg2sjTDQkUCT2ikhsh7oHtLdFfeu3GAnpNm6LDzdrnFFDINapm0xEco=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/cfSEMIFk1Nvv503SrPdILEsR9QWDJmte2NFB0CH5HIrzQ6a4a
-	gniHlKKv7EtAB5G5Eaa23NM6KOSr67GTowe/JQgPiKR7/SZvdtUg3db0
-X-Gm-Gg: AZFdTZeMtHUuPiyU8IcBLw3uJOOZBOrw9w26imhCJ7bbdbNJIqKDcyo4lQH8/y+vbPA
-	DsOx7C9xVjaG3bDA35hM4qBRYgn+ZTt3GhroGEzfguhGpGvAWvnB/Rc32H0sfZQApb2qMRA6K83
-	YBp3XkD2aEQ7oewF0LEDSJxjJZWmGlG/1PaEZ047oSwXBE+I/jUa1AqrYgTLRLngYp+tKQgFbP1
-	CQbYPBO0MoSQk2M2efmG1Uwx20BA2b0XCsZ+pBxFoQQu7Uz7IattXxru61WiegI840Hxxrwv48q
-	8cqB6mDdKIkBDYXsx6QCe9IkFwDQdgfbOgXt0AlYJd84pIM+2xiTejLtXuGSEha55LQy5lrE2yR
-	9X6x2CfcPU/3gA4vARoDAt61VMCh5xQ7/uPs5CWhSqu00GKU8t38QV/O40GzlMhJ8v8z5u7g/TJ
-	X9pE6kEnU4FEpw9FLLyT1nkrAdl/P4FE77RAWElzG1yB9xiVFIz8ChH1wQ4JlZj5B2lCl3ebU6J
-	6inr+8E1SfQ+mA5+/VHP66Gj4xygT31lKQzKvRfZcAfoJHj8LZ1jVQJK+yDRwGRhwFvTn9CGGaY
-	3f5leCwpNkxjYvKMTfYYgTnwWKQ6arxQj9yoXgt4q4yJQEQWpSADIQ==
-X-Received: by 2002:a05:7301:a0d:b0:369:fa21:ba0b with SMTP id 5a478bee46e88-38570847a85mr20043418eec.33.1795608768857;
-        Wed, 25 Nov 2026 04:12:48 -0800 (PST)
+        bh=rYPqNNQTB0KS1iZP1Yah3x05x6is9oHmiMLVkcdjRCw=;
+        b=hx3+d4rcwDj8SaghabQeV5wqv2RvNdWyMSJEuf88fJ54dLk0e9Yqg4WSzmEJjk3E2x
+         vmdzTrFevpQGPPTgJzgUjis7u1egaMtFkK4g+1bleDI+NntY4QRhlL97KTfgfG3B6EK+
+         vxAxrb4n15TOdTzJIYDI28XcTZ/mroKwbbez0VCRqAKItky3JCy84V9X7iXsNqVYves7
+         c0dFMYioh946aBo1gQYt/auRkg/CbYl31wC7ddsw89Hg+cCQGneGoKovu8crFX75k1HC
+         0sd4QOZBfl11D4pSZTowUMBtUpudMHGf9GG8+t9IJoygp69VaZMlN31eQTkZSoeXu+qc
+         2F/w==
+X-Forwarded-Encrypted: i=1; AL+hErECDzUqjZOb9GiXJm0vkE9vvK0rlsnqL44ezts3K2ZAIopqAUgOjRn/FGlk+SkgwdMJJEup8X0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8H7UBYYFodWD1WuYWWP8yVAq43P+6AfigSPViFLNQq95pko4gT
+	4edZGG/gbxhKaLQFA9ZIi0D5NfUtoA2Owpr2GLAe1RwA5YbMdp2VPXxx
+X-Gm-Gg: AZFdTZfmV8da2NoLoMzzBCU9v9HCrU328jnvO+7aiuAxMuUVTl/bpwKH46L+RSroFPx
+	HXfrNOuSheBXw5GrsjE5Wc+1Sy/11u64NonmibDq4Jb+tUACgyJw/Jb7O4c/TrJJCcBTVWdL49o
+	zvxuaq6ko/dBTZuJzMwzHyEKxXgAa5wb1vNG/rPrZctTC9DdMKKw3HvpeuAL8bImck6niUf4ZH7
+	ctYhn2ko8vFCGjN4HP3HkgEE6VZLACqozYvi6quXcBgWIf3qNHUlJM1QaZKz6axLxySdFiMIpSS
+	/SRvApVu5tA46/NXMI7yfugEBAMoPGGEJu6Uk6r0RWPPLOHuadeNMK1oC4T/Zp/FPliQX24ziK0
+	ZE5YOzKnb5QUpsb5LprpWwdLOT5lao8P213KvLemV/W5KJrCL1Gfo5Tqq/dY2XmVEOaB2TzmMDR
+	iEWP7RNf6iBRFx+KRTTbwe253TybzQWtLIfzVwoBL9ybNySphjWqEPmBPZy/r9gqtmW33sZQBLf
+	4Boohoc6tNlJ6JLDuge5HACVjvjxOWkrRvuWmXrC6NDt/cjLCuysfaiAvvdb/49uDOOuWxvDyrO
+	ICvB33X6z6qxzRNvupfOeB6ubq8xduqvybUrx1g8gw7kutJbzwhOog==
+X-Received: by 2002:a05:7301:4704:b0:383:729:cabe with SMTP id 5a478bee46e88-3856f8519ecmr19175296eec.19.1795608771243;
+        Wed, 25 Nov 2026 04:12:51 -0800 (PST)
 Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-386c7c62a91sm12234336eec.17.2026.11.25.04.12.46
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-386c7c62a91sm12234336eec.17.2026.11.25.04.12.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 04:12:48 -0800 (PST)
+        Wed, 25 Nov 2026 04:12:50 -0800 (PST)
 From: Maoyi Xie <maoyixie.tju@gmail.com>
 To: Clemens Ladisch <clemens@ladisch.de>,
 	Takashi Sakamoto <o-takashi@sakamocchi.jp>
@@ -85,9 +85,9 @@ Cc: Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
 	linux-sound@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 2/3] ALSA: bebob: bound the stream format entries to the response length
-Date: Wed, 25 Nov 2026 20:12:37 +0800
-Message-Id: <20261125121238.1602172-3-maoyixie.tju@gmail.com>
+Subject: [PATCH 3/3] ALSA: oxfw: bound the stream format entries to the response length
+Date: Wed, 25 Nov 2026 20:12:38 +0800
+Message-Id: <20261125121238.1602172-4-maoyixie.tju@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261125121238.1602172-1-maoyixie.tju@gmail.com>
 References: <20261125121238.1602172-1-maoyixie.tju@gmail.com>
@@ -102,40 +102,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-parse_stream_formation() takes the number of two-byte entries of a
-stream format from buf[4]. It ignores its len argument. A count of 62
-or more can read past the 128-byte buffer. A smaller count can still
-read bytes that are not part of the response.
+snd_oxfw_stream_parse_format() takes the number of two-byte entries of
+a stream format from format[4] and never sees the length of the
+response. A count of 254 or 255 can read past the 512-byte response
+buffer. An accepted format is stored with the length of its response
+and parsed again later. A count that needs more than that length reads
+past the copy.
 
-Return -EIO when the entries do not fit into the response.
+Check the length of a response against its entry count before the
+format is parsed or stored. Formats other than AM824 compound still
+reach the parser and get -ENXIO.
 
 Found with a CodeQL-based static analysis tool. Reproduced in a
 userspace harness under AddressSanitizer. Not tested on hardware.
 
-Fixes: eb7b3a056cd8 ("ALSA: bebob: Add commands and connections/streams management")
+Fixes: 5cd1d3f47a63 ("ALSA: oxfw: Change the way to make PCM rules/constraints")
 Cc: stable@vger.kernel.org
 Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
 ---
 I used an LLM to help write the harness and this patch.
 
- sound/firewire/bebob/bebob_stream.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ sound/firewire/oxfw/oxfw-stream.c | 22 ++++++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/sound/firewire/bebob/bebob_stream.c b/sound/firewire/bebob/bebob_stream.c
-index 5850357cb3da..8eceafc70a44 100644
---- a/sound/firewire/bebob/bebob_stream.c
-+++ b/sound/firewire/bebob/bebob_stream.c
-@@ -730,6 +730,10 @@ parse_stream_formation(u8 *buf, unsigned int len,
- 	if (i == ARRAY_SIZE(bridgeco_freq_table))
- 		return -ENOSYS;
+diff --git a/sound/firewire/oxfw/oxfw-stream.c b/sound/firewire/oxfw/oxfw-stream.c
+index 5e36d7153a7b..d8fe136369d8 100644
+--- a/sound/firewire/oxfw/oxfw-stream.c
++++ b/sound/firewire/oxfw/oxfw-stream.c
+@@ -484,6 +484,19 @@ void snd_oxfw_stream_update_duplex(struct snd_oxfw *oxfw)
+ 	}
+ }
  
-+	/* The entries should be within the response. */
-+	if (len < 5 || len < 5 + buf[4] * 2)
-+		return -EIO;
++/*
++ * A format of AM824 compound has five bytes, followed by two bytes for each of its entries.
++ * A response can be shorter than that. The parser rejects every other format before it reads
++ * an entry.
++ */
++static bool format_has_all_entries(const u8 *format, unsigned int len)
++{
++	if (len < 2 || format[0] != 0x90 || format[1] != 0x40)
++		return true;
 +
- 	/* Avoid double count by different entries for the same rate. */
- 	memset(&formation[i], 0, sizeof(struct snd_bebob_stream_formation));
++	return len >= 5 && len >= 5 + format[4] * 2;
++}
++
+ int snd_oxfw_stream_get_current_formation(struct snd_oxfw *oxfw,
+ 				enum avc_general_plug_dir dir,
+ 				struct snd_oxfw_stream_formation *formation)
+@@ -501,7 +514,7 @@ int snd_oxfw_stream_get_current_formation(struct snd_oxfw *oxfw,
  
+ 		err = avc_stream_get_format_single(oxfw->unit, dir, 0, format, &len);
+ 		if (err >= 0) {
+-			if (len < 3)
++			if (len < 3 || !format_has_all_entries(format, len))
+ 				err = -EIO;
+ 			else
+ 				err = snd_oxfw_stream_parse_format(format, formation);
+@@ -662,6 +675,11 @@ assume_stream_formats(struct snd_oxfw *oxfw, enum avc_general_plug_dir dir,
+ 		*len = 7;
+ 	}
+ 
++	if (!format_has_all_entries(buf, *len)) {
++		err = -EIO;
++		goto end;
++	}
++
+ 	/* parse and set stream format */
+ 	eid = 0;
+ 	err = snd_oxfw_stream_parse_format(buf, &formation);
+@@ -740,7 +758,7 @@ static int fill_stream_formats(struct snd_oxfw *oxfw,
+ 	/* LIST subfunction is implemented */
+ 	while (eid < SND_OXFW_STREAM_FORMAT_ENTRIES) {
+ 		/* The format is too short. */
+-		if (len < 3) {
++		if (len < 3 || !format_has_all_entries(buf, len)) {
+ 			err = -EIO;
+ 			break;
+ 		}
 -- 
 2.34.1
 
