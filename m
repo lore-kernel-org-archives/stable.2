@@ -1,81 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596751;
-	b=NH3DS218UUQrgyKCMXEk5El5s5Xdtm1oVYPtcgYH72k1FByL0HAc7AuXiJi2Uy+M9Xq6
-	 OOlKhhSH/QyrSa8WfXfusloCvuL0AHn8ed/JSzzMSHQsk2Z7YiJVN2YxGHHZqf3CPSN5K
-	 nPPeSOF7XSYCFRm0p77UpjmM2KylQGoyc1QVVCjpD5BoAPYPjg4mY0bij+vtrQnmO4mPI
-	 69cpoC6cljVwHr6VIPcpQLYQG++96qC/ZAbOQlGcJk63VQOKLDh9f0NdJ+CSHEJw1dR5A
-	 faTAXZzkp5xdt9t1J46zMjL6HNTu/8ZTjtr4k5lK6+7+pT7StOl/cWlbT/SGu1dcgZw==
+	t=1795596768;
+	b=Vn6sc65Htz+tQouuXZjch6f/IpsRDVk+YOHpIOZ8bbcF4DFEBQyixR0jHkxwHnJM8lBm
+	 1HvLdu+P4FmYM3b1CV3Bs0fJJaJQ4nZS6jusuXWGNSEeJzQd8oL0X8OamZDIP0ChO3gAn
+	 +KJ0oCNUUktna8BtfbtIo6zdVkh7Ffr0OEu1eVkorSSn5v0d29ep8TbCJ9PzSVf25UH4J
+	 j0RYzV9NJ4TwlMmzBgXfX8SWwf/kJ5/Mvk3e7jbIdGuDVdVA+BEdx7dAZETyuL8EeTcoC
+	 wIFaD9WuFXYCo5ZyXpfXvWKKn4RZPFC+llLuLjpLte+11RZ8SWDJk50Hj8yS1I3+p2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596751;
-	h=DMARC-Filter:Received:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Rspamd-Pre-Result:X-Rspamd-Server:
-	 X-Spamd-Result:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id:X-Rspamd-Pre-Result:X-Rspamd-Action;
-	bh=p9vbL0ysv91ckHuds7ouuXNkYWInSQU+tytOp4PqZGg=;
-	b=wrHSNT/NDji8jUc2xswpvtMnC699RckMj5Q83LS+XmTcW82oVVmRKJRJx6SML6RdwwsB
-	 P9YMIH2N1vdzNrVLBiLZvtLunomhsO0eqLQ9eqXEG9ET5cnHzn1alc9IDnmukTo2JL/1O
-	 LpYQYnPfrQyPNUNeo4ex2kr9T5egPj0mtrOH0ZQ2d6Ll8DFV12SFp6bPT0+62vbaAjA5O
-	 uCz9SIGkJjw/MyEnIT3Fm5cVO63t6iqGhj9h6t9RRzBu4K3F4N5+noJPtVuOqJDLs/7t/
-	 shh7UWbWfH7J3OOAmVYZcQs1gHIoLE8pPTD7E0/TXAS3pj+7dp+ehsY1nYUJ4BuPhWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596768;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Q3lKpz2ipOOP0omCIbHOv++J2MjbYMuVpWHGa/q6ZSY=;
+	b=CozfuzqqgTfjAz2W9C4FJB1LdmrXPR2zXFJrI9ULqgnjn6oQMigLPNmoIP+O5Ku5o4a8
+	 VIXVLUWB32E9YXkqX9ixBesn0MFQ2rPKI5YxAhkNXzofzsAJhIAFoeAoqRe1GiSQlFCbm
+	 EswHrCfp2RRAUj/waFWVHT3IAcfS/LjeYY+9tHRoK0ycnFOi9QhLwE6sWZgdtMAAhfA/f
+	 kV0ZCZhu7LVaYxPRWticQK9WWtYzX3wiZs6CQmFkC8woAz2TNIkPVkOu7M1znkr40xlsd
+	 6bdFj/CkhuJMUaMUMNsVG30eSRA+D9e5BkZTlRGdfEEf2sL6Kow/AMEc8Zc3X4I0EnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Vwgi/s4B";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8CCA606A323;
-	Wed, 25 Nov 2026 08:52:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8CCA606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D09491F456;
-	Wed, 25 Nov 2026 08:52:28 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A6C51134CA;
-	Wed, 25 Nov 2026 08:52:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 88BVIMyhBmubAwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 25 Nov 2026 08:52:28 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 36C7D27BC4; Wed, 25 Nov 2026 09:52:24 +0100 (CET)
-Date: Wed, 25 Nov 2026 09:52:24 +0100
-From: Jan Kara <jack@suse.cz>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: David Hildenbrand <david@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Lorenzo Stoakes <ljs@kernel.org>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Michal Hocko <mhocko@kernel.org>, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 5/5] mm/filemap: refuse releasing maybe_dma_pinned
- folios
-Message-ID: <ioqon6b2fg3ycdxztdfgxc6x2dkc4f6ysep6bpornycbkrj7ax@5rlqupekoyl2>
-References: <20261119-gup-dirty-what-v1-0-236d69f25c24@suse.de>
- <20261119-gup-dirty-what-v1-5-236d69f25c24@suse.de>
- <fsmnfotflgrddrlak24cve7vkcjkellsgb3xbei5ysxvmqnul6@byvxblm4dtqm>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D56606A326;
+	Wed, 25 Nov 2026 08:52:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vwgi/s4B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3FA51F000C4;
+	Wed, 25 Nov 2026 08:52:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795596767;
+	bh=Q3lKpz2ipOOP0omCIbHOv++J2MjbYMuVpWHGa/q6ZSY=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=Vwgi/s4BgqpM1wnT1yOBVqSVV9uOCMtqJ7cD3SI79O6iy+di3kvZhBnTp+1G82ujV
+	 rsqlSCVBUNXOuOg/5he8xry8YW04XuwQ6Kr3MyXamJS9wG/A9ds/hDOxl0qIdtRC1/
+	 mkMCDfMPoS9S4R9LHUpo0IVuAvD/Du2g+pV0Kz8JxgTebaL5ngOSWXeeXCEghdMHlJ
+	 djLpH0F65kB+IGkK3QKx80Nz3Eiu15bBb0wl9obGcX+cctOg2OtUXJgTVHOvn8KVpJ
+	 0KW3VwD8oNCZ/5XA++cpdwZPalpJ5iiTNxcflLTOmkX9XHmDb6Ld3Hli0RoM+69PCk
+	 1EpzJhXY2eUGw==
+Message-ID: <54864d0a-4356-4f00-9b0b-8b9b22329afe@kernel.org>
+Date: Wed, 25 Nov 2026 09:52:44 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,53 +51,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fsmnfotflgrddrlak24cve7vkcjkellsgb3xbei5ysxvmqnul6@byvxblm4dtqm>
-X-Rspamd-Pre-Result: action=no action;
-	module=replies;
-	Message is reply to one we originated
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Spam-Flag: NO
-X-Spam-Score: -4.00
-X-Spam-Level: 
-X-Rspamd-Queue-Id: D09491F456
-X-Rspamd-Pre-Result: action=no action;
-	module=replies;
-	Message is reply to one we originated
-X-Rspamd-Action: no action
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v2] media: go7007: return queued buffers on
+ start_streaming() failure
+To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Bin Yu <byu@xidian.edu.cn>,
+ Cheng Wen <wencheng@xidian.edu.cn>
+References: <20261112140556.5230-1-25031212351@stu.xidian.edu.cn>
+Content-Language: en-US, nl
+In-Reply-To: <20261112140556.5230-1-25031212351@stu.xidian.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed 25-11-26 09:47:39, Jan Kara wrote:
-> On Thu 19-11-26 20:10:48, Pedro Falcato wrote:
-> > Some callers, like folio_unmap_invalidate(), call filemap_release_folio()
-> > without any care for folio refcounts. This is on purpose. As
-> > folio_unmap_invalidate() states, invalidate_inode_pages2() needs stronger
-> > guarantees, and "can't afford to leave folios behind because
-> > shrink_folio_list() has a temp ref on them". Ok.
-> > 
-> > Use folio_maybe_dma_pinned() universally, in filemap_release_folio(). This
-> > has a much lower false positive rate, and should be ok enough for most
-> > serious cases.
-> > 
-> > While here, properly assert that no folio passed to release_folio is
-> > mapped.
-> > 
-> > Cc: stable@vger.kernel.org
-> > Fixes: d824ec2a1546 ("mm: do not reclaim private data from pinned page")
-> > Signed-off-by: Pedro Falcato <pfalcato@suse.de>
+On 12/11/2026 15:05, YuanZhe Liu wrote:
+> The vb2 framework hands ownership of every queued buffer to the driver
+> through the buf_queue() callback before start_streaming() is called.  If
+> start_streaming() then returns an error, the driver must return those
+> buffers to vb2 with vb2_buffer_done() and VB2_BUF_STATE_QUEUED.
+> Otherwise vb2_start_streaming() fires WARN_ON(owned_by_drv_count) and
+> forcibly reclaims the buffers.
 > 
-> Looks good to me. Feel free to add:
+> go7007_start_streaming() returns -EIO when go7007_start_encoder() fails,
+> which happens for example when a USB transfer cannot be submitted because
+> the device has been disconnected:
 > 
-> Reviewed-by: Jan Kara <jack@suse.cz>
+>     go7007 1-1:1.0: error submitting audio urb 5: -2
+>     go7007 1-1:1.0: error starting stream transfer
+>     WARNING: drivers/media/common/videobuf2/videobuf2-core.c:1797 at vb2_start_streaming
 > 
-> and we'll see whether there's some path which actually required private
-> data on pinned page to be freed in some cornercase :)
+> but it leaves the already queued buffers on go->vidq_active.  Give them
+> back to vb2 with VB2_BUF_STATE_QUEUED before bailing out.
+> 
+> Fixes: 7955f03d18d1 ("[media] go7007: move out of staging into drivers/media/usb.")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+> ---
+> Changes in v2:
+> - Inline the buffer return into go7007_start_streaming() as requested and
+>   drop the separate helper.
+> - Drop the redundant go->active_buf = NULL: active_buf is still NULL when
+>   go7007_start_encoder() fails.
+> 
+>  drivers/media/usb/go7007/go7007-v4l2.c | 20 +++++++++++++++++++-
+>  1 file changed, 19 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/usb/go7007/go7007-v4l2.c b/drivers/media/usb/go7007/go7007-v4l2.c
+> index 2087ffcb85a5..030a127cb9ea 100644
+> --- a/drivers/media/usb/go7007/go7007-v4l2.c
+> +++ b/drivers/media/usb/go7007/go7007-v4l2.c
+> @@ -409,8 +409,26 @@ static int go7007_start_streaming(struct vb2_queue *q, unsigned int count)
+>  	else
+>  		ret = 0;
+>  	mutex_unlock(&go->hw_lock);
+> -	if (ret)
+> +	if (ret) {
+> +		struct go7007_buffer *vb, *tmp;
+> +		unsigned long flags;
+> +		LIST_HEAD(buffers);
+> +
+> +		/*
+> +		 * The queued buffers were handed over to the driver before
+> +		 * start_streaming() was called, so they have to be returned
+> +		 * with VB2_BUF_STATE_QUEUED.
+> +		 */
+> +		spin_lock_irqsave(&go->spinlock, flags);
+> +		list_splice_init(&go->vidq_active, &buffers);
+> +		spin_unlock_irqrestore(&go->spinlock, flags);
+> +
+> +		list_for_each_entry_safe(vb, tmp, &buffers, list) {
 
-Oh, now I can see Sashiko already found some :).
+Why not just walk go->vidq_active? There is no need for list_splice_init AFAICS.
+Keep it simple.
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> +			list_del(&vb->list);
+> +			vb2_buffer_done(&vb->vb.vb2_buf, VB2_BUF_STATE_QUEUED);
+
+Looking a bit closer, it seems that go7007_stop_streaming() fails to return any
+pending buffers to state VB2_BUF_STATE_ERROR. It just re-inits go->vidq_active
+instead of properly returning any queued buffers.
+
+Can you fix that as well?
+
+Regards,
+
+	Hans
+
+> +		}
+>  		return ret;
+> +	}
+>  	call_all(&go->v4l2_dev, video, s_stream, 1);
+>  	v4l2_ctrl_grab(go->mpeg_video_gop_size, true);
+>  	v4l2_ctrl_grab(go->mpeg_video_gop_closure, true);
+
