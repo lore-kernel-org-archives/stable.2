@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795619237;
-	b=UA/eMd5JJUQ1A3EBo6hnsfgg8tPtOAnfO+tRyQPPHZf6bD3DMnmxvopTGkzGI36nD29C
-	 KemrYKxYO1WuXi+osKYHnse/mkkf7tlrMXDzeLtk9451I8l2lfJPjAhgLSAk5JxnL72xL
-	 eDIGbPgy7hRwpMGaYJghS1neCyiF0ftEEmUYsEZ0i/TJp59swR8UJalIgin/GNGoSspTq
-	 mb/SWr+zMu3BdIpP2/NUvugBTYv2ZN++s86ScV7PjpFOKhHxuM1/XpBJoX62ltCoOH0fT
-	 ERqtaL+uCg0XR+DB3hbwHqW3My2wK7lcUi+iJwidaR3UScoq30ByGiG29NzsUNG2jbA==
+	t=1795619238;
+	b=xv98OXcndSApcHM+/iEDJmYPbN5TUsJUMHPf9l8mFTLSTn63FTl2a++SRRWEZ5kDTkuq
+	 +Zn4RWdx2U6gzIIFQCxG5MxpOtbllfA/IXoKAIaXclv4WZGcCr27c5rTScpIn4IMFeRwi
+	 zXCgGgKfsJmMTsmR1FBIpqcsvkQV2Il4NeV4QJK1X1M0go7+q4KE0OJsknSJcAAgyXOAY
+	 WkArDAhl30mHRbXGM4kCU86jCKR1HJar3joiHF7nO6Yqo0jeLIYMRfX5TZHIw/5mD4BCH
+	 NkBhcumRtnYTu2Hgi3MyQg4c81tumFnS7cvkdrIcM8f/BTQp6hRKzQSmk7Dl96m6gnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795619237;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795619238;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=p7S01Ml85bnKt+Gaa+/2FpPAgJ7ZoLX+XASI/WcvILQ=;
-	b=dWSoumsM5LApXi8y3QoLecje4zeFXZNsSyakfNiFEdjxKVCe/jipqikGuHHQpdZvoRdW
-	 rfGwmzAozOqfp4RRUFZ9vE9oS6Z1duvw/LlS8ZlrBs2amv0RJzxjKv/lsA3Fyrb5I78Sf
-	 xfGXfem+sO8e/nnSqGsFL5As7ksXYdyi2AcY0vSGDCoOyrRoeeOoINvB5ZYLdo54fiJQX
-	 r848f1DnFW9A2ciKCHcS2swprUL3QaqUSDH6K1HfVYusQEIqrU7yxYU12OgC/XDBEPWaD
-	 zZwN4E8kjgQTAVRcVqc2QCq0I3lTYJqd4eatev+f+DSgV6BTNCcWOQ3XyR9iVfskEUQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=36jb89SBhcODIeCX58BMHMBIPrwBHQNOCYUR8FNG5YE=;
+	b=LPZGpfjsPF8TgeAvOGj6bZ+QMhpEUrt4F8y6EZFnAC/xOdTOZOEaXDRbIzIlGmRPNJ18
+	 i4/u5hTDgwdnn9Ger0fvEWRg4QA1G8fk+MAKUtVO7V/9LM5mrb9mLX4ew1bNzAOHpzbzd
+	 uxkytryAcFhW7dy2Uxa0DrAIU9aFbdV0DdNV1xaYt7VRV7yEik1LRHncnu3FQolJTgqss
+	 x3tig5LqGGLWaH6cCMBJBRXUwgC5t/FE/tZhYjvY+h8ZrR+cQcycprCf5ICOE1bRBc28s
+	 0wswE8eWMER0NN7RMUZdp+Gf8YCd29y1unjwudDZIQIMIEXFN+I8T6DrtKsOVUWzZWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="ff4/wHwZ";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BEWTdXEP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F6B606A321;
-	Wed, 25 Nov 2026 15:07:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E5D606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:07:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ff4/wHwZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F8501F000CF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BEWTdXEP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0A901F000D1;
 	Wed, 25 Nov 2026 15:07:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795619237;
-	bh=p7S01Ml85bnKt+Gaa+/2FpPAgJ7ZoLX+XASI/WcvILQ=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795619237;
+	bh=36jb89SBhcODIeCX58BMHMBIPrwBHQNOCYUR8FNG5YE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ff4/wHwZKZ8S7mcNvROd5+EsFSK/+4b3oJrwqsnFKq3MKl0Xz1JmapYY9KMz0Dhhn
-	 743W50qG2NA1Kl1QxGREyawTb+Y7KNd97In5qZtDlXFU6kPqZYtmuK6ev630zuGHzQ
-	 0uxe+WBcjk9/gFSEtvMBBIS5dSa7VoBQlxmJ+u6s=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=BEWTdXEPKkagzkkiadTDKsIfHL5KTznik2i1Dfdklwk+E1llnfBBxsvbc4GW18YsS
+	 aNZEFD5TX6gOBGLZH9h+uJEQqBpiV5n9ylEXT4Fe0RZCxTsbPEMJgzvYhw7G2UJ8+H
+	 fiUfoB89YCRCmMzji+8cxCM3nYhM6xgTsLfKbT+q2sbTGwmO5O9Y5rQkPa/JNZePTT
+	 rRlHCxDcLQy8/6GR+1CAja5B54iPS9KOqxVEbIFrkN5oZwarh4SpGRH1cBOsRmVaEG
+	 rsSgFTCn2TL9okLfduS4jokcNjRrGyzc9oMT+STJDtxGjM+kXo8vVjHomvox57LeV0
+	 WnxN5yZCeOUkA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Fa-Iz Faadhillah Ibrahim <faiz.faadhillah@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Hyunwoo Kim <imv4bel@gmail.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0532/1005] ALSA: hda/realtek: Update quirk for Acer Predator PHN16-72
-Date: Wed, 25 Nov 2026 15:31:10 +0100
-Message-ID: <20261125143834.210108962@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.15.y] tcp: do not coalesce segments after FIN
+Date: Wed, 25 Nov 2026 10:07:15 -0500
+Message-ID: <20261125150655.24930-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112555-unlikable-figurine-6408@gregkh>
+References: <2026112555-unlikable-figurine-6408@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,43 +63,135 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+From: Hyunwoo Kim <imv4bel@gmail.com>
 
-------------------
+[ Upstream commit 1c46780dec48893b8c25fd5e33a3127e8dc39dd4 ]
 
-From: Fa-Iz Faadhillah Ibrahim <faiz.faadhillah@gmail.com>
+A FIN consumes a sequence number. If another FIN segment is coalesced
+into an skb that already carries FIN, end_seq advances to account for
+the additional FIN, but tcp_flags still contains only one FIN bit.
 
-[ Upstream commit a2dac609bfcc395a8c2e87d3ba1fc26ac50811d0 ]
+When the preceding gap is filled and tcp_ofo_queue() processes the
+coalesced skb, rcv_nxt advances to the skb's end_seq. When the receive
+path consumes all data in the skb, copied_seq advances by the data
+length and one sequence number for FIN. If three or more FIN segments
+have been coalesced into one skb, tcp_inq() can still return a positive
+value after the receive queue becomes empty and the SOCK_DONE adjustment
+is applied.
 
-The Acer Predator PHN16-72 (1025:1731) uses the ALC245 codec, but its
-mic-mute LED is not enabled by default. Replace the existing quirk with
-ALC245_FIXUP_ACER_MICMUTE_LED quirk to enable the mic-mute LED chain the
-existing ALC2XX_FIXUP_HEADSET_MIC quirk.
+TCP_ZEROCOPY_RECEIVE is another consumer affected by this state.
+tcp_zerocopy_receive() takes its length from tcp_inq() and follows
+skb->next without checking for the end of the receive queue.
 
-Fixes: 34e08ad3a8da ("ALSA: hda/realtek: Add quirk for Acer Predator PHN16-72")
-Signed-off-by: Fa-Iz Faadhillah Ibrahim <faiz.faadhillah@gmail.com>
-Link: https://patch.msgid.link/20261111172108.30011-1-faiz.faadhillah@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Software kTLS receive is one consumer affected by this state. When
+strp->copy_mode is false, tls_strp_msg_consume() calls the TCP helper
+tcp_read_done() to consume the current TLS record. In the reproducer,
+tcp_read_done() consumed the record data and one FIN before freeing the
+receive skb.
+
+When kTLS looked for the next record, tcp_inq() reported at least
+TLS_HEADER_SIZE bytes even though the receive queue was empty.
+tcp_recv_skb() returned NULL, so tls_strp_load_anchor_with_queue() hit
+WARN_ON_ONCE() and returned without updating the anchor.
+
+Since tcp_inq() had reported at least TLS_HEADER_SIZE,
+tls_strp_read_sock() proceeded to tls_strp_check_queue_ok().
+skb_shinfo(strp->anchor)->frag_list still pointed to the freed receive
+skb. tls_strp_check_queue_ok() then read TCP_SKB_CB(first)->seq through
+the stale pointer, causing a use-after-free.
+
+The reproducer followed this call path:
+
+  tls_rx_rec_done()
+    tls_strp_msg_consume()
+      tcp_read_done()                       // frees the receive skb
+    tls_strp_check_rcv()
+      tls_strp_read_sock()
+        tls_strp_load_anchor_with_queue()   // returns after WARN_ON_ONCE()
+          tcp_recv_skb() == NULL
+        tls_strp_check_queue_ok()
+          TCP_SKB_CB(first)->seq            // reads the freed receive skb
+
+KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in tls_strp_check_queue_ok.isra.0+0x5f/0x100
+  Read of size 4 at addr ffff888103169ca8 by task ktls-server/71
+  ...
+  Call Trace:
+   <TASK>
+   ...
+   tls_strp_check_queue_ok.isra.0+0x5f/0x100
+   tls_strp_check_rcv+0x2a9/0x400
+   ...
+   tls_sw_recvmsg+0x3ce/0xa10
+   ...
+   sock_recvmsg+0xea/0x100
+   __sys_recvfrom+0x142/0x1f0
+   ...
+   __x64_sys_recvfrom+0x76/0x90
+   do_syscall_64+0xdd/0x4a0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   ...
+   </TASK>
+  ...
+  Freed by task 71:
+   ...
+   napi_skb_cache_put+0x24/0xf0
+   skb_attempt_defer_free+0x183/0x3b0
+   tcp_read_done+0x2d4/0x340
+   tls_strp_msg_consume+0x45/0x80
+   tls_sw_recvmsg+0x3c4/0xa10
+   ...
+
+In tcp_try_coalesce(), skip coalescing when the destination skb already
+carries FIN. tcp_add_backlog() calls skb_try_coalesce() directly instead
+of using this helper, so add the same check there. Since both paths check
+only the destination skb, a final segment carrying data and FIN can still
+be coalesced into an skb without FIN when the other coalescing checks pass.
+
+Fixes: e93a0435f809 ("tcp: allow segment with FIN in tcp_try_coalesce()")
+Fixes: 4f693b55c3d2 ("tcp: implement coalescing on backlog queue")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/au3HMfqNW3_DRMqS@v4bel
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: Adapted the guard to the older code: the FIN check sits after the #endif of the TLS-device block, and the backlog check goes before mptcp_skb_can_collapse() instead of tcp_skb_can_collapse_rx(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/hda/codecs/realtek/alc269.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/ipv4/tcp_input.c | 4 ++++
+ net/ipv4/tcp_ipv4.c  | 2 ++
+ 2 files changed, 6 insertions(+)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 6e62886795d8d..c9b75def6732c 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -7363,7 +7363,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1025, 0x169a, "Acer Swift SFG16", ALC256_FIXUP_ACER_SFG16_MICMUTE_LED),
- 	SND_PCI_QUIRK(0x1025, 0x171e, "Acer Nitro ANV15-51", ALC245_FIXUP_ACER_MICMUTE_LED),
- 	SND_PCI_QUIRK(0x1025, 0x172c, "Acer Nitro ANV16-41", ALC2XX_FIXUP_HEADSET_MIC),
--	SND_PCI_QUIRK(0x1025, 0x1731, "Acer Predator PHN16-72", ALC2XX_FIXUP_HEADSET_MIC),
-+	SND_PCI_QUIRK(0x1025, 0x1731, "Acer Predator PHN16-72", ALC245_FIXUP_ACER_MICMUTE_LED),
- 	SND_PCI_QUIRK(0x1025, 0x173a, "Acer Swift SFG14-73", ALC245_FIXUP_ACER_MICMUTE_LED),
- 	SND_PCI_QUIRK(0x1025, 0x173b, "Acer Swift SFG16-72", ALC245_FIXUP_ACER_MICMUTE_LED),
- 	SND_PCI_QUIRK(0x1025, 0x1758, "Acer Nitro ANV15-41", ALC245_FIXUP_ACER_MICMUTE_LED),
+diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
+index 54e30bc368ca5..a8eb63bd68622 100644
+--- a/net/ipv4/tcp_input.c
++++ b/net/ipv4/tcp_input.c
+@@ -4771,6 +4771,10 @@ static bool tcp_try_coalesce(struct sock *sk,
+ 		return false;
+ #endif
+ 
++	/* Nothing follows a FIN. */
++	if (unlikely(TCP_SKB_CB(to)->tcp_flags & TCPHDR_FIN))
++		return false;
++
+ 	if (!skb_try_coalesce(to, from, fragstolen, &delta))
+ 		return false;
+ 
+diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
+index 3a4dce8ea95cf..892703f05359a 100644
+--- a/net/ipv4/tcp_ipv4.c
++++ b/net/ipv4/tcp_ipv4.c
+@@ -1875,6 +1875,8 @@ bool tcp_add_backlog(struct sock *sk, struct sk_buff *skb)
+ #ifdef CONFIG_TLS_DEVICE
+ 	    tail->decrypted != skb->decrypted ||
+ #endif
++	    /* Nothing follows a FIN, see tcp_try_coalesce() */
++	    (TCP_SKB_CB(tail)->tcp_flags & TCPHDR_FIN) ||
+ 	    !mptcp_skb_can_collapse(tail, skb) ||
+ 	    thtail->doff != th->doff ||
+ 	    memcmp(thtail + 1, th + 1, hdrlen - sizeof(*th)))
 -- 
 2.53.0
-
-
 
