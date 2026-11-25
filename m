@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603190;
-	b=lUx5ca4I6WjRYuGJTFf9xkU9Wod6wYXmgdr3apQkRwuTvNgN5WsTYnLAwceSR7luR/LI
-	 jvUV9kqRRLR1yoXQUDSuI8CD2tBEfPK+y6bEsDtTub7Wxx+wH+E2KhibklCcsY/7si982
-	 3iLxol899F+rT7UqlBrCeqGSNK3WWXuUpPhrnSBaIKpGA8bOgGExAxtyz+ohf9xBBb6/O
-	 4GnpVLLxvFB9baR+W4YLL9Df4kBkDr5OJ/DEWW2YfUthSxw2MfRbvfCK1Gm/hq3PczANH
-	 kXtAOEfY3ovg6JKWel/u6oVj9aVw3vsvkD6yhoQ+tK4FOxvD0SlrX3rFN5XKufD9Qvg==
+	t=1795603192;
+	b=sjBPN8Y3Qe4iABLwXoL13hW+vYzAtTd3PGsfHq+G5t9zgyhlCu1gHtwF3uDhKG8hbdNc
+	 n6F0D5M8FT8mAGGUH3aNSXIPwOoNZrZbp0xXEuKIuHcqLV1n58cRgw6EMRBmsAbyZTV+3
+	 wckcL6Dbs8CtTS2gkrGOdDdaEsi/NF3ZBPkQ2ueXWrj5zlCwlwsdKomVfHQvUxL10iyu1
+	 sbNYfVP+ezx3CmmTxeEhvbJ9gtRB8ERjpD4iBy777gtgxMua/cz+h42BAAZ68YbVqm8LR
+	 E5dZR7ZIShHd4rRnShjc1sLPOEcujsEBRFxBzCCOZ4JMLJq/4xNeuqCwc+QuvRdx1Rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603190;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603192;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=KiCZ8guF1AZsLwtns1QfZe6uVhRO+VzgmgtQYBQcqMo=;
-	b=HZqNUuSQVOBLRTWOuE9qhKjmT1o7q0GmiCSgLdilr8CtVc6DAraBLxYxzSzjLv0DIfzy
-	 jAI0AW5Ls+198J1uMYxJEmNEZF+/zqGm3KILR7p8kyl64cN7Jv+DxvVCyqyqYKuuRecQs
-	 tq8nVNZ3hmRvfYv8DhJAlNmYO9cXi05J4hMKCYudehY8KQkurBENjrhXA/M5WvkzGsYca
-	 YZ/CbOju5j5732NyJtGav1eHYriDuO90Fj4+gYqVpfU8yBRfroa+fVn0syJ5kFtc8hreh
-	 2xHxvfq8pDDcOIJsoxuQhmouZrDsPcj4Q7mXu9CobID3776q9H9cmk5gONV6rvV3G8A==
+	bh=WgWMb9a2uYJRNKegmj0/dhm1I9/00Y2dbucQeJXJ9js=;
+	b=z6vYtbfs7DSmYys6U5JgRKB9kQBmWKBL/pqHB2nGsyhHqUl/52ctLFTrUYQxOnZIYnxA
+	 0GpxlTFaSRF8N9RcxNrNf/7PTTi5OvhbotXkiSb0GT93pZ+s3tFuGyJHiI1Ns1/x5HWAy
+	 +aF/B4hQ7WVrfXj+ShIeLuBz1B2bTpryXjyhbWw10OUobK9Bmq+0pBOLXfFRdF1J0fluD
+	 Dqcqb2XWPGQBb/f9ABcw/4x1RC96ePjlsVTM3CfcQ0UHZMmh3h0rQZilfcBb/CPa0NDdW
+	 xluDM+uBsDhpakZ2Osgyr5lD5MQnFTvymdq6U22z8rKUtJD9Ahm89m8Q/o3eRKIdSpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RNvXauzk;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a7n9hWU1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082F7606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:39:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E03606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:39:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RNvXauzk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19DB91F000C4;
-	Wed, 25 Nov 2026 10:39:48 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a7n9hWU1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7FE21F000C4;
+	Wed, 25 Nov 2026 10:39:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603189;
-	bh=KiCZ8guF1AZsLwtns1QfZe6uVhRO+VzgmgtQYBQcqMo=;
+	s=korg; t=1795603192;
+	bh=WgWMb9a2uYJRNKegmj0/dhm1I9/00Y2dbucQeJXJ9js=;
 	h=Subject:To:Cc:From:Date;
-	b=RNvXauzkOVt3CyUHNIvXTytYOKxk7CSPzdhTQs6ZzUQF6s1zz9A+/N3hppz9Zu0wC
-	 y8s1ct669AhFL1kZXOJs9lJyMeRsAXPpIeq5refulQjSxOMDwut3DOggkh6O78fg9V
-	 iPIvPN6lhnfW0spo+Nu4H7PHST3JY/sbe7NzHoaA=
-Subject: FAILED: patch "[PATCH] tracing/probes: Fix missing BTF kind checks in char" failed to apply to 6.6-stable tree
+	b=a7n9hWU1nE7lSL54/r+EywjUKp68DirjPqShiKJ7IwH9vlQAc4Xql0TAUd4hFKNgU
+	 2gFiBRyynNmP5Y/yQLnpgb3CofpSoxWqy93yKj/3RIrfllZJ8HsB8rWQlUM+RktecW
+	 BBn9AqnrjxYSXLzGXoCc+dpgQJkp3bFVmtaUzLO4=
+Subject: FAILED: patch "[PATCH] tracing/probes: Fix missing BTF kind checks in char" failed to apply to 6.12-stable tree
 To: mhiramat@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:29:32 +0100
-Message-ID: <2026112532-gone-canine-62be@gregkh>
+Message-ID: <2026112532-latch-ripcord-5fdd@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x c1e2c63e65421068566db3dde44dfd4fe7adb46d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112532-gone-canine-62be@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112532-latch-ripcord-5fdd@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
