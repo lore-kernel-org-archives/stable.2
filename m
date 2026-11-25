@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795624873;
-	b=VkrGlHsX5ms74HJIX3nsvymYWTDw341QS+S+LjIAz+9aaUdR5B7yjxxIGEhEDzJ8lniD
-	 1rSQnzqNSqX5zGOzD0+8On3PQfUjwA5fO6Za3BrqqE3XB/4zpa/1b6gNzVlPX0vq8/XTL
-	 2r63OvChwM9C2zF5Yp4RiFF/QPY/aKinHmZ3DGYXUGL7FjHU3IA37X1raxzZNzkSsKdJj
-	 7ceaXzhUcrh4x9v8yehhBHwwds+PKKxWV2tdvJS+IQKBqBSS35JfAWnfrlsuaOL5rIfGV
-	 E7g7UNSoM2hnyQ67gjN2fA+UbSiXQgNni9kX03GADw+nrLS5kZPE/urBIXAUeG80xbA==
+	t=1795624874;
+	b=ixt5rW9vRH9JxEm3dvYA/BIY+S2DuO8BHDrofDYTlpnMt1xmAY4RIjw0Gql1Agdfy2vR
+	 PjdyO5nHwZfeWSFHtJaIJhNdsF8FXx3nWGQHrUdAG2VUAV+VH1BdT93uysqGB8af733nl
+	 b8yZ0qRWeXnEqnqQxJPZtpgKniZxFYbNFJDlQpXQVBXPJ7fFwWEIhkiCOhYMV1wR3iXSI
+	 LikBR6ziq5zOVOnussWRqGsPuNLC3AHvH4FZI5v+VDjuJUaPvy0qKXgzThw4hNTa67VLf
+	 pzZqzaXqs9dCuTEwisC6vhg4z1jMeZrf8yz518HG0gxEah3KwlaLJGLJtsi4yrkIRWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795624873;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795624874;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uD362uBWDo/21UAAvuAExOyQkac1YcNBluwt+mQqTJ4=;
-	b=0anwhGskCZrzngeDHpWsl+Inc82+3rtMLi7JBHdmiF++maBIK/6frgk/0sETSZkuuWpW
-	 UMNApPv0v4NNZT7dp9X4Jh8T7UKw/Hua3mINj5rZtUr74dFPmk7dC3D/OPzv65eiPbWd4
-	 CNBNYMd3+3z/zOzT8EFBODgjbdE94+oExaVa5kq7Urml5GF4FnXbSp23HHY5LTZ1YthPL
-	 CT5GK1/HNes/gyIpKYeFwmGuDciwYz+Lj0TFd6RKpIwZ5AmbNFkgxf4qPbIkcVXw6KJBc
-	 oD2UpJGg9KensQA78ztI67MPCS6cAIPpmWO0eAsCTWKZ7P32FBiuhu1ozlZz/Io8eAQ==
+	bh=Fo/+Ljnciwqw8sjAEYwJ1FczAkXTOZ98S1aIwDrptoI=;
+	b=Ys0lLIaJP4WjLrTmmt29jH5ufAiA5GtimrmhVOkYH2Gct3qFnEy3vSbR8/AIWPNc8oSa
+	 kh+GQuWxcMV5kJyxiil2Nhxa27s+wEtnaprWNL4/DWuPTlvTjlnhDvAobj2VfNDL6rIWo
+	 BXuvgxmunlydmI046v7owIAcBH7fieW7BU0OzxwruOW//v4l1WHjYkc728+7dS0mE99CL
+	 eyOr7eS1VhQIXu3GFJxgbz1F/txkMOhOX1/LXnfJo0oai3doagarPY6gBy9KzHOELM2H1
+	 stqNRMmAMXT4HHoxI0o955WFHWSRA2zfV9lTN4xZp48cDLIzny756GK46GoG5FKeLVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eaiUa0aq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m9UsOCbn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2DE606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:41:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48CA606A326
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:41:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eaiUa0aq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2B421F000D4;
-	Wed, 25 Nov 2026 16:41:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m9UsOCbn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1E2D1F000D2;
+	Wed, 25 Nov 2026 16:41:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795624872;
-	bh=uD362uBWDo/21UAAvuAExOyQkac1YcNBluwt+mQqTJ4=;
+	s=k20260515; t=1795624874;
+	bh=Fo/+Ljnciwqw8sjAEYwJ1FczAkXTOZ98S1aIwDrptoI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eaiUa0aqSgCRv1f6SoRJdoIj/RcniThFW6/YynDlnbBhB7lwUo4ut+fZTsQTCJH3y
-	 9d1w+SUm9m6thbUC2+QD8IQZBmzk+CXuwLEzKJGi8vDgOlsd2NsTCouxaOTZ68sAtu
-	 swXRWZaQl9mCMMbaL9vxdvj0gkQUc619r7ucr/1L/RGejlhFuCiTYgtYHVnAL1KDO+
-	 XGF/GYnUv+0wXi8EXvjXpovLG/z+Le4yzYNSBG8U5rxx51FQ903P35xuPI3Sq/W6o6
-	 tTP5Hy6subfA7CWCiPez+uJ/YksaFhJN/XtK7mRjTgRNOSkQdFOk0gdh9eVN+gWEOK
-	 PIO6Vlhd5GmJw==
+	b=m9UsOCbnuM3PDi497Zqa953AoAYE3j514LmnXp5O4vG28b+j7H9BK5/bkn+MagX9v
+	 T3kuVgh3QO5qNwxP3AmL8CgcImg2hQ9wfKPVc4MOS2Hh9DMjZh+dGrawcnA5cPJcPY
+	 6a3udJw/aqPysgrwyBtcUHzOJwNzluPuSSuss3yso/5nI9EqMu+o0Vfky+aGLijx12
+	 0VDQeWlMNv40Pnl/tcXQ/QCiE1f3avkdWYHZ1Fz8VTdO+NPtDc+u8VbB2BS/vy4elt
+	 JFn3Ip8PQ3h8Hq8oW6k8Imk6ZwvxGHUJrlqJAmu6H/4GhtX/Eh4cJ98IxbSpPOxtQq
+	 ejb2DNLE0V34A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Benjamin Coddington <ben.coddington@hammerspace.com>,
-	Benjamin Coddington <bcodding@hammerspace.com>,
-	Tigran Mkrtchyan <tigran.mkrtchyan@desy.de>,
+Cc: Tim Menninger <tmenninger@everpuredata.com>,
 	Anna Schumaker <anna.schumaker@hammerspace.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 2/3] pNFS: allow layout drivers to cancel I/O to a single device
-Date: Wed, 25 Nov 2026 11:41:08 -0500
-Message-ID: <20261125164026.827651-2-sashal@kernel.org>
+Subject: [PATCH 7.3.y 3/3] pNFS: avoid repeatedly cancelling I/O for the same lseg
+Date: Wed, 25 Nov 2026 11:41:09 -0500
+Message-ID: <20261125164026.827651-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261125164026.827651-1-sashal@kernel.org>
 References: <2026112557-foothold-septic-e646@gregkh>
@@ -64,367 +62,107 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Benjamin Coddington <ben.coddington@hammerspace.com>
+From: Tim Menninger <tmenninger@everpuredata.com>
 
-[ Upstream commit 94dc092b208ad324981caa85fcf8416b905ca593 ]
+[ Upstream commit 9e28836b480c66cca4c3d391177f5b3a50927f7d ]
 
-The ->cancel_io() layout operation cancels all in-flight I/O for a
-layout segment that is being returned.  When the return is triggered
-by the failure of a single mirror instance, cancelling I/O to the
-healthy mirrors is both unnecessary and harmful: requests that were
-already transmitted cannot be un-sent, and will complete on the data
-servers after the layout has been returned.
+Commit b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is
+recalled or revoked") added I/O cancellation when a layout segment is
+invalidated while outstanding references remain.
 
-Give ->cancel_io() a device ID argument identifying the failed device,
-and thread it through pnfs_error_mark_layout_for_return() and
-pnfs_mark_matching_lsegs_return().  The flexfiles implementation
-compares it against the raw device ID from the layout, so that it can
-identify the failed mirror instance even when its device ID node was
-never instantiated.
+The invalid segment stays on the layout's segment list until those
+references drain. Subsequent scans can find it again and repeatedly
+invoke the layout driver's cancel_io() callback. For flexfiles, this
+cancels matching RPC tasks and disconnects data server RPC clients.
+During RPC/RDMA data server recovery, repeated cancellation can cause a
+reconnect loop that consumes essentially all client CPU and prevents
+forward progress.
 
-A NULL device ID preserves the existing cancel-everything behavior,
-and all callers pass NULL for now, so this patch makes no change in
-behavior.
+Record cancellation requests per mirror stripe in the flexfiles layout
+segment. Each stripe is cancelled at most once, regardless of how many
+times the invalid segment is encountered. A per-stripe bitmap rather
+than a single per-segment bit preserves the ability to cancel I/O to a
+different device after an earlier device-specific cancellation.
 
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Benjamin Coddington <bcodding@hammerspace.com>
-Reviewed-by: Tigran Mkrtchyan <tigran.mkrtchyan@desy.de>
+Cancellation is best-effort. An RPC that has already passed the
+layout-validity check may not yet be visible to the cancellation
+scan. Such I/O retains its lseg reference and remains subject to
+the normal RPC completion and recovery paths. Suppress repeated
+cancellation and disconnect requests without changing the existing
+lseg lifetime and deferred layout-return accounting.
+
+This reproduced on 6.8.0, 7.0.0, and 7.4.0-rc1. It was tested on
+7.4.0-rc1 with sustained pNFS/flexfiles I/O over RPC/RDMA while
+restarting the NFS service on a data server. Without it, repeated
+cancellation led to a reconnect loop and no workload recovery. With it,
+the client recovered after the data server returned.
+
+Fixes: b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is recalled or revoked")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
 Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
-Stable-dep-of: 9e28836b480c ("pNFS: avoid repeatedly cancelling I/O for the same lseg")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfs/blocklayout/blocklayout.c          |  6 +++--
- fs/nfs/callback_proc.c                    |  2 +-
- fs/nfs/filelayout/filelayout.c            |  4 +--
- fs/nfs/flexfilelayout/flexfilelayout.c    | 16 +++++++-----
- fs/nfs/flexfilelayout/flexfilelayoutdev.c |  2 +-
- fs/nfs/pnfs.c                             | 32 ++++++++++++++---------
- fs/nfs/pnfs.h                             | 14 ++++++----
- 7 files changed, 46 insertions(+), 30 deletions(-)
+ fs/nfs/flexfilelayout/flexfilelayout.c | 12 ++++++++++++
+ fs/nfs/flexfilelayout/flexfilelayout.h |  1 +
+ 2 files changed, 13 insertions(+)
 
-diff --git a/fs/nfs/blocklayout/blocklayout.c b/fs/nfs/blocklayout/blocklayout.c
-index d54a141a89b3b..d86702e604f95 100644
---- a/fs/nfs/blocklayout/blocklayout.c
-+++ b/fs/nfs/blocklayout/blocklayout.c
-@@ -859,7 +859,8 @@ bl_pg_init_read(struct nfs_pageio_descriptor *pgio, struct nfs_page *req)
- 
- 	if (pgio->pg_lseg &&
- 		test_bit(NFS_LSEG_UNAVAILABLE, &pgio->pg_lseg->pls_flags)) {
--		pnfs_error_mark_layout_for_return(pgio->pg_inode, pgio->pg_lseg);
-+		pnfs_error_mark_layout_for_return(pgio->pg_inode, pgio->pg_lseg,
-+						  NULL);
- 		pnfs_set_lo_fail(pgio->pg_lseg);
- 		nfs_pageio_reset_read_mds(pgio);
- 	}
-@@ -921,7 +922,8 @@ bl_pg_init_write(struct nfs_pageio_descriptor *pgio, struct nfs_page *req)
- 	if (pgio->pg_lseg &&
- 		test_bit(NFS_LSEG_UNAVAILABLE, &pgio->pg_lseg->pls_flags)) {
- 
--		pnfs_error_mark_layout_for_return(pgio->pg_inode, pgio->pg_lseg);
-+		pnfs_error_mark_layout_for_return(pgio->pg_inode, pgio->pg_lseg,
-+						  NULL);
- 		pnfs_set_lo_fail(pgio->pg_lseg);
- 		nfs_pageio_reset_write_mds(pgio);
- 	}
-diff --git a/fs/nfs/callback_proc.c b/fs/nfs/callback_proc.c
-index 3fb10c8e42718..ddc8736100e11 100644
---- a/fs/nfs/callback_proc.c
-+++ b/fs/nfs/callback_proc.c
-@@ -292,7 +292,7 @@ static u32 initiate_file_draining(struct nfs_client *clp,
- 	switch (pnfs_mark_matching_lsegs_return(lo, &free_me_list,
- 				&args->cbl_range,
- 				be32_to_cpu(args->cbl_stateid.seqid),
--				args->cbl_layoutchanged)) {
-+				args->cbl_layoutchanged, NULL)) {
- 	case 0:
- 	case -EBUSY:
- 		/* There are layout segments that need to be returned */
-diff --git a/fs/nfs/filelayout/filelayout.c b/fs/nfs/filelayout/filelayout.c
-index 727fe1270aab5..53808e42546a0 100644
---- a/fs/nfs/filelayout/filelayout.c
-+++ b/fs/nfs/filelayout/filelayout.c
-@@ -187,7 +187,7 @@ static int filelayout_async_handle_error(struct rpc_task *task,
- 		dprintk("%s DS connection error %d\n", __func__,
- 			task->tk_status);
- 		nfs4_mark_deviceid_unavailable(devid);
--		pnfs_error_mark_layout_for_return(inode, lseg);
-+		pnfs_error_mark_layout_for_return(inode, lseg, NULL);
- 		pnfs_set_lo_fail(lseg);
- 		rpc_wake_up(&tbl->slot_tbl_waitq);
- 		fallthrough;
-@@ -857,7 +857,7 @@ fl_pnfs_update_layout(struct inode *ino,
- 
- 	status = filelayout_check_deviceid(lo, fl, gfp_flags);
- 	if (status) {
--		pnfs_error_mark_layout_for_return(ino, lseg);
-+		pnfs_error_mark_layout_for_return(ino, lseg, NULL);
- 		pnfs_set_lo_fail(lseg);
- 		pnfs_put_lseg(lseg);
- 		lseg = NULL;
 diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout/flexfilelayout.c
-index 121c55f4a46d9..9e1a78d7d6336 100644
+index 9e1a78d7d6336..1c88bdc600ae7 100644
 --- a/fs/nfs/flexfilelayout/flexfilelayout.c
 +++ b/fs/nfs/flexfilelayout/flexfilelayout.c
-@@ -1333,7 +1333,7 @@ static void ff_layout_resend_pnfs_read(struct nfs_pgio_header *hdr)
- 	mirror_ds = ff_layout_choose_any_ds_for_read(hdr->lseg, idx, &new_idx,
- 						     hdr->args.offset, &dss_id);
- 	if (IS_ERR(mirror_ds)) {
--		pnfs_error_mark_layout_for_return(hdr->inode, hdr->lseg);
-+		pnfs_error_mark_layout_for_return(hdr->inode, hdr->lseg, NULL);
- 	} else {
- 		nfs4_ff_layout_put_deviceid(mirror_ds);
- 		ff_layout_send_layouterror(hdr->lseg);
-@@ -1346,7 +1346,7 @@ static void ff_layout_reset_read(struct nfs_pgio_header *hdr)
- 	struct rpc_task *task = &hdr->task;
+@@ -11,6 +11,7 @@
+ #include <linux/nfs_mount.h>
+ #include <linux/nfs_page.h>
+ #include <linux/module.h>
++#include <linux/bitmap.h>
+ #include <linux/file.h>
+ #include <linux/sched/mm.h>
  
- 	pnfs_layoutcommit_inode(hdr->inode, false);
--	pnfs_error_mark_layout_for_return(hdr->inode, hdr->lseg);
-+	pnfs_error_mark_layout_for_return(hdr->inode, hdr->lseg, NULL);
- 
- 	if (!test_and_set_bit(NFS_IOHDR_REDO, &hdr->flags)) {
- 		dprintk("%s Reset task %5u for i/o through MDS "
-@@ -1660,7 +1660,7 @@ static void ff_layout_io_track_ds_error(struct pnfs_layout_segment *lseg,
- 		fallthrough;
- 	default:
- 		pnfs_error_mark_layout_for_return(lseg->pls_layout->plh_inode,
--						  lseg);
-+						  lseg, NULL);
- 	}
- 
- out:
-@@ -2342,7 +2342,7 @@ ff_layout_read_pagelist(struct nfs_pgio_header *hdr)
- 		 * FF_FLAGS_NO_IO_THRU_MDS: force fresh LAYOUTGET,
- 		 * never fall through to MDS I/O.
- 		 */
--		pnfs_error_mark_layout_for_return(hdr->inode, lseg);
-+		pnfs_error_mark_layout_for_return(hdr->inode, lseg, NULL);
- 		return PNFS_TRY_AGAIN;
- 	}
- 	trace_pnfs_mds_fallback_read_pagelist(hdr->inode,
-@@ -2442,7 +2442,7 @@ ff_layout_write_pagelist(struct nfs_pgio_header *hdr, int sync)
- 		 * FF_FLAGS_NO_IO_THRU_MDS: force fresh LAYOUTGET,
- 		 * never fall through to MDS I/O.
- 		 */
--		pnfs_error_mark_layout_for_return(hdr->inode, lseg);
-+		pnfs_error_mark_layout_for_return(hdr->inode, lseg, NULL);
- 		return PNFS_TRY_AGAIN;
- 	}
- 	trace_pnfs_mds_fallback_write_pagelist(hdr->inode,
-@@ -2570,7 +2570,8 @@ static bool ff_layout_match_io(const struct rpc_task *task, const void *data)
- 	return false;
- }
- 
--static void ff_layout_cancel_io(struct pnfs_layout_segment *lseg)
-+static void ff_layout_cancel_io(struct pnfs_layout_segment *lseg,
-+				const struct nfs4_deviceid *devid)
+@@ -340,6 +341,7 @@ static void _ff_layout_free_lseg(struct nfs4_ff_layout_segment *fls)
  {
- 	struct nfs4_ff_layout_segment *flseg = FF_LAYOUT_LSEG(lseg);
- 	struct nfs4_ff_layout_mirror *mirror;
-@@ -2583,6 +2584,9 @@ static void ff_layout_cancel_io(struct pnfs_layout_segment *lseg)
- 	for (idx = 0; idx < flseg->mirror_array_cnt; idx++) {
- 		mirror = flseg->mirror_array[idx];
- 		for (dss_id = 0; dss_id < mirror->dss_count; dss_id++) {
-+			if (devid && memcmp(&mirror->dss[dss_id].devid, devid,
-+					    sizeof(*devid)) != 0)
+ 	if (fls) {
+ 		ff_layout_free_mirror_array(fls);
++		bitmap_free(fls->cancelled_stripes);
+ 		kfree(fls);
+ 	}
+ }
+@@ -653,6 +655,12 @@ ff_layout_alloc_lseg(struct pnfs_layout_hdr *lh,
+ 		fls->mirror_array[i]->report_interval = be32_to_cpup(p);
+ 
+ out_sort_mirrors:
++	fls->cancelled_stripes = bitmap_zalloc(
++		fls->mirror_array_cnt * dss_count, gfp_flags);
++	if (!fls->cancelled_stripes) {
++		rc = -ENOMEM;
++		goto out_err_free;
++	}
+ 	ff_layout_sort_mirrors(fls);
+ 	ret = &fls->generic_hdr;
+ 	dprintk("<-- %s (success)\n", __func__);
+@@ -2587,6 +2595,10 @@ static void ff_layout_cancel_io(struct pnfs_layout_segment *lseg,
+ 			if (devid && memcmp(&mirror->dss[dss_id].devid, devid,
+ 					    sizeof(*devid)) != 0)
+ 				continue;
++			/* Do not cancel a stripe again while this lseg drains. */
++			if (test_and_set_bit(idx * mirror->dss_count + dss_id,
++					     flseg->cancelled_stripes))
 +				continue;
  			rcu_read_lock();
  			mirror_ds = rcu_dereference(mirror->dss[dss_id].mirror_ds);
  			if (IS_ERR_OR_NULL(mirror_ds) ||
-diff --git a/fs/nfs/flexfilelayout/flexfilelayoutdev.c b/fs/nfs/flexfilelayout/flexfilelayoutdev.c
-index fa4e9ddafea6f..b10c6de2f6d59 100644
---- a/fs/nfs/flexfilelayout/flexfilelayoutdev.c
-+++ b/fs/nfs/flexfilelayout/flexfilelayoutdev.c
-@@ -448,7 +448,7 @@ nfs4_ff_layout_prepare_ds(struct pnfs_layout_segment *lseg,
- 				 opnum, GFP_NOIO);
- 	ff_layout_send_layouterror(lseg);
- 	if (opnum != OP_READ || !ff_layout_has_available_ds(lseg))
--		pnfs_error_mark_layout_for_return(ino, lseg);
-+		pnfs_error_mark_layout_for_return(ino, lseg, NULL);
- 	ds = ERR_PTR(status);
- out:
- 	return ds;
-diff --git a/fs/nfs/pnfs.c b/fs/nfs/pnfs.c
-index ff85b82a1e222..0af3a02cea6fb 100644
---- a/fs/nfs/pnfs.c
-+++ b/fs/nfs/pnfs.c
-@@ -433,7 +433,7 @@ bool nfs4_layout_refresh_old_stateid(nfs4_stateid *dst,
- 		}
- 		/* Try to update the seqid to the most recent */
- 		err = pnfs_mark_matching_lsegs_return(lo, &head, &range, 0,
--						      true);
-+						      true, NULL);
- 		if (err != -EBUSY) {
- 			dst->seqid = lo->plh_stateid.seqid;
- 			*dst_range = range;
-@@ -487,7 +487,8 @@ static int pnfs_mark_layout_stateid_return(struct pnfs_layout_hdr *lo,
- 		.length = NFS4_MAX_UINT64,
- 	};
- 
--	return pnfs_mark_matching_lsegs_return(lo, lseg_list, &range, seq, true);
-+	return pnfs_mark_matching_lsegs_return(lo, lseg_list, &range, seq, true,
-+					       NULL);
- }
- 
- static int
-@@ -525,7 +526,7 @@ pnfs_layout_io_set_failed(struct pnfs_layout_hdr *lo, u32 iomode)
- 
- 	spin_lock(&inode->i_lock);
- 	pnfs_layout_set_fail_bit(lo, pnfs_iomode_to_fail_bit(iomode));
--	pnfs_mark_matching_lsegs_return(lo, &head, &range, 0, true);
-+	pnfs_mark_matching_lsegs_return(lo, &head, &range, 0, true, NULL);
- 	spin_unlock(&inode->i_lock);
- 	pnfs_free_lseg_list(&head);
- 	dprintk("%s Setting layout IOMODE_%s fail bit\n", __func__,
-@@ -740,7 +741,7 @@ pnfs_mark_matching_lsegs_invalid(struct pnfs_layout_hdr *lo,
- 			if (mark_lseg_invalid(lseg, tmp_list))
- 				continue;
- 			remaining++;
--			pnfs_lseg_cancel_io(server, lseg);
-+			pnfs_lseg_cancel_io(server, lseg, NULL);
- 		}
- 	dprintk("%s:Return %i\n", __func__, remaining);
- 	return remaining;
-@@ -1462,7 +1463,7 @@ _pnfs_return_layout(struct inode *ino)
- 	}
- 	valid_layout = pnfs_layout_is_valid(lo);
- 	pnfs_clear_layoutcommit(ino, &tmp_list);
--	pnfs_mark_matching_lsegs_return(lo, &tmp_list, &range, 0, true);
-+	pnfs_mark_matching_lsegs_return(lo, &tmp_list, &range, 0, true, NULL);
- 
- 
- 	/* Don't send a LAYOUTRETURN if list was initially empty */
-@@ -2628,7 +2629,8 @@ pnfs_layout_process(struct nfs4_layoutget *lgp)
- 			.iomode = IOMODE_ANY,
- 			.length = NFS4_MAX_UINT64,
- 		};
--		pnfs_mark_matching_lsegs_return(lo, &free_me, &range, 0, true);
-+		pnfs_mark_matching_lsegs_return(lo, &free_me, &range, 0, true,
-+						NULL);
- 		goto out_forget;
- 	} else {
- 		/* We have a completely new layout */
-@@ -2661,6 +2663,7 @@ pnfs_layout_process(struct nfs4_layoutget *lgp)
-  * @return_range: describe layout segment ranges to be returned
-  * @seq: stateid seqid to match
-  * @cancel_io: signal io be cancelled
-+ * @devid: only cancel io directed at this device (all devices if NULL)
-  *
-  * This function is mainly intended for use by layoutrecall. It attempts
-  * to free the layout segment immediately, or else to mark it for return
-@@ -2675,7 +2678,8 @@ int
- pnfs_mark_matching_lsegs_return(struct pnfs_layout_hdr *lo,
- 				struct list_head *tmp_list,
- 				const struct pnfs_layout_range *return_range,
--				u32 seq, bool cancel_io)
-+				u32 seq, bool cancel_io,
-+				const struct nfs4_deviceid *devid)
- {
- 	struct pnfs_layout_segment *lseg, *next;
- 	struct nfs_server *server = NFS_SERVER(lo->plh_inode);
-@@ -2702,7 +2706,7 @@ pnfs_mark_matching_lsegs_return(struct pnfs_layout_hdr *lo,
- 			remaining++;
- 			set_bit(NFS_LSEG_LAYOUTRETURN, &lseg->pls_flags);
- 			if (cancel_io)
--				pnfs_lseg_cancel_io(server, lseg);
-+				pnfs_lseg_cancel_io(server, lseg, devid);
- 		}
- 
- 	if (remaining) {
-@@ -2720,7 +2724,8 @@ pnfs_mark_matching_lsegs_return(struct pnfs_layout_hdr *lo,
- 
- static void
- pnfs_mark_layout_for_return(struct inode *inode,
--			    const struct pnfs_layout_range *range)
-+			    const struct pnfs_layout_range *range,
-+			    const struct nfs4_deviceid *devid)
- {
- 	struct pnfs_layout_hdr *lo;
- 	bool return_now = false;
-@@ -2738,7 +2743,7 @@ pnfs_mark_layout_for_return(struct inode *inode,
- 	 * for how it works.
- 	 */
- 	if (pnfs_mark_matching_lsegs_return(lo, &lo->plh_return_segs, range, 0,
--					    true) != -EBUSY) {
-+					    true, devid) != -EBUSY) {
- 		const struct cred *cred;
- 		nfs4_stateid stateid;
- 		enum pnfs_iomode iomode;
-@@ -2755,7 +2760,8 @@ pnfs_mark_layout_for_return(struct inode *inode,
- }
- 
- void pnfs_error_mark_layout_for_return(struct inode *inode,
--				       struct pnfs_layout_segment *lseg)
-+				       struct pnfs_layout_segment *lseg,
-+				       const struct nfs4_deviceid *devid)
- {
- 	struct pnfs_layout_range range = {
- 		.iomode = lseg->pls_range.iomode,
-@@ -2763,7 +2769,7 @@ void pnfs_error_mark_layout_for_return(struct inode *inode,
- 		.length = NFS4_MAX_UINT64,
- 	};
- 
--	pnfs_mark_layout_for_return(inode, &range);
-+	pnfs_mark_layout_for_return(inode, &range, devid);
- }
- EXPORT_SYMBOL_GPL(pnfs_error_mark_layout_for_return);
- 
-@@ -2853,7 +2859,7 @@ static int pnfs_layout_return_unused_byserver(struct nfs_server *server,
- 		pnfs_get_layout_hdr(lo);
- 		pnfs_set_plh_return_info(lo, range->iomode, 0);
- 		if (pnfs_mark_matching_lsegs_return(lo, &lo->plh_return_segs,
--						    range, 0, true) != 0 ||
-+						    range, 0, true, NULL) != 0 ||
- 		    !pnfs_prepare_layoutreturn(lo, &stateid, &cred, &iomode)) {
- 			spin_unlock(&inode->i_lock);
- 			rcu_read_unlock();
-diff --git a/fs/nfs/pnfs.h b/fs/nfs/pnfs.h
-index 5725ea06efc2d..6638ffe877b32 100644
---- a/fs/nfs/pnfs.h
-+++ b/fs/nfs/pnfs.h
-@@ -178,7 +178,8 @@ struct pnfs_layoutdriver_type {
- 	int (*prepare_layoutcommit) (struct nfs4_layoutcommit_args *args);
- 	int (*prepare_layoutstats) (struct nfs42_layoutstat_args *args);
- 
--	void (*cancel_io)(struct pnfs_layout_segment *lseg);
-+	void (*cancel_io)(struct pnfs_layout_segment *lseg,
-+			  const struct nfs4_deviceid *devid);
+diff --git a/fs/nfs/flexfilelayout/flexfilelayout.h b/fs/nfs/flexfilelayout/flexfilelayout.h
+index 19b833f547416..7b0d625b06a70 100644
+--- a/fs/nfs/flexfilelayout/flexfilelayout.h
++++ b/fs/nfs/flexfilelayout/flexfilelayout.h
+@@ -109,6 +109,7 @@ struct nfs4_ff_layout_segment {
+ 	u64				stripe_unit;
+ 	u32				flags;
+ 	u32				mirror_array_cnt;
++	unsigned long			*cancelled_stripes;
+ 	struct nfs4_ff_layout_mirror	*mirror_array[] __counted_by(mirror_array_cnt);
  };
  
- struct pnfs_commit_ops {
-@@ -301,7 +302,8 @@ int pnfs_mark_matching_lsegs_invalid(struct pnfs_layout_hdr *lo,
- int pnfs_mark_matching_lsegs_return(struct pnfs_layout_hdr *lo,
- 				struct list_head *tmp_list,
- 				const struct pnfs_layout_range *recall_range,
--				u32 seq, bool cancel_io);
-+				u32 seq, bool cancel_io,
-+				const struct nfs4_deviceid *devid);
- int pnfs_mark_layout_stateid_invalid(struct pnfs_layout_hdr *lo,
- 		struct list_head *lseg_list);
- bool pnfs_roc(struct inode *ino, struct nfs4_layoutreturn_args *args,
-@@ -351,7 +353,8 @@ int pnfs_read_done_resend_to_mds(struct nfs_pgio_header *);
- int pnfs_write_done_resend_to_mds(struct nfs_pgio_header *);
- struct nfs4_threshold *pnfs_mdsthreshold_alloc(void);
- void pnfs_error_mark_layout_for_return(struct inode *inode,
--				       struct pnfs_layout_segment *lseg);
-+				       struct pnfs_layout_segment *lseg,
-+				       const struct nfs4_deviceid *devid);
- void pnfs_layout_return_unused_byclid(struct nfs_client *clp,
- 				      enum pnfs_iomode iomode);
- int pnfs_layout_handle_reboot(struct nfs_client *clp);
-@@ -691,10 +694,11 @@ pnfs_lseg_request_intersecting(struct pnfs_layout_segment *lseg, struct nfs_page
- }
- 
- static inline void pnfs_lseg_cancel_io(struct nfs_server *server,
--				       struct pnfs_layout_segment *lseg)
-+				       struct pnfs_layout_segment *lseg,
-+				       const struct nfs4_deviceid *devid)
- {
- 	if (server->pnfs_curr_ld->cancel_io)
--		server->pnfs_curr_ld->cancel_io(lseg);
-+		server->pnfs_curr_ld->cancel_io(lseg, devid);
- }
- 
- extern unsigned int layoutstats_timer;
 -- 
 2.53.0
 
