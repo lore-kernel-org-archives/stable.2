@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795601577;
-	b=btXimSTmXgpYGAsSvxd431u3erSRsYXDJ6Itg7DK0PUvDshdxVltjdTA8/5CAJ/D4b7t
-	 BIJyGxIdQHCcBxLxxY4TXEtwxiF/DtVso04xNO/76HJFF99sZ+W8fyXe/bBUCqU+MFMlC
-	 6HUxzbh4ITG3f+o51bdhIc0W2T4nLFnNtsQgdDTPpoSNWZUMF7u2/p3jiMUQqwZDxFcXN
-	 jatC1PoYfsQIK7fl32srVDSLxB4KcPV40o2DjWEJCJiBoStNMgUJvj5qqn5coeKbu+L6w
-	 7PgirwSFu8uOGGHxk2NvmmsSHw4H4+8dgk9GzrRMxlMCfiPuO24vSfaayTKXpVjXCWQ==
+	t=1795601579;
+	b=J+jRwjM4a5IWsCM/XelcR18xxgQ5KuQHn5yFyFNdwYnra8CR+qHLO4Ctprlr5L86IXEA
+	 QgQRt3BuoOmTIvHw9l1QYCj4b8Tk2LBmEyPYXHrI1mauaCktqjyjuYQvz/cc+2DoE6gpU
+	 HJw2ExwVFufjoSFoUJmy2rUU1veM1htqWHIiyjqI2mvx02XtlWcuO8TMLTEhDRBQ+ZNGQ
+	 GooOl0BMhZ2nDuvlyQrYIqz5/003jrgDqXBDgd5XPs/jqumNoB+VHHV7JQlxD+EDNwgxW
+	 RbrF6qdmWh0bzgPfcwway/e2a/3YRPwidmOAxVh/Tni375JJHkIoSDhC0ZQK58DouUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795601577;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795601579;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5TLWZ4m3YMb8J1yEbFa+7bW5LxuzFS8xx4XjQZyXI30=;
-	b=KfgIEc+0Xp7xDk2e1TvJ1fNIW+LKRjUuAN4CA9U6jQH+xoC/3ztrMgjFXPquDhJ3Uu1g
-	 uH9ZHIce3wdpc9cNPzSbp3bQvtjgEPcW37w6o6CZKP801LVUHvgUdVS/dxajT6t3E1rvg
-	 FzMiwhH4AiK/G4dYMUhMSpa3vBt1moC6mcAn/Gadn3IlN6zRcL2ZRZoo77DnlCE867z/f
-	 n3ZLmUgyDEtQ5a76jknHAKisLJv5HS4GJdmSY4dNbkAqSLUcAGM69xAzJ5BYaGg1b2vCH
-	 yYvVK+XTQTT6ejpfDzXmJ3YbhhBPuVlyFKjs6EFICnqGqJshN0wqjuHAKJdWHDF/Zdg==
+	bh=pBSM8PBS1YwqQMa/qE12G/p2NX9Kthg8Y+WyICaJlFo=;
+	b=il+t4Jtse8afNV1m3y1I2vKvpBBT1/udl53ntWGpVSIXfLAb7av5jqoHtElmiyRPsBC2
+	 W43TYor+NLYjCQxvwNFaIDypIyK9hgINZF/06WW5AmRalMUWB8BzVeQVLgMzBtgO1sTzL
+	 ItI+7uc9w0mxFlVguDJFPRTof2HW22ktEJ6rf6CT+hVqs5Um0F10efdkOGSR3eek1OXxv
+	 nbrvojXGO04HKjOT2NmUSQrddzDEAaaM6Qb5ipIPyTN+z71YgDtNZNUc0CLuKmQ6V5pri
+	 KfObcTayvhmZFk9reJe9BVzYrpGRQc/ddTOkYKJ5lHWP0nBuQkIR04cJSZ/yO40fymA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="dPd/80IK";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Dl1KtyO6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E040D606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:12:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9424F606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:12:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dPd/80IK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D5AF1F000C4;
-	Wed, 25 Nov 2026 10:12:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Dl1KtyO6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D86001F000C4;
+	Wed, 25 Nov 2026 10:12:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795601576;
-	bh=5TLWZ4m3YMb8J1yEbFa+7bW5LxuzFS8xx4XjQZyXI30=;
+	s=korg; t=1795601579;
+	bh=pBSM8PBS1YwqQMa/qE12G/p2NX9Kthg8Y+WyICaJlFo=;
 	h=Subject:To:Cc:From:Date;
-	b=dPd/80IK9vkby0EPY3W218u3/NgC40pCcTtr9kW9qQKv/8w+OzQJ6OHC8HOFf7BY8
-	 zDd3TF8Ho8NwAMysiYF5fblfuaKKkJnj8YPXTbutpOUaGpIzWmV9cL1VKUitdBgPHc
-	 PrvcbwcdYmNLOazz5T82o8r3twPZs179JAJuaLtI=
-Subject: FAILED: patch "[PATCH] arm64: suspend: Only track cpuidle context for idle tasks" failed to apply to 6.6-stable tree
+	b=Dl1KtyO6JYLXjDaGHsx64BnSD9cSwv9UfyQrx9iNGsTAk+h3znByULl4xYqKTv+DP
+	 SCcb9XBkkLncWlAVc3i1nZxVzn2IIhLD6UNwvvucu0+GaTVCYs0X0ezdfTCsxeIPh8
+	 MaCrRryIVRyPDb/CoVbwPTwxvhe7szhbhkYharo4=
+Subject: FAILED: patch "[PATCH] arm64: suspend: Only track cpuidle context for idle tasks" failed to apply to 6.12-stable tree
 To: uladzislau.zhauniarovich@gmail.com,catalin.marinas@arm.com,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:08:40 +0100
-Message-ID: <2026112540-spelling-version-c8b0@gregkh>
+Message-ID: <2026112540-presoak-impromptu-e705@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x ad3fc05c7e65009355effeea06aa629a687acef2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112540-spelling-version-c8b0@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112540-presoak-impromptu-e705@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
