@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608361;
-	b=bRz2kEL9nq3X5z+dtkh9bvnO3RJsY+4ECNWQU3hrjDmVGmBmi2OMB8ZBCw0/Rz5SlPVC
-	 /R6rfFpAahOslyAtS7FaXuTMjuC0VSs+szM6hFCcv9qrj64x7WpOWS1A53mpTONFHAJ6f
-	 +fA/FT1i317VmrSr6P8UlAh5HkBbNrv/wXH7HDv6pMeZPZKcXWgJOd5LOqw/F02DEmVQ0
-	 mXJVaPXf/py8p/aFF6NFabdx/wBElBj2JxiLVY0G+K+SeRtf+FZ332KXiSwkckk3wZxBO
-	 FyHLnN5EYqcL2UEz+HSAegW99w7ZHOwDLf2OegOy3a0Z1FuwJfD+r3fi/Z/seDI+qjA==
+	t=1795608364;
+	b=SMfjgp3SFtvaX8Do+4F9k0l1SiynCCXmJOSThA40vo1aYD5OPGIoHWBpzIk3SjCqzMJh
+	 jTaVxJ7HMg9E7HKW62/agNpu0xY8ie6zjAD/Q70b/6o+A6oRM2CmNxsXkQK2eCkl6qmFC
+	 HJv05nfJxrLi+8W6ZfkLYElSJy+eM0R+ERYvsojxqvzt6WsMo/utmkoMGWT6TyhmOwOr6
+	 dZ4yzA30CmzBcGiVrqWQYyvAAEEcO/ISNrW168zAFDDQ0C7JQVRNSsMSUnGKlUoBsyzBH
+	 jmPfNCI0DP8wkLn/8GuNXDRfryeIJpBpC6a2YUNtGkYImMrgywrdkJYcccwnimHy3rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608361;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608364;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=FnPYfuMHd7Ay5fWtox8rZh4gRLxZT0XKDK2fP+iqhZU=;
-	b=DOkaGNPVzLG2S1uRcicUhB06vjkfEtnetSqOlXBWZFD1CyJQWTDQUcVsi1meOUP4b/wi
-	 vRhMdDiDqH2QmHCfJ6FhkRH48t5e35yauaOZyWWEqHewl6ttHXMbbZ0mvaISVA/uvwgju
-	 RoA2rFGt9g3SRhAapIW9Vql2iCUmCrM1RHARYVnlq5LBVjOxRFsLi3OsahxbXAPQg/hLK
-	 /G9PjzRWztMcUjXnCtBlenKfj3adysufyeRl5iv/Sj5DL2GwKuND1waAUcv9PcbbIAL4W
-	 P7qympmUkbCb1aI6sATOUase1fKP3vuRmMRQGWX14kYylQuEoCtGt+1HO9J7+AdQkbw==
+	bh=J2pbe3lHTuazVOqx5/SH/T9Uu3OzmYTtXX6j/6bCBCQ=;
+	b=U2k6rMV9zIOD6W1GnV+k8BGepOf3qBJpJVd3jwFElSbdXjfGqHh2wAljBrWALm1vr6Vq
+	 PWd3ZZXTcwzYytqOXuTiqSLy/ZzSehn3NjyTZ3LBoza+svKUyjfU6jK9fNgJj2TKWCy7G
+	 SYhTdTk0c8dR4pKJJe038WZEYPIQGibMW73nlLBMOPqw5Jre9VMRoHIPZaDhdhDgxShu/
+	 r0tsZcgqMFcx0WGBPhNrwq8ibHk+N1XAhJPVd2a3WXmYaF7C386wfFwTBbrmR25WWwOjm
+	 /E82QYe2GwQvlBa8oUN3zoFCnLLKYiHqv5B+5AHoGUEPBB6XsmWreJJ5XFxvZgTKsnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jLonQsvJ;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WQ6ZxexF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FEEF606A32E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:06:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277B6606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:06:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jLonQsvJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16C231F000C6;
-	Wed, 25 Nov 2026 12:05:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WQ6ZxexF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466C31F00A00;
+	Wed, 25 Nov 2026 12:06:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795608360;
-	bh=FnPYfuMHd7Ay5fWtox8rZh4gRLxZT0XKDK2fP+iqhZU=;
+	s=korg; t=1795608363;
+	bh=J2pbe3lHTuazVOqx5/SH/T9Uu3OzmYTtXX6j/6bCBCQ=;
 	h=Subject:To:Cc:From:Date;
-	b=jLonQsvJK291XwahD8LKmsI74ez4WNKcn1dEQ1VYH5qR0DXMKBFzuzlJv2vZdF7Vr
-	 VmjqwMza733jZGvF9UZ5SVPbXrlxC7+KtlqirJqlJ9E+RA8ohv/XNit5RkEV+eE3yz
-	 SGsklJLdMJBBbxlvmygF59spgFIZ6iDSuai6l73U=
-Subject: FAILED: patch "[PATCH] serial: samsung: don't leak the tty on an RX IRQ" failed to apply to 5.10-stable tree
-To: josef@toxicpanda.com,alim.akhtar@samsung.com,gregkh@linuxfoundation.org,jirislaby@kernel.org,krzk@kernel.org,peter.griffin@linaro.org,r.baldyga@samsung.com,stable@kernel.org
+	b=WQ6ZxexF38AIhhnR+sr5Zau5Wif3HmA98pSqATPskw+qGuBpHxp7WsfYzRZMFBdzB
+	 L1YSGbDo+srozdWsiB2MtW/aEBZw2rhh9aSTONUdJFIStoBxI4jiZjH3p0hTosqHW4
+	 bVQFZfjmzWd8ke+sVVjDJoCXPbK6ADb+L84BLKQ0=
+Subject: FAILED: patch "[PATCH] tty: fix misapplied compat_ptr() in tty_compat_ioctl()" failed to apply to 5.10-stable tree
+To: jirislaby@kernel.org,gregkh@linuxfoundation.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:32:52 +0100
-Message-ID: <2026112552-acre-justifier-533d@gregkh>
+Date: Wed, 25 Nov 2026 12:33:15 +0100
+Message-ID: <2026112515-cardigan-coke-3d3d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7ada442f5ef77f8d53f608a0141a5e88a888ca9f
+git cherry-pick -x 895dc0eaa2779ff46a0b2a20b5ce9eb0b1125cb2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112552-acre-justifier-533d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112515-cardigan-coke-3d3d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,55 +79,42 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7ada442f5ef77f8d53f608a0141a5e88a888ca9f Mon Sep 17 00:00:00 2001
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Tue, 27 Oct 2026 12:06:47 +0100
-Subject: [PATCH] serial: samsung: don't leak the tty on an RX IRQ
+From 895dc0eaa2779ff46a0b2a20b5ce9eb0b1125cb2 Mon Sep 17 00:00:00 2001
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+Date: Tue, 3 Nov 2026 12:16:39 +0100
+Subject: [PATCH] tty: fix misapplied compat_ptr() in tty_compat_ioctl()
 
-s3c24xx_serial_rx_chars_dma() starts by taking a reference to the tty.
-If the interrupt is not a receive timeout, it switches the port from PIO
-back to DMA and leaves through the "finish" label, which does not drop
-the reference.
+Since commit f0193d3ea73b below, `cmd` was converted with compat_ptr(),
+while `arg` was passed to ld->ops->ioctl() unmodified. Fix it so `cmd`
+stays `cmd` and `arg` gets converted through compat_ptr() as intended.
 
-A port with RX DMA changes to PIO on every receive timeout, that is at
-the end of every burst of data, and comes back this way when the next
-burst starts.  So each burst takes a reference which is never dropped,
-and the tty structure is not freed when the port is closed for the last
-time.
+Notes:
+2) compat_ptr() did nothing to `cmd`, provided it is uint,
+1) compat_ptr() is no-op everywhere (was different on s390 before
+   8e0b986c59c6 ("s390: Remove compat support")),
+3) `arg` might not have been chopped correctly until 8e0b986c59c6. But I
+   am not sure why noone noticed all those (7) years (from f0193d3ea73b
+   to 8e0b986c59c6)?
 
-Drop the reference on both paths.
-
-Fixes: b543c301c2c5 ("serial: samsung: add DMA support for RX")
-Cc: stable <stable@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Peter Griffin <peter.griffin@linaro.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Jiri Slaby <jirislaby@kernel.org>
-Cc: Robert Baldyga <r.baldyga@samsung.com>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Link: https://patch.msgid.link/20261027-tty-llm-v1-21-99b0202ae546@linuxfoundation.org
+Fixes: f0193d3ea73b ("change semantics of ldisc ->compat_ioctl()")
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Cc: stable@vger.kernel.org # applicable from 4.20 to 6.18 incl
+Assisted-by: LLM
+Link: https://patch.msgid.link/63e9d84a1e8e23852423206cf3f8907aafc88f17.1793704520.git.jirislaby@kernel.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/tty/serial/samsung_tty.c b/drivers/tty/serial/samsung_tty.c
-index 640f85e2d636..c9a870a8d155 100644
---- a/drivers/tty/serial/samsung_tty.c
-+++ b/drivers/tty/serial/samsung_tty.c
-@@ -736,14 +736,13 @@ static irqreturn_t s3c24xx_serial_rx_chars_dma(struct s3c24xx_uart_port *ourport
+diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
+index 1a6c8a1bc764..150052f6d9db 100644
+--- a/drivers/tty/tty_io.c
++++ b/drivers/tty/tty_io.c
+@@ -2969,8 +2969,7 @@ static long tty_compat_ioctl(struct file *file, unsigned int cmd,
+ 	if (ld->ops->compat_ioctl)
+ 		retval = ld->ops->compat_ioctl(tty, cmd, arg);
+ 	if (retval == -ENOIOCTLCMD && ld->ops->ioctl)
+-		retval = ld->ops->ioctl(tty, (unsigned long)compat_ptr(cmd),
+-				arg);
++		retval = ld->ops->ioctl(tty, cmd, (unsigned long)compat_ptr(arg));
+ 	tty_ldisc_deref(ld);
  
- 	s3c24xx_serial_rx_drain_fifo(ourport);
- 
--	if (tty) {
-+	if (tty)
- 		tty_flip_buffer_push(t);
--		tty_kref_put(tty);
--	}
- 
- 	wr_regl(port, S3C2410_UTRSTAT, S3C2410_UTRSTAT_TIMEOUT);
- 
- finish:
-+	tty_kref_put(tty);
- 	uart_port_unlock(port);
- 
- 	return IRQ_HANDLED;
+ 	return retval;
 
