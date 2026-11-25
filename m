@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795609489;
-	b=lNtxUEpfV0AXdoeKP4KEsBj0yffKGqOVkAUUP5dk9Rl4p/Vg2t+pfzLZs94S17tDZ/ED
-	 fq2VnBM0v06Memb+GV+ewDH4Ajv1cgxry20hnBsYDfeXe3b05PCFUX4G7rDRnH3IwQPwM
-	 9gtTFjouD+nuPpRDTbU6Q9bd4kkuK72ZYFdoXwpNwHBy0sejIKi7afGYivFWzldlMtfSZ
-	 Mxb99QJt1EgzXx+T66TC1uNUEsxKsGyZRDfOaK/7MZ9GOzbT6yBm/EAvSS4eoCVEUt40i
-	 rTboEJuEJLW+kKHEL/CwQVnqvOmA3s9sw7FL0FrZWjum/g6p/jZJ8JRpRfj7Sxtn0Ew==
+	t=1795609492;
+	b=lhca4CISJdQJNCFQ8jNARtBi3TH+2r4DTRNYhU1nDqFGwyogYHyrujY2sWEMRwJykNjM
+	 +yrG7OVsPfxts9ZGMT0fri55HX0wbk+RGSScSf0/hB52sf/+h198WuoqhnRUe5x9Yyj1F
+	 p61DIq7VCBA6ndgf1I7sbPer6kNzczhgq2OC+fV0AlH2Chd36Z1vp623C0lCt7YGx9nXq
+	 aPN3M6HWGjkU+P3OF4oW4Ieyleu1xqQCG8PBIJlK9k3hvdifZ8/3j0gfL4s4pjxeG3Exr
+	 Olh5t9vyBmmyeuF8++44OEMoZyrIdxkF3lb7u79B6h8MVSjncubGr8+CAF7SxjtFmXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795609489;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795609492;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=egt+tbfcZaSMpTyhjcXEkMe6VeFvLCZUPFBIB1MyuFs=;
-	b=nKRgz355ob61FipiDmGe4bBpciyMLwYSW1WuUOnhD+zAl+z4TDfreL44rh6thkKQ3yI5
-	 dhwDfglTjCFVDAt6GYxBEgU1fqtmWVUjFjMVtmzz4HtKi/dWW2E6DuR4Zu4Mn3xtwfbsN
-	 HNnqTP0WlSHeyUIMLRPH5GRIkyD0ocNe+xKmiZ9vq5cvm2zHDQoZUayVq2WvVmlO8febr
-	 2v0TCvGxJgtTY7j28G4LJie0mcIgKKWQrjRVqCl1QJwLI8n0Vjz9fp8WmxQ17zW5WM1x2
-	 4fygJD88xEQ42TYnPQEkSmqoMNtGz0woC2ApL6uHrqNabhtSGRrDgAx4zaF5Uv/pnqA==
+	bh=aiJv3On3YJF7usfe2aYPP3Oa1dOyy8ygc/HQ0vdN+1I=;
+	b=lpkOUQX4ZtALPlOn+rTqY/QQwVhHzF4nbOfQ+5UrY+FVOMJf6JdZNmOe9zkVwbAyScwz
+	 ikYkTnO4R6k9kVFTJJrVk/h0KHD+L9siGFuriA5OZn7QxxNszF8oUhY5AF2v9OgirkXlY
+	 HBS5GFbUrP8sjVmlz/jlQmzBAE1a7+uuIJkm5ceFnhILzNukGEemPJTcRuHDNnUNEKfmP
+	 k8xAd0ky55f9Ih8kyGatakCSic7Zn5CFNtfixeTC38yFL/T+dm1PNWTDmHuaE0K6OjHFh
+	 FCbUSNmyFW8h9D7+tREjQh6rk+M2BV5bJ/JDz8QHMAWMeCRmRauPT54rVwwO5u69i0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="g7JT/Hz0";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dhOLoA66;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AFE2606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:24:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55780606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:24:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=g7JT/Hz0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BAE21F000C6;
-	Wed, 25 Nov 2026 12:24:47 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dhOLoA66
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86E221F000EB;
+	Wed, 25 Nov 2026 12:24:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795609488;
-	bh=egt+tbfcZaSMpTyhjcXEkMe6VeFvLCZUPFBIB1MyuFs=;
+	s=korg; t=1795609492;
+	bh=aiJv3On3YJF7usfe2aYPP3Oa1dOyy8ygc/HQ0vdN+1I=;
 	h=Subject:To:Cc:From:Date;
-	b=g7JT/Hz0GkamvLOdcMSKvL+2n28ZZu2GAFiBPaAgQv0jIsIq3Tht15nJUi9lCUcjD
-	 4ofZ+U2jG7kb9fhGTWESa5wf0mdgSEETfjorYBd1Acf8TkX3lvC2i/LCqsVpPL2vE6
-	 +rDDjySfYaaRNfuNOv3husnzfAZq0B//5hQSN6MY=
-Subject: FAILED: patch "[PATCH] iio: inv_sensors: prevent timestamps going back in time in" failed to apply to 6.1-stable tree
+	b=dhOLoA66E86bvpFkN1qSoeXYXBN+0WtLYofawOxOH+n/IFDfPvVC5u6I8cDNA218y
+	 g2P+O/9e+9hb5AUYE1NvJay4FbDo1WhGeyrRBNhKe39ooMp9cVVNO2/vM3AdfB8lJs
+	 O6hGfKVHPq8Tt0zJZkAdGxLNMfEwWzLso/YKtsIk=
+Subject: FAILED: patch "[PATCH] iio: inv_sensors: prevent timestamps going back in time in" failed to apply to 5.15-stable tree
 To: jean-baptiste.maneyrol@tdk.com,jonathan.cameron@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 13:22:39 +0100
-Message-ID: <2026112539-excitable-underfoot-5ef2@gregkh>
+Message-ID: <2026112539-refocus-hypnotic-20dd@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 3785dffc7c68751a8429ae6dd75804c14a5a7c7a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112539-excitable-underfoot-5ef2@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112539-refocus-hypnotic-20dd@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
