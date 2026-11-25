@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625105;
-	b=j8eWGCj3oFznRpqBmMAtkL4p+hjOafQJ8b8GLIL28xqTTKVF0xmuDp6LeF+LMbswZD6L
-	 63HwKlYgidHKkagBFxPxcjdvMz1Opi32GF2ARBrKO1yqSeUXDte2XP2MRIL0ucduK5fSw
-	 8oLXG+mBvEigM+599v+pI1SgrWLTkrNtpfYs6Dq1zv5HGKxWL6cRzkwMVT9gWtJbq0d/u
-	 19pzzhMm1Cexz2iep65i7jjk4jOtLIGM6SJri2QNike297CzdUskFcOOz87MsOuOgbz0I
-	 F5/QEWidXVZ7BpWjvIXQOsqvIVh3JQvw/9LGEWd/oDdNiVE+zQC5q5HNsDICVueGTyw==
+	t=1795625107;
+	b=jyZPUimOWU9Co9oK5WJPYOh9WhYJIK7GtOVKLVZB2zUp+kvnDWW7FQfvPeOaiinab2dw
+	 dKoktkXhcmR3sACbXCr9bj3bAcmQHL+E/ZMsVRo2w+JvxGdyb8Nec/xAHMcKTlbO9SEzB
+	 KeMQcTQ1nXobLppSrpQH9iyTWcFjNNu0oi4Xdm9vjuPx7IPEx2H20rY9CXwZ/2sEXHdXC
+	 52nJ37opRaY8smit3+pdeKonlGAw0yaJ/gDzibLAjiVLFXnc+Cl8S9uRrL2GIfbtrS6+9
+	 /iznySqrxv1z0+eSYe6I4Jr0vF8V8Dyhjr4zvWuBovQ4sT4sUisRZiJmD+h4FB3dnjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625105;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625107;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=q5jAdSYVTWzzZyiHBlEuaEsLQOHVVB/zMuAa/DhjzWg=;
-	b=WI5buSSRS1aBkhM1RLETQbiXF50OP6FnfaVk1iDmmSUu6R+GLbQ6JaynO9dL23mwJTPC
-	 95Cylm/OVP7GrUB3kVH3j7NZRlDGCYA+7/9ExxCUUGe2Q++ZRvIbqhb6hOrKuHN/w+WXQ
-	 kFGg549CPw5QqFAWwZnrQFW9ckdnx9KeZIqV0ARpPiFXvMBGeFrd/fiN/yIMJLKe/su+E
-	 yhND9/H0uS5rmwEHNazj6MYA8n5j20bYyvlRnMarg2lOA912mwc4Aqw6NLd61i05AsSMR
-	 fFM3cQmR9F7Ad1ppAt6wE84nVjgvbotk1D7tOG3sZgNKYAWLK24oW6+tdr1f2mvmyRA==
+	bh=G64em8swZnh6M3FM0kAHBwtNk1Qook0azJUl7ueK1oI=;
+	b=4Dhl+l4y92KiQzAPtzNbRdNy883jLPDmvNHF13Rn9VrHZMdNrfD/Je+AON6Tas15Wr/t
+	 GVK+QhJvH2lYSdiDf2z+Plho2OfYe63AXnGA8OtM3oYQVENPdpOPtA2e2FjXyX3grI49j
+	 VKlXvnFrqCDGloTbJtokGniOoa92OrxghPP+BLYfVhhvldn3pFRnK/5Jm7krmpBGiIU2B
+	 E6qe9Ls94+GpGiY2qjCdlCIroiB8c8jyiAo11Z92gN/5bGVHTuz7Z/ujyJk6sydCm7kHj
+	 /9Jbrl4DsswScK6kUCPdzV4Q1zLjez3ZSCs1t8BjMsFl1Avcv9OHLdchxK/6UgbpaZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uK9rvmNQ;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vb59bjyy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14291606A32E;
-	Wed, 25 Nov 2026 16:45:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD584606A323;
+	Wed, 25 Nov 2026 16:45:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uK9rvmNQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F4C91F000C0;
-	Wed, 25 Nov 2026 16:45:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vb59bjyy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A86E1F000C0;
+	Wed, 25 Nov 2026 16:45:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795625104;
-	bh=q5jAdSYVTWzzZyiHBlEuaEsLQOHVVB/zMuAa/DhjzWg=;
+	s=korg; t=1795625107;
+	bh=G64em8swZnh6M3FM0kAHBwtNk1Qook0azJUl7ueK1oI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=uK9rvmNQAN3wdkOLy2f7wa6x5cl4+v3jVcbMiXOP3OFgJGfPtwFyWW4P7Ld+nzaZV
-	 v7gUErJIIrpUPW40u+LNGCY03O4qTar7CZsl81OG/fe6Xg5W1ecxpyXNoXx7qfyjY3
-	 2n0gNCwYC/BB+Fv46PqanOkFKAZq3Rm5N+09bP3E=
+	b=vb59bjyy8u0xRZPZrHAb8GHsNAfO1JQlEsr2ZXzzaIM/QMH6ZDDDdLzMGD6qsChWr
+	 0C7hnitIqswSSroi9SLR27pLz2Y9rKRMBVMr73eCUW3z4AVD9GbAL72rAuNqrn/m8W
+	 6TIDTp6otA21z0BjZQOOl7IR+Q1fLO0pdUmeR29U=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Sean Young <sean@mess.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 371/816] media: rc: Replace open coded krealloc() for keymap
-Date: Wed, 25 Nov 2026 15:31:59 +0100
-Message-ID: <20261125143857.784441449@linuxfoundation.org>
+Subject: [PATCH 6.12 407/816] ASoC: rt1015: make control calibration failures observable
+Date: Wed, 25 Nov 2026 15:32:35 +0100
+Message-ID: <20261125143858.616052464@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
 References: <20261125143849.205329330@linuxfoundation.org>
@@ -68,139 +68,156 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Sean Young <sean@mess.org>
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-[ Upstream commit e4b4aa413cc2e48a261c8c513ced964a3390c0cf ]
+[ Upstream commit 98fe8aab04cec6fcadeb10a757235225d550be36 ]
 
-Replace open coded krealloc() and remove superfluous member of struct
-rc_map - we don't need to track both the size in bytes and entries.
+The bypass-boost control runs a hardware calibration while bypassing the
+register cache. It ignores every register access and cache restore
+failure, then publishes both the requested mode and calibration
+completion.
 
-Signed-off-by: Sean Young <sean@mess.org>
-Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Stable-dep-of: ab9567336171 ("media: rc: Add missing locking for keymap")
+Return failures from the complete calibration sequence, always restore
+normal cache operation and unlock DAPM, and only publish the control
+state after the calibration and final mode write both succeed. The mixer
+control callback is an effective error consumer, independent of deferred
+component resume.
+
+Fixes: da145172b236 ("ASoC: rt1015: Fix DC calibration on bypass boost mode")
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Link: https://patch.msgid.link/20260830142118.36668-1-pengpeng@iscas.ac.cn
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ sashal: Replaced the snd_soc_component_to_dapm() local dapm with &component->dapm in the DAPM mutex lock/unlock calls, since that helper is missing here. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/rc/rc-main.c | 45 +++++++++++++++++++-------------------
- include/media/rc-map.h     |  2 --
- 2 files changed, 22 insertions(+), 25 deletions(-)
+ sound/soc/codecs/rt1015.c | 81 +++++++++++++++++++++++++++++++--------
+ 1 file changed, 65 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index eb19ee6765dfb..63b536571d442 100644
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@ -17,9 +17,8 @@
- #include <linux/module.h>
- #include "rc-core-priv.h"
- 
--/* Sizes are in bytes, 256 bytes allows for 32 entries on x64 */
--#define IR_TAB_MIN_SIZE	256
--#define IR_TAB_MAX_SIZE	8192
-+#define IR_TAB_MIN_ENTRIES	32
-+#define IR_TAB_MAX_ENTRIES	1024
- 
- static const struct {
- 	const char *name;
-@@ -214,21 +213,23 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
- static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
- 			   const char *name, u64 rc_proto, size_t size)
- {
-+	unsigned int alloc;
- 	rc_map->name = kstrdup(name, GFP_KERNEL);
- 	if (!rc_map->name)
- 		return -ENOMEM;
-+	alloc = roundup_pow_of_two(size);
- 	rc_map->rc_proto = rc_proto;
--	rc_map->alloc = roundup_pow_of_two(size * sizeof(struct rc_map_table));
--	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
--	rc_map->scan = kmalloc(rc_map->alloc, GFP_KERNEL);
-+	rc_map->len = 0;
-+	rc_map->size = alloc;
-+	rc_map->scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
- 	if (!rc_map->scan) {
- 		kfree(rc_map->name);
- 		rc_map->name = NULL;
- 		return -ENOMEM;
- 	}
- 
--	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%u bytes)\n",
--		rc_map->size, rc_map->alloc);
-+	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%zu bytes)\n",
-+		alloc, alloc * sizeof(struct rc_map_table));
+diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
+index 0f806dde9c39c..02052bdbf5aec 100644
+--- a/sound/soc/codecs/rt1015.c
++++ b/sound/soc/codecs/rt1015.c
+@@ -491,34 +491,71 @@ static int rt1015_bypass_boost_get(struct snd_kcontrol *kcontrol,
  	return 0;
  }
  
-@@ -262,38 +263,36 @@ static void ir_free_table(struct rc_map *rc_map)
- static int ir_resize_table(struct rc_dev *dev, struct rc_map *rc_map,
- 			   gfp_t gfp_flags)
+-static void rt1015_calibrate(struct rt1015_priv *rt1015)
++static int rt1015_calibrate(struct rt1015_priv *rt1015)
  {
--	unsigned int oldalloc = rc_map->alloc;
--	unsigned int newalloc = oldalloc;
--	struct rc_map_table *oldscan = rc_map->scan;
-+	unsigned int newsize = rc_map->size;
- 	struct rc_map_table *newscan;
+ 	struct snd_soc_component *component = rt1015->component;
+ 	struct regmap *regmap = rt1015->regmap;
++	int ret, sync_ret;
  
- 	if (rc_map->size == rc_map->len) {
- 		/* All entries in use -> grow keytable */
--		if (rc_map->alloc >= IR_TAB_MAX_SIZE)
-+		if (newsize >= IR_TAB_MAX_ENTRIES)
- 			return -ENOMEM;
+ 	snd_soc_dapm_mutex_lock(&component->dapm);
+ 	regcache_cache_bypass(regmap, true);
  
--		newalloc *= 2;
--		dev_dbg(&dev->dev, "Growing table to %u bytes\n", newalloc);
-+		newsize *= 2;
+-	regmap_write(regmap, RT1015_CLK_DET, 0x0000);
+-	regmap_write(regmap, RT1015_PWR4, 0x00B2);
+-	regmap_write(regmap, RT1015_PWR_STATE_CTRL, 0x0009);
++	ret = regmap_write(regmap, RT1015_CLK_DET, 0x0000);
++	if (ret)
++		goto restore_cache;
 +
-+		dev_dbg(&dev->dev, "Growing table to %u entries\n", newsize);
- 	}
- 
--	if ((rc_map->len * 3 < rc_map->size) && (oldalloc > IR_TAB_MIN_SIZE)) {
-+	if (rc_map->len * 3 < rc_map->size && rc_map->size > IR_TAB_MIN_ENTRIES) {
- 		/* Less than 1/3 of entries in use -> shrink keytable */
--		newalloc /= 2;
--		dev_dbg(&dev->dev, "Shrinking table to %u bytes\n", newalloc);
-+		newsize /= 2;
-+		dev_dbg(&dev->dev, "Shrinking table to %u entries\n", newsize);
- 	}
- 
--	if (newalloc == oldalloc)
-+	if (newsize == rc_map->size)
- 		return 0;
- 
--	newscan = kmalloc(newalloc, gfp_flags);
-+	newscan = krealloc_array(rc_map->scan, newsize,
-+				 sizeof(struct rc_map_table), gfp_flags);
- 	if (!newscan)
- 		return -ENOMEM;
- 
--	memcpy(newscan, rc_map->scan, rc_map->len * sizeof(struct rc_map_table));
- 	rc_map->scan = newscan;
--	rc_map->alloc = newalloc;
--	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
--	kfree(oldscan);
-+	rc_map->size = newsize;
++	ret = regmap_write(regmap, RT1015_PWR4, 0x00B2);
++	if (ret)
++		goto restore_cache;
 +
- 	return 0;
++	ret = regmap_write(regmap, RT1015_PWR_STATE_CTRL, 0x0009);
++	if (ret)
++		goto restore_cache;
++
+ 	msleep(100);
+-	regmap_write(regmap, RT1015_PWR_STATE_CTRL, 0x000A);
++	ret = regmap_write(regmap, RT1015_PWR_STATE_CTRL, 0x000A);
++	if (ret)
++		goto restore_cache;
++
+ 	msleep(100);
+-	regmap_write(regmap, RT1015_PWR_STATE_CTRL, 0x000C);
++	ret = regmap_write(regmap, RT1015_PWR_STATE_CTRL, 0x000C);
++	if (ret)
++		goto restore_cache;
++
+ 	msleep(100);
+-	regmap_write(regmap, RT1015_CLSD_INTERNAL8, 0x2028);
+-	regmap_write(regmap, RT1015_CLSD_INTERNAL9, 0x0140);
+-	regmap_write(regmap, RT1015_PWR_STATE_CTRL, 0x000D);
++	ret = regmap_write(regmap, RT1015_CLSD_INTERNAL8, 0x2028);
++	if (ret)
++		goto restore_cache;
++
++	ret = regmap_write(regmap, RT1015_CLSD_INTERNAL9, 0x0140);
++	if (ret)
++		goto restore_cache;
++
++	ret = regmap_write(regmap, RT1015_PWR_STATE_CTRL, 0x000D);
++	if (ret)
++		goto restore_cache;
++
+ 	msleep(300);
+-	regmap_write(regmap, RT1015_PWR_STATE_CTRL, 0x0008);
+-	regmap_write(regmap, RT1015_SYS_RST1, 0x05F5);
+-	regmap_write(regmap, RT1015_CLK_DET, 0x8000);
++	ret = regmap_write(regmap, RT1015_PWR_STATE_CTRL, 0x0008);
++	if (ret)
++		goto restore_cache;
++
++	ret = regmap_write(regmap, RT1015_SYS_RST1, 0x05F5);
++	if (ret)
++		goto restore_cache;
++
++	ret = regmap_write(regmap, RT1015_CLK_DET, 0x8000);
++
++restore_cache:
+ 
+ 	regcache_cache_bypass(regmap, false);
+ 	regcache_mark_dirty(regmap);
+-	regcache_sync(regmap);
++	sync_ret = regcache_sync(regmap);
++	if (!ret)
++		ret = sync_ret;
+ 	snd_soc_dapm_mutex_unlock(&component->dapm);
++
++	return ret;
  }
  
-diff --git a/include/media/rc-map.h b/include/media/rc-map.h
-index ab8c1b82dff6a..c84b4ef70a841 100644
---- a/include/media/rc-map.h
-+++ b/include/media/rc-map.h
-@@ -148,7 +148,6 @@ struct rc_map_table {
-  * @scan: pointer to struct &rc_map_table
-  * @size: Max number of entries
-  * @len: Number of entries that are in use
-- * @alloc: size of \*scan, in bytes
-  * @rc_proto: type of the remote controller protocol, as defined at
-  *	     enum &rc_proto
-  * @name: name of the key map table
-@@ -158,7 +157,6 @@ struct rc_map {
- 	struct rc_map_table	*scan;
- 	unsigned int		size;
- 	unsigned int		len;
--	unsigned int		alloc;
- 	enum rc_proto		rc_proto;
- 	const char		*name;
- 	spinlock_t		lock;
+ static int rt1015_bypass_boost_put(struct snd_kcontrol *kcontrol,
+@@ -528,6 +565,8 @@ static int rt1015_bypass_boost_put(struct snd_kcontrol *kcontrol,
+ 		snd_soc_kcontrol_component(kcontrol);
+ 	struct rt1015_priv *rt1015 =
+ 		snd_soc_component_get_drvdata(component);
++	int bypass_boost = rt1015->bypass_boost;
++	int ret;
+ 
+ 	if (rt1015->dac_is_used) {
+ 		dev_err(component->dev, "DAC is being used!\n");
+@@ -537,13 +576,23 @@ static int rt1015_bypass_boost_put(struct snd_kcontrol *kcontrol,
+ 	rt1015->bypass_boost = ucontrol->value.integer.value[0];
+ 	if (rt1015->bypass_boost == RT1015_Bypass_Boost &&
+ 			!rt1015->cali_done) {
+-		rt1015_calibrate(rt1015);
+-		rt1015->cali_done = 1;
++		ret = rt1015_calibrate(rt1015);
++		if (ret)
++			goto restore_boost;
++
++		ret = regmap_write(rt1015->regmap, RT1015_MONO_DYNA_CTRL,
++				   0x0010);
++		if (ret)
++			goto restore_boost;
+ 
+-		regmap_write(rt1015->regmap, RT1015_MONO_DYNA_CTRL, 0x0010);
++		rt1015->cali_done = 1;
+ 	}
+ 
+ 	return 0;
++
++restore_boost:
++	rt1015->bypass_boost = bypass_boost;
++	return ret;
+ }
+ 
+ static const char * const rt1015_dac_output_vol_select[] = {
 -- 
 2.53.0
 
