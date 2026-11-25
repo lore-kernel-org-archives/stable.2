@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795597986;
-	b=3GoKAa+2ZHiUTdkr4niaWjQ7Ni2QQBvsU3jgBW6dl/j+VUq1pZQtS2cv3w7Dx9toXvCX
-	 wuN8r2xQXy8o0lLRiO88bmzhToMKTfhNbhBAn0MNlDfSc+3k+w3cESrcCiybZS+89dgt5
-	 +h2KVqZL1l9q93zSw9avBLS5PwILXuETnhSWGJSDph/f0+VJ67/ZHPTb5MmY7aRjco7PD
-	 IFGBKRf3YRA3zWmL0s6R5otDO7USKU/KrF3CRrQpFMFtgVmN0ib/hGmTJ83UkmkhgCl9m
-	 mXSs6UOQXD2dYEyFp0aQ6YtQYkYHBtNF68dtsxAxctY9Hm2FbXwdFs+lHvju1N+IzZg==
+	t=1795597990;
+	b=TgMBzgn0/6nYhrnvjjWI1xNDycS8X1b5koYwduzqjri8MVH2swhZ9e3yDnA0Sn/awNJ6
+	 AxFV2H8xepE3IxwX4aqM5vnF8Uln0cSB+oRztKem0ZOVbjv6NLN7Cpene3Bv/fdO7Zu6D
+	 0794U9OqvcebaknPPKdnhtH+9iVlVbJoI0nEs69HNY9cuxPqWWnSQcxG1QKTBUlw1LmRJ
+	 S0wysZBJtST0AAqO7GoJ/sw6Ua74J2TP35gy8McEMpj+qUZOGIL3cuNZPHsHVINJrzq9A
+	 cQssPSGW3bH2WZUrHJjubymWsgw9EyjaqvHFcCkp00KKjkUs3DPSGpNIb37sNSUm8Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795597986;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795597990;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=9Zy794+PvQlFQuLeaB9duTy9aXYZjJKJmKI9ifKyncs=;
-	b=JEa9akLHSEFAaz62tOT5ruw+gyCjOqRiaIgGvhrde+3zuLMMpkzvkzm3rVc1D4BRswpn
-	 OoEF4Ga0YypgcZPEZKcmty93hvPd8fVX3TRbxq2qenYrNF4KYqjDa6wetmavpt92DBHGR
-	 mQwwbAuOXOt95d7TN5EresMUl4ktEzDEfoiFVkzdyhzCbmL62jCMESKWss4OI5cf56Iv1
-	 HrqAkVC+3SPmW40XL9+9FUGKuPscx797hOdqbxYUMJfIVewcCWoREB8LeYNUoHKmcrhIX
-	 527HbDKJyLtdwkjLUA+R+qUc7rZc0UuQ6Ep/w6MX2O9jtFqdH3wBXdoLWVW/XxTA31A==
+	bh=BuSqxCGSKdFLLbjYZRVQyau2zV318l1zGWR+/jhC9RE=;
+	b=AXEGVdx4xBmXL/Z8GR5+xpRc7qm2UYiNgGmSWNX+8zYIQJZ4ZwJowpfmXZXwJmuiNeP1
+	 FK8HBr+VMvXHbHhcFl+PTnpC5QWEwMWiA9YZPUGZXmLPa9+ZUi6V4YJsY1IzabVsqlUrN
+	 yf82sgd0MlZjJrKwyY/YqKOxjRruRtp00qSwJLMbiri5b4eCpoRfQgA8RngaZ1HFEcNI4
+	 nateOw7jtxBQ+Srp3A5Yir6NbO35baD06ZddH2aTVIC9EEERBpEV8eoOfZPmHQ2Q3pQgS
+	 cA5CnOX371o+7RkXNzYYETZzBsNG2ltDRv52rOIiQtVUzfrdSsbPRHTb0+g8zCVdOpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eul2+Bk7;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DGpyXRy5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82FA606A339
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:13:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D166606A699
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:13:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eul2+Bk7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEEA51F000C6;
-	Wed, 25 Nov 2026 09:13:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DGpyXRy5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 288971F000D2;
+	Wed, 25 Nov 2026 09:13:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795597986;
-	bh=9Zy794+PvQlFQuLeaB9duTy9aXYZjJKJmKI9ifKyncs=;
+	s=korg; t=1795597989;
+	bh=BuSqxCGSKdFLLbjYZRVQyau2zV318l1zGWR+/jhC9RE=;
 	h=Subject:To:Cc:From:Date;
-	b=eul2+Bk7rzVf81zXHfYqk3IrvzOyDMhxOO1fh1HeQgag4+AbaoWePFql/r27htjUQ
-	 DeU4lS2uDEr3YRQV0RkmtzFhjoS49jqSKODgu7qbkPzGwHILa0HOVGzp9M5svFEP8z
-	 vxyb3oH+RAnm/f8x1qE4tKmCXunqMghAKXrPHW2I=
-Subject: FAILED: patch "[PATCH] net: wait for in-flight device unregistrations before netns" failed to apply to 6.12-stable tree
+	b=DGpyXRy5EbUh+QhJXhNytdBn37cTGzH9opUD34jrcaFRlPZz7g53VwwVyufNlB14M
+	 d/xXdHajkyxfj/wj+IhoaNh4bHV/vw1coxtgZBe1hS0Oo7NRqGUT8dlOpEOIUFSxEd
+	 oHvtkNkybf++ZGdVUsbjcs3/yeGnEhvfT/bN/S/o=
+Subject: FAILED: patch "[PATCH] net: wait for in-flight device unregistrations before netns" failed to apply to 6.1-stable tree
 To: edumazet@kernel.org,bsdhenrymartin@gmail.com,kuba@kernel.org,namangulati@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 10:05:29 +0100
-Message-ID: <2026112529-purify-proven-454f@gregkh>
+Date: Wed, 25 Nov 2026 10:05:30 +0100
+Message-ID: <2026112530-magnesium-segment-fd8c@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x c164a431a646983275d0076ff5b0e4c326fbc10b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112529-purify-proven-454f@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112530-magnesium-segment-fd8c@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
