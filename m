@@ -1,51 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795592463;
-	b=2NbjnzQkJqCDSM1c0eZboN369oBzoYVzY8KctNyLK8K0l1RY6zUgTphlrTLn8TGBbX36
-	 qYs8Pic4/X5h77kSGzeILyk/gz+fk/bxA7dlp0nntmU2/9x3NaZgMjABLyN8ZRvTXkHor
-	 KpG1PS6WeLDoqhX7BrsrB/lIHrdzPpASBNPv5XTGXpF8NY59XK4DBKFqo/wdYxcrxQS6s
-	 KRgBTYIBQdr1YSmpjdD6kyG6eXSkHVHKWSjsR03ES5mkv8wEG1x+qeCUi5mPYtqo2/2bo
-	 f4k/cI316/Eks/IOm3hyJVJGDmQX1Cc3Z2uMRtPHq1m/LesKrbmz3DgOJd6fky+jVPw==
+	t=1795592672;
+	b=gt+AW2GZ1K0uk6FjnO6bcXAWqhgspSUdfyXN1Bc5XAVewsqYmiCdIItuiR3zdO85uCzs
+	 QWgJMYxDCi3bd/lPpIU67pjqDrRHS29as0xwS7ELlaWbXD1eBaeEmiJeN3rnMbsuS7esW
+	 bG0/xVX8VUeO0s3B6o0VIQd9oOzftwTB24Qyi4ft3pzwsUwLFs5U4hu4JHbnhsuzLZtP6
+	 e2C1Eg9MVbpxXiKY49tUrNxhJcQH3zuDUNjyfiwF6WrQrpPQL4Tr0PP1GNzh6JMv6NPMd
+	 ux5LNCnn516OxNNH+rp/BVUfjDUnd7dzBWbb6em80K9TcnTONv0MyeP8+zuejOOCAYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795592463;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=zwD2gFi9vh6ZW+eC4S+Y2bIYG8f/jFUwY08RLcEZxHw=;
-	b=SBGh6RwuAQXHe3n87+BYamG+YawMZU/o9SLievoWAozVZM8EzLKyfOnvMNT/ojQoHVIc
-	 kM6DLbTW+zk5lV6nKR/n8eyfZICDRxCNTkU20qHZD41FGq9f3hfB48GHGDL1/rglYTpzE
-	 RB8IF3sE4kInIqi/2Mgr2aorFT1ph4/nxijPEDCdZQmUQ8i/PwcVl9U+kmrpMw+I1tqZv
-	 /bMwT04moaN0R+xdhJoHLY4fAjn4EOyhHgrJABQocXu1YR9v/bXbjxKMB/AO1rsDPIAbf
-	 H6on5S6P0c+IoU4LFFlP3N5guiHjqzI2BfgSO8GauPhYhqRZ0vMwbUl/gZqGMh9EKRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795592672;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=vnz5Nky15Lyd/J+B0zjHTXxMyYh0lgT65b7QeGlPThQ=;
+	b=uR76jdRdRDLUx+rfhRbPxjmsBBcypIkrp3tQRGmjqka9ukWWj20LOdS0ilt8dhSuZmHE
+	 lLJ6PcFwlWJN66ILtmrA65Et8Ps15hGEwZbG+/lQS0C5kzxWsMaBq9IcjciTDQSCYQPeb
+	 /2wt0ZT+MHBAdks/KalarRhLJ4z+pfy23vxf6S9xdHOgE8IUy4BlMH6YfKS+WV6zhAXPN
+	 KF5X65O7llvvG0FsS2iNjrl8Md2FpUK5+IhwMQ57Dim/1FOf+fi16g14DqTuBKGSgEktO
+	 ww0rVNtuGEu/cjVc/UvK2Li6q4Dk2gISkIxcXBPJinih0iQv5sNItTosKrhUKwxAGOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gentwo.org;
-	spf=pass smtp.mailfrom=gentwo.org;
-	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=M7PwE8vs;
-	arc=none smtp.remote-ip=62.72.0.81
-Received: from gentwo.org (gentwo.org [62.72.0.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MOnbzhhK;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A062F606A32A;
-	Wed, 25 Nov 2026 07:41:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A062F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F101E606A323;
+	Wed, 25 Nov 2026 07:44:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F101E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=M7PwE8vs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1795592454;
-	bh=P7KTpYs1LMqVBjyKwBggacnaC887BopGh9iQeXdurEM=;
-	h=From:Date:Subject:To:Cc:From;
-	b=M7PwE8vs380dVRprGT3GoYw+XTaG9mslN5VkmSpqOEx4CgTgLWc1S+hX0bkHb1Vqq
-	 mDbKHGMOMa90ppqi9mrPdk0XaXqG/cwkW7KnizCScXCStYIpfxoA1iwNSItE9kbWqv
-	 SJDDA6TOcHNmznHUDr1as91IyCU3QVJ3hYGRDBAY=
-Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
-	by gentwo.org (Postfix) with ESMTPS id 93F16401EC;
-	Tue, 24 Nov 2026 23:40:54 -0800 (PST)
-From: Shubhang Kaushik <sh@gentwo.org>
-Date: Tue, 24 Nov 2026 23:40:54 -0800
-Subject: [PATCH] PM: EM: Fix netlink performance-domain dump pagination
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MOnbzhhK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795592672; x=1827128672;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UXNO/LZ09Iyfnm+ymAlG4P2a1RxXacGQZKc0ObM/XnY=;
+  b=MOnbzhhKXnmW7rN6Fk2NNqiJT7EqEiQjmKtuXxJVASE6KaeBOC44vI7E
+   LgnwCW3qBAph1r+snGwm0VZzXM9oJGbAP5vDUiNdAaUTJygtl71xXJH7G
+   d6iswfZ391LoGArsgTtym8SYdx0ns7rv/3Vl/TtZBnozt0PZaMSknVSqN
+   hsBMH0jiwnABo6I1xHa0PId3kMmqe+lUXATJnf7HJqbMjyUmACZVAXb0g
+   PgRzQegoTkTux4SAobRnVN9c5JfyTMtQlD4YS4VcetvuatN99ODKW58ys
+   wasVOOU+UfVCyT4JcfQ/4H06snUFh0m6ZvKhhvBcSbWeXt4VqsbsqYkto
+   Q==;
+X-CSE-ConnectionGUID: WPsemKGaSNGAC3nkg+oizw==
+X-CSE-MsgGUID: SmHKv3ogQk+PFbfUwCzzfw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4435635"
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="4435635"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 23:44:31 -0800
+X-CSE-ConnectionGUID: s9w+15noRw2HjH59TOL58Q==
+X-CSE-MsgGUID: Vm+NhJ+AT8CeiUU1ZefKkA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="11906096"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa001.jf.intel.com with ESMTP; 24 Nov 2026 23:44:30 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 9D38498; Wed, 25 Nov 2026 08:44:28 +0100 (CET)
+Date: Wed, 25 Nov 2026 08:44:28 +0100
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Alfonso Villalobos <alfonsocvu@gmail.com>
+Cc: sashiko-reviews@lists.linux.dev, westeri@kernel.org,
+	linux-usb@vger.kernel.org, andreas.noever@gmail.com,
+	YehezkelShB@gmail.com, stable@vger.kernel.org
+Subject: Re: [PATCH] thunderbolt: Re-add host router DP IN adapters after
+ DPRX failure
+Message-ID: <20261125074428.GB191152@black.igk.intel.com>
+References: <20261121070804.26185-1-alfonsocvu@gmail.com>
+ <sashiko-outbox-226770@kernel.org>
+ <CAJ=mrFowQNahOjD-NQzcuJCjPE=efvDK85kMpseRUrqYBwX3Sw@mail.gmail.com>
+ <20261123054042.GL229695@black.igk.intel.com>
+ <CAJ=mrFqe1ujyq5oX==HQ8MsBRNb_64dPZz7aHg5LYBYtKVOGvg@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,121 +86,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-pm-em-dump-v1-1-8f9167d437bc@gentwo.org>
-X-B4-Tracking: v=1; b=H4sIAAWRBmsC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQyMT3YJc3dRc3ZTS3AJdA4M0Y6MkC4u0FLNkJaCGgqLUtMwKsGHRsbW
- 1AB23sh5cAAAA
-X-Change-ID: 20261124-pm-em-dump-00f32b88fd6c
-To: Lukasz Luba <lukasz.luba@arm.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Donald Hunter <donald.hunter@gmail.com>, 
- Changwoo Min <changwoo@igalia.com>, Shubhang Kaushik <shubhangpk@gmail.com>, 
- Christoph Lameter <cl@gentwo.org>
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
- linux-pm@vger.kernel.org, stable@vger.kernel.org, 
- Shubhang Kaushik <sh@gentwo.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795592454; l=2959;
- i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
- bh=P7KTpYs1LMqVBjyKwBggacnaC887BopGh9iQeXdurEM=;
- b=d6M9+D1mnKX5PKqtKcoEoWeu8nkNSVPipNM5Sd3UrFm3i+kMWwbSXaPRex6mVOeekv6PWal79
- ZZCskFlrt6SDRPYUFcLQqwE+wWNXl0grDpGMjotiBLE4s6qaNI/677j
-X-Developer-Key: i=sh@gentwo.org; a=ed25519;
- pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAJ=mrFqe1ujyq5oX==HQ8MsBRNb_64dPZz7aHg5LYBYtKVOGvg@mail.gmail.com>
 
-GET_PERF_DOMAINS dumps performance domains through:
+Hi,
 
-  netlink_dump()
-    -> dev_energymodel_nl_get_perf_domains_dumpit()
-      -> for_each_em_perf_domain()
-        -> __em_nl_get_pd_for_dump()
+On Tue, Nov 24, 2026 at 07:22:37PM -0600, Alfonso Villalobos wrote:
+> Thanks for the details.
+> 
+> > Does the RX 9070 driver poll for a new connections periodically like the
+> > i915/xe or it supports PME?
+> 
+> It doesn't poll. When I looked into adding it, the GPU had no way to
+> check the connectors without taking the core out of suspend. After a
+> wake it stays on for about 5s, so polling every 10s would eat most of
+> the savings BACO is supposed to give. I haven't actually measured it.
+> 
+> The card does support PME, but in my testing a hotplug on the TB side
+> doesn't wake it up. From the amdgpu code, PME seems to be used for the
+> audio function and only while the card is active.
+> 
+> So I think the problem has two parts. On the GPU side, PME wake on DP
+> hotplug looks like a firmware limitation. I'll share my findings with
+> AMD and see what can be done there, but I'm not sure how much I can do
+> from here. On the TB side, the host router never sent a new hotplug
+> for 0:10 after the DPRX failure, so I still think the patch is useful.
 
-The dump handler rebuilds its local cursor from cb->args[0] on each
-callback.  When the response skb fills, it returns -EMSGSIZE and the
-netlink core sends the nonempty skb before retrying the dump.  However,
-the updated cursor is not saved in cb->args[0], so the retry restarts at
-domain zero.
+It should send hotplug when the domain is resumed and the host router is
+re-enumerated. However, that requires the domain actually be runtime
+suspended as well. In this case I think setting dprx_timeout=-1 or
+something like that works it around at least.
 
-For example, if domains 0 and 1 fit in the first skb but domain 2 does
-not, every subsequent callback emits domains 0 and 1 again and never
-progresses beyond domain 2.  The handler also advances the cursor before
-encoding the domain and finalizes its partially encoded message on
-failure.
-
-Advance the cursor only after a domain has been encoded successfully,
-cancel incomplete messages, and store the next domain index in
-cb->args[0].  Return skb->len after a successful iteration so the
-netlink core sends the current chunk and continues the dump.
-
-Fixes: 380ff27af25e ("PM: EM: Add dump to get-perf-domains in the EM YNL spec")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shubhang Kaushik <sh@gentwo.org>
----
-Validation on 80-core Ampere Altra system:
-- Built kernel/power/em_netlink.o and completed a full kernel build.
-- The dev-energymodel YNL spec validation passed.
-- Exercised an empty GET_PERF_DOMAINS dump.
----
- kernel/power/em_netlink.c | 23 +++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
-
-diff --git a/kernel/power/em_netlink.c b/kernel/power/em_netlink.c
-index 1f68d456a713c08d7a4f690e88c03182f6ee3ef1..2d15556fc49f285cf2a99bac85c8da578eb22d4f 100644
---- a/kernel/power/em_netlink.c
-+++ b/kernel/power/em_netlink.c
-@@ -80,19 +80,25 @@ static int __em_nl_get_pd_for_dump(struct em_perf_domain *pd, void *data)
- 	void *hdr;
- 	int ret;
- 
--	if (ctx->idx++ < ctx->start)
-+	if (ctx->idx < ctx->start) {
-+		ctx->idx++;
- 		return 0;
-+	}
- 
- 	info = genl_info_dump(ctx->cb);
- 	hdr = genlmsg_iput(ctx->skb, info);
--	if (!hdr) {
--		genlmsg_cancel(ctx->skb, hdr);
-+	if (!hdr)
- 		return -EMSGSIZE;
--	}
- 
- 	ret = __em_nl_get_pd(pd, ctx->skb);
-+	if (ret) {
-+		genlmsg_cancel(ctx->skb, hdr);
-+		return ret;
-+	}
-+
- 	genlmsg_end(ctx->skb, hdr);
--	return ret;
-+	ctx->idx++;
-+	return 0;
- }
- 
- struct em_nl_doit_ctx {
-@@ -166,7 +172,12 @@ int dev_energymodel_nl_get_perf_domains_dumpit(struct sk_buff *skb,
- 		.cb = cb,
- 	};
- 
--	return for_each_em_perf_domain(__em_nl_get_pd_for_dump, &ctx);
-+	int ret;
-+
-+	ret = for_each_em_perf_domain(__em_nl_get_pd_for_dump, &ctx);
-+	cb->args[0] = ctx.idx;
-+
-+	return ret ? ret : skb->len;
- }
- 
- static int __em_nl_get_pd_table_size(const struct em_perf_domain *pd)
-
----
-base-commit: 4dce97c6c265544342e716e62fd24bbb232590c5
-change-id: 20261124-pm-em-dump-00f32b88fd6c
-
-Best regards,
--- 
-Shubhang Kaushik <sh@gentwo.org>
-
+What we could do to improve this is that we put the DP IN to "penalty" list
+then once we get new DP OUT hotplug/unplug we prioritize the DP INs that
+are available but if there are no available ones we take one from that list
+then or so. Note this needs to work with DP INs on any router not just the
+host router.
