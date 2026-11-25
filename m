@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795605987;
-	b=fvqZlahI8+jsNxVblNiMVeD2/+yZD492SGSji0WHThcgIrXnPS097lIwo6k2xNMypn5c
-	 lZgdtZdvwwOXLqJt5xEJp7tEYO95mgUW075F3607f/SvdAB6k4yIm4lEqFDlGchcjQ4Cb
-	 xnWtKuBdj0d+fMJsdWjIWcEPlOzIkG5T9BT7AWpP6Jw8drXkx34j8eeJvYZgq4UnDEz52
-	 l0Vag8nNFCdEOv9HJgki+cKgrOBBTnjyjnigWBbzyxnKwsBMI2T69KY4FQhaD62RV8n0X
-	 TBOovHIZhYabEr0HkKDx7bHFM/JmG9VvCuJxkE3oU6GpRyQchVUgLPr8mDwtbmUFjsA==
+	t=1795605989;
+	b=3C09BtjslRPABXxyWI9rnjeSSmjEonmLfYaIPrXr3L1CD5UWpVovs4J7Kuq+aAqHgE90
+	 zlzEYOnjMdVYvrIVqotVoOQ7Ndwl6qyjWzyaWToMUC/kUd3WB8SX8kiOUGwuoFLZKURa4
+	 M6VsIXwmHG1mc6d0sQ2QeI7t+0kXxdxCduEenRZGMDBQNj/Ztjd2cR/k3yPyWeF5KB4yB
+	 jBsU5RyzLob2WhirGgnk5y3epdzk8DlTTuPC9wTXNZDFbqnLFTolNpOciVdg+VcWkg0yn
+	 swvEEE/+/8d6AiIny4LGGk82ezgfP6g6qFGRx/TTFNPv2VOyKZvDwsgcJePcmUslM8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795605987;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795605989;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ilQJuzbJPFh95ukmDskbbaFBPQb1xa3CtU37RvzGfP0=;
-	b=BtOvKCTORb97FxibSqoPp8kE0P1KdbMHh7v6ypJ9Rm4EmZrGyS8RfCGkuIJbkpLZQkJ9
-	 TQ/SCOPrYwnUXDKDKgxydKpe6ngHg+1DzhevlTIxBqw1X0reUaR9Dy6c2Yezr0Zmo2jQh
-	 UtBunnjj4DYbFSFN3iWzVjK88lkOPMMjr36O9DeyWFOckw11Rkp41yAHfDYLSihaIA1tK
-	 hbD/oLUDxHYnVk/D5SbbLSXdfQrpgHnfhiDkdna44Irsd3Z3Xj7z74TJo3lpd7ZdDw49T
-	 dVXxxF+qGnJasMYUOtWkYaLvtLr4JrVmAgfkjXf7CO/1x3TFW/A+zF3N4iQPzcBqXNg==
+	bh=cpHeqc262L+KtpuyUvd5jyyhU7jVoIeJ2bpm6AvbLjc=;
+	b=Ef9mD2TGybgsmYCDKeITlg96pUDyv+DFvS3073IRkszcdsirDj52ZnQYagUD8+hp118o
+	 6CrN/19dWD4tre7L+aWZZ5xo2HgLUhECooObffKP4W9KX3wjaNwGe+VJP51QDe9Qah+gO
+	 v4KOnpXOzeAX7mAAP6OWLnRwYk12ks8ZKtYyGxBXE5NR0fMivMg2wsvzsalpGgTBAnz5a
+	 lbtunHAVgIZ+57pjuNzlgQyeBRB6US9C02WwhojvUBiatWXHIqz1Fukja69UX2N8z4aPL
+	 1nhhz0xTZb8iBC1PxmFcRY/F/EcM1gzfdyDp6UcpxbnQokU4IdNufONQ6pz9M1+6APQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=V5OmRTAT;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CC28T0zs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1804606A330
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:26:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDD75606A333
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:26:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=V5OmRTAT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B750F1F000C0;
-	Wed, 25 Nov 2026 11:26:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CC28T0zs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D11341F000ED;
+	Wed, 25 Nov 2026 11:26:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795605986;
-	bh=ilQJuzbJPFh95ukmDskbbaFBPQb1xa3CtU37RvzGfP0=;
+	s=korg; t=1795605989;
+	bh=cpHeqc262L+KtpuyUvd5jyyhU7jVoIeJ2bpm6AvbLjc=;
 	h=Subject:To:Cc:From:Date;
-	b=V5OmRTATw5GRInQJFX8sF5hy4yiZOjuhmBUorBiAk0/QVLBLTLmUArA5NCa5l9FqK
-	 XffxPDLGrY9PTm1pIkWG2nf+LepgauEoC7hXRrkjUBm5O8mlIIR8l6Z8R/SZKhiOpj
-	 s8VnYz13IWMzZ2MMYrJeZALiku4XVP3zt9uc7ltI=
-Subject: FAILED: patch "[PATCH] smb: client: don't block dying tasks waiting for writeback on" failed to apply to 5.10-stable tree
+	b=CC28T0zssOzYkrlbslPfMEDkZCwoRsv2S7TDrj4Vsww6PgF4vuf9Ep4rARjJkoern
+	 PccnPJeld6wA0nFnJi3R3WWX4Eb3M7PKHvxTxyvpK/tGtClrB59hDy3czg+6jNVcBX
+	 dCNq3mWSl+XEPY0VbuxyNvRkZE+pGWXV/84k2vkk=
+Subject: FAILED: patch "[PATCH] smb: client: don't block dying tasks waiting for writeback on" failed to apply to 5.15-stable tree
 To: pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 12:10:34 +0100
-Message-ID: <2026112534-bullfight-wanting-5e38@gregkh>
+Message-ID: <2026112534-exorcism-shirt-2fa2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 15ea186abbcd04157c62e0901701870b812bb2bd
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112534-bullfight-wanting-5e38@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112534-exorcism-shirt-2fa2@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
