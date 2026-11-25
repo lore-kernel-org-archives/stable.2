@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795604525;
-	b=W8M8UOogYkSGtMQtmig5xZ1fG95tyz/T0XgpWybj99i6Rk0IzMVMnLKtqYHyzEOH50BF
-	 WEVHGq5mdjreRhJXIwBGiU9cdDncNKcXNW0pJMHq16Um7QsScP5gV5LQ1whwf5NOZqDxb
-	 3Z4lbXH1ZhCQGmUMnYjeaxX+tALQTfmf3uF9I5ye009rFXy3glQp8JxhD3Dhmxtwv20+R
-	 N/UU4npmMce8dE40BulaVbG//ubX32i6BjuuY/FmGg40M7Gwlu21DnQWudr+NhqHbVIEd
-	 kcpv8DI77WjdAaBzSYYs3QqpLDtpfnbtuwl3XT8CKPQvdkhxj/Tqc7b+Zyft/jIR85A==
+	t=1795604528;
+	b=wvbxT8SAJfsA8WFchXJrKug4adBrr25t7Eo8g7AJacJVgn7F1vSyxFaFCjjgMcb+pS5t
+	 6edWNmmsgj8ZDc0eicRYDGl11EI5N6NAtRkb8i7/pX62TW/55Q+i6Ff271Nx6957+GNYh
+	 iSux6JxhutyPJ7UBlRc88iMaOSHbCw2WLCS3VQeJj3aoYhKl4bBVBbLSrugK2mJr+AkJr
+	 HJqlHGxMVq7dzceaONME/yI3REYpjnFQf6b3J4y/YtHogQqn0rhHX4/ScJpV9qd6Avqts
+	 uIRqqkPQabbgLF0YVeZ7Y0D+VXfxYpA1NeHgHApuF+VneDA3GvLlLaBJlK+5jTDsp6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795604525;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795604528;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=QXbs2MFx2iheBJ9hVJVm06WJ3nd24CNZ4Mr2gzNtEP0=;
-	b=CB/n1yO5w7UdpXu28AxiOtkSrwW5kooX1oR7/0FVktGdRF51C/dxH/K3Sa58MjPtd85k
-	 KhcyY5UKyY4lYV4lTP3dfFHOs7HUYBqviCxxHdXPqBFMtUE11a+u4dtNAflh7a3pEczoS
-	 lSMzeZ3xdH/qWOS7P4K76U5QmolOOgMPNXr8bgGgsQc1Ox7wZCaxQiu/nmsWpt0mSE/jR
-	 IbSsn0prfRwpjJFCph25cAAFiJxq8gZ9ULi/5HAwVuZgj6dM6F/0cpxCVjwkv3HU6ULRy
-	 UYTmwhsfFPseZUbHWO1DCeRsDIw8+Yztl9dTJpEr1sGo4XAeGnN7gc8w/+nGoK60iMQ==
+	bh=33HgXHplnRGi2H/mATs/dbZoWtGI9sYlc4Y2FkaZ8SI=;
+	b=w1Ghv/55T19ZfZrgVIr3PSwCg+9O6bRHjTS459Dk8WuGNdgnecZlqHVv0oMRG7taxJKX
+	 T6ZKiG2iEctIak2xMDxPHj679CB7jFPLlXLE64TZQfvuxr6NEfw55XlaSsL0gswOmbT0f
+	 +FiKrl2rSJBnPps5RsOE6l9JOHqRKkcIFrrnSRsg4ARB51ilnJUgCOx42Mbs7r0Nrrvc2
+	 Lky5yRmaf3Ag/D/sFCrhQxj5BRhGoQ5AesJZ514wj9zUFcqBco8ZTvHghyJt33YAoksCR
+	 3eICrzKd8ATQp0B+6zCbZodl8I6oYOOOsTUlxa7f1NGjm2d2xDT/zeHAjyAEgrmsHfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=geGan9KY;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zbOiN42L;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8B5606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:02:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98E1606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:02:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=geGan9KY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAAA21F000C6;
-	Wed, 25 Nov 2026 11:02:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zbOiN42L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D6921F000C0;
+	Wed, 25 Nov 2026 11:02:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795604525;
-	bh=QXbs2MFx2iheBJ9hVJVm06WJ3nd24CNZ4Mr2gzNtEP0=;
+	s=korg; t=1795604528;
+	bh=33HgXHplnRGi2H/mATs/dbZoWtGI9sYlc4Y2FkaZ8SI=;
 	h=Subject:To:Cc:From:Date;
-	b=geGan9KYMi2/OwbKHvKRFzYUwo6Qh0cawCCK8SlyvChe/MZFh2oKZDh5A12TLffu7
-	 qpvs6J04F5t/3dsdx+kqxwzAx5oVCDcvfNWKh5ksK+3fEN9d0GTJikxtda4yEAq0+G
-	 ZvpeGW2AF0DLfZPpibv3TuortJs5uPnXwkNlGE0E=
-Subject: FAILED: patch "[PATCH] gpio: mvebu: fix sleeping-while-atomic in" failed to apply to 6.12-stable tree
+	b=zbOiN42Li+p5B/o+o8QOun3t/YXqu4faYYQeeUdO6zjjw60Q+hiU4kvyoHL9jrURq
+	 qrxp94yY05Zv7o9vvATD/zAZ3iA1wEfxLULD55AVRDZmYWA5AbCBKrpFPe7/o1tPaP
+	 z9lKDNQNTJQGFj58IISDY01Xn7CDUsj8M3LL3hhc=
+Subject: FAILED: patch "[PATCH] gpio: mvebu: fix sleeping-while-atomic in" failed to apply to 6.6-stable tree
 To: bartosz.golaszewski@oss.qualcomm.com,linusw@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:42:17 +0100
-Message-ID: <2026112517-afterlife-nuttiness-c75a@gregkh>
+Message-ID: <2026112517-octagon-dullness-c22c@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 42269cdb3d3b46ba6e80f31d0e00d0bdcff1d8d4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112517-afterlife-nuttiness-c75a@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112517-octagon-dullness-c22c@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
