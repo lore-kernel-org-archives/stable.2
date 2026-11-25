@@ -1,49 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795621775;
-	b=o/RmZzt4FcJxlL/6aGSQel/l5VxxjS7u82Lp+9NvC61ZuZIMtMWzsVERxIv669aLwkut
-	 l0eo/AlD68iCZO+yJarVeu9Uf3vApc4Jae2zZK1t4HGn/aN5NvMaodLXSKar5yBX/qbHa
-	 3MTcZSH7oET/LnwYUhFKsT3e5eZ/2SRr1iizd72cNpjZGtYOyZ5/u4yYAInRx9FDHn0B9
-	 FOJ0VbOQSiTd2k3Jc2QL1H6loFtGde+CwuOKxROjRrgBD6VOMqZCIn6A2B9h2VhPI1cSv
-	 U3QSfq1Qy+6cLq4rJwWV1qLqBe+1AuCMKojEk+bJbJ8udcvu4kX77308e/mv1pznZ0A==
+	t=1795621777;
+	b=AlUl7ij2N35Q6/4XYsUgJ49tH5o2/7ngXo9RPCik+zD+FPA6VAfW2hNX1a/hYX/sde2b
+	 fHNMI4Nm6z/zEf14mz26ExdXBLVsYBMMghfiNGK+LB+u8MQ4rtjcA/+fcva108Ik6MV+W
+	 0e1ptrFXeZr+Wkz/y6xV7S/ffLSvM/yW3lzYcKwf8hQZC4V6Pl0rRNAe5Bic63SISehU2
+	 2lFTxpnvBZToNo4ok0Cot4bCt+FNMtFwCnOIqNBSNk29amuEGjNgX6Bxi0+0CnYOEw49H
+	 AHMr/L8eW60TGoAepbB3uSq2Oo6ku3Z4ySSIpBXTsMvAUXuefPU09fZGFxmEEG8Uljw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795621775;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=xwN7N2TJ/AxtSCaqTfLM9jPZ0Ogy+48kHJQgnpkXTHY=;
-	b=WVQTBV4cG//VvIZHyBM45f1TPQ8Qke9U3XDuNOR2KZNRap1axnanK+FpNwBN7rMbtBzX
-	 1Bnt8Nmlo8E3CLc9+qyODVf44P++cZi9NRKFSPnb/tH6TPSOQvUcRsgWLhUH75/pYzmRt
-	 Zy5jHQqkvPh137Zt9UhqnoVAmshWlONDFfnWR9C6VLmoUxdzVtuOYtVRd0TyT6XH07PP8
-	 F3UjaEAEsE4H25HW2jBqfpREZ+BwJNB34fT08Jl/ciuY4lSJ19X2foKbGIv59wX4mbdS8
-	 +6IsOXnWOLzRv1XDRpqPITvLVB3L4hY3vjtVBfT6fX40I5wadPBwAivYt88hz276ktA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795621777;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=U3mpzy3zIiQNObn8+JDGKC+rfoRRtZTzMCY/ynqV06c=;
+	b=txZIigCLesWwcHNKjXLuHrl/ER9/MxtIZL1RSNGCKzjCU3Qq4gAOmRJ5U8UojHedQzMr
+	 Wp3OkvZfG3jRFvJAAhyHtFIXMXmkRhDWR4lfBwksYF9tt1oKpymwkNMJ1ljOjmwjmzPhB
+	 shXmDEuXrd2N5H7xsm3Z0bV9gUKj7d4jICbwgk45wZZluXdMRSOVEwHNf+7La9/D+Zgbd
+	 r4Sfl/ZxgXqP54zxYDi9QC7Yq10MZ8E7hoylH41dq8DGvjjpGEhGp6UfIq4nzPPee2NXp
+	 xNAztKhwzoJTHHgXD2W/E1SiWYe2vUSbLg+2a4mleIYm3bqVAU26PMRcqfLByhUZZEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LOOzE1Ia;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0shttGFl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B932606A332;
-	Wed, 25 Nov 2026 15:49:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC26606A327;
+	Wed, 25 Nov 2026 15:49:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LOOzE1Ia
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79BE81F00ACF;
-	Wed, 25 Nov 2026 15:49:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795621775;
-	bh=xwN7N2TJ/AxtSCaqTfLM9jPZ0Ogy+48kHJQgnpkXTHY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=LOOzE1IaHjp88Xb0pe3QCQu7CIqsf9lvB2bWUHMyrquKLsE4mk3eSefypXwCchx3/
-	 EgDm9WYoe9egxS4uzllqv4tVecTYA4VGcRRpMrF6IZn9+kOnaqnGiTyRjV7ad+DIPf
-	 kiRZkpUSghvkaz+DxSJ+hB7Rae8h02h/GXcc8vmDBYeLGWK4fZygL3H/I2Bdj6bkGJ
-	 PagDwhj4P2FJg4JoA/yA2/SGYxaB/eZmY3/+F9aFz++Kq0PaHWKz/qGtQ3rUCGL2vn
-	 zoCiluotK1PIu1HVzJVPeNyK1XVICu+74JYxil/rYHKTDWqn5RR6PbqKKTDQ5drbOj
-	 C9Ap2JSXYBDKw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Wed, 25 Nov 2026 15:48:52 +0000
-Subject: [PATCH v3 4/4] mm/huge_memory: only compare PFNs of huge entries
- on huge fault insert
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0shttGFl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59D081F000ED;
+	Wed, 25 Nov 2026 15:49:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795621776;
+	bh=U3mpzy3zIiQNObn8+JDGKC+rfoRRtZTzMCY/ynqV06c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=0shttGFluwgm0o21q+sLD88dRwETmhveErx1uaacb2zxvUxPucakXV1Tdk7uVUJQ8
+	 wi8Gd75unUT7DFuXGnco9HdgzB4Y8NTel4kXvyJAiHHHicN5MADNOHfXucDarbdTS8
+	 nvIPDbhJVQ0F6yqDD2gqIFRcGbLH7Zss0Nw/VvB4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Siddharth Chintamaneni <sidchintamaneni@gmail.com>,
+	Jan Kara <jack@suse.cz>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 306/990] fs: reject negative offsets for SEEK_DATA and SEEK_HOLE in default_llseek()
+Date: Wed, 25 Nov 2026 15:27:53 +0100
+Message-ID: <20261125143829.259790651@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,117 +63,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-huge-pfnmap-fault-races-v3-4-bbc44489341b@kernel.org>
-References: <20261125-huge-pfnmap-fault-races-v3-0-bbc44489341b@kernel.org>
-In-Reply-To: <20261125-huge-pfnmap-fault-races-v3-0-bbc44489341b@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>, 
- Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>, 
- Roman Kisel <romank@linux.microsoft.com>, 
- Saurabh Sengar <ssengar@linux.microsoft.com>, 
- Naman Jain <namjain@linux.microsoft.com>, 
- Michael Kelley <mhklinux@outlook.com>
-Cc: ljs@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Eliav Farber <farbere@amazon.com>, stable@vger.kernel.org, 
- "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
- "Gregory Price (Meta)" <gourry@gourry.net>, 
- "T.J. Mercier" <tjmercier@google.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3097; i=ljs@kernel.org;
- h=from:subject:message-id; bh=JsUg5bNeXJ+T8vfVeKVvW7LaLcQrJO3bFcpJ22VjJ8o=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLZmTPfaT6JTWB5lP5ylWZvkL14xaT58xaapXudKV8gP
- EfJy/VyRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACayKZThf43eEc45337s6NKu
- 8KqICTCase4gU46K+67dvwI2BukI2jH8d3qlIGQX9zWlsqs5fHu0RUjLPMtZCc/23ZmvE/zhVqU
- aFwA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 
-A driver that implements both ->fault and ->huge_fault must anticipate
-concurrent use of both.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-This can happen, for example, if a user calls prctl(PR_SET_THP_DISABLE)
-concurrent with faulting, as that only holds the mmap write lock and thus
-does not exclude faulting threads stabilised by VMA lock.
+------------------
 
-insert_pmd() and insert_pud() have issues with this as they both assume
-that, if the page table entry being populated is not empty, it must be a
-present huge entry.
+From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
 
-This is problematic as if it is a write fault, it compares its PFN against
-the one being inserted, warning if they differ, on the assumption that the
-entry is a huge leaf.
+[ Upstream commit 7a5783cfac71b3c12e7fb1c2894dd4538d57d513 ]
 
-Since the entry may be a page table, this is invalid and can result in
-spurious warnings.
+In default_llseek(), the range checks for SEEK_DATA and SEEK_HOLE compare
+the signed loff_t offset directly against inode->i_size:
 
-Equally, the entry might be non-present. Nothing can install such an entry
-in the VMAs that reach this code today, but there is no reason to rely upon
-that.
+	if (offset >= inode->i_size) {
+		retval = -ENXIO;
+		goto out;
+	}
 
-Therefore only examine the PFN if the entry is both present and huge, and
-otherwise simply return VM_FAULT_NOPAGE so the fault is retried and handled
-at the appropriate level.
+When a negative offset is supplied to SEEK_HOLE (e.g. lseek(fd, -10,
+SEEK_HOLE) on a sysctl file in /proc/sys), the signed comparison evaluates
+to false and execution proceeds to:
 
-This is what already happens for a read fault, for which the existing entry
-is not examined at all.
+	offset = inode->i_size;
 
-Target the commit which introduced the first driver which both mixes fault
-orders and passes the write flag for the fix (since this commit, both
-drm_gem_shmem and panthor are prey to this issue).
+This overwrites the negative offset with a non-negative value before the
+final `if (offset >= 0 || unsigned_offsets(file))` check, causing
+default_llseek() to update file->f_pos and return inode->i_size instead of
+failing with -ENXIO. Similarly, for SEEK_DATA on a file with
+FOP_UNSIGNED_OFFSET, a negative offset bypasses the range check and
+succeeds via unsigned_offsets(file).
 
-Reported-by: Eliav Farber <farbere@amazon.com>
-Closes: https://lore.kernel.org/all/20261112051440.16140-4-farbere@amazon.com/
-Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
-Cc: stable@vger.kernel.org
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Acked-by: Naman Jain <namjain@linux.microsoft.com>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Read the inode size once via i_size_read(inode) after acquiring the inode
+lock and compare (unsigned long long)offset >= eof for both SEEK_DATA and
+SEEK_HOLE, matching must_set_pos().
+
+Fixes: 982d816581ee ("fs: add SEEK_HOLE and SEEK_DATA flags")
+Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Link: https://patch.msgid.link/20261101060049.81441-2-sidchintamaneni@gmail.com
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/huge_memory.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ fs/read_write.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 0d589be136d2..ab267ad48020 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -1643,6 +1643,10 @@ static vm_fault_t insert_pmd(struct vm_area_struct *vma, unsigned long addr,
- 		const unsigned long pfn = fop.is_folio ? folio_pfn(fop.folio) :
- 					  fop.pfn;
+diff --git a/fs/read_write.c b/fs/read_write.c
+index 011fe55c94cdb..96528614d4f33 100644
+--- a/fs/read_write.c
++++ b/fs/read_write.c
+@@ -331,13 +331,15 @@ loff_t default_llseek(struct file *file, loff_t offset, int whence)
+ {
+ 	struct inode *inode = file_inode(file);
+ 	loff_t retval;
++	loff_t eof;
  
-+		/* We may have raced a fault which installed a page table. */
-+		if (!pmd_present(*pmd) || !pmd_leaf(*pmd))
-+			goto out_unlock;
-+
- 		if (write) {
- 			if (pmd_pfn(*pmd) != pfn) {
- 				WARN_ON_ONCE(!is_huge_zero_pmd(*pmd));
-@@ -1770,6 +1774,10 @@ static vm_fault_t insert_pud(struct vm_area_struct *vma, unsigned long addr,
- 		const unsigned long pfn = fop.is_folio ? folio_pfn(fop.folio) :
- 					  fop.pfn;
- 
-+		/* We may have raced a fault which installed a page table. */
-+		if (!pud_present(*pud) || !pud_leaf(*pud))
-+			goto out_unlock;
-+
- 		if (write) {
- 			if (WARN_ON_ONCE(pud_pfn(*pud) != pfn))
- 				goto out_unlock;
-
+ 	retval = inode_lock_killable(inode);
+ 	if (retval)
+ 		return retval;
++	eof = i_size_read(inode);
+ 	switch (whence) {
+ 		case SEEK_END:
+-			offset += i_size_read(inode);
++			offset += eof;
+ 			break;
+ 		case SEEK_CUR:
+ 			if (offset == 0) {
+@@ -352,7 +354,7 @@ loff_t default_llseek(struct file *file, loff_t offset, int whence)
+ 			 * long as offset isn't at the end of the file then the
+ 			 * offset is data.
+ 			 */
+-			if (offset >= inode->i_size) {
++			if ((unsigned long long)offset >= eof) {
+ 				retval = -ENXIO;
+ 				goto out;
+ 			}
+@@ -363,11 +365,11 @@ loff_t default_llseek(struct file *file, loff_t offset, int whence)
+ 			 * as long as offset isn't i_size or larger, return
+ 			 * i_size.
+ 			 */
+-			if (offset >= inode->i_size) {
++			if ((unsigned long long)offset >= eof) {
+ 				retval = -ENXIO;
+ 				goto out;
+ 			}
+-			offset = inode->i_size;
++			offset = eof;
+ 			break;
+ 	}
+ 	retval = -EINVAL;
 -- 
-2.56.1
+2.53.0
+
+
 
