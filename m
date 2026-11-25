@@ -1,59 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=184.106.54.106
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795628718;
-	b=ymve6Fl3TYnFOeZeplzrKkrBrDU93oP1irALmmPrxJZ5MTfgQBSyZmwwKCSCqap3v+Ki
-	 4qPvDlFhqwE5rmOHWXyeorHHtChGXBsxODqvZ5CFx6/AX7reMIJPt4gjze6xrRKu99Akr
-	 3xbnJlokyfI52vqCgNtbscJlS6ZCdpDTwV1kqdOL2tPFMVuiLMUWAi97nn4qy4+l0nnqX
-	 PsUUqcOlE4fc6laL0GPWTnVrRTskMbqbCD0+egxkm0cxgKVvRyLjRwFqCtdrC2J+JMnKD
-	 /tIsOO5129STWxQTWk19sQuTYiT7QxbWom5hAeqnCW70XfkN/7xUX7MjEkXic7o8Aqw==
+	t=1795628726;
+	b=JGuuLO5FwrJnXPMOM+GwAEp5DMtxxjx0oiaCOLgjVKWX2du7GI98JwrWcyyApLwU2uIp
+	 FooRSHYqq3VvWkC3pREoRrqBGmMJ0FSvQaFY6y7lns5x8tnQAkYGFpLOFr7GWonTxALXx
+	 gahKJGlK2r+hRmJ9NhRLJmMgAVvWBUxFgoRxMcAhHXwd1tERvLqnS7eXQrm8woiz/s5vC
+	 R/9B8unpXv1ZMB/ImwvWnV92bY901tKNDSTZX+gzrNQO9dX702VZ+RGpiZ/u9jmj6a40G
+	 4QuHpjZNbXUyu7KXMctJ21rrsgRy38tI90c7MsqdxfDcWpnX2VVB7lx8nzKx8FEkLDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795628718;
-	h=DMARC-Filter:DKIM-Signature:X-Auth-ID:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Classification-ID;
-	bh=wN1N5SmhhRahrFdLRLG52pXG9GXvItu29SbUHZK/ll0=;
-	b=h8xba/U9kO/7V3IJep1WvTSrt+Q2BM/rtbWv4igGJksa4faJ6LSGtX04WgyZZQbQiOZ2
-	 ieALbcs4IlcevEnmcQW6HsSteHrIOkhvmD7NNjjn17QEl8kGdQpnzPF0E82sYm5pZYTuo
-	 9OfL91Tb3CgYev83afGUSfNpvAEy3JAQq4gKO4/ikESPcWBXdqs5KX5PM7457ldoeWkvk
-	 A6WcXqiFCveuG8xImbKK7T9ZnRc8CRg8AK2NLBE6j4jKwxiQoerb0FNox0Olq33N61rDo
-	 Ajpidqx7kP2GOikS3rejK9s09k3dIz46k6Ogcs7lhtaEbhhNMYT3L1p9ZDd1ulkwgOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795628726;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Mbs2CDYdpvIwC7iZe5bWjKLeMBBCsiRoWbhpe2c2z4w=;
+	b=hnLs3iVvUHwGm7FYRQ3gqRzpMRA9dlAH1JXMeCBjA2PjESKvM/sipM9DShlkoNi/Q1DE
+	 PxX8Rg9bTOO4GYDCcf1T0VXWpoBtS0MI2N+COLkRfACTZi0NXe0w9jgpuSRYThiuu+GWI
+	 HvXmEF9S7Rl+guq1E8/zVpgU5pDRmPR4RCo1siXnIbUjHjiPdfUoBjVKJbBP+9xIunZ5/
+	 tbdpCF6z86kuZ4Tpgrk0O1VcF4RCUuu/OsYJO+Jn2TCtGUYNBuG1g8HZk8xDKLazfYgJX
+	 ytcX+JLRxlSZC9Rh4e1l+bnvOzHSaXicQ3IUbpoPS/kN2r0wp7Ilf8Go7TWQz0H/kkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mev.co.uk;
-	spf=pass smtp.mailfrom=mev.co.uk;
-	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=Vunzd+ZN;
-	arc=none smtp.remote-ip=184.106.54.106
-Received: from smtp106.ord1d.emailsrvr.com (smtp106.ord1d.emailsrvr.com [184.106.54.106])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ybni0wnf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9BA4606A33C
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:45:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9BA4606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67BB0606A33D
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:45:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=Vunzd+ZN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
-	s=20221208-6x11dpa4; t=1795628709;
-	bh=CbJBVlaa+xLVljF69QtXPkZrwPgsm7o1I7U08uOh1rk=;
-	h=From:To:Subject:Date:From;
-	b=Vunzd+ZNozaW3BzFzzZHIh4qZaqnwmPOS0uauk4n/DZxgi0ns8b/FpIAFBNPCXd12
-	 JDz25nqq6kAEW0hY3nRabmTLCMwi5+pC2t0uJNmZfCreNiP0AUpKFYDl7VW2blwWQU
-	 OV1w9aTJ4oAyDyfKPuO8ajWFvpnJyPe+jh5xCwG4=
-X-Auth-ID: abbotti@mev.co.uk
-Received: by smtp14.relay.ord1d.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id AB8694028E;
-	Wed, 25 Nov 2026 12:45:08 -0500 (EST)
-From: Ian Abbott <abbotti@mev.co.uk>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ybni0wnf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 395D31F000C6;
+	Wed, 25 Nov 2026 17:45:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795628725;
+	bh=Mbs2CDYdpvIwC7iZe5bWjKLeMBBCsiRoWbhpe2c2z4w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ybni0wnfsAeKDEARhRhD6oLiS8I30CYBvJdNz4Neq5uFvOXb29v7Cw52V3ITEHPI+
+	 7c/1CGNC8i7bO/UG6/xVZlXHfdmqQswaQwpa3Q9UDkNxvwhN1bZsYhdSw/OG239/41
+	 KmknN4w03398yxCE154FvgS1b/6H2+KGYP2f2JHnhJDuUW87gsKOcMv3+y9cqfh6dN
+	 Tw0wbjAppFwAdATYIydhZ3PjnUel/hidOQ8zKWJK5fKtmQ1+tCuqIvteTJrFa6nV8R
+	 DPJLoS22BHF6YwlabFaOnZYjJrfVboR94oDWFPEmn6rp1qYofKE2+DkbvrPc9+1MRQ
+	 8DkthuwjYfvuA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ian Abbott <abbotti@mev.co.uk>,
-	stable <stable@kernel.org>,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 6.6.y] comedi: comedi_bond: Fix leak of opened device references
-Date: Wed, 25 Nov 2026 17:45:00 +0000
-Message-ID: <20261125174500.735765-1-abbotti@mev.co.uk>
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] cpufreq: Fix updates of cached resolved frequency and index
+Date: Wed, 25 Nov 2026 12:45:23 -0500
+Message-ID: <20261125174510.1022036-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112538-scuba-bok-ba4f@gregkh>
-References: <2026112538-scuba-bok-ba4f@gregkh>
+In-Reply-To: <2026112540-waviness-hybrid-1428@gregkh>
+References: <2026112540-waviness-hybrid-1428@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,99 +61,145 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Classification-ID: ed68c15b-abd9-4297-842b-ffa9ff75db91-1-1
 
-commit fa0858523f07f8dd71d89b221f4422c3b8096d90 upstream.
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-bonding_attach() calls do_dev_config() to open other comedi devices
-specified by the user and tries to make use of them as part of the
-'bonding' device.  If it successfully opens the other device but cannot
-use it (either because it does not any subdevices of a type the
-'bonding' device can use, or because of some error that occurs while
-dealing with its subdevices) then it is left in the open state and the
-fact that it is open does not get recorded by the 'bonding' device, so
-the reference to the opened device gets lost.  Fix it by closing the
-opened device if it could not be bound to the 'bonding' device.
+[ Upstream commit 75120f31aed010c326b28d7c80d22314df34d9a8 ]
 
-To match previous behavior, if the opened device is unsuitable then
-ignore it (after closing it).  The opened devices recorded by the
-'bonding' device will eventually get closed by bonding_detach() even if
-bonding_attach() returns an error.
+The cached resolved frequency and index, cached_target_freq and
+cached_resolved_idx, respectively, may be updated concurrently if
+cpufreq_driver_resolve_freq() is called by the schedutil governor
+while cpufreq_set_policy() is running for the same policy.  Those
+concurrent updates are not synchronized in any way and the values
+written by cpufreq_set_policy(), if it wins the race, may confuse
+drivers using those policy fields [1].
 
-Fixes: 3cf840f65ad5 ("Staging: comedi: add comedi_bond driver")
-Cc: stable <stable@kernel.org>
-Reported-by: Wentao Liang <vulab@iscas.ac.cn>
-Link: https://lore.kernel.org/lkml/20261103063301.1025860-1-vulab@iscas.ac.cn
-Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
-Link: https://patch.msgid.link/20261103173610.89687-1-abbotti@mev.co.uk
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-(cherry picked from commit fa0858523f07f8dd71d89b221f4422c3b8096d90)
-Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
+To address this, use the observation that the only place where
+cached_target_freq and cached_resolved_idx need to be updated is
+cpufreq_driver_resolve_freq() because the only legitimate users of
+them are .fast_switch() driver callbacks.  Although cached_resolved_idx
+is also used in __cpufreq_driver_target(), that is in fact unnecessary
+and it is better to use a local variable for storing the frequency
+table index in that function.
+
+Accordingly, rearrange __resolve_freq() and its callers so that
+cached_target_freq and cached_resolved_idx are only updated in
+cpufreq_driver_resolve_freq().
+
+The cached_target_freq initialization in cpufreq_set_policy() is still
+needed, but move it after stopping the old governor and before starting
+the new one to avoid racing with cpufreq_driver_resolve_freq().
+
+Fixes: f9ccdec24d91 ("cpufreq: Reuse cpufreq_driver_resolve_freq() in __cpufreq_driver_target()")
+Fixes: 151717690694 ("cpufreq: Make policy min/max hard requirements")
+Reported-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+Closes: https://lore.kernel.org/linux-pm/20261105140357.1331894-1-zhongqiu.han@oss.qualcomm.com/ [1]
+Co-developed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+Signed-off-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Reviewed-by: Christian Loehle <christian.loehle@arm.com>
+Tested-by: Christian Loehle <christian.loehle@arm.com>
+Cc: All applicable <stable@vger.kernel.org> # 342d3a73c5db cpufreq: Force passing target frequency to driver during resume
+Cc: All applicable <stable@vger.kernel.org> # 166207cac451 cpufreq: Cache post-resolution target frequency in __resolve_freq()
+Link: https://patch.msgid.link/3472677.aeNJFYEL58@rafael.j.wysocki
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+[ sashal: adapted __resolve_freq() to the older signature by adding an index out-parameter and moving the cache updates into cpufreq_driver_resolve_freq(), without the min/max and force_target rework. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/comedi/drivers/comedi_bond.c | 24 +++++++++++++++++++-----
- 1 file changed, 19 insertions(+), 5 deletions(-)
+ drivers/cpufreq/cpufreq.c | 32 +++++++++++++++++++++-----------
+ 1 file changed, 21 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/comedi/drivers/comedi_bond.c b/drivers/comedi/drivers/comedi_bond.c
-index 78c39fa84177..076aecae2c77 100644
---- a/drivers/comedi/drivers/comedi_bond.c
-+++ b/drivers/comedi/drivers/comedi_bond.c
-@@ -182,7 +182,9 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
- 		char file[sizeof("/dev/comediXXXXXX")];
- 		int minor = it->options[i];
- 		struct comedi_device *d;
--		int sdev = -1, nchans;
-+		int sdev = -1;
-+		int nchans;
-+		int nope = 1;
- 		struct bonded_device *bdev;
- 		struct bonded_device **devs;
+diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+index fcddf5c41814b..ebda3cf938246 100644
+--- a/drivers/cpufreq/cpufreq.c
++++ b/drivers/cpufreq/cpufreq.c
+@@ -530,7 +530,8 @@ void cpufreq_disable_fast_switch(struct cpufreq_policy *policy)
+ EXPORT_SYMBOL_GPL(cpufreq_disable_fast_switch);
  
-@@ -221,11 +223,14 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
- 				dev_err(dev->class_dev,
- 					"comedi_get_n_channels() returned %d on minor %u subdev %d!\n",
- 					nchans, minor, sdev);
--				return -EINVAL;
-+				nope = -EINVAL;
-+				break;
- 			}
- 			bdev = kmalloc(sizeof(*bdev), GFP_KERNEL);
--			if (!bdev)
--				return -ENOMEM;
-+			if (!bdev) {
-+				nope = -ENOMEM;
-+				break;
-+			}
+ static unsigned int __resolve_freq(struct cpufreq_policy *policy,
+-		unsigned int target_freq, unsigned int relation)
++		unsigned int target_freq, unsigned int relation,
++		unsigned int *idx_p)
+ {
+ 	unsigned int idx;
  
- 			bdev->dev = d;
- 			bdev->minor = minor;
-@@ -246,10 +251,12 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
- 				dev_err(dev->class_dev,
- 					"Could not allocate memory. Out of memory?\n");
- 				kfree(bdev);
--				return -ENOMEM;
-+				nope = -ENOMEM;
-+				break;
- 			}
- 			devpriv->devs = devs;
- 			devpriv->devs[devpriv->ndevs++] = bdev;
-+			nope = 0;	/* keeps the device open */
- 			{
- 				/* Append dev:subdev to devpriv->name */
- 				char buf[20];
-@@ -260,6 +267,13 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
- 					sizeof(devpriv->name));
- 			}
- 		}
+@@ -540,9 +541,10 @@ static unsigned int __resolve_freq(struct cpufreq_policy *policy,
+ 		return target_freq;
+ 
+ 	idx = cpufreq_frequency_table_target(policy, target_freq, relation);
+-	policy->cached_resolved_idx = idx;
+-	policy->cached_target_freq = policy->freq_table[idx].frequency;
+-	return policy->cached_target_freq;
++	if (idx_p)
++		*idx_p = idx;
 +
-+		if (nope) {
-+			/* Opened device cannot be used, so close it. */
-+			comedi_close(d);
-+			if (nope < 0)
-+				return nope;
-+		}
++	return policy->freq_table[idx].frequency;
+ }
+ 
+ /**
+@@ -559,7 +561,10 @@ static unsigned int __resolve_freq(struct cpufreq_policy *policy,
+ unsigned int cpufreq_driver_resolve_freq(struct cpufreq_policy *policy,
+ 					 unsigned int target_freq)
+ {
+-	return __resolve_freq(policy, target_freq, CPUFREQ_RELATION_L);
++	policy->cached_target_freq = __resolve_freq(policy, target_freq,
++						    CPUFREQ_RELATION_L,
++						    &policy->cached_resolved_idx);
++	return policy->cached_target_freq;
+ }
+ EXPORT_SYMBOL_GPL(cpufreq_driver_resolve_freq);
+ 
+@@ -2318,11 +2323,12 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
+ 			    unsigned int relation)
+ {
+ 	unsigned int old_target_freq = target_freq;
++	unsigned int idx = 0;
+ 
+ 	if (cpufreq_disabled())
+ 		return -ENODEV;
+ 
+-	target_freq = __resolve_freq(policy, target_freq, relation);
++	target_freq = __resolve_freq(policy, target_freq, relation, &idx);
+ 
+ 	pr_debug("target for CPU %u: %u kHz, relation %u, requested %u kHz\n",
+ 		 policy->cpu, target_freq, relation, old_target_freq);
+@@ -2343,7 +2349,7 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
+ 	if (!cpufreq_driver->target_index)
+ 		return -EINVAL;
+ 
+-	return __target_index(policy, policy->cached_resolved_idx);
++	return __target_index(policy, idx);
+ }
+ EXPORT_SYMBOL_GPL(__cpufreq_driver_target);
+ 
+@@ -2607,12 +2613,10 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
+ 	 */
+ 	policy->min = new_data.min;
+ 	policy->max = new_data.max;
+-	policy->min = __resolve_freq(policy, policy->min, CPUFREQ_RELATION_L);
+-	policy->max = __resolve_freq(policy, policy->max, CPUFREQ_RELATION_H);
++	policy->min = __resolve_freq(policy, policy->min, CPUFREQ_RELATION_L, NULL);
++	policy->max = __resolve_freq(policy, policy->max, CPUFREQ_RELATION_H, NULL);
+ 	trace_cpu_frequency_limits(policy);
+ 
+-	policy->cached_target_freq = UINT_MAX;
+-
+ 	pr_debug("new min and max freqs are %u - %u kHz\n",
+ 		 policy->min, policy->max);
+ 
+@@ -2638,6 +2642,12 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
+ 		cpufreq_exit_governor(policy);
  	}
  
- 	if (!devpriv->nchans) {
++	/*
++	 * Initialize cached_target_freq while no governor is running to avoid
++	 * racing with cpufreq_driver_resolve_freq(), which updates it.
++	 */
++	policy->cached_target_freq = UINT_MAX;
++
+ 	/* start new governor */
+ 	policy->governor = new_gov;
+ 	ret = cpufreq_init_governor(policy);
 -- 
 2.53.0
 
