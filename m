@@ -1,66 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795648225;
-	b=UcPeb9rOHQMT57lVzkyDjr4obou7zaVI8+29sMg+PgBc8fuJdOXKJPuCLzxKghJvhDqG
-	 zWZf1dwHhQFwXG0fUoEEzfDCGkD8NCjpN8xWtD7ZWh6nonzvD5uVrByPo87XzAm3dOlhp
-	 W5+wxkGuKdFsGc5FYq2c6pOdmHL9b+Kr3cI8DZEDbEQM6Dy/jXx7Zc9YT/8J7zhFVquBD
-	 k3yzWdFN4dp3CCbP17mOZw9dqxGpVOAnQkTbIqF9vEanYheDHmATMs7J109dMosmbU1kc
-	 +4p9ebEzj+8POQ2JBb3f12V2UX+mcMA9RcGk2DcJMuwu2Mb7n1Tqhm7xNjAFTlG65bg==
+	t=1795648234;
+	b=SS7ZxWB+KP73Q/5bculyIbsF8JuLlzJjdxyvgPqFgE+cStQ3VZL0m8ubeCkv+amYI6LD
+	 /Yhg0aXnNZQaE3CU+kncZ7qW2rmEa2/GO3xprINplYqD0tJvQCC7hMUdE1sG3usmdoO/2
+	 Va/WfoT5i1ZpakWH3oZ5L5h5Is8seT167n6QBgtEhJ3rYk9uGSCMh7oxaE9+5HrqVXhEq
+	 64A/R596Fl/dakhGVHcmgzGYeKi1vIFSOmTCmizeEDnJvEiwy7nVIQc5fYI8AgrAZ366i
+	 k8NTVcAum3bMZLWaO7NQW5Vp5Hw0aYsGBD8mR2gQuRJzjCA83IJePhUmnTjwuDZnZsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795648225;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795648234;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=TbkfL66m9ECDiQK36aAmap5xmwD9r6tD/pr0s1W5frk=;
-	b=VrTz88z3l306hmAygbehIzQNn3j5bbCWIjv4N7CdWdNUX55aRf8mrdqop5zNeLM82Xpc
-	 yWzCCiLzLaWTQVl9k74+1q4x3IY/qejK3OJdxmVErl1KeuIBEWFQEt41WCI8B7kZNVqwJ
-	 FggQPGdzr3sxxBoccJZr+s5uhJM1W4baEFQrMGRW76x0oo8j9zyAX/OLkmEpfkPMdNL2M
-	 uEYb4DAgqXNOcB2atRkCX2zwW34Y/2CJU7bwIYPS2uYzm4cGxSRZKES2+Xu34z6IuooHO
-	 1od7q8pnk37eZIrlQrtl6rZeAf8AQWknWKeMAW/+GvszSiQO6ImflrjnSqTRF4lUPvQ==
+	bh=VUZly3QaaWGkt8NgBX5pAur13/hfvDIKs3EcJSYniiA=;
+	b=zcMImcPXJe4rATMFqTOXar4IL1xFSaFhn6CsK/AycwUY1xmqSeghKKXGMqwIXts/DpWa
+	 0petaTwqk8zVUjzyxBY3oVu3gOJ3TbkFzDD5vhZHhWs+CPAl0nqKeyvIE2FLCqqlxWwPq
+	 sBZeV3aSixVbv1WFFhmiNSTZ4rn+nf5sLNq2FKVAnbZyZQKB3yllHHJ0h+IqhxMfcXTAq
+	 HjNzxzaTyr7FfyOcKYpLY1qTUlfR2rxNnuGuQn0+spsanSRhxOLG/m0fi3RD8gpFBmylG
+	 9Fc1LDWbkL8A9HCeNBaKqzgp2oLd8LI2twknuoaHp3ePIeMqdCatHcHy+0/5gkiTtMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NjtOBh6T;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZQVRlAho;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845D8606A326;
-	Wed, 25 Nov 2026 23:10:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 845D8606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236CA606A326;
+	Wed, 25 Nov 2026 23:10:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 236CA606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NjtOBh6T
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZQVRlAho
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795648225; x=1827184225;
+  t=1795648234; x=1827184234;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=7geqW9zhuBY3AfdSKl5WstwumJN3yFgf/R+Sx8dEEX8=;
-  b=NjtOBh6TEHL9mcFVD2LzOHvZ9ZQyHmnuHnOWRcCPzhXH+dJkbuX+ej7n
-   ObNsgaAP2v/dGOUI4TwTBdeV7maF5zN0Ti3Q+9LoLgEbnBPACd5LuIcmJ
-   uoz9e+za81h+IvLw1C+m+wfhBAqsIcecpqUmkpeI23hiuZoeK6VelcEmX
-   x/a4L6bXQz72N5rn6rH3qgnERkelcAqU1MBWamBVXTUV4hfZ/PPrYHwp3
-   KLqzjGLC44UoCsxeDQLxib3lISmUk0BECoQDqp7LdFffkSz5sdWUg4/2L
-   q+oeujFB/HwmItcdjZoRxr8rtrgNsEjWYJLxBA9VcifmQOvwibzvgKiTQ
+  bh=/F3/u6+Vuy5zuYhOzdF4dbUy0sQvfaHgVZWMO4keQxc=;
+  b=ZQVRlAhoIoPdWnihrR5ewr2s+vipxcXHOCCViDWwx5tbnM+lx/yFllmK
+   EmpiGyZ0WUCbBHol6I/921T3TGTnv44b1WgOUp1LdtGOodoIFzUZWveEj
+   a7vgYHopdNjsotdQf6ZxswXeUvRW9iqdubxv+TSJLOLQZs3QBJZJLW2v6
+   m3HxtpNqhGgPGTU0K3WIIFtYHJNsFMlmjxe7KpSnlz4HiC9TRdJO5OvlL
+   7GS6k2t9cCjJFRQP26cWEL9sxSo8EK97zHQgxIsujT6zUK7uNe5r3Qkk+
+   RKnfRXI+jvAQk8QUuTDwfT3lAZP7Ghn2gzbGlfDCFC5qUv6sPnxckhsun
    g==;
-X-CSE-ConnectionGUID: wnJ4pCOwRf+Kaur8InlPpw==
-X-CSE-MsgGUID: 31BIHow4RCOXgZFhuxliuw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4537960"
+X-CSE-ConnectionGUID: VjaQqR+qQdqdGiG6XI0SRw==
+X-CSE-MsgGUID: q1ZBA2RyTky3xEpJS2SrBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4435139"
 X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="4537960"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 15:10:24 -0800
-X-CSE-ConnectionGUID: X8g9jJXWRLyTWiymmh82iA==
-X-CSE-MsgGUID: AEymLCsxStOFyXPB7UXK3A==
+   d="scan'208";a="4435139"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 15:10:34 -0800
+X-CSE-ConnectionGUID: 8per91xJStiKVvq82B7nWQ==
+X-CSE-MsgGUID: 3TqOehU3RBaaSaXTmXMLuA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="11866226"
+   d="scan'208";a="12283454"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.96])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 15:10:19 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 15:10:29 -0800
 From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: linux-pci@vger.kernel.org,
 	Bjorn Helgaas <bhelgaas@google.com>,
@@ -69,12 +69,14 @@ To: linux-pci@vger.kernel.org,
 	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
 	David Matlack <dmatlack@google.com>,
 	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	linux-acpi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 04/17] PCI: Add pci_assign_unassigned_slot_resources()
-Date: Thu, 26 Nov 2026 01:09:03 +0200
-Message-ID: <20261125230925.2441-5-ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH v3 05/17] PCI: acpiphp: Use pci_assign_unassigned_slot_resources()
+Date: Thu, 26 Nov 2026 01:09:04 +0200
+Message-ID: <20261125230925.2441-6-ilpo.jarvinen@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261125230925.2441-1-ilpo.jarvinen@linux.intel.com>
 References: <20261125230925.2441-1-ilpo.jarvinen@linux.intel.com>
@@ -90,80 +92,48 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Bridge window sizing and resource assignment need locks that are held
-across both phases. acpiphp open-codes
-pci_assign_unassigned_bus_resources() with a slot filter by calling the
-internal sizing and assignment functions directly, so it would have to
-duplicate that locking.
+enable_slot() calls the internal sizing and assignment functions
+directly to size only the bridges in the slot. Use
+pci_assign_unassigned_slot_resources() instead.
 
-Add pci_assign_unassigned_slot_resources() which sizes only the bridges
-in the given slot, and implement pci_assign_unassigned_bus_resources()
-with it.
+Sizing now happens after scanning all bridges in the slot instead of
+right after scanning each bridge. Sizing a bridge window only walks the
+hierarchy below that bridge, so the order does not matter. Sizing now
+also holds pci_bus_sem.
 
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
 Cc: stable@vger.kernel.org
 ---
- drivers/pci/pci.h       |  1 +
- drivers/pci/setup-bus.c | 23 +++++++++++++++++++++--
- 2 files changed, 22 insertions(+), 2 deletions(-)
+ drivers/pci/hotplug/acpiphp_glue.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index 77efa4c5c960..ce29d9ca0194 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -542,6 +542,7 @@ void __pci_bus_size_bridges(struct pci_bus *bus,
- void __pci_bus_assign_resources(const struct pci_bus *bus,
- 				struct list_head *add_list,
- 				struct list_head *fail_head);
-+void pci_assign_unassigned_slot_resources(struct pci_bus *bus, u16 slot);
- bool pci_bus_clip_resource(struct pci_dev *dev, int idx);
- void pci_walk_bus_locked(struct pci_bus *top,
- 			 int (*cb)(struct pci_dev *, void *),
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index 10b9d3eb2864..7d135ddd93b2 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -2489,19 +2489,38 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
- 						    exclude_bars);
- }
+diff --git a/drivers/pci/hotplug/acpiphp_glue.c b/drivers/pci/hotplug/acpiphp_glue.c
+index 632344f34cae..fc95d5814ecb 100644
+--- a/drivers/pci/hotplug/acpiphp_glue.c
++++ b/drivers/pci/hotplug/acpiphp_glue.c
+@@ -497,7 +497,6 @@ static void enable_slot(struct acpiphp_slot *slot, bool bridge)
+ 				acpiphp_native_scan_bridge(dev);
+ 		}
+ 	} else {
+-		LIST_HEAD(add_list);
+ 		int max, pass;
  
--void pci_assign_unassigned_bus_resources(struct pci_bus *bus)
-+/**
-+ * pci_assign_unassigned_slot_resources - Size and assign resources of a slot
-+ * @bus: PCI bus
-+ * @slot: Slot whose bridges to size, or %PCI_SLOT_ALL_DEVICES for all
-+ *	  bridges on @bus
-+ *
-+ * Size the bridge windows of the bridges in @slot and assign unassigned
-+ * resources on @bus.
-+ */
-+void pci_assign_unassigned_slot_resources(struct pci_bus *bus, u16 slot)
- {
- 	struct pci_dev *dev;
- 	/* List of resources that want additional resources */
- 	LIST_HEAD(add_list);
+ 		acpiphp_rescan_slot(slot);
+@@ -511,12 +510,10 @@ static void enable_slot(struct acpiphp_slot *slot, bool bridge)
+ 				if (pass && dev->subordinate) {
+ 					check_hotplug_bridge(slot, dev);
+ 					pcibios_resource_survey_bus(dev->subordinate);
+-					__pci_bus_size_bridges(dev->subordinate,
+-							       &add_list);
+ 				}
+ 			}
+ 		}
+-		__pci_bus_assign_resources(bus, &add_list, NULL);
++		pci_assign_unassigned_slot_resources(bus, slot->device);
+ 	}
  
- 	down_read(&pci_bus_sem);
--	for_each_pci_bridge(dev, bus)
-+	for_each_pci_bridge(dev, bus) {
-+		if (slot != PCI_SLOT_ALL_DEVICES &&
-+		    PCI_SLOT(dev->devfn) != slot)
-+			continue;
-+
- 		if (pci_has_subordinate(dev))
- 			__pci_bus_size_bridges(dev->subordinate, &add_list);
-+	}
- 	up_read(&pci_bus_sem);
- 	__pci_bus_assign_resources(bus, &add_list, NULL);
- }
-+
-+void pci_assign_unassigned_bus_resources(struct pci_bus *bus)
-+{
-+	pci_assign_unassigned_slot_resources(bus, PCI_SLOT_ALL_DEVICES);
-+}
- EXPORT_SYMBOL_GPL(pci_assign_unassigned_bus_resources);
- 
- void pci_bus_size_and_assign_resources(struct pci_bus *bus)
+ 	acpiphp_sanitize_bus(bus);
 -- 
 2.47.3
 
