@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795621677;
-	b=4dRmo2dR5hIVJBUR0loTTRcW3lYx8l2+k10UdlaleMAyxhdnHs5HQaUPveq4eAShDR8l
-	 ujcXoySwg5ETjbUt2Kbbi9BJDFWtTyrnqpvfGxH9BtOiaTnhmB4tnassgjMb7yPQp5EzA
-	 DJXS8BEa2spMaHpGZZz6K6aLy77GsrwopYX/UaUbkDEzvUlOV+SGDlzarvgBc0VUkMg7F
-	 bs1JvVUvsEZlA7Kdhwzzwu1wsqAlL2Rx7AxlKSJuolCPb6sfMJZjdBpfuPpclu3kJwS2D
-	 /dCPFwbHvjDKS3wXMPdhe+21z9AFCzvVD4b4G6T1052g+PUOdMGYkengS0C7vD3sxrw==
+	t=1795621678;
+	b=jJh9oxaOZg6nS7J2UhEZYfh6+c1LdfD3mmGUnMc6J7RL7S8Y+uAymZn+VEs5Yc/F0qZO
+	 jQAJPAB8DD6PchDNmdJQf4OObkylpEpJy10TpVB/8tRAN52AxPNlugnEm9KdP+8ultyKC
+	 xBeGZZUJAEW3ZCTWDOsdZcHPlIh4sUjUJ0wDL30G92l6UX5eodmoX+WxroLxZzFgmhDcS
+	 oRC2YZ2hPBTBrrt1qQ9ZoTh/s4ir56zvgktKl3DCA8QdMu2RRRxH7AXWvYe9cyDsD8cKJ
+	 3t7kZQlvXHlduSvln15nNgjwvOwU4M6zwtP6adimWr/oqi/SFEJWA4MF1Nhs4CnVisA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795621677;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795621678;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=bBohO+LNYH9y/pRp48vwiyPQFzxCLjClWZuzvRG7Ksg=;
-	b=hyVGbX1EZoyKXJGor1iK4ng5fnv7tJGNYy3awhkto08zg0mAdzeNMNWNR4UC+DdvyQ90
-	 CCWdfqKcO7d4hbexZ5V6ll3hxM03VnNvxNbmgfPxCHp0F8RDDDfjmQHPFQ4c743CATwkc
-	 4VDAADlBZs7QMWDaG9Qx3m7fXSiD6zKaIBxS3VOfqBHamsF3dkljAeo19ccOUHGVT0Je6
-	 3Dz0bnJjvfIYFDyKmSUNYt5fI5D04OgfGAaMNHyD1gr8y84kTHUy0iFR39dKrnsO+VHWP
-	 wGhviP/wiWkuvYCew/+GIHPMJbu4nmNL2WzxxVAIfpGncf0dHddmxm5LlKh9GCpk+xw==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=zrLt5T4VjRWRtMG4mVyXLofnWGP057kEwC5TAOmoIxk=;
+	b=t/sD80tnHNItpKini2YAu4O1sGy5LL69xZ3l9i59fUqND6oQFo8WWdo8pTBQeZEgjReP
+	 A2WSseSusfjlTBaBFXj2otrRz9oUkEsYm9fC9sF1Q8WjxvqI7ICeznDxAIUqUyI0WwcfH
+	 GQNQAbcyJYP69m0LaVcWISGzKlX+pj0Ksy+xN4rrpssU1Kgo07sYcBAN3zjtnz0ix/1Ji
+	 ZWgSrga9wEZ4WY0stT0Ey+Pa0dXaTFA46TKNV6KiT3+iMXG4rr5PTPGEgT80KB4Rj0pqI
+	 TCcH/3qFqckr+pG6+N6bUav2f4gyGrHwcezDiNR34p103LlP98fGxnUn2X0f49/N4+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nQE2EbOe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S92uPaN7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10F6606A336;
-	Wed, 25 Nov 2026 15:47:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA566606A331
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:47:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nQE2EbOe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 423E61F000EE;
-	Wed, 25 Nov 2026 15:47:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795621676;
-	bh=bBohO+LNYH9y/pRp48vwiyPQFzxCLjClWZuzvRG7Ksg=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S92uPaN7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D01A1F000D0;
+	Wed, 25 Nov 2026 15:47:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795621678;
+	bh=zrLt5T4VjRWRtMG4mVyXLofnWGP057kEwC5TAOmoIxk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nQE2EbOeVnKn1gkGM5vNxylgU9vw/5qEuz0afMkhMJzPWP7Vhw8c8Whko/URkWeMk
-	 uPkKVs/h8KGmVEzq7Y3UnQzGRCJrQmObRprPlazvnfa68X1SsoPxi4+27MxWH4dSVu
-	 vFGlgwTyRjDbshYvy5sLZ5PK6P1lVB4EfjdLRMlM=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=S92uPaN7QyyjQWnLygUvofo/1OWHPX583+65GKXy29f/im8czSJEtb6cGE1gY9NAb
+	 0RAla6jkbwfOCcfUIP4oREOFdvI0mNIFEypMAk4U5H4XtJ/+sS1CgwKy+ZulG3Pkea
+	 K80bzUF3cNRScK0LOFv7UU2MWhZ5uS+u7fN3+jMawG2uSOlKBqqg0hzXNQdH9S8rsg
+	 PE6xcR1T4EhbljbggaZGQfntMAyquPopJ0XC8lkgcsHa9JOIT20B1M7ZULRSs1p1w8
+	 M2l5Qs9gpxFyi9w/zCXgTKmP6DlheceepM4qmrSjB6Kh6g0TtX7/GDoQk3xdeB9nuo
+	 IFwPT1D3PNJ1g==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Al Viro <viro@zeniv.linux.org.uk>,
+Cc: Harshitha Ramamurthy <hramamurthy@google.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Jordan Rhee <jordanrhee@google.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 299/990] introduce a flag for explicitly marking persistently pinned dentries
-Date: Wed, 25 Nov 2026 15:27:46 +0100
-Message-ID: <20261125143829.096024035@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.18.y 4/5] gve: add struct gve_device_info to hold device properties
+Date: Wed, 25 Nov 2026 10:47:49 -0500
+Message-ID: <20261125154711.373322-4-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261125154711.373322-1-sashal@kernel.org>
+References: <2026112542-scrunch-president-9d95@gregkh>
+ <20261125154711.373322-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,153 +65,559 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Harshitha Ramamurthy <hramamurthy@google.com>
 
-------------------
+[ Upstream commit 130634764549aa3c4745ee96db57443ded848611 ]
 
-From: Al Viro <viro@zeniv.linux.org.uk>
+In the current AdminQ mode, device properties are written into
+struct gve_device_descriptor that is allocated in shared memory
+between the driver and device. In the upcoming MailboxQ mode,
+these properties will be returned in the response of a mailbox
+message. Hence, add struct gve_device_info as the structure that
+holds all the properties that are negotiated with the device in
+either mode.
 
-[ Upstream commit 8a210cacf5dc2a6210ee42aeca5cd03b2400876f ]
+Change the AdminQ mode method gve_adminq_describe_device()
+and its children to fill up device information into this newly
+introduced struct gve_device_info. Move a few helper functions
+and code that set device properties in the priv structure into
+gve_init_priv(). So now gve_init_priv() calls/does the following:
 
-Some filesystems use a kinda-sorta controlled dentry refcount leak to pin
-dentries of created objects in dcache (and undo it when removing those).
-Reference is grabbed and not released, but it's not actually _stored_
-anywhere.  That works, but it's hard to follow and verify; among other
-things, we have no way to tell _which_ of the increments is intended
-to be an unpaired one.  Worse, on removal we need to decide whether
-the reference had already been dropped, which can be non-trivial if
-that removal is on umount and we need to figure out if this dentry is
-pinned due to e.g. unlink() not done.  Usually that is handled by using
-kill_litter_super() as ->kill_sb(), but there are open-coded special
-cases of the same (consider e.g. /proc/self).
+- gve_set_mtu()
+- gve_set_mac()
+- gve_set_queue_properties()
+- gve_set_buf_sizes()
+- set flow steering and RSS properties
+- set other priv properties
 
-Things get simpler if we introduce a new dentry flag (DCACHE_PERSISTENT)
-marking those "leaked" dentries.  Having it set claims responsibility
-for +1 in refcount.
+When MailboxQ support is added, device information will be filled
+into the same structure and the same gve_init_priv() path would be
+used to set device properties to ensure common code reusage.
 
-The end result this series is aiming for:
+Most of these changes are refactors only, except for one:
+with the introduction of the central struct gve_device_info,
+in AdminQ mode, gve_set_mtu() now validates the final max mtu:
+the mtu from the device descriptor, or the jumbo frames device
+option value when it is present. Previously only the descriptor
+mtu was validated. This sets up the driver nicely for the
+MailboxQ mode where both the default and the maximum mtu are
+provided at once and they are validated in gve_set_mtu().
 
-* get these unbalanced dget() and dput() replaced with new primitives that
-  would, in addition to adjusting refcount, set and clear persistency flag.
-* instead of having kill_litter_super() mess with removing the remaining
-  "leaked" references (e.g. for all tmpfs files that hadn't been removed
-  prior to umount), have the regular shrink_dcache_for_umount() strip
-  DCACHE_PERSISTENT of all dentries, dropping the corresponding
-  reference if it had been set.  After that kill_litter_super() becomes
-  an equivalent of kill_anon_super().
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Reviewed-by: Jordan Rhee <jordanrhee@google.com>
+Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
+Link: https://patch.msgid.link/20260930190428.1130007-2-hramamurthy@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-Doing that in a single step is not feasible - it would affect too many places
-in too many filesystems.  It has to be split into a series.
+[ Adapt to this tree: keep the DQO QPL tx_pages_per_qpl override and the
+  DQO QPL max ring size exception, now applied to struct gve_device_info;
+  drop gve_set_default_desc_cnt() as ring sizes now come from the device
+  info; no xdp_metadata_ops here. ]
 
-Here we
-	* introduce the new flag
-	* teach shrink_dcache_for_umount() to handle it (i.e. remove
-and drop refcount on anything that survives to umount with that flag
-still set)
-	* teach kill_litter_super() that anything with that flag does
-*not* need to be unpinned.
-
-Next commits will add primitives for maintaing that flag and convert the
-common helpers to those.  After that - a long series of per-filesystem
-patches converting to those primitives.
-
-Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
-Stable-dep-of: 309f7a5585ae ("libfs: walk offset directories in offset order")
+Stable-dep-of: edc9a730ad3c ("gve: Block invalid ring sizes when device options are 0")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/dcache.c            | 27 ++++++++++++++++++++++-----
- include/linux/dcache.h |  1 +
- 2 files changed, 23 insertions(+), 5 deletions(-)
+ drivers/net/ethernet/google/gve/gve.h        |  29 ++++
+ drivers/net/ethernet/google/gve/gve_adminq.c | 162 ++++++++++---------
+ drivers/net/ethernet/google/gve/gve_adminq.h |   1 -
+ drivers/net/ethernet/google/gve/gve_main.c   |  91 ++++++++++-
+ 4 files changed, 202 insertions(+), 81 deletions(-)
 
-diff --git a/fs/dcache.c b/fs/dcache.c
-index 77792a9e86737..467095024991b 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -1526,6 +1526,15 @@ static enum d_walk_ret select_collect(void *_data, struct dentry *dentry)
- 	return ret;
- }
- 
-+static enum d_walk_ret select_collect_umount(void *_data, struct dentry *dentry)
-+{
-+	if (dentry->d_flags & DCACHE_PERSISTENT) {
-+		dentry->d_flags &= ~DCACHE_PERSISTENT;
-+		dentry->d_lockref.count--;
-+	}
-+	return select_collect(_data, dentry);
-+}
-+
- static enum d_walk_ret select_collect2(void *_data, struct dentry *dentry)
- {
- 	struct select_data *data = _data;
-@@ -1554,18 +1563,20 @@ static enum d_walk_ret select_collect2(void *_data, struct dentry *dentry)
- }
- 
- /**
-- * shrink_dcache_parent - prune dcache
-+ * shrink_dcache_tree - prune dcache
-  * @parent: parent of entries to prune
-+ * @for_umount: true if we want to unpin the persistent ones
-  *
-  * Prune the dcache to remove unused children of the parent dentry.
-  */
--void shrink_dcache_parent(struct dentry *parent)
-+static void shrink_dcache_tree(struct dentry *parent, bool for_umount)
- {
- 	for (;;) {
- 		struct select_data data = {.start = parent};
- 
- 		INIT_LIST_HEAD(&data.dispose);
--		d_walk(parent, &data, select_collect);
-+		d_walk(parent, &data,
-+			for_umount ? select_collect_umount : select_collect);
- 
- 		if (!list_empty(&data.dispose)) {
- 			shrink_dentry_list(&data.dispose);
-@@ -1590,6 +1601,11 @@ void shrink_dcache_parent(struct dentry *parent)
- 			shrink_dentry_list(&data.dispose);
- 	}
- }
-+
-+void shrink_dcache_parent(struct dentry *parent)
-+{
-+	shrink_dcache_tree(parent, false);
-+}
- EXPORT_SYMBOL(shrink_dcache_parent);
- 
- static enum d_walk_ret umount_check(void *_data, struct dentry *dentry)
-@@ -1616,7 +1632,7 @@ static enum d_walk_ret umount_check(void *_data, struct dentry *dentry)
- 
- static void do_one_tree(struct dentry *dentry)
- {
--	shrink_dcache_parent(dentry);
-+	shrink_dcache_tree(dentry, true);
- 	d_walk(dentry, dentry, umount_check);
- 	d_drop(dentry);
- 	dput(dentry);
-@@ -3130,7 +3146,8 @@ static enum d_walk_ret d_genocide_kill(void *data, struct dentry *dentry)
- {
- 	struct dentry *root = data;
- 	if (dentry != root) {
--		if (d_unhashed(dentry) || !dentry->d_inode)
-+		if (d_unhashed(dentry) || !dentry->d_inode ||
-+		    dentry->d_flags & DCACHE_PERSISTENT)
- 			return D_WALK_SKIP;
- 
- 		if (!(dentry->d_flags & DCACHE_GENOCIDE)) {
-diff --git a/include/linux/dcache.h b/include/linux/dcache.h
-index c83e02b943894..94b58655322a0 100644
---- a/include/linux/dcache.h
-+++ b/include/linux/dcache.h
-@@ -225,6 +225,7 @@ enum dentry_flags {
- 	DCACHE_PAR_LOOKUP		= BIT(24),	/* being looked up (with parent locked shared) */
- 	DCACHE_DENTRY_CURSOR		= BIT(25),
- 	DCACHE_NORCU			= BIT(26),	/* No RCU delay for freeing */
-+	DCACHE_PERSISTENT		= BIT(27)
+diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
+index 184b40f953a3d..4ab5a30f50a05 100644
+--- a/drivers/net/ethernet/google/gve/gve.h
++++ b/drivers/net/ethernet/google/gve/gve.h
+@@ -797,6 +797,34 @@ struct gve_ptp {
+ 	struct gve_priv *priv;
  };
  
- #define DCACHE_MANAGED_DENTRY \
++struct gve_device_info {
++	enum gve_queue_format queue_format;
++	u16 default_tx_queues;
++	u16 default_rx_queues;
++	u16 max_tx_queues;
++	u16 max_rx_queues;
++	u16 default_tx_ring_size;
++	u16 default_rx_ring_size;
++	u16 max_tx_ring_size;
++	u16 max_rx_ring_size;
++	u16 min_tx_ring_size;
++	u16 min_rx_ring_size;
++	u16 max_mtu;
++	u8 mac[ETH_ALEN];
++	u16 max_rx_buffer_size;
++	u16 header_buf_size;
++	u32 max_flow_rules;
++	u16 rss_key_size;
++	u16 rss_lut_size;
++	u16 tx_pages_per_qpl;
++	u16 num_event_counters;
++	u64 max_registered_pages;
++	bool default_min_ring_size;
++	bool nic_timestamp_supported;
++	bool modify_ring_size_enabled;
++	bool cache_rss_config;
++};
++
+ struct gve_priv {
+ 	struct net_device *dev;
+ 	struct gve_tx_ring *tx; /* array of tx_cfg.num_queues */
+@@ -928,6 +956,7 @@ struct gve_priv {
+ 	struct gve_nic_ts_report *nic_ts_report;
+ 	dma_addr_t nic_ts_report_bus;
+ 	u64 last_sync_nic_counter; /* Clock counter from last NIC TS report */
++	struct gve_device_info device_info;
+ };
+ 
+ enum gve_service_task_flags_bit {
+diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net/ethernet/google/gve/gve_adminq.c
+index 3b48c29aac1d8..863e67e2fa437 100644
+--- a/drivers/net/ethernet/google/gve/gve_adminq.c
++++ b/drivers/net/ethernet/google/gve/gve_adminq.c
+@@ -70,7 +70,7 @@ void gve_parse_device_option(struct gve_priv *priv,
+ 
+ 		dev_info(&priv->pdev->dev,
+ 			 "Gqi raw addressing device option enabled.\n");
+-		priv->queue_format = GVE_GQI_RDA_FORMAT;
++		priv->device_info.queue_format = GVE_GQI_RDA_FORMAT;
+ 		break;
+ 	case GVE_DEV_OPT_ID_GQI_RDA:
+ 		if (option_length < sizeof(**dev_op_gqi_rda) ||
+@@ -190,7 +190,7 @@ void gve_parse_device_option(struct gve_priv *priv,
+ 
+ 		/* device has not provided min ring size */
+ 		if (option_length == GVE_DEVICE_OPTION_NO_MIN_RING_SIZE)
+-			priv->default_min_ring_size = true;
++			priv->device_info.default_min_ring_size = true;
+ 		break;
+ 	case GVE_DEV_OPT_ID_FLOW_STEERING:
+ 		if (option_length < sizeof(**dev_op_flow_steering) ||
+@@ -920,25 +920,15 @@ int gve_adminq_destroy_rx_queues(struct gve_priv *priv, u32 num_queues)
+ 	return err;
+ }
+ 
+-static void gve_set_default_desc_cnt(struct gve_priv *priv,
+-			const struct gve_device_descriptor *descriptor)
+-{
+-	priv->tx_desc_cnt = be16_to_cpu(descriptor->tx_queue_entries);
+-	priv->rx_desc_cnt = be16_to_cpu(descriptor->rx_queue_entries);
+-
+-	/* set default ranges */
+-	priv->max_tx_desc_cnt = priv->tx_desc_cnt;
+-	priv->max_rx_desc_cnt = priv->rx_desc_cnt;
+-	priv->min_tx_desc_cnt = priv->tx_desc_cnt;
+-	priv->min_rx_desc_cnt = priv->rx_desc_cnt;
+-}
+-
+ static void gve_set_default_rss_sizes(struct gve_priv *priv)
+ {
+-	if (!gve_is_gqi(priv)) {
+-		priv->rss_key_size = GVE_RSS_KEY_SIZE;
+-		priv->rss_lut_size = GVE_RSS_INDIR_SIZE;
+-		priv->cache_rss_config = true;
++	struct gve_device_info *device_info = &priv->device_info;
++
++	if (device_info->queue_format == GVE_DQO_RDA_FORMAT ||
++	    device_info->queue_format == GVE_DQO_QPL_FORMAT) {
++		device_info->rss_key_size = GVE_RSS_KEY_SIZE;
++		device_info->rss_lut_size = GVE_RSS_INDIR_SIZE;
++		device_info->cache_rss_config = true;
+ 	}
+ }
+ 
+@@ -959,87 +949,117 @@ static void gve_enable_supported_features(struct gve_priv *priv,
+ 					  const struct gve_device_option_modify_ring
+ 					  *dev_op_modify_ring)
+ {
++	struct gve_device_info *info = &priv->device_info;
++
+ 	/* Before control reaches this point, the page-size-capped max MTU from
+ 	 * the gve_device_descriptor field has already been stored in
+-	 * priv->dev->max_mtu. We overwrite it with the true max MTU below.
++	 * device_info->max_mtu. We overwrite it with the true max MTU below.
+ 	 */
+ 	if (dev_op_jumbo_frames &&
+ 	    (supported_features_mask & GVE_SUP_JUMBO_FRAMES_MASK)) {
+ 		dev_info(&priv->pdev->dev,
+ 			 "JUMBO FRAMES device option enabled.\n");
+-		priv->dev->max_mtu = be16_to_cpu(dev_op_jumbo_frames->max_mtu);
++		info->max_mtu = be16_to_cpu(dev_op_jumbo_frames->max_mtu);
+ 	}
+ 
+ 	/* Override pages for qpl for DQO-QPL */
+ 	if (dev_op_dqo_qpl) {
+-		priv->tx_pages_per_qpl =
++		info->tx_pages_per_qpl =
+ 			be16_to_cpu(dev_op_dqo_qpl->tx_pages_per_qpl);
+-		if (priv->tx_pages_per_qpl == 0)
+-			priv->tx_pages_per_qpl = DQO_QPL_DEFAULT_TX_PAGES;
++		if (info->tx_pages_per_qpl == 0)
++			info->tx_pages_per_qpl = DQO_QPL_DEFAULT_TX_PAGES;
+ 	}
+ 
+ 	if (dev_op_buffer_sizes &&
+ 	    (supported_features_mask & GVE_SUP_BUFFER_SIZES_MASK)) {
+-		priv->max_rx_buffer_size =
++		info->max_rx_buffer_size =
+ 			be16_to_cpu(dev_op_buffer_sizes->packet_buffer_size);
+-		priv->header_buf_size =
++		info->header_buf_size =
+ 			be16_to_cpu(dev_op_buffer_sizes->header_buffer_size);
+ 		dev_info(&priv->pdev->dev,
+ 			 "BUFFER SIZES device option enabled with max_rx_buffer_size of %u, header_buf_size of %u.\n",
+-			 priv->max_rx_buffer_size, priv->header_buf_size);
+-		if (gve_is_dqo(priv) &&
+-		    priv->max_rx_buffer_size > GVE_DEFAULT_RX_BUFFER_SIZE)
+-			priv->rx_cfg.packet_buffer_size =
+-				priv->max_rx_buffer_size;
++			 info->max_rx_buffer_size, info->header_buf_size);
+ 	}
+ 
+ 	/* Read and store ring size ranges given by device */
+ 	if (dev_op_modify_ring &&
+ 	    (supported_features_mask & GVE_SUP_MODIFY_RING_MASK)) {
+-		priv->modify_ring_size_enabled = true;
++		info->modify_ring_size_enabled = true;
+ 
+ 		/* max ring size for DQO QPL should not be overwritten because of device limit */
+-		if (priv->queue_format != GVE_DQO_QPL_FORMAT) {
+-			priv->max_rx_desc_cnt = be16_to_cpu(dev_op_modify_ring->max_rx_ring_size);
+-			priv->max_tx_desc_cnt = be16_to_cpu(dev_op_modify_ring->max_tx_ring_size);
++		if (info->queue_format != GVE_DQO_QPL_FORMAT) {
++			info->max_rx_ring_size =
++				be16_to_cpu(dev_op_modify_ring->max_rx_ring_size);
++			info->max_tx_ring_size =
++				be16_to_cpu(dev_op_modify_ring->max_tx_ring_size);
+ 		}
+-		if (priv->default_min_ring_size) {
++		if (info->default_min_ring_size) {
+ 			/* If device hasn't provided minimums, use default minimums */
+-			priv->min_tx_desc_cnt = GVE_DEFAULT_MIN_TX_RING_SIZE;
+-			priv->min_rx_desc_cnt = GVE_DEFAULT_MIN_RX_RING_SIZE;
++			info->min_tx_ring_size = GVE_DEFAULT_MIN_TX_RING_SIZE;
++			info->min_rx_ring_size = GVE_DEFAULT_MIN_RX_RING_SIZE;
+ 		} else {
+-			priv->min_rx_desc_cnt = be16_to_cpu(dev_op_modify_ring->min_rx_ring_size);
+-			priv->min_tx_desc_cnt = be16_to_cpu(dev_op_modify_ring->min_tx_ring_size);
++			info->min_rx_ring_size =
++				be16_to_cpu(dev_op_modify_ring->min_rx_ring_size);
++			info->min_tx_ring_size =
++				be16_to_cpu(dev_op_modify_ring->min_tx_ring_size);
+ 		}
+ 	}
+ 
+ 	if (dev_op_flow_steering &&
+ 	    (supported_features_mask & GVE_SUP_FLOW_STEERING_MASK)) {
+ 		if (dev_op_flow_steering->max_flow_rules) {
+-			priv->max_flow_rules =
++			info->max_flow_rules =
+ 				be32_to_cpu(dev_op_flow_steering->max_flow_rules);
+-			priv->dev->hw_features |= NETIF_F_NTUPLE;
+ 			dev_info(&priv->pdev->dev,
+ 				 "FLOW STEERING device option enabled with max rule limit of %u.\n",
+-				 priv->max_flow_rules);
++				 info->max_flow_rules);
+ 		}
+ 	}
+ 
+ 	if (dev_op_rss_config &&
+ 	    (supported_features_mask & GVE_SUP_RSS_CONFIG_MASK)) {
+-		priv->rss_key_size =
++		info->rss_key_size =
+ 			be16_to_cpu(dev_op_rss_config->hash_key_size);
+-		priv->rss_lut_size =
++		info->rss_lut_size =
+ 			be16_to_cpu(dev_op_rss_config->hash_lut_size);
+-		priv->cache_rss_config = false;
++		info->cache_rss_config = false;
+ 		dev_dbg(&priv->pdev->dev,
+ 			"RSS device option enabled with key size of %u, lut size of %u.\n",
+-			priv->rss_key_size, priv->rss_lut_size);
++			info->rss_key_size, info->rss_lut_size);
+ 	}
+ 
+ 	if (dev_op_nic_timestamp &&
+ 	    (supported_features_mask & GVE_SUP_NIC_TIMESTAMP_MASK))
+-		priv->nic_timestamp_supported = true;
++		info->nic_timestamp_supported = true;
++}
++
++static void gve_fill_device_info(struct gve_priv *priv,
++				 struct gve_device_descriptor *descriptor)
++{
++	struct gve_device_info *device_info = &priv->device_info;
++	u16 default_num_queues;
++
++	device_info->tx_pages_per_qpl =
++				be16_to_cpu(descriptor->tx_pages_per_qpl);
++	device_info->max_registered_pages =
++				be64_to_cpu(descriptor->max_registered_pages);
++	device_info->num_event_counters = be16_to_cpu(descriptor->counters);
++	ether_addr_copy(device_info->mac, descriptor->mac);
++	device_info->max_mtu =  be16_to_cpu(descriptor->mtu);
++
++	default_num_queues = be16_to_cpu(descriptor->default_num_queues);
++	device_info->default_tx_queues = default_num_queues;
++	device_info->default_rx_queues = default_num_queues;
++	device_info->default_tx_ring_size =
++				be16_to_cpu(descriptor->tx_queue_entries);
++	device_info->default_rx_ring_size =
++				be16_to_cpu(descriptor->rx_queue_entries);
++
++	/* set default ranges */
++	device_info->max_tx_ring_size = device_info->default_tx_ring_size;
++	device_info->max_rx_ring_size = device_info->default_rx_ring_size;
++	device_info->min_tx_ring_size = device_info->default_tx_ring_size;
++	device_info->min_rx_ring_size = device_info->default_rx_ring_size;
+ }
+ 
+ int gve_adminq_describe_device(struct gve_priv *priv)
+@@ -1050,6 +1070,7 @@ int gve_adminq_describe_device(struct gve_priv *priv)
+ 	struct gve_device_option_jumbo_frames *dev_op_jumbo_frames = NULL;
+ 	struct gve_device_option_modify_ring *dev_op_modify_ring = NULL;
+ 	struct gve_device_option_rss_config *dev_op_rss_config = NULL;
++	struct gve_device_info *device_info = &priv->device_info;
+ 	struct gve_device_option_gqi_rda *dev_op_gqi_rda = NULL;
+ 	struct gve_device_option_gqi_qpl *dev_op_gqi_qpl = NULL;
+ 	struct gve_device_option_dqo_rda *dev_op_dqo_rda = NULL;
+@@ -1059,8 +1080,6 @@ int gve_adminq_describe_device(struct gve_priv *priv)
+ 	union gve_adminq_command cmd;
+ 	dma_addr_t descriptor_bus;
+ 	int err = 0;
+-	u8 *mac;
+-	u16 mtu;
+ 
+ 	memset(&cmd, 0, sizeof(cmd));
+ 	descriptor = dma_pool_alloc(priv->adminq_pool, GFP_KERNEL,
+@@ -1095,26 +1114,26 @@ int gve_adminq_describe_device(struct gve_priv *priv)
+ 	 * DqoRda, DqoQpl, GqiRda, GqiQpl. Use GqiQpl as default.
+ 	 */
+ 	if (dev_op_dqo_rda) {
+-		priv->queue_format = GVE_DQO_RDA_FORMAT;
++		device_info->queue_format = GVE_DQO_RDA_FORMAT;
+ 		dev_info(&priv->pdev->dev,
+ 			 "Driver is running with DQO RDA queue format.\n");
+ 		supported_features_mask =
+ 			be32_to_cpu(dev_op_dqo_rda->supported_features_mask);
+ 	} else if (dev_op_dqo_qpl) {
+-		priv->queue_format = GVE_DQO_QPL_FORMAT;
++		device_info->queue_format = GVE_DQO_QPL_FORMAT;
+ 		supported_features_mask =
+ 			be32_to_cpu(dev_op_dqo_qpl->supported_features_mask);
+ 	}  else if (dev_op_gqi_rda) {
+-		priv->queue_format = GVE_GQI_RDA_FORMAT;
++		device_info->queue_format = GVE_GQI_RDA_FORMAT;
+ 		dev_info(&priv->pdev->dev,
+ 			 "Driver is running with GQI RDA queue format.\n");
+ 		supported_features_mask =
+ 			be32_to_cpu(dev_op_gqi_rda->supported_features_mask);
+-	} else if (priv->queue_format == GVE_GQI_RDA_FORMAT) {
++	} else if (device_info->queue_format == GVE_GQI_RDA_FORMAT) {
+ 		dev_info(&priv->pdev->dev,
+ 			 "Driver is running with GQI RDA queue format.\n");
+ 	} else {
+-		priv->queue_format = GVE_GQI_QPL_FORMAT;
++		device_info->queue_format = GVE_GQI_QPL_FORMAT;
+ 		if (dev_op_gqi_qpl)
+ 			supported_features_mask =
+ 				be32_to_cpu(dev_op_gqi_qpl->supported_features_mask);
+@@ -1122,27 +1141,9 @@ int gve_adminq_describe_device(struct gve_priv *priv)
+ 			 "Driver is running with GQI QPL queue format.\n");
+ 	}
+ 
+-	/* set default descriptor counts */
+-	gve_set_default_desc_cnt(priv, descriptor);
+-
++	gve_fill_device_info(priv, descriptor);
+ 	gve_set_default_rss_sizes(priv);
+ 
+-	priv->max_registered_pages =
+-				be64_to_cpu(descriptor->max_registered_pages);
+-	mtu = be16_to_cpu(descriptor->mtu);
+-	if (mtu < ETH_MIN_MTU) {
+-		dev_err(&priv->pdev->dev, "MTU %d below minimum MTU\n", mtu);
+-		err = -EINVAL;
+-		goto free_device_descriptor;
+-	}
+-	priv->dev->max_mtu = mtu;
+-	priv->num_event_counters = be16_to_cpu(descriptor->counters);
+-	eth_hw_addr_set(priv->dev, descriptor->mac);
+-	mac = descriptor->mac;
+-	dev_info(&priv->pdev->dev, "MAC addr: %pM\n", mac);
+-	priv->tx_pages_per_qpl = be16_to_cpu(descriptor->tx_pages_per_qpl);
+-	priv->default_num_queues = be16_to_cpu(descriptor->default_num_queues);
+-
+ 	gve_enable_supported_features(priv, supported_features_mask,
+ 				      dev_op_jumbo_frames, dev_op_dqo_qpl,
+ 				      dev_op_buffer_sizes, dev_op_flow_steering,
+@@ -1629,6 +1630,8 @@ int gve_set_num_ntfy_blks(struct gve_priv *priv)
+ 
+ void gve_set_num_queues(struct gve_priv *priv)
+ {
++	struct gve_device_info *device_info = &priv->device_info;
++
+ 	priv->tx_cfg.max_queues =
+ 		min_t(int, priv->tx_cfg.max_queues, priv->num_ntfy_blks / 2);
+ 	priv->rx_cfg.max_queues =
+@@ -1636,10 +1639,13 @@ void gve_set_num_queues(struct gve_priv *priv)
+ 
+ 	priv->tx_cfg.num_queues = priv->tx_cfg.max_queues;
+ 	priv->rx_cfg.num_queues = priv->rx_cfg.max_queues;
+-	if (priv->default_num_queues > 0) {
+-		priv->tx_cfg.num_queues = min_t(int, priv->default_num_queues,
++	if (device_info->default_tx_queues > 0)
++		priv->tx_cfg.num_queues = min_t(int,
++						device_info->default_tx_queues,
+ 						priv->tx_cfg.num_queues);
+-		priv->rx_cfg.num_queues = min_t(int, priv->default_num_queues,
++
++	if (device_info->default_rx_queues > 0)
++		priv->rx_cfg.num_queues = min_t(int,
++						device_info->default_rx_queues,
+ 						priv->rx_cfg.num_queues);
+-	}
+ }
+diff --git a/drivers/net/ethernet/google/gve/gve_adminq.h b/drivers/net/ethernet/google/gve/gve_adminq.h
+index 13b37699b2d00..ee32525fe7307 100644
+--- a/drivers/net/ethernet/google/gve/gve_adminq.h
++++ b/drivers/net/ethernet/google/gve/gve_adminq.h
+@@ -658,5 +658,4 @@ int gve_adminq_get_ptype_map_dqo(struct gve_priv *priv,
+ 				 struct gve_ptype_lut *ptype_lut);
+ int gve_set_num_ntfy_blks(struct gve_priv *priv);
+ void gve_set_num_queues(struct gve_priv *priv);
+-
+ #endif /* _GVE_ADMINQ_H */
+diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
+index 41d79b3555cae..52dfd8bfe6c41 100644
+--- a/drivers/net/ethernet/google/gve/gve_main.c
++++ b/drivers/net/ethernet/google/gve/gve_main.c
+@@ -2363,8 +2363,71 @@ static void gve_set_netdev_xdp_features(struct gve_priv *priv)
+ 	xdp_set_features_flag_locked(priv->dev, xdp_features);
+ }
+ 
++static void gve_set_desc_cnt(struct gve_priv *priv)
++{
++	struct gve_device_info *device_info = &priv->device_info;
++
++	priv->tx_desc_cnt = device_info->default_tx_ring_size;
++	priv->rx_desc_cnt = device_info->default_rx_ring_size;
++	priv->max_tx_desc_cnt = device_info->max_tx_ring_size;
++	priv->max_rx_desc_cnt = device_info->max_rx_ring_size;
++	priv->min_tx_desc_cnt = device_info->min_tx_ring_size;
++	priv->min_rx_desc_cnt = device_info->min_rx_ring_size;
++}
++
++static void gve_set_queue_properties(struct gve_priv *priv)
++{
++	struct gve_device_info *device_info = &priv->device_info;
++
++	gve_set_desc_cnt(priv);
++	priv->max_registered_pages = device_info->max_registered_pages;
++	priv->tx_pages_per_qpl = device_info->tx_pages_per_qpl;
++}
++
++static int gve_set_mtu(struct gve_priv *priv)
++{
++	struct gve_device_info *device_info = &priv->device_info;
++	u16 mtu;
++
++	mtu = device_info->max_mtu;
++	if (mtu < ETH_MIN_MTU) {
++		dev_err(&priv->pdev->dev, "MTU %d below minimum MTU\n", mtu);
++		return -EINVAL;
++	}
++	priv->dev->max_mtu = mtu;
++	priv->dev->mtu = mtu;
++
++	return 0;
++}
++
++static void gve_set_mac(struct gve_priv *priv)
++{
++	struct gve_device_info *device_info = &priv->device_info;
++	u8 *mac;
++
++	mac = device_info->mac;
++	eth_hw_addr_set(priv->dev, mac);
++	dev_info(&priv->pdev->dev, "MAC addr: %pM\n", mac);
++}
++
++static void gve_set_buf_sizes(struct gve_priv *priv)
++{
++	struct gve_device_info *device_info = &priv->device_info;
++
++	if (device_info->max_rx_buffer_size)
++		priv->max_rx_buffer_size = device_info->max_rx_buffer_size;
++
++	if (gve_is_dqo(priv) &&
++	    priv->max_rx_buffer_size > GVE_DEFAULT_RX_BUFFER_SIZE)
++		priv->rx_cfg.packet_buffer_size = priv->max_rx_buffer_size;
++
++	if (device_info->header_buf_size)
++		priv->header_buf_size = device_info->header_buf_size;
++}
++
+ static int gve_init_priv(struct gve_priv *priv, bool skip_describe_device)
+ {
++	struct gve_device_info *device_info = &priv->device_info;
+ 	int err;
+ 
+ 	/* Set up the adminq */
+@@ -2387,7 +2450,7 @@ static int gve_init_priv(struct gve_priv *priv, bool skip_describe_device)
+ 	if (skip_describe_device)
+ 		goto setup_device;
+ 
+-	priv->queue_format = GVE_QUEUE_FORMAT_UNSPECIFIED;
++	device_info->queue_format = GVE_QUEUE_FORMAT_UNSPECIFIED;
+ 	/* Get the initial information we need from the device */
+ 	err = gve_adminq_describe_device(priv);
+ 	if (err) {
+@@ -2396,6 +2459,8 @@ static int gve_init_priv(struct gve_priv *priv, bool skip_describe_device)
+ 		goto err;
+ 	}
+ 
++	priv->queue_format = priv->device_info.queue_format;
++
+ 	err = gve_set_num_ntfy_blks(priv);
+ 	if (err) {
+ 		dev_err(&priv->pdev->dev,
+@@ -2423,12 +2488,34 @@ static int gve_init_priv(struct gve_priv *priv, bool skip_describe_device)
+ 		netif_set_tso_max_size(priv->dev, GVE_DQO_TX_MAX);
+ 	}
+ 
+-	priv->dev->mtu = priv->dev->max_mtu;
++	if (gve_set_mtu(priv)) {
++		err = -EINVAL;
++		goto err;
++	}
++
++	priv->num_event_counters = device_info->num_event_counters;
++
++	gve_set_mac(priv);
++
++	gve_set_queue_properties(priv);
++	priv->modify_ring_size_enabled = device_info->modify_ring_size_enabled;
++
++	gve_set_buf_sizes(priv);
++
++	priv->max_flow_rules = device_info->max_flow_rules;
++	if (priv->max_flow_rules)
++		priv->dev->hw_features |= NETIF_F_NTUPLE;
++
++	priv->rss_key_size = device_info->rss_key_size;
++	priv->rss_lut_size = device_info->rss_lut_size;
++	priv->cache_rss_config = device_info->cache_rss_config;
++
+ 	priv->numa_node = dev_to_node(&priv->pdev->dev);
+ 	priv->tx_cfg.num_xdp_queues = 0;
+ 	priv->rx_copybreak = GVE_DEFAULT_RX_COPYBREAK;
+ 	priv->ts_config.tx_type = HWTSTAMP_TX_OFF;
+ 	priv->ts_config.rx_filter = HWTSTAMP_FILTER_NONE;
++	priv->nic_timestamp_supported = device_info->nic_timestamp_supported;
+ 
+ setup_device:
+ 	priv->xsk_pools = bitmap_zalloc(priv->rx_cfg.max_queues, GFP_KERNEL);
 -- 
 2.53.0
-
-
 
