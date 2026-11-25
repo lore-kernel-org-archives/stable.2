@@ -1,99 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.227.132
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795576418;
-	b=wbxvTau3TtfyP89w3r8UFz/F9luHEh3ycT9SxtoHPfsZOK2z6BbXrNkmPWWLxAxi0u8a
-	 hbt1zNLX1vUJjKvpIZ2HzU27GxjUuyRd12RuaZAAcKmp7nBLjE0dSB8pi09ARF7oyKOQ3
-	 CbOwWBkyT22iIXwC6GzbpAS1kkpvNJuq6oaBFh0EP5LN/WFCa3whYxaXBGXjynONgsoLi
-	 hG0YgZzw/LO7csM98CQSUHODyWbnPwqQ8UNUDs/UhnAIVvNH0FcEZLKrQrSGkfynmkabP
-	 vVh1lv6qNzyUxbQNTo9kZ2Ib+RnHi/11Ri7yqYTo8seH8xfdQHTrljbwuGWujIpspkg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795576418;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=tCFbqC4C5B+TcudKUswIJlj5VybrEnHtIhkQZVCLE4o=;
-	b=O9qwjr6aXln7pQOHm29OlhltK5BleyfMLxyYkCUJdf4gRzrRqEDq+Xo1iXWAVrnRYqbD
-	 Nf0wFi1VAr7WFPZH/SPfwhHJfllGyvsgLBUxRXTSbOFwgqkxfUEujnD59AeDEOgzhrxL5
-	 dNPdajqQRcAODTQn8BMu0tha8EWXec9wS/ElndXjeFKC3KMVWZkY2948C85oin874Ax12
-	 sfDMbZLecSg9ScQbNFvAPXR6hGZYiP5ebm383UlSJcNUa56jpHovUAW+aSAcIQQYcGLHQ
-	 7cgVDOWB2JQGxjn71iE/gCrzdlg228K+CNjClfBSn4zCOx/EzhuQ2eBUJVBrqwqvvag==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rXmdTs58;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.227.132
-Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795577088;
+	b=k1YJ8H0vyU+T1qKryQfDI3VHtGXX/VzuBbaMEeV1LNdz5YzxywAPmfV/+kQu9TpsikN7
+	 OlngnLcabwDD15RQKq2SaElS0pHwBQWw1NI+lD+fL0eqrJdyQaxcjzqXnRftS/3eeBV0L
+	 +o1C+UYipCbzblOU6Va+E4N63yHeKqS9Q3mPtVyzBiwNnw3oYK2aQFFmvGNgrnUHR+Bsm
+	 k3gQiIMzhitajMHEsiDVqJZpDmHrummXM6F1SGPYUkZbYit+baR8WwpycdF0SubJ5kzXN
+	 aQqMSoWdM1B8KVFx1aibRE+c0NJslP9S4mAvHuu9/fK6pHcyrORKhAoXMIUcrv/EQvA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795577088;
+	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
+	 Message-Id;
+	bh=5suKI1FZCJIGZvx2Wse2R/N+TBCBfJMEXMDElTxOhsw=;
+	b=2aldDsg6jBHSfvbZHReQv5vJJLV9T8SeH9hwZx5OEpNJx4BD4Roxaze14hgMekVRti0C
+	 D3VOEYxgiDZ/uEMitIve2krG0Uf47Zle8R1NB9ABOevJnUmLHp6kIYFXJaf0Hls3P8gYc
+	 7mTpdot4Vy49iz8/38FziqJmFZToOwQNVjycPKatTX+pIBvNv9VD/lNWio+s7Xn/ktLjP
+	 PpX8pQRSSO58YxeISwqWDu6oe4kqS767R5QnFqp6HgRJ7TKR/489w+P3AuIsG3CIbCGoY
+	 o6TW3VXKc4shLcLweHEG/2OqDGze+4+rWnd/VZ04Wh06CsuQDFcIuGY09KrwCRuWfzQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=jLiK2EUL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62604606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 03:13:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62604606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02B08606A31E;
+	Wed, 25 Nov 2026 03:24:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rXmdTs58
-Received: by mail-pj2-f4.google.com with SMTP id 98e67ed59e1d1-3b497279c25so1316904a91.0
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 19:13:38 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795576418; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jC3G6PRLPFoO+vz/BnmGcxj/MCMgbMXj5p/PeP9iWAdyknYAi/SKRkkRjNjgp7CIXy
-         jo9cFze14kyIfmiiuInSOmp9qy6REapPs3JpC3NkC4wI2Cay3VH4tKdCqY2oQmC4THg1
-         4pShcmNpGykR3j+bSIaTaQuCONOcAKZ9jpbsu3b5EyzZoftkgSRXvHm2qKew2Z9z7XP2
-         OW7+GXgRfpcH4EKrePnSlTOJ8ztwrl4iijp6hzFqp83Qxr+OhUtwkAsabIngBEIbBa8W
-         jE5OlDFBT/XEEIvB5mAxrFN/Md9bb8kYicIXCTLCDWvQvGN8VnL7dMRmHpxRWJdUn4WG
-         +ICg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=tCFbqC4C5B+TcudKUswIJlj5VybrEnHtIhkQZVCLE4o=;
-        fh=XJvXPuZ2kn/s0RWMOW/MnOoUUxubQnqJTKu3KwJJx/g=;
-        b=bUFANqp53U55tu3byLU4sEkj5zxIL0Hiz5swspMg2kb6gBAd8aIPH293+hfE/Ae4gp
-         xO453yvA+roKArd95OD+DJ70UuTlG4hEw9lcrQOHYpI4eqFVq7hbMXJAvLGQwgnHhDqv
-         kW4nUpwUfJBnFqS03sdZTv4YNVxToASva/LcgNjEvpf982XLOwR867Ufi7kfL8s/Ebmq
-         zQ5z+nEwLqZPiW9R/o+SvnqINCiLnXTo8O14DCYOBjMIU7SL3LoXOqKRsdHoei4rCYwo
-         M7sZJXBqk3iZVPzb48SGIJDyMonFrfi+nnIereoq4YonEPeX2aLi4sqTvjnWwQT5MYaq
-         9hVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=jLiK2EUL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667CC1F000CA;
+	Wed, 25 Nov 2026 03:24:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795576418; x=1796181218; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tCFbqC4C5B+TcudKUswIJlj5VybrEnHtIhkQZVCLE4o=;
-        b=rXmdTs58n8JfEdQZ4HJe9pcRzDlBQeJ8CGNnQxZY9c+zSkk/5zUpxc5Ieu3awVsTbo
-         1xDLVWvtEr5GNBNnsjB7e9TithIelqyGPJFxWAQBw70S3tFtNmU37c1INdWp0EknyzKM
-         T1139q3oLAzi/hXRzI2Jrss2DdbZjCHcZZ0mKuvVeo3QskAtNhZ7TeTHj743Utw8bQLP
-         n2sLt52jR6Sz1UOwtUJ2xlW7zoiLQpqnaSCzW7nrSgAzWgqaGJ4Z9jipS/AJUQqxNhL4
-         sZcJ2jji6rFEGT+lIolVduLzCtkXWgXLtB61dIcFPnRXS5gO41XMwYyCOTVdVbQZtS5O
-         Fx8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795576418; x=1796181218;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=tCFbqC4C5B+TcudKUswIJlj5VybrEnHtIhkQZVCLE4o=;
-        b=ba+vhjAJCkb7U6WS5Pl0UMvzUDYTiX/ClZmKIHd64j4S73Lmc1pvi4d+oSpzyg//mv
-         gytBuLXJZs0Y1c6gpWiFIoXq23SivMu7cMPi3vqDcFlJPIlqtC//08DqRM15Q7iI/thz
-         Uop2Kc95GROemoXA3b4Au7CZDlH9wwtWCl4Tyth9kE7dhtEfmBw+Xt6agE+ybeRSzIZq
-         lTRFGMmLc3cFju4eEUKNNZALMn6cHoHG9X9ffMeyXDPUjyWpUlTMZRf0CWO/4Yge53Bo
-         aUL82YjDTsUnxDIPIVSHpQsGdIHRz78SxqybvZ/RT05Xrm9tGsxv3nAaxsyHWQayTG7H
-         B3BQ==
-X-Forwarded-Encrypted: i=1; AL+hErHk6URV8RELAXmO3HBKbcqmbw8T6pRckxL6JjPB0IAVIcRK0seCkZr1JYqkViMV5QGmpYX0tAE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8nzzztWmuy5OkUnHBcIVlcy4huaveMyxI3Ze5cwE30upL8TllQ
-	1tV4aC8FSpM0zYdXY21wXSe9SdITy3HiocforSy9bHMzfrtobrmJH42DeppS71md0LX0H6Mhelx
-	2HzhAYAyPx7qBY6VFmu6vPvREP6XjqyM=
-X-Gm-Gg: AZFdTZeghij5yjA1C4iyODqmC3qgScuCJmf1kd8o0PldFo+ev5WG19QvR45saNSSC8w
-	vXYFcQ2lVToqxrGC+lyV4T4PQBEirbhdg4LdVrjYmbK4zObYTmx08sIvVt5l8Z8v7RvTLXTpyaR
-	HSNJHAqTYwyAwyHtaKp16+dLhQF6wH9b3p+CHUmI759J/+hYHxygfP3eUfxHMYuvPopiS3iSeBy
-	2/WLLslBz87J4IGQtdNZLamZB2zRmqxyW7kerPOQq2YdvT6EdLPXLYA3s0ZuL7ML7WALNQoKCkb
-	ysYhwZqdPX8lZlzOMpoxxiDKf08wkmBvOG/nlyFKUv42U5u3Yat7TL6uUTHCKDdAkAuNOOxI3R2
-	0S9J94C+ydlcPaMoWKMEwjKefLx3CJyI2M2BHtA==
-X-Received: by 2002:a17:90b:17cd:b0:3ab:4f1:4f76 with SMTP id
- 98e67ed59e1d1-3b41c900b24mr15919769a91.24.1795576417688; Tue, 24 Nov 2026
- 19:13:37 -0800 (PST)
+	d=linux-foundation.org; s=korg; t=1795577087;
+	bh=5suKI1FZCJIGZvx2Wse2R/N+TBCBfJMEXMDElTxOhsw=;
+	h=Date:To:From:In-Reply-To:References:Subject;
+	b=jLiK2EULRkzaO1GqE+KHkjsIRh9ecl2lv9dVCeSccJ3OyeXPw9cOeOWHtHvlMEUUo
+	 hdcfhQOaeCl7VC2TLGXw65gO3lPmbib+uxm03LZQgHAcwkmfDbt/hxa5zzeM1o762+
+	 q6OJeoFU9M0Lo5Ej9JRxbgjHhUuPNFZXgNBXiOXM=
+Date: Tue, 24 Nov 2026 19:24:46 -0800
+To: mm-commits@vger.kernel.org,
+	syzbot+487e39304129321dd253@syzkaller.appspotmail.com,stable@vger.kernel.org,
+	mark@fasheh.com,jlbec@evilplan.org,heming.zhao@suse.com,firefly0158@163.com,
+	joseph.qi@linux.alibaba.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+In-Reply-To: <20261125025505.343454-1-joseph.qi@linux.alibaba.com>
+References: <20261125025505.343454-1-joseph.qi@linux.alibaba.com>
+Subject: + ocfs2-dont-bug_on-when-a-group-extend-leaves-too-few-free-bits.patch added to mm-nonmm-unstable branch
+Message-Id: <20261125032447.667CC1F000CA@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,32 +54,140 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261123030014.3116755-1-bsdhenrymartin@gmail.com>
- <lh4cnpy2kw3tdtmhubwhhvim25kxpqxo6xttt7sihyx7x5hqdf@3tvivew2qh7m> <CAKEwX=Py7W0vOwxKdWMCZu3d=BbF2OkgDt6Tu_AHhEJZ06w0ew@mail.gmail.com>
-In-Reply-To: <CAKEwX=Py7W0vOwxKdWMCZu3d=BbF2OkgDt6Tu_AHhEJZ06w0ew@mail.gmail.com>
-From: henry martin <bsdhenrymartin@gmail.com>
-Date: Wed, 25 Nov 2026 11:13:24 +0800
-X-Gm-Features: Aa3M54pnXMEK0Eck5BBUuqtUrkvY1nVqb3SO0OotTOKtwJph7tvN7_xbLx5Lf10
-Message-ID: <CAEnQdOrzP9wKwmyuySRch=a4B5F3Akgsvk9TNUj1Vycq-4JZEg@mail.gmail.com>
-Subject: Re: [PATCH] mm: fix cachestat NULL pgdat dereference on DAX mappings
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, Matthew Wilcox <willy@infradead.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-> +1. This sounds good to me.
->
-> Henry, would you mind sending v2 along this line?
->
-> (and maybe add some documentation).
 
- Sure, v2 sent: cachestat() now skips the xarray walk for DAX mappings
- and reports all zeros, and the behaviour is documented in the syscall's
- kernel-doc.
+The patch titled
+     Subject: ocfs2: don't BUG_ON when a group extend leaves too few free bits
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     ocfs2-dont-bug_on-when-a-group-extend-leaves-too-few-free-bits.patch
 
- Link: https://lore.kernel.org/linux-mm/20261125030432.274396-1-bsdhenrymartin@gmail.com/
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-dont-bug_on-when-a-group-extend-leaves-too-few-free-bits.patch
 
- Thanks,
- Henry
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+Subject: ocfs2: don't BUG_ON when a group extend leaves too few free bits
+Date: Wed, 25 Nov 2026 10:55:03 +0800
+
+ocfs2_reserve_suballoc_bits() extends a metadata chain allocator by
+one block group when it holds fewer free bits than the caller wants,
+then asserts that the extend satisfied the request.
+
+That assertion trusts the on-disk allocator geometry.  With
+id2.i_chain.cl_cpg and cl_bpc both set to 1, ocfs2_bits_per_group()
+returns 1, so the only bit of the new group is consumed by its own
+descriptor and ocfs2_block_group_fill() leaves bg_free_bits_count at
+0.  The extend then adds 1 to both i_total and i_used, free_bits
+stays 0, and BUG_ON(bits_wanted > i_total - i_used) fires on a plain
+open(O_CREAT):
+
+    ocfs2_reserve_suballoc_bits
+    ocfs2_reserve_new_metadata_blocks
+    ocfs2_mknod
+    ocfs2_create
+    path_openat
+
+The reservation runs before ocfs2_start_trans(), so no transaction is
+open and no dquot is charged when it fires.
+
+Report the volume as errored instead, the way the missing
+OCFS2_CHAIN_FL check just above already does.  The status is not
+-ENOSPC, so callers propagate it rather than falling back to stealing
+from another slot.  No new unwind is needed: ac->ac_bh is not set yet
+on this path, so the bail label only releases the local bh, and the
+allocation context is freed by the callers' existing error paths.
+ocfs2_block_group_alloc() has already committed its own transaction,
+so the degenerate group stays on disk - which is what every other
+ocfs2_error() corruption path leaves behind.
+
+Link: https://patch.msgid.link/20261125025505.343454-1-joseph.qi@linux.alibaba.com
+Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: <syzbot+487e39304129321dd253@syzkaller.appspotmail.com>
+Cc: CJ <firefly0158@163.com>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: <stable@vger.kernel.org>
+
+ fs/ocfs2/suballoc.c |   14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
+
+--- a/fs/ocfs2/suballoc.c~ocfs2-dont-bug_on-when-a-group-extend-leaves-too-few-free-bits
++++ a/fs/ocfs2/suballoc.c
+@@ -957,10 +957,16 @@ static int ocfs2_reserve_suballoc_bits(s
+ 		}
+ 		atomic_inc(&osb->alloc_stats.bg_extends);
+ 
+-		/* You should never ask for this much metadata */
+-		BUG_ON(bits_wanted >
+-		       (le32_to_cpu(fe->id1.bitmap1.i_total)
+-			- le32_to_cpu(fe->id1.bitmap1.i_used)));
++		/* Corrupt geometry can extend by a group with no usable bits. */
++		free_bits = le32_to_cpu(fe->id1.bitmap1.i_total) -
++			le32_to_cpu(fe->id1.bitmap1.i_used);
++		if (bits_wanted > free_bits) {
++			status = ocfs2_error(alloc_inode->i_sb,
++					     "Invalid chain allocator %llu: %u free bits after group extend, %u wanted\n",
++					     (unsigned long long)le64_to_cpu(fe->i_blkno),
++					     free_bits, bits_wanted);
++			goto bail;
++		}
+ 	}
+ 
+ 	get_bh(bh);
+_
+
+Patches currently in -mm which might be from joseph.qi@linux.alibaba.com are
+
+ocfs2-exempt-orphaned-dinodes-from-the-zero-nlink-check.patch
+ocfs2-abstract-the-zero-nlink-or-mode-dinode-check.patch
+ocfs2-abstract-the-dinode-i_blkno-mismatch-check.patch
+ocfs2-abstract-the-dinode-ocfs2_valid_fl-check.patch
+ocfs2-abstract-the-dinode-fs_generation-mismatch-check.patch
+ocfs2-abstract-the-dinode-suballoc-slot-checks.patch
+ocfs2-abstract-the-dinode-suballoc-bit-check.patch
+ocfs2-abstract-the-dinode-orphaned-slot-check.patch
+ocfs2-abstract-the-dinode-dio-orphaned-slot-check.patch
+ocfs2-abstract-the-inline-data-dinode-guard-and-cluster-check.patch
+ocfs2-abstract-the-inline-data-id_count-bound-check.patch
+ocfs2-abstract-the-inline-data-i_size-bound-check.patch
+ocfs2-abstract-the-fast-symlink-dinode-guard-and-size-check.patch
+ocfs2-abstract-the-fast-symlink-nul-termination-check.patch
+ocfs2-abstract-the-chain-list-dinode-guard-and-count-check.patch
+ocfs2-abstract-the-chain-list-next-free-record-check.patch
+ocfs2-abstract-the-chain-list-bits-per-cluster-check.patch
+ocfs2-abstract-the-dinode-refcount-location-check.patch
+ocfs2-abstract-the-zero-extent-list-count-check.patch
+ocfs2-abstract-the-oversized-extent-list-count-check.patch
+ocfs2-abstract-the-extent-list-next-free-record-check.patch
+ocfs2-report-unrepairable-corruption-from-online-filecheck-fix.patch
+ocfs2-check-dinode-nlink-and-mode-in-online-filecheck.patch
+ocfs2-check-dinode-suballoc-slot-in-online-filecheck.patch
+ocfs2-check-dinode-suballoc-bit-in-online-filecheck.patch
+ocfs2-check-dinode-orphaned-slots-in-online-filecheck.patch
+ocfs2-check-inline-data-dinodes-in-online-filecheck.patch
+ocfs2-check-fast-symlink-dinodes-in-online-filecheck.patch
+ocfs2-check-chain-list-dinodes-in-online-filecheck.patch
+ocfs2-check-dinode-refcount-location-in-online-filecheck.patch
+ocfs2-check-extent-list-dinodes-in-online-filecheck.patch
+ocfs2-dont-bug_on-when-a-group-extend-leaves-too-few-free-bits.patch
+ocfs2-validate-chain-allocator-clusters-per-group.patch
+ocfs2-check-chain-allocator-clusters-per-group-in-online-filecheck.patch
+
