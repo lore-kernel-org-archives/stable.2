@@ -1,72 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795645497;
-	b=tRqNWz3ybWYmazWpkksgZmTVlpJNOC7EN9UiV5p8pAQyYgS5PMAnOLH9saxMz8tPjDCH
-	 52Y8zSVN/bPMCyOOxiOvfEB/xTnY5DiyjkXujvP5TxR2wT048q3B1FoXHbEiCPSTgZyQP
-	 eeeVsi3rNIzZARkfGEf6cX62OiauEEQy2kyN3PyM/0yJJA3UJHynPt0lYeJdywqcKrWsf
-	 SGq6wj4K2ZLCpgVH7lWAb8FhwUo+Afq4TSN7Vw6NRGdnZOENuLplwCTcNUSN9G54pqvnl
-	 PBjKvhR8glfIZ3NjjwGwfAF2A3v2Hek24f+DGpVZcoP3ncglSqy5vMnlzu9+EOJwpQw==
+	t=1795645504;
+	b=nm6vSXsDowtyKKA+JBuapeI0MZvdCA/NaW529L3I1cQ9Lhc+8dXVJDWRW7gruC+1P7P0
+	 KFkFYu6uzxTz7LSq1kGlRUKHKhCpGA3HIHOVNpGOroZZyLsrPjFlExVcf/c+/PRvPPd9r
+	 OqL29s7w0U9zlY0wm5XJUt1VOueAnaoFtPzAG5ZxNKkb2W6jtsFgrj5/2SzZmSeIWb9er
+	 Zuj2uBbHXe/UI4fI4+uIlg6yS8vNsSpaZ7pZubwAWJwPFhSq4jQuqMvtvEcmrdTw4GJnV
+	 ydzjQHVVjucPK5mYVLIgZ5tToEh7jiU+/nu1l6eqfrXb8u+QBWT0yDO067SyDVLh18g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795645497;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795645504;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
 	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=StPN5XiJsDNFXskzUTREunGJkezS8LFSBeJOfH/7nFE=;
-	b=A+rNAxT9BcYpjziWTz/wgRuEpO2Z8LS+GdjNqDlh55Od3pW+v65ojWPiq7Z5oDM+JaAO
-	 xgMAW3oEdJXO8VbD41w3NWkKK8qQgSk63wM94fvnuwmgD5v+TJf6aDCPHmMn9Zm0AgVtD
-	 xETGaQYb/2c/YBpV4quKxLbTvenp2VfQqwCjUYKajzE+c/WIma0OW0UzBk5vLvlgc+RjQ
-	 ovc0Hu8Isp3wX49nH3latebj/jaTt+4hDNZXRqh21TzLZDUvJXBtiZXuhAAxLFC1w1Lup
-	 uvc3ULC6Uw67qCgdXcHNvohyyO69GZNEG9VDt+ZkeS29GOfgMyhspwNzFWioWBLXISg==
+	bh=TveV0r8kvBsLiHa8p0PGJpcHtG/h8NzyM3pacyz3dFM=;
+	b=Pxar/lkSE3Lx29XBu4/aVidU6QeolTBZBj1tZWPy4bE4o5RgZ+i4Fh1KLWMBhyxDSOKt
+	 cmmciJ3nLAOGDng8CEGI+2JTdcWFUM4ed+VjTh5jVwY4jjR67i56dlqcB3ERRHO6XfpWp
+	 kU/fTNQEMIJgvzhy9bwgYo2pY9A1hIGkPiegfnHkkEs+SIohN6yICHTNcGmhTMq4gCzPD
+	 ZnGP09aXISDuLz8U8C+qOIdFNJub3UdmBVc+sb9MeAikMwce1VIeHG19S/VmbEwv/qJtA
+	 zRvP856Mkc10vPZ0WSFVnmDM4fzlP200t8Nv/Q7pSo9bbjfa9C1ceQZnDgaf4YsN9pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--elkin.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=F+eElF2E;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=e0WlNX4e;
 	arc=none smtp.remote-ip=74.125.82.198
 Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3EA606A693
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 22:24:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D3EA606A693
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8118D606A6AD
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 22:25:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8118D606A6AD
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--elkin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=F+eElF2E
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33713e5e6daso10352292eec.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:24:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=e0WlNX4e
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33713e5e6daso10352497eec.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:25:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795645495; x=1796250295; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1795645504; x=1796250304; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=StPN5XiJsDNFXskzUTREunGJkezS8LFSBeJOfH/7nFE=;
-        b=F+eElF2EclGDEmxecz7yQqtdiXMxmJTI3NZBJXwafwjYKooxYToDdgnbrendVLm/MO
-         5l6qdkdZpEh729y5gvRuJNCgA/nbt9oyQmc67XHkuuhXRXGigh59fm2Rnjmq3Or+jd4m
-         5SLuWydrhpvTA75Tz4n5LHKAo6h+OoW0zrR/AlF4Y0L1cO2IyEFIWvE2MFocifxElD5L
-         +RlM7A9EOEePUTNsZJISgfOyAIDMmLO7DYeAny+99wUMtpKKZGrBQz753DjiVSbledBE
-         1GAY8dcqMexRpM2JJb98gH9kiRk+SDO53gSbWASoiC54G65to9thZDrz5Gt8IEIVOw/i
-         WomA==
+        bh=TveV0r8kvBsLiHa8p0PGJpcHtG/h8NzyM3pacyz3dFM=;
+        b=e0WlNX4enakGTJw2PF/5zMRxY/lc57Z6ZUdDGeAgJAEDwG3jd+wTRlt4lRyAqY9aqy
+         6pnENjenp6Zz7NfMk2uBv70FWiUQjerm8TalQbWpfJc7e1zZdLJM15SrMieyPkfGHWjn
+         iYrg8bzf8fbnw9rpBUIDQRaZXcqlBFzbyubHZyAfX4a3FKj6A2EIrOiSSVOVIJX5mYis
+         LyMXzt1aOwz1BDiC9lR0wLAtTnJzT5boW78AKUcAYXwVjVlXrDo+W5hcRfzB3rO0Klv+
+         13c0PxQrprvm7m2Xgsmx9QUfWp3U1vc+DWj6Kd+yOlZL1R7HKxOVploVUCcPJPhVqaIG
+         5YPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795645495; x=1796250295;
+        d=1e100.net; s=20260707; t=1795645504; x=1796250304;
         h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=StPN5XiJsDNFXskzUTREunGJkezS8LFSBeJOfH/7nFE=;
-        b=TtKVY5gbQC/kb8SbM8ENdxwz7eYC6ljF9e6s/+W4c03M3Zpo70X9tmTtmeu7x4ixZk
-         g2d0Q6NIztVA8uwDFwHOMfw2TlfBwFOqV0PfuT+qls4pKQYqINPgsBFtiT1Zq/+CjOcY
-         tBchLXHWqY65YS6UsCIj8gQo854U8cmtTynfHxhZ0zEq0tTt2Qrra3noWoba5tNnOUeL
-         SYlMseBLQZ1gvUxcjc0Iwjd4AlVSF52f4e0U6WvOV1OSunIEBf8+nEPuTnryY4GArXO/
-         Z7fPZpfP5qGyiAydb+dVwdt2QoLnFhaz1ERoYFmN9QF3Jf/qFGR1kXcDwJHek1Ut1Ukj
-         BqHQ==
-X-Forwarded-Encrypted: i=1; AL+hErGalMIZs22Y5+NDEFMici0HqhC7V9/smIyBSe+fABLsIukIab8jFcFQ3rJAbYr9Q20saUC2XD0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8GTrYmOvyioqfZPsXxuE1gyMiwGdC3zkPP3eLCBvSEFdxX3i88
-	T0lMpvE0f/08ZzPKRd0dTJBuDvSdTkVJz7BYZN5OL2eO1p1Xl0eNWx+EKUa2pLcLn1J02I6W+9O
-	DjQ==
-X-Received: from dldz13-n2.prod.google.com ([2002:a05:701b:418d:20b0:1a7:3390:92b0])
- (user=elkin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:1708:b0:1b2:3742:828e
- with SMTP id a92af1059eb24-1b5567b21c1mr17035858c88.3.1795645494904; Wed, 25
- Nov 2026 14:24:54 -0800 (PST)
-Date: Wed, 25 Nov 2026 22:24:42 +0000
+        bh=TveV0r8kvBsLiHa8p0PGJpcHtG/h8NzyM3pacyz3dFM=;
+        b=tl1CyNZpdnUVOnQgfbQWpGG1zDE3SS57weBZU8cv1zeaDjpPFCtuJuX2Lm03Nme5jM
+         cebzDlK94B0i8eevBP7qRZ2dOADGIBQRXN2MhqpvcRzbCYZ955KhTb3pJBC0Ojoa13RO
+         4XGW8Xme229pecDzO4EubBNZ43eHn+QKp54KnsrJw1RZhmQNp5QASBLxR2PDGlpHeNVI
+         /OjZBoQAxP8ZxWw8e3hy39IjTyYSV2kjr/Dl1uXbVrg1XINAKwUaUJVUx7K+6Vvp21YQ
+         Yc8RDOYeEoeu81Ja1oJGMNo8WweSbUSqmU9pwVomPtIwnCvY+oSnQ0cKAKAkKw2/wTrR
+         uk/Q==
+X-Forwarded-Encrypted: i=1; AL+hErGoIVc3g49LQksPdWtN3vBdJQeVOqM0rB0y4OqM2ipvaxxrAh0u/8MMA8/UlHu0ApB0yz/cELw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Xf2IQVIEemMLige9wzzK81Yhxv4Bgp/8pxLnHeLXYYi0pLteq
+	FC3lLxCoyLNdCGBKgmzlopJl9sN8/Vbl/0mb7kNxD6/LVo7Hh3knFwhY5YDfvlrgx8Zb/BSIaWG
+	XGQ==
+X-Received: from dyw26.prod.google.com ([2002:a05:7300:881a:b0:381:e4bb:7fb7])
+ (user=elkin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:152f:b0:376:203e:7d7b
+ with SMTP id 5a478bee46e88-3856c6b35b5mr21680529eec.2.1795645503284; Wed, 25
+ Nov 2026 14:25:03 -0800 (PST)
+Date: Wed, 25 Nov 2026 22:24:55 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,26 +77,27 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
-Message-ID: <20261125222442.1443878-1-elkin@google.com>
-Subject: [PATCH] iommu/vt-d: Initialize prq_complete before requesting PRQ IRQ
+Message-ID: <20261125222455.1445007-1-elkin@google.com>
+Subject: [PATCH] iommu/sysfs: Clear iommu->dev on error in iommu_device_sysfs_add()
 From: Elkin Cruz <elkin@google.com>
-To: David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>
+To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>
 Cc: Robin Murphy <robin.murphy@arm.com>, iommu@lists.linux.dev, 
 	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, irogers@google.com, 
 	Elkin Cruz <elkin@google.com>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-In intel_iommu_enable_prq(), request_threaded_irq() is called before
-init_completion(&iommu->prq_complete). The interrupt thread
-prq_event_thread() invokes complete(&iommu->prq_complete) upon receiving
-events. If an interrupt fires immediately upon registration or after
-enabling PRQ in DMAR_PQA_REG, the thread can access an uninitialized
-completion structure.
+In iommu_device_sysfs_add(), if device_add() or setting the kobject name
+fails, put_device(iommu->dev) is called to release the allocated device.
+However, iommu->dev is not cleared to NULL, leaving a dangling pointer.
+Callers that inspect iommu->dev during error unwinding (such as
+free_sysfs() in amd/init.c) can invoke iommu_device_sysfs_remove() on
+the deallocated device pointer, causing a use-after-free and potential
+double-free.
 
-Move init_completion(&iommu->prq_complete) before requesting the IRQ.
+Set iommu->dev to NULL in the error path of iommu_device_sysfs_add(),
+and guard iommu_device_sysfs_remove() against NULL pointers.
 
-Fixes: 66ac4db36f4c ("iommu/vt-d: Add page request draining support")
+Fixes: 2926a2aa5c14 ("iommu: Fix wrong freeing of iommu_device->dev")
 Cc: stable@vger.kernel.org
 Signed-off-by: Elkin Cruz <elkin@google.com>
 ---
@@ -109,31 +110,30 @@ then checked against linux-next (not runtime-tested on hardware).
 Thanks,
 Elkin
 
- drivers/iommu/intel/prq.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/iommu/iommu-sysfs.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/iommu/intel/prq.c b/drivers/iommu/intel/prq.c
-index dddd3b51b657..7bf22ce7978d 100644
---- a/drivers/iommu/intel/prq.c
-+++ b/drivers/iommu/intel/prq.c
-@@ -318,6 +318,8 @@ int intel_iommu_enable_prq(struct intel_iommu *iommu)
+diff --git a/drivers/iommu/iommu-sysfs.c b/drivers/iommu/iommu-sysfs.c
+index 937d1c749843..3b9e5578978e 100644
+--- a/drivers/iommu/iommu-sysfs.c
++++ b/drivers/iommu/iommu-sysfs.c
+@@ -85,12 +85,16 @@ int iommu_device_sysfs_add(struct iommu_device *iommu,
  
- 	snprintf(iommu->prq_name, sizeof(iommu->prq_name), "dmar%d-prq", iommu->seq_id);
+ error:
+ 	put_device(iommu->dev);
++	iommu->dev = NULL;
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(iommu_device_sysfs_add);
  
-+	init_completion(&iommu->prq_complete);
+ void iommu_device_sysfs_remove(struct iommu_device *iommu)
+ {
++	if (!iommu->dev)
++		return;
 +
- 	ret = request_threaded_irq(irq, NULL, prq_event_thread, IRQF_ONESHOT,
- 				   iommu->prq_name, iommu);
- 	if (ret) {
-@@ -329,8 +331,6 @@ int intel_iommu_enable_prq(struct intel_iommu *iommu)
- 	writeq(0ULL, iommu->reg + DMAR_PQT_REG);
- 	writeq(virt_to_phys(iommu->prq) | PRQ_ORDER, iommu->reg + DMAR_PQA_REG);
- 
--	init_completion(&iommu->prq_complete);
--
- 	return 0;
- 
- free_iopfq:
+ 	dev_set_drvdata(iommu->dev, NULL);
+ 	device_unregister(iommu->dev);
+ 	iommu->dev = NULL;
 -- 
 2.56.1.839.g22a8290db9-goog
 
