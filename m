@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625207;
-	b=ICZESUOgD97f6WK/1cz9fS6thnZdsyRaIDnOp8dikAK4hj/AyMV8ZbkWdGItMl8IIyXu
-	 XpFJryoBpAHsjfwzpiYc/xfDEnQw2jwjPw9qUMTYcA9Ch+YcSgvaMGxZrdKQwaA+byhVB
-	 49aPxQ+J2QsuYMuBynnkn1ErPqm5UxqZVGDJixP3I3bkrzPQwYWBmQXyfpHJ0hfmmlOvZ
-	 ZqQUbIAWRTE7GD8eee++BZyoH36KThbyLAhJak26Cx187vxmhWHHCfgmoWFxYAcwgaKYQ
-	 yy5z0fmnFyM7m6V5Hxh5Q5QolkpItJDuKjU4wVVWMzM63cM78B9MFPM3A72PDVbOHrw==
+	t=1795625209;
+	b=wsHpBhZzxaDCFEQepLw0X8wDRxQ2jQlz9lT019rVvlrv5NTC7Su9dPRtaG2tNAYt6YEy
+	 s48BdOZ4oxNFfcDuUMW+ydiQ3h7iMdagvxuGLGCH0WRVpNGBGzpQyWjylfM9/oSs44pXC
+	 8RZmHK2pX3Jf3eL6mT7Y7tf8zUN+VMkgtHqyrgklcxIfslpqW++T6gr0bd/VywtRVQraJ
+	 iDg4Ntg/lYWLyCU5+L53JfarHUCf7Ns0iO2pcyqXK3PAFysL0WsPjwuQiv7BQ+x8668Ww
+	 zp+46ZnrbccNtKslPYx6SZ6jaZinhaOSrfWS7lUKA6uQF/URHHLfBqOA7jbU8QAcMdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625207;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625209;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=0XsaEDWr9q7b9yWmAnyRxO3KhlQjSwvqn/4CfvpnstU=;
-	b=3+nHbdFlQR4I78jCy5wgWY0QmpG39n3V+au9L/PCWk0un9XGxcAyQk74iKnojgG0qJas
-	 Zk5G8+3o7I3PnhnI60heNsd9YRMSc4D+HBptW5P8hTuJpk0K2Ip3Yg4PMp3ZeU4aMvxLW
-	 aJanLRH2uteB8Yr5olKuzLaT+YFGItKfC94NRfny9JpBVeQd3n3RFjDXicebTLPCPpN/S
-	 cduKvIGiZqlqWD8JVwsxA/XpyPQa0Fa9ZigIYesG2aPnTuZLbgOi27LUXMZeCRE+rp7fU
-	 MYAGBvBiO33X+wkN837496w2wVHo8hztmyOiWQ0D9tVj5Iph5oHwy79zT1uES8h4rBA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=r2Jsa7poyGTvWhNR0S3Bvc3z/jvAkdNAGysg6Icd2t8=;
+	b=5YoYCGLxAC3nZOQ6awCTyt+ccW1ikH2z1C8oC+iGQALcAPnoOEgs6XryP7LS1ClXmSY5
+	 f6KJWz5siC6iegphpEOjg9AKyPffzimhdbNhjcZ7yzRqN3nzW0i8v6aR3RuW4TTDXDu6A
+	 0UhoZ64ymsROn5sthiVt5v/2jd2vuxbilx3EKzVW9Enti88ec6OTRVR7YSS2Z82ZM0KlE
+	 qyUR4UijgGtfavonjbNZ4SvK3HMyYTEFE+SGcoG6L4mtS+6/26y2H0UfNINAXKOVyr9uu
+	 NQxLHdnWWEucQJLtjcvyZ7+dTzH2by3KVW7bQI+LJG1gUMsZUDGJSVKbs/grXrBH/kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kprV2d2H;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JZqkOJv4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B527A606A323;
-	Wed, 25 Nov 2026 16:46:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A18606A326
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:46:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kprV2d2H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08E481F000CF;
-	Wed, 25 Nov 2026 16:46:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795625207;
-	bh=0XsaEDWr9q7b9yWmAnyRxO3KhlQjSwvqn/4CfvpnstU=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JZqkOJv4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87E8A1F000CA;
+	Wed, 25 Nov 2026 16:46:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795625208;
+	bh=r2Jsa7poyGTvWhNR0S3Bvc3z/jvAkdNAGysg6Icd2t8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kprV2d2HuMPQ3pwQABQWqMd7Hf5OrZ9XXFr4CMYh5ZOWa+UWdBJk+D/of4MqwIcfa
-	 W3Z/WtuXtlCz+tQzS6teUYZP2BLtqgz60I+jhFxhKPibLMFlirrj5Ez1LD0ixxHSbR
-	 NQukWmWa2EJN/GzGxVUvwsXxoBuY60SFkufdUwrY=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=JZqkOJv4sZ939laloGol31yFqCp7Rr+Yh5dAsBXhiP62CkfEOiYsEut0OQNI5N9y7
+	 UyQ41yGrmSd5Xm3/J8cPu9XyAFA3vWEfGP87uG1u8pEAnHgQSIB2MQsnahnPFpKs6/
+	 msVToMJ6EFlLdnRyJ6L7QNSa5J4KKZsF7xR4WpSHzzWs5bTSjTTBZDx0Qfz+OHsjTW
+	 imbBVseHB2tZW3wIpeowkvDV+WKPU91D4Y7nU6JXCXyeUMPkk8Bv0Jz/XubX/SwOpG
+	 10diRusVhMNhjQdSOA7xJwBBp3aVBczq0m1fNUAJQsWbuwX9ORD91J7tnn+Pr7Yq4j
+	 ldvavbyjnO/MA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Yishai Hadas <yishaih@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>,
+Cc: Vishwaroop A <va@nvidia.com>,
+	Thierry Reding <treding@nvidia.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 441/816] RDMA/mlx5: Set QP event handler before firmware QPC insertion
-Date: Wed, 25 Nov 2026 15:33:09 +0100
-Message-ID: <20261125143859.397633306@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
-References: <20261125143849.205329330@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.18.y 2/3] spi: tegra210-quad: Check hardware status on timeout
+Date: Wed, 25 Nov 2026 11:46:43 -0500
+Message-ID: <20261125164620.858638-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261125164620.858638-1-sashal@kernel.org>
+References: <2026112504-attempt-reliant-a017@gregkh>
+ <20261125164620.858638-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,160 +63,159 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: Vishwaroop A <va@nvidia.com>
 
-------------------
+[ Upstream commit 380fd29d57abe6679d87ec56babe65ddc5873a37 ]
 
-From: Yishai Hadas <yishaih@nvidia.com>
+Under high system load, QSPI interrupts can be delayed or blocked on the
+target CPU, causing wait_for_completion_timeout() to report failure even
+though the hardware successfully completed the transfer.
 
-[ Upstream commit 05a078c97eb0bb7158526dae414b853737692485 ]
+When a timeout occurs, check the QSPI_RDY bit in QSPI_TRANS_STATUS to
+determine if the hardware actually completed the transfer. If so, manually
+invoke the completion handler to process the transfer successfully instead
+of failing it.
 
-Four QP creation paths assigned base->container_mibqp and
-base->mqp.event after the firmware create call that inserts the QP into
-dev->qp_table.tree. A firmware error EQE in that window reaches
-qp->event() with a NULL pointer.
+This distinguishes lost/delayed interrupts from real hardware timeouts,
+preventing unnecessary failures of transfers that completed successfully.
 
-Move both assignments before the firmware call.
-
-Also set ibqp.qp_num inside mlx5_qpc_create_qp() before
-create_resource_common() so an EQE arriving early does not observe
-qp_num==0.
-
-In addition, add a WARN_ON_ONCE(!qp->event) guard in
-rsc_event_notifier() as a safeguard for future regressions.
-
-Fixes: e126ba97dba9 ("mlx5: Add driver for Mellanox Connect-IB adapters")
-Signed-off-by: Yishai Hadas <yishaih@nvidia.com>
-Link: https://patch.msgid.link/20260915140933.40580-14-yishaih@nvidia.com
-Signed-off-by: Leon Romanovsky <leon@kernel.org>
-[ sashal: adjusted one context line in create_raw_packet_qp() to match this branch's create_raw_packet_qp_sq() call, which has no attrs argument; the inserted lines are unchanged. ]
+Signed-off-by: Vishwaroop A <va@nvidia.com>
+Acked-by: Thierry Reding <treding@nvidia.com>
+Link: https://patch.msgid.link/20251028155703.4151791-4-va@nvidia.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Stable-dep-of: d04ad85dd801 ("spi: tegra210-quad: Unmap DMA buffers on transfer timeout")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/infiniband/hw/mlx5/qp.c  | 22 ++++++++++------------
- drivers/infiniband/hw/mlx5/qpc.c | 10 ++++++++++
- 2 files changed, 20 insertions(+), 12 deletions(-)
+ drivers/spi/spi-tegra210-quad.c | 100 +++++++++++++++++++++++++-------
+ 1 file changed, 80 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/infiniband/hw/mlx5/qp.c b/drivers/infiniband/hw/mlx5/qp.c
-index 2a71aed3b25ac..62e1302c7cd58 100644
---- a/drivers/infiniband/hw/mlx5/qp.c
-+++ b/drivers/infiniband/hw/mlx5/qp.c
-@@ -1599,6 +1599,8 @@ static int create_raw_packet_qp(struct mlx5_ib_dev *dev, struct mlx5_ib_qp *qp,
- 		if (err)
- 			return err;
+diff --git a/drivers/spi/spi-tegra210-quad.c b/drivers/spi/spi-tegra210-quad.c
+index a7f8fef7d8256..8caf17a32e397 100644
+--- a/drivers/spi/spi-tegra210-quad.c
++++ b/drivers/spi/spi-tegra210-quad.c
+@@ -1077,6 +1077,49 @@ static void tegra_qspi_transfer_end(struct spi_device *spi)
+ 	tegra_qspi_writel(tqspi, tqspi->def_command1_reg, QSPI_COMMAND1);
+ }
  
-+		sq->base.container_mibqp = qp;
-+		sq->base.mqp.event = mlx5_ib_qp_event;
- 		err = create_raw_packet_qp_sq(dev, udata, sq, in, pd,
- 					      to_mcq(init_attr->send_cq));
- 		if (err)
-@@ -1610,9 +1612,6 @@ static int create_raw_packet_qp(struct mlx5_ib_dev *dev, struct mlx5_ib_qp *qp,
- 			resp->sqn = sq->base.mqp.qpn;
- 			resp->comp_mask |= MLX5_IB_CREATE_QP_RESP_MASK_SQN;
- 		}
--
--		sq->base.container_mibqp = qp;
--		sq->base.mqp.event = mlx5_ib_qp_event;
- 	}
- 
- 	if (qp->rq.wqe_cnt) {
-@@ -2058,13 +2057,13 @@ static int create_xrc_tgt_qp(struct mlx5_ib_dev *dev, struct mlx5_ib_qp *qp,
- 	}
- 
- 	base = &qp->trans_qp.base;
-+	base->container_mibqp = qp;
-+	base->mqp.event = mlx5_ib_qp_event;
- 	err = mlx5_qpc_create_qp(dev, &base->mqp, in, inlen, out);
- 	kvfree(in);
- 	if (err)
- 		return err;
- 
--	base->container_mibqp = qp;
--	base->mqp.event = mlx5_ib_qp_event;
- 	if (MLX5_CAP_GEN(mdev, ece_support))
- 		params->resp.ece_options = MLX5_GET(create_qp_out, out, ece);
- 
-@@ -2202,14 +2201,14 @@ static int create_dci(struct mlx5_ib_dev *dev, struct ib_pd *pd,
- 		qp->flags &= ~IB_QP_CREATE_PCI_WRITE_END_PADDING;
- 	}
- 
-+	base->container_mibqp = qp;
-+	base->mqp.event = mlx5_ib_qp_event;
- 	err = mlx5_qpc_create_qp(dev, &base->mqp, in, inlen, out);
- 
- 	kvfree(in);
- 	if (err)
- 		goto err_create;
- 
--	base->container_mibqp = qp;
--	base->mqp.event = mlx5_ib_qp_event;
- 	if (MLX5_CAP_GEN(mdev, ece_support))
- 		params->resp.ece_options = MLX5_GET(create_qp_out, out, ece);
- 
-@@ -2398,6 +2397,8 @@ static int create_user_qp(struct mlx5_ib_dev *dev, struct ib_pd *pd,
- 		qp->flags &= ~IB_QP_CREATE_PCI_WRITE_END_PADDING;
- 	}
- 
-+	base->container_mibqp = qp;
-+	base->mqp.event = mlx5_ib_qp_event;
- 	if (init_attr->qp_type == IB_QPT_RAW_PACKET ||
- 	    qp->flags & IB_QP_CREATE_SOURCE_QPN) {
- 		qp->raw_packet_qp.sq.ubuffer.buf_addr = ucmd->sq_buf_addr;
-@@ -2411,8 +2412,6 @@ static int create_user_qp(struct mlx5_ib_dev *dev, struct ib_pd *pd,
- 	if (err)
- 		goto err_create;
- 
--	base->container_mibqp = qp;
--	base->mqp.event = mlx5_ib_qp_event;
- 	if (MLX5_CAP_GEN(mdev, ece_support))
- 		params->resp.ece_options = MLX5_GET(create_qp_out, out, ece);
- 
-@@ -2541,14 +2540,13 @@ static int create_kernel_qp(struct mlx5_ib_dev *dev, struct ib_pd *pd,
- 	    MLX5_CAP_GEN(mdev, go_back_n))
- 		MLX5_SET(qpc, qpc, retry_mode, MLX5_QP_RM_GO_BACK_N);
- 
-+	base->container_mibqp = qp;
-+	base->mqp.event = mlx5_ib_qp_event;
- 	err = mlx5_qpc_create_qp(dev, &base->mqp, in, inlen, out);
- 	kvfree(in);
- 	if (err)
- 		goto err_create;
- 
--	base->container_mibqp = qp;
--	base->mqp.event = mlx5_ib_qp_event;
--
- 	get_cqs(qp->type, attr->send_cq, attr->recv_cq,
- 		&send_cq, &recv_cq);
- 	spin_lock_irqsave(&dev->reset_flow_resource_lock, flags);
-diff --git a/drivers/infiniband/hw/mlx5/qpc.c b/drivers/infiniband/hw/mlx5/qpc.c
-index 67ed45f3ae17f..9272e1ef81135 100644
---- a/drivers/infiniband/hw/mlx5/qpc.c
-+++ b/drivers/infiniband/hw/mlx5/qpc.c
-@@ -146,6 +146,8 @@ static int rsc_event_notifier(struct notifier_block *nb,
- 	case MLX5_RES_RQ:
- 	case MLX5_RES_SQ:
- 		qp = (struct mlx5_core_qp *)common;
-+		if (WARN_ON_ONCE(!qp->event))
-+			goto out;
- 		qp->event(qp, event_type);
- 		/* Need to put resource in event handler */
- 		return NOTIFY_OK;
-@@ -258,6 +260,14 @@ int mlx5_qpc_create_qp(struct mlx5_ib_dev *dev, struct mlx5_core_qp *qp,
- 
- 	qp->uid = MLX5_GET(create_qp_in, in, uid);
- 	qp->qpn = MLX5_GET(create_qp_out, out, qpn);
-+	/* Set ibqp.qp_num before create_resource_common() inserts the QP into
-+	 * the radix tree and makes it visible to EQE processing.  The
-+	 * assignment in create_qp() happens only after this function returns,
-+	 * leaving a window where an arriving EQE would observe qp_num == 0.
-+	 * create_qp() still overrides this with 0/1 for QP0/QP1, and sets it
-+	 * independently for DCT (which does not go through this function).
++static irqreturn_t handle_cpu_based_xfer(struct tegra_qspi *tqspi);
++static irqreturn_t handle_dma_based_xfer(struct tegra_qspi *tqspi);
++
++/**
++ * tegra_qspi_handle_timeout - Handle transfer timeout with hardware check
++ * @tqspi: QSPI controller instance
++ *
++ * When a timeout occurs but hardware has completed the transfer (interrupt
++ * was lost or delayed), manually trigger transfer completion processing.
++ * This avoids failing transfers that actually succeeded.
++ *
++ * Returns: 0 if transfer was completed, -ETIMEDOUT if real timeout
++ */
++static int tegra_qspi_handle_timeout(struct tegra_qspi *tqspi)
++{
++	irqreturn_t ret;
++	u32 status;
++
++	/* Check if hardware actually completed the transfer */
++	status = tegra_qspi_readl(tqspi, QSPI_TRANS_STATUS);
++	if (!(status & QSPI_RDY))
++		return -ETIMEDOUT;
++
++	/*
++	 * Hardware completed but interrupt was lost/delayed. Manually
++	 * process the completion by calling the appropriate handler.
 +	 */
-+	to_mibqp(qp)->ibqp.qp_num = qp->qpn;
++	dev_warn_ratelimited(tqspi->dev,
++			     "QSPI interrupt timeout, but transfer complete\n");
++
++	/* Clear the transfer status */
++	status = tegra_qspi_readl(tqspi, QSPI_TRANS_STATUS);
++	tegra_qspi_writel(tqspi, status, QSPI_TRANS_STATUS);
++
++	/* Manually trigger completion handler */
++	if (!tqspi->is_curr_dma_xfer)
++		ret = handle_cpu_based_xfer(tqspi);
++	else
++		ret = handle_dma_based_xfer(tqspi);
++
++	return (ret == IRQ_HANDLED) ? 0 : -EIO;
++}
++
+ static u32 tegra_qspi_cmd_config(bool is_ddr, u8 bus_width, u8 len)
+ {
+ 	u32 cmd_config = 0;
+@@ -1207,20 +1250,28 @@ static int tegra_qspi_combined_seq_xfer(struct tegra_qspi *tqspi,
+ 					QSPI_DMA_TIMEOUT);
  
- 	err = create_resource_common(dev, qp, MLX5_RES_QP);
- 	if (err)
+ 			if (WARN_ON_ONCE(ret == 0)) {
+-				dev_err_ratelimited(tqspi->dev,
+-						    "QSPI Transfer failed with timeout\n");
+-
+-				/* Abort transfer by resetting pio/dma bit */
+-				if (tqspi->is_curr_dma_xfer)
+-					tegra_qspi_dma_stop(tqspi);
+-				else
+-					tegra_qspi_pio_stop(tqspi);
+-
+-				/* Reset controller if timeout happens */
+-				tegra_qspi_reset(tqspi);
+-
+-				ret = -EIO;
+-				goto exit;
++				/*
++				 * Check if hardware completed the transfer
++				 * even though interrupt was lost or delayed.
++				 * If so, process the completion and continue.
++				 */
++				ret = tegra_qspi_handle_timeout(tqspi);
++				if (ret < 0) {
++					/* Real timeout - clean up and fail */
++					dev_err(tqspi->dev, "transfer timeout\n");
++
++					/* Abort transfer by resetting pio/dma bit */
++					if (tqspi->is_curr_dma_xfer)
++						tegra_qspi_dma_stop(tqspi);
++					else
++						tegra_qspi_pio_stop(tqspi);
++
++					/* Reset controller if timeout happens */
++					tegra_qspi_reset(tqspi);
++
++					ret = -EIO;
++					goto exit;
++				}
+ 			}
+ 
+ 			if (tqspi->tx_status ||  tqspi->rx_status) {
+@@ -1316,14 +1367,23 @@ static int tegra_qspi_non_combined_seq_xfer(struct tegra_qspi *tqspi,
+ 		ret = wait_for_completion_timeout(&tqspi->xfer_completion,
+ 						  QSPI_DMA_TIMEOUT);
+ 		if (WARN_ON(ret == 0)) {
+-			dev_err(tqspi->dev, "transfer timeout\n");
++			/*
++			 * Check if hardware completed the transfer even though
++			 * interrupt was lost or delayed. If so, process the
++			 * completion and continue.
++			 */
++			ret = tegra_qspi_handle_timeout(tqspi);
++			if (ret < 0) {
++				/* Real timeout - clean up and fail */
++				dev_err(tqspi->dev, "transfer timeout\n");
+ 
+-			if (tqspi->is_curr_dma_xfer)
+-				tegra_qspi_dma_stop(tqspi);
++				if (tqspi->is_curr_dma_xfer)
++					tegra_qspi_dma_stop(tqspi);
+ 
+-			tegra_qspi_handle_error(tqspi);
+-			ret = -EIO;
+-			goto complete_xfer;
++				tegra_qspi_handle_error(tqspi);
++				ret = -EIO;
++				goto complete_xfer;
++			}
+ 		}
+ 
+ 		if (tqspi->tx_status ||  tqspi->rx_status) {
 -- 
 2.53.0
-
-
 
