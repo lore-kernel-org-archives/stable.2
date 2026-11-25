@@ -1,61 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795616547;
-	b=5emMctMUTesHsFG4PEky0W3MpookOSzc/vBjc5mA8NIjnv2cLL3pKREdWVhka8EupFX7
-	 pe1rrRxuoBntiQ0nV1yRzycnLo4WHL9tjqaQ2PLL5hiTKc+nwQ+hn3jQBIBWeoFXxpXAC
-	 kgEjeoy677a97Rp7Y8Af3CdwE9ExOFOUlzaTUe2vQSxL1sfLRUk6EHE7oSU1L1zYD3Xnh
-	 yyjuJfj96Tl6trA0SVkOWs1H0Yy8NeqR4F99q8qu7AyTmVDLXs+dFZIj+fft1+Yy1m+Sj
-	 feKvYRnX9ugL9IjhsOfa81Qkpz6mt+EWHMAF0Z9XYaP/wwuphscmgdlFv/FdDq+4xRw==
+	t=1795616754;
+	b=SoYCvC2nV8I1dUVpPsR6CbwXxAptjtW88PcK+wvty8DfE2FDutjJztQsxguFh1HkV2nM
+	 8zx4sKVCRK/0SCb+U1Ox1JY1ycMlMMPSGoL9lH53/a77PFq05lfv0dSqWbxVOltg0Sa4j
+	 E/mQw+zSUWu/nDSCseImgYVNtBzXdQGCw5zCYuMtm2AUsY9GdbioQIb8UxFfEoPhYo4Dt
+	 xSCPnnrFCFs+hdOOOaMcomZriUafzMNyvjxuQ3QJOkLBe2+MnXBVXPzHZsQJme/QsLAaN
+	 YGtXvgOyYlHnxQxm/KQ1y/tXcvob21GETij23XFdDGwPFhzY9ExGbOBh6TcDVy3bRIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795616547;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=8pAN+cMNDAKpI0U2TXKKPxCHGtnx0QjdYb7WetjOVfA=;
-	b=HQuMl5AKiX6N0IMflrOQZPH2BHGDQX46tVkn2olAm2A1mbHaYn1MieLBig3QNISJ84f2
-	 3z9dpZ8bkvKG25TY2RlQEQQLAUy26B7iHOZSP3Szf3+SXCy6Y/AeNkfFQAnI1YbCCG2MX
-	 W4QUFBRUjTwy4fxj2i6KCYXAt4mSOJCDVxsrEPIRBCJSAAnCdJ80a91XD2bkOwdEnT4hl
-	 DdCLuXjVfdlWr8etF6Mt5Pq6kzSYUaMj65S+V7A4W/7H1p0yNefGk6z1o1arXbgIZYHU1
-	 TqawM11hvtv7Yh2tEcSWJZCkdeeQw3pGNZtaoR2D1jcKIrEZYie/Zq4/3C7nKDduCRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795616754;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-SRS-Rewrite;
+	bh=qUuiYfPMGF1dYU/3s8nfXtw2BbGEHy61uU94+Ks01XY=;
+	b=PLbIAzGUZi42jPvsvl2u3BYEn2f3GTv5PxSaqJMsWIdUOqp5Hwo6P37BqVVs3Icw8aFJ
+	 uVk2DbqJadiFMGwDSJJGX6QtQpd6XOzOboWeAxBQEWxBBHqCNnnOMTIhqvcrcYTPumIGj
+	 FmyduXM+i1KHHAyTodGiRTK1B014aZeCsoznnou7c/6eSs57n4dGwTO70bvBgUPqQh40V
+	 Hyc6fQwk1v01l1EVL3eZwJrBE3D1TwZb1toH8ezwzdgE5ZPDKZ3i2hdCvupL+cHcta8Jj
+	 Bzhg9Ntys4RGXnE4WVjdOPnZ6pCQeTmJsoN1BN5W26Rwwn6H1brr47ekEhBRXFM2oyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QQNt7T0i;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 33F42606A321;
-	Wed, 25 Nov 2026 14:22:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33F42606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=bombadil.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=SPVQka5q;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21955606A31E;
+	Wed, 25 Nov 2026 14:25:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21955606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QQNt7T0i
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6AF482F;
-	Wed, 25 Nov 2026 06:22:23 -0800 (PST)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BFBB03F763;
-	Wed, 25 Nov 2026 06:22:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795616546; bh=JMMVosT4VTiw7rOBFumnNRwKpJxvpO3L1Ux34kDKMME=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QQNt7T0iVQmM94OhDwbo2jUVxlWiS0B4lQHGscliOaWAXcteupZw1IqicwsEEAxPv
-	 Az1K1rtUc5oVZuCBWnXAtCgLeG1Xmy9zNmEFL9WTaZkqF0l66mkQezTkvCyZ1a1wGO
-	 5E/Dul/2PTdpPER5DMjUevgq8g4Af4GBsV3ogi2g=
-Date: Wed, 25 Nov 2026 14:22:21 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: "Huang, Ying" <ying.huang@linux.alibaba.com>
-Cc: Yadong Qi <yadong.qi@linux.alibaba.com>, will@kernel.org,
-	mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, ryan.roberts@arm.com, robh@kernel.org,
-	gregkh@linuxfoundation.org, ptg-linux-kernel@linux.alibaba.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] arm64: fixmap: fix missing break-before-make in
- __set_fixmap()
-Message-ID: <awbvHVSX7sB8jzYA@arm.com>
-References: <20261123093505.974-1-yadong.qi@linux.alibaba.com>
- <awW3Dw743-rw_-cf@arm.com>
- <87mrqxto23.fsf@DESKTOP-5N7EMDA>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=SPVQka5q
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=qUuiYfPMGF1dYU/3s8nfXtw2BbGEHy61uU94+Ks01XY=; b=SPVQka5q6b+Q1YM0gqBdrJp3y3
+	UUUokphX0g5eOWTiYvKvIDnraP8DhH9YtPY1ZVZmsYKhEi7+gXw3fYCn4rPNoFx2DLd55U804oNgy
+	BpAC/5lODMecYTLyeGz5nCdxDEtSTYfIvUTVe8FbTHsbr0cIOgfgv0jPn+sHtL6DMlT8tuSRuUd6v
+	32FH4VYNd9i9qBT2ZAx4KCl5vVK5/EmscHlH4AaNOdMwQCsBZIDp6aSZpqVQ4A5WpNM8a/Uxl+XzR
+	DKPxKHf0vYby5fO+XwYhJ+FBMHHCrLpsCuR4fOwgm09h/UIcEa50ozW2eGgy3J1Rf3BkAR21O08IJ
+	cQO/zxyw==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xWDwO-0000000A9gO-01yg;
+	Wed, 25 Nov 2026 14:25:44 +0000
+Date: Wed, 25 Nov 2026 06:25:43 -0800
+From: Christoph Hellwig <hch@infradead.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>, Pedro Falcato <pfalcato@suse.de>,
+	John Hubbard <jhubbard@nvidia.com>, Jan Kara <jack@suse.cz>,
+	Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Peter Xu <peterx@redhat.com>,
+	Johannes Weiner <hannes@cmpxchg.org>, linux-ext4@vger.kernel.org,
+	linux-nfs@vger.kernel.org, "Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>, Michal Hocko <mhocko@kernel.org>,
+	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 0/5] mm: GUP dirty + ->release_folio() fixes
+Message-ID: <awbv55FryMamHvVP@infradead.org>
+References: <20261119-gup-dirty-what-v1-0-236d69f25c24@suse.de>
+ <4f096d70-6f94-4148-8f47-242b8551e5f9@nvidia.com>
+ <awWNyDZT2SVu2Zp9@pedro-suse.tail5790ac.ts.net>
+ <55114986-0ba1-4a80-8498-bf674d64e01b@kernel.org>
+ <away88BuU8ibcTA5@infradead.org>
+ <d088452f-1118-4a06-bc16-1942e523e0fc@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,52 +91,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <87mrqxto23.fsf@DESKTOP-5N7EMDA>
+In-Reply-To: <d088452f-1118-4a06-bc16-1942e523e0fc@kernel.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On Wed, Nov 25, 2026 at 02:36:36PM +0800, Huang, Ying wrote:
-> Catalin Marinas <catalin.marinas@arm.com> writes:
+On Wed, Nov 25, 2026 at 11:19:18AM +0100, David Hildenbrand (Arm) wrote:
+> > I don't think that is a good reason.  For file system backed VMAs we
+> > really need the pin to be able to do someting sane, DMA or not.
+> > 
+> >> 1) We fix all such cases now where unprivileged users can trigger this,
+> >>    converting to FOLL_PIN.
+> > 
+> > We need to, if not for this series then for all the other outstanding
+> > issues with GUP writes.
 > 
-> > On Mon, Nov 23, 2026 at 05:35:05PM +0800, Yadong Qi wrote:
-> >> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
-> >> index f66a0016dd02..5593d7e0d523 100644
-> >> --- a/arch/arm64/mm/fixmap.c
-> >> +++ b/arch/arm64/mm/fixmap.c
-> >> @@ -126,12 +126,19 @@ void __set_fixmap(enum fixed_addresses idx,
-> >>  
-> >>  	ptep = fixmap_pte(addr);
-> >>  
-> >> -	if (pgprot_val(flags)) {
-> >> -		__set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
-> >> -	} else {
-> >> +	/*
-> >> +	 * Break-before-make: when the slot still holds a valid mapping
-> >> +	 * (e.g. earlycon re-mapping FIX_EARLYCON_MEM_BASE), invalidate the
-> >> +	 * old entry and flush the TLB entries caching it before a new
-> >> +	 * mapping is installed, so old and new translations never coexist.
-> >> +	 */
-> >> +	if (pte_valid(__ptep_get(ptep))) {
-> >>  		__pte_clear(&init_mm, addr, ptep);
-> >> -		flush_tlb_kernel_range(addr, addr+PAGE_SIZE);
-> >> +		flush_tlb_kernel_range(addr, addr + PAGE_SIZE);
-> >>  	}
-> >> +
-> >> +	if (pgprot_val(flags))
-> >> +		__set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
-> >>  }
-> >
-> > I guess that's easier than getting the driver or earlycon code to do
-> > clear_fixmap().
+> Cool, and I agree (that's why I placed it at 1).
 > 
-> Yes.  And because set_fixmap() flushes the tlb on x86, IMHO, it's a
-> little hard to justify the driver modification.
+> But who is "we"? Because I recall that "we" wanted to do that a while ago.
 > 
-> However, set_fixmap() only flushes the tlb on the local CPU instead of
-> broadcasting the flush, because fixmap is either per-CPU or used during
-> early boot.  In theory, we could follow that approach and perform a
-> local flush instead though the benefit may be marginal.
+> (I won't be "we" ;) Pedro, can you take a look? I'm afraid the fuse thing might
+> be the harder nut to crack)
 
-Local TLBI won't work on arm64 since the page tables are shared (any CPU
-can speculatively load the TLB) and only FIX_VNCR has per-CPU entries.
+The collective of MM/FS integrity interested people (for which the
+recipient list is a good proxy) plus the maintainers of the code
+still writing through FOLL_GET.
 
--- 
-Catalin
