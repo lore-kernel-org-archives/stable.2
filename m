@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.229
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795594818;
-	b=er9DFpR650nS+ol4X30dsVtFcF1otQSNFaTOKUsdhuo+VPeBNTKbOBTSbTvJIg2qJGoA
-	 /LESRbvsBYSTdd6LbrYceXvUZ1QNV3ch4gjJtDfF9NLHGE7d1bUf+VI3JsiWHhWsJwe4M
-	 aOhPbmzMxAH4NFMBwQpBz9/9kbziKxLwvtZeIZJEL9TAy4Nn6cOANJT6sHmPvb9scIj1M
-	 tgkqVFhxoUJ3rmSZZQk3Y/NqB2hJU5duHzEaQ4sB/s6UR+sQh+EU9JCG4YUE5MDRhz/k3
-	 bP7x/zhdAP7a0FNrxCZkVhkcSbrRFmQMIgAwhHwxY2XfeZStZwzDuPhl/jJREYs+y2Q==
+	t=1795594997;
+	b=tquEVpPuV4WHqb7BKo92CQdq+DbFVO20b2fswlWtcz3OdEfLYxwdMFyV/tAMc/BBFgAQ
+	 HzRD0MeY/AWniM1tpXzCGlUPYuu9t9dTCNOJaqY47ZVXtlyoH0IJkBlx/S8+z2qgLe4yQ
+	 yw83/g5LTIh2/8+WFvPFpHHJpSIPMjYf8hpSxTSBfQphkdUl+opO3MrPZpBOVBtCtc80K
+	 Ym0ZsvCL1EcEFkbtFusL2yS+lLZpCKtKdnLgHERRbcGwwO8XQsAnZ0vApbMmc+rvxNl6F
+	 kSbH8bwUM8WsPON7T9lsirYxppjnOXSwvr51Owns+5RBvwWQWibXxyspDah8uk6acSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795594818;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=QfZ3lG2uOxeiODVkla0mMOvEHpv7y5P99cIsSRHzDec=;
-	b=O4Dy8D1nXSJlegDhnZnpg7hiQgOELZZ6cVjj/lT663ba8PLfSkUwUuhcRVMagILn9QHw
-	 28c8xAjPZxAdZPG9qwKu5Jo/oefI3maJcZ2bQVz0PcOGmuwaOAguHBU6HZy/ZMEXou3gP
-	 3Biwe7VRNqFmYBielkNy3KMA5/8oFCx5QAGcZT3Iu9D3GdbkjHrpGQ/81Jyu3nyGETouJ
-	 bZCFJS0uNuyENF9FDqdH9mVOMMJybZXl7sE076TqUWc7Y6bIRo8dangc9vQBjnSCokRPT
-	 +R2JUflpSf1fbNBQQrpvw+dunDI4V2cR/7Dj7VPXza3JC452f2LWj6W7aiwmMaMTyww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795594997;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=hsT7zBmMHOA0tSmt3vFfihAtL6RUpoMsSd3RGk73F2s=;
+	b=A+1gflXwYXWdCjSShW9mL6M/cM58cAtOMea7CF95VQgshierO4DThf4brMQVg+A0ikiZ
+	 2125XHRwZ2v43zwxJgT3h+zm/RfWFAwewhVBXylUMmL0UfjYTLFmBFVVzp4DM/n3xoOpY
+	 0We3ymQB/K8jJATPBmGPypf8OGQkrkxNW5QjfNTJzsnByr0+YeFmTcl7ZB4tN/Vr+Kak8
+	 qGZ5rmie4ToCufd1JKmYt+q9T7RyZEP2pBD0tyaZYvW0IYmWV1pGL3+kmIynVQ7vQLjxp
+	 eiyA8xdIuLg7o+RcP1Gn0iG25ZJdCW66MB95Mx365gRt/eay4F2Tczfaiw0vrCnbX4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Da3pOnl9;
-	arc=none smtp.remote-ip=95.215.58.229
-Received: from mta1.migadu.com (out-229.mta1.migadu.com [95.215.58.229])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YZloInuI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A2D606A329
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:20:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06A2D606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D4B606A32D
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:23:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Da3pOnl9
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/919UxKRMyPlULBGJtfj9Q5QU8pqqMoGwH6XL9fnwpU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795594816; v=1; x=1796199616;
- b=Da3pOnl9Gf0AWhT1Vu8ErTtaArajV5RpoAc31hU4vyNE28S0RLbWnFnojRgMN0HZ4a4x5Hn3
- QvX2dpUEXzgX7fgp9D1vqrCfZk99zFht4TD6rO8fZD3g6gksnD4ABKparYeGJeihO0qUF2oUkMG
- VN8A/1fo6m4fjtTmIyJFjH7A=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 523a68c985d1740f;
-	Wed, 25 Nov 2026 08:20:11 +0000
-X-Mizu-Trace-ID: 523a68c985d1740f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b63bc354-0f29-49fb-84ec-313bf4283360@linux.dev>
-Date: Wed, 25 Nov 2026 16:20:00 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YZloInuI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B028A1F000ED
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:23:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795594996;
+	bh=hsT7zBmMHOA0tSmt3vFfihAtL6RUpoMsSd3RGk73F2s=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YZloInuILkJ9lmMUSqL/V1E8ZE2MR7DT1FHtU5vmr1pynf0SQxxjVeQeMdQmCVdOU
+	 yI5vYa/MpHD51913RjFTE0cfACo+wFIrf/YlA2+0n2ByuZEuHOIiFSIN2MxoTdxOq6
+	 YQdPQHNk2d43l8aIC62EUfQ5OpRhtdKq3RVYmk61kUu7I3Wo83lhI1Bihi6LX3J1Gs
+	 xPyd1O68e+0uA3TiIzPNRDmP1QZvMcU27ndaND5Yx03x0lDJYvF3ZXDwQ82WcwthQc
+	 lnTas0aZN4TvJdDeJhA60y3x4W7yMTozdz0arecRmKxYV/HG+m5OCSjgLGKDVl7ITw
+	 ZyXG2yI59pwdg==
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-949b0d32315so461139485a.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 00:23:16 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFyM0A6lrIr0c5IBdbYtaOHECHBFABbNDNeTTKG7A8SvcBEiM9SXpb8M+ybP1I9jYBDGYGx/D0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8whxXpm3a2Jk1IdP8zZq8v26yY4GwMDuH++x4MSSRQmQCZxfPW
+	hFSmtc6LSSAOyvBEH2F7vCCYwnNvZCrMEeQtPj/WKOOhI5pNtwGufvoX0rveSwfjkodwjlTGFRJ
+	0zJJs8WAh4seu1xr8FxxnOqD91Z9dQ8o=
+X-Received: by 2002:a05:620a:6c18:b0:949:664e:e3e8 with SMTP id
+ af79cd13be357-949ba997635mr2899642585a.34.1795594995906; Wed, 25 Nov 2026
+ 00:23:15 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,216 +59,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 02/11] mm/kmsan: undo the shadow mapping when the
- origin mapping fails
-From: Hao Ge <hao.ge@linux.dev>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Uladzislau Rezki <urezki@gmail.com>, Dev Jain <dev.jain@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-mm@kvack.org, stable@vger.kernel.org
-References: <20261116071325.263682-1-hao.ge@linux.dev>
- <20261116071325.263682-3-hao.ge@linux.dev>
- <CAJuCfpHOZS6mp_no3wKmU3-S4HKspnbriUw8Mwtxf3nmw0-pfw@mail.gmail.com>
- <CAJuCfpFv=sCeib+SDWJNW6oqbNnhT+m3YjnfKh8jNkquzuYORg@mail.gmail.com>
- <793d63ff-c48b-431d-8a2a-4044feb45721@linux.dev>
- <81b05a10-1b20-4132-8cc6-c71b88f21414@linux.dev>
-Content-Language: en-US
-In-Reply-To: <81b05a10-1b20-4132-8cc6-c71b88f21414@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261125073931.1171242-1-hui.zhu@linux.dev>
+In-Reply-To: <20261125073931.1171242-1-hui.zhu@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Wed, 25 Nov 2026 16:23:02 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zvaxT+TD2P0ephTRsjAeVo+9NdavmmxLnuoj6d7P5UuQ@mail.gmail.com>
+X-Gm-Features: Aa3M54oYpLZLgx5RRSzL4wpUVCax0NId0FybUVL-U-z7-jqsoujZkX4qgzA3cgU
+Message-ID: <CAGsJ_4zvaxT+TD2P0ephTRsjAeVo+9NdavmmxLnuoj6d7P5UuQ@mail.gmail.com>
+Subject: Re: [PATCH v2] mm: mglru: reset the mm iteration cursor in try_to_inc_max_seq_nowalk()
+To: Hui Zhu <hui.zhu@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Harry Yoo <harry@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Hui Zhu <zhuhui@kylinos.cn>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Suren
+On Wed, Nov 25, 2026 at 3:39=E2=80=AFPM Hui Zhu <hui.zhu@linux.dev> wrote:
+>
+> From: Hui Zhu <zhuhui@kylinos.cn>
+>
+> try_to_inc_max_seq_nowalk() advances mm_state->seq without walking the
+> mm_list, but unlike iterate_mm_list_nowalk() it leaves head and tail
+> alone. If it races with an ongoing page table walk, the cursor is left in
+> the middle of the fifo.
+>
+> The next walker reads that as "this generation already started": it skips
+> reset_bloom_filter() and resumes after the cursor. The mm it visits are
+> the ones the aborted walk never reached, so they have no bits in the
+> filter being read and walk_pmd_range() descends into none of their PMDs.
+> try_to_shrink_lruvec() ignores the failed try_to_inc_max_seq() and keeps
+> evicting, so those hot folios are not promoted and refault in the parent
+> memcg, until head wraps around a generation later.
 
+I'm not sure I follow this part. Even if the page table walk misses
+those hot folios, we can still detect references through rmap during
+eviction, can't we?
 
-On 2026/11/23 18:15, Hao Ge wrote:
-> 
-> 
-> On 2026/11/23 16:12, Hao Ge wrote:
->> Hi Suren
->>
->> On 2026/11/21 05:49, Suren Baghdasaryan wrote:
->>> On Fri, Nov 20, 2026 at 9:14 PM Suren Baghdasaryan <surenb@google.com> wrote:
->>>>
->>>> On Mon, Nov 16, 2026 at 7:13 AM Hao Ge <hao.ge@linux.dev> wrote:
->>>>>
->>>>> kmsan_vmap_pages_range_noflush() first maps the shadow pages and then
->>>>> the origin pages. If the second mapping fails, the first one is left
->>>>> mapped, and the callers do not roll it back. The next vmap of the
->>>>> same metadata range hits the stale PTEs again and fails with a
->>>>> WARN_ON() and -EBUSY in vmap_pages_pte_range().
->>>>>
->>>>> Undo the shadow mapping on that error path, the same way
->>>>> kmsan_ioremap_page_range() cleans up after a partial failure.
->>>>> __vunmap_range_noflush() only clears the PTEs; nothing has touched
->>>>> the shadow mapping, so no TLB flush is needed.
->>>
->>> After a second thought, kmsan_ioremap_page_range() does not skip TLB
->>> flushing. __vunmap_range_noflush() comment at
->>> https://elixir.bootlin.com/linux/v7.4-rc1/source/mm/vmalloc.c#L497
->>> says:
->>>
->>> The caller is responsible for calling flush_cache_vmap() before
->>> calling this function, and flush_tlb_kernel_range after it has
->>> returned successfully ...". There are no mentions of guarantees that
->>> mapped PTEs require explicit access to be cached. Please double-check
->>> if this is safe.
->>
->> That's a subtle detail. I've looked up the relevant documentation.
->> You are right, and my "no TLB flush is needed" was wrong.
->>
->> The Arm "Learn the architecture" AArch64 memory management guide says it
->> in "TLBs and Changing translations":
->>
->> https://support.arm.com/documentation/101811/0106/TLBs-and-Changing-translations
->>
->> If you change a translation table entry, or the controls that affect how entries
->> are interpreted, then you need to invalidate the affected entries in the TLB. If
->> you do not invalidate those entries, then the processor might continue to use the
->> old translation.
->>
->> The undo changes the shadow PTEs, so the TLB has to be invalidated.
->>
->> I also checked the Arm Architecture Reference Manual:
->> https://support.arm.com/documentation/ddi0487/md/-Part-D-The-AArch64-System-Level-Architecture/-Chapter-D8-The-AArch64-Virtual-Memory-System-Architecture/-D8-16-Translation-Lookaside-Buffers
->> rule R SQBCS:
->>
->> If a stage of translation is enabled for a translation regime that is not out-of-context,
->> any translation table entry for that stage that does not cause a Translation fault,
->> an Address size fault, or an Access flag fault is permitted to be cached in a TLB or
->> intermediate TLB caching structure as the result of an explicit or speculative access.
->>
->> So it may already be cached by speculative access even if there was no explicit access.
->>
->> For the kernel side,  Documentation/core-api/cachetlb.rst
->> https://elixir.bootlin.com/linux/v7.4-rc1/source/Documentation/core-api/cachetlb.rst
->> says that The "TLB" is abstracted under Linux as something the cpu uses to cache
->> virtual-->physical address translations obtained from the software page tables.
->> Meaning that if the software page tables change, it is possible for stale translations
->> to exist in this "TLB" cache. Therefore when software page table changes occur, the kernel will
->> invoke one of the following flush methods _after_ the page table changes occur:
->>
->> The condition there is the page table change, not whether the range was accessed.
->>
->> Likewise, I believe flush_cache_vmap() is also required.
->> The sequence in cachetlb.rst is
->> flush_cache_range()
->> change_range_of_page_tables()
->> flush_tlb_range()
->> so the cache flush has to happen before the unmap.
->> This is exactly the contract that the __vunmap_range_noflush() comment you quoted spells out,
->> the caller is responsible for calling flush_cache_vmap() before the call and flush_tlb_kernel_range()
->> after it.
->>
->> The code will do:
->>
->> --- a/mm/kmsan/shadow.c
->> +++ b/mm/kmsan/shadow.c
->> @@ -258,6 +258,13 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
->>                                             o_pages, page_shift);
->>         kmsan_leave_runtime();
->>         if (mapped) {
->> +               /* Undo the shadow mapping set up above. */
->> +               flush_cache_vmap(shadow_start, shadow_end);
-> 
-> Sorry, this should be flush_cache_vunmap.
-> 
->> +               kmsan_enter_runtime();
->> +               __vunmap_range_noflush(shadow_start, shadow_end,
->> +                                      gfpflags_allow_blocking(gfp_mask));
->> +               kmsan_leave_runtime();
->> +               flush_tlb_kernel_range(shadow_start, shadow_end);
->>                 err = mapped;
->>                 goto ret;
->>         }
->>
->> Thanks a lot for catching this, I learned quite a bit about the TLB
->> along the way. 
->>
+We also have lru_gen_look_around() on the rmap path.
 
-Let's revisit this. Unless I'm missing something, the unmap counterpart,
-kmsan_vunmap_range_noflush(), appears to be missing its TLB flush.
+So missing those folios during aging doesn't necessarily mean they
+will be reclaimed and subsequently refault.
 
-Taking vmalloc as the example:
+>
+> Reset head and tail with the seq increment, as iterate_mm_list_nowalk()
+> does. It is safe: get_next_mm() holds an mmgrab() reference and a
+> concurrent walker bails out at "walk->seq <=3D mm_state->seq" before
+> touching head again.
+>
+> Only reachable from memcg_reparent_objcgs() -> max_lru_gen_memcg(); not a
+> memory safety issue, since lru_gen_del_mm() repoints head and tail under
+> mm_list->lock.
+>
+> Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+> Reviewed-by: Baoquan He <baoquan.he@linux.dev>
 
-vmalloc
-    __vmalloc_area_node()
-        vmap_pages_range()
-            vmap_pages_range_noflush()
-                kmsan_vmap_pages_range_noflush()
-		    installs the shadow/origin and flushes
-		    their TLB at the tail /* flushed */
+I'm fine with the fix, but I'm not entirely convinced that everything
+in the changelog is accurate. :-)
 
-vfree
-    remove_vm_area
-        free_unmap_vmap_area
-            vunmap_range_noflush /*shadow/origin PTEs cleared,
-				   no TLB flush */
-            free_vmap_area_noflush() /* area -> lazy list
+> ---
+> Changelog:
+> v2:
+> Drop the helper and keep the fix open-coded (Baoquan He).
+>
+>  mm/vmscan.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 6a1af9b92349..3601e58f2a69 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -4694,6 +4694,8 @@ static void try_to_inc_max_seq_nowalk(struct mem_cg=
+roup *memcg,
+>                 spin_lock(&mm_list->lock);
+>                 VM_WARN_ON_ONCE(mm_state->seq + 1 < max_seq);
+>                 if (max_seq > mm_state->seq) {
+> +                       mm_state->head =3D NULL;
+> +                       mm_state->tail =3D NULL;
+>                         WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
+>                         success =3D true;
+>                 }
+> --
+> 2.53.0
+>
+>
 
-    ... later, when the lazy list is settled: 
-    __purge_vmap_area_lazy
-        flush_tlb_kernel_range(start, end);
-        /* no shadow/origin tlb flush */
-
-So unlike the normal paths, KMSAN performs the TLB flush when the range
-is reused and re-mapped, rather than flushing it immediately after unmap.
-
-I'm not sure this is safe. Reading the documentation, this should not be safe,
-perhaps I have misinterpreted the documentation.
-If this was intentional, maybe a TLB flush is not required here, but if so I would
-expect it in the purge instead, together with the main range. After all, vmalloc is
-frequently called, and lazy TLB flushing is an existing optimization for vmalloc.
-
-Would you mind taking a look at this concern, or letting me know who I could ask?
-This would be a good opportunity for me to brush up on my TLB knowledge, and I would
-greatly appreciate your input.
-
-Thanks
-Best Regards
-Hao
-
->> Thanks
->> Best Regards
->> Hao
->>>
->>>>>
->>>>> Fixes: 47ebd0310e89 ("mm: kmsan: handle alloc failures in kmsan_vmap_pages_range_noflush()")
->>>>> Cc: stable@vger.kernel.org
->>>>> Suggested-by: Suren Baghdasaryan <surenb@google.com>
->>>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->>>>
->>>> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
->>>>
->>>>> ---
->>>>>  mm/kmsan/shadow.c | 5 +++++
->>>>>  1 file changed, 5 insertions(+)
->>>>>
->>>>> diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
->>>>> index 0c88d89bf0d6..212449db34a1 100644
->>>>> --- a/mm/kmsan/shadow.c
->>>>> +++ b/mm/kmsan/shadow.c
->>>>> @@ -258,6 +258,11 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
->>>>>                                             o_pages, page_shift);
->>>>>         kmsan_leave_runtime();
->>>>>         if (mapped) {
->>>>> +               /* Undo the shadow mapping set up above. */
->>>>> +               kmsan_enter_runtime();
->>>>> +               __vunmap_range_noflush(shadow_start, shadow_end,
->>>>> +                                      gfpflags_allow_blocking(gfp_mask));
->>>>> +               kmsan_leave_runtime();
->>>>>                 err = mapped;
->>>>>                 goto ret;
->>>>>         }
->>>>> --
->>>>> 2.25.1
->>>>>
+Thanks,
+Barry
