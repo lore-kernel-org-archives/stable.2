@@ -1,59 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=184.106.54.104
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.227.220.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795628796;
-	b=4inZ7cpjgnVHU3uSEYFKyGoxF587mJuB7sIYc1DrQKrV8m5di+QIuJHlMe/+WZnj3bft
-	 Gq5W/2VNiB15Nf0wt4woo/EDY1FgWKQip81MX0BvOrBeVq8kw6CFp19Aj/Fa1u6kfvV4O
-	 0IZx165DfwESPWdcTGDGeqRR52lTtJ8FpFjcIJncFCLoXUhPNZdK+pZK+SJdbrFVtdiGY
-	 LJc35vasPrz8Qu2d5JL2IsS4eSZfqadIbKrCOtPw3Mm0J5ryOAdkHM1ZbrMqnsUau2Ctk
-	 ioFqZpB9ogYZmAg0XkT/aXIAgW6lhwAbg8wt6YIYZtmQN8UbjIMQZTuBH8k7qlFEOTA==
+	t=1795628813;
+	b=w4ZRgRj/TyUEbj0/1O8TJo/tnhy45UD7cgRn4/0Wv+Qt9vStEh7yaaAFKzz6KQ16swTO
+	 wZtrOnOr6UAQA0zY5NdkaQ9m8vf4SqKNDt+7O8iH9qeNE571DKUxVhu2BUZUDOi4CnsiX
+	 8A2sMUglQ34VPB0rkYk/c78YHfOW7dB/ytv0Sih9dJTVlAa5ribux8Bm+cOR7I0WnEZYI
+	 Ccqnw+Z5nzwuqPlTprVZpvWSB0bpB5YzCGCYRGT8SuLgqTK58YibK8QbePPGgs5ByVe55
+	 tvT+1lWVyis7SPtoE+vbfLCpixXdVrBmmuWI1VaXaCBu919aMv2VwALFmm7FRiIAF/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795628796;
-	h=DMARC-Filter:DKIM-Signature:X-Auth-ID:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Classification-ID;
-	bh=wN1N5SmhhRahrFdLRLG52pXG9GXvItu29SbUHZK/ll0=;
-	b=5Iz2vfWde32JH+lebqAr5lzNoCTb4ieqACYv8ivYiK8uGLpOeIFkY9JO/C66aN0r6MP/
-	 QXAYm8z3zf0hAj04Psa+zh1pjpxr47oriAdhlezZkrQYVuI9tS82R7vl1lYDrtySXo5kj
-	 A8oj/JagHuR7nqW8Tgfn9B9u4ZMXTdLR6wdMPjNldKNkrsoLdv7FHgZA2464wvEt1xpSw
-	 80dOyWym77vtSc4EKAqnTL5ZrEqRuWDfKTmHMATfzmVQcWrRP+vR4fmrd7PV8ZnlMQ02p
-	 pddtx+rh2kTZ/ltKhxlWsNDxQ0anSoiPLQ/DKtkLh0kqz3wh1v1IHIrWmZh8su/MYXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795628813;
+	h=DMARC-Filter:Date:DKIM-Signature:From:To:Cc:Subject:Message-ID:
+	 Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Ygo03uIlk4kdcjHf0vuPvvy+UzzYe9zFGhqQ5pIQmyE=;
+	b=bPEDHT7/NaTYBvSKcXHTtFi3152LzRR4CWGkJyvI6jgv86mvt6C2ijhuMULeFWeCxlom
+	 07wDB1Orvhcm3H4t3pi0rUNcVPlR9Cwo/IpMUvAaR7KnJe5EvtdjbWEDG21KiiKVtkFM7
+	 mBLrtRmq7ZDGEU+mAxkZlT7YTZJ2Vt975DsnNdgWsbr7MYGw7HhBT/VlQ4ea/4un78/Ea
+	 6yahMA9dKvkkGWGDZm4tjaD/kaQrcL4E9sIt6dLrZx2iYanQCGLjBrK9jH8xfcKsyH3A1
+	 lvRpQiUB4levRVwnpkPisMrgKdO/NqzXXPg6qgVSQkITPZGuXLHjTLTeV977INfkr1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mev.co.uk;
-	spf=pass smtp.mailfrom=mev.co.uk;
-	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=ib1BEhH2;
-	arc=none smtp.remote-ip=184.106.54.104
-Received: from smtp104.ord1d.emailsrvr.com (smtp104.ord1d.emailsrvr.com [184.106.54.104])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=mareichelt.com;
+	spf=pass smtp.mailfrom=mareichelt.com;
+	dkim=pass header.d=mareichelt.com header.i=@mareichelt.com header.a=rsa-sha256 header.s=202107 header.b=DWFE33A0;
+	arc=none smtp.remote-ip=91.227.220.155
+Received: from mail.antaris-organics.com (mail.antaris-organics.com [91.227.220.155])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B24606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:46:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6B24606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14640606A31E;
+	Wed, 25 Nov 2026 17:46:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14640606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mareichelt.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mareichelt.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=ib1BEhH2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
-	s=20221208-6x11dpa4; t=1795628789;
-	bh=CbJBVlaa+xLVljF69QtXPkZrwPgsm7o1I7U08uOh1rk=;
-	h=From:To:Subject:Date:From;
-	b=ib1BEhH2tsm4UyAE33zPLnY4oizKx0r+JISUQacTMYwvX86nUV4hBLpaMNRNj0Nkt
-	 FHftAXr1MiZ8paZ5zCKKPucW8jMHKwNpAF7CIwkIZnbmm+pqqKLjQmXlFQj1ScYBxQ
-	 kwRRMvxGqImUHCheLHH3D8gHVfapdjpvdsZJ/hSA=
-X-Auth-ID: abbotti@mev.co.uk
-Received: by smtp22.relay.ord1d.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id 83761E01EB;
-	Wed, 25 Nov 2026 12:46:28 -0500 (EST)
-From: Ian Abbott <abbotti@mev.co.uk>
-To: stable@vger.kernel.org
-Cc: Ian Abbott <abbotti@mev.co.uk>,
-	stable <stable@kernel.org>,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 6.12.y] comedi: comedi_bond: Fix leak of opened device references
-Date: Wed, 25 Nov 2026 17:46:20 +0000
-Message-ID: <20261125174621.735810-1-abbotti@mev.co.uk>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112538-privacy-unclip-9580@gregkh>
-References: <2026112538-privacy-unclip-9580@gregkh>
+	dkim=pass (2048-bit key) header.d=mareichelt.com header.i=@mareichelt.com header.a=rsa-sha256 header.s=202107 header.b=DWFE33A0
+Date: Wed, 25 Nov 2026 18:46:42 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mareichelt.com;
+	s=202107; t=1795628803;
+	bh=Ygo03uIlk4kdcjHf0vuPvvy+UzzYe9zFGhqQ5pIQmyE=;
+	h=Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:date:
+	 author:from:to:subject:message-id:in-reply-to:references:
+	 mail-followup-to:openpgp:mime-version:content-type:
+	 content-transfer-encoding:author:from:subject:date:to:cc:
+	 resent-author:resent-date:resent-from:resent-sender:resent-to:
+	 resent-cc:resent-reply-to:resent-message-id:in-reply-to:references:
+	 mime-version:content-type:content-transfer-encoding:
+	 content-disposition:content-id:content-description:message-id:
+	 mail-followup-to:openpgp;
+	b=DWFE33A0gw8qIbWy3Lds1OKbdPjABZua/yF/Cx0ODVD67/XD5QTfBVG9laKvTKktD
+	 +DgxDs+1hYKcgSL2oCaYyNf+y2NogV8+5S/+EZck1kGkVW6SR0YQsXi49omrh84fS6
+	 f6tTRn021XUQbxgo7d8HIzopHBBb4uSkLjx1NuJ1SjxnWj9g+hGiAIxY42MBlpH2Hk
+	 vpi2uvnPiG5gj9Zt+b4ZnioEsC/Si82URmTnMMY+sRYY2nbctHmgRLTRVrXryrRrpm
+	 P8Vyxo+7utFrg/SJ96ftQGHCxsy1qokF50NjHpyOwV7NoUUfqT/s6McxZwwCPGqzxn
+	 AgOQYqdRSsIpg==
+From: Markus Reichelt <lkt+2023@mareichelt.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.3 0000/1005] 7.3.7-rc1 review
+Message-ID: <20261125174642.GD32322@pc21.mareichelt.com>
+Mail-Followup-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+References: <20261125143821.729802100@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,100 +84,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Classification-ID: 967c2ddb-5453-425f-95c2-0fee35c696d7-1-1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
 
-commit fa0858523f07f8dd71d89b221f4422c3b8096d90 upstream.
+* Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
 
-bonding_attach() calls do_dev_config() to open other comedi devices
-specified by the user and tries to make use of them as part of the
-'bonding' device.  If it successfully opens the other device but cannot
-use it (either because it does not any subdevices of a type the
-'bonding' device can use, or because of some error that occurs while
-dealing with its subdevices) then it is left in the open state and the
-fact that it is open does not get recorded by the 'bonding' device, so
-the reference to the opened device gets lost.  Fix it by closing the
-opened device if it could not be bound to the 'bonding' device.
+> This is the start of the stable review cycle for the 7.3.7 release.
+> There are 1005 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 27 Nov 2026 14:36:53 +0000.
+> Anything received after that time might be too late.
 
-To match previous behavior, if the opened device is unsuitable then
-ignore it (after closing it).  The opened devices recorded by the
-'bonding' device will eventually get closed by bonding_detach() even if
-bonding_attach() returns an error.
+7.3.7-rc1 compiles on x86_64 (Xeon E5-1620 v2, Slackware64-15.0),
+and boots & runs on x86_64 (Xeon Gold 6142, Slackware64-current).
+No regressions observed during boot & my custom tests.
 
-Fixes: 3cf840f65ad5 ("Staging: comedi: add comedi_bond driver")
-Cc: stable <stable@kernel.org>
-Reported-by: Wentao Liang <vulab@iscas.ac.cn>
-Link: https://lore.kernel.org/lkml/20261103063301.1025860-1-vulab@iscas.ac.cn
-Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
-Link: https://patch.msgid.link/20261103173610.89687-1-abbotti@mev.co.uk
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-(cherry picked from commit fa0858523f07f8dd71d89b221f4422c3b8096d90)
-Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
----
- drivers/comedi/drivers/comedi_bond.c | 24 +++++++++++++++++++-----
- 1 file changed, 19 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/comedi/drivers/comedi_bond.c b/drivers/comedi/drivers/comedi_bond.c
-index 78c39fa84177..076aecae2c77 100644
---- a/drivers/comedi/drivers/comedi_bond.c
-+++ b/drivers/comedi/drivers/comedi_bond.c
-@@ -182,7 +182,9 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
- 		char file[sizeof("/dev/comediXXXXXX")];
- 		int minor = it->options[i];
- 		struct comedi_device *d;
--		int sdev = -1, nchans;
-+		int sdev = -1;
-+		int nchans;
-+		int nope = 1;
- 		struct bonded_device *bdev;
- 		struct bonded_device **devs;
- 
-@@ -221,11 +223,14 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
- 				dev_err(dev->class_dev,
- 					"comedi_get_n_channels() returned %d on minor %u subdev %d!\n",
- 					nchans, minor, sdev);
--				return -EINVAL;
-+				nope = -EINVAL;
-+				break;
- 			}
- 			bdev = kmalloc(sizeof(*bdev), GFP_KERNEL);
--			if (!bdev)
--				return -ENOMEM;
-+			if (!bdev) {
-+				nope = -ENOMEM;
-+				break;
-+			}
- 
- 			bdev->dev = d;
- 			bdev->minor = minor;
-@@ -246,10 +251,12 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
- 				dev_err(dev->class_dev,
- 					"Could not allocate memory. Out of memory?\n");
- 				kfree(bdev);
--				return -ENOMEM;
-+				nope = -ENOMEM;
-+				break;
- 			}
- 			devpriv->devs = devs;
- 			devpriv->devs[devpriv->ndevs++] = bdev;
-+			nope = 0;	/* keeps the device open */
- 			{
- 				/* Append dev:subdev to devpriv->name */
- 				char buf[20];
-@@ -260,6 +267,13 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
- 					sizeof(devpriv->name));
- 			}
- 		}
-+
-+		if (nope) {
-+			/* Opened device cannot be used, so close it. */
-+			comedi_close(d);
-+			if (nope < 0)
-+				return nope;
-+		}
- 	}
- 
- 	if (!devpriv->nchans) {
--- 
-2.53.0
-
+Tested-by: Markus Reichelt <lkt+2023@mareichelt.com>
