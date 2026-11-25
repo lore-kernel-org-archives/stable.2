@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795604516;
-	b=IMvjWwyuNsgSHnIJ8s82kFOCfPkglHcaAgmq2pF/+MwIeDGJ+A+WVdRozzbvTDxV26BQ
-	 uM52RnL1TtnNWZ1TcmxloSyQhj83MSMi5dkmh0TnFL7hTjFY6sQUAzNv0fwFgPQVOXeGf
-	 o69Q6Y/c3S8i6Elr1wXXZXIe/sjxJMMuq5lttc0gySBL7+Vnnp/coMvLYhea54Ldv1D1v
-	 AlBq9tGucw4JZq+4gBsaDHROJcCkOIuBDQK3hw1UpqNwm6hwvoXdb+8g+6kYVAlDcUuvS
-	 sCFUM9CLx+i9TW2jepngJ5MRTJLYOS6tU6JmSupagmzhlb69NNEHZiPJ7sI7jtnnkhA==
+	t=1795604519;
+	b=VHIafV509IOCMkx2NW+3/u6pCCQ2ABvbY5/d2QbKoht29IsR8NBvc7RX464dmjZO5t2g
+	 khl51cIBm2+gE/B282MniaoJ00pGLOaUkU0xBL1k8YGc8Y475TT7aq/u0L60dGG5QOhoO
+	 pR987CTTUyKH4mZr+iEyLnJy2dZv8NrQhuh72wYOKlVxGadnO0higU3zujS9+Zd64u8xK
+	 T87RTc04Kb5dNPgfznYyFyVZjQOU7X2rc5I8c8vpxw39UC/vBxd0e3nghdfzdjQhQQ0Wq
+	 pZWdiKRCXkFj7JtkN8wVm5k9hKOFuPizhhGI9Hx7iNMttHvMjGSWo024bVdAcMb4bTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795604516;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795604519;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Yk+njX7V6RJGgP9XfgRvAms2BGE7/SBj8/cDzF81vYM=;
-	b=giza7tHLb4DcisdMXNJCl9U2ri7hIRLtkfhChLqkzoEzClchooSGDE7XkNqaH7oPeM/f
-	 n2bYb3XeAzBGGxN5GEKVYPcqt9wQ6lXAEkRi6TSF3Dx24KGFC4gAh2KHkT0IfWkDVjtho
-	 FimvCvxaDQf1935iHGhma5m7ttjo9QmCy1mv4Vuay/TOEKGq5OHrVOCpudRd+IlXbZl8x
-	 ActkXsQpd+B29w9dotg6ypkDttSqUNONVCFE4tZ3/3uBDLltGopVXrdsbuer3GfQ+CoWw
-	 DkfSY4r19KHrOuY8OOcU2cOSlZ797QZECHbbuFRzOBu0UmKn/y7NItcvXeUj4iHaHZw==
+	bh=b+uH6FkIR+6lNH5tJ+i10yyvRWiIULkfY+mflcGaBMY=;
+	b=X9ed+zqiFo9JzG59osdFxsmU4Bcb0ca4u14cSuSThakorQbCR/qvVLiUEu9LZNKJGwG7
+	 g4D8NR05dBIgRpNDKIpJFlFmOnIQ/BAPn5kArSMDQdX1P+etTya1C8Q4LtBFEEA8SPlqD
+	 trYmxV8pyjjb4cUF9Oza6GGe4yNcKkclzM+w/4+iQdx2Zoko6LLoJicYhLy6wNfLs7sup
+	 3ZVvw1QYMTB8UMUlVKC6P5BtTNHVm926qF71zzle9drFOWr4xiMgkYu09KMli49sEkax4
+	 JT+Meq3YNAPJk2Dr+IR3jcoaZrhkkXS+r+y9ZzvN6ezCfo4vKK+yTWXTXL6N1sSZyxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zWaCDQ99;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dlWGFw1P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63AA606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:01:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC3A4606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:01:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zWaCDQ99
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C61F11F000C6;
-	Wed, 25 Nov 2026 11:01:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dlWGFw1P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DA941F000C6;
+	Wed, 25 Nov 2026 11:01:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795604516;
-	bh=Yk+njX7V6RJGgP9XfgRvAms2BGE7/SBj8/cDzF81vYM=;
+	s=korg; t=1795604519;
+	bh=b+uH6FkIR+6lNH5tJ+i10yyvRWiIULkfY+mflcGaBMY=;
 	h=Subject:To:Cc:From:Date;
-	b=zWaCDQ99STjPkrZ8VxR7OVH84ruFl7TXPax/n3r1PQcXA+VNO2GCtYjuXye/kHm/Z
-	 4QQm63vq21mFNZvohU/4dC0Sw1OvCug3U9HWBzLLeASrjCRNyL0hssRlAExdDWS6m+
-	 Pxsu/Awi0W7uVj5ClXNdXRBkknlU2P/m5XElS//I=
-Subject: FAILED: patch "[PATCH] gpio: keep the chip reference when deferred setup fails" failed to apply to 6.12-stable tree
+	b=dlWGFw1PLLMjVQNAEopqbW0nyUvbsS2Grd0NMwkf1kqwyNKZ1VsJuzNewK95S9wHT
+	 WnAwzINRw9LZqfdtEiPkLWanpTWxPavlVIVt9azpdaZQ2ymnrtnVgxpd78WKvPxSs5
+	 1fFJL+3z1wSDd/AlrgA13GrL5BJXN7N5b2ZWrGVc=
+Subject: FAILED: patch "[PATCH] gpio: keep the chip reference when deferred setup fails" failed to apply to 6.18-stable tree
 To: vulab@iscas.ac.cn,bartosz.golaszewski@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:42:07 +0100
-Message-ID: <2026112507-repossess-kinsman-0ff2@gregkh>
+Message-ID: <2026112507-smasher-paralysis-af0a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7e899fe007d2ffc753e6aa5bc8f2ae0a802b9e07
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112507-repossess-kinsman-0ff2@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112507-smasher-paralysis-af0a@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
