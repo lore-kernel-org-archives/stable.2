@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795623642;
-	b=b3Kfdoc2b3QD8FlPIrH7OKLMBZ3oPc/63DGBldX3z3DkiOmVqw7sYgXTdmQraw0ckra8
-	 hd0G2je4iriAI5XsJkHFhgNI/lkRlPTs/FEs0luNR9pFWsvPo7XNDj1ThECYL9orJL0Kt
-	 60MDVkxp9jpvrQ3AT2Vj65Yo+sKBCBGWUsxg/CVH+NoVNENAb4DHcjIYJtsVHF5hxJNpC
-	 gclk3obmuktb+aT2O0xiE072+lqgSMMHlD0EvBfenT8toZvX6dE5ZQPauPcZyYvLXWF3a
-	 0Mo2ctR+YGzhPLqkWth5GOCUtEi7cCSt5oeFZcsLQ5l2rb4lASEFMHclGLwk9DplS8w==
+	b=j6EYDUmjvU44geDK8a6Zw4OtA62zFuo5G5DmMQpSorW3agh9i1AOuw4ee03Hl0IhvXfh
+	 fhLPO0/2rG+lKtp+rkk90kDNEIYCzHysRJvkPFoRKDaCm0ff8T5mDySUDHxwf2s34VFQM
+	 e8QcL12CH+T2QfBHB4j5aHnOIFkvS9BKShgUgYwm+RcHc2/GCfhnXVM9YLR/dum2iFdrx
+	 po8qAq6glebttCv+VnM4HTP6Y3u74Ixsro89sYe0DSiZc6MSKidSpdly6iC4j89xPNMZ/
+	 RdIfqHrIIRVUiIY9lZrEtAAY7wo7VJIdWkOvE8L+uswIITkI7Q59tWw3Qek+EovQboQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795623642;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=056qI/r9e0s9dnvBfMf5urWn7OVhcz8M35R9OuheLUY=;
-	b=YnyWgIIfEo3tWRo3GCQmcSuoLhFmUum7TmAwG3K4nI8+UI7CSbP4JUtysceKgkNQCyK5
-	 E3QhmFzjn9mKjCSjqPdJbzuxvtPX6SOOuoqtdP+xgcXJVuVCs3mXAkyWtynczalu96uZW
-	 IgdEMHOmsZrpDrHyf5hPArFDHFBG59F3GaulYS9/k/dqIaEK7Gkqm52QBnDj91WYHWnM9
-	 8g8DWThnaws/6IEaeKr8SKJYLZlQsim6NzBV3RS9WtH3x8tsYkXCDKiKHc541chE3RC3N
-	 fHYlVwrpk2S06Aq3DjWNokQJIdk1m/LrPsMJFqtSYZiJGvrsmx700uZHtSzIAp8Sswg==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=rhZwtjQqme4RSlR9AhSFtK9kfEJBtrsn+heWgRbq4zs=;
+	b=Cbrw7piR/aMoTLMkxLR4Q0Diew/bRfjub6IhKgEAqbnb5+Tb9tzITGJ3TCvbaFVPL7WJ
+	 O2wAnb4yQaq8BVwfQigkFHQZM8WD+i2OzuHC0Y6ojd13FvsnihSSojwc+nLT8VMOanVYB
+	 osFRca3GhO0KPE47adx4tVepnm4UBLoa5q21WqV5vpB8sBs0LjenXFC4TVF37CJmFRNtE
+	 H8nsjGL3u5TNsg50CVeLfBRouYFZsEv9NcTT3qEFqJlmay80YcEOZ6yTfgUVgf4t6aKpj
+	 pBbaJdJrXJ1iTEF426cmxORg+Wd+e2LV7NSgvS4TFtKQHMCg98PINeucfEgUstjy9Ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+7j39P8;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dm5SJT+D;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC99A606A682
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:20:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B930606A32C;
+	Wed, 25 Nov 2026 16:20:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+7j39P8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EF681F000C6;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dm5SJT+D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90CF81F000EC;
 	Wed, 25 Nov 2026 16:20:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795623641;
-	bh=056qI/r9e0s9dnvBfMf5urWn7OVhcz8M35R9OuheLUY=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795623642;
+	bh=rhZwtjQqme4RSlR9AhSFtK9kfEJBtrsn+heWgRbq4zs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H+7j39P8r451Y1/CjNzFHwmBlpNFzV/w4Yc1v3Vrz21o7wPVRakMyZMppA5iGdXlq
-	 cimqn/TNng+DrFXeAlfhU79xbCwh7playZS8lnaNIDyTr93Rrk68Mm2Md0jd71wLxp
-	 yLSh+m90bZI7H++YheecEqHx4iJBE6uIeOBWou15Dz7Np+QpgzRpWMzylMuw7ja3RO
-	 g3Ejil4muA7b3woDB4RmKv3e076Jp11nyijoW/EZ2nTWx5N5jbk0nFfZQs0bA0+TNr
-	 pGB4DSsd+vjTFUySB1ajDWZgX4dk0nEnzEVtnZay/aAAYlU0gIBYR+yfmpubxgQi8X
-	 0TwN1l+AoGe9Q==
-From: Sasha Levin <sashal@kernel.org>
+	b=dm5SJT+DlS2ImyHQsvSKBOCc/sQJo+JpKPlRc/Pyxc4rGX3v7b7YcmlByiHRJIZCc
+	 pR8NoZ9ImKU51FuX/TPArNAud9957n/4pQZ1+LgaiyoKhyr3900F7XPhibGkS9sWEk
+	 12XWhksriWrXH13Acr9b50Z5bGVL8xX1zVQuMt0s=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>,
-	syzbot+79883955da3a62652a80@syzkaller.appspotmail.com,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] arm64: suspend: Only track cpuidle context for idle tasks
-Date: Wed, 25 Nov 2026 11:20:38 -0500
-Message-ID: <20261125162031.756040-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125162031.756040-1-sashal@kernel.org>
-References: <2026112540-presoak-impromptu-e705@gregkh>
- <20261125162031.756040-1-sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	stable <stable@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH 6.18 923/990] w1: dont hold list_mutex while a slave is torn down
+Date: Wed, 25 Nov 2026 15:38:10 +0100
+Message-ID: <20261125143843.620107099@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,109 +64,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit ad3fc05c7e65009355effeea06aa629a687acef2 ]
+------------------
 
-Commit 19235e472798 ("cpuidle, arm64: Fix the ARM64 cpuidle logic") moved
-the calls to ct_cpuidle_enter() and ct_cpuidle_exit() into cpu_suspend() so
-that arm64 cpuidle could keep RCU watching longer and manage context
-tracking internally. However, cpu_suspend() is called not only by cpuidle
-via psci_cpu_suspend_enter() (which runs in the context of the idle task),
-but also during system suspend via psci_system_suspend_enter() (which runs
-in the context of the task initiating suspend, such as a process writing to
-/sys/power/state).
+From: Josef Bacik <josef@toxicpanda.com>
 
-When entering system suspend, current is a non-idle task. Calling
-ct_cpuidle_enter() invokes ct_kernel_exit() from kernel space (!user) on a
-non-idle task. With CONFIG_RCU_EQS_DEBUG enabled, this violates context
-tracking invariants and triggers a warning:
+commit 7ef382cb0ae0b2d6df4fbc5c822cd80394308839 upstream.
 
-WARNING: kernel/context_tracking.c:120 at ct_kernel_exit+0x1b4/0x1f4
-kernel/context_tracking.c:118
-Call trace:
- ct_kernel_exit+0x1b4/0x1f4 kernel/context_tracking.c:118
- ct_idle_enter+0x20/0x34 kernel/context_tracking.c:299
- ct_cpuidle_enter include/linux/cpuidle.h:134 [inline]
- cpu_suspend+0x264/0x474 arch/arm64/kernel/suspend.c:136
- psci_system_suspend_enter+0x4c/0x80 drivers/firmware/psci/psci.c:544
- suspend_enter kernel/power/suspend.c:468 [inline]
- suspend_devices_and_enter+0x88c/0xd0c kernel/power/suspend.c:533
- enter_state kernel/power/suspend.c:618 [inline]
- pm_suspend+0x498/0x698 kernel/power/suspend.c:644
- state_store+0x14c/0x1fc kernel/power/main.c:819
- kobj_attr_store+0x6c/0x90 lib/kobject.c:842
- sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
- vfs_write+0x51c/0xa0c fs/read_write.c:687
- ksys_write+0x12c/0x228 fs/read_write.c:739
+When the last reference to a slave is dropped, w1_unref_slave() holds
+list_mutex of the master until the slave has been freed.  In between it
+calls the ->remove_slave() callback of the family driver and
+device_unregister().  Both wait for others: for the sysfs callbacks
+which are running, and in the case of w1_therm also for the file
+therm_bulk_read of the master and for everybody who is talking to the
+sensor.  None of those can therefore take list_mutex, although the
+callbacks of therm_bulk_read walk the list which it protects.
 
-A corresponding warning is subsequently triggered in ct_kernel_enter() via
-ct_cpuidle_exit() upon resume.
+The mutex is only needed to make the decrement of the reference count and
+the removal from the list one step for w1_search_slave() and
+w1_slave_search_device(), which look the slave up in the list and, in the
+first case, take a reference.  Once the slave is off the list, nobody can
+find it any more.  Drop the mutex at that point.
 
-Fix this by checking is_idle_task(current) in cpu_suspend() and only
-invoking ct_cpuidle_enter() and ct_cpuidle_exit() when executing in the
-context of an idle task.
+The callers which hold the mutex of the master, which serialises
+attaching and detaching, are not affected.  The one which does not is
+w1_process_cb(), when it drops the last reference to a slave which has
+been detached while a netlink command for it was queued.  Somebody who
+attaches a slave with the same ID through sysfs or netlink at that very
+moment used to wait until the old device was gone.  Now the registration
+of the new device may fail because the name is still in use.
 
-Fixes: 19235e472798 ("cpuidle, arm64: Fix the ARM64 cpuidle logic")
-Cc: <stable@vger.kernel.org>
-Assisted-by: Gemini:gemini-3.8-flash Gemini:gemini-3.1-pro-preview syzbot
-Reported-by: syzbot+79883955da3a62652a80@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=79883955da3a62652a80
-Link: https://syzkaller.appspot.com/ai_job?id=5359e16f-013b-4850-9cbc-ddfb3bac95e5
-Signed-off-by: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
-Tested-by: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
-Link: https://lore.kernel.org/r/3e92ccb0-2952-4317-af4c-45457c15efae@gmail.com
-Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+This is a preparation for "w1: w1_therm: lock the list of slaves for the
+bulk read".
+
+Cc: stable <stable@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Link: https://patch.msgid.link/20261027-llm-char-misc-w1-v1-7-d2e6bfafb6a4@linuxfoundation.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- arch/arm64/kernel/suspend.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ drivers/w1/w1.c |   13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/kernel/suspend.c b/arch/arm64/kernel/suspend.c
-index c41724a40b756..cde0b8c19377e 100644
---- a/arch/arm64/kernel/suspend.c
-+++ b/arch/arm64/kernel/suspend.c
-@@ -5,6 +5,7 @@
- #include <linux/uaccess.h>
- #include <linux/pgtable.h>
- #include <linux/cpuidle.h>
-+#include <linux/sched.h>
- #include <asm/alternative.h>
- #include <asm/cacheflush.h>
- #include <asm/cpufeature.h>
-@@ -99,6 +100,7 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
- 	int ret = 0;
- 	unsigned long flags;
- 	struct sleep_stack_data state;
-+	bool idle = is_idle_task(current);
+--- a/drivers/w1/w1.c
++++ b/drivers/w1/w1.c
+@@ -776,16 +776,24 @@ int w1_unref_slave(struct w1_slave *sl)
+ {
+ 	struct w1_master *dev = sl->master;
+ 	int refcnt;
++
++	/*
++	 * Once it is off the list nobody can find the slave and take a new
++	 * reference.  The lock must not be held any longer than that: the rest
++	 * waits for sysfs callbacks and for users of the family data.
++	 */
+ 	mutex_lock(&dev->list_mutex);
+ 	refcnt = atomic_sub_return(1, &sl->refcnt);
++	if (refcnt == 0)
++		list_del(&sl->w1_slave_entry);
++	mutex_unlock(&dev->list_mutex);
++
+ 	if (refcnt == 0) {
+ 		struct w1_netlink_msg msg;
  
- 	/*
- 	 * Some portions of CPU state (e.g. PSTATE.{PAN,DIT}) are initialized
-@@ -133,7 +135,8 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
- 	 */
- 	pause_graph_tracing();
+ 		dev_dbg(&sl->dev, "%s: detaching %s [%p].\n", __func__,
+ 			sl->name, sl);
  
--	ct_cpuidle_enter();
-+	if (idle)
-+		ct_cpuidle_enter();
- 
- 	if (__cpu_suspend_enter(&state)) {
- 		/* Call the suspend finisher */
-@@ -149,9 +152,11 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
- 		if (!ret)
- 			ret = -EOPNOTSUPP;
- 
--		ct_cpuidle_exit();
-+		if (idle)
-+			ct_cpuidle_exit();
- 	} else {
--		ct_cpuidle_exit();
-+		if (idle)
-+			ct_cpuidle_exit();
- 		__cpu_suspend_exit();
+-		list_del(&sl->w1_slave_entry);
+-
+ 		memset(&msg, 0, sizeof(msg));
+ 		memcpy(msg.id.id, &sl->reg_num, sizeof(msg.id));
+ 		msg.type = W1_SLAVE_REMOVE;
+@@ -799,7 +807,6 @@ int w1_unref_slave(struct w1_slave *sl)
+ 		kfree(sl);
  	}
+ 	atomic_dec(&dev->refcnt);
+-	mutex_unlock(&dev->list_mutex);
+ 	return refcnt;
+ }
  
--- 
-2.53.0
+
 
