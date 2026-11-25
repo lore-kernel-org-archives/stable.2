@@ -1,94 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795619895;
-	b=b58Nk8+Od+pBxcyLWqaFcLMLXJ3XO9s9mycGf+g1H3IaJN77EHLX0VFXSGuxQM7jzS4i
-	 U6Lf03DBftVl+jFcGNCvrkXnpb1WEJZUQ/Dkzb9IyyJ9KVUcsk2U3lCo6SvuVCC6Tddt+
-	 kerejkNxVrUnkPXF9Ffd7dTHEw7WZ1747X8XhhUqQNSiv+nU1NEuD+6CJhC1VGOJSGqEf
-	 jgXAGT3iGT7uwWKjxW3lBdI2ygWq2pGV2tTB5qKWCsKN6sAhrOZCUpIeoxrgzaRo/I9f/
-	 MWxYIL2eUWBLGIBTqZlmz5QkKJLhDsIbsOc2Q6zUvfgA5kB398wosjRR2ntfXKm/Scw==
+	t=1795619897;
+	b=WCzvuIt9VOD1/8mwIZU5nrd4z15vgi/AD34pEQAO74Eo/Y9qUCFEemCyZ8b/pwZED49Y
+	 bQAEKBNEPP/DyyfA1xa1Eq1SkIP//sl847MjqvgU+vkyF01F/mwrLdu23wuedsfkq7+dP
+	 /jJdkdoFRGUYBhNunmWUhlFRxzq45CYyGP0zJS3A6yWPvd7q8a0JxKro5pmZSDdEoWMBE
+	 OaRBoYZwLNRp4H9HBrhy/LPzdpyXibVsTbDKL/9ZRwENS3FBbFvoLVpKHx3NcGlnTZ7NK
+	 3vlo0rlzLR82DGLoeupms6N7mRmlJjtQ+g0nAjhE8pWCjj9LR19L5XhFf4CqghzTsEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795619895;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9v3KGObS3I4qmCXXeaq33Sk2gaD4E0N82i03n+h6Igw=;
-	b=t9C90T0QEYRDA+Hhu4+0kUjSM1Lkg5JPTARupY2kJGmNy4QPRkfxwtXZk1JptC5AhvTZ
-	 qr5+ShZIlHDhRsJ3BeiqN4KSR4Y77/PjnjEzLfaQExqAD4W509/7FuRS0ENngfayBfNs3
-	 g8Yfvek+fyTf58/nCxhYP/WM1OLUZMfDvlAV4X3jSQMtcL9L29Ubkg3UBMQQ/yD75RF75
-	 1fPSLlOllPsM5iAzCeQO6xa24j1WDKrOW8zT45pZiM5pE4LqiZQBlSQgjUBCQZoXvQClM
-	 bgmilNbt0FlHgOsRnpr5Vhfl6K65W6Ys6mKvoPlwvIi6CNZzSSwUQblS46M44fX+32A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795619897;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=/eO5qqBnWePh0pHRXSYKQypMgvQFWjknnw3iD/Vs4TI=;
+	b=T1L/tWGAYwMthA1TKr9X0olMeM8mPoRi10TNtE6+pjc3gBVTVoSZ13VuAeX+FJiSPqTF
+	 6N/kyGAkdDS+THO3W5z+/2vCKF4SPF2b++sl6Ar+D4m+dsEXcu8y78TKPxM8Nfu7ya4oF
+	 6v7uZbz14oSSc6ZI84BwK2HGiZRH34IQgmBHs89oJXF7Vcy1H7vNVRt1P6gJtcFl8gXE9
+	 cKt1NhHlC53MfcKEpyE3WUypVsIR94fgtTwMxiV1CcbaxCHQxWpIwuTM0i/2TSdXZUZCq
+	 lfovdSaV/vyKsV52pljjCFQSetNqj+YcVFnzwEJn9lm/VkVSlHTzw/zbNF0uSdgN6jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qlDEiflK;
-	arc=none smtp.remote-ip=209.85.208.176
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=g6Z75Vha;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91685606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:18:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91685606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21254606A31E;
+	Wed, 25 Nov 2026 15:18:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qlDEiflK
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3adff684a52so48036671fa.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 07:18:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795619894; x=1796224694; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9v3KGObS3I4qmCXXeaq33Sk2gaD4E0N82i03n+h6Igw=;
-        b=qlDEiflKUetv+4QYYL/mYdkoS+iEeG+DUNHlgb5S/T43X+SjRjP11S3HdqL44CbcNn
-         90/+ASGub/use9y6AKu3o2q+yVPjcuJCvWCa4L9RMoSisGcCCjsKSQbq7MEBsGE863Vh
-         mBsySexR8epsSZPrQJEF7Tt+zEmvOluImMYIDzjkcMymwbkOA+cFVffotgVBfAdzM1Op
-         sGqx16iMaIgDycX7HTMgwZ5ev6mLrJqNKdjSAUtsuU1VFJMEgkH+xsiXgkehyvvENVU4
-         XS7meC1Yt9HbgJDY3tmdgHAtwamcY4EKwYOThItuSmTERUt61ilRNfrt+rnvzQ6z7xNN
-         SyIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795619894; x=1796224694;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9v3KGObS3I4qmCXXeaq33Sk2gaD4E0N82i03n+h6Igw=;
-        b=sfGcpzwUkbK96z/Oo4Q7vRNDaRgZtYxCUgE8NT0NFT1iPp5+VchwbVxHssCnsjJ/9e
-         dtaWJ9yWuaQETAzyjg7/v0Rvxk3dtsVW+/D5MawEeJO7Rc4jyPVhj8M4hML/rC1VMSB0
-         g7yppE6bAaAw8B9DS8PX6W9+SsKc41f2ctVcu4odgrSBpMLSsmDJm2MXBGlyJE+P/2/z
-         ySvq9dm9Cth6Tyy27bQ5RNwyG2lvF15+ylAqh21C80Y4JI2HPJgCMU+UdYaRkESJ+9Y1
-         l3NvZovMAXIwdTLPA2+0bJesGMm0Dg6S+pnlskbEwzpVOlMVtLfBcoZQzwWxKZ75s7VG
-         gOdw==
-X-Gm-Message-State: APuU4Z+2XFCJFIp92m39ojAycv0lMnNB7nfPsEXGqtDxptszxv0DvK2d
-	ToYUPPXaTuYbelUF9C17+k0vtQX4ojC3M9oF/KWVEjwO8U9aLFiGM7QSgcimLLAE
-X-Gm-Gg: AZFdTZd2T1i0XehLDvqlJQUcTBh2HcmCMaq6Jlvvr9JhPqt/v5IIjByGbN+5V2z2Hgi
-	K0qI3PQCmTHIaf07S9V7S7Whaboavm8gVzdIVPmEg2/+NKoR5hKUeiZ2YN4YjKFK893BXfV3xwR
-	Da2BqgzhdjLfLdFZ5StpaYBD6E//oB9Ef7mR4mYwekFynnQtLA9/+LZvdG0l1KS57kESRtMxSlu
-	aTBTn8YPbaUQCeD2f7+/IXFG1rzIGk+qjvJlauQ7o9csxV4j6I98M6eyfIF6eRIYZDOg34SbxhW
-	jSxmqqoDrjr2jw3YeegCt6+FYOW28Pesj1wQ8QCaCx9iw9GQbhwegEJfnKYUSy5BxtHbwy8vw2R
-	+AcgKopo+vkjUpqT5iwjaiBtibYfgZcOBqehAxsb4ozDtigq1573Ljf7AWjUwFSUJ1qMpjf5mqq
-	sTEGnujHEhbzlFLeURSIxjzQuhja7uU5fRbR5dqb0LYoTBtWUuxVbNl5r0cyBAQGU1U3kDfCmDA
-	vsWEHdEc7lMZ0yRoyiahbPsZ5xtIR7Hl0+G+iZK/7Px28+VOxu/dT7eznyqKt9M9CtoJtH6y31f
-	9sby+KQheNSJ9IeEacnMMjiujpCpRD6giEObP8QlxqKNLuacp93P7TS0wyvcVL+wUzzuMo9uuVy
-	nLmvGas7TCVH2jEytPi5rs0jDCz6KqxenP1sodiLlenbOgB0DCX+cmbJs+UsVG6AzDWtEuo+Vqf
-	h1GRcXDPWyI6367iZpZb5fTd4kP93V36fomajd9bKP5w==
-X-Received: by 2002:a05:651c:a16b:b0:3ad:fcf7:950f with SMTP id 38308e7fff4ca-3ae7b7ce4dbmr46308491fa.13.1795619893330;
-        Wed, 25 Nov 2026 07:18:13 -0800 (PST)
-Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae805253acsm52479311fa.22.2026.11.25.07.18.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 07:18:13 -0800 (PST)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=g6Z75Vha
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECB4A1F000C6;
+	Wed, 25 Nov 2026 15:18:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795619896;
+	bh=/eO5qqBnWePh0pHRXSYKQypMgvQFWjknnw3iD/Vs4TI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=g6Z75VhajfcwMJF1kae3wXxfjGL1P43TficRN/P4hARXcEsCGxidzvbZgIaTBKYGJ
+	 fyf6VolTPunyDNmYq7fjlu7GZ78PtOq1EsEhrDP9TZ6wyZZfsF3QB6c8whv7CJOEPB
+	 rO6E2u04sY1G6gv5uRrkiWbj5supYhc2L859vAB0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH 6.6.y] iio: imu: inv_mpu6050: fix swapped accel and gyro startup times
-Date: Wed, 25 Nov 2026 20:48:03 +0530
-Message-ID: <20261125151805.343087-1-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112517-barrel-nylon-c582@gregkh>
-References: <2026112517-barrel-nylon-c582@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jan Kara <jack@suse.cz>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: [PATCH 7.3 0697/1005] ext2: add ext2_inode_block() helper
+Date: Wed, 25 Nov 2026 15:33:55 +0100
+Message-ID: <20261125143838.083095493@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,230 +63,108 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 3a5e2ca34cadd9d5993064884aa5b9c4f6d71dff upstream.
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-struct inv_mpu6050_hw declares startup_time as { accel, gyro }, but
-every entry of hw_info[] initializes it positionally as
-{ *_GYRO_STARTUP_TIME, *_ACCEL_STARTUP_TIME }, so the two values are
-swapped for all chips.
+------------------
 
-inv_mpu6050_switch_engine() waits for startup_time.gyro after enabling
-the gyroscope, so it waits for the accelerometer startup time instead,
-e.g. 20 ms instead of 60 ms on MPU6050 and 20 ms instead of 100 ms on
-ICM20602, and the first gyroscope samples can be read before the sensor
-has settled. Enabling only the accelerometer waits longer than needed.
+From: Christian Brauner <brauner@kernel.org>
 
-Use designated initializers, so each value is assigned to the member it
-is named after.
+commit 57a84ef0520b0d17e930ff15cbd13af687e6d233 upstream.
 
-Fixes: e46a36d92da0 ("Add startup time for each chip using inv_mpu6050 driver")
-Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
-Acked-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-[ This tree has no IAM20380, IAM20680HP or IAM20680HT entries; the 16
-entries it has are converted the same way. ]
-Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+Move the lookup of the inode table block that holds an inode out of
+ext2_get_inode() into a helper. ext2_sync_inode_metadata() is going to
+use it to find the block without reading it from disk.
+
+No functional changes.
+
+Cc: stable@vger.kernel.org # v7.3
+Reviewed-by: Jan Kara <jack@suse.cz>
+Link: https://patch.msgid.link/20261109-work-inode-metadata_writeback-v3-1-91ac6c024018@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/iio/imu/inv_mpu6050/inv_mpu_core.c | 80 +++++++++++++++++-----
- 1 file changed, 64 insertions(+), 16 deletions(-)
+ fs/ext2/inode.c |   49 +++++++++++++++++++++++++++++++------------------
+ 1 file changed, 31 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
-index a9a5fb266ef1..8faf39987d35 100644
---- a/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
-+++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
-@@ -146,7 +146,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6050,
- 		.fifo_size = 1024,
- 		.temp = {INV_MPU6050_TEMP_OFFSET, INV_MPU6050_TEMP_SCALE},
--		.startup_time = {INV_MPU6050_GYRO_STARTUP_TIME, INV_MPU6050_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6050_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6050_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_MPU6500_WHOAMI_VALUE,
-@@ -155,7 +158,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 512,
- 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_MPU6515_WHOAMI_VALUE,
-@@ -164,7 +170,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 512,
- 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_MPU6880_WHOAMI_VALUE,
-@@ -173,7 +182,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 4096,
- 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_MPU6000_WHOAMI_VALUE,
-@@ -182,7 +194,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6050,
- 		.fifo_size = 1024,
- 		.temp = {INV_MPU6050_TEMP_OFFSET, INV_MPU6050_TEMP_SCALE},
--		.startup_time = {INV_MPU6050_GYRO_STARTUP_TIME, INV_MPU6050_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6050_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6050_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_MPU9150_WHOAMI_VALUE,
-@@ -191,7 +206,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6050,
- 		.fifo_size = 1024,
- 		.temp = {INV_MPU6050_TEMP_OFFSET, INV_MPU6050_TEMP_SCALE},
--		.startup_time = {INV_MPU6050_GYRO_STARTUP_TIME, INV_MPU6050_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6050_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6050_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_MPU9250_WHOAMI_VALUE,
-@@ -200,7 +218,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 512,
- 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_MPU9255_WHOAMI_VALUE,
-@@ -209,7 +230,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 512,
- 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_ICM20608_WHOAMI_VALUE,
-@@ -218,7 +242,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 512,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_ICM20608D_WHOAMI_VALUE,
-@@ -227,7 +254,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 512,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_ICM20609_WHOAMI_VALUE,
-@@ -236,7 +266,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 4 * 1024,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_ICM20689_WHOAMI_VALUE,
-@@ -245,7 +278,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 4 * 1024,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_ICM20600_WHOAMI_VALUE,
-@@ -254,7 +290,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 1008,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_ICM20602_GYRO_STARTUP_TIME, INV_ICM20602_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_ICM20602_ACCEL_STARTUP_TIME,
-+			.gyro = INV_ICM20602_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_ICM20602_WHOAMI_VALUE,
-@@ -263,7 +302,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 1008,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_ICM20602_GYRO_STARTUP_TIME, INV_ICM20602_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_ICM20602_ACCEL_STARTUP_TIME,
-+			.gyro = INV_ICM20602_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_ICM20690_WHOAMI_VALUE,
-@@ -272,7 +314,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 1024,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_ICM20690_GYRO_STARTUP_TIME, INV_ICM20690_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_ICM20690_ACCEL_STARTUP_TIME,
-+			.gyro = INV_ICM20690_GYRO_STARTUP_TIME,
-+		},
- 	},
- 	{
- 		.whoami = INV_IAM20680_WHOAMI_VALUE,
-@@ -281,7 +326,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
- 		.config = &chip_config_6500,
- 		.fifo_size = 512,
- 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
--		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
-+		.startup_time = {
-+			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
-+			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
-+		},
- 	},
- };
+--- a/fs/ext2/inode.c
++++ b/fs/ext2/inode.c
+@@ -1264,46 +1264,59 @@ static int ext2_setsize(struct inode *in
+ 	return 0;
+ }
  
--- 
-2.53.0
+-static struct ext2_inode *ext2_get_inode(struct super_block *sb, ino_t ino,
+-					struct buffer_head **p)
++/*
++ * Find the inode table block that holds inode @ino and the offset of the
++ * inode in that block.
++ */
++static int ext2_inode_block(struct super_block *sb, ino_t ino,
++			    unsigned long *block, unsigned long *offset)
+ {
+-	struct buffer_head * bh;
+ 	unsigned long block_group;
+-	unsigned long block;
+-	unsigned long offset;
+ 	struct ext2_group_desc * gdp;
+ 
+-	*p = NULL;
+ 	if ((ino != EXT2_ROOT_INO && ino < EXT2_FIRST_INO(sb)) ||
+-	    ino > le32_to_cpu(EXT2_SB(sb)->s_es->s_inodes_count))
+-		goto Einval;
++	    ino > le32_to_cpu(EXT2_SB(sb)->s_es->s_inodes_count)) {
++		ext2_error(sb, __func__, "bad inode number: %lu",
++			   (unsigned long) ino);
++		return -EINVAL;
++	}
+ 
+ 	block_group = (ino - 1) / EXT2_INODES_PER_GROUP(sb);
+ 	gdp = ext2_get_group_desc(sb, block_group, NULL);
+ 	if (!gdp)
+-		goto Egdp;
++		return -EIO;
+ 	/*
+ 	 * Figure out the offset within the block group inode table
+ 	 */
+-	offset = ((ino - 1) % EXT2_INODES_PER_GROUP(sb)) * EXT2_INODE_SIZE(sb);
+-	block = le32_to_cpu(gdp->bg_inode_table) +
+-		(offset >> EXT2_BLOCK_SIZE_BITS(sb));
++	*offset = ((ino - 1) % EXT2_INODES_PER_GROUP(sb)) * EXT2_INODE_SIZE(sb);
++	*block = le32_to_cpu(gdp->bg_inode_table) +
++		(*offset >> EXT2_BLOCK_SIZE_BITS(sb));
++	*offset &= (EXT2_BLOCK_SIZE(sb) - 1);
++	return 0;
++}
++
++static struct ext2_inode *ext2_get_inode(struct super_block *sb, ino_t ino,
++					struct buffer_head **p)
++{
++	struct buffer_head *bh;
++	unsigned long block;
++	unsigned long offset;
++	int err;
++
++	*p = NULL;
++	err = ext2_inode_block(sb, ino, &block, &offset);
++	if (err)
++		return ERR_PTR(err);
+ 	if (!(bh = sb_bread(sb, block)))
+ 		goto Eio;
+ 
+ 	*p = bh;
+-	offset &= (EXT2_BLOCK_SIZE(sb) - 1);
+ 	return (struct ext2_inode *) (bh->b_data + offset);
+ 
+-Einval:
+-	ext2_error(sb, "ext2_get_inode", "bad inode number: %lu",
+-		   (unsigned long) ino);
+-	return ERR_PTR(-EINVAL);
+ Eio:
+ 	ext2_error(sb, "ext2_get_inode",
+ 		   "unable to read inode block - inode=%lu, block=%lu",
+ 		   (unsigned long) ino, block);
+-Egdp:
+ 	return ERR_PTR(-EIO);
+ }
+ 
+
 
