@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625722;
-	b=s4Pu8nBi2bFj15NuRa5uxHnPoRYfinHx6+2Xq0QVuPZj6orrAQH+rQKOpFK3+ux6KzUB
-	 HrciE66FuAWTegfnDA+b4CtI5gW5QYceDI/Le4ticEQg+n+IMek6FriCjgqXQG5MKKZ3N
-	 U+fEu9ls45+OB9qHE51+hHbCA3G+634/5UH7yFDFcWVaVdzrtucKBDU1NRRGlJTEGSLF2
-	 x1P/kbCTy8n7IJnHme9KyQVm39fNcJ/4N45kAp/PCXE4Xht3HUupriUvKNtAejAFBagf1
-	 5+oPyr8Tlk9gkOOqfX9Jw9RSyYczRNAN5/aJU1C0uhDQU+JpNfqYFCULeu++qwcatWQ==
+	t=1795625725;
+	b=CEt0Mt0RNw3bqjbxcgjYvR4R8RiIVQYsnB6xA7dbnzEhTY3gBLYAbqt9+ghSpLQxrpdW
+	 7AnwSZyNqcCYdEcNFGFiNp8b+Nyt9ykUotVnEVtypNpalehSa5rD3ATl+XOZJEHvg8/tp
+	 R3Gf2AtuT7JRRsH8hy3GxRUqreVQYU5TK+90dtP3QL/hh4KtUlE/7amqRD2e7sRUuw+sJ
+	 +xhHy/mE1w0U8sB6oyg6enu7Uv/vDsP5pa4Gy9yHvTRiYXRh0ffo0MMrSWvQu7jP/rp7R
+	 Pi/SDIX0FAYdfk/n/BQthGAod1EvchpeUT3LljPHX7g9g10+Hu6+7DsTRIYo3goXp7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625722;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625725;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=X7jRmwNGH0pvJPT4iczLREYaGgA2/WmZOYdGXzrhRpo=;
-	b=RB2Bhk/XKcifeZVfXMQszgo+hMot/hhXeSZhNwnGQDWONE0M8JfJOd7LkHYRpRTIPNnF
-	 LevwxWR42qoaOuMzJ3QPf2f9lBo8jGPfr+7hphOuBER2yWZKVkYGdOXFkhS6XJuGRLEMT
-	 z8BANl78sokgM4SKFbwYgiz+lxM0898rNN5pB36uSHcq4KiAXr+zcO6DfM6PxK1qoyC0j
-	 kpPQGY7Bnd7Zk2t8G6O0asJ1yHgXA5j+cLMPBkUEVwQlcDrdFHF2eQAuuW46dTOOq821q
-	 aFVAEXb2d5Y5uUWh5Cbu8Oz9h5ONcqkdPTv/o8LVgM30kIpjV+ARr5i1qOMPK8kW3FA==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=7ajzHdfgt42q9vVHqLwCjlpj4/xQMP9kGuUZboCQweU=;
+	b=v/QSM7gQb98nRQwxfN84jEijNo8eW2Iez1uNjorinlpAALwuzLE8CAxswuUyTQ3Oc+l6
+	 8Vs836C4XkXiW4V6WODfdvgnrh9RYcek1jvp90yd5BJ0JN2ga5dDTSuwBH2KWzmutBiTj
+	 DaLpkIbSilCQ3ITEU3o/xJeDwupLUbjHD+7934EisPcetWwI+BdWRuSEgnTSg9fEJoslZ
+	 M7o+OOPvyZLOsD1/if8niwjbfBXHeN4cgakOXFiXkpV2q5/9afJN8jV+Oi+QNvfty1EJN
+	 /6zzt1+BPztIT2ahi8xyMw4LBxmwDgVUGshY5/1CL1JLTQXgj8Y5/0DsqcDdgFoseXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cWU7inY0;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Q0oiA9vm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53FB3606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:55:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 639A4606A31E;
+	Wed, 25 Nov 2026 16:55:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cWU7inY0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F7B71F000C0;
-	Wed, 25 Nov 2026 16:55:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795625722;
-	bh=X7jRmwNGH0pvJPT4iczLREYaGgA2/WmZOYdGXzrhRpo=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Q0oiA9vm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 731B91F000C0;
+	Wed, 25 Nov 2026 16:55:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795625725;
+	bh=7ajzHdfgt42q9vVHqLwCjlpj4/xQMP9kGuUZboCQweU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cWU7inY0bB/h8sAoM6FNtqRKDsDYyzkCahjlmnrVOygr4mizjVN34FFGWavwCvj1S
-	 DOY2vq8C5T4MF221wlf03xQDDFbvbDrPfvj/+MLoXldBLneS8i00X+3ybHvODpeviR
-	 BiNTzcB9nfgqbBTaIdnBX62GH1J7W/kE7RqdC57xFtpNvC0bxvjWU4swdgekrHuqpP
-	 yXOVsX1fO/0djD3VdqLqZTAvNPR5bC9FgTKF8xrVBiOIKIsM6UwIifXH0d/O8MiD1Y
-	 02ARZbV/8mqV3fTItsbYWuzRGRtLQeWDs+tjk6sm874Q9kmdERxh8mQmHVM0dkywc7
-	 yu2PcGSoVsBPw==
-From: Sasha Levin <sashal@kernel.org>
+	b=Q0oiA9vm12KgbP7LKUf2GQQziWk/KTANKEivL2LejSc4g4dVLdhHY0+pfZPVhikLF
+	 rnEBj3z65y8Qrt27oSn88N/t5c9d39B/tWyzxZmFYjA67I0bGOJPWkFyWCf/JNzOZM
+	 Nfsq+ERBXClF2s9Xp3Q9GE+TtH+gTD2r6vqakj7I=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Tim Menninger <tmenninger@everpuredata.com>,
-	Anna Schumaker <anna.schumaker@hammerspace.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] pNFS: avoid repeatedly cancelling I/O for the same lseg
-Date: Wed, 25 Nov 2026 11:55:20 -0500
-Message-ID: <20261125165503.900689-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112558-pacific-polka-65e6@gregkh>
-References: <2026112558-pacific-polka-65e6@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	Zi Yan <ziy@nvidia.com>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Subject: [PATCH 6.12 567/816] mm/mmzone: read the zoneref slot once in zonelist_zone()
+Date: Wed, 25 Nov 2026 15:35:15 +0100
+Message-ID: <20261125143902.305414553@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,107 +64,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tim Menninger <tmenninger@everpuredata.com>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 9e28836b480c66cca4c3d391177f5b3a50927f7d ]
+------------------
 
-Commit b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is
-recalled or revoked") added I/O cancellation when a layout segment is
-invalidated while outstanding references remain.
+From: Gregory Price (Meta) <gourry@gourry.net>
 
-The invalid segment stays on the layout's segment list until those
-references drain. Subsequent scans can find it again and repeatedly
-invoke the layout driver's cancel_io() callback. For flexfiles, this
-cancels matching RPC tasks and disconnects data server RPC clients.
-During RPC/RDMA data server recovery, repeated cancellation can cause a
-reconnect loop that consumes essentially all client CPU and prevents
-forward progress.
+commit 9c52ebe9c89d41c56fcb5d94efe9e539414175a9 upstream.
 
-Record cancellation requests per mirror stripe in the flexfiles layout
-segment. Each stripe is cancelled at most once, regardless of how many
-times the invalid segment is encountered. A per-stripe bitmap rather
-than a single per-segment bit preserves the ability to cancel I/O to a
-different device after an earlier device-specific cancellation.
+Memory hotplug rebuilds zonelists in place while allocations walk them,
+so a zoneref slot can change between two loads of it.
 
-Cancellation is best-effort. An RPC that has already passed the
-layout-validity check may not yet be visible to the cancellation
-scan. Such I/O retains its lseg reference and remains subject to
-the normal RPC completion and recovery paths. Suppress repeated
-cancellation and disconnect requests without changing the existing
-lseg lifetime and deferred layout-return accounting.
+zonelist_zone() loads the slot with a plain access.  The compiler may
+load it again later instead of keeping the zone it already read, so a
+caller can check one zone and then use another, or the NULL terminator.
 
-This reproduced on 6.8.0, 7.0.0, and 7.4.0-rc1. It was tested on
-7.4.0-rc1 with sustained pNFS/flexfiles I/O over RPC/RDMA while
-restarting the NFS service on a data server. Without it, repeated
-cancellation led to a reconnect loop and no workload recovery. With it,
-the client recovered after the data server returned.
+Use READ_ONCE().  Callers that take a zone from a slot and keep using
+it, such as get_page_from_freelist() with ac->preferred_zoneref, need
+that single load.
 
-Fixes: b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is recalled or revoked")
+Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_zonelists")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
-Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
-[ sashal: Adapted to a tree without striping or device-specific cancel: the bitmap has one bit per mirror (sized by mirror_array_cnt, indexed by idx) instead of per mirror stripe. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Link: https://patch.msgid.link/20261101021340.2251928-6-gourry@gourry.net
+Acked-by: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/nfs/flexfilelayout/flexfilelayout.c | 11 +++++++++++
- fs/nfs/flexfilelayout/flexfilelayout.h |  1 +
- 2 files changed, 12 insertions(+)
+ include/linux/mmzone.h |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout/flexfilelayout.c
-index c6bc831b95413..841b916f9515a 100644
---- a/fs/nfs/flexfilelayout/flexfilelayout.c
-+++ b/fs/nfs/flexfilelayout/flexfilelayout.c
-@@ -11,6 +11,7 @@
- #include <linux/nfs_mount.h>
- #include <linux/nfs_page.h>
- #include <linux/module.h>
-+#include <linux/bitmap.h>
- #include <linux/sched/mm.h>
+--- a/include/linux/mmzone.h
++++ b/include/linux/mmzone.h
+@@ -1627,7 +1627,8 @@ extern struct zone *next_zone(struct zon
  
- #include <linux/sunrpc/metrics.h>
-@@ -267,6 +268,7 @@ static void _ff_layout_free_lseg(struct nfs4_ff_layout_segment *fls)
+ static inline struct zone *zonelist_zone(struct zoneref *zoneref)
  {
- 	if (fls) {
- 		ff_layout_free_mirror_array(fls);
-+		bitmap_free(fls->cancelled_stripes);
- 		kfree(fls);
- 	}
+-	return zoneref->zone;
++	/* Memory hotplug rewrites zonelists in place. */
++	return READ_ONCE(zoneref->zone);
  }
-@@ -553,6 +555,12 @@ ff_layout_alloc_lseg(struct pnfs_layout_hdr *lh,
- 		fls->mirror_array[i]->report_interval = be32_to_cpup(p);
  
- out_sort_mirrors:
-+	fls->cancelled_stripes = bitmap_zalloc(fls->mirror_array_cnt,
-+					       gfp_flags);
-+	if (!fls->cancelled_stripes) {
-+		rc = -ENOMEM;
-+		goto out_err_free;
-+	}
- 	ff_layout_sort_mirrors(fls);
- 	ret = &fls->generic_hdr;
- 	dprintk("<-- %s (success)\n", __func__);
-@@ -2201,6 +2209,9 @@ static void ff_layout_cancel_io(struct pnfs_layout_segment *lseg)
- 
- 	for (idx = 0; idx < flseg->mirror_array_cnt; idx++) {
- 		mirror = flseg->mirror_array[idx];
-+		/* Do not cancel a stripe again while this lseg drains. */
-+		if (test_and_set_bit(idx, flseg->cancelled_stripes))
-+			continue;
- 		mirror_ds = mirror->mirror_ds;
- 		if (IS_ERR_OR_NULL(mirror_ds))
- 			continue;
-diff --git a/fs/nfs/flexfilelayout/flexfilelayout.h b/fs/nfs/flexfilelayout/flexfilelayout.h
-index 1d4294c6a7ec4..4757aa633d1ea 100644
---- a/fs/nfs/flexfilelayout/flexfilelayout.h
-+++ b/fs/nfs/flexfilelayout/flexfilelayout.h
-@@ -99,6 +99,7 @@ struct nfs4_ff_layout_segment {
- 	u64				stripe_unit;
- 	u32				flags;
- 	u32				mirror_array_cnt;
-+	unsigned long			*cancelled_stripes;
- 	struct nfs4_ff_layout_mirror	*mirror_array[];
- };
- 
--- 
-2.53.0
+ static inline int zonelist_zone_idx(struct zoneref *zoneref)
+
 
