@@ -1,49 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795597723;
-	b=H3VczehLcmpCJFyApqL5F0FH2o1WSzDBAFdt3Djh8ukAdqVB1YXJ38HwQolpaWpvj1xp
-	 cbvamghTDGk359QFEDTwjuK6arfCbvb/6yaZwOGEoiNnttAnb1+LLa5jdnUgg/q92iisC
-	 Xpsmdck51vtYfB8n3F2ZzipFt79HmZ/Rz5cN9CMIN6I8hwQWX0wXrDqdMCF81jo6/2GFp
-	 ijbXQTsEFpCucUycTm7YrvyoTTxBYl7atXkjMFoNot6KwX8uH3iNg+6Z/dKwA60/eP8xo
-	 oma7BwrwE9NeGo25YTAidfNU6tZiDV58JGlHiN6oM6rux6yisbZD0f92LuPhWViUYEQ==
+	t=1795597727;
+	b=YdWR4AXTKUpsntrkUQXLA9OuILoSRcj8+DNPwTdD7uOGXiB9z4CyqlATgQ2FPoV0TA3Z
+	 aiyZNeYYsSoQa6zusJde7v3ysUkFwsNccjTs96hG1MaweOrnQ1xc1uTWrSO2qWnzlBRFv
+	 p2C7ARBGV4samwFjjeI7o7yHk/lWwEMYWGTjkWKfOZ8Cp9feDXkgAYqfCsBru8bxveLlA
+	 hYP8WSKVj6YpowV5aTdEqoAxnIdRVZOtdiFC5tVmViLNn4vGVjsTFgoXj7+gVFDr2K/82
+	 T6hJRQ70He0l2j5xXikfI5FalwvsOBAgEp2edvd0yrLoORjdbL/a1DoJHSuucYI3uXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795597723;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=QVie/z0J40GiWaXqHRXPvG+NrtU10m0jzVDp6bMnZM8=;
-	b=neAgpwvSgnETqhkPfUjLfbFffcHH4guqTEqR3EMug19exYsqzZDGdxd8CwI+uLzYTH7Q
-	 QbVatv5RvG8kAjnmb6/OR0uoJYn2ut6vjnqJDRixnvWrvkMM4AjJWKD9VmmUdvWuTvDPI
-	 Z6ZL7ekGb6CgRq5EN//Ocj2xXr+8YjU2Tk+hLbWur0LmbNlwlah5i4/V4cAGiuPIam2OO
-	 QZQkuOiWh/Ngzy1aHB8Gb2j+AmS3MjnE0vaWMosW1iXrZTpP06SAqbpNnIoGYtZXgVFHV
-	 44sp5QEVBc0HaA0NkdAd7tyPyvO8OXSY6STrNqy8iZJTq66BqwCf8V6mxv2cuOQRXhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795597727;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=AVxa9wNqzpor2S7o18/l49o4PJSdrJGbHuLndqGm64A=;
+	b=WUH7TCC0d6SwzGVnsEqB/JnPuC4bZgzo1lY2utyUVHox4lJ6NB+4/5d6pxUr5UFdat5c
+	 yDNzeXhgv17vAPOnL6E5aI3cUnIHgOvSx7W5wwsW9y5ChCmWmKC35nWd9NfkWLsEg1OmS
+	 wvdeY+MYuTb+w/wRKpkyCAH9bsDJCE5C5jnR3oB64x0fBaTRb26fRcwN4/j4swhUt+omt
+	 kzJEUcxGY/JNgM9PW11nWU7AUQoJbov+UWrl5Mr7W3XuHZKESvpxk6poZsfIjmxK8A4oz
+	 wJsK4sVyCJnIUTP/7vJkAD/3hc3kzcnW3RQ11p0X1qD9rMeC1rzKj115gkgqZLhnlJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dcAnQhGt;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 18EF8606A332;
-	Wed, 25 Nov 2026 09:08:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18EF8606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dcAnQhGt
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9198E339;
-	Wed, 25 Nov 2026 01:08:38 -0800 (PST)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 475643F86F;
-	Wed, 25 Nov 2026 01:08:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795597721; bh=pmOn0GAQ/bIzl3yEFkQbNwWqfmhqh+tr+9j74hBF0n8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=dcAnQhGtPKyESIvNebDMGfL2TrSqBtOSKEzh2om+0KBX3wkCehatasRziYTiTReSc
-	 p/UUMgQHC6adqOhdOTayYPC49JWou0HCkpkyxeUkQrtwhFWHqMDagQJqtyaF2HHbmz
-	 KlGBHPKyMdilzcBf8Nwd5t0/GuII1ev/VeEvtsPg=
-Message-ID: <0c7c59df-69cd-40fe-830f-60c0f3cedafa@arm.com>
-Date: Wed, 25 Nov 2026 09:08:36 +0000
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 687F9606A68B;
+	Wed, 25 Nov 2026 09:08:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 687F9606A68B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=AVxa9wNqzp
+	or2S7o18/l49o4PJSdrJGbHuLndqGm64A=; b=GC40UAoaeZ+7Z8yLCQD1hZNlWv
+	8EZrTvVOVv5Wp4eKFZn5s2+5s3zyDpNPv1XU25RrnZzJNC9Y6mjIppIhovQpk6MY
+	hMr41n6Wr6sPloRYs5ETiBPRFzNQyS0Wh5otChaJwnD1RGsvodg/pfh5b2EzjGXb
+	QmUFhH0+9XDD6X4hI=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.108])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkDW_wWPpQZrDPEzAg--.16377S2;
+	Wed, 25 Nov 2026 17:08:32 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] media: siano: free the smsclient after the DVB devices are gone
+Date: Wed, 25 Nov 2026 17:08:30 +0800
+Message-Id: <20261125090830.8243-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,79 +57,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/8] KVM: arm64: Reset SP_EL1, ELR_EL1 and SPSR_EL1
- when resetting a vcpu
-To: Dan Carpenter <dan@pereq.eu>, Marc Zyngier <maz@kernel.org>,
- Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
- Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>,
- Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Christoffer Dall <c.dall@virtualopensystems.com>,
- Rusty Russell <rusty@rustcorp.com.au>, Marcelo Tosatti
- <mtosatti@redhat.com>, Sebastian Ott <sebott@redhat.com>,
- Eric Auger <eric.auger@redhat.com>, James Morse <james.morse@arm.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
- <seanjc@google.com>, Shuah Khan <shuah@kernel.org>
-Cc: Karthik Bhargavan <karthik@pereq.eu>,
- =?UTF-8?Q?Cl=C3=A9ment_Blaudeau?= <clement@cryspen.com>,
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-References: <20261125-double_exception-v2-0-224689d8a764@pereq.eu>
- <20261125-double_exception-v2-2-224689d8a764@pereq.eu>
-Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20261125-double_exception-v2-2-224689d8a764@pereq.eu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkDW_wWPpQZrDPEzAg--.16377S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr1DWr1ktw4fJrWrKFW3Wrg_yoW5JFWUpa
+	95CayjkFWDKr47Cw4DCa4xWF95t3Z3XFW3C34UWr43t3WDGFySkFZ0y34qgr1DJryfAF4q
+	kFn0gayjva4UAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr
+	0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY
+	17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
+	C0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
+	6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
+	73UjIFyTuYvjxU4CD7UUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUID2sFqFm2rwAAsF
 
-On 25/11/2026 06:56, Dan Carpenter wrote:
-> Resetting a vcpu keeps the old values of SP_EL1, ELR_EL1 and SPSR_EL1.
-> Commit e47c2055c68e ("KVM: arm64: Make struct kvm_regs userspace-only")
-> changed the reset to only clear the general purpose registers, SP, PC
-> and PSTATE, and later commits moved these three registers to the system
-> register array without a reset value.  Commit 85d703746154 ("KVM: arm64:
-> Fully zero the vcpu state on reset") fixed the FP registers and the
-> 32-bit SPSRs the same commit missed, but not these three.
-> 
-> The impact is that the guest that boots next can read the previous
-> kernel's stack pointer and exception return address.  KVM_GET_ONE_REG
-> also returns the old values to userspace, and a rebooted VM doesn't
-> start in the same state as a new one.
-> 
-> Zero them in kvm_reset_vcpu().
-> 
-> Fixes: e47c2055c68e ("KVM: arm64: Make struct kvm_regs userspace-only")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dan Carpenter <dan@pereq.eu>
-> ---
->   arch/arm64/kvm/reset.c | 3 +++
->   1 file changed, 3 insertions(+)
-> 
-> diff --git a/arch/arm64/kvm/reset.c b/arch/arm64/kvm/reset.c
-> index 26081d273408..9c1b42890c96 100644
-> --- a/arch/arm64/kvm/reset.c
-> +++ b/arch/arm64/kvm/reset.c
-> @@ -199,6 +199,9 @@ void kvm_reset_vcpu(struct kvm_vcpu *vcpu)
->   
->   	/* Reset core registers */
->   	kvm_reset_vcpu_core(vcpu);
-> +	__vcpu_assign_sys_reg(vcpu, SP_EL1, 0);
-> +	__vcpu_assign_sys_reg(vcpu, ELR_EL1, 0);
-> +	__vcpu_assign_sys_reg(vcpu, SPSR_EL1, 0);
+A KASAN slab-use-after-free read was observed in smsclient_sendrequest()
+when a demux file descriptor is closed after the Siano USB receiver has
+been disconnected:
 
-nit: Please could we move these into kvm_reset_vcpu_core() where we
-reset other registers ?
+  Read of size 8 at addr ffff888006067a10
+  smsclient_sendrequest
+  smsdvb_stop_feed
+  dmx_section_feed_stop_filtering
+  dvb_dmxdev_feed_stop
+  dvb_dmxdev_filter_stop
+  dvb_dmxdev_filter_free
+  dvb_demux_release
 
-With that:
+The object is the smscore_client_t created by smscore_register_client().
+smsdvb_unregister_client() frees it through smscore_unregister_client()
+before the frontend and the demux are torn down.
 
-Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+dvb_dmxdev_release() waits for userspace to close the demux device nodes,
+and the close path calls the stop_feed() callback before it drops the
+device user count. A demux file that is still open when the device is
+disconnected therefore always reaches smsdvb_stop_feed() after
+client->smsclient has been freed.
 
+Move the smscore_unregister_client() call to the end of the teardown,
+after dvb_unregister_frontend() stopped the frontend thread and after
+dvb_dmxdev_release() drained the open demux files. At that point no
+callback can reach the client any more.
 
->   	vcpu->mmio_needed = false;
->   
->   	/* Reset system registers */
-> 
+Fixes: 2e5c1ec8865a ("V4L/DVB (8258): add support for SMS1010 and SMS1150 based digital television devices")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/media/common/siano/smsdvb-main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/common/siano/smsdvb-main.c b/drivers/media/common/siano/smsdvb-main.c
+index 415c24fbbb65..245cd26ab7a1 100644
+--- a/drivers/media/common/siano/smsdvb-main.c
++++ b/drivers/media/common/siano/smsdvb-main.c
+@@ -655,12 +655,12 @@ static void smsdvb_unregister_client(struct smsdvb_client_t *client)
+ 	list_del(&client->entry);
+ 
+ 	smsdvb_debugfs_release(client);
+-	smscore_unregister_client(client->smsclient);
+ 	dvb_unregister_frontend(&client->frontend);
+ 	dvb_dmxdev_release(&client->dmxdev);
+ 	dvb_dmx_release(&client->demux);
+ 	smsdvb_media_device_unregister(client);
+ 	dvb_unregister_adapter(&client->adapter);
++	smscore_unregister_client(client->smsclient);
+ 	kfree(client);
+ }
+ 
+-- 
+2.34.1
 
