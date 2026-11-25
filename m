@@ -1,49 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.19.206
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795573806;
-	b=Ixme9X7A1KQSmh9bouxlpaUp5tNBVH+Wpn4gQ6Z1d0jCnogvGZN+aqOyonnfotvaxD2E
-	 riStXxCOPzrbhonJGUn1W7t/3MLtq7yt4j8p98Qk365eDTRmYgyL/G2otNTo6jKY2S3l2
-	 vMYatdZb8CovXNiaVG/RipRCGDi9pWzy2dwmJwGEuk0SZp0EmSMF635alBQNKPS7B6kqL
-	 8MD/Sy9FGxpq0VrS1Yoq6TyyPH6snx+0/XaSJNAQslF/X54qlmnrLA8LhGsOD7AN6Amjq
-	 nMUr5j/MAoc2U0/JQOFMFusOvjL39Yn4cFwgtyR8lUyc+ehgu9KMrJ8BTVXwNyvwi3Q==
+	t=1795574020;
+	b=07p/Iyml9rH830jSNSimYzf8fC5HtejjyhmK7mkg6LoZj0dudG32RYhxu2arfb4V6PxI
+	 hAZ1myXEOZG+zja1RkutrBblpV/P8kAXAGBMQBlWHmpwTFxGcLdfR6k+wv5twza0xVCHZ
+	 b0jyfpY8HEn95J2pJzsxIq5rB58+cg+BMWaCz8MOkETjgQPllmnjeM5vHSxMdCR93mI36
+	 vCse/uE/VeyQq5BopcIUu3D5QPzK/7AmRfbHgCEWFxMjqq5Ke7bDpsu6ZCmbTrIEVnCn5
+	 fqH01afsjtS2LNnYNgQ0AV+gksaNTcGFOiLxgrW8GbFcfTGamh180tvmlG/hiYKLLXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795573806;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=0QZ08iDHs+Ow3Sx9tiq8e702CzR1vrTFyVV35fbK6nA=;
-	b=uaFyYbFlGKRtvzCq371CEz+DB3dsxaRr1ArK3Vi/vzkG5UngXQLsD20WsAdSa7MyEZV0
-	 2hvyv6qiBu2u7syJCqKNpFHD5D9Gjz9OZAR5KZXbBo9yb42CCeayfShjJDUA00eEKHoyc
-	 8TwWyHkT36nCwFLFKZN6LM6H0k26yR7jXnf+o+6BLxV0kKnZs6VrM/r3J/PpPu9rIi7SX
-	 kJUHc5UWT7X1xpQl7nQ+7e4nqnL/XbGtPR2iW2bOlpBtJ7yI2Q6Fon3qsR+EqJRH059fi
-	 x9WRUmXzvz0k7lUSm68sEoSAaAZsLGSj+jzuWC6ep/4UvKN8mnXeGOyq8qqaJn+iK3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795574020;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=a/ylpv5zb3YmJmUzNYOF/GvkMn6cziKXWyWLWdE7at0=;
+	b=R8bOwAw3WUsDWFqM7dq+cNKOLauU+06Ytu0GczYo0At2Q0yIneb/i09jE5UHe3Ai3tmX
+	 rT0UwO0E8IsQQa+I6Du/h1AqMMqbDU4Iwdco5eglRGS+5pthvmA5zLDstXBMo5YIIsIki
+	 VjvjXUvwivpGAMZEXDr1pY+lYJ8upLOXFhKeK12nrrpM/2CdTkyAlwfNQ3JmGGoBZyxQR
+	 GoWT8vfK0S3M432ORg0UKpBaBlLa4J/8iDFaARR7Lio6ns6Ixzt84B4pta4nCngqrywTH
+	 dobXH6RPqEjZ5GjMBolEnIq1Ol8MVcSust7tNV4FF+Fna2/9vlIAiPW1qFMWUZ6XBKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T9kq+WbG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=Icd2MpPd;
+	arc=none smtp.remote-ip=54.207.19.206
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37213606A327;
-	Wed, 25 Nov 2026 02:30:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F51606A321;
+	Wed, 25 Nov 2026 02:33:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3F51606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T9kq+WbG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80B901F000C0;
-	Wed, 25 Nov 2026 02:30:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795573805;
-	bh=0QZ08iDHs+Ow3Sx9tiq8e702CzR1vrTFyVV35fbK6nA=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=T9kq+WbGqN8buxFv1TOlL1Cx7UTgDEq5Uzd1vhUkRZ7Fb9zyBGb4o9xD49momEBM6
-	 zTM7HtN1n+hKzb5H+MPJHKxWJ3pulvLM/e9z8IFLWZf4Kb+m1F4JuQcN/4Iyy7ylHk
-	 eisidnLuqJB70ncmMAqa72y7Q0b6iwME48LgyEtaL6JTl8uFiC2u70t1Iuj5ZrilyA
-	 lew3k+Cgt5pUHLS+ES8z+tzjwCXpX9u7ZQANaRnNeDPlquip51e9tenFr8Pvk/CuqS
-	 bJOeI1o4kElOFDgrykIKVJ5ftDKXHVw0gATF6pnZ2beAFzX+s6ue7yELNvB/qgaHHk
-	 Q27+yI6a9Mq+Q==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 774593808209;
-	Wed, 25 Nov 2026 02:30:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=Icd2MpPd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1795573970;
+	bh=a/ylpv5zb3YmJmUzNYOF/GvkMn6cziKXWyWLWdE7at0=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=Icd2MpPd5qsX9Rta65soAoSQD5vvyK4E4J0mdjZSVyHLvYv/9GqPKbJJE9Z86Y0z2
+	 xaKnA0r4vRLsweaU16Wcbi/PUuKcM1nCmlzsK24ycgiRZzelXyLZzL0jSqrqnRqn8t
+	 VdGye0aIe+aQ6qZdEzc2Pet4BAooaCMkNhOCB4fI=
+X-QQ-mid: esmtpsz16t1795573951te2d1802d
+X-QQ-Originating-IP: VeRzoiOYtmm3VRPJOf5RgdvHIHHqXeNfLu9FkMQUW/w=
+Received: from localhost.localdomain ( [61.183.83.60])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 25 Nov 2026 10:31:36 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 14082261952295443755
+EX-QQ-RecipientCnt: 9
+From: Wentao Guan <guanwentao@uniontech.com>
+To: edumazet@kernel.org,
+	ncardwell@google.com,
+	kuniyu@google.com,
+	imv4bel@gmail.com
+Cc: martin.lau@linux.dev,
+	jiayuan.chen@linux.dev,
+	netdev@vger.kernel.org,
+	Wentao Guan <guanwentao@uniontech.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] inet: reject unhashed sockets during timewait purge
+Date: Wed, 25 Nov 2026 10:31:24 +0800
+Message-ID: <F92442AF3AAD7C83+20261125023123.4185642-2-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,43 +74,70 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v4] xsk: set network header on skb at generic transmit
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179557380428.173698.986256979639257221.git-patchwork-notify@kernel.org>
-Date: Wed, 25 Nov 2026 02:30:04 +0000
-References: <20261120073917.63158-1-kerneljasonxing@gmail.com>
-In-Reply-To: <20261120073917.63158-1-kerneljasonxing@gmail.com>
-To: Jason Xing <kerneljasonxing@gmail.com>
-Cc: magnus.karlsson@intel.com, maciej.fijalkowski@intel.com, sdf@fomichev.me,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, alobakin@pm.me, netdev@vger.kernel.org,
- bpf@vger.kernel.org, stable@vger.kernel.org, jamessawyer@outlook.com,
- syzbot+f16c1b285c9f63994eec@syzkaller.appspotmail.com
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: ORygBKzmLOEK4HW+6/ELqV/fVl6R3oDtWVS45TWsyF7VqiAFb22veCo1
+	Xm0sU4haoQxZPnbBh6RKBXQg0Ikug1mcYn24U6CFLL3rJSr51ZQHv3KRPdthDwLFDjXueBM
+	HjHkZ6M4sWkNmCOfUwc2WOWbcFU4uFieUwrqWVgQ/zP9ss7J4wyQL3pG8oIrMMF97m9hP43
+	nkTe89DHwXHdXp6EaiULm2MEL3bLVOCTCmz/wJkyrAZGv/xk5HPylJS8ow8LA6AgrzJWVUN
+	tzjT1qclRxzZkZWcnU+EQLJOxDy8OPDyEFokx1WbQuJA+tfnoMhWVFmp7oPWAohQjz95SN2
+	3Ip+nPT2fRcWurO/qOWUwhRiUppXlSAGp50gj1Evbc/NqNU7ZB8rjK9j6CO+UNnXdeQ7H3Y
+	r21i2bFqyjafsnJqSJOsDPUKMBnqs++J8gHn141bhvxos4LdnlGqDaMdwej4yPS295l9Uc1
+	T6HsR6FgDcmxrUYGG2mgRgCQAHPOgzRZUmnethe03EYRaerGeNcVw7H4w14Xa75mIu2hQXm
+	Le8l+BYevkK/xjcXXtTH+ge42s5Qf8McGhwl1gI9QYtlgrQ70ttMmbnoqMPtwt2xeAPhmr7
+	UnrVj5Ca2x1QW+CXlavdjn7MhvFZMNkRxN2ctAmEEkPevOKLtW5RZLXMgNlpjmPIuHEi/ll
+	B36X+34jT6Qh9TMkLjq3sDYSqezjx80Sh+Ud5ks2ageCzR9dR03ZGDXz0oY/0W/xttWvB8M
+	cmMWKBGC+YAQZpNNQAQnkJBuIkuM7A1nWJ6l/NK9oDwEw320n6kCTtE/u4PZvRetqPnRsi3
+	aNYNxAKVLSvGj6sermm8VlpIXVRYic9p2CvJC8CsP5dEyARp7/pUUZxBizJHixI6CZqT9iW
+	6rKQKzL+R7E79TmmKfLrl13plu7+3MMU9ugH1BUreBALEM8Z11I+BKJ0fYFgVyT28inmX/w
+	soXziauRuHEYjthLBWpn24Br3cwP2oqEn5KkqR6CCGnGVwcjzVzyU/n03nSA6TD+GLXAuQC
+	Tt0ecH9GhkUDePNb10HnsTJ83AXK3tCYrA9kdF93fIwia/kKENYr/zrS+1jXrdDRKcLtP3Y
+	C3ynIMe064muAshXBBlW9M=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-Hello:
+A shared ehash can retain a stale pointer that is recycled as an
+unhashed SYN-cookie request from another dead namespace. The namespace
+recheck alone accepts that request, and
+inet_csk_reqsk_queue_drop_and_put() can then operate on an uninitialized
+timer.
 
-This patch was applied to netdev/net.git (main)
-by Willem de Bruijn <willemb@google.com>:
+This is the inet_twsk_purge() counterpart of the validation added for
+established lookups. Recheck the nulls node after taking the reference.
+If it is unhashed, drop the reference and restart the purge instead of
+operating on the recycled request.
 
-On Fri, 20 Nov 2026 15:39:17 +0800 you wrote:
-> When constructing an skb in the XSK generic transmit path, neither
-> xsk_build_skb() nor xsk_build_skb_zerocopy() calls
-> skb_reset_network_header(). After __finalize_skb_around(), the
-> network_header offset defaults to 0 (pointing to skb->head). The
-> subsequent skb_reserve(skb, hr) moves skb->data forward by hr bytes,
-> but leaves network_header still at 0. This makes skb_network_offset()
-> return a negative value (-hr).
-> 
-> [...]
+This was found by review
+commit 4e2b3ef19e0e ("inet: reject unhashed sockets during established lookups")
 
-Here is the summary with links:
-  - [net,v4] xsk: set network header on skb at generic transmit
-    https://git.kernel.org/netdev/net/c/ef7bf0628915
+Fixes: 740ea3c4a0b2 ("tcp: Clean up kernel listener's reqsk in inet_twsk_purge()")
+Cc: stable@vger.kernel.org
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+---
+changelog v2:
+change Fixes tag pointer by Kuniyuki Iwashima reviewed and add the reviewed-by.
+v1 link:
+https://lore.kernel.org/all/1595ACC3A3D11BB8+20261119041113.3514099-2-guanwentao@uniontech.com/
+---
+---
+ net/ipv4/inet_timewait_sock.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-You are awesome, thank you!
+diff --git a/net/ipv4/inet_timewait_sock.c b/net/ipv4/inet_timewait_sock.c
+index e256c55ce9f29..5601bd03b1382 100644
+--- a/net/ipv4/inet_timewait_sock.c
++++ b/net/ipv4/inet_timewait_sock.c
+@@ -333,7 +333,8 @@ void inet_twsk_purge(struct inet_hashinfo *hashinfo)
+ 			if (unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
+ 				continue;
+ 
+-			if (check_net(sock_net(sk))) {
++			if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) ||
++				     check_net(sock_net(sk)))) {
+ 				sock_gen_put(sk);
+ 				goto restart;
+ 			}
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.47.3
 
