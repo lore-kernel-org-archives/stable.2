@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603195;
-	b=XOrUBlpGQ2yiaDRcI791NpZFeWIAh37O0CjHS8zg6UZxPoAd6wRk+GcJ4XwJbnQplURM
-	 bsd9kjrT1HPFx4oLsGw235u2mZkaiSWUw3c+jUsDtdF3puwMa5kIsANZUWNY/cStSUw5m
-	 qiq9rICGeQ8wR0Rpx4V6syZ1Ra/dJUp5NTmhU5q6L2TGTevHXKKKAh9dwMT051CRbFMeW
-	 +907nP6+g0H4PPDECadDgIY8oe6Di3SUrQZXme4zTEuw/1bqz1L+Sw6zMz6EdscdgfFZR
-	 zMnL3DA9KUCmn9bSf73aXyR2ISJOVm2LLYIQZMwn6QhZWarFt2XObKhNQcFah+1D8ew==
+	t=1795603198;
+	b=eCXNeZvSpQ6qQOw26gwc1qeoKYKxPNu2x6/J6zOBw4uE4SzdiFZcyQVe3HIGXw10P33q
+	 oZwOAZzfmmwznSv1b+OBgk6f2SQtPDSWNNHG7s940oaRg/5MctoRwzL0b+cm24OdJOy+A
+	 CWrOavA9Mc1c6yif+qw8CfgUWnWnvRlJg4ZP+ZJUIpFIbrvUSu1V384XUHa1AnU7d0UY2
+	 BnA0Vd/+lMLYugSBmpUwLNgO4qGu/rvLUN7hu+WybzbUDpHjx6AzPdBa0K2GXwk6nH78m
+	 e0hWuM+2C3EqC1B+ttAW7LubbvcnaJIABCq5ovMXC7C8SPQUDXsVh+WKExxcD1dx1xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603195;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603198;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=7N2ASOXFXgzdmrCT3v93v6xiL+UwqVwXha8ngo+Z1Gs=;
-	b=4gAEfxf7gs8YuVQpo92fUo6+dUnsuSdjyqBU4DW/cneuOAruWQooh6wP11AbZpR5IxY5
-	 LNbe6TWogGgjmKfrgAp9rUuoURptNfuwZ52gsMi1xFnweF8LGQTZpoWGZ1MkH8smgskUy
-	 bbLx2MB6ILwR1Y8uuhSCYHGIB8CS+m2p2UuRwy0dYv1LhCxy8IT7KSrYXO2geJT3ikcF7
-	 bEMMuFpHBPbIQ0Zc396lbWt+48brHzhfjjsEussmZ52RoeXmb7sKsed/PIthWas9PSJQG
-	 P2BdE75ryIVDAUuHdQLdvlBO9OX8ruTVtzDUAzEtz6QdIYHFktUUh3oT47gTuLIX/kw==
+	bh=108pt+O7RjkVHCNo/vmTyf4NDgNgJ9pjhwCu4rNzGI4=;
+	b=zzSHEXP8iqAUfKCwC7pK4hSYMSoGroKnOdK92okAFhuLHlxkvyt+0JSxZsVCw7B2lnuc
+	 DYXL81ndMWWxipqXZj/m8I33LP0mWgsDY9+ukCKhMwCcya0sVXApNoulQXXgwIljYPckY
+	 L2MZ0f44LP+9DGfN7R4GD6YkEkOmUpQ4+ISoQkQrA5fw0K44xZjB9Q4N7ynbN9p1PBPNf
+	 +enKhGguxjqQak8kNjgPDvtJq3UTChdb8XKTPUnCjk01VwW+QOYSZp5e8ASMoXScCN4za
+	 G+wMxlRog9NXUNyIOV+VtbINJ+v5vIWZ9FwjoneKQKU9CfjOVH4/7aiUfPptmsfPeIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=P2aXvlIp;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=raarxY3Q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806CD606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:39:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F1A606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:39:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=P2aXvlIp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA0C51F000C0;
-	Wed, 25 Nov 2026 10:39:54 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=raarxY3Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A17DA1F000C6;
+	Wed, 25 Nov 2026 10:39:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603195;
-	bh=7N2ASOXFXgzdmrCT3v93v6xiL+UwqVwXha8ngo+Z1Gs=;
+	s=korg; t=1795603198;
+	bh=108pt+O7RjkVHCNo/vmTyf4NDgNgJ9pjhwCu4rNzGI4=;
 	h=Subject:To:Cc:From:Date;
-	b=P2aXvlIpwjKKPDBQhv8lC/iGPK++HaiOSPZE5BYB4yoWv+BTJ1vgQ8QfZP4cZJV3j
-	 yewL3hJADdSFOEOruy4lHaXNYsdVnUr6zojBfobDXM/HODdKkqrsFekZ7TGZxAPhq6
-	 ygEU7ETDpnXB88EYZJkSMl+b82DAdWf8+ceDr4DY=
-Subject: FAILED: patch "[PATCH] tracing/probes: Fix user-space dereference string array store" failed to apply to 6.1-stable tree
+	b=raarxY3QguNdWW/Dcxx4+2sLu3xSFwZzjzCT8BP13wCTF9Tc05f/dDBpfNWo3UE8m
+	 5i7uZiomYaoBsbIUdvQ4aVyxLTV0r6F4YN3Xraly49rX93jbV7cBkNFhPzvxCzUUge
+	 OWZjaTk9GgYcNxLtcC8E3aAKrjfbV5Bpftgn1cI0=
+Subject: FAILED: patch "[PATCH] tracing/probes: Fix user-space dereference string array store" failed to apply to 5.15-stable tree
 To: mhiramat@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:29:43 +0100
-Message-ID: <2026112543-bobsled-cofounder-303b@gregkh>
+Message-ID: <2026112543-periscope-fretful-f22f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2721573e6c6faaba2e31f352f2c02ec5f3ecf5e9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112543-bobsled-cofounder-303b@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112543-periscope-fretful-f22f@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
