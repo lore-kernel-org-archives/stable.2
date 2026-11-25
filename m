@@ -1,58 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795619809;
-	b=H8DlVwjtb9zJl93TKpAS+nG0Sg4H9WwP3+A2hg9AML5hjLf4S7b614QigOXOW8jQ84+L
-	 M958BG1LQTT4UrnymCITY/yRCKI4yJnyV4aWNs2ZnCBRw9sMZHXSutnFDEWOSOpXl/iO3
-	 4z/t9OaCcgqdW24QqzpnVOzT1xkVNdD8c05vHXC0SbCYegPdVrFERz9whL2kurY42slb5
-	 xmZpXDLEfv5mLazDJEwW9UfgEkQjikTlL0Svg9WdNWMjA8kbtxqmIroURr0PmwLyhl8mB
-	 X6wARNONxtZBhV+x2Yt5zyYAoxcSvOkotzCbgxhJmygygejX61hAPfvsom6uamjgS4w==
+	t=1795619811;
+	b=aTtGklptsyrIjoUOmcrWs9vD2QdjsH0KRRYZjDEKznIkvRKGytkcqmtyqUWMtHsseqRl
+	 DL1HvsdiOn2Bmlpvv0KgrubkuJH4qHGRjy6p7eEn3ShNjAxIi8xdqwLjGLs2yRoEVwOTm
+	 fFvHc2IDUZyBiwnyFu5ZbbD2hx40k628P0XtWGZUjMyAULRZRpt4fe7VSAN1SF+LfVESp
+	 AHJEl46ZZAMiUIPqhS99VJXPrL1FCJYo3aA286jlaBHIcxj04kp+8q92scVZRHCrwmdtP
+	 zE7HCysi2/o1RgwkBQKyTf5p9EQOl2PIbIoRlOkPvsD6omn1vUIpcCJ7EdobEhnbt5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795619809;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795619811;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=amVI/kfaie6Zg+3QAEs5W6LUFVURuxNBjmFcBcMB0pk=;
-	b=y6C3fhC2kzVXJZz+krLyeOJu9D4fceoCNDhTSSjrXdaiilm1wdOk9ATWZuzzyR/9Lj6n
-	 cr8mpqrs6JKaFJwJ8bj368gzvSIbDLstsfXxnwYnvSHNT2XaGtbKLuLWMgWqqR0DQiNpc
-	 p78T5JsUlePcRnQ6QmH1KMiTKR7i5jNuLXRmYIyJ10i4j92D/pJZOcr+0H/URySFbHAwD
-	 IdY03DgszzzzV689wbc3lSraul33j2bSHzl7okOdVQBff+iS1YyXJYk3ykzjgBlX68Zo3
-	 aD/9sW3/jzY6Q7PkI32bVVUPyyeQBZ+hshcbakW/cEQ0z2VPhm0hdKpPZRxowTlaXnA==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=DjSELIzEmHMXNPhZTj3F/tDF0ndJ9Zrb/BGYDJSCuH0=;
+	b=xY08152jjaoJibmhbgJ6ozezUgUpjQcwrODOp7IC8OFzJTHD/dimj8vibVGRA+VDx/4d
+	 vahjzngc8y852zhgeXC7ERvL6+FTIaIWhmzjzWccWIWMiOWE4e7xnkCaSYXIEGNFTWbYi
+	 g4YxRaKd/s1VaaTzYuByIQX/tHs0yCy0p0kHpCZOA4OOmLL5rzW+vgEkpFH3yU4X80kUD
+	 uQt9hbENoKx/T1rJrHbDpSJMxRAlsgbTWbXu9LQcQhp+Jb9B9lWDCGX+fIWFy59i7h+pW
+	 gpQ0q0Sip9BOLq5UZ3h39cNieqArNyDy1uXwHrJkjG9+WURueAtk39ZxpBVCy9lhDTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bhX+7fT3;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VovTVCZc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C872C606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:16:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B763606A31E;
+	Wed, 25 Nov 2026 15:16:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bhX+7fT3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B750C1F000D8;
-	Wed, 25 Nov 2026 15:16:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795619809;
-	bh=amVI/kfaie6Zg+3QAEs5W6LUFVURuxNBjmFcBcMB0pk=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VovTVCZc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EC041F000C6;
+	Wed, 25 Nov 2026 15:16:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795619811;
+	bh=DjSELIzEmHMXNPhZTj3F/tDF0ndJ9Zrb/BGYDJSCuH0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bhX+7fT3WdWrZW78HB+Q+MEpq1qw0zoIIRm9iTFLgPkpsq7fOWMdjrHWu+WcbTewy
-	 cvbTZLuxck7lBjTc1xQAtyMAQrQTMmfEjWhVUu0yoqtrT44/uqxrJnEtcXWlcalL4A
-	 ++RLeg5FWacDUl+Y5wvzSE+EHZ2Uy6ddrdYdzCn6Q4dzJCVnTbODW6ORrGZNbH9BtH
-	 QKL4bf5sTtWNExYu9bdryy/JUEyuFUru+jfI37Nu0V2Er8K0dVdDBecFbdlNT6VxVM
-	 JZlavZ5WLu/6tTUo4jTUlRMPz8kL53N8QD0DAU1nbS3K3aTYX2fUq8bg4fMWqgBHh4
-	 ngJYOeWEW4noQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=VovTVCZc3sqqCBV6qRBOzKM42myanCHBfTpbMkiQ71BGHdDeB/hd0FOA8TWaCZZjO
+	 lk2AjwBt1HPjW+QBUrvoruQW/S8TrG6FEVWN1lu8deESZSkyC8vczeBgoEtbNGyhem
+	 LZUO65da4+3rAxNXZRtlFV3s2pjjEMcOh87NILCc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Pin-yen Lin <treapking@google.com>,
-	Debarghya Kundu <debarghyak@google.com>,
-	Harshitha Ramamurthy <hramamurthy@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 6/6] gve: Fix race between stats query and queue reconfig
-Date: Wed, 25 Nov 2026 10:16:39 -0500
-Message-ID: <20261125151623.40338-6-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125151623.40338-1-sashal@kernel.org>
-References: <2026112500-overbite-aside-6db0@gregkh>
- <20261125151623.40338-1-sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Zak Brighton Knight <zakbrightonknight@gmail.com>,
+	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Doug Smythies <dsmythies@telus.net>,
+	Christian Loehle <christian.loehle@arm.com>
+Subject: [PATCH 7.3 0715/1005] cpufreq: Improve suspend-resume synchronization
+Date: Wed, 25 Nov 2026 15:34:13 +0100
+Message-ID: <20261125143838.505693740@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,253 +67,245 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Pin-yen Lin <treapking@google.com>
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 7de69da15088ac2add08eb2b5f5c0a79fd461c1e ]
+------------------
 
-Fix a concurrency bug where network statistics queries race with queue
-reconfiguration or interface teardown, causing a Use-After-Free (UAF) or
-NULL pointer dereference.
+From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
-Currently, statistics queries access priv->tx and priv->rx without
-locking. When an interface is brought down or reconfigured,
-gve_queues_mem_remove() frees these arrays. A concurrent stats query
-can dereference freed queue structures and crash the kernel.
+commit eee2a44e4e2b41c0699919a550d41cc38daa4f42 upstream.
 
-This issue was discovered and actually triggered by the
-drivers/net/stats.py selftest. When an interface was brought down,
-querying per-queue statistics via Netlink caused a kernel NULL pointer
-dereference in gve_get_rx_queue_stats():
+The suspend-resume synchronization in the cpufreq core is not perfect
+because the global cpufreq_suspended variable is set at the end of
+cpufreq_suspend() after stopping governors for all of the active
+policies, so the governor .limits() callback may run via
+cpufreq_governor_limits() after stopping the governor and before
+setting cpufreq_suspended which is questionable.  Likewise, the
+governor .limits() callback may run between clearing cpufreq_suspended
+in cpufreq_resume() and starting the governor.
 
-  BUG: kernel NULL pointer dereference, address: 00000000000000a0
-  RIP: 0010:gve_get_rx_queue_stats+0x17/0x50 [gve]
-  Call Trace:
-   <TASK>
-   netdev_stat_queue_sum+0x11c/0x250
-   netdev_nl_stats_by_netdev+0x21b/0x2d0
-   netdev_nl_qstats_get_dumpit+0xd2/0x220
-   genl_dumpit+0x32/0x90
-   netlink_dump+0x1d2/0x450
-   __netlink_dump_start+0x1db/0x2a0
-   genl_family_rcv_msg_dumpit+0x9b/0x100
-   ...
+Address this by adding a per-policy "suspended" flag that is always
+read under the policy rwsem and is updated under it when the governor
+is stopped in cpufreq_suspend() and when the governor is restarted in
+cpufreq_resume().
 
-The per-queue stats callbacks run under the netdev instance lock, so
-this NULL dereference is not a race; it happens on any query while the
-interface is down.
+Also make cpufreq_resume() use the cpus_read_lock guard to reflect
+what is done in cpufreq_suspend() and call cpufreq_exit_governor() for
+policies that were suspended during a system suspend transition and
+are inactive during the subsequent system resume (to avoid leaking an
+inactive policy with a stopped governor that has not exited yet).
 
-Additionally, concurrent stats queries during queue reconfiguration can
-race with gve_queues_mem_remove(), causing a Use-After-Free.
-This affects gve_get_stats(), which does not hold the instance lock.
-gve_handle_report_stats() also runs without it; it is stopped before
-queue teardown, but can still read priv->rx[idx] while the single-queue
-restart path rewrites it.
-
-Fix this by introducing stats_lock to serialize stats queries against
-queue teardown. In gve_queues_mem_remove(), queue pointers are set to
-NULL under stats_lock before freeing. Stats readers acquire the lock
-and verify pointers are non-NULL before reading counters.
-The per-queue stats callbacks already run under the instance lock, but
-take stats_lock as well for consistency.
-The single-queue restart path also rewrites priv->rx[idx] in place, so
-gve_rx_queue_stop() and gve_rx_queue_start() do those writes under
-stats_lock as well.
-
-This change was tested using the DQO RDA queue format.
-
-Cc: stable@vger.kernel.org
-Fixes: f5cedc84a30d ("gve: Add transmit and receive support")
-Fixes: 2e5e0932dff5 ("gve: add support for basic queue stats")
-Co-developed-by: Debarghya Kundu <debarghyak@google.com>
-Signed-off-by: Debarghya Kundu <debarghyak@google.com>
-Signed-off-by: Pin-yen Lin <treapking@google.com>
-Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
-Link: https://patch.msgid.link/20261109182036.2910559-2-hramamurthy@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 8e30444e1530 ("cpufreq: fix cpufreq suspend/resume for intel_pstate")
+Fixes: b1b12babe3b7 ("cpufreq: update 'cpufreq_suspended' after stopping governors")
+Cc: All applicable <stable@vger.kernel.org>
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Tested-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
+Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
+Tested-by: Doug Smythies <dsmythies@telus.net>
+Tested-by: Christian Loehle <christian.loehle@arm.com>
+Link: https://patch.msgid.link/4796894.LvFx2qVVIh@rafael.j.wysocki
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/net/ethernet/google/gve/gve.h      |  5 +++
- drivers/net/ethernet/google/gve/gve_main.c | 43 ++++++++++++++++++++--
- 2 files changed, 44 insertions(+), 4 deletions(-)
+ drivers/cpufreq/cpufreq.c |   86 +++++++++++++++++++++++++++++++++-------------
+ include/linux/cpufreq.h   |    3 +
+ 2 files changed, 66 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
-index cbbc298a97898..221b059817038 100644
---- a/drivers/net/ethernet/google/gve/gve.h
-+++ b/drivers/net/ethernet/google/gve/gve.h
-@@ -921,6 +921,11 @@ struct gve_priv {
- 	struct workqueue_struct *gve_wq;
- 	struct work_struct service_task;
- 	struct work_struct stats_report_task;
-+	/* Protects the priv->tx/priv->rx arrays, the in-place rewrite of
-+	 * priv->rx[idx] and the queue counts against stats readers that do
-+	 * not hold the netdev instance lock.
-+	 */
-+	spinlock_t stats_lock;
- 	unsigned long service_task_flags;
- 	unsigned long state_flags;
+--- a/drivers/cpufreq/cpufreq.c
++++ b/drivers/cpufreq/cpufreq.c
+@@ -35,6 +35,9 @@
+ static LIST_HEAD(cpufreq_policy_list);
  
-diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
-index 96848598f082c..920c1fe4c5182 100644
---- a/drivers/net/ethernet/google/gve/gve_main.c
-+++ b/drivers/net/ethernet/google/gve/gve_main.c
-@@ -69,6 +69,7 @@ static void gve_get_stats(struct net_device *dev, struct rtnl_link_stats64 *s)
- 	int num_tx_queues;
- 	int ring;
+ /* Macros to iterate over CPU policies */
++#define for_each_policy(__policy)	\
++	list_for_each_entry(__policy, &cpufreq_policy_list, policy_list)
++
+ #define for_each_suitable_policy(__policy, __active)			 \
+ 	list_for_each_entry(__policy, &cpufreq_policy_list, policy_list) \
+ 		if ((__active) == !policy_is_inactive(__policy))
+@@ -1960,6 +1963,14 @@ int cpufreq_generic_suspend(struct cpufr
+ }
+ EXPORT_SYMBOL(cpufreq_generic_suspend);
  
-+	spin_lock_bh(&priv->stats_lock);
- 	num_tx_queues = gve_num_tx_queues(priv);
- 	if (priv->rx) {
- 		for (ring = 0; ring < priv->rx_cfg.num_queues; ring++) {
-@@ -96,6 +97,7 @@ static void gve_get_stats(struct net_device *dev, struct rtnl_link_stats64 *s)
- 			s->tx_bytes += bytes;
- 		}
- 	}
-+	spin_unlock_bh(&priv->stats_lock);
++static void cpufreq_suspend_policy(struct cpufreq_policy *policy)
++{
++	guard(cpufreq_policy_write)(policy);
++
++	cpufreq_stop_governor(policy);
++	policy->suspended = true;
++}
++
+ /**
+  * cpufreq_suspend() - Suspend CPUFreq governors.
+  *
+@@ -1982,11 +1993,8 @@ void cpufreq_suspend(void)
+ 	pr_debug("%s: Suspending Governors\n", __func__);
+ 
+ 	for_each_active_policy(policy) {
+-		if (has_target()) {
+-			scoped_guard(cpufreq_policy_write, policy) {
+-				cpufreq_stop_governor(policy);
+-			}
+-		}
++		if (has_target())
++			cpufreq_suspend_policy(policy);
+ 
+ 		if (cpufreq_driver->suspend && cpufreq_driver->suspend(policy))
+ 			pr_err("%s: Failed to suspend driver: %s\n", __func__,
+@@ -1998,6 +2006,32 @@ suspend:
+ 	cpus_read_unlock();
  }
  
- static int gve_alloc_flow_rule_caches(struct gve_priv *priv)
-@@ -643,9 +645,13 @@ static void gve_queues_mem_remove(struct gve_priv *priv)
- 	struct gve_rx_alloc_rings_cfg rx_alloc_cfg = {0};
- 
- 	gve_get_curr_alloc_cfgs(priv, &tx_alloc_cfg, &rx_alloc_cfg);
--	gve_queues_mem_free(priv, &tx_alloc_cfg, &rx_alloc_cfg);
++static void cpufreq_resume_policy(struct cpufreq_policy *policy, bool start)
++{
++	guard(cpufreq_policy_write)(policy);
 +
-+	spin_lock_bh(&priv->stats_lock);
- 	priv->tx = NULL;
- 	priv->rx = NULL;
-+	spin_unlock_bh(&priv->stats_lock);
++	if (!policy->suspended)
++		return;
 +
-+	gve_queues_mem_free(priv, &tx_alloc_cfg, &rx_alloc_cfg);
- }
++	policy->suspended = false;
++
++	if (policy_is_inactive(policy)) {
++		/*
++		 * The policy was active when it was suspended, so its governor
++		 * is still there.  Let the governor go.
++		 */
++		cpufreq_exit_governor(policy);
++		return;
++	}
++
++	if (!start)
++		return;
++
++	if (cpufreq_start_governor(policy))
++		pr_err("%s: Failed to start governor for CPU%u's policy\n",
++		       __func__, policy->cpu);
++}
++
+ /**
+  * cpufreq_resume() - Resume CPUFreq governors.
+  *
+@@ -2007,11 +2041,12 @@ suspend:
+ void cpufreq_resume(void)
+ {
+ 	struct cpufreq_policy *policy;
+-	int ret;
  
- static void gve_free_control_plane_resources(struct gve_priv *priv)
-@@ -1416,6 +1422,7 @@ static int gve_queues_start(struct gve_priv *priv,
- 	int err;
- 
- 	/* Record new resources into priv */
-+	spin_lock_bh(&priv->stats_lock);
- 	priv->tx = tx_alloc_cfg->tx;
- 	priv->rx = rx_alloc_cfg->rx;
- 
-@@ -1429,10 +1436,11 @@ static int gve_queues_start(struct gve_priv *priv,
- 	priv->rx_pages_per_qpl = rx_alloc_cfg->pages_per_qpl;
- 	priv->header_split_enabled = rx_alloc_cfg->enable_header_split;
- 	priv->rx_cfg.packet_buffer_size = rx_alloc_cfg->packet_buffer_size;
-+	gve_init_sync_stats(priv);
-+	spin_unlock_bh(&priv->stats_lock);
- 
- 	gve_tx_start_rings(priv, gve_num_tx_queues(priv));
- 	gve_rx_start_rings(priv, rx_alloc_cfg->qcfg_rx->num_queues);
--	gve_init_sync_stats(priv);
- 
- 	err = netif_set_real_num_tx_queues(dev, priv->tx_cfg.num_queues);
- 	if (err)
-@@ -2294,6 +2302,7 @@ void gve_handle_report_stats(struct gve_priv *priv)
- 	if (!gve_get_report_stats(priv))
+ 	if (!cpufreq_driver)
  		return;
  
-+	spin_lock_bh(&priv->stats_lock);
- 	be64_add_cpu(&priv->stats_report->written_count, 1);
- 	/* tx stats */
- 	if (priv->tx) {
-@@ -2358,6 +2367,7 @@ void gve_handle_report_stats(struct gve_priv *priv)
- 			};
++	guard(cpus_read_lock)();
++
+ 	if (unlikely(!cpufreq_suspended))
+ 		return;
+ 
+@@ -2022,19 +2057,18 @@ void cpufreq_resume(void)
+ 
+ 	pr_debug("%s: Resuming Governors\n", __func__);
+ 
+-	for_each_active_policy(policy) {
+-		if (cpufreq_driver->resume && cpufreq_driver->resume(policy)) {
+-			pr_err("%s: Failed to resume driver: %s\n", __func__,
+-				cpufreq_driver->name);
+-		} else if (has_target()) {
+-			scoped_guard(cpufreq_policy_write, policy) {
+-				ret = cpufreq_start_governor(policy);
+-			}
++	for_each_policy(policy) {
++		int ret = 0;
+ 
++		if (cpufreq_driver->resume && !policy_is_inactive(policy)) {
++			ret = cpufreq_driver->resume(policy);
+ 			if (ret)
+-				pr_err("%s: Failed to start governor for CPU%u's policy\n",
+-				       __func__, policy->cpu);
++				pr_err("%s: Failed to resume driver: %s\n", __func__,
++				       cpufreq_driver->name);
  		}
++
++		if (has_target())
++			cpufreq_resume_policy(policy, ret == 0);
  	}
-+	spin_unlock_bh(&priv->stats_lock);
  }
  
- /* Handle NIC status register changes, reset requests and report stats */
-@@ -2687,8 +2697,10 @@ static int gve_rx_queue_stop(struct net_device *dev, void *per_q_mem, int idx)
- 	gve_turnup_and_check_status(priv);
- 
- 	gve_per_q_mem = (struct gve_rx_ring *)per_q_mem;
-+	spin_lock_bh(&priv->stats_lock);
- 	*gve_per_q_mem = priv->rx[idx];
- 	memset(&priv->rx[idx], 0, sizeof(priv->rx[idx]));
-+	spin_unlock_bh(&priv->stats_lock);
- 	return 0;
+@@ -2416,12 +2450,17 @@ __weak struct cpufreq_governor *cpufreq_
+ 	return NULL;
  }
  
-@@ -2742,7 +2754,9 @@ static int gve_rx_queue_start(struct net_device *dev,
- 		return -EAGAIN;
++static bool cpufreq_is_suspended(struct cpufreq_policy *policy)
++{
++	return cpufreq_suspended || policy->suspended;
++}
++
+ static int cpufreq_init_governor(struct cpufreq_policy *policy)
+ {
+ 	int ret;
  
- 	gve_per_q_mem = (struct gve_rx_ring *)per_q_mem;
-+	spin_lock_bh(&priv->stats_lock);
- 	priv->rx[idx] = *gve_per_q_mem;
-+	spin_unlock_bh(&priv->stats_lock);
+-	/* Don't start any governor operations if we are entering suspend */
+-	if (cpufreq_suspended)
++	/* Don't start any governor operations for suspended policies. */
++	if (cpufreq_is_suspended(policy))
+ 		return 0;
+ 	/*
+ 	 * Governor might not be initiated here if ACPI _PPC changed
+@@ -2464,7 +2503,7 @@ static int cpufreq_init_governor(struct
  
- 	/* Single-queue creation requires quiescence on all queues */
- 	gve_turndown(priv);
-@@ -2778,7 +2792,9 @@ static int gve_rx_queue_start(struct net_device *dev,
- 	 * which needs the rtnl lock, will not run till this func returns and
- 	 * its caller gives up the lock.
+ static void cpufreq_exit_governor(struct cpufreq_policy *policy)
+ {
+-	if (cpufreq_suspended || !policy->governor)
++	if (cpufreq_is_suspended(policy) || !policy->governor)
+ 		return;
+ 
+ 	pr_debug("%s: for CPU %u\n", __func__, policy->cpu);
+@@ -2479,7 +2518,7 @@ int cpufreq_start_governor(struct cpufre
+ {
+ 	int ret;
+ 
+-	if (cpufreq_suspended)
++	if (cpufreq_is_suspended(policy))
+ 		return 0;
+ 
+ 	if (!policy->governor)
+@@ -2503,7 +2542,7 @@ int cpufreq_start_governor(struct cpufre
+ 
+ void cpufreq_stop_governor(struct cpufreq_policy *policy)
+ {
+-	if (cpufreq_suspended || !policy->governor)
++	if (cpufreq_is_suspended(policy) || !policy->governor)
+ 		return;
+ 
+ 	pr_debug("%s: for CPU %u\n", __func__, policy->cpu);
+@@ -2514,7 +2553,7 @@ void cpufreq_stop_governor(struct cpufre
+ 
+ static void cpufreq_governor_limits(struct cpufreq_policy *policy)
+ {
+-	if (cpufreq_suspended || !policy->governor)
++	if (cpufreq_is_suspended(policy) || !policy->governor)
+ 		return;
+ 
+ 	pr_debug("%s: for CPU %u\n", __func__, policy->cpu);
+@@ -2751,7 +2790,8 @@ static void cpufreq_policy_refresh(struc
+ 	 * -> ask driver for current freq and notify governors about a change
  	 */
-+	spin_lock_bh(&priv->stats_lock);
- 	memset(&priv->rx[idx], 0, sizeof(priv->rx[idx]));
-+	spin_unlock_bh(&priv->stats_lock);
- 	return err;
- }
+ 	if (cpufreq_driver->get && has_target() &&
+-	    (cpufreq_suspended || WARN_ON(!cpufreq_verify_current_freq(policy, false))))
++	    (cpufreq_is_suspended(policy) ||
++	     WARN_ON(!cpufreq_verify_current_freq(policy, false))))
+ 		return;
  
-@@ -2794,9 +2810,15 @@ static void gve_get_rx_queue_stats(struct net_device *dev, int idx,
- 				   struct netdev_queue_stats_rx *rx_stats)
- {
- 	struct gve_priv *priv = netdev_priv(dev);
--	struct gve_rx_ring *rx = &priv->rx[idx];
-+	struct gve_rx_ring *rx;
- 	unsigned int start;
+ 	refresh_frequency_limits(policy);
+--- a/include/linux/cpufreq.h
++++ b/include/linux/cpufreq.h
+@@ -149,6 +149,9 @@ struct cpufreq_policy {
+ 	/* Pending policy->min/max update for the driver */
+ 	bool			update_limits;
  
-+	spin_lock_bh(&priv->stats_lock);
-+	if (!priv->rx)
-+		goto unlock;
++	/* The policy has been suspended. */
++	bool			suspended;
 +
-+	rx = &priv->rx[idx];
-+
- 	do {
- 		start = u64_stats_fetch_begin(&rx->statss);
- 		rx_stats->packets = rx->rpackets;
-@@ -2804,20 +2826,32 @@ static void gve_get_rx_queue_stats(struct net_device *dev, int idx,
- 		rx_stats->alloc_fail = rx->rx_skb_alloc_fail +
- 				       rx->rx_buf_alloc_fail;
- 	} while (u64_stats_fetch_retry(&rx->statss, start));
-+
-+unlock:
-+	spin_unlock_bh(&priv->stats_lock);
- }
- 
- static void gve_get_tx_queue_stats(struct net_device *dev, int idx,
- 				   struct netdev_queue_stats_tx *tx_stats)
- {
- 	struct gve_priv *priv = netdev_priv(dev);
--	struct gve_tx_ring *tx = &priv->tx[idx];
-+	struct gve_tx_ring *tx;
- 	unsigned int start;
- 
-+	spin_lock_bh(&priv->stats_lock);
-+	if (!priv->tx)
-+		goto unlock;
-+
-+	tx = &priv->tx[idx];
-+
- 	do {
- 		start = u64_stats_fetch_begin(&tx->statss);
- 		tx_stats->packets = tx->pkt_done;
- 		tx_stats->bytes = tx->bytes_done;
- 	} while (u64_stats_fetch_retry(&tx->statss, start));
-+
-+unlock:
-+	spin_unlock_bh(&priv->stats_lock);
- }
- 
- static void gve_get_base_stats(struct net_device *dev,
-@@ -2943,6 +2977,7 @@ static int gve_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	}
- 	INIT_WORK(&priv->service_task, gve_service_task);
- 	INIT_WORK(&priv->stats_report_task, gve_stats_report_task);
-+	spin_lock_init(&priv->stats_lock);
- 	priv->tx_cfg.max_queues = max_tx_queues;
- 	priv->rx_cfg.max_queues = max_rx_queues;
- 
--- 
-2.53.0
+ 	 /* Cached frequency lookup from cpufreq_driver_resolve_freq. */
+ 	unsigned int cached_target_freq;
+ 	unsigned int cached_resolved_idx;
+
 
