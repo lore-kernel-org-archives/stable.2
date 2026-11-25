@@ -1,59 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=184.106.54.82
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795628760;
-	b=1MKhKZIabeEHccJpHwqKAsM9rvlxRGLcFv6WoGYO8EcFMZ1ojO8ywhnZN20bJoHOayoU
-	 48r/Z+XRyiWbqDnfghwqK4uGHk7bFiNXk6KS9sqSJgEx4kQS2pPKU/WG3Zr2NWyR5frIC
-	 coEQ3FS0l0Gah+ngEpJqdRJqiiLiZe7m4NioMMJaTJS0/g0TdK0oq/DQEfci5qjneXAW7
-	 ZFbtcaN9qviSqr+UnzYvwZ7SJJKdJWvdlGeCbNx0PwCBv/oBkJWsa5KcYhoO0a1GiNLPI
-	 CdcR3JtJsCBxW/iWvG/s5R3BXHk8CBgnSOeA8mojFeb6EXslz4cO7ljy3aic/WjDSXA==
+	t=1795628778;
+	b=ipRGlgk0eue5jgkY3wRSW3KzY+xoq4YOWJIzM4UFoIFkCgAiDD/413nuWAQdTcGMma79
+	 RXhWyMxfjbUr4S47S02mGbSA4yXAz9UR+eo27WFHaRxEYOQRjH7es6IMk8cbZceW/lf38
+	 P/xbFN7eR7njm9bRnhj80DLTNwpNlwQFmcEMGricL9DvNwO+QX+3h8aF63G1fBTG9i/BP
+	 c+fOeDZuPh9Natd+o4HIm6ULyy8eWx8QjvxFQ6ZG0LreSZxbveLAqJ4qbvmXz4G67kgFf
+	 pRFhPPqXX12GxgUnyaZQDbVJmmi4g7PpKxlOLCZtxshg9D5EqY2+L3oAIyBqBecUfBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795628760;
-	h=DMARC-Filter:DKIM-Signature:X-Auth-ID:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Classification-ID;
-	bh=wN1N5SmhhRahrFdLRLG52pXG9GXvItu29SbUHZK/ll0=;
-	b=13zjMkgKmj9T8x0Y1sxjm4xzdzXFMp1r0baQ8FEcM5LEholURbB9CeRsQMc6Mu6JCp/g
-	 QSpQVBVZG4DHfcdzRdkCDI31Npp1HPVdU0IV9lE3LYCPxQZw1FpKCoBYH+t5EDOIyzPI8
-	 aGMjF3yk/KjQ++Zjc7ey2bxRQC1hemb0x1uGbCjaQSFF1WcUNneiaA+khLv01RNKs8jk+
-	 qqwYTfxqFWRlqiVF5uGhwylzO+8T6F0d2jKxhPz+6CtDIvWax/bKbwTLoGU9sMGSPSQ01
-	 NjPUvNLDJwzcbaOEHuPUkU4ojQXxbU0W4aYREX2NQ0eXKqj5Jj2Btr696Xr9iKl8HuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795628778;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Uf7PXqQ03rxpxo0dPAYhWiamIlQoRupx5ctHffgIu7s=;
+	b=U6FDq8ihkY00x/X4gR5U0rVVSR3xG5hm0fsR1hcZv7q61NMKfXB/fDToUSiCBzLy6AF6
+	 EM6D8pNptmMG7xek02R+ZY5zE8+YzAz5MsLQP/U9A6X+cWZ6RuxENiUnwIyEU1hA4qbQc
+	 Ks7dYnAHEwIgj513Qv1HKE0x8KPXY3lTNMjtVkelTaoDOgIY/KVgFKuPUQTM8ZGXW5Qgj
+	 6NwlfFMjV6wELbT+RN9HTaE6mBKa4FI/pMO6Ki8Tl3pBBQBH56gPr+bslPVzbjgRBuWQl
+	 xORZ79FCHJgCPP+LkOdE4HtOV7TQUzTkxdxiP4kkB62z5a8BtF4IfASg4ThRE87bk3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mev.co.uk;
-	spf=pass smtp.mailfrom=mev.co.uk;
-	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=RPSIBb0f;
-	arc=none smtp.remote-ip=184.106.54.82
-Received: from smtp82.ord1d.emailsrvr.com (smtp82.ord1d.emailsrvr.com [184.106.54.82])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eUwZtK1F;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDDE606A32E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:45:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CDDE606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D3AE606A321;
+	Wed, 25 Nov 2026 17:46:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=RPSIBb0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
-	s=20221208-6x11dpa4; t=1795628752;
-	bh=CbJBVlaa+xLVljF69QtXPkZrwPgsm7o1I7U08uOh1rk=;
-	h=From:To:Subject:Date:From;
-	b=RPSIBb0fhs3vX2u5S1phOpm/9NPTQfn8gjl4PTARUkhRrMrFDBQZFI0m3Z6YmmbJg
-	 pKsmFJanVqkBNZbkcSRPd89j5eldF26QRLtwVA8+FCW/j2/UULGwFkgtUycoiBItS5
-	 RkY9XUK6Qpr/LlcPfGHwuGFlCx7usBS8WP0c7p4I=
-X-Auth-ID: abbotti@mev.co.uk
-Received: by smtp11.relay.ord1d.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id 176E7602A4;
-	Wed, 25 Nov 2026 12:45:51 -0500 (EST)
-From: Ian Abbott <abbotti@mev.co.uk>
-To: stable@vger.kernel.org
-Cc: Ian Abbott <abbotti@mev.co.uk>,
-	stable <stable@kernel.org>,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 6.1.y] comedi: comedi_bond: Fix leak of opened device references
-Date: Wed, 25 Nov 2026 17:45:41 +0000
-Message-ID: <20261125174541.735788-1-abbotti@mev.co.uk>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112538-proofs-decibel-82bf@gregkh>
-References: <2026112538-proofs-decibel-82bf@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eUwZtK1F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CC081F000CA;
+	Wed, 25 Nov 2026 17:46:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795628777;
+	bh=Uf7PXqQ03rxpxo0dPAYhWiamIlQoRupx5ctHffgIu7s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eUwZtK1F/lqENLvYTU3s8rt5D1cKh2Set7DyX7Ko6tMH4whmPBHvaIi8CanVxmKWq
+	 C3NTtJcj/OaQm23A/zdNG68YnsvlRTaQb5DtJiyLqO0A3PJBxlvWJUuZMd8R9EsJVG
+	 NQfLZxL+WzlrDu3hsBjShKlkqasHNXKb6oU83l5e3AuEsXm0Cxt3lRhbFIXuXt7hVO
+	 dR4vXP9oRWEtsQMxU4OUlEUaE95Su+WX95EYPsuUz6Wu93EJAKljgqpXmhPMhlTeIl
+	 QwmXExIJtQnxlch3hvgHzQHcRTCZWeMRBT7jusfGBjiOxH5lHjfRcuEOp/Okvx0E51
+	 iglclG4H2fYQA==
+From: cem@kernel.org
+To: cem@kernel.org
+Cc: linux-xfs@vger.kernel.org,
+	hch@lst.de,
+	sandeen@sandeen.net,
+	dgc@kernel.org,
+	aalbersh@kernel.org,
+	bfoster@redhat.com,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/2] xfs: move _right_neighbor_result trace before erroring out
+Date: Wed, 25 Nov 2026 18:45:59 +0100
+Message-ID: <20261125174607.135959-2-cem@kernel.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125174607.135959-1-cem@kernel.org>
+References: <20261125174607.135959-1-cem@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,99 +64,63 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Classification-ID: 862bad7e-7042-496a-bd8f-b9ac6976c2ed-1-1
 
-commit fa0858523f07f8dd71d89b221f4422c3b8096d90 upstream.
+From: Carlos Maiolino <cem@kernel.org>
 
-bonding_attach() calls do_dev_config() to open other comedi devices
-specified by the user and tries to make use of them as part of the
-'bonding' device.  If it successfully opens the other device but cannot
-use it (either because it does not any subdevices of a type the
-'bonding' device can use, or because of some error that occurs while
-dealing with its subdevices) then it is left in the open state and the
-fact that it is open does not get recorded by the 'bonding' device, so
-the reference to the opened device gets lost.  Fix it by closing the
-opened device if it could not be bound to the 'bonding' device.
+The tracepoint doesn't help much if we find an invalid right record.
+Move it before we check the record so it can still be printed even if we
+end up jumping to the error label.
 
-To match previous behavior, if the opened device is unsuitable then
-ignore it (after closing it).  The opened devices recorded by the
-'bonding' device will eventually get closed by bonding_detach() even if
-bonding_attach() returns an error.
-
-Fixes: 3cf840f65ad5 ("Staging: comedi: add comedi_bond driver")
-Cc: stable <stable@kernel.org>
-Reported-by: Wentao Liang <vulab@iscas.ac.cn>
-Link: https://lore.kernel.org/lkml/20261103063301.1025860-1-vulab@iscas.ac.cn
-Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
-Link: https://patch.msgid.link/20261103173610.89687-1-abbotti@mev.co.uk
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-(cherry picked from commit fa0858523f07f8dd71d89b221f4422c3b8096d90)
-Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
+Signed-off-by: Carlos Maiolino <cmaiolino@redhat.com>
 ---
- drivers/comedi/drivers/comedi_bond.c | 24 +++++++++++++++++++-----
- 1 file changed, 19 insertions(+), 5 deletions(-)
+V3: No changes
 
-diff --git a/drivers/comedi/drivers/comedi_bond.c b/drivers/comedi/drivers/comedi_bond.c
-index 78c39fa84177..076aecae2c77 100644
---- a/drivers/comedi/drivers/comedi_bond.c
-+++ b/drivers/comedi/drivers/comedi_bond.c
-@@ -182,7 +182,9 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
- 		char file[sizeof("/dev/comediXXXXXX")];
- 		int minor = it->options[i];
- 		struct comedi_device *d;
--		int sdev = -1, nchans;
-+		int sdev = -1;
-+		int nchans;
-+		int nope = 1;
- 		struct bonded_device *bdev;
- 		struct bonded_device **devs;
- 
-@@ -221,11 +223,14 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
- 				dev_err(dev->class_dev,
- 					"comedi_get_n_channels() returned %d on minor %u subdev %d!\n",
- 					nchans, minor, sdev);
--				return -EINVAL;
-+				nope = -EINVAL;
-+				break;
- 			}
- 			bdev = kmalloc(sizeof(*bdev), GFP_KERNEL);
--			if (!bdev)
--				return -ENOMEM;
-+			if (!bdev) {
-+				nope = -ENOMEM;
-+				break;
-+			}
- 
- 			bdev->dev = d;
- 			bdev->minor = minor;
-@@ -246,10 +251,12 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
- 				dev_err(dev->class_dev,
- 					"Could not allocate memory. Out of memory?\n");
- 				kfree(bdev);
--				return -ENOMEM;
-+				nope = -ENOMEM;
-+				break;
- 			}
- 			devpriv->devs = devs;
- 			devpriv->devs[devpriv->ndevs++] = bdev;
-+			nope = 0;	/* keeps the device open */
- 			{
- 				/* Append dev:subdev to devpriv->name */
- 				char buf[20];
-@@ -260,6 +267,13 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
- 					sizeof(devpriv->name));
- 			}
- 		}
+V2: Initialize rmap records during definition so we can safely use them
+    in the tracepoints
+
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+ fs/xfs/libxfs/xfs_rmap.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/fs/xfs/libxfs/xfs_rmap.c b/fs/xfs/libxfs/xfs_rmap.c
+index 14aef87837a9..aad6e7c0e1c9 100644
+--- a/fs/xfs/libxfs/xfs_rmap.c
++++ b/fs/xfs/libxfs/xfs_rmap.c
+@@ -1024,8 +1024,8 @@ xfs_rmap_map(
+ 	const struct xfs_owner_info	*oinfo)
+ {
+ 	struct xfs_mount		*mp = cur->bc_mp;
+-	struct xfs_rmap_irec		ltrec;
+-	struct xfs_rmap_irec		gtrec;
++	struct xfs_rmap_irec		ltrec = {0};
++	struct xfs_rmap_irec		gtrec = {0};
+ 	int				have_gt;
+ 	int				have_lt;
+ 	int				error = 0;
+@@ -1082,6 +1082,12 @@ xfs_rmap_map(
+ 		error = xfs_rmap_get_rec(cur, &gtrec, &have_gt);
+ 		if (error)
+ 			goto out_error;
 +
-+		if (nope) {
-+			/* Opened device cannot be used, so close it. */
-+			comedi_close(d);
-+			if (nope < 0)
-+				return nope;
-+		}
++		trace_xfs_rmap_find_right_neighbor_result(cur,
++				gtrec.rm_startblock, gtrec.rm_blockcount,
++				gtrec.rm_owner, gtrec.rm_offset,
++				gtrec.rm_flags);
++
+ 		if (XFS_IS_CORRUPT(mp, have_gt != 1)) {
+ 			xfs_btree_mark_sick(cur);
+ 			error = -EFSCORRUPTED;
+@@ -1092,10 +1098,6 @@ xfs_rmap_map(
+ 			error = -EFSCORRUPTED;
+ 			goto out_error;
+ 		}
+-		trace_xfs_rmap_find_right_neighbor_result(cur,
+-				gtrec.rm_startblock, gtrec.rm_blockcount,
+-				gtrec.rm_owner, gtrec.rm_offset,
+-				gtrec.rm_flags);
+ 		if (!xfs_rmap_is_mergeable(&gtrec, owner, flags))
+ 			have_gt = 0;
  	}
- 
- 	if (!devpriv->nchans) {
 -- 
-2.53.0
+2.56.1
 
