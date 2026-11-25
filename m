@@ -1,60 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795619317;
-	b=lWLsJ6n4k2yrtKB7AHKxxs8N2r8hF/SAO+FertSUyxv8pxNuuPPfHjUCn7lwrtosJfxU
-	 4qzsHeuHuyTSHqMmR0EN6tkivR82HEeQsK9TS3ybxFN8SWV4z3swrmoK40+ob/zoVQCzs
-	 WLBBl9wf1ysSJEzKBrIZLf7WaUq+wxNy1ARI/6K/ShtYilWGKL1zSkOLPBonDOnwSbcg1
-	 ijrjVLos6KC2tR+fMglEaG8YPiQd9niMDx9wg1ohMjkUTIKJom5MWlFmrRw+3psNVAI33
-	 rzelCUVUsAvE7ATdI/DQtjrClqk0Bsbpq9o6EsEFwH6P5eT7s4VN3huxRrPNmQcDoEQ==
+	t=1795619320;
+	b=AGVpE8Jwx0C7Mf1hAlSUnoyOrK+XNFdaJBgjkJtUep2yEG6zLl4AjOaEbGTZsTsgFoMA
+	 nVWJ6nTVGVPsTntSe5JE0DaYX41Ji6iFFQhqMfEGB9H3J6+alAdgyhFMi1BVwg6PEUiZH
+	 m9LKvLhvdLQ1pkpC8WKwVh8bdGZT2avR0a1cIQncZj9GllT9kvlgfBcJSHhSL6LNrea66
+	 laG5Sy3iaYp60hFy1XIxewotZZuj3iLsFVlBoKeVakiH5y8r7bdSc1kQIUlzJw29kHF2Q
+	 LEhVN7zXdPQmPQljlh8gp06KwlkX8nh6EDC1LzaV8siQjO5dihJV3ALNq6Bov7/THeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795619317;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=LwML82/iQd5s2S511HiaH3AvN58XEbbJ1BEFI7tnpJ8=;
-	b=z1klscenKKYgAlYkyhiUa2E3ikMoWNU2Wv40HBXBs36BOhN7TjpAuUyTW8hLYNtAL1iE
-	 i0kYI+tTsGMO1/CzefAlIQBoW9gJZ77xOOway3AhDJIGypC7gCzRfIxpHPrR0VJKlpWro
-	 2js7Cf+9HuTDDY63HmzZvnkIqqeGugOw2MV6KOkFl22S0NekzvbQhnJLqJbzWhrMv0zDx
-	 PXkkUAymFCpmOEp8qOGYiSD6xMDBlaAhpnUIzYV3BFQufKwjmZSGsUMUGLLZ53x4P82Iz
-	 SwC+Tjt70fBgr9ydNY1WObyzw+wTKenYXuu5qSEreLAgEGFEMeg5YKX8P7brlI+9+9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795619320;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=S4Gr1BpsBaaOTn0gg/ejDHt6kh8RADBHEWTGJKbPPbg=;
+	b=3bd7RqsLSpeCAs0U8toF1FWMzAxHk3gUwckFgven8vcOLxptvtmXcrjKkAD1GlxJMxfN
+	 WDKlQrOMnmoMPJyNdQ9v2Vve0o4STRBvkSSDEaKpPHQmUA+iReu8rKKatzdoHEE9FqNm6
+	 QItUzWfDGJbTM/J6c5mkZneWV7tkobF+LilACeeodVLM57nrOmwcq7jDQG52+kVvbNVGF
+	 roFf8RhcQl0RKQZzHRLucCnIvn+Isjxr59ns0fkRas9UHz80clPowE3vqb04FHPOO4RcB
+	 OaiJZGxLv24m7AIVeoWmLcF1MsssQ7zQKBjUDa4QnN+wRNJlgIaTY1+PJ9oOgGJ5hAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KRbdhVaY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GXvIvO3M;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93417606A329;
-	Wed, 25 Nov 2026 15:08:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1587606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:08:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1587606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KRbdhVaY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37B451F000C0;
-	Wed, 25 Nov 2026 15:08:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795619316;
-	bh=LwML82/iQd5s2S511HiaH3AvN58XEbbJ1BEFI7tnpJ8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KRbdhVaYO89KeG8qo3XwSdqBK5tbjEk/lH5AAwCF/WX3RUFOiZDU1RusuILDQaiNl
-	 UNgOFcFcfavrx8kq84so72roISHebQLXhYVE3CaQjIVBZqSM+PJ+KJ835jiK7g1a11
-	 0lVCltAkRCL9Nr+rxbkrntsvh20JKZKagRRq+H40=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GXvIvO3M
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-38699cf08dfso6961321eec.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 07:08:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795619319; x=1796224119; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S4Gr1BpsBaaOTn0gg/ejDHt6kh8RADBHEWTGJKbPPbg=;
+        b=GXvIvO3MK9fE9mqqvO1Zgr8Y11Vl30vYXw3gXTKB1c8FOb3lzWGlQH1c5vufnSYeDJ
+         Ayjn7WArVLlqtjPwU06M2Ob5THqZRlvxbACMErJb9KoLGZVQOzSJfQKb16c2EGkTJlxc
+         +WJKwQXzuQqXMO3Ox8nWd2HYyFhDUN5ezigbEYJjFAPET2iz4pOL5qhMi+63kRovTOce
+         2LwgWZol5Ez6e5xfp4gtxwgry5ngq+e7CKftzAk4P6xTOF0fg0vse3Ru8mCwplGs2Gdb
+         tWQCqoCytYCnDWUaJu+h+u2kyN6h7S7kG4vvw0bvxIhWdRslMrQBhc4yFC0lomKd7Dmi
+         5oJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795619319; x=1796224119;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=S4Gr1BpsBaaOTn0gg/ejDHt6kh8RADBHEWTGJKbPPbg=;
+        b=IId4Wv0/b2zWACLHzeTAXLF0dYXv3dkt6murtmizTueBXWeLRIvDbXx89GgQ98jWU6
+         5RbpnkEluxg1pCG4vWU4xOsElvN5ETpxO29L57gowi+y4WZSHZevYe/0VVNy373Fej4x
+         Fr6fyV7oUBKrw1l4GX1syPYHsE7VRvtiQDl6MPGqeO1Q531VEHzHmI96nO71QaLcRAYj
+         94Z8h0ORLU0Jzk2p2oz631WHTvhqO6JeKLT4jz3D8IpVMKPZG2pSqvR0F/lsMlMv+jOW
+         vHat7o0bE60zxw1KY5zLoZ2JcEbKeaNcMqN0nKxivk34YyFNzqVe3I0jAvNb4gilpSz7
+         V8Kg==
+X-Gm-Message-State: APuU4Z/W4Jv9adK4a8n3eduj9qZc4bD+JHmbwuohWPMwO0MItMYwpygW
+	P5meZXpd1iwtTRQpzFVQu+fQRkZSnh9iNGPhNSR490ZjFJRjoxoDk2YkT7FaW2ec
+X-Gm-Gg: AZFdTZdHOr/UZ6DS6/X3NcpZGAFU9LIdHuJxUA+gwrp5XakB5+wxEwGJ/+lDWnOiMRV
+	sVbmd5ExzXTyYUOuz0OlimzWcesvl1rof3kka5eudOU04FOucQ/mDuT0nB20wHmimavEIzFDKDj
+	P+9RBnHiJjmDLV1cidaW3sIPE96PDmGFhy/9nSs43hgAqOrt6y0fm6GXnHi76Vwe3hVP10HIhwK
+	t7Ag63Z3LDhaw7lHLDu4ZPUVPiMnbgx9VBqksXRG1zFQpEzfl5874o8Y6vaDrlfVoMzY4WV5rTS
+	4rbWte+TEKZxNLus4YBdlsbkcq6o0LTzhiUda3kTlwi+UxiwhMU+tr75WgXL+0nPNYp0Iv6BvYU
+	nlQ5rwU1cuZ5mxiSQLXfmv3TjW+PaV0E7BJxJBG06DUjagKLzdPaNgFiHBvmCdeyNOIsJiu2wE+
+	Mo7KUY+JYpSNsvecrINQ0ifI2HPP8sreAPOHE76Cu+QcR4sI+IyfGaqPDVmJK1+Tx0djWemJx1J
+	p8pUL3LqnPVmZ7Hh8hVXTLFe+h6Vjrq4SZdoBGaM8KXLcYiN1fH49n6mQCgXMK5P9SKKbvB7xAZ
+	qkJZpWApNtQtWxYbd//6NaPYNWpYTlfLO5i6ojGIarznq7tz6obS/zPL3gciI9QLWWmx/emi5q6
+	jWIjiXQMVbM5eOYtu4hfwW9sSUjBxMYx3P5l2x+DNgH5nMmok/ArZm3xtPvTgDUTNGDl5BeUZ6n
+	96aVbVXvaZx1/OiKI1XmGPPZ7Z/LV3B9ZeIfFIk4vSFg==
+X-Received: by 2002:a05:7300:e9d9:10b0:386:ce20:31c6 with SMTP id 5a478bee46e88-386ce20334emr3410906eec.29.1795619318324;
+        Wed, 25 Nov 2026 07:08:38 -0800 (PST)
+Received: from kapoor.iiserb.ac.in ([203.18.51.239])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38566cd40c5sm65846957eec.10.2026.11.25.07.08.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 07:08:37 -0800 (PST)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Ridong Chen <chenridong@xiaomi.com>,
-	Guopeng Zhang <zhangguopeng@kylinos.cn>,
-	Waiman Long <longman@redhat.com>,
-	Tejun Heo <tj@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0559/1005] cpuset: generalize the validate_partition() interface
-Date: Wed, 25 Nov 2026 15:31:37 +0100
-Message-ID: <20261125143834.844593062@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: [PATCH 6.18.y] iio: proximity: sx9360: fix sampling frequency write and available range
+Date: Wed, 25 Nov 2026 20:38:30 +0530
+Message-ID: <20261125150833.340764-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112527-recast-imitation-3111@gregkh>
+References: <2026112527-recast-imitation-3111@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,245 +99,101 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+commit d252425c1533bfacd5940faa3371af82196bff5b upstream.
 
-------------------
+GNRL_CTRL1/2 hold the scan period in units of 8192 / FOSC, but
+sx9360_set_samp_freq() computes freq * 8192 / FOSC and mis-scales val2,
+which is in micro units. Any integer frequency then programs a period
+of 0, and fractional parts above ~0.26 Hz overflow the int, writing
+0x10 to GNRL_CTRL1 outside the SCANPERIOD field.
 
-From: Ridong Chen <chenridong@xiaomi.com>
+Compute FOSC / (freq * 8192), rounded to the closest value, and reject
+frequencies outside the 1..2047 period range.
 
-[ Upstream commit e234ed1bb82c96a5643fd70784f16cf3d72eeed3 ]
+The available range doesn't match the limits in the comments next to it
+either: 4 MHz / 8192 is 488.28125 Hz, not 448.28125 Hz,
+4 MHz / (8192 * 2047) is 0.238535 Hz, and (max - min) / 2047 is
+0.238419 Hz. Use those values.
 
-Refactor validate_partition() to take the parent partition, the new
-partition root state, the new effective exclusive CPUs and the CPUs to
-be deleted, instead of a trial cpuset. A NULL parent stands for a
-remote partition, whose CPUs come from top_cpuset. This makes the
-interface flexible enough to handle both local and remote partition
-validation.
-
-This also fixes a false PERR_NOCPUS error when expanding a remote
-partition. The no CPU left for tasks check in partition_cpus_change()
-is done against the cgroup parent, but the CPUs of a remote partition
-come from top_cpuset, not from its parent. For example, on a 4-CPU
-system:
-
-  echo 2-3 > P/cpuset.cpus
-  echo 2-3 > P/cpuset.cpus.exclusive
-  echo 2-3 > P/C/cpuset.cpus
-  echo 2 > P/C/cpuset.cpus.exclusive
-  echo root > P/C/cpuset.cpus.partition
-  (a task in P)
-  echo 2-3 > P/C/cpuset.cpus.exclusive
-  cat P/C/cpuset.cpus.partition
-  root invalid (Parent is not a partition root)
-
-The effective_cpus of P is 3, a subset of the new exclusive CPUs 2-3 of
-C, and P has a task, so the expansion is rejected. However, P is not a
-partition root and does not give any CPU to C, and top_cpuset still has
-CPUs 0-1 for the task. Enabling C directly with exclusive CPUs 2-3
-succeeds, as remote_partition_enable() checks top_cpuset instead.
-
-The no CPU left for tasks check now uses the given parent instead of
-parent_cs(cs), and top_cpuset for a remote partition, as that is where
-its CPUs are taken from.
-
-The housekeeping conflict check is folded into validate_partition(). It
-is skipped when the parent is not a valid partition root, as @cs can't
-be a valid local partition in that case.
-
-Use the new interface for local partition enablement in
-update_parent_effective_cpumask() and in partition_cpus_change(),
-replacing the open-coded checks there. The order of the checks is now
-the same for both paths: empty CPUs, housekeeping conflict, then no CPU
-left for tasks.
-
-Add a test case to test_cpuset_prs.sh for the remote partition
-expansion above.
-
-Fixes: 181c8e091aae ("cgroup/cpuset: Introduce remote partition")
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-Reviewed-by: Waiman Long <longman@redhat.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 1cdb4c47f7f5 ("iio:proximity:sx9360: Add sx9360 support")
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ Context: <linux/mod_devicetable.h> is still included here and the ID
+tables carry driver data. ]
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
 ---
- kernel/cgroup/cpuset.c                        | 119 +++++++++---------
- .../selftests/cgroup/test_cpuset_prs.sh       |   5 +
- 2 files changed, 64 insertions(+), 60 deletions(-)
+ drivers/iio/proximity/sx9360.c | 29 +++++++++++++++++++++++------
+ 1 file changed, 23 insertions(+), 6 deletions(-)
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 67d79749a1444..2be2e39da7952 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -1511,6 +1511,48 @@ static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
- 	return res;
- }
+diff --git a/drivers/iio/proximity/sx9360.c b/drivers/iio/proximity/sx9360.c
+index 4448988d4e7e..7bb54eb7b1c8 100644
+--- a/drivers/iio/proximity/sx9360.c
++++ b/drivers/iio/proximity/sx9360.c
+@@ -14,11 +14,13 @@
+ #include <linux/interrupt.h>
+ #include <linux/kernel.h>
+ #include <linux/log2.h>
++#include <linux/math64.h>
+ #include <linux/mod_devicetable.h>
+ #include <linux/module.h>
+ #include <linux/pm.h>
+ #include <linux/property.h>
+ #include <linux/regmap.h>
++#include <linux/units.h>
  
-+/**
-+ * validate_partition - Validate a cpuset partition configuration
-+ * @cs: The cpuset to validate
-+ * @parent: Parent partition of @cs, NULL for remote partition
-+ * @new_prs: The proposed new partition root state
-+ * @new_excpus: The new effective exclusive CPUs mask to validate
-+ * @del: exclusive CPUs to be deleted from @cs, can be NULL
-+ *
-+ * A remote partition gets its CPUs from top_cpuset, so top_cpuset is used
-+ * as the parent when @parent is NULL.
-+ *
-+ * The housekeeping check is skipped if @parent is not a valid partition
-+ * root as @cs can't be a valid local partition in that case.
-+ *
-+ * Return: PRS error code (0 if valid, non-zero error code if invalid)
-+ */
-+static enum prs_errcode validate_partition(struct cpuset *cs,
-+					   struct cpuset *parent, int new_prs,
-+					   struct cpumask *new_excpus,
-+					   struct cpumask *del)
-+{
-+	int parent_prs;
-+
-+	if (new_prs == PRS_MEMBER)
-+		return PERR_NONE;
-+
-+	if (cpumask_empty(new_excpus))
-+		return PERR_INVCPUS;
-+
-+	if (!parent)
-+		parent = &top_cpuset;
-+	parent_prs = parent->partition_root_state;
-+	if (parent_prs > 0 &&
-+	    prstate_housekeeping_conflict(new_prs, parent_prs, new_excpus, del))
-+		return PERR_HKEEPING;
-+
-+	if (tasks_nocpu_error(parent, cs, new_excpus))
-+		return PERR_NOCPUS;
-+
-+	return PERR_NONE;
-+}
-+
- /*
-  * cpuset_update_sd_hk_unlock - Rebuild sched domains, update HK & unlock
-  *
-@@ -1921,18 +1963,10 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
- 	if ((cmd == partcmd_enable) || (cmd == partcmd_enablei)) {
- 		new_prs = (cmd == partcmd_enable) ? PRS_ROOT : PRS_ISOLATED;
+ #include <linux/iio/iio.h>
  
--		/*
--		 * Enabling partition root is not allowed if its
--		 * effective_xcpus is empty.
--		 */
--		if (cpumask_empty(tmp->delmask))
--			return PERR_INVCPUS;
--
--		if (prstate_housekeeping_conflict(new_prs, parent_prs, tmp->delmask, NULL))
--			return PERR_HKEEPING;
--
--		if (nocpu)
--			return PERR_NOCPUS;
-+		part_error = validate_partition(cs, parent, new_prs,
-+						tmp->delmask, NULL);
-+		if (part_error)
-+			return part_error;
+@@ -44,6 +46,7 @@
+ #define SX9360_REG_GNRL_CTRL1_SCANPERIOD_MASK GENMASK(2, 0)
+ #define SX9360_REG_GNRL_CTRL2		0x12
+ #define SX9360_REG_GNRL_CTRL2_PERIOD_102MS	0x32
++#define SX9360_REG_GNRL_SCANPERIOD_MAX		GENMASK(10, 0)
+ #define SX9360_REG_GNRL_REG_2_PERIOD_MS(_r)	\
+ 	(((_r) * 8192) / (SX9360_FOSC_HZ / 1000))
+ #define SX9360_REG_GNRL_FREQ_2_REG(_f)  (((_f) * 8192) / SX9360_FOSC_HZ)
+@@ -183,9 +186,9 @@ static const struct {
+ 	int val;
+ 	int val2;
+ } sx9360_samp_freq_interval[] = {
+-	{ 0, 281250 },  /* 4MHz / (8192 * 2047) */
+-	{ 0, 281250 },
+-	{ 448, 281250 },  /* 4MHz / 8192 */
++	{ 0, 238535 },  /* 4MHz / (8192 * 2047) */
++	{ 0, 238419 },
++	{ 488, 281250 },  /* 4MHz / 8192 */
+ };
  
- 		/*
- 		 * This function will only be called when all the preliminary
-@@ -2510,32 +2544,6 @@ static int parse_cpuset_cpulist(const char *buf, struct cpumask *out_mask)
- 	return 0;
- }
- 
--/**
-- * validate_partition - Validate a cpuset partition configuration
-- * @cs: The cpuset to validate
-- * @trialcs: The trial cpuset containing proposed configuration changes
-- *
-- * If any validation check fails, the appropriate error code is set in the
-- * cpuset's prs_err field.
-- *
-- * Return: PRS error code (0 if valid, non-zero error code if invalid)
-- */
--static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *trialcs)
--{
--	struct cpuset *parent = parent_cs(cs);
--
--	if (cs_is_member(trialcs))
--		return PERR_NONE;
--
--	if (cpumask_empty(trialcs->effective_xcpus))
--		return PERR_INVCPUS;
--
--	if (tasks_nocpu_error(parent, cs, trialcs->effective_xcpus))
--		return PERR_NOCPUS;
--
--	return PERR_NONE;
--}
--
- /**
-  * partition_cpus_change - Handle partition state changes due to CPU mask updates
-  * @cs: The target cpuset being modified
-@@ -2549,33 +2557,24 @@ static void partition_cpus_change(struct cpuset *cs, struct cpuset *trialcs,
- 				  struct tmpmasks *tmp)
+ static const struct regmap_range sx9360_writable_reg_ranges[] = {
+@@ -384,11 +387,25 @@ static int sx9360_read_avail(struct iio_dev *indio_dev,
+ static int sx9360_set_samp_freq(struct sx_common_data *data,
+ 				int val, int val2)
  {
- 	enum prs_errcode prs_err;
--	int parent_prs = is_remote_partition(cs)
--		       ? PRS_ROOT : parent_cs(cs)->partition_root_state;
-+	struct cpuset *parent = is_remote_partition(cs) ? NULL : parent_cs(cs);
+-	int reg;
++	unsigned int period_ticks;
++	u64 freq_uHz;
+ 	__be16 buf;
  
- 	if (cs_is_member(cs))
- 		return;
+-	reg = val * 8192 / SX9360_FOSC_HZ + val2 * 8192 / (SX9360_FOSC_MHZ);
+-	buf = cpu_to_be16(reg);
++	if (val < 0 || val2 < 0)
++		return -EINVAL;
++
++	freq_uHz = (u64)val * MICROHZ_PER_HZ + val2;
++	if (!freq_uHz)
++		return -EINVAL;
++
++	/* The register holds the scan period in ticks of 8192 FOSC cycles. */
++	period_ticks = DIV64_U64_ROUND_CLOSEST((u64)SX9360_FOSC_HZ * MICROHZ_PER_HZ,
++					       freq_uHz * 8192);
++	if (!period_ticks || period_ticks > SX9360_REG_GNRL_SCANPERIOD_MAX)
++		return -EINVAL;
++
++	buf = cpu_to_be16(period_ticks);
++
+ 	guard(mutex)(&data->mutex);
  
--	prs_err = validate_partition(cs, trialcs);
--	if (!prs_err && (parent_prs > 0) &&
--	    !cpumask_empty(trialcs->effective_xcpus)) {
--		int prs = cs->partition_root_state;
--
--		/*
--		 * Check for housekeeping conflict by passing the whole
--		 * effective_xcpus as well as those CPUs that are to be
--		 * removed from cs as delmask.
--		 */
--		if (prs > 0)
--			cpumask_andnot(tmp->delmask, cs->effective_xcpus,
--				       trialcs->effective_xcpus);
--		else
--			cpumask_clear(tmp->delmask);
--
--		if (prstate_housekeeping_conflict(prs, parent_prs,
--						  trialcs->effective_xcpus, tmp->delmask))
--			prs_err = PERR_HKEEPING;
--	}
-+	/*
-+	 * Check for housekeeping conflict by passing the whole
-+	 * effective_xcpus as well as those CPUs that are to be
-+	 * removed from cs as delmask.
-+	 */
-+	if (is_partition_valid(cs))
-+		cpumask_andnot(tmp->delmask, cs->effective_xcpus,
-+			       trialcs->effective_xcpus);
-+	else
-+		cpumask_clear(tmp->delmask);
- 
-+	prs_err = validate_partition(cs, parent, trialcs->partition_root_state,
-+				     trialcs->effective_xcpus, tmp->delmask);
- 	if (prs_err) {
- 		WRITE_ONCE(cs->prs_err, prs_err);
- 		trialcs->prs_err = prs_err;
-diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-index 7d5ca28e46c21..d7260a4c6a610 100755
---- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-+++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-@@ -556,6 +556,11 @@ REMOTE_TEST_MATRIX=(
- 	"  C1-4:P1 C5-6   C1-2     .       C5      .  \
- 	      .      P1    P1      .      O5=0     .     p1:3-4|p2:6|c11:1-2|c12:3-4|c21:6|c22:6 \
- 							 p1:P1|p2:P1|c11:P1"
-+	# Expanding a remote partition should check top cpuset, not its member
-+	# parent, for the no CPU left for tasks error.
-+	"  CX2-3:T  .   C2-3:X2:P1  .       .       .  \
-+	      .      .     X2-3    .       .       .     p1:1,4-7|c11:2-3 \
-+							 p1:P0|c11:P1"
- )
- 
- #
+ 	return regmap_bulk_write(data->regmap, SX9360_REG_GNRL_CTRL1, &buf,
 -- 
 2.53.0
-
-
 
