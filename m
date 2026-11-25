@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795598717;
-	b=Qsit7XOS2gHIYRcQ7PfUIjY9jmtPjjX5Sr2N5xr/PBA8L2ZKrjXtzwh4ZyS2VteSvKR9
-	 L5EeXact28XlOa06ALQR30A0pdrVY0hh5KlTWhSielvOJoOrijTrPfF3biTSklJ2W0wg4
-	 y3iN00/lFwOXqt/I2ou6Ru1qf1plbiS4kgEP0my7cplrA/GOfVnSRgfe3ksiJh5/0hAuS
-	 KbGreNbpkJhMJZUNxVS68KYiWOAAdMLoKZxtGEYx1wFx5OArTVxxmEURxRaku6aRMSS/5
-	 l5mQG1T8so1nrLybEen8ljfBvzhpDlWQEvWTOZUtngnyBoCHycm6OgG34ygaRDraADQ==
+	t=1795598720;
+	b=1xkghkjkpRz5LXJwm95Ikp+Vfz8rNGBsAf62MgsUXJC6gPWVObmzxrZFO3eW9BYO72TS
+	 YPwLTagMUbKbJDiv/EeLWumo2yxcAJDCOpeuF0unLZbIvnoecbjH5Hc0SuyjBx/LtKKFB
+	 RP1jBnTJIju2JrfZ1A6BrP6ALj1vTK1Zb/PeuumZNzrbJGBid5Zg7LCOwJ7cf4btPK1OF
+	 TxBqIz+UkndzaBQJ4WERVxeA3NRssQAC3UHFcRoK9i/BWsJuPBb/wYi08Uuc0tS2Ui7f2
+	 fo3ZwolQ/m9aQKXR6WhSrlCe2kcZnvz4MOmuahxIH7v9R7b4j3F3CwBONA3haKapCqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795598717;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795598720;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=F6zxDmiyw68tnYJDhNqSAQQCMytCrP5fwgqP7JgGDXk=;
-	b=jzJMx/Gs0/5WuIZIP7eiGOQe4j6lrCm2CeB0ndwp+sehvEg0Z1/14vpmes5GgrGRLjDh
-	 t6bkd1V+vvMl5lGbDxAKqNeu44+E8lM+wLZhiN8gYRmMJfIUhtCU4b/FCXGk22H55M24Q
-	 c/VkzNpCKYP1Hw9hFQsQzRe6cMwE8xbixpu4eyQ/+pMwAQ9augdckofk6gwyJQj1IOXSm
-	 p2z/3f5aJ8KRS/OKqesNSpZ54MoKb9otjNRrZcZKNhpw5P3J4Z3bEDmi7k4q3SRK2o/+r
-	 LzaG/uus9KCpfj/UoWR+ZZa6ffLmfl2v8N7ytI+jkKMr4y2Ts9i3jhdNHANp15ejvxg==
+	bh=vJi/FKuQaknRCgoS7lz2fFbAr/iUmZhmxkRY0Dcz0qg=;
+	b=IiOwITX+EopoNXNynCvMLX1lkS50ARRwWTJIf1duE9CkYupPenO+5pDx3bMvVhdTr2cW
+	 Xu/suFpyWhrmErSqJT4h1rJF/PUJvjTw+a3t8UUvQqNo6hTLiAcVTKGQD5DsoVfpJKDER
+	 0GtJLNtXGHnppQA0afihgNVx934lzpKdhyi9VhPyb6neXY2T8kHG+pOaRQnLMItRCjnmV
+	 RZqFfsxRQUjPdvdVjSe5rmamYusg44Zy7/ilVzeNux7t8nfoTIbSi7QnvmPQBy7x9Cm4L
+	 irbIRaPw3Bdo/zcoh6AoX2mSjMX3YIVCa+x8YhIaapmk51zI5m80NqH+azf2GXuGuGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U2KeOZUt;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=T+4jxqxr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F214606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:25:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80CD6606A32A
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:25:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U2KeOZUt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D65C71F000CF;
-	Wed, 25 Nov 2026 09:25:15 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=T+4jxqxr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CECB1F000D3;
+	Wed, 25 Nov 2026 09:25:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795598716;
-	bh=F6zxDmiyw68tnYJDhNqSAQQCMytCrP5fwgqP7JgGDXk=;
+	s=korg; t=1795598719;
+	bh=vJi/FKuQaknRCgoS7lz2fFbAr/iUmZhmxkRY0Dcz0qg=;
 	h=Subject:To:Cc:From:Date;
-	b=U2KeOZUtp15LRBzkPJOSG1UNmoqSqkIg01j86wxNBOSKtZavNW+drcw3vJBCy5137
-	 KXSv6mSAU4IDvsXBLT/5ksFBVXCdIL0hly27jllF5GT0zPCveJgyQq3PVT9uy7so2c
-	 nTPFzwVLJ0yKCMCAHifB2IMdLvt0HXuKrAB6YcWM=
-Subject: FAILED: patch "[PATCH] NFSv4: Prevent indefinite waits for out-of-order OPEN" failed to apply to 5.10-stable tree
+	b=T+4jxqxrWq36PlPxSNpTrfA/9Blb+rGEfJB8mmKZORFXI1Pb4m/2CfVFFRH9zVmWH
+	 miz+//go2BC9pT7Pez5L0de+5YeaLIyyqWxPFraZr1n3x6rL4Hw8QYAo/vE1ZWncYA
+	 YwDQ3BbKBibGPHlf2S/455fq4smlwQNSo467lUSQ=
+Subject: FAILED: patch "[PATCH] NFSv4: Prevent indefinite waits for out-of-order OPEN" failed to apply to 5.15-stable tree
 To: tmenninger@everpuredata.com,anna.schumaker@hammerspace.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 10:15:53 +0100
-Message-ID: <2026112553-underarm-mama-755d@gregkh>
+Message-ID: <2026112553-vanish-hangup-421f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 151d95a1e696979a7d54b23c96338754be2fcc1f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112553-underarm-mama-755d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112553-vanish-hangup-421f@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
