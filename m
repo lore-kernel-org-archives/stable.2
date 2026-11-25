@@ -1,81 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795649321;
-	b=Zc/mkYPZgllSTLO5/l7c3LRix/VhpJEmM2FX2ijSPEwJh5jphiSbNT+w4sZeQoAveajr
-	 es222QJAPHCp6ls5wTkChRrSObl/AjJqC4Q59O+yAqcrD0q/eqJidQTRMWDMi5clL/1fn
-	 sxP5MRG+P4E5gwOgtMKGE4h3Pvd4X45wKPogpDhgiXEv69U8EUtNHjSEYZMRX1FqKtpgq
-	 P2r46BnnnJeZmpKmvdlRA74zyGmcfc1FYOW/akbuu/866s+sFd578N3SewW3Xog/Ixpe6
-	 jFiTy6l/o0vxe8DbHwu21fOYGlfP5qYeZGC8o/TfE93eHoui9LOKf43SXTNjvCSbThA==
+	t=1795649483;
+	b=h1TrhgE7Mz6cxjwrC+XMx89uTJ7L7x6Bzwxmzti4uEYKOpWrBED7iIPOjSZHKMP/Csmg
+	 tcQwnYf8dBZEQm1PDAam+CylKabAGAYZkkPiIyvlKrUYSQDvnsBhfV6oY6l1BYYfVBeFF
+	 FpyQuBANGGvSXdKMcTjtChlb2iwlXr7X+dtPeanxBeeZQkOe7s1X/lQ+OlGMlZ1UOZuM9
+	 s7/tNO61qC6KJxlWJchI8VLpOJPwbfWOpcGUOBCcYoKadyEQop0FhVtbuWVM9iXJQhLyg
+	 ALeR/J81WuDzUZh0whHcFfdE3g+3TsxXJ569ViUaJZ/uGUR0Q1/CIDreEcEiGcShhkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795649321;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:
-	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=SYP6lfPeFWSP2++HKhm6SwHrewFpKVlzGh/7WBXkbSE=;
-	b=Sw8XCt155LOZehEQQj2XYrbuRa8+kc74LCyc2LMLmvnarYiWRP4xpi3WMx2Q3G/bZZTf
-	 e5Z7SKf4kQhQqlJSL9CJH+32Trdq/lBl8aIyA8WBOKzdE8BSinxuB6yqDLHjUg9Ltkubf
-	 t8x1nD7fYnudvWogJoxSdOQS01sb/45L7d81YrXXCDVNRJhd0Xo99LlNg1ogozSevTrM0
-	 Q8nBrEXiDp1bvIbFgxGn4OCeFKH49E6gDXRL95inuOcUmX6NuoKo39mx9QCYnb/sOO/RK
-	 Ne7eW7qTbO5YuA18ZKPKbNUcyLI4nPswGGnYvQTHIPI9KQ3I9jozoFMWchIWv5YwbNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795649483;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=/ZtgARPu379mLd6QbSu5w/3cZo17qHpWETtyZC6BRtE=;
+	b=vrffcyZ9tO6naABJuijsFKPQ8mn/d+2EaNKWfMQx2YpxoOnNmZNbK9DqQNf3qhCJBXH+
+	 OWQ+LKUIszs2NV8+agFN0dG3W04us9iMOqEs6mhY5xjlqQKpenqS+fEJw50yIm7OM4P9L
+	 sJZXuV/suyKPsIgVPbcq76h7F6EKSrh59rzAUs5NisesuUTQYuxJ7j/wNeWgC2U4J1NNL
+	 gLhaAndwy4CQv9wN0vLWusGfBAn6Nwm8hoNnyQbRy/q24xttGaiXt7NZzK0Ud0oTRsHTF
+	 5w6ouM6FAg7rJKBp0cCLX8d4fZyCo54ON37k/AFK5Sx7Ww8+go8mT9LwPDwbRv9oSTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LnYamxh7;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=Etw1usMc;
+	arc=none smtp.remote-ip=209.85.208.45
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33721606A31E;
-	Wed, 25 Nov 2026 23:28:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33721606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31256606A329
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 23:31:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31256606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LnYamxh7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795649321; x=1827185321;
-  h=from:to:cc:in-reply-to:references:subject:message-id:
-   date:mime-version:content-transfer-encoding;
-  bh=d97WQeRKMr+7348RlaZUJO4IriUW5mBJn39qaoByShQ=;
-  b=LnYamxh7/1bNzwisjCkMrsv/uKolx9J8/BOxcXFYqSa79xLGNzXc5Uve
-   OimP9spqA4KIK565Sqs+K7udM7UMmoOkgBrQ+8YRsJq/3n62fIBu6FoEh
-   c5M0vXE4JRcu15XBb9imWar4fUi6yE3VGgcdOxCfoJPKh/OuigE+wpVZM
-   qNdH3ObB3YlJeKhKZdUA3l4nuaWVGb4g8RpM5F6T0Szh6JZBJ/eF6X7U1
-   +bTEkLj9wYslkTeNBQSQ2cI4YQmRgL1kubi+hDfr3XDbo2Vzk8/soq7RF
-   4eD3Uj+ykL/M4M5qBxxgt5bi/ddzq01cj6bEgZbz9XU4D5DHFELQC7xcZ
-   Q==;
-X-CSE-ConnectionGUID: pVVQfkeaQgGiA2itG9sSZQ==
-X-CSE-MsgGUID: rwyjqvlpTmG3MNfxcKU7zw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4436585"
-X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="4436585"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 15:28:40 -0800
-X-CSE-ConnectionGUID: /tCpGy0bTPuLSQ7lSQAcmg==
-X-CSE-MsgGUID: y4WVKpJwSaakf+YoTaCZiw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="12311772"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.96])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 15:28:28 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Corentin Chary <corentin.chary@gmail.com>, 
- "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
- Hans de Goede <hansg@kernel.org>, Antheas Kapenekakis <lkml@antheas.dev>, 
- Benjamin Tissoires <bentiss@kernel.org>, Moad Tarrih <tarrihmoad@proton.me>
-Cc: Sercan GOKMEN <gokmensercan@gmail.com>, 
- Burak Goncu <burakgon12@gmail.com>, Denis Benato <benato.denis96@gmail.com>, 
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20261116-asus-wmi-kbd-readback-v5-1-f2f170836bf4@proton.me>
-References: <20261116-asus-wmi-kbd-readback-v5-1-f2f170836bf4@proton.me>
-Subject: Re: [PATCH v5] platform/x86: asus-wmi: Ignore unusable kbd
- backlight WMI device on ROG Strix G814FP
-Message-Id: <179564930314.9828.13260879670237100649.b4-ty@b4>
-Date: Thu, 26 Nov 2026 01:28:23 +0200
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=Etw1usMc
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b87a1a2babso13177658a12.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:31:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1795649481; x=1796254281; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/ZtgARPu379mLd6QbSu5w/3cZo17qHpWETtyZC6BRtE=;
+        b=Etw1usMcblqCO3PinEaDwsNBIFfJ2R3bcanX/VT2bD6spbWXgs4VMDGUWXITmEzF6l
+         4cKuhjSQww9QCE9PiuHa0LDpfymmbEJ+aGkTLBUteHROqzGGXddaiwL8Ae04N/ksy9Si
+         +Mag1Nerdbq310xTftvr6cmB5ax480VS+WF8g=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795649481; x=1796254281;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/ZtgARPu379mLd6QbSu5w/3cZo17qHpWETtyZC6BRtE=;
+        b=kdjjTQqJw+u5oAo0nBjw9/S8UGzOCWsLqSBWvyqrPjK/duHIZAlayN8GDx5I+IStGO
+         CdfQ9v9vlkCfA+0lWvjDlFwHKue/zx0IXtCQGB6u04xLzDMXM7VcJNCNsXb6lgoi/JvR
+         jlwzMPmR2BZolqGohrtHxnqrZFbA8ruOuuC28mnt6bvx4zpdvFTxZRTALE8h7cVxePy6
+         SqO/Lf1ENjqRcm/9QXzTLuX5UzgbOyKElqGyt4k36OhPY5XRmSiyH90VMwgfLnGjLIXQ
+         NVfOL8BOhtSs8nYnvah/FtjPhcxBiKBidHW9Lkul98UbkCiqvAM2bnQu/ID8QODJyK+s
+         zFmw==
+X-Forwarded-Encrypted: i=1; AL+hErHacYPyF903XiQK4+W+ORDtKsWKQ1aFVNaO1wRbx2NXWD6J476NDcsffmTASo8BqXjm1vU0UF8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+od1qqoJkdOYhxgzjQcrFmDQYcxdFdwM8Xq7Dfp7SZMvVpNahY
+	VE+CTCjFAxCFE0NYw2dtZMz6glqOez/MeoXBcxBcGkHfcypICalaH8RHAnJOcrn23SSjv6Dsa2G
+	xNhdVoiDpcw==
+X-Gm-Gg: AZFdTZfQhOKV8ri96Hy66IeTbZBWUUVLrvFr5cqhlbeHdPo3MbjKVtaDoAFBFlyyWsm
+	vPZ+OQw/B8Rr2l9/BsxjxhdbpF1PQcRUem2RQJBnf+VNJf2ruNxKbVOd4bAzOFMPny4QzuojBOQ
+	HZlf7tUg59SEgjBaAGrD2A9hVzBAPg/gbvzRNyO1uG6XA6D4QksXJdEmJ9SlPqQk57Aszg4J6b3
+	/7BXQvi339eQ8AFv3SJeSdSILnHG9KkIqFkCL7lKArX7NRG4FeToAD9zfnGp+dgEgJCmwaM3zVD
+	o315Q66sA+8PWKbxrIYjsId7zVcVETA/Rks8YJFS5S/0x1k23+wm+PqnQPjh5REE5E1KESl3p7l
+	w8hfTHDkQRABAaaMSoJ4mmKUa+7crASx9tmKqllJUdKf6WRIr5NmKk6evW/tuehN8GdYCrYmwpT
+	TzBjDEOJnGK7YCf+DsqOStsZ7NqSgnyI+6xwK91xvnVWPEW4OJ6M8Pc0pHnPo+naN1env9USoBa
+	E3Pdhfxp5pB+qrssHBTXwfJBPZh/Z/aT7MW9Xk+ok+MqkUjCExVHKQQBqKOMNMbLO589d6nb/sl
+	DVB73Aagkn52NlWnGCZ+PSyMPncI6mxDuWe/DZrkbPzyrVtV6JVOC36wy3RUXa2DnkBPvSudfa+
+	nrJ4=
+X-Received: by 2002:aa7:d1c8:0:b0:6b7:37bf:13bf with SMTP id 4fb4d7f45d1cf-6ba1fadf982mr11884623a12.4.1795649481541;
+        Wed, 25 Nov 2026 15:31:21 -0800 (PST)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com. [209.85.218.50])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6bb1d03f9e5sm2041145a12.24.2026.11.25.15.31.20
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 15:31:20 -0800 (PST)
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c50d3ac6b51so1328130466b.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:31:20 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHoK/JdDwF3rfmFJUl5ZSZe4SXBI5qtWC/c520HcVwI+eF810y0R8jCxXQSSJucp5xnZWvRKgY=@vger.kernel.org
+X-Received: by 2002:a17:907:3e86:b0:c36:777f:824c with SMTP id
+ a640c23a62f3a-c51315851d7mr1801088966b.4.1795649480354; Wed, 25 Nov 2026
+ 15:31:20 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,39 +94,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+References: <20261122-b4-sched-wait-intr-head-v2-0-4a764b64e8ce@columbia.edu>
+ <20261122-b4-sched-wait-intr-head-v2-1-4a764b64e8ce@columbia.edu>
+ <CAHk-=wj_eqNh+gNhCQh3exrL5Pmo5hbZBcL0W-4Ah_Nw0Kegzw@mail.gmail.com> <awV66PQWrBOKcZCE@redhat.com>
+In-Reply-To: <awV66PQWrBOKcZCE@redhat.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 25 Nov 2026 15:31:03 -0800
+X-Gmail-Original-Message-ID: <CAHk-=whanFATRSwcW9TCa+4zR=k_QnNFtgxnFCg1d_vr6Ye=OA@mail.gmail.com>
+X-Gm-Features: Aa3M54q0sE_qX8UjHHTquK89Ec1CONb0zaQmq3jckN_Jm8WAOhqo827YNI7zBIg
+Message-ID: <CAHk-=whanFATRSwcW9TCa+4zR=k_QnNFtgxnFCg1d_vr6Ye=OA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] sched/wait: Queue non-exclusive waiters at the
+ head in do_wait_intr*()
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: mt4022@columbia.edu, Jens Axboe <axboe@kernel.dk>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Christian Brauner <brauner@kernel.org>, Michal Nazarewicz <mina86@mina86.com>, Wen Yang <wen.yang@linux.dev>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	tz2294@columbia.edu, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 16 Nov 2026 11:48:12 +0000, Moad Tarrih wrote:
+On Tue, 24 Nov 2026 at 03:54, Oleg Nesterov <oleg@redhat.com> wrote:
+>
+> This will change the current behaviour if ret < 0. Say wake_page_function() does
+>
+>         if (flags & WQ_FLAG_EXCLUSIVE) {
+>                 if (test_bit(key->bit_nr, &key->folio->flags.f))
+>                         return -1;
 
-> On the ASUS ROG Strix G18 G814FP, writing a level to the keyboard
-> backlight brightness in sysfs changes the LED brightness, but reading
-> it back always gives 0, and the read makes the Fn brightness keys
-> misbehave.
-> 
-> The firmware reports the keyboard backlight WMI device as present
-> without implementing it, and the backlight is actually driven by
-> hid-asus. DSTS(0x00050021) always returns 0x50000, which is level 0
-> with the presence bit set, regardless of the actual level, and every
-> DEVS(0x00050021) write is rejected as an unsupported method.
-> 
-> [...]
+So I looked into this. We only have a couple of cases where waiters
+return -1 to break out of the loop, and none of them have other
+waiters.
 
-Thank you for your contribution, it has been applied to my local
-review-ilpo-next branch. Note it will show up in the public
-platform-drivers-x86/review-ilpo-next branch only once I've pushed my
-local branch there, which might take a while.
+In fact, I think that's pretty fundamental. The reason you'd return -1
+is because you have made any other wakeups pointless.
 
-FYI [if applicable to your patch], as per Linus' policy change, also
-fixes are mostly routed through for-next unless the fix is for a
-commit introduced in the most recent cycle or is clearly a regression
-fix.
+The wake_page_function() is a good example of that: it returns -1 when
+it has taken over the lock. That means that the page simply isn't
+unlocked any more, and there is nothing else to wake up, because the
+*reason* for the wakeup has fundamentally gone away.
 
-The list of commits applied:
-[1/1] platform/x86: asus-wmi: Ignore unusable kbd backlight WMI device on ROG Strix G814FP
-      commit: c53ca788e3a20b2319c3b6fbcada620b2299bb80
+But you're right that it's a differen tkind of case, so there's a
+slightly expanded comment about it now in that "always queue new
+waiters at the tail" commit.
 
---
- i.
+And:
 
+> Can't we at least cleanup __wake_up_common() ? See the patch below, I already
+> sent it but it was ignored.
+
+Yes. I've added that to the branch too. Maybe I should have added it
+to the head, but I was lazy.
+
+And I've updated some of the commits with reviewed-by and acked-by.
+Maybe I should have added it to the head, but I was lazy.
+
+               Linus
