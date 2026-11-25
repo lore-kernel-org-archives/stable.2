@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795609031;
-	b=pUvKCWQOZ6+gGF9m5C7wUDB57oner0PgfNnNudDQ4pMnkoiDjKHev85K8ZUB+Q5lzYsu
-	 YrJrn5LhaK9IQl+VwmKzbMaGGQS4feD/CjQ8CYR18F0bJ2wdz6tTr0/RdK3sFpkBW2aUP
-	 jpIS12QbD9bLC324dI6DeRPAVpTar6oazc5MsFKuqgG6LuHHSdYM6U+c62J68ixiJqXSd
-	 xOdIi4WmSH9+dS54uVNDhJWd28b3/1KU+2DsC7BeE4AL/x10r4ok16/RTe1Z7My1WTd3y
-	 A3oGVaBS8tMr6yPJs9tLbvQ2++oHqII+dFQdB9bKKH7v5KMwn1kVZMjgp6lxjIlLDHA==
+	b=UvwdnCH49+jHgNeoo19QLrNHgaEPN+1Ux1pJOXg5oxuYaqaVfWcFA20CfFgwaaFAhln5
+	 6bkliplWfSfemTlUYuvkp994cMGoj0dZT3MvSmkyUKwHvndhUnvuRk+RfVgJ78RoJ1MsN
+	 FlYO1WOgl2NXWID8fbQhuEFvuS4Tq7ZurzqCHVA2U7Q5eO5kjG6eIA01UHaEJ7thEKxi2
+	 jz/TVo32myVWrCkH8LrB+LSnBVc95zwT3zvV1udjCq1IJOjZowZ/37mrw0yTuPz25R9Hs
+	 EpXzDMdqbqagcPeCA8FDJA4NVyWfN2MHKdiKb/Xj6ONRzdi7LcXg6lLb2YXlLxI0Nkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795609031;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=Rulwleyh8bhvWAVb0QvlMS6II3FShQUJjsRscedmHGw=;
-	b=B73BatCNCXMd2T0gjZpE30VCK20jLKX9mt1ICIFciRh0aAdQCJbE8hg+LkcgV/kkz9L+
-	 z1Uri5sMt6FvSdr7je9iX2t9gxMJwn5N+BL+it8ggBS9yyTOyj/chXIN89oOBZhsr0E3R
-	 VCegps76kZFhMVffzxsZ3+B2pHzWPyKpxg02bfo9DydMFf0V+6xsZUsGRUf70S3JqVyKH
-	 IgmVfLVf6jBP1Yq3x3rEKem/albWlToMXrqaufeGlnFun4uIZrfc2Cc4hLa1eB0RtT1Y7
-	 KxkPbRZ23/bgaPXnkltPyG0hjznvqu4S3lcuVz1j10RMDfAhL/I3kaaGkhPA9vVok6w==
+	bh=ANnF4gP22dTclfpg2OY2BM2KOhGsixC07z+vMijIrP0=;
+	b=FgoeBxo4DVSOOdrLAlnRLB+wrx/KUeFzDOtaD3UYZJUv1tK/VDHAKsGMrwKdcqzuXl+V
+	 0IGrWdUfoRHc7QGLIvhZBxt1Xrdf0psus8B/eL1l1mVAbtVblyp6nOVOe9cj99JwdQbPu
+	 6Lscztptpl16Y7peY3+tGkCXcW2NuJ+p8GeksPWAi65goC3EG+HgcGYBrzURx4CXvbcbt
+	 v3th0NvN0HiEiNlvX9ZtHKvXK/HzlIAQpyoCoNQ+WAvGMEdIsHln0kEiXkNK9rAYa8TLl
+	 InP+ORwQK/6qVQTgKWemmlPUi+Zb4p97Q+XQH0d6Xh7EkWLB3E9iy2Zco35O1fnOHtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=O5r7GYiS;
-	arc=none smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=DUnj++9s;
+	arc=none smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBC2606A333
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:17:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEBC2606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35364606A33E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:17:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35364606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=O5r7GYiS
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c5133831027so809563466b.2
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 04:17:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=DUnj++9s
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c505b2e1cb9so1051156066b.2
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 04:17:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795609029; x=1796213829; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1795609030; x=1796213830; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Rulwleyh8bhvWAVb0QvlMS6II3FShQUJjsRscedmHGw=;
-        b=O5r7GYiSdiZ4ezUF5CMM0dsFvXvFdK4+E20x//x2UQMWvSRp0b9zkxupjfY+NYoVil
-         cVYIAWsXkQQ1PfzaXDcvtSx3/mRUFTEyvD76zT/6iOypE5vYa4p7WsH+tSq/H83BLFSg
-         TqWS36RHVS3UXn2R4CXOVcKPNu0b9/xcUV7hrp0xy/newLmtP8NzQaEZycTYyth7Gv/+
-         oFbHIR7yGGhhY0bUcu1PC01U/agNylKrJ0uFIy5o7C/0heJM+l0E2GsBNavEwCAlLbwN
-         9SipVLNjdsyFoU1k3v0LgRKewgTbUUjD5WwR+vwY/85Fr6dXrOX4RRmpVT6xGjs2zOFp
-         UrXg==
+        bh=ANnF4gP22dTclfpg2OY2BM2KOhGsixC07z+vMijIrP0=;
+        b=DUnj++9s5XG2hscZEnhIQe5wBPFC/lhit/pJtQMaaR/NbGITGGbmFb/JlVpMcv2cyi
+         /NFfzBXdGbCpLZViRyxBo/NzYka8FVYon4Jptzfr6l8nZcci6ZJKnoTzu6sMEM+goBhV
+         cYWkO1+jNiKkTjjYNYa59a553sAn+4Gwdz8QxzcHRmMU5Bqz1P7NrH8thmndrOu+drhL
+         MG0ByFDLBgmRYXMixOnWj9KyopQJdW+DH9axs+P64O3pFR4yYKxUf6PgHa1dhxqSyPXn
+         T+qGnKeNFiLh3J6ucdD5d/xEATG1CsMCZItSIES6cpBzgoZ5SksqnVEag4vksPFd+kSe
+         CDHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795609029; x=1796213829;
+        d=1e100.net; s=20260707; t=1795609030; x=1796213830;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Rulwleyh8bhvWAVb0QvlMS6II3FShQUJjsRscedmHGw=;
-        b=BqAmeh8BGuQSfRdXNxoy4pb7pU3BG6jOlCH/8RO3gLDYYZfmKD6P2STmBfNH2+VOz6
-         QCxNg6tEAIWseMSQOW7lMl437gLiv52oYHxFlbckgBxiL0O+W5jndyqNxWNhaX5r2JFp
-         lPj/oSBvDcJEcfAoZq8GFCF8xWd1el8o8mG44ybbjsDk/3va0z7sPY62Wt8LmIWrpnSd
-         ijkDiUbb8AXRH+Xyb+ldqXnNARQU4CnEl7elOol8T8qra4WMuQCP3ote9ziR0+WTsgTZ
-         bQtI4df1guaYqjx2mZSVj4Qo1tS5dDWo+iw5cS3mR8VHB/DHig4iQFvY+MvurgydDaEw
-         Lz+w==
-X-Forwarded-Encrypted: i=1; AL+hErHVNWKu3A6DMB3rc1hZOSwstlouEWdRgdGaQdtGbNJMejulId4YREa6PD9MlppS9QJv++/yuJ0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z93cd/lka7OA9+pqL25SpEBWwlATHLxWjcpHN/YYo6e3YiH3Y/d
-	bE2P2uS1yMmr3GsZaj3IPqmc3MOSlCrCEbsaB91fnQ+vkDhsfPFmca1wWpV3L2Sk7lg=
-X-Gm-Gg: AZFdTZd+E8iMgbRGfoqt1sJOd2BMmbqDDmD3VLzovuiqYOQH2qLGqJrSFb19/HboZNC
-	9xhg48qAIKBMgrrdBhDJeNove54Vs23V1BoqaDrVaXWFBmeHSNUidYHDKdqJYlNmyZ79obm51/M
-	JLJN1RbFbu+7LQOEQdXsDMFcubtZgXVLtLv1QTpNKT8DK9O/EVMWa7/Iawtwyifl8/M1zaLHeKC
-	zge3GqJXD6N2UOYxquK727owrPi3WkeMYTREn1Cd2qEYhSxzVGzmLHw7HWU7ePcCKAprupoY6ay
-	5AGRK802TCd47HW43m4azZF/5PDbtvIFcuWfp7yfXHRECcijeFOzctdGq/bz1wGtt5NrjEe0/cL
-	YFh/5RNahTbfTmuWXYXvRvZ4mamZS6VudATXCdFoI8fnJnqLsi27+p4XQDFbJatpA2A5h4BHZFn
-	AfaxMWHP+aKedzMTf1kPO8S56jPT5CjvWPlJpEaQwPzeRfuj1JsaN8oukQNw9OE7kje16TWyBm+
-	3ssrFUSMSU1R5O6Y2NmsL90lj9JHFDaWp9otX44tKVlxaA2mpjpyFLcVktN9IttR2/NSlxh8gvG
-	Yi25un4R1AAbQ+942h9lNA/a0l0IHkp/dw8Hp9DOMqcb7bgzPmgf9lRCRqKrPFk+72WOcsDraoA
-	akzWMNyG+KtZYuSw5bA==
-X-Received: by 2002:a17:906:a11a:b0:c4c:d96e:80de with SMTP id a640c23a62f3a-c513a5dabbdmr1120945766b.8.1795609029062;
+        bh=ANnF4gP22dTclfpg2OY2BM2KOhGsixC07z+vMijIrP0=;
+        b=p7EQelobixg4ZzIifFyFSg6S4HmPDsPylfYsHhrTT/64ydwOGsDu/OK+NRPwkI+zML
+         MdypUPGtt86Ggxe4c2Jfor8ttklk5KU6OrAAk6sUDcEN2IPEsZDCIUwF5pdWSlPDYU7h
+         NZ6noCajrNWy6yVVTJimLnsFHp2BypXBH+eR2hMJqnqYj55LPHlNB/VELvIUYi1cAgAW
+         Nx2AH4MCHKKN+iVXjlxRcd2+M8yahc6ZZtR3TazC/+7aiu3165n8CT3TevrZJjK+QE5S
+         TmO/b4BHTvtOw/IUOrtxXbgIvfl450Y5CJEOI1ZPEhk5EuEP/DEF29vUof73R7l4Vqdy
+         l/pA==
+X-Forwarded-Encrypted: i=1; AL+hErHueq3r8FvIT/bgm2Jgodt13XmzSbkNo+0NiMmBIaSxO9OI/Rd9WR1wJRLWvsW9fSWnMJ+pq4g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+TUe0cG8DERoo6Lgaa7yvWz3LCJH1L4qamCZi/OHdffahdb8Vq
+	7atM52IWPdP5y1f1Qtt00dz36HyGl+4p/t+Zy/GvCwQEYyxOzZhqYQe8UvQknUTSkPE=
+X-Gm-Gg: AZFdTZdWp3DUsEo7QfWNcy6WjYbnLM2aAeS89EO9Vy5bAXpNz3RR+j0Rf3YiomM2/QH
+	PZfxI80zrKKJiM8zX3d1rcrujNWML/tYqecRfHWRxiRUEf9Yi00rIP26Jo1+gDnEC1dj5KpSBeb
+	7Y5yB7miyGnoRLWykM6j9owIzZJFpWxL5DRrWqG+tvj3OOqCB/KeKKbFQdryyogWvKSHlMRWC44
+	NNO8jFni6PUmdcm9oOCSoL7lVS8knU5np3iXkh282kkhrnJl1Glpo3lO5KtFlrzCLDrqBcVgQ2p
+	CvKQm9UH5uiFxoWPJHLooarpVDtdqnEOvFigSIv/l3xmSrMR9Sqk0kzyF+eQs/sgcRoaxsycVGb
+	Loa/tWAKTV5aSA2MDrUBbXlhPy5TyaB6wr/h1441oBGJ4CAVD2Mizfc6Ijh7EaxyVpVqF7s7SdK
+	gYKGV+aNDLcwqBTQggjervkU+qIiXUvpQSG3frNsMIVkjwCigyddJCGaC/oWqtJGLyAyLyH3ps+
+	iVu8jM5cEffoVvWGZkCGenIFZaap3RbFhzR5xGnDhhOb5OW6qyAgr3mO8Wjh0HJCx+5DeaX/UuN
+	Dkla8SLgFxCGKRxMOPmdFQZvAr36HEB+HDuhBNQIC0m6H/QzYB3cc8gwllyFzAM66zwgrWBobbJ
+	HNKEnpEkoYA6CCiZxyg==
+X-Received: by 2002:a17:906:f8cf:b0:c50:bf14:8ec1 with SMTP id a640c23a62f3a-c513ab4d93emr1021800466b.33.1795609029664;
         Wed, 25 Nov 2026 04:17:09 -0800 (PST)
 Received: from puffmais2.c.googlers.com (226.124.90.34.bc.googleusercontent.com. [34.90.124.226])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ad00d2asm650611966b.3.2026.11.25.04.17.08
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ad00d2asm650611966b.3.2026.11.25.04.17.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 04:17:08 -0800 (PST)
+        Wed, 25 Nov 2026 04:17:09 -0800 (PST)
 From: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Date: Wed, 25 Nov 2026 12:16:56 +0000
-Subject: [PATCH v2 2/4] usb: typec: tcpm/tcpci_maxim: init wakeup before
- irq
+Date: Wed, 25 Nov 2026 12:16:57 +0000
+Subject: [PATCH v2 3/4] usb: typec: tcpm/tcpci_maxim: fix vbus regulator
+ UAF on unbind
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261125-max77759-wait-v2-2-9914b985c00b@linaro.org>
+Message-Id: <20261125-max77759-wait-v2-3-9914b985c00b@linaro.org>
 References: <20261125-max77759-wait-v2-0-9914b985c00b@linaro.org>
 In-Reply-To: <20261125-max77759-wait-v2-0-9914b985c00b@linaro.org>
 To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
@@ -111,56 +111,85 @@ Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
  stable@vger.kernel.org
 X-Mailer: b4 0.14.3
 
-max_tcpci_probe() requests the TCPC interrupt before it initialises
-the wakeup source of the device. Since the interrupt is level
-triggered, an already asserted alert can trigger the interrupt handler
-before devm_device_init_wakeup() is called. Its pm_wakeup_event() does
-nothing while the device has no wakeup source, so the wakeup event of
-such an early interrupt is not recorded, meaning the system is then not
-prevented from suspending for PD_ACTIVITY_TIMEOUT_MS while handling
-that alert.
+Unbinding the tcpci_maxim driver triggers a use-after-free in
+regulator_disable() if the driver has acquired the vbus regulator:
 
-When the driver unbinds, devres works in reverse order and in this case
-removes the wakeup source before it frees the interrupt, which leaves a
-similar window.
+    Unable to handle kernel paging request at virtual address
+    006b6b6b6b6b6bb7
+    pc : regulator_lock_recursive+0x20/0x218
+    lr : regulator_lock_dependent+0x198/0x2c0
+    Call trace:
+     regulator_lock_recursive+0x20/0x218 (P)
+     regulator_lock_dependent+0x198/0x2c0
+     regulator_disable+0x4c/0x100
+     max_tcpci_set_vbus+0x70/0x108 [tcpci_maxim]
+     tcpci_set_vbus+0x44/0x100 [tcpci]
+     tcpm_reset_port+0x13c/0x288 [tcpm]
+     tcpm_unregister_port+0x70/0x120 [tcpm]
+     tcpci_unregister_port+0x24/0x68 [tcpci]
+     max_tcpci_unregister_tcpci_port+0x18/0x30 [tcpci_maxim]
+     devm_action_release+0x1c/0x30
 
-Call devm_device_init_wakeup() before devm_request_threaded_irq(), so
-that the wakeup source exists for as long as the interrupt handler can
-run.
+max_tcpci_set_vbus() obtains chip->vbus_reg lazily via
+devm_regulator_get_exclusive(). When the regulator is acquired after
+max_tcpci_probe() has queued max_tcpci_unregister_tcpci_port() with
+devm_add_action_or_reset(), devres releases resources in reverse order
+and frees the regulator handle before max_tcpci_unregister_tcpci_port()
+unregisters the port and max_tcpci_set_vbus() accesses chip->vbus_reg.
 
-Fixes: 6f413b559f86 ("usb: typec: tcpci_maxim: Chip level TCPC driver")
+Switch to regulator_get_exclusive() and register a devres cleanup action
+for regulator_put() before tcpci_register_port(), so the port is
+unregistered and tcpm_reset_port() disables VBUS before the regulator
+handle is released.
+
+Fixes: 0c8935642cb0 ("usb: typec: tcpm/tcpci_maxim: deprecate WAR for setting charger mode")
 Cc: stable@vger.kernel.org
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 Signed-off-by: André Draszik <andre.draszik@linaro.org>
 ---
- drivers/usb/typec/tcpm/tcpci_maxim_core.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/usb/typec/tcpm/tcpci_maxim_core.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/usb/typec/tcpm/tcpci_maxim_core.c b/drivers/usb/typec/tcpm/tcpci_maxim_core.c
-index 6e202171f57a..2bb306b6b1f9 100644
+index 2bb306b6b1f9..2e6a8906fb32 100644
 --- a/drivers/usb/typec/tcpm/tcpci_maxim_core.c
 +++ b/drivers/usb/typec/tcpm/tcpci_maxim_core.c
-@@ -528,16 +528,16 @@ static int max_tcpci_probe(struct i2c_client *client)
- 
- 	chip->port = tcpci_get_tcpm_port(chip->tcpci);
- 
-+	ret = devm_device_init_wakeup(chip->dev);
-+	if (ret)
-+		return dev_err_probe(chip->dev, ret, "Failed to init wakeup\n");
-+
- 	ret = devm_request_threaded_irq(&client->dev, client->irq, NULL, max_tcpci_irq,
- 					(IRQF_TRIGGER_LOW | IRQF_ONESHOT), dev_name(chip->dev),
- 					chip);
- 	if (ret < 0)
- 		return ret;
- 
--	ret = devm_device_init_wakeup(chip->dev);
--	if (ret)
--		return dev_err_probe(chip->dev, ret, "Failed to init wakeup\n");
--
+@@ -209,8 +209,7 @@ static void process_rx(struct max_tcpci_chip *chip, u16 status)
+ static int get_vbus_regulator_handle(struct max_tcpci_chip *chip)
+ {
+ 	if (IS_ERR_OR_NULL(chip->vbus_reg)) {
+-		chip->vbus_reg = devm_regulator_get_exclusive(chip->dev,
+-							      "vbus");
++		chip->vbus_reg = regulator_get_exclusive(chip->dev, "vbus");
+ 		if (IS_ERR_OR_NULL(chip->vbus_reg)) {
+ 			dev_err(chip->dev,
+ 				"Failed to get vbus regulator handle\n");
+@@ -221,6 +220,14 @@ static int get_vbus_regulator_handle(struct max_tcpci_chip *chip)
  	return 0;
  }
  
++static void max_tcpci_put_vbus_regulator(void *data)
++{
++	struct max_tcpci_chip *chip = data;
++
++	if (!IS_ERR_OR_NULL(chip->vbus_reg))
++		regulator_put(chip->vbus_reg);
++}
++
+ static int max_tcpci_set_vbus(struct tcpci *tcpci, struct tcpci_data *tdata, bool source, bool sink)
+ {
+ 	struct max_tcpci_chip *chip = tdata_to_max_tcpci(tdata);
+@@ -514,6 +521,11 @@ static int max_tcpci_probe(struct i2c_client *client)
+ 	chip->data.cable_comm_capable = true;
+ 	chip->data.attempt_vconn_swap_discovery = max_tcpci_attempt_vconn_swap_discovery;
+ 
++	ret = devm_add_action_or_reset(&client->dev,
++				       max_tcpci_put_vbus_regulator, chip);
++	if (ret)
++		return ret;
++
+ 	max_tcpci_init_regs(chip);
+ 	chip->tcpci = tcpci_register_port(chip->dev, &chip->data);
+ 	if (IS_ERR(chip->tcpci))
 
 -- 
 2.56.1.831.g720f3f5937-goog
