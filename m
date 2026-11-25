@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795564695;
-	b=XN2oRjePyvPBZXgPML1lfpvwMQqEua03wFLiZhizfhjryFWzxVvIa8yxuB/3TFHEwljo
-	 ebD+y6Z4TW+HJzXzBXJjTixpFzPH7kS6ozwvz0t+ySZO5OqUMUiTMZ7UHs6Ov7VtPdyLX
-	 tmfZMqE3duScXIrvVPyrwVv1nmp/D+k9X+gekVVTmU2lyn1PWA7ErV3NGO8znwXDtVnuN
-	 cKoFhnhcu1rOMmXgqCH6xr4h86Xd5p/VnZIHHuGAv0bZlJC4yB8zGHVEixUOxaW8JwlDK
-	 9MCzsvaENZPtPrbv7BqNkVRQvtUYobOn2/EBjo88dgpuZv9IdUKEGEenTqmiI6zdQ+A==
+	t=1795565369;
+	b=p2L/Zp0xta2tuglEk20yvVVNNTcF57FjI5jM2w+Zg64D0+zxHzJjz56P7xHq8GnRpZiE
+	 WvqRonmSMKBTP++2OdZ2coj1TJ4+l6JcDf9VRpEb2fiu2ZdI9mBk2e5DFXCdu1t38rQY1
+	 81UcUcK0h3G975TDwOQJYljQ/fCDpAjH5E+cuZSsU6Hmr+e6ukMAIERxeG2xfj1lYFMTL
+	 xs/vZwgjcXPQKfsXeopXtPajpxS84I+xYuLwqzdI5CPNL1/L/XQv8M2u4x74aDbx6bnoV
+	 BatytX5cjuAihmkeIaqhKx/Mq4/Taku56v4h5DXbWicdMrnW6ubxWGxGPlH2GcqfZSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795564695;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795565369;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=DGWgaAE7Ny3FTq0U/1SdnDpUQ7yaMwkOisGjdATPxxI=;
-	b=eQiPfLUTTOTH1jwn7Wr9r5QWpXeh9gNqWLsTou+wPkSm/3MUBmsKb5uTgRyOFYQG7RRG
-	 sgdvFQGiTM/pWBCaedrMUOHjvszpFVxpG0uoSbBLR5iKLdDfDIaErp0ZG74quwELyvl6f
-	 0znXJkJswifk1jrWqElAJpMVv0L3oT8YRaNzYxdmQZvJfHpYzzIlqSXw5ErOr+dQfbDus
-	 OOiYCPdi3vU0JRWhdryLVGo3MCg0xsVMv7UD5EpkGX1r/gCyanNK6RiBQfjSIxCmYw1oh
-	 J7H9Sy2b8L4b017zf52p3gdS7BaJfmSJIeSgr1EUkKLIVU8NN8bpCkAn4EL0WKid3oQ==
+	bh=XRFGqWZ79fbyKPA+SVKZAvvhYmQrQCIg92Zvtbp9/qk=;
+	b=Xcgvane7eMzGJiIc9icWrX+xpGnELKWRESRDlI50uoJtDsk3k4XcA/wdUdCf9F/rDf8R
+	 dsR5hguHbvoKoJaBoBl+8wU97kZ3dvkoaDq0ciCFa297eYPkSG/BRqIYozfYCiBNBmYB5
+	 yh2XF5V9zWGvH9LSact+JaozLau9TGBRUFamwLWC5dsHEDrR+ozB2AcRziY8RWnr+StIR
+	 fiuNdl5ehq4RAH+kRNRpAm1DESx1YHU/dH+6czgQDhXtqXrZSnPZwys8+t/bNY30d9N++
+	 DsyD5gGxCyTUFgtZx6F3MkxNmBFjsuspBTkBLQClS3DRy5nFZfq4SjygfamEicV6NpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cl1A6OI7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ef77z3Fw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CBC1606A326
-	for <stable@vger.kernel.org>; Tue, 24 Nov 2026 23:58:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B6A606A334
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 00:09:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cl1A6OI7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABD2F1F000C6;
-	Tue, 24 Nov 2026 23:58:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ef77z3Fw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41D791F000C4;
+	Wed, 25 Nov 2026 00:09:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795564695;
-	bh=DGWgaAE7Ny3FTq0U/1SdnDpUQ7yaMwkOisGjdATPxxI=;
+	s=k20260515; t=1795565368;
+	bh=XRFGqWZ79fbyKPA+SVKZAvvhYmQrQCIg92Zvtbp9/qk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Cl1A6OI71NmvZDV0e11P7w4Oy64ys+UPvLy5i1QlsXpvPKCRT1MEbvxPPVXZRhHUp
-	 cqRNIav4GovC6WRptAa+g4u4uIxe41CV/OV6yx5SvYOgFZyQ5N04DhDGQI+yxBxAJe
-	 1s2Y1TP5tNkBP/O2D3Dn155IYphdAHeLbZ7nJvSmpiHkpISEnNsDfTNhfCDEJl6QSG
-	 nw8FgLeSFra6s/+61l81uFuHlxgegHNPvkJmw5ZXzlmVg8lQlOjkWst4LU6ecP6JYs
-	 KYYcwpZbhWsbQsIKENOlpTndLGlT88VJEJUQtczisTiCcsjp+hieOvn7YLlddX390n
-	 BSHtkwTEYWaQw==
+	b=Ef77z3FwfYjT8fT48hhanWIEoiXf1TWVO2oV7/+W4sO13lplkZay2fDFEygsiLclS
+	 AROAb2Dg6fDvQpq2Ti4vsQ1G0Od5qB8h4G6YFkVdYfvx+Vf1VrVGSnSXvV5Ur3ME7r
+	 KidGE+C3DjrXFQGKM+22V+qHQTl7hjkXdH1jVXBo7dGjM4naUTLT/iHT4O1bRAt192
+	 qH8WdbzsIyMok/PuLkvNn1fn+vQUcUQQNAE6ltZnU/7T21QQrtPrTPi6VNhVhBCXyd
+	 /MXXNT5OIMll14gaPv2lQjZztngneSgq/CiAZA7YVvi5dXNWke9+iZhbH+VxyaaqLd
+	 XgTFXr+AiUZyQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mahanta Jambigi <mjambigi@linux.ibm.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] net/smc: fix link group ownership in handshake abort
-Date: Tue, 24 Nov 2026 18:58:13 -0500
-Message-ID: <20261124235721.3383543-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/page_alloc: retry allocations that raced with a zonelist rebuild
+Date: Tue, 24 Nov 2026 19:09:26 -0500
+Message-ID: <20261125000113.3377822-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112436-imaging-irritably-0e3f@gregkh>
-References: <2026112436-imaging-irritably-0e3f@gregkh>
+In-Reply-To: <2026112436-overtime-sectional-a2c3@gregkh>
+References: <2026112436-overtime-sectional-a2c3@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,251 +61,157 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mahanta Jambigi <mjambigi@linux.ibm.com>
+From: "Gregory Price (Meta)" <gourry@gourry.net>
 
-[ Upstream commit e227b511582828c5a6513f70fc6a71211e5efbf0 ]
+[ Upstream commit bcfc8286f0cd5a74c827d502f9f1ad408d7eff30 ]
 
-An aborted first-contact handshake can hang the handshake worker on the
-socket lock it already holds, reset the clcsock of a socket that has
-fallen back to TCP, or corrupt the alert-node lookup when the handshake
-retries with the same connection.
+Onlining the first block of a zone rebuilds every zonelist in place,
+shifting the slots after the new zone.  The iterator approves a slot,
+then the allocator loads the zone from it, so a GFP_KERNEL request can
+land in ZONE_MOVABLE and a nodemask request on a node outside its mask:
 
-The abort leaves a connection registered in a link group that another
-context has already unlinked for termination: smc_conn_free() skips the
-unregister when lgr->list is empty, so the alert token and alert node
-stay in lgr->conns_all. If the handshake retries another device or SMC
-version, smc_conn_create() creates a second link group and
-smc_lgr_register_conn() inserts the same alert node into it: the token
-loop is skipped, rb_link_node() links a node that is still in the old
-tree into the new one, and a second sock_hold() is taken where only one
-sock_put() will follow. The old group's terminator then keeps returning
-that node from rb_first() and can kill a connection that now belongs to
-the new group.
+  CPU 0                             CPU 1
+  prepare_alloc_pages()
+    first_zones_zonelist(nodemask {1})
+      slot 0 (NORMAL1) approved
+                                    online_pages()
+                                      build_all_zonelists()
+                                        [NORMAL1, NORMAL2, ...]
+                                        -> [MOVABLE1, NORMAL1, ...]
+  get_page_from_freelist()
+    zone = zonelist_zone(slot 0)    /* MOVABLE1 */
+    allocates from MOVABLE1
 
-smc_lgr_cleanup_early() also starts a second termination of the link
-group that is already being terminated, which takes lock_sock() on the
-socket the handshake worker holds; if the termination work wins the race
-instead, it later kills the freed connection and aborts the clcsock of a
-socket that has fallen back to TCP. Making the unregister unconditional
-also lets smc_conn_free() reach the delayed free work on a claimed link
-group, where the lockless freeing check can arm it after the owner has
-cancelled it.
+zonelist_update_seq detects the rebuild, but only the slowpath's failure
+exits check it.
 
-Always unregister the connection, claim a link group for termination
-once under lgr_lock, keep the link group alive across the abort, and arm
-the delayed free work only under the same lock and cancel it
-synchronously before the teardown. Drop an already freed connection in
-smc_conn_kill() without running the connection and socket teardown.
+Check it whenever an allocation succeeds too, and if it changed, free
+the page and retry, as the memcg charge failure path does.  Eligible
+pages are dropped as well: zonelists only change when memory comes or
+goes, and a retry is simpler than rechecking the page.
 
-Fixes: 2a0674fffb6b ("net/smc: improve abnormal termination of link groups")
-Fixes: f9aab6f2ce57 ("net/smc: immediate freeing in smc_lgr_cleanup_early()")
+Freeing the page does not undo a block the allocation claimed.  A
+GFP_KERNEL request that lands in a fresh ZONE_MOVABLE converts a free
+block to MIGRATE_UNMOVABLE, which stays until the zone's movable free
+list runs out and a movable allocation takes it back.
+
+The fast and bulk paths read the seqlock's raw seqcount without waiting:
+an ALLOC_NOLOCK caller can be an NMI that interrupted the writer, and on
+PREEMPT_RT the seqlock accessor takes the spinlock.  A sample taken
+mid-write costs a retry, or NULL under ALLOC_NOLOCK.
+check_retry_zonelist() returns 0 when compiled out, so a backport
+without the hot-add change stays harmless.
+
+Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_zonelists")
 Cc: stable@vger.kernel.org
-Signed-off-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
-Link: https://patch.msgid.link/20261106130457.1092203-1-mjambigi@linux.ibm.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Link: https://patch.msgid.link/20261101021340.2251928-9-gourry@gourry.net
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+[ sashal: Replaced the __free_frozen_pages() calls with __free_pages() and adapted the hunks to the older __alloc_pages/__alloc_pages_bulk code, which has no ALLOC_NOLOCK handling. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/smc/af_smc.c   | 11 ++++---
- net/smc/smc_core.c | 78 +++++++++++++++++++++++++++++++++-------------
- net/smc/smc_core.h |  6 ++--
- 3 files changed, 65 insertions(+), 30 deletions(-)
+ mm/page_alloc.c | 33 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 32 insertions(+), 1 deletion(-)
 
-diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
-index 4c158cde1f504..a335502e4c3ae 100644
---- a/net/smc/af_smc.c
-+++ b/net/smc/af_smc.c
-@@ -971,14 +971,15 @@ static void smc_conn_abort(struct smc_sock *smc, int local_first)
- {
- 	struct smc_connection *conn = &smc->conn;
- 	struct smc_link_group *lgr = conn->lgr;
--	bool lgr_valid = false;
--
--	if (smc_conn_lgr_valid(conn))
--		lgr_valid = true;
-+	bool lgr_valid = local_first && smc_conn_lgr_valid(conn);
- 
-+	if (lgr_valid)
-+		smc_lgr_hold(lgr);	/* lgr_put below */
- 	smc_conn_free(conn);
--	if (local_first && lgr_valid)
-+	if (lgr_valid) {
- 		smc_lgr_cleanup_early(lgr);
-+		smc_lgr_put(lgr);
-+	}
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index ba7f386331a65..952496c1e546b 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -4809,12 +4809,25 @@ static unsigned int zonelist_iter_begin(void)
+ 	return 0;
  }
  
- /* check if there is a rdma device available for this connection. */
-diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
-index 5d188222807a8..a20ff53698950 100644
---- a/net/smc/smc_core.c
-+++ b/net/smc/smc_core.c
-@@ -80,16 +80,21 @@ static void smc_ibdev_cnt_dec(struct smc_link *lnk)
- 
- static void smc_lgr_schedule_free_work(struct smc_link_group *lgr)
- {
-+	spinlock_t *lgr_lock;
-+
- 	/* client link group creation always follows the server link group
- 	 * creation. For client use a somewhat higher removal delay time,
- 	 * otherwise there is a risk of out-of-sync link groups.
- 	 */
-+	smc_lgr_list_head(lgr, &lgr_lock);
-+	spin_lock_bh(lgr_lock);
- 	if (!lgr->freeing) {
- 		mod_delayed_work(system_wq, &lgr->free_work,
- 				 (!lgr->is_smcd && lgr->role == SMC_CLNT) ?
- 						SMC_LGR_FREE_DELAY_CLNT :
- 						SMC_LGR_FREE_DELAY_SERV);
- 	}
-+	spin_unlock_bh(lgr_lock);
- }
- 
- /* Register connection's alert token in our lookup structure.
-@@ -629,19 +634,34 @@ int smcd_nl_get_lgr(struct sk_buff *skb, struct netlink_callback *cb)
- 	return skb->len;
- }
- 
--void smc_lgr_cleanup_early(struct smc_link_group *lgr)
-+/* Claim a link group for termination. Only one context can succeed: the
-+ * lgr is removed from its list and marked freeing under lgr_lock.
-+ * Returns false if @lgr is NULL or another context owns it.
++/*
++ * Never wait for the writer, which an ALLOC_NOLOCK caller in NMI may have
++ * interrupted. Read the raw seqcount: on PREEMPT_RT the seqlock accessor takes
++ * the spinlock while a write is in progress.
 + */
-+static bool smc_lgr_claim(struct smc_link_group *lgr)
- {
- 	spinlock_t *lgr_lock;
- 
- 	if (!lgr)
--		return;
--
-+		return false;
- 	smc_lgr_list_head(lgr, &lgr_lock);
- 	spin_lock_bh(lgr_lock);
-+	if (lgr->freeing || lgr->terminating || list_empty(&lgr->list)) {
-+		spin_unlock_bh(lgr_lock);
-+		return false;
-+	}
- 	/* do not use this link group for new connections */
--	if (!list_empty(&lgr->list))
--		list_del_init(&lgr->list);
-+	list_del_init(&lgr->list);
-+	lgr->freeing = 1;
- 	spin_unlock_bh(lgr_lock);
-+	return true;
++static unsigned int zonelist_iter_sample(void)
++{
++	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
++		return raw_seqcount_begin(&zonelist_update_seq.seqcount.seqcount);
++
++	return 0;
 +}
 +
-+/* The caller must keep @lgr alive for the duration of the call. */
-+void smc_lgr_cleanup_early(struct smc_link_group *lgr)
-+{
-+	if (!smc_lgr_claim(lgr))
-+		return;	/* another context owns the termination */
- 	__smc_lgr_terminate(lgr, true);
+ static unsigned int check_retry_zonelist(unsigned int seq)
+ {
+ 	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
+ 		return read_seqretry(&zonelist_update_seq, seq);
+ 
+-	return seq;
++	return 0;
  }
  
-@@ -1176,10 +1196,12 @@ void smc_conn_free(struct smc_connection *conn)
- 		if (current_work() != &conn->abort_work)
- 			cancel_work_sync(&conn->abort_work);
- 	}
--	if (!list_empty(&lgr->list)) {
-+	/* The handshake can retry another device or SMC version with this
-+	 * connection, so it must never stay registered in an lgr it left.
-+	 */
-+	if (!list_empty(&lgr->list))
- 		smc_buf_unuse(conn, lgr); /* allow buffer reuse */
--		smc_lgr_unregister_conn(conn);
--	}
-+	smc_lgr_unregister_conn(conn);
- 
- 	if (!lgr->conns_num)
- 		smc_lgr_schedule_free_work(lgr);
-@@ -1414,6 +1436,15 @@ static void smc_conn_kill(struct smc_connection *conn, bool soft)
- {
- 	struct smc_sock *smc = container_of(conn, struct smc_sock, conn);
- 
-+	if (conn->freed) {
-+		/* The connection was already freed, e.g. by a close or
-+		 * a handshake that fell back to TCP. Do not abort a socket
-+		 * that is no longer part of this link group.
-+		 */
-+		smc_lgr_unregister_conn(conn);
-+		return;
+ /* Perform direct synchronous page reclaim */
+@@ -5410,6 +5423,12 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 	warn_alloc(gfp_mask, ac->nodemask,
+ 			"page allocation failure: order:%u", order);
+ got_pg:
++	/* A rebuild during the walk may have handed out an ineligible zone. */
++	if (page && check_retry_zonelist(zonelist_iter_cookie)) {
++		__free_pages(page, order);
++		page = NULL;
++		goto restart;
 +	}
+ 	return page;
+ }
+ 
+@@ -5490,6 +5509,7 @@ unsigned long __alloc_pages_bulk(gfp_t gfp, int preferred_nid,
+ 	struct alloc_context ac;
+ 	gfp_t alloc_gfp;
+ 	unsigned int alloc_flags = ALLOC_WMARK_LOW;
++	unsigned int zonelist_iter_cookie;
+ 	int nr_populated = 0, nr_account = 0;
+ 
+ 	/*
+@@ -5530,6 +5550,7 @@ unsigned long __alloc_pages_bulk(gfp_t gfp, int preferred_nid,
+ 	/* May set ALLOC_NOFRAGMENT, fragmentation will return 1 page. */
+ 	gfp &= gfp_allowed_mask;
+ 	alloc_gfp = gfp;
++	zonelist_iter_cookie = zonelist_iter_sample();
+ 	if (!prepare_alloc_pages(gfp, 0, preferred_nid, nodemask, &ac, &alloc_gfp, &alloc_flags))
+ 		goto out;
+ 	gfp = alloc_gfp;
+@@ -5564,6 +5585,10 @@ unsigned long __alloc_pages_bulk(gfp_t gfp, int preferred_nid,
+ 	if (unlikely(!zone))
+ 		goto failed;
+ 
++	/* The zone was chosen from a zonelist that a rebuild may have changed. */
++	if (unlikely(check_retry_zonelist(zonelist_iter_cookie)))
++		goto failed;
 +
- 	if (conn->lgr->is_smcd && conn->lgr->peer_shutdown)
- 		conn->local_tx_ctrl.conn_state_flags.peer_conn_abort = 1;
- 	else
-@@ -1457,12 +1488,20 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
- 	struct smc_connection *conn;
- 	struct smc_sock *smc;
- 	struct rb_node *node;
-+	spinlock_t *lgr_lock;
+ 	/* spin_trylock may fail due to a parallel drain or IRQ reentrancy. */
+ 	pcp_trylock_prepare(UP_flags);
+ 	pcp = pcp_spin_trylock(zone->per_cpu_pageset);
+@@ -5636,6 +5661,7 @@ struct page *__alloc_pages(gfp_t gfp, unsigned int order, int preferred_nid,
+ 	unsigned int alloc_flags = ALLOC_WMARK_LOW;
+ 	gfp_t alloc_gfp; /* The gfp_t that was actually used for allocation */
+ 	struct alloc_context ac = { };
++	unsigned int zonelist_iter_cookie;
  
--	if (lgr->terminating)
-+	smc_lgr_list_head(lgr, &lgr_lock);
-+	spin_lock_bh(lgr_lock);
-+	if (lgr->terminating) {
-+		spin_unlock_bh(lgr_lock);
- 		return;	/* lgr already terminating */
--	/* cancel free_work sync, will terminate when lgr->freeing is set */
--	cancel_delayed_work(&lgr->free_work);
+ 	/*
+ 	 * There are several places where we assume that the order value is sane
+@@ -5654,6 +5680,7 @@ struct page *__alloc_pages(gfp_t gfp, unsigned int order, int preferred_nid,
+ 	 */
+ 	gfp = current_gfp_context(gfp);
+ 	alloc_gfp = gfp;
++	zonelist_iter_cookie = zonelist_iter_sample();
+ 	if (!prepare_alloc_pages(gfp, order, preferred_nid, nodemask, &ac,
+ 			&alloc_gfp, &alloc_flags))
+ 		return NULL;
+@@ -5666,6 +5693,10 @@ struct page *__alloc_pages(gfp_t gfp, unsigned int order, int preferred_nid,
+ 
+ 	/* First allocation attempt */
+ 	page = get_page_from_freelist(alloc_gfp, order, alloc_flags, &ac);
++	if (likely(page) && unlikely(check_retry_zonelist(zonelist_iter_cookie))) {
++		__free_pages(page, order);
++		page = NULL;
 +	}
- 	lgr->terminating = 1;
-+	spin_unlock_bh(lgr_lock);
-+	/* The lgr is claimed, so no new free_work can be armed; wait for
-+	 * one that is already queued or running.
-+	 */
-+	cancel_delayed_work_sync(&lgr->free_work);
+ 	if (likely(page))
+ 		goto out;
  
- 	/* kill remaining link group connections */
- 	read_lock_bh(&lgr->conns_lock);
-@@ -1473,7 +1512,11 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
- 		sock_hold(&smc->sk); /* sock_put below */
- 		read_unlock_bh(&lgr->conns_lock);
- 		lock_sock(&smc->sk);
--		smc_conn_kill(conn, soft);
-+		/* The connection may have been re-registered in another
-+		 * link group by a retried handshake in the meantime.
-+		 */
-+		if (conn->lgr == lgr)
-+			smc_conn_kill(conn, soft);
- 		release_sock(&smc->sk);
- 		sock_put(&smc->sk); /* sock_hold above */
- 		read_lock_bh(&lgr->conns_lock);
-@@ -1487,17 +1530,8 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
- /* unlink link group and schedule termination */
- void smc_lgr_terminate_sched(struct smc_link_group *lgr)
- {
--	spinlock_t *lgr_lock;
--
--	smc_lgr_list_head(lgr, &lgr_lock);
--	spin_lock_bh(lgr_lock);
--	if (list_empty(&lgr->list) || lgr->terminating || lgr->freeing) {
--		spin_unlock_bh(lgr_lock);
-+	if (!smc_lgr_claim(lgr))
- 		return;	/* lgr already terminating */
--	}
--	list_del_init(&lgr->list);
--	lgr->freeing = 1;
--	spin_unlock_bh(lgr_lock);
- 	schedule_work(&lgr->terminate_work);
- }
- 
-diff --git a/net/smc/smc_core.h b/net/smc/smc_core.h
-index 6051d92270130..1ce0fd9480d5b 100644
---- a/net/smc/smc_core.h
-+++ b/net/smc/smc_core.h
-@@ -260,9 +260,9 @@ struct smc_link_group {
- 	struct delayed_work	free_work;	/* delayed freeing of an lgr */
- 	struct work_struct	terminate_work;	/* abnormal lgr termination */
- 	struct workqueue_struct	*tx_wq;		/* wq for conn. tx workers */
--	u8			sync_err : 1;	/* lgr no longer fits to peer */
--	u8			terminating : 1;/* lgr is terminating */
--	u8			freeing : 1;	/* lgr is being freed */
-+	u8			sync_err;	/* lgr no longer fits to peer */
-+	u8			terminating;	/* lgr is terminating */
-+	u8			freeing;	/* lgr is being freed */
- 
- 	refcount_t		refcnt;		/* lgr reference count */
- 	bool			is_smcd;	/* SMC-R or SMC-D */
 -- 
 2.53.0
 
