@@ -1,55 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.211.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596063;
-	b=2NCjpYZruJR+jDovU3T0IEEYcMIAOeNhoJvJcm2LesrbqW3OXLy4guYKJTSUoaNnx3NU
-	 /IGdbBnlYwCirYtdDTojhHIxqY4hxfyxWpMTde3rl2a7cN27d05N6nlbcO9v7wPrjsAuw
-	 bIAJyNpRs9A3MkBj/w2STceJ15w6QPwIGpg3WB6/mneuIbFXAeg2331Pa1aMUw1k2lvAv
-	 CQwMa2v5DLo566VMlJD1/2+DT+gCQwvPtZJf2J+T3lXlOUyYoDsafzaBSuByN+YY1eV+F
-	 bbD9+cR5X8NwelfUDVltmfHRQw2vgRQBVUGbyOELbAVK3AJ9zNDxa2mpwBpwazcKx5w==
+	t=1795596107;
+	b=SGY7wpz1HGE9xwq/6HNcgk/sqA737vNbP5l4BPdYGbf0qjIbLoWZgS23iMGwglGoQYVe
+	 dOW4fbdKrg8a6X7dk6dJyEQ7a2VvsjkCoAENYSdaA2J9z90i3Fs0AxKI1+YakpIBe20o6
+	 5FCNhEbTpbhlYe/mCSqYtIRibzLEFNTmwr8S+pD9A7bI08vKmHV1AZ3IJsoOQ9j45lVI4
+	 WqXhFqWhnfy06+kLkatwJR/vCmQxMJQj9XSRZd/dbjDm+a0ShKqpE7z8IIjqj3F71lJIl
+	 zYhrGt0AZLrBA74l00fDz+9x18GbHXM5ybr/PTP2z1BfbgNbGxvNlqZW2oOO4GJvxLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596063;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596107;
+	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=vmgKLeyzP6wYjMeA/rCbtyx0g8MP8eL1cI8q9KS6PAo=;
-	b=rUKCK7jrnYNTxJ3kcQL06ULS2OBwl9TnzXZM/1W4mujyGQTTGqDPY1666ZmZLQSA+dD8
-	 FZ/VAHCXaAQEmqBUQeLk6Apdav/DBRZBFZYaM9kuKz/0fA7d6kQrXmF5KYjtyvjx4dK7X
-	 AooQ37Vk4fI8jeq8AKvyzqvkPOOW+sczDrUF5+bWGri56NDtmQ03UQKpmOgA6pmqAIWyz
-	 Yzufwp459ZoLB8LScnP0UsopfCiDiAd4JLyk5pSOwzzHd9IvaAr/wdFMba6oAN96zojE4
-	 TxvT7cg9LvfLU6djNkPEmmQZ+Umi7HzYvT98TVX1d/8E9XZlwALqFYsyo2LbbyuPOBg==
+	bh=HRW9Qk9qeAqYq2NS8NaScJ7tOzreTijlDxilGYfObys=;
+	b=vlxHEXB5tXYfHHagvPUd9lPyx7IKUKVwwu0u4awbL+6Z5l+Fy92/kPJqpjMJE7vUSP78
+	 wMbGfzNmHm+3q/zxzOkKbA4MXNxyHR3PfI/UvMru+fjlUCSR+is4oaEdHwtwI2w6jTUrU
+	 2jN1lmigzCoAAK1MOl+nJY4dUJlm69YQVHbjgUu0ySeX6MNMSL8eDM8Y42zh6acW7EEns
+	 VNL6MCJ6TDDrFx6jA7Qt7MbHJZ2KOjS0VLmWnWzDymIRPj3QbD/lV9vYRaPPZq3S47dzv
+	 xOwScb1jT9lVOtxIb4iAFaSCoe4MjIeOwuMvC29fAQ3rgsRZI1hKtQ9wL4qdk+HCAaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OurqCYeq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=swemel.ru;
+	spf=pass smtp.mailfrom=swemel.ru;
+	dkim=pass header.d=swemel.ru header.i=@swemel.ru header.a=rsa-sha256 header.s=mail header.b=IPMPygw2;
+	arc=none smtp.remote-ip=95.143.211.150
+Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC03606A332;
-	Wed, 25 Nov 2026 08:41:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D3A606A321;
+	Wed, 25 Nov 2026 08:41:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5D3A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swemel.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OurqCYeq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A8651F000C4;
-	Wed, 25 Nov 2026 08:41:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795596062;
-	bh=vmgKLeyzP6wYjMeA/rCbtyx0g8MP8eL1cI8q9KS6PAo=;
-	h=From:To:Cc:Subject:Date;
-	b=OurqCYeqH24EhUaFIkbGRxt4A5/s0R3WyRP5l/AEZsFKo4BmGGeusPS36kMdH/X6z
-	 2VuioqFyhS4ie6BimFoXVj5G2GamKkMh6mSNCrE52yetxMCsgj5ZEn9KooTot2/CyQ
-	 hSCFhPDMI9GlLxkwgB8fLJrnI1kHBvPlih+lTNrl3v6lJewysEU2EuG2ouOlnR30qI
-	 dc96mYXe2c5+vekkpuVVYbd2eMg6mjJtnIKfDd4FCCRHD5iVjZ3pI0vjuHRsGf6Pf6
-	 KMYV5JlMSkLSv4y45N1hnRBZo3oMuTQmcvPxNORpcE4i26Wr9djsHFVJfNDjEFn9yj
-	 zqbFgr61Zmxdw==
-From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: linux-serial@vger.kernel.org,
-	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
-	"Claude Opus 5.5" <noreply@anthropic.com>,
-	Kevin Cernekee <cernekee@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] serial: rp2: remove ports on IRQ request failure in probe
-Date: Wed, 25 Nov 2026 09:40:59 +0100
-Message-ID: <20261125084059.84951-1-jirislaby@kernel.org>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (1024-bit key, unprotected) header.d=swemel.ru header.i=@swemel.ru header.a=rsa-sha256 header.s=mail header.b=IPMPygw2
+From: Denis Arefev <arefev@swemel.ru>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
+	t=1795596102;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=HRW9Qk9qeAqYq2NS8NaScJ7tOzreTijlDxilGYfObys=;
+	b=IPMPygw204mopTIfa7oyuBfgNsnKSSGoOYdkR18n0pIBeor2ZugxtqSGZQGNtMQ/XZstYg
+	6Q1emS53AYOfm47gXb0w8ZVX1Y+EH//Dwj04IDiqZp5YTNnZY8SU9BzG2NqZ6dr+yhApjX
+	zzOQ4DITCQf9M/kpw9ww6kASUiMLR7g=
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	iommu@lists.linux-foundation.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Joerg Roedel <jroedel@suse.de>
+Subject: [PATCH 5.10] iommu/amd: Check return value of mmu_notifier_register()
+Date: Wed, 25 Nov 2026 11:41:40 +0300
+Message-ID: <20261125084142.30679-1-arefev@swemel.ru>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,44 +64,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit 016002848c82 ("serial: rp2: use 'request_firmware' instead
-of 'request_firmware_nowait'"), rp2_probe() loads the firmware and
-registers all the UART ports (via rp2_load_firmware()) before requesting
-the IRQ. But if devm_request_irq() fails, probe just returns the error
-and leaves the ports registered with the serial core.
+From: Denis Arefev <arefev@swemel.ru>
 
-rp2_remove() is not called for a failed probe, so the ports stay
-registered, pointing to a card whose devm-managed memory (card->ports
-included) and iomaps are freed. Any later access to the tty devices
-then results in a use-after-free.
+commit b09b56734fae28be9332021ae3e84c9b05020fda upstream.
 
-Call rp2_remove_ports() when the IRQ request fails.
+Added a return value check for the function
+mmu_notifier_register().
 
-Fixes: 016002848c82 ("serial: rp2: use 'request_firmware' instead of 'request_firmware_nowait'")
-Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Cc: Kevin Cernekee <cernekee@gmail.com>
-Cc: <stable@vger.kernel.org>
+Return value of a function 'mmu_notifier_register'
+called at iommu_v2.c:642 is not checked,
+ but it is usually checked for this function
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Signed-off-by: Denis Arefev <arefev@swemel.ru>
+Link: https://lore.kernel.org/r/20221118104252.122809-1-arefev@swemel.ru
+[joro: Fix commit message ]
+Signed-off-by: Joerg Roedel <jroedel@suse.de>
+Signed-off-by: Denis Arefev <arefev@swemel.ru>
 ---
- drivers/tty/serial/rp2.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/iommu/amd/iommu_v2.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/tty/serial/rp2.c b/drivers/tty/serial/rp2.c
-index 158b06424b56..f82270bf7060 100644
---- a/drivers/tty/serial/rp2.c
-+++ b/drivers/tty/serial/rp2.c
-@@ -755,9 +755,9 @@ static int rp2_probe(struct pci_dev *pdev,
- 	rc = devm_request_irq(&pdev->dev, pdev->irq, rp2_uart_interrupt,
- 			      IRQF_SHARED, DRV_NAME, card);
- 	if (rc)
--		return rc;
-+		rp2_remove_ports(card);
+diff --git a/drivers/iommu/amd/iommu_v2.c b/drivers/iommu/amd/iommu_v2.c
+index 16776e3c6eab..8704c2c89556 100644
+--- a/drivers/iommu/amd/iommu_v2.c
++++ b/drivers/iommu/amd/iommu_v2.c
+@@ -640,7 +640,9 @@ int amd_iommu_bind_pasid(struct pci_dev *pdev, u32 pasid,
+ 	if (pasid_state->mm == NULL)
+ 		goto out_free;
  
--	return 0;
-+	return rc;
- }
+-	mmu_notifier_register(&pasid_state->mn, mm);
++	ret = mmu_notifier_register(&pasid_state->mn, mm);
++	if (ret)
++		goto out_free;
  
- static void rp2_remove(struct pci_dev *pdev)
+ 	ret = set_pasid_state(dev_state, pasid_state, pasid);
+ 	if (ret)
 -- 
-2.56.1
+2.43.0
 
