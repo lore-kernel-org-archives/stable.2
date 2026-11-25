@@ -1,56 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795635626;
-	b=pGQpAoBVACys4V1fNov78v/YMagMMu+SYvZfiWPKxxxtgitvmQbl673wiSfsCJbWpLMF
-	 rsoYfvk6AXNuOuZ2PxDCkC0SxWcyf2lT2LskGdaj1vOdI0a5XbdV3m/GroZliy8JmWnG0
-	 vDSZzrZecco53BkEtw3bXnPfDDyLhp8ElkMZSfU2Qo7aXQWosL7YHfAU2cOeihg0MBLu+
-	 NPZH4KwHPjNWZcm8LFQdLGuhtPddZMI3oocBWRNWzf6TDwzM9quMl2D2q+uJZZmnWlIYi
-	 q8CN1vphs1GCAsdrL5z8J4gbdC9lwOzEZ1pCIcfjs80m7o+KD6gBcOzfcRhFoz/3T8Q==
+	t=1795635880;
+	b=tLnG9EiTuk4WGD/DjhUPXgFlZmmgZYm0QSqUwLRjuMjihqkyXqi9pr5Na7ni1yJuRKo1
+	 oJyzp6nIT3CvBYBdHDJ02MfDVvSfQ8ZapYxTs1vmV8OVgBqlzwvPVIi9wjDTCdBxQBJ6k
+	 HYREck6134dKpeXRk0LsQxpZma5xa/BrMMxY/NK/j31Q+50YfNTnXg8DR4pS4vPAF3p2H
+	 sUkYuuabklEYYMgh+wa8Jyy3973ZnrBrZHl9mHpI4ALGYsYZdwgxVZ/ZXzDjH3yNErNOY
+	 UiQQCyG/dK03DjBryfaigc+BC+Q2PBcJsDgmIlq51SDNZy+koN3Y8rrWbpafWMfSgCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795635626;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=fkoQublCTV+s5K89cS7hF2NvF3oSNnHszSS91rpmGn0=;
-	b=e4fHp+rRLz5yWeL9osaCuf5X3m9UNmzb4Ne2Li+LwRWpgOPHZ85LbKDnLgkiE9sserPt
-	 i9ShBk6sQ0lg4CNjejfGBBISATCbm2Riv5BXTCM8fOVj68Ym14Kif/YuyNmbqfJ6uHw7t
-	 MDL9VbALBTxMJeeTvqFqlKzVsQ1Azp2C5i6GyDHAfZrSzvPVJETAuebWK8A6ogMjZ6nI8
-	 GS4K1vDlYM7M2umm0k5/12RJB+ZHFyQTdmOzKcXX7gyjRlplVcvXqlCwNdb74mvWg+Tmu
-	 yIPFgT8k0Dg5GJYPuccVf4s2KwhlBq9hF1K6gcIWZku6Po56+v2YYIUQISFBKO8YX2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795635880;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=+ypIl6O4RFwCdH9fMD25g4AZ0LJ/xXTxEjxVlFOHiqM=;
+	b=xrItV1ICy5DEYH/0drXlufpvBHDEQ9B2/XysBJ2dg+LLcElJs7sLqbc4nsdKqk3rtwoI
+	 ue31lvseof2x6QLNPzYERADD6WpgdfOrC2jdspKoTS+jf2qJRirRSEbgGWzf4wDqlIAg3
+	 CuaMNi5dvpy5gWWlOysh7k9koxL6IJbEqpCx5C1dXEzGyqQUZ4lWppVP1BDStOLjtw9bO
+	 tF/B5+L38JyBwBWfaxFY5RbUt+od+riyn3Ziz74B2X6Dwk1VJAwi3UoDRaDl6OxR2Wv4C
+	 Lm3u5MCp4tyH2XCQUrY1oLiM7iQMD1m5IDALOUR3/+rt9u0f4swxMbrvq8pezPOaHkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cM9Mlkm8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=oOVmEWsn;
+	arc=none smtp.remote-ip=109.224.244.17
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E18606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:40:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA82606A31E;
+	Wed, 25 Nov 2026 19:44:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEA82606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cM9Mlkm8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8840F1F000D3;
-	Wed, 25 Nov 2026 19:40:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795635626;
-	bh=fkoQublCTV+s5K89cS7hF2NvF3oSNnHszSS91rpmGn0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cM9Mlkm8TWoN4ZYZ5WBKWZcJe03hZCXx8nDxPlWmYOdIiL7VhjKiu3zun77F5idqS
-	 DRESqlhdvR4F8EO/5OxGR3dCObZYX+WkyYXWcfZYuNtKy4Yqg4BJbAy4/D2/Zcqbaq
-	 pmHEFjaukytBDsmNPOvwX4/jWvACEjZLYStoSKlqbRudTWmHhZyPPj5raoVrwMn9Fd
-	 q6DrcvRPSrM/RzK52jx0Zo4phUT5zUPo0C8jCEAQF7KvBaZef63P8cUaqCti1Vf8Ws
-	 bp0Q7fMofqgIUrei9HTAeaBvkHzVFYU0i8T/I/yxspx8DtLu0dCSPggeR/qlwAtnqR
-	 ON8ygNvmmLciA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Wahid Khan <wahidzk0091@gmail.com>,
-	Ian Bridges <icb@fastmail.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ksmbd: refuse to read a handle that is not open for reading
-Date: Wed, 25 Nov 2026 14:40:23 -0500
-Message-ID: <20261125194003.1284705-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112526-surviving-carpool-9331@gregkh>
-References: <2026112526-surviving-carpool-9331@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=oOVmEWsn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1795635876; x=1795895076;
+	bh=+ypIl6O4RFwCdH9fMD25g4AZ0LJ/xXTxEjxVlFOHiqM=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=oOVmEWsnmrPId/aQtxQQJWEnQC/YoVHCJIECkVFYljefMn1djcYp5bsG3P6kXeCSV
+	 7oAe+ZYa4vrdKpeFAmeKTOrsO6yh8mqJThs4dUOj38F5VxcC75AmwvXSOJxnfL6njR
+	 jAwjjb3KuwyFp2hg9TjT/o+KFC+3FKDkS7akGPgVkERpgNi/oKnJOOG6JZL6iOZw1y
+	 LgjfCTwQWuApTCvw4Nbra6u2zYTcD4dlqoYqmx3cmBtNLF1giVGx0Wshd9VDwtG2K+
+	 NcJFWJ3QPZLUvkzRlUBoxD/Opm4JTCduzN4FlW1wP7azLOiMraPjWA2NQtcvEkIbig
+	 JZbp7ImL3EGOw==
+Date: Wed, 25 Nov 2026 19:44:29 +0000
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 7.3 0000/1005] 7.3.7-rc1 review
+Message-ID: <20261125194417.55783-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 72914e73506db7fc547786334e45b19e065eeee6
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,60 +61,17 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Wahid Khan <wahidzk0091@gmail.com>
+Built with Ubuntu's config (Rust off) and booted on a Surface Pro 11
+(Lunar Lake).
 
-[ Upstream commit 2fd145f8865bb1a6c38a3dc68fa44290008789d8 ]
+With 0005/1005, the SoundWire ghost RT1320 quirk, the sof-soundwire card
+registers with one RT1320 and the speaker plays; on 7.3.6-rc2 there was
+no card. Ten s2idle cycles: no suspend failures, Bluetooth (btintel_pcie)
+up and scanning after each resume, and the speaker still plays after
+them. No WARNING at boot.
 
-smb2_create_open_flags() picks the open mode from the read and write
-bits of the desired access. FILE_EXECUTE and FILE_READ_ATTRIBUTES select
-neither, so a request for FILE_WRITE_DATA | FILE_EXECUTE |
-FILE_READ_ATTRIBUTES opens the file O_WRONLY.
-
-smb2_read() accepts FILE_READ_ATTRIBUTES and ksmbd_vfs_read() accepts
-FILE_EXECUTE, so a later READ on that handle passes both checks and
-reaches __kernel_read() on a file that has no FMODE_READ:
-
-  WARNING: fs/read_write.c:518 at __kernel_read
-   __kernel_read
-   ksmbd_vfs_read
-   smb2_read
-   handle_ksmbd_work
-
-Any client that can open a file with write access on a share, including
-a guest session, can trigger it; with panic_on_warn it takes the machine
-down.
-
-Return STATUS_ACCESS_DENIED when the file is not readable.
-
-Fixes: f44158485826 ("cifsd: add file operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
-Reviewed-by: Ian Bridges <icb@fastmail.org>
-Tested-by: Ian Bridges <icb@fastmail.org>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: Added the FMODE_READ check before the tree's existing posix_extensions line, since the context line differs (work->tcon->posix_extensions instead of fp->is_posix_ctxt). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/ksmbd/vfs.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/fs/ksmbd/vfs.c b/fs/ksmbd/vfs.c
-index 1e087ae68e239..cb38c011c3f67 100644
---- a/fs/ksmbd/vfs.c
-+++ b/fs/ksmbd/vfs.c
-@@ -390,6 +390,10 @@ int ksmbd_vfs_read(struct ksmbd_work *work, struct ksmbd_file *fp, size_t count,
- 	if (ksmbd_stream_fd(fp))
- 		return ksmbd_vfs_stream_read(fp, rbuf, pos, count);
- 
-+	/* The access granted on open can include FILE_EXECUTE for a write-only file */
-+	if (!(filp->f_mode & FMODE_READ))
-+		return -EACCES;
-+
- 	if (!work->tcon->posix_extensions) {
- 		int ret;
- 
--- 
-2.53.0
+Tested-by: Sergey Lebedev <lsa.uz@pm.me> # Surface Pro 11
 
