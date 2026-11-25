@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795616989;
-	b=jMyJJzk4jy10l6T92EtHXpKXz7DGEOqYQ2SZCAN9RjhxK/Q+MkfgKXJ/IHF73PnZ56pX
-	 uPlPCMgUMZiHzvu5p0Zk0KVsXQpIsaneaDFMnMkJqBwRpMGwUThsVbSSTxBRVqciS0iZ8
-	 H8z3iAqVQxd5vdXPzhhqhxY/sgYN3mGNh0NNOUuSbz50BFKhpsmqAkC2BozejACLR2p03
-	 LFxW6n/MIGGqVNrHfDD0+E19qWmGfvxiS/1K/r0g1g8iF0NWVbrontAvmERA03l3N1Ddy
-	 iOrCMLCd7wgDPE4DH7HRn6Ooqo26uqmXlv5v9o0gAqdnnBi6npXE05pqnlcO84b+DfA==
+	t=1795617037;
+	b=kggO4zuLOp/Reyua158k5dUETuVbzC3YofQk1ggLuck8n1X9BR4ryrm101mX/fWmj1r+
+	 fFeKEduXV24E1MYP3UlQMlKpLfLXmhguH+7x9MiBWYddoVhO9zqFtC0hIIvkbB3Klz0u6
+	 h16H23QxYrsiP8k7X/XDvF3Fj8mfgO9gL7b9xuiA9p+JD3k9D5gRjHEZGSGAdf+kkTtr/
+	 6HpODZic5iAew/8XRMQoS3JnpDktO7eF1AtNFtd5Ap2vMl2mDlIklSdgEmoJ0YTyx4IiN
+	 pn/vIJsb3LASc8WH9vo708VloC72aaXuK6buzHQI8cYvzRnjqUxaTycNGAxBbgKhTLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795616989;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795617037;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=pCXDHqMSN7ai+xZCH5L1KMIX1JuNHfd9EhXks9RhxRg=;
-	b=uiOyDaetQYuBj9kMx/ef3NyJCqBVq5SlELVBYBqRh5ITLC+JDNhP/2aALUF++0EabeHG
-	 1TIah9PdR/c1XLm8gansbmu4rIi9OaCAu2QQFk5vpacVdhurP7gxBaa3Klprp1QoHVCkc
-	 mIoXwCsA0YMwi8LuAyJdI5FznmLbyQcomHDjkjTyC00rXiFQBjFJj5+/ygAYFtbG6rbHO
-	 XyqrkfZzCLGrADE/BfyCR6ESfbEYpSOB/aW3tbMm6+JDk11pRdt48la708uIxSC4FUG8R
-	 qQGbZOVveJkGPROmnirngkAgYCHi3CvVjDidV+WdkzJlXAAUj2kHEJY/EAXmSlPQZzQ==
+	bh=x01a/SxRc7XEGNuvxdWyHLDVEpUXlvRacN9TyC75zAQ=;
+	b=uMUsIrY+AUN91XoTqEx0ka6in5Y/Eqc2GbtPLNUPoF0ogZqNHv/CutFkLmrLPMS3AJBR
+	 iT7t1ODAt38r78SjhvqzeJVc5F6UpvBHbhK6IaWZT5xGtuoF3sjeePAXPOkiQOqpgzBEr
+	 9khrH5VpeYI/8orJwp4UkfWqxe2Y/OLqkDL/v0NjTNy46mwv8/OInO/fW0Q8gQ24YNHYG
+	 5rf+8+KdPy6etUaYCgplyFgWwCE6cI3QrUNd8hvSLdNzNZY1WXQXiQnmUCHgUwS1pBfpV
+	 9R4b6GlkeKIrS9c718dJlROo99UCfHXFQ7hMTudtMYGwEE4hUHVGq6Uy6ehfSS4v/mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwHCsZ1T;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bnsY+Xo8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E9A606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:29:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42719606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:30:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwHCsZ1T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99ED41F000C0;
-	Wed, 25 Nov 2026 14:29:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bnsY+Xo8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E6B21F000C4;
+	Wed, 25 Nov 2026 14:30:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795616988;
-	bh=pCXDHqMSN7ai+xZCH5L1KMIX1JuNHfd9EhXks9RhxRg=;
+	s=k20260515; t=1795617037;
+	bh=x01a/SxRc7XEGNuvxdWyHLDVEpUXlvRacN9TyC75zAQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZwHCsZ1TgBEyhCa6qDwcCKg2fdH3jTQ4ZlML9CUej3kDCkEy70Wko9op/M2sJNYAr
-	 TpHKEs9o7OYLsiM08M3Y/2W/I+18EJxUs8csHESqHJkra1w9E+bLjlYvr3iQPId97K
-	 juofEKnCWZuAbr8kNayguvISX7xQj1rj9AzWbj3DmhN7jAqMc4ZS+g3Dh760ZZo/or
-	 b9rc+lwokJSabheGsEgygz5v+rY+NJrq1MpJsgqW3QmUDbOA+hYmcc36k95uVDWezr
-	 s2nEcADknhLeRqdnv7eaR9H0/8npnW0OUjFRO0epqkrZgDaD9lCCRpL6SVezZeKxnY
-	 syOiGt8FnTn+Q==
+	b=bnsY+Xo8thRaHIzG3UqZUOSpjsKbe028dGGIPpJOEobqURhKTferKE0KthTAXO7Vo
+	 ljPKrVBJsHTChGhj3Lmt8DIwCMaAXRrgQpENJoLDEheAaStJRqcEL4Khz7SkluoD+i
+	 Hlt1hPBHsJH5gw/ZLiCAzsiMjhBBh2/Y8vhL/4N27//X+Z50nug2yXQq2zlANjczjS
+	 OYaiokJZEaFfnxzWUBwz6AHt0oMz8f3wJyAG78sNpPJDh0i/eolIHwU+aBRigb54fg
+	 hHk3rzx7VAu7ZTec6g7qQ5kpzzGlbHRmjenxLo8hKVtpmzNqp6pn057zaidXTNX7mJ
+	 CdFgHJr/Mbq/A==
 From: Sudeep Holla <sudeep.holla@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sudeep Holla <sudeep.holla@kernel.org>,
 	Sashiko <sashiko-bot@kernel.org>,
 	Guenter Roeck <linux@roeck-us.net>
-Subject: [PATCH 5.15.y] hwmon: (scmi) Check channel config allocation
-Date: Wed, 25 Nov 2026 14:29:43 +0000
-Message-ID: <20261125142943.3949509-1-sudeep.holla@kernel.org>
+Subject: [PATCH 5.10.y] hwmon: (scmi) Check channel config allocation
+Date: Wed, 25 Nov 2026 14:30:32 +0000
+Message-ID: <20261125143033.3949666-1-sudeep.holla@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026112550-overfeed-putt-7fcf@gregkh>
-References: <2026112550-overfeed-putt-7fcf@gregkh>
+In-Reply-To: <2026112550-barge-grandkid-a809@gregkh>
+References: <2026112550-barge-grandkid-a809@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,10 +81,10 @@ Signed-off-by: Guenter Roeck <linux@roeck-us.net>
  1 file changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/hwmon/scmi-hwmon.c b/drivers/hwmon/scmi-hwmon.c
-index b1329a58ce40..c263434d9e0b 100644
+index 09ce30cba54b..743c298c4cf5 100644
 --- a/drivers/hwmon/scmi-hwmon.c
 +++ b/drivers/hwmon/scmi-hwmon.c
-@@ -159,8 +159,8 @@ static u32 hwmon_attributes[hwmon_max] = {
+@@ -158,8 +158,8 @@ static u32 hwmon_attributes[hwmon_max] = {
  
  static int scmi_hwmon_probe(struct scmi_device *sdev)
  {
@@ -94,7 +94,7 @@ index b1329a58ce40..c263434d9e0b 100644
  	enum hwmon_sensor_types type;
  	struct scmi_sensors *scmi_sensors;
  	const struct scmi_sensor_info *sensor;
-@@ -230,8 +230,12 @@ static int scmi_hwmon_probe(struct scmi_device *sdev)
+@@ -224,8 +224,12 @@ static int scmi_hwmon_probe(struct scmi_device *sdev)
  		if (!nr_count[type])
  			continue;
  
