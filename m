@@ -1,60 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625443;
-	b=JNMnVQJWV1X1NBOP94TF48M9S4jh1P2lFsfVnflGGAxZ9yl/fkpH1Ncgamzby8sblj49
-	 dV18fithxB+qSYw9o7DJ1EHsWblyAHlVfmH3oDjnAQuxQJtxTF8cjG3NeI5ja7EyPP3AF
-	 0+e0itWnbijWDGIjZNOvXTOzfDUI3IXxATVYkiR3bXp4hWB+ManLeqf+3fEK0XDA7exCh
-	 XnxKN3BEbsFhx8Z3eq4y7IGCwh0B5MB2hiZU4AW1qmxJ+KOTENu1pGc4FdWPwQPs8Y9kU
-	 xBkL/QjoLIURDxDAKvgxpTSCDSLFw/6h8PsgSQUq1+AUEfYovml5txC2DvBSKx6qm6Q==
+	t=1795625444;
+	b=gy7ihi58L4MSEBFec+N6my1XUN2WYQmBRBV7sD5+5CJPKAwU2VQ3Ajx462Icqw16Rywj
+	 08aiWOjPvWSLcBjcrqaO9qsTK8QY6zFAv23OOmSxdlNgT+hYsjAbnsuwktjS+MXRsf1iZ
+	 Adtrmjy7MREt/4sTs73oRQa78eVVTj7PU50tceMc+9jLr+cA5t1sGCD2oXIzT1ZO5NYUQ
+	 pY41xxauyXqDlMnVM0Bt167Qfvs/OY8TuhhWs0dzJroY3VUU4x7ndkaa+YbQGsj0wElc0
+	 Auk8q2UVAEDJzK1NXvt/lULpZoxILVrpNXKHE2BIWtDWSacCas/ilsq0XFtZ+MZARaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625443;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625444;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=6Ad9yKs/8i5D1PWRXvfLjDAyEteK0gC0e14t5D+3qPI=;
-	b=EtFLZktSgHkTQwgHmfiGscAqDX5iF211krib5QDUPfsFP+4bIFwxUik3WjTeu0PQAq4s
-	 bJXl1u1rUNn9Gwu8A94EaCiUw/h2ROu4Vpam3fbzv0aUuIDUKWLTJqhJW9xrBLi21kDkY
-	 DDpinSBMx7zwmwROvSyX7aAtKWBrWv8epArlr+nwcIxSfzBLhB+Hkhh5a3PkPAo4c5B6n
-	 ZKK3S9haxOYcK8CDKVb8OFfZXaA1ZWtY1W/FG5PXFUht9wHY/OOvw60T7+3733k0sr9ms
-	 MmGu/GDB5rP8gzqlGsRHiAiASX8tgkcip2aQSrpp6/RjENrCDn65G+Kzj+3TFNMBKxQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=7LEDRSRhjGg5Hlp28sLTf5iiT7XNHqs4kdaashD3E8s=;
+	b=kt4ajJ7C+6K56xfY3pQ6XmFJh/FNi4doY/tksYlAu9YL0MUQtuVTF0tHbnjqxQTFQx2p
+	 PBnIiirjkPsgPjkuUcB0KuMVyewU9tI82JMtUBUQN4u7XsrVHoRjLloVm9nqcl4T8cV5X
+	 awTwVcd1zw13FcA17/h/NIT7rPot9RNOD/I/5DXUV/DVeO3Ji7QcAsbviLRoWDpcoeJD3
+	 zAh9x5159+TtM9DHQzT7lz0ZZ5ZD0BS6avV4rSk9Xvf4032NCTYLA4J/CJx0XHG+pXno3
+	 GAkS72v5nljPxJEFYtsNfaMETmocM7Y891ErT6TbOdpA3S0scGeIkeIXyCZ5BnWPjRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yZQjxP58;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RTkaSxIK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D27B606A321;
-	Wed, 25 Nov 2026 16:50:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32CAA606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:50:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yZQjxP58
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EF2A1F000CF;
-	Wed, 25 Nov 2026 16:50:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795625442;
-	bh=6Ad9yKs/8i5D1PWRXvfLjDAyEteK0gC0e14t5D+3qPI=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RTkaSxIK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71EF61F000D4;
+	Wed, 25 Nov 2026 16:50:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795625444;
+	bh=7LEDRSRhjGg5Hlp28sLTf5iiT7XNHqs4kdaashD3E8s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=yZQjxP58kZivRmmpAqLNThkiF6O0xhbreUDs0A6PlBM2ld6pSm6Uu7V8IcSwvqw6V
-	 V60CIA7/w0f0mzGcdWGIrvO/D3fTWfHt7AxIBP4TkuPkMwWg+JKJ9sxIGLjGAqNVak
-	 K2x5akuae6v6TikzQRk162psmk3NxxpfTVUVgkX0=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=RTkaSxIKvgrQtD3p6sX8jKa/rt6EF+z4CSexu1Q4ca5Xi/JmB2n0mfc0QDDcioNgq
+	 QQWg6ZGB+Os93LIIuTzgmVNtuWlh58UrzmqeyMlCQ9Usj/Imt+Q/lOgJol84iXi+t5
+	 wtiKpYOFQFuG4Kahwy0qpTsCiE2QfcpNGZ1m8MEKwLRe6vtqcE1yJpzxepKxS4V6uZ
+	 VNG8sMVgRs5Q6MDsLZele4FBqYbV7GualaFdXq+EPIWa6MOfLbD8iD1DWjvpuBLrmS
+	 C8zNSaKv1kgM9QGxRtlAgaPA/ldbTy6ff3gHB7krQfb+1Tj8zjLdmsZkmndyWnDGDw
+	 FyB/pt9vpksRw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Andrei Vagin <avagin@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
+Cc: Tim Menninger <tmenninger@everpuredata.com>,
+	Anna Schumaker <anna.schumaker@hammerspace.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 463/816] proc: report SIGEV_NONE in /proc/pid/timers if target task has died
-Date: Wed, 25 Nov 2026 15:33:31 +0100
-Message-ID: <20261125143859.917569707@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
-References: <20261125143849.205329330@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y] pNFS: avoid repeatedly cancelling I/O for the same lseg
+Date: Wed, 25 Nov 2026 11:50:42 -0500
+Message-ID: <20261125165025.883267-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112558-afoot-retread-cd75@gregkh>
+References: <2026112558-afoot-retread-cd75@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,88 +61,107 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: Tim Menninger <tmenninger@everpuredata.com>
 
-------------------
+[ Upstream commit 9e28836b480c66cca4c3d391177f5b3a50927f7d ]
 
-From: Andrei Vagin <avagin@google.com>
+Commit b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is
+recalled or revoked") added I/O cancellation when a layout segment is
+invalidated while outstanding references remain.
 
-[ Upstream commit 0a27f795030ce6a2c71525b0544e3b13bba8828e ]
+The invalid segment stays on the layout's segment list until those
+references drain. Subsequent scans can find it again and repeatedly
+invoke the layout driver's cancel_io() callback. For flexfiles, this
+cancels matching RPC tasks and disconnects data server RPC clients.
+During RPC/RDMA data server recovery, repeated cancellation can cause a
+reconnect loop that consumes essentially all client CPU and prevents
+forward progress.
 
-When a posix timer is created targeting a specific thread (using
-SIGEV_SIGNAL | SIGEV_THREAD_ID), it takes a reference to the target struct
-pid in timer->it_pid.  If the target thread subsequently terminates, its
-numeric tid is freed and can be recycled for an unrelated task.  However,
-the timer holds its reference to the original struct pid.
+Record cancellation requests per mirror stripe in the flexfiles layout
+segment. Each stripe is cancelled at most once, regardless of how many
+times the invalid segment is encountered. A per-stripe bitmap rather
+than a single per-segment bit preserves the ability to cancel I/O to a
+different device after an earlier device-specific cancellation.
 
-show_timer() in /proc/[pid]/timers previously called pid_nr_ns() directly
-on timer->it_pid without checking whether any task remained attached to
-that struct pid.  As a result:
+Cancellation is best-effort. An RPC that has already passed the
+layout-validity check may not yet be visible to the cancellation
+scan. Such I/O retains its lseg reference and remains subject to
+the normal RPC completion and recovery paths. Suppress repeated
+cancellation and disconnect requests without changing the existing
+lseg lifetime and deferred layout-return accounting.
 
-1. It reported the stale tid, which could mistakenly refer to a recycled
-   pid.
+This reproduced on 6.8.0, 7.0.0, and 7.4.0-rc1. It was tested on
+7.4.0-rc1 with sustained pNFS/flexfiles I/O over RPC/RDMA while
+restarting the NFS service on a data server. Without it, repeated
+cancellation led to a reconnect loop and no workload recovery. With it,
+the client recovered after the data server returned.
 
-2. In the kernel, expired signals for dead target threads are dropped by
-   posixtimer_send_sigqueue() because posixtimer_get_target() returns
-   NULL, so the timer functionally acts as SIGEV_NONE.
-
-3. Checkpoint/restore tools (CRIU) parsing /proc/[pid]/timers would try
-   to restore a timer with SIGEV_SIGNAL | SIGEV_THREAD_ID targeting a
-   non-existent or unrelated thread.
-
-Check pid_has_task(timer->it_pid, timer->it_pid_type) in show_timer().  If
-the target task has died, override notify to SIGEV_NONE and report PID 0
-(e.g., 'notify: none/pid.0').
-
-Link: https://lore.kernel.org/20260816161216.984580-1-avagin@google.com
-Fixes: 57b8015e07a7 ("posix-timers: Show sigevent info in proc file")
-Signed-off-by: Andrei Vagin <avagin@google.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Pavel Tikhomirov <ptikhomirov@virtuozzo.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-[ sashal: Replaced the missing it_pid_type field with (notify & SIGEV_THREAD_ID) ? PIDTYPE_PID : PIDTYPE_TGID and adapted to the local show_timer() layout, without the guard() lock or posixtimer_valid(). ]
+Fixes: b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is recalled or revoked")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
+Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
+[ sashal: Adapted the cancelled-stripes bitmap to the single-stripe layout here: it is sized by mirror count and indexed by mirror idx, since there is no devid argument or per-stripe loop in cancel_io. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/proc/base.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ fs/nfs/flexfilelayout/flexfilelayout.c | 11 +++++++++++
+ fs/nfs/flexfilelayout/flexfilelayout.h |  1 +
+ 2 files changed, 12 insertions(+)
 
-diff --git a/fs/proc/base.c b/fs/proc/base.c
-index 427fb5abb07c7..0f58fe8697c4e 100644
---- a/fs/proc/base.c
-+++ b/fs/proc/base.c
-@@ -2527,6 +2527,7 @@ static int show_timer(struct seq_file *m, void *v)
- 	struct k_itimer *timer;
- 	struct timers_private *tp = m->private;
- 	int notify;
-+	pid_t nr = 0;
- 	static const char * const nstr[] = {
- 		[SIGEV_SIGNAL] = "signal",
- 		[SIGEV_NONE] = "none",
-@@ -2536,6 +2537,13 @@ static int show_timer(struct seq_file *m, void *v)
- 	timer = hlist_entry((struct hlist_node *)v, struct k_itimer, list);
- 	notify = timer->it_sigev_notify;
+diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout/flexfilelayout.c
+index 83e78513e2ef1..f5c297893fe56 100644
+--- a/fs/nfs/flexfilelayout/flexfilelayout.c
++++ b/fs/nfs/flexfilelayout/flexfilelayout.c
+@@ -11,6 +11,7 @@
+ #include <linux/nfs_mount.h>
+ #include <linux/nfs_page.h>
+ #include <linux/module.h>
++#include <linux/bitmap.h>
+ #include <linux/file.h>
+ #include <linux/sched/mm.h>
  
-+	if (timer->it_pid &&
-+	    pid_has_task(timer->it_pid,
-+			 (notify & SIGEV_THREAD_ID) ? PIDTYPE_PID : PIDTYPE_TGID))
-+		nr = pid_nr_ns(timer->it_pid, tp->ns);
-+	else
-+		notify = SIGEV_NONE;
-+
- 	seq_printf(m, "ID: %d\n", timer->it_id);
- 	seq_printf(m, "signal: %d/%px\n",
- 		   timer->sigq->info.si_signo,
-@@ -2543,7 +2551,7 @@ static int show_timer(struct seq_file *m, void *v)
- 	seq_printf(m, "notify: %s/%s.%d\n",
- 		   nstr[notify & ~SIGEV_THREAD_ID],
- 		   (notify & SIGEV_THREAD_ID) ? "tid" : "pid",
--		   pid_nr_ns(timer->it_pid, tp->ns));
-+		   nr);
- 	seq_printf(m, "ClockID: %d\n", timer->it_clock);
+@@ -300,6 +301,7 @@ static void _ff_layout_free_lseg(struct nfs4_ff_layout_segment *fls)
+ {
+ 	if (fls) {
+ 		ff_layout_free_mirror_array(fls);
++		bitmap_free(fls->cancelled_stripes);
+ 		kfree(fls);
+ 	}
+ }
+@@ -588,6 +590,12 @@ ff_layout_alloc_lseg(struct pnfs_layout_hdr *lh,
+ 		fls->mirror_array[i]->report_interval = be32_to_cpup(p);
  
- 	return 0;
+ out_sort_mirrors:
++	fls->cancelled_stripes = bitmap_zalloc(fls->mirror_array_cnt,
++					       gfp_flags);
++	if (!fls->cancelled_stripes) {
++		rc = -ENOMEM;
++		goto out_err_free;
++	}
+ 	ff_layout_sort_mirrors(fls);
+ 	ret = &fls->generic_hdr;
+ 	dprintk("<-- %s (success)\n", __func__);
+@@ -2254,6 +2262,9 @@ static void ff_layout_cancel_io(struct pnfs_layout_segment *lseg)
+ 
+ 	for (idx = 0; idx < flseg->mirror_array_cnt; idx++) {
+ 		mirror = flseg->mirror_array[idx];
++		/* Do not cancel a stripe again while this lseg drains. */
++		if (test_and_set_bit(idx, flseg->cancelled_stripes))
++			continue;
+ 		mirror_ds = mirror->dss[0].mirror_ds;
+ 		if (IS_ERR_OR_NULL(mirror_ds))
+ 			continue;
+diff --git a/fs/nfs/flexfilelayout/flexfilelayout.h b/fs/nfs/flexfilelayout/flexfilelayout.h
+index 1561e9ceab534..143c183cb19f2 100644
+--- a/fs/nfs/flexfilelayout/flexfilelayout.h
++++ b/fs/nfs/flexfilelayout/flexfilelayout.h
+@@ -106,6 +106,7 @@ struct nfs4_ff_layout_segment {
+ 	u64				stripe_unit;
+ 	u32				flags;
+ 	u32				mirror_array_cnt;
++	unsigned long			*cancelled_stripes;
+ 	struct nfs4_ff_layout_mirror	*mirror_array[] __counted_by(mirror_array_cnt);
+ };
+ 
 -- 
 2.53.0
-
-
 
