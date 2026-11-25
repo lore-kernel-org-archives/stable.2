@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795623638;
-	b=B7d6ujLmRUCoecVY+FwsdeogKVbrFhXVozQJdwWcjBwRvIXCOn8N4VubI8MfAui7MDGv
-	 a3YQXlZT6seuaU3EIXa7EXszIRQQinH/aB3iVnWFDT8Y0rhDbWeYk7+tq4obhh4UF2jH0
-	 GxZwnrYB8L2JfZ6HoYXYHKHGeyk5eEY2foyv1SYb/67D8XIdvJnGETttXC5otEndX5nZX
-	 tv+2Lp/Sw7i1AgK554n4gfICM4vwPfHgl8cqcUAmq7DPtgNuc6ku16CRTA/L8T0hGfgwO
-	 2cFQTuh0MrQqxNGOZQ23e6sjA7VNZy50G4Jwz6x/gv5wR/09wFXGu6f9CRP5av1WNzA==
+	t=1795623640;
+	b=IaZYs4IwdodFhRELmTVgB2xPoLja3Il56jCFnDFm3nrorP7GqGP4MiOmGV/EuqYjwGOW
+	 FgMB0zbec9bz7Cie2y+9wz2h90VHcZ48N1qGn68Bg11XzScfMbqzKm7fAmiu3uVJ6fQjs
+	 NhZzbxmnIidiJ4rpvKf5ckbxvKcYWlzHdDFWDcbNa1+I/HJeYJMgVKRrJifVmiEdgMqV7
+	 kcsdhgR0i27MblvLESc6Kl70khTVlGxz80c+EG/SwkiheLo5ommsD5KolR7fYx3km4weW
+	 BedFpOcx07JxP5uKWyaes6/C20kABAlB0RjwQVUHiSibDddTti1ma0xMwogOqhyUw/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795623638;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795623640;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=CG+c9XT8dpPI0R273EH9qpVpS0l0BVWvmsp/teqX8Uk=;
-	b=2JKnLQOoHsIKVXTEsQ7QJGFm76daPXhTx/zZLA5ePIGevusI1H9BzIdl37qUCcPBoImH
-	 us6kE4tK9SVKw5O0Cth9EPhXX2J5K5T1+48hAVBlfIhXpCV0u8lQAY6xxewnqRUjh3I/R
-	 tVT7hHiYbnEYkQM1EMtsstmjc6nVncIqC8IJx6RXEd3FNenLIhyFfPyre4yLLnsWHmj9K
-	 i+yy39FeG6yQ3eYFHiQGkQL0xz06hL19XgEfoHqYuQU9HmOZCGr6JB/QRiB+14AETE8iS
-	 U2LrhOt9dwMfuVGRfgUEkNkcsoMdVW4Odfws+Jbm9yvHUw11dDzIAO+BTMnbIvsNjpQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ZG9BEbV4YxPc4cR4uft8/XmqB1k2Znin6Xz6a4GlQro=;
+	b=Bxe2x5VZUb/qAxGx59k/T9A6vnO6Zc0/vCCNMlLdnmFORhvqNH/qWC+JiesLsOc2kLR2
+	 AvAQaYQ4WMZNwj+JsYlNK+VxLOX/gt5fovEWJs8NZe1ZpWzhqW4SeaP9SvZp1p5JoxqIl
+	 2CN7f/8blFoU4vl8er2m+9Azd7T9YL4ZcYuV3jGAU81zKKzXStFlz6p/E57AheTx0Ccbl
+	 L67+XUhNasQ7yicnAzlHcF2kW4yKZ8y7ePzrxZsHHfOVMyr8atRghjNmGu0WJFZg/zaC0
+	 jER7E0dJBhYBBPwf+haNTjtt1AyMrHmN+3Tu9eN6Sv0r+W415+pKECL80DjRE85PBpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hBW4CSmC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uq486k65;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A62606A68E;
-	Wed, 25 Nov 2026 16:20:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE9D9606A682
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:20:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hBW4CSmC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CCD31F0093C;
-	Wed, 25 Nov 2026 16:20:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795623638;
-	bh=CG+c9XT8dpPI0R273EH9qpVpS0l0BVWvmsp/teqX8Uk=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uq486k65
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 942D41F000C6;
+	Wed, 25 Nov 2026 16:20:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795623640;
+	bh=ZG9BEbV4YxPc4cR4uft8/XmqB1k2Znin6Xz6a4GlQro=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hBW4CSmC2i6T07jmSTxonQyR/u3XgAHBeSfFe6oaag5NyZPs5K0y9SKUozzFGBv3w
-	 nO3tWP1sVoS7MHLcL7tPtlhRIql/FAcbgpZgEF8Gns7gE2i6agVFc7MlUgQVkmZ3wY
-	 Kn/fALEwWvzTuWAQJ3hZHt6tIO37yCAXMZRFGYn8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=Uq486k65jw+ilbJZ77ZEyzfTkyIUFsIjWgZL1UVasBUHxuHrQ2/jSRkbpmeiRM+XU
+	 Z4nHpjus+/KpTtMr+paUQysqoRC29cAGkSnWfFW0/yZALehaWurze6NlAYpvEIdbwm
+	 1AuZO0T2oStmRPmkELsmd8cvJsX/9KOWffIa8lt1JBNo15mK4SNpJrv1+/bD5Vi/F4
+	 eKhU3wRR3st3kyPNeuQTzGBluuSpR1lWfyoB04a7vpDqDJPrB3JS443B4C8ZTidOnC
+	 G98o//dcZDve4Sadn367870uuYNkTQpX+eJCZFiSjYjW3l28wV48SoegKqQu71eKT0
+	 kPpXEfmmiIQKw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	stable <stable@kernel.org>,
-	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Subject: [PATCH 6.18 922/990] usb: dwc3: xilinx: fix system suspend and resume PHY handling
-Date: Wed, 25 Nov 2026 15:38:09 +0100
-Message-ID: <20261125143843.596482693@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	Vladimir Murzin <vladimir.murzin@arm.com>,
+	Jinjie Ruan <ruanjinjie@huawei.com>,
+	Will Deacon <will@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] arm64: suspend: rely on daif helpers to handle PMR
+Date: Wed, 25 Nov 2026 11:20:37 -0500
+Message-ID: <20261125162031.756040-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112540-presoak-impromptu-e705@gregkh>
+References: <2026112540-presoak-impromptu-e705@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,86 +63,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Ada Couprie Diaz <ada.coupriediaz@arm.com>
 
-------------------
+[ Upstream commit 630ca6c58fcfeaddd96dd46e7b11826013977955 ]
 
-From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Commit 77345ef70445 ("arm64: suspend: Use cpuidle context helpers
+in cpu_suspend()") added cpuidle helpers to handle PMR manipulation
+and restoration to ensure that the CPU receives interrupts when suspended
+and pseudo-NMIs are enabled.
 
-commit 2fad8d241a6833d0c7aeafa0ab596e83c7b4ec9c upstream.
+However, those helpers are called in between a pair of `local_daif_save()`
+and `local_daif_restore()`, which already configure the PMR as expected.
+Effectively, `arm_cpuidle_save_irq_context()` is a no-op here,
+even when using pseudo-NMIs, and `arm_cpuidle_restore_irq_context()`
+would not restore proper interrupt masking configuration early enough
+if there were unexpected changes during suspend or resume.
+(This can be observed with Trusted Firmware A (TF-A) at EL3 handling
+suspend through PSCI. Even though it should not be the case, TF-A can
+reset `ICC_PMR_EL1` during CPU_SUSPEND, thus resuming the kernel
+with an inconsistent priority mask value on hardware implementing
+more than the minimum number of priority levels, such as Morello.)
 
-System suspend and resume error paths do not handle PHY and clock
-resources correctly. Suspend calls phy_exit() without first powering
-off the PHY and ignores failures, while resume can leave clocks
-enabled if PHY reinitialization fails.
+Thus : remove the cpuidle context helpers as they do not do anything,
+but keep the comment mentioning the need for interrupts to reach the CPU
+if we are using pseudo-NMIs.
 
-Propagate errors to the PM core and unwind resources to ensure a
-consistent state on suspend and resume failures.
-
-Fixes: d6edcdc1ef06 ("usb: dwc3: xilinx: fix usb3 non-wakeup source resume failure")
-Cc: stable <stable@kernel.org>
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Link: https://patch.msgid.link/20260928120015.3152461-2-radhey.shyam.pandey@amd.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+Signed-off-by: Vladimir Murzin <vladimir.murzin@arm.com>
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Signed-off-by: Will Deacon <will@kernel.org>
+Stable-dep-of: ad3fc05c7e65 ("arm64: suspend: Only track cpuidle context for idle tasks")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/dwc3/dwc3-xilinx.c |   24 +++++++++++++++++++++---
- 1 file changed, 21 insertions(+), 3 deletions(-)
+ arch/arm64/kernel/suspend.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
---- a/drivers/usb/dwc3/dwc3-xilinx.c
-+++ b/drivers/usb/dwc3/dwc3-xilinx.c
-@@ -395,13 +395,26 @@ static int __maybe_unused dwc3_xlnx_runt
- static int __maybe_unused dwc3_xlnx_suspend(struct device *dev)
- {
- 	struct dwc3_xlnx *priv_data = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = phy_power_off(priv_data->usb3_phy);
-+	if (ret < 0)
-+		return ret;
+diff --git a/arch/arm64/kernel/suspend.c b/arch/arm64/kernel/suspend.c
+index eaaff94329cdd..c41724a40b756 100644
+--- a/arch/arm64/kernel/suspend.c
++++ b/arch/arm64/kernel/suspend.c
+@@ -99,7 +99,6 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
+ 	int ret = 0;
+ 	unsigned long flags;
+ 	struct sleep_stack_data state;
+-	struct arm_cpuidle_irq_context context;
  
--	phy_exit(priv_data->usb3_phy);
-+	ret = phy_exit(priv_data->usb3_phy);
-+	if (ret < 0)
-+		goto err_phy_power_on;
+ 	/*
+ 	 * Some portions of CPU state (e.g. PSTATE.{PAN,DIT}) are initialized
+@@ -121,6 +120,9 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
+ 	 * Strictly speaking the trace_hardirqs_off() here is superfluous,
+ 	 * hardirqs should be firmly off by now. This really ought to use
+ 	 * something like raw_local_daif_save().
++	 *
++	 * This also unmasks interrupts in PMR in order to reliably
++	 * resume if we're using pseudo-NMIs.
+ 	 */
+ 	flags = local_daif_save();
  
- 	/* Disable the clocks */
- 	clk_bulk_disable(priv_data->num_clocks, priv_data->clks);
+@@ -131,12 +133,6 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
+ 	 */
+ 	pause_graph_tracing();
  
- 	return 0;
-+
-+err_phy_power_on:
-+	if (phy_power_on(priv_data->usb3_phy))
-+		dev_err(dev, "failed to restore PHY power after suspend error\n");
-+
-+	return ret;
- }
+-	/*
+-	 * Switch to using DAIF.IF instead of PMR in order to reliably
+-	 * resume if we're using pseudo-NMIs.
+-	 */
+-	arm_cpuidle_save_irq_context(&context);
+-
+ 	ct_cpuidle_enter();
  
- static int __maybe_unused dwc3_xlnx_resume(struct device *dev)
-@@ -415,15 +428,20 @@ static int __maybe_unused dwc3_xlnx_resu
- 
- 	ret = phy_init(priv_data->usb3_phy);
- 	if (ret < 0)
--		return ret;
-+		goto err_clk_disable;
- 
- 	ret = phy_power_on(priv_data->usb3_phy);
- 	if (ret < 0) {
- 		phy_exit(priv_data->usb3_phy);
--		return ret;
-+		goto err_clk_disable;
+ 	if (__cpu_suspend_enter(&state)) {
+@@ -159,8 +155,6 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
+ 		__cpu_suspend_exit();
  	}
  
- 	return 0;
-+
-+err_clk_disable:
-+	clk_bulk_disable(priv_data->num_clocks, priv_data->clks);
-+
-+	return ret;
- }
+-	arm_cpuidle_restore_irq_context(&context);
+-
+ 	unpause_graph_tracing();
  
- static const struct dev_pm_ops dwc3_xlnx_dev_pm_ops = {
-
+ 	/*
+-- 
+2.53.0
 
