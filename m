@@ -1,98 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795594037;
-	b=tOC2DtWyst43lWK2xozT08pQIJawBTQeUuiaEsFU867JA4Uuo0cq8ApjUCUe6o+ruuxC
-	 eNot1NXuYNcsTKiTCCFlVJ4lS9YjnZGpPxLVLmFZp8GTaTbfww95+m3TKYNYuA6WmH7If
-	 SdhNPrVZf6hZlQLcoZNDnHsnWdY8E6Fq5MPOTXh6750eDnBxtl5nip87IYB2+YjIiXMc7
-	 Qn1Ev6JBtQy5IM5NKda5CyE+Qvyx1EQ15qS23HWdB1gX43jIww7Gf1J38j7H/L/IehJmO
-	 ow8xqhF8h1fgBqjwrAe7edFdBiWwy9yZdcPxkWJlaP4YmqPnfxdYSETwrI/zLOjumuQ==
+	t=1795594320;
+	b=u4126Ch5N/2P8AzjyrBa2jeZLEUumw0bOIsOpBScEWJ2putl+hd3IizL+iODmOs4UMh7
+	 3lftynA8wqDePp0Y+fwMPwBYcMYEnqO6XHB8ryG5tZhUrqihGLdIr9DsPWE61tWQfblsZ
+	 OVtTr9N630db85jpd+nLsGyrJ93uRLn/iwzCqC8LSG4zMJsa/kRl2kd6UzHKeB+ojQnmD
+	 SJUyeVlEUnokfJhpN15RCJQiUqYIvEuaOhNDDach7R0k07UlhM0+VtYlW3H8lPB7JBTn5
+	 QQDlkOvWKdaJpon1CcG0O9l281EVIBatOEGpBbiUcD9sGSJDGYITNWJrf68N6O7h7Rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795594037;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=gGgY/g42kXiEi9hKkVOcPMTngxVYNDDV66irTK01U44=;
-	b=VQMkgxBn4/5OURRd7SVGu3iC1p1y6s8eVr9tIbUMgv+jBfkUwQj4umxOB4CY/WVI8wUp
-	 osEgLh1zvaEhhq3GkYzz0cXcjGwnvpHu6kjWASOB5pUF67bz1ef0cQ2Srn4bQfpaMe6Of
-	 huWztLEbzpB/VwUrwMe/tOKl1eK/z6QFfmDqUbLJz7IpnaZw7RpEdG8spDXB+T7q+2sfz
-	 3ecMSJNWlJbDax8GALMf/OGwp3C4ApMumpZ1jOv2UVjI4lolZZ63qLx6UFB+3BONYRQWX
-	 JHIb1ZfYCdr11TLkK4626txaXshE1lgydOTrDsIQ9CdNDrBB/S3CLLaWXZWG5eQTJTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795594320;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=60qPSuL02yf4E8cV0OFKfMQ2IwLGtFiY03C+ToXioh4=;
+	b=GK1Dr3TmgfUEcJ+vg+kzDC1wV7q0LaO+Tho1BaN9IKGEbPzVNRtzd9mptNa2OcvyFOFC
+	 zt8o8qu7t7sgo1tG0WSgEgc0xaWtiWOw4uz5y+7TzaXjEKKhB+4Xbs+8aNZ0JeOIWAbbt
+	 pPflYeN4VZrWSDitnm0j0BZXLmwQSk6FebWLkWoX6lQDRuMEyz0E7BSHt0vzFeBE79Pbw
+	 PoJ5wBmjeMQcFG5pOjh+spz6cQX6J+gwYpb90305xBq1i5oCeMRBZd/XGiO2Y9PL7yBR+
+	 /4P8OuXJqOTwhbUnHjMkyqjurJ1jsLdYx5ehRXrPEs/vijTiMTpzi2eCdSN7Fh9v3JA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FfdUzDSH;
-	arc=none smtp.remote-ip=74.125.227.134
-Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHHMqsvV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9851D606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:07:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9851D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D777E606A323;
+	Wed, 25 Nov 2026 08:12:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FfdUzDSH
-Received: by mail-pj2-f6.google.com with SMTP id d9443c01a7336-2f0918f9e8eso15056425ad.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 00:07:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795594036; x=1796198836; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gGgY/g42kXiEi9hKkVOcPMTngxVYNDDV66irTK01U44=;
-        b=FfdUzDSHVVNa3C4b4EHLfZ920Wdj/MKuK7+8i8ZOKGQlQ+PLHUPlc94TM/n6vdtdy2
-         nehzlNTFChs+knZU9/X6OCbJWgHK0brI5NDm+eY3eaadXqtO7b/HJl01Bz0fQhRBx02a
-         JSNaBRhZnVQMDAE1t0drp7iZRV+F0u1WCgjA1O6i9Uw3WSdFToaxcyOHSfuwRBhAetdy
-         cBfGisA39axL6zOiQtbnlMex0az8cn8dwR6+ukk3o8mvEjvoEv5BJQ8A+PvHa2Goubmw
-         JubVVt6HGtIlPopWs1sj2QW8GVA24x+1uQTscTolF9R+4JyasfOvr0Xh0CO3DF6+xAid
-         KcUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795594036; x=1796198836;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gGgY/g42kXiEi9hKkVOcPMTngxVYNDDV66irTK01U44=;
-        b=Wp2yLxRnmNHP86sM39kgUElzIYs8lHz4Z09RmXrvFJ5okZgJprRWcwGHFltlwdUW3B
-         bG7EHwp5X1T0MrtIcot+dc5YP3H70K4smUtVO0BwR2Pzo0Iys91j6LlbIiJqirI3jNrw
-         1PpzYzpy2FCe3qV4R+NO1Wd3qS1Tni/AVQksZxKJhlxcR89/vAKQZDq6CxxDomhpXfQC
-         kgjbHQ5qFDl51aEPSNc5fKy3zzd/DblSORe72HKZq2BK5+UIsIxrSv7qaF/RHMXhQ9kh
-         FqXu9QVGrM9gADWAdoQGk0jO5bJk4kqL2Duzwd6D7WAsDE9ug2ougbniPsTCsgbnNAnC
-         owAw==
-X-Forwarded-Encrypted: i=1; AL+hErF4Rkp/v8ot+3IdyuGPhwhWNFjbFLi2ziUSjt6V7/5HH5WMkNuyyhtbFiUd/ek5DQ7lqWEciDA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z88g2F4+lBlaSRxFPZPNAdtLHAPmfrl5vjO7nBf7zpeWoh6WwvJ
-	arbO0C0rcOQncrn+wTERXk87GIMq+HMKlvkbMZJzreiLSj37q+hPdHXj
-X-Gm-Gg: AZFdTZcDbrl/jY9pDjLye3dUWPRqOzyXrX8sQ3QEBpaZNvxnq60woSn3NTzX7M73zYd
-	pS36pMoN/APdZcRvS4hbgByDAg6h6V5Zzsht7Jpgj4PmLtd3dkUbyb292KpUKW7AcVFcgP5gR6z
-	pFq/zJf4T3NI2qDZNWj2mTSv0SHiP72DpvP0/46TffZLqIc/WQMD8TpwlMW+R4P5k5bSF80xL/7
-	xOfQdfe/stmumY6IOAPMJE2ng5Ue68lFr6lmtSVcTwgrq0BHGdOdvM7hPwNOVj78TENHBo4H4vw
-	yHLrHvDvUOIowC9iDOpGUTn9QAS6tarwLVXP1KKOpkzC6sD8asmrOzzq/R5ZMz7h8iv673pmSAw
-	q+MPuf+eRNUh/Bw30ADwIZvEMEiCY1pmlIBvV4h6MuJlpQ2g6vVy1nC/7BuLWpOjwhb5zv/8kAs
-	P1qNoBxDQfdnP4kb5MP9zMsn8t3VZ0cYo8uca6DQeWWedCpiWer29Ak7ZuMmanmr4XgtUptVxyA
-	QalQOTNPISwvzX1ftjl6K8n7D/78SK+vlNnDrVdmMgvKNJ33lo7v1smSyieTNT1ar6VpRkPZXnp
-	YYph8fw94AafyIJu6CsqrL/zoDtwYYSYUE47SYXqhlrLUb15ldFMrxWQ7fwSnFWmHfY5thcZU32
-	a
-X-Received: by 2002:a17:902:ef4e:b0:2f0:4ebf:84e5 with SMTP id d9443c01a7336-2f04ebf8708mr162770625ad.45.1795594035760;
-        Wed, 25 Nov 2026 00:07:15 -0800 (PST)
-Received: from BSDHENRYMA-PC1.localdomain ([43.132.141.18])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f0c1a74sm83444005ad.12.2026.11.25.00.07.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 00:07:14 -0800 (PST)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: david@ixit.cz,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org
-Cc: oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHHMqsvV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AC5E1F000D1;
+	Wed, 25 Nov 2026 08:11:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795594320;
+	bh=60qPSuL02yf4E8cV0OFKfMQ2IwLGtFiY03C+ToXioh4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DHHMqsvVzThMCz+StJjIJHdtI1IthlXZywrIf+n/gm1K+FQVthJamxxVxkkG01UU0
+	 r2LvKrj0cxj729fHoKBqif5Ai6zRuF6Rnku6m/kIjTHBVjfj5oMk0txiDHga9wpsPi
+	 Z0IiIvtZAdSrWvE9ptIN5ElABw0gVuAn+nNdjeqXXT5IPxR3BTkmAQJxF9oMovdSFo
+	 qHHnaxbzqrAnROpJK2JSAKvDYhn1IfDKCnWhdjdX5bgWvnolCvw/C707dsl5KDjkTg
+	 ahHthuJoG+ToChVe5FQhz/CjLnNkK2NEh0ae2S5TZkiU/mSsiPwPlm6h+KgNrVfrIU
+	 uJNHzMsXfY2Yw==
+Date: Wed, 25 Nov 2026 09:11:57 +0100
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: phil.williams@advisoft.co.nz
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Mario Tesi <martepisa@gmail.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH nfc v3] nfc: llcp: reject bind and connect while the socket is still linked
-Date: Wed, 25 Nov 2026 16:07:06 +0800
-Message-ID: <20261125080706.648722-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Subject: Re: [PATCH v2] iio: imu: st_lsm6dsx: set ts_sensitivity on parts
+ without freq_fine
+Message-ID: <awaYTa63V-LnP-T-@lore-desk>
+References: <20261125-st-lsm6dsx-ts-fallback-v2-1-ea0ea2512070@advisoft.co.nz>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,86 +61,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="GTDYvITx/AJlzXec"
+Content-Disposition: inline
+In-Reply-To: <20261125-st-lsm6dsx-ts-fallback-v2-1-ea0ea2512070@advisoft.co.nz>
 
-llcp_sock_connect() only rejects LLCP_CONNECTED and LLCP_CONNECTING, so a
-socket that is still linked in local->sockets can be linked a second time
-into local->connecting_sockets.  That covers bound and listening sockets,
-and sockets that a peer moved to LLCP_CLOSED with DISC or DM.
+--GTDYvITx/AJlzXec
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Both lists use sk->sk_node.  When the peer answers with CC,
-nfc_llcp_recv_cc() removes the node from the connecting list and links it
-back into local->sockets, where the stale bind-time entry makes the node
-point to itself.  Every later sk_for_each() over local->sockets then spins
-forever with the read lock held, which pins the CPU and stalls RCU, and
-the socket is never freed.
+> From: Phil Williams <phil.williams@advisoft.co.nz>
+>=20
+> Commit 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
+> calculation") takes the FIFO timestamp scale from ts_sensitivity.
+> That field is only filled in for parts that have freq_fine. The
+> untagged-FIFO parts are left at zero:
+>=20
+>   LSM6DS3
+>   LSM6DS3H
+>   LSM6DSL, LSM6DSM, ISM330DLC and LSM6DS3TR-C
+>=20
+> st_lsm6dsx_read_fifo() multiplies the raw counter by hw->ts_gain, so
+> every sample is published with the timestamp taken when the buffer
+> was enabled. The accelerometer and gyroscope values still update.
+> Userspace that integrates attitude from the timestamp delta treats a
+> stuck timestamp as dt =3D 0.
+>=20
+> Set ts_sensitivity to the previous fixed scale of 25000 ns/tick on
+> those entries. They have no freq_fine register, so ts_trim_coeff is
+> left unset and no trim is applied.
+>=20
+> Fixes: 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp calcula=
+tion")
+> Cc: stable@vger.kernel.org
 
-The same stale-link case reaches llcp_sock_bind(): nfc_llcp_recv_disc()
-and the non-connecting branch of nfc_llcp_recv_dm() move a socket to
-LLCP_CLOSED without unlinking it, and bind() only checked sk_state, so
-it would link sk_node into local->sockets a second time.
+Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
 
-Reject connect() and bind() while sk_node is still linked.  A socket
-has to be closed before it can be connected or bound again.
+> Suggested-by: Lorenzo Bianconi <lorenzo@kernel.org>
+> Suggested-by: Jonathan Cameron <jic23@kernel.org>
+> Signed-off-by: Phil Williams <phil.williams@advisoft.co.nz>
+> ---
+> Resending inline. The first copy went out as an attachment.
+> No code changes.
+> ---
+> Changes in v2:
+> - Drop the ts_gain fallback in st_lsm6dsx_init_hw_timer() and set
+>   .ts_sensitivity =3D 25000 in the LSM6DS3, LSM6DS3H and LSM6DSL settings
+>   entries instead (Lorenzo, Jonathan).
+> - Leave .ts_trim_coeff unset on those entries since they have no
+>   freq_fine register (Francesco).
+> - Link to v1: https://lore.kernel.org/r/20261116-st-lsm6dsx-ts-fallback-v=
+1-1-8ace30afbfb5@advisoft.co.nz
+> ---
+>  drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>=20
+> diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c b/drivers/iio/i=
+mu/st_lsm6dsx/st_lsm6dsx_core.c
+> index 823f8ac66..dffaf76b5 100644
+> --- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
+> +++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
+> @@ -434,6 +434,7 @@ static const struct st_lsm6dsx_settings st_lsm6dsx_se=
+nsor_settings[] =3D {
+>  				.addr =3D 0x09,
+>  				.mask =3D GENMASK(5, 3),
+>  			},
+> +			.ts_sensitivity =3D 25000,
+>  		},
+>  		.event_settings =3D {
+>  			.sources =3D {
+> @@ -601,6 +602,7 @@ static const struct st_lsm6dsx_settings st_lsm6dsx_se=
+nsor_settings[] =3D {
+>  				.addr =3D 0x09,
+>  				.mask =3D GENMASK(5, 3),
+>  			},
+> +			.ts_sensitivity =3D 25000,
+>  		},
+>  		.event_settings =3D {
+>  			.sources =3D {
+> @@ -802,6 +804,7 @@ static const struct st_lsm6dsx_settings st_lsm6dsx_se=
+nsor_settings[] =3D {
+>  				.addr =3D 0x09,
+>  				.mask =3D GENMASK(5, 3),
+>  			},
+> +			.ts_sensitivity =3D 25000,
+>  		},
+>  		.shub_settings =3D {
+>  			.page_mux =3D {
+>=20
+> ---
+> base-commit: fa2933aac170dd19c6a7f0d7b81a8f537e40915c
+> change-id: 20261116-st-lsm6dsx-ts-fallback-cd21f1d1e30e
+>=20
+> Best regards,
+> -- =20
+> Phil Williams <phil.williams@advisoft.co.nz>
+>=20
+>=20
 
-Reproduced on v7.4-rc3 as uid 1000: a soft lockup / RCU stall in
-nfc_llcp_sock_from_sn() while walking local->sockets.
+--GTDYvITx/AJlzXec
+Content-Type: application/pgp-signature; name=signature.asc
 
-This issue was discovered by Tencent CodeBuddy Security.
+-----BEGIN PGP SIGNATURE-----
 
-Link: https://lore.kernel.org/all/20261009092338.3146149-1-bsdhenrymartin@gmail.com/
-Fixes: a69f32af86e3 ("NFC: Socket linked list")
-Cc: stable@vger.kernel.org
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
----
-v2 -> v3: apply the same sk_hashed() guard to llcp_sock_bind(): a socket
-          that a peer moved to LLCP_CLOSED with DISC or DM stays linked
-          in local->sockets, and bind() only checked sk_state, so it
-          could link sk_node a second time (reported by sashiko's
-          review of v2).
-v1 -> v2: reject any socket that is still hashed (sk_hashed) instead of only
-          LLCP_BOUND, covering bind()+listen()+connect() and sockets left
-          linked after DISC/DM.
----
- net/nfc/llcp_sock.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCawaYTQAKCRA6cBh0uS2t
+rNj6AP0ZLLu+r9WFBN6TAHJvfaI+XaWS6Iox74yGJGLRxbjbkgEA0MVKYd/uZCGS
+T6tY+qZXRIX+NwszYmhuddioXSuVNAI=
+=EB38
+-----END PGP SIGNATURE-----
 
-diff --git a/net/nfc/llcp_sock.c b/net/nfc/llcp_sock.c
-index 1e5ee4bcde684..c12170dde8401 100644
---- a/net/nfc/llcp_sock.c
-+++ b/net/nfc/llcp_sock.c
-@@ -86,6 +86,15 @@ static int llcp_sock_bind(struct socket *sock, struct sockaddr_unsized *addr, in
- 		goto error;
- 	}
- 
-+	/* A peer can move a connected socket to LLCP_CLOSED with DISC or
-+	 * DM while it stays linked in local->sockets.  Binding such a
-+	 * socket would link sk_node a second time and corrupt the list.
-+	 */
-+	if (sk_hashed(sk)) {
-+		ret = -EBADFD;
-+		goto error;
-+	}
-+
- 	dev = nfc_get_device(llcp_addr.dev_idx);
- 	if (dev == NULL) {
- 		ret = -ENODEV;
-@@ -714,6 +723,15 @@ static int llcp_sock_connect(struct socket *sock, struct sockaddr_unsized *_addr
- 		ret = -EINPROGRESS;
- 		goto error;
- 	}
-+	/* A socket that is still linked in local->sockets must not be linked
-+	 * into local->connecting_sockets as well: both lists use sk_node, and
-+	 * the CC handler links the node back into local->sockets, which turns
-+	 * the stale entry into a self-loop.
-+	 */
-+	if (sk_hashed(sk)) {
-+		ret = -EISCONN;
-+		goto error;
-+	}
- 
- 	dev = nfc_get_device(addr->dev_idx);
- 	if (dev == NULL) {
--- 
-2.53.0
-
+--GTDYvITx/AJlzXec--
