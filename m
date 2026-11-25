@@ -1,75 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795621836;
-	b=UTKEjM7+KU69th4X6dEqTfnJx3M5TP4yYwAyTkFRDoWgvyviNOZ4vVqXGz2bk8Jp1coc
-	 GgdD9ANzi6Y3yl46X2TcZfXAikixzragC0e8PwJ0zzEtliXfDAmq+eoiKT4XGy/2PWX0y
-	 tI8vLeTPSp+5vVE8WadmaPNc5Z/GWmdIg02YokVj1CNRljq/88iuRNA+tjkg/NRAmLqh+
-	 KTwJPRIJWJrJYDDfvl0lwX9rWpQnM6VDMNZNvKOQXO8F1mgu84yIJr/zt3/zMBVdhNiex
-	 c7gw4VSTalTz4azydXUCNCS6oPjndeLLJ0Fq2XYMnfREJRU8bQ2vPOSajItUCxfA8Ug==
+	t=1795621837;
+	b=y7e6H7SAGmHaE4bWefPB7fA+LUzOvFURmQkGLE5i7K2gfPfjisqENmEqXr/YOpzzDi/e
+	 2+ok43+rs4C8la1Jau8H7V+QD2bWDgGXwuUvdS3Pij8syCXcrSP74gSg7bntlUwe3Upjx
+	 Hv6tRpIU/WsvTjDmNRA1a8+IRK6WIKee7YwG158kk8IrNcYX7HwwkF7E3Sze4KON5uePE
+	 sZne/UBeKvlTeb+FGXzxMX6L6ygm+IdRDqnPr5q8Q4yqusJPzd32pM1pevM0YbGbiEqbO
+	 4LajZ1L5LCH9fCoEHK79A/r9fvXaMRMdAUoR94tAlsLaa+lVcHj51xGTtCNDpwKLw/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795621836;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=XLwCuf7M2Ga/clCF7XSJZKgDh7EqOrTLwYVq4lWZ5K4=;
-	b=yiGa2jBP8rTqZi6bXz+29j5rA0dx6uoOV9NwPXxcadTEtfowvr0gP5g4G4xQks0KaHiV
-	 /H/rBcHcmtPD0uYOgN6C1rk5fxLn0otNWUCo1ngCOJYC8lkhiAio3guxDgv98HjeFOysw
-	 gQiEDTOCWu6czDquVuUBjNZQb8Gf9ixnr4ufl+2CgtE8ojAguMVpQGoRQziFGIGBMJVI3
-	 CJgp11Re0BdaatNMSSGvtLgJhAx0ysHen1/kThrNFKs0GUYUpEbbjaalSJHPGav/egl2c
-	 itBMba1Dk34nzuWGyo0yvngfksoRVUxWOAnyRVjgehXoEu1nvukoMZJ5glRDLCZiQ0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795621837;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=lfY6+ACkKkMJkIiJJyXZaNfUJtxH402RHVK27od4sFw=;
+	b=xThl0XS38y+kqnaXmwCWqQxstFfDCdqhYM7bgpdsG9OqixOYTmcKXVm9aFgDfp3bzeKU
+	 j+CoP5BdCdjFT340c3DbJ54ubHYPkhXsTGvYAq/k51ZODNMnp6BnqOGcXCtjWPJp9BIde
+	 TDsRk2MUWM8x+6KawLPFKIPhTwDkelDSaAH6HdEloNWYMvTF++F4iZe/SpWJtHz2QZGhE
+	 DAAQKAYcUnJC3+iRyUKcYRVANx1dQUumN7rrwE5pVdNVCVx9Bju8ThCXkcBWYS0sQZZal
+	 c58hwDkdawePjF24l4uafn7naUqG4asntqnh/Xv2zJBiTEfgbIBB/R7e5YfXNByE3tQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fd9tvuie;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=L5Fnntom;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E59B606A330;
-	Wed, 25 Nov 2026 15:50:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E59B606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A09606A33B;
+	Wed, 25 Nov 2026 15:50:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fd9tvuie
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795621836; x=1827157836;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=sHPGjlZBOvzDEu84WUTKFdQM2Q6afKWCCaXdHKe2KLA=;
-  b=fd9tvuies1xic8b1kWwGvmqOO6Zbk98Q5umwWakA5j5k5yTn5xYedmco
-   wlidoxtDJaMmLsBMfUAo/3cXlBs34FZhxhsuYzxi2y+qAbG5lGVPG+pH4
-   VqgQabtcR4aVhE3O+T6b5jhTHP8T5D2iuMTt0PKi+eBdLa/m7KGXUYvlJ
-   5fWl54M3jmotEPsoE8qkHCCCDRHLhPG6rTKUAdkBaORcQ+e9NovMNdMBI
-   Dc4Mc8DvKmKdQBLwVlzn/KukiydO+yPv+dXGjkK+N4vSUcXd7Z1y6TLel
-   x2J5epWlATvU6tcKrR97EEHZHeDbhPFbA7AVgiFtJIVhmTgvtPNa0dpqM
-   g==;
-X-CSE-ConnectionGUID: s80Nd/azRuCjcwi80i8Dfw==
-X-CSE-MsgGUID: SiO4flDOQzWVueZ4xkQd1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4561658"
-X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="4561658"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 07:28:46 -0800
-X-CSE-ConnectionGUID: 6vQBSlZgTmK3wDns/adbww==
-X-CSE-MsgGUID: 8ulM3UDES1SpBzypkbNKpA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="11779883"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.244.1])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 07:25:44 -0800
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=L5Fnntom
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 218EF1F000D2;
+	Wed, 25 Nov 2026 15:50:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795621836;
+	bh=lfY6+ACkKkMJkIiJJyXZaNfUJtxH402RHVK27od4sFw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=L5FnntomSFufEQ/bT6bd3ERkIFti0AJN5jLmAakwlZ448cFcjEPPPPGodmxQtYAi1
+	 J7NedflCsS+pw14jhZpZXFFKDSmvRGEZM+mAxQuJ/1KnTOYqgDlfBuseozh/nh36Q9
+	 8bCq79tpvK/dw+aPTcaC7oaYrAG+fDYXtNHbul1A=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	kai.vehmanen@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	broonie@kernel.org
-Subject: [PATCH stable 6.12.y backport] ASoC: SOF: Intel: lnl: Enable offload for UAOL link
-Date: Wed, 25 Nov 2026 17:26:23 +0200
-Message-ID: <20261125152623.22645-1-peter.ujfalusi@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Raag Jadav <raag.jadav@intel.com>,
+	Riana Tauro <riana.tauro@intel.com>,
+	Matt Roper <matthew.d.roper@intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Dave Airlie <airlied@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 348/990] drm/xe/hw_error: Guard csc_hw_error_work() with runtime PM
+Date: Wed, 25 Nov 2026 15:28:35 +0100
+Message-ID: <20261125143830.243694842@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,93 +67,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit fdfbd9ff86a145f09978ab49305ed7acfad66a1d upstream.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-The handling of UAOL (USB Audio Offload Link) is similar to SSP and DMIC,
-it is handled by the DSP firmware.
-Set the offload enable for it similar to SSP and DMIC.
+------------------
 
-Cc: <stable@vger.kernel.org> # 6.12.x
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Link: https://patch.msgid.link/20260520150639.25301-3-peter.ujfalusi@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ Peter: Adjusted to the int returning hdac_bus_eml_enable_offload() as
-  commit 978152b2cab5 ("ASoC: SOF: Intel: hda-mlink/lnl: Convert offload
-  enable functions to void") is not backported. The helper is renamed from
-  hdac_bus_offload_dmic_ssp() to hdac_bus_set_dsp_offload() to match
-  upstream, since it now also handles UAOL.
-  Firmware built with UAOL support reads the UAOL registers and crashes if
-  the host has not granted the DSP access to them. ]
+From: Raag Jadav <raag.jadav@intel.com>
+
+[ Upstream commit a890a885b982f73e6e984e828ffda06b5121c4b6 ]
+
+xe_device_declare_wedged() callers are expected to hold a runtime PM
+reference. Fix it.
+
+Fixes: a7df563b45b0 ("drm/xe/xe_hw_error: Handle CSC Firmware reported Hardware errors")
+Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+Reviewed-by: Riana Tauro <riana.tauro@intel.com>
+Link: https://patch.msgid.link/20261022051303.282805-4-raag.jadav@intel.com
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+(cherry picked from commit fc8d229d76102489b6f56538a818c285a87db1e9)
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Dave Airlie <airlied@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/intel/lnl.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/xe/xe_hw_error.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/sof/intel/lnl.c b/sound/soc/sof/intel/lnl.c
-index 3d5a1f8b17e5..48202b4d8069 100644
---- a/sound/soc/sof/intel/lnl.c
-+++ b/sound/soc/sof/intel/lnl.c
-@@ -31,8 +31,8 @@ static const struct snd_sof_debugfs_map lnl_dsp_debugfs[] = {
- 	{"fw_regs", HDA_DSP_BAR,  MTL_SRAM_WINDOW_OFFSET(0), 0x1000, SOF_DEBUGFS_ACCESS_D0_ONLY},
- };
+diff --git a/drivers/gpu/drm/xe/xe_hw_error.c b/drivers/gpu/drm/xe/xe_hw_error.c
+index 3c105269e6fa8..0cf3c6d7b3731 100644
+--- a/drivers/gpu/drm/xe/xe_hw_error.c
++++ b/drivers/gpu/drm/xe/xe_hw_error.c
+@@ -12,6 +12,7 @@
+ #include "xe_device.h"
+ #include "xe_hw_error.h"
+ #include "xe_mmio.h"
++#include "xe_pm.h"
+ #include "xe_survivability_mode.h"
  
--/* this helps allows the DSP to setup DMIC/SSP */
--static int hdac_bus_offload_dmic_ssp(struct hdac_bus *bus, bool enable)
-+/* Configure DSP offload for DMIC/SSP/UAOL */
-+static int hdac_bus_set_dsp_offload(struct hdac_bus *bus, bool enable)
- {
- 	int ret;
+ #define  HEC_UNCORR_FW_ERR_BITS 4
+@@ -56,6 +57,7 @@ static void csc_hw_error_work(struct work_struct *work)
+ 	struct xe_tile *tile = container_of(work, typeof(*tile), csc_hw_error_work);
+ 	struct xe_device *xe = tile_to_xe(tile);
  
-@@ -46,7 +46,8 @@ static int hdac_bus_offload_dmic_ssp(struct hdac_bus *bus, bool enable)
- 	if (ret < 0)
- 		return ret;
- 
--	return 0;
-+	return hdac_bus_eml_enable_offload(bus, true,
-+					   AZX_REG_ML_LEPTR_ID_INTEL_UAOL, enable);
++	guard(xe_pm_runtime)(xe);
+ 	xe_survivability_mode_runtime_enable(xe);
  }
  
- static int lnl_hda_dsp_probe(struct snd_sof_dev *sdev)
-@@ -57,17 +58,17 @@ static int lnl_hda_dsp_probe(struct snd_sof_dev *sdev)
- 	if (ret < 0)
- 		return ret;
- 
--	return hdac_bus_offload_dmic_ssp(sof_to_bus(sdev), true);
-+	return hdac_bus_set_dsp_offload(sof_to_bus(sdev), true);
- }
- 
- static void lnl_hda_dsp_remove(struct snd_sof_dev *sdev)
- {
- 	int ret;
- 
--	ret = hdac_bus_offload_dmic_ssp(sof_to_bus(sdev), false);
-+	ret = hdac_bus_set_dsp_offload(sof_to_bus(sdev), false);
- 	if (ret < 0)
- 		dev_warn(sdev->dev,
--			 "Failed to disable offload for DMIC/SSP: %d\n", ret);
-+			 "Failed to disable offload for DMIC/SSP/UAOL: %d\n", ret);
- 
- 	hda_dsp_remove(sdev);
- }
-@@ -80,7 +81,7 @@ static int lnl_hda_dsp_resume(struct snd_sof_dev *sdev)
- 	if (ret < 0)
- 		return ret;
- 
--	return hdac_bus_offload_dmic_ssp(sof_to_bus(sdev), true);
-+	return hdac_bus_set_dsp_offload(sof_to_bus(sdev), true);
- }
- 
- static int lnl_hda_dsp_runtime_resume(struct snd_sof_dev *sdev)
-@@ -91,7 +92,7 @@ static int lnl_hda_dsp_runtime_resume(struct snd_sof_dev *sdev)
- 	if (ret < 0)
- 		return ret;
- 
--	return hdac_bus_offload_dmic_ssp(sof_to_bus(sdev), true);
-+	return hdac_bus_set_dsp_offload(sof_to_bus(sdev), true);
- }
- 
- static int lnl_dsp_post_fw_run(struct snd_sof_dev *sdev)
 -- 
-2.56.1
+2.53.0
+
+
 
