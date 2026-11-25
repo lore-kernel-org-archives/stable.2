@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603183;
-	b=HgqhnQCRfT9GyVBglR6ij8J0GVZKSsin+Yg//6n/JnymORMGzcN5rOPJIPfIIbWDORNG
-	 1c5Tw2jzUDKxTF5KoL62izOqRrmFhOLMyn+0ul7rkuEIBr7i8fRFQXQ0JuqEoCbDP0L0L
-	 q7tP3XYb0de7S6DwyOITJ+PtY54TNpxIOWKnX7CIcW16MuZTvmK1EsJ1RNaA3HNDUwXHf
-	 R+yaaIK7ozBNTSPx0uKtCzg9yBMoCvj1kNVZDLpJg+OkdAYRYvt8He/wUtsPhd9ZZggxj
-	 /AD3NvUtmOTdbAFR5DgLA7J4sNSTc8yWVVLakhNxz9b5ygity9cxFbKYHdCs/D1zusw==
+	t=1795603187;
+	b=SxJf9O57PQdFP5W5rfKr9qhJMEzNQ70cF5NY16Kbj52lRhXKl2ql6HTytxFbdJFi1Q6X
+	 J3HSYxS+rbQFwMyhWpPr0Ij7n4VIeb3ZjeobN45u33Fjmdnrw+bk37HjQP2t4pnsFbgni
+	 6Sk2IzOBcKNYL5GGFMcRvJfV6aY73JBb+/+BNDv/O+wtMUtVl97sTiVlyazBRD12nLZD+
+	 XM/in4dw+P4Ep8c+leKLzLaq6kIa4/fovLycBERi4x28Jr8heuuEyyXQGo4Ef5jXjl51t
+	 RB6wPAFHKOZO8d4N4rDFqgXXo1dvLk8uCilp8qa785A3C75bAK5DZTZAsaElfohRk/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603183;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603187;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RoegsE4veI/fnLzvFBw4ea3quVuj7t9ZUoIb12LmeLI=;
-	b=vjA2PhasUswX59xSQxbq4eLaty4BHf0GoH4JN74wUMMwzVMCkPSfGVoE9zosMIrBWD8W
-	 kHyvrSKf2rUsmqYh9Yo9jdrEDICzba/9/STQixZRf+6DjNXAVkpugGzkx1cANz4JItMWb
-	 VLHaVnamP0+7sEHriYXjOa8U4nIIl0SQn9/mr0ha4vdcYfouEqmWPvapJVB+2WxvPkLNV
-	 uS1q64B1NZwPASI/NqQzGajY+C5rphMgemjB9bXcWh9pT/cadb/4k+cHu5dpVcBS2tUSX
-	 vTDLTe6kBoMp/VZpQ21RGAPzjkcnMpL8pViWK7x4TgALatW+M7L/fxo2nWhXtV8MgSA==
+	bh=dLXYa01lLbNXC8w1PRGvwCmwT4jyAm2F1rR6RNmxyM0=;
+	b=For8HJoy1fk89LIUDFeseByNacqiwn7YCeb3sbB22vEeUrXe3N+r+ayhSXZdgueSuwQg
+	 fxqGZ7vCxeEjcuW/4BOEceY8hsnorEzXc6QnHTQerPdYlSp63j+0QQa6dl+qS9Tln4Py/
+	 LqpVZn3FSjNXvBi8BI8+R4wonBD+r75ugAaOjc8bwgi++fULjoTbb5lIX8d/ICIYWN8iS
+	 HtBHVREbTEQTmMqaVJsbOWNfmFrFFtyXkC4dtsIUcbTbnttdjdRYRDrD/Djhso7OnB4r7
+	 AB/aNRZK6MDyHN5qG5/wQjZMR2iMmjLwhIP4+QCBRsoz6mnOC36pWcTTX/CEOsBO+rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DH8i3hPY;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gF1FWjkj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF4ED606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:39:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C0F606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:39:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DH8i3hPY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A30F1F000CA;
-	Wed, 25 Nov 2026 10:39:42 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gF1FWjkj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D533A1F000CA;
+	Wed, 25 Nov 2026 10:39:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603183;
-	bh=RoegsE4veI/fnLzvFBw4ea3quVuj7t9ZUoIb12LmeLI=;
+	s=korg; t=1795603186;
+	bh=dLXYa01lLbNXC8w1PRGvwCmwT4jyAm2F1rR6RNmxyM0=;
 	h=Subject:To:Cc:From:Date;
-	b=DH8i3hPYVc+a1fGHQK5GrSe/jE29KEGFTYYXGoHB6/eFDIsHLXNkVjqbJYZjyoEca
-	 EHJlO7ICLJprQVQKxXesAB0TO8cJIKQxnQlSwBkr5qXN5kK1924qEkZM4QH8t65/9j
-	 80bbZTo+oyuhEjlmp6d+ck3zmiYI33FkU069bY1o=
-Subject: FAILED: patch "[PATCH] tracing/probes: Fix BTF bitfield parsing and out-of-bounds" failed to apply to 6.18-stable tree
+	b=gF1FWjkjnXCrhA6HKhtjYzkBPgAgiNEY+RhNJhD1LtEvpNhVT7chEsTKMnghOQo2k
+	 OXTaN00jBggcRIJ24Q7Nn2doqpHaLRTIbD7wXC8N5IUc4kUTZrKL9E2tsJ5zgxuPC9
+	 WmmHoeDmoS9HpdBdhURB+t5oJ5ntc4lJcY/DHgG8=
+Subject: FAILED: patch "[PATCH] tracing/probes: Fix BTF bitfield parsing and out-of-bounds" failed to apply to 6.6-stable tree
 To: mhiramat@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:29:22 +0100
-Message-ID: <2026112522-acuteness-scowling-4447@gregkh>
+Date: Wed, 25 Nov 2026 11:29:23 +0100
+Message-ID: <2026112523-subtly-saucy-1ef7@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 9b6e9d6a11090ac34516c45f48663b37ac94a9b1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112522-acuteness-scowling-4447@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112523-subtly-saucy-1ef7@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
