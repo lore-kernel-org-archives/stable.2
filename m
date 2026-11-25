@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795639768;
-	b=JGV7j0kytzAUo36qKGbVoOBe8wtwoYZGN2LoNmzpu2woOt2KQiahNTqGPN8C/zNGQ3x4
-	 /Kv25LBP/5Bn2ti9Qy3HGw8nQ83/NBXcS50Jf8dVylLeGYHAGXWvxvZhoZHu35jUG0Ybs
-	 7aHqRlSo+N9UdHvd89qe5w6T/zg3Sv00/ih50z3HS9m1n3TC3ri3V9kV/0/eLy6a7vwh/
-	 wVmsV/QwlpF9dRNRA4HEi3vijeYYTYRfgtCV2gnyXKSksA1qi2FqEZVOpkPK7ObqgcyvM
-	 DEEmVTutXQRc5mgfAebCOJcd6n49A58ziO2/Y1dB8y4ewpkzsuTSz5IPfhy9YWOxkNA==
+	t=1795639769;
+	b=y4qj2205piQ9fRaTsJEzmG6ukWYue/V2HsiG0tYbO0YihnZdRavjlwJOLZp0N41bUeKN
+	 2sDSQoIFkRYT4y0lVVtDLISuKmlHDtwc6xeUd7tJoJe0J6/PcinEykohpZiJk4UZ9m6Rt
+	 APH1+77gxEjIJEAAb0C8rvaAbxhUTG/Q3FjJgDHsdOl7dvIk0UC8+ZRYa2PybzXTxwwnV
+	 8UODO2+Kp8t8U2WpjV8k1By7BhvuUFx5MdEjpG2TFe62F88YV2LCBXO3KL54kRYeNDXEb
+	 cVfvRgSBLJD2GzWAW14oIMPlXbBek3sgDdBuDGB5npVA+tVCPpwex+ErHUCi2oBd4FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795639768;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795639769;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=VUdp+RPlljA0BcKKW77S4pZbKvj4xFDKJ9r2p9aqrng=;
-	b=owKwXWJDdSU8DNPj2YkkgUpgPHeO5NqHra3klFFzPfjCNNd0Y1shBpxpdEmyBlINl/mN
-	 yWLEtHV2bIM295WvfrXPKqH1Pw1WlQb0Nsc+pN3aRBf+3RjafGUB9f/TpLs1KlQsJEoL/
-	 xpHDVcd5RBgBzpwE8KA8u2bxB7x8/ha117Baz7Mcx7sq7FmE55PTL+LmTekAeBiQMydW8
-	 MwoXGm/YCj2yD+oX/7Ih2uuBFCnGlS9gL6UvB0jJ+CiaPH93Yq7YTZ+ERfE5SmcJ6dMIn
-	 rivfCINWANnXhljmrBPLf4x0nIxz37taqvQ6jE/2N4WJyxCp0o8nhEWIhr7FNPLXjng==
+	bh=yiP5h21LwvDzlC2NAkyHzG1v3Gl5+k48WkncEFjv2s8=;
+	b=lGk9bITXVHRLTNkyeCRREeM4Q7HMgBLkqxTJp1puiVR5c2SwlbzsnczGxTITBUhwGhZh
+	 4iXzK0qU5DjNQugaXbErGMYd9YEfS1KsNNB2ieIFUj40Snl9NZ2y3PWw/thIOQIQIn34O
+	 SIv13RqsiNHla8Dz7z40tUK7B1O/gWl8K8/8f/ETejyKgC64QHdPfqS14pCEWvtTxpM4h
+	 s7TKfIajYX9KlwtB8gPS+fu13Dt7sVJvtXMtHVl9rkod6BqDrTg/LjgXkRRzh/KCTV7Cr
+	 t3AoPPoWuUB5saTEbto8fbm5cZzBMsJOwVBe6zDiWxjbqzG0zSg6GvmY6G6aYqwZIlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MyDEDlAX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bDCyIcs1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61161606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:49:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B57606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:49:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MyDEDlAX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 562D31F000D0;
-	Wed, 25 Nov 2026 20:49:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bDCyIcs1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E5B81F000D4;
+	Wed, 25 Nov 2026 20:49:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795639767;
-	bh=VUdp+RPlljA0BcKKW77S4pZbKvj4xFDKJ9r2p9aqrng=;
+	s=k20260515; t=1795639769;
+	bh=yiP5h21LwvDzlC2NAkyHzG1v3Gl5+k48WkncEFjv2s8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MyDEDlAXo/EaZA+hX2akif7ludRioM37aEwQHGVKXmPDwuvWz09fjL2leT4kbBVf5
-	 /DbbfTvLMZ6zLn23XyuquUl8FYrwLlApOS6Cpmiw0er2m/WeJhguhPeAv190K7d8Ib
-	 rUIIdsjmWarZsN6pWkoApnXyNOPrV9iK63MROMRyXb0gaqwhJnXibtDGWOOYMC21DL
-	 v5bbnpzgecHKQCkinwoThx/dNtp9Jz/3mMnrk9JrFb92LhwEL2QX7pa8taMxf6lBN/
-	 pNbwqwsPj8+2s83tXxE7aWXkEJ+ndyWEuZOggikP1D1+D4I3NKkjem8joEEqmgbKiY
-	 +ArbqCAOjCDgQ==
+	b=bDCyIcs1kC0P0/x2mz7DnbROicPtST/OGj0zTWyKwc1qlbvit/5WOySAAxx16Jfb+
+	 PyulaDu1YPkIeHhVdH489OT8Svc3ikRbiSU5sLn2Qp3xVr5YXmwNyHC/p+tXyu+t1G
+	 XOJaOAgHN1pxof+GXvs4ZZWE/eG20kH/+tK22dGXUfAdQQ3uvGE1idHURSEpg8kAEF
+	 MXMSTJo7eAgljhAvyyYyJrj4s4oCGWwXmjScVP0hqD8wTmE2eVQw6w0hNv1rIm8BT5
+	 PvTeYW5lWvtfKvyYEJgK3Ih4Oq9zyLkHNUMnfuleKlWt5okvp91nE6z1FDYl3effCe
+	 uG6RqNlygeA4g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+Cc: Tzung-Bi Shih <tzungbi@kernel.org>,
 	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 2/2] gpio: mvebu: fix sleeping-while-atomic in mvebu_gpio_level_irq_mask()
+Subject: [PATCH 6.18.y 1/3] gpio: sysfs: Remove redundant check for struct gpio_chip
 Date: Wed, 25 Nov 2026 15:49:25 -0500
-Message-ID: <20261125204919.1453286-2-sashal@kernel.org>
+Message-ID: <20261125204921.1452840-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125204919.1453286-1-sashal@kernel.org>
-References: <2026112516-citation-stage-72ea@gregkh>
- <20261125204919.1453286-1-sashal@kernel.org>
+In-Reply-To: <2026112507-smasher-paralysis-af0a@gregkh>
+References: <2026112507-smasher-paralysis-af0a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,47 +62,95 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+From: Tzung-Bi Shih <tzungbi@kernel.org>
 
-[ Upstream commit 42269cdb3d3b46ba6e80f31d0e00d0bdcff1d8d4 ]
+[ Upstream commit 395b8e555dfcbab6b28f360e39bd048b2f3e362b ]
 
-mvebu_gpio_write_level_mask() is called with a raw spinlock taken but
-the underlying regmap uses a standard spinlock which can sleep on
-RT_PREEMPT kernels. Add the .use_raw_spinlock attribute to the
-appropriate regmap config.
+gpiochip_sysfs_unregister() is only called by gpiochip_remove() where
+the struct gpio_chip is ensured.
 
-Cc: stable@vger.kernel.org
-Fixes: 2233bf7a92e7 ("gpio: mvebu: switch to regmap for register access")
-Fixes: 4d305c227312 ("gpio: mvebu: name regmaps to fix debugfs collisions")
-Closes: https://sashiko.dev/#/bug/linux-6bee0c4f-384c-494c-868e-07c420195d13
+Remove the redundant check.
+
 Reviewed-by: Linus Walleij <linusw@kernel.org>
-Link: https://patch.msgid.link/20261109-gpio-mvebu-sleeping-while-atomic-v2-1-41f070421e70@oss.qualcomm.com
+Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+Link: https://patch.msgid.link/20260223061726.82161-4-tzungbi@kernel.org
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Stable-dep-of: 7e899fe007d2 ("gpio: keep the chip reference when deferred setup fails")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpio/gpio-mvebu.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpio/gpiolib-sysfs.c | 11 +++--------
+ drivers/gpio/gpiolib-sysfs.h |  4 ++--
+ drivers/gpio/gpiolib.c       |  2 +-
+ 3 files changed, 6 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpio/gpio-mvebu.c b/drivers/gpio/gpio-mvebu.c
-index 267e6d5bacd0d..92ce02441cc99 100644
---- a/drivers/gpio/gpio-mvebu.c
-+++ b/drivers/gpio/gpio-mvebu.c
-@@ -603,6 +603,7 @@ static const struct regmap_config mvebu_gpio_regmap_config = {
- 	.reg_bits = 32,
- 	.reg_stride = 4,
- 	.val_bits = 32,
-+	.use_raw_spinlock = true,
- };
+diff --git a/drivers/gpio/gpiolib-sysfs.c b/drivers/gpio/gpiolib-sysfs.c
+index d4a46a0a37d8f..c5aa79fac40c2 100644
+--- a/drivers/gpio/gpiolib-sysfs.c
++++ b/drivers/gpio/gpiolib-sysfs.c
+@@ -1053,11 +1053,11 @@ int gpiochip_sysfs_register(struct gpio_device *gdev)
+ 	return 0;
+ }
  
- static const struct regmap_config mvebu_gpio_percpu_regmap_config = {
-@@ -610,6 +611,7 @@ static const struct regmap_config mvebu_gpio_percpu_regmap_config = {
- 	.reg_bits = 32,
- 	.reg_stride = 4,
- 	.val_bits = 32,
-+	.use_raw_spinlock = true,
- };
+-void gpiochip_sysfs_unregister(struct gpio_device *gdev)
++void gpiochip_sysfs_unregister(struct gpio_chip *gc)
+ {
++	struct gpio_device *gdev = gc->gpiodev;
+ 	struct gpiodev_data *data;
+ 	struct gpio_desc *desc;
+-	struct gpio_chip *chip;
  
- static const struct regmap_config mvebu_pwm_regmap_config = {
+ 	guard(mutex)(&sysfs_lock);
+ 
+@@ -1065,13 +1065,8 @@ void gpiochip_sysfs_unregister(struct gpio_device *gdev)
+ 	if (!data)
+ 		return;
+ 
+-	guard(srcu)(&gdev->srcu);
+-	chip = srcu_dereference(gdev->chip, &gdev->srcu);
+-	if (!chip)
+-		return;
+-
+ 	/* unregister gpiod class devices owned by sysfs */
+-	for_each_gpio_desc_with_flag(chip, desc, GPIOD_FLAG_SYSFS) {
++	for_each_gpio_desc_with_flag(gc, desc, GPIOD_FLAG_SYSFS) {
+ 		gpiod_unexport_unlocked(desc);
+ 		gpiod_free(desc);
+ 	}
+diff --git a/drivers/gpio/gpiolib-sysfs.h b/drivers/gpio/gpiolib-sysfs.h
+index b794b396d6a52..fd5db5384681a 100644
+--- a/drivers/gpio/gpiolib-sysfs.h
++++ b/drivers/gpio/gpiolib-sysfs.h
+@@ -8,7 +8,7 @@ struct gpio_device;
+ #ifdef CONFIG_GPIO_SYSFS
+ 
+ int gpiochip_sysfs_register(struct gpio_device *gdev);
+-void gpiochip_sysfs_unregister(struct gpio_device *gdev);
++void gpiochip_sysfs_unregister(struct gpio_chip *gc);
+ 
+ #else
+ 
+@@ -17,7 +17,7 @@ static inline int gpiochip_sysfs_register(struct gpio_device *gdev)
+ 	return 0;
+ }
+ 
+-static inline void gpiochip_sysfs_unregister(struct gpio_device *gdev)
++static inline void gpiochip_sysfs_unregister(struct gpio_chip *gc)
+ {
+ }
+ 
+diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
+index a41219961778d..ccdf4feadc619 100644
+--- a/drivers/gpio/gpiolib.c
++++ b/drivers/gpio/gpiolib.c
+@@ -1267,7 +1267,7 @@ void gpiochip_remove(struct gpio_chip *gc)
+ 	struct gpio_device *gdev = gc->gpiodev;
+ 
+ 	/* FIXME: should the legacy sysfs handling be moved to gpio_device? */
+-	gpiochip_sysfs_unregister(gdev);
++	gpiochip_sysfs_unregister(gc);
+ 	gpiochip_free_hogs(gc);
+ 	gpiochip_free_remaining_irqs(gc);
+ 
 -- 
 2.53.0
 
