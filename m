@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603023;
-	b=LbfLQ7OpZLgXyAlz0n1Ozk38lkFtZow0AFNzwf3wee/2JsMHCoj5gnFumX1EbCKZ5kme
-	 z0J6xOxLIFWX1othI9aYorUGuh4n6Odd/r58q9b9PNz0qd7KHqPTEckNKQ0LNeNXfmPDH
-	 Its3rE83RAxPLuLxXVzHcfZLLfh+rCncy1UlLWCppodUTpYU5p1UkDlhAug24itNpabSp
-	 bx+dt9VYftSrwbfn6ulnnCB8tjDQL7HzuRdircp6qf/PltSfGJnAPozMn50yaIiAv/mpR
-	 WvknfWNIj7MWNE27vSBK4dd7zFPmRPNqGQRMiHKDxB7X87hdnBLcu8ZFh9XIE9xchxg==
+	t=1795603026;
+	b=pWz7QVUDO58JDpD0JGrOF9KF1JHLkVzM5tvPvGxzGzk/JHrWeK6SN/rbLFEvZIvuwKND
+	 zsBsDYRD5JrNcV9i4mWD+kRrgRs/+8A4R6y5iKQ0/KYQp98+JlSf34jC/rkfPM9l5zo80
+	 KVpjpKTnW3NhMg7COif8gMjnRYxu3ctJld8/lBMkrEMwzleB/L83fmtUW8GNEXbj1h8jT
+	 pRzW3E6Mzs7qMFNQwWc0ROX22iPlTOnY9LPylNAw3dv1rp64STKCAFzHBOd3JmhbakAUZ
+	 VJxs0txm2x3SfmdGBdby6u69K2RlxAkGFPKREo7VV5zhO4+1+JRmM1rLQYLCYG1vM9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603023;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603026;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=K14Q5jca9V1fy6N4nskzw3+7gvYpKMLd2sc2Zoa4FPs=;
-	b=06JI0MbsC27v5E99aLbnhLGBVKFcirUft9VENGj36iEAjvPZ9seUK4tVw7SUlrF7HMN1
-	 B1K6KIqRltFgIum9b5BfDdGz5ZA3KXodGhZDx6v9vp/x8aoVRCfFKS2PpJEIXH370Prq0
-	 CwAGjTfOss5c0HX9pUYNLcaB6g/z21KaF2iP5pMHhUGmOdlVBKIfffvnnqvY6I+foKqLr
-	 oQE2W/HfXvZEBShY3Dv5OjtU2CK6P72CA0qE1UAgj0IkCGoWPoPqon5lh4P80WLRvkHXo
-	 ujpQ7ynYFYDTBiZsMEWqOqiHy9A2TM0olJn0hWT9a5cDt9p669Q/rnARI905K1gkBWQ==
+	bh=EC9AWEmzdb3mx7GaYBkj8L9Od51WTDKFfuLwDBATqm4=;
+	b=dxQ9Z8M5YYWRK7r4rEvD0AMS5d+bJzLPyodBAM3RGRfJqwK2J+QkIgkDlyXfdYKialVs
+	 bPvv6gFYXuxVi/SbJxCe5/SlQozlarwJ5k2uTucXuqnKFuVVv1Cq4tvTw7C6hODCihXL6
+	 bh5WuwRCNymoqbHSwCNfiypZJSGZFjIiZw+0jTU0+Q6Z95PwRMDuPwWQ1JyrpCuxbZujk
+	 qzRZCSVqS4ieyoaZEiV/K43ftCJQ/cufYwOmrUtAZL8LkHQq6VgRKPQEZWIQVoBLV4LHq
+	 4oNM+1d76uXdQa01H559A94h5mmsefAjy6mVsPNPrCeF96I2xX/ri/1Kjf2X8n54FuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lbVTj1vJ;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SVLRgMmT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C4F606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:37:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD63C606A32E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:37:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lbVTj1vJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C407C1F000C4;
-	Wed, 25 Nov 2026 10:37:02 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SVLRgMmT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5AD11F000D3;
+	Wed, 25 Nov 2026 10:37:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603023;
-	bh=K14Q5jca9V1fy6N4nskzw3+7gvYpKMLd2sc2Zoa4FPs=;
+	s=korg; t=1795603026;
+	bh=EC9AWEmzdb3mx7GaYBkj8L9Od51WTDKFfuLwDBATqm4=;
 	h=Subject:To:Cc:From:Date;
-	b=lbVTj1vJcqaPc2mQoVI7w//4eMcU+Vn3fLtNI/KhnLKrAGMbzrRD+lGCpKnMmQITj
-	 kpSrRC3Tv76Zf4btm8gK9UyWyiNEddaURex8FpFqYoXsKY0XfeuWJhoS0bfCOYwN9O
-	 UerwuGWPVYCjQdfUjQZrqIDTc0QhINdhxcyAxUYs=
-Subject: FAILED: patch "[PATCH] sched_ext: Factor out drain_offline_rq()" failed to apply to 6.12-stable tree
+	b=SVLRgMmTBgXHQM5KPmoN9LJ/sF5l/801V156riJM6eeinZ+GT8YqC2Qrr17uBGU/y
+	 7nuDDmS5FVIzN3rcPfVXyeGtanBn7yU5tZqWKHyj7ds6JU3E/i5sEqH7fN+Y8ZovGe
+	 tFqpHHYb3/5cf9k3VGx4gr3cSQn4frTiis/l+jJc=
+Subject: FAILED: patch "[PATCH] sched_ext: Factor out drain_offline_rq()" failed to apply to 6.18-stable tree
 To: tj@kernel.org,arighi@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:22:17 +0100
-Message-ID: <2026112517-tipping-unblessed-bf3f@gregkh>
+Message-ID: <2026112517-energy-proven-d70f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 1826e5aa068cf6c21791773f160b4a2ce5d5f9a5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112517-tipping-unblessed-bf3f@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112517-energy-proven-d70f@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
