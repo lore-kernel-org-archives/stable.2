@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795646198;
-	b=wTcN8mJUS1yH5TpdXkL13fOOzT1dUhe8iqILpqzCDbq9tTBNhfhPjq9FdDEt/nwOuShm
-	 Fi9KmUK82u0IDY89sgexn8sjk9fRiYuD6LmobA30Qk+SS0hSTiK+xa0y4d1aJvkE9p78m
-	 3EHj4mTbcTLHJBZJjVu6U5Zv62gHkxLtVqM1g6UJDBKFG/UAwFL6ZPaHx4SHaBC+pDULv
-	 87QcGEbb8uSY/s4brTG1Zm39T4T7JRuHknhqeXZK833DSljJiGTZezPD1iF3431CaXJeI
-	 uFdKtcgRAhp2Uj27TIcVdBQHzZ7FKa2q2MzI1X5FQYZNOTZs8PnfTgNJ/7yVrW/vWpw==
+	t=1795646214;
+	b=4ehabIsAoKRIItk82P+fhI8bFVqcvsCFYv/K1aL+rlQ9JYuQUyV3q/mZDvwzT2DvEzGz
+	 kd8R2BR7lPIYaW1f9QTPa8MiAFGQEsCOcnTQgVmnzvajQ5Jp2OESLAi0nwDqtLsfWPVRd
+	 4lNrTaYM42m8oixny/27C4RYm+eUAWp4IIyx0/ymTMS7Dv4yq5f3fj01msf3ldGL4YabQ
+	 Q5Ri6kPiMfc4IOEICKfh4u3O7OopimGPLyHv7fxeLtBzib8RdTQzu0Jsgk5ccolWKpe6E
+	 QG7n3sOT6t+WuN/+W2fzGPelUYlCNo1OBNjDq0ULJ59JSD3xZrjT10v+01ex3OYZHMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795646198;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795646214;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=PwSb8ZjkUHuvGDFbXZGeha4mv6LAPnKvJMHgWrsVdx8=;
-	b=T+Yz9t2QsUs5xBm1NzORZNwqCGORo5PATaLRCDspzzL2yiuX0Vl6Sv1GfhZl4Pe/PHUF
-	 dok6u15rPQH1VLAFvllZRMu28feSUWdIfFeR3njBjWyoXuoa7+WQgR0Wv4mPHR7B9xQIp
-	 kbytS1EcUEbJViM3uuxXFDWLS92av3U+mtZ5tIEIQudagoPx2cZgoJPrGQWS/h9T2qkUA
-	 WDmtWjE/r/CqekssO5Q0xsiuFk00LANVkLjQSwrGLJMSKE+0QByEPRYIVxBI6Eb8bQR45
-	 oJuqxuoc0LpSrNcTMhUzzWoAhRip61H3uQM8I08CY7in4tAmA6Ydjwg0ufTJa2v/kvg==
+	bh=9a4+ol4fW9w7mVe+P7Yw2e1ikrG/Wpcw8NzLXYIPUMo=;
+	b=m6e+oG3yqjvU1K0kgFLbt34mL9yFPapzlcyGfqZVq+UEHHk98QOc1+CT5nxWCwCdPVBP
+	 RZ1ypO9wvAglnQIE58iIsnsr8euKuJr8mMHVW+SyXWS4IxxCGZ0k7wFIQ1z/dnU99vgzb
+	 XmmRttpPna9yC44N9YscCXho0iM93rss7sXtcHpC4v1Xh7ZLVBRg2F3WfxF1qGDSRU/l5
+	 7GOtA97Q9zRNiBrEx9Lyem2MDx7yeAIZN2bbN+EshbLLuO4MctKuDSwNh3RLdFoS+MPvS
+	 E7xVyW+rFi5VqPR871i7/NbF0neCZw8J+Rlvm5Jt0xvSdNLMUDIeO/XpqNMFZR3l+FA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LsFyja9g;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZB7LieBF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF7BD606A326;
-	Wed, 25 Nov 2026 22:36:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 761D7606A31E;
+	Wed, 25 Nov 2026 22:36:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LsFyja9g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38E3D1F000D0;
-	Wed, 25 Nov 2026 22:36:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZB7LieBF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA00E1F000D0;
+	Wed, 25 Nov 2026 22:36:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795646197;
-	bh=PwSb8ZjkUHuvGDFbXZGeha4mv6LAPnKvJMHgWrsVdx8=;
+	s=k20260515; t=1795646213;
+	bh=9a4+ol4fW9w7mVe+P7Yw2e1ikrG/Wpcw8NzLXYIPUMo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=LsFyja9g1bv8H1boRMMuNp6jOzLUv7I/HQCONg6bdcVTXtKXt0hWbPAPCBqq+636f
-	 wpmzGssYGYCfNE55PJkegIlE3fZ7S5fgAtVLvV7wUQZSinn/0Dcl8POgWOBvV7Vj8r
-	 vfM/39SE3MGC+SIZDTk5lozhHdydCcMpK8JHoG5tt5eav+T6zjCM/IbdYJWM85dt8v
-	 Djur3cQavRY9p3Ycg5B3Lv4W2AJepogoix5qNxeNBMFeJw6x9uSfx75WN2ZjdSJ91n
-	 2qShv516I7tzJl3OVCx990J+qKJUIKutrCbJsfQmybG/Elnb49/on60NR4yJJ2wipp
-	 PDV8noFu7xbvQ==
+	b=ZB7LieBFBaTInE7q8GBF/FhD4n/O5DvDFl+AY/qCTN5uSEixJvYjP5O5fchcmBX0U
+	 renXHHDkdnXZf7XJwlRQU6MqSY7gk2GbkvFonTHAIS7n/ZOlHmZpO45+8Tv3pwXERS
+	 iFA+3PTwZIMyxkoVuyyj1TE9UpL/DAxHKpxfvH9x12A5qzJZwVt059z63Kf8EE1CiL
+	 5oRMz9GPt+iPKmMGFQoGznW1OgtkViAzgo0WOJ8DtRf75uG2x5ILSHRGtrVo1S6tyf
+	 fF9lefAj/pGvfVarO0RpD9Qex/Nx9JcUb4xODag2KjwLygx0gB9K3trTL7+ItnsnQJ
+	 dhHkGO+zu5J7Q==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 25 Nov 2026 23:33:10 +0100
-Subject: [PATCH 12/21] mm/hugetlb: don't share page tables of a VMA during
- mprotect()
+Date: Wed, 25 Nov 2026 23:33:11 +0100
+Subject: [PATCH 13/21] mm/hugetlb: unshare PMDs of a split VMA if
+ allocating its lock fails
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-hugetlb_fixes_2-v1-12-db27fd2f71a8@kernel.org>
+Message-Id: <20261125-hugetlb_fixes_2-v1-13-db27fd2f71a8@kernel.org>
 References: <20261125-hugetlb_fixes_2-v1-0-db27fd2f71a8@kernel.org>
 In-Reply-To: <20261125-hugetlb_fixes_2-v1-0-db27fd2f71a8@kernel.org>
 To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
@@ -95,104 +95,173 @@ To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
 Cc: linux-mm@kvack.org, Jason Gunthorpe <jgg@ziepe.ca>, 
  linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
  Andrew Morton <akpm@osdl.org>, linux-doc@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org, 
- Chris Mason <mason@kernel.org>
+ "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3232; i=david@kernel.org;
- h=from:subject:message-id; bh=FAzuahks5m8VCo2oG3BmxZCgGWj6jmiJDPwksv+1liY=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLZk1RmHnlsfTaVz/nHkbywYONkmRqG0+3B3SsTs7ZfF
- X2TMjO8o5SFQYyDQVZMkSUo+L7By5fraqvd+Jhh5rAygQxh4OIUgIm8DWH4nzzR10/y7sveo9JO
- n1ouJs28wfPd62HYHaH7J3/9/Hj7yAyGv5Kzel4ecP7yo/G4SX7DB4dXLx4eXp1k+Z9zpz/L3Pc
- 3MlkA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6125; i=david@kernel.org;
+ h=from:subject:message-id; bh=7MsnuWJ1skmmesv5nHIUCHqiHHC5JHXJq+5r6rKajHA=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLZk1TvuT64VCrxJV+g61tcvf36leVnVvkFnE+bJ5nIN
+ +ux9C72jlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDKEgYtTACZy+zkjQ3/NZOb7a+OneoVW
+ 685nT/hbnSrBmGTzKYY5aq7b6UXKexkZfi87HbemlsNj1325PsXQv8e/brrj/dtARqv63L+6Br6
+ 5XAA=
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-When mprotect() of a shared hugetlb mapping races with a hugetlb fault
-in another process that can share the same PMD table, we can end up with
-page table entries that don't match the VMA flags, such as writable ones
-in a PROT_READ mapping or PROT_NONE ones in accessible VMAs.
+From: Chris Mason <mason@kernel.org>
 
-huge_pmd_share() takes i_mmap_rwsem and shares a PMD table if the flags
-of the two VMAs match, so while that lock is held the entries in a
-table have to match the flags of its VMA.
+If we split a VMA that has shared PMD page tables mapped, and allocating
+the hugetlb VMA lock for the new VMA fails, a fault in the new VMA can
+race with a hole punch and access page tables that were already freed.
 
-However, mprotect_fixup() stores the new flags without i_mmap_rwsem, and
-only hugetlb_change_protection() takes it. A fault in between shares a
-table that still has the old entries, and the walk then unshares the
-table instead of changing them:
+__split_vma() calls hugetlb_vm_op_open() for the new VMA, which
+allocates its hugetlb VMA lock in hugetlb_vma_lock_alloc(). If that
+allocation fails, the new VMA is left without a lock.
 
-    process A                        process C
-    VMA is RW, entries are RW        VMA is R, PUD is empty
-    =========================        ======================
-    mprotect_fixup()
-      VMA flags = R
-                                     huge_pmd_share()
-                                       i_mmap_lock_read()
-                                       flags match, take A's table
-                                       i_mmap_unlock_read()
-      hugetlb_change_protection()
-        i_mmap_lock_write()
-        huge_pmd_unshare()
-          clear A's PUD, return 1
-        skip the entries
-                                     VMA is R, entries are RW
+A VMA that has shared PMD page tables needs the hugetlb VMA lock, since
+the lock synchronizes huge_pmd_unshare() with concurrent page table
+walks, including faults.
 
-mprotect() changes both the flags and the entries while holding the
-mmap lock in write mode.
+want_pmd_share() and page_table_shareable() prevent new sharing without
+the lock, but a split leaves previously shared page tables in place for
+the new VMA, and hugetlb_vm_op_open() can't currently return an error if
+the allocation fails.
 
-Let's fix it by only sharing the page tables of another VMA if we can
-try-read-lock the mmap lock of its mm. If the trylock fails, we simply
-try the next VMA, or allocate our own page table.
+This can, for example, happen for an OOM victim. Then, nothing prevents
+a hole punch from unsharing the page table of the new VMA while a fault
+in the new VMA is still using it, and the last other sharer from freeing
+it:
 
-A trylock is fine, as we hold i_mmap_rwsem, which is usually taken under
-the mmap lock. We should use the VMA lock instead, but we'll do that
-separately.
+    fault in the new VMA             hole punch, then munmap()
+    ====================             =========================
+    hugetlb_vma_lock_read()
+      no lock, does nothing
+    huge_pte_alloc()
+      pointer into shared table
+    folio_zero_user()
+                                     hugetlb_vma_trylock_write()
+                                       no lock, returns 1
+                                     huge_pmd_unshare(new VMA)
+                                       pud_clear()
+                                     last sharer frees the table
+    huge_pte_lock()
+    set_huge_pte_at()
 
-This has medium urgency, as it can result in endless page fault loops if
-mprotect() races with PMD table sharing and we end up with PROT_NONE
-entries in accessible VMAs. If the kernel accesses such memory, for
-example in copy_to_user(), the loop happens in the kernel and the task
-cannot be killed.
+Let's fix it by unsharing the PMD page tables of a new VMA that has no
+lock. Also, exit hugetlb_split() early if the original VMA has no lock,
+as it cannot have shared PMD page tables then.
 
-Fixes: 39dde65c9940 ("[PATCH] shared page table for hugetlb page")
+This has low urgency, as it requires allocating the hugetlb VMA lock to
+fail during a split, which is practically only possible for OOM victims,
+and a race with a hole punch.
+
+Fixes: 131a79b474e9 ("hugetlb: fix vma lock handling during split vma and range unmapping")
 Cc: <stable@vger.kernel.org>
-Reported-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Chris Mason <mason@kernel.org>
+[ david: return early if the original VMA has no lock, adjust comment
+  and description ]
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/hugetlb.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+ include/linux/hugetlb.h           |  6 ++++--
+ mm/hugetlb.c                      | 17 ++++++++++++++++-
+ mm/vma.c                          |  2 +-
+ tools/testing/vma/include/stubs.h |  3 ++-
+ 4 files changed, 23 insertions(+), 5 deletions(-)
 
+diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+index 49dad5ae57512..aea18895e1459 100644
+--- a/include/linux/hugetlb.h
++++ b/include/linux/hugetlb.h
+@@ -274,7 +274,8 @@ long hugetlb_change_protection(struct vm_area_struct *vma,
+ 		unsigned long cp_flags);
+ void hugetlb_unshare_all_pmds(struct vm_area_struct *vma);
+ void fixup_hugetlb_reservations(struct vm_area_struct *vma);
+-void hugetlb_split(struct vm_area_struct *vma, unsigned long addr);
++void hugetlb_split(struct vm_area_struct *vma, struct vm_area_struct *new,
++		unsigned long addr);
+ 
+ unsigned int arch_hugetlb_cma_order(void);
+ 
+@@ -457,7 +458,8 @@ static inline void fixup_hugetlb_reservations(struct vm_area_struct *vma)
+ {
+ }
+ 
+-static inline void hugetlb_split(struct vm_area_struct *vma, unsigned long addr) {}
++static inline void hugetlb_split(struct vm_area_struct *vma,
++		struct vm_area_struct *new, unsigned long addr) {}
+ 
+ #endif /* !CONFIG_HUGETLB_PAGE */
+ 
 diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 2c13349863bd8..0b0f6e17b8b06 100644
+index 0b0f6e17b8b06..2bba0940a40d5 100644
 --- a/mm/hugetlb.c
 +++ b/mm/hugetlb.c
-@@ -7264,15 +7264,23 @@ pte_t *huge_pmd_share(struct mm_struct *mm, struct vm_area_struct *vma,
- 		if (svma == vma)
- 			continue;
+@@ -4887,7 +4887,8 @@ static int hugetlb_vm_op_split(struct vm_area_struct *vma, unsigned long addr)
+ 	return 0;
+ }
  
-+		/*
-+		 * Stabilize the svma flags, as mprotect() changes flags
-+		 * before adjusting page tables.
-+		 */
-+		if (!mmap_read_trylock(svma->vm_mm))
-+			continue;
+-void hugetlb_split(struct vm_area_struct *vma, unsigned long addr)
++void hugetlb_split(struct vm_area_struct *vma, struct vm_area_struct *new,
++		unsigned long addr)
+ {
+ 	/*
+ 	 * PMD sharing is only possible for PUD_SIZE-aligned address ranges
+@@ -4898,8 +4899,13 @@ void hugetlb_split(struct vm_area_struct *vma, unsigned long addr)
+ 	 * walks (except hardware and gup_fast()).
+ 	 */
+ 	vma_assert_write_locked(vma);
++	vma_assert_write_locked(new);
+ 	i_mmap_assert_write_locked(vma->vm_file->f_mapping);
+ 
++	/* Shared PMDs require a hugetlb VMA lock. */
++	if (!__vma_shareable_lock(vma))
++		return;
 +
- 		saddr = page_table_shareable(svma, vma, addr, idx);
- 		if (saddr) {
- 			spte = hugetlb_walk(svma, saddr,
- 					    vma_mmu_pagesize(svma));
--			if (spte) {
-+			if (spte)
- 				ptdesc_pmd_pts_inc(virt_to_ptdesc(spte));
--				break;
--			}
+ 	if (addr & ~PUD_MASK) {
+ 		unsigned long floor = addr & PUD_MASK;
+ 		unsigned long ceil = floor + PUD_SIZE;
+@@ -4918,6 +4924,15 @@ void hugetlb_split(struct vm_area_struct *vma, unsigned long addr)
+ 			hugetlb_unshare_pmds(vma, floor, ceil, /* take_locks = */ false);
  		}
-+		mmap_read_unlock(svma->vm_mm);
-+		if (spte)
-+			break;
  	}
++
++	/*
++	 * If we failed to allocate the hugetlb VMA lock, unshare everything
++	 * that the new VMA covers.
++	 */
++	if (!__vma_shareable_lock(new))
++		hugetlb_unshare_pmds(new, ALIGN(new->vm_start, PUD_SIZE),
++				     ALIGN_DOWN(new->vm_end, PUD_SIZE),
++				     /* take_locks = */ false);
+ }
  
- 	if (!spte)
+ static unsigned long hugetlb_vm_op_pagesize(struct vm_area_struct *vma)
+diff --git a/mm/vma.c b/mm/vma.c
+index c82e9306b11ac..183bfb8ba4703 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -590,7 +590,7 @@ __split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
+ 	 */
+ 	vma_adjust_trans_huge(vma, vma->vm_start, addr, NULL);
+ 	if (vma_is_hugetlb(vma))
+-		hugetlb_split(vma, addr);
++		hugetlb_split(vma, new, addr);
+ 
+ 	if (new_below) {
+ 		vma->vm_start = addr;
+diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
+index 9f5b8e996abf6..6ddecf587d9be 100644
+--- a/tools/testing/vma/include/stubs.h
++++ b/tools/testing/vma/include/stubs.h
+@@ -466,7 +466,8 @@ static inline void vma_adjust_trans_huge(struct vm_area_struct *vma,
+ {
+ }
+ 
+-static inline void hugetlb_split(struct vm_area_struct *, unsigned long) {}
++static inline void hugetlb_split(struct vm_area_struct *,
++		struct vm_area_struct *, unsigned long) {}
+ 
+ static inline bool vma_supports_mlock(const struct vm_area_struct *vma)
+ {
 
 -- 
 2.56.1
