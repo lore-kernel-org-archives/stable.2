@@ -1,63 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.128.210.58
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625147;
-	b=Af73M5y4E/dyYhpfauTVma3faFfd3faxYF32niaLaWCze5/atdAyiOy5DGPyJINUrKjt
-	 9v73uTKTQKbLsVp5fQ0MTUXt7Eh9v0StRR2hlLr1cKXFkdl+hxwXuiOSH/V/v0RLUdSn1
-	 RAUZix+twZF1dSVIZ67fBNbdx3VoXWYJsmKXZcOBliIgdekBsxAm3N2Wk9nqw/83n3ARY
-	 6xeQdWg3d8pSoONyL3M//ZGc1e9tuCqh00eZ37D2HXAr9xeI+n9cQ+wadMQb/IqeVXw9L
-	 DQXLOPh2zYuArqBhCW+edCAIKopMW7uTrqkFRmoaAw3uWCBwTPXJLV+swf3AOuYcmYQ==
+	t=1795625144;
+	b=DJqwBvWnn1ozQ0QscB7jHH70bPAvZ0+Zs/jJ7uxoZzRUzdUd/M8J+eUozTDndFTO1mUB
+	 wl0KemQQIvU8qNqJWuouVp92WE21CgSA/n41JVr82hSzhYt8i3ZPTgEmho4DgSFOPYUIn
+	 ysuYEWk2ML5SSh5TMBs/o2eiamf5U8C5oeQ+ULB+dlY81m4oCkGcmQ9k0ZoUxjxqtesk0
+	 raR8/3XJAkQy4yc11Yu+shuVFOABdIjJTU7GAtQX8riO0OchXrO/p2PhnXCvRUfujeiso
+	 3vFkvy32NMGVIitVkfxI+bBxT8TR6tHr1KjkhY2H8fJ3vYLvCySzSE8MFjhMWKrhitw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625147;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=zRqy4K4wIXueb/cygVwHFiFM60mm9ukbbthX8HOkWtg=;
-	b=N0E+SiFBhGZclJRrq0IBnplFBtGWoWzNWk5AMTngc1fFH0LGeyTPwO/78EGA0radcVVa
-	 zhxBQS/iWI27euBH/xRLG1eWKjPDqSl+hFmhO7XYuKFJ4wp/kbDVfaB1cB3yju5+D8cAl
-	 A3tSyErI0JIfRLkupibsNE1sZRWmz/XsKNjEMGn6WwHC3sMJRL/E9i7zgIYOnAp9i3mfY
-	 AkuM/M0H2KMnnL0hOtW9filPbZWSHHZ2arCTCrMO2muf+xuRCjG4kKuYHE8hQ6eZrKfQI
-	 9DMfIfd06EeFk7Jj31PVJQPJFPPpYq4yKJMsWt2/e9dtaYLsOel4nfPThR64tx38A0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625144;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=vC74YOAPrBcAC9LMP7HaSPzA4IqP9flaTn0o7gnLByI=;
+	b=fLxN/OThD0sGIEFD8FRhFWlcrmOXufR/v7u0EFx53bbHyOC2WcsKDTrd0Mc7yHI1o8N7
+	 Zhsta2L7fzopPESHqKG7//ML+3LPvjPlBJ68YQxAUXTkfzbB3L3VYGutuzEw55HMUQ7rj
+	 4Cmlb400KqC7vw+pJhFvvsHK1YHCSfwy4YV31Hq6r1AhXxZzTPc+xxUPr4J7KtD2z2IPD
+	 mhhFG38DhyEmBT6L1W/xLA7826X3/yxPEme3ZLXrawdH1PYQN33RaSwXbn0eXRR/6CzNK
+	 xdzFqsRma8Tnoiq2AAF/DQWm5MKr/UWN7YjIXKA6q7SgmbLE4+vqU/NHs1QZSzHIt4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vXnDMaGB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=librecast.net;
+	spf=pass smtp.mailfrom=librecast.net;
+	dkim=pass header.d=librecast.net header.i=@librecast.net header.a=rsa-sha256 header.s=2026110900 header.b="Z/Vehjjv";
+	arc=none smtp.remote-ip=185.128.210.58
+Received: from bregans-0.gladserv.net (bregans-0.gladserv.net [185.128.210.58])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42661606A33A;
-	Wed, 25 Nov 2026 16:45:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA28C606A6A2;
+	Wed, 25 Nov 2026 16:45:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA28C606A6A2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=librecast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=librecast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vXnDMaGB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F46B1F000CF;
-	Wed, 25 Nov 2026 16:45:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795625146;
-	bh=zRqy4K4wIXueb/cygVwHFiFM60mm9ukbbthX8HOkWtg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=vXnDMaGBPsKwiA8zEPcFBRObSfaCh89HTgzMUkuGBFUNmgfOwpBk4edh/Bm4CIY26
-	 vO+xk4U427JkuSbaM3Cr9wfEpc5F4XDb9crpIeDksE8aUmdcpEotOxeYta/lg57SkV
-	 kFp6iie/hvUzcG8mG0FJHrBTlvQrGixiwPFMqHFM=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=librecast.net header.i=@librecast.net header.a=rsa-sha256 header.s=2026110900 header.b=Z/Vehjjv
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=librecast.net; s=2026110900; h=Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+	Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=vC74YOAPrBcAC9LMP7HaSPzA4IqP9flaTn0o7gnLByI=; t=1795625143; x=1796489143; 
+	b=Z/VehjjvbV6ckWi/Dd6idtHC80NSqO9NXHnQfa44KrW2M1x82RnVInJ3Q9vHa/ykq6TR48F8Bkx
+	KnBMpwcogTd4NH22MOk3yOP52qq+wSXQkyZnXBFyWZSS1trzLeQ5r3WufX5AdUyXNrKHYwH+CsIVk
+	rNPyFgp0D9OVMOGaqBKnkbZOkCo67h8LO3A/CJIPGRZv5mgENIBpsJvIE6cxFXtmZW96nUm9edGGL
+	A+P5NrknY7PfG9p5l3ZjdlqZLFJZz4v/E1ySoSiEiatN8M22Fk76Rw025Q+gKW35O4ZOTEVfIVA69
+	C3kQLoCWk41hAgqyPzuJ9RkN8fL8FOlAleoQ==;
+From: Brett A C Sheffield <bacs@librecast.net>
+To: gregkh@linuxfoundation.org
+Cc: stable@vger.kernel.org,
 	patches@lists.linux.dev,
-	Paulo Alcantara <pc@manguebit.org>,
-	David Howells <dhowells@redhat.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 367/816] smb: client: reclaim credits for decrypted reads with no matching mid
-Date: Wed, 25 Nov 2026 15:31:55 +0100
-Message-ID: <20261125143857.693013990@linuxfoundation.org>
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com,
+	Brett A C Sheffield <bacs@librecast.net>
+Subject: Re: [PATCH 7.3 0000/1005] 7.3.7-rc1 review
+Date: Wed, 25 Nov 2026 16:36:52 +0000
+Message-ID: <20261125163654.740362-1-bacs@librecast.net>
 X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
-References: <20261125143849.205329330@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,103 +84,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+# Librecast Test Results
 
-------------------
+044/044 [ OK ] liblcrq
+010/010 [ OK ] libmld
+120/120 [ OK ] liblibrecast
 
-From: Paulo Alcantara <pc@manguebit.org>
+CPU/kernel: Linux auntie 7.3.7-rc1-g7f248ec61cf1 #1 SMP PREEMPT_DYNAMIC Wed Nov 25 15:12:41 -00 2026 x86_64 AMD Ryzen 9 9950X 16-Core Processor AuthenticAMD GNU/Linux
 
-[ Upstream commit 78f73985846465a25a7bd1d89904053661f3ca92 ]
-
-When a decrypted SMB2 READ response carries a MessageId that matches no
-outstanding request, both the inline receive_encrypted_read() and the
-offloaded smb2_decrypt_offload() paths drop the frame without accounting
-the credits the server granted in it.  The plaintext unknown-frame path in
-cifs_demultiplex_thread() already reclaims them with
-smb2_add_credits_from_hdr(), so encrypted reads leak credits that the
-plaintext path would not.
-
-This also happens for legitimate frames - e.g. a reply that arrives after
-the client has timed out and dropped the mid - so over a long-lived
-connection the client's credit count drifts down and can eventually starve
-it of the ability to issue requests.  The frame is AEAD-authenticated, so
-the granted credits in the decrypted header come from the real server and
-are safe to apply.
-
-Reclaim the credits from the decrypted header before dropping the frame,
-and export smb2_add_credits_from_hdr() so the SMB2 receive paths can use it.
-
-Fixes: c42a6abe3012 ("CIFS: Add capability to decrypt big read responses")
-Fixes: 35cf94a39728 ("smb3: allow parallelizing decryption of reads")
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Reviewed-by: David Howells <dhowells@redhat.com>
-Cc: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
-Cc: stable@vger.kernel.org
-[ sashal: adjusted context in cifsproto.h, since this tree still declares prototypes with extern, while the code changes match upstream. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/client/cifsproto.h | 1 +
- fs/smb/client/connect.c   | 3 +--
- fs/smb/client/smb2ops.c   | 6 ++++--
- 3 files changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/fs/smb/client/cifsproto.h b/fs/smb/client/cifsproto.h
-index e2a7d55a2502d..4dfaa59b152b7 100644
---- a/fs/smb/client/cifsproto.h
-+++ b/fs/smb/client/cifsproto.h
-@@ -145,6 +145,7 @@ cifs_mark_tcp_ses_conns_for_reconnect(struct TCP_Server_Info *server,
- 				      bool mark_smb_session);
- extern int cifs_reconnect(struct TCP_Server_Info *server,
- 			  bool mark_smb_session);
-+void smb2_add_credits_from_hdr(char *buffer, struct TCP_Server_Info *server);
- extern int checkSMB(char *buf, unsigned int len, struct TCP_Server_Info *srvr);
- extern bool is_valid_oplock_break(char *, struct TCP_Server_Info *);
- extern bool backup_cred(struct cifs_sb_info *);
-diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
-index 82a70370a60f8..162dededef392 100644
---- a/fs/smb/client/connect.c
-+++ b/fs/smb/client/connect.c
-@@ -1153,8 +1153,7 @@ cifs_handle_standard(struct TCP_Server_Info *server, struct mid_q_entry *mid)
- 	return 0;
- }
- 
--static void
--smb2_add_credits_from_hdr(char *buffer, struct TCP_Server_Info *server)
-+void smb2_add_credits_from_hdr(char *buffer, struct TCP_Server_Info *server)
- {
- 	struct smb2_hdr *shdr = (struct smb2_hdr *)buffer;
- 	int scredits, in_flight;
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index b1a2ada2b5c77..8dadf5f1e20f0 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -5165,9 +5165,10 @@ static void smb2_decrypt_offload(struct work_struct *work)
- 
- 	dw->server->lstrp = jiffies;
- 	mid = smb2_find_dequeue_mid(dw->server, dw->buf);
--	if (mid == NULL)
-+	if (mid == NULL) {
- 		cifs_dbg(FYI, "mid not found\n");
--	else {
-+		smb2_add_credits_from_hdr(dw->buf, dw->server);
-+	} else {
- 		mid->decrypted = true;
- 		rc = handle_read_data(dw->server, mid, dw->buf,
- 				      dw->server->vals->read_rsp_size,
-@@ -5290,6 +5291,7 @@ receive_encrypted_read(struct TCP_Server_Info *server, struct mid_q_entry **mid,
- 	*mid = smb2_find_mid(server, buf);
- 	if (*mid == NULL) {
- 		cifs_dbg(FYI, "mid not found\n");
-+		smb2_add_credits_from_hdr(buf, server);
- 		rc = -1;
- 	} else {
- 		cifs_dbg(FYI, "mid found\n");
--- 
-2.53.0
-
-
-
+Tested-by: Brett A C Sheffield <bacs@librecast.net>
