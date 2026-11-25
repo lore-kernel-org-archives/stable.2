@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795613848;
-	b=4v19i3SYZx7yVUTu5KgmV2lmBZpXwhdrcUalqpwvMi8tEqi2s0nNJ9PZaP0J2l4PZMK9
-	 IYMdCQ+i3fy2yWe5dyZZQ61iUh9fL+HLKvBdZwxlytTK/oF4zx2cHiSwTMME/ZlqOdW3T
-	 bsdwLRQtKDgfQeBCDuthdocv9Xz/ta88mahAtdi/j0zTHuRkCmksFuwuX5wj+/WrwRwYQ
-	 hNI5LNnKDIZh+tFhnB+kSkgNnJHQ3/wNNNmzu5eJLgqZNQZZwRGiyQi5DQ8o1gjlEqm3/
-	 +WTRvjRdFAjBmN1flneyJuiaotBmsRzk9+chXuC4w/zNS5IOJ18pLztO7Kar5yJvkrQ==
+	t=1795614218;
+	b=b5Hi5UUHziyrpFS2JGP1v1sOIAa+SWlLoYYm5SA1uv2hAQd9tfxMjZTSxN6wNmvg1bAu
+	 +lUI8AxmWY3ggLdX+1rhADQ3RAwbvoQQMkIN4+pIRnVmqWANd+WKiIdHRosuHpG/vHX3w
+	 vNJGqVJktj8zrkOFW2l1UF+r1YvznhMJH4Eq7VxK6MffyJWQkW9w6I5dlgP33scKHUbA5
+	 1tvX+xe0YsiaVWKJLkdqJ+w8DCyy0piSatxnyOuuEsMxqcVeDpcOQU0O0Q0ZclmcKjVcZ
+	 T3T4JYQH9AAQ1avgyiAf0kPM32b7j2W5l3+5CXSLc/1QeWQ/9bHsNqWdNNT0Mc+T1kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795613848;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=/UiazhXuul/GOq/HbXOMsV+5+7TGJAYatnIj4h4m6vU=;
-	b=Vof8TtnufSPwSK8ml+pRXkIz7iMSUtHY8hOV/SpLfgs8yNCAf/Z1WbUYMRgov8G1aNpM
-	 Z76CNQ5di4PoPRBGX6Xt8b9y4KTG98yw5LjHJkJedv99kXHv6lJgBYI2E5RIpKLuh03pd
-	 5+70i10KZNKReyye4tM4WxJC9SyDzRqyL5jfSzcCb2Ydb/DTC/+C4VsKQAiY6z2qWGaLo
-	 I5f/JxyISPk9crCBbhUiW9JwwvYyMz3xJZKvlGT/X1DvD9j+Rw5J+daEy+D7amoSWr71z
-	 KwTvx5jN2r2G3PPCCiV4B5t17EG7/E3SYJRFEW2aaf9Uns/YCuPVAwryo293840spag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795614218;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=6oSqEig9AGJMHosVHhZtxiJ/44MaDSzvmhq9hylVy0c=;
+	b=e9czj+kkgMeVy0Bp5I3Ij8AxZtwi+bgc66RursTj7FkhxlGwNUAvPNKgvwBdvIXiha9r
+	 ToZ5CBeXJDShNGgnA52CwgyMU0/Dwp5BjRPKlOiJ47faF/sS4zVLmcj1vgljdfGDWxZEy
+	 Qo5MtAy0zwzMiMCyrPhpji3a5cc0nmuB43pGiwZXxDrfbcs+Vwyu06JIADRfMpMOwBjXt
+	 1i/5qkXbIpqlJtcgFUDxdtLRnmuYqqF7Zn/N1vb3ooOEX99VOys7x67PuBNEDsT7zJpCg
+	 2Tjj0d9e+ZHMGt16ArK9DQ8BXKaYdAn9MTL4pFVaKeDm/AkoSSFQUdcQDdQ05Jo8x1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fOM78T/V";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qsDd4yKf;
+	arc=none smtp.remote-ip=91.218.175.74
+Received: from mta0.migadu.com (out-74.mta0.migadu.com [91.218.175.74])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E12606A33F;
-	Wed, 25 Nov 2026 13:37:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9B3606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 13:43:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E9B3606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fOM78T/V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F3731F000C0;
-	Wed, 25 Nov 2026 13:37:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795613848;
-	bh=/UiazhXuul/GOq/HbXOMsV+5+7TGJAYatnIj4h4m6vU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fOM78T/VNXM8hP/3dC3+SutrTbxB3oFUm7ZM7yRlwxp4YbRElnKM4bV1z25hWzX33
-	 Fpb+pKC2WJUoSK1yvmjkK1LFFe7LmZ1WQ2s9c2EgEkrGK2p0iij6teYF/3LSM872fV
-	 U+dqn/d1jyu6O4E9x6TPnXDEougVKGKPWGnfm41s8gwhsjp1bec6Z9+dGFzJsQOlpx
-	 NlusCnZYc2mSTf1xnLwIXSgZrfzW29QuyRZ3EATmEOOD6L+0ViAeKIBmAJO/8TgJa7
-	 fyQqi9ORTYMVDuyBZMtA4tm8qJGS9m4NbsIpg4uq6+ZUaMJp09xNyvqom6CWbx9z7X
-	 0RNF+Uq+asFLA==
-Date: Wed, 25 Nov 2026 14:37:24 +0100
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Wenwu Hou <hwenwur@gmail.com>
-Cc: rostedt@goodmis.org, mhiramat@kernel.org,
-	mathieu.desnoyers@efficios.com, linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] tracing/hwlat: Bind the sampler kthread instead of
- setting its affinity
-Message-ID: <awbklFE66PIMKFop@localhost.localdomain>
-References: <20261125084600.2306377-1-hwenwur@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qsDd4yKf
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=foQQFJFpoZ/mRTc9jcIQPOk2Q+YJFlQywuFZ/jX/M3s=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795614215; v=1; x=1796219015;
+ b=qsDd4yKflerJfRTzSgFIEnG/W4leBezwwvNc47UTxYRP5tOy9/Fr6craIa3bZIWZRWkxt5i3
+ aDbbp6XNthN94uGLJ5EHgFJymUp8WtwE63TaTRDetvLcKY6nexmtvsTVZd6LRuWP7ByL+vxZA1X
+ DmbiQCHIqhWLUG7ymP7BBKpw=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f9dfb553bd12c55c;
+	Wed, 25 Nov 2026 13:43:35 +0000
+X-Mizu-Trace-ID: f9dfb553bd12c55c
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <809f91e2-638d-4e54-9b60-e66098d173e0@linux.dev>
+Date: Wed, 25 Nov 2026 21:43:29 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,133 +58,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261125084600.2306377-1-hwenwur@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: Please backport 7a0855e73757 ("bpf: Disallow interpreter fallback
+ for BPF_ADDR_PERCPU insn") to 6.18.y and 6.12.y
+To: Guillaume Laporte <glapt.pro@outlook.com>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ Vincent Thiberville <vincent@harfanglab.fr>
+Cc: "yangtiezhu@loongson.cn" <yangtiezhu@loongson.cn>,
+ Alexei Starovoitov <ast@kernel.org>,
+ "daniel@iogearbox.net" <daniel@iogearbox.net>,
+ "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
+ "linux@roblab.la" <linux@roblab.la>
+References: <BESPR02MB12296D62B1B3F33BA21C4F24AF1432@BESPR02MB12296.eurprd02.prod.outlook.com>
+Content-Language: en-US
+From: Leon Hwang <leon.hwang@linux.dev>
+In-Reply-To: <BESPR02MB12296D62B1B3F33BA21C4F24AF1432@BESPR02MB12296.eurprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Le Wed, Nov 25, 2026 at 04:46:00PM +0800, Wenwu Hou a écrit :
-> start_single_kthread() sets the affinity of the kthread it just created
-> before waking it up, but kthread_affine_node() overrides that mask on the
-> first wake-up. See commit 60ba9c38b931 ("kthread: Comment on the purpose
-> and placement of kthread_affine_node() call").
+On 2026/11/25 16:56, Guillaume Laporte wrote:
+> Dear maintainers,
 > 
-> In round-robin mode, move_to_next_cpu() compares save_cpumask against
-> current->cpus_ptr, sees the replaced mask, and switches the tracer to
-> MODE_NONE on its very first iteration:
+> Could you please consider backporting the following commits to 6.18.y
+> and 6.12.y:
 > 
->   hwlat_detector: cpumask changed while in round-robin mode,
->   switching to mode none
-> 
-> So the tracer no longer migrates across tracing_cpumask. More importantly,
-> tracing_cpumask is not honoured at all, and with isolcpus=/nohz_full= the
-> thread cannot run on the isolated CPUs it is meant to sample.
-> 
-> Use kthread_bind_mask() to preserve the initial affinity, including
-> isolated CPUs. Clear PF_NO_SETAFFINITY once the single sampler thread
-> starts to allow userspace affinity changes and cgroup migration.
-> 
-> The mask is now computed and validated before kthread_create(), which also
-> avoids creating a thread when tracing_cpumask has no online CPU in common:
-> cpumask_first() returned nr_cpu_ids there and cpumask_set_cpu() then wrote
-> past the end of the mask.
-> 
-> Tested on a 4-vCPU KVM guest, bit 0 of the mask is CPU 0:
-> 
->   mode        mask    before                    after
->   none        0b0101  Cpus_allowed_list: 0-3    0,2
->   round-robin 0b1111  mode -> none, no migrate  migrates 1 2 3 0
->   round-robin 0b0101  mask 0-3, no migrate      migrates 0 2
->   per-cpu     0b0110  2 threads, cpus 1,2      2 threads, cpus 1,2
-> 
-> Fixes: d1a89197589c4 ("kthread: Default affine kthread to its preferred NUMA node")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wenwu Hou <hwenwur@gmail.com>
-> ---
-> Changes in v2:
-> - Clear PF_NO_SETAFFINITY under current->pi_lock when the single sampler
->   thread starts, preserving userspace affinity changes and cgroup migration.
->   Keep PF_NO_SETAFFINITY set for per-CPU threads.
-> - Update the commit message
-> 
-> v1: https://lore.kernel.org/linux-trace-kernel/20261111020755.1422284-1-hwenwur@gmail.com/
-> 
->  kernel/trace/trace_hwlat.c | 33 +++++++++++++++++++++++++--------
->  1 file changed, 25 insertions(+), 8 deletions(-)
-> 
-> diff --git a/kernel/trace/trace_hwlat.c b/kernel/trace/trace_hwlat.c
-> index 3fe274b84f1c2..52478ad8030d0 100644
-> --- a/kernel/trace/trace_hwlat.c
-> +++ b/kernel/trace/trace_hwlat.c
-> @@ -353,8 +353,21 @@ static void move_to_next_cpu(void)
->   */
->  static int kthread_fn(void *data)
->  {
-> +	unsigned long flags;
->  	u64 interval;
->  
-> +	/*
-> +	 * kthread_bind_mask() sets PF_NO_SETAFFINITY to keep the initial
-> +	 * affinity from being overridden by kthread_affine_node(). Clear it
-> +	 * now to allow userspace affinity changes and cgroup migration, but
-> +	 * keep per-CPU threads bound to their CPUs.
-> +	 */
-> +	if (hwlat_data.thread_mode != MODE_PER_CPU) {
-> +		raw_spin_lock_irqsave(&current->pi_lock, flags);
-> +		current->flags &= ~PF_NO_SETAFFINITY;
-> +		raw_spin_unlock_irqrestore(&current->pi_lock, flags);
+>   9a6df65d5c6a ("bpf: Introduce jit_required flag and remove bpf_prog_has_kfunc_call()")
+>   f1c27922576e ("bpf: Reject programs with inlined helpers if JIT is not available")
+>   7a0855e73757 ("bpf: Disallow interpreter fallback for BPF_ADDR_PERCPU insn")
 
-This is not pretty but moreover, is it a good idea to let the user override
-that affinity?
+34746b5a84ec ("bpf: Disallow interpreter fallback for arena-related insns")
 
-Thanks.
+This commit will also be backported.
 
-> +	}
-> +
->  	while (!kthread_should_stop()) {
->  
->  		if (hwlat_data.thread_mode == MODE_ROUND_ROBIN)
-> @@ -423,15 +436,12 @@ static int start_single_kthread(struct trace_array *tr)
->  	if (kdata->kthread)
->  		goto out_put_cpus;
->  
-> -	kthread = kthread_create(kthread_fn, NULL, "hwlatd");
-> -	if (IS_ERR(kthread)) {
-> -		pr_err(BANNER "could not start sampling thread\n");
-> -		cpus_read_unlock();
-> -		return -ENOMEM;
-> -	}
-> -
->  	/* Just pick the first CPU on first iteration */
->  	cpumask_and(current_mask, cpu_online_mask, tr->tracing_cpumask);
-> +	if (cpumask_empty(current_mask)) {
-> +		cpus_read_unlock();
-> +		return -EINVAL;
-> +	}
->  
->  	if (hwlat_data.thread_mode == MODE_ROUND_ROBIN) {
->  		next_cpu = cpumask_first(current_mask);
-> @@ -440,7 +450,14 @@ static int start_single_kthread(struct trace_array *tr)
->  
->  	}
->  
-> -	set_cpus_allowed_ptr(kthread, current_mask);
-> +	kthread = kthread_create(kthread_fn, NULL, "hwlatd");
-> +	if (IS_ERR(kthread)) {
-> +		pr_err(BANNER "could not start sampling thread\n");
-> +		cpus_read_unlock();
-> +		return -ENOMEM;
-> +	}
-> +
-> +	kthread_bind_mask(kthread, current_mask);
->  
->  	kdata->kthread = kthread;
->  	wake_up_process(kthread);
-> -- 
-> 2.43.0
 > 
+> All three were backported to 7.2.6, but not to the 6.18.y and 6.12.y
+> trees, which seem to be the only affected longterm trees: if I'm not
+> mistaken, the issue was introduced in 6.10 by 7bdbf7446305 ("bpf: add
+> special internal-only MOV instruction to resolve per-CPU addrs").
 > 
 
--- 
-Frederic Weisbecker
-SUSE Labs
+[...]
+
+> 
+> Unfortunately, the commits do not apply cleanly to these trees, as
+> they modify kernel/bpf/fixups.c, which only exists since 7.1. Leon,
+> thank you for fixing this upstream. In July you mentioned that the fix
+> should be backported to 6.12 along with Tiezhu's jit_required series
+> [2]. Would you have time to prepare the backports for 6.18.y and
+> 6.12.y? We would be glad to test them with the reproducer and report
+> back.
+
+No worries. I will backport the aforementioned commits in near future,
+will cc Vincent and you.
+
+Thanks,
+Leon
+
+> 
+> Thank you for your help,
+> 
+> Guillaume Laporte
+> 
+> [1] https://lore.kernel.org/bpf/MR1P264MB331494502C9D13D8A9EAFB99B7E82@MR1P264MB3314.FRAP264.PROD.OUTLOOK.COM/
+> [2] https://lore.kernel.org/bpf/b76ade17-44cb-4e60-97fc-41ba55258691@linux.dev/
+
