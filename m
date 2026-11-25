@@ -1,56 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795624813;
-	b=D38PkjZiWrfmRHSha9uTfzcbKXiGyPom9TMULrHZkUPpo84J8ErYs6BK5ZvWXmSiMG35
-	 ZV20n823tauyunkofhgBkeOZ07TGnwbWTiOBS5RCDyNBCqajO2OYr4IoBL57y09w1gruc
-	 qyct7KhamgvzhnIuNTx9tSfVNo15XeUhGRiDgrrmvAedq/hraxqU6FWXHgbLI52l4uWjV
-	 T5knaBRvMWoVXJoLDl2qhzgZ30lk2zZXs9y3QxacVhjIXdhWzfCz45fbgMPltGTCZ7JQd
-	 ePTc4RB/TzeNGZlijFl9K5Yl+aMYOaubxjO4iKKWADfutCBb/2i2XIt/LquOcovBo2w==
+	t=1795624816;
+	b=pI3EcpKuURICQoKI/HX+T16uZP2VfJVjMtIgh+zS3wUWorMd/c5r1NL+5rp2Kg4gjSAG
+	 f4yp0rZye1AAukwiPivSvx4Ox20UlIIlhzbN/oqavqEaGC3KDexGlVpLVgkhd3hwBY/8U
+	 02f5A0zRHp6ytastLpc8pvKMcxDyVRXOSAjYsOyxpx+ItHEXyYt7KkyX8fEaoUmIeqIlU
+	 SPbtPmoMB9yk5o1TnnxjRzE/P9KRjmHLVBDfTjWcYvQI54cpZCobqenHJ2gA5Jsj7ADYX
+	 AE8ELDqCqDZYx2RIAHJF/5+J1Ygv1MMof/8TcMPi8V6KPZW88Q4DFLDPaOq+3Wxzt/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795624813;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795624816;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+ee9oFd+AV92Zn1TwZ7BemweEx9+HC4RCU3AsWOO+KE=;
-	b=d59xw4nzWXahipDbAuuIpWqVZTZw66ZCLrxLYn99gQrMRk6OHO4MV4QYiLDcNUl6qHyd
-	 aZzcnOrTNOufare2IduBnKV3WrOFYahCFi/Efq0DHkV/7ea7nbbrlea4u4SqKFu34Tnsi
-	 L2HNhqVezTdSl3qf1uq6ki3ghJyiVnf1eg4hTJK/OyNrtXZKk8NqRizQtzlwXHDYr3JW5
-	 aINs5LVJdpUazlHQKx8c3LTeOFG9NLr1MQVrF9GfiGjOnHwKCLt2Me4sdzrdIKpFpqDy6
-	 Gre85uluV0X0DQNI04wMMBB4X+Yfej+ShAOpqbWFWgtbQaxQfBzoGVP80qEc0LySMYg==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Ekut9a/zZtUhMQNU972vDKt2eDrmCaiGjYIM81Aaee0=;
+	b=D8XkoCXh4gwmQP/n1oFCH4JqZxc+jS/lR0OkxXQJ4SXNVWFgoqDew1BccWrJskQZ/ITx
+	 WdZZOBB4Y8N2iC3OIG9YyXbs3GtgN6Zs4LwbwUi42BvGV6d7zXQ5IptuAK4EJOL1oXBaB
+	 L3DscWQiexmdJtt21/EHuZPGFD19qzuy75VpiVBytrhISLiQwWFd7e5+n6kOKaFkLMeRt
+	 nIKak47rkEON+AN2LaCzVcs0LXvLcGaAkMIQqWBorBVPtbPV7yozWs9LmdPY03tS0xE+1
+	 1b4ypXQTVjssAaoaYUlore2FRxpdD8vzF/MzP+j8AhHq6H/vyZhNkkmPNPhrRUB5kfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C8EObDxj;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=z9NtzLQy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CBF5606A333
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:40:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09AA4606A33C;
+	Wed, 25 Nov 2026 16:40:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C8EObDxj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79D1A1F000E0;
-	Wed, 25 Nov 2026 16:40:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795624813;
-	bh=+ee9oFd+AV92Zn1TwZ7BemweEx9+HC4RCU3AsWOO+KE=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=z9NtzLQy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED8751F000C0;
+	Wed, 25 Nov 2026 16:40:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795624815;
+	bh=Ekut9a/zZtUhMQNU972vDKt2eDrmCaiGjYIM81Aaee0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C8EObDxj6q5NJaiAQLfivg8om/KRYajspvYezyUKNPKNk1KEJIeo8wvPoG3d6XC0A
-	 rziZjdNPjKTrO6OkKY2KTDnFQr/rBV+2/0Vg7kclENfRMGIY83+wVmgtZf3DAMS+Me
-	 n/uw/NOdhcNutZ+bJl6mAHHyyuVLTG6s81fz8BdCICpoqJRSc6PgLfxE7NFpvigmNS
-	 8IM0J9AqLXv/dlCUwjIDN0XBmaRzkmxlkepCdcHYVFVuJpQRTxucQgLINT5HFUdUcy
-	 BgVJqMoLUhDs2FEf36rTGSOzOpWdDu9QWTgOuj8h2PPpYkZ/ANyCE+UF6uQECN8M4s
-	 YSZORodWx+yaw==
-From: Sasha Levin <sashal@kernel.org>
+	b=z9NtzLQyuvRGno61IbMoOpvfaAOj+0Xt6mIW4dYtSHQoCdiOWdonU68/kZiLr9w2k
+	 BtE6Ub0xPTSkwjXtEuBpQwWQHgerrEt8xcdil0TMkpdMQgDrz59utVCs6moaKHFd+p
+	 XLNnuQdcColu2dnndM2Ia6ac4//XUnVypO+t7C3k=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Kyle Zeng <kylebot@openai.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 2/2] fs: set I_METADATA_WRITEBACK in mmb_mark_buffer_dirty()
-Date: Wed, 25 Nov 2026 11:40:09 -0500
-Message-ID: <20261125163943.826475-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125163943.826475-1-sashal@kernel.org>
-References: <2026112543-dipped-sultry-a7a2@gregkh>
- <20261125163943.826475-1-sashal@kernel.org>
+Subject: [PATCH 6.12 314/816] net: protect negative destination advice with RCU
+Date: Wed, 25 Nov 2026 15:31:02 +0100
+Message-ID: <20261125143856.467379280@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,79 +67,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit d4fdde3257a577f184b4498d040f6fe20be72326 ]
+------------------
 
-ext2, ext4 without a journal, fat, udf and minix track the metadata
-buffers of an inode in a mapping_metadata_bhs list and sync them from
-->sync_inode_metadata() and ->evict_inode(). The inode block itself is
-only tracked by I_METADATA_WRITEBACK which ->write_inode() sets after
-copying the inode into its buffer.
+From: Kyle Zeng <kylebot@openai.com>
 
-Set the bit in mmb_mark_buffer_dirty() as well so that it covers all
-the metadata an inode may still have to write out. Set it after the
-buffer is on the list. An fsync() that sees the bit then also finds the
-buffer when it walks the list, and one that cleared the bit before we
-set it leaves it set for the next one.
+[ Upstream commit 4b77d2792c3e482afa108c08f224ea6fa396d80b ]
 
-The inode itself may never have been dirtied. fat for example tracks
-the FAT buffers on a private inode that nothing marks dirty. So attach
-the inode to a wb before setting the bit, the way ext4_mark_iloc_dirty()
-does, or writeback_single_inode() has no wb to lock once evict() syncs
-it.
+SO_CNX_ADVICE calls __dst_negative_advice() while holding the socket
+lock. Connected UDP sends can still invalidate or replace sk_dst_cache
+without that lock. A concurrent sk_dst_check() can drop the final
+destination reference and allow an RCU callback to destroy it while
+__dst_negative_advice() retains only a borrowed pointer. This can cause
+a use-after-free while accessing dst->ops or running the negative_advice
+callback.
 
-That lets evict() write out everything the bit tracks in one place
-instead of every ->evict_inode() calling mmb_sync() itself.
+The writer-side ordering fixed by commit 92f1655aa2b2 ("net: fix
+__dst_negative_advice() race") does not protect this reader from an
+independent cache replacement.
 
-Suggested-by: Jan Kara <jack@suse.cz>
-Cc: stable@vger.kernel.org # v7.3
-Link: https://patch.msgid.link/20261109-work-inode-metadata_writeback-v3-8-91ac6c024018@kernel.org
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Hold an RCU read-side critical section across the lookup and callback.
+This follows the datagram release callbacks and covers IPv4, IPv6, and
+XFRM advice without changing cache-reset or reference-ownership rules.
+
+Fixes: a87cb3e48ee8 ("net: Facility to report route quality of connected sockets")
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20261104131744.1056562-1-edumazet@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/buffer.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ include/net/sock.h | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/fs/buffer.c b/fs/buffer.c
-index 30e7f2cc2386f..3f430fb824500 100644
---- a/fs/buffer.c
-+++ b/fs/buffer.c
-@@ -623,12 +623,15 @@ void write_boundary_block(struct block_device *bdev,
-  * @bh: The buffer to mark dirty.
-  * @mmb: The list of buffers to add the buffer to.
-  *
-- * Mark the buffer dirty and add it to the list if it is not already on
-- * a list.
-+ * Mark the buffer dirty, add it to the list if it is not already on a list
-+ * and set I_METADATA_WRITEBACK on the inode so that fsync() and eviction
-+ * write it out.
-  */
- void mmb_mark_buffer_dirty(struct buffer_head *bh,
- 			   struct mapping_metadata_bhs *mmb)
- {
-+	struct inode *inode = mmb->mapping->host;
-+
- 	mark_buffer_dirty(bh);
- 	if (!bh->b_mmb) {
- 		spin_lock(&mmb->lock);
-@@ -643,6 +646,15 @@ void mmb_mark_buffer_dirty(struct buffer_head *bh,
- 		list_move_tail(&bh->b_assoc_buffers, &mmb->list);
- 		spin_unlock(&mmb->lock);
- 	}
-+	/*
-+	 * The inode itself may never have been dirtied, so attach it to a wb
-+	 * before setting the bit or writeback_single_inode() has nothing to
-+	 * lock when evict() syncs it.
-+	 */
-+	spin_lock(&inode->i_lock);
-+	inode_attach_wb(inode, NULL);
-+	inode_state_set(inode, I_METADATA_WRITEBACK);
-+	spin_unlock(&inode->i_lock);
- }
- EXPORT_SYMBOL(mmb_mark_buffer_dirty);
+diff --git a/include/net/sock.h b/include/net/sock.h
+index 79e409bf3d13a..6f1da04c9794b 100644
+--- a/include/net/sock.h
++++ b/include/net/sock.h
+@@ -2135,10 +2135,13 @@ sk_dst_get(const struct sock *sk)
  
+ static inline void __dst_negative_advice(struct sock *sk)
+ {
+-	struct dst_entry *dst = __sk_dst_get(sk);
++	struct dst_entry *dst;
+ 
++	rcu_read_lock();
++	dst = __sk_dst_get(sk);
+ 	if (dst && dst->ops->negative_advice)
+ 		dst->ops->negative_advice(sk, dst);
++	rcu_read_unlock();
+ }
+ 
+ static inline void dst_negative_advice(struct sock *sk)
 -- 
 2.53.0
+
+
 
