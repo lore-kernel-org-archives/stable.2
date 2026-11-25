@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795602916;
-	b=yxOJI5SQtU6xV95WxdpHbNOfGbzxn1ste0kTkU6ThNqUwqVGPo0ypO2M9O+WGfYKsVN4
-	 RncckWQaA4uFJCKk1xm6MytwwzgqOPR+chxexS1+Y3JTY5bPEmzYOO7d27n8giUH6TpKD
-	 ViZf9pPNo3P50IUpv8dp/0JEZohUcRdxWibVcEjq60rJrOz3xfSqivTKFQdkDGZA6BTnu
-	 7KkE4Ll3nJEgf27rCbciaLF6p51/8rckuXXWkh3TSLRBeZK5pGVvzhowP+4GjnZYlZi96
-	 pLPuE4KQLEwRia42WBEt8V/ig2xJW+MAnT2mO0C6WpnHjHXhkjrDEOWxpsiHrUsDYdw==
+	t=1795602919;
+	b=MC8oteKsi3NV4hJpB35sXJmTjz7xBnUCe9v8BnlEU/8oZvqoBTwlGgcgDH0rHFT1Nfid
+	 nNUfKZZtxpfxOyBTHP97TGZe8RGambqZD1x+a/aW4GEsJvVdu0SI3IKKEzOUNaRE4qXu3
+	 jqR+VIglhtijaPzfhf1/yNbBkKlbx+SNOzWKE5+SedrzT5NGXKZs15/B+fU6BqQmSQSNk
+	 wLitFRtiwosOKcsWbBWx4jbkLW3k58BFJcSXsbtzkZjBS2I9Da/IP3AWDIvnfIdzUqWql
+	 +WTErvFYFsFjl07e7dXsXJB3sFTid3du9cjHLq2kFtYc5chlly6QNPQu8mOMBPRM5Bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602916;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602919;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=NgmRBgk9C8iZ0iSFNegNQxJMR8imDSyCyx1WvMyiozE=;
-	b=t15wrke5EyrqLHdaRncVnRunMc40S05RvVOlksxhWd0hDGhoTtMCxIRwnj5/y1mPJrXL
-	 WPPwiBwVmBLa3r0QBwZjZh5Eh6WbDFqpSLNkGkNaRV0BxiPrglTfVCEGILQGRk/Rr2VQa
-	 XaiKDPkWX+ica9f23ealETZ9LnUB4w45PwTx80zz38Xo+4CVQf5+U+tCeXWdRv2vfTkuQ
-	 KTKVolcf6T94FSqHZwVTn1eOeTMRuZMG9qWKpxmpYRw8T3fiK/S/djC1GXN+9akQmFPhF
-	 nwXsPwaWIElT9xei/7piydYHTNZCeHR1lOJhegRjVKy3ahJ4jVxtGXlMPi204I/mmCA==
+	bh=b6FP5LE6OUrOpQgQ1FGB91ZIJelnMj7KievGdFDFQiI=;
+	b=pNJkZFFyhdBIp6qUbStFy5nmIypG/5ZxtPsB7fnompT193OX0NYgGbRoVQaN2XAadhIn
+	 Es25H9WBoTIG4LK5JfvrZr8/mVcJ/uq9uRmDLD6p1658pDneFwZvCzFYlkGzTjJKPJur3
+	 EARznYTjfCdoXtYXHIJ+97iKTju6XB6OnVQlz1kRPkJaa9DSc7k6WSHsL4KCffLt3i1rE
+	 HFzbTLgWZcJT/wDVb+O5HMi5HhGmLmm/Q7K2vrGsWNpJelEFO+o6FbK7Hmh2P/DXd9tpA
+	 AL8ymL2Tn4g3CTYs1C6ODmFXDPcHxk1DTh+JgBb6vZGc+X97j+UdIsipjhpQ1dITa4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="IcKYBLe/";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oEO8h7PJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E712606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:35:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29424606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:35:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IcKYBLe/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 489831F000ED;
-	Wed, 25 Nov 2026 10:35:15 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oEO8h7PJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A2351F000F2;
+	Wed, 25 Nov 2026 10:35:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795602915;
-	bh=NgmRBgk9C8iZ0iSFNegNQxJMR8imDSyCyx1WvMyiozE=;
+	s=korg; t=1795602918;
+	bh=b6FP5LE6OUrOpQgQ1FGB91ZIJelnMj7KievGdFDFQiI=;
 	h=Subject:To:Cc:From:Date;
-	b=IcKYBLe/t1KyxDwpBPVzu6o+JzrjlEEuk2oTx8URfo3xiVN6upEAc3vbJvzH+nxPc
-	 PZrMUcSt+YzH6Y8XbV7viZ3xEpsOfJtvF98JPkSboE8Er/Iw+1WzGRN2LV+7OyopHM
-	 Flfyp45EWTX7q3oGzSOEMvhcTXASs64LAY5oNpc8=
-Subject: FAILED: patch "[PATCH] hwmon: (nct6775) Handle dual use registers" failed to apply to 6.1-stable tree
+	b=oEO8h7PJcCTQhGSy+Igq3Pv4W7IEZXbQ7Td+Mdrq3ajcwqGmtqpzr4NTHACQyH/QR
+	 dQbFYCbXnvt0aJM2enT7szS2UW9yWjNkXcQ3SnMSnrzYfiZpl3ZwJ64UimGYJtpFPz
+	 m/tr54xMw7QLkZcHqG4YLomVBmvh4i4oS+GD1sy8=
+Subject: FAILED: patch "[PATCH] hwmon: (nct6775) Handle dual use registers" failed to apply to 5.15-stable tree
 To: glance@ac2.se,linux@roeck-us.net
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:18:09 +0100
-Message-ID: <2026112509-boned-unholy-4e29@gregkh>
+Message-ID: <2026112509-afraid-taste-e69d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x ca1abdd1a9b9ce51713a18c8905bf10579533c3b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112509-boned-unholy-4e29@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112509-afraid-taste-e69d@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
