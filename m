@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795622409;
-	b=S5Fl6qfXxj2XJfE6o9T8Vl6zceY59BeF7gww8Iqd57Xr/aastjKZTahc0OAhKvZGuHh3
-	 TGVBapg5V7Kpttt0UWihJ3fXTX6IgzGtiYcjEGgY7BFJoX0ytEHSn/ELFTM9axvNX/miZ
-	 9SvEegvanGXDHsSeduXE49GHnGA9RzAXuGgkTbrOJAlbca65qsi47r9C+s0U7no6Fw41W
-	 lAT67vOtfcacpjOrmqCatGUGTxG2GLwRRnKkRRMr3E24hWNn9rCDyy0KUis6bV2wYpaLm
-	 w2ZZIft0qwRW5kjYEyZH8p1uReirmS/F1VTpQeY74syxp822zjIO42aPj94emD1Tvfg==
+	t=1795622412;
+	b=VhJmzUAy7JRi98HhSxopm/IburZuA/BXUQPxSqUK78hoHmq5utEJSpTqoSkA/06jZ4lp
+	 Htk0CscDz8yJbcyhM09JWr50V3hI4Omda92FZ37FPqBmNF3Zf9UG9G7iKxi8ngODieIFE
+	 jFnmwCAcma3Gh6PqLw8yIXfevi9LLjnXrDppvKYxY6IBi1cK/Y0igQB3H1lF2yee+h+xk
+	 igcSH/2tPPE6xXOcaPrOo7uFqhFl+40rVFshME2s+HTtt7+ub5EZ8/Sb1QU2014k1g1jz
+	 u37PyPQVhWjNOKP4s3kuiZUOBrklnws2OFaoqYgWlwM2GWyFCas67ppK2LgQ8KEAhPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622409;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622412;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=RIrwrhHTT++JUmE7jCA/1KRPwWT67w1r8M4U5Yd/P5Q=;
-	b=fQGPypRha3aUjDEfEHMkGHSS8S67EVuhnpsgOctBpRip/AaTQ1uuc7Rk/2Mb6NWKMxfT
-	 NeWXUHPw+y0hsWCBgOLjDz/zJJiO891r//cPpwnkKchijUbUu9dmNQmqZF74JFvmmS0NM
-	 lYtRD6Ehg8SqtxfUYJn2LpW0klEFaucjQZK8aY4Av70ck7ozY5TmleDNnLh13yqx8CO4o
-	 HDLIkC7Z2lq0X9qMar4QsqrVFEMO2FupH+mqt0D7sQlmYXZK1eRjNhZY0NKjD/t29Wn2L
-	 27vCPdVhd6ocqicb2jjpjsTnjVdDC3UiOh8qcxwbBdfawSZXNOCs5m1FrAsFo1y8Y9A==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=YhXJS5gyozZVPKyMsAvvSK19t/5oYBPdTvAYWjK5YyQ=;
+	b=MNT+oHfSp55iVLGzuzVxEOjN6XFNSdYMoxtEyYPFVtl7QvxsZvbiDhhcYsE00LJevhKd
+	 /YmPcN77/1zucM11PJhCMrRLVxfx/62qBXWosQKUvvyfA+ZHCOXrRfrsW/Vb+jGODIyIb
+	 fVGAxHoMKknNMtviW/TV1vTpTmF9IzxIms3q3AdzEPiAf2LzCIYc20qnX7zPGFFJzBBSy
+	 8Y/0pcG9TfCbT6xtrTod7qlUGRzYuD7eatRGa7Xk6v9xKLsePHPIB1byLqla+rgUy7OQm
+	 BIHbI8tEjGOvbS4Ocd8fA3M+3JnNP6Q5BBcZDpGO76ehzCgIyMWnYWdF8D1FXa2IkUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WmZdhrz9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oK0zLXMi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 557CB606A331;
-	Wed, 25 Nov 2026 16:00:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 176D4606A32C
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:00:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WmZdhrz9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54C911F000ED;
-	Wed, 25 Nov 2026 16:00:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795622408;
-	bh=RIrwrhHTT++JUmE7jCA/1KRPwWT67w1r8M4U5Yd/P5Q=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oK0zLXMi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D361C1F000ED;
+	Wed, 25 Nov 2026 16:00:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795622411;
+	bh=YhXJS5gyozZVPKyMsAvvSK19t/5oYBPdTvAYWjK5YyQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WmZdhrz9VWkmi4FDC8TX8W3G0Uf0256cECZaGl5xlPJUMicgfCC7r3MX0fSd9yhm8
-	 FQMOy/77AvmU8BMOeHzDfgHMm+c4ejKaJYC7kEoaqsatK28M71t1dq3NAkk3vkZqBI
-	 ERAMrOWPEpAV1czzFPb55qQjFjTPUq/LpMY1cRdw=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=oK0zLXMi3e3T8yogKHBstxvBTEepfPKnCYcx6YBcjcmFXa6LprqvupUUgsY2YwfLo
+	 TsHhplMM97XrGr2EGnWEVwxGZ71rmzXl81KEuU9CvrH8s9gzPKqd2Eakd/uXH4RqLD
+	 RC0HiDqNH+J8dXvfQ5TCXNWQsruzhB0P+jwEHqqsynKsPAyG768Xo5lAGNl0a5M2/r
+	 MyyUgQW+k3uNycf++fTAJwgGPBHWflipWetHNDdNL6cxZKKWqsnNeXmlf1h8LpVAHC
+	 6ZWJlT+4mFK+P7mqe1pCXhjWdLahoQV5doOW4+rbT6W2CPQoABVtebk7b7GPdJgxyl
+	 auNd/GPP+/qeA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Tate Whiteberg <whiteberg@arista.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
+Cc: Zihan Xi <zihanx@nebusec.ai>,
+	Vega <vega@nebusec.ai>,
+	Luxing Yin <root@tr0jan.top>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 527/990] serial: 8250: export and rename wait_for_xmitr()
-Date: Wed, 25 Nov 2026 15:31:34 +0100
-Message-ID: <20261125143834.437826332@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.1.y] netfilter: nf_dup: preserve guard across NFQUEUE reinjection
+Date: Wed, 25 Nov 2026 11:00:09 -0500
+Message-ID: <20261125155944.642713-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112552-outrage-proton-1df4@gregkh>
+References: <2026112552-outrage-proton-1df4@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,107 +63,104 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Zihan Xi <zihanx@nebusec.ai>
 
-------------------
+[ Upstream commit 82052e5b5ec36504fe1b9c3c28a711a78fcacf37 ]
 
-From: Tate Whiteberg <whiteberg@arista.com>
+NFQUEUE can suspend traversal of a duplicated packet while the task-local
+duplication guard is set. The output call then returns and clears the guard
+before a later verdict resumes hook traversal.
 
-[ Upstream commit 2c5942fd0300cb966339dd0366890be626b405e8 ]
+Save the guard in the queue entry and restore it while reinjection
+continues hook traversal. Preserve and restore the verdict task's prior
+state, including nested synchronous reinjection.
 
-Export wait_for_xmitr() and rename it to follow naming convention.
-
-Signed-off-by: Tate Whiteberg <whiteberg@arista.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Link: https://patch.msgid.link/20260831165911.2029839-2-whiteberg@arista.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: 1c305d5f1daa ("serial: 8250_mid: wait for LSR tx empty before setting termios")
+Fixes: cd58bcd9787e ("netfilter: xt_TEE: have cloned packet travel through Xtables too")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+[ sashal: adapted to use the per-CPU nf_skb_duplicated guard instead of current->in_nf_duplicate, and moved the nf_reinject changes into nf_queue.c with its older WARN_ON_ONCE/kfree_skb code. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/8250/8250.h      |  1 +
- drivers/tty/serial/8250/8250_port.c | 13 +++++++------
- 2 files changed, 8 insertions(+), 6 deletions(-)
+ include/net/netfilter/nf_queue.h |  1 +
+ net/netfilter/nf_queue.c         | 13 ++++++++++---
+ 2 files changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
-index 0076eb28661cb..e1feed8b4d510 100644
---- a/drivers/tty/serial/8250/8250.h
-+++ b/drivers/tty/serial/8250/8250.h
-@@ -188,6 +188,7 @@ static unsigned int __maybe_unused serial_icr_read(struct uart_8250_port *up,
- void serial8250_clear_fifos(struct uart_8250_port *p);
- void serial8250_clear_and_reinit_fifos(struct uart_8250_port *p);
- void serial8250_fifo_wait_for_lsr_thre(struct uart_8250_port *up, unsigned int count);
-+void serial8250_wait_for_xmitr(struct uart_8250_port *up, int bits);
+diff --git a/include/net/netfilter/nf_queue.h b/include/net/netfilter/nf_queue.h
+index 4cf158b5ea698..1aedf2967a56f 100644
+--- a/include/net/netfilter/nf_queue.h
++++ b/include/net/netfilter/nf_queue.h
+@@ -21,6 +21,7 @@ struct nf_queue_entry {
+ 	struct net_device	*physout;
+ #endif
+ 	struct nf_hook_state	state;
++	bool			in_nf_duplicate;
+ 	bool			nf_ct_is_unconfirmed;
+ 	u16			size; /* sizeof(entry) + saved route keys */
  
- void serial8250_rpm_get(struct uart_8250_port *p);
- void serial8250_rpm_put(struct uart_8250_port *p);
-diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
-index 455d55827ada1..4f50e83254f87 100644
---- a/drivers/tty/serial/8250/8250_port.c
-+++ b/drivers/tty/serial/8250/8250_port.c
-@@ -1993,7 +1993,7 @@ static bool wait_for_lsr(struct uart_8250_port *up, int bits)
- }
+diff --git a/net/netfilter/nf_queue.c b/net/netfilter/nf_queue.c
+index 2579f94e37444..7f3c24dccf015 100644
+--- a/net/netfilter/nf_queue.c
++++ b/net/netfilter/nf_queue.c
+@@ -218,6 +218,7 @@ static int __nf_queue(struct sk_buff *skb, const struct nf_hook_state *state,
+ 	*entry = (struct nf_queue_entry) {
+ 		.skb	= skb,
+ 		.skb_dev = skb->dev,
++		.in_nf_duplicate = this_cpu_read(nf_skb_duplicated),
+ 		.state	= *state,
+ 		.hook_index = index,
+ 		.size	= sizeof(*entry) + route_key_size,
+@@ -315,21 +316,26 @@ void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
+ 	const struct nf_hook_entry *hook_entry;
+ 	const struct nf_hook_entries *hooks;
+ 	struct sk_buff *skb = entry->skb;
++	bool old_in_nf_duplicate;
+ 	const struct net *net;
+ 	unsigned int i;
+ 	int err;
+ 	u8 pf;
  
- /* Wait for transmitter and holding register to empty with timeout */
--static void wait_for_xmitr(struct uart_8250_port *up, int bits)
-+void serial8250_wait_for_xmitr(struct uart_8250_port *up, int bits)
- {
- 	unsigned int tmout;
++	local_bh_disable();
++	old_in_nf_duplicate = __this_cpu_read(nf_skb_duplicated);
++
+ 	net = entry->state.net;
+ 	pf = entry->state.pf;
  
-@@ -2017,6 +2017,7 @@ static void wait_for_xmitr(struct uart_8250_port *up, int bits)
- 		}
++	__this_cpu_write(nf_skb_duplicated, entry->in_nf_duplicate);
+ 	hooks = nf_hook_entries_head(net, pf, entry->state.hook);
+ 
+ 	i = entry->hook_index;
+ 	if (WARN_ON_ONCE(!hooks || i >= hooks->num_hook_entries)) {
+ 		kfree_skb(skb);
+ 		nf_queue_entry_free(entry);
+-		return;
++		goto out;
  	}
+ 
+ 	hook_entry = &hooks->hooks[i];
+@@ -352,9 +358,7 @@ void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
+ 	switch (verdict & NF_VERDICT_MASK) {
+ 	case NF_ACCEPT:
+ 	case NF_STOP:
+-		local_bh_disable();
+ 		entry->state.okfn(entry->state.net, entry->state.sk, skb);
+-		local_bh_enable();
+ 		break;
+ 	case NF_QUEUE:
+ 		err = nf_queue(skb, &entry->state, i, verdict);
+@@ -368,5 +372,8 @@ void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
+ 	}
+ 
+ 	nf_queue_entry_free(entry);
++out:
++	__this_cpu_write(nf_skb_duplicated, old_in_nf_duplicate);
++	local_bh_enable();
  }
-+EXPORT_SYMBOL_NS_GPL(serial8250_wait_for_xmitr, "SERIAL_8250");
- 
- #ifdef CONFIG_CONSOLE_POLL
- /*
-@@ -2060,7 +2061,7 @@ static void serial8250_put_poll_char(struct uart_port *port,
- 	ier = serial_port_in(port, UART_IER);
- 	serial8250_clear_IER(up);
- 
--	wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
-+	serial8250_wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
- 	/*
- 	 *	Send the character out.
- 	 */
-@@ -2070,7 +2071,7 @@ static void serial8250_put_poll_char(struct uart_port *port,
- 	 *	Finally, wait for transmitter to become empty
- 	 *	and restore the IER
- 	 */
--	wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
-+	serial8250_wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
- 	serial_port_out(port, UART_IER, ier);
- }
- 
-@@ -2185,7 +2186,7 @@ static void serial8250_THRE_test(struct uart_port *port)
- 	 * Synchronize UART_IER access against the console.
- 	 */
- 	scoped_guard(uart_port_lock_irqsave, port) {
--		wait_for_xmitr(up, UART_LSR_THRE);
-+		serial8250_wait_for_xmitr(up, UART_LSR_THRE);
- 		serial_port_out_sync(port, UART_IER, UART_IER_THRI);
- 		udelay(1); /* allow THRE to set */
- 		iir_noint1 = serial_port_in(port, UART_IIR) & UART_IIR_NO_INT;
-@@ -3245,7 +3246,7 @@ static void serial8250_console_wait_putchar(struct uart_port *port, unsigned cha
- {
- 	struct uart_8250_port *up = up_to_u8250p(port);
- 
--	wait_for_xmitr(up, UART_LSR_THRE);
-+	serial8250_wait_for_xmitr(up, UART_LSR_THRE);
- 	serial8250_console_putchar(port, ch);
- }
- 
-@@ -3386,7 +3387,7 @@ void serial8250_console_write(struct uart_8250_port *up, const char *s,
- 	 *	Finally, wait for transmitter to become empty
- 	 *	and restore the IER
- 	 */
--	wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
-+	serial8250_wait_for_xmitr(up, UART_LSR_BOTH_EMPTY);
- 
- 	if (em485) {
- 		mdelay(port->rs485.delay_rts_after_send);
+ EXPORT_SYMBOL(nf_reinject);
 -- 
 2.53.0
-
-
 
