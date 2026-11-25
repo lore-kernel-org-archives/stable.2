@@ -1,69 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596720;
-	b=GfF56hu52iaHXtrQO4TtsPex4uFBBjPwwNipAuysTjpGtvUKNch23XKR8dmNt73813LJ
-	 Pp74ny62qKXnOjozfLhIlbTHuV+fk/k0t1jviul0GquNln5E0XW3DaEfalVcDljPVp3Pv
-	 7hWAigPaRRfPi7Imh2cs8q7XYImJiZf81BBxZZuiUJmKdjkI4SE250vo5DMA1IiWk+yyD
-	 CzJsj9KxTRBEptsOLGuGYe4EBp3n7qN/mrYwy4thXzHi4gwL2jX+xHKXOrXdfTRvGbNZs
-	 6SJjaCwwvjrTLxrM6yCYGk8hHl5eIbHcr3WbluXQmJ5l+ccdwlL8s2szSEgp9oaiWuw==
+	t=1795596751;
+	b=NH3DS218UUQrgyKCMXEk5El5s5Xdtm1oVYPtcgYH72k1FByL0HAc7AuXiJi2Uy+M9Xq6
+	 OOlKhhSH/QyrSa8WfXfusloCvuL0AHn8ed/JSzzMSHQsk2Z7YiJVN2YxGHHZqf3CPSN5K
+	 nPPeSOF7XSYCFRm0p77UpjmM2KylQGoyc1QVVCjpD5BoAPYPjg4mY0bij+vtrQnmO4mPI
+	 69cpoC6cljVwHr6VIPcpQLYQG++96qC/ZAbOQlGcJk63VQOKLDh9f0NdJ+CSHEJw1dR5A
+	 faTAXZzkp5xdt9t1J46zMjL6HNTu/8ZTjtr4k5lK6+7+pT7StOl/cWlbT/SGu1dcgZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596720;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:In-Reply-To:References:Date:Message-ID:User-Agent:
-	 MIME-Version:Content-Type;
-	bh=CpS23/nwi76U/xfd1RwGp9LbeXJvRV6wntw7x0C4i80=;
-	b=K9J+E408/p8W0zPN+OfroNTyhr6wHwKlbfFEzsdqMel7wuvUWu9OwD63mZM+eZ4GnxGr
-	 D1+BU/jl5mry1VcAQUgzOpHN7DS5y009YYWptHeUm7qjsy5li7LDCRa9PYu2SD3v17/2/
-	 xjtXBrACsTuTtJsefnIxM/lDiUonYSLl0Kd6HFdIn/kB1kQmsKkQO664UklrFn3Ey5kFg
-	 WlH8/qfkrB9AUuvL0hfyglq/kLeVVbIjxyuWmSlXNcTfPrjzQaFRqNhmNukqQUIT89h0r
-	 ADjgd5wtW2LZMOtPpEb1biyGG1S85lowHMwW5GE+mw8T5N1G0XzO91L3uDGFrqVXWQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596751;
+	h=DMARC-Filter:Received:Received:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Rspamd-Pre-Result:X-Rspamd-Server:
+	 X-Spamd-Result:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id:X-Rspamd-Pre-Result:X-Rspamd-Action;
+	bh=p9vbL0ysv91ckHuds7ouuXNkYWInSQU+tytOp4PqZGg=;
+	b=wrHSNT/NDji8jUc2xswpvtMnC699RckMj5Q83LS+XmTcW82oVVmRKJRJx6SML6RdwwsB
+	 P9YMIH2N1vdzNrVLBiLZvtLunomhsO0eqLQ9eqXEG9ET5cnHzn1alc9IDnmukTo2JL/1O
+	 LpYQYnPfrQyPNUNeo4ex2kr9T5egPj0mtrOH0ZQ2d6Ll8DFV12SFp6bPT0+62vbaAjA5O
+	 uCz9SIGkJjw/MyEnIT3Fm5cVO63t6iqGhj9h6t9RRzBu4K3F4N5+noJPtVuOqJDLs/7t/
+	 shh7UWbWfH7J3OOAmVYZcQs1gHIoLE8pPTD7E0/TXAS3pj+7dp+ehsY1nYUJ4BuPhWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=PrrfGIvG;
-	arc=none smtp.remote-ip=115.124.30.113
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CF2606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:51:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17CF2606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=PrrfGIvG
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1795596716; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=CpS23/nwi76U/xfd1RwGp9LbeXJvRV6wntw7x0C4i80=;
-	b=PrrfGIvGAojPJfNqzNx6ZEACFlbhf/Lz4t7tDDYchvTPSO5C0FaW4+vd0I7zJOhukwi2TxBzVbAn1bR6xaCI8LI/hNtkiTGR31ZDCgDvYEZVE3SU1iNhItzBGYJVxV96vpnbXi2lZL38lWO+8sXUaoEFTDnElRZyRQBU7AzwpQc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R911e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=ying.huang@linux.alibaba.com;NM=1;PH=DS;RN=25;SR=0;TI=SMTPD_---0XFR2tqg_1795596713;
-Received: from DESKTOP-5N7EMDA(mailfrom:ying.huang@linux.alibaba.com fp:SMTPD_---0XFR2tqg_1795596713 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 25 Nov 2026 16:51:54 +0800
-From: "Huang, Ying" <ying.huang@linux.alibaba.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,  "Liam R. Howlett"
- <liam@infradead.org>,  Vlastimil Babka <vbabka@kernel.org>,  Mike Rapoport
- <rppt@kernel.org>,  Suren Baghdasaryan <surenb@google.com>,  Michal Hocko
- <mhocko@suse.com>,  Rik van Riel <riel@surriel.com>,  Harry Yoo
- <harry@kernel.org>,  Jann Horn <jannh@google.com>,  Lance Yang
- <lance.yang@linux.dev>,  Andrew Morton <akpm@linux-foundation.org>,
-  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,  Clark Williams
- <clrkwllms@kernel.org>,  Steven Rostedt <rostedt@goodmis.org>,  Paul
- Walmsley <pjw@kernel.org>,  Palmer Dabbelt <palmer@dabbelt.com>,  Albert
- Ou <aou@eecs.berkeley.edu>,  Alexandre Ghiti <alex@ghiti.fr>,  Ying Huang
- <huang.ying.caritas@gmail.com>,  linux-mm@kvack.org,
-  linux-rt-devel@lists.linux.dev,  linux-riscv@lists.infradead.org,
-  stable@vger.kernel.org,  Kirk Swidowski <swidowski@google.com>
-Subject: Re: [PATCH] mm/rmap: avoid reusing batched TLB flush generations
-In-Reply-To: <20261124-rmap-v1-1-e3dc48a4b527@kernel.org> (David Hildenbrand's
-	message of "Tue, 24 Nov 2026 10:39:11 +0100")
-References: <20261124-rmap-v1-1-e3dc48a4b527@kernel.org>
-Date: Wed, 25 Nov 2026 16:51:52 +0800
-Message-ID: <87a4mxthsn.fsf@DESKTOP-5N7EMDA>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8CCA606A323;
+	Wed, 25 Nov 2026 08:52:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8CCA606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D09491F456;
+	Wed, 25 Nov 2026 08:52:28 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A6C51134CA;
+	Wed, 25 Nov 2026 08:52:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 88BVIMyhBmubAwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 25 Nov 2026 08:52:28 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 36C7D27BC4; Wed, 25 Nov 2026 09:52:24 +0100 (CET)
+Date: Wed, 25 Nov 2026 09:52:24 +0100
+From: Jan Kara <jack@suse.cz>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: David Hildenbrand <david@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Lorenzo Stoakes <ljs@kernel.org>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Michal Hocko <mhocko@kernel.org>, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 5/5] mm/filemap: refuse releasing maybe_dma_pinned
+ folios
+Message-ID: <ioqon6b2fg3ycdxztdfgxc6x2dkc4f6ysep6bpornycbkrj7ax@5rlqupekoyl2>
+References: <20261119-gup-dirty-what-v1-0-236d69f25c24@suse.de>
+ <20261119-gup-dirty-what-v1-5-236d69f25c24@suse.de>
+ <fsmnfotflgrddrlak24cve7vkcjkellsgb3xbei5ysxvmqnul6@byvxblm4dtqm>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,75 +85,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ascii
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fsmnfotflgrddrlak24cve7vkcjkellsgb3xbei5ysxvmqnul6@byvxblm4dtqm>
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Spam-Flag: NO
+X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Rspamd-Queue-Id: D09491F456
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Action: no action
 
-Hi, David,
+On Wed 25-11-26 09:47:39, Jan Kara wrote:
+> On Thu 19-11-26 20:10:48, Pedro Falcato wrote:
+> > Some callers, like folio_unmap_invalidate(), call filemap_release_folio()
+> > without any care for folio refcounts. This is on purpose. As
+> > folio_unmap_invalidate() states, invalidate_inode_pages2() needs stronger
+> > guarantees, and "can't afford to leave folios behind because
+> > shrink_folio_list() has a temp ref on them". Ok.
+> > 
+> > Use folio_maybe_dma_pinned() universally, in filemap_release_folio(). This
+> > has a much lower false positive rate, and should be ok enough for most
+> > serious cases.
+> > 
+> > While here, properly assert that no folio passed to release_folio is
+> > mapped.
+> > 
+> > Cc: stable@vger.kernel.org
+> > Fixes: d824ec2a1546 ("mm: do not reclaim private data from pinned page")
+> > Signed-off-by: Pedro Falcato <pfalcato@suse.de>
+> 
+> Looks good to me. Feel free to add:
+> 
+> Reviewed-by: Jan Kara <jack@suse.cz>
+> 
+> and we'll see whether there's some path which actually required private
+> data on pinned page to be freed in some cornercase :)
 
-"David Hildenbrand (Arm)" <david@kernel.org> writes:
+Oh, now I can see Sashiko already found some :).
 
-> mm->tlb_flush_batched packs a 15-bit pending and a 15-bit flushed
-> counter into one atomic_t, and resets both once pending gets large.
-> flush_tlb_batched_pending() updates flushed with a cmpxchg() against the
-> value it read before flushing.
->
-> If the counters get reset and reach that same value again while
-> flush_tlb_mm() is running, the cmpxchg() succeeds and unmaps that
-> happened in the meantime are considered flushed. A later zap can then
-> skip the flush and leave stale writable TLB entries behind.
->
-> Use two separate counters, never reset pending, and let the flusher
-> simply store the pending value it read before flushing. To keep pending
-> from wrapping around to flushed, pull flushed to pending - 1 once
-> pending is more than INT_MAX ahead.
->
-> Preventing the wrapping is primarily required because
-> try_to_unmap_flush() as called from migration and reclaim code does
-> *not* go through flush_tlb_batched_pending(), as it does not iterate
-> MMs. So if nothing in the MM triggers flush_tlb_batched_pending(), there
-> would be a problem.
->
-> As the separate counters are no longer read atomically together, we must
-> read "flushed" before "pending" (acquire/release), so a reader can never
-> pair a just moved-forward "flushed" value with an older "pending" value.
->
-> We'll leave the barrier() between clearing the PTE and incrementing
-> "pending" alone for now: it should be a smp_mb__before_atomic(), but
-> existing arch code (x86: inc_mm_tlb_gen(), arm64: dsb(ishst) before the
-> TLBI, riscv: fully-ordered xchg() in ptep_get_and_clear()) imply a
-> barrier. This should be cleaned up or documented separately.
->
-> Note: if a flusher stalls between reading "pending" and storing it,
-> while "pending" advances by an exact multiple of 2^32, the counters
-> could compare equal and we could miss a flush. The same applies to a
-> writer that stalls while moving "flushed" forward.
->
-> That is irrelevant in practice: both hold the PTL, so without PREEMPT_RT
-> they cannot get preempted, and wrapping within the ~20s soft lockup and
-> RCU stall timeouts would require more than 200 million batched unmaps
-> per second on a single mm, which is impossible in practice. Even with
-> PREEMPT_RT or long vCPU preemption, we would need minutes of unmap and
-> refault churn while the stalled task stays off the CPU, which is highly
-> unlikely and not a realistic attack vector.
->
-> This effectively adds 4 bytes to mm_struct. However, on common 64-bit
-> configs it fits into the existing padding, leaving the size unchanged.
->
-> Fixes: 5ee2fa2f0636 ("mm/rmap: fix potential batched TLB flush race")
-> Cc: stable@vger.kernel.org
-> Reported-by: Kirk Swidowski <swidowski@google.com>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> [ david: use atomic_t instead of atomic64_t, adjust description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-
-Except the fork issue pointed out by Harry, the patch looks good to me.
-Thanks for fixing this problem.  Feel free to add my
-
-Reviewed-by: Huang Ying <ying.huang@linux.alibaba.com>
-
-in the future versions after fixing the fork issue.
-
----
-Best Regards,
-Huang, Ying
-
-[snip]
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
