@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795619805;
-	b=KU78Ue8W4fWJC67hJXtCPVoalTo6wrRPtqlCfFrTO25zRXkZOYmPCxNzN5GlVYRPuDqK
-	 YCJmXJOsn80qZVFsyYhiXaz0zEKaTu6d4oTry5Sp4WHtO3+0n3YUCqyuwhpT5iPZMiIOm
-	 I0Pvj2PK5G/faL6Gngeob5N9UycmaHtuLa0y1ZN4YvuR7mAJemd1vUXuD/WBbN+UWhXfP
-	 O04qTbpGWIJ/xyW55Bu3guXHqPL+SPy8IXIYTXdndMXSdLR5mmXxASs2tX/nX/oQYorc+
-	 jgRFgx6G+/Lk9wpQ7V5rr0+795YBYdsm+USoS4AZw48moETbwNgd6n59OgwOViTx27A==
+	b=JbU1tfAn0+NOOw4a19G+zSh7Q7YBwRRh6SEzKFcpNBgaEzZXQzFyr9/reM7biKD/Isss
+	 4c6/owzyL6XW6nln3JefJQtvBVHe29ygdu4BZE0OFba0FuX2PGViqDkA/Za4GMhoiDVIe
+	 +BJcD3vzpKVJ72fmAtsALnW+e4RlDfBVa5swpWw9OZ6kXOGQIAY5JNdGtlYCYOwh2Dtdi
+	 bPk0PaxKIR8qeg1l5wybcm6yq+jOnMrSXIKoxmNSTDDENaavo+sQQ2reMD0FFJUF2nMgS
+	 NDVBFPJXZoDCyH9ng5PVYi58L6Xa41+zPbn+3GphXrbs0AMfeTZPcQmNBht/4xQkNvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795619805;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ApRbGyIsZ93gmc4CBiMzBzcXLeKg/9EmimGrWbURp74=;
-	b=hGTCv1m8gcTw1Terh5qHmFrdIwvuF80hlqMW1Ktp5PYbCv9bAMZ799OsaI8TI4BJaGJH
-	 acV/ci8lLj++gsdI9XTAeEaboduq/CdprjamK/erym2U/hJBOXt04rvO1ooKYn6sR7RS9
-	 tNK1cvtVbLjZFcQUVTbdK9ChEzw4x7eP7hON/PqnNFlziT79y+kx8J4sREuc/OuspAMwC
-	 JXgCD52UOpX6hw5XyI8SN0z9MeAobOz31RPoE/oEOMwou18nfSpRAQi/9AN7F/uTQOjQj
-	 s1iLi5hv/AK7pt5I9Sekj2uYdAogUEIUt+Gm13lFDxkGlb+ywvCRqR4tK01fpMlpjAA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=C3VKrnkiZjUM4tgyzlt9CxOYIv04b7NhhtXUbD7tuT4=;
+	b=hdC8QHst9KlA49ZqtEiQlAK23qYR0Q029JqKjtHyocz5IKHWLy8lkKXDAyt/Z5u7mQfJ
+	 nCPlovdookd9lAaAEJZ+HiO15FKEMRcEPxyqxSf4c6ja80XljkM/JfiUANPzDnzDDEpZ4
+	 hVGLreEpbN/94HHOLTsHOTo71levAQU+1TkkvSRINBo0MUPuMX3Zlunz8CG3mRhk0WSzi
+	 6Dc6tj3PIPPWengo/4hNcYeJIJc2pzyHMqALUEilT9s2hO/svaZo27um/vUF8Q+5qTqGb
+	 SNG/6Til1b7TNUKgh1gR8DA9YYIu5xMQo5HF8TlZXZNkl3Bg/FXErbtbFnSZ3QOrryA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RUy2ZxA3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z3ktM1I1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29522606A31E;
-	Wed, 25 Nov 2026 15:16:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EBE606A327
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:16:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RUy2ZxA3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D744D1F000C4;
-	Wed, 25 Nov 2026 15:16:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795619804;
-	bh=ApRbGyIsZ93gmc4CBiMzBzcXLeKg/9EmimGrWbURp74=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z3ktM1I1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E3401F000D2;
+	Wed, 25 Nov 2026 15:16:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795619805;
+	bh=C3VKrnkiZjUM4tgyzlt9CxOYIv04b7NhhtXUbD7tuT4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RUy2ZxA3N7JfNBhmUaSmQy/KFmtAaebnoaR4/Ok2dy4Pu4cjbWOqJc/YvIF3Q+LIK
-	 bgiMf0GkOl3E0bHdiAc1q8T46W9CtbQaFMLjPqRzxtAZP6u6Lj4np2g1Hfmgp8ED1I
-	 +shiPfeSL4v1NCtosSboI3BnrG4xlQYhujuK0lWQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=Z3ktM1I1saMRLrkzWqcqZ94qRKy+1oLn23qmZ9Ig8A59hru1DFfvOopagVY5JMnx5
+	 70y0iUpaYi0+SvsAxYs52FXYyvYq1jH0Rz818SWqb4swxkB+cpx/rNdZDFefRmSBt+
+	 K000wIKTmX0nYzlg3+kRFSmSJjmPPuKFW85NDSUxos299nOt3AKS2SSoaY6PnY9dWt
+	 Ci1xWeIYMdoByz9alca1L7YyHjEb35youQ0wM6s24EfSflFM42R5/kxriME5JIhFQ4
+	 6sYxIotzK9ue9WPUpRL6wY2kapbqFmEB4pYER4qEsdgPEzItWmHC2147mjgpGEiqmR
+	 mbDU7uunn+Piw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	syzbot+79883955da3a62652a80@syzkaller.appspotmail.com,
-	Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>,
-	Catalin Marinas <catalin.marinas@arm.com>
-Subject: [PATCH 7.3 0713/1005] arm64: suspend: Only track cpuidle context for idle tasks
-Date: Wed, 25 Nov 2026 15:34:11 +0100
-Message-ID: <20261125143838.461013340@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Harshitha Ramamurthy <hramamurthy@google.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Jordan Rhee <jordanrhee@google.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3.y 3/6] gve: introduce gve_adminq_get_device_properties()
+Date: Wed, 25 Nov 2026 10:16:36 -0500
+Message-ID: <20261125151623.40338-3-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261125151623.40338-1-sashal@kernel.org>
+References: <2026112500-overbite-aside-6db0@gregkh>
+ <20261125151623.40338-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,110 +65,220 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+From: Harshitha Ramamurthy <hramamurthy@google.com>
 
-------------------
+[ Upstream commit a01cb6b77e9a3fe0db8ea247a89892a1db98c6b1 ]
 
-From: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
+Introduce gve_adminq_get_device_properties() which executes the first
+two Adminq commands: VERIFY_DRIVER_COMPATIBILITY and DESCRIBE_DEVICE
+so that this can be called during initialization.
 
-commit ad3fc05c7e65009355effeea06aa629a687acef2 upstream.
+Move these to Adminq specific files. This is just code movement, no
+functional change.
 
-Commit 19235e472798 ("cpuidle, arm64: Fix the ARM64 cpuidle logic") moved
-the calls to ct_cpuidle_enter() and ct_cpuidle_exit() into cpu_suspend() so
-that arm64 cpuidle could keep RCU watching longer and manage context
-tracking internally. However, cpu_suspend() is called not only by cpuidle
-via psci_cpu_suspend_enter() (which runs in the context of the idle task),
-but also during system suspend via psci_system_suspend_enter() (which runs
-in the context of the task initiating suspend, such as a process writing to
-/sys/power/state).
-
-When entering system suspend, current is a non-idle task. Calling
-ct_cpuidle_enter() invokes ct_kernel_exit() from kernel space (!user) on a
-non-idle task. With CONFIG_RCU_EQS_DEBUG enabled, this violates context
-tracking invariants and triggers a warning:
-
-WARNING: kernel/context_tracking.c:120 at ct_kernel_exit+0x1b4/0x1f4
-kernel/context_tracking.c:118
-Call trace:
- ct_kernel_exit+0x1b4/0x1f4 kernel/context_tracking.c:118
- ct_idle_enter+0x20/0x34 kernel/context_tracking.c:299
- ct_cpuidle_enter include/linux/cpuidle.h:134 [inline]
- cpu_suspend+0x264/0x474 arch/arm64/kernel/suspend.c:136
- psci_system_suspend_enter+0x4c/0x80 drivers/firmware/psci/psci.c:544
- suspend_enter kernel/power/suspend.c:468 [inline]
- suspend_devices_and_enter+0x88c/0xd0c kernel/power/suspend.c:533
- enter_state kernel/power/suspend.c:618 [inline]
- pm_suspend+0x498/0x698 kernel/power/suspend.c:644
- state_store+0x14c/0x1fc kernel/power/main.c:819
- kobj_attr_store+0x6c/0x90 lib/kobject.c:842
- sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
- vfs_write+0x51c/0xa0c fs/read_write.c:687
- ksys_write+0x12c/0x228 fs/read_write.c:739
-
-A corresponding warning is subsequently triggered in ct_kernel_enter() via
-ct_cpuidle_exit() upon resume.
-
-Fix this by checking is_idle_task(current) in cpu_suspend() and only
-invoking ct_cpuidle_enter() and ct_cpuidle_exit() when executing in the
-context of an idle task.
-
-Fixes: 19235e472798 ("cpuidle, arm64: Fix the ARM64 cpuidle logic")
-Cc: <stable@vger.kernel.org>
-Assisted-by: Gemini:gemini-3.8-flash Gemini:gemini-3.1-pro-preview syzbot
-Reported-by: syzbot+79883955da3a62652a80@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=79883955da3a62652a80
-Link: https://syzkaller.appspot.com/ai_job?id=5359e16f-013b-4850-9cbc-ddfb3bac95e5
-Signed-off-by: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
-Tested-by: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
-Link: https://lore.kernel.org/r/3e92ccb0-2952-4317-af4c-45457c15efae@gmail.com
-Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Reviewed-by: Jordan Rhee <jordanrhee@google.com>
+Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
+Link: https://patch.msgid.link/20260930190428.1130007-5-hramamurthy@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 7de69da15088 ("gve: Fix race between stats query and queue reconfig")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/kernel/suspend.c |   11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/google/gve/gve_adminq.c | 68 ++++++++++++++++++--
+ drivers/net/ethernet/google/gve/gve_adminq.h |  5 +-
+ drivers/net/ethernet/google/gve/gve_main.c   | 47 +-------------
+ 3 files changed, 65 insertions(+), 55 deletions(-)
 
---- a/arch/arm64/kernel/suspend.c
-+++ b/arch/arm64/kernel/suspend.c
-@@ -5,6 +5,7 @@
- #include <linux/uaccess.h>
- #include <linux/pgtable.h>
- #include <linux/cpuidle.h>
-+#include <linux/sched.h>
- #include <asm/alternative.h>
- #include <asm/cacheflush.h>
- #include <asm/cpufeature.h>
-@@ -99,6 +100,7 @@ int cpu_suspend(unsigned long arg, int (
- 	int ret = 0;
- 	unsigned long flags;
- 	struct sleep_stack_data state;
-+	bool idle = is_idle_task(current);
+diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net/ethernet/google/gve/gve_adminq.c
+index 08d8e49d563eb..e33d262946eff 100644
+--- a/drivers/net/ethernet/google/gve/gve_adminq.c
++++ b/drivers/net/ethernet/google/gve/gve_adminq.c
+@@ -6,6 +6,8 @@
  
- 	/*
- 	 * Some portions of CPU state (e.g. PSTATE.{PAN,DIT}) are initialized
-@@ -133,7 +135,8 @@ int cpu_suspend(unsigned long arg, int (
- 	 */
- 	pause_graph_tracing();
+ #include <linux/etherdevice.h>
+ #include <linux/pci.h>
++#include <linux/utsname.h>
++#include <linux/version.h>
+ #include "gve.h"
+ #include "gve_adminq.h"
+ #include "gve_register.h"
+@@ -1143,6 +1145,27 @@ int gve_adminq_describe_device(struct gve_priv *priv)
+ 	return err;
+ }
  
--	ct_cpuidle_enter();
-+	if (idle)
-+		ct_cpuidle_enter();
++int gve_adminq_get_device_properties(struct gve_priv *priv)
++{
++	int err;
++
++	err = gve_adminq_verify_driver_compatibility(priv);
++	if (err) {
++		dev_err(&priv->pdev->dev,
++			"Could not verify driver compatibility: err=%d\n", err);
++		return err;
++	}
++
++	/* Get the initial information we need from the device */
++	err = gve_adminq_describe_device(priv);
++	if (err) {
++		dev_err(&priv->pdev->dev,
++			"Could not get device information: err=%d\n", err);
++		return err;
++	}
++	return 0;
++}
++
+ int gve_adminq_register_page_list(struct gve_priv *priv,
+ 				  struct gve_queue_page_list *qpl)
+ {
+@@ -1205,20 +1228,53 @@ int gve_adminq_report_stats(struct gve_priv *priv, u64 stats_report_len,
+ 	return gve_adminq_execute_cmd(priv, &cmd);
+ }
  
- 	if (__cpu_suspend_enter(&state)) {
- 		/* Call the suspend finisher */
-@@ -149,9 +152,11 @@ int cpu_suspend(unsigned long arg, int (
- 		if (!ret)
- 			ret = -EOPNOTSUPP;
+-int gve_adminq_verify_driver_compatibility(struct gve_priv *priv,
+-					   u64 driver_info_len,
+-					   dma_addr_t driver_info_addr)
++int gve_adminq_verify_driver_compatibility(struct gve_priv *priv)
+ {
++	struct gve_driver_info *driver_info;
+ 	union gve_adminq_command cmd;
++	dma_addr_t driver_info_bus;
++	int err;
++
++	driver_info = dma_alloc_coherent(&priv->pdev->dev,
++					 sizeof(struct gve_driver_info),
++					 &driver_info_bus, GFP_KERNEL);
++	if (!driver_info)
++		return -ENOMEM;
++
++	*driver_info = (struct gve_driver_info) {
++		.os_type = 1, /* Linux */
++		.os_version_major = cpu_to_be32(LINUX_VERSION_MAJOR),
++		.os_version_minor = cpu_to_be32(LINUX_VERSION_SUBLEVEL),
++		.os_version_sub = cpu_to_be32(LINUX_VERSION_PATCHLEVEL),
++		.driver_capability_flags = {
++			cpu_to_be64(GVE_DRIVER_CAPABILITY_FLAGS1),
++			cpu_to_be64(GVE_DRIVER_CAPABILITY_FLAGS2),
++			cpu_to_be64(GVE_DRIVER_CAPABILITY_FLAGS3),
++			cpu_to_be64(GVE_DRIVER_CAPABILITY_FLAGS4),
++		},
++	};
++	strscpy(driver_info->os_version_str1, utsname()->release,
++		sizeof(driver_info->os_version_str1));
++	strscpy(driver_info->os_version_str2, utsname()->version,
++		sizeof(driver_info->os_version_str2));
  
--		ct_cpuidle_exit();
-+		if (idle)
-+			ct_cpuidle_exit();
- 	} else {
--		ct_cpuidle_exit();
-+		if (idle)
-+			ct_cpuidle_exit();
- 		__cpu_suspend_exit();
+ 	memset(&cmd, 0, sizeof(cmd));
+ 	cmd.opcode = cpu_to_be32(GVE_ADMINQ_VERIFY_DRIVER_COMPATIBILITY);
+ 	cmd.verify_driver_compatibility = (struct gve_adminq_verify_driver_compatibility) {
+-		.driver_info_len = cpu_to_be64(driver_info_len),
+-		.driver_info_addr = cpu_to_be64(driver_info_addr),
++		.driver_info_len = cpu_to_be64(sizeof(struct gve_driver_info)),
++		.driver_info_addr = cpu_to_be64(driver_info_bus),
+ 	};
+ 
+-	return gve_adminq_execute_cmd(priv, &cmd);
++	err = gve_adminq_execute_cmd(priv, &cmd);
++
++	/* It's ok if the device doesn't support this */
++	if (err == -EOPNOTSUPP)
++		err = 0;
++
++	dma_free_coherent(&priv->pdev->dev,
++			  sizeof(struct gve_driver_info),
++			  driver_info, driver_info_bus);
++	return err;
+ }
+ 
+ int gve_adminq_report_link_speed(struct gve_priv *priv)
+diff --git a/drivers/net/ethernet/google/gve/gve_adminq.h b/drivers/net/ethernet/google/gve/gve_adminq.h
+index 93d3cabb67f14..c36878d99ff17 100644
+--- a/drivers/net/ethernet/google/gve/gve_adminq.h
++++ b/drivers/net/ethernet/google/gve/gve_adminq.h
+@@ -640,9 +640,8 @@ int gve_adminq_register_page_list(struct gve_priv *priv,
+ int gve_adminq_unregister_page_list(struct gve_priv *priv, u32 page_list_id);
+ int gve_adminq_report_stats(struct gve_priv *priv, u64 stats_report_len,
+ 			    dma_addr_t stats_report_addr, u64 interval);
+-int gve_adminq_verify_driver_compatibility(struct gve_priv *priv,
+-					   u64 driver_info_len,
+-					   dma_addr_t driver_info_addr);
++int gve_adminq_verify_driver_compatibility(struct gve_priv *priv);
++int gve_adminq_get_device_properties(struct gve_priv *priv);
+ int gve_adminq_report_link_speed(struct gve_priv *priv);
+ int gve_adminq_add_flow_rule(struct gve_priv *priv, struct gve_adminq_flow_rule *rule, u32 loc);
+ int gve_adminq_del_flow_rule(struct gve_priv *priv, u32 loc);
+diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
+index 3c82b3f1540f7..8e7cca6348ccc 100644
+--- a/drivers/net/ethernet/google/gve/gve_main.c
++++ b/drivers/net/ethernet/google/gve/gve_main.c
+@@ -17,8 +17,6 @@
+ #include <linux/sched.h>
+ #include <linux/timer.h>
+ #include <linux/workqueue.h>
+-#include <linux/utsname.h>
+-#include <linux/version.h>
+ #include <net/netdev_queues.h>
+ #include <net/sch_generic.h>
+ #include <net/xdp_sock_drv.h>
+@@ -41,49 +39,6 @@ char gve_driver_name[] = "gve";
+ const char gve_version_str[] = GVE_VERSION;
+ static const char gve_version_prefix[] = GVE_VERSION_PREFIX;
+ 
+-static int gve_verify_driver_compatibility(struct gve_priv *priv)
+-{
+-	int err;
+-	struct gve_driver_info *driver_info;
+-	dma_addr_t driver_info_bus;
+-
+-	driver_info = dma_alloc_coherent(&priv->pdev->dev,
+-					 sizeof(struct gve_driver_info),
+-					 &driver_info_bus, GFP_KERNEL);
+-	if (!driver_info)
+-		return -ENOMEM;
+-
+-	*driver_info = (struct gve_driver_info) {
+-		.os_type = 1, /* Linux */
+-		.os_version_major = cpu_to_be32(LINUX_VERSION_MAJOR),
+-		.os_version_minor = cpu_to_be32(LINUX_VERSION_SUBLEVEL),
+-		.os_version_sub = cpu_to_be32(LINUX_VERSION_PATCHLEVEL),
+-		.driver_capability_flags = {
+-			cpu_to_be64(GVE_DRIVER_CAPABILITY_FLAGS1),
+-			cpu_to_be64(GVE_DRIVER_CAPABILITY_FLAGS2),
+-			cpu_to_be64(GVE_DRIVER_CAPABILITY_FLAGS3),
+-			cpu_to_be64(GVE_DRIVER_CAPABILITY_FLAGS4),
+-		},
+-	};
+-	strscpy(driver_info->os_version_str1, utsname()->release,
+-		sizeof(driver_info->os_version_str1));
+-	strscpy(driver_info->os_version_str2, utsname()->version,
+-		sizeof(driver_info->os_version_str2));
+-
+-	err = gve_adminq_verify_driver_compatibility(priv,
+-						     sizeof(struct gve_driver_info),
+-						     driver_info_bus);
+-
+-	/* It's ok if the device doesn't support this */
+-	if (err == -EOPNOTSUPP)
+-		err = 0;
+-
+-	dma_free_coherent(&priv->pdev->dev,
+-			  sizeof(struct gve_driver_info),
+-			  driver_info, driver_info_bus);
+-	return err;
+-}
+-
+ static netdev_features_t gve_features_check(struct sk_buff *skb,
+ 					    struct net_device *dev,
+ 					    netdev_features_t features)
+@@ -2478,7 +2433,7 @@ static int gve_init_priv(struct gve_priv *priv, bool skip_describe_device)
+ 		return err;
  	}
  
-
+-	err = gve_verify_driver_compatibility(priv);
++	err = gve_adminq_verify_driver_compatibility(priv);
+ 	if (err) {
+ 		dev_err(&priv->pdev->dev,
+ 			"Could not verify driver compatibility: err=%d\n", err);
+-- 
+2.53.0
 
