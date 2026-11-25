@@ -1,94 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795602779;
-	b=nq0Jb2zhqb2YnfGaE+lSOfzxpYTgkJ0TndmPZPLX/KCEup3wSEKHzvIWksvvPEqwev/N
-	 q05pLt+6Sdq5JslB27T2J/k8u9vl4yw5NgRX4tIH3LKDZhWk2BjVf/uKyH2XB0ExZJNRM
-	 ATm6mrnmx+YGTl1N3TyodRIuIQbcZiVP/HIxY7fao3cpMR1uRNyaWkuJ+LNvl4Wax+p58
-	 rLb7uOvBDM4YVxfNLpNogqQyWhfRvCYjudANihGpIS4M/yZk/wKkHNkZHo8KDNB0jTDNN
-	 Ons7skVDd1SalVRAIxkfat5cXpBdyrSjcTTdL7GmUUqwmkzFWrFf5NFb613JbOl5+1A==
+	b=pT+CBzB0MutSy7tZExrroWYW/8thVoko97iipuVlHFanIZr+NmSSAmxpWRPvu0y7A0mz
+	 ta17qcDR3BJNw6aXaFkDS6zQPUrvBhIzGmoqx7IiICNHAPQAQMPmyBbFG7fdegsQBYVSD
+	 z9i82KNtP99wTATXGQnElg+sptMcGSJ1Lpsv0LmHH7zMt2uoWr/hOwpKIFgu49xJJouEl
+	 xEHCpaAgxdOhs1VgQ1Tow5PAcHmEXOJ6KWOKvWJhMZNrKT/LrMMDcS8uPkIt5WPNNdY/m
+	 ym/yOi5tej/j4i5v06rPFUGHKHJS1Dr/ScF5nvjIVc8oK6/9PzonXmvko0zEcv4pN/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795602779;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=v9g3Spbz9SEtCo7yUgTL6YRQAf/hoxvLHrjUObnvhas=;
-	b=UuZgyJZdpSrFQ7pFd2AZhaEZ8gNalglGi9dqmS24Aog+Tcow6ZpYulGPT6mMs68I6i5I
-	 fnqxwGJtIuA30PbtSZjKqXuCcVdX7dwmytBuo5EFT5nB9kNVwL19zRav4vFNJUS2VTuaj
-	 p2JlSE0/txdLKmcJVqASujK1xtPeKw22ReThjSKKOh2XCIUe3L4tt8EKPPWB/6Lq+W7dU
-	 p587eFjmdYXXvI6lYUH+2aCKFeJKFdekUJTm0EWML1AL0Cdn4D62kyUEwxQcEsC2CNSU0
-	 2KJoClrAiBs+CjQ5hT8NH58vpaU7e9WMVB6DJVxx0IdTDAWCE+uQM0dmPv9M/+2EU6Q==
+	bh=MUIWBtu/5wsR7Tq9sCHiPqBvEjwax1AI4efUUkJYq2c=;
+	b=5dEVZSzSUYrdq2yQDz+WB0eIa9HMXiaPCHgalOVYLNNSVdldksFLvai3RUtzS5VvNGUa
+	 1pPrYj9CTauAuMBeyBT5+VNU386xAMI8oZL8PYqjugG+4zhzx0chIXI29IfDQIDQ1om0j
+	 T7PoCKbPU2C8RdSmGVvggX+aVWhnX5U+V8tePx2/kfvmSB6pYI+toZW+3yP0nu6ci5spb
+	 QslDIm9Zt1Xho8nv6lg7IPJKHW4BNVRN3U74526OTA0VnYZwSVRcjM3nUyBdJky8NXiSQ
+	 UQzpFEhjtgtn3Hg65jhCdbdJRaMITRL102gfG8pW0aNwggc+rxt8UBpa7jMsVKYJmxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sAQ5W7A6;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VyxKxKlU;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0DBB606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:32:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0DBB606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C5AA606A327
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:32:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C5AA606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sAQ5W7A6
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4a357b1c649so3231534f8f.3
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 02:32:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VyxKxKlU
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4a2f4ca0dcfso3184292f8f.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 02:32:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795602777; x=1796207577; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795602778; x=1796207578; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=v9g3Spbz9SEtCo7yUgTL6YRQAf/hoxvLHrjUObnvhas=;
-        b=sAQ5W7A6TR3G1yVOG+eIXQXJoQh4uwISIH18TPln9VcIT2N178QAk+zIXv7hgWvjSi
-         kbTMbL+a89cWFnYEvS4wyTPaGBVIu8Tp6KqzhgurywDFZo2jbG/oZuXSRzlfswNXHAKO
-         fExr/qu7gfNwFCVpSjmU82w/dW1rP1qLTt8LDBgxNiPfMFlfAy9491/Bwu+XiCLUm8Hp
-         83p2edIKT9kLmR86z0gym61gXnIdqVESHeeiHO5it9/+vl+3vpRdBTNX4Kl1btm1tqU2
-         iv2yU+PNr5CvTjfVenuRG8heH0vPDLF/+a/XM1Jb2WLDXPDKbFn5MejPhnccrdwV9ZJS
-         X4Og==
+        bh=MUIWBtu/5wsR7Tq9sCHiPqBvEjwax1AI4efUUkJYq2c=;
+        b=VyxKxKlULeZaziZxdTIT4aYPAzVu5vKeH7bN2XB7B5finU9YxLOL9EYpVqyT9L1GYp
+         hxVmvAOE3iMU9J3o8SgnRczUWxq31Bo0R5+EfNoInSYmh1SpQbCKxNKy70RX3D0UnSaz
+         0bUFUNwWKYSGyq8Yrmj2BLGdXDRR0ER/+CF/mh7mG/fN10TLTrDMf4M9LZjd962r6fKu
+         UQeaAGIpeBUfbcHeGujscf3NfyI+0uMOJfJzhEgYBTnH8Nx6zIFX/qtSWPIel03nSU4H
+         o5eSnx6+5eEc/Qvzcvs4kuDftSplJNPQiKhjBu4FDHEsongsKB3agaH1L/WKniNbKmzH
+         3meg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795602777; x=1796207577;
+        d=1e100.net; s=20260707; t=1795602778; x=1796207578;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=v9g3Spbz9SEtCo7yUgTL6YRQAf/hoxvLHrjUObnvhas=;
-        b=1/u5BjkRsZnH/qA33fzHziT7+N7++IhhR0o95lS/twfmiZbDIXfZj1kCgy7A21zm5B
-         k0g+LlzP/BhkbVbcXnakBI/2s2pPgGbSSGxK8R0pq8lOMN2flUvb2aq0W1AlvcSeDtG0
-         MESShi3k1jsopsFp/aF0o4upkPLGsn2CWwcNHIRch/yO45rud7H/nfcAWTdYEXNS87g4
-         j3MNuIKzEYXcmybFMU+kS/BUqJg2nH70SV49qh8cuFDuWz0+vj8aNBz5V6ZfAoaxtgMS
-         P0s0x1ed68LvL2lTwKz6tGkNao+Rhao/7WeUSVSA5biCCzNDmZkdX5TWo3arzlE6WF0e
-         7uBQ==
-X-Gm-Message-State: APuU4Z9tAU53CjMjnMwV+nUamZlGe5bX9AkF5vIukJ5No45Jwx1WteQD
-	Ie57dTqpgBjxC7TZM8O5u+aLmbCWQ44eudmMLd0pwH008TtFh2kPZ5JPzVFmMg==
-X-Gm-Gg: AZFdTZdJLiZekJ4/00LMrqzgWg6NGdCQRw6xZ2pFEvfHPkQWOwDpMXXrAc/inzXHBDK
-	B8Jhk/VCBtavWCGqOGSZu+IALCgi7sZxEN2NTad662/PZsLMYEVK8bmid0gSy9pK0IiLbqnH/FW
-	60h1x1wytp5mPjfZvLvTFtfE8TpKNOTwOEOnwES2qmAF21BJ2gVIZqA83q202rAjRlXzEoC/j41
-	SU8vxH0kNW3ShyH7KTpeus6gJdzLVd0jH1Zp+E8o89vKWySGwc91uFqj4OnH0V5DVuvTtyV7mqm
-	dOkBVlH3lA5rnuP+W6H8MlxwQMK0K9b3/uQfWMZpTm8wxaDHRvYY0W49LpdEPbSWJ8HC79AHRQ6
-	hWcs9P3QWcyMAU2NSYM6nszk1xzyDk0wUACi7wR6tS8/0grroCyYjyl7DA+zvvaTYcJDJ+Y0Kz+
-	Zz4Kv3MsBSb9kSvuyB7Kk1Uhoxrq8spA9ierHoPffjE+XVyYVwjp2jT6OXyNjz+UAUGTALVn1/Z
-	mGIxJqw+oL7Jv37fZMbyvWEb9c0CzAj+8pzWvlYLBcGE8lBRKs/gdGKB2BSARZo/E9S2Ke7Ah8W
-	djpWLRGvQmvAsD+uXft9Fi497DaWh02KiBk1DJ3IARipIkPKj7dHGrFi9OeiEVW8WaA6T2NEe3C
-	/BC+pCoQia5gs6jj3pkS2i5E7+AwDQgevDphypg33dkkQN2ANHc5bhYmFBj7+17bSrf2xYMrflY
-	eXo67cgEOS1l1cj0M2Q2MpJ8mOzpNDKzTa/Jm38QzsssROu9CD0Q0l1JAgBXTessrVbvsc630ku
-	qbve9gp488rBGiCSw==
-X-Received: by 2002:a05:6000:2512:b0:4b7:75cf:37fc with SMTP id ffacd0b85a97d-4b775cf386amr8119712f8f.52.1795602776688;
-        Wed, 25 Nov 2026 02:32:56 -0800 (PST)
+        bh=MUIWBtu/5wsR7Tq9sCHiPqBvEjwax1AI4efUUkJYq2c=;
+        b=ILUV2lAw+YkOB4GzLFg5FjcweBLMAB5vTJse3mYVJdxB0ucpdSklss5FmtDioyaJ+T
+         TP8B2HhzhVVZfp5BjSqhH5Rkyq8MV4M6a6USWRe0IRYPe4HxvvODd0OCChs7kGkLUSrd
+         7hun5TDObKZLHYTfSEZRt8SYOq/IBMaIP0kF34FYuzFQxadgTWoWxITNWUmIRPVHGxRK
+         LZBSEoT/4fe4Ng58T7WQIry3ubrVgu3FvXOtDJSmhkcLxPWQmqD7rzO2r+ZgxnrxTeGb
+         8jeaTNotwNykbCyMMcW+QFzMeJ1v3E3rYPjO6TdbfhcNhafU3gimGsN2Vhu8T8ADvTsb
+         7+BQ==
+X-Gm-Message-State: APuU4Z8xfrenJKJfTP6WHMvSFZR3ydjGxmFDRHQO+K4WGuYt+PZBnWWX
+	B6F75vLU8gRg2ZKx04sIMzkfF9+nWRMTYjnq715OMZCJBb5GPFA8sfByNMKIXg==
+X-Gm-Gg: AZFdTZdWJ+q02UIlUFOuTZAy+JFf5C7X+8LS81lyIz+WM+yM+xmzjDsqL/bH1JzA0wR
+	VfMZSmgb771SrG2kbRerQ5lEaOenD27tjFJfsg/KlBYKCO11Xeubu2BAl0UJNLXc4bwP/L9cA5E
+	S2M/Rh186OQoa49rybxONcQXbqN4qUHGlxHuq36kBkupz8DdL/o7ZYs9eVRg8kesb1dxJPvhfkP
+	sAYqshrIUx8tYrjEEmFiVYBYx4qV/+SPV+wLnGKZ+StzcTU6fMmUa+/0/32QyfQ8mhQ973hKvvb
+	fFO8yVHwzkjRUNO/W6Au6S6HBKjwn4fPUyGNdcMfbJKuS0DS8y0hgHBDYkrXIvnVZnzpY9OC8T8
+	QDesSQ8MsRWhBMiynI/WqS23sAH0ZiNkhscHrqBkkVOjnjtM9/jZWQTPchm0VeB3+ZHWN+y2r4t
+	Gxt/fCORZAg+8flZTzubpXWDnPxOFcPlSV5WS/+/0Sq6gDlz91VD1+JoLwBc0f1VEImWhEbLpgg
+	94turbv1oPy+dItEamkmaFfVBKNoYhiusgc2XWXi40oU96H5lt9AOzFG2IaN4RLBJ13bIfo3A/f
+	hmiYQR8Ju3ePm+i5Ll9fxZ6EqUNzWPM8cgm3qicSwmq/InQKEpv3fM241nAxCdFib1ZDC/UD/pX
+	2bccLCk9SBghZxaQPmKHrczsOURmODHiIJ5gJIpDgLUhf5SmW7QkavWDVQTkGP+Cf8c1gM2PAzP
+	wfh1aRff3xuBJu8hATvTTxma3PMCzJP73qX2rM99kHKcLw6x6ucMFV1w0CtVxgjwBRQvW1TQ40f
+	vTnxcd9vmptpbQ0Ww==
+X-Received: by 2002:a5d:5d88:0:b0:4b4:510c:51da with SMTP id ffacd0b85a97d-4b4510c553amr16912452f8f.11.1795602777830;
+        Wed, 25 Nov 2026 02:32:57 -0800 (PST)
 Received: from longitude (2a02-8434-fda5-4201-fb56-7a23-de2e-e3d4.rev.sfr.net. [2a02:8434:fda5:4201:fb56:7a23:de2e:e3d4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab9cf005f2sm27424238f8f.45.2026.11.25.02.32.56
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab9cf005f2sm27424238f8f.45.2026.11.25.02.32.57
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 02:32:56 -0800 (PST)
+        Wed, 25 Nov 2026 02:32:57 -0800 (PST)
 From: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.18.y] tools/bootconfig: Close only opened braces in compact output
-Date: Wed, 25 Nov 2026 11:32:29 +0100
-Message-ID: <89e26475cf9f34274a05eb3d79b91efdaf088b83.1795602749.git.edumucelli@gmail.com>
+Subject: [PATCH 6.12.y] tools/bootconfig: Close only opened braces in compact output
+Date: Wed, 25 Nov 2026 11:32:30 +0100
+Message-ID: <49bd900ec2bc05f28ea6914bdae9c96dacc06cd8.1795602749.git.edumucelli@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112513-impure-slighted-13c6@gregkh>
-References: <2026112513-impure-slighted-13c6@gregkh>
+In-Reply-To: <2026112513-patronize-spinster-cf95@gregkh>
+References: <2026112513-patronize-spinster-cf95@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -131,7 +131,7 @@ Signed-off-by: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
 Hi Greg,
 
 Thanks for the notice. The formatter hunk applies unchanged to
-6.18.y. I added the expected output and a comparison to the stable
+6.12.y. I added the expected output and a comparison to the stable
 test script. The comparison fails before the fix and passes after
 it. The full bootconfig suite passes with the backport.
 
@@ -146,10 +146,10 @@ Eduardo
  create mode 100644 tools/bootconfig/samples/exp-good-mixed-kv1.bconf
 
 diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
-index 6f5d60045f..43f0a7fa87 100644
+index 5ccdb9881b..0c73eacd8c 100644
 --- a/tools/bootconfig/main.c
 +++ b/tools/bootconfig/main.c
-@@ -39,6 +39,23 @@ static int xbc_show_value(struct xbc_node *node, bool semicolon)
+@@ -38,6 +38,23 @@ static int xbc_show_value(struct xbc_node *node, bool semicolon)
  	return i;
  }
  
@@ -173,7 +173,7 @@ index 6f5d60045f..43f0a7fa87 100644
  static void xbc_show_compact_tree(void)
  {
  	struct xbc_node *node, *cnode = NULL, *vnode;
-@@ -99,14 +116,12 @@ static void xbc_show_compact_tree(void)
+@@ -98,14 +115,12 @@ static void xbc_show_compact_tree(void)
  			node = xbc_node_get_parent(node);
  			if (!node)
  				return;
@@ -220,10 +220,10 @@ index 1761547dd0..35442ee62b 100644
 +a.b.c = w
 +a.z = q
 diff --git a/tools/bootconfig/test-bootconfig.sh b/tools/bootconfig/test-bootconfig.sh
-index 7594659af1..9e308129a7 100755
+index a2c484c243..3fb38b8f31 100755
 --- a/tools/bootconfig/test-bootconfig.sh
 +++ b/tools/bootconfig/test-bootconfig.sh
-@@ -182,6 +182,12 @@ for i in samples/good-* ; do
+@@ -181,6 +181,12 @@ for i in samples/good-* ; do
  done
  
  
@@ -237,7 +237,7 @@ index 7594659af1..9e308129a7 100755
  echo "=== Summary ==="
  echo "# of Passed: $(expr $NO - $NG - 1)"
 
-base-commit: 4700e3adf3b24b39dd4929e9c6d62811ba3ccea8
+base-commit: e2e4b92c2b2a3ae78423cb343951cb5d2241b405
 -- 
 2.53.0
 
