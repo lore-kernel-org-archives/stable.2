@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795648234;
-	b=SS7ZxWB+KP73Q/5bculyIbsF8JuLlzJjdxyvgPqFgE+cStQ3VZL0m8ubeCkv+amYI6LD
-	 /Yhg0aXnNZQaE3CU+kncZ7qW2rmEa2/GO3xprINplYqD0tJvQCC7hMUdE1sG3usmdoO/2
-	 Va/WfoT5i1ZpakWH3oZ5L5h5Is8seT167n6QBgtEhJ3rYk9uGSCMh7oxaE9+5HrqVXhEq
-	 64A/R596Fl/dakhGVHcmgzGYeKi1vIFSOmTCmizeEDnJvEiwy7nVIQc5fYI8AgrAZ366i
-	 k8NTVcAum3bMZLWaO7NQW5Vp5Hw0aYsGBD8mR2gQuRJzjCA83IJePhUmnTjwuDZnZsg==
+	t=1795648243;
+	b=dyBhc8aPIvgmaxdyxmgyJaKmX6jbbqCyYL6EehaPH5L6n9+//tiy0igWsIO1Ekofg+st
+	 4jv9KqJTly0p0r/mTm//us0LfehvO8p057KY0tlUEqMfdc/euFKzX6hIOrDPgR96T0Yys
+	 ZE1MOuGUY9YA5vk82ySyAVJ8It3cRuYTFQK67wvN9eP0tKDC73KrD+usDwbIH5mre0oT+
+	 lZceFOdcvCdRtU/kuSSqr2i3xtdMnjqQvE0wvNL6zSgdnr/F2KM913/EzqpCftlE3Jd6L
+	 CquIc1kFGIyR93I3q7c1Y6A/46VHHdRSlM1fOpH8A50QXTuIPtJStMDRY32CqL0MiAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795648234;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795648243;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=VUZly3QaaWGkt8NgBX5pAur13/hfvDIKs3EcJSYniiA=;
-	b=zcMImcPXJe4rATMFqTOXar4IL1xFSaFhn6CsK/AycwUY1xmqSeghKKXGMqwIXts/DpWa
-	 0petaTwqk8zVUjzyxBY3oVu3gOJ3TbkFzDD5vhZHhWs+CPAl0nqKeyvIE2FLCqqlxWwPq
-	 sBZeV3aSixVbv1WFFhmiNSTZ4rn+nf5sLNq2FKVAnbZyZQKB3yllHHJ0h+IqhxMfcXTAq
-	 HjNzxzaTyr7FfyOcKYpLY1qTUlfR2rxNnuGuQn0+spsanSRhxOLG/m0fi3RD8gpFBmylG
-	 9Fc1LDWbkL8A9HCeNBaKqzgp2oLd8LI2twknuoaHp3ePIeMqdCatHcHy+0/5gkiTtMQ==
+	bh=oTH0T+j9mxYF9pgNoL09Y/KCz0muKuE0+CC2lvJMHlc=;
+	b=d/DpZ3dHaKqiz8cIpDN4rO/bJ92fRifoF3rtmr+xaFI9uM1E6f50C2YbAdklfNU0JRXF
+	 4DT2HAE4Sp48cVG8d0RMomKIaLeKCvYHZPCoM5popUy5ngE3sdIGxSVdz+vkw9sQGT9mh
+	 oPb6YXEKnspBoYeixICR8AdoJaQ6DJUU1+rvcn5lq2hayj8sHbCLQUd55IBYcFhqCRHR/
+	 e4QjxcnU2Uwam1XFc3EBd5WUTNQm44s8LVR4km/yKFx3TPTNgjUMEndjxG/fZQdi8miAy
+	 rpcJJKwx5KuOt6bgEGmQpp26mJdUbO9KRxgVDjIt+1iwkntgbb6Mit6B2tqfYrLr4Qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZQVRlAho;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kPaYig3M;
 	arc=none smtp.remote-ip=192.198.163.10
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236CA606A326;
-	Wed, 25 Nov 2026 23:10:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 236CA606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD4C606A321;
+	Wed, 25 Nov 2026 23:10:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFD4C606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZQVRlAho
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kPaYig3M
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795648234; x=1827184234;
+  t=1795648243; x=1827184243;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=/F3/u6+Vuy5zuYhOzdF4dbUy0sQvfaHgVZWMO4keQxc=;
-  b=ZQVRlAhoIoPdWnihrR5ewr2s+vipxcXHOCCViDWwx5tbnM+lx/yFllmK
-   EmpiGyZ0WUCbBHol6I/921T3TGTnv44b1WgOUp1LdtGOodoIFzUZWveEj
-   a7vgYHopdNjsotdQf6ZxswXeUvRW9iqdubxv+TSJLOLQZs3QBJZJLW2v6
-   m3HxtpNqhGgPGTU0K3WIIFtYHJNsFMlmjxe7KpSnlz4HiC9TRdJO5OvlL
-   7GS6k2t9cCjJFRQP26cWEL9sxSo8EK97zHQgxIsujT6zUK7uNe5r3Qkk+
-   RKnfRXI+jvAQk8QUuTDwfT3lAZP7Ghn2gzbGlfDCFC5qUv6sPnxckhsun
-   g==;
-X-CSE-ConnectionGUID: VjaQqR+qQdqdGiG6XI0SRw==
-X-CSE-MsgGUID: q1ZBA2RyTky3xEpJS2SrBA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4435139"
+  bh=eAZIIz6Vqb0Uazy7AggTrqHt708HzfClkhEbTdowxR0=;
+  b=kPaYig3MV7xF8QGyEdEB2VFGeDAvUFcO/laTveO3KCDY/CSREg0NKnju
+   Rp1I9QDwWXWIP0AHwtqQwfjXOON6m+Fg8TB981qzPTPpNWE31HpY5ora4
+   fnz2PLbTvdcnNV4qTQOvhgoPb10HNNRKNaKyRixWT4bOO7PJIOvYI6aca
+   rH3MxfnHmUjwXPAqTrXhYyODe3vXsN1alJt7Otp27PfwhTEHyeieW3E2w
+   /wFhgdRY7U71EfN9gDqysofnJYf75RrXIhzQvqSwZw+pLKauqP9ntnFcZ
+   ZlWZe+pbwYWbOa4dFzhiWNIxuqEAgI3CE4+AFk4jIQA1V/Pos5TWu6pqd
+   w==;
+X-CSE-ConnectionGUID: rjfaFzihTo+AMvJuqc4tAA==
+X-CSE-MsgGUID: H/AR18P7QvSQYU6L4R8Lxg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4435193"
 X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="4435139"
+   d="scan'208";a="4435193"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 15:10:34 -0800
-X-CSE-ConnectionGUID: 8per91xJStiKVvq82B7nWQ==
-X-CSE-MsgGUID: 3TqOehU3RBaaSaXTmXMLuA==
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 15:10:42 -0800
+X-CSE-ConnectionGUID: 0LIh+YUNRh+Q9qlKeUj3TQ==
+X-CSE-MsgGUID: SRk85ME0QHKNJgSvlLbI+w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="12283454"
+   d="scan'208";a="12283493"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.96])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 15:10:29 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 15:10:39 -0800
 From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: linux-pci@vger.kernel.org,
 	Bjorn Helgaas <bhelgaas@google.com>,
@@ -69,14 +69,12 @@ To: linux-pci@vger.kernel.org,
 	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
 	David Matlack <dmatlack@google.com>,
 	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	linux-acpi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 05/17] PCI: acpiphp: Use pci_assign_unassigned_slot_resources()
-Date: Thu, 26 Nov 2026 01:09:04 +0200
-Message-ID: <20261125230925.2441-6-ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH v3 06/17] PCI: Hold pci_bus_sem across sizing and assignment entrypoints
+Date: Thu, 26 Nov 2026 01:09:05 +0200
+Message-ID: <20261125230925.2441-7-ilpo.jarvinen@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261125230925.2441-1-ilpo.jarvinen@linux.intel.com>
 References: <20261125230925.2441-1-ilpo.jarvinen@linux.intel.com>
@@ -92,48 +90,133 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-enable_slot() calls the internal sizing and assignment functions
-directly to size only the bridges in the slot. Use
-pci_assign_unassigned_slot_resources() instead.
+The bridge window sizing and resource assignment algorithm walks
+bus->devices and inserts resources of the found devices into the
+resource tree in many places. In addition, its internal datastructures
+hold references to devices and resources it encountered while walking.
 
-Sizing now happens after scanning all bridges in the slot instead of
-right after scanning each bridge. Sizing a bridge window only walks the
-hierarchy below that bridge, so the order does not matter. Sizing now
-also holds pci_bus_sem.
+Most entrypoints to the algorithm do not hold pci_bus_sem, and
+pci_assign_unassigned_bus_resources() drops it before the assignment
+phase.
+
+pci_rescan_remove_lock is not held by all callers and cannot be taken
+by callers running under device_lock().
+
+Protect the walks by holding pci_bus_sem for read across the entire
+sizing and assignment operation right at the entrypoints.
 
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
 Cc: stable@vger.kernel.org
 ---
- drivers/pci/hotplug/acpiphp_glue.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ drivers/pci/setup-bus.c | 26 +++++++++++++++++++-------
+ 1 file changed, 19 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/pci/hotplug/acpiphp_glue.c b/drivers/pci/hotplug/acpiphp_glue.c
-index 632344f34cae..fc95d5814ecb 100644
---- a/drivers/pci/hotplug/acpiphp_glue.c
-+++ b/drivers/pci/hotplug/acpiphp_glue.c
-@@ -497,7 +497,6 @@ static void enable_slot(struct acpiphp_slot *slot, bool bridge)
- 				acpiphp_native_scan_bridge(dev);
- 		}
- 	} else {
--		LIST_HEAD(add_list);
- 		int max, pass;
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index 7d135ddd93b2..966e0f243032 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -1459,6 +1459,7 @@ void __pci_bus_size_bridges(struct pci_bus *bus, struct list_head *realloc_head)
  
- 		acpiphp_rescan_slot(slot);
-@@ -511,12 +510,10 @@ static void enable_slot(struct acpiphp_slot *slot, bool bridge)
- 				if (pass && dev->subordinate) {
- 					check_hotplug_bridge(slot, dev);
- 					pcibios_resource_survey_bus(dev->subordinate);
--					__pci_bus_size_bridges(dev->subordinate,
--							       &add_list);
- 				}
- 			}
- 		}
--		__pci_bus_assign_resources(bus, &add_list, NULL);
-+		pci_assign_unassigned_slot_resources(bus, slot->device);
+ void pci_bus_size_bridges(struct pci_bus *bus)
+ {
++	guard(rwsem_read)(&pci_bus_sem);
+ 	__pci_bus_size_bridges(bus, NULL);
+ }
+ EXPORT_SYMBOL(pci_bus_size_bridges);
+@@ -1551,6 +1552,7 @@ void __pci_bus_assign_resources(const struct pci_bus *bus,
+ 
+ void pci_bus_assign_resources(const struct pci_bus *bus)
+ {
++	guard(rwsem_read)(&pci_bus_sem);
+ 	__pci_bus_assign_resources(bus, NULL, NULL);
+ }
+ EXPORT_SYMBOL(pci_bus_assign_resources);
+@@ -1839,7 +1841,7 @@ static enum enable_type pci_realloc_detect(struct pci_bus *bus,
+ 	if (host->preserve_config)
+ 		return auto_disabled;
+ 
+-	pci_walk_bus(bus, iov_resources_unassigned, &unassigned);
++	pci_walk_bus_locked(bus, iov_resources_unassigned, &unassigned);
+ 	if (unassigned)
+ 		return auto_enabled;
+ 
+@@ -2192,6 +2194,8 @@ void pci_assign_unassigned_root_bus_resources(struct pci_bus *bus)
+ 	int pci_try_num = 1;
+ 	enum enable_type enable_local;
+ 
++	guard(rwsem_read)(&pci_bus_sem);
++
+ 	/* Don't realloc if asked to do so */
+ 	enable_local = pci_realloc_detect(bus, pci_realloc_enable);
+ 	if (pci_realloc_enabled(enable_local)) {
+@@ -2260,14 +2264,15 @@ void pci_assign_unassigned_resources(void)
  	}
+ }
  
- 	acpiphp_sanitize_bus(bus);
+-void pci_assign_unassigned_bridge_resources(struct pci_dev *bridge)
++static void pci_bridge_size_and_assign_resources(struct pci_dev *bridge)
+ {
+ 	struct pci_bus *parent = bridge->subordinate;
+ 	/* List of resources that want additional resources */
+ 	LIST_HEAD(add_list);
+ 	int tried_times = 0;
+ 	LIST_HEAD(fail_head);
+-	int ret;
++
++	guard(rwsem_read)(&pci_bus_sem);
+ 
+ 	while (1) {
+ 		__pci_bus_size_bridges(parent, &add_list);
+@@ -2294,6 +2299,13 @@ void pci_assign_unassigned_bridge_resources(struct pci_dev *bridge)
+ 		pci_prepare_next_assign_round(&fail_head, tried_times,
+ 					      whole_subtree);
+ 	}
++}
++
++void pci_assign_unassigned_bridge_resources(struct pci_dev *bridge)
++{
++	int ret;
++
++	pci_bridge_size_and_assign_resources(bridge);
+ 
+ 	ret = pci_reenable_device(bridge);
+ 	if (ret)
+@@ -2427,7 +2439,7 @@ static int __pci_do_resource_release_and_resize(struct pci_dev *pdev,
+ 			goto restore;
+ 	} else {
+ 		/* No bridge window to adjust; let the core reassign the bus. */
+-		pci_bus_assign_resources(bus);
++		__pci_bus_assign_resources(bus, NULL, NULL);
+ 
+ 		list_for_each_entry(dev_res, &saved, list) {
+ 			if (!resource_assigned(dev_res->res)) {
+@@ -2504,7 +2516,7 @@ void pci_assign_unassigned_slot_resources(struct pci_bus *bus, u16 slot)
+ 	/* List of resources that want additional resources */
+ 	LIST_HEAD(add_list);
+ 
+-	down_read(&pci_bus_sem);
++	guard(rwsem_read)(&pci_bus_sem);
+ 	for_each_pci_bridge(dev, bus) {
+ 		if (slot != PCI_SLOT_ALL_DEVICES &&
+ 		    PCI_SLOT(dev->devfn) != slot)
+@@ -2513,7 +2525,6 @@ void pci_assign_unassigned_slot_resources(struct pci_bus *bus, u16 slot)
+ 		if (pci_has_subordinate(dev))
+ 			__pci_bus_size_bridges(dev->subordinate, &add_list);
+ 	}
+-	up_read(&pci_bus_sem);
+ 	__pci_bus_assign_resources(bus, &add_list, NULL);
+ }
+ 
+@@ -2525,7 +2536,8 @@ EXPORT_SYMBOL_GPL(pci_assign_unassigned_bus_resources);
+ 
+ void pci_bus_size_and_assign_resources(struct pci_bus *bus)
+ {
+-	pci_bus_size_bridges(bus);
++	guard(rwsem_read)(&pci_bus_sem);
++	__pci_bus_size_bridges(bus, NULL);
+ 	__pci_bus_assign_resources(bus, NULL, NULL);
+ }
+ EXPORT_SYMBOL_GPL(pci_bus_size_and_assign_resources);
 -- 
 2.47.3
 
