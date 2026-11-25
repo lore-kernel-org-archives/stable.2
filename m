@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625479;
-	b=OQlMz6RVsQVp/7SNzP1qCVlsyNcyvYYMso49NaLSlCLkYJaR4Ib39WGow/9HPgoM3Ooc
-	 3FUOWBHl2xttGb4yY2F66a52Fl/2E3WyJ9fafjCy9EYIh6DwCCwfTT/5zi7KsIzPxarSn
-	 viokJ+WRg9g5UQATKL8jJKLPnfvqeXO6RRDreRuv2ZfqCzU8oE38EvHEhrdpuLf1+3c0B
-	 kV8xgyiIrZpKQKvT2Z3rqpfJ/zz9G5zWHttCoWsVJJBLimw6aApzwU7qj6A/at0xaPUF+
-	 mBHbUIuu1hzkmmMrIUfhoAj0pMZf8mNq9bYXOJf5Z3jhN7jCmupUXHvIJRIIkaBuSuA==
+	t=1795625485;
+	b=L9RtNJdQernHqy9NPXvBHlCic0tBlAd5Sg4HVdClYrcheWFvTClndjJgU2C2iIA8NbKZ
+	 vY2ow0H11ON4E2GZiWXSWAcUGiz768J44no2D2S9wCAY7lmSNZ3A0UHhNQn3qp8EamPOC
+	 gGTj33aqfspywbeBKebQ2CIgrD3UPy8oWmgTxMw6yt1ER/SjLiVDPI/i6Nh8ZftHJqPal
+	 fSJVIbn1NQxhsBR8ULTV4k+p7pZPBvc/zphYD3b/lPsP5hTJyP4cGBYpkuB/e6D4Uxygb
+	 G9/Yx8p/OvqFJX8oYzac8JHvfVojSmK3cOBpuPxQg0UFoqomRfqh8Amw2eScikfUEuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625479;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625485;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=iWWYEFtkjJ4SVT/Iz8IEcY+OUOkyjPQd2yKKD4Pt3Xs=;
-	b=IRF3AtB5/YjrkQfDPks8a5gr5ITDYNkUWww2GWMMeb/LyB13Jk81I226riY46SMsIaj9
-	 RQ+WqzlTp5HkLQlOyBHK431PwOhIQW0xVFLIyxP8SiBIvcpdA9BXzv6tnYKARWqwQY+29
-	 lUUCeS/wi4JtuiYc/a/3IpXe5KBqg5wwJcYRR56Ky9DiFYXpOszLXbCXjOI9y/KNwcPje
-	 In2Usr+e+ZUTi6TiyNJtVh8ii2d8sjRihVQTvWCInjQZEFc+Ahw9wAjd55JpUH6VaWY9T
-	 CuGLFBbA9U9nAEWMKI3G68O3WLW098qPDj5W/YJip0oTPjsyOHQ0UBUIJMAt+XhaWBQ==
+	bh=PuuDka8Nep/VETAnbrMdZKBJ4tsSs7SWMqR//WByA2g=;
+	b=gT/JW+ND55bvemyuwWp6HyY1gqSc8VG+BL1zcYXvsTvUopf8lrPeQN1YSFVzVgWpKXhB
+	 +MeghR1wbZARCUWxo1lGTG0+QE4KT5w75QPM613iicfago8+b7dFVlWpvo0rvqvPZbo/7
+	 jlDNFkwedzlI3I3Du6E6BBSJZCBkSmLEi6NE6NiDlgXcD+zg5qx5JI+iWr53mpG2QYwBo
+	 H6gSbDnhw7XzFfW3TR0h19BoUdbaDtGWiCfIfQDbUH2IgKXzzqYDy9g/idCF4aNTWSwdi
+	 MyP3SCk2jUmbqMXbgYTAlws7HjmPVdR1B8vBwCsXVTcwx066wO4qQ/4FNunDhcyGfeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xAkeQytJ;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="n6c/QMha";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E47606A327;
-	Wed, 25 Nov 2026 16:51:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE29D606A321;
+	Wed, 25 Nov 2026 16:51:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xAkeQytJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7985A1F000D2;
-	Wed, 25 Nov 2026 16:51:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=n6c/QMha
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EFFE1F000C4;
+	Wed, 25 Nov 2026 16:51:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795625479;
-	bh=iWWYEFtkjJ4SVT/Iz8IEcY+OUOkyjPQd2yKKD4Pt3Xs=;
+	s=korg; t=1795625485;
+	bh=PuuDka8Nep/VETAnbrMdZKBJ4tsSs7SWMqR//WByA2g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=xAkeQytJBILOZLkY1EjlJQ4+sjfRbNKwnQcoTWK4CVCtygmvoM5CiQpmn3MIKNwrr
-	 yeacM98JUYY8mPgh8EHxhp81XbIXsoSPczChVt2vRImeCQQqSTDjTSSBPoTSDbFSzk
-	 EGlxr/+OkdOKRZRH2zzr0COwn2omATmqYeSqnByc=
+	b=n6c/QMharvNLEVK29KobMxdpue+orzcnWjApZU0AwmdWohjTjxd7UieEX2gvnPc9/
+	 v1WfFyA8IeKFyuF81pggtxiGmT7bqp21siUSEUoBZLhm2vcC7ztQEpuLjjLc06++6u
+	 yP9i2/ccOmM4eDuDXaEb81AH/BiCkU7iQ/sfbfho=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Josef Bacik <josef@toxicpanda.com>,
-	Alexei Starovoitov <ast@kernel.org>,
+	Ajanesh Lal <ajaneshlal3@gmail.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 513/816] bpf: Let bpf_dynptr_write() mark a global function
-Date: Wed, 25 Nov 2026 15:34:21 +0100
-Message-ID: <20261125143901.060919232@linuxfoundation.org>
+Subject: [PATCH 6.12 532/816] ALSA: hda/realtek: Add mute and mic-mute LEDs for HP ENVY 16 (103c:8be5)
+Date: Wed, 25 Nov 2026 15:34:40 +0100
+Message-ID: <20261125143901.506112451@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
 References: <20261125143849.205329330@linuxfoundation.org>
@@ -68,50 +68,84 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Ajanesh Lal <ajaneshlal3@gmail.com>
 
-[ Upstream commit 589998616e0f9190ba6f6644a19532c5b2ba66d0 ]
+[ Upstream commit ed7995e4ec3789a90e37eb826bfccf43cc85d2fd ]
 
-The caller of a global function loses its packet pointers if the function
-may change packet data. That is found out by a scan for calls of the
-helpers which bpf_helper_changes_pkt_data() lists.
+The HP ENVY Laptop 16-h1xxx (PCI SSID 103c:8be5) uses an ALC245 codec
+with CS35L41 I2C speaker amplifiers. No LED fixup is applied for this
+subsystem ID, so the speaker mute LED and the microphone mute LED are
+never driven and do not follow their keys.
 
-bpf_dynptr_write() is not on the list, because it depends on the type of
-the dynptr: check_helper_call() looks at it. The scan cannot do that, and
-so a global function which makes a dynptr from the skb, or gets one as an
-argument, and writes through it counts as harmless. The write can
-reallocate the head of the skb, and the caller goes on with pointers into
-the old one, which has been freed.
+Add a fixup that calls the existing ALC245 mute LED COEF helper and the
+GPIO mic-mute LED helper directly, then chains to the CS35L41 I2C
+amplifier setup so the speakers keep working. Use it for 103c:8be5.
 
-Let every call of bpf_dynptr_write() mark the function, as a tail call
-does. The same mark decides whether a program may replace a function.
+Tested on an HP ENVY Laptop 16-h1xxx running kernel 7.2.11: the
+hda::mute and hda::micmute LEDs appear and follow their keys, and the
+speaker amplifiers still bind (CS35L41 Bound in dmesg). The mic LED
+GPIO pin and polarity are not verified on other hardware.
 
-Fixes: 51081a3f25c7 ("bpf: track changes_pkt_data property for global functions")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Link: https://patch.msgid.link/20261017230950.802052-10-alexei.starovoitov@gmail.com
-[ sashal: Ported the change to the CFG code in verifier.c, since cfg.c doesn't exist here, and wrapped the condition in a bpf_helper_call(insn) check because there is no src_reg if/else split. ]
+Fixes: aa8e3ef4fe53 ("ALSA: hda/realtek: Add quirks for various HP ENVY models")
+Assisted-by: Claude:claude-haiku-5-5
+Signed-off-by: Ajanesh Lal <ajaneshlal3@gmail.com>
+Link: https://patch.msgid.link/20261021142453.177174-1-ajaneshlal3@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ sashal: Ported the four hunks by hand to the older file path, placing the enum value and fixup entry after existing neighbors because the upstream anchor entry is missing. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/bpf/verifier.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ sound/pci/hda/patch_realtek.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 34b82d3eff66f..9818cdbfb9724 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -17089,7 +17089,10 @@ static int visit_insn(int t, struct bpf_verifier_env *env)
- 			mark_prune_point(env, t);
- 			mark_jmp_point(env, t);
- 		}
--		if (bpf_helper_call(insn) && bpf_helper_changes_pkt_data(insn->imm))
-+		/* nobody knows yet whether the dynptr is that of an skb */
-+		if (bpf_helper_call(insn) &&
-+		    (bpf_helper_changes_pkt_data(insn->imm) ||
-+		     insn->imm == BPF_FUNC_dynptr_write))
- 			mark_subprog_changes_pkt_data(env, t);
- 		if (insn->src_reg == BPF_PSEUDO_KFUNC_CALL) {
- 			struct bpf_kfunc_call_arg_meta meta;
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 726fc58b17ee7..f2673ed691d73 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -4797,6 +4797,14 @@ static void alc245_fixup_hp_mute_led_coefbit(struct hda_codec *codec,
+ 	}
+ }
+ 
++/* mute LED via COEF bit and mic-mute LED via GPIO, called directly */
++static void alc245_fixup_cs35l41_mute_micmute(struct hda_codec *codec,
++					      const struct hda_fixup *fix, int action)
++{
++	alc245_fixup_hp_mute_led_coefbit(codec, fix, action);
++	alc245_fixup_hp_gpio_led(codec, fix, action);
++}
++
+ static void alc245_fixup_hp_mute_led_v1_coefbit(struct hda_codec *codec,
+ 					  const struct hda_fixup *fix,
+ 					  int action)
+@@ -8235,6 +8243,7 @@ enum {
+ 	ALC287_FIXUP_CS35L41_I2C_2,
+ 	ALC287_FIXUP_CS35L41_I2C_2_HP_GPIO_LED,
+ 	ALC287_FIXUP_CS35L41_I2C_2_HP_MUTE_LEDS,
++	ALC245_FIXUP_CS35L41_I2C_2_MUTE_MICMUTE_LED,
+ 	ALC287_FIXUP_CS35L41_I2C_4,
+ 	ALC245_FIXUP_CS35L41_SPI_1,
+ 	ALC245_FIXUP_CS35L41_SPI_2,
+@@ -10444,6 +10453,12 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC245_FIXUP_HP_X360_MUTE_LEDS,
+ 	},
++	[ALC245_FIXUP_CS35L41_I2C_2_MUTE_MICMUTE_LED] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc245_fixup_cs35l41_mute_micmute,
++		.chained = true,
++		.chain_id = ALC287_FIXUP_CS35L41_I2C_2,
++	},
+ 	[ALC287_FIXUP_CS35L41_I2C_4] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = cs35l41_fixup_i2c_four,
+@@ -11180,7 +11195,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8be1, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8be2, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8be3, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+-	SND_PCI_QUIRK(0x103c, 0x8be5, "HP Envy 16", ALC287_FIXUP_CS35L41_I2C_2),
++	SND_PCI_QUIRK(0x103c, 0x8be5, "HP Envy 16", ALC245_FIXUP_CS35L41_I2C_2_MUTE_MICMUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8be6, "HP Envy 16", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8be7, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8be8, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2_HP_MUTE_LEDS),
 -- 
 2.53.0
 
