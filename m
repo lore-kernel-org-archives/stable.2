@@ -1,58 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795622501;
-	b=AJOzksNZWO3IJ+ud3ppbXqO/JZW7d95HsvjVB+z3F0BJ96nF+DhkpG+lrt3toL3j/dq4
-	 CLt9CtjGPk4mUM2XNs2lKp7NGyvB7/QN5FAGFhtZh5Wzlxxt5smErhxtkx7MOmqg89Nfo
-	 r30Dgz0SOM3YnfKaWI9LL7TuvUUy9+C0kr/2iys9QFFR8Y3YQVWB9nXdcpzxToqlCXSDF
-	 Wg6hGQEkAYN2LuXuwMTPc7NfRDK5ETz4N2Oey4U8JgAadwEHdzP80b/KN3+I5Gklv4Ok3
-	 Y+TReO34c/5BQXMKJ2NhsYUdDCLvHI3XivnMPFaS+He57eJ8t1fXJMLALUoq9vrPLUw==
+	b=3hAMVGgD+W/nNmeDDhJCb+GsJ6uaDI4T1Ac3zA67ncEVHCxmn4Dfvqy1DQWLOJiutt/X
+	 L4Lg2o/RoS8DCnRxAZL+W9LMbrm+to9mLyUDAwHu5l5R1tFRn12WCCEaR9eHtSIpaKq8P
+	 tr4ttHYHXxtLtF1HgtoFTmEfqGsaNCjJMxlgIPOt7ePxBLbNWZZUZ/IEssiuzIXM3W8mR
+	 GjAlOR7Jjsv5mVwyyPGWrE4XHTb3PZQmQ4RX9HctuMT8V4+23JiYJxDmvD3DeUf0rpQn9
+	 Jx6pVx9N0bJFavgbMdTzPVUFsGgsCaoY9pFZADLTIkdfCBWq6M4Ui8FNGru7Ibca4Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795622501;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=KpsyoMrq8QFDKuaJNC38lM4n/9s4W8IMaJXnzULPzCc=;
-	b=snqnFUxXq2nLnzSOCdz9vr9dwDN20nP8/xmcRXf/uI60HTRpdGH1p2KRhirFPVtVZpkc
-	 cLxTzYTqVr3+j4xv+LvK/jxxUy3uj5g613VYQ2/OUzY6ZQfezIZBNpRv8UkZJxq6uFwfn
-	 o8RL7RyWyAEYBjvReJGGJ/yLA4edujrihlcRMY137xfs7aVZ9qrU6V6AFM0cyD56N5F3N
-	 QKcG0cHqY8S3g4ZjlXVYWBP6GIJoCvqmlAt2qbyQ2+FfVfcIdXA5wJvw8/VrxkJY/yZKK
-	 LDevEIxTAqc4HAeqy2it/naFlxLX0t0C5fFofgR7av6Hq1AVFgdBbht56W7q6zW9A2g==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=xiu2cEAhd2AfjxW0+IUNEgZ9we94uEEkQrMdO8zZISs=;
+	b=vSbWZgtorwdTGifAQzUZzYJL4B7fuisBmTGD98ApUICuQT23fzW0ae2ThLoEHTf0IJmE
+	 rbYN056LxH6ZT9KcvMHBy/dVy+c+QBVCZszAz/BxBMLJnuhy9gfRvZB9I15HeK56nRAb4
+	 6+BRkoZ9+uAICb6QoMuKV9Osy7mB4TIve0ZfQ6TxJI+S3jE7/imi83ilSqR7ARTD2ZPwn
+	 JDU8yLu5CU2BXl1moiM/Ag+Je2nW7tMm1nZt600lv/gv8OKJM6MktnHfwxJ6rcQKyucSy
+	 B/3lUjJHfrq3CJ2XNsXGBQZPS3F3LUzy48O02b+4I31b+Fd06VMkEsA3/RY6jEUQyew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HCuiBrPV;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1MRoBE6d;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 2BFCA606A329;
-	Wed, 25 Nov 2026 16:01:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832DC606A323;
+	Wed, 25 Nov 2026 16:01:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HCuiBrPV
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id DC1A71F000C4;
-	Wed, 25 Nov 2026 16:01:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795622500;
-	bh=KpsyoMrq8QFDKuaJNC38lM4n/9s4W8IMaJXnzULPzCc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HCuiBrPV+Vda2f9OpEln1OADkYjDim7ja1XnIebWLpOEW3hUO4OyKj0hISym0fZvX
-	 zL+GDpjPfphxsEu8+JnQN7DDWvPhvC70xccRlp2J4wVi860m3Jk5Pu4VscvBEyK2Un
-	 nHuo6vneKOZL4oP2C7vcaiNIbJbf2zEQE+YEmqQOBlZIGon83NLu+cElvx5Ox/N1ak
-	 oOqGBLAc8r0xPC/rOOrBVQV1bs3Of1aWAp0d2Fnn9j2VzZA0115nJTsTUrxn59UK8k
-	 2fBVHLmvalW1IZwDk3Q2/MXaL6Qwu1CfUCzHqVIB7mCKAkrfG3k8xNYH3YrU82mWsV
-	 fDi88CDW3CZBg==
-Date: Wed, 25 Nov 2026 17:01:36 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, 
-	Khouloud Touil <ktouil@baylibre.com>, Linus Walleij <linusw@kernel.org>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] nvmem: keep write protection disabled while writers are
- active
-Message-ID: <cifzn2uoh4lvfuamvezuthqcebz2oz7eqdldnbln6untros5f2@oav3dnjjiv4y>
-References: <20261117-submit-nvmem-wp-serialization-v1-v1-1-539d121f8f5e@gmail.com>
- <8c0a616b-e7a5-4043-bc86-3bee5d0c9e48@kernel.org>
- <p4nohmtiuicrys4i2ipwstdjt7sj3g2yyli4beygutkyn5ghky@d54oxjwiyzm4>
- <CADvTj4ou6+gg8xK4p9623xr=mZecmrgPpV76pU_-h=qS23UUrg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1MRoBE6d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADCBE1F000CF;
+	Wed, 25 Nov 2026 16:01:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795622501;
+	bh=xiu2cEAhd2AfjxW0+IUNEgZ9we94uEEkQrMdO8zZISs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=1MRoBE6d4lsRVYy3sdhO0JcXHq1hoFMu+XvuhIOFgI/Lkv7Ych0j4C61ecqIPtblp
+	 JTisSas8zFfCjPz4u21o+RdOuRQehirCK4yK8hhXkBoKNjn8NJG1VOSV/d0aV8O5jS
+	 3a+ajysAvrrlWjkAI7aTdTY98AuZU8fiGzFwNNQY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+	Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 559/990] powerpc/interrupt: Use early_radix_enabled() in NMI real-mode guard
+Date: Wed, 25 Nov 2026 15:32:06 +0100
+Message-ID: <20261125143835.190929518@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,75 +64,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADvTj4ou6+gg8xK4p9623xr=mZecmrgPpV76pU_-h=qS23UUrg@mail.gmail.com>
 
-On Tue, Nov 24, 2026 at 09:48:31AM -0700, James Hilliard wrote:
-> On Tue, Nov 24, 2026 at 6:04 AM Bartosz Golaszewski <brgl@kernel.org> wrote:
-> >
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-...
+------------------
 
-> >
-> > Well, we have a use-counted gpio-shared-proxy, but this addresses real
-> > hardware components sharing pins. This is a case of "logical sharing"
-> > where you have a pin requested by the subsystem, which is then used by
-> > multiple consumers. Normally, we do this at the subsystem level, like in
-> > regulators - which BTW probably suffer from the same issue - but here
-> > it's more visible and more likely to be hit.
-> 
-> Both NVMEM writes use the same WP descriptor. They look like one
-> consumer to gpio-shared-proxy, so it can't tell when the last write
-> through that descriptor has finished.
-> 
+From: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
 
-Sorry if I didn't make myself clear, I didn't mean we should use
-gpio-shared-proxy here - I meant, the "logical sharing" doesn't mtch the goal
-of gpio-shared-proxy.
+[ Upstream commit 644ffb02746690c0ebfe143e066f81c9bde2975e ]
 
-> > We can either address it here or we can possibly introduce a use-count
-> > helper for GPIO descriptors at the GPIOLIB level and re-use it in
-> > regulator core. In that case, we'll still need serialization but I don't
-> > like the idea of using a mutex and holding it over the entire operation.
-> 
-> The posted patch drops wp_lock before calling ops->reg_write(). The
-> mutex protects the writer count and the GPIO changes: the first writer
-> finishes deasserting WP before a second writer can enter, and only the
-> last writer reasserts it. The provider callbacks can still overlap.
->
+radix_enabled() uses a jump label which is only valid after
+setup_feature_keys() is called. Before that point, on a pSeries
+hash guest, early_check_vec5() clears MMU_FTR_TYPE_RADIX in
+cur_cpu_spec->mmu_features, but the jump label has not yet been patched,
+so radix_enabled() incorrectly returns true.
 
-Thanks for clarifying, I got confused by the usage of a non-scoped guard()
-but it's in a dedicated function.
+The dangerous usage window where it goes wrong in early_setup():
 
-> One detail for a shared helper is how to handle a GPIO error on the
-> last user. regulator_ena_gpio_ctrl() keeps its enable count if disabling
-> the GPIO fails. In NVMEM the last provider write has already finished,
-> so we return the error if restoring WP fails, but there is no writer
-> left to count.
-> 
+    early_setup:
+        configure_exceptions();
+        <exceptions can happen now, and handler enter/exit can be invoked>
+        <those could use radix_enabled(), which returns stale true>
+        setup_feature_keys();
+        <jump labels set up; post this it is safe to use radix_enabled()>
 
-Right. Maybe it is better to fix it locally for now.
+If an NMI occurs in this window, !radix_enabled() evaluates to false in
+DEFINE_INTERRUPT_HANDLER_NMI. The handler fails to skip NMI entry in real
+mode and attempts to access memory outside the Real Mode Area (RMA),
+hanging the boot.
 
-> > How about a read-write semaphore, taking it for writing, checking if
-> > we'll need to set value and keeping it for writing during
-> > gpiod_set_value_cansleep() or - if not - calling downgrade_write() and
-> > running the actual nvmem callback allowing for concurrent operations as
-> > it is now?
-> 
-> If every writer starts with down_write(), a second writer still has to
-> wait while the first holds the downgraded read lock across its callback,
-> even though WP is already deasserted. Did you have a way for that
-> second writer to take the read side directly in mind?
->
+Since common interrupt wrappers do not have the context of early or late,
+using early_radix_enabled() is the safer option. It does a plain bitmask
+check against cur_cpu_spec->mmu_features and is correct at all times.
 
-No, you're right, we need to wait until setting the value is done.
-Nevermind that comment.
+Console logs from a pSeries HASH guest showing values across boot stages:
 
-With the above clarifications:
+[    0.000000] DEBUG: after early_init_devtree: early_radix_enabled=0 radix_enabled=1 (mismatch means NMI real-mode check is unsafe!)
+[    0.000000] DEBUG: after configure_exceptions (DANGEROUS WINDOW): early_radix_enabled=0 radix_enabled=1
+[    0.000000] DEBUG: after setup_feature_keys (jump labels initialized): early_radix_enabled=0 radix_enabled=0 (should now match!)
+[    0.057124] DEBUG: post secondary CPU bringup: early_radix_enabled=0 radix_enabled=0 (should match!)
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Console logs from a RADIX guest showing values across boot stages:
 
-Thanks,
-Bartosz
+[    0.000000] DEBUG: after early_init_devtree: early_radix_enabled=1 radix_enabled=1 (mismatch means NMI real-mode check is unsafe!)
+[    0.000000] DEBUG: after configure_exceptions (DANGEROUS WINDOW): early_radix_enabled=1 radix_enabled=1
+[    0.000000] DEBUG: after setup_feature_keys (jump labels initialized): early_radix_enabled=1 radix_enabled=1 (should now match!)
+[    0.057016] DEBUG: post secondary CPU bringup: early_radix_enabled=1 radix_enabled=1 (should match!)
+
+Add the missing #include <asm/mmu.h> in alphabetical order since
+early_radix_enabled() is declared there.
+
+Fixes: 8d0e21012743 ("powerpc/mce: Avoid nmi_enter/exit in real mode on pseries hash")
+Signed-off-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Reviewed-by: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
+Link: https://patch.msgid.link/20260909123240.58786-1-venkat88@linux.ibm.com
+[ sashal: Applied the early_radix_enabled() change in the interrupt_nmi_enter_prepare() and interrupt_nmi_exit_prepare() helpers instead of the DEFINE_INTERRUPT_HANDLER_NMI macro body, since the logic was already refactored there. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/powerpc/include/asm/interrupt.h | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/arch/powerpc/include/asm/interrupt.h b/arch/powerpc/include/asm/interrupt.h
+index eb0e4a20b8188..af8c7df0ab9d0 100644
+--- a/arch/powerpc/include/asm/interrupt.h
++++ b/arch/powerpc/include/asm/interrupt.h
+@@ -72,6 +72,7 @@
+ #include <asm/firmware.h>
+ #include <asm/ftrace.h>
+ #include <asm/kprobes.h>
++#include <asm/mmu.h>
+ #include <asm/runlatch.h>
+ 
+ #ifdef CONFIG_PPC_IRQ_SOFT_MASK_DEBUG
+@@ -326,7 +327,7 @@ static inline void interrupt_nmi_enter_prepare(struct pt_regs *regs, struct inte
+ 	 */
+ 	if (IS_ENABLED(CONFIG_PPC_BOOK3S_64) &&
+ 	    firmware_has_feature(FW_FEATURE_LPAR) &&
+-	    !radix_enabled())
++	    !early_radix_enabled())
+ 		return;
+ 
+ 	/*
+@@ -355,7 +356,7 @@ static inline void interrupt_nmi_exit_prepare(struct pt_regs *regs, struct inter
+ 		nmi_exit();
+ 	} else if (IS_ENABLED(CONFIG_PPC_BOOK3S_64) &&
+ 		   firmware_has_feature(FW_FEATURE_LPAR) &&
+-		   !radix_enabled()) {
++		   !early_radix_enabled()) {
+ 		// no nmi_exit for a pseries hash guest taking a real mode exception
+ 	} else if (IS_ENABLED(CONFIG_KASAN)) {
+ 		// no nmi_exit for KASAN in real mode
+-- 
+2.53.0
+
+
+
