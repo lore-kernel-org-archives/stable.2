@@ -1,49 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795595643;
-	b=MTpiZrr3J+Aqu1zohS3/eAqzCgrpUN0Iiy0rCT/HphWRQ9z7czK3zmgLC6PWXJyKwpo7
-	 X1e1JUB3F61GdmzfIrEcm8zCVrsz54ZeNlcYEKadF/7LvCO59VhByWj8I0dxVGp888IcC
-	 gIlFasRUAV3sGUtZ3ZtfBjtuXOWw7SDktTJRxYWnNqMVye7+X6J6UyOWXu9SB1Sy5t7or
-	 SA8pKEfzZVim/m2H02L80G14ar4nYmAQbslCY8D3bzbdtjzSbvtcYvX0BJTMlNDxPLo4C
-	 4HWkFCmxcAlg1R47li/+zXi88M3lP7ub8zIrNU1iwUVflyTg1lVqX03XKZ+18UWTI0g==
+	t=1795595667;
+	b=spa9bUQgbmJmmK7aMPVJElMqxSIsbJr58UX39XbpQokcH+JBjEqO0Alvu0AJtOJVmQAF
+	 VYSab2HSMD+ZBJTqcZSfwL6a2Kc9KosfUvdhhKDiY+NMlbf++7CUZ5JDeB1ww/R+vTrcJ
+	 hL467apWVDEuf+rKrGkV+QQ3iei+7rYWpfRiri2wts/HVhWHaAu7UnxQIjZyjtkL8EsTC
+	 5TYzyYKXWZA9AE3GOGBnfo6OSh7+m8gbqELrsKvRlk6orEJRvHpuEIwfMop5Pwyw9vejS
+	 iDBDR30sam9KMk9LFbFojnvZYORWB8y8QSzy7lHr+S6OF2TJ8a0s+c+I5yE0kjiMLVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795595643;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Geg0b6hH0eRWbQ8qY3ctgtGMd48jkOfdfrZ5jdS1AfA=;
-	b=Sbu/FP6x6d6BCFXNzghI7cY8u2PeK8/Fbqi/5F0CoJCPHOe7O6qkExjyriNqurH3nWZ8
-	 88Ii4/jRhdSHnn1J+JPbb4ckBp89IEbMbgowHRMqc6uWefVRTPW0vsdevAhLbbj4pQtYd
-	 mBxc3o8ner01TXbC+fT8iMOhrixJyMcSDf5IDNuGTcex9xiyIylhaqFQxwoT5xKO3iW+h
-	 wfETp97MfqBnH5HtP8F6OlCgfZo+f/R9hpaf2mw4sazI4g0Yo7Gzt6zSXzGRmZjmTueLz
-	 2mzX6jffYRViUB30HaDW+CV2vw+trv4CftSzS93sGiWE9UvELNha3pd5NZUMwufaNFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795595667;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=QRiCR31grahnQuxKJ1Kl3FMIoePJi6t96xJxUnOrkx4=;
+	b=s4krYpFxe0h/xCaQ7EWI2a9TTvl8DkGSRn0gv3zMCiKSF27ru37Knrp6MN/xX211g9Yj
+	 FjTJxQwWnfNoEy4VyObnxjnXnCsxrD3ioZLl9PjQAP06nZXlkJaLWR2eqhYTFhJmzkwRz
+	 7e/uqfb6OYI59vl6H3cliItEDvYCNRr0ZkZ6isFwOHzTu2JnhfsKnuYr5V6x0heBsmY4i
+	 +tMky8EafdkKzpdusbPLC5dfA8osfubwWGS8acXqUNXZTiyA/Y3fmFjkpv8MaA6gDA5jz
+	 REpXAeG4IJ9iRcOkK6m5PJestESxz4WKbgaEdMHhdyIKK2Z30MupfWYQrm8dYrGgmWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZBRvbacT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ebBasl13;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00307606A31E;
-	Wed, 25 Nov 2026 08:34:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4AC7606A321;
+	Wed, 25 Nov 2026 08:34:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4AC7606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZBRvbacT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D88661F000C4;
-	Wed, 25 Nov 2026 08:34:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795595642;
-	bh=Geg0b6hH0eRWbQ8qY3ctgtGMd48jkOfdfrZ5jdS1AfA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZBRvbacTGHYypVUHep4fR/X31LXmnYm6QANb0EmRexJanIagXSB7dDE4RDI8mWXTi
-	 qJs3rZxPUq3lTBMZBrH+3rEXBUHEZitrx7awfw8qoqbE+X8iv6ar4/tKA1g4gemJrw
-	 ESHWWeUPTfsI+YagWbQDJiq6bGqVfgkMJaqQt+eA=
-Date: Wed, 25 Nov 2026 09:34:22 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Zhu GuangLei <zhugl3@xiaopeng.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
-	liuwb@xiaopeng.com, stable@vger.kernel.org
-Subject: Re: [PATCH] misc/pvpanic: share the shutdown handler across devices
-Message-ID: <2026112504-halves-payer-1293@gregkh>
-References: <20261125080635.112699-1-zhugl3@xiaopeng.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ebBasl13
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795595667; x=1827131667;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=B42DmryMhrT1xZx2QWPexbDfS2ooFBeHjiGyMkp5OmU=;
+  b=ebBasl13Id7fkyP55Q3kKMXsj3iTZ8xKwSD/eLjkU2JuuazKz7zoZV9k
+   2C45F5oEi1K6Vx0XWF1cPu3useG8dPRD7K0PGuZ+lC/+URHY4Ors8rGCt
+   dQYz8TkdOfaaSKWe+zy+mA4s18782AAErcV+BIC5CLHyMIexBwoLDrI/+
+   m9xYkng9sjEZY3LPC5fXb4unrBCWwhzRNlZLpXVa71DEWx5O9VDQ7Pr7D
+   G83hsS0Q6MZuGlXWxAtGpY+vfQ1N7k1zjMPqTc1yzV6Y1g4qEq9yF2Qbc
+   7aqEgO0Lx5iJe4z7Zhusdj7u3kJbg0SLMYGiqPpSU61tVZhF3aeJMMkEQ
+   Q==;
+X-CSE-ConnectionGUID: su2fkOWoRhG7tFTzX7i51Q==
+X-CSE-MsgGUID: ZbQOkgHHQy2A7EUOcH7lJQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4341233"
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="4341233"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 00:34:26 -0800
+X-CSE-ConnectionGUID: rquprSAIQuWVEKVOKKdvSQ==
+X-CSE-MsgGUID: QK5jFyXzQuycaspge9YnKw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="12006002"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa002.fm.intel.com with ESMTP; 25 Nov 2026 00:34:25 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 2D05498; Wed, 25 Nov 2026 09:34:23 +0100 (CET)
+Date: Wed, 25 Nov 2026 09:34:23 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Badhri Jagan Sridharan <badhri@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Guenter Roeck <groeck@chromium.org>, linux-usb@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] usb: typec: tcpm: unregister partner altmodes before
+ re-discovery
+Message-ID: <awadjwZUgA_U7ySC@black.igk.intel.com>
+References: <20261120-topic-tcpm-core-fixes-v1-0-c753d1d286bb@linaro.org>
+ <20261120-topic-tcpm-core-fixes-v1-1-c753d1d286bb@linaro.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,119 +86,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261125080635.112699-1-zhugl3@xiaopeng.com>
+In-Reply-To: <20261120-topic-tcpm-core-fixes-v1-1-c753d1d286bb@linaro.org>
 
-On Wed, Nov 25, 2026 at 04:06:35PM +0800, Zhu GuangLei wrote:
-> Each pvpanic device registers its own power-off handler at
-> SYS_OFF_PRIO_LOW. register_sys_off_handler() accepts only one handler
-> per non-default priority, so when a second pvpanic device is probed the
-> registration fails with -EBUSY and the driver logs "Could not register
-> sys_off_handler". The handler that did get registered notifies every
-> device on the list, but it is owned by the first device. Once that
-> device is unbound, or its shutdown event is masked through sysfs, the
-> handler is unregistered and the remaining device stops reporting
-> shutdowns even though its events mask still has PVPANIC_SHUTDOWN set.
+On Fri, Nov 20, 2026 at 10:56:16AM +0100, Neil Armstrong wrote:
+> svdm_consume_identity() clears port->mode_data when a Discover Identity
+> ACK is received. mode_data.altmodes is also the count used to walk
+> port->partner_altmode[] when unregistering the partner alternate modes,
+> so if the partner altmodes from an earlier discovery are still
+> registered, clearing it leaks them and the following Discover Modes
+> round registers a second set for the same partner.
 > 
-> Register a single handler for the driver and keep it as long as at
-> least one device has the shutdown event enabled. Serialize updates of
-> the events mask and of the handler registration with a mutex. The
-> panic and power-off paths still take only the list spinlock, so access
-> the events mask with READ_ONCE()/WRITE_ONCE().
-
-If a spinlock is used, why is the read/write once stuff needed?
-
-> The shutdown event only reaches pvpanic when no higher priority
-> power-off handler, such as the ACPI one, turns the machine off first.
-> Tested on a v6.18 based guest booted with acpi=off under QEMU 8.2.2
-> (TCG) with two pvpanic-pci devices created with events=7: after
-> unbinding the first device and powering off, QEMU did not receive the
-> shutdown byte (0x4) without this change and does receive it with it.
-> Masking the shutdown event on a single device still suppresses the
-> write.
+> Unregister the partner altmodes before clearing mode_data, and reuse
+> the new helper in tcpm_unregister_altmodes().
 > 
-> OpenAI Codex was used to write the code change and the QEMU test
-> scripts, and to run the tests. GitHub Copilot was used to review the
-> change and to rewrite this changelog.
-> 
-> Fixes: 7b51b1373321 ("misc/pvpanic: add support for normal shutdowns")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Zhu GuangLei <zhugl3@xiaopeng.com>
+> Fixes: f0690a25a140 ("staging: typec: USB Type-C Port Manager (tcpm)")
+> Assisted-by: LLM
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+
 > ---
->  drivers/misc/pvpanic/pvpanic.c | 56 ++++++++++++++++++----------------
->  1 file changed, 30 insertions(+), 26 deletions(-)
+>  drivers/usb/typec/tcpm/tcpm.c | 17 +++++++++++++----
+>  1 file changed, 13 insertions(+), 4 deletions(-)
 > 
-> diff --git a/drivers/misc/pvpanic/pvpanic.c b/drivers/misc/pvpanic/pvpanic.c
-> index 3d43045bf..ed7a01d45 100644
-> --- a/drivers/misc/pvpanic/pvpanic.c
-> +++ b/drivers/misc/pvpanic/pvpanic.c
-> @@ -16,6 +16,7 @@
->  #include <linux/limits.h>
->  #include <linux/list.h>
->  #include <linux/module.h>
-> +#include <linux/mutex.h>
->  #include <linux/panic_notifier.h>
->  #include <linux/platform_device.h>
->  #include <linux/reboot.h>
-> @@ -35,12 +36,14 @@ struct pvpanic_instance {
->  	void __iomem *base;
->  	unsigned int capability;
->  	unsigned int events;
-> -	struct sys_off_handler *sys_off;
->  	struct list_head list;
->  };
->  
->  static struct list_head pvpanic_list;
->  static spinlock_t pvpanic_lock;
-> +static DEFINE_MUTEX(pvpanic_sys_off_lock);
-> +static struct sys_off_handler *pvpanic_sys_off_handler;
-> +static unsigned int pvpanic_sys_off_users;
->  
->  static void
->  pvpanic_send_event(unsigned int event)
-> @@ -51,7 +54,7 @@ pvpanic_send_event(unsigned int event)
->  		return;
->  
->  	list_for_each_entry(pi_cur, &pvpanic_list, list) {
-> -		if (event & pi_cur->capability & pi_cur->events)
-> +		if (event & pi_cur->capability & READ_ONCE(pi_cur->events))
->  			iowrite8(event, pi_cur->base);
->  	}
->  	spin_unlock(&pvpanic_lock);
-> @@ -86,30 +89,34 @@ static int pvpanic_sys_off(struct sys_off_data *data)
->  	return NOTIFY_DONE;
+> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+> index bb90211660ca..1d007e59a2bf 100644
+> --- a/drivers/usb/typec/tcpm/tcpm.c
+> +++ b/drivers/usb/typec/tcpm/tcpm.c
+> @@ -2060,6 +2060,17 @@ static int tcpm_queue_vdm_unlocked(struct tcpm_port *port, const u32 header,
+>  	return ret;
 >  }
 >  
-> -static void pvpanic_synchronize_sys_off_handler(struct device *dev, struct pvpanic_instance *pi)
-> +static void pvpanic_set_events(struct device *dev, struct pvpanic_instance *pi,
-> +			       unsigned int events)
->  {
-> -	/* The kernel core has logic to fall back to system halt if no
-> -	 * sys_off_handler is registered.
-> -	 * When the pvpanic sys_off_handler is disabled via sysfs the kernel
-> -	 * should use that fallback logic, so the handler needs to be unregistered.
-> -	 */
-> -
->  	struct sys_off_handler *sys_off;
->  
-> -	if (!(pi->events & PVPANIC_SHUTDOWN) == !pi->sys_off)
-> -		return;
-> -
-> -	if (!pi->sys_off) {
-> -		sys_off = register_sys_off_handler(SYS_OFF_MODE_POWER_OFF, SYS_OFF_PRIO_LOW,
-> +	mutex_lock(&pvpanic_sys_off_lock);
-
-guard()?
-
-> +	if ((pi->events ^ events) & PVPANIC_SHUTDOWN) {
-> +		if (events & PVPANIC_SHUTDOWN)
-> +			pvpanic_sys_off_users++;
-> +		else
-> +			pvpanic_sys_off_users--;
+> +static void tcpm_unregister_partner_altmodes(struct tcpm_port *port)
+> +{
+> +	struct pd_mode_data *modep = &port->mode_data;
+> +	int i;
+> +
+> +	for (i = 0; i < modep->altmodes && i < ALTMODE_DISCOVERY_MAX; i++) {
+> +		typec_unregister_altmode(port->partner_altmode[i]);
+> +		port->partner_altmode[i] = NULL;
 > +	}
-> +	WRITE_ONCE(pi->events, events);
+> +}
+> +
+>  static void svdm_consume_identity(struct tcpm_port *port, const u32 *p, int cnt)
+>  {
+>  	u32 vdo = p[VDO_INDEX_IDH];
+> @@ -2068,6 +2079,7 @@ static void svdm_consume_identity(struct tcpm_port *port, const u32 *p, int cnt)
+>  	if (cnt <= VDO_INDEX_PRODUCT)
+>  		return;
+>  
+> +	tcpm_unregister_partner_altmodes(port);
+>  	memset(&port->mode_data, 0, sizeof(port->mode_data));
+>  
+>  	port->partner_ident.id_header = vdo;
+> @@ -5129,10 +5141,7 @@ static void tcpm_unregister_altmodes(struct tcpm_port *port)
+>  	struct pd_mode_data *modep_prime = &port->mode_data_prime;
+>  	int i;
+>  
+> -	for (i = 0; i < modep->altmodes && i < ALTMODE_DISCOVERY_MAX; i++) {
+> -		typec_unregister_altmode(port->partner_altmode[i]);
+> -		port->partner_altmode[i] = NULL;
+> -	}
+> +	tcpm_unregister_partner_altmodes(port);
+>  	for (i = 0; i < modep_prime->altmodes && i < ALTMODE_DISCOVERY_MAX; i++) {
+>  		typec_unregister_altmode(port->plug_prime_altmode[i]);
+>  		port->plug_prime_altmode[i] = NULL;
+> 
+> -- 
+> 2.34.1
 
-As you have a global lock here, again, why is WRITE_ONCE() needed?
-
-thanks,
-
-greg k-h
+-- 
+heikki
