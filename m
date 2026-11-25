@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795598791;
-	b=RCcFuLaHAynfu9nbASRjQX3b1kWZ3+s1mql2fmZmty2VySUc8Qzqr1mx6POc3qqkWQ60
-	 p8Sm7ELgya8xDQUSVyOMYLfh++j6pITkj8+kDRkZhKf7eeZRA585L2yRSS1y+tVXhlY4H
-	 O6J9yVZL76YbOBNa30o+TUPXaW5YBU8ZqxbhQgJzBy4fRDPFOygdHbl02B/63NeP6LPRc
-	 W1Aa7CNX7iGijZ3TmQSQftgdq5o0c8PbKIewhuEj8SXISZK4hNfm0rU1/FzsKGvfishgS
-	 MYTxQ+AtpnH0gXxcLn2jyGxBga2bIEYzJ31055E7FMz/sDQp3qAJhKtZcbNLw/qB1oQ==
+	t=1795598794;
+	b=d+Vfg0gQoX83nMKZSKf+4qXyY0ob+r3IWgxhI1ypw3GU62ONl58/aHKX397RbYWYIrfi
+	 i/qJ9hJWzI17dSaDCsAYituqq4Pla5UfxF+Yaf9dA+zDAHVVeW8uNi1N0nTEGjBlxWw6W
+	 f9NR8yyGnoTkj8tKmYk50NNwsaIXuSSoS1TWCnJ5Gn3HMKyaNUWwnsz+Ii1yoo5HshKvk
+	 YJuGMnZYSBUzRgBItdEZKp+R00f+S9QJgdrsL+w07V3bxkR0AtBRA+g6YZORNE2vYAHaE
+	 jbgBNfPiqqz/gIvqqvNiP7lHQbZp74mn36RPaTgRf7cTxxOqyGY5i49d573ivuZdppw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795598791;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795598794;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xCrEPIIxcWz9Gzk1KexnHIYzwYXb8ieSrqzWOmx8l5k=;
-	b=v0CmLsDcZ/KJ1OixN70lzQwPPLX34cIz5hj7qidSPVOBkxE5CjHdUS7OBU0oGSwOT3sr
-	 QfaKAmS1FPmt3zF5ShONkj928QQjU20fR2Sw84yoKXd9GErid20k586WUcYBHAkvUj2FQ
-	 YI95xGJtmTuq25+lKawvMFCMp6oQJ4wOEkem9r+uwe5qCR5mZshqE/8kVbRHx72+7N17T
-	 dqVSLRAhqzBdgnFZlQDU4FEhUS9mISvnEOSOngPbRgQOloLsorUCKT6xwpb+A9fIA5GlO
-	 TNrcO2ZzE1HKtpEP3Cnn5qVYQXgA7dy5CbyjUxauxmck0jnMNcpKncPiaQg5qEXCBng==
+	bh=pj08PY0vyOTqXZng/CoSXCn8E5fOjEw9ea2eBLC/zm0=;
+	b=guER4uiZn5w0mBm5pHPd9ttT4aKPiocupQzF6VuGA6UJpKX3wx+ZitdPN2oSFXTfJuAW
+	 rtyUFTUM6Vf2XOAD9AY9ZNElXDFk6Gx3IimmCrJpRvxWyPlDizwiN+jfiWkcjT9cG1n9F
+	 KB23Km/X5lWWqsQpg+A19xX1J5Vr/ZQVGW6/eLKzR1Xw7qsDGfzFY1XGvoUe7+Ui2vPSM
+	 LedIn+GfgpwZqnFqngRPNqfBeP/RyodWWOgUd+AW0cJBV6KNgsc1bYHMI6D0p2oM8VZz7
+	 8LWp8UkpZuIpGfDx7IAWqNIhQPRtvcOCmIj3yRJzGwZCDduX9ImOBg5DSQoOZXitSTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LWdjf9ad;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=syrbvRch;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B31606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:26:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93036606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:26:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LWdjf9ad
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2BF71F000C4;
-	Wed, 25 Nov 2026 09:26:30 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=syrbvRch
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A973F1F000C6;
+	Wed, 25 Nov 2026 09:26:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795598791;
-	bh=xCrEPIIxcWz9Gzk1KexnHIYzwYXb8ieSrqzWOmx8l5k=;
+	s=korg; t=1795598794;
+	bh=pj08PY0vyOTqXZng/CoSXCn8E5fOjEw9ea2eBLC/zm0=;
 	h=Subject:To:Cc:From:Date;
-	b=LWdjf9adsOcmtWfjSN75Mlqyz/4UysFWBdy17IpAZpT+o0JeVSCbSkNKpqjJ9u2wQ
-	 pKef2NhABWNoWvQySfHqkjhR/MegU8FRSwh/yYgsvYDYCmwywa08PFM4NYKnqt4sJl
-	 8mTCXkZzQK07DmY5ipB/AM/poN0rKtStV54CHf2E=
-Subject: FAILED: patch "[PATCH] dcache: let umount find a disconnected ex-mountpoint" failed to apply to 5.15-stable tree
+	b=syrbvRchE98Qyd7cYmGpnz90ETBiCYjjFHrBGMCeePNlEo7h3R4fH6w/noL4FZhqV
+	 vzNuX+s51BwmYRstooMjykHH9uH1eLANjzOe+05Ukt1yihMw8/KuO0AGBT2y0XjGzz
+	 HFhYAoXLna/hz3mnnPymAYWZBlvvRZsqoU6arL+U=
+Subject: FAILED: patch "[PATCH] dcache: let umount find a disconnected ex-mountpoint" failed to apply to 6.1-stable tree
 To: josef@toxicpanda.com,brauner@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 10:19:47 +0100
-Message-ID: <2026112547-clanking-password-4322@gregkh>
+Message-ID: <2026112547-dinner-brewery-1960@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 32e564e222b7ca3811b2acee404b73fcaf43f312
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112547-clanking-password-4322@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112547-dinner-brewery-1960@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
