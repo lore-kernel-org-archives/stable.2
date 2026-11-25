@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795639769;
-	b=y4qj2205piQ9fRaTsJEzmG6ukWYue/V2HsiG0tYbO0YihnZdRavjlwJOLZp0N41bUeKN
-	 2sDSQoIFkRYT4y0lVVtDLISuKmlHDtwc6xeUd7tJoJe0J6/PcinEykohpZiJk4UZ9m6Rt
-	 APH1+77gxEjIJEAAb0C8rvaAbxhUTG/Q3FjJgDHsdOl7dvIk0UC8+ZRYa2PybzXTxwwnV
-	 8UODO2+Kp8t8U2WpjV8k1By7BhvuUFx5MdEjpG2TFe62F88YV2LCBXO3KL54kRYeNDXEb
-	 cVfvRgSBLJD2GzWAW14oIMPlXbBek3sgDdBuDGB5npVA+tVCPpwex+ErHUCi2oBd4FA==
+	t=1795639771;
+	b=Dcror6d+ATSjURv64n229g7gi81Z4aUsV1Lzdt0t6vDzDYFe3LV1BDoWeTHfK/OlL1xx
+	 5101yhbcGfQm16DMUnrBQgZrtslTUPac4bFruPNbTd0JCeulHb3iJYtDrzDogzrR731Tt
+	 jt/mwyEmdnSMSnThouO7uxKK4kzwFbutI90wmn9L5yhGueO3YyUFDyfqVgP5sVQR6ELfp
+	 allTJ3g2qa7PAzI/6FbqgKaYgcIIztJ1zKeDYh/mQoX8/inY2Md5piKwrwQCP/QYoNVuf
+	 mwH4t6WUVNT3+OLMu6UOCXRgyZYIhnZcBGQpG0JpQJTpgNe4P5RL0kkKN25ZVhQQ0RQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795639769;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795639771;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=yiP5h21LwvDzlC2NAkyHzG1v3Gl5+k48WkncEFjv2s8=;
-	b=lGk9bITXVHRLTNkyeCRREeM4Q7HMgBLkqxTJp1puiVR5c2SwlbzsnczGxTITBUhwGhZh
-	 4iXzK0qU5DjNQugaXbErGMYd9YEfS1KsNNB2ieIFUj40Snl9NZ2y3PWw/thIOQIQIn34O
-	 SIv13RqsiNHla8Dz7z40tUK7B1O/gWl8K8/8f/ETejyKgC64QHdPfqS14pCEWvtTxpM4h
-	 s7TKfIajYX9KlwtB8gPS+fu13Dt7sVJvtXMtHVl9rkod6BqDrTg/LjgXkRRzh/KCTV7Cr
-	 t3AoPPoWuUB5saTEbto8fbm5cZzBMsJOwVBe6zDiWxjbqzG0zSg6GvmY6G6aYqwZIlQ==
+	bh=KzqU0mPnuKpmxFCB8Wh+uu/dW/0+xBC8Jabl8yBOneY=;
+	b=WC9UlSlkjwmNU3K5r4YfrVpOEks76DHeSk1Tizj8Kc7q5sb5GlwYd6ZOEwQMwU+1sIs6
+	 NEU345S31SWgH9orl2i9LtDwdhpcz1YdceorbF0vPfSnipWfIm+QbNTfmuXJ6Xs2l0xnP
+	 nlkQg+ZWAIyPIWSIfySIsRmNdlKAKvWGCjasr0BNlalWVqdts7ztq8MKwSu82aH9aF5DY
+	 eXbE2fOvJLyP8+eEDMXY7TWDtKrJt6l0IKnZpbnLuoKXzP7p0X4dv/bvczVjz2io1I1c4
+	 Dyv/LrhprwDwIQGGlALDUZMvK9EOx0Jx5vbo/aTTmD/CSfxLx5vsniYAqgTeHPhHDwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bDCyIcs1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EvceyO2j;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B57606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:49:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F85606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:49:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bDCyIcs1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E5B81F000D4;
-	Wed, 25 Nov 2026 20:49:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EvceyO2j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0E2B1F000C0;
+	Wed, 25 Nov 2026 20:49:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795639769;
-	bh=yiP5h21LwvDzlC2NAkyHzG1v3Gl5+k48WkncEFjv2s8=;
+	s=k20260515; t=1795639770;
+	bh=KzqU0mPnuKpmxFCB8Wh+uu/dW/0+xBC8Jabl8yBOneY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bDCyIcs1kC0P0/x2mz7DnbROicPtST/OGj0zTWyKwc1qlbvit/5WOySAAxx16Jfb+
-	 PyulaDu1YPkIeHhVdH489OT8Svc3ikRbiSU5sLn2Qp3xVr5YXmwNyHC/p+tXyu+t1G
-	 XOJaOAgHN1pxof+GXvs4ZZWE/eG20kH/+tK22dGXUfAdQQ3uvGE1idHURSEpg8kAEF
-	 MXMSTJo7eAgljhAvyyYyJrj4s4oCGWwXmjScVP0hqD8wTmE2eVQw6w0hNv1rIm8BT5
-	 PvTeYW5lWvtfKvyYEJgK3Ih4Oq9zyLkHNUMnfuleKlWt5okvp91nE6z1FDYl3effCe
-	 uG6RqNlygeA4g==
+	b=EvceyO2j8UQmZ5AgC0/mWz0d3fQx7WtwecbOKsrdR48bZllysexLqU53G96Uczlj7
+	 ZHW9yBFb3ALn10Z1GuBMQe6nx3Q+ZpSN7W0lD8+Vqm752G7EHM25E2bvPUTKmQr3+z
+	 7+dnNSU4NOjFSL8PKn5vy+GjjxnfXJoiIn6/67WzJps2XZGIyEk5HMCyEpriex9GIZ
+	 hIxrNPNV7eaqiu81Lm4y6rfkU/xag8xfd2FFYQk1OCM64sbAoNYHAKLPYAGdXHfYRB
+	 Q47bPaKdb04ZAU6g05HXbYR6OijqdEVLBE2RqKUFbXiQeBIifeERuuQ7MRCZ9Tc1Hq
+	 OlCV2L9Guw67w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Tzung-Bi Shih <tzungbi@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
 	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/3] gpio: sysfs: Remove redundant check for struct gpio_chip
-Date: Wed, 25 Nov 2026 15:49:25 -0500
-Message-ID: <20261125204921.1452840-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/3] gpio: Ensure struct gpio_chip for gpiochip_setup_dev()
+Date: Wed, 25 Nov 2026 15:49:26 -0500
+Message-ID: <20261125204921.1452840-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112507-smasher-paralysis-af0a@gregkh>
+In-Reply-To: <20261125204921.1452840-1-sashal@kernel.org>
 References: <2026112507-smasher-paralysis-af0a@gregkh>
+ <20261125204921.1452840-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,93 +64,234 @@ Content-Transfer-Encoding: 8bit
 
 From: Tzung-Bi Shih <tzungbi@kernel.org>
 
-[ Upstream commit 395b8e555dfcbab6b28f360e39bd048b2f3e362b ]
+[ Upstream commit cf674f1a0c9893ee1acef832679562007a94250a ]
 
-gpiochip_sysfs_unregister() is only called by gpiochip_remove() where
-the struct gpio_chip is ensured.
+Ensure struct gpio_chip for gpiochip_setup_dev().  This eliminates a few
+checks for struct gpio_chip.
 
-Remove the redundant check.
-
-Reviewed-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
-Link: https://patch.msgid.link/20260223061726.82161-4-tzungbi@kernel.org
+Link: https://patch.msgid.link/20260223061726.82161-5-tzungbi@kernel.org
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Stable-dep-of: 7e899fe007d2 ("gpio: keep the chip reference when deferred setup fails")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpio/gpiolib-sysfs.c | 11 +++--------
+ drivers/gpio/gpiolib-cdev.c  | 14 ++++----------
+ drivers/gpio/gpiolib-cdev.h  |  2 +-
+ drivers/gpio/gpiolib-sysfs.c | 21 ++++++++-------------
  drivers/gpio/gpiolib-sysfs.h |  4 ++--
- drivers/gpio/gpiolib.c       |  2 +-
- 3 files changed, 6 insertions(+), 11 deletions(-)
+ drivers/gpio/gpiolib.c       | 24 +++++++++++++++++-------
+ 5 files changed, 32 insertions(+), 33 deletions(-)
 
+diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
+index 1afda8ea5769b..056aa145047cd 100644
+--- a/drivers/gpio/gpiolib-cdev.c
++++ b/drivers/gpio/gpiolib-cdev.c
+@@ -2832,11 +2832,13 @@ static const struct file_operations gpio_fileops = {
+ #endif
+ };
+ 
+-int gpiolib_cdev_register(struct gpio_device *gdev, dev_t devt)
++int gpiolib_cdev_register(struct gpio_chip *gc, dev_t devt)
+ {
+-	struct gpio_chip *gc;
++	struct gpio_device *gdev = gc->gpiodev;
+ 	int ret;
+ 
++	lockdep_assert_held(&gdev->srcu);
++
+ 	cdev_init(&gdev->chrdev, &gpio_fileops);
+ 	gdev->chrdev.owner = THIS_MODULE;
+ 	gdev->dev.devt = MKDEV(MAJOR(devt), gdev->id);
+@@ -2852,14 +2854,6 @@ int gpiolib_cdev_register(struct gpio_device *gdev, dev_t devt)
+ 		return ret;
+ 	}
+ 
+-	guard(srcu)(&gdev->srcu);
+-	gc = srcu_dereference(gdev->chip, &gdev->srcu);
+-	if (!gc) {
+-		cdev_device_del(&gdev->chrdev, &gdev->dev);
+-		destroy_workqueue(gdev->line_state_wq);
+-		return -ENODEV;
+-	}
+-
+ 	gpiochip_dbg(gc, "added GPIO chardev (%d:%d)\n", MAJOR(devt), gdev->id);
+ 
+ 	return 0;
+diff --git a/drivers/gpio/gpiolib-cdev.h b/drivers/gpio/gpiolib-cdev.h
+index b42644cbffb80..4a9cb3335d990 100644
+--- a/drivers/gpio/gpiolib-cdev.h
++++ b/drivers/gpio/gpiolib-cdev.h
+@@ -7,7 +7,7 @@
+ 
+ struct gpio_device;
+ 
+-int gpiolib_cdev_register(struct gpio_device *gdev, dev_t devt);
++int gpiolib_cdev_register(struct gpio_chip *gc, dev_t devt);
+ void gpiolib_cdev_unregister(struct gpio_device *gdev);
+ 
+ #endif /* GPIOLIB_CDEV_H */
 diff --git a/drivers/gpio/gpiolib-sysfs.c b/drivers/gpio/gpiolib-sysfs.c
-index d4a46a0a37d8f..c5aa79fac40c2 100644
+index c5aa79fac40c2..415ab87b235d2 100644
 --- a/drivers/gpio/gpiolib-sysfs.c
 +++ b/drivers/gpio/gpiolib-sysfs.c
-@@ -1053,11 +1053,11 @@ int gpiochip_sysfs_register(struct gpio_device *gdev)
- 	return 0;
+@@ -983,13 +983,15 @@ void gpiod_unexport(struct gpio_desc *desc)
  }
+ EXPORT_SYMBOL_GPL(gpiod_unexport);
  
--void gpiochip_sysfs_unregister(struct gpio_device *gdev)
-+void gpiochip_sysfs_unregister(struct gpio_chip *gc)
+-int gpiochip_sysfs_register(struct gpio_device *gdev)
++int gpiochip_sysfs_register(struct gpio_chip *gc)
  {
 +	struct gpio_device *gdev = gc->gpiodev;
  	struct gpiodev_data *data;
- 	struct gpio_desc *desc;
 -	struct gpio_chip *chip;
+ 	struct device *parent;
+ 	int err;
  
- 	guard(mutex)(&sysfs_lock);
- 
-@@ -1065,13 +1065,8 @@ void gpiochip_sysfs_unregister(struct gpio_device *gdev)
- 	if (!data)
- 		return;
++	lockdep_assert_held(&gdev->srcu);
++
+ 	/*
+ 	 * Many systems add gpio chips for SOC support very early,
+ 	 * before driver model support is available.  In those cases we
+@@ -999,18 +1001,12 @@ int gpiochip_sysfs_register(struct gpio_device *gdev)
+ 	if (!class_is_registered(&gpio_class))
+ 		return 0;
  
 -	guard(srcu)(&gdev->srcu);
+-
 -	chip = srcu_dereference(gdev->chip, &gdev->srcu);
 -	if (!chip)
--		return;
+-		return -ENODEV;
 -
- 	/* unregister gpiod class devices owned by sysfs */
--	for_each_gpio_desc_with_flag(chip, desc, GPIOD_FLAG_SYSFS) {
-+	for_each_gpio_desc_with_flag(gc, desc, GPIOD_FLAG_SYSFS) {
- 		gpiod_unexport_unlocked(desc);
- 		gpiod_free(desc);
- 	}
+ 	/*
+ 	 * For sysfs backward compatibility we need to preserve this
+ 	 * preferred parenting to the gpio_chip parent field, if set.
+ 	 */
+-	if (chip->parent)
+-		parent = chip->parent;
++	if (gc->parent)
++		parent = gc->parent;
+ 	else
+ 		parent = &gdev->dev;
+ 
+@@ -1029,7 +1025,7 @@ int gpiochip_sysfs_register(struct gpio_device *gdev)
+ 						    MKDEV(0, 0), data,
+ 						    gpiochip_groups,
+ 						    GPIOCHIP_NAME "%d",
+-						    chip->base);
++						    gc->base);
+ 	if (IS_ERR(data->cdev_base)) {
+ 		err = PTR_ERR(data->cdev_base);
+ 		kfree(data);
+@@ -1085,10 +1081,9 @@ void gpiochip_sysfs_unregister(struct gpio_chip *gc)
+  */
+ static int gpiofind_sysfs_register(struct gpio_chip *gc, const void *data)
+ {
+-	struct gpio_device *gdev = gc->gpiodev;
+ 	int ret;
+ 
+-	ret = gpiochip_sysfs_register(gdev);
++	ret = gpiochip_sysfs_register(gc);
+ 	if (ret)
+ 		gpiochip_err(gc, "failed to register the sysfs entry: %d\n", ret);
+ 
 diff --git a/drivers/gpio/gpiolib-sysfs.h b/drivers/gpio/gpiolib-sysfs.h
-index b794b396d6a52..fd5db5384681a 100644
+index fd5db5384681a..d0998de043a22 100644
 --- a/drivers/gpio/gpiolib-sysfs.h
 +++ b/drivers/gpio/gpiolib-sysfs.h
-@@ -8,7 +8,7 @@ struct gpio_device;
+@@ -7,12 +7,12 @@ struct gpio_device;
+ 
  #ifdef CONFIG_GPIO_SYSFS
  
- int gpiochip_sysfs_register(struct gpio_device *gdev);
--void gpiochip_sysfs_unregister(struct gpio_device *gdev);
-+void gpiochip_sysfs_unregister(struct gpio_chip *gc);
+-int gpiochip_sysfs_register(struct gpio_device *gdev);
++int gpiochip_sysfs_register(struct gpio_chip *gc);
+ void gpiochip_sysfs_unregister(struct gpio_chip *gc);
  
  #else
  
-@@ -17,7 +17,7 @@ static inline int gpiochip_sysfs_register(struct gpio_device *gdev)
+-static inline int gpiochip_sysfs_register(struct gpio_device *gdev)
++static inline int gpiochip_sysfs_register(struct gpio_chip *gc)
+ {
  	return 0;
  }
- 
--static inline void gpiochip_sysfs_unregister(struct gpio_device *gdev)
-+static inline void gpiochip_sysfs_unregister(struct gpio_chip *gc)
- {
- }
- 
 diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
-index a41219961778d..ccdf4feadc619 100644
+index ccdf4feadc619..20c1a0994f395 100644
 --- a/drivers/gpio/gpiolib.c
 +++ b/drivers/gpio/gpiolib.c
-@@ -1267,7 +1267,7 @@ void gpiochip_remove(struct gpio_chip *gc)
- 	struct gpio_device *gdev = gc->gpiodev;
+@@ -871,14 +871,14 @@ static const struct device_type gpio_dev_type = {
+ };
  
- 	/* FIXME: should the legacy sysfs handling be moved to gpio_device? */
--	gpiochip_sysfs_unregister(gdev);
-+	gpiochip_sysfs_unregister(gc);
- 	gpiochip_free_hogs(gc);
- 	gpiochip_free_remaining_irqs(gc);
+ #ifdef CONFIG_GPIO_CDEV
+-#define gcdev_register(gdev, devt)	gpiolib_cdev_register((gdev), (devt))
++#define gcdev_register(gc, devt)	gpiolib_cdev_register((gc), (devt))
+ #define gcdev_unregister(gdev)		gpiolib_cdev_unregister((gdev))
+ #else
+ /*
+  * gpiolib_cdev_register() indirectly calls device_add(), which is still
+  * required even when cdev is not selected.
+  */
+-#define gcdev_register(gdev, devt)	device_add(&(gdev)->dev)
++#define gcdev_register(gc, devt)	device_add(&(gc)->gpiodev->dev)
+ #define gcdev_unregister(gdev)		device_del(&(gdev)->dev)
+ #endif
  
+@@ -886,8 +886,9 @@ static const struct device_type gpio_dev_type = {
+  * An initial reference count has been held in gpiochip_add_data_with_key().
+  * The caller should drop the reference via gpio_device_put() on errors.
+  */
+-static int gpiochip_setup_dev(struct gpio_device *gdev)
++static int gpiochip_setup_dev(struct gpio_chip *gc)
+ {
++	struct gpio_device *gdev = gc->gpiodev;
+ 	struct fwnode_handle *fwnode = dev_fwnode(&gdev->dev);
+ 	int ret;
+ 
+@@ -898,11 +899,11 @@ static int gpiochip_setup_dev(struct gpio_device *gdev)
+ 	if (fwnode && !fwnode->dev)
+ 		fwnode_dev_initialized(fwnode, false);
+ 
+-	ret = gcdev_register(gdev, gpio_devt);
++	ret = gcdev_register(gc, gpio_devt);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = gpiochip_sysfs_register(gdev);
++	ret = gpiochip_sysfs_register(gc);
+ 	if (ret)
+ 		goto err_remove_device;
+ 
+@@ -949,13 +950,22 @@ static void machine_gpiochip_add(struct gpio_chip *gc)
+ static void gpiochip_setup_devs(void)
+ {
+ 	struct gpio_device *gdev;
++	struct gpio_chip *gc;
+ 	int ret;
+ 
+ 	guard(srcu)(&gpio_devices_srcu);
+ 
+ 	list_for_each_entry_srcu(gdev, &gpio_devices, list,
+ 				 srcu_read_lock_held(&gpio_devices_srcu)) {
+-		ret = gpiochip_setup_dev(gdev);
++		guard(srcu)(&gdev->srcu);
++
++		gc = srcu_dereference(gdev->chip, &gdev->srcu);
++		if (!gc) {
++			dev_err(&gdev->dev, "Underlying GPIO chip is gone\n");
++			continue;
++		}
++
++		ret = gpiochip_setup_dev(gc);
+ 		if (ret) {
+ 			gpio_device_put(gdev);
+ 			dev_err(&gdev->dev,
+@@ -1210,7 +1220,7 @@ int gpiochip_add_data_with_key(struct gpio_chip *gc, void *data,
+ 	 * Otherwise, defer until later.
+ 	 */
+ 	if (gpiolib_initialized) {
+-		ret = gpiochip_setup_dev(gdev);
++		ret = gpiochip_setup_dev(gc);
+ 		if (ret)
+ 			goto err_remove_irqchip;
+ 	}
 -- 
 2.53.0
 
