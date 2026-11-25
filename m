@@ -1,50 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795615747;
-	b=nH9bTPFyMQV3gsCxEh84T5jzEnvuui6jRbt2UPfolSq/JUEP9Wompbrs+ueJBYUY6/sB
-	 S9AaDokfF68bZiWGABjjRSHCwFP1dSXn67sf1GQnUcsRRpqHDHd4bgdgeyt6jPoQAtquK
-	 2HohEDIbmoEtRMBuacUXEjdLqToHtwHDTNoEg14VkXMaAgWPuOGTzCKmoX2bhrG10F7ui
-	 nboY+5UYPFzCBooVbYU1eDi3hKmNFAPLMzTdegbubWu1ChlRx3tEXcdhMx67OVGpoRaNT
-	 NdgoOFy8HihytpVfrqKiiFEpCwFg/GMnBJkCSG2yEcNS29GwxZ9zA5/npPACgjXzHEg==
+	t=1795615825;
+	b=C2Ea53OqY+Y8wVOi1uLkHtAZclO7Wyp2k7lggIduxrt1fiPqx+eXcW3K5pAlOfW4qf1G
+	 9C/e4u/A9wRzL7zf+TCODDZQ49ewquCkvTFiEDEK1ruQr3U2qGkQCdFOI9Dlh3FWFjLdI
+	 xHT/S7ExX0enOyylkkqSYPQovJZgVYf2vJA+kiEjafiXg3Dnwz/3YxB96N0RWwOCF9PQi
+	 bJoTs5jW1pWi6Y22ydusJguEOsEN8aYYP/VFM5WCbHPUvp7R95kdoOkI1IwQCy/++0fpO
+	 LAocRRoEwfKiX2P8qLim4KaLVrVK5EzkrNbfh9DZkCJRoYXO0MYBWjY62aA1FnIiPNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795615747;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=jz2sHRDsgOMXF3loU1YmxXnucHr35J5ATz4a4wdGZ3Q=;
-	b=CC52NQv5ZslcV3sukZrids2IBLjqKZKbMrK68P77mzb0s2hxfeperus1IWkoYePtqv3R
-	 hx66k9IS/Sl4xpPPAlOsxRweCK2rhAyuBJ/qVY57C6P0fp5ekM1ndbvYQDVhHaKmgfFxL
-	 RlDKyRHESt4qZT/uMd+/5bCSHNrJFytSYt1XMY3ClSVMf5k1LZwguNvfMAauC9W58Gq52
-	 EHMf2pX65RNrmlpemjLUGr0lNmNSkZ+ZZXSpueyZAEo6C2QIjw3GABgvXIbw6o34hwzXD
-	 M1sf0S5WpAB2a9g/5AsSc8R2vuXoqe8frfJ+ICvk5V9ppRAXsL0v2/fEoJF3vdM/d2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795615825;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=u9SSYNv5gh6TzeVPoMYWvvKxu3judphYtRhULaZWPAg=;
+	b=w7uTlVO+BFMwsnYe6uaC224xPwhS8g5X1QkcGk8AWW6LQ3vYqubjD20YyhfaPh/oTjJR
+	 TmiKmfSBtj52wJoT7R9UoNnX59+UFvoK4byrb6d56uioV367bMuhS4VPctei+blyfRXLv
+	 YC6fA3v5FO2puNYRg2aDLw9eZzebzve88r4RAu8Z1LiV4RzHbte2N2TbcjcQ3MVLL0hZx
+	 Xu0/QUdex9a/fczBUgqLxfkwCTyyLMAImKeDVgHKQG/9NVxgOCrb1h0E712klsy0QM+Ot
+	 XMGnFa/xvDQNcswd8FuOo71MiLjR9rZ6uM2tkXExRZsWPeUr/9c/oKDpWOvVFAflhvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Rmv+X3om;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VX2YPsyn;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD6D2606A684;
-	Wed, 25 Nov 2026 14:09:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD6D2606A684
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22199606A31E;
+	Wed, 25 Nov 2026 14:10:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22199606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Rmv+X3om
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=jz2sHRDsgOMXF3loU1YmxXnucHr35J5ATz4a4wdGZ3Q=;
-	b=Rmv+X3om2pJLZjbViec4YOfYOp4GbVL63Eb/wDZqzErmWmqTDWX9J+kEKR2brz
-	3vhmCdP1hNl/V80V28SfFC9yPwQ/e/2T5GJp6my8w2eHhfwpYQQcuncJTvA/414p
-	xhUIIn8OcznrrJY1hj9Pc0L9r/BOY3IHYOCFJmovMtL8Q=
-Received: from [IPV6:2409:8900:1a90:8163:5fb3:f207:88ec:aa89] (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3NzLk6wZrijuIJw--.25119S2;
-	Wed, 25 Nov 2026 22:08:37 +0800 (CST)
-Message-ID: <29998421-6c86-4130-a3b9-57aec80bc327@163.com>
-Date: Wed, 25 Nov 2026 22:08:36 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VX2YPsyn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795615825; x=1827151825;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=GGGb/fI9GrCDO76JXsZ5ObRdwXbMZk36J1eFJvVKu9Q=;
+  b=VX2YPsyn/5XcS44DAmvUEJR3ah2BS1eTbqjONWarxo5a5iwZmehasowi
+   OHB1QJuIcwxZJS+rm74WKlk5zGnjj2c+oXRJuxfzfwrJnEEulxmGhzU1m
+   76JcDifiFtf/uzH/A4csVNiKse3lnxlzVJ/D/Sl1wlUUIPxqFttDVD9Gy
+   NvRYmH3wXZqfnOzxINzdkIxzRo51mnz3idmnWClvpH6zMgp39eq4akU/M
+   K4Jo6fqZuzW0bQwKq7Ye/g5eLSnOKBI4xo/EmKkJ9w/nwiuKkJor71t0H
+   pghaXiGnlGZ+gk89Hwtoqzxy0WSSbEr3Vh3KbWj1ylHy5XSNN41uEUAi3
+   g==;
+X-CSE-ConnectionGUID: MfoZQMMlSMuLCLYBLYLoFg==
+X-CSE-MsgGUID: 8TKlZV5kRRmty7teCQwL0Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4575832"
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="4575832"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 06:01:55 -0800
+X-CSE-ConnectionGUID: ehpr+mSNS1G0q/hSzA4X+g==
+X-CSE-MsgGUID: CgRsuseOSqyK+N3YNhZ+0w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="12199585"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.73])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 06:01:51 -0800
+Date: Wed, 25 Nov 2026 16:01:49 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: GaryWang <is0124@gmail.com>
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Thomas Richard <thomas.richard@bootlin.com>,
+	Daniele Cleri <danielecleri@aaeon.eu>,
+	JunYingLai <junyinglai@aaeon.com.tw>,
+	Louis Chen <louischen@aaeon.com.tw>,
+	BillyChou <BillyChou@aaeon.com.tw>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/5] upboard pinctrl support for device id INTC1055 &
+ INTC1057 & INTC105E
+Message-ID: <awbqTVUWZg3c8kfc@ashevche-desk.local>
+References: <20261125-upboard-pinctrl-add-intc1057-intc105e-support-v2-0-c8079f8f569f@gmail.com>
+ <awXJd59jTHM2bIlD@ashevche-desk.local>
+ <awXKVXS0kIGnA0lD@ashevche-desk.local>
+ <CANYHO6q7Cx1ah7cJMfyeu83v80VAFcx-2TQNNWM6kNSv0zB7pg@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,76 +90,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] ntfs: read initialized_size under size_lock in the
- mmap prepare path
-To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- zhongling0719@126.com, stable@vger.kernel.org
-References: <20261125073547.154150-1-zenghongling@kylinos.cn>
- <20261125073547.154150-7-zenghongling@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20261125073547.154150-7-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3NzLk6wZrijuIJw--.25119S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KryfZFW8uFWfZw1kXr1UZFb_yoW8Cr4xpr
-	nIg3W5C395Zryjkwn3Kw45XFWFg3WxGw4UWw13uw17ArZ5Grn0gF15trWrWF48trsavw40
-	vr1DJw1xu3WDJFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Ugo7_UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6gWQW2sG6+UIlwAA3Y
+In-Reply-To: <CANYHO6q7Cx1ah7cJMfyeu83v80VAFcx-2TQNNWM6kNSv0zB7pg@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Wed, Nov 25, 2026 at 09:58:53PM +0800, GaryWang wrote:
+> On Wed, Nov 25, 2026 at 1:34 AM Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> wrote:
+> > On Tue, Nov 24, 2026 at 07:29:32PM +0200, Andy Shevchenko wrote:
 
+...
 
-在 2026/11/25 15:35, Hongling Zeng 写道:
-> ntfs_file_mmap_prepare() reads ni->initialized_size without the
-> size lock when deciding whether a shared writable mapping needs
-> its initialized size extended before the faults start. The field
-> is published under size_lock, so the read is a data race on the
-> protocol the other readers follow: a stale low value causes a
-> redundant call that __ntfs_extend_initialized_size() re-checks
-> under the lock, and a stale high value skips the extension and
-> leaves it to the write faults.
-> 
-> Take the snapshot under size_lock like the other readers.
-> 
-> Fixes: 9c87959601e8 ("ntfs: update file operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> ---
->   fs/ntfs/file.c | 8 +++++++-
->   1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-> index 70a86d6fee6b..1f08fe679a86 100644
-> --- a/fs/ntfs/file.c
-> +++ b/fs/ntfs/file.c
-> @@ -1044,14 +1044,20 @@ int ntfs_file_mmap_prepare(struct vm_area_desc *desc)
->   
->   	if (vma_desc_test_all(desc, VMA_SHARED_BIT, VMA_MAYWRITE_BIT)) {
->   		struct inode *inode = file_inode(file);
-> +		struct ntfs_inode *ni = NTFS_I(inode);
->   		loff_t from, to;
-> +		loff_t initialized_size;
-> +		unsigned long flags;
->   		int err;
->   
->   		from = ((loff_t)desc->pgoff << PAGE_SHIFT);
->   		to = min_t(loff_t, i_size_read(inode),
->   			   from + desc->end - desc->start);
->   
-> -		if (NTFS_I(inode)->initialized_size < to) {
-> +		read_lock_irqsave(&ni->size_lock, flags);
-> +		initialized_size = ni->initialized_size;
-> +		read_unlock_irqrestore(&ni->size_lock, flags);
-> +		if (initialized_size < to) {
->   			err = ntfs_extend_initialized_size(inode, to, to);
->   			if (err)
->   				return err;
+> > Also you ignored my comment about how this series is supposed to be applied.
+> > Intel pin control drivers are maintained by me. The rest by Linus. People
+> > won't go through the code to understand if there any compile-time and/or
+> > run-rime dependencies between parts.
+> >
+> There are no compile-time dependencies for each file.
+> All pin groups/functions data will forward to set default when pinctrl
+> upboard probe.
+> It shows an error when run time dependencies are not mapping to right
+> groups/functions.
 
-Looks good to me.
+Okay, make sure you put a summary of this into the cover letter of v3.
 
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
