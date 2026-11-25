@@ -1,60 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795591737;
-	b=5U3fwPLVLaPWjGyKR6giQkOUEgKAXcxt2RcsarcViXIVHZoNXgZYsFE63Hj2S8nknE/7
-	 QYmpfwq3z3VQpKOQq/yeHzxehb5McoCh73stTC/yP7PgVFFQ11PxjHRHPOuKHGzg+8sBV
-	 ByjpH7Wri7TfIFVF0pVSRct7a6hWqTh3fvposwUnHZFYHgY+nynOwgWvzIcb2hALbSAMS
-	 nb6MzwyEBtuYfyEgYd5cnX8dUspWEOfdguXSrvT1Rdh2Hy4w1JsOenYJeBr6VfYPcdnqf
-	 TxxlCT+MwSIBYw60uFXkK7VYPSqOPlPLGbD4Y8xBkBjnaBN71HrKNEcgd0PPxauWaYw==
+	t=1795592161;
+	b=l0/UgdgNCw91CfLqgpQBnHUgRsNvJy3LEqlR6HUILJhWpp9KbVlIi4gx2UdujYSNO5a+
+	 LvJmJFHkftCRpluY0BnixhgbLWXW/bT7SuhT3BAiI8iriJPV2AF+H8rfON/jv2FRjshV6
+	 ZDd6W3zslgcNtC4nfpNw3inFI1t/zpMkXCWsscizFeqKdjje7oBmT9MuOYTwRO6sXzXVq
+	 9Dgabu+wLpTMS2Gh7lFn/NZOQ3QWuJD9AxGLphKEJrEJlmZjeaHmF7lqV1MtrhGKMyEL6
+	 28K1HbYJSfkM3HJWHxDUsC7sz9TOFJmDvZk6L38fek09CBOskIcnI2GDnBZ4qZyvPnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795591737;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Date:From:To:
-	 Cc:Subject:Message-ID:Reply-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=J/SBvBXFi8GMnR3nIyKcHK3QnWViRP9ScHpg6onFgeY=;
-	b=cYbvsDVzmXVhqsMNIODK5OZ5YLkYrck0BPVyI9QZdSFtWAeh/GPsErmQR6QTfULMPYsX
-	 SQ/QciKYPo/eqyPAzOdiSKyejiP8GDEWg0iWYw4CqpKjhFp89aehKExjYzApdIpYrNoMN
-	 162rFYkR9sFrT/oOujW0ITyuqncmZwepnS25yqd44fCKIlk8/N4hUkXMeIiKZuvrJK+iQ
-	 I2bjthMJtyyCXkdjBN5vy4wEsnAi7jt+THByhHzQUs45mIsxghgv7xcW1CJLMMZozlgUh
-	 CiXeMPEDeq+3/Xp1z07sk8pY8f3pfKwR+x4/ylrwWGow8npq2hRKUpR9/vp764KEhgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795592161;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=11nUhNXSFqSohdNj+iplx2PDia7R/4rv+wO5nWYuzGw=;
+	b=zxFI6eV3pDJ+f27VtvXQryub3dvRS7FTIcC0mTHp/HT/sq1CGhI94YFEPBX52Y7EA01h
+	 l9jTt2NFEWBJEXrCV2WmFLRUTqnwqIcleOzWnBE4IzJqNh4nUlc1g1CeuUycZetEPUdRu
+	 1gbov6YTPZxE4pqHSW2/DbL6NMDN2yFo5oBY8mMfXdfPL2DUicafbiXmPd8heGppCHLyN
+	 ZetnO7stWd+msggxqMOddb2St/Ii8NjeDkjry0lspjGvJScXji/vunu/hjkGxs+oE8bse
+	 rf6uaMusx6bUQkBGK4ZcURoV6uDAynvWihwtp/7nw423N04+Zqugc0YLFrYxQV61HIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=IPKz0iOe;
-	arc=none smtp.remote-ip=115.124.30.124
-Received: from out30-124.freemail.mail.aliyun.com (out30-124.freemail.mail.aliyun.com [115.124.30.124])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BAC8606A31E;
-	Wed, 25 Nov 2026 07:28:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BAC8606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=IPKz0iOe
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1795591733; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=J/SBvBXFi8GMnR3nIyKcHK3QnWViRP9ScHpg6onFgeY=;
-	b=IPKz0iOekrNIdyUp+SxxgKBSQ+H96vzJjASZeKP24JQTNQanD6T6pAd8gFwa04GjSHaucczObNvZ/34M5r38x4CpjUFd0Dsb5YOcLrg4ayxCcjk6NEILUgUTYxl0P2ctHthIJPzRtGpOUDXA3AS6Q1NQplE2PqFkNiHUus9ndVU=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R401e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XFQu255_1795591731;
-Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0XFQu255_1795591731 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 25 Nov 2026 15:28:52 +0800
-Date: Wed, 25 Nov 2026 15:28:51 +0800
-From: Dust Li <dust.li@linux.alibaba.com>
-To: Mahanta Jambigi <mjambigi@linux.ibm.com>, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, alibuda@linux.alibaba.com, sidraya@linux.ibm.com
-Cc: hidayath@linux.ibm.com, pasic@linux.ibm.com, horms@kernel.org,
-	tonylu@linux.alibaba.com, guwen@linux.alibaba.com,
-	netdev@vger.kernel.org, linux-s390@vger.kernel.org,
-	linux-rdma@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] net/smc: fix sock reference leak on abort_work cancel
-Message-ID: <awaOMz-oWIw4CZ9d@linux.alibaba.com>
-Reply-To: dust.li@linux.alibaba.com
-References: <20261124073602.2341904-1-mjambigi@linux.ibm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D48A2606A329;
+	Wed, 25 Nov 2026 07:35:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D48A2606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: d7f9cb98e8a211f19a56ed5b684f684d-20261125
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:7d9a3554-ca4b-44b8-854b-5d7c7eade026,IP:0,U
+	RL:0,TC:0,Content:0,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:7db8b62,CLOUDID:018b4539a730a144e05d4dbcfd6dc04f,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
+	9,EDM:2|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OS
+	I:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: d7f9cb98e8a211f19a56ed5b684f684d-20261125
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 915519103; Wed, 25 Nov 2026 15:35:53 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com,
+	liubaolin12138@163.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/6] ntfs: roll back the size update when the attribute lookup fails
+Date: Wed, 25 Nov 2026 15:35:43 +0800
+Message-Id: <20261125073547.154150-3-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261125073547.154150-1-zenghongling@kylinos.cn>
+References: <20261125073547.154150-1-zenghongling@kylinos.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,26 +74,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261124073602.2341904-1-mjambigi@linux.ibm.com>
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-24 08:36:02, Mahanta Jambigi wrote:
->smc_cdc_msg_validate() takes a reference on the socket before queueing
->conn->abort_work, and smc_conn_abort_work() drops it when it runs. When
->smc_conn_free() cancels the work while it is still pending, for example
->because a close races with a failed CDC validation, the handler never
->runs and the reference is leaked, so the SMC socket is never freed.
->
->Drop the reference when cancel_work_sync() reports that it cancelled a
->pending work.
->
->Fixes: b286a0651e44 ("net/smc: handle incoming CDC validation message")
->Cc: stable@vger.kernel.org
->Signed-off-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
+ntfs_enlarge_attribute() truncates the attribute to the end of the
+write before looking it up again, because the truncation can move the
+attribute to a different mft record. If that lookup fails, the error
+is returned but the attribute stays at the extended size, so a failed
+write extends the file.
 
-Reviewed-by: Dust Li <dust.li@linux.alibaba.com>
+Undo the truncation before returning the error. If the rollback fails
+as well, mark the volume as having errors and synchronize i_size with
+the current data_size instead of the old snapshot.
 
-Best regards,
-Dust
+Fixes: af0db57d4293 ("ntfs: update inode operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+ fs/ntfs/inode.c | 48 ++++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 46 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+index 4fbdcd459652..7d7bb741455e 100644
+--- a/fs/ntfs/inode.c
++++ b/fs/ntfs/inode.c
+@@ -3842,8 +3842,19 @@ static inline int ntfs_enlarge_attribute(struct inode *vi, s64 pos, s64 count,
+ {
+ 	struct ntfs_inode *ni = NTFS_I(vi);
+ 	struct super_block *sb = vi->i_sb;
++	unsigned long flags;
++	s64 old_data_size;
+ 	int ret;
+ 
++	/*
++	 * Snapshot the old data_size under size_lock: it is the rollback
++	 * target, the other sizes are updated by ntfs_attr_truncate()
++	 * itself
++	 */
++	read_lock_irqsave(&ni->size_lock, flags);
++	old_data_size = ni->data_size;
++	read_unlock_irqrestore(&ni->size_lock, flags);
++
+ 	if (pos + count <= ni->initialized_size)
+ 		return 0;
+ 
+@@ -3853,7 +3864,7 @@ static inline int ntfs_enlarge_attribute(struct inode *vi, s64 pos, s64 count,
+ 	if (NInoCompressed(ni))
+ 		return -EOPNOTSUPP;
+ 
+-	if (pos + count > ni->data_size) {
++	if (pos + count > old_data_size) {
+ 		ret = ntfs_attr_truncate(ni, pos + count);
+ 		if (ret) {
+ 			ntfs_debug("Failed to truncate attribute");
+@@ -3865,7 +3876,40 @@ static inline int ntfs_enlarge_attribute(struct inode *vi, s64 pos, s64 count,
+ 				       CASE_SENSITIVE,
+ 				       0, NULL, 0, ctx);
+ 		if (ret) {
+-			ntfs_error(sb, "Failed to look up attr %#x", ni->type);
++			int rollback_err;
++
++			/*
++			 * The truncation already happened, so undo it
++			 * before returning the error
++			 */
++			rollback_err = ntfs_attr_truncate(ni, old_data_size);
++			if (rollback_err) {
++				s64 current_data_size;
++
++				/*
++				 * Rollback failed, the sizes may be
++				 * inconsistent. Mark the volume as having
++				 * errors and sync i_size with the current
++				 * data_size
++				 */
++				read_lock_irqsave(&ni->size_lock, flags);
++				current_data_size = ni->data_size;
++				read_unlock_irqrestore(&ni->size_lock, flags);
++
++				i_size_write(vi, current_data_size);
++				NVolSetErrors(ni->vol);
++				ntfs_error(sb,
++					"Failed to look up attr %#x and "
++					"roll back the size update: %d",
++					ni->type, rollback_err);
++			} else {
++				/*
++				 * Rollback succeeded, the sizes were updated
++				 * by ntfs_attr_truncate() itself
++				 */
++				ntfs_error(sb, "Failed to look up attr %#x",
++					ni->type);
++			}
+ 			return ret;
+ 		}
+ 	}
+-- 
+2.25.1
 
