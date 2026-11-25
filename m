@@ -1,67 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795600138;
-	b=0Vr8DRHKel2qWTBVo/9yDFWU6qTh3xYC9PGSi1Cudu8CW2Sf4gVaSUjaXslQTmGXtWB2
-	 VYqH3razgBq6/qqMPDGMUjOB6Tzy5r1SAmSixwfgdp1/iXWvYYNaZOK3QameLN/wSpvBy
-	 SxjSkzAMHFppeo5LGIe/UYAqGOj/DaJVLuVPLcQtEHE3ory9ku3O17iYoDRkju//OL6pk
-	 /tMVfb+eNsztjsVOMXy35dATBXB9FY4r6RvRzR2fPlqhg39PqdeyBk7WI++UaR5nF4YGy
-	 lRphTW8XQlQKOZXbi6x8cUjS8HKibx+lRQCuVyTYrpHFbPIJ7GpJXl/iva0/RD+jJbw==
+	t=1795600218;
+	b=okpMw/t33Lczcp+aberhgfqKSPGRUbQhq8xgbgodFvMJnqi5/5BGJeVb1L8tdpryPMQ8
+	 Zy66XS90cGjUzBoPPZO+EA5Dkdem/4kcBMGFtmO5N/GNhrlZP4liCM/+ixg+P/hpLeiau
+	 pAScF2F5VDaK2TDtk9DyNDwNAc+IF1YYd6YEZNq8c0mh79ZfcGbSXIaXqk+nP2EQcLDQz
+	 Yu7dfQE/BR21VoB56rxNvyBdxV2Gl2wmmquNA+twzNtVaEwsRMGTrEzgPepIuVwokSnUf
+	 DxTwnRuQKx0uPFXL2cmFrpr9B3cdwGepkAtvwCnS0iiuLHRy4IdmSjVyGsEqJDsnOEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795600138;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:X-Last-TLS-Session-Version;
-	bh=hSrZ7TU1SA/f7pgNCA+lRSXARyll9PDrfkSwUDqb5bQ=;
-	b=ZSCX83zXnjytR2OueVwWrqse/b3HRiir+FXK2prea9l04SYjRuwNMFv/1/z0noEHSKOO
-	 6mnVXk8aJGZh13GboidxR1b9asDXjgABizCeoO2bSEBBuBYwHL9ZPSpUTdnby9oIXRw/9
-	 6j2fcfZyoEwEWIiHrlXrcx/F9GG903nyaEHwmAkJBAX89Ctv9LGatX3Tdz0s3SEohh0rJ
-	 I4kDP1O2KKmsRf3iIDwbed+Rpbn66p6jFAAXbgPAx7HurcV/ausvBjrkxfvUXeCkpIbQP
-	 L3dNQ32RvuUurq8w4Ao66OT4e75R7otMciwHYtRhIASUg+6Yzpz6HLFlSSTxZ2C+3yA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795600218;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=+GyNRtfZ/Gg5nfOosKfBbKBMYuMaQdy/cTWEDlpckSg=;
+	b=PuremZpvPjQ9Am3K8nLlWoQMVjFDxOPG3zHrybpDP2aP9T0iW6MhR+Yl7S/k54RsxtnH
+	 BGAox0NZZ8RclISSZnQqHv73ErKTj1n3uBS11uesYvsSBlGpxeNTASHVc6i3dJj8ATXCh
+	 8kswQxyWtump0HN/wwgnH25ghOKL9R1Fu2j7Hwi6fBPIfGvmRgBM+e9ONyGdEpCkoI34S
+	 mF4US+bJkAFOl3+SQPwK5XUOqZXs342VRw8p+ZGf2Kkp9CR7KfEfVI2nUGqp4WEaXVmhe
+	 fmhJJVUCRVB2bWfo52HMgPStlDlwlQKwHVq7t24BZmQh8fVZCqZzcVz63c4xnbSqr9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=TOy6dma9;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=Y6deO8Fg;
+	arc=none smtp.remote-ip=115.124.30.97
+Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A4D606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:48:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59A4D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE403606A32A;
+	Wed, 25 Nov 2026 09:50:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE403606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=TOy6dma9
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 0477F4E41778;
-	Wed, 25 Nov 2026 09:48:49 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CDBA860480;
-	Wed, 25 Nov 2026 09:48:48 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0511711E68BFA;
-	Wed, 25 Nov 2026 10:48:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795600128; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=hSrZ7TU1SA/f7pgNCA+lRSXARyll9PDrfkSwUDqb5bQ=;
-	b=TOy6dma9VN72lEIA2mOsMYgGMAErfdIoRSZWSmuR3sNQ/r++AKHH05xX7wZHyXoTzYrP0d
-	MJgyYXafYAVyeXfaszWG3DVaRCGADyJJ+4TLGN6ruQ85uytHsqBsKcwLYeTxGBG3VAOsZL
-	LS6Xi9SMbtpuqisidOW7XHsETfWUbdIhgHf4bS9/y5e1+DgUY9TYE5o21jFdhrSfDT7M13
-	Wvbupi7nG4/gHDEBgd8w1CIMPdIi/DNe1K8Wl6JVfEDweAcvti+VkCjnPPcOZm0b86y8WY
-	mELRLcph9h+AgI5+T0RBPy5C2rL4s4x0GkJaRRRzNsMzevrdT+evzz8ty6xB3w==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Ping Li <leeonion.muyu@gmail.com>
-Cc: richard@nod.at,  vigneshr@ti.com,  linux-mtd@lists.infradead.org,
-  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] mtd: rawnand: r852: declare NAND_USES_DMA
-In-Reply-To: <20261125092538.1938516-4-leeonion.muyu@gmail.com> (Ping Li's
-	message of "Wed, 25 Nov 2026 17:25:38 +0800")
-References: <20261123070440.3060882-1-leeonion.muyu@gmail.com>
-	<20261125092538.1938516-1-leeonion.muyu@gmail.com>
-	<20261125092538.1938516-4-leeonion.muyu@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Wed, 25 Nov 2026 10:48:45 +0100
-Message-ID: <87o6bdz1fm.fsf@bootlin.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=Y6deO8Fg
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1795600213; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=+GyNRtfZ/Gg5nfOosKfBbKBMYuMaQdy/cTWEDlpckSg=;
+	b=Y6deO8FgNllLxoFH3+M27EDXm1UclgpprBtkzeh5Uspf0m75FWhZe4I/Ch15MxInvQSsVMS0WTLPRyGVV5qwOp8zIAo1+792tP+z3aM9Pq7fzNSAwFHBt8zmfuoNIznHltQF/nIO5X01wfIYIAWcCzMtc3680mtXazPgY5hBYuM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=fengwei_yin@linux.alibaba.com;NM=1;PH=DS;RN=19;SR=0;TI=SMTPD_---0XFRAeUe_1795600210;
+Received: from U-V2QX163P-2032.local(mailfrom:fengwei_yin@linux.alibaba.com fp:SMTPD_---0XFRAeUe_1795600210 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 25 Nov 2026 17:50:12 +0800
+Date: Wed, 25 Nov 2026 17:50:10 +0800
+From: YinFengwei <fengwei_yin@linux.alibaba.com>
+To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	James Morse <james.morse@arm.com>,
+	Jinjie Ruan <ruanjinjie@huawei.com>,
+	Vladimir Murzin <vladimir.murzin@arm.com>,
+	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Liao Chang <liaochang1@huawei.com>,
+	Ashok Raj <ashok.raj@oss.qualcomm.com>,
+	Doug Anderson <dianders@chromium.org>,
+	Pengjie Zhang <zhangpengjie2@huawei.com>,
+	Cong Wang <cwang@multikernel.io>, kernel-team@meta.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] firmware: arm_sdei: Do not signal event 0 to a
+ masked PE
+Message-ID: <awavUsKX4XLRMbUq@U-V2QX163P-2032.local>
+References: <20261124194707.1030653-1-kas@kernel.org>
+ <20261124194707.1030653-2-kas@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,26 +74,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261124194707.1030653-2-kas@kernel.org>
 
+Hi Kirill,
 
-> +	/*
-> +	 * r852_do_dma() feeds the buffers provided by the NAND core
-> +	 * straight to dma_map_single(), so ask nand_base to bounce
-> +	 * non-linear-map buffers.  The local bounce in r852_do_dma()
-> +	 * is still needed for the hardware's 512-byte alignment
-> +	 * requirement, which the core condition (chip->buf_align,
-> +	 * default 1) does not cover.
-
-Can't we change the default for this chip then?
-
-Please drop this comment after fixing that, it is not useful, this is
-information that should belong in the commit log.
-
-> +	 */
-> +	dev->chip->options |= NAND_USES_DMA;
+On Tue, Nov 24, 2026 at 07:47:04PM +0000, Kiryl Shutsemau (Meta) wrote:
+> The SDEI NMI backtrace signals event 0 to every other CPU, idle ones
+<snip>
+> +static void sdei_block_signal(void)
+> +{
+> +	struct sdei_pe *pe = this_cpu_ptr(&sdei_pe);
+> +	unsigned long flags;
 > +
->  	r852_engine_enable(dev);
+> +	/*
+> +	 * A panic from an SDEI event or a pseudo-NMI may have left the lock
+> +	 * held by this CPU. The CPUs that could signal it are stopped by now.
+> +	 */
+> +	if (panic_on_this_cpu()) {
+> +		WRITE_ONCE(pe->unmasked, false);
+If the panic didn't take the lock, should lock be taken
+just like "else" path?
+
+> +	} else {
+> +		raw_spin_lock_irqsave(&pe->lock, flags);
+> +		WRITE_ONCE(pe->unmasked, false);
+> +		raw_spin_unlock_irqrestore(&pe->lock, flags);
+> +	}
+> +
+> +	sdei_wait_in_flight(pe);
+> +}
+> +
+>  static int sdei_pm_notifier(struct notifier_block *nb, unsigned long action,
+>  			    void *data)
+>  {
+> +	struct sdei_pe *pe = this_cpu_ptr(&sdei_pe);
+>  	int rv;
 >  
->  	if (sm_register_device(mtd, dev->sm))
+>  	WARN_ON_ONCE(preemptible());
+>  
+>  	switch (action) {
+>  	case CPU_PM_ENTER:
+> +		/*
+> +		 * Leave alone a PE that is masked already: before
+> +		 * sdei_cpuhp_up(), or after sdei_cpuhp_down(), as cpuidle runs
+> +		 * until CPU_OFF. CPU_PM_EXIT must not unmask it.
+> +		 */
+> +		if (!pe->unmasked)
+I am wondering whether READ_ONCE() should be used here?
+
+
+Regards
+Yin, Fengwei
+
