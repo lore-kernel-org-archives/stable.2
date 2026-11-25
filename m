@@ -1,55 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795636974;
-	b=Ackq8c7sw8ckEGsxafJz/jLgxGPIJTBunhzh1xSgameEvLvTkczd7S/R3hRZk6Wacslx
-	 HZoNEZ0/J4EI+js2ToYtfoxYx8IGn8RCrN7guii57KiGt6YINk44JNqlBYBehIlaLLPDt
-	 tAi+S5MqXjeAPLUpRvdkBn0wHEPdbnbuEm1YOAcg3Z9B8gxN1pCWE59Kl2GnlxtGHczec
-	 T1FODFm5xeFhw0PmygmgbHLsvwlp1x11nBRcKkgxiARb8/RIHVtu8MKrkh7ecdOVUJlkt
-	 tKyAFSMR8JBe2n6J284UB4rmM0C3tpYV0ILK1Jgc9lQ6cbcgqXU2STpu0cUZPLH9BSg==
+	t=1795636999;
+	b=OWO9AW42p4iVKPqIug+tAjcPy5i8Nk263HUacC3+SL1efz5TU12BBn0WWBUwT9UorXP2
+	 PzpyVg0MZs9flYni5OGS8VAD5RP1Gjq7RSL/BcUEZeHqmcuc8c6it/xE/k2lLbQe60Fzf
+	 Rshm4VUxAhBp2D028pSOQuNbwRbfforjIbOrRhlrcnF1s2gv8oFREO5vrRneV7sHjV6bd
+	 5uiGWaGOxFKmzLLEHa6mpkrD6rVE9+qt01SzoIal2jVjI69Wqow0kDZMp5CqH5iX0E7l+
+	 lik62i5oHa4aEbvXdzeSoz3x20bdHYHpwUI/nNdoTpXN+4ouNy7IQkgOaMZDju9VlEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795636974;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=nddjdLCP0YLzOYcBbWjfgiZItB/URDyG+AYXga+UDtM=;
-	b=U+3c+Ud1WTFDAUhT0ANbzthwAX7gDuOcU8SpvNN3fzrIJ1/v7iKSCy6I9tGpBPUaRPVF
-	 xUoC7EmSWiKJR0YfuNKNjpr0gQgYFNWXZsVQKf6bpeuQpo5HJf2GenpWeUn6mQLkFYQph
-	 2dwVmJgmKo7uEXcu4wA93imOIWwG2NG+B01VqXaeDSAXQUeG0G5ZeiYZorNsGAa5vMKf1
-	 8FjUp1uZMA5L5nSi0gYM98UYpRzACUlL1ALEyZskU6TKvPBDmjdRtf2GznLnW/mfSYfiu
-	 ezTd857PW2W6sGCqslPeq75BAVGpHxMP17gdyjcaSJpE4vdk1C24PtvXC5ab1rynGmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795636999;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=A5nggYVq+8giAUpJT5r3lz72dFn0AiuWFrRV6uAF0kA=;
+	b=0AUcr0dgxQxBHvwwqEvqzn9163CDp9nG138tgPQb3Ou4y0hYDEW7KVrgkO+F0uozq4bX
+	 +3tgnwa4L7cLeNLHXlpf6lvzBpXcFqEJ+W04qvOp7UYXDh6Mf+xsPxiaDGiOmw5QZ3bvy
+	 Y3n5XuAMscNV+7neLIm0NeLetQE9XBaK3KolP4ueBJjc04hNcPbnDuBxYsk4gTOcdqYo7
+	 ZM48hQgc9JA0YsUKnLU3mZ+2WjDegRajCWKvLGeVa8PklyBNSUI6gNoHKdJldvVLjzPrr
+	 8NlJOHqSFVySVvYp7HCTobrzpvJ2tWjp4EcmkBIhgZvJseMOLQT7tOMkAeNT5ePrK4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h76d82MJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OcYoE0Lp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A0B606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:02:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE31606A31E;
+	Wed, 25 Nov 2026 20:03:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h76d82MJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831871F000C4;
-	Wed, 25 Nov 2026 20:02:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OcYoE0Lp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5621F000C0;
+	Wed, 25 Nov 2026 20:03:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795636974;
-	bh=nddjdLCP0YLzOYcBbWjfgiZItB/URDyG+AYXga+UDtM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=h76d82MJo+Gk9lv6ODmqgO5cYMkBGcx1w6dSGJcOtavrGreAlB68t962j3WOaTHoF
-	 KQ0c289a/PCGE6rRsmx4s52IEbQXOLgSl1TnQ/ozo1l+n/8IBh31p4zKPjGxerzaLe
-	 RyrU25gkxhY0ilm2GkEi6qjIkbanJC9zAUOaPmTqeXob3fNPWx5Qoqsh9teGjq/l2B
-	 wk7MfQ6l3DUTChKiKMuqqUdFKHelGYv/6F32BCfh4qqeC+LtE++0yeRJuTzSvu60VJ
-	 uW9aE39GXHSwYKoKemFeaS9mtqPcOAZs136k+2xdEGVHN2mc4gGWEnAMYlfJLSRFwA
-	 SuI1hO0IHTxUQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ian Bridges <icb@fastmail.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ksmbd: skip metadata-only opens in sharing checks
-Date: Wed, 25 Nov 2026 15:02:52 -0500
-Message-ID: <20261125200234.1346061-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112534-ecosystem-blanching-c903@gregkh>
-References: <2026112534-ecosystem-blanching-c903@gregkh>
+	s=k20260515; t=1795636998;
+	bh=A5nggYVq+8giAUpJT5r3lz72dFn0AiuWFrRV6uAF0kA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OcYoE0LpMA0MY8ILZ0Ho+IuI9QGNvJilswpaMoS4wS/KCLSN/ZJu3lKMPrx9Yednv
+	 NW2hZsfEr5YHIF44Yv9djyKjZvg5THecugBnDJ9wPEIF8ejjzbIc/FFG8Jpw311Aet
+	 4zuZbaK+2FlNA6n5iBzFxYYfiOE8Kpb6P7Iix1XOfjVzJLT3+Ex+2YOOvUv7SUc407
+	 3TvwZxKK7SH/YTVD2BgRvrbjwZBwKGKWzLaZage9DVR3SEOcoPN8a5534K5BmO6nHr
+	 sXZX8pHoUU9RXVg63EeFKD7r6w3nk/N/zzWOWCK6kVL7NSxEaJTImmBt0b1QVDQYxS
+	 PnoRrPk+/LzVQ==
+Date: Wed, 25 Nov 2026 13:03:11 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH v3] sched/topology: Avoid unsequenced accesses to jiffies
+ in sd_init()
+Message-ID: <20261125200311.GA3625068@ax162>
+References: <20261125-topology-wunsequenced-v3-1-efa3db7e0bf8@kernel.org>
+ <20261125094643.GY2668804@noisy.programming.kicks-ass.net>
+ <CAKwvOdmyGdn4ES6Ku+Yovd7a5imzmtmYtd7KB=OMCqKpv1X8rg@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,220 +69,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAKwvOdmyGdn4ES6Ku+Yovd7a5imzmtmYtd7KB=OMCqKpv1X8rg@mail.gmail.com>
 
-From: Ian Bridges <icb@fastmail.org>
+On Wed, Nov 25, 2026 at 11:32:31AM -0800, Nick Desaulniers wrote:
+> On Wed, Nov 25, 2026 at 1:46 AM Peter Zijlstra <peterz@infradead.org> wrote:
+> >
+> > On Wed, Nov 25, 2026 at 12:23:35AM -0700, Nathan Chancellor wrote:
+> > > Clang's warning is ultimately pointing out that jiffies may have two
+> > > separate values in this initializer because it is volatile and accessed
+> > > twice and the order of these accesses is not specified. This could
+> > > result in unexpected or inconsistent behavior depending on the code
+> > > author's intent and whether they realized the variable was volatile or
+> > > not.
+> > >
+> > > As two separate accesses is not necessary here, add a local variable to
+> > > hold the value of jiffies before the designated initializer so that a
+> > > consistent value is used for initializing both members, clearing up the
+> > > warning.
+> >
+> > None of this tells me why we should not just disable that warning and
+> > get on with life.
 
-[ Upstream commit 81fefb6c635489e71e286d1465b6dd1d0a27ceec ]
+See below, I believe this warning has general value (but maybe not
+here).
 
-A READ_CONTROL open without sharing can block later reads, writes and
-deletes even though it holds no data, execute or delete access.
+> (Could also do ugly pragma's around this code;
 
-Keep the existing attribute-only exception. For other pairs, require
-both effective access masks to hold one of those rights. MS-FSA
-2.1.5.1.2 grants FILE_WRITE_DATA when an open overwrites a file or
-stream, or creates a named stream on an existing file. Use that granted
-access for sharing checks while keeping the requested access on the
-returned handle.
+Comments could obviously be adjusted.
 
-The Time Machine AFP_AfpInfo synthesis keeps its requested access.
-ksmbd implements FILE_SUPERSEDE by truncating the file, so count it as
-a write.
-
-This also prevents an overwrite from truncating a file while another
-open that holds data, execute or delete access does not share writing.
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: Added the stream_created and implied_write handling to the 6.12 code, with adjusted context for missing later features, a non-const idmap pointer, and the existing unlock helper. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/server/smb2pdu.c    | 30 ++++++++++++++++++++++--------
- fs/smb/server/smb_common.c | 34 +++++++++++++++++++++++++++++++++-
- fs/smb/server/smb_common.h |  5 +++++
- fs/smb/server/vfs_cache.h  |  2 ++
- 4 files changed, 62 insertions(+), 9 deletions(-)
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 115960cc93994..20ef4478a14ea 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -2548,7 +2548,8 @@ static int smb2_set_ea(struct smb2_ea_info *eabuf, unsigned int buf_len,
+diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+index 99878da03bce..729171ccc9b2 100644
+--- a/kernel/sched/topology.c
++++ b/kernel/sched/topology.c
+@@ -1973,6 +1973,9 @@ sd_init(struct sched_domain_topology_level *tl,
+ #endif
+ 	sd_flags |= asym_cpu_capacity_classify(sd_span, cpu_map);
  
- static noinline int smb2_set_stream_name_xattr(const struct path *path,
- 					       struct ksmbd_file *fp,
--					       char *stream_name, int s_type)
-+					       char *stream_name, int s_type,
-+					       bool *created)
- {
- 	struct mnt_idmap *idmap = mnt_idmap(path->mnt);
- 	size_t xattr_stream_size;
-@@ -2586,6 +2587,8 @@ static noinline int smb2_set_stream_name_xattr(const struct path *path,
- 	rc = ksmbd_vfs_setxattr(idmap, path, xattr_stream_name, NULL, 0, 0, false);
- 	if (rc < 0)
- 		pr_err("Failed to store XATTR stream name :%d\n", rc);
-+	else
-+		*created = true;
- 	return 0;
- }
++	__diag_push();
++	__diag_ignore(clang, all, "-Wunknown-warning-option", "Next warning might be unsupported");
++	__diag_ignore(clang, all, "-Wunsequenced-volatile", "Doesn't matter for jiffies");
+ 	*sd = (struct sched_domain){
+ 		.min_interval		= sd_weight,
+ 		.max_interval		= 2*sd_weight,
+@@ -2008,6 +2011,7 @@ sd_init(struct sched_domain_topology_level *tl,
+ 		.child			= child,
+ 		.name			= tl->name,
+ 	};
++	__diag_pop();
  
-@@ -3011,6 +3014,7 @@ int smb2_open(struct ksmbd_work *work)
- 	char *name = NULL;
- 	char *stream_name = NULL;
- 	bool file_present = false, created = false, already_permitted = false;
-+	bool stream_created = false;
- 	int share_ret, need_truncate = 0;
- 	u64 time;
- 	umode_t posix_mode = 0;
-@@ -3590,7 +3594,8 @@ int smb2_open(struct ksmbd_work *work)
- 		rc = smb2_set_stream_name_xattr(&path,
- 						fp,
- 						stream_name,
--						s_type);
-+						s_type,
-+						&stream_created);
- 		if (rc)
- 			goto err_out;
- 		file_info = FILE_CREATED;
-@@ -3598,10 +3603,22 @@ int smb2_open(struct ksmbd_work *work)
- 
- 	fp->attrib_only = !(req->DesiredAccess & ~(FILE_READ_ATTRIBUTES_LE |
- 			FILE_WRITE_ATTRIBUTES_LE | FILE_SYNCHRONIZE_LE));
-+	need_truncate = !S_ISDIR(file_inode(filp)->i_mode) &&
-+			open_flags & O_TRUNC && !fp->attrib_only && !stream_name;
-+	/*
-+	 * Count the FILE_WRITE_DATA that MS-FSA 2.1.5.1.2 grants an overwrite,
-+	 * supersede included, or a new named stream on an existing file.
-+	 * An attribute-only open of the file is not truncated, and the
-+	 * synthesized AFP_AfpInfo stream is not created by the client.
-+	 */
-+	fp->implied_write = need_truncate ||
-+			    (stream_name &&
-+			     (open_flags & O_TRUNC ||
-+			      (file_present && stream_created)));
- 
- 	/* fp should be searchable through ksmbd_inode.m_fp_list
--	 * after daccess, saccess, attrib_only, and stream are
--	 * initialized.
-+	 * after daccess, saccess, attrib_only, implied_write, and
-+	 * stream are initialized.
- 	 */
- 	down_write(&fp->f_ci->m_lock);
- 	list_add(&fp->node, &fp->f_ci->m_fp_list);
-@@ -3616,11 +3633,8 @@ int smb2_open(struct ksmbd_work *work)
- 	if (file_present || created)
- 		ksmbd_vfs_kern_path_unlock(&parent_path, &path);
- 
--	if (!S_ISDIR(file_inode(filp)->i_mode) && open_flags & O_TRUNC &&
--	    !fp->attrib_only && !stream_name) {
-+	if (need_truncate)
- 		smb_break_all_oplock(work, fp);
--		need_truncate = 1;
--	}
- 
- 	share_ret = ksmbd_smb_check_shared_mode(fp->filp, fp);
- 	if (!test_share_config_flag(work->tcon->share_conf, KSMBD_SHARE_FLAG_OPLOCKS) ||
-diff --git a/fs/smb/server/smb_common.c b/fs/smb/server/smb_common.c
-index a836b117f756f..870e4367da18f 100644
---- a/fs/smb/server/smb_common.c
-+++ b/fs/smb/server/smb_common.c
-@@ -664,10 +664,24 @@ static void smb_shared_mode_error(int error, struct ksmbd_file *prev_fp,
- 		    prev_fp->saccess, curr_fp->daccess);
- }
- 
-+/*
-+ * Sharing checks use fp->daccess plus the FILE_WRITE_DATA that MS-FSA
-+ * grants an open that overwrites data or creates a named stream.
-+ * fp->daccess keeps the open's own access.
-+ */
-+__le32 ksmbd_sharing_daccess(const struct ksmbd_file *fp)
-+{
-+	if (fp->implied_write)
-+		return fp->daccess | FILE_WRITE_DATA_LE;
-+	return fp->daccess;
-+}
+ 	WARN_ONCE((sd->flags & (SD_SHARE_CPUCAPACITY | SD_ASYM_CPUCAPACITY)) ==
+ 		  (SD_SHARE_CPUCAPACITY | SD_ASYM_CPUCAPACITY),
+
+> disable it for this entire source file via -Wno-unsequenced-volatile in the Makefile
+
+diff --git a/kernel/sched/Makefile b/kernel/sched/Makefile
+index b1f1a367034f..c1b2062d7356 100644
+--- a/kernel/sched/Makefile
++++ b/kernel/sched/Makefile
+@@ -30,6 +30,8 @@ ifdef CONFIG_TRACE_BRANCH_PROFILING
+ CFLAGS_build_policy.o += -DDISABLE_BRANCH_PROFILING
+ CFLAGS_build_utility.o += -DDISABLE_BRANCH_PROFILING
+ endif
 +
- int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
- {
- 	int rc = 0;
- 	struct ksmbd_file *prev_fp;
-+	__le32 curr_access = ksmbd_sharing_daccess(curr_fp);
-+	__le32 access;
++CFLAGS_build_utility.o += $(CONFIG_CC_OPT_WNO_UNSEQUENCED_VOLATILE)
+ #
+ # Build efficiency:
+ #
+diff --git a/scripts/Kconfig.toolchain b/scripts/Kconfig.toolchain
+index 1d68075f0469..dfd76b05b6bb 100644
+--- a/scripts/Kconfig.toolchain
++++ b/scripts/Kconfig.toolchain
+@@ -236,6 +236,9 @@ config CC_OPT_WNO_STRINGOP_TRUNCATION
+ config CC_OPT_WNO_CONSTANT_LOGICAL_OPERAND
+ 	def_string "$(cc-option-str,-Wno-constant-logical-operand)"
  
- 	/*
- 	 * Lookup fp in master fp list, and check desired access and
-@@ -688,6 +702,24 @@ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
- 		if (prev_fp->attrib_only != curr_fp->attrib_only)
- 			continue;
- 
-+		/*
-+		 * MS-FSA checks sharing per stream, so a named stream open's
-+		 * implied write is not a write against the primary stream.
-+		 * It still decides whether the pair is checked.
-+		 */
-+		access = curr_access;
-+		if (ksmbd_stream_fd(curr_fp) && !ksmbd_stream_fd(prev_fp))
-+			access = curr_fp->daccess;
++config CC_OPT_WNO_UNSEQUENCED_VOLATILE
++	def_string "$(cc-option-str,-Wno-unsequenced-volatile)"
 +
-+		/*
-+		 * Two opens conflict only if both hold a right in
-+		 * FILE_SHARE_CHECKED_ACCESS_LE (MS-FSA 2.1.5.1.2.1 and
-+		 * 2.1.5.1.2.2)
-+		 */
-+		if (!(ksmbd_sharing_daccess(prev_fp) & FILE_SHARE_CHECKED_ACCESS_LE) ||
-+		    !(curr_access & FILE_SHARE_CHECKED_ACCESS_LE))
-+			continue;
-+
- 		if (!(prev_fp->saccess & FILE_SHARE_DELETE_LE) &&
- 		    curr_fp->daccess & FILE_DELETE_LE) {
- 			smb_shared_mode_error(SHARE_DELETE_ERROR,
-@@ -714,7 +746,7 @@ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
- 		}
- 
- 		if (!(prev_fp->saccess & FILE_SHARE_WRITE_LE) &&
--		    curr_fp->daccess & (FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE)) {
-+		    access & (FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE)) {
- 			smb_shared_mode_error(SHARE_WRITE_ERROR,
- 					      prev_fp,
- 					      curr_fp);
-diff --git a/fs/smb/server/smb_common.h b/fs/smb/server/smb_common.h
-index 421e187982084..c958a3c37385c 100644
---- a/fs/smb/server/smb_common.h
-+++ b/fs/smb/server/smb_common.h
-@@ -110,6 +110,10 @@
- #define SMB_COM_NEGOTIATE		0x72
- #define SMB1_CLIENT_GUID_SIZE		(16)
- 
-+/* Rights that make an open take part in sharing checks */
-+#define FILE_SHARE_CHECKED_ACCESS_LE	(FILE_EXECUTE_LE | FILE_READ_DATA_LE | \
-+		FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE | FILE_DELETE_LE)
-+
- #define SMBFLG_RESPONSE 0x80	/* this PDU is a response from server */
- 
- #define SMBFLG2_IS_LONG_NAME	cpu_to_le16(0x40)
-@@ -337,6 +341,7 @@ int ksmbd_extract_shortname(struct ksmbd_conn *conn,
- 
- int ksmbd_smb_negotiate_common(struct ksmbd_work *work, unsigned int command);
- 
-+__le32 ksmbd_sharing_daccess(const struct ksmbd_file *fp);
- int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp);
- int __ksmbd_override_fsids(struct ksmbd_work *work,
- 			   struct ksmbd_share_config *share);
-diff --git a/fs/smb/server/vfs_cache.h b/fs/smb/server/vfs_cache.h
-index c8f457bb41b34..060b758008ceb 100644
---- a/fs/smb/server/vfs_cache.h
-+++ b/fs/smb/server/vfs_cache.h
-@@ -104,6 +104,8 @@ struct ksmbd_file {
- 
- 	bool				is_nt_open;
- 	bool				attrib_only;
-+	/* writes data on open, see ksmbd_sharing_daccess() */
-+	bool				implied_write;
- 
- 	char				client_guid[16];
- 	char				create_guid[16];
+ config CC_HAS_COUNTED_BY
+ 	bool
+ 	# clang needs to be at least 20.1.0 to avoid potential crashes
+
+> and finally this diagnostic was forked into a group; it's now
+> -Wunsequenced-volatile under the -Wunsequenced group, that could go in
+> W=1).
+
+Moving this to W=1 won't really solve the problem because many people
+build with W=1 by default so you'll still get reports and patches trying
+to fix it. It either needs to be this patch or one of the ones above.
+
+> I think the warning has value generally across the tree, even if this
+> particular single instance "isn't a bug, per se."
+
+Hard agree. Just because this particular instance is not a bug does not
+mean future instances won't be. We pay a small cost to silence the
+initial instances then we get to see what it flags in the future. If it
+turns out there are never bugs, we can just turn the warning off
+globally (we've done it before) but I'd rather have hard evidence of
+that first; to me, these initial instances don't count. No maintainer
+has objected to the other patches I have sent for the other instances of
+this warning and there were not all that many for how much code the
+kernel has.
+
 -- 
-2.53.0
-
+Cheers,
+Nathan
