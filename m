@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795624712;
-	b=D/zJLU9bRG4BrY66on6tR6JLRgvucjJpCmD3YoJ7dq0HuQ6lTx9cnZY74Q+1fWIEDQWV
-	 6gCuN3hFiF6sc8Id1K1uHWTXpkEZJIoipqa3+6OQk4LusjnpV/wvzRY3JOxmEASWXMrbK
-	 YS9BTSCnWgbZj0Jj9Zn+5PcQkaxyY3ldtF/31/88dUgAld/8/WbAxARnHWglj/QyfjzZI
-	 sCkKGhvEVLsPA47nSiUL7H/POMFyXU5DfR80gjEz3RJmAT0NM0mVgSxL2Z+KGxdD5kRgK
-	 qPH3l9oUwJpHvtNxLXnyI3DLUZf+HssLt1HFtsreICX4M1+MwgtcvtZra9OJbnU3VvQ==
+	b=4AoBWLUn+szbTlQcrwy1GqdnTzKx75+3BOORbSco++7sAz1yQyzXeM4nr++E+fVdyOYd
+	 m36OOfqEWrcb637l/nwEJ3m4rJma80vPSbFXo1Nx++tVvjf8ILUrgZARZ0IHIQdmT0ScH
+	 tRCt+nKSku7+txdNL6cqV3FJYNqa92x/Oz78kLnQ1UE1laPrTUbUjGljs4HYDNAo213HI
+	 Cs0lcvQVZyeELiQgZ12ltvFB7PIRWq1Ii9PBPmqzR0Vlg/9rUAos1b6BogzI62zt2mQYg
+	 yMuiiyTeEXf+CufJ+fLdgs2y+fiaopvq8AJd4lBxoWiR3ecubv8zw1f+BCr7A/7j0zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795624712;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zQ/EUehyp4WebMyqGWAXQoMcdxZ51tO77kcC2LOQiOA=;
-	b=d2CCRUpSMp4CQPmDKoYoMMp0Uqn01UjydWaxdR0nKTLedxtGEb+Ub7ARoAjW9VSwiF0f
-	 kugdtB6c7Gst2EM6NmbqPHpPSWsJuu8/OFpgJmeXfUtPRFeCx7yE/UfJxMLVEFMKbcf7W
-	 Z8K6OnRyXGekSPiNEPAG11zBFzf0D2b8/hO+EcJzOz4Ah7NCWyOSchHfbsuHR2B7sOCI2
-	 eOQxgavhn9duL2ENa/OB2SdeyIYmeWf4PPvIsLExFrbpqX2qiQkQUlHzaUgpCa5oDX8Dr
-	 bNmsh/oQdwF8yQz5pefCuwUiMb+kCx6CNJr662pNMPj26FeECLN34392PPPAmqzpDYg==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ZeUb+BqoxjitliAwJXBb/4Mmu5xcWLHV3+q5lMf/i+4=;
+	b=SUFNMbutAWf9A/etIVDSV2BiBxOPKtZPUQJEdW95lCwJLrNV786a+v5oEUJ9dYRMZiOX
+	 nuVro9+BU1Ht+u7EBMpnOBqVxhRRrxBgANpJl/+IYBlbPy2NsH168GtkjYZ99OxWvHgw4
+	 czJTWUa8Eewa9VxPPRAKPi4pv5JVU6q7XbEmt+LNYCuot3iwJBaF7LQPldI9Xc0ikVb2U
+	 beJHJ9Z6oqnpO1VLJUi8raIpDmm5ig22TZAdJ+1+8iVDyqSXzitz0118epQf5A0pDDJi2
+	 cSQuLum7XZO59nGu/O5i3khwl02Ro3Fune/TdXs1Y0rJyeSuTLmWRmtu7Q2pDTOFyBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LBt46S2U;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jke+kJzX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF69606A33B
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:38:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C733B606A33B;
+	Wed, 25 Nov 2026 16:38:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LBt46S2U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 020531F000C6;
-	Wed, 25 Nov 2026 16:38:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795624711;
-	bh=zQ/EUehyp4WebMyqGWAXQoMcdxZ51tO77kcC2LOQiOA=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jke+kJzX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6C461F000D0;
+	Wed, 25 Nov 2026 16:38:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795624712;
+	bh=ZeUb+BqoxjitliAwJXBb/4Mmu5xcWLHV3+q5lMf/i+4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LBt46S2Um05UQ2wUmrkNiMb8B0dj89mJT1vtH9ln4bITLt7Gy7civhLO/Mj+8T1im
-	 kcZe3Z187drSamM7E7QTLeUt9vK9Nm4IGtGciBRf6IHIGxotWfKiyo0BL5RGQgoKxh
-	 NIYV9z2WyBgL8h37ZXjuG7i28ukKQMDU4c9aXxc4pKhd4WU9ZnsCTJg9cmyJ7wImod
-	 06ICU1JvLL70PQLr4ed2rQJYztk+2Cp7pS5wCA6vucCIMizd3I3fgmnUq4K+I2Wcrx
-	 Zrr/UwKyXuJ75yht8FvwC3Gvj73qYTs/haLy1g/sl+78JNGE5crma+POjJP6rPp9Ei
-	 Ztzzkit9MlV7A==
-From: Sasha Levin <sashal@kernel.org>
+	b=jke+kJzXPtgmOl4JUf+yTvVbTiNfN1/kVw0RZ0JqIwbLqtpdvfsyBFBe8ooLZD4Og
+	 spONPy97865fkE5GNyW1+D9y2b0R+1O8OqaELyGaQEg59/gTA1sfdCDhX/P43EOT1C
+	 vVg++QQDaKtsboGVZjq6vVObRcgkA+TyKuw/RYQc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Christian Loehle <christian.loehle@arm.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Tyler Baker <tyler.baker@oss.qualcomm.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 4/4] cpufreq: Cache post-resolution target frequency in __resolve_freq()
-Date: Wed, 25 Nov 2026 11:38:25 -0500
-Message-ID: <20261125163734.823203-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125163734.823203-1-sashal@kernel.org>
-References: <2026112528-unscrew-recall-9dd7@gregkh>
- <20261125163734.823203-1-sashal@kernel.org>
+Subject: [PATCH 6.12 284/816] ASoC: soc-core: copy the DAI link names into the card
+Date: Wed, 25 Nov 2026 15:30:32 +0100
+Message-ID: <20261125143855.781739047@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,48 +64,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 166207cac45191637c47a457a5c16ca6b6773a16 ]
+------------------
 
-get_next_freq() in the schedutil governor returns the resolved
-frequency from cpufreq_driver_resolve_freq(), and that resolved value
-is then passed to cpufreq_driver_fast_switch().  The only reader of
-cached_target_freq, acpi_cpufreq_fast_switch(), compares it with the
-post-resolution target frequency, but it holds the pre-resolution
-clamped frequency, so any request that falls between table entries
-misses the cache and falls back to a table scan.
+From: Tyler Baker <tyler.baker@oss.qualcomm.com>
 
-Address this by making __resolve_freq() store the post-resolution
-frequency in cached_target_freq.
+[ Upstream commit 33a130f6ed8c75ed59b12889a417a57fb80d0abf ]
 
-Fixes: e3c062360870 ("cpufreq: add cpufreq_driver_resolve_freq()")
-Cc: All applicable <stable@vger.kernel.org>
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Reviewed-by: Christian Loehle <christian.loehle@arm.com>
-Tested-by: Christian Loehle <christian.loehle@arm.com>
-Link: https://patch.msgid.link/14161745.uLZWGnKmhe@rafael.j.wysocki
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+snd_soc_of_get_dai_link_codecs() and snd_soc_of_get_dai_link_cpus()
+keep a DAI name owned by the component, which is freed when the
+component unbinds, so the card cannot bind again afterwards.
+
+Copy the name onto the card device, as simple-card and audio-graph-card
+do since commit aa173b70d372 ("ASoC: generic: keep fallback dai_name
+stable across rebind").
+
+Fixes: e894efef9ac7 ("ASoC: core: add support to card rebind")
+Fixes: 900dedd7e47c ("ASoC: Introduce snd_soc_of_get_dai_link_cpus")
+Signed-off-by: Tyler Baker <tyler.baker@oss.qualcomm.com>
+Link: https://patch.msgid.link/20261106054333.2748248-2-tyler.baker@oss.qualcomm.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/cpufreq/cpufreq.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/soc-core.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index 134e42091e677..3ac8936090d66 100644
---- a/drivers/cpufreq/cpufreq.c
-+++ b/drivers/cpufreq/cpufreq.c
-@@ -541,8 +541,8 @@ static unsigned int __resolve_freq(struct cpufreq_policy *policy,
- 
- 	idx = cpufreq_frequency_table_target(policy, target_freq, relation);
- 	policy->cached_resolved_idx = idx;
--	policy->cached_target_freq = target_freq;
--	return policy->freq_table[idx].frequency;
-+	policy->cached_target_freq = policy->freq_table[idx].frequency;
-+	return policy->cached_target_freq;
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 5097b287b889a..eb76d71de65e9 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -3674,6 +3674,18 @@ void snd_soc_of_put_dai_link_codecs(struct snd_soc_dai_link *dai_link)
  }
+ EXPORT_SYMBOL_GPL(snd_soc_of_put_dai_link_codecs);
  
- /**
++/* dai_name belongs to the component, which can unbind before the card. */
++static int snd_soc_of_dup_dai_name(struct device *dev,
++				   struct snd_soc_dai_link_component *dlc)
++{
++	if (!dlc->dai_name)
++		return 0;
++
++	dlc->dai_name = devm_kstrdup_const(dev, dlc->dai_name, GFP_KERNEL);
++
++	return dlc->dai_name ? 0 : -ENOMEM;
++}
++
+ /*
+  * snd_soc_of_get_dai_link_codecs - Parse a list of CODECs in the devicetree
+  * @dev: Card device
+@@ -3703,6 +3715,8 @@ int snd_soc_of_get_dai_link_codecs(struct device *dev,
+ 	/* Parse the list */
+ 	for_each_link_codecs(dai_link, index, component) {
+ 		ret = snd_soc_of_get_dlc(of_node, NULL, component, index);
++		if (!ret)
++			ret = snd_soc_of_dup_dai_name(dev, component);
+ 		if (ret)
+ 			goto err;
+ 	}
+@@ -3758,6 +3772,8 @@ int snd_soc_of_get_dai_link_cpus(struct device *dev,
+ 	/* Parse the list */
+ 	for_each_link_cpus(dai_link, index, component) {
+ 		ret = snd_soc_of_get_dlc(of_node, NULL, component, index);
++		if (!ret)
++			ret = snd_soc_of_dup_dai_name(dev, component);
+ 		if (ret)
+ 			goto err;
+ 	}
 -- 
 2.53.0
+
+
 
