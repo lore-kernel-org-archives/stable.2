@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795597885;
-	b=Lt47P4M2aw4/Ikbs6UfxnKJz0BOyh19Rwo7SPmZRXlkyD3eAumGFL69Y/1ANi1l8tIjQ
-	 vTcPWxQRDKbR2A6VED7TOh+7lBYDUU15yfTRAYfPAy2iwhQ2sWXFQM5cUYvc28AtgYEmX
-	 COw/GmmvlUk+ocrAv3SBjuLAf1PWTNuG0+ZJhdBkUSyL6yCJGeqTPFcPfabbu6c2v3+7n
-	 H2G47rZCF29KAUNNafBbfEARDOA/oEHVYVYMe8FGBo+XlkdmqECKrUHmQ3zaDfL/lm+WO
-	 VWjq6uYeKQrZFo3Jh/2G05MQgGY9ZUrA9LMBsf+kK56pYEMWv0bcSCZj8waf6u0oWQQ==
+	t=1795597888;
+	b=gEQSf5935EK1+dgySDjqiioDhUreGKaUcpNzi6MW0s+qh+iJOWeKPSyuo8YCjE17L1lx
+	 S/k5R+5aCojvvoKYTp/4Yv8pGW+H0mxSNj7V0pQpET/NojW5fQwsxsP4JBMwh8ryYaT/H
+	 M1/vV4t1/sqZJQnjdWSs9WDmfyqo/Yb2gVMP6De/bwrWvQZm9Q/lDGEN5UIF0QRSiTNqN
+	 AAm+xgztTvrWO4lUAkMCo+qYSFAUXNLrmTv/IHVjrHMdBOcKkGUh91lT+/a2VaiubxRev
+	 EExnut8IXUFtMyEXRnot98qrEuimyaGzAsbiJ8BZolxDmPOI0GV4iC7W+Jeqf86tJmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795597885;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795597888;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Gm6WAoVF4ihu24D+K70aUjIhwY671KF4Fqti9F5+DgE=;
-	b=l9gcRnKvsOtFukcRoIddeqOMLoV2ZhcoqsUFvhcf2xQkaizxf/LqRsW0AikJY9/99nLx
-	 n5H0FngaQ/AJ2AHeiMqD85JHCGfzsJdpJGd0af7hSivTFxZpTlFV46XwcdkrjwhlFvrna
-	 GuYrM6R7AyqjE1YOEsRBFMbn2Hpxecalr9lr2N5dl7sgiirI3ZZ+fATQEW685iSmDxsmQ
-	 MO4SKybamMuoESZ7BTdh8JPUT0VIdaVOuLOsQqELnVzHiHhEUBpFbZToRCsL/QE73lyuE
-	 1W74Wv6y5MGQvSsyAK9AZetdTZl6pesssOiseqJGO5PtvR/vVVbYOvWgiMlEiNacSRw==
+	bh=klVAh3x8vX2dmo+oBEBSDu/gV2igrBTPdcTc+eiXguc=;
+	b=YPjzdHK6qAi4A3Ur/8pUx76NSnP1JDL4822ImZ5YxtgAif78HDyyp9NuzStKSZkR0Qv6
+	 O7TZw/6UcwC4mm4anV+fAQ+IIc4NyGtLgm24bjKYosXfPD7AItoBNd/PFdIoYv8t3xQ++
+	 i9RYh4Qwp9LvC/5Ckf/e8oV8qCOWwSV/B+MQLQSQ1FKIRoYnH/Zfny9DmEBFGMfy8gFGz
+	 /+D+BpvY/FbXUNF2kkSfT6v5drDAyt0F2LtnfxZkmss8ifTaqfnMNAntfUBLNhg/IOQnk
+	 HOOgfL2TIE84vrjFMU6ItrWkIWuAqQjNWDTr7qN5Pxj+MJADVM+GqPsIWdH8KdQcRbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=V9sISMzQ;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HSl6lOcg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D8E606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:11:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A13606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:11:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=V9sISMzQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 903771F000C4;
-	Wed, 25 Nov 2026 09:11:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HSl6lOcg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0B1B1F000C6;
+	Wed, 25 Nov 2026 09:11:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795597885;
-	bh=Gm6WAoVF4ihu24D+K70aUjIhwY671KF4Fqti9F5+DgE=;
+	s=korg; t=1795597888;
+	bh=klVAh3x8vX2dmo+oBEBSDu/gV2igrBTPdcTc+eiXguc=;
 	h=Subject:To:Cc:From:Date;
-	b=V9sISMzQbnIdZ7ddjDQDgo+Wrszn2CGpg35Y0zb8UqmhrBwFFH2bCAe/xbhsnqkvR
-	 QeHq0sJktsWh+FnieoAbKeK8woyNZ/u/27SNI+1biuGoUe+2f27clpve7KToHXSkRD
-	 NQtMNm7EUkFNnMH77YXt2NF6sn7ra5S7WVgHja+4=
-Subject: FAILED: patch "[PATCH] gve: Fix backward stats when interface goes down or" failed to apply to 6.18-stable tree
+	b=HSl6lOcgaX9bMC+E+9FEFVNYPsJ4qCAfgB12JTQOK8WmV9jLTxhDzH+QPkKSF1p2i
+	 AjtJ4ldWfauuUM8vI1LtAuNIikSDnnMZq33RpbyincaDoDXrNYKIyKC/28Rkuhlvy3
+	 3etd9MOYYSMYp2qWTBRJVvRYCbboRs7h0jNulchM=
+Subject: FAILED: patch "[PATCH] gve: Fix backward stats when interface goes down or" failed to apply to 7.3-stable tree
 To: debarghyak@google.com,hramamurthy@google.com,kuba@kernel.org,treapking@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 09:59:47 +0100
-Message-ID: <2026112547-shush-lend-a03b@gregkh>
+Message-ID: <2026112547-canon-stamp-3528@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 7.3-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
 git cherry-pick -x 6752dfc316b94ce02998a79509df62a3aba51d1c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112547-shush-lend-a03b@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112547-canon-stamp-3528@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Possible dependencies:
 
