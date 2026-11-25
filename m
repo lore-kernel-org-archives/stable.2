@@ -1,63 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795623881;
-	b=hG8+witM73gJY+IMReQ0ra36CHcTIO9xaHJutjqw0OFMp6pZDol7e8Tk0n//ng1XD8Fz
-	 oLS4Gqt9xC8dun8NJ4xy3lX7vBSzluWsYhN2RtxvvWuMPpM90wITqMTcY3VYUO+KP4xng
-	 3CAmP5FoV4E3bDft2txssP7BcoBpnwCZzOLz7KoPtTLNlxtCD7sBE9z39Y3+x7V39gq4o
-	 NuzHB8jO29fdO9wJ9vHK6DNBhirTjdm4WyXVv0qA+PUlzGFlS8p7bVQBnOYmb88IISQDR
-	 LjsarF4THvZFQjFmlURJOdeiQWbQhJ+uYGKTY7AGLvcT8lM+QBd5FSN4gCIdKRNSzHA==
+	b=sW+2073T65pACMnNRPsTE8I07sXEvRFUi56AkVQgh2MnMvXcXNsHHhyeIQwJL4BOSROG
+	 L9y1JRvsZTCURqMPleqJHVg/a0MAUftiO1JSldIsyTl3l4JXuhfJj5NYtZr20NcxGJT7I
+	 JNQqeynWGg7/dhDYUL27VlRVxqt7DVyQPFAt5lDi9etahaXdTWQsQjZNJjE1GP+e8rxWm
+	 6jPUn+gQNDkLsRzZtunf0vXTrpihOsWPdLC+dtjKOM5wXxn1D+AAq4PTfbqAmBDV7L/2q
+	 bWZUUPi4TRBWUFzBplczHyNLUtBgEIqU/PZeZDKO8WWynye5xGy4nOV6mqoKdgihCKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795623881;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=PKHXsGcYE+q24dJtoA1kgj6MeEvVpViUK9v3VoxMSY0=;
-	b=yVfBxKQP9T66utiRkKrLfG8nInTMllctIbKp4SeFvusJwU+4e8+EK5M29Kyh9OYINI0Q
-	 YqO9WzmbmaIdYgRyGlo0iG+kDFcYMusRoRulMZL2D0Knf1gqzkO+joxJ8w5P3PDEVkFYw
-	 dJRPhEcHjixRA2KX/XEsoaeOoPqAX6dcL+7OwN2rv4eUis+IvQos26oE1kfZpyLv0rMsf
-	 TmP+wrjLY94FnN3vOKEPFhN8NPp6jQDg0VmxwjrZIRwkC6DtUdJGcnsOrAOIAIsIAP44Y
-	 WbJVWj2rgQROs7vb4/l/uKWLUjfXQ88y/ROL+9jKUyLjRq371TwhHTNxT7QdRrCg8RQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=UB4KMTUqgAtUcs4s8Mkqp4mQfzyfdlqv05Qlv0+Mj3o=;
+	b=K4QNSe+VS8Li8j1p7QlqwvwCVhQCocVLuX86EwfASQ80xkhmLhY9ETrDFX81UnbCNk8F
+	 H+OMocq45OhfS+SHYHgjd5EyfMuzRjTlmQVOyP5XTsOvact6CyO7iaHo1qkmLQg7Cn/qF
+	 VKLuXUMH3g0EUHgGmQ0OQ4n4PoZP538S/UwUlxiGm4N4AwZQhETO1BMSiyg86FkUxiYk+
+	 omes4dFtlyZNYnJ8r28mtfxRaifzf3Rdgn26izzsgrao/9DMEEIGHTGVe4vno8gLzWD4w
+	 x8Hstzu5fPgrCMZSXDOWMANyZZzgzK4J7w7hCIfNdfJwDBTnP80ilMjCzxvPk5YVwgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="C/uhe15w";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gx6P0Koz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BE26606A326;
-	Wed, 25 Nov 2026 16:24:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7E1606A327
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:24:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C/uhe15w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 350FD1F000C0;
-	Wed, 25 Nov 2026 16:24:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795623880;
-	bh=PKHXsGcYE+q24dJtoA1kgj6MeEvVpViUK9v3VoxMSY0=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gx6P0Koz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE7421F000C6;
+	Wed, 25 Nov 2026 16:24:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795623880;
+	bh=UB4KMTUqgAtUcs4s8Mkqp4mQfzyfdlqv05Qlv0+Mj3o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C/uhe15wdejeXGRRsXOkQW7jFUHc6yy3z7eXbEEEVZxHrmRO2dMUt4KQFntMe45q0
-	 +fct0xR6jXL3lhlQL5PJ/qDcr4seFF21QpveHEAZeLfc6LfMqHj8yYCui27FBbOyK9
-	 GPnuMWjVadL7DcVyEH9XNReHIuws55ZkSsD3VZq0=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=gx6P0KozpyB69WxOxRTYhR2GudNJLS9SNUnuN0PHT5OOEKRTpjS+jNDFt1jSlygep
+	 l/BEti2blSOofrjiBet1ZjyxhOjGb6cElVtBc3ccbcIhqVmvsUX2GkJT8wMWlQQPQH
+	 cF/BD6LHTPktvGBlYXV60jI7QETin+d4KLMsC/7fkijwi422zksVJ1yj8LjB9oHrkk
+	 ynRJERq5abJTDsrP0FWg9r3T11oDZtU+mqR/LHELuQuRj/1tWoyqC0kldzsrAKFj+P
+	 fYcKZnNLjGd0ruIrYyyuMq9Gf5Z6xGlQ7uFEPpPhbtEMhMXpArtF4Ixbcg6R13ANTI
+	 tm8Iscgu/iIiQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Xianrui Dong <dongxianrui1@gmail.com>,
-	KP Singh <kpsingh@kernel.org>,
-	Amery Hung <ameryhung@gmail.com>,
-	Song Liu <song@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Yingke Xiao <inkxiao12@gmail.com>,
+Cc: Cheng Yongkang <teel4res@gmail.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 015/816] bpf: Reject NULL data/sig in bpf_verify_pkcs7_signature
-Date: Wed, 25 Nov 2026 15:26:03 +0100
-Message-ID: <20261125143849.569943682@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
-References: <20261125143849.205329330@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.10.y] fs/splice: clamp an over-reported write_iter result
+Date: Wed, 25 Nov 2026 11:24:38 -0500
+Message-ID: <20261125162418.787897-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112546-remedial-underdog-3741@gregkh>
+References: <2026112546-remedial-underdog-3741@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,72 +61,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: Cheng Yongkang <teel4res@gmail.com>
 
-------------------
+[ Upstream commit 2d956723e82cddae8ff8e9da99a666217b02065f ]
 
-From: KP Singh <kpsingh@kernel.org>
+iter_file_splice_write() builds a bvec iterator of at most
+sd.total_len - left bytes and passes it to ->write_iter().  It then
+subtracts the returned length from sd.total_len and walks the pipe
+buffers by that length.  A ->write_iter() implementation that reports
+more bytes than the iterator held makes sd.total_len underflow and the
+dismissal loop advance pipe->tail past pipe->head, releasing a zeroed
+pipe buffer:
 
-[ Upstream commit 49b18315be4eecfc36b75f4aecb4d40a87d68a20 ]
+  Splice Exceeded! ret=7 tot=1 left=0
+  Oops: general protection fault
+  RIP: 0010:iter_file_splice_write+0xb6f/0x1170
 
-__bpf_dynptr_data() can return NULL (FILE dynptrs, any non-contiguous
-backing). bpf_verify_pkcs7_signature() forwards the pointer to
-verify_pkcs7_signature() unchecked, causing a NULL deref in
-asn1_ber_decoder() reachable from a sleepable BPF LSM at lsm.s/bpf.
+Commit a3de58b12ce0 ("netfs: Fix unbuffered write error handling")
+added the warning for this condition but only reports it.  Clamp the
+return value to the size of the iterator that was actually handed to
+->write_iter(), so the pipe accounting stays consistent even when a
+producer violates the iterator contract.
 
-NULL-check both pointers and reject with -EINVAL. Mirrors the guards
-already in kernel/bpf/crypto.c.
-
-Fixes: 865b0566d8f1 ("bpf: Add bpf_verify_pkcs7_signature() kfunc")
-Reported-by: Xianrui Dong <dongxianrui1@gmail.com>
-Signed-off-by: KP Singh <kpsingh@kernel.org>
-Reviewed-by: Amery Hung <ameryhung@gmail.com>
-Acked-by: Song Liu <song@kernel.org>
-Acked-by: Daniel Borkmann <daniel@iogearbox.net>
-Link: https://lore.kernel.org/bpf/20260520024059.313468-1-kpsingh@kernel.org
-Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-[ In 6.12.y, bpf_verify_pkcs7_signature() lives in kernel/trace/bpf_trace.c
-  instead of kernel/bpf/helpers.c. Adapt to kernel/trace/bpf_trace.c. ]
-Signed-off-by: Yingke Xiao <inkxiao12@gmail.com>
+Fixes: 8d0207652cbe ("->splice_write() via ->write_iter()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+Link: https://patch.msgid.link/179328314072.648427.13388575162083843840@gmail.com
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: Replaced the upstream call that goes through a kiocb and ki_pos with vfs_iter_write(out, &from, &sd.pos, 0), so the surrounding context differs while the clamp logic is unchanged. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/bpf_trace.c                                    | 5 +++++
- tools/testing/selftests/bpf/prog_tests/kfunc_dynptr_param.c | 2 +-
- 2 files changed, 6 insertions(+), 1 deletion(-)
+ fs/splice.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
-index 1d6709e261b8c..a174d4b27d662 100644
---- a/kernel/trace/bpf_trace.c
-+++ b/kernel/trace/bpf_trace.c
-@@ -1408,8 +1408,13 @@ __bpf_kfunc int bpf_verify_pkcs7_signature(struct bpf_dynptr *data_p,
+diff --git a/fs/splice.c b/fs/splice.c
+index 7f826452e494a..e320dd64cef79 100644
+--- a/fs/splice.c
++++ b/fs/splice.c
+@@ -690,6 +690,12 @@ iter_file_splice_write(struct pipe_inode_info *pipe, struct file *out,
+ 		ret = vfs_iter_write(out, &from, &sd.pos, 0);
+ 		if (ret <= 0)
+ 			break;
++		if (unlikely(ret > sd.total_len - left)) {
++			WARN_ONCE(1,
++				  "Splice Exceeded! ret=%zd tot=%zu left=%zu\n",
++				  ret, sd.total_len, left);
++			ret = sd.total_len - left;
++		}
  
- 	data_len = __bpf_dynptr_size(data_ptr);
- 	data = __bpf_dynptr_data(data_ptr, data_len);
-+	if (!data)
-+		return -EINVAL;
-+
- 	sig_len = __bpf_dynptr_size(sig_ptr);
- 	sig = __bpf_dynptr_data(sig_ptr, sig_len);
-+	if (!sig)
-+		return -EINVAL;
- 
- 	return verify_pkcs7_signature(data, data_len, sig, sig_len,
- 				      trusted_keyring->key,
-diff --git a/tools/testing/selftests/bpf/prog_tests/kfunc_dynptr_param.c b/tools/testing/selftests/bpf/prog_tests/kfunc_dynptr_param.c
-index 8cd298b78e44a..04aaf4c9cf5ee 100644
---- a/tools/testing/selftests/bpf/prog_tests/kfunc_dynptr_param.c
-+++ b/tools/testing/selftests/bpf/prog_tests/kfunc_dynptr_param.c
-@@ -14,7 +14,7 @@ static struct {
- 	const char *prog_name;
- 	int expected_runtime_err;
- } kfunc_dynptr_tests[] = {
--	{"dynptr_data_null", -EBADMSG},
-+	{"dynptr_data_null", -EINVAL},
- };
- 
- static bool kfunc_not_supported;
+ 		sd.num_spliced += ret;
+ 		sd.total_len -= ret;
 -- 
 2.53.0
-
-
 
