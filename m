@@ -1,67 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795611347;
-	b=RQ0CGQGzr/C0nDkDgD+797BUdUhWuLF8TkbPhOkLTSzVHizZdv47vBMtaTw6QiLBdX+U
-	 diMghbhafZh8AXkJPrSFJ3ymVSq7TGUAHvbNFWWfZo6sdlsmkXDl4S7QSLQST60Fwao4S
-	 ZqhDzCWPdyvHwR1E7BxghJtDAoRA/xKxsrHc2flDfPkDFKLaWya5qaF7Thfj6gW4Htt/D
-	 MiSklkMMIioM4KQWTQtzcLOIM8w30VtuhQDVR36GS7zxmRbl+u7LVCXrbRZccxBTLLGfo
-	 FfH7H5ug7UN7pS/LuRKUW5hFPN4oV74/5dQ4YY+4NdhIQU6PtWzJPPpH+cirXiKYEzw==
+	t=1795611474;
+	b=opI5/8rdogqhQJM2NxC6ctTpBEVUndU3F3bZIGsjQP3XKpvZw6BU5I0xLAvJ+aBRfhPF
+	 Y0IUT2Tub2fCMkIdwEzvcPixHXRL4x/ImK+WeJ3FKFOhefqUjxu+Pdzy3S5XjcujCrH/0
+	 ViEw7VdAkQDoKuiTslRbjtSikQCzQEkK5s4oIP+g5k7DO2aZij8ehuiskVakfCspqzny3
+	 VDZCKv25BQppTMfZ17P0bCfgnskrC5Bpw4a0byEKi4d2lzgeXuTa4d8C10mcjjYgO6WC9
+	 bYFlGw145MVWHEwv5G+wFfBE03U7/D8Cql5fcjLwY6J/5tnaU79XkkTiA4zl+kzdZJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795611347;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:X-Last-TLS-Session-Version;
-	bh=Zz8pRVPj1m/x6K4VKaV8LSIz7Bt1hMO6SMJiNKydZSY=;
-	b=MVUFLUOiDBbQQifHSAABtzIgybWwLYjkxnpFkx9K2EYr8n6najan1C48dzS4j4hXUZFD
-	 wv0ZsLiNYsge1RMywnBDi7ovNixw2R6pnJ+jkBXUN4jf5mEQDpBK+nH7ukS2CNI0+gsYN
-	 0QApBwCei/XF4Gsx+xTmYNY9JkMRx0M961OgUFCliPIDWSyOrREZ1pGPxDAxtbZeQByq9
-	 P1Xg8LoUV8rL1TtwuYQy16cTcf1646ZzgAofAxCbCcsRZUxsFjLEmRbBzI/hsKgF2G0MR
-	 lhRgb5NyJFV2O4riiK+EwLacDAiM9WrErW6q4K7k2JGTJOisSUIc2Rqq1ibyUi/CX1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795611474;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=oaESiLDbxgkH7nDIJyav/1Pj2lVUnOrkISswsRMmEcg=;
+	b=CWiDXUpJi5ubxecHiQKbRRF7u9tlgR31trTl6F1EsCJAgn+NPJ3+f3z4xC73+BuYe1qf
+	 RPlZ0dyNsXpW5jvHlQN9vgHp/hU7uVgQUJZyKqpAGyrmH4t+yNRxCgSyHLcFrcub/A5Xo
+	 CkljPzjDXV3NpKR8G/OwEJm1G1Lm1ZtkfVyWhHGqQZKiO3hpngHdlAkLxCeJ/78b1PAXe
+	 0POdIrqipMEU7+koACMfOV7eMXfIZoYPpBgP08JX9VLNRRU7uo7vfMwRDRkK811JIM+RM
+	 Csj3rb6H8zpXMtrAzYqC5fhgscO30n93HOIGdit6NsFfRiKTALehxQjdYTzVej9RMqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=aT2Zur7O;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NAl8z8ns;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA828606A692
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:55:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA828606A692
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19662606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:57:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=aT2Zur7O
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 50D371A17E8;
-	Wed, 25 Nov 2026 12:55:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1CE5260480;
-	Wed, 25 Nov 2026 12:55:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7D2D011E6962C;
-	Wed, 25 Nov 2026 13:55:42 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795611344; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=Zz8pRVPj1m/x6K4VKaV8LSIz7Bt1hMO6SMJiNKydZSY=;
-	b=aT2Zur7O4lBtxYQYfwKuAvhcn1SgPWKsRujduPByUAXeP7cKx2bXz2rl25hJECg1c9PDCg
-	n+jnwNyzkzWLHec2eToEEeqCDvglMfIN/J4VrrSIh2DV23apCc23WBose8SXWZLvxawhzk
-	q1oqb+8JaZkeC+qb3qv4XrxIpbkU2yZYAjnZFeDfjeeU3ILUhMgjxa9RGYLB1q1JbFtmjx
-	ZJiEPwJ0CxcMHQ9qSIqTuGtfys4S3K9M5OCrb9NMvOwGopqc5yNWLPguFsnVzHr24EwDTR
-	lha/uisEzrpIH7afHam8627TMN68SCVDBmGNl6O1Dl/2pJEZcttHFpXiIMcMZA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Ping Li <leeonion.muyu@gmail.com>
-Cc: richard@nod.at,  vigneshr@ti.com,  linux-mtd@lists.infradead.org,
-  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
-Subject: Re: [PATCH v5 3/3] mtd: rawnand: r852: declare NAND_USES_DMA
-In-Reply-To: <20261125122135.44696-4-leeonion.muyu@gmail.com> (Ping Li's
-	message of "Wed, 25 Nov 2026 20:21:35 +0800")
-References: <20261125115108.4147741-1-leeonion.muyu@gmail.com>
-	<20261125122135.44696-1-leeonion.muyu@gmail.com>
-	<20261125122135.44696-4-leeonion.muyu@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Wed, 25 Nov 2026 13:55:41 +0100
-Message-ID: <87cxrtyss2.fsf@bootlin.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NAl8z8ns
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 590B01F000C6;
+	Wed, 25 Nov 2026 12:57:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795611473;
+	bh=oaESiLDbxgkH7nDIJyav/1Pj2lVUnOrkISswsRMmEcg=;
+	h=Subject:To:Cc:From:Date;
+	b=NAl8z8nsUY/4mFmJkjwBnn04Oo7D5OLogAc6w/gBK1msD54W3d0bdst5DCQ1PZMuQ
+	 O5m2JPSXeMZ81cixthHrY4sWjYXHgOFJEzlSl+0LH2dyNBIZLsi2flsXwYucw3dKM+
+	 gKnfiE8TzQ2gPWGhHt8pU61MKVFdisYUQxS/4mo0=
+Subject: FAILED: patch "[PATCH] accel/ivpu: Defer recovery until probe completes" failed to apply to 6.6-stable tree
+To: karol.wachowski@linux.intel.com,jeff.hugo@oss.qualcomm.com,swizzguy76@gmail.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 25 Nov 2026 13:49:22 +0100
+Message-ID: <2026112522-arrest-octane-af8a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,45 +51,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On 25/11/2026 at 20:21:35 +08, Ping Li <leeonion.muyu@gmail.com> wrote:
 
-> r852_do_dma() feeds the buffers provided by the NAND core straight
-> to dma_map_single(), which is only valid for linear-map addresses,
-> but the driver never declares NAND_USES_DMA.  Because of this,
-> nand_base cannot know the controller DMAs these buffers and never
-> bounces non-linear-map ones.  Such buffers are not hypothetical:
-> mtdblock's write cache is vmalloc'ed and UBIFS passes vmalloc'ed
-> LPT buffers.
->
-> Declare NAND_USES_DMA so that nand_base bounces non-linear-map
-> buffers through chip->data_buf, and advertise the hardware's
-> 512-byte alignment requirement through chip->buf_align so that
-> misaligned linear buffers are bounced as well, like the other
-> DMA-capable controllers do.  Both only apply when the controller
-> actually uses DMA: the PIO fallback path does not care about
-> buffer addresses being linear-map or 512-byte aligned.
->
-> Fixes: 67e054e919248 ("mtd: nand: Add driver for Ricoh xD/SmartMedia reader")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ping Li <leeonion.muyu@gmail.com>
-> ---
->  drivers/mtd/nand/raw/r852.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/mtd/nand/raw/r852.c b/drivers/mtd/nand/raw/r852.c
-> index 92c47d351c27..c5a3622cddf6 100644
-> --- a/drivers/mtd/nand/raw/r852.c
-> +++ b/drivers/mtd/nand/raw/r852.c
-> @@ -640,6 +640,11 @@ static int r852_register_nand_device(struct r852_device *dev)
->  	if (dev->readonly)
->  		dev->chip->options |= NAND_ROM;
->  
-> +	if (dev->dma_usable) {
-> +		dev->chip->options |= NAND_USES_DMA;
-> +		dev->chip->buf_align = R852_DMA_LEN;
-> +	}
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Wasn't in this driver a bounce buffering operation that is no longer needed?
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x dc61b19db1f77deb4c15bb71e64f46071447837c
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112522-arrest-octane-af8a@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From dc61b19db1f77deb4c15bb71e64f46071447837c Mon Sep 17 00:00:00 2001
+From: Karol Wachowski <karol.wachowski@linux.intel.com>
+Date: Tue, 10 Nov 2026 13:15:34 +0100
+Subject: [PATCH] accel/ivpu: Defer recovery until probe completes
+
+An error IRQ that fires after ivpu_boot() enables interrupts queues
+recovery_work during probe. If probe then fails, the device is torn
+down while the work runs, and the work faults on the unmapped BARs:
+
+  BUG: unable to handle page fault for address: ffffcfc6680200f4
+  Workqueue: events_unbound ivpu_pm_recovery_work [intel_vpu]
+  RIP: 0010:ivpu_hw_ip_ipc_rx_addr_get+0xc/0xb0 [intel_vpu]
+  Call Trace:
+   ivpu_wait_for_ready+0x155/0x220 [intel_vpu]
+   ivpu_boot+0x9e/0x270 [intel_vpu]
+   ivpu_resume+0xa4/0xd0 [intel_vpu]
+   ivpu_pm_reset_complete+0x2c/0x90 [intel_vpu]
+   ivpu_pm_recovery_work+0xf6/0x140 [intel_vpu]
+
+If probe succeeds, the recovery runs concurrently with the rest of
+probe, and its pm_runtime_disable() discards the initial autosuspend
+request, leaving the NPU active until first use. Any recovery that
+starts while the NPU is idle loses the pending autosuspend the same way.
+
+Keep recovery_work disabled from ivpu_pm_init() until ivpu_pm_enable().
+A trigger during probe still runs diagnostics and masks interrupts, and
+ivpu_pm_enable() runs the deferred recovery before the initial
+autosuspend request. A trigger racing with ivpu_pm_enable() can cause
+a second, harmless recovery. Request autosuspend at the end of
+ivpu_pm_reset_complete() so the NPU suspends again after every reset.
+
+Fixes: 852be13f3bd3 ("accel/ivpu: Add PM support")
+Cc: stable@vger.kernel.org # v6.10+
+Reported-by: Daksh Sahni <swizzguy76@gmail.com>
+Closes: https://lore.kernel.org/r/20261107174215.15818-1-swizzguy76@gmail.com
+Tested-by: Daksh Sahni <swizzguy76@gmail.com>
+Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+Link: https://patch.msgid.link/20261110121534.3566028-1-karol.wachowski@linux.intel.com
+
+diff --git a/drivers/accel/ivpu/ivpu_pm.c b/drivers/accel/ivpu/ivpu_pm.c
+index aa813262253e..e4b79c946ca0 100644
+--- a/drivers/accel/ivpu/ivpu_pm.c
++++ b/drivers/accel/ivpu/ivpu_pm.c
+@@ -150,8 +150,8 @@ static void ivpu_pm_reset_complete(struct ivpu_device *vdev)
+ 	up_write(&vdev->pm->reset_lock);
+ 	atomic_set(&vdev->pm->reset_pending, 0);
+ 
+-	pm_runtime_mark_last_busy(vdev->drm.dev);
+ 	pm_runtime_enable(vdev->drm.dev);
++	pm_request_autosuspend(vdev->drm.dev);
+ }
+ 
+ static void ivpu_pm_recovery_work(struct work_struct *work)
+@@ -415,6 +415,7 @@ void ivpu_pm_init(struct ivpu_device *vdev)
+ 	atomic_set(&pm->engine_reset_counter, 0);
+ 
+ 	INIT_WORK(&pm->recovery_work, ivpu_pm_recovery_work);
++	disable_work(&pm->recovery_work);
+ 	INIT_DELAYED_WORK(&pm->job_timeout_work, ivpu_job_timeout_work);
+ 
+ 	if (ivpu_disable_recovery)
+@@ -439,6 +440,12 @@ void ivpu_pm_enable(struct ivpu_device *vdev)
+ {
+ 	struct device *dev = vdev->drm.dev;
+ 
++	enable_work(&vdev->pm->recovery_work);
++	if (atomic_read(&vdev->pm->reset_pending)) {
++		queue_work(system_dfl_wq, &vdev->pm->recovery_work);
++		flush_work(&vdev->pm->recovery_work);
++	}
++
+ 	pm_runtime_allow(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ }
+
