@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795566171;
-	b=vQI2JosZVrIg3YpoIPdoGK9+UNqsjpUuIMP01jAGTlmlSdQuLtki9lurZ4QdLTEg+VPI
-	 i2Ip/qQt4ae3vL/k+xOdR5TUghS7l3U4TZ+RatX5FqPHcd+N/vNRE5dkHSYHb9E+1ZgaR
-	 4son/REGkGYseth3n+y59yaB9mVy2V01JECsOH+FudO7aWRfiRKORBuXDdboso3owkXlH
-	 YRlIYVj/bsXxy6HheRRHHXc3fSZuvY4KN2FZ634n4/XY9GBPhmSByoajMeEJaa2BGXCkC
-	 e38Zpho/+zBBhqUZzLmW6rdclFsyXcG9qRniLDRtzBwhecsZXUiaFgwhMfpHobeyVjA==
+	t=1795566173;
+	b=lDujZd14gTy68KGlJrLu/LDyDlWbZBZAi9U2ROwsIwht8xm0YHk+pXI8+Sdie1/Ik3c4
+	 um48mBk9UjI21QGYLVaA2E/T1kdfcOtszWHn6DlLY7moUPU7egLafK0y7dTLit/bax55x
+	 OAyXGHsDSFTJl07fpgsw1KFw0Cx05tsb7TAynCjiylkti7Wrwtp/R1PE68xAPwEY+FxvX
+	 fOPFh/U1NBkw1xJvRdacOCNMEfuvnvP4ODzBg4rEYawuDoCCHpKyNxaMqNDYe+yRXfaGP
+	 oLSKAAG0nPt38P7AlfOoSyHpmkgLMIVbILPmKuoO8ePEM/MrRt/nOGenIyxIuM6tvZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795566171;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795566173;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=KHHHr0SM/T2s4jZq5GOtf7zF3qLtJzGFhWPknayndBg=;
-	b=kte+1V10jGWqkYzHfkEYFlGrr3X0eT9TTbAxtZd104jhf8e3AN7w15+pF3l3HkKgVWC3
-	 aA4B/flyY/+31GP9HSt867AkRbHqXPwipST4dWacTzQMrs414vZx/8sqnf1OrhDKskcsW
-	 cFo7hHem5to1hQ+znxxlKmvBH0AL0SYORLqrvDOF8y6IaCYvrSehi5i6xPXQsBRr8BNtu
-	 Z85WbFMBNjcphCi+PdqLbFKg0wruK2zquvnKBUseCEqDGTfMDtrHrPznJKKJ4qiNT/PP+
-	 hqZZh16WIjPk0uf+itd2Q1iQSc66Pzpyn8Be7ezSxjW+NdmpSRfgHsKi83H1mEtCucw==
+	bh=vIPhS8DwvcQG0pi15UwBlmuo6rGqkjQxdAWMcWGTY80=;
+	b=zsdKmVPMfmzgeQG1+Mm/YjfJgwdxSldObdVh0+ehBQlFZckoToAaktFv9oaokBOhP1nz
+	 +VpuW6eYc+RzP3qG+1rmFlUHsIXtztQnFQecDEVb2bn798hdW12lnQ79iH+0B3wXfPw7Q
+	 8UeZS1YJ464NyMEWBjCgleEyMEJ5bzDIitUwA7cwk06bh74haJ+IqdagjDt/gpr/vJFmS
+	 MNxbiF49TV1N27HDV3GhX1mWSNhVICySikkVeFnssxp7J3pFt/qY998I4KpzQVP26CFoF
+	 LFaOnvJD5Py55Fz2ZInW7ZtmaYV96DmVbKzxtX2AKWPzqyDaA1OAVD3y52bpWkvpv4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=openvpn.net;
 	spf=pass smtp.mailfrom=openvpn.com;
-	dkim=pass header.d=openvpn.net header.i=@openvpn.net header.a=rsa-sha256 header.s=google header.b=RSX1gcpR;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	dkim=pass header.d=openvpn.net header.i=@openvpn.net header.a=rsa-sha256 header.s=google header.b=YSNEVpCG;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90955606A681
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 00:22:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90955606A681
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3012606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 00:22:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3012606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=openvpn.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openvpn.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=openvpn.net header.i=@openvpn.net header.a=rsa-sha256 header.s=google header.b=RSX1gcpR
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-492fcbfaa88so3345408f8f.3
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:22:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=openvpn.net header.i=@openvpn.net header.a=rsa-sha256 header.s=google header.b=YSNEVpCG
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4a3e706b5dfso3254247f8f.2
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 16:22:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openvpn.net; s=google; t=1795566169; x=1796170969; darn=vger.kernel.org;
+        d=openvpn.net; s=google; t=1795566171; x=1796170971; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KHHHr0SM/T2s4jZq5GOtf7zF3qLtJzGFhWPknayndBg=;
-        b=RSX1gcpRmM7s3A2Kg1OlCVI7K4wBkx9MR48RV4sItwz5qwf84r/nNC84xr6MRBuNha
-         efLo/ufp1Cxdnp5WACLGGsVqPQKLvYv58zqstfw3BEZkjAD22OyMacbTOaEyDi0wSYWm
-         PzCK03MhNXaGSkjEL+rpTJbqlDI/veguqarYGSIJCu/J3c5M9ssdturir9cGKZ4jmoO5
-         p3DHLiHZ+QvRl8wRF3dAEKrDcGnNRoaDPZLLdERec2q/u8oELURPBBF8Wj9KuGTxQXLo
-         Mo9LgKlmG6iWjiszTrmKfADAuKoastPxx7eDgElUNiTXeJrWUG1+3U6+qmz45HfzN4NT
-         cGAg==
+        bh=vIPhS8DwvcQG0pi15UwBlmuo6rGqkjQxdAWMcWGTY80=;
+        b=YSNEVpCGusdRr9mfbwmbcP00nQMPYXfo8QrV80XwhCXqyjlwcwDM6gyd0yL2VoEmYb
+         F0yRxdUIvPELodnAXnTZSp9NO/mK3xkwd7KqVSdUG4/395ACe+oP1ZRzBRHz7ZL/E2hS
+         fsBXHjMi+n706XRjY8T+N+GnQwAMWM3P82YbxfgMrDzI0KEqfA8wkyBWVNRfU7M72wH9
+         cp5164O2AUakNq4Ety2Df5dXI8xs4DlAY5UXB66e+PloxjwTlTxsfmOboyMnZ8JNwFjV
+         W52f8yKZxYGaHY540AxQV8q2HYzBpk/1tsUN5r0eFjGVK46SqHZqCIXnAyqE5Z9uDt3W
+         ZvfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795566169; x=1796170969;
+        d=1e100.net; s=20260707; t=1795566171; x=1796170971;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KHHHr0SM/T2s4jZq5GOtf7zF3qLtJzGFhWPknayndBg=;
-        b=kzaQXLbgLc2c8cEutrFqmDhJI6VBlo+Vaivt8lnpOPevTm24EjnEftE8d+9np865ur
-         vl2MqXBPc6dt7AiY0qKMB+QU0nLAHezwv462SYiHxhGGyqXpJHM+QQP4ZfdUQkVfOtpP
-         mXJwTgTWcLDMF+I/1HErRdr9mHiw6NxqjC9NuQLx9r9v7a4CSU+/p7nvbq8YcBOwq2R+
-         sNem/66YvGq0CAn2NuJvVYiYpdb+1SwxNNdT2rx0F5Ns57l1BqqQLaw6avKWjFKuAYu7
-         DS/jOgUH+eCOgy7iyw3Bxg7KSVz+b9+xzF+nC2KyVIr4shNJs1N1m6aoS3JvK8L+fI6C
-         mHxg==
-X-Forwarded-Encrypted: i=1; AL+hErGE55pVtKz5v0HypWATeCbRyayDNW7bg2nOBTHvfKr02frIfgkQefw/9aZbHBujiHHW+i9R3eU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8BEA3QkxI/Ml87HpO/InrDyRMWmAEAhz+kC20DU+gMLC+QszDm
-	zGXd7K1PEf7iJRu/EIkS/Az4maRvnNk7vdN1II0F71VK0pqWwdlYNElyfUJLIwoKPxL0wn989KU
-	e+2yGjslakFfa2SI+moFOVx24J+afTS1pFFzd8NHllpdIcy952q4=
-X-Gm-Gg: AZFdTZd3dDJRKiZUucBD3hzgifB4m59ofbMl6dgAoOypwtJe56Y5CGwsiwvawk5h4Rj
-	1tItz9u5klWGZcRv3DsfVfxE/GIujtE+qfGOZ59R06nk5CpIwLA9Gg6JTLniLzpkTCKgLOxuGmT
-	Qe999xqwI4cfMDONjf+c+83cTpzcxvHGqQ+IsF+eXrCdG1U0I5Upm+C/g6nz7ntqfvznnF9Ixlm
-	ukRz6ffORSHdsrJP4ZEGa1/gCgWG/GuXoYnUC0+F2OoCjuoPEeot30U9xsM0lYmrD3lNw0K90Jp
-	wZ1rg7qATy+CWJD4SCuCT/nmOjmH0aFVaB8aKfcZXkY/xOz6KgoLifwLv6rjC8OvfQq2byHOZnk
-	TDiV7WWp5hFajwR9jreiyEI6pKBrOmsggjEWDZo6hhn+76MmmUbWfTuK3js9jeqQ498qSJ20Hgg
-	xGohG2fxdQWlgDsq7meKtZyjLMMET9wMzVkCjKYpOON6ThXZ5jh2SdwnPAAgtnpok4ZQtct9hpA
-	1rY6ilggdcmkMaJ+4vPTSz17VIKtZPDYp4N5ZmLPbl0mKzu5r0KMb71SZGXZAdswI4Aq4AKNeup
-	O0nwn2QBjHIQHQPPhaXqByFabgqr75pEWx/ywPh4iJC3HcvhUL9a
-X-Received: by 2002:a05:6000:200e:b0:4aa:76ce:4b9f with SMTP id ffacd0b85a97d-4abb6746af3mr31641905f8f.56.1795566168947;
-        Tue, 24 Nov 2026 16:22:48 -0800 (PST)
+        bh=vIPhS8DwvcQG0pi15UwBlmuo6rGqkjQxdAWMcWGTY80=;
+        b=EVPcJHFjo60p+vn+klX6rL1TMmqDdvVdfTXESBLUnmFDINQqUhyZCjDhqEPRMXfbGc
+         +xBxLfZwWTzm1qxVIzOjhqehwG06IyDRuuWRP/WivuO01KXVF1s3Wk+XsMFGFLjGOHfO
+         FaQlL4MUztf2I6hqFYHcTxwwDuFPrCKm0G/W9tci/gM7UeCFilGs8rekIi2wdPgQllM7
+         G15UMmKpCBjuE0Szjx459N2ihyfWqVEJd+PVWCIutUcbNdWB9pv0h1duGsyzz086jUw8
+         Mm9kH2oVQiMtdw23kNiTmnHY8TKO0wA0q+6dGsRb5c3E1HTLGLmCDOgHYSw9H1vlZU3+
+         mgSw==
+X-Forwarded-Encrypted: i=1; AL+hErG0KY3QDDnzH+KOwfHZ8oqaYvR0U844L5+3lEWQW43ToEoADaHBgekXMROKipqAI74d9d2SAWc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9D5NKbouq2MQEriRN9O11IgBKwSgo40B+1PM6DB1WQxkgWd4wW
+	A9PY5kO0Bs9yxUoYDMSfOJ4B2jkxSs1icDPELCS36vtQC/4tgnCJq3fewU6NMpcz5OuKy0/T90m
+	XbsPgTJUvEXC7ExV/34vawtvav0HCg50M9kTn2Zf0L2FYzENkpQc=
+X-Gm-Gg: AZFdTZcklCf4tHqNlN6WKH6brkawfL2SaJBBbbK1jQxsOyuVQA+wr5Kkhsi/JlMKu8a
+	LWE/9uWtAOVh+Of3yps460fdrYRmNahA/pFDV8oXFo8wJh2leWBDLvjQM6zwzgbKZ5NBWcYpbce
+	YnujHub2YDmwcs1CHMh7lzCChrynM9WgF+nXpSuxkAvHWw+P6pZTPBVOYFOo0a6xpNVvTu2U9hO
+	vrEb70uBXomWqRdpEvCdIhbX3BkRlpAPtZPJOGlfXmsF4jJSkd+c6Y1dtWfLAQdPnOFiNvRdDSd
+	ZXSYJ/Lwwzf+sEZLfNcGB/9ObM2Xa4nLobIVxwzj8jscXwvbyhP5Z48pCBBntWaUMJLq756tVA6
+	9uEQv10dJ0s+B5+lgA+Xi2IOt0mQFXQl5Uks07MCdcLanhJ2F6kS+PU8MgYns/l5xqVfTvwJeO9
+	IoEWiEnEuhlx+VzKl9pcw8v0R+Eew47Kt4/cdXtyqPFx1oCdHtRDLf3yBX4BhvbyUX4SKwF3bCl
+	EiyH/ERAiO7OzVWjykbqHKfY1HmhkXC8mZ7JdhOF+5vUcGqZgBJmiAjJCL4b3/w3ivAvHIODjXn
+	vg2FOUiBxcBnxcVcZYP0SASvClVM906+6ZYNOf3nS1vyJEPef+Ht
+X-Received: by 2002:a05:6000:250a:b0:49e:1601:2fa1 with SMTP id ffacd0b85a97d-4abb514618bmr36156915f8f.33.1795566171232;
+        Tue, 24 Nov 2026 16:22:51 -0800 (PST)
 Received: from inifinity.homelan.mandelbit.com ([2001:67c:2fbc:1:5c82:5cd3:7bc5:2809])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab69bf630esm31518448f8f.16.2026.11.24.16.22.46
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab69bf630esm31518448f8f.16.2026.11.24.16.22.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 16:22:47 -0800 (PST)
+        Tue, 24 Nov 2026 16:22:49 -0800 (PST)
 From: Antonio Quartulli <antonio@openvpn.net>
 To: netdev@vger.kernel.org
 Cc: Ralf Lici <ralf@mandelbit.com>,
@@ -90,9 +90,9 @@ Cc: Ralf Lici <ralf@mandelbit.com>,
 	Eric Dumazet <edumazet@google.com>,
 	stable@vger.kernel.org,
 	Antonio Quartulli <antonio@openvpn.net>
-Subject: [PATCH net 3/7] ovpn: reject UDP remotes incompatible with socket family
-Date: Wed, 25 Nov 2026 01:22:34 +0100
-Message-ID: <20261125002239.1191542-4-antonio@openvpn.net>
+Subject: [PATCH net 4/7] ovpn: recheck UDP socket family before transmit
+Date: Wed, 25 Nov 2026 01:22:35 +0100
+Message-ID: <20261125002239.1191542-5-antonio@openvpn.net>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261125002239.1191542-1-antonio@openvpn.net>
 References: <20261125002239.1191542-1-antonio@openvpn.net>
@@ -109,258 +109,229 @@ Content-Transfer-Encoding: 8bit
 
 From: Ralf Lici <ralf@mandelbit.com>
 
-ovpn accepts a userspace-provided socket and a peer remote endpoint
-through netlink. For UDP peers, the remote endpoint family selects the
-transmit path used later by ovpn_udp_output.
+ovpn validates UDP peer remotes against the socket family when the
+remote endpoint is configured through netlink. The socket itself,
+however, remains owned by userspace and some socket options can still
+change the family seen by the transmit path.
 
-Reject UDP peer remotes that are incompatible with the socket state when
-they are configured through netlink. An IPv4 UDP socket cannot be used
-with an IPv6 remote endpoint, and an IPv6-only UDP socket cannot receive
-from an IPv4 remote endpoint. Reporting this at setup time gives
-userspace a clear extack and avoids installing a peer that cannot work.
+For example, IPV6_ADDRFORM can turn an AF_INET6 socket into AF_INET
+after ovpn accepted an IPv6 remote. Conversely, IPV6_V6ONLY can make a
+dual-stack AF_INET6 socket unable to send to an IPv4 remote.
 
-Accepting an IPv6 remote on an AF_INET socket is also unsafe. On TX,
-ovpn_udp6_output() hands the socket to ip6_dst_lookup_flow(), which
-dereferences inet6_sk(sk), e.g. to read srcprefs in
-ip6_route_output_flags() when no local address is set. inet6_sk() is
-NULL for AF_INET sockets, therefore the first packet sent to such a
-peer triggers a NULL pointer dereference.
+The IPv6 TX path relies on the socket carrying IPv6 state, as
+ip6_dst_lookup_flow() dereferences inet6_sk(sk), which is NULL for
+native AF_INET sockets. Checking the family at transmit time
+guarantees that ovpn_udp6_output() is only reached with a socket that
+has valid IPv6 state, regardless of how the peer remote was installed.
 
-This validation only covers the socket state visible while the netlink
-request is handled. The socket remains owned by userspace after it is
-attached to ovpn, so userspace can later change properties such as
-IPV6_V6ONLY or IPV6_ADDRFORM. The transmit path therefore still has to
-re-check socket/remote compatibility before sending.
+Recheck the socket family in ovpn_udp_output before selecting the UDP
+transmit path. When the peer remote family no longer matches the socket
+state, emit a ratelimited warning, drop the packet with -EAFNOSUPPORT
+and delete the peer with TRANSPORT_ERROR.
 
-Parse the remote endpoint once in the peer new/set paths and reject UDP
-remotes when the provided socket cannot send to them. Pass the parsed
-endpoint into the common peer modify helper so the validation and the
-stored endpoint use the same normalized sockaddr.
+Peer deletion is deferred through a common transport-error work item,
+because the UDP transmit path can run from non-sleepable contexts while
+ovpn_peer_del may release sockets and sleep. Use the same helper for TCP
+transport errors instead of keeping a TCP-only deferred delete work
+item.
 
-Fixes: 1d36a36f6d53 ("ovpn: implement peer add/get/dump/delete via netlink")
+Fixes: 08857b5ec5d9 ("ovpn: implement basic TX path (UDP)")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ralf Lici <ralf@mandelbit.com>
+[antonio: use queue_work(ovpn_wq) instead of schedule_work() to
+ follow the module-owned workqueue conversion]
 Signed-off-by: Antonio Quartulli <antonio@openvpn.net>
 ---
- drivers/net/ovpn/netlink.c | 128 ++++++++++++++++++++++++++-----------
- 1 file changed, 92 insertions(+), 36 deletions(-)
+ drivers/net/ovpn/peer.c | 19 +++++++++++++++++++
+ drivers/net/ovpn/peer.h |  5 +++--
+ drivers/net/ovpn/tcp.c  | 23 +++--------------------
+ drivers/net/ovpn/udp.c  | 24 +++++++++++++++++++++---
+ 4 files changed, 46 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/net/ovpn/netlink.c b/drivers/net/ovpn/netlink.c
-index 1af7e0e624ba..bf27a7a89f76 100644
---- a/drivers/net/ovpn/netlink.c
-+++ b/drivers/net/ovpn/netlink.c
-@@ -310,15 +310,17 @@ static int ovpn_nl_peer_precheck(struct ovpn_priv *ovpn,
-  * @peer: the peer to modify
-  * @info: generic netlink info from the user request
-  * @attrs: the attributes from the user request
-+ * @remote: remote address, if provided
-  *
-  * Return: a negative error code in case of failure, 0 on success or 1 on
-  *	   success and the VPN IPs have been modified (requires rehashing in MP
-  *	   mode)
-  */
- static int ovpn_nl_peer_modify(struct ovpn_peer *peer, struct genl_info *info,
--			       struct nlattr **attrs)
-+			       struct nlattr **attrs,
-+			       const struct sockaddr_storage *remote)
- {
--	struct sockaddr_storage ss = {};
-+	struct sockaddr_storage empty_remote = {};
- 	void *local_ip = NULL;
- 	u32 interv, timeout;
- 	bool rehash = false;
-@@ -326,15 +328,15 @@ static int ovpn_nl_peer_modify(struct ovpn_peer *peer, struct genl_info *info,
- 
- 	spin_lock_bh(&peer->lock);
- 
--	if (ovpn_nl_attr_sockaddr_remote(attrs, &ss)) {
-+	if (remote) {
- 		/* we carry the local IP in a generic container.
- 		 * ovpn_peer_reset_sockaddr() will properly interpret it
--		 * based on ss.ss_family
-+		 * based on remote->ss_family
- 		 */
- 		local_ip = ovpn_nl_attr_local_ip(attrs);
- 
- 		/* set peer sockaddr */
--		ret = ovpn_peer_reset_sockaddr(peer, &ss, local_ip);
-+		ret = ovpn_peer_reset_sockaddr(peer, remote, local_ip);
- 		if (ret < 0) {
- 			NL_SET_ERR_MSG_FMT_MOD(info->extack,
- 					       "cannot set peer sockaddr: %d",
-@@ -372,7 +374,7 @@ static int ovpn_nl_peer_modify(struct ovpn_peer *peer, struct genl_info *info,
- 
- 	netdev_dbg(peer->ovpn->dev,
- 		   "modify peer id=%u tx_id=%u endpoint=%pIScp VPN-IPv4=%pI4 VPN-IPv6=%pI6c\n",
--		   peer->id, peer->tx_id, &ss,
-+		   peer->id, peer->tx_id, remote ?: &empty_remote,
- 		   &peer->vpn_addrs.ipv4.s_addr, &peer->vpn_addrs.ipv6);
- 
- 	spin_unlock_bh(&peer->lock);
-@@ -383,12 +385,45 @@ static int ovpn_nl_peer_modify(struct ovpn_peer *peer, struct genl_info *info,
- 	return ret;
+diff --git a/drivers/net/ovpn/peer.c b/drivers/net/ovpn/peer.c
+index 2067825bb5b6..5e22015351eb 100644
+--- a/drivers/net/ovpn/peer.c
++++ b/drivers/net/ovpn/peer.c
+@@ -83,6 +83,24 @@ static void ovpn_peer_keepalive_send(struct work_struct *work)
+ 	local_bh_enable();
  }
  
-+/**
-+ * ovpn_nl_udp_remote_compatible - check if a UDP socket can use a remote
-+ * @sk: UDP socket to validate
-+ * @remote: remote endpoint to validate against the socket
-+ * @extack: netlink extended ACK for reporting validation errors
-+ *
-+ * Return: 0 if the remote endpoint is compatible with the socket or a negative
-+ * error code otherwise.
-+ */
-+static int ovpn_nl_udp_remote_compatible(const struct sock *sk,
-+					 const struct sockaddr_storage *remote,
-+					 struct netlink_ext_ack *extack)
++static void ovpn_peer_transport_error_work(struct work_struct *work)
 +{
-+	const unsigned short sock_family = READ_ONCE(sk->sk_family);
++	struct ovpn_peer *peer = container_of(work, struct ovpn_peer,
++					      transport_error_work);
 +
-+	if (sock_family == AF_INET && remote->ss_family == AF_INET6) {
-+		NL_SET_ERR_MSG_FMT_MOD(extack,
-+				       "UDP socket is IPv4 but remote is IPv6");
-+		return -EAFNOSUPPORT;
-+	}
-+
-+	if (sock_family == AF_INET6 && ipv6_only_sock(sk) &&
-+	    remote->ss_family == AF_INET) {
-+		NL_SET_ERR_MSG_FMT_MOD(extack,
-+				       "UDP socket is IPv6-only but remote is IPv4");
-+		return -EAFNOSUPPORT;
-+	}
-+
-+	return 0;
++	ovpn_peer_del(peer, OVPN_DEL_PEER_REASON_TRANSPORT_ERROR);
++	ovpn_peer_put(peer);
 +}
 +
- int ovpn_nl_peer_new_doit(struct sk_buff *skb, struct genl_info *info)
- {
- 	struct in_addr vpn_addr4 = { .s_addr = htonl(INADDR_ANY) };
-+	const struct sockaddr_storage *remote = NULL;
- 	struct in6_addr vpn_addr6 = IN6ADDR_ANY_INIT;
- 	struct ovpn_priv *ovpn = info->user_ptr[0];
- 	struct nlattr *attrs[OVPN_A_PEER_MAX + 1];
-+	struct sockaddr_storage ss = {};
- 	struct ovpn_socket *ovpn_sock;
- 	struct socket *sock = NULL;
- 	struct ovpn_peer *peer;
-@@ -459,26 +494,34 @@ int ovpn_nl_peer_new_doit(struct sk_buff *skb, struct genl_info *info)
- 		goto peer_release;
- 	}
- 
--	/* Only when using UDP as transport protocol the remote endpoint
--	 * can be configured so that ovpn knows where to send packets to.
--	 */
--	if (sk_is_udp(sock->sk) &&
--	    !attrs[OVPN_A_PEER_REMOTE_IPV4] &&
--	    !attrs[OVPN_A_PEER_REMOTE_IPV6]) {
--		NL_SET_ERR_MSG_FMT_MOD(info->extack,
--				       "missing remote IP address for UDP socket");
--		sockfd_put(sock);
--		ret = -EINVAL;
--		goto peer_release;
--	}
-+	if (ovpn_nl_attr_sockaddr_remote(attrs, &ss))
-+		remote = &ss;
- 
--	/* In case of TCP, the socket is connected to the peer and ovpn
--	 * will just send bytes over it, without the need to specify a
--	 * destination.
--	 */
--	if (sk_is_tcp(sock->sk) &&
--	    (attrs[OVPN_A_PEER_REMOTE_IPV4] ||
--	     attrs[OVPN_A_PEER_REMOTE_IPV6])) {
-+	if (sk_is_udp(sock->sk)) {
-+		/* Only when using UDP as transport protocol the remote
-+		 * endpoint can be configured so that ovpn knows where to send
-+		 * packets to.
-+		 */
-+		if (!remote) {
-+			NL_SET_ERR_MSG_FMT_MOD(info->extack,
-+					       "missing remote IP address for UDP socket");
-+			sockfd_put(sock);
-+			ret = -EINVAL;
-+			goto peer_release;
-+		}
++void ovpn_peer_del_transport_error(struct ovpn_peer *peer)
++{
++	if (WARN_ON(!ovpn_peer_hold(peer)))
++		return;
 +
-+		/* can the socket be used with this remote? */
-+		ret = ovpn_nl_udp_remote_compatible(sock->sk, remote,
-+						    info->extack);
-+		if (ret < 0) {
-+			sockfd_put(sock);
-+			goto peer_release;
-+		}
-+	} else if (remote) {
-+		/* In case of TCP, the socket is connected to the peer and ovpn
-+		 * will just send bytes over it, without the need to specify a
-+		 * destination.
-+		 */
- 		NL_SET_ERR_MSG_FMT_MOD(info->extack,
- 				       "unexpected remote IP address with TCP socket");
- 		sockfd_put(sock);
-@@ -504,7 +547,7 @@ int ovpn_nl_peer_new_doit(struct sk_buff *skb, struct genl_info *info)
- 
- 	rcu_assign_pointer(peer->sock, ovpn_sock);
- 
--	ret = ovpn_nl_peer_modify(peer, info, attrs);
-+	ret = ovpn_nl_peer_modify(peer, info, attrs, remote);
- 	if (ret < 0)
- 		goto sock_release;
- 
-@@ -533,8 +576,10 @@ int ovpn_nl_peer_new_doit(struct sk_buff *skb, struct genl_info *info)
- 
- int ovpn_nl_peer_set_doit(struct sk_buff *skb, struct genl_info *info)
- {
-+	const struct sockaddr_storage *remote = NULL;
- 	struct ovpn_priv *ovpn = info->user_ptr[0];
- 	struct nlattr *attrs[OVPN_A_PEER_MAX + 1];
-+	struct sockaddr_storage ss = {};
- 	struct in6_addr vpn_addr6;
- 	struct in_addr vpn_addr4;
- 	struct ovpn_socket *sock;
-@@ -568,17 +613,28 @@ int ovpn_nl_peer_set_doit(struct sk_buff *skb, struct genl_info *info)
- 		return -ENOENT;
- 	}
- 
--	/* when using a TCP socket the remote IP is not expected */
-+	if (ovpn_nl_attr_sockaddr_remote(attrs, &ss))
-+		remote = &ss;
++	if (!queue_work(ovpn_wq, &peer->transport_error_work))
++		ovpn_peer_put(peer);
++}
 +
- 	rcu_read_lock();
- 	sock = rcu_dereference(peer->sock);
--	if (sock && sock->sk->sk_protocol == IPPROTO_TCP &&
--	    (attrs[OVPN_A_PEER_REMOTE_IPV4] ||
--	     attrs[OVPN_A_PEER_REMOTE_IPV6])) {
--		rcu_read_unlock();
--		NL_SET_ERR_MSG_FMT_MOD(info->extack,
--				       "unexpected remote IP address with TCP socket");
+ /**
+  * ovpn_peer_new - allocate and initialize a new peer object
+  * @ovpn: the openvpn instance inside which the peer should be created
+@@ -117,6 +135,7 @@ struct ovpn_peer *ovpn_peer_new(struct ovpn_priv *ovpn, u32 id)
+ 	kref_init(&peer->refcount);
+ 	ovpn_peer_stats_init(&peer->vpn_stats);
+ 	ovpn_peer_stats_init(&peer->link_stats);
++	INIT_WORK(&peer->transport_error_work, ovpn_peer_transport_error_work);
+ 	INIT_WORK(&peer->keepalive_work, ovpn_peer_keepalive_send);
+ 
+ 	ret = dst_cache_init(&peer->dst_cache, GFP_KERNEL);
+diff --git a/drivers/net/ovpn/peer.h b/drivers/net/ovpn/peer.h
+index 1879bfb76992..4b20a421cd40 100644
+--- a/drivers/net/ovpn/peer.h
++++ b/drivers/net/ovpn/peer.h
+@@ -72,6 +72,7 @@ struct ovpn_route_key {
+  * @refcount: reference counter
+  * @rcu: used to free peer in an RCU safe way
+  * @release_entry: entry for the socket release list
++ * @transport_error_work: work used to delete peer on transport error
+  * @keepalive_work: used to schedule keepalive sending
+  */
+ struct ovpn_peer {
+@@ -107,8 +108,6 @@ struct ovpn_peer {
+ 			struct proto *prot;
+ 			const struct proto_ops *ops;
+ 		} sk_cb;
+-
+-		struct work_struct defer_del_work;
+ 	} tcp;
+ 	struct ovpn_crypto_state crypto;
+ 	struct dst_cache dst_cache;
+@@ -128,6 +127,7 @@ struct ovpn_peer {
+ 	struct kref refcount;
+ 	struct rcu_head rcu;
+ 	struct llist_node release_entry;
++	struct work_struct transport_error_work;
+ 	struct work_struct keepalive_work;
+ };
+ 
+@@ -156,6 +156,7 @@ static inline void ovpn_peer_put(struct ovpn_peer *peer)
+ struct ovpn_peer *ovpn_peer_new(struct ovpn_priv *ovpn, u32 id);
+ int ovpn_peer_add(struct ovpn_priv *ovpn, struct ovpn_peer *peer);
+ int ovpn_peer_del(struct ovpn_peer *peer, enum ovpn_del_peer_reason reason);
++void ovpn_peer_del_transport_error(struct ovpn_peer *peer);
+ void ovpn_peers_free(struct ovpn_priv *ovpn, struct sock *sock,
+ 		     enum ovpn_del_peer_reason reason);
+ 
+diff --git a/drivers/net/ovpn/tcp.c b/drivers/net/ovpn/tcp.c
+index 8fe8a8e750a4..5340860c0b82 100644
+--- a/drivers/net/ovpn/tcp.c
++++ b/drivers/net/ovpn/tcp.c
+@@ -148,11 +148,7 @@ static void ovpn_tcp_rcv(struct strparser *strp, struct sk_buff *skb)
+ 	ovpn_recv(peer, skb);
+ 	return;
+ err:
+-	/* take reference for deferred peer deletion. should never fail */
+-	if (WARN_ON(!ovpn_peer_hold(peer)))
+-		goto err_nopeer;
+-	if (!queue_work(ovpn_wq, &peer->tcp.defer_del_work))
 -		ovpn_peer_put(peer);
--		return -EINVAL;
-+	if (sock && remote) {
-+		if (sk_is_udp(sock->sk)) {
-+			ret = ovpn_nl_udp_remote_compatible(sock->sk, remote,
-+							    info->extack);
-+			if (ret < 0) {
-+				rcu_read_unlock();
-+				ovpn_peer_put(peer);
-+				return ret;
-+			}
-+		} else if (sk_is_tcp(sock->sk)) {
-+			/* when using a TCP socket remote IP is not expected */
-+			NL_SET_ERR_MSG_FMT_MOD(info->extack,
-+					       "unexpected remote IP address with TCP socket");
-+			rcu_read_unlock();
-+			ovpn_peer_put(peer);
-+			return -EINVAL;
++	ovpn_peer_del_transport_error(peer);
+ 	ovpn_dev_dstats_rx_dropped(peer->ovpn->dev);
+ err_nopeer:
+ 	kfree_skb(skb);
+@@ -240,7 +236,7 @@ void ovpn_tcp_socket_wait_finish(struct ovpn_socket *sock)
+ {
+ 	struct ovpn_peer *peer = sock->peer;
+ 
+-	/* NOTE: we don't wait for peer->tcp.defer_del_work to finish:
++	/* NOTE: we don't wait for peer->transport_error_work to finish:
+ 	 * either the worker is not running or this function
+ 	 * was invoked by that worker.
+ 	 */
+@@ -283,9 +279,7 @@ static void ovpn_tcp_send_sock(struct ovpn_peer *peer, struct sock *sk)
+ 			/* in case of TCP error we can't recover the VPN
+ 			 * stream therefore we abort the connection
+ 			 */
+-			ovpn_peer_hold(peer);
+-			if (!queue_work(ovpn_wq, &peer->tcp.defer_del_work))
+-				ovpn_peer_put(peer);
++			ovpn_peer_del_transport_error(peer);
+ 
+ 			/* we bail out immediately and keep tx_in_progress set
+ 			 * to true. This way we prevent more TX attempts
+@@ -497,15 +491,6 @@ static void ovpn_tcp_build_protos(struct proto *new_prot,
+ 				  const struct proto *orig_prot,
+ 				  const struct proto_ops *orig_ops);
+ 
+-static void ovpn_tcp_peer_del_work(struct work_struct *work)
+-{
+-	struct ovpn_peer *peer = container_of(work, struct ovpn_peer,
+-					      tcp.defer_del_work);
+-
+-	ovpn_peer_del(peer, OVPN_DEL_PEER_REASON_TRANSPORT_ERROR);
+-	ovpn_peer_put(peer);
+-}
+-
+ /* Set TCP encapsulation callbacks */
+ int ovpn_tcp_socket_attach(struct ovpn_socket *ovpn_sock,
+ 			   struct ovpn_peer *peer)
+@@ -538,8 +523,6 @@ int ovpn_tcp_socket_attach(struct ovpn_socket *ovpn_sock,
+ 		goto err;
+ 	}
+ 
+-	INIT_WORK(&peer->tcp.defer_del_work, ovpn_tcp_peer_del_work);
+-
+ 	__sk_dst_reset(ovpn_sock->sk);
+ 	skb_queue_head_init(&peer->tcp.user_queue);
+ 	skb_queue_head_init(&peer->tcp.out_queue);
+diff --git a/drivers/net/ovpn/udp.c b/drivers/net/ovpn/udp.c
+index 30c7eb261e7b..7672094a6766 100644
+--- a/drivers/net/ovpn/udp.c
++++ b/drivers/net/ovpn/udp.c
+@@ -416,6 +416,7 @@ static int ovpn_udp_output(struct ovpn_peer *peer, struct dst_cache *cache,
+ 			   struct sock *sk, struct sk_buff *skb,
+ 			   struct ovpn_route_key *key)
+ {
++	unsigned short sock_family;
+ 	struct ovpn_bind *bind;
+ 	int ret;
+ 
+@@ -432,18 +433,35 @@ static int ovpn_udp_output(struct ovpn_peer *peer, struct dst_cache *cache,
+ 		goto out;
+ 	}
+ 
++	sock_family = READ_ONCE(sk->sk_family);
++	ret = -EAFNOSUPPORT;
+ 	switch (bind->remote.in4.sin_family) {
+ 	case AF_INET:
++		/* userspace might have set IPV6_V6ONLY */
++		if (unlikely(sock_family == AF_INET6 && ipv6_only_sock(sk))) {
++			net_warn_ratelimited("%s: peer %u: IPv4 remote, IPv6-only socket\n",
++					     netdev_name(peer->ovpn->dev),
++					     peer->id);
++			ovpn_peer_del_transport_error(peer);
++			break;
 +		}
++
+ 		ret = ovpn_udp4_output(peer, bind, cache, sk, skb, key);
+ 		break;
+ #if IS_ENABLED(CONFIG_IPV6)
+ 	case AF_INET6:
++		/* userspace might have set IPV6_ADDRFORM */
++		if (unlikely(sock_family != AF_INET6)) {
++			net_warn_ratelimited("%s: peer %u: IPv6 remote, IPv4 socket\n",
++					     netdev_name(peer->ovpn->dev),
++					     peer->id);
++			ovpn_peer_del_transport_error(peer);
++			break;
++		}
++
+ 		ret = ovpn_udp6_output(peer, bind, cache, sk, skb, key);
+ 		break;
+ #endif
+-	default:
+-		ret = -EAFNOSUPPORT;
+-		break;
  	}
- 	rcu_read_unlock();
  
-@@ -607,7 +663,7 @@ int ovpn_nl_peer_set_doit(struct sk_buff *skb, struct genl_info *info)
- 			goto unlock;
- 	}
- 
--	ret = ovpn_nl_peer_modify(peer, info, attrs);
-+	ret = ovpn_nl_peer_modify(peer, info, attrs, remote);
- 	if (ret < 0)
- 		goto unlock;
- 
+ out:
