@@ -1,102 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618576;
-	b=fW2oDLi8LRP9BoisRaYOoQINH81wFNw5dTfvNFYu6vZVY/cbtkeftqfIqKnoSOhc5qn5
-	 1YuG+1qYvhsze7U9OAEr4YB08GlYqOXtjLij2UadRYGpeuylnNkc8KoihsLJnYkeZSO7j
-	 aI14CkSp/SD8j3o+rpY5cxkyWwRNTDHfqAL/3lIYJnqvV10e8Elxbbn/vCRgvL/9p/tjN
-	 21jN/3jBOXWvzQs2Z9fWBInzLUX3npJAMFTaELq6xEDDA0ugCkhQVanbJlfv6iooKVqx3
-	 l5784NxTUtwOTeWclEb5UeSu4bltXhBjMnDcjl3gHnasPilMJd1Y0rm0d+IwPiS7z9A==
+	t=1795618583;
+	b=C/dGYmQAHjS4SNZLPTxgs4QPJ/E8uG4fLS3j4j7t0ZLlj/Yhyd5aFyp10uAJJrwkCdXE
+	 V611uYy8N3Lbhind2XtKulX+EkrJ3FX3fmfbnbGumAo/zHRdr3zCuPsGExjblmc6BjF3I
+	 ceiNcjOGrFm4aFzja4HrmyoTQ+F6kRoNypTPFcunBi3xshFFh7sWiWN2pAhldrsTuuCHS
+	 CsQKvWVMQRIWVcY5VUzUGqDc7ep3bjOvfrXOmO3xZp1Ut4d3swm3zudkGTbSFI20pZ8po
+	 Hqjx7GrARqFqHVs0u4rBQqlx6/Ruba3AvTZsbyGO8gL9kl52zqdigVWKgW5i1Y/H2Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618576;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=H2v9m8o2ZyN6mJNXof8J2YJUJ0qz0MjiMku6/OumPR8=;
-	b=Xvay945oTYwNRxEd5Pl+b1rJCtnV5pQMPd9oRD0gomOz9ht1ajCBVfvbdJKpSraxcXrY
-	 GLw+cbEJngBH+N3d930KGF0ojBjXHIit2dFtUif9p8mX1wD+i03E4LawpdZSShwhUqWZw
-	 JSDhJ/WeCNwTQ/BJKJWv6lybEvSIpn7OgIq3puUE75vsA48yKig13XnCXns7XAA0rImS/
-	 +aAlFjdarWGXoF9HY0eP+DWZd1NghDG9Q5C1cR3HGHO7q6CBEWDEoqEgR70ioFg8rbPey
-	 eaHp1DgNKzt0p+svyss0Kddj5P3zJbHO8vgzFfYDhKibUhmFLtaozwZ92aAPzaveyBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618583;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=/EcmE73oUVogz6Dyt9a4wtXJQsSgEPtXYRojTD9v6Wo=;
+	b=PgbVKu5ffv8zXMiz+5PMvwUs/mW9yNK+h7u5RYeH6DYNfHJ9iAM/Is0mSlkrOdLdZWIn
+	 q5eHr2hG/b+pep3mFJr5z/0ajrWdmqACFOYiKZJeIL6Zw1z3HXn42YwGvqeVasJUK/ujk
+	 L2UGd7IY2WRUIFPMNJV0FdAHgc4k0C6G3B0ouq3Qt7AHoOaDDmJtrliTRqFBRfxtxdfPe
+	 BRL+nd6aexmKU6jQcMZKm7/oYSw2XV/wXKI4PX2V3hYls2keJ/5HOvw1/w+ihCwYAjxum
+	 1oVNI5r4A6lv0DXKPO+O/x5Dzc1zlq+3cqTzkkXMy+cr3PeZO8gpRgH678yvCyx4eQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=OYNxKfNH;
-	arc=none smtp.remote-ip=209.85.222.175
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="C/gWPwg7";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF9FE606A331
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:56:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF9FE606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF69606A321;
+	Wed, 25 Nov 2026 14:56:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=OYNxKfNH
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-949680e6d83so529763285a.3
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 06:56:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1795618575; x=1796223375; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=H2v9m8o2ZyN6mJNXof8J2YJUJ0qz0MjiMku6/OumPR8=;
-        b=OYNxKfNHfP6AwkYsERu63zDzJAQPUGhYsCT43HZkjStcluGygKe12LuAexit9a5c6I
-         2xHd+rFeUUWgQz3UD4v6ixaaQHjS+rxO6ULdO3fhPiUPK01Xq8/mBmvNXb1FFx0+5h+y
-         txmt8Qu7dTrHwsvfmdLvBZVh1tYGu5ws2UTAxhQ4QQZ6wJ9BJZ0AHoMR77wCIUE8irGw
-         yOJVXSOfdvyNe/kwEsFYcbGWMENmzqdQGwGisbGOpmrz0P+cscixGw43F3nRwhBp4hXK
-         oAi1vBIDqzDf2RFEYLAzJgTZsaAnHnNnhRfu705bDSb63uQLNQ3FjPvM/ZEIm9FBbf+L
-         49WA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795618575; x=1796223375;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H2v9m8o2ZyN6mJNXof8J2YJUJ0qz0MjiMku6/OumPR8=;
-        b=IXEjSly9O679py5jTmoTF+DgezR0JSDIEcN9QDgsHWIFd6ngCB8+0rAPpTb8xYMkiL
-         diJkJMT0v36Q+/J0xGJLCpYUrS3pnaGmP1hSTIlcfPwh779v0vDj1B2Gi3x15orzGVvW
-         l1uNYMmjKYcRI3X2hxriGtnmaXZGM8ykgQi0ZdT+hSggRU7qKoEhc93UlAbjX7SH/XW9
-         KyVwvu/LbxadIflY1LafLhIz62KzzoPu2lAa3zlkojJKhn3oyoCHcg+vEVo4U3gANmav
-         984uEXv+V3YaClNsLHI0xT7kd1RTQQyinkyli26nHxW4DpofgMbMEkP/kd5tmytMOTve
-         vXTg==
-X-Forwarded-Encrypted: i=1; AL+hErEIwusOMH0RVxEWkVAZ7PZHbaY1Jrh7fZvIjut9IF3+HLj2gf3zs0L0k5fIIMm/2lr9ANJrvPw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/dn3NHMyj6k3qklbSZkdes/HjUz3izryvOMws9LXJULkoQYKiL
-	8/d2gTBa8TG0l8NKLbS/6Mbb0l9jQzrhDWx0ysG0ezWCU6QYpdUOAcwgIsS75TqXwOg=
-X-Gm-Gg: AZFdTZedf6yRxJgMVcXEvn8hzuSuosvFhPy2jxYEqemN8iLVGPZxSu7eNiPujhhneS3
-	ii74vwAXhMz24K3YHv/7lBEqIvScqZN7X1QUTfQ/i21rn8mHPpTe1b76I4qNiHy19xWOKH7pyEH
-	H5yEq9yQpQVz+Xj8Q3RQX5qwsMI3yjuOQKk5kd1XYyPL54qa5byz5CVBa4T+Z25fyQAlaEemzrm
-	O80ybMIVZM7qaM3xPZ01j0oI5KO1MkGFzxUwzQPT1C9ohVkFNo4H54XvqBJx8KHbglcIOKyyUzh
-	beS6btBupq5xkeTprYud4E8YYS/haRvieDP7L1k4aDQtXKE+MNqU6GghOH7HsFRB76DN/Q4OmZH
-	gJwxCjnJxIMC5NsHdZPwSPcjttTt/a3p9FXPmzygdQJL5DhrweZfkqSscC0yoL6rjOCVivn2iUn
-	kgoyZvOmuyr9ViNUPtqM5hwIvgW6QRgeGl4Ex8nX1+wSOzSirZYj9o2bNDQ0at6XVwrnrtkFGX8
-	wicsVxhEP2xECSQ2Xo04JZTroEk2iLziXHJk2kKpXTw3N9/BxPbwfLDq18o3GHHf1EsHOKDELf9
-	ohq8vw==
-X-Received: by 2002:a05:620a:2956:b0:949:9cf0:badd with SMTP id af79cd13be357-949bab2f511mr3135941485a.73.1795618574856;
-        Wed, 25 Nov 2026 06:56:14 -0800 (PST)
-Received: from ziepe.ca ([142.177.118.84])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb38c903sm1327013585a.19.2026.11.25.06.56.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 06:56:14 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xWEPt-00000001o1M-2tKn;
-	Wed, 25 Nov 2026 10:56:13 -0400
-Date: Wed, 25 Nov 2026 10:56:13 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Jaeyeong Lee <lee@jaeyeong.cc>, Artemy Kovalyov <artemyko@mellanox.com>,
-	Yishai Hadas <yishaih@mellanox.com>, linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] RDMA/mlx5: Preserve DEVX objects after failed output
- copy
-Message-ID: <20261125145613.GJ246011@ziepe.ca>
-References: <20261111105346.3220427-1-lee@jaeyeong.cc>
- <20261115135123.GD42525@unreal>
- <20261122103715.51731-1-lee@jaeyeong.cc>
- <20261122103855.51859-1-lee@jaeyeong.cc>
- <20261125131244.GB14811@unreal>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C/gWPwg7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2629B1F000C6;
+	Wed, 25 Nov 2026 14:56:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795618582;
+	bh=/EcmE73oUVogz6Dyt9a4wtXJQsSgEPtXYRojTD9v6Wo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=C/gWPwg7f0lBrX4SyVMWaNlfao4KlrGoCk0iy+PwkohWox09qWN3Dyfwhs56jRM47
+	 oqNsnLeSKIIv2xp1hCw7qrnFkj8zJNUuoxYy9HPH0hVqqshS3l6N7qUgcxcrohPFhy
+	 RgUkFlbwsDfisIfcMR9z6aN80ag/AHjykU6/nwn4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 0326/1005] MIPS: Alchemy: Save the Ethernet address before reusing PROM memory
+Date: Wed, 25 Nov 2026 15:27:44 +0100
+Message-ID: <20261125143829.369725410@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,40 +62,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261125131244.GB14811@unreal>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 25, 2026 at 03:12:44PM +0200, Leon Romanovsky wrote:
-> On Sun, Nov 22, 2026 at 10:39:01AM +0000, Jaeyeong Lee wrote:
-> > As requested, below is the full dmesg from the reproducer run.
-> 
-> <...>
-> 
-> > [   13.847526] mlx5_dct_repro: loading out-of-tree module taints kernel.
->
-> What value does this change provide if it is based on an AI-generated sequence?
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-More importantly you are not allowed to call
-uobj_finalize_uobj_create() from new style methods, it is only for the
-old write interface. I guess it is in the wrong header.
+------------------
 
-It should be uverbs_finalize_uobj_create() if you want to use this
-sequence.
+From: Florian Fainelli <f.fainelli@gmail.com>
 
-And it should probably cover devx_handle_mkey_indirect() as well.
+[ Upstream commit 792ac17faa0503448f3ef85b49f16456ac54ab84 ]
 
-The idea itself seems reasonable, once we have done the actual create
-command to FW it should use the normal destroy sequence. That is
-exactly why we have the finalize helper in the first place.
+Alchemy keeps pointers into the firmware environment and looks up ethaddr
+when initializing the Ethernet devices. By that point, memory allocation
+can have overwritten the environment, causing prom_getenv() to pass an
+invalid pointer to strchr() and panic during boot.
 
-But to do that right the entire obj_destroy should be removed.
+On the MTX-1, the struct page layout change in 9ddb3c14afba reduces struct
+page from 40 to 32 bytes and exposes this unreserved firmware memory.
+Bisection and boot tests confirmed that the parent boots while the change
+reproduces the panic.
 
-IDK about the claim that DRAIN_DCT can fail, but I suppose it is
-possible for a hostile userspace to immediately refcount any kind of
-object and cause its destruction to fail and that does seem like a
-legitimate problem to me, so this is worth adjusting.
+Parse the Ethernet address during prom_init(), before registering RAM
+with memblock, and keep the six bytes in kernel-owned init data. Return
+the saved address during device initialization, preserving the existing
+YAMON formats and command-line fallback without reserving a fixed
+low-memory region.
 
-Please send a v3.
+Fixes: b93ddc4f9156 ("mips: Reserve memory for the kernel image resources")
+Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/mips/alchemy/common/prom.c | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
 
-Jason
+diff --git a/arch/mips/alchemy/common/prom.c b/arch/mips/alchemy/common/prom.c
+index 20d30f6265cdc..c4aefeb788715 100644
+--- a/arch/mips/alchemy/common/prom.c
++++ b/arch/mips/alchemy/common/prom.c
+@@ -46,6 +46,11 @@ int prom_argc;
+ char **prom_argv;
+ char **prom_envp;
+ 
++static char prom_ethaddr[6] __initdata;
++static bool prom_ethaddr_valid __initdata;
++
++static void __init prom_init_ethernet_addr(void);
++
+ void __init prom_init_cmdline(void)
+ {
+ 	int i;
+@@ -95,6 +100,9 @@ void __init prom_init(void)
+ 	if (!memsize_str || kstrtoul(memsize_str, 0, &memsize))
+ 		memsize = SZ_64M; /* minimum memsize is 64MB RAM */
+ 
++	/* Save the MAC before the allocator can reuse the PROM environment. */
++	prom_init_ethernet_addr();
++
+ 	memblock_add(0, memsize);
+ }
+ 
+@@ -125,7 +133,7 @@ static inline void str2eaddr(unsigned char *ea, unsigned char *str)
+ 	}
+ }
+ 
+-int __init prom_get_ethernet_addr(char *ethernet_addr)
++static void __init prom_init_ethernet_addr(void)
+ {
+ 	char *ethaddr_str;
+ 
+@@ -135,12 +143,21 @@ int __init prom_get_ethernet_addr(char *ethernet_addr)
+ 		/* Check command line */
+ 		ethaddr_str = strstr(arcs_cmdline, "ethaddr=");
+ 		if (!ethaddr_str)
+-			return -1;
++			return;
+ 
+ 		ethaddr_str += strlen("ethaddr=");
+ 	}
+ 
+-	str2eaddr(ethernet_addr, ethaddr_str);
++	str2eaddr(prom_ethaddr, ethaddr_str);
++	prom_ethaddr_valid = true;
++}
++
++int __init prom_get_ethernet_addr(char *ethernet_addr)
++{
++	if (!prom_ethaddr_valid)
++		return -1;
++
++	memcpy(ethernet_addr, prom_ethaddr, sizeof(prom_ethaddr));
+ 
+ 	return 0;
+ }
+-- 
+2.53.0
+
+
+
