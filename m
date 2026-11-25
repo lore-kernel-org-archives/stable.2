@@ -1,75 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606544;
-	b=5ass1ZdZ/a8ULxrrZYLqVx4CiBaUmSJTWo/1uLssnUlJnMJunjD1J8czNwzQH8/efBcL
-	 gu0didi27JgNSv7XW9fc3W0B4OAYR9zFk9o7BE+oi5LHZ0Z7kGa6rk7OIgSj4ut50bNQ0
-	 59ud83CUsKwhmybIA0LxjDRDFZY295zKdIRAnZ2RTja+NS0VcvvcuEFu17G4Ge+qzNDaS
-	 2jSowWLrXgiGS2QIz5l76wMno95dAGgG+V/Hp3fcsl87HWvsmTOv0RRJhac2vaiQ8MuxH
-	 MxqXOwQVEWQJ0Wo9PlXb3fzSCh8V+c6sU7nphCxQ13d3vGQhU6pZg623rSNAMAufOJQ==
+	t=1795606658;
+	b=LjHWOAkrEy0zcS6b/GhHmAOH7FGm8f/KIixiKkxQdqPFTM9PLJ1wSW5dPBHZ0B1mvtvl
+	 Ab0ryEJ3a7k+RPaTPGuL+rJJ7JLuT3RzXt8+OBFW7bh6aE1rF2I5Od1ImMkKSFLomw8HO
+	 Rd5sI32vo3u/p18/lQu+q6tjtFoADrPhR0SibNJzUI5gYDpZhhZISlU5MA4qrGdmCAYZB
+	 8/ZcRApJ9AI6KXjvWGxhC20sFerIH4YahmDkg950s3wwvcbuxI088VSlzbFfvY4GeYQaj
+	 40IsT4WdpC4r5UdB0HdYMWW/Iui/ea+d1U81mRJ/4/Rj1m2jpdBmejk9MIHXEA9zgCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606544;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=IYZQR2NWRm2aqXIEbQebL6wCc5yHIbEePswxQJEyMnU=;
-	b=PDu0qwGLl2hA9DLI3L2JbacogIAJeLkdXohwNBNOOm/LKQJLxN4XE4XzTdUwQni2hwDr
-	 s5cCiRMYerEyIw9hcPymsZbuKDvnkwj32yLk+W93JpEcUEc3kPLoswarLGGHQnyMojuSL
-	 LPnCIFpEwaC69GosfCcOCEHa0SBe1FyIP2v6/7PrZH5l+OzlrkOyE6ftTlougwXtFq8Cb
-	 aq424rVB77iUhQkQe9udDzP1EgdC/TAQLnwLKOA9jLpddSoPVMv4cRw4seknc8Y9H1wXp
-	 azvbHfiVVu1qMFW+cLueAGEXxc3gR6fgGYw7zgFybSz8VXyYo9fQBncNsEc3Yyl1JyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606658;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Uwqp7Bz8a5D3/B2xkBHbhP2Bh4hQYQFs0RxyAqY1Gn8=;
+	b=yqragfVYvf4CrTXmqq1qbWmiDapAuQpndYVFrgU/wZaix2DVWlj8lpGPkmEsDn6QcWMm
+	 XeyrmanVXSgkCpbu5hsXv4QJcjtfqMtpEK2Pt/qHFCXAc2RzPEZznshN/C0raIlVBxnHg
+	 gOPeIlcFVg6rJvzp8TMr8Wprfoh456XIkg0TXGf5uvoYnKU1HL6YVZIlxMs75uIiNtzRn
+	 3HFd0CV21m5r+L0TOHnk+7kszGDneU+1lleVy7ka+Pf4vPAQ6lwRkmgHFn5Fe1kQkvEOv
+	 MrziiQAI1zgrnrvesVJtVM2nlp10yQdVBvihUx25+8A76CPPa27GirY3NH7NjEm7npw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LwAxmjWC;
-	arc=none smtp.remote-ip=95.215.58.1
-Received: from mta1.migadu.com (out-1.mta1.migadu.com [95.215.58.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KeQoy4j1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F44606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:35:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47F44606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81647606A323;
+	Wed, 25 Nov 2026 11:37:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LwAxmjWC
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hyYSlPLEjHqHiuxc1EWVJHk/NKxvpHyxjjsLCf7xOrs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795606541; v=1; x=1796211341;
- b=LwAxmjWCu4z6VIUOybmhXd8R1IwJJJPysWeaGc4XNKu/zkAfAaLOFPDaQaWDusOsuf6EYUIu
- 4f2PnxrMw1i59vJMLmKisq1uTiUuoSj9N9xKZ+8dXmKJ+zULN3ZVQ2K+Gwg7ovDvNzIUxJEyC0r
- C9xCMVaIG3CS3hqRo40atMiY=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 236edbe9e403cc2d;
-	Wed, 25 Nov 2026 11:35:32 +0000
-X-Mizu-Trace-ID: 236edbe9e403cc2d
-X-Migadu-Flow: FLOW_OUT
-From: "Hui Zhu" <hui.zhu@linux.dev>
-To: "Andrew Morton" <akpm@linux-foundation.org>,
-	"Kairui Song" <kasong@tencent.com>,
-	"Qi Zheng" <qi.zheng@linux.dev>,
-	"Shakeel Butt" <shakeel.butt@linux.dev>,
-	"Barry Song" <baohua@kernel.org>,
-	"Axel Rasmussen" <axelrasmussen@google.com>,
-	"Yuanchu Xie" <yuanchu@google.com>,
-	"Wei Xu" <weixugc@google.com>,
-	"Baoquan He" <baoquan.he@linux.dev>,
-	"Baolin Wang" <baolin.wang@linux.alibaba.com>,
-	"Johannes Weiner" <hannes@cmpxchg.org>,
-	"David Hildenbrand" <david@kernel.org>,
-	"Michal Hocko" <mhocko@kernel.org>,
-	"Lorenzo Stoakes" <ljs@kernel.org>,
-	"Harry Yoo" <harry@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Cc: Hui Zhu <zhuhui@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] mm: mglru: reset the mm iteration cursor in try_to_inc_max_seq_nowalk()
-Date: Wed, 25 Nov 2026 19:35:18 +0800
-Message-ID: <20261125113518.1207280-1-hui.zhu@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KeQoy4j1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D96B1F000C4;
+	Wed, 25 Nov 2026 11:37:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795606657;
+	bh=Uwqp7Bz8a5D3/B2xkBHbhP2Bh4hQYQFs0RxyAqY1Gn8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KeQoy4j1M6Kf+mD3CN76WOKGjFILfDFC6KZxaWDws4AmKYNd4Sv3XlzgxoJKRL43+
+	 6iPzo0oo8tVQMfbyYC+lXZEZJ4CWZ2i0ZBHg/9U/732d+HqCx4/LXNd5qlcyCzEZZL
+	 WBEKboxx9JvWcb/uu2ZQzLcGMZdMeWYkM+SaS6wlo0YZLOKwVzVZXZPT1YRQc2tRWk
+	 yC3PUFTQKt7Qpz9Mh6nzy/WWz9j9vnjvF0uOOHLGRr1DYGHcWgXMnkbGrMjkj1Xpd5
+	 FBrsffhz/5Xna3uepNZZ/q3M7cAs/pwKn7kvNRSi3i9batUH5eHsoztii8XHaH1EW7
+	 BKXY18OQn8a5A==
+From: netdev-bot+sinfo@kernel.org
+To: Federico Musto <federico@rimpianto.com>
+Cc: Chris Snook <chris.snook@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: 
+ Re: [PATCH net] net: atl1c: cancel the common_task work in atl1c_remove()
+Date: Wed, 25 Nov 2026 11:37:36 +0000
+Message-ID: <179560665678.3294.8918626244463796277@kernel.org>
+In-Reply-To: <20261125113141.99792-1-federico@rimpianto.com>
+References: <20261125113141.99792-1-federico@rimpianto.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,61 +64,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Hui Zhu <zhuhui@kylinos.cn>
+Hi!
 
-try_to_inc_max_seq_nowalk() advances mm_state->seq without walking the
-mm_list, but unlike iterate_mm_list_nowalk() it leaves head and tail
-alone. If it races with an ongoing page table walk, the cursor is left in
-the middle of the fifo.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-The next walker reads that as "this generation already started": it skips
-reset_bloom_filter() and resumes after the cursor. The mm it visits are
-the ones the aborted walk never reached, so they have no bits in the
-filter being read and walk_pmd_range() descends into none of their PMDs.
-Those mm miss a generation of accessed-bit harvesting, so their aging is
-less accurate and hot folios can be under-promoted. Eviction can still
-detect their references via rmap and lru_gen_look_around(), so this
-weakens aging rather than guaranteeing reclaim and refault.
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
-Reset head and tail with the seq increment, as iterate_mm_list_nowalk()
-does. It is safe: get_next_mm() holds an mmgrab() reference and a
-concurrent walker bails out at "walk->seq <= mm_state->seq" before
-touching head again.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account.
 
-Only reachable from memcg_reparent_objcgs() -> max_lru_gen_memcg(); not a
-memory safety issue, since lru_gen_del_mm() repoints head and tail under
-mm_list->lock.
-
-Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
-Reviewed-by: Baoquan He <baoquan.he@linux.dev>
----
-Changelog:
-v3:
-Reword the impact as weakened aging rather than guaranteed refault,
-noting the rmap/lru_gen_look_around() fallback (Barry Song).
-v2:
-Drop the helper and keep the fix open-coded (Baoquan He).
-
- mm/vmscan.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 6a1af9b92349..3601e58f2a69 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4694,6 +4694,8 @@ static void try_to_inc_max_seq_nowalk(struct mem_cgroup *memcg,
- 		spin_lock(&mm_list->lock);
- 		VM_WARN_ON_ONCE(mm_state->seq + 1 < max_seq);
- 		if (max_seq > mm_state->seq) {
-+			mm_state->head = NULL;
-+			mm_state->tail = NULL;
- 			WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
- 			success = true;
- 		}
+*IMPORTANT*: If you do repost (for other reasons) - please include
+the relevant info in the cover letter or commit messages.
 -- 
-2.53.0
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
