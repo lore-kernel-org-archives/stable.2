@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625476;
-	b=zC+uCvZm8owkJs/33Rw6iPqf0AvgTgt187qCZtD+fnZUJoekGGOlIshEW8SEBL+6zHGu
-	 B8/pMkoiXJXSD6RAF3LHxYrh4T8xHDQ026Hr1/9uz+B1wbnqcZ0F+yhndVI9pkuia89SE
-	 iwsBJvx27n0ELxGKcYHZEMqaqI/J9MhEOwsXyy0AI+I3XTg04+rsEiyWTGUO2m3NhYJFd
-	 aquSQBExHkmGARK5SknrIlKoaRvyDZQbqVMlEV8zDiHa7To1zF8nJZlYsI1A/lBXbjza7
-	 ZDNpXzu7sT2ewFPQtMxzy61sh1JWRlydFxA/NtjjP2XpcDjRFxqOzJncdAUhqUGtkBA==
+	t=1795625482;
+	b=MZ7wOkV2Wq11ybLkMNU1uQLWw04o8uOZCActvg6SIkwviViIpeUE/H20NzkD2w7A4brq
+	 ZqsxIK2X9A85UYg0hDmufBn2OARWcu6fJ8WT8uQ37T0WIBGwCqQxHBHfocBBqFyJ8cLFV
+	 LRCK6yscqrKoV40kh8rqySfVoEjbHR7qLcWeQRuuKe4F5YTFy/od0DZLDyzx9WrLPUOmr
+	 D4WHx9nqwkCBiA4WCBBHyxsm8m7SCZs603fOXt/51zr7bGdmzxhmYacajK8B6hOHK0DPm
+	 E9pFX+Yjw773OkD3SUrZksGdY+cZPlpupz3diXZMbt1g8iuh3/YtINEoFG4VZIbMEAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625476;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625482;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=moOxJ6rDBPe6BGJhO+AQS7SON/iFpvmoJa8LffQdtvA=;
-	b=dEhk/fseo6xfXkXRT7G9nz+CHendcIrHmEiNwywVbgbLptW+5hsJyCALa/0fzYsVS+Ec
-	 YNp6BmHZ0E8aw/BgGcNQZU4Zs3GQ7vD35lSIzMsHLXPHsXh0lXwdfZn8v3NTC40Ga3YU1
-	 UNwwEuXig8qqJh3hYIhxWHjSmZrfUI9vAo3vV+hDsF2QqqI2G6o+u7yW01lgqdQAhKmHs
-	 5XqjQGhV228zFYFW3SgR09lLdrrA/e9bJDZzzdRaCEwBE2d6a09Et/1IEo05oGY2rfRUY
-	 Jcf/WPIB6lqBwSq/vKKfKRbvr/4LW69ZRDvEFieZ31K6/2LN/R21WCng3mwWrEH3F5g==
+	bh=iMzfgUDGKzDLrOXohCYTUpDoYAMUD/hlfAP1U+sjOwE=;
+	b=ZlYRRpSKNj/UGlYfFgCdkN7n7JASl/zTTp4h8IPCd7RvBgFXCWcpcwZwydXREOTMfDmJ
+	 5T8lIu5MO6QZiCmZ6fCgG85d7ezatiJCWH2t+UvBlpQGV0y6GfzUpjGxqJ39Z1R/UtUBe
+	 SYq4pXxlYMPmHlNLEjifqB5vYCQnqoUowu942vL8R600dM+iiHsnJatL3y+g1XrspTWij
+	 +AzmR8lYcQVXIicAyy+MjmtNIu21NEvbTHIXRDiWMX20bjZkGwjXKIIBmWSgZDdXIQyOC
+	 TpZt/3nXGgO2KP2P4nxlICzebK8ey0QVlg1pSoVzakFp8c5HoI6Ayv0drCRmtvii/sA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oHkAaDLn;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ec1gY+hi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 525BF606A31E;
-	Wed, 25 Nov 2026 16:51:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C856606A321;
+	Wed, 25 Nov 2026 16:51:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oHkAaDLn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47FEF1F000CA;
-	Wed, 25 Nov 2026 16:51:15 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ec1gY+hi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 546561F000D3;
+	Wed, 25 Nov 2026 16:51:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795625475;
-	bh=moOxJ6rDBPe6BGJhO+AQS7SON/iFpvmoJa8LffQdtvA=;
+	s=korg; t=1795625481;
+	bh=iMzfgUDGKzDLrOXohCYTUpDoYAMUD/hlfAP1U+sjOwE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oHkAaDLnkT/IJsjdXBCZA4EjXKnmvy0LK4A6EvYbRxMEKOxn9FkzDSMyQ3u/FLiC/
-	 eUIOqF5a+D6xeotqBByM7pFvmexiOZ52foWzhia+QdO8m5Isumb+MTtLdkXdS7s5Kg
-	 V3OegrNs/lN7eQ9SurhoGqsfkX80xVYrNbrePMco=
+	b=Ec1gY+hiayFFwUI0o/obTIKrsQk38oz/cCCd6DdQOeJWL+iV9qke8atlTdKvABLW8
+	 +LAD4c2Q6a5zJPRws5wPkYmvmBdNaSQY+GinkZmZ58M38J8EFX/yeaE845uV+FahFD
+	 J//fcob3/uVd448bOBbcdUTWp0OhI2hZfooSNhYk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Dairui Zhang <zhangdairui@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 530/816] ksmbd: fix durable reconnects for root shares
-Date: Wed, 25 Nov 2026 15:34:38 +0100
-Message-ID: <20261125143901.460179492@linuxfoundation.org>
+	Sasha Levin <sashal@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Alexey Dobriyan <adobriyan@gmail.com>
+Subject: [PATCH 6.12 531/816] selftests/proc: proc-pid-vm: fix unused variable warning on non-x86
+Date: Wed, 25 Nov 2026 15:34:39 +0100
+Message-ID: <20261125143901.483361986@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
 References: <20261125143849.205329330@linuxfoundation.org>
@@ -68,42 +69,52 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+[ Upstream commit c4d9005e7e1ee6ce277f47cf53d44fc5b90b287b ]
 
-[ Upstream commit 25e36df831a47597c03c6239fbc71285e7d714c2 ]
+g_vsyscall is only used by the x86_64 test, so clang builds for other
+architectures get:
 
-When a share exports "/", ksmbd_validate_name_reconnect() expects
-another slash after the share path. For a file at /foo, this rejects
-the valid reconnect name "foo" even though the file is in the share.
+  proc-pid-vm.c:224:21: warning: unused variable 'g_vsyscall' [-Wunused-variable]
 
-Compare the requested name with the rendered file path after its
-leading slash when the resolved share root is "/". Keep the
-exact-root/empty-name check and reject rendered paths without an
-initial slash.
+The vsyscall strings next to it had the same problem and were marked
+__maybe_unused for it. Move all of the vsyscall variables into the
+__x86_64__ block that uses them instead, and drop those annotations
+along with the local __maybe_unused fallback that was added for them.
 
-Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
-Reported-by: Dairui Zhang <zhangdairui@gmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Link: https://lore.kernel.org/20261012115330.3777115-1-sashal@kernel.org
+Fixes: 17415606f9d8 ("tools/testing/selftests/proc/proc-pid-vm.c: test with vsyscall in mind")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Suggested-by: Andrew Morton <akpm@linux-foundation.org>
+Assisted-by: LLM
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: Alexey Dobriyan <adobriyan@gmail.com>
+[ sashal: Kept this tree's #include "../kselftest.h" and skipped the __maybe_unused removals, since that fallback and those annotations were never present here. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/vfs_cache.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ tools/testing/selftests/proc/proc-pid-vm.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
-index b1ee76949a2ea..52389fff3d4a0 100644
---- a/fs/smb/server/vfs_cache.c
-+++ b/fs/smb/server/vfs_cache.c
-@@ -1377,6 +1377,10 @@ int ksmbd_validate_name_reconnect(struct ksmbd_share_config *share,
- 			/* the durable fp is the share root itself */
- 			if (name[0])
- 				ret = -EINVAL;
-+		} else if (share_path_sz == 1 && share_path[0] == '/') {
-+			if (ab_pathname[0] != '/' ||
-+			    strcmp(ab_pathname + 1, name))
-+				ret = -EINVAL;
- 		} else if (len <= share_path_sz ||
- 			   strncmp(ab_pathname, share_path, share_path_sz) ||
- 			   ab_pathname[share_path_sz] != '/' ||
+diff --git a/tools/testing/selftests/proc/proc-pid-vm.c b/tools/testing/selftests/proc/proc-pid-vm.c
+index d04685771952a..2ec6e0fd20e01 100644
+--- a/tools/testing/selftests/proc/proc-pid-vm.c
++++ b/tools/testing/selftests/proc/proc-pid-vm.c
+@@ -210,7 +210,6 @@ static int make_exe(const uint8_t *payload, size_t len)
+ 
+ 	return fd1;
+ }
+-#endif
+ 
+ /*
+  * 0: vsyscall VMA doesn't exist	vsyscall=none
+@@ -226,7 +225,6 @@ static const char str_vsyscall_1[] =
+ static const char str_vsyscall_2[] =
+ "ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]\n";
+ 
+-#ifdef __x86_64__
+ static void sigaction_SIGSEGV(int _, siginfo_t *__, void *___)
+ {
+ 	_exit(g_vsyscall);
 -- 
 2.53.0
 
