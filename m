@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795601654;
-	b=4UnwsL5Qqbb59WjqJ62Bzaygw1CtcMHAqZuwfR+U8zbhggeb9dkIrpM3rINNWgzeaAzs
-	 diuccgM6bOOtYXJEGVeh0iPuyCSrjw4hLreDy79A1QskFfv4924/PoiAPMPCUQIfy6RFN
-	 lWZ3uZc87CHRlzaMgg+2/Y1eDQWjGoDEsfw/VSr5P3EocPBzQjaRx9mRqrO+dbBP66RHz
-	 TwRDaLpzaUd16NoLj93yIbimExuXOf+pAVbiHsJr5TRRKiivVbvvKEa3OLs9HZFqY0/wj
-	 PuSMFl3Gy7Zz+q0BEZWPKfw54/bYIF7i+/ak6IBTntbhn22Oq2wnWjVflH9lWgiN5vg==
+	t=1795601738;
+	b=3k4VXxs4FL91iFGZMHvXX7kH53V4051htQTuxkBmvm1juoh5vNV3yxnoSby2dW5vqav1
+	 mdGSTvvpQqhfce90yOlnYwQ7t01R2ZyPcfnb1DZBDwgx7JqFOayMqSQORYMGPQNYjVnF/
+	 r9oRTHaT4/RNmXLvdXODf2yWrlwc3P1LTDfSD3fWc3IHXWOZMx06mdq28EesKNvAuT3Mr
+	 nkWlQGmPoDhpdy0c/D67ZCa3VZM29e6mdifomDTe9IaSbgkVmHJ9GyhRTIN4YW+ZwDTEm
+	 oeZbdDU5zZ5oq2QimmX5Rpq2ry5pJipDaNqsJxdGSimc3jgTTN1Yh1+LP2CtEoJWrAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795601654;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Nk7eSaVQXUTUDYEHaglK3mfXfvrAJu6lbVP+UTIWVLs=;
-	b=Flk3XP0fLhODixcxFJxojNf9fouXSy4/5Y//gR13S41kEjPLoBey6SSex/vdZx+ZEvPn
-	 0a+XwYpJCcdJG9lc7o/RsOygEdV1E8g/2Ynz4JCJMkoiHza9xa2q3FnryABvW+8fbBd5e
-	 WatdqQVZppi4M3esAS5EE3OhPR8BrYmebdLwHYL1M3PKeQg6cTelq6tuCxIu1APIvShJC
-	 G53Gkbe37+flwwWmUngetrjQ0o3oxM+tq6Gyim+1UTTZpcAu7622fMqFRBE3e6UopQc+E
-	 H1nAxYg7pbuPvHgBT6udtHxYtUMrOJblO3tLNpCxFWLQ9Wc45TNQ5s3FWyqLmSqnsjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795601738;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=eqHXyc8WJEin7dgT8XNE7C77zQYt4IAJAZzyBASlFd8=;
+	b=VJKCbd/JkxLbW34CgO/NMnkPnP7Y7bEAuaFwE+W3xub5r4mEnEQNfNrR3FyU3mgaldAc
+	 g/8PBOFqcZktX3K60KTe1aRmMSoXx8AJLCWjqW9hTcV32Db19a1h/0+6gqwdtRycAJAMH
+	 uzgrnFcjbL9sglt+2tTCazgfHhET9HAD9yhyoQm9nKzGzj/0TpmA3VvbzFHIEnk5juBcU
+	 pzxQri/Ih0IetxoI8+PZ2XqzpqAeoCuXJY8oBNLk0Tda9JBgKT3uPTKL2QmRHFgru6x48
+	 yP4PXQHUvpTcpstLnCw6ICbqBGi+onmnKgvd0JKVTGtcyKTwVGtrSKzYTb3+4ShU3MQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SrT9oTLH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UHQjKMNv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A307606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:14:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD658606A335;
+	Wed, 25 Nov 2026 10:15:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SrT9oTLH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 202091F000CA;
-	Wed, 25 Nov 2026 10:14:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795601653;
-	bh=Nk7eSaVQXUTUDYEHaglK3mfXfvrAJu6lbVP+UTIWVLs=;
-	h=Subject:To:Cc:From:Date;
-	b=SrT9oTLHbgKbHMdeJcMUs3xovF9td14hecwYvPTfry1x+wrtZJVWk15qZIUuuYzZk
-	 99rNVVvJAdThOwgp+d7fR91gEd3TJn05XQPUkTD5gdLbAA4we6Ra2rGjTH1Lv0L3U0
-	 HWtLh2a5UsiKfAEVjX8R8JynsijODS02QsBpaISk=
-Subject: FAILED: patch "[PATCH] pNFS: avoid repeatedly cancelling I/O for the same lseg" failed to apply to 6.6-stable tree
-To: tmenninger@everpuredata.com,anna.schumaker@hammerspace.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:11:59 +0100
-Message-ID: <2026112558-pacific-polka-65e6@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UHQjKMNv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0AD41F000C6;
+	Wed, 25 Nov 2026 10:15:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795601738;
+	bh=eqHXyc8WJEin7dgT8XNE7C77zQYt4IAJAZzyBASlFd8=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=UHQjKMNvOiHYUyjVzNV0kB45H4NH1B6EaI9P4mzK4PUeT+a4j4j7Wqvjv7AcA20a9
+	 NG9dG2KeGflAE+/JYN+XvSdydgMLmGIZSKJs2sLj9NX6k2fdlkrML8ASlHrnXemiIi
+	 27X3b3lRP2aZWPVo3WFzurKKIxHugrkrgjYrf4kiLgChbtVhPfEjJ/soW5Yci20fa7
+	 JyylEBJw+8jJNdQGWOHo08+sQgSpnFQj9LPOkImtVHizwfHaHccN2K3OofBi5jNUX1
+	 OAYlWueVzsadXA7b6UK9CRC6d/tEF4YpKePH5DEhmzCWGl+fPt5zDHUEdqE0AiWbe3
+	 YBpBwVqBf94Xw==
+Message-ID: <99e34b24-95b2-4153-9d65-1fded8f746cf@kernel.org>
+Date: Wed, 25 Nov 2026 11:15:35 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,129 +51,261 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v5] media: hdpvr: fix out-of-bounds read in hdpvr_read()
+To: 25031212351@stu.xidian.edu.cn,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Bin Yu <byu@xidian.edu.cn>,
+ Cheng Wen <wencheng@xidian.edu.cn>
+References: <20261121102551.11263-1-25031212351@stu.xidian.edu.cn>
+Content-Language: en-US, nl
+In-Reply-To: <20261121102551.11263-1-25031212351@stu.xidian.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 21/11/2026 11:25, 25031212351@stu.xidian.edu.cn wrote:
+> From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+> 
+> hdpvr_read() computes the number of bytes left in the current buffer as
+> urb->actual_length - buf->pos and uses that as the length for
+> copy_to_user(). buf->pos is a plain unsigned int that is neither reset
+> when hdpvr_cancel_queue() recycles a buffer nor protected by
+> dev->io_mutex.
+> 
+> After hdpvr_stop_streaming() has killed the URBs, the buffers are put
+> back on the free list with their old position, and the worker resubmits
+> them with urb->actual_length reset to 0. If the next transfer completes
+> with less data than the position a reader has already consumed, the
+> subtraction yields a negative value. As rem is an int and count is a
+> size_t, the comparison "rem > count" is then true, so cnt becomes count
+> and copy_to_user() copies count bytes starting at
+> transfer_buffer + buf->pos, which can be past the end of the 8192 byte
+> transfer buffer. Two readers of the same video device can corrupt each
+> other's position in the same way, and buf->pos is read twice, once for
+> rem and once for the source address.
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+There cannot be two readers active at the same time. I think that is
+actually the core bug: hdpvr_read does not return -EBUSY if another
+reader is already active.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+vidioc_encoder_cmd has those checks, but it is missing in hdpvr_read().
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x 9e28836b480c66cca4c3d391177f5b3a50927f7d
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112558-pacific-polka-65e6@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+I did some testing on my HDPVR, and I can confirm that it incorrectly
+allows for two simultaneous reads.
 
-Possible dependencies:
+This must be fixed.
 
+That will probably address most/all issues that this patch tries to correct.
 
+So make sure you can't have two readers at the same time, and see if that
+fixes the kasan issue. It might be that you still need to init buf->pos to 0
+in a few places, but most of this patch can be dropped.
 
-thanks,
+Regards,
 
-greg k-h
+	Hans
 
------------------- original commit in Linus's tree ------------------
-
-From 9e28836b480c66cca4c3d391177f5b3a50927f7d Mon Sep 17 00:00:00 2001
-From: Tim Menninger <tmenninger@everpuredata.com>
-Date: Thu, 5 Nov 2026 00:01:31 +0000
-Subject: [PATCH] pNFS: avoid repeatedly cancelling I/O for the same lseg
-
-Commit b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is
-recalled or revoked") added I/O cancellation when a layout segment is
-invalidated while outstanding references remain.
-
-The invalid segment stays on the layout's segment list until those
-references drain. Subsequent scans can find it again and repeatedly
-invoke the layout driver's cancel_io() callback. For flexfiles, this
-cancels matching RPC tasks and disconnects data server RPC clients.
-During RPC/RDMA data server recovery, repeated cancellation can cause a
-reconnect loop that consumes essentially all client CPU and prevents
-forward progress.
-
-Record cancellation requests per mirror stripe in the flexfiles layout
-segment. Each stripe is cancelled at most once, regardless of how many
-times the invalid segment is encountered. A per-stripe bitmap rather
-than a single per-segment bit preserves the ability to cancel I/O to a
-different device after an earlier device-specific cancellation.
-
-Cancellation is best-effort. An RPC that has already passed the
-layout-validity check may not yet be visible to the cancellation
-scan. Such I/O retains its lseg reference and remains subject to
-the normal RPC completion and recovery paths. Suppress repeated
-cancellation and disconnect requests without changing the existing
-lseg lifetime and deferred layout-return accounting.
-
-This reproduced on 6.8.0, 7.0.0, and 7.4.0-rc1. It was tested on
-7.4.0-rc1 with sustained pNFS/flexfiles I/O over RPC/RDMA while
-restarting the NFS service on a data server. Without it, repeated
-cancellation led to a reconnect loop and no workload recovery. With it,
-the client recovered after the data server returned.
-
-Fixes: b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is recalled or revoked")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
-Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
-
-diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout/flexfilelayout.c
-index 9492d6bc1d1a..4419ded8fe58 100644
---- a/fs/nfs/flexfilelayout/flexfilelayout.c
-+++ b/fs/nfs/flexfilelayout/flexfilelayout.c
-@@ -11,6 +11,7 @@
- #include <linux/nfs_mount.h>
- #include <linux/nfs_page.h>
- #include <linux/module.h>
-+#include <linux/bitmap.h>
- #include <linux/file.h>
- #include <linux/sched/mm.h>
- 
-@@ -340,6 +341,7 @@ static void _ff_layout_free_lseg(struct nfs4_ff_layout_segment *fls)
- {
- 	if (fls) {
- 		ff_layout_free_mirror_array(fls);
-+		bitmap_free(fls->cancelled_stripes);
- 		kfree(fls);
- 	}
- }
-@@ -653,6 +655,12 @@ ff_layout_alloc_lseg(struct pnfs_layout_hdr *lh,
- 		fls->mirror_array[i]->report_interval = be32_to_cpup(p);
- 
- out_sort_mirrors:
-+	fls->cancelled_stripes = bitmap_zalloc(
-+		fls->mirror_array_cnt * dss_count, gfp_flags);
-+	if (!fls->cancelled_stripes) {
-+		rc = -ENOMEM;
-+		goto out_err_free;
-+	}
- 	ff_layout_sort_mirrors(fls);
- 	ret = &fls->generic_hdr;
- 	dprintk("<-- %s (success)\n", __func__);
-@@ -2582,6 +2590,10 @@ static void ff_layout_cancel_io(struct pnfs_layout_segment *lseg,
- 			if (devid && memcmp(&mirror->dss[dss_id].devid, devid,
- 					    sizeof(*devid)) != 0)
- 				continue;
-+			/* Do not cancel a stripe again while this lseg drains. */
-+			if (test_and_set_bit(idx * mirror->dss_count + dss_id,
-+					     flseg->cancelled_stripes))
-+				continue;
- 			rcu_read_lock();
- 			mirror_ds = rcu_dereference(mirror->dss[dss_id].mirror_ds);
- 			if (IS_ERR_OR_NULL(mirror_ds) ||
-diff --git a/fs/nfs/flexfilelayout/flexfilelayout.h b/fs/nfs/flexfilelayout/flexfilelayout.h
-index 09c3cd6964fd..5d5587fded76 100644
---- a/fs/nfs/flexfilelayout/flexfilelayout.h
-+++ b/fs/nfs/flexfilelayout/flexfilelayout.h
-@@ -109,6 +109,7 @@ struct nfs4_ff_layout_segment {
- 	u64				stripe_unit;
- 	u32				flags;
- 	u32				mirror_array_cnt;
-+	unsigned long			*cancelled_stripes;
- 	struct nfs4_ff_layout_mirror	*mirror_array[] __counted_by(mirror_array_cnt);
- };
- 
+> 
+> A KASAN slab-use-after-free read of 4096 bytes was observed in
+> hdpvr_read() with the source address 1281 bytes past the end of the
+> transfer buffer; the pages following the buffer had been recycled as
+> slab pages. A second report with a 42 byte copy was 25 bytes past the
+> end of the buffer.
+> 
+> Fix this by reading the position once, by using min_t() so that a
+> negative remainder cannot be turned into a full-size copy, and by
+> accounting the consumed bytes in hdpvr_account_buffer(), which recycles
+> the buffer once it has been read completely: the position, the status
+> and the buffer lists are updated in the same critical section.
+> 
+> The helper only acts when the buffer still holds the transfer that was
+> read from. A reader can sleep in copy_to_user() while another reader or
+> a stream restart recycles and resubmits the buffer, and the new transfer
+> may start at offset 0 as well, so every buffer carries a generation that
+> is bumped on submission and is checked along with the position. For the
+> same reason the head of the receive list is re-read after each copy
+> instead of keeping a buffer that may meanwhile have been queued behind
+> the reader's back.
+> 
+> Reset buf->pos when hdpvr_cancel_queue() discards the buffers as well,
+> otherwise a restarted stream either skips the first bytes of the new
+> transfer or drops it entirely.
+> 
+> The buffer status is printed while dev->io_mutex is still held, as
+> print_buffer_status() walks both buffer lists.
+> 
+> Fixes: 9aba42efe85b ("V4L/DVB (11096): V4L2 Driver for the Hauppauge HD PVR usb capture device")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+> ---
+> v5:
+>  - Bump a generation on every submission and check it when accounting the
+>    consumed bytes: a reader that slept through a recycle and resubmission
+>    could mistake the new transfer for the one it was reading, as both start
+>    at offset 0.
+>  - Re-read the head of the receive list after each copy instead of keeping
+>    the buffer, so a reader never waits on a buffer that has been recycled
+>    and resubmitted behind its back.
+>  drivers/media/usb/hdpvr/hdpvr-video.c | 86 +++++++++++++++++++++------
+>  drivers/media/usb/hdpvr/hdpvr.h       |  3 +
+>  2 files changed, 70 insertions(+), 19 deletions(-)
+> 
+> diff --git a/drivers/media/usb/hdpvr/hdpvr-video.c b/drivers/media/usb/hdpvr/hdpvr-video.c
+> index 4290b2367fa3..c7b55962d986 100644
+> --- a/drivers/media/usb/hdpvr/hdpvr-video.c
+> +++ b/drivers/media/usb/hdpvr/hdpvr-video.c
+> @@ -92,6 +92,8 @@ int hdpvr_cancel_queue(struct hdpvr_device *dev)
+>  	list_for_each_entry(buf, &dev->rec_buff_list, buff_list) {
+>  		usb_kill_urb(buf->urb);
+>  		buf->status = BUFSTAT_AVAILABLE;
+> +		/* the data is discarded, the next transfer starts at 0 */
+> +		buf->pos = 0;
+>  	}
+>  
+>  	list_splice_init(&dev->rec_buff_list, dev->free_buff_list.prev);
+> @@ -210,6 +212,8 @@ static int hdpvr_submit_buffers(struct hdpvr_device *dev)
+>  		urb = buf->urb;
+>  		urb->status = 0;
+>  		urb->actual_length = 0;
+> +		buf->pos = 0;
+> +		buf->generation++;
+>  		ret = usb_submit_urb(urb, GFP_KERNEL);
+>  		if (ret) {
+>  			v4l2_err(&dev->v4l2_dev,
+> @@ -246,6 +250,42 @@ static struct hdpvr_buffer *hdpvr_get_next_buffer(struct hdpvr_device *dev)
+>  	return buf;
+>  }
+>  
+> +/*
+> + * Account the bytes consumed from a buffer and hand it back to the worker
+> + * once it has been read completely.
+> + *
+> + * The buffer may have been recycled and resubmitted, either by another
+> + * reader or after a stream restart, while copy_to_user() slept. Its
+> + * position and its place in the buffer lists then belong to the newer
+> + * transfer and must not be touched, so only act if the buffer still holds
+> + * the transfer that was read from. The generation tells the transfers
+> + * apart even when both of them started at offset 0.
+> + */
+> +static void hdpvr_account_buffer(struct hdpvr_device *dev,
+> +				 struct hdpvr_buffer *buf,
+> +				 unsigned int generation, unsigned int pos,
+> +				 unsigned int new_pos)
+> +{
+> +	bool recycled = false;
+> +
+> +	mutex_lock(&dev->io_mutex);
+> +	if (buf->generation == generation && buf->status == BUFSTAT_READY &&
+> +	    buf->pos == pos) {
+> +		buf->pos = new_pos;
+> +		if (new_pos >= buf->urb->actual_length) {
+> +			buf->pos = 0;
+> +			buf->status = BUFSTAT_AVAILABLE;
+> +			list_move_tail(&buf->buff_list, &dev->free_buff_list);
+> +			print_buffer_status();
+> +			recycled = true;
+> +		}
+> +	}
+> +	mutex_unlock(&dev->io_mutex);
+> +
+> +	if (recycled)
+> +		wake_up_interruptible(&dev->wait_buffer);
+> +}
+> +
+>  static void hdpvr_transmit_buffers(struct work_struct *work)
+>  {
+>  	struct hdpvr_device *dev = container_of(work, struct hdpvr_device,
+> @@ -415,6 +455,7 @@ static ssize_t hdpvr_read(struct file *file, char __user *buffer, size_t count,
+>  	struct urb *urb;
+>  	int ret = 0;
+>  	int rem, cnt;
+> +	unsigned int generation, buf_pos;
+>  
+>  	if (*pos)
+>  		return -ESPIPE;
+> @@ -488,10 +529,25 @@ static ssize_t hdpvr_read(struct file *file, char __user *buffer, size_t count,
+>  
+>  		/* set remaining bytes to copy */
+>  		urb = buf->urb;
+> -		rem = urb->actual_length - buf->pos;
+> -		cnt = rem > count ? count : rem;
+> +		generation = buf->generation;
+> +		buf_pos = buf->pos;
+> +		rem = urb->actual_length - buf_pos;
+> +		if (rem <= 0) {
+> +			/*
+> +			 * The buffer was recycled and refilled with less data
+> +			 * than this reader already consumed from it, so there
+> +			 * is nothing left to copy. Give it back to the worker
+> +			 * if it is still the buffer we were reading from.
+> +			 */
+> +			hdpvr_account_buffer(dev, buf, generation, buf_pos,
+> +					     buf_pos);
+> +
+> +			buf = hdpvr_get_next_buffer(dev);
+> +			continue;
+> +		}
+> +		cnt = min_t(int, rem, count);
+>  
+> -		if (copy_to_user(buffer, urb->transfer_buffer + buf->pos,
+> +		if (copy_to_user(buffer, urb->transfer_buffer + buf_pos,
+>  				 cnt)) {
+>  			v4l2_err(&dev->v4l2_dev, "read: copy_to_user failed\n");
+>  			if (!ret)
+> @@ -499,27 +555,19 @@ static ssize_t hdpvr_read(struct file *file, char __user *buffer, size_t count,
+>  			goto err;
+>  		}
+>  
+> -		buf->pos += cnt;
+>  		count -= cnt;
+>  		buffer += cnt;
+>  		ret += cnt;
+>  
+> -		/* finished, take next buffer */
+> -		if (buf->pos == urb->actual_length) {
+> -			mutex_lock(&dev->io_mutex);
+> -			buf->pos = 0;
+> -			buf->status = BUFSTAT_AVAILABLE;
+> -
+> -			list_move_tail(&buf->buff_list, &dev->free_buff_list);
+> -
+> -			print_buffer_status();
+> +		hdpvr_account_buffer(dev, buf, generation, buf_pos,
+> +				     buf_pos + cnt);
+>  
+> -			mutex_unlock(&dev->io_mutex);
+> -
+> -			wake_up_interruptible(&dev->wait_buffer);
+> -
+> -			buf = hdpvr_get_next_buffer(dev);
+> -		}
+> +		/*
+> +		 * The buffer may have been recycled and resubmitted to the
+> +		 * tail of the list while we copied, so re-read the head
+> +		 * instead of keeping it.
+> +		 */
+> +		buf = hdpvr_get_next_buffer(dev);
+>  	}
+>  err:
+>  	if (!ret && !buf)
+> diff --git a/drivers/media/usb/hdpvr/hdpvr.h b/drivers/media/usb/hdpvr/hdpvr.h
+> index 84519c962cb4..4504fb58855a 100644
+> --- a/drivers/media/usb/hdpvr/hdpvr.h
+> +++ b/drivers/media/usb/hdpvr/hdpvr.h
+> @@ -139,6 +139,9 @@ struct hdpvr_buffer {
+>  
+>  	uint			pos;
+>  
+> +	/* bumped every time a new transfer is started on the buffer */
+> +	unsigned int		generation;
+> +
+>  	__u8			status;
+>  };
+>  
 
