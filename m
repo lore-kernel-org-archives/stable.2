@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795622939;
-	b=Qz6pSwOU6ByGZkMl2imR/7PKlO4Yr2UsJABtLEC5LVl3R8gEw1cw39YaZqr0X1G5d94w
-	 f75cLSM3hNGfmNGqZRkxPNh1QdCQ8/hqOi+Wa4TWVc1zJVq0X+Aqhax5KZhL97WO20rhQ
-	 4Fe8aJ7jGpaIVjNoWP5TSs7YaY7Ib1/xr69rLZkfBmUibwMoRpfKaeg4NvC3IWCfYkbyu
-	 C/UU9QzAroHb2FJvOPvOF35RqjhReynooLYOPmx8wVTChM2/ZiwxRWkdDv3eXLbabwUrO
-	 9JPwUXY7IcPeo2LFx6FGYgjFmUF5igWP4JEWoDjJTfcI7foNAhbr71BBh29b92+rp3A==
+	t=1795622942;
+	b=Tok3j7QqbcJ+M4+MtNrlemd/EU96qJ2fFdl5x4/UJmywuvU3AuOIv5WxAwn3MkQdxqkQ
+	 1xLJVp2ffG3jMsp8GgUY03V7skMxI5tl7TSzC1f9Wtzikyl3fNUvN7uFQgt+jAt5ASZdj
+	 E/WAcLwL6WLK6ISManUPHHtFDqOJJ51vj3lgQetMnnPMGLfV3PdZjKMZgeNvfJf+WWr/D
+	 GTFjQzpa6xDhmwhA+qr0R8KMJb3xAo022M+OimbQhva+UBl8a6Z3VUhf6z01H3UgwmrOt
+	 Xhr2GH6Otc9f9+C4uWjznweCyX16sY2dCfjrCByaez0j+KEYMwBm4+rHalHTrVYwCvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622939;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622942;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bUaCwV8WNr2miwkPSpeiVbmnC0ijq2zqKlxPI+/PVBE=;
-	b=Zyo4viYu60a8sA9shpwAwj7QfQ+nVfvypwtKd9e0Nz0o5FXf8Ahp88k9uJajTjRAGeEq
-	 tNTHJvKbPSf/PBQ/ZHXkVx1dEPNIUwAJHeb8ckdxHDSzs1CCAzgWYhWHFVekqmXcSdqII
-	 JOLH9OvjkajdJoQITNtmYzT4VMi5bUNv0BYO/2zrotRoaxqm6QPoJ02sQ5xm2wshttNUO
-	 l/x0PxAz3/94xMGa1iW4RAV7kpyHtqsjclCE2PWp2IjFYzccjwGQPoDu8K/4v7dg9JnNu
-	 5+nFTA63tTRq0D5cyzy7MZu/eMF1h0NV4h6JxRjWgKo4tVowJ0QcBUOH91ZIIWmCB0Q==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=FmTV3z4mPbFhOVvlM1wN8UjFlY2sdQ+9fgYKjo5gGRA=;
+	b=vpWHxmuspPzyi4oBmIY8M4iS0JEA4g4wP5HDjojcvf/K3dosH3DgCOKOYPSW77bdMY4Y
+	 YXgNDVjeh0oNHYCkA+tIzF5UDFXES6dMEEmHuf8oe+cBvvO8Va0a4KkWMjBTZRWCcNURu
+	 H+HDh/tuGS5W/2a1wbhO3mllaLZgeTiNFF+sAt/V8iBR6Puzk18lpI1seXwwUAEvmjv7R
+	 bsPWJpm1ePDgSC2UsfSUNXdVkVcghYO89/3LE4R9mxhU7yswFBfujVaRQtdgEGn6buqIr
+	 47DC778f5h3vBc+ePnafwgBAN5RiRmVpEOnbzhqyNo92gcV2bnp8O1Tdg9s6e1HlJoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lxHao61w;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WB13bW2y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE4C606A31E;
-	Wed, 25 Nov 2026 16:08:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67869606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:09:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lxHao61w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BF711F000D1;
-	Wed, 25 Nov 2026 16:08:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795622939;
-	bh=bUaCwV8WNr2miwkPSpeiVbmnC0ijq2zqKlxPI+/PVBE=;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WB13bW2y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE421F000D1;
+	Wed, 25 Nov 2026 16:09:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795622941;
+	bh=FmTV3z4mPbFhOVvlM1wN8UjFlY2sdQ+9fgYKjo5gGRA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lxHao61wykIPwqjCKXI8fyUk/Tb36Hpk5CI2CU5Y7HVR+BjGjv5Ou3Ig3PL06QWKu
-	 zz+zRnvtkn6o/vjjpNX+yIRNtxdkoV50OriXDowCXYthmO6AggWrADq7cjEeLdHSTD
-	 aNlGMN0T9txImtiqwnqz3v3s2i08E/iVbOE4ptug=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=WB13bW2yKCgXfYGDRUllCqECRBDjIuJ8jzSIdDJ9Uv5bxsVTwlD40rOjEBa9kH0EE
+	 z9mveryW0SmjOCjVRRrVvLJHRy8aqQLXEFbmOnUjJ33zK/rhxhX1j+DGaNtLnHXWnI
+	 H8Wau4eGIAFsZvh3sI0ZhMtKKrFKm6HsO/j1weC3e1CCh5OmEIHFo4JcNTIzgb+Vik
+	 c3I8q+3kQHEtTAQbPatGNVKSprSZ/Q9tSswChUeva9ruzEBO6T36ZBQTXDBmtvzBtD
+	 z+zBCjjOx0JGO9EOXyicFwpXs7rxtlH3xw18JUgxDPiTgNHdFhPJBokLOq6D/GfHRP
+	 zqvhnylw34wSQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	=?UTF-8?q?Luk=C3=A1=C5=A1=20Lalinsk=C3=BD?= <lukas@lalinsky.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
-Subject: [PATCH 6.18 699/990] net: leave O_NONBLOCK to the sendmsg and recvmsg syscalls
-Date: Wed, 25 Nov 2026 15:34:26 +0100
-Message-ID: <20261125143838.458658328@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Zihan Xi <zihanx@nebusec.ai>,
+	Vega <vega@nebusec.ai>,
+	Luxing Yin <root@tr0jan.top>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] netfilter: nf_dup: preserve guard across NFQUEUE reinjection
+Date: Wed, 25 Nov 2026 11:08:59 -0500
+Message-ID: <20261125160836.698569-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112553-fidelity-fetch-aa1e@gregkh>
+References: <2026112553-fidelity-fetch-aa1e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,82 +61,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Zihan Xi <zihanx@nebusec.ai>
 
-------------------
+[ Upstream commit 82052e5b5ec36504fe1b9c3c28a711a78fcacf37 ]
 
-From: Jens Axboe <axboe@kernel.dk>
+NFQUEUE can suspend traversal of a duplicated packet while the task-local
+duplication guard is set. The output call then returns and clears the guard
+before a later verdict resumes hook traversal.
 
-commit bdc350ddbcbe4788158019d4d8e8e9345cb16235 upstream.
+Save the guard in the queue entry and restore it while reinjection
+continues hook traversal. Preserve and restore the verdict task's prior
+state, including nested synchronous reinjection.
 
-____sys_sendmsg() and ____sys_recvmsg() turn O_NONBLOCK on the socket
-into MSG_DONTWAIT. That is right for the system calls, but io_uring uses
-__sys_sendmsg_sock() and __sys_recvmsg_sock() for a blocking attempt
-from io-wq as well, after the non-blocking attempts with MSG_DONTWAIT
-have failed. On an O_NONBLOCK socket that attempt can't block either and
-the request completes with -EAGAIN, unlike IORING_OP_SEND and RECV,
-which call sock_sendmsg() and sock_recvmsg() directly and don't look at
-O_NONBLOCK at all.
-
-Move the O_NONBLOCK handling to ___sys_sendmsg() and ___sys_recvmsg(),
-which the sendmsg, sendmmsg, recvmsg and recvmmsg system calls go
-through. The io_uring helpers then pass the flags the caller asked for.
-
+Fixes: cd58bcd9787e ("netfilter: xt_TEE: have cloned packet travel through Xtables too")
 Cc: stable@vger.kernel.org
-Fixes: 0fa03c624d8f ("io_uring: add support for sendmsg()")
-Fixes: aa1fa28fc73e ("io_uring: add support for recvmsg()")
-Link: https://lore.kernel.org/io-uring/a5589b66-9a20-4b1c-a0f1-1b5b31af3667@app.fastmail.com/
-Reported-by: Lukáš Lalinský <lukas@lalinsky.com>
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+[ sashal: adapted the guard from the task-local current->in_nf_duplicate to the per-CPU nf_skb_duplicated, and moved the nf_reinject() changes into nf_queue.c. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/socket.c |   11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ include/net/netfilter/nf_queue.h |  1 +
+ net/netfilter/nf_queue.c         | 13 ++++++++++---
+ 2 files changed, 11 insertions(+), 3 deletions(-)
 
---- a/net/socket.c
-+++ b/net/socket.c
-@@ -2613,8 +2613,6 @@ static int ____sys_sendmsg(struct socket
- 	flags &= ~MSG_INTERNAL_SENDMSG_FLAGS;
- 	msg_sys->msg_flags = flags;
+diff --git a/include/net/netfilter/nf_queue.h b/include/net/netfilter/nf_queue.h
+index 2637d1512929a..3a538ab462de1 100644
+--- a/include/net/netfilter/nf_queue.h
++++ b/include/net/netfilter/nf_queue.h
+@@ -21,6 +21,7 @@ struct nf_queue_entry {
+ 	struct net_device	*physout;
+ #endif
+ 	struct nf_hook_state	state;
++	bool			in_nf_duplicate;
+ 	u16			size; /* sizeof(entry) + saved route keys */
  
--	if (sock->file->f_flags & O_NONBLOCK)
--		msg_sys->msg_flags |= MSG_DONTWAIT;
- 	/*
- 	 * If this is sendmmsg() and current destination address is same as
- 	 * previously succeeded address, omit asking LSM's decision.
-@@ -2678,6 +2676,9 @@ static int ___sys_sendmsg(struct socket
+ 	/* extra space to store route keys */
+diff --git a/net/netfilter/nf_queue.c b/net/netfilter/nf_queue.c
+index 47ed9a353107a..637d1c84d3e58 100644
+--- a/net/netfilter/nf_queue.c
++++ b/net/netfilter/nf_queue.c
+@@ -223,6 +223,7 @@ static int __nf_queue(struct sk_buff *skb, const struct nf_hook_state *state,
+ 	*entry = (struct nf_queue_entry) {
+ 		.skb	= skb,
+ 		.skb_dev = skb->dev,
++		.in_nf_duplicate = this_cpu_read(nf_skb_duplicated),
+ 		.state	= *state,
+ 		.hook_index = index,
+ 		.size	= sizeof(*entry) + route_key_size,
+@@ -320,21 +321,26 @@ void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
+ 	const struct nf_hook_entry *hook_entry;
+ 	const struct nf_hook_entries *hooks;
+ 	struct sk_buff *skb = entry->skb;
++	bool old_in_nf_duplicate;
+ 	const struct net *net;
+ 	unsigned int i;
+ 	int err;
+ 	u8 pf;
  
- 	msg_sys->msg_name = &address;
- 
-+	if (sock->file->f_flags & O_NONBLOCK)
-+		flags |= MSG_DONTWAIT;
++	local_bh_disable();
++	old_in_nf_duplicate = __this_cpu_read(nf_skb_duplicated);
 +
- 	err = sendmsg_copy_msghdr(msg_sys, msg, flags, &iov);
- 	if (err < 0)
- 		return err;
-@@ -2842,9 +2843,6 @@ static int ____sys_recvmsg(struct socket
- 	/* We assume all kernel code knows the size of sockaddr_storage */
- 	msg_sys->msg_namelen = 0;
+ 	net = entry->state.net;
+ 	pf = entry->state.pf;
  
--	if (sock->file->f_flags & O_NONBLOCK)
--		flags |= MSG_DONTWAIT;
--
- 	if (unlikely(nosec))
- 		err = sock_recvmsg_nosec(sock, msg_sys, flags);
- 	else
-@@ -2886,6 +2884,9 @@ static int ___sys_recvmsg(struct socket
- 	struct sockaddr __user *uaddr;
- 	ssize_t err;
++	__this_cpu_write(nf_skb_duplicated, entry->in_nf_duplicate);
+ 	hooks = nf_hook_entries_head(net, pf, entry->state.hook);
  
-+	if (sock->file->f_flags & O_NONBLOCK)
-+		flags |= MSG_DONTWAIT;
-+
- 	err = recvmsg_copy_msghdr(msg_sys, msg, flags, &uaddr, &iov);
- 	if (err < 0)
- 		return err;
-
+ 	i = entry->hook_index;
+ 	if (WARN_ON_ONCE(!hooks || i >= hooks->num_hook_entries)) {
+ 		kfree_skb(skb);
+ 		nf_queue_entry_free(entry);
+-		return;
++		goto out;
+ 	}
+ 
+ 	hook_entry = &hooks->hooks[i];
+@@ -357,9 +363,7 @@ void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
+ 	switch (verdict & NF_VERDICT_MASK) {
+ 	case NF_ACCEPT:
+ 	case NF_STOP:
+-		local_bh_disable();
+ 		entry->state.okfn(entry->state.net, entry->state.sk, skb);
+-		local_bh_enable();
+ 		break;
+ 	case NF_QUEUE:
+ 		err = nf_queue(skb, &entry->state, i, verdict);
+@@ -373,5 +377,8 @@ void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
+ 	}
+ 
+ 	nf_queue_entry_free(entry);
++out:
++	__this_cpu_write(nf_skb_duplicated, old_in_nf_duplicate);
++	local_bh_enable();
+ }
+ EXPORT_SYMBOL(nf_reinject);
+-- 
+2.53.0
 
