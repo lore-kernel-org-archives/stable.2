@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795621670;
-	b=ZLZNWOqGD1KDCaSDUEYer23UdZUgnMlgzmmp8mmNFlAR4gsm1CthLtg1px4dr8jbgrVh
-	 Su69spSW/zolWDZg7f6rfEbrzpk07uWFv/vXkDr1Qbj/9aVoWZJbyMZdAAnCPa+DLr8+T
-	 JSPj4glhQyRnVm9jQi/GsU8QaWom3P5sohtBxvGPez4D+3zH/q2udovjMJb7VpMuvVAeV
-	 adgW+8ipOKXy7MK0oAQuaAbQdFyitGBf87iOwccWvWMUGuwLPZBj96l7Kj/6YhzZNoPXL
-	 ++x+LUKuS9baYfD7FjSQSCnzXTTSLRUjExV9Z4ceaCOFUedbTXp6erDxw1nF0+RxZrg==
+	t=1795621673;
+	b=ebNbRSb+SQUTJ7XJDwQVZryMCQa0bNEZXtf0yn90vfSa38+TseAnDXtvGhqWLaXsN+3T
+	 S+h1eEhZue+ePI4NJoCpZtWdkx2Q2H4uc270i5mkBJsz7HSuN1MU07fK1hq3Vt3pGdx1B
+	 +yKs1Zu84SwY1k4zokjceLZRjTPxzf4q+UYAyK0VdCxFF01Mk3L6bO8BmXRVa4SY2ArfX
+	 /7LtLNbLh/xTM8D4S837LikcvM7O6YtYPextgNv48G1fHmb8DIB9ezsDqFV0i5tSnzCB9
+	 jF7ZpJ6Ch1apZY4wb5izVXdh2ooNRwfOt1p9Asc6h+o8W+NYdaZRnKsUFJk3eMY0IDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795621670;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795621673;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=rslYCmR5RUe3WDGYCLIBTeTgCIYdVTUCJRPlAVOTiuw=;
-	b=SGQ0g1SZt7L/Ewri6OHoXzM762uAwiwT0fD35im54kspozh1FCS6dQ7gkmml1hkG/UMF
-	 LP/PB45rY8nE3DTvkbdkkVWsV9l4SPqxZ7mlYk2LXlLapwlRnx47SMrGVccUk7mFpkqVh
-	 xHceNHW2EhKe0fEVpzyr/Xq8hqRBCXCYSQrOLwiTo32h9oKosp5Rwq4YI9zcp5iH4M96k
-	 btqo2KQliH8XJxAfnMH14rQYeiknhGdFR+a5HB2W9irtkzY8vkijI8+RH4BNGedMN/8HG
-	 FAKucYeul2h6PbN1XTfw3rzlSpff+VvTK0c85IeCOFkRtPJ6WLoFIm5kg5HjdjR8kNA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=TAPOs8VLo+w1eQz72VyyceN5GRJMCKwBWiE+B8c0gNA=;
+	b=sNlCk6/XWcbdyQ7ZRxLSAxr130sAA3rrYYvlKMElEs0lJbmlG+3OrDIki5ZY/EmTcy7y
+	 k6HThYT0EH4yf1nCkTFLt+3P+FW25OtGc9rRgFzRW40Yr5SR1dIWIQWTw79w5YzOC0+xK
+	 Guw6YK8/IYGkfikz4M4/E4VzHx1m5Y6xfHxVU5/Tyv1077eiQBMr9CSMqCCfyTdXeUxij
+	 Jo39zAal3iQFa6wCN9D5HIYzFfgDiu5nVBjYjrrSME6CgdOSIhmQx0Tlp50QKv3ehy+jG
+	 qCUP5cEcCmvkJQakKb/QzNpXEIUQv7g1pWbcKC+FZxpUTGmGSBbfCUTeef7TO311PoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ob5yTib+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NJtDJaCq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA04606A685;
-	Wed, 25 Nov 2026 15:47:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24EBF606A326
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:47:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ob5yTib+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCF401F000C6;
-	Wed, 25 Nov 2026 15:47:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795621670;
-	bh=rslYCmR5RUe3WDGYCLIBTeTgCIYdVTUCJRPlAVOTiuw=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NJtDJaCq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2F361F000C6;
+	Wed, 25 Nov 2026 15:47:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795621672;
+	bh=TAPOs8VLo+w1eQz72VyyceN5GRJMCKwBWiE+B8c0gNA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ob5yTib+YnKmwegHc+6mHvnjImV4uVNxh5iH2W+XnU368u+8nuDm4aa77HRJ8W+ri
-	 UPAkzY8GbLBfU4dzSZJCgeFJDsdnczAqlIDJ9vwhH6jHyo5EuJf1IRsIcRaGXHOque
-	 eetNo/fT39p/jdt1D8TnVFxYes3JhTyfHnVI9GH4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=NJtDJaCq5wfM/A7wOxedm+D57j54J6iFJC65v5NdkOMMLTUU6fjyZAXUWMU2XUQ2m
+	 SI4c1S0RoyGnRZUnUcQxSTiLdXsnyI+9Fp9L0JnzAA1xPHV6TfvBMNkaZh5/MNC6fl
+	 EEXxG4W3Lp6HQdk3nGvPQldZ8TA7x3GH+ySCXnlV+WURohAJUxySzLIjPKWI9R+F0g
+	 I7fTHcHTDY4coFFrbaMO07qOLwkKb2XXQ6rqiMKFSnwwkgIhvHEszo7dy2EATXNzPl
+	 R1qhuBDV3NLakocQdYCAZtVNoCfHvd8eK6sQLsfXPhyt2jD+jtyWC5vX+IT/E9Z80C
+	 9z5NSHGxaD+/Q==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+Cc: Ankit Garg <nktgrg@google.com>,
+	Harshitha Ramamurthy <hramamurthy@google.com>,
+	Jordan Rhee <jordanrhee@google.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Joshua Washington <joshwash@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 297/990] MIPS: Cobalt: Include legacy IDE ports in the PCI I/O window
-Date: Wed, 25 Nov 2026 15:27:44 +0100
-Message-ID: <20261125143829.049686230@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.18.y 1/5] gve: Default to max_rx_buffer_size for DQO if device supported
+Date: Wed, 25 Nov 2026 10:47:46 -0500
+Message-ID: <20261125154711.373322-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112542-scrunch-president-9d95@gregkh>
+References: <2026112542-scrunch-president-9d95@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,113 +65,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Ankit Garg <nktgrg@google.com>
 
-------------------
+[ Upstream commit 09a81a0f4fb7346f80a7340f725aedccff8ef8e4 ]
 
-From: Florian Fainelli <f.fainelli@gmail.com>
+Change the driver's default behavior to prefer the largest available RX
+buffer length supported by the device for DQO format, rather than always
+using the hardcoded 2K default.
 
-[ Upstream commit ff209a7294988aac52b2522b1d0d7349da4541ec ]
+Previously, the driver would initialize with
+`GVE_DEFAULT_RX_BUFFER_SIZE` (2K), even if the device advertised support
+for a larger length (e.g., 4K).
 
-The Cobalt PCI I/O window starts at 0x1000, excluding the VIA IDE
-controller's fixed compatibility-mode ports at 0x170, 0x1f0, 0x376 and
-0x3f6. Since pcibios_enable_device() was converted to
-pci_enable_resources(), these unclaimed resources cause pata_via to
-fail to probe with -EINVAL.
+Performance observations:
+- With LRO disabled, we observed >10% improvement in RX single stream
+throughput when MTU >=2048.
+- With LRO enabled, we observed >10% improvement in RX single stream
+throughput when MTU >=1460.
+- No regressions were observed.
 
-Start the PCI I/O window at zero to cover the southbridge legacy ports,
-retaining 0x1000 as the allocation minimum via PCIBIOS_MIN_IO. Register
-the PCI controller from plat_mem_setup(), before the VIA reservations
-and i8259 initialization, so the legacy resources do not conflict with
-the host bridge window and prevent PCI bus scanning.
-
-Keep the VIA resource reservations in plat_mem_setup() after the PCI
-controller registration and use insert_resource() to nest them beneath
-the PCI window. The i8259 and RTC resources are also claimed beneath it.
-
-Boot-tested on a Qube2 with a MIPS64 kernel. All seven PCI functions
-enumerate, both tulip devices bind, and pata_via initializes both ATA
-hosts and detects the ST380012A 80 GB disk. All 18 boot checks pass,
-including a read-only disk test and Ethernet ping.
-
-Fixes: ae81aad5c2e1 ("MIPS: PCI: Use pci_enable_resources()")
-Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
-Reviewed-by: Maciej W. Rozycki <macro@orcam.me.uk>
-Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Signed-off-by: Ankit Garg <nktgrg@google.com>
+Reviewed-by: Harshitha Ramamurthy <hramamurthy@google.com>
+Reviewed-by: Jordan Rhee <jordanrhee@google.com>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Signed-off-by: Joshua Washington <joshwash@google.com>
+Link: https://patch.msgid.link/20251106192746.243525-5-joshwash@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: edc9a730ad3c ("gve: Block invalid ring sizes when device options are 0")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/mips/cobalt/pci.c                     | 11 +++++------
- arch/mips/cobalt/setup.c                   |  4 +++-
- arch/mips/include/asm/mach-cobalt/cobalt.h |  1 +
- 3 files changed, 9 insertions(+), 7 deletions(-)
+ drivers/net/ethernet/google/gve/gve_adminq.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/arch/mips/cobalt/pci.c b/arch/mips/cobalt/pci.c
-index 85ec9cc31d666..29fd052766b2a 100644
---- a/arch/mips/cobalt/pci.c
-+++ b/arch/mips/cobalt/pci.c
-@@ -14,6 +14,8 @@
+diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net/ethernet/google/gve/gve_adminq.c
+index 367a9f0e89b5c..f27b9501e3be6 100644
+--- a/drivers/net/ethernet/google/gve/gve_adminq.c
++++ b/drivers/net/ethernet/google/gve/gve_adminq.c
+@@ -987,6 +987,10 @@ static void gve_enable_supported_features(struct gve_priv *priv,
+ 		dev_info(&priv->pdev->dev,
+ 			 "BUFFER SIZES device option enabled with max_rx_buffer_size of %u, header_buf_size of %u.\n",
+ 			 priv->max_rx_buffer_size, priv->header_buf_size);
++		if (gve_is_dqo(priv) &&
++		    priv->max_rx_buffer_size > GVE_DEFAULT_RX_BUFFER_SIZE)
++			priv->rx_cfg.packet_buffer_size =
++				priv->max_rx_buffer_size;
+ 	}
  
- #include <asm/gt64120.h>
- 
-+#include <cobalt.h>
-+
- extern struct pci_ops gt64xxx_pci0_ops;
- 
- static struct resource cobalt_mem_resource = {
-@@ -24,7 +26,7 @@ static struct resource cobalt_mem_resource = {
- };
- 
- static struct resource cobalt_io_resource = {
--	.start	= 0x1000,
-+	.start	= 0,
- 	.end	= 0xffffffUL,
- 	.name	= "PCI I/O",
- 	.flags	= IORESOURCE_IO,
-@@ -38,11 +40,8 @@ static struct pci_controller cobalt_pci_controller = {
- 	.io_map_base	= CKSEG1ADDR(GT_DEF_PCI0_IO_BASE),
- };
- 
--static int __init cobalt_pci_init(void)
-+void __init cobalt_pci_init(void)
- {
-+	PCIBIOS_MIN_IO = 0x1000;
- 	register_pci_controller(&cobalt_pci_controller);
--
--	return 0;
- }
--
--arch_initcall(cobalt_pci_init);
-diff --git a/arch/mips/cobalt/setup.c b/arch/mips/cobalt/setup.c
-index 9a266bf783399..502acc92969b8 100644
---- a/arch/mips/cobalt/setup.c
-+++ b/arch/mips/cobalt/setup.c
-@@ -83,9 +83,11 @@ void __init plat_mem_setup(void)
- 	/* I/O port resource */
- 	ioport_resource.end = 0x01ffffff;
- 
-+	cobalt_pci_init();
-+
- 	/* These resources have been reserved by VIA SuperI/O chip. */
- 	for (i = 0; i < ARRAY_SIZE(cobalt_reserved_resources); i++)
--		request_resource(&ioport_resource, cobalt_reserved_resources + i);
-+		insert_resource(&ioport_resource, cobalt_reserved_resources + i);
- }
- 
- /*
-diff --git a/arch/mips/include/asm/mach-cobalt/cobalt.h b/arch/mips/include/asm/mach-cobalt/cobalt.h
-index 97f9d5e9446d2..c7a8607cd651a 100644
---- a/arch/mips/include/asm/mach-cobalt/cobalt.h
-+++ b/arch/mips/include/asm/mach-cobalt/cobalt.h
-@@ -19,6 +19,7 @@ extern int cobalt_board_id;
- #define COBALT_BRD_ID_QUBE2    0x5
- #define COBALT_BRD_ID_RAQ2     0x6
- 
-+void cobalt_pci_init(void);
- void cobalt_machine_halt(void);
- void cobalt_machine_restart(char *command);
- 
+ 	/* Read and store ring size ranges given by device */
 -- 
 2.53.0
-
-
 
