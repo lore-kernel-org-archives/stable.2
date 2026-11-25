@@ -1,58 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795619563;
-	b=r09fbiBpQqamJA4AsPmci8ksfiWpKxeDQxAOJ+RYatpYS8YNIH4NcwNvrhYqx6XbyOVA
-	 N/suMARrrJNWpFkE+j0r/GZzEwvySBbJY9FDX0xlsE+3WSkSSLpVJnO3FdY1y6xYn1eUy
-	 KScOIcRFI+sMof3LUL2trx32AQMCuftz1Rdqc2ffV6iMYmSCmyB5Jz5OX2YHwaKQGVRxc
-	 7NwJLCrx3Uz3nzm047P0wXFpvml/MPfsDywa+ee1zPD1aOsgxf9ecxlsE4vBQR+yfvyEV
-	 opfBUKIkauHbT9Ij51nGmuBTzLSTz6uJET6/OcQlemDGmwIxxOyf2pjeEZE07ghzHtg==
+	t=1795619566;
+	b=3h12HkFyZPhCQKPd7ZC0gFMk15AW2cmxn5bzYuddsYD8kUNpPWoXxMpdFMB4GAbcwEKV
+	 Nqs3N1dOwuychKVszfCeRbezAuZ0/tt/cb+Hw378i4WwCwP0TpCq3YkkGhh4n+bPChgxb
+	 K1ClcWsjYxC8KAjtoWW27FgPfntFjXVJriv3+Zb5KjTKRkNqOVN1Pvwz2cCHkvk/CG4Sd
+	 1lMCxXZfuRzyocjl2+H2dDAG7T+854hMey/wpK7BxmHdZsLH9SpFspXoZwDwCUGdrkGWb
+	 VytmTu5ikDp4E6s0OPC38lmHMttFUYEIWZNr66UKy8DE0i/3XAmKmMMgvj30GDIxeiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795619563;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=6aaiQEWVj6nVwVlM1TrY6eVKVDCmmaSE5EjCQWnw1h4=;
-	b=FfvdPOqAfXJUOQi37Yhr3cHHv8VH/QmVTSF4RK3xKpsMIRuQekNswfxDGE2qsKpyWlpL
-	 /tYlYEEnU5Nb7i+Jy1eDn4ljw2W82LX6GfweldSR4iTx43vixh0FX8wJzXspFhVnLozkj
-	 paV1/QD6wFpXI4qz6qaEtb4z4tiak5xRlPCEFXoCpp5j0sFBacCXrI2LWSy3CEdu2EcGr
-	 gTWFtVHiDsjMhcZB0IQYHjzzvBp81X+adafcLUiGLWtT9AVYng1j3FUsUOS9zbrjlHqLA
-	 zLo+v9dNm943D001cxX6DwKpVwccvsldL+1Yp3U3ZYX8+mH/4zs5QD9YguAuvMTzCBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795619566;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=CIyGXCXSnOGbVeFCA4ZzO8vNPNndy3UmYT4yCyDyn8A=;
+	b=DKPmO753n/mmOYR71603ySzfHejE7JX4MqR27K+I/8Y3+141HK1pnhfvAmEPVKGRWzaR
+	 g3lBt0gGQC6UFEC5kGfpunC/4fjn7wmP6hYNJsq2JxEF6Ra7Dn63au0cFbelmOO9lbYrL
+	 ioRp3ml+EIsfkJzNkVKGGZI5PqykKZcunp+iYouqvkPYEijJbv1zeR/YN4rCh7146IMk6
+	 3YX5Icw/+9hOQcIzRO3aQXr4YVCuoYvd86Tn29M5lA5SLVGQE5F5op/TBJVRcj9AsTXoZ
+	 ksxPn7qAeSg/+XLgf6jE6YBcxbvhN9WUIyOYWICpz8jts/O84eexXSm0k1A8k4ln+yQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=opyRMBVy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WuZrhgt3;
+	arc=none smtp.remote-ip=209.85.160.171
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C20B606A321;
-	Wed, 25 Nov 2026 15:12:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B03606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:12:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0B03606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=opyRMBVy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 685941F000C0;
-	Wed, 25 Nov 2026 15:12:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795619562;
-	bh=6aaiQEWVj6nVwVlM1TrY6eVKVDCmmaSE5EjCQWnw1h4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=opyRMBVyx6h3E3UNZd/PU7JQM1GJJHX80d1MIG2DaTz/RGRzSUHsSdviCdlZrdHZJ
-	 GLC9h8Yp+YhsxOeiDl4NB4+cc1ZtSDUsyiFiBzPSCD8B6kNaW+f1tPcKwdw+6rNJ9+
-	 GY+Td808wAB5EkCjFhmL5wDzWZfU8MdAnPtdMQSY=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WuZrhgt3
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5569551d19dso70922171cf.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 07:12:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795619565; x=1796224365; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CIyGXCXSnOGbVeFCA4ZzO8vNPNndy3UmYT4yCyDyn8A=;
+        b=WuZrhgt3t6B1lkyjsJoRjyHb65WytRTkENwD8cQKegMIsnMThrzziqZnNyAB27Y0q6
+         kMMbj9fESxQ1ue0fEOhFheQCa2zJB1w1qXZ3j50idDLTVJwkQG/5vTeGjkDvEOORMk8s
+         S7y9litaBN8y/fV9z5OPXbwoMqNI2W/LDDI52VQ4I03/P7tD/uQGeNp071vZu4AnnSYI
+         x/k91DGEQPCiJqQXo65myJ6opiqxuU+1Zvi/xITyKIUhBuIUBBXxWP71M+efvT0IPaRf
+         j9RV0dz7KklWIFCyCD7LPqWQN5d32BeC5eJ7wAHZod10+DUuG32mzpTIbiKMRVK33aJZ
+         8aeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795619565; x=1796224365;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CIyGXCXSnOGbVeFCA4ZzO8vNPNndy3UmYT4yCyDyn8A=;
+        b=kRc90LgtB1yxMeoWueDnxrk4EqiKO4B1wggLivvHpMDG8vT92FmRB0euHTBRTH2Goe
+         Xod+6THoKY3IlhEvyX8jiYOMTt9QSie9MZr6xDCC2wDHZHaxFLZ3UCBL3uaz9DAPeiOx
+         RGMYWCbfnHjfPaKD2eCoc2epRxBurf+bw6taRu/mndjFyULTFu2ImpysQCk1TAzWO4cK
+         VLGZMvrMGZrmMQljj6CnVT90QqiUybVA02ndEhLkTBOJR9cDHUiFEtvMOoO7dMM3W42k
+         Jheg+qBxWUfi+3UFsCxBipdbRj8I/FJyEtOQQis/wz/MojztKVBbUcvIcz9ENPwDbaCr
+         PN7w==
+X-Gm-Message-State: APuU4Z9JpJOfCU8+NP7XSHIpTp0xOFuYZ7LnqLGqXHDhsbqwyX4Ea5IY
+	rikyC4Ow0JhgjBPrkFPFtz19E4NjsOfzMaQcnUOoqtADhEoIweVp5AL4r8Q/0b3n
+X-Gm-Gg: AZFdTZfmePID0DLiKX17319yKm39rrWz2R3yAQjN1q6+KdcOXmYZJCECHY9dYM4R2fj
+	cLHukBGVSKSCmQqOY7CVFcsxFQ1RYR94RFTS5ohZWQnOe5iamHujVT9XH0rWSMk+5b9A98WlaIS
+	eRE0cUWV6cvjZIVVICbKRQdCydN5/ZIB2NVug3Uckr8gN+XOhueMf7AwIwUeOwlxyerOgTGpeX6
+	B6hNdTdnuV2Mg11TjSzVKkudpOa7wuyOFbTQtbvXTqjp2StRl06ucXBraQm4/JuGGJknKfcpnrN
+	Me0vTMLRHYJHT81UjVLy6dYByFSmEjo9P7xgYABbwtHF2RimBg01PDI8REpACkTaF9JWkICpnnF
+	7YO2vG3lolXFWZr8jHJb7fzpsIv38vNCkcpwNV8pm40wNvjN7R8YPptaWiC8zmrgMECBUI5jZll
+	9E5jQjZeyOjjzoz6e0t//Aim2Ntjy04CbIXUsYrSd0aOSdMaV1DfzAV2Xcu//SoASbiMYIiKBWt
+	UG4EnJMzobW1nI4TwHpaKBo3ycH6G4gMFnmoUvICpGi7v68NCWwpVA18IEuaoA5pkZkzprBKX6S
+	8LftgAVat2f686Km7ItTI9YxM1rT8i7HfJrol8KXc36ENArspCxNDqBMALBICgqvk6yLTAn2P1G
+	PnguGqL7FUV9E0QaPlvRVhynXTntjKqBKe3t/nf74wCqdKeyRIsWRA4G5+arsmbNO4A8Z8AFBtV
+	WLTOMOz8XNo5PixqHOaJ2AaG+ZpJpSvPMKNPRt8qz2jA==
+X-Received: by 2002:a05:622a:1ba5:b0:55a:eed5:7ba1 with SMTP id d75a77b69052e-55d76a02037mr320681941cf.17.1795619564596;
+        Wed, 25 Nov 2026 07:12:44 -0800 (PST)
+Received: from kapoor.iiserb.ac.in ([203.18.51.239])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d7889ea4csm158336661cf.26.2026.11.25.07.12.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 07:12:44 -0800 (PST)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Zi Yan <ziy@nvidia.com>
-Subject: [PATCH 7.3 0600/1005] mm/mmzone: read each zoneref slot once when filtering by nodemask
-Date: Wed, 25 Nov 2026 15:32:18 +0100
-Message-ID: <20261125143835.800228481@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: [PATCH 6.12.y] iio: proximity: sx9500: ignore event config writes that don't change state
+Date: Wed, 25 Nov 2026 20:42:36 +0530
+Message-ID: <20261125151239.341766-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112540-drainpipe-glamorous-4154@gregkh>
+References: <2026112540-drainpipe-glamorous-4154@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,87 +99,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+commit b8ed9165906597b69a46fabf39ab41690721ebe8 upstream.
 
-------------------
+sx9500_write_event_config() adjusts the channel and close/far user
+counts on every write, even when the event is already in the requested
+state. Writing 0 to a disabled event and then 1 leaves the counts at 0,
+so the channel and its interrupts stay off while the event reads as
+enabled. As channel_users[] is shared with raw reads, those can then
+wait forever for a conversion. Writing 1 twice and then 0 has the
+opposite effect.
 
-From: Gregory Price (Meta) <gourry@gourry.net>
+Return early when the state doesn't change, as
+sx_common_write_event_config() does.
 
-commit e55119ab611a0e47595db7e1d2ac1e69f7a73ff0 upstream.
-
-__next_zones_zonelist() tests a slot's zone for NULL, then reads the
-slot again to look up the zone's node. Offlining a zone's last block
-rebuilds the zonelists in place, so the second read can return the
-terminator:
-
-  CPU 0                             CPU 1
-  __next_zones_zonelist(nodemask)
-    zonelist_zone(slot 1) = NORMAL
-                                    offline_pages()
-                                      build_all_zonelists()
-                                        [MOVABLE, NORMAL, NULL]
-                                        -> [NORMAL, NULL]
-    zref_in_nodemask(slot 1)
-      zone_to_nid(NULL)
-
-Current GCC and clang merge the two reads, but nothing requires it.
-With mm/mmzone.o built with -fno-inline -fno-ipa-sra, holding a
-nodemask allocation between the reads while the node's last movable
-block goes offline oopses every time:
-
-  BUG: kernel NULL pointer dereference, address: 0000000000000060
-  RIP: 0010:zone_to_nid+0x0/0x10
-  Call Trace:
-   zref_in_nodemask+0x9/0x20
-   __next_zones_zonelist+0x23/0x70
-   prepare_alloc_pages.constprop.0+0x16c/0x190
-   __alloc_frozen_pages_noprof+0xaf/0x330
-
-Read the slot once and test that zone. A NULL zone still ends the walk.
-To achieve that, rename zref_in_nodemask() to zone_in_nodemask() and
-pass a zone instead of zoneref pointer.
-
-Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_zonelists")
+Fixes: 4193c0f1d863 ("iio: driver for Semtech SX9500 proximity solution")
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Link: https://patch.msgid.link/20261101021340.2251928-8-gourry@gourry.net
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ Context: write_event_config() still takes int state here and tests
+state == 1; the added check is unchanged. ]
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
 ---
- mm/mmzone.c |   11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/iio/proximity/sx9500.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
---- a/mm/mmzone.c
-+++ b/mm/mmzone.c
-@@ -43,13 +43,14 @@ struct zone *next_zone(struct zone *zone
- 	return zone;
- }
+diff --git a/drivers/iio/proximity/sx9500.c b/drivers/iio/proximity/sx9500.c
+index 3f4eace05cfc..1041d3defe4e 100644
+--- a/drivers/iio/proximity/sx9500.c
++++ b/drivers/iio/proximity/sx9500.c
+@@ -551,6 +551,12 @@ static int sx9500_write_event_config(struct iio_dev *indio_dev,
  
--static inline int zref_in_nodemask(struct zoneref *zref,
--				   const nodemask_t *nodes)
-+/* A NULL zone terminates the zonelist, so it ends the search. */
-+static inline bool zone_in_nodemask(const struct zone *zone,
-+				    const nodemask_t *nodes)
- {
- #ifdef CONFIG_NUMA
--	return node_isset(zonelist_node_idx(zref), *nodes);
-+	return !zone || node_isset(zone_to_nid(zone), *nodes);
- #else
--	return 1;
-+	return true;
- #endif /* CONFIG_NUMA */
- }
+ 	mutex_lock(&data->mutex);
  
-@@ -67,7 +68,7 @@ struct zoneref *__next_zones_zonelist(st
- 			z++;
- 	else
- 		while (zonelist_zone_idx(z) > highest_zoneidx ||
--				(zonelist_zone(z) && !zref_in_nodemask(z, nodes)))
-+		       !zone_in_nodemask(zonelist_zone(z), nodes))
- 			z++;
- 
- 	return z;
-
++	/* The user counts must only change when the state does. */
++	if (data->event_enabled[chan->channel] == state) {
++		ret = 0;
++		goto out_unlock;
++	}
++
+ 	if (state == 1) {
+ 		ret = sx9500_inc_chan_users(data, chan->channel);
+ 		if (ret < 0)
+-- 
+2.53.0
 
