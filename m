@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795601635;
-	b=B05At+wHU67oRm1UpH2N+c+SplrlyPWnd3hnmUjptmFVnPQhtQjLVlYhH9oBltRSj5Yr
-	 7Azsx/tphgIXh0u4Z/IOpVRpmBQ3J03hTVyBLIfrz1OZurqoXK7scnUnJvhB/Hha4m+MO
-	 6YDw7UfY6pap+8M10Dm+5z0wgV8HlUjv0XFqpgAWPXqqVSL55jH+2I1LlKMWupjY6zaNs
-	 V7HjwZltJPgsCgxjLmt3ILXu6WHdIQAotk8QSJ3bdC2nHxGKrghqG4U29YwtZ2irm13fG
-	 VMKsKHgOoaMC/i4SHacat8pb2R/LTJjSWyL5o04dXRg1eAcg2pPqwoJIgL8d3jPijww==
+	t=1795601638;
+	b=ZrX0EyOFtnCElW18BnE5WKxsbQBwckI/p72LsDKeqp/XuEROFxdNcpNnEDze5RFgNHI7
+	 820SWxsyK4HnejI3hhRwe6GEB3cf2A5vjsDL9ij73teWILVHv/26IRWGtOqIjeuWa13gp
+	 MHOIKaDwaUoa5a7hZOFNIwcLN/s1WvKfZ0lbYIci8eMa9HKGKSjODrE5YRNpROtBrTQKF
+	 sluR8I/OoCPJup6y/XhGKUo88qfvKWHozm6mIteINNmSnfJPw65O0FieFhIyyVNQxN5fv
+	 ICDPtOdAxfDVtRjU6bRfCcOeCSYwZ80VrNprq6nBvT/cK4PB69bGk8AEEWvss1tfgJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795601635;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795601638;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=CRhdGLMPTP9GSHD+IQoewuViE4z9Fp89jbz1ZE0/VEU=;
-	b=PzMXvqzaW0ZqmhB1yN3m6co0KmWx5qWqKFzLJ45kSuvlxQ93A1cyS3dziW+gZw+Dw+Ow
-	 P+MQpY6QiPoy7DbfdXWhB7L5Ytlcw+ZOJoPhPXbFk4dCaWSpYL+iMXLsVMaSvBmbxjJ9M
-	 Om5sLdhmmtFgCTNQObkXtXrjTaV6QYhFaSvug666Penb+Gke2XcGRlnOcq1tG80yCjAxp
-	 d4+dO48UshF9yh9WgXbVz9EsvwncUQIRZFJEymNcw5pglMtyBvmomMD0wThiddXPokyIL
-	 kbOBJADYy/fzLM0SDGshzABO6yyAoJniFJkRt6ZVCP/I5uwXoH8kqdk+XLFY+TR8RDg==
+	bh=Qesufly2/205g6tNcX4xDlg84xP6DXgUBIhzyFIoiJw=;
+	b=uxkqoFj4CZCdiXd/Rn7GD8DLuwetPdLmGgwsgYBl8lWId/cZeK7x1zkgi6T+AsW0FYOt
+	 t/E/PqYPZNtJmRYa8DW4sKe+Kq+/nd9jeR/tcSaFUazKlA8df8V+m4gtpK3SwWXodeAVk
+	 R5oQFa3n5JlU0+6KfDplxEAX4c2NZ+Ev2H1OsuiWfpTK4+O1F6/JMIaJXp+s0cMB1bACO
+	 j5WE0g3SLNe6IS5YW6P9ihYuUuHcmPqMFnuCjCERPO4x2EBWo6FeNzJst7awx4zRp9MVq
+	 7Vjpr2/Nj4qkyY+3uYJPbA+o6YTtDKqbkfGnJDYnVeykm2BqaaJrIr0kYcFekhfTuTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=An1voHHF;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lkvDdNjJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C0E606A327
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:13:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17409606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:13:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=An1voHHF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E67761F000D2;
-	Wed, 25 Nov 2026 10:13:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lkvDdNjJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 349381F000CA;
+	Wed, 25 Nov 2026 10:13:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795601634;
-	bh=CRhdGLMPTP9GSHD+IQoewuViE4z9Fp89jbz1ZE0/VEU=;
+	s=korg; t=1795601637;
+	bh=Qesufly2/205g6tNcX4xDlg84xP6DXgUBIhzyFIoiJw=;
 	h=Subject:To:Cc:From:Date;
-	b=An1voHHF2lEX52i6OjThNZdR5J9wHB3+vtF8I6Oy2k+YlrjCrv4up8ji7AyOpm1pX
-	 vqulEXUyzCWTeCtug2cpkaYu6O3+8qrLYyCIflAn1gj78xR14ah27oM0jyD5HbMxJt
-	 ojuxMZlG4wIC3Ob/ihR0H0tSEHaycTln151ne96k=
-Subject: FAILED: patch "[PATCH] cpufreq: Fix updates of cached resolved frequency and index" failed to apply to 5.15-stable tree
-To: rafael.j.wysocki@intel.com,christian.loehle@arm.com,stable@vger.kernel.org,zhongqiu.han@oss.qualcomm.com
+	b=lkvDdNjJMayj1JjyRNyV7IaKcIFpn/UgJSF9Pxmv6iO7A0nEInSTt2+ObZLMs4pGP
+	 ZV8FtI6UULb4jG7dKsTnirM+/Lj40o5fhYE5FR0lDWJ+2g4VQ3vvpNsqGJLvwILL8e
+	 2YXt/EyAZjz6xCE0jTg0TQZRU2Ll8s1jNpjXuCVc=
+Subject: FAILED: patch "[PATCH] fs: set I_METADATA_WRITEBACK in mmb_mark_buffer_dirty()" failed to apply to 7.3-stable tree
+To: brauner@kernel.org,jack@suse.cz
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:10:40 +0100
-Message-ID: <2026112540-waviness-hybrid-1428@gregkh>
+Date: Wed, 25 Nov 2026 11:11:43 +0100
+Message-ID: <2026112543-dipped-sultry-a7a2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 7.3-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 75120f31aed010c326b28d7c80d22314df34d9a8
+git cherry-pick -x d4fdde3257a577f184b4498d040f6fe20be72326
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112540-waviness-hybrid-1428@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112543-dipped-sultry-a7a2@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,150 +79,74 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 75120f31aed010c326b28d7c80d22314df34d9a8 Mon Sep 17 00:00:00 2001
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
-Date: Fri, 6 Nov 2026 16:05:06 +0100
-Subject: [PATCH] cpufreq: Fix updates of cached resolved frequency and index
+From d4fdde3257a577f184b4498d040f6fe20be72326 Mon Sep 17 00:00:00 2001
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 9 Nov 2026 17:51:23 +0100
+Subject: [PATCH] fs: set I_METADATA_WRITEBACK in mmb_mark_buffer_dirty()
 
-The cached resolved frequency and index, cached_target_freq and
-cached_resolved_idx, respectively, may be updated concurrently if
-cpufreq_driver_resolve_freq() is called by the schedutil governor
-while cpufreq_set_policy() is running for the same policy.  Those
-concurrent updates are not synchronized in any way and the values
-written by cpufreq_set_policy(), if it wins the race, may confuse
-drivers using those policy fields [1].
+ext2, ext4 without a journal, fat, udf and minix track the metadata
+buffers of an inode in a mapping_metadata_bhs list and sync them from
+->sync_inode_metadata() and ->evict_inode(). The inode block itself is
+only tracked by I_METADATA_WRITEBACK which ->write_inode() sets after
+copying the inode into its buffer.
 
-To address this, use the observation that the only place where
-cached_target_freq and cached_resolved_idx need to be updated is
-cpufreq_driver_resolve_freq() because the only legitimate users of
-them are .fast_switch() driver callbacks.  Although cached_resolved_idx
-is also used in __cpufreq_driver_target(), that is in fact unnecessary
-and it is better to use a local variable for storing the frequency
-table index in that function.
+Set the bit in mmb_mark_buffer_dirty() as well so that it covers all
+the metadata an inode may still have to write out. Set it after the
+buffer is on the list. An fsync() that sees the bit then also finds the
+buffer when it walks the list, and one that cleared the bit before we
+set it leaves it set for the next one.
 
-Accordingly, rearrange __resolve_freq() and its callers so that
-cached_target_freq and cached_resolved_idx are only updated in
-cpufreq_driver_resolve_freq().
+The inode itself may never have been dirtied. fat for example tracks
+the FAT buffers on a private inode that nothing marks dirty. So attach
+the inode to a wb before setting the bit, the way ext4_mark_iloc_dirty()
+does, or writeback_single_inode() has no wb to lock once evict() syncs
+it.
 
-The cached_target_freq initialization in cpufreq_set_policy() is still
-needed, but move it after stopping the old governor and before starting
-the new one to avoid racing with cpufreq_driver_resolve_freq().
+That lets evict() write out everything the bit tracks in one place
+instead of every ->evict_inode() calling mmb_sync() itself.
 
-Fixes: f9ccdec24d91 ("cpufreq: Reuse cpufreq_driver_resolve_freq() in __cpufreq_driver_target()")
-Fixes: 151717690694 ("cpufreq: Make policy min/max hard requirements")
-Reported-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Closes: https://lore.kernel.org/linux-pm/20261105140357.1331894-1-zhongqiu.han@oss.qualcomm.com/ [1]
-Co-developed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Signed-off-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Reviewed-by: Christian Loehle <christian.loehle@arm.com>
-Tested-by: Christian Loehle <christian.loehle@arm.com>
-Cc: All applicable <stable@vger.kernel.org> # 342d3a73c5db cpufreq: Force passing target frequency to driver during resume
-Cc: All applicable <stable@vger.kernel.org> # 166207cac451 cpufreq: Cache post-resolution target frequency in __resolve_freq()
-Link: https://patch.msgid.link/3472677.aeNJFYEL58@rafael.j.wysocki
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Suggested-by: Jan Kara <jack@suse.cz>
+Cc: stable@vger.kernel.org # v7.3
+Link: https://patch.msgid.link/20261109-work-inode-metadata_writeback-v3-8-91ac6c024018@kernel.org
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index 6370d0e71331..24319b214d7b 100644
---- a/drivers/cpufreq/cpufreq.c
-+++ b/drivers/cpufreq/cpufreq.c
-@@ -477,7 +477,7 @@ EXPORT_SYMBOL_GPL(cpufreq_disable_fast_switch);
- static unsigned int __resolve_freq(struct cpufreq_policy *policy,
- 				   unsigned int target_freq,
- 				   unsigned int min, unsigned int max,
--				   unsigned int relation)
-+				   unsigned int relation, unsigned int *idx_p)
+diff --git a/fs/buffer.c b/fs/buffer.c
+index 5d3852b726d6..f951559e7d32 100644
+--- a/fs/buffer.c
++++ b/fs/buffer.c
+@@ -621,12 +621,15 @@ void write_boundary_block(struct block_device *bdev,
+  * @bh: The buffer to mark dirty.
+  * @mmb: The list of buffers to add the buffer to.
+  *
+- * Mark the buffer dirty and add it to the list if it is not already on
+- * a list.
++ * Mark the buffer dirty, add it to the list if it is not already on a list
++ * and set I_METADATA_WRITEBACK on the inode so that fsync() and eviction
++ * write it out.
+  */
+ void mmb_mark_buffer_dirty(struct buffer_head *bh,
+ 			   struct mapping_metadata_bhs *mmb)
  {
- 	unsigned int idx;
- 
-@@ -487,9 +487,10 @@ static unsigned int __resolve_freq(struct cpufreq_policy *policy,
- 		return target_freq;
- 
- 	idx = cpufreq_frequency_table_target(policy, target_freq, min, max, relation);
--	policy->cached_resolved_idx = idx;
--	policy->cached_target_freq = policy->freq_table[idx].frequency;
--	return policy->cached_target_freq;
-+	if (idx_p)
-+		*idx_p = idx;
++	struct inode *inode = mmb->mapping->host;
 +
-+	return policy->freq_table[idx].frequency;
- }
- 
- /**
-@@ -520,7 +521,10 @@ unsigned int cpufreq_driver_resolve_freq(struct cpufreq_policy *policy,
- 	if (unlikely(min > max))
- 		min = max;
- 
--	return __resolve_freq(policy, target_freq, min, max, CPUFREQ_RELATION_LE);
-+	policy->cached_target_freq = __resolve_freq(policy, target_freq, min, max,
-+						    CPUFREQ_RELATION_LE,
-+						    &policy->cached_resolved_idx);
-+	return policy->cached_target_freq;
- }
- EXPORT_SYMBOL_GPL(cpufreq_driver_resolve_freq);
- 
-@@ -2402,12 +2406,13 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
- 			    unsigned int relation)
- {
- 	unsigned int old_target_freq = target_freq;
-+	unsigned int idx = 0;
- 
- 	if (cpufreq_disabled())
- 		return -ENODEV;
- 
- 	target_freq = __resolve_freq(policy, target_freq, policy->min,
--				     policy->max, relation);
-+				     policy->max, relation, &idx);
- 
- 	pr_debug("CPU %u: cur %u kHz -> target %u kHz (req %u kHz, rel %u)\n",
- 		policy->cpu, policy->cur, target_freq, old_target_freq, relation);
-@@ -2437,7 +2442,7 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
- 	if (!cpufreq_driver->target_index)
- 		return -EINVAL;
- 
--	return __target_index(policy, policy->cached_resolved_idx);
-+	return __target_index(policy, idx);
- }
- EXPORT_SYMBOL_GPL(__cpufreq_driver_target);
- 
-@@ -2716,7 +2721,7 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
- 	 * concurrently by cpufreq_driver_resolve_freq() during the update.
- 	 */
- 	freq = __resolve_freq(policy, new_data.max, new_data.min, new_data.max,
--			      CPUFREQ_RELATION_H);
-+			      CPUFREQ_RELATION_H, NULL);
- 	if (freq != policy->max) {
- 		WRITE_ONCE(policy->max, freq);
- 		if (need_update_limits)
-@@ -2724,7 +2729,7 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
+ 	mark_buffer_dirty(bh);
+ 	if (!bh->b_mmb) {
+ 		spin_lock(&mmb->lock);
+@@ -641,6 +644,15 @@ void mmb_mark_buffer_dirty(struct buffer_head *bh,
+ 		list_move_tail(&bh->b_assoc_buffers, &mmb->list);
+ 		spin_unlock(&mmb->lock);
  	}
- 
- 	freq = __resolve_freq(policy, new_data.min, new_data.min, new_data.max,
--			      CPUFREQ_RELATION_L);
-+			      CPUFREQ_RELATION_L, NULL);
- 	freq = min(freq, policy->max);
- 	if (freq != policy->min) {
- 		WRITE_ONCE(policy->min, freq);
-@@ -2736,8 +2741,6 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
- 
- 	cpufreq_update_pressure(policy);
- 
--	policy->cached_target_freq = UINT_MAX;
--
- 	pr_debug("new min and max freqs are %u - %u kHz\n",
- 		 policy->min, policy->max);
- 
-@@ -2763,6 +2766,12 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
- 		cpufreq_exit_governor(policy);
- 	}
- 
 +	/*
-+	 * Initialize cached_target_freq while no governor is running to avoid
-+	 * racing with cpufreq_driver_resolve_freq(), which updates it.
++	 * The inode itself may never have been dirtied, so attach it to a wb
++	 * before setting the bit or writeback_single_inode() has nothing to
++	 * lock when evict() syncs it.
 +	 */
-+	policy->cached_target_freq = UINT_MAX;
-+
- 	/* start new governor */
- 	policy->governor = new_gov;
- 	ret = cpufreq_init_governor(policy);
++	spin_lock(&inode->i_lock);
++	inode_attach_wb(inode, NULL);
++	inode_state_set(inode, I_METADATA_WRITEBACK);
++	spin_unlock(&inode->i_lock);
+ }
+ EXPORT_SYMBOL(mmb_mark_buffer_dirty);
+ 
 
