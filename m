@@ -1,72 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795645650;
-	b=QgZXjWlDp5dqflPRIEzdhu6732ten2qCpBESVsXJnOoNSf5/llLR6lNbxine1yYolE2L
-	 od8SaayxcvOpeiMGMaBPFZREfIzdFtKAdBuBU4PhaewcrZtRPK1LLcV1ru/MiJrlypqhs
-	 oo3FZszoJ6tF/8LMCW/84k6LEX/D0i8TlC7b3TktD+w87rVUZrsyqpj3+1gdBMnYUZJsu
-	 20Ou3kVaWCdXpqfj/vipAUQLJ3bJaXDiOGgM9RFlC09trFpoH7IgeQ0JoqdOl1KiQ0bOD
-	 8+bZRogASovxG/iKZ7sj8hQuBzCnB8KdmbLTnKR1HFenqVYu394RZELeXoP1q0axYWg==
+	t=1795645683;
+	b=aAXzOEaaFW900Vp6eaKyPTZ9dPmY6bwDp3ddkeOrW+iSmmBW5b1Ruxk0NW/z2ivWEpdK
+	 qXdizLrpmEfucp/wpfo+QOhoqfbQytIQshAvJHQrdWJ8YUyVmy9viGueGRRSBqg61QMxZ
+	 jyLjmqMb3YDtlPiiCrmK1yuOzFYQftOMBZxAZ8MLOuAxUstFXsmQkH5xYjueVDg2LcH2Q
+	 M/jyfTzhNW0Y3aAULhc+r6fsM44MYpc95tkLLE9QzWA/Y6t0X0scqOIvyNoTPnAINIh4I
+	 pFLvsYHXirNEuK30ylN/gBuWblK2tVHC+HEt6W5u1cdgWMsSVG8T7TUwfyywuajfelQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795645650;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795645683;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
 	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=RiNM9OF5vBLtGgFl62pfxBUQi+W1VLFdVJFedeCHig4=;
-	b=WYBHLT9iAfV3AP3aRxy+q50yt3jC9TTX1RPxuvKQ0v98X8Ax7hlfL4Y0VnpcteRDev0k
-	 q3sF0VApjbthzH1xu3NivjrLRuno0VVVI9b/3lWLnmx8SLx64n3UYDUo8PSViA7jb/zj1
-	 cDZk62MeSJq/Xtvj06W0oy6FpQAHLqHLtwggWRP+WKxdYxSASW7OZ9YG/Wfx16lRm52cI
-	 9FTVhg8ToiVVN5UOnskLGWRRfuNad1H7mGxbWVw9SZoHefyeyHo4K8XSV3Np9DmK4G0bF
-	 SL+NGomT6LIBpxzAVeftsvaLEx65p6/NRiJrcidwetLUUdaCeYsSK9+cIUA9n21cIaw==
+	bh=pGLqG+R6IwEUEhnoQECM2DID9vMzArkmStKfaJkmTj8=;
+	b=ajH4Djd8WscK4iu/5g9zVSn5VCgFF2NvZQS7hEBjGSx4g69F0SwbHN8ygEHwdBXjOw6Q
+	 qWZJ96k+EECMcZmdAYYux4FyBI3PYU9k1ty8BB53wp/pHYMWAY6W+jy93bxwLG1rf3r9a
+	 /AjbD27A2YvvP5Brkrq0nxgbd+4vcYuzCyewPMEdwSiADiGwaCbLaSpoNR13CRPhQxFoM
+	 Zes++wCZ9d85bh3cZE8XBeiHp6O/om5JqCLrn4EEaSHV9dYo3EGX9DM/j+1CLK+oGPhrg
+	 ffelK+cLtGzCsboPjdBxEsQw9Qh5jpDx700NcH+24puqZ8sUFWy5UaLmSNzDjmv9EYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--elkin.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nZp8zMxx;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SosT4sDy;
 	arc=none smtp.remote-ip=74.125.82.200
 Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16EE606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 22:27:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E16EE606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B96606A327
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 22:28:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0B96606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--elkin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nZp8zMxx
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3869865a304so490588eec.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:27:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SosT4sDy
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-386ad819860so2722838eec.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:28:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795645649; x=1796250449; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1795645682; x=1796250482; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RiNM9OF5vBLtGgFl62pfxBUQi+W1VLFdVJFedeCHig4=;
-        b=nZp8zMxx+xiHgR6o7ArSyLmlUC+8TFeTxpnjim/CeWqQULhssE6GK2uwFqCuFnwfEp
-         +I6a+WEfjTzj0vXnutB0nbx4TAUlRbWMV/yRzaqYdqpFIs1U39lclRIQZAL+YoKnNsvs
-         RBK6o9DiZ1u/Zy8fQSwOPlFVGH7dkTMwbWex2vyr/3e/1F+pXUNQ1Zx4cli2XQ/g8iMu
-         Br6Ur8/b1cKyVXPDoyB4Ryn/s/QSxo/Qm05sq6TQ9hPtBuj3Yat4Fmn7q8ZumG6fAMwd
-         RmJrvPHQvnfcc9397M3PhZjbMDr9w6kQcA7/CshHdCKrzAWgSYGbP10bFp4v2TLjU9QL
-         WC9Q==
+        bh=pGLqG+R6IwEUEhnoQECM2DID9vMzArkmStKfaJkmTj8=;
+        b=SosT4sDyOt1HfjO6iaoT9gFbof7lS4I0lDR/WMLwVLNXoMEUNWzr1RqwPhy/Gmg8ix
+         JuO5Z1Vn9bdOjy3JC8MG5wrhutcdkluIoQIRLKMZRiL+lE2GicNLMdO6GI/NcwI+QuZp
+         hQpe6p5WecbT3WD88rI4bNQKj/25IJ/L3WBvNRCkLth6AmHRSCPOON2wpo3guxIuhIKh
+         dsIjkubS3h40Kpo3ByKH/romcRHVGIaMuPLWsVvJXIGalng8DwbDB4irCWhYzEJl+jvC
+         Pheibqk2YNNRkxObn5ZvGep4EMV/1jQXjPcdP0q0TE7IEA4uwvHMXFkr79unESX7mtdn
+         wpEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795645649; x=1796250449;
+        d=1e100.net; s=20260707; t=1795645682; x=1796250482;
         h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RiNM9OF5vBLtGgFl62pfxBUQi+W1VLFdVJFedeCHig4=;
-        b=SorPdy0PCJbWgyJU7aVrbOcjyqHF9OckgpT/4i0gnTVB2c1aSGo5eCUPTEYqzHsb1X
-         5FqATI1hDwTrR3xsjfII4pqSnNAhFAihDDrr7ym60rLjsofyuFeIrIex6jQ8aOcyA4RB
-         +y1Uq6cva24uv0qLltK5lMQiN33XIFR8K4nqIwq0v/PHIDO+RMzv1War6XDZcmzGfdPC
-         IQGmtTW0DnIHmRtCk8bbwQ4kVOvxsdF4OsogvhtTCmo79Oz5HOgmRoiy1oVL/x0EKfJU
-         cEuB0/gqW2FbNPmWujsQQ64g8GswJRGyU97s9KY0bQq/VLdMqYXExpycNIPC1/Ml7/gP
-         zBRw==
-X-Forwarded-Encrypted: i=1; AL+hErEQxpaYXTmbJJsvU/0AUotRZ90sAPkGItXbSAtjfa4wV6yL1bqQHWN7opjbNfPQw7U9b1+8Yk4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/LFrObaVjy2lUoTzX4D1p2PXZeKLDXRomLTKLWhsXecSnprj2b
-	A38im5Lk6AoNxkbr5/fseNoNCYvsCJakNcy+XNUsikXlrXJSZBh2smSICnnKyRoV1YEg7sMDuiM
-	UdQ==
-X-Received: from dyp12.prod.google.com ([2002:a05:693c:65cc:b0:381:fb4c:34e1])
- (user=elkin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:4710:b0:378:314:4042
- with SMTP id 5a478bee46e88-385702587c5mr17876713eec.14.1795645648594; Wed, 25
- Nov 2026 14:27:28 -0800 (PST)
-Date: Wed, 25 Nov 2026 22:27:13 +0000
+        bh=pGLqG+R6IwEUEhnoQECM2DID9vMzArkmStKfaJkmTj8=;
+        b=p65GndxNjqz/SFVy8/jFVozj38iR5nUDKML5nAFP81iXwCenvwbAkpbXjesp89p229
+         MBtfTM8QkTPvr9/4f7XuwAuvcWNd8VHVVhkT3K8322KmJ45HENCjdVTzn0W8MsEUtr4S
+         uJ2wDx0AW4H/v08bb6tVsFM1/v5nhw2zhTNaAGF1ZUovN688hP36U0GDfLz3EkWLgUF4
+         pZq2Qb5oI+1Z93oOkIlTgwR3zjavj1L5CChL8688VmzZSypFvNp+aNiZWAUJgQ1kv07B
+         pYxxwe2JhqMN3pYaHLgXK7o0E9Zs3hFAyR+3/TXDwZZ6WtS7IkISKtoMYa+dwkn88YY4
+         uy2w==
+X-Forwarded-Encrypted: i=1; AL+hErGrzNiYDVqC26dV5GCjRlvceycyYnbaBDzIbNApSeyiAuyWUdO29pQHtzicQ79ryvhlL8U9J9M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+rg3m79mHG3zSRD1Cyi7LRvsQdKCLc7VXdCy8qpIBebVFcx3bR
+	lXqJcFnIHzY7gH16jhsAvUteqpDJLcPCuzmdKQDPfXHZuWvsESpkxMQppXH7GO5Nr2dw+vYBL6n
+	vpg==
+X-Received: from dycmv2.prod.google.com ([2002:a05:693c:2802:b0:386:b5d2:c426])
+ (user=elkin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:dc3:b0:386:ce5a:41aa
+ with SMTP id 5a478bee46e88-386ce5a47f9mr3340721eec.13.1795645681576; Wed, 25
+ Nov 2026 14:28:01 -0800 (PST)
+Date: Wed, 25 Nov 2026 22:27:29 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,34 +77,37 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
-Message-ID: <20261125222713.1450385-1-elkin@google.com>
-Subject: [PATCH] mm/migrate_device: use locked folio in migrate_device_{range,pfns}()
+Message-ID: <20261125222729.1450842-1-elkin@google.com>
+Subject: [PATCH] sched/core: Avoid atomic cpuset_lock() in __sched_setscheduler()
 From: Elkin Cruz <elkin@google.com>
-To: David Hildenbrand <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, linux-mm@kvack.org, Lorenzo Stoakes <ljs@kernel.org>, 
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
 	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, irogers@google.com, 
 	Elkin Cruz <elkin@google.com>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-migrate_device_range() and migrate_device_pfns() read a speculative
-folio pointer via page_folio() prior to taking a reference or lock in
-migrate_device_pfn_lock(). If the page splits or changes compound state
-before lock acquisition, folio_nr_pages(folio) inspects stale state and
-the nr > npages - i error path calls unpin_anon_rmap(), folio_unlock(),
-and folio_put() on the unowned speculative pointer while leaking the
-reference and lock on the folio actually locked by
-migrate_device_pfn_lock().
+When Magic SysRq-N invokes normalize_rt_tasks(), it holds
+read_lock(&tasklist_lock) in atomic context and calls
+__sched_setscheduler(p, &attr, false, false) with pi == false to reset
+real-time and deadline tasks to SCHED_NORMAL.
 
-Return the referenced, locked folio directly from
-migrate_device_pfn_lock() and skip unlocked entries cleanly.
+For a SCHED_DEADLINE task, dl_policy(p->policy) is true, so
+__sched_setscheduler() calls cpuset_lock() (mutex_lock(&cpuset_mutex))
+while in atomic context under tasklist_lock and then skips
+cpuset_unlock() on exit because unlocking is gated on if (pi), leaving
+cpuset_mutex permanently locked.
 
-Fixes: dc41e961a269 ("mm/migrate_device: avoid out-of-bounds writes for compound folios")
-Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
-Cc: stable@vger.kernel.org
+Guard cpuset_lock() with pi (matching the non-atomic caller contract,
+where switched_from_dl() releases deadline utilization under rq/dl_bw
+spinlocks) and call cpuset_unlock() on exit whenever cpuset_locked is
+set.
+
+Fixes: 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex")
 Signed-off-by: Elkin Cruz <elkin@google.com>
+Cc: stable@vger.kernel.org
 ---
 
 I am trying out new Clang static analysis checks for kernel bug
@@ -115,92 +118,38 @@ then checked against linux-next (not runtime-tested on hardware).
 Thanks,
 Elkin
 
- mm/migrate_device.c | 41 ++++++++++++++++++++++-------------------
- 1 file changed, 22 insertions(+), 19 deletions(-)
+ kernel/sched/syscalls.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index a953e7acbea6..a599d5baa340 100644
---- a/mm/migrate_device.c
-+++ b/mm/migrate_device.c
-@@ -1416,11 +1416,13 @@ void migrate_vma_finalize(struct migrate_vma *migrate)
- }
- EXPORT_SYMBOL(migrate_vma_finalize);
- 
--static unsigned long migrate_device_pfn_lock(unsigned long pfn)
-+static unsigned long migrate_device_pfn_lock(unsigned long pfn,
-+					     struct folio **foliop)
- {
- 	unsigned long src_pfn = migrate_pfn(pfn) | MIGRATE_PFN_MIGRATE;
- 	struct folio *folio;
- 
-+	*foliop = NULL;
- 	folio = folio_get_nontail_page(pfn_to_page(pfn));
- 	if (!folio)
- 		return 0;
-@@ -1436,6 +1438,7 @@ static unsigned long migrate_device_pfn_lock(unsigned long pfn)
- 		return 0;
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index a5ff3c47e9ea..f44fc426404c 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -575,7 +575,7 @@ int __sched_setscheduler(struct task_struct *p,
+ 	 * SCHED_DEADLINE bandwidth accounting relies on stable cpusets
+ 	 * information.
+ 	 */
+-	if (dl_policy(policy) || dl_policy(p->policy)) {
++	if (pi && (dl_policy(policy) || dl_policy(p->policy))) {
+ 		cpuset_locked = true;
+ 		cpuset_lock();
  	}
+@@ -724,11 +724,11 @@ int __sched_setscheduler(struct task_struct *p,
+ 	head = splice_balance_callbacks(rq);
+ 	task_rq_unlock(rq, p, &rf);
  
-+	*foliop = folio;
- 	return src_pfn;
- }
- 
-@@ -1464,18 +1467,18 @@ int migrate_device_range(unsigned long *src_pfns, unsigned long start,
- 	unsigned long i, j, pfn;
- 
- 	for (pfn = start, i = 0; i < npages; pfn++, i++) {
--		struct page *page = pfn_to_page(pfn);
--		struct folio *folio = page_folio(page);
--		unsigned int nr = 1;
-+		struct folio *folio;
-+		unsigned int nr;
+-	if (pi) {
+-		if (cpuset_locked)
+-			cpuset_unlock();
++	if (cpuset_locked)
++		cpuset_unlock();
 +
-+		src_pfns[i] = migrate_device_pfn_lock(pfn, &folio);
-+		if (!folio)
-+			continue;
++	if (pi)
+ 		rt_mutex_adjust_pi(p);
+-	}
  
--		src_pfns[i] = migrate_device_pfn_lock(pfn);
- 		nr = folio_nr_pages(folio);
- 		if (nr > npages - i) {
--			if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
--				unpin_anon_rmap(folio, src_pfns[i]);
--				folio_unlock(folio);
--				folio_put(folio);
--			}
-+			unpin_anon_rmap(folio, src_pfns[i]);
-+			folio_unlock(folio);
-+			folio_put(folio);
- 			memset(&src_pfns[i], 0,
- 			       (npages - i) * sizeof(*src_pfns));
- 			break;
-@@ -1508,18 +1511,18 @@ int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
- 	unsigned long i, j;
- 
- 	for (i = 0; i < npages; i++) {
--		struct page *page = pfn_to_page(src_pfns[i]);
--		struct folio *folio = page_folio(page);
--		unsigned int nr = 1;
-+		struct folio *folio;
-+		unsigned int nr;
-+
-+		src_pfns[i] = migrate_device_pfn_lock(src_pfns[i], &folio);
-+		if (!folio)
-+			continue;
- 
--		src_pfns[i] = migrate_device_pfn_lock(src_pfns[i]);
- 		nr = folio_nr_pages(folio);
- 		if (nr > npages - i) {
--			if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
--				unpin_anon_rmap(folio, src_pfns[i]);
--				folio_unlock(folio);
--				folio_put(folio);
--			}
-+			unpin_anon_rmap(folio, src_pfns[i]);
-+			folio_unlock(folio);
-+			folio_put(folio);
- 			memset(&src_pfns[i], 0,
- 			       (npages - i) * sizeof(*src_pfns));
- 			break;
+ 	/* Run balance callbacks after we've adjusted the PI chain: */
+ 	balance_callbacks(rq, head);
 -- 
 2.56.1.839.g22a8290db9-goog
 
