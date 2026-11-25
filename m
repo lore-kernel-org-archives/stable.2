@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795601628;
-	b=cm6GJtLk7cr8iXPtdpFGlcFw7hyyIx1TG+EEh1naUD6cq7bgrKIc+7zLAh0aBW3lvKxo
-	 qeHJsYEvNuNlwaXy/ZeRurnT27THUcGpQZ0EWF9qN2ujJAP5b4K5ugpevgZV7uBBBlqAW
-	 zmpCFH+F7qSBXUgq4hB4+th67mLmo6ql1AsVr8HNjyOFjj/bKIKIYdEuyy6ylQ9FNozVE
-	 kYKbe+yjyAKgHgyqYGBnKq3uCNFRXw/8TXM/Jb+7DtX/meQwCjYgK5vTv+ArwpnUHzvAD
-	 9aBss9I1hLAkSiC2ultuEOlJsWyE+P19bVg9vg+GEZvWwhgvRItspbqv0LofKUpSeEw==
+	t=1795601631;
+	b=1OLAhySg+nJzXgORCCGXRMrZdgr8h2YoNrDSAVTrdO+uZ2OMrqo9rVxe84Bb/3Bf6ROx
+	 4LCYXpw3falPgYiB0Fp2StUEL61JbxIJrTQJOOjmWWawFHB57tyLJUwPHS/hs05dSQ0Iq
+	 YZtYxrTtSLDVXC2swhcW185degDVB08Vu4cLkcpg9kPM4huMEIWy6vguJ+shQkl/4KoZJ
+	 XCHgO+V07oxTU95TUhB0AKI5pSa8e63fY0WugdqBP8QhNmESd1VMv5h+F7J1LRYEZc6ag
+	 2AD8cWhQ880tPtkllpDNyDcfexuZOGu2HPEng4WmpZBgjNKQca0XEjLXAv2KcCr1vNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795601628;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795601631;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=isQK69ZbFbiqbugOuZfGO6Myw3fvcRI/TIBjbyfGmHs=;
-	b=25qYQBcmmn3YJD3w/6ate/L3qtiOefpcJHatuhexa4wjjhOpOnIqaJQoxOreRUcxv0eW
-	 cc05tRa5z49FLD8ht9NuN7bvXbpP1+surib7Yl2u7wnUq9yQYR6UvKVaEgp+PTUWgD80F
-	 ugyXYuZTbLrhb39mfaBhK7qI4tLCIh0nwx3CZngebw2PmYAYt7nNrWApE/EwFy8IadZTF
-	 x7QpvKcFQYZpSIPzbKorih9xfPcDNi06ZPBTL0oX/UOflmds0SMpx8sAg/6CmSheN3cNX
-	 zVDfzwsuwHQ9Jr+G0llRyE+3Mb6VB1fbe7eFXkjK2ZiEt7FSzaJKFy/JaYK8kymqpvQ==
+	bh=b7vqd+T2lPlM0qOrgA0nb9wVZygr0cYdpj6zoRoAjyg=;
+	b=hQmzDCNTaQllxPTkgy/ozT9/bmNCqNv+PfaKel1jc5chB8cQxAShr+RwudlRt4Z0Aqsx
+	 yxV/Hgu8WhPTVW6vLamHc73tQMsu+bATF4p0mEil3GfehbFBaeWi+T+gcVXMotAWPpNuz
+	 e5BiqCM2iD13L3RCGVPbYU1oUtZft6tfJhldZY7CS9ESd4OU0/8eBRo1yTvjT1RG7HGPy
+	 lxPDJqbtlL873s7ZWNxrl/FS1clD2YMDZXXvUMywdP3CNyBFgD46MOFSUO5z3zIhQVxxL
+	 ffnilvf0niGe5m7v8xaIWkGyx3Nr8rzFrJUJ45SZ3ofCPSM/Ewh6E3rYeJlr9D4p4aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=A6B1EpPH;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="iU/RoraB";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81FB8606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:13:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF94606A335
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:13:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=A6B1EpPH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5D271F000C6;
-	Wed, 25 Nov 2026 10:13:47 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iU/RoraB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A15B51F000D4;
+	Wed, 25 Nov 2026 10:13:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795601628;
-	bh=isQK69ZbFbiqbugOuZfGO6Myw3fvcRI/TIBjbyfGmHs=;
+	s=korg; t=1795601631;
+	bh=b7vqd+T2lPlM0qOrgA0nb9wVZygr0cYdpj6zoRoAjyg=;
 	h=Subject:To:Cc:From:Date;
-	b=A6B1EpPH+XqnqMUc/Gwre9U0TerhOWF7TADVLv6jVc0WUFP8pE471ZyHMRFcyTyjV
-	 hJnI0Lgk5uBzE4U1rnYXqpxi3pK/CgxNU1Q7AX5EoFmdYRR9ewLQ52mePfZw5V7CIS
-	 CCyh3ayzbPBGKZ3Vy8ENFR7oBQ8tmCEAHSjoyLWY=
-Subject: FAILED: patch "[PATCH] cpufreq: Fix updates of cached resolved frequency and index" failed to apply to 6.1-stable tree
+	b=iU/RoraBAfcA54PoEL/fbz0H88MwVd+w8brnFHXrg/rbS5FRAQmgw7hbVxv+o8bk6
+	 DD2c0JgS3PjgDYkPuJh+IeEfhNx9dK85twdM2nSO+e2GqHo7qwlDwXZeEzC8SKSMfw
+	 AyjQ/cV47GVV8LWJmk1xThRR/U13EUYHTrK/f05I=
+Subject: FAILED: patch "[PATCH] cpufreq: Fix updates of cached resolved frequency and index" failed to apply to 6.6-stable tree
 To: rafael.j.wysocki@intel.com,christian.loehle@arm.com,stable@vger.kernel.org,zhongqiu.han@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:10:39 +0100
-Message-ID: <2026112539-unusable-huff-d3fe@gregkh>
+Message-ID: <2026112539-twine-magnify-87fa@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 75120f31aed010c326b28d7c80d22314df34d9a8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112539-unusable-huff-d3fe@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112539-twine-magnify-87fa@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
