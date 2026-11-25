@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795636603;
-	b=jEEtLfy0uHFaaHawxUnDPmBlIRbisFVI2SuNcjJToP7+4CF9SH1bxYK0hcy2X45pZC6W
-	 /QLtwn8sy95sOqG04uk7vc2hRGs39oJIKKLO3DK2l6EkvuIf9BkSYz5epMtgI9L7QCH4q
-	 zqSLKqq+mbJ/HzRp2w+OYJMmsHBgC8Ert+Q9TsN4Nj4eV+KMp6EgWjZMOY/YgYqJjvQP7
-	 S1NO8ti9Uq0znQyt8eLHpJQTDBf61qr9xvj235cfJlIwg3Tki3MTQiPSU+QIBifQn2yTf
-	 HgHmOOrYW7CDN75SWjuxMQGaJCO9Tv8BZbd8pXLzJqz/bGHBbmkYWPPCLOwhx81OA/A==
+	t=1795636656;
+	b=VTa6A4PU0RapYxyJ4aBzacXfcVV3ukl7kv2fJbcSRFDbaeh2UmgpHBgVuIq5dF77WJA+
+	 XIEzXw+N3eXTLxMY0mkOWwEUw47E4dnnSn/7e7VHbbt30TBsfyJxvlthN6g/XwhXEUG/c
+	 jY85E+qoUvpq63vtnYgyOGYq1+bgDKzBtcmSORHgnALfdwnApFgBUJbVKerut75WEb12M
+	 CiF7vbQMCG7SJavI9ZkU65whhwySi03OkeSLgtdiNbP20lMw/7Sq6UgEBo+DDPR0iypUm
+	 Ss/LPbsYgtFiParU0s93mU0rmR2E4fLNJa7iMmwDIIZIqtM5NEue4Lw33QIA1rU1Ddg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795636603;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795636656;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+hsTYTcw8zShLauy/z3TY0wEa51svopo57NTGf1l4FM=;
-	b=uS0JEcPm2UAj3ZmdUwf48W0A+toWVaxJZd6Tp0g7Heqtn+J66Y0C4P3QhLIIFP7YmLUy
-	 x6Phl8XvPH3LIJaz+HB+PXOFEhWnc4D8OfwgH3E9cDo9F+h2Hgh32T+lwYLKzlU1ESNc5
-	 aqQpzWFUVzUUNB9MHlHbuRU3MHXqQ+wbUmUJy+TVSfJFmfVoOdS5PsvqZE3Mv6vJpXT3i
-	 SpX+emRMFG4rrLSbC3XjFC3X9bH1xqCtGaaz4P4oT66pIPq4YM67mStNfEJzYRkodmou3
-	 bNuXak0m7C3klH1/hBQa+Arms+1DTcdp/xEUa6BaVkZL/qOb3ZSSJ3FU/8j0u8oaTzQ==
+	bh=gNhA1I8mJCeXFmYqh+tXpfZwS/tliNzjaCEeU3xtpwI=;
+	b=GTF28AE6kmVq9CZx9tBOACAQVAYDoIUNwHhpEHIuAto2LY100knfxcC6KQluAxSq+81K
+	 Fcce382Yt6j3rZluvvo1PN7D9TrAHN6RNd4VWMiiut3T6kj7SwI3HQybKPTYIKg5ofT2q
+	 xu0Z9lRWktl/gB3vDTxRXzytUFG4g7NgB7KQnWFK6XHwSBlFsvdMsEuZKu8+0VRcPr1k1
+	 Ck6ucqY3nedRGDWj9+x5mGqASF/wjwRySLZpsig/T3i8BmrQnOfnfjlRuFsd7EQSZsBtq
+	 CqWelqtTCT/to5m1Rsgn1fbWHrwUhBcSeqDs0LaboiBBNyJfwhOdtHIwC25q2Z9XB7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gHtMdzK7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DqfgR8Dq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B83606A338
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:56:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE678606A326
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:57:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gHtMdzK7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A8491F000D0;
-	Wed, 25 Nov 2026 19:56:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DqfgR8Dq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2D5D1F000C4;
+	Wed, 25 Nov 2026 19:57:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795636602;
-	bh=+hsTYTcw8zShLauy/z3TY0wEa51svopo57NTGf1l4FM=;
+	s=k20260515; t=1795636656;
+	bh=gNhA1I8mJCeXFmYqh+tXpfZwS/tliNzjaCEeU3xtpwI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gHtMdzK7v4Sy83YentuHYRXfTHICqS0TrDURCuHQ/m9g/WBC0EDFOEz80riVcakdz
-	 C/EmfiojeSWCYzZhfcmKKdhCt8mbTDf2in+Xoy/rgbKOttz0mncJ907U7LTotZ36es
-	 hVOvpnq1AweGxfwMkx0N8aMGh4gJNB1BJRbxFi61NkCCV2sVtlKlubpZMFrP9p2ogi
-	 HZLb4YZq4egdQhBJpM72jr91kdFyjHeZSJkojaljBYRPoxtHtTN1x7c+AG6IISHqpE
-	 vHownS0GdIigqPV+aoMX90RdDXFre2Bw1+vWr28xaIePlB5MoU1heXXnBmHkYZBbcB
-	 oZG7eOblgOUrw==
+	b=DqfgR8DqfjspjQNJ3/2ykqdPO5e5GKFxyl80TeDQDVQGWJ76FUQvy8e1twwXTw3tb
+	 ENcvdalKdevQ9rINoxac2PIpPewgd+vHD8S1Z/mNmJHWZr65J34qv9auNUJL9Sbnr2
+	 ogxhtlSDv0cWDNCBbxPKmWVyd79OcLAoqBrEFSsMjSGFZV6fwjHXkZ8ujGzVixEsZV
+	 pSZduGPBrpBTxdnDtlx0xyN5hEGJcqaqVCUcqq5n/wVAI4FncMvQxuX0LC5ATQUYof
+	 IUuaTTcBZBGonw/KApRgoISkMbpOEZTVCnsIEeh2G3JNQmemR+vGSFp7ssUX5AtxAT
+	 wsWQSt5pzFR9w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ian Bridges <icb@fastmail.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
+Cc: Tejun Heo <tj@kernel.org>,
+	Andrea Righi <arighi@nvidia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] ksmbd: skip metadata-only opens in sharing checks
-Date: Wed, 25 Nov 2026 14:56:41 -0500
-Message-ID: <20261125195621.1308808-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] sched_ext: Fix ops.enqueue/dispatch() calls before ops.cpu_online()
+Date: Wed, 25 Nov 2026 14:57:34 -0500
+Message-ID: <20261125195704.1297432-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112533-hate-urethane-a546@gregkh>
-References: <2026112533-hate-urethane-a546@gregkh>
+In-Reply-To: <2026112526-otter-surface-473d@gregkh>
+References: <2026112526-otter-surface-473d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,220 +61,216 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ian Bridges <icb@fastmail.org>
+From: Tejun Heo <tj@kernel.org>
 
-[ Upstream commit 81fefb6c635489e71e286d1465b6dd1d0a27ceec ]
+[ Upstream commit 2227a34ff7bfcf6112931039e3554f4b70b65ab9 ]
 
-A READ_CONTROL open without sharing can block later reads, writes and
-deletes even though it holds no data, execute or delete access.
+ops.cpu_online() documents that the cpu doesn't call ops.enqueue() or
+ops.dispatch() before that op. Both are gated on SCX_RQ_ONLINE, which
+follows the core's rq online state through the ext class's rq_online and
+rq_offline hooks. On a runtime cpu up, sched_cpu_activate() runs:
 
-Keep the existing attribute-only exception. For other pairs, require
-both effective access masks to hold one of those rights. MS-FSA
-2.1.5.1.2 grants FILE_WRITE_DATA when an open overwrites a file or
-stream, or creates a named stream on an existing file. Use that granted
-access for sharing checks while keeping the requested access on the
-returned handle.
+1. set_cpu_active() marks the cpu active.
+2. cpuset_cpu_active() rebuilds the sched domains synchronously, and
+   rq_attach_root() puts the rq online as the cpu is active now. The
+   rq_online hook sets SCX_RQ_ONLINE.
+3. scx_rq_activate() calls the root's ops.cpu_online().
 
-The Time Machine AFP_AfpInfo synthesis keeps its requested access.
-ksmbd implements FILE_SUPERSEDE by truncating the file, so count it as
-a write.
+Between 2 and 3, ops.enqueue() can be called for tasks woken or migrated
+onto the cpu, and ops.dispatch() can run on it.
 
-This also prevents an overwrite from truncating a file while another
-open that holds data, execute or delete access does not share writing.
+The hooks can't call the ops. They run under the rq lock with IRQs off while
+the ops can be sleepable BPF programs, and handle_hotplug() needs the
+rebuilt sched domains for its idle topology update.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: Context-only adjustments: dropped const on idmap and omitted the app_instance_* and posix_append lines, which this tree lacks. The new stream_created declaration and defines were placed beside the nearest existing lines. ]
+Track SCX_RQ_ONLINE in handle_hotplug() alone. Set it right after the root's
+ops.cpu_online(). Clear it and move the cpu's tasks to its local DSQ when
+the cpu goes down. Sched domain rebuilds, which take a live cpu's rq offline
+and online again, no longer touch the flag, so a remote dispatch can't see
+it cleared by a rebuild and bounce to the global DSQ.
+
+Between 2 and 3, tasks that land on the cpu now go to its local DSQ without
+ops.enqueue(), and with sub-schedulers a task whose scheduler lacks caps on
+the cpu is admitted anyway and counted in SCX_EV_SUB_FORCED_ADMIT. Both
+already happen between 1 and 2.
+
+Fixes: 60c27fb59f6c ("sched_ext: Implement sched_ext_ops.cpu_online/offline()")
+Cc: stable@vger.kernel.org # v6.12+
+Signed-off-by: Tejun Heo <tj@kernel.org>
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
+[ sashal: added a scx_rq_activate() call to the sched_cpu_deactivate() rollback in core.c, dropped sub-scheduler hunks, inlined the missing drain_offline_rq() helper, and moved the paths to kernel/sched/ext.c. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/smb2pdu.c    | 30 ++++++++++++++++++++++--------
- fs/smb/server/smb_common.c | 34 +++++++++++++++++++++++++++++++++-
- fs/smb/server/smb_common.h |  5 +++++
- fs/smb/server/vfs_cache.h  |  2 ++
- 4 files changed, 62 insertions(+), 9 deletions(-)
+ kernel/sched/core.c  |  1 +
+ kernel/sched/ext.c   | 82 +++++++++++++++++++++++---------------------
+ kernel/sched/sched.h |  7 ++--
+ 3 files changed, 47 insertions(+), 43 deletions(-)
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index aae6e9adf2e84..9cc354039e4cc 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -2541,7 +2541,8 @@ static int smb2_set_ea(struct smb2_ea_info *eabuf, unsigned int buf_len,
- 
- static noinline int smb2_set_stream_name_xattr(const struct path *path,
- 					       struct ksmbd_file *fp,
--					       char *stream_name, int s_type)
-+					       char *stream_name, int s_type,
-+					       bool *created)
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 719186283bf91..1e8b0b889d1c4 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -8271,6 +8271,7 @@ int sched_cpu_deactivate(unsigned int cpu)
+ 	if (ret) {
+ 		sched_smt_present_inc(cpu);
+ 		sched_set_rq_online(rq, cpu);
++		scx_rq_activate(rq);
+ 		balance_push_set(cpu, false);
+ 		set_cpu_active(cpu, true);
+ 		sched_update_numa(cpu, true);
+diff --git a/kernel/sched/ext.c b/kernel/sched/ext.c
+index 7a4b23e48cc6f..63e83e55d170f 100644
+--- a/kernel/sched/ext.c
++++ b/kernel/sched/ext.c
+@@ -2003,11 +2003,11 @@ static void direct_dispatch(struct task_struct *p, u64 enq_flags)
+ static bool scx_rq_online(struct rq *rq)
  {
- 	struct mnt_idmap *idmap = mnt_idmap(path->mnt);
- 	size_t xattr_stream_size;
-@@ -2579,6 +2580,8 @@ static noinline int smb2_set_stream_name_xattr(const struct path *path,
- 	rc = ksmbd_vfs_setxattr(idmap, path, xattr_stream_name, NULL, 0, 0, false);
- 	if (rc < 0)
- 		pr_err("Failed to store XATTR stream name :%d\n", rc);
-+	else
-+		*created = true;
- 	return 0;
- }
- 
-@@ -3004,6 +3007,7 @@ int smb2_open(struct ksmbd_work *work)
- 	char *name = NULL;
- 	char *stream_name = NULL;
- 	bool file_present = false, created = false, already_permitted = false;
-+	bool stream_created = false;
- 	int share_ret, need_truncate = 0;
- 	u64 time, alloc_size = 0;
- 	umode_t posix_mode = 0;
-@@ -3586,7 +3590,8 @@ int smb2_open(struct ksmbd_work *work)
- 		rc = smb2_set_stream_name_xattr(&path,
- 						fp,
- 						stream_name,
--						s_type);
-+						s_type,
-+						&stream_created);
- 		if (rc)
- 			goto err_out;
- 		file_info = FILE_CREATED;
-@@ -3594,12 +3599,24 @@ int smb2_open(struct ksmbd_work *work)
- 
- 	fp->attrib_only = !(req->DesiredAccess & ~(FILE_READ_ATTRIBUTES_LE |
- 			FILE_WRITE_ATTRIBUTES_LE | FILE_SYNCHRONIZE_LE));
-+	need_truncate = !S_ISDIR(file_inode(filp)->i_mode) &&
-+			open_flags & O_TRUNC && !fp->attrib_only && !stream_name;
-+	/*
-+	 * Count the FILE_WRITE_DATA that MS-FSA 2.1.5.1.2 grants an overwrite,
-+	 * supersede included, or a new named stream on an existing file.
-+	 * An attribute-only open of the file is not truncated, and the
-+	 * synthesized AFP_AfpInfo stream is not created by the client.
-+	 */
-+	fp->implied_write = need_truncate ||
-+			    (stream_name &&
-+			     (open_flags & O_TRUNC ||
-+			      (file_present && stream_created)));
- 
- 	fp->is_posix_ctxt = posix_ctxt;
- 
- 	/* fp should be searchable through ksmbd_inode.m_fp_list
--	 * after daccess, saccess, attrib_only, and stream are
--	 * initialized.
-+	 * after daccess, saccess, attrib_only, implied_write, and
-+	 * stream are initialized.
+ 	/*
+-	 * Test both cpu_active() and %SCX_RQ_ONLINE. %SCX_RQ_ONLINE indicates
+-	 * the online state as seen from the BPF scheduler. cpu_active() test
+-	 * guarantees that, if this function returns %true, %SCX_RQ_ONLINE will
+-	 * stay set until the current scheduling operation is complete even if
+-	 * we aren't locking @rq.
++	 * Test both cpu_active() and %SCX_RQ_ONLINE. %SCX_RQ_ONLINE is set
++	 * after ops.cpu_online() and cleared when the cpu goes down.
++	 * cpu_active() test guarantees that, if this function returns %true,
++	 * %SCX_RQ_ONLINE will stay set until the current scheduling operation
++	 * is complete even if we aren't locking @rq.
  	 */
- 	down_write(&fp->f_ci->m_lock);
- 	list_add(&fp->node, &fp->f_ci->m_fp_list);
-@@ -3614,11 +3631,8 @@ int smb2_open(struct ksmbd_work *work)
- 	if (file_present || created)
- 		path_put(&path);
- 
--	if (!S_ISDIR(file_inode(filp)->i_mode) && open_flags & O_TRUNC &&
--	    !fp->attrib_only && !stream_name) {
-+	if (need_truncate)
- 		smb_break_all_oplock(work, fp);
--		need_truncate = 1;
--	}
- 
- 	share_ret = ksmbd_smb_check_shared_mode(fp->filp, fp);
- 	if (!test_share_config_flag(work->tcon->share_conf, KSMBD_SHARE_FLAG_OPLOCKS) ||
-diff --git a/fs/smb/server/smb_common.c b/fs/smb/server/smb_common.c
-index 3a4b7b380a6bc..7ff75a069cd59 100644
---- a/fs/smb/server/smb_common.c
-+++ b/fs/smb/server/smb_common.c
-@@ -664,10 +664,24 @@ static void smb_shared_mode_error(int error, struct ksmbd_file *prev_fp,
- 		    prev_fp->saccess, curr_fp->daccess);
+ 	return likely((rq->scx.flags & SCX_RQ_ONLINE) && cpu_active(cpu_of(rq)));
  }
- 
-+/*
-+ * Sharing checks use fp->daccess plus the FILE_WRITE_DATA that MS-FSA
-+ * grants an open that overwrites data or creates a named stream.
-+ * fp->daccess keeps the open's own access.
-+ */
-+__le32 ksmbd_sharing_daccess(const struct ksmbd_file *fp)
-+{
-+	if (fp->implied_write)
-+		return fp->daccess | FILE_WRITE_DATA_LE;
-+	return fp->daccess;
-+}
-+
- int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
- {
- 	int rc = 0;
- 	struct ksmbd_file *prev_fp;
-+	__le32 curr_access = ksmbd_sharing_daccess(curr_fp);
-+	__le32 access;
+@@ -2114,7 +2114,7 @@ static void set_task_runnable(struct rq *rq, struct task_struct *p)
+ 	}
  
  	/*
- 	 * Lookup fp in master fp list, and check desired access and
-@@ -688,6 +702,24 @@ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
- 		if (prev_fp->attrib_only != curr_fp->attrib_only)
- 			continue;
+-	 * list_add_tail() must be used. scx_ops_bypass() and rq_offline_scx()
++	 * list_add_tail() must be used. scx_ops_bypass() and handle_hotplug()
+ 	 * depend on tasks being appended to the runnable_list.
+ 	 */
+ 	list_add_tail(&p->scx.runnable_node, &rq->scx.runnable_list);
+@@ -2831,7 +2831,7 @@ static int balance_one(struct rq *rq, struct task_struct *prev)
+ 	/*
+ 	 * scx_rq_online() can't be used. Its cpu_active() test goes false
+ 	 * before CPU hotplug waits for an RCU grace period, and
+-	 * rq_offline_scx() moves this CPU's tasks to the local DSQ only after
++	 * handle_hotplug() moves this CPU's tasks to the local DSQ only after
+ 	 * the wait. The grace period can depend on those tasks running.
+ 	 */
+ 	if (!SCX_HAS_OP(dispatch) || scx_rq_bypassing(rq) ||
+@@ -3511,6 +3511,29 @@ static void handle_hotplug(struct rq *rq, bool online)
+ {
+ 	int cpu = cpu_of(rq);
  
-+		/*
-+		 * MS-FSA checks sharing per stream, so a named stream open's
-+		 * implied write is not a write against the primary stream.
-+		 * It still decides whether the pair is checked.
-+		 */
-+		access = curr_access;
-+		if (ksmbd_stream_fd(curr_fp) && !ksmbd_stream_fd(prev_fp))
-+			access = curr_fp->daccess;
++	if (!online) {
++		struct task_struct *p, *n;
++
++		guard(rq_lock_irqsave)(rq);
++		update_rq_clock(rq);
++		rq->scx.flags &= ~SCX_RQ_ONLINE;
 +
 +		/*
-+		 * Two opens conflict only if both hold a right in
-+		 * FILE_SHARE_CHECKED_ACCESS_LE (MS-FSA 2.1.5.1.2.1 and
-+		 * 2.1.5.1.2.2)
++		 * An offline CPU no longer calls ops.dispatch(). Re-enqueue its
++		 * tasks onto the local DSQ so that they run here and
++		 * balance_push() moves them off.
 +		 */
-+		if (!(ksmbd_sharing_daccess(prev_fp) & FILE_SHARE_CHECKED_ACCESS_LE) ||
-+		    !(curr_access & FILE_SHARE_CHECKED_ACCESS_LE))
-+			continue;
++		list_for_each_entry_safe_reverse(p, n, &rq->scx.runnable_list, scx.runnable_node) {
++			struct sched_enq_and_set_ctx ctx;
 +
- 		if (!(prev_fp->saccess & FILE_SHARE_DELETE_LE) &&
- 		    curr_fp->daccess & FILE_DELETE_LE) {
- 			smb_shared_mode_error(SHARE_DELETE_ERROR,
-@@ -714,7 +746,7 @@ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
- 		}
- 
- 		if (!(prev_fp->saccess & FILE_SHARE_WRITE_LE) &&
--		    curr_fp->daccess & (FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE)) {
-+		    access & (FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE)) {
- 			smb_shared_mode_error(SHARE_WRITE_ERROR,
- 					      prev_fp,
- 					      curr_fp);
-diff --git a/fs/smb/server/smb_common.h b/fs/smb/server/smb_common.h
-index d6f72195482f9..912f1bb70b181 100644
---- a/fs/smb/server/smb_common.h
-+++ b/fs/smb/server/smb_common.h
-@@ -82,6 +82,10 @@
- 		FILE_EXECUTE | FILE_DELETE_CHILD | \
- 		FILE_READ_ATTRIBUTES | FILE_WRITE_ATTRIBUTES)
- 
-+/* Rights that make an open take part in sharing checks */
-+#define FILE_SHARE_CHECKED_ACCESS_LE	(FILE_EXECUTE_LE | FILE_READ_DATA_LE | \
-+		FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE | FILE_DELETE_LE)
++			if (p->scx.dsq == &rq->scx.local_dsq)
++				continue;
 +
- #define SMB1_PROTO_NUMBER		cpu_to_le32(0x424d53ff)
- #define SMB_COM_NEGOTIATE		0x72
- #define SMB1_CLIENT_GUID_SIZE		(16)
-@@ -221,6 +225,7 @@ int ksmbd_extract_shortname(struct ksmbd_conn *conn,
++			sched_deq_and_put_task(p, DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK, &ctx);
++			sched_enq_and_set_task(&ctx);
++		}
++	}
++
+ 	atomic_long_inc(&scx_hotplug_seq);
  
- int ksmbd_smb_negotiate_common(struct ksmbd_work *work, unsigned int command);
+ 	if (online && SCX_HAS_OP(cpu_online))
+@@ -3521,6 +3544,18 @@ static void handle_hotplug(struct rq *rq, bool online)
+ 		scx_ops_exit(SCX_ECODE_ACT_RESTART | SCX_ECODE_RSN_HOTPLUG,
+ 			     "cpu %d going %s, exiting scheduler", cpu,
+ 			     online ? "online" : "offline");
++
++	if (online) {
++		/*
++		 * The cpu must not call ops.enqueue() or ops.dispatch() before
++		 * ops.cpu_online(). The core's rq online state can't gate them,
++		 * as the sched domain rebuild in sched_cpu_activate() can put
++		 * @rq online before this function runs. Set %SCX_RQ_ONLINE
++		 * here.
++		 */
++		guard(rq_lock_irqsave)(rq);
++		rq->scx.flags |= SCX_RQ_ONLINE;
++	}
+ }
  
-+__le32 ksmbd_sharing_daccess(const struct ksmbd_file *fp);
- int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp);
- int __ksmbd_override_fsids(struct ksmbd_work *work,
- 			   struct ksmbd_share_config *share);
-diff --git a/fs/smb/server/vfs_cache.h b/fs/smb/server/vfs_cache.h
-index 03494f2627cd6..c39deb10d2166 100644
---- a/fs/smb/server/vfs_cache.h
-+++ b/fs/smb/server/vfs_cache.h
-@@ -107,6 +107,8 @@ struct ksmbd_file {
+ void scx_rq_activate(struct rq *rq)
+@@ -3533,36 +3568,6 @@ void scx_rq_deactivate(struct rq *rq)
+ 	handle_hotplug(rq, false);
+ }
  
- 	bool				is_nt_open;
- 	bool				attrib_only;
-+	/* writes data on open, see ksmbd_sharing_daccess() */
-+	bool				implied_write;
- 	bool				allocation_size_set;
+-static void rq_online_scx(struct rq *rq)
+-{
+-	rq->scx.flags |= SCX_RQ_ONLINE;
+-}
+-
+-static void rq_offline_scx(struct rq *rq)
+-{
+-	struct task_struct *p, *n;
+-
+-	rq->scx.flags &= ~SCX_RQ_ONLINE;
+-
+-	/* sched domain rebuilds call rq_offline with the CPU staying alive */
+-	if (cpu_active(cpu_of(rq)))
+-		return;
+-
+-	/*
+-	 * An offline CPU no longer calls ops.dispatch(). Re-enqueue its tasks
+-	 * onto the local DSQ so that they run here and balance_push() moves
+-	 * them off.
+-	 */
+-	list_for_each_entry_safe_reverse(p, n, &rq->scx.runnable_list, scx.runnable_node) {
+-		struct sched_enq_and_set_ctx ctx;
+-
+-		if (p->scx.dsq == &rq->scx.local_dsq)
+-			continue;
+-		sched_deq_and_put_task(p, DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK, &ctx);
+-		sched_enq_and_set_task(&ctx);
+-	}
+-}
+-
+ #else	/* CONFIG_SMP */
  
- 	char				client_guid[16];
+ static bool test_and_clear_cpu_idle(int cpu) { return false; }
+@@ -4243,9 +4248,6 @@ DEFINE_SCHED_CLASS(ext) = {
+ 	.select_task_rq		= select_task_rq_scx,
+ 	.task_woken		= task_woken_scx,
+ 	.set_cpus_allowed	= set_cpus_allowed_scx,
+-
+-	.rq_online		= rq_online_scx,
+-	.rq_offline		= rq_offline_scx,
+ #endif
+ 
+ 	.task_tick		= task_tick_scx,
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 27de9290235e7..0b1235d707ffd 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -777,9 +777,10 @@ struct cfs_rq {
+ /* scx_rq->flags, protected by the rq lock */
+ enum scx_rq_flags {
+ 	/*
+-	 * A hotplugged CPU starts scheduling before rq_online_scx(). Track
+-	 * ops.cpu_on/offline() state so that ops.enqueue/dispatch() are called
+-	 * only while the BPF scheduler considers the CPU to be online.
++	 * Set right after ops.cpu_online() when a CPU comes up and cleared when
++	 * the CPU goes down, see handle_hotplug(). A hotplugged CPU starts
++	 * scheduling before %SCX_RQ_ONLINE is set. ops.enqueue() and
++	 * ops.dispatch() are called for the CPU only while the flag is set.
+ 	 */
+ 	SCX_RQ_ONLINE		= 1 << 0,
+ 	SCX_RQ_CAN_STOP_TICK	= 1 << 1,
 -- 
 2.53.0
 
