@@ -1,73 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.210.91.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795605589;
-	b=T9anr0rjPcKSVz4wbtLnm+/XUuG+8Stu0Ufky2DjT35YbQevwxY6zXcWnc5gFYZReWum
-	 Rkj8970Zm0rOWEU9+3DOGVtDMeHPgkroIBLSTzrVv4vrWomZekpW3TG7qoJkg8ksWyQSX
-	 ea+JB/yVrDnmOXjZT/4Fya0uSJaxx1/pBPQxRsZQklUcCx2KeKmcM1WvOsRYSDpb4awYM
-	 dVFvjHGqM6TfXZwWCta0Mh6hki3MQbQYVw8nGTPMarKcuJGIEIdFnB3VIeDk2ZshgWZBW
-	 x6y0PTPtDIqf3V4YgYpVsSuvuMvoPjNlfXFFow4sjVcdM/HCrnHoBPS6MMnnaXIOk1Q==
+	t=1795605627;
+	b=gJR/moAQXx/vi9OkkRSRpQibVF19sVYqGStDjm8kBOtY9iBPGarREinQ/+JBduUw/Wsn
+	 hoG46Vi1NJ9Fm0Nzyp9BaWePS0NT/TXRLatJNlw6gEWLEaA5yxFknCT0My29/DtksrTw+
+	 Y7ncjRA+PK3RwiKdrSXOCmEwzFw227L4dy5xRguG28Lo9ORzGtvrMWCdvHM/axGZ8WUs1
+	 2PSDhwpR47CgD7X82OLVu2ERGrlEPSeOk7cXEKWoz81Cajmxcfw/2EKsFgmyKhtYa2bC1
+	 6GZxqIG2/BhHALJJAG4a8Bx4wlazNw+BMt6GDlzKRR7CgdsaoUT/83YTPQFT0m8JxzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795605589;
-	h=DMARC-Filter:Received:Received:Received:Received:X-OVh-ClientIp:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:x-ovh-tracer-id:X-VR-SPAMSTATE:
-	 X-VR-SPAMSCORE:X-VR-SPAMCAUSE:DKIM-Signature;
-	bh=nIXjdY+s7dzCHv/uIbUCu21b90ESHTVqSZ/MoDaIrVg=;
-	b=fxppDoiIZ6gzVSfyF2az8EdpIJbSC+gLw8FmgYM7w1GsZEkLrgWcf6F4yhZo9n79DtW+
-	 ipYKYqSjMI1ZsWMi7to/uLHNDQQctWb1wYhML5lKhlopNi3lqdFGDdNyukPhNj/IDBrru
-	 bhxjgJG1XAxa2jVHqsSAANo7ICtmq8if2ETmt5X3OJ9lyXztZfZDUp3Q67FRjGkccU7wk
-	 aERk5ypaU4pe4hfZ/Oep800Xd3ZBaVBEUpVwE7/jL933KKPXgFRHLep1zD3QrFFIYzDxw
-	 bSeL4LkcODjQjM3AMMEHOtq8vLM54QYRE8BO3g7VGrwQsNM8RNzvy3LVFbceR4E7A3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795605627;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/OU0PI8ciyVjraR4T19Cul10vgtOe6ygyMSUrcMCTI0=;
+	b=y4zuoKBNPePj7o681JUogXewkUpjiARoQY5ydTBnf5O+ZZfZhqhwCuhoN+Lvn+lxcCiI
+	 PYD32nL7UyUGdSAPLWO02QeaFTC+ubLKDUHkVza36bpInXdmFybke86BgOkX27S2qT3SE
+	 7Ys85piKJVPiYLacRgOJ27o+Pn1DVyJ7OrB/pO/B/60r8k8KykIPkTWxwMH7XKbZpsDwx
+	 Y700rSGcMWbNhyHGAPsY2a6YB4pYNiEgkhdC0suGiojAgbTDOioZjgxsHo8QssrFbzdGX
+	 N22DRJS6OJAZz/f76SJvYSSgLZx8gVC0e28eg3VykAqhTiaCNxIQ8fVFi/dLk1UKfww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=npnm.eu;
-	spf=pass smtp.mailfrom=npnm.eu;
-	dkim=pass header.d=npnm.eu header.i=@npnm.eu header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=cwZmxiBC;
-	arc=none smtp.remote-ip=51.210.91.17
-Received: from smtpout8.mo536.mail-out.ovh.net (smtpout8.mo536.mail-out.ovh.net [51.210.91.17])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IYWlv2F5;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=XLZ2kSEJ;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8810D606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:19:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8810D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=npnm.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=npnm.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8C0A606A327
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:20:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8C0A606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=npnm.eu header.i=@npnm.eu header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=cwZmxiBC
-Received: from director3.derp.mail-out.ovh.net (director3.derp.mail-out.ovh.net [79.137.60.223])
-	by mo536.mail-out.ovh.net (Postfix) with ESMTPS id 4jZHJX4W28z88bc;
-	Wed, 25 Nov 2026 11:19:40 +0000 (UTC)
-Received: from director3.derp.mail-out.ovh.net (director3.derp.mail-out.ovh.net. [127.0.0.1])
-        by director3.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <1155040@bugs.debian.org>; Wed, 25 Nov 2026 11:19:40 +0000 (UTC)
-Received: from mta7.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.43.211])
-	by director3.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4jZHJX3TYlz1xqX;
-	Wed, 25 Nov 2026 11:19:40 +0000 (UTC)
-Received: from npnm.eu (unknown [10.1.6.13])
-	(Authenticated sender: laniel_francis@npnm.eu)
-	by mta7.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 6DB39B82109;
-	Wed, 25 Nov 2026 11:19:38 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-100R00343d15b0d-b78f-4995-80f1-32520452ad5e,
-                    DB3A2AF709D15F3308291B777AB6370FE498E306) smtp.auth=laniel_francis@npnm.eu
-X-OVh-ClientIp:159.26.112.96
-From: Francis Laniel <laniel_francis@npnm.eu>
-To: Karol Herbst <kherbst@redhat.com>,
-	Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@redhat.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	1155040@bugs.debian.org,
-	Francis Laniel <laniel_francis@npnm.eu>,
-	stable@vger.kernel.org
-Subject: [PATCH v1 1/1] drm/nouveau/devinit/gf100-: fix display engine check in preinit
-Date: Wed, 25 Nov 2026 13:19:25 +0200
-Message-ID: <20261125111925.8651-2-laniel_francis@npnm.eu>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261125111925.8651-1-laniel_francis@npnm.eu>
-References: <20261125111925.8651-1-laniel_francis@npnm.eu>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IYWlv2F5;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=XLZ2kSEJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795605625;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/OU0PI8ciyVjraR4T19Cul10vgtOe6ygyMSUrcMCTI0=;
+	b=IYWlv2F5BwxqmTofVSz7YQqFYfjlPsWVUr2/9fiVee0GP100/5vA/Hfb5OguaH63OYRVsn
+	pIYhFTDDNdxBRcHVgIODSZ4+eWC9zWYPmjjQvrnaYWzGJLqOpwuWQL/0ovDztx1fiiynI3
+	9uSWLE1SxKC0sADMYQ9UHolyXgQE/XU=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-652-Z66-d_RbMlamOmB-j7DkXg-1; Wed, 25 Nov 2026 11:20:23 +0000
+X-MC-Unique: Z66-d_RbMlamOmB-j7DkXg-1
+X-Mimecast-MFC-AGG-ID: Z66-d_RbMlamOmB-j7DkXg_1795605622
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a1fdde384cso39247505e9.3
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 03:20:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1795605622; x=1796210422; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/OU0PI8ciyVjraR4T19Cul10vgtOe6ygyMSUrcMCTI0=;
+        b=XLZ2kSEJruI5GD8L2ZcmRVo2suX0U6gqsHsw4W+Snn11KpFT0u2yuOXltCX3dosUXF
+         WN2BxWMUToepJeKSe9IzhkdHilOH8cVx7O9aARtvD9MYximwv4gTIUs4pY0YEKFyozEE
+         UbQg4Ko6+CwcJZDcbZsaas3ml4/zLKe4nYhn5nKAkmGrd0Nc4WZOFKME5HTxMLMxeJAu
+         8r8xut5ydUEz0Zt3P/ntcHTDEfV7L9PyfI0oTAGv9MiYx5wXY8tKxa7xcrZYJoC+Sa0s
+         gBGo4TlSiOExzgkOex4MKyb088KhpHOVb1guTI6IxSbBIYC/N6z+fB0DyhNUnUowNevq
+         x0jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795605622; x=1796210422;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/OU0PI8ciyVjraR4T19Cul10vgtOe6ygyMSUrcMCTI0=;
+        b=vd8KHpGMjEmgsdkXMmQmW2qU9IeGWdggDR/EgjV7OH+WZ/x3FJy/7ShcsttQPLcxfV
+         XAhHUXzn6AYsSDG9MH6048+H1aZKbqE0Iq2rrz9EkjqSIoUV0s/huq/NE+ZsBYj/gioB
+         3qlC89nGZplI3ocDIAzjk3FLwXC4fnIXsmSBGdQaK9f8QLLckO8C4wkwXcO1ID+hryDP
+         5r4Rsic7GC/pI/okzp0yJmwIdB1F9WEjPvAdYeuouQFc+arfZA7yGMeYhzSjUtaA+lFk
+         8Y5AEIXLWS9Zrxytia3i26cP8A5XjDhWHLKmpFnl4fSWbQq0S4uxgarlhtZPqi++gp+X
+         dQow==
+X-Forwarded-Encrypted: i=1; AL+hErHsHmAkfsN5g8n8PdOEESUu24vVRYkAsM+0NAPqsAAWRXoHbwDK1rJKj+Z7qvAcwOXvIoNYOj4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z89pgq2jLFVn1oANCIKXeAZ955MZL7mORXv8YrQIMOyqDcvkRso
+	jey9fXZTqG93Osl0mUwPVTYYH+eSB5hPZ+gX+MdQAUizGhxPz+9QgIANflKgx0CQ+XlXnhWnCqp
+	MfsYmyRUMoxpPtDqhm174wk6gkhy7ltZzq5mS0hwjKLnbbxeHQN0IE+mSGw==
+X-Gm-Gg: AZFdTZcjYsxgG+VnGc8LryALJ7TumNrKGuiQpukIPBQaoXQ2acokM4pNcgq1QzSxiXu
+	OATmWGKRsytH9FZZvofG+gQMgE2EEQfHalOcpdaCGYQ9B/fJWDoAuaNVoDKVkTNMzcQ53qw+Dp5
+	D5xsej46hYQ/WL6i9rjYNEhhQpk9sNgdR/gj22vkZHhdYit1SZsOFbkKW0tQdYUwyHE9mrnhhSW
+	GKdbg+2ep7fbeLGE0Tt0qazzQhKwFG8ntqQhpUpq04AxzqSdI+AsKjBrRXhjylE048hDjqOE7nW
+	WW1NIn6ON9SU4dLJz7FUn1hqPii1EhiznDtos9dVSscLZxFv4T5lGXjv0O9APRYZhvmUjjLRdYM
+	BVM6II6m9m49sY9KiS3g9YSf1B5H2M7OA0uqzThfJUG+TlorYJFMpaKM+H9In9tdzXzUo0X+MDF
+	KLJli4lTWNNHiD90Vs91cE2yJ3LDJfpjKnx/lFA+3m1Vt/
+X-Received: by 2002:a05:600c:638f:b0:4bb:6752:8400 with SMTP id 5b1f17b1804b1-4bb8881a2bbmr321271125e9.17.1795605622511;
+        Wed, 25 Nov 2026 03:20:22 -0800 (PST)
+X-Received: by 2002:a05:600c:638f:b0:4bb:6752:8400 with SMTP id 5b1f17b1804b1-4bb8881a2bbmr321270755e9.17.1795605622152;
+        Wed, 25 Nov 2026 03:20:22 -0800 (PST)
+Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853a9846sm601076005e9.11.2026.11.25.03.20.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 03:20:21 -0800 (PST)
+Message-ID: <5f93ca8c-fe7c-45ec-9b88-4817d1b6a543@redhat.com>
+Date: Wed, 25 Nov 2026 12:20:20 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,62 +112,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 14144680531608151323
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTFvQbUJYIcUoSinD64wBIOXnZ0R6y0F7nBAi9RKTCBNAamHynnXH411qTPLrjKo5AP6V1tSFboz5qTrBmw4T49lBJ1rdaKNeT8cgCdmuBn1dVgm25rvAirENQ79G0gDjDEigetq86Y5N37isyzXvIUR+2dVZSYYIPn6AfCU2Fe1U4ATqOGoNvUQ0UkKc6sXeuqzQ8FT/mu3XNK5sNzmknEDLD9QqtDXhqUXFnbdjDU0Dy2qt/EWJu/YxBt1bP5CdyAdsyLs/i2hWt1+oV0llxuccs1SheIGdYPiofHF/T1WBDRuxZ1Q8cIf0i/fvToQxIuAgNScmTRqMEAa44nd7TtRaci+0Cj55Fo6FTy3hdlWcoEur135UioeAkYkTTqKNQd1ap3nuaqHdPcgHkGm7c5t2BZcMBBJ+s7hXhOYcfmvNFhL0ppgKZGB2VuIBPT2coyD69gcSaOViPpIFHv6OAW2YfNryXMWvvdeMD6gK8uMEEexLErIzNRAc0fffcBf2xIACxkK9Va2PjmC61NcXXeLA5jEVoGzH+SOPfyBYISy93WNtjl9hRBIdkFBB7Q1ZdG+uA0Fwn0W07/0rzSQ3/UPmpfaPw0PVqY5X5GhzTaOUbHlUUR+YF2TjDQacBiM6R3VFyZGdRdhiKIF8l7hFocEVuGJurtY7AzwRQp9TfvWnw
-DKIM-Signature: a=rsa-sha256; bh=nIXjdY+s7dzCHv/uIbUCu21b90ESHTVqSZ/MoDaIrVg=;
- c=relaxed/relaxed; d=npnm.eu; h=From; s=ovhmo-selector-1; t=1795605581;
- v=1;
- b=cwZmxiBCo9Jkb6d01t4Lsvv5yv/MME8123Ujmx7hOwZK4rAory6ZK9hU1EoF1uZx857+rQfj
- xaOVle19tcdBwwAPW2F2gCSdtA8BLRNdrWMc2RoSbSjHTKpzI7yxejQk4m/fOJ7eBiQVujhW7Jw
- 5XYJFJAlGOblQ1nmOfWnmS2XN1Oyk6J8CmNn6xyFX9MVxRqDerWJ+/erM4h0saphifhbFNMA1Db
- VGlgpUifEaehwGnlwsEMG2GdXGjuYeWXsesetiCZDKY+0WVIN0gMxGHtoK31nV5QsBgiItJyxSx
- KkYEhQzcGRm1CtbDA3n2JKD49bHSllygnVHuz5k7YGq2Q==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3] ip_gre: fix stale header length after erspan
+ version change
+To: Henry Martin <bsdhenrymartin@gmail.com>, dsahern@kernel.org,
+ idosch@nvidia.com, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, horms@kernel.org, yanhaishuang@cmss.chinamobile.com
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org
+References: <20261125074617.629026-1-bsdhenrymartin@gmail.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261125074617.629026-1-bsdhenrymartin@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Commit 2139cb633d48 ("drm/nouveau/devinit/gf100-: try to avoid double-running vbios scripts")
-checks the return value of nvkm_devinit_disable() for the DISP engine bit.
-Since commit da2b1a0a40d8 ("drm/nouveau/devinit: Convert function disable() to be void"),
-that function always returns 0 and disabled engines are
-removed via nvkm_subdev_disable(), which clears device->disp.
+On 11/25/26 08:46, Henry Martin wrote:
+> @@ -1499,6 +1506,7 @@ static int erspan_changelink(struct net_device *dev, struct nlattr *tb[],
+>   	struct ip_tunnel_parm_kern p;
+>   	__u32 fwmark = t->fwmark;
+>   	int err;
+> +	int hlen;
+>   
+>   	if (!rtnl_dev_link_net_capable(dev, t->net))
+>   		return -EPERM;
+> @@ -1509,11 +1517,28 @@ static int erspan_changelink(struct net_device *dev, struct nlattr *tb[],
+>   		return -EOPNOTSUPP;
+>   	}
+>   
+> +	hlen = t->hlen;
 
-As a result the VGA CRTC heuristic is also used on display-less GPUs
-(Optimus "3D controllers"), where it wrongly concludes the board was
-already POSTed. Devinit is skipped and the GPU stays uninitialised,
-leading to "fb: 0 MiB", PRIVRING faults and an oops in
-gp102_acr_wpr_patch(), or a hang during boot.
+This is weird. The patch is broken, but it compiles successfully
+(on some slice of the CI) because the first chunk is applied without
+fuzz in the wrong context. Still causes CI build issues:
 
-Check device->disp instead, as nv50_devinit_preinit() does.
+https://netdev-ctrl.bots.linux.dev/logs/vmksft/net-dbg/results/926627/build/stderr
 
-Fixes: 2139cb633d48 ("drm/nouveau/devinit/gf100-: try to avoid double-running vbios scripts")
-Link: https://bugs.debian.org/1155040
-Cc: stable@vger.kernel.org
-Signed-off-by: Francis Laniel <laniel_francis@npnm.eu>
-Tested-by: Francis Laniel <laniel_francis@npnm.eu>
----
- drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Minor nit: also reverse christmas tree order in the first chunk
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c b/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
-index 186e09ea0cb1..b256404c2454 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
-@@ -107,12 +107,12 @@ gf100_devinit_preinit(struct nvkm_devinit *base)
- 	 * VBIOS multiple times may have detrimental effects.
- 	 */
- 	if (base->post) {
--		u64 disable = nvkm_devinit_disable(base);
-+		nvkm_devinit_disable(base);
- 		/* magic to detect whether or not x86 vbios code has
- 		 * executed the devinit scripts to initialise the
- 		 * board. only works if there's a display engine.
- 		 */
--		if (!(disable & (1ULL << NVKM_ENGINE_DISP))) {
-+		if (device->disp) {
- 			if (nvkm_rdvgac(device, 0, 0x00) ||
- 			    nvkm_rdvgac(device, 0, 0x1a)) {
- 				base->post = false;
--- 
-2.47.3
+/P
 
