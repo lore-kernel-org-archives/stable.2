@@ -1,51 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795630234;
-	b=BMw2hXSRJbSS4JyazaxThzsW5b6O6HQiIExSIwh9cUeKFwoPdEmzU3Kb8Xf4We6qW8Tq
-	 dpdXr83nP+wPg5+KhKe6d5REGArHw9pboHQ7IwYVNn0R7QYyO+e+beXe2qLbqVJTr/jY/
-	 EB7PGNhZPoUX7sLT12TtWbjilfKNALN1he2GCQtpFoQnmpfvGYxirdBJzP23q0xBNWl3x
-	 6/qNHwq8GUqlMRWzo3PpqFPbfFhIIada9aloHdUDvcGUDoxQXFzClx/6VP7jC79XJDSbU
-	 dZGlArvMXIngP6idxflkM9tFR8lAQXEIRgUaR64eimiGTK6/H2F+aLxd1GiOUE9hmVg==
+	t=1795630285;
+	b=NtMTACvQ5fluKQ3Wqxaa89XVDcorOkBahQdBHBxtp+BMg/rbLOsFmmK9o/1q9iun6IdG
+	 mBxRX3XY0kBW9bPzgxrCPf3nTG3V+N7P+9UOzUK4KvWO7ogrOBlk55vYMViAhUZJb3dkp
+	 I0ZUTNhJSiTnF6+IV63tmeTohWqNkX/+FtmcAY+gpz3H5XVf/98dNYk1wPznIdkYyKYC3
+	 OkQylUjyFed3CMOgYi3zyH3uyWv4C1zH610IpoTy+qhnMPugkCfiguutCS9MwaYGQtNZ3
+	 fBcvzNs+viAKyv/+kdpUCTisWU43Gsbj0qQQXyY/PNKoOdGgtgsIrJNJq6bggrUTkGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795630234;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=aazdsFJdydPkDwPUPcHqqU9AYDCucpKW1m1694cDDFQ=;
-	b=2h1ptJDntnQu9rtTJOyksulg3qTy8OYPtm5Zvxkj0VvoM+62X55Uv3NXwSAQJr5ZFaRr
-	 yn/k3fLxVTqLgm8t9mQ4THVEd/jIghGzlX0E2xm1SvbxHfIOlo6y73mILzqd94mknoCGF
-	 0qoOA7/0d/+BMm3O0PyXhYCjn7fLEQ8t0KqtYqkHSpiT4NRriypObtEhtuoHALnH2vniO
-	 +HkF3Ty+0rrX8voEAPjZr4zchh4GmFLbQqCNZYuGAAHjgncHvfnmsWKTKFMTbAy5NKXF5
-	 2X+UUvXNPPjakvvvHGg/KSlLqHtpHnnjVvpesM2Cvba38MKEt72yDw8Rx4p32Xn0QWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795630285;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=clm7bwFO88Id836QUNrg2tu/p/zHm8L/3QNnlwp6L6o=;
+	b=CnJVwWQTQ3DOKiu1BCHSSZR4OcKZF+SAzOtGt4Xv/zREUN/Z4RFsXQjPSV9a5tejrHNw
+	 xVIKWTXM+wHjaiLx8CptAp/Kli2vFYlaWbA5ztx83ohJdGqHKFPrBlryopFLgHfoHju/1
+	 Rxk8hMvIXR/cUP9xFKg5Bncrr90B5ORr9pmFSyR4+oN7c7LhfttCpWZPLsN8J0pAwjf0W
+	 zEhodRWjcDKR4LpcXGohsfesl9zgLQSTn4ASwga31Aja4uC4LtQLyNpH+ICE2Jryn8RHL
+	 /+HQzK7BPYbAl9YgTSWhGJZQkbk8EP1H1fwYyVjn6HY9oPaarRKfxLWMqGi4kN1WHEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gentwo.org;
-	spf=pass smtp.mailfrom=gentwo.org;
-	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=jBJvuCOw;
-	arc=none smtp.remote-ip=62.72.0.81
-Received: from gentwo.org (gentwo.org [62.72.0.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n4hOoaxc;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502EC606A337;
-	Wed, 25 Nov 2026 18:10:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 502EC606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17FB606A33E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:11:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C17FB606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=jBJvuCOw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1795630233;
-	bh=PW5cjO4zVuWmr+Vc4tjomkbgnxKceK86WHlBvpMe3N0=;
-	h=From:Date:Subject:To:Cc:From;
-	b=jBJvuCOwqycfhmWjkdSJF7ENLmj/xlACCo8dGrLuG3jhrQLM/g6glZYsl74IkD6ZA
-	 bJiHW5hIIfqldjRdgvAVpap27HAZXejBhGzHPAP8drnmrhxFCjjsi51KSg6vUAWA/k
-	 3TaZg0v7Mnal+OXstJ3nNrO2tTFY6TWwWUvLzdgs=
-Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
-	by gentwo.org (Postfix) with ESMTPS id 290EC401B0;
-	Wed, 25 Nov 2026 10:10:33 -0800 (PST)
-From: Shubhang Kaushik <sh@gentwo.org>
-Date: Wed, 25 Nov 2026 10:10:25 -0800
-Subject: [PATCH v2] PM: EM: Fix netlink performance-domain dump pagination
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n4hOoaxc
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-386cf1041cdso1957875eec.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:11:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795630281; x=1796235081; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=clm7bwFO88Id836QUNrg2tu/p/zHm8L/3QNnlwp6L6o=;
+        b=n4hOoaxcxW1l1mGaEW5zL+ZF0JLabEWqwn/4f4IArB1SEQwE4rhel+b0mID7pfFGIg
+         p+eD4O21MA8JE+HcVAWjFCbEh6lyUIfF53nW/fVVS606Hu4H5Sts3JS1yNOVs9kcDuzM
+         JzMeaOOb9O0VlegsDQT91P/VmmXPzc02n9Sv4U2vhZXB6Nd72fkV4/ShmqaDxklNoCKO
+         CElXIbHPJz8Bqu+bQ309uJv83wV5AZBk9gLIv52/JErHhuIsFXlI3WaDNrSlbRUCYZ9X
+         nusfI92IHoKmHEAGFb7c94YMgPYahj7qyYtA3dlSEZyThpEI/zp1r0TD7O/tdQHo4693
+         sx+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795630281; x=1796235081;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=clm7bwFO88Id836QUNrg2tu/p/zHm8L/3QNnlwp6L6o=;
+        b=lejagNg6yDeVufAUtBtvJMreZUggQqQDwoPNVN4JCNUqdCkffCJbdafCX/PhJnKzli
+         PPK7BUQl7S3JW7LQwY7Y/hKdRvshM2hhMKlUqP0Wjy2heJQYsqhxSV5SQNHEUF5dHCN/
+         WSEXkJPrUbwtG3NUNFuWF0Z94B65p0Hoe+cQ1qg39WOjyk+6CYJaRVEmDaRdPFSPTQm6
+         GdfbXduVdlbmlZvDjNoqIioljMs56jtjvxu8wkh/D97TjK8fVp6e1kqaz1SDqZbPrMAS
+         3ZFvXrHHaARP1Wy5imfQ42sBxXS/WIjEtqhnDus4peq3xypcG19aVBnVQwjFI3o5c/AH
+         tTOg==
+X-Forwarded-Encrypted: i=1; AL+hErFkmKLEH2jUxFBVs52reZQecMGjRqqyQwLB4mKHhd2CqYI+Dihm1A1FpZqIbxw7FD6V5edrpy8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+1HyuhfguHisPaWECB8QptKgQbzbaDeAM50LhcNqrEgZdPLXDh
+	w5TAFe/BadbCmrisNpay2qmlYGh/ohjvQNS6keDKG6e/wVZ6HXPsxVJy
+X-Gm-Gg: AZFdTZdFBolWgQYvUAcmLEFRB4WRumef6HunGr1G0RzgHpaVb7fCN5YedoODIxTAiSf
+	5eEiUHDqQ+1eNyY9SQ4xe8fUTUM7j2Jx6Z/KkmHQZ1e27/6NJbnADcpj9Al5wMa/2yUbNx7MjMn
+	8gC3l6YPsbFtX0XOxSiztnvzaKyqGrgwGFyocIFyNGHI6KWzE7HqDQUDCbQ3drZiTd09K2K3U2i
+	rFNhD8HYDHc6hc2iRcClcbkcukvPxYzqQepP3dhTMV65KQ+KGARBythklEOOWZ/5SfH8Vel7hh1
+	XNidyqRcW7D/9yYpVp6N0JKQGb/dQJXddYHJ6IEz78B0qSlSsKz5fT6xZ6EeVJUa2K692LeXyrP
+	0lkfvl2M8xpASrQu8Rk+ScACvn8xuoWcgdct5Yb3TlcOCARTrLCVzD4TIdeGJh98ejo5hzK07a4
+	8x4WyjEsVtDOpF7I6wq/3RYyH0hSBbPRnz9MOctoUV5jEsc1NibZM5Fdi48mxDAFn5eNF75CqQW
+	iH/mbqbfR9zBXvSekCBk8ZdiyHV9uHqo0y90kWhePkgNyJ2zRnL/0x3yxoSCDRiJBanzEtUAdVo
+	ynYfj0cLcxU5hjIE+2xQwuwqwLkVlwRA96gwEg==
+X-Received: by 2002:a05:7301:714:b0:36a:7b3c:4e0a with SMTP id 5a478bee46e88-3856fd5e4a4mr19351158eec.24.1795630280795;
+        Wed, 25 Nov 2026 10:11:20 -0800 (PST)
+Received: from DESKTOP-NM9EKIA ([2001:e60:8549:f8b6:d936:b4fc:15f9:5ee6])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e7fc3sm49229984eec.8.2026.11.25.10.11.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 10:11:20 -0800 (PST)
+From: Joonhoe Kim <26rote@gmail.com>
+To: Thinh.Nguyen@synopsys.com,
+	gregkh@linuxfoundation.org
+Cc: aiyengar1990@gmail.com,
+	mathias.nyman@intel.com,
+	xu.yang_2@oss.nxp.com,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3] usb: dwc3: tell xHCI that it lost its state when the core is powered off
+Date: Thu, 26 Nov 2026 03:11:16 +0900
+Message-ID: <20261125181116.121-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,132 +99,168 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-pm-em-dump-v2-1-a28e132f8b0c@gentwo.org>
-X-B4-Tracking: v=1; b=H4sIAJAkB2sC/23MQQ6CMBCF4auQWTuGFlKqK+9hWAidlllASYtVQ
- 3p3K2uX/0vet0OkwBThWu0QKHFkv5SQpwrG6bE4QjalQdZSCSFbXGekGc1zXrGubSMHra1RI5T
- DGsjy+8DufemJ4+bD57CT+K1/mSRQoLYXoTrTNt0w3hwt28uffXDQ55y/rJWqqaUAAAA=
-X-Change-ID: 20261124-pm-em-dump-00f32b88fd6c
-To: Lukasz Luba <lukasz.luba@arm.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Donald Hunter <donald.hunter@gmail.com>, 
- Changwoo Min <changwoo@igalia.com>, Shubhang Kaushik <shubhangpk@gmail.com>, 
- Christoph Lameter <cl@gentwo.org>
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
- linux-pm@vger.kernel.org, stable@vger.kernel.org, 
- Shubhang Kaushik <sh@gentwo.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795630233; l=3335;
- i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
- bh=PW5cjO4zVuWmr+Vc4tjomkbgnxKceK86WHlBvpMe3N0=;
- b=WOEqKRNwC7ibhIfs8oHOD0A5Ytc+Pz6GxJZG/2IilyUS30Iq8yLvUffNEWKeDa8YvMTF+Z9q6
- H1qRXjDGqyUCfK3HqdApbAHXvwbQgAz67KB+VemV5rPB+YPe0Wr48iX
-X-Developer-Key: i=sh@gentwo.org; a=ed25519;
- pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
+Content-Transfer-Encoding: 8bit
 
-GET_PERF_DOMAINS dumps performance domains through:
+dwc3_suspend_common() powers the core off for system suspend
+(dwc3_core_exit()) in OTG mode (DWC3_GCTL_PRTCAP_OTG), and in host mode
+when the controller may not wake the system or needs a full re-init. The
+xHCI registers and the state saved with the Controller Save State
+command are gone then, but nothing tells xhci-plat: xhci_resume() takes
+the "state intact" path, writes the saved registers back and asks the
+controller to restore its state (CRS).
 
-  netlink_dump()
-    -> dev_energymodel_nl_get_perf_domains_dumpit()
-      -> for_each_em_perf_domain()
-        -> __em_nl_get_pd_for_dump()
+xhci-plat has a flag for exactly this, power_lost (commit 668cc6bc1178
+("usb: host: xhci-plat: allow upper layers to signal power loss"), used
+by cdns3), but dwc3 never sets it.
 
-The dump handler rebuilds its local cursor from cb->args[0] on each
-callback. When the response skb fills, it returns -EMSGSIZE and the
-netlink core sends the nonempty skb before retrying the dump. However,
-the updated cursor is not saved in cb->args[0], so the retry restarts at
-domain zero.
+On a Lenovo Y700 Gen 5 (TB323FU, SM8850; DWC3 + eUSB2 PHY) with a USB
+2.0 hub, a USB 3 flash drive and a Billboard device attached, and USB
+wakeup disabled, s2idle then broke the host controller on resume: either
+the controller wrote to an address that was not mapped
 
-For example, if domains 0 and 1 fit in the first skb but domain 2 does
-not, every subsequent callback emits domains 0 and 1 again and never
-progresses beyond domain 2. The handler also advances the cursor before
-encoding the domain and finalizes its partially encoded message on
-failure.
+  arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402,
+    iova=0xd85e7c300, fsynr=0x3d0011, cbfrsynra=0x40, cb=13
+  xhci-hcd xhci-hcd.2.auto: WARNING: Host System Error
+  usb 1-1: hub failed to enable device, error -108
 
-Advance the cursor only after a domain has been encoded successfully,
-cancel incomplete messages, and store the next domain index in
-cb->args[0]. Return skb->len whenever data was written so netlink_dump()
-sends the current chunk and continues the dump, propagating errors only
-when skb->len is zero.
+or its command ring would not stop
 
-Fixes: 380ff27af25e ("PM: EM: Add dump to get-perf-domains in the EM YNL spec")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shubhang Kaushik <sh@gentwo.org>
+  xhci-hcd xhci-hcd.2.auto: Abort failed to stop command ring: -110
+  xhci-hcd xhci-hcd.2.auto: xHCI host controller not responding, assume dead
+  xhci-hcd xhci-hcd.2.auto: HC died; cleaning up
+  usb 1-1: PM: **** DPM device timeout ****
+  Kernel panic - not syncing: usb 1-1: unrecoverable failure
+
+With wakeup enabled (the core stays powered) the same setup survived
+every cycle.
+
+Record that the core was powered off and pass this to xhci-plat as
+power_lost from a resume_quirk, so that xhci_resume() resets the
+controller and the devices are re-enumerated. Unlike a static
+XHCI_RESET_ON_RESUME this only applies to the resumes that follow a
+power-off; resumes with the core kept powered (host mode with wakeup
+enabled) and runtime resume keep the restore path. Clear the flag once
+xhci-plat has read it, so that a later system suspend that fails before
+the dwc3 core is suspended does not reset the controller.
+
+Fixes: c4a5153e87fd ("usb: dwc3: core: Power-off core/PHYs on system_suspend in host mode")
+Fixes: f09cc79b4b33 ("usb: dwc3: add dual role support using OTG block")
+Cc: stable@vger.kernel.org # 6.15.x
+Tested-by: Arun Iyengar <aiyengar1990@gmail.com>
+Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Signed-off-by: Joonhoe Kim <26rote@gmail.com>
 ---
-Changes in v2:
-- Return skb->len whenever data has been written to the skb, propagating
-  negative error codes only when skb->len == 0.
+v3:
+- Add Cc: stable (Thinh), for 6.15 and later: xhci-plat got power_lost
+  in 6.15 (commit 668cc6bc1178)
+- Add Tested-by from Arun and Acked-by from Thinh
+- No code changes; still based on next-20261111, applies to usb-next
 
-Testing:
-- Validated dev-energymodel YNL spec and exercised GET_PERF_DOMAINS
-  dumps via tools/net/ynl/pyynl/cli.py on an 80-core Ampere Altra,
-  including registering 4 test performance domains and forcing
-  per-domain -EMSGSIZE splits across multiple netlink_dump() chunks.
+v2:
+- Also set the flag when the core is powered off in OTG mode with the
+  host role active (Sashiko [1])
+- Clear the flag once xhci-plat has read it (Sashiko [1]), instead of in
+  the host branch that keeps the core powered
+- Drop the comment above the resume quirk
+- Add a Fixes tag for the OTG branch
+- Rebased on next-20261111
 
-Link to v1: https://lore.kernel.org/r/20261124-pm-em-dump-v1-1-8f9167d437bc@gentwo.org
----
- kernel/power/em_netlink.c | 26 ++++++++++++++++++++------
- 1 file changed, 20 insertions(+), 6 deletions(-)
+Testing, 30 s RTC s2idle with wakeup disabled on the setup above:
+without this change 1/1 cycles lost the controller; with this version
+3/3 cycles reset the controller and re-enumerated all devices.
+OTG mode (DWC3_GCTL_PRTCAP_OTG) is not tested; this board switches
+roles through usb-role-switch and never uses it.
 
-diff --git a/kernel/power/em_netlink.c b/kernel/power/em_netlink.c
-index 1f68d456a713c08d7a4f690e88c03182f6ee3ef1..4e85439ed76d240e013cf372dcbc77b3af28d598 100644
---- a/kernel/power/em_netlink.c
-+++ b/kernel/power/em_netlink.c
-@@ -80,19 +80,25 @@ static int __em_nl_get_pd_for_dump(struct em_perf_domain *pd, void *data)
- 	void *hdr;
- 	int ret;
+host.c now includes xhci.h for hcd_to_xhci_priv().
+
+v1: https://lore.kernel.org/all/20260929130252.869-1-26rote@gmail.com/
+RESEND: https://lore.kernel.org/all/20261112114053.412-1-26rote@gmail.com/
+v2: https://lore.kernel.org/all/20261112141512.1840-1-26rote@gmail.com/
+[1] https://lore.kernel.org/all/sashiko-outbox-211064@kernel.org/
+
+ drivers/usb/dwc3/core.c |  3 +++
+ drivers/usb/dwc3/core.h |  3 +++
+ drivers/usb/dwc3/host.c | 15 ++++++++++++---
+ 3 files changed, 18 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+index 372737f47..1ddd860e1 100644
+--- a/drivers/usb/dwc3/core.c
++++ b/drivers/usb/dwc3/core.c
+@@ -2572,6 +2572,7 @@ static int dwc3_suspend_common(struct dwc3 *dwc, pm_message_t msg)
+ 		if (!PMSG_IS_AUTO(msg) &&
+ 		    (!device_may_wakeup(dwc->dev) || dwc->needs_full_reinit)) {
+ 			dwc3_core_exit(dwc);
++			dwc->xhci_power_lost = 1;
+ 			break;
+ 		}
  
--	if (ctx->idx++ < ctx->start)
-+	if (ctx->idx < ctx->start) {
-+		ctx->idx++;
- 		return 0;
-+	}
+@@ -2608,6 +2609,8 @@ static int dwc3_suspend_common(struct dwc3 *dwc, pm_message_t msg)
  
- 	info = genl_info_dump(ctx->cb);
- 	hdr = genlmsg_iput(ctx->skb, info);
--	if (!hdr) {
--		genlmsg_cancel(ctx->skb, hdr);
-+	if (!hdr)
- 		return -EMSGSIZE;
--	}
+ 		dwc3_otg_exit(dwc);
+ 		dwc3_core_exit(dwc);
++		if (dwc->current_otg_role == DWC3_OTG_ROLE_HOST)
++			dwc->xhci_power_lost = 1;
+ 		break;
+ 	default:
+ 		/* do nothing */
+diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
+index 267c922ca..4bc94bb07 100644
+--- a/drivers/usb/dwc3/core.h
++++ b/drivers/usb/dwc3/core.h
+@@ -1185,6 +1185,8 @@ struct dwc3_glue_ops {
+  * @suspended: set to track suspend event due to U3/L2.
+  * @susphy_state: state of DWC3_GUSB2PHYCFG_SUSPHY + DWC3_GUSB3PIPECTL_SUSPHY
+  *		  before PM suspend.
++ * @xhci_power_lost: the core was powered off for system suspend; xHCI
++ *		     must not try to restore its state on resume
+  * @imod_interval: set the interrupt moderation interval in 250ns
+  *			increments or 0 to disable.
+  * @max_cfg_eps: current max number of IN eps used across all USB configs.
+@@ -1440,6 +1442,7 @@ struct dwc3 {
+ 	unsigned		wakeup_configured:1;
+ 	unsigned		suspended:1;
+ 	unsigned		susphy_state:1;
++	unsigned		xhci_power_lost:1;
  
- 	ret = __em_nl_get_pd(pd, ctx->skb);
-+	if (ret) {
-+		genlmsg_cancel(ctx->skb, hdr);
-+		return ret;
-+	}
+ 	u16			imod_interval;
+ 
+diff --git a/drivers/usb/dwc3/host.c b/drivers/usb/dwc3/host.c
+index c5674161b..0cb6e64d1 100644
+--- a/drivers/usb/dwc3/host.c
++++ b/drivers/usb/dwc3/host.c
+@@ -14,9 +14,7 @@
+ #include <linux/usb/hcd.h>
+ #include <linux/bitfield.h>
+ 
+-#include "../host/xhci-port.h"
+-#include "../host/xhci-ext-caps.h"
+-#include "../host/xhci-caps.h"
++#include "../host/xhci.h"
+ #include "../host/xhci-plat.h"
+ #include "core.h"
+ 
+@@ -78,7 +76,18 @@ static void dwc3_xhci_plat_start(struct usb_hcd *hcd)
+ 	dwc3_enable_susphy(dwc, true);
+ }
+ 
++static int dwc3_xhci_resume_quirk(struct usb_hcd *hcd)
++{
++	struct dwc3 *dwc = dev_get_drvdata(hcd->self.controller->parent);
 +
- 	genlmsg_end(ctx->skb, hdr);
--	return ret;
-+	ctx->idx++;
++	hcd_to_xhci_priv(hcd)->power_lost = dwc->xhci_power_lost;
++	dwc->xhci_power_lost = 0;
++
 +	return 0;
- }
- 
- struct em_nl_doit_ctx {
-@@ -166,7 +172,15 @@ int dev_energymodel_nl_get_perf_domains_dumpit(struct sk_buff *skb,
- 		.cb = cb,
- 	};
- 
--	return for_each_em_perf_domain(__em_nl_get_pd_for_dump, &ctx);
-+	int ret;
++}
 +
-+	ret = for_each_em_perf_domain(__em_nl_get_pd_for_dump, &ctx);
-+	cb->args[0] = ctx.idx;
-+
-+	if (ret && !skb->len)
-+		return ret;
-+
-+	return skb->len;
- }
+ static const struct xhci_plat_priv dwc3_xhci_plat_quirk = {
++	.resume_quirk = dwc3_xhci_resume_quirk,
+ 	.plat_start = dwc3_xhci_plat_start,
+ };
  
- static int __em_nl_get_pd_table_size(const struct em_perf_domain *pd)
 
----
-base-commit: 4dce97c6c265544342e716e62fd24bbb232590c5
-change-id: 20261124-pm-em-dump-00f32b88fd6c
-
-Best regards,
+base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
 -- 
-Shubhang Kaushik <sh@gentwo.org>
+2.53.0
 
