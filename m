@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795620961;
-	b=UjT3drJiD2dJIuZpPrvItnjni51v5SXjrrsYEamUSFCVIiPWYj8pU7CeLpwPqmnLA4Yg
-	 L4S4PZe+YdshOqs8CgWo6X+WyCg1uDccQOaranqOr9hwszGF2f6Fs1jMKiOElntb3PiId
-	 AKisCwZgAexCnw/suc+uVczaVDd3brxe7A4u/iOtBlJuwNXZuUmQLBOF6/IZvllOru2zu
-	 1s6EVDoZglkIA+/CyNSUAr7rrpqNMd8OTWEkV/r+T3Q/jB032j6KVO7qTrjhzUREYfLCD
-	 6jbSeGKkax5wked24QvNBJ6apVaA36OoPEQb1UivQBynkg/OAJjApDWtdc5xKRBiICg==
+	t=1795620968;
+	b=ubtHd3x1iSsY16eWhLSlzh1/yJgyd2rVcSHjP3vsNDnlMU/3B/FSzk63CMqZZcCS/3Gk
+	 UOI8UUS6AOdogTDtcS/H0Wgry3C/Vr0joyZTtBLoZUm3IaA1Iu8wgmZkgFqHDTPTWRT84
+	 v+dHeZUIqvo0exvD+HE5g9l4gO5obcvjjG+iBZfYt41L19qCxe/StKbTuoMURw+GNVqws
+	 K6oHSwZuzQCUx/Dn1D2sEgddh1Z0HrUIfMSv0ZujEPYqz9HuDN3rPa/HK2xsj7BLlgZPS
+	 6bslhQrhqRej/0hjhlnfWPiIj7z7PF02Nz+C/iH8dAFrK3YjeUUReRPAPFSecF5rXbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795620961;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795620968;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=WxxTHQamF4oJ+TNc8Wgaxrd/dsNlzshkSipRzSGPw9I=;
-	b=eAkfYDfd1/luQpXfjV0j/ZHQxN97+lAoO1kh6b8mnBKjKYOEsTeCl3+zzkhZhdSFo+p9
-	 9Qvm1rZc+iYLWlPr9M6XE6ihdJ5HDC58hTGCborM2TozhkYJYxe8xXKc/uZmowI1H06GR
-	 tWjPUW+RtFD9iAhXsaJ81SxWNv4ArxPvwe3DrncZgxXJZcueHrsj8L80wyG/JBXXe8kRD
-	 V20u5HzPcV7+cyAH47L3w/KhYz08OTA4VJZRkBwSulLWWN/vcmb7l9JRLI9J8Dh+bTUCw
-	 yMaNRGrfAp2CIo9VfC2shalS1OPiwxy0CfLjV7VWXTzZD2Ywfz0cJznCTir0e3nreUA==
+	bh=kY1IhUau8r6sJhOhhHuTPkAky1lHHX6U2J2IyQcBUPY=;
+	b=CgGRvHqNVnIF6sUo+0dKBThUsimkk1JosCNg95ctst8Dk++sZLUQA8sdlZLZIuVyT/uU
+	 KQKUVwaQv++pmSECF8klji6MbeBTPAa5xHnK7WvahzQ/U5HJHkwcDNvXVv+aJMmpVsYSF
+	 baJOVWDjhQWFpcOlPiXfiSOQ549uwQnvGYhpDV9wZ6QDV4P902+py8kTgrWVipoTaGvQV
+	 g0xkcytuQcleh5fsOYzV3Pi3KZr40FWNgnd4sBehiO/xJ0wYiutvaubL0qeIpLhLD+0kx
+	 X/ZUDrfUe39NNgRfgMlA0wv7v4XwaQAWEb4HIsfA/sQ0Td8HUFMZ+N4yBJ1HLvdv1mA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TaVDTujk;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WOo8g9lS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82BE9606A697;
-	Wed, 25 Nov 2026 15:36:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01D78606A6B0;
+	Wed, 25 Nov 2026 15:36:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TaVDTujk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96E681F000CF;
-	Wed, 25 Nov 2026 15:36:00 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WOo8g9lS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6EFB1F000F0;
+	Wed, 25 Nov 2026 15:36:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795620961;
-	bh=WxxTHQamF4oJ+TNc8Wgaxrd/dsNlzshkSipRzSGPw9I=;
+	s=korg; t=1795620967;
+	bh=kY1IhUau8r6sJhOhhHuTPkAky1lHHX6U2J2IyQcBUPY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TaVDTujk8EgEP5T3rlBIvhKaYCz2LEXfF3CfWrgDzFNX4Q9n1LuSWO3Ln/2ThE57m
-	 qAzNzMzstgqvSHz1z1KaS0zafL+X/i/YXQKyT408ouFuhrNZxxJln4KCqw1tM3LigJ
-	 N/J7b7PoSLhZWOCIb1ZxQLBB8PSBxXuL60Uf90O0=
+	b=WOo8g9lS5F5KHnMPCgXCU4FGFD+wGaNeO2R5idXFj5OGf0pi8qFJY+66cofkSSf/G
+	 CGv+OThZ7p3hC18h4STbh8ZBuYXQKYGwKD5fl2iVNrqQB6tPvZBR7Vk9blKoi3j0Se
+	 7LKexc1uWafo9DojGuuSHRNkq9lDuMtG1VF8zyBc=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Remi Pommarel <repk@triplefau.lt>,
+	Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>,
 	Dominique Martinet <asmadeus@codewreck.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 078/990] 9p: Add mount option for negative dentry cache retention
-Date: Wed, 25 Nov 2026 15:24:05 +0100
-Message-ID: <20261125143823.915916176@linuxfoundation.org>
+Subject: [PATCH 6.18 080/990] 9p: fall back to the normal open path for non-regular files
+Date: Wed, 25 Nov 2026 15:24:07 +0100
+Message-ID: <20261125143823.962569675@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
 References: <20261125143822.072087159@linuxfoundation.org>
@@ -68,135 +68,111 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Remi Pommarel <repk@triplefau.lt>
+From: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
 
-[ Upstream commit 5670a84b5cda6b82016282accfd61ef36aceafbf ]
+[ Upstream commit ff1baa01a6e1f24741f7428119e6f3a61b995604 ]
 
-Introduce a new mount option, negtimeout, for v9fs that allows users
-to specify how long negative dentries are retained in the cache. The
-retention time can be set in milliseconds (e.g. negtimeout=10000 for
-a 10secs retention time) or a negative value (e.g. negtimeout=-1) to
-keep negative entries until the buffer cache management removes them.
+v9fs_vfs_atomic_open() and v9fs_vfs_atomic_open_dotl() call
+finish_open(file, dentry, generic_file_open) regardless of the file
+type the server reported for the created dentry.  The supplied
+callback replaces f_op->open in do_dentry_open(), so blkdev_open()
+never runs for a server-reported device node: an open() with O_CREAT
+succeeds with f_op = def_blk_fops while f_mapping still points at the
+9p inode, because the bdev mapping swap only happens inside
+blkdev_open().  The block file methods then derive their block_device
+from that inode with I_BDEV(); the loads land at the tail of a
+656-byte v9fs_inode_cache object (offsets +624 and +632), which KASAN
+reports as slab-out-of-bounds, and the garbage they read is then
+dereferenced, so the first read(), write(), ioctl() or close() ends
+in a NULL pointer write and a panic.  In the ioctl(BLKGETSIZE64)
+variant the value read this way is returned to userspace.
 
-For consistency reasons, this option should only be used in exclusive
-or read-only mount scenarios, aligning with the cache=loose usage.
+The server controls the file type reported for the create, so a
+malicious server can crash the client this way.  KASAN report of the
+read() variant, on a build of linux-stable 2709dd5ae32f:
 
-Signed-off-by: Remi Pommarel <repk@triplefau.lt>
-Message-ID: <b2d66500aa5a2f6540347c4aa46a4be10dd01bc6.1779355927.git.repk@triplefau.lt>
+BUG: KASAN: slab-out-of-bounds in blkdev_read_iter+0x3cd/0x440
+Read of size 8 at addr ffff88800828ceb0 by task repro/1
+
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x7b/0xa0
+ print_report+0xd0/0x630
+ kasan_report+0xe5/0x120
+ blkdev_read_iter+0x3cd/0x440
+ vfs_read+0x718/0xa50
+ ksys_read+0x10f/0x200
+ do_syscall_64+0xdd/0x4a0
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+ </TASK>
+
+The buggy address belongs to the object at ffff88800828cc40
+ which belongs to the cache v9fs_inode_cache of size 656
+The buggy address is located 624 bytes inside of
+ allocated 656-byte region [ffff88800828cc40, ffff88800828ced0)
+
+A plain open() without O_CREAT is not affected: it runs blkdev_open()
+and either maps the device correctly or fails with -ENXIO for an rdev
+with no registered device.  When the created inode is not a regular
+file, clunk the fid the create opened.  The unopened fid is already
+on the dentry.  Set FMODE_CREATED and return finish_no_open(file, NULL)
+so the VFS keeps its dentry reference and calls the inode's ->open.
+Regular files still use finish_open() with generic_file_open.
+
+Fixes: be12af3ef5e6 ("getting rid of 'opened' argument of ->atomic_open() - part 1")
+Signed-off-by: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
+Message-ID: <908FC420-EC1F-46FC-8526-698F646961A8@stu.pku.edu.cn>
 Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
-Stable-dep-of: d037e9c1b40c ("9p: fix kernel-doc warning for enum p9_session_flags")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/filesystems/9p.rst |  5 +++++
- fs/9p/v9fs.c                     | 16 +++++++++++++++-
- fs/9p/v9fs.h                     | 23 +++++++++++++----------
- 3 files changed, 33 insertions(+), 11 deletions(-)
+ fs/9p/vfs_inode.c      | 10 ++++++++++
+ fs/9p/vfs_inode_dotl.c | 12 ++++++++++++
+ 2 files changed, 22 insertions(+)
 
-diff --git a/Documentation/filesystems/9p.rst b/Documentation/filesystems/9p.rst
-index be3504ca034a8..b014c7aabba4e 100644
---- a/Documentation/filesystems/9p.rst
-+++ b/Documentation/filesystems/9p.rst
-@@ -238,6 +238,11 @@ Options
-   cachetag	cache tag to use the specified persistent cache.
- 		cache tags for existing cache sessions can be listed at
- 		/sys/fs/9p/caches. (applies only to cache=fscache)
-+
-+  negtimeout    the duration (in milliseconds) that negative dentries (paths
-+                that do not actually exist) are retained in the cache. If
-+                set to a negative value, those entries are kept indefinitely
-+                until evicted by the buffer cache management system
-   ============= ===============================================================
+diff --git a/fs/9p/vfs_inode.c b/fs/9p/vfs_inode.c
+index 11fbb8686b87d..32a2b45743f03 100644
+--- a/fs/9p/vfs_inode.c
++++ b/fs/9p/vfs_inode.c
+@@ -811,6 +811,16 @@ v9fs_vfs_atomic_open(struct inode *dir, struct dentry *dentry,
+ 	v9fs_invalidate_inode_attr(dir);
+ 	inode = d_inode(dentry);
+ 	v9inode = V9FS_I(inode);
++	if (!S_ISREG(inode->i_mode)) {
++		/*
++		 * Not a regular file.  v9fs_create() already stored the
++		 * unopened fid on the dentry.  Clunk the opened fid from
++		 * the create and let the VFS call ->open.
++		 */
++		p9_fid_put(fid);
++		file->f_mode |= FMODE_CREATED;
++		return finish_no_open(file, NULL);
++	}
+ 	err = finish_open(file, dentry, generic_file_open);
+ 	if (unlikely(err)) {
+ 		p9_fid_put(fid);
+diff --git a/fs/9p/vfs_inode_dotl.c b/fs/9p/vfs_inode_dotl.c
+index 72aca3106d76f..f154b7a45d4f9 100644
+--- a/fs/9p/vfs_inode_dotl.c
++++ b/fs/9p/vfs_inode_dotl.c
+@@ -313,6 +313,18 @@ v9fs_vfs_atomic_open_dotl(struct inode *dir, struct dentry *dentry,
+ 	v9fs_fid_add(dentry, &fid);
+ 	d_instantiate(dentry, inode);
  
- Behavior
-diff --git a/fs/9p/v9fs.c b/fs/9p/v9fs.c
-index a2a01a2ac1fb1..4301e01b21c2e 100644
---- a/fs/9p/v9fs.c
-+++ b/fs/9p/v9fs.c
-@@ -40,7 +40,7 @@ enum {
- 	 * source if we rejected it as EINVAL */
- 	Opt_source,
- 	/* Options that take integer arguments */
--	Opt_debug, Opt_dfltuid, Opt_dfltgid, Opt_afid,
-+	Opt_debug, Opt_dfltuid, Opt_dfltgid, Opt_afid, Opt_negtimeout,
- 	/* String options */
- 	Opt_uname, Opt_remotename, Opt_cache, Opt_cachetag,
- 	/* Options that take no arguments */
-@@ -103,6 +103,7 @@ const struct fs_parameter_spec v9fs_param_spec[] = {
- 	fsparam_string	("access",	Opt_access),
- 	fsparam_flag	("posixacl",	Opt_posixacl),
- 	fsparam_u32	("locktimeout",	Opt_locktimeout),
-+	fsparam_s32	("negtimeout",	Opt_negtimeout),
- 
- 	/* client options */
- 	fsparam_u32	("msize",	Opt_msize),
-@@ -142,6 +143,9 @@ int v9fs_show_options(struct seq_file *m, struct dentry *root)
- 			   from_kgid_munged(&init_user_ns, v9ses->dfltgid));
- 	if (v9ses->afid != ~0)
- 		seq_printf(m, ",afid=%u", v9ses->afid);
-+	if (v9ses->flags & V9FS_NDENTRY_TIMEOUT_SET)
-+		seq_printf(m, ",negtimeout=%d",
-+			   (int)v9ses->ndentry_timeout_ms);
- 	if (strcmp(v9ses->uname, V9FS_DEFUSER) != 0)
- 		seq_printf(m, ",uname=%s", v9ses->uname);
- 	if (strcmp(v9ses->aname, V9FS_DEFANAME) != 0)
-@@ -318,6 +322,16 @@ int v9fs_parse_param(struct fs_context *fc, struct fs_parameter *param)
- 		session_opts->session_lock_timeout = (long)result.uint_32 * HZ;
- 		break;
- 
-+	case Opt_negtimeout:
-+		session_opts->flags |= V9FS_NDENTRY_TIMEOUT_SET;
-+		if (result.int_32 < 0) {
-+			session_opts->ndentry_timeout_ms =
-+				NDENTRY_TIMEOUT_NEVER;
-+		} else {
-+			session_opts->ndentry_timeout_ms = result.int_32;
-+		}
-+		break;
-+
- 	/* Options for client */
- 	case Opt_msize:
- 		if (result.uint_32 < 4096) {
-diff --git a/fs/9p/v9fs.h b/fs/9p/v9fs.h
-index e630c5111d749..a462bcbfc7da4 100644
---- a/fs/9p/v9fs.h
-+++ b/fs/9p/v9fs.h
-@@ -24,6 +24,8 @@
-  * @V9FS_ACCESS_ANY: use a single attach for all users
-  * @V9FS_ACCESS_MASK: bit mask of different ACCESS options
-  * @V9FS_POSIX_ACL: POSIX ACLs are enforced
-+ * @V9FS_NDENTRY_TIMEOUT_SET: Has negative dentry timeout retention time been
-+ *                            overridden by negtimeout mount option
-  *
-  * Session flags reflect options selected by users at mount time
-  */
-@@ -34,16 +36,17 @@
- #define V9FS_ACL_MASK V9FS_POSIX_ACL
- 
- enum p9_session_flags {
--	V9FS_PROTO_2000U    = 0x01,
--	V9FS_PROTO_2000L    = 0x02,
--	V9FS_ACCESS_SINGLE  = 0x04,
--	V9FS_ACCESS_USER    = 0x08,
--	V9FS_ACCESS_CLIENT  = 0x10,
--	V9FS_POSIX_ACL      = 0x20,
--	V9FS_NO_XATTR       = 0x40,
--	V9FS_IGNORE_QV      = 0x80, /* ignore qid.version for cache hints */
--	V9FS_DIRECT_IO      = 0x100,
--	V9FS_SYNC           = 0x200
-+	V9FS_PROTO_2000U         = 0x01,
-+	V9FS_PROTO_2000L         = 0x02,
-+	V9FS_ACCESS_SINGLE       = 0x04,
-+	V9FS_ACCESS_USER         = 0x08,
-+	V9FS_ACCESS_CLIENT       = 0x10,
-+	V9FS_POSIX_ACL           = 0x20,
-+	V9FS_NO_XATTR            = 0x40,
-+	V9FS_IGNORE_QV           = 0x80, /* ignore qid.version for cache hints */
-+	V9FS_DIRECT_IO           = 0x100,
-+	V9FS_SYNC                = 0x200,
-+	V9FS_NDENTRY_TIMEOUT_SET = 0x400,
- };
- 
- /**
++	if (!S_ISREG(inode->i_mode)) {
++		/*
++		 * Not a regular file.  The unopened fid is already on the
++		 * dentry.  Clunk the opened create fid and let the VFS call
++		 * ->open.
++		 */
++		p9_fid_put(ofid);
++		ofid = NULL;
++		file->f_mode |= FMODE_CREATED;
++		err = finish_no_open(file, NULL);
++		goto out;
++	}
+ 	/* Since we are opening a file, assign the open fid to the file */
+ 	err = finish_open(file, dentry, generic_file_open);
+ 	if (err)
 -- 
 2.53.0
 
