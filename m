@@ -1,47 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603221;
-	b=O0TnMUWjNgAipMTpuGZF2BOSEoyxxKWdGwKx8MoHcyAHAhLLcRuRCkh5VqZaK8cb6qNM
-	 +CXFh8YAar4+4PQ2xweEqrtrmmDhQR/cLJc+5dGpstF7YzrKqxB3WVGleqMOzcYrKA8i0
-	 OiRhphP4tvQivn398M+fJrK6TJ/b+BuGPK9CrFjIyhB/NjHTAB8y0Ek3T0YC0kxv3J3+j
-	 7rifO4ilAwh0yphQ7MuakFrtXQEZkYYhORr2LC9nmK2ZW0XkgSQqGaci9GtMrKEc+gQtA
-	 5jYuVejZMqQOrcJK1PkeDk0nSjBxcTYkFVmTBNshsCamytk44jkDf8Cpz2YFfIJ5Ubg==
+	t=1795603223;
+	b=ohUn2tYxcpdvg2BMi8r31nkO5W6bVjJ0fMxBnO9NLgq3+xazjmWCun0IcHqgQAEDLoq/
+	 e4PU17zBS7cfXA5UvaX0TlSCeiPPrxBTB1M+9ca7ayApm0g6RyuNzwkZWhx9rRYg8saL0
+	 Dz5a/0eCEb/dRqda+aSpFB8zihRbKyXsD7/UWCYI2twCrQqtUc4T1iBoqKiwjG9F9rXuh
+	 C8zXHysB5Yi7ik3B9Tzoz4ILfgIa2Fk1bl1Ls8HpMzVAEyQZuSyZkQW/RcJeJJWsvIib2
+	 TneQg66RjIJWbrQlh1BquG2Vf1Pd4xPEQQ74wdnw3IKPnp/56Wrzb18su4FRownOmbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603221;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=t7KL1lYIBacquhFq81TFp9NlTdTFB6Zip6UE7m0MxMk=;
-	b=nZQXyg5I/eFqzBwAncElXsKfBgoPKsrnUhKiemq/kvgEdO1P4cwxvKdgjXhiNVuYBccu
-	 nc7GNJgXV7ZGj5KOkuq/dgW7Z7OOgn2eckxmElOxjofPEModS/a2dYYxDVwTFJSt3pizD
-	 bCGxjlQL62Pjq8Meb0qfY4Al23LSI9r1W5AfD8L4m+DXsgTcTDfNuBKLfEVVwLQ1GHtJF
-	 yMFqOi5/AZux5cw1y9xH2LLa96G3Ig4ktcYHk9cDXbrYOtGYgow/DGtlTP9+kFRaMQewS
-	 EAKFFjPRld81IKYJFAF/gwkc+XXOfm3lTUhoCqjkCscW7RT7CODhNxGqd/qj4HMUC9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603223;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=34E+JD94HLu2tQOT261thhU4F4zT9kW4NNRZx9aDA0o=;
+	b=PKrktkDJStugOaLq4EOTZEVensQ/tjJJVHspaz/bY7830D4sMnSG74TNHfWGrhmQDxU0
+	 6LMe9FObuuti6AvZUk8qk0jIcN5tfUeUecuNeNm0DyLEAuMUWSOBZHVmjkjdf9d7MJNs0
+	 luGKQMS0ARPNBZAqI+i3nmE+I0VJRQD0o94mMnt9Ernp7sMS7lP+H7ZJJcndxr8t6xGUG
+	 y9LzxY7r7yyFVyf/LjYodH83VXqmgsBQj1DfFVM9JgQxM3mSyMC1/FtAMIX9Z+W9qINUl
+	 C9OipFnamwwwE6qS5m58cPog1Iy0PEE6rddJmvmw88i7MD+7GWGQbTM+7M33gHU3L7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=W4PKyl+x;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=l8mmBT7X;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD1A606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:40:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2453F606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:40:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2453F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=W4PKyl+x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEEAE1F000C0;
-	Wed, 25 Nov 2026 10:40:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603221;
-	bh=t7KL1lYIBacquhFq81TFp9NlTdTFB6Zip6UE7m0MxMk=;
-	h=Subject:To:Cc:From:Date;
-	b=W4PKyl+xG2BUqyEaSizRtGeYP21hLHUxICld7fTbPa4Ru6yx8/mkXn0An2bamIyyy
-	 y6mjashWnk9kOYOJ1qlzohIg1wIvUbyRjONCbmnRMal5NHT4ZOuRiBy7lGXz6CmIcG
-	 zeObA2tq0ZTrY7WRoK+rYd8GMpeK9nFCDVuhov80=
-Subject: FAILED: patch "[PATCH] wifi: mac80211_hwsim: ignore non-generic netlink releases" failed to apply to 6.1-stable tree
-To: enderaoelyther@gmail.com,johannes.berg@intel.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:30:25 +0100
-Message-ID: <2026112525-unmatched-vascular-e8f1@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=l8mmBT7X
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=34E+
+	JD94HLu2tQOT261thhU4F4zT9kW4NNRZx9aDA0o=; b=l8mmBT7XZj6ypCWdj5kB
+	YJ1PzztPYgyH9gCD0lPrnZSR9TY2N0DxnZwVQEwxvWa+OU8l3KYa8j9rrjISygcR
+	iCMVBUhMwPef/FpHJACfPbHGhZ5naoEG6czTIL5lvLFw1GSot6pWDyFmXdQBOORQ
+	Z02YeT4NtgjaZCulTGLRSEEYDd0PVfHb5DoT1FLqI/MR3C3ALb93ZQ/gL0mBYUHP
+	eOfHEnxdVkqq/oWekyI5n95buYF4pzGOSL6Pgtvf2fB9EKqAnkXPVwdTYRgU8ISi
+	Cyp9n/tYj2Tpl8tnarE79a/sUF1aoVWJ6Ps8BLt1uzvWD4pRsOffqJkNiMW6XZJl
+	gA==
+Received: (qmail 881287 invoked from network); 25 Nov 2026 11:40:11 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 25 Nov 2026 11:40:11 +0100
+X-UD-Smtp-Session: l3s3148p1@Q3OWcxdhlMAujnvc
+Date: Wed, 25 Nov 2026 11:40:11 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Diogo Ivo <diogo.ivo.sx@renesas.com>
+Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, linux-i3c@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] i3c: renesas: Fix MDYAD(x) field length
+Message-ID: <awa7C9LO_9Gr8htO@ninjato>
+References: <20261001-divo-ssgrlpcsrc-2966-i3c_mdyad-v1-1-2250225e6d20@renesas.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,69 +65,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001-divo-ssgrlpcsrc-2966-i3c_mdyad-v1-1-2250225e6d20@renesas.com>
 
+On Thu, Oct 01, 2026 at 04:10:09PM +0100, Diogo Ivo wrote:
+> Fix the length of the MDYAD(x) macro to be 7 bits as it represents an
+> I3C address, which is 7 bits. The length of this field was confirmed on
+> the documentation of the RZ/G3{E,L,S} SoCs.
+> 
+> Fixes: d028219a9f148 ("i3c: master: Add basic driver for the Renesas I3C controller")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+This is true for R-Car X5H as well. Thanks!
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x 989f47c56e48d442d79497a25ed946d029c4dc53
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112525-unmatched-vascular-e8f1@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 989f47c56e48d442d79497a25ed946d029c4dc53 Mon Sep 17 00:00:00 2001
-From: Zhao Li <enderaoelyther@gmail.com>
-Date: Wed, 28 Oct 2026 22:17:50 +0800
-Subject: [PATCH] wifi: mac80211_hwsim: ignore non-generic netlink releases
-
-Closing an unrelated netlink socket can remove mac80211_hwsim radios or
-clear the active wmediumd registration when its port ID matches a generic
-netlink socket.
-
-mac80211_hwsim_netlink_notify() handles every NETLINK_URELEASE event,
-but netlink port IDs are scoped by protocol. The notifier therefore treats
-a release from another protocol as a MAC80211_HWSIM socket release.
-
-Ignore release notifications unless they come from NETLINK_GENERIC.
-
-LLM assistance was used to find the bug and review.
-
-Fixes: 7882513bacb1 ("mac80211_hwsim driver support userspace frame tx/rx")
-Fixes: e9ed49bf4c2c ("mac80211-hwsim: Add support for HWSIM_ATTR_DESTROY_RADIO_ON_CLOSE")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
-Link: https://patch.msgid.link/20261028141751.6728-2-enderaoelyther@gmail.com
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-
-diff --git a/drivers/net/wireless/virtual/mac80211_hwsim_main.c b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-index 6bbbce75f05a..49ec2948c68a 100644
---- a/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-+++ b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-@@ -7293,7 +7293,7 @@ static int mac80211_hwsim_netlink_notify(struct notifier_block *nb,
- {
- 	struct netlink_notify *notify = _notify;
- 
--	if (state != NETLINK_URELEASE)
-+	if (state != NETLINK_URELEASE || notify->protocol != NETLINK_GENERIC)
- 		return NOTIFY_DONE;
- 
- 	remove_user_radios(notify->portid, hwsim_net_get_netgroup(notify->net));
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
