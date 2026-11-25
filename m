@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795623316;
-	b=RyAWruoj6dYHHXyjJCUHKnd0K49RHz50chZ+zxM0YLdNoEyyWGBt91yn5+wosEg8mAv4
-	 R9m73kJrNTiocop2YHBeWP782+j81/eiBJ1KvjRaQtywO8Mz9LRaNeIO9HvOrMfDxXI4c
-	 Dk94BYBwirTzw+VOO92OCpxoBbpYKmYu5eYnu5jBf7ETviDZKIggzLGviaSKJVA3+R7yb
-	 O1IPOfa43NMlu2F1f0X7IIKmwbUGC1E2faG5XSTQG6I1ipD4tzj9gjqlllpybbxYcfiAO
-	 ETz93zb5xLgQfY3GwmlJNqn/UF+vkZAyebzc/2EhmT2Km6TPMXNqvFIjC0+VVpfiCrg==
+	t=1795623318;
+	b=KZhaM9yg+c2v1Vv6mnthNwJ3XWJoQQWvSwvcBnbKJtnzDAq5CFoqHca9wpm5PTGEc+oV
+	 EQmPLpT89M4KbmqSXdTj48ONH9L4bJsHxIzDhMZrAFvDbpTLyAa9m56MsICsTAZQi8rv7
+	 OAUQAo8t0a2EsofXcR3+yJPK65Iavy+g49RcPQsr92vDjgfTvcZNMWYXNPW+TyYRpQnTW
+	 OmRSKXAz7Vuw3XlecodZGHClE3Z49co+ENHU+UqaE2IauOd+IKVicy3V25pK9SuaowJxb
+	 uTPkh/VvPoOH3isjCybMOVCQ6ADNk9Ix1qc7WrdBH8EjmTuOkyLUEkWV0XDLwbo+lwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795623316;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795623318;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=p9nCSvlQyBEp9vyV+qYDHxiFBqhNZVINJU4JHeU0/qw=;
-	b=18DOHMERC5LHTbj42JdIRTbAJY2ln1oM4HZYIVBIvXfwsclUYhKPDCt/32V6KXhkbjGI
-	 8X6xcv87YQFwyILgrZycURx1OFMlR5RUdgQC7x+UOzowX82Rn86BrF93mnKwd7pOq+jbP
-	 50OyWujOPEQmWW75VYdU9fn1OzcjcKAJ4O1aF5F2+P2rH3/hU02b7i3V8gJWltrVkjbZQ
-	 1r3FKBovyMkA8Tb8EVInn3nlO02rJG2ZEJJ8j/NptQNmjrUpzM97boBVfP07lch/Llugj
-	 6mckVinAPhsEHyMLgOrbi7ttcIXNNWVMtuMeNSPbLAsq4fUuMhUM4mVPPKDPw69nkRA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=056qI/r9e0s9dnvBfMf5urWn7OVhcz8M35R9OuheLUY=;
+	b=vndSXdmPFWLPL5YvwdlRn/QHYlz9trNx8/fo3EfBZmGs9DS25yUUDUeoCq6u6pnRIlc6
+	 n4qYSWbVKGsC13s3ZdF+Soiu0u4SF2XTrhsam5xKmf77yP6oxTuvpGule0RAFsW6TQgjE
+	 063/NIguEkD6BTMz6zvkTC0qWIRrG9kxCB+Ls0rDA37y8ys1tFvHknRcCPbAkAJAX0shG
+	 iKvAtffhaIRukqFLk65tBDNTZlLOUH26c7DrpHlOkWJCLqr+uLh6sjDturB+kvNrcw/z5
+	 X5U4OKfgHUfTQe8v5qsUZM2pvWArwFQO8fTuKjBj/qLGMKh7b0htyk8t5MuskLopTvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=o3SqITp4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nryidrp0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CC1A606A32E;
-	Wed, 25 Nov 2026 16:15:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39434606A335
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:15:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=o3SqITp4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 471D81F000E1;
-	Wed, 25 Nov 2026 16:15:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795623315;
-	bh=p9nCSvlQyBEp9vyV+qYDHxiFBqhNZVINJU4JHeU0/qw=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nryidrp0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D32261F00A01;
+	Wed, 25 Nov 2026 16:15:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795623317;
+	bh=056qI/r9e0s9dnvBfMf5urWn7OVhcz8M35R9OuheLUY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=o3SqITp44lxipo6s4yre3CliiW4v4Inm+cHHc1PHPu/YE0jPjQV8EzvzRy6J0YZvy
-	 snuVDxmuHz+vfSeWKsuof8HbObf3V3v9CHsCzBJCk3mG5koJhnVFDo1U9F/AFHT5T2
-	 tVf7j0MTP/TV4JIZ8xwUByqWrXvtvjhwSiHq8O2Q=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=nryidrp0Iqd1+HemyfL+RQoBL6iQs0eYKSVog6zPjlUW/Rs1O/zgBwFZXAqKD7Xvr
+	 1PsRC6nEVN7NORdWcdstJPGd9qaiag+IR74uIviFe8RbTLGuoT8rdi0LWbRImOBV5d
+	 eEAL66p6ziKdCprPcvUh3vp5M+Kfv6iro5r55dwqoFaICkVyb7vCp5YUF8EsdJVSNf
+	 K4FLdn5W7B/vX4KKkbkNErB2qgHv6nwcNUNvV3qMUjxj/ch07wHKvopB+X2I/LxORX
+	 uPZ6/lk/2erhtaV26uZfyUa+lneiiD4Q3ZkDAYpfTZKLylw4aYEojuor5YX2LIjUBi
+	 8TO9hN6fy1Kiw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Zhao Li <enderaoelyther@gmail.com>,
-	Johannes Berg <johannes.berg@intel.com>
-Subject: [PATCH 6.18 818/990] wifi: mac80211: recheck the OCB station limit before insertion
-Date: Wed, 25 Nov 2026 15:36:25 +0100
-Message-ID: <20261125143841.201389565@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>,
+	syzbot+79883955da3a62652a80@syzkaller.appspotmail.com,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] arm64: suspend: Only track cpuidle context for idle tasks
+Date: Wed, 25 Nov 2026 11:15:13 -0500
+Message-ID: <20261125161506.729393-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261125161506.729393-1-sashal@kernel.org>
+References: <2026112539-amenity-spinster-254c@gregkh>
+ <20261125161506.729393-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,53 +63,109 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
 
-------------------
+[ Upstream commit ad3fc05c7e65009355effeea06aa629a687acef2 ]
 
-From: Zhao Li <enderaoelyther@gmail.com>
+Commit 19235e472798 ("cpuidle, arm64: Fix the ARM64 cpuidle logic") moved
+the calls to ct_cpuidle_enter() and ct_cpuidle_exit() into cpu_suspend() so
+that arm64 cpuidle could keep RCU watching longer and manage context
+tracking internally. However, cpu_suspend() is called not only by cpuidle
+via psci_cpu_suspend_enter() (which runs in the context of the idle task),
+but also during system suspend via psci_system_suspend_enter() (which runs
+in the context of the task initiating suspend, such as a process writing to
+/sys/power/state).
 
-commit 27e29a077b4887d0e0a813337f8b7e06bd020c81 upstream.
+When entering system suspend, current is a non-idle task. Calling
+ct_cpuidle_enter() invokes ct_kernel_exit() from kernel space (!user) on a
+non-idle task. With CONFIG_RCU_EQS_DEBUG enabled, this violates context
+tracking invariants and triggers a warning:
 
-Frames from successive unknown OCB peers can make the deferred worker
-install more than 128 stations.
+WARNING: kernel/context_tracking.c:120 at ct_kernel_exit+0x1b4/0x1f4
+kernel/context_tracking.c:118
+Call trace:
+ ct_kernel_exit+0x1b4/0x1f4 kernel/context_tracking.c:118
+ ct_idle_enter+0x20/0x34 kernel/context_tracking.c:299
+ ct_cpuidle_enter include/linux/cpuidle.h:134 [inline]
+ cpu_suspend+0x264/0x474 arch/arm64/kernel/suspend.c:136
+ psci_system_suspend_enter+0x4c/0x80 drivers/firmware/psci/psci.c:544
+ suspend_enter kernel/power/suspend.c:468 [inline]
+ suspend_devices_and_enter+0x88c/0xd0c kernel/power/suspend.c:533
+ enter_state kernel/power/suspend.c:618 [inline]
+ pm_suspend+0x498/0x698 kernel/power/suspend.c:644
+ state_store+0x14c/0x1fc kernel/power/main.c:819
+ kobj_attr_store+0x6c/0x90 lib/kobject.c:842
+ sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
+ vfs_write+0x51c/0xa0c fs/read_write.c:687
+ ksys_write+0x12c/0x228 fs/read_write.c:739
 
-The receive path checks local->num_sta before allocating each station,
-but pending stations are not included in that count. Several allocations
-can therefore pass before the worker inserts any of them, and the worker
-then drains the list without rechecking the limit.
+A corresponding warning is subsequently triggered in ct_kernel_enter() via
+ct_cpuidle_exit() upon resume.
 
-Recheck the installed-station limit in the worker under the wiphy mutex
-and free entries that no longer fit.
+Fix this by checking is_idle_task(current) in cpu_suspend() and only
+invoking ct_cpuidle_enter() and ct_cpuidle_exit() when executing in the
+context of an idle task.
 
-LLM assistance was used to find the bug and review.
-
-Fixes: 239281f803e2 ("mac80211: 802.11p OCB mode support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
-Link: https://patch.msgid.link/20261028142302.16634-2-enderaoelyther@gmail.com
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 19235e472798 ("cpuidle, arm64: Fix the ARM64 cpuidle logic")
+Cc: <stable@vger.kernel.org>
+Assisted-by: Gemini:gemini-3.8-flash Gemini:gemini-3.1-pro-preview syzbot
+Reported-by: syzbot+79883955da3a62652a80@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=79883955da3a62652a80
+Link: https://syzkaller.appspot.com/ai_job?id=5359e16f-013b-4850-9cbc-ddfb3bac95e5
+Signed-off-by: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
+Tested-by: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
+Link: https://lore.kernel.org/r/3e92ccb0-2952-4317-af4c-45457c15efae@gmail.com
+Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mac80211/ocb.c |    8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ arch/arm64/kernel/suspend.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
---- a/net/mac80211/ocb.c
-+++ b/net/mac80211/ocb.c
-@@ -136,8 +136,12 @@ void ieee80211_ocb_work(struct ieee80211
- 		list_del(&sta->list);
- 		spin_unlock_bh(&ifocb->incomplete_lock);
+diff --git a/arch/arm64/kernel/suspend.c b/arch/arm64/kernel/suspend.c
+index c41724a40b756..cde0b8c19377e 100644
+--- a/arch/arm64/kernel/suspend.c
++++ b/arch/arm64/kernel/suspend.c
+@@ -5,6 +5,7 @@
+ #include <linux/uaccess.h>
+ #include <linux/pgtable.h>
+ #include <linux/cpuidle.h>
++#include <linux/sched.h>
+ #include <asm/alternative.h>
+ #include <asm/cacheflush.h>
+ #include <asm/cpufeature.h>
+@@ -99,6 +100,7 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
+ 	int ret = 0;
+ 	unsigned long flags;
+ 	struct sleep_stack_data state;
++	bool idle = is_idle_task(current);
  
--		ieee80211_ocb_finish_sta(sta);
--		rcu_read_unlock();
-+		if (sdata->local->num_sta >= IEEE80211_OCB_MAX_STA_ENTRIES) {
-+			sta_info_free(sdata->local, sta);
-+		} else {
-+			ieee80211_ocb_finish_sta(sta);
-+			rcu_read_unlock();
-+		}
- 		spin_lock_bh(&ifocb->incomplete_lock);
+ 	/*
+ 	 * Some portions of CPU state (e.g. PSTATE.{PAN,DIT}) are initialized
+@@ -133,7 +135,8 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
+ 	 */
+ 	pause_graph_tracing();
+ 
+-	ct_cpuidle_enter();
++	if (idle)
++		ct_cpuidle_enter();
+ 
+ 	if (__cpu_suspend_enter(&state)) {
+ 		/* Call the suspend finisher */
+@@ -149,9 +152,11 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
+ 		if (!ret)
+ 			ret = -EOPNOTSUPP;
+ 
+-		ct_cpuidle_exit();
++		if (idle)
++			ct_cpuidle_exit();
+ 	} else {
+-		ct_cpuidle_exit();
++		if (idle)
++			ct_cpuidle_exit();
+ 		__cpu_suspend_exit();
  	}
- 	spin_unlock_bh(&ifocb->incomplete_lock);
-
+ 
+-- 
+2.53.0
 
