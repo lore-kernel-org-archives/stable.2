@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795602929;
-	b=CbijifZqb+T9niH3rUgzFkUWdimukIstU5YQEMlywOeIBTUpnTsufpu9CIDbbiJyWoK9
-	 IeMz/NLoAzc5f9MAUHoZfgwgEBCTzx2QBKIOjTa+tOQSWqc/r9R7tnhBZLg3CymvMdRz6
-	 Z72UHF0myIT9Bvtg8YTcqcXoFGIoGpUlX8wDFl0GkGNfzOkuw9RbBrIR1eW9iHsa0ftun
-	 5/+NpN9CTU2Ul4Fl3/C+nioiijHQcTI5fcK5moPzIwNDwPbzRl9xFEVSD5VeevhieBmCT
-	 AkNUo9G4clKf5S7MN2nqU+2uElf5643PuBEMyXOMI9w8peIcy8wD04KUg45KKOtEdeg==
+	t=1795602932;
+	b=FnyUXf05NhzWxYq5SId0xVHIqt8t0m9n0EiIBmLHyK+Grhkxq3RX/kgD57aED7+hM4+T
+	 FiuSabY6uQDWrXOlYgz5L35h7pyHZg4zSgKAUHI7z21/mSoTtzRzXst0tdTvu8Gr6sXZi
+	 OWTU+jYrL50BzrJhSFZxPjH4e8XBpg6wMFNjvl8dpaKmgowe7jGCJ7qSX6ankQZBWKhjb
+	 ZPcAMZ6MyAacVMgB3j2GNj6ciXxrz5S/EMJz7Dg2qFseojQQ3lvT8H1e0g7cALaxXIbmk
+	 yb3FrM0x59iAFaS3SjDCvRafMY9YWgzSYwB2u/dpcGoRZDSsbFV20LJ8YUsBplKK0iA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602929;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602932;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=o1CK70F9lhZk5otUb42fNzDiDmm4Q37CIo3kWuU0A+I=;
-	b=ZfHZTbUO3D/fvRJJrkU29vUDebgEclsoHKycXzeWqHzHOalioo0+aPRboCJtq3nk2/YU
-	 h+rsIhnDMmxgf2uu9s4SfqZYAvjZWIZUA3/L/SL6SS4RY5y/z6WWIH/Mza3+SCxOzuLvi
-	 totijKdbHOD3G5txyb+867FzhVwKWAB7jC9dsiKLnwJYSQmeme+Sy9DN6A8M7jfOe7rNO
-	 fa55WpwpPzrvVnawKv3mqNybEZq6OSHw3/y8358q1yos2+DuSALXCmNZUQA+/8j+6+jD9
-	 r4oWF0L0rFIcv8Tq8ln+8X0/PcIXWWNe0OK1UHf4Hpg3H2bin9zDJ+EmXBUcCZtJP3Q==
+	bh=/UG9VtuOL1Orhafdr84MPEKMFWQtLs1U6r6E+C8pKMQ=;
+	b=DxM2pZ5jkSTFzxQofuLbVnJFkJcY4c/vQBfeMbHm5guEiSPGjgDa8sBrQ45e3e8P2FOU
+	 eNpO4ow992W51aCYIPjPsD2TPaephh2LDR6BeQ+1BDVGm2HvoEifkUNLrsUkLZeceH6Mb
+	 6U7JUChAtYm9uZNIOvZKVF9MaehuREmhz/s90HfnBM4oBx1+YWw460BVW3dg7TZw09D09
+	 rAoRRzGbs2I5YxEzJgDuJZMzCtDwbGM2wj0XrPcvKMNByre77sumcvihs1FnUzyw2oy2d
+	 W96HXpyeoY+E0ukzqK5QP0J+AVqJHIWkvpbjqTwtjzb1HWW7cV1xQzW8n8wHlZItKtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GZM5dj8O;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zIaWYE7+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A7F1606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:35:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B07606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:35:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GZM5dj8O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 072891F000C4;
-	Wed, 25 Nov 2026 10:35:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zIaWYE7+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D3141F000F0;
+	Wed, 25 Nov 2026 10:35:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795602928;
-	bh=o1CK70F9lhZk5otUb42fNzDiDmm4Q37CIo3kWuU0A+I=;
+	s=korg; t=1795602931;
+	bh=/UG9VtuOL1Orhafdr84MPEKMFWQtLs1U6r6E+C8pKMQ=;
 	h=Subject:To:Cc:From:Date;
-	b=GZM5dj8O4t9IDLCpr+Eh3uTZY65I0W0Uk5jZnpUzQ29kZrjIDD3+cNi1PkDUYwMC+
-	 T3rcqEcWUqno9tgUWRge+/+KDW2nh5AOYwqDu27E7KeoUIAkVwEwDxkafxGMlmboxA
-	 BEmtItPUK7g//csvHaNfxwDxVDGhubWfZmRHv9uo=
-Subject: FAILED: patch "[PATCH] hwmon: (pmbus/mp2975) Get vout fault limits dynamically" failed to apply to 6.1-stable tree
+	b=zIaWYE7+UGg0RLpwTeHyeFcNJpMT/gQpFKGuGolOKkghwLOgJpfK01ja1bsO5hx5M
+	 KS+KP+uZWeMIPQ7wU4iV2DD2Cpy4qqNVXu1pjbnvWDPcHtpHXMrG/MUC+Ey2lA6ZJP
+	 QVzEBAJ9oEKuV0iJ0cPy4BxqeFNz2ugUu+0GS2fI=
+Subject: FAILED: patch "[PATCH] hwmon: (pmbus/mp2975) Get vout fault limits dynamically" failed to apply to 5.10-stable tree
 To: fradensky@nvidia.com,linux@roeck-us.net,vadimp@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:18:23 +0100
-Message-ID: <2026112523-nutlike-durably-765f@gregkh>
+Date: Wed, 25 Nov 2026 11:18:24 +0100
+Message-ID: <2026112524-unskilled-marbles-bb15@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 00944852275efd39706fe7b9ce75c28edde983eb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112523-nutlike-durably-765f@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112524-unskilled-marbles-bb15@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
