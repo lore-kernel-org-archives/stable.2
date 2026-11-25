@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606015;
-	b=FeBNNpGK3OV8dx6nbE2p+kPv4A93MWHKFHNklsP3PScv/8QKTXPMUXKUMWQPfjYR0w2S
-	 Hrx/qDMtqRA0znRgWgvTs6WeeV5HDibPNigKsUWRUPsJ3bRcRXpnNkcbyFUvXB1Uk/WjK
-	 00okZMxwVab1T4HdbQBk+goHoUwXFQVhRfaxtgiLbqC4OOmiUT1vhLnPpYoNOZr42OU0K
-	 GWqsb++hcKtyXvDz3MW4rgPgYU56/wE7PHjPtslSbpB3FSvxmAm3dFhduUwDaQlEwgHde
-	 /FgCXdvp9VJAAlwmE+LPCD0vl1WImikgUSn5d+aA3ncoyYgc4yF+tzLlGw50IqqKQOQ==
+	t=1795606018;
+	b=qGN3jnl0vwPl7Yv6PIYA/DnqbfY3n1tH/0abpZbaUkP6QJ7jN3OxxZDQ0pONDe4r4sbq
+	 k6e4LT1pOD/6HiSU331TkIxDcx2L81O+e4QZ7bYEeEE3DHcfXJLor1xA4AFkpLMocdeC+
+	 dquxUCCEDKi2qqwLnEjNG5WIJKCAflKaYHqUDT+jW26Tn9/zbr0QqTGNgJiARNU/yOfuu
+	 lQb7FGZhwxEpltEQIOVWDdHNvcqaEN6PQJSnBtPGHWxMbEKDwqDzmDUURlDW4L7K68pN1
+	 3YofUX39gjBB95pqvvEwhAA/3P0IhOs8oqT4eRS/5I0ZUmfQdMo7gjRY/54ePCIkoxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606018;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zwlEdxHJyYZ97cuGZ7Q9Ae9f8auUCLXrXbNyTaRPCgg=;
-	b=GW85KNrL8wMHNXACT6YfdKz02/5YQHh0JbcpQtthiOAGBeklasqZF8Eiih9zFDPRf+XC
-	 7onVXaX7oUgzQvZPQCIPbo2KpQ+gAkyu9MDXXXc80LdX4UCRLfcfyld0OIT7tQSAw7vvU
-	 PflZnZibByttp9HIyKs+ENOZ4WWLQFb7gc2dF51lKnNvtMZ7rf9Kh8ef11DaVmeQFs6kv
-	 1B8QTT5IBKCffDja4L2ORYMiKmf6Cn1psamN/QJQBSkhnQAVMVQsTnSTMIY9IsVSl+wbh
-	 43ysRULY5c6B7jZWiLeVkdQNPXCVekUl0zpRgemb0LvjU6cHAQFPfCG2f/ksgXHNiEA==
+	bh=A8+h92oUd43kUhEVeFJGr+xwdx3Cf2xbB0NaIsaUK+Q=;
+	b=5Mw+E8930fGQ80BXWhX/g1tnnfp4u7LxpGMw3jbUxEtjeQjwunnCjN/tUkpUBufDc368
+	 owiKipV15a1gBR0y3IHlIwd6XsocwxLNTFQg6Gpk6psANC2e4XITWgXxxpSii/GpRzyJo
+	 +xiaDmlo6hSVObAgLco6BjQ9o+HS4JSQD1I3K8wGWVXCkEoK0CzH0nyCFW9pl4bQbIPJ2
+	 /wI+3TNepZYZhMsL0emcYP1bbidrnxefh5wptw//jjQWAgjWMcwfXGGWO0LV/wyC8o43J
+	 +HfdDJgYiwGOYCC6w0vU20D8n5swocIUcUm/MDqKQubMPuYojAftq5+rpFgOKgr/MNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TwCvX3ym;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="ZZ/SRP6F";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6CFE606A6BF
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:26:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0BC606A334
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:26:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TwCvX3ym
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF9CA1F000D1;
-	Wed, 25 Nov 2026 11:26:54 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZZ/SRP6F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26E2D1F000D4;
+	Wed, 25 Nov 2026 11:26:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606015;
-	bh=zwlEdxHJyYZ97cuGZ7Q9Ae9f8auUCLXrXbNyTaRPCgg=;
+	s=korg; t=1795606018;
+	bh=A8+h92oUd43kUhEVeFJGr+xwdx3Cf2xbB0NaIsaUK+Q=;
 	h=Subject:To:Cc:From:Date;
-	b=TwCvX3ymm8+Uj3FaeP9gdwAyTlU5oV2KxgXRkNkkDkhV3FxoXeBkJAuYUQ9gkdiBV
-	 VCgdSiXgbPzFWlO0q9E+RJoG8vwg6NsU8hvLmVehc9IwB0VX3syKYP5Lh5Hx5wikOV
-	 K+9pr//cMqn08rQ6K0BwlQVyOJ1CK7QUEhDa26Ek=
-Subject: FAILED: patch "[PATCH] smb: client: skip NULL channel in __cifs_put_smb_ses()" failed to apply to 6.1-stable tree
-To: joseph.qi@linux.alibaba.com,pc@manguebit.org
+	b=ZZ/SRP6F6wjaO4GxOCasGIaiPja1Wk1zqGtRk/N2eCbkI6LfofEa/cjVBCxXPQlRq
+	 cq1YR+AwZtSD/Lpqcm3vWDIPT7d8uVNcO2MWX137hbmQtP/vTPfJkFAj8nrdxbbZup
+	 dj1SxboscYyrLIKU6+eyHx7Yr5QWpNr6XEG7two8=
+Subject: FAILED: patch "[PATCH] smb: client: validate descriptor headers before query result" failed to apply to 6.12-stable tree
+To: pkfxxxing@gmail.com,linkinjeon@kernel.org,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:12:49 +0100
-Message-ID: <2026112549-explain-affecting-e4d8@gregkh>
+Date: Wed, 25 Nov 2026 12:13:06 +0100
+Message-ID: <2026112506-zipfile-subpanel-c0d3@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8deaf64a59a263161dfc5128f8398fb3dcba4fac
+git cherry-pick -x ffb59029c0d52bf76fdd2678f5d6fd13e26220dd
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112549-explain-affecting-e4d8@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112506-zipfile-subpanel-c0d3@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,48 +79,86 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8deaf64a59a263161dfc5128f8398fb3dcba4fac Mon Sep 17 00:00:00 2001
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-Date: Tue, 3 Nov 2026 17:15:58 +0800
-Subject: [PATCH] smb: client: skip NULL channel in __cifs_put_smb_ses()
+From ffb59029c0d52bf76fdd2678f5d6fd13e26220dd Mon Sep 17 00:00:00 2001
+From: liuyong <pkfxxxing@gmail.com>
+Date: Fri, 6 Nov 2026 18:48:35 +0800
+Subject: [PATCH] smb: client: validate descriptor headers before query result
+ allocation
 
-cifs_chan_skip_or_disable() clears a secondary channel's slot in the
-session (ses->chans[chan_index].server = NULL) without lowering
-chan_count when the server stops supporting multichannel.  When the
-session is later released, __cifs_put_smb_ses() walks every slot up to
-chan_count and calls cifs_put_tcp_session() on it, which dereferences
-the server pointer immediately, so a slot left NULL by the skip path
-makes the release crash with a NULL pointer dereference.
+query_info() uses the server's returned length instead of the caller's
+minimum when a dynamic result is requested. A zero-length ACL response
+can therefore return ZERO_SIZE_PTR to id_mode_to_cifs_acl(), whose
+ownership-change path reads dacloffset before checking the header size.
+A KASAN-enabled test shows a read at address 0x20 and a kernel Oops.
 
-Clearing a slot without lowering chan_count is older than
-cifs_chan_skip_or_disable(): cifs_chan_update_iface() could already do
-the same since commit b54034a73baf9 ("cifs: during reconnect, update
-interface if necessary"), and the release loop has been unguarded
-since then.  Commit 12d1e301bdfd1 ("cifs: do not let
-cifs_chan_update_iface deallocate channels") later removed that
-trigger, but the crash is reachable through it on older kernels.
+Validate the returned range and the caller's minimum before allocating
+the dynamic result. Keep the reported length zero if validation fails.
 
-cifs_decrease_secondary_channels() already guards the same put with
-if (server).  Add the same guard to the release loop so a skipped
-channel slot is left alone.
+Use the security descriptor header size as the minimum in SMB2_query_acl().
+DACL-only and SACL-only xattr queries do not require owner and group SIDs,
+so enforcing MIN_SEC_DESC_LEN would reject short descriptors that these
+queries could previously return. The rewrite paths validate the required
+owner/group SIDs and DACL separately before using their contents.
 
-Fixes: b54034a73baf9 ("cifs: during reconnect, update interface if necessary")
+These issues were discovered and fixed by Qihoo 360's Tulongfeng
+multi-agent system.
+
+Fixes: 9ee2afe5207b ("cifs: prevent copying past input buffer boundaries")
 Cc: stable@vger.kernel.org
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Signed-off-by: liuyong <pkfxxxing@gmail.com>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 
-diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
-index e68fffb2ab2e..6497b0d54fea 100644
---- a/fs/smb/client/connect.c
-+++ b/fs/smb/client/connect.c
-@@ -2200,7 +2200,8 @@ void __cifs_put_smb_ses(struct cifs_ses *ses)
- 			kref_put(&ses->chans[i].iface->refcount, release_iface);
- 			ses->chans[i].iface = NULL;
- 		}
--		cifs_put_tcp_session(ses->chans[i].server, 0);
-+		if (ses->chans[i].server)
-+			cifs_put_tcp_session(ses->chans[i].server, 0);
- 		ses->chans[i].server = NULL;
- 	}
+diff --git a/fs/smb/client/cifsacl.h b/fs/smb/client/cifsacl.h
+index 31b51a8fc256..ebc1b7c08c6a 100644
+--- a/fs/smb/client/cifsacl.h
++++ b/fs/smb/client/cifsacl.h
+@@ -93,18 +93,4 @@ struct owner_group_sids {
+ 	struct owner_sid group;
+ } __packed;
  
+-/*
+- * Minimum security identifier can be one for system defined Users
+- * and Groups such as NULL SID and World or Built-in accounts such
+- * as Administrator and Guest and consists of
+- * Revision + Num (Sub)Auths + Authority + Domain (one Subauthority)
+- */
+-#define MIN_SID_LEN  (1 + 1 + 6 + 4) /* in bytes */
+-
+-/*
+- * Minimum security descriptor can be one without any SACL and DACL and can
+- * consist of revision, type, and two sids of minimum size for owner and group
+- */
+-#define MIN_SEC_DESC_LEN  (sizeof(struct smb_ntsd) + (2 * MIN_SID_LEN))
+-
+ #endif /* _CIFSACL_H */
+diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
+index da2cf8fcee87..7de6b0b2d116 100644
+--- a/fs/smb/client/smb2pdu.c
++++ b/fs/smb/client/smb2pdu.c
+@@ -4027,6 +4027,14 @@ query_info(const unsigned int xid, struct cifs_tcon *tcon,
+ 				ses->Suid, info_class, (__u32)info_type);
+ 
+ 	if (dlen) {
++		rc = smb2_validate_iov(le16_to_cpu(rsp->OutputBufferOffset),
++				       le32_to_cpu(rsp->OutputBufferLength),
++				       &rsp_iov, min_len);
++		if (rc) {
++			*dlen = 0;
++			goto qinf_exit;
++		}
++
+ 		*dlen = le32_to_cpu(rsp->OutputBufferLength);
+ 		if (!*data) {
+ 			*data = kmalloc(*dlen, GFP_KERNEL);
+@@ -4081,7 +4089,8 @@ SMB2_query_acl(const unsigned int xid, struct cifs_tcon *tcon,
+ 
+ 	return query_info(xid, tcon, persistent_fid, volatile_fid,
+ 			  0, SMB2_O_INFO_SECURITY, extra_info,
+-			  SMB2_MAX_BUFFER_SIZE, MIN_SEC_DESC_LEN, data, plen);
++			  SMB2_MAX_BUFFER_SIZE, sizeof(struct smb_ntsd),
++			  data, plen);
+ }
+ 
+ int
 
