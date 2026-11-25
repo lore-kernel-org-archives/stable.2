@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625184;
-	b=qHAby0DT6wFYFzBcITU5fck28l0ZaFf/kHKkSmLwiYDMOdSR1pCohlyKyxcT0fL09I3H
-	 Qd3kLWtb6xA3eX63HsL14FmhNf27hXWdKkOyf4oxIZQzaY6shrQkZ99qwBJc+qGg9kb5V
-	 1CB0Dh3QcdGF72Qulolo0OJd4s9z9w9+FBcGtdzApivlJssuE6HNBgXRw0kKwVxWExhds
-	 fQKm0PS6FBOq0WuPgL7xYklMMCQkpHCl/f1PSKky8EXne7bvItK9LYya6FywZcG6I4v8F
-	 33p1E7Mfhpv4GHcFqAPKX3uviU/rG5Q9vQVQztCMlFquoBF+0N6F6HcVoWohpNjhnpw==
+	t=1795625186;
+	b=XUZ2PbjVbnkGqTRfbf0SOQQzLSmGmNVHqKZ9WCpqoUgC/7tI9JCS6FLXFYmbPIixzsRr
+	 GxVCvfLCh5DBVSpwTMT5lsvaszwoZeJDlQ3frFfxADgzueP51guKmuXgHvtTXuMTJ8owl
+	 cSjU/74h4uhSd6ajuzz7AF9WgYzYPFFScUR3DNCQZMvAS0hKOBBbGj08z7iPbkoR/bDFT
+	 SEwhTVdYX+ihqCp4ow29bjWI5ISwfgyZkyInXHp0vTuKrGspvCHAIhUHwCVgZwIklhK0b
+	 DSMMvrV6QSqUc8EAVXT2nP4LiMhqj2qWzOUl+zCvR6ssns8em4qFmFE7w0CSpi0z58Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625184;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625186;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=VU72rpOO5ddas+cFunqgy4ik+zVyuMSbRCton92hcTM=;
-	b=tkFyBZWlYA0gyPr+R6m6pmtKD+7nr+90hWd6HhhiJ2osejcqsQr4kHCvS+k7Q0BnJ55U
-	 FUJs22YMDL6BIbMystmCKkPI+nwn1pR8NXqTrpC0e0f0h9JqXNK3tRvwPPjsv4mJT6yv4
-	 vAiby6kxyfeUHmKIPcxqzg6JXwA65PhNTHUA7iZJ5YxdYmIqnzPyMvCWmLqkfzye6lEW8
-	 28KhNiVXjK2g3g6NYrbnm4rmmbQiN49+Zo6YOODOg9/Xvk3aJytFnlxgeK73A+rCWNda5
-	 5QW+NCoYXjZy8G+rHaY3wiARtSRI4krPcwPP+DP9rydoYS/Uuxuq3/TDirJwZggCQdg==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=QiVhlg8PK0EXHT5yLV9TOuy7BvyVkJeFBZQ8v8yoP6Y=;
+	b=vkPs5WHihc3HJMnb1NCWVKESJOhg8wE8pz69cbreDMf3EsDsbsoTy4UMCJPmsoDz//I/
+	 K2spTSA6K7T7FzqrnZqpuKvs8Q5orZQ/Wxjf3pFbeNkwq2hAgQDDQ7rP0YwRxzBraHlOm
+	 WrNg9OHjNTww+e8mSwiM1yZMEGyD7onPzk7NO4HhJz/oD3esyM+G6xEQN5CEK1CZOfC5y
+	 5IuKuxFJdBBJSM/2ic8SWqc6/87Gu/WjZsJGFheLdX5mveV1GKNGpJ3U/ecsQmjEk6xQe
+	 UdD2RNFoLVPOUzawl9o5+MCodQYlccqVqmaj5ajSCDBqRvNUIN+rNZlmwOp7V2AIjRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nS5fF5SI;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ysD9VIYI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7CD606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:46:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4275606A31E;
+	Wed, 25 Nov 2026 16:46:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nS5fF5SI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BCC41F000D0;
-	Wed, 25 Nov 2026 16:46:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795625183;
-	bh=VU72rpOO5ddas+cFunqgy4ik+zVyuMSbRCton92hcTM=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ysD9VIYI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A56BB1F000D0;
+	Wed, 25 Nov 2026 16:46:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795625186;
+	bh=QiVhlg8PK0EXHT5yLV9TOuy7BvyVkJeFBZQ8v8yoP6Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nS5fF5SIG0gcE8qxv3yVzITSwd/o+rtmkKsyWwpIiUcZj5Z2RRzcaU7NkKX+9NdLY
-	 h9khlM00f+p73Px7KRGHIZHXFAHe7uuSVUvgYTHllLyHReByM2vJpQSwZAnf0hsjPH
-	 Q79gi3XH373ZnsTM88jN/MOKiQ2fg+extk/rs/ARgxZzwbzrE8NZuORlSFws0yAo5d
-	 aCx4jFqJ4TDhr6M9NmwHRkF3V8oEEfjVi6uuBUfU2BMOS8EaRsWQE82Df3LGAxfO5n
-	 UVaZnJvG3U/X+Qd83xwHs+JgG8vlRmmiFYZsJUFCgIWA7nQJM+rWm+uUxQLiNK+b47
-	 EeCpvM41vZAbw==
-From: Sasha Levin <sashal@kernel.org>
+	b=ysD9VIYIE22YqEgVmDghAOF6Z9YuJcMqJzYDSn5KpzPb7bWIoeCboc9vL+lZYBTgD
+	 XNcTxXKwnO+T+rqaH51vVx2bOWDzPL8zxHcNWCN4ic0ZVrTV75NQGBzYUUSaxUw+t3
+	 phxKrGDrpjN7IFClYSvxFqyOR6HrJi/UT7+K3MsE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Vishwaroop A <va@nvidia.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Kim Wooseok <5mghybrid@khu.ac.kr>,
+	Ping-Ke Shih <pkshih@realtek.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] spi: tegra210-quad: Track DMA mapping state
-Date: Wed, 25 Nov 2026 11:46:22 -0500
-Message-ID: <20261125164549.857475-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112553-rudder-camera-262f@gregkh>
-References: <2026112553-rudder-camera-262f@gregkh>
+Subject: [PATCH 6.12 417/816] wifi: rtl8xxxu: preserve RX requests across recoverable transfer errors
+Date: Wed, 25 Nov 2026 15:32:45 +0100
+Message-ID: <20261125143858.850082984@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,115 +64,177 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vishwaroop A <va@nvidia.com>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 7b9e6f7bc13c0259b192d0a964e802d4ad53b8b8 ]
+------------------
 
-tegra_qspi_dma_unmap_xfer() assumes a streaming mapping is always
-outstanding and recomputes its length from the live
-tqspi->curr_dma_words. Nothing records whether tegra_qspi_dma_map_xfer()
-mapped anything, so neither assumption holds.
+From: Kim Wooseok <5mghybrid@khu.ac.kr>
 
-For a multi-chunk transfer, handle_dma_based_xfer() unmaps the chunk that
-just completed, recalculates the parameters for the next chunk, which
-overwrites curr_dma_words, and re-arms the hardware. If
-tegra_qspi_start_dma_based_transfer() then fails at its
-tegra_qspi_dma_map_xfer() call, nothing is mapped. That early return also
-sits above the smp_store_release() that clears tqspi->trans_status, so the
-previous chunk's QSPI_RDY survives, and the re-arm's return value is never
-checked, so handle_dma_based_xfer() returns IRQ_HANDLED without completing
-the transfer.
+[ Upstream commit 2f77c66694108785a1f6ae6c5de06453e7f7a91f ]
 
-The caller times out, tegra_qspi_handle_timeout() sees the stale QSPI_RDY,
-concludes the transfer completed and calls handle_dma_based_xfer() again.
-No DMA completion arrives, so num_errors is incremented and
-tegra_qspi_dma_unmap_xfer() runs with nothing mapped. t->tx_dma then holds
-either the DMA_MAPPING_ERROR sentinel or, if the RX mapping was the one
-that failed, the preceding chunk's address that has already been released.
-Behind an IOMMU the latter frees an IOVA that may since have been
-reallocated.
+rtl8xxxu resubmits completed RX requests when more than eight URBs are
+waiting on the pending list. It starts with 32 URBs, but frees them on
+completion errors. After enough errors, the remaining pool can no longer
+reach the submission threshold. Reception then stays stopped even after
+the errors end. Temporary submission failures can leave a small batch
+waiting with no further work scheduled, too.
 
-Record whether a mapping is outstanding and the length that was mapped,
-and return early from tegra_qspi_dma_unmap_xfer() when there is nothing to
-release. is_dma_mapped is only updated under tqspi->lock, or on the timeout
-path after synchronize_irq() and cancel_work_sync() have quiesced the ISR
-and the bottom half.
+Keep the URB when a completion reports EPROTO, EILSEQ, ETIME, EOVERFLOW,
+ECOMM or ENOSR. Free its receive buffer and return the request to the
+same pending list used by normal completions. ENOMEM/EAGAIN from startup
+or worker submission uses this path as well, so a submission failure
+cannot strand a request during recovery.
 
-Also skip releasing the TX mapping on the RX failure path unless a TX
-mapping was created; t->tx_dma is uninitialised when t->tx_buf is NULL.
+Use one delayed work item to submit the pending requests. An error
+queues a retry after 100 ms without moving an existing reservation back.
+If a normal completion takes the pending count above eight,
+mod_delayed_work(..., 0) brings the work forward. This limits repeated
+retries when reception is not progressing, while allowing normal traffic
+to replenish the pool promptly. The 100 ms delay is therefore not a
+minimum wait for each failed URB.
 
-Fixes: 921fc1838fb0 ("spi: tegra210-quad: Add support for Tegra210 QSPI controller")
-Suggested-by: Mark Brown <broonie@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Vishwaroop A <va@nvidia.com>
-Link: https://patch.msgid.link/20261026111412.3843954-3-va@nvidia.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ sashal: Replaced the single tqspi->dev DMA device uses for the missing tx_dma_dev/rx_dma_dev split, keeping the upstream mapping-state tracking and unmap logic unchanged. ]
+Keep the shutdown check, queue insertion and scheduling under the RX
+lock. Stop sets shutdown under that lock, cancels the delayed work
+synchronously, then drains active and pending requests. Cancellation and
+device removal continue to free their URBs.
+
+Fixes: 26f1fad29ad9 ("New driver: rtl8xxxu (mac80211)")
+Assisted-by: GPT-6 Astra
+Signed-off-by: Kim Wooseok <5mghybrid@khu.ac.kr>
+Reviewed-by: Ping-Ke Shih <pkshih@realtek.com>
+Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
+Link: https://patch.msgid.link/20260921-codex-rtl-rx-v3-submit-v4-3-eeb09fe8f791@khu.ac.kr
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/spi/spi-tegra210-quad.c | 31 ++++++++++++++++++++++++++-----
- 1 file changed, 26 insertions(+), 5 deletions(-)
+ drivers/net/wireless/realtek/rtl8xxxu/core.c  | 46 ++++++++++++-------
+ .../net/wireless/realtek/rtl8xxxu/rtl8xxxu.h  |  2 +-
+ 2 files changed, 30 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/spi/spi-tegra210-quad.c b/drivers/spi/spi-tegra210-quad.c
-index 14dd98b92bd93..ca91a69ea059e 100644
---- a/drivers/spi/spi-tegra210-quad.c
-+++ b/drivers/spi/spi-tegra210-quad.c
-@@ -207,6 +207,17 @@ struct tegra_qspi {
- 	bool					is_packed;
- 	bool					use_dma;
+diff --git a/drivers/net/wireless/realtek/rtl8xxxu/core.c b/drivers/net/wireless/realtek/rtl8xxxu/core.c
+index d9ef95f08911f..e124519d77c09 100644
+--- a/drivers/net/wireless/realtek/rtl8xxxu/core.c
++++ b/drivers/net/wireless/realtek/rtl8xxxu/core.c
+@@ -57,6 +57,7 @@ MODULE_PARM_DESC(dma_agg_pages, "Set DMA aggregation pages (range 1-127, 0 to di
+ #define USB_VENDOR_ID_REALTEK		0x0bda
+ #define RTL8XXXU_RX_URBS		32
+ #define RTL8XXXU_RX_URB_PENDING_WATER	8
++#define RTL8XXXU_RX_URB_RETRY_DELAY_MS	100
+ #define RTL8XXXU_TX_URBS		64
+ #define RTL8XXXU_TX_URB_LOW_WATER	25
+ #define RTL8XXXU_TX_URB_HIGH_WATER	32
+@@ -5882,9 +5883,8 @@ static int rtl8xxxu_alloc_rx_urbs(struct rtl8xxxu_priv *priv)
+ }
  
-+	/*
-+	 * Set while a streaming mapping created by
-+	 * tegra_qspi_dma_map_xfer() is outstanding, together with the
-+	 * length that was handed to dma_map_single(). is_curr_dma_xfer
-+	 * only records that the last armed chunk took the DMA path,
-+	 * which is not the same thing: a chunk whose mapping failed
-+	 * leaves the DMA path flagged with nothing mapped.
-+	 */
-+	bool					is_dma_mapped;
-+	unsigned int				dma_map_len;
-+
- 	u32					command1_reg;
- 	u32					dma_control_reg;
- 	u32					def_command1_reg;
-@@ -586,22 +597,32 @@ static int tegra_qspi_dma_map_xfer(struct tegra_qspi *tqspi, struct spi_transfer
- 	if (t->rx_buf) {
- 		t->rx_dma = dma_map_single(tqspi->dev, (void *)rx_buf, len, DMA_FROM_DEVICE);
- 		if (dma_mapping_error(tqspi->dev, t->rx_dma)) {
--			dma_unmap_single(tqspi->dev, t->tx_dma, len, DMA_TO_DEVICE);
-+			if (t->tx_buf)
-+				dma_unmap_single(tqspi->dev, t->tx_dma,
-+						 len, DMA_TO_DEVICE);
- 			return -ENOMEM;
- 		}
+ static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
+-				  struct rtl8xxxu_rx_urb *rx_urb)
++				  struct rtl8xxxu_rx_urb *rx_urb, bool defer_schedule)
+ {
+-	struct sk_buff *skb;
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&priv->rx_urb_lock, flags);
+@@ -5892,16 +5892,13 @@ static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
+ 	if (!priv->shutdown) {
+ 		list_add_tail(&rx_urb->list, &priv->rx_urb_pending_list);
+ 		priv->rx_urb_pending_count++;
+-		/*
+-		 * Arm the worker under rx_urb_lock so this is atomic with the
+-		 * shutdown check: moving it out of the lock would let a
+-		 * completion arm the work after rtl8xxxu_stop() canceled it.
+-		 */
+-		if (priv->rx_urb_pending_count > RTL8XXXU_RX_URB_PENDING_WATER)
+-			schedule_work(&priv->rx_urb_wq);
++		/* Serialize scheduling with the shutdown check and cancellation. */
++		if (defer_schedule)
++			schedule_delayed_work(&priv->rx_urb_wq,
++					      msecs_to_jiffies(RTL8XXXU_RX_URB_RETRY_DELAY_MS));
++		else if (priv->rx_urb_pending_count > RTL8XXXU_RX_URB_PENDING_WATER)
++			mod_delayed_work(system_percpu_wq, &priv->rx_urb_wq, 0);
+ 	} else {
+-		skb = (struct sk_buff *)rx_urb->urb.context;
+-		dev_kfree_skb_irq(skb);
+ 		usb_free_urb(&rx_urb->urb);
  	}
  
-+	tqspi->dma_map_len = len;
-+	tqspi->is_dma_mapped = true;
-+
- 	return 0;
- }
+@@ -5928,7 +5925,7 @@ static int rtl8xxxu_submit_rx_urbs(struct rtl8xxxu_priv *priv, bool startup)
+ 			break;
+ 		case -ENOMEM:
+ 		case -EAGAIN:
+-			rtl8xxxu_queue_rx_urb(priv, rx_urb);
++			rtl8xxxu_queue_rx_urb(priv, rx_urb, true);
+ 			break;
+ 		default:
+ 			usb_free_urb(&rx_urb->urb);
+@@ -5951,7 +5948,8 @@ static int rtl8xxxu_submit_rx_urbs(struct rtl8xxxu_priv *priv, bool startup)
  
- static void tegra_qspi_dma_unmap_xfer(struct tegra_qspi *tqspi, struct spi_transfer *t)
+ static void rtl8xxxu_rx_urb_work(struct work_struct *work)
  {
--	unsigned int len;
-+	if (!tqspi->is_dma_mapped)
-+		return;
+-	struct rtl8xxxu_priv *priv = container_of(work, struct rtl8xxxu_priv, rx_urb_wq);
++	struct rtl8xxxu_priv *priv = container_of(to_delayed_work(work),
++					       struct rtl8xxxu_priv, rx_urb_wq);
  
--	len = DIV_ROUND_UP(tqspi->curr_dma_words * tqspi->bytes_per_word, 4) * 4;
-+	if (t->tx_buf)
-+		dma_unmap_single(tqspi->dev, t->tx_dma,
-+				 tqspi->dma_map_len, DMA_TO_DEVICE);
-+	if (t->rx_buf)
-+		dma_unmap_single(tqspi->dev, t->rx_dma,
-+				 tqspi->dma_map_len, DMA_FROM_DEVICE);
- 
--	dma_unmap_single(tqspi->dev, t->tx_dma, len, DMA_TO_DEVICE);
--	dma_unmap_single(tqspi->dev, t->rx_dma, len, DMA_FROM_DEVICE);
-+	tqspi->is_dma_mapped = false;
+ 	rtl8xxxu_submit_rx_urbs(priv, false);
  }
+@@ -6607,10 +6605,24 @@ static void rtl8xxxu_rx_complete(struct urb *urb)
  
- static int tegra_qspi_start_dma_based_transfer(struct tegra_qspi *tqspi, struct spi_transfer *t)
+ 		skb = NULL;
+ 		rx_urb->urb.context = NULL;
+-		rtl8xxxu_queue_rx_urb(priv, rx_urb);
++		rtl8xxxu_queue_rx_urb(priv, rx_urb, false);
+ 	} else {
+ 		dev_dbg(dev, "%s: status %i\n",	__func__, urb->status);
+-		goto cleanup;
++
++		switch (urb->status) {
++		case -EPROTO:
++		case -EILSEQ:
++		case -ETIME:
++		case -EOVERFLOW:
++		case -ECOMM:
++		case -ENOSR:
++			dev_kfree_skb(skb);
++			urb->context = NULL;
++			rtl8xxxu_queue_rx_urb(priv, rx_urb, true);
++			return;
++		default:
++			goto cleanup;
++		}
+ 	}
+ 	return;
+ 
+@@ -7540,7 +7552,7 @@ static void rtl8xxxu_stop(struct ieee80211_hw *hw, bool suspend)
+ 	 * it drained via rtl8xxxu_submit_rx_urb(), so a worker still running
+ 	 * after the kill could submit a URB that escapes it.
+ 	 */
+-	cancel_work_sync(&priv->rx_urb_wq);
++	cancel_delayed_work_sync(&priv->rx_urb_wq);
+ 
+ 	usb_kill_anchored_urbs(&priv->rx_anchor);
+ 	usb_kill_anchored_urbs(&priv->tx_anchor);
+@@ -7853,7 +7865,7 @@ static int rtl8xxxu_probe(struct usb_interface *interface,
+ 	spin_lock_init(&priv->tx_urb_lock);
+ 	INIT_LIST_HEAD(&priv->rx_urb_pending_list);
+ 	spin_lock_init(&priv->rx_urb_lock);
+-	INIT_WORK(&priv->rx_urb_wq, rtl8xxxu_rx_urb_work);
++	INIT_DELAYED_WORK(&priv->rx_urb_wq, rtl8xxxu_rx_urb_work);
+ 	INIT_DELAYED_WORK(&priv->ra_watchdog, rtl8xxxu_watchdog_callback);
+ 	INIT_DELAYED_WORK(&priv->update_beacon_work, rtl8xxxu_update_beacon_work_callback);
+ 	skb_queue_head_init(&priv->c2hcmd_queue);
+diff --git a/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h b/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h
+index f42463e595cc2..c6a4a58a92512 100644
+--- a/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h
++++ b/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h
+@@ -1803,7 +1803,7 @@ struct rtl8xxxu_priv {
+ 	struct list_head rx_urb_pending_list;
+ 	int rx_urb_pending_count;
+ 	bool shutdown;
+-	struct work_struct rx_urb_wq;
++	struct delayed_work rx_urb_wq;
+ 
+ 	u8 mac_addr[ETH_ALEN];
+ 	char chip_name[8];
 -- 
 2.53.0
+
+
 
