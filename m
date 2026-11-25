@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795602900;
-	b=dE/5122AKTyXuj2BDJDtE+0EDw56+T5x4gwAlotj96giZ2m8g/IL4m+8lzRpvnWsQl40
-	 RzNCOo3+ivD+YVDpz7LUMez1NCmcbvYMcU1p6pcRANYoJ0F9p7HWkXVbsx6dAsXPem7hD
-	 PnMTPHpMNsAD6n9fg8PUqhvxnD6oBSUMyBpENyVkTwYd1+UnV7M9zWtHoG8B/kIrhuV0y
-	 +Ov7vlJqcy6ZJcK6JYYCZaqe4WEJsKWFUtMmiutYWHlK3jjCf2z27kZyq5dFaJxKrRrVA
-	 fDzq/r1JjPq8tw4r7SLIeL0ZBt65KRfTpqVuEUvaN+n2ygE+88bZpWQFDaAupnauIPQ==
+	t=1795602903;
+	b=Ib4qGkMRpgLYMZ1izH441aAWM+IaWjt4dNS+aS2Xzt2uVvbvG6mW6IBGWNnVDztPNqCB
+	 wZN/Cm7FzP/K4KeU0nVhDAinTcLRqGj0nyV8zplqSag8WyLCNFd+59lkTPatAscIhRykD
+	 jy2oSxywTc7+08wBH/VOZ53cEl6xoz3fwZtStk1s6431fKxPpnmFUgiJ9JaZfhfTks0sG
+	 wDqobc6kfXJOgbzVL07gyNz7627He2oCLbiFmAYHugU7gLo900ifDxhvSgM/D56KLJc9R
+	 LpHPr3UdDnP2S6cdtzcXywKXStO4+pps6l7bz/1yeLPyOWveJD50xXkTp5YXWlhKUQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602900;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602903;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=z1pdvccz9fYrtq7ZWqiE4PZ9BPpQaoT6rI4aq/rLiM0=;
-	b=0GOkcE2ubVlnNtJV9IoRSlD8bwmJV0m6YnpDIAiwJKV6AOtnWaRnkjemTHqob9gvrAiL
-	 BLoY8Xs1ELiVe6x/RlRshADl+jRYlb/0EnOvEWhknZGxLJ0I0pNdHpA38isMKHL0iJ1el
-	 rpZKkp58nmUoF+6oZWFErfkvs6hzDqI1qNLxBxhQH4BYHseM3zC5T7OzOe1MB/+kVb2wI
-	 TX/nrlj9BFaXjpR6H7orgTChmztR0fbVos2WnSGwU3C6lso4/xdSYXWVX1LHqnwgnXb4T
-	 kvSeim7tqN0jblgd4icxiDrl12tI98CrEZtuxKM+JE2APnpL3S9xwiXh00QblwJ0Vnw==
+	bh=agYbPGuGrV/VEe1MmuC3BUBoK+nklxogpAFhwVoMM2s=;
+	b=lEppwi1CqRYcAZXAh4rjlJTdYPNS+fYpzLdWQ4JEhbJehMAOk4SowoOyBzB9dnkISjv+
+	 BuMSZHRLGtwPTrJv41NxCSqbcU1BvOHDm9/TLsCLSxzxxEQEOSEkI+xCzXV3Pd0+o4CiT
+	 KeRcJYW67mhF4eIlohVP0Q4BegfbMoYOlvzDskUAmlRyOwdEcb2WSULPTG3dCAMthjLJh
+	 TbZZREjRERTzEZTn0BIHz/Qgku7yZ2Wuy1gVabQjQCOpVSZMSlhqRs6lCJVuQRFwJjIk1
+	 QaSe00PWCOnNsaMj7lzjtvGiVolL8eLRiNUU0ZMOK50MI59cq+9VP47Cy89OyJg6eGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Zoxl/Wzj";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=admMGgza;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8CF606A336
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:35:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E95AD606A687
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:35:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Zoxl/Wzj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF9DF1F000C4;
-	Wed, 25 Nov 2026 10:34:58 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=admMGgza
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B4311F000CF;
+	Wed, 25 Nov 2026 10:35:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795602899;
-	bh=z1pdvccz9fYrtq7ZWqiE4PZ9BPpQaoT6rI4aq/rLiM0=;
+	s=korg; t=1795602902;
+	bh=agYbPGuGrV/VEe1MmuC3BUBoK+nklxogpAFhwVoMM2s=;
 	h=Subject:To:Cc:From:Date;
-	b=Zoxl/WzjEpTa0pfGUiU1Z2EtMMsgBED8fPeNl5g+HgpqndUELIwIS33eep70ttXhH
-	 dZ4gpBZ2SWtViphjfX9UdByQ0LR99iTphEAsLN/f/Kl/7nxCBGE3QTGepgRlB5HzXl
-	 WajyfXMgCdOoO4IqOXWl8NPcvsTHJPviNkV7pvs8=
-Subject: FAILED: patch "[PATCH] kprobes: Switch ftrace ops when adding probe with" failed to apply to 5.10-stable tree
+	b=admMGgzabQUgMgLwdU6GB6kN18J0KzQwqo3n4xkfEPxeJCp/5bdAmUssiAEeOihfw
+	 uPRuhSU7cTXFtBLyPdQ+VtliDglCj8UBULwZ5SOWGi3ZPZxljikQCdDL7py6lEDJ1T
+	 lP11sWN4GSlNpecEHp9Whh/hznqcC7PAVkuRQVII=
+Subject: FAILED: patch "[PATCH] kprobes: Switch ftrace ops when adding probe with" failed to apply to 5.15-stable tree
 To: mhiramat@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:17:29 +0100
-Message-ID: <2026112529-fragility-commence-4ad2@gregkh>
+Message-ID: <2026112529-observer-seventy-3bee@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x f60f98881b54b0cf36b61f41c91fbd93b76a2d9c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112529-fragility-commence-4ad2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112529-observer-seventy-3bee@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
