@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795635229;
-	b=ryTQhCdEEBNXOVdyMLSDN41xVY0w7aMN3NEHkvJvNFOACxSkvvEijrX5OqcsFdL7lbWE
-	 4vsF/SH5OQ2Clz26E3pKlI7OtVl3RzoO1txlvG7Cef2Bigk24K9D1m7iNQpQRUvVb7Jzj
-	 U1I86XDrK+FmeFKRxKhi+NFSbSlcPBrHqz9jdsJtbsNHJztoOE+zBBgx3Thz8znFfPMda
-	 nekrvBYya1mzhptBSEzx16ktzkhcfmYYUGgiUsbbTCJLl6ZwFMEx5oVlzPjKbdElV0Rcs
-	 OxxRds7IFEoCmZ3NbFbpLT2rJwYPwRnx725ArA9LnXgdB5DKMd7RZiz4hP8f3O9n48Q==
+	t=1795635383;
+	b=x1DhuzYtQId95VYrRV39Y7GsmEQYWB/0NDQ2125Z/sWXTgeiwTOcbOCov8XXl/Bq0Xlq
+	 V+Pd6qxWskxDHMv+OJmU+lB+gDNWKXWUEskj2MCA48sndpddAG4tXWdbJIyJhzYLwLz/F
+	 ajpzrsI8MHflhzqAXH3725vfWedZXPKZ2wR0NROQHRPorfbQiNVEQdPI1sHEmR5wNK7GV
+	 YGNNqAP5xayzMYvkw8HQjtZWcqjpyjtPjoiMBexvNKcIOKK2UZrHfnqOsmt/U2T4j1hrN
+	 3dP1bhTuHft33ZwEQMsNjtxAO5rfBt+mQrzvC4QwSgkvzlhhAKEk7gWBUw3UaPzrXgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795635229;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795635383;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=yIbaKtslxnJmQDYjDbu1TNvi51fdcDXe9JHF3oJAvG8=;
-	b=IJlN+zCD7hUeu2vJsure+GOSF76F4AWJe5i35aH2xJBU8SQtdjix5ZDui/RHgOPBLBe3
-	 uGghxAxTZbBro4ZAT4efSpzkpift1/IdLXKn9UImrByocf6WjBwzINytyg/qHCwnSq23U
-	 BdW2PZEx+WtB2mbwmKm+TfL1Gbe1Dk+elOkKCqWnXaNQP3NFKKslBKrAdXStPAT6+qIvT
-	 GnRYrBdJHVygxZoyZWfwcH3xL97CrSf7x9zCaGgnENn6ro49hJZmOS0tm86IHOE3aCca5
-	 Nq37XdJGuXtSvJdO2XrF1LVhEm4mKh9eK8TuIrmquq0dTKxASx0PEeBYgkbhTVJIOvQ==
+	bh=d7097RO47fQNy2MB+ahoa9VjJXwIAUyj2/5v7GkBxhg=;
+	b=LISIf2vo9GS326AcfxzpTdoDaa6+jFFjdi6wcL+GTXFZb+khiwX7YwqarX5gkiaSJn8k
+	 1ccYohi3B7oNzQzHdH6ykDsRi5BSpyTL0+pwVk+z3pjsQYMsCwnJboVYUVAb9OfIxHUjU
+	 zDqXzilXBlA+bNbnM6r/IXB8Fmp1w+9ptrPj4PgLZuyQqMGygjQYCSdvtuHM9tSRLtCZP
+	 MXW8/DuVpi5BZvWoBOPljMIEUPCVcA7M7QngLABECFNKSoA5IWqTI79xjiS5aaTYhWFJp
+	 1FV+oZrREuZCgKUxzMjmhaXX3jg2iJvALGojFb6LaWLwtfNJxw+zfGfrFTBHWrOeXPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mZgLt2Xg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MO8lBljK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD5F6606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:33:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02013606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:36:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mZgLt2Xg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 558681F000CA;
-	Wed, 25 Nov 2026 19:33:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MO8lBljK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D17471F000C4;
+	Wed, 25 Nov 2026 19:36:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795635229;
-	bh=yIbaKtslxnJmQDYjDbu1TNvi51fdcDXe9JHF3oJAvG8=;
+	s=k20260515; t=1795635382;
+	bh=d7097RO47fQNy2MB+ahoa9VjJXwIAUyj2/5v7GkBxhg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mZgLt2XgjNjF31Hl08pFFK0Xw7oSQ2flvkGO9Vul92TG4EaK8De4Xe1oF8shn8XqM
-	 u4HWJLNqbkmWnJ9AKpon7baYa3QUflUGuHmdGQsD4qEdpSJeNJD8gIXPFoRijHPgYC
-	 2vOl02hMLROWgmvRxI4cT8qXl1e+2uSje5y1ZdnNgJIvnZo7krnvoQBqrXK0NbACLJ
-	 WcD/v9RxvQ3yyL0XL8mut5SqbkpoulIJhPEXVpxn+7Oi7f6UtKdqY7/4og41W+AbVH
-	 MOGcKVl64O9bDdtJA6AeZbLHiplC2FMrxtR4yqomz0MlyyUURuADDNqc1ZWa4BJKVI
-	 8PvsPnNEHKGEw==
+	b=MO8lBljKskyJcYcD0oCXA39/M1J5Oc4ufFxb2vZxZOKWwboG8mE5gDvnTOPnJGQJQ
+	 Ek8TrkjcHNsOlotw86V/a86fOnwXoZfK8e0vHa4Req2L3EDXi9OYt1uEr7VOolp5/4
+	 xCHXGEXKJGstr6x1ATfWrbUtwSW0L3BpBMKxa2ZalNauisc3g578PHDWQ1jnEK70Mi
+	 6fpz/han9H+MMTapBKXg4t7JZzUZT7tv8RsN2Pagx8Sa/BuM2AAhBSe14UQ35pn0+U
+	 IwBKf29GKh78ezsOcC96rzXOaap46pK7ekKFvYT3BuhEysUWWHOfWkMFGdkab5Ijqx
+	 rxZV+NbCET+Cw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Seiji Nishikawa <snishika@redhat.com>,
-	syzbot+681e729b2cf0d4860042@syzkaller.appspotmail.com,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
+Cc: Wahid Khan <wahidzk0091@gmail.com>,
+	Ian Bridges <icb@fastmail.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] sched/core: Do not touch SMT siblings that have not joined the core yet
-Date: Wed, 25 Nov 2026 14:33:46 -0500
-Message-ID: <20261125193317.1265729-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ksmbd: refuse to read a handle that is not open for reading
+Date: Wed, 25 Nov 2026 14:36:20 -0500
+Message-ID: <20261125193556.1280033-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112544-rug-sasquatch-146c@gregkh>
-References: <2026112544-rug-sasquatch-146c@gregkh>
+In-Reply-To: <2026112526-cider-posing-d58d@gregkh>
+References: <2026112526-cider-posing-d58d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,164 +62,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Seiji Nishikawa <snishika@redhat.com>
+From: Wahid Khan <wahidzk0091@gmail.com>
 
-[ Upstream commit ec6f6731538e0d45872eb279fdeb477bed152d6f ]
+[ Upstream commit 2fd145f8865bb1a6c38a3dc68fa44290008789d8 ]
 
-When a CPU comes online, it is added to cpu_smt_mask() of its siblings
-before sched_core_cpu_starting() sets its rq->core to the core leader.
-For example, on x86, ap_starting() calls set_cpu_sibling_map() first,
-and calls notify_cpu_starting() after that. This order is intended.
+smb2_create_open_flags() picks the open mode from the read and write
+bits of the desired access. FILE_EXECUTE and FILE_READ_ATTRIBUTES select
+neither, so a request for FILE_WRITE_DATA | FILE_EXECUTE |
+FILE_READ_ATTRIBUTES opens the file O_WRONLY.
 
-Before sched_core_cpu_starting() runs, rq->core of the new CPU still
-points to its own rq. But rq->core_enabled of the new CPU is already
-set. __sched_core_flip() sets it for all possible CPUs, also for
-offline CPUs, and CPU offline does not clear it. So __rq_lockp() of the
-new CPU returns its own rq->__lock. It does not return the core wide
-lock.
+smb2_read() accepts FILE_READ_ATTRIBUTES and ksmbd_vfs_read() accepts
+FILE_EXECUTE, so a later READ on that handle passes both checks and
+reaches __kernel_read() on a file that has no FMODE_READ:
 
-If a sibling CPU runs pick_next_task() for SCHED_CORE at this time, it
-checks all CPUs in cpu_smt_mask(). It calls update_rq_clock() and
-pick_task() for the rq of the new CPU. But it holds only its own core
-lock, not the lock of the new CPU. Then lockdep shows this warning in
-update_rq_clock().
+  WARNING: fs/read_write.c:518 at __kernel_read
+   __kernel_read
+   ksmbd_vfs_read
+   smb2_read
+   handle_ksmbd_work
 
-  debug_locks && !(lock_is_held(&(__rq_lockp(rq))->dep_map) != 0)
-  WARNING: kernel/sched/sched.h:1666 at update_rq_clock+0x40a/0xd20 kernel/sched/core.c:875, CPU#0: syz-executor251/5712
-  Call Trace:
-   <TASK>
-   pick_next_task kernel/sched/core.c:6375 [inline]
-   __schedule+0x1c69/0x6920 kernel/sched/core.c:7199
-   preempt_schedule_irq+0x4e/0x90 kernel/sched/core.c:7606
+Any client that can open a file with write access on a share, including
+a guest session, can trigger it; with panic_on_warn it takes the machine
+down.
 
-The next loops in pick_next_task() also change rq_i->core_pick of this
-rq, and can call resched_curr() for it, without its lock.
-resched_curr() has the same lockdep_assert_rq_held() check.
-__sched_core_account_forceidle() also checks all CPUs in the same mask.
+Return STATUS_ACCESS_DENIED when the file is not readable.
 
-CPU offline does not have this problem. remove_siblinginfo() and
-sched_core_cpu_dying() both run in take_cpu_down() under stop_machine.
-So no sibling CPU can be in pick_next_task() at that time.
-
-Fix this. In these loops, skip a sibling CPU if its rq->core is
-different from our rq->core. At run time, rq->core of a CPU is changed
-by sched_core_cpu_starting(), sched_core_cpu_deactivate() and
-sched_core_cpu_dying(). The first two hold sched_core_lock(), and
-sched_core_lock() takes the rq locks of all CPUs in the SMT mask. The
-last one runs under stop_machine, as written above. So while we hold
-our core lock, the result of this check does not change. A CPU that is
-not in the core yet will pick its own tasks. The comment in the
-reschedule loop of pick_next_task() already expects this case.
-
-I tested this with the syzbot C reproducer in QEMU. The two vCPUs were
-SMT siblings (-smp 2,sockets=1,cores=1,threads=2). Without this patch,
-the warning came after about 100 seconds. Just before the warning, a
-debug print showed that the loop on CPU 0 saw CPU 1 with rq->core
-pointing to CPU 1 itself, and cpu_online() was false for CPU 1. With
-this patch, the same state still happened, but there was no warning
-in more than 2 hours.
-
-Fixes: 3c474b3239f1 ("sched: Fix Core-wide rq->lock for uninitialized CPUs")
-Closes: https://syzkaller.appspot.com/bug?extid=681e729b2cf0d4860042
-Reported-by: syzbot+681e729b2cf0d4860042@syzkaller.appspotmail.com
-Signed-off-by: Seiji Nishikawa <snishika@redhat.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Fixes: f44158485826 ("cifsd: add file operations")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261104022004.3810619-1-snishika@redhat.com
-[ sashal: Reworked the four SMT-mask loops in pick_next_task() to the older 5.15 code (including the extra reset loop) and dropped the core_sched.c hunk because the forceidle accounting function doesn't exist here. ]
+Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
+Reviewed-by: Ian Bridges <icb@fastmail.org>
+Tested-by: Ian Bridges <icb@fastmail.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: Adapted the posix check to the older !work->tcon->posix_extensions condition instead of !fp->is_posix_ctxt. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/core.c  | 10 ++++------
- kernel/sched/sched.h | 19 +++++++++++++++++++
- 2 files changed, 23 insertions(+), 6 deletions(-)
+ fs/smb/server/vfs.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index c4e9fac7507a9..03d88a2df6da7 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -5768,7 +5768,6 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
- {
- 	struct task_struct *next, *max = NULL;
- 	const struct sched_class *class;
--	const struct cpumask *smt_mask;
- 	bool fi_before = false;
- 	int i, j, cpu, occ = 0;
- 	bool need_sync;
-@@ -5815,7 +5814,6 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
+diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
+index 892ca634d1d66..1524454ef6de9 100644
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@ -394,6 +394,10 @@ int ksmbd_vfs_read(struct ksmbd_work *work, struct ksmbd_file *fp, size_t count,
+ 	if (ksmbd_stream_fd(fp))
+ 		return ksmbd_vfs_stream_read(fp, rbuf, pos, count);
  
- 	put_prev_task_balance(rq, prev, rf);
- 
--	smt_mask = cpu_smt_mask(cpu);
- 	need_sync = !!rq->core->core_cookie;
- 
- 	/* reset state */
-@@ -5861,7 +5859,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
- 		}
- 	}
- 
--	for_each_cpu(i, smt_mask) {
-+	for_each_core_cpu(i, rq) {
- 		struct rq *rq_i = cpu_rq(i);
- 
- 		rq_i->core_pick = NULL;
-@@ -5876,7 +5874,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
- 	 */
- 	for_each_class(class) {
- again:
--		for_each_cpu_wrap(i, smt_mask, cpu) {
-+		for_each_core_cpu_wrap(i, rq) {
- 			struct rq *rq_i = cpu_rq(i);
- 			struct task_struct *p;
- 
-@@ -5921,7 +5919,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
- 
- 				if (old_max) {
- 					rq->core->core_forceidle = false;
--					for_each_cpu(j, smt_mask) {
-+					for_each_core_cpu(j, rq) {
- 						if (j == i)
- 							continue;
- 
-@@ -5949,7 +5947,7 @@ pick_next_task(struct rq *rq, struct task_struct *prev, struct rq_flags *rf)
- 	 * their task. This ensures there is no inter-sibling overlap between
- 	 * non-matching user state.
- 	 */
--	for_each_cpu(i, smt_mask) {
-+	for_each_core_cpu(i, rq) {
- 		struct rq *rq_i = cpu_rq(i);
- 
- 		/*
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index f58040a51e334..fb01b88a14c57 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1193,6 +1193,25 @@ static inline raw_spinlock_t *__rq_lockp(struct rq *rq)
- 	return &rq->__lock;
- }
- 
-+/*
-+ * A CPU coming online is set in cpu_smt_mask() before
-+ * sched_core_cpu_starting() links its rq->core to the core leader.
-+ * Until then it does not share the core-wide lock, so it must not be
-+ * touched as part of the core.
-+ */
-+static inline bool sched_core_sibling(struct rq *rq, struct rq *rq_i)
-+{
-+	return rq_i->core == rq->core;
-+}
++	/* The access granted on open can include FILE_EXECUTE for a write-only file */
++	if (!(filp->f_mode & FMODE_READ))
++		return -EACCES;
 +
-+#define for_each_core_cpu(i, rq) \
-+	for_each_cpu(i, cpu_smt_mask(rq->cpu)) \
-+		if (sched_core_sibling(rq, cpu_rq(i)))
-+
-+#define for_each_core_cpu_wrap(i, rq) \
-+	for_each_cpu_wrap(i, cpu_smt_mask(rq->cpu), rq->cpu) \
-+		if (sched_core_sibling(rq, cpu_rq(i)))
-+
- bool cfs_prio_less(struct task_struct *a, struct task_struct *b, bool fi);
+ 	if (!work->tcon->posix_extensions) {
+ 		int ret;
  
- /*
 -- 
 2.53.0
 
