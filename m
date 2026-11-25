@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608684;
-	b=LCYlKpfKeHQffzd37aDhJuKZbFkKPGd4zuzRFafvWlDOKHecIld/T1Z9qoGFyaEE6R4s
-	 TdfWjjbnqtwrjP8/4Cg/bQUsSfCjCAJMa9O6/uWPeGj7/oOlMw+0XP5c3RdqbN1Ng1O88
-	 Mk+q8y3vbvxgbScGFm6Qjl3BI0qZKHQfam5WCn9LaZjVQekvNDYgZXrxjO28TyKVoq/Tw
-	 m/mnb4a1toQWDla4lvvaUTWEqQ30RjB9lyEiKrAeL1ndlJz3PSbflVVSRIX+5kD1IzwGV
-	 P35wxyEhvqX3prF77Rs0yl5TJqjKf8m24W/RJ1tKFg8AsWc7PgOIYYvoz/q6D1X0n3g==
+	t=1795608687;
+	b=1dF7eUODe3/DyYT6/9hXDmW0ybzzfi9QvwkxR0YhH4F0lzWwGTQVIcFyHVIJMTf01lYI
+	 aJJs6IeNEHsEJrwAI/1FLyAj0cKHZsGmODenr+zGRRaohZT3+86QUtAzBtlt5HRhk2J1b
+	 KNEqJ8gLr8LVYlgduy72Sdvsd3fj993V74COf8MQJD3ubxqNBpuW2ubnX68g/rRukxVpT
+	 V2uxzstrCD/yCsneGNIXsAamoG28got1h9koMmlC3rugijpOrvYO88b7Y1rx7mnJunOvM
+	 sYnonyoY+2t5D6Lq4WICrID83/0rdRPbIR45zq2taYHQ68uqb45b4CcIKXf9uaIisuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608684;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608687;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=IDWSQzG7fo2AJmMNIi1Rxgpuc348Ych8t+0Y+LtHaeo=;
-	b=JdbMqFY84YEAdsDZpJIUBshg082n+wCTYJxo5STVlyCFS1gltSAZk0tdYV44uwVO4JR7
-	 EVpXGtJH5X/r0ZAc/8GOMHkaYaQ9YtgJPhpuDJ4/FrjyrdkoiarWbC7VL+ql3rYLS5vs1
-	 b2t59p5b46QTlmaRxOyhL5KkXrJBtr6ZwC5MDR4S4XpDFfvK5ZEaY5g+nHOQI3jxphOLq
-	 hgAr32wZfivfePuKd6BT3PkAsKoM6q+xf9O6rmC/NLd7nNNxM6Ue22qtI7bzQMguU3NNK
-	 uGfU2cwBI3yXQApmgVKj1vLge056MPy2u0SzSwgaE9RY/EINRa8l31EvX1v5jwXJvgg==
+	bh=3pBeoo89avjlJtdxBESEYs0KsZwlQK4Xiz8THYBz7HE=;
+	b=Ek9LYcr4Mv0d+jEKrRSiGif5cKQkTMLUT9C1q/gZz3J3hXAwDOBTOJCrV2OiUa0+/5oX
+	 v6YZjz0i09KCv2FnwY9bhgLUVKVkLxiGBD0ZhmGosr/fmFJOqX+pgIGhtHK4vVXDjnkhK
+	 pGcP22zosXJ2XeJIYsZuutMYsz168gBdw6UH6BHliasWXiISu85KRoxIGb8cdGyNhVX4p
+	 rIhE1QpXS+RV2c61g25TADarLNwlEXuQksrw7238aH+tW2hDwxqDU06bo2CSEBb0HNgU5
+	 K6GdiRUnuBTSE03UYHd4JJ04uJkezWFgWYmJIv8ijjMIrgfYnAYhdIMcrUIZp1Xd8Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1zkeMU7R;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XYcJWS9c;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476C6606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:11:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7579606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:11:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1zkeMU7R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56D641F000C4;
-	Wed, 25 Nov 2026 12:11:23 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XYcJWS9c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE4E11F000C0;
+	Wed, 25 Nov 2026 12:11:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795608683;
-	bh=IDWSQzG7fo2AJmMNIi1Rxgpuc348Ych8t+0Y+LtHaeo=;
+	s=korg; t=1795608687;
+	bh=3pBeoo89avjlJtdxBESEYs0KsZwlQK4Xiz8THYBz7HE=;
 	h=Subject:To:Cc:From:Date;
-	b=1zkeMU7RnkZ8pKZ/fx337/1i4CunGCGBRAAeAfIe71oDtqN+6aBdVal/MHAaletYz
-	 E7Ee3zBYqZD/5nxQrqoU2mRoZLQnpe4oyP/kUmzgV7aJ4DkLi15Z5wZ4tqX3vZwz1v
-	 Q4o2rEVdDxcYjiIOTamnkMOerYZkVgj1UzSmNR3Y=
-Subject: FAILED: patch "[PATCH] usb: dwc3: xilinx: unwind ZynqMP platform init on probe" failed to apply to 6.12-stable tree
+	b=XYcJWS9cQe32W1M+Ch9t4WuVIgwOCy6b+qRLu9cGpyZwyv+YAREGR5xqulhe3T5Hp
+	 7DeAVP7bn6p8Ek7mfaOJZyhCZ/2OnAyc9Z5qCrODR3oap2TMloSw+/uMQMQq4/qrzS
+	 9l4Q2CzyS8CK4P2INdYZVFTcC71sWniNrMgxJw58=
+Subject: FAILED: patch "[PATCH] usb: dwc3: xilinx: unwind ZynqMP platform init on probe" failed to apply to 6.1-stable tree
 To: radhey.shyam.pandey@amd.com,Thinh.Nguyen@synopsys.com,gregkh@linuxfoundation.org,p.zabel@pengutronix.de,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 13:04:12 +0100
-Message-ID: <2026112512-disfigure-marmalade-b2e1@gregkh>
+Date: Wed, 25 Nov 2026 13:04:13 +0100
+Message-ID: <2026112513-evaluate-renovator-94ae@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 6c6508e742b47539224eb18cb23f7ed5d401dcb6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112512-disfigure-marmalade-b2e1@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112513-evaluate-renovator-94ae@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
