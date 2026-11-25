@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606371;
-	b=jjogYSr9fTbz3FCwLpPdJU3Fh+rF17SjB5hhcPR57zMk45JZ1ficl78pA8o+MPOW3wBd
-	 EanP5H6p2mLHvG3TySrKNwfaTxu+dp8BlCKzCxnoxJlRKkuWo27jBVKDgky4Y2LBrHFMl
-	 9fBu3jqXCpPRA4fvBqfM8o5osLI3efcWMg9jF7wdk/GfWIl4nkIJffHb8fTgpwCcPLm9m
-	 DvX5DMdjeicfxZxF/5E46/xUVIBxs7rzlYGCpGGoHxT2fIG+4vY2xeXvabricVfybgFvb
-	 YPXjmS3owcRxy5u/7jqm5yG9O2SmMnvStBFX3bCiAvAA/VbJ2Lay5WMhxwNqzVR6bPg==
+	t=1795606374;
+	b=tQpNeg8WC+Krnxg8lzQaMy9VIxK4meyIInhOSVQ2eI1PjAjuGpH27MyPtMlzJsDThVPZ
+	 Suhg7Y5wutIfIvigF0RM+GjtAIbFy4sug3x52J0uxwbHqcI0IO83/5CzYkVZJWCaLMreR
+	 RrciU+myfdfFmuEIiw4kahUMNeWUipXcvTzl20eFGm2Js6M01Dc0Q1lRjaT60GfMRN1Df
+	 3UuwHoNfuUvA9VzMVcd5apcYs2WHgaRjbXDhUBDls7fxskyUo4q2nr1zGevs7hADpM/98
+	 qOvh3lE4RFuC3N2cF8ilQTNc8o48CW8MHgNFCJjp0xRzvyPgtIHWxB7xCH0ZfHtBPkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606371;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606374;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1sjF0ET4xnKt0e9vrfatV0immXjiSq2axiH1/76TVjc=;
-	b=jJHoP6vG1qgwrYrBr4sQm0j06AAUmTE9u+3z025qeRJdoA+FGu8foubfRcKbuwQSaxHR
-	 q8jAA49wI6vBdMA50Cjp4tuMQjz9X6C92wqNOiOfgUHZ/eI07mI7zTOJDQsM7GvCoJ/6y
-	 AK9MXIG9NVtAX8P2FD+p/0zLau8+f0vdrNi4ANZ5cNaJaBVFimQJgldU7fufzN9IRkY7L
-	 t9y9HJg8zK0swc8i+iLmeFv0Qy//KwadcbMmqms948cS72gn/hOWRRbopuHmMDmxC9jW7
-	 3XFroblC1oi1HJeMptiyRoDatCtMfYI6MtMetfydStJSqnGH7Ls3enKQsCS2VD73CGQ==
+	bh=1RwLV8YV/IiSPknRKM5+oFnuIvfOAjfEoQKzu92j0f0=;
+	b=FLiYDF2iAUewUGlpGboRJs1xDA6jR8g3JsD6QaQze1mZZ+l0arx+6xdj/4QeTaTPNc07
+	 03X2Vu0NLry9nhhehN5JzruAT2tn2slSK6xZYRYhWHxBeI0jSEM/+FSkYwTiJh4xSG2Ai
+	 5Dqrm7eYmqyTY8iHsdNeZxWnTXGu3ilmLTiYFSe8KVr/Fkv19F+ftsXi7c8i1hui+MHqI
+	 XuJgOFsKsmEx6k4+PsM4ZJxOrqcS2iCEZcLpOBKxmlzu76fT2C+C+lHPe9L7lROkqoGEo
+	 EhauDeqAgkrRLUu+hSyqfCFR6wC12qzrsNLaLBOdyaoWjILJyMplQiRnlE0rxkd5glg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DbuUm9a+;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zfKgFgPc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89491606A335
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:32:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC39606A32C
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:32:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DbuUm9a+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA8CA1F000CF;
-	Wed, 25 Nov 2026 11:32:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zfKgFgPc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFFB31F000CA;
+	Wed, 25 Nov 2026 11:32:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606371;
-	bh=1sjF0ET4xnKt0e9vrfatV0immXjiSq2axiH1/76TVjc=;
+	s=korg; t=1795606374;
+	bh=1RwLV8YV/IiSPknRKM5+oFnuIvfOAjfEoQKzu92j0f0=;
 	h=Subject:To:Cc:From:Date;
-	b=DbuUm9a+lZHUwR6SEZWLoeiXBPrVFiaIG5uukICCza/agedmjf5NYoJ0Hn3f39Rwy
-	 MDCiJu3gd9QQ8ld45fyNdyEguYTZy6jFWQRJVi6PntmDN4ND020OxhhxTaeY9hHV3V
-	 lE+JBL92qp4kB0bRVC6KAWheFsIb23CGZgCb4Wxo=
-Subject: FAILED: patch "[PATCH] dm cache: validate the discard block size before narrowing" failed to apply to 6.12-stable tree
+	b=zfKgFgPc9EefMn2TyvmgmIRZ2AAI/qqvRgo3rHIVm0aI7lwjRnrUlKBuDC340xd2f
+	 FlKvWnl9Flk+pfqp2+GHUx2qmJ1rJ8OoxeRa/UPYy0Ja/UAjrIS3gtiScfw9sy4Rk6
+	 mMs5YZfipMsr1ohWK+KUlzCfHc3qLeGU8mwIUJpw=
+Subject: FAILED: patch "[PATCH] dm cache: validate the discard block size before narrowing" failed to apply to 5.10-stable tree
 To: kirtiar15502@gmail.com,mpatocka@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:19:10 +0100
-Message-ID: <2026112510-mama-skintight-d6f5@gregkh>
+Date: Wed, 25 Nov 2026 12:19:11 +0100
+Message-ID: <2026112511-raft-shadily-48b2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x df8daa4d916c88ef7888c738e0eb3b6f11714a6f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112510-mama-skintight-d6f5@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112511-raft-shadily-48b2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
