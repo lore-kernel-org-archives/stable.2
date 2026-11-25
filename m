@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795597915;
-	b=zMJC1TdD6WxJSSHMm7U5UFnbcygu3VyRcHr48txZS/ei9dkO7a+BfGJ1a7Rrh7nvCWsR
-	 4Gx/KZWd6JszU1ir8L0gM3ljc3cjKUys4Z3ENXwa/LilVGaL6PYXuzfC2doqqRYFTJzfs
-	 vNVdoe0faMeQ93jN7xp8X0J86QI2C2DvvQkwTl5QlcHiR6tFCBGNUt8UhvZ02NtJ1bcmj
-	 t1vCLMQ3ocuQXRzmellInSps2Cal2o3yMYbQ/HwHr3VWBumXvZY1+WuUWEmKWkQz39657
-	 vCl0GdistpnELwhYqdJWpc7QEy1+J7HLew3cmld1l5Lpxt1uvMCna0XKdvXp4wqFXFg==
+	t=1795597919;
+	b=4ahoKSv88D7PqTathc+96v83ZykjkufOG+MEIFfPkmAYFMVEDjE7mPtIdkeXtV5bRjS9
+	 fIRDAluhhIHfC02aZVd+rhOLXiaVgux2vf0AmNgZNXX/SUmNqzQYg4kPWjJevAyA91Cg9
+	 k3EoGpRB6eR5VOkcH11i/PxrJZbyNfTVzT+c5gYRcVhX4c5ZGcHfKtvtoCO2bnC8faWaa
+	 9GLiKTkR5rhsQ3aSGiKBIGchx9vfg5v7FNm+UOVHudVDuIYvtlqG1GnmDNIwdQOAN905T
+	 N3n0KopzUDoxQ8AvLK4ETN8oBksOWHRYiHfztmIGLHQIQpPNsMA4Rw9JNF/4U5Tt23w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795597915;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795597919;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=MfqiotafiRuZSn6Wr/Jz7rxCn71UtH//CmfGIstGkBM=;
-	b=K9sB0SF4AncTwGIX+MhFUul/uLO/sXEhBU8Q4NN7HjcTwKEdWpsLHWvOJS4J87MHAmG0
-	 LKJrLb9gSyVZabwWPJwQbhUQ07VYjHRVKcZhigILnU+cUmL0VgYshPlpjODe2j9FiTXjX
-	 bin2Le5dejBmLX3MW69qvH0ux/9DxoyJbSIZVtHZq30zAs1Hq6qyTSecJqGrsm4p9uqiV
-	 rUeO0SQmGEYRGQy8T9XfVonGTNmZv7CAGy9LsiB2WyxSLMu4YIXSL3O5GR74MkP1uqvK1
-	 DzBv76isDc/6mYJHfE2ImH+Noc4zFq0TMWsoaCx9Zl/rZJt/NxfSISqHRLuxnB9IE1g==
+	bh=oIPGO2bX69SFtAsVqVFqMkEx4uajsUtURkz7WGzrfJU=;
+	b=zpLJemdiUEmQND7YJT8PhQe4F6v8W+sdTsprBwFTzKz5w61jWdjjGKjNpJP9YxMMb2C6
+	 tncfy5jcnjcV7/h0b4r3G0TIqqgYC0h4doCvA3MJppVrD5Pbq1KVJ/WT3pn1PTHWE+Q8K
+	 5KX4RmGL/egpgFM7y1tm6LNvDtK+EPx9QFEIE6pz8zV1UEVh6Q3CNkYdupBVeTYpAJdgb
+	 NA8jefpzXoMHfFDAiLKp3Qx1q8NgnH10lx04WOwylbUz0t5joMVtll5o2ZKoFKZOwF8ff
+	 YVzUAUr3SBLcmJyWSMcjvm4fhTaek6oExQI6x5dT/1MBjLgC6zAY7d6hpJEv9My8Psg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TeZi+99t;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TUASFPOi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E29606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:11:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E888606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:11:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TeZi+99t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6399E1F000CF;
-	Wed, 25 Nov 2026 09:11:54 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TUASFPOi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1B2F1F000CA;
+	Wed, 25 Nov 2026 09:11:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795597914;
-	bh=MfqiotafiRuZSn6Wr/Jz7rxCn71UtH//CmfGIstGkBM=;
+	s=korg; t=1795597918;
+	bh=oIPGO2bX69SFtAsVqVFqMkEx4uajsUtURkz7WGzrfJU=;
 	h=Subject:To:Cc:From:Date;
-	b=TeZi+99tIi+LoapuR+Cfx1xqq/oAsnTjNcOIMM+yI78ObsFH2WvfM/wYNXmjAsu8K
-	 C2WudibluUC7+CKjhGdGNZW3BFstIffUlPqvfjsnzchzBDde3SF1RK/hePacxNMh7c
-	 zfyf+1pAOsjM7zo6ELc8PXRJ8AOloRHUOg16j8ng=
-Subject: FAILED: patch "[PATCH] gve: Fix race between stats query and queue reconfig" failed to apply to 7.3-stable tree
+	b=TUASFPOir5YTsIZABjqmYmlXLJEyVfSFTYtVKkW1N+qIki1k2/33+yoL5NEnVDdq+
+	 hrtg4w66vUf5PPqI/H9lyB582FuBHakOG1u5hy6S/9+hErmh35vQvjtRC0xawQ+h1s
+	 BsWBDcIuOVuQwuVFPOjTJ05LM+K7uQiWS/F5OemU=
+Subject: FAILED: patch "[PATCH] gve: Fix race between stats query and queue reconfig" failed to apply to 6.12-stable tree
 To: treapking@google.com,debarghyak@google.com,hramamurthy@google.com,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 10:00:00 +0100
-Message-ID: <2026112500-overbite-aside-6db0@gregkh>
+Date: Wed, 25 Nov 2026 10:00:01 +0100
+Message-ID: <2026112501-keep-deserving-4f60@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.3-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7de69da15088ac2add08eb2b5f5c0a79fd461c1e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112500-overbite-aside-6db0@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112501-keep-deserving-4f60@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
