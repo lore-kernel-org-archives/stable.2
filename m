@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795619118;
-	b=gjBozdBh1hhBF7Gmc8ciqStFRtZQ7Dbu/6tQDtzk0XYUEUgEYDSJ9eckvedAxHklebim
-	 Vi4WiDe2eGW8xvyvi0NqbuyGDFBnw+stOVgmOnsz87/SRE4ucpgVrsjUxQybH+YFzGa0g
-	 0Upuk8FmCJOs/S9AwtJRLPIwYmCc07XJXbs3eSg+oSHONdLqM50jUc3FqRDcY9eBOVcA5
-	 WRJs6Bar5MdcjkU72BADxaHcVOJfLarrY5NrDkJDoN8l0X38vQqhHnuF9j/kU5cPUSHZJ
-	 A426pEiOc9a4llyk6TCzMpq8gLILP9s6jttYvAi1KBNbufLvflYNfIDs0JKtyh3UpEA==
+	t=1795619119;
+	b=BSBBM8XLCCkNC+KPNwOKeiUSo80Zi0CcRi5RS3bW9KAx252vw6Sd3AW7rNHU7DcSo5tk
+	 aFrI/ZyXWIK91SPdmLHYfU/4Zn6ONNX+eEMMTOqWKRVXKYLZkpvRy+4I3MqS8vhn7GxNi
+	 AtNqVQM8tuDEy4yeLes1gNKgO0Z+ZP8XILXrTyQy56nKD8t2zN9lNVlE2AGyOu7OS7Qc6
+	 jpoRicxrlDhs5o2mYEGn4/r62bPo7xZbeXpntso4wI4Mr0j3NmtdOPkTNnWJosydIOTUP
+	 VKd/URyblfwpiqAhyGC1ZqKUNwTi5BQSz3avfAh9IOx6CeZXWjULm+OZ00ItWm2fQ7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795619118;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795619119;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WHRTy/daiBUkFNVe8Utoc/Ja9/l3+VtD7IVZXnP7bWY=;
-	b=azEqtwXTAxCHscvPFoZWCgA1+WYaYxMmSYNhQrUUyViXEcHMMEJeWKbRljyPuFR8JBNI
-	 5LLUtA5gub7PHc1AyuRuEBh5Dg1YRn9GVpnzO1U6YT3pAY2TsPNdrTXoCVcgAENI09C9X
-	 G3qA2AkSnsFm9unV5z9EnsHPweY+pnTkIwxPRPrZm82iDNXvDSyPGmXIXINUBzbUu9+A9
-	 ubg9AvK+8TUFIrOTAU3VwZzH9aXnqRBnFMbM9WQhYuNkClMiv2YCMa6vqNM2pZXFqHSJ+
-	 Hpby91JGmsPJAzxEQgRIn51TivT1U5g4JprObgAYx5s0Oqfwtv+q7PiR9/T+IQYlWuA==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=hBwipVMSPFSC6z+BS/kDQmefin+7SxoIMIMWwL4gEBA=;
+	b=1+I1kE6ZSvxXfPx4x4kQ0SVL/o1I2ZaN0zUBd3z7ZTWqKxiSGZD1BJTQLRONbPoLfqJV
+	 8Wwm4voNmjnAJx9HZ7qM5sLmdd889XDbTr5+JbF9uQepO617mI7PA0JauLBkERvIRTaC5
+	 6auaDFk0Et8BMzSRDG6ONZfyjRJl7NLodSyREDld9tLbRy0VEkHkKgk5ABKzUeaRjmt8D
+	 BoU2F5jQfXko9SUppv3WCvqHLzfdk/KPUioe2s96y8aQfWuuE0oL9xz1XAPcUpOJIyYqz
+	 tt38GGyxrt2iTj90eT1c5/6+UwNdVxWBzCrzM0JTdt12L+LmjsdXfZLrGnrF1IbHQzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eHyDY1vH;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aTtPsUXV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C18606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:05:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61C34606A338;
+	Wed, 25 Nov 2026 15:05:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eHyDY1vH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C84351F000C0;
-	Wed, 25 Nov 2026 15:05:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795619117;
-	bh=WHRTy/daiBUkFNVe8Utoc/Ja9/l3+VtD7IVZXnP7bWY=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aTtPsUXV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B31191F000D1;
+	Wed, 25 Nov 2026 15:05:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795619119;
+	bh=hBwipVMSPFSC6z+BS/kDQmefin+7SxoIMIMWwL4gEBA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eHyDY1vHoV5yvHYBz3qPv3FISuiw60wbUyGkv7Of86METEsk2JbyLCJs7YxdKXumt
-	 ooEoyq9bRllgkosVXvz4ZCSYB6H8lTuelYy9O8TVP7V5cnWx18A417ifMtlftey5QD
-	 +bfmanN7FiEOC3Diim5T67YSSP0kYQFG/VqgxGOTd0VEqV77YBq9dpcep339FMPQBx
-	 z5llPT8kbD57cw2btGOF6h0mruVYADfHWBwdobT3GlVwDlnOuzN1aSs3PihqdRGiZC
-	 nbSlY5Fd6XzgTX3qVWsuCzc9DoLj8v5FPWQ2HrqsTTxD3MUgr8DIsNliVXWwKyfCB1
-	 liwY9lCDqEXzw==
-From: Sasha Levin <sashal@kernel.org>
+	b=aTtPsUXVo6k90RW/eNrVlBbos9cjR8B5otQoOig0say0fsvHiFBXHAPT6ScOTrMbK
+	 vPk7ErC7mNHLT1CpUywXVLHcIV5YlAamY4G73aSVxu7OmXyt6pQnb85ShusEm5GtXm
+	 KmK5bzOP7kfuWb90wU94kqOMyFCpcocB0jagQtgs=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Chuck Lever <chuck.lever@oracle.com>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Eric Dumazet <edumazet@kernel.org>,
+	Chase Hiltz <me@chasehil.tz>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/4] xprtrdma: Replace rpcrdma_mr_seg with xdr_buf cursor
-Date: Wed, 25 Nov 2026 10:05:11 -0500
-Message-ID: <20261125150506.11963-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125150506.11963-1-sashal@kernel.org>
-References: <2026112557-renewal-pyramid-fc9e@gregkh>
- <20261125150506.11963-1-sashal@kernel.org>
+Subject: [PATCH 7.3 0494/1005] ipv4: route: dont blackhole in-use routes when retiring fnhe routes
+Date: Wed, 25 Nov 2026 15:30:32 +0100
+Message-ID: <20261125143833.318162225@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,674 +66,107 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <chuck.lever@oracle.com>
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 7a079ab57c4eeff241d9abfc1ec6477cb90a6206 ]
+------------------
 
-The FRWR registration path converts data through three
-representations: xdr_buf -> rpcrdma_mr_seg[] -> scatterlist[]
--> ib_map_mr_sg(). The rpcrdma_mr_seg intermediate is a relic
-of when multiple registration strategies existed (FMR, physical,
-FRWR). Only FRWR remains, so this indirection and the 6240-byte
-rl_segments[260] array embedded in each rpcrdma_req serve no
-purpose.
+From: Chase Hiltz <me@chasehil.tz>
 
-Introduce struct rpcrdma_xdr_cursor to track position within
-an xdr_buf during iterative MR registration. Rewrite frwr_map to
-populate scatterlist entries directly from the xdr_buf regions
-(head kvec, page list, tail kvec). The boundary logic for
-non-SG_GAPS devices is simpler because the xdr_buf structure
-guarantees that page-region entries after the first start at
-offset 0, and that head/tail kvecs are separate regions that
-naturally break at MR boundaries.
+[ Upstream commit ae89f2724db1afa96a1f1b661174fc41ae1e88fa ]
 
-Fix a pre-existing bug in rpcrdma_encode_write_list where the
-write-pad statistics accumulator added mr->mr_length from the last
-data MR rather than the write-pad MR. The refactored code uses
-ep->re_write_pad_mr->mr_length.
+When a route cached in a nexthop exception (fnhe) is replaced or
+flushed, rt_bind_exception() and fnhe_flush_routes() call
+dst_dev_put() on it. That sets dst->dev to blackhole_netdev and
+dst->input/output to dst_discard*(), but other CPUs can still be
+using the route, e.g. as a noref dst taken from the fnhe under RCU.
+Packets that reach dst_input() or dst_output() after that are dropped.
 
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Signed-off-by: Trond Myklebust <trond.myklebust@hammerspace.com>
-Stable-dep-of: 1fa415883c37 ("xprtrdma: serialize unmap_sync with xprt_disconnect")
+If dst_dev_put() runs after a forwarded packet has entered ip_output(),
+ip_skb_dst_mtu() in __ip_finish_output() can return the MTU of
+blackhole_netdev (68), and ip_fragment() can then drop a DF packet and
+send ICMP_FRAG_NEEDED with mtu 68 to its source.
+
+Commit 5018c59607a5 ("ipv4: fix race condition between route lookup and
+invalidation") fixed the same race in rt_cache_route() by putting the
+old route on the uncached list instead of calling dst_dev_put(). Do the
+same for routes retired from an fnhe. rt_flush_dev() still moves them
+to blackhole_netdev when their device is unregistered.
+
+fnhe routes are also retired on fnhe expiry (ip_del_fnhe()) and
+eviction (fnhe_remove_oldest()). Those paths don't bump rt_genid, so
+without the obsolete marking ipv4_dst_check() could still accept the
+route. Keep marking retired routes DST_OBSOLETE_DEAD, as dst_dev_put()
+did, so that users that cached them, such as sockets, look up again.
+
+In a netns reproducer that forwards IPv4 traffic over an ip6tnl device,
+with an fnhe for the destination, while the FIB keeps changing, this
+patch stops the mtu 68 ICMPs and the drops.
+
+Fixes: 95c47f9cf5e0 ("ipv4: call dst_dev_put() properly")
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Signed-off-by: Chase Hiltz <me@chasehil.tz>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20261105182640.2999521-1-me@chasehil.tz
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/trace/events/rpcrdma.h  |  28 +++---
- net/sunrpc/xprtrdma/frwr_ops.c  | 119 ++++++++++++++++++-----
- net/sunrpc/xprtrdma/rpc_rdma.c  | 163 +++++++++++---------------------
- net/sunrpc/xprtrdma/xprt_rdma.h |  42 +++++---
- 4 files changed, 194 insertions(+), 158 deletions(-)
+ net/ipv4/route.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
-diff --git a/include/trace/events/rpcrdma.h b/include/trace/events/rpcrdma.h
-index 8f461e04e5f09..cb5054c43cbcb 100644
---- a/include/trace/events/rpcrdma.h
-+++ b/include/trace/events/rpcrdma.h
-@@ -393,10 +393,10 @@ DECLARE_EVENT_CLASS(xprtrdma_rdch_event,
- 		const struct rpc_task *task,
- 		unsigned int pos,
- 		struct rpcrdma_mr *mr,
--		int nsegs
-+		bool is_last
- 	),
+diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+index 1720323d9f025..e8bd10b28eb86 100644
+--- a/net/ipv4/route.c
++++ b/net/ipv4/route.c
+@@ -573,6 +573,17 @@ static void ip_rt_build_flow_key(struct flowi4 *fl4, const struct sock *sk,
  
--	TP_ARGS(task, pos, mr, nsegs),
-+	TP_ARGS(task, pos, mr, is_last),
+ static DEFINE_SPINLOCK(fnhe_lock);
  
- 	TP_STRUCT__entry(
- 		__field(unsigned int, task_id)
-@@ -406,7 +406,7 @@ DECLARE_EVENT_CLASS(xprtrdma_rdch_event,
- 		__field(u32, handle)
- 		__field(u32, length)
- 		__field(u64, offset)
--		__field(int, nsegs)
-+		__field(bool, is_last)
- 	),
- 
- 	TP_fast_assign(
-@@ -417,7 +417,7 @@ DECLARE_EVENT_CLASS(xprtrdma_rdch_event,
- 		__entry->handle = mr->mr_handle;
- 		__entry->length = mr->mr_length;
- 		__entry->offset = mr->mr_offset;
--		__entry->nsegs = nsegs;
-+		__entry->is_last = is_last;
- 	),
- 
- 	TP_printk(SUNRPC_TRACE_TASK_SPECIFIER
-@@ -425,7 +425,7 @@ DECLARE_EVENT_CLASS(xprtrdma_rdch_event,
- 		__entry->task_id, __entry->client_id,
- 		__entry->pos, __entry->length,
- 		(unsigned long long)__entry->offset, __entry->handle,
--		__entry->nents < __entry->nsegs ? "more" : "last"
-+		__entry->is_last ? "last" : "more"
- 	)
- );
- 
-@@ -435,18 +435,18 @@ DECLARE_EVENT_CLASS(xprtrdma_rdch_event,
- 					const struct rpc_task *task,	\
- 					unsigned int pos,		\
- 					struct rpcrdma_mr *mr,		\
--					int nsegs			\
-+					bool is_last			\
- 				),					\
--				TP_ARGS(task, pos, mr, nsegs))
-+				TP_ARGS(task, pos, mr, is_last))
- 
- DECLARE_EVENT_CLASS(xprtrdma_wrch_event,
- 	TP_PROTO(
- 		const struct rpc_task *task,
- 		struct rpcrdma_mr *mr,
--		int nsegs
-+		bool is_last
- 	),
- 
--	TP_ARGS(task, mr, nsegs),
-+	TP_ARGS(task, mr, is_last),
- 
- 	TP_STRUCT__entry(
- 		__field(unsigned int, task_id)
-@@ -455,7 +455,7 @@ DECLARE_EVENT_CLASS(xprtrdma_wrch_event,
- 		__field(u32, handle)
- 		__field(u32, length)
- 		__field(u64, offset)
--		__field(int, nsegs)
-+		__field(bool, is_last)
- 	),
- 
- 	TP_fast_assign(
-@@ -465,7 +465,7 @@ DECLARE_EVENT_CLASS(xprtrdma_wrch_event,
- 		__entry->handle = mr->mr_handle;
- 		__entry->length = mr->mr_length;
- 		__entry->offset = mr->mr_offset;
--		__entry->nsegs = nsegs;
-+		__entry->is_last = is_last;
- 	),
- 
- 	TP_printk(SUNRPC_TRACE_TASK_SPECIFIER
-@@ -473,7 +473,7 @@ DECLARE_EVENT_CLASS(xprtrdma_wrch_event,
- 		__entry->task_id, __entry->client_id,
- 		__entry->length, (unsigned long long)__entry->offset,
- 		__entry->handle,
--		__entry->nents < __entry->nsegs ? "more" : "last"
-+		__entry->is_last ? "last" : "more"
- 	)
- );
- 
-@@ -482,9 +482,9 @@ DECLARE_EVENT_CLASS(xprtrdma_wrch_event,
- 				TP_PROTO(				\
- 					const struct rpc_task *task,	\
- 					struct rpcrdma_mr *mr,		\
--					int nsegs			\
-+					bool is_last			\
- 				),					\
--				TP_ARGS(task, mr, nsegs))
-+				TP_ARGS(task, mr, is_last))
- 
- TRACE_DEFINE_ENUM(DMA_BIDIRECTIONAL);
- TRACE_DEFINE_ENUM(DMA_TO_DEVICE);
-diff --git a/net/sunrpc/xprtrdma/frwr_ops.c b/net/sunrpc/xprtrdma/frwr_ops.c
-index d2c7ac5f4e016..a974d5cac7e1c 100644
---- a/net/sunrpc/xprtrdma/frwr_ops.c
-+++ b/net/sunrpc/xprtrdma/frwr_ops.c
-@@ -268,10 +268,9 @@ int frwr_query_device(struct rpcrdma_ep *ep, const struct ib_device *device)
- }
- 
- /**
-- * frwr_map - Register a memory region
-+ * frwr_map - Register a memory region from an xdr_buf cursor
-  * @r_xprt: controlling transport
-- * @seg: memory region co-ordinates
-- * @nsegs: number of segments remaining
-+ * @cur: cursor tracking position within the xdr_buf
-  * @writing: true when RDMA Write will be used
-  * @xid: XID of RPC using the registered memory
-  * @mr: MR to fill in
-@@ -279,34 +278,104 @@ int frwr_query_device(struct rpcrdma_ep *ep, const struct ib_device *device)
-  * Prepare a REG_MR Work Request to register a memory region
-  * for remote access via RDMA READ or RDMA WRITE.
-  *
-- * Returns the next segment or a negative errno pointer.
-- * On success, @mr is filled in.
-+ * Returns 0 on success (cursor advanced past consumed data,
-+ * @mr populated) or a negative errno on failure.
-  */
--struct rpcrdma_mr_seg *frwr_map(struct rpcrdma_xprt *r_xprt,
--				struct rpcrdma_mr_seg *seg,
--				int nsegs, bool writing, __be32 xid,
--				struct rpcrdma_mr *mr)
-+int frwr_map(struct rpcrdma_xprt *r_xprt,
-+	     struct rpcrdma_xdr_cursor *cur,
-+	     bool writing, __be32 xid,
-+	     struct rpcrdma_mr *mr)
- {
- 	struct rpcrdma_ep *ep = r_xprt->rx_ep;
-+	const struct xdr_buf *xdrbuf = cur->xc_buf;
-+	bool sg_gaps = ep->re_mrtype == IB_MR_TYPE_SG_GAPS;
-+	unsigned int max_depth = ep->re_max_fr_depth;
- 	struct ib_reg_wr *reg_wr;
- 	int i, n, dma_nents;
- 	struct ib_mr *ibmr;
- 	u8 key;
- 
--	if (nsegs > ep->re_max_fr_depth)
--		nsegs = ep->re_max_fr_depth;
--	for (i = 0; i < nsegs;) {
--		sg_set_page(&mr->mr_sg[i], seg->mr_page,
--			    seg->mr_len, seg->mr_offset);
--
--		++seg;
--		++i;
--		if (ep->re_mrtype == IB_MR_TYPE_SG_GAPS)
--			continue;
--		if ((i < nsegs && seg->mr_offset) ||
--		    offset_in_page((seg-1)->mr_offset + (seg-1)->mr_len))
--			break;
-+	i = 0;
-+
-+	/* Head kvec */
-+	if (!(cur->xc_flags & XC_HEAD_DONE)) {
-+		const struct kvec *head = &xdrbuf->head[0];
-+
-+		sg_set_page(&mr->mr_sg[i],
-+			    virt_to_page(head->iov_base),
-+			    head->iov_len,
-+			    offset_in_page(head->iov_base));
-+		cur->xc_flags |= XC_HEAD_DONE;
-+		i++;
-+		/* Without sg-gap support, each non-contiguous region
-+		 * must be registered as a separate MR.  Returning
-+		 * here after the head kvec causes the caller to
-+		 * invoke frwr_map() again for the page list and
-+		 * tail.
-+		 */
-+		if (!sg_gaps)
-+			goto finish;
- 	}
-+
-+	/* Page list */
-+	if (!(cur->xc_flags & XC_PAGES_DONE) && xdrbuf->page_len) {
-+		unsigned int page_base, remaining;
-+		struct page **ppages;
-+
-+		remaining = xdrbuf->page_len - cur->xc_page_offset;
-+		page_base = offset_in_page(xdrbuf->page_base +
-+					   cur->xc_page_offset);
-+		ppages = xdrbuf->pages +
-+			 ((xdrbuf->page_base + cur->xc_page_offset)
-+			  >> PAGE_SHIFT);
-+
-+		while (remaining > 0 && i < max_depth) {
-+			unsigned int len;
-+
-+			len = min_t(unsigned int,
-+				    PAGE_SIZE - page_base, remaining);
-+			sg_set_page(&mr->mr_sg[i], *ppages,
-+				    len, page_base);
-+			cur->xc_page_offset += len;
-+			i++;
-+			ppages++;
-+			remaining -= len;
-+
-+			if (!sg_gaps && remaining > 0 &&
-+			    offset_in_page(page_base + len))
-+				goto finish;
-+			page_base = 0;
-+		}
-+		if (remaining == 0)
-+			cur->xc_flags |= XC_PAGES_DONE;
-+	} else if (!(cur->xc_flags & XC_PAGES_DONE)) {
-+		cur->xc_flags |= XC_PAGES_DONE;
-+	}
-+
-+	/* Tail kvec */
-+	if (!(cur->xc_flags & XC_TAIL_DONE) && xdrbuf->tail[0].iov_len &&
-+	    i < max_depth) {
-+		const struct kvec *tail = &xdrbuf->tail[0];
-+
-+		if (!sg_gaps && i > 0) {
-+			struct scatterlist *prev = &mr->mr_sg[i - 1];
-+
-+			if (offset_in_page(prev->offset + prev->length) ||
-+			    offset_in_page(tail->iov_base))
-+				goto finish;
-+		}
-+		sg_set_page(&mr->mr_sg[i],
-+			    virt_to_page(tail->iov_base),
-+			    tail->iov_len,
-+			    offset_in_page(tail->iov_base));
-+		cur->xc_flags |= XC_TAIL_DONE;
-+		i++;
-+	} else if (!(cur->xc_flags & XC_TAIL_DONE) &&
-+		   !xdrbuf->tail[0].iov_len) {
-+		cur->xc_flags |= XC_TAIL_DONE;
-+	}
-+
-+finish:
- 	mr->mr_dir = rpcrdma_data_dir(writing);
- 	mr->mr_nents = i;
- 
-@@ -338,15 +407,15 @@ struct rpcrdma_mr_seg *frwr_map(struct rpcrdma_xprt *r_xprt,
- 	mr->mr_offset = ibmr->iova;
- 	trace_xprtrdma_mr_map(mr);
- 
--	return seg;
-+	return 0;
- 
- out_dmamap_err:
- 	trace_xprtrdma_frwr_sgerr(mr, i);
--	return ERR_PTR(-EIO);
-+	return -EIO;
- 
- out_mapmr_err:
- 	trace_xprtrdma_frwr_maperr(mr, n);
--	return ERR_PTR(-EIO);
-+	return -EIO;
- }
- 
- /**
-diff --git a/net/sunrpc/xprtrdma/rpc_rdma.c b/net/sunrpc/xprtrdma/rpc_rdma.c
-index 11b9c2032f3fc..405e5e52e820c 100644
---- a/net/sunrpc/xprtrdma/rpc_rdma.c
-+++ b/net/sunrpc/xprtrdma/rpc_rdma.c
-@@ -200,67 +200,30 @@ rpcrdma_alloc_sparse_pages(struct xdr_buf *buf)
- 	return 0;
- }
- 
--/* Convert @vec to a single SGL element.
-- *
-- * Returns pointer to next available SGE, and bumps the total number
-- * of SGEs consumed.
-- */
--static struct rpcrdma_mr_seg *
--rpcrdma_convert_kvec(struct kvec *vec, struct rpcrdma_mr_seg *seg,
--		     unsigned int *n)
-+static void
-+rpcrdma_xdr_cursor_init(struct rpcrdma_xdr_cursor *cur,
-+			const struct xdr_buf *xdrbuf,
-+			unsigned int pos, enum rpcrdma_chunktype type)
- {
--	seg->mr_page = virt_to_page(vec->iov_base);
--	seg->mr_offset = offset_in_page(vec->iov_base);
--	seg->mr_len = vec->iov_len;
--	++seg;
--	++(*n);
--	return seg;
-+	cur->xc_buf = xdrbuf;
-+	cur->xc_page_offset = 0;
-+	cur->xc_flags = 0;
-+
-+	if (pos != 0)
-+		cur->xc_flags |= XC_HEAD_DONE;
-+	if (!xdrbuf->page_len)
-+		cur->xc_flags |= XC_PAGES_DONE;
-+	if (type == rpcrdma_readch || type == rpcrdma_writech ||
-+	    !xdrbuf->tail[0].iov_len)
-+		cur->xc_flags |= XC_TAIL_DONE;
- }
- 
--/* Convert @xdrbuf into SGEs no larger than a page each. As they
-- * are registered, these SGEs are then coalesced into RDMA segments
-- * when the selected memreg mode supports it.
-- *
-- * Returns positive number of SGEs consumed, or a negative errno.
-- */
--
--static int
--rpcrdma_convert_iovs(struct rpcrdma_xprt *r_xprt, struct xdr_buf *xdrbuf,
--		     unsigned int pos, enum rpcrdma_chunktype type,
--		     struct rpcrdma_mr_seg *seg)
-+static bool
-+rpcrdma_xdr_cursor_done(const struct rpcrdma_xdr_cursor *cur)
- {
--	unsigned long page_base;
--	unsigned int len, n;
--	struct page **ppages;
--
--	n = 0;
--	if (pos == 0)
--		seg = rpcrdma_convert_kvec(&xdrbuf->head[0], seg, &n);
--
--	len = xdrbuf->page_len;
--	ppages = xdrbuf->pages + (xdrbuf->page_base >> PAGE_SHIFT);
--	page_base = offset_in_page(xdrbuf->page_base);
--	while (len) {
--		seg->mr_page = *ppages;
--		seg->mr_offset = page_base;
--		seg->mr_len = min_t(u32, PAGE_SIZE - page_base, len);
--		len -= seg->mr_len;
--		++ppages;
--		++seg;
--		++n;
--		page_base = 0;
--	}
--
--	if (type == rpcrdma_readch || type == rpcrdma_writech)
--		goto out;
--
--	if (xdrbuf->tail[0].iov_len)
--		rpcrdma_convert_kvec(&xdrbuf->tail[0], seg, &n);
--
--out:
--	if (unlikely(n > RPCRDMA_MAX_SEGS))
--		return -EIO;
--	return n;
-+	return (cur->xc_flags & (XC_HEAD_DONE | XC_PAGES_DONE |
-+				 XC_TAIL_DONE)) ==
-+	       (XC_HEAD_DONE | XC_PAGES_DONE | XC_TAIL_DONE);
- }
- 
- static int
-@@ -292,11 +255,10 @@ encode_read_segment(struct xdr_stream *xdr, struct rpcrdma_mr *mr,
- 	return 0;
- }
- 
--static struct rpcrdma_mr_seg *rpcrdma_mr_prepare(struct rpcrdma_xprt *r_xprt,
--						 struct rpcrdma_req *req,
--						 struct rpcrdma_mr_seg *seg,
--						 int nsegs, bool writing,
--						 struct rpcrdma_mr **mr)
-+static int rpcrdma_mr_prepare(struct rpcrdma_xprt *r_xprt,
-+			      struct rpcrdma_req *req,
-+			      struct rpcrdma_xdr_cursor *cur,
-+			      bool writing, struct rpcrdma_mr **mr)
- {
- 	*mr = rpcrdma_mr_pop(&req->rl_free_mrs);
- 	if (!*mr) {
-@@ -307,13 +269,13 @@ static struct rpcrdma_mr_seg *rpcrdma_mr_prepare(struct rpcrdma_xprt *r_xprt,
- 	}
- 
- 	rpcrdma_mr_push(*mr, &req->rl_registered);
--	return frwr_map(r_xprt, seg, nsegs, writing, req->rl_slot.rq_xid, *mr);
-+	return frwr_map(r_xprt, cur, writing, req->rl_slot.rq_xid, *mr);
- 
- out_getmr_err:
- 	trace_xprtrdma_nomrs_err(r_xprt, req);
- 	xprt_wait_for_buffer_space(&r_xprt->rx_xprt);
- 	rpcrdma_mrs_refresh(r_xprt);
--	return ERR_PTR(-EAGAIN);
-+	return -EAGAIN;
- }
- 
- /* Register and XDR encode the Read list. Supports encoding a list of read
-@@ -336,10 +298,10 @@ static int rpcrdma_encode_read_list(struct rpcrdma_xprt *r_xprt,
- 				    enum rpcrdma_chunktype rtype)
- {
- 	struct xdr_stream *xdr = &req->rl_stream;
--	struct rpcrdma_mr_seg *seg;
-+	struct rpcrdma_xdr_cursor cur;
- 	struct rpcrdma_mr *mr;
- 	unsigned int pos;
--	int nsegs;
-+	int ret;
- 
- 	if (rtype == rpcrdma_noch_pullup || rtype == rpcrdma_noch_mapped)
- 		goto done;
-@@ -347,24 +309,20 @@ static int rpcrdma_encode_read_list(struct rpcrdma_xprt *r_xprt,
- 	pos = rqst->rq_snd_buf.head[0].iov_len;
- 	if (rtype == rpcrdma_areadch)
- 		pos = 0;
--	seg = req->rl_segments;
--	nsegs = rpcrdma_convert_iovs(r_xprt, &rqst->rq_snd_buf, pos,
--				     rtype, seg);
--	if (nsegs < 0)
--		return nsegs;
-+	rpcrdma_xdr_cursor_init(&cur, &rqst->rq_snd_buf, pos, rtype);
- 
- 	do {
--		seg = rpcrdma_mr_prepare(r_xprt, req, seg, nsegs, false, &mr);
--		if (IS_ERR(seg))
--			return PTR_ERR(seg);
-+		ret = rpcrdma_mr_prepare(r_xprt, req, &cur, false, &mr);
-+		if (ret)
-+			return ret;
- 
- 		if (encode_read_segment(xdr, mr, pos) < 0)
- 			return -EMSGSIZE;
- 
--		trace_xprtrdma_chunk_read(rqst->rq_task, pos, mr, nsegs);
-+		trace_xprtrdma_chunk_read(rqst->rq_task, pos, mr,
-+					  rpcrdma_xdr_cursor_done(&cur));
- 		r_xprt->rx_stats.read_chunk_count++;
--		nsegs -= mr->mr_nents;
--	} while (nsegs);
-+	} while (!rpcrdma_xdr_cursor_done(&cur));
- 
- done:
- 	if (xdr_stream_encode_item_absent(xdr) < 0)
-@@ -394,20 +352,16 @@ static int rpcrdma_encode_write_list(struct rpcrdma_xprt *r_xprt,
- {
- 	struct xdr_stream *xdr = &req->rl_stream;
- 	struct rpcrdma_ep *ep = r_xprt->rx_ep;
--	struct rpcrdma_mr_seg *seg;
-+	struct rpcrdma_xdr_cursor cur;
- 	struct rpcrdma_mr *mr;
--	int nsegs, nchunks;
-+	int nchunks, ret;
- 	__be32 *segcount;
- 
- 	if (wtype != rpcrdma_writech)
- 		goto done;
- 
--	seg = req->rl_segments;
--	nsegs = rpcrdma_convert_iovs(r_xprt, &rqst->rq_rcv_buf,
--				     rqst->rq_rcv_buf.head[0].iov_len,
--				     wtype, seg);
--	if (nsegs < 0)
--		return nsegs;
-+	rpcrdma_xdr_cursor_init(&cur, &rqst->rq_rcv_buf,
-+				rqst->rq_rcv_buf.head[0].iov_len, wtype);
- 
- 	if (xdr_stream_encode_item_present(xdr) < 0)
- 		return -EMSGSIZE;
-@@ -418,30 +372,30 @@ static int rpcrdma_encode_write_list(struct rpcrdma_xprt *r_xprt,
- 
- 	nchunks = 0;
- 	do {
--		seg = rpcrdma_mr_prepare(r_xprt, req, seg, nsegs, true, &mr);
--		if (IS_ERR(seg))
--			return PTR_ERR(seg);
-+		ret = rpcrdma_mr_prepare(r_xprt, req, &cur, true, &mr);
-+		if (ret)
-+			return ret;
- 
- 		if (encode_rdma_segment(xdr, mr) < 0)
- 			return -EMSGSIZE;
- 
--		trace_xprtrdma_chunk_write(rqst->rq_task, mr, nsegs);
-+		trace_xprtrdma_chunk_write(rqst->rq_task, mr,
-+					   rpcrdma_xdr_cursor_done(&cur));
- 		r_xprt->rx_stats.write_chunk_count++;
- 		r_xprt->rx_stats.total_rdma_request += mr->mr_length;
- 		nchunks++;
--		nsegs -= mr->mr_nents;
--	} while (nsegs);
-+	} while (!rpcrdma_xdr_cursor_done(&cur));
- 
- 	if (xdr_pad_size(rqst->rq_rcv_buf.page_len)) {
- 		if (encode_rdma_segment(xdr, ep->re_write_pad_mr) < 0)
- 			return -EMSGSIZE;
- 
- 		trace_xprtrdma_chunk_wp(rqst->rq_task, ep->re_write_pad_mr,
--					nsegs);
-+					true);
- 		r_xprt->rx_stats.write_chunk_count++;
--		r_xprt->rx_stats.total_rdma_request += mr->mr_length;
-+		r_xprt->rx_stats.total_rdma_request +=
-+			ep->re_write_pad_mr->mr_length;
- 		nchunks++;
--		nsegs -= mr->mr_nents;
- 	}
- 
- 	/* Update count of segments in this Write chunk */
-@@ -471,9 +425,9 @@ static int rpcrdma_encode_reply_chunk(struct rpcrdma_xprt *r_xprt,
- 				      enum rpcrdma_chunktype wtype)
- {
- 	struct xdr_stream *xdr = &req->rl_stream;
--	struct rpcrdma_mr_seg *seg;
-+	struct rpcrdma_xdr_cursor cur;
- 	struct rpcrdma_mr *mr;
--	int nsegs, nchunks;
-+	int nchunks, ret;
- 	__be32 *segcount;
- 
- 	if (wtype != rpcrdma_replych) {
-@@ -482,10 +436,7 @@ static int rpcrdma_encode_reply_chunk(struct rpcrdma_xprt *r_xprt,
- 		return 0;
- 	}
- 
--	seg = req->rl_segments;
--	nsegs = rpcrdma_convert_iovs(r_xprt, &rqst->rq_rcv_buf, 0, wtype, seg);
--	if (nsegs < 0)
--		return nsegs;
-+	rpcrdma_xdr_cursor_init(&cur, &rqst->rq_rcv_buf, 0, wtype);
- 
- 	if (xdr_stream_encode_item_present(xdr) < 0)
- 		return -EMSGSIZE;
-@@ -496,19 +447,19 @@ static int rpcrdma_encode_reply_chunk(struct rpcrdma_xprt *r_xprt,
- 
- 	nchunks = 0;
- 	do {
--		seg = rpcrdma_mr_prepare(r_xprt, req, seg, nsegs, true, &mr);
--		if (IS_ERR(seg))
--			return PTR_ERR(seg);
-+		ret = rpcrdma_mr_prepare(r_xprt, req, &cur, true, &mr);
-+		if (ret)
-+			return ret;
- 
- 		if (encode_rdma_segment(xdr, mr) < 0)
- 			return -EMSGSIZE;
- 
--		trace_xprtrdma_chunk_reply(rqst->rq_task, mr, nsegs);
-+		trace_xprtrdma_chunk_reply(rqst->rq_task, mr,
-+					   rpcrdma_xdr_cursor_done(&cur));
- 		r_xprt->rx_stats.reply_chunk_count++;
- 		r_xprt->rx_stats.total_rdma_request += mr->mr_length;
- 		nchunks++;
--		nsegs -= mr->mr_nents;
--	} while (nsegs);
-+	} while (!rpcrdma_xdr_cursor_done(&cur));
- 
- 	/* Update count of segments in the Reply chunk */
- 	*segcount = cpu_to_be32(nchunks);
-diff --git a/net/sunrpc/xprtrdma/xprt_rdma.h b/net/sunrpc/xprtrdma/xprt_rdma.h
-index 2cb4eea4e00c0..a0af6b2309582 100644
---- a/net/sunrpc/xprtrdma/xprt_rdma.h
-+++ b/net/sunrpc/xprtrdma/xprt_rdma.h
-@@ -281,19 +281,36 @@ struct rpcrdma_mr {
-  * registered or invalidated. Must handle a Reply chunk:
-  */
- enum {
--	RPCRDMA_MAX_IOV_SEGS	= 3,
-+	RPCRDMA_MAX_IOV_SEGS	= 3,	/* head, page-boundary, tail */
- 	RPCRDMA_MAX_DATA_SEGS	= ((1 * 1024 * 1024) / PAGE_SIZE) + 1,
- 	RPCRDMA_MAX_SEGS	= RPCRDMA_MAX_DATA_SEGS +
- 				  RPCRDMA_MAX_IOV_SEGS,
- };
- 
--/* Arguments for DMA mapping and registration */
--struct rpcrdma_mr_seg {
--	u32		mr_len;		/* length of segment */
--	struct page	*mr_page;	/* underlying struct page */
--	u64		mr_offset;	/* IN: page offset, OUT: iova */
-+/**
-+ * struct rpcrdma_xdr_cursor - tracks position within an xdr_buf
-+ *     for iterative MR registration
-+ * @xc_buf: the xdr_buf being iterated
-+ * @xc_page_offset: byte offset into the page region consumed so far
-+ * @xc_flags: combination of XC_* bits
-+ *
-+ * Each XC_*_DONE flag indicates that this region has no
-+ * remaining MR registration work.  That condition holds both when the region
-+ * has already been registered by a prior frwr_map() call and
-+ * when the region is excluded from this chunk type (pre-set
-+ * at init time by rpcrdma_xdr_cursor_init()).  frwr_map()
-+ * treats the two cases identically: skip the region.
++/* Other CPUs may still be using @rt, so don't dst_dev_put() it.
++ * rt_flush_dev() handles it if its device is unregistered.
++ * Marking it dead makes ipv4_dst_check() fail for users that cached it.
 + */
-+struct rpcrdma_xdr_cursor {
-+	const struct xdr_buf		*xc_buf;
-+	unsigned int			xc_page_offset;
-+	unsigned int			xc_flags;
- };
- 
-+#define XC_HEAD_DONE	BIT(0)
-+#define XC_PAGES_DONE	BIT(1)
-+#define XC_TAIL_DONE	BIT(2)
++static void fnhe_retire_route(struct rtable *rt)
++{
++	WRITE_ONCE(rt->dst.obsolete, DST_OBSOLETE_DEAD);
++	rt_add_uncached_list(rt);
++	dst_release(&rt->dst);
++}
 +
- /* The Send SGE array is provisioned to send a maximum size
-  * inline request:
-  * - RPC-over-RDMA header
-@@ -328,7 +345,6 @@ struct rpcrdma_req {
- 
- 	struct list_head	rl_free_mrs;
- 	struct list_head	rl_registered;
--	struct rpcrdma_mr_seg	rl_segments[RPCRDMA_MAX_SEGS];
- };
- 
- static inline struct rpcrdma_req *
-@@ -447,8 +463,8 @@ rpcrdma_portstr(const struct rpcrdma_xprt *r_xprt)
+ static void fnhe_flush_routes(struct fib_nh_exception *fnhe)
+ {
+ 	struct rtable *rt;
+@@ -580,14 +591,12 @@ static void fnhe_flush_routes(struct fib_nh_exception *fnhe)
+ 	rt = rcu_dereference(fnhe->fnhe_rth_input);
+ 	if (rt) {
+ 		RCU_INIT_POINTER(fnhe->fnhe_rth_input, NULL);
+-		dst_dev_put(&rt->dst);
+-		dst_release(&rt->dst);
++		fnhe_retire_route(rt);
+ 	}
+ 	rt = rcu_dereference(fnhe->fnhe_rth_output);
+ 	if (rt) {
+ 		RCU_INIT_POINTER(fnhe->fnhe_rth_output, NULL);
+-		dst_dev_put(&rt->dst);
+-		dst_release(&rt->dst);
++		fnhe_retire_route(rt);
+ 	}
  }
  
- /* Setting this to 0 ensures interoperability with early servers.
-- * Setting this to 1 enhances certain unaligned read/write performance.
-- * Default is 0, see sysctl entry and rpc_rdma.c rpcrdma_convert_iovs() */
-+ * Setting this to 1 enhances unaligned read/write performance.
-+ * Default is 0, see sysctl entry and rpc_rdma.c */
- extern int xprt_rdma_pad_optimize;
+@@ -1505,10 +1514,8 @@ static bool rt_bind_exception(struct rtable *rt, struct fib_nh_exception *fnhe,
+ 		if (do_cache) {
+ 			dst_hold(&rt->dst);
+ 			rcu_assign_pointer(*porig, rt);
+-			if (orig) {
+-				dst_dev_put(&orig->dst);
+-				dst_release(&orig->dst);
+-			}
++			if (orig)
++				fnhe_retire_route(orig);
+ 			ret = true;
+ 		}
  
- /* This setting controls the hunt for a supported memory
-@@ -535,10 +551,10 @@ void frwr_reset(struct rpcrdma_req *req);
- int frwr_query_device(struct rpcrdma_ep *ep, const struct ib_device *device);
- int frwr_mr_init(struct rpcrdma_xprt *r_xprt, struct rpcrdma_mr *mr);
- void frwr_mr_release(struct rpcrdma_mr *mr);
--struct rpcrdma_mr_seg *frwr_map(struct rpcrdma_xprt *r_xprt,
--				struct rpcrdma_mr_seg *seg,
--				int nsegs, bool writing, __be32 xid,
--				struct rpcrdma_mr *mr);
-+int frwr_map(struct rpcrdma_xprt *r_xprt,
-+	     struct rpcrdma_xdr_cursor *cur,
-+	     bool writing, __be32 xid,
-+	     struct rpcrdma_mr *mr);
- int frwr_send(struct rpcrdma_xprt *r_xprt, struct rpcrdma_req *req);
- void frwr_reminv(struct rpcrdma_rep *rep, struct list_head *mrs);
- void frwr_unmap_sync(struct rpcrdma_xprt *r_xprt, struct rpcrdma_req *req);
 -- 
 2.53.0
+
+
 
