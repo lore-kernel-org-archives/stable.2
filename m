@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795598780;
-	b=Rp30XYJrBqOYhj3tO5sCe6/5R5oSsqo0iHAeYmWmsoMW95m36t1i3sYVf9g56zRdupOf
-	 JHoVwc+OZSu7NgWlA4Xx6F7aViLA+7qcpFY5Dc9Am8QbdGDKNZYizIzazrOinatlpMG6S
-	 +t0SLFTDY0mJYZHDbYVg8OFf+n8zMotp0w2HThtYzvC6vcvW83WRTDeplryMcQBM/4unD
-	 64zyde6AKAq1Oeik/t9QrzoZFH0SMzuiKod2tbjaKjXDv+F0fNUEBpRFf9TTq75AqYeve
-	 DKdY4Dl874afhQmINFHzVXfkQl6ha25QrvJbv3EmlZl9CLl8N+l1fxSV4yuHSzrTn6Q==
+	t=1795598782;
+	b=n9Xu+gDkJ5E+V+laNndJMCJ75LGKLYn2JU7QAdjXEJyz9VOt7nwoe/h8ev6bYFhMB+BH
+	 asjNPZ8hMjXVsui7Gd705IanzYL/PNknHzTugZzAfrsWqEmgrWgnqqqHiPBk76cTWK4aG
+	 A7KzHKS3ZajK0VZ+m3w1ZGA8V4gmgj2VBev0s4vU1rEOVorcoy3689XhFzwiLrlgx31Fw
+	 iumQo7Vq3Sz8u5/OeacxSszwKxEW2oxxweZrk3y9Zh3bjcugFpbtpAGLZ+w3w1mvzFoP1
+	 lYM7hP5Gq9FwyG0HR3XGKp6wyOQus4S0o0AeDqdzsySTvRsoOsPtmKgsf8I06CDQpBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795598780;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795598782;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ngiEoYt8a24mimq8m1ftgGeWw1mWHRTmVD3nOuvJOrA=;
-	b=cz6RiZg757+hcic51Au/ld3nbirYvFlAXUqUh8gcQPDyMRKhx5JZBI2a5WjXpOaONwdu
-	 baeTi1DH/U06Ii4X69SKcFVPzhrSlEqFDICayDfvPkqpAJMMtDqHPwVHiZfDvG8GDuxj9
-	 l6A2dS0LvsrHqgjeu09/M1FIuH8NSJD3ksjDP0f3ngChRfmyTcRXPNoGeb1PQzeURSG5w
-	 4mMtMg1fkJuIqJnOOrDNx1VNZLs0Bsr1QgYfV7v3ra6YtqISoxgUUthXdge0cNzRBdUhv
-	 occ1x5LlKgmWWe2GTiXW0tbZg+Br3SilvuLEa8o8ayymVL2n2PwNQT3Z0CvCitQ34eA==
+	bh=4WH4I5X78CjWTxHCZHCAgxDX2PibC1Y/6mp3Q6vWd5M=;
+	b=t8ZCYgualGRWZTgO8GTI/jp/gWRddh0z+YgqvPdYb6u0edSou8u6s5Ct1GfGnM/1d26E
+	 Ef9/xlled/bMyPi3jJ8eCvr2USP3j1aUR9q98UeF/PdkwX9G7i8CJBmZ53fEbO0RAiFnb
+	 872XDNBwoCD7l8I9gQzDrsilhJ4OEslB/PHrXGfb9uRSAXursxlbLwK55yuzqC44xrW2l
+	 CxlzEiX9LbgOitbSzT3ndZZaqkgsONdtFFNgs29VUBmP6VF+LlW/cejZLnrojsJ/j4J52
+	 8wmmJ0EaQLdkhaM3L8J6ZSC6cYZlSn3dkzwsdw0eM4sYu8NwFX/h2HZreiBtEHVhPlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=y9E11Yap;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="x4/mcZ8I";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C2E606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:26:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE49606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:26:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=y9E11Yap
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 269EB1F000C4;
-	Wed, 25 Nov 2026 09:26:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x4/mcZ8I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26C681F000C4;
+	Wed, 25 Nov 2026 09:26:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795598779;
-	bh=ngiEoYt8a24mimq8m1ftgGeWw1mWHRTmVD3nOuvJOrA=;
+	s=korg; t=1795598782;
+	bh=4WH4I5X78CjWTxHCZHCAgxDX2PibC1Y/6mp3Q6vWd5M=;
 	h=Subject:To:Cc:From:Date;
-	b=y9E11YapHtLvaVzlKIOaDU1cFvjtRed6LMQTZgql1tALs/VXZtOuO2TJH1bYek07w
-	 KRP+jRkrWn9lzV3xU4WTfoI97EmG/AxCTsj/YdIeCfHkTNirbRTppqWwUQN4hh8uPt
-	 aEqufp3V6lR8RDlDHq6LybQCdGHMC4K04WlBdAVk=
-Subject: FAILED: patch "[PATCH] crypto: caam - reject overlong RSA CRT parameters" failed to apply to 5.15-stable tree
-To: Jeremy.Jean@oss.cyber.gouv.fr,herbert@gondor.apana.org.au,sahil.malhotra@nxp.com
+	b=x4/mcZ8ILCUGV1Hg0fXP6nHMw7ilfbO9r/B5KxOOHGRgbLL5HgwHLwFkrk2r9SZww
+	 7KwJxsSRH02y3ahtR2GnPufgJTnt+L0RWkfx+S5IMe8ypjh9pIxgIzxdg0XPa5izYS
+	 OVkxqvIs352ScHjlqtdLlujZ1h4NYjmCAwIQ31co=
+Subject: FAILED: patch "[PATCH] dcache: let umount find a disconnected ex-mountpoint" failed to apply to 6.18-stable tree
+To: josef@toxicpanda.com,brauner@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 10:19:10 +0100
-Message-ID: <2026112509-confused-dispersed-efe4@gregkh>
+Date: Wed, 25 Nov 2026 10:19:45 +0100
+Message-ID: <2026112545-encrypt-friend-e924@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,23 +51,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 828c3b265b6df877dced3dde56ea41daa2e6181e
+git cherry-pick -x 32e564e222b7ca3811b2acee404b73fcaf43f312
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112509-confused-dispersed-efe4@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112545-encrypt-friend-e924@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,180 +79,100 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 828c3b265b6df877dced3dde56ea41daa2e6181e Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Date: Thu, 8 Oct 2026 09:35:53 +0000
-Subject: [PATCH] crypto: caam - reject overlong RSA CRT parameters
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 32e564e222b7ca3811b2acee404b73fcaf43f312 Mon Sep 17 00:00:00 2001
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Fri, 30 Oct 2026 13:38:24 +0100
+Subject: [PATCH] dcache: let umount find a disconnected ex-mountpoint
 
-caam_read_rsa_crt() right-aligns dP, dQ, and qInv in buffers sized
-from the corresponding prime. rsa_parse_priv_key() only bounds these
-integers against n, so a malformed key can provide, for example, a
-two-byte dP with a one-byte p. dstlen - nbytes then underflows and
-memcpy() writes outside the allocation during set_priv_key(). KASAN
-reports a slab-out-of-bounds write in caam_read_rsa_crt().
+When a mount goes away the reference to its mountpoint is dropped with
+dput_to_list() and namespace_unlock() evicts the dentry after dropping
+namespace_sem. Nothing pins the filesystem at that point so it can be
+unmounted at the same time. That's fine as long as
+shrink_dcache_for_umount() finds the dentry. It then either evicts it
+itself or waits for the eviction to finish.
 
-Reject empty or overlong CRT parameters after stripping leading zeros.
-qInv is consumed by CAAM as a p-sized value, so size it from p rather
-than q to match the DMA mapping in set_rsa_priv_f3_pdb(). Let the
-top-level key cleanup handle partial form-3 allocations and return the
-specific error to the caller.
+But it can't find a disconnected root as those are neither in the tree
+nor on ->s_roots. And they can be mounted on:
 
-Also test nbytes before dereferencing it while stripping zeros, so an
-all-zero integer does not read one byte beyond its input.
+  fd = open_by_handle_at(mnt_fd, handle of a file with no dentry, O_PATH);
+  tree = open_tree(AT_FDCWD, "/tmp/x", OPEN_TREE_CLONE);
+  move_mount(tree, "", fd, "", MOVE_MOUNT_F_EMPTY_PATH |
+			       MOVE_MOUNT_T_EMPTY_PATH);
+  close(fd);
 
-Fixes: 4a651b122adb ("crypto: caam - add support for RSA key form 3")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Reviewed-by: Sahil Malhotra <sahil.malhotra@nxp.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+  thread A                              thread B
+  umount2("/proc/self/fd/<tree>", MNT_DETACH)
+    namespace_unlock()
+      up_write(&namespace_sem)
+                                        umount of the filesystem
+                                          shrink_dcache_for_umount()
+                                          evict_inodes()
+                                          "Busy inodes after unmount"
+      shrink_dentry_list()
+        dentry_kill()
+          iput() of an inode of a superblock that is gone
 
-diff --git a/drivers/crypto/caam/caampkc.c b/drivers/crypto/caam/caampkc.c
-index ac515ed8c575..2082adaae585 100644
---- a/drivers/crypto/caam/caampkc.c
-+++ b/drivers/crypto/caam/caampkc.c
-@@ -880,7 +880,7 @@ static void caam_rsa_free_key(struct caam_rsa_key *key)
- 
- static void caam_rsa_drop_leading_zeros(const u8 **ptr, size_t *nbytes)
+So put such a dentry on ->s_roots when it's put on the shrink list. From
+then on it's a secondary root like any other.
+
+This needs the previous patch. Otherwise do_one_tree() takes the dentry
+off ->s_roots and umount doesn't wait for an eviction in progress.
+
+The stable tag is narrower than the Fixes tag on purpose. Before commit
+e9895609cb7f ("wind ->s_roots via ->d_sib instead of ->d_hash") umount
+doesn't wait for a secondary root that is being evicted either.
+
+Fixes: 4edbe133f851 ("make struct mountpoint bear the dentry reference to mountpoint, not struct mount")
+Cc: stable@vger.kernel.org # v7.2+
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Link: https://patch.msgid.link/20261030-work-dcache-ai-v1-3-cd6b86e0ccc7@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+
+diff --git a/fs/dcache.c b/fs/dcache.c
+index 6279bfcf3507..228a853c3969 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -45,7 +45,8 @@
+  * dcache_hash_bucket lock protects:
+  *   - the dcache hash table
+  * s_roots_lock protects:
+- *   - the s_roots list (see __d_move()/dentry_unlist()/d_obtain_root())
++ *   - the s_roots list (see __d_move()/dentry_unlist()/d_obtain_root()/
++ *     dput_to_list())
+  * dentry->d_sb->s_dentry_lru_lock protects:
+  *   - the dcache lru lists and counters
+  * d_lock protects:
+@@ -1117,7 +1118,18 @@ void dput_to_list(struct dentry *dentry, struct list_head *list)
  {
--	while (!**ptr && *nbytes) {
-+	while (*nbytes && !**ptr) {
- 		(*ptr)++;
- 		(*nbytes)--;
- 	}
-@@ -896,22 +896,22 @@ static void caam_rsa_drop_leading_zeros(const u8 **ptr, size_t *nbytes)
-  * @ptr   : pointer to {dP, dQ, qInv} CRT member
-  * @nbytes: length in bytes of {dP, dQ, qInv} CRT member
-  * @dstlen: length in bytes of corresponding p or q prime factor
-+ * @dst   : pointer to the zero-padded output buffer
-  */
--static u8 *caam_read_rsa_crt(const u8 *ptr, size_t nbytes, size_t dstlen)
-+static int caam_read_rsa_crt(const u8 *ptr, size_t nbytes, size_t dstlen,
-+			     u8 **dst)
- {
--	u8 *dst;
--
- 	caam_rsa_drop_leading_zeros(&ptr, &nbytes);
--	if (!nbytes)
--		return NULL;
-+	if (!nbytes || nbytes > dstlen)
-+		return -EINVAL;
- 
--	dst = kzalloc(dstlen, GFP_KERNEL);
--	if (!dst)
--		return NULL;
-+	*dst = kzalloc(dstlen, GFP_KERNEL);
-+	if (!*dst)
-+		return -ENOMEM;
- 
--	memcpy(dst + (dstlen - nbytes), ptr, nbytes);
-+	memcpy(*dst + (dstlen - nbytes), ptr, nbytes);
- 
--	return dst;
-+	return 0;
- }
- 
- /**
-@@ -991,6 +991,7 @@ static int caam_rsa_set_priv_key_form(struct caam_rsa_ctx *ctx,
- 	size_t p_sz = raw_key->p_sz;
- 	size_t q_sz = raw_key->q_sz;
- 	unsigned aligned_size;
-+	int ret;
- 
- 	rsa_key->p = caam_read_raw_data(raw_key->p, &p_sz);
- 	if (!rsa_key->p)
-@@ -999,57 +1000,39 @@ static int caam_rsa_set_priv_key_form(struct caam_rsa_ctx *ctx,
- 
- 	rsa_key->q = caam_read_raw_data(raw_key->q, &q_sz);
- 	if (!rsa_key->q)
--		goto free_p;
-+		return -ENOMEM;
- 	rsa_key->q_sz = q_sz;
- 
- 	aligned_size = ALIGN(raw_key->p_sz, dma_get_cache_alignment());
- 	rsa_key->tmp1 = kzalloc(aligned_size, GFP_KERNEL);
- 	if (!rsa_key->tmp1)
--		goto free_q;
-+		return -ENOMEM;
- 
- 	aligned_size = ALIGN(raw_key->q_sz, dma_get_cache_alignment());
- 	rsa_key->tmp2 = kzalloc(aligned_size, GFP_KERNEL);
- 	if (!rsa_key->tmp2)
--		goto free_tmp1;
-+		return -ENOMEM;
- 
- 	rsa_key->priv_form = FORM2;
- 
--	rsa_key->dp = caam_read_rsa_crt(raw_key->dp, raw_key->dp_sz, p_sz);
--	if (!rsa_key->dp)
--		goto free_tmp2;
-+	ret = caam_read_rsa_crt(raw_key->dp, raw_key->dp_sz, p_sz,
-+				&rsa_key->dp);
-+	if (ret)
-+		return ret;
- 
--	rsa_key->dq = caam_read_rsa_crt(raw_key->dq, raw_key->dq_sz, q_sz);
--	if (!rsa_key->dq)
--		goto free_dp;
-+	ret = caam_read_rsa_crt(raw_key->dq, raw_key->dq_sz, q_sz,
-+				&rsa_key->dq);
-+	if (ret)
-+		return ret;
- 
--	rsa_key->qinv = caam_read_rsa_crt(raw_key->qinv, raw_key->qinv_sz,
--					  q_sz);
--	if (!rsa_key->qinv)
--		goto free_dq;
-+	ret = caam_read_rsa_crt(raw_key->qinv, raw_key->qinv_sz, p_sz,
-+				&rsa_key->qinv);
-+	if (ret)
-+		return ret;
- 
- 	rsa_key->priv_form = FORM3;
- 
- 	return 0;
--
--free_dq:
--	kfree_sensitive(rsa_key->dq);
--	rsa_key->dq = NULL;
--free_dp:
--	kfree_sensitive(rsa_key->dp);
--	rsa_key->dp = NULL;
--free_tmp2:
--	kfree_sensitive(rsa_key->tmp2);
--	rsa_key->tmp2 = NULL;
--free_tmp1:
--	kfree_sensitive(rsa_key->tmp1);
--	rsa_key->tmp1 = NULL;
--free_q:
--	kfree_sensitive(rsa_key->q);
--	rsa_key->q = NULL;
--free_p:
--	kfree_sensitive(rsa_key->p);
--	rsa_key->p = NULL;
--	return -ENOMEM;
- }
- 
- static int caam_rsa_set_priv_key(struct crypto_akcipher *tfm, const void *key,
-@@ -1067,6 +1050,8 @@ static int caam_rsa_set_priv_key(struct crypto_akcipher *tfm, const void *key,
- 	if (ret)
- 		return ret;
- 
-+	ret = -ENOMEM;
+ 	if (likely(fast_dput(dentry)))
+ 		return;
+-	__move_to_shrink_list(dentry, list);
++	/*
++	 * The list owner need not pin the superblock, so make a disconnected
++	 * root a secondary one for shrink_dcache_for_umount() to find.
++	 */
++	if (__move_to_shrink_list(dentry, list) &&
++	    unlikely(IS_ROOT(dentry) && hlist_unhashed(&dentry->d_sib))) {
++		struct super_block *sb = dentry->d_sb;
 +
- 	/* Copy key in DMA zone */
- 	rsa_key->d = kmemdup(raw_key.d, raw_key.d_sz, GFP_KERNEL);
- 	if (!rsa_key->d)
-@@ -1103,7 +1088,7 @@ static int caam_rsa_set_priv_key(struct crypto_akcipher *tfm, const void *key,
- 
- err:
- 	caam_rsa_free_key(rsa_key);
--	return -ENOMEM;
-+	return ret;
++		spin_lock(&sb->s_roots_lock);
++		hlist_add_head(&dentry->d_sib, &sb->s_roots);
++		spin_unlock(&sb->s_roots_lock);
++	}
+ 	spin_unlock(&dentry->d_lock);
  }
  
- static unsigned int caam_rsa_max_size(struct crypto_akcipher *tfm)
+diff --git a/include/linux/fs/super_types.h b/include/linux/fs/super_types.h
+index 72f4288e16c5..6ce105fe8359 100644
+--- a/include/linux/fs/super_types.h
++++ b/include/linux/fs/super_types.h
+@@ -173,7 +173,7 @@ struct super_block {
+ 	struct unicode_map			*s_encoding;
+ 	__u16					s_encoding_flags;
+ #endif
+-	struct hlist_head			s_roots;	/* alternate root dentries for NFS */
++	struct hlist_head			s_roots;	/* alternate root dentries for NFS and ex-mountpoints */
+ 	spinlock_t				s_roots_lock;
+ 	struct mount				*s_mounts;	/* list of mounts; _not_ for fs use */
+ 	struct block_device			*s_bdev;	/* can go away once we use an accessor for @s_bdev_file */
 
