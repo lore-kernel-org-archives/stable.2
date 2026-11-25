@@ -1,75 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=207.180.195.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795623233;
-	b=cK8JjdG04G3SxoV2avxmxr1dbeSCM8RxwQFQfJ5ctPwcLbTegI8Z2bSa5ZKPnzZELWHR
-	 pp8K5d5oSSASG2LoyxqQyr4Yo7LLfakOyUaNzRRz63whEFc81uknXbe0Z/KtQLbgq/tLq
-	 VwfPQupPc7BGNsfpCVmm9RhxbHkRy4EZdE1jhxt1EpC+UhjFcnmZKVIccr8UlxrEYfsJn
-	 UQcoJZXDHwLxuvUMCEhyHwcQH1V4iZpK2fQztfSXv2P8AcL2xzJcRayhGTROiOmeYmY8j
-	 mUlXHgZGsBrXfI+0/2YpkwbxL5d5uGjHvUSwVSarWGwnXj5c8SYKyEEGm+61B/og6ow==
+	b=vgdECdBTLBADp0tdvGmUaT4VgfSbw05g8yF3m6FWNS7tYRm0XHkSlAjAAqHSpXpuO7QH
+	 1oKeYizKa3Er5L8kPmVv9t5CU20i59vsJShmdrGXDnqtdeEqVolZfsxY7lfVSxAotBpWY
+	 4Ws8pqVeNzIXm8uesD80lvIdgUWcTrRIavzooxRUT84BQtz7KkNwWP8COArK06wlB/pSH
+	 UkX4ZBlBUluSbe48zMisXdYctWLhTOWnmN/I6ak4po8kkpOtclwfWaMJnrBT/wiXD7M1U
+	 FxF/xGVo9OHg4DJ3iYNN0eeNznEf5rKE8gmBQaXI5UZ/aPNpK7NPWpHmonccC8NNM/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795623233;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=fKiB7MDV6K7Y+SUfBzfSXx7nhfpSuibLuHtz+aDsyHw=;
-	b=dPnfxwIXPYI6Au9XiwSy8o90ShJLuoXYbVgK2dXk40ZilWH9B29wXbCKnTh/iuXTum+v
-	 Sb17O0T7/sve6wlCcnECKVmK5NHSPO8KAejcVRlQVh143hmUCEZp0h7gNoWqSwJLav3Hm
-	 0ePo8eWGYS9DCIq6n9ZoepVhRWg0OfTSGmwbMdu/NMzbF4/swYqx/ArTj4reZLUo9Wg6f
-	 7FgweDhqqpFU+moAshGOGc0k13FHtDGqzfuwVWPBe3t6Y1eb65+0uC+Jh6a2GQ3jqRRxt
-	 xi47qwKtx3cSXydT6uyFm6lAuU7KU7bIyKKkbY3K1HuGM4KPqpZ5NJRBmjDjtWd+3Mw==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=aR5hvyKwzGLQ3hHtuugT93giWdwJYB2fqILADUBgRHs=;
+	b=YqSi86TxzZvr3MRd7S5YleYE0uw5HSoqD+exBUd8Dp1RmwiaXs+SPd+14Z5EsF0DCl+/
+	 HPAKrAz49jVbcA4T9LcLmrW00s/WIDngZp8hpoxRNNcaXkHFjhew5lR7fi2HsPb85dTBg
+	 EdVqxv1T6S2E1Mu61+TI507Uq1pnk6urgwtnEd2wEMHiBKXqbpjT3/fRR3EO6H0uF9yxu
+	 QoOrMHXyulGMslLZO+8Xvs+oqAI8lkmoJMxixs7ZxIfwZNFHnlEuE+z4FMvXp9C0V9gHr
+	 T8TlSwe7de8uk5xMfldxE5V6uob/VhhLZVfNgSACcNf9nH07+/y+5aUDWWDsl5K9QwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mkio.de;
-	spf=pass smtp.mailfrom=mkio.de;
-	dkim=pass header.d=mkio.de header.i=@mkio.de header.a=rsa-sha256 header.s=default header.b=X7lHcZcK;
-	arc=none smtp.remote-ip=207.180.195.6
-Received: from mail-relay.contabo.net (mail-relay.contabo.net [207.180.195.6])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DU5qrbwT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0C8606A31E;
-	Wed, 25 Nov 2026 16:13:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D0C8606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mkio.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mkio.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74BC3606A335;
+	Wed, 25 Nov 2026 16:13:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mkio.de header.i=@mkio.de header.a=rsa-sha256 header.s=default header.b=X7lHcZcK
-Received: from pxmg2.contabo.net (localhost.localdomain [127.0.0.1])
-	by mail-relay.contabo.net (Proxmox) with ESMTP id AECFD7C1861;
-	Wed, 25 Nov 2026 17:13:43 +0100 (CET)
-Received: from m2731.contabo.net (m2731.contabo.net [193.34.145.203])
-	by mail-relay.contabo.net (Proxmox) with ESMTPS id 594247C1854;
-	Wed, 25 Nov 2026 17:13:43 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mkio.de;
-	s=default; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
-	Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=fKiB7MDV6K7Y+SUfBzfSXx7nhfpSuibLuHtz+aDsyHw=; b=X7lHcZcKEiNSISWcZYoOhSsVO0
-	1BayDYDIOUM5iuY9j29Ku95s6BgKPaddCh1IDxeKtiHjdE5MvIKjeABwRYiAcA07V3mNwbbsvaQOk
-	Az3NPJ+/z9bYPnWzXx6yZ99+moz1JZvJ1AnJVd5MvwwbvkHxfPUrtRlNyV+dVt58DrbLRitZBNzMo
-	9YAW4W1p+ux7cxoeD2wBc1Ud1YjahOf3zIwWxppLNlWsE9jyhZaYyzDGvqnestXwl2Np0Nhjk9yXM
-	ZthmN37PWbYrYz/oeP3CBFqEmj/obxjoKeaoO61X2NoxgKIksehCNi1qfWyY8kgPmCUjWwRDriIbu
-	YVhyiW4A==;
-Received: from ip-078-042-120-089.um17.pools.vodafone-ip.de ([78.42.120.89]:61715 helo=p14s.int.kistler.com)
-	by m2731.contabo.net with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <mk@mkio.de>)
-	id 1xWFct-00000005rgs-2UOI;
-	Wed, 25 Nov 2026 17:13:42 +0100
-From: Markus Klotzbuecher <mk@mkio.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-omap@vger.kernel.org,
-	Sahaj Chaudhari <sahaj123.sc@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] spi: omap2-mcspi: lock the DMA request bit updates
-Date: Wed, 25 Nov 2026 17:13:40 +0100
-Message-ID: <20261125161340.1218564-1-mk@mkio.de>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DU5qrbwT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 697891F000CF;
+	Wed, 25 Nov 2026 16:13:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795623233;
+	bh=aR5hvyKwzGLQ3hHtuugT93giWdwJYB2fqILADUBgRHs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DU5qrbwTW2JyWZ1F0O56nMye0+j/gaTu8TETFIP2PnvYEo9OBB5INhGhfzK3P48+j
+	 Gg0STNpRPXG0FvTmdELBQ/0m1G3YlbWLYd99BV3pZZ1ffl/LohuIXd6fEr9QEGvlSo
+	 4m0jsuJmJ8pz8AEZhW1LKYpXA18UZLjHb1cnyYHw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Xiang Mei <xmei5@asu.edu>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 6.18 794/990] sctp: reset stored flag for each association
+Date: Wed, 25 Nov 2026 15:36:01 +0100
+Message-ID: <20261125143840.643328748@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,94 +64,56 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - m2731.contabo.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - mkio.de
-X-Get-Message-Sender-Via: m2731.contabo.net: authenticated_id: mk@mkio.de
-X-Authenticated-Sender: m2731.contabo.net: mk@mkio.de
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-omap2_mcspi_set_dma_req() does an unlocked read-modify-write of the
-cached CHCONF value to set or clear DMAR/DMAW. On full-duplex DMA
-transfers the RX and TX completion callbacks both call it to clear
-their own bit. The callbacks are invoked from the per-channel dmaengine
-tasklets, which can run concurrently on different CPUs. One of them
-can then write back a stale copy that still has the other's bit set.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-DMAR or DMAW then stays set in the cached value and is written back by
-every later CHCONF update. With a stale DMAR, the next PIO transfer
-times out waiting for RXS and the next RX DMA completes early.
+------------------
 
-Protect the read-modify-write in omap2_mcspi_set_dma_req() with a
-spinlock. All other CHCONF updates run in the transfer thread while no
-DMA callback is pending, so only this helper needs the lock.
+From: Weiming Shi <bestswngs@gmail.com>
 
-Tested on a TI AM625 with linux-stable 6.18 PREEMPT_RT, a device on
-McSPI2 CS1 at 50 MHz and four spidev transfers per cycle, the larger
-ones via DMA. An instrumented kernel that flags stale DMAR/DMAW on PIO
-entry reported more than 720 stale bit events and DMA transfer errors
-in 15 minutes without this change, and none over an 11.5 hour soak
-with it.
+commit 173712d868eb20628ad82deb07f6829a68a9e064 upstream.
 
-Fixes: 53741ed8f0a3 ("spi: omap2-mcspi: add DMA engine support")
+sctp_send_asconf_del_ip() walks every association on an endpoint. The
+stored flag records that the current association took the single-homed
+deferral path and therefore did not allocate an ASCONF chunk. It is
+currently scoped to the whole function. Once one association sets it,
+later eligible multihomed associations allocate chunks but skip
+sctp_send_asconf(), leaking each chunk and its skb.
+
+Reset stored for every association so only an association taking the
+deferral path skips transmission. In an A/B kmemleak test, the
+vulnerable kernel reported 210 leaked objects from this call path and the
+fixed kernel reported none.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Markus Klotzbuecher <mk@mkio.de>
+Fixes: 8a07eb0a50ae ("sctp: Add ASCONF operation on the single-homed host")
+Reported-by: Xiang Mei <xmei5@asu.edu>
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+Acked-by: Xin Long <lucien.xin@gmail.com>
+Link: https://patch.msgid.link/20261108161149.2774119-1-bestswngs@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
-Tested on 6.18.y with commit c126e07bde21 ("spi: omap2-mcspi: handle
-DMA setup failures"); omap2_mcspi_set_dma_req() and the DMA callbacks
-are the same on spi for-next. Compile-tested on spi for-next.
+ net/sctp/socket.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/spi/spi-omap2-mcspi.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/spi/spi-omap2-mcspi.c b/drivers/spi/spi-omap2-mcspi.c
-index 061d50c65dfd..b1d3b8447d0b 100644
---- a/drivers/spi/spi-omap2-mcspi.c
-+++ b/drivers/spi/spi-omap2-mcspi.c
-@@ -118,6 +118,8 @@ struct omap2_mcspi_regs {
+--- a/net/sctp/socket.c
++++ b/net/sctp/socket.c
+@@ -808,7 +808,6 @@ static int sctp_send_asconf_del_ip(struc
+ 	struct sctp_sockaddr_entry *saddr;
+ 	int 			i;
+ 	int 			retval = 0;
+-	int			stored = 0;
  
- struct omap2_mcspi {
- 	struct completion	txdone;
-+	/* serializes the DMAR/DMAW read-modify-write of the cached chconf */
-+	spinlock_t		chconf_lock;
- 	struct spi_controller	*ctlr;
- 	/* Virtual base address of the controller */
- 	void __iomem		*base;
-@@ -205,8 +207,11 @@ static inline int mcspi_bytes_per_word(int word_len)
- static void omap2_mcspi_set_dma_req(const struct spi_device *spi,
- 		int is_read, int enable)
- {
-+	struct omap2_mcspi *mcspi = spi_controller_get_devdata(spi->controller);
-+	unsigned long flags;
- 	u32 l, rw;
+ 	chunk = NULL;
+ 	sp = sctp_sk(sk);
+@@ -821,6 +820,7 @@ static int sctp_send_asconf_del_ip(struc
+ 		 __func__, sk, addrs, addrcnt);
  
-+	spin_lock_irqsave(&mcspi->chconf_lock, flags);
- 	l = mcspi_cached_chconf0(spi);
+ 	list_for_each_entry(asoc, &ep->asocs, asocs) {
++		int stored = 0;
  
- 	if (is_read) /* 1 is read, 0 write */
-@@ -220,6 +225,7 @@ static void omap2_mcspi_set_dma_req(const struct spi_device *spi,
- 		l &= ~rw;
- 
- 	mcspi_write_chconf0(spi, l);
-+	spin_unlock_irqrestore(&mcspi->chconf_lock, flags);
- }
- 
- static void omap2_mcspi_set_enable(const struct spi_device *spi, int enable)
-@@ -1630,6 +1636,7 @@ static int omap2_mcspi_probe(struct platform_device *pdev)
- 	mcspi->base += regs_offset;
- 
- 	mcspi->dev = &pdev->dev;
-+	spin_lock_init(&mcspi->chconf_lock);
- 
- 	INIT_LIST_HEAD(&mcspi->ctx.cs);
- 
-
-base-commit: 266ae6df1980a5a5c58735ae114ae62a2acad8db
--- 
-2.53.0
+ 		if (!asoc->peer.asconf_capable)
+ 			continue;
 
 
