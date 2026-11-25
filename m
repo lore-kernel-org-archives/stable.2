@@ -1,97 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795586313;
-	b=H9fOTy/iCEvywXWKPo1bV8e2L0MgLY13AyxbvyCBca5TFLOwlW0/p0Q5vO3heQ6pSVEF
-	 X7ylseUjIZeg+JmPw+H9y6989oqDZ+4MyYrscGQGt87QKihdAgfm2D3VVX2meD20mTcIC
-	 1mS9Q2hdYPFaB4mv1RjMnkrSbe/y1DJNMr3kIrZef7e2P/+jYPHz1H9E7eTyPMRdNUwor
-	 C7GXIg08rASeEk0AnJghwN7z0KkeAZ/w4VR2HIvmJBvp00yU1wbshz/K/YVq/qCSDt3wB
-	 GNS8MXeKymJUEm3udLk/YAmqg4L6a2VhKprX00cmmNC6pUDmIVRfTuzcw1f8QvjfvwA==
+	t=1795586344;
+	b=uqlYTK5twHVzIJRf/NT9/geyw6/yNhR6cfQrt4/iF8rFRi5UJ+CPajw1g0uyW5+hnHzR
+	 gLdavGCHgw4uGC9eDYNt6epicBjBPdS+udlw9gxcaSn4rF/8J5R6pvcM7hnUG2D8wwcLE
+	 pstJmXlnpSV40cHbuvYDpucf2ZVBW0VT//S0/O0pgmeqL8Gd+uXW8LTPtSSNRjzzfY9Vg
+	 f5DsMfjZj48abhGa6hCqSMan3+c9Gbqhl15FsQlwq+DUGQe1VVwSB/W45KU31DUKKo7/q
+	 n05RkyWpOL98nHgaMjLBQcI/QC3CcIMxBaqyLPZ+0waWT3x7XBcLD9aR3FVMj623R7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795586313;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795586344;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=xFMuh8nwFoEFZnPvdlHZ2jAd51FcFwkpbhkwnf+oNII=;
-	b=jhOuXsR+65wlzSmrR+XIDEySvWr/MCUy5ceTZvUTkSDUCavhqO/z9DWvIIls1SIk6Rjm
-	 2293ZW3DOr53JH/8uV1lr9qo+93C5+/jKbg0x9Q2zS+h2sAdtPdbLrX0RkEPdxqQDEm6q
-	 MHs+cHSBhRhUYDNkkBISOepKC1mP52IGKZb1vNbEBpVjdfD4YM6jcyvRSJIOJgdS/xRNI
-	 zRj/tbr3RknEuY40wutZOxMvhAgXtjRVrVNIYQya/AtN7Zr+35HclkER3NYAg5oWiFW/T
-	 /d4BMb3euLq2y4y0DisSsJ5EI/CsSA6RF34NEsYKaWKJOJnT3odhKMC86T7CAJbR98g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=kLO4bvaNtN2k734CUnroIhM2LaGQVLf7dwNtjbQDkFI=;
+	b=C/xvCuENPZ4wq1pbh+qGn5ZdVt6MHmPaVJLkwu1r4yk4vMq4eriiZEvOSXt+gfpw3UpA
+	 w5rYFHyJieZITLpgaACuH4B6wNW4X7T93Y0zlGJDm34WvGwX2xTgNMn/6RLRbQPS+q+SE
+	 zsChgqGGMHCPD02aPQP1z6CklV6XXWzCpAq6kgAhJKhzW8fcAMXt/dNVaq0rcvvKDFXi7
+	 9x+tSBb5cFohFAVh9YTBImP2Ugs6uBnqwxLOOZ2x1WmIiOP3LteiHm06DLxJItWPrZ4Vf
+	 wAo7yBfUhRamILvAgO9LLyB3WPOV08udoj3DRfNk3BychKL8f0VF4RwHH7WB4YT0/YA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rOd1aXUB;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="KNFf/AWj";
+	arc=none smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D39606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 05:58:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14D39606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B629606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 05:59:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B629606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rOd1aXUB
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cdddc79a4afso2144681a12.1
-        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 21:58:32 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KNFf/AWj
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c51373ae637so11243266b.3
+        for <stable@vger.kernel.org>; Tue, 24 Nov 2026 21:59:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795586312; x=1796191112; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xFMuh8nwFoEFZnPvdlHZ2jAd51FcFwkpbhkwnf+oNII=;
-        b=rOd1aXUBZU1T2we1TSD1gMFrYvw84I4NgnIVgnPjgI6ToFrPmCcGvY+wbLifcAt+L2
-         C2bFeCLYJopHDrOZgWP6+fKsHCT08PKfroIX+E1sCjl2scMS10jbWqM4dOlIDfhZ+6DD
-         uIgt7imTPy9cMT42Mr68S2in82+QG4XSAaes9wJx5GyqqAJROcKVBdokUy24gYo5Glgm
-         JpqfBKAK2uwB//jl3IGJdQ79xsighQpfjsxVOqHxGPyd1J/ZFsRYTgX8p2CKuaM+kqCE
-         qfluF6oW+jwLmuxnULOgetV1QlI2M+hK+9kfLbHckyJ8vqA9OoSNnJPN+9O/VgRE15bv
-         Wc5A==
+        d=gmail.com; s=20260707; t=1795586342; x=1796191142; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kLO4bvaNtN2k734CUnroIhM2LaGQVLf7dwNtjbQDkFI=;
+        b=KNFf/AWjp7WY6ZuWUqCXKj371sD9eX7Tq701WLajCU+17vXhs0tsQTj9QpMEh9CBZd
+         LeMT5ydltu7YVOz4lRQch9ajDJT03i9RWQRyWAPqp/BHigbAO2oPLIac5GHZ78OUpUCW
+         RAbzSsrcz7s8AUjqfIwW0BBo38FRzkHV2ceL/TfDrn7AlWFwb93dL100/48lPYwkv3qo
+         eSN9Cc63VX851v6BHYHUb5T+OaIDy7+BdlWdHC7O13S7R1qd8KA4J6xDrKoSBQ4XZTao
+         rPLi1oTRi1hpyuV8yc7luJZS0f8omHZ5LRs3cG3In0K7bxBHU3EaB20PlFy8j1M1g3YK
+         LH/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795586312; x=1796191112;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xFMuh8nwFoEFZnPvdlHZ2jAd51FcFwkpbhkwnf+oNII=;
-        b=gLsbiZdEBWpVOlakQKuyFon3hdKkzrpl9rbzEMss5yfv6bQS4IsRmmZTRVKVMc0f+B
-         5EsE8QJwYMc37hHFJVnQBgcteiWGzlPz9FZGgQmFjGUtClq5HVfdpscPgl+qoELwSG8c
-         tSquhQS5e35JISev/vvAbA4fBPgFj+EtIkqczDVhLz5QB47RFOolKCjjhlprQnvBna1q
-         uFeouF5MXodaSH9jD74jLEJ0AkR3UiQa1Gl3mikQ22jAWJF15T/c5y/2jketXx519qcX
-         h8aOlELxUPETSGWS58yiyTc1JdvQyAqZiHU7RlO09r3RgL+z0UuCAZRrjHnrGF6Gv7d9
-         8VYA==
-X-Forwarded-Encrypted: i=1; AL+hErGFjXOqCvg+rlYDUje+Ij/DsdixZ5gFsnP2tx/kLaNwteq+h3yEaERhWMJBsVYUN/JLQL3vcs8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8pXNaj8g6ue8f/8cH19rJDmW/aGqXWe1aRvhq5OeMES9WZNmQ5
-	V+FXg6EaqcyKWRQrBf2g9k/d96TI2Y4Y1aRpqPDvdKnLJO/K9Ajczsxu
-X-Gm-Gg: AZFdTZelTWEnYsw48Ql7uhrid2ZVX1nfxEEgxk0DFaejSAuJx4huxtWNwyQ1m37ZF+A
-	sN2Hk/LbBUfPV+BSDTBz3+o1eum1SuLVqdKQcTl/p1yAFEivHXAwFKUJaJdR4HrQW0Sg/44RePV
-	ZdhiR4X4CmbHEQ8AZaFyqPVWb36wXglu3TEl/HldezOPxq4ng4e4gKAWtILvMzasON7ilUp0BcI
-	nhsndQ5N4hZHa8/Dky1FVF+ZiPyc4XKoBiaIdgiyIfnz9xXeIEkX7S6wVkdaaMyTmAt1HE1KzkF
-	reoz5IKiF3yGVtajQYogs0hXju2vcD6aGwghiYFAv9F1J45mZfcPqLgf2h8K0I66HpBsmmsQzN9
-	NIS2RYhK+1UP250WN3nVdHdfB/48xtSo4aBSubsaxm6d8Uf+fzHpZzMAUdg2IR22z5zBqlzhu7Q
-	Bg7Gmwgx4wX1PaN+cQj+527wbp6O4DODp6IVNan9FsOGoPWa6vAL3k4/C/SY0/C7wK3Flx5xXJ0
-	3IThkLQ/NC3BUfHcySHWqYGSyVdp5MiJl6XoqKn4RTTopeZRS37yGDGBlsqcTwEx/ylCSoQsIAr
-	109POUAJPS2XrNVx13zXHByOH0RRLgQIf6s3vRJ6FH/AaFVcRXprOTUZBa8Jf/4lWOHC1/LLzYj
-	FhnisHHR3UAbw8KL/2qSbFg==
-X-Received: by 2002:a17:902:da8e:b0:2f0:3647:6224 with SMTP id d9443c01a7336-2f03f261825mr147681875ad.61.1795586312275;
-        Tue, 24 Nov 2026 21:58:32 -0800 (PST)
-Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([122.161.51.99])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03ee84294sm78212685ad.9.2026.11.24.21.58.28
+        d=1e100.net; s=20260707; t=1795586342; x=1796191142;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kLO4bvaNtN2k734CUnroIhM2LaGQVLf7dwNtjbQDkFI=;
+        b=K+BTpEJGer9DFOEMhr0Juq/H3GABvOYX3NlEonYbszhqaRsEII5rYQivf8bFJBa2eF
+         ed8g9lb2A8GpIeZeuQRR3xFkTJMXWaE3h0J/vPz0iONPE3tigHRDgZsruAr61SDlX8an
+         smLKx+B2JfICS77kj9seWY3io8pLHZ9RHuv6HiFlOk2c+jl6FFrYq62eLVUsel3QrfSu
+         g/HaEa9P3CsT9ZwK80wJ6qKmh7/hCFnTz30M1UKYrEwEJxhaleuzDEMHloqYBLTjGjof
+         VMr8eu27FOstZ61RXY3qM+nusv3edtbplVkdnvGm41/yO3OB58IqMdP4Je0U6aWUemRb
+         mJSA==
+X-Forwarded-Encrypted: i=1; AL+hErFCTIQ0ZNOA2toXdxsp1k0NduSLi+nzNnykyo1DVfKxatUeNIhnNFwn6HKO/tPKvKnf6G6HmmU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z99HCqGhAp9G14pdCkZhJluA8yDktyzKydld04PZgN8+8QfCmwW
+	cDuyeM7rk70VA7oQpshWPbhqsPY4lt3sDcio0rQPAuzcG7Y9CMfr5VLj
+X-Gm-Gg: AZFdTZdU90PWHsVhymWGQUwR3Wt6/CkLJu/oXNjiiOiXPwpWIpvBvZrHIcunObXpq7y
+	CUaMeBTxGgWuGP1zP1NJdpIkcaXWJiJApsl3XTuDtQ1nUZ/uXfWJRWha/Y+6Xgg/+MWW/rCUTLG
+	50lIXECDe7KefdwivAuMrDbkEVwNlwsA9jQrvFDvwUyZyb2RYrQxiS0F5/MAOs8kmR0c02A93FL
+	GKB1FS/8M2wGkeH2kSmYrPw82qVwavwQA1CI0S+XWzyaD46NXFEN65dKLwfEhUUKz/VieJ1tjpg
+	1zCvZekBHqX2yk5QO0QMEKYENJ5+jtT8GDFI1iipDdTQwa4eDxeYazFXwpwU41ZmQSm7CMnX9lC
+	Kj0R5Bb8vGFIyHATHjWiPFyAJP7Bx4e6Z6ZCQJDzn66Wz2pWV5wvW8tS13mggEXknh/EfN/aQ3b
+	cqHdxXxHxxfkpoNfibGWd3UW1sksNJ8Wse27/UMq8+a/yUiwkwX6a3rcoQTr3DQ0yEutx2NwUca
+	UdUq7J9SGDahS8WMSPOAS7kfHHJwQADdrFh1GHK/Z+Yem9M9XarRCzflXRUJHXIYaiI59nTLUjk
+	NUWY1RI96QA/hBX9BHDwXt1DkodQxvMGfRgUNWQvijiN32Ik9DhiFK1v+T3/J0/qvpsRSETFAPX
+	wE7GWpay8h06R
+X-Received: by 2002:a17:906:1c11:b0:c50:8d2b:4392 with SMTP id a640c23a62f3a-c513ab38967mr1036690966b.49.1795586341572;
+        Tue, 24 Nov 2026 21:59:01 -0800 (PST)
+Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba36e355easm7533212a12.3.2026.11.24.21.59.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 21:58:31 -0800 (PST)
-Date: Wed, 25 Nov 2026 11:28:26 +0530
-From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Cc: linuxppc-dev@lists.ozlabs.org, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Venkat Rao Bagalkote <venkat88@linux.ibm.com>, 
-	linux-kernel@vger.kernel.org, chleroy@kernel.org, Michael Ellerman <mpe@ellerman.id.au>, 
-	Nicholas Piggin <npiggin@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, stable@vger.kernel.org
-Subject: Re: [PATCHv3 4/4] powerpc/kvm-hv-pmu: Free hostwide stats buffers if
- perf_pmu_register() fails
-Message-ID: <awZ4ZhK1GFHKi9Tr@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
-References: <cover.1795441238.git.ritesh.list@gmail.com>
- <a9e4029d0e11b3c944f4b4cb781fc5ff1696709b.1795441238.git.ritesh.list@gmail.com>
+        Tue, 24 Nov 2026 21:59:01 -0800 (PST)
+From: Amir Goldstein <amir73il@gmail.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	Chris Mason <mason@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Theodore Ts'o <tytso@mit.edu>,
+	Carlos Maiolino <cem@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-unionfs@vger.kernel.org,
+	stable@vger.kernel.org,
+	Alexander Mikhalitsyn <alex@amutable.com>
+Subject: [PATCH v3] xattr: enforce the name and size limits for in-kernel callers
+Date: Wed, 25 Nov 2026 06:59:00 +0100
+Message-ID: <20261125055900.2077059-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261123165807.1939942-1-amir73il@gmail.com>
+References: <20261123165807.1939942-1-amir73il@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,49 +107,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a9e4029d0e11b3c944f4b4cb781fc5ff1696709b.1795441238.git.ritesh.list@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 23, 2026 at 07:21:53PM +0530, Ritesh Harjani (IBM) wrote:
-> kvmppc_register_pmu() calls kvmppc_init_hostwide(), which allocates
-> gsm_l0_stats and gsb_l0_stats. It then registers the pmu. If
-> perf_pmu_register() fails we return without freeing them.
-> 
-> Call kvmppc_cleanup_hostwide() on that error path.
-> 
-> Fixes: f0c9c49c5067 ("powerpc/kvm-hv-pmu: Implement GSB message-ops for hostwide counters")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-> ---
->  arch/powerpc/perf/kvm-hv-pmu.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/powerpc/perf/kvm-hv-pmu.c b/arch/powerpc/perf/kvm-hv-pmu.c
-> index a58634f656e9..ec05b4855736 100644
-> --- a/arch/powerpc/perf/kvm-hv-pmu.c
-> +++ b/arch/powerpc/perf/kvm-hv-pmu.c
-> @@ -402,8 +402,10 @@ static int __init kvmppc_register_pmu(void)
-> 
->  		/* Register the pmu */
->  		rc = perf_pmu_register(&kvmppc_pmu, kvmppc_pmu.name, -1);
-> -		if (rc)
-> +		if (rc) {
-> +			kvmppc_cleanup_hostwide();
-Just a question.
-Inside this function, should we also take lock just to set the pointers
-NULL rather than putting the whole logic(free also) inside the lock like
-we did in previous patch?
+The xattr system calls refuse an empty name, a name longer than
+XATTR_NAME_MAX and a value larger than XATTR_SIZE_MAX, but the VFS
+helpers do not. An in-kernel caller may pass a name or a size that it
+got from another filesystem, such as overlayfs copy up from a lower
+layer.
 
-Apart from this, all looks good.
+Check these limits before calling the xattr handler of the filesystem,
+and fail with the errors that the system calls return for them.
 
-Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
->  			goto out;
-> +		}
-> 
->  		pr_info("Registered kvm-hv pmu");
->  	}
-> --
-> 2.39.5
-> 
+Cc: stable@vger.kernel.org
+Reviewed-by: Alexander Mikhalitsyn <alex@amutable.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+---
+
+Changes since v2:
+- Rename the helper to xattr_check_name_len() (Carlos)
+- Also refuse an empty name (Carlos)
+- Add Reviewed-by tags
+
+Changes since v1:
+- Check the name in vfs_getxattr_alloc() too (Alex)
+
+v2: https://lore.kernel.org/r/20261123165807.1939942-1-amir73il@gmail.com/
+v1: https://lore.kernel.org/r/20261123113513.1910906-1-amir73il@gmail.com/
+
+ fs/xattr.c | 38 +++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 37 insertions(+), 1 deletion(-)
+
+diff --git a/fs/xattr.c b/fs/xattr.c
+index 0705801a62cc5..64df10ed498c3 100644
+--- a/fs/xattr.c
++++ b/fs/xattr.c
+@@ -178,6 +178,21 @@ xattr_permission(const struct mnt_idmap *idmap, struct inode *inode,
+ 	return inode_permission(idmap, inode, mask);
+ }
+ 
++/*
++ * The xattr system calls refuse an empty name, a name above XATTR_NAME_MAX
++ * and a value above XATTR_SIZE_MAX, but an in-kernel caller may pass a name or
++ * a size that it got from another filesystem, such as the lower layer of
++ * overlayfs.
++ */
++static int xattr_check_name_len(const char *name)
++{
++	size_t len = strnlen(name, XATTR_NAME_MAX + 1);
++
++	if (!len || len > XATTR_NAME_MAX)
++		return -ERANGE;
++	return 0;
++}
++
+ /*
+  * Look for any handler that deals with the specified namespace.
+  */
+@@ -209,10 +224,17 @@ __vfs_setxattr(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 	       size_t size, int flags)
+ {
+ 	const struct xattr_handler *handler;
++	int error;
+ 
+ 	if (is_posix_acl_xattr(name))
+ 		return -EOPNOTSUPP;
+ 
++	error = xattr_check_name_len(name);
++	if (error)
++		return error;
++	if (size > XATTR_SIZE_MAX)
++		return -E2BIG;
++
+ 	handler = xattr_resolve_name(inode, &name);
+ 	if (IS_ERR(handler))
+ 		return PTR_ERR(handler);
+@@ -408,6 +430,10 @@ vfs_getxattr_alloc(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 	if (error)
+ 		return error;
+ 
++	error = xattr_check_name_len(name);
++	if (error)
++		return error;
++
+ 	handler = xattr_resolve_name(inode, &name);
+ 	if (IS_ERR(handler))
+ 		return PTR_ERR(handler);
+@@ -416,6 +442,8 @@ vfs_getxattr_alloc(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 	error = handler->get(handler, dentry, inode, name, NULL, 0);
+ 	if (error < 0)
+ 		return error;
++	if (error > XATTR_SIZE_MAX)
++		return -E2BIG;
+ 
+ 	if (!value || (error > xattr_size)) {
+ 		value = krealloc(*xattr_value, error + 1, flags);
+@@ -434,16 +462,24 @@ __vfs_getxattr(struct dentry *dentry, struct inode *inode, const char *name,
+ 	       void *value, size_t size)
+ {
+ 	const struct xattr_handler *handler;
++	ssize_t ret;
+ 
+ 	if (is_posix_acl_xattr(name))
+ 		return -EOPNOTSUPP;
+ 
++	ret = xattr_check_name_len(name);
++	if (ret)
++		return ret;
++
+ 	handler = xattr_resolve_name(inode, &name);
+ 	if (IS_ERR(handler))
+ 		return PTR_ERR(handler);
+ 	if (!handler->get)
+ 		return -EOPNOTSUPP;
+-	return handler->get(handler, dentry, inode, name, value, size);
++	ret = handler->get(handler, dentry, inode, name, value, size);
++	if (ret > XATTR_SIZE_MAX)
++		return -E2BIG;
++	return ret;
+ }
+ EXPORT_SYMBOL(__vfs_getxattr);
+ 
+-- 
+2.56.1
 
