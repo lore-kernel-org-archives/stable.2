@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795623640;
-	b=IaZYs4IwdodFhRELmTVgB2xPoLja3Il56jCFnDFm3nrorP7GqGP4MiOmGV/EuqYjwGOW
-	 FgMB0zbec9bz7Cie2y+9wz2h90VHcZ48N1qGn68Bg11XzScfMbqzKm7fAmiu3uVJ6fQjs
-	 NhZzbxmnIidiJ4rpvKf5ckbxvKcYWlzHdDFWDcbNa1+I/HJeYJMgVKRrJifVmiEdgMqV7
-	 kcsdhgR0i27MblvLESc6Kl70khTVlGxz80c+EG/SwkiheLo5ommsD5KolR7fYx3km4weW
-	 BedFpOcx07JxP5uKWyaes6/C20kABAlB0RjwQVUHiSibDddTti1ma0xMwogOqhyUw/A==
+	t=1795623642;
+	b=b3Kfdoc2b3QD8FlPIrH7OKLMBZ3oPc/63DGBldX3z3DkiOmVqw7sYgXTdmQraw0ckra8
+	 hd0G2je4iriAI5XsJkHFhgNI/lkRlPTs/FEs0luNR9pFWsvPo7XNDj1ThECYL9orJL0Kt
+	 60MDVkxp9jpvrQ3AT2Vj65Yo+sKBCBGWUsxg/CVH+NoVNENAb4DHcjIYJtsVHF5hxJNpC
+	 gclk3obmuktb+aT2O0xiE072+lqgSMMHlD0EvBfenT8toZvX6dE5ZQPauPcZyYvLXWF3a
+	 0Mo2ctR+YGzhPLqkWth5GOCUtEi7cCSt5oeFZcsLQ5l2rb4lASEFMHclGLwk9DplS8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795623640;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795623642;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ZG9BEbV4YxPc4cR4uft8/XmqB1k2Znin6Xz6a4GlQro=;
-	b=Bxe2x5VZUb/qAxGx59k/T9A6vnO6Zc0/vCCNMlLdnmFORhvqNH/qWC+JiesLsOc2kLR2
-	 AvAQaYQ4WMZNwj+JsYlNK+VxLOX/gt5fovEWJs8NZe1ZpWzhqW4SeaP9SvZp1p5JoxqIl
-	 2CN7f/8blFoU4vl8er2m+9Azd7T9YL4ZcYuV3jGAU81zKKzXStFlz6p/E57AheTx0Ccbl
-	 L67+XUhNasQ7yicnAzlHcF2kW4yKZ8y7ePzrxZsHHfOVMyr8atRghjNmGu0WJFZg/zaC0
-	 jER7E0dJBhYBBPwf+haNTjtt1AyMrHmN+3Tu9eN6Sv0r+W415+pKECL80DjRE85PBpw==
+	bh=056qI/r9e0s9dnvBfMf5urWn7OVhcz8M35R9OuheLUY=;
+	b=YnyWgIIfEo3tWRo3GCQmcSuoLhFmUum7TmAwG3K4nI8+UI7CSbP4JUtysceKgkNQCyK5
+	 E3QhmFzjn9mKjCSjqPdJbzuxvtPX6SOOuoqtdP+xgcXJVuVCs3mXAkyWtynczalu96uZW
+	 IgdEMHOmsZrpDrHyf5hPArFDHFBG59F3GaulYS9/k/dqIaEK7Gkqm52QBnDj91WYHWnM9
+	 8g8DWThnaws/6IEaeKr8SKJYLZlQsim6NzBV3RS9WtH3x8tsYkXCDKiKHc541chE3RC3N
+	 fHYlVwrpk2S06Aq3DjWNokQJIdk1m/LrPsMJFqtSYZiJGvrsmx700uZHtSzIAp8Sswg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uq486k65;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+7j39P8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE9D9606A682
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:20:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC99A606A682
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:20:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uq486k65
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 942D41F000C6;
-	Wed, 25 Nov 2026 16:20:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+7j39P8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EF681F000C6;
+	Wed, 25 Nov 2026 16:20:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795623640;
-	bh=ZG9BEbV4YxPc4cR4uft8/XmqB1k2Znin6Xz6a4GlQro=;
+	s=k20260515; t=1795623641;
+	bh=056qI/r9e0s9dnvBfMf5urWn7OVhcz8M35R9OuheLUY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Uq486k65jw+ilbJZ77ZEyzfTkyIUFsIjWgZL1UVasBUHxuHrQ2/jSRkbpmeiRM+XU
-	 Z4nHpjus+/KpTtMr+paUQysqoRC29cAGkSnWfFW0/yZALehaWurze6NlAYpvEIdbwm
-	 1AuZO0T2oStmRPmkELsmd8cvJsX/9KOWffIa8lt1JBNo15mK4SNpJrv1+/bD5Vi/F4
-	 eKhU3wRR3st3kyPNeuQTzGBluuSpR1lWfyoB04a7vpDqDJPrB3JS443B4C8ZTidOnC
-	 G98o//dcZDve4Sadn367870uuYNkTQpX+eJCZFiSjYjW3l28wV48SoegKqQu71eKT0
-	 kPpXEfmmiIQKw==
+	b=H+7j39P8r451Y1/CjNzFHwmBlpNFzV/w4Yc1v3Vrz21o7wPVRakMyZMppA5iGdXlq
+	 cimqn/TNng+DrFXeAlfhU79xbCwh7playZS8lnaNIDyTr93Rrk68Mm2Md0jd71wLxp
+	 yLSh+m90bZI7H++YheecEqHx4iJBE6uIeOBWou15Dz7Np+QpgzRpWMzylMuw7ja3RO
+	 g3Ejil4muA7b3woDB4RmKv3e076Jp11nyijoW/EZ2nTWx5N5jbk0nFfZQs0bA0+TNr
+	 pGB4DSsd+vjTFUySB1ajDWZgX4dk0nEnzEVtnZay/aAAYlU0gIBYR+yfmpubxgQi8X
+	 0TwN1l+AoGe9Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>,
-	Vladimir Murzin <vladimir.murzin@arm.com>,
-	Jinjie Ruan <ruanjinjie@huawei.com>,
-	Will Deacon <will@kernel.org>,
+Cc: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>,
+	syzbot+79883955da3a62652a80@syzkaller.appspotmail.com,
+	Catalin Marinas <catalin.marinas@arm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] arm64: suspend: rely on daif helpers to handle PMR
-Date: Wed, 25 Nov 2026 11:20:37 -0500
-Message-ID: <20261125162031.756040-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] arm64: suspend: Only track cpuidle context for idle tasks
+Date: Wed, 25 Nov 2026 11:20:38 -0500
+Message-ID: <20261125162031.756040-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112540-presoak-impromptu-e705@gregkh>
+In-Reply-To: <20261125162031.756040-1-sashal@kernel.org>
 References: <2026112540-presoak-impromptu-e705@gregkh>
+ <20261125162031.756040-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,85 +63,109 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+From: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
 
-[ Upstream commit 630ca6c58fcfeaddd96dd46e7b11826013977955 ]
+[ Upstream commit ad3fc05c7e65009355effeea06aa629a687acef2 ]
 
-Commit 77345ef70445 ("arm64: suspend: Use cpuidle context helpers
-in cpu_suspend()") added cpuidle helpers to handle PMR manipulation
-and restoration to ensure that the CPU receives interrupts when suspended
-and pseudo-NMIs are enabled.
+Commit 19235e472798 ("cpuidle, arm64: Fix the ARM64 cpuidle logic") moved
+the calls to ct_cpuidle_enter() and ct_cpuidle_exit() into cpu_suspend() so
+that arm64 cpuidle could keep RCU watching longer and manage context
+tracking internally. However, cpu_suspend() is called not only by cpuidle
+via psci_cpu_suspend_enter() (which runs in the context of the idle task),
+but also during system suspend via psci_system_suspend_enter() (which runs
+in the context of the task initiating suspend, such as a process writing to
+/sys/power/state).
 
-However, those helpers are called in between a pair of `local_daif_save()`
-and `local_daif_restore()`, which already configure the PMR as expected.
-Effectively, `arm_cpuidle_save_irq_context()` is a no-op here,
-even when using pseudo-NMIs, and `arm_cpuidle_restore_irq_context()`
-would not restore proper interrupt masking configuration early enough
-if there were unexpected changes during suspend or resume.
-(This can be observed with Trusted Firmware A (TF-A) at EL3 handling
-suspend through PSCI. Even though it should not be the case, TF-A can
-reset `ICC_PMR_EL1` during CPU_SUSPEND, thus resuming the kernel
-with an inconsistent priority mask value on hardware implementing
-more than the minimum number of priority levels, such as Morello.)
+When entering system suspend, current is a non-idle task. Calling
+ct_cpuidle_enter() invokes ct_kernel_exit() from kernel space (!user) on a
+non-idle task. With CONFIG_RCU_EQS_DEBUG enabled, this violates context
+tracking invariants and triggers a warning:
 
-Thus : remove the cpuidle context helpers as they do not do anything,
-but keep the comment mentioning the need for interrupts to reach the CPU
-if we are using pseudo-NMIs.
+WARNING: kernel/context_tracking.c:120 at ct_kernel_exit+0x1b4/0x1f4
+kernel/context_tracking.c:118
+Call trace:
+ ct_kernel_exit+0x1b4/0x1f4 kernel/context_tracking.c:118
+ ct_idle_enter+0x20/0x34 kernel/context_tracking.c:299
+ ct_cpuidle_enter include/linux/cpuidle.h:134 [inline]
+ cpu_suspend+0x264/0x474 arch/arm64/kernel/suspend.c:136
+ psci_system_suspend_enter+0x4c/0x80 drivers/firmware/psci/psci.c:544
+ suspend_enter kernel/power/suspend.c:468 [inline]
+ suspend_devices_and_enter+0x88c/0xd0c kernel/power/suspend.c:533
+ enter_state kernel/power/suspend.c:618 [inline]
+ pm_suspend+0x498/0x698 kernel/power/suspend.c:644
+ state_store+0x14c/0x1fc kernel/power/main.c:819
+ kobj_attr_store+0x6c/0x90 lib/kobject.c:842
+ sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
+ vfs_write+0x51c/0xa0c fs/read_write.c:687
+ ksys_write+0x12c/0x228 fs/read_write.c:739
 
-Signed-off-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-Signed-off-by: Vladimir Murzin <vladimir.murzin@arm.com>
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Signed-off-by: Will Deacon <will@kernel.org>
-Stable-dep-of: ad3fc05c7e65 ("arm64: suspend: Only track cpuidle context for idle tasks")
+A corresponding warning is subsequently triggered in ct_kernel_enter() via
+ct_cpuidle_exit() upon resume.
+
+Fix this by checking is_idle_task(current) in cpu_suspend() and only
+invoking ct_cpuidle_enter() and ct_cpuidle_exit() when executing in the
+context of an idle task.
+
+Fixes: 19235e472798 ("cpuidle, arm64: Fix the ARM64 cpuidle logic")
+Cc: <stable@vger.kernel.org>
+Assisted-by: Gemini:gemini-3.8-flash Gemini:gemini-3.1-pro-preview syzbot
+Reported-by: syzbot+79883955da3a62652a80@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=79883955da3a62652a80
+Link: https://syzkaller.appspot.com/ai_job?id=5359e16f-013b-4850-9cbc-ddfb3bac95e5
+Signed-off-by: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
+Tested-by: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
+Link: https://lore.kernel.org/r/3e92ccb0-2952-4317-af4c-45457c15efae@gmail.com
+Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/kernel/suspend.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+ arch/arm64/kernel/suspend.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/arch/arm64/kernel/suspend.c b/arch/arm64/kernel/suspend.c
-index eaaff94329cdd..c41724a40b756 100644
+index c41724a40b756..cde0b8c19377e 100644
 --- a/arch/arm64/kernel/suspend.c
 +++ b/arch/arm64/kernel/suspend.c
-@@ -99,7 +99,6 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
+@@ -5,6 +5,7 @@
+ #include <linux/uaccess.h>
+ #include <linux/pgtable.h>
+ #include <linux/cpuidle.h>
++#include <linux/sched.h>
+ #include <asm/alternative.h>
+ #include <asm/cacheflush.h>
+ #include <asm/cpufeature.h>
+@@ -99,6 +100,7 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
  	int ret = 0;
  	unsigned long flags;
  	struct sleep_stack_data state;
--	struct arm_cpuidle_irq_context context;
++	bool idle = is_idle_task(current);
  
  	/*
  	 * Some portions of CPU state (e.g. PSTATE.{PAN,DIT}) are initialized
-@@ -121,6 +120,9 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
- 	 * Strictly speaking the trace_hardirqs_off() here is superfluous,
- 	 * hardirqs should be firmly off by now. This really ought to use
- 	 * something like raw_local_daif_save().
-+	 *
-+	 * This also unmasks interrupts in PMR in order to reliably
-+	 * resume if we're using pseudo-NMIs.
- 	 */
- 	flags = local_daif_save();
- 
-@@ -131,12 +133,6 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
+@@ -133,7 +135,8 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
  	 */
  	pause_graph_tracing();
  
--	/*
--	 * Switch to using DAIF.IF instead of PMR in order to reliably
--	 * resume if we're using pseudo-NMIs.
--	 */
--	arm_cpuidle_save_irq_context(&context);
--
- 	ct_cpuidle_enter();
+-	ct_cpuidle_enter();
++	if (idle)
++		ct_cpuidle_enter();
  
  	if (__cpu_suspend_enter(&state)) {
-@@ -159,8 +155,6 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
+ 		/* Call the suspend finisher */
+@@ -149,9 +152,11 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
+ 		if (!ret)
+ 			ret = -EOPNOTSUPP;
+ 
+-		ct_cpuidle_exit();
++		if (idle)
++			ct_cpuidle_exit();
+ 	} else {
+-		ct_cpuidle_exit();
++		if (idle)
++			ct_cpuidle_exit();
  		__cpu_suspend_exit();
  	}
  
--	arm_cpuidle_restore_irq_context(&context);
--
- 	unpause_graph_tracing();
- 
- 	/*
 -- 
 2.53.0
 
