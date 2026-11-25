@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608346;
-	b=uQwzqW6uv+TK6s5NH8oH5lEsLnFSe1hmeG+09yUJvTKTulXE4O7rvU/Qja92+/YEFL1v
-	 DRwBzVvY7lkgz9AjYxacPF3zrqcldMqhh2wPFNKFbg+BsgX2//XZP13jCS9Tyd4BhUgGa
-	 sm1L4rdiPxecS2KfCMk6yURSIogbcQsjI994DM57SeAF0yY7FP0knxUyAdDSDki3qUvH8
-	 aaCz+zWQeR9VzpvPHPHRH1+6XDjlHsieZGq76h68jjQwOqMt5qnqbRjpcCkyYBWyriGF5
-	 LW9wjIvzpOQaV4xAd2JrJ4eryfHSFAmD9D5jUBuuG81aDdyuhbI6TsXe7WgxbFwAITA==
+	t=1795608349;
+	b=HmOazgf+WwQI5kHBiCIykn8l0suCC71tszQIGrpKb5gxPwc5TbabIVHkd9ZqLFGqiWlq
+	 h5u1Rimrl0tYBJu9hQrzXV6Ipx+uelTGRecDNV+THsp9mfcj6oD9X4TvpJcSx76I7dmfz
+	 9VcuOmbUaSb8M0688x6lFwcF1j0EYpnr1WqVpQU4ZX3j8GkMIdF4YlodFPLgoG4Jg7Ox8
+	 qoHTu4VhViya02DTE5aguaU6EXlAFgzR7KmNWFGnY1Czjvjkf5SoD6s7KEkidjc+VsxOf
+	 D9hwFxkVZSxe1Ws8A5h8QpONEotgS+MMIjoNyeMPIHz9IXAVxGGeYg1jHh4RKJpmrHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608346;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608349;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/6QhYAPdz4EKmjtocuJ+KKl2Pq7WLGEOyg1n1DDFqTM=;
-	b=LF6DTpcAVKEhst8KCtNoxzkYWI0V8tBPutYuHe8cJNw/XoinQ3zdPkT8sxLnKTN4Vi3w
-	 q3+Q5P0UFsG6rZzIWgwrV52Gx0pXudE6M3KNa6iKuskymrKa5/0D7V7YgR0GJ1vOFuv9W
-	 3tZyzFxKrF761soMILcas/Ftts0WhxUL7cUn6REdHo7Zx0eaD0nuozceu/0aQ5F8i2g4+
-	 5JgAlPWD32NKeTPY5RnmGppfy7UTo6oPOTM6fuMEfojeeMrfvb3WbWAlUDRILnh3EvePv
-	 b0sFi4a2cBb3FU/mhV9cLO3FO7qrAzneFvHl3AriwHtWEil3WHp2Ap8MM7mcdhXpNOg==
+	bh=3CSevr4FJxTTv4ipFPeRrJigF1pfCqrwjZo8BsmHP2c=;
+	b=ZKKAo9dxrTD8WTU7vZwGyn/C2oXZqHSzkH3rr+H8hx31yUphrsBnUTxfQbowGU75uzdN
+	 CFH/F31b8GEX/rlOOHnAKdpUI0UekgV8MkY+bmYcGb9qO5DtWKRfwgpa6+BuoTdOyQhhC
+	 Dwfn16Q4UG8wNzXilY/uEbN6cz5USMXcVdyvSZQPoXgPYsFo0WTs8glUNGxiex9SGOBbH
+	 cRAhvRISkb4Roh3B5lJJZ9330RHv84koN5FdXqZZRiaxjPWCY0Cpk70PF0a9HRpVW6fKD
+	 w9SodB6ag22GbrflfVKY4ZIIGYy7srzJwM9ifJJIhp12Yhk9J7fi+EGkVWLwC39tXvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PTYtVqkh;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pAgY3IA7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECABE606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:05:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0792C606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:05:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PTYtVqkh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB2A41F000C4;
-	Wed, 25 Nov 2026 12:05:44 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pAgY3IA7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E79C1F000CF;
+	Wed, 25 Nov 2026 12:05:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795608345;
-	bh=/6QhYAPdz4EKmjtocuJ+KKl2Pq7WLGEOyg1n1DDFqTM=;
+	s=korg; t=1795608348;
+	bh=3CSevr4FJxTTv4ipFPeRrJigF1pfCqrwjZo8BsmHP2c=;
 	h=Subject:To:Cc:From:Date;
-	b=PTYtVqkhgZUu10R6cmejHjYBIH2rUThPndAmbLNRZhg3f7LYw3vlaJIw3o4SeWgMF
-	 ALXSVMuiYkaIYv3kY0NHSn3IqxQzhGc+WVxc7gDoCKw4e3H0lCXDqyj7oDCXqGOoL8
-	 DpAGxj3FPwiBJJTBlmAfMMwc8VsHUsy1g3g3AvIw=
-Subject: FAILED: patch "[PATCH] serial: core: respect runtime PM when sending x_char" failed to apply to 6.12-stable tree
-To: josef@toxicpanda.com,gregkh@linuxfoundation.org,hvilleneuve@dimonoff.com,jirislaby@kernel.org,johan@kernel.org,john.ogness@linutronix.de,kmehltretter@gmail.com,stable@kernel.org,tony.lindgren@linux.intel.com,u.kleine-koenig@baylibre.com
+	b=pAgY3IA7TXy3WdSGhVyk3XduEO9Y9wMlXsbv5Q1HPZ4+CHQcOUrAjh57pTRJ8X//R
+	 390flV+jPIOa6LFsycefyb591tABtCbQkdqXDLyT34kHKvsgtZYQxQF4U6NBM6hWNB
+	 ahATFgPq+LfV89e3x5cRKVQEFb78Hul+Cp8e8xHs=
+Subject: FAILED: patch "[PATCH] serial: rda: free the interrupt on shutdown" failed to apply to 6.1-stable tree
+To: josef@toxicpanda.com,afaerber@suse.de,arnd@arndb.de,gregkh@linuxfoundation.org,jirislaby@kernel.org,manivannan.sadhasivam@oss.qualcomm.com,olof@lixom.net,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:32:22 +0100
-Message-ID: <2026112522-crinkly-seducing-d403@gregkh>
+Date: Wed, 25 Nov 2026 12:32:40 +0100
+Message-ID: <2026112540-patio-outwit-bcef@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 84da8238f7bd3025fc16da32c4cd9992c95a783b
+git cherry-pick -x 859f7c56709b161a72b629b6f2f1384dcd374404
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112522-crinkly-seducing-d403@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112540-patio-outwit-bcef@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,110 +79,43 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 84da8238f7bd3025fc16da32c4cd9992c95a783b Mon Sep 17 00:00:00 2001
+From 859f7c56709b161a72b629b6f2f1384dcd374404 Mon Sep 17 00:00:00 2001
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Tue, 27 Oct 2026 12:06:28 +0100
-Subject: [PATCH] serial: core: respect runtime PM when sending x_char
+Date: Tue, 27 Oct 2026 12:06:46 +0100
+Subject: [PATCH] serial: rda: free the interrupt on shutdown
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-__uart_start() calls the start_tx operation only if the port is runtime
-active.  Otherwise it asks for a resume, and
-serial_port_runtime_resume() starts the transmitter.
+rda_uart_startup() requests the interrupt, and nothing ever frees it.
+It is not shared, so once the port has been closed, the next startup
+fails with -EBUSY and the port cannot be opened any more.
 
-uart_send_xchar() calls start_tx at once, under the port lock, whatever
-the state of the device.  With 8250_omap, serial8250_start_tx() then
-calls pm_runtime_get_sync() for a suspended device: that sleeps, and
-omap8250_runtime_resume() takes the port lock again.  A tcflow(TCIOFF)
-on an idle port is enough, if autosuspend has been enabled.  It was
-allowed as long as that driver used pm_runtime_irq_safe().
+Free it in rda_uart_shutdown().
 
-Share the part of __uart_start() that deals with runtime PM.  A stopped
-transmission still does not hold up an XON or XOFF character.  Let a
-pending x_char count as work for serial_port_runtime_resume(), and keep
-the port from being suspended with it.
-
-Fixes: 8700a7ea5519 ("serial: 8250_omap: Drop pm_runtime_irq_safe()")
+Fixes: c10b13325ced ("tty: serial: Add RDA8810PL UART driver")
 Cc: stable <stable@kernel.org>
 Cc: Jiri Slaby <jirislaby@kernel.org>
-Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-Cc: Johan Hovold <johan@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: John Ogness <john.ogness@linutronix.de>
-Cc: "Uwe Kleine-König (The Capable Hub)" <u.kleine-koenig@baylibre.com>
-Cc: Tony Lindgren <tony.lindgren@linux.intel.com>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: "Andreas Färber" <afaerber@suse.de>
+Cc: Olof Johansson <olof@lixom.net>
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Link: https://patch.msgid.link/20261027-tty-llm-v1-2-99b0202ae546@linuxfoundation.org
+Link: https://patch.msgid.link/20261027-tty-llm-v1-20-99b0202ae546@linuxfoundation.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index c0deec0e6af4..b06d2649be34 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -135,17 +135,11 @@ static void uart_stop(struct tty_struct *tty)
- 	uart_port_unlock_deref(port, flags);
- }
+diff --git a/drivers/tty/serial/rda-uart.c b/drivers/tty/serial/rda-uart.c
+index 87fa30d68687..9c1785771cbb 100644
+--- a/drivers/tty/serial/rda-uart.c
++++ b/drivers/tty/serial/rda-uart.c
+@@ -471,6 +471,8 @@ static void rda_uart_shutdown(struct uart_port *port)
+ 	rda_uart_write(port, val, RDA_UART_CTRL);
  
--static void __uart_start(struct uart_state *state)
-+static void uart_port_start_tx(struct uart_port *port)
- {
--	struct uart_port *port = state->uart_port;
--	struct serial_port_device *port_dev;
-+	struct serial_port_device *port_dev = port->port_dev;
- 	int err;
- 
--	if (!port || port->flags & UPF_DEAD || uart_tx_stopped(port))
--		return;
--
--	port_dev = port->port_dev;
--
- 	/* Increment the runtime PM usage count for the active check below */
- 	err = pm_runtime_get(&port_dev->dev);
- 	if (err < 0 && err != -EINPROGRESS) {
-@@ -164,6 +158,16 @@ static void __uart_start(struct uart_state *state)
- 	pm_runtime_put_autosuspend(&port_dev->dev);
- }
- 
-+static void __uart_start(struct uart_state *state)
-+{
-+	struct uart_port *port = state->uart_port;
+ 	uart_port_unlock_irqrestore(port, flags);
 +
-+	if (!port || port->flags & UPF_DEAD || uart_tx_stopped(port))
-+		return;
-+
-+	uart_port_start_tx(port);
-+}
-+
- static void uart_start(struct tty_struct *tty)
- {
- 	struct uart_state *state = tty->driver_data;
-@@ -718,8 +722,9 @@ static void uart_send_xchar(struct tty_struct *tty, u8 ch)
- 	else {
- 		guard(uart_port_lock_irqsave)(port);
- 		port->x_char = ch;
--		if (ch)
--			port->ops->start_tx(port);
-+		/* It goes out even if the transmission is stopped */
-+		if (ch && !(port->flags & UPF_DEAD))
-+			uart_port_start_tx(port);
- 	}
- 	uart_port_deref(port);
- }
-diff --git a/drivers/tty/serial/serial_port.c b/drivers/tty/serial/serial_port.c
-index 2fc48cd63f6c..f2f7cdd3a54c 100644
---- a/drivers/tty/serial/serial_port.c
-+++ b/drivers/tty/serial/serial_port.c
-@@ -23,8 +23,8 @@
- /* Only considers pending TX for now. Caller must take care of locking */
- static int __serial_port_busy(struct uart_port *port)
- {
--	return !uart_tx_stopped(port) &&
--		!kfifo_is_empty(&port->state->port.xmit_fifo);
-+	return port->x_char || (!uart_tx_stopped(port) &&
-+		!kfifo_is_empty(&port->state->port.xmit_fifo));
++	free_irq(port->irq, port);
  }
  
- static int serial_port_runtime_resume(struct device *dev)
+ static const char *rda_uart_type(struct uart_port *port)
 
