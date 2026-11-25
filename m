@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795623988;
-	b=tdDag/y3agUX3GCWsaKGQm9hK/qPIj3A+hfpuyHbR8MF2xNbu4liKnSi+XJX/Oe2Yu0o
-	 xTJYy6VaAQe2mLuhAoLSxne8W7CzzJOSyk15Db+2cDd+u+Xo5l15QiI8tSxn6PzVum+ZP
-	 70OFCpGJ7gdaegVLmPPw6Aiti7rbUFFlH5lEiCMUkKVnY0D5k1OjiDpb2uO5Etrz+wqKX
-	 P18Yr7TWruum5Y0Ejp/NxqrnBzpLFdZNx7p9dMx+egQ+7zC1fDfZqm9xXK+D17eis0OVV
-	 8nT6a6IumiqTAoTUVNqFbqIKQyvEdHMX9MGOICJa6X+q5DrMeDgowXjDfJeIaKl2Yjw==
+	t=1795623991;
+	b=EVKS81WREfej3SaiHByFdsKrlLWRUZ1YQheDPuOSv38MkAKPQfp7GuCMai5lggHcWiW2
+	 kTye+NccgT2HxdX+qb6C3L+HR9WdLsXg1ZYYzNOgRl9jw5oWVPj9Mnfi6KLjS9SsM/+Kl
+	 R8y/VDs2sOiFguFqsdh4tR0nywg9WOmZf8qPpolOQ1VSXBld1663CWyHrQAlbpcxNEqti
+	 nSO71rmSLd0uCX9aYWHO5McfC1etMh7qSTi6qPsW+zwiz6g8RjVIgELLbvTMYI5E30Irg
+	 cLIETMRhoEadAJ8E661TRIwfeNiGp24gqhihx1G+upUbH+0oI3KfAgmIqv8QcylpAcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795623988;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795623991;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=u5OwJ+z/SRj7hfSyj9qeAspfk1AsUb4vzSJqnjvXmnQ=;
-	b=hTv6myXdp5ioJA1OS7JDHUDb+4RA4KprFPoL3MQ2ydu9U/+Hb9Wbt2IaQfP8e9KO8X0U
-	 hYQEhCGmNQiE7b9ZfWPJEO18m0GXGbXkjl+f7JM11sfARac5sdGm+e2SmIN7dTrG1nRb/
-	 58ng0pARYJ2JIyeQHszprVhHn+lm/icpwXIUrR4sasNCNO1F1dE0ZOlUl5TCJk+Y6QC/C
-	 403HB/26sZ93aj1PEm68OrP+CeYdD0mXoc7RphjjdapUg+A7nwRig5ge+Q7duvTwmbo8o
-	 8Ka7QRCVqNqL1e+YANtXZSKHZ2GEqKbnfHhVPIxWK6nnTJNydlFbsVlmWiEkund6aVA==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ctDGepxS1OmdEx/30I1lW8Z2mAdJrkGf3g3gchr45SU=;
+	b=1HLWZvVdq1scc3FpcVJhGyvvyatv/mXe4fJRsjgJJbRMmMu/7EnM0YJD/9yC9OQaEJ/Z
+	 9dUY3Wfqf5jfisJBtUcIpa2VLBF5ENh+uD3YGHNl5KZCGiJddKuBBm673cQkD5eZr7dE9
+	 Vh1WzlHQZ+7zE1ZPGZhA//S84cRoWjAQnWTJqI3Xc4im9LPVHJprUtTAdXBTTlYJlWsFb
+	 kUB9wN1zBns+NfNdiMTo39T2wrxRCLvQFotM1KiQCz633uEpQloEks8RCbf/FGGiYUF26
+	 lKzw1bqgCVIVV1ksL18jTpyaVqetDQlhxIJAUkuPEU4nCN6NYnJ4uB+w4YLj2q/3SRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cL0yaOrR;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fCa4J62G;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246E7606A327
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:26:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3341B606A31E;
+	Wed, 25 Nov 2026 16:26:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cL0yaOrR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7E2F1F000E1;
-	Wed, 25 Nov 2026 16:26:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795623987;
-	bh=u5OwJ+z/SRj7hfSyj9qeAspfk1AsUb4vzSJqnjvXmnQ=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fCa4J62G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A39A1F000C4;
+	Wed, 25 Nov 2026 16:26:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795623991;
+	bh=ctDGepxS1OmdEx/30I1lW8Z2mAdJrkGf3g3gchr45SU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cL0yaOrRqrc5S2HWt53uxGADWznsnKtRfmVVqTpZo9RRkqDIJNmJqrN0wZOfA2lkM
-	 7NbWYPOIZPAYPGDiXoHAOIsGWhbSPM5hDQX69z1KrTDUcSwVKwzw+1LSh+SHPi1A0D
-	 hOY0JRx8EwhWk3w4glweovVx3rykcRuawYtBZ7zmkhcXwNet3bDlTcTHjI1O3rTMvw
-	 R0Ju+OlGPwtgOmkKNoNZ18hYgdxZ0Jg0uhzVTcnZ+CHuJGPhN9C1c7UK/RnIU1Mash
-	 C56ODddv4alxHGPTDq/zlSy3Cy4fIZKwUg4SSkoqCfObPlisaZguJSnQ1LuFJSWoNc
-	 nmaeGk6a3MVmQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=fCa4J62GGiqzfdPEG8ECotPbqpPs4iEM1s1icve//fZJf5+lYMQwIeKceUoRRrcDu
+	 4AWZ0FTPbZXSg8o0U55yEt0yrPxSco43VNLrxLOAKgOFB7S++ouaCeZEtgvxVziH9w
+	 TPxXAUbAccPJVKwy0O1RtCNvNRptcnk6qAJc/PWM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>,
-	syzbot+79883955da3a62652a80@syzkaller.appspotmail.com,
-	Catalin Marinas <catalin.marinas@arm.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	David Laight <david.laight.linux@gmail.com>,
+	Dominique Martinet <asmadeus@codewreck.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] arm64: suspend: Only track cpuidle context for idle tasks
-Date: Wed, 25 Nov 2026 11:26:24 -0500
-Message-ID: <20261125162616.790035-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125162616.790035-1-sashal@kernel.org>
-References: <2026112540-spelling-version-c8b0@gregkh>
- <20261125162616.790035-1-sashal@kernel.org>
+Subject: [PATCH 6.12 051/816] net/9p: Replace strlen() strcpy() pair with strscpy()
+Date: Wed, 25 Nov 2026 15:26:39 +0100
+Message-ID: <20261125143850.401799695@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,109 +64,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit ad3fc05c7e65009355effeea06aa629a687acef2 ]
+------------------
 
-Commit 19235e472798 ("cpuidle, arm64: Fix the ARM64 cpuidle logic") moved
-the calls to ct_cpuidle_enter() and ct_cpuidle_exit() into cpu_suspend() so
-that arm64 cpuidle could keep RCU watching longer and manage context
-tracking internally. However, cpu_suspend() is called not only by cpuidle
-via psci_cpu_suspend_enter() (which runs in the context of the idle task),
-but also during system suspend via psci_system_suspend_enter() (which runs
-in the context of the task initiating suspend, such as a process writing to
-/sys/power/state).
+From: David Laight <david.laight.linux@gmail.com>
 
-When entering system suspend, current is a non-idle task. Calling
-ct_cpuidle_enter() invokes ct_kernel_exit() from kernel space (!user) on a
-non-idle task. With CONFIG_RCU_EQS_DEBUG enabled, this violates context
-tracking invariants and triggers a warning:
+[ Upstream commit cc8b15a2c435bd1caf19741ba85286846a115764 ]
 
-WARNING: kernel/context_tracking.c:120 at ct_kernel_exit+0x1b4/0x1f4
-kernel/context_tracking.c:118
-Call trace:
- ct_kernel_exit+0x1b4/0x1f4 kernel/context_tracking.c:118
- ct_idle_enter+0x20/0x34 kernel/context_tracking.c:299
- ct_cpuidle_enter include/linux/cpuidle.h:134 [inline]
- cpu_suspend+0x264/0x474 arch/arm64/kernel/suspend.c:136
- psci_system_suspend_enter+0x4c/0x80 drivers/firmware/psci/psci.c:544
- suspend_enter kernel/power/suspend.c:468 [inline]
- suspend_devices_and_enter+0x88c/0xd0c kernel/power/suspend.c:533
- enter_state kernel/power/suspend.c:618 [inline]
- pm_suspend+0x498/0x698 kernel/power/suspend.c:644
- state_store+0x14c/0x1fc kernel/power/main.c:819
- kobj_attr_store+0x6c/0x90 lib/kobject.c:842
- sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
- vfs_write+0x51c/0xa0c fs/read_write.c:687
- ksys_write+0x12c/0x228 fs/read_write.c:739
+Use the result of strscpy() for the overflow check.
 
-A corresponding warning is subsequently triggered in ct_kernel_enter() via
-ct_cpuidle_exit() upon resume.
-
-Fix this by checking is_idle_task(current) in cpu_suspend() and only
-invoking ct_cpuidle_enter() and ct_cpuidle_exit() when executing in the
-context of an idle task.
-
-Fixes: 19235e472798 ("cpuidle, arm64: Fix the ARM64 cpuidle logic")
-Cc: <stable@vger.kernel.org>
-Assisted-by: Gemini:gemini-3.8-flash Gemini:gemini-3.1-pro-preview syzbot
-Reported-by: syzbot+79883955da3a62652a80@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=79883955da3a62652a80
-Link: https://syzkaller.appspot.com/ai_job?id=5359e16f-013b-4850-9cbc-ddfb3bac95e5
-Signed-off-by: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
-Tested-by: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
-Link: https://lore.kernel.org/r/3e92ccb0-2952-4317-af4c-45457c15efae@gmail.com
-Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
+Signed-off-by: David Laight <david.laight.linux@gmail.com>
+Message-ID: <20260606202744.5113-3-david.laight.linux@gmail.com>
+Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
+Stable-dep-of: 37dce65a0b43 ("9p: use fc->net_ns for network namespace in RDMA and socket transports")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/kernel/suspend.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ net/9p/trans_fd.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/kernel/suspend.c b/arch/arm64/kernel/suspend.c
-index 65bdeebb3232c..c6f52bf1f0fe0 100644
---- a/arch/arm64/kernel/suspend.c
-+++ b/arch/arm64/kernel/suspend.c
-@@ -5,6 +5,7 @@
- #include <linux/uaccess.h>
- #include <linux/pgtable.h>
- #include <linux/cpuidle.h>
-+#include <linux/sched.h>
- #include <asm/alternative.h>
- #include <asm/cacheflush.h>
- #include <asm/cpufeature.h>
-@@ -99,6 +100,7 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
- 	int ret = 0;
- 	unsigned long flags;
- 	struct sleep_stack_data state;
-+	bool idle = is_idle_task(current);
+diff --git a/net/9p/trans_fd.c b/net/9p/trans_fd.c
+index 8a03e62992508..f31b2a81ef8bd 100644
+--- a/net/9p/trans_fd.c
++++ b/net/9p/trans_fd.c
+@@ -941,14 +941,12 @@ p9_fd_create_unix(struct p9_client *client, struct fs_context *fc)
+ 	if (!addr || !strlen(addr))
+ 		return -EINVAL;
  
- 	/* Report any MTE async fault before going to suspend */
- 	mte_suspend_enter();
-@@ -124,7 +126,8 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
- 	 */
- 	pause_graph_tracing();
- 
--	ct_cpuidle_enter();
-+	if (idle)
-+		ct_cpuidle_enter();
- 
- 	if (__cpu_suspend_enter(&state)) {
- 		/* Call the suspend finisher */
-@@ -140,9 +143,11 @@ int cpu_suspend(unsigned long arg, int (*fn)(unsigned long))
- 		if (!ret)
- 			ret = -EOPNOTSUPP;
- 
--		ct_cpuidle_exit();
-+		if (idle)
-+			ct_cpuidle_exit();
- 	} else {
--		ct_cpuidle_exit();
-+		if (idle)
-+			ct_cpuidle_exit();
- 		__cpu_suspend_exit();
+-	if (strlen(addr) >= UNIX_PATH_MAX) {
++	sun_server.sun_family = PF_UNIX;
++	if (strscpy(sun_server.sun_path, addr) < 0) {
+ 		pr_err("%s (%d): address too long: %s\n",
+ 		       __func__, task_pid_nr(current), addr);
+ 		return -ENAMETOOLONG;
  	}
- 
+-
+-	sun_server.sun_family = PF_UNIX;
+-	strcpy(sun_server.sun_path, addr);
+ 	err = __sock_create(current->nsproxy->net_ns, PF_UNIX,
+ 			    SOCK_STREAM, 0, &csocket, 1);
+ 	if (err < 0) {
 -- 
 2.53.0
+
+
 
