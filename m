@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795597879;
-	b=gOgxdG2nbEQ/cpFbr+ECSn5Z8IKABfjbDw4xBbQ/r4RhZ3JvthI6mYmAwtXtdNvXVd53
-	 SHrDDeTcllpdwWR533WgFY5cdJpd4axnK9eyjgHSyO2QBh6k9VJShMAIRISI/Wox7YCjz
-	 80I73DAxlLSBgUVfHRehkCIcrBvwkGCElO/Of30YvTcJ15GZoQRET4xiFDB/7kKEKM9zN
-	 HdZVv1uvLop0ZAFI8/WPuTfFm91JhtXmFFFpkY33DL0FOV37R0N1+vGta+iRsviNfCB+I
-	 bbKj+aR7SJ8K9cS5aH8ihb2dUaRpsXsbhjrtEx/r0yp3a2alksqCrX9EBCDwOD/MkyQ==
+	t=1795597882;
+	b=xaARDHgdAduZc3bo8faC3t53JL3vTzpqpjCciLGkei7k8yVW45YniwFZovlg6oZFSKcK
+	 iJwC+8dfzurJ+IPVBhXvWBy35/N5kFyvhZp6E2XTCgKmNBAXlCBTNuKH+dIuam+3f6Tw9
+	 SwqMoA8OhQBALn4WvPdArC6pOcSjf2lUHJufa5ACK08MScy5r8fXXysmEraF3EPovEDJ3
+	 vqClFBUqMNlnJSSwa5h0YgvQ5z6ArvpUz/Y4BPZbsXOpR2e3v8sQztkv/cQaWtlYAjRnl
+	 QGW/Rgj/tKL1OLX6jr65AtbDpFmFy/IvpzuCqujj5nILmWQ8KYjYCLHrn5RepigwDmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795597879;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795597882;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=YXO8QEsWAjNbJSedg5jGQWScpXF+b53n+NzKi0jBBRk=;
-	b=J4CaUBfx1LAmKnjl9YiybmUJ/6nROs7zd2L9GTBnqsx9dRzbMgyKfX9xtClij7obYOpP
-	 UtlM6o3/xQwrkWwqpQPQmvL6uzd+DxhOkeE8klCQlfuUzh9LmUY/1eSbU3r/0lSv1oOH1
-	 Mvcv3ES1MODtdgipDraOF8guAOhWBSKM4D3qdXK98KVoy3Lm1/9d0JKXqSBwN3+kV1vUS
-	 sywn30vrIqwTaPAkOTVnhwV0BEs3Ar28Alm4OcTO256ULNaxoYlDQp9ziyMXDpHcqCTzZ
-	 fxakFAqx9paTcL3k09xCjVL+Kw2+ZQ2Zu5kyoNy99gGA8EiAmQrAU3QohV5dFIwfDlw==
+	bh=cgfPaoAowSRWffsCFIDkbepfmu3kmNh/uVMeVJZnk3A=;
+	b=3sn9iv2zFviBRmdVNZV+S4bUqcLvK8GyH5M3rAFRl+vs7dsdx0kMLVAdUZHDxv/nuWTL
+	 J33MsJu5KLAhio5nCWfQ39zat19/98xc1ZYtsz/wQs7zlrxt7CSl7kWncMgc6rTJDicrG
+	 FmWkChQTwcAUdonHSy8XwAUltVAC4lP61bz+zkjODlXs4LrP81rbNctemUHRYrFnSX1UD
+	 eG6F7oD9SiJtH4RAEhb5IMqBXrZ9Dx7Ik4EljvOfJz8znZmDdLaZXXTt2O4epB9Awpmhs
+	 AYdlWMdvwnibXOh7hWPcXPEWUXuZBsvdxcsXHBGH/zFlxbo+A8DMbOVN8M3e2kJKYuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NG7lfs6S;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=f1GDHroW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A3C8606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:11:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E74606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:11:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NG7lfs6S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 472701F000C0;
-	Wed, 25 Nov 2026 09:11:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=f1GDHroW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DE5A1F000D0;
+	Wed, 25 Nov 2026 09:11:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795597878;
-	bh=YXO8QEsWAjNbJSedg5jGQWScpXF+b53n+NzKi0jBBRk=;
+	s=korg; t=1795597882;
+	bh=cgfPaoAowSRWffsCFIDkbepfmu3kmNh/uVMeVJZnk3A=;
 	h=Subject:To:Cc:From:Date;
-	b=NG7lfs6SlPCHoX41pLqJgtm30qqrBDCII2ZZwnF10QQtXk4nCZpuxkLo9fPZ0G/9d
-	 Fnvy8JFvlp5T0t77F/Ru7CsqzNKHewy3bSRSTu7sGKPC2CYmkT86utOBRkErTLxuhj
-	 oXZe1lKEfkAmueBcOgX6af5YOSgd3vYcSPpS7bq4=
-Subject: FAILED: patch "[PATCH] gve: Block invalid ring sizes when device options are 0" failed to apply to 7.3-stable tree
+	b=f1GDHroWDBSfAU75DEui2tkpLO+mxg6yQgoGUqknG5KWajIa8i8bUPwOJLliUilhx
+	 /hvm/Lkjrk7SJKE5o0Gj/1eioTU529dKXmoyarl7uoi+kMTrEyTscXv8I7PZriwx+b
+	 T+X/VA12/INMXxPp5O2PPuv1Mm1k1daOybwzyLLQ=
+Subject: FAILED: patch "[PATCH] gve: Block invalid ring sizes when device options are 0" failed to apply to 6.12-stable tree
 To: treapking@google.com,hramamurthy@google.com,jordanrhee@google.com,joshwash@google.com,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 09:59:42 +0100
-Message-ID: <2026112542-ethanol-oasis-b0ce@gregkh>
+Date: Wed, 25 Nov 2026 09:59:43 +0100
+Message-ID: <2026112543-engaging-jailbreak-1e71@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.3-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x edc9a730ad3c98662047a76db2d7f26ea4350b2e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112542-ethanol-oasis-b0ce@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112543-engaging-jailbreak-1e71@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
