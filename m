@@ -1,98 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795609312;
-	b=ZyeZvH/gbnATtLyrsdS/eBTgTyp7pNpmRJvtrpcBQg7qV4Er/NnbzSqAIts5CcQBhyi5
-	 Rq/BzxLwHYLd0zHVD25enw9MdNPBCDvf+mJDnctlET/DdS8yhr5k9JQohzYTQY1fFPc5T
-	 vR7CS7DYMFEREYSatiVRoP3wlazh8GwMVZHK8MOMjDyr9ijhQyaFbYjR7fO3j+BVM7HpR
-	 gnEDlEe57Qu8yvXT7i3T4aZwGmgXjyvdhtv3CzeRgw4HWLYla0KQp73lK8D5ANFnvFrNb
-	 WaxPNY+xBoQ3QHRCIt39cZlU0eQLzKbuOxeroRQgNKdY0R7YfHf0U7P//lhIDwdHc5g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795609312;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/QULW9udHfGSSQHhbWJ4MuomN45Oa80WoGrv85qAreQ=;
-	b=OWY1lnwVvLvhLlxNe5sC0D2wWkAeKB/gbmhQ5FcowB2J+56VMb843a//99i4FXtsypnX
-	 5meSH47NJwFNOjpmyuD9obOLKrMoFUSv0yqLP8B5MXjTUHMnavXDt64iK/30R/ITIEx1P
-	 h14bm4lYq+u3Jf2+7iXQ1j4g9y55iQICj1zPe5ZKMwJF0O0JtjmEpjcWE/astS8J8VNfG
-	 +FjZP/CXvHhtTY9rvNDWImZ0ir3KJPnsPhrP1cdUXEvwLuzhxkx2FG3wjkqNIWU/8o68V
-	 rqQCkEEGzTpcxDt+uEvFFepc0APYQwcDd8ei8i6rBJOV6Po0a/g18UEeQxLPTzwDONw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0UMlnYhc;
-	arc=none smtp.remote-ip=209.85.210.177
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.27
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795609325;
+	b=U95bYHxF1PCrL29jm/9iIH2BhsNaMqi8zOjpd82GBFWPqqhRMXVRtlqybIB6eqgb9lXW
+	 QHgKCovdJlYljxbbXwFRv3vhfPcKPjrx6G4i4GJEE+PN3FFeNM7D1GBAu6Z5vqti+9MbL
+	 5y3ah5BNQ9/M3+CrIp1YFX8HtuHPYK4YoKE/xUBHnZgd5lnBBwUpQkGEeKZC7ppvL+I4M
+	 6UJLSD1h1/4B/yiQG1URA9mlwdNSJNoYmYu+DDkcZ/aG/xTUpLOaZJNvn0TmQ9VCNaWMG
+	 ZefZBStX5exGzoy4n8M0HuH6+1K+2+PSlDnLX0pjsXrKIUMTmoWIRRpAJM1r0J2KEPw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795609325;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=d7NivdIpd3tMWoY0pSI5XraZ2oLoG62ldKLJDnJbf/o=;
+	b=aRvwP1odH6emvV5Vm3DEbp8PN9yTn+TDdsf5vRa/5x2pld70c239gudSC8+1RuNNXQr+
+	 82CoWXe+93bRkXbOjUdYbSbqh4UzwAT009goJKkjw2l4I5i+1NiUxs6k1su6T9zFGN1TG
+	 H9K+DCLm83Q90xMfHR+Y9Y2FxPD7wm59azUebaBviq3Mowru4mvliVGOaz8MGmegWcHqr
+	 3zX+GHxNhxeE2dIVpjDZmHTrWu1+XeujltlPvamy7YmH5r5BXnzeJmK414DcHGSk+Qinl
+	 OxLOnbKpnBNEoIGZJMFdvWyJ+IVP4YUZ/WyZT5Hf3VYLm8CAC42aYXLawHdVIEMhyuQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=MIdMy3Ue;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.27
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010027.outbound.protection.outlook.com [52.101.46.27])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CD30606A683
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:21:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CD30606A683
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D6F606A683;
+	Wed, 25 Nov 2026 12:22:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72D6F606A683
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0UMlnYhc
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8ca6a12efd9so1783357b3a.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 04:21:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795609312; x=1796214112; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/QULW9udHfGSSQHhbWJ4MuomN45Oa80WoGrv85qAreQ=;
-        b=0UMlnYhc6Jab6VMa6ttiQF8d1lJpBIB6uF3ONYklVOFBAMMaYceW7eneW9wUIq+95z
-         pdgV6bHeTvavxSQlqGt2KaCvy4gWKsFzJBpBBi7NgvHFSYJiubeFCunkeRsPu+SLlBOF
-         WrVWAfk8iiX55gpoJOE7c53RkG2Rku+Il7LCOgDCqVXxmr3IUEw0Xb/onbfD7JJ3KNH0
-         725Z2qJvGe76W3I2j3QJ/CZHhxwAYrNJ7R5x+yT4PzG4xYwwwh/JrPeBeXLTBCt8D3ly
-         PK0FeFpik5oq3Wrn5bVz7p0YCIOm9N1w8+Q20s/PIks6KFWZbX5wzMWjZ/zWIADA5azA
-         rECA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795609312; x=1796214112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/QULW9udHfGSSQHhbWJ4MuomN45Oa80WoGrv85qAreQ=;
-        b=isvV6fQEzvNDzgl0RMbmvHriXHk8Ju+7sXeJh+plhj3vYQAEDxQIKqVvBULdBZPE6H
-         IxgdZiYvu9ApIXF0MB9L4X3JqTFV9two0cVEiEyX7p0+kZ3JRpUpkY12eBj3IP6aBq/M
-         diM2sgulNw1Odrrno0dpA4XmM30zM+G0uC6UQItJJhHDONRLmGladbZCglCO90Wn2q8d
-         PFtervX6XxbnxqLw4NvX5puMiZiJT21z1QWWPiRAZe3iEpP74d9X37xQM7dZ3R9GanHa
-         ixBGlYZ2vTMZ3NcKe/6HFeTEQQi/9465H6UhYl7ROUje97AF0elcp5aRF2N6H+3Oyu3s
-         QY5g==
-X-Forwarded-Encrypted: i=1; AL+hErGeGIKITZNBxXZjgwLtcTLOL2kWz2bmxE9IK10RMZd2/VbH0qbxStwfcYO+bu2PglwmMtQkACc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9PY/AbhTrZao74Frj/O6y/0sgbvX1nbIposnmTinedGzmqYlJF
-	gW7iR8T/RiUnlfYjBrgETb4ZUJhfzzPTV0LBLBT+3IIv4QPl4FPAeNeM
-X-Gm-Gg: AZFdTZdUC77ZZGgJnWUaA+dNCuQL2pGtMli6vNg0xmibPgX06T9DgMnyWDdKg5H/KvS
-	98DKMq6eu8BXGRrRqCzFz9ZC6Qv5sxmV2VOXP5yqREQM116RhYEXEGI/RZneTLFevW1ugFYAim6
-	8NvYPoxP25TnLpDJpS19gyCOQ28hBle8gg0sfc6DEOswjOh3F8zSr4RvXU1+mCxVDFjh8uRIsSN
-	netYOtAWmvzt+NRYS7kxeju1QfulLqXfeUoXkwDPWlQ6dFx4ZDtfacPxdkrEiEYj5UPs6MkULLG
-	CAQC3DBbKwskfvRIFibUaOBSG+KK6qEeWbPt24Oo3bukOHqZdC7Ec42RXPqPTZscg0eThd3cuSO
-	4qYZWzdHbsJ41VvkX2NjZXDdlsCjJwB0cBGBUQLRaP104xDy/6NkRuLh3ykiWaQ36i2wFATrbou
-	JrJVRDCZUuLEVCHQ44e1UHpY2sqf5E5fBFdSZdr528/QsCkIxiZItHKS76vSo2JwbdcGAbK4zpp
-	A4F88gQbBJ9UluFhgEQ+hxW/7RyithX3XDJLECRSkHa29B9o2faOa8aqBc/2R/uf5s0VY8zndy4
-	Ap1czvumhRxOuNdCsI3d4piOj38d+JTPYw==
-X-Received: by 2002:a05:6a20:7489:b0:3f9:a6b6:e16b with SMTP id adf61e73a8af0-4014c94a618mr15927591637.21.1795609311859;
-        Wed, 25 Nov 2026 04:21:51 -0800 (PST)
-Received: from server225.. ([39.170.101.209])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87285c89dsm8688656b3a.13.2026.11.25.04.21.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 04:21:51 -0800 (PST)
-From: Ping Li <leeonion.muyu@gmail.com>
-To: miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com
-Cc: linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Ping Li <leeonion.muyu@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v5 3/3] mtd: rawnand: r852: declare NAND_USES_DMA
-Date: Wed, 25 Nov 2026 20:21:35 +0800
-Message-Id: <20261125122135.44696-4-leeonion.muyu@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261125122135.44696-1-leeonion.muyu@gmail.com>
-References: <20261125115108.4147741-1-leeonion.muyu@gmail.com>
- <20261125122135.44696-1-leeonion.muyu@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=MIdMy3Ue
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IRZPRXrK2xZ+2Msa7wKk4OoZ+k78aic6tWao0RJ11CGMhHKcP/6VvgYJpTCClu3dmBxZQNzPgCYnFFNzbpxqMysnRQ6YY9Ka9mGpjUmezcgm+3edqgZ4UIvK8IN7woFiMS0URJGwTA99hqHPjpBXM2c+5lZvpQXbSL1QfasKEIQF+l+fsctqbhu5M5D/Szb/DONFwLYWC7KTiojjaRTpKIP/UeYJjiKx7x0hw95aZRqMOby+/kgv7tyve021+3evCbKXVQJc+zCWMRkjgdBINZPHCeC5+6xZJ3Bp2hUJ0g+q5Esx5ZBwhsv8LUlhfyBL2PYV6a6JCfkyF0W3wR8+ug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=d7NivdIpd3tMWoY0pSI5XraZ2oLoG62ldKLJDnJbf/o=;
+ b=YfZBGTvCnxeu7gyvxHoC5fXtbkRa9GN/AzYsdBsqa4xldjUVemTNu/l/ZX6zRcm6OPENw+ksAJnKiD/da0c7tMUITm73ahQgNReudWjjXocoZ+xzQcDqFNWtyH4Mkngz3jdVfVzKRRe/UBPsS2dnQTN94prDZWW+OeWLSQO1p8ZlkP+WMvap0uN5ECERGMrQ9a+kj0WOgBwc7JQEe93CsQ10tf3Vm5Paunq39iXaf1s6lbUZfSPDyh4kOEf/IUIcX73gT8k/3VHf87fGL1aF5yFWB0s8564vnmTPgNgeikw6IPPKYYToOYd4hWfolgq6YWLC3lHH+c22AQXOl0i+xA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=d7NivdIpd3tMWoY0pSI5XraZ2oLoG62ldKLJDnJbf/o=;
+ b=MIdMy3UetFruhgDVG0e3XMtZb8mEM/FxYWp3OeY3Hl6Y6FDbMfH4miE+2GmNkqGDpHFkqSTOBhZGh/cUO9UvJflYYnyt0qXWeK50Hp33MGn4ia3PU9z+I1Wg8ARw9jondSrDp+YIvBrKXqBzcGFeuYV5NhYnLR/L0Dm+5c2rnbnxpjrw/7BAc8sRDcF8PJRliwjctyK6TgM1Dk0ma9/+RnXwmw0U78s5lJ0IUove24uj1CtwHA923Q6IgkT8HTkT8bq2PZVPn6kSXOJwhiEr93dhEHU4hcuvrdh/O5Ax5ZQbmlDDgnf0t9xc9sHRFBggnazx7fxa7aIhbXJ6k2MPIw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9407.namprd12.prod.outlook.com (2603:10b6:408:1f9::13)
+ by DS7PR12MB6007.namprd12.prod.outlook.com (2603:10b6:8:7e::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Wed, 25 Nov
+ 2026 12:21:59 +0000
+Received: from LV8PR12MB9407.namprd12.prod.outlook.com
+ ([fe80::208b:424e:47e9:8a96]) by LV8PR12MB9407.namprd12.prod.outlook.com
+ ([fe80::208b:424e:47e9:8a96%4]) with mapi id 15.21.0662.001; Wed, 25 Nov 2026
+ 12:21:59 +0000
+Date: Wed, 25 Nov 2026 14:21:50 +0200
+From: Ido Schimmel <idosch@nvidia.com>
+To: vjardin@free.fr
+Cc: David Ahern <dsahern@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Simon Horman <horms@kernel.org>,
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
+	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net 0/2] ipv6: fix IPv6 scope check of the source address
+ in a VRF
+Message-ID: <20261125122150.GA170378@shredder>
+References: <20261123-for-upstream-ipv6-vrf-saddr-scope-v1-v1-0-f667ab150ade@free.fr>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261123-for-upstream-ipv6-vrf-saddr-scope-v1-v1-0-f667ab150ade@free.fr>
+X-ClientProxiedBy: TLZP290CA0012.ISRP290.PROD.OUTLOOK.COM
+ (2603:1096:950:9::10) To LV8PR12MB9407.namprd12.prod.outlook.com
+ (2603:10b6:408:1f9::13)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,47 +103,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9407:EE_|DS7PR12MB6007:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3b81005-b255-4f27-4149-08df4aeeb3ad
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|261026121527099003|10067099003|261102123227099003|261021121427099003|6133799003|18002099003|22082099003|56012099006|11063799006|41080700001;
+X-Microsoft-Antispam-Message-Info:
+	fJqk93qCXuKhzVzNCywfjaFS5deyjc29jePR6Ji2wMwixPzt+9cyRcq01i+bimuW5p8b96cioK9kvxcAzfw91/JTl3nr6WIMPUz6IQk57wH3ouCdctpIOhtO1zCLx/iO2wNHcKKtVuYP6k4EE0/lObqsOabSUGakcnUP8gY38fOC/Gt+fPmqHvwBIk1Fvv3V0ke3lBkN1DoZtOrisHldPw4YK9LiJPfgFouj/CTgVXBtSbldIstuk4yMUnhlYa2Ht/rhLx6fyR8OddMFCaG8UnhSKmEWh4TiOPEvJ2efu0QMMCFdYLdNwxUsvhvptkMMYNtUmR3fKyu2Rha+8rlFxnKO8aWAsgDXRXW2YMXux8ZeCZqlpH/HopeqXKo0Km+LF3yxuTr6b4rEpM/a5KIbhZKC6q1mnwCrg315ZtzGonMzaiczH7eMcgvP5C5Kow1V+ZkzkIx8fbePpLyQFicc2S2D7klfBL13I2b1UNGQ9ng6jbttkUeZeP66Qdv6Y46pMgLaUwIjS8xU4RIwvqS77zuQ3tscgY2eEjAZKnDFpkM6ecRJOmRHGm8G+6yC55myG2A8AMO1yyWzxfazDTXT0gIEemD2rXVS+Lv3ZAK51bTSD326S4L10aBpBD+W/toeuhNQB+FSHAAeyVKg+mTwJHmHa7W4UdxMAJ13uo9GEO6LjmA61EkW1kLQecw1uek0Iz+G5ZndILF9f/4kioJKsi4+8xebRmvea14WQcDjcmM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9407.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(261026121527099003)(10067099003)(261102123227099003)(261021121427099003)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(41080700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?S8B+9M5eoho6uv5Q9jgH8tVXAdheL4tOblykQ0KzfUXpAD3QkLQg+h3pGww+?=
+ =?us-ascii?Q?2DtpBZ1f69JnTh6t/i3sTB8Dms/T8tC3nm2ijhgrCq9z49UTSY6lJqel70MQ?=
+ =?us-ascii?Q?FveTTKZI5ujty21q+AFd6D2BGN4ALrYWNCDdXzV5dreJnSp3AyeVfAQS476h?=
+ =?us-ascii?Q?JU7fLwt+w4onJi9g9V9iZzEzKYnO0QIHJz5BW6fDGxhIeLrSpGghE4Wq2nWP?=
+ =?us-ascii?Q?fReeU/S5HRdywpXa8DaHz4Lc+2fLtor5bjbFPgwARLLZXSe0YXK3C+FtA0jP?=
+ =?us-ascii?Q?cc5eFkvUfNTpXATv/vzwrRkLgRlPIXKF6g7f5aU0lw3hLSv0Dd1SROVaaQJ6?=
+ =?us-ascii?Q?6Jhh7063r2EydNlPAyDAvQYOXnS2vtInEh6l8FzylHXw2ZONMCwI+pqAflWC?=
+ =?us-ascii?Q?FBVAs8sBtVxUOvfavTSvLH01Y3SdH/IK3xpKhxtmjJzSWtrHtUIvFTRXeoHl?=
+ =?us-ascii?Q?kM7ifmBk0auoZWQ3lPgZGQ7F2SFcYIL6etIkKGDdrTHU4Z3rC/b88894nrva?=
+ =?us-ascii?Q?XnLaNbE9jA4kv7zslRZWjkGV8htoihEdCaEqXLrSBlWohKNiK3rm6edlqAKm?=
+ =?us-ascii?Q?dkmTUm9KJGc0/24CTZ9Yc3QN9Vx0xpKXX2iWax3phEQpzE3PWgcsa7cBp4PF?=
+ =?us-ascii?Q?X7WO/b2jejcgsd2nhSL2GmFMqR7OPgOf5vGPF3aRMPIPSPQQKzFGAsbAqqIT?=
+ =?us-ascii?Q?wyt/g/nUSaMpQZ4R01i1qYJq3ko7SZgHK97PmRIzoUdWXfc807KsLJOu8yvx?=
+ =?us-ascii?Q?9/RIA4XnAvKbJWcFqa98DbziIp4gpffKtSdAmGhjOuyccAn43BPRlSGGcEgY?=
+ =?us-ascii?Q?zjfSftErDuyrLCCjOqXcmgaFD9YRR4ylcSiMVrUyjVwfaGg/6VjzmZlXzQSH?=
+ =?us-ascii?Q?fW9kIiDHGsE1NRvypXVmJFmh+8CJ79eZQJQKjq/EPzmIFxx3rQQn+l6I3ebd?=
+ =?us-ascii?Q?twvrmqmeKXQ2Msb4yBIKmuCQnH1hJ6Rm3vyrxwZSmpYkrjq/8MHGdJ0Zu0sm?=
+ =?us-ascii?Q?AMh9mnQwtc3jZ7P9bNn1cGioeljxYmI42RGEr5RgTO57irR1G1JsD6Iywfzf?=
+ =?us-ascii?Q?Gn5Mh6R0SB/JqS7Zye2kT976LvjrU8mXDnPorQewDsrcnp3iDfS9ZRnhi1yR?=
+ =?us-ascii?Q?TGQrcVpvX0KKSv1AV/eFD8den6LygcIDAHwQmK9RoQl+a5IZxOhTdNFBLcHd?=
+ =?us-ascii?Q?zE//wuJw3nffW6C7yD8C0+9uTIl4NADUxRrDtl6/RNEkgPZ7fv2m60yHGX1Q?=
+ =?us-ascii?Q?uK0TZAauiObkSWwoN37Q4UyUUSBy5k5rwRTE9EPFEnP7a+VLz4tCcPpbJxeD?=
+ =?us-ascii?Q?GDDZkHNwKym6oQrPXpn6vX8oGhP5T7C8afrjxMqsiNOSixkXqSQjM1f3+Fux?=
+ =?us-ascii?Q?2yjwW3/0IHJc3d+V+ljGsraeeuC1TEjUbkmCDZ+GQF7Q253IQ4kU8hfFxqA0?=
+ =?us-ascii?Q?7ZkXR64/rRSFcUuIY2ZxvjkZZXY3dRfbAFYvg1aPKe7EDjKUuibtRpdQTcco?=
+ =?us-ascii?Q?KdazcjKDuwYd7KF9LVoYa8VQxOVDjGqswEI/ksWQOlkajtLLrcctHpTk2kTR?=
+ =?us-ascii?Q?1vfXEfBmraLPZxfu1vJ0jk18z7G882dtx/44QRa6gvSYpdx9LG81PEUgHx2e?=
+ =?us-ascii?Q?C64rvmT4yyYiKgI7gg0M8g/mg1jV9t3SduShtx8hDEFNxzF3PVn0CQSTDfDE?=
+ =?us-ascii?Q?iNHXwmPMWmJSV0eM7kG3odaQDANnRCDDWgjWM3Zrjodh2BLj70Nrg7mf3CKc?=
+ =?us-ascii?Q?yf2ve61SQQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3b81005-b255-4f27-4149-08df4aeeb3ad
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9407.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 12:21:59.0354
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /S3bhWIghEYPXiQcclruzA0cpzxlkb4XkxrAHPqtN8GYtxuxaXMG45Bz3heWBAAgWAhzfQLh5zOXhAEYvh6slQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6007
 
-r852_do_dma() feeds the buffers provided by the NAND core straight
-to dma_map_single(), which is only valid for linear-map addresses,
-but the driver never declares NAND_USES_DMA.  Because of this,
-nand_base cannot know the controller DMAs these buffers and never
-bounces non-linear-map ones.  Such buffers are not hypothetical:
-mtdblock's write cache is vmalloc'ed and UBIFS passes vmalloc'ed
-LPT buffers.
+On Mon, Nov 23, 2026 at 03:30:42PM +0100, Vincent Jardin via B4 Relay wrote:
+> When a packet is sent through a device of a VRF, ipv6_dev_get_saddr()
+> first checks the addresses of that device and of the VRF device,
+> and stops when the best of them has a scope that fits the destination.
+> 
+> Since the commit abb9a68d2c64 ("ipv6: take care of scope when
+> choosing the src addr"), the check reads the scopedist of the best
+> candidate, which is an issue:
+> 
+> - with a single candidate, scopedist is not written: when the stack is
+>   zero-initialized, a device that only has a link-local address sends
+>   to global destinations with it, although another device of the VRF
+>   has a global address
+> 
+> - with more candidates, scopedist is negative, whether the scope fits
+>   or not: all the devices of the VRF are looked at, and one of their
+>   addresses can win over the address of the VRF device
+> 
+> Changes:
+> - patch 1 compares the scope of the best candidate with the scope
+>   of the destination
+> 
+> - patch 2 adds test cases to fib_tests.sh
 
-Declare NAND_USES_DMA so that nand_base bounces non-linear-map
-buffers through chip->data_buf, and advertise the hardware's
-512-byte alignment requirement through chip->buf_align so that
-misaligned linear buffers are bounced as well, like the other
-DMA-capable controllers do.  Both only apply when the controller
-actually uses DMA: the PIO fallback path does not care about
-buffer addresses being linear-map or 512-byte aligned.
-
-Fixes: 67e054e919248 ("mtd: nand: Add driver for Ricoh xD/SmartMedia reader")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ping Li <leeonion.muyu@gmail.com>
----
- drivers/mtd/nand/raw/r852.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/mtd/nand/raw/r852.c b/drivers/mtd/nand/raw/r852.c
-index 92c47d351c27..c5a3622cddf6 100644
---- a/drivers/mtd/nand/raw/r852.c
-+++ b/drivers/mtd/nand/raw/r852.c
-@@ -640,6 +640,11 @@ static int r852_register_nand_device(struct r852_device *dev)
- 	if (dev->readonly)
- 		dev->chip->options |= NAND_ROM;
- 
-+	if (dev->dma_usable) {
-+		dev->chip->options |= NAND_USES_DMA;
-+		dev->chip->buf_align = R852_DMA_LEN;
-+	}
-+
- 	r852_engine_enable(dev);
- 
- 	if (sm_register_device(mtd, dev->sm))
--- 
-2.34.1
-
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
