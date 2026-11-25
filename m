@@ -1,47 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603880;
-	b=dT6ZlzrngXXwwmeH7zfU7nb7MMoYi63b22stNzfkarnqOP879VWn/9quuhBgNDgyc20l
-	 uxS3h6zS32OuDSpiR2T29XbbfBgxn+TnnM8Hb5kt/4To3oXY79mDstcxtiaT+2n68ZkKC
-	 8OVbm3NPWKrQ0EM/JCykh4KdaIOHg7V1LMLnmaL0zdcjq/eTNfruvPI4lWKCmHmju8e9P
-	 ArrvMoP5pYQmbOwQtv87cZPWJs/REvSL/aM56Xa5H5X9eHf3j/yoUYJft7b+2LMh0UWAI
-	 zYraGHWddf5B0htFK6al+eR4aSt8swVMDkGd7eC1oOg+J6xsTh3HzGrd37IkfLvOtJQ==
+	t=1795604018;
+	b=sgFr4Ha5s7FGj2o5Iib3CMg8bBl3g5ezdRzmlSAfbtyDnDSeW3p/KSY0GIizn2XqopP+
+	 PB7vytxCKpe4sly0C1nWLSOzbGjY1lSR0TB8BkFatPmuVFsQJ3jAxW+Uvjvunml/8mm2F
+	 Gp4YaDoZfLCYRJyg4l4bOKclmoS9aTmBcCGESSAtCkxjKQ3grkCDyIq1Q1lNKf9KUKGzl
+	 0CPbhuCjqPonRT3DL/V0r6WKqDvDEbkBnUnwXuF22BWNQoYme446U+MnS2ibRyHNxdOiB
+	 Dggie8/rRMKourxZKq8OiFH2eLyDYgGTn9RcGka3GBGh/Wgf/CBCG29TTqRDRkPxH0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603880;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=uduc+gEwX/974Tljgf0QSm7qnQ+4GeXpHOuUK/XqxnE=;
-	b=03q9wUNrgnoqURIdqDhwRlA2eQ7uPkc30GJTzthBignmNyIYMNkNVJ21CYTaMum5l6N6
-	 JAS4rmMdWs6lnQgvGHsp46vu8GBBoPM+CMw7DE9r7KoG6sTFCzIEHUfKzNJUMAsQZPbSh
-	 7tIZnKj3vGF7iRea9XO8Tk3wFo4pwq338Q9yThLWwyeb6LEYM8nwIurUiZBmXwXc1nVqu
-	 eZPSqAIenb5XFpZSqM3+Bevwh8GuDCmPjeDVWFeUnIPQkY1J0ap1fm+GxupDF92w94OOB
-	 AfIW5Wm4l9aj3AC6uSNgeagDE3xM7aUBW40LZEZPmmpx6nGWBnqPYeck3KTLPyWULzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795604018;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=tWsJdisCnNUTJmEHgS/h0WoUaEKuAhcAElbM1LpemB4=;
+	b=CIn3BqMbwx/AzP2wU6/7/7RgQBCUX3hbKmBGP/2K1/u6/l4lF1ZBObxNec9mrqTCebCN
+	 vO/ocux1Qo8E19N+li3YB6oXlMpJnpiye6CqHJi0vygI/4q2LyV2jen6Kvv8n3UicSp4b
+	 12InnD+JxT/VMywaSvZh3s/hyks5yFU2h/smTO39Km8g01EdTUDxPwSh5eFj9+7CtVlF6
+	 LbckebMaMMn41LPzZo4BFwSygm6Yd/nu0uQ+WLqe6MLndsaWzwD0L5hxPInS9rvQZbYnU
+	 v2pVJHARnTsSJKcpYVOYz5nxbBl6lBZenPjBa84fDJfH6lTDUChTjrE7lqunocBpylw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0qm7eBjQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=PsX7C6IN;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5DF606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:51:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CCB2606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:53:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CCB2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0qm7eBjQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B1CA1F000C0;
-	Wed, 25 Nov 2026 10:51:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603879;
-	bh=uduc+gEwX/974Tljgf0QSm7qnQ+4GeXpHOuUK/XqxnE=;
-	h=Subject:To:Cc:From:Date;
-	b=0qm7eBjQno/eCWNbRl8YyjJKMgzfGyYcGQFpq4WOnvsdwzyprcqEU85iUSsvn96bX
-	 /u1c5togvikJiIbFqIzs5j31p3Em8djIpiGZNA2Mffx8AXP35TPNpoFM0DR9y/Vnav
-	 gt2y3PLJ8VIhS68E6ySb7dmf/KEJI1eLJmNDRUqU=
-Subject: FAILED: patch "[PATCH] tracing/probes: Reject array count on non-dereference string" failed to apply to 5.10-stable tree
-To: mhiramat@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:37:25 +0100
-Message-ID: <2026112525-deflator-chunk-bba2@gregkh>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=PsX7C6IN
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261125105329euoutp026252b038b73716f4ccc27e1e6ed2ec5d~rRFU59U3i2375323753euoutp02d
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:53:29 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261125105329euoutp026252b038b73716f4ccc27e1e6ed2ec5d~rRFU59U3i2375323753euoutp02d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1795604009;
+	bh=tWsJdisCnNUTJmEHgS/h0WoUaEKuAhcAElbM1LpemB4=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=PsX7C6INOyWU4uuDG73v92fRc2SubDa3of/cmL5XL0D+qJ1asJZ6ANKUG4VUbyqPF
+	 b4CxQnlAFa/vv60WVDhCKsGzpNQ9zjshiMoF6TvD90Ua6Q5Yln3zqnmnCwey0qdd5c
+	 b+HGgl7O+oHluQiPMBONVljN6l2LsEbv18+sxGlQ=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261125105329eucas1p2d715a0441207737ec107c34452539dea~rRFUpzE1D2395023950eucas1p2R;
+	Wed, 25 Nov 2026 10:53:29 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261125105328eusmtip2ff03c8fe75050c8ba766a658a48b487b~rRFT-6FMT2375323753eusmtip2r;
+	Wed, 25 Nov 2026 10:53:28 +0000 (GMT)
+Message-ID: <c5dc8e9c-7fcf-44cd-8ed1-65c70d8c8bdd@samsung.com>
+Date: Wed, 25 Nov 2026 11:53:27 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,71 +64,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 1/4] soundwire: qcom: always set master port_params.num
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, Vinod Koul
+	<vkoul@kernel.org>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>, Pierre-Louis Bossart
+	<pierre-louis.bossart@linux.dev>, Srinivas Kandagatla <srini@kernel.org>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	stable@vger.kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20261125103825.936939-2-srinivas.kandagatla@oss.qualcomm.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261125105329eucas1p2d715a0441207737ec107c34452539dea
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261125103844eucas1p19032e975aa03f8926e30212a5c3184a0
+X-EPHeader: CA
+X-CMS-RootMailID: 20261125103844eucas1p19032e975aa03f8926e30212a5c3184a0
+References: <20261125103825.936939-1-srinivas.kandagatla@oss.qualcomm.com>
+	<CGME20261125103844eucas1p19032e975aa03f8926e30212a5c3184a0@eucas1p1.samsung.com>
+	<20261125103825.936939-2-srinivas.kandagatla@oss.qualcomm.com>
+
+On 25.11.2026 11:38, Srinivas Kandagatla wrote:
+> qcom_swrm_compute_params() populates p_rt->port_params only when the
+> DT entry for that master port carries a valid word-length. If the DT
+> marks word-length as SWR_INVALID_PARAM, port_params is left
+> zero-initialised and the subsequent dpn_set_port_params() callback
+> sees port_num == 0, tripping the port_target() sanity check on the
+> capture path. The callback then also writes bps - 1 = 0xffffffff to
+> DPn_BLOCK_CTRL_1(offset, 0), which is outside the DPn register range.
+>
+> Split the per-port assignment: always set num/flow_mode/data_mode so
+> that the callback receives a semantically correct port identifier,
+> and only derive bps from the DT when a word length is given. Guard
+> the callback so no register write is issued when bps is unset, and
+> bound-check p_rt->num against ctrl->nports before indexing
+> ctrl->pconfig[].
+>
+> Reported-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> Closes: https://lore.kernel.org/all/20261125091150.2145177-1-m.szyprowski@samsung.com/
+> Fixes: 128eaf937adb ("soundwire: qcom: add support to missing transport params")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+
+This fixes the issue I've observed.
+
+Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
 
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+> ---
+>  drivers/soundwire/qcom.c | 19 ++++++++++++-------
+>  1 file changed, 12 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> index 65add9a74ffd..95444eee4c0b 100644
+> --- a/drivers/soundwire/qcom.c
+> +++ b/drivers/soundwire/qcom.c
+> @@ -1209,6 +1209,9 @@ static int qcom_swrm_port_params(struct sdw_bus *bus,
+>  	struct qcom_swrm_ctrl *ctrl = to_qcom_sdw(bus);
+>  	u32 offset = ctrl->reg_layout[SWRM_OFFSET_DP_BLOCK_CTRL_1];
+>  
+> +	if (!p_params->bps)
+> +		return 0;
+> +
+>  	return qcom_swrm_port_reg_write(ctrl, p_params->num,
+>  					SWRM_DPn_BLOCK_CTRL_1(offset, p_params->num),
+>  					p_params->bps - 1);
+> @@ -1341,15 +1344,17 @@ static int qcom_swrm_compute_params(struct sdw_bus *bus, struct sdw_stream_runti
+>  
+>  	list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
+>  		list_for_each_entry(p_rt, &m_rt->port_list, port_node) {
+> +			if (p_rt->num == 0 || p_rt->num > ctrl->nports) {
+> +				dev_err(ctrl->dev, "master port %d out of range\n", p_rt->num);
+> +				return -EINVAL;
+> +			}
+>  			pcfg = &ctrl->pconfig[p_rt->num];
+>  			p_rt->transport_params.port_num = p_rt->num;
+> -			if (pcfg->word_length != SWR_INVALID_PARAM) {
+> -				sdw_fill_port_params(&p_rt->port_params,
+> -					     p_rt->num,  pcfg->word_length + 1,
+> -					     SDW_PORT_FLOW_MODE_ISOCH,
+> -					     SDW_PORT_DATA_MODE_NORMAL);
+> -			}
+> -
+> +			p_rt->port_params.num = p_rt->num;
+> +			p_rt->port_params.flow_mode = SDW_PORT_FLOW_MODE_ISOCH;
+> +			p_rt->port_params.data_mode = SDW_PORT_DATA_MODE_NORMAL;
+> +			if (pcfg->word_length != SWR_INVALID_PARAM)
+> +				p_rt->port_params.bps = pcfg->word_length + 1;
+>  		}
+>  
+>  		list_for_each_entry(s_rt, &m_rt->slave_rt_list, m_rt_node) {
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 0941144ebeaf3ce46c80711f00e935921eb28b21
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112525-deflator-chunk-bba2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 0941144ebeaf3ce46c80711f00e935921eb28b21 Mon Sep 17 00:00:00 2001
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Date: Fri, 13 Nov 2026 17:29:13 +0900
-Subject: [PATCH] tracing/probes: Reject array count on non-dereference string
- sources
-
-The runtime array loop (FETCH_OP_LP_ARRAY) for string types requires a
-preceding memory dereference instruction so it can advance the pointer
-address on each iteration. Non-dereference string sources such as $comm,
-immediate strings, and eprobe event fields cannot be indexed as pointer
-arrays, but finalize_fetch_insn() still accepts an array count on them
-and emits an invalid FETCH_OP_LP_ARRAY sequence.
-
-Reject string array counts when the preceding operation is not a memory
-dereference.
-
-Link: https://lore.kernel.org/all/179455855309.403392.4197028577158545202.stgit@devnote2/
-
-Fixes: 40b53b771806 ("tracing: probeevent: Add array type support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-
-diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
-index e0340ae126b8..cff55dcae36f 100644
---- a/kernel/trace/trace_probe.c
-+++ b/kernel/trace/trace_probe.c
-@@ -1990,6 +1990,12 @@ static int finalize_fetch_insn(struct fetch_insn *code,
- 			 * For the symstr, it doesn't need to dereference, thus
- 			 * it just get the value.
- 			 */
-+			if (parg->count && (code->op != FETCH_OP_DEREF &&
-+					    code->op != FETCH_OP_UDEREF)) {
-+				trace_probe_log_err(ctx->offset + type_offset,
-+						    BAD_STRING);
-+				return -EINVAL;
-+			}
- 			code++;
- 			if (code->op != FETCH_OP_NOP) {
- 				trace_probe_log_err(ctx->offset, TOO_MANY_OPS);
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
