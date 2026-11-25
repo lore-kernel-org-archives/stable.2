@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618546;
-	b=kc+eE279GHyi7aQp4MROiX6zyDs0ssMJNiZI9ubl6HYy0xWtoveW9PA4hqsdYC1sgYgd
-	 2lvRT4ylIgerpyNYlF5Hj/nUfO2DqCam5TrHuZ+TLBtLzAjcW6Zx1IDN1Udmq2VTxTyRA
-	 eUYyGwM+V+Fb27kYuS15Q/oK+nh1J+zFTq9sRvXaS/gY6KptemBOxgDfEBXii4XaYFo4i
-	 FmmRlW2tGOR3FuwL+3M9h8aViGuYTnBM7by59H/zF+vG6IU9xetA+xEFz5os3Ec8S5puV
-	 4yxq85u3qCiDpGcdU+Hfwa5Z/0bBbJAOcY2jYSDf3C7hKOssM2n30xa/w3drSuvy4og==
+	t=1795618548;
+	b=nb199rPeQ4ks1MpCMdmNrvrlydyQCI5MK5bzIAr2Ftq9yObwJuhhDhdAX+zQIZdDLYuq
+	 ScjqEZeU/FfZcIuEbieTbuIeOywD4AuX7zsUCxdyv9Ro9MM7jZjkrB/LsMk+UDnXjSt40
+	 GvCPUX4mcrie2WysWaji56WfQpQE9RnAOxuw3T3wZeDij/e8RPNwVsgVpzSUZ8yD8y5Zz
+	 Nq0ZwyznktsG1WCJqu03k+Qlrc0VqexckLI8GqrhsTOtF9rAy/eEn+kyol3BcT6SqRyL5
+	 NsRcVi/6D2NA4/r4MNHTY8Q/7dT/C+dY+CY6O6I4C9YVHaby0GiRu+au1BPN7rs2tJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618546;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618548;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=PTB3ey1toU443RMnxmKLBIRUCJMMtj4DyJs62boGtu4=;
-	b=tZFGgKjk269sE2934mQlnx2fjN2JGcFeiQZTJuoS5GvFgqohlJRg/PArDyjaGYjdvaNz
-	 iKem4yGhQv2H5W34b5e63K0u31tWhmiN0Rka4rPXC22AUhNbCBbEbg9xznqbw2+7ms7EL
-	 4m3LFBgV/IACGBWD/zUuIHga8VBKEwYRbzSZk3KV+2qOohIHX6iX/0QKduZbZ+BhRQXQR
-	 E6Mf/589U31Dg8D0OdA73z3qoSGzZ3i1a7V9vEcde7slQpiUgdDJZrajGXovQyeAWXqd9
-	 h2joA44YLyq2u6GJO3jQ79TW7IOIptCJs7H3C/DV7SQYuwAmHMTftIDzVJv/bzL6tOA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=9zBX1W61qvZBVHtLAT9PwZY/iKLd9hIs0OL/9T3MhD8=;
+	b=CqU0P+OEZlCWKH0GTLwfm7BiOBuPRBeyBncUFQKx1cAw4RFr6ViqG86HyJFi2TX7bWZi
+	 kSKMn/ObGv16nD3lIbCVPTDPHhq1JtzNpMLA6FOgPsed7JtWPCkthaAi82tTrjAMR1RK5
+	 CjT+OfUgc8tGHLnHrkSZOAECs/Gc+VqiGWVcoE0h/Nux8/9HJKFz64VzbJxgYnP1o2zJw
+	 o/GJqGB24NCJA569Z04HNS4zrmQH8YKUYcT8sGu0kg1yRI5B2zKGWNL8JJ8xwYJdLwM4T
+	 1hVmhvme3qCZMpB7tBIjwB+YGI87LZCfHr2HsvgJrmLtRuXlBE5aQn1Gy3X8ajMDn4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ooDCq4vD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JTj9ZL/U";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71BC606A326;
-	Wed, 25 Nov 2026 14:55:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1195606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:55:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ooDCq4vD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA06E1F000CF;
-	Wed, 25 Nov 2026 14:55:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795618546;
-	bh=PTB3ey1toU443RMnxmKLBIRUCJMMtj4DyJs62boGtu4=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTj9ZL/U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B48201F0093E;
+	Wed, 25 Nov 2026 14:55:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795618548;
+	bh=9zBX1W61qvZBVHtLAT9PwZY/iKLd9hIs0OL/9T3MhD8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ooDCq4vDPVsSRTtiE5mwfUPmpeyJO/BlpPGWMxy6Bfj4v9aYOfTVF+7WLzk9zYewt
-	 upK1shc7T8ZeX1qEA7NBTT+Dh+l0isKcVp1MDF/HfDXFiJg6ZMo/vHa9Lut60gBZLf
-	 8HVrKzVZvxozOlb4905Chr+dZM4weRSQHkyYRmFQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=JTj9ZL/UWh5avi28MblO6KhZ9uy4wwyOUfn6ZvQF4Alp5QFGvcJuwB3OD05mL7V7F
+	 AFx/RaFl1kdnwosLdi4OD0oHkd47ru5cZQaBiSNvziVdzfR/azfBYem44d2c/WyDSB
+	 9UN4uH8VNGEf3uOrC6Gz0XAw2GOPr77MXhJgCazSR0e1xW+kt60jsIg1lthfqM/586
+	 fH17PljS9IXrGu60MtS8XXmKZf6BPwbAWAPFIZf9D3Ff7EKuF2x0149tKdru+aDzQS
+	 ouyuKeIovT7QI6XTAwo1HZx3AE8UnZBVA7SDge6bGGCdQD4ES6hDONBHxjr8SqYxNm
+	 wnLsQQj351W9w==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Joseph Kain <jkain@nuro.ai>,
-	Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>,
+Cc: Hyunwoo Kim <imv4bel@gmail.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0269/1005] net: stop defer_count outliving the deferred-free list
-Date: Wed, 25 Nov 2026 15:26:47 +0100
-Message-ID: <20261125143828.040187828@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.6.y] tcp: do not coalesce segments after FIN
+Date: Wed, 25 Nov 2026 09:55:46 -0500
+Message-ID: <20261125145522.4171559-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112554-ocelot-scope-e6ac@gregkh>
+References: <2026112554-ocelot-scope-e6ac@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,100 +63,135 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+From: Hyunwoo Kim <imv4bel@gmail.com>
 
-------------------
+[ Upstream commit 1c46780dec48893b8c25fd5e33a3127e8dc39dd4 ]
 
-From: Joseph Kain <jkain@nuro.ai>
+A FIN consumes a sequence number. If another FIN segment is coalesced
+into an skb that already carries FIN, end_seq advances to account for
+the additional FIN, but tcp_flags still contains only one FIN bit.
 
-[ Upstream commit 241dec6f9ab74d8c3ef246764f3611666b96b9e1 ]
+When the preceding gap is filled and tcp_ofo_queue() processes the
+coalesced skb, rcv_nxt advances to the skb's end_seq. When the receive
+path consumes all data in the skb, copied_seq advances by the data
+length and one sequence number for FIN. If three or more FIN segments
+have been coalesced into one skb, tcp_inq() can still return a positive
+value after the receive queue becomes empty and the SOCK_DONE adjustment
+is applied.
 
-After the llist conversion, rejected frees retain their counter
-increments. A producer racing the counter reset and list detach can
-also leave a count for an skb already drained. Deferred freeing can
-then remain disabled while the list is empty.
+TCP_ZEROCOPY_RECEIVE is another consumer affected by this state.
+tcp_zerocopy_receive() takes its length from tcp_inq() and follows
+skb->next without checking for the end of the receive queue.
 
-Undo rejected reservations and subtract only the number of skbs
-drained. Allow admission up to the configured limit. Retain the
-halfway notification and also notify when the reserved count reaches
-the limit, covering reservations published after an earlier purge.
+Software kTLS receive is one consumer affected by this state. When
+strp->copy_mode is false, tls_strp_msg_consume() calls the TCP helper
+tcp_read_done() to consume the current TLS record. In the reproducer,
+tcp_read_done() consumed the record data and one FIN before freeing the
+receive skb.
 
-Fixes: 844c9db7f7f5 ("net: use llist for sd->defer_list")
-Signed-off-by: Joseph Kain <jkain@nuro.ai>
-Assisted-by: LLM
-Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
+When kTLS looked for the next record, tcp_inq() reported at least
+TLS_HEADER_SIZE bytes even though the receive queue was empty.
+tcp_recv_skb() returned NULL, so tls_strp_load_anchor_with_queue() hit
+WARN_ON_ONCE() and returned without updating the anchor.
+
+Since tcp_inq() had reported at least TLS_HEADER_SIZE,
+tls_strp_read_sock() proceeded to tls_strp_check_queue_ok().
+skb_shinfo(strp->anchor)->frag_list still pointed to the freed receive
+skb. tls_strp_check_queue_ok() then read TCP_SKB_CB(first)->seq through
+the stale pointer, causing a use-after-free.
+
+The reproducer followed this call path:
+
+  tls_rx_rec_done()
+    tls_strp_msg_consume()
+      tcp_read_done()                       // frees the receive skb
+    tls_strp_check_rcv()
+      tls_strp_read_sock()
+        tls_strp_load_anchor_with_queue()   // returns after WARN_ON_ONCE()
+          tcp_recv_skb() == NULL
+        tls_strp_check_queue_ok()
+          TCP_SKB_CB(first)->seq            // reads the freed receive skb
+
+KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in tls_strp_check_queue_ok.isra.0+0x5f/0x100
+  Read of size 4 at addr ffff888103169ca8 by task ktls-server/71
+  ...
+  Call Trace:
+   <TASK>
+   ...
+   tls_strp_check_queue_ok.isra.0+0x5f/0x100
+   tls_strp_check_rcv+0x2a9/0x400
+   ...
+   tls_sw_recvmsg+0x3ce/0xa10
+   ...
+   sock_recvmsg+0xea/0x100
+   __sys_recvfrom+0x142/0x1f0
+   ...
+   __x64_sys_recvfrom+0x76/0x90
+   do_syscall_64+0xdd/0x4a0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   ...
+   </TASK>
+  ...
+  Freed by task 71:
+   ...
+   napi_skb_cache_put+0x24/0xf0
+   skb_attempt_defer_free+0x183/0x3b0
+   tcp_read_done+0x2d4/0x340
+   tls_strp_msg_consume+0x45/0x80
+   tls_sw_recvmsg+0x3c4/0xa10
+   ...
+
+In tcp_try_coalesce(), skip coalescing when the destination skb already
+carries FIN. tcp_add_backlog() calls skb_try_coalesce() directly instead
+of using this helper, so add the same check there. Since both paths check
+only the destination skb, a final segment carrying data and FIN can still
+be coalesced into an skb without FIN when the other coalescing checks pass.
+
+Fixes: e93a0435f809 ("tcp: allow segment with FIN in tcp_try_coalesce()")
+Fixes: 4f693b55c3d2 ("tcp: implement coalescing on backlog queue")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/au3HMfqNW3_DRMqS@v4bel
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: adapted context to use mptcp_skb_can_collapse() and the TLS decrypted check in place of tcp_skb_can_collapse_rx(), adding the same two FIN checks. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/core/dev.c    |  8 +++++++-
- net/core/skbuff.c | 17 ++++++++++++++---
- 2 files changed, 21 insertions(+), 4 deletions(-)
+ net/ipv4/tcp_input.c | 4 ++++
+ net/ipv4/tcp_ipv4.c  | 2 ++
+ 2 files changed, 6 insertions(+)
 
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 6ebba16aff1c8..cc95d271a3ec8 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -6967,16 +6967,22 @@ static void __skb_defer_free_flush(struct skb_defer_node *sdn, int budget)
- {
- 	struct llist_node *free_list;
- 	struct sk_buff *skb, *next;
-+	long n = 0;
+diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
+index 2efd492f40001..cb020f26b27dd 100644
+--- a/net/ipv4/tcp_input.c
++++ b/net/ipv4/tcp_input.c
+@@ -4846,6 +4846,10 @@ static bool tcp_try_coalesce(struct sock *sk,
+ 		return false;
+ #endif
  
- 	if (llist_empty(&sdn->defer_list))
- 		return;
--	atomic_long_set(&sdn->defer_count, 0);
- 	free_list = llist_del_all(&sdn->defer_list);
++	/* Nothing follows a FIN. */
++	if (unlikely(TCP_SKB_CB(to)->tcp_flags & TCPHDR_FIN))
++		return false;
++
+ 	if (!skb_try_coalesce(to, from, fragstolen, &delta))
+ 		return false;
  
- 	llist_for_each_entry_safe(skb, next, free_list, ll_node) {
- 		prefetch(next);
- 		napi_consume_skb(skb, budget);
-+		n++;
- 	}
-+	/* Subtract exactly what was drained. Never store an absolute value:
-+	 * mixing one with the relative updates in skb_attempt_defer_free()
-+	 * lets the counter go negative, and it is read as unsigned there.
-+	 */
-+	atomic_long_sub(n, &sdn->defer_count);
- }
- 
- void skb_defer_node_flush(struct skb_defer_node *sdn)
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 512eddc0fc3d6..54a76d6723fb7 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -7408,8 +7408,14 @@ nodefer:	kfree_skb_napi_cache(skb);
- 	defer_max = READ_ONCE(net_hotdata.sysctl_skb_defer_max);
- 	defer_count = atomic_long_inc_return(&sdn->defer_count);
- 
--	if (defer_count >= defer_max)
-+	if (defer_count > defer_max) {
-+		/* Undo the reservation. An llist_add() does not release one --
-+		 * the skb stays charged until a flush subtracts the batch that
-+		 * contains it -- so a rejected free must undo its own.
-+		 */
-+		atomic_long_dec(&sdn->defer_count);
- 		goto nodefer;
-+	}
- 
- 	llist_add(&skb->ll_node, &sdn->defer_list);
- 
-@@ -7418,8 +7424,13 @@ nodefer:	kfree_skb_napi_cache(skb);
- 		return;
- 	}
- 
--	/* Send an IPI every time queue reaches half capacity. */
--	kick = (defer_count - 1) == (defer_max >> 1);
-+	/* Half capacity, plus the skb that fills the queue. Equality alone can
-+	 * be consumed early -- if the producer holding the kick value publishes
-+	 * first, its purge drains only that skb and the reservations published
-+	 * after it match nothing -- which would leave a full queue with nothing
-+	 * pending.
-+	 */
-+	kick = (defer_count - 1) == (defer_max >> 1) || defer_count == defer_max;
- 
- 	/* Make sure to trigger NET_RX_SOFTIRQ on the remote CPU
- 	 * if we are unlucky enough (this seems very unlikely).
+diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
+index 6eb0270275343..59b3e88b5efeb 100644
+--- a/net/ipv4/tcp_ipv4.c
++++ b/net/ipv4/tcp_ipv4.c
+@@ -1883,6 +1883,8 @@ bool tcp_add_backlog(struct sock *sk, struct sk_buff *skb,
+ #ifdef CONFIG_TLS_DEVICE
+ 	    tail->decrypted != skb->decrypted ||
+ #endif
++	    /* Nothing follows a FIN, see tcp_try_coalesce() */
++	    (TCP_SKB_CB(tail)->tcp_flags & TCPHDR_FIN) ||
+ 	    !mptcp_skb_can_collapse(tail, skb) ||
+ 	    thtail->doff != th->doff ||
+ 	    memcmp(thtail + 1, th + 1, hdrlen - sizeof(*th)))
 -- 
 2.53.0
-
-
 
