@@ -1,77 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795630359;
-	b=BTZPfVdNO4xxRWOaetfB/LULcJ9pINwpL7am8gZottZeYMtFM36xiikWQ0oQwcshF/5N
-	 eKXc2PsWmnSzflFI4B5o5HtZLprHBqCIucAvhbhwK7IlncZYzDs53his6T7mvH4rVRsif
-	 UuVvu53td6UglHWs4cFpAF3OhoqCoNuHH/3w0kpuPNMpL7gphcROrnF1nvZGZzKMxZY8l
-	 1wT7WEmZRRmFfmGeoPKZhyIcmUgGBZHZ8HisiG2ujSKEd9aFcurTUJ4mJWKSfQnWzvRVq
-	 oKReMsnZyE+5hC2R4sRw+AkAW2ElBige+TC7jZLbgSmuhYJFawswuuDU1OfTVlrDEEQ==
+	t=1795630386;
+	b=e9PvI6sR7ug4v/Pu2kk1HC5Ixd3a+9xWm7y44xXxzYFNNzS10JKaAekT4JVR+0yfwEV5
+	 9VBnefab5zTzCQotevfxuoZxm9M06Jd9gYKWj6JEyMA7pZvo0soR9gZWtW9q29mEkxa+a
+	 Rd+llXhJlm+D4UzPhb3D6m5J1C9aM82ifB+mjGtuyxq+FdTd57KzixEzpc51kE9vSQlrg
+	 f6dPRBPMB22Rmlljxi3yM7t9iev2PR83/Be0wlzd6CXC2oiGRhL6ua+IkHCiynQOiHDMx
+	 F99DMOzeiUikBNGHeCnLCSRXf1y9V08eGzckeGDF9Cva3QV0o9rpk5PkttPfhfkgl0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795630359;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
-	 UI-OutboundReport;
-	bh=ffC/msDkl79K0imvuc2FZy0S9PJsijs8dfXh50KIkmo=;
-	b=al+egUFYbfkIjFmslvWc3emj6ByGnCLtHw5/1kVjdW/ONvsJ9IJhuCuIVckCKlOBkcXD
-	 VgBbEQZohY3VXNNLF9jUChowuGN4HSaPNVuk78uO2WCuY4qDHNJdrXy77PZYFDtTrRWmK
-	 QziJ5iy2qp72gxoOTYa+6wj9DapDHuqLAqmps5rcl0m4hyBbNBW8zs6ptwb0wGvdcb3Ij
-	 2MAglbpy4tQ2t4kp0+ajRFzXRT/hqvZdjPN1jwEBIJy3fSDpW7vY0oK5ILmJUtq6+VJ1a
-	 IuD2i+IknXoaDTEFQQHV655ASd3YWwgNaxUWtRApqA0DMVQ7o/jfca1XoBp6M63pzyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795630386;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=dxMh1IMUfSgGZxrDJrCbREMQWNNuqvA9kejvZguz8J0=;
+	b=sxBwDIF5fb+5lJNqvB46I58lfvzITs11jp5RoTJ7JbTiPp1+UTV/4Wp0uZq8hkYU73ET
+	 hcUT5K0b4wMFAagZ0nKy+lwPsjZ887sPieo8o7vFeKIF4lzlHaILi/7sosH3r50Bbil9y
+	 cnNaLPDnUxZtK/DdD+Tnpi/yNNnwjqEmiX73YAbCyKl9iBPSFZ+e4oqHzGz3MIsEoRt5q
+	 Ov34Ukq3d2lFezU824zIUXJ6Ks5MZK+zRzMLXd1ftlU5nrRClglxhgcHw7Eet/lRz+M8j
+	 p4xLZEpPa58EthFbJjq/7R9onNc2Z1ODIkr9/6djvkoQrB3IWvwvKj08zDSil3Tx68g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.de;
-	spf=pass smtp.mailfrom=gmx.de;
-	dkim=pass header.d=gmx.de header.i=rwarsow@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=I2bVFzQN;
-	arc=none smtp.remote-ip=212.227.15.18
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V3+z8U12;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD10606A68C
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:12:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECD10606A68C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6938860A260E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:13:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=I2bVFzQN
-DKIM2-Signature:  i=1; m=1; t=1795630356;
- mf=PHJ3YXJzb3dAZ214LmRlPg==;
- rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
- d=gmx.de;
- s=s31663417:rsa-sha256:Ud5zGDHD0eao5K8ns1eYT6QS0Vc0
-   4jREDwjqBZLvBqZbZ1dT7MLCZcEbe9qocTEhwV71YIhnTsMf3JTLLpzBBDZd7eVWxWBgOi7MIkG
-   t7coxylF9fmo1ElcyXwD8moozJiKvI4IKnM4Q+CiBO4i1hYZPRmn1VYqTRFSOTz/EBE/4SfF4yx
-   yfjCKwMft+WaV2Y7JRAOmMQpvMG0xc8rwCBlUDiVlAdJ+uk59apeS3DDdeKcNpUwQ7DxDxNuH2v
-   OZlClUSnfluE3lOuZBo+Se4zVwKXCsdZYQQwXdx50lGgkwoxgPaKVsVDE6edUh408EIw3ajfHnc
-   zAivcgJcljA61Q==;
-Message-Instance:  m=1;
- h=sha256:
-   +DCwjWrYo3omIui1IBXvXJmJKZLgJjdZQ0cOZhtZUnU=:
-   AMRqUy4G14QnvnxLw7iqPpvMO9aQClfTVNXovI9ETeY=,
-  sha512:
-   veGL+fJP0FEumNIwMsimtDggsEHOQHFzXDDiIO8WX674apH0AKDN+bu8xonGNI/FcdsxnCr/sQaLn4Wao9H19A==:
-   Wc0EctHmYZq2dyfawmHcZr3nIqjbGjCW7GZjMoL04A4Gs6lJ19a6Ocu50pAKQbMfG7H2xgDaHWjnPxR1rvAN5g==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1795630325; x=1796235125; i=rwarsow@gmx.de;
-	bh=ffC/msDkl79K0imvuc2FZy0S9PJsijs8dfXh50KIkmo=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=I2bVFzQNIwdHB1birMPZ3fvhUzpDetc2hfQV97s521RwJ5j3qHP7D6zVsLvqeQF4
-	 /4WX/aU/h+7LoPl6BXwvLBlXXUFnUjVcrYb8EKgRRIoPclbsXJ53fzJElc8NFAYAk
-	 AW9+NU4XAQXpEgocUkjD3vvP8ocYYdUuMN+0jmTynjuMdCXvxjbmxGlXEBzUcF6xp
-	 932TgcQ40qX3vFuBWbfxK+vqtZP49pf2//QhITNAPZfpT8Rtt6XMIhQlSqmo8dbFl
-	 hw3wej4vcFapPA/AmxFHWlMx4+kFBLLPzlaC6hlejInAcLh9nkbUdkvN8S5DDqlHA
-	 9gyEvjPnXotqsPztBg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MbzyP-1y5tk21A1n-00oe5X; Wed, 25
- Nov 2026 19:12:05 +0100
-Message-ID: <1ba253a4-fdef-4169-9e9b-cdb6652e47c6@gmx.de>
-Date: Wed, 25 Nov 2026 19:12:02 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V3+z8U12
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 309141F01805;
+	Wed, 25 Nov 2026 18:13:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795630385;
+	bh=dxMh1IMUfSgGZxrDJrCbREMQWNNuqvA9kejvZguz8J0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=V3+z8U12+vF2ynqWRKw1mnnl01whsJr83OusdGJLrZbstwtmOFeDRUdiixQJNoh+r
+	 rbXIDoevMOcZdkFmwTkXPCm5KGFBmCi6iEUXtUf4xyXzrQmRX7oS6gEkMVi9xIOuxF
+	 /kGiWsVeHMDkR53ODGYnXS1gITj99ZSj8P2dgwsM7ksAA8DZva8OImvUtvWGYoeReg
+	 kVgQjsBYNcfNG36dm6u7Layq3Hhzfo97u90/sJizwKzQU4tDdE2oAZ085m3SUHjTEc
+	 8iHdyN5Lh4WQB7SndfSDZGyvdUUKQoBgH3BhS3aP27agRZ62KmRsUZftQERW2dQ6m8
+	 F3yMwEBInkIjw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Stefan Haberland <sth@linux.ibm.com>,
+	Jan Hoeppner <hoeppner@linux.ibm.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/7] s390/dasd: increase printing of debug data payload
+Date: Wed, 25 Nov 2026 13:12:57 -0500
+Message-ID: <20261125181227.1137399-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112516-snowbound-attentive-b141@gregkh>
+References: <2026112516-snowbound-attentive-b141@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,166 +60,116 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 0000/1005] 7.3.7-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261125143821.729802100@linuxfoundation.org>
-From: Ronald Warsow <rwarsow@gmx.de>
-Content-Language: de-DE, en-US
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:GUKjJWxMhUEIBddBicRc1UAD2SfgNSwi3OM7/F9H+sJEgEWXc+k
- hrZLX3xgy87Czz5ptpF4Knqk57jbSZboXUCFUnRGj1zVSoV/MpVbweRKjlIMKMCalMiUlpu
- klW9HVCQlOzRCsBAwnM2390szFhCpTwqxFwWx4irM/UseqKgHA+hRBdaLNGajSiPQeKFfnA
- 5pS84mYtKqv9Ac20bduLQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:7qoLUd0ra6s=;DzWVfldZp+/t1jbhnaIv0CtNZ7n
- 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
+Content-Transfer-Encoding: 8bit
 
-Hallo
+From: Stefan Haberland <sth@linux.ibm.com>
 
-RC doesn't compile here and currently couldn't figure what's up.
+[ Upstream commit b49e648fcca7e420c4ad670a548e19f0e8531c30 ]
 
-Question as an git greenhorn:
-Is it able to bisect a kernel which initial doesn't compile ?
-if YES: what is the bisect start then ?
+32 byte are to less for important data from prefix or
+other commands.
+Print up to 128 byte data. This is enough for the largest
+CCW data we have.
 
-Error:
+Since printk can only print up to 1024 byte at once, print the
+different parts of the CCW dumps separately.
 
-In file included from kernel/sched/build_policy.c:71:
-kernel/sched/ext/ext.c: In function =E2=80=98__scx_disable_and_exit_task=
-=E2=80=99:
-kernel/sched/ext/ext.c:4223:17: error: implicit declaration of function=20
-=E2=80=98scx_reset_task_fields=E2=80=99; did you mean =E2=80=98scx_set_tas=
-k_sched=E2=80=99?=20
-[-Wimplicit-function-declaration]
-  4223 |                 scx_reset_task_fields(task_rq(p), p);
-       |                 ^~~~~~~~~~~~~~~~~~~~~
-       |                 scx_set_task_sched
-kernel/sched/ext/ext.c: In function =E2=80=98scx_bpf_dsq_reenq_task=E2=80=
-=99:
-kernel/sched/ext/ext.c:10432:20: error: implicit declaration of function=
-=20
-=E2=80=98kf_switch_rq_lock=E2=80=99; did you mean =E2=80=98switch_rq_lock=
-=E2=80=99?=20
-[-Wimplicit-function-declaration]
-10432 |         entry_rq =3D kf_switch_rq_lock(src_rq, &flags);
-       |                    ^~~~~~~~~~~~~~~~~
-       |                    switch_rq_lock
-kernel/sched/ext/ext.c:10432:18: error: assignment to =E2=80=98struct rq *=
-=E2=80=99 from=20
-=E2=80=98int=E2=80=99 makes pointer from integer without a cast [-Wint-con=
-version]
-10432 |         entry_rq =3D kf_switch_rq_lock(src_rq, &flags);
-       |                  ^
-kernel/sched/ext/ext.c:10450:9: error: implicit declaration of function=20
-=E2=80=98kf_restore_rq_lock=E2=80=99 [-Wimplicit-function-declaration]
-10450 |         kf_restore_rq_lock(src_rq, entry_rq, flags);
-       |         ^~~~~~~~~~~~~~~~~~
-make[4]: *** [scripts/Makefile.build:290: kernel/sched/build_policy.o]=20
-Error 1
+Signed-off-by: Stefan Haberland <sth@linux.ibm.com>
+Reviewed-by: Jan Hoeppner <hoeppner@linux.ibm.com>
+Link: https://lore.kernel.org/r/20221123160719.3002694-3-sth@linux.ibm.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Stable-dep-of: 25cdc1f63227 ("s390/dasd: Re-initialize RCD buffer with "V1.0" before every start")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/s390/block/dasd_eckd.c | 37 +++++++++++++++++-----------------
+ 1 file changed, 19 insertions(+), 18 deletions(-)
 
+diff --git a/drivers/s390/block/dasd_eckd.c b/drivers/s390/block/dasd_eckd.c
+index a209ef79bb043..62f06ade2de1b 100644
+--- a/drivers/s390/block/dasd_eckd.c
++++ b/drivers/s390/block/dasd_eckd.c
+@@ -5541,7 +5541,7 @@ dasd_eckd_ioctl(struct dasd_block *block, unsigned int cmd, void __user *argp)
+  * Dump the range of CCWs into 'page' buffer
+  * and return number of printed chars.
+  */
+-static int
++static void
+ dasd_eckd_dump_ccw_range(struct ccw1 *from, struct ccw1 *to, char *page)
+ {
+ 	int len, count;
+@@ -5559,16 +5559,21 @@ dasd_eckd_dump_ccw_range(struct ccw1 *from, struct ccw1 *to, char *page)
+ 		else
+ 			datap = (char *) ((addr_t) from->cda);
+ 
+-		/* dump data (max 32 bytes) */
+-		for (count = 0; count < from->count && count < 32; count++) {
+-			if (count % 8 == 0) len += sprintf(page + len, " ");
+-			if (count % 4 == 0) len += sprintf(page + len, " ");
++		/* dump data (max 128 bytes) */
++		for (count = 0; count < from->count && count < 128; count++) {
++			if (count % 32 == 0)
++				len += sprintf(page + len, "\n");
++			if (count % 8 == 0)
++				len += sprintf(page + len, " ");
++			if (count % 4 == 0)
++				len += sprintf(page + len, " ");
+ 			len += sprintf(page + len, "%02x", datap[count]);
+ 		}
+ 		len += sprintf(page + len, "\n");
+ 		from++;
+ 	}
+-	return len;
++	if (len > 0)
++		printk(KERN_ERR "%s", page);
+ }
+ 
+ static void
+@@ -5660,37 +5665,33 @@ static void dasd_eckd_dump_sense_ccw(struct dasd_device *device,
+ 	if (req) {
+ 		/* req == NULL for unsolicited interrupts */
+ 		/* dump the Channel Program (max 140 Bytes per line) */
+-		/* Count CCW and print first CCWs (maximum 1024 % 140 = 7) */
++		/* Count CCW and print first CCWs (maximum 7) */
+ 		first = req->cpaddr;
+ 		for (last = first; last->flags & (CCW_FLAG_CC | CCW_FLAG_DC); last++);
+ 		to = min(first + 6, last);
+-		len = sprintf(page, PRINTK_HEADER
+-			      " Related CP in req: %p\n", req);
+-		dasd_eckd_dump_ccw_range(first, to, page + len);
+-		printk(KERN_ERR "%s", page);
++		printk(KERN_ERR PRINTK_HEADER " Related CP in req: %p\n", req);
++		dasd_eckd_dump_ccw_range(first, to, page);
+ 
+ 		/* print failing CCW area (maximum 4) */
+ 		/* scsw->cda is either valid or zero  */
+-		len = 0;
+ 		from = ++to;
+ 		fail = (struct ccw1 *)(addr_t)
+ 				irb->scsw.cmd.cpa; /* failing CCW */
+ 		if (from <  fail - 2) {
+ 			from = fail - 2;     /* there is a gap - print header */
+-			len += sprintf(page, PRINTK_HEADER "......\n");
++			printk(KERN_ERR PRINTK_HEADER "......\n");
+ 		}
+ 		to = min(fail + 1, last);
+-		len += dasd_eckd_dump_ccw_range(from, to, page + len);
++		dasd_eckd_dump_ccw_range(from, to, page + len);
+ 
+ 		/* print last CCWs (maximum 2) */
++		len = 0;
+ 		from = max(from, ++to);
+ 		if (from < last - 1) {
+ 			from = last - 1;     /* there is a gap - print header */
+-			len += sprintf(page + len, PRINTK_HEADER "......\n");
++			printk(KERN_ERR PRINTK_HEADER "......\n");
+ 		}
+-		len += dasd_eckd_dump_ccw_range(from, last, page + len);
+-		if (len > 0)
+-			printk(KERN_ERR "%s", page);
++		dasd_eckd_dump_ccw_range(from, last, page + len);
+ 	}
+ 	free_page((unsigned long) page);
+ }
+-- 
+2.53.0
 
-Tested-by: Ronald Warsow <rwarsow@gmx.de>
