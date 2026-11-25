@@ -1,56 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618374;
-	b=bM1xewL84ddCL6E1SV5PMu6zCNuQas+4KjFJxq1y9+4l92XMZqDTg9M0agIlI5cZWKmK
-	 HmiMgdy6sjAr/KFH4n3YLyAZyqz8zQNMyNnSZOh118018CuDi1uSwRRwsHKtGz6G8Xjkp
-	 xP0MEv0JbjHqMKbyXq9pzwNv4KAPhhRQOSRhHePnwuujoHV7BRSG9oxgC8EwJo71Tutjd
-	 6lOCcnwaLWymt0Vo8gEPxjqdirH2ItYah8LAL5tPpEd+kkYDBaKnG7Ke5zgNiqk65J6wP
-	 57wMuusW8EbVAq3H7OkTNgxcF+k3kNb321xsR5ReDcT/K7DKEc25wmGvC8Ra3dJb3dw==
+	t=1795618381;
+	b=JGEbuC1bZfBGKgCYLc6UmgJCMX5aGYo3E9cwVqORdOgDiBjtgodE3w3IbAsLpP4F3LZ8
+	 HKgiQjDFTjCepSEeKFC/fEuZttZjgiSFCcXqJ3moDCeTqE0R+vuHXJxU1v/Yxbd21YKFX
+	 RivCYdXc3pfXlft//obvxQXZyRxPeQYcXGhoLkPSAGBup0/3y2SuyRLmzBr5SP9Qv62e4
+	 CtgaE99TXEDRyH3p7IuH5Qknb+K9R6blX06Vn6aJmy4yPAt/nwuW6nBrsGPPf+XFOL+DZ
+	 8zcfvcd93T1W4jSKERK2Jvp44MFm6NgPIvmIViEMQcbKBUYbA1bfL/YafSnHSY6A6hQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618374;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618381;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=3X0USbftzYc+XsVrEeyjz6BEix9LCWN8QLgQtRidxhA=;
-	b=5OO56YBv0yU88uNP2+IUGvw4bxrq9sZA1iXrCQFvT3VRfBRGlJ3TAeobul+le+d3CXbw
-	 mP8TNc4zDFwGOgO2KtGTZCwd1pRntUDRrRvkZeE4mdLB8PJcw443GHZ4tdt8PHQfxP/JL
-	 4L/SS5ctI03CwEV2ITYgXwQwr361YqaZz/BPHFxrire4n3ZoWpNt012QO9cOZ5NpOno0o
-	 WP4oCdlkQxy41PdkZF7AwQvgi0mQkT0DZ1C/PngHIht+XU0SwVoSexZ5e85fMe10xNV2O
-	 IOtFUYv+25rkibPOk/WgbkRYFqEAPyFXphe2izGIxj7V4UMk5EWCPX8n2JzWekAkShQ==
+	bh=pzi2cllT0I/4z5ZBTFyRlhhIhY8HaKZMc8Ve4QdDKYE=;
+	b=TosbYJf8MVXdAgY53CvVxZatwCLPHlEZUa1UONrTai051FahrpQUueZ1tf9fdncbD9T0
+	 axuB13Df+FDMPc9FQ/PTV4qtKGonBqBsLSvOO6H8TKWBqGPbobmk3HIq0RBvXd/HE2EAl
+	 oAZHj1I5T7mKaf+C1F34SxEahzPXakY8wTGpTngCRMS/cSu6Y1C7eiJZX4wdNK6OusIo7
+	 0XvYhimVsl2b0MO7WYRY3C9INnIoAANflvSRdrJRi9dUbd9f6v/gwmkkxaz7W1w9A/rxs
+	 zpF/bqokLF78bjg8aE+5v9SnL02NbgRCt10q1Sld828kcTSjA62YDKTsyhaZmN3Xgrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wPwxypGF;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SMKCGsgn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0551606A323;
-	Wed, 25 Nov 2026 14:52:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C90606A326;
+	Wed, 25 Nov 2026 14:53:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wPwxypGF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 148B81F000C6;
-	Wed, 25 Nov 2026 14:52:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SMKCGsgn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69A161F00A3E;
+	Wed, 25 Nov 2026 14:53:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795618374;
-	bh=3X0USbftzYc+XsVrEeyjz6BEix9LCWN8QLgQtRidxhA=;
+	s=korg; t=1795618381;
+	bh=pzi2cllT0I/4z5ZBTFyRlhhIhY8HaKZMc8Ve4QdDKYE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=wPwxypGFjPo0TBi5WloMt4+sRP3r1lNhWIcJYnJiVZD+dTS9zuwbfZVgmQqqmwre3
-	 eJk+g5nEQzZTkIHxggeJ1b+lDBVcWeB/17aRnkmFVcmMAkjWl4hVq7i3MDPQy5zMwT
-	 cwsZbAa9NEd9YAm9cC4G7hSlOeO5kEBPw2BTFRgY=
+	b=SMKCGsgnozMwsc21M48SQASKktgH3f99R+htGoS8Sf0aAVF66kz5CnzkqfNoZ0agZ
+	 MTrOJQmarUndWHZYDUddiRmt0Ec92ZfCoi3b4f5TZpDSOyuMh1cUqr7beazKgN+Fl3
+	 68j0+gpvHU1P2UJdAsfXUZanpFfXPPd8shCMAEuk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Chris Mason <mason@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Keith Busch <kbusch@kernel.org>,
+	Danish Khateeb <danishkhateeb03@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	David Hildenbrand <david@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0258/1005] nvmet-rdma: disconnect only established queues
-Date: Wed, 25 Nov 2026 15:26:36 +0100
-Message-ID: <20261125143827.782807394@linuxfoundation.org>
+Subject: [PATCH 7.3 0218/1005] selftests/mm: merge: keep the far mremap() targets in the carveout
+Date: Wed, 25 Nov 2026 15:25:56 +0100
+Message-ID: <20261125143826.848468680@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
 References: <20261125143821.729802100@linuxfoundation.org>
@@ -72,83 +79,187 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Chris Mason <mason@kernel.org>
+From: Danish Khateeb <danishkhateeb03@gmail.com>
 
-[ Upstream commit 000a9f4492abad6008682b55571ddc31941963e3 ]
+[ Upstream commit 332c1bd17422c1aa59e18513042e56ea5aac4051 ]
 
-Over iWARP, rdma_disconnect() sleeps in iw_cm_disconnect() until the
-ESTABLISHED event of the connection has been handled, and iw_cm handles
-all events of all connections one at a time on iw_cm_wq.
-nvmet_rdma_destroy_port_queues(), nvmet_rdma_remove_one() and
-nvmet_rdma_delete_ctrl() walk the queue list with
-nvmet_rdma_queue_mutex held and call rdma_disconnect() for each, while
-nvmet_rdma_cm_handler() takes the same mutex. If the walk sleeps on a
-queue whose ESTABLISHED is queued behind another queue's event, both
-are stuck and iWARP connection handling is dead until reboot. A peer
-sets that up by connecting in a loop, or over siw by asking for MPA
-peer-to-peer mode and then staying silent, which delays ESTABLISHED
-indefinitely.
+The merge tests map their areas at fixed addresses within a 30-page
+PROT_NONE carveout. Several mremap() tests move an area 1000 or 2000
+pages away to separate it from the others, but those targets are outside
+the carveout, and MREMAP_FIXED unmaps whatever is mapped there.
 
-Only call rdma_disconnect() for a queue in NVMET_RDMA_Q_LIVE, which the
-handler sets when it gets ESTABLISHED. A queue that never got there is
-left to the release work: ib_drain_qp() moves the QP to the error
-state, which ends the connection, and rdma_destroy_id() tells the peer.
-Over IB and RoCE the skipped call did nothing more than that.
+Under virtme-ng, the shared libraries are packed right above the
+carveout and the dynamic linker starts about 4 MiB above it. The moves
+then replace part of its text with an anonymous mapping, and the test
+crashes in its next lazily bound call:
 
-Fixes: f1d4ef7d8883 ("nvmet-rdma: register ib_client to not deadlock in device removal")
-Fixes: fcf73a804c7d ("nvmet-rdma: fix use-after-free when a port is removed")
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Sagi Grimberg <sagi@grimberg.me>
-Cc: Chaitanya Kulkarni <kch@nvidia.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Chris Mason <mason@kernel.org>
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+  merge[6980]: segfault at 7f7ebb3c1e60 ip 00007f7ebb3c1e60 sp 00007ffd35fbaec8 error 14
+
+Two to four of the mremap() tests then fail with "Test terminated
+unexpectedly by signal 11", depending on the exact layout. On a host
+where libc is mapped at a 2 MiB aligned address, the targets happen to
+land above the dynamic linker and the tests pass.
+
+Since the areas are all within the first 30 pages, moving one by 30
+pages is enough to keep it apart from the others. Add FAR_PAGES for
+that distance, move areas by FAR_PAGES or 2 * FAR_PAGES pages, and make
+the carveout 3 * FAR_PAGES pages so that it covers every target.
+
+Link: https://lore.kernel.org/20261022121837.28723-1-danishkhateeb03@gmail.com
+Fixes: 4e25f85b9f85 ("tools/testing/selftests: add mremap() unfaulted/faulted test cases")
+Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Shuah Khan <shuah@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/target/rdma.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ tools/testing/selftests/mm/merge.c | 33 ++++++++++++++++--------------
+ 1 file changed, 18 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/nvme/target/rdma.c b/drivers/nvme/target/rdma.c
-index b9e39d1657d29..aab43d2aa0485 100644
---- a/drivers/nvme/target/rdma.c
-+++ b/drivers/nvme/target/rdma.c
-@@ -1694,7 +1694,7 @@ static void nvmet_rdma_queue_established(struct nvmet_rdma_queue *queue)
+diff --git a/tools/testing/selftests/mm/merge.c b/tools/testing/selftests/mm/merge.c
+index 52b8727b6628e..395502aa27947 100644
+--- a/tools/testing/selftests/mm/merge.c
++++ b/tools/testing/selftests/mm/merge.c
+@@ -22,9 +22,12 @@ FIXTURE(merge)
+ 	struct procmap_fd procmap;
+ };
  
- static void __nvmet_rdma_queue_disconnect(struct nvmet_rdma_queue *queue)
++#define FAR_PAGES	30
++#define CARVEOUT_PAGES	(3 * FAR_PAGES)
++
+ static char *map_carveout(unsigned int page_size)
  {
--	bool disconnect = false;
-+	bool disconnect = false, live = false;
- 	unsigned long flags;
- 
- 	pr_debug("cm_id= %p queue->state= %d\n", queue->cm_id, queue->state);
-@@ -1713,6 +1713,7 @@ static void __nvmet_rdma_queue_disconnect(struct nvmet_rdma_queue *queue)
- 		}
- 		fallthrough;
- 	case NVMET_RDMA_Q_LIVE:
-+		live = queue->state == NVMET_RDMA_Q_LIVE;
- 		queue->state = NVMET_RDMA_Q_DISCONNECTING;
- 		disconnect = true;
- 		break;
-@@ -1722,7 +1723,17 @@ static void __nvmet_rdma_queue_disconnect(struct nvmet_rdma_queue *queue)
- 	spin_unlock_irqrestore(&queue->state_lock, flags);
- 
- 	if (disconnect) {
--		rdma_disconnect(queue->cm_id);
-+		/*
-+		 * Over iWARP rdma_disconnect() sleeps until the CM has handled
-+		 * the ESTABLISHED event of this connection. The CM handles the
-+		 * events of all connections one at a time, and our handler
-+		 * takes nvmet_rdma_queue_mutex, which callers of this function
-+		 * hold. So a queue that has not seen the event is left to the
-+		 * release work: ib_drain_qp() moves the queue pair to the error
-+		 * state, which ends the connection.
-+		 */
-+		if (live)
-+			rdma_disconnect(queue->cm_id);
- 		queue_work(nvmet_wq, &queue->release_work);
- 	}
+-	return mmap(NULL, 30 * page_size, PROT_NONE,
++	return mmap(NULL, CARVEOUT_PAGES * page_size, PROT_NONE,
+ 		    MAP_ANON | MAP_PRIVATE, -1, 0);
  }
+ 
+@@ -73,7 +76,7 @@ FIXTURE_SETUP(merge)
+ 
+ FIXTURE_TEARDOWN(merge)
+ {
+-	ASSERT_EQ(munmap(self->carveout, 30 * self->page_size), 0);
++	ASSERT_EQ(munmap(self->carveout, CARVEOUT_PAGES * self->page_size), 0);
+ 	/* May fail for parent of forked process. */
+ 	close_procmap(&self->procmap);
+ 	/*
+@@ -115,7 +118,7 @@ FIXTURE_SETUP(merge_with_fork)
+ 
+ FIXTURE_TEARDOWN(merge_with_fork)
+ {
+-	ASSERT_EQ(munmap(self->carveout, 30 * self->page_size), 0);
++	ASSERT_EQ(munmap(self->carveout, CARVEOUT_PAGES * self->page_size), 0);
+ 	ASSERT_EQ(close_procmap(&self->procmap), 0);
+ 	/* See above. */
+ 	prctl(PR_SET_MEMORY_MERGE, 0, 0, 0, 0);
+@@ -660,7 +663,7 @@ TEST_F(merge, mremap_unfaulted_to_faulted)
+ 
+ 	/* Offset ptr2 further away. */
+ 	ptr2 = sys_mremap(ptr2, 5 * page_size, 5 * page_size,
+-			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + page_size * 1000);
++			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + FAR_PAGES * page_size);
+ 	ASSERT_NE(ptr2, MAP_FAILED);
+ 
+ 	/*
+@@ -721,7 +724,7 @@ TEST_F(merge, mremap_unfaulted_behind_faulted)
+ 
+ 	/* Offset ptr2 further away. */
+ 	ptr2 = sys_mremap(ptr2, 5 * page_size, 5 * page_size,
+-			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + page_size * 1000);
++			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + FAR_PAGES * page_size);
+ 	ASSERT_NE(ptr2, MAP_FAILED);
+ 
+ 	/*
+@@ -785,12 +788,12 @@ TEST_F(merge, mremap_unfaulted_between_faulted)
+ 
+ 	/* Offset ptr3 further away. */
+ 	ptr3 = sys_mremap(ptr3, 5 * page_size, 5 * page_size,
+-			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + page_size * 2000);
++			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + 2 * FAR_PAGES * page_size);
+ 	ASSERT_NE(ptr3, MAP_FAILED);
+ 
+ 	/* Offset ptr2 further away. */
+ 	ptr2 = sys_mremap(ptr2, 5 * page_size, 5 * page_size,
+-			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + page_size * 1000);
++			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + FAR_PAGES * page_size);
+ 	ASSERT_NE(ptr2, MAP_FAILED);
+ 
+ 	/*
+@@ -870,13 +873,13 @@ TEST_F(merge, mremap_unfaulted_between_faulted_unfaulted)
+ 
+ 	/* Offset ptr3 further away. */
+ 	ptr3 = sys_mremap(ptr3, 5 * page_size, 5 * page_size,
+-			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + page_size * 2000);
++			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + 2 * FAR_PAGES * page_size);
+ 	ASSERT_NE(ptr3, MAP_FAILED);
+ 
+ 
+ 	/* Offset ptr2 further away. */
+ 	ptr2 = sys_mremap(ptr2, 5 * page_size, 5 * page_size,
+-			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + page_size * 1000);
++			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + FAR_PAGES * page_size);
+ 	ASSERT_NE(ptr2, MAP_FAILED);
+ 
+ 	/*
+@@ -1035,11 +1038,11 @@ TEST_F(merge, mremap_correct_placed_faulted)
+ 	 */
+ 	ptr3 = &ptr[10 * page_size];
+ 	ptr3 = sys_mremap(ptr3, 5 * page_size, 5 * page_size,
+-			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + page_size * 2000);
++			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + 2 * FAR_PAGES * page_size);
+ 	ASSERT_NE(ptr3, MAP_FAILED);
+ 	ptr2 = &ptr[5 * page_size];
+ 	ptr2 = sys_mremap(ptr2, 5 * page_size, 5 * page_size,
+-			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + page_size * 1000);
++			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + FAR_PAGES * page_size);
+ 	ASSERT_NE(ptr2, MAP_FAILED);
+ 
+ 	/*
+@@ -1075,7 +1078,7 @@ TEST_F(merge, mremap_correct_placed_faulted)
+ 	 *                  ptr2      \       ptr       \       ptr3
+ 	 */
+ 	ptr = sys_mremap(ptr, 5 * page_size, 5 * page_size,
+-			 MREMAP_MAYMOVE | MREMAP_FIXED, ptr + page_size * 1000);
++			 MREMAP_MAYMOVE | MREMAP_FIXED, ptr + FAR_PAGES * page_size);
+ 	ASSERT_NE(ptr, MAP_FAILED);
+ 
+ 	/*
+@@ -1110,7 +1113,7 @@ TEST_F(merge, mremap_correct_placed_faulted)
+ 	 *                  ptr2      \       ptr       \       ptr3
+ 	 */
+ 	ptr = sys_mremap(ptr, 5 * page_size, 5 * page_size,
+-			 MREMAP_MAYMOVE | MREMAP_FIXED, ptr + page_size * 1000);
++			 MREMAP_MAYMOVE | MREMAP_FIXED, ptr + FAR_PAGES * page_size);
+ 	ASSERT_NE(ptr, MAP_FAILED);
+ 
+ 	/*
+@@ -1168,7 +1171,7 @@ TEST_F(merge, mremap_correct_placed_faulted)
+ 	 *      ptr                     ptr3      \       ptr2
+ 	 */
+ 	ptr2 = sys_mremap(ptr2, 5 * page_size, 5 * page_size,
+-			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + page_size * 1000);
++			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + FAR_PAGES * page_size);
+ 	ASSERT_NE(ptr2, MAP_FAILED);
+ 
+ 	/*
+@@ -1203,7 +1206,7 @@ TEST_F(merge, mremap_correct_placed_faulted)
+ 	 *            ptr                         \       ptr3
+ 	 */
+ 	ptr3 = sys_mremap(ptr3, 5 * page_size, 5 * page_size,
+-			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + page_size * 1000);
++			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + FAR_PAGES * page_size);
+ 	ASSERT_NE(ptr3, MAP_FAILED);
+ 
+ 	/*
 -- 
 2.53.0
 
