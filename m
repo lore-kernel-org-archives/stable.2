@@ -1,89 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795629910;
-	b=pat9bQoJ/pxA/JmJ/pmBlHwKQfXlxxZk97MQQaNP2pAGhGpr6OUEvMW3wAwJ1qLtVgQ2
-	 +HoSaTVm8J/3fB8mhIFTdTd1d3K/su5HOONgepO6c0erFOpjmmPtwhyXXToVLZIa1xYP3
-	 EKKh68FWfLWmbauO+D7MivPVifJFu6eS/dZsLuoLUzpC6OeQuy6rRZVksoBkSP3F+FcJj
-	 LOdq5buAO4o+z4B6wn0Gljy74ZOS3NM0zzVTIh4HoJpLCLI0muPcoAs502GZgdH8YW6AT
-	 XyNC1R6HgU4Vj0XQTFkpJlyM6tlYboOZar0gk/VjndUZAp5Oqhmyb4YeZwkMKKB6Pyw==
+	t=1795629985;
+	b=QSxmc+qpQPyC389x5T7/+29BSddLZRwC0B3e2+R9PT6Sm+EFRyfONcMb1hvAdfhUIZtO
+	 yTkMEGpmeMaCWfC6Bt22KVkLd1RwksXkmkgAd+9VpJDIxzEQ/SQ6SI5Y96OYt00CNIb0n
+	 1gZhi6ciaxpiLqE7lh0udJln6FlR0Bg4RtOA/wr417zdPEjXsab9s+na3h2FAzhkefraT
+	 ZuC3SgrJ861MhnLzLR5q9Rm/xvQPdBT4SGRlPMuXS7dDNPycqLd8QTlrgRXTmSGWdfkJ/
+	 RNPAZ2K3lDDG8vQ1Cpt2s4MSqZusW6zNHO+jnpWVrwAWMLS2uHaktH4WF7WShQKg8BA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795629910;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Scanned-By;
-	bh=1rpx+3hZ3i6ycHmkkGcDthqhxWJ6L8BnBo1hR3Q2eKE=;
-	b=WH0odNej6/mSZmHjFaat4MJzDuvC25hss/i+IdtwQaaXVFi0UjLtb11ZeJR0P4miIhul
-	 N5Am3OBj95fVGE4YlUjvZ6PrrxADkD2rWd1zGHqRpoVbaRQQ0aW51iGaTLThsnPPjTubq
-	 TzyO2F8NgF6Jupmlsca6mrOkmii96xtT3NiWskhOoZzHL436AhVWGBbBRr9R/3kJ99qiM
-	 +fWTwWG2gPvgS14oLS8p0yLRICLg68D2Nv3mRON0MNWBhqf5k7Pb2Q2XfBByl6A6+oZAc
-	 QwXqVj1LQX+oM8khTpEnqR5TcgFfPHtnwQ/97LoB/Ib3EKMpIZa5FJ1AOiuB0t6gODg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795629985;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
+	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=QkD+eZIHJfUEIHt3Rv60+XCCF/qf4U4iMuNtx7S9uEs=;
+	b=snaYJnmio6VQ3OKJ8xUUrfosHT+s3BLpRBXhoRqukt4jrb/02zWJLqJU7DwjmWEnRz3M
+	 nltKW4AWSzBH3xrtBYLhIwUK1IbNoq07eDjGSjMKS1VuWLgUDXzNMYgMm6cxd/jngdDbf
+	 zmAaNpELjXjyea8Rg4UsvHh1AuBjjI1/aHgKaHMEfQ37n/G4B4G88WYYpnUA7FdFDTjNL
+	 yTD00iwb3pXDmDzA7wa+BEIbSLiWiwyWs3+knN4SuxJq+MJC0QiAwCzBbRMQUdG74WTog
+	 WMZNlARQMGJWi8n6A3+JalQMYcFW3iAMUiAX2W5/geQpbS90OWYeEp2HOhzhKYBrCKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Lz46S7Kd;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Lnyk9cfi;
+	arc=none smtp.remote-ip=209.85.128.69
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F4136606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:05:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F4136606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DBE0606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:06:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DBE0606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Lz46S7Kd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795629909;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1rpx+3hZ3i6ycHmkkGcDthqhxWJ6L8BnBo1hR3Q2eKE=;
-	b=Lz46S7KdnfyZs5Wty/f+mJzusetZX2ITNDzH6xlbcnkKbjerBS88RdlAqfVp+4yNIxQWgJ
-	51qyqTRhQWx/8BSCZh/8gNzN2sruqkPTl7Q0/5elP+Su0wealSV6OxInb7AX9N45zpu4n7
-	O5jGu+7kWvbyQDr/0jSBMLqKRKtzYhg=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-614-RNGMqG3IPIexq9Xse4ufjA-1; Wed,
- 25 Nov 2026 18:05:06 +0000
-X-MC-Unique: RNGMqG3IPIexq9Xse4ufjA-1
-X-Mimecast-MFC-AGG-ID: RNGMqG3IPIexq9Xse4ufjA_1795629902
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C595E1955EA2;
-	Wed, 25 Nov 2026 18:05:01 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id C993E18004FC;
-	Wed, 25 Nov 2026 18:04:58 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Wed, 25 Nov 2026 19:05:01 +0100 (CET)
-Date: Wed, 25 Nov 2026 19:04:57 +0100
-From: Oleg Nesterov <oleg@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: mt4022@columbia.edu, Jens Axboe <axboe@kernel.dk>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Michal Nazarewicz <mina86@mina86.com>,
-	Wen Yang <wen.yang@linux.dev>, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, tz2294@columbia.edu,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/7] sched/wait: add WQ_FLAG_POLL_EXCLUSIVE for user
- space waiters
-Message-ID: <awcjSc-84AgPPdj8@redhat.com>
-References: <20261122-b4-sched-wait-intr-head-v2-0-4a764b64e8ce@columbia.edu>
- <20261122-b4-sched-wait-intr-head-v2-1-4a764b64e8ce@columbia.edu>
- <CAHk-=wj_eqNh+gNhCQh3exrL5Pmo5hbZBcL0W-4Ah_Nw0Kegzw@mail.gmail.com>
- <awWSwmvaTwBxfU-r@redhat.com>
- <CAHk-=wj3GCXZohdFWWPAOkC_LHno4X0oQW+0sQFJzRMvjpODUg@mail.gmail.com>
- <CAHk-=wgYc9vFEmyV0Ch_e49j6GOhUCMQMnMV4f1FLLvumZOmRw@mail.gmail.com>
- <CAHk-=wjbK0xyhwvWP1uNiYR6i-X9MpCn8bnm_akxq0MsrYOL+w@mail.gmail.com>
- <awbJz9stwx_JzZFX@redhat.com>
- <CAHk-=winCVsBKy0mGZK3mazNoTO73MrnmFHXNBw0UNK30Di7Fg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Lnyk9cfi
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49953abe51fso43392335e9.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:06:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1795629983; x=1796234783; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QkD+eZIHJfUEIHt3Rv60+XCCF/qf4U4iMuNtx7S9uEs=;
+        b=Lnyk9cfi7E6GcY2dGDffEA0Nk9arsn5xaeJbWus9f3IgCRIFsCCt5nAAekzebKniUF
+         QuPrWIiEwSDKujkbwCErdVITkJTm43PAvxVuS6SPy/bxA/CjTB0VQSOZa2U/f8OYwcdj
+         ExyJ/WBH9WnLNWVKqmOYU8wIbnIyxkb4DRK4kzq5nzD1A3MpVgpWtB23dQuBgDXdv9ds
+         I9RaDVV7+5EZihGx5axSRVSd20qo4KDRsTcvLwssot5t7rSku85GZyPanScNV+R12IdC
+         F9qYZ+atUTiKVheIl7AjwDmwzPR7OkPA5ujayWjljpuDZ0N9DaVciQxvWs3wmX8h/uwJ
+         AGsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795629983; x=1796234783;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QkD+eZIHJfUEIHt3Rv60+XCCF/qf4U4iMuNtx7S9uEs=;
+        b=PF2QpmiSFSeXMMt5ZsziVFVW3kvqO2lhFm2R+AMBLteiqt0JD2waItpedzz+/eBN7T
+         q5y6RtN4NL0HuJVvflMSf6HLpdRHZFe/GLDmtK8D9rj2LiR67b/lrLsdlEaK6XgyU3yR
+         wztbQM3ScJo5Tknhnm/DgY2J0U4qckrWZtI+Du0pR1WpTQkFmy4Qe2zDg8tQhpyX4q28
+         ZXLjwKwoS+HhDkSgKDpcmrDCcM7eOSCvGXh0zBOM58kJ+8ljqw2SJC9Wcn+3hzOerqSF
+         QUmlufOdg4TGqmoKf6/osI9qEdceXfnjObDn9Q+MX4D8oOlUwht2bvCZtQHQQPYu0Knv
+         ABSA==
+X-Gm-Message-State: APuU4Z/1UZB5jA1M0Gj8TZk3dKI5jtsOrUQV8UJPhRa7NMBmwJDkjtxB
+	mRekB4RdmPy/GfAjHWGgXoYtnH9Twa8ki+EktvSDd1iok7JnkbZNKWo0BSdLz8Ad/5q7v6ju9Az
+	LvxSBCKU98F9doRRa4M7TfQbOKADLnk9HVFeIXTaCip7hZiJdlk44aj8GK3Tz7d5BrvATNq5SnP
+	JUusrI4POgymsjzUy8SQqWPujEaOxy3xiYI6XpbFbFaRjjGpQwxXEb
+X-Received: from wmco9.prod.google.com ([2002:a05:600c:a309:b0:4a3:9bdc:d7e4])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600d:82e4:b0:4bb:6847:7927 with SMTP id 5b1f17b1804b1-4bb8882677cmr397206275e9.7.1795629983167;
+ Wed, 25 Nov 2026 10:06:23 -0800 (PST)
+Date: Wed, 25 Nov 2026 18:06:22 +0000
+In-Reply-To: <2026112553-margin-rope-d6e2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,46 +77,147 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=winCVsBKy0mGZK3mazNoTO73MrnmFHXNBw0UNK30Di7Fg@mail.gmail.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Mime-Version: 1.0
+References: <2026112553-margin-rope-d6e2@gregkh>
+X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
+Message-ID: <20261125180622.2012095-1-aliceryhl@google.com>
+Subject: [PATCH 6.18.y] rust_binder: push BR_TRANSACTION_COMPLETE before BR_FAILED_REPLY
+From: Alice Ryhl <aliceryhl@google.com>
+To: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/25, Linus Torvalds wrote:
->
-> On Wed, 25 Nov 2026 at 03:43, Oleg Nesterov <oleg@redhat.com> wrote:
-> >
-> > On 11/24, Linus Torvalds wrote:
-> > >
-> > > +             if (flags & WQ_FLAG_POLL_EXCLUSIVE)
-> > > +                     poll_woken = nr_exclusive > 0;
-> > > +             else if ((flags & WQ_FLAG_EXCLUSIVE) && !--nr_exclusive)
-> > >                       break;
-> >
-> > I obviously like this change, but note that wake_up_all*() helpers
-> > use nr_exclusive == 0, so
-> >
-> >                 poll_woken = nr_exclusive > 0;
-> >
-> > doesn't look correct.
->
-> No, I think it is correct.
+commit ff9de8571f05e8f62f9cbe29f38e0aedda9389cf upstream.
 
-It is, sorry for the noise.
+When building a reply fails in Thread::reply_inner(), BR_FAILED_REPLY is
+delivered to the caller before BR_TRANSACTION_COMPLETE is pushed to the
+replying thread's work list.
 
-> The logic in the new code is that WQ_FLAG_POLL_EXCLUSIVE should only
-> wakes up one of the entries that have it, *except* if it's a wake-all.
+In a nested transaction, the caller can wake up upon receiving
+BR_FAILED_REPLY and send an outer reply to the replying thread before
+BR_TRANSACTION_COMPLETE is queued. This causes the outer BR_REPLY to
+arrive ahead of BR_TRANSACTION_COMPLETE, which is not legal. This leads
+to userspace tripping on an assertion.
 
-Yes, yes, this is clear,
+Thus, push BR_TRANSACTION_COMPLETE in Thread::reply_inner() before
+delivering BR_FAILED_REPLY to the caller.
 
-> For wake_all, the poll_woken is never triggered.
+As a nice side effect, this lets us remove the now-unused
+BR_TRANSACTION_COMPLETE error path in Thread::transaction().
 
-Yes. I can't explain it, but somehow I thought that that nr_exclusive is
-"unsigned". Damn, the only excuse is that I could not really read the code
-today ;)
+Cc: stable@vger.kernel.org
+Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
+Link: https://patch.msgid.link/20261028-binder-reply-fail-v1-1-8b71d4daaf1d@google.com
+[aliceryhl: resolve conflicts in Thread::transaction() and reply_inner()]
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+---
+Backport note for 6.18.y:
+Resolved conflicts in Thread::transaction() and Thread::reply_inner()
+because 6.18.y lacks later mainline changes (error-line tracking,
+Option<Error> in TransactionInfo, consolidated failure logging, netlink
+reporting, and DeliverCode PID/notify_poll updates). error.rs applied
+with minor context adjustment (core::fmt).
 
-Thanks,
+ drivers/android/binder/error.rs  |  1 -
+ drivers/android/binder/thread.rs | 46 +++++++++++++++-----------------
+ 2 files changed, 21 insertions(+), 26 deletions(-)
 
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+diff --git a/drivers/android/binder/error.rs b/drivers/android/binder/error.rs
+index fd9e9d9e5658..4b5689cdb2b8 100644
+--- a/drivers/android/binder/error.rs
++++ b/drivers/android/binder/error.rs
+@@ -78,7 +78,6 @@ fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+             BR_DEAD_REPLY => f.pad("BR_DEAD_REPLY"),
+             BR_FROZEN_REPLY => f.pad("BR_FROZEN_REPLY"),
+             BR_TRANSACTION_PENDING_FROZEN => f.pad("BR_TRANSACTION_PENDING_FROZEN"),
+-            BR_TRANSACTION_COMPLETE => f.pad("BR_TRANSACTION_COMPLETE"),
+             _ => match self.source.as_ref() {
+                 Some(source) => source.fmt(f),
+                 None => self.reply.fmt(f),
+diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
+index e2320704c722..5ae26faaf13b 100644
+--- a/drivers/android/binder/thread.rs
++++ b/drivers/android/binder/thread.rs
+@@ -1262,26 +1262,25 @@ fn transaction(self: &Arc<Self>, cmd: u32, reader: &mut UserSliceReader) -> Resu
+             self.transaction_inner(&mut info)
+         };
+ 
++        // This runs when a transaction fails with an error returned to the caller.
+         if let Err(err) = ret {
+             self.push_return_work(err.reply);
+-            if err.reply != BR_TRANSACTION_COMPLETE {
+-                info.reply = err.reply;
+-                if let Some(source) = &err.source {
+-                    info.errno = source.to_errno();
+-
+-                    {
+-                        let mut inner = self.inner.lock();
+-                        inner.extended_error =
+-                            ExtendedError::new(info.debug_id as u32, err.reply, source.to_errno());
+-                    }
+-
+-                    pr_warn!(
+-                        "{}:{} transaction to {} failed: {err:?}",
+-                        info.from_pid,
+-                        info.from_tid,
+-                        info.to_pid
+-                    );
++            info.reply = err.reply;
++            if let Some(source) = &err.source {
++                info.errno = source.to_errno();
++
++                {
++                    let mut inner = self.inner.lock();
++                    inner.extended_error =
++                        ExtendedError::new(info.debug_id as u32, err.reply, source.to_errno());
+                 }
++
++                pr_warn!(
++                    "{}:{} transaction to {} failed: {err:?}",
++                    info.from_pid,
++                    info.from_tid,
++                    info.to_pid
++                );
+             }
+         }
+ 
+@@ -1336,7 +1335,7 @@ fn reply_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
+         info.to_pid = orig.from.process.task.pid();
+ 
+         // We need to complete the transaction even if we cannot complete building the reply.
+-        let out = (|| -> BinderResult<_> {
++        if let Err(err) = (|| -> BinderResult<_> {
+             let completion = DTRWrap::arc_try_new(DeliverCode::new(BR_TRANSACTION_COMPLETE))?;
+             let process = orig.from.process.clone();
+             let allow_fds = orig.flags & TF_ACCEPT_FDS != 0;
+@@ -1344,11 +1343,10 @@ fn reply_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
+             self.inner.lock().push_work(completion);
+             orig.from.deliver_reply(Ok(reply), &orig, None);
+             Ok(())
+-        })()
+-        .map_err(|mut err| {
++        })() {
+             // At this point we only return `BR_TRANSACTION_COMPLETE` to the caller, and we must let
+             // the sender know that the transaction has completed (with an error in this case).
+-
++            self.push_return_work(BR_TRANSACTION_COMPLETE);
+             pr_warn!(
+                 "{}:{} reply to {} failed: {err:?}",
+                 info.from_pid,
+@@ -1360,11 +1358,9 @@ fn reply_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
+             let ee = ExtendedError::new(info.debug_id as u32, err.reply, param);
+             orig.from
+                 .deliver_reply(Err(BR_FAILED_REPLY), &orig, Some(ee));
+-            err.reply = BR_TRANSACTION_COMPLETE;
+-            err
+-        });
++        }
+ 
+-        out
++        Ok(())
+     }
+ 
+     fn oneway_transaction_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
+-- 
+2.56.1.839.g22a8290db9-goog
 
