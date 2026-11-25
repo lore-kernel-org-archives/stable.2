@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603084;
-	b=rBeLyzlEeMAEJSim05AlnVmx66Qi/MdU8UNrFyG2XRJ8RGpuLvmHK4juxMVNd5FLYm+o
-	 QOopPGcunair1lVGbh+3nhKGouUh5pNqaLPEgMQN9zTmtcvEPZSb44gLaNvdXkK2pST7v
-	 nC7lalEvH3vG4JR1YFaaQPCpzVw1YWYmTprR48bOIx6d3zYKFfveLLAUhiTOJ8LriatSa
-	 BkYJyJZVSJ0AwWED4NdpVMHkSt7iZ7qc9tnBmP8bMsOs/Hiv3wRnXuNLcy73/G40fHpJ4
-	 vXtAht5hOhi46gIQED6Ol4+zRU9yvKpwkvtgWaOzKgHQBRKisgUZ1OWT/ODPkgeEI7A==
+	t=1795603087;
+	b=fuLdh8vceH/IYJK1dJ2PM6lGC/Tbo2EOCdYMxr51VCOfuSsVbUlfm6BvA09YH8dkkRuO
+	 Dud9tfCBR1eARpJs/8Ex3lwtW8g/frHTDAsohFdN8HpUfFVVOw2AuQOWxpRz3jySPWSBY
+	 V3KRPk8CDLuXw/TEa//PuLk+Xim1vqXB9HXuRW4vKVQoOg4RVknumwnDaEOI8y0FucdZo
+	 zw8UHpDSno0NGhFj4rfPAcz/2sJzk5NqJ9KQsUqNkAUchGoHvMw0AGgs9gVk32Va3LnMG
+	 XwYsxNnEFI+Ev/vTEMG93DX1jk8fImqMLn1YxQjuijVjhL8t1vC2vvUfvX4WZpOrjrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603084;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603087;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Xwy2qjXIlXd1shiV0RT80/KlkJlC8Bf8GZZd0lHvF3Q=;
-	b=uu3BXJURqypEbTYsIQnpGrXAkPDGgz0qfMhF9J967wd5ovXXla1z0PxvEKqybWjGw7TY
-	 YGWuhwRSXsFktTL6LMU7+qfOEPVmelcAOC+2FahT0UVETKI0KKOn6+ceDBheHDokjLogt
-	 ExclIgyGGMWWLdmWCw1VIf3VtX6Zc+8GE0H83GvIWLh3imRfkZ86Fjpnmi93nD+2rKSdf
-	 8qEkNFjEaisqq+XmjDmSl9JLcX4yU/B/JENdODp3EQbsmsihSCe//HXcEyGzMj65oHhFt
-	 hOlpKRU8peHgeeKC9IcakWnjz2LPWQuMVlbiqTNBDYDDcX+l5IJ3CnRxgoqQtlnzUsw==
+	bh=eTfV9lg+MvmALYH6gHic/WG/5AbUPyaTnnn82fkJyKM=;
+	b=1YNbwwnuam6eqnS0sGJJfas0b9hBT8OrD6zy9YzRJJk68sb3m6gxPg5rixiUw1zQfpfv
+	 pzqiswOZduCQjbnKtnp42Vufz+b/S05Xb+Ew1UGWRZSba/9CrcbzbswnIB+zY8RP2xCuK
+	 6Ur/CvZ22jku3iR9lSvpJdtVWXr++9/0k+/IFEK1DtgKZ/YRqyW7V0/2tXAUSxzOq9reR
+	 L4aQVXyMilPWevt7wb+NqWCKJNEcKbP6sdN8WdtINHowqiafQQTzJOnMwEIIP85laDN0G
+	 qJ9F0n9jxdmHRmbCQa4lNTjQl099JSCQSiV5K1Oxiu2z2CexrmsjlJfIxdhxL45pIcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="NquyiL/a";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=teEt3b4D;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C6A606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:38:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7AE9606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:38:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NquyiL/a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81A5D1F000C6;
-	Wed, 25 Nov 2026 10:38:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=teEt3b4D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB4711F000E0;
+	Wed, 25 Nov 2026 10:38:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603084;
-	bh=Xwy2qjXIlXd1shiV0RT80/KlkJlC8Bf8GZZd0lHvF3Q=;
+	s=korg; t=1795603087;
+	bh=eTfV9lg+MvmALYH6gHic/WG/5AbUPyaTnnn82fkJyKM=;
 	h=Subject:To:Cc:From:Date;
-	b=NquyiL/aZ5aj3TTVwmHjDZ1xMJqdUljOY6t8Xa/LGWlAFzkFART7wYqmykzlRsN6r
-	 iq2SwQOg2LMTSwnReJrWeSffDVHJeexG9JrQDVJTvNdfD8uW7JyDP8SpPr7SM3flfV
-	 AjGHprbOi9qSdGPyIg8KU1azIp9dz5MWYbF4m3/8=
-Subject: FAILED: patch "[PATCH] ksmbd: let the parent's DACL grant DELETE and" failed to apply to 6.1-stable tree
+	b=teEt3b4DDZeU3ijssQ/VxKhZxZIf/YoCsd9Gk66FcT12tT3WTdt4KTe0YMMDDkoGN
+	 lsBdXrqqxml8cjZMMpxQmHtKCqEsMcuFqe3lNd+6H2hxm9FTEVA6QnXVyGsoqWKmig
+	 GB6MzzxKvsxp1pteYHEuD5qnyHmcvEU7j5ZQ3lWs=
+Subject: FAILED: patch "[PATCH] ksmbd: let the parent's DACL grant DELETE and" failed to apply to 5.15-stable tree
 To: icb@fastmail.org,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:26:12 +0100
-Message-ID: <2026112512-font-vivacious-18b7@gregkh>
+Message-ID: <2026112512-smasher-rascal-77e1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 4ab80fd4d1f1c4363b336ddb3d8818ea37c4997d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112512-font-vivacious-18b7@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112512-smasher-rascal-77e1@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
