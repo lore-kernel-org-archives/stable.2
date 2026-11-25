@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795601591;
-	b=bUKT9/vzERyoT+radkqim1jDJ7ULNxhW5vzHoAr+5mxZA03T94VqyT5Si8SUk9MEoHjm
-	 tw4Jlb4WQOI1C2CAQGXsqx2gNoyRULoZQqK5BUHhMswVSR9mWjcdTsKsjnyrji7fF6Wn7
-	 nmL46ft8Oksz7FiuyYdQ39wobD90EycgvuAaoETH/0glVlI6LUBJdAK0jaqvaDOtahZoJ
-	 DipWU8HyZhkI94D1szTlO5ZHnvefyB/hvN+mr6G0HJdXV+2LCmSTvOllvVVEC9L9G4EK/
-	 8/X3WtDoyRk9PKzrCOixcDCgvzuOUyfvoQGjbZnNglRZ1dpjP7RCL1+LYOdU4GKqpCw==
+	t=1795601594;
+	b=G4nf4WZh4s77044xa5c1muCa+UCLnh0HjsauLgJAafzYkGkRX+J3fN3Q9N/67RHTtfIH
+	 NYyQ5vdpJuiyQo37XiGui57m/M3Zn20flQxBQ+XkercuL9UVi8dzVpUJHDugeo2cARJ8t
+	 V4Jah5IYA11dPN5l8HwGDpO8gOWcIEpNW/r0wqjVqybapaHs7ghKUK6U+JYzAU2r94gtO
+	 uTz/fpamBh1wb6UJ6KarIn1HllyQ84dqUYFnmBOAQyhghp4QjzCiaZJHbF9URkUdYVT3K
+	 y6pUo5d38oLdYEezqkB3GBt1oh8wf3rC7x3/KNou7s57Q7YJxQ6y4jvYd0vw+iNfiKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795601591;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795601594;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Bv5UNZYFa84i03TAton/5PNxPQg2DvsXBO+PhIthIvk=;
-	b=stWxSehR5HDqNwpC2ZteQzlfvLcx+laZyzZUwM+9SUe5lIVKkIemvEASNur/xDDUrK/9
-	 KO3Dat7lciQVgKvtfIL2EgFq+nKLV9XzcKitJ8ZzfZ1nkDklcELk6QYQB/1pAlBaR7FVc
-	 v7usJc7EfxjluOtRpCdhbym9P4hBWIYuLSmLUurVWv3NjeTrHvZEhr+EmkE3SWaMdXFhS
-	 t+q/9vdlDN8AHSAPhQAlfu8W+smC73c/M/B71EfxEpDmw90ZTiuw4s4Rk1Aj8MKNDQjaa
-	 v78cX0ODFObAMSH8aYyItJ66hhx1YSXddFuKD8hXmacaouUQUC0xYszqAjQWSSMYHcw==
+	bh=dDC+3uslEiptMeXswKbh1kgpe8cfJgmpz1GFFpcIJ8c=;
+	b=vNX3U8IrWhCZqhP0PyVcal0q9ML4UHA2/uYMOd8dxvV20f9qIllN8LhZDYIMHgwO2Ifl
+	 9/5TFw2nloLfhr6oiRhtVv0n1TavL7bcovp70neu4jnq4kr4BnWjI19KAErgEhzLH3fIW
+	 iAgAh2FaHtJ/szyEFH2W2144ImieIjMd7v93NEFeuncYyRCmyrTjloHBiAdob9NuGMjeG
+	 ikvfbXDaVLYV7T15JlgQNpXcu91eiN+v1bGNiObG+zHQ3wBqQVJm4KoE2nlskGWjILyZt
+	 uOPSVfpDf3QbYCebTRU2sjUpSC5mCi5D5xYbRMCmjSawZgNCB7kLGtRSJSurXc6w2Ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YZNKynS2;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TeBqszya;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C675606A327
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:13:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A02F606A329
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:13:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YZNKynS2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A264F1F000EB;
-	Wed, 25 Nov 2026 10:13:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TeBqszya
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77C4E1F000E1;
+	Wed, 25 Nov 2026 10:13:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795601591;
-	bh=Bv5UNZYFa84i03TAton/5PNxPQg2DvsXBO+PhIthIvk=;
+	s=korg; t=1795601594;
+	bh=dDC+3uslEiptMeXswKbh1kgpe8cfJgmpz1GFFpcIJ8c=;
 	h=Subject:To:Cc:From:Date;
-	b=YZNKynS2K5wzHVHuk8goSw+2iokJvbiLeS5/u4gICR46VDluLHvwhsmsG3ZQl8Kgs
-	 N6PQpZ/mIS3BumQJdlaArZH1DIfhENQ3lTzzlXd8JiQZJAQnd+zj2h/PmQkF6i2LvL
-	 3asBK0A8wu6ceqQzjULcQC/5TVgxzDXFuTP02qrM=
-Subject: FAILED: patch "[PATCH] cpufreq: Improve suspend-resume synchronization" failed to apply to 5.10-stable tree
+	b=TeBqszyaly67sX+l1rcLoJKarcjLCGa1FYIP4pEZcXHOSvLOqyo4mB8Kup3gePwfl
+	 vUtpqqY0iPACaJuvNOBkOUN3nraLIcx6g8EWK5ddEMhONsoK5t01COfw1SJFpIbJea
+	 +AUIKfXVCjzqFglvCsbQQ6uhSZ3wT+pBJQ6l1PUY=
+Subject: FAILED: patch "[PATCH] cpufreq: Improve suspend-resume synchronization" failed to apply to 5.15-stable tree
 To: rafael.j.wysocki@intel.com,christian.loehle@arm.com,dsmythies@telus.net,stable@vger.kernel.org,viresh.kumar@linaro.org,zakbrightonknight@gmail.com,zhongqiu.han@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:09:13 +0100
-Message-ID: <2026112513-handwrite-santa-669b@gregkh>
+Message-ID: <2026112513-parasail-absolve-96dd@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x eee2a44e4e2b41c0699919a550d41cc38daa4f42
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112513-handwrite-santa-669b@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112513-parasail-absolve-96dd@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
