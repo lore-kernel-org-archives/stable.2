@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795622373;
-	b=ajTO0+Db8gJr0kft13DCjmOR2kgwt30ON8bA94/sMCqmq8CxhC7a4G2SxUyFTKR3g+e7
-	 fTXpFNpNfODV1jLfUarcEm92yw8cdmiDFt4LO8+YCsTg2/xtF+UWCNsAMA9IIGfwtQyYq
-	 sfH3tiTXDEE1szuBVvzqmAAv1v1goTCeJOhHU+GgdQAd+6UCW2O2l0UoX/7xvgCIfvY4T
-	 ZBYSjYHTzOtVO1Xq2PoZ0URGKLEc8b8l+e6w8lcmtpT10OL/t5qD8ANdv2rzGnTD9RQtr
-	 AkNRZ4BytLYIK2w/uAJ4q3aeKK5Wj5SPOqwhq+1AJviJAeBZx1ysjc/LPJYv3Agw1NA==
+	t=1795622375;
+	b=qZ7VDJun7Rz76WuVY2TJXqs0Y6eIzEzCnhEU/dqrItHp7zhJe3piWYP3vadugx2C38vI
+	 sqHjAF9ua3XFbB5FiRq6DLVznhQfMg/N8wI6kQ6JXRQYppaiRuBdHP5Qad5IXuB4YSYjk
+	 22C+wbmVBo3rd8pJ/0g0leUWjbUz5GRP5oT654TWeS7+J/7DMzrZi5MIblJsT1qNOol/H
+	 W3gHGZWWpiKVixO1WJUykHLuxBNN4nyaS9kGVstJvzqYDkoUyW/K2hN3S1pAlwMvxdzFU
+	 w0N7SIoZp+iZNFWOBKDd7GvrGNyKrTsM9eAWQ7FbtEdZ79x+SLfnY4Zc6Fv32UdjS2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622373;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622375;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=XJL1ybkRsDna5i6HUgQb+nGNi8JKW7vDET7tRDscuZM=;
-	b=qhdGIqC5hE7AJKHfj6TypwF9IcYAPs5DOguzg6l7RyKpEoAxlRhBg/uk77WMpVV/Dp07
-	 kfpKi/1bOA56R8Gv6T589bNhbcNaUrjcApeZwipKpeAMLxKLOLW/v6s0zt2Sa+xmT1xst
-	 jU+5PTEFhkfBB6XtbVUuBNNGrdWYRu35xNIKGybWLAKH4kxbfE7BpNvWoIROUcj2A2lnG
-	 /F9642S4lY+As8aRz2alnS6ye8VIeGz24GwxrvXMqcldBMbzAaNCgEsmz0dUbhM/h0WQq
-	 XBhKtM7D+EFOOk9HvuR2PKm0XO7ylgNRdaPCifJ79ZveTSopgSmHXrPji6H/tYqjnqw==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=PEiMiNmh93MZa3eXYNIU8ed0eFnxypXJ6+ePNdyfnBw=;
+	b=cSOZ3I4EY6in52cxwVZmn8zlyg6AYp3cmC+gUDs5KqOWIBUHJYRaYXG/Qqhia3EJuVGT
+	 RV28Dnb3vrlo1/KtoimBEYR27hCZ5zfz8an4WQeUNQ/7gW/bzqlFLRQAqa7+ai370OWWi
+	 yUgFZYvG6wMRqIo0Sm9VLCqZ6pFsWsiccn0kmVwVzekEY5fbP2k261dVczjqoNzGWNAr2
+	 lH/LOpN/bf01oqD8MUDzEnMyJYY5GyDV06QIlp3hYlmhIWRW+wlaocKoLLOF85A0+fcgE
+	 Cj+3nnn4GlDDO6N3XJX30IzEDCITqF3ntH8yIFHovMAOA7hT/1G+WYXKk4Lzd9mlStA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ed0pQDDd;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=u5k0R8TR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FB8606A327
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:59:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 166EE606A323;
+	Wed, 25 Nov 2026 15:59:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ed0pQDDd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE4D51F000D1;
-	Wed, 25 Nov 2026 15:59:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795622372;
-	bh=XJL1ybkRsDna5i6HUgQb+nGNi8JKW7vDET7tRDscuZM=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=u5k0R8TR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 494741F000CF;
+	Wed, 25 Nov 2026 15:59:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795622374;
+	bh=PEiMiNmh93MZa3eXYNIU8ed0eFnxypXJ6+ePNdyfnBw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ed0pQDDd6G/3ELuLm9DXbtCwWpkiwqoBdrfcGsjXcmOntjZmxYTbfSoxSSeQHbJ5D
-	 2nZfmpMA81P2DN1iTBNZ0suodZC7z5ZUW4PFCpwn96BGg1qmZaw6OV7kk0zf8YR1AE
-	 KOxY+x5bmvPu0ChmDZ1hBBEcLbolteFO0gOA1hephLRV+8fI/HbxIq0PyBpfk9InjW
-	 YZYz6Ets2kd8b7BYUQVzjbWq2RoVOiM1QdJxPQRd13yy8GMW1HLv9tlS5GlceevO4P
-	 5/90RambtoBhIPGYoFR3b7WBa7HC7iGwnOSiFqC5uSIF4L+vfwmlnLqhuIWPrelN11
-	 2PFRPXV4yo7iQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=u5k0R8TR2mrGMr12A6ELRzr86RVZdaeyKUs+4ddFkzQig8PByhZPN7gkd2tlLLJLr
+	 V2/4AgVzW89I4tTlsZqUmsPGgBBCRh98488z7CMnqSldwLakJVbxB5/4qkQ5BT2/IK
+	 ltlRHD7QqwwYm7trJ+IlB5uQ/JalLHY1BQE0w7QE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@kernel.org>,
-	syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	Naman Gulati <namangulati@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Max Zhen <max.zhen@amd.com>,
+	Lizhi Hou <lizhi.hou@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] net: wait for in-flight device unregistrations before netns dismantle
-Date: Wed, 25 Nov 2026 10:59:30 -0500
-Message-ID: <20261125155906.641582-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112529-purify-proven-454f@gregkh>
-References: <2026112529-purify-proven-454f@gregkh>
+Subject: [PATCH 6.18 517/990] accel/amdxdna: Fix race between unmap and free BO
+Date: Wed, 25 Nov 2026 15:31:24 +0100
+Message-ID: <20261125143834.206218937@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,169 +64,180 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@kernel.org>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit c164a431a646983275d0076ff5b0e4c326fbc10b ]
+------------------
 
-A device can be unregistered by a context other than the cleanup_net()
-of its own netns, for instance a veth whose peer in another netns is
-deleted. If references on it are still held, it stays in
-netdev_wait_allrefs_any(), which rebroadcasts NETDEV_UNREGISTER every
-second.
+From: Lizhi Hou <lizhi.hou@amd.com>
 
-Meanwhile its netns can be dismantled: default_device_exit_batch()
-only takes care of devices still listed in the netns, then pernet exit
-handlers free their state, and finally struct net is freed while the
-device still points to it.
+[ Upstream commit ac18f34f5927e420ae529be72aec86201a262d04 ]
 
-The rebroadcasts then run notifiers against torn down pernet state, or
-freed memory. Three instances were reported so far:
+A userspace process can concurrently trigger an unmap, which queues
+hmm_unreg_work, and free BO. If amdxdna_hmm_unreg_work() executes
+list_del(&mapp->node) and is preempted before calling amdxdna_umap_put(),
+amdxdna_hmm_unregister_all() can fail to find the mapping in the list
+and return without calling cancel_work_sync(). This allows object
+destruction to proceed while the worker still holds a pointer to the BO
+in the umap structure.
 
- - netdev_genl_netdevice_event(): net->genl_sock is NULL [1]
- - nh_netdev_event(): net->nexthop.devhash is NULL [2]
- - nf_tables netdevice notifiers: use-after-free of the nftables
-   pernet storage [3]
+Moving the work item from struct amdxdna_umap to struct amdxdna_gem_obj.
+The worker no longer holds a pointer to an individual mapping, so there
+is no longer a window where the umap has been unlinked from umap_list but
+work is still pending against it. The work item now lives in the BO
+itself, so use a single cancel_work_sync() in the free path to drain the
+work.
 
-but any notifier using dev_net(dev) is affected, as is
-netdev_wait_allrefs_any() itself (__rtnl_net_lock(dev_net(dev)) with
-CONFIG_DEBUG_NET_SMALL_RTNL=y).
-
-This was prevented by rtnl_lock_unregistering() until I removed it
-in commit 8a4fc54b07d7 ("net: get rid of rtnl_lock_unregistering()"),
-considering only the loopback dependency, and missing the notifiers one.
-
-Restore a per-netns counter of devices sitting in netdev_run_todo(),
-and make default_device_exit_batch() wait for it to reach zero, after
-it has unregistered all devices of the dying netns(es). At this point
-no new unregistration can be started for these netns.
-
-Unlike the old barrier, this only waits for devices of the netns being
-dismantled and runs after their own devices are gone.
-
-Tested on a KASAN kernel with a debug-only hack holding a reference
-on a veth device for 5 seconds after its unregistration: a nexthop
-on the veth in netns X, delete its peer from init_net, then delete X.
-Without this patch, the nexthop_flush_dev() null-ptr-deref from [2]
-triggers. With it, no splat; netns churn and dismantle of a netns
-whose own device is held still work.
-
-[1] https://lore.kernel.org/netdev/6adf9f64.6200f071.51519.0ed1.GAE@google.com/
-[2] https://lore.kernel.org/netdev/20261105114707.3030737-1-bsdhenrymartin@gmail.com/
-[3] https://lore.kernel.org/netdev/20261105114817.3033625-1-bsdhenrymartin@gmail.com/
-
-Fixes: 8a4fc54b07d7 ("net: get rid of rtnl_lock_unregistering()")
-Cc: stable@vger.kernel.org
-Reported-by: syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/netdev/6adf9f64.6200f071.51519.0ed1.GAE@google.com/
-Reported-by: Henry Martin <bsdhenrymartin@gmail.com>
-Closes: https://lore.kernel.org/netdev/20261105114707.3030737-1-bsdhenrymartin@gmail.com/
-Closes: https://lore.kernel.org/netdev/20261105114817.3033625-1-bsdhenrymartin@gmail.com/
-Signed-off-by: Eric Dumazet <edumazet@kernel.org>
-Reviewed-by: Naman Gulati <namangulati@google.com>
-Link: https://patch.msgid.link/20261105144543.1624238-1-edumazet@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: adjusted context for a missing dev_mc_genid field in struct net, and moved the wait_event placement relative to the rtnl_net_flush_workqueue() call. ]
+Fixes: 445d20910429 ("accel/amdxdna: Fix unexpected wait when flushing notifier_wq")
+Reviewed-by: Max Zhen <max.zhen@amd.com>
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+Link: https://patch.msgid.link/20260917154824.1872220-1-lizhi.hou@amd.com
+[ sashal: Adapted the hmm_unreg_work move to the older gem code: the uva field is named userptr, and amdxdna_gem_create_obj() was not relocated since it already follows the worker. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/net_namespace.h |  1 +
- net/core/dev.c              | 35 +++++++++++++++++++++++++++++++++++
- 2 files changed, 36 insertions(+)
+ drivers/accel/amdxdna/amdxdna_gem.c | 47 +++++++++++------------------
+ drivers/accel/amdxdna/amdxdna_gem.h |  3 +-
+ 2 files changed, 18 insertions(+), 32 deletions(-)
 
-diff --git a/include/net/net_namespace.h b/include/net/net_namespace.h
-index f659d1efcd3ce..7b53eb6c21798 100644
---- a/include/net/net_namespace.h
-+++ b/include/net/net_namespace.h
-@@ -68,6 +68,7 @@ struct net {
- 	spinlock_t		rules_mod_lock;
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index e416a6ef7304e..cc22981d73598 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -127,10 +127,8 @@ static bool amdxdna_hmm_invalidate(struct mmu_interval_notifier *mni,
  
- 	unsigned int		dev_base_seq;	/* protected by rtnl_mutex */
-+	atomic_t		dev_unreg_pending; /* devices in netdev_run_todo() */
- 	u32			ifindex;
+ 	if (range->event == MMU_NOTIFY_UNMAP) {
+ 		down_write(&xdna->notifier_lock);
+-		if (!mapp->unmapped) {
+-			queue_work(xdna->notifier_wq, &mapp->hmm_unreg_work);
+-			mapp->unmapped = true;
+-		}
++		mapp->unmapped = true;
++		queue_work(xdna->notifier_wq, &abo->hmm_unreg_work);
+ 		up_write(&xdna->notifier_lock);
+ 	}
  
- 	spinlock_t		nsid_lock;
-diff --git a/net/core/dev.c b/net/core/dev.c
-index bd1b0f10d9374..426f6d2e19524 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -10145,6 +10145,14 @@ atomic_t dev_unreg_count = ATOMIC_INIT(0);
- static void net_set_todo(struct net_device *dev)
- {
- 	list_add_tail(&dev->todo_list, &net_todo_list);
-+	atomic_inc(&dev_net(dev)->dev_unreg_pending);
-+}
-+
-+/* Paired with net_set_todo(). @net must not be used after this call. */
-+static void net_unreg_done(struct net *net)
-+{
-+	if (atomic_dec_and_test(&net->dev_unreg_pending))
-+		wake_up(&netdev_unregistering_wq);
- }
- 
- static netdev_features_t netdev_sync_upper_features(struct net_device *lower,
-@@ -11034,6 +11042,7 @@ void netdev_run_todo(void)
- 		if (unlikely(dev->reg_state != NETREG_UNREGISTERING)) {
- 			netdev_WARN(dev, "run_todo but not unregistering\n");
- 			list_del(&dev->todo_list);
-+			net_unreg_done(dev_net(dev));
+@@ -160,13 +158,13 @@ static void amdxdna_hmm_unregister(struct amdxdna_gem_obj *abo,
+ 		if (!compare_range(mapp, vma->vm_mm, vma->vm_start, vma->vm_end))
  			continue;
- 		}
  
-@@ -11043,8 +11052,11 @@ void netdev_run_todo(void)
- 
- 	cnt = 0;
- 	while (!list_empty(&list)) {
-+		struct net *net;
-+
- 		dev = netdev_wait_allrefs_any(&list);
- 		list_del(&dev->todo_list);
-+		net = dev_net(dev);
- 
- 		/* paranoia */
- 		BUG_ON(netdev_refcnt_read(dev) != 1);
-@@ -11063,6 +11075,8 @@ void netdev_run_todo(void)
- 
- 		/* Free network device */
- 		kobject_put(&dev->dev.kobj);
-+
-+		net_unreg_done(net);
+-		queue_work(xdna->notifier_wq, &mapp->hmm_unreg_work);
+ 		mapp->unmapped = true;
++		queue_work(xdna->notifier_wq, &abo->hmm_unreg_work);
  	}
- 	if (cnt && atomic_sub_and_test(cnt, &dev_unreg_count))
- 		wake_up(&netdev_unregistering_wq);
-@@ -12298,6 +12312,17 @@ static void __net_exit default_device_exit_net(struct net *net)
- 	}
+ 	up_write(&xdna->notifier_lock);
  }
  
-+static bool __net_exit netns_dev_unreg_pending(const struct list_head *net_list)
-+{
-+	struct net *net;
-+
-+	list_for_each_entry(net, net_list, exit_list) {
-+		if (atomic_read(&net->dev_unreg_pending))
-+			return true;
-+	}
-+	return false;
-+}
-+
- static void __net_exit default_device_exit_batch(struct list_head *net_list)
+-static void amdxdna_hmm_unregister_all(struct amdxdna_gem_obj *abo)
++static void amdxdna_hmm_unreg_umaps(struct amdxdna_gem_obj *abo, bool force)
  {
- 	/* At exit all network devices most be removed from a network
-@@ -12325,6 +12350,16 @@ static void __net_exit default_device_exit_batch(struct list_head *net_list)
- 	}
- 	unregister_netdevice_many(&dev_kill_list);
- 	rtnl_unlock();
+ 	struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
+ 	struct amdxdna_umap *mapp, *tmp;
+@@ -174,16 +172,18 @@ static void amdxdna_hmm_unregister_all(struct amdxdna_gem_obj *abo)
+ 
+ 	down_write(&xdna->notifier_lock);
+ 	list_for_each_entry_safe(mapp, tmp, &abo->mem.umap_list, node) {
++		if (!force && !mapp->unmapped)
++			continue;
 +
-+	/* Devices of these netns unregistered from another context
-+	 * (e.g. a veth whose peer was deleted) can still be waiting
-+	 * in netdev_run_todo() for their last references, while
-+	 * NETDEV_UNREGISTER is rebroadcast for them. Wait for them
-+	 * before pernet exit handlers tear down the state used by
-+	 * netdevice notifiers, and before the netns is freed.
-+	 * No new unregistration can start: all devices are unlisted.
-+	 */
-+	wait_event(netdev_unregistering_wq, !netns_dev_unreg_pending(net_list));
+ 		mapp->unmapped = true;
+-		mapp->cleanup = true;
+ 		list_move(&mapp->node, &dead);
+ 	}
++	if (list_empty(&abo->mem.umap_list))
++		abo->mem.userptr = AMDXDNA_INVALID_ADDR;
+ 	up_write(&xdna->notifier_lock);
+ 
+-	list_for_each_entry_safe(mapp, tmp, &dead, node) {
+-		cancel_work_sync(&mapp->hmm_unreg_work);
++	list_for_each_entry_safe(mapp, tmp, &dead, node)
+ 		amdxdna_umap_put(mapp);
+-	}
  }
  
- static struct pernet_operations __net_initdata default_device_ops = {
+ static void amdxdna_umap_release(struct kref *ref)
+@@ -202,24 +202,10 @@ void amdxdna_umap_put(struct amdxdna_umap *mapp)
+ 
+ static void amdxdna_hmm_unreg_work(struct work_struct *work)
+ {
+-	struct amdxdna_umap *mapp = container_of(work, struct amdxdna_umap,
+-						 hmm_unreg_work);
+-	struct amdxdna_gem_obj *abo = mapp->abo;
+-	struct amdxdna_dev *xdna;
++	struct amdxdna_gem_obj *abo = container_of(work, struct amdxdna_gem_obj,
++						   hmm_unreg_work);
+ 
+-	xdna = to_xdna_dev(to_gobj(mapp->abo)->dev);
+-	down_write(&xdna->notifier_lock);
+-	if (mapp->cleanup) {
+-		up_write(&xdna->notifier_lock);
+-		return;
+-	}
+-
+-	list_del(&mapp->node);
+-	if (list_empty(&abo->mem.umap_list))
+-		abo->mem.userptr = AMDXDNA_INVALID_ADDR;
+-	up_write(&xdna->notifier_lock);
+-
+-	amdxdna_umap_put(mapp);
++	amdxdna_hmm_unreg_umaps(abo, false);
+ }
+ 
+ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
+@@ -271,8 +257,6 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
+ 	mapp->abo = abo;
+ 	kref_init(&mapp->refcnt);
+ 
+-	INIT_WORK(&mapp->hmm_unreg_work, amdxdna_hmm_unreg_work);
+-
+ 	ret = mmu_interval_notifier_insert_locked(&mapp->notifier,
+ 						  current->mm,
+ 						  addr,
+@@ -591,7 +575,9 @@ static void amdxdna_gem_obj_free(struct drm_gem_object *gobj)
+ 
+ 	XDNA_DBG(xdna, "BO type %d xdna_addr 0x%llx", abo->type, abo->mem.dev_addr);
+ 
+-	amdxdna_hmm_unregister_all(abo);
++	/* No notifier survives this, so no new work can be queued. */
++	amdxdna_hmm_unreg_umaps(abo, true);
++	cancel_work_sync(&abo->hmm_unreg_work);
+ 
+ 	if (abo->pinned)
+ 		amdxdna_gem_unpin(abo);
+@@ -644,6 +630,7 @@ amdxdna_gem_create_obj(struct drm_device *dev, size_t size)
+ 	abo->mem.dev_addr = AMDXDNA_INVALID_ADDR;
+ 	abo->mem.size = size;
+ 	INIT_LIST_HEAD(&abo->mem.umap_list);
++	INIT_WORK(&abo->hmm_unreg_work, amdxdna_hmm_unreg_work);
+ 
+ 	return abo;
+ }
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.h b/drivers/accel/amdxdna/amdxdna_gem.h
+index 8d89874f1fca3..b6573ffe8d7cc 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.h
++++ b/drivers/accel/amdxdna/amdxdna_gem.h
+@@ -11,13 +11,11 @@
+ struct amdxdna_umap {
+ 	struct mmu_interval_notifier	notifier;
+ 	struct hmm_range		range;
+-	struct work_struct		hmm_unreg_work;
+ 	struct amdxdna_gem_obj		*abo;
+ 	struct list_head		node;
+ 	struct kref			refcnt;
+ 	bool				invalid;
+ 	bool				unmapped;
+-	bool				cleanup;
+ };
+ 
+ struct amdxdna_mem {
+@@ -38,6 +36,7 @@ struct amdxdna_gem_obj {
+ 	bool				pinned;
+ 	struct mutex			lock; /* Protects: pinned */
+ 	struct amdxdna_mem		mem;
++	struct work_struct		hmm_unreg_work;
+ 
+ 	/* Below members is uninitialized when needed */
+ 	struct drm_mm			mm; /* For AMDXDNA_BO_DEV_HEAP */
 -- 
 2.53.0
+
+
 
