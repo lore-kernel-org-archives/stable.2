@@ -1,100 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795612923;
-	b=NmiGn3yQa0xqN4Ym9HphCR2/JHgwHzc/kfwmh1yWPOrhEm9GA8+4d1QBiZ/VyPobdw1P
-	 v71UfKtnpZZesHUvKJQtiAeAWXI3eYP6VZXeCjI/eFNVtrpRrtv/lf+mxTf3mBHfo2pi8
-	 DLMhuS12f6glQp5Er7goOI01Y0TivxDmMBfWJQ4ge5YmOJTqnzuuulL2E4f1Zbnyhj23e
-	 BygIUPe5svEVp4XfYAQYay2FbSRciNQxEm8izFLFECE5RevM52yxyqX+o5NBRDEyCVtN6
-	 EheXB95QKbfYcb60PDjs/NnIqmx4bLRMXyLkuUmpXuyiwYnu6OfDa2dCMUTmszAEjlw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795612923;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795612937;
+	b=Kr8fg2rZOnWwUa68x/o4/OAi3jc/4j3HP0rfmF4migS9PC463J1lalDwu/55VaRE8lu7
+	 cxPCgYpaxKpshRJR//ISFVul5zoHJCxEGFYShgn7hDAyWT2pw3HnB/6Zu7ACUh10mvVLu
+	 ye2ucQNr+IBSGp2ddVNIclJjgBmeiz0tfNhxIojYOef1j/8rDB+EuEjlHU+mh/aAoU8Tx
+	 gunPG6Ex0lWIbtDi/bYBKaqpGW6irgpcBNhUMS5Wsn7WVf+mVdObCXHVSe9jeHbaSPfUV
+	 MyVwEugixMLtcJbzMBlQApYu+z6LHz6zBotu4NRgoUXxzuXhl5vcTS6oho9wxunkCdg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795612937;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=i9r9UPtioq2obgdZhRICZquaiNExWv3cUxSGfBwpneI=;
-	b=XAtQb3QOvE9EfHqhDOlnGd8gX+vClUAq2IOZ+IPq4HJ4TeL+W8u8KhcIi5qTbugVct2d
-	 EMzIO6o/+VG7rCySxaevk+IKP5JtTNpFkvTwjOSSCKC8ZO4fnEhUk2tkJVpGLQoRZb5pv
-	 2v8h6YcVuuINaz0xrKC7YzSmzc/c7av2jCmCyH4qVWCOugqzUCgCHju3aEaknsV2C53Xa
-	 /uO0z5v426gqPPBgGZcNg6RBiAkUCcp1ijfEr3tKpX2HETqywzC3etNbT1McIDQmnBrX3
-	 dKNBVE4+33C+pd2sgNI7XgjQvgtxSnD0Ic/2tS8F3J61BqFaAhIehjLW0yoGyoGJqVw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=qPMs37yJl+YAr4oXShBJNSYAEEoxoF7Y2uLC74AOAcU=;
+	b=0dz9RYwJv19zmEpgdMphxOJG1OdUFBfzvU0O7RhkCcFqq9duPtQ9zbTF1/yOcM08APll
+	 oQapCxn6YR/W64cYiLuJzNrEW1zPqcb0+ZAdild4o3YfNqCqNWBF2KNHnqWoO58z0xAMs
+	 xMvAb1/QLbp14kEtl4auJ/uQ/TygDwbeqk4P9pjtanYR6jDf5xPJxhd1n+wAMZCn6uyrP
+	 n0RMdQD/y50AvLbK6vM3ESqDKAHJDCW8yCndkMp4VK1bjvXxAjdfEnrG1uMoF8yrP/oy0
+	 1ilYfwk3pwZndycOpIQUUlBcg9CZFbJvNXpm8sKwC3Bh7X5oMGkU1JXBCXWx72B/d/Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=opSEdQTb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gtTTaimd;
+	arc=none smtp.remote-ip=209.85.215.180
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6288606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 13:22:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6288606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9517F606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 13:22:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9517F606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=opSEdQTb
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4a3e706b5dfso3606018f8f.2
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 05:22:02 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795612921; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sepNGhqWd9xigVNWeAabJSA8GhxyEVelJW4oO2KS4Q1F9BosMIOzNJCtSiEs60ZxlF
-         uziyIskmKLWV/9d0iDwmWgzNKZ/HZ587Tx8eXCzNaRl57jCTvRLot9wxS9UGhx90d9v1
-         EITkEXvroYe038up+SuYEKBjLoa2km2q/A3PNn/LuJgwWZ2fJ3XblRo72HyfXjbVGnEr
-         Qn62d0q0bZDkYyvFZxcgHHu8dnmhLGalZIcfut2FUeAgjATs34/8rZvtW2iVclI0R2oa
-         LlSLqrDuI2UfAKaJFCuB68BGIHzWcopgV8ne70igvXLT6Bvw8SDcReMZnKcq59h+3N4y
-         4T1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=i9r9UPtioq2obgdZhRICZquaiNExWv3cUxSGfBwpneI=;
-        fh=nlX2cLMMeGR35uZfh4RchkaIro0yp+KVn88ANm/vCCA=;
-        b=oTO1vcNtN+v731v2Ole5rT4ANqcNX+bnDEHAAuiqnf7MgtFSuhpfUWl3iK3ec+Q5KX
-         c4MNh5GTALRJuZ27re00R+RtfytGUNUqrxvHIet9ZWbUUEDrPL1YBeBj1asikRI47o1f
-         QOZsrUUF9gIDCwrAfD5P1KNyLtkyWlJoNQBWRlBQrvxZERlRuKp+c53+lBladXIjHw01
-         hPAMMJNeV34kE6jCzTjwRV9F/kxrE0FblJcZN+zBELFRniZmin3fK2O5AAW4VWdBVkGR
-         5VG45xx9e++a/R9XFjqIESjA42TsFCEx9JG4hez+G9jmOKGVJCEGfDot+ARByPouX2y0
-         FyXg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gtTTaimd
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdb2893531bso3018823a12.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 05:22:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795612921; x=1796217721; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i9r9UPtioq2obgdZhRICZquaiNExWv3cUxSGfBwpneI=;
-        b=opSEdQTbB7rgsyjJ9BhIF9Grz8b8sB9R9IGgbDOXEPXF6u8P9tys2nt82Xr1hix9Lb
-         8r1U84bKZE3IfywQtRNjB6DXi365U3bKGvDwwm6VW3FzLWLZUURNvYxRxaOrBsSaAF3b
-         kmNDGoTQEXpo/V/DeQYIVVeUTpl3WNO658iG8xcNyiddyqdPNjTz39B9yYIzXeV9jOM1
-         eBgDDjK+4rWvtPTrY/fZ34EkLwKoOeNSLrjB4uf8ZmRWmAtbyI2zBNE4I2XxCCfPgGWW
-         M+VtL2OnG2s5Qyj9fFaREcdfCGYPh0zITb0diJNUfQQN76e9tViR2JTBDY23vcp7hYjZ
-         BOnQ==
+        d=gmail.com; s=20260707; t=1795612936; x=1796217736; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qPMs37yJl+YAr4oXShBJNSYAEEoxoF7Y2uLC74AOAcU=;
+        b=gtTTaimd/VEQ7z9eKuGr1GV/b6EzI4gM8Mh+XUGgLDOVfrp86gNHRv98j0j7iMBTi+
+         4uQziJAj08kEGUalo5fudykAPaIuMSTOYaXkog2ru2je7V6F2vgfkniBQoLDRD6JT5L2
+         4gxt91ZRjA8dhFjWASpbzLj36r3z/p/jCLIXK+v71pHlzmcK60QQlTL6MVNWpLGORse8
+         RWn+vREl92pVKvyNd8DEUX3wnD246MJCxN1sceRbXUVcXfoGxpo6yWsHoUh4QdRALzt4
+         IDM59CHa+r4Y5ordMOZFSzGHPavDRao/yELp8TZNrjQYQiETzd9Fnj8OO0uT1dlegIWg
+         336w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795612921; x=1796217721;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i9r9UPtioq2obgdZhRICZquaiNExWv3cUxSGfBwpneI=;
-        b=Y5Wpi0NYK5bdHb6hYj1yFUGmKM8oUF718d5M/paEOxnpL5tThSGpcKPFazEH0VYYqw
-         I0HC2rkjFMc+fJmjcUWcyHCex3ahtmUym+8ymZRuO6Q1u+M0MeNGivhOhS0nSd+ySz09
-         Khdmk7IM0i8Om5SHaldJ6C+PhmMK+5q4cZaiReFgHyVkHNeUYTSM8+58aluy6Kn4k2zq
-         twg6aQSFMXOveEOy9Q7bFe8TfGnwrmYpT6KtBIqWRyoRUA2GUkXz20CX3t59pMOw81eC
-         ScpIcHmfPiHTXN2d0di43ElU3a6Pms4TuOXXZA3QwlwtUb4bTduekGeYtTa+S+dzSw+M
-         nNnA==
-X-Forwarded-Encrypted: i=1; AL+hErGfvTsilFfvoxtCOTgpDxBZ2HIhO3E+gIkUyBn6O6zkAGsPKMpJZOCQKyPOberwYm+w3Od7Grk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/rQS5YUqxviuhWFRxzQEdu5bdqp8ocyqETpN7TcLrxk4PImTiQ
-	M/toTaGJQs1yvGr45K3IU/tx9ZAjeogYH5HjXSTLDnxKxfNHogO1n8LupXH8YDAxxGZq/XoMrj7
-	Lp7VBret9EhBpKz0gxFHcvbxfyo/nyWY=
-X-Gm-Gg: AZFdTZdMLGOCJXgr6Tq6kSlOS6wcPuFnaoVqOYYGw3oo9IX13gowe7YvbeLEGalhd5e
-	0rGGfABqtQ+cMka5t8HXOp+rCZ6dq534+sIavEhUd/OatoV3T4LnzMrvcH+aUCQ2/hB+Yks4U5f
-	J2IKQXddLYMPW8zGKRxBw/oejBV7GPo6U8CVvh8ey9H+mg9fXxy0OokibxJsmU6MwLjxqSeU1tx
-	II9XMBxJTyB+BpueM5F4eSsR0C0V5YzyfUZhR4pu+Gd8DPfD7xVT7/OhuYf2Eby0KgfnF9kwgY+
-	MGyhB30YOnTH61ZtgpSJyf9ujgY0PjZa9647pP/sLWkpgTk9IJc0qi9gvwkbbvwOEGBgrOqZLT+
-	BCHuMOVZxQf/ddvCmX0on7tI27FJ25regC1Q3A7GNCA5ZN96Qq7s3HgJOfsPF
-X-Received: by 2002:a05:6000:490f:b0:492:a72:9303 with SMTP id
- ffacd0b85a97d-4abb47b242fmr34560131f8f.22.1795612920985; Wed, 25 Nov 2026
- 05:22:00 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795612936; x=1796217736;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qPMs37yJl+YAr4oXShBJNSYAEEoxoF7Y2uLC74AOAcU=;
+        b=Exq82N9+BhIYmTtMjJwiOZmGP2zXJLEXwkLAd3lRrTJNfj5I+MWDz5G/FkJu7KV2RN
+         a/VzQMkFCmGqmhRlqjYpY3lv1tdjJGR0bZgQJTcgKu+bM5PZJMN8it+8clLm1Ljy1gwg
+         QFjq9MwmDJ4qQBvYarpqUEXGt8VZZIRT41gGk38J+S7SYhYdvlmsKAxwftggaJFwqYhz
+         1suKC/JpZXRahI6+XYOuonXZ3eDBw6Fp3BGEZ+KsxShRUknwQcYceRKiQDWjy8r9fbhG
+         aKya578lMyhUGrRWHUuHuzO8TGiq5mN7pnWQAGNZ2+seHQc9TNsO4jkEljospjrJLAqK
+         FPyA==
+X-Gm-Message-State: APuU4Z84Qv3JE3MaTV0f+DEp+YtLRLO6AvhUJXrlauDnxHo7U17wvFnM
+	UUUhCSUQFLhAVM9MMI9uq7onEw5lGzhMeDBiuQD7didocvwfpT9EzkPVuCs0Lw==
+X-Gm-Gg: AZFdTZe8J2itiGYjtYeB9kQw4jalXHzeAa99ZBorEkVB5vfqQ069fKSQtg/yM0lzPFC
+	MBpjvzRW/gaOaPIKBm6O1rGSspWeZQNwWjTuC7SfAuWGXo5AKg1/0D2c4h/T/MeWG8Sdjroq7rT
+	bq0QSlWYUQb5W0DEvQFsFX1p6/4iy3iZMcAUhKDdiDZ0lmyHDw3Vdt5bRmLgAAZbAcmdATQNe3G
+	Yk7U1qMDZiIqUETjnAr9KL3hhm782/SYzsKlbFPOB8eDCoNtdllrdYNvT4Y3gcY2Y70omOO9BbB
+	XpdiFTwxvyfUMzLSt8ELcA8CgEl57YY9DIshs01BSnq5S4KZK479agrFUbkWZSutS1sry04lyig
+	5dYmszToLFZgNOuLAvkEM4vz5070YSlOhZ6sOxvtGDg/JBmxXL7R9YNK6yH7sUeewJvMk8Z4G42
+	jnM9Wowr1km2vh10DCgoLqinLSUzZfsqYvLJTVjR/PZQKbNFOTfNKl1LWQ52b6IdBQk6q0A5HnX
+	/KFTE91sMLLP0Z5RIs4pME7tMwld8a1xM7qX3Kjo05x2JVGdpg+nzoqvT/hBFT2QY61UgQUeJXN
+	gyAGW77GPmzVtntm9AKmVWdskNUyuhRb+CrwvQQ5Rucp0Ptp8czOJkpYXn5AXvtF58oG54JHf9i
+	W+jNOrSi8XEj8QWC8K4aKkGoW8lVdiW9OKA==
+X-Received: by 2002:a17:90b:17cd:b0:3ab:884b:65a8 with SMTP id 98e67ed59e1d1-3b41c9032bfmr16062100a91.26.1795612935730;
+        Wed, 25 Nov 2026 05:22:15 -0800 (PST)
+Received: from v4bel.. ([211.209.222.29])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad48786sm27907278a91.9.2026.11.25.05.22.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 05:22:15 -0800 (PST)
+From: Hyunwoo Kim <imv4bel@gmail.com>
+To: stable@vger.kernel.org
+Cc: Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	imv4bel@gmail.com
+Subject: [PATCH 5.10.y 1/2] tcp: Do not allow buggy transitions between ehash and lhash2.
+Date: Wed, 25 Nov 2026 22:22:04 +0900
+Message-ID: <20261125132207.3346169-1-imv4bel@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,49 +96,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261125-upboard-pinctrl-add-intc1057-intc105e-support-v2-0-c8079f8f569f@gmail.com>
- <20261125-upboard-pinctrl-add-intc1057-intc105e-support-v2-4-c8079f8f569f@gmail.com>
- <awXJ3Ki8i9b-Kokp@ashevche-desk.local>
-In-Reply-To: <awXJ3Ki8i9b-Kokp@ashevche-desk.local>
-From: GaryWang <is0124@gmail.com>
-Date: Wed, 25 Nov 2026 21:21:49 +0800
-X-Gm-Features: Aa3M54p0xO3lEZyqglSCQSV8T77pe3-rwZ_B8_WgOtklEC3zCzvHR5oUtvb-Z6A
-Message-ID: <CANYHO6pSi9G9N38+mh5610XcHATV0otOr+6rJfiW=kNEyy5sVQ@mail.gmail.com>
-Subject: Re: [PATCH v2 4/5] pinctrl: upboard: fix I2C pinmux-select set CPLD
- GPIO OUT not function mode
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Thomas Richard <thomas.richard@bootlin.com>, 
-	Daniele Cleri <danielecleri@aaeon.eu>, JunYingLai <junyinglai@aaeon.com.tw>, 
-	Louis Chen <louischen@aaeon.com.tw>, BillyChou <BillyChou@aaeon.com.tw>, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 25, 2026 at 1:31=E2=80=AFAM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> On Wed, Nov 25, 2026 at 01:10:38AM +0800, Gary Wang wrote:
-> > The CPLD I2C pin mode setting through pinmux-select is not correct.
-> > Should be set UPBOARD_PIN_MODE_FUNCTION on AANT0F04 devices.
->
-> > CC: stable@vger.kernel.org
->
-> I already mentioned that it's better to use 'Cc: ...'.
-Noticed!
->
-> > Fixes: dca2f73cf19f ("pinctrl: Add pin controller driver for AAEON UP b=
-oards")
-> >
->
-> No blank lines in the tag block.
-OK.
->
-> > Signed-off-by: Gary Wang <is0124@gmail.com>
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+From: Kuniyuki Iwashima <kuniyu@google.com>
+
+[ Upstream commit 8cc3aef0cb198049805ecc061a2cc7b79b0ae43e ]
+
+The following state transitions have long been a playground for
+syzbot, and recently AI joined in, reporting a lot more bugs.
+
+  * listen() + shutdown() + connect()
+  * connect() + connect(AF_UNSPEC) + listen()
+
+All the fix attempts would add more code to the fast path, which
+is not worth it.
+
+Instead of playing whack-a-mole with these edge-case bugs,
+let's disallow these transitions.
+
+Note that unhashed_state is placed in the 4-byte hole after
+icsk_pmtu_cookie.
+
+  $ pahole -C inet_connection_sock vmlinux
+  struct inet_connection_sock {
+  ...
+	__u32                      icsk_pmtu_cookie;     /*  1208     4 */
+	unsigned char              unhashed_state;       /*  1212     1 */
+
+	/* XXX 3 bytes hole, try to pack */
+
+Reported-by: Kyle Zeng <kylebot@openai.com>
+Closes: https://lore.kernel.org/netdev/20260731140512.566464-1-david.lee@trailofbits.com/
+Reported-by: Michal Luczaj <mhal@rbox.co>
+Closes: https://lore.kernel.org/netdev/20260803-sockmap-lookup-tcp-leak-v2-0-306e025bfe66@rbox.co/
+Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+Closes: https://lore.kernel.org/netdev/20260824033331.1084971-1-imv4bel@gmail.com/
+Signed-off-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20260904033543.2635540-2-kuniyu@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ Hyunwoo Kim: Check __inet_hash() for IPv4 and IPv6 on 5.10.y;
+  record the state in __inet_unhash() after its locked
+  unhashed check. ]
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+---
+ include/net/inet_connection_sock.h |  1 +
+ net/ipv4/inet_connection_sock.c    |  1 +
+ net/ipv4/inet_hashtables.c         | 10 ++++++++++
+ 3 files changed, 12 insertions(+)
+
+diff --git a/include/net/inet_connection_sock.h b/include/net/inet_connection_sock.h
+index 2614ef5e922e..13534bf5d0d8 100644
+--- a/include/net/inet_connection_sock.h
++++ b/include/net/inet_connection_sock.h
+@@ -93,6 +93,7 @@ struct inet_connection_sock {
+ 	__u32                     icsk_rto_min;
+ 	__u32                     icsk_delack_max;
+ 	__u32			  icsk_pmtu_cookie;
++	unsigned char		  unhashed_state;
+ 	const struct tcp_congestion_ops *icsk_ca_ops;
+ 	const struct inet_connection_sock_af_ops *icsk_af_ops;
+ 	const struct tcp_ulp_ops  *icsk_ulp_ops;
+diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+index 3d5816a8894f..bef6c7bf25a5 100644
+--- a/net/ipv4/inet_connection_sock.c
++++ b/net/ipv4/inet_connection_sock.c
+@@ -870,6 +870,7 @@ struct sock *inet_csk_clone_lock(const struct sock *sk,
+ 		struct inet_connection_sock *newicsk = inet_csk(newsk);
+ 
+ 		newsk->sk_wait_pending = 0;
++		newicsk->unhashed_state = 0;
+ 		inet_sk_set_state(newsk, TCP_SYN_RECV);
+ 		newicsk->icsk_bind_hash = NULL;
+ 
+diff --git a/net/ipv4/inet_hashtables.c b/net/ipv4/inet_hashtables.c
+index ff5c972d7dea..3ca1a896ab0f 100644
+--- a/net/ipv4/inet_hashtables.c
++++ b/net/ipv4/inet_hashtables.c
+@@ -650,6 +650,11 @@ int __inet_hash(struct sock *sk, struct sock *osk)
+ 		return 0;
+ 	}
+ 	WARN_ON(!sk_unhashed(sk));
++
++	if (unlikely(inet_csk(sk)->unhashed_state &&
++		     inet_csk(sk)->unhashed_state != TCP_LISTEN))
++		return -EINVAL;
++
+ 	ilb = &hashinfo->listening_hash[inet_sk_listen_hashfn(sk)];
+ 
+ 	spin_lock(&ilb->lock);
+@@ -690,6 +695,8 @@ static void __inet_unhash(struct sock *sk, struct inet_listen_hashbucket *ilb)
+ 	if (sk_unhashed(sk))
+ 		return;
+ 
++	inet_csk(sk)->unhashed_state = sk->sk_state;
++
+ 	if (rcu_access_pointer(sk->sk_reuseport_cb))
+ 		reuseport_detach_sock(sk);
+ 	if (ilb) {
+@@ -758,6 +765,9 @@ int __inet_hash_connect(struct inet_timewait_death_row *death_row,
+ 	int l3mdev;
+ 	u32 index;
+ 
++	if (unlikely(inet_csk(sk)->unhashed_state == TCP_LISTEN))
++		return -EINVAL;
++
+ 	if (port) {
+ 		local_bh_disable();
+ 		ret = check_established(death_row, sk, port, NULL);
+-- 
+2.43.0
+
