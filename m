@@ -1,58 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795619182;
-	b=KRaGYaXeBDk3d964gS/NpYehOXG0CiOKQ2gHpF/Ahd8+XVGhDTj0IcmLwo65X6sUAvzv
-	 GsNSXPQv1zS/2QD0iOlSU0mApEWgNppPmtmS89ywIXMKBf6DyeFBeuAzk/EOssALTsT1w
-	 NvWaeMRtxCulhou9WCjZ4r68p9RUDs2R9OAe2I2P54NndPo92GSkxIm7Q9f9C0qhatQGA
-	 Pyfow9Fr555Ay0eTmZerhCi2Kv2K5Y6wWnoLTNCRA4wHD6NNPqrQW8TpQjaZI9YRDwtfS
-	 AznVFIPZXeB+l3mbMobFcuNK+JqS6ahfa+MVmtnoEqEcmXz+KRclTuD/2ZcSIBuJBdA==
+	t=1795619184;
+	b=iz8llx2NPEnQB9/kc189X03Y5+nQx/CqHey1S3ICeddZjklkju+RoRuM4DTwwkXVmFau
+	 G2hHgaxVqX5P4y90Rr/aVpmnU8A8QB4tdvB4cAK+4yEtxeb1Rv4g/FLEziRuvyXQJqBhM
+	 N3vSh1tTTpuMORLsjRtlH31M6I0EReG41FMaUMPyr+eyE4DuyQTIK78M4572pGeMIHpyV
+	 HaOO7eyCuDJEge5mMMzNqTxug5/uc/PKC+bFbBQPZhk1mrhEx4bFzovtzjEbn/i+LkmFE
+	 Tmk7O9POeUG87/0DN8in2llnbHReXCoS0GknNSyJaD8dMITKazyVcEynXwIbSM9X53Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795619182;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=hzVtzW4lNw0E0hsRp85pnWT/yk+yVR709OHCUWP8zYk=;
-	b=g2pufS91IByshzMHuk8IVb8AkO7N5Y1IkpS6NMTqTyycnqMsQ1WGZGvMXJ28wO4YjbLV
-	 R7qkzfbHumuN1sUoauOgEQDksBBOfsQmLCGlYPxXU2Pbmv6mFm/OI6atf6r5mqoUXiTqH
-	 kleoaaiSFR0cxbbORLya/82Rp0ZcHtUN829SZIYQdvpJVW9hFTFRTrDsPreMftlFTpvDn
-	 n8lcIdMFdcnPUghcQaq4msDbEbOu4zrcpERauPEByC9r/Rx6eYISe0LOcw2x8fO19FqKt
-	 wo7gzP9EET2TNITbVesVK1Gcbc+QKeM9CtuoDjx9M10cMEhkghJm0rRbYcKSycWdooA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795619184;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=h1Dg38/TSL1Kz/srxgh6JrLfoKzHJgYzjciASNJ0TVU=;
+	b=lOL+PcyJKvNEj814QDw6SmHN4w8kBJKqmUdMwHppz8PeKqCaLwHUn+9XDyAqDuzSGk8u
+	 bs2Yx3CA/wzjq1S+ojSlnuktL8tfRrLU2pnE2Ln1lxdfU7wPxlONvqRUG8RMPkkRHeO+i
+	 A2XtFZltyzuISLc9Gze4r0JyESfcYXaYLWnopFQdsKKQd0bv5P0d1HYuat+Z78LnUMfRf
+	 rHpANY1pr25wkF35aJLMwvD9l1JAdBMlRiIL+JpqlqrJpB3TqfbCVI1tbS8KsFVeVbyG0
+	 T6/3v+iMaGcbTpbQlekuMaelomdR5/cA1geE86Q/n/urlka6HXjsxnKifO63Z+ql/yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KZqxk8gA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0975606A321;
-	Wed, 25 Nov 2026 15:06:22 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=kIAXvQCU;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C7139606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:06:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7139606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KZqxk8gA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE0511F000C0;
-	Wed, 25 Nov 2026 15:06:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795619182;
-	bh=hzVtzW4lNw0E0hsRp85pnWT/yk+yVR709OHCUWP8zYk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KZqxk8gAPurGOvTx9Ab5YeqUgKC3WbWoRtr/7GqyGmKIfidFACeySlUtqEBNv5FIs
-	 RRSVWiQSyulItilljO/McGBszzXRQsBpe9Rml9O4JeNvIBvYjDHNmvUiX34v56/qQd
-	 +R69DZ/mHdvvSRqiKFxA/54g6woetUY5G0c4ZNDw=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	LiangCheng Wang <zaq14760@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0517/1005] ASoC: max98090: keep the MIC boost across mic input power-up
-Date: Wed, 25 Nov 2026 15:30:55 +0100
-Message-ID: <20261125143833.857100589@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=kIAXvQCU
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9ED122F;
+	Wed, 25 Nov 2026 07:06:19 -0800 (PST)
+Received: from raptor (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 814903F86F;
+	Wed, 25 Nov 2026 07:06:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795619182; bh=wUo/6Std2BwKt/SvSAaU1+xDTODBfj83yfrYwoa5q8E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=kIAXvQCUE7siDlFw4JkX+Gt3B2vGsHfg0yI6O7uuMaK+jEevJJGPzbCrngt4QeKcN
+	 d4h6QJkHo66G7qgOYORWqn2W3nOKRGcfsVmyGBdlAMg8S+3kGWTvvRtcg3rDtvC7GN
+	 oD/ecGYKBS72HKPl48elYjYielJa/agf3FBjh35E=
+Date: Wed, 25 Nov 2026 15:06:18 +0000
+From: Alexandru Elisei <alexandru.elisei@arm.com>
+To: Aveline Noir <jm5905938@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Mika =?utf-8?B?UGVudHRpbMOk?= <mpenttil@redhat.com>,
+	linux-mm@kvack.org, Ralph Campbell <rcampbell@nvidia.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+	Shuah Khan <shuah@kernel.org>, David Hildenbrand <david@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] lib/test_hmm: invalidate all mirrors on device-private
+ migration
+Message-ID: <awb5agUP80qz8iss@raptor>
+References: <bae41f6fc4114357a8a74c8b958f2bdc.1@linux-foundation.org>
+ <awbtZjtII9h1oJ5R@raptor>
+ <CANOyQmGPHrHAzVW70Q8T3AYtzFi3C7jCQdd-QW0rQCPEf=ycyw@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,108 +69,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CANOyQmGPHrHAzVW70Q8T3AYtzFi3C7jCQdd-QW0rQCPEf=ycyw@mail.gmail.com>
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+Hi,
 
-------------------
+On Thu, Nov 26, 2026 at 01:25:41AM +1100, Aveline Noir wrote:
+> Hi Alex
+> 
+> On Thu, Nov 26, 2026 at 1:15 AM Alexandru Elisei
+> <alexandru.elisei@arm.com> wrote:
+> 
+> > Might be something on my side? I'll investigate further, but I'm not very
+> > familiar with the code.
+> 
+> I reproduced the same 0 versus 523264 assertion on x86-64 when the separate
+> mm/hmm: account for subpage offsets in device-private PMDs fix was absent.
+> With that fix, the test passed. May you check whether it is in your test tree?
 
-From: LiangCheng Wang <zaq14760@gmail.com>
+Indeed, I didn't have the patch in my tree, now the test passes!
 
-[ Upstream commit 58d51fa6ff1d21e79c3c340bfb3155dfa3025ca3 ]
+Tested on a Radxa Orion O6 board (arm64 architecture):
 
-PA1EN/PA2EN select both the MIC1/MIC2 preamp enable and its gain
-(0 = off, 1 = 0 dB, 2 = +20 dB, 3 = +30 dB). "MICn Boost Volume" keeps
-the selected gain in max98090->pa1en/pa2en while the input is off, and
-max98090_micinput_event() writes it to the field when the "MICn Input"
-widget powers up.
+Tested-by: Alexandru Elisei <alexandru.elisei@arm.com>
 
-The event handler also reads the field back to keep the stored gain in
-sync ("Update for volatile"), but it does so on POST_PMU and POST_PMD.
-The widget drives PA1EN/PA2EN as a single enable bit, the low bit of
-the field, so at both points DAPM has just rewritten it:
-
-  - POST_PMU: DAPM has set the field to 1, so the read-back stores
-    0 dB and the handler then restores 0 dB.
-  - POST_PMD: DAPM has cleared the low bit, so a +30 dB (3) gain reads
-    back as +20 dB (2).
-
-As a result every capture starts at 0 dB: a boost set while the input is
-powered down, e.g. restored by alsactl or an audio HAL at boot, never
-takes effect, and one changed during capture is lost at the next
-power-up.
-
-Read the field back on PRE_PMD instead, while it still holds the active
-gain, and only restore the stored gain on POST_PMU.
-
-Tested on i.MX95 with a MAX98090 headset mic on MIC1, running NXP's
-6.18.38 vendor kernel (max98090_micinput_event() is the same as in
-mainline): with MIC1 Boost Volume set to 2 (+30 dB) before capture,
-register 0x10 reads 0x20 (0 dB) during capture without this change and
-0x60 (+30 dB) with it, and a boost changed during capture is kept for
-the next capture.
-
-Fixes: 685e42154dcf ("ASoC: Replace max98090 Device Driver")
-Signed-off-by: LiangCheng Wang <zaq14760@gmail.com>
-Link: https://patch.msgid.link/20261111-max98090-mic-boost-v1-1-20b9bd8816db@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/codecs/max98090.c | 22 ++++++++++++----------
- 1 file changed, 12 insertions(+), 10 deletions(-)
-
-diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
-index 64dc442e90663..696ea68e38f80 100644
---- a/sound/soc/codecs/max98090.c
-+++ b/sound/soc/codecs/max98090.c
-@@ -743,14 +743,6 @@ static int max98090_micinput_event(struct snd_soc_dapm_widget *w,
- 	else
- 		val = (val & M98090_MIC_PA2EN_MASK) >> M98090_MIC_PA2EN_SHIFT;
- 
--	if (val >= 1) {
--		if (w->reg == M98090_REG_MIC1_INPUT_LEVEL) {
--			max98090->pa1en = val - 1; /* Update for volatile */
--		} else {
--			max98090->pa2en = val - 1; /* Update for volatile */
--		}
--	}
--
- 	switch (event) {
- 	case SND_SOC_DAPM_POST_PMU:
- 		/* If turning on, set to most recently selected volume */
-@@ -759,6 +751,14 @@ static int max98090_micinput_event(struct snd_soc_dapm_widget *w,
- 		else
- 			val = max98090->pa2en + 1;
- 		break;
-+	case SND_SOC_DAPM_PRE_PMD:
-+		if (val >= 1) {
-+			if (w->reg == M98090_REG_MIC1_INPUT_LEVEL)
-+				max98090->pa1en = val - 1;
-+			else
-+				max98090->pa2en = val - 1;
-+		}
-+		return 0;
- 	case SND_SOC_DAPM_POST_PMD:
- 		/* If turning off, turn off */
- 		val = 0;
-@@ -1121,11 +1121,13 @@ static const struct snd_soc_dapm_widget max98090_dapm_widgets[] = {
- 
- 	SND_SOC_DAPM_PGA_E("MIC1 Input", M98090_REG_MIC1_INPUT_LEVEL,
- 		M98090_MIC_PA1EN_SHIFT, 0, NULL, 0, max98090_micinput_event,
--		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
-+		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD |
-+		SND_SOC_DAPM_POST_PMD),
- 
- 	SND_SOC_DAPM_PGA_E("MIC2 Input", M98090_REG_MIC2_INPUT_LEVEL,
- 		M98090_MIC_PA2EN_SHIFT, 0, NULL, 0, max98090_micinput_event,
--		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
-+		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD |
-+		SND_SOC_DAPM_POST_PMD),
- 
- 	SND_SOC_DAPM_MIXER("LINEA Mixer", SND_SOC_NOPM, 0, 0,
- 		&max98090_linea_mixer_controls[0],
--- 
-2.53.0
-
-
-
+Thanks,
+Alex
