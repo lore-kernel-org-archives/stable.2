@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603877;
-	b=ISM+tEhq8Yd+MfoRodOaxXlNzNVkArt6/XGqKhZ9sqnLWb0+O0+B88mn8N+CxrG2pBre
-	 dEIlcRQASkA5dFLrtFM55czAqPW1KPiR1Vnk5ca43oHxpPG5+WR+lD/OhZ1k/FQYY5ECo
-	 0TuGFefqj//FR/CM5YRMkbIN6Ov46uIsEHGpR7Q7bJ4MjHeNcTW/k/MNzkz5obgim1dPl
-	 B4MdmY9ZAHebQvyGgOS8uaPLcNa2cXDg3KsBqK+0V9okkVQhSfFzpg1rx4sDDJrbbxCOY
-	 YtWlsgP/mzEK9Lz72Sxuxa6VkVqtl8AVluZL7BW+S0bT1F5MjbnEbP6N0zNkQgam+dA==
+	t=1795603880;
+	b=dT6ZlzrngXXwwmeH7zfU7nb7MMoYi63b22stNzfkarnqOP879VWn/9quuhBgNDgyc20l
+	 uxS3h6zS32OuDSpiR2T29XbbfBgxn+TnnM8Hb5kt/4To3oXY79mDstcxtiaT+2n68ZkKC
+	 8OVbm3NPWKrQ0EM/JCykh4KdaIOHg7V1LMLnmaL0zdcjq/eTNfruvPI4lWKCmHmju8e9P
+	 ArrvMoP5pYQmbOwQtv87cZPWJs/REvSL/aM56Xa5H5X9eHf3j/yoUYJft7b+2LMh0UWAI
+	 zYraGHWddf5B0htFK6al+eR4aSt8swVMDkGd7eC1oOg+J6xsTh3HzGrd37IkfLvOtJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603877;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603880;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=rxl97en1mVdcQwfJsBEf7TV3n4JeHLU2n6rsU+Cxx1w=;
-	b=avx6VCveOlazEohMfXpE/NfHAwtOZrcjQgXYEoA2w/3Gk0sqJRM1pUXD2QPPS0UHBZL1
-	 geLXvTLqzlP4Y7WNvbvCm9jQC/H++wT4AfmkTXagnQkfkzlv3PQo2hACnGEnSKngdfq0W
-	 lBuYwaqix0yQHWrfNGVqGNkp85JcNpTlmxAjVQpztEuUWdLFU/ucNQSmrTz2hrciMsLJ0
-	 lM8cVaKbPn4HN/RueKtaHBEhK7tB8prBm6YHnzT2daM/0MS4Tg+raGBHZOk02AXkgRd4a
-	 VCk5exxL8Z9R0xvAcC4v3xycjCg20xmzb+y6khkzYPlQtSmQUiDdVcKOWN4gY0fQezA==
+	bh=uduc+gEwX/974Tljgf0QSm7qnQ+4GeXpHOuUK/XqxnE=;
+	b=03q9wUNrgnoqURIdqDhwRlA2eQ7uPkc30GJTzthBignmNyIYMNkNVJ21CYTaMum5l6N6
+	 JAS4rmMdWs6lnQgvGHsp46vu8GBBoPM+CMw7DE9r7KoG6sTFCzIEHUfKzNJUMAsQZPbSh
+	 7tIZnKj3vGF7iRea9XO8Tk3wFo4pwq338Q9yThLWwyeb6LEYM8nwIurUiZBmXwXc1nVqu
+	 eZPSqAIenb5XFpZSqM3+Bevwh8GuDCmPjeDVWFeUnIPQkY1J0ap1fm+GxupDF92w94OOB
+	 AfIW5Wm4l9aj3AC6uSNgeagDE3xM7aUBW40LZEZPmmpx6nGWBnqPYeck3KTLPyWULzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JzNVrdSy;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0qm7eBjQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0754C606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:51:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5DF606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:51:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JzNVrdSy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB0C11F000C4;
-	Wed, 25 Nov 2026 10:51:15 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0qm7eBjQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B1CA1F000C0;
+	Wed, 25 Nov 2026 10:51:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603876;
-	bh=rxl97en1mVdcQwfJsBEf7TV3n4JeHLU2n6rsU+Cxx1w=;
+	s=korg; t=1795603879;
+	bh=uduc+gEwX/974Tljgf0QSm7qnQ+4GeXpHOuUK/XqxnE=;
 	h=Subject:To:Cc:From:Date;
-	b=JzNVrdSyMl8SJM6LOrKFgh+rSRNXJynJSWXPYYl7NLM6d/S0mS4ASyBltmENV1Xz0
-	 SokEu7/b67KncdwW9Dy79vQG8MJ2pezeDZfQtKWy6MDynQctbKgb+yOs+68HWIDGA1
-	 ruEiM3+PnGgvzlNnGfRqlZWq0nyOa57ba2y8UzvM=
-Subject: FAILED: patch "[PATCH] tracing/probes: Reject array count on non-dereference string" failed to apply to 6.6-stable tree
+	b=0qm7eBjQno/eCWNbRl8YyjJKMgzfGyYcGQFpq4WOnvsdwzyprcqEU85iUSsvn96bX
+	 /u1c5togvikJiIbFqIzs5j31p3Em8djIpiGZNA2Mffx8AXP35TPNpoFM0DR9y/Vnav
+	 gt2y3PLJ8VIhS68E6ySb7dmf/KEJI1eLJmNDRUqU=
+Subject: FAILED: patch "[PATCH] tracing/probes: Reject array count on non-dereference string" failed to apply to 5.10-stable tree
 To: mhiramat@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:37:24 +0100
-Message-ID: <2026112523-sacrament-magenta-9e1e@gregkh>
+Date: Wed, 25 Nov 2026 11:37:25 +0100
+Message-ID: <2026112525-deflator-chunk-bba2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 0941144ebeaf3ce46c80711f00e935921eb28b21
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112523-sacrament-magenta-9e1e@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112525-deflator-chunk-bba2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
