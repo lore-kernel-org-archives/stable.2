@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795610792;
-	b=pS2Uovonz1HN/Sh8gDFW4HscfYlz7+ipp/pssZCAQD5RbHot4+mjSotvVHpkSTUMTRce
-	 gzbjI1yRKgh+0SiSrNPayw+rHGrA07qvsrAWlzJq5mYYWzeuQkpKEM2iLRYXooMMiFAyV
-	 KLzL0EeNjhmDvB+8oIGjtsQz2ITeTVJyWvYMY2axo15BDkOxvu+Wa6gt3eXaA2EG7twtZ
-	 X3Zz2/ExMu5w9KsCUUK8g4R3PaoGioWWtEN04a7jNdfiliJ/cNxTnGbN5LRRVAvNPiW2u
-	 DJgM6Usou+I0j2tsTHUlK+P52csMUbUNV8P8wCKndblwWTVSSnyPn5cZFFIupDzbpiA==
+	t=1795610796;
+	b=V1JNdGGQwvYAfwtQwOGe38yQ4gw/vvstDRQ+5XnzMnk6Qz53xLsogPGCGKk7a4PYg6ix
+	 8QP3LuNxqd9QNnfT97Mk/zcZaw9xqE9JAhZjzYWUG5GVveVLVEmIU4myx0D9IRsOG72/A
+	 jipK62bGG5zxqPu6ZieRSyhsmmglT39WoVT9z0bRq+jdY5Esp57axid0SM1Nk8A7OSOEK
+	 BjYvn40lKJuoUmodYgW/HAgmU48V6onwzF1X/DLu3GYBTavMcMMzWjQJeky4NygwuyRBr
+	 3IOD2hAZYWKatEIaW7GvDgI1U6xb7YM+U8bZ/Njep8aOr9I2bhMtuwqXEzgh+Rax0qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795610792;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795610796;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=KpTWxqb/XSJnRhaDAOMI0fK+AHJdTShdoAacQZSqxFc=;
-	b=5UNIYxv6abClUse6y5FwUpLX2jp7RcMtqmPtH6TT+7bAbCpEIUtNjrCR88ob1aIfijDP
-	 aY4bxeOi3TlUyFrTQMLZBqAflBLQs/bmXMW5L4llUxnDp15lauSxdp0i7/CNuKuCsqYsJ
-	 BgOqf24KD1RJS+j4AVN+XGk9G8gTauvfLPkLzUIxpSwMZAYvk/gKGaOAvP9HGO5aKOXTT
-	 jgIB6sTEdPxz2Yug1vY06/1dlfUk6IymgWpAnAwz9fjbSuwJnrp6Ok6zDp/I+0nQR50x+
-	 Ao/+0x0nziAHccGeT8y9m4tlPZOvdtXbXPtDcV0ixm7k+pdtSOi3d4du/XRcUhyHe1Q==
+	bh=pQkvEcri61Va9g3o+U47jX05FEcAIg9C4bvSSuxjOXA=;
+	b=oiu0RAjr2lyA3BpnhC6hHZUwf6FFTRccPLW9RDjKnOdOA40aMKu9dTmyWEEq1xdgm/HE
+	 Dfc4EryV3lwNUttrAnmx0iYd8bPFmbc1prQZJ6YufokW4sumRTjygItJHm7G1E7ZFtHKt
+	 w3fkIvepwrdH6MyY7rhc7/UKDOqnqvVzQbQTZR/BWRFxqyfENOtgK9PSeL8L+Yn16/Bz6
+	 7ChLNBBXVM2vNlY8D6HRXslpqN4U2zHC7lRSKlCkbNWemlr2+RvgNeDDrL3z4tDM0bshJ
+	 Rqjpct3zQSVKhiWaVE7EEn9+chXT9DkbH1Cm6YOJknJKsDsBxNHSuNI+JzyTfeNeIUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ESREMi1X;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=obF7+hXe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57CD606A334
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:46:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F501606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:46:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ESREMi1X
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23F651F000C6;
-	Wed, 25 Nov 2026 12:46:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=obF7+hXe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA8AD1F000D3;
+	Wed, 25 Nov 2026 12:46:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795610792;
-	bh=KpTWxqb/XSJnRhaDAOMI0fK+AHJdTShdoAacQZSqxFc=;
+	s=korg; t=1795610795;
+	bh=pQkvEcri61Va9g3o+U47jX05FEcAIg9C4bvSSuxjOXA=;
 	h=Subject:To:Cc:From:Date;
-	b=ESREMi1X10kpMj/q9TNFHqnYW5uHSgiZ7i5nw4RU73BiVifGe18a//5X+oprfB4RL
-	 w5bTialOeyCueV06t4grL29RaJCR1XtmnE571lR2mmtIjaSdIsE2Tfa/psEDfBGZVM
-	 ySoWYvbNSkrRo1h1RTUsxoFf6TVS77N8jOJWhBO4=
-Subject: FAILED: patch "[PATCH] iio: proximity: sx9500: ignore event config writes that don't" failed to apply to 6.12-stable tree
+	b=obF7+hXeTNtQ4iQrFY1VOBaKssLYOhxPLIOYPUAjO61SpT9EcdbGOY3kt7oF5Sn3H
+	 jrTxyds3XRrE/2+iRAo8wRRAO1VphlGse0vUYChnDEXWrXqqCC593smLzZsDCclLGS
+	 OeZx8KOJt8JY7bzozsQXyj78UgM92zHod9K82P+A=
+Subject: FAILED: patch "[PATCH] iio: proximity: sx9500: ignore event config writes that don't" failed to apply to 5.10-stable tree
 To: kapoorarnav43@gmail.com,jonathan.cameron@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 13:44:40 +0100
-Message-ID: <2026112540-drainpipe-glamorous-4154@gregkh>
+Date: Wed, 25 Nov 2026 13:44:41 +0100
+Message-ID: <2026112541-thursday-proud-9f04@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x b8ed9165906597b69a46fabf39ab41690721ebe8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112540-drainpipe-glamorous-4154@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112541-thursday-proud-9f04@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
