@@ -1,54 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=184.106.54.122
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795628598;
-	b=lBr2bH1XWU2OsZNbgAYHSI8II8QZiKm8lvtJEtOFyk8KozEIJ+lm1LRsgLZrOqAcketX
-	 d1KVY6Jny5/Z9+8nv1yMCl8vh37QvEiTiqP6XLld1KYVZVqMtuBf6XF8imJQk1QMyNxv4
-	 fM7sF48b+NWpmQNVB7XAOgfAL3ImlUfNwxvcAbiHH7b69yEubNZOWPGFTNxzjgF90ll5p
-	 oSepGx7gv7aFmHoz4ZKjVnFgNUwPmd4nkdv5dxJRRENgcZlAnbRPfKSaanQe/Oxz2mezl
-	 UpI3y/t/tyeSVMg8SCNEAxxUAS3coJpxpxvfKA9UOzYli/u8ct1XCi8jMrb531T8JDA==
+	t=1795628626;
+	b=f9FS8OjnnJv7zF8apKV6GrFXWFD7N07Y42Jkzt8TMgX2SkVPjjCmgFwLWqVL+36Mq1LH
+	 WRvfRXcoGfzvckeVBetAdxWPmo/y4bOO8xGfE0xNVj1PFaNuvjepOClmdW33K80sdNHC/
+	 zDR8SF0KBDm9V+eCGbsegp853lK3hhbsIshN7RZa2abcJmGxtTQfN54kRpS7Ue1EkQscp
+	 P6ukUG3uGQKdCUQlNRlBgXMWcuTEq0k1LXX0h1JZEjKPFVKVh+8Mnt+AasNtiDekfVCdH
+	 j36XVKanqi5UwPk2AzWdJOOuljvVa1fRHGd1dH8qJ4R+cCnmTMC20OSVQrmqf1VolpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795628598;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=MJL2DtF94FxZY9fvDdmfoldX2GX6/hBotVa7aFs77ag=;
-	b=x0EfzpdG3mbevCCoCU+otwz8c1G3VmWLebhevhaJpv8OAARl9HiW62XXAi9666E41Cy/
-	 QUZNdNiWey35FMJ5CejVHiSzz/vxLkeLUYeXA/NxonJksnkvNUiAPZCa/U5p4lRPwsctf
-	 NF98ld7Ha9KpFQ6jyBfk9g14wOd3t7VPfXBn8s7V4BajqbC0OcpL4Yn8PU7JRPZaBzudJ
-	 IwEd7V0xl6O93C/fOoWIlrKgnAPPCrQrV+RxVDHAJ7Q9KKX3IjdBiOjMFoP+IWoKlXRqk
-	 VK2cTNYTQ65D80ZzQVDInSbkibfzKoPw9M4R+bQvwC39xbaUqj0n4qhRGE1ZVSxfG8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795628626;
+	h=DMARC-Filter:DKIM-Signature:X-Auth-ID:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Classification-ID;
+	bh=wN1N5SmhhRahrFdLRLG52pXG9GXvItu29SbUHZK/ll0=;
+	b=1Ah48sBo02TRV8AZnmmEYzoKQY5BKMEYkULelMLr66gG4b1IcL74BPzgPeNRECKIj5IM
+	 BRx8wXNz/0fPc9deBtJkuV4Czrj0qYsq8inb8KiTfyaOav7JKQfss3zm9LbEqx0I6d0Tc
+	 1EilLA6Lv7bwTY1rq9oQVohvAvP5aNcskV827je4AsNNTwKwVQ2RAuy9N7Y20+D2G1Wov
+	 Vhri0VdCIO2UYDzjCy9deniLUaIA6kAi1D6UvwklJagM4tzyPkugSzbIy4i+iaMgdINGd
+	 H6DhDZWK2n+LndKXxBIZIkeglrLm2o9EjwQ32w2BTlcOCO/7N+0x6HUtwf6ft1WRzPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Pp/fT7Na";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=mev.co.uk;
+	spf=pass smtp.mailfrom=mev.co.uk;
+	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=Z149L8b4;
+	arc=none smtp.remote-ip=184.106.54.122
+Received: from smtp122.ord1d.emailsrvr.com (smtp122.ord1d.emailsrvr.com [184.106.54.122])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A9FA606A682
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:43:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE43C606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:43:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE43C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pp/fT7Na
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49BC61F000EC;
-	Wed, 25 Nov 2026 17:43:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795628597;
-	bh=MJL2DtF94FxZY9fvDdmfoldX2GX6/hBotVa7aFs77ag=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Pp/fT7NaJydDv8HazgCh+Nax6tLapQ51kaRNb2mv+yBv/nWsTITAXo3IAIu1mcpzY
-	 FRQZvwB5pelFCVGKiMjBF10ANvwCAf53ob3nG7aAkQLUTSflSObGmWn/aXfjSPkZj2
-	 Yc1kfWxPU3jwoMsXhulbWysqqVWcRMgrEprGJgsetJdcvoB8+UsC8mgXq7zFtpn426
-	 zg8BmWc1ZZB4j8K6gvnbb97AiGj9cBfzmClhd3UzvalrNQqlWXO5ktvxTF7/jsQ12G
-	 ApKiZTIxiApmpymi24grlpriGo5glLD37ggLdAQHkZu3vmQaaeBzivTBMkzXRo8DSw
-	 Im0Z+OP6L1OJQ==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=Z149L8b4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
+	s=20221208-6x11dpa4; t=1795628619;
+	bh=CbJBVlaa+xLVljF69QtXPkZrwPgsm7o1I7U08uOh1rk=;
+	h=From:To:Subject:Date:From;
+	b=Z149L8b4igbWWPb2GngBbTKqTccpGy5MQu5BgCP1HEdrSp+EcLH1pHO99ZNCsdpVg
+	 X3bdXVLiiAcAi1aaVImN9aT40Sk1CvX1HxUmY53qC0F+4C4y4TLHvNUkwRfI96qkFE
+	 lCulAy2l3wscp3RJeNDgzFPFbpNCasSJm4Gq1pTw=
+X-Auth-ID: abbotti@mev.co.uk
+Received: by smtp24.relay.ord1d.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id A0742A010E;
+	Wed, 25 Nov 2026 12:43:38 -0500 (EST)
+From: Ian Abbott <abbotti@mev.co.uk>
 To: stable@vger.kernel.org
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] kprobes: Switch ftrace ops when adding probe with post_handler
-Date: Wed, 25 Nov 2026 12:43:15 -0500
-Message-ID: <20261125174255.1021104-1-sashal@kernel.org>
+Cc: Ian Abbott <abbotti@mev.co.uk>,
+	stable <stable@kernel.org>,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH 6.18.y] comedi: comedi_bond: Fix leak of opened device references
+Date: Wed, 25 Nov 2026 17:43:22 +0000
+Message-ID: <20261125174322.735709-1-abbotti@mev.co.uk>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112528-barn-hardhat-f9d4@gregkh>
-References: <2026112528-barn-hardhat-f9d4@gregkh>
+In-Reply-To: <2026112537-rocklike-strive-9f66@gregkh>
+References: <2026112537-rocklike-strive-9f66@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,149 +64,99 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Classification-ID: bf344868-1fc6-4e71-81ae-b5b60c9852b8-1-1
 
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+commit fa0858523f07f8dd71d89b221f4422c3b8096d90 upstream.
 
-[ Upstream commit f60f98881b54b0cf36b61f41c91fbd93b76a2d9c ]
+bonding_attach() calls do_dev_config() to open other comedi devices
+specified by the user and tries to make use of them as part of the
+'bonding' device.  If it successfully opens the other device but cannot
+use it (either because it does not any subdevices of a type the
+'bonding' device can use, or because of some error that occurs while
+dealing with its subdevices) then it is left in the open state and the
+fact that it is open does not get recorded by the 'bonding' device, so
+the reference to the opened device gets lost.  Fix it by closing the
+opened device if it could not be bound to the 'bonding' device.
 
-When an ftrace-based kprobe is registered without a post_handler, it is
-armed using kprobe_ftrace_ops. If a second probe with a post_handler is
-subsequently registered at the same address, register_aggr_kprobe() sets
-ap->post_handler to aggr_post_handler, but leaves the probe armed using
-kprobe_ftrace_ops.
+To match previous behavior, if the opened device is unsuitable then
+ignore it (after closing it).  The opened devices recorded by the
+'bonding' device will eventually get closed by bonding_detach() even if
+bonding_attach() returns an error.
 
-When the probe is later disarmed or disabled, disarm_kprobe_ftrace()
-checks whether p->post_handler is non-NULL and attempts to disarm from
-kprobe_ipmodify_ops. This fails with -ENOENT, decrements
-kprobe_ipmodify_enabled below zero, leaves the probe armed on
-kprobe_ftrace_ops, and aborts unregistration, leading to a use-after-free
-if the probe module is unloaded.
-
-Switch the armed probe from kprobe_ftrace_ops to kprobe_ipmodify_ops in
-register_aggr_kprobe() outside of text_mutex and cpus_read_lock to avoid
-lockdep and deadlock issues when modifying ftrace code. Defer adding the
-new probe onto ap->list until the ftrace ops switch completes so that the
-new probe's handlers are not published prematurely while ap is still on
-kprobe_ftrace_ops, and mark ap disabled if rollback re-arming fails.
-Also restore ftrace ops registration and counter if ftrace_set_filter_ip()
-fails in __disarm_kprobe_ftrace().
-
-Link: https://lore.kernel.org/all/179440641120.328088.15542754095040659094.stgit@devnote2/
-
-Fixes: 5dd7caf0bdc5 ("kprobes: Skip clearing aggrprobe's post_handler in kprobe-on-ftrace case")
-Cc: stable@vger.kernel.org
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-[ sashal: Adapted to the older code by replacing scoped_guard(cpus_read_lock) with explicit cpus_read_lock()/unlock calls and dropping the kprobe_unused(ap) check in add_new_kprobe(), with the ftrace ops switch placed after the unlock. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 3cf840f65ad5 ("Staging: comedi: add comedi_bond driver")
+Cc: stable <stable@kernel.org>
+Reported-by: Wentao Liang <vulab@iscas.ac.cn>
+Link: https://lore.kernel.org/lkml/20261103063301.1025860-1-vulab@iscas.ac.cn
+Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
+Link: https://patch.msgid.link/20261103173610.89687-1-abbotti@mev.co.uk
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+(cherry picked from commit fa0858523f07f8dd71d89b221f4422c3b8096d90)
+Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
 ---
- kernel/kprobes.c | 53 ++++++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 44 insertions(+), 9 deletions(-)
+ drivers/comedi/drivers/comedi_bond.c | 24 +++++++++++++++++++-----
+ 1 file changed, 19 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-index 58c04d6d1b375..3ae0dd128bb9b 100644
---- a/kernel/kprobes.c
-+++ b/kernel/kprobes.c
-@@ -1123,9 +1123,14 @@ static int __disarm_kprobe_ftrace(struct kprobe *p, struct ftrace_ops *ops,
- 	(*cnt)--;
+diff --git a/drivers/comedi/drivers/comedi_bond.c b/drivers/comedi/drivers/comedi_bond.c
+index 78c39fa84177..076aecae2c77 100644
+--- a/drivers/comedi/drivers/comedi_bond.c
++++ b/drivers/comedi/drivers/comedi_bond.c
+@@ -182,7 +182,9 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
+ 		char file[sizeof("/dev/comediXXXXXX")];
+ 		int minor = it->options[i];
+ 		struct comedi_device *d;
+-		int sdev = -1, nchans;
++		int sdev = -1;
++		int nchans;
++		int nope = 1;
+ 		struct bonded_device *bdev;
+ 		struct bonded_device **devs;
  
- 	ret = ftrace_set_filter_ip(ops, (unsigned long)p->addr, 1, 0);
--	WARN_ONCE(ret < 0, "Failed to disarm kprobe-ftrace at %pS (error %d)\n",
--		  p->addr, ret);
--	return ret;
-+	if (WARN_ONCE(ret < 0, "Failed to disarm kprobe-ftrace at %pS (error %d)\n",
-+		      p->addr, ret)) {
-+		if (*cnt == 0)
-+			register_ftrace_function(ops);
-+		(*cnt)++;
-+		return ret;
-+	}
-+	return 0;
- }
+@@ -221,11 +223,14 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
+ 				dev_err(dev->class_dev,
+ 					"comedi_get_n_channels() returned %d on minor %u subdev %d!\n",
+ 					nchans, minor, sdev);
+-				return -EINVAL;
++				nope = -EINVAL;
++				break;
+ 			}
+ 			bdev = kmalloc(sizeof(*bdev), GFP_KERNEL);
+-			if (!bdev)
+-				return -ENOMEM;
++			if (!bdev) {
++				nope = -ENOMEM;
++				break;
++			}
  
- static int disarm_kprobe_ftrace(struct kprobe *p)
-@@ -1255,16 +1260,12 @@ void kprobe_busy_end(void)
- }
- 
- /* Add the new probe to 'ap->list'. */
--static int add_new_kprobe(struct kprobe *ap, struct kprobe *p)
-+static void add_new_kprobe(struct kprobe *ap, struct kprobe *p)
- {
- 	if (p->post_handler)
- 		unoptimize_kprobe(ap, true);	/* Fall back to normal kprobe */
- 
- 	list_add_rcu(&p->list, &ap->list);
--	if (p->post_handler && !ap->post_handler)
--		ap->post_handler = aggr_post_handler;
--
--	return 0;
- }
- 
- /*
-@@ -1297,6 +1298,8 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
- {
- 	int ret = 0;
- 	struct kprobe *ap = orig_p;
-+	bool reset_post_handler = false;
-+	bool ftrace_switch_ops = false;
- 
- 	cpus_read_lock();
- 
-@@ -1346,15 +1349,45 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
- 			    | KPROBE_FLAG_DISABLED;
+ 			bdev->dev = d;
+ 			bdev->minor = minor;
+@@ -246,10 +251,12 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
+ 				dev_err(dev->class_dev,
+ 					"Could not allocate memory. Out of memory?\n");
+ 				kfree(bdev);
+-				return -ENOMEM;
++				nope = -ENOMEM;
++				break;
+ 			}
+ 			devpriv->devs = devs;
+ 			devpriv->devs[devpriv->ndevs++] = bdev;
++			nope = 0;	/* keeps the device open */
+ 			{
+ 				/* Append dev:subdev to devpriv->name */
+ 				char buf[20];
+@@ -260,6 +267,13 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
+ 					sizeof(devpriv->name));
+ 			}
+ 		}
++
++		if (nope) {
++			/* Opened device cannot be used, so close it. */
++			comedi_close(d);
++			if (nope < 0)
++				return nope;
++		}
  	}
  
-+	if (p->post_handler && !ap->post_handler) {
-+		reset_post_handler = true;
-+		if (kprobe_ftrace(ap) && !kprobes_all_disarmed &&
-+		    !kprobe_disabled(ap))
-+			ftrace_switch_ops = true;
-+		else
-+			ap->post_handler = aggr_post_handler;
-+	}
-+
- 	/* Copy the insn slot of 'p' to 'ap'. */
- 	copy_kprobe(ap, p);
--	ret = add_new_kprobe(ap, p);
-+	if (!ftrace_switch_ops)
-+		add_new_kprobe(ap, p);
- 
- out:
- 	mutex_unlock(&text_mutex);
- 	jump_label_unlock();
- 	cpus_read_unlock();
- 
-+	if (ret == 0 && ftrace_switch_ops) {
-+		/*
-+		 * Must switch ftrace ops outside of text_mutex and cpus_read_lock
-+		 * to prevent deadlocks when ftrace code modification acquires text_mutex.
-+		 */
-+		ret = disarm_kprobe_ftrace(ap);
-+		if (ret)
-+			return ret;
-+
-+		ap->post_handler = aggr_post_handler;
-+		ret = arm_kprobe_ftrace(ap);
-+		if (ret) {
-+			ap->post_handler = NULL;
-+			if (arm_kprobe_ftrace(ap))
-+				ap->flags |= KPROBE_FLAG_DISABLED;
-+			return ret;
-+		}
-+		add_new_kprobe(ap, p);
-+	}
-+
- 	if (ret == 0 && kprobe_disabled(ap) && !kprobe_disabled(p)) {
- 		ap->flags &= ~KPROBE_FLAG_DISABLED;
- 		if (!kprobes_all_disarmed) {
-@@ -1362,6 +1395,8 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
- 			ret = arm_kprobe(ap);
- 			if (ret) {
- 				ap->flags |= KPROBE_FLAG_DISABLED;
-+				if (reset_post_handler)
-+					ap->post_handler = NULL;
- 				list_del_rcu(&p->list);
- 				synchronize_rcu();
- 			}
+ 	if (!devpriv->nchans) {
 -- 
 2.53.0
 
