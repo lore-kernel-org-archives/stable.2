@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795601651;
-	b=PZJOsl4+s+fYq4ohCxnIXONr+VIXJ3KovJZcr465qRdrmcw2uNZBzegMe6ZikGDOWwpi
-	 4eDIq28rff8CWyxZ3PDkIDHEuqVQ+RmeItbq7BeYsJnOYs0FnWj7i1/DxdflM41r9gr6o
-	 knR3CkY2b4P4dZI0gxd13Fp1O6D/nKJwHaIXRtWDV6wfmkUa/29ZvjpRdFhNRJI1wP2Cb
-	 H/f9LVN4yVUnIwYve8EOLbgExcIsdLKlPTSNxUUnG84Ke4wWgsG9pMORZWy2hMVLbkl9s
-	 SCbYROpghB0uv+hbfo8Ps4umDxiJ08j/6QrYnKr1VQ4XrTxqHw5MqFqdSYNlLVTk73Q==
+	t=1795601654;
+	b=4UnwsL5Qqbb59WjqJ62Bzaygw1CtcMHAqZuwfR+U8zbhggeb9dkIrpM3rINNWgzeaAzs
+	 diuccgM6bOOtYXJEGVeh0iPuyCSrjw4hLreDy79A1QskFfv4924/PoiAPMPCUQIfy6RFN
+	 lWZ3uZc87CHRlzaMgg+2/Y1eDQWjGoDEsfw/VSr5P3EocPBzQjaRx9mRqrO+dbBP66RHz
+	 TwRDaLpzaUd16NoLj93yIbimExuXOf+pAVbiHsJr5TRRKiivVbvvKEa3OLs9HZFqY0/wj
+	 PuSMFl3Gy7Zz+q0BEZWPKfw54/bYIF7i+/ak6IBTntbhn22Oq2wnWjVflH9lWgiN5vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795601651;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795601654;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5m3oRkCLeF4hoiOe2g1uG7f0R8s+b3cdAKO/xc/nLO0=;
-	b=GzKe3LlsqDkXr/9g/dumThDxgIVvr4mh6YqOpgA6ZdfB/5ZZ3V2pWv1ugza1pomlkFV6
-	 stDbuRhzDsV53orLLV87LHmg/0R/r/Q1p/9MRsAnrUDOkshOF51kN9f7lZSO6qocTtJqV
-	 EdmTscJutfyZo8C+VV7l3F56aCXPcDZheI8Zb0jaScR6qfDDK0dWoo1UFhTd/TH7YZ1B/
-	 HtVw+H4sZm6Q81Zpq86BAsxpOMW550rprecVXgFPhdRHhnXTSqMtkiADY0ltGf/WWjQJx
-	 M/nwEp3Vz6M7XAetY/ALnuih8ggF2xtF08OyQhB9I/DzoKqpaWniBL5vXgr6hHT5J2Q==
+	bh=Nk7eSaVQXUTUDYEHaglK3mfXfvrAJu6lbVP+UTIWVLs=;
+	b=Flk3XP0fLhODixcxFJxojNf9fouXSy4/5Y//gR13S41kEjPLoBey6SSex/vdZx+ZEvPn
+	 0a+XwYpJCcdJG9lc7o/RsOygEdV1E8g/2Ynz4JCJMkoiHza9xa2q3FnryABvW+8fbBd5e
+	 WatdqQVZppi4M3esAS5EE3OhPR8BrYmebdLwHYL1M3PKeQg6cTelq6tuCxIu1APIvShJC
+	 G53Gkbe37+flwwWmUngetrjQ0o3oxM+tq6Gyim+1UTTZpcAu7622fMqFRBE3e6UopQc+E
+	 H1nAxYg7pbuPvHgBT6udtHxYtUMrOJblO3tLNpCxFWLQ9Wc45TNQ5s3FWyqLmSqnsjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MQkcn9Tv;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SrT9oTLH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB6B1606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:14:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A307606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:14:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MQkcn9Tv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295CC1F000CF;
-	Wed, 25 Nov 2026 10:14:09 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SrT9oTLH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 202091F000CA;
+	Wed, 25 Nov 2026 10:14:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795601650;
-	bh=5m3oRkCLeF4hoiOe2g1uG7f0R8s+b3cdAKO/xc/nLO0=;
+	s=korg; t=1795601653;
+	bh=Nk7eSaVQXUTUDYEHaglK3mfXfvrAJu6lbVP+UTIWVLs=;
 	h=Subject:To:Cc:From:Date;
-	b=MQkcn9TvAKD8RL/ynFsjiGeL8cUFupWm+AxEvhyZPCS/9o/kRHAl+Zv6vrL8XHArC
-	 UYjPXM09eVrCdnxE46em10WbdQ/BmNsZyRgfeZpCRqEgi+jA7x2J8pwV/YAqwYc4ao
-	 VmN8poLDmqLnF7RY4mw58H31T1iolL4+01KdjnsE=
-Subject: FAILED: patch "[PATCH] pNFS: avoid repeatedly cancelling I/O for the same lseg" failed to apply to 6.1-stable tree
+	b=SrT9oTLHbgKbHMdeJcMUs3xovF9td14hecwYvPTfry1x+wrtZJVWk15qZIUuuYzZk
+	 99rNVVvJAdThOwgp+d7fR91gEd3TJn05XQPUkTD5gdLbAA4we6Ra2rGjTH1Lv0L3U0
+	 HWtLh2a5UsiKfAEVjX8R8JynsijODS02QsBpaISk=
+Subject: FAILED: patch "[PATCH] pNFS: avoid repeatedly cancelling I/O for the same lseg" failed to apply to 6.6-stable tree
 To: tmenninger@everpuredata.com,anna.schumaker@hammerspace.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:11:59 +0100
-Message-ID: <2026112559-dairy-rocklike-b00b@gregkh>
+Message-ID: <2026112558-pacific-polka-65e6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 9e28836b480c66cca4c3d391177f5b3a50927f7d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112559-dairy-rocklike-b00b@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112558-pacific-polka-65e6@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
