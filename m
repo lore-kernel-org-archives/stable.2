@@ -1,96 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795637662;
-	b=ERiA4OBLm0PqGbFXym6SN/s6TLYGfQ8uNTWks+YIrX27+obwgcVq/zZujDy4RCzCDARB
-	 tbVf6jiowhTAOCCVtvqKZED0woHJT7QZnH1FM7ULkXN/dRxImlRtIfnAidTiL+644HvSu
-	 pslUEj7481TbGNT3TV5Ltcw0HLg8Tj9+uTdQoCqbZ82bzZ2QPPH3S3lCyQDnUL/O/D9JD
-	 UHRPogwWIW91AtPy//A9aWOr7sNFORrOQ1d6FmkNhpr8mtuRaHU8FZ4SUe0IIZABSWV+X
-	 NmJ8y0O2Xn6Y+ANooIOMSfTQBCia4u7ngdnpknyElFeMrQf7b0PfNpL6E+7tXO8eIlA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795637662;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:MIME-Version:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Content-Type;
-	bh=4gJ2nfJNNsnooY22Q28oVKhV+c39iAo3Qrs/5iBNEqU=;
-	b=5DXiq9fN+yI8EuoVYAtv+8q8AwUOT2QHv/X1tG9sBrLOgDA/QLn6xht9AsigQJALUizX
-	 WEM3KKX9m6eVXQoY42vGSNJMmBOZlGXE3D39A3JzNRnneunEvsmHzsYruuSVCow3EAvON
-	 7te2JwVkQdmG1T/cwxx3jW665hfig/Oxv7uEb1TFRHFUnj6eVw69BuZ91BRsY68VyJPu6
-	 TJ1ZI6UcQJnZnWChk9eRXijo41hHW6NeWGC41mnmCjFGCBVsJQ9z/p0wd8tq0SSevKB23
-	 C/plVb6DI+kMZpSR9Y1w4AbIJPsHUjkXDLIecTbDCqCiQOoNVXLgVsrK1EcLPBCtA8w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=certik.com;
-	spf=pass smtp.mailfrom=certik.com;
-	dkim=pass header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=Gkgsw+go;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.42
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795637693;
+	b=hf43ZggIUup9LHTe/ZvSSPooIfHW575COzj1Mvr+QmIqil6qzhHPhQ7ES2aU08YxUkJ5
+	 pGfBak3YGaJGZJIEoi86EG+MqUG/h6MkyqXik018vAcW5inVRh3IWuIz2wC8jzOCNKU/7
+	 paqyGJEr8+kkF65sIovxft1zHNEGShqWIy5kA2eji80lQMbI80WQJ1Mw+PZJtnxDS/Qlj
+	 jBKiz26YPtSd96l7EFx3dqTfraP7aPKHeYEv00ItxqUgPDgvjkbzi2XSZWR869/bXNyjF
+	 FAqKVgMKFpdkUPH3Dt9Yb2MFpNNcyoU4pEoVRcchWULz9b/ik6vtdh/kGyCWEhy8M4A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795637693;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=9hKjXpijeIjIV9X5s801DWxfKdNOYtGDnK7KX1EcI+4=;
+	b=YicoNcr0o1jYs3avMxYRKkrHlJiw9Ge77uHH0Bl2kmATNfjx8RGqiYcSFcqK0ejcNMKT
+	 FLuBzCmMYbOlOs0z0KDXyZki6566uobVugkQ7bgav8Ks5DiUFdUMeXBucVrmHaKihs6Jg
+	 cVNrK+4VE91mw4f2LsRe2lA0bKJqMbXzZ/pzmGzwfqd0Xcjupu8YgFdz1PyPzIfcO23Fp
+	 +77HROUPSnPKlcRoh6w+NQthjSqiFzRVy1YDtsAXJBj5+bpBGelO707unmsFPWhHIXflA
+	 pW6JOVsN8e7KbarRJGuhqe+sKKRi8kEpcoYhxN3q9wHAwGKWzgNrPXdhfq5XVH4lc5w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ByX828PS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC633606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:14:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC633606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=certik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=certik.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CE3606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:14:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=Gkgsw+go
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-6798eb0d190so5200689d50.3
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:14:21 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795637661; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iGtv4/oX7z48KHBlStOhfQ9/2PyDCQnKO9VZ3Z1uCPqfAYzD3dLbcCYP8VSeP/acWm
-         ihPfMBvYpcOh2i4hnZPZcuWZM6oVuA7KeUhivG8T+Tv9BlaVvqGtNCAMk+Y/X3xUu0Ps
-         JOTrIUNGeobzA7tg6nxhxcrsyTfhlsV0tCvJNsOqcG+P4g3vQ1yPDy2vJAs2t5zj/xcX
-         p94Qvom0cDxW6jwPOScu8hRNR49DsWOWtucDzKc7mFtm9gCpPPu1+o2D6NBMeTvKfqTM
-         hqgTH5edSVvdhJ2saEgdgC/o9+fSMVoeap2bng6JaHtMVJRnJX5uASyL643ZP7Gff/ss
-         vvDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=4gJ2nfJNNsnooY22Q28oVKhV+c39iAo3Qrs/5iBNEqU=;
-        fh=RvEWwL4CdzthXqFPrJY1v5EhszSUJtREhzms1oh7XMQ=;
-        b=HojG9HamG383OoZIyauBK9p8SvLb52f/+MZ2qZjIzPmLyrydkpS32ajjHrk6dfFjH0
-         5x/bd8O6CisI1JORO9i8ukH7Imh/DODBwcbwF3iKCbrTDlRNOrP30J7JEez6fV4FPQkq
-         VQOBjcNHvGjnFhzlH+FO3Zfc0GRtyMSqyCuqRpacxDwNh+A5PgI9V44n6Ht2bQpimXAa
-         1nPB0ni9AdxnqOSsKelaaG2UWJjMQ1wWydep/9JrMyINUw6FKaMiMHGeSgZ/lMMCfhe4
-         VIQJMWrJPBS+KyhtT290oWvE0q0peohuXGshBtSYre8PgPEpJY+A6gayXTad4VFH8E28
-         TqhQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=certik.com; s=google; t=1795637661; x=1796242461; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:mime-version:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=4gJ2nfJNNsnooY22Q28oVKhV+c39iAo3Qrs/5iBNEqU=;
-        b=Gkgsw+goLS295pDfcxAmuVyGpIw3rtGcfpzbiE01K4tvRBZGNtS6zE3N/gOcabBL+l
-         ZdtPY5/GyZU9EymflsYDc+JzyibFqWddbZ2LZv/s8+uU6ohBa7t8YWnFDp9BnsKcP9ps
-         EddsGv+rXbEowk1Rwurcz/RkoZiexhBECXpaE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795637661; x=1796242461;
-        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4gJ2nfJNNsnooY22Q28oVKhV+c39iAo3Qrs/5iBNEqU=;
-        b=uaIyAHthPrMn+Vt8vSM6O7WeCAI9Fip9TecSucWVlXKBZF+0DQgLeXJ5Dr/ZWg/tii
-         kMZoUgCDLUft+t0iX5sWKtsGEdpGUOvYt+4eJRQFQCz7H6Yun9pR3WIVXY/cHjUUKTP6
-         3FMhbAm94Cs3yLlKimqWsF4YGWNCrL6mmD6rSqa5fi5OG7PNkauZe/XLUA+cYweDrQfa
-         hoH0+1xwggautkJ/3t81pSFeEI7t0HQDaswd/Y4jv0LYy/6gYoixlYPpKAoo9VMq/LCn
-         e1o5WUFDty4Cz6JVmoFYQ5S6OiQDZTxdVMGVER+x4j5wOUBFMYniiaLRes7qAPruZDz2
-         YkKQ==
-X-Gm-Message-State: APuU4Z8rkSjYulpv/4wguGH3b/+D7nBjCaiS3poh3gB/SO8hXfJInCqd
-	GScfE1/TNUMJmdDJtA4Vvu8n01vkbuqmoiVil+MIYdZkj2bulfIImC+ETfLY+ATuVKble1Ix52M
-	sYkBHhYi3cSfk51s2sw1reLigfCzUpLR+k2CQtHMR2WuQ6Enq71XSWoQ=
-X-Gm-Gg: AZFdTZfAZ//iGuf3tS/sqPO7ua/jK8UttqdL9ixPHAv1J9jUgmLUnSzhfh9Kitle2WL
-	OHJykiCJieEpTLp0fXj6L64aqGgmyGFzWMSI9Pmrqa3wl+Ch8NqTEZ9oHHCfj5aVG4+nvdeRDkE
-	95SkKmdcLO3O0MT9Yjk28d/Lbi7GQHrX/X6P9dLGtGoy1EFPrJa/2qVfPHvLlLMlQ8kiXMDq6TT
-	I1V0fLbCqsRKoUWPZmrjjMFBpw5Y6uPVgZp293Ey8RtJ2PwVfhnrMAjVYCiZ2+kjI84YfvprWkp
-	Is6pcoN7kAOb6ozQ42Y+pHQfWp55Qu6zMnAnvDZ6YRUymZ2OO+oZ6vMD87cLHxjGDzg1MjkMNuv
-	657rralzmtxBGuVpel80Oj8VpO58gGB4NMVcOvnwyr6jC/H4RrrpV1aFBpdEJX31SBtG/haPFNd
-	u9WkpD5J3Zep70h3HCIYRxQef/GNdVPAikBmeRgd4/IY2RJTW2vpQbHA+dK58I5FMWGG/n2HdST
-	Ce8o4l74hbUeiB+rLXf4/grFQSQXx43qKXa1VFK0VOpXc3kUOWY5Pq6O1M=
-X-Received: by 2002:a05:690e:a4f:b0:679:b50e:9a with SMTP id
- 956f58d0204a3-67df44b21b9mr8433040d50.108.1795637660681; Wed, 25 Nov 2026
- 12:14:20 -0800 (PST)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 25 Nov 2026 12:14:19 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ByX828PS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93BC91F000CA;
+	Wed, 25 Nov 2026 20:14:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795637692;
+	bh=9hKjXpijeIjIV9X5s801DWxfKdNOYtGDnK7KX1EcI+4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ByX828PShgfXJVoGqv7IkzBGx8VyyRvBGNGk/6ahbhWEs3p8aNb7aa6lArMx/GPsq
+	 KLpgoGNxldIriVPPQT0XCQmfFNIpbSMjVlMKXp3B9tgjFvvY7TMbYByB7iMhVTJIgw
+	 5FMvttPMPeIyU4YihFPMkPDGAhHVj5ViH3R4jFTmLRsfA8EWqutfLf2P1qadpXjFtg
+	 CHfVE5ptfVe6x7Z37s/bvFIlekjZpR7w+z0zNHoFPml/BtfCCaunZ5Dg3GZR8i2aFv
+	 6/wBw8L4JQ4FAilLrRHWXJPkLdIxCyo7tFyIbdG2JYaP7PKp12Hk95prfnMyrgH6WZ
+	 DKOmNtTVaGW+Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ian Bridges <icb@fastmail.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] ksmbd: skip metadata-only opens in sharing checks
+Date: Wed, 25 Nov 2026 15:14:50 -0500
+Message-ID: <20261125201430.1399021-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112535-multitask-canon-efb2@gregkh>
+References: <2026112535-multitask-canon-efb2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,61 +59,220 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Dickson Wu <dickson.wu@certik.com>
-Date: Wed, 25 Nov 2026 12:14:19 -0800
-X-Gm-Features: Aa3M54oJ-VJLCCgS-5ZIIEuvMz2GEgSHdsYR13vhxGESAPOauVpoeB1_2atbS-o
-Message-ID: <CAFaZ9eqzNSgQejze-paRJ720iMQpNA=0HCXB6YOgfK+c7YBfRw@mail.gmail.com>
-Subject: Request: security fixes for 6.1.y, 6.6.y and 6.12.y
-To: stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Greg and Sasha,
+From: Ian Bridges <icb@fastmail.org>
 
-Could you please queue these upstream commits for the trees below? They're
-security fixes, plus two prerequisites, that newer branches already have.
-Each applies cleanly to the current branch tip.
+[ Upstream commit 81fefb6c635489e71e286d1465b6dd1d0a27ceec ]
 
-6.1.y:
-- 7a6d793e9ca8 ("Bluetooth: hci_h5: Add ability to allocate memory for
-private data")
-- de4e88ec58c4 ("Bluetooth: btrtl: fix out of bounds memory access")
-  CVE-2024-26890. The first is the prerequisite: on 6.1 the H5 device is
-  registered with no private area, and btrtl_initialize() writes struct
-  btrealtek_data through that private pointer. 6.6.y took the same pair.
-- 0460253913e5 ("NFSv4: nfs4_do_open() is incorrectly triggering state
-recovery")
-  6.1.y already has 7813adb38c88 ("nfs: use nfsi->rwsem to protect
-  traversal of the file lock list"), and the upstream message of that fix
-  says it relies on this commit draining the session slots before reclaim.
-- 87cd6b717e40 ("net: ipv6: keep room for the mac header in dst_dev_overhead()")
-  CVE-2026-98570.
+A READ_CONTROL open without sharing can block later reads, writes and
+deletes even though it holds no data, execute or delete access.
 
-6.6.y:
-- c88c150a467f ("nfsd: fix possible badness in FREE_STATEID")
-  CVE-2024-50043.
-- e8d97c270cb4 ("media: verisilicon: Fix kernel panic due to
-__initconst misuse")
-  CVE-2026-31573.
-- 167e54c703cc ("rds: tcp: unregister sysctl before tearing down listen socket")
-  CVE-2026-68290.
-- 87cd6b717e40 ("net: ipv6: keep room for the mac header in dst_dev_overhead()")
-  CVE-2026-98570.
+Keep the existing attribute-only exception. For other pairs, require
+both effective access masks to hold one of those rights. MS-FSA
+2.1.5.1.2 grants FILE_WRITE_DATA when an open overwrites a file or
+stream, or creates a named stream on an existing file. Use that granted
+access for sharing checks while keeping the requested access on the
+returned handle.
 
-6.12.y:
-- 87cd6b717e40 ("net: ipv6: keep room for the mac header in dst_dev_overhead()")
-  CVE-2026-98570.
+The Time Machine AFP_AfpInfo synthesis keeps its requested access.
+ksmbd implements FILE_SUPERSEDE by truncating the file, so count it as
+a write.
 
-87cd6b717e40 is already in queue-6.18. 5.15.y and 5.10.y also have the
-rpl_iptunnel commit it fixes and it applies there, but I only tested 6.1,
-6.6 and 6.12.
+This also prevents an overwrite from truncating a file while another
+open that holds data, execute or delete access does not share writing.
 
-Testing, on v6.1.193, v6.6.163 and v6.12.119: cherry-picked onto the
-branch tip, W=1 build of the touched objects before and after with no new
-warnings, and x86_64 defconfig with the relevant options enabled, built and
-booted under QEMU/KVM. I didn't run targeted runtime tests for these paths.
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: Adapted paths and APIs to the older tree (user_ns instead of idmap, older locking and path helpers) and adjusted hunk context for features that are absent there. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/ksmbd/smb2pdu.c    | 30 ++++++++++++++++++++++--------
+ fs/ksmbd/smb_common.c | 34 +++++++++++++++++++++++++++++++++-
+ fs/ksmbd/smb_common.h |  5 +++++
+ fs/ksmbd/vfs_cache.h  |  2 ++
+ 4 files changed, 62 insertions(+), 9 deletions(-)
 
-The list and the test runs were prepared with AI coding tools (OpenAI Codex
-agents, with review by Claude).
+diff --git a/fs/ksmbd/smb2pdu.c b/fs/ksmbd/smb2pdu.c
+index bb4695b61ec39..cdc3d46f44f37 100644
+--- a/fs/ksmbd/smb2pdu.c
++++ b/fs/ksmbd/smb2pdu.c
+@@ -2511,7 +2511,8 @@ static int smb2_set_ea(struct smb2_ea_info *eabuf, unsigned int buf_len,
+ 
+ static noinline int smb2_set_stream_name_xattr(const struct path *path,
+ 					       struct ksmbd_file *fp,
+-					       char *stream_name, int s_type)
++					       char *stream_name, int s_type,
++					       bool *created)
+ {
+ 	struct user_namespace *user_ns = mnt_user_ns(path->mnt);
+ 	size_t xattr_stream_size;
+@@ -2549,6 +2550,8 @@ static noinline int smb2_set_stream_name_xattr(const struct path *path,
+ 	rc = ksmbd_vfs_setxattr(user_ns, path, xattr_stream_name, NULL, 0, 0, false);
+ 	if (rc < 0)
+ 		pr_err("Failed to store XATTR stream name :%d\n", rc);
++	else
++		*created = true;
+ 	return 0;
+ }
+ 
+@@ -2784,6 +2787,7 @@ int smb2_open(struct ksmbd_work *work)
+ 	char *name = NULL;
+ 	char *stream_name = NULL;
+ 	bool file_present = false, created = false, already_permitted = false;
++	bool stream_created = false;
+ 	int share_ret, need_truncate = 0;
+ 	u64 time;
+ 	umode_t posix_mode = 0;
+@@ -3305,7 +3309,8 @@ int smb2_open(struct ksmbd_work *work)
+ 		rc = smb2_set_stream_name_xattr(&path,
+ 						fp,
+ 						stream_name,
+-						s_type);
++						s_type,
++						&stream_created);
+ 		if (rc)
+ 			goto err_out;
+ 		file_info = FILE_CREATED;
+@@ -3313,10 +3318,22 @@ int smb2_open(struct ksmbd_work *work)
+ 
+ 	fp->attrib_only = !(req->DesiredAccess & ~(FILE_READ_ATTRIBUTES_LE |
+ 			FILE_WRITE_ATTRIBUTES_LE | FILE_SYNCHRONIZE_LE));
++	need_truncate = !S_ISDIR(file_inode(filp)->i_mode) &&
++			open_flags & O_TRUNC && !fp->attrib_only && !stream_name;
++	/*
++	 * Count the FILE_WRITE_DATA that MS-FSA 2.1.5.1.2 grants an overwrite,
++	 * supersede included, or a new named stream on an existing file.
++	 * An attribute-only open of the file is not truncated, and the
++	 * synthesized AFP_AfpInfo stream is not created by the client.
++	 */
++	fp->implied_write = need_truncate ||
++			    (stream_name &&
++			     (open_flags & O_TRUNC ||
++			      (file_present && stream_created)));
+ 
+ 	/* fp should be searchable through ksmbd_inode.m_fp_list
+-	 * after daccess, saccess, attrib_only, and stream are
+-	 * initialized.
++	 * after daccess, saccess, attrib_only, implied_write, and
++	 * stream are initialized.
+ 	 */
+ 	write_lock(&fp->f_ci->m_lock);
+ 	list_add(&fp->node, &fp->f_ci->m_fp_list);
+@@ -3331,11 +3348,8 @@ int smb2_open(struct ksmbd_work *work)
+ 	if (file_present || created)
+ 		ksmbd_vfs_kern_path_unlock(&parent_path, &path);
+ 
+-	if (!S_ISDIR(file_inode(filp)->i_mode) && open_flags & O_TRUNC &&
+-	    !fp->attrib_only && !stream_name) {
++	if (need_truncate)
+ 		smb_break_all_oplock(work, fp);
+-		need_truncate = 1;
+-	}
+ 
+ 	req_op_level = req->RequestedOplockLevel;
+ 	if (req_op_level == SMB2_OPLOCK_LEVEL_LEASE)
+diff --git a/fs/ksmbd/smb_common.c b/fs/ksmbd/smb_common.c
+index 8a2b4db4a5665..a99ac2d0b858f 100644
+--- a/fs/ksmbd/smb_common.c
++++ b/fs/ksmbd/smb_common.c
+@@ -657,10 +657,24 @@ static void smb_shared_mode_error(int error, struct ksmbd_file *prev_fp,
+ 		    prev_fp->saccess, curr_fp->daccess);
+ }
+ 
++/*
++ * Sharing checks use fp->daccess plus the FILE_WRITE_DATA that MS-FSA
++ * grants an open that overwrites data or creates a named stream.
++ * fp->daccess keeps the open's own access.
++ */
++__le32 ksmbd_sharing_daccess(const struct ksmbd_file *fp)
++{
++	if (fp->implied_write)
++		return fp->daccess | FILE_WRITE_DATA_LE;
++	return fp->daccess;
++}
++
+ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
+ {
+ 	int rc = 0;
+ 	struct ksmbd_file *prev_fp;
++	__le32 curr_access = ksmbd_sharing_daccess(curr_fp);
++	__le32 access;
+ 
+ 	/*
+ 	 * Lookup fp in master fp list, and check desired access and
+@@ -681,6 +695,24 @@ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
+ 		if (prev_fp->attrib_only != curr_fp->attrib_only)
+ 			continue;
+ 
++		/*
++		 * MS-FSA checks sharing per stream, so a named stream open's
++		 * implied write is not a write against the primary stream.
++		 * It still decides whether the pair is checked.
++		 */
++		access = curr_access;
++		if (ksmbd_stream_fd(curr_fp) && !ksmbd_stream_fd(prev_fp))
++			access = curr_fp->daccess;
++
++		/*
++		 * Two opens conflict only if both hold a right in
++		 * FILE_SHARE_CHECKED_ACCESS_LE (MS-FSA 2.1.5.1.2.1 and
++		 * 2.1.5.1.2.2)
++		 */
++		if (!(ksmbd_sharing_daccess(prev_fp) & FILE_SHARE_CHECKED_ACCESS_LE) ||
++		    !(curr_access & FILE_SHARE_CHECKED_ACCESS_LE))
++			continue;
++
+ 		if (!(prev_fp->saccess & FILE_SHARE_DELETE_LE) &&
+ 		    curr_fp->daccess & FILE_DELETE_LE) {
+ 			smb_shared_mode_error(SHARE_DELETE_ERROR,
+@@ -707,7 +739,7 @@ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
+ 		}
+ 
+ 		if (!(prev_fp->saccess & FILE_SHARE_WRITE_LE) &&
+-		    curr_fp->daccess & (FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE)) {
++		    access & (FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE)) {
+ 			smb_shared_mode_error(SHARE_WRITE_ERROR,
+ 					      prev_fp,
+ 					      curr_fp);
+diff --git a/fs/ksmbd/smb_common.h b/fs/ksmbd/smb_common.h
+index 62b6367dc2572..57829ac9033e9 100644
+--- a/fs/ksmbd/smb_common.h
++++ b/fs/ksmbd/smb_common.h
+@@ -204,6 +204,10 @@
+ 		FILE_READ_ATTRIBUTES | FILE_WRITE_ATTRIBUTES)
+ 
+ #define SMB1_PROTO_NUMBER		cpu_to_le32(0x424d53ff)
++/* Rights that make an open take part in sharing checks */
++#define FILE_SHARE_CHECKED_ACCESS_LE	(FILE_EXECUTE_LE | FILE_READ_DATA_LE | \
++		FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE | FILE_DELETE_LE)
++
+ #define SMB_COM_NEGOTIATE		0x72
+ #define SMB1_CLIENT_GUID_SIZE		(16)
+ 
+@@ -493,6 +497,7 @@ int ksmbd_extract_shortname(struct ksmbd_conn *conn,
+ 
+ int ksmbd_smb_negotiate_common(struct ksmbd_work *work, unsigned int command);
+ 
++__le32 ksmbd_sharing_daccess(const struct ksmbd_file *fp);
+ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp);
+ int ksmbd_override_fsids(struct ksmbd_work *work);
+ void ksmbd_revert_fsids(struct ksmbd_work *work);
+diff --git a/fs/ksmbd/vfs_cache.h b/fs/ksmbd/vfs_cache.h
+index cd61c0b85e4d6..1ff052fe69002 100644
+--- a/fs/ksmbd/vfs_cache.h
++++ b/fs/ksmbd/vfs_cache.h
+@@ -90,6 +90,8 @@ struct ksmbd_file {
+ 
+ 	bool				is_nt_open;
+ 	bool				attrib_only;
++	/* writes data on open, see ksmbd_sharing_daccess() */
++	bool				implied_write;
+ 
+ 	char				client_guid[16];
+ 	char				create_guid[16];
+-- 
+2.53.0
 
-Best,
-Dickson
