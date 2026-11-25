@@ -1,54 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795626569;
-	b=y44sUIjTMh58Byqlrz3lH2r9DseDKAY0q00iBKE1fja9c6ZXAB3MANUSmfMBeGTr0dnX
-	 5YzmgEczvYbXc2pp2wtK4Z2fFpHWLLXlwH1LLU9Nv/+wSthfo3eoRI5FZvXuEp0t7M7Fw
-	 wzB1ZuVtrWHsEhkoEY48J6ZqdhxS9ehRQvMpw4YsSKvpNvWX/SsYKMRxMn9Dh3cWph+QA
-	 SE4mxAeIoY1VZ+Q7I3DZt3/4jaCRVzOx/zFNPL57oUkSiAutZCjcHj/Xhu4tm70BQO7L1
-	 gEqq/VoC16CVmBfN1rExwZ3lsLPLwWUbARuQYaZQRobDbOOZejKyIXz36eyFz62s6hw==
+	t=1795626571;
+	b=e5hpwfA3OuukErXClo58QnCQGPn4hXuL1RcFGN9RTn5BhWAnBFbAKRXYQNGMC+a4gDAq
+	 EiebCOSU6bpQOn0QgyKznsxi4fAsVJnRoJfinLy7TEVawmQQN+tFClHaQ+zOvQOi9MLwL
+	 /jSEDfPjrxGUL0bppVjCSkCRaAbGwBLRsWM9lEdjI/TTpFsCeJrgAhUyq+XoNOEpwy3Up
+	 4l5IhN8CqWi/LnlS33PXnCqPmbjfDeJdPu2Q4CHk1gixK9TwSxyc3ARPoFDOC4LgsW8sW
+	 qhjRVTgznOgEvN24b71SdAPb6SW9bAFgZMwcN80BTI+vRX3WbmhbFqV5i3H39dNJVAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795626569;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795626571;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=QqNyLuqq7WdQMksouf7hJzcDjtuLotU6r6O5dnLigjk=;
-	b=GErRrputjP8dPsWPcwDuDXe7BTHGpuMwUMZiUFJk39L0et7i15mMIl6Qg9Ot8dsGXl2s
-	 oDZ2SH7UMlTXVxNMVBN9KP2VSSrmbUYXH1h6/bYIGOgPoUqXyMJxbrv8FUvrStknNDbH1
-	 q54NTrZJFl8oQ/c37f+UTEN5NF0J1Kk/EW4N0QAgAE48yUW9Qd/OEV6jN4IC48L/mqo9H
-	 NDe3Qc3sS6xtI7OPNobQ2R4JbGzQFXmQwM6Xng8Zr7juVvIEz7Cx3g/4tRmJADy1NQ1C5
-	 ttCrva02yDsPx0U/LeVpgNrzca9gjZeU5iVuVcp28YYed9y6kjT4cnvrA+Ej5j9IbPQ==
+	bh=3AwEe7+TasRUXz9FIlHIz2/gUKT2V8DVIX8InV8OhMY=;
+	b=KmxTqAZp0gaJcoupDplOK1nRercOEMGDTnNiaBy+nDTmqidhnBzyJTNcUadm7jIFDcMv
+	 0gQrceGZQZbJYMCq6a7FagscQu53GN+IMY3iHXZOfUTraC3ogk4Z44ul4ho71IX8W8NzK
+	 HV2ktZL24YaYIj0OUNz3OYxaVaZVxZTe3zk9NNuZte3YtQNNOgpdEnyX8Vvea9NcGZpp+
+	 xqzcJZTKYXkXVwPNslutmAobUVYx5QIgth6zhITN+yloqhryVx177/tJjbqyQecmM8Xf4
+	 TsgY9sMvjiZYsIHFQaOudHGS90JWNMNVfJBLvJYoG/DJ8/CgpsTCrgmEPXehnt6yMkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PnJEVc/B";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gbhRw0qy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B160A606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:09:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099B9606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:09:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PnJEVc/B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F28891F000D3;
-	Wed, 25 Nov 2026 17:09:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gbhRw0qy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22FE01F000D1;
+	Wed, 25 Nov 2026 17:09:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795626569;
-	bh=QqNyLuqq7WdQMksouf7hJzcDjtuLotU6r6O5dnLigjk=;
+	s=k20260515; t=1795626570;
+	bh=3AwEe7+TasRUXz9FIlHIz2/gUKT2V8DVIX8InV8OhMY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PnJEVc/BzDdWSZ1zTa+FlRcUzD1vTQNC8TRY9jRoxXsR0lcobavCof2VNZr9iJzm8
-	 akwa7Num2AS6gjntDyWoq76KCKwDXaty9Hi8Eqx4NRlpi98/Vs8hTf8Zwh5iAHfHbm
-	 V0bhVl2IyY5pgBuS/HVicO0B/DbTRnlnjyADV3UOJvS2Zu+eLr/eCg+zKjH43XdEMY
-	 npzT5xttCqLaifmoNGRmaPBZ7gshEcutJL/qPQKsRIQoq/t6ezZk0NeHKiEwiK1rxP
-	 bV1hkPFu4TYRH4y2c4LvpzKbHa0eHpOeXK3MRkIW4GpH80fe5vTpbqt7vcKXOBbjjA
-	 O0c3E5jd2AWTg==
+	b=gbhRw0qyqUqMd59Op+ewrtipI4XYnJA1mF6bd7U4n7coUwuVTNoqzkRaosD3xbx7Q
+	 UJUdidCE72Vuc9AtLYpyFqqunwa9PqFr44ri9K43hIEQimiAY6C+ICYHhSesC1cSy+
+	 Pa0ptqUaaXvTIk2ei3ULjnXff9DjoETzPjTaO1opnn8Li0d49/+YioaDHxmjCy1y0j
+	 8fc0/3fAwQOtTLHtHqCxagEC+5f0nl4Z+YI0IF4G9Y3ma5cP3cTuJTGL5krXexui8k
+	 R3wcQHqvCCI4B0WZJNVkLI2Vj1u7EMdJ2YWo3UZigtJHAGMgh9ppZWQrv6tGS5Ai9C
+	 JJvfiumhjtRhA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+	Lifeng Zheng <zhenglifeng1@huawei.com>,
+	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/3] cpufreq: Introduce policy->boost_supported flag
-Date: Wed, 25 Nov 2026 12:09:25 -0500
-Message-ID: <20261125170915.923901-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/3] cpufreq: Avoid redundant target() calls for unchanged limits
+Date: Wed, 25 Nov 2026 12:09:26 -0500
+Message-ID: <20261125170915.923901-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112538-unwomanly-unwrapped-9118@gregkh>
+In-Reply-To: <20261125170915.923901-1-sashal@kernel.org>
 References: <2026112538-unwomanly-unwrapped-9118@gregkh>
+ <20261125170915.923901-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,54 +66,98 @@ Content-Transfer-Encoding: 8bit
 
 From: Viresh Kumar <viresh.kumar@linaro.org>
 
-[ Upstream commit 1f7d1bab50e6ae517f8b6699e56d709d61ae13e5 ]
+[ Upstream commit 9801be8bef65dbcbc40c1a9c2f03d70ed67a5d30 ]
 
-It is possible to have a scenario where not all cpufreq policies support
-boost frequencies. And letting sysfs (or other parts of the kernel)
-enable boost feature for that policy isn't correct.
+Drivers setting CPUFREQ_NEED_UPDATE_LIMITS expect target() to be
+invoked even if the target frequency remains unchanged, so they can
+update their internal policy limits state.
 
-Add a new flag, boost_supported, which will be set to true by the
-cpufreq core only if the freq table contains valid boost frequencies.
+Currently the core invokes target() unconditionally whenever the
+requested frequency matches policy->cur for such drivers, even if
+policy->min and policy->max haven't changed since the previous update.
 
-Some cpufreq drivers though don't have boost frequencies in the
-freq-table, they can set this flag from their ->init() callbacks.
-
-Once all the drivers are updated to set the flag correctly, we can check
-it before enabling boost feature for a policy.
+Track pending policy limit updates explicitly and skip redundant
+target() invocations when neither the target frequency nor the
+effective limits changed.
 
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+Reviewed-by: Lifeng Zheng <zhenglifeng1@huawei.com>
+Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+Link: https://patch.msgid.link/d0107c364b709abca21acf88072220bc05478594.1779423281.git.viresh.kumar@linaro.org
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 Stable-dep-of: 75120f31aed0 ("cpufreq: Fix updates of cached resolved frequency and index")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/cpufreq/freq_table.c | 4 ++++
- include/linux/cpufreq.h      | 3 +++
- 2 files changed, 7 insertions(+)
+ drivers/cpufreq/cpufreq.c | 31 ++++++++++++++++++++++---------
+ include/linux/cpufreq.h   |  3 +++
+ 2 files changed, 25 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/cpufreq/freq_table.c b/drivers/cpufreq/freq_table.c
-index 178e17009a16e..9db21ffc11979 100644
---- a/drivers/cpufreq/freq_table.c
-+++ b/drivers/cpufreq/freq_table.c
-@@ -367,6 +367,10 @@ int cpufreq_table_validate_and_sort(struct cpufreq_policy *policy)
- 	if (ret)
- 		return ret;
- 
-+	/* Driver's may have set this field already */
-+	if (policy_has_boost_freq(policy))
-+		policy->boost_supported = true;
+diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+index aee7e081b6c64..7b3023fca6183 100644
+--- a/drivers/cpufreq/cpufreq.c
++++ b/drivers/cpufreq/cpufreq.c
+@@ -2355,9 +2355,13 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
+ 	 * exactly same freq is called again and so we can save on few function
+ 	 * calls.
+ 	 */
+-	if (target_freq == policy->cur &&
+-	    !(cpufreq_driver->flags & CPUFREQ_NEED_UPDATE_LIMITS))
+-		return 0;
++	if (target_freq == policy->cur) {
++		if (!(cpufreq_driver->flags & CPUFREQ_NEED_UPDATE_LIMITS) ||
++		    !policy->update_limits)
++			return 0;
 +
- 	return set_freq_table_sorted(policy);
- }
++		policy->update_limits = false;
++	}
+ 
+ 	if (cpufreq_driver->target) {
+ 		/*
+@@ -2644,6 +2648,7 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
+ {
+ 	struct cpufreq_policy_data new_data;
+ 	struct cpufreq_governor *old_gov;
++	unsigned int freq;
+ 	int ret;
+ 
+ 	memcpy(&new_data.cpuinfo, &policy->cpuinfo, sizeof(policy->cpuinfo));
+@@ -2676,12 +2681,20 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
+ 	 * compiler optimizations around them because they may be accessed
+ 	 * concurrently by cpufreq_driver_resolve_freq() during the update.
+ 	 */
+-	WRITE_ONCE(policy->max, __resolve_freq(policy, new_data.max,
+-					       new_data.min, new_data.max,
+-					       CPUFREQ_RELATION_H));
+-	new_data.min = __resolve_freq(policy, new_data.min, new_data.min,
+-				      new_data.max, CPUFREQ_RELATION_L);
+-	WRITE_ONCE(policy->min, new_data.min > policy->max ? policy->max : new_data.min);
++	freq = __resolve_freq(policy, new_data.max, new_data.min, new_data.max,
++			      CPUFREQ_RELATION_H);
++	if (freq != policy->max) {
++		WRITE_ONCE(policy->max, freq);
++		policy->update_limits = true;
++	}
++
++	freq = __resolve_freq(policy, new_data.min, new_data.min, new_data.max,
++			      CPUFREQ_RELATION_L);
++	freq = min(freq, policy->max);
++	if (freq != policy->min) {
++		WRITE_ONCE(policy->min, freq);
++		policy->update_limits = true;
++	}
+ 
+ 	trace_cpu_frequency_limits(policy);
  
 diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-index 1e87507ea16ff..3ad7964711cb2 100644
+index 3ad7964711cb2..08031e20cf416 100644
 --- a/include/linux/cpufreq.h
 +++ b/include/linux/cpufreq.h
-@@ -147,6 +147,9 @@ struct cpufreq_policy {
- 	/* Per policy boost enabled flag. */
- 	bool			boost_enabled;
+@@ -150,6 +150,9 @@ struct cpufreq_policy {
+ 	/* Per policy boost supported flag. */
+ 	bool			boost_supported;
  
-+	/* Per policy boost supported flag. */
-+	bool			boost_supported;
++	/* Pending policy->min/max update for the driver */
++	bool			update_limits;
 +
  	 /* Cached frequency lookup from cpufreq_driver_resolve_freq. */
  	unsigned int cached_target_freq;
