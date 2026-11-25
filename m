@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795646214;
-	b=4ehabIsAoKRIItk82P+fhI8bFVqcvsCFYv/K1aL+rlQ9JYuQUyV3q/mZDvwzT2DvEzGz
-	 kd8R2BR7lPIYaW1f9QTPa8MiAFGQEsCOcnTQgVmnzvajQ5Jp2OESLAi0nwDqtLsfWPVRd
-	 4lNrTaYM42m8oixny/27C4RYm+eUAWp4IIyx0/ymTMS7Dv4yq5f3fj01msf3ldGL4YabQ
-	 Q5Ri6kPiMfc4IOEICKfh4u3O7OopimGPLyHv7fxeLtBzib8RdTQzu0Jsgk5ccolWKpe6E
-	 QG7n3sOT6t+WuN/+W2fzGPelUYlCNo1OBNjDq0ULJ59JSD3xZrjT10v+01ex3OYZHMg==
+	t=1795646296;
+	b=IrET+h72uSKNOWxYmK91cQiRe2cHdUafu8rwy/Dkc/Pq0X1A2ovOiiwQQE1PPax0M22h
+	 HYYFAMNaaDyRlCL706NaZFsAryoAtpdwa6buZ5Jm7LCZiTLlW9jkKKdL/UN0mZX6KxwAU
+	 Xger2a4AzftJCCY+nHxutnpeu4HhAxGBIunLfFlbw3NEO0vsBgXvvVprLgWA60WZhPXR7
+	 i+Js1aiOXcpejDGfr99IVBooKCOUeMjnzn85Iz+16HnLW10Q/6uyu8FZgfsv7tKXJEMGk
+	 GZ1sCca/JzJD+CL36dYeTT0VzMJj9gEy4er7X9IutMMkb7fpB9lw0LphbPC/bI17Pag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795646214;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795646296;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=9a4+ol4fW9w7mVe+P7Yw2e1ikrG/Wpcw8NzLXYIPUMo=;
-	b=m6e+oG3yqjvU1K0kgFLbt34mL9yFPapzlcyGfqZVq+UEHHk98QOc1+CT5nxWCwCdPVBP
-	 RZ1ypO9wvAglnQIE58iIsnsr8euKuJr8mMHVW+SyXWS4IxxCGZ0k7wFIQ1z/dnU99vgzb
-	 XmmRttpPna9yC44N9YscCXho0iM93rss7sXtcHpC4v1Xh7ZLVBRg2F3WfxF1qGDSRU/l5
-	 7GOtA97Q9zRNiBrEx9Lyem2MDx7yeAIZN2bbN+EshbLLuO4MctKuDSwNh3RLdFoS+MPvS
-	 E7xVyW+rFi5VqPR871i7/NbF0neCZw8J+Rlvm5Jt0xvSdNLMUDIeO/XpqNMFZR3l+FA==
+	bh=c5sCadhkwY9UanmmId4XEWhXMASQtuWsR/mG1JPVDXI=;
+	b=jebthmMroQQNfzolDo4kKoteP7Zj/Y2vlgPBFGEyiu4983PFAjvERg0FC8y4zr6xhYMs
+	 AlvGPeee1cgXCrKNwj3NpP8JpbJlgeuOFmdVujlGqUuya6L5o5aC02OAA7vwsKg1zhjBQ
+	 TfE9ZQfXML6DLAl2NBdWCrm+n5EdcPLkfdhqVF7lVhcSpGVcUx7kpuq1/W3LUGczh3Oek
+	 tv3+EqgtJ3nhugxVhrONPFDhXzJ5ivqrkGloI5GHjJZOxJSV6l+3N5Fwnok+UZEiC3nvx
+	 gOi0vgz6ZLXOdm+kLRXkqN/iVou9g9CWF6P3duvJ9iI0j8rV1BXtZ6KD+5mIxYxadqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZB7LieBF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mcGV1irF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 761D7606A31E;
-	Wed, 25 Nov 2026 22:36:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297E7606A31E;
+	Wed, 25 Nov 2026 22:38:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZB7LieBF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA00E1F000D0;
-	Wed, 25 Nov 2026 22:36:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mcGV1irF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19CA81F000C0;
+	Wed, 25 Nov 2026 22:37:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795646213;
-	bh=9a4+ol4fW9w7mVe+P7Yw2e1ikrG/Wpcw8NzLXYIPUMo=;
+	s=k20260515; t=1795646295;
+	bh=c5sCadhkwY9UanmmId4XEWhXMASQtuWsR/mG1JPVDXI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ZB7LieBFBaTInE7q8GBF/FhD4n/O5DvDFl+AY/qCTN5uSEixJvYjP5O5fchcmBX0U
-	 renXHHDkdnXZf7XJwlRQU6MqSY7gk2GbkvFonTHAIS7n/ZOlHmZpO45+8Tv3pwXERS
-	 iFA+3PTwZIMyxkoVuyyj1TE9UpL/DAxHKpxfvH9x12A5qzJZwVt059z63Kf8EE1CiL
-	 5oRMz9GPt+iPKmMGFQoGznW1OgtkViAzgo0WOJ8DtRf75uG2x5ILSHRGtrVo1S6tyf
-	 fF9lefAj/pGvfVarO0RpD9Qex/Nx9JcUb4xODag2KjwLygx0gB9K3trTL7+ItnsnQJ
-	 dhHkGO+zu5J7Q==
+	b=mcGV1irFRfXDZP7eEVn2PE6y0zqMjBz3R4YH3XVsY1dIM8vndetGzsNVRLSa9MHqH
+	 Hl8tPm3IHHw8Q+AWHbAmKVE8Eokao7NczVWg8nPhKPR1BZ9rGJoernBmso/wi+Lvmn
+	 I1oNfQ86/7bW+rb+gZM3Sr9iVsB0iUxRM+nd6p3ha72bJMyr4FvbaQnt+EQPcQhZDF
+	 xmmEK1Ro+b8WaD1DQn4PQv8jOyiIt5Q8LY+q5ei+PGW6+Ud9+cpmHuOCatVBkqyr6Y
+	 lpvOFTcZtHdIOmkTP6GZ7zxp2qtV9fIRjDzqLM0Ep6XUzFQ42c4NcdPFrDEK/hSR1A
+	 sk6LwO1VZkHZQ==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 25 Nov 2026 23:33:11 +0100
-Subject: [PATCH 13/21] mm/hugetlb: unshare PMDs of a split VMA if
- allocating its lock fails
+Date: Wed, 25 Nov 2026 23:33:16 +0100
+Subject: [PATCH 18/21] fs/proc/task_mmu: don't clear VM_SOFTDIRTY on
+ hugetlb VMAs
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-hugetlb_fixes_2-v1-13-db27fd2f71a8@kernel.org>
+Message-Id: <20261125-hugetlb_fixes_2-v1-18-db27fd2f71a8@kernel.org>
 References: <20261125-hugetlb_fixes_2-v1-0-db27fd2f71a8@kernel.org>
 In-Reply-To: <20261125-hugetlb_fixes_2-v1-0-db27fd2f71a8@kernel.org>
 To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
@@ -95,173 +95,69 @@ To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
 Cc: linux-mm@kvack.org, Jason Gunthorpe <jgg@ziepe.ca>, 
  linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
  Andrew Morton <akpm@osdl.org>, linux-doc@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, 
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+ "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org, 
+ Chris Mason <mason@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6125; i=david@kernel.org;
- h=from:subject:message-id; bh=7MsnuWJ1skmmesv5nHIUCHqiHHC5JHXJq+5r6rKajHA=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLZk1TvuT64VCrxJV+g61tcvf36leVnVvkFnE+bJ5nIN
- +ux9C72jlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDKEgYtTACZy+zkjQ3/NZOb7a+OneoVW
- 685nT/hbnSrBmGTzKYY5aq7b6UXKexkZfi87HbemlsNj1325PsXQv8e/brrj/dtARqv63L+6Br6
- 5XAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1880; i=david@kernel.org;
+ h=from:subject:message-id; bh=+sv+UhDuOwJztPqdlwWWA+euIQWZKN3bwN8oaLd2OMA=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLZk1RjN1gnhsRf/3P15CPRqcePHrc9xZkad2Pdwldv2
+ 2d6xawS7ChlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAiu5Yx/I/o3civLLybU1m6
+ 1z3Qdp/Q7vdu6p+t9rxujPg/YU3NK1dGhtfpgcuaM5e8/G12cbkh71vRn9cr38Tqv9XZ8iC0ILr
+ MnQsA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Chris Mason <mason@kernel.org>
+hugetlb does not support soft-dirty tracking: since commit f96f7a40874d
+("mm/hugetlb: fix hugetlb not supporting softdirty tracking"),
+vma_wants_writenotify() ignores VM_SOFTDIRTY for hugetlb VMAs, and
+clear_refs never clears the soft-dirty bits of hugetlb entries.
 
-If we split a VMA that has shared PMD page tables mapped, and allocating
-the hugetlb VMA lock for the new VMA fails, a fault in the new VMA can
-race with a hole punch and access page tables that were already freed.
+However, clear_refs still clears VM_SOFTDIRTY on hugetlb VMAs. With
+CONFIG_MEM_SOFT_DIRTY, a FOLL_FORCE write to a private hugetlb mapping
+without VM_WRITE can then loop in __get_user_pages() until the task is
+killed, with the mmap_lock held for reading:
 
-__split_vma() calls hugetlb_vm_op_open() for the new VMA, which
-allocates its hugetlb VMA lock in hugetlb_vma_lock_alloc(). If that
-allocation fails, the new VMA is left without a lock.
+    __get_user_pages()
+    retry:
+      follow_page_mask()
+        follow_huge_pmd()
+          can_follow_write_pmd()
+            pmd_needs_soft_dirty_wp() is true
+          returns NULL
+      faultin_page()
+        hugetlb_wp()
+          set_huge_ptep_maybe_writable()
+            no VM_WRITE: the entry stays as it is
+        returns 0
+      goto retry
 
-A VMA that has shared PMD page tables needs the hugetlb VMA lock, since
-the lock synchronizes huge_pmd_unshare() with concurrent page table
-walks, including faults.
+Let's fix it by not clearing VM_SOFTDIRTY on hugetlb VMAs, so we always
+treat hugetlb pages as soft-dirty.
 
-want_pmd_share() and page_table_shareable() prevent new sharing without
-the lock, but a split leaves previously shared page tables in place for
-the new VMA, and hugetlb_vm_op_open() can't currently return an error if
-the allocation fails.
+This has low urgency, as the loop can be killed.
 
-This can, for example, happen for an OOM victim. Then, nothing prevents
-a hole punch from unsharing the page table of the new VMA while a fault
-in the new VMA is still using it, and the last other sharer from freeing
-it:
-
-    fault in the new VMA             hole punch, then munmap()
-    ====================             =========================
-    hugetlb_vma_lock_read()
-      no lock, does nothing
-    huge_pte_alloc()
-      pointer into shared table
-    folio_zero_user()
-                                     hugetlb_vma_trylock_write()
-                                       no lock, returns 1
-                                     huge_pmd_unshare(new VMA)
-                                       pud_clear()
-                                     last sharer frees the table
-    huge_pte_lock()
-    set_huge_pte_at()
-
-Let's fix it by unsharing the PMD page tables of a new VMA that has no
-lock. Also, exit hugetlb_split() early if the original VMA has no lock,
-as it cannot have shared PMD page tables then.
-
-This has low urgency, as it requires allocating the hugetlb VMA lock to
-fail during a split, which is practically only possible for OOM victims,
-and a race with a hole punch.
-
-Fixes: 131a79b474e9 ("hugetlb: fix vma lock handling during split vma and range unmapping")
+Fixes: 052ccfbcc6cd ("mm/hugetlb: support FOLL_FORCE|FOLL_WRITE")
 Cc: <stable@vger.kernel.org>
-Signed-off-by: Chris Mason <mason@kernel.org>
-[ david: return early if the original VMA has no lock, adjust comment
-  and description ]
+Reported-by: Chris Mason <mason@kernel.org>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- include/linux/hugetlb.h           |  6 ++++--
- mm/hugetlb.c                      | 17 ++++++++++++++++-
- mm/vma.c                          |  2 +-
- tools/testing/vma/include/stubs.h |  3 ++-
- 4 files changed, 23 insertions(+), 5 deletions(-)
+ fs/proc/task_mmu.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 49dad5ae57512..aea18895e1459 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -274,7 +274,8 @@ long hugetlb_change_protection(struct vm_area_struct *vma,
- 		unsigned long cp_flags);
- void hugetlb_unshare_all_pmds(struct vm_area_struct *vma);
- void fixup_hugetlb_reservations(struct vm_area_struct *vma);
--void hugetlb_split(struct vm_area_struct *vma, unsigned long addr);
-+void hugetlb_split(struct vm_area_struct *vma, struct vm_area_struct *new,
-+		unsigned long addr);
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index 41b280ab7b19d..d9ecb94f4daa5 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -1801,6 +1801,9 @@ static ssize_t clear_refs_write(struct file *file, const char __user *buf,
  
- unsigned int arch_hugetlb_cma_order(void);
- 
-@@ -457,7 +458,8 @@ static inline void fixup_hugetlb_reservations(struct vm_area_struct *vma)
- {
- }
- 
--static inline void hugetlb_split(struct vm_area_struct *vma, unsigned long addr) {}
-+static inline void hugetlb_split(struct vm_area_struct *vma,
-+		struct vm_area_struct *new, unsigned long addr) {}
- 
- #endif /* !CONFIG_HUGETLB_PAGE */
- 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 0b0f6e17b8b06..2bba0940a40d5 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -4887,7 +4887,8 @@ static int hugetlb_vm_op_split(struct vm_area_struct *vma, unsigned long addr)
- 	return 0;
- }
- 
--void hugetlb_split(struct vm_area_struct *vma, unsigned long addr)
-+void hugetlb_split(struct vm_area_struct *vma, struct vm_area_struct *new,
-+		unsigned long addr)
- {
- 	/*
- 	 * PMD sharing is only possible for PUD_SIZE-aligned address ranges
-@@ -4898,8 +4899,13 @@ void hugetlb_split(struct vm_area_struct *vma, unsigned long addr)
- 	 * walks (except hardware and gup_fast()).
- 	 */
- 	vma_assert_write_locked(vma);
-+	vma_assert_write_locked(new);
- 	i_mmap_assert_write_locked(vma->vm_file->f_mapping);
- 
-+	/* Shared PMDs require a hugetlb VMA lock. */
-+	if (!__vma_shareable_lock(vma))
-+		return;
-+
- 	if (addr & ~PUD_MASK) {
- 		unsigned long floor = addr & PUD_MASK;
- 		unsigned long ceil = floor + PUD_SIZE;
-@@ -4918,6 +4924,15 @@ void hugetlb_split(struct vm_area_struct *vma, unsigned long addr)
- 			hugetlb_unshare_pmds(vma, floor, ceil, /* take_locks = */ false);
- 		}
- 	}
-+
-+	/*
-+	 * If we failed to allocate the hugetlb VMA lock, unshare everything
-+	 * that the new VMA covers.
-+	 */
-+	if (!__vma_shareable_lock(new))
-+		hugetlb_unshare_pmds(new, ALIGN(new->vm_start, PUD_SIZE),
-+				     ALIGN_DOWN(new->vm_end, PUD_SIZE),
-+				     /* take_locks = */ false);
- }
- 
- static unsigned long hugetlb_vm_op_pagesize(struct vm_area_struct *vma)
-diff --git a/mm/vma.c b/mm/vma.c
-index c82e9306b11ac..183bfb8ba4703 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -590,7 +590,7 @@ __split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 	 */
- 	vma_adjust_trans_huge(vma, vma->vm_start, addr, NULL);
- 	if (vma_is_hugetlb(vma))
--		hugetlb_split(vma, addr);
-+		hugetlb_split(vma, new, addr);
- 
- 	if (new_below) {
- 		vma->vm_start = addr;
-diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
-index 9f5b8e996abf6..6ddecf587d9be 100644
---- a/tools/testing/vma/include/stubs.h
-+++ b/tools/testing/vma/include/stubs.h
-@@ -466,7 +466,8 @@ static inline void vma_adjust_trans_huge(struct vm_area_struct *vma,
- {
- }
- 
--static inline void hugetlb_split(struct vm_area_struct *, unsigned long) {}
-+static inline void hugetlb_split(struct vm_area_struct *,
-+		struct vm_area_struct *, unsigned long) {}
- 
- static inline bool vma_supports_mlock(const struct vm_area_struct *vma)
- {
+ 		if (type == CLEAR_REFS_SOFT_DIRTY) {
+ 			for_each_vma(vmi, vma) {
++				/* hugetlb does not support soft-dirty tracking. */
++				if (vma_is_hugetlb(vma))
++					continue;
+ 				if (!(vma->vm_flags & VM_SOFTDIRTY))
+ 					continue;
+ 				vm_flags_clear(vma, VM_SOFTDIRTY);
 
 -- 
 2.56.1
