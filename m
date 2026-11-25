@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795604557;
-	b=SO9zWBmR3Rxe0sxIr6CP2yEShCNeLz8NR7rKb2s1Si3moXD3EQjEKPRmbKaN/OgKGPv3
-	 C813nENH2E0F0JLMaC/XPipNGgte8s4YWNEyAPJU6C7dIY+Dl1KT2vwAGFfSa/+VNWzsw
-	 3X2XR8og9JIF9MkTGvxH7cassWIt+ui+s6833HsOVhi+PVSZotCvrjUbwSDMEqel3tecy
-	 fYrv71D2z2NCmYJpdMG0SecjpC89BFokhx/G2bXfhGHlDyJ2ZD9cEnTxch6CF1Da4bPU+
-	 g18sNH8SSsMjz1I+14eolX7fXGFoiwC0QhZ3CEZUSeb0Gbu0AH2bG+7dzDFriISngSw==
+	t=1795604560;
+	b=t4YGL0YHbtuDLJO5gbxVGl2gaI158OsFwmgD/vw3bbiUKB46gZu6CvBzIM9Ycymr88jm
+	 SgdXTVP9dgnpUM6Y35kBNNm68aE9XVPq14cibcjINKixK36RaPdRQolwg7WDK33cpteQp
+	 MRxDf1WSpsk8eLZl1ddqlfztPBsBxaQaZQyHPm9Yrv9FID18qvHbjoSG+gl+JpfLxUw75
+	 gR03A25swaLyfp+RrR/b44C/W6/X85TNVE4Nb8RC6wHJQQnOdfD/pxMW4y2mlbao4wLRl
+	 ebQIOUZ6FeLrNi+n9IjqNCsH0k9OI+rJo2LKzkq9i9uwOsluicrQDriLZ9D8Yd5LgrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795604557;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795604560;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=uZP9zRMPUUxWIxHmwjGmr0cMDOCpy1mseklK3OqP9Yk=;
-	b=wXODZRpcHjVNxhd8TXqltOxgiVIthXQ+1haQflskzggKxWOaRZxGO8q4orfYZ3DYp7GN
-	 UyV16G55DT2XLCQDvyX2QFaL/bPn37dfqFU9skOaCWg+2zwNPQ0/NFTq5Y295vNp27zU1
-	 /UnuhAMtcPin0G+Jl87unYZdwfWZOdx2JYXTjtVNl+sXGTXOUzoear0AaFpoWUp+gAMrO
-	 XO+Z80+tbhGzXqR0g4nAtblTNQ4CoD2gSt1NrUeChlXccx1MOPqseo4Zm7bINIYGOfrTi
-	 rn1mLbi9LX6woaTMJcEAVnWvJq0yDBOJWpP8R5EpS+aDIJ9UWCD2dGxaDfbJTqF989g==
+	bh=Z0jX7G53PiXmnMUZh3+8btf7PH38tX0vDY30Lw6fomc=;
+	b=csl6cFSMaeen/jOA4XvG6kIeOOMCQ7RALYuW1QjtiIB5M4jd94ielW0x1e/W0xh8iZ4m
+	 i9vC7UHZ6L+qWAQoZmsTkhOLBMNUn7Z/JLDNMCA89SbtApNY4aeS+sT+WHLrF3I7RuIFG
+	 ou70Bx2eTaExCBS+Zl9M+kB0Ihdjfu8zIEJwQPdX+4hpSYL3ZPY0lkBShGSwD81TqE2xa
+	 OJx0XoyE9Xk8m9HOztZRbllfCxl67XxoiTbL8pt3g+zkkWw3TvOy+UlccjmjetF0v+1IK
+	 xDJUXqO20KQ/AXqjK8RLOuGZgCp0D48wtjklrH3ZkmR5Q33yE7oMK7ycBydLClV6jSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CeeN+FhU;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qVYGLicl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E55606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:02:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0D9606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:02:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CeeN+FhU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B15CC1F000C6;
-	Wed, 25 Nov 2026 11:02:35 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qVYGLicl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07C021F000C6;
+	Wed, 25 Nov 2026 11:02:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795604556;
-	bh=uZP9zRMPUUxWIxHmwjGmr0cMDOCpy1mseklK3OqP9Yk=;
+	s=korg; t=1795604559;
+	bh=Z0jX7G53PiXmnMUZh3+8btf7PH38tX0vDY30Lw6fomc=;
 	h=Subject:To:Cc:From:Date;
-	b=CeeN+FhUWR8g9IUWWuYIj9umCsfIsGPtWyBkgMWtIJg75YAA7+IpwI4uF/MiM9mhW
-	 xSLHGzNaatbrVj5NIiVSLLtRGww+7+uwGsVk3JHbK4jqrXhqCS+gucyPPdePOLIrN9
-	 EIO9ZGvwT7vmLopnPVB1mFsuHzSBGGIrRnBNm6xI=
-Subject: FAILED: patch "[PATCH] ovl: do not read the flags of a put upper dentry in lookup" failed to apply to 5.10-stable tree
+	b=qVYGLicl5IW78howwREgp6nyX8LVncxNCFgderkQ+RZ0d2Z9UbUlYma828X4Q33md
+	 eZlIfEJqa+Sbm2CV0SIi7E2p4o/GiwSXfsBUFm0zKP8s9CoJfWiJ4Bx75Ps++x2AsG
+	 QFPqGva15hJtFVLSL3pmH+nEUiji73E5/H9RO/rg=
+Subject: FAILED: patch "[PATCH] ovl: do not read the flags of a put upper dentry in lookup" failed to apply to 5.15-stable tree
 To: amir73il@gmail.com,sashiko-bot@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:43:31 +0100
-Message-ID: <2026112531-plod-groggily-1277@gregkh>
+Message-ID: <2026112531-appetizer-unclaimed-d653@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7031366be218f291592a7ad38bc34a7cd1459737
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112531-plod-groggily-1277@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112531-appetizer-unclaimed-d653@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
