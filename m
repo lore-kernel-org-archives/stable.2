@@ -1,96 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.203.187.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795604635;
-	b=EbcIpP8u0GfjW++bn1PgZRWH8ZwyT28SfoC83tOYltRWQ67yEgxH6DbiTw3StLeaHSDx
-	 mCgbdq2kDNy16rQ8uoKp6p/j2KW+Cp4qcJwJ4z0XTngRoZqKi5/6L1c4iYyJDoiFHUBhr
-	 6NxNjdRYwkbYRPi71T88V79fcN529gvWsit+wAmuYh+xL2UjF3l+waCegUg2n06zcWedL
-	 JirCCv2UOjk87Dwu/8V1gl2kXPS+7L2xKhZUNFsF3AsG3KxARrN24wa9FXVSUVDzyUjQH
-	 RBxPh/PN2Ru4ZY21GHKV6PJWHj0C3GNyOb8hMc2X7ARrMCkihkcDAe8/YbiQY9Xujug==
+	t=1795604671;
+	b=J+JfbpN0Td9TWar8z1nQaqio2+E70UuCHVc/YQFv04Zz2gBAyCGcAc+d8bCBd85gb+Hz
+	 l2ArSW9n8tvCvEHKVYScgIZSSa9QpB9MIxuWz8eBSIUZLrC4oDuzsUFwlxuJOyDeGW2py
+	 9H6MBDK+Qw5/Jj5ARWxgr2PVqNlMsnzVFpg0ykIK72iknz4xF2mhgGm9l7XFHM2uX1l/E
+	 4L/K/NPvVH0e0HYt3E0unFbHMXip6LhjW6Qmy1lKO8neIluS/soyav4w6TCR9jD+6Jkrl
+	 x+1nGw5u2I+0Iu+VBujgeL0/OYmCxBk2/sKmvRQqQSVWEwHGuaD2sw0alUVup2MpIlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795604635;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=0kNQWd4xFKVKn6MSVwE1lsRc4X4V5piL50Xtk3okz4Q=;
-	b=HsQ8Wuhk+QdMtGGzSo4yqUZWP09z2NXP+dUNYPgjFtI7qeBriA089/PcuesZS8Sd+pZ1
-	 Qoh0AZ2ZTgen1Zag7HiDO9hymFaH7eFuE7+lfIqJ4x99o82EGL6kri0TrRiVPsE3avHq+
-	 Q/lE1gj62miymOzo1ojZ+ZT2iRHoY376pqkriS/i+MyIPFfI1yHqy4/Knlw2tAtvtOS0N
-	 uFUnFLSvGFj//rZnBU/u+n6oKXL9Mc0eAVT9nG0T/VMvlx8pNZPVjTCtdhUoYebr4P4ry
-	 MePOnToctQxOEHh8eyefuiXi6zZQWKRbZNsmNgicdmFvVUa45U+10G9Vw9nQznF/hpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795604671;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:X-Auth-ID:Received:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Classification-ID;
+	bh=/1Gj7IvUx7FrAw+gzFpkzUkO9qKuI1oLpxyzvSDSlY8=;
+	b=4aYU44qaO88xk7dFyMs/MRY2qQtYswc4LCjIBc3GdnDlY3HaY72fhFKHg5r9exsjhoLu
+	 EBKJrw4zcsz9+/snZkdjWFNJWWD6rsaS7ppArxb/29arripxnL7ZPYKEWSnAq2aDc2rqF
+	 P7E5jq+TlQZVRQXGxrh6gHF/n2riwkVpykEI+UyDPjcS7Ygehq0669s0296HDyjhX+PYx
+	 nUbkeZGdMXbE0RhGwViawb5ubvcJqrSOB6cYhIPRztmvTQbg0sR0wup5KQhzQpIG3ljbX
+	 oxDZj/NfBcLdMtvr0tKwk5dPijPJwIWNQyDbr7ji5AUdDwcl97SBzJglSr3RACZEtSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tEJETcDI;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=mev.co.uk;
+	spf=pass smtp.mailfrom=mev.co.uk;
+	dkim=pass header.d=g001.emailsrvr.com header.i=@g001.emailsrvr.com header.a=rsa-sha256 header.s=feedback header.b=O3qDekBG;
+	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b="pvMcd/VG";
+	arc=none smtp.remote-ip=173.203.187.105
+Received: from smtp105.iad3a.emailsrvr.com (smtp105.iad3a.emailsrvr.com [173.203.187.105])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C65606A33D
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:03:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93C65606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C745E606A329
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:04:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C745E606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tEJETcDI
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-38431138772so7248384eec.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 03:03:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795604634; x=1796209434; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0kNQWd4xFKVKn6MSVwE1lsRc4X4V5piL50Xtk3okz4Q=;
-        b=tEJETcDI9nkCss/hKuXkAaC9GvIz08tJYkSrVU4Oe69bDT0B66YUaL+J69XjRnBVMD
-         Ahp9NLL1bEKf6C9NL6GGrrzrPU2zSHu3En0rsnhcf2usHpCDfyQWDyHFUGUQlLEetzte
-         /fgEt8ue46CS7/fi9c0QHCJ1zMmjpviN/o83uV9sIDP38eWQ+NO+kU0id6Gt41JKOQUs
-         1KurRA9D8cpc2/QU2eRf5F66A6AJ7/9niMKrjpiIg8pxK28Mg+Vbkx9/7HjPtkDqX+xO
-         C7i8OI7DcesHsNNnD+jgPDxNijanItWp8h0zKHYWDgHGLxptDPhsIfMFCd+PZCDXAwUR
-         ZnOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795604634; x=1796209434;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0kNQWd4xFKVKn6MSVwE1lsRc4X4V5piL50Xtk3okz4Q=;
-        b=TvBQaDAK6kpel0MAHH44gwGAS6xC9e9MJUHSl/HcQjHADcHDthb0pyVhXX2/YClWIm
-         cAeS/23uptYfuASbfWOYWmUYqBvO0/Xz5a+dkafYM2fPT+ilg8IPBwL5oD8B41gZKyXQ
-         W7tGJpjxsQ2akRQuoSn2JsU2+O5DmeNC1oYifjJmcXO+2F9YZ0WmlYvdN6X4MYqNaqNC
-         gnpDJXSHWzN6VwZedFFL6f14oeqoFF1VTF7XPPQaFbQTR9E8GAABroFiW/v93De5ouyg
-         50pHA3uxoRNvnfe4yITk/bXobA+DTHxocx1sbwkvuG2pQ5WiiajUGwhCSJlvPqCc8dJx
-         eiog==
-X-Forwarded-Encrypted: i=1; AL+hErHBlHOZOvryRg3ogrLDaCEV+ACJqdajG6J+QI6Oubpup+2saPtM4V41gBWHby+PidSZNm75FYs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9L66o3mDVl+eNJriBwHGwt67cmXp4950TjsEVW5ya2Bb+sWkSi
-	+2/ONP1oV4LKRIPg/i7BytZeSfQ3O56Jch8nH4cphNxVPh2DkobBZLR1
-X-Gm-Gg: AZFdTZcI+dqaoIaydSlj2R3o1V5RHqgLF7vB0YmRLthg+gv3gkaGHNrPZt11UCsriUw
-	25gVTCbpTgtLZhNpbgFQaoy8Tgpk40jwjwHKQb1FAaT+W2dBZwBjq80enLoyK4sn86+JjLMCJAR
-	wxARFBcTHhCWAXu38zUgfCCyThv9cHk82emfmFCD5XL9/Vhy63fbQJRToVF2KApRiqYUoR87ZCS
-	bchu6UZ0GiM6jYEuKToI4K+xMzwYGAE/0kurQcgf7qWi4/c3Ecf5HHJ982wsI1pfwspmFeIn5dz
-	V2uAY61iWaCCzOIqiBTdAfmoZPRhVnzU7YJNyYNdJPclv6sh55nB8CueqUeJ9VYNKL+mOhnvh+W
-	XM/wnsXLpp1fLbOb5CiHFCDKrtwoxcBg0PUAHIua8iESPC82p5/mQ99sSfu6op01w3ALwAnzQaW
-	5H7x95rU/dJciZwVoAJrkzl4c9UaiMLZiBiOr4C8qbIRAVHSJFI7AFQvNs242j79d1jffcBfDU+
-	Y69rH9aKWsqoUr4jF6Q4umu9nOhkGdXNOn7S9nHSQo/IKIhDelNgO1t1/iwt+b1aae44ZoVw4eP
-	7+1RFzVCO4XfT6XToiQBGPM4xU94SZdZ6YD/fxUcpX5jJuOr2VUpVezcInl+PMj7kBLVjaJx6A=
-	=
-X-Received: by 2002:a05:7300:ce8f:b0:375:7be3:1bbd with SMTP id 5a478bee46e88-38570b336f4mr16085568eec.23.1795604633460;
-        Wed, 25 Nov 2026 03:03:53 -0800 (PST)
-Received: from BenDellReactive ([117.20.154.221])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385f68bc0adsm49317327eec.13.2026.11.25.03.03.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 03:03:52 -0800 (PST)
-From: Benjamin Dornel <benjamindornel@gmail.com>
-To: Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org,
-	Kees Cook <kees@kernel.org>,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Benjamin Dornel <benjamindornel@gmail.com>,
+	dkim=pass (1024-bit key) header.d=g001.emailsrvr.com header.i=@g001.emailsrvr.com header.a=rsa-sha256 header.s=feedback header.b=O3qDekBG;
+	dkim=pass (1024-bit key) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=pvMcd/VG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=g001.emailsrvr.com;
+	s=feedback; t=1795604664;
+	bh=+o4lQOUcnLmB5xQaJEIxUTKlNZk9WL8bxXIwWjtgWjU=;
+	h=From:To:Subject:Date:From;
+	b=O3qDekBGDXm3UMWK3Gtes/EILPlTq7J33jbvEeGoRTTopAFyC+YycUGyRipBF60+q
+	 FnYbZnOL4QmVvbUC1hpaEMpU3+wU+rfxTVRdg5zsbqL3LoSKRn8IwatIcK5IABhLFn
+	 pijaYPzsJkS+qeP/xnkWCa20PL/abO3Zo8w7U5Yg=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
+	s=20221208-6x11dpa4; t=1795604664;
+	bh=+o4lQOUcnLmB5xQaJEIxUTKlNZk9WL8bxXIwWjtgWjU=;
+	h=From:To:Subject:Date:From;
+	b=pvMcd/VGTpvXL8ZVkv3SHZU5s4JnIbkygrmbbv63cy/uWq1slMH42FqwNjPkWubgs
+	 p2PWlNUcTszW1YV+FB+qsmJ/8pcE7LXxvIKDveoYHsvxRgzPb1pAh/WtA0oiOMxoSP
+	 kcDWk7lracTJ8eP1GZEMId7a4kqDuV2kDBQimPm0=
+X-Auth-ID: abbotti@mev.co.uk
+Received: by smtp6.relay.iad3a.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id 910CA54B5;
+	Wed, 25 Nov 2026 06:04:23 -0500 (EST)
+From: Ian Abbott <abbotti@mev.co.uk>
+To: linux-kernel@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Ian Abbott <abbotti@mev.co.uk>,
+	H Hartley Sweeten <hsweeten@visionengravers.com>,
+	Jeehoon Kim <Wlgns2756@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH wireless] wifi: iwlwifi: mld: fix net-detect wakeup report after kzalloc_flex()
-Date: Wed, 25 Nov 2026 19:03:47 +0800
-Message-ID: <20261125110347.884775-1-benjamindornel@gmail.com>
-X-Mailer: git-send-email 2.56.1
+Subject: [PATCH] comedi: adv_pci1710: prevent NULL deref in command test
+Date: Wed, 25 Nov 2026 11:04:06 +0000
+Message-ID: <20261125110406.70945-1-abbotti@mev.co.uk>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,105 +72,51 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Classification-ID: b6340151-2788-41bd-b58a-8a5cec7d917a-1-1
 
-Since commit 69050f8d6d07 ("treewide: Replace kmalloc with kmalloc_obj
-for non-scalar types"), the net-detect wakeup info and its matches are
-allocated with kzalloc_flex(). Both flexible arrays are annotated with
-__counted_by(), so on compilers that support __builtin_counted_by_ref()
-(clang >= 19, gcc >= 15) kzalloc_flex() also sets the counters,
-n_matches and n_channels, to the allocated sizes.
+From: Jeehoon Kim <Wlgns2756@gmail.com>
 
-iwl_mld_set_netdetect_info() still uses those counters as the next free
-index, so every match and channel is written past the end of its
-allocation, matches[0..n-1] are left NULL, and the counters end up
-doubled. cfg80211_net_detect_results() then dereferences matches[0] on
-every net-detect wakeup that reports a match:
+The COMEDI_CMDTEST ioctl permits a NULL channel list: do_cmdtest_ioctl()
+only loads and validates the channel list when the user-supplied pointer
+is non-NULL, otherwise it calls the subdevice's ->do_cmdtest() handler
+with cmd->chanlist == NULL (and cmd->chanlist_len still bounded only by
+len_chanlist).
 
-  Oops: general protection fault, kernel NULL pointer dereference 0x20
-  RIP: 0010:cfg80211_report_wowlan_wakeup+0x46a/0x680 [cfg80211]
-  Call Trace:
-   iwl_mld_wowlan_resume+0x9d9/0xe40 [iwlmld]
-   iwl_mld_resume+0x1d/0x50 [iwlmld]
-  Workqueue: async async_run_entry_fn
+pci1710_ai_cmdtest() calls pci1710_ai_check_chanlist() unconditionally in
+step 5, and that helper dereferences cmd->chanlist[0] on its first lines
+(CR_CHAN()/CR_AREF()). A user issuing COMEDI_CMDTEST with a NULL chanlist
+pointer therefore triggers a NULL pointer dereference.
 
-(0x20 is the offset of ssid.ssid_len in struct cfg80211_wowlan_nd_match.)
-Without panic_on_oops the machine is left wedged mid-resume.
+Every other comedi driver guards the step 5 check with
+"if (cmd->chanlist && cmd->chanlist_len > 0)"; adv_pci1710 was missed.
+Add the same guard.
 
-Fill both arrays using local indices and store the number of entries
-actually filled in, as iwlmvm already does. Also stop setting a match's
-channels when they can't be reported, rather than leaving n_channels at
-the allocated size, and report the matches found so far if an
-allocation fails instead of returning with n_matches unset.
-
-Seen on an Intel BE200 (iwlmld) in a Dell Pro 14 Plus with kernel 7.3.5
-built with clang 23, with net-detect armed via
-"iw phy phy0 wowlan enable net-detect interval 10000 matches ssid <ssid>"
-and that SSID in range during s2idle (also with pm_test=devices). With
-this change the same setup reports the match and resumes normally.
-
-Fixes: 69050f8d6d07 ("treewide: Replace kmalloc with kmalloc_obj for non-scalar types")
-Cc: stable@vger.kernel.org
-Signed-off-by: Benjamin Dornel <benjamindornel@gmail.com>
+Signed-off-by: Jeehoon Kim <Wlgns2756@gmail.com>
+Reviewed-by: Ian Abbott <abbotti@mev.co.uk>
+Fixes: 56556577d9c4 ("staging: comedi: adv_pci1710: don't check the chanlist twice")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
 ---
- drivers/net/wireless/intel/iwlwifi/mld/d3.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+ drivers/comedi/drivers/adv_pci1710.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/mld/d3.c b/drivers/net/wireless/intel/iwlwifi/mld/d3.c
-index 77e4850..e67a22a 100644
---- a/drivers/net/wireless/intel/iwlwifi/mld/d3.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mld/d3.c
-@@ -1423,11 +1423,11 @@ iwl_mld_set_netdetect_info(struct iwl_mld *mld,
- 			   struct iwl_mld_netdetect_res *netdetect_res,
- 			   unsigned long matched_profiles)
- {
--	int i;
-+	int i, n_matches = 0;
+diff --git a/drivers/comedi/drivers/adv_pci1710.c b/drivers/comedi/drivers/adv_pci1710.c
+index fc749241da416..aa0e56df4d368 100644
+--- a/drivers/comedi/drivers/adv_pci1710.c
++++ b/drivers/comedi/drivers/adv_pci1710.c
+@@ -621,9 +621,9 @@ static int pci1710_ai_cmdtest(struct comedi_device *dev,
+ 	if (err)
+ 		return 4;
  
- 	for_each_set_bit(i, &matched_profiles, netdetect_cfg->n_match_sets) {
- 		struct cfg80211_wowlan_nd_match *match;
--		int idx, j, n_channels = 0;
-+		int idx, j, n_channels = 0, n_set = 0;
- 		struct iwl_scan_offload_profile_match *matches =
- 			(void *)netdetect_res->matches;
+-	/* Step 5: check channel list */
+-
+-	err |= pci1710_ai_check_chanlist(dev, s, cmd);
++	/* Step 5: check channel list if it exists */
++	if (cmd->chanlist && cmd->chanlist_len > 0)
++		err |= pci1710_ai_check_chanlist(dev, s, cmd);
  
-@@ -1436,10 +1436,9 @@ iwl_mld_set_netdetect_info(struct iwl_mld *mld,
- 				hweight8(matches[i].matching_channels[k]);
- 		match = kzalloc_flex(*match, channels, n_channels);
- 		if (!match)
--			return;
-+			break;
- 
--		netdetect_info->matches[netdetect_info->n_matches] = match;
--		netdetect_info->n_matches++;
-+		netdetect_info->matches[n_matches++] = match;
- 
- 		/* We inverted the order of the SSIDs in the scan
- 		 * request, so invert the index here.
-@@ -1451,17 +1450,21 @@ iwl_mld_set_netdetect_info(struct iwl_mld *mld,
- 		       netdetect_cfg->match_sets[idx].ssid.ssid,
- 		       match->ssid.ssid_len);
- 
--		if (netdetect_cfg->n_channels < n_channels)
-+		if (netdetect_cfg->n_channels < n_channels) {
-+			match->n_channels = 0;
- 			continue;
-+		}
- 
- 		for_each_set_bit(j,
- 				 (unsigned long *)&matches[i].matching_channels[0],
- 				 sizeof(matches[i].matching_channels)) {
--			match->channels[match->n_channels] =
-+			match->channels[n_set++] =
- 				netdetect_cfg->channels[j]->center_freq;
--			match->n_channels++;
- 		}
-+		match->n_channels = n_set;
- 	}
-+
-+	netdetect_info->n_matches = n_matches;
- }
- 
- static void
+ 	if (err)
+ 		return 5;
 -- 
-2.56.1
+2.53.0
 
