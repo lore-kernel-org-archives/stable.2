@@ -1,32 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625063;
-	b=fVaR4Ctf1PMtiLwRbOlTLqDyYK6xzZSTPZnfFf+gGNKHiqINVIeKTJOzfINVEjJbSB6j
-	 X91SRqwB/KnaJpyqrqPvhOifhSKzW4aCjhXagOpkeRs3L2K/NQIfEQwcWn4nzLyPQxw0f
-	 l4C0Or6iNXffMk4lSnkvorL6PwVc5n2jSBP7YNHQ1koEoueoNhMKrkByNcizbyW3/aVl2
-	 GeIeSRf+JYKKuv7wBfwTJ0tnY+ovICIZ3d0fcmAe++ZoyTi4f8b2orCjPY5VZZogKjVur
-	 rbIGgoKdB2g3MOAx0htOqH4UfQcADhzJiY3ahsVWBpR5E/1WF9zOoAQKODxC8fdyGmA==
+	t=1795625064;
+	b=E/fLNuEiODK13y0wniArNJIeUd3bnOEiz1pUFZSkh5Q0/8sbeyUBRwt6WJSXhX+d9rdS
+	 /E/0xH+jqGoPesZXI4TxPWNnzY8ccAV6qlUJqQOyWV1PgFBq8UEVLT4vS0BzKzOxYyGxS
+	 apNSqOtxhfTEnx4q/hOgmqpCEYuzIG+cG5daIxsBt3gGzBqj2B2wfZYcJrFWmcB4SdDPU
+	 Yna1cf3N60wOkb7EbeLZepa4bdkJzeBMi4PyUS8tjIcccWzGjF3686n6rlIcMJNpwFlnc
+	 IHmYg7rhJTrlt160aQpPlm93hgE3VZrTjabi4YVEtP5oIJRuAuysbFR0uJQdDDNh3wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625063;
-	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
-	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=Ufc5X5KPtSpN7LAkgIoRBGIIkQWdxqKwSyFbcVYvUyw=;
-	b=xmdLQwUIxOVGCY4nh86rV7pIdbrhQTDbGSvll21ChgKs4enaMHp6yHxMj9e02xyOF3Cq
-	 OXuH+nqaCiHBzVoVyYbyIyH9sc4dhH86tqK7KpR70/hsyeBHa2RMOHyBVNlmSfViqL8nl
-	 vkOjl1hZ4+luDNBtn/Jlk+BYhLZQ+K0WylSNzWhAQm9svLKN/x4cANHXFpHQXRru+hJN1
-	 ymcAPx0gr1+N+yB2JBphlvLvNIxhz10I4mcGpGtaCFx1L3Hxmfk1uzc6WoYQ3xh0aUykQ
-	 3IFh3cgW0PFOmJ+pbNO8b4spBQnvLAfdlOpehSo4hnWiLpQxQVfs8td5UD7e+8GXg7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625064;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=X+OLY2iXAyhPrO5RNNQuz3aSwYvlBths6f5PMbVgyiw=;
+	b=lmMlavShIsawWKZpV2AMNdLX8aiSpHJ2WCh0cNabaEB1pR6YJq8fIlS0HFhex4N9TQf1
+	 x62FSr370smgy67L+14uDDVqsB61w2sFMT1JnSRX9sq6OMS6pv/QdrarSehkKUb7vVktp
+	 cXTMV7WJY2QfaKwAfDlofH/87qxqmOsJS6j5e3wJT/EsaoOtBXseo8zQhO+BkoktMBJRe
+	 /ZPgEn3j3jYTnH43u/hOqXznR6EGd9WFy2no/nD1fOhkx4VnVT8t8QZb2LUKregHie0VC
+	 czwxcbV2ndfZO6kJ6xeXV2s2U3twUH6tGBOIJ2y/lV8s+RSiOlnJZREAXb+d7XAKwmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GggvLH8M;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15565606A329;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A4C606A32D;
+	Wed, 25 Nov 2026 16:44:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GggvLH8M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E5BA1F000C4;
 	Wed, 25 Nov 2026 16:44:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D72C71F01562;
-	Wed, 25 Nov 2026 16:44:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795625064;
+	bh=X+OLY2iXAyhPrO5RNNQuz3aSwYvlBths6f5PMbVgyiw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GggvLH8MgdZaf92WY721+Kf559xgmvDmxFLegr4qbo6NesI75t45AxBnZU74LQvb8
+	 mH7qADWgRIdrYXnym1LLbucExutMLHDACZuI/tGw4GaRYoVSnEyOpG02TrP1BQ6U5c
+	 5uDnw5LjSWQACh9roNsbYN/P0PVjXCOFQ6U5dKyQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Golla Nagendra <nagendra.golla@amd.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 395/816] dmaengine: zynqmp_dma: Fix PM rollback on sw_desc_pool alloc failure
+Date: Wed, 25 Nov 2026 15:32:23 +0100
+Message-ID: <20261125143858.343097389@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -36,51 +63,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v7 04/14] PCI: rzg3s-host: Create the INTx IRQ domain
- before setting the chained handlers
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-To: Claudiu Beznea <claudiu.beznea@kernel.org>
-Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, 
- robh@kernel.org, bhelgaas@google.com, p.zabel@pengutronix.de, 
- geert+renesas@glider.be, magnus.damm@gmail.com, claudiu.beznea@tuxon.dev, 
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org, 
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, stable@vger.kernel.org
-In-Reply-To: <20261019065025.2146539-5-claudiu.beznea@kernel.org>
-References: <20261019065025.2146539-1-claudiu.beznea@kernel.org>
- <20261019065025.2146539-5-claudiu.beznea@kernel.org>
-Date: Wed, 25 Nov 2026 22:14:13 +0530
-Message-Id: <179562505368.5580.2150497706749194750.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=663;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=aXar4x2N8gQJTl/ZNKcihlhafecP6Nche80dL3tuzYA=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBrBxBgJ5tVOCEmi1KWNu7mCRxmFtmxilxnXuP9L
- kBY8bO0SzqJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCawcQYAAKCRBVnxHm/pHO
- 9bbCB/4k9mZGKX6nhG0HCgb5ZCAGgrQy8JHmafqY14GtFQ+LkXDlSF4MW1BRMoBjZGAPUjrxfJL
- 9gllCDF6w3rsFb0nD46Xkx1isl1vNuUNtaNjpk7eqEDspLzWKLxPEivM/G7twbNdH5nSmJfSRve
- FfG8Pf+4AVfL3JX640uFaclAFAtDs2KlCGXRq/1rdKbkyi3VBfXxgMQlAuQcWN9EZaSuraudvbo
- N7J5VnxNMBRQTgmrZPO5Li53OTZDSc8JDB3G+8fGZo0SDo4651ka30ZdHySqtRJkel+vsn0p6XF
- F53Hg2YEVZ5m8XGPWoR+/KZPiCPO72f0uuFvkeL0VNAgbRYa
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-19 09:50 +0300, Claudiu Beznea wrote:
-> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-> 
-> rzg3s_pcie_init_irqdomain() installs the chained INTx handlers before
-> creating the INTx IRQ domain. irq_set_chained_handler_and_data() also
-> enables the interrupt, so an INTx interrupt arriving in between is
-> handled by rzg3s_pcie_intx_irq_handler() while host->intx_domain is
-> still NULL, leading to a NULL pointer dereference.
-> 
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-Did you observe the NULL ptr dereference on the device or just figuring it out
-from the code? If you have seen it, please include the log, otherwise just state
-it that it could be possible.
+------------------
 
-- Mani
+From: Golla Nagendra <nagendra.golla@amd.com>
+
+[ Upstream commit f2f44b952ea6e0c600e92ea21fcaa83cafeedf6e ]
+
+If sw_desc_pool allocation fails after pm_runtime_resume_and_get()
+succeeds in zynqmp_dma_alloc_chan_resources(), the error path returns
+without dropping the runtime PM reference.
+
+Route that failure path through err_pm so the runtime PM reference is
+balanced before returning the error.
+
+Fixes: 8982d48af36d ("dmaengine: zynqmp_dma: Fix PM reference leak in zynqmp_dma_alloc_chan_resourc()")
+Signed-off-by: Golla Nagendra <nagendra.golla@amd.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Link: https://patch.msgid.link/20260814045616.1661199-2-nagendra.golla@amd.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
+[ sashal: Kept this branch's older kcalloc() call instead of upstream's kzalloc_objs() context line, and applied the err_pm rollback change unchanged. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/dma/xilinx/zynqmp_dma.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_dma.c
+index 235c60e1e320e..594086b264941 100644
+--- a/drivers/dma/xilinx/zynqmp_dma.c
++++ b/drivers/dma/xilinx/zynqmp_dma.c
+@@ -484,8 +484,10 @@ static int zynqmp_dma_alloc_chan_resources(struct dma_chan *dchan)
+ 
+ 	chan->sw_desc_pool = kcalloc(ZYNQMP_DMA_NUM_DESCS, sizeof(*desc),
+ 				     GFP_KERNEL);
+-	if (!chan->sw_desc_pool)
+-		return -ENOMEM;
++	if (!chan->sw_desc_pool) {
++		ret = -ENOMEM;
++		goto err_pm;
++	}
+ 
+ 	chan->idle = true;
+ 	chan->desc_free_cnt = ZYNQMP_DMA_NUM_DESCS;
+@@ -517,6 +519,10 @@ static int zynqmp_dma_alloc_chan_resources(struct dma_chan *dchan)
+ 	}
+ 
+ 	return ZYNQMP_DMA_NUM_DESCS;
++
++err_pm:
++	pm_runtime_put_autosuspend(chan->dev);
++	return ret;
+ }
+ 
+ /**
+-- 
+2.53.0
+
 
 
