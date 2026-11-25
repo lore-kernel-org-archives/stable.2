@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608407;
-	b=DpYMyClG1McQplYeVTkTdxJ4buFdDQLCJj5UrNmi5EHXYzcRfEuT/r2LFG7bjZtpYHRR
-	 1ZFUGPKSWJL3SKwn0f96f77dRHW+aa3EMwfd8Uas2hxQbGvjeeBlivpAi+83eTDQki+6Z
-	 vSgXWJj2D5KOqwwWOlb7JL8WSv3GG27Gz0Fh3I4Mlxp85LCUbNMw13yY18NmVpuI6u54B
-	 /4mfAKQjVOZk8G5QimH9WHQz+H8rmcUi56HIJgQYowFAAcsuK7i1P2ULcU9D7LC2vLslH
-	 +Q6mjZzJhAvUAHiUeic46HI712Cx11kUZs4KC3Np5fu3Kle6nUWckw6fxl25P82PiOQ==
+	t=1795608410;
+	b=N0oASwPx2q7JZwJsdn5/jm3nJAVOA0qragvO0uEYaoWAVDb3DD7bCCrjnhMJ8Xud32m9
+	 kd3f1kuZoAzTcNo0NYC3+WxtF5b2QWE19F5OOr+WHfZ3zqSAdC9p3mIQgmUqUggxG6YNU
+	 V3Yftj6/6Hl5/Tn9xdS9woIbBWpg81kPH7C6TmFUuy5xTBYPtHE8NsTMs4T2B97SYYyu9
+	 ahe7Mh21FV8oSprQvpZUE/7Z4MkzKbS327Z7C4fQmsOd31vJa81f0ura8F6BK+hHt/99n
+	 ca3YNoI6d844KgDDvQSaWGrmVQfpjjGYkENUBLoHdip43ihQvNuY3/d5tSaDkFJOB2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608407;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608410;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=sK/mJL5kdEEUZ1SIwdxVfyOi1kYNVe5dPggn74Dxxeo=;
-	b=ca8OxKtYiGSHiMVK2u4j6GA4eUD2zF8s1eIhxgQmXJLQcLCqRfb1LFG6gvGtPxjLle2x
-	 8MVtpTxI4Di1ApEpomYXEFPhPpkIzzQ3uvE60kXrxx6CyEW4v5/UWq+Cf9xK7+I3F0BEf
-	 NTmL2J+YSA6PyeK/fbPn3U0GwA1MiM1myOQaVxEpqc7xeQfvEMeyJxe52vS3LEfrOKy9k
-	 YmDwwrpJcHX55rcSNQi2GDmzXxLEj/n1pdtft35Tykf4rzOpFqaNFoWkKPgJZZLOSd6Vg
-	 AchiFuYpalmKiEhL+Vftrd3nz1jRkW3QeWNy35XOKELQ53ecnofotcYmbfiFvy4BlDQ==
+	bh=HQaU61iXHxyuT3IDqT+qj+Y2hUDEjPsH7tH4k4QCTus=;
+	b=mpRM1nk2wg780AlBol0/8+QLdYHVrWaxx9HgL5lmY9QZhxWszHI6c1IohIdakdz6B/BZ
+	 VfZdN1LspSR2O0OsrWAeIF06dSNO1kKg1CGFzT8JqUOugoojxlOkXhlQ/o1SPLUFXhkAQ
+	 1XGJBHbo+or6q3CasV24s86EMbCA0AOriaKQJRUafAL3xLuIoU4ewErhlwu71SzoLUGvR
+	 914pGRUfXXlI4lA3xzKxjP3RSJKpVKyuRoP0ByEDSF8ne0Fb/xgs+lCFCsEWVcPiL/WSQ
+	 7g75WJzSHGeLTzXTPm3X0GiVdg//4CxaKj7Gt2P4ESvFGCAn6Um5iUpe4fXZ8d8nJpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="zP/1ttC3";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BIfYB0m7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5478606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:06:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E78606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:06:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zP/1ttC3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 322BF1F000C6;
-	Wed, 25 Nov 2026 12:06:47 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BIfYB0m7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03B4E1F000C6;
+	Wed, 25 Nov 2026 12:06:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795608407;
-	bh=sK/mJL5kdEEUZ1SIwdxVfyOi1kYNVe5dPggn74Dxxeo=;
+	s=korg; t=1795608410;
+	bh=HQaU61iXHxyuT3IDqT+qj+Y2hUDEjPsH7tH4k4QCTus=;
 	h=Subject:To:Cc:From:Date;
-	b=zP/1ttC3AMwmyHy3YQcmPsnR3TurOCBcKslLIXSM6l1UIhrCO3HCRd7gXTK5tCq6/
-	 segsu4K2YYoGwizok/OHE+Daq9fpTP4YJ6hxiWdk7FRxoZmELVRbOA2FcIJIZzrlC5
-	 aXnDZxhzVPDoiyFxuE+0jFvkR+apFSPWN+ghId2w=
-Subject: FAILED: patch "[PATCH] usb: gadget: u_serial: pin ports while TTYs are installed" failed to apply to 5.15-stable tree
-To: krystianmkaniewski@gmail.com,gregkh@linuxfoundation.org,mehmet.fide@screeningeagle.com,stable@kernel.org
+	b=BIfYB0m7vQWVg5/mA//xnI/zACj2CpkMw50JBWFX4CHmO3RxA/6tneF6xJpGm768f
+	 Bk1Uw6nu1X6AMRKXF5/54ibesZCUybdGXp5lDp7iD675DnrAoaJvoNIst8cWRxNGht
+	 YVUAmlthZP+QzlYq6sYuGQ/l9VRs9umH2pgvGp/Q=
+Subject: FAILED: patch "[PATCH] usb: dwc3: gadget: Issue no-op Start Transfer only for stream" failed to apply to 6.1-stable tree
+To: Thinh.Nguyen@synopsys.com,gregkh@linuxfoundation.org,selvarasu.g@samsung.com,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:36:22 +0100
-Message-ID: <2026112522-safehouse-cultivate-84f3@gregkh>
+Date: Wed, 25 Nov 2026 12:40:35 +0100
+Message-ID: <2026112535-humming-whimsical-6e80@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1981b53c2b52a00f0f4b9eb87183c9aedc8dac5d
+git cherry-pick -x e616d91e02881983e5dadf6980c4aa08123800b3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112522-safehouse-cultivate-84f3@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112535-humming-whimsical-6e80@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,369 +79,144 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1981b53c2b52a00f0f4b9eb87183c9aedc8dac5d Mon Sep 17 00:00:00 2001
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-Date: Thu, 22 Oct 2026 11:13:59 +0200
-Subject: [PATCH] usb: gadget: u_serial: pin ports while TTYs are installed
+From e616d91e02881983e5dadf6980c4aa08123800b3 Mon Sep 17 00:00:00 2001
+From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Date: Wed, 21 Oct 2026 00:38:07 +0000
+Subject: [PATCH] usb: dwc3: gadget: Issue no-op Start Transfer only for stream
+ endpoints
 
-A slab-use-after-free can occur when gserial_free_line() frees struct
-gs_port while it is still reachable through an installed TTY. The
-port->port.count value tracks successful opens, but it is zero before
-gs_open() and again after gs_close(), before TTY cleanup has finished.
-Teardown can therefore free gs_port while tty_init_dev() or release_tty()
-still accesses its tty_port.
+The function driver may re-enable an endpoint before the End Transfer
+command issued on ep disable completes. The no-op Start Transfer issued
+on ep enable then fails with "No Resource".
 
-Manage gs_port lifetime with tty_port references. Take a reference in
-gs_install(), drop it in gs_cleanup(), and move the final free to
-gs_port_destruct(). Unregister the TTY device before dropping the owner
-reference.
+Only stream endpoints need the no-op Start Transfer to initiate a
+stream. Other bulk and interrupt endpoints start their transfer when a
+request is queued. Skip it for those endpoints, and move it to a helper
+to be reused.
 
-Keep each minor reserved until the old port is destroyed so an installed
-TTY for one generation cannot overlap a replacement at the same minor.
-Publish the new port before device registration so the cdev and add uevent
-never expose a TTY before gs_install() can pin it. Since commit
-8df07fe93573 ("tty: fix saved termios reset race"), u_serial registration
-no longer frees saved termios. On registration failure, unpublish the port
-before dropping its owner reference.
-
-Check in gs_open() that the installed port is still the published
-generation. Track failures after a successful install so close callbacks
-issued by the TTY core do not decrement port->port.count for opens that
-never incremented it.
-
-Fixes: 19b10a8828a6 ("usb: gadget: allocate & giveback serial ports instead hard code them")
-Assisted-by: Gemini:gemini-3.8-flash syzbot
-Reported-by: syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=fe63e4d633540f230624
-Link: https://syzkaller.appspot.com/ai_job?id=ec789387-2e7b-4a8f-a7a1-a47bf7fa57f5
+Fixes: a97ea994605e ("usb: dwc3: gadget: offset Start Transfer latency for bulk EPs")
 Cc: stable <stable@kernel.org>
-Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-Tested-by: syzbot@syzkaller.appspotmail.com
-Tested-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
-Reported-by: syzbot+bca09f5d8b843bbf7571@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=bca09f5d8b843bbf7571
-Link: https://patch.msgid.link/20261022091359.1187468-1-krystianmkaniewski@gmail.com
+Reported-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+Closes: https://lore.kernel.org/linux-usb/20260227121236.963-1-selvarasu.g@samsung.com/
+Signed-off-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Link: https://patch.msgid.link/227e97e30d26a017c92d7008a8633c01f955d088.1792542945.git.Thinh.Nguyen@synopsys.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
-index 892d2673e9b0..0a304f508bc3 100644
---- a/drivers/usb/gadget/function/u_serial.c
-+++ b/drivers/usb/gadget/function/u_serial.c
-@@ -70,10 +70,28 @@
-  *	gserial->ioport == usb_ep->driver_data ... gs_port
-  *	gs_port->port_usb ... gserial
-  *
-- * gs_port <---> tty_struct ... links will be null when the TTY file
-- * isn't opened; managed by gs_open()/gs_close()
-- *	gserial->port_tty ... tty_struct
-- *	tty_struct->driver_data ... gserial
-+ * gs_port <---> tty_struct:
-+ *	tty->driver_data refers to gs_port from install through cleanup,
-+ *	pinning the port via tty_port reference counting.
-+ *	gs_port->port.tty exists only while the port is open.
-+ *
-+ * Each entry in ports[] is guarded by ports[i].lock and models three states:
-+ *   - Free:      !port && !reserved
-+ *   - Published:  port &&  reserved
-+ *   - Retiring:   !port &&  reserved
-+ *
-+ * A minor remains reserved until gs_port_destruct() runs upon final tty_port
-+ * release, preventing minor reuse while cleanup of the installed TTY is still
-+ * underway. The owner reference is retained through device unregister so the
-+ * destructor releases the reservation only after device teardown is complete.
-+ *
-+ * open_close_failures tracks failed gs_open() calls where port->port.count
-+ * was not incremented. The TTY core calls gs_close() on open failure to tear
-+ * down the tty; tracking failures as aggregate credits allows gs_close() to
-+ * consume a credit and exit without decrementing port->port.count. Credits
-+ * are aggregate rather than paired with individual files (another gs_close()
-+ * can consume a failed open's credit before that file's own close runs).
-+ * It is protected by tty_lock.
-  */
+diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
+index 4de3b81cb678..e68584f20fbd 100644
+--- a/drivers/usb/dwc3/gadget.c
++++ b/drivers/usb/dwc3/gadget.c
+@@ -906,6 +906,54 @@ static int dwc3_gadget_resize_tx_fifos(struct dwc3_ep *dep)
+ 	return 0;
+ }
  
- /* RX and TX queues can buffer QUEUE_SIZE packets before they hit the
-@@ -128,6 +146,7 @@ struct gs_port {
- 	wait_queue_head_t	close_wait;
- 	bool			suspended;	/* port suspended */
- 	bool			start_delayed;	/* delay start when suspended */
-+	unsigned int		open_close_failures; /* protected by tty_lock */
- 	struct async_icount	icount;
- 
- 	/* REVISIT this state ... */
-@@ -135,8 +154,9 @@ struct gs_port {
- };
- 
- static struct portmaster {
--	struct mutex	lock;			/* protect open/close */
-+	struct mutex	lock;			/* protect open/close and port slot */
- 	struct gs_port	*port;
-+	bool		reserved;
- } ports[MAX_U_SERIAL_PORTS];
- 
- #define GS_CLOSE_TIMEOUT		15		/* seconds */
-@@ -603,22 +623,60 @@ static int gserial_wakeup_host(struct gserial *gser)
- 
- /* TTY Driver */
- 
-+static int gs_install(struct tty_driver *driver, struct tty_struct *tty)
++static int dwc3_gadget_ep_start_noop_transfer(struct dwc3_ep *dep)
 +{
-+	struct gs_port *port;
-+	struct tty_port *tport;
-+	int ret;
++	struct dwc3_gadget_ep_cmd_params params;
++	struct dwc3		*dwc = dep->dwc;
++	struct dwc3_trb		*trb;
++	dma_addr_t		trb_dma;
++	u32			cmd;
++	int			ret;
 +
-+	mutex_lock(&ports[tty->index].lock);
-+	port = ports[tty->index].port;
-+	if (!port) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		return -ENODEV;
-+	}
++	memset(&params, 0, sizeof(params));
++	trb = &dep->trb_pool[0];
++	trb_dma = dwc3_trb_dma_offset(dep, trb);
 +
-+	tport = tty_port_get(&port->port);
-+	if (!tport) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		return -ENODEV;
-+	}
++	params.param0 = upper_32_bits(trb_dma);
++	params.param1 = lower_32_bits(trb_dma);
 +
-+	ret = tty_port_install(tport, driver, tty);
-+	if (ret) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		tty_port_put(tport);
++	cmd = DWC3_DEPCMD_STARTTRANSFER;
++
++	ret = dwc3_send_gadget_ep_cmd(dep, cmd, &params);
++	if (ret < 0)
 +		return ret;
-+	}
 +
-+	tty->driver_data = port;
-+	mutex_unlock(&ports[tty->index].lock);
++	/*
++	 * For streams, at start, there maybe a race where the host primes the
++	 * endpoint before the function driver queues a request to initiate a
++	 * stream. In that case, the controller will not see the prime to
++	 * generate the ERDY and start stream. To workaround this, issue a
++	 * no-op TRB as normal, but end it immediately. As a result, when the
++	 * function driver queues the request, the next START_TRANSFER command
++	 * will cause the controller to generate an ERDY to initiate the
++	 * stream.
++	 */
++	dwc3_stop_active_transfer(dep, false, true);
++
++	/*
++	 * All stream eps will reinitiate stream on NoStream rejection.
++	 *
++	 * However, if the controller is capable of TXF_FLUSH_BYPASS, then IN
++	 * direction endpoints will automatically restart the stream without
++	 * the driver initiation.
++	 */
++	if (!dep->direction ||
++	    !(dwc->hwparams.hwparams9 & DWC3_GHWPARAMS9_DEV_TXF_FLUSH_BYPASS))
++		dep->flags |= DWC3_EP_FORCE_RESTART_STREAM;
 +
 +	return 0;
 +}
 +
-+static void gs_cleanup(struct tty_struct *tty)
-+{
-+	tty_port_put(tty->port);
-+}
-+
- /*
-- * gs_open sets up the link between a gs_port and its associated TTY.
-- * That link is broken *only* by TTY close(), and all driver methods
-- * know that.
-+ * gs_open associates an open TTY with its gs_port.
-+ *
-+ * There are two TTY-to-port relationships: port->port.tty exists from the
-+ * first successful open until final close, while tty->driver_data is assigned
-+ * during gs_install() and remains valid through gs_cleanup().
-  */
- static int gs_open(struct tty_struct *tty, struct file *file)
- {
- 	int		port_num = tty->index;
--	struct gs_port	*port;
-+	struct gs_port	*port = tty->driver_data;
- 	int		status = 0;
- 
- 	mutex_lock(&ports[port_num].lock);
--	port = ports[port_num].port;
--	if (!port) {
-+	if (ports[port_num].port != port) {
- 		status = -ENODEV;
--		goto out;
-+		goto fail_unlock;
- 	}
- 
- 	spin_lock_irq(&port->port_lock);
-@@ -638,7 +696,7 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 		if (status) {
- 			pr_debug("gs_open: ttyGS%d (%p,%p) no buffer\n",
- 				 port_num, tty, file);
--			goto out;
-+			goto fail_unlock;
- 		}
- 
- 		spin_lock_irq(&port->port_lock);
-@@ -648,7 +706,6 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 	if (port->port.count++)
- 		goto exit_unlock_port;
- 
--	tty->driver_data = port;
- 	port->port.tty = tty;
- 
- 	/* if connected, start the I/O stream */
-@@ -672,7 +729,11 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 
- exit_unlock_port:
- 	spin_unlock_irq(&port->port_lock);
--out:
-+	mutex_unlock(&ports[port_num].lock);
-+	return status;
-+
-+fail_unlock:
-+	port->open_close_failures++;
- 	mutex_unlock(&ports[port_num].lock);
- 	return status;
- }
-@@ -698,6 +759,11 @@ static void gs_close(struct tty_struct *tty, struct file *file)
- 	if (!port)
- 		return;
- 
-+	if (port->open_close_failures > 0) {
-+		port->open_close_failures--;
-+		return;
-+	}
-+
- 	spin_lock_irq(&port->port_lock);
- 
- 	if (port->port.count != 1) {
-@@ -912,8 +978,10 @@ static int gs_get_icount(struct tty_struct *tty,
- }
- 
- static const struct tty_operations gs_tty_ops = {
-+	.install =		gs_install,
- 	.open =			gs_open,
- 	.close =		gs_close,
-+	.cleanup =		gs_cleanup,
- 	.write =		gs_write,
- 	.put_char =		gs_put_char,
- 	.flush_chars =		gs_flush_chars,
-@@ -1206,14 +1274,41 @@ static void gs_console_exit(struct gs_port *port)
- 
- #endif
- 
--static int
-+static void gs_port_destruct(struct tty_port *tport)
-+{
-+	struct gs_port *port = container_of(tport, struct gs_port, port);
-+	unsigned int port_num = port->port_num;
-+
-+	mutex_lock(&ports[port_num].lock);
-+	if (WARN_ON(ports[port_num].port))
-+		ports[port_num].port = NULL;
-+	WARN_ON(!ports[port_num].reserved);
-+	if (gs_tty_driver)
-+		gs_tty_driver->ports[port_num] = NULL;
-+	ports[port_num].reserved = false;
-+	mutex_unlock(&ports[port_num].lock);
-+
-+	kfifo_free(&port->port_write_buf);
-+	kfree(port);
-+}
-+
-+static const struct tty_port_operations gs_port_ops = {
-+	.destruct = gs_port_destruct,
-+};
-+
-+static struct gs_port *
- gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- {
- 	struct gs_port	*port;
- 	int		ret = 0;
- 
- 	mutex_lock(&ports[port_num].lock);
--	if (ports[port_num].port) {
-+	if (WARN_ON_ONCE(ports[port_num].port && !ports[port_num].reserved)) {
-+		ret = -EBUSY;
-+		goto out;
-+	}
-+
-+	if (ports[port_num].reserved) {
- 		ret = -EBUSY;
- 		goto out;
- 	}
-@@ -1225,6 +1320,7 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- 	}
- 
- 	tty_port_init(&port->port);
-+	port->port.ops = &gs_port_ops;
- 	spin_lock_init(&port->port_lock);
- 	init_waitqueue_head(&port->drain_wait);
- 	init_waitqueue_head(&port->close_wait);
-@@ -1238,10 +1334,14 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- 	port->port_num = port_num;
- 	port->port_line_coding = *coding;
- 
-+	ports[port_num].reserved = true;
- 	ports[port_num].port = port;
-+	mutex_unlock(&ports[port_num].lock);
-+	return port;
-+
- out:
- 	mutex_unlock(&ports[port_num].lock);
--	return ret;
-+	return ERR_PTR(ret);
- }
- 
- static int gs_closed(struct gs_port *port)
-@@ -1261,8 +1361,7 @@ static void gserial_free_port(struct gs_port *port)
- 	/* wait for old opens to finish */
- 	wait_event(port->close_wait, gs_closed(port));
- 	WARN_ON(port->port_usb != NULL);
--	tty_port_destroy(&port->port);
--	kfree(port);
-+	tty_port_put(&port->port);
- }
- 
- void gserial_free_line(unsigned char port_num)
-@@ -1279,15 +1378,15 @@ void gserial_free_line(unsigned char port_num)
- 	ports[port_num].port = NULL;
- 	mutex_unlock(&ports[port_num].lock);
- 
--	gserial_free_port(port);
- 	tty_unregister_device(gs_tty_driver, port_num);
-+	gserial_free_port(port);
- }
- EXPORT_SYMBOL_GPL(gserial_free_line);
- 
- int gserial_alloc_line_no_console(unsigned char *line_num)
- {
- 	struct usb_cdc_line_coding	coding;
--	struct gs_port			*port;
-+	struct gs_port			*port = ERR_PTR(-EBUSY);
- 	struct device			*tty_dev;
- 	int				ret;
- 	int				port_num;
-@@ -1298,19 +1397,20 @@ int gserial_alloc_line_no_console(unsigned char *line_num)
- 	coding.bDataBits = USB_CDC_1_STOP_BITS;
- 
- 	for (port_num = 0; port_num < MAX_U_SERIAL_PORTS; port_num++) {
--		ret = gs_port_alloc(port_num, &coding);
--		if (ret == -EBUSY)
--			continue;
--		if (ret)
-+		port = gs_port_alloc(port_num, &coding);
-+		if (IS_ERR(port)) {
-+			ret = PTR_ERR(port);
-+			if (ret == -EBUSY)
-+				continue;
+ /**
+  * __dwc3_gadget_ep_enable - initializes a hw endpoint
+  * @dep: endpoint to be initialized
+@@ -971,55 +1019,10 @@ static int __dwc3_gadget_ep_enable(struct dwc3_ep *dep, unsigned int action)
+ 	 * Issue StartTransfer here with no-op TRB so we can always rely on No
+ 	 * Response Update Transfer command.
+ 	 */
+-	if (usb_endpoint_xfer_bulk(desc) ||
+-			usb_endpoint_xfer_int(desc)) {
+-		struct dwc3_gadget_ep_cmd_params params;
+-		struct dwc3_trb	*trb;
+-		dma_addr_t trb_dma;
+-		u32 cmd;
+-
+-		memset(&params, 0, sizeof(params));
+-		trb = &dep->trb_pool[0];
+-		trb_dma = dwc3_trb_dma_offset(dep, trb);
+-
+-		params.param0 = upper_32_bits(trb_dma);
+-		params.param1 = lower_32_bits(trb_dma);
+-
+-		cmd = DWC3_DEPCMD_STARTTRANSFER;
+-
+-		ret = dwc3_send_gadget_ep_cmd(dep, cmd, &params);
++	if (dep->stream_capable) {
++		ret = dwc3_gadget_ep_start_noop_transfer(dep);
+ 		if (ret < 0)
  			return ret;
-+		}
- 		break;
+-
+-		if (dep->stream_capable) {
+-			/*
+-			 * For streams, at start, there maybe a race where the
+-			 * host primes the endpoint before the function driver
+-			 * queues a request to initiate a stream. In that case,
+-			 * the controller will not see the prime to generate the
+-			 * ERDY and start stream. To workaround this, issue a
+-			 * no-op TRB as normal, but end it immediately. As a
+-			 * result, when the function driver queues the request,
+-			 * the next START_TRANSFER command will cause the
+-			 * controller to generate an ERDY to initiate the
+-			 * stream.
+-			 */
+-			dwc3_stop_active_transfer(dep, false, true);
+-
+-			/*
+-			 * All stream eps will reinitiate stream on NoStream
+-			 * rejection.
+-			 *
+-			 * However, if the controller is capable of
+-			 * TXF_FLUSH_BYPASS, then IN direction endpoints will
+-			 * automatically restart the stream without the driver
+-			 * initiation.
+-			 */
+-			if (!dep->direction ||
+-			    !(dwc->hwparams.hwparams9 &
+-			      DWC3_GHWPARAMS9_DEV_TXF_FLUSH_BYPASS))
+-				dep->flags |= DWC3_EP_FORCE_RESTART_STREAM;
+-		}
  	}
--	if (ret)
--		return ret;
-+	if (IS_ERR(port))
-+		return PTR_ERR(port);
  
- 	/* ... and sysfs class devices, so mdev/udev make /dev/ttyGS* */
- 
--	port = ports[port_num].port;
- 	tty_dev = tty_port_register_device(&port->port,
- 			gs_tty_driver, port_num, NULL);
- 	if (IS_ERR(tty_dev)) {
-@@ -1319,14 +1419,15 @@ int gserial_alloc_line_no_console(unsigned char *line_num)
- 
- 		ret = PTR_ERR(tty_dev);
- 		mutex_lock(&ports[port_num].lock);
-+		WARN_ON(ports[port_num].port != port);
- 		ports[port_num].port = NULL;
- 		mutex_unlock(&ports[port_num].lock);
--		gserial_free_port(port);
--		goto err;
-+		tty_port_put(&port->port);
-+		return ret;
- 	}
-+
- 	*line_num = port_num;
--err:
--	return ret;
-+	return 0;
- }
- EXPORT_SYMBOL_GPL(gserial_alloc_line_no_console);
- 
+ out:
 
