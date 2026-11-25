@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606384;
-	b=oRigtva0UhlgJ3/kOmK2Iq6adh0oqt97ok+Sk40yawNrL5gKerviNZfFHStY76lwbl37
-	 h9ujtTG+xS/56ZhKsJyNjzCCAVAPaR5DByYdwJE6XTa7F1CSjAwyo7svQapX02tbGDXyu
-	 CA73cyYufIDMTm0qm3yyzOP79K0t58iCmdIUWX0x2lY9uV77e9HBFt28ssLQczdiusYxo
-	 45CR7a72zhk/w/ivOaPk/eN+QGaFnk5t/sPoMWDHoM3YOJlSZlkhjKTjwFoGGQI7vJIH1
-	 ada5YcY4T2ybeKAtlg1HXUa3id/nlv9d/zHjqsR2Va64IZP+GwLPGt6SFWXTPxeLbYg==
+	t=1795606388;
+	b=unvO75fT+Ng0V4pmrlk9zCPXE8uY5gv6abkNpxTtzrZE7AsBhQF+TNROJzCDH6vFpy8t
+	 h3XR+GcfHjxWqNstzumqtloHhY4+HS/U4hti3oLsdbYDs3BPrB3nFvykKb0kOsCz107S9
+	 OVrOSGKVzJ9oFZPt6gJIgyfjB2K4xLHTAnH3e3jjFEG27PhCv8lWQWR9REW7vBRG+W05E
+	 WcgKau4IW79Gtb8x4Us73Ddu6PbTscBcY087aIZPpmGoBU7YYdvPpMFfg1Z9Q+1rx/jr0
+	 ZEiU4C/DTC55af+j3OK5kRZ2M0d2ONXQrlkgFJmppiTiLJ+PhtZW5AmXwNYZkhTV2Pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606384;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606388;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/wFGsvCTfD6flgQZ20REjZlXgXpOUKsT5YZz8CMRg7g=;
-	b=XvZVQAaDzDNvAoiocBhBpsyBXAz0GtbGxo3u3gBe2BJBftfU9joLcEot1swOKYxg1K2s
-	 PuC5aimasqBd9RA4dBu2v92Jx56LHFpjRAPYyIVf6Y84uETmEdvoFKPoYx6NDSKxBLjQr
-	 VkUAdpwuoE3eK6l8S5WGzClEpPOGOZ0aUI5PwJjKaiC0kq5rY2QwMq7RrtQ8ch+rCzHq2
-	 YsuQp2Eob/t9Bp2fP9KeF7qs7/fVeCM5djN7z3BC3GZVa3NqhkS7bWEBNnsIHcZ+9KRlc
-	 kSyHjm2MtXMqdoCeMmZHJT4xYO75KN3LNL7w29qwSAECKu4djUxr7laKCCm92RjyxMA==
+	bh=Wy44g3gUwSOOnLns75imELvjbtTloMtW/8+x4rlDGLM=;
+	b=qm/Yt+3QRAcW1lJrxLhVaJXd0Wx2ullcGFG6B49CqVpRhc50SG+FZNYwLvfmXm8VXvVf
+	 Nkghx0K4hMdiPE+4Dev8ChD6HVDw21xUdQ0WnDt34K+ClOw0ZJu+Qk3PN+XZCk97rwRi6
+	 I58ytHq/9y763kD37TOl4EYn6EW/mUzHQ76tlmAn3gnq7r2Dsf1NUTBO6RYxa5BPYnyC7
+	 HfmD8hjGzJ7MnYOfdR+C4BbkNDy+uyfdaV/hPehl61Z2zclTPPexg4ipAbRKqGvZqBC56
+	 7mgubCVnHSvD3z3SYUYut7dfyaSZV6GNKxxgcrfTlgxrtqC4KA4Et9OrULM9MOxwOfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="UvkgD/Mb";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="vLrXt/UY";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0509606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:33:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16BF9606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:33:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UvkgD/Mb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B2FB1F000C0;
-	Wed, 25 Nov 2026 11:33:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vLrXt/UY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 043101F000D2;
+	Wed, 25 Nov 2026 11:33:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606384;
-	bh=/wFGsvCTfD6flgQZ20REjZlXgXpOUKsT5YZz8CMRg7g=;
+	s=korg; t=1795606387;
+	bh=Wy44g3gUwSOOnLns75imELvjbtTloMtW/8+x4rlDGLM=;
 	h=Subject:To:Cc:From:Date;
-	b=UvkgD/MbMliDkbsYlp5KRdH9fPoBehnPbh2f1PYVF3T4bmv5e6CwzTGrqPRAJXMjL
-	 GrTaj/QeF8RI9AugKi6Zk0T01S1/L5uis6/cxCVXFfH26Bsa+oJUyk1yCKtDyuAgbX
-	 4LgfkuUcCwIlHyppVO6goGnTseKPkwqdXxcTQIIY=
-Subject: FAILED: patch "[PATCH] dm-verity: don't restart or panic on errors during system" failed to apply to 5.15-stable tree
+	b=vLrXt/UY3GtO9b/ILXbmutyQyNhuKGIAuH7QT2hYL8QaQEfI0GtbVgFq6Y6VR+xjR
+	 IPNCd68kHBwAJAjp2Iw/d/ay9GPlbCZ/t83KucNtWuZQ/iJTufGku0cAD9WNAG1ZXj
+	 fvRe1Z4oTU7+6D2T+ZEHpGW4IvVcrU4OwskxX/LU=
+Subject: FAILED: patch "[PATCH] dm-verity: don't restart or panic on errors during system" failed to apply to 6.1-stable tree
 To: weijiang.zhou@unisoc.com,hongyu.jin@unisoc.com,mpatocka@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 12:20:16 +0100
-Message-ID: <2026112516-magnetize-reverb-2675@gregkh>
+Message-ID: <2026112516-crystal-retriever-61b9@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 47930d1236d2988cdc580c10d3af21b6b02d7ece
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112516-magnetize-reverb-2675@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112516-crystal-retriever-61b9@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
