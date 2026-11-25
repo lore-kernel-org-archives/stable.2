@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603068;
-	b=A7+YQFE7VUm4jJg0+XG4fjpnAdCj46Np7BUXa0HlJ7P5dOgSlJcTT3gwHzHb1nrOzkqS
-	 x9xUIrRRqCJIbrJl8Kc9/oj/+btK46b/gE5WXvNn8YcFIzMekoV53tQnaZgXuwtjU/Uyp
-	 cA+BgGNnalg91X2HljfhHGhFPZGt6DbNBn7SNjFpyfL8zXqJBA/VlVXcaoXD9f8i7xKLI
-	 OYc5ACn5h98c7zy9lylVeyiIJzAUOE+fUOWD5s6BugTQoDdmwR5psI3eAt3HSwUooHfud
-	 FIX/45OO1c3HbVv0/Ju7aWsUu2ATnNEPA3MfwBiBR8qLxZDN9it3DPdozL8U8JPRwkw==
+	t=1795603071;
+	b=NGcxyMY+sNg2KnMz4c4v9HGSr0+NhXvnaWkbmhhkpSuetVfptEnLTGf5lW2jFNIB5L6e
+	 vhZQnhCxwJzkhXLr3WwtJIZgKkCdhzl2kNyluT1mVJQCvSJ3VfEVto1l1ZWiHdLNOzNH0
+	 PKefsznVxUGcNcFfj6y3VX2sC6SGOIxOHnWhiAbI81P1K25/Dz41mXg0Fuo2KQPW4ktG3
+	 ZXweFItl0fknbf4PkmJ9iZ6R+MlWuBoGNtT26VTaCS9p6tnnN5FWxxaDSbNC4o+lVDq49
+	 AwjKz+O39+LUF1q3sOzhCVsA4IR9sDK2yWKeUAHhQVlvX/ptKvmGId8dG+ZUbEIRQEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603068;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603071;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pWxlNj3pQiQviYsfQt0+rOWZRgoiclLy1eDLRl2Bfyc=;
-	b=2zmLXGtLDNhVvEEG5VAs110txh3HTZiX3DMkDz5Glbizycxob4Eb/7YsbPec4LCzOMll
-	 DWpwffOFy61mq1OmOQ5Mv51C/6CveXrNZsESTWJbEEqwII51cXx0gXRrAc+BAmejmI0wn
-	 B4CfaFHu8TV67WXDM0vpMRcJhZXAk8/DhCRgxydBDA9R5r3VtuBpNlcC+hxoF8/MFIVTP
-	 RfOx8AgE1/BE/BYGJE8yRepsnnpQd2XFaC29AL7UsMlyRiClCXxWDJxZQ2HnnWPg5Ay7T
-	 phF3nrWE3Nr/yNCbmI8rOUeLF5T9Dm/4RGM1jWB6WPDLj/vgJj/LjDAVBXkTiQul50w==
+	bh=tos0ZRBDPj9uAFtz7rjfkvJAEoL8t1KvahBKfEhRkHo=;
+	b=JFHmG88PSbmNX00Vrsd3dNhKE4kl0mSQpp0OIMTrvNkDrbqbukvzALd17B3OtvjZn57t
+	 roMcgXihYbTVcyq4wUGY0VFUKjr5iIUXwoaiVG1uZe392Cuy69GUdexSLzLD8FjX3kg3A
+	 2ewQrCXWZcsq4mKqfDt1sTQQ/7Do2eMzR7+eH63P5WgSi9+Xtf6Q5I9vXWBwNyAL8508L
+	 cCcavHkfyeSuSay9YIxLV3Fp2/p7+rGzvVuQDDftUE6xx5mCCqt/1nMlaZ+VU+yE2sqRs
+	 WPTPmlRUceQLOSP/RoHjnHb10nVfg0Y+7ml5eG9xoqqqZ68hb12jO+3NvwSCVYTscEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pJUPhhOm;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ISE45okZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E276606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:37:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D351606A327
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:37:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pJUPhhOm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 932391F000D3;
-	Wed, 25 Nov 2026 10:37:47 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ISE45okZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82B9E1F000C0;
+	Wed, 25 Nov 2026 10:37:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603068;
-	bh=pWxlNj3pQiQviYsfQt0+rOWZRgoiclLy1eDLRl2Bfyc=;
+	s=korg; t=1795603071;
+	bh=tos0ZRBDPj9uAFtz7rjfkvJAEoL8t1KvahBKfEhRkHo=;
 	h=Subject:To:Cc:From:Date;
-	b=pJUPhhOmE5rdnaOxTNHRATh3iKEvSPzpsvdDnRGpoh0qv45C0QtvWieis4NQprjrm
-	 r883EQn+H90P4q9kF/I0XqQaDSI4ryfsxZ+li/VXh2A8sOVCTOny61FvssC/rnCPXq
-	 df9rf1FOFW7sR8oALU0NmhBIkt/sAHUZYIviwZ0Q=
-Subject: FAILED: patch "[PATCH] ksmbd: evaluate the DACL in order for explicit access" failed to apply to 5.15-stable tree
+	b=ISE45okZYTVsCUzQsbQDVLJ5p/TJtXGeun8ndir4Wa8ORMSvnQspZi6q8bL7F5nVv
+	 PUoaihiev9X9QFayVFrX+UIXgaUTTrd+lH5ZQuIEXyHWS0FcT5EYtd2IqFSUl8QQXd
+	 O5lGj5X/zdDheusEVafkl+ATtFTIKlx/ssiMmejM=
+Subject: FAILED: patch "[PATCH] ksmbd: evaluate the DACL in order for explicit access" failed to apply to 6.1-stable tree
 To: icb@fastmail.org,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:25:43 +0100
-Message-ID: <2026112543-important-explicit-7f4a@gregkh>
+Message-ID: <2026112543-battle-overtime-0414@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 20bed0d6ff62d985fe8222958825504b8aad4e88
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112543-important-explicit-7f4a@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112543-battle-overtime-0414@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
