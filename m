@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.3
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.49
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795624380;
-	b=IFZ2RiP6VFEbkebg5QewBjUfAIUQ4GdGdJ4JBcu3NxInmf6JTvIsCfM7X0LoP+F7/msa
-	 PS1RufKx62yaR9Qq+SGOxB/ziCSqAH9z/z4GY8JDbuuyDUCGbo+4QvmARyvZsQugZgf71
-	 O0gDQ8ZA/nSP18oM3U7rAnzXwIggJNsNrnB/n9cm46CLeYaVEUgSOnDEo1LMuC0SXXS7z
-	 0gMbEusgmAbDTN3BaHaQhueFv4oPXWqlKaYfbEBM7NDOi2VEoUTWxWPndXsjGzyPfDbjW
-	 y+ozM5lfXUcp8LPLBnD5BzgEiCADZKhUUE5MF2XCWlQ0Pqko2SGlu/kRIUvW2Ep4RiA==
+	t=1795624381;
+	b=11c1vjxpyCajUzsxyzQdY3WeV6IxhHHpWFQquQkLMd03TLFz5kKXHhYSp+GyfYaRav73
+	 nwntXW8Cqgw/q+BDH3xw9R68/Sm4FZCJRcixAexyzEUhxzNoOJCprySNNHMwP1tpNT5yc
+	 1bKNTdRhlBxEmPFVQMafS7MSwh48fy4um6yN0VA4pnQJNWanjVbe+qldjQAGpQzYjgBmf
+	 D7VqxkDO26zta5h0ZVjl8cgIZz+GtPPmPo7sakbuhdKhdmiHHrPxrm+Ptt5hjQa/U5AQW
+	 /OzOf5ih9IZ8kiZ8HvYw0rPQyar71VfdOXqJnlLuzaXKYWr8soOZgk3i7Hh8+jf8fug==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795624380;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795624381;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:From:Date:Subject:MIME-Version:Content-Type:
@@ -26,76 +26,75 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=EEGbrS4K6C/6pC2mAOyqkHWx4fF+vTiq+oFnii/QJ0A=;
-	b=VCOs86O+pkK1yy8RscyjjvxeHcLr7GYkTKQm2hRKeODsAqRNAxfBkI95EiO0KdOVOLhx
-	 8EGaAbiykYO1/ZhslV7CuCalimgM2dZ/6uEP6O4jLZ5oelSOoWe9iqigPTAiqaCKL9Tws
-	 pT9gayxrnZi7AX1tLbj+zHgBSdgQZa7trYqRCw7PQEDtaBlo2tg4frhOknRmSmDUgPIu7
-	 tZk4NOV4RzWdjZ4wf1m4npYNO1WsyGvuvYEunekvFBkAckVZnMDPYPA6ZnT0SM1H/BKSz
-	 qR4CpJuoUvIqdPk3DlsZRYc5/7jIw1jKKvTEf+vbPJyXEOcRB8oo9ImrHE8vNZ99a1A==
+	bh=5v7CY7Uqdb/iDuxnv9M7e19xM/o64AV8+RNpBjx1CaI=;
+	b=eg9GXbKqtNrfCy0OD+Xbv+waprJH+9YgF+zbEA2y/do0zqD9Pq7g6Kin9wHTQCQjyJ43
+	 SoOBgRDepirfZj9YkDx0RoP3IhcctxgvHCT0JO25ZVabGn9m5OF3qrSFLFvEQJcGvxYfd
+	 ZXThirUFvcT7HWzvt6yhLZri1ncb9ZlJnrwWTutEyGsf88x6IbSje8CXW4cJEu+gY2jZw
+	 FNCz0KEGNEwblvnSZ5G+2W8XHq4Q9ZUw9h6TCBoqN8FE3M56tNLBmleU7Z8edz/bxNQI/
+	 mS6Vqnh7EptM2L+kym/DymYaHBeXjBpV/pDRrByAXHFUxrB8Pf336KdcCQi70yNG6wA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=foss.st.com;
 	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=StKsDmv1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.3
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013003.outbound.protection.outlook.com [40.107.159.3])
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=KOlsanW6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.49
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012049.outbound.protection.outlook.com [52.101.66.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ECFB60A2615;
-	Wed, 25 Nov 2026 16:32:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3ECFB60A2615
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5BD60A2613;
+	Wed, 25 Nov 2026 16:32:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D5BD60A2613
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=StKsDmv1
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=KOlsanW6
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QQ9rIHEa8YivGs1h6ePoXo7LW70mFuuY808wPU0LYfaHZtj270IPgzzqQ6//9fXKzuO+o0FwwFMmRENWgrv5+49rXr+f6CZQ6hrdypGjgwL6lwRzbUZoMHJdI00ESy1wfP/mRc0+EH/t03+/GgTVZ8MemHDLMoILf5usct1UIkPWcNhFn3fKQubBgfooanWOp/tocwkWIUVpnmKcIug/zttiOMomrGgQ25Hb049QhcHvHAwTZqg35AXjtLV5hrccZD6tl7IaGZjY904sDcHoqFDM6+2udxjgLOxblZBLgrCuPn8ap0QU+dlnDYVyhfDJ21Rqdhjrg8F+gY0K8T11ug==
+ b=TbLHKjK4ZGDP0fmvM9nNm00TfSBQ+ZslDvf2v7v5vlULbNi32d3sJcxbQV9t/cQvWRVVLXDcj5S1fWfHHfl0kDw2Ona0T7cC8BuseuVk+AQOSnqtaAI5BQzbW/16kAkVVEkhIR657u9JrfJUNQ1BABpkbcIa3s7Tm2LrIWihjIio/dKD6mYiUW8+3BgdnvZLYNQSh4UEqG7sA6MklNRN816dGEYilkTgAY/0YIkCYGqUuIJQ/Oe/BKcnqf8r2/DUYA/2btV3Pgbx+Nby4jJKXofNKiePe9SXwn2uvN08x65YqbA2kRLjSEZgJo/XwXf00yu+NjsE4Iu1v2plgciwqQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EEGbrS4K6C/6pC2mAOyqkHWx4fF+vTiq+oFnii/QJ0A=;
- b=JqyHagLItrI8cb/5Xvv/TXaSMCRe1yQe6Eq2kgR7ad6aV1c9NY433Ea6jEIFRsDEqySXi7gTZtsIP9gfUA8HO0Kfh4PSFI5I6pIJHRdxRveAP+t2/EtrkZ6c9W8s9hvrmU6lUU4uXb/+Ge5ANQ8uUVwAvegUtipVOnrLdWoBCcD7JEc43smO+tLkqkILO+Phf765I92LMzNJIJ/t37I4a+B70q292uGR46dgtyjx9oOAlXXXuXUDsuu7uvDxxlKiUlfBduzu2lR42Gs5DDyDFjZr7v9scZM7KyHoeQvFU/qUWEjr88Hjp80yvNhXFcW3/WCOz20ErqzbMXGXi0nkew==
+ bh=5v7CY7Uqdb/iDuxnv9M7e19xM/o64AV8+RNpBjx1CaI=;
+ b=geYSQn94rtrlAkayLxTgoNcc7Ce62EWyJ52nFDH4WqHjdbxP3frObghE0SxD8T9HVbopSQhjYLjjQblRA1pFhnGZiMaFyhz4Uu74WIcIN+rMviOHHjPMFOqo049POL924+59wVz1imYCvAuGsXQem7DeReyG5WGA8DK6312lA9fvSIs1O67fF0thXPlGaLqPtGqi4vAuSCxT2qVYOiea+km3rglfcJGREud6DZI0GNik9ll9XnBWacV0hrj9tvkQeCtothswkXd+jhvrt/s3uO9GUNBs8wlhSon+CMN6Q23+lD/0vhZ83TD+n1Y94sOI6/WNrT8I4tIjBEScJf4BVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=st-md-mailman.stormreply.com
+ 164.130.1.59) smtp.rcpttodomain=st-md-mailman.stormreply.com
  smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
  header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EEGbrS4K6C/6pC2mAOyqkHWx4fF+vTiq+oFnii/QJ0A=;
- b=StKsDmv1fYTcw9ps6R1M8Uv5w+B2w8gVs9jDbut/8NPXOpWm51Y90DPqBa/E7yrj6/HuMe3TAVE3mmmXkp1yJpdKBh9HQeHAp7TcdCsEvTYjqe0CHAoVkgnTjQ9erETLI79UYCBl4pf29h+1R1O5+0RgwxjUefo7oVfXAzdSFnX0lSNmhwv4BwUDITaHK0ftv0tftlGkqTD8Zq+7xhu4acTYrTprYZ1QAPm6YEPGd0UG7pT/Pi5c2VjdIxJATMzIBDeGXkAGeUcCP5QsBsLBupez/E5D88DLl/fcDHVbrAT3TQiKv6QprO+Yr16QW1SKCKyFp3mSZkoiiBSe3KIsZQ==
-Received: from DB8P191CA0009.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:130::19)
- by VI0PR10MB8835.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:234::10) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=5v7CY7Uqdb/iDuxnv9M7e19xM/o64AV8+RNpBjx1CaI=;
+ b=KOlsanW6gU+P3e8ok2GUVhydJcSsP4EF0plFZNvBDf3/rdBuZB4oo84WgNr7PccZnor/qMlf/FZNdlv/b0ebT+p1dKsc+Hv1g3h3RFnfDdHakVHLWrZF3KnugBSuzvpK+Ow411TSpc1zusA65HIwEHMtjJRqNk5E1ybkH9Kc8naUhde5dR2sOwzMc+4VM2PkPh9UEJ7hcAEZ1ESFdAouykjudHMV9uuibpckK4iuShRfP3EiAvhtd5ZXWUcL+5hzRsoXX1BKIp3BaZFASw+lZ9UIvCwvXKxLGa9h7opxoJjIee6mQ/owq3KGKITuHjiYwlnj58sKGAosMhlNbCQOMg==
+Received: from GV2PEPF0004811E.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:158:400::1ef) by VE1PR10MB194643.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:800:1f2::14) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.3; Wed, 25 Nov
- 2026 16:32:51 +0000
-Received: from DU2PEPF00028D06.eurprd03.prod.outlook.com
- (2603:10a6:10:130:cafe::69) by DB8P191CA0009.outlook.office365.com
- (2603:10a6:10:130::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.14 via Frontend Transport; Wed,
- 25 Nov 2026 16:32:51 +0000
+ 2026 16:32:49 +0000
+Received: from WA1PEPF00009B3A.eurprd05.prod.outlook.com (2603:10a6:1d8::118)
+ by GV2PEPF0004811E.outlook.office365.com (2603:10a6:158:400::1ef) with
+ Microsoft SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id
+ 15.21.615.10 via Frontend Transport; Wed, 25 Nov 2026 16:32:47 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
 Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DU2PEPF00028D06.mail.protection.outlook.com (10.167.242.166) with Microsoft
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ WA1PEPF00009B3A.mail.protection.outlook.com (10.167.242.40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.3 via Frontend Transport; Wed, 25 Nov 2026 16:32:51 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.662.3 via Frontend Transport; Wed, 25 Nov 2026 16:32:47 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 25 Nov
- 2026 17:33:56 +0100
+ 2026 17:33:35 +0100
 Received: from localhost (10.48.86.251) by STKDAG1NODE2.st.com (10.75.128.133)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 25 Nov
- 2026 17:32:50 +0100
+ 2026 17:32:46 +0100
 From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Date: Wed, 25 Nov 2026 17:32:11 +0100
-Subject: [PATCH v6 10/11] usb: dwc2: platform: fix stm32mp15 detection
- logic power management
+Date: Wed, 25 Nov 2026 17:32:05 +0100
+Subject: [PATCH v6 04/11] usb: dwc2: clean up old role on mode change
+ during suspend
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,7 +106,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261125-dwc2-low-power-fixes-stm32-v6-10-d5df33b93eaf@foss.st.com>
+Message-ID: <20261125-dwc2-low-power-fixes-stm32-v6-4-d5df33b93eaf@foss.st.com>
 References: <20261125-dwc2-low-power-fixes-stm32-v6-0-d5df33b93eaf@foss.st.com>
 In-Reply-To: <20261125-dwc2-low-power-fixes-stm32-v6-0-d5df33b93eaf@foss.st.com>
 To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman
@@ -123,380 +122,294 @@ X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D06:EE_|VI0PR10MB8835:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7275cce3-c7df-4fbf-fbda-08df4b11bfab
+X-MS-TrafficTypeDiagnostic: WA1PEPF00009B3A:EE_|VE1PR10MB194643:EE_
+X-MS-Office365-Filtering-Correlation-Id: e1f482a6-0a79-49dd-dff4-08df4b11bda9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|7416014|36860700016|376014|1800799024|23010399003|22082099003|6133799003|3023799007|18002099003|11063799006|261028144727099003|261102123227099003|261021123027099003|261021121427099003|261009223027099003|261026121527099003|261026140227099003|5023799004|261022075727099003|261022105027099003|56012099006|10067099003;
+	BCL:0;ARA:13230040|23010399003|36860700016|376014|7416014|1800799024|82310400026|10067099003|11063799006|261022105027099003|56012099006|261026121527099003|261021121427099003|261022075727099003|261102123227099003|261009223027099003|261026140227099003|261028144727099003|261021123027099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	fEru+n30HNWrdw6fWo9dKJzMfuCeCHQamhHlDp3JmrrGfJSNdRuMbIwNK2Ww81wgKPQkj7OYmK4fxvGLJ/dNHe12/ywYxqC+IK71PNV2Zb2tEIlVwSRDXJpsM9ailK1K3ZhiQG0CL/Lk6Rs+NT4YS7DSupwi2syZbCgWgh6pWK6ysd8ZOy+5qG2BVEOiIDV9ZCeIwfPQDPqdT6owEnb9mKswWlUiC6t6IJs56WHdIhjsX7A8mPXxxSS16fmXRoIwfaL/3LeiiENlgg1EADW+T4Mrle5dl9nle06JE9o4RISaUP9EYczEnLMEFmGX+W/ENVUO0kmQZRt7GrZGsmFGiYh91H/fXrdZvzesaxqBx1TF/ngj6FaPMcUqyizgdNh4NMfY0AqSvah7qEbHGJCkvfh3ZhF3BNffJtN9Zs09rUjU2chNNHOxGdDTp7+eIDhW2k8AeGr05+qg309zIthHAnNnPo5XV2En3vpuWUZET3l+iPagObDscZ/2JAxzggNEiSToUHVKqRYzYx3Co4Iy3Pfi790LqMOxQ3mOAmy48rcDOF2myR0pc6RPwXFTKz9YbBX9lkrBpwYhDFPlLn/asO9tDg4ijjxnvu05OGwZC65fuluzrwLwQCQGu4xfhrYokZparvL4pBfiabHfts+ip9ipjJBD0zz0/HdHioTp8dbhgEklSA1wdXBj5lQBdFHCrO6+AFQ6UHlPsmw30PUAiA==
+	sanK9ugfERqXd45mHTLSUb/QBuvaFM106A2MgtfsOcz6FR/G888Ml0Jd1LbB1SF71onIu5KexNhU9mBIIuIO1X3B35CVYEGfxupiR9LfPC2wXC4iXvrQtpO4osB9VPPrDPMjZcV1UqDTP6hQjnZMob2+kRoJFFslgytuF9YhY6nSm0Ma2YgukzDLtlDwSlcNuTJOB+/OdpCi6ldpZMEZQPQxNeuE/xBkZ+hqH/ZWtXSnf626lmKWCHqPcMHUZtMGLMnLa+INT2YOW6j+0kDDqEPWbC2nRzZomo0LkyP+3/Kn1O/XUXNduY9ncVbt2Fnjp/CcXeGBjdCGiRcYte0dc+5RTrUFQkJFygsDUgP4CS+dyzGfo3h/TcOzs6xGG5xEuM52YTiNZRFOjg7LiZRq7xAo3tTDdt5uwf2WDiFG01M1tZW/7szwrQX8Mo0IjfP3u4n89temy9kf+UmNdEmy0YffM4kX6qzfr5JlMt/rFARrXmNBHCDQh+YqwmZYDdTEyOtPwQOkTaj/HMFXeBJ6A/6v8Au7xgeAPg0mw+zKNtsjsofOvIGgM9ZiqKoLV9auaTFFeNjYcVzApstDucAcCJjIoXWtLl/DACVAgbcPYY8o0Nm2gjQs7bA+lp1S98U43z39TcT9bFz/tqDSBufUig==
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(36860700016)(376014)(1800799024)(23010399003)(22082099003)(6133799003)(3023799007)(18002099003)(11063799006)(261028144727099003)(261102123227099003)(261021123027099003)(261021121427099003)(261009223027099003)(261026121527099003)(261026140227099003)(5023799004)(261022075727099003)(261022105027099003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(7416014)(1800799024)(82310400026)(10067099003)(11063799006)(261022105027099003)(56012099006)(261026121527099003)(261021121427099003)(261022075727099003)(261102123227099003)(261009223027099003)(261026140227099003)(261028144727099003)(261021123027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	z1OPvw0Cb99IwJW5jiqywnNWzQRU1UUJXaqjZCAC0hJMrTwStGQYscGBtvuap6/bQw5eB5+E1YbMQSsa1x6Q+tYrbY4rLzih7UZmgp0/il9q1niWJt0yGg8PJsbyX27aVOX8UppkQRu0HjZRDehMDvxEveG6RM7ra/yrNQRHrCq9Ghe1Aa8s9dTZZ65xagH/IapuLzQgcPnP+J3jf/Dti6P9aXN8KvRN91AGam8+5x8wOP9oRZ9rUtqyCJ9kI+5glsFTTEIzHUs+0BYX/+64DaftANz5pyuskJty21dz5/zUu2zDU/ZQ1QoQXfw1iUWd1YQvSBRARevxtF8NT3aBD/TE5CwjMRg8WHsIga/DGBnspFPrEvCnt8TixHnOxUhFs0qdGKazfvseG1evCnA79H35+UVhLwl0FPq0Kusg7Zm5oVNWcvpV7eT1rbhPVzfG
+	i4U1/gQH3C9fMCRiXJz2dWTSBEtVMe9TJhFfy02+KYgKPAPmfMlxIwDe4l1kB5qCYlZeYgBFT1j5kt/+V4GYp/VqopCQxrUVWyGVBY2vXIhujbdC9wpqGy4f79Oc5lO6vk6Aqkv6GExCY2TLxg0O8zaDr+yE8e0n47eJ2Z4xpXKVuHc0z+KU2hvr8BD5P4whMCReihP0sAAYmx2sB+JXe6he54OVFNIpaTd1oPyTefhrNK/b00O2+VnwJbziN5XtsLQ3D3iH7c+8ZHGKpKc9BNbCiD1dVCbiHKbio99xADBakYxIatiuBowiF2e0OmP5wxRjCxCPcU40Boi0kKDw4MBJkixpqj+y86OVvG3IxnsYZjwXOrqNaSo5PQDcucUU8nsCbsI+ft8CjD67m6Kc9vmxowL+qZ9whZp3HkZZyOvG8j9sMI8SDyD5dAfryNWa
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 16:32:51.0045
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 16:32:47.7410
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7275cce3-c7df-4fbf-fbda-08df4b11bfab
+X-MS-Exchange-CrossTenant-Network-Message-Id: e1f482a6-0a79-49dd-dff4-08df4b11bda9
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF00028D06.eurprd03.prod.outlook.com
+	WA1PEPF00009B3A.eurprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR10MB8835
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR10MB194643
 
-On stm32mp15, the STM32 detection logic can remain enabled even though
-the other hardware resources are disabled during probe in peripheral
-mode:
-    /* Gadget code manages lowlevel hw on its own */
-    if (hsotg->dr_mode == USB_DR_MODE_PERIPHERAL)
-        dwc2_lowlevel_hw_disable(hsotg);
+If the power domain is off during system suspend and the OTG ID pin
+changes meanwhile, dwc2_resume() sees a register loss but the role that
+was active at suspend is never cleaned up. No connector ID interrupt
+reports the change, as GINTSTS is cleared by the register restore, and
+the register backup belongs to the old role: host registers could be
+restored in device mode, or the other way around.
 
-When entering system low power, the detection logic resources would then
-remain enabled because dwc2_suspend() checks:
-    if (!dwc2->ll_hw_enabled)
-        return 0;
+When the core was in device mode at suspend and resumes in host mode, the
+gadget driver is never told about the disconnect and the gadget state
+stays stale. When it was in host mode and resumes in device mode, URBs and
+host flags stay as they were and the external VBUS supply is left enabled.
 
-If the stm32mp15 enters standby, the register contents can be lost and
-not restored, leaving dwc2 unusable. This can happen when no gadget
-driver has been bound.
+Record the mode in dwc2_suspend(). On register loss with dr_mode otg,
+compare it with the mode after resume. If it differs, skip the register
+restore and clean up the old role before initializing the new one:
 
-Move the STM32 detection logic enable/disable procedures into dedicated
-dwc2_stm32_hw_[enable/disable]() routines and call them from the
-__dwc2_lowlevel_hw_[enable/disable]() routines.
+- device to host: disconnect the gadget, clear stale state, the FIFO map
+  and set the speed to unknown, without accessing endpoint registers that
+  are unusable in host mode. Then reinitialize the host with the new
+  dwc2_hcd_restore(). If it fails, the HCD was not reinitialized, so it is
+  left inaccessible.
+- host to device: fail pending URBs, clear stale state, make the HCD
+  accessible and release VBUS, then reinitialize the core and resume the
+  gadget.
 
-Factorize the probe code by replacing regulator_enable() and GGPIO
-register access with a call to dwc2_stm32_hw_enable(). The earlier
-dwc2_lowlevel_hw_enable() call during probe cannot do this because
-activate_stm_id_vb_detection is only known after dwc2_init_params() runs
-and the usb33d supply is acquired.
+This addresses the second finding of the Sashiko review of "usb: dwc2:
+fix recovery after PM domain off".
 
-Track VBUS/ID detection state in stm32_id_vb_detection_enabled so it
-is disabled only after successful enablement.
-
-Fixes: 2b94b054ac49 ("usb: dwc2: fix hang during suspend if set as peripheral")
-Fixes: a415083a11cc ("usb: dwc2: add support for STM32MP15 SoCs USB OTG HS and FS")
+Fixes: ba6e518d136b ("usb: dwc2: Implement recovery after PM domain off")
 Cc: stable@vger.kernel.org
+Closes: https://lore.kernel.org/linux-usb/sashiko-outbox-219256@kernel.org/
 Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 ---
-Changes in v5:
-- rebased on ("usb: dwc2: restore peripheral mode on low-level enable")
-  intended to address sashiko comment "usb: dwc2: missing forced mode
-  restore in dwc2_stm32_hw_enable()"
-
-Changes in v4:
-- Track successful STM32 ID/VBUS detection enablement with
-  stm32_id_vb_detection_enabled, avoiding an invalid regulator disable
-  during probe error cleanup, as reported by Sashiko.
-
-Changes in v3:
-- Roll back if regulator_disable() fails in dwc2_stm32_hw_disable(), as
-  reported by Sashiko.
-- Add a note in response to Sashiko's v2 review.
-
-Changes in v2:
-- Fix the probe error path if devm_regulator_get() or
-  dwc2_stm32_hw_enable() fails, as reported by Sashiko.
-- Describe the hardware-disable error handling in the commit message.
-
-Notes:
-- If dwc2_stm32_hw_disable() fails in __dwc2_lowlevel_hw_disable(),
-  there is nothing to roll back, so return immediately. Alternatively,
-  the error could be ignored to continue disabling other resources.
-  Similar behavior already exists for phy shutdown/exit/power_off errors;
-  this could be addressed separately.
-- In host mode with remote wakeup enabled and a descendant enabled to
-  wake the system, phy_off_for_suspend is false. The STM32 power domain
-  is not expected to turn off, so registers should not be lost.
+Changes in v6:
+- New patch added since Sashiko finding
 ---
- drivers/usb/dwc2/core.h     |   2 +
- drivers/usb/dwc2/platform.c | 185 ++++++++++++++++++++++++++------------------
- 2 files changed, 112 insertions(+), 75 deletions(-)
+ drivers/usb/dwc2/core.h     |  9 +++++++
+ drivers/usb/dwc2/gadget.c   | 20 ++++++++++++++++
+ drivers/usb/dwc2/hcd.c      | 58 +++++++++++++++++++++++++++++++++++++++++++++
+ drivers/usb/dwc2/platform.c | 25 ++++++++++++++++---
+ 4 files changed, 109 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/usb/dwc2/core.h b/drivers/usb/dwc2/core.h
-index 1bd652c1bb42..9a3bf6a5047c 100644
+index 9873ae7b52c2..89a34956bf22 100644
 --- a/drivers/usb/dwc2/core.h
 +++ b/drivers/usb/dwc2/core.h
-@@ -878,6 +878,7 @@ struct dwc2_hregs_backup {
+@@ -876,6 +876,7 @@ struct dwc2_hregs_backup {
+  * @reset_phy_on_wake:	Quirk saying that we should assert PHY reset on a
   *			remote wakeup.
   * @phy_off_for_suspend: Status of whether we turned the PHY off at suspend.
-  * @suspended_in_device_mode: True if the core was in device mode at suspend.
-+ * @stm32_id_vb_detection_enabled: True if STM32 ID/VBUS detection is enabled.
++ * @suspended_in_device_mode: True if the core was in device mode at suspend.
   * @need_phy_for_wake:	Quirk saying that we should keep the PHY on at
   *			suspend if we need USB to wake us up.
   * @frame_number:       Frame number read from the core. For both device
-@@ -1080,6 +1081,7 @@ struct dwc2_hsotg {
+@@ -1074,6 +1075,7 @@ struct dwc2_hsotg {
+ 	unsigned int reset_phy_on_wake:1;
  	unsigned int need_phy_for_wake:1;
  	unsigned int phy_off_for_suspend:1;
- 	unsigned int suspended_in_device_mode:1;
-+	bool stm32_id_vb_detection_enabled;
++	unsigned int suspended_in_device_mode:1;
  	u16 frame_number;
  
  	struct phy *phy;
+@@ -1419,6 +1421,7 @@ void dwc2_clear_lost_state(struct dwc2_hsotg *hsotg);
+ int dwc2_hsotg_remove(struct dwc2_hsotg *hsotg);
+ int dwc2_hsotg_suspend(struct dwc2_hsotg *dwc2);
+ int dwc2_hsotg_resume(struct dwc2_hsotg *dwc2, bool lost);
++void dwc2_hsotg_role_lost(struct dwc2_hsotg *hsotg);
+ int dwc2_gadget_init(struct dwc2_hsotg *hsotg);
+ void dwc2_hsotg_core_init_disconnected(struct dwc2_hsotg *dwc2,
+ 				       bool reset);
+@@ -1456,6 +1459,7 @@ static inline int dwc2_hsotg_suspend(struct dwc2_hsotg *dwc2)
+ { return 0; }
+ static inline int dwc2_hsotg_resume(struct dwc2_hsotg *dwc2, bool lost)
+ { return 0; }
++static inline void dwc2_hsotg_role_lost(struct dwc2_hsotg *hsotg) {}
+ static inline int dwc2_gadget_init(struct dwc2_hsotg *hsotg)
+ { return 0; }
+ static inline void dwc2_hsotg_core_init_disconnected(struct dwc2_hsotg *dwc2,
+@@ -1505,7 +1509,9 @@ static inline void dwc2_clear_fifo_map(struct dwc2_hsotg *hsotg) {}
+ #if IS_ENABLED(CONFIG_USB_DWC2_HOST) || IS_ENABLED(CONFIG_USB_DWC2_DUAL_ROLE)
+ int dwc2_hcd_get_frame_number(struct dwc2_hsotg *hsotg);
+ int dwc2_hcd_get_future_frame_number(struct dwc2_hsotg *hsotg, int us);
++int dwc2_hcd_restore(struct dwc2_hsotg *hsotg);
+ void dwc2_hcd_lost_state(struct dwc2_hsotg *hsotg);
++void dwc2_hcd_role_lost(struct dwc2_hsotg *hsotg);
+ void dwc2_hcd_connect(struct dwc2_hsotg *hsotg);
+ void dwc2_hcd_disconnect(struct dwc2_hsotg *hsotg, bool force);
+ void dwc2_hcd_start(struct dwc2_hsotg *hsotg);
+@@ -1533,7 +1539,10 @@ static inline int dwc2_hcd_get_frame_number(struct dwc2_hsotg *hsotg)
+ static inline int dwc2_hcd_get_future_frame_number(struct dwc2_hsotg *hsotg,
+ 						   int us)
+ { return 0; }
++static inline int dwc2_hcd_restore(struct dwc2_hsotg *hsotg)
++{ return 0; }
+ static inline void dwc2_hcd_lost_state(struct dwc2_hsotg *hsotg) {}
++static inline void dwc2_hcd_role_lost(struct dwc2_hsotg *hsotg) {}
+ static inline void dwc2_hcd_connect(struct dwc2_hsotg *hsotg) {}
+ static inline void dwc2_hcd_disconnect(struct dwc2_hsotg *hsotg, bool force) {}
+ static inline void dwc2_hcd_start(struct dwc2_hsotg *hsotg) {}
+diff --git a/drivers/usb/dwc2/gadget.c b/drivers/usb/dwc2/gadget.c
+index 295091a87b12..9b12c336e4aa 100644
+--- a/drivers/usb/dwc2/gadget.c
++++ b/drivers/usb/dwc2/gadget.c
+@@ -5251,6 +5251,26 @@ int dwc2_hsotg_resume(struct dwc2_hsotg *hsotg, bool lost)
+ 	return 0;
+ }
+ 
++/**
++ * dwc2_hsotg_role_lost - drop gadget state after a role change in suspend
++ * @hsotg: Programming view of the DWC_otg controller
++ *
++ * The core came back from register loss in host mode while the gadget was
++ * active at suspend. Disconnect the gadget and clear stale software state
++ * without touching the endpoint registers, which are not usable in host mode.
++ */
++void dwc2_hsotg_role_lost(struct dwc2_hsotg *hsotg)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&hsotg->lock, flags);
++	dwc2_hsotg_disconnect(hsotg);
++	dwc2_clear_fifo_map(hsotg);
++	hsotg->gadget.speed = USB_SPEED_UNKNOWN;
++	dwc2_clear_lost_state(hsotg);
++	spin_unlock_irqrestore(&hsotg->lock, flags);
++}
++
+ /**
+  * dwc2_backup_device_registers() - Backup controller device registers.
+  * When suspending usb bus, registers needs to be backuped
+diff --git a/drivers/usb/dwc2/hcd.c b/drivers/usb/dwc2/hcd.c
+index 6f2b192f68f8..60b39ccd0cad 100644
+--- a/drivers/usb/dwc2/hcd.c
++++ b/drivers/usb/dwc2/hcd.c
+@@ -2324,6 +2324,42 @@ static void dwc2_hcd_reinit(struct dwc2_hsotg *hsotg)
+ 	dwc2_core_host_init(hsotg);
+ }
+ 
++/**
++ * dwc2_hcd_restore - reinitialize host state after a role change in suspend
++ * @hsotg: Programming view of the DWC_otg controller
++ *
++ * Return: 0 on success, or a negative error code on failure.
++ */
++int dwc2_hcd_restore(struct dwc2_hsotg *hsotg)
++{
++	struct usb_hcd *hcd = dwc2_hsotg_to_hcd(hsotg);
++	unsigned long flags;
++	int ret;
++
++	clear_bit(HCD_FLAG_HW_ACCESSIBLE, &hcd->flags);
++	dwc2_disable_global_interrupts(hsotg);
++
++	ret = dwc2_vbus_supply_init(hsotg);
++	if (ret)
++		return ret;
++
++	ret = dwc2_core_init(hsotg, true);
++	if (ret) {
++		dwc2_vbus_supply_exit(hsotg);
++		return ret;
++	}
++
++	spin_lock_irqsave(&hsotg->lock, flags);
++	dwc2_hcd_reinit(hsotg);
++	dwc2_clear_lost_state(hsotg);
++	hsotg->flags.b.port_connect_status_change = 1;
++	hsotg->flags.b.port_suspend_change = 1;
++	set_bit(HCD_FLAG_HW_ACCESSIBLE, &hcd->flags);
++	spin_unlock_irqrestore(&hsotg->lock, flags);
++
++	return 0;
++}
++
+ /**
+  * dwc2_hcd_lost_state - drop stale host state after registers were restored
+  * @hsotg: Programming view of the DWC_otg controller
+@@ -2344,6 +2380,28 @@ void dwc2_hcd_lost_state(struct dwc2_hsotg *hsotg)
+ 	spin_unlock_irqrestore(&hsotg->lock, flags);
+ }
+ 
++/**
++ * dwc2_hcd_role_lost - drop host state after a role change in suspend
++ * @hsotg: Programming view of the DWC_otg controller
++ *
++ * The core came back from register loss in device mode while the host was
++ * active at suspend. Fail pending URBs, release VBUS and clear stale software
++ * state so the host can be started again on the next role switch.
++ */
++void dwc2_hcd_role_lost(struct dwc2_hsotg *hsotg)
++{
++	struct usb_hcd *hcd = dwc2_hsotg_to_hcd(hsotg);
++	unsigned long flags;
++
++	spin_lock_irqsave(&hsotg->lock, flags);
++	dwc2_hcd_disconnect(hsotg, true);
++	dwc2_clear_lost_state(hsotg);
++	set_bit(HCD_FLAG_HW_ACCESSIBLE, &hcd->flags);
++	spin_unlock_irqrestore(&hsotg->lock, flags);
++
++	dwc2_vbus_supply_exit(hsotg);
++}
++
+ static void dwc2_hc_init_split(struct dwc2_hsotg *hsotg,
+ 			       struct dwc2_host_chan *chan,
+ 			       struct dwc2_qtd *qtd, struct dwc2_hcd_urb *urb)
 diff --git a/drivers/usb/dwc2/platform.c b/drivers/usb/dwc2/platform.c
-index 38954dee6ad0..c1f5e03c0d03 100644
+index 53c34a42f760..d89a30308f86 100644
 --- a/drivers/usb/dwc2/platform.c
 +++ b/drivers/usb/dwc2/platform.c
-@@ -91,6 +91,95 @@ static int dwc2_get_dr_mode(struct dwc2_hsotg *hsotg)
- 	return 0;
- }
+@@ -658,6 +658,7 @@ static int __maybe_unused dwc2_suspend(struct device *dev)
+ 		return 0;
  
-+static void dwc2_stm32_hw_activate_id_vb_detection(struct dwc2_hsotg *hsotg)
-+{
-+	unsigned long flags;
-+	u32 ggpio, gotgctl;
-+
-+	ggpio = dwc2_readl(hsotg, GGPIO);
-+	ggpio |= GGPIO_STM32_OTG_GCCFG_IDEN;
-+	ggpio |= GGPIO_STM32_OTG_GCCFG_VBDEN;
-+	dwc2_writel(hsotg, ggpio, GGPIO);
-+
-+	/* ID/VBUS detection startup time */
-+	usleep_range(5000, 7000);
-+
-+	spin_lock_irqsave(&hsotg->lock, flags);
-+	/* Remove overrides when resuming from the disable */
-+	gotgctl = dwc2_readl(hsotg, GOTGCTL);
-+	gotgctl &= ~GOTGCTL_DBNCE_FLTR_BYPASS;
-+	gotgctl &= ~(GOTGCTL_BVALOEN | GOTGCTL_AVALOEN |
-+		     GOTGCTL_BVALOVAL | GOTGCTL_AVALOVAL);
-+	dwc2_writel(hsotg, gotgctl, GOTGCTL);
-+	spin_unlock_irqrestore(&hsotg->lock, flags);
-+}
-+
-+static int dwc2_stm32_hw_enable(struct dwc2_hsotg *hsotg)
-+{
-+	int ret;
-+
-+	/* params are only known, once dwc2_init_params() has been probed */
-+	if (!hsotg->params.activate_stm_id_vb_detection)
-+		return 0;
-+
-+	if (hsotg->stm32_id_vb_detection_enabled)
-+		return 0;
-+
-+	ret = regulator_enable(hsotg->usb33d);
-+	if (ret)
-+		return ret;
-+
-+	dwc2_stm32_hw_activate_id_vb_detection(hsotg);
-+	hsotg->stm32_id_vb_detection_enabled = true;
-+
-+	return 0;
-+}
-+
-+static int dwc2_stm32_hw_disable(struct dwc2_hsotg *hsotg)
-+{
-+	unsigned long flags;
-+	u32 ggpio, gotgctl;
-+	int ret;
-+
-+	if (!hsotg->stm32_id_vb_detection_enabled)
-+		return 0;
-+
-+	/*
-+	 * Need to force the mode to the current mode to avoid Mode
-+	 * Mismatch Interrupt when ID detection will be disabled.
-+	 */
-+	dwc2_force_mode(hsotg, !dwc2_is_device_mode(hsotg));
-+
-+	spin_lock_irqsave(&hsotg->lock, flags);
-+	gotgctl = dwc2_readl(hsotg, GOTGCTL);
-+	/* bypass debounce filter, enable overrides */
-+	gotgctl |= GOTGCTL_DBNCE_FLTR_BYPASS;
-+	gotgctl |= GOTGCTL_BVALOEN | GOTGCTL_AVALOEN;
-+	/* Force A / B session if needed */
-+	if (gotgctl & GOTGCTL_ASESVLD)
-+		gotgctl |= GOTGCTL_AVALOVAL;
-+	if (gotgctl & GOTGCTL_BSESVLD)
-+		gotgctl |= GOTGCTL_BVALOVAL;
-+	dwc2_writel(hsotg, gotgctl, GOTGCTL);
-+	spin_unlock_irqrestore(&hsotg->lock, flags);
-+
-+	ggpio = dwc2_readl(hsotg, GGPIO);
-+	ggpio &= ~GGPIO_STM32_OTG_GCCFG_IDEN;
-+	ggpio &= ~GGPIO_STM32_OTG_GCCFG_VBDEN;
-+	dwc2_writel(hsotg, ggpio, GGPIO);
-+
-+	ret = regulator_disable(hsotg->usb33d);
-+	if (ret) {
-+		dwc2_stm32_hw_activate_id_vb_detection(hsotg);
-+		dwc2_force_dr_mode(hsotg);
-+		return ret;
-+	}
-+
-+	hsotg->stm32_id_vb_detection_enabled = false;
-+
-+	return 0;
-+}
-+
- static int __dwc2_lowlevel_hw_enable(struct dwc2_hsotg *hsotg)
+ 	is_device_mode = dwc2_is_device_mode(dwc2);
++	dwc2->suspended_in_device_mode = is_device_mode;
+ 	if (is_device_mode)
+ 		dwc2_hsotg_suspend(dwc2);
+ 
+@@ -738,7 +739,7 @@ static int __maybe_unused dwc2_resume(struct device *dev)
  {
- 	struct platform_device *pdev = to_platform_device(hsotg->dev);
-@@ -141,8 +230,22 @@ static int __dwc2_lowlevel_hw_enable(struct dwc2_hsotg *hsotg)
- 			dwc2_force_dr_mode(hsotg);
- 	}
- 
-+	ret = dwc2_stm32_hw_enable(hsotg);
-+	if (ret)
-+		goto err_dis_phy;
-+
- 	return 0;
- 
-+err_dis_phy:
-+	if (hsotg->uphy) {
-+		usb_phy_shutdown(hsotg->uphy);
-+	} else if (hsotg->plat && hsotg->plat->phy_exit) {
-+		hsotg->plat->phy_exit(pdev, hsotg->plat->phy_type);
-+	} else {
-+		phy_power_off(hsotg->phy);
-+		phy_exit(hsotg->phy);
-+	}
-+
- err_dis_clk:
- 	if (hsotg->clk)
- 		clk_disable_unprepare(hsotg->clk);
-@@ -178,6 +281,10 @@ static int __dwc2_lowlevel_hw_disable(struct dwc2_hsotg *hsotg)
- 	struct platform_device *pdev = to_platform_device(hsotg->dev);
+ 	struct dwc2_hsotg *dwc2 = dev_get_drvdata(dev);
+ 	unsigned long flags;
+-	bool lost;
++	bool lost, role_changed;
  	int ret = 0;
  
-+	ret = dwc2_stm32_hw_disable(hsotg);
-+	if (ret)
-+		return ret;
-+
- 	if (hsotg->uphy) {
- 		usb_phy_shutdown(hsotg->uphy);
- 	} else if (hsotg->plat && hsotg->plat->phy_exit) {
-@@ -358,9 +465,6 @@ static void dwc2_driver_remove(struct platform_device *dev)
+ 	if (!dwc2->ll_hw_enabled)
+@@ -790,7 +791,25 @@ static int __maybe_unused dwc2_resume(struct device *dev)
+ 	 * registers must be restored.
+ 	 */
+ 	lost = !(dwc2_readl(dwc2, GUSBCFG) & GUSBCFG_TOUTCAL_MASK);
+-	if (lost) {
++	role_changed = lost && dwc2->dr_mode == USB_DR_MODE_OTG &&
++		       dwc2->suspended_in_device_mode != dwc2_is_device_mode(dwc2);
++	if (role_changed) {
++		/*
++		 * The ID pin changed while the registers were lost: no
++		 * connector ID interrupt reports it and the register backup
++		 * belongs to the old role. Clean up the old role and
++		 * initialize the new one instead of restoring.
++		 */
++		if (dwc2->suspended_in_device_mode) {
++			dwc2_hsotg_role_lost(dwc2);
++			ret = dwc2_hcd_restore(dwc2);
++		} else {
++			dwc2_hcd_role_lost(dwc2);
++			ret = dwc2_core_init(dwc2, true);
++		}
++		if (ret)
++			return ret;
++	} else if (lost) {
+ 		spin_lock_irqsave(&dwc2->lock, flags);
+ 		ret = dwc2_restore_critical_registers(dwc2);
+ 		/*
+@@ -806,7 +825,7 @@ static int __maybe_unused dwc2_resume(struct device *dev)
  
- 	dwc2_drd_exit(hsotg);
+ 	if (dwc2_is_device_mode(dwc2))
+ 		ret = dwc2_hsotg_resume(dwc2, lost);
+-	else if (lost)
++	else if (lost && !role_changed)
+ 		dwc2_hcd_lost_state(dwc2);
  
--	if (hsotg->params.activate_stm_id_vb_detection)
--		regulator_disable(hsotg->usb33d);
--
- 	if (hsotg->ll_hw_enabled)
- 		dwc2_lowlevel_hw_disable(hsotg);
- }
-@@ -554,33 +658,23 @@ static int dwc2_driver_probe(struct platform_device *dev)
- 		goto error;
- 
- 	if (hsotg->params.activate_stm_id_vb_detection) {
--		u32 ggpio;
--
- 		hsotg->usb33d = devm_regulator_get(hsotg->dev, "usb33d");
- 		if (IS_ERR(hsotg->usb33d)) {
- 			retval = PTR_ERR(hsotg->usb33d);
- 			dev_err_probe(hsotg->dev, retval, "failed to request usb33d supply\n");
- 			goto error;
- 		}
--		retval = regulator_enable(hsotg->usb33d);
-+		retval = dwc2_stm32_hw_enable(hsotg);
- 		if (retval) {
--			dev_err_probe(hsotg->dev, retval, "failed to enable usb33d supply\n");
-+			dev_err_probe(hsotg->dev, retval, "dwc2_stm32_hw_enable failed\n");
- 			goto error;
- 		}
--
--		ggpio = dwc2_readl(hsotg, GGPIO);
--		ggpio |= GGPIO_STM32_OTG_GCCFG_IDEN;
--		ggpio |= GGPIO_STM32_OTG_GCCFG_VBDEN;
--		dwc2_writel(hsotg, ggpio, GGPIO);
--
--		/* ID/VBUS detection startup time */
--		usleep_range(5000, 7000);
- 	}
- 
- 	retval = dwc2_drd_init(hsotg);
- 	if (retval) {
- 		dev_err_probe(hsotg->dev, retval, "failed to initialize dual-role\n");
--		goto error_init;
-+		goto error;
- 	}
- 
- 	if (hsotg->dr_mode != USB_DR_MODE_HOST) {
-@@ -650,9 +744,6 @@ static int dwc2_driver_probe(struct platform_device *dev)
- error_drd:
- 	dwc2_drd_exit(hsotg);
- 
--error_init:
--	if (hsotg->params.activate_stm_id_vb_detection)
--		regulator_disable(hsotg->usb33d);
- error:
- 	if (hsotg->ll_hw_enabled)
- 		dwc2_lowlevel_hw_disable(hsotg);
-@@ -677,37 +768,6 @@ static int __maybe_unused dwc2_suspend(struct device *dev)
- 
- 	dwc2_drd_suspend(dwc2);
- 
--	if (dwc2->params.activate_stm_id_vb_detection) {
--		unsigned long flags;
--		u32 ggpio, gotgctl;
--
--		/*
--		 * Need to force the mode to the current mode to avoid Mode
--		 * Mismatch Interrupt when ID detection will be disabled.
--		 */
--		dwc2_force_mode(dwc2, !is_device_mode);
--
--		spin_lock_irqsave(&dwc2->lock, flags);
--		gotgctl = dwc2_readl(dwc2, GOTGCTL);
--		/* bypass debounce filter, enable overrides */
--		gotgctl |= GOTGCTL_DBNCE_FLTR_BYPASS;
--		gotgctl |= GOTGCTL_BVALOEN | GOTGCTL_AVALOEN;
--		/* Force A / B session if needed */
--		if (gotgctl & GOTGCTL_ASESVLD)
--			gotgctl |= GOTGCTL_AVALOVAL;
--		if (gotgctl & GOTGCTL_BSESVLD)
--			gotgctl |= GOTGCTL_BVALOVAL;
--		dwc2_writel(dwc2, gotgctl, GOTGCTL);
--		spin_unlock_irqrestore(&dwc2->lock, flags);
--
--		ggpio = dwc2_readl(dwc2, GGPIO);
--		ggpio &= ~GGPIO_STM32_OTG_GCCFG_IDEN;
--		ggpio &= ~GGPIO_STM32_OTG_GCCFG_VBDEN;
--		dwc2_writel(dwc2, ggpio, GGPIO);
--
--		regulator_disable(dwc2->usb33d);
--	}
--
- 	spin_lock_irqsave(&dwc2->lock, flags);
- 	gr = &dwc2->gr_backup;
- 	if (!gr->valid) {
-@@ -765,31 +825,6 @@ static int __maybe_unused dwc2_resume(struct device *dev)
- 	}
- 	dwc2->phy_off_for_suspend = false;
- 
--	if (dwc2->params.activate_stm_id_vb_detection) {
--		unsigned long flags;
--		u32 ggpio, gotgctl;
--
--		ret = regulator_enable(dwc2->usb33d);
--		if (ret)
--			return ret;
--
--		ggpio = dwc2_readl(dwc2, GGPIO);
--		ggpio |= GGPIO_STM32_OTG_GCCFG_IDEN;
--		ggpio |= GGPIO_STM32_OTG_GCCFG_VBDEN;
--		dwc2_writel(dwc2, ggpio, GGPIO);
--
--		/* ID/VBUS detection startup time */
--		usleep_range(5000, 7000);
--
--		spin_lock_irqsave(&dwc2->lock, flags);
--		gotgctl = dwc2_readl(dwc2, GOTGCTL);
--		gotgctl &= ~GOTGCTL_DBNCE_FLTR_BYPASS;
--		gotgctl &= ~(GOTGCTL_BVALOEN | GOTGCTL_AVALOEN |
--			     GOTGCTL_BVALOVAL | GOTGCTL_AVALOVAL);
--		dwc2_writel(dwc2, gotgctl, GOTGCTL);
--		spin_unlock_irqrestore(&dwc2->lock, flags);
--	}
--
- 	if (dwc2->dr_mode != USB_DR_MODE_PERIPHERAL) {
- 		if (!dwc2->role_sw)
- 			/* Need to restore FORCEDEVMODE/FORCEHOSTMODE */
+ 	/* Global interrupts are off after a restore, enable them back */
 
 -- 
 2.43.0
