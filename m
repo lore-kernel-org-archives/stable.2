@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795597869;
-	b=SyGU4j8BZPdYXhnWpjcc5U+f/UTBZscXTqPxTHOf5Zv6Mlcn3CIGMDyzjYfAIqPsB+LO
-	 wc5UflygyiOCKEBNF/Uvxq70T92OypAohanT29SRaVC99hgAgmmAU9e7TNTFDScaLxoQx
-	 YGzkMlo93dqqG44gMi0GOmidy4a7YnQxnpeAUE+RQqeCgPT58WN7xXnO/ZgaeO+NBBLEd
-	 iC0d1HK0Dha9M4DXkx3KnEHdHqhdAJ5i3oHNH7phRvt5KeenetCd11Y9/GRLNfWRzNaKH
-	 ZtiFF++D/+CbponPPEpIe7mE9kBHDt8xJUZN4yEKnBap6eyElQxMWaIQbFHSQaopihA==
+	t=1795597873;
+	b=SDo1ui+WmmY2UVrDhLuUOdtq+CyWTcKaWCVzNMezcE0cs+aPWQTE62l+8th5MNG9oh9F
+	 ydhEoQSmVr+3Cz6UsLCgu8io5PRP4GOkfbvt/vckvbYRHjpIAN5vgGPJ5NUeHmvIXI449
+	 9a4UsezFL+m68iM5PscI8wRsgEHMYwTfh76VOIjnrL54hhZRVNwutpVVWUsAjDrK1WZTJ
+	 sc8ACnpYiW8kcfnUSpqXC9waFW8SX8GMIinYAPQmO/W/mCmIvhRcr34kSRjo2fazaUh0H
+	 2ZtvnVsKXVZyuH+DQ/ED7j+32G9NebbSrxP3s9yC7BkY4wnslGQzyaDAdigktQBngCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795597869;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795597873;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1OTk0BW+nwYuIZdQdAb7ZFFun1Si/LJhcH6hibEq3F0=;
-	b=zGJn6PTIWG34OlS6YFSZxcvgf97IWC9AWgjMkNRoi7k9flf64JR5adNRMaWsDyonviAs
-	 cb6M55AeBsM0Con+q7pU1rSyIvL0ml6WTH47EitxwuGwrzPYFB5usY6jRvqXsRk0A5N+I
-	 IRazBIMnVejs1ZOMXlQ+PtfFmDyvaoNEnhCKddxvfQgfkr36VPbT8HSDMgyicvcrP0zgF
-	 7xtCJlhLpOX9VwqAUi9S6x2eHSSzXPHeYygABylEkTIsZI6/XW4ZIjJOw2XxDPNHSTUbj
-	 7cHiG7cn6F7dZukqmPpkrsu/cys4wqw3J01ftI4cL2HQthwhxmuLCPlzAX1Jc7ePysw==
+	bh=/Z3pxd7oxgc2jHFNuyP4lSpwPelm8i9RVr4Oltu0g8s=;
+	b=wpnLeS0U4iiyOESAHQzYkllf75oyISwRXVc4oIupvoE2yp+UhmQRCxwO1j1D8YqwkUpN
+	 qECjiZ5os1mUv7Se2bsbsOrAyjFxN22Beb1TGK9M3X3uXkGDwONtOK7CSnYeWJaX1fVU7
+	 R9EreKATl1iqzrV8judvJgbQ9+GOrEp5agyzOvwVsm+8tWfP0EVx6e+UEwbpudSbHs2ZU
+	 T+AnAsVQ0Da6s8J0uPpcrxUyfDU1A4q75/Okela04ITluHzUyTipLF3IB6yMzKTvWPm0q
+	 zQyOyLY5zh4QdorABbRzRPoOc5f7QecbV1vxydwk3rhtpA5v4xghc9K3EzkgJCRKH4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=I69C6yVw;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yra4XZ1j;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1EFC606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:11:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C73606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:11:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=I69C6yVw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EA671F000CF;
-	Wed, 25 Nov 2026 09:11:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yra4XZ1j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D06871F000D0;
+	Wed, 25 Nov 2026 09:11:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795597869;
-	bh=1OTk0BW+nwYuIZdQdAb7ZFFun1Si/LJhcH6hibEq3F0=;
+	s=korg; t=1795597872;
+	bh=/Z3pxd7oxgc2jHFNuyP4lSpwPelm8i9RVr4Oltu0g8s=;
 	h=Subject:To:Cc:From:Date;
-	b=I69C6yVwSthE3VuJjtFCBomK+vhvqIp6faeAJkSQQ6hp0XaGGH0eEJ/gEtz4b8YYh
-	 2xtDyC0WWWyBe38YJHsWMqE1PKh9Nt18mTR4kAEBT735scA4FWsA2oRO2V/ELL2zzf
-	 yC9ZPPHZTIRCOHpPBeFkG/O83HSlhqsdI+k+Q/qQ=
-Subject: FAILED: patch "[PATCH] gtp: free the skb after handling an echo response" failed to apply to 6.6-stable tree
+	b=yra4XZ1j4XmgPwejGxnBbP2vwxZ7hrBHqDS61jENk6h93fMMEZF8siJSreMloVZaZ
+	 3BXYgUX/2e+vhm0zGvCSy8mBjbwDxifo8y8oAqJ2OW/CJQ6NndC6k0DmgPUP3xiyV1
+	 dtlStJsCK5Ii49+ShntFyh4d2LRVlFA3EsvqkKbk=
+Subject: FAILED: patch "[PATCH] gtp: free the skb after handling an echo response" failed to apply to 6.1-stable tree
 To: joasantonio108@gmail.com,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 09:59:10 +0100
-Message-ID: <2026112510-starved-striking-0546@gregkh>
+Date: Wed, 25 Nov 2026 09:59:11 +0100
+Message-ID: <2026112511-garden-tassel-ecb6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x f17b293d155f377e4cff582b8113991d2ad346d6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112510-starved-striking-0546@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112511-garden-tassel-ecb6@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
