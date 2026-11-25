@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603201;
-	b=NxykRoYmxqFaHBhdE7lOHe/W7jsa7HVLUxbzuPVMvxDap4VTe2TbyPTymFwbc25wgbAT
-	 49A2gqsGzaAp7jbPLLlIwEmr5sFaNIZhwVuJEmPmf7btBA5TURTFBKWHggUOB1urNFCZB
-	 eBBsnSyk9rrmtK7k0H5N+Y+pswrCpfC2TBa4cR4HbqgWbw+ceOGoUO3OHvziXPuvIbvDl
-	 Ac9Nv+/NS9hTlatajEdRqW8GGO8dcHPa1+X41gWqvJAb9xooPt46vOh6uWd/IOlhq6rfh
-	 MYTpgzsG4zFkPJGxuf8ZTRnpodgmGdK5pG1TCxPoYBIKssucbFP/nF2XOsofqla8kWg==
+	t=1795603204;
+	b=ZU1zy8okspk2nCLGC8Qn80/LgcIaNvS+lbmr7iq3b5VFjsKoxTIqIUcqjXHcnbJXLAiZ
+	 PI6WSGiCSOSk2xQX2Sg89+fLFzFxSbrdFbbcFSQ1arNPAKFu4JdpXePzJ+6U4d6ED215O
+	 p5oIGZzj/vS+W/5yD5F28BbBr2KBPHKG6rYOe12v5h1OPtyImhiKoJA2K9xaCNEBtVVsE
+	 BlsCX+7QKrQuUnllHPlRFVbz6gL3nQQcmlTNCIpR0l8fmze5j6WkVSk2OuT4aLx9W++ZP
+	 r0/PYxlheayBqIo0DdOZKEQcZG795BZyoZerNrKXaVZLbApd96iPDg7YMzkqWE92Jnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603201;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603204;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=v7Ks/XoiI3Br7ZHSmcq4yfQe9QktTgte9bTh9cOYors=;
-	b=0/M+W403V+epg38gY2X6iEAKz7VhMYeuFTw1bWqA03JrVeWC7ZcUCJpiCZbdhdXOnKOB
-	 ipTVRUqlovKdymNxvw6Vl40MMiAWDCbrCEWRE+rDXaQLOQQPUu/ygWWriaBK8Hj+sUdl0
-	 oOIEVbLoOGyN5VoDece+ak6j6NBZhxmUgWtvMhG6+s4H/03JVML9497ZXHiVNm+br5Eb8
-	 1ABCY3mLHVJJfV32lYdmPHjSjptRhn7pzoeM7HlCSet9p8GOyjES01oBxeQmZ9XxTzJYU
-	 O5epT0ka+YOu8FOtoHk6UuQHIgdQ/wBHviF3e0C4XyvMrHKsYtPSkWm0s99gVfkNM5A==
+	bh=R3w7nYaswdz1w4Vq8YobG2GJDb6lbQXWew0ar/Bi/fg=;
+	b=TIE3gBFW+hJoZY+VCdKlyH3TllLQkBMQ7joYJr+kZi90hkZnlTqWajz1JweNdatN8mv1
+	 xBpA+OjSSIzSdjx31QBguFeHF/R7WQT2q20kqwvdDumqIKlS6vtYqdvcn7Fp+MDOH50IP
+	 /Hb1Dv3lq1aiou9+1SqI0DgRAHefJMV1WdjbL9IzlDjTp7+zfn+2CzAShfKpexCv2C155
+	 nWgqoGasIHZbPpC3tnsvDWh8KvjS2kZbKtXYM78xoG5GCGBSwsc6WfiLmbm87fLTKbC7Y
+	 /zpIRQxx2cPVzOVZrhMxAoaLq81jsOxZMt57FcZO9iAiR0YuRze1O4Bpxudogd/haNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TQOgpiqx;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ualPbhdS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84BA5606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:40:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CC34606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:40:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TQOgpiqx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D4801F000CA;
-	Wed, 25 Nov 2026 10:40:00 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ualPbhdS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADD921F000CA;
+	Wed, 25 Nov 2026 10:40:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603201;
-	bh=v7Ks/XoiI3Br7ZHSmcq4yfQe9QktTgte9bTh9cOYors=;
+	s=korg; t=1795603204;
+	bh=R3w7nYaswdz1w4Vq8YobG2GJDb6lbQXWew0ar/Bi/fg=;
 	h=Subject:To:Cc:From:Date;
-	b=TQOgpiqxN7KRrTlQP8za58fo8rJfgpSzuYIIKFGsvOeMRF3tEOpu9gS6SMVB+3EJ8
-	 g2IxM1qMta2W0oy4GDK9jh6g0dQjlccUiAE+44CHnosKUWl8wRcmIHQVxTe3e2QvGD
-	 pEeX33o/0h4Jd7opvNuCqz6d5qt+8uCR475UvUOc=
-Subject: FAILED: patch "[PATCH] tracing/probes: Fix user-space dereference string array store" failed to apply to 6.6-stable tree
+	b=ualPbhdSTyQuE+fwQYjZ86JscwAB9jtPBTg4mD9n906FnqfKk/Z17rtXYbNOFl7In
+	 Lax/i2fLwWyn32cgx13w2RJQ/1jTb2MO5qSEGwAwE1stNNYHDmhT5djXvxgHApNSKE
+	 HZxgxcp7zGMHu6dCQx6fod7DMmChG4qgdv7gHBn0=
+Subject: FAILED: patch "[PATCH] tracing/probes: Fix user-space dereference string array store" failed to apply to 5.10-stable tree
 To: mhiramat@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:29:43 +0100
-Message-ID: <2026112543-secluding-hatchback-2d84@gregkh>
+Date: Wed, 25 Nov 2026 11:29:44 +0100
+Message-ID: <2026112544-quack-omit-0946@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2721573e6c6faaba2e31f352f2c02ec5f3ecf5e9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112543-secluding-hatchback-2d84@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112544-quack-omit-0946@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
