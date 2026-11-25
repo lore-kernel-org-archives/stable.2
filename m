@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603030;
-	b=ltfMVbW0XAvlBNuCb6182G50KIiOzAeUGImvExY5gdveu9HxmidoIKP1vRr8xascrTGh
-	 hy5/gixLqPJKWZFCeywYUNUG73wfo4L9F5gFOPp/ggyF+UeWDFmlrFsHXaJtTXr/eajTX
-	 mkPRGgES3YOhVTJLTYw9FiAoA7fffvlKAbgaiUuuHlJ2ya9Bt/x5HMA97BgTOsJP5s9Pf
-	 gbHFdyNBlRGk+dFN5eLdlz1bSdzUDbuV71ihB3ExalGiJVmxOnTLPEcmBc/TZaBGCQ4Wp
-	 hnh6k4g+2/AXEDulOR5aUk8ddj0KNxSaowlMvJV96Ztmi3i5tjx2fzoXjaO4SWkTZmA==
+	t=1795603033;
+	b=iWYPIHXIk2GTRylovfl8PE4p4qJgB8erQtwK6wvnrBYh7xveQkdHG5aljdHbqkr16rXc
+	 e5/lbUE9Zn3nkaOH8jRyxS73PVVpA9e1GPGUreqt+zNqA9CRwagRFeK+wRWE+6Xv6vYC4
+	 RcatlCXqC7wDikQjceDxJYXKnf231QLKpka7RUjKRFmfHfFW2NOMRSClXxPtACTKliALS
+	 95froILFrpbQT863UbkvfQSUSlPKOcOZWQaXXQ/fe9ExyShbRRgbjAwnvJX3Yp3Djpge3
+	 BaeQ5LYhbE3a3WiGhJzfd/LQy4xEiRfFG/e+Hje6c48kH7kM61O1+fsTRhlHWuRkCTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603030;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603033;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=WdA0yf/VQgd5La9XANKVg3Rbw7W2s2UnZENnI4e/QQM=;
-	b=IKF1xYRJz4tqGNS3ELbL4TTU7KOYJEUsPWjTJ8iMSHNdTpps02p7E9hjOIVV9Qu4ghhk
-	 bTFU0qw3I7uj25pMm88ZZnj/sRTt+0UWqCxTQIZGsUYox4NKu9LMfcWCi1uqFSDQAEgVY
-	 mH3DhMFB7ALWbkH0NuFA44KvJ+0hL+ZsZmBLeT4BHcKfhlIBBy0iUGpAdM5oxmVkeB5LB
-	 iF/nOChmWLBTWpiVS7mdzQ95Hcxj8s9+yecTBMjbMHi06Js+AFTaIHIli/a8kEwcHn4Hl
-	 oep+DEcA+a9W3ee24SRUKuUAMoUxaoK6K8ZOKe6bZ+O8cO63V/2/IgViETrpoOc8ZJQ==
+	bh=UiPmukhZq3ejo6dCWSp2kdaYjd7D27byZcCUrV3XU2k=;
+	b=b4JuVXXOA/O/MdS5XPUXHtIG9J1bF0Hubvw5EavzhS12s1h0xeh+IQ0PcedseUXhrcBv
+	 xRdPOgaD9fN64yYUnL1C3l+4Vx9p1a1ucdsmL69l72CpkjrqNWuzBtSLOYnUTPF9Sw0on
+	 rJLyPMWynjRWrjKYSUSbaspSf20pC9sRNnMtk2M94UeqRDqxlSfRl9OpIwdaXSLdIVaai
+	 ZHeLjXwzy3c57srqDVeNfh+jxjnyd2HpHw1uSZqqqQX3Mp/Gq5VWvmmbbSm1v8jleLsAO
+	 eqnprdFYIQaoDwHWAk5+sgRDwXhBVOEGnSLsdc7KUXelHCU9ocCjQesEGw1bYzssF8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eTK1MvCj;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=v7RpfLXa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E37606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:37:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A790606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:37:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eTK1MvCj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E42A61F000C4;
-	Wed, 25 Nov 2026 10:37:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=v7RpfLXa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33B181F000C4;
+	Wed, 25 Nov 2026 10:37:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603029;
-	bh=WdA0yf/VQgd5La9XANKVg3Rbw7W2s2UnZENnI4e/QQM=;
+	s=korg; t=1795603032;
+	bh=UiPmukhZq3ejo6dCWSp2kdaYjd7D27byZcCUrV3XU2k=;
 	h=Subject:To:Cc:From:Date;
-	b=eTK1MvCjR3BZNMhZctZixQjUNit0JVakvZSl5BU37WZdF3SPVsTtmfI/OAHM1uwn0
-	 mzgRj0aV0IOdZZc4KB5jqyTrmMCsQY1Pc5NgG0Q4kR/0B0gWGQ/jiBlpDjxlc0ifUx
-	 xxfb6447AWhev75VMVznKh0JMuhHIQLvLcR3Q8Fo=
-Subject: FAILED: patch "[PATCH] sched_ext: Fix ops.enqueue/dispatch() calls before" failed to apply to 7.3-stable tree
+	b=v7RpfLXaBToOlrimDpT5d4OehzYpRE4Og9hP9TPwypneYqRe5SUjN9bCo8rAfXZAe
+	 c43tRxAvA5kdJ8knn02oC1CbcNlbWdOYWCg/Gl9DA/W3MVK7afJY2sPx3+ZiGbGW+H
+	 +s8STuXk57pf7t+Pt1AhOD5ZZLkVzxFBrpA+IniQ=
+Subject: FAILED: patch "[PATCH] sched_ext: Fix ops.enqueue/dispatch() calls before" failed to apply to 6.18-stable tree
 To: tj@kernel.org,arighi@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:22:25 +0100
-Message-ID: <2026112525-reprise-frostlike-4cea@gregkh>
+Date: Wed, 25 Nov 2026 11:22:26 +0100
+Message-ID: <2026112526-mobster-foe-f1b5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.3-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2227a34ff7bfcf6112931039e3554f4b70b65ab9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112525-reprise-frostlike-4cea@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112526-mobster-foe-f1b5@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
