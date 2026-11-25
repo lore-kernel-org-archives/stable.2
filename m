@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795602857;
-	b=JxRXtViWc2fOesThM5UAwXQqpNsp29awmm3n77Fu7NXUx6e/bwf+aMUdnJTSSugUWBro
-	 Z5NFgOjhfe7g6WMy4moPOYwpBTaYsgxX3UCZIeRRKFfdxYojzq+2lWWtGDKhxqYG50E2t
-	 3iEZDayD9uEaKGOy7DDcZUtEgZ19n2qbLf/LjR4yfIcHSaoaMCvgVpx82kT0HXgTQA6Vn
-	 9FT7yL2G5U8J9EcU6f0Xl4hJ12D0RLRQsXE8WeY38g51PtMNf8DADopFXiFwCT0ZW7gUU
-	 3IdNY39Wsj/tUVvJ0ZIiX2QB9iVtt5+VpqzeW4qGMlKCWqHTJHjEguFDqUCyB8DOiFA==
+	t=1795602860;
+	b=vbE/rofxg171O3l6PPUOAradiEZSF7/mjb8Iu1CzLbnkYlN+M8UJ/r4v9/nNGrD9Y+RJ
+	 Pk7+dSj2T2RJlgMRQE+lEYuz8CsotBHHQeTYbaNkibfN+n9GOIcyBK5CWFVD/hNahLt4v
+	 SecQb0DY7U7Fe6ky8MwlXo+hHXvCcstlpHov941H9gS81ltvFyjdsVIfOP9EvTJe++2zc
+	 oLGnOD2Zbc84OqK5NcyxajR3CsYHYX7rhwnvrfrcHaiEoMXegfms8QXiGDIqAL4fanAWv
+	 DJLIknUULfhg7QFZ//hz+ME3LNRfSi/2SAamgheQJczKvicCh87HspbYk+wZnaRW4Ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602857;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602860;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4su7b6unfJBf1qeiNYb6F4nj7vSQXhRos9dJG/Am0ic=;
-	b=ntmFL0qkhIxams9flEMq50uF8MRaxe3KloE4gG9oKGUg8x0V4GSp3wPl7VuLzfi4drsM
-	 D8TVboBW/MqyPyxl670p5ijcuvLkWy774HkvNKZnHZvf1vTbVZpavfSoqV4HNEJZbhkm1
-	 8lZC9t1K3vXxLGj6aPRWgut7NAmY3rIBogJMM3Y9slgzZrY2wn0l+Q4y7L7RU7U3G02x9
-	 KZCVk7hCfAjzGU2jS21wlGTKUDcvDbINmA9J8wvgyDzlDpY8nbu7dwQ5ycJ6qnfdl4U5o
-	 DpAOSY3CFiJgkYetxmgpUrzzvhn2TrpeAWe1IhvqmNav/KRtR7uYNIbSdKWHTQO5WPQ==
+	bh=QTTC7qeWkG/PewkvHcKVJoc6BRuWBDyjHygo6uiOcQw=;
+	b=trwtepXi8uDummyxwtTkjeMkvMTFacaTkrO06vbAMOk48KTdrVcgBdmnZbBARfbYagk9
+	 VwFb56nK71SgzpjCApZQOhrRLXCm0szNY75ef6WSXokdv5BdqE1l9oYqyuITnIMaODXzS
+	 3OXif3F4G7zP0g3xdJ+MgzuvTipH1sX0fZozQgv/Hn/xy0xMDban7+lGCUjWnZuskPGO7
+	 /LZxivV+7YnNYi12vK1j/SzNAimGIIdpAmuq4OaFQ0n7E+pp9cGQEp+H6TKgKtSQq51S1
+	 eCznisT1Nz93ic+ipCfH38EmcLRh3uqhDTJg9Nb+qhpjEMhQskU2bpIFEtur02RQ98A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=clSGHW3l;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jchN9Pic;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93062606A32A
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:34:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B43F4606A339
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:34:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=clSGHW3l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D7FA1F000C4;
-	Wed, 25 Nov 2026 10:34:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jchN9Pic
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D92AC1F000D0;
+	Wed, 25 Nov 2026 10:34:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795602857;
-	bh=4su7b6unfJBf1qeiNYb6F4nj7vSQXhRos9dJG/Am0ic=;
+	s=korg; t=1795602860;
+	bh=QTTC7qeWkG/PewkvHcKVJoc6BRuWBDyjHygo6uiOcQw=;
 	h=Subject:To:Cc:From:Date;
-	b=clSGHW3l+k6KimK9jhAbH+GPxlC5m9w+LQzE+hmaAjh1yq6FBAoTnRMPhhZx1yuz6
-	 4ri8wf4lhYTkg45INEPqjp0xBBVU5XpXwTqahsO9xI0vBV4drlHohAIuyxfTDDNTav
-	 0PxRbutV9Jn5n7jcNmup/r5DjAbGUJfXHFfJo/p4=
-Subject: FAILED: patch "[PATCH] watchdog: npcm: fix clock prepare leak when setting timeout" failed to apply to 6.6-stable tree
+	b=jchN9PicLR8JX1mcUYz3HDI/7CwNTfoI+HywOeBxrh/wnGvORKMFUxjRf89UyBKOo
+	 bS05FH+632NP/JZwY5tWoGA7vAS7aLgm7ZH4ngtiQR2oXj/LeVOozF2TNhZkDWiud7
+	 3J8Y4JBLxDfkgZdhACAWtzkxOHJVdwVmJHifBo4E=
+Subject: FAILED: patch "[PATCH] watchdog: npcm: fix clock prepare leak when setting timeout" failed to apply to 6.1-stable tree
 To: zhaofeng2@cmss.chinamobile.com,linux@roeck-us.net
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 11:15:22 +0100
-Message-ID: <2026112522-ocean-schilling-8a8f@gregkh>
+Message-ID: <2026112522-venus-heritage-0a34@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 57c7cbe21acc77291ec0fbdd4bd72aa259cf4986
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112522-ocean-schilling-8a8f@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112522-venus-heritage-0a34@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
