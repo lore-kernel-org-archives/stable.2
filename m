@@ -1,54 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795626655;
-	b=gjsaO+6zbedX/JguDTqqWmHkn5uPtYC6JJ5CVEpmC4hh7uXGcbZ5VFOzcUKV8YBna6Fk
-	 A5Y9FVK0RMtQhzqBwAoADjE5sO5uX3+C2pVDK4ZNw5scPQdXavxVFrVGfI9YqkhExS/5f
-	 u8on8gPB5HxqKJgAbBH53WF55UHKA5nfTRoBOP/f2KLy0GioBygEOmmIn+0LygW+nd521
-	 G/OGVjQg5+MVRKQGPxX3cy9pYz2/NwLfVG4VEgw3Yi/esG7pTqS0gJkCEjlpx9lbScOsx
-	 FnQG0xE473N+R/436DvJB4M7igVqE4fqJYdgW6mViVToiUVSzfu0g7o7o2nY/IkUBTA==
+	t=1795626673;
+	b=ER0UP53BlDBEiH0O6pUgGSZXEBHNHtBv9ka55KhItFV6XZnbx91JpdHD6r7TkriVUDs+
+	 WSQFaLGzVQTDY6zBBSJkJv/cjSa2wNnirXNEvTA8xxBCO07BKLgufxO7lXt6hxc5+jLQo
+	 1k37dAy+wSykrdN0pcyTmXgYVxUIWjiqTeGlVreKpgCyOhxtFVQvI2hk5BcrYooqJTyQg
+	 Rk4tnbHlK4IDmgwei9OhyHSQluljVx9DcUbRKczjYw12VbQmAlY+HkFnuVeBCkh/8FJ/d
+	 2wV/w8SF3QrmvKXD/4/MYscVIUQrB0YQe0UiQZ/5oUzZcaNZsjd9WZ4vCSd/GK8NIVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795626655;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ozLFntVBzmuIfASDuHOoXz7z3U6AcUcjq0CDki8YAlA=;
-	b=Y6H31uvnUI79Se0AKhwKbzrHDKZE3xaani4Ie7LNfNkM8myW+keF4c/th/UxeoXxtIOV
-	 w60QhX3iTBIVG7mTSy+hDwjT3y2I2E1Dtc+21y9xJWz1gAJrmdJGyqah2zc7dz3F8Hs92
-	 TrQawSvzGZtXwZ7TmX2twgSN/OIrNtQWkVASj9U+PWP4gygYqLmCkOQ2LT8eR6FkU9UJF
-	 SJDl9tPFerCsyUkHVnyRHogL00pcV/S0sBNCB2grbatO6wglD2rNX792gtMyYXDo6+2jm
-	 W3YBV/eUzgwgOkSsXiXc9NEUO2DfoI+x722/as4HdaPbTsa+r62Rt4x2gGAifRKdhPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795626673;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=R5SZ2u7ZbkMyUYP/ygw5f/CaG43NA7BvjFevu1R+8m4=;
+	b=HboZkpF+I1qYFhA7UKVEprGMvRbDxON2x5NfulwBKesZlYhNmDEXsdLV4v7ZVrBc637j
+	 yKlkCYueQCaYrPcjWFh7uFI++paugj14VvrA59zoAUQN6lWV6laVOqQVJmk8A0FT00G3S
+	 I6DA7Zad4yJLwsNuUPVGipyx4i3HdMov+RzPQpi4dDbkFWnnpwHj71SPFoyMwxBv59sUy
+	 YBd3Hc8cSs/JXLgF3CMzXet9mPXjLwUIEsY8PrTQ7FgzhL3bhHjML5PE9+iikICHuJMGF
+	 jsCcqZroWy5/m+yc0vzuf1W5bruiTp+gjI1EvCdjsjyBvpLFaVfELqZED6L94AyHBBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RDIPLJ2U;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="fv/Hwnqu";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E884F606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:10:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B3C606A329
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:11:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RDIPLJ2U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF11B1F000C4;
-	Wed, 25 Nov 2026 17:10:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795626654;
-	bh=ozLFntVBzmuIfASDuHOoXz7z3U6AcUcjq0CDki8YAlA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RDIPLJ2UzzlO4YLqHY1Gr+b1aZRydvkRvFIpZ0+fqejYJGlnB1ZEy6pv6uGPySJsh
-	 aRNLN0Vr299z9WbQl4GZ7/oZfMQKyrsGOR0iiFsw/CglMJ/QptQ1yQeZUN3ohwZsvT
-	 PKE1lPh4bzZlgUprgDml9cU0FmXHahc/a6JfrQTghKDhILTY1457xfbvwCRseiR3um
-	 B73JjNxsiY3qLsEfXr1g2K91OA7z/S8ijf6YcarcxFvG3O0yU9fpft50CN5egpjW0V
-	 /Y8tnKqxvBCBaS59fuEN0vYGB3aj46pNSA4NqqOH0ZavbIEw8Htd8Y/u8MAd/lrByN
-	 K7r4icIpLbuKQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] kprobes: Switch ftrace ops when adding probe with post_handler
-Date: Wed, 25 Nov 2026 12:10:52 -0500
-Message-ID: <20261125171047.937439-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112527-guy-parted-9114@gregkh>
-References: <2026112527-guy-parted-9114@gregkh>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fv/Hwnqu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4978C1F0089F;
+	Wed, 25 Nov 2026 17:11:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795626672;
+	bh=R5SZ2u7ZbkMyUYP/ygw5f/CaG43NA7BvjFevu1R+8m4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fv/HwnqubW5Yt2GFXXPOQdW8wURylSHVUWo1yM+ZQKJU/oTRqHdr/7Ki5BARgnisL
+	 GAfp8QWbSkX4VxeiaLVJlbcAJyl0rEXflDRNvzw63pb2JwjFSqM0BYNRk8N94fJz2i
+	 HoH2VtcLEzTDMxU4xbsXjlRIuD5Y5qJNEHEufUXs=
+Date: Wed, 25 Nov 2026 18:11:33 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Hardik Gohil <hgohil@mvista.com>
+Cc: stable@vger.kernel.org, cve@kernel.org
+Subject: Re: AI tools for CVE backporting/Fixing
+Message-ID: <2026112521-paramount-panoramic-2531@gregkh>
+References: <CAH+zgeGo9V_DRG_2yRAEw82bk6SMsV_JRxSOM28p7q02oTKE9A@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,146 +52,17 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAH+zgeGo9V_DRG_2yRAEw82bk6SMsV_JRxSOM28p7q02oTKE9A@mail.gmail.com>
 
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+On Wed, Nov 25, 2026 at 10:23:33PM +0530, Hardik Gohil wrote:
+> Hello All,
+> 
+> I was wondering if anyone is currently using, or is aware of, AI tools
+> that can help with backporting kernel CVE patches or identifying and
+> fixing kernel vulnerabilities.
+> 
+> If you have experience with any such tools or recommendations, please share.
 
-[ Upstream commit f60f98881b54b0cf36b61f41c91fbd93b76a2d9c ]
-
-When an ftrace-based kprobe is registered without a post_handler, it is
-armed using kprobe_ftrace_ops. If a second probe with a post_handler is
-subsequently registered at the same address, register_aggr_kprobe() sets
-ap->post_handler to aggr_post_handler, but leaves the probe armed using
-kprobe_ftrace_ops.
-
-When the probe is later disarmed or disabled, disarm_kprobe_ftrace()
-checks whether p->post_handler is non-NULL and attempts to disarm from
-kprobe_ipmodify_ops. This fails with -ENOENT, decrements
-kprobe_ipmodify_enabled below zero, leaves the probe armed on
-kprobe_ftrace_ops, and aborts unregistration, leading to a use-after-free
-if the probe module is unloaded.
-
-Switch the armed probe from kprobe_ftrace_ops to kprobe_ipmodify_ops in
-register_aggr_kprobe() outside of text_mutex and cpus_read_lock to avoid
-lockdep and deadlock issues when modifying ftrace code. Defer adding the
-new probe onto ap->list until the ftrace ops switch completes so that the
-new probe's handlers are not published prematurely while ap is still on
-kprobe_ftrace_ops, and mark ap disabled if rollback re-arming fails.
-Also restore ftrace ops registration and counter if ftrace_set_filter_ip()
-fails in __disarm_kprobe_ftrace().
-
-Link: https://lore.kernel.org/all/179440641120.328088.15542754095040659094.stgit@devnote2/
-
-Fixes: 5dd7caf0bdc5 ("kprobes: Skip clearing aggrprobe's post_handler in kprobe-on-ftrace case")
-Cc: stable@vger.kernel.org
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/kprobes.c | 55 +++++++++++++++++++++++++++++++++++++++---------
- 1 file changed, 45 insertions(+), 10 deletions(-)
-
-diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-index 2461116015805..0fd0d40a71ee2 100644
---- a/kernel/kprobes.c
-+++ b/kernel/kprobes.c
-@@ -1200,9 +1200,14 @@ static int __disarm_kprobe_ftrace(struct kprobe *p, struct ftrace_ops *ops,
- 	(*cnt)--;
- 
- 	ret = ftrace_set_filter_ip(ops, (unsigned long)p->addr, 1, 0);
--	WARN_ONCE(ret < 0, "Failed to disarm kprobe-ftrace at %pS (error %d)\n",
--		  p->addr, ret);
--	return ret;
-+	if (WARN_ONCE(ret < 0, "Failed to disarm kprobe-ftrace at %pS (error %d)\n",
-+		      p->addr, ret)) {
-+		if (*cnt == 0)
-+			register_ftrace_function(ops);
-+		(*cnt)++;
-+		return ret;
-+	}
-+	return 0;
- }
- 
- static int disarm_kprobe_ftrace(struct kprobe *p)
-@@ -1331,16 +1336,12 @@ void kprobe_busy_end(void)
- }
- 
- /* Add the new probe to 'ap->list'. */
--static int add_new_kprobe(struct kprobe *ap, struct kprobe *p)
-+static void add_new_kprobe(struct kprobe *ap, struct kprobe *p)
- {
- 	if (p->post_handler)
- 		unoptimize_kprobe(ap, true);	/* Fall back to normal kprobe */
- 
- 	list_add_rcu(&p->list, &ap->list);
--	if (p->post_handler && !ap->post_handler)
--		ap->post_handler = aggr_post_handler;
--
--	return 0;
- }
- 
- /*
-@@ -1373,6 +1374,8 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
- {
- 	int ret = 0;
- 	struct kprobe *ap = orig_p;
-+	bool reset_post_handler = false;
-+	bool ftrace_switch_ops = false;
- 
- 	scoped_guard(cpus_read_lock) {
- 		/* For preparing optimization, jump_label_text_reserved() is called */
-@@ -1419,18 +1422,50 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
- 					| KPROBE_FLAG_DISABLED;
- 		}
- 
-+		if (p->post_handler && !ap->post_handler) {
-+			reset_post_handler = true;
-+			if (kprobe_ftrace(ap) && !kprobes_all_disarmed &&
-+			    !kprobe_disabled(ap))
-+				ftrace_switch_ops = true;
-+			else
-+				ap->post_handler = aggr_post_handler;
-+		}
-+
- 		/* Copy the insn slot of 'p' to 'ap'. */
- 		copy_kprobe(ap, p);
--		ret = add_new_kprobe(ap, p);
-+		if (!ftrace_switch_ops)
-+			add_new_kprobe(ap, p);
-+	}
-+
-+	if (ftrace_switch_ops) {
-+		/*
-+		 * Must switch ftrace ops outside of text_mutex and cpus_read_lock
-+		 * to prevent deadlocks when ftrace code modification acquires text_mutex.
-+		 */
-+		ret = disarm_kprobe_ftrace(ap);
-+		if (ret)
-+			return ret;
-+
-+		ap->post_handler = aggr_post_handler;
-+		ret = arm_kprobe_ftrace(ap);
-+		if (ret) {
-+			ap->post_handler = NULL;
-+			if (arm_kprobe_ftrace(ap))
-+				ap->flags |= KPROBE_FLAG_DISABLED;
-+			return ret;
-+		}
-+		add_new_kprobe(ap, p);
- 	}
- 
--	if (ret == 0 && kprobe_disabled(ap) && !kprobe_disabled(p)) {
-+	if (kprobe_disabled(ap) && !kprobe_disabled(p)) {
- 		ap->flags &= ~KPROBE_FLAG_DISABLED;
- 		if (!kprobes_all_disarmed) {
- 			/* Arm the breakpoint again. */
- 			ret = arm_kprobe(ap);
- 			if (ret) {
- 				ap->flags |= KPROBE_FLAG_DISABLED;
-+				if (reset_post_handler)
-+					ap->post_handler = NULL;
- 				list_del_rcu(&p->list);
- 				synchronize_rcu();
- 			}
--- 
-2.53.0
-
+Nothing special is needed, what have you tried that did not work?
