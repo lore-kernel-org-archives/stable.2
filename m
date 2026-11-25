@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795620089;
-	b=PhId4iympC9nANyq5atLeEpKYBNss37fUGdQuC0P3uRJnurK6Hs5gn+dGJjHSP+B1mLM
-	 b6o8nWeMJ7mJZb4rLEP2OwdTOihwO8AZMQKGhYcbAyJiyGI8dMvIsuZPdj1njjkTol2V7
-	 SCicAmUd1kKjP3vA6AYxMKjLVqJIuQMw+jl42eVcmvEoGXUx34wVnZXQRrVHpMAjALSJQ
-	 YtshwASRji5kCTalEspzxLkrYZuZkCASD61ivt75vq4IGI0WmJH6a3XxG7L5O1Xuofu8i
-	 WNa2R+8YvfGl6TarXzmwsMdAxTMT16VRis5AAfc6SipATX7JNAdJfKwN8BH+SE7n19Q==
+	b=CGwuCIufX7JN2S4fFzxMn40875Tc/KyxsA3J6zuK4+J7FNrNYXzV/jl81MibRa28qFI+
+	 wbIazP6yRT62Juuo94++tRVu2kGvf29JG9a81VygpVRR67IpKcvbPjfHVR0EoTMyY297t
+	 9bxImvAAsMLa0S6DcomMJaCj9Txb+uPwPjSf13SzhxiuvpGs4iaVzO97XPEsmdqviPGAt
+	 /REYkWi2MRvWn9rsMBcODWS2pHvisf6iajwELaxZcw10DEezu3cFTKqkMxmF2gwmhQj7y
+	 SL2Vu24vWyOZIYszNuY10l0QR81hxqMfCL5bK1QYVbEEdzh8oH2ZyVJCEm+lRSJoYTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795620089;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=l+gugUjJQh1gij8yZSii87A8/QKvBOnZzHfcWdJtUi8=;
-	b=iwZrT18TSdq3jhDwDPzrqUe/+YJilTazryezHSvlZIHQ0BKenDsOzXYVXjJTbSQgiP34
-	 MOYqVyhz2SygObkP0ycW8N4za29ckeHaeTT1V0lmfjrwerqgIgd0xGBrU7AukyZj4mccr
-	 FFNg1qDbrYsDolvGP7FBA+gVk05Kz6jlnHtw4v5nXU0DQkHiLASkzGi8Wxwp9d+224XIZ
-	 5reTacwOHPlgaKShLp2RsdHfwLqU7vtmWpfCaMKYsSo4CBsoKcpDCsMNiwGCynlRDFkGe
-	 fuETleoK8nra+EXzW6ceJZZHpnPjNevvHYVY0Qq0MVxeas7IJuEkocF34mQBXKF5qpA==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RV9h6GC9GCpZ9MYdAxuh1XpTPerBSXri6+QpqSjGpDY=;
+	b=GcfI5AK58et0ugKPhsaJqbB7fOAYgvurJGteS5uTe66q/FX1C9vjDoaiI9pk5KzEfqW/
+	 taw11aUzFFQgLyUHnL8wJif+ueF+ymZouu6m8l6KRUE/X39jxa0YvxfOlUAkSDzAZi+1F
+	 rWIAB0QlwqOiN1bzWgNmWoUNpj/zZYw7qwlqvCRXuZEyI3viVQqoT4QDUPvqBy/CBUzSk
+	 ULIufqq3Ocz+BN6aTm71QMxkW+iaY+aZl/HPXt4a1UCr40MGEaYdIZYeqvlrtN24TmPa0
+	 qr8EpliR4rtE0szACELS1yQMPcEjt4OJVTXjsqhcSmQjS+OjNOqZa1jbWYi5lvAQ67g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1palxES;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qt4ra3Mj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893BB606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:21:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2005606A321;
+	Wed, 25 Nov 2026 15:21:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1palxES
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C946E1F000D0;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qt4ra3Mj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7D501F000C0;
 	Wed, 25 Nov 2026 15:21:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795620089;
-	bh=l+gugUjJQh1gij8yZSii87A8/QKvBOnZzHfcWdJtUi8=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795620089;
+	bh=RV9h6GC9GCpZ9MYdAxuh1XpTPerBSXri6+QpqSjGpDY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c1palxES9tfKYGnOfe1rD50tmViODszSYg9n9M9CMGWYKUp2ByLRlnEwRviTkWHBo
-	 g+ZlSBT8uiyAN69LVHGQNYxng1PbJ0RPy49/tk6mU9FukPGPBiitLGm46YO3uiOrvs
-	 ozbZkCBdbH3+/kWddyJCbDoi83g5VyldOkoUqlzTBfESQ6sgaBhz2K2EDdSrfTIeEx
-	 fvgvWouv/BBXy30Xh9DDyvrMTA5fbyXQ4kRJz27sk7Lsf3Ek6gooJ8OKCOf6igsHD5
-	 T5ZINgVSaGfdcZcBDEjKZVVuogu50vZs30HAlv1VaLkP2kCocamwYRRtC9CtRbunG8
-	 NOI4xv41HGoqA==
-From: Sasha Levin <sashal@kernel.org>
+	b=qt4ra3MjSAx6dyFkywPBfYq8qC+YV2OhHjtE7wojAuOe/g3MBdOrE2jb24DDhvfGD
+	 77DaB24mkBG4kcMscq4BSmC5RI2yg0Afz4xDLUlItfaAX1cpBsFEQml99iU70CNKii
+	 D5WNOsGdZzM90ofjrcFBTwJ3HU1Dp67jy/FFGNvo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Chuck Lever <chuck.lever@oracle.com>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/4] xprtrdma: Replace rpcrdma_mr_seg with xdr_buf cursor
-Date: Wed, 25 Nov 2026 10:21:24 -0500
-Message-ID: <20261125152042.30755-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125152042.30755-1-sashal@kernel.org>
-References: <2026112558-goofball-gear-57c8@gregkh>
- <20261125152042.30755-1-sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Zhao Li <enderaoelyther@gmail.com>,
+	Johannes Berg <johannes.berg@intel.com>
+Subject: [PATCH 7.3 0806/1005] wifi: mac80211: bound pending IBSS station allocations
+Date: Wed, 25 Nov 2026 15:35:44 +0100
+Message-ID: <20261125143840.611908989@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,68 +63,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <chuck.lever@oracle.com>
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 7a079ab57c4eeff241d9abfc1ec6477cb90a6206 ]
+------------------
 
-The FRWR registration path converts data through three
-representations: xdr_buf -> rpcrdma_mr_seg[] -> scatterlist[]
--> ib_map_mr_sg(). The rpcrdma_mr_seg intermediate is a relic
-of when multiple registration strategies existed (FMR, physical,
-FRWR). Only FRWR remains, so this indirection and the 6240-byte
-rl_segments[260] array embedded in each rpcrdma_req serve no
-purpose.
+From: Zhao Li <enderaoelyther@gmail.com>
 
-Introduce struct rpcrdma_xdr_cursor to track position within
-an xdr_buf during iterative MR registration. Rewrite frwr_map to
-populate scatterlist entries directly from the xdr_buf regions
-(head kvec, page list, tail kvec). The boundary logic for
-non-SG_GAPS devices is simpler because the xdr_buf structure
-guarantees that page-region entries after the first start at
-offset 0, and that head/tail kvecs are separate regions that
-naturally break at MR boundaries.
+commit 3029ca2112d7bee4d3e3eadd02decdb3eddb9485 upstream.
 
-Fix a pre-existing bug in rpcrdma_encode_write_list where the
-write-pad statistics accumulator added mr->mr_length from the last
-data MR rather than the write-pad MR. The refactored code uses
-ep->re_write_pad_mr->mr_length.
+Delaying the IBSS station worker while frames arrive from new peers can
+retain an unbounded number of station allocations.
 
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Signed-off-by: Trond Myklebust <trond.myklebust@hammerspace.com>
+The receive-side limit counts installed stations, while new allocations
+wait on incomplete_stations until process context inserts them. The list
+lock does not cover the interval between allocation and list insertion.
 
-Limit this backport to the request layout needed for synchronous
-invalidation. Move rl_segments next to the request buffers so the
-invalidation completion can follow rl_registered.
+Reserve one of 128 pending slots per interface before allocation. Release
+the reservation on allocation failure, after the worker inserts or frees
+the station, and when disconnect frees the pending list.
 
-Keep the segment array for the existing registration code. A Write
-chunk can include the tail iovec when the peer requires explicit
-padding.
+LLM assistance was used to find the bug and review.
 
-Stable-dep-of: 1fa415883c37 ("xprtrdma: serialize unmap_sync with xprt_disconnect")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 8bf11d8d0811 ("mac80211: delay IBSS station insertion")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Link: https://patch.msgid.link/20261028142235.15428-3-enderaoelyther@gmail.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- net/sunrpc/xprtrdma/xprt_rdma.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/mac80211/ibss.c        |   13 ++++++++++++-
+ net/mac80211/ieee80211_i.h |    1 +
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/net/sunrpc/xprtrdma/xprt_rdma.h b/net/sunrpc/xprtrdma/xprt_rdma.h
-index d91f54eae00b3..7364a3648bd70 100644
---- a/net/sunrpc/xprtrdma/xprt_rdma.h
-+++ b/net/sunrpc/xprtrdma/xprt_rdma.h
-@@ -316,13 +316,13 @@ struct rpcrdma_req {
- 	struct rpcrdma_regbuf	*rl_rdmabuf;	/* xprt header */
- 	struct rpcrdma_regbuf	*rl_sendbuf;	/* rq_snd_buf */
- 	struct rpcrdma_regbuf	*rl_recvbuf;	/* rq_rcv_buf */
-+	struct rpcrdma_mr_seg	rl_segments[RPCRDMA_MAX_SEGS];
+--- a/net/mac80211/ibss.c
++++ b/net/mac80211/ibss.c
+@@ -684,6 +684,7 @@ static void ieee80211_ibss_disconnect(st
+ 		spin_unlock_bh(&ifibss->incomplete_lock);
  
- 	struct list_head	rl_all;
- 	struct kref		rl_kref;
+ 		sta_info_free(local, sta);
++		atomic_dec(&ifibss->incomplete_sta_count);
+ 		spin_lock_bh(&ifibss->incomplete_lock);
+ 	}
+ 	spin_unlock_bh(&ifibss->incomplete_lock);
+@@ -1177,9 +1178,18 @@ void ieee80211_ibss_rx_no_sta(struct iee
+ 	band = chanctx_conf->def.chan->band;
+ 	rcu_read_unlock();
  
- 	struct list_head	rl_free_mrs;
- 	struct list_head	rl_registered;
--	struct rpcrdma_mr_seg	rl_segments[RPCRDMA_MAX_SEGS];
- };
++	if (!atomic_add_unless(&ifibss->incomplete_sta_count, 1,
++			       IEEE80211_IBSS_MAX_STA_ENTRIES)) {
++		net_info_ratelimited("%s: No room for a new IBSS STA entry %pM\n",
++				     sdata->name, addr);
++		return;
++	}
++
+ 	sta = sta_info_alloc(sdata, addr, GFP_ATOMIC);
+-	if (!sta)
++	if (!sta) {
++		atomic_dec(&ifibss->incomplete_sta_count);
+ 		return;
++	}
  
- static inline struct rpcrdma_req *
--- 
-2.53.0
+ 	/* make sure mandatory rates are always added */
+ 	sband = local->hw.wiphy->bands[band];
+@@ -1636,6 +1646,7 @@ void ieee80211_ibss_work(struct ieee8021
+ 			ieee80211_ibss_finish_sta(sta);
+ 			rcu_read_unlock();
+ 		}
++		atomic_dec(&ifibss->incomplete_sta_count);
+ 		spin_lock_bh(&ifibss->incomplete_lock);
+ 	}
+ 	spin_unlock_bh(&ifibss->incomplete_lock);
+--- a/net/mac80211/ieee80211_i.h
++++ b/net/mac80211/ieee80211_i.h
+@@ -682,6 +682,7 @@ struct ieee80211_if_ibss {
+ 
+ 	spinlock_t incomplete_lock;
+ 	struct list_head incomplete_stations;
++	atomic_t incomplete_sta_count;
+ 
+ 	enum {
+ 		IEEE80211_IBSS_MLME_SEARCH,
+
 
