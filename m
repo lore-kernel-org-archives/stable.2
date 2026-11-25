@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603026;
-	b=pWz7QVUDO58JDpD0JGrOF9KF1JHLkVzM5tvPvGxzGzk/JHrWeK6SN/rbLFEvZIvuwKND
-	 zsBsDYRD5JrNcV9i4mWD+kRrgRs/+8A4R6y5iKQ0/KYQp98+JlSf34jC/rkfPM9l5zo80
-	 KVpjpKTnW3NhMg7COif8gMjnRYxu3ctJld8/lBMkrEMwzleB/L83fmtUW8GNEXbj1h8jT
-	 pRzW3E6Mzs7qMFNQwWc0ROX22iPlTOnY9LPylNAw3dv1rp64STKCAFzHBOd3JmhbakAUZ
-	 VJxs0txm2x3SfmdGBdby6u69K2RlxAkGFPKREo7VV5zhO4+1+JRmM1rLQYLCYG1vM9w==
+	t=1795603030;
+	b=ltfMVbW0XAvlBNuCb6182G50KIiOzAeUGImvExY5gdveu9HxmidoIKP1vRr8xascrTGh
+	 hy5/gixLqPJKWZFCeywYUNUG73wfo4L9F5gFOPp/ggyF+UeWDFmlrFsHXaJtTXr/eajTX
+	 mkPRGgES3YOhVTJLTYw9FiAoA7fffvlKAbgaiUuuHlJ2ya9Bt/x5HMA97BgTOsJP5s9Pf
+	 gbHFdyNBlRGk+dFN5eLdlz1bSdzUDbuV71ihB3ExalGiJVmxOnTLPEcmBc/TZaBGCQ4Wp
+	 hnh6k4g+2/AXEDulOR5aUk8ddj0KNxSaowlMvJV96Ztmi3i5tjx2fzoXjaO4SWkTZmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603026;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603030;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EC9AWEmzdb3mx7GaYBkj8L9Od51WTDKFfuLwDBATqm4=;
-	b=dxQ9Z8M5YYWRK7r4rEvD0AMS5d+bJzLPyodBAM3RGRfJqwK2J+QkIgkDlyXfdYKialVs
-	 bPvv6gFYXuxVi/SbJxCe5/SlQozlarwJ5k2uTucXuqnKFuVVv1Cq4tvTw7C6hODCihXL6
-	 bh5WuwRCNymoqbHSwCNfiypZJSGZFjIiZw+0jTU0+Q6Z95PwRMDuPwWQ1JyrpCuxbZujk
-	 qzRZCSVqS4ieyoaZEiV/K43ftCJQ/cufYwOmrUtAZL8LkHQq6VgRKPQEZWIQVoBLV4LHq
-	 4oNM+1d76uXdQa01H559A94h5mmsefAjy6mVsPNPrCeF96I2xX/ri/1Kjf2X8n54FuQ==
+	bh=WdA0yf/VQgd5La9XANKVg3Rbw7W2s2UnZENnI4e/QQM=;
+	b=IKF1xYRJz4tqGNS3ELbL4TTU7KOYJEUsPWjTJ8iMSHNdTpps02p7E9hjOIVV9Qu4ghhk
+	 bTFU0qw3I7uj25pMm88ZZnj/sRTt+0UWqCxTQIZGsUYox4NKu9LMfcWCi1uqFSDQAEgVY
+	 mH3DhMFB7ALWbkH0NuFA44KvJ+0hL+ZsZmBLeT4BHcKfhlIBBy0iUGpAdM5oxmVkeB5LB
+	 iF/nOChmWLBTWpiVS7mdzQ95Hcxj8s9+yecTBMjbMHi06Js+AFTaIHIli/a8kEwcHn4Hl
+	 oep+DEcA+a9W3ee24SRUKuUAMoUxaoK6K8ZOKe6bZ+O8cO63V/2/IgViETrpoOc8ZJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SVLRgMmT;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eTK1MvCj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD63C606A32E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:37:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E37606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:37:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SVLRgMmT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5AD11F000D3;
-	Wed, 25 Nov 2026 10:37:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eTK1MvCj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E42A61F000C4;
+	Wed, 25 Nov 2026 10:37:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603026;
-	bh=EC9AWEmzdb3mx7GaYBkj8L9Od51WTDKFfuLwDBATqm4=;
+	s=korg; t=1795603029;
+	bh=WdA0yf/VQgd5La9XANKVg3Rbw7W2s2UnZENnI4e/QQM=;
 	h=Subject:To:Cc:From:Date;
-	b=SVLRgMmTBgXHQM5KPmoN9LJ/sF5l/801V156riJM6eeinZ+GT8YqC2Qrr17uBGU/y
-	 7nuDDmS5FVIzN3rcPfVXyeGtanBn7yU5tZqWKHyj7ds6JU3E/i5sEqH7fN+Y8ZovGe
-	 tFqpHHYb3/5cf9k3VGx4gr3cSQn4frTiis/l+jJc=
-Subject: FAILED: patch "[PATCH] sched_ext: Factor out drain_offline_rq()" failed to apply to 6.18-stable tree
+	b=eTK1MvCjR3BZNMhZctZixQjUNit0JVakvZSl5BU37WZdF3SPVsTtmfI/OAHM1uwn0
+	 mzgRj0aV0IOdZZc4KB5jqyTrmMCsQY1Pc5NgG0Q4kR/0B0gWGQ/jiBlpDjxlc0ifUx
+	 xxfb6447AWhev75VMVznKh0JMuhHIQLvLcR3Q8Fo=
+Subject: FAILED: patch "[PATCH] sched_ext: Fix ops.enqueue/dispatch() calls before" failed to apply to 7.3-stable tree
 To: tj@kernel.org,arighi@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:22:17 +0100
-Message-ID: <2026112517-energy-proven-d70f@gregkh>
+Date: Wed, 25 Nov 2026 11:22:25 +0100
+Message-ID: <2026112525-reprise-frostlike-4cea@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 7.3-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1826e5aa068cf6c21791773f160b4a2ce5d5f9a5
+git cherry-pick -x 2227a34ff7bfcf6112931039e3554f4b70b65ab9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112517-energy-proven-d70f@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112525-reprise-frostlike-4cea@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,97 +79,217 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1826e5aa068cf6c21791773f160b4a2ce5d5f9a5 Mon Sep 17 00:00:00 2001
+From 2227a34ff7bfcf6112931039e3554f4b70b65ab9 Mon Sep 17 00:00:00 2001
 From: Tejun Heo <tj@kernel.org>
-Date: Sat, 31 Oct 2026 07:05:40 -1000
-Subject: [PATCH] sched_ext: Factor out drain_offline_rq()
+Date: Sat, 31 Oct 2026 07:05:41 -1000
+Subject: [PATCH] sched_ext: Fix ops.enqueue/dispatch() calls before
+ ops.cpu_online()
 
-Factor drain_offline_rq() out of rq_offline_scx() so that the drain can move
-to handle_hotplug() in the following patch, which removes the rq_online and
-rq_offline hooks. The drain is the rescue flush and the re-enqueue of an
-offline cpu's tasks onto its local DSQ. No functional change.
+ops.cpu_online() documents that the cpu doesn't call ops.enqueue() or
+ops.dispatch() before that op. Both are gated on SCX_RQ_ONLINE, which
+follows the core's rq online state through the ext class's rq_online and
+rq_offline hooks. On a runtime cpu up, sched_cpu_activate() runs:
 
+1. set_cpu_active() marks the cpu active.
+2. cpuset_cpu_active() rebuilds the sched domains synchronously, and
+   rq_attach_root() puts the rq online as the cpu is active now. The
+   rq_online hook sets SCX_RQ_ONLINE.
+3. scx_rq_activate() calls the root's ops.cpu_online().
+
+Between 2 and 3, ops.enqueue() can be called for tasks woken or migrated
+onto the cpu, and ops.dispatch() can run on it.
+
+The hooks can't call the ops. They run under the rq lock with IRQs off while
+the ops can be sleepable BPF programs, and handle_hotplug() needs the
+rebuilt sched domains for its idle topology update.
+
+Track SCX_RQ_ONLINE in handle_hotplug() alone. Set it right after the root's
+ops.cpu_online(). Clear it and move the cpu's tasks to its local DSQ when
+the cpu goes down. Sched domain rebuilds, which take a live cpu's rq offline
+and online again, no longer touch the flag, so a remote dispatch can't see
+it cleared by a rebuild and bounce to the global DSQ.
+
+Between 2 and 3, tasks that land on the cpu now go to its local DSQ without
+ops.enqueue(), and with sub-schedulers a task whose scheduler lacks caps on
+the cpu is admitted anyway and counted in SCX_EV_SUB_FORCED_ADMIT. Both
+already happen between 1 and 2.
+
+Fixes: 60c27fb59f6c ("sched_ext: Implement sched_ext_ops.cpu_online/offline()")
 Cc: stable@vger.kernel.org # v6.12+
 Signed-off-by: Tejun Heo <tj@kernel.org>
 Reviewed-by: Andrea Righi <arighi@nvidia.com>
 
 diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index e533c1a5c56d..0d64253569e8 100644
+index 0d64253569e8..72c5fbb1dc29 100644
 --- a/kernel/sched/ext/ext.c
 +++ b/kernel/sched/ext/ext.c
-@@ -2428,7 +2428,7 @@ static void set_task_runnable(struct rq *rq, struct task_struct *p)
- 	}
+@@ -2233,11 +2233,11 @@ static void direct_dispatch(struct scx_sched *sch, struct task_struct *p,
+ bool scx_rq_online(struct rq *rq)
+ {
+ 	/*
+-	 * Test both cpu_active() and %SCX_RQ_ONLINE. %SCX_RQ_ONLINE follows the
+-	 * core's rq online state. cpu_active() test guarantees that, if this
+-	 * function returns %true, %SCX_RQ_ONLINE will stay set until the
+-	 * current scheduling operation is complete even if we aren't locking
+-	 * @rq.
++	 * Test both cpu_active() and %SCX_RQ_ONLINE. %SCX_RQ_ONLINE is set
++	 * after the root's ops.cpu_online() and cleared when the cpu goes down.
++	 * cpu_active() test guarantees that, if this function returns %true,
++	 * %SCX_RQ_ONLINE will stay set until the current scheduling operation
++	 * is complete even if we aren't locking @rq.
+ 	 */
+ 	return likely((rq->scx.flags & SCX_RQ_ONLINE) && cpu_active(cpu_of(rq)));
+ }
+@@ -4338,6 +4338,13 @@ static void handle_hotplug(struct rq *rq, bool online)
+ 	s32 cpu = cpu_of(rq);
+ 	s32 cpu_or_cid = cpu;
+ 
++	if (!online) {
++		guard(rq_lock_irqsave)(rq);
++		update_rq_clock(rq);
++		rq->scx.flags &= ~SCX_RQ_ONLINE;
++		drain_offline_rq(rq);
++	}
++
+ 	atomic_long_inc(&scx_hotplug_seq);
+ 	scx_update_frozen_cpus(cpu, online);
+ 
+@@ -4346,8 +4353,14 @@ static void handle_hotplug(struct rq *rq, bool online)
+ 	 * stable here. Note that we can't depend on scx_enabled() test as the
+ 	 * hotplug ops need to be enabled before __scx_enabled is set.
+ 	 */
+-	if (unlikely(!sch))
++	if (unlikely(!sch)) {
++		/* no root to notify, set %SCX_RQ_ONLINE right away */
++		if (online) {
++			guard(rq_lock_irqsave)(rq);
++			rq->scx.flags |= SCX_RQ_ONLINE;
++		}
+ 		return;
++	}
+ 
+ 	if (scx_enabled())
+ 		scx_idle_update_selcpu_topology(&sch->ops);
+@@ -4398,8 +4411,22 @@ static void handle_hotplug(struct rq *rq, bool online)
+ 			 "cpu %d going %s, exiting scheduler", cpu,
+ 			 online ? "online" : "offline");
+ 
+-	if (online)
++	if (online) {
++		/*
++		 * The cpu must not call ops.enqueue() or ops.dispatch() before
++		 * the root's ops.cpu_online(). The core's rq online state can't
++		 * gate them, as the sched domain rebuild in
++		 * sched_cpu_activate() can put @rq online before this function
++		 * runs. Set %SCX_RQ_ONLINE here.
++		 *
++		 * scx_online_ecaps() queues a reseed whose ecaps ops run in
++		 * dispatch context on the cpu and can insert into its local
++		 * DSQ. Set the flag first.
++		 */
++		scoped_guard (rq_lock_irqsave, rq)
++			rq->scx.flags |= SCX_RQ_ONLINE;
+ 		scx_online_ecaps(rq);
++	}
+ }
+ 
+ void scx_rq_activate(struct rq *rq)
+@@ -4412,22 +4439,6 @@ void scx_rq_deactivate(struct rq *rq)
+ 	handle_hotplug(rq, false);
+ }
+ 
+-static void rq_online_scx(struct rq *rq)
+-{
+-	rq->scx.flags |= SCX_RQ_ONLINE;
+-}
+-
+-static void rq_offline_scx(struct rq *rq)
+-{
+-	rq->scx.flags &= ~SCX_RQ_ONLINE;
+-
+-	/* sched domain rebuilds call rq_offline with the CPU staying alive */
+-	if (cpu_active(cpu_of(rq)))
+-		return;
+-
+-	drain_offline_rq(rq);
+-}
+-
+ static bool check_rq_for_timeouts(struct rq *rq)
+ {
+ 	struct scx_sched *sch;
+@@ -5899,9 +5910,6 @@ DEFINE_SCHED_CLASS(ext) = {
+ 	.task_woken		= task_woken_scx,
+ 	.set_cpus_allowed	= set_cpus_allowed_scx,
+ 
+-	.rq_online		= rq_online_scx,
+-	.rq_offline		= rq_offline_scx,
+-
+ 	.task_tick		= task_tick_scx,
+ 
+ 	.switching_to		= switching_to_scx,
+diff --git a/kernel/sched/ext/inlines.h b/kernel/sched/ext/inlines.h
+index 5dce394e0813..8de281a5c9c6 100644
+--- a/kernel/sched/ext/inlines.h
++++ b/kernel/sched/ext/inlines.h
+@@ -104,7 +104,7 @@ scx_dispatch_sched(struct scx_sched *sch, struct rq *rq,
+ 	/*
+ 	 * scx_rq_online() can't be used. Its cpu_active() test goes false
+ 	 * before CPU hotplug waits for an RCU grace period, and
+-	 * rq_offline_scx() moves this CPU's tasks to the local DSQ only after
++	 * handle_hotplug() moves this CPU's tasks to the local DSQ only after
+ 	 * the wait. The grace period can depend on those tasks running.
+ 	 */
+ 	if (unlikely(!SCX_HAS_OP(sch, dispatch)) || !(rq->scx.flags & SCX_RQ_ONLINE))
+diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
+index 6bc6b93ca63a..d2a20114eaa2 100644
+--- a/kernel/sched/ext/sub.c
++++ b/kernel/sched/ext/sub.c
+@@ -918,10 +918,11 @@ struct scx_dispatch_q *__scx_resolve_local_dsq(struct scx_sched *sch, struct rq
+ 		return &rq->scx.local_dsq;
  
  	/*
--	 * list_add_tail() must be used. scx_bypass() and rq_offline_scx()
-+	 * list_add_tail() must be used. scx_bypass() and drain_offline_rq()
- 	 * depend on tasks being appended to the runnable_list.
+-	 * The task must run on this CPU regardless of caps: the rq is draining
+-	 * offline (BPF scheduler bypassed), the task is migration-disabled, or a
+-	 * migration is pending. Admit despite the missing caps and count it.
+-	 * Refuse preemptions.
++	 * The task must run on this CPU regardless of caps: ops.enqueue() is
++	 * skipped while the CPU is going down or before the root's
++	 * ops.cpu_online(), the task is migration-disabled, or a migration is
++	 * pending. Admit despite the missing caps and count it. Refuse
++	 * preemptions.
  	 */
- 	list_add_tail(&p->scx.runnable_node, &rq->scx.runnable_list);
-@@ -4314,6 +4314,24 @@ static void set_cpus_allowed_scx(struct task_struct *p,
- 		scx_call_op_set_cpumask(sch, task_rq(p), p, (struct cpumask *)p->cpus_ptr);
- }
- 
-+static void drain_offline_rq(struct rq *rq)
-+{
-+	struct task_struct *p, *n;
-+
-+	scx_rescue_flush(rq);
-+
-+	/*
-+	 * An offline CPU no longer calls ops.dispatch(). Re-enqueue its tasks
-+	 * onto the local DSQ so that they run here and balance_push() moves
-+	 * them off.
-+	 */
-+	list_for_each_entry_safe_reverse(p, n, &rq->scx.runnable_list, scx.runnable_node) {
-+		if (p->scx.dsq == &rq->scx.local_dsq)
-+			continue;
-+		guard(sched_change)(p, DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK);
-+	}
-+}
-+
- static void handle_hotplug(struct rq *rq, bool online)
- {
- 	struct scx_sched *sch = scx_root_protected();
-@@ -4401,26 +4419,13 @@ static void rq_online_scx(struct rq *rq)
- 
- static void rq_offline_scx(struct rq *rq)
- {
--	struct task_struct *p, *n;
--
- 	rq->scx.flags &= ~SCX_RQ_ONLINE;
- 
- 	/* sched domain rebuilds call rq_offline with the CPU staying alive */
- 	if (cpu_active(cpu_of(rq)))
- 		return;
- 
--	scx_rescue_flush(rq);
--
--	/*
--	 * An offline CPU no longer calls ops.dispatch(). Re-enqueue its tasks
--	 * onto the local DSQ so that they run here and balance_push() moves
--	 * them off.
--	 */
--	list_for_each_entry_safe_reverse(p, n, &rq->scx.runnable_list, scx.runnable_node) {
--		if (p->scx.dsq == &rq->scx.local_dsq)
--			continue;
--		guard(sched_change)(p, DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK);
--	}
-+	drain_offline_rq(rq);
- }
- 
- static bool check_rq_for_timeouts(struct rq *rq)
+ 	if (unlikely(!scx_rq_online(rq) || is_migration_disabled(p) ||
+ 		     p->migration_pending)) {
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 6c7c5633524a..2cc16c01b168 100644
+index 2cc16c01b168..017ebb5308df 100644
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
-@@ -4294,7 +4294,7 @@ extern void balance_callbacks(struct rq *rq, struct balance_callback *head);
-  * Typically this must be called while holding task_rq_lock, since most/all
-  * properties are serialized under those locks. There are currently two
-  * exceptions to this rule in sched/ext which only hold rq->lock: scx_bypass()
-- * and rq_offline_scx().
-+ * and drain_offline_rq().
-  */
- 
- /*
+@@ -781,19 +781,20 @@ struct cfs_rq {
+ /* scx_rq->flags, protected by the rq lock */
+ enum scx_rq_flags {
+ 	/*
+-	 * Set while the core has the rq online, see rq_online_scx() and
+-	 * rq_offline_scx(). A hotplugged cpu starts scheduling before
+-	 * rq_online_scx(). ops.enqueue() and ops.dispatch() are called for the
+-	 * cpu only while it is set, see scx_rq_online() and
+-	 * scx_dispatch_sched().
++	 * Set right after the root's ops.cpu_online() when a cpu comes up and
++	 * cleared when the cpu goes down, see handle_hotplug(). A hotplugged
++	 * cpu starts scheduling before %SCX_RQ_ONLINE is set. ops.enqueue() and
++	 * ops.dispatch() are called for the cpu only while the flag is set, see
++	 * scx_rq_online() and scx_dispatch_sched().
+ 	 */
+ 	SCX_RQ_ONLINE		= 1 << 0,
+ 	SCX_RQ_CAN_STOP_TICK	= 1 << 1,
+ 	/*
+ 	 * Set while the root considers the cpu online, from its
+ 	 * ops.cpu_online() until its ops.cpu_offline(). ecaps are delivered
+-	 * only while it is set. %SCX_RQ_ONLINE follows the core's rq state
+-	 * instead, which changes ahead of the root's view on both edges.
++	 * only while it is set. %SCX_RQ_ONLINE can't gate them, as a cpu going
++	 * down clears it before the ecaps loss is reported, see
++	 * scx_offline_ecaps().
+ 	 */
+ 	SCX_RQ_OPS_ONLINE	= 1 << 2,
+ 	SCX_RQ_CLK_VALID	= 1 << 5, /* RQ clock is fresh and valid */
 
