@@ -1,117 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603579;
-	b=ZoY5W97Vd+FUhB0O7YTa2XAk1590tKbg37V5qOgiKFTgAEvLiMk6Gj1bZOMT0Nj6MPIz
-	 xpYJwElIqvcxn7iRwAm/Las7frZiObRGQFy2RRqVWYkF6d+AYbAtuduJ5fhkPum/CwR+f
-	 Zt9NrWRBWf5WkoSw8M+dVjQ6QWNmiaqIldvM6ydkdr0qPkbFy5R0GHpJRRxBLF2tDJdHx
-	 7WrIB4k03ulaJ/j8dj14C9/icrWDzcJvqz3LdLWn2B8HMl8aekXbSAWpI+fHCdjEKbXSV
-	 TKDvdec2C9UxixTl8I30/OeuV39i/ljM4xjMpLpfdz9vrAXq4hCvvp42dRscg/TRTIg==
+	t=1795603585;
+	b=mFUxA5OMVDAqWu7SCU0khzsnq1hT8WartE0rxDQ1Io90pce772cXYF1EE0xxaf4My/bn
+	 pRLy7EUg5drwdfiJbToGys8WP0Jld3oX7Hx2+1I9R8tVpssV7YVzJ5+FdWxzdVa0oIKJX
+	 GnwU0twhPUB/2xnC0P7FDvgD8b7h0Hu0BbtxGEg8gwSEeKLf355QOAcF7UfFuBoazB85S
+	 8XbRVQrNX4teecdjoEaqvq2vlQMUWGetgfCB4DsRIf2OrCHmRI7jKJ9lJ1tLxHovYhA2e
+	 5c1is24YAVDl25uGsW4BtoYvD5CcNzBP5Y7/6tKEq/6vmc9RYZ5HwbfRz7gMC0ZlZRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603579;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=J0xbpu1QOArMZW7hFhhmtZ4gk401vyBEZ/yHioUPp3Q=;
-	b=aFK6a7Si/Q0pE9C5qAhZrLdFaCwpcxuQAFg0vPWDu3JjqPpBNMcLlRGzAcK+lQ511w5u
-	 knQfGK4Cr2V8Fhx8GiUj5K5xHBjMe9iwCA5GTLsNOK1yCBMCgJrDFrRHfaApgYAbpSXRL
-	 KQU8reeT6dP3iEGO09BwHLtAc8gSvyJLrlzvukJ0LJfWcshv/ZQXrYe2GNvp8qIerSnkD
-	 N+3PQOuJoxmoNVk/04Lcbfc1ivUUeOCTsYzsJJI2WW0Sxgkhr8CTXif5Lq8gu6whlXD+V
-	 yANyTWQqZnvPs4wSjh5l/hIPar9dxsPtYwmm2tlkQiVoyQaUhqqrPDg6gmD+MA0UAog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603585;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References;
+	bh=75ck5Fj+CO5o/O7K369aVkulZ3SEZBEXUvPGoP4of14=;
+	b=0l9fzDJfqzx1aF/Wqt1tzLgQYKPzLQGEMRxKWh7OurD3WxC3EtPIN8aoaIoJV1V0xK1L
+	 NLA9sxZ6t9I5wOcE6xyi0OghxudZ7Ga1Zuku1eXzhD+GF9BycHoTYyht7JEd25j7z806L
+	 q0S9fQwTwSTSKdW+f1LGFEeGP00bo+0D3h475YDhkMJiygvwaB6iHODOBbWWuCkfhvrL5
+	 XfLZq+26n8yC3y0f23z57OlbdxC3W/Cwr4d03uFV5ceC4xmqpsxdLRUS09obQNL7wiF63
+	 60FULoiQ5vDur/tl3iOVWnUXvPAQ5IxpDdpPFSe1hcYTYajsu2SR1hNGNCza7BtssMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=iM4wN1pU;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ZlpO7Bhb;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=THgzfaNh;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C681606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:46:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C681606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28945606A327
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:46:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28945606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=iM4wN1pU;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ZlpO7Bhb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795603577;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=J0xbpu1QOArMZW7hFhhmtZ4gk401vyBEZ/yHioUPp3Q=;
-	b=iM4wN1pU4ZiBlnCjaZtTZAkW15geOZqs5zI9rL182bhz+3mimqhQ1B+maFH80OzZrk07QB
-	hsUUKyrLSML/qiXAMV/mPjyDacvMqP6xpg7GBLzMOjZ4VeNw3WkgRLONbPXF8dFH5IPsgc
-	ICcd6i6A6/VgFi4E3JuA/hATkBf594U=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-609-EmuAkG_vPCWtYHdvkXrvBg-1; Wed, 25 Nov 2026 10:46:15 +0000
-X-MC-Unique: EmuAkG_vPCWtYHdvkXrvBg-1
-X-Mimecast-MFC-AGG-ID: EmuAkG_vPCWtYHdvkXrvBg_1795603574
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4bb64c99bb8so45138575e9.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 02:46:15 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=THgzfaNh
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3282db206d3so5446938eec.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 02:46:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1795603574; x=1796208374; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=J0xbpu1QOArMZW7hFhhmtZ4gk401vyBEZ/yHioUPp3Q=;
-        b=ZlpO7BhbwPAv9gb+oImo+4CAgE2L5fCiTPULVGvm2wfhNA3C5VKP19CX7rhV8COaf7
-         kpQu9lCvKOhDUkdd4kAdpSsaPTjU9N7HVOR4NDypQYvHuji8w+0Cox32cuqFQMsSm/Wa
-         7sDSX7iVr/mIDr/dFQaJHJkvdrQ8W9HfGx1nhKMgwaQh7UdEUg60cW4r96ZZOqI5S59y
-         hMAyKm1U3xSnH4+xocPIWTInnlz/NwZsyr5imOkjd/DVutk8knpnIBUZE99OZfICNK4D
-         AnNyHm27HS3Wo8aEQPnsi/CvhEkkqSOKY1kOUyqLI2QdLQ/TTwk348Ue3h6gXytZIk8q
-         KNMw==
+        d=gmail.com; s=20260707; t=1795603584; x=1796208384; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=75ck5Fj+CO5o/O7K369aVkulZ3SEZBEXUvPGoP4of14=;
+        b=THgzfaNhKvHiE7nCcWeM2XJm99zLhiEzN8T+3FjFzB5BR7H5J/+TAMgGZS8wTRMOZl
+         AkK9sN/QR6O3tpchGnNUTg6RUEi+uJp9pc8ukJiD3Kp5Vj3BBKcfXDWbHLBBlFIUYDiL
+         AfHNupsOQnIcomE2UsW1/nD3OgidAzKScMGHaddXzWgcJ+hXAq6j/jTPpEyZ4YtfiBUt
+         Z2L2M0EX7gHtTJv3dnMeDLowVZ86LfS0ak8nYXE/0XCO4K0IhrACHV9QzD4eW36oqA8L
+         5XYM7ELPbX3BZwTpnHB1k2bo7xnwo7BUTG3MlNmBLYxQJMge17tRV9yHbyXXGAxcvh8n
+         h/Cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795603574; x=1796208374;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1795603584; x=1796208384;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=J0xbpu1QOArMZW7hFhhmtZ4gk401vyBEZ/yHioUPp3Q=;
-        b=1T33fz9xavZNkwF0fJr9PJ4GtmyfrKnFmWnS3QJNtQaWKvDFR1ILbtq3T1hO2lM9XA
-         DX7Nr0IfVk1LyE/ML3JfXBfcveNhO9Z5A+nnQo34G1yttUGFhYqlZFWpPr+L5xv+lfVt
-         lqbcY9eGD9KUwNivsx+uaEi0wBjVOrqmGXV6SNyXoodkZAZK/rueRMtqkPlOggH+AQA9
-         n93WiNW07bQPW+/nktTb9I42HlRrQEz6VwHNEc+TQW6Z+hNIHC01YwsNDH1N1ofKfppe
-         9GYvPW6EYq49fLV9WY7SOSJZmnFhXMfUS7DlQxRxplGgZllmL4vfuVBg/VKue1fdyULQ
-         ravg==
-X-Forwarded-Encrypted: i=1; AL+hErEFluZDNp+DUj0Cdminlw7lh4UnyXFsCwM5UL2omVdWqf8gJdYJXm1sOZfzfPEqCMobDyQhCkE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+XHirB2ioLQ0dhxr/pIKS2kSrDH7d1qP9/8JiZSbJYCPyZ/ZzB
-	Y81a6elDnuX3syO7pwDhBfsrbPBN3EvdHP3eGZ87A2IYZqJW5ibGYxeAe4047qS5aU6YyYkBYOB
-	sPCHXMqmoOc4BdZMGsrZKl1VepL39T64XH7DNMZGMNwF1K+n5e3246zceJA==
-X-Gm-Gg: AZFdTZfJbAjohVc5GB4e4yaeG/cGe8o6BLh/ubISv7i9vGLicXDUwZM1CCnpsBSosex
-	qQbOV/WNmXOXTriDJxDrp832URAQSKAl6XAutbLWVbOfZWTFQKaNRXRNBCUnKAfCiL72fnaWRwi
-	OvkE2tV4faSdts3q2tc+udE/e0LfWpPhWmiGtDt3CbL2VnOvPjk3EDz1PgXRIp0Ha4VG+rXxSr/
-	UXsNo2wYC7hr9J4CKdK0ZNIVOjPQdHQm85rz9oxu0VcJsV7NStrzeESwW2NmTmbmSCjdsSMWblG
-	1Bc8bt9mXGE9XTjX64X5kvyS1BUABPDXVBKAoEZ3TOqYTW6LPR/V+zwdnovRf6hbOad5WpWBIML
-	xKOtrlnegeFChmHG5ikVhP4GaHD9XHuVzmgFGjgB3wSo=
-X-Received: by 2002:a05:600c:5246:b0:4a7:9006:b176 with SMTP id 5b1f17b1804b1-4bb887fe892mr375982975e9.7.1795603573945;
-        Wed, 25 Nov 2026 02:46:13 -0800 (PST)
-X-Received: by 2002:a05:600c:5246:b0:4a7:9006:b176 with SMTP id 5b1f17b1804b1-4bb887fe892mr375982235e9.7.1795603573317;
-        Wed, 25 Nov 2026 02:46:13 -0800 (PST)
-Received: from redhat.com ([2a0d:6fc0:1529:2e00:86ec:bef7:c309:ba1f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853a9687sm568878595e9.10.2026.11.25.02.46.11
+        bh=75ck5Fj+CO5o/O7K369aVkulZ3SEZBEXUvPGoP4of14=;
+        b=JGtvMbU1EnR5/Uo2m0Bf3cGgUJ9xMxTShfNkvoVqkgVuEP4pRM1M/pTtYMwwd4rqxx
+         VRgdOLgjhgxj2vB2yRlI5pBjPWnGJUyJFrzffrJiNPudedZ0EVLzjYPmcG8jrqqPmuJH
+         IlYI5x57ikErGtxZ/GwS3Nwz9Rys/FJBFiKyodUFIxsdTH9Ik78Hlr/FfbFrhj9recvG
+         F505m2QmWRIZAaXwuhyPTxOC1Jl3ieK20mAXD+93/Perdw16i6kGjX/qayFa1mdTySA1
+         EGvSkyD19FlOHJDudnkO3fQ7wQJN/wEeCRtfAQ7YDFcbSdrNUHOj7bfoQRW/ZaN9d92r
+         xpDg==
+X-Forwarded-Encrypted: i=1; AL+hErGEb4cJZVkJsIw6i9JLLpMr642v9IPayL8AwN5cWjkFffJPD7rkshMDFFatt0TP+V1a/+qAZtM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+d9MYv6a7oLmCgrwNa3xoX/VocJ64je05B72mE4ARk0sOkiTIN
+	ge998zrNrt7fZhRDSQDN4/b4sT+/yVQmOLYrwRNu4n/B5MiK2Web8aJd/ehrXA==
+X-Gm-Gg: AZFdTZdx+24HEoIbReT76RqeCRXBX5AK+wU9Dpyw1Mm1qy5qit8/dtpIro2Ko8TuFAL
+	oTFJ/WxZyadl+cFB7O2id6sF9YBNlAzzDUrUtF01Z1cFvOKubqnXXH7pxsneq8NwzoZ+cXONLAk
+	TNJsdvzqU7QeM0FKVi473y1jeAmTTOdyvZjoEaAuARGNSlWBmQsEq956gioyeFua0M2e+resXTK
+	z1GvWeD8yXEtQzqhju/48ab9EHcSJzncWGpkB5JsfqEaFWn+n7vV3j6oGMO+eogV02Y9Ll731mv
+	1YWFTQ8WNioLvBly2avmaId3f4mHJMbPPXofq6CoqJfLs4UYcKngjdnyt99lvTnpQePrZ7zKblj
+	b5GmeYh5KM8FANpGgcwawn+RPm1CHTXv6dv78zjwaU8nYrdMJei6uoIovMU8i8hvdEtdWmRe1+g
+	zFr5AXaH9aiQ/hXPFJGNyvTfTln800GBAQeH0A8WEDztK+YpIzJ7BOoPwYgEHRPU3M/x38FwN67
+	DFGuNjTDU73jMGsqPIEcmePhoUR+tIWb2VzRtRbSSDdH7ruTKdHN+eBLisk4gVClUCdNtJws3wQ
+	kZHY1KcZvS9BV1V+ztKZRz59q4g=
+X-Received: by 2002:a05:7022:1711:b0:1b3:aee5:20c5 with SMTP id a92af1059eb24-1b5568ac791mr15438030c88.22.1795603584073;
+        Wed, 25 Nov 2026 02:46:24 -0800 (PST)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5568592adsm40526601c88.15.2026.11.25.02.46.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 02:46:12 -0800 (PST)
-Date: Wed, 25 Nov 2026 05:46:09 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Li Wang <liwang@kylinos.cn>
-Cc: Miklos Szeredi <miklos@szeredi.hu>,
-	German Maglione <gmaglione@redhat.com>,
-	Vivek Goyal <vgoyal@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	fuse-devel@lists.linux.dev, virtualization@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org, virtio-fs@lists.linux.dev,
-	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH] virtiofs: fix lost reply due to unaligned cache line
- sharing
-Message-ID: <20261125053116-mutt-send-email-mst@kernel.org>
-References: <20261125093908.48619-1-liwang@kylinos.cn>
+        Wed, 25 Nov 2026 02:46:23 -0800 (PST)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+Cc: linuxppc-dev@lists.ozlabs.org, Madhavan Srinivasan <maddy@linux.ibm.com>, Venkat Rao Bagalkote <venkat88@linux.ibm.com>, linux-kernel@vger.kernel.org, chleroy@kernel.org, Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, stable@vger.kernel.org
+Subject: Re: [PATCHv3 2/4] powerpc/watchdog: Disable preemption in arch_touch_nmi_watchdog()
+In-Reply-To: <awZ2qXSxXPO3XUUb@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+Date: Wed, 25 Nov 2026 15:28:46 +0530
+Message-ID: <o6bdjkq1.ritesh.list@gmail.com>
+References: <cover.1795441238.git.ritesh.list@gmail.com> <8a70fa42449a63a73b8340d3296974cc519b5826.1795441238.git.ritesh.list@gmail.com> <awZ2qXSxXPO3XUUb@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -120,143 +92,115 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261125093908.48619-1-liwang@kylinos.cn>
 
-Thanks for the patch! yet something to improve:
+Mukesh Kumar Chaurasiya <mkchauras@gmail.com> writes:
 
-On Wed, Nov 25, 2026 at 05:39:08PM +0800, Li Wang wrote:
-> virtio_fs_enqueue_req() maps fuse_req::out.h for DMA_FROM_DEVICE in
-> place. fuse_req comes from the "fuse_request" slab with no DMA-granule
-> alignment, so out.h shares a CPU cache line with the waitq field.
-> request_wait_answer() updates waitq while the DMA is active.
-> 
-> Note: Sashiko correctly identified the bug, but the resulting behavior
-> is not as described. Sashiko reported that unmap invalidates this shared
-> cache line and drops the waitq updates made by request_wait_answer(),
-> so wake_up() walks a damaged list, the waiter never runs, and a later
-> wait-queue operation can panic. That is not what current arm64 does for
-> this buffer. fuse_out_header is 16 bytes and does not cover a whole cache
-> line. dcache_inval_poc() uses dc civac on that partial line: a dirty line
-> is written back and then invalidated. The waitq update is kept, but the
-> out.h written by the device is lost and reverts to its initial all-zero
-> values. virtio_fs_verify_response() rejects that header, because
-> its unique and length do not match, and the request finishes with -EIO.
-> 
-> Place out.h on its own DMA granule and start waitq on the following
-> one. Allocate the slab at __alignof__(struct fuse_req) so those
-> offsets are granule-aligned in memory. Coherent architectures keep
-> ARCH_DMA_MINALIGN at the natural alignment, so fuse_req does not grow
-> there. The padding is compiled in only when virtiofs is enabled.
+> On Mon, Nov 23, 2026 at 07:21:51PM +0530, Ritesh Harjani (IBM) wrote:
+>> touch_nmi_watchdog() can be called from preemptible context, e.g.
+>> sysrq-w via /proc/sysrq-trigger. The powerpc implementation uses
+>> smp_processor_id(), so with DEBUG_PREEMPT we get:
+>> 
+>>   root@buildroot:/# echo w > /proc/sysrq-trigger
+>>   sysrq: Show Blocked State
+>>   BUG: using smp_processor_id() in preemptible [00000000] code: bash/238
+>>   caller is arch_touch_nmi_watchdog+0x3c/0xd4
+>>   CPU: 0 UID: 0 PID: 238 Comm: bash Not tainted 7.4.0-rc2-00029-g7664547149ae-dirty #126 PREEMPT
+>>   Call Trace:
+>>    dump_stack_lvl+0x138/0x150 (unreliable)
+>>    check_preemption_disabled+0x120/0x158
+>>    arch_touch_nmi_watchdog+0x3c/0xd4
+>>    show_state_filter+0xf0/0x338
+>>    sysrq_handle_showstate_blocked+0x24/0x38
+>>    __handle_sysrq+0x134/0x3a8
+>>    write_sysrq_trigger+0x178/0x22c
+>>    proc_reg_write+0xf4/0x150
+>>    vfs_write+0xfc/0x71c
+>>    ksys_write+0x8c/0x150
+>>    system_call_exception+0x310/0x590
+>>    system_call_vectored_common+0x15c/0x2ec
+>>   ---- interrupt: 3000 at 0x7ffd01755b98
+>> 
+>> Unlike the generic version, which only sets a flag, we update the CPU's
+>> timebase stamp and its SMP watchdog pending bit, so a migration in
+>> between touches the state of a CPU we are no longer on.
+>> 
+>> Disable preemption across the update. While at it, let's also mark the
+>> function as notrace (since we might be within a tracer when this
+>> function gets called).
+> Do we need to also mark wd_smp_clear_cpu_pending as notrace?
+>
 
-Is this not all completely theoretical for when virtio fs
-device is on a real hardware chip as opposed to running
-on a cache coherent cpu? With LLMs hallucinating real life
-impact?
+aah yes, I didn't see that there is another function which is not
+inlined. Thanks for spotting that. The reason I added "notrace" was
+mainly to have consistency with kernel/watchdog.c which is due to this
+commit:
 
-But anyway, this is not how one should write commit logs.
-
-Should be, for example:
-
-Currently .... as a result, when ... then ...
-but ... so we can not ... . To fix ... as a result ....
-Tested by ...
-
-
-
+cb9d7fd51d9f ("watchdog: Mark watchdog touch functions as notrace")
 
 
-> Fixes: a62a8ef9d97d ("virtio-fs: add virtiofs filesystem")
+However, after looking more closely now, I don't think we need notrace
+here at all. To simply put, on powerpc, we don't use stop_machine() from
+within arch_ftrace_update_code() like how arch/arm does and besides, I
+think it is even safe for one cpu to be executing the instruction on
+powerpc, while another cpu modifying that atomically.
 
-theoretical cleanups, as I suspect this one is, do not need a fixes tag.
+For e.g. see this -
 
-> Cc: stable@vger.kernel.org
+commit ee456bb346e75a9b6d941224b108250e6ee5f79f
+Author: Steven Rostedt <srostedt@redhat.com>
+Date:   Thu Apr 26 08:31:17 2012 +0000
 
+    powerpc/ftrace: Have PPC skip updating with stop_machine()
+    
+    PowerPC does not have the synchronization issues that x86 has with
+    modifying code on one CPU while another CPU is executing it.
+    The other CPU will either see the old or new code without any
+    issues, unlike x86 which may issue a GPF.
+    
+    Instead of calling the heavy stop_machine, just update the code.
+ 
 
-and accordingly it is not appropriate for stable.
-
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/bug/linux-41eaaf0f-0eb9-4809-99cf-5f83439eb848
-> Signed-off-by: Li Wang <liwang@kylinos.cn>
-> ---
->  fs/fuse/dev.c        |  3 ++-
->  fs/fuse/fuse_dev_i.h | 18 ++++++++++++++++--
->  2 files changed, 18 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
-> index b198cc729cba..00e637d5e552 100644
-> --- a/fs/fuse/dev.c
-> +++ b/fs/fuse/dev.c
-> @@ -2342,7 +2342,8 @@ int __init fuse_dev_init(void)
->  	int err = -ENOMEM;
->  	fuse_req_cachep = kmem_cache_create("fuse_request",
->  					    sizeof(struct fuse_req),
-> -					    0, 0, NULL);
-> +					    __alignof__(struct fuse_req),
-> +					    0, NULL);
->  	if (!fuse_req_cachep)
->  		goto out;
->  
-> diff --git a/fs/fuse/fuse_dev_i.h b/fs/fuse/fuse_dev_i.h
-> index a8eba46a3e51..e42f3dc30d3b 100644
-> --- a/fs/fuse/fuse_dev_i.h
-> +++ b/fs/fuse/fuse_dev_i.h
-> @@ -12,6 +12,18 @@
->  #include <linux/wait.h>
->  #include <linux/workqueue.h>
->  #include <linux/fs.h>
-> +#include <linux/cache.h>
-> +
-> +/*
-> + * virtiofs DMA-maps fuse_req::out.h for DMA_FROM_DEVICE in place.
-> + * Put @out on its own granule and start @waitq on the next one.
-> + * fuse_dev_init() allocates the slab at this alignment.
-> + */
-> +#if IS_ENABLED(CONFIG_VIRTIO_FS)
-> +#define FUSE_REQ_DMA_ALIGN __aligned(ARCH_DMA_MINALIGN)
-> +#else
-> +#define FUSE_REQ_DMA_ALIGN
-> +#endif
-
-virtio fs specific code in fuse headers. not good.
-
->  
->  /* Ordinary requests have even IDs, while interrupts IDs are odd */
->  #define FUSE_INT_REQ_BIT (1ULL << 0)
-> @@ -94,10 +106,10 @@ struct fuse_req {
->  	struct {
->  		/** @out.h: The request output header */
->  		struct fuse_out_header h;
-> -	} out;
-> +	} out FUSE_REQ_DMA_ALIGN;
-
-Ugh.
-You want __dma_from_device_group_begin/end 
+And as I see it, this problem only exists on ARM with THUMB2
+instruction, as can be seen from their implementation of
+arch_ftrace_update_code(), which uses stop_machine().
 
 
-Maybe. If it even is ok to dma here directly.
+So, let me drop the "notrace" as it is not really needed here and
+re-spin a v4 with it being dropped.
 
+-ritesh
 
-
->  
->  	/** @waitq: Used to wake up the task waiting for completion of request */
-> -	wait_queue_head_t waitq;
-> +	wait_queue_head_t waitq FUSE_REQ_DMA_ALIGN;
->  
->  #if IS_ENABLED(CONFIG_VIRTIO_FS)
->  	/**
-> @@ -118,6 +130,8 @@ struct fuse_req {
->  	unsigned long create_time;
->  };
->  
-> +#undef FUSE_REQ_DMA_ALIGN
-> +
-
->  /* One forget request */
->  struct fuse_forget_link {
->  	struct fuse_forget_one forget_one;
-> -- 
-> 2.34.1
-
+>> Fixes: 2104180a5369 ("powerpc/64s: implement arch-specific hardlockup watchdog")
+>> Cc: stable@vger.kernel.org
+>> Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+>> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+>> ---
+>>  arch/powerpc/kernel/watchdog.c | 8 ++++++--
+>>  1 file changed, 6 insertions(+), 2 deletions(-)
+>> 
+>> diff --git a/arch/powerpc/kernel/watchdog.c b/arch/powerpc/kernel/watchdog.c
+>> index 44f178e07531..32d4e716cb0a 100644
+>> --- a/arch/powerpc/kernel/watchdog.c
+>> +++ b/arch/powerpc/kernel/watchdog.c
+>> @@ -456,12 +456,16 @@ static enum hrtimer_restart watchdog_timer_fn(struct hrtimer *hrtimer)
+>>  	return HRTIMER_RESTART;
+>>  }
+>>  
+>> -void arch_touch_nmi_watchdog(void)
+>> +notrace void arch_touch_nmi_watchdog(void)
+>>  {
+>>  	unsigned long ticks = tb_ticks_per_usec * wd_timer_period_ms * 1000;
+>> -	int cpu = smp_processor_id();
+>> +	int cpu;
+>>  	u64 tb;
+>>  
+>> +	/* Callers may be preemptible. Stay on this CPU for the update. */
+>> +	guard(preempt_notrace)();
+>> +	cpu = raw_smp_processor_id();
+>> +
+>>  	if (!cpumask_test_cpu(cpu, &watchdog_cpumask))
+>>  		return;
+>>  
+>> -- 
+>> 2.39.5
+>> 
