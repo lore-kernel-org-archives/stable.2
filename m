@@ -1,59 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795620974;
-	b=Qtmnl63t+KiB9uqDQ0K0skjPxKp1d4Upw0dhudxV4iI2juDjsRrbOaalXKx9Mxl8Vwik
-	 D97gSHMOSGEQmTSjMWf8i50VJHNVf5eZGLaGLb4tudIT5zowqQFwgdY6Dn1HLCuc/QukG
-	 WqvlfNJim5CdClELdm7Mz/ZhV8mEUT7VNJfiZcLu10Lj7uitBx+M3N1L13AkYA6dgoIyi
-	 HRcG+8hOfdgQJYmZih46rwe1wGT/8t1JdjVqItl7u0ane/SzwgI5004dnwyrz0SXfLTLl
-	 8PdYkB/fEAjwkwnRbu8BjlugX10qYExkZWyBEiKDhmoeOblbXgBPjy85Ck6BPv6k5eQ==
+	t=1795620964;
+	b=lmxeK/fGPed/2clHkpJAcDwzth6mat5sQ+WdTzv11LT8OSeoKwpBY1sS6KfMCr42MuHG
+	 qaNamHCuo7lLv9GTRTQPU+n2piGDO7NR3iQPIgb6X43IF07kCiAxbue0nM/8PvxkHN9Ju
+	 CbtBQwWiySKKZ+iSYrpKns/e/P858cp/1aSJngJ0/ML8bKzpoadgzpVn5ftvvvPyXfFxj
+	 XBUoHTQTsHjDmNOrZwiyNofZo/fJHtMDAPzpfL896bOMUluqymEfTAbjHTV4kSuzAXnkB
+	 PssxS0joqsICDxuGrSoOKbpPNYyzn/LdBsnKEJ5Wfinnb3An5InmzjT9wfL7YbXVBwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795620974;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795620964;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=tNGko5YjgAmaKluT9M9p3Rpp9OqrTNL0ct0TPgaxV+U=;
-	b=QAFwMVoqe0lcYPYUpPeaaqT3hGAy34RI+5YY7a14LktOH8OwckewcR8ilftvxMVuLhz9
-	 jEmLryXaydaeHe9qJI+K4Dlj2PeE1qJgsv61kPwIMQ3hVf5rbAGrAE+bYqsvahHGf1irb
-	 7QYHauhlBOxjMWElXEl/BbYej8iOCvvkH/uLUImnFVA1UtbgAy6NFX/6tx9aobZ2l8tcE
-	 /H/4Xi26ngrZLR2gqYe5baAcnartTyYN9f72WIuWLeVcxj/dAlUTrioisw7vkAtHDmUzH
-	 Nn7YoMoaQlMKybMrR6fupnXK1UKTRuRInp+UBqZ4p3UvB9PdruiBuh3BLTNm7yxG5Iw==
+	bh=IanN1f2xWKQ52YX4O0G0M76A2oD3TrMjyArRGba8wt8=;
+	b=WbIXw+8HrwOGn2PsC6IelYFAl4WyOW/n60HGCTd9PLzwGdzFt0k9jF3BWMFdlSJe0Xhm
+	 qzDlCpxmhoW9yX9uuyjs7anHVjO8VgxxPEDaeD0XK53HYGXC+yFUzhw7aPt9l92QHvJkL
+	 371bePgADgnQHV5U+9TS/qPo5lGGjlHIqgV1nZBXeJiSz/d0KSF/yZiab+gqObEi8WqbI
+	 LrQS8UT7J7nM8UqSetosVTiwWb0T5WURYzM5bODytjq8lQE6sfW0x38vHndOhtNCStx4a
+	 U/wn23Bnv70TGjB1u9VwaK7vnhcrVlPcjUhU5dvmS1r8otDBXoHtEBOed4crEfnNH7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mitzb5Pg;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OryiMrGw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451F4606A32D;
-	Wed, 25 Nov 2026 15:36:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6754F607DE4B;
+	Wed, 25 Nov 2026 15:36:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mitzb5Pg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19B7B1F000C4;
-	Wed, 25 Nov 2026 15:36:13 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OryiMrGw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BF0F1F000CA;
+	Wed, 25 Nov 2026 15:36:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795620973;
-	bh=tNGko5YjgAmaKluT9M9p3Rpp9OqrTNL0ct0TPgaxV+U=;
+	s=korg; t=1795620964;
+	bh=IanN1f2xWKQ52YX4O0G0M76A2oD3TrMjyArRGba8wt8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mitzb5PgvEnijUzMBv9eiPY6N7t6kkhhk2e1Kks8lGKf8MbhKgODKrt6UMRECnv3a
-	 3CKulKsvGEdp4qaL4x2caJJisaQtZmvJQ6vuXS/5CKZXLqPaj6TdBh5to0t0Gl7YMf
-	 C7c6vTtp/GtU+myyuzQeiJAd32GNpdFrZE9PnwGY=
+	b=OryiMrGw/jP43Yo+UALiC4j7OJAQGOBXDKuCzQT0ZGmUmVJztNJVS+JWCFrBPRyO6
+	 hdeyqa7ZZnOuc02TndsvBYt6aVbvFsCbCuop4jRV7dhsROHEKCENrNlhCYbKlvxO2Q
+	 jWRVdoi4cXa+Hm2OXOthpGkQlTyj9vujDx7WQggs=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>,
-	Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>,
-	Ke Xu <xuke@tsinghua.edu.cn>,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Michael Grzeschik <mgr@kernel.org>,
+	Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>,
 	Dominique Martinet <asmadeus@codewreck.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 064/990] net/9p/usbg: fix descriptor cleanup use-after-free
-Date: Wed, 25 Nov 2026 15:23:51 +0100
-Message-ID: <20261125143823.587284547@linuxfoundation.org>
+Subject: [PATCH 6.18 079/990] 9p: fix kernel-doc warning for enum p9_session_flags
+Date: Wed, 25 Nov 2026 15:24:06 +0100
+Message-ID: <20261125143823.938668093@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
 References: <20261125143822.072087159@linuxfoundation.org>
@@ -75,76 +68,98 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
 
-[ Upstream commit 0955472fff1e9f9e410a0300136924ebc8bd7a16 ]
+[ Upstream commit d037e9c1b40c28eb57ea10947141cad3781b91a7 ]
 
-usb9pfs_free_func() frees the f_usb9pfs object before calling
-usb_free_all_descriptors().  The usb_function passed to the latter is
-embedded in the freed object, so removing the function from a gadget
-dereferences freed memory.
+kernel-doc cannot parse enum p9_session_flags, since its documentation
+comment is followed by #define lines instead of the enum declaration:
 
-The failing teardown sequence is:
+  fs/9p/v9fs.h:31 : error: Cannot parse enum!
 
-  configfs unlink
-    usb9pfs_free_func()
-      kfree(usb9pfs)
-      usb_free_all_descriptors(f)
-        dereference the embedded usb_function
+Move the three #define lines below the enum whose values they are
+derived from, and give V9FS_ACCESS_ANY and V9FS_ACCESS_MASK their own
+kernel-doc comments with the descriptions they had in the enum comment.
 
-KASAN reported:
+Also document the four enum members that had no description, using the
+corresponding mount option wording from
+Documentation/filesystems/9p.rst.
 
-  BUG: KASAN: slab-use-after-free in usb_free_all_descriptors+0x138/0x190
-  Read of size 8 at addr ffff888106a73088 by task poc/95
-  Call Trace:
-   usb_free_all_descriptors+0x138/0x190
-   config_usb_cfg_unlink+0x1f0/0x2f0
-   configfs_unlink+0x321/0x6f0
-
-Free the descriptors before freeing their containing object.
-
-Fixes: a3be076dc174 ("net/9p/usbg: Add new usb gadget function transport")
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Assisted-by: GLM:GLM-5.1
-Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Co-developed-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Acked-by: Michael Grzeschik <mgr@kernel.org>
-Message-ID: <20260529081817.77898-1-zhaoyz24@mails.tsinghua.edu.cn>
-Message-ID: <20260731150414.3135662-1-nicoyip.dev@gmail.com>
+Fixes: 76381a42e4a5 ("fs/9p: Add access = client option to opt in acl evaluation.")
+Assisted-by: LLM
+Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+Message-ID: <20261002035837.39703-1-emmaonana18@gmail.com>
+[Dominique: slight reword, also fixed typo in Doc/ for access=client]
 Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/9p/trans_usbg.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ Documentation/filesystems/9p.rst |  2 +-
+ fs/9p/v9fs.h                     | 26 ++++++++++++++++++--------
+ 2 files changed, 19 insertions(+), 9 deletions(-)
 
-diff --git a/net/9p/trans_usbg.c b/net/9p/trans_usbg.c
-index dd5d833f2c827..1592b99ae00c7 100644
---- a/net/9p/trans_usbg.c
-+++ b/net/9p/trans_usbg.c
-@@ -753,8 +753,6 @@ static void usb9pfs_free_func(struct usb_function *f)
- 	struct f_usb9pfs *usb9pfs = func_to_usb9pfs(f);
- 	struct f_usb9pfs_opts *opts;
+diff --git a/Documentation/filesystems/9p.rst b/Documentation/filesystems/9p.rst
+index b014c7aabba4e..e80dae4dd62be 100644
+--- a/Documentation/filesystems/9p.rst
++++ b/Documentation/filesystems/9p.rst
+@@ -231,7 +231,7 @@ Options
+ 			any
+ 				v9fs does single attach and performs all
+ 				operations as one user
+-			clien
++			client
+ 				 ACL based access check on the 9p client
+ 			         side for access validation
  
--	kfree(usb9pfs);
+diff --git a/fs/9p/v9fs.h b/fs/9p/v9fs.h
+index a462bcbfc7da4..ea3cfdf2580f3 100644
+--- a/fs/9p/v9fs.h
++++ b/fs/9p/v9fs.h
+@@ -21,20 +21,16 @@
+  * @V9FS_ACCESS_SINGLE: only the mounting user can access the hierarchy
+  * @V9FS_ACCESS_USER: a new attach will be issued for every user (default)
+  * @V9FS_ACCESS_CLIENT: Just like user, but access check is performed on client.
+- * @V9FS_ACCESS_ANY: use a single attach for all users
+- * @V9FS_ACCESS_MASK: bit mask of different ACCESS options
+  * @V9FS_POSIX_ACL: POSIX ACLs are enforced
++ * @V9FS_NO_XATTR: do not offer xattr functions on this mount
++ * @V9FS_IGNORE_QV: ignore qid.version==0 as a marker to disable data cache
++ * @V9FS_DIRECT_IO: disable data read/write cache
++ * @V9FS_SYNC: disable data write cache
+  * @V9FS_NDENTRY_TIMEOUT_SET: Has negative dentry timeout retention time been
+  *                            overridden by negtimeout mount option
+  *
+  * Session flags reflect options selected by users at mount time
+  */
+-#define	V9FS_ACCESS_ANY (V9FS_ACCESS_SINGLE | \
+-			 V9FS_ACCESS_USER |   \
+-			 V9FS_ACCESS_CLIENT)
+-#define V9FS_ACCESS_MASK V9FS_ACCESS_ANY
+-#define V9FS_ACL_MASK V9FS_POSIX_ACL
 -
- 	opts = container_of(f->fi, struct f_usb9pfs_opts, func_inst);
+ enum p9_session_flags {
+ 	V9FS_PROTO_2000U         = 0x01,
+ 	V9FS_PROTO_2000L         = 0x02,
+@@ -49,6 +45,20 @@ enum p9_session_flags {
+ 	V9FS_NDENTRY_TIMEOUT_SET = 0x400,
+ };
  
- 	mutex_lock(&opts->lock);
-@@ -762,6 +760,8 @@ static void usb9pfs_free_func(struct usb_function *f)
- 	mutex_unlock(&opts->lock);
- 
- 	usb_free_all_descriptors(f);
++/**
++ * V9FS_ACCESS_ANY - use a single attach for all users
++ */
++#define	V9FS_ACCESS_ANY (V9FS_ACCESS_SINGLE | \
++			 V9FS_ACCESS_USER |   \
++			 V9FS_ACCESS_CLIENT)
 +
-+	kfree(usb9pfs);
- }
- 
- static int usb9pfs_set_alt(struct usb_function *f,
++/**
++ * V9FS_ACCESS_MASK - bit mask of different ACCESS options
++ */
++#define V9FS_ACCESS_MASK V9FS_ACCESS_ANY
++
++#define V9FS_ACL_MASK V9FS_POSIX_ACL
++
+ /**
+  * enum p9_cache_shortcuts - human readable cache preferences
+  * @CACHE_SC_NONE: disable all caches
 -- 
 2.53.0
 
