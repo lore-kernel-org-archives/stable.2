@@ -1,82 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795639734;
-	b=MBpRIp/pe4AAg4SKO1cZOsYLDmUjmwuJsUXKo/S8utjjaLVwt88Nwl3vUQVvrRbkFAbg
-	 PoRR6TuHn7lpbHfcbe0Sx46lqO+hNzDpM5LbsuBpkzs4eK+jnzw5hFwSHcUVLBId8ojhI
-	 7bS8GAlcaKh2apH1ZJ2pLLOI3Nqvwy+UW8ZIUzGSCxSShhs+Ro3YrAPt6gL4moZbkM1gG
-	 0YjsOb06fmJo0rLWbdYG9vgefMMXFhHINtek3mUUu5mXW0IVygbpcrgnsTddE2mKrGKSL
-	 4tHFZavSNmsG9Pn9tKrLzYWQzoBslmhdqlhtgVfWHnHh+KLl7v8yYcldgVnNCTwL64g==
+	t=1795639736;
+	b=UoOAMCf5qLe1BwrcGBQIz0MdObLuuf77okzJfCYquTXDalyEdY2zVo4c7+bofjBzdjM3
+	 hLp6mQi2UoYntzFE37wp8MTfcX4LEHZvoKCcURXSReIDTsDjv0ai4kaYacHAeMraTx9u2
+	 bohgCob7YAQQTi+REa4rf55OU5YUD4dxTk1gF2U+5xScSiKkvc+ZCZiwaAKTr0Tn1RwlB
+	 etPiYjr+H0vgBB3NA7Zf4DGL4mfQClQwjGoBkh+6GssCNv+7snwBEV/dlYfeW45eeR8gM
+	 eWLGvoSJLAB8gA5kxNKlh1SZ65fHdoxRH65wRyJikIRj0NvgQ/HJr8+0gOgChz0JoZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795639734;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Provags-ID:
-	 X-Spam-Flag:UI-OutboundReport;
-	bh=3V22Rka05JRyQmbkCxEbw3iRiBhwSkjd9Y5mOZPd8Rw=;
-	b=1simkXi3f7Q4HgeHe9xKYvTnBtufOzjLMEpR/YjyGq9K43nglbNKyK/0AuNFQbdCWVsd
-	 NjTKK6LnQ2DzEudZP+Efsf8T8w7iEjd2RerLW//7FjGycgoyjT955TLw3exIa7R16AgQ0
-	 WAkmSepflIVG+7eUvHnDkJi9rh/2S3MGX4q0RorGjENXBFB3a5wr6svr8/TFHNYuBHu2u
-	 OKe2hgMnuEerOY601MPUBlo7RyknOMARhLumON/gF/abwM0TYN3HDNW/EJUQZTTbP+/my
-	 qMJkf6z64Ng+WhRVigi3QouKMrPIQLk7e5JB6MPFvthjUMhk280WgJr3JHSDnTrGCRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795639736;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Q+068W+2xD4+j1OAnHhDnS+1yL4RhJkPVo+pu0EaQNs=;
+	b=dbOlIVoZk3RL/aW+/uvk3v4abhWRQDPi68opvQ/bl8KRE+hqhdRMMhGDoziD4m+11fiu
+	 0ks+HhyDLFnbaY1CiBrzCKb9QAffhEmhoXGInXbawDw91yS/13q1WnFTRa78uBe/xRVz0
+	 8wAqDkBOEn65ceIfDfCmJqqYnN8QXy5N4iOLlAilsZP6iIQBaBHchyCz5kx73vUTPMs6V
+	 ImmKacVDoMclWijw5iYUZy8PyncT4RE4uXdrfepnFqO/3e84Y2aBvsMD7sTNOLym7jeq3
+	 zW0+mvGHv90q//SlsJ/CV/i6eSegS15ljoFgOkMCL+8Oxr05+RMNAj4tbDDKL8Z/iuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.de;
-	spf=pass smtp.mailfrom=gmx.de;
-	dkim=pass header.d=gmx.de header.i=deller@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=sUmq6dl1;
-	arc=none smtp.remote-ip=212.227.15.15
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=trailofbits.com;
+	spf=pass smtp.mailfrom=trailofbits.com;
+	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=CW9zVKAt;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18B1606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:48:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B18B1606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3646606A326
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:48:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3646606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=deller@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=sUmq6dl1
-DKIM2-Signature:  i=1; m=1; t=1795639731;
- mf=PGRlbGxlckBnbXguZGU+;
- rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
- d=gmx.de;
- s=s31663417:rsa-sha256:FOjSys2FOBWTNUYqAT3JvHMxgeI5
-   twF0Nj6eQb6vYw6FXVjvensoqG2urwr8KIpNGlEU5Rndafd1ODi4tbA838kCS4SFdzCf2Qd6rY+
-   VW1BMZ6gCEFDFv5keUCPaPYnwz7s3K6/nFLXXpeqxPoHs3CdK7sxgoLxw8uOFkWb/mJ4Wmi0uT7
-   07NHbyjq/aAFrnvEWw2Pp/qcp+j8WdBqUSigILjn+8VDTGjbbfJoON6DkxEEIlOgKAL4hNOqUQA
-   BeXb0r0OlsQ1OdIS3Dzl3xzCEyaQi4/3cJKXBUitVUhd38FRuExH8o5cQ82VKFJ2+UcN0BSW0yw
-   qt2pYNUu+Ngzvw==;
-Message-Instance:  m=1;
- h=sha256:
-   YQwV4hS63A4e+FmQAgbN9g2PUQHon6K8A0DFOBVeQ/g=:
-   dQ5wJvEKqTEvtob4uUg9oPWE5et33aHIAyNbWNuyy3M=,
-  sha512:
-   vk1/TKZfwC2ivAtO4iDGT6S5V72wA3GR05GYbai9fxjzkgd2qErsWQ4QA5Pei312zjA2Mih1Ft3OZbjh4VeKKQ==:
-   suRF90xfShImYJvXcN3/cN1vr4sKLtudx5uMuTsAfA8uLuQA8p80Sjg476Eb+NQLATx4mjw0Q8d0bOpjUPV63w==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1795639728; x=1796244528; i=deller@gmx.de;
-	bh=3V22Rka05JRyQmbkCxEbw3iRiBhwSkjd9Y5mOZPd8Rw=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=sUmq6dl1qahkx2vi5iqfNhlo/zLcpgiSrks71svetIcmez83dZIdQpGUArFCOQwc
-	 zLT07jHzGlynhdoKBhMHNG/WQdenNUGkU+qPO/eyt+egGM2NJwIygBJrdRRactwly
-	 1Oko6AKlgNA/UVVBs3L1bc2ZfjgR4mcCtlS3qKWdwZdPnO+Fjehi6trZ34I9t5RFb
-	 lZ+L59w0MDZxna3X6Kgd3BkyBIOOkO1X1cun+Lwb4F5EhymImh/R/NAkAI2mzeZgq
-	 Hlz3T10Q+VWifhY4E9E42pJU4K7JAuWfLhFESIRX6uIwlESGh/eczhVw284nNJlBU
-	 Q0MndxBZywqx/8XSeQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1M5QF5-1xUwsP0Cij-00H24i; Wed, 25
- Nov 2026 21:48:48 +0100
-From: Helge Deller <deller@gmx.de>
-To: linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Cc: Henri Roosen <henri.roosen@ginzinger.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v4] fbcon: Don't drop last logo line if logo is same size as screen
-Date: Wed, 25 Nov 2026 21:48:15 +0100
-Message-ID: <20261125204846.428877-1-deller@gmx.de>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=CW9zVKAt
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1a2af4c8d00so5053386c88.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:48:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1795639735; x=1796244535; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q+068W+2xD4+j1OAnHhDnS+1yL4RhJkPVo+pu0EaQNs=;
+        b=CW9zVKAtImhk98ywj0qR/nTojo3KfaibXbVblBTmXfJmQnc6Du6KEV0824RynnAIll
+         wB1qKIHY86HGJf80wT9yXXYVYlPvcqYTW3pncS+LOguC2vpLK0JO7eCco0nz1mUWHlqa
+         KmwRqnZQtSVGj1byIOqqlgqMWFfLmPAVFHvEzEUE9PAAx1cUG2mHWMnPlcE5V5XZyIXb
+         HLpdGUovRvVKyHqNEpeJYb9SdZza7hJLuK5ekNtbxwv0j94Gtj/QqBkiH+CLu40rGCOk
+         NVh0coAeJjIdezcLQaKd9+ATBsNISAEk7swhrJRoeQebpgehoS47SDIVXUNTg09nfBtP
+         lOtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795639735; x=1796244535;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q+068W+2xD4+j1OAnHhDnS+1yL4RhJkPVo+pu0EaQNs=;
+        b=L4+O6yHlxcGOcOEk9mPzQ/795kpf9cW3JX7K2tHDglMkT/0GZYoR3qDs1/IRletBrI
+         t7nSuBU6m5i74za8d+7CdE2xRB/zI/XgMn8zz2g5CYxzLye+/tkMgF2oCR3l5vh1h/sl
+         Uj2f42C3MsZK7kx8fPSIE0zWyctNrMv3PYxzZg+75VvuFHg44UDdQ6gIPTl56d+yzqOy
+         6U8QldGZ/mUeJbv8uIohLjXv9MVaNErnSev1Gf/PaZT1rw15IboMA8AK/SaLrxa0+tSj
+         44E9WszZkbmODxYpYJ5rMz4qWsuViBrugOl1Gy5vrNvkfCiTdiaddW/6CAWtr+e3r6cv
+         jYIg==
+X-Gm-Message-State: APuU4Z8iGlRyq1SJVfm/92gAfTEmQZirYhrz1ao1EzuFkRB/ws0+epzC
+	GP/onibRP1j1XFW+suUS9kIPAPFeHUKiU68uKCgLpVToeAPEJmy8dZ+06IxH+2s/vtYG39DzWWj
+	6wY13NIY=
+X-Gm-Gg: AZFdTZdDuV3omKjtKxw8ugTG2b1tObeg3DaXQeFdWmnMfyZRf9T5N+WLkrFNVtGIdel
+	+u/iY3M1L+6ST5bxsmwPnTO86m9BQswO2U2KVGvTV2G0QdDttdyW3tH1aslSyNHAr/7Gm6BQ4ZU
+	d5PDX46uEkpJ37nlafj+OE59UCL8cVW5PyfH6Y+/Q+aPUXMa31lYm2NrMiwEnPHq9iDt3VjML5s
+	a3Q40yWT0nro6CE38pUhHehE6n+HOSMRybif26ryAAnE6ydpgT65w09c/BYDe5i1suAfYTPzXJ2
+	jJajI9cHLTR90XYIK39ttXaATYRWOvWPih0w26OKNvMvN3QxW1MKQCh1QGv1ZNIzxIv76e6Tte1
+	NFWyq47bDrpNYbsSEw0y7pIN2607yhz4tCmgWophylptYZv1SEGo1yORIkidY/98yn+3ugTSrpr
+	zsk6te6nf+8WkLqDJdxr/SD2WvCXxAn+RKBnKp8RuzVta+tE9+A8YRJwtt8mlM2M28smJtnCTUl
+	Wl0ngZDIQckiKd/WuBgWjvA57MQACwGnrKf9/rYatq1c36MS5b4OZDi20wSzoL5FCzf7FJOSmyV
+	saHdufGM7nSOwhLnSbxxtsroSQmK7IscVwoAuZBng/FpwAWBuRTjmQ6neaMWGDLgh6w/M4Z5uIG
+	dYOBA5ztpUZr9ib8J0IRgPMkY2A==
+X-Received: by 2002:a05:7022:3f0d:b0:1b5:58d:fd9b with SMTP id a92af1059eb24-1b5568f03b6mr20664947c88.31.1795639734644;
+        Wed, 25 Nov 2026 12:48:54 -0800 (PST)
+Received: from localhost.localdomain ([2603:8003:6d40:6669:75a7:83bd:63db:baa9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5566c1142sm42891258c88.2.2026.11.25.12.48.53
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 25 Nov 2026 12:48:54 -0800 (PST)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@kernel.org,
+	horms@kernel.org,
+	jhs@mojatatu.com,
+	kuba@kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	toke@toke.dk,
+	victor@mojatatu.com
+Subject: [PATCH 6.18.y] net/sched: codel: bound the dropping loop per dequeue call
+Date: Wed, 25 Nov 2026 15:48:50 -0500
+Message-ID: <20261125204850.72393-1-artem@trailofbits.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,192 +101,151 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:7wglXJzBxt1S24eOMLedK1Z8XZNczt3Uex5L4SvO0khL26IDGo0
- sxZfb9gjhG+i6URjYjPLwetnjHXOObODdrlGBk8J71Fx8mNKe0zPV3YX3jxhbP4/87xYi5a
- 3ezSYz1OKU9gJ7YtIu39Xz5uloTYFHa/BiACcUjM/qp0YDE0+oL3ZwoNJrp3PgfPm00H4+A
- /vYCWopueyf04b5sOaOTA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:unsOaRR7z94=;k5BIbfXZPGJa8Y/Y6XNh/Wb0Nim
- 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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Henri reported a regression that when a custom bootlogo is exactly as
-big as the screen, a white bar with the size of the font height is
-displayed at the bottom of the display.
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Sat, 12 Sep 2026 14:08:30 -0400
 
-This patch fixes this off-by-one bug, but now -as sashiko-bot noticed-
-since the logo covers the whole screen there is no area left in which
-the text can be scrolled. To avoid accesses outside the screen memory
-simply keep the text area covering the full screen (and possibly
-overwriting) the full-screen logo.
+[ Upstream commit 7f4a5ec6258fd7c92633ec4b0493fc51166d9398 ]
 
-Fixes: 94e6a058b168 ("fbcon: Fix KASAN slab-out-of-bounds Read in fbcon_pr=
-epare_logo")
-Tested-by: Henri Roosen <henri.roosen@ginzinger.com>
-Signed-off-by: Helge Deller <deller@gmx.de>
-Cc: stable@vger.kernel.org # v7.3+
-=2D--
- drivers/video/fbdev/core/fbcon.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+The CoDel control law schedules the next drop one interval/sqrt(count)
+after the previous drop, using the configured interval
+(codel_params.interval). For very small intervals the scheduled step
+rounds down to zero, so the dropping loop in codel_dequeue() never
+advances and drains the entire backlog under the qdisc lock in one
+call - an unprivileged user can trigger a soft lockup this way.
 
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/f=
-bcon.c
-index c632a3c82e16..4f51f6262eac 100644
-=2D-- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -665,13 +665,15 @@ static void fbcon_prepare_logo(struct vc_data *vc, s=
-truct fb_info *info,
- 		erase &=3D ~0x400;
- 	logo_height =3D fb_prepare_logo(info, par->rotate);
- 	logo_lines =3D DIV_ROUND_UP(logo_height, vc->vc_font.height);
--	logo_lines =3D min(logo_lines, rows);
--	logo_lines =3D min(logo_lines, new_rows - 1);
-+	logo_lines =3D min(logo_lines, new_rows);
- 	if (logo_lines <=3D 0) {
- 		logo_lines =3D 0;
- 		logo_shown =3D FBCON_LOGO_DONTSHOW;
- 		return;
- 	}
-+	if (logo_lines >=3D vc->vc_bottom)
-+		goto logo_fullscreen;
+Fix in the shared codel code used by both codel and fq_codel:
+
+1. Make the control-law step at least 1 tick so the dropping loop
+   always moves forward.
+
+2. Cap the dropping loop at CODEL_MAX_DROPS_PER_DEQUEUE (256) drops
+   per codel_dequeue() call, resyncing drop_next to now when the cap
+   is hit: the catch-up owed to the loop grows with the idle gap and
+   the backlog, which no interval threshold can bound. This is a
+   deliberate behaviour change after long idle gaps.
+
+The cap applies to fq_codel (4b549a2ef4be) and the mac80211 TXQ path
+(fixed interval, cap only).
+
+The target sojourn delay (codel_params.target) is not validated: it
+does not feed the control law, so a sub-tick value is aggressive
+rather than deadlock-prone.
+
+Conditions to recreate the bug:
+  - tc qdisc add dev lo root handle 1: tbf rate 1kbit burst 2kb limit 1000000
+  - tc qdisc add dev lo parent 1:1 handle 10: codel interval 2us target 1ms noecn limit 1000000 (same for fq_codel)
+  - unpatched kernel: tc accepts it; a UDP flood under the 1kbit tbf
+    soft-lockups (watchdog: BUG: soft lockup) while one
+    codel_dequeue() call drops the backlog under the qdisc lock
+  - patched kernel: same setup, at most 256 drops per dequeue call,
+    no soft lockup
+
+Testing: claim reproducer and interval 2us/3us variants run clean;
+tdc qdisc category passes (see the selftests patch).
+
+Fixes: 76e3cc126bb2 ("codel: Controlled Delay AQM")
+Reported-by: Vega <vega@nebusec.ai>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Tested-by: Victor Nogueira <victor@mojatatu.com>
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Reviewed-by: Toke Høiland-Jørgensen <toke@toke.dk>
+Link: https://patch.msgid.link/QDISC-1L5H.v1.20260912080102@mojatatu.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+[ Backport to 6.18.y: context adjusted in codel_dequeue(); 6.18.y lacks
+  the upstream WRITE_ONCE() annotations of the codel state. The added
+  code is unchanged. ]
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi,
+
+Please apply this backport to 6.18.y. It fixes CVE-2026-98427.
+
+The fix is in 7.2.8 and in mainline since 7.3. It carries no stable tag
+and so far has been backported only to 7.2.y. The upstream commit does
+not apply to 6.18.y because of context in include/net/codel_impl.h. The
+selftest patch mentioned in the changelog only adds tc-testing cases and
+is not included.
+
+Compiled net/sched/sch_codel.o, net/sched/sch_fq_codel.o and
+net/mac80211/tx.o for x86_64 with CONFIG_WERROR=y, both on 6.18.65 and
+on 6.18.65 with the queue-6.18 patches at stable-queue 42799ba370. The
+patch also applies to the current queue (0fdc4475764), which adds a
+net/mac80211/tx.c change; that tree was not built. No kernel boot or
+runtime test was performed.
+
+An LLM was used to prepare this backport and to check applicability and
+stable-queue history; I reviewed the result.
+
+Thanks,
+Artem Dinaburg
+
+ include/net/codel.h      |  5 +++++
+ include/net/codel_impl.h | 16 +++++++++++++++-
+ 2 files changed, 20 insertions(+), 1 deletion(-)
+
+diff --git a/include/net/codel.h b/include/net/codel.h
+index aa80f744826c..183d43c2bd43 100644
+--- a/include/net/codel.h
++++ b/include/net/codel.h
+@@ -140,6 +140,11 @@ struct codel_vars {
+ /* needed shift to get a Q0.32 number from rec_inv_sqrt */
+ #define REC_INV_SQRT_SHIFT (32 - REC_INV_SQRT_BITS)
+ 
++/* Cap on drops per codel_dequeue() call: the loop's work depends on the
++ * idle gap and backlog, both outside our control; resync when exceeded.
++ */
++#define CODEL_MAX_DROPS_PER_DEQUEUE 256
 +
- 	q =3D (unsigned short *) (vc->vc_origin +
- 				vc->vc_size_row * rows);
- 	step =3D logo_lines * cols;
-@@ -729,12 +731,17 @@ static void fbcon_prepare_logo(struct vc_data *vc, s=
-truct fb_info *info,
- 	if (logo_shown =3D=3D FBCON_LOGO_DONTSHOW)
- 		return;
-=20
-+logo_fullscreen:
- 	if (logo_lines > vc->vc_bottom) {
- 		logo_shown =3D FBCON_LOGO_CANSHOW;
- 		pr_info("fbcon: disable boot-logo (boot-logo bigger than screen).\n");
- 	} else {
- 		logo_shown =3D FBCON_LOGO_DRAW;
--		vc->vc_top =3D logo_lines;
-+		/* keep vc_top if logo covers whole screen */
-+		if (logo_lines < vc->vc_bottom)
-+			vc->vc_top =3D logo_lines;
-+		else
-+			vc->vc_top =3D 0;
- 	}
+ /**
+  * struct codel_stats - contains codel shared variables and stats
+  * @maxpacket:	largest packet we've seen so far
+diff --git a/include/net/codel_impl.h b/include/net/codel_impl.h
+index b2c359c6dd1b..4d5e471472f6 100644
+--- a/include/net/codel_impl.h
++++ b/include/net/codel_impl.h
+@@ -93,12 +93,17 @@ static void codel_Newton_step(struct codel_vars *vars)
+  * CoDel control_law is t + interval/sqrt(count)
+  * We maintain in rec_inv_sqrt the reciprocal value of sqrt(count) to avoid
+  * both sqrt() and divide operation.
++ *
++ * Clamp the increment to at least 1 tick: a very small interval (or a
++ * large count) can truncate it to zero, stalling the dropping loop.
+  */
+ static codel_time_t codel_control_law(codel_time_t t,
+ 				      codel_time_t interval,
+ 				      u32 rec_inv_sqrt)
+ {
+-	return t + reciprocal_scale(interval, rec_inv_sqrt << REC_INV_SQRT_SHIFT);
++	return t + max_t(u32, 1,
++			 reciprocal_scale(interval,
++					  rec_inv_sqrt << REC_INV_SQRT_SHIFT));
  }
- #endif /* MODULE */
-@@ -2270,7 +2277,9 @@ static bool fbcon_switch(struct vc_data *vc)
-=20
- 		logo_shown =3D fg_console;
- 		fb_show_logo(info, par->rotate);
--		update_region(vc,
-+		/* avoid screen update on full screen sized logo */
-+		if (vc->vc_top)
-+			update_region(vc,
- 			      vc->vc_origin + vc->vc_size_row * vc->vc_top,
- 			      vc->vc_size_row * (vc->vc_bottom -
- 						 vc->vc_top) / 2);
-=2D-=20
-2.56.1
-
+ 
+ static bool codel_should_drop(const struct sk_buff *skb,
+@@ -154,6 +159,7 @@ static struct sk_buff *codel_dequeue(void *ctx,
+ 				     codel_skb_dequeue_t dequeue_func)
+ {
+ 	struct sk_buff *skb = dequeue_func(vars, ctx);
++	unsigned int drops = 0;
+ 	codel_time_t now;
+ 	bool drop;
+ 
+@@ -180,6 +186,14 @@ static struct sk_buff *codel_dequeue(void *ctx,
+ 			 */
+ 			while (vars->dropping &&
+ 			       codel_time_after_eq(now, vars->drop_next)) {
++				if (++drops > CODEL_MAX_DROPS_PER_DEQUEUE) {
++					/* fell far behind the schedule */
++					WRITE_ONCE(vars->drop_next,
++						   codel_control_law(now,
++								     params->interval,
++								     vars->rec_inv_sqrt));
++					break;
++				}
+ 				vars->count++; /* dont care of possible wrap
+ 						* since there is no more divide
+ 						*/
