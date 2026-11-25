@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606309;
-	b=f/ppBohz9TpisKDG3//IFO2LGDcXq1/lTG5IfZmSeltztP53vQHEkTpVCE8L2CPLqmyj
-	 Ws03QMbJHRL/ixeA14kwrSN8attgFOocLcg2MQQzYil52IKiuJf3lW0EWeHwhKGtjWfNg
-	 3YCfjj6QDZkORvB/nzo96OIxCvyHx9Bin1Hge2sd+z+Iwvjzpn/zXM9XduPrpyS2Z7DfO
-	 ufTC48WVmi6OJrLHX6dfOMzzf2d5kMtGeO1hqZ/1UMZmqIwIZ23G2+1uq7dqviUUrA+cZ
-	 cihHfFjWkePT0W/c3mxyqQVCSC7bGrpKREvkQBuruXvJYKicbxAXiHHZlMPy7iDo2WQ==
+	t=1795606313;
+	b=qHQOVICuqDolE0R4V6B6JcimpsavbR4x+tQGPtLKrJYh/8mHrk4ABp+x82a8L7On8j2P
+	 DIhxbWr5EV8L2Jt2JR2OQxqIuKoX/rGz3LRJRu1pb6TM4Jsf95faLgNM8y5056qDVjhAU
+	 vjLbmTjfiqDMkpXbfsUe7oLbXe271oVhW4YwKjsY8t6NewdAo1IbW00E+RwqyfynG3Wph
+	 EcMMurs/L9yUU9/ma4PMpXCzoaAS77a8tAnBVFWfKjPI4DQgWau+6zT2W8aRlDhARnFWJ
+	 pc5ocxutESVCsMl6WRdqObXFEB5HhBW6lCgaMIq0ng3ROtjIlITZZwtqijMzdm3OzoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606309;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606313;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Ao/CrNRDxoHexA7SzI94J/u4SLyp1w67v7Lhim1kS+A=;
-	b=D5W4xrOFTPc+oDhfp9FLuOaVKOyIJJ5Oq/1P346gWDOwHV4DCx8xNhft2UpnV31+wG86
-	 d1NR0r8kjGYzRJx8bk6wlgQc4F3SAS8NK6AIoY+DwiyWxhqF+zkRxoTsYeuKW267eOTm8
-	 q12nRGdwXtDeHyR5XCYBcPkrpwhSDW+w6VgZJU8qJUoRTTxCy3q0eanr8nUQUBXRGfl6E
-	 gXAUdy3vcrlV/Eb5WbU0oI5Hl1xEXazAXAOqZ3WpmrQSxx4QwOKFAwE3NOXKIGiG6hqXy
-	 oF9yDLKXUtv/rPY73QpkpzI9/QGEOlpKgE7LbRyHFSbmRQEt1SdW59wZGGveLeJU4wQ==
+	bh=cHyGbAjGimZRUXQkrRJAfmElOUJKEjE6OSoM1eK4a+8=;
+	b=Tm9OYVWrgYjeebeBeTDfJX+uWTiHqvqWYQ68K0gxL9kavqCvXzM+5Xa7pggowQsTC0i8
+	 OkjjojJ7/Qxte/PvOitcCUnszZtwYNCeV4IrKtJNKnHXK27RIJQxX1CIWJG8Z+MwPfX2H
+	 f6gIrddQMu6Ls+VAH2URdIoabgnLPDB8hk1D8qwqgbm8Pe8pKR8wEwZJx+7HPnS1/oPrI
+	 Rl1N7dEhT4L9vpIOnOdypm5K+nwJxJGusT3lUDoYgf1c92XzxMnQgvndHyO3+Yka4RyF8
+	 JVMc0AVYoYBiGeMVEtWQnH1YDpSmienORkwbUhUU6YnDD5upMFA3Gk3gDDfdeRi0lcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pPdbfMim;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EV6c1OZ5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D39606A33A
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:31:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F56606A33D
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:31:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pPdbfMim
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E3F31F000D1;
-	Wed, 25 Nov 2026 11:31:48 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EV6c1OZ5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05EAE1F000D0;
+	Wed, 25 Nov 2026 11:31:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606309;
-	bh=Ao/CrNRDxoHexA7SzI94J/u4SLyp1w67v7Lhim1kS+A=;
+	s=korg; t=1795606312;
+	bh=cHyGbAjGimZRUXQkrRJAfmElOUJKEjE6OSoM1eK4a+8=;
 	h=Subject:To:Cc:From:Date;
-	b=pPdbfMimij43+CDRllUOiH42p9XmQqOhCj5TzACtCPlaSv92puNMF8rXyzAAfH1Dz
-	 hwQKm7sC/fjJaP8QMPcCBGljPxpbTkNlhrT1DxBAYdZuPGUtJkW5E/0PzrEInMf+gD
-	 8L4q9n5Z1uufkBE+WAIBedWYP9wfrC6FZYo2ew9o=
-Subject: FAILED: patch "[PATCH] dm: fail a REQ_PREFLUSH bio with data when its preflush fails" failed to apply to 6.6-stable tree
+	b=EV6c1OZ5e95+WTSbb8srokn87XuoQT19ZLazeqUiFtc9KJ4MsOpqTR2qFAcv7boXY
+	 x9G04weCWZ9K+1qV8sSk8rmbQjxaMBpjt7209kgLLmmgrGvB+ARIyhHl++xpHLfhTS
+	 Qugb8ETp7x5PpOODqJV8v7AcSJvi8u2QgBwBW+x0=
+Subject: FAILED: patch "[PATCH] dm: fail a REQ_PREFLUSH bio with data when its preflush fails" failed to apply to 6.1-stable tree
 To: daejun7.park@samsung.com,mpatocka@redhat.com,tj@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 12:18:17 +0100
-Message-ID: <2026112517-activator-retract-73ba@gregkh>
+Message-ID: <2026112517-marsupial-slacked-eb2c@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x e92cd41e8e5ee5616c6c7cd4378661d942f0a7c0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112517-activator-retract-73ba@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112517-marsupial-slacked-eb2c@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
