@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795598803;
-	b=Q5T/wW4kvLY7a2LlP14mPxlSoO9FbAtpTeLBHVU/wq2yaGUPjZaPgBTQBmNXqMzYbAK8
-	 hmGkVoF3AP+7xWSm9LSB9jCminZMmQUc620E0D3hVtN1YONmFAEW4ZFZJWEkY6upYnzzD
-	 JO8Q8uY5lLHxo2y+gbVX7F9USi2Rzxy9S+K/vIjA1fiMnhY2V/Y+ttfY/La9TsrsVl4ft
-	 hMDeH1sqFOCKEaBIicbX3XqOYh+WfkrtLr4lSqu/mgtsPri7UODSFSHUNooiynO3YTFR5
-	 4gzguGHIK1eZv/46rdS0hvbmo3+qzKRaKBhgkAbFEs5Nb7NtBm0QCljpygbqgKz071g==
+	t=1795598806;
+	b=lPuR8qrde99lhqf5SgLKfwmVd93IP0OqvMJQqUgJ0o7qaNvRJsNcMROlZQFsy6wi17OC
+	 nFtjoGwFp6TAUtnhh7+IkTa2+5+MpnyQYJw5A9y5Q5Ffq3wNZ9zMy/fOw6YZAwkz93Pve
+	 ZIJmdtMa1Z8QRKEKsMDHc9Dzp3/KWupWkAcoyp7G5d3qW4aAClXuWlykVGzNgtSmJ2q+o
+	 o7dvudPeiKzmMc0F17ul3FuNOOZ3RXkhYOlNwx3odGbsfnag+gWgn8Co9RmidpSTDi9KV
+	 Am+DBkn5QOFktyz3Qo1xKtaXeVN1QOe2CjD3BKi5mbhppkFSH2mSbi/GjxxDtC4zRhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795598803;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795598806;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=NbOOR/RCTej/+TmEUOBNN7iQLe7Y7rSCqZkVqYBc9d4=;
-	b=ZSRtPLnyDcjd6hqZJA4tYA9Oj9XnrGBPBWDbCifUqU1vD/aTAw98IcxSAbqPlkC0iCLo
-	 BstfpOtthkAEIT1Rq9XCPbOfCIPhmocJhlGIyQqVtCQmrNVUr6WuC5pa4+FAjdb4j/Vmp
-	 oMrh8CjbJNpp0L+jAXweCDUCBEr/799ajZvD4j7OWRLAdSRDOpycJNMXmCfF2xZ5N8BOl
-	 fWoTROTRTGJ4S4S/jkBiIZn3ZonxYcAKBhKjk+ZrX5UsJDNtqryOjVWZE34C6SMBL/WTM
-	 I5WX3wx8rZgWlaGqwG+cQscOBsqC1l283y4TZ4RdZPpjrjCw0Rz75mUvk7jD6NJNaGA==
+	bh=XcGJzwiACgQxC5aRTaIc7c7VOPrKC5746a9mLBdLJJE=;
+	b=Xhb9R4oReI9ZskHKEY63LS8BzWQQT92v7J/edhwvX/6mLWzNLF07ERX8ZCf0fj6iq1gz
+	 hbVzFVXvGkNyzanSEuQNxT20kHkVTrDKEz1yOLpU4Z+pdh/V3IL+xEt0ZzLjuXovhIhSA
+	 Da5kHefHagkhh/bZjno5Kq7/rfZFTjpOgLtRgTjUZrK/WaPPCOgOM7PmG9NE5+D80Ytd7
+	 Qax0t6SiNRcDOWXrNTcUFCv8lvZYOMmdgLhCGwzt0xGcAJMoYGD2qOXiRWp9fLg3RZVmw
+	 doSm6Civzt/eRvs7EKIhS68tAk4LvI1b5aDx4c3vctDbLYR71h9U5OaYWCNqTzHSnrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DEC6We01;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x5YgNUBZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B64606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:26:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62810606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:26:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DEC6We01
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86F0C1F000C4;
-	Wed, 25 Nov 2026 09:26:42 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x5YgNUBZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CFBC1F000C0;
+	Wed, 25 Nov 2026 09:26:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795598803;
-	bh=NbOOR/RCTej/+TmEUOBNN7iQLe7Y7rSCqZkVqYBc9d4=;
+	s=korg; t=1795598806;
+	bh=XcGJzwiACgQxC5aRTaIc7c7VOPrKC5746a9mLBdLJJE=;
 	h=Subject:To:Cc:From:Date;
-	b=DEC6We01VLhlMkB+oQJlIBuqXM2WXr/GrLvvKboqzSZCUfJuEx6FwdxDNJ2FfZX7O
-	 lazoboUyZbKxtRbu8gCGBnDm9md8ctHEHAq8Wwm+76AoLgsbpa4gGXZdq78bTftosE
-	 Y7rgRDfxJNOXUxpOfWapL0mW9+ivcvm21B+cuqrw=
-Subject: FAILED: patch "[PATCH] fs/splice: clamp an over-reported write_iter result" failed to apply to 6.6-stable tree
+	b=x5YgNUBZltrDrZydZ4oMF56zuOIW0kT8pxBy5EEyPZFaLyp7MeOwtQY6MFDIcEI0Z
+	 u0pYX/hV8g0kJtdLkh3U8oJ2IDwjlZ4izjBTlUDI12LHlAME9rgGlPQtO2hIvW3ogU
+	 gWnD4tmdLEMInn9Y2BiFkm1NtEzyVVmU1o9Biwfo=
+Subject: FAILED: patch "[PATCH] fs/splice: clamp an over-reported write_iter result" failed to apply to 5.10-stable tree
 To: teel4res@gmail.com,brauner@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 10:20:45 +0100
-Message-ID: <2026112545-provider-relock-0116@gregkh>
+Date: Wed, 25 Nov 2026 10:20:46 +0100
+Message-ID: <2026112546-remedial-underdog-3741@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2d956723e82cddae8ff8e9da99a666217b02065f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112545-provider-relock-0116@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112546-remedial-underdog-3741@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
