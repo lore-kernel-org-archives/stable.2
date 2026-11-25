@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795640276;
-	b=4js8PtHliKftdG2eOMlJtdp3xctdb2ult6RdSZbNi9LmY+fGEx/vHG51N4nmJTulEZ78
-	 MAXGP6SfGyFKBVJSZ9SkHC9mO7ozm9llPxNxOHlqsPzHVddQFq4gwt9beqAnbuqPTrz1e
-	 EfA5A7TiaxCYncxiqYXaVEKIaGas7rGODCAN0cPVsyi3mSjqqzCqOUOuSLF6ok/G3EH7K
-	 XU+GBiVykaO3tkmJ8WdEiY0O2dky6DHs5fG3zThRrP2hymxo29teosNkBfCvwzYDuYftL
-	 JgfbHS5iwOd8paJr4LdLu45wOFQQfbvqlRr47/+IWwOE6CCR9XRzwwtt1iy0b++Bjiw==
+	t=1795640278;
+	b=gaRLdw51hHILGTrSNd+pgYSqDwO1bFOHAd7plmn0EcZ4fMfHHP7Zh/vDP5RbZm7SZSZE
+	 aNw0Zig56+W4lRhHFdN0n/fZRGvly1Mnh+kCdhiLlFymCxFBlD1kgWtG84XG1ik+ZS1KE
+	 +hO7xyJSdlJQGkr1CxusFhdqXz/lduogdPQWv+as91wAvPPong2Y2LTMNDOnHV1ftE6Lk
+	 OXc7URM6qZg5FdBPf5w+dwtR+qPywxbbnBi7wN038GTSBr4afX2UO6RfAoHjEzuXVTmgG
+	 7A/J6JhQ/sw7zuIf7uYYZ4esIr5F0ogaaedamHlmbjWVfdxNeh9bPkW0yNaITMAIugQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795640276;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795640278;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=jXbdAxBRHEcxRyexxN8zsqVUO69/d4iYqd2ksEIyBBI=;
-	b=ezjLNIJuAP2B2GeM72weKEEWLB3Z773xwbt6EeVXWsIZyruACTIBgRXXl3ZzVbZ/MfJw
-	 Xv2Krpd6yoPnRK5Ev1wcDRR1KDpe4MfD0BB/1Ys1tEHM3LO1mmnVQ+LX/rqVe69mxbPwT
-	 CoOQFSCF14mGKRzCNxzNk1Oi8WmUSkHwJTkktmtXjROje01m42O4gmxY3L2V1QgnuzOnf
-	 lxdRdJJLrQhBMevGzJJNtqS3ZQzgj2lLWdTPexyUevj7WjVoAgIWsQLNJAPT7+0nkaG8x
-	 Nt9EqBZW8GKU94m0szIcI1tiiMXMQEo2uhfrKIHo/gz6gNYgpe9mQENxXGQErlZoQOQ==
+	bh=voGbDxAfebOEp6BtxVSTzWNdjW+Ob/GwAtxmR0eYPi8=;
+	b=EtNZQJ8dCSWT0RH95ekaGfHYZwinDr1OsejfOWCBzEPpYjUfmwU967i9N7eqGJDJEdwC
+	 nrhre3QODRTjcIFGVmsTDn9IoStasEOedxFWkeoSQ5ZJKUlLj4+fVp0P6nnOAM0XJFclw
+	 n5zbeLxDO8HsbLP6+I5CUeUQsn+mNWU+jlcWgZKFzVyoT5ErFk3ufYnqC+csx+beeZimD
+	 T4SHxefHB4iRzqdjl6QfnyEZKfwpU06WuH1/IvmYUY1WimexINNRvro1m1FfL0LW61yUm
+	 lXTq3pEflLeWjt2jyfV/1QVlKGOi/Y5+go0TOMx8GnUk7MIik3uANZ2mAu3nXhMznTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omUyE+uq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTviIFy0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0594606A33B
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:57:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18DD606A32A
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:57:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omUyE+uq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 020DA1F000C4;
-	Wed, 25 Nov 2026 20:57:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTviIFy0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49F391F000C4;
+	Wed, 25 Nov 2026 20:57:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795640276;
-	bh=jXbdAxBRHEcxRyexxN8zsqVUO69/d4iYqd2ksEIyBBI=;
+	s=k20260515; t=1795640277;
+	bh=voGbDxAfebOEp6BtxVSTzWNdjW+Ob/GwAtxmR0eYPi8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=omUyE+uqowFIvYsLvJ3TEJ4NhcmtUqw6BfsI5QQxce080TtTFl1f0Cv7MTxqBIBrp
-	 ZVmG3dqatI5RbPFmOB39EDxD3K36zt7YNVLa0flNJ2eyEvVcM/3zXT6YPZQDdfz7p4
-	 GmnyZjkYDfzV3Ziywte2Dp2du8h2HsEVUwBV4EkSai4Fa4KYYD2fAT5dvgqnjpjDyg
-	 vcM4lnWuu8WExCNWy9HT8I6PPoQfwdaQRmG2E6p8VrtbG3ErfyV6apjE0+ydlQxqfo
-	 DfzhaipAUkpthAhzYMaPoWQ2QHVXTdD8lwtUvPigT7gARKJXXIEZmG6l5DHzaqVHg7
-	 RPX9YVeqEhHxA==
+	b=NTviIFy0mXmMBb8GeO7d5lcwgTIMsQ2qXmVROZqcSGOpPQYIfknQhjoypTlznN88x
+	 1Wc7MOAJ6HoOoAs8RRt0xl64o8WsFD+qwRbnkmYx2+IkqHs+9cl3jcRg+OW4JK9vti
+	 wpf54CNDaCYZdbKbbj5Z0A4Qa9I2r1dbxNfnT7yfrFzAA5aMV8gLUpRP+L4rPo3Awq
+	 nAg6lZpUij5aYk+XSrtmKPiC+VaH5He0Gv02zCOAMuglHZCLis+5OrsdQAVZSokSXe
+	 MaYetw4sZJs1U1ak+mlX2XZ8wvo2MliCY4q4iRrVyKWcJCI2wkT048whekd6GbKapF
+	 Hb5ke4LBx/AOg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Rosen Penev <rosenp@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+Cc: Zhao Li <enderaoelyther@gmail.com>,
+	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] gpio: mvebu: name regmaps to fix debugfs collisions
-Date: Wed, 25 Nov 2026 15:57:53 -0500
-Message-ID: <20261125205747.1491649-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] wifi: mac80211_hwsim: ignore non-generic netlink releases
+Date: Wed, 25 Nov 2026 15:57:56 -0500
+Message-ID: <20261125205724.1499965-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112517-rival-mantis-1c17@gregkh>
-References: <2026112517-rival-mantis-1c17@gregkh>
+In-Reply-To: <2026112525-context-bulk-d4fc@gregkh>
+References: <2026112525-context-bulk-d4fc@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,79 +61,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Rosen Penev <rosenp@gmail.com>
+From: Zhao Li <enderaoelyther@gmail.com>
 
-[ Upstream commit 4d305c2273123119c27d6e4c822215e650c451e3 ]
+[ Upstream commit 989f47c56e48d442d79497a25ed946d029c4dc53 ]
 
-Each marvell,armada-370-gpio node provides both 'gpio' and 'pwm'
-register windows, and the driver creates one regmap per window on the
-same platform device.  The shared regmap_config was unnamed, so both
-maps defaulted their debugfs directory to dev_name(), e.g.
+Closing an unrelated netlink socket can remove mac80211_hwsim radios or
+clear the active wmediumd registration when its port ID matches a generic
+netlink socket.
 
-  debugfs: 'f1018100.gpio' already exists in 'regmap'
+mac80211_hwsim_netlink_notify() handles every NETLINK_URELEASE event,
+but netlink port IDs are scoped by protocol. The notifier therefore treats
+a release from another protocol as a MAC80211_HWSIM socket release.
 
-because the PWM regmap (and on Armada XP the per-CPU regmap) claimed
-the same directory as the GPIO regmap.
+Ignore release notifications unless they come from NETLINK_GENERIC.
 
-Give each regmap a distinct .name so the debugfs directories become
-'<dev>.gpio', '<dev>.percpu' and '<dev>.pwm'.  This only affects
-debugfs naming; register access is unchanged.
+LLM assistance was used to find the bug and review.
 
-Assisted-by: opencode:big-pickle
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Link: https://patch.msgid.link/20260905004334.177074-1-rosenp@gmail.com
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Stable-dep-of: 42269cdb3d3b ("gpio: mvebu: fix sleeping-while-atomic in mvebu_gpio_level_irq_mask()")
+Fixes: 7882513bacb1 ("mac80211_hwsim driver support userspace frame tx/rx")
+Fixes: e9ed49bf4c2c ("mac80211-hwsim: Add support for HWSIM_ATTR_DESTROY_RADIO_ON_CLOSE")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Link: https://patch.msgid.link/20261028141751.6728-2-enderaoelyther@gmail.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+[ sashal: adapted to the older driver file path and the older one-argument remove_user_radios(notify->portid) call, without the netgroup lookup ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpio/gpio-mvebu.c | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
+ drivers/net/wireless/mac80211_hwsim.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpio/gpio-mvebu.c b/drivers/gpio/gpio-mvebu.c
-index c613d74ed48d0..aa2484a8d8af4 100644
---- a/drivers/gpio/gpio-mvebu.c
-+++ b/drivers/gpio/gpio-mvebu.c
-@@ -599,6 +599,21 @@ static void mvebu_gpio_irq_handler(struct irq_desc *desc)
- }
+diff --git a/drivers/net/wireless/mac80211_hwsim.c b/drivers/net/wireless/mac80211_hwsim.c
+index 6bf9a0309dfd3..32c3a0c4c7cb1 100644
+--- a/drivers/net/wireless/mac80211_hwsim.c
++++ b/drivers/net/wireless/mac80211_hwsim.c
+@@ -4170,7 +4170,7 @@ static int mac80211_hwsim_netlink_notify(struct notifier_block *nb,
+ {
+ 	struct netlink_notify *notify = _notify;
  
- static const struct regmap_config mvebu_gpio_regmap_config = {
-+	.name = "gpio",
-+	.reg_bits = 32,
-+	.reg_stride = 4,
-+	.val_bits = 32,
-+};
-+
-+static const struct regmap_config mvebu_gpio_percpu_regmap_config = {
-+	.name = "percpu",
-+	.reg_bits = 32,
-+	.reg_stride = 4,
-+	.val_bits = 32,
-+};
-+
-+static const struct regmap_config mvebu_pwm_regmap_config = {
-+	.name = "pwm",
- 	.reg_bits = 32,
- 	.reg_stride = 4,
- 	.val_bits = 32,
-@@ -840,7 +855,7 @@ static int mvebu_pwm_probe(struct platform_device *pdev,
- 			return PTR_ERR(base);
+-	if (state != NETLINK_URELEASE)
++	if (state != NETLINK_URELEASE || notify->protocol != NETLINK_GENERIC)
+ 		return NOTIFY_DONE;
  
- 		mvpwm->regs = devm_regmap_init_mmio(&pdev->dev, base,
--						    &mvebu_gpio_regmap_config);
-+						    &mvebu_pwm_regmap_config);
- 		if (IS_ERR(mvpwm->regs))
- 			return PTR_ERR(mvpwm->regs);
- 
-@@ -1107,7 +1122,7 @@ static int mvebu_gpio_probe_raw(struct platform_device *pdev,
- 
- 		mvchip->percpu_regs =
- 			devm_regmap_init_mmio(&pdev->dev, base,
--					      &mvebu_gpio_regmap_config);
-+					      &mvebu_gpio_percpu_regmap_config);
- 		if (IS_ERR(mvchip->percpu_regs))
- 			return PTR_ERR(mvchip->percpu_regs);
- 	}
+ 	remove_user_radios(notify->portid);
 -- 
 2.53.0
 
