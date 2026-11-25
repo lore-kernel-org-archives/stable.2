@@ -1,97 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795617343;
-	b=2oLmJN+lj7G2HyNsReB6qecaFvSmrJfMdE0bYp50PGEZ2Zz33/DMGKGlRpURZplpG7HM
-	 AF8o9jPEsauikYxV9XYutc498QrJ9Dg17WlbHCJHp7TWxselZfl8DHbdXIGYAvcfbbE9r
-	 Oj6k8HqzZmE7aQGK7I9AdXeIlH5U2lLgOFv0cAij7W918t2X4WxmrkG1hzu1aA03/Rm7B
-	 MgLkhH1kT6/3YBQMoM0W32sB4BLOI2f0PFQCJtRAxRc0GeSK7qICIVPydannvrOyZ+SZP
-	 6a7LB3XHdB+cUqKV4zsyWPEpSqnCqwc/I8SyYIlL/6mnhUeyuQ9ceau8KlQS5Koe5Ig==
+	t=1795617525;
+	b=S9NBf+e6U5Y/HSXCcRGU98BDqPVO73I8VU7iHRZ0i2hSm0TbUkUN7Xg15RhH5N36ASLH
+	 lCS5tYChS8unc+4+T6yS1DYeUQdmcrD1HCKs6qNxjSxkp56Pdww7X59809pCuNcOpsHMT
+	 aZ8vICs4gy/2p7sB7CtLpOhtDWI74axcbcNe4RdJUUxRCh4uHxw1P7n6pfrQOOSAnh96p
+	 JMjYp39lblmPtSAAn/L4LR5bR0UBJP8jzgJGpdgq/XDKf5oHmw+xevJPJPp4FFlTtNuXR
+	 inoC+cNmXVtdlI1cN3GsMNoKZoaPZVQMloYz1J0+7C+T/+RYntMYOxB4tadvfi86JVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795617343;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZEChbe07XcS8VyFGE2E+prkuKsnUUoiLjh3WmKMknlw=;
-	b=LbIEbtWw7gKXB3Zlqd07ULlU39LrSLJqTSR1ul/KoNIYVEQcqCR7kOQY5iaHhZIc3KJp
-	 FVsOK2EpCLzamYbdTwAPkDFbxuRr3S68IkFEK4wQ5tVf70ItwYtEOSXzgPpru243Fxw7n
-	 8p3U2s253mAIYqM1ngK6T8HgdSQC4lMYbM8Trt3DHJxsnUmjUeAYfxYfnC5/12HUlYfYJ
-	 RuvKIxNtGHl3ifaQIjpDgxfbFt9dUOCYgN/vVIpS4tw/kErjb8raKUHDrIqrYGGtrCewQ
-	 mH7cOaXv1kmtETEkNCjvHQ3q0udumvVJZplR+bQBP3JFsLEsuBHPtbd0JPqsyhIMKhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795617525;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=pzOyiqmk8vOVYTUz/e5PR1CsjXHgNafQ7mmBH3pCevI=;
+	b=0PIrxKcKGAkoGihqqGXnxRdqX5nn83Oto4s2ZQ9jJJRlKj7AjVq4xf2TBWhTvhACHhfc
+	 Mzg1jwWBb9S6Gmnr/NY186R3rbnPArTCvWbXgJvkaU3bUxxhta7cAiDO97UFySmEXVn78
+	 KRDaDeFY2sT1h9ApIA6IdCYwuDUZa4dxbm6EkrkzHaJ9qqVqObL9m/EBpvLlUlxUsWfSb
+	 6TISEUrS50yrcUvoOBW7sKgaMzfETXIsqpirEsujdJefOS05OvGACucqS/HS916rMedL3
+	 /HRIA+S9gCM3escFJJi7n+1YF/aiy+Or1u9UELafniU0xq7jJ7IvRGM4ii2ldI5Hhww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=iUayklwr;
-	arc=none smtp.remote-ip=209.85.219.53
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xjlq9s53;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40AC0606A32C
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:35:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40AC0606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D87606A32A
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:38:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=iUayklwr
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-921367ef6b3so41411546d6.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 06:35:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1795617342; x=1796222142; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZEChbe07XcS8VyFGE2E+prkuKsnUUoiLjh3WmKMknlw=;
-        b=iUayklwrU1PG2k6O4K+7E2RsYgwQjeelhy4qUu1w1laVhgVKKEzQFEsZLbXcW28eOv
-         kkox1y2v5pajz0OHbrJorz87RMQUGckKOEsStB7D750l0+zCO+gSPSfcs0CWq+wj4mkP
-         ho1qLESpaq0/NPY39gCNx3CpWsiX/MwxbOihWyOYOVcck9z9Hu+HOAaj+fRGG6ERW+CX
-         uvmi+VJQ+qFnSmfmdMJ9wLnA4lNCPOYHEh5pGzD5u3ohAJRVP2nU3UfGxGVDpTvFFNIA
-         0wcGRu8u037a3rVcJqfjtxYkH67xfJXnX9PawBIBPaTeA8wrqJbAZu5y9lmrb4jAQB9q
-         HNtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795617342; x=1796222142;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZEChbe07XcS8VyFGE2E+prkuKsnUUoiLjh3WmKMknlw=;
-        b=bION2bO2azvtqSc7nQvJts7aizQkGeiJRzsCv7ZrEea8FoH6XnHxVMBbsRQTRC9iki
-         BDhOhlPtXgbjnOiRJ9v5cXoxPufteFU6kftTybnvD5tDhFIhQRMjo/2rDG0RiSUeTMp/
-         AxDeov90a22zii2dgLCSyDatw/n8I+cM+KmKlMVapzqA8P8fLlybsaHPhnhFg0ZiXvX6
-         wIieoACNxhYwxxIiLDZgoErSkSIvdY6nwpDITMLWry5BUXMDoiW4HTLCMeU/k0RL4ztc
-         g5mvYGZWWPUVysBw4JovxVN/q8aNR+/pOfQ88f9OpMOK7uXrTh96iH51uiJObZTbvdIo
-         BhQA==
-X-Forwarded-Encrypted: i=1; AL+hErFXXmsBIug1mdsj7rY+lPN2uhuYrkFZQFVXFM4PE1TClDyWetwxPHHwlQl+pVaEa5I2uwcj7vo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8fkNY0+cRK3HBCVQesNyya5tj5qf7YqtcIVcdQPzHx0oJtsf6U
-	o3/HlYx7ALI6HvUg6O/rg+BMYRRWlXZd/Tt+gKuBrlIZ7ZTwg6znZPxKsI4vRDJJgg==
-X-Gm-Gg: AZFdTZcgzXr+l/fxT8OEeS13RaRlotg6Nu2rKyzgx3MWkHQiVQMm3odAh6bqlbeklnV
-	ELjAYqO2q7v0DwAiP4RXCr2ynSgt+RZQ4drFk5LrGq6olrt1zxe9FLjjUyEUp/qYCdLYl78rTlN
-	H+Czmhy5MKhCRsSGcGV1G7d0kaiv4JNnselYIK71WPrJbsrv8fWWLi77lRs53TEzcESG21c7Rnv
-	iJGsQBKBRcvlBDQNntsqbCm+QBYkixX56B8oK82z0FNhmFezB3HKL6zFyULZgwDvmbExyeiY33r
-	U3kVkOPWy8tvXmA+N1pGGYbEzKoaNmAxpbG5VbyM+gbtwxYs3+9CMlxoEVVS9fyeb/yfZkbnR1v
-	IlDVxsrr4MeAGoyVMM7V9qM4571YwdEubx9LyxINBFqva4n7pfVeUtGC357Fpyd1mezwQ7u9mkK
-	MuL/76TDYGOonJP58f88mA0FUinGPMilzi0bco64wdWQOfz13/oiQQEsKjMqtjJxWFu7xqhPmxV
-	vlKv6CHm9geu56iE1VC3efeE7jL2qda9p/NgTUSzi46vzmnZO1QnfidEAmCRhkCrtLqeU/AbvFx
-	eoApeZmp2+BmrvGxmbt1Fvt6hncvhg==
-X-Received: by 2002:a05:6214:2a48:b0:920:f523:b033 with SMTP id 6a1803df08f44-92134ac19b9mr335925696d6.29.1795617341974;
-        Wed, 25 Nov 2026 06:35:41 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d00:161a::9a34])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-921349d0e35sm163215246d6.20.2026.11.25.06.35.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 06:35:41 -0800 (PST)
-Date: Wed, 25 Nov 2026 09:35:39 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Aristo Chen <aristo.chen@canonical.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Neill Kapron <nkapron@google.com>,
-	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-	Jassi Brar <jassisinghbrar@gmail.com>, linux-usb@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] usb: gadget: udc: do not fail bind when the UDC has
- no pullup callback
-Message-ID: <722603d5-ad2b-44d4-93b5-a629ceec9305@rowland.harvard.edu>
-References: <20261125092004.15562-1-aristo.chen@canonical.com>
- <20261125092004.15562-3-aristo.chen@canonical.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xjlq9s53
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E6391F000D1;
+	Wed, 25 Nov 2026 14:38:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795617525;
+	bh=pzOyiqmk8vOVYTUz/e5PR1CsjXHgNafQ7mmBH3pCevI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Xjlq9s53kQa0So9Wzq1WlRDBh/UGhyr3yLyPu+dLkQ5ZJs3D/1pZr4F4B8KFJEz9C
+	 FWneA3MwH2vI93a2geNUCh4uIJVrC/m37b+iF2cu2yYKIp87snYmRdDor9rgWdnwV1
+	 kD5h/6GjchOy+grn4vSVfDESJyLfvhsIdpqjHZF+gxL0jUYuFXEUQ+tUgRNX5OhD9L
+	 zq5a2GViXVXUCRqVXjb+PD555nH1FgQ5IdKWkzuhJ1lDNYY+1d7R+VEsviMsQsulGJ
+	 GydXReTikJ7MjDeFCHo3h3DcCcp6bIcLrrzEf5LLdzgeasmfNPvjlZbc3mi+BE12Ay
+	 ho0CNfBgLZNlg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Trond Myklebust <trond.myklebust@hammerspace.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/3] xprtrdma: Decouple frwr_wp_create from frwr_map
+Date: Wed, 25 Nov 2026 09:38:41 -0500
+Message-ID: <20261125143832.4032030-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112555-skid-rage-336f@gregkh>
+References: <2026112555-skid-rage-336f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,69 +59,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261125092004.15562-3-aristo.chen@canonical.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 25, 2026 at 09:05:30AM +0000, Aristo Chen wrote:
-> Commit 0ea39e030a80 ("usb: gadget: udc: Handle gadget_connect failure
-> during bind operation") made gadget_bind_driver() fail when
-> usb_udc_connect_control_locked() returns an error. Before that commit
-> the return value was ignored.
-> 
-> usb_gadget_connect_locked() and usb_gadget_disconnect_locked() return
-> -EOPNOTSUPP when the UDC driver has no pullup callback. So since that
-> commit, no gadget driver can bind to such a UDC. max3420_udc,
-> fotg210-udc, fsl_qe_udc, goku_udc and snps_udc_core have no pullup
-> callback.
-> 
-> The core cannot control the pullup of such a UDC, so there is nothing
-> for it to do in this step. Skip the step during bind when there is no
-> pullup callback. If the step runs and returns an error, the bind still
-> fails, which is what the commit above wanted.
-> 
-> I do not have hardware for any of these drivers. I found the problem
-> with a KUnit test under User Mode Linux that emulates a MAX3420 on a
-> fake SPI controller. There the bind failed with -EOPNOTSUPP:
-> 
->   udc spi0.0: failed to start max3420-kunit: -95
-> 
-> With this patch the bind works and the emulated controller answers
-> SETUP packets. I did not test on hardware or with the other drivers.
-> 
-> This patch and the test were written with an AI coding assistant.
-> 
-> Fixes: 0ea39e030a80 ("usb: gadget: udc: Handle gadget_connect failure during bind operation")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aristo Chen <aristo.chen@canonical.com>
-> ---
->  drivers/usb/gadget/udc/core.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/usb/gadget/udc/core.c b/drivers/usb/gadget/udc/core.c
-> index 577bc15f61a1..aa6226666eb5 100644
-> --- a/drivers/usb/gadget/udc/core.c
-> +++ b/drivers/usb/gadget/udc/core.c
-> @@ -1680,9 +1680,12 @@ static int gadget_bind_driver(struct device *dev)
->  	}
->  	usb_gadget_enable_async_callbacks(udc);
->  	udc->allow_connect = true;
-> -	ret = usb_udc_connect_control_locked(udc);
-> -	if (ret)
-> -		goto err_connect_control;
-> +	/* Without a pullup callback the core cannot control the pullup */
-> +	if (gadget->ops->pullup) {
-> +		ret = usb_udc_connect_control_locked(udc);
-> +		if (ret)
-> +			goto err_connect_control;
-> +	}
->  
->  	mutex_unlock(&udc->connect_lock);
+From: Chuck Lever <chuck.lever@oracle.com>
 
-Your patch may conflict with this one from Alexey Charkov:
+[ Upstream commit 6f2e565fb3bd68636e4920223e599d70861f8ba6 ]
 
-https://lore.kernel.org/linux-usb/20261117-udc-connect-v3-3-9413b491d213@flipper.net/
+frwr_wp_create is the only caller of frwr_map outside the encode
+path. It registers a single 4-byte write-pad region from a stack-
+local rpcrdma_mr_seg. Inlining the registration logic directly
+(sg_init_table + sg_set_page + ib_dma_map_sg + ib_map_mr_sg +
+IOVA mangle + reg_wr setup) eliminates the coupling that would
+otherwise complicate the removal of rpcrdma_mr_seg from frwr_map's
+interface.
 
-You should look into this and see if any changes are needed.
+The inlined version adds a proper error-unwind ladder: on failure,
+the DMA mapping (if established) is released, ep->re_write_pad_mr is
+cleared, and the MR is returned to the transport free list. The old
+frwr_map-based code relied on rpcrdma_mrs_destroy at teardown to
+reclaim partially-initialized MRs.
 
-Alan Stern
+This is a one-time setup path; duplicating ~20 lines is a reasonable
+tradeoff for decoupling the write-pad registration from the data-
+path MR registration.
+
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Signed-off-by: Trond Myklebust <trond.myklebust@hammerspace.com>
+Stable-dep-of: 1fa415883c37 ("xprtrdma: serialize unmap_sync with xprt_disconnect")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/sunrpc/xprtrdma/frwr_ops.c | 57 +++++++++++++++++++++++++++++-----
+ 1 file changed, 50 insertions(+), 7 deletions(-)
+
+diff --git a/net/sunrpc/xprtrdma/frwr_ops.c b/net/sunrpc/xprtrdma/frwr_ops.c
+index a82eefe5e6b58..d2c7ac5f4e016 100644
+--- a/net/sunrpc/xprtrdma/frwr_ops.c
++++ b/net/sunrpc/xprtrdma/frwr_ops.c
+@@ -669,9 +669,13 @@ void frwr_unmap_async(struct rpcrdma_xprt *r_xprt, struct rpcrdma_req *req)
+  */
+ int frwr_wp_create(struct rpcrdma_xprt *r_xprt)
+ {
++	struct rpcrdma_buffer *buf = &r_xprt->rx_buf;
+ 	struct rpcrdma_ep *ep = r_xprt->rx_ep;
+-	struct rpcrdma_mr_seg seg;
++	struct ib_reg_wr *reg_wr;
+ 	struct rpcrdma_mr *mr;
++	struct ib_mr *ibmr;
++	int dma_nents;
++	int ret;
+ 
+ 	mr = rpcrdma_mr_get(r_xprt);
+ 	if (!mr)
+@@ -679,11 +683,39 @@ int frwr_wp_create(struct rpcrdma_xprt *r_xprt)
+ 	mr->mr_req = NULL;
+ 	ep->re_write_pad_mr = mr;
+ 
+-	seg.mr_len = XDR_UNIT;
+-	seg.mr_page = virt_to_page(ep->re_write_pad);
+-	seg.mr_offset = offset_in_page(ep->re_write_pad);
+-	if (IS_ERR(frwr_map(r_xprt, &seg, 1, true, xdr_zero, mr)))
+-		return -EIO;
++	sg_init_table(mr->mr_sg, 1);
++	sg_set_page(mr->mr_sg, virt_to_page(ep->re_write_pad),
++		    XDR_UNIT, offset_in_page(ep->re_write_pad));
++
++	mr->mr_dir = DMA_FROM_DEVICE;
++	mr->mr_nents = 1;
++	dma_nents = ib_dma_map_sg(ep->re_id->device, mr->mr_sg,
++				  mr->mr_nents, mr->mr_dir);
++	if (!dma_nents) {
++		ret = -EIO;
++		goto out_mr;
++	}
++	mr->mr_device = ep->re_id->device;
++
++	ibmr = mr->mr_ibmr;
++	if (ib_map_mr_sg(ibmr, mr->mr_sg, dma_nents, NULL,
++			 PAGE_SIZE) != dma_nents) {
++		ret = -EIO;
++		goto out_unmap;
++	}
++
++	/* IOVA is not tagged with an XID; the write-pad is not RPC-specific. */
++	ib_update_fast_reg_key(ibmr, ib_inc_rkey(ibmr->rkey));
++
++	reg_wr = &mr->mr_regwr;
++	reg_wr->mr = ibmr;
++	reg_wr->key = ibmr->rkey;
++	reg_wr->access = IB_ACCESS_REMOTE_WRITE | IB_ACCESS_LOCAL_WRITE;
++
++	mr->mr_handle = ibmr->rkey;
++	mr->mr_length = ibmr->length;
++	mr->mr_offset = ibmr->iova;
++
+ 	trace_xprtrdma_mr_fastreg(mr);
+ 
+ 	mr->mr_cqe.done = frwr_wc_fastreg;
+@@ -693,5 +725,16 @@ int frwr_wp_create(struct rpcrdma_xprt *r_xprt)
+ 	mr->mr_regwr.wr.opcode = IB_WR_REG_MR;
+ 	mr->mr_regwr.wr.send_flags = 0;
+ 
+-	return ib_post_send(ep->re_id->qp, &mr->mr_regwr.wr, NULL);
++	ret = ib_post_send(ep->re_id->qp, &mr->mr_regwr.wr, NULL);
++	if (!ret)
++		return 0;
++
++out_unmap:
++	frwr_mr_unmap(mr);
++out_mr:
++	ep->re_write_pad_mr = NULL;
++	spin_lock(&buf->rb_lock);
++	rpcrdma_mr_push(mr, &buf->rb_mrs);
++	spin_unlock(&buf->rb_lock);
++	return ret;
+ }
+-- 
+2.53.0
+
