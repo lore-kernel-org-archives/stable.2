@@ -1,96 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795607226;
-	b=L7ig3mlO48QQ+20P4uGKRGBFvTYPngA4TC0Q4v4Uf1XtjEdVpweB+M6L6F+pHlfnHgjN
-	 iMmi+Zvgms/yAJMkLGy6c3WuI6WZNqBaz5G4vnMB0wdhJFoyaSJdRWCSs3mSpYQp+lc9S
-	 8OU8n8gjbjGAiuLjicS0UShZaLfiLSDUsCGJqBl+J0UdYaaUtXJLXuHGGzVimDCmB0Te0
-	 pslVLQfgTxfZUvPYlHLNlhaJ3yf31goUX9XYbWeH7TP1pE4PrY4FPHsHO3JD1TERMi3kB
-	 I23y1n8NnLqOZWFUs8JM+jhAh8GRjyaFH7ALqxi3nIEteJiZqlzIgDqV71tAtiTDjZg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795607226;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795607476;
+	b=KOif7dBAAJMpExBdGoWjA3ShK1CeHWOkny28LolWEpB3zCIU/QnaQ/5akJjt65+IdK3i
+	 5Q4fPzMLygDcfYdvDoK7b5gZDhxRVvFdhRZ7la+3HSLvm0cyF9hF9043h+hIpWOV3xTnF
+	 Ls47xkAGs++tsw0euO6RAp1vssN1BG7VEZketGWu9C02t87PTVpjtjdLFnRZWwMk19lbu
+	 fJDT+LNZz4brCSxwzkl0Jjl1BL5g2RhrMjrRBmLDk92rFX/vsGDjbn402a82HCam/VvUH
+	 h0q10RnWfSJnM7IXPtPKSIoda/2xfDDLolaVZN5EuOF4rA7Puouu8QmH+OTegx5WtBg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795607476;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:MIME-Version:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=/3mgGMHhza/5KNXDvgAxFvs7UNn7OxOqEIGWtGQ5RHo=;
-	b=MF4WAsfTT6hxz0WUgJG1ttEEQEkpmlZyZWE8lKfCDESuFqhCCEcMJyFbvNaOnEQDYbWO
-	 dgc1JZ46cdfe216ocLLQ2gH3g4biYt07wx/Ni6Am+TXfzAW8QawP2zk1vYgiyxuqqJeDm
-	 pa/+BZaojfpg6EkNwYkOoH3TXK9g7cUlY4mH2F7Vk2GYvztanP0bwRSieGTx1O6iIMkHR
-	 GsmEQwabpNIXtUF0AFG/8eBUH6OVfvyK3+pftuE8bwca9k6KPAaY5klgT3Zg4/jLIMKKr
-	 IJBA63bQuFroykhQ5pFdZVrmEe7gQn9ftyIkcpSTcaSjmRRmgcR/doRc2PfU27Eo+jA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=certik.com;
-	spf=pass smtp.mailfrom=certik.com;
-	dkim=pass header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b="Juq/PAz5";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=MA+Kx+uKQP6OM3muhrQQ7gMLzt5UOS5UjDB/PUfvv7E=;
+	b=h265PcYznFC+bPKU8ul4iDv2l/7YUb298kM4o9DgrQWqdqi0DDUTsjjYCq3MmmWoZZAT
+	 ubl1m4KVsOtmkl/ir/X5ccl2PChDoK/TrKjc+yYW77LzLanpFx3CCBNVwsvZNWUDbB4bx
+	 aeqWhmc1HiZqKHi/K3hUo+gLqGcz282nR0md/SEWNUFn0hdQATfF0fVzAYJIql38z6Gg5
+	 s5zCcEM2BgkwF5LIPW+KXaburVfGUs2naIvJocZ/aHLgvyjPEJXO2n6dS38skayzwBqhE
+	 ecpss1piIXgPybscqwzGq6FOf8Ges4PL1MSfQpg3JGkc1upzkAxZS3E0jJ21rrh09gQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RwmBSJ8G;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF93A606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:47:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF93A606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=certik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=certik.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F54606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:51:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41F54606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=Juq/PAz5
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b0dba37a7fso45533587b3.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 03:47:05 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795607224; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JX7rWVxkUsddNIq6wZ2KjSOzlW2A22/v+hz5gxhLQ+/7Oo32jt5r2+4PK7okQLwrhP
-         D5jFQR2ba3+emWA6M2rrVsfxJYR7yDOiH3g0nEaTijr3NGoUbWo5O9y0M8tR4hqmCTx8
-         7Pt7dC0lf/Jb8SfKfPR6B29v+iyY8ee6bOF1s/ePuZjWZqNLZ+S8XBhTkdRiESRZb2J5
-         RFwgq583+ejz5JC/skcFx88gmXKFd2zMyAmGEFd3ThPaAFeUuYmDfW5/10uWN7Ha+eA9
-         DeZFTDw3N5Ip7afY3rnYccha+6OXdlPajA4FCGbwtE2l1qi0KEACjyCB0ebSqo/YJKxy
-         M+BA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=/3mgGMHhza/5KNXDvgAxFvs7UNn7OxOqEIGWtGQ5RHo=;
-        fh=EChBzbLoYYIHUg6MNT2HesXilPFIDKYim1Gp5xiFOHQ=;
-        b=JuNbffDCCeUUg2zH9YqyVpJiorNLZyN/UuQJWkOYO0JwnNpAZIC+bWFXLh984whRlJ
-         8owzIoTyhQmmd2zjUkLMYfDfYxaQLvBWFy3+6JPbs0LI+f2JyaGCDngBipEPS+Ub5EtT
-         aevWJIeQ6VuZP4C2Z1qwTuZCtXnHayo5oAt4QZDvh510vo05FlWnYouXtjEYwxOwpy+X
-         kqydZq7+C3tp+fR84w1xOQ6zThfYH1F1pPvFbYVXr1xNPcIbpNnJKsC83donQqK6C1Og
-         BzLq+ktxQRv1x45WS8eWe07dVapJe9wn9NMc9ntbUdrZQuq1KXtBqCBoNVwNEVZVXOON
-         +w4w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RwmBSJ8G
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3b413997581so4447616a91.2
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 03:51:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=certik.com; s=google; t=1795607224; x=1796212024; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/3mgGMHhza/5KNXDvgAxFvs7UNn7OxOqEIGWtGQ5RHo=;
-        b=Juq/PAz52kwMKpi3vUExPtY/PTVgBnXp3KpFWlM5jrnHvi9vGp/em/pTCkZZVoltKb
-         LVZfkbzqbxTRYGP9zpeBBwifdwt2fiMxh7S6SX99uHnL12irRHwUI+ECx7FT+BHeNbhM
-         GTXBuHuiKhc2NjbC5gaipADB1x1hBIFwBO1T8=
+        d=gmail.com; s=20260707; t=1795607475; x=1796212275; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MA+Kx+uKQP6OM3muhrQQ7gMLzt5UOS5UjDB/PUfvv7E=;
+        b=RwmBSJ8GqgITrxaU4LDYQ3Z0v0Jlt2WeqeydwXMxNzV3UfJTK31DXYyE7fBrWHh/Y5
+         6ZBWKJQdYXQjR/FijFHbAF3rT2bhD1ded5jk/VuZVdhrcMs4BysPB3fwYssfOt9WjELP
+         Hr8NdGvlsLpCJb2xSNQ6EQ53nb+uF8b159C2gZaN+7eAQMbJj7PilBpy/HiGRBCEipe/
+         91HJL1f19Z/+gTgg1Ai684Y/hCXJSgCx39RknWyE+7GqtOdAOw41FTaVfpZl0mY6lsPF
+         RtQ3pyh8LY0tL+th5lF3j86vfnwRR4DovA6BJHrq4uo3YSY8dUTU0iBfZRslBXZvOSdu
+         LMOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795607224; x=1796212024;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/3mgGMHhza/5KNXDvgAxFvs7UNn7OxOqEIGWtGQ5RHo=;
-        b=B5vpcwJxecTvgMSjFfIvvynna9LHnovaM5177YWzZaHgm9wP0NnugK9VfkTzJVnRh9
-         ayzDaV1h1tU4u3nkDxihIL5Vs4VS6mO0NdY/xxyd7XpPJ4GzrG95YEquk4eKsCo5eugK
-         U2Y0X+ZmjgtxSER0TVbXYAngYuF2XFYI0eG85ydYqxgC0ppy0qeOMrlOoecf6XsJo1Zd
-         iuFGH6y03t0wiIB1L4h4uuMhsbt1pxRgRPE+AVxRELIU/GdOZUwUi97oj2Dl/+nhaJeO
-         J0UMiqIGFun2ZcmVfWNlDqNIBWdywdJjKcYUIeQfj5gHhjWOA2OwUUzqwOSpBH4+Lt6t
-         DQDA==
-X-Gm-Message-State: APuU4Z/UE5nQn2Dq/Pp4N7f+0vtc7yB3+mD/4HqWMadDM4ri5NT8don3
-	4vjz2LUggKAyfwJsuIS27x75X3ke1MCmW+Ojh6F9Oqo+EECdLA98qcSgU/xlBBUWrNIDtqEpKnl
-	xAi3V/MXnS5Xy68ajOEb6btF5jIbWCgVYislx9fMEvLecwEXwTjqkPHc=
-X-Gm-Gg: AZFdTZe5beMoFV+ddS5se9Eed7sE3BBBlFxLbHw6HzmZJGIcGPDK74PAFsYTwb1iRK/
-	SMnRYNl9UJ56DhzOAWfSAmvqHKgAnIRg1A+LGXPMHqCPO0Frd7owD/FErztCNY1t2g5OzwZmyuc
-	95eBTl/k7TmUwwa7mCcUk3SxGg71rqUVZERCEsD4yvPSVDaMCiRU1UewvczW+j/Db2/RvG5PdUE
-	hYXEWfvm2lREfxQX8bWcQxu3hOdgBYliIQL2BAdgu3tJEZnSRhdfid33ocXCFxRJBCFGlNoYH2M
-	ifoBLkx5DRDtyFpC2vQM2B1KPAfwn/y6p97wN4zFz4TRo48oh8c+tco255XNbrpb9LIFkVEWnTl
-	ALUhUvFHHeUIGKlnujewubyLb7XqY4xLXrf95KEZbBRDu/B0kqX5VrhS1Zyloajan+SDedg+kdW
-	B8q25mOrJIDZOSiNm6BW5gCOJVBXD63KCwx6RVhULbxG8BE0z5DJWyyohYfciVkuV/rRoG4kQ63
-	Z7/FM3Ceo56lDt8WqMLb7EiN1K9Ey63WiWfw7yfhVjPrl1oO5aT7URCzA==
-X-Received: by 2002:a05:690e:44d4:b0:67d:b34c:9f1b with SMTP id
- 956f58d0204a3-67df448dcffmr4673703d50.91.1795607224629; Wed, 25 Nov 2026
- 03:47:04 -0800 (PST)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 25 Nov 2026 03:47:04 -0800
+        d=1e100.net; s=20260707; t=1795607475; x=1796212275;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MA+Kx+uKQP6OM3muhrQQ7gMLzt5UOS5UjDB/PUfvv7E=;
+        b=zHaXFGrv/F/zBfM12OvI/wVjZNWbUid12FtNZtRaTwmWZdBV9ecJhzu2NwFdYpIxiu
+         ekdap2XOoLw8y+mG9yS0lJkFHsgT+XM9We2kYDPqryJHWtz3JNTHV9LGX8wMJw1kb0bg
+         uX/6EPzMDEv3Xcxa2Ch/bd+o8N4PD0lQOgteChaAX6qdDgDkPsRWx8I50r7cqzxiBXDu
+         X9UXXge0rPwc29Wh/pwF5no0IQ07AfM4X1S5zqK2Xh3mVa5/0kqcYrIKjhcMX6NBOQRr
+         5tIU/WCJFHz190nvqVnhpKrlqyr2Zk7kPhGCsGhoTr75ZnHzKvEp9t73/Ej06JaISFLt
+         IH5g==
+X-Forwarded-Encrypted: i=1; AL+hErHwevhqLZVmwzgflXMjc0GWskxGIwheDqLE352rLr3ShZwvtOksXPKqUpHHnMwIuX6RD1mmh8Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+2Xm2JzmSrdCOdqAkIUe0IEqLfAB2elVPCXvwoNRn8SQsTss++
+	HwEtQOJg1xE7vz77/SFtOuUtxdRrsYbVfZfH2d3x8sapGrMxZQD/0cvk
+X-Gm-Gg: AZFdTZdmUwAqiotaMvHMaje2+vhJWdXrXCGhFZoYcDDNSnpZYe0IaxzditAj4Myj/LD
+	EJMt8ooaZ7yi2h824VltdLdTigPRP5uJuEhj1cslgG4rjr5dukY6q2Dpk2O4xK/pGYLQAK4gD7j
+	n3J/GmsKOgpMThaP2y8O8r/41Xw5eBr5203+IWf1qZ66NKGHdxSN5E6hU7W5fcUB5HZ+XSi4/ab
+	4cp5yP3xMULeGqBzIn8FcL6PsSfEvFAI0dmPdF35/OGVlNZXM9OwrxrHaNRkbp0rf/JcwQ792wz
+	n/nk5jnQS42DMuXNBEIlfpkFW9hcBdpGTyYZ34ItYfp5dNdvi560Llze37F34Nb0bWEE3L/s+0M
+	Df+Vf2/2KDjk7pLOLX4NblYjqDBpkttvclxg0Yj7LR8e/P0KANbloQKygNDcnkv7QAfWb/jXgyE
+	XFJCPs3/iUCBMVdzQffh/q65BNn8J9JvuMggRb0KUcAt8Pq6eJdPGo9Oqo8NQ84EQUrRmG21Pxj
+	JiIm+liueSo005A85FxkWmhxKx2I0NVpGGuICglFutOgMmcTB/9xfOhZ4oCEMjI8VnVDC52Z1Bz
+	qLWTPi4gH582kHtKooOOGGrj9BfjruCHcQ==
+X-Received: by 2002:a17:90a:ec88:b0:3b1:3e7a:6d8e with SMTP id 98e67ed59e1d1-3b41c8e0c73mr14680529a91.10.1795607475481;
+        Wed, 25 Nov 2026 03:51:15 -0800 (PST)
+Received: from server225.. ([39.170.101.209])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405ecbd0bsm30569662a91.15.2026.11.25.03.51.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 03:51:15 -0800 (PST)
+From: Ping Li <leeonion.muyu@gmail.com>
+To: miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com
+Cc: linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Ping Li <leeonion.muyu@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 1/3] mtd: rawnand: intel: declare NAND_USES_DMA
+Date: Wed, 25 Nov 2026 19:51:06 +0800
+Message-Id: <20261125115108.4147741-2-leeonion.muyu@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261125115108.4147741-1-leeonion.muyu@gmail.com>
+References: <20261125092538.1938516-1-leeonion.muyu@gmail.com>
+ <20261125115108.4147741-1-leeonion.muyu@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,76 +102,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Dickson Wu <dickson.wu@certik.com>
-Date: Wed, 25 Nov 2026 03:47:04 -0800
-X-Gm-Features: Aa3M54ocuDpdXBqObWURUsGlsNR79rrz8CEPFIgf2xFRqmvisrPM8Zs7y9wPI7A
-Message-ID: <CAFaZ9erzjfA3ogfym5X53zX6fW1kMTHcOnu7rMdkCeq=H64Qbg@mail.gmail.com>
-Subject: [PATCH 5.10.y] net: mvpp2: limit XDP frame size to the RX buffer
-To: stable@vger.kernel.org
-Cc: Til Kaiser <mail@tk154.de>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-From: Til Kaiser <mail@tk154.de>
+ebu_nand_read_page_hwecc()/ebu_nand_write_page_hwecc() feed the
+page buffers provided by the NAND core straight to the DMA
+engine, but the driver never declares NAND_USES_DMA.  Because of
+this, nand_base cannot know the controller DMAs these buffers and
+never bounces non-linear-map ones (see the use_bounce_buf logic
+in nand_do_read_ops()/nand_do_write_ops()).
 
-commit f3c6aa078927e6fe8121c9c591ddee8716c5305a upstream.
+Non-linear-map buffers are not hypothetical here: mtdblock's
+write cache is vmalloc'ed and UBIFS passes vmalloc'ed LPT buffers,
+so such buffers can reach the controller's DMA engine, for which
+they are not a valid dma_map_single() input.
 
-mvpp2 has short and long BM pools, and short pool buffers can be smaller
-than PAGE_SIZE. The XDP path nevertheless initializes every xdp_buff with
-PAGE_SIZE as frame size.
+Declare NAND_USES_DMA so that nand_base bounces non-linear-map
+buffers through chip->data_buf, as the other DMA-capable
+controllers (arasan, denali, meson, mtk, nuvoton...) already do.
 
-XDP helpers use frame_sz to validate tail growth and to derive the hard
-end of the data area. Advertising PAGE_SIZE for short buffers can let
-bpf_xdp_adjust_tail() grow a packet past the real allocation, corrupting
-memory or later tripping skb tailroom checks.
-
-Initialize the XDP buffer with bm_pool->frag_size so XDP tailroom matches
-the actual buffer backing the packet.
-
-Fixes: 07dd0a7aae7f ("mvpp2: add basic XDP support")
-Signed-off-by: Til Kaiser <mail@tk154.de>
-Link: https://patch.msgid.link/20260607134943.21996-3-mail@tk154.de
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ adapted to 5.10: no xdp_init_buff() here, set xdp.frame_sz directly ]
-Signed-off-by: Dickson Wu <dickson.wu@certik.com>
+Fixes: 0b1039f016e8a ("mtd: rawnand: Add NAND controller support on Intel LGM SoC")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ping Li <leeonion.muyu@gmail.com>
 ---
-5.10.y is the one stable branch still missing this. 5.15.y and newer
-already took it. 5.10 has no xdp_init_buff() and mvpp2_rx() fills in
-the xdp_buff by hand, so the change lands on the xdp.frame_sz
-assignment instead. Same value, same spot.
+ drivers/mtd/nand/raw/intel-nand-controller.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Tested on v5.10.275:
-- x86_64 allmodconfig (CONFIG_MVPP2=m) W=1 build of mvpp2_main.o,
-  base vs patched, no new warnings
-- x86_64 defconfig with CONFIG_MVPP2=y builds and boots under QEMU/KVM
-- I don't have mvpp2 hardware, so the XDP short pool path itself is
-  untested here. No existing selftest reaches it.
-
-The other two fixes from the same upstream series, 5e8e2a9624df ("net:
-mvpp2: refill RX buffers before XDP or skb use") and 77a6b90ce56b
-("net: mvpp2: build skb from XDP-adjusted data on XDP_PASS"), aren't in
-5.10.y either. This one doesn't depend on them, so it's on its own here.
-
-The backport and the test runs were prepared with AI coding tools
-(OpenAI Codex agents, with review by Claude). I went over the result
-before signing off.
-
- drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-index cb0e319bc2f1..3e60d40b3f6f 100644
---- a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-+++ b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-@@ -3617,7 +3617,7 @@ static int mvpp2_rx(struct mvpp2_port *port,
-struct napi_struct *napi,
- 			xdp.data_hard_start = data;
- 			xdp.data = data + MVPP2_MH_SIZE + MVPP2_SKB_HEADROOM;
- 			xdp.data_end = xdp.data + rx_bytes;
--			xdp.frame_sz = PAGE_SIZE;
-+			xdp.frame_sz = bm_pool->frag_size;
-
- 			if (bm_pool->pkt_size == MVPP2_BM_SHORT_PKT_SIZE)
- 				xdp.rxq = &rxq->xdp_rxq_short;
+diff --git a/drivers/mtd/nand/raw/intel-nand-controller.c b/drivers/mtd/nand/raw/intel-nand-controller.c
+index cfb4b231e067..1f493fb426d6 100644
+--- a/drivers/mtd/nand/raw/intel-nand-controller.c
++++ b/drivers/mtd/nand/raw/intel-nand-controller.c
+@@ -688,6 +688,7 @@ static int ebu_nand_probe(struct platform_device *pdev)
+ 	nand = &ebu_host->chip;
+ 	nand->controller = &ebu_host->controller;
+ 	nand->controller->ops = &ebu_nand_controller_ops;
++	nand->options |= NAND_USES_DMA;
+ 
+ 	/* Scan to find existence of the device */
+ 	ret = nand_scan(&ebu_host->chip, 1);
 -- 
-2.43.0
+2.34.1
+
