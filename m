@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795598773;
-	b=bFdY35Pq0ipRnYUU7lIpkmJVY/H12ILqLIowsEE7FkqaBrIv92cc2eHdXsOyAsqdJF+f
-	 XnnaOmP/gXwXYJaQncI34AZGnP2vG1G1HIliTbcTiLTd8RyLqiNauEMsQ2sepMKSnf18r
-	 jRYRzo2HguECnlj5xTlOK6ML4zq2rItlbjLt5fGvK5gTh2KYqpzybE100BXtIvfE5YlS3
-	 h5RxeCOk9xcoywtqentlPE9Gvu81O41gHVKMQpD62aUyfoJ7yBhXjr7zG1v/jlY/PSLcJ
-	 YhxQEuSW7EudG5uHMDm0l1gb0ZehmWDiViz3RWt/Zz/I8IH8mrRPfyIflkiiS4G+/2g==
+	t=1795598777;
+	b=JEbkls8nu5lRqZkDE3eVJkNT/8cLlrmibG6NwndjZtlrckj+tIbbFlgGnvj8AmQG/zxO
+	 dvITZ7WOBw3/g8g8/iQuSeA74UaZOevyqQgm9Mt3zQsmrRHbm3zy1rv/MjpCd8cPbeCJF
+	 oZRD3UZBvSWXbMG3bJguqCtSexYAU7KXY51rOEHXR8CA2nXMBqVmIspueXxLaTcA7G84W
+	 HCnY7q+/KI8zz/hvbh+ZlrSn0pGTksCm74kRvBp9C2fK44dOyAKfRC2i5kJZouU8jyF5N
+	 lbLUECwG/S+na2JwSieWr8Sqb262QRUuTbh8laseW0gMHLbv1uwK3BBN+uIigmztA8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795598773;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795598777;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pgbr6e3AZO3W8arsz3egZnHmy/SXwLs+MU+CzrAU5eA=;
-	b=4WWFBy9+IgS416CvqsKq0Quay/Wi26eiuxlOTfj4u8RCH258E9ravNSyoZziDN2rAj1r
-	 Jg4lUYf/IB+Sm9iw65OFihN4qMBiuKPLJJtaNpQXgh+UKTd7NKLxMTaWQHfm8oAkkD0M/
-	 RYb5GVMs3YlrIsgJH4lpGwbxWzvDULFpQ1ZBgrqJjvRcoZF8ioTcKmBCR4xH0Qjh8rvnH
-	 ylHskN+YqGjt3+xZtuC8GOrRKzEiRwZy6I13zTqTdBW4HzOVsJv9Wo4N0A6fw7LSGeOYc
-	 POe65NzJRiUDbejzIgaUrSL+CKWdRH4JQsl5tZtzTxK1VMOqF6XeAet0wwhfRYrLTJQ==
+	bh=BjRV0PoTG8YqKTvW2fm1LBVs1bRyxvf+xVNRkQkhiwA=;
+	b=PUagHRKLXEzEVCN+qlVwm4GgasePL+Cxe4HGS7ulGhJhu6Wnep9QE/B6AP/iWkX+uQ4D
+	 DunkLBm5NqQN5qGr8S3HyoICPqkOrXYghlE93LmK7wLdjPe6ocIAPlf4Az12BrJDzhK0E
+	 hyUx+PI3AnaV0i3MBOOcz7Pd94D36HXU81Y7nOLR8q0Bdp07i9fnjX7GRDHS3ztYQH2vg
+	 +TN+sxvVzlnJtX86kiR/1PfPA8jEw8ZpwH+yg5L76geFQbB/F3zi1E76kfZDwOlpTgp2M
+	 TEXgSVMEVJYd0VJ60wzHYYSoRpXcwdSO/SdeUfy3mumC9LfIUMFqp8k24EGtg4FrixQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bO3kHM4l;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0tyYJbZ7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5828606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:26:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C57F606A339
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:26:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bO3kHM4l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2CD21F000CF;
-	Wed, 25 Nov 2026 09:26:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0tyYJbZ7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0A9B1F000CA;
+	Wed, 25 Nov 2026 09:26:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795598773;
-	bh=pgbr6e3AZO3W8arsz3egZnHmy/SXwLs+MU+CzrAU5eA=;
+	s=korg; t=1795598776;
+	bh=BjRV0PoTG8YqKTvW2fm1LBVs1bRyxvf+xVNRkQkhiwA=;
 	h=Subject:To:Cc:From:Date;
-	b=bO3kHM4lBVH3xgXe08ym+oQMVC5mQZL6QGdTBVvmKNwL7qAU9ql0ZF4+1o6lPacyu
-	 nIVwiu0Emeq18/00rsSkE6g+O+vttVGQnCAsib2/gqJ8oiu0cPULMZ6RCW9E1/D6GY
-	 MIIMfWfPKHYAfzf5swezXDKss2pik6z1D6Le55l0=
-Subject: FAILED: patch "[PATCH] crypto: caam - reject overlong RSA CRT parameters" failed to apply to 6.1-stable tree
+	b=0tyYJbZ76k5nnNPA3zlhPk70NMtpwLJPd0C13nUYWoFCJY8E98ilxoagFfQcHoR1Z
+	 u63SNgbXuhEiHxjw5Zs26NHO99krl+1pkBkjIIxiRDAbdFOad6jRNmwyPMJc4eRXy6
+	 2rFJxpEtNsVDdfNZPc9KQ0SpIc7eyGVWqAMSQtqg=
+Subject: FAILED: patch "[PATCH] crypto: caam - reject overlong RSA CRT parameters" failed to apply to 5.10-stable tree
 To: Jeremy.Jean@oss.cyber.gouv.fr,herbert@gondor.apana.org.au,sahil.malhotra@nxp.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 10:19:09 +0100
-Message-ID: <2026112509-flatterer-oak-94c4@gregkh>
+Date: Wed, 25 Nov 2026 10:19:10 +0100
+Message-ID: <2026112510-sixth-timing-9c25@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 828c3b265b6df877dced3dde56ea41daa2e6181e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112509-flatterer-oak-94c4@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112510-sixth-timing-9c25@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
