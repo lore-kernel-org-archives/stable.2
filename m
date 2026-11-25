@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795639077;
-	b=ZYzcmZpnNAPC0galYMhoxL9/LYB9ifhaoRBT3WQ7oLOfAaz971lXkhNEpJXdoHzEeywe
-	 YEtXWftN3MyLVoNWqGHhaUrUCN5uk/kiGUryap3eSSIQbRrBeaOK+66LlyKt6n2I1m76t
-	 2kw9vsGu1klNsVieA3cOpScfK5FxKBOmollKl/fkQ6v7KOEilZxuEqx7WeGS1uPWEUmhi
-	 QD+W49CJx3hVX5rELlrkyHq2i6NShKt68uMzus5I1WqKlBmJXTXMyJzkYL7s19tem+v35
-	 RaDAPMNT1NBpF4S0/ZshTSQydDTj4v27kXvdFEgPnav5QjFYP4aFi7SaEQxoTKpFF3g==
+	t=1795639183;
+	b=RQP/R0B1BSIK/buev0J4aPRPy9g55almuZx5MZsV5HNLig+rNR/KXzn/KhhqgVKBWJjR
+	 b0DTbVuPo2gTlSbo7fAIt21+5E8tMPEeiSFwmQsvCSwZGDIfL2J0tOeZ/fvqAv0Vy5Q/D
+	 S6Ly9gRpBGwEBsGMrEzrCOgQcsgBqBjSHX+YvN/QRoDxqpIdXFpTtBW4Jjecf0f320jL7
+	 LvfhxtDFLZnMT5XG4YEW/3qLnBXnYdaPVxAihXYVZfZ470fTy3NtgZueg1TyOJnH3RPru
+	 3XrLMhHcX9oDpZvtSF9WQcwxx/GkJsSNEqFxiCYDv02AD9EFMBQel95dMaFVeDO1Tgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795639077;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795639183;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=fkNY21WnpOzi7qqqJf7R/G0xVCTI+/m+txe0zqVBV2w=;
-	b=3/+AtPH6hI3sMEaNInCrUbXs5zctZKihh0g/QHA+z58rXrA+OsQP6xx5Hg5GbB56eSkK
-	 WBoZRgjip2tkPOsy14uWDUbbuutKwoFb9S2piaAoidmB75G58+vPmvKmlCiBE2aMatf7B
-	 X8vkEnSGyetK8nW5hsVw5k87IMXVeO9v7J5ES1fCHWPr5JfpDdTER69Hs9ilx02dtg/ai
-	 27nO9pk9tnBldZNslN2p/3SpA5NqNMXRxTsOa7mmFTGT2G/6tOufqPafaZTM3zkuVUIrY
-	 ObIXHwqy8SQEMampnoG/A5arYp5O40wlqyqt1djUCH8Z8Qg31c+aDmEttnCDG2Hz4hA==
+	bh=xfyG+brxXPThU8lVFwnvwuLj2F5gumMuYpNUfRT4vVY=;
+	b=lSR2gxnBaLVc0Gcj59156iN4B77YMqZfLpwYIOcetzb3qi2eHridG0um9CmPdyXb1Clc
+	 BEk6ipdZKsAhkvhZY0frigmfIWndB6RU8Kh/3MHAj9yxZI+Zy8pjh0YM0AMA18pL7goiy
+	 H20hhZUTda01pq2uWNNPDC2ChLpAPAyQcj7nPVaAEY0AUmq3/E1ZwpXOpWtyd6SRxg+oG
+	 UnjzOKnaYZcltnjvMYSmtbXntH6Sgr//dtCxTWSMDjTKHXBApwxYHy5yYiZfWPI8QCRai
+	 wGAJFrw/XhYqKMXiC6J8rgdogJ2vrkUtrPuhjJnzb92xzShSdFzVJF8Q6FfDYla3h3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hsjsm7No;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X2Yj3E3Y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A099606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:37:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B8FA606A33A
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:39:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hsjsm7No
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29BE21F000C0;
-	Wed, 25 Nov 2026 20:37:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X2Yj3E3Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A9E41F000C4;
+	Wed, 25 Nov 2026 20:39:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795639076;
-	bh=fkNY21WnpOzi7qqqJf7R/G0xVCTI+/m+txe0zqVBV2w=;
+	s=k20260515; t=1795639182;
+	bh=xfyG+brxXPThU8lVFwnvwuLj2F5gumMuYpNUfRT4vVY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Hsjsm7NoBpbmVgj8SRh8o3vZjitt1ERSbLlI0e4RP319kw25iMwAHXcTVXzc03TQz
-	 SY458UBtfKIbj/5SeZaAUAMtNWzJer1Loxx74G8FezYhfU8IJPxTNHG0K5WzzgvV3+
-	 XmCqHidHri80pQRCebK5V8VoPNpyTjfh3gZ7L+DR+PDhBPz8XbRSV+HjG9sBRap0uU
-	 y9Kb5iiZCJMSCuaV8kLeDVJwdugvP4pvqzGlrhc0Y/ROvD44UhbmcPBxg/nprQZ4JN
-	 amGD9E3xQYWglHj/aBu+Kfagp1fEFyAADi2ujhccpws+oLYzPb69uF5F4C0vTHDzaQ
-	 shoGJXxXH5DMg==
+	b=X2Yj3E3Ylado4wywulfog6+AqepKQa2VgF6/oNWBJrrIbvQk+VHkkkAWy3MmWXrco
+	 9RNC3bDtNZzrdcjKD953+yDQ2znlivKULeBtkDvxTGvZuWndHq/jQtQyc3jXIadRiQ
+	 f995PKsPREm0fXZMt9wehe5bFV2QpYpdf1YK+YJ3mrF87jt1iMOe5lkZyr/xElglkg
+	 F12dpbpbI8ee43ZSIALJejgtfg5CpHv4/IFzZcDkwuzRrcY4dfJZvHBR/47odsBqin
+	 HQrE2FkJvLNhQpUBtyJarD7c9O0iVVuoQQTYhZPZf3qG7CDeJgvMdIVPWKGN8NCkTn
+	 0G3CU98/X2sww==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhao Li <enderaoelyther@gmail.com>,
+Cc: Benjamin Berg <benjamin.berg@intel.com>,
+	Gregory Greenman <gregory.greenman@intel.com>,
 	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] wifi: mac80211_hwsim: ignore non-generic netlink releases
-Date: Wed, 25 Nov 2026 15:37:54 -0500
-Message-ID: <20261125203749.1436769-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] wifi: mac80211: remove SMPS from AP debugfs
+Date: Wed, 25 Nov 2026 15:39:40 -0500
+Message-ID: <20261125203923.1418678-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112524-scoop-zodiac-c2f4@gregkh>
-References: <2026112524-scoop-zodiac-c2f4@gregkh>
+In-Reply-To: <2026112508-leverage-contents-d7bd@gregkh>
+References: <2026112508-leverage-contents-d7bd@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,46 +62,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhao Li <enderaoelyther@gmail.com>
+From: Benjamin Berg <benjamin.berg@intel.com>
 
-[ Upstream commit 989f47c56e48d442d79497a25ed946d029c4dc53 ]
+[ Upstream commit 586100ad85fed0041e203d6006d45e0ec4c5a0b4 ]
 
-Closing an unrelated netlink socket can remove mac80211_hwsim radios or
-clear the active wmediumd registration when its port ID matches a generic
-netlink socket.
+The spatial multiplexing power save feature does not apply to
+AP mode. Remove it from debugfs in this case.
 
-mac80211_hwsim_netlink_notify() handles every NETLINK_URELEASE event,
-but netlink port IDs are scoped by protocol. The notifier therefore treats
-a release from another protocol as a MAC80211_HWSIM socket release.
-
-Ignore release notifications unless they come from NETLINK_GENERIC.
-
-LLM assistance was used to find the bug and review.
-
-Fixes: 7882513bacb1 ("mac80211_hwsim driver support userspace frame tx/rx")
-Fixes: e9ed49bf4c2c ("mac80211-hwsim: Add support for HWSIM_ATTR_DESTROY_RADIO_ON_CLOSE")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
-Link: https://patch.msgid.link/20261028141751.6728-2-enderaoelyther@gmail.com
+Signed-off-by: Benjamin Berg <benjamin.berg@intel.com>
+Signed-off-by: Gregory Greenman <gregory.greenman@intel.com>
+Link: https://lore.kernel.org/r/20230301115906.01b167027dd5.Iee69f2e4df98581f259ef2c76309b940b20174be@changeid
 Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Stable-dep-of: 745f5d04395d ("wifi: mac80211: drain link readers before stopping removed links")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/virtual/mac80211_hwsim.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/mac80211/debugfs_netdev.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/net/wireless/virtual/mac80211_hwsim.c b/drivers/net/wireless/virtual/mac80211_hwsim.c
-index 71f07e1a2a972..9f70025fafcc8 100644
---- a/drivers/net/wireless/virtual/mac80211_hwsim.c
-+++ b/drivers/net/wireless/virtual/mac80211_hwsim.c
-@@ -6454,7 +6454,7 @@ static int mac80211_hwsim_netlink_notify(struct notifier_block *nb,
+diff --git a/net/mac80211/debugfs_netdev.c b/net/mac80211/debugfs_netdev.c
+index cb82b7966d374..c3586ebf5bf54 100644
+--- a/net/mac80211/debugfs_netdev.c
++++ b/net/mac80211/debugfs_netdev.c
+@@ -708,7 +708,6 @@ static void add_sta_files(struct ieee80211_sub_if_data *sdata)
+ static void add_ap_files(struct ieee80211_sub_if_data *sdata)
  {
- 	struct netlink_notify *notify = _notify;
- 
--	if (state != NETLINK_URELEASE)
-+	if (state != NETLINK_URELEASE || notify->protocol != NETLINK_GENERIC)
- 		return NOTIFY_DONE;
- 
- 	remove_user_radios(notify->portid, hwsim_net_get_netgroup(notify->net));
+ 	DEBUGFS_ADD(num_mcast_sta);
+-	DEBUGFS_ADD_MODE(smps, 0600);
+ 	DEBUGFS_ADD(num_sta_ps);
+ 	DEBUGFS_ADD(dtim_count);
+ 	DEBUGFS_ADD(num_buffered_multicast);
 -- 
 2.53.0
 
