@@ -1,81 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795599469;
-	b=BX75Bix5U4CeEOgbRm/a6heuQ1GxVF2fhY0KL3cp/XqjnSGuRVD9Qn7hxY/Z3qXl73Su
-	 CBn5cVf/lV9xpV2SRVfKNvowb/AX8xjOXE4pUVmB/JBXCIU7bbD2J121/ggc1fRdEibMa
-	 QbmpAp5pP/sTojy9YVNIUbpVXqtpJM015FOV2OhFLL7AaVASoO647/mjr0N6JAOC3r1V9
-	 2HYP77CEEin/9YIDz8Fj9ffB063eoZ3XEsL5WqLC1iS5qgvH38rvudI+495QQPx2T21xI
-	 VBcG97PGV7EZBWTMH1NNsiUolq+1hxDtt/7Yi5oDWVlZt1sHMbfK10SwPI1fpuINC5Q==
+	t=1795599585;
+	b=LcBtuXJI2g/j2iCVq9lCX+qpzw4QdBxpS2FzMfR0MW0TWM6GH8P2SjuzReWGQdX4DZK5
+	 93cDLQwe1NUPyojWmUjNj2xqXmf7urEGf3NC4OCATXsH8dXcdTXglEzKeaeYo+wE5GPet
+	 Gxq2XZxa29644own2aYLMua0HO2YuqoKcwJscrmHDdxKvV9TmApGxY1XGEkrk/NVCj158
+	 tOgv/R6/BL1sGvahVUQZvcEPzzjMr+tDnt7O4fFOp3WSMKPA50/XzAxQ1Zhh67RVrD/af
+	 SD3DOB0VfAQ9D39aPj3S/a7VtHhlKylJGUokSUKZwrxFn6MZXPj2o8aZkUAWzWQbW/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795599469;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=H/OW4CEWM4YFWjpU+/11jWkc2eIrxnh97AOZdrSoRuI=;
-	b=WWrVUYj9GTLe4BWM4pKAz90Zm/f2QTpuEIHx19Uqh4/2KDRgH7SCIkVIa/L+qRUufOt+
-	 +ndqhbnFa1mOiMqBXjbac2AeFfezkNEs40gXvaat89Gy9rGWC2nzNNq1vYLoVVZd2cNFN
-	 14IPApVUruN1hp/J5vpVX6WmTEP5AYFNwSclU9Ag2fOjev/YkF0SlGn7qmxa2qzu1EQuI
-	 pLX3RBH3N+l0nFp0nPZgwx7uI/NsUM01+isp0800MkYFRZUohZqs6kDV/pgEuenAsvTg4
-	 ytBavcRpCTloqR3AVsknN0BKWrwUVvEKQvbO/dfAE+CrFLU09AuYGGVfRT2LFKVMFlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795599585;
+	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=06CDHqP7t8VW2Q7Qnt1JYGz3UVTxeAwOx5LZVWzf/jo=;
+	b=qI+oTZuQQVFPWwUpW6buMHWNrbRdAI85Mj9Cf0d4hS8aPfuCPXUuflqWCU5Mqqg1m929
+	 7gD5fYuivCuB2QxJcwQ7R79zyGhOcEbhDY0jZx35sT55dNd+eyTwUOybYOOWkuzHKVPpI
+	 0oS2Bz9oj1x/4lO9IFKvXH6wEwfCimtxU5PkqtiDHjdrb5S48spTklXoqOTGeCMp/G/fI
+	 f4obr/MeMCJ2ltIBekMBPXgnCHnyWwT0Vp3PswI3rgPqWrO5Kijq2VAzcHzr75UqPUYCb
+	 +elZPfW3JoP4MYHJQKzF5M7kBQbinSGoDh4OlpgzYImlgD2lMpQFaIpjS7xaT4afmMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aWmUCHh8;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B14606A31E;
-	Wed, 25 Nov 2026 09:37:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9B14606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aWmUCHh8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795599469; x=1827135469;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0s78Vf6PyUG/xWZ1rRAkii/3QHz1kfVqFuBSdG7BtD8=;
-  b=aWmUCHh8QJilzli7McbLQ6SW6MZts1ECyccJeuUHd+jBtMuxMCaYkkEd
-   1wLHa20mUAcKLwTiisEvag5R+qZIffHXWfrS6bv/+kOHB8Vxol5Y2kCwP
-   O6SIAYWtIGs2D8O4VPs4oQdJuqn78sljVyvsXzr+TacqvL5J66W3mFQD9
-   V4MCrEPAjUIV0kPkN+wo595b2CI4d2oOOGsc1Th1XdPUxRaG04ATk1i9j
-   FEpEmJ/dtLNNRquy0VjYM57O5hBdx0cyGERrkOHHyhAZnF+00WM1N+I9c
-   Byy+7NruRTqw+Z4tWHhVDdXs6RrNn0pXZuIxl2hxFBx2DgWmj2piichRE
-   g==;
-X-CSE-ConnectionGUID: 6arsJvI8Tdu6pHylGMek7A==
-X-CSE-MsgGUID: V3mTqCOSQua/PAiz2Y1qkQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4472670"
-X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
-   d="scan'208";a="4472670"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 01:27:33 -0800
-X-CSE-ConnectionGUID: lihd4i8TTJep8Rmx8U6nrw==
-X-CSE-MsgGUID: VsbtQc9URdyYmjdB/nSAmA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
-   d="scan'208";a="11796867"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa007.jf.intel.com with ESMTP; 25 Nov 2026 01:27:31 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 5F85298; Wed, 25 Nov 2026 10:27:30 +0100 (CET)
-Date: Wed, 25 Nov 2026 10:27:30 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Max Andreev <drunkbatya.js@gmail.com>
-Cc: Badhri Jagan Sridharan <badhri@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kyle Tso <kyletso@google.com>, stable@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	RD Babiera <rdbabiera@google.com>
-Subject: Re: [PATCH v2] usb: typec: tcpm: fix missed frs_sourcing_vbus() call
- during FRS
-Message-ID: <awaqAnBF94n5t3sC@black.igk.intel.com>
-References: <2026112206-lapped-unvalued-8696@gregkh>
- <20261122115639.2912666-1-drunkbatya.js@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC37E606A335;
+	Wed, 25 Nov 2026 09:39:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC37E606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 1fb90370e8b411f19a56ed5b684f684d-20261125
+X-CTIC-Tags:
+	HR_CC_CHARSET, HR_CC_CHARSET_NUM, HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME
+	HR_CC_NO_NAME, HR_CHARSET, HR_CHARSET_NUM, HR_CTE_8B, HR_CTT_MISS
+	HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_LANG
+	HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN
+	HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME, IP_TRUSTED
+	SRC_TRUSTED, SA_TRUSTED, SA_EXISTED, SN_EXISTED, SPF_NOPASS
+	DKIM_NOPASS, DMARC_NOPASS, UD_TRUSTED, CIE_BAD, CIE_GOOD_SPF
+	GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:ba469694-0e2d-466e-8fc7-55d24415b2a8,IP:10,
+	URL:25,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACT
+	ION:release,TS:10
+X-CID-INFO: VERSION:1.3.19,REQID:ba469694-0e2d-466e-8fc7-55d24415b2a8,IP:10,UR
+	L:25,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:10
+X-CID-META: VersionHash:7db8b62,CLOUDID:c5b09dbcdd18cb4833e49ca365a6b0bb,BulkI
+	D:261125173937JK7RFES4,BulkQuantity:0,SF:17|19|38|66|78|102|127|153|865|89
+	8,TC:nil,Content:0|15|50|99,EDM:-3,IP:-2|1,URL:11|94|82|1,File:nil,RT:nil,
+	Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BR
+	R:1,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_ULN,TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD,
+	TF_CID_SPAM_IBB
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 1fb90370e8b411f19a56ed5b684f684d-20261125
+X-User: liwang@kylinos.cn
+Received: from computer.. [(116.128.244.169)] by mailgw.kylinos.cn
+	(envelope-from <liwang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 901844680; Wed, 25 Nov 2026 17:39:34 +0800
+From: Li Wang <liwang@kylinos.cn>
+To: Miklos Szeredi <miklos@szeredi.hu>,
+	German Maglione <gmaglione@redhat.com>,
+	Vivek Goyal <vgoyal@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>
+Cc: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	fuse-devel@lists.linux.dev,
+	virtualization@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	virtio-fs@lists.linux.dev,
+	Li Wang <liwang@kylinos.cn>,
+	stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH] virtiofs: fix lost reply due to unaligned cache line sharing
+Date: Wed, 25 Nov 2026 17:39:08 +0800
+Message-Id: <20261125093908.48619-1-liwang@kylinos.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,63 +91,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261122115639.2912666-1-drunkbatya.js@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-+RD
+virtio_fs_enqueue_req() maps fuse_req::out.h for DMA_FROM_DEVICE in
+place. fuse_req comes from the "fuse_request" slab with no DMA-granule
+alignment, so out.h shares a CPU cache line with the waitq field.
+request_wait_answer() updates waitq while the DMA is active.
 
-On Sun, Nov 22, 2026 at 11:56:38AM +0000, Max Andreev wrote:
-> Since commit 0908c5aca31e ("usb: typec: tcpm: AMS and Collision
-> Avoidance") the TCPC reports sourcing vbus while the port is still in
-> AMS_START with FR_SWAP_SEND as the upcoming state. Because of
-> _tcpm_pd_vbus_on() ignores this state, frs_sourcing_vbus() is never called
-> during FRS.
-> 
-> On Pixel 11 Pro XL after an FRS from sink to source the phone keeps
-> showing the charging indicator, and about 20 seconds later VBUS drops
-> and the attached device reboots.
-> 
-> Call frs_sourcing_vbus() from AMS_START when the upcoming state is
-> FR_SWAP_SEND.
-> 
-> Fixes: 0908c5aca31e ("usb: typec: tcpm: AMS and Collision Avoidance")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Max Andreev <drunkbatya.js@gmail.com
+Note: Sashiko correctly identified the bug, but the resulting behavior
+is not as described. Sashiko reported that unmap invalidates this shared
+cache line and drops the waitq updates made by request_wait_answer(),
+so wake_up() walks a damaged list, the waiter never runs, and a later
+wait-queue operation can panic. That is not what current arm64 does for
+this buffer. fuse_out_header is 16 bytes and does not cover a whole cache
+line. dcache_inval_poc() uses dc civac on that partial line: a dirty line
+is written back and then invalidated. The waitq update is kept, but the
+out.h written by the device is lost and reverts to its initial all-zero
+values. virtio_fs_verify_response() rejects that header, because
+its unique and length do not match, and the request finishes with -EIO.
 
-Looks okay to me, but just in case, let's wait for comments from
-Badhri, Kyle an RD.
+Place out.h on its own DMA granule and start waitq on the following
+one. Allocate the slab at __alignof__(struct fuse_req) so those
+offsets are granule-aligned in memory. Coherent architectures keep
+ARCH_DMA_MINALIGN at the natural alignment, so fuse_req does not grow
+there. The padding is compiled in only when virtiofs is enabled.
 
-thanks,
+Fixes: a62a8ef9d97d ("virtio-fs: add virtiofs filesystem")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-41eaaf0f-0eb9-4809-99cf-5f83439eb848
+Signed-off-by: Li Wang <liwang@kylinos.cn>
+---
+ fs/fuse/dev.c        |  3 ++-
+ fs/fuse/fuse_dev_i.h | 18 ++++++++++++++++--
+ 2 files changed, 18 insertions(+), 3 deletions(-)
 
-> ---
-> v2: moved the trailers above the --- line
-> 
-> I'm not test theese changes on mainline, but tested on Pixel 11 Pro XL
-> vendor kernel 6.1 with the same _tcpm_pd_vbus_on() code, as i see
-> mainline tcpm.c is identical in this area.
-> 
->  drivers/usb/typec/tcpm/tcpm.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-> index 51e5c72799f2..5caa649a92f1 100644
-> --- a/drivers/usb/typec/tcpm/tcpm.c
-> +++ b/drivers/usb/typec/tcpm/tcpm.c
-> @@ -6889,6 +6889,11 @@ static void _tcpm_pd_vbus_on(struct tcpm_port *port)
->  			port->tcpc->frs_sourcing_vbus(port->tcpc);
->  		tcpm_set_state(port, FR_SWAP_SNK_SRC_SOURCE_VBUS_APPLIED, 0);
->  		break;
-> +	case AMS_START:
-> +		if (port->upcoming_state == FR_SWAP_SEND &&
-> +		    port->tcpc->frs_sourcing_vbus)
-> +			port->tcpc->frs_sourcing_vbus(port->tcpc);
-> +		break;
->  
->  	case PORT_RESET:
->  	case PORT_RESET_WAIT_OFF:
-> -- 
-> 2.47.3
-
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+index b198cc729cba..00e637d5e552 100644
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -2342,7 +2342,8 @@ int __init fuse_dev_init(void)
+ 	int err = -ENOMEM;
+ 	fuse_req_cachep = kmem_cache_create("fuse_request",
+ 					    sizeof(struct fuse_req),
+-					    0, 0, NULL);
++					    __alignof__(struct fuse_req),
++					    0, NULL);
+ 	if (!fuse_req_cachep)
+ 		goto out;
+ 
+diff --git a/fs/fuse/fuse_dev_i.h b/fs/fuse/fuse_dev_i.h
+index a8eba46a3e51..e42f3dc30d3b 100644
+--- a/fs/fuse/fuse_dev_i.h
++++ b/fs/fuse/fuse_dev_i.h
+@@ -12,6 +12,18 @@
+ #include <linux/wait.h>
+ #include <linux/workqueue.h>
+ #include <linux/fs.h>
++#include <linux/cache.h>
++
++/*
++ * virtiofs DMA-maps fuse_req::out.h for DMA_FROM_DEVICE in place.
++ * Put @out on its own granule and start @waitq on the next one.
++ * fuse_dev_init() allocates the slab at this alignment.
++ */
++#if IS_ENABLED(CONFIG_VIRTIO_FS)
++#define FUSE_REQ_DMA_ALIGN __aligned(ARCH_DMA_MINALIGN)
++#else
++#define FUSE_REQ_DMA_ALIGN
++#endif
+ 
+ /* Ordinary requests have even IDs, while interrupts IDs are odd */
+ #define FUSE_INT_REQ_BIT (1ULL << 0)
+@@ -94,10 +106,10 @@ struct fuse_req {
+ 	struct {
+ 		/** @out.h: The request output header */
+ 		struct fuse_out_header h;
+-	} out;
++	} out FUSE_REQ_DMA_ALIGN;
+ 
+ 	/** @waitq: Used to wake up the task waiting for completion of request */
+-	wait_queue_head_t waitq;
++	wait_queue_head_t waitq FUSE_REQ_DMA_ALIGN;
+ 
+ #if IS_ENABLED(CONFIG_VIRTIO_FS)
+ 	/**
+@@ -118,6 +130,8 @@ struct fuse_req {
+ 	unsigned long create_time;
+ };
+ 
++#undef FUSE_REQ_DMA_ALIGN
++
+ /* One forget request */
+ struct fuse_forget_link {
+ 	struct fuse_forget_one forget_one;
 -- 
-heikki
+2.34.1
+
