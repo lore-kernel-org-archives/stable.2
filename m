@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795597990;
-	b=TgMBzgn0/6nYhrnvjjWI1xNDycS8X1b5koYwduzqjri8MVH2swhZ9e3yDnA0Sn/awNJ6
-	 AxFV2H8xepE3IxwX4aqM5vnF8Uln0cSB+oRztKem0ZOVbjv6NLN7Cpene3Bv/fdO7Zu6D
-	 0794U9OqvcebaknPPKdnhtH+9iVlVbJoI0nEs69HNY9cuxPqWWnSQcxG1QKTBUlw1LmRJ
-	 S0wysZBJtST0AAqO7GoJ/sw6Ua74J2TP35gy8McEMpj+qUZOGIL3cuNZPHsHVINJrzq9A
-	 cQssPSGW3bH2WZUrHJjubymWsgw9EyjaqvHFcCkp00KKjkUs3DPSGpNIb37sNSUm8Qg==
+	t=1795598063;
+	b=MWMlmJJxcpHQLwHUD1i9ZUWGtDtuB6K+wmL42HZxFAFEXBrYZUkOWzd+rhMVLYbvUubb
+	 HbqYiTINWZ5bo2zaIl3b2J333kDFvWe06t3Ojja8VopU1ryfWPbyHwT3U0id//rmC0Li/
+	 rPCNvpeMzrR5r2SWDigvziz+B/LeGAWgOB0MjI/V/gOH2csAvNnMRvjfVxnypj0bFqeca
+	 wxkqQXgf0bCxUc+gkcZubIuNQgywSV9hAJ7Ot3EHPFsWdmtE3Mb5YzK5+rwD/lo0uZ8U+
+	 cSNYGTJEXd9Kt2or1l70ozT6SzddNhn7UkZQId3fSKx0OsLSbcwV40C78cf45ByvYHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795597990;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795598063;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=BuSqxCGSKdFLLbjYZRVQyau2zV318l1zGWR+/jhC9RE=;
-	b=AXEGVdx4xBmXL/Z8GR5+xpRc7qm2UYiNgGmSWNX+8zYIQJZ4ZwJowpfmXZXwJmuiNeP1
-	 FK8HBr+VMvXHbHhcFl+PTnpC5QWEwMWiA9YZPUGZXmLPa9+ZUi6V4YJsY1IzabVsqlUrN
-	 yf82sgd0MlZjJrKwyY/YqKOxjRruRtp00qSwJLMbiri5b4eCpoRfQgA8RngaZ1HFEcNI4
-	 nateOw7jtxBQ+Srp3A5Yir6NbO35baD06ZddH2aTVIC9EEERBpEV8eoOfZPmHQ2Q3pQgS
-	 cA5CnOX371o+7RkXNzYYETZzBsNG2ltDRv52rOIiQtVUzfrdSsbPRHTb0+g8zCVdOpg==
+	bh=DzlBRi0VIX67y2fzWAH6GYw78LJJsjYLA0G13pLhwqE=;
+	b=xoatTHX58g+bO5LUg5tw+601oKuyBF0CXjF22hpreLVt31pPnkId0GizMxcVFrkyvBNn
+	 wkP4kBm6KFm2xuzFV4wJJUHB6j28xSmntk8bODkz4VYtsT+wYvEh0Jm8aKm4UVFY81dl9
+	 yMI8TsIC+FYvT/tizcjffS5uaCn9IOe8tVsqaCwva1AaSS++lllI/aRT1l1tTzHqCFZFd
+	 if6vLRQxdTKmiJ9NnszZDXEJg4HezirIy3jHc327dZUWqJTt13+DgNL31D0PnSRy2qCtE
+	 jure7BA12X0iAC66ivGzq0BmIisamz5yBj+H3HpGmyfsDUYih/bGdTxJOQTOYIvERWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DGpyXRy5;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uG97jrkT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D166606A699
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:13:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4828606A692
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:14:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DGpyXRy5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 288971F000D2;
-	Wed, 25 Nov 2026 09:13:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uG97jrkT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AC091F000CF;
+	Wed, 25 Nov 2026 09:14:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795597989;
-	bh=BuSqxCGSKdFLLbjYZRVQyau2zV318l1zGWR+/jhC9RE=;
+	s=korg; t=1795598063;
+	bh=DzlBRi0VIX67y2fzWAH6GYw78LJJsjYLA0G13pLhwqE=;
 	h=Subject:To:Cc:From:Date;
-	b=DGpyXRy5EbUh+QhJXhNytdBn37cTGzH9opUD34jrcaFRlPZz7g53VwwVyufNlB14M
-	 d/xXdHajkyxfj/wj+IhoaNh4bHV/vw1coxtgZBe1hS0Oo7NRqGUT8dlOpEOIUFSxEd
-	 oHvtkNkybf++ZGdVUsbjcs3/yeGnEhvfT/bN/S/o=
-Subject: FAILED: patch "[PATCH] net: wait for in-flight device unregistrations before netns" failed to apply to 6.1-stable tree
-To: edumazet@kernel.org,bsdhenrymartin@gmail.com,kuba@kernel.org,namangulati@google.com
+	b=uG97jrkTAYsPYpESI1Oo6Tv1N28KekIYHxDZ2FqSvFECu78DuNqZqwFeUiF9cg5LH
+	 vXazDpqGLtcCqUM99P4TfvP/kYS/Csik5IcTamKeYRYvJ3wG7jct9d+vmmdFgOLazI
+	 kMG6OkgdqxNJSmq9Hf/dvZfL0oUsCTo4PUADHo+I=
+Subject: FAILED: patch "[PATCH] netfilter: nf_dup: preserve guard across NFQUEUE reinjection" failed to apply to 6.12-stable tree
+To: zihanx@nebusec.ai,pablo@netfilter.org,root@tr0jan.top,vega@nebusec.ai
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 10:05:30 +0100
-Message-ID: <2026112530-magnesium-segment-fd8c@gregkh>
+Date: Wed, 25 Nov 2026 10:10:01 +0100
+Message-ID: <2026112501-gilled-capsize-0004@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x c164a431a646983275d0076ff5b0e4c326fbc10b
+git cherry-pick -x 82052e5b5ec36504fe1b9c3c28a711a78fcacf37
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112530-magnesium-segment-fd8c@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112501-gilled-capsize-0004@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,163 +79,114 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c164a431a646983275d0076ff5b0e4c326fbc10b Mon Sep 17 00:00:00 2001
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Thu, 5 Nov 2026 15:45:43 +0100
-Subject: [PATCH] net: wait for in-flight device unregistrations before netns
- dismantle
+From 82052e5b5ec36504fe1b9c3c28a711a78fcacf37 Mon Sep 17 00:00:00 2001
+From: Zihan Xi <zihanx@nebusec.ai>
+Date: Fri, 16 Oct 2026 16:14:17 +0000
+Subject: [PATCH] netfilter: nf_dup: preserve guard across NFQUEUE reinjection
 
-A device can be unregistered by a context other than the cleanup_net()
-of its own netns, for instance a veth whose peer in another netns is
-deleted. If references on it are still held, it stays in
-netdev_wait_allrefs_any(), which rebroadcasts NETDEV_UNREGISTER every
-second.
+NFQUEUE can suspend traversal of a duplicated packet while the task-local
+duplication guard is set. The output call then returns and clears the guard
+before a later verdict resumes hook traversal.
 
-Meanwhile its netns can be dismantled: default_device_exit_batch()
-only takes care of devices still listed in the netns, then pernet exit
-handlers free their state, and finally struct net is freed while the
-device still points to it.
+Save the guard in the queue entry and restore it while reinjection
+continues hook traversal. Preserve and restore the verdict task's prior
+state, including nested synchronous reinjection.
 
-The rebroadcasts then run notifiers against torn down pernet state, or
-freed memory. Three instances were reported so far:
-
- - netdev_genl_netdevice_event(): net->genl_sock is NULL [1]
- - nh_netdev_event(): net->nexthop.devhash is NULL [2]
- - nf_tables netdevice notifiers: use-after-free of the nftables
-   pernet storage [3]
-
-but any notifier using dev_net(dev) is affected, as is
-netdev_wait_allrefs_any() itself (__rtnl_net_lock(dev_net(dev)) with
-CONFIG_DEBUG_NET_SMALL_RTNL=y).
-
-This was prevented by rtnl_lock_unregistering() until I removed it
-in commit 8a4fc54b07d7 ("net: get rid of rtnl_lock_unregistering()"),
-considering only the loopback dependency, and missing the notifiers one.
-
-Restore a per-netns counter of devices sitting in netdev_run_todo(),
-and make default_device_exit_batch() wait for it to reach zero, after
-it has unregistered all devices of the dying netns(es). At this point
-no new unregistration can be started for these netns.
-
-Unlike the old barrier, this only waits for devices of the netns being
-dismantled and runs after their own devices are gone.
-
-Tested on a KASAN kernel with a debug-only hack holding a reference
-on a veth device for 5 seconds after its unregistration: a nexthop
-on the veth in netns X, delete its peer from init_net, then delete X.
-Without this patch, the nexthop_flush_dev() null-ptr-deref from [2]
-triggers. With it, no splat; netns churn and dismantle of a netns
-whose own device is held still work.
-
-[1] https://lore.kernel.org/netdev/6adf9f64.6200f071.51519.0ed1.GAE@google.com/
-[2] https://lore.kernel.org/netdev/20261105114707.3030737-1-bsdhenrymartin@gmail.com/
-[3] https://lore.kernel.org/netdev/20261105114817.3033625-1-bsdhenrymartin@gmail.com/
-
-Fixes: 8a4fc54b07d7 ("net: get rid of rtnl_lock_unregistering()")
+Fixes: cd58bcd9787e ("netfilter: xt_TEE: have cloned packet travel through Xtables too")
 Cc: stable@vger.kernel.org
-Reported-by: syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/netdev/6adf9f64.6200f071.51519.0ed1.GAE@google.com/
-Reported-by: Henry Martin <bsdhenrymartin@gmail.com>
-Closes: https://lore.kernel.org/netdev/20261105114707.3030737-1-bsdhenrymartin@gmail.com/
-Closes: https://lore.kernel.org/netdev/20261105114817.3033625-1-bsdhenrymartin@gmail.com/
-Signed-off-by: Eric Dumazet <edumazet@kernel.org>
-Reviewed-by: Naman Gulati <namangulati@google.com>
-Link: https://patch.msgid.link/20261105144543.1624238-1-edumazet@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
 
-diff --git a/include/net/net_namespace.h b/include/net/net_namespace.h
-index c29a22ca178f..4a4d72080acd 100644
---- a/include/net/net_namespace.h
-+++ b/include/net/net_namespace.h
-@@ -72,6 +72,7 @@ struct net {
+diff --git a/include/net/netfilter/nf_queue.h b/include/net/netfilter/nf_queue.h
+index 86021c55ba3c..4a8cefd8398d 100644
+--- a/include/net/netfilter/nf_queue.h
++++ b/include/net/netfilter/nf_queue.h
+@@ -23,6 +23,7 @@ struct nf_queue_entry {
+ 	struct net_device	*physout;
+ #endif
+ 	struct nf_hook_state	state;
++	bool			in_nf_duplicate;
+ 	bool			nf_ct_is_unconfirmed;
+ 	u16			size; /* sizeof(entry) + saved route keys */
  
- 	unsigned int		dev_base_seq;	/* protected by rtnl_mutex */
- 	atomic_t		dev_mc_genid;	/* dev->mc membership changes */
-+	atomic_t		dev_unreg_pending; /* devices in netdev_run_todo() */
- 	u32			ifindex;
+diff --git a/net/netfilter/nf_queue.c b/net/netfilter/nf_queue.c
+index 166d05e994ac..bd603e3a99a5 100644
+--- a/net/netfilter/nf_queue.c
++++ b/net/netfilter/nf_queue.c
+@@ -219,6 +219,7 @@ static int __nf_queue(struct sk_buff *skb, const struct nf_hook_state *state,
+ 	*entry = (struct nf_queue_entry) {
+ 		.skb	= skb,
+ 		.skb_dev = skb->dev,
++		.in_nf_duplicate = current->in_nf_duplicate,
+ 		.state	= *state,
+ 		.hook_index = index,
+ 		.size	= sizeof(*entry) + route_key_size,
+diff --git a/net/netfilter/nfnetlink_queue.c b/net/netfilter/nfnetlink_queue.c
+index 90d887546f7d..a8aa7ad832c3 100644
+--- a/net/netfilter/nfnetlink_queue.c
++++ b/net/netfilter/nfnetlink_queue.c
+@@ -44,6 +44,7 @@
+ #include <net/sock.h>
+ #include <net/tcp_states.h>
+ #include <net/netfilter/nf_queue.h>
++#include <net/net_debug.h>
+ #include <net/netns/generic.h>
  
- 	spinlock_t		nsid_lock;
-diff --git a/net/core/dev.c b/net/core/dev.c
-index df1a840b0334..5d25b65e20dc 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -11101,6 +11101,14 @@ atomic_t dev_unreg_count = ATOMIC_INIT(0);
- static void net_set_todo(struct net_device *dev)
- {
- 	list_add_tail(&dev->todo_list, &net_todo_list);
-+	atomic_inc(&dev_net(dev)->dev_unreg_pending);
-+}
+ #include <linux/atomic.h>
+@@ -365,21 +366,30 @@ static void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
+ 	const struct nf_hook_entry *hook_entry;
+ 	const struct nf_hook_entries *hooks;
+ 	struct sk_buff *skb = entry->skb;
++	bool old_in_nf_duplicate;
+ 	const struct net *net;
+ 	unsigned int i;
+ 	int err;
+ 	u8 pf;
+ 
++	DEBUG_NET_WARN_ONCE(current->in_nf_duplicate &&
++			    !entry->in_nf_duplicate,
++			    "%s called with unexpected duplication guard",
++			    __func__);
++	local_bh_disable();
++	old_in_nf_duplicate = current->in_nf_duplicate;
 +
-+/* Paired with net_set_todo(). @net must not be used after this call. */
-+static void net_unreg_done(struct net *net)
-+{
-+	if (atomic_dec_and_test(&net->dev_unreg_pending))
-+		wake_up(&netdev_unregistering_wq);
- }
+ 	net = entry->state.net;
+ 	pf = entry->state.pf;
  
- static netdev_features_t netdev_sync_upper_features(struct net_device *lower,
-@@ -12000,6 +12008,7 @@ void netdev_run_todo(void)
- 		if (unlikely(dev->reg_state != NETREG_UNREGISTERING)) {
- 			netdev_WARN(dev, "run_todo but not unregistering\n");
- 			list_del(&dev->todo_list);
-+			net_unreg_done(dev_net(dev));
- 			continue;
- 		}
++	current->in_nf_duplicate = entry->in_nf_duplicate;
+ 	hooks = nf_hook_entries_head(net, pf, entry->state.hook);
  
-@@ -12016,8 +12025,11 @@ void netdev_run_todo(void)
- 
- 	cnt = 0;
- 	while (!list_empty(&list)) {
-+		struct net *net;
-+
- 		dev = netdev_wait_allrefs_any(&list);
- 		list_del(&dev->todo_list);
-+		net = dev_net(dev);
- 
- 		/* paranoia */
- 		BUG_ON(netdev_refcnt_read(dev) != 1);
-@@ -12038,6 +12050,8 @@ void netdev_run_todo(void)
- 
- 		/* Free network device */
- 		kobject_put(&dev->dev.kobj);
-+
-+		net_unreg_done(net);
+ 	i = entry->hook_index;
+ 	if (!hooks || i >= hooks->num_hook_entries) {
+ 		kfree_skb_reason(skb, SKB_DROP_REASON_NETFILTER_DROP);
+ 		nf_queue_entry_free(entry);
+-		return;
++		goto out;
  	}
- 	if (cnt && atomic_sub_and_test(cnt, &dev_unreg_count))
- 		wake_up(&netdev_unregistering_wq);
-@@ -13486,6 +13500,17 @@ static void __net_exit default_device_exit_net(struct net *net)
+ 
+ 	hook_entry = &hooks->hooks[i];
+@@ -402,9 +412,7 @@ static void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
+ 	switch (verdict & NF_VERDICT_MASK) {
+ 	case NF_ACCEPT:
+ 	case NF_STOP:
+-		local_bh_disable();
+ 		entry->state.okfn(entry->state.net, entry->state.sk, skb);
+-		local_bh_enable();
+ 		break;
+ 	case NF_QUEUE:
+ 		err = nf_queue(skb, &entry->state, i, verdict);
+@@ -418,6 +426,9 @@ static void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
  	}
+ 
+ 	nf_queue_entry_free(entry);
++out:
++	current->in_nf_duplicate = old_in_nf_duplicate;
++	local_bh_enable();
  }
  
-+static bool __net_exit netns_dev_unreg_pending(const struct list_head *net_list)
-+{
-+	struct net *net;
-+
-+	list_for_each_entry(net, net_list, exit_list) {
-+		if (atomic_read(&net->dev_unreg_pending))
-+			return true;
-+	}
-+	return false;
-+}
-+
- static void __net_exit default_device_exit_batch(struct list_head *net_list)
- {
- 	/* At exit all network devices most be removed from a network
-@@ -13527,6 +13552,16 @@ static void __net_exit default_device_exit_batch(struct list_head *net_list)
- 	unregister_netdevice_many(&dev_kill_list);
- 	rtnl_unlock();
- 
-+	/* Devices of these netns unregistered from another context
-+	 * (e.g. a veth whose peer was deleted) can still be waiting
-+	 * in netdev_run_todo() for their last references, while
-+	 * NETDEV_UNREGISTER is rebroadcast for them. Wait for them
-+	 * before pernet exit handlers tear down the state used by
-+	 * netdevice notifiers, and before the netns is freed.
-+	 * No new unregistration can start: all devices are unlisted.
-+	 */
-+	wait_event(netdev_unregistering_wq, !netns_dev_unreg_pending(net_list));
-+
- 	rtnl_net_flush_workqueue();
- }
- 
+ /* return true if the entry has an unconfirmed conntrack attached that isn't owned by us
 
