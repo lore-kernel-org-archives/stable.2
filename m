@@ -1,65 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795623088;
-	b=Wo2lCY2K/sTul7mYKX2Mw1pNfDIogTEAUeM+tIvYJJcTTYNjOACiQ0p1+xdyhg+MLIav
-	 m9eMlQAuhIu0ytOmihAWLAE3f3ipJ9C78KNzjHNA7doYpFNO2CSRoxK0eRPcEUOD4T/VW
-	 8A7nQhiHrDfg0nC/vIpioIvNoTpq91TbDCIeW0rPUD/hRxJzJuWsa4KWLZeprHBIuPEyp
-	 uLQVafSBSCYRs4T4dq841uO/7zbUrQSCR1tH0/szfHg3d/82sCpypdeGNbAN7cq7Dngir
-	 dtZOgJO5pb5BUXTeFWTpEfHag6WFwNmJTwDjYk8rcRsrDt3HHmHeWE6xqKWlYs8yK6A==
+	t=1795623089;
+	b=mlnWo2PfTbvvxhT3tM7BckE9IcT9a2oWL7P9z1n7QGLSNSGhzz3e+UuYecdSDepZl8NG
+	 Q8+qkPhU57ReTi58LEqEfxWt5uYhoP1xBRd9HXPf98rgzTJcMSqkzU/OmqyQFTy5zOgQ6
+	 RLPOtDPnJfOD7t4+vcgiVSdVTi2D7yHK8QrViYunmD5X8fDk6CdI7lQDs512bm24rpP54
+	 hH8e79gzqJ2ubhlHoymNQ0bYt0GqiaIme0dk9EEKLYRKBcJeQmWdaD230/CWjsBy7l1Mx
+	 mXxs57sk4O9l2lmjTwASOun0DF0Tse9+J2YnwyUaWvvAZ4RcMTFELtxODE0r9L2JSsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795623088;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=tbs9QZ54tCRQ/HtclM3IabBk9mVStM5QK20RUGLtRbE=;
-	b=Umg4YWaV8vupevWzpLjq/STO9h5Hpj86bFBHBIZ6c+JQobyUmIphxErtwDflHCK20BKy
-	 E/qyJHulVOYTta7m0yT4YxetoypZkfrxUDlw/YakHJZ44Jlpedf0QPsIu515nSDlyQk/n
-	 YTfDTeBmbLVrcZ/mnDlt8vBBqyt6AvnQJGsDItMyGRQT77h9e+j/DMkYRAFUNKFu60+UX
-	 Sewh+GJ+5V/BT7yp+uP9pMT5wAgrtZe0Sa/yy7QZ59+gIYnSZbLtOskI3HRBIPOtOR63u
-	 A8/RfTBvMi9zDHHUTmBgx06bPlpYIqQ+yNHKHGFC8HUdJiiHVwfRs/Y0hCUOw91TJ0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795623089;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Ptx7t9V8KYYplTaDuWHAlhjDiQv6cSJ+zvI1hLJrqb4=;
+	b=Jwgn4LvDUHQrtLqAZZH5/2B+66MxKHgZoqgZW+WTfi9RP84anJZqMhFCWtJ6gLMt5EiR
+	 YYpaS0OId/jllzLJwXwXZkjM9JXusF2Enm6tlsLexTmRoXI9qdBTfLS5JBNitcJ0eQTCe
+	 r7jps14UHfLgsIY6DbIrwsYQ8azD4Wp4FiBLJElzG/FiijzolUlmQGAn316MciWfLmaFi
+	 +/TwyhpRU2KUZ/u5Z/vCRDNnAzbFGilOje1icas9ymsCM7D4omCE4DQsaYuSZrCADVDCl
+	 IiLJktPai39p0Z7gxIalLaAgPzVDTPnWEZWjfJyTyMYZ6Qqkh5XcovM7DHd0Ak1i20Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="jt/zlPSz";
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tteKTznj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F43F606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:11:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F43F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D45606A332;
+	Wed, 25 Nov 2026 16:11:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=jt/zlPSz
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 524D71A17F4;
-	Wed, 25 Nov 2026 16:11:26 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2793360480;
-	Wed, 25 Nov 2026 16:11:26 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A559311E6ABF5;
-	Wed, 25 Nov 2026 17:11:23 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795623085; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=tbs9QZ54tCRQ/HtclM3IabBk9mVStM5QK20RUGLtRbE=;
-	b=jt/zlPSzPlDxOt36gF1yOUZ/2F9s3nhlFcOFekHfBF2rwocHmQIUzHhziaUu7yrnYFkVB9
-	HIIUVK4+XGY57cyTvM330UdV6qXCjGZnpayUdSfJmksDn+TkRr+ne8pMIigFM11FKAS8L5
-	SskizWrctJNG8aXAKjms4nMYXFKV9nDguw0h6cJDTLz/lb0raupFm8eWtKgDA+zGnrUvyC
-	Vmw2yTQqyfyKZSmL1vvFfq4u3SNeQ1lGshEYfCyhIKMBA5Ft/5pzBQpF6WQS07/NEIVyUL
-	kKoZYKjIezPbcWde1OLTdBtAxDiZPGC2e2rEQFSjZq6mBmYetCIIHvvmIa7smg==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: laurentiu.palcu@oss.nxp.com, Fabio Estevam <festevam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
- marek.vasut@mailbox.org, mripard@kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261124112215.12255-1-festevam@gmail.com>
-References: <20261124112215.12255-1-festevam@gmail.com>
-Subject: Re: [PATCH v3] drm/mxsfb: lcdif: Fix use-after-free on unbind
-Message-Id: <179562308334.731258.14637573993541736813.b4-ty@b4>
-Date: Wed, 25 Nov 2026 17:11:23 +0100
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tteKTznj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A59AC1F000D3;
+	Wed, 25 Nov 2026 16:11:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795623089;
+	bh=Ptx7t9V8KYYplTaDuWHAlhjDiQv6cSJ+zvI1hLJrqb4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=tteKTznjWcLlYVPmKdpwTUo3Db/ZQzeTVo42CrsOVqxmHt3EEB0Gp2alpYtfjGsjd
+	 fXgcYCXAZsRg9ZcnPa6SUD3YDnaw4EkpsWnJk54LXGEITnqaDoT4Az3xMj5hH59Vwo
+	 upWCrPtlO22vCovmZIK2lVwaRXzHrXT68JLQexI0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Mark Brown <broonie@kernel.org>
+Subject: [PATCH 6.18 748/990] arm64/gcs: Ignore attempts to change GCS mode during signal return
+Date: Wed, 25 Nov 2026 15:35:15 +0100
+Message-ID: <20261125143839.583136787@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,33 +61,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-On Tue, 24 Nov 2026 08:22:15 -0300, Fabio Estevam wrote:
-> lcdif allocates its private data, which embeds the CRTC and primary
-> plane, and its encoders using devres. These DRM objects are linked into
-> the mode_config lists.
-> 
-> Since mode_config cleanup is DRM-managed, it is deferred until the DRM
-> device is released. An open DRM file can keep the DRM device alive after
-> the platform device has been unbound and devres has freed those objects.
-> The later mode_config cleanup then dereferences freed memory.
-> 
-> [...]
+------------------
 
-Applied, thanks!
+From: Mark Brown <broonie@kernel.org>
 
-[1/1] drm/mxsfb: lcdif: Fix use-after-free on unbind
-      commit: 479e381e77dcde0dfcc9d51e89ff3273da199804
+commit d395db3dcd4c590d26a2f3d581d8d5b7ddbfa478 upstream.
 
-Best regards,
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+If userspace tries to update the GCS mode as part of signal return then
+we update the thread state but don't update GCSCRE0_EL1, meaning the
+change does not take effect.  We may also get issues for other tasks on
+context switch since we suppress writes of the register if the two tasks
+have the same mode.
+
+Since no currently known userspace tries to use this functionality close
+this by ignoring any attempt to change the mode through signal return.
+The GCS mode for the current thread can be changed using the prctl()
+interface and will be preserved on signal return, allowing updates to
+the mode from the signal handler.
+
+Reported-by: Catalin Marinas <catalin.marinas@arm.com>
+Link: https://lore.kernel.org/r/as-8IqsbMbOBo5Oq@arm.com
+Suggested-by: Catalin Marinas <catalin.marinas@arm.com>
+Fixes: 16f47bb9ac8a ("arm64/signal: Expose GCS state in signal frames")
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ Documentation/arch/arm64/gcs.rst |   13 ++++---------
+ arch/arm64/kernel/signal.c       |   22 +---------------------
+ 2 files changed, 5 insertions(+), 30 deletions(-)
+
+--- a/Documentation/arch/arm64/gcs.rst
++++ b/Documentation/arch/arm64/gcs.rst
+@@ -179,9 +179,8 @@ intended to be exhaustive.
+ 
+ When returning from a signal handler:
+ 
+-* If there is a gcs_context record in the signal frame then the GCS flags
+-  and GCSPR_EL0 will be restored from that context prior to further
+-  validation.
++* If there is a gcs_context record in the signal frame then GCSPR_EL0
++  will be restored from that context prior to further validation.
+ 
+ * If there is no gcs_context record in the signal frame then the GCS
+   configuration will be unchanged.
+@@ -190,12 +189,8 @@ When returning from a signal handler:
+   point to a valid GCS signal cap record, this will be popped from the
+   GCS prior to signal return.
+ 
+-* If the GCS configuration is locked when returning from a signal then any
+-  attempt to change the GCS configuration will be treated as an error.  This
+-  is true even if GCS was not enabled prior to signal entry.
+-
+-* GCS may be disabled via signal return but any attempt to enable GCS via
+-  signal return will be rejected.
++* The features_enabled in the signal return context will be ignored; any
++  changes made using the prctl() in the signal handler will be preserved.
+ 
+ 
+ 6.  ptrace extensions
+--- a/arch/arm64/kernel/signal.c
++++ b/arch/arm64/kernel/signal.c
+@@ -741,36 +741,16 @@ static int preserve_gcs_context(struct g
+ 
+ static int restore_gcs_context(struct user_ctxs *user)
+ {
+-	u64 gcspr, enabled;
++	u64 gcspr;
+ 	int err = 0;
+ 
+ 	if (user->gcs_size != sizeof(*user->gcs))
+ 		return -EINVAL;
+ 
+ 	__get_user_error(gcspr, &user->gcs->gcspr, err);
+-	__get_user_error(enabled, &user->gcs->features_enabled, err);
+ 	if (err)
+ 		return err;
+ 
+-	/* Don't allow unknown modes */
+-	if (enabled & ~PR_SHADOW_STACK_SUPPORTED_STATUS_MASK)
+-		return -EINVAL;
+-
+-	err = gcs_check_locked(current, enabled);
+-	if (err != 0)
+-		return err;
+-
+-	/* Don't allow enabling */
+-	if (!task_gcs_el0_enabled(current) &&
+-	    (enabled & PR_SHADOW_STACK_ENABLE))
+-		return -EINVAL;
+-
+-	/* If we are disabling disable everything */
+-	if (!(enabled & PR_SHADOW_STACK_ENABLE))
+-		enabled = 0;
+-
+-	current->thread.gcs_el0_mode = enabled;
+-
+ 	/*
+ 	 * We let userspace set GCSPR_EL0 to anything here, we will
+ 	 * validate later in gcs_restore_signal().
 
 
