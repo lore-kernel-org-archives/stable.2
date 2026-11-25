@@ -1,84 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625947;
-	b=PWH0I8pRtvCc0fDF/YtE/IRB+ptSU2nuz7h4PEUR0xf8uKVaL3jbjEBjQh15N1MDmllT
-	 u8DaMxeAfyWp6OvUbgU9kDNqpA4/gce3CRo0H4UK+Bs+/Whg0SkTLCoqRTVQan1Tg3MFK
-	 +m9TelqRHpNYIz3scWuHeuUs/lslAePEV+rRhI5Z+GUMYysdMcM9CAU4Sq/j356RB4t2i
-	 6JjOf7z1oU01OCsxjdCh3yg2yl6OI5hTUDXUOQAea38SCW1XmI2ZG51C+DLq7D+PzaZH0
-	 0+hLIJFCwqE4RL4gpUzS5HUMmI/6TqdgMyZo3AGDJQZKl0nPITU93toZh/F5kk8NqNg==
+	t=1795625949;
+	b=E0dfUoSOzv60eKjDaTKZUANQeyCkm/fvxYHkp78Fs3Zrqz7r9IJZngbZY8NFpWhWGdNI
+	 UN/6papC48H7n6SV4zHi4NoY6CMOBYrAAP5gozip7vF5B85KL0r38vVK7J2fDVQ7eToNc
+	 kSSvgPCajKZrFQ0XzK7x7NtMhnExgn15yQ/tCoXRQwWwN0RyUGkD5WkO80mwUeBmLkBC8
+	 wCbRDkYd44Bul/6Rexx7sUl8HwKfFE1ayqg7MMoAv+VqxVr2/buwCeI+eXX+nXOzniBwn
+	 9RufiFW42k/3Oszf58h8wZjP4GVtnhcrbZbq1uqvN5IELKw3XajAdZrWwvrEXxiAmgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625947;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
-	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
-	 Date:Message-ID;
-	bh=WrRbKjYSYZg56TNAvnFFEh1M2ZtHn8O0RyBgsiFA75I=;
-	b=R4zT8UHgQdrdGZgnLjgCCrSpEvou3YK39QzuIEtEXqTt2ESLH0BjuDlBaFoipmo02wS5
-	 5SpALXgovVvvX4V0RrJmR2SKegmbgrHSz9ZE477J7GsR0YohPbnKAGwbSbP7va2+mI1y+
-	 bMZiARvYb/r1Gy8QGrXU41IuvDJLSfyvpRe033clq+NECk8OB3qYGOaYECCDvwBfinzIV
-	 BwDKuQattSChjQtwTALWOPU06vVOGWV7HkIPfd51mXp9z+zpANV2og8udvhdRcyAAFDtR
-	 lTeJNGO00UTfsMPCr0HkIjtCxGdFVfoZa64LANuuT4Or1Da23xMNFKg/y1YZJQIHQnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625949;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=VBL+EOgf4aE3CQoSOysCGP2msnsG3O6LNBvXLiq+ato=;
+	b=xckhsb1/1lcZPH9dUTRXlRZFlv700z66KbPcSKBU6w1/tJQdHXZjISmx70EPYrZUqpBq
+	 ciSEGdJqDXfSDQvzyB6OIy0AM8xp/DMVhAga1j274d+97fKK6owYmsXaaAHje+QsFAvN+
+	 /+mln3SNOoGCB/5baBPh/DSs0cn7aIkiohAPLLCwb4ZS+yU47Msefbr0nVv7Ljb0cC88o
+	 4+R9hmScM9rDgTrzZEiaDrVKfmgyivpwWP4UOUrITG1CQp1nfUlxVaT7RVbJZJhREmhNa
+	 6rRcc0/h6MbVINbbM5U09CW9OxCsEN6FgkwWim9rPd7LnI/274KlXJxdKHuUoAbVXzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kernelci.org;
-	spf=pass smtp.mailfrom=kernelci.org;
-	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=OaF9At84;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lvEmmUPx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8183C606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:59:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8183C606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AACF1606A327;
+	Wed, 25 Nov 2026 16:59:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=OaF9At84
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1b546061d58so13661438c88.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:59:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1795625945; x=1796230745; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WrRbKjYSYZg56TNAvnFFEh1M2ZtHn8O0RyBgsiFA75I=;
-        b=OaF9At84zyXwLzMUG+joEPXAftWD0RtTxST2RwLx7ZaexRT2laHvkLVhXgLRaBGWRD
-         EGtIIgldOQKo0PH0Ls/8KJgxrO1YHogVMP7yCOzYvfkElqj+wVwUUKrcn9zpO7aVQdzM
-         XOZ6HHhrzpQdHmDedQAH5D+cMWKrMKkW61+lnswhuMxLUpdvqwPkNz8FO8Bn9dLBb2Ko
-         cQfMpbtwQaiFswrQl0vlbKPq1yFLwD1S5gZH21bnV0cZ0ImAh4dg9jkVB9oHCV3+iRLa
-         ILKOSQg6jLoFKA3b4t7O6x26ybX2sBgSj277C1oKr+S0X7kajGsda2orUrc9i2T3TMOY
-         MxZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795625945; x=1796230745;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WrRbKjYSYZg56TNAvnFFEh1M2ZtHn8O0RyBgsiFA75I=;
-        b=yWVf/PvVaUQy92qg7XAfXZRyMmcvq+5mLGYVL03mXkjrRytMnYyK3nOufIsYkHFPai
-         POup+CCDtDRCuEtEG2Bqhl5GvWl/z4r442B7TWCJ1GSHbEHP+a/ZbILaD38GYq5Lvxyg
-         48AIU31abW9pBbLLeaTO/P16lEiOjkUGjO573Q31lFEUtIP4FzH5N++cu2AFhAcHr9ib
-         Sft5jXDNbTb074iewoZMe5FGBQFJ9f04ceuM2LI7xsy6jiWneik957eM1DS6RGZ6iGso
-         jbwqGeF6EJFr2IBpdm4N2Ua9JI+uR5+DzqoKSkZDO2Do4unbC98BhW+bsv/ykpKvrzeF
-         sFUg==
-X-Gm-Message-State: APuU4Z+ByoAz6ESef13GnpQNHCs8dsKti8d+ql8rJc8kP2x8D7rGjy+i
-	3yEOm34j6RP9DuSUceG1PseTqIp9lgQUwpM5ISLwecs3hiMc2yrEhblpSFh8BiQSjsY=
-X-Gm-Gg: AZFdTZfze2uHN/rk5t773s9BfbroagLFOqmvD0WH7YHYd2t7YiOh0ZHuYcRg9+IDzUG
-	A9Y92/j1O8yzcMZUyKugnNoVwwm2/JlJ66PjTuxOw5s2cDIJPWRToy3t8dG7i8sY0caUUXwwiyl
-	3pwpjpuZavPAf9IyAWFANURaqzcIW01JI6hQIU7w4qYNgImaTWeBL5N+GtNAoyMIlZiNRjyH/K5
-	6Ou0HAdyyJ/iuhTFOIPvSugZyxDevOKYhVem3aDFLjcUvoRiL1RIUxvq+Wh5uEF74AybY5Dmkxo
-	IZ7V8LQBQV1tKL8rGoZnOIMco5lMBlOLnKQwrL4EpfELTyfvxCY59RFympXOpus6iBQWWUgwmn5
-	LNh9Emu/XdlIgMZSE5SvQlJFLxSuE+CNQHX6GaYR6D14rvTW2FlGkaKE6ijVewpYjHrvhyBAEaX
-	Vw+s7DOn245ghjQU213x7zYqP8yQdZsKhB2OM9enBAHGI7iudlgPdA52h4GBUIoLxGSoGYed/cT
-	7x7/5IQarofMZfRLHGtKubB2lq5NvoR9zbdJMvPkkL3PkwcF8/JBkxeQsm75eO8nzz3b7+xEbex
-	Vyy0pZSar1LC/n45jTYZLQKapZU+7ctFJXf+fMQSjPY=
-X-Received: by 2002:a05:7300:f68e:b0:369:f291:49da with SMTP id 5a478bee46e88-38571814b1dmr19058239eec.40.1795625945355;
-        Wed, 25 Nov 2026 08:59:05 -0800 (PST)
-Received: from 52d83ede7c60 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38567ea2cc5sm51676757eec.29.2026.11.25.08.59.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 08:59:04 -0800 (PST)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lvEmmUPx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E53E1F000D0;
+	Wed, 25 Nov 2026 16:59:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795625948;
+	bh=VBL+EOgf4aE3CQoSOysCGP2msnsG3O6LNBvXLiq+ato=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lvEmmUPxYKO2KnGwwTds9i4KKVDo6MuAyrak8yyA2wilUGs1H1bnuQ+wBZB4Sl/+A
+	 /ioN09u54tKWYqCfmbL+H6qpDibfLgd3NVy8UxK7fR0hzKPKavIAnz1TqREo/hLvec
+	 FnvwWBO+BqZw5YM7cZ2jOPBPyy6igC40THLmWw5g=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	liuyong <pkfxxxing@gmail.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>
+Subject: [PATCH 6.12 682/816] smb: client: compare owner and group SIDs using their encoded lengths
+Date: Wed, 25 Nov 2026 15:37:10 +0100
+Message-ID: <20261125143904.968443489@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,65 +62,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-6.12.y: (build)call to undeclared
- function
- 'dwmac_is_xmac'; ISO C99 and later do n...
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
+Content-Transfer-Encoding: 8bit
+
+6.12-stable review patch.  If anyone has any objections, please let me know.
+
+------------------
+
+From: liuyong <pkfxxxing@gmail.com>
+
+commit a2dabe73ea05ad3b3f8e1cc08fb2e7c2ddc5564b upstream.
+
+populate_new_aces() compares owner and group SIDs over sizeof(struct
+smb_sid), including storage for all 15 possible subauthorities. Received
+SIDs contain only their encoded subauthorities. The comparison can read
+past the security descriptor, as shown by the supplied KASAN report for
+a 44-byte descriptor during chmod.
+
+The input SIDs have already been checked by sid_from_sd(). Require equal
+subauthority counts, then compare only the fixed SID header and the
+encoded subauthorities with memcmp(). The count check ensures that both
+validated SIDs contain the number of bytes being compared.
+
+These issues were discovered and fixed by Qihoo 360's Tulongfeng
+multi-agent system.
+
+Fixes: 0f22053e811c ("cifs: Fix unix perm bits to cifsacl conversion for "other" bits.")
 Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Wed, 25 Nov 2026 16:59:04 -0000
-Message-ID: <179562594381.105915.18403136017178757571@kernelci.org>
-
-Cc from: regression/stable-rc.yaml
-
-New build issue found on stable-rc/linux-6.12.y:
-
+Signed-off-by: liuyong <pkfxxxing@gmail.com>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
-call to undeclared function 'dwmac_is_xmac'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration] in drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.o (drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c) [logspec:kbuild,kbuild.compiler.error]
----
+ fs/smb/client/cifsacl.c |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Log excerpt:
-=====================================================
-/tmp/kci/linux/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c:1772:7: error: call to undeclared function 'dwmac_is_xmac'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
- 1772 |         if (!dwmac_is_xmac(priv->plat->core_type))
-      |              ^
-/tmp/kci/linux/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c:1772:33: error: no member named 'core_type' in 'struct plat_stmmacenet_data'
- 1772 |         if (!dwmac_is_xmac(priv->plat->core_type))
-      |                            ~~~~~~~~~~  ^
-2 errors generated.
+--- a/fs/smb/client/cifsacl.c
++++ b/fs/smb/client/cifsacl.c
+@@ -1062,7 +1062,10 @@ static void populate_new_aces(char *nacl
+ 	 * updated in the inode.
+ 	 */
+ 
+-	if (!memcmp(pownersid, pgrpsid, sizeof(struct smb_sid))) {
++	if (pownersid->num_subauth == pgrpsid->num_subauth &&
++	    !memcmp(pownersid, pgrpsid,
++		    CIFS_SID_BASE_SIZE +
++		    pownersid->num_subauth * sizeof(__le32))) {
+ 		/*
+ 		 * Case when owner and group SIDs are the same.
+ 		 * Set the more restrictive of the two modes.
 
-=====================================================
 
-When fixing this issue, please attribute this report according to the
-patch submission rules:
-
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:e7b818e0cfbc81d019b2c178ef220468dfb9fab1
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  87d55cd4c947e78a8b4c2a1d654ba54951a29faa
-
-# Builds where the incident occurred:
-
-## defconfig+allmodconfig+CONFIG_FRAME_WARN=2048 on (arm):
-- compiler: clang-21
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6b06f156286e1965ecb3958a
-
-## x86_64_defconfig+allmodconfig on (x86_64):
-- compiler: clang-21
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6b06f169286e1965ecb39779
-
-#kernelci issue maestro:e7b818e0cfbc81d019b2c178ef220468dfb9fab1
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
