@@ -1,90 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795624796;
-	b=LWPFN9WqVt4AmunYTd5yvGJMlSEaxasp3k/TWbGAl+8fIE+CK0G0AZBc5+U76aeeyFha
-	 CkIm1lGNOVyHwqeJolFziIO/IOSdpV/vR2XUZM/p6siyAKvs9vNck79bcUGAIMyFiGQel
-	 BNWO9iNjahrSYIbYDlnN3gEgNsluTDp7XB9ZsssgmRpRGrvrojTKiuV7LzNdYrJ+Aphat
-	 mDRuRmptp+MULFJ9BqRAVkywWzK0yua1l/uPSYPp7mq2VzfhYF9j5cuGIFKO39b5L8Kj5
-	 IwNHGZyQyN3sZue4yuc1vWhDT0qU9hHg3Wk0MuUXFj9yOS1NKaSsK0VTxlNohjWK1pg==
+	t=1795624797;
+	b=oflacrNf21B7vaxYQmxzCbs/curizrTqova9Eb9F4xrbkN7pml17EJoABm5RoReeXE37
+	 ZGAiSSFywzsyw7Q8xqfjIi1lVPYk40TJRfS9lsixiulPAAUaT2ZcnaeTzgA/uyEuvJell
+	 5dGjuAJcfnKo50k3mCh1QmwqwI5SBnuXdZyOocrfS3HKFBSKw22sIUZIizTH/PQZZatRj
+	 /Sm4ARNKeshSmVsuin0+KzRVXuEpuif+ye81lwmbN8ej527nqXYl3e1vrqjq1+EdKyjPB
+	 nJMEvlY1X038ZGwG95p4KDP2WQsgbZSJDEsV7CUyziVKh221jTsLbGDt/Hev2Y0YM5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795624796;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=JxExNuQaJd3Cwz7l+JHbWMh1g3amu769QhEVBhR2vvc=;
-	b=GC/qa8B4a+lWv8hK5L/k7qmWJHDjqvn+RU+V+GCNcvgFDTKjXQPb5e2dE6goOQtAlTxF
-	 J/JutQ8RdJmrJowagNv5ELZ5HK7JYNXIxOmNGwvk3r/5yMEsjjcBCzP5LFrfjnIDSbZ2j
-	 5dQtyYhdQWavua2p0kyqBxrPuS7GRXps+jiRuxQ2kJS4SPHa3ERPlsiYNK/x/5cW7ju5r
-	 18xy4EHtc5K3Znf9k8d3QVoM3yDZSrXT2rX9cp5jneUqeYVQYHFYtRjFMVCTsaaGWimPK
-	 D+eO/WMK25YElfmxZ21aMoAbe23cbfvL7I9roPigTB5htRnP00db1BzFw65HElVMZog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795624797;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=4nf06Rcyr26wEx3gbdf7u666X67P4PyZOJe8VzuHPn4=;
+	b=ql0QIIRFZSX0kUzMKlhhoCNrLfdMdMzJQixrVcWG/WEFFvndD3KZkkSgwP/tZQ623mvl
+	 1iS7vCpokQxigDHvABuIhMh3uu4Hqsa5bwqTbExg0q+1TkX2Og06yA93fHjyKyax8j+gQ
+	 k4IHIDz77p6SjulR52EoS02wBWbliz5vmrWA1EB0fnKfKW0TRMeuSZetrjR0+90VWSB45
+	 VGq4notdJzk/8u2tmxQcBlP5CqStmpD7w7miTdx0zVmbALOm/ge+m0cFFU1tKkNqLj5MX
+	 8pZnnMOJ/pHlyEM7yi+ZfzNqF7zfkIk4MsJpQ8jugXuWInX6AS6UhUNtgzaWC2p1qfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=aWW+36V3;
-	arc=none smtp.remote-ip=209.85.208.47
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XFg0O3cM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA8F606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:39:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEA8F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A333C606A68E;
+	Wed, 25 Nov 2026 16:39:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=aWW+36V3
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b87a240de3so7595255a12.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:39:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1795624794; x=1796229594; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JxExNuQaJd3Cwz7l+JHbWMh1g3amu769QhEVBhR2vvc=;
-        b=aWW+36V3wVJ5sOytDC5DdSq859dneXZ6ZXDrHTotrLo+V7VO81yPP6nZfBFXCpGrYW
-         mNyMjkOeC5cXhz9pvLq6xrRWpg34OizBMlhXV6g3oMaZjw86iikI6Ges5j9br5OgHOhT
-         pOVevcrEu1sFpvVSfAybu0xK8SSWJZvPPM92E=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795624794; x=1796229594;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=JxExNuQaJd3Cwz7l+JHbWMh1g3amu769QhEVBhR2vvc=;
-        b=JM4O3FbpcFuWr2JA2pJszvLID0UfWUf615Xp/QdoEScSFN24uBp4yhv7GOyyteQykI
-         8smSuRli6OhxQaRrPpwlPpYmt5Xw1mDZZpYmOQhnDVLx6AdyYd2wteWzT/E5lgWOJwkY
-         WFQobC3ZIYkh/gCebRmRBzG4YT2uuS9VS85Fl/O/QOMRB8OIdY0RufvAqUHCs/qCUDvT
-         CZ387Ajv3TPO5g2x8jOnnO95MY8MwHfbhDw191nZgktyEzF/K6Ir0NyKiKEpYu55PX44
-         N0E2gIDhaPB+ur/Al6/t3QRH2VVrfcPyHwl6UQq0zNl7+huoGJ/t3Vc/8n4aGx6UGJpx
-         7/zg==
-X-Forwarded-Encrypted: i=1; AL+hErE8KyN4LTSHGxK3Vnhcf20Ixto18kIzt8SdR5SRqsGE10qC+P4F5SZGx5HlXuv9ZqdO9JqQvXE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8op0xsnx3kqDG/vape/eOJ0K5cza4QGNIBORFIx3mnQ1Gxk55L
-	2TmzgsdJv68ymgGD9D7bK1Q7SbgdMps+0Od8ajDJaj1X7QSWA5CQRkpxagh3/2NSoTRS1WDugNJ
-	NVQjBU3chaQ==
-X-Gm-Gg: AZFdTZcoaV7YoWWh/D+bShor7pQns1ShE1QpLEfWAUeRPoTAXARjaQxGXeoScG/+MQu
-	NTzgpAD51sG0IX3/1MZYWEsBIXvlTj60UE9SOxtJyVYW5S88HuJY37gyQGSxkguDWzdaoBhTzGx
-	DoCcO2j+G8+AaDuvwucxf+t9WG4U+zDt0jRAn/M/wkWl+/Xj0xnvq7sc7P17hDq+XYCrfgfM6Ps
-	I4zbVMCfjFahSx7VxIj4FLll16gWenfjhWyJFyCPuDY/rqs4+9D8emDCP4IriTsOppIh6Ryv60s
-	X/vYqqmn8aVQibt7VRL2v+ATPVgGUz3LHeZBXXpGq8Z3ZK1NYynPYZREa1e2BWt/lxTcy+X54Kt
-	NVckyZ7keWvPOGY+WtgyC1YLBjJrfequafX7jrLDwfd715rLupSGmSV5DemIBj3mh8SAChvL+R8
-	XldNBub5EsCeVBiuV2GVrMYlpr3F8KRtnQQvBx6Sodu5nIVxAaenHWrAUSkgZRNA11tgXH4FiQ8
-	5SFc8bux29do3ZQYK2Uy/Hew/IZeA7Lq+RW5UxhcKqsVHZVPxqS2eTEe3bl+W7kiPtqSr+35+4H
-	mM4qsuySdw4bnX46He1gBYkko4mxLOxXciIMwEYKmPWhjR/0O+ECCxl/824134qJAAoxu3P91XD
-	Sozg=
-X-Received: by 2002:aa7:d842:0:b0:6b6:e808:9703 with SMTP id 4fb4d7f45d1cf-6ba37c774camr9861780a12.4.1795624794334;
-        Wed, 25 Nov 2026 08:39:54 -0800 (PST)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com. [209.85.218.54])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370cb764sm8838509a12.12.2026.11.25.08.39.53
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Nov 2026 08:39:53 -0800 (PST)
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c506a231b88so816457466b.3
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:39:53 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFXf5VjsTZBs3WHJSnn3f1jSJ5rsuWhDXKDQwUeXd3gXcmA24A4LcRnwwnGwGsVf1vK+yPRsQ0=@vger.kernel.org
-X-Received: by 2002:a17:907:da02:b0:c2d:c247:5400 with SMTP id
- a640c23a62f3a-c513a8493eemr1490131966b.27.1795624793689; Wed, 25 Nov 2026
- 08:39:53 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XFg0O3cM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FC1E1F000EC;
+	Wed, 25 Nov 2026 16:39:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795624796;
+	bh=4nf06Rcyr26wEx3gbdf7u666X67P4PyZOJe8VzuHPn4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XFg0O3cM6ffkm3dym8vD94P+Pf3OEVaEybq/Xtb/T9GHF0oqDR8s62VmQbiUjF426
+	 JLY+bJgB4ettqIipxAZ6z+/Lv/cftINJcTg+ysxX0nFcyQJJmS4AURR/l10RH79SHY
+	 J6NJEhyNc3Fl2nciFQ0nZV0bRNZWqKpZdVyxxPPg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Gal Pressman <gal@nvidia.com>,
+	Jianbo Liu <jianbol@nvidia.com>,
+	Cosmin Ratiu <cratiu@nvidia.com>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 309/816] net/mlx5: Bridge, fix bogus MDB offload errors
+Date: Wed, 25 Nov 2026 15:30:57 +0100
+Message-ID: <20261125143856.353431931@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,37 +65,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261122-b4-sched-wait-intr-head-v2-0-4a764b64e8ce@columbia.edu>
- <20261122-b4-sched-wait-intr-head-v2-1-4a764b64e8ce@columbia.edu>
- <CAHk-=wj_eqNh+gNhCQh3exrL5Pmo5hbZBcL0W-4Ah_Nw0Kegzw@mail.gmail.com>
- <awWSwmvaTwBxfU-r@redhat.com> <CAHk-=wj3GCXZohdFWWPAOkC_LHno4X0oQW+0sQFJzRMvjpODUg@mail.gmail.com>
- <CAHk-=wgYc9vFEmyV0Ch_e49j6GOhUCMQMnMV4f1FLLvumZOmRw@mail.gmail.com>
- <CAHk-=wgFnKO_O0fR_-O+i5yUGaDcz8_HwpM5QiLM4jPFYZb41Q@mail.gmail.com> <awbMwBDP9TsJBmzV@redhat.com>
-In-Reply-To: <awbMwBDP9TsJBmzV@redhat.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 25 Nov 2026 08:39:37 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wiTUE9vfMvHeGz+dgex_+sMicSHnf6Nt2_w1-SkOmu8ng@mail.gmail.com>
-X-Gm-Features: Aa3M54phjOT0um3z9odpNNELrhe-bLH1gtujI8-yceR8vi0wZ9OAzggOhpFehRM
-Message-ID: <CAHk-=wiTUE9vfMvHeGz+dgex_+sMicSHnf6Nt2_w1-SkOmu8ng@mail.gmail.com>
-Subject: Re: [PATCH 3/7] eventpoll: don't claim real exclusivity for EPOLLEXCLUSIVE
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: mt4022@columbia.edu, Jens Axboe <axboe@kernel.dk>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Christian Brauner <brauner@kernel.org>, Michal Nazarewicz <mina86@mina86.com>, Wen Yang <wen.yang@linux.dev>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	tz2294@columbia.edu, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, 25 Nov 2026 at 03:55, Oleg Nesterov <oleg@redhat.com> wrote:
->
-> FYI, none of these patches can be applied, both patch and git-am complain
-> "patch: **** malformed patch at line 34: *file, wait_queue_head_t *whead,"
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-Grr. I was so proud of having finally figured out how to make gmail
-send uncorrupted patches so that I could do it in my normal workflow.
+------------------
 
-But apparently my clever hack was just hot garbage. Not the first time
-that has happened...
+From: Gal Pressman <gal@nvidia.com>
 
-Back to the drawing board,
-             Linus
+[ Upstream commit c714f324eac17b2df03419b5cd5368687efd8e27 ]
+
+MDB add operations are queued on the switchdev deferred queue
+(SWITCHDEV_F_DEFER), while vlan object deletions are handled
+synchronously.
+A 'bridge vlan del' can overtake an MDB add that is still queued, and
+the vlan is already gone by the time the driver is called.
+
+The two operations are independent in practice: in my test, the MDB add
+is triggered by assigning the VF an IPv6 address (hence joining a
+solicited-node multicast group), while another process deletes the vlan
+from its representor.
+
+Racing 'bridge mdb add' against concurrent 'bridge vlan del' could
+result in:
+
+[ 5390.967651] mlx5_core 0000:08:00.0: E-Switch: Failed to lookup bridge port vlan metadata (vport=1)
+[ 5390.969120] mlx5_core 0000:08:00.1: E-Switch: Failed to lookup bridge port vlan metadata to create MDB (MAC=33:33:ff:12:00:05,vid=2204,vport=1)
+[ 5390.971676] mlx5_core 0000:08:00.1 eth4: Failed to add Port Multicast Database entry (object id=2) with error: -EINVAL (-22).
+               Failure in updating the port's Multicast Database could lead to
+               multicast forwarding issues.
+
+The error cannot reach anyone that could do anything with it, switchdev
+returned success to the bridge as soon as the MDB object was queued, and
+the errno only flags the entry as offload failed.
+The end result is correct either way, if the MDB has been offloaded
+before the vlan was deleted, mlx5_esw_bridge_port_mdb_vlan_flush() would
+have removed it.
+
+The FDB path already treats this as a harmless race,
+mlx5_esw_bridge_port_vlan_lookup() reports it on 'info' logging level
+and skips the offload. mlxsw did the same in [1].
+
+Skip the MDB offload, report on 'info' logging level and return
+-EOPNOTSUPP: switchdev_port_obj_add_deferred() does not log it, and
+br_switchdev_mdb_complete() skips the port group flag update.
+
+[1] Commit 17b334a876fe ("mlxsw: spectrum_switchdev: Don't warn about valid situations")
+
+Fixes: 70f0302b3f20 ("net/mlx5: Bridge, implement mdb offload")
+Signed-off-by: Gal Pressman <gal@nvidia.com>
+Signed-off-by: Jianbo Liu <jianbol@nvidia.com>
+Reviewed-by: Cosmin Ratiu <cratiu@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+Link: https://patch.msgid.link/20261104183715.771390-1-tariqt@nvidia.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../ethernet/mellanox/mlx5/core/esw/bridge.c  | 21 ++++++++++---------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/esw/bridge.c b/drivers/net/ethernet/mellanox/mlx5/core/esw/bridge.c
+index 684154914cf83..a89518ed75264 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/esw/bridge.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/esw/bridge.c
+@@ -1864,26 +1864,27 @@ int mlx5_esw_bridge_port_mdb_add(struct net_device *dev, u16 vport_num, u16 esw_
+ 
+ 	port = mlx5_esw_bridge_port_lookup(vport_num, esw_owner_vhca_id, br_offloads);
+ 	if (!port) {
+-		esw_warn(br_offloads->esw->dev,
++		/* MDB is added asynchronously from the switchdev deferred
++		 * queue while port might have been deleted concurrently.
++		 */
++		esw_info(br_offloads->esw->dev,
+ 			 "Failed to lookup bridge port to add MDB (MAC=%pM,vport=%u)\n",
+ 			 addr, vport_num);
+-		NL_SET_ERR_MSG_FMT_MOD(extack,
+-				       "Failed to lookup bridge port to add MDB (MAC=%pM,vport=%u)",
+-				       addr, vport_num);
+-		return -EINVAL;
++		return -EOPNOTSUPP;
+ 	}
+ 
+ 	bridge = port->bridge;
+ 	if (bridge->flags & MLX5_ESW_BRIDGE_VLAN_FILTERING_FLAG && vid) {
+ 		vlan = mlx5_esw_bridge_vlan_lookup(vid, port);
+ 		if (!vlan) {
+-			esw_warn(br_offloads->esw->dev,
++			/* MDB is added asynchronously from the switchdev
++			 * deferred queue while vlan might have been deleted
++			 * concurrently.
++			 */
++			esw_info(br_offloads->esw->dev,
+ 				 "Failed to lookup bridge port vlan metadata to create MDB (MAC=%pM,vid=%u,vport=%u)\n",
+ 				 addr, vid, vport_num);
+-			NL_SET_ERR_MSG_FMT_MOD(extack,
+-					       "Failed to lookup vlan metadata for MDB (MAC=%pM,vid=%u,vport=%u)",
+-					       addr, vid, vport_num);
+-			return -EINVAL;
++			return -EOPNOTSUPP;
+ 		}
+ 	}
+ 
+-- 
+2.53.0
+
+
+
