@@ -1,61 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795616115;
-	b=rZh1igvc53Rnsu8SN3yFoaRJUb1+rNX/dtw18AjxSQ+0MwVGfOpT+DGQBouqlIFo+0s3
-	 YmiqfyDkvRY9yZ3cnf0EKWj7QU4Bk52MMhu48feko0mrljjkRLwVNx7juhuHtAnDuqb94
-	 DF23GQFIkX9BJhXVvKQ7p6+niDuHMny0RTb/HWVUT/d4zErAhN14UOxpYnF4CTNvDN1CB
-	 RpmLbDNlVJyacNxkVBmIXXXC1Lsem/Rj5gmmVI9f6S776irxIWGyYsi9VdHXQLkVxFqDx
-	 ElQUYIOMKCByxx/+mvITQbrKB1sdfcuDMEBTFOOfvE7o/8ShUeg1yVdHfeen8DSpS/A==
+	t=1795616169;
+	b=076mNFy+Z6M8zR5Qiz/hT5gjPTU4RMU90z+FOitLHHzCSR1NA8c58/5jpSGxYF6MzVzc
+	 VqYNamYXZpG7t/1PTo11tLJFKYjviMCraj3XzzodP3VPBz4yHKmY9qfpDlmrOklTO494N
+	 xds41HL48WXPBQP8hxNgkxHxgCn40GBwOuF8aGGtjdoCkQstQZyIChry3uONEmqSvl0M6
+	 1dqQYpbp9kdv/xARORelGDuF/7vW6sdQBJSpPTSTCrn1NwyyTN3dXyqv7a1zwU1dWyzQ/
+	 CvFL6NU3SIGaW5h27c2VPMrdGkyD9FslZ3EkCfYTAiCWEfBVQ7ixx2h2yQGNqk9bV3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795616115;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=3zCBmA88hpRkhrtX5/EeZJChNGSTM3Tk4F9CZNL8GqQ=;
-	b=BCmZMdEK147L0Hq2RLWrqiHSiDmPn+FuOwo74XhQ6ZswW6/Tvvz3E/t1r0oFjMIOdVzd
-	 s+++rtTyI35H36c/rGLxk+ZA+1ijUBopuwbxqreilcYNuexgEAmv6aItSdvACU5XcMMB9
-	 1Ou3iySBVMneU++pAibBz3Il9/Q+/54AErqGqFii1c8MG0r35q9D2KEv6T3/MTI2Jzkn2
-	 phYeqTCTiMwVf0R7ddgJ25VOUscum86E5MhyZZYIGCKnCPr7C35JBR/Ksd+F8TtGmmer6
-	 vNLwwVmOPBCjDYvN6BT0UYSXWyGhLefsnLA4/thlhGVOr/dTIuxfW5dOV3+00BSCjsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795616169;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=mMaVZ5dFPhI7ea1hZPLNuaqG6WnMEb7dPu4JlaIOODg=;
+	b=1dt7txDJPFn1S1y2w6k5wSiOZK+mfIdes423acIUFJpeCZo6HHRVDQbtKfpHq+jMpUi0
+	 OHZiMzXE17MKW2Bd6qcirlYVuplaNNRyyqX/PjapIFVj4agmyRnGhjlip6/Y2gUBTmKW6
+	 xRquNwBZdYc77X/2Y0zntfml4cFaW4w5pK6lr2//X8QNOnxUyodlMFXP7RL6rcEx+xLQ4
+	 V6IU07LQ4CSiHxDAXbQkiYQHLJjj5fdZULDj36s0QT41BneVp5B7UbbqhnyMbXcHMKCMo
+	 kxiuIbC7ewx/+rLy4b+NRw85Jiy2YluZRKmJ/NbP6ld8Q2GtbP54S7YYbaprHmdvLsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BnwOttN4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=becholey.ch;
+	spf=pass smtp.mailfrom=becholey.ch;
+	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail2 header.b=UtVJlH3R;
+	arc=none smtp.remote-ip=109.224.244.22
+Received: from mail-24422.protonmail.ch (mail-24422.protonmail.ch [109.224.244.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F89606A32D;
-	Wed, 25 Nov 2026 14:15:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E05606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:16:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49E05606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BnwOttN4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F87A1F000E1;
-	Wed, 25 Nov 2026 14:15:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795616115;
-	bh=3zCBmA88hpRkhrtX5/EeZJChNGSTM3Tk4F9CZNL8GqQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=BnwOttN4Y1xHMkRB80Oav20e8M36qjaLQeodvuoNcfME/G9Ggw4ecH47yxkljUFIo
-	 ymF/WW9b9ckd/16wOlh7zlUFQ13/Z1qgfmF47FMZUlJaqjg8PRDqQUBuJfigK/hdyz
-	 67MvsMwRfuKcyCQE/HfhCZ4kxwpSpHU3l0qOeGfTNCIAk2Ks8AgNj8bzIHDTbjnpeL
-	 jTd0dsc7y/EGOE43ab5EoV0OO9BcTi/1IdVzYqzKG6ljE+km1Blv+iNeugkMFjy7Ui
-	 vwPtHHIKQyzUNWeY+C9GLlIOjJZ8znYucJrrtfJR6dozlbmlDBzKvuhSi0Q2+/xKYj
-	 JzvZ+/oYQMQTg==
-Subject: Re: [PATCH net v4 3/3] selftests: tc-testing: act_gate: cover the new
- cycle time and interval limits
-From: netdev-bot+sashiko@kernel.org
-To: jhs@mojatatu.com
-Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, willemb@google.com,
- horms@kernel.org, alexei.starovoitov@gmail.com, victor@mojatatu.com,
- Po.Liu@nxp.com, stable@vger.kernel.org,
- syzbot+0054fed3dc9085390f51@syzkaller.appspotmail.com, shawnq1@163.com
-Date: Wed, 25 Nov 2026 14:15:14 +0000
-Message-ID: <179561611414.3135.147725315288144189@kernel.org>
-In-Reply-To: <ACT-WEXM.v4.r0.20261124074514-3@mojatatu.com>
-References: <ACT-WEXM.v4.r0.20261124074514-3@mojatatu.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail2 header.b=UtVJlH3R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
+	s=protonmail2; t=1795616163; x=1795875363;
+	bh=mMaVZ5dFPhI7ea1hZPLNuaqG6WnMEb7dPu4JlaIOODg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=UtVJlH3R74vREbXn9+g8M8hIK6cFDjImNsEdSvxcF76Bw2g6OAQVShQSyKJtQUu/W
+	 +g/40aWbG1dwdgp5VIx9KP9KkFtl0vL+OBQo8kzCojnlUxLmG11ZuFIsM8COY3U2VR
+	 PIxwOLR4YL3I9eyMn4gZ1ZdyVLSGQafResZqxBcio/XC1Wm1aVoyuVAi6UAlVI7sGj
+	 OmyiC0w6ac25LryNxF58f0X8agv29mbJ8G1YSyMf9FxBPLj6oHfXwQK3ADPeajErE/
+	 hRqeTc/ZwDyDe7tewS78K2ceuEFZv0TwYIWz/l3Prly83bzPQGEHfhOFuYRcOjag95
+	 yMQCa0L6rvXaw==
+Date: Wed, 25 Nov 2026 14:16:00 +0000
+To: Pavel Skripkin <paskripkin@gmail.com>
+From: Alexandre Becholey <alex@becholey.ch>
+Cc: Yasushi SHOJI <yashi@spacecubics.com>, Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol <mailhol@kernel.org>, stable@vger.kernel.org, linux-can@vger.kernel.org
+Subject: Re: [PATCH] can: mcba_usb: Fix double free of RX buffers in mcba_urb_unlink()
+Message-ID: <YzORDJ6g27PstCrzykJe0VfFOAHc6ldlm4jPwzG-5fc3mrb79JxuFpIgDcpjPGdlj9W4NkXSq42xWNr-FqPDOjq-hrcGqRAxp3i12qFUtks=@becholey.ch>
+In-Reply-To: <5205f6b8-66a7-4869-bc94-1c8831b1ec24@gmail.com>
+References: <20261119085329.539894-1-alex@becholey.ch> <5205f6b8-66a7-4869-bc94-1c8831b1ec24@gmail.com>
+Feedback-ID: 60743817:user:proton
+X-Pm-Message-ID: f2583886a52e5b187f5cc1f9705cc2b546cffb38
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,182 +64,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Hi Pavel,
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+On Sunday, November 22nd, 2026 at 10:51 AM, Pavel Skripkin <paskripkin@gmai=
+l.com> wrote:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> Hi Alexandre,
+>=20
+> Alexandre Becholey <alex@becholey.ch> says:
+> > mcba_urb_unlink() frees the RX buffers but leaves the stale pointers in
+> > priv->rxbuf[]. It runs from both mcba_usb_close() and
+> > mcba_usb_disconnect(), so once the interface has been up, the buffers
+> > are freed twice: on unplug after "ip link set can0 down", on unplug
+> > while can0 is up, or on a second up/down cycle. No special device
+> > behaviour is needed; on a host controller without DMA the double
+> > usb_free_coherent() is a double kfree().
+> >
+>=20
+> Sounds reasonable.
+>=20
+> I wonder, tho, did you test on real HW or used emulated one via usb gadge=
+ts?
 
-- [Medium] The four new negative tests in tools/testing/selftests/tc-
-  testing/tc-tests/actions/gate.json (2c35, 92b8, 8265 and 5c47) re-run…
-- [Medium] Tests 92b8 and 8265 in gate.json pass the decimal string
-  9223372036854775808 (2^63) as base-time and cycle-time, and expect the…
-- [Low] The boundary tests 7d1f and 9f10 in gate.json add a gate action
-  with base-time and cycle-time 9223372036854775807 (KTIME_MAX).
+Emulated on a raw-gadget program on dummy_hcd that behaves like the
+adapter. I don't have a real hardware to test with.
 
---
+>=20
+> What caught my eye is that mcba_usb_open() never reallocates URBs closed
+> in mcba_usb_close(). So I'd expect device to not work properly after
+> second "ip link set can0 up".
 
-selftests: tc-testing: act_gate: cover the new cycle time and interval limits
+Indeed "still works" only meant that the second "ip link set can0 up"
+succeeds. After down/up the adapter no longer receives. It seems that
+has been the case since the driver was added (51f3baad7de9) and this
+patch does not change it.
 
-This adds seven tdc test cases for the gate action. They cover the new
-KTIME_MAX bound on base-time and cycle-time and the 10 us minimum schedule
-entry interval. The negative cases re-run the failing command and match the
-error text that tc prints.
+>=20
+> Maybe it shouldn't close them at the first place?
 
-> diff --git a/tools/testing/selftests/tc-testing/tc-tests/actions/gate.json b/tools/testing/selftests/tc-testing/tc-tests/actions/gate.json
-> index db645c22ad7be..1c910e07c41c9 100644
-> --- a/tools/testing/selftests/tc-testing/tc-tests/actions/gate.json
-> +++ b/tools/testing/selftests/tc-testing/tc-tests/actions/gate.json
-> @@ -347,5 +347,194 @@
+That would fix both: if mcba_usb_close() only kills the TX URBs, the
+RX URBs keep running across down/up, as they already do before the
+first up, and mcba_usb_disconnect() becomes the only place that frees
+the RX buffers, so the double free goes away as well. The other way is
+to set up RX in mcba_usb_open() and free it in mcba_usb_close() only.
+However, the firmware version requests sent at probe rely on RX running.
 
-[ ... ]
+Would you prefer a v2 that keeps the RX URBs running in close (fixing
+both issues), or this minimal fix for stable and the RX restart as a
+separate patch?
 
-> +    {
-> +        "id": "2c35",
-> +        "name": "Reject gate action with a schedule entry below the minimum interval",
+>=20
+>  > Clear each rxbuf[] pointer after freeing it, which makes the
+> function> safe to call twice again, as it was before commit 91c02557174b
+> ("can:
+> > mcba_usb: fix memory leak in mcba_usb").
+> >
+> > The bug was found, and the reproducer and this fix were written, by AI
+> > agents (Claude Mythos and Claude Opus models). The analysis and the
+> > patch were reviewed by a human.
+> >
+> > Fixes: 91c02557174b ("can: mcba_usb: fix memory leak in mcba_usb")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Alexandre Becholey <alex@becholey.ch>
+> > ---
+> > An emulated adapter on dummy_hcd: "ip link set can0 up/down", then
+> > unplug, gives a KASAN double-free in hcd_buffer_free() on v7.3.1 and
+> > master 9d66f26fefac; the two other sequences as well. All clean with
+> > the fix, and a second "ip link set up" still works.
+> > Reproducer available on request.
+> >
+> >   drivers/net/can/usb/mcba_usb.c | 4 +++-
+> >   1 file changed, 3 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/net/can/usb/mcba_usb.c b/drivers/net/can/usb/mcba_=
+usb.c
+> > index 04170326dc7e..b40b323da9d3 100644
+> > --- a/drivers/net/can/usb/mcba_usb.c
+> > +++ b/drivers/net/can/usb/mcba_usb.c
+> > @@ -718,9 +718,11 @@ static void mcba_urb_unlink(struct mcba_priv *priv=
+)
+> >
+> >   =09usb_kill_anchored_urbs(&priv->rx_submitted);
+> >
+> > -=09for (i =3D 0; i < MCBA_MAX_RX_URBS; ++i)
+> > +=09for (i =3D 0; i < MCBA_MAX_RX_URBS; ++i) {
+> >   =09=09usb_free_coherent(priv->udev, MCBA_USB_RX_BUFF_SIZE,
+> >   =09=09=09=09  priv->rxbuf[i], priv->rxbuf_dma[i]);
+> > +=09=09priv->rxbuf[i] =3D NULL;
+> > +=09}
+> >
+> >   =09usb_kill_anchored_urbs(&priv->tx_submitted);
+> >   }
+>=20
+>=20
+> With regards,
+> Pavel Skripkin
+>=20
 
-[ ... ]
-
-> +        "cmdUnderTest": "$TC action add action gate sched-entry close 9999ns index 100",
-> +        "expExitCode": "255",
-> +        "verifyCmd": "$TC action add action gate sched-entry close 9999ns index 100 2>&1",
-> +        "matchPattern": "RTNETLINK answers: Invalid argument",
-
-[Severity: Medium]
-Will this pattern match when tc is built with libmnl?
-
-On this path, fill_gate_entry() in net/sched/act_gate.c sets an extack
-message before it fails:
-
-    NL_SET_ERR_MSG_FMT(extack, "Entry interval must be at least %u ns",
-                       GATE_MIN_INTERVAL_NSEC);
-    return -EINVAL;
-
-The extack pointer is passed down unchanged:
-
-    tc_ctl_action()->tcf_action_add()->tcf_action_init()->
-        tcf_action_init_1()->tcf_gate_init()
-
-A tc linked against libmnl prints "Error: Entry interval must be at least
-10000 ns." and does not print the "RTNETLINK answers: ..." line. The
-matchPattern would then find zero matches, but matchCount requires one.
-
-The same applies to 92b8, 8265 and 5c47. Those values fail the
-NLA_POLICY_FULL_RANGE(NLA_U64, &gate_time_range) check in gate_policy
-during nla_parse_nested() in tcf_gate_init(). That check sets the "integer
-out of range" extack, so tc prints "Error: integer out of range."
-instead.
-
-tools/testing/selftests/net/bpf_offload.py already expects tc to print the
-"Error: ..." form, and warns "libmnl missing?" when it is absent.
-
-With a tc built without libmnl the patterns do match. But the strerror text
-matches any -EINVAL or -ERANGE, so it can't show that the 10 us floor or
-the KTIME_MAX bound caused the refusal.
-
-The commit message says:
-
-    tc does not pass the action path's extended acknowledgment back to the
-    caller, so the negative cases re-run the failing command and match the
-    kernel's own error text instead of relying on the exit code alone.
-
-Is this accurate? The text matched here is iproute2's strerror output, and
-the kernel does deliver the extack on this path.
-
-Would it work better to match the kernel strings ("Entry interval must be
-at least 10000 ns", "integer out of range"), or to use a regex that accepts
-both output forms?
-
-[ ... ]
-
-> +    {
-> +        "id": "92b8",
-> +        "name": "Reject gate action with a base time above S64_MAX",
-
-[ ... ]
-
-> +        "cmdUnderTest": "$TC action add action gate base-time 9223372036854775808 sched-entry close 10000ns index 200",
-
-[Severity: Medium]
-Does 2^63 reach the kernel as 0x8000000000000000 on every architecture?
-
-In iproute2, get_s64() fails with ERANGE for this string, so tc falls back
-to get_time64(). That function parses the string with strtod() and assigns
-the double to an __s64. Converting 2^63 to int64 is undefined in C.
-
-On x86-64, cvttsd2si gives 0x8000000000000000, which is above KTIME_MAX,
-so the kernel refuses it.
-
-On arm64 (FCVTZS), and likewise on riscv, powerpc and s390, the conversion
-saturates to 0x7fffffffffffffff, which is exactly KTIME_MAX.
-
-The bound in gate_time_range in net/sched/act_gate.c is inclusive:
-
-    static const struct netlink_range_validation gate_time_range = {
-        .min = 0,
-        .max = KTIME_MAX,
-    };
-
-Tests 7d1f and 9f10 rely on KTIME_MAX being accepted. On those
-architectures, cmdUnderTest would exit 0 instead of 255. verifyCmd would
-then fail with EEXIST, not with the out of range error.
-
-The cycle-time value in 8265 has the same problem. 5c47 covers the
-base-time bound deterministically with -1. 8265 is the only refusal test
-for the cycle-time upper bound, so on non-x86 hosts that bound would go
-untested.
-
-The preceding commit, "net/sched: act_gate: bound the cycle time and start
-time arithmetic", already notes that iproute2 rewrites out of range values
-through strtod().
-
-Could 92b8 and 8265 fail on a correct kernel on arm64?
-
-[ ... ]
-
-> +    {
-> +        "id": "7d1f",
-> +        "name": "Add gate action with the maximum base time",
-
-[ ... ]
-
-> +        "cmdUnderTest": "$TC action add action gate base-time 9223372036854775807 sched-entry close 10000ns index 201",
-> +        "expExitCode": "0",
-> +        "verifyCmd": "$TC action get action gate index 201",
-> +        "matchPattern": "index 201",
-
-[Severity: Low]
-This isn't a bug, but should this check the stored base-time rather than
-only the index? The same question applies to "index 301" in 9f10.
-
-Other tests in this file check the read-back value, for example "base-time
-200s" in 7189, "cycle-time 200s" in a721 and "base-time 400s" in 3719.
-
-As written, 7d1f and 9f10 would still pass if the kernel clamped, zeroed or
-replaced the value. For example, tcf_gate_init() replaces a cycle-time of
-0 with the cycle derived from the entries.
-
-The commit message says:
-
-    An entry interval of exactly 10000 ns installs and reads back with the
-    interval it was given, and so do a base time and a cycle time of exactly
-    KTIME_MAX.
-
-It also claims coverage of "both ends of the cycle time range". Only the
-upper bound is tested. An explicit cycle-time 0, which the preceding commit
-keeps valid as "derive from entries", is not covered.
-
-Similarly, c873 matches "interval 10us". tc prints intervals with %.3g
-scaling, so any stored interval from 10000 to about 10049 ns gives the
-same text. The test can't confirm that exactly 10000 ns was stored.
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/ACT-WEXM.v4.r0.20261124074514%40mojatatu.com
+Kind regards,
+Alexandre
