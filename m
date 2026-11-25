@@ -1,49 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625902;
-	b=auOpG2R93SyW4A9XecNvXQyNXNXyTMf9ej2LYHwBk7QDs9jaoveA9mJcOrcPRJcXJ2aq
-	 PwCFztUcwhfC3Q7Zk0Laidf4nfoMnwxNOVWNCAM2a/E8dJ8K8rnSw8Qpc0/2XCFRXHHHt
-	 BXu1NV+HRzhOvv9cp2ZIW2pSi19Uh6wWekvsgi5qXva/+wgPGsoOmJbsPv+xcanVmR46X
-	 QVfwSCTlNu/yeW0OS+xqZL9FVavgWk5vVFDM9vrkEAyxTmnt7EIos8RbDdHTnvhpjR95S
-	 FWWXDc2buHhOByXCesKbcxq3ch/ReWWBXt1QfKhLB+AMHHUN6mOTSXWxi9r08fv0V3A==
+	t=1795625905;
+	b=fa4ULLt0EoZo2ozbDW3qnadraahkqlJZh05h6TeOK2K0JSvENUcmjQPJCJj2h3Ge1u3o
+	 OT1nVqLfXBObHwKCqLBJQ5W8ZjxLbQ2LxmIP1Yjkw+Pc94A+GCT8L/u86r5DeDQsf2F3v
+	 NXotUvaUV1pOMItLpsmdtspxl5NMZotG5rGjHkDiOjiqbV2qjmYMEJ+lYBkXV0YblNTvk
+	 hELq/8oj2a4eST/jnlKqruwPi54hClLwoWZ79qIX/+8AtkhhGL90L6k/fKXrX+NY3KpeF
+	 iw+SQ4CFHNyHregZ3/FkHdIfndIFuVzJQ8C5SpezXduRegtXmwgK+LX2eL7lOVOoVZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625902;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=VeaRMJr5MeN6pZeuCdvkhBSCAsTmvP8phUZZr3zTlcE=;
-	b=ms7YeVJNgnLao9FeUng//8QZZ7Tpp6L+4L6ww6raFV/PkaUE46cfpfbhgrMOneoXAfJQ
-	 Yj8vHl1M1srZRxoloawBA3bMU7nfuBCYnKAZQMmOBfj05NHJ7gbrsfvpX5gREMlRr9N9D
-	 IRdT6h5a2NI47oTH9xk4u3lcfpeJRzcdo+3GdP/jzGO0ezW544smGisr5nseUQhO0m7PE
-	 MiGKqy6PFEe007+kv4LbC8jyAR+dSBjqvsV31mLyAp8WICXvQ9O1LEmtZ0pqWfQtWjZ7q
-	 I9MB9BVLgBQgmBx+eThmzTgJEheGnNC1cDyI9PKpgUVFjSxTb2OaiLBt+9IjXDD+4tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625905;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=sjO46Oco2SiTdkrN01zb78+GygnoXD01GDdcJUeB0tE=;
+	b=KsxSNCQtpgV0ol0sWhCTugeZWBFH4JOwmsGxIaLnyCYUshFmOYZ1XaRYk/m+sTBfgFER
+	 Pe710LkPOpgr8Kp9bd/qngcKqE67vo8lgsBke6t0KoPLTvYuHmtMaFRsZBaL/OyeyaIY2
+	 G1BbTLMRUQ3dNiQgtCnW/6cDAZmZJb/wL976trzptUnyxZp99FJDyXKNu4NTeBYvHsBBj
+	 cfBkKgVn+/iOBKXiDGIhys4+wLVcLcGHGNI5UQqGucLCr5vYMw5ZgKnU2wP0XsfEqWPMn
+	 Vuwd7GY2MBi3NQgFsRRCLmiHsUdbGMETe4QhRLDNfdAm/hJECPidiFrZNBmlirpfeug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=U9s78iQ4;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B167B606A33C;
-	Wed, 25 Nov 2026 16:58:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B167B606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XgHx1zI3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB2B606A31E;
+	Wed, 25 Nov 2026 16:58:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=U9s78iQ4
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 072B62F;
-	Wed, 25 Nov 2026 08:58:18 -0800 (PST)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 214143F632;
-	Wed, 25 Nov 2026 08:58:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795625900; bh=Szbs47AGBw7DAENnZv9Xsgc+H6POhcnLH+71i5NxoB8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=U9s78iQ4n5uVP9leVJ/aLlJnv5O67E7SgX8wHk7l9krSm6na71RnT7vG/K4WebKA/
-	 cUdz6A3SDQ/wGcSetyhDMobLFDeJtJPuTeUurN9+hdufIk56Ghfs1isogtR2R6zI8X
-	 h16BVxJAFr0x8yRI1VaxGhezjyX0wO2QT8rktMcs=
-Message-ID: <9ca5ad64-f884-4741-adbc-a54677fb426f@arm.com>
-Date: Wed, 25 Nov 2026 16:58:18 +0000
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XgHx1zI3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 058861F000C0;
+	Wed, 25 Nov 2026 16:58:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795625904;
+	bh=sjO46Oco2SiTdkrN01zb78+GygnoXD01GDdcJUeB0tE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XgHx1zI3HnmkRpsWo3psNjUA5+UaShdjWcrPynAVprA64xR5fttoVjWmezJjC+dlm
+	 NAJHRJkWxl/X/JKxdFwSTJOSglPFXu1Phiry2fLwzZBhuW3FkuxzRKtBdYZmLB/IUi
+	 GzcSh98oC1Fy01mb8IC177xBX5tS6fd9/kfHAt2E=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Zhao Li <enderaoelyther@gmail.com>,
+	Johannes Berg <johannes.berg@intel.com>
+Subject: [PATCH 6.12 669/816] wifi: mac80211: restore dormant links when link updates fail
+Date: Wed, 25 Nov 2026 15:36:57 +0100
+Message-ID: <20261125143904.662822265@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,84 +61,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] perf/arm-cmn: Use at least 2 bits per XP coordinate in
- node IDs
-To: schouleur@snap.com, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261125-arm-cmn-xyidbits-v1-1-6f7bee891859@snap.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261125-arm-cmn-xyidbits-v1-1-6f7bee891859@snap.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 25/11/2026 4:15 pm, Sylvain Chouleur via B4 Relay wrote:
-> From: Sylvain Chouleur <schouleur@snap.com>
-> 
-> The X and Y coordinates in a CMN/CI-700 node ID are encoded in 2 bits
-> each for any mesh up to 4x4 (7-bit node IDs), and in 3 bits each for
-> larger meshes (9-bit node IDs). The width does not shrink for smaller
-> meshes: a 2x2 mesh still uses 2 bits per coordinate.
-> 
-> arm_cmn_xyidbits() derives the width from the actual mesh dimensions,
-> which yields 1 bit for a mesh with both dimensions <= 2. On such a
-> mesh arm_cmn_node_to_xp() then decodes every device on the X=1 column
-> into the wrong XP: X=1,Y=0 devices are attributed to XP (0,1), and
-> X=1,Y=1 devices to an index past the end of the XP array. Their PMU
-> events end up programmed into another XP's DTM, with the port/device
-> select of the intended XP, so the counters silently read zero while
-> the rest of the mesh works.
-> 
-> Observed on a CI-700 r3 with a 2x2 mesh (part 0x43a), where the SBSX
-> and HN-D nodes on the X=1 column never counted although the XP flit
-> counters showed the traffic. Forcing a minimum of 2 coordinate bits
-> matches the documented node ID format and makes all nodes count;
-> the minimum had been there until the node ID refactor dropped it.
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-Oof, I guess it had slipped my mind that 2x2 configs are legal, but then 
-come to think of it, for CI-700 I think 2x1 and 1x2 aren't illegal 
-either. As far as I can remember there wasn't any reason for dropping 
-the "| 2" term other than thinking it was a simplification we could get 
-away with. Oops :(
+------------------
 
-FWIW I also can't see that it matters to go back to reporting 2 bits 
-instead of 1 for 1x1 configs, where the "correct" value is arguably 0 
-anyway.
+From: Zhao Li <enderaoelyther@gmail.com>
 
-Reviewed-by: Robin Murphy <robin.murphy@arm.com>
+commit bb22f3b2d8f8a2f883944f24678cf84e18b162e8 upstream.
 
-> Fixes: e79634b53e39 ("perf/arm-cmn: Refactor node ID handling. Again.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sylvain Chouleur <schouleur@snap.com>
-> ---
->   drivers/perf/arm-cmn.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/perf/arm-cmn.c b/drivers/perf/arm-cmn.c
-> index 68a096c1fe6b..5f369c7a7a35 100644
-> --- a/drivers/perf/arm-cmn.c
-> +++ b/drivers/perf/arm-cmn.c
-> @@ -406,7 +406,8 @@ struct arm_cmn_nodeid {
->   
->   static int arm_cmn_xyidbits(const struct arm_cmn *cmn)
->   {
-> -	return fls((cmn->mesh_x - 1) | (cmn->mesh_y - 1));
-> +	/* Node IDs never use fewer than 2 bits per XP coordinate */
-> +	return fls((cmn->mesh_x - 1) | (cmn->mesh_y - 1) | 2);
->   }
->   
->   static struct arm_cmn_nodeid arm_cmn_nid(const struct arm_cmn_node *dn)
-> 
-> ---
-> base-commit: 4dce97c6c265544342e716e62fd24bbb232590c5
-> change-id: 20261125-arm-cmn-xyidbits-16076edf28a2
-> 
-> Best regards,
-> --
-> Sylvain Chouleur <schouleur@snap.com>
-> 
-> 
+A failed MLO link update can leave the interface with the requested
+dormant-links bitmap instead of its previous one. This can disable active
+links or trigger a bitmap warning during rollback.
+
+The error path restores the old valid-links bitmap but passes the new
+dormant_links argument to ieee80211_set_vif_links_bitmaps().
+
+Save the old dormant bitmap before changing link state and use it when
+restoring the old configuration.
+
+LLM assistance was used to find the bug and review.
+
+Fixes: 6d543b34dbcf ("wifi: mac80211: Support disabled links during association")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Link: https://patch.msgid.link/20261028142123.13072-1-enderaoelyther@gmail.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ net/mac80211/link.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+--- a/net/mac80211/link.c
++++ b/net/mac80211/link.c
+@@ -281,6 +281,7 @@ static int ieee80211_vif_update_links(st
+ {
+ 	u16 old_links = sdata->vif.valid_links;
+ 	u16 old_active = sdata->vif.active_links;
++	u16 old_dormant = sdata->vif.dormant_links;
+ 	unsigned long add = new_links & ~old_links;
+ 	unsigned long rem = old_links & ~new_links;
+ 	unsigned int link_id;
+@@ -385,7 +386,7 @@ static int ieee80211_vif_update_links(st
+ 		/* restore config */
+ 		memcpy(sdata->link, old_data, sizeof(old_data));
+ 		memcpy(sdata->vif.link_conf, old, sizeof(old));
+-		ieee80211_set_vif_links_bitmaps(sdata, old_links, dormant_links);
++		ieee80211_set_vif_links_bitmaps(sdata, old_links, old_dormant);
+ 		/* drain RCU readers before cancelling work they may queue */
+ 		synchronize_rcu();
+ 		for_each_set_bit(link_id, &add, IEEE80211_MLD_MAX_NUM_LINKS) {
+
 
