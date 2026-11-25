@@ -1,89 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795609031;
-	b=UvwdnCH49+jHgNeoo19QLrNHgaEPN+1Ux1pJOXg5oxuYaqaVfWcFA20CfFgwaaFAhln5
-	 6bkliplWfSfemTlUYuvkp994cMGoj0dZT3MvSmkyUKwHvndhUnvuRk+RfVgJ78RoJ1MsN
-	 FlYO1WOgl2NXWID8fbQhuEFvuS4Tq7ZurzqCHVA2U7Q5eO5kjG6eIA01UHaEJ7thEKxi2
-	 jz/TVo32myVWrCkH8LrB+LSnBVc95zwT3zvV1udjCq1IJOjZowZ/37mrw0yTuPz25R9Hs
-	 EpXzDMdqbqagcPeCA8FDJA4NVyWfN2MHKdiKb/Xj6ONRzdi7LcXg6lLb2YXlLxI0Nkg==
+	t=1795609306;
+	b=DoRS3giEt3aoKAz6QQcV1X4Zhb9K+bU0cWg3Ck8IaIOeKrw8wAvAKx6I5cFHqkmuStEv
+	 Z2GHDa3HVqhsEZi0iUrd0wlN2tN66DWO9Dmc7PgCZYzQSlUasvqnA38vD66tEC4t4v7f5
+	 VTT5P4BTC6CIMqjT0cWDY6LhuGMVSobHWtUGxo4SXGZkzsMto2TLCbzfQ8fDFHCd0VJGV
+	 xV6AFP9+/7zTooK/Z9ZkhO4BNVfElOZQvIlAWPidSKNkYzPRE3+0kBHJygQccD58zn0JX
+	 RHTZHe2ZGqr8qx5USWidx0wzFJKW+gEaQumdZCz+KHik4H0NNgVNrWY/yoLNKOx00WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795609031;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795609306;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=ANnF4gP22dTclfpg2OY2BM2KOhGsixC07z+vMijIrP0=;
-	b=FgoeBxo4DVSOOdrLAlnRLB+wrx/KUeFzDOtaD3UYZJUv1tK/VDHAKsGMrwKdcqzuXl+V
-	 0IGrWdUfoRHc7QGLIvhZBxt1Xrdf0psus8B/eL1l1mVAbtVblyp6nOVOe9cj99JwdQbPu
-	 6Lscztptpl16Y7peY3+tGkCXcW2NuJ+p8GeksPWAi65goC3EG+HgcGYBrzURx4CXvbcbt
-	 v3th0NvN0HiEiNlvX9ZtHKvXK/HzlIAQpyoCoNQ+WAvGMEdIsHln0kEiXkNK9rAYa8TLl
-	 InP+ORwQK/6qVQTgKWemmlPUi+Zb4p97Q+XQH0d6Xh7EkWLB3E9iy2Zco35O1fnOHtQ==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=MA+Kx+uKQP6OM3muhrQQ7gMLzt5UOS5UjDB/PUfvv7E=;
+	b=D6zrMST+ucysbQiX7chbs26VJrLIMvTGuLDyvSCiPgOfLlfnpWSYbOy0bgkm+MrUkJY6
+	 dbdXjqZ9rhduL1Prlh246kaxBJbBJ1SHSEdJgrtZGxciCaaJuM3/DMv0Rv4G9pMnRbj+F
+	 YeFdkjcgbRluBKSQqYsUm6ARpnsUyMcuuqstERR/Z0C2+v6IVGqRAUwHIuYe6wsbJUdtX
+	 vXROmKruidx+pzWcVUaC1NjzfS8q/wARr3AyjKF3OAw6lkCgTnndIi1xrlzowi4a8ltTT
+	 bA7MYW/tFyJrgPSRoTwloh1vCPXxGibCJ/2ok43GFElwo1AEP13/VLiEqJehkhQtCaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=DUnj++9s;
-	arc=none smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SQ7tVrvg;
+	arc=none smtp.remote-ip=209.85.210.180
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35364606A33E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:17:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35364606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5A6606A68B
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:21:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A5A6606A68B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=DUnj++9s
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c505b2e1cb9so1051156066b.2
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 04:17:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SQ7tVrvg
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8b2382bf051so3091904b3a.3
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 04:21:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795609030; x=1796213830; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1795609305; x=1796214105; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ANnF4gP22dTclfpg2OY2BM2KOhGsixC07z+vMijIrP0=;
-        b=DUnj++9s5XG2hscZEnhIQe5wBPFC/lhit/pJtQMaaR/NbGITGGbmFb/JlVpMcv2cyi
-         /NFfzBXdGbCpLZViRyxBo/NzYka8FVYon4Jptzfr6l8nZcci6ZJKnoTzu6sMEM+goBhV
-         cYWkO1+jNiKkTjjYNYa59a553sAn+4Gwdz8QxzcHRmMU5Bqz1P7NrH8thmndrOu+drhL
-         MG0ByFDLBgmRYXMixOnWj9KyopQJdW+DH9axs+P64O3pFR4yYKxUf6PgHa1dhxqSyPXn
-         T+qGnKeNFiLh3J6ucdD5d/xEATG1CsMCZItSIES6cpBzgoZ5SksqnVEag4vksPFd+kSe
-         CDHQ==
+        bh=MA+Kx+uKQP6OM3muhrQQ7gMLzt5UOS5UjDB/PUfvv7E=;
+        b=SQ7tVrvgLwEpKg/dLncg5k3nm1AW6DlK3MzIRxWHfEFYxIUSgU+pEFVBWmLtSqhRAf
+         cDNcL04vHuB2g4ruka7p3ZhQZ9RSTR13frc8ReyxZsKXO5hWNlkhMXqcTHgvEujwvDXE
+         B+IKebgDnatZc7R7okaBERbKSJ6Vm9G4tI0cRTRdcHKjFFI0BBcpPiU7Dv4YI/ybjRRH
+         xtvhYCNbjxhjup6G4BXDyWdIH5FuOqWdD+a1m4q4BUkw0FhQQWifbf4BYI2by48nO1K0
+         LIHoQ83IteO873Hcc+QgxDxjOu4s1a5qds2nmum2eQDph5GQHsZvmEN4yQXYliprzMq5
+         g+5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795609030; x=1796213830;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ANnF4gP22dTclfpg2OY2BM2KOhGsixC07z+vMijIrP0=;
-        b=p7EQelobixg4ZzIifFyFSg6S4HmPDsPylfYsHhrTT/64ydwOGsDu/OK+NRPwkI+zML
-         MdypUPGtt86Ggxe4c2Jfor8ttklk5KU6OrAAk6sUDcEN2IPEsZDCIUwF5pdWSlPDYU7h
-         NZ6noCajrNWy6yVVTJimLnsFHp2BypXBH+eR2hMJqnqYj55LPHlNB/VELvIUYi1cAgAW
-         Nx2AH4MCHKKN+iVXjlxRcd2+M8yahc6ZZtR3TazC/+7aiu3165n8CT3TevrZJjK+QE5S
-         TmO/b4BHTvtOw/IUOrtxXbgIvfl450Y5CJEOI1ZPEhk5EuEP/DEF29vUof73R7l4Vqdy
-         l/pA==
-X-Forwarded-Encrypted: i=1; AL+hErHueq3r8FvIT/bgm2Jgodt13XmzSbkNo+0NiMmBIaSxO9OI/Rd9WR1wJRLWvsW9fSWnMJ+pq4g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+TUe0cG8DERoo6Lgaa7yvWz3LCJH1L4qamCZi/OHdffahdb8Vq
-	7atM52IWPdP5y1f1Qtt00dz36HyGl+4p/t+Zy/GvCwQEYyxOzZhqYQe8UvQknUTSkPE=
-X-Gm-Gg: AZFdTZdWp3DUsEo7QfWNcy6WjYbnLM2aAeS89EO9Vy5bAXpNz3RR+j0Rf3YiomM2/QH
-	PZfxI80zrKKJiM8zX3d1rcrujNWML/tYqecRfHWRxiRUEf9Yi00rIP26Jo1+gDnEC1dj5KpSBeb
-	7Y5yB7miyGnoRLWykM6j9owIzZJFpWxL5DRrWqG+tvj3OOqCB/KeKKbFQdryyogWvKSHlMRWC44
-	NNO8jFni6PUmdcm9oOCSoL7lVS8knU5np3iXkh282kkhrnJl1Glpo3lO5KtFlrzCLDrqBcVgQ2p
-	CvKQm9UH5uiFxoWPJHLooarpVDtdqnEOvFigSIv/l3xmSrMR9Sqk0kzyF+eQs/sgcRoaxsycVGb
-	Loa/tWAKTV5aSA2MDrUBbXlhPy5TyaB6wr/h1441oBGJ4CAVD2Mizfc6Ijh7EaxyVpVqF7s7SdK
-	gYKGV+aNDLcwqBTQggjervkU+qIiXUvpQSG3frNsMIVkjwCigyddJCGaC/oWqtJGLyAyLyH3ps+
-	iVu8jM5cEffoVvWGZkCGenIFZaap3RbFhzR5xGnDhhOb5OW6qyAgr3mO8Wjh0HJCx+5DeaX/UuN
-	Dkla8SLgFxCGKRxMOPmdFQZvAr36HEB+HDuhBNQIC0m6H/QzYB3cc8gwllyFzAM66zwgrWBobbJ
-	HNKEnpEkoYA6CCiZxyg==
-X-Received: by 2002:a17:906:f8cf:b0:c50:bf14:8ec1 with SMTP id a640c23a62f3a-c513ab4d93emr1021800466b.33.1795609029664;
-        Wed, 25 Nov 2026 04:17:09 -0800 (PST)
-Received: from puffmais2.c.googlers.com (226.124.90.34.bc.googleusercontent.com. [34.90.124.226])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ad00d2asm650611966b.3.2026.11.25.04.17.09
+        d=1e100.net; s=20260707; t=1795609305; x=1796214105;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MA+Kx+uKQP6OM3muhrQQ7gMLzt5UOS5UjDB/PUfvv7E=;
+        b=PdbsA3a3eGEVwYxwi806petcL7Wa5n/+4+fG1oIkMEkAZpcflpNBrpvLLZNN+hqBfy
+         +buaMlmKdbnhqK7bw8ulF0SYjvL0MDG6GdEJtjPSjXDmZGhQk3D101FwvXr6V2DfAhMe
+         JuKLAke9kFJ8FzOGDNt0gUvaU5Dz4KGaHpzJ6U+Eh4UYROWl7Cj3NC9DR/DX/c0059t1
+         HUpRa+m3cIO6nPvvRmy6joC0/QjMLKE/VjEsvtWRNwDYkOl7VTHtlPcU0F9nL6180QDx
+         Dar2ckDcnHH0l5IHq9p7itdqN1Y/6ZjYRU2I2AKgr9uZwaaxvri9tGOu/UdvSwuLwipI
+         b2nQ==
+X-Forwarded-Encrypted: i=1; AL+hErEIs1R3A0qLxXXJ/R1AWJ8X61xOwvMGRN4JLbb9DBDYh/2i//mRglWw+jlecFeTZn7qeBEGI8s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/LbztIGnpVvASXSOPsR46Ag9ibXkApA/Qa8tvefnI3fzZ44YOj
+	ItA19K/HhuQ2G8jlYMtsoXiwfo5RmD7g9nD7LtgazxH9tjwzRT7OQFCU
+X-Gm-Gg: AZFdTZeCJBOK8EkUQ3uejQ/EA/SlYyt1iu5LNoAjAqu20JtuL+rwzy/9bzkmkLhhxil
+	1tFrR2rw69jY5l0M8XFipuotfh/7oQGhCYzlskMhyDcW+4S+gepFUNuClhgRkYLCCk+TRA9IyqJ
+	A/f1kU9rsW338jO3VnQZsvvzNRjoK676tibSO++PsMJJWieAeb4AxgRKTRy8YlHFTaB4q3TOkdJ
+	EmhXUHaTojw1Wvc2W8XEgJN/IwdGFCYhGJi4y+eCIsONX+LTUCyqZzTdl7iLh1Ry24LgPVaSTCY
+	MwMM/UucYae5dokMbSjE7frNzehR4DPtJunflXY2aZcTDa2Ya0YZC+k8e1GYOfBEQeTER5E/TjA
+	g89pJ2RciDr6wsIN+xr/p+EV3qpSe4Qk3X3xeVkHeFQ5OOsQPwejuBJu6nU+dL2jOLsSd7wUhw0
+	rHEos7wHUa1hbt9XRMGwRVu9TWLx0/itxwPpxZMRMBTiTrrtCbWQIgkySmnNR7I6Tw0epeIKMjF
+	S/z2O3lSq3WcVftk8za2wVr9nFLceBLb3Cy2oBrTrNN/PUyqDWzGWxploP444Xz+UR3fiIm8bIS
+	RAL8P7i6JBTORzHAGGHD1JkLHnJ1vgID6w==
+X-Received: by 2002:a05:6a00:2d8e:b0:869:9298:ba59 with SMTP id d2e1a72fcca58-8c876741225mr17478088b3a.0.1795609305329;
+        Wed, 25 Nov 2026 04:21:45 -0800 (PST)
+Received: from server225.. ([39.170.101.209])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87285c89dsm8688656b3a.13.2026.11.25.04.21.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 04:17:09 -0800 (PST)
-From: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Date: Wed, 25 Nov 2026 12:16:57 +0000
-Subject: [PATCH v2 3/4] usb: typec: tcpm/tcpci_maxim: fix vbus regulator
- UAF on unbind
+        Wed, 25 Nov 2026 04:21:44 -0800 (PST)
+From: Ping Li <leeonion.muyu@gmail.com>
+To: miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com
+Cc: linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Ping Li <leeonion.muyu@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v5 1/3] mtd: rawnand: intel: declare NAND_USES_DMA
+Date: Wed, 25 Nov 2026 20:21:33 +0800
+Message-Id: <20261125122135.44696-2-leeonion.muyu@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261125122135.44696-1-leeonion.muyu@gmail.com>
+References: <20261125115108.4147741-1-leeonion.muyu@gmail.com>
+ <20261125122135.44696-1-leeonion.muyu@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,104 +102,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261125-max77759-wait-v2-3-9914b985c00b@linaro.org>
-References: <20261125-max77759-wait-v2-0-9914b985c00b@linaro.org>
-In-Reply-To: <20261125-max77759-wait-v2-0-9914b985c00b@linaro.org>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Badhri Jagan Sridharan <badhri@google.com>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>, 
- Amit Sunil Dhamne <amitsd@google.com>, kernel-team@android.com, 
- linux-usb@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
 
-Unbinding the tcpci_maxim driver triggers a use-after-free in
-regulator_disable() if the driver has acquired the vbus regulator:
+ebu_nand_read_page_hwecc()/ebu_nand_write_page_hwecc() feed the
+page buffers provided by the NAND core straight to the DMA
+engine, but the driver never declares NAND_USES_DMA.  Because of
+this, nand_base cannot know the controller DMAs these buffers and
+never bounces non-linear-map ones (see the use_bounce_buf logic
+in nand_do_read_ops()/nand_do_write_ops()).
 
-    Unable to handle kernel paging request at virtual address
-    006b6b6b6b6b6bb7
-    pc : regulator_lock_recursive+0x20/0x218
-    lr : regulator_lock_dependent+0x198/0x2c0
-    Call trace:
-     regulator_lock_recursive+0x20/0x218 (P)
-     regulator_lock_dependent+0x198/0x2c0
-     regulator_disable+0x4c/0x100
-     max_tcpci_set_vbus+0x70/0x108 [tcpci_maxim]
-     tcpci_set_vbus+0x44/0x100 [tcpci]
-     tcpm_reset_port+0x13c/0x288 [tcpm]
-     tcpm_unregister_port+0x70/0x120 [tcpm]
-     tcpci_unregister_port+0x24/0x68 [tcpci]
-     max_tcpci_unregister_tcpci_port+0x18/0x30 [tcpci_maxim]
-     devm_action_release+0x1c/0x30
+Non-linear-map buffers are not hypothetical here: mtdblock's
+write cache is vmalloc'ed and UBIFS passes vmalloc'ed LPT buffers,
+so such buffers can reach the controller's DMA engine, for which
+they are not a valid dma_map_single() input.
 
-max_tcpci_set_vbus() obtains chip->vbus_reg lazily via
-devm_regulator_get_exclusive(). When the regulator is acquired after
-max_tcpci_probe() has queued max_tcpci_unregister_tcpci_port() with
-devm_add_action_or_reset(), devres releases resources in reverse order
-and frees the regulator handle before max_tcpci_unregister_tcpci_port()
-unregisters the port and max_tcpci_set_vbus() accesses chip->vbus_reg.
+Declare NAND_USES_DMA so that nand_base bounces non-linear-map
+buffers through chip->data_buf, as the other DMA-capable
+controllers (arasan, denali, meson, mtk, nuvoton...) already do.
 
-Switch to regulator_get_exclusive() and register a devres cleanup action
-for regulator_put() before tcpci_register_port(), so the port is
-unregistered and tcpm_reset_port() disables VBUS before the regulator
-handle is released.
-
-Fixes: 0c8935642cb0 ("usb: typec: tcpm/tcpci_maxim: deprecate WAR for setting charger mode")
+Fixes: 0b1039f016e8a ("mtd: rawnand: Add NAND controller support on Intel LGM SoC")
 Cc: stable@vger.kernel.org
-Signed-off-by: André Draszik <andre.draszik@linaro.org>
+Signed-off-by: Ping Li <leeonion.muyu@gmail.com>
 ---
- drivers/usb/typec/tcpm/tcpci_maxim_core.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ drivers/mtd/nand/raw/intel-nand-controller.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/usb/typec/tcpm/tcpci_maxim_core.c b/drivers/usb/typec/tcpm/tcpci_maxim_core.c
-index 2bb306b6b1f9..2e6a8906fb32 100644
---- a/drivers/usb/typec/tcpm/tcpci_maxim_core.c
-+++ b/drivers/usb/typec/tcpm/tcpci_maxim_core.c
-@@ -209,8 +209,7 @@ static void process_rx(struct max_tcpci_chip *chip, u16 status)
- static int get_vbus_regulator_handle(struct max_tcpci_chip *chip)
- {
- 	if (IS_ERR_OR_NULL(chip->vbus_reg)) {
--		chip->vbus_reg = devm_regulator_get_exclusive(chip->dev,
--							      "vbus");
-+		chip->vbus_reg = regulator_get_exclusive(chip->dev, "vbus");
- 		if (IS_ERR_OR_NULL(chip->vbus_reg)) {
- 			dev_err(chip->dev,
- 				"Failed to get vbus regulator handle\n");
-@@ -221,6 +220,14 @@ static int get_vbus_regulator_handle(struct max_tcpci_chip *chip)
- 	return 0;
- }
+diff --git a/drivers/mtd/nand/raw/intel-nand-controller.c b/drivers/mtd/nand/raw/intel-nand-controller.c
+index cfb4b231e067..1f493fb426d6 100644
+--- a/drivers/mtd/nand/raw/intel-nand-controller.c
++++ b/drivers/mtd/nand/raw/intel-nand-controller.c
+@@ -688,6 +688,7 @@ static int ebu_nand_probe(struct platform_device *pdev)
+ 	nand = &ebu_host->chip;
+ 	nand->controller = &ebu_host->controller;
+ 	nand->controller->ops = &ebu_nand_controller_ops;
++	nand->options |= NAND_USES_DMA;
  
-+static void max_tcpci_put_vbus_regulator(void *data)
-+{
-+	struct max_tcpci_chip *chip = data;
-+
-+	if (!IS_ERR_OR_NULL(chip->vbus_reg))
-+		regulator_put(chip->vbus_reg);
-+}
-+
- static int max_tcpci_set_vbus(struct tcpci *tcpci, struct tcpci_data *tdata, bool source, bool sink)
- {
- 	struct max_tcpci_chip *chip = tdata_to_max_tcpci(tdata);
-@@ -514,6 +521,11 @@ static int max_tcpci_probe(struct i2c_client *client)
- 	chip->data.cable_comm_capable = true;
- 	chip->data.attempt_vconn_swap_discovery = max_tcpci_attempt_vconn_swap_discovery;
- 
-+	ret = devm_add_action_or_reset(&client->dev,
-+				       max_tcpci_put_vbus_regulator, chip);
-+	if (ret)
-+		return ret;
-+
- 	max_tcpci_init_regs(chip);
- 	chip->tcpci = tcpci_register_port(chip->dev, &chip->data);
- 	if (IS_ERR(chip->tcpci))
-
+ 	/* Scan to find existence of the device */
+ 	ret = nand_scan(&ebu_host->chip, 1);
 -- 
-2.56.1.831.g720f3f5937-goog
+2.34.1
 
