@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795624160;
-	b=J7W3U7p8y15gdPbhnXmUUiBBYq6BhFwUEOA5uNOxkdzjacSAhtr3jYWYIK/4WumBQK2q
-	 QvthEdPTA75GQOBKUS6yyBOH/T2UFdvd/s1XFra6aoMCuTFfk/uwwXfkZpl5Vf3/pcNEh
-	 YUhld4nEBpRh6xODGVyq746vqjlr55BQbdWLUv0VQLrOkXarTpWndpicsTctg5JmFOYox
-	 ofaCbsAZCGJ1uDLmk66ujGlL85uBHq63OyN4F9wTdDY8r/UflsdfdsHnTNvZgjYn7kDwF
-	 n9Kp+/WDTDvPvXBlo1QgwBXzELGzr9Y8GnJVLGNJ4d0RjR2nNyhZnrYf2faNQNQFz6A==
+	t=1795624162;
+	b=h6d3/Jg2DEg+t7G47QyNOJ5pGiik/SDqobTnCG3daeVb6DqwjbtOveHLo3KCT9ih7ZrN
+	 Y1hL7K7rY5OIiFvFBABpQbNTBjtZohO1pqa5SKSw0wa/L2iRRJvACinNk4sQLwm9IAp7d
+	 oDM0915tmPAyTXBF5VkaBg0zcfFtBFARTIoyE8Zv9JsNwMFlX5qNiNSOiKEpOYcas3El6
+	 +MTa3O+VKN9cWgQmJo4ujyDEsT2OOeCWYR4HLVAV56eLqE+AGqDGxMsBpY5zc+u3EVKfL
+	 9F3uURXzmOOTt0bqWw4ix8N9gj9B6oW9D6dDBXSxUYwUYNY4IBZynPzIC4DXwszzZRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795624160;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=LbsUpdb9pWQh7PfzRKAqXJRi8c1asDo6SCfQDDTODHg=;
-	b=xqv3UQbTZ0YfHJ9c+OjB77IhvFqgQz+zn1myaWnAnjktM1C19oU+5w+22BRQiLgFzCzC
-	 rpAzg9dVLKSWdlV7ayvuKLnrW0vYlPuKTMyGFUxLsacrs1/C+vGKUWHetccK3qZspQ4w3
-	 OiJqeIhqLE1fn5uQYYghY3538SDjO/IZct3yPwPxwOBNjIg8zldJNB1ZH8jSWIYDfppXi
-	 v+P1IiagLGErY+Ls2uJaE+qsmSsZfLitLJpC1WZh/MZA2zsKIl1gVfyv43IBv5ljGGWPx
-	 pa7xkYw2dxz+3aRGXYKRezEzkSdRUh3zXpyFDRibshb2DY/fVGYpTAGHn+a4Jnk2FbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795624162;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=ZrosOMGIOcHHN3BqdFDa4C8cbxplNSyD3akiBcmH7gY=;
+	b=z3faQrsvWOJuopY6+otFc/LrzwkBqetnx7MPQSAF79ueiQofkhV57t/qyTQezxmH1c3/
+	 1U+a6GLkf6UKTG/S+n1vfL9KwwgQ6MYM+Ap1MAHWF1Qzkp6CTDKYSFAl5so6zIVq2zDqL
+	 f5fRqwkrX+odddWbi2gg1bpHTwtpketk+RvqO8yMXoD0MEcuyAd75LKwKFQa3jAh8hsJD
+	 gG1IIsSEEZzruGLOIQfMEdUJmXndpK9w0OFRk0AFI7/Joa4MsbhWT56STmD/THpCPMxiK
+	 cEHS3Q5j+27CgygWXSviojSixGHZAJPSbMEp0DNhZFxSeOHodi7QP1dliBzi0aLqcjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=n2DLYED9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MFVW7YqN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00FD8606A31E;
-	Wed, 25 Nov 2026 16:29:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46067606A321;
+	Wed, 25 Nov 2026 16:29:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=n2DLYED9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE60F1F000D3;
-	Wed, 25 Nov 2026 16:29:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795624159;
-	bh=LbsUpdb9pWQh7PfzRKAqXJRi8c1asDo6SCfQDDTODHg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n2DLYED9/KU4+BPFXauhltUmD+QyVP5y2tKHDn1g98PH6e+zP+W3YKIJgigsWJJf9
-	 E8O1Y/UByyHZtwqFMG1SiBJW4MnLDD0jVdFXdpwDnoP00aEc5zXmpd3JHelSI7SqKh
-	 cEgPi6NJ88mAlLRBy7cm3jNkrKW1XjS7UGMWZcCc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Alexei Starovoitov <ast@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 104/816] bpf: Dont look for the SRH again in the End.BPF helpers
-Date: Wed, 25 Nov 2026 15:27:32 +0100
-Message-ID: <20261125143851.622493454@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
-References: <20261125143849.205329330@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MFVW7YqN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EBCA1F000F2;
+	Wed, 25 Nov 2026 16:29:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795624161;
+	bh=ZrosOMGIOcHHN3BqdFDa4C8cbxplNSyD3akiBcmH7gY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MFVW7YqNlbU9Exr6tC9CWOwHhJ/X1XuwjGHUaFTmtLBLQs/aLGIznC1lpbaJr51lB
+	 OrVjW15pnRmqnVSe6gGEtv/D2wPnWLuyun9cgt9xpJiY4wf7Zja+/UfaxDWfHvQ1wx
+	 xwCi5hhZAENQP9854cDHA8vvs+oGaQkpuLNRpRNRGCqSuVcN9HXPHRB8fz3U95xvV7
+	 PAMGe+AIHWY+c8xZp6OFFyi1yt+I/bTOohayY+wQc5798C0amqAvHLH3KE7vepSTtY
+	 S6dEgyD7uCLyAZqmKTfSbMJPY16EsH7pHf9Xo7Wfih70qH1f56gXM6L0X/hHQFC9da
+	 nP8nvZqw2aIUw==
+Date: Wed, 25 Nov 2026 16:29:17 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Bradley Morgan <bradley.morgan@linux.dev>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] arm64/fpsimd: signal: Require ZA context when
+ restoring ZT context
+Message-ID: <63d23d7a-da2f-431c-81cb-1509670fa8ab@sirena.org.uk>
+References: <20261110221836.3265929-1-bradley.morgan@linux.dev>
+ <20261110221836.3265929-2-bradley.morgan@linux.dev>
+ <ee1998f2-69dc-419a-b388-dd4e08cc68d6@sirena.org.uk>
+ <a5b278b7-9e9e-43d0-9fcb-a937d3e2a0b5@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,100 +63,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-6.12-stable review patch.  If anyone has any objections, please let me know.
-
-------------------
-
-From: Alexei Starovoitov <ast@kernel.org>
-
-[ Upstream commit 45bcc58d576705d2c001332766e10313f1c55bad ]
-
-A packet can have two SRHs. Thus input_action_end_bpf() uses
-IP6_FH_F_SKIP_RH to skip routing headers with segments_left 0. The helpers
-bpf_lwt_seg6_store_bytes() and bpf_lwt_seg6_adjust_srh() can reallocate the
-head of the skb. Thus they look for the SRH again, but without this flag.
-
-  +------------------------+ <- the helpers: srh_state->srh
-  | SRH 1, segments_left 0 |
-  +------------------------+ <- input_action_end_bpf(): srh_state->srh
-  | SRH 2                  |    and srh_state->hdrlen
-  +------------------------+
-
-Then the helpers check offset against the wrong limits. If a helper changes
-TLVs, seg6_bpf_has_valid_srh() writes the length of SRH 2 to SRH 1.
-
-Neither helper changes the offset of the SRH from skb->data. Calculate the
-new address from this offset. To add IP6_FH_F_SKIP_RH is not sufficient,
-because advance_nextseg() can set segments_left of SRH 2 to 0. The helper
-bpf_lwt_seg6_action() can change the headers and still looks for the SRH.
-
-Fixes: fbbc5bc2ab8c ("seg6: ignore routing header with segments left equal to 0")
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Link: https://patch.msgid.link/20261101190535.1454146-20-alexei.starovoitov@gmail.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/core/filter.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/net/core/filter.c b/net/core/filter.c
-index e4930cd595350..59db81c2438ba 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -6621,12 +6621,13 @@ BPF_CALL_4(bpf_lwt_seg6_store_bytes, struct sk_buff *, skb, u32, offset,
- 		this_cpu_ptr(&seg6_bpf_srh_states);
- 	struct ipv6_sr_hdr *srh = srh_state->srh;
- 	void *srh_tlvs, *srh_end, *ptr;
--	int srhoff = 0;
-+	int srhoff;
- 
- 	lockdep_assert_held(&srh_state->bh_lock);
- 	if (srh == NULL)
- 		return -EINVAL;
- 
-+	srhoff = (unsigned char *)srh - skb->data;
- 	srh_tlvs = (void *)((char *)srh + ((srh->first_segment + 1) << 4));
- 	srh_end = (void *)((char *)srh + sizeof(*srh) + srh_state->hdrlen);
- 
-@@ -6639,8 +6640,7 @@ BPF_CALL_4(bpf_lwt_seg6_store_bytes, struct sk_buff *, skb, u32, offset,
- 
- 	if (unlikely(bpf_try_make_writable(skb, offset + len)))
- 		return -EFAULT;
--	if (ipv6_find_hdr(skb, &srhoff, IPPROTO_ROUTING, NULL, NULL) < 0)
--		return -EINVAL;
-+	/* The head may have moved. */
- 	srh_state->srh = (struct ipv6_sr_hdr *)(skb->data + srhoff);
- 
- 	memcpy(skb->data + offset, from, len);
-@@ -6759,13 +6759,14 @@ BPF_CALL_3(bpf_lwt_seg6_adjust_srh, struct sk_buff *, skb, u32, offset,
- 	struct ipv6_sr_hdr *srh = srh_state->srh;
- 	void *srh_end, *srh_tlvs, *ptr;
- 	struct ipv6hdr *hdr;
--	int srhoff = 0;
-+	int srhoff;
- 	int ret;
- 
- 	lockdep_assert_held(&srh_state->bh_lock);
- 	if (unlikely(srh == NULL))
- 		return -EINVAL;
- 
-+	srhoff = (unsigned char *)srh - skb->data;
- 	srh_tlvs = (void *)((unsigned char *)srh + sizeof(*srh) +
- 			((srh->first_segment + 1) << 4));
- 	srh_end = (void *)((unsigned char *)srh + sizeof(*srh) +
-@@ -6797,8 +6798,7 @@ BPF_CALL_3(bpf_lwt_seg6_adjust_srh, struct sk_buff *, skb, u32, offset,
- 	hdr = (struct ipv6hdr *)skb->data;
- 	hdr->payload_len = htons(skb->len - sizeof(struct ipv6hdr));
- 
--	if (ipv6_find_hdr(skb, &srhoff, IPPROTO_ROUTING, NULL, NULL) < 0)
--		return -EINVAL;
-+	/* The bytes in front of offset have moved together with skb->data. */
- 	srh_state->srh = (struct ipv6_sr_hdr *)(skb->data + srhoff);
- 	srh_state->hdrlen += len;
- 	srh_state->valid = false;
--- 
-2.53.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rqQd8qHAhqzWc2jc"
+Content-Disposition: inline
+In-Reply-To: <a5b278b7-9e9e-43d0-9fcb-a937d3e2a0b5@linux.dev>
+X-Cookie: -- Owen Meredith
 
 
+--rqQd8qHAhqzWc2jc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Mon, Nov 16, 2026 at 11:07:13PM +0000, Bradley Morgan wrote:
+> On 11/16/26 10:48 PM, Mark Brown wrote:
+
+> > though as the Sashiko report identifies we still leave ZA untouched if
+> > both ZA and ZT are omitted from the signal frame.  I'm not sure if it's
+> > safer to reject any attempt to return from a signal with PSTATE.ZA set
+> > but no ZA signal frame or if we should restore PSTATE.ZA to 0, the
+> > former is safer but the latter is more in line with the handling here.
+
+> Thx, do you suggest any remedies, id say sashiko is correct, but id hate for
+> code
+
+Probably the safest thing is to add something that disables PSTATE.ZA
+during signal return if we're missing a ZA record in the signal frame,
+that's less likely to break a userspace that's doing something like
+fully synthesizing a signal frame to return to.  We should be able to
+implement that by just disabling PSTATE.ZA before restoring the state I
+think, I'm struggling to see a use case for sigreturn with PSTATE.ZA set
+anyway so in practical use it'd just be enforcing the already current
+state.
+
+--rqQd8qHAhqzWc2jc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmsHDN0ACgkQJNaLcl1U
+h9C4fgf/Z07pvMy1eTwb7q1NrkNWarLQ7ksHbK4sfw59+1CXhNUbtkmmram95Cun
+MPEWgl0j4Md/tbrZFEjCinWrE7UdyPVGogICUwV1+tbRHIvW98m5iIs8mGeo3yTq
+1asbqdUq2qO2oYEXNLGZHoNJKihxSnsLQYPR3XyH7Zjom2YckpseTCsFhPjwCTEj
+m1C45teGThtBJv4qlk36Y3yteHpBBZW/Eji8aHAiU/4JA5ddiat9VhkBvOJUBANy
+jYklGetr4TYi2btZIXVkIK9ICj/sPwu894gMbNkzGsQuWVBaNsFqn2ojr8wlTyGr
+3NxTIYtdgw6bwUg3HDAVIEAkUwNr4Q==
+=5saD
+-----END PGP SIGNATURE-----
+
+--rqQd8qHAhqzWc2jc--
