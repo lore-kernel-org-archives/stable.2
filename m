@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795622966;
-	b=fSo43H8cZjlOghaEDr25hj3WWBC6EZUXWCxBnz8YgCMr43eLXcksJqk9x4gPAK1Jw4gj
-	 YkPE2ykqQc+YTvH2KQOWM0FlgadylW+3990Bg2mNd7RHYU/MZFrDk/BGIab4e+wsEbuQ3
-	 IucrSsZUu+iWHp1SJnNyrfFqWSzhZ4SsXv1Vi9CEMv8lmjD2XO/KdERnTkVVpLmIG/E3+
-	 ieUXAK+b76Dx9JRklBqf2+S3bESTVnuzvHfzpIMix6bp8kwi8Y6MuYiZOQbbixXvYC+en
-	 eMy89/riKIznSSX6rLEnEOcc01S+eO3hIokfoeOAw1vPRK3dgT0UThTYU1Ff+sDIn6w==
+	t=1795622968;
+	b=XtvgOqCnYjCD4fymjgYx3bBlPj7Ab2IHFMP4qj5uMFdplEWx1VTM9y9IQgLUBp4WOaCe
+	 Yy8Kf1cJgy9Fyx351x5ZkHqDsPXP0I5SuGS/49NKdA6OOZ1bA86wcULFLytWZf1nvdbz/
+	 iN17Pcm8DIxXWP6Tww5SuDNGge2cS/VlbQ91+wfj3emnO/8bPt+9XZWFsc+evYxcFcIKi
+	 zvr4hmMeJ52Pfi1o2JeMyJDwjnGr+HVphiFvHLrQ4uivfE49yko5xMuZNIuNPE9h94z9M
+	 wcXK30bf8DulE2GopkxHf/hB8JRnHINFYeuFFfegnX+kQqnvHCxHbpCHLwHL5nEF6ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622966;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622968;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vReROrbXTTJcF0/nBIyfdUdpX6QfzgiKLX+tUlu37Tk=;
-	b=HKOxbMs0QXl8+6zTWYb20o1u/q84D0sHgWGhJGkE2aAzF4/u7zKTkhxp9fKmIpNw0dPx
-	 zBVfBgvhW3gEQMwoIad5MYmyzg/wun5niGSrNdjKY58LSjl7vd84Odl6si+VFbf1K6EYb
-	 qw43D9Jh+19hZHGrmmGZ/IDydwsAz62y+Dm3S5jVduoreYv3GUsi0ep/Dsu6jmgxzx0yo
-	 kChH+vv2k+72SgB/p9i7IL/8fM0p8pjqf1bJWBqTO5df68UR2eCx0DwlnkNtICUFZjNy6
-	 0a3Jt0o0oMO3NMgVCwnvqc0e1uk4dYrHgCwmaFe6H84EUJA9PaP+ATtV3UxX9JJSAkA==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Xf1umgD6fxo5QAXLrX3tiVyqUteV1f6SeK7q4Adr3p0=;
+	b=PI5yqazv39/+slQdAISPzo4vhoUkb7OKSGfg012i9LUMSQtM9V0xN+S6hm2m81doo94m
+	 w0Q6tzmwAhmgc47k3eE8jE/iY/iLsWiZz1kpZp9pvR468O5EMx2KkukVYHCPDKKsdteic
+	 HJb60FVGsD67ZJ9+GBhVdQ5EsoZqtWdixIx5Z+H/d0Dtui38UVawM9PDqg3PArVpqyTiD
+	 1kgTAalZzGgaGJhYRZgepe5LdaTWv4WRcRtgvgM39qrrO6i8zssyV9nngAh5V8TuuXAZB
+	 Ib9pCXvR3cFNaxLxASGe95iBP9P3JsJGiCYS07n5nopdW4Y79sXH9FfhI1/XB+wOAng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SxNGL9Dw;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kwVvTRPA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA8BE606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:09:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5268F606A331;
+	Wed, 25 Nov 2026 16:09:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SxNGL9Dw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B8801F000C0;
-	Wed, 25 Nov 2026 16:09:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795622966;
-	bh=vReROrbXTTJcF0/nBIyfdUdpX6QfzgiKLX+tUlu37Tk=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kwVvTRPA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CB511F000EB;
+	Wed, 25 Nov 2026 16:09:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795622967;
+	bh=Xf1umgD6fxo5QAXLrX3tiVyqUteV1f6SeK7q4Adr3p0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SxNGL9DwopjRgqdC6UtuDYT0py9UzCiYZTVMVBMQtAkivTM/JHpzMw+CN6YVP+JDM
-	 /wifMhNxK5yGEpkAa29FIl2ZxoJfQ3LiojdflqtlogolZY5m48kqiLRhmr9jA68AZc
-	 QWJez2ozK0lA08+YbBoVhWDRLXRkdCjbu9CSRTUrj2LTIff//34A1pPvDqkAluVmy/
-	 8Ef/UKZOaZMYYDjkG8etKGUejqpJ2ErRa/mzDzI3woIB30spnTMLGzwMdT8HZzAvoJ
-	 MFAbWO+LAKPCVX/8hRBo/gJHy0h+bia0kwN6ESSLD5nik1BP174fxA0cwmFaFCj7JR
-	 H5FigPk0Vvd0w==
-From: Sasha Levin <sashal@kernel.org>
+	b=kwVvTRPAc64HjM7kQ1mYF59yl0ucvZz5vuF79JDpfAIDw15cxH18TUtzG1/LgaR3E
+	 cIwxQnX7d/lgD2AFYjEvsAvrH+OgRw6mJXxAUEcqShJYZ8i0s/doLjjffWVj7l/Kr3
+	 g/GVY1zC08mXozsnIWrBLScHLIM/ZKu4NApaX8Ks=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@kernel.org>,
-	syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	Naman Gulati <namangulati@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] net: wait for in-flight device unregistrations before netns dismantle
-Date: Wed, 25 Nov 2026 11:09:24 -0500
-Message-ID: <20261125160901.702522-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112530-magnesium-segment-fd8c@gregkh>
-References: <2026112530-magnesium-segment-fd8c@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Hyunwoo Kim <imv4bel@gmail.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 6.18 707/990] tcp: do not coalesce segments after FIN
+Date: Wed, 25 Nov 2026 15:34:34 +0100
+Message-ID: <20261125143838.643414868@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,160 +65,133 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@kernel.org>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit c164a431a646983275d0076ff5b0e4c326fbc10b ]
+------------------
 
-A device can be unregistered by a context other than the cleanup_net()
-of its own netns, for instance a veth whose peer in another netns is
-deleted. If references on it are still held, it stays in
-netdev_wait_allrefs_any(), which rebroadcasts NETDEV_UNREGISTER every
-second.
+From: Hyunwoo Kim <imv4bel@gmail.com>
 
-Meanwhile its netns can be dismantled: default_device_exit_batch()
-only takes care of devices still listed in the netns, then pernet exit
-handlers free their state, and finally struct net is freed while the
-device still points to it.
+commit 1c46780dec48893b8c25fd5e33a3127e8dc39dd4 upstream.
 
-The rebroadcasts then run notifiers against torn down pernet state, or
-freed memory. Three instances were reported so far:
+A FIN consumes a sequence number. If another FIN segment is coalesced
+into an skb that already carries FIN, end_seq advances to account for
+the additional FIN, but tcp_flags still contains only one FIN bit.
 
- - netdev_genl_netdevice_event(): net->genl_sock is NULL [1]
- - nh_netdev_event(): net->nexthop.devhash is NULL [2]
- - nf_tables netdevice notifiers: use-after-free of the nftables
-   pernet storage [3]
+When the preceding gap is filled and tcp_ofo_queue() processes the
+coalesced skb, rcv_nxt advances to the skb's end_seq. When the receive
+path consumes all data in the skb, copied_seq advances by the data
+length and one sequence number for FIN. If three or more FIN segments
+have been coalesced into one skb, tcp_inq() can still return a positive
+value after the receive queue becomes empty and the SOCK_DONE adjustment
+is applied.
 
-but any notifier using dev_net(dev) is affected, as is
-netdev_wait_allrefs_any() itself (__rtnl_net_lock(dev_net(dev)) with
-CONFIG_DEBUG_NET_SMALL_RTNL=y).
+TCP_ZEROCOPY_RECEIVE is another consumer affected by this state.
+tcp_zerocopy_receive() takes its length from tcp_inq() and follows
+skb->next without checking for the end of the receive queue.
 
-This was prevented by rtnl_lock_unregistering() until I removed it
-in commit 8a4fc54b07d7 ("net: get rid of rtnl_lock_unregistering()"),
-considering only the loopback dependency, and missing the notifiers one.
+Software kTLS receive is one consumer affected by this state. When
+strp->copy_mode is false, tls_strp_msg_consume() calls the TCP helper
+tcp_read_done() to consume the current TLS record. In the reproducer,
+tcp_read_done() consumed the record data and one FIN before freeing the
+receive skb.
 
-Restore a per-netns counter of devices sitting in netdev_run_todo(),
-and make default_device_exit_batch() wait for it to reach zero, after
-it has unregistered all devices of the dying netns(es). At this point
-no new unregistration can be started for these netns.
+When kTLS looked for the next record, tcp_inq() reported at least
+TLS_HEADER_SIZE bytes even though the receive queue was empty.
+tcp_recv_skb() returned NULL, so tls_strp_load_anchor_with_queue() hit
+WARN_ON_ONCE() and returned without updating the anchor.
 
-Unlike the old barrier, this only waits for devices of the netns being
-dismantled and runs after their own devices are gone.
+Since tcp_inq() had reported at least TLS_HEADER_SIZE,
+tls_strp_read_sock() proceeded to tls_strp_check_queue_ok().
+skb_shinfo(strp->anchor)->frag_list still pointed to the freed receive
+skb. tls_strp_check_queue_ok() then read TCP_SKB_CB(first)->seq through
+the stale pointer, causing a use-after-free.
 
-Tested on a KASAN kernel with a debug-only hack holding a reference
-on a veth device for 5 seconds after its unregistration: a nexthop
-on the veth in netns X, delete its peer from init_net, then delete X.
-Without this patch, the nexthop_flush_dev() null-ptr-deref from [2]
-triggers. With it, no splat; netns churn and dismantle of a netns
-whose own device is held still work.
+The reproducer followed this call path:
 
-[1] https://lore.kernel.org/netdev/6adf9f64.6200f071.51519.0ed1.GAE@google.com/
-[2] https://lore.kernel.org/netdev/20261105114707.3030737-1-bsdhenrymartin@gmail.com/
-[3] https://lore.kernel.org/netdev/20261105114817.3033625-1-bsdhenrymartin@gmail.com/
+  tls_rx_rec_done()
+    tls_strp_msg_consume()
+      tcp_read_done()                       // frees the receive skb
+    tls_strp_check_rcv()
+      tls_strp_read_sock()
+        tls_strp_load_anchor_with_queue()   // returns after WARN_ON_ONCE()
+          tcp_recv_skb() == NULL
+        tls_strp_check_queue_ok()
+          TCP_SKB_CB(first)->seq            // reads the freed receive skb
 
-Fixes: 8a4fc54b07d7 ("net: get rid of rtnl_lock_unregistering()")
+KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in tls_strp_check_queue_ok.isra.0+0x5f/0x100
+  Read of size 4 at addr ffff888103169ca8 by task ktls-server/71
+  ...
+  Call Trace:
+   <TASK>
+   ...
+   tls_strp_check_queue_ok.isra.0+0x5f/0x100
+   tls_strp_check_rcv+0x2a9/0x400
+   ...
+   tls_sw_recvmsg+0x3ce/0xa10
+   ...
+   sock_recvmsg+0xea/0x100
+   __sys_recvfrom+0x142/0x1f0
+   ...
+   __x64_sys_recvfrom+0x76/0x90
+   do_syscall_64+0xdd/0x4a0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   ...
+   </TASK>
+  ...
+  Freed by task 71:
+   ...
+   napi_skb_cache_put+0x24/0xf0
+   skb_attempt_defer_free+0x183/0x3b0
+   tcp_read_done+0x2d4/0x340
+   tls_strp_msg_consume+0x45/0x80
+   tls_sw_recvmsg+0x3c4/0xa10
+   ...
+
+In tcp_try_coalesce(), skip coalescing when the destination skb already
+carries FIN. tcp_add_backlog() calls skb_try_coalesce() directly instead
+of using this helper, so add the same check there. Since both paths check
+only the destination skb, a final segment carrying data and FIN can still
+be coalesced into an skb without FIN when the other coalescing checks pass.
+
+Fixes: e93a0435f809 ("tcp: allow segment with FIN in tcp_try_coalesce()")
+Fixes: 4f693b55c3d2 ("tcp: implement coalescing on backlog queue")
 Cc: stable@vger.kernel.org
-Reported-by: syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/netdev/6adf9f64.6200f071.51519.0ed1.GAE@google.com/
-Reported-by: Henry Martin <bsdhenrymartin@gmail.com>
-Closes: https://lore.kernel.org/netdev/20261105114707.3030737-1-bsdhenrymartin@gmail.com/
-Closes: https://lore.kernel.org/netdev/20261105114817.3033625-1-bsdhenrymartin@gmail.com/
-Signed-off-by: Eric Dumazet <edumazet@kernel.org>
-Reviewed-by: Naman Gulati <namangulati@google.com>
-Link: https://patch.msgid.link/20261105144543.1624238-1-edumazet@kernel.org
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/au3HMfqNW3_DRMqS@v4bel
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Adapted to the older per-netns dev_unreg_count and existing helpers, so no new dev_unreg_pending field is added and net_unreg_done() reuses the existing counter and wakeup. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- net/core/dev.c | 37 ++++++++++++++++++++++++++++++++++---
- 1 file changed, 34 insertions(+), 3 deletions(-)
+ net/ipv4/tcp_input.c |    4 ++++
+ net/ipv4/tcp_ipv4.c  |    2 ++
+ 2 files changed, 6 insertions(+)
 
-diff --git a/net/core/dev.c b/net/core/dev.c
-index a06af07f9d369..e41dd9c18cc2d 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -9729,6 +9729,13 @@ static void net_set_todo(struct net_device *dev)
- 	atomic_inc(&dev_net(dev)->dev_unreg_count);
- }
+--- a/net/ipv4/tcp_input.c
++++ b/net/ipv4/tcp_input.c
+@@ -5063,6 +5063,10 @@ static bool tcp_try_coalesce(struct sock
+ 	if (!tcp_skb_can_collapse_rx(to, from))
+ 		return false;
  
-+/* Paired with net_set_todo(). @net must not be used after this call. */
-+static void net_unreg_done(struct net *net)
-+{
-+	if (atomic_dec_and_test(&net->dev_unreg_count))
-+		wake_up(&netdev_unregistering_wq);
-+}
++	/* Nothing follows a FIN. */
++	if (unlikely(TCP_SKB_CB(to)->tcp_flags & TCPHDR_FIN))
++		return false;
 +
- static netdev_features_t netdev_sync_upper_features(struct net_device *lower,
- 	struct net_device *upper, netdev_features_t features)
- {
-@@ -10579,6 +10586,7 @@ void netdev_run_todo(void)
- 		if (unlikely(dev->reg_state != NETREG_UNREGISTERING)) {
- 			netdev_WARN(dev, "run_todo but not unregistering\n");
- 			list_del(&dev->todo_list);
-+			net_unreg_done(dev_net(dev));
- 			continue;
- 		}
+ 	if (!skb_try_coalesce(to, from, fragstolen, &delta))
+ 		return false;
  
-@@ -10589,8 +10597,11 @@ void netdev_run_todo(void)
- 	}
- 
- 	while (!list_empty(&list)) {
-+		struct net *net;
-+
- 		dev = netdev_wait_allrefs_any(&list);
- 		list_del(&dev->todo_list);
-+		net = dev_net(dev);
- 
- 		/* paranoia */
- 		BUG_ON(netdev_refcnt_read(dev) != 1);
-@@ -10605,11 +10616,10 @@ void netdev_run_todo(void)
- 		if (dev->needs_free_netdev)
- 			free_netdev(dev);
- 
--		if (atomic_dec_and_test(&dev_net(dev)->dev_unreg_count))
--			wake_up(&netdev_unregistering_wq);
--
- 		/* Free network device */
- 		kobject_put(&dev->dev.kobj);
-+
-+		net_unreg_done(net);
- 	}
- }
- 
-@@ -11574,6 +11584,17 @@ static void __net_exit default_device_exit_net(struct net *net)
- 	}
- }
- 
-+static bool __net_exit netns_dev_unreg_pending(const struct list_head *net_list)
-+{
-+	struct net *net;
-+
-+	list_for_each_entry(net, net_list, exit_list) {
-+		if (atomic_read(&net->dev_unreg_count))
-+			return true;
-+	}
-+	return false;
-+}
-+
- static void __net_exit default_device_exit_batch(struct list_head *net_list)
- {
- 	/* At exit all network devices most be removed from a network
-@@ -11601,6 +11622,16 @@ static void __net_exit default_device_exit_batch(struct list_head *net_list)
- 	}
- 	unregister_netdevice_many(&dev_kill_list);
- 	rtnl_unlock();
-+
-+	/* Devices of these netns unregistered from another context
-+	 * (e.g. a veth whose peer was deleted) can still be waiting
-+	 * in netdev_run_todo() for their last references, while
-+	 * NETDEV_UNREGISTER is rebroadcast for them. Wait for them
-+	 * before pernet exit handlers tear down the state used by
-+	 * netdevice notifiers, and before the netns is freed.
-+	 * No new unregistration can start: all devices are unlisted.
-+	 */
-+	wait_event(netdev_unregistering_wq, !netns_dev_unreg_pending(net_list));
- }
- 
- static struct pernet_operations __net_initdata default_device_ops = {
--- 
-2.53.0
+--- a/net/ipv4/tcp_ipv4.c
++++ b/net/ipv4/tcp_ipv4.c
+@@ -2084,6 +2084,8 @@ bool tcp_add_backlog(struct sock *sk, st
+ 	    ((TCP_SKB_CB(tail)->tcp_flags ^
+ 	      TCP_SKB_CB(skb)->tcp_flags) &
+ 	     (TCPHDR_ECE | TCPHDR_CWR | TCPHDR_AE)) ||
++	    /* Nothing follows a FIN, see tcp_try_coalesce() */
++	    (TCP_SKB_CB(tail)->tcp_flags & TCPHDR_FIN) ||
+ 	    !tcp_skb_can_collapse_rx(tail, skb) ||
+ 	    thtail->doff != th->doff ||
+ 	    memcmp(thtail + 1, th + 1, hdrlen - sizeof(*th)) ||
+
 
