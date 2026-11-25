@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795623389;
-	b=DqfTRblcdJpI18htYPFYHN2USWblvMe/iMmueZFxBrKxH8iv5MgOMh//3kCGG4BUKBPu
-	 cSr+NwDDeuapqHrluA66i7otkjy9sfswff0KqBlYMtzOXBSIWulsaYJNzoO8ueGI3PbkJ
-	 UClGZlkxOgzyCPvUK3mzlC/TsAWNXXgzBgbsdXNco3hpawu+j5UtCJ8s4Rxsi8VcFSr9P
-	 hQnGOtXD6HjHEAOGe25yzpdwdZp+M8+0S+ua1vB+gum5drAEM46Mqa7lmYcMM16Tb4STX
-	 9dwB8Naq0f31p2HxQGdSkquzQc1/JJxmndyCJQz+Q5xIvaGh9pwCwkSNovVC1/H6Zvg==
+	t=1795623391;
+	b=i0ues1eBDcWfBoXiw4YGuWsSSI74oFGRz5sNhc+UAbQZ8ID41Wh44lwjlZ3/MFLmuG6p
+	 dnWF6hJfY+Gdv6q1022mDRGJgdgnwni2tXcXcDmDL4dGURz9tOyNDfIITorDTQNho3fQp
+	 DHWWjktYPQ4igX9A06yWJhxSq2CqjCtf6JsS+pETZ/D5Rh/byojnDH4/VE6Kv3T/4v6mP
+	 /hKyPzwFngfmAo+y7PGBTG2EUkhMRzUxtG+nGPZKQRMCgXEJldw2ZuNAEvXeGDDPQK8VT
+	 PvK0briis60A91/tHu8E2L3gy5aXU696z8zu7UpkluJmP49da2EoQeynk7/rpDxegDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795623389;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795623391;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Prl99R43nd2Uc+Kir1Wpy/J8Wj4077e0CWRbO1Yk3DY=;
-	b=0VW0+tj+3mKSPTGlBggE0O0JfqMUGqEHHlP7jQhxWBQpw1AqVtYoJOcaHQxG6/OmEtGb
-	 IfeNywau4Luvr9zFq2wR2RpTutAapSFKVWMaRpLKAcnR1xYIgOFwITQW9TS61donQEJJs
-	 tVx/Bse8vdtW6fAYueS7NRZuwgW42dXSHtkJz7qDp6gXclYytvitZA3Ba/37qIdUNxDa+
-	 zdhfLfRWXiIlHzaQYYu1ig6iA6iGyMOyWt8up0tV6MgXvrGbRJhtYUSmC7iqTNY4Y4F/k
-	 nqssySdRCFb/Z3WiMBvxPKGi5P+zan8aMV5AL+EH3UIqXLXdtHv87NRC2YpKhZGW+jw==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=kqSFS27HREDS0qX+lJzP9jYKJF01pS4yUjPYxrpsvEs=;
+	b=L9FGT42KzIeRAgKvnPvaezqcxI9zgE38gfP62YB/CSIV4MjyAeiCWi3P8hU1s9XHhVod
+	 X8TNTuvOMCVbj6o5UzX3kCCrLVuraxRkYZbKRFEic4JJRjl2biku+pRYA379kk+7ZhKiG
+	 1ofyOPqxAgU86ltTBXUVXD5wvp90hEqJzcaNxRKvpHfN/VxEGVXoUccL0zAjorX7QCsu/
+	 b+xcHR+AQUqw7hIeOkHXu04woSu0xPqWmwOJvIGl+ul27n4vhXRdeQSwobuMTr4Zutk5F
+	 KV/oBNUXOxaUfWrYOr9dsTUfyygvkq0dSQKefWLIADOuV7GmtN9NoyCNt8jTZ+PVS6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=S1aEtOpB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RzcfXRsP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F9B606A326;
-	Wed, 25 Nov 2026 16:16:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3665C606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:16:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=S1aEtOpB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FE2E1F000C0;
-	Wed, 25 Nov 2026 16:16:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795623389;
-	bh=Prl99R43nd2Uc+Kir1Wpy/J8Wj4077e0CWRbO1Yk3DY=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RzcfXRsP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F9F71F000CA;
+	Wed, 25 Nov 2026 16:16:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795623391;
+	bh=kqSFS27HREDS0qX+lJzP9jYKJF01pS4yUjPYxrpsvEs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S1aEtOpBKdnQaq0kPS+9yHuaCIBf9KE8fJTm0aw4xB3rQtdNrGs+m0g6ucba+rpea
-	 H0shdzcfMu9hGUd8IMDB/p6YKfRYPMzHGRJYrDH1B1qX88meJkG5A4BKR+v1Klp6JF
-	 iGnjOZpYY5Ae6rFYM4bExjyIkeAZWnJ45pRZWwzk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=RzcfXRsPW2VKuhT7bjEC8juVuMOd7cC6IOM2Bq8jY/fwmP71Nu8ow/+rv2sCOXQLD
+	 RwIPMGrI6huBpItyEW8S1SdmJ6W0QRVeVmb1evTuvcy6utcwwQBGun19ctPFHLu4ZY
+	 NY2wnc3lMC25jn7TDqMCdDJ+KQeXE/hTAX6ZyG2S7LJoBU7YabmLbkxFDQhgliT/ZO
+	 FUM87uL3cnadujLW0mRiQ+I0DE2PZeiCvzNjDoiZLWK2LdE0qsS4JGGuhgxRJy7RXY
+	 TTyEN5nzo11/Xj7gkhTAFT7nDiQMPXjn/kbZUkM72Eu0qjJwZ11bKp6GpfUkviaNxc
+	 yE2J9rNIr+Glw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Paulo Alcantara <pc@manguebit.org>
-Subject: [PATCH 6.18 844/990] smb: client: hold the inode across cifs_oplock_break()
-Date: Wed, 25 Nov 2026 15:36:51 +0100
-Message-ID: <20261125143841.802693325@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	Sahil Malhotra <sahil.malhotra@nxp.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] crypto: caam - reject overlong RSA CRT parameters
+Date: Wed, 25 Nov 2026 11:16:29 -0500
+Message-ID: <20261125161558.746646-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112510-sixth-timing-9c25@gregkh>
+References: <2026112510-sixth-timing-9c25@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,68 +61,184 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 
-------------------
+[ Upstream commit 828c3b265b6df877dced3dde56ea41daa2e6181e ]
 
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
+caam_read_rsa_crt() right-aligns dP, dQ, and qInv in buffers sized
+from the corresponding prime. rsa_parse_priv_key() only bounds these
+integers against n, so a malformed key can provide, for example, a
+two-byte dP with a one-byte p. dstlen - nbytes then underflows and
+memcpy() writes outside the allocation during set_priv_key(). KASAN
+reports a slab-out-of-bounds write in caam_read_rsa_crt().
 
-commit fce78321f1b59531cf6fc94860550db1db8dec55 upstream.
+Reject empty or overlong CRT parameters after stripping leading zeros.
+qInv is consumed by CAAM as a p-sized value, so size it from p rather
+than q to match the DMA mapping in set_rsa_priv_f3_pdb(). Let the
+top-level key cleanup handle partial form-3 allocations and return the
+specific error to the caller.
 
-cifs_oplock_break() drops the handle reference in the middle of the
-handler and keeps using cinode afterwards, to send the break
-acknowledgment and again in cifs_done_oplock_break().  The reference
-cifs_queue_oplock_break() takes is the only pin: the handle holds the
-dentry and the dentry is what keeps the inode alive.
+Also test nbytes before dereferencing it while stripping zeros, so an
+all-zero integer does not read one byte beyond its input.
 
-When that put is the last reference, the dput() in
-cifsFileInfo_put_final() kills an unhashed dentry, drops the last
-i_count and evicts the inode, so the rest of the handler runs on an
-object whose free is only RCU-deferred.  An unhashed dentry that a
-handle still references is an ordinary state: unlinking an open file
-leaves the dentry that way, and so does the dcache teardown at unmount.
-
-Take a reference on the inode for the lifetime of the handler and drop
-it once the break has been reported.  This also covers the
-cifs_get_tlink() failure path, where the put is followed directly by
-the out label.
-
-Fixes: b98749cac4a6 ("CIFS: keep FileInfo handle live during oplock break")
-Fixes: 23b26f4408ac ("smb: client: avoid leaking refcount when cifs_sb_tlink() fails")
+Fixes: 4a651b122adb ("crypto: caam - add support for RSA key form 3")
 Cc: stable@vger.kernel.org
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Assisted-by: LLM
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Reviewed-by: Sahil Malhotra <sahil.malhotra@nxp.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+[ sashal: Dropped the upstream GFP_DMA-less allocations' difference: kept GFP_DMA in kzalloc/kmemdup calls and used raw sizes instead of ALIGN(..., dma_get_cache_alignment()) for tmp1/tmp2 allocations. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/file.c |    9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/crypto/caam/caampkc.c | 75 ++++++++++++++---------------------
+ 1 file changed, 30 insertions(+), 45 deletions(-)
 
---- a/fs/smb/client/file.c
-+++ b/fs/smb/client/file.c
-@@ -3284,6 +3284,14 @@ void cifs_oplock_break(struct work_struc
- 	__u64 persistent_fid, volatile_fid;
- 	__u16 net_fid;
+diff --git a/drivers/crypto/caam/caampkc.c b/drivers/crypto/caam/caampkc.c
+index b4af79d73ba54..c41ada94c28a0 100644
+--- a/drivers/crypto/caam/caampkc.c
++++ b/drivers/crypto/caam/caampkc.c
+@@ -871,7 +871,7 @@ static void caam_rsa_free_key(struct caam_rsa_key *key)
  
-+	/*
-+	 * Dropping the handle reference below also drops the dentry
-+	 * reference that pins this inode, and cinode is still needed to
-+	 * acknowledge the break and to report it as complete.  Hold the inode
-+	 * until that is done.
-+	 */
-+	ihold(inode);
-+
- 	wait_on_bit(&cinode->flags, CIFS_INODE_PENDING_WRITERS,
- 			TASK_UNINTERRUPTIBLE);
+ static void caam_rsa_drop_leading_zeros(const u8 **ptr, size_t *nbytes)
+ {
+-	while (!**ptr && *nbytes) {
++	while (*nbytes && !**ptr) {
+ 		(*ptr)++;
+ 		(*nbytes)--;
+ 	}
+@@ -887,22 +887,22 @@ static void caam_rsa_drop_leading_zeros(const u8 **ptr, size_t *nbytes)
+  * @ptr   : pointer to {dP, dQ, qInv} CRT member
+  * @nbytes: length in bytes of {dP, dQ, qInv} CRT member
+  * @dstlen: length in bytes of corresponding p or q prime factor
++ * @dst   : pointer to the zero-padded output buffer
+  */
+-static u8 *caam_read_rsa_crt(const u8 *ptr, size_t nbytes, size_t dstlen)
++static int caam_read_rsa_crt(const u8 *ptr, size_t nbytes, size_t dstlen,
++			     u8 **dst)
+ {
+-	u8 *dst;
+-
+ 	caam_rsa_drop_leading_zeros(&ptr, &nbytes);
+-	if (!nbytes)
+-		return NULL;
++	if (!nbytes || nbytes > dstlen)
++		return -EINVAL;
  
-@@ -3359,6 +3367,7 @@ oplock_break_ack:
- 	cifs_put_tlink(tlink);
- out:
- 	cifs_done_oplock_break(cinode);
-+	iput(inode);
+-	dst = kzalloc(dstlen, GFP_DMA | GFP_KERNEL);
+-	if (!dst)
+-		return NULL;
++	*dst = kzalloc(dstlen, GFP_DMA | GFP_KERNEL);
++	if (!*dst)
++		return -ENOMEM;
+ 
+-	memcpy(dst + (dstlen - nbytes), ptr, nbytes);
++	memcpy(*dst + (dstlen - nbytes), ptr, nbytes);
+ 
+-	return dst;
++	return 0;
  }
  
- static int cifs_swap_activate(struct swap_info_struct *sis,
-
+ /**
+@@ -981,6 +981,7 @@ static int caam_rsa_set_priv_key_form(struct caam_rsa_ctx *ctx,
+ 	struct caam_rsa_key *rsa_key = &ctx->key;
+ 	size_t p_sz = raw_key->p_sz;
+ 	size_t q_sz = raw_key->q_sz;
++	int ret;
+ 
+ 	rsa_key->p = caam_read_raw_data(raw_key->p, &p_sz);
+ 	if (!rsa_key->p)
+@@ -989,55 +990,37 @@ static int caam_rsa_set_priv_key_form(struct caam_rsa_ctx *ctx,
+ 
+ 	rsa_key->q = caam_read_raw_data(raw_key->q, &q_sz);
+ 	if (!rsa_key->q)
+-		goto free_p;
++		return -ENOMEM;
+ 	rsa_key->q_sz = q_sz;
+ 
+ 	rsa_key->tmp1 = kzalloc(raw_key->p_sz, GFP_DMA | GFP_KERNEL);
+ 	if (!rsa_key->tmp1)
+-		goto free_q;
++		return -ENOMEM;
+ 
+ 	rsa_key->tmp2 = kzalloc(raw_key->q_sz, GFP_DMA | GFP_KERNEL);
+ 	if (!rsa_key->tmp2)
+-		goto free_tmp1;
++		return -ENOMEM;
+ 
+ 	rsa_key->priv_form = FORM2;
+ 
+-	rsa_key->dp = caam_read_rsa_crt(raw_key->dp, raw_key->dp_sz, p_sz);
+-	if (!rsa_key->dp)
+-		goto free_tmp2;
++	ret = caam_read_rsa_crt(raw_key->dp, raw_key->dp_sz, p_sz,
++				&rsa_key->dp);
++	if (ret)
++		return ret;
+ 
+-	rsa_key->dq = caam_read_rsa_crt(raw_key->dq, raw_key->dq_sz, q_sz);
+-	if (!rsa_key->dq)
+-		goto free_dp;
++	ret = caam_read_rsa_crt(raw_key->dq, raw_key->dq_sz, q_sz,
++				&rsa_key->dq);
++	if (ret)
++		return ret;
+ 
+-	rsa_key->qinv = caam_read_rsa_crt(raw_key->qinv, raw_key->qinv_sz,
+-					  q_sz);
+-	if (!rsa_key->qinv)
+-		goto free_dq;
++	ret = caam_read_rsa_crt(raw_key->qinv, raw_key->qinv_sz, p_sz,
++				&rsa_key->qinv);
++	if (ret)
++		return ret;
+ 
+ 	rsa_key->priv_form = FORM3;
+ 
+ 	return 0;
+-
+-free_dq:
+-	kfree_sensitive(rsa_key->dq);
+-	rsa_key->dq = NULL;
+-free_dp:
+-	kfree_sensitive(rsa_key->dp);
+-	rsa_key->dp = NULL;
+-free_tmp2:
+-	kfree_sensitive(rsa_key->tmp2);
+-	rsa_key->tmp2 = NULL;
+-free_tmp1:
+-	kfree_sensitive(rsa_key->tmp1);
+-	rsa_key->tmp1 = NULL;
+-free_q:
+-	kfree_sensitive(rsa_key->q);
+-	rsa_key->q = NULL;
+-free_p:
+-	kfree_sensitive(rsa_key->p);
+-	rsa_key->p = NULL;
+-	return -ENOMEM;
+ }
+ 
+ static int caam_rsa_set_priv_key(struct crypto_akcipher *tfm, const void *key,
+@@ -1055,6 +1038,8 @@ static int caam_rsa_set_priv_key(struct crypto_akcipher *tfm, const void *key,
+ 	if (ret)
+ 		return ret;
+ 
++	ret = -ENOMEM;
++
+ 	/* Copy key in DMA zone */
+ 	rsa_key->d = kmemdup(raw_key.d, raw_key.d_sz, GFP_DMA | GFP_KERNEL);
+ 	if (!rsa_key->d)
+@@ -1091,7 +1076,7 @@ static int caam_rsa_set_priv_key(struct crypto_akcipher *tfm, const void *key,
+ 
+ err:
+ 	caam_rsa_free_key(rsa_key);
+-	return -ENOMEM;
++	return ret;
+ }
+ 
+ static unsigned int caam_rsa_max_size(struct crypto_akcipher *tfm)
+-- 
+2.53.0
 
