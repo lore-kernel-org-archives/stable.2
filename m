@@ -1,98 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.66.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795599056;
-	b=Wx30Bw+YtLTqDWEPzj70V8nLUdOexsTZocCl1067J2u/c0FSsr3Gs/76PhuJNBM1oBbC
-	 G4RoaeNSlrhJBCuvmRMwSsAoLv2j63JNKyuN86au+BFCrP/EUFsX0ba2jHGcrBlC37jt3
-	 t6SC4bcGsWiJEIf+4tZAENkNKtYftar8iEQSjJlw0sQFIxKHUNye1a9PtD9oZg5lT3yDN
-	 qC2d1ubI+Z92EbD7I09slmVDBPSg8sHYcdIwLUpdXSuORNjyWQy/FIUpM2dqIhDKU52CE
-	 cHES9sEcfiBhCIf8XajTQ935kSrvyWwHZoXveydt6MhkrvgpWnEhaOFvcpgnqeT+XPg==
+	t=1795599130;
+	b=nCvcPMn1zsgXOQa5dJACNnGiMApRIKDMOw54zOhYoMWqdonZeBj7LSPlPBNHn8J01gYJ
+	 d6ITWN8X3/rY/DPTKv33sIvx+f6uVrRrsrgOCFwwFgglqjAZLGSfyD9DqGAFcH2m1WnXd
+	 2dnX/IL9GQOopfzux8Mu9Gs79kG27zTTiJ6cbhqHCinYHbslMthklNrLs5qviRAUILUqS
+	 kB9Mf7lNgj2lNWOUAnyRvLKRm0M60j47nkEKdbDEghe3WMJXkft9Vcyyok+M7u118rFOt
+	 SmLfmHdBmzEdw1Sm2Yhj1UQaYr3BtYrMW7Skc5mKZd9pWQGH55HhNGwgUgKffCDdyqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795599056;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=I2k/a6mQECX9SJa18m0wd08GRI20x24K3kfWl4JRMIY=;
-	b=pHlUPoYQYQF8Gtjf2fCc/3EI3OrA4oanYgdUfJv8HTZtunjy4fSb0qajpCOEgCvfotvv
-	 VZEy3GaGeX+dei3ZCjIKYy2+FSpEl/JBCpF2iKnxGsSqtTaopxmRgYzK5LAxJdosQKNnI
-	 JjUcWJvb2Xc3vlbEpiFFBvmwjEhyYMIWQDYZtttYtR63aDDxYbxOKok9GV6+VZ5U4nE3w
-	 +aEtcbAS4lg2V7IBHvNsFis/jASVL0bVJXS7w1Tqh0lq4C2L5dKHmzaak5bQH8Tz4sNPW
-	 bLwJIn+/AHQQmDCH0Mw0c+fjs/ha7+KpaD1K3UpF8J9gp6NvqiJC2BAi4QdVOzruMUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795599130;
+	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:
+	 mail-alias-created-date:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-Authority-Info-Out:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-JNJ;
+	bh=qo1g4G9jFo166r+3Fo9N5fuvXCpK0cNzrzPppaY4EZo=;
+	b=mV84LMIH2jzD2frx1e5thCaxUsGcAqsALEogId67cakLC/PamyKcVJ2pNwB4bCQLsoGT
+	 ovytQMP2/67FtGbnwYD2oeDi1Sd8HLalfNEZh6MrdixutYHwXAqoywgJ+LVczCWkIyJo8
+	 iwV2exNgBwhCYR0IjrcBPyADlLlKoP3mSM457iQulKUZnH8/OyHLxfuD3zW2M329B1/Gl
+	 oPLACVCkXGnaMNCP3bCBQRG61Rck4wEDomocI25MuzT7M8hMUYforTVgWRV3kQV56Epk4
+	 K7K4H6Qo6wFXNokq/GoIe/gPkj07dVrMXIm6koiYCTU7PKfA0QTzAJtJoqFIkjqft0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YNWXc6r8;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=icloud.com;
+	spf=pass smtp.mailfrom=icloud.com;
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=fGcX4iiG;
+	arc=none smtp.remote-ip=57.103.66.151
+Received: from outbound.pv.icloud.com (pv-2005f-snip4-11.eps.apple.com [57.103.66.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5BD606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:30:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C5BD606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A27E8606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:32:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A27E8606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YNWXc6r8
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-490d59c3edaso3740848f8f.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 01:30:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795599054; x=1796203854; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I2k/a6mQECX9SJa18m0wd08GRI20x24K3kfWl4JRMIY=;
-        b=YNWXc6r8Tr7pGkQTkgrOwXGti2YSQEYweanEGmmVxaHxG5ojfqnJbZG0bCR8C3eAo7
-         YRiN41T5jMnoDCHmBwZCD1pmx+RoHAbsAeJ7zYnDxpPVQsYYiEv1yKYZsYaQO/RSxRD5
-         t4huvYenXDx8fLJwmW7BmWkueDVWntqeYQkmOz9udTrjEhUyRPhqbGde7SojZQS/lLez
-         EopmoOeJFFu3DIT+PMpbB4g7KCBvpgij8B9iFQ+3ezCb5ZOLfD2HcUHw7/QNqpmXiXzt
-         XF01dUkcGQqzzd+/kOkh4HI9++vDoICoyYn0Ytvp5lNBmTdAxnN0rUhCk3/FNrG4UUmK
-         CDiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795599054; x=1796203854;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I2k/a6mQECX9SJa18m0wd08GRI20x24K3kfWl4JRMIY=;
-        b=NXiGvmEoIzRc6p3AAnddyTB3LmpkfPz8FbRDShjK2FLk7aIaWkjTs2avyCiko7pixr
-         1HZ9WFStVbwMpZv5WhyORlue1xwKWJYq31boNgYfxeg9lHImCSXMDsYCXF6itcz7/088
-         WBo36Plh0bHTrVypRgc8UcTVQ+lJz4SEMsCCAtt3gpwWNONUeFVEWv3tOG7oRDgkByAK
-         tOFUnRd4O1QJVUNP4KfqY09Zdgc5REBrMCkUv0SV1VYF9/VbMl5J48jdkDr6VNbE2iTM
-         RdZKbJp33D6SLtJxeFAbKdCeIhSM0E425XbfokeupXLgEXFUq4x4c+6IS8J6jipfZb5r
-         bvAw==
-X-Gm-Message-State: APuU4Z/xorvQLJWe1ql/ITqunReY0dDSpsocYcc6Rx+v3ZNnJsd7fp9Q
-	PV2DLT2zP0u/tuC7VdmYfyNqKqGs2fTBrlK33qNnU1gHxjjYQ6yWo9BDmZbBL9kN
-X-Gm-Gg: AZFdTZerXQmsaBrMFf8f89cpk3i4HKqw4Y3xe+Q1UN3QhTbDjCEUcPwLaFOejjaGWNq
-	Pdp51JkC4kIBm4+dPrgmz8/p4nexTU1WR31JUwsDBAotmN97COK2QipcIB+qvFQeaJkA23XwWqL
-	ebZmGNYh1nLHnczEbauwFeqFvNEu+SGyZZC2iyHAnoxkk95UcrgLiNzHXbJnrWe2J9rbIdXj+ST
-	qh0sQPvOMTJWYYShAHZgCpEzx2I7PP8aN+Q8tW1+TY72Dk6oqVop2vMTieVNso/KyY5oCi4y0Od
-	x0eZGEyN/cD0vpZLmdoRu/Y83SRuhyGVLpXUnwvSj2H1UfOkiOnD+TAOp+KyfTW5wVaryZFwkjU
-	F63zruTKG7nRGwRW/KyF/WyCUX946qYmzDhUvgW0c+CBEa8GMo+oAztRWtg+Sx3GGWQVQWULIaK
-	VuvR4i2bIfNDav03W/Bu13ABT5LPQArFiY/kPUW69NCFymcVMOaPSnD2HtHSc2IQn+0jWIJDJfd
-	ye1yMLOsffyeNHJhsGkhyQSEUur6a0NT5B3YUwGAsUon5rBeomk5fWPq/f9D0+iJuSRRtUpqh2N
-	Y1aybOIEMwYn7xUPUzcx
-X-Received: by 2002:a5d:64c5:0:b0:490:1395:9b00 with SMTP id ffacd0b85a97d-4aa545e25c0mr40657507f8f.10.1795599054259;
-        Wed, 25 Nov 2026 01:30:54 -0800 (PST)
-Received: from fedora ([5.131.7.59])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6bc8ce06sm32220869f8f.47.2026.11.25.01.30.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 01:30:53 -0800 (PST)
-From: Petr Vaganov <petrvaganoff@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Petr Vaganov <petrvaganoff@gmail.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Johan Hedberg <johan.hedberg@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	linux-bluetooth@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Subject: [PATCH 6.12] Bluetooth: hci_core: Fix not checking skb length on hci_scodata_packet
-Date: Wed, 25 Nov 2026 16:30:33 +0700
-Message-ID: <20261125093035.224140-1-petrvaganoff@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=fGcX4iiG
+Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-1a-100-percent-8 (Postfix) with ESMTPS id 947011800198;
+	Wed, 25 Nov 2026 09:32:06 +0000 (UTC)
+X-ICL-RepId: 01a2120c-5008-7a53-9b20-f0c7cff97bae
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1795599129; x=1827135129; bh=qo1g4G9jFo166r+3Fo9N5fuvXCpK0cNzrzPppaY4EZo=; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=fGcX4iiG7DOeJ0CajBkifqjFwlGd37BhrbrgUKfQUh8n0XMNFKBrx5fmqW4kJrLclEKKam2pCqOstzD3x/2xifU5LdPRXuGJ/MHQFg1s3fTWi5hQK6zCXGL7NCSg1wida70A9BqCDeKwPkV2R22Im0Z0LguIqGRcgaHSOqNV3AoY/+XvUHnZwoHH8k0+O0ZojJZx5v+NDpgBWxZu0oojH00Tz69CRa1G9DmQb5AMQFLleavlZu5tAWFGm9m0VwEK6e+1dkKPaJ+4p8y5DOcBA28VN+gMFGTtXNSmtw+Fo1zBbpWbawrFDAw93dk47oI2L1Me+0x1q34NbFSJrGljTg==
+mail-alias-created-date: 1772519804199
+Received: from lima-default (unknown [17.156.192.29])
+	by p00-icloudmta-asmtp-us-west-1a-100-percent-8 (Postfix) with ESMTPSA id A83AB1800181;
+	Wed, 25 Nov 2026 09:32:02 +0000 (UTC)
+Date: Wed, 25 Nov 2026 17:31:58 +0800
+From: Bingfang Guo <bfguo@icloud.com>
+To: Barry Song <baohua@kernel.org>
+Cc: bingfangguo@tencent.com, Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Yu Zhao <yuzhao@google.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/mglru: skip oom killing for order != 0 allocs in
+ kswapd
+Message-ID: <awarDrT/DT7tQu+U@lima-default>
+References: <20261125-fix-mglru-kswapd-age-v2-1-4cc37437af9b@tencent.com>
+ <CAGsJ_4z-UdXQg0LYqymEZdoHALPmAZC7eGcXbGad6f0sdjmkcw@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,62 +74,181 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAGsJ_4z-UdXQg0LYqymEZdoHALPmAZC7eGcXbGad6f0sdjmkcw@mail.gmail.com>
+X-Authority-Info-Out: v=2.4 cv=MqbHeGae c=1 sm=1 tr=0 ts=6b06ab17
+ cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
+ a=aW9mcIavGNWWFvFFKOxBSA==:17 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=x7bEGLp0ZPQA:10 a=vu5NlEYW-o8A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=fajnDIswKVxD1YtQT70F:22 a=M9Sav1zvfn_GK7Wt-FcF:22 a=VwQbUJbxAAAA:8
+ a=GvQkQWPkAAAA:8 a=xlM2Ei2ykzIjzGhbHIgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDAzNyBTYWx0ZWRfXwxTrftwv/Tc6
+ csrG9PqyqfE2bfF2Y6abmezyQFJEIsCJTlfbopHrFuORRjOt6rLzEE93BSmY1hoFxOjbcYTqqN4
+ x/I3nqsDuHFevxXXAwRQvgyEzHkbSVjQzocCTnAu4MV3SJULn22+FfwN63slVPrxeKcD48QX4NL
+ /5vPbR6G+VBg7Hi8iIujZXFuISZY0flmbqOp3ALGNsQHO6mloU7QauYuAx00naSbB3r/dAjDKhR
+ 9xAczaQW5OgNJ9dYLZYaxnXqoAdPtJo3Dm8yNiDU7cvi1KUDyhAMNfD+jIAm0yTneC9a9fdh2LN
+ TRNtWBHfyNA5VD5s6AyOY0QTAGsM5XJp8cpy0/rRKbdWrqYMmohTllaleNA138=
+X-Proofpoint-ORIG-GUID: niLA3Iup4mDdqm6hyrAuqLyUOOnPSeJp
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDAzNyBTYWx0ZWRfX9YEiGwbP8jmw
+ HrJ5PCD36ioCKAYHW0kMd9St6UXwxA4D+8xczCpPnzViNvvFye+iibmjjl6mB4+eq11QLtbouvE
+ bTJH5IDyl27hRxSSVKuJ3oN2NcgA95o=
+X-Proofpoint-GUID: niLA3Iup4mDdqm6hyrAuqLyUOOnPSeJp
+X-JNJ: AAAAAAAB5cDsmzSC9ZfTQE37S/1cmH2rm5agffjPd3p2oMuVj1LMQ7aZm6r7N/dDgwWPFj
+ v9b+7dT6uhVDxWkR/A8r4GVFaM1jSW4EJOd4W3veL2uVuPzHCrGRgLCTl9OI02bDhoDA8C
+ I0oEk0YqoBT6/vahlWAhRE5xopJEL3HkzIblE+Yqmv13LZTqvZgJpWJQE+2atc+JoelrGr
+ KH330CD2L4gglrMzTU08RTXfQpRelMJe1irYOlzB/S4f8wu4oG6kiNv99SrEIvwnNek933
+ kPSwxKtRlf3lFGZsG/LGl+D3F69j5Zk94EDDltu1Ztj3VSBJSUWQCZqhxmC8xonfh3ro0S
+ r9AxFY0tcZdzzDCVadwDwadxuLZJWwnuCsqZWl86Fb672El+xtBAueDsQg+aL1RE/rkmQG
+ JVJ6d2cfTzpu7BEGoSDEtrKD849DRguH9F2VUyuodZIaNPth0OI3ZrZHx3pyw6O7Wdrm3V
+ XsZo80QrRGdLinTOkFEV8yEhpHKtObTm3KZzBFujx0OHAIU7mSYFf0GsXic9UjoIjDS7e4
+ hXJ75jB0SVYE1IKu4S8Y1uMPk6iLe2s7RWSk4coqj/Uisiz0i0Ki2q/HCwcgKF96klT0Za
+ w2qHv+yhki1Scyrcs3VLKcrTktmVNS9vcqyVWg5j7l9IXrE1TdmSK3mV4yIW5xLJFRPMv8
+ td6slm0wJHfdiZp7U+MC4I3dtxN611NFOFHr5hsQQjx5d/hTAfD4cLVNEVodD1oRFlAGMu
+ f+YXzZ9U/bwYc+PJCfEN9pGlLPj8sO0eDI9YtqONmbT+Kv/CtMgWg7pGC6VDchp+0Xy3lc
+ 3n2jGJYzWS/d7tEb1FW4M18Ue37+tqvqDU9XJ60XUojM0nFRCY9t7mpEO2iXJ5n/6W6scd
+ +/xY9fc6ByGXo0M/0NpK/gbvBSOTaqNJpD7Rm8LL+wyPo7inQq+86gKB3j9Bt0GzrVCvLj
+ NzzlY4DSqG2E0C6tlsfu0IoAN88DGcqc9/iJPvGQygd/COSYvqCQqjtmJfTyWyPtcvjXFY
+ EXBQloKny86XEsy0Or/sxqsuY21wBrm93oHB0cnyW31AfQ+ThnzrIXPg7BJcKtKGs8hsCk
+ Bcin1o7Jt9hZRnbI1W3jRHgDsNF7bRLWhy11NB/dMvway3Gal+rNIohf925a5HTu4EKlSJ
+ 59dOEjOptqNi8XGDEt1c4D4dcBG/yuVoQ8Guv0QDTxzlzMJ3wrCMvGRTANzIUs0dKKagy1
+ vrjhIrdDBUKV6qN7Ei4d8gLF8s1D+BDyE0hvzOAyFwlrP2JPAw59qQ+VlJbD/roGA7Lo3X
+ GFCye5/LLpi7wlEdDrZ+xpOru3hi93eXEJCZEQkk/WyC/onfvljtOAQJy/OzyVMBm/ijDN
+ jqV72F5rWztXMPUwXr29e2kGoDdrM+mZ6XUdd8MJavbLpkq+wYpZOpUNowkXnMqKgEk7/Q
+ VMTe7V1aecBqnQszkAJLiXIuYxXAk5WGnJE3AJzOQHFUBahDGphOfB0mYwhpqrEDCFK1zv
 
-From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+On Wed, Nov 25, 2026 at 03:38:25PM +0800, Barry Song wrote:
+> On Wed, Nov 25, 2026 at 12:32 PM Bingfang Guo via B4 Relay
+> <devnull+bingfangguo.tencent.com@kernel.org> wrote:
+> >
+> > From: Bingfang Guo <bingfangguo@tencent.com>
+> >
+> > We observed that when MGLRU min_ttl is set and the system is highly
+> > fragmented, high order allocations (e.g. order == 9) will fail and wake
+> > up kswapd. It can not make any progress, while pushing generations of
+> > memcgs so that they all end up younger than min_ttl_ms, repeatedly
+> > triggering the OOM killer in lru_gen_age_node(). Then the whole process
+> > repeats until all processes are killed and the kernel panics.
+> 
+> It seems we should address the underlying issue of why order-9 reclaim
+> keeps advancing memcg generations until all memcgs are younger than
+> min_ttl.
+> 
+> >
+> > The purpose of the min_ttl is to prevent thrashing when all memcgs are
+> > too young to reclaim instead of preventing fragmentation. So fix this by
+> > restoring the behavior in commit 30d77b7eef019 ("mm/mglru: fix
+> > ineffective protection calculation"), which skips OOM killer invocations
+> > in lru_gen_age_node() for sc->order != 0.
+> 
+> I'm not really convinced this is the correct fix. It seems to work
+> around an issue with min_ttl for higher-order allocations, but it
+> doesn't appear to address the root cause.
+> 
+> And what about order-1 and order-2 allocations?
+> 
 
-commit 59437cbb5781227567dec226aaa88c66a09ccc5a upstream.
+Hi, Barry! Thanks for your reviewing!
 
-This fixes not checking if skb really contains an SCO header otherwise
-the code may attempt to access some uninitilized/invalid memory past the
-valid skb->data.
+I agree that we should fix the root cause. Reclaims triggered by high order
+allocations should not push the generations forward too frequently. That is
+really insightful!
 
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-[ Petr: add Fixes tag ]
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Petr Vaganov <petrvaganoff@gmail.com>
----
- net/bluetooth/hci_core.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+> >
+> > Fixes: 30d77b7eef019 ("mm/mglru: fix ineffective protection calculation")
+> > Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
+> > ---
+> > ==== Testing ====
+> >
+> > Tested on a VM with 6 cores and 6GiB of memory, HZ=1000, MGLRU enabled,
+> > min_ttl_ms set to 1000, and a workload that fragments the memory then
+> > allocates 2M pages.
+> >
+> 
+> So the real question is: if order-9 reclaim can't make progress, why
+> do we keep triggering memcg aging and end up over-reclaiming?
+> 
+> > Without the patch, kswapd kills all processes and panics the system even
+> > with plenty of memory available. With the patch, allocations fail but
+> > the system remains stable.
+> 
+> I know, I know. But this isn't really the root cause, is it?
+> Even if we avoid OOM kills, we may still end up with excessive reclaim
+> or system overheating, right?
+> 
 
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index ff3ccb33da0c..f32473e02c1e 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -3905,18 +3905,22 @@ static void hci_acldata_packet(struct hci_dev *hdev, struct sk_buff *skb)
- /* SCO data packet */
- static void hci_scodata_packet(struct hci_dev *hdev, struct sk_buff *skb)
- {
--	struct hci_sco_hdr *hdr = (void *) skb->data;
-+	struct hci_sco_hdr *hdr;
- 	struct hci_conn *conn;
- 	__u16 handle, flags;
+You are right. Maybe we can start from skipping aging in reclaim path if the
+youngest gen is still too young? And maybe for this path, min_ttl can have a
+default value? Is that a good idea?
+
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index d891ae46baf49..7f9b14b772d14 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -5136,8 +5136,11 @@ static bool should_run_aging(struct lruvec *lruvec, unsigned long max_seq,
+ 		return false;
  
--	skb_pull(skb, HCI_SCO_HDR_SIZE);
-+	hdr = skb_pull_data(skb, sizeof(*hdr));
-+	if (!hdr) {
-+		bt_dev_err(hdev, "SCO packet too small");
-+		goto drop;
-+	}
++	/* avoid excessive aging for huge allocations */
++	 if (unlikely(sc->order)) {
++	 	int gen = lru_gen_from_seq(max_seq);
++	 	unsigned long birth = READ_ONCE(lruvec->lrugen.timestamps[gen]);
++	 	return !time_is_before_jiffies(birth + min_ttl);
++	 }
  
- 	handle = __le16_to_cpu(hdr->handle);
- 	flags  = hci_flags(handle);
- 	handle = hci_handle(handle);
- 
--	BT_DBG("%s len %d handle 0x%4.4x flags 0x%4.4x", hdev->name, skb->len,
--	       handle, flags);
-+	bt_dev_dbg(hdev, "len %d handle 0x%4.4x flags 0x%4.4x", skb->len,
-+		   handle, flags);
- 
- 	hdev->stat.sco_rx++;
- 
-@@ -3934,6 +3938,7 @@ static void hci_scodata_packet(struct hci_dev *hdev, struct sk_buff *skb)
- 				       handle);
- 	}
- 
-+drop:
- 	kfree_skb(skb);
- }
- 
--- 
-2.55.0
+ 	/* better to run aging even though eviction is still possible */
+ 	return evictable_min_seq(min_seq, swappiness) + MIN_NR_GENS == max_seq;
+
+I will give this a test later and share more findings.
+
+Thanks,
+Bingfang
+
+> >
+> > --
+> > Changes in v2:
+> > - Reword the comments to explain the purpose clearly. (Kairui)
+> > - Relax the skip condition to sc->order != 0 for soundness. (sashiko)
+> > - Rebase to mm-unstable.
+> > - Cc stable.
+> > - Link to v1: https://lore.kernel.org/all/20261027-fix-mglru-kswapd-age-v1-1-b1ffdec4ae52@tencent.com/
+> > ---
+> >  mm/vmscan.c | 5 ++++-
+> >  1 file changed, 4 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/mm/vmscan.c b/mm/vmscan.c
+> > index 836f50814ffa..9fadc6f9da49 100644
+> > --- a/mm/vmscan.c
+> > +++ b/mm/vmscan.c
+> > @@ -4351,7 +4351,7 @@ static void lru_gen_age_node(struct pglist_data *pgdat, struct scan_control *sc)
+> >  {
+> >         struct mem_cgroup *memcg;
+> >         unsigned long min_ttl = READ_ONCE(lru_gen_min_ttl);
+> > -       bool reclaimable = !min_ttl;
+> > +       bool reclaimable = !min_ttl || sc->order;
+> >
+> >         VM_WARN_ON_ONCE(!current_is_kswapd());
+> >
+> > @@ -4371,6 +4371,9 @@ static void lru_gen_age_node(struct pglist_data *pgdat, struct scan_control *sc)
+> >          * The main goal is to OOM kill if every generation from all memcgs is
+> >          * younger than min_ttl. However, another possibility is all memcgs are
+> >          * either too small or below min.
+> > +        *
+> > +        * OOM killing for fragmentation is not desired. So skip this when
+> > +        * sc->order != 0.
+> >          */
+> >         if (!reclaimable && mutex_trylock(&oom_lock)) {
+> >                 struct oom_control oc = {
+> >
+> > ---
+> > base-commit: a3d0117e02bfa1c3bb6c50e7afe42bbecdbb3459
+> > change-id: 20261026-fix-mglru-kswapd-age-98390614c746
+> >
+> > Best regards,
+> > --
+> > Bingfang Guo <bingfangguo@tencent.com>
+> >
+> >
+> 
+> Thanks,
+> Barry
