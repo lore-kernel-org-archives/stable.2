@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606081;
-	b=lknQx/bhjvd28fdvpQVPPIF/joe2y9BwssCy41gfAFcmKvz84/tknyyyIJE4631pFTqh
-	 rlb3HWXRyP7V9CmxySwaQb2Pturv0WRntYaN/7BJigwSMEoid3ojXHcAHMbn+VyH59/In
-	 AfzJLph70r3cp4fQ7AyOqG2wt7OvqEdhBmPdNEM4d670RYfekUvUipQcr1ZMuVfG3JTP4
-	 yhFyQyRc6n729ca8jNWpxfS+obKrTEp4ewNN3GGLZa8K3FwZulCZgDpX5WYrC/eQW80v5
-	 d4ewTCxblx0XW79gtMLHVJpTt2hjJ5UBCbE/hOqYHocVegtEE1mgfKoGQ9Ya24Gf90w==
+	t=1795606084;
+	b=U2TuTzmnUK2w9iIUO44ntWaWCqHdnqkBbHqCI0sNLipH8dZUE5dx6zdT9DuNCFBSbRKv
+	 5Ek0ZI7NFQkImg3EUmu8KNzM9La0ijKr+6NIDVf3/hhJiGx4hUjdHMIxYbTouIMcJC7Kp
+	 Cc4GDsytfPkpazZa3IfBG6Ad2LQ/aMmiJye+sdQwOkQ1gCvV9RrICn2aFuo+PwOAy+ebi
+	 itZvuOZ58cl6o+EE4zfb0VZgAleQFWk22DooHMo5ITIHCEFnTiQJCApwFNh8VgM4IkqBy
+	 bXrQyiSqEHhVRlao/CZtT/UJmDYc3BjL+U6gEXJLwkjNmYzo0TBpA4zVpHnOkd5tMYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606081;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606084;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=XX5IwNwAXWVdQ+6FF7aq4tlckEWEdHOgdlTNZdeEbyA=;
-	b=mG+RdMke/e80+1cvNA3KOanmlAV58RdHc1X1RUyCg/nL3hTzVabYz3yr+3ztWCk+uGIy
-	 Rifa9qpfpsY6cppbzVzR6YJMv9iawxBKrobxTLezrNnzZZQZSDH+OEUJ9HFtqOcfdM31G
-	 vzWBy8YzvjEp6cZoV8974uLqJXnCQrOCw52cmDc+Bqv37hE+7yOhW3FZuC3QDqjNJpYQH
-	 9N9g/F4VSQ0MghL/JmcmWxP7L85OtNP3/9F0BqTYsZsPzo5Nj9OHjmhCcAITUMP+7gxoW
-	 qehghZtHiNxesiCXb71tNafOJQLK52vJ0HYlCM5BVNN87uVcF8R9kziVf6rCfVhwHjA==
+	bh=HwMOhNS+4ZICvpYeHQn2ZmsgfOK+6+jIBo42pnrFJ3o=;
+	b=J2JqJ57VbnoXpXKwsJjCNMrHRFnbbyj4s8NCwT6OuL7yBZ9hJzXSY9s5OB9waL10ucvM
+	 nKofvMAcybxMFoJpLQiGvDcvHVuYAgX+OydTczQ3wiS8PxmhIocpzzY3+uFiWGKLP2hsr
+	 qG8Cwqb2GTT3qYKId6nWigueiqMrFro2vgDo7rTKUe5T6wQxiTHIETj2GAAlHWv9Ji9wR
+	 fBxRWFJfhKRbV3ujTLY8d6MQHHX0sVeIHekMemOtKXYnJX0LBlBbiPaBOsJPwGMqLc4jw
+	 Kcg9+ED4/3y3IVkro167TvP6BOKHUD+ZS8q+6NRufSucN/ZLeASdA4V7u/n6NEcCyIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xVIbw6QU;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PTUasUvC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D59606A326
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:28:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0584D606A323
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:28:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xVIbw6QU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE7021F000E0;
-	Wed, 25 Nov 2026 11:27:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PTUasUvC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 571CF1F000C0;
+	Wed, 25 Nov 2026 11:28:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606080;
-	bh=XX5IwNwAXWVdQ+6FF7aq4tlckEWEdHOgdlTNZdeEbyA=;
+	s=korg; t=1795606083;
+	bh=HwMOhNS+4ZICvpYeHQn2ZmsgfOK+6+jIBo42pnrFJ3o=;
 	h=Subject:To:Cc:From:Date;
-	b=xVIbw6QUInyS+kXj2Tc/HzzZdkedNFE/FNyqGn+3Z/VB5rwDErpZjH6+RZ7swyxqO
-	 TuMRv5qa1ugUIzbRm0xFzdX9aWGW4Z7oasY+iDUSydaMeDnne68jHFRYAxR5OHV0yK
-	 scmjUe4BsWIk7jo0oluk2NdybCsmGRRkfz4XXOe4=
-Subject: FAILED: patch "[PATCH] smb: client: let umount -f stop waiting for reconnects on" failed to apply to 7.3-stable tree
+	b=PTUasUvC2KLmlRPpeRfDfzOUPHWCGR2qNVLc8DDGq9ZQZuBehQbkW8/hSc92lfEFp
+	 OgrPoEbCN5NHd28ClpTaDA1RtUGus//HcVyfa7DL3e8+eQQ4ZaJFZwCJQ0/GHcuJE7
+	 AFqp1qzq49ZelaaNOkIZVugGFcMHUL52n1ED+/qk=
+Subject: FAILED: patch "[PATCH] smb: client: let umount -f stop waiting for reconnects on" failed to apply to 6.12-stable tree
 To: pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:15:43 +0100
-Message-ID: <2026112543-creasing-upcountry-1465@gregkh>
+Date: Wed, 25 Nov 2026 12:15:44 +0100
+Message-ID: <2026112544-chef-detest-2bd2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.3-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x f8ea398448ce4adf32493649ab6665ab1f858d10
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112543-creasing-upcountry-1465@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112544-chef-detest-2bd2@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
