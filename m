@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795597973;
-	b=DKnAJb6hVfgVmiN9PSjtopTQ70/R3tzj6Gbkr4/OfE2KEra3yf8Tgw4e5G5T6CEHrljq
-	 ow8H6LKubz0Bb/Vwd2LvNe4jQdEe+lNleSk2nC0CyJq3kFnKDXGaUVMJFsS+GIdpa/bDG
-	 P3WdZbiFdf6v//TaJm+FXpB1Bx6QnllPee2tHkWBqByuvT1ymjDtCIzyAhUh0vhgDpHOn
-	 KTzOSnAsGotbw/0VN4RTy6pns+kraszO2Hgnd+gd186EkjPr4G40yci3DfjHfqoCJ0t5k
-	 8546uR8V0nySIeb9iqsUDJWMOZeohzpyc3EEMB5GfRuvIKFuhk8rP7fCpr8ajjOeJzw==
+	t=1795597976;
+	b=kGmbXE56XP26ImfhaDU+jDG44M8mQWyv9+wkBpmtYoRwrwuSHWOwO7fSTlaLAnL5r+2O
+	 SVqhXeo4Ibh8YLM1iltIVDefg4bU3kreaK2XDbxmiGmsmofKXOVbPxPc/COuvsG3I5HLe
+	 kwOTWtUCQbRCOT5SaXveB4O0o4eoWLvFHPi3y7M78dKZVpXo9IiJ4aSh+Ip19GTvHJHDI
+	 4NqQ6D39FDH5xAiT5RCQ/KKM56/JywatHrrWYEGU4VgGxnXmEVHb+YBqZqotQBbcZex+l
+	 YofzppFyUZECwME4IFaOF3EpaYMsYtjMHWd3TlpvJH5saWD8tWWhQxZlrcBRmgEKgDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795597973;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795597976;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=PvF2jtyqcE/NqkJFPuplXRxkSnM877nXqbT6t1W9RIE=;
-	b=wLYMWUjdsy9NRnc9TU5P1O6RDWd+L9xGkVVm8dDjcfTfF2OhkEJMI2wXNAoWljjWFIVz
-	 zOw3zkPSvca1jh870oKaa4o3A62CwrG6wEB+bs069fyeGL7ah5xqbS4NDAHTmVQqbOhyF
-	 SDf8E9a07mRLAFVzjXUmKrqJ6ga0dzz2gAV2jPzlMwgqy/tIM3c2ahxE8iGVd8u8fdeVF
-	 kjqt73qNVI+d2bVSWMea4Kthq4/CfmyTXoc9DPyfftedHzZWQvnyJiz6RBBHPHrVoeIjD
-	 AvUC0DdkEF7SyxU2SvACRAnbYtY630XhODUCoakKDTVPorhR9KVz1I0McMCTUO5IYnA==
+	bh=3KQxq74pT5WoQndThSHq883tp+PKOMntv3pmL/wURBc=;
+	b=rev8r0uBjANWVV584dwx4ZtTeRuruPpMosW+0D1ojN2asUQpiZp8z2A3258e13aHQ7un
+	 KTkFsoyonqhEsPR1ha5F0jvKYY5ZtAarDtGg00o6IaxskGr6gG1mb7pOWwzuL8v+QP2t5
+	 vOi/6N+KmAHvw2E7pwZGKomaCksnG1PlHfmLcu0TZX0f8OTpc0C1ubF8Fk6G+RdNyCVL5
+	 6phQfKCJDiqwUvekI+8MlrGvNinEr83o2HuXyBpXWY/ZJfGU8swSvqy5px1PPWtqjfqi5
+	 QykF25XJtNbh+8AQEbG60eE+29EFr8+WbOhnP/wDkaea97145v1thmsoLUHMRCmzeGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iqWkgIQI;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=p4WCYG6y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBD5606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:12:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC14606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:12:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iqWkgIQI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 775B11F000CA;
-	Wed, 25 Nov 2026 09:12:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=p4WCYG6y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 728A91F000CA;
+	Wed, 25 Nov 2026 09:12:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795597973;
-	bh=PvF2jtyqcE/NqkJFPuplXRxkSnM877nXqbT6t1W9RIE=;
+	s=korg; t=1795597976;
+	bh=3KQxq74pT5WoQndThSHq883tp+PKOMntv3pmL/wURBc=;
 	h=Subject:To:Cc:From:Date;
-	b=iqWkgIQIoGSfOeqTBEBYbfU3Loeor6D/IpigXiFCRTdQpOknNajTWfw3b6pe6frxA
-	 X7N2zVMbITFuBWXJVd68i0eWkLYix2/yyXn8r4W7UmhsSFDPZ16TkLM55PUSDqz4Xw
-	 D1F52fOnBEocSuJfl3pP/QmoZoEr0vgrDCatX47U=
-Subject: FAILED: patch "[PATCH] net/sched: act_ife: require a full Ethernet header on egress" failed to apply to 5.15-stable tree
+	b=p4WCYG6yqTAQ5I5lcBBmyVZyFV05qqKZpNkB01ciqAd1RUEcsS6ErRXAVZv3dPT6j
+	 KXXMqHc8PE4nEiKFipmK1AX5YDl7Fyqmc5icES9YNuPDfZaHRwUx5P77Rq7N+Wj9l3
+	 rA8qKdcsyI9NWA0hfiO+x1maVtGkPXWdY46nYG3s=
+Subject: FAILED: patch "[PATCH] net/sched: act_ife: require a full Ethernet header on egress" failed to apply to 5.10-stable tree
 To: jhs@mojatatu.com,horms@kernel.org,kuba@kernel.org,sashiko-bot@kernel.org,shawnq1@163.com,victor@mojatatu.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 10:03:42 +0100
-Message-ID: <2026112542-skilled-apache-bbfb@gregkh>
+Date: Wed, 25 Nov 2026 10:03:43 +0100
+Message-ID: <2026112543-shout-immature-7e47@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 11dbce09083473249c3843ff31bf8d8fa01bdeef
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112542-skilled-apache-bbfb@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112543-shout-immature-7e47@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
