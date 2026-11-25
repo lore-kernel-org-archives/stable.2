@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795645535;
-	b=gPmKDMZ4j0umPz2I6925FhQpRU1HLDnJhB4B9nmLEkd2UtyfUj0wHrCrNAJZ17jd3wzS
-	 kyuWYIUpf3Nui75cqyM8eijTJex3C/8i8fRHz556AtFqSvemt0w8DlnFKC4w8S25Q3R9b
-	 BARaEiNxds4o4r24WnQxltV5tT4iP9U8DaqC7EnVOlgDucyo0P9ETokUilA9apQwz243H
-	 mrbeskL+pYCe4nD6lRe5KyRL+8cq4/HW1lRQUqhQmq8/AcjV2tvBmAQvcA3GQvyFf9BQE
-	 LDJWemughp6SuDW4Pg35sAJzNLH6aFZnJDRQ9o09Vu9OOVcE/vwyXC4mxgbMtYxTDEA==
+	t=1795645537;
+	b=0X2goWyJMPqNIFc/dpmRKTSE4kcchlTJF/7EoiIrCsI1CV8famzVG39yUz+yXxxFafWs
+	 nDBopBKHEHWa/MEaO7MNLrImko6P6ZGPMtQOH55UwUPZGN6ioqpvMH+XpaOSj4scm0Gh0
+	 ReYV8leC86vWv2okPM5Rl+S/YJ6cHDvA9peR/x94hJRHVbogf7+Pdoai193DacHbnfMa5
+	 KZHsCvmuiHzGp+pdeUl1sc93xK9+EHXgGU5cOIKTzPq9wKa0PTuwwYWeu388tEexxNoUs
+	 Q3wUIubwlwa1ROFJ/4sP67RUkv+mr4e9/pMfbFyZQNcwRMNfzQIvH/5zCTjh3JM7zZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795645535;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795645537;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=RCCssxDP7VqyjtjkkMxKeVZicY7ZW2acPhjksq1uY6w=;
-	b=qxUdhCWHbnaR3iPKGiDyfKTFw7+WApW12DB0iNOwLxbD5cAxr1k4xik42CBtXi/my8+/
-	 aco8Mnecwg65NYc/MzqDUl4Yhf3W0Zv/1a+YvWDlaYGTdNlWGF4GfF7UIDtNr/KuflpEG
-	 Fw+klkop0d7GugsQl/K3w7dul5QWtIQyVZHlJ4EGrleHFYL/NInvv6kD/UZIYSVVW7aGJ
-	 mA1tcWjSyG9src5NquqTvHzqAvu1lz8K2sJTJscJF3i9Uyd/KhCaiSReNzp3Sf/AKPo0V
-	 Nzw0kCtPHENbK5EoIjDrEN1fyvAo1METy1SNAMZGzEpFUFsyhbP82cQngcRbxR/VgLw==
+	bh=RZfUBsQBjrYMkeiiy+HZZjsd5SGGB1qkI+nxVlUd/GA=;
+	b=zQ6/ZRMu6oIDnczzEd8n1wdCXJ3AJDC46CwOTun9KDbS3ByEdceLqiY1xwwd1WM7UpxZ
+	 C7YrSIOn6Whwli194k31ESaxJgmNmLaR1YBz4CcwQ8PT1lSa1ex7DqM5tiBCgsDL7g/4V
+	 5+ERo/IZuPwynivcr7XLgUEHfgzD3EXRUZqPbR+dqXmb+xL2laYT+XCeegR/hDUxm6uZt
+	 tg4LgABKmbiJvAd7JMTxbtv/G8DsTOkIqkUBBj//871C4vZj5WQggYvTBeSBJyYa0FIhN
+	 bKacWUjhiCVgfO0ecetswV6ifc1TAtcWgaIQJuaCTd7WJpydsR1Si4a/ECW/BN5uDfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--elkin.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XHR3R2so;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cJqTWn5o;
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8DF560A5BD4
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 22:25:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8DF560A5BD4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E860606A6A1
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 22:25:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E860606A6A1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--elkin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XHR3R2so
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-341eff9e381so9500864eec.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:25:34 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cJqTWn5o
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3869865a304so486466eec.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:25:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795645534; x=1796250334; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1795645536; x=1796250336; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RCCssxDP7VqyjtjkkMxKeVZicY7ZW2acPhjksq1uY6w=;
-        b=XHR3R2so1mn1uGUnq+aG6WGdaxLRQ2F2VsbqIuDb7Zo768ZuZhwuDtjO+A89l9Z8wI
-         /FalLqpBrFlX/MxeG4FXcZ8lYx33htKbBDUKVatEp3EWI/ZLvkJmdS5RGPy/8Pw+q7s6
-         qGrIA/noEH1eDbW8I8jd45Uxy5Nv6um8LqjOvRRA/NGbiAGbZFlgl2Eu5lc4HzxNAVmo
-         gc/s/ATFmLfJYB6UHLrgavGZsS7kse110nyrDmqQOCM1q3dn3X7bjzn9uCcuDZgkqvHS
-         XYi2gtXoC3gVDi2F6Q8qNN3NNZh5Q9AuG1RpnesRuWqyo+BTDNHM9N5Q3UegetrJtZje
-         8xDg==
+        bh=RZfUBsQBjrYMkeiiy+HZZjsd5SGGB1qkI+nxVlUd/GA=;
+        b=cJqTWn5oOQhFGoNAG1Izk38rCyk4MCBgbryuLJcH4KihfOWdvM41xVsvdqVeJUAadb
+         vm0h1/AT8PLlcA8HKe5q0Ds2nMAKWxik4SH46HNJfnAmz8AbRaemE3EVkVk0gfYfr6jZ
+         rU0fqpBVFLi+wI5T1u/49hrWDVdhoWI0AuXb4WNKbys7fQtwz/jebrYl1NNNlwaYyauA
+         1Am/JSp2ONCRKzKSYlAu13JDGD8vnkYLHV1FvQbMswaBiXxNzk342gysd0KfZPC5TAyw
+         VbUgrHVInU4e0g5+xy7LNpNAWDWHkrZg6rfB9oo05nCG6a8Iicqiuch9dyBWksSeBLBP
+         Kyog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795645534; x=1796250334;
+        d=1e100.net; s=20260707; t=1795645536; x=1796250336;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RCCssxDP7VqyjtjkkMxKeVZicY7ZW2acPhjksq1uY6w=;
-        b=XfhivVZz2RQ8UQ9xKD9+w5CLP1miYW17ijGDivBwWlCK0AQanaoxd8xLh8c9JvX0wf
-         jeS/CtNyG1zSaawDQG8C/UMz/GHhC6GPmPgWPA/lLAyXIAncAA7kLuL8xHVzuY0xI/KZ
-         /MKYKHjLiHIsFMypPqIQ8JKJczF+YOLSUdqgbiVpzClXa6uAIjsZEmxcNCe6ICNpJI7O
-         4uV/OeZE12hOtEs3/YYBWxXJ5vLwvh6GSKmmqlbVKepjpU2U/wwczFNxV+0qZGISkn40
-         ++IQTNz6znX4v3z3Yc07RPmsNGvyw35DSrEV5gRCEoge+Db7EPyfUeceH03BX9UsTn43
-         YOsQ==
-X-Forwarded-Encrypted: i=1; AL+hErEAZSZrtYmfzEwOpXZFKX8FNII3Oo4X3u0tduYOpaj3Gjx3EWK0xFtLBI6kk5w33ORiJNBYEO4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Ft/SjImJ6mXV/5S4eTS9ab5ayjhcfgHMFKA5OzsKN5aG3KO65
-	bwVJ0LlmYfddh5bUFVMnRP62Q8iR8xnuh5kMBnroCu7R9Rf7l+UsrlSdjaoSKsfXk4e5La9ia5M
-	bOA==
-X-Received: from dycnn7.prod.google.com ([2002:a05:7301:1407:b0:384:71f1:1227])
- (user=elkin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:d587:b0:381:d92e:ecab
- with SMTP id 5a478bee46e88-3856f25884emr17876278eec.11.1795645533582; Wed, 25
- Nov 2026 14:25:33 -0800 (PST)
-Date: Wed, 25 Nov 2026 22:25:12 +0000
+        bh=RZfUBsQBjrYMkeiiy+HZZjsd5SGGB1qkI+nxVlUd/GA=;
+        b=vOihug8Nbrct2L3SpK6lHiZZq8ceBLGrwbHtDQfawyC7LN0EyCo+aogJ+DbJetfZCO
+         NAo2iCbDSuTGiHUWvpq3tqnKaS7a6plUV75Cq5fTNczMTZX859JU9rnxQJiHembW9Ist
+         pckpq3mN5vwq6KqZsEvOXPOtdwIKoraerGHaMHnjwSrGISN9IDL67EIeTslb2ZjsrUhT
+         zDJIm9lW7VQwdlYUNwP0tLtLrujjkXAYPk5S0Z7APncZ1iWnJ+57593+JaSCz0vsVcgA
+         dGwhBXfFHDmyBHx1aT1tOzR2tABjjRCxaIsxAKb7f0luBHFDO3fDXiPrgjEjF4q5emXW
+         JhGg==
+X-Forwarded-Encrypted: i=1; AL+hErHw+fBYB0NVq6c4GdwY+x+5WHn1u9haS8steE1rpDsjOMXspGgVi6B4RIrXr3g6RJnXslazB4g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+aOo4T/tzBhkeFVxk6nRk7D4sBMmDzRqIn4HKTwQC+UJNfo9zc
+	vFkJEKh2dZtD/BP4iKdNTE//TGDXvZl5XQqkkV/QjrdPFrxzkltIIS3iGF0vYookNLj9l9KH9B+
+	MDQ==
+X-Received: from dybpk12.prod.google.com ([2002:a05:7301:428c:b0:377:a5e3:b669])
+ (user=elkin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:c00f:10b0:381:1eb7:938e
+ with SMTP id 5a478bee46e88-3856c9a61c1mr23535009eec.4.1795645535979; Wed, 25
+ Nov 2026 14:25:35 -0800 (PST)
+Date: Wed, 25 Nov 2026 22:25:13 +0000
 In-Reply-To: <20261125222513.1446099-1-elkin@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,9 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261125222513.1446099-1-elkin@google.com>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
-Message-ID: <20261125222513.1446099-3-elkin@google.com>
-Subject: [PATCH 2/3] drm/sitronix: st7920: Check drm_dev_enter() in crtc
- atomic disable
+Message-ID: <20261125222513.1446099-4-elkin@google.com>
+Subject: [PATCH 3/3] drm/sitronix: st7920: Pass u8 row address when setting
+ GDRAM address
 From: Elkin Cruz <elkin@google.com>
 To: Iker Pedrosa <ikerpedrosam@gmail.com>, 
 	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
@@ -93,32 +93,35 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-st7920_crtc_atomic_disable() ignores the return value of
-drm_dev_enter(), allowing SPI power-off writes to proceed after the DRM
-device has been unplugged and unconditionally calling drm_dev_exit().
+st7920_update_rect() passes &i (int *) as the data pointer for
+SET_GDRAM_ADDRESS, whereas st7920_store_gdram_address() reads a single
+u8 byte. On big-endian systems this reads the most significant byte (0)
+instead of the row index.
 
-Return early when drm_dev_enter() returns false.
+Store the row index in a u8 variable and pass its address to
+st7920_spi_write().
 
 Fixes: 88b09229f34a ("drm: Add driver for Sitronix ST7920 LCD displays")
 Cc: stable@vger.kernel.org
 Signed-off-by: Elkin Cruz <elkin@google.com>
 ---
- drivers/gpu/drm/sitronix/st7920.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/sitronix/st7920.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/sitronix/st7920.c b/drivers/gpu/drm/sitronix/st7920.c
-index 091e80d8bda5..ea4566009c4b 100644
+index ea4566009c4b..005994a8f87f 100644
 --- a/drivers/gpu/drm/sitronix/st7920.c
 +++ b/drivers/gpu/drm/sitronix/st7920.c
-@@ -580,7 +580,8 @@ static void st7920_crtc_atomic_disable(struct drm_crtc *crtc,
- 	struct st7920_device *st7920 = drm_to_st7920(drm);
- 	int idx;
+@@ -309,7 +309,9 @@ static int st7920_update_rect(struct st7920_device *st7920,
+ 			data_array[array_idx++] = line_buffer[j];
+ 		}
  
--	drm_dev_enter(drm, &idx);
-+	if (!drm_dev_enter(drm, &idx))
-+		return;
- 
- 	st7920_power_off(st7920, &err);
+-		st7920_spi_write(st7920, SET_GDRAM_ADDRESS, &i, 72, &err);
++		u8 y = i;
++
++		st7920_spi_write(st7920, SET_GDRAM_ADDRESS, &y, 72, &err);
+ 		st7920_spi_write(st7920, SET_GDRAM_DATA, line_buffer, 72, &err);
+ 	}
  
 -- 
 2.56.1.839.g22a8290db9-goog
