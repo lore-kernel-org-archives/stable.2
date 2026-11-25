@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795605997;
-	b=HPp87cTENTvX/QO52ILXeyAzIR7wqHKHultKejCDMC+JYxAoRKyeuFY2iwlAVWmWJqMq
-	 B1pnA27ZKqmEP4ssqLeTL4zHmHJ3VLBO6+yoP1wa/9HZirt6dJLfj5dJsFaB0hfDLIwop
-	 mhisITVcBy2Ff3ovMr7waTfLVrApefuh7WFYnE5icdErzWFVUnNNilaYZQddeZEp3fC7e
-	 Y04EbjgWc8JK9WgtdTaV/cu5gaM8egJjBv/U5b1tjSPyfRNeLPZjPLp3NTItaqnzXRB2D
-	 xXocaxn414pST5G7SYXQSypaCPJCV7UhNHYPqT/B0w/riDxFL1pNIg1TyzHdCWjgmyg==
+	t=1795606000;
+	b=WVt7KL1KdB5FDpA6iZpCglqG6MPaFjN+/Z7mMuQSd6HyhKnq+FUz/Lt1Uilb+GbbqOAF
+	 47/QdBKOO6fDJPbhzURe/3OSiYU2pNDnkhE7zBWgKXF+KTn8SArHcqXjpotmujEOzhkzn
+	 dfPMyuXMcVT+62ijw2lX0hSxj/40Zi/44FRn7iPavAFGCU8FXZnjwhWhQwLjiG3CMNXQE
+	 3dKj6cNrFhe/IKNBPROtSBK3fzO8vd4UxVV3VdowIJ6zwNGWByWg7ARjkuHyRm/ZCfva5
+	 wZ6EnF6OMowUThJRdDDVMkklcKlJj7IBrjLrsWtVVIO6bJfi3nm0agJUKurX9OScpgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795605997;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606000;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xdMTJNTpVsueFtqQ/6B5O6kc6G+t0VUYOM5P9C+uXdE=;
-	b=mD0PcxsRq+J6HrjVsisU1UEsmuGw1OZEjCv9e5AeARYsC3kqhcrTp7Y8NpG7waTAVymB
-	 q8fzBi8diu/fmTWFicqKBZIRJZxQrEPyHwQmzaMP+P3Ib2ctLPre5gh8FjM01jSz/fkom
-	 mq/UIOeEL5CPeow038BZJAdBzmGAQueAkRdLImWWZ/XGBScUMKISTUa/UzLcnHbmlm3b0
-	 LHTOQbcurWma3oqPLnlNZs8ZTGyr7Zt04qCVTp6Up3KVjmmMF/jJHA3Na2BL/dwL1ypcD
-	 fyvoJDgEf9DmXHZYn2uFHbHIZy5boD5EwyPXv43iP2UiA/xdUtqcmXghn4IZOtI4P+w==
+	bh=w+/goqYMb0ar5EMdu1lhvyVl/0miqWYwh+Y9B8jcwrY=;
+	b=C87IZhddqEXVU24Qgan2mchUZZUSjD6Ew/FXL4JGxMFKwae0NAGVeNRglRHhWoos3CeO
+	 AEwg5TwUoJfsFUKd33ZST6eVXm9zMy8WQO65QCuJbkSWRTHpsZtrJdH5oOhO9zEB3N29x
+	 LmYuNist1pruXnOVUvqT0/+c2/T1bKeoqrv0CBSF7rpZq/b8n0kJ5i776uwsjg0KfwxVH
+	 Kgp0WAMmiOb9gGFo+fCHpbpVT05MM9i21aHhTu9yfk6Nt1Kczm6/k8tR2351yWD9e3uON
+	 ZtC8i/8K1jUq2/nhWu7iDTmNY02K6UqFBh7d17O6Wbmsxhql+1qgmxwF593OoDc2SDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SUeMVDc3;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ekKrUg3A;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E4760A380D
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:26:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E228D60A3838
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:26:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SUeMVDc3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 876911F000CA;
-	Wed, 25 Nov 2026 11:26:35 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ekKrUg3A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7F5F1F000EC;
+	Wed, 25 Nov 2026 11:26:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795605996;
-	bh=xdMTJNTpVsueFtqQ/6B5O6kc6G+t0VUYOM5P9C+uXdE=;
+	s=korg; t=1795605999;
+	bh=w+/goqYMb0ar5EMdu1lhvyVl/0miqWYwh+Y9B8jcwrY=;
 	h=Subject:To:Cc:From:Date;
-	b=SUeMVDc31BdclAUVKmqs4g52MCqU10SyZI/A28TYgybSCklVzEYETBvOUNS+PS9R9
-	 UXE1MjozDR4fu59kwHzgupd50lvGyxVEXaUI5gTUzpO6lFAd06843fEOGaUt5yGHu4
-	 ZxglVrdwKpI/bBDfA4B9fezVFcsO97ZD0j1r8pfw=
-Subject: FAILED: patch "[PATCH] smb: client: hold server ref while queueing reconnect work" failed to apply to 6.6-stable tree
+	b=ekKrUg3ASGpQfQLgZoELVr2zmErGWslW7c8mLCTvNI49JtDzhLlBN0YHueDMqbbqs
+	 OUlu8Js3ONCOACtbR+/1arho/pXvVw3XOB1qh/R1wxbGcIb5YYMGUwnh0cLNN5UbM7
+	 m5jSbXBlArvE5Gy7qejqEhI7Gb+7v2bUu32kZ/2U=
+Subject: FAILED: patch "[PATCH] smb: client: hold server ref while queueing reconnect work" failed to apply to 6.12-stable tree
 To: joseph.qi@linux.alibaba.com,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 12:11:45 +0100
-Message-ID: <2026112545-crowbar-trio-f08b@gregkh>
+Message-ID: <2026112545-unlovely-trapped-6193@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x f02d249e9756b78990aaaa1635e47e06deb2cb51
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112545-crowbar-trio-f08b@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112545-unlovely-trapped-6193@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
