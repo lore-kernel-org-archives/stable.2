@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795616112;
-	b=tz4xD/kakgVDiHIYv64iJHh2oydG0lQZJ49jvhiS4SaYt3CmbFo/rwqeos17SOKW/CU2
-	 Xdam+oqw9tcGTXUJAagSWmB+qrzTd44Gli7ovzrqq2p+kflCqlXcFbZhcMsVst7ctJWLD
-	 cjgZ6oA1RLqI2G9PIDaAIWmWCCkp0plW0GkLY6lZTE1PeKLFkPdobXWDBFtEqfxnnYAz2
-	 b7F1aDiU2LLvSv6tjSRZRnPgBZbl1VgPSJWqjOOqLoPXsDzFHDtLH/szB+mMqLto1cONU
-	 ccqHG7uj9jWcaDzZH9auiaS+mMhkrMD6/+94UhUn+NpPRmdrW5+hv5yxaOPXys0vpqw==
+	t=1795616114;
+	b=14rIx7d+Z5rEa7Kyl4YcfCcw/wdxgE71uXAkwjarI7BYCXpmFz63GdTQUzCW+mz9E9Dh
+	 6PR/nCI+G/FJ0SfTmmJ0qh1GkHF8QsZlrjqHS+qi6evyVqPDwpNjO3peCASKBxGrVwF0E
+	 b3AmTp+GBq+6KFeN3U1/5uhrzyDsjGeK7aKvXnQGE2Fpv+zx55bpSdL3KRFwbtkkiy7Co
+	 cVUAmau7vkXI+dMo3XTXMJGOGPRzNThp26js+YwRa62rqoKc1GTQphezXSAFtmRBBaxhu
+	 X/qks+7YVmj2kmz8nxOxdQUEreXbBjm6hUyrxF3sZRSetJv7uz5jLbkh75rIO/NwkuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795616112;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795616114;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=iOavuhXclhOaHI/0seHjhELa4YY7Qjxg+BB6UCL4ORE=;
-	b=JGzPoUShDXDwzPDvpnhvC6HuxhZ7iwJYT1fMLgwd50QsK0WaJOZsmJYuDy655GZwADi0
-	 kb6okhg1ETf898sOLSVvE1a2FFDC9ofGG69aoWn5l87E0yeiHH+y0XJC0s0KXgvQcT2Tt
-	 DQNFW6gRaoGzm/Dp6bgGYMHa0YI2rvijwVjs8/jd4mNBiy5XaPlTMD55QzAeIuYRPm4UN
-	 fLX6cz+Ro1jOBjQHi8uiQ0sK1Zz8xvtxmHyyOS45CEUHtSdl+wRktfPZMFH3VuZlsxqEJ
-	 ByDDNf8qHMCGTF2SCVErn7FCKkj1fcSwYLZuGdYTz3C6by0jkIH17L2NKKiw0/LAisw==
+	bh=khM9e9PdssTSli3e34PBJItuouqfZ7EJL3XJV+m3hEU=;
+	b=E74TDpmUqG794SJTO/EsbhRZdIcNn0P3dAumhv62o0FZIhni2GWV2NxdP07SjIcizA58
+	 Is79nDYRE6UilVjRC768H8wFAtVvkxGB3dX6ND+2Giu4++bgD17shWILggYtTs51YEacD
+	 YZSCXMkahsx9CEQO9uXeKA1N5PyvDSkebUg0seQRXw20WszFq37Qg8vstdGb5I3870sI0
+	 kkqv0b0UP58MBGBh2oSXZQ2Q5pwRjiYBywIDt8AcIy6ZHW7cZj52kSWZ00AAwnsTR6hgP
+	 AvI6t6Vq0C20fbpbn0oUtYXZguCmIJ3NNKGWWbP9bWkhezPLXZMSazIqWVmThQzQ8Nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehHpva6p;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MD8upZBi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A47606A32C;
-	Wed, 25 Nov 2026 14:15:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC95606A32E;
+	Wed, 25 Nov 2026 14:15:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehHpva6p
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 328C71F000C6;
-	Wed, 25 Nov 2026 14:15:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MD8upZBi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E813E1F000C6;
+	Wed, 25 Nov 2026 14:15:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795616112;
-	bh=iOavuhXclhOaHI/0seHjhELa4YY7Qjxg+BB6UCL4ORE=;
+	s=k20260515; t=1795616113;
+	bh=khM9e9PdssTSli3e34PBJItuouqfZ7EJL3XJV+m3hEU=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ehHpva6pKhTh2KvNEUIvq2bfyqRjGVrM4AJG005LpJ+GxClpNJpbpOeawcpqTktFd
-	 FFOuHnoqcuivWmIL8wMmzLcZAIie3bDqa8N6u6mpl2pPYI6IBZXFETKG8y5dX93i4+
-	 Bl7QRas+k4DKYvypNpWTEFZ6shIg1mi5R5pnHppbnafElS6xS+UZ+aaGFDETwbghLP
-	 ZZmJxw5uXFQ2ylE2wR1dEW84IJWDnjYEq9TpliDOGD809P5TyS56CmCam3KLACUY0X
-	 ingurqTG4XpvGAbjKKdFkdspeakzqRveNhsNMUsCpZ8Dq5S6ZeYFTae0xEx182+b/u
-	 95YDmkDbBAqjg==
-Subject: Re: [PATCH net v4 1/3] net/sched: act_gate: bound the cycle time and
- start time arithmetic
+	b=MD8upZBirAQjC66IJG6viYZMNbwOZoJ4fJc1PFdGCz4Jf4VlN6Vmmk/bc3Dwv1890
+	 2+j8zTlnIFqrsSdsQMdJPhfS0xD0cXty7rfe0PTAQVSrNi0+r122tLGxKs/q2sS8BH
+	 rFPcWTYMdbnvF+RRmkHJ10P78bnCmQpncVibzLgSaPV4l8TlUAJ98LRils0blqgq9G
+	 w3RAUbASVhuiditgDndHaIRyX2WxBYXdp/vD97ZtI3oh/2/lA0T+nfwNq6SeoYqePT
+	 gqYWF4zdxYJvvBTTNi08t9csvz1N0GUP9gaa6Jc8tPoUTiUgNjbjeaBVPIEnRMsoQP
+	 783cerc692Olg==
+Subject: Re: [PATCH net v4 2/3] net/sched: act_gate: refuse schedule entries
+ shorter than 10 us
 From: netdev-bot+sashiko@kernel.org
 To: jhs@mojatatu.com
 Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
@@ -49,11 +49,11 @@ Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
  horms@kernel.org, alexei.starovoitov@gmail.com, victor@mojatatu.com,
  Po.Liu@nxp.com, stable@vger.kernel.org,
  syzbot+0054fed3dc9085390f51@syzkaller.appspotmail.com, shawnq1@163.com
-Date: Wed, 25 Nov 2026 14:15:10 +0000
-Message-ID: <179561611071.3135.17430122131465607714@kernel.org>
-In-Reply-To: <ACT-WEXM.v4.r0.20261124074514-1@mojatatu.com>
-References: <ACT-WEXM.v4.r0.20261124074514-1@mojatatu.com>
-X-sashiko-severity: Low
+Date: Wed, 25 Nov 2026 14:15:12 +0000
+Message-ID: <179561611250.3135.13753422220190315891@kernel.org>
+In-Reply-To: <ACT-WEXM.v4.r0.20261124074514-2@mojatatu.com>
+References: <ACT-WEXM.v4.r0.20261124074514-2@mojatatu.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -66,159 +66,220 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 5 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 1 · Medium: 2 · Low: 2
 
-- [Low] The v3 -> v4 changelog says v4 bounds base_time and cycle_time
-  "at KTIME_MAX rather than S64_MAX" and gives as a reason that "the v3…
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  gate_timer_func() (net/sched/act_gate.c:119), which this patch…
+- [High] The 10 us floor only limits a single gate action.
+- [Medium] The commit message says the bug needs 'CAP_NET_ADMIN in the
+  initial user namespace (netlink_capable() checks init_user_ns, so a…
+- [Medium] The commit message says 'An act_gate schedule is not tied to a
+  device, so unlike taprio there is no frame time to derive a bound…
+- [Low] entry_policy still declares TCA_GATE_ENTRY_INTERVAL as a plain `{
+  .type = NLA_U32 }`, while fill_gate_entry() enforces the new 10000 ns…
+- [Low] The 'Some context' paragraph says 'The request that reproduces
+  the cycle-time stall also carries a 1 ns entry interval'.
 
 --
 
-net/sched: act_gate: bound the cycle time and start time arithmetic
+net/sched: act_gate: refuse schedule entries shorter than 10 us
 
-The netlink policy now limits TCA_GATE_BASE_TIME and TCA_GATE_CYCLE_TIME
-to the range [0, KTIME_MAX]. gate_get_start_time() now works out the part
-of the cycle still ahead of now and adds it with ktime_add_safe(), so the
-result saturates instead of wrapping. gate_timer_func() reuses that helper
-when it falls behind and restarts the walk at the first entry.
+This commit changes fill_gate_entry() so that act_gate schedule entries
+must be at least 10 us long (GATE_MIN_INTERVAL_NSEC). Before, only a zero
+interval was refused. The goal is to stop the soft hrtimer that
+gate_timer_func() re-arms from keeping a CPU busy in the timer softirq.
 
-Link: https://lore.kernel.org/netdev/20261022144732.61188-1-shawnq1@163.com/
-Link: https://lore.kernel.org/netdev/20260827191547.4004973-2-kuba@kernel.org/
-Link: https://lore.kernel.org/netdev/20260827121751.33dac8aa@kernel.org/
-Link: https://lore.kernel.org/netdev/DN37NBGPJJG9.2DSVDCKS3UYTV@gmail.com/
+Closes: https://sashiko.dev/#/patchset/tencent_4ED9536B0375C96183B2244CF7709768C605@qq.com
 
-> diff --git a/net/sched/act_gate.c b/net/sched/act_gate.c
-> index 711cf24435409..4835f65439011 100644
-> --- a/net/sched/act_gate.c
-> +++ b/net/sched/act_gate.c
-
-[ ... ]
-
-> @@ -108,13 +108,10 @@ static enum hrtimer_restart gate_timer_func(struct hrtimer *timer)
->  	now = gate_get_time(gact);
->  
->  	if (ktime_after(now, close_time)) {
-> -		ktime_t cycle, base;
-> -		u64 n;
-> -
-> -		cycle = p->tcfg_cycletime;
-> -		base = ns_to_ktime(p->tcfg_basetime);
-> -		n = div64_u64(ktime_sub_ns(now, base), cycle);
-> -		close_time = ktime_add_ns(base, (n + 1) * cycle);
-> +		gate_get_start_time(gact, p, &close_time);
-> +		gact->current_close_time = close_time;
-> +		next = list_first_entry(&p->entries,
-> +					struct tcfg_gate_entry, list);
->  	}
->  
->  	gact->next_entry = next;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since gate_timer_func() is
-being reworked here: can the callback rewrite the expiry of a timer that
-has already been queued again underneath it?
-
-Take an RTM_NEWACTION replace that keeps basetime, clockid and tk_offset
-the same. need_cancel is then false in tcf_gate_init(), so
-hrtimer_cancel() is skipped:
-
-    need_cancel = ret != ACT_P_CREATED &&
-                  gate_timer_needs_cancel(basetime, old_basetime,
-                                          tko, old_tk_offset,
-                                          timer_clockid, old_clockid);
-    ...
-    spin_lock_bh(&gact->tcf_lock);
-    ...
-    gate_start_timer(gact, start);
-    spin_unlock_bh(&gact->tcf_lock);
-
-If the timer is expiring on another CPU at that moment, the sequence
-looks like this:
-
-CPU1 (soft hrtimer softirq)
-__run_hrtimer()
-  dequeues the timer, drops cpu_base->lock
-  gate_timer_func()
-    spin_lock(&gact->tcf_lock)     <- spins
-
-CPU2
-tcf_gate_init()
-  spin_lock_bh(&gact->tcf_lock)
-  gate_start_timer()
-    hrtimer_start()                <- timer queued again on CPU1's base,
-                                      expiry = min(start, old expiry)
-  spin_unlock_bh(&gact->tcf_lock)
-
-CPU1
-    hrtimer_set_expires(&gact->hitimer, close_time);
-    return HRTIMER_RESTART;
-  if (restart == HRTIMER_RESTART && !timer->is_queued)   <- skipped
-
-At that point hrtimer_set_expires() writes node.expires and _softexpires
-on a node that is already linked into the timerqueue rbtree. It does this
-without cpu_base->lock, and the node is never re-sorted.
-
-Would that leave the gate timer in the leftmost position with a future
-key? If so, __hrtimer_run_queues() would stop at it, and other soft
-hrtimers on the same clock base and CPU would wait until the gate's new
-expiry.
-
-This patch accepts cycle_time values up to KTIME_MAX on replace, so
-close_time can saturate near KTIME_SEC_MAX. Could those other timers then
-be held off indefinitely? hrtimer_forward() has WARN_ON(timer->is_queued)
-to enforce this same rule.
-
-Would either of these avoid it:
-
-  - cancel the timer on every replace, outside tcf_lock, or
-  - have the callback skip its re-arm when the timer was queued again
-    under it?
-
-> @@ -173,13 +170,20 @@ static const struct nla_policy entry_policy[TCA_GATE_ENTRY_MAX + 1] = {
->  	[TCA_GATE_ENTRY_MAX_OCTETS]	= { .type = NLA_S32 },
->  };
->  
-> +static const struct netlink_range_validation gate_time_range = {
-> +	.min = 0,
-> +	.max = KTIME_MAX,
-> +};
+> Some context:
+> The request that reproduces the cycle-time stall also carries a 1 ns
+> entry interval.  With the cycle time derived from the entries, that alone
+> sets a 1 ns timer period: the report covers both defects.
 
 [Severity: Low]
-This isn't a bug, but the v3 -> v4 notes say:
+Which request does this paragraph mean?
 
-  - Bound base_time as well as cycle_time, and bound both at KTIME_MAX
-  rather than S64_MAX: bounding one attribute's value does not bound the
-  start time the timer is armed with, and the v3 range still computes a
-  negative ktime_t for some accepted pairs.
+The earlier commit in this series, "net/sched: act_gate: bound the cycle
+time and start time arithmetic", documents a cycle-time reproducer that
+uses TCA_GATE_BASE_TIME = 1, TCA_GATE_CYCLE_TIME = 0xffffffffffffffff and
+"one schedule entry of 1000000 ns". That is 1 ms, not 1 ns.
 
-Is the "KTIME_MAX rather than S64_MAX" part accurate? In
-include/linux/time64.h:
+The second sentence is accurate. gate_timer_func() advances
+current_close_time by next->interval, so a single 1 ns entry does set a
+1 ns period.
 
-  #define KTIME_MAX			((s64)~((u64)1 << 63))
+If this refers to a different reproducer, such as the Sashiko one, could
+the message name it? As written, the two commits disagree about which
+input triggers which defect.
 
-That is 0x7fffffffffffffff, which is the same value as S64_MAX. So
-switching the constant does not change gate_time_range.max.
+> Conditions to recreate the bug:
+> CONFIG_NET_ACT_GATE=y, and CAP_NET_ADMIN in the initial user namespace
+> (netlink_capable() checks init_user_ns, so a user namespace of its own
+> does not help), in a new network namespace:
 
-What actually prevents negative or wrapped start times in v4 seems to be
-two other changes: the new base_time bound, and the ktime_add_safe()
-computation in gate_get_start_time(). The selftests patch later in this
-series also names its tests "above S64_MAX" while testing the KTIME_MAX
-bound.
+[Severity: Medium]
+Is this accurate for every way a gate action can be created?
 
-Could the notes describe those changes instead?
+The init_user_ns check is only in the standalone RTM_NEWACTION path:
 
->  static const struct nla_policy gate_policy[TCA_GATE_MAX + 1] = {
->  	[TCA_GATE_PARMS]		=
->  		NLA_POLICY_EXACT_LEN(sizeof(struct tc_gate)),
+net/sched/act_api.c:tc_ctl_action() {
+    ...
+	if ((n->nlmsg_type != RTM_GETACTION) &&
+	    !netlink_capable(skb, CAP_NET_ADMIN))
+		return -EPERM;
+    ...
+}
+
+A gate action can also be created inline with a classifier, for example:
+
+  tc filter add dev lo ingress matchall action gate sched-entry close 1
+
+That goes through:
+
+  RTM_NEWTFILTER
+    tc_new_tfilter()
+      tcf_exts_validate_ex()
+        tcf_action_init()
+          tcf_gate_init()
+
+The only capability check on that path is relative to the netns:
+
+net/core/rtnetlink.c:rtnetlink_rcv_msg() {
+    ...
+	if (kind != RTNL_KIND_GET && !netlink_net_capable(skb, CAP_NET_ADMIN))
+		return -EPERM;
+    ...
+}
+
+So it looks like an unprivileged user who runs unshare -Urn can set up
+the 1 ns stall on kernels without this patch.
+
+With Cc: stable on this patch, could the reachability description be
+corrected? Backport and security triage will rely on it.
+
+> diff --git a/net/sched/act_gate.c b/net/sched/act_gate.c
+> index 4835f65439011..797562dbde693 100644
+> --- a/net/sched/act_gate.c
+> +++ b/net/sched/act_gate.c
+> @@ -25,6 +25,11 @@ static struct tc_action_ops act_gate_ops;
+>   */
+>  #define GATE_ENTRIES_MAX	1024U
+>  
+> +/* An entry shorter than this lets the next expiry land before the softirq
+> + * servicing the current one can finish, so the timer stays permanently behind.
+> + */
+> +#define GATE_MIN_INTERVAL_NSEC	10000U
+
+[Severity: High]
+Does a per-entry floor bound the total timer softirq load on a CPU?
+
+Each gate action owns a soft hrtimer (HRTIMER_MODE_ABS_SOFT). That timer
+re-arms itself on every expiry with no exit condition:
+
+net/sched/act_gate.c:gate_timer_func() {
+    ...
+	gact->current_close_time = ktime_add_safe(gact->current_close_time,
+						  next->interval);
+    ...
+	hrtimer_set_expires(&gact->hitimer, close_time);
+
+	spin_unlock(&gact->tcf_lock);
+
+	return HRTIMER_RESTART;
+}
+
+Nothing limits how many gate actions a netns can have. tcf_gate_init()
+calls tcf_idr_check_alloc() with a u32 index, and every filter with an
+inline action gate creates a new instance and starts a new timer.
+
+The commit message puts one expiry at a few hundred ns. At that cost,
+about 33 actions with a single 10000 ns entry each, created from a task
+pinned to one CPU, would keep that CPU fully busy in the timer softirq.
+
+On the debug or PREEMPT_RT kernels the message mentions, where an expiry
+costs a few us, 3 to 5 actions would be enough.
+
+Wouldn't that bring back the "holds a CPU in the timer softirq for as
+long as it exists" condition this patch is meant to remove? Fully fixing
+it seems to need a limit on the combined load, for example a per-netns
+cap on active gate timers or on their total expiry rate.
 
 [ ... ]
+
+> @@ -199,8 +204,10 @@ static int fill_gate_entry(struct nlattr **tb, struct tcfg_gate_entry *entry,
+>  	if (tb[TCA_GATE_ENTRY_INTERVAL])
+>  		interval = nla_get_u32(tb[TCA_GATE_ENTRY_INTERVAL]);
+>  
+> -	if (interval == 0) {
+> -		NL_SET_ERR_MSG(extack, "Invalid interval for schedule entry");
+> +	if (interval < GATE_MIN_INTERVAL_NSEC) {
+> +		NL_SET_ERR_MSG_FMT(extack,
+> +				   "Entry interval must be at least %u ns",
+> +				   GATE_MIN_INTERVAL_NSEC);
+>  		return -EINVAL;
+>  	}
+
+[Severity: Medium]
+The commit message says:
+
+  An act_gate schedule is not tied to a device, so unlike taprio there is
+  no frame time to derive a bound from
+
+Does that hold for offloaded gate actions? act_gate is offloaded as
+FLOW_ACTION_GATE to 802.1Qci PSFP hardware in sja1105, felix_vsc9959,
+ocelot_flower, enetc and sparx5.
+
+fill_gate_entry() runs for every gate action before the offload path
+does, including flower skip_sw rules. sja1105 accepts much finer
+schedules than 10 us:
+
+drivers/net/dsa/sja1105/sja1105_vl.c:sja1105_vl_gate() {
+    ...
+		div_s64_rem(entries[i].interval,
+			    sja1105_delta_to_ns(1), &rem);
+		if (rem) {
+			NL_SET_ERR_MSG_MOD(extack,
+					   "Interval must be multiple of 200 ns");
+			rc = -ERANGE;
+			goto out;
+		}
+
+		if (!entries[i].interval) {
+			NL_SET_ERR_MSG_MOD(extack,
+					   "Interval cannot be zero");
+    ...
+}
+
+Schedules such as "sched-entry OPEN 5000 -1 -1 sched-entry CLOSE 5000
+-1 -1" used to install on sja1105. They now fail with -EINVAL and "Entry
+interval must be at least 10000 ns". The driver's zero-interval check also
+becomes unreachable.
+
+The software hrtimer still runs for offloaded actions, so the CPU cost
+argument may still justify the floor. Could the commit message say that
+this rejects schedules that offload hardware used to accept? With
+Cc: stable, the new limit would also reach deployed TSN setups.
+
+[Severity: Low]
+This isn't a bug, but could the minimum go in the policy instead of being
+open-coded? entry_policy still declares the interval as a plain u32:
+
+	[TCA_GATE_ENTRY_INTERVAL]	= { .type = NLA_U32 },
+
+With NLA_POLICY_MIN(NLA_U32, GATE_MIN_INTERVAL_NSEC), nla_parse_nested()
+would report the bad attribute in extack, and the policy would advertise
+the correct range.
+
+Also, when TCA_GATE_ENTRY_INTERVAL is missing, interval stays 0 and the
+user is told the interval must be at least 10000 ns, even though no
+interval was sent. Would NL_SET_ERR_ATTR_MISS describe that case better?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/ACT-WEXM.v4.r0.20261124074514%40mojatatu.com
