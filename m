@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795626314;
-	b=K9egI/X9TaFfljNr7jy2i+Y5MseARKZBmPfR5JETrsNFdwGXIUZi8NQe+5oQcjCePS9r
-	 L5zTnUtOVS4Gqua82w+rocLeoIL6VdTkcBE6C4Q5b9v4QWDu4+0WJ6bNW0jAiYPB1LMNv
-	 Gr9Gg7wZV2vyBWvzx3gaVT5DixYyTRN2GQSSAUenIoN2FsXdPCYY0KyeWL6DCCdQ9GfGk
-	 ZJtBulFklxFS04vOYqWcUlq5oDvZvQSDGpGZI36Se6iy90DCBA1XXLkPFJkzKz3SjLtjE
-	 GquHffKB4+hGNIB4z5bk/sCd6UYrAXVE16dMl2IUn3W1JjjK9plVBJ9X8RghNYTzXmw==
+	t=1795626315;
+	b=Mws/HDw8p3upnVhCOwZnDOu7a5crVvAeIqKNyMimBrILW1cANVArq/esUVtKbp9ZuWjx
+	 1S5+vPbRj0nqWKJcPhX35j3QetGdpxS9iG+TsIBJpugafOmMuuUkQb5hk02+yWx7IC5OP
+	 OXSDVl3M5abvCHTGPN6p4CWn9eh9iFZxP9HRO2JlQ3B5V+l0QZW149tIHVNg+hm0fy4m5
+	 9Pi7aBfrW4dmMwoBoPl1HcMTCt7swVoeHqGIQ94BGgMkmqW3prqECNWxs8jJcbVdHs+Fy
+	 +W3Sywmpd/l53MziSA2dOdaY4C1dokcwHbpLi+JiNWceJcJVL8QI1CXMHnquRZSsqLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795626314;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795626315;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=no6H7VMk1wME4d67DmrB3tRK6qv96HwXkYH40+I5M1s=;
-	b=MAUcmA8idzUQxHku8u9XIdu1vJcI4kX8wG+8X9PQac92x2EkWj4wO97s7dvCq12TmjbF
-	 7RaRyOgAzmjWCJNqYoSNsyKVd+bYgVx/l+gVjYgoBYCEqL4jdqaSOPCoj30XWo4PEH+FE
-	 e+OPfke9wCMKqkOZ1WabIhRLCDSvf0ocGrKsjOrXjwyjvW9NGOLbFfZx3z+kudu/vDYzZ
-	 wK5fc69rjJ/PL4kGfKcB9jKfZCWLcxL5/nxyzNKocc1zmqXNxGd8ZmSvh/DSNMc+SWFOq
-	 CeDk1UfArianUT+EdF1fd9DdMSCqAhmjRWm30mRtEoCaXz6eVSDzFOWqIdAN2ERQCNA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=XGeNLhI+lh9yEGqTPPHardfEOAm/hFtcLU3uLlp8PMM=;
+	b=tr+SJgAOA8CDDG6irOjE3ZNiFQHpnAiJm/d3anEmEuC1CgVxn/6HWAK1eIbqDAEgwS1Y
+	 Qp//DfyvdmrByriO9MFLh7TRgNQ7pdbw6/espr9cGudN1f9ezSe5Ggc/c/5vZ2qy+xV2r
+	 1dJtoURzRjR7aOBDs2YRBvdZ4eqej5TFDiGrrzfkS/aDuqfDvkGL5j4vEpsMdzciwzd5z
+	 4VD0Ypz+tKM3AzE0OKhV3p6dD1exqRn+TdRSOkiDambDrNO0KSaKzVASzlou/63JyYcQj
+	 KGZyIjYbDLX5p7E48OdmD7+2QTjuLzZLf7rw+aTodveOFjEWRfXcUt1JH2UG7IqfX+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zUeAAW5T;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fcGPwGrU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA76606A321;
-	Wed, 25 Nov 2026 17:05:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D7C4606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:05:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zUeAAW5T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B7051F000ED;
-	Wed, 25 Nov 2026 17:05:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795626314;
-	bh=no6H7VMk1wME4d67DmrB3tRK6qv96HwXkYH40+I5M1s=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fcGPwGrU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48D1B1F00A00;
+	Wed, 25 Nov 2026 17:05:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795626315;
+	bh=XGeNLhI+lh9yEGqTPPHardfEOAm/hFtcLU3uLlp8PMM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=zUeAAW5Tt8Lk1/QXaHCuabn359mMVCbz5o3sDCSBvC6v5v4+Keuq7yQmq5cdeM2l5
-	 I4TiWgOEeoLhZl20EEvRiwpaT82BCVd32whmnFM6zWUZAXJKVpyraQP3uhs1JtLhmS
-	 7882xb9qAX7LY1oNa5GoP1G+kLoETO4mHGlfxVI0=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=fcGPwGrUzFq0FOeR7p0LvR7sGBJd+7fJf6x5wATcACZNgCGyo8aBki68JNolpcaf+
+	 oGT7Wqe8sejJ8YlPW8PsYpCJVYfn4PC3qFMZJPTVQz56iMYCEj+yRhaXV1856tmTbZ
+	 YjB2Do2FLnhDf3uIxX870gTxumr/MBeseDeHtQcx8TP9v0MHj+gXSRJKbw/1cKPgWP
+	 rc06UXYgVZ8ATazn4t3f4VWBAl8dk36k2VsBjDwbeC8FOoBVgWItoPAH+0Z5y8urqh
+	 +Y0902SJajuHmEVrsw99DUKYZV65Pt8MEhazWuQVvWty9gA4p0vourRXFnKQB2DKxC
+	 PWUuv67bAYAHw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	stable <stable@kernel.org>,
-	Selvarasu Ganesan <selvarasu.g@samsung.com>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Subject: [PATCH 6.12 757/816] usb: dwc3: gadget: Track a timed out End Transfer
-Date: Wed, 25 Nov 2026 15:38:25 +0100
-Message-ID: <20261125143906.695611236@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
-References: <20261125143849.205329330@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] xen/pvcalls: unwind pvcalls_new_active_socket() step by step
+Date: Wed, 25 Nov 2026 12:05:12 -0500
+Message-ID: <20261125170504.925365-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112544-duchess-wise-ea43@gregkh>
+References: <2026112544-duchess-wise-ea43@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,49 +62,170 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 
-------------------
+[ Upstream commit 702ba3c80a8736898813a2c7484d695278aa114d ]
 
-From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Every error path in pvcalls_new_active_socket() jumps to one shared label
+that does list_del(&map->list) and then hands map to
+pvcalls_back_release_active().  But map comes from kzalloc() and its
+list_head is only published at the very end of the function, after the last
+of those jumps:
 
-commit af91c6322e633504aa45de278f5d520f39d127be upstream.
+	down(&fedata->socket_lock);
+	list_add_tail(&map->list, &fedata->socket_mappings);
+	up(&fedata->socket_lock);
 
-If an End Transfer command with CMDIOC times out, the driver clears the
-resource index but keeps DWC3_EP_TRANSFER_STARTED without setting
-DWC3_EP_END_TRANSFER_PENDING. The command is still outstanding, but a
-later stop issues another End Transfer with resource index 0, and the
-next Start Transfer fails with "No Resource".
+so on the error path map->list is still {NULL, NULL} and __list_del()
+writes through a NULL pointer.
 
-Mark the timed out End Transfer as pending so that no other command is
-issued to the endpoint until it completes. For any other failure, there
-is no outstanding command, so clear DWC3_EP_TRANSFER_STARTED.
+A frontend gets there with one value it owns: the ring_order field of the
+page it granted.  Anything above MAX_RING_ORDER takes the second goto, and
+nothing else in the function has run by then.
 
-Fixes: e192cc7b5239 ("usb: dwc3: gadget: move cmd_endtransfer to extra function")
-Cc: stable <stable@kernel.org>
-Reported-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
-Closes: https://lore.kernel.org/linux-usb/3fdda532-8181-48e9-b58d-cad7289408e7@samsung.com/
-Signed-off-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Link: https://patch.msgid.link/5815c41a7e7923edb114741f29697cf0161f523c.1792542945.git.Thinh.Nguyen@synopsys.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+The result is an oops in whichever context handled the request - the
+pvcalls-back threaded IRQ handler for PVCALLS_CONNECT, mappass->wq for
+PVCALLS_ACCEPT - and because it happens after down(&fedata->socket_lock)
+that semaphore is never released, so every later operation on the frontend
+blocks on it and the backend never completes backend_disconnect().  (With
+CONFIG_DEBUG_LIST the list_del() only reports and returns, and
+pvcalls_back_release_active() then runs on a map whose irq is still 0 and
+whose bytes, ioworker.wq and saved_data_ready are all NULL.)
+
+A frontend asking for ring_order 5, on a dom0 built with KASAN
+(the request was issued by a test-only change to the frontend):
+
+[  133.728877] pvcalls_new_active_socket frontend requested ring_order 5, which is > MAX (4)
+[  133.732868] Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
+[  133.737910] KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+[  133.741666] CPU: 0 UID: 0 PID: 133 Comm: irq/39-pvcalls- Not tainted 7.3.0-kCTLblk2-15482-g21a7f44fd076-dirty #1 PREEMPT(full)
+[  133.746986] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[  133.751512] RIP: 0010:pvcalls_new_active_socket+0x821/0xb90
+[  133.754237] Code: 48 89 fa 48 c1 ea 03 80 3c 02 00 0f 85 f6 01 00 00 48 8d 79 08 4c 8b 6b 08 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 14 02 00 00 4c 89 ea 4c 89 69 08 48 b8 00 00 00
+[  133.763126] RSP: 0018:ffffc900004afb38 EFLAGS: 00010202
+[  133.765861] RAX: dffffc0000000000 RBX: ffff88810886c900 RCX: 0000000000000000
+[  133.769348] RDX: 0000000000000001 RSI: 0000000000000246 RDI: 0000000000000008
+[  133.772787] RBP: 1ffff92000095f6b R08: 0000000000000001 R09: fffff52000095f58
+[  133.776260] R10: 0000000000000003 R11: ffff888100077320 R12: ffff88810858b410
+[  133.779823] R13: 0000000000000000 R14: ffff88810858b460 R15: ffff88810858b400
+[  133.783382] FS:  0000000000000000(0000) GS:ffff8881b034c000(0000) knlGS:0000000000000000
+[  133.787351] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  133.790308] CR2: 00000000006042c0 CR3: 0000000108400001 CR4: 0000000000770ef0
+[  133.793822] PKRU: 55555554
+[  133.795347] Call Trace:
+[  133.796778]  <TASK>
+[  133.798082]  ? __pfx_pvcalls_new_active_socket+0x10/0x10
+[  133.800801]  ? security_socket_post_create+0x4d/0x60
+[  133.803275]  ? release_sock+0x1a/0x1d0
+[  133.805182]  pvcalls_back_event+0x1b09/0x23e0
+[  133.807431]  ? __pfx_pvcalls_back_event+0x10/0x10
+[  133.809814]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+[  133.812251]  ? __pfx_pvcalls_back_event+0x10/0x10
+[  133.814554]  irq_thread_fn+0x86/0x150
+[  133.816468]  irq_thread+0x2da/0x580
+[  133.818363]  ? __pfx_irq_thread_fn+0x10/0x10
+[  133.820586]  ? __pfx_irq_thread+0x10/0x10
+[  133.822670]  ? __kthread_parkme+0x88/0x170
+[  133.824803]  ? __pfx_irq_thread+0x10/0x10
+[  133.827153]  ? __pfx_irq_thread+0x10/0x10
+[  133.829304]  kthread+0x2c8/0x3b0
+[  133.831176]  ? recalc_sigpending+0x15c/0x1e0
+[  133.833570]  ? __pfx_kthread+0x10/0x10
+[  133.835572]  ret_from_fork+0x373/0x5b0
+[  133.837581]  ? __pfx_ret_from_fork+0x10/0x10
+[  133.839978]  ? __switch_to+0x3c4/0xb40
+[  133.841984]  ? __pfx_kthread+0x10/0x10
+[  133.843970]  ret_from_fork_asm+0x1a/0x30
+[  133.846031]  </TASK>
+[  133.847420] Modules linked in:
+[  133.849240] ---[ end trace 0000000000000000 ]---
+
+Give each failure its own label, so that only resources that were actually
+acquired are released and the list the map was never added to is left
+alone.  The map is not published anywhere at that point, so the error path
+needs no socket_lock at all.  sock_release() stays in the callee on every
+error path, the way
+commit 8fafac202d18 ("xen/pvcalls-back: fix double frees with pvcalls_new_active_socket()")
+arranged it.
+
+Fixes: 5db4d286a8ef ("xen/pvcalls: implement connect command")
+Cc: stable@vger.kernel.org
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Message-ID: <20261110125002.46683-2-yhlee@isslab.korea.ac.kr>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/dwc3/gadget.c |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/xen/pvcalls-back.c | 25 +++++++++++++++----------
+ 1 file changed, 15 insertions(+), 10 deletions(-)
 
---- a/drivers/usb/dwc3/gadget.c
-+++ b/drivers/usb/dwc3/gadget.c
-@@ -1795,9 +1795,9 @@ static int __dwc3_stop_active_transfer(s
+diff --git a/drivers/xen/pvcalls-back.c b/drivers/xen/pvcalls-back.c
+index 894d52e2d1529..1c741ed3ebc69 100644
+--- a/drivers/xen/pvcalls-back.c
++++ b/drivers/xen/pvcalls-back.c
+@@ -333,7 +333,7 @@ static struct sock_mapping *pvcalls_new_active_socket(
  
- 	dep->resource_index = 0;
+ 	ret = xenbus_map_ring_valloc(fedata->dev, &ref, 1, &page);
+ 	if (ret < 0)
+-		goto out;
++		goto out_map;
+ 	map->ring = page;
+ 	map->ring_order = map->ring->ring_order;
+ 	/* first read the order, then map the data ring */
+@@ -341,19 +341,19 @@ static struct sock_mapping *pvcalls_new_active_socket(
+ 	if (map->ring_order > MAX_RING_ORDER) {
+ 		pr_warn("%s frontend requested ring_order %u, which is > MAX (%u)\n",
+ 				__func__, map->ring_order, MAX_RING_ORDER);
+-		goto out;
++		goto out_unmap_ring;
+ 	}
+ 	ret = xenbus_map_ring_valloc(fedata->dev, map->ring->ref,
+ 				     (1 << map->ring_order), &page);
+ 	if (ret < 0)
+-		goto out;
++		goto out_unmap_ring;
+ 	map->bytes = page;
  
--	if (!interrupt)
-+	if (!interrupt || (ret && ret != -ETIMEDOUT))
- 		dep->flags &= ~DWC3_EP_TRANSFER_STARTED;
--	else if (!ret)
-+	else
- 		dep->flags |= DWC3_EP_END_TRANSFER_PENDING;
+ 	ret = bind_interdomain_evtchn_to_irqhandler_lateeoi(
+ 			fedata->dev->otherend_id, evtchn,
+ 			pvcalls_back_conn_event, 0, "pvcalls-backend", map);
+ 	if (ret < 0)
+-		goto out;
++		goto out_unmap_bytes;
+ 	map->irq = ret;
  
- 	dep->flags &= ~DWC3_EP_DELAY_STOP;
-
+ 	map->data.in = map->bytes;
+@@ -361,7 +361,7 @@ static struct sock_mapping *pvcalls_new_active_socket(
+ 
+ 	map->ioworker.wq = alloc_workqueue("pvcalls_io", WQ_UNBOUND, 1);
+ 	if (!map->ioworker.wq)
+-		goto out;
++		goto out_unbind;
+ 	atomic_set(&map->io, 1);
+ 	INIT_WORK(&map->ioworker.register_work,	pvcalls_back_ioworker);
+ 
+@@ -377,11 +377,16 @@ static struct sock_mapping *pvcalls_new_active_socket(
+ 	write_unlock_bh(&map->sock->sk->sk_callback_lock);
+ 
+ 	return map;
+-out:
+-	down(&fedata->socket_lock);
+-	list_del(&map->list);
+-	pvcalls_back_release_active(fedata->dev, fedata, map);
+-	up(&fedata->socket_lock);
++
++out_unbind:
++	unbind_from_irqhandler(map->irq, map);
++out_unmap_bytes:
++	xenbus_unmap_ring_vfree(fedata->dev, map->bytes);
++out_unmap_ring:
++	xenbus_unmap_ring_vfree(fedata->dev, (void *)map->ring);
++out_map:
++	sock_release(sock);
++	kfree(map);
+ 	return NULL;
+ }
+ 
+-- 
+2.53.0
 
