@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608458;
-	b=DHQttutjQBqDavFpzFDQpEEj87zsEN0uMoRwUd26QXdKa8Fh5BMwov8NOQJdRiEaFu7p
-	 XDF9gvEBrWAXnKWguNhyfZp9oFOMQ9DSWS5p86oPd4z2nq/ls8BkVA/zJtzukZtym+ZNt
-	 FJX5f+kuPp8iyFeHBTfHAZtB8rUvf3QUONQ197uVsjpInRNHBnNObra5jchzXfwWxQ+KO
-	 dsBgANtusSDRqbnkFMzYasQGDiUoO8CmH+JLcOE7DzfDMYkWzE+aaJubI4gB+SywZuvSs
-	 xOorAtgiXFFAImGt6z+pnH40a993LQO3LHLl5w+TdumrUGU/5Zob6QfFuU11oidAdOg==
+	t=1795608461;
+	b=UV+VBT2Vi/EwNwuJ8QrHRLZAkGz8TPheQ89C3/dk8LrdsPFYQFXnT3ObLXjvlS+pXu5D
+	 ZEJwBSxaVEgzWVmgl+f9SovCuVrwdeOUYRDJ2Nh+zfvF9oQoMBPiEVybn3N/2yw3Y8WDh
+	 AI3VZvs3uTH3Ekoed6NvvM8AEzDqTdTpH2ORI6ROeRy9VpTfeUQoni3myTCMDjHmEOs3l
+	 BD/VX4G4qeyRKeJZhAckFEPjtbgYfwZUcEtX2B1ycaR8BnlyTyG90BxhzOGC4hwebfAEO
+	 aSJkzqJM8SVFli7Vrw61reAjI80OWh2ZdwKyzm1ubEaYogg7Uw08tprMbL9iS3XYgow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608458;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608461;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=qLKVcOtbPSh+A40wffIFWE0G/e9BgzEHGOGvY5rGvss=;
-	b=BUYxLNOcoZBHORAOaPx4hBhrXqiRTKaUCpjFM133b0bV5yMVMpYHgIenAau1HBuiuOJB
-	 +POu9WTurusPX0umBoywZ8dQ0m7vnYeFwPgimDKCKg+fGfxpefXc4unWvg0WzijnY8yNF
-	 jmnE43mNwJFKwFaaGCh2kbYfopAKCXIH4kVKHmT4E0H96LPonyEd7tGTleAeQzLVi98ta
-	 b4N4TM73OSLLo1ELdw0Ujki27dUSUfKkLZZO2oNMVNeboamALy17lShQUDjOoXBsPEPMf
-	 DvbdbIDI4mZ60V5PLRHsQg7imx6LYfHv2cScLBTFmukioO0A/DE+Bjujo3e0Nctuzog==
+	bh=bbPUKb6dZUppx6I3YhFNjeyqFwxJsxKn2uG4RDjR0bI=;
+	b=JXFdTAJBdl+FCmuFriXKdESh3U2sZm14DHpGCPYWE+/M0cyMI9rulyS5NlQh0icJcUlV
+	 kahf/lUkZo8E7LHHs69fHm002Jg43JYmREKn0HnEsy/EDZMR8M0BvxPRvFJXwdXlMIHmu
+	 2Rx4NSGqsduF4WuZdsRwt8rd3c3m2xZoLgmvuNmYvuJNeUZ8sQV1O4x57sTLGVp+VLAD9
+	 lv65YQ4VaZopOXxUmvwpDKeMKdGodQwJ/pmrsj3ft/gtpohHuIVmodk5pMab+J2hmPko5
+	 uB7JBweiKOMI7ikqiPWsNzxTzvaqhQEgDkh7c6hFocANwtIpLiiqQxF62FZ3k66SxcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WgRtaiDp;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UxyaHdUa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D584C606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:07:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE1E6606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:07:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WgRtaiDp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 322B21F000C6;
-	Wed, 25 Nov 2026 12:07:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UxyaHdUa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B1351F000CA;
+	Wed, 25 Nov 2026 12:07:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795608458;
-	bh=qLKVcOtbPSh+A40wffIFWE0G/e9BgzEHGOGvY5rGvss=;
+	s=korg; t=1795608461;
+	bh=bbPUKb6dZUppx6I3YhFNjeyqFwxJsxKn2uG4RDjR0bI=;
 	h=Subject:To:Cc:From:Date;
-	b=WgRtaiDpuYt8kn9jNznh8Zd7J7/Kni+KT+i7a6UROZEuiUCo4D0dFWUQWGdtS3yhW
-	 KDXfrVdewCGU7vA5E5ULAPaw0Q9bC21gwp6A8wmxEfAXr783OE0lpJjfLLj1zVIX4C
-	 oeckpuC+K2uM757VtgFYXxJJcSaP7dtYp/RhM32s=
-Subject: FAILED: patch "[PATCH] xhci: keep port link_inactive and connected flags in sync" failed to apply to 7.3-stable tree
-To: mathias.nyman@linux.intel.com,gregkh@linuxfoundation.org,stable@kernel.org
+	b=UxyaHdUaglVP+qIJgweWaluNwTZuctmX+O2kPFX8uMX9hMvIe3rWRq/LZpdD8FEsv
+	 vxkZqH3Bs8bgTJr+XwE4WY8lOcQBRMUfAzgZ2oJPO8gpqYcklWlWGuw/5E8oIgcOG+
+	 5OrlJb/w7ZUwrcI19+MT6u/ss8g+An+7BlfRJFGg=
+Subject: FAILED: patch "[PATCH] w1: w1_therm: lock the list of slaves for the bulk read" failed to apply to 6.18-stable tree
+To: josef@toxicpanda.com,gregkh@linuxfoundation.org,krzysztof.kozlowski@oss.qualcomm.com,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:42:46 +0100
-Message-ID: <2026112546-prize-perceive-c817@gregkh>
+Date: Wed, 25 Nov 2026 12:44:03 +0100
+Message-ID: <2026112503-barrel-retying-eaa2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.3-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x bb261776d1a29768b8fd84eb4f42d99dafa29c93
+git cherry-pick -x 1e46334d38e0217f5d255dc6fd63243593052f8e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112546-prize-perceive-c817@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112503-barrel-retying-eaa2@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,53 +79,106 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From bb261776d1a29768b8fd84eb4f42d99dafa29c93 Mon Sep 17 00:00:00 2001
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-Date: Thu, 5 Nov 2026 19:51:02 +0200
-Subject: [PATCH] xhci: keep port link_inactive and connected flags in sync
- when polled
+From 1e46334d38e0217f5d255dc6fd63243593052f8e Mon Sep 17 00:00:00 2001
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Tue, 27 Oct 2026 17:04:41 +0100
+Subject: [PATCH] w1: w1_therm: lock the list of slaves for the bulk read
 
-Update port 'link_inactive' and 'connected' flags even if xHC isn't
-generating port change events.
+The callbacks of the file therm_bulk_read walk the list of the slaves of
+the master, trigger_bulk_read() three times and therm_bulk_read_show()
+once, without the list_mutex which protects it.  In the meantime the
+thread of the master may find out that a sensor has gone:
 
-xHC only generates port change events on port changes after old port
-change bits are cleared. Hub driver is often kept up to date
-by polling the port status.
+  write to therm_bulk_read              w1_process()
+  trigger_bulk_read()                     w1_slave_detach()
+    list_for_each_entry(sl, ...)            w1_unref_slave()
+      bulk_read_slave(sl)                     list_del()
+                                              w1_therm_remove_slave()
+                                                kfree(sl->family_data)
+                                              kfree(sl)
+      SLAVE_CONVERT_TRIGGERED(sl) = 1
 
-Sashiko reported a possible case where all port changes after a port
-reset take place before hub driver clears the reset change bit.
-This way the port can end up connected and fully running with link
-in u0 without a port event clearing the 'link_inactive' or setting
-the 'connected' flags.
+The walk reads, and writes to, memory which has been freed, and follows
+the poisoned list pointers.
 
-A protocol STALL in this state would set EP_DROP_PENDING, and
-prevent all future URBs for the endpoint.
+Take list_mutex around each of the four walks.  No pointer to a slave is
+kept from one walk to the next.
 
-Fix this by also updating the flags during get_port_status(), when
-hub driver is polling the port state.
+This could not be done as long as w1_unref_slave() held the mutex while
+it waited, in w1_therm_remove_slave(), for these very callbacks and for
+the readers of the sensor, who need the bus_mutex which
+trigger_bulk_read() holds around its second walk.  Now nothing is waited
+for with list_mutex held, and none of the other mutexes of the subsystem
+is taken under it, so it can be nested inside bus_mutex.
 
-Fixes: 6895dbdc19d9 ("xhci: give back TDs and clean up ep0 after disconnect")
-Link: https://lore.kernel.org/linux-usb/sashiko-outbox-190046@kernel.org/
+Fixes: 57c76221d5af ("w1_therm: adding bulk read support to trigger multiple conversion on bus")
 Cc: stable <stable@kernel.org>
-Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-Link: https://patch.msgid.link/20261105175106.241182-2-mathias.nyman@linux.intel.com
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Link: https://patch.msgid.link/20261027-llm-char-misc-w1-v1-8-d2e6bfafb6a4@linuxfoundation.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/usb/host/xhci-hub.c b/drivers/usb/host/xhci-hub.c
-index 470bafe1802b..55430b673f1e 100644
---- a/drivers/usb/host/xhci-hub.c
-+++ b/drivers/usb/host/xhci-hub.c
-@@ -1166,6 +1166,12 @@ static u32 xhci_get_port_status(struct usb_hcd *hcd, struct xhci_bus_state *bus_
- 	if (portsc & PORT_RESET)
- 		status |= USB_PORT_STAT_RESET;
+diff --git a/drivers/w1/slaves/w1_therm.c b/drivers/w1/slaves/w1_therm.c
+index d96b224e2215..6db0b534b338 100644
+--- a/drivers/w1/slaves/w1_therm.c
++++ b/drivers/w1/slaves/w1_therm.c
+@@ -1495,6 +1495,7 @@ static int trigger_bulk_read(struct w1_master *dev_master)
+ 	 * and compute duration of conversion for these devices
+ 	 * so we can apply a strong pullup if required
+ 	 */
++	mutex_lock(&dev_master->list_mutex);
+ 	list_for_each_entry(sl, &dev_master->slist, w1_slave_entry) {
+ 		if (!sl->family_data)
+ 			goto error;
+@@ -1508,6 +1509,7 @@ static int trigger_bulk_read(struct w1_master *dev_master)
+ 					w1_strong_pullup));
+ 		}
+ 	}
++	mutex_unlock(&dev_master->list_mutex);
  
-+	/* track connect and link error status when hub is polling */
-+	if (!(portsc & PORT_RESET)) {
-+		port->link_inactive = (portsc & PORT_PLS_MASK) == XDEV_INACTIVE;
-+		port->connected = !!(portsc & PORT_CONNECT);
-+	}
-+
- 	/* USB2 and USB3 specific bits, including Port Link State */
- 	if (hcd->speed >= HCD_USB3)
- 		xhci_get_usb3_port_status(port, &status, portsc);
+ 	/*
+ 	 * t_conv is the max conversion time required on the bus
+@@ -1534,11 +1536,13 @@ static int trigger_bulk_read(struct w1_master *dev_master)
+ 			w1_write_8(dev_master, W1_CONVERT_TEMP);
+ 
+ 			/* set a flag to instruct that converT pending */
++			mutex_lock(&dev_master->list_mutex);
+ 			list_for_each_entry(sl,
+ 				&dev_master->slist, w1_slave_entry) {
+ 				if (bulk_read_support(sl))
+ 					SLAVE_CONVERT_TRIGGERED(sl) = -1;
+ 			}
++			mutex_unlock(&dev_master->list_mutex);
+ 
+ 			if (strong_pullup) { /* some device need pullup */
+ 				sleep_rem = msleep_interruptible(t_conv);
+@@ -1564,10 +1568,12 @@ static int trigger_bulk_read(struct w1_master *dev_master)
+ 	mutex_unlock(&dev_master->bus_mutex);
+ set_flag:
+ 	/* set a flag to register convsersion is done */
++	mutex_lock(&dev_master->list_mutex);
+ 	list_for_each_entry(sl, &dev_master->slist, w1_slave_entry) {
+ 		if (bulk_read_support(sl))
+ 			SLAVE_CONVERT_TRIGGERED(sl) = 1;
+ 	}
++	mutex_unlock(&dev_master->list_mutex);
+ error:
+ 	return ret;
+ }
+@@ -1932,6 +1938,7 @@ static ssize_t therm_bulk_read_show(struct device *device,
+ 	struct w1_slave *sl = NULL;
+ 	int ret = 0;
+ 
++	mutex_lock(&dev_master->list_mutex);
+ 	list_for_each_entry(sl, &dev_master->slist, w1_slave_entry) {
+ 		if (sl->family_data) {
+ 			if (bulk_read_support(sl)) {
+@@ -1946,6 +1953,7 @@ static ssize_t therm_bulk_read_show(struct device *device,
+ 		}
+ 	}
+ show_result:
++	mutex_unlock(&dev_master->list_mutex);
+ 	return sprintf(buf, "%d\n", ret);
+ }
+ 
 
