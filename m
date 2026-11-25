@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795620349;
-	b=wtyNznKpSdOOJ4VBlvIEdEEwUWC+T5bUBPo1NBfeTZGO5k44ImHtjLrs8NVshOEVABOD
-	 lGI+U8gSy/VZoJQvsAr5J6SkmLbbpT/b/2Kt+CqzqV/JO1HINE/6TAN4ZVVQo/7+gy7lv
-	 J4kHyMuLBlCc4l14ez/0R6uCXcdg9YCbY/mDNYnmpxpcvrgZaoIOyr9HXv4LhXRKJOIPC
-	 ytijan1bMZSCV9H7FX8dwOro4k0WR+P3Z+IQTCGJynscDxgIp/wkm9+n7MrOqwLk4DCtK
-	 UOPLNoCOp87IOEdQALaV9UhYcxSgK4L8gdph3OMNLZRKHuqca65i/jb2ejqAjYKNv3w==
+	t=1795620350;
+	b=YW3SEEos+kWE8476rboaF56Innqyh9CAAydkNExrTfzYsOjWbqf27tMFPYUZ1Qp9Otoh
+	 Bi399Zd9yZ9Dt3snHxbwSoNVjUhHgwyhCLhS++HElyrBVfS/cgUCxKu9afRVGyP9hOJk6
+	 mjNJKS5N4PN612Roh5DoCuz1P+BabQ4r7mfwVw37ftR5e/hsnqcIRjXcWlv4x0R1ts2ZX
+	 3mm9F3d108KfOADrRpZ6Lu1cQ9swOTb9Epxu91J5RvHkTzLyrKwC0ZJQ39Rly/z3mRL2S
+	 4pkZjLwsSKzyknc+RGmtMbt+FFD2cfMKhcUwzPSb/OnFF4nGubm2HArE3OOSflmSxNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795620349;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795620350;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=xTOKQC8X/QQ8CWzx9e1/q21vZ8bwOtq6T3+hh8LyjvE=;
-	b=upIcYtdlTU00wR0R4PSGKmyW2DIO+30LscLuizp3knNzstrc/a8unqYi/nuzsKj39VYk
-	 /S+VHx9LLkNp9Ci8VM389RFsduw1cbMLgjabwtSyA53t4eC0r2oevBxrOXAi0SJY62AMr
-	 iUSQz7okDPIwQfYi205rdksc8GpJaExsfY0SCeScowGNm5B29LWmGCaaIajeRXPt+XjQs
-	 ofX2AL1Ww2bys8x29FtgIMPBcSpNLdzHFfDBo0UmA1v0Yqe49mwJXktWLI0gSeJCoDfcN
-	 tnaXQ7rQ+PkDVt01j4+7ok43O6djWtIUAGbXszGJiR4SsUL/RKLS5x78v01e0YS1I8g==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=WsItJJGk0pqLg4b1N2q5LCywc6PrDLTc84oFbntxgrE=;
+	b=cSbfGCSMybJ2z07JJPbRxgRW8WoYpWa85DPX6WiNDmx1EUQraj4ZRvSJ6eFp97HXwKSq
+	 beLYJvmTs/NGd6x2kTfMF0+5DS4aUjjVr5Mh0AEtgbx9rbqmseqxr2wyby1OpLjpjH2Ao
+	 1CgiDF5FJ6Fk3LuFXMGAum9i01vYo7W2KgnGbdVnUXqv6WkQWtarWuxGyV+U/z0PgEF/F
+	 TbDABPeAeNJJS1HVVI1rHlnDBZ1NGMc1UA/7awRITcqBeWuKH/knELJnTYR+CZFmCraQt
+	 PtFQ7o+if2sa27vyWc4q7YjRJpCT6Qtqlg91sVONsZ4tJFGFH0f8mOBtpq+IVIM+lgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EAyoRWDM;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0SdkSuNJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 608AC606A323
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:25:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1BCA606A31E;
+	Wed, 25 Nov 2026 15:25:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EAyoRWDM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 663751F000CF;
-	Wed, 25 Nov 2026 15:25:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795620349;
-	bh=xTOKQC8X/QQ8CWzx9e1/q21vZ8bwOtq6T3+hh8LyjvE=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0SdkSuNJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE4C41F000CA;
+	Wed, 25 Nov 2026 15:25:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795620350;
+	bh=WsItJJGk0pqLg4b1N2q5LCywc6PrDLTc84oFbntxgrE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EAyoRWDMHUQBhQHpibtYP6rLoOJKoWWTP4YtzWG0vjksgHS/Zjd6gsheBZ8nBj8hb
-	 LurruD1LVQbilhgtpmoDXWJ1z2FxDDrwEG3pgPiMb8AEWDeKJOXJIe0mjXkgwRtREn
-	 TM3oDL6q4Js6mJC8Mi3dvUlo5NEx3sL3AoXbxg4vtI/V/5rMz1EHU6gN9XOAmINUn7
-	 SEz4tlYLJ1eWMdkDaKsQzt4Wj3sWLRbGG8W6/kapUnNkWfvU8B3taZ5Uw+yznQJhF7
-	 ZyLAe+WhyTIu+XHksKl1dyyi2JBwmJXWee6IatFtSHfpfBjzhTMsZ4I8Dcq0LhVQeT
-	 GfADjDmnnnf3g==
-From: Sasha Levin <sashal@kernel.org>
+	b=0SdkSuNJTG6aLMhDZK8uzklxnwRTjv4UPfOugOFQYimPpa6VTTAcmgLkEW1L5RE1t
+	 fZW9SPGx9yR6ulli4UIyA8o3xBnIvJAJFKwnpuykMLI4+04M0+BAC0OOe+0QJNLLW2
+	 uajsU38cQ5ra9bHHHElwnrqkmHS1at6zBOTVxmXo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Debarghya Kundu <debarghyak@google.com>,
-	Pin-yen Lin <treapking@google.com>,
-	Harshitha Ramamurthy <hramamurthy@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] gve: Fix backward stats when interface goes down or configuration is adjusted
-Date: Wed, 25 Nov 2026 10:25:47 -0500
-Message-ID: <20261125152501.14635-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112547-canon-stamp-3528@gregkh>
-References: <2026112547-canon-stamp-3528@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Paulo Alcantara <pc@manguebit.org>
+Subject: [PATCH 7.3 0843/1005] smb: client: let umount -f abort retried reads and writes
+Date: Wed, 25 Nov 2026 15:36:21 +0100
+Message-ID: <20261125143841.461561536@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,251 +62,287 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Debarghya Kundu <debarghyak@google.com>
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 6752dfc316b94ce02998a79509df62a3aba51d1c ]
+------------------
 
-gve_get_base_stats() sets all the stats to 0, so the stats go backwards
-when interface goes down or configuration is adjusted.
-ndo_get_stats64 has the same problem, since gve_get_stats() only sums
-the live rings, which are freed when the interface goes down.
+From: Paulo Alcantara <pc@manguebit.org>
 
-This issue was discovered and actually triggered by the
-drivers/net/stats.py selftest (check_down test case). Bringing down the
-interface caused statistics counters to reset to 0, triggering selftest
-assertion failures because netdevice stats must not go backwards.
+commit adeb82ac455582eac1894d1ca1b0aba110a65cc3 upstream.
 
-Fix this by persisting baseline stats across queue teardown in
-gve_queues_mem_remove() and single-queue stop in gve_rx_queue_stop().
-The baseline is reported by both ndo_get_stats64 and
-gve_get_base_stats().
+umount -f only wakes up tasks waiting on the server's queues.  Reads and
+writes being retried - forever on hard mounts - keep going, so with the
+server gone the unmount still hangs in sync_filesystem() waiting for
+their writeback.  NFS kills outstanding RPCs on umount -f instead.
 
-Also report the live XDP TX ring counters in gve_get_base_stats(), as
-those rings are not exposed as netdev queues.
+Count umount -f attempts per superblock and have each read and write
+request remember the count it started with.  Fail with -EIO, rather than
+retry, reissue, issue or wait for credits, any subrequest of a request
+that predates a umount -f once it is a retry or the server or share is
+disconnected; a kworker doing writeback can't be signalled out of the
+credit wait otherwise.  First attempts on a connected server still go
+ahead, and requests started later aren't aborted (but see below), so
+I/O on a healthy server keeps working if the unmount then fails with
+-EBUSY or only detaches one of several mounts.
 
-This change was tested using the DQO RDA queue format.
+retry_count is not bumped yet when netfs_retry_write_stream() calls
+prepare_write() for the first retry, so don't rely on it alone to tell a
+reissue from a first attempt: treat a subrequest as a retry when it
+already carries an xid (it has been prepared before) in
+prepare_write()/prepare_read(), or when its replay flag is set in
+cifs_io_aborted(), and abort it when the mount is going away even if the
+connection still looks healthy.
 
+Requests created after umount -f - writeback kicked off by the background
+flusher, an oplock break or sync_filesystem() during the final teardown -
+snapshot the already bumped count and would otherwise retry forever on a
+hard mount, hanging cifs_kill_sb().  Once a superblock that saw a umount
+-f reaches cifs_kill_sb() the mount is going away for good, so flag it and
+stop retrying I/O on it too; one that never saw a umount -f still
+flushes as before.
+
+A sync(2) or syncfs() waiting under s_umount for writeback started after
+umount -f would still keep the unmount from reaching cifs_kill_sb(), so
+also stop retrying such I/O while s_umount is contended.  After a failed
+umount -f, that also stops reads and writes retrying while a remount,
+freeze or new mount of the same superblock waits on s_umount.
+
+Fixes: 2c1238a7477a ("cifs: make retry logic in read/write path consistent with other paths")
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Cc: stable@vger.kernel.org
-Fixes: f5cedc84a30d ("gve: Add transmit and receive support")
-Fixes: 2e5e0932dff5 ("gve: add support for basic queue stats")
-Signed-off-by: Debarghya Kundu <debarghyak@google.com>
-Co-developed-by: Pin-yen Lin <treapking@google.com>
-Signed-off-by: Pin-yen Lin <treapking@google.com>
-Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
-Link: https://patch.msgid.link/20261109182036.2910559-3-hramamurthy@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
-Depends on <20261125151623.40338-1-sashal@kernel.org>
+ fs/smb/client/cifs_fs_sb.h |    2 +
+ fs/smb/client/cifsfs.c     |   10 ++++++++
+ fs/smb/client/cifsglob.h   |    1 
+ fs/smb/client/cifsproto.h  |    2 +
+ fs/smb/client/file.c       |   55 +++++++++++++++++++++++++++++++++++++++++++++
+ fs/smb/client/smb2pdu.c    |   16 +++----------
+ 6 files changed, 74 insertions(+), 12 deletions(-)
 
- drivers/net/ethernet/google/gve/gve.h      |   7 ++
- drivers/net/ethernet/google/gve/gve_main.c | 125 +++++++++++++++++----
- 2 files changed, 110 insertions(+), 22 deletions(-)
-
-diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
-index 221b059817038..b0a20e04d5970 100644
---- a/drivers/net/ethernet/google/gve/gve.h
-+++ b/drivers/net/ethernet/google/gve/gve.h
-@@ -835,6 +835,10 @@ struct gve_ctrl_ops {
- 	void (*unmap_db_bar)(struct gve_priv *priv);
+--- a/fs/smb/client/cifs_fs_sb.h
++++ b/fs/smb/client/cifs_fs_sb.h
+@@ -57,6 +57,7 @@ struct cifs_sb_info {
+ 	atomic_t active;
+ 	atomic_t mnt_cifs_flags;
+ 	atomic_t outstanding_rreq;	/* nr of rreqs not yet fully deinitialized */
++	atomic_t umount_aborts;		/* nr of umount -f attempts */
+ 	struct delayed_work prune_tlinks;
+ 	struct rcu_head rcu;
+ 
+@@ -68,6 +69,7 @@ struct cifs_sb_info {
+ 	 * (cifs_autodisable_serverino) in order to match new mounts.
+ 	 */
+ 	bool mnt_cifs_serverino_autodisabled;
++	bool exiting;			/* umount -f committed: stop retries */
+ 	/*
+ 	 * Available once the mount has completed.
+ 	 */
+--- a/fs/smb/client/cifsfs.c
++++ b/fs/smb/client/cifsfs.c
+@@ -300,6 +300,15 @@ static void cifs_kill_sb(struct super_bl
+ 	struct cifs_sb_info *cifs_sb = CIFS_SB(sb);
+ 
+ 	/*
++	 * Reaching here after a umount -f means the mount is going away for
++	 * good, so stop retrying I/O that can no longer complete (e.g.
++	 * writeback to a server that is gone) rather than looping forever on
++	 * a hard mount and hanging the teardown below.
++	 */
++	if (atomic_read(&cifs_sb->umount_aborts))
++		WRITE_ONCE(cifs_sb->exiting, true);
++
++	/*
+ 	 * We need to release all dentries for the cached directories
+ 	 * and close all deferred file handles before we kill the sb.
+ 	 */
+@@ -838,6 +847,7 @@ static void cifs_umount_begin(struct sup
+ 	if (cifs_sb == NULL)
+ 		return;
+ 
++	atomic_inc(&cifs_sb->umount_aborts);
+ 	tcon = cifs_sb_master_tcon(cifs_sb);
+ 
+ 	spin_lock(&cifs_tcp_ses_lock);
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -1486,6 +1486,7 @@ struct cifs_io_request {
+ 	struct netfs_io_request		rreq;
+ 	struct cifsFileInfo		*cfile;
+ 	pid_t				pid;
++	int				umount_aborts;
  };
  
-+struct gve_ring_err_stats {
-+	u64 rx_alloc_fails;
-+};
-+
- struct gve_priv {
- 	struct net_device *dev;
- 	struct gve_tx_ring *tx; /* array of tx_cfg.num_queues */
-@@ -924,11 +928,14 @@ struct gve_priv {
- 	/* Protects the priv->tx/priv->rx arrays, the in-place rewrite of
- 	 * priv->rx[idx] and the queue counts against stats readers that do
- 	 * not hold the netdev instance lock.
-+	 * Also protects base_net_stats and base_ring_err_stats.
- 	 */
- 	spinlock_t stats_lock;
- 	unsigned long service_task_flags;
- 	unsigned long state_flags;
+ /* asynchronous read support */
+--- a/fs/smb/client/cifsproto.h
++++ b/fs/smb/client/cifsproto.h
+@@ -137,6 +137,8 @@ bool is_size_safe_to_change(struct cifsI
+ 			    bool from_readdir);
+ void cifs_write_subrequest_terminated(struct cifs_io_subrequest *wdata,
+ 				      ssize_t result);
++bool cifs_io_stopped(struct cifs_io_subrequest *subreq);
++bool cifs_io_should_replay(struct cifs_io_subrequest *subreq);
+ struct cifsFileInfo *find_writable_file(struct cifsInodeInfo *cifs_inode,
+ 					int flags);
+ int __cifs_get_writable_file(struct cifsInodeInfo *cifs_inode,
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -39,6 +39,40 @@
  
-+	struct gve_ring_err_stats base_ring_err_stats;
-+	struct rtnl_link_stats64 base_net_stats;
- 	struct gve_stats_report *stats_report;
- 	u64 stats_report_len;
- 	dma_addr_t stats_report_bus; /* dma address for the stats report */
-diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
-index 920c1fe4c5182..1ffbc52109b87 100644
---- a/drivers/net/ethernet/google/gve/gve_main.c
-+++ b/drivers/net/ethernet/google/gve/gve_main.c
-@@ -61,16 +61,44 @@ static netdev_tx_t gve_start_xmit(struct sk_buff *skb, struct net_device *dev)
- 		return gve_tx_dqo(skb, dev);
- }
+ static int cifs_reopen_file(struct cifsFileInfo *cfile, bool can_flush);
  
--static void gve_get_stats(struct net_device *dev, struct rtnl_link_stats64 *s)
-+static void gve_add_base_stats(struct gve_priv *priv,
-+			       struct rtnl_link_stats64 *s)
++bool cifs_io_stopped(struct cifs_io_subrequest *subreq)
 +{
-+	struct rtnl_link_stats64 *base_stats = &priv->base_net_stats;
++	struct super_block *sb = subreq->rreq->inode->i_sb;
++	struct cifs_sb_info *cifs_sb = CIFS_SB(sb);
++	int aborts;
 +
-+	s->rx_packets += base_stats->rx_packets;
-+	s->rx_bytes += base_stats->rx_bytes;
-+	s->tx_packets += base_stats->tx_packets;
-+	s->tx_bytes += base_stats->tx_bytes;
++	if (cifs_forced_shutdown(cifs_sb) || READ_ONCE(cifs_sb->exiting))
++		return true;
++	aborts = atomic_read(&cifs_sb->umount_aborts);
++	if (aborts != subreq->req->umount_aborts)
++		return true;
++	return aborts && rwsem_is_contended(&sb->s_umount);
 +}
 +
-+static void gve_add_tx_ring_range_stats(struct gve_priv *priv, int start_ring,
-+					int end_ring, u64 *packets, u64 *bytes)
++bool cifs_io_should_replay(struct cifs_io_subrequest *subreq)
 +{
-+	int ring;
++	struct cifs_tcon *tcon = tlink_tcon(subreq->req->cfile->tlink);
 +
-+	for (ring = start_ring; ring < end_ring; ring++) {
-+		struct gve_tx_ring *tx = &priv->tx[ring];
-+		unsigned int start;
-+		u64 pkts, byts;
++	if (cifs_io_stopped(subreq))
++		return false;
++	return smb2_should_replay(tcon, &subreq->retries, &subreq->cur_sleep);
++}
 +
-+		do {
-+			start = u64_stats_fetch_begin(&tx->statss);
-+			pkts = tx->pkt_done;
-+			byts = tx->bytes_done;
-+		} while (u64_stats_fetch_retry(&tx->statss, start));
-+		*packets += pkts;
-+		*bytes += byts;
++static bool cifs_io_aborted(struct cifs_io_subrequest *subreq)
++{
++	struct cifs_tcon *tcon = tlink_tcon(subreq->req->cfile->tlink);
++
++	if (!cifs_io_stopped(subreq))
++		return false;
++	return subreq->subreq.retry_count || subreq->replay ||
++	       READ_ONCE(subreq->server->tcpStatus) == CifsNeedReconnect ||
++	       tcon->need_reconnect;
++}
++
+ /*
+  * Prepare a subrequest to upload to the server.  We need to allocate credits
+  * so that we know the maximum amount of data that we can include in it.
+@@ -52,6 +86,7 @@ static void cifs_prepare_write(struct ne
+ 	struct TCP_Server_Info *server;
+ 	struct cifsFileInfo *open_file = req->cfile;
+ 	struct cifs_sb_info *cifs_sb = CIFS_SB(wdata->rreq->inode->i_sb);
++	bool reprepared = wdata->have_xid;
+ 	size_t wsize = req->rreq.wsize;
+ 	int rc;
+ 
+@@ -63,6 +98,12 @@ static void cifs_prepare_write(struct ne
+ 	server = cifs_pick_channel(tlink_tcon(open_file->tlink)->ses);
+ 	wdata->server = server;
+ 
++	if (cifs_io_aborted(wdata) ||
++	    (reprepared && cifs_io_stopped(wdata))) {
++		subreq->error = -EIO;
++		return netfs_prepare_write_failed(subreq);
 +	}
-+}
 +
-+static void gve_get_ring_stats(struct gve_priv *priv,
-+			       struct rtnl_link_stats64 *s)
- {
--	struct gve_priv *priv = netdev_priv(dev);
- 	unsigned int start;
- 	u64 packets, bytes;
--	int num_tx_queues;
- 	int ring;
- 
--	spin_lock_bh(&priv->stats_lock);
--	num_tx_queues = gve_num_tx_queues(priv);
- 	if (priv->rx) {
- 		for (ring = 0; ring < priv->rx_cfg.num_queues; ring++) {
- 			do {
-@@ -84,19 +112,41 @@ static void gve_get_stats(struct net_device *dev, struct rtnl_link_stats64 *s)
- 			s->rx_bytes += bytes;
- 		}
+ 	if (cifs_sb->ctx->wsize == 0)
+ 		cifs_negotiate_wsize(server, cifs_sb->ctx,
+ 				     tlink_tcon(req->cfile->tlink));
+@@ -126,6 +167,10 @@ static void __cifs_issue_write(struct ne
+ 		goto fail;
  	}
--	if (priv->tx) {
--		for (ring = 0; ring < num_tx_queues; ring++) {
--			do {
--				start =
--				  u64_stats_fetch_begin(&priv->tx[ring].statss);
--				packets = priv->tx[ring].pkt_done;
--				bytes = priv->tx[ring].bytes_done;
--			} while (u64_stats_fetch_retry(&priv->tx[ring].statss,
--						       start));
--			s->tx_packets += packets;
--			s->tx_bytes += bytes;
--		}
-+	if (priv->tx)
-+		gve_add_tx_ring_range_stats(priv, 0, gve_num_tx_queues(priv),
-+					    &s->tx_packets, &s->tx_bytes);
-+}
-+
-+static void gve_get_ring_err_stats(struct gve_priv *priv,
-+				   struct gve_ring_err_stats *err_stats)
-+{
-+	int ring;
-+
-+	if (!priv->rx)
-+		return;
-+
-+	for (ring = 0; ring < priv->rx_cfg.num_queues; ring++) {
-+		struct gve_rx_ring *rx = &priv->rx[ring];
-+		unsigned int start;
-+		u64 rx_alloc_fails;
-+
-+		do {
-+			start = u64_stats_fetch_begin(&rx->statss);
-+			rx_alloc_fails = rx->rx_skb_alloc_fail +
-+					 rx->rx_buf_alloc_fail;
-+		} while (u64_stats_fetch_retry(&rx->statss, start));
-+
-+		err_stats->rx_alloc_fails += rx_alloc_fails;
- 	}
-+}
-+
-+static void gve_get_stats(struct net_device *dev, struct rtnl_link_stats64 *s)
-+{
-+	struct gve_priv *priv = netdev_priv(dev);
-+
-+	spin_lock_bh(&priv->stats_lock);
-+	gve_get_ring_stats(priv, s);
-+	gve_add_base_stats(priv, s);
- 	spin_unlock_bh(&priv->stats_lock);
- }
  
-@@ -647,6 +697,9 @@ static void gve_queues_mem_remove(struct gve_priv *priv)
- 	gve_get_curr_alloc_cfgs(priv, &tx_alloc_cfg, &rx_alloc_cfg);
- 
- 	spin_lock_bh(&priv->stats_lock);
-+	gve_get_ring_stats(priv, &priv->base_net_stats);
-+	gve_get_ring_err_stats(priv, &priv->base_ring_err_stats);
++	rc = -EIO;
++	if (cifs_io_aborted(wdata))
++		goto fail;
 +
- 	priv->tx = NULL;
- 	priv->rx = NULL;
- 	spin_unlock_bh(&priv->stats_lock);
-@@ -2698,9 +2751,19 @@ static int gve_rx_queue_stop(struct net_device *dev, void *per_q_mem, int idx)
+ 	rc = adjust_credits(wdata->server, wdata, cifs_trace_rw_credits_issue_write_adjust);
+ 	if (rc)
+ 		goto fail;
+@@ -181,6 +226,7 @@ static int cifs_prepare_read(struct netf
+ 	struct cifs_io_request *req = container_of(subreq->rreq, struct cifs_io_request, rreq);
+ 	struct TCP_Server_Info *server;
+ 	struct cifs_sb_info *cifs_sb = CIFS_SB(rreq->inode->i_sb);
++	bool reprepared = rdata->have_xid;
+ 	size_t size;
+ 	int rc = 0;
  
- 	gve_per_q_mem = (struct gve_rx_ring *)per_q_mem;
- 	spin_lock_bh(&priv->stats_lock);
-+	priv->base_net_stats.rx_packets += priv->rx[idx].rpackets;
-+	priv->base_net_stats.rx_bytes += priv->rx[idx].rbytes;
-+	priv->base_ring_err_stats.rx_alloc_fails +=
-+		priv->rx[idx].rx_skb_alloc_fail +
-+		priv->rx[idx].rx_buf_alloc_fail;
- 	*gve_per_q_mem = priv->rx[idx];
- 	memset(&priv->rx[idx], 0, sizeof(priv->rx[idx]));
- 	spin_unlock_bh(&priv->stats_lock);
+@@ -192,6 +238,10 @@ static int cifs_prepare_read(struct netf
+ 	server = cifs_pick_channel(tlink_tcon(req->cfile->tlink)->ses);
+ 	rdata->server = server;
+ 
++	if (cifs_io_aborted(rdata) ||
++	    (reprepared && cifs_io_stopped(rdata)))
++		return -EIO;
 +
-+	gve_per_q_mem->rpackets = 0;
-+	gve_per_q_mem->rbytes = 0;
-+	gve_per_q_mem->rx_skb_alloc_fail = 0;
-+	gve_per_q_mem->rx_buf_alloc_fail = 0;
- 	return 0;
- }
+ 	if (cifs_sb->ctx->rsize == 0)
+ 		cifs_negotiate_rsize(server, cifs_sb->ctx,
+ 				     tlink_tcon(req->cfile->tlink));
+@@ -242,6 +292,10 @@ static void cifs_issue_read(struct netfs
+ 		 __func__, rreq->debug_id, subreq->debug_index, rreq->mapping,
+ 		 subreq->transferred, subreq->len);
  
-@@ -2858,12 +2921,30 @@ static void gve_get_base_stats(struct net_device *dev,
- 			       struct netdev_queue_stats_rx *rx,
- 			       struct netdev_queue_stats_tx *tx)
- {
--	rx->packets = 0;
--	rx->bytes = 0;
--	rx->alloc_fail = 0;
-+	const struct gve_ring_err_stats *base_err_stats;
-+	const struct rtnl_link_stats64 *base_stats;
-+	struct gve_priv *priv;
- 
--	tx->packets = 0;
--	tx->bytes = 0;
-+	priv = netdev_priv(dev);
-+	base_stats = &priv->base_net_stats;
-+	base_err_stats = &priv->base_ring_err_stats;
++	rc = -EIO;
++	if (cifs_io_aborted(rdata))
++		goto failed;
 +
-+	spin_lock_bh(&priv->stats_lock);
-+	rx->packets = base_stats->rx_packets;
-+	rx->bytes = base_stats->rx_bytes;
-+	rx->alloc_fail = base_err_stats->rx_alloc_fails;
-+
-+	tx->packets = base_stats->tx_packets;
-+	tx->bytes = base_stats->tx_bytes;
-+	/* XDP TX rings are not exposed as netdev queues, so report their live
-+	 * counters here to keep the device totals consistent with
-+	 * ndo_get_stats64.
-+	 */
-+	if (priv->tx)
-+		gve_add_tx_ring_range_stats(priv, priv->tx_cfg.num_queues,
-+					    gve_num_tx_queues(priv),
-+					    &tx->packets, &tx->bytes);
-+	spin_unlock_bh(&priv->stats_lock);
- }
+ 	rc = adjust_credits(server, rdata, cifs_trace_rw_credits_issue_read_adjust);
+ 	if (rc)
+ 		goto failed;
+@@ -300,6 +354,7 @@ static int cifs_init_request(struct netf
+ 	rreq->rsize = cifs_sb->ctx->rsize;
+ 	rreq->wsize = cifs_sb->ctx->wsize;
+ 	req->pid = current->tgid; // Ummm...  This may be a workqueue
++	req->umount_aborts = atomic_read(&cifs_sb->umount_aborts);
  
- static const struct netdev_stat_ops gve_stat_ops = {
--- 
-2.53.0
+ 	if (file) {
+ 		open_file = file->private_data;
+--- a/fs/smb/client/smb2pdu.c
++++ b/fs/smb/client/smb2pdu.c
+@@ -4850,9 +4850,7 @@ do_retry:
+ 
+ 	/* see if we need to retry */
+ 	if (is_replayable_error(rdata->result) &&
+-	    smb2_should_replay(tcon,
+-			       &rdata->retries,
+-			       &rdata->cur_sleep))
++	    cifs_io_should_replay(rdata))
+ 		rdata->replay = true;
+ 
+ 	trace_smb3_rw_credits(rreq_debug_id, subreq_debug_index, rdata->credits.value,
+@@ -4961,9 +4959,7 @@ async_readv_out:
+ out:
+ 	/* if the send error is retryable, let netfs know about it */
+ 	if (is_replayable_error(rc) &&
+-	    smb2_should_replay(tcon,
+-			       &rdata->retries,
+-			       &rdata->cur_sleep)) {
++	    cifs_io_should_replay(rdata)) {
+ 		rdata->replay = true;
+ 		trace_netfs_sreq(&rdata->subreq, netfs_sreq_trace_io_retry_needed);
+ 		__set_bit(NETFS_SREQ_NEED_RETRY, &rdata->subreq.flags);
+@@ -5200,9 +5196,7 @@ smb2_writev_callback(struct TCP_Server_I
+ 
+ 	/* see if we need to retry */
+ 	if (is_replayable_error(wdata->result) &&
+-	    smb2_should_replay(tcon,
+-			       &wdata->retries,
+-			       &wdata->cur_sleep))
++	    cifs_io_should_replay(wdata))
+ 		wdata->replay = true;
+ 
+ 	cifs_write_subrequest_terminated(wdata, result ?: written);
+@@ -5374,9 +5368,7 @@ async_writev_out:
+ out:
+ 	/* if the send error is retryable, let netfs know about it */
+ 	if (is_replayable_error(rc) &&
+-	    smb2_should_replay(tcon,
+-			       &wdata->retries,
+-			       &wdata->cur_sleep)) {
++	    cifs_io_should_replay(wdata)) {
+ 		wdata->replay = true;
+ 		trace_netfs_sreq(&wdata->subreq, netfs_sreq_trace_io_retry_needed);
+ 		__set_bit(NETFS_SREQ_NEED_RETRY, &wdata->subreq.flags);
+
 
