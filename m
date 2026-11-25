@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618596;
-	b=CrwPGese1gwhpwYMe2H3cVoj8GtfTkYntNGLcI/fxEYy6zfOS89oyPPhwh6NKCLOZ0Rq
-	 fB4yT+H9hztcAEwTgK8IfJM3Im3LTozApuFJ52w8YF8EoNRUEPAr2/ME7sxab2KI44JWA
-	 aBD5MGp/Aq4PqXAKPIZZ978d/ElMBfptm1c+Ey4mNO83/E78wOJ7UegolydC3/c2jJSgZ
-	 oel+al9tKV8B3za3qPZsOPz++blFLnsViq3i+skwwZTdZCGhHJFbAM3yw9KAPS1nZSRTN
-	 nr6j073e4G5CbKmhD42309rghwivMN2+i3QDaC77dMvhJoEzB/g4J7UqYcBwHLDWkEg==
+	t=1795618597;
+	b=FpedTaavLehmj2rGj+o5D7+m3Ln7ui4AxO5pthhd7XfFLGgXvRVPjpVJwNs8KnedJtJr
+	 IziduX5s5DR/VN2TEGUy9FQjtrn1/1HL1XU8zN1UxRle+vSU1n9CRhnyAELAbaRjYGtJ1
+	 adBkv8XnlpImvJkR/fBI62gahbXbokJf8M6QqV7If1Seo325171Lxoy1qqGvnsw6L6L7v
+	 k+Cq23IvQjXHECpYJslH9UwSUWNLUudZl9N611j41w1Ra+y2zb5DtyIwlqoK95c9bkfl1
+	 OpAmqAwqfj9RBfyaruFdKVLXii1KmucEmb93hyWepR9XX3RQUYSV7Mmk0tMdJXxV6kQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618596;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618597;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=hSTxc2RQvEN2OlWNuIPYldYQGB4SmsPaHO3xJmHuolw=;
-	b=5a51EAYK3YtRNGljpUNgLYBHqmXc8/GLzVIBx7j3kQsAdbAb61sUAtyf58P0S2tjUijf
-	 0VrcS43kxvAswarlouwbBRkcaLeGZLlbZ0eerrYXGcFacBAHzMp2680V4aZaOJ3XLEtwr
-	 hWHWHvlqF+9gCm6iG5wk0b78/1t2fjhFdr79E5BiYV4JOg8liP6xPPr+vgIULNlOA/Xq8
-	 LHpz1SW6oVd7OBKdnhlva+X8u98tpo2Icvhb0ot4nljw38Irque677wxSHlCl98y1AQnU
-	 NZwKySofHIgsA4Tea0Ok8szE0JEm8eaopa3Wpq1Pa5UXE9rXn2erpnNfM+nZw8daiCw==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=iDAmnL4GL6nYisckMQC/EUa5LVYADHn8r8cVI1GlMNw=;
+	b=fRIj+ik1rQF0QtIr1+Ss/wtWECe1SMDacOoBz7uqn9Z/7cu7fg/ZTILul2jKFq+lMpA8
+	 ZvrbUX2AuiVgx3D22Yip6mqQKcQSN3WCzF3nMU0pgsaw7WnGCzkyRc4AcDZNqxza00biq
+	 tuaay3/m83EnoBgu53tXaW2DmEBj8KZxeliN42V6vYTYzL9oekRNUy38rnf8WDanbnMgZ
+	 KorIQMcSQ7SX554BdjZCRquF/tO7s70pp73KzB/jEi/GBNt9I37NyrcI8t8zA7zMdqcHU
+	 J7jf+/3vSy+wGR58rQrS8+tzHg3kMA4Vtu1WJfn0PsssdB6dtT14jjRPGEYSTCtpwow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JkJZmf8x;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dDv7zqlr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B0F606A31E;
-	Wed, 25 Nov 2026 14:56:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C704606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:56:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JkJZmf8x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B6501F000D2;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dDv7zqlr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE3CE1F000EE;
 	Wed, 25 Nov 2026 14:56:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795618595;
-	bh=hSTxc2RQvEN2OlWNuIPYldYQGB4SmsPaHO3xJmHuolw=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795618596;
+	bh=iDAmnL4GL6nYisckMQC/EUa5LVYADHn8r8cVI1GlMNw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JkJZmf8xDyWuKIX8gFZWWaNQtC4tenI9mfNzDq35OnTF1gARCutFTuZYh5ddZBhQB
-	 1gj/GxoTmT9XaRiLqBBGuwvwsUzDIlsHalad+7X/TIljR1Wv0Ii7fU1mfngHTF//Qa
-	 SStKR10y2Sln/AijRwJ7g/n1MzDIs/PyeCOpLauU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=dDv7zqlrF70sk8S1hNhh2eek+tM8856vJFUf657C5C6g1vy9AGoWixqTxTUhfYdnU
+	 TS4dBc4Oy9dhGfyMpBP5MtG56KKwxjz+qCRnkOKdcGUCGF+9nzWSYXjmi+Gk6dLG8Y
+	 KE5lWpwZIbgjWE6FVECmnIK1z24dKw+mYkh1y3yGI7Zem/aCnKLKgYOOTWAu9G8bOL
+	 Jq7JAdomroGk04RfqAb+ImH6q8ryyEi1G5WALskhEDqvD/Kn/eWvTtg79wudgRH2ND
+	 /hZ8qQUk8Q4eqeEsjz9yGB7ZEgXUpbNzFTIhqEx2VS4LGfC937krPyIVeJt3X5EnWH
+	 emxpz0zcaTiJA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>,
+Cc: Tim Menninger <tmenninger@everpuredata.com>,
 	Chuck Lever <cel@kernel.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Anna Schumaker <anna.schumaker@hammerspace.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0329/1005] libfs: walk offset directories in offset order
-Date: Wed, 25 Nov 2026 15:27:47 +0100
-Message-ID: <20261125143829.442015233@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.6.y 4/4] xprtrdma: serialize unmap_sync with xprt_disconnect
+Date: Wed, 25 Nov 2026 09:56:30 -0500
+Message-ID: <20261125145623.4186690-4-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261125145623.4186690-1-sashal@kernel.org>
+References: <2026112556-catchy-compost-16aa@gregkh>
+ <20261125145623.4186690-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,209 +63,337 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+From: Tim Menninger <tmenninger@everpuredata.com>
 
-------------------
+[ Upstream commit 1fa415883c37b02ff17acdd7977ed591d3d389ee ]
 
-From: Christian Brauner <brauner@kernel.org>
+frwr_unmap_sync() posts LOCAL_INV Work Requests to the QP and waits
+for the matching CQE. This can race with rpcrdma_xprt_disconnect():
 
-[ Upstream commit 309f7a5585aeaf77d3d7c27304ac97e515447dac ]
+    1. frwr_unmap_sync() samples r_xprt->rx_ep
+    2. rpcrdma_xprt_disconnect() drains the QP
+    3. frwr_unmap_sync() posts LOCAL_INV WRs after the drain
+    4. No CQE arrives, so wait_for_completion() blocks indefinitely
 
-offset_iterate_dir() walks d_children from the head and only uses the
-maple tree to map ctx->pos back to a dentry when a getdents64() call
-resumes. offset_dir_lookup() finds the entry at ctx->pos, or the one
-with the next lower offset if it is gone, and the list walk continues
-from there.
+The hung task appears in the rpciod workqueue:
 
-That only works if list order and offset order agree and quite often
-they don't. A rename over an existing name gives the moved dentry the
-offset of the name it replaced but __d_move() puts it at the head of
-d_children. RENAME_EXCHANGE does the same to both dentries. And once
-the cyclic offset allocator wraps new entries get low offsets at the
-head of the list.
+Workqueue: rpciod rpc_async_schedule [sunrpc]
+    wait_for_completion()
+    frwr_unmap_sync()
+    xprt_rdma_free()
+    xprt_release()
 
-So if the entry at ctx->pos is unlinked between two getdents64() calls
-we resume at the entry with the next lower offset and that one can sit
-anywhere in the list:
+Serialize synchronous MR invalidation against QP teardown with
+rx_unmap_rwsem. frwr_unmap_sync() holds the read side while it builds
+and submits the LOCAL_INV chain. Disconnect holds the write side across
+QP drain and resource teardown. Drop the read side before waiting so
+disconnect can drain the submitted Work Requests and deliver their CQEs.
 
-(1) If it sits further down the list everything in between is skipped.
-    Create y, t, a, b and rename b over t. The list is now t(4) a(5)
-    y(3). Stop the listing at t and unlink t. The next call resumes at
-    y and a is never returned although nobody touched it.
+Disconnect can reset a request while frwr_unmap_sync() waits for the
+read side. Recheck rl_registered after acquiring the rwsem and return
+without posting if the request has already been reset.
 
-(2) If there is no lower entry we restart at the head and return the
-    whole directory again. Nickolai reported this for the simple case
-    of unlinking the oldest entry while a listing is about to reach it.
-    Ending the walk there instead turns this into (1): create a, b, c,
-    rename c over a, stop the listing at the renamed entry, unlink it,
-    and b is lost.
+Move the synchronous invalidation completion from the final MR to the
+request, whose lifetime covers xprt_rdma_free(). This allows disconnect
+to destroy MRs after draining the QP while frwr_unmap_sync() is still
+waiting. On a post failure, call rpcrdma_force_disconnect() before
+dropping the read side so the endpoint is not dereferenced after
+disconnect can run.
 
-Instead of the list let's walk the maple tree itself in descending
-offset order. Then ctx->pos really means that everything above it has
-been emitted and resuming at the highest offset at or below it is right
-no matter where the dentry sits in d_children. Entries created or
-renamed to a new name after the listing started get an offset above
-ctx->pos and aren't returned, same as with the list walk which never
-went back to the head. So a readdir loop that renames or creates an
-entry for each one it reads still terminates.
+frwr_unmap_async() runs inline from Receive completion processing.
+rpcrdma_xprt_drain() drains the Receive Queue before the Send Queue, so
+asynchronous LOCAL_INV Work Requests are submitted before Send Queue
+drain. frwr_unmap_sync(), however, runs from xprt_rdma_free() after the
+transport send lock has been released, so it is not ordered against
+disconnect.
 
-The maple tree can't change under us as all modifications happen with
-the directory's i_rwsem held exclusive and offset_readdir() holds it
-shared. That also covers the dentries in the tree. They are all
-persistent and only unlink, rmdir and rename remove or rename them. And
-since the previous patch i_rwsem is the lock of the tree. So keep a
-single ma_state across the walk and emit directly from the dentry
-without taking rcu_read_lock(), a reference or d_lock.
+Tested on v7.4-rc1 under pNFS load with repeated data server restarts
+to provoke rapid QP disconnect/reconnect cycling. Without the fix, a
+hung task in frwr_unmap_sync() reproduced twice in six attempts. With
+the fix, no hang occurred across 200 cycles.
 
-This also makes the walk cheaper than the list walk was. With a million
-entries on tmpfs a getdents64() listing goes from 146ms to 114ms. With
-four processes listing the directory at the same time it goes from
-470ms to 113ms per listing as they don't bounce the parent's d_lock and
-the dentries' lockrefs between them anymore.
+Also observed on v6.8 and v6.18.34.
 
-                                                base     v2       this
-      1M entries, getdents64 32k buffer (ms)    146      127      114
-      1M entries, getdents64 1k buffer (ms)     184      156      141
-      1M entries, getdents64 128b buffer (ms)   429      364      335
-      1M entries, ls -f (s)                     0.259    0.239    0.228
-      1M entries, LC_ALL=C ls (s)               0.482    0.467    0.455
-      1M entries, 4 parallel listers (ms)       470      125      113
-      18 entries, rewind and list (ns)          4107     3594     3323
-      250k of 1M left, getdents64 32k (ms)      58.8     57.8     53.8
-      250k of 1M left, getdents64 128b (ms)     128      114      108
-
-Fixes: b9b588f22a0c ("libfs: Use d_children list to iterate simple_offset directories")
-Fixes: f70681e9e606 ("libfs: Fix duplicate directory entry in offset_dir_lookup")
-Reported-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Link: https://patch.msgid.link/20261018024549.798968-1-nickolai@csail.mit.edu
-Link: https://patch.msgid.link/20261101-work-libfs-offset_readdir-v2-2-c621125b56d1@kernel.org
+Fixes: e28ce90083f0 ("xprtrdma: kmalloc rpcrdma_ep separate from rpcrdma_xprt")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:opus-4-7
 Reviewed-by: Chuck Lever <cel@kernel.org>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
+Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/libfs.c | 85 ++++++++++++++----------------------------------------
- 1 file changed, 22 insertions(+), 63 deletions(-)
+ net/sunrpc/xprtrdma/frwr_ops.c  | 89 ++++++++++++++++++++-------------
+ net/sunrpc/xprtrdma/transport.c |  2 +
+ net/sunrpc/xprtrdma/verbs.c     | 16 ++++--
+ net/sunrpc/xprtrdma/xprt_rdma.h | 10 +++-
+ 4 files changed, 78 insertions(+), 39 deletions(-)
 
-diff --git a/fs/libfs.c b/fs/libfs.c
-index 27d7dc16fcb0a..fa6cb2b012046 100644
---- a/fs/libfs.c
-+++ b/fs/libfs.c
-@@ -282,6 +282,12 @@ void simple_offset_init(struct offset_ctx *octx)
-  * @octx: directory offset ctx to be updated
-  * @dentry: new dentry being added
+diff --git a/net/sunrpc/xprtrdma/frwr_ops.c b/net/sunrpc/xprtrdma/frwr_ops.c
+index a974d5cac7e1c..96e8f109975de 100644
+--- a/net/sunrpc/xprtrdma/frwr_ops.c
++++ b/net/sunrpc/xprtrdma/frwr_ops.c
+@@ -27,13 +27,17 @@
+ 
+ /* Transport recovery
   *
-+ * The offset map holds no reference to @dentry. Once positive, @dentry
-+ * must be pinned with d_make_persistent() for as long as it is in the
-+ * map, and entries may only be added, removed or renamed with the
-+ * directory's i_rwsem held exclusive: offset_readdir() emits straight
-+ * from the map under the shared lock.
+- * frwr_map and frwr_unmap_* cannot run at the same time the transport
+- * connect worker is running. The connect worker holds the transport
+- * send lock, just as ->send_request does. This prevents frwr_map and
+- * the connect worker from running concurrently. When a connection is
+- * closed, the Receive completion queue is drained before the allowing
+- * the connect worker to get control. This prevents frwr_unmap and the
+- * connect worker from running concurrently.
++ * frwr_map() is serialized with the connect worker by the transport
++ * send lock.
 + *
-  * Returns zero on success. @octx and the dentry's offset are updated.
-  * Otherwise, a negative errno value is returned.
++ * frwr_unmap_async() runs from Receive completion processing.
++ * rpcrdma_xprt_drain() drains the Receive Queue before the Send Queue,
++ * so asynchronous LOCAL_INV Work Requests are submitted before Send
++ * Queue drain.
++ *
++ * frwr_unmap_sync() runs after the transport send lock is released.
++ * rx_unmap_rwsem orders its LOCAL_INV submission before disconnect
++ * drains the QP.
+  *
+  * When the underlying transport disconnects, MRs that are in flight
+  * are flushed and are likely unusable. Thus all MRs are destroyed.
+@@ -139,7 +143,6 @@ int frwr_mr_init(struct rpcrdma_xprt *r_xprt, struct rpcrdma_mr *mr)
+ 	mr->mr_ibmr = frmr;
+ 	mr->mr_device = NULL;
+ 	INIT_LIST_HEAD(&mr->mr_list);
+-	init_completion(&mr->mr_linv_done);
+ 	frwr_cid_init(ep, mr);
+ 
+ 	sg_init_table(sg, depth);
+@@ -537,40 +540,60 @@ static void frwr_wc_localinv(struct ib_cq *cq, struct ib_wc *wc)
+  * @cq: completion queue
+  * @wc: WCE for a completed LocalInv WR
+  *
+- * Awaken anyone waiting for an MR to finish being fenced.
++ * Wake frwr_unmap_sync() after the final LOCAL_INV completion.
   */
-@@ -446,51 +452,6 @@ static loff_t offset_dir_llseek(struct file *file, loff_t offset, int whence)
- 	return vfs_setpos(file, offset, LONG_MAX);
- }
- 
--static struct dentry *find_positive_dentry(struct dentry *parent,
--					   struct dentry *dentry,
--					   bool next)
--{
--	struct dentry *found = NULL;
--
--	spin_lock(&parent->d_lock);
--	if (next)
--		dentry = d_next_sibling(dentry);
--	else if (!dentry)
--		dentry = d_first_child(parent);
--	hlist_for_each_entry_from(dentry, d_sib) {
--		if (!simple_positive(dentry))
--			continue;
--		spin_lock_nested(&dentry->d_lock, DENTRY_D_LOCK_NESTED);
--		if (simple_positive(dentry))
--			found = dget_dlock(dentry);
--		spin_unlock(&dentry->d_lock);
--		if (likely(found))
--			break;
--	}
--	spin_unlock(&parent->d_lock);
--	return found;
--}
--
--static noinline_for_stack struct dentry *
--offset_dir_lookup(struct dentry *parent, loff_t offset)
--{
--	struct inode *inode = d_inode(parent);
--	struct offset_ctx *octx = inode->i_op->get_offset_ctx(inode);
--	struct dentry *child, *found = NULL;
--
--	MA_STATE(mas, &octx->mt, offset, offset);
--
--	if (offset == DIR_OFFSET_FIRST)
--		found = find_positive_dentry(parent, NULL, false);
--	else {
--		rcu_read_lock();
--		child = mas_find_rev(&mas, DIR_OFFSET_MIN);
--		found = find_positive_dentry(parent, child, false);
--		rcu_read_unlock();
--	}
--	return found;
--}
--
- static bool offset_dir_emit(struct dir_context *ctx, struct dentry *dentry)
+ static void frwr_wc_localinv_wake(struct ib_cq *cq, struct ib_wc *wc)
  {
- 	struct inode *inode = d_inode(dentry);
-@@ -499,32 +460,30 @@ static bool offset_dir_emit(struct dir_context *ctx, struct dentry *dentry)
- 			inode->i_ino, fs_umode_to_dtype(inode->i_mode));
+ 	struct ib_cqe *cqe = wc->wr_cqe;
+ 	struct rpcrdma_mr *mr = container_of(cqe, struct rpcrdma_mr, mr_cqe);
++	struct rpcrdma_req *req = mr->mr_req;
+ 
+ 	/* WARNING: Only wr_cqe and status are reliable at this point */
+ 	trace_xprtrdma_wc_li_wake(wc, &mr->mr_cid);
+ 	frwr_mr_done(wc, mr);
+-	complete(&mr->mr_linv_done);
++	complete(&req->rl_linv_done);
+ 
+ 	rpcrdma_flush_disconnect(cq->cq_context, wc);
  }
  
-+/*
-+ * Emit entries in descending offset order. The directory's i_rwsem is the
-+ * lock of the offset tree and the persistent dentries in it only change
-+ * with it held exclusive. We hold it shared, so @mas stays valid across
-+ * dir_emit() and the dentries need no references.
-+ */
- static void offset_iterate_dir(struct file *file, struct dir_context *ctx)
+ /**
+- * frwr_unmap_sync - invalidate memory regions that were registered for @req
++ * frwr_unmap_sync - synchronously invalidate MRs registered for @req
+  * @r_xprt: controlling transport instance
+- * @req: rpcrdma_req with a non-empty list of MRs to process
++ * @req: request whose registered MRs are to be invalidated
+  *
+- * Sleeps until it is safe for the host CPU to access the previously mapped
+- * memory regions. This guarantees that registered MRs are properly fenced
+- * from the server before the RPC consumer accesses the data in them. It
+- * also ensures proper Send flow control: waking the next RPC waits until
+- * this RPC has relinquished all its Send Queue entries.
++ * If @req still owns registered MRs after synchronizing with transport
++ * disconnect, post a chain of LOCAL_INV Work Requests and wait for the
++ * final completion. On successful completion, this fences the mapped
++ * regions from remote access and preserves Send Queue flow control.
++ *
++ * A concurrent disconnect can reset @req while this function waits for
++ * the read side. In that case the MRs have already been released and no
++ * LOCAL_INV Work Requests are posted.
++ *
++ * Context: Process context. Takes and releases
++ *	    @r_xprt->rx_unmap_rwsem for read. May sleep.
+  */
+ void frwr_unmap_sync(struct rpcrdma_xprt *r_xprt, struct rpcrdma_req *req)
  {
--	struct dentry *dir = file->f_path.dentry;
-+	struct inode *inode = file_inode(file);
-+	struct offset_ctx *octx = inode->i_op->get_offset_ctx(inode);
-+	loff_t start = ctx->pos == DIR_OFFSET_FIRST ? DIR_OFFSET_MAX : ctx->pos;
- 	struct dentry *dentry;
+ 	struct ib_send_wr *first, **prev, *last;
+-	struct rpcrdma_ep *ep = r_xprt->rx_ep;
+ 	const struct ib_send_wr *bad_wr;
++	struct rpcrdma_ep *ep;
+ 	struct rpcrdma_mr *mr;
+ 	int rc;
  
--	dentry = offset_dir_lookup(dir, ctx->pos);
--	if (!dentry)
--		goto out_eod;
--	while (true) {
--		struct dentry *next;
-+	MA_STATE(mas, &octx->mt, start, start);
++	/* serialize against rpcrdma_xprt_disconnect() */
++	down_read(&r_xprt->rx_unmap_rwsem);
++
++	/*
++	 * Disconnect can reset this request while we wait for the read side.
++	 * Recheck rl_registered in case rx_ep now refers to a new connection.
++	 */
++	ep = r_xprt->rx_ep;
++	if (!ep || list_empty(&req->rl_registered)) {
++		up_read(&r_xprt->rx_unmap_rwsem);
++		return;
++	}
++
+ 	/* ORDER: Invalidate all of the MRs first
+ 	 *
+ 	 * Chain the LOCAL_INV Work Requests and post them with
+@@ -597,37 +620,35 @@ void frwr_unmap_sync(struct rpcrdma_xprt *r_xprt, struct rpcrdma_req *req)
+ 		prev = &last->next;
+ 	} while ((mr = rpcrdma_mr_pop(&req->rl_registered)));
  
-+	for (;;) {
-+		dentry = mas_find_rev(&mas, DIR_OFFSET_MIN);
-+		if (!dentry)
-+			break;
-+		VFS_WARN_ON_ONCE(!(dentry->d_flags & DCACHE_PERSISTENT));
- 		ctx->pos = dentry2offset(dentry);
- 		if (!offset_dir_emit(ctx, dentry))
--			break;
+-	mr = container_of(last, struct rpcrdma_mr, mr_invwr);
 -
--		next = find_positive_dentry(dir, dentry, true);
--		dput(dentry);
+ 	/* Strong send queue ordering guarantees that when the
+ 	 * last WR in the chain completes, all WRs in the chain
+ 	 * are complete.
+ 	 */
+ 	last->wr_cqe->done = frwr_wc_localinv_wake;
+-	reinit_completion(&mr->mr_linv_done);
++	reinit_completion(&req->rl_linv_done);
+ 
+-	/* Transport disconnect drains the receive CQ before it
+-	 * replaces the QP. The RPC reply handler won't call us
+-	 * unless re_id->qp is a valid pointer.
++	/*
++	 * The read side prevents disconnect from draining this QP until the
++	 * LOCAL_INV chain has been submitted.
+ 	 */
+ 	bad_wr = NULL;
+ 	rc = ib_post_send(ep->re_id->qp, first, &bad_wr);
++	if (rc) {
++		/* On error, the MRs get destroyed once the QP has drained. */
++		trace_xprtrdma_post_linv_err(req, rc);
++
++		/* Force a connection loss to ensure complete recovery.
++		 */
++		rpcrdma_force_disconnect(ep);
++	}
++	up_read(&r_xprt->rx_unmap_rwsem);
+ 
+ 	/* The final LOCAL_INV WR in the chain is supposed to
+ 	 * do the wake. If it was never posted, the wake will
+ 	 * not happen, so don't wait in that case.
+ 	 */
+ 	if (bad_wr != first)
+-		wait_for_completion(&mr->mr_linv_done);
+-	if (!rc)
+-		return;
 -
--		if (!next)
--			goto out_eod;
--		dentry = next;
-+			return;
- 	}
--	dput(dentry);
--	return;
+-	/* On error, the MRs get destroyed once the QP has drained. */
+-	trace_xprtrdma_post_linv_err(req, rc);
 -
--out_eod:
- 	ctx->pos = DIR_OFFSET_EOD;
+-	/* Force a connection loss to ensure complete recovery.
+-	 */
+-	rpcrdma_force_disconnect(ep);
++		wait_for_completion(&req->rl_linv_done);
  }
  
+ /**
+diff --git a/net/sunrpc/xprtrdma/transport.c b/net/sunrpc/xprtrdma/transport.c
+index 9f46c80dba6e8..9003cec764d28 100644
+--- a/net/sunrpc/xprtrdma/transport.c
++++ b/net/sunrpc/xprtrdma/transport.c
+@@ -365,6 +365,8 @@ xprt_setup_rdma(struct xprt_create *args)
+ 	INIT_DELAYED_WORK(&new_xprt->rx_connect_worker,
+ 			  xprt_rdma_connect_worker);
+ 
++	init_rwsem(&new_xprt->rx_unmap_rwsem);
++
+ 	xprt->max_payload = RPCRDMA_MAX_DATA_SEGS << PAGE_SHIFT;
+ 
+ 	return xprt;
+diff --git a/net/sunrpc/xprtrdma/verbs.c b/net/sunrpc/xprtrdma/verbs.c
+index 81ed76504da02..056c3c7f6efe8 100644
+--- a/net/sunrpc/xprtrdma/verbs.c
++++ b/net/sunrpc/xprtrdma/verbs.c
+@@ -568,20 +568,24 @@ int rpcrdma_xprt_connect(struct rpcrdma_xprt *r_xprt)
+  * rpcrdma_xprt_disconnect - Disconnect underlying transport
+  * @r_xprt: controlling transport instance
+  *
+- * Caller serializes. Either the transport send lock is held,
+- * or we're being called to destroy the transport.
++ * Context: Caller serializes. Either the transport send lock is held,
++ *	    or the transport is being destroyed. Takes and releases
++ *	    @r_xprt->rx_unmap_rwsem for write. May sleep.
+  *
+  * On return, @r_xprt is completely divested of all hardware
+  * resources and prepared for the next ->connect operation.
+  */
+ void rpcrdma_xprt_disconnect(struct rpcrdma_xprt *r_xprt)
+ {
+-	struct rpcrdma_ep *ep = r_xprt->rx_ep;
++	struct rpcrdma_ep *ep;
+ 	struct rdma_cm_id *id;
+ 	int rc;
+ 
++	down_write(&r_xprt->rx_unmap_rwsem);
++
++	ep = r_xprt->rx_ep;
+ 	if (!ep)
+-		return;
++		goto out_unlock;
+ 
+ 	/* Prevent teardown-generated events from requesting another close. */
+ 	atomic_xchg(&ep->re_force_disconnect, 1);
+@@ -600,6 +604,9 @@ void rpcrdma_xprt_disconnect(struct rpcrdma_xprt *r_xprt)
+ 		rdma_destroy_id(id);
+ 
+ 	r_xprt->rx_ep = NULL;
++
++out_unlock:
++	up_write(&r_xprt->rx_unmap_rwsem);
+ }
+ 
+ /* Fixed-size circular FIFO queue. This implementation is wait-free and
+@@ -908,6 +915,7 @@ struct rpcrdma_req *rpcrdma_req_create(struct rpcrdma_xprt *r_xprt,
+ 
+ 	INIT_LIST_HEAD(&req->rl_free_mrs);
+ 	INIT_LIST_HEAD(&req->rl_registered);
++	init_completion(&req->rl_linv_done);
+ 	spin_lock(&buffer->rb_lock);
+ 	list_add(&req->rl_all, &buffer->rb_allreqs);
+ 	spin_unlock(&buffer->rb_lock);
+diff --git a/net/sunrpc/xprtrdma/xprt_rdma.h b/net/sunrpc/xprtrdma/xprt_rdma.h
+index 18eb9ae027b62..4734038b9e7b1 100644
+--- a/net/sunrpc/xprtrdma/xprt_rdma.h
++++ b/net/sunrpc/xprtrdma/xprt_rdma.h
+@@ -46,6 +46,7 @@
+ #include <linux/spinlock.h> 		/* spinlock_t, etc */
+ #include <linux/atomic.h>		/* atomic_t, etc */
+ #include <linux/kref.h>			/* struct kref */
++#include <linux/rwsem.h>		/* struct rw_semaphore */
+ #include <linux/workqueue.h>		/* struct work_struct */
+ #include <linux/llist.h>
+ 
+@@ -246,7 +247,6 @@ struct rpcrdma_mr {
+ 	int			mr_nents;
+ 	enum dma_data_direction	mr_dir;
+ 	struct ib_cqe		mr_cqe;
+-	struct completion	mr_linv_done;
+ 	union {
+ 		struct ib_reg_wr	mr_regwr;
+ 		struct ib_send_wr	mr_invwr;
+@@ -345,6 +345,7 @@ struct rpcrdma_req {
+ 
+ 	struct list_head	rl_free_mrs;
+ 	struct list_head	rl_registered;
++	struct completion	rl_linv_done;
+ };
+ 
+ static inline struct rpcrdma_req *
+@@ -446,6 +447,13 @@ struct rpcrdma_xprt {
+ 	struct delayed_work	rx_connect_worker;
+ 	struct rpc_timeout	rx_timeout;
+ 	struct rpcrdma_stats	rx_stats;
++
++	/*
++	 * Orders frwr_unmap_sync()'s LOCAL_INV submission ahead of the
++	 * QP drain. Disconnect holds the write side across the drain
++	 * and resource teardown.
++	 */
++	struct rw_semaphore	rx_unmap_rwsem;
+ };
+ 
+ #define rpcx_to_rdmax(x) container_of(x, struct rpcrdma_xprt, rx_xprt)
 -- 
 2.53.0
-
-
 
