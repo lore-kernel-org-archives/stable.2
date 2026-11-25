@@ -1,54 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795638531;
-	b=0G5Zk/F8RL13gpVZpwN5KgArBpc7REu9cptK+eehH8zNO6hxIfdNDtLJHVbHW2KQYKz8
-	 Tt8X3Xwlm9avMQUNXb0ubSzG3MjFAJKXt/stT8oaZ/MOnApNSdMMV/E8yI9t3gJfl4fzy
-	 MkzrwVCQ/6fB/V+nDItO/uG9K/gGVFR1za5qjN6m8tCd71+m8JRpcvjFVxPYwSCMW8CGq
-	 ZNbCSJoqXst2szfuHIlIoMdwUjHmv9hS19awPq48epdJsYnWSqNjHVHJNC9Puwolg0YKf
-	 JT+MFYWdoAq83VBWhiYGkNsnDpSnqoU36w0c1P4ZuIEb3LJJiPAMVKSOC1qjY2gEVPg==
+	t=1795638563;
+	b=oZSrXiuVSjoTNnU+I5cgwSVRmbLDWuZpwjEKsKzpwcjksAXwfuXN8hFUWPXUiGe0kvwn
+	 0Dtucde6eSTvvTQNcF/WNjjGt90nm1ih98esRcH33hOqPDQAU8s7Pj1p/sFfg+hmH4XUT
+	 dmzdLJSmz7nlQnhcieNPoyZfNmOcWjYWiGpPdHEMGU5Xy60SDAsOEKG8Oe1wHR+bBBWbM
+	 Z17ehWdZnAo8sF9Vmk1Z/dO9QvRJjfhvIQJ7RYFgWFyQFxAebjDpsCr/rY6QzoLCZs5ZL
+	 NO4Lpe4bOtVECctpJYAnRTOXfIidxOJtE4jNjNJBC2VHemMjEz3DxTOroyoZ4b+S3Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795638531;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PpLn6yPX3Eo+oazpEDgQlQXRkIYzVNNj+DW9Rynl9y0=;
-	b=cInPj35jxy4zdolAh3wAQui2wPyBNlyjLQHxmRLE4Ic8Fd6aAIrt8EO+//KD6GDVQrTg
-	 gIxw0nKRcUgAHnF7UHK7aHqWrrqITNlQj/RPEgC1jUC/42UpmHq4RefBZcYCxX2VEmz5B
-	 31th2BQNh+2q2C/mQvFo2+eG59dxDAgX1kDOHE6jPK8KPhsWnqD3RcD6H85MPQ6w6OCTK
-	 OvtMieqzi7cW3DQrLUQEOJtGbCg0qjNyGSi2ouGo8k3dxVI6sZpRXwL3rx2AseI6GYFx7
-	 vKurAwkO/qfabdWjvC4Kjrj7suCvS5miaUDYGercf7kd6JFuwtzZayi71n23Uxk1RDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795638563;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 X-Relaying-Domain:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=l8Vm7b6mvicOGbNITWz8S9UqTwj9675iuxlFyNmsQcY=;
+	b=UQTSnjbaKdOxGTx+/Ef1kTjAlXXfLPJuJffYE6lb9j21SpNCIeZHeGwJtaB/ilIULSPe
+	 7eZWYcRKSsXmHHl4JjFmpAv+6cpkX9MCVT5xoBws4sfNZTHPjYplRfoQ44OY4ZZT/Qfnq
+	 emcMfw1AfbpPxnTE95QwMJmHLsSKOEPXIUOrQxksYvoUee3dueSOkmO9Z/qUsokN2rkog
+	 4NY/z1kVcJxOVNCeizk4aLLkxHaUaJMSZ02d7s3bWcAe8qtWd6hShkhdCg8W0Vymj2y0r
+	 NshRhN1aZoobawRK/ldZAdxAbgoWEx7Ecp7dTJtPG+TxqNj1p1nuMIugvWPCxOvoDYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VFyNELfa;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=faYLAvB1;
+	arc=none smtp.remote-ip=209.85.216.100
+Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EFA0606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:28:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46394606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:29:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46394606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VFyNELfa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 393251F000D0;
-	Wed, 25 Nov 2026 20:28:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795638530;
-	bh=PpLn6yPX3Eo+oazpEDgQlQXRkIYzVNNj+DW9Rynl9y0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VFyNELfagjvGdAflM3U1S7dgGDWPsSXOXgjnH3cqATetAtsfYS84dX0/Paz+ZXKc2
-	 JlkwLw72swckvU46aoxGI+EHl785jEIDVWaLJModnDTkBWI1/Q/UHlwIPyYqB2f3KK
-	 0hSKMxrpDRHNfRsy5IYJS7Tx7MUiqgM4kopmXIA/tnPCZN3uBVhsaHe/joLO1mEKJB
-	 1YzTxernMxpXquO2N3LuHt2N+QPqCtMBmv9YoCbNUTlpi/du8cJ+UOPpa7ErpEM7Ed
-	 BIAchpfJ0401juuaY0Fghal1oQovBkTjzABO1FbT/2fN/GRAkNzOmobNUGTfBTxoHl
-	 MO8B5twSYYflw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] tracing/probes: Fix user-space dereference string array store type
-Date: Wed, 25 Nov 2026 15:28:49 -0500
-Message-ID: <20261125202832.1415785-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112543-secluding-hatchback-2d84@gregkh>
-References: <2026112543-secluding-hatchback-2d84@gregkh>
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=faYLAvB1
+Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-3b40d23e1adso4222663a91.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:29:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1795638562; x=1796243362; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=l8Vm7b6mvicOGbNITWz8S9UqTwj9675iuxlFyNmsQcY=;
+        b=faYLAvB18L/VuJp3Y4kep9bswU0Is/J4eU3X+N6HKQ1Y6d/r0+JYs0W0pr2VhNogDa
+         +ZuaoOV9m3L/8kPFTqT84PiZwSeNtYbLMmuK3j+JqzLJ+dbwiKMjzKbW6pthM1brzavP
+         H4nwCnPlkkZ4dyHU/XQAy0qN5NS6UateiHim6uO+08KJdx38PdN212mRCiMbXc+mYQjW
+         CeC17Lf2lHqQonUSHkYxxXa4BbV5ZrswAz03uYbFEO0YBKHnTlDQvf6eyQzDy1LBpYm4
+         JIly3sSK9m66gwWCcH5HEspTuV+HNFuwt14CLXr9uZvYNscBYHn3nfEmwS+941Sga6Mt
+         70vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795638562; x=1796243362;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l8Vm7b6mvicOGbNITWz8S9UqTwj9675iuxlFyNmsQcY=;
+        b=sugZ3rfR2L0m4g+XsNp9ZNLy/1cKh0cXA7xDCgey8IuYbUZjemD5wckQKG5rQdlcAQ
+         cczYotlh7Co2Cu10aNQNSXbApRpR9M+JMX2yuE9luRIQX4HzMdWdV5npO6g+Tq5inaIB
+         Qy0Qyy8KYjm9NqISxzOr/pm6YkRjDz6j6C/ZYI9OtXPN4DSjjcndsWdRkbVrcsS2uBja
+         fYKAFmBuN/bBpAhaOztomjYt/3OJeBmfE2ZDAoHqkVARmN7q+A0N7qmFpDurOSa7CrpS
+         90Ibf04L6LDYKqPxSKxhxBYH7LLsCl1wMH+/GeP1q32nJdBm+cKy6u3z2dDVx5vVlLkc
+         n93A==
+X-Forwarded-Encrypted: i=1; AL+hErGnLFsNYDu/6oKpuUl0pZC8DwTOQjBhonn79LaI0JdZqUz6jbl9aWHCc3UK/+WzTbaAIe6Bzcc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/L87a/267Nvjm6GSR+BFsIKFvHCA5SFcqbz7iVIz6sUaIXz7S4
+	X1vdk0U5G1qcPhR1YpB2dlBOixk2n/RDw2T78ABkIIPxAywaROwkW6LqLykdhHYkELvKiQoihlF
+	rq1FREKgEDSIm24UE+v37TIuJ3beWcyMPz9DDhIPBMqPVXe1u8ZJS+uO1ZzXLAz4147/fSofHaR
+	DLLd84wfMjjJLB4YfmpNbgaE+1BltK0N2u2VARL6+fZ4wgWc05ouyuSbvtJUjdfFDeqMUIjXik8
+	wooL4+dqBRv6qrsJYQDXqA=
+X-Gm-Gg: AZFdTZfhLPUEkRQcrYCUMNqFMmxuAduWxN6Qk82yHGSgfBAyVX51AzzpbZVgK5aT0bR
+	csSWkoeXzMzKvsUOx78mAMnK57ONbA0BnYzG30Pqf8nioXSbgSjf2/6MspTwbCFWYDz+lSGtMmM
+	kXf23IrfkVmFskawodkFCshtbsIdye57gQrCgVovNsPtJCKqDFepHRKEmGhy+od+MCOaPCnvzoM
+	wmEYKzjOS7UArYmvfHqBFa30TJrzuUiqCVmzl6/l3VgWV4U31I1naM6qt1uzmYBZhjm5WkZwx95
+	vKPc84TzO54kX86Stuh+ntgqK1auSYzdg99dnKojdmSFCbQtKmGfq18jC9zuR9W4cb6Eqt/xaiI
+	iLnW4Nq4uU9G3GgWrpoHRQjkzrk3fOa5FcMGiUQ==
+X-Received: by 2002:a17:90a:ec86:b0:3b4:889:883a with SMTP id 98e67ed59e1d1-3b41c9bacbbmr19118124a91.66.1795638561597;
+        Wed, 25 Nov 2026 12:29:21 -0800 (PST)
+Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.128])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b41ffad038sm6179778a91.3.2026.11.25.12.29.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 12:29:21 -0800 (PST)
+X-Relaying-Domain: purestorage.com
+Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
+	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id A45EC3400BB;
+	Wed, 25 Nov 2026 12:29:20 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,64 +93,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 1/3] rpcrdma: Serialize notification registration
+ with device removal
+From: tmenninger@purestorage.com
+To: Li Xiasong <lixiasong1@huawei.com>
+Cc: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+ linux-nfs@vger.kernel.org, linux-rdma@vger.kernel.org, 
+ stable@vger.kernel.org, yuehaibing@huawei.com, zhangchangzhong@huawei.com, 
+ weiyongjun1@huawei.com
+In-Reply-To: <20261124021842.130141-2-lixiasong1@huawei.com>
+References: <20261124021842.130141-1-lixiasong1@huawei.com>
+ <20261124021842.130141-2-lixiasong1@huawei.com>
+Date: Wed, 25 Nov 2026 20:29:19 +0000
+Message-Id: <179563855914.3954750.1491302687768867001.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795638560; l=523;
+ i=tmenninger@everpuredata.com; s=20261125; h=from:subject:message-id;
+ bh=K/W7Ttia59kCaqhW00kObD6UYvl0Cy15KvgQbFPRCIA=;
+ b=K3KNfLNZW+MlbKg74QBHj05k2lRDd141UEooqOB2WaXr5NbI41rEq9YGVr/e2MQ8pyMpgsa08
+ 4c/z4AJoO9ABaP2mrNVrAEwbDZbx926CtRckrQhyMUoC7Oo+j0qU8il
+X-Developer-Key: i=tmenninger@everpuredata.com; a=ed25519;
+ pk=nZPlfTnkwWNTqraxDCv+eNh7JBZRFxAoLY1xeLR6zXI=
 
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+> @@ -187,8 +209,11 @@ static void rpcrdma_remove_one(struct ib_device *device,
+>  	}
+>  
+>  	trace_rpcrdma_client_remove_one_done(device);
+> +	mutex_lock(&rpcrdma_device_mutex);
+> +	ib_set_client_data(device, &rpcrdma_ib_client, NULL);
+>  	xa_destroy(&rd->rd_xa);
+>  	kfree(rd);
+> +	mutex_unlock(&rpcrdma_device_mutex);
 
-[ Upstream commit 2721573e6c6faaba2e31f352f2c02ec5f3ecf5e9 ]
+Seconding Chuck's nit that you can mutex_unlock before xa_destroy and
+kfree.
 
-When finalizing a string array argument (e.g. +0u(%reg):string[N]),
-finalize_fetch_insn() advances the instruction pointer to a new slot
-for the store operation before checking whether the preceding operation
-was FETCH_OP_UDEREF. As a result, user-space dereference string arrays
-with type "string" emit FETCH_OP_ST_STRING (kernel memory read) instead
-of FETCH_OP_ST_USTRING.
+Reviewed-by: Tim Menninger <tmenninger@everpuredata.com>
 
-Check for FETCH_OP_UDEREF before advancing the instruction pointer.
-
-Link: https://lore.kernel.org/all/179455854396.403392.18073771811100192405.stgit@devnote2/
-
-Fixes: e65f7ae7f4da ("tracing/probe: Support user-space dereference")
-Cc: stable@vger.kernel.org
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-[ sashal: Moved the store-op fix from finalize_fetch_insn() into the same inline block in traceprobe_parse_probe_arg_body(), and dropped a context comment that doesn't exist in this tree. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/trace/trace_probe.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
-index 4265518ce967c..08cac25e6a2fc 100644
---- a/kernel/trace/trace_probe.c
-+++ b/kernel/trace/trace_probe.c
-@@ -1384,6 +1384,8 @@ static int traceprobe_parse_probe_arg_body(const char *argv, ssize_t *size,
- 	ret = -EINVAL;
- 	/* Store operation */
- 	if (parg->type->is_string) {
-+		bool is_uderef;
-+
- 		if (!strcmp(parg->type->name, "symstr")) {
- 			if (code->op != FETCH_OP_REG && code->op != FETCH_OP_STACK &&
- 			    code->op != FETCH_OP_RETVAL && code->op != FETCH_OP_ARG &&
-@@ -1401,6 +1403,8 @@ static int traceprobe_parse_probe_arg_body(const char *argv, ssize_t *size,
- 				goto fail;
- 			}
- 		}
-+
-+		is_uderef = (code->op == FETCH_OP_UDEREF);
- 		if (!strcmp(parg->type->name, "symstr") ||
- 		    (code->op == FETCH_OP_IMM || code->op == FETCH_OP_COMM ||
- 		     code->op == FETCH_OP_DATA) || code->op == FETCH_OP_TP_ARG ||
-@@ -1420,8 +1424,7 @@ static int traceprobe_parse_probe_arg_body(const char *argv, ssize_t *size,
- 			}
- 		}
- 		/* If op == DEREF, replace it with STRING */
--		if (!strcmp(parg->type->name, "ustring") ||
--		    code->op == FETCH_OP_UDEREF)
-+		if (!strcmp(parg->type->name, "ustring") || is_uderef)
- 			code->op = FETCH_OP_ST_USTRING;
- 		else if (!strcmp(parg->type->name, "symstr"))
- 			code->op = FETCH_OP_ST_SYMSTR;
 -- 
-2.53.0
-
+Tim Menninger <tmenninger@everpuredata.com>
