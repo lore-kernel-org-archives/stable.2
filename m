@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795602880;
-	b=b4zhdpg08DCGpZl/PITVab+pkU3SrcZIKJl49561P4ICQNceCwpuFOWtp+sSwJUelSx6
-	 TDsINL8K5YGkKGBjBFGk8KYhEU8VsOB4rW4yumuG4b8NdoUkttR8he9W5H/xlGsprFENc
-	 7A/Yfs54OXA+eluu9Fmw4I6Eel728yvCGZqu4CX376wpIfeL4ZRdEqiylQYNzQnnF836d
-	 MKaApXhaqxzx29SOfAbVh74FZ2XULdFKx6ALtgyU3FEm2kM0zCJz7he7CeBsUOp+qxjbs
-	 tCbneKMWMnAJmpOZDLUGXhEeIiA5BisQnQyScjiJ1QygesQnOffP8ZBd/9xh4h6E/uQ==
+	t=1795602884;
+	b=0HpVDqBupGA+C6qIL+DCazi7mSWZQWP2m1+TL/jdejSwlTA7kXXE04dKHRrFzKaPGiSc
+	 NFDXZep44aN5MOHg+U5D5yZPeoCzow+tVVYJ9Ro9x16Ndmc5uthnIrGsNj5p7I8E8qGDM
+	 cf4XMErKNmzX1XD9raUNgHFNh5HY4XjWYdBkz03zUSTKHTDi9VvQRpAQYEpfChSd84iOn
+	 uCbVO2EinXe2kSOAL8IbsdUCcKTmFhaMOJx/nyxn5TNBYrka7QO43XgEMKQLjmeU867gL
+	 VLbbF73Uo0xvX04AXbPZ3Y2/KYym2IbEQLeHVi8PXZ5/xyRAZL9PtDzfdwaszssnolQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602880;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602884;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=7Eg9enxNHHn9FK0U4d7Bypo0685dxaU5yIglbCvU67E=;
-	b=Gi+54J6NZ08nHnDjQVP7ZzibqhL60W3mFt0Eo1QCMxdKCgU2UYrgiM4AaLMZN0ZAvzeW
-	 CZScFzk3VsLBrmiClJiZch+q6D/souPthfOeuMPJS4fXOpX4Gbwdu9WI9qF41t/1bngoZ
-	 s30HkKDcDrQdHHdV7Yj239WxP0T20NhrxeMb6isLNg9Ed40/eTU7zlriWuFLNG8y1qkuT
-	 3zxGkUMbevL0lz7qLt98+pYYFI3NL+gcDsaM491bmhOrNxNPGrg0UmIbtJaza96uti6Pv
-	 jXw9GdqNIlAPMX7Aavls6ZwZNYWmYTjkOFKWMbkBNFcIGW0OCIakh8xbq265PRocMGA==
+	bh=wT7qfchEzNdDWo2QDxpEsim+5w7s9PCDIhAqIO4+P6Y=;
+	b=uIBLWuLBUrAZkQccDA4vSSLz9enSdLFy8OhMDhPkad0Nx5O7kQiU9dFh9caXuA+bI43U
+	 04D2F5v6CFx5kQ4yH4BwlL88wtZb0WrSwTw19glwk5oYAKjiWA12BRGymXzwQKaCFA5kC
+	 EQa7PMvKCkZrU+SmmRiPMd//K5ZZPFlLxJaH14UZmCczZ9OtjQSHuPBYmIF85e4DUUCM0
+	 jV9CUtydwXONJjKmIrrmZemGPHbUWqqPRYoH7/rpZa2GonXETyslHBed2JLPivaXcRJxe
+	 3EQHwLmqEB81NICsp9kQLcaraMtwZoizZvC5m6/XE09+SVKpERzmDtj95Nd/FOSO9bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sUt6CeEP;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DYVKjCRR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0409606A32A
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:34:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70954606A68C
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:34:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sUt6CeEP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00C7C1F000D1;
-	Wed, 25 Nov 2026 10:34:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DYVKjCRR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E3151F000C0;
+	Wed, 25 Nov 2026 10:34:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795602880;
-	bh=7Eg9enxNHHn9FK0U4d7Bypo0685dxaU5yIglbCvU67E=;
+	s=korg; t=1795602884;
+	bh=wT7qfchEzNdDWo2QDxpEsim+5w7s9PCDIhAqIO4+P6Y=;
 	h=Subject:To:Cc:From:Date;
-	b=sUt6CeEPmWp/j2UR8mwJm6+cgls+p2JGtA0ZHc1AMDTMfeXvQbsmKw2hROB7tQ+Ob
-	 NkQmGVoxFCAPnhn/icKkmNi9uBTeArTVNnB9ELjytnW3Zjw5On4uugsuWZAyvgPHqN
-	 K4QoJm1csV5J6RQHH09IbTxPgumKW9ATLXn2ucDM=
-Subject: FAILED: patch "[PATCH] xen/pvcalls: unwind pvcalls_new_active_socket() step by step" failed to apply to 5.10-stable tree
-To: yhlee@isslab.korea.ac.kr,jgross@suse.com,sstabellini@kernel.org
+	b=DYVKjCRRtmMiPRKNrAOH6/SUFf4n7EEuu/95Y/xGtFLjQli8CVFltmM/ZGj2EktoW
+	 9RTiItTzG3GZSyO4HZcaRcH7OJrZgLo/PXP76vNgHdwwxd7ehxAvzmx18TTSnWXRhK
+	 gXl5FwWNgelAMFGULcThS65EMkj4EN6w+4pojfg0=
+Subject: FAILED: patch "[PATCH] kprobes: Switch ftrace ops when adding probe with" failed to apply to 6.18-stable tree
+To: mhiramat@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:16:44 +0100
-Message-ID: <2026112544-duchess-wise-ea43@gregkh>
+Date: Wed, 25 Nov 2026 11:17:27 +0100
+Message-ID: <2026112527-presuming-awhile-400f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 702ba3c80a8736898813a2c7484d695278aa114d
+git cherry-pick -x f60f98881b54b0cf36b61f41c91fbd93b76a2d9c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112544-duchess-wise-ea43@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112527-presuming-awhile-400f@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,165 +79,141 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 702ba3c80a8736898813a2c7484d695278aa114d Mon Sep 17 00:00:00 2001
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Date: Tue, 10 Nov 2026 21:50:01 +0900
-Subject: [PATCH] xen/pvcalls: unwind pvcalls_new_active_socket() step by step
+From f60f98881b54b0cf36b61f41c91fbd93b76a2d9c Mon Sep 17 00:00:00 2001
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Date: Wed, 11 Nov 2026 23:13:31 +0900
+Subject: [PATCH] kprobes: Switch ftrace ops when adding probe with
+ post_handler
 
-Every error path in pvcalls_new_active_socket() jumps to one shared label
-that does list_del(&map->list) and then hands map to
-pvcalls_back_release_active().  But map comes from kzalloc() and its
-list_head is only published at the very end of the function, after the last
-of those jumps:
+When an ftrace-based kprobe is registered without a post_handler, it is
+armed using kprobe_ftrace_ops. If a second probe with a post_handler is
+subsequently registered at the same address, register_aggr_kprobe() sets
+ap->post_handler to aggr_post_handler, but leaves the probe armed using
+kprobe_ftrace_ops.
 
-	down(&fedata->socket_lock);
-	list_add_tail(&map->list, &fedata->socket_mappings);
-	up(&fedata->socket_lock);
+When the probe is later disarmed or disabled, disarm_kprobe_ftrace()
+checks whether p->post_handler is non-NULL and attempts to disarm from
+kprobe_ipmodify_ops. This fails with -ENOENT, decrements
+kprobe_ipmodify_enabled below zero, leaves the probe armed on
+kprobe_ftrace_ops, and aborts unregistration, leading to a use-after-free
+if the probe module is unloaded.
 
-so on the error path map->list is still {NULL, NULL} and __list_del()
-writes through a NULL pointer.
+Switch the armed probe from kprobe_ftrace_ops to kprobe_ipmodify_ops in
+register_aggr_kprobe() outside of text_mutex and cpus_read_lock to avoid
+lockdep and deadlock issues when modifying ftrace code. Defer adding the
+new probe onto ap->list until the ftrace ops switch completes so that the
+new probe's handlers are not published prematurely while ap is still on
+kprobe_ftrace_ops, and mark ap disabled if rollback re-arming fails.
+Also restore ftrace ops registration and counter if ftrace_set_filter_ip()
+fails in __disarm_kprobe_ftrace().
 
-A frontend gets there with one value it owns: the ring_order field of the
-page it granted.  Anything above MAX_RING_ORDER takes the second goto, and
-nothing else in the function has run by then.
+Link: https://lore.kernel.org/all/179440641120.328088.15542754095040659094.stgit@devnote2/
 
-The result is an oops in whichever context handled the request - the
-pvcalls-back threaded IRQ handler for PVCALLS_CONNECT, mappass->wq for
-PVCALLS_ACCEPT - and because it happens after down(&fedata->socket_lock)
-that semaphore is never released, so every later operation on the frontend
-blocks on it and the backend never completes backend_disconnect().  (With
-CONFIG_DEBUG_LIST the list_del() only reports and returns, and
-pvcalls_back_release_active() then runs on a map whose irq is still 0 and
-whose bytes, ioworker.wq and saved_data_ready are all NULL.)
-
-A frontend asking for ring_order 5, on a dom0 built with KASAN
-(the request was issued by a test-only change to the frontend):
-
-[  133.728877] pvcalls_new_active_socket frontend requested ring_order 5, which is > MAX (4)
-[  133.732868] Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
-[  133.737910] KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
-[  133.741666] CPU: 0 UID: 0 PID: 133 Comm: irq/39-pvcalls- Not tainted 7.3.0-kCTLblk2-15482-g21a7f44fd076-dirty #1 PREEMPT(full)
-[  133.746986] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[  133.751512] RIP: 0010:pvcalls_new_active_socket+0x821/0xb90
-[  133.754237] Code: 48 89 fa 48 c1 ea 03 80 3c 02 00 0f 85 f6 01 00 00 48 8d 79 08 4c 8b 6b 08 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 14 02 00 00 4c 89 ea 4c 89 69 08 48 b8 00 00 00
-[  133.763126] RSP: 0018:ffffc900004afb38 EFLAGS: 00010202
-[  133.765861] RAX: dffffc0000000000 RBX: ffff88810886c900 RCX: 0000000000000000
-[  133.769348] RDX: 0000000000000001 RSI: 0000000000000246 RDI: 0000000000000008
-[  133.772787] RBP: 1ffff92000095f6b R08: 0000000000000001 R09: fffff52000095f58
-[  133.776260] R10: 0000000000000003 R11: ffff888100077320 R12: ffff88810858b410
-[  133.779823] R13: 0000000000000000 R14: ffff88810858b460 R15: ffff88810858b400
-[  133.783382] FS:  0000000000000000(0000) GS:ffff8881b034c000(0000) knlGS:0000000000000000
-[  133.787351] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  133.790308] CR2: 00000000006042c0 CR3: 0000000108400001 CR4: 0000000000770ef0
-[  133.793822] PKRU: 55555554
-[  133.795347] Call Trace:
-[  133.796778]  <TASK>
-[  133.798082]  ? __pfx_pvcalls_new_active_socket+0x10/0x10
-[  133.800801]  ? security_socket_post_create+0x4d/0x60
-[  133.803275]  ? release_sock+0x1a/0x1d0
-[  133.805182]  pvcalls_back_event+0x1b09/0x23e0
-[  133.807431]  ? __pfx_pvcalls_back_event+0x10/0x10
-[  133.809814]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[  133.812251]  ? __pfx_pvcalls_back_event+0x10/0x10
-[  133.814554]  irq_thread_fn+0x86/0x150
-[  133.816468]  irq_thread+0x2da/0x580
-[  133.818363]  ? __pfx_irq_thread_fn+0x10/0x10
-[  133.820586]  ? __pfx_irq_thread+0x10/0x10
-[  133.822670]  ? __kthread_parkme+0x88/0x170
-[  133.824803]  ? __pfx_irq_thread+0x10/0x10
-[  133.827153]  ? __pfx_irq_thread+0x10/0x10
-[  133.829304]  kthread+0x2c8/0x3b0
-[  133.831176]  ? recalc_sigpending+0x15c/0x1e0
-[  133.833570]  ? __pfx_kthread+0x10/0x10
-[  133.835572]  ret_from_fork+0x373/0x5b0
-[  133.837581]  ? __pfx_ret_from_fork+0x10/0x10
-[  133.839978]  ? __switch_to+0x3c4/0xb40
-[  133.841984]  ? __pfx_kthread+0x10/0x10
-[  133.843970]  ret_from_fork_asm+0x1a/0x30
-[  133.846031]  </TASK>
-[  133.847420] Modules linked in:
-[  133.849240] ---[ end trace 0000000000000000 ]---
-
-Give each failure its own label, so that only resources that were actually
-acquired are released and the list the map was never added to is left
-alone.  The map is not published anywhere at that point, so the error path
-needs no socket_lock at all.  sock_release() stays in the callee on every
-error path, the way
-commit 8fafac202d18 ("xen/pvcalls-back: fix double frees with pvcalls_new_active_socket()")
-arranged it.
-
-Fixes: 5db4d286a8ef ("xen/pvcalls: implement connect command")
+Fixes: 5dd7caf0bdc5 ("kprobes: Skip clearing aggrprobe's post_handler in kprobe-on-ftrace case")
 Cc: stable@vger.kernel.org
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Message-ID: <20261110125002.46683-2-yhlee@isslab.korea.ac.kr>
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-diff --git a/drivers/xen/pvcalls-back.c b/drivers/xen/pvcalls-back.c
-index ba62651a7f33..dcefa91a40cd 100644
---- a/drivers/xen/pvcalls-back.c
-+++ b/drivers/xen/pvcalls-back.c
-@@ -337,7 +337,7 @@ static struct sock_mapping *pvcalls_new_active_socket(
+diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+index dddad1e01866..b6ff971df451 100644
+--- a/kernel/kprobes.c
++++ b/kernel/kprobes.c
+@@ -1444,9 +1444,14 @@ static int __disarm_kprobe_ftrace(struct kprobe *p, struct ftrace_ops *ops,
+ 	(*cnt)--;
  
- 	ret = xenbus_map_ring_valloc(fedata->dev, &ref, 1, &page);
- 	if (ret < 0)
--		goto out;
-+		goto out_map;
- 	map->ring = page;
- 	map->ring_order = map->ring->ring_order;
- 	/* first read the order, then map the data ring */
-@@ -345,19 +345,19 @@ static struct sock_mapping *pvcalls_new_active_socket(
- 	if (map->ring_order > MAX_RING_ORDER) {
- 		pr_warn("%s frontend requested ring_order %u, which is > MAX (%u)\n",
- 				__func__, map->ring_order, MAX_RING_ORDER);
--		goto out;
-+		goto out_unmap_ring;
- 	}
- 	ret = xenbus_map_ring_valloc(fedata->dev, map->ring->ref,
- 				     (1 << map->ring_order), &page);
- 	if (ret < 0)
--		goto out;
-+		goto out_unmap_ring;
- 	map->bytes = page;
- 
- 	ret = bind_interdomain_evtchn_to_irqhandler_lateeoi(
- 			fedata->dev, evtchn,
- 			pvcalls_back_conn_event, 0, "pvcalls-backend", map);
- 	if (ret < 0)
--		goto out;
-+		goto out_unmap_bytes;
- 	map->irq = ret;
- 
- 	map->data.in = map->bytes;
-@@ -365,7 +365,7 @@ static struct sock_mapping *pvcalls_new_active_socket(
- 
- 	map->ioworker.wq = alloc_ordered_workqueue("pvcalls_io", 0);
- 	if (!map->ioworker.wq)
--		goto out;
-+		goto out_unbind;
- 	atomic_set(&map->io, 1);
- 	INIT_WORK(&map->ioworker.register_work,	pvcalls_back_ioworker);
- 
-@@ -381,11 +381,16 @@ static struct sock_mapping *pvcalls_new_active_socket(
- 	write_unlock_bh(&map->sock->sk->sk_callback_lock);
- 
- 	return map;
--out:
--	down(&fedata->socket_lock);
--	list_del(&map->list);
--	pvcalls_back_release_active(fedata->dev, fedata, map);
--	up(&fedata->socket_lock);
-+
-+out_unbind:
-+	unbind_from_irqhandler(map->irq, map);
-+out_unmap_bytes:
-+	xenbus_unmap_ring_vfree(fedata->dev, map->bytes);
-+out_unmap_ring:
-+	xenbus_unmap_ring_vfree(fedata->dev, (void *)map->ring);
-+out_map:
-+	sock_release(sock);
-+	kfree(map);
- 	return NULL;
+ 	ret = ftrace_set_filter_ip(ops, (unsigned long)p->addr, 1, 0);
+-	WARN_ONCE(ret < 0, "Failed to disarm kprobe-ftrace at %pS (error %d)\n",
+-		  p->addr, ret);
+-	return ret;
++	if (WARN_ONCE(ret < 0, "Failed to disarm kprobe-ftrace at %pS (error %d)\n",
++		      p->addr, ret)) {
++		if (*cnt == 0)
++			register_ftrace_function(ops);
++		(*cnt)++;
++		return ret;
++	}
++	return 0;
  }
  
+ static int disarm_kprobe_ftrace(struct kprobe *p)
+@@ -1575,17 +1580,13 @@ void kprobe_busy_end(void)
+ }
+ 
+ /* Add the new probe to 'ap->list'. */
+-static int add_new_kprobe(struct kprobe *ap, struct kprobe *p)
++static void add_new_kprobe(struct kprobe *ap, struct kprobe *p)
+ {
+ 	/* A reused cooling probe is already unoptimized */
+ 	if (p->post_handler && !kprobe_unused(ap))
+ 		unoptimize_kprobe(ap, true);	/* Fall back to normal kprobe */
+ 
+ 	list_add_rcu(&p->list, &ap->list);
+-	if (p->post_handler && !ap->post_handler)
+-		ap->post_handler = aggr_post_handler;
+-
+-	return 0;
+ }
+ 
+ /*
+@@ -1618,6 +1619,8 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
+ {
+ 	int ret = 0;
+ 	struct kprobe *ap = orig_p;
++	bool reset_post_handler = false;
++	bool ftrace_switch_ops = false;
+ 
+ 	scoped_guard(cpus_read_lock) {
+ 		/* For preparing optimization, jump_label_text_reserved() is called */
+@@ -1664,18 +1667,50 @@ static int register_aggr_kprobe(struct kprobe *orig_p, struct kprobe *p)
+ 					| KPROBE_FLAG_DISABLED;
+ 		}
+ 
++		if (p->post_handler && !ap->post_handler) {
++			reset_post_handler = true;
++			if (kprobe_ftrace(ap) && !kprobes_all_disarmed &&
++			    !kprobe_disabled(ap))
++				ftrace_switch_ops = true;
++			else
++				ap->post_handler = aggr_post_handler;
++		}
++
+ 		/* Copy the insn slot of 'p' to 'ap'. */
+ 		copy_kprobe(ap, p);
+-		ret = add_new_kprobe(ap, p);
++		if (!ftrace_switch_ops)
++			add_new_kprobe(ap, p);
+ 	}
+ 
+-	if (ret == 0 && kprobe_disabled(ap) && !kprobe_disabled(p)) {
++	if (ftrace_switch_ops) {
++		/*
++		 * Must switch ftrace ops outside of text_mutex and cpus_read_lock
++		 * to prevent deadlocks when ftrace code modification acquires text_mutex.
++		 */
++		ret = disarm_kprobe_ftrace(ap);
++		if (ret)
++			return ret;
++
++		ap->post_handler = aggr_post_handler;
++		ret = arm_kprobe_ftrace(ap);
++		if (ret) {
++			ap->post_handler = NULL;
++			if (arm_kprobe_ftrace(ap))
++				ap->flags |= KPROBE_FLAG_DISABLED;
++			return ret;
++		}
++		add_new_kprobe(ap, p);
++	}
++
++	if (kprobe_disabled(ap) && !kprobe_disabled(p)) {
+ 		ap->flags &= ~KPROBE_FLAG_DISABLED;
+ 		if (!kprobes_all_disarmed) {
+ 			/* Arm the breakpoint again. */
+ 			ret = arm_kprobe(ap);
+ 			if (ret) {
+ 				ap->flags |= KPROBE_FLAG_DISABLED;
++				if (reset_post_handler)
++					ap->post_handler = NULL;
+ 				list_del_rcu(&p->list);
+ 				synchronize_rcu();
+ 			}
 
