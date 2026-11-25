@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795602815;
-	b=KLpGyPd2cpa4ZplCQ5P085cKpvwyz7ScNCLZm6fqVD+oSP6b07crGvSLTbCJAtTV+Utc
-	 jEaEAsRZltkd+CqL4gki0GwJa7BtKyCrMK1dSLjhOIoQAdC2vaz1wueDxN9x0nXI+DY5u
-	 EEwDiW2Cd/mCjVknSZk459DsVUjXPUvPcqIDMxR/3dYxgGAjbWB1oKN+AXVoxLRE4Er0n
-	 Bc8NBJnHlO5OBYmS2efLacmyOsk2Uv/5CeQOjaZ3m13wVBx/19ju3h6Fc2JaR9KQeevhf
-	 aQBR+MwEC/djqhWZwh3qnjKQqIoUr6gvmdEOhUshh9IkJKHWCaE91RulQ5oj5W9iY/w==
+	t=1795602817;
+	b=xZcE3NUgNFuNM8zlY+Xd0UH1rEeVfLt0YD+TvhMbINPn212T68TrCNPYlFy7EKww1lBs
+	 U/jbKcEuUjj873obteSYLWLqzl/w1djz1zexruEzaGtxJVGwmrfeWAlCl492BYrSjRm58
+	 F94CQVkvDaAH3knIpQjxTG+1wX8Xzeag8rMu+W3MmcqBLrN6jDqsBPNO9pXx/RpAxpqTJ
+	 kktu2cQA/GbzpDjji6Fm5MCMkj2sb32LnAgab70WMUZ9o3k6zMozDTS1IPGSz4FMrbom7
+	 e4jNGJpHBNSG5KB+uG1AG4gdSOCttxisUDFRn4xt2AiHoSl8xkdOaqlixcE8dFfYX8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602815;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602817;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+rLDM4m/5oU6iypJTr5b10JrUOMAkqjl9EhsTVmyzOM=;
-	b=2mPNZrrY2YcYgBUOOFG5KgDKFleNKdklGrIGfUsFIFQtE9RVis5tkV42Aq7m7W27eNxO
-	 zBnvKgS04rY97f/1ylYpmGqan8Io+Ee+CXj/Z3nMbLhPzJEHFFmMzCBczHXXWiHItquge
-	 4LDMlNeN4LdhSV2SuGrWpzbU95fpS0ET1gQ6IJjPG3NS7qW2F/qRWHaUyUbUYo+r+jqoS
-	 KJVm/zvxQy8qhM4r+S7U4XioJQ+qvIxNEtk8RMWhB8dkC+Vran4Xo8Hy/c/eOp8sWtj2n
-	 Xrf/0Dkv8uvfSW4CYHV9Vavcf1DregWasqTORoN9SgfM24JpnizwBT6owtYvuB8/x9w==
+	bh=NogDEivagkdflG14gQ1zuM++0jgIKOUQBsohLFPd5VE=;
+	b=ObMP41+Ein4U4/DJBfqSY2yGvG5kIGzN2/JsCoqU4jFZMeT62ZElzogDg39LUbqBw5+V
+	 9hcm0MYoiMkmzVr3YRaNSrLzV4u85iB/3RPPLRn+V6uVpN5dzGrbnpG6By+9ti8MAPZYm
+	 mlBe7A8y/8OdF+qXMeUAFmXGyIn9TaY9qbmasJmQnYyyEUBsB3Oa/+vcVvvn9udxvahIK
+	 W3nUecigUbbkVfv3iLY63HEm7MQ0CaeGTJyv96qBS/WKUIgAhQIOzPYydnMRBIdtVaTDD
+	 NxhLMLuqwaw/ZQ9yZRp2+pKUc2k+SS+847JVmK6ZM+Q9VWit2S8tm+J5AUH6aRUN92w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zPotjkpu;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MVWryx0t;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FCD5606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:33:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD10606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:33:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zPotjkpu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C19391F000C0;
-	Wed, 25 Nov 2026 10:33:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MVWryx0t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF3161F000C6;
+	Wed, 25 Nov 2026 10:33:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795602814;
-	bh=+rLDM4m/5oU6iypJTr5b10JrUOMAkqjl9EhsTVmyzOM=;
+	s=korg; t=1795602817;
+	bh=NogDEivagkdflG14gQ1zuM++0jgIKOUQBsohLFPd5VE=;
 	h=Subject:To:Cc:From:Date;
-	b=zPotjkpuiRbovglA7w+UVTuJqDFetbWovTWtBF0qyh/4tlXNBDkrTHYGf5HCndW6Q
-	 wrbSK2IrGZ9bsrmSQHd7WS/LTJTS8FOpCUQdf5w+KHykWy9FJH9Wvf/YYfaNbwAQtX
-	 XBlcj6mhCu1seyqM2BUIXShgE3I94x3IzMIf59Lc=
-Subject: FAILED: patch "[PATCH] tpm: flush timeout work outside buffer_mutex to avoid" failed to apply to 6.12-stable tree
+	b=MVWryx0tUPHOLhWDtxZDzF+lWGIEybC82iLWAw22IXDmowjNZTdOtxxw4tZ/2AQwc
+	 uRg6HAREvcxqNNmo91Fr8zUEUSnlkb3D9jrCXokhzvlnAs179/bp/1LNchEKeBX06A
+	 4UnwRPHFNbmf3mqzR8kCgkQInt26Gm5MSb1MExSM=
+Subject: FAILED: patch "[PATCH] tpm: flush timeout work outside buffer_mutex to avoid" failed to apply to 6.1-stable tree
 To: hj351016@gmail.com,jarkko@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:14:28 +0100
-Message-ID: <2026112528-stimulant-rarity-a146@gregkh>
+Date: Wed, 25 Nov 2026 11:14:29 +0100
+Message-ID: <2026112529-manhole-ranging-68d9@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x c22052a012698ce56d599d75b669d55778521c7c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112528-stimulant-rarity-a146@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112529-manhole-ranging-68d9@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
