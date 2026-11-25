@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795602981;
-	b=Ap2/MF+5+8gkYXDo8OoRa8mE6XO1ShXHWPfyIt0Sw4yUfZe0zIp1Q066fyNGnN/0fByK
-	 QNmDE/M+gHlGwKhE6leV65dC/jALpIwA5tV4OvNx639q9t5XUObXccRLo721/+tgJgiMC
-	 ODBDmwNPDH7rs1eydb41MnGUVMtTwZTRFIBVOQqT9TmA8RjGyB0eiSOq4d/pgFYhBKxiY
-	 SAZFDuUdufQuzXnhvVStozN7CHkYiLIoyWFsJTdAczq+gV/p65EP5o8tEAw5vwQg4PtS/
-	 LawqZAPAnj9GL67zgiH1MAdHLOsnRPiDViGWSKlkAg4mA35DO1uX91Q8cycrXMULoDQ==
+	t=1795602984;
+	b=CP3z7EmjrFymU3X5TyP/dXVq5xNLo0CLV8oq8VpFNMOn4QaLWFHGYTu3GrNgbx7s9BnM
+	 rraqVvgF05ykBhathfdrIHrxwT8A1SE/pNKV8was36Wh7NZBnThbWUIEpa1WNck63j/Ml
+	 B+RyRf1ezaxcpYqWYc4rBCmYJzEijmDIF2/3WONRueeBML9MUmlA/v2IqSOCZl7pzIAW+
+	 mLnTjbFdbHoq/oewVxlQslgBac9dwMB3z01wboTEktEYWsHEAixxLUSGnOLKDIyAVhKD3
+	 1bPhkOlI0g1jneBWoDdHZLfB3rFp2bB7v+sbhydw2nrolNZg5MGtbwLzh6GPRDf8AuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795602981;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795602984;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EZpKoricbH4FaGl/bq0QcsZOHwNCMVgwcwl0Jzu8AWU=;
-	b=MCrlWXRatsIdMYObb5rPEPUu15h07nZFWIWXXa6c4VnEn+9ph7hRqjOYVtEm/uMdTYA2
-	 ln18OKTf4dAHbmC+k/jMpKz9KzrlX9f6ZItzeAhiXmazhp+d1WRkDnzykngnfQuWye2kL
-	 feYV/7jSBXR8LPwvUNmrpMCia3CEwnLVgwZpl/ZvtozcTK5chHJ7Rdwh7utfxtVjDhwH/
-	 3OGuEW0R6hsn9c+Xi2WvMlRtsQPPLtJrHh9z+ntOLtlZ5KxYe6T2I3BA2t1PBq0hOc5nN
-	 QbwJZx7o3WC5goPYBQ0sxxGryTkXyt9THk2jpqjGSAW0+/u/XVhJ1iRDJLpEnKo0MTg==
+	bh=LddZPFVZ/XUk3dVXLxZ76ZghjpVLMxp96d8TCbMZClw=;
+	b=b+oyJxRfavJPIqgq9J/9bEHFYCwfmgFMznDKvvl3gP7JJA+GEgSWf8okgU9dDir2j+bq
+	 PPjAFDYHLdRZ1wjmInzYqmTgsttLwvLXa/6JhYTVslMdkqro3Qc6kmbwVzWOlHNmgJf4H
+	 Gc0rWBx/KB2xlEqU5dLy4W2xfneDUMBWG75ezYRyQAdKnxcV3ad1ws5oaUG0zasH1Hxyt
+	 DyH3sJecbksiwK5Qjv5vmD9MexvDwgM4VMlNVG1XyeiYajiXG2hQoonsS6J5HNnjzlJLA
+	 919ueBh+4XfwnUTCyifXyrQY+oTFwMAQiJeWeQYqJnjkyO+ESaXg7WhYFXo5ZLofkAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Tg/CHbhW";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wyVbqhDJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AFDB606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:36:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E9F606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:36:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Tg/CHbhW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03A311F000CF;
-	Wed, 25 Nov 2026 10:36:19 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wyVbqhDJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B7411F000CF;
+	Wed, 25 Nov 2026 10:36:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795602980;
-	bh=EZpKoricbH4FaGl/bq0QcsZOHwNCMVgwcwl0Jzu8AWU=;
+	s=korg; t=1795602983;
+	bh=LddZPFVZ/XUk3dVXLxZ76ZghjpVLMxp96d8TCbMZClw=;
 	h=Subject:To:Cc:From:Date;
-	b=Tg/CHbhWJQk7EJFuoPevReX+Z6jA4nAls1sX9HAcqS8UIiKP1ET5KZbtwGb2RyJ/d
-	 NDE3pJZXy/i8cjTkL57fi8pGBWa3hSENpsi07bvOBnXaVT2UZBdYIoLN5ltitD23Po
-	 sQhyWOgFCtst6rPNr9RQVHR75zRl9y5G5Uv/C6yQ=
-Subject: FAILED: patch "[PATCH] sched/uclamp: Reject clamp values above SCHED_CAPACITY_SCALE" failed to apply to 6.1-stable tree
+	b=wyVbqhDJvMeHydFnoLQb3L5Owk3EqBnJIvStT9DP3lCwk60T7v829t9lEOI1zuWq8
+	 ufciN8IKzOwL2EEU4t4uB2pvBcFe/EwreWl32t1UmTDs/0X7lZnIyd0aMLa6m/8Qtj
+	 Or/pJN0BAyM57or3LDlDJJniD6iFjzj0VM71iAzg=
+Subject: FAILED: patch "[PATCH] sched/uclamp: Reject clamp values above SCHED_CAPACITY_SCALE" failed to apply to 5.15-stable tree
 To: parri.andrea@gmail.com,mingo@kernel.org,peterz@infradead.org,sashiko-bot@kernel.org,vincent.guittot@linaro.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:21:06 +0100
-Message-ID: <2026112506-pointy-crib-caa0@gregkh>
+Date: Wed, 25 Nov 2026 11:21:07 +0100
+Message-ID: <2026112507-ungodly-humorous-49be@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 8127ec8458df29bd702db602473042ccb9e619b9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112506-pointy-crib-caa0@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112507-ungodly-humorous-49be@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
