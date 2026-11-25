@@ -1,108 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795624821;
-	b=U1hjI3OsXIL/9l2noI+7oJ7UrwYGEVJQkWbd2WALDLl7D1heFHZ+abfHGc2ZZK+a+kW+
-	 NMq/WnhFGr5oHl1D1vCjGkJst2WY/pJNIYV4cIBqRZmwQo/XPAwp5si5EbzVZqkiMGK4Y
-	 Ag/0vceX2nJdRwD2tM5mHKvwqVQ9x/Iq92V+idEBV7gwtZG5268cxuj7YOZ3kBXoW0iRV
-	 qJ5DxYoyWgos9N/WX7QuhqySvk/fpbcEK+0UsyXDaK1aWVUqAWFX1O/F0qJ75XW/jcK1n
-	 HsIvVoz1S4yO4Nuc5HdnLxAZ9gwp4djdvzPkEnAZyFMasN7LYmDJRVczrM1CnZR+rEg==
+	t=1795624822;
+	b=PLQJY17Rc93+NmEiqCUy+g+8lSrCzQk7v6nf+PR/HAAYgr3joFXUA20RLzFkqPtWBwhA
+	 sw/4CK6d8+/p9QPwko1Pz0ZfOxgchmGkDnUf1Lnky+m0y4rP1B/LR9vCY3v92zx20lB+D
+	 U6sdjLT9tsUy//o4cVBPJXMLPAtfbOs78vKQMOcLwHBODRJ7fYiBgM8/0KjkoOUWtf9DU
+	 Go+7s3tGwnX3opx4MHzjzTnDpbilx/JaXMLmW1CnJ/5Tgh+xDfqHmj13fnAVubEpq1Gaz
+	 oKwkn6AAz00SY36m1R9Rq7hBtXB0h9jreCbVmdzA5zWmJB+rgCouHn+qo6+bwu3FhRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795624821;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=TghFUnkx2wFDXauXnjqA/lesm0e681hvYxVKPushlxM=;
-	b=NUFBEtlx1ryxsuJ6TWvfdkF6bh7zZoAane+ZbaLNbPupIrdst/qHnm7xyEO++R3uLgj7
-	 lsLH2COCoHb3GfHu+JUQaJLn73VXwPtQbyajq1qYHm/laZjhRnT1upwLsnLvTfUUXC1up
-	 fELGdSpfrQ2aF8/3tgS3O1JYUz+l7iuF2M9dGkvBCu0apkeShQSSb11p73R+chjkelMsC
-	 iqfYfkqOvTaHLTaodlJHW0/S/spfaIaBLG6IXQXn7Qke0ikhoWsHQuZ9qXpB8w45ueue9
-	 oc3aHxFtHU7kn0azLh9kELftdHa64XNtsEGI1GDqqoTn/HD7g5bmPBooHh0e8YKg9WA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795624822;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=0WRjm08jIRhBNlWx0vhKWLZMscbG09VKdJBRU7SJhj0=;
+	b=HcPmajMFd3XEjDjt5kH9TGEVpLRFnwHabDZ4zl4smarlZyIyBmwa1xxDVhq4Peh4pZhB
+	 k0a2VOpdzmv4Xbb/xYUSfyf1WVdk22QmUOELQTUO+mTp6S0yf6dhz3TJbGjQ8RyWVCKo2
+	 Iw59fsUnTXpbCyZ1j7C9YE/KQpYfPCG7aP6GIvO6uS7490TyqPvBEM8kk14QV4dJ9ZTZk
+	 Zj9XHXS10UoJZAsv4DjUh9WJWcYJ/x3WPD4lpqLO0NdZkbOjF1LlamblFKFae69iWrpUu
+	 quMPEUETwUGHAU2x3u6IbEH80oTMRmdfqrcNGl90BsT1hUHg1RwRwxZgpycDAX/W9nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=I7QTxEpS;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lfv+5Guo;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ASf5nkRQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803CD606A33F
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:40:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 803CD606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 798DC606A337;
+	Wed, 25 Nov 2026 16:40:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=I7QTxEpS;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lfv+5Guo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795624818;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TghFUnkx2wFDXauXnjqA/lesm0e681hvYxVKPushlxM=;
-	b=I7QTxEpSFFMA009PMJF7VbhvFJ0waViuaEKrgrtDTVTleoqZ1apJCRtoxmXlainAiVxnyU
-	Su18BnW47JvWmis7pBYmVvwHD+wZIHTkbgN+i3YHmjkZJsuabjt0ae80o9Zlu/grIJsC+m
-	x5t0R4MBk91mwPmny/LCtfSPQQwwWlM=
-Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
- [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-178-51kn3JGDO4K4cBvrcd1Ngw-1; Wed, 25 Nov 2026 16:40:15 +0000
-X-MC-Unique: 51kn3JGDO4K4cBvrcd1Ngw-1
-X-Mimecast-MFC-AGG-ID: 51kn3JGDO4K4cBvrcd1Ngw_1795624814
-Received: by mail-lf1-f71.google.com with SMTP id 2adb3069b0e04-5c324fb5155so607450e87.2
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:40:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1795624814; x=1796229614; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TghFUnkx2wFDXauXnjqA/lesm0e681hvYxVKPushlxM=;
-        b=lfv+5Guop7Tf7EDEGsp506mI4Pyh5JMsPPHVvJpu7LMvtMwwSl+jBi9a0boHIYm4Zp
-         vSxqS9K+qcZj715hAJ3xY6Wnn/wfWQXA1Zk2VvzBb2Yin9vlAUP5WrP4YX4oNSp5ZWyu
-         dsTMbwXr3bKOeQmYVBgeLF8hN+kEQI+qmy+QQoAn4D1KhXKGDs/hVYT18+sF2iWbywpZ
-         gXXOF9g3Nds6hN2LWrU9aJjAzr6auqEd7uosagvrrvTzuXENz1Oiqb3aUzzJh68GIsul
-         XtmSzRIBu7Jx5uo6acJc2BhL0UzIZnnomhX0+Mjfe9Kucm709mLvV9HOedRbl6cCii54
-         CuSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795624814; x=1796229614;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TghFUnkx2wFDXauXnjqA/lesm0e681hvYxVKPushlxM=;
-        b=MWEZg70F9WvksFefT+kgQOAze43JLeSqaZnrjvTecvunJGz+jcSE5cp1fdm6iyOg2E
-         3BSXlEhI4aDB6T3Ztlr2Ux3pphMe2TJg9eISczin/7y2xIh+ELvcHICWEyh4REIKib7m
-         7BzbOUXOeu5q2odPH1eJwnVejwUEo/XI/QQ8+JzlsxJQ0s4BKMGHC2q78ixEbESAp2uu
-         M8PS510nbJCOKzrRzzewlsC0HsE6JrmHE5vI11Fwgx43e2TB2gMk5dFWjzRJ2a9JtsjP
-         1seKJntYQIn4rvHb792aoBGAW+dzcze0KmNRqU5ovxqq/Ptjgg0IiAvSaMIPuIbO7lnr
-         mvGA==
-X-Forwarded-Encrypted: i=1; AL+hErHiTISGcmWW85UcTzBnjAjfnj2sPLXpU06ufbo0QC9t1Q45GK0bDGUZ8+aB0H89YhwSKal2azU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/2z09IicIgBSomTheHUdGUY+iSvF+S3vldZtTKKiwPq88iBTL/
-	kHdsm+wmSm+2EwCHYeVXFw64fRUH5g5J45R8NzpPF33BIB88YjW6cNvVZSfc9Alopmc+v+9LUYO
-	6N8ICcXCYXb5y5ajK8jXjRTwTOKK9JkBO9XOmVsehSRheZmhMIWGeOXD4
-X-Gm-Gg: AZFdTZe8BicIg/ATvB+xaP+5STInRnB/FSL/bH7J1vhiWSCIA7MZ1sC5jnFtdsjwSkn
-	3bz2YJfYq78eKh3zwbhF0VFgHxf1ccSVk8PigTTHdDLHRaMwlcauD6Uc/GiYCx/Wal+buh1m8B+
-	oI58JKJeD8t2QfjFhFslK5aFkOMYzA8tL3PTt9FhQSgWzAXnPcrbO1SlsdwpLxb7Lh7mgW0Xyz2
-	Z7Kx/Sy1AAr2WUXLGfO0bbjxR1l+y0oYIA+Jwni7qfQ+jAZTGhJdozi4T3/hcG6wARYqi97sY70
-	tYWiAV/lixlS/KVwyFxAC2urrxObIC13w1NDXRPCOkhVyzsUj1hLwckmcLK7Wut0ky8My2KxgiA
-	nMaa13GdXyuJK9e3msr+OgZrhsHSgEmLpQaJElUe4n2eD0lLtT4KEdfMS7llQ773nl9M9gVXO4h
-	0o8eXP
-X-Received: by 2002:a05:6512:1320:b0:5c1:a8c0:620f with SMTP id 2adb3069b0e04-5c1bc817e34mr5223605e87.50.1795624814167;
-        Wed, 25 Nov 2026 08:40:14 -0800 (PST)
-X-Received: by 2002:a05:6512:1320:b0:5c1:a8c0:620f with SMTP id 2adb3069b0e04-5c1bc817e34mr5223585e87.50.1795624813706;
-        Wed, 25 Nov 2026 08:40:13 -0800 (PST)
-Received: from [192.168.1.86] (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd0176fcsm4612398e87.34.2026.11.25.08.40.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Nov 2026 08:40:13 -0800 (PST)
-Message-ID: <be640357-419b-4c78-8d96-3c698424ecd8@redhat.com>
-Date: Wed, 25 Nov 2026 18:40:12 +0200
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ASf5nkRQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E4ED1F000D0;
+	Wed, 25 Nov 2026 16:40:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795624821;
+	bh=0WRjm08jIRhBNlWx0vhKWLZMscbG09VKdJBRU7SJhj0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ASf5nkRQRjI/LFn4jRWcMFSkeqqqWqbMhEc1q6F2YT9qsJiFV9/01rw/I8G6NCfMT
+	 SqpM3TBqFGdIJZGIlQNjtLirh0BCNQ6ZICJeB33C9pD7IxwvGt6tpxHyHJLpqrkKas
+	 r8gc6/ZHQvlV4MTG9BSIKEWy1B/4cz4/DB+d0U9o=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Kyle Zeng <kylebot@openai.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 316/816] ipvlan: make outbound skb headers writable
+Date: Wed, 25 Nov 2026 15:31:04 +0100
+Message-ID: <20261125143856.512936254@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+References: <20261125143849.205329330@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,68 +63,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] lib/test_hmm: invalidate all mirrors on device-private
- migration
-To: Alexandru Elisei <alexandru.elisei@arm.com>,
- Aveline Noir <jm5905938@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
- Ralph Campbell <rcampbell@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Shuah Khan <shuah@kernel.org>,
- David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
- stable@vger.kernel.org
-References: <bae41f6fc4114357a8a74c8b958f2bdc.1@linux-foundation.org>
- <awbtZjtII9h1oJ5R@raptor>
- <CANOyQmGPHrHAzVW70Q8T3AYtzFi3C7jCQdd-QW0rQCPEf=ycyw@mail.gmail.com>
- <awb5agUP80qz8iss@raptor>
-Content-Language: en-US
-From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
-In-Reply-To: <awb5agUP80qz8iss@raptor>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi,
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-On 11/25/26 17:06, Alexandru Elisei wrote:
-> Hi,
-> 
-> On Thu, Nov 26, 2026 at 01:25:41AM +1100, Aveline Noir wrote:
->> Hi Alex
->>
->> On Thu, Nov 26, 2026 at 1:15 AM Alexandru Elisei
->> <alexandru.elisei@arm.com> wrote:
->>
->>> Might be something on my side? I'll investigate further, but I'm not very
->>> familiar with the code.
->>
->> I reproduced the same 0 versus 523264 assertion on x86-64 when the separate
->> mm/hmm: account for subpage offsets in device-private PMDs fix was absent.
->> With that fix, the test passed. May you check whether it is in your test tree?
-> 
-> Indeed, I didn't have the patch in my tree, now the test passes!
-> 
-> Tested on a Radxa Orion O6 board (arm64 architecture):
-> 
-> Tested-by: Alexandru Elisei <alexandru.elisei@arm.com>
-> 
-> Thanks,
-> Alex
-> 
-Did you run the full selftest? 
+------------------
 
-Without skipping own invalidations the normal migrate to device test fails
-( With no skip, migrate_vma_setup()'s invalidation erases the caller's own entries) : 
+From: Kyle Zeng <kylebot@openai.com>
 
-#  RUN           hmm.hmm_device_private.migrate_fault ...
-# hmm-tests.c:1023:migrate_fault:Expected ret (-2) == 0 (0)
-# migrate_fault: Test terminated by assertion
-#          FAIL  hmm.hmm_device_private.migrate_fault
-not ok 14 hmm.hmm_device_private.migrate_fault
+[ Upstream commit a45dbf182137275f44ad7c8bc8acd23f7af6b2cf ]
+
+In L3 and L3S modes, ipvlan_process_v4_outbound() and
+ipvlan_process_v6_outbound() hand the skb to ip_local_out() and
+ip6_local_out(). The IP output path assumes it owns the network header:
+__ip_local_out() rewrites tot_len and the header checksum, and
+transport-mode XFRM can memmove the network header into the headroom
+when xfrm_skb_check_space() finds enough room, without copying.
+
+The skb reaching ipvlan can have its header shared with another skb,
+for example after an AF_PACKET tap on the ipvlan device or a tc mirred
+mirror action. pskb_network_may_pull() only makes the header linear;
+it does not unshare an already linear head. The writes above then
+modify the other skb. If that skb is on the receive path and its IPv4
+header was already validated, IPv4 option processing can use the
+modified header, write past the linear data, and corrupt
+skb_shared_info.
+
+Use skb_cow_head() before taking header pointers and entering the local
+IP output path, like ip_forward() does with skb_cow() before it touches
+the header. Only checking skb_header_cloned() is enough here: skbs that
+TCP transmits are clones of the write-queue skb, whose header area has
+been released with __skb_header_release(). Their headers are private,
+so they are not copied, which avoids a reallocation for every TCP
+segment sent through an ipvlan slave.
+
+If the allocation fails, the existing error accounting and drop paths
+are used. L2 mode is unaffected.
+
+[edumazet: use skb_cow_head() instead of skb_unclone() to avoid
+ copying every TCP segment, reword changelog]
+
+Fixes: 2ad7bf363841 ("ipvlan: Initial check-in of the IPVLAN driver.")
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+Link: https://patch.msgid.link/20261104113530.986664-1-edumazet@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/ipvlan/ipvlan_core.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ipvlan/ipvlan_core.c b/drivers/net/ipvlan/ipvlan_core.c
+index 268ea41a17d52..fea77f2855e8c 100644
+--- a/drivers/net/ipvlan/ipvlan_core.c
++++ b/drivers/net/ipvlan/ipvlan_core.c
+@@ -425,7 +425,8 @@ static noinline_for_stack int ipvlan_process_v4_outbound(struct sk_buff *skb)
+ 		.flowi4_mark = skb->mark,
+ 	};
+ 
+-	if (!pskb_network_may_pull(skb, sizeof(struct iphdr)))
++	if (!pskb_network_may_pull(skb, sizeof(struct iphdr)) ||
++	    skb_cow_head(skb, 0))
+ 		goto err;
+ 
+ 	ip4h = ip_hdr(skb);
+@@ -491,7 +492,8 @@ static int ipvlan_process_v6_outbound(struct sk_buff *skb)
+ 	struct net_device *dev = skb->dev;
+ 	int err, ret = NET_XMIT_DROP;
+ 
+-	if (!pskb_network_may_pull(skb, sizeof(struct ipv6hdr))) {
++	if (!pskb_network_may_pull(skb, sizeof(struct ipv6hdr)) ||
++	    skb_cow_head(skb, 0)) {
+ 		DEV_STATS_INC(dev, tx_errors);
+ 		kfree_skb(skb);
+ 		return ret;
+-- 
+2.53.0
 
 
-As told I will be sending a proper fix for the two fds invalidaton case as a follow up to my other changes to test.hmm.c
-
---Mika
 
