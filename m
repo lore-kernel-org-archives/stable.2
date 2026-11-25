@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795610813;
-	b=0n1bNa17sIk12Qy000rOvMiXcwllINK17AXIZTGzie3fr4gZEjp8rqshiqG4C0NrlB3B
-	 E+wC/xWpYQinYrvekKg7HIk3HIelBfK5Rv86JCZirGRv7uOKVPqTHFA69LfDyUxI/cqOf
-	 uPWoL8+7MzhYKOo52nXPisJJaRMnYfwT++DJp9x/XOj/8JZ5nSdnmp+2uNaZtVrr7lJV2
-	 4l+nl1aWavZOxwZfUcw1SGYgXoD2D31lTWAcEG3YYxJZn31/eJ3Dme4IP7QOHcJ3s11Qr
-	 9298SMblGr0e5WG1lF90UXdisBS3ThDRDpdxtPcPjflt+sT3B3mFs6ID1pp9pgjgXmw==
+	t=1795610815;
+	b=1WBxHDG2qK0gk1sqXsG8y0pgcNmvwPaPGx8Mwy+McmggF/FlV0zAh07Ph8pZXgzGSWqN
+	 M7IHpEaJNK+v0SAresynBbeazcbZJxMitdcZc02mfQb4Ve1DDl1zaqEx8YzfPBQ8C6qOX
+	 F0twmxzC+ePtVvZNoAQLmCPujD1eJ+Z0tfzoFe4GPkRWgVDTwLJcJNUseIIRVfbBJH/rS
+	 FXi2jpQaDo5xouebe+tM9tcCn0JsuvU8OpOk7A2K4UFncLqLNjjVHWtDq52sNhrZZ1/pR
+	 IeNKu53tUUDAvqDGAv5M9M7nT4rFk7DIJm+Q6TMuNCIbuhBFB9oDbxuV5H8tzov1Ttw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795610813;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795610815;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=3/1EX1pmuuxZJ0tpzgdf0bNfwrSREFP/Dr4qb7QfSVg=;
-	b=jTvR4Cxxss61jzf6vPl07gO2niL1xnrRixZ679iy0qGu5eI4RXjHQYslLexN/XrxVaDD
-	 ztl7jZE1Nal0NI48UThzra6qF6jM6DlTPqbl4dEDtBkqemBmTiZFGKhjiK02sIKQHjA5Q
-	 W67XfmH3weiwmY6KkKkztAXcLZgVVMSJ3mImhx4oBuwuqk3W3696EXRO8xtnlhBjn34FJ
-	 UAU52yiLEROmIimNnSF6qh6bwqBRB2soDophQuG6VUGXuXHAAhIbJYVPS9o7WfKbG7IiJ
-	 Ohu5HS+aZdG0HC9beuZf6wUKSIOoX2/77iTPIr9OAaZGd+cSclTWtu3MsZ0WIa95Xkg==
+	bh=bFAkAdVYcnpCJ4077iU1L76CBshM5KqIw2m9PnM3KUA=;
+	b=F+oaUi1cDOhZXtgFCtqjryDKsXCdr/7oKeMxOwExqBAVoAE/1gywWmEEGJKjneL0/kZQ
+	 /rldmEXp5IPADXpsy1G0HQqIcH1X6tslM8vY2iGT+rtZB6oI0lNZcmtfBCwUtOfraLgGr
+	 vnS8GH+zdy3Q4MY+wdzn6OGPWDV4EQDJb2AaE2xQaYHiU156DQ9KdMVNJf7rwpULWNltf
+	 NTJ2kCBuGimL6KN/OpllKRwS8BsN6kb8jKt6bYhLJ6eGKrkxLyXq7oR3UxqnMmfgbhh3P
+	 igKvQFNc2EN1719E+kPt+XQAffk//HZxiSnZaxb4fLfv6bDApZEmGJ7ITJ/j4F/ooug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zyZhE986;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="l5UBFAY/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C65606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:46:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC823606A332
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:46:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zyZhE986
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41EEF1F000C0;
-	Wed, 25 Nov 2026 12:46:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=l5UBFAY/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17CB71F000CF;
+	Wed, 25 Nov 2026 12:46:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795610812;
-	bh=3/1EX1pmuuxZJ0tpzgdf0bNfwrSREFP/Dr4qb7QfSVg=;
+	s=korg; t=1795610815;
+	bh=bFAkAdVYcnpCJ4077iU1L76CBshM5KqIw2m9PnM3KUA=;
 	h=Subject:To:Cc:From:Date;
-	b=zyZhE986OgQWw0QIOrkyt5f0E3gOJQxhJurN2qBfH7W4Bd6xoa/nMVJ5suV/ZWl2L
-	 3cKdH63y+E+zYIorjBcPy5RBmD+oX5Kxf4HjKV1DMaDwiciy+XKY06kOMV0bZ/+MWZ
-	 zMDldPyl3Aielt7UZx3e4AJYzx3PzsOAPtc+nwHc=
-Subject: FAILED: patch "[PATCH] iio: temperature: hid-sensor-temperature: Use per-instance" failed to apply to 6.1-stable tree
+	b=l5UBFAY/kJiLCpfuktdERdiPUux6BboW9KB+gh7taOqzpfkQlJN7qrhxbE5kBkCIy
+	 NVEC+TV8O3vAowo7FrEkldzia5waEYeHblCaqDPgggZkTdqWW6c7rM4W0icHMQ4Gfr
+	 AyxnKbFX+GJnNMtVpKylvHb0tc5rKgqW5xq0Wu1s=
+Subject: FAILED: patch "[PATCH] iio: temperature: hid-sensor-temperature: Use per-instance" failed to apply to 5.10-stable tree
 To: ch@murgatroid.com,jonathan.cameron@oss.qualcomm.com,joshua.crofts1@gmail.com,srinivas.pandruvada@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 13:44:51 +0100
-Message-ID: <2026112551-dawdler-operator-d4db@gregkh>
+Date: Wed, 25 Nov 2026 13:44:52 +0100
+Message-ID: <2026112552-salvation-spyglass-56fb@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 36eeb26031e90eeb81bbac3d3acad61d23fcbdf3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112551-dawdler-operator-d4db@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112552-salvation-spyglass-56fb@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
