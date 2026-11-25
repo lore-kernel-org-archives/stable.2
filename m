@@ -1,63 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.101.131.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795604808;
-	b=Ds0y88iVSBhct10nBqXsz12vE/Sbp1jZAX6mNArTDumRsb44vkbCxD4QmDJIk5L/3w1l
-	 7mlQF1XSa0IIUDjk5BzGiXueyfkT2a0ehX/NY3FoxH5SV46Lm3v5p7HmI5N3r6DzRj4aB
-	 zGtRzqb0J+ZenWEFg/BCpMlj+3nzlidYo3LIepbqXX/Xi3oLQyFkc8EU5A+phKdjlVsCM
-	 xkR613BnD9tg66k1joVR7K+mgXkxZBt9+duhHntEowaObwUuQYd0I4LGiUIQF8CNJy+xZ
-	 mAw8X6M9TNdXOELbmvMLdeeg+GDH1Zc4u6diYQM1nZurudLB82EQ8LBDprvODA7ubdA==
+	t=1795605099;
+	b=1g/GlX/Sm0ZPWiPMSG0JqwplfZ5+YgFoXEYLnG5PKAbwqdVWT2EBh3wt9kpZCaldWPV8
+	 QnyfnTUxkks3d0uRcieBHYTo0ieguRzPmASafEWlY4DLb7/wkLU4nH3Hr6u/aQqw7dPbu
+	 haBWVAGim+a+x+zna86GF37pnwdk/I7MYkNOt44zUFn1JR8YGS1E+scvazPRuE1z6JVXL
+	 W9qh0Vyt7yzW77YkvGkO+J6gDMlA2MwEBbHx/kWflsxK2kBlx36xkgM9+9VQdIKsYFQd9
+	 4EvmZdAIS205EqGld+qBIoRrWk+AFAtgrKCObR1B67djDkPxf6kGXnPymIDHuidAHVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795604808;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=CC1jwJWwdI454y7ESWHR3zHzYlpHKlOaH1jugkPLgTA=;
-	b=IGiOxzS6G2giL9C/V8IthUF3fWh3O5XdF9UwUkZ0oqjL4l+8V1aTcDCvUzsMAubmYUch
-	 ifjB7MsP6/uF/eE04vQlQveTK+3CWHCiviuhe/skWC4HrrhK6KqnMz55S6aNHcKRysr3Q
-	 R50op2oUuK63bXh3A4VFb4z9McjLvTbj7S8d1NoJfP2nlvlsiyUf7gP3+2VW8oqqdYIZG
-	 GUJBrBb/SqNMI/GIf+oc55xxAV4GeuHHdggVv0w0Idtsx0AwUnm8B7TqKrEK9+3zTXssK
-	 KFlAQKgvFv4u1vRi62lgaXLt+cX3cD/92o8eYIgpC+FC3mXAX6Qa63DPlIghbZfZJjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795605099;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cRR8J1W13AfUCmhazkn/JvGpLRIlKdVrG3B9ATPkqYw=;
+	b=JkYmfCVtPVr0jexCAUH9pRmF+wxr8vkFl2VpNdvNeFcIMEgo7u6X/iTOj2dOKtmza5e1
+	 +U7oFiAy3cViQ5vBbhUdJPoTqaeHnxUcCI+u6ESBo6aYNW8zvgXyIdIVBSHKFMBw60JTd
+	 o2qGbwtQ+UhNXDiPz1uWmcqRtFjfDBFbXk2TZ0zxu+r4xkz08vk0Znxbq73vwTmjGydqZ
+	 2HcRyYv48x8Oh/pQHXDPdQRnYCe0FJhnkw4ql1r0eEX/cMmAqLrUoCjLKBWEiFWwJuQcx
+	 9LRIWNYLXtcE30MRUBxjnlK9D+LDsOPraGse3471zvhoyObP/lZyY7qFKn/Ga3MQxJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=fMGKjbRh;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dmarc=pass header.from=citrix.com;
+	spf=pass smtp.mailfrom=citrix.com;
+	arc=none smtp.remote-ip=160.101.131.9
+Received: from na1pdmzitismtp02.tibco.com (unknown [160.101.131.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21B3606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:06:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B21B3606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=fMGKjbRh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=CC1j
-	wJWwdI454y7ESWHR3zHzYlpHKlOaH1jugkPLgTA=; b=fMGKjbRhsXU3w7WCzWvR
-	jDMwCDbDltuKrAz49M+eHGT13cQ+BowtOyhdnUbwFfj+NQrLxOMxLY+6BpmxN6g+
-	e+hQDQiz+ZpuLIRuqn6//bWLd1pg3J6Y0H6rx+Ke60vBNEPChA/jZq4wi6AuxdqJ
-	8E9763PtVJFG92FhAa2JGFAiS6uUrlC8TR/riiDT1x+PyXycWY6i1o+VZ1GZ9j1+
-	ijbXXBjPpojvTdN//jIAl3wJCFB6vLEXCvDUD22Zav154zel+alSFIH2p/iXItuz
-	3kCnNSQtjAe1khan/2tDK9ZqUmKacAWqwHv6CU7zOUjwdtOB4i60/gcRrT6W2Cz6
-	NA==
-Received: (qmail 892782 invoked from network); 25 Nov 2026 12:06:45 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 25 Nov 2026 12:06:45 +0100
-X-UD-Smtp-Session: l3s3148p1@DSmP0hdhdJcujnvc
-Date: Wed, 25 Nov 2026 12:06:44 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Yige Jiang <yigejiang86@gmail.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Wolfram Sang <wsa@kernel.org>, linuxppc-dev@lists.ozlabs.org,
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 241B9606A31E;
+	Wed, 25 Nov 2026 11:11:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 241B9606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=citrix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=citrix.com
+Received: from mewpvdipd1070.citrite.net (unknown [10.113.40.46])
+	by na1pdmzitismtp02.tibco.com (Postfix) with ESMTP id AC75D8513E86;
+	Wed, 25 Nov 2026 06:09:52 -0500 (EST)
+From: Mark Syms <mark.syms@citrix.com>
+To: jgross@suse.com,
+	sstabellini@kernel.org,
+	oleksandr_tyshchenko@epam.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: hawk@kernel.org,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	john.fastabend@gmail.com,
+	sdf@fomichev.me,
+	netdev@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	bpf@vger.kernel.org,
+	mark.syms@citrix.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] macintosh: therm_windtunnel: Fix i2c adapter reference
- leak in probe
-Message-ID: <awbBRG6VMVKn0Dor@ninjato>
-References: <rc-b1-20261110-vc-23-41d00428efcb@gmail.com>
+Subject: [PATCH net] xen-netfront: unwind created queues when page_pool creation fails
+Date: Wed, 25 Nov 2026 11:11:29 +0000
+Message-ID: <20261125111129.3109095-1-mark.syms@citrix.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,30 +64,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <rc-b1-20261110-vc-23-41d00428efcb@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 25, 2026 at 05:03:43PM +0800, Yige Jiang wrote:
-> therm_of_probe() walks the i2c adapters with i2c_get_adapter() and
-> drops each reference with i2c_put_adapter() before taking the next one.
-> Once do_attach() has started the control loop, however, it returns 0
-> while still holding the reference to the current adapter. The pointer
-> is not stored anywhere, so that reference is never dropped. This
-> happens on every successful probe, including after an unbind/rebind of
-> the platform device, and the extra device reference would make
-> i2c_del_adapter() for that bus wait forever for the adapter device to
-> be released.
-> 
-> The driver does not use the adapter after do_attach() returns; the
-> sensor clients it talks to afterwards are children of the adapter and
-> are unregistered by i2c_del_adapter(). Drop the reference right after
-> do_attach(), before checking x.running.
-> 
-> Fixes: 3e7bed52719d ("macintosh: therm_windtunnel: drop using attach_adapter")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
+If xennet_create_page_pool() fails for any queue after the first,
+xennet_create_queues() returns without undoing the queues it has
+already set up, and talk_to_netback() then frees info->queues. The
+NAPI instances of those queues stay on the netdev's napi_list,
+pointing into the freed array, and their page pools, XDP rxq
+registrations and grant references leak, as do the grant references
+of the queue that failed. Reaching this needs an allocation failure
+in page_pool_create() or the XDP rxq registration during connect or
+resume.
 
-I require tests on HW for this one. Windtunnel support has always been
-very fragile.
+Release the failing queue's grant references and unwind every queue
+created before it inside xennet_create_queues(). talk_to_netback()
+still frees the array; on this path neither
+xennet_disconnect_backend() nor xennet_destroy_queues() sees the
+queues, so nothing is released twice.
+
+sashiko-bot found the bug while reviewing an unrelated netfront fix.
+
+The patch builds without warnings at W=1 on net (gcc 12.4) and passes
+checkpatch --strict. The failure path was not exercised: no fault
+injection or boot test was run.
+
+An AI coding assistant (Claude Code) was used to confirm the report,
+write the fix and draft this changelog.
+
+Link: https://lore.kernel.org/r/sashiko-outbox-232996@kernel.org
+Fixes: 6c5aa6fc4def ("xen networking: add basic XDP support for xen-netfront")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mark Syms <mark.syms@citrix.com>
+---
+ drivers/net/xen-netfront.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/xen-netfront.c b/drivers/net/xen-netfront.c
+index fdcb91042f29..9abae76871f3 100644
+--- a/drivers/net/xen-netfront.c
++++ b/drivers/net/xen-netfront.c
+@@ -2244,8 +2244,9 @@ static int xennet_create_queues(struct netfront_info *info,
+ 		ret = xennet_create_page_pool(queue);
+ 		if (ret < 0) {
+ 			dev_err(&info->xbdev->dev, "can't allocate page pool\n");
+-			*num_queues = i;
+-			return ret;
++			gnttab_free_grant_references(queue->gref_tx_head);
++			gnttab_free_grant_references(queue->gref_rx_head);
++			goto err_unwind;
+ 		}
+ 
+ 		netif_napi_add(queue->info->netdev, &queue->napi, xennet_poll);
+@@ -2260,6 +2261,21 @@ static int xennet_create_queues(struct netfront_info *info,
+ 		return -EINVAL;
+ 	}
+ 	return 0;
++
++err_unwind:
++	while (i--) {
++		struct netfront_queue *queue = &info->queues[i];
++
++		if (netif_running(info->netdev))
++			napi_disable(&queue->napi);
++		netif_napi_del(&queue->napi);
++		xdp_rxq_info_unreg(&queue->xdp_rxq);
++		page_pool_destroy(queue->page_pool);
++		gnttab_free_grant_references(queue->gref_tx_head);
++		gnttab_free_grant_references(queue->gref_rx_head);
++	}
++	*num_queues = 0;
++	return ret;
+ }
+ 
+ /* Common code used when first setting up, and when resuming. */
+-- 
+2.56.0
 
