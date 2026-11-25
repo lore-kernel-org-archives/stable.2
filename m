@@ -1,55 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795650271;
-	b=zAJGmfzFBcvRaLAGGbECjuAsteeinfP9Y/XBy+VO2if9PCEvk71VLY/FqF69kXpMprSq
-	 FW4STZB/xmPFL1Kw+auOA2B+gs1Zlg8Pa+2Yp8DKNskDnw4JH+gO9TpzZw3oJGfa5jPd5
-	 WUAFVkXi7UmfPTzxrpuiXxMDoEEvyeeTpCHK1XKys6gfiF45ROnVumlJ++mpOSPppLudx
-	 kILPc93RrxWqgiwojkZQhqmD+GErxUOExsLRED0RQ54W0tc//JssxLR6BSknZT/lE+yLi
-	 vLZSHe5407t46nWntyAd5JO/MimRWRYAoj/V1b1kD6pNgfyyxJvYIs1o/ejKVflgeYw==
+	t=1795650569;
+	b=MSZuGXJZfJt/g+/7dsol90uda3mz78iPmE8Ir1+Ey+dEaUltFiAKtdSlpX8qwe6+f6uh
+	 bK/32nq+xumdbm9PtIpxRJ/Py0EsHXDIAnCW09wCLbHnr6X7DcHCvzlwRVNUgZILEjmPf
+	 MOe8ytCXZHbY1mdvl+AFc0RbLgtTfloSR2ebP/Vcuw0RbVAvNkZmp3ZxDJTWYGjKkjM0I
+	 LcPxGXstrL7XeDIFFMuLb5ZuIsMaz6UCQUCcQvx5oBu0h38uJXvEBRYHGuBm/YGBft2va
+	 TbZ/dY1wp0kcnHknNUbiItw84IVhAZFbbR3dO7/DBTC+tRf80e9nitC/8EotK3h3uSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795650271;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=f/ATAjGGuvCnHn352ejN1uMtKhQ6IIrtwCiWm+JOgec=;
-	b=lAiQfMumyG4ybea9QuXfPjRifd9gxsUUxUFykCs96qx6jd6Oxl5hhhjjllhBLrPUUQ9z
-	 kKtIxKGrNhQUZh0W3k6D8abQYvNPTGx/9sn085pHwcdi8QTJ7QP9TIsQ7wnoqhU9cIREo
-	 r+MqRT6z7e1diiGHzXU1DsmfZCUbd0s6Hh6cno7mdVd7ZQgVX97bxPiH6eD57tzUf4Vth
-	 OjvCqzlpAfJNEo2oF4KK4mKdJfRqVEPLn8uJMskc+WDCXiFcqkFKmoet8itkl4xmv6M8b
-	 djeZEfshJlZp9dU5901NiF9BpBafXSSPgA07F49ProZr6UQzHQqQRitpZr98NQDeC9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795650569;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=FZsPRwC9QHaR9jcTSJ8HuiB2rU63S/qivo88BsE7+XY=;
+	b=cyFlZSR8V8q9Cl5F+Rg03oyb3zD9F6V02AiKyFe3yVDBy9DGLOSyt70fpsCrnpIBjDKS
+	 SFBrCa6yS7gaDVCxNDYvCfVssKVnE4y7rnPIGd0LUmKf2mAMrG0RyLfRq/WWgP6ODwzT/
+	 /OJV2RxPNPjfaQGowMwpjIU2eP7sNKLNte+Msxg9hKeFOhqJLJSP1IADUU10ayxfzhPQg
+	 M+olJgGc2u8+3rE8ZPoJTc6BWHU7HYLBQ6XA7/zWNgiD+DtHWRFONoXOijk6gdoPefg4I
+	 fikzhil56Nm7FXapFrtX6+cakVaTDwtr3hrfeQEjz62qh3QNafZoEN87IxgiY4CQm0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OfkTtSt2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cnKMOA0U;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF288606A321
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 23:44:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103B9606A31E;
+	Wed, 25 Nov 2026 23:49:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 103B9606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OfkTtSt2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 081E81F000E6
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 23:44:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795650271;
-	bh=f/ATAjGGuvCnHn352ejN1uMtKhQ6IIrtwCiWm+JOgec=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OfkTtSt2xtBQR9UeimfOoTw6v3sL+yc1TRUwElnClmYZrlwHdJanGTW6e4tH5HmCu
-	 /ssM52sxD1/MhEerP68lHHZ2OqaasROIYX1xjwuQ6HHzNYlUZjf64/GqfLW5GZdNey
-	 8NDu78Zrgxpy1RRRhqMjMcGGez/CPEcafU2I5r4u998bsnBDVTJNGADkdyqGonNP0d
-	 8rY0clo9rfZHjK/mgu4HsuJwHdYmocLmWHimVsjmnkejjtqbC/khs90dLfWPk3USLN
-	 Vg+PjAWb+XDt2QrKNk+9tb9bIH62ElwnS3HqSHnCpzgH0FC2MhIY/+Vz90ywivXVIA
-	 3iXjXHfmqz9wQ==
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-9496317b730so731961785a.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:44:30 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHLagcko1w0Wg8MSDPHZbE9LWjXWfbLNbnf3HS4iCvUQezlwzq8guqeiMY+WDEC7eSMBPQ6zOk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9p8UaIhj4UdtrPBxE8SvGfeRFV5toKKS0p2SC+15G4Qrkmw+JJ
-	mwoSA9D/D3N7S1Re5vlFJZzOqCvaMblee3y1e3JwibwPkZoBHvC9U9vDw0C1a/JIw/4N7zigbNu
-	Q/EF/pZNifwpwjViuB7zmkLtZL2Uetxk=
-X-Received: by 2002:a05:620a:3188:b0:93e:869c:43e2 with SMTP id
- af79cd13be357-949baa0d797mr3140085885a.50.1795650270349; Wed, 25 Nov 2026
- 15:44:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cnKMOA0U
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795650569; x=1827186569;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=GwxuvubctCIhxKYRMcjrGACjthFwWFlRdvBOk/t76TY=;
+  b=cnKMOA0U8cJjXAGdXO9DzXkV3xb8RCMeaKrbHTOCv7x8moVU+C66V1a3
+   p+R8ESc1LOP9FBHlM214HEAC/k1ciGH6VI9yTdfsN0WRxXt+JM1c1wKr+
+   +bLcMc0q8ecKxThsJ1oWopy6bDmuZwCKm8wBS7Hegom29m0Ds8igGSdcL
+   BuYa1oU3yh65kQDweNQPDMatvbo5Yi7KXbZCAvLkQ/St7xhsrbXKqNWcc
+   F7Mouw6bzVvxijfo4s5g0Qjb9A9IUr1gbMsX9SeQNMb3WCbx45d4Dh47G
+   /gKFM3nSJdE1LyVWix1zNB+/hF0aZaB0q2re3rZvhGjv2AAiLlIuuGshM
+   g==;
+X-CSE-ConnectionGUID: ViVjLHbhTPurtNg/P3uXoA==
+X-CSE-MsgGUID: cmj5mPUvTG23Sle9ByNhNQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4597261"
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="4597261"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 15:49:27 -0800
+X-CSE-ConnectionGUID: wjmYA4SrRZCoT02I7/4nZQ==
+X-CSE-MsgGUID: WnsQZx1kTy+hyQEibeTojw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="11873820"
+Received: from vcostago-desk.jf.intel.com (HELO [10.241.240.61]) ([10.241.240.61])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 15:49:27 -0800
+From: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+Subject: [PATCH v2 0/8] dmaengine: idxd: More error handling fixes
+Date: Wed, 25 Nov 2026 15:48:58 -0800
+Message-Id: <20261125-wt-idxd-fixes-v2-0-25a4691dfb9e@intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,57 +75,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261125113518.1207280-1-hui.zhu@linux.dev>
-In-Reply-To: <20261125113518.1207280-1-hui.zhu@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 26 Nov 2026 07:44:17 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4yTx+vQUQ44iLg8MNA718dY9Z1gAdnz9vvJnZWzVZx-4A@mail.gmail.com>
-X-Gm-Features: Aa3M54qXmwUVwHqi93lcxb96GVJpfnkGS49EGx9GJPqC8qElTspz68Xy-8zCgLQ
-Message-ID: <CAGsJ_4yTx+vQUQ44iLg8MNA718dY9Z1gAdnz9vvJnZWzVZx-4A@mail.gmail.com>
-Subject: Re: [PATCH v3] mm: mglru: reset the mm iteration cursor in try_to_inc_max_seq_nowalk()
-To: Hui Zhu <hui.zhu@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Harry Yoo <harry@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Hui Zhu <zhuhui@kylinos.cn>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12Nyw6CMBBFf4XM2pppy0NZ+R+GRQujjFEwbUUM4
+ d9tcefy3Ln3zAKeHJOHOlvA0cSexyGC2mXQ9ma4kuAuMihUJR5Qi3eIydyJC8/khTRYWlserSS
+ EuHk62g5xcm5+7F/2Rm1IktTo2YfRfbaHk0y9zS1Rqj/3JAUKjUYXJs8LrKoTD4Hu+3Z8QLOu6
+ xderdJSvAAAAA==
+X-Change-ID: 20260803-wt-idxd-fixes-1a06bb69b1e0
+To: Dave Jiang <dave.jiang@intel.com>, Vinod Koul <vkoul@kernel.org>, 
+ Frank Li <Frank.Li@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>, 
+ Shuai Xue <xueshuai@linux.alibaba.com>
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Vinicius Costa Gomes <vinicius.gomes@intel.com>, 
+ Steve Wahl <steve.wahl@hpe.com>, stable@vger.kernel.org, 
+ Jingyi Li <jinli@purestorage.com>, 
+ Bogdan Codres <bogdan.codres@windriver.com>, 
+ Zhenzhong Duan <zhenzhong.duan@intel.com>
+X-Mailer: b4 0.17-dev-1b309
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795650562; l=4195;
+ i=vinicius.gomes@intel.com; s=20230921; h=from:subject:message-id;
+ bh=GwxuvubctCIhxKYRMcjrGACjthFwWFlRdvBOk/t76TY=;
+ b=mSp/nLKRjUNcKHviku27/yDdceEcs817HSUr2gsqxLApYieNsGsPNPgS29qiUjU8qCYmbe0Gy
+ 9y2BkC9ia0FColhh69eELmVqrXoASWNklDf9OJDZoJENAVpTuw/2jHe
+X-Developer-Key: i=vinicius.gomes@intel.com; a=ed25519;
+ pk=aJkrtgqgT6TZ8iIHSG8/rTPsmlYnjMrUjCsMYvCzntk=
 
-On Wed, Nov 25, 2026 at 7:35=E2=80=AFPM Hui Zhu <hui.zhu@linux.dev> wrote:
->
-> From: Hui Zhu <zhuhui@kylinos.cn>
->
-> try_to_inc_max_seq_nowalk() advances mm_state->seq without walking the
-> mm_list, but unlike iterate_mm_list_nowalk() it leaves head and tail
-> alone. If it races with an ongoing page table walk, the cursor is left in
-> the middle of the fifo.
->
-> The next walker reads that as "this generation already started": it skips
-> reset_bloom_filter() and resumes after the cursor. The mm it visits are
-> the ones the aborted walk never reached, so they have no bits in the
-> filter being read and walk_pmd_range() descends into none of their PMDs.
-> Those mm miss a generation of accessed-bit harvesting, so their aging is
-> less accurate and hot folios can be under-promoted. Eviction can still
-> detect their references via rmap and lru_gen_look_around(), so this
-> weakens aging rather than guaranteeing reclaim and refault.
->
-> Reset head and tail with the seq increment, as iterate_mm_list_nowalk()
-> does. It is safe: get_next_mm() holds an mmgrab() reference and a
-> concurrent walker bails out at "walk->seq <=3D mm_state->seq" before
-> touching head again.
->
-> Only reachable from memcg_reparent_objcgs() -> max_lru_gen_memcg(); not a
-> memory safety issue, since lru_gen_del_mm() repoints head and tail under
-> mm_list->lock.
->
-> Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
-> Reviewed-by: Baoquan He <baoquan.he@linux.dev>
-> ---
+This series fixes error handling in the idxd driver.
 
-Reviewed-by: Barry Song <baohua@kernel.org>
+1/8 and 3/8 fix crashes seen in a kdump kernel, where the device reset
+fails during probe. 2/8 fixes the same kind of double free for failures
+after idxd_setup_internals(). Jingyi Li tested them on 10 systems with
+DSA. 1/8 to 3/8 should be backported together: with only 1/8, a probe
+failure after idxd_setup_internals() still destroys the workqueue
+twice, and a failed device reset still double frees in idxd_free().
+
+4/8 to 6/8 fix the device registration, idxd_cdev_open() and WQ setup
+error paths.
+
+7/8 and 8/8 fix terminate_all(). Since v7.0 it releases the WQ's
+interrupt handle, so later transfers on the channel fail with "Device
+error 0x19". It also sleeps, and frees descriptors the device may still
+use.
+
+7/8 and 8/8 overlap with two patches of Daniel Byrne's series, "dmaengine:
+idxd: keep the interrupt handle across terminate_all" and "dmaengine:
+idxd: quarantine terminate_all's descriptor slots until the device has
+drained":
+https://lore.kernel.org/r/20261019150630.4026341-7-daniel1.byrne@intel.com
+https://lore.kernel.org/r/20261019150630.4026341-10-daniel1.byrne@intel.com
+
+Left for a separate series: currently, on a shared WQ, two opens by
+the same mm share one PASID entry, and closing the first one removes
+it, so the completion records of the other's page faults are
+dropped (pointed out by Sashiko on v1 5/6). Proper support will be
+added on a later series.
+
+An AI coding assistant was used to triage the v1 review comments, to
+help write and review the v2 changes to 4/8 and 5/8, to help write 6/8,
+8/8 and the INVALID_INT_HANDLE check in 7/8, and with the testing.
+
+Signed-off-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+---
+Changes in v2:
+- 1/8, 3/8: use () after function names (Frank); add my Signed-off-by
+  instead of the Acked-by (Dave)
+- 1/8, 2/8, 3/8: add Cc: stable and Jingyi's Tested-by
+- Move "Fix potential double free on probe error path" (v1 3/6) to 2/8,
+  next to 1/8, as they need to be backported together
+- 2/8: keep flushing the device workqueue in idxd_cleanup_internals(),
+  before the registers are unmapped (added after Jingyi's Tested-by and
+  Dave's Reviewed-by)
+- 4/8: also stop the registration error paths from dropping the
+  device references that idxd_cleanup() drops again (Sashiko)
+- 5/8: fail the open on xa_insert() errors other than -EBUSY (Sashiko),
+  and disable the PASID of a dedicated WQ when ida_alloc() fails
+  (Sashiko)
+- New 6/8: initialize the WQ XArray before the WQ can be released
+- 7/8 (v1 6/6): don't release an interrupt handle that is already
+  invalid (Sashiko); add Cc: stable
+- New 8/8: don't sleep or free descriptors in terminate_all(), leave
+  that to synchronize(), after the drain (Sashiko)
+- Link to v1: https://patch.msgid.link/20261012-wt-idxd-fixes-v1-0-30a35a445077@intel.com
+
+---
+Steve Wahl (2):
+      dmaengine: idxd: Do not call destroy_workqueue() with null idxd->wq
+      dmaengine: idxd: fix duplicate memory frees on initialization error path
+
+Vinicius Costa Gomes (6):
+      dmaengine: idxd: Fix potential double free on probe error path
+      dmaengine: idxd: Fix the device registration error paths
+      dmaengine: idxd: Fix error handling in idxd_cdev_open()
+      dmaengine: idxd: Initialize the WQ XArray before the WQ can be released
+      dmaengine: idxd: Do not release interrupt handles on terminate_all()
+      dmaengine: idxd: Don't flush the descriptors on terminate_all()
+
+ drivers/dma/idxd/cdev.c   | 12 ++++++++++--
+ drivers/dma/idxd/device.c | 24 ++++++++++++++++++------
+ drivers/dma/idxd/dma.c    | 47 ++++++++++++++++++++++++++++++++++++++---------
+ drivers/dma/idxd/idxd.h   |  4 ++++
+ drivers/dma/idxd/init.c   | 27 ++++++++++-----------------
+ drivers/dma/idxd/irq.c    |  1 +
+ drivers/dma/idxd/sysfs.c  | 43 +++++++++++++------------------------------
+ 7 files changed, 94 insertions(+), 64 deletions(-)
+---
+base-commit: d460a02aa0ac6ba9e5d87f8462f75d78be83146e
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine.git fixes
+change-id: 20260803-wt-idxd-fixes-1a06bb69b1e0
+
+Best regards,
+--  
+Vinicius
+
