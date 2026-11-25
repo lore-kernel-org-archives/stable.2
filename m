@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795598770;
-	b=ZL9gwSBCILzydLti+IuNNBfY6AQeZopqCY5BpaxpQ0YTnOHmKrwnNR8XpwbeMGv9eKAR
-	 5NqP9lvkfv/Ad8K+2nnjOn1JFfsYCCPMzylz4nsJkDqkarKgo2rXN1x03dUiJ8SmblRVH
-	 a4o4+/nbFzpnz/Crwddi3DRnpud3xpyl+fU+Q/XnTKcgvOcova1hYmUM+ZjhfDMpVlJSy
-	 OxwM8IQXdu64fI3CD8kENLHtIFCxwHNUeK8o+Ox5ISnunOvydfDfIBxLAMQcVq1SwBsOM
-	 Ezk9octU3SypPuO737cMK/qsituQNXmvC2cVY0bOVk9IhCV0UlFSlpxjcx3OXSqG73g==
+	t=1795598773;
+	b=bFdY35Pq0ipRnYUU7lIpkmJVY/H12ILqLIowsEE7FkqaBrIv92cc2eHdXsOyAsqdJF+f
+	 XnnaOmP/gXwXYJaQncI34AZGnP2vG1G1HIliTbcTiLTd8RyLqiNauEMsQ2sepMKSnf18r
+	 jRYRzo2HguECnlj5xTlOK6ML4zq2rItlbjLt5fGvK5gTh2KYqpzybE100BXtIvfE5YlS3
+	 h5RxeCOk9xcoywtqentlPE9Gvu81O41gHVKMQpD62aUyfoJ7yBhXjr7zG1v/jlY/PSLcJ
+	 YhxQEuSW7EudG5uHMDm0l1gb0ZehmWDiViz3RWt/Zz/I8IH8mrRPfyIflkiiS4G+/2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795598770;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795598773;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=OozzF5AdedkUULnaKEzqOKguJ7nV/xtJq71eCQ2uOvk=;
-	b=EXNM74+cfCijGd5qbdoK9/8TnWO6CFPUlhFgfNNUcfhNYQYyXw+iItvEtvsTVIA1Ut2o
-	 Z2dy5CebB/uD+vsZ1Fm2y6Up0+XCMW4krqrQnzxNm/f77iMgPz1PJs0Ua8kF+mK5e0KCt
-	 sRadJ2lUr8VPeEVQkfAOy2zDC9i5WtpSOcv1KLRqF8mpgn1+9ceO1Y++jzZBV8nFB9s9B
-	 HXqroxc0cWUvQc8xV91nmC9vwoD72mO3crpRrDaTXGBhncdzrOEDGieaW/lxhXRZlLMYV
-	 IlUJJN6LCXvGYGYlEC9j0NOCFaEb01W2zUR9w9I4LKzGUw018zVL4lUPpmha8N/S9Pw==
+	bh=pgbr6e3AZO3W8arsz3egZnHmy/SXwLs+MU+CzrAU5eA=;
+	b=4WWFBy9+IgS416CvqsKq0Quay/Wi26eiuxlOTfj4u8RCH258E9ravNSyoZziDN2rAj1r
+	 Jg4lUYf/IB+Sm9iw65OFihN4qMBiuKPLJJtaNpQXgh+UKTd7NKLxMTaWQHfm8oAkkD0M/
+	 RYb5GVMs3YlrIsgJH4lpGwbxWzvDULFpQ1ZBgrqJjvRcoZF8ioTcKmBCR4xH0Qjh8rvnH
+	 ylHskN+YqGjt3+xZtuC8GOrRKzEiRwZy6I13zTqTdBW4HzOVsJv9Wo4N0A6fw7LSGeOYc
+	 POe65NzJRiUDbejzIgaUrSL+CKWdRH4JQsl5tZtzTxK1VMOqF6XeAet0wwhfRYrLTJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Za+48md7;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bO3kHM4l;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B601606A327
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:26:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5828606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:26:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Za+48md7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECCF21F000C6;
-	Wed, 25 Nov 2026 09:26:09 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bO3kHM4l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2CD21F000CF;
+	Wed, 25 Nov 2026 09:26:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795598770;
-	bh=OozzF5AdedkUULnaKEzqOKguJ7nV/xtJq71eCQ2uOvk=;
+	s=korg; t=1795598773;
+	bh=pgbr6e3AZO3W8arsz3egZnHmy/SXwLs+MU+CzrAU5eA=;
 	h=Subject:To:Cc:From:Date;
-	b=Za+48md70J5zhr40K1KE6hpOyHphK/VJRQHXJZFIx6b66gHk/hlu4FxLe+g2t3whX
-	 LNMsIPe7lpXi41p10oTjm9d1sdolIRSHRKJpkkQrL1ZBfzZ7VRBkIGSJfgtBdY8pOz
-	 m7SNfpH6kd/aKaVq6cLnetcpD5Cx7JG8ZeLjDLfg=
-Subject: FAILED: patch "[PATCH] cgroup/cpuset: Correctly set isolated_cpus when switching" failed to apply to 6.18-stable tree
-To: longman@redhat.com,ridong.chen@linux.dev,tj@kernel.org
+	b=bO3kHM4lBVH3xgXe08ym+oQMVC5mQZL6QGdTBVvmKNwL7qAU9ql0ZF4+1o6lPacyu
+	 nIVwiu0Emeq18/00rsSkE6g+O+vttVGQnCAsib2/gqJ8oiu0cPULMZ6RCW9E1/D6GY
+	 MIIMfWfPKHYAfzf5swezXDKss2pik6z1D6Le55l0=
+Subject: FAILED: patch "[PATCH] crypto: caam - reject overlong RSA CRT parameters" failed to apply to 6.1-stable tree
+To: Jeremy.Jean@oss.cyber.gouv.fr,herbert@gondor.apana.org.au,sahil.malhotra@nxp.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 10:18:32 +0100
-Message-ID: <2026112532-pellet-unvocal-7a50@gregkh>
+Date: Wed, 25 Nov 2026 10:19:09 +0100
+Message-ID: <2026112509-flatterer-oak-94c4@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,23 +51,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 56681bc448a80bb2473026b41c44c133766bc38d
+git cherry-pick -x 828c3b265b6df877dced3dde56ea41daa2e6181e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112532-pellet-unvocal-7a50@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112509-flatterer-oak-94c4@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,100 +79,180 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 56681bc448a80bb2473026b41c44c133766bc38d Mon Sep 17 00:00:00 2001
-From: Waiman Long <longman@redhat.com>
-Date: Mon, 9 Nov 2026 21:24:00 -0500
-Subject: [PATCH] cgroup/cpuset: Correctly set isolated_cpus when switching
- partition state
+From 828c3b265b6df877dced3dde56ea41daa2e6181e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Date: Thu, 8 Oct 2026 09:35:53 +0000
+Subject: [PATCH] crypto: caam - reject overlong RSA CRT parameters
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-When update_prstate() is called to switch the partition state from
-root to isolated or vice versa, the whole effective_xcpus is passed to
-isolated_cpus_update(). However, if there are child partitions present,
-some of the effective_xcpus are dedicated to those child partitions
-and their partition states will remain the same or get invalidated in
-the case of child root partition with isolated parent in the latter
-update_cpumasks_hier() call. In the latter case, their exclusive CPUs
-will be returned to their parent.
+caam_read_rsa_crt() right-aligns dP, dQ, and qInv in buffers sized
+from the corresponding prime. rsa_parse_priv_key() only bounds these
+integers against n, so a malformed key can provide, for example, a
+two-byte dP with a one-byte p. dstlen - nbytes then underflows and
+memcpy() writes outside the allocation during set_priv_key(). KASAN
+reports a slab-out-of-bounds write in caam_read_rsa_crt().
 
-Therefore isolated_cpus may be set incorrectly with child partitions
-underneath. Fix that by excluding their exclusive CPUs in computing
-the correct cpumask of exclusive CPUs used by that partition alone.
+Reject empty or overlong CRT parameters after stripping leading zeros.
+qInv is consumed by CAAM as a p-sized value, so size it from p rather
+than q to match the DMA mapping in set_rsa_priv_f3_pdb(). Let the
+top-level key cleanup handle partial form-3 allocations and return the
+specific error to the caller.
 
-Add new test cases into test_cpuset_prs.sh to test for such cases.
+Also test nbytes before dereferencing it while stripping zeros, so an
+all-zero integer does not read one byte beyond its input.
 
-Fixes: 11e5f407b64a ("cgroup/cpuset: Keep track of CPUs in isolated partitions")
-Cc: stable@vger.kernel.org # v6.8+
-Signed-off-by: Waiman Long <longman@redhat.com>
-Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
-Tested-by: Ridong Chen <ridong.chen@linux.dev>
-Signed-off-by: Tejun Heo <tj@kernel.org>
+Fixes: 4a651b122adb ("crypto: caam - add support for RSA key form 3")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Reviewed-by: Sahil Malhotra <sahil.malhotra@nxp.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 87600628e080..06ceeb0ac8c0 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -3073,12 +3073,32 @@ static int update_prstate(struct cpuset *cs, int new_prs)
- 						  cs->effective_xcpus, NULL))
- 			err = PERR_HKEEPING;
- 		else if (parent_prs == PRS_ISOLATED)
--			err = PERR_ISOPARENT;
-+			err = PERR_ISOPARENT;	/* old_prs should be isolated */
+diff --git a/drivers/crypto/caam/caampkc.c b/drivers/crypto/caam/caampkc.c
+index ac515ed8c575..2082adaae585 100644
+--- a/drivers/crypto/caam/caampkc.c
++++ b/drivers/crypto/caam/caampkc.c
+@@ -880,7 +880,7 @@ static void caam_rsa_free_key(struct caam_rsa_key *key)
  
--		if (!err)
--			isolcpus_updated = true;
--		else
-+		if (err) {
- 			disable_partition = true;
-+		} else {
-+			struct cgroup_subsys_state *css;
-+			struct cpuset *child;
+ static void caam_rsa_drop_leading_zeros(const u8 **ptr, size_t *nbytes)
+ {
+-	while (!**ptr && *nbytes) {
++	while (*nbytes && !**ptr) {
+ 		(*ptr)++;
+ 		(*nbytes)--;
+ 	}
+@@ -896,22 +896,22 @@ static void caam_rsa_drop_leading_zeros(const u8 **ptr, size_t *nbytes)
+  * @ptr   : pointer to {dP, dQ, qInv} CRT member
+  * @nbytes: length in bytes of {dP, dQ, qInv} CRT member
+  * @dstlen: length in bytes of corresponding p or q prime factor
++ * @dst   : pointer to the zero-padded output buffer
+  */
+-static u8 *caam_read_rsa_crt(const u8 *ptr, size_t nbytes, size_t dstlen)
++static int caam_read_rsa_crt(const u8 *ptr, size_t nbytes, size_t dstlen,
++			     u8 **dst)
+ {
+-	u8 *dst;
+-
+ 	caam_rsa_drop_leading_zeros(&ptr, &nbytes);
+-	if (!nbytes)
+-		return NULL;
++	if (!nbytes || nbytes > dstlen)
++		return -EINVAL;
+ 
+-	dst = kzalloc(dstlen, GFP_KERNEL);
+-	if (!dst)
+-		return NULL;
++	*dst = kzalloc(dstlen, GFP_KERNEL);
++	if (!*dst)
++		return -ENOMEM;
+ 
+-	memcpy(dst + (dstlen - nbytes), ptr, nbytes);
++	memcpy(*dst + (dstlen - nbytes), ptr, nbytes);
+ 
+-	return dst;
++	return 0;
+ }
+ 
+ /**
+@@ -991,6 +991,7 @@ static int caam_rsa_set_priv_key_form(struct caam_rsa_ctx *ctx,
+ 	size_t p_sz = raw_key->p_sz;
+ 	size_t q_sz = raw_key->q_sz;
+ 	unsigned aligned_size;
++	int ret;
+ 
+ 	rsa_key->p = caam_read_raw_data(raw_key->p, &p_sz);
+ 	if (!rsa_key->p)
+@@ -999,57 +1000,39 @@ static int caam_rsa_set_priv_key_form(struct caam_rsa_ctx *ctx,
+ 
+ 	rsa_key->q = caam_read_raw_data(raw_key->q, &q_sz);
+ 	if (!rsa_key->q)
+-		goto free_p;
++		return -ENOMEM;
+ 	rsa_key->q_sz = q_sz;
+ 
+ 	aligned_size = ALIGN(raw_key->p_sz, dma_get_cache_alignment());
+ 	rsa_key->tmp1 = kzalloc(aligned_size, GFP_KERNEL);
+ 	if (!rsa_key->tmp1)
+-		goto free_q;
++		return -ENOMEM;
+ 
+ 	aligned_size = ALIGN(raw_key->q_sz, dma_get_cache_alignment());
+ 	rsa_key->tmp2 = kzalloc(aligned_size, GFP_KERNEL);
+ 	if (!rsa_key->tmp2)
+-		goto free_tmp1;
++		return -ENOMEM;
+ 
+ 	rsa_key->priv_form = FORM2;
+ 
+-	rsa_key->dp = caam_read_rsa_crt(raw_key->dp, raw_key->dp_sz, p_sz);
+-	if (!rsa_key->dp)
+-		goto free_tmp2;
++	ret = caam_read_rsa_crt(raw_key->dp, raw_key->dp_sz, p_sz,
++				&rsa_key->dp);
++	if (ret)
++		return ret;
+ 
+-	rsa_key->dq = caam_read_rsa_crt(raw_key->dq, raw_key->dq_sz, q_sz);
+-	if (!rsa_key->dq)
+-		goto free_dp;
++	ret = caam_read_rsa_crt(raw_key->dq, raw_key->dq_sz, q_sz,
++				&rsa_key->dq);
++	if (ret)
++		return ret;
+ 
+-	rsa_key->qinv = caam_read_rsa_crt(raw_key->qinv, raw_key->qinv_sz,
+-					  q_sz);
+-	if (!rsa_key->qinv)
+-		goto free_dq;
++	ret = caam_read_rsa_crt(raw_key->qinv, raw_key->qinv_sz, p_sz,
++				&rsa_key->qinv);
++	if (ret)
++		return ret;
+ 
+ 	rsa_key->priv_form = FORM3;
+ 
+ 	return 0;
+-
+-free_dq:
+-	kfree_sensitive(rsa_key->dq);
+-	rsa_key->dq = NULL;
+-free_dp:
+-	kfree_sensitive(rsa_key->dp);
+-	rsa_key->dp = NULL;
+-free_tmp2:
+-	kfree_sensitive(rsa_key->tmp2);
+-	rsa_key->tmp2 = NULL;
+-free_tmp1:
+-	kfree_sensitive(rsa_key->tmp1);
+-	rsa_key->tmp1 = NULL;
+-free_q:
+-	kfree_sensitive(rsa_key->q);
+-	rsa_key->q = NULL;
+-free_p:
+-	kfree_sensitive(rsa_key->p);
+-	rsa_key->p = NULL;
+-	return -ENOMEM;
+ }
+ 
+ static int caam_rsa_set_priv_key(struct crypto_akcipher *tfm, const void *key,
+@@ -1067,6 +1050,8 @@ static int caam_rsa_set_priv_key(struct crypto_akcipher *tfm, const void *key,
+ 	if (ret)
+ 		return ret;
+ 
++	ret = -ENOMEM;
 +
-+			/*
-+			 * Need to scan child partitions, if present, and
-+			 * exclude their effective_xcpus from cs. In the case
-+			 * of switching to isolated partition with child root
-+			 * partitions, those child partitions will be
-+			 * invalidated in update_cpumasks_hier().
-+			 */
-+			isolcpus_updated = true;
-+			cpumask_copy(tmpmask.new_cpus, cs->effective_xcpus);
-+			rcu_read_lock();
-+			cpuset_for_each_child(child, css, cs) {
-+				if (!is_partition_valid(child))
-+					continue;
-+				cpumask_andnot(tmpmask.new_cpus, tmpmask.new_cpus,
-+					       child->effective_xcpus);
-+			}
-+			rcu_read_unlock();
-+		}
- 	} else {
- 		/*
- 		 * Switching back to member is always allowed even if it
-@@ -3112,7 +3132,7 @@ static int update_prstate(struct cpuset *cs, int new_prs)
- 	if (!is_partition_valid(cs))
- 		reset_partition_data(cs);
- 	else if (isolcpus_updated)
--		isolated_cpus_update(old_prs, new_prs, cs->effective_xcpus);
-+		isolated_cpus_update(old_prs, new_prs, tmpmask.new_cpus);
- 	spin_unlock_irq(&callback_lock);
+ 	/* Copy key in DMA zone */
+ 	rsa_key->d = kmemdup(raw_key.d, raw_key.d_sz, GFP_KERNEL);
+ 	if (!rsa_key->d)
+@@ -1103,7 +1088,7 @@ static int caam_rsa_set_priv_key(struct crypto_akcipher *tfm, const void *key,
  
- 	/* Force update if partition is disabled & update effective_xcpus */
-diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-index 2d4744f2d6ac..1e9e6b4c6f7b 100755
---- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-+++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-@@ -556,6 +556,13 @@ TEST_MATRIX=(
- 	" C2-6:X2-5:P1 CX3-6:P2 \
- 	                    .      .   T:X4-6    .      .      .     0 A1:4-6|A2:4-6 A1:P1|A2:P-2 ."
+ err:
+ 	caam_rsa_free_key(rsa_key);
+-	return -ENOMEM;
++	return ret;
+ }
  
-+	# Switch PRS state (root <=> isolated) will properly update cpuset.cpus.isolated
-+	# even if child partitions are present.
-+	" C1-6:P1 C3-6:P1 C5-6:P2  .       .    P2      .      .     0 A1:1-2|A2:3-4|A3:5-6 \
-+								       A1:P1|A2:P2|A3:P2 3-6"
-+	" C1-6:P1 C3-6:P2 C5-6:P2  .       .    P1      .      .     0 A1:1-2|A2:3-4|A3:5-6 \
-+								       A1:P1|A2:P1|A3:P2 5-6"
-+
- 	#
- 	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
- 	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
+ static unsigned int caam_rsa_max_size(struct crypto_akcipher *tfm)
 
