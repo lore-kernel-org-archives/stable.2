@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795621171;
-	b=zbYsSJJPFwRqDjExTBtebxYWjtYgdsOlDKqOXaacYGzBKXjomebEbV6JJj6ZRaj/TU9h
-	 JYbgkzpX+DCOudq4zlyITfXYedNcqhj7U6ymvnBR1mvrjNdnftH9nO4uyoc8DtXIAWE2z
-	 x7Dkx9RJ51jJNGQF1KOXYrLiU1nW0oVFqJeic7AiZ90EBIbrBOy51ILHLZV7drkmYk/vS
-	 rgusoE4zYzBeCPIFDGhNNGD4e25zLXippNWVgylaYys574LR4J/Hk8LBstR6Nw+vD/Ee4
-	 1K3za1YDBVbBtqnPcxON42TmtrHoBKL2cS+Rzbr+9m6oT4EqPvJkKjq8AnwoLtv3hpg==
+	t=1795621173;
+	b=lMMwzpVIIj+G8xLomyJeqLMgQUOFL/ANASdzgEdtxnz2vH9WYUfXfavvvXyAmWpmofzV
+	 08iq1fUkcjMzkuuf1SNRf14UgAchyRLUwi8Rb86yC5SOxoJTGHA5pKstEp38r3Hmp6Nxh
+	 GXy9kkXi7RU5TiokrZsCUZ34SQbveNZZw+PSmGCEVWJU+gWuI/v4An2smaIQhARA2+wVu
+	 1ntmmbrG7PvfjXqFl/dpgzwC9wL9mUJnFSk4CT4juSDDcOt+REcl3B5DKWDSWp59uVC3l
+	 kjitbkUTMHJ7bqLmkMBSuVka2CtPKIw8nkBTguqQNZmFjSzlXraMiABCuGrUfyyLokQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795621171;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795621173;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ygWLWgdiy+CbAjUV4cAdrAZHh8QGOhSZBI8ALHUjAv0=;
-	b=YuVbQr+8gjE0f7wVYWGJwWH/Oybw2kSGZ9j3BThaqAunN3vs5Bhsg+dRIQuO5prnC56+
-	 pq5qhzD/SXhLzM+eSCI7dH0uxyqNtqjjr9ljLP7Z5DHvL4ZqOdm5LHI6vhnZkGfFzIOPz
-	 B9yiVBAGV2Pcm5pbssz5SPwEB4fDlHVpVAXyb1qk0d8GR9UlNIxgHpHlQjiLoIdfGTFRU
-	 J+1EE6399kaxxdvov9FxndlKchBB1Fy68nSsuqYUj6qHrULjKm6HNVa+AnaMlDpWkWM6q
-	 1dPIUc+dPi7gulxQaRRA8XQUF6CH5DAyQ3oO/Af70A2ncxaHJ7v7UPd7TEJSC0EUJ8Q==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=0OcnGPEFrX2zyiOfn/5yLBvqLxU9EbO1tLs2nb+X1pM=;
+	b=AUfrC/siXDpOzd8UyAeWClxqSyGabg+n43RFi/nk+J7NnyZzCuHaIIzVG+2IBaIGlFoB
+	 XZWWN/6i9mLL3+s6z7nwGroSRFCkj8yNt3WQq6qMiIGyxB+RwaLqQihIN8xLnpFF0vsFv
+	 x82V27iHMUEBlSXTXz+gYIAe5v6NXBqkA5UEWtTGGB9yCna8gfjQCy1WgRdC6T1A7TrwX
+	 FOLvW5/8RDHu3sIdEkQZiQE2CBN8Kx5rO6EilZFiYQx71EFlRQ86X2Y5zdP+sEdh13l0A
+	 BUvkOPl++hY5VSPao8PUpDwo0v5kttMc4anjbLGE9NMYNcypysSR6dwSru839FMF9Tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Fakrewiu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SQeASoB8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42908606A6A3;
-	Wed, 25 Nov 2026 15:39:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9725606A33C
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:39:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Fakrewiu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 891A61F000D1;
-	Wed, 25 Nov 2026 15:39:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795621171;
-	bh=ygWLWgdiy+CbAjUV4cAdrAZHh8QGOhSZBI8ALHUjAv0=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SQeASoB8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADAF61F000D0;
+	Wed, 25 Nov 2026 15:39:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795621172;
+	bh=0OcnGPEFrX2zyiOfn/5yLBvqLxU9EbO1tLs2nb+X1pM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FakrewiuuurN6DcixHQzFJWm1gPuFsRTnM5kcrTjV7Nbc3Gdi6RUatZ0BCLvNw5hF
-	 JosNcHSl+rT4Cr4qTALlm2OFme6179HqigPVHeKnvCJBHHzl9VdFsa8qKwwgTk/Sor
-	 VVKHqk+TgC6utNIctYZS5J1IgTwI2Qe1mZgMlquk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=SQeASoB84evxEhZkyJLhJP0cH/DGFJu1R3dA0ipD9lnVXYBrLgyKtmjS2RpnDYNSg
+	 H4oC3cSttiY639sjJRO/POB6hwDKBlXYOBqXsAMYnHOBrHmrPrAtIQbVWtxr6Bi3Cj
+	 cWDhhYGKtElh6p6i8rUuffUJAZEX+IOtC4WoSJtUWVr0Nj/VDY5DFfkK6WUD7RX8nM
+	 i95rVKEGq12COZEga9XPftTl1n6KNFXgt/F0PwD30AvZkV5KlECaNUPMNjvhulW3Lj
+	 G0VzdDUDMgqYw9jVghk109XthK6euEeI+2bDIQd8Vb5jA4CB6Y0xEFPTQBImDDkJdf
+	 2Q7nLdUAZImBw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Giuseppe Piscitelli <ooonea@gmail.com>,
-	Niklas Cassel <cassel@kernel.org>,
+Cc: Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 143/990] ata: libata-core: Check device support before querying power state
-Date: Wed, 25 Nov 2026 15:25:10 +0100
-Message-ID: <20261125143825.434970578@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.15.y] net: gro: do not undo remote checksum offload on merged packets
+Date: Wed, 25 Nov 2026 10:39:30 -0500
+Message-ID: <20261125153858.468228-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112509-cartwheel-untie-b740@gregkh>
+References: <2026112509-cartwheel-untie-b740@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,59 +61,105 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Eric Dumazet <edumazet@kernel.org>
 
-------------------
+[ Upstream commit c817ec1b06875b98460fbd19591be541bc3fa924 ]
 
-From: Giuseppe Piscitelli <ooonea@gmail.com>
+skb_gro_flush_final_remcsum() calls skb_gro_remcsum_cleanup() to undo
+the checksum adjustment done by skb_gro_remcsum_process() when the
+packet was not consumed by GRO.
 
-[ Upstream commit ec585ac78742527f80495dd8f451dcda7e9e7f59 ]
+When the inner handler merged the packet (NAPI_GRO_CB(skb)->same_flow
+is set), grc->offset can no longer be trusted:
 
-The standby path queries the power state before checking whether the
-device accepts ATA power-management commands. This sends CHECK POWER MODE
-to ATAPI devices, including the QEMU DVD-ROM, which rejects it.
+- skb_gro_receive() either gives the frags or the head of the skb
+  to the held packet, or uses __skb_pull(skb, offset) before adding
+  the skb to the frag_list of the held packet.
 
-Run the existing taskfile initialization and device-class check first,
-as the active-power path already does.
+- skb_gro_receive_list() uses skb_pull(skb, skb_gro_offset(skb)).
 
-Fixes: 9cec467d0502 ("ata: libata-core: Do not call ata_dev_power_set_standby() twice")
-Signed-off-by: Giuseppe Piscitelli <ooonea@gmail.com>
-Reviewed-by: Niklas Cassel <cassel@kernel.org>
-Link: https://lore.kernel.org/r/20261026202513.669084-1-ooonea@gmail.com
-Signed-off-by: Niklas Cassel <cassel@kernel.org>
+grc->offset is relative to the original skb->data, so the 2-byte
+read-modify-write done by skb_gro_remcsum_cleanup() can land in
+the payload of a packet which now belongs to the GRO packet.
+pskb_may_pull() can also be called on this frag_list member.
+
+With fraglist GRO, this can also be a use-after-free:
+pskb_may_pull(skb, skb_gro_offset(skb)) in skb_gro_receive_list()
+or udp_gro_receive_segment() releases the first page fragment if it
+only contains headers. NAPI_GRO_CB(skb)->frag0 and frag0_len are not
+updated, so skb_gro_remcsum_cleanup() takes the fast path and writes
+through frag0 into a page the skb no longer holds a reference on.
+The non merged case, where frag0 is used after this pull, is handled
+in the following patch.
+
+For skbs merged by skb_gro_receive(), the cleanup can be skipped:
+the skb is freed, or its headers are rebuilt from the head skb in
+skb_segment().
+
+Fraglist members keep their own inner headers, as skb_segment_list()
+only copies the link-layer and tunnel headers from the head skb.
+Their checksum can not be right in all cases: a packet forwarded with
+its tunnel header needs the original value, while a VXLAN packet
+decapsulated locally needs the adjusted one, as vxlan_remcsum() only
+adjusts the head skb. Make skb_gro_receive_list() refuse packets with
+skb->remcsum_offload set, so that fraglist members never carry an
+adjusted checksum.
+
+This affects VXLAN (VXLAN_F_REMCSUM_NOPARTIAL) and GUE
+(FOU_F_REMCSUM_NOPARTIAL).
+
+This was found while fixing a report from Taesoo Kim and Cen Zhang,
+who used LLM assisted code analysis and provided reproducers.
+
+Fixes: 26c4f7da3e41 ("net: Fix remcsum in GRO path to not change packet")
+Cc: stable@vger.kernel.org
+Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+Link: https://patch.msgid.link/20261104151042.1157782-2-edumazet@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: Adapted to the older file layout (netdevice.h and skbuff.c), with the remcsum_offload check placed after the -E2BIG test since this tree's skb_gro_receive_list() has no pskb_may_pull(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/ata/libata-core.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ include/linux/netdevice.h | 8 +++++++-
+ net/core/skbuff.c         | 7 +++++++
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
-index 29394d18e7e83..209bd48ee8615 100644
---- a/drivers/ata/libata-core.c
-+++ b/drivers/ata/libata-core.c
-@@ -2046,6 +2046,10 @@ void ata_dev_power_set_standby(struct ata_device *dev)
- 	struct ata_taskfile tf;
- 	unsigned int err_mask;
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 5e5283487dc64..7080ed5c461d3 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -3266,7 +3266,13 @@ static inline void skb_gro_remcsum_cleanup(struct sk_buff *skb,
+ 	void *ptr;
+ 	size_t plen = grc->offset + sizeof(u16);
  
-+	/* Issue STANDBY IMMEDIATE command only if supported by the device */
-+	if (!ata_dev_power_init_tf(dev, &tf, false))
-+		return;
-+
- 	/* If the device is already sleeping or in standby, do nothing. */
- 	if ((dev->flags & ATA_DFLAG_SLEEPING) ||
- 	    !ata_dev_power_is_active(dev))
-@@ -2064,10 +2068,6 @@ void ata_dev_power_set_standby(struct ata_device *dev)
- 	    system_entering_hibernation())
+-	if (!grc->delta)
++	/* Once merged, grc->offset can not be trusted: the frags or head
++	 * of this skb now belong to the GRO packet, or skb->data was pulled
++	 * past the headers before adding it to a frag_list.
++	 * skb_gro_receive_list() does not merge packets with an adjusted
++	 * checksum, other merged packets do not use their headers anymore.
++	 */
++	if (!grc->delta || NAPI_GRO_CB(skb)->same_flow)
  		return;
  
--	/* Issue STANDBY IMMEDIATE command only if supported by the device */
--	if (!ata_dev_power_init_tf(dev, &tf, false))
--		return;
--
- 	ata_dev_notice(dev, "Entering standby power mode\n");
+ 	ptr = skb_gro_header_fast(skb, grc->offset);
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index 7dc2498b544f6..3a7b16a4bd5a8 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -4024,6 +4024,13 @@ int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
+ 		     NAPI_GRO_CB(skb)->flush))
+ 		return -E2BIG;
  
- 	err_mask = ata_exec_internal(dev, &tf, NULL, DMA_NONE, NULL, 0, 0);
++	/* Fraglist members keep their own headers. Their checksum can not
++	 * be right both for a forwarded packet and for a decapsulated one,
++	 * if remote checksum offload adjusted it.
++	 */
++	if (unlikely(skb->remcsum_offload))
++		return -EINVAL;
++
+ 	if (NAPI_GRO_CB(p)->last == p)
+ 		skb_shinfo(p)->frag_list = skb;
+ 	else
 -- 
 2.53.0
-
-
 
