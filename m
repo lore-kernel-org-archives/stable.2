@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795640518;
-	b=sayWYSNxpZgZXrMOJhqscwkln9ylw8NEAJyevAIYakhZ53LIJek6UD2O0a5/yl9nlzPv
-	 mjLvRFGr2+KPaIVFMTpmBXK9y4nr0w/KpyIU3TJ2GokXUDgzj2QeobNbxM4lpFgDBuPd8
-	 Bkmoe1c8FXTXp+wCH57E92uAeAzuvB3o0dosuTxti+UVsm2/tR7qVRNhhsZS6hDEYGm97
-	 HvjhUQYI8h4WajOAQlz7KeUP+qFIG39mbjtKNdvw7ePKun8EilWG641oW6cxMdnGg0QdP
-	 qbVZ94oIDxmX2Hs2oIqdhAs61rEvcsEX5uMNA6rLd3cwKIeCZgrrnBPs3TJahbv07mQ==
+	t=1795640520;
+	b=pWnMPaZ1hITDwyRX7MD1fMxyPE4Az71IJXYVvhPpTCmblAdzWMK0VneBW5xCnMaEZmT9
+	 72/F4LHXq76nrmbDLFyJCoUgyaz+l/XmraeCOj/dByfyNXzBNeEmeAWzF5j1M3wJCHV6g
+	 UNa/P4RRiGpn5j8Sm7v4AFYwd1O5SGbjL2nrtO4Qmwrsqf26rq+Nb+orNESjUFGs5yYf3
+	 /FGNWfPDvy7U482e0vsh0VzHWVQDBNNAS7g4qlfo14TGGC4mmm+my1A2SCE9oVixW4M3E
+	 ua8/6gvgwOQUYuV9Kpf4UK8puROfAn8RoAKG/WCXjRfklNF5DqQtbPmF2rsnttxx74Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795640518;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795640520;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=rAeuXzOlCTRhm8c9AePoBHHIXKhwDESJdrRFhkUvSY0=;
-	b=OjY53WZ7mlESYsIi60npi0ZaH9l++KvXgWNvgpk+cvyey6ZmtDdcdV0dm49yAx0dg4YH
-	 KAbqYGS2KSDZjwGA7S9R392fsfMo0ge7irM0bMa4tt2nkQbWV8fmS30/FwVszhDZEw8iC
-	 dvaUgDzMrID1JHnA1tcmrAvz8iEBwP/jwUZbY98PT8suHYWmjFtYHFjwIQBR4L4zZGTWH
-	 B+wtZdZXVVAI0L1BQRIcKZuMNleY8GblElAPOm3GUE0riV68S73BDfjyboCvtuuwgCJ5Z
-	 /sNOmcX3M054hwM9M2MfaYsJrtW7+WLI0Jmk5Mv9H4zxR3KP1WSkuEr+TcNNYO9fYGQ==
+	bh=smmSgaVZzApJQV+Cv6DawJEFCZsBgrWDBhUsefeJK8w=;
+	b=eg93Jw0yHQrZSXIMhZlVtWOL2gmOxLXvDgNNn2j0wuqcBls8KKhpT7qoh4nmWpWNcT1q
+	 pSDe5wpiZDZ8JapvTN9eUMn/lWk3tLbWIBA8ZM+FqQJOIsGU0BJITCEhY5JJciyKKoWP3
+	 LtRxRL8XjH6ZwfKPHMxHKSrV+uwlI5SQaun5zjmnhYB/W7w1rGb2hRvfdR/DTvzEwMZpK
+	 bnRdhXzDNAYaAzjBMdQjVawGEmlooR2KrDVWMJi+m/NyieTersmoYCngRb6gvlnbE0rgB
+	 aqF6gXwNgqs4XLaJbrB4rubS81sFe5CmhXFom6Uxq1dkN0V6Ln9BQ5JrtUKEcP6+0cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--elkin.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lp4R2a8F;
-	arc=none smtp.remote-ip=74.125.82.70
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SBBTjyQR;
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579E1606A33C
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 21:01:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 579E1606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 427DD606A68C
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 21:01:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 427DD606A68C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--elkin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lp4R2a8F
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-139b62317d0so390936c88.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 13:01:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SBBTjyQR
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-383ec96a7deso6779524eec.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 13:01:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795640516; x=1796245316; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1795640518; x=1796245318; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rAeuXzOlCTRhm8c9AePoBHHIXKhwDESJdrRFhkUvSY0=;
-        b=lp4R2a8FRe4Jzh5GBlKmTB7KM/zji+OXsUnFdo9VPbYSW1/vAFwwdd0bjA9xJZe+TD
-         Pp+K0qdeIwk3XCf4f7sBpTTqRkjXN/+onfZ35Jy4Yx5kQsyaNa360bnl6mrnWVcxdBdE
-         D+/TH8Wn5LmZ9X5+0sssGg0XQanZiUPBMcFmHiAxmqhJekAijeD8RNwoJOwzp/EngXXo
-         aoms+2u+8egAut+nWgO3AZhull00a7gi0Fzb5wuuPZnD6+iOmvxf6c3GvMMk0XK0ThgN
-         rQVoYgg5h1UL/1j0T3e1WhL3wqaGj4drQkK8Svtj5Mzb76FbMxKL+89ovWABVnfRn1k8
-         Eb1g==
+        bh=smmSgaVZzApJQV+Cv6DawJEFCZsBgrWDBhUsefeJK8w=;
+        b=SBBTjyQRI+HmVsOr3WFPMfUjzGNEBW9liGXOEX0r8CFWlKW/1Cbec9gW7kGsd3IsTM
+         9/+7+8kiVHYf2h/kIe2f4/QjdVDxlrQPL1Jd5M3HxwyV0kF5W2C8tluVDoJMHKOP0f0n
+         HV5VzIkLuGjbJ9HOv3FaIWeOlOjPI98Nn6Hh3uos2tbZKgaaLV4+XS/gkqLNC/gVMMq2
+         85JOMA3KIPG3EWpjQ/xrlP3m0t8tTyTiAQhBD5oe4e6eeS7h6l4cdgLTH3hc0dqKdPu0
+         JJx078Iru7tlPDEqg8eNTKRRUnuZEbAfqTkHL7pKcUqeegdvppQmXHR7B6h2dD9D6qTM
+         jsQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795640516; x=1796245316;
+        d=1e100.net; s=20260707; t=1795640518; x=1796245318;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rAeuXzOlCTRhm8c9AePoBHHIXKhwDESJdrRFhkUvSY0=;
-        b=L+WtADtWZPENr+igEw5+W7mKRuwZMAGmQmtpIwI+zyKlxykfqwP1ZCDtMjtDjb5dzm
-         rwaF+YUWJ572Z7QjA7dQAT4TptU/MYVkAl7TcYegvqHM5FVE4lF6/eP3TdrplVYnqhks
-         DKStm2pTQAZKP4HcFEuRUz4tDuTeTCwoK1zaqk5gcfw7XqNsgpDxnB6ArrD4GAgNTB+b
-         OoTJ9XAqqmXBhpddZyMHbjtPH4nsAZ982/3ca/YCCifQW6uBpLDmmTgn3fTu7ktOjw5L
-         9ivpFhXzzJ76c9Z9aB2cBvft5w5zRr4ZaCgEn3n0si23LsHuFYFlWV2H2b410rhAGp+N
-         booA==
-X-Forwarded-Encrypted: i=1; AL+hErHfDyeDYSydZKC6waMjwdB15vZ6tzkG9S817AdshFbhUWNUwvzhzOCD0xyRYLIxc+8dr8vrQ8Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+c9f2RBvA4R7O5JV2B7/6axpcfJ3AqagexcAX6Uy+fDBkrIEhk
-	huDKuD2vTohkO/smW9cTVmbmo79Vra03WmS3UjkdzP+8KqVvdyTNypf7eZBlO9NMQIFeclDROGW
-	CTA==
-X-Received: from dled8-n1.prod.google.com ([2002:a05:701b:42c8:10b0:1b5:3444:f158])
- (user=elkin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:3b8e:b0:1b5:32d7:7d73
- with SMTP id a92af1059eb24-1b5568f3283mr23214323c88.30.1795640515933; Wed, 25
- Nov 2026 13:01:55 -0800 (PST)
-Date: Wed, 25 Nov 2026 21:00:37 +0000
+        bh=smmSgaVZzApJQV+Cv6DawJEFCZsBgrWDBhUsefeJK8w=;
+        b=N0whYCwWwPCkCoxzhL7Ew/GoFPnRAKOwh8e0hXyixubZURIq3uJolrpbZbgi8vcY3N
+         9g8OJf+jabi/2bpZMxY7PPLcdWkOR+0I50+3uyTOhWw8hkhQEiD3sjnfN5bSAeXfBH+F
+         E3h7uCtAssuZyekyqRtzbuVazwfAAgLmoQnH02QX+g4sz7F/U7iy6TpBaQyuzpCCvRyN
+         JKU/HHt0wTy64cBv0bOzDYsfohwVGmeiJLSIoKu5aVgLjnQSMpvHCN/mzt5mRZtJXVpD
+         Jt4tJ31x6TrqVIIR6apWqfY9dV9OH7cR3mx2G2aXYe5xc635kHmO0OOA6YxmOXtkbetY
+         XDkQ==
+X-Forwarded-Encrypted: i=1; AL+hErFFFVGkbj+l4T4pUdpFlUTCHuKFtFqEgXe1ICaWr3vPtrjKPH0e2mgkuQ8K5X5V2jV4JjCChQc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ctcM4W4mSZlYPHS0a6RpyBvYbhBBMi/eFFWrjml2k/DnvGSOl
+	cgDDrC2KlnjEDw0U0WFSYpn5ShX4nvdhOI5/cSP5nM29zbvypqzwR4j3a1eiGHZU/OLlY88CML4
+	hJQ==
+X-Received: from dybto8.prod.google.com ([2002:a05:7300:f148:b0:386:c442:456c])
+ (user=elkin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:60d4:b0:369:fe81:a575
+ with SMTP id 5a478bee46e88-3857111f203mr23506949eec.35.1795640517818; Wed, 25
+ Nov 2026 13:01:57 -0800 (PST)
+Date: Wed, 25 Nov 2026 21:00:38 +0000
 In-Reply-To: <20261125210038.1277960-1-elkin@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,8 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261125210038.1277960-1-elkin@google.com>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
-Message-ID: <20261125210038.1277960-3-elkin@google.com>
-Subject: [PATCH wireless 2/3] wifi: mwifiex: check TLV header size in ext scan report
+Message-ID: <20261125210038.1277960-4-elkin@google.com>
+Subject: [PATCH wireless 3/3] wifi: mwifiex: validate ext scan event envelope
+ and TLV lengths
 From: Elkin Cruz <elkin@google.com>
 To: Brian Norris <briannorris@chromium.org>
 Cc: Francesco Dolcini <francesco@dolcini.it>, linux-wireless@vger.kernel.org, 
@@ -91,36 +92,74 @@ Cc: Francesco Dolcini <francesco@dolcini.it>, linux-wireless@vger.kernel.org,
 	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-mwifiex_handle_event_ext_scan_report() loops while bytes_left is
-non-zero and immediately dereferences tlv->header.type and
-tlv->header.len (4 bytes) before checking whether bytes_left can hold a
-complete struct mwifiex_ie_types_header. When 1 <= bytes_left < 4, this
-reads past the end of the firmware event buffer.
+In mwifiex_handle_event_ext_scan_report(), event_scan is cast from buf
+without first verifying that adapter->event_skb contains at least
+sizeof(*event_scan) bytes, and scan_resp_size is not validated against
+the remaining event buffer length before dumping memory.
 
-Require bytes_left >= sizeof(struct mwifiex_ie_types_header) in the
-outer loop condition, matching the inner TLV loop directly below.
+Additionally, under TLV_TYPE_BSS_SCAN_INFO, scan_info_tlv was assigned
+before checking whether the TLV length matches the expected structure
+size, causing invalid pointers to be retained on short TLVs.
+
+Validate the event_skb length and scan_resp_size upfront, and verify the
+TLV size before assigning scan_info_tlv. Break out of the switch on a
+malformed TLV_TYPE_BSS_SCAN_INFO so the loop skips that TLV while
+keeping bytes_left accounting consistent.
 
 Fixes: 21f58d200388 ("mwifiex: implement extended scan feature")
 Cc: stable@vger.kernel.org
 Signed-off-by: Elkin Cruz <elkin@google.com>
 ---
- drivers/net/wireless/marvell/mwifiex/scan.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/net/wireless/marvell/mwifiex/scan.c | 27 ++++++++++++++-------
+ 1 file changed, 18 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/net/wireless/marvell/mwifiex/scan.c b/drivers/net/wireless/marvell/mwifiex/scan.c
-index bdd4b8465863..53aa16c1df33 100644
+index 53aa16c1df33..52543532367b 100644
 --- a/drivers/net/wireless/marvell/mwifiex/scan.c
 +++ b/drivers/net/wireless/marvell/mwifiex/scan.c
-@@ -2649,7 +2649,8 @@ int mwifiex_handle_event_ext_scan_report(struct mwifiex_private *priv,
+@@ -2627,9 +2627,21 @@ int mwifiex_handle_event_ext_scan_report(struct mwifiex_private *priv,
+ 	u64 fw_tsf = 0;
+ 	s32 rssi = 0;
+ 	struct mwifiex_event_scan_result *event_scan = buf;
+-	u8 num_of_set = event_scan->num_of_set;
+-	u8 *scan_resp = buf + sizeof(struct mwifiex_event_scan_result);
+-	u16 scan_resp_size = le16_to_cpu(event_scan->buf_size);
++	u8 num_of_set;
++	u8 *scan_resp;
++	u16 scan_resp_size;
++
++	if (adapter->event_skb->len < sizeof(*event_scan))
++		return -EINVAL;
++
++	num_of_set = event_scan->num_of_set;
++	scan_resp = buf + sizeof(struct mwifiex_event_scan_result);
++	scan_resp_size = le16_to_cpu(event_scan->buf_size);
++
++	if (scan_resp_size > adapter->event_skb->len - sizeof(*event_scan)) {
++		ret = -EINVAL;
++		goto check_next_scan;
++	}
  
- 	tlv = (struct mwifiex_ie_types_data *)scan_resp;
- 
--	for (idx = 0; idx < num_of_set && bytes_left; idx++) {
-+	for (idx = 0; idx < num_of_set &&
-+	     bytes_left >= sizeof(struct mwifiex_ie_types_header); idx++) {
- 		type = le16_to_cpu(tlv->header.type);
- 		len = le16_to_cpu(tlv->header.len);
- 		if (bytes_left < sizeof(struct mwifiex_ie_types_header) + len) {
+ 	if (num_of_set > MWIFIEX_MAX_AP) {
+ 		mwifiex_dbg(adapter, ERROR,
+@@ -2690,14 +2702,11 @@ int mwifiex_handle_event_ext_scan_report(struct mwifiex_private *priv,
+ 			}
+ 			switch (type) {
+ 			case TLV_TYPE_BSS_SCAN_INFO:
++				if (len != sizeof(struct mwifiex_ie_types_bss_scan_info) -
++					   sizeof(struct mwifiex_ie_types_header))
++					break;
+ 				scan_info_tlv =
+ 				  (struct mwifiex_ie_types_bss_scan_info *)tlv;
+-				if (len !=
+-				 sizeof(struct mwifiex_ie_types_bss_scan_info) -
+-				 sizeof(struct mwifiex_ie_types_header)) {
+-					bytes_left_for_tlv = 0;
+-					continue;
+-				}
+ 				break;
+ 			default:
+ 				break;
 -- 
 2.56.1.839.g22a8290db9-goog
 
