@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795625319;
-	b=kA4XwUuuc7THhKHQpUjsxy9yMqcfO2K2D3N87y9/Dwi15CAR6LcrgVTHRsB/Z0NLeAPP
-	 PX2cVpsyS38Q99E1DemIgKUDy+G9Eji1hD17YLLQekqvEI4mStGTn1pe1fjbbqsASNJsK
-	 LnaYLM5jjGfHW3M+WrtRQc4zbnZeTTrgxRrqk+Xm4kGaulKk5db6sGdCqUffYwyxGfP/y
-	 s8X5Rrcro65sgocrvvWg5Evj2UEK5FYjtvxl8LL9Um+Dpgayz/eBVOtI6sVbgcoin0764
-	 +Vcy3T9lzFZXUSXmI3Us0zOiS3/Alcn/ippCXHUJWKnzKvKAi2/JVG2yDmZI146xoqw==
+	t=1795625321;
+	b=Sa09Hcvnfej/n8dhaVDKcokijT/rP3Oco9NWtrujZNqt1I9hzCM+GPPwKswFcFGpQf5t
+	 /hPXiz9KqBDeXPExyBIDH0srNIAW09Nud01qtPLFfwJQtCipWvzaEB9Pm8hMxGnzC4MrE
+	 o+EKICt6fBU81oUatNO5WJxcRJ0quIjTpgvokSF3IDoMNhju58uBa4HDphJjvsFduLpJG
+	 PgqYpYtqRoXaTzbJ4gYHBwe0BLHyHVx0VBotTyksv+9x0YgyWbXnH+LC/ajoY4BFdX+Y/
+	 XMDgq2BT7Fly/3nCuOzW4SQJNJti9iuner+be7jBE67WLGL5mNBAA+co+rV7enHhrig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795625319;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795625321;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=KUa/uN6H9P4oBU4uRtzNJ0CZDGbyOvNFK4Lq7fJQdeU=;
-	b=oTaAkA1TtjFqA+Krr0f7KnrUWXKmt2l/OpVgNByv0Rgb1EkAhApZsvv5+RXpQ/Gisan1
-	 jX9OkpYHMAE6+lSk6i0SMSMXoeu2Lc/5AIYrjLhKsu7wwYaCKJaplvTL7c/CjE6nQN+eH
-	 nEifaR8zQHFRVN97jQr+XoIIhYSfNKpGIthZkdZ/ORCSuEDMkpmp0G8VKetcu/2TAl/AW
-	 bePfE+8KJy7Kp5fbU3uL3Y/AZGvkvffbruiq0bKRHazUwATEuTO3+Zeve9EPd+l+jzmMg
-	 pToyv8I+VTpxb5Spx1pSucg2X5rFXnC9A+DgLziGUyVG4wIkOVBSMUWPIEffXkGikzg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=WYUcNC7xRhslKEy6mzjQu4qrOpFev5avD1h3lBBRHvQ=;
+	b=vuwCMmw/l/BSiS5TmgJzSoaGnYRRv/dISIo6ju9lzJ0NC78ekfQZLqimKuh7Zk+pUzL+
+	 UkAekO2/2CR2py8x4Jqj+6t985TaXazKeQ59eDpWSaHOdWoLjirMYQAGYTSUdbK8R/xcB
+	 NrjY9WQ/nJ59u6r1BXNDdzcn3D/2M/RY1go3uLk4kiZ932cuBhjf8cvRuH5JRWSLYTMoF
+	 OeY/zIt/omaiNUvUxPvJq2ywaPpfQNmy6LplmzvRnrTRHIjp2YON/kEC7tXYq2/hQXOSR
+	 XowXVG4FdpjtVJ7y/rzNekyOfi6Q1H5q85ZYXW1Tv43bQYukI3X/ikGXQpVkdawznwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TLz5Nujf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=em2GIRjJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5CB4606A31E;
-	Wed, 25 Nov 2026 16:48:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8ACA606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:48:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TLz5Nujf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC2D11F000C4;
-	Wed, 25 Nov 2026 16:48:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795625319;
-	bh=KUa/uN6H9P4oBU4uRtzNJ0CZDGbyOvNFK4Lq7fJQdeU=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=em2GIRjJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E2551F000C6;
+	Wed, 25 Nov 2026 16:48:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795625321;
+	bh=WYUcNC7xRhslKEy6mzjQu4qrOpFev5avD1h3lBBRHvQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TLz5Nujf/KXLq3ZqxVsn7YIJQqMxVYm1AuYxg5VwIYYgE5J8Gj9cLpLiVKtvBdIZk
-	 Zl+iW7ZnrtstqE+4cdAv2wkUqSdMXrof2biw8VfPJVs2607YZsts387VCYI7ACiDVC
-	 WdfI2ax6OP15wqOaPUYc02h+B4E54felzg//eA0M=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=em2GIRjJtMZAAV8ecXaAN8iYgYqf0v6O5/AWCewY2215Cztnc3zCgPvEKNjjh1YP+
+	 RNBwluz/9rXvsgQmzKVCJMy1RADkh0RZEV4yitQOqYSOsY+XtXsN7PqQOIWs46O2vx
+	 SX0D1e0i3zE4wHEi+A+QKprsAq2NUWms4w/gQUPTao9gIXxIhKSNpoIeW0s624loW6
+	 hN6Ia94SETs4/0nm0cxFtVjvabqbG0trtZNroRb1XL3CK/AIWY0Eg6ouRxA9TlIJJj
+	 niM/uq1MgbKYhUg67foiEtpgIejw4y+0ZY/Wd+8vRyO+SsdaMY8Sk9DgkpYwLzrK5C
+	 h7C4DyqaTN+DA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Matthew Wood <thepacketgeek@gmail.com>,
-	Alexei Starovoitov <ast@kernel.org>,
+Cc: Hyunjung Ko <hj351016@gmail.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 478/816] bpf, arm64: Fix racy plt target update in bpf_arch_text_poke()
-Date: Wed, 25 Nov 2026 15:33:46 +0100
-Message-ID: <20261125143900.262577450@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
-References: <20261125143849.205329330@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.15.y] tpm: flush timeout work outside buffer_mutex to avoid deadlock
+Date: Wed, 25 Nov 2026 11:48:39 -0500
+Message-ID: <20261125164822.880854-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112529-action-earphone-4130@gregkh>
+References: <2026112529-action-earphone-4130@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,128 +61,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: Hyunjung Ko <hj351016@gmail.com>
 
-------------------
+[ Upstream commit c22052a012698ce56d599d75b669d55778521c7c ]
 
-From: Matthew Wood <thepacketgeek@gmail.com>
+tpm_common_read() calls flush_work(&priv->timeout_work) under
+priv->buffer_mutex, but tpm_timeout_work() also takes buffer_mutex, so a
+running timeout work deadlocks the flush. Flush after unlocking; the timer
+is deleted under the lock, so no new work can be queued.
 
-[ Upstream commit 6335e6719fd323c345427b7cf2d5d17c28fdbc41 ]
-
-When a long-jump trampoline is attached to or detached from a bpf prog,
-bpf_arch_text_poke() updates the plt target at the end of the prog by
-temporarily making the page writable:
-
-	set_memory_rw(page);
-	WRITE_ONCE(plt->target, plt_target);
-	set_memory_ro(page);
-
-Since commit 1dad391daef1 ("bpf, arm64: use bpf_prog_pack for memory
-management"), bpf progs are allocated from the bpf prog pack, so
-unrelated progs and their plts commonly share a page. The sequence
-above is not serialized against other pokers, it runs before text_mutex
-is taken and callers only hold the lock of the trampoline being
-updated. Two CPUs attaching to or detaching from different target progs
-in the same page can therefore race:
-
-	CPU A                           CPU B
-	set_memory_rw(page)
-	                                set_memory_rw(page)
-	                                WRITE_ONCE(plt_B->target, ...)
-	                                set_memory_ro(page)
-	WRITE_ONCE(plt_A->target, ...)  <- permission fault
-
-This was hit on an arm64 server with 64K pages while attaching fentry
-programs to bpf progs:
-
-  Unable to handle kernel write to read-only memory at virtual address ffff80008f46d5f8
-  ESR = 0x000000009600004f
-  FSC = 0x0f: level 3 permission fault
-  pte=00c00200ea5a0783
-  Internal error: Oops: 000000009600004f [#1]  SMP
-  pc : bpf_arch_text_poke+0x214/0x238
-  lr : bpf_arch_text_poke+0x200/0x238
-  Call trace:
-   bpf_arch_text_poke+0x214/0x238 (P)
-   __bpf_trampoline_link_prog+0x1c8/0x470
-   bpf_trampoline_link_prog+0x64/0x90
-   bpf_tracing_prog_attach+0x318/0x4a8
-   bpf_raw_tp_link_attach+0x104/0x258
-   bpf_raw_tracepoint_open+0x6c/0x90
-   __sys_bpf+0x134c/0x3e10
-
-Rather than serializing the permission changes, stop changing page
-permissions altogether and write the plt target with
-aarch64_insn_write_literal_u64(). It writes through the text patching
-fixmap under patch_lock, the same way the rest of the prog pack is
-written, and performs a single-copy atomic 64-bit store. The plt target
-is naturally aligned (see build_plt()), so CPUs concurrently executing
-the plt still observe either the old or the new target. This is the
-same helper ftrace and static calls use to update 64-bit literals that
-are loaded concurrently.
-
-Fixes: 1dad391daef1 ("bpf, arm64: use bpf_prog_pack for memory management")
-Signed-off-by: Matthew Wood <thepacketgeek@gmail.com>
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Link: https://patch.msgid.link/20261009173802.1248441-1-thepacketgeek@gmail.com
-[ sashal: Kept the local <asm/patching.h> include instead of upstream's <asm/text-patching.h> and dropped <asm/set_memory.h>; the hunk was otherwise identical, with only an offset shift. ]
+Fixes: 9488585b21be ("tpm: add support for partial reads")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Link: https://lore.kernel.org/r/20261108165812.676876-1-hj351016@gmail.com
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+[ sashal: changed timer_delete_sync() call to the older del_timer_sync() API in tpm_common_read() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/net/bpf_jit_comp.c | 32 ++++++++++++++++----------------
- 1 file changed, 16 insertions(+), 16 deletions(-)
+ drivers/char/tpm/tpm-dev-common.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
-index 9c28bb7b69ae6..6900a5ddb9439 100644
---- a/arch/arm64/net/bpf_jit_comp.c
-+++ b/arch/arm64/net/bpf_jit_comp.c
-@@ -22,7 +22,6 @@
- #include <asm/debug-monitors.h>
- #include <asm/insn.h>
- #include <asm/patching.h>
--#include <asm/set_memory.h>
+diff --git a/drivers/char/tpm/tpm-dev-common.c b/drivers/char/tpm/tpm-dev-common.c
+index ff86a1fdb5cdc..ddd4434edd33e 100644
+--- a/drivers/char/tpm/tpm-dev-common.c
++++ b/drivers/char/tpm/tpm-dev-common.c
+@@ -129,6 +129,7 @@ ssize_t tpm_common_read(struct file *file, char __user *buf,
+ {
+ 	struct file_priv *priv = file->private_data;
+ 	ssize_t ret_size = 0;
++	bool flush = false;
+ 	int rc;
  
- #include "bpf_jit.h"
- 
-@@ -2631,21 +2630,22 @@ int bpf_arch_text_poke(void *ip, enum bpf_text_poke_type poke_type,
- 		 */
- 		plt_target = (u64)&dummy_tramp;
- 
--	if (plt_target) {
--		/* non-zero plt_target indicates we're patching a bpf prog,
--		 * which is read only.
--		 */
--		if (set_memory_rw(PAGE_MASK & ((uintptr_t)&plt->target), 1))
--			return -EFAULT;
--		WRITE_ONCE(plt->target, plt_target);
--		set_memory_ro(PAGE_MASK & ((uintptr_t)&plt->target), 1);
--		/* since plt target points to either the new trampoline
--		 * or dummy_tramp, even if another CPU reads the old plt
--		 * target value before fetching the bl instruction to plt,
--		 * it will be brought back by dummy_tramp, so no barrier is
--		 * required here.
--		 */
--	}
+ 	if (!size)
+@@ -161,9 +162,18 @@ ssize_t tpm_common_read(struct file *file, char __user *buf,
+ 	if (!priv->response_length) {
+ 		*off = 0;
+ 		del_timer_sync(&priv->user_read_timer);
+-		flush_work(&priv->timeout_work);
++		flush = true;
+ 	}
+ 	mutex_unlock(&priv->buffer_mutex);
++
 +	/*
-+	 * non-zero plt_target indicates we're patching a bpf prog,
-+	 * which is read only. The prog may share its page in the bpf
-+	 * prog pack with other progs, so write the aligned target
-+	 * through the text patching fixmap without flipping the
-+	 * page permissions to avoid racing with concurrent pokers.
-+	 *
-+	 * since plt target points to either the new trampoline
-+	 * or dummy_tramp, even if another CPU reads the old plt
-+	 * target value before fetching the bl instruction to plt,
-+	 * it will be brought back by dummy_tramp, so no barrier is
-+	 * required here.
++	 * tpm_timeout_work() takes buffer_mutex, so flush it after dropping
++	 * the mutex to avoid a deadlock; the timer is deleted above, so no new
++	 * timeout work can be queued once the mutex is released.
 +	 */
-+	if (plt_target &&
-+	    aarch64_insn_write_literal_u64(&plt->target, plt_target))
-+		return -EFAULT;
++	if (flush)
++		flush_work(&priv->timeout_work);
++
+ 	return ret_size;
+ }
  
- 	/* if the old target and the new target are both long jumps, no
- 	 * patching is required
 -- 
 2.53.0
-
-
 
