@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795609473;
-	b=IRT2s8STHsB8m4Qf0HRUGlUGQv0ZYv3NzYc11XJzsL2zaou3ltn5g1nRcVcpmCIDmSIK
-	 M/ocW5fM6chVLUZ6josL41OSTLMAnHo2v3gDQgOJsYm1ZcjnsbWKquBi7KH2sj3ApKeyX
-	 1G48p1m2pFWSp8AdSFZVRyoThpedlPc+LzUivRaF7AdfZDDY5o7sHD/+nws/6lUZcfEsT
-	 37esbUke9VHSBQFHPOQxbSlVGHxNEQzxdqEcP4/TYlYBWCtPlLmOZWuh0KK9sPmFjFCJo
-	 HEt8UIadZ2acSuKj4+165NuLYcDql/jfn81BsNgbS8b5wYwoFhTKhTMm67aC739gvEQ==
+	t=1795609477;
+	b=BB8mIDYFz1Suygr6WAlyOuXANorqH70X7Dpvsjy0xfqzamzMiQAW9tKM+1dxf7wchEYU
+	 M50vMbXuCrtOB5ohqp8UAxyi0IdFiygp6dEawTNaOwVhxvE7TD14/5SQUnSBntL7WaAqr
+	 x00VD7Xg0VMCXV0xgvPwZxYMtsGJQnAE1ZGFfCHP8wCo8k4Y4fGrXLQeI78I3v3d9WZmD
+	 BgiOLVk7zSiCBTB+nPT4XvB08HYAQIYpA6eLhxpIsSwpvW1N43uAmS1aWzZYAYR1Sc38C
+	 6p51DL9KhioJmJCXL+hzc0PjzSjVpS7qMjb352wAVr+LnKP+pXFPRf0Pu/u13IdLcgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795609473;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795609477;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=OhGzbj4wd0Fdlh6BXuUj+jGj+42+bPmjL75UxnOumW0=;
-	b=vsb8sDXdxkTC6EpIHzlrmao5hKO/pmRj6z/tPckXgfprZ9lG2OOu65p5VMXcmd4PAfzz
-	 Sn/wqgE5yrWfpOpZJdHNWglPoSG99tYs9cE+We2u9aC2QQ3J6liGfJ0maF6OFf5nChf+S
-	 m5vj824PeghOM54yaHVktWSkN+YMkMMoQdM6V1F/UlmFxUKMgngj2rhItR9fc4otmJpQf
-	 cMrLfJeWNfxWsr2m7VZI/ZDxZbwpNDogEpz4Tq/fixNywfeDQLRUX4PDd6G0YTswSnrTo
-	 rjxQaSmQ8pCJQ3yPXs+jTYvJoJzWiiWzu8oagILNVo/CdlHfEjSUQS4XUuk8qJCVWHQ==
+	bh=o3hVKW57WutLKlyf0ubxuzDwUjHxRjleLvZKQhntTKA=;
+	b=c2Xjl/r4BF7f6TcYzGJGFYqBrIcMjxVZgmffeOJUQP8zqngd8sPU7kHIn73bJ4SlFH7q
+	 V/mts5rO5/9wQ5odIDp70fjP+6btQOk1rR/Z3UW69IXpQ0XV/yaSazoveyLC8RJ4UhoL9
+	 yKrygicHZ3dVdQpSxuyfl1uqey3sfdSFja9f/xsHymYHu1ZpVZHd+UzpIemM05Fw+nDZO
+	 oa7N6TCN6SFyZXDSsMS77i84tU7YNEbXHfIR+q17at3RUloD7Ms5/kWYD0hzwa2/xTQb0
+	 8IfLK4qmP4KkGdVBfG+MJnrlI1bGGWUAqDeHZq87b2U+vypUvIepCLsMuMULWGrEZYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mpiJ2CG5;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vma6drgN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F623606A32D
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:24:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 032D5606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:24:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mpiJ2CG5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9171F000C4;
-	Wed, 25 Nov 2026 12:24:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vma6drgN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF4C51F000C4;
+	Wed, 25 Nov 2026 12:24:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795609473;
-	bh=OhGzbj4wd0Fdlh6BXuUj+jGj+42+bPmjL75UxnOumW0=;
+	s=korg; t=1795609476;
+	bh=o3hVKW57WutLKlyf0ubxuzDwUjHxRjleLvZKQhntTKA=;
 	h=Subject:To:Cc:From:Date;
-	b=mpiJ2CG5z2A1rHAcZjHV8dYx7zAbvH4zuwwN7BkfhrZSObQTOv5aftftgHVLhl+EI
-	 ogrDSoZVE8kby0oVtJk1bPvBdsqCYrOZyjOEIZvfYIaBKo33Ib0He1ZIthXn2JwVAp
-	 HdsfaRQpZ7bsxbBTFWlpb8d+NKSaSG1NAKiflKZo=
-Subject: FAILED: patch "[PATCH] iio: imu: inv_mpu6050: fix swapped accel and gyro startup" failed to apply to 6.12-stable tree
+	b=vma6drgN3GpkvvTzChjpO78UcFqPqXoi0zpEvQ9eXLWAv0CraTwJgAOcv1J9ntkO1
+	 hypq0GHwA/NHNo/uzRjH6G8AgZTLC57gYy1OSN/K+ORoezGz46I6qOVBEvRGg0mUPa
+	 TYDLf917W2l1Z2AhoZ2Ob4ShV1qScEVvQkDkGNzY=
+Subject: FAILED: patch "[PATCH] iio: imu: inv_mpu6050: fix swapped accel and gyro startup" failed to apply to 5.15-stable tree
 To: kapoorarnav43@gmail.com,jean-baptiste.maneyrol@tdk.com,jonathan.cameron@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 13:22:17 +0100
-Message-ID: <2026112517-fondling-grappling-bcd4@gregkh>
+Date: Wed, 25 Nov 2026 13:22:18 +0100
+Message-ID: <2026112518-eternal-joyfully-573d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 3a5e2ca34cadd9d5993064884aa5b9c4f6d71dff
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112517-fondling-grappling-bcd4@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112518-eternal-joyfully-573d@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
