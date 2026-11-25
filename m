@@ -1,55 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795623602;
-	b=FN5OAxSfR/NHt2YGNWDuU2WiWPTv7wQrztxC91cJ8VeCNtEjZ9zLpAUIUDSIG9Eq8B+o
-	 nIzQ76xoDtvl/r0ym+kc68dvW8FQym4Z8Nc/slWgC4fsvQYQzEvYNKQig1Z9CJjeHKcmc
-	 4UMZc9Za4UrGlccZlen3n10Wm1qg5ToKxNOftnmHDuee8WwC+wjjUCwwGYHzErpnqEBFZ
-	 X9CseEbgB/gzpiKWbH3Yo2Bx26g1nYIPrOGdR0GdW+dV7akp/3UWc9RgTtPR8gZMe6/Wi
-	 Vmr9mX3+fKjV5kraVkcPjfzz1iNo4MGxtz+e9u+Wp7pBpwhAAOCysdef1h3Rw5dJCsw==
+	t=1795623604;
+	b=X9FlBLaqOKJb9EDU+32d3TOqxltmFZRz0j3Evks0WYDKndnd1uLwqTDOoJQMVx7t8juf
+	 mPRRZ/sBuH5NYAphN+twllRaZNqNwRCPlVfFFg/MFLVHpbIzBP6p5aEF+Ou/buVoQdT9P
+	 9/50dDY6k6CiSdVlrZRMea5YiOE7lik4SdLQOIAD7yXAXHVpivjDuDYxRbzLAsd2o6JrH
+	 Mb3XL1iFx5yjs6uqPSF1PbGGWmdq089TxAdpmwy3xsLvbH/ee4fh6/l2pO2fmvMZwRpFy
+	 QbZAtd/j19Suz5/aDbTJSrsVmWXvoBNp9lMQ/x+9PyX7vjh9Q/JwBsYrL/3CU1cldoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795623602;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795623604;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=JTV7cRLQT3jqNzXXBomShns3rh+fa6iqZLVKtSOEybE=;
-	b=FvOxClC4D4IkW1dplhLP0XRl1LPuuyjmuCxidEyWzix3w9Wt/5J/GDOn6OCCxqzBwYnr
-	 4nN+BibsXhDY69ybweGLClL6ynDcEYjvWSug8nPIHZGj62oBHAsh5M15OU980vbdQpasW
-	 FeyuoFcCll81b5Pn8MtyWtL1vNNGl8bzEauzZn5UfpViSBK90OsksDuKv2lnC+WrRI1yw
-	 BL1JQXxxh2xANUMPTkjjNPW9BfIjclqFXxZZoIvVsGPbAuCtW48s9vfVGgP+/j7LPyg3W
-	 Lggb+MpQyRC7B4NmMgbU2v1H2LCA2QdbGHBYk6U6lKzgq/+YH9/Mfl0JAYHnDohUULA==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=R2QGd1U2SANKP+eYGu25V9HhE3+xlqCnwXWgZdeAgfY=;
+	b=BKsEbqY6lZWTsQCnqFow8mDOsjsKm17pOUKPoF5Mb1nx+PQAM/qrC3qnzNFQwxhT8rWI
+	 RxEHoz+4QAfn1CxbyDG6JkrBeI6mFElS55/NcBXoPPoZa7EOvvAMKp3peGkdNgQCjHkx3
+	 rn/arg1uDQaj9MaZet11gH2vhN76swuJgUA/nZEt98lkvq18ar4mJ1IKS0qK59D5wpCOa
+	 cySl/4W3KEZZgJ9bruXVHFdhSMlvjPcufL9YEFiWgKSvTR7P5I+C750u3LrK+vwi4ECbv
+	 HxLGaMRGxiTBq+y83FUdA219EkfpPHv8OhjFUXb9F+CG1Z1a6JdFEg2xNYPRYeANUtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R9jQ7lBN;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2AxPLpTN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFDD606A331
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:20:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37FB3606A31E;
+	Wed, 25 Nov 2026 16:20:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R9jQ7lBN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D501F000E1;
-	Wed, 25 Nov 2026 16:20:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795623602;
-	bh=JTV7cRLQT3jqNzXXBomShns3rh+fa6iqZLVKtSOEybE=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2AxPLpTN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39CB51F000C0;
+	Wed, 25 Nov 2026 16:20:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795623603;
+	bh=R2QGd1U2SANKP+eYGu25V9HhE3+xlqCnwXWgZdeAgfY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R9jQ7lBN6LKGs43eKn35Jf19k3jWrMhEZNClRFgiS36jQhbkK2ykQKYfkraKGPO9t
-	 M6VUx4BF3ukq3ltwvWKb4/twfMFOVV02Q1/MsXwmH/UG3iuW59hLfo4cmnjjy0Eflc
-	 HE5GtOZRIoA9vvUWdHQY4EmL5zuExEpJduJsNSrzIkyZjHW2UgSkt/llHkPk6JDLa4
-	 B4z2OVqo5AaO2Yrl+aRKKx4thnmHSOI61DGXYkxjEAGRBje+dw05sn0JEYslepN8oo
-	 DM9MxuosK0y0C6whxAzQp6SesTUH5wQD8Z7xvwe8DtMZyeJNoPqyHCXXN39anKN19B
-	 QTvNx7SMWS1dg==
-From: Sasha Levin <sashal@kernel.org>
+	b=2AxPLpTNOe1uyfMNZiSflaXCCNODsjUQIGh4lc5Bm//9x3qX9xvPMYj4eOfqUSFg8
+	 iji2NyLCSeDUC+HxmeWMDiPMC7OXx+yQQoyIEFFpuly1mz7vlv8u4uD1J+my4iNYjx
+	 6q99MFFn5BIjNcXM3FwB7tFgYbwCVVtdmX2Qg6+o=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Zhao Li <enderaoelyther@gmail.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] Bluetooth: L2CAP: Only accept LE responses to outstanding requests
-Date: Wed, 25 Nov 2026 11:20:00 -0500
-Message-ID: <20261125161930.765438-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112521-oppressed-liquefy-0db5@gregkh>
-References: <2026112521-oppressed-liquefy-0db5@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	stable <stable@kernel.org>,
+	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
+	Vladyslav Tymoshchuk <tvlad744@gmail.com>,
+	Leonardo Costa <leonardo.costa@toradex.com>,
+	Hiago De Franco <hiago.franco@toradex.com>
+Subject: [PATCH 6.18 912/990] usb: gadget: f_ncm: restart the TX timer if the TX freelist is empty
+Date: Wed, 25 Nov 2026 15:37:59 +0100
+Message-ID: <20261125143843.367678242@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,207 +66,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhao Li <enderaoelyther@gmail.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit f50b32aa233d4687af2d241ddcb572da969e8989 ]
+------------------
 
-The LE and ECRED response handlers match channels by identifier without
-checking whether they sent the request. An incoming channel stores the
-identifier chosen by the peer, so an unsolicited response can bypass
-deferred setup, delete an established channel, or leave an unaccepted
-socket and channel allocated after l2cap_chan_del().
+From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
 
-Extend the BR/EDR lookup from commit a518b9a9ef6e ("Bluetooth: L2CAP:
-Only accept connection responses to outstanding requests") to LE.
-Require the matching connect-request flag and add a reconfigure-request
-flag. Check reconfigure identifiers under the channel lock, since
-BT_RCVMTU can replace a request without the connection lock. Match all
-members of a rejected ECRED request, which share one identifier.
+commit 78585f90feb3bbaf3b1c642294c8c47e451dc3cf upstream.
 
-A reconfigure request can outlive close(). Complete it even in
-BT_DISCONN, and call the close callback after deletion to release an
-orphaned socket. Otherwise deletion cancels the timer and removes the
-channel before the disconnect response or the channel timeout can close
-it.
+ncm_wrap_ntb() aggregates datagrams into a pending NTB, which is sent
+either when it becomes full, or after 300us since the NTB was started,
+using ndo_start_xmit() (eth_start_xmit()).
 
-AI assistance was used.
+ndo_start_xmit() returns NETDEV_TX_BUSY when the TX freelist is empty.
 
-Fixes: f1496dee9cbd ("Bluetooth: Add initial code for LE L2CAP Connect Request")
-Fixes: 71fb419724fa ("Bluetooth: Fix handling of L2CAP Command Reject over LE")
-Fixes: 15f02b910562 ("Bluetooth: L2CAP: Add initial code for Enhanced Credit Based Mode")
-Cc: <stable@vger.kernel.org> # 5.7.x: a518b9a9ef6e: Bluetooth: L2CAP: Only accept connection responses to outstanding requests
-Cc: <stable@vger.kernel.org> # 5.7.x
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-[ sashal: adapted to older code: dropped __must_hold/lockdep annotations, kept explicit chan lock/hold handling, and used a stack pdu struct with sizeof(pdu) in the ecred reconfigure request. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+For regular packets this is fine since the networking core will requeue
+them, but for timer-flushed packets there is no logic to handle this
+situation, and HRTIMER_NORESTART is returned from ncm_tx_timeout()
+without checking eth_start_xmit()'s return value.
+
+Under sustained TX saturation the request freelist is empty most of the
+time. Since the timer is never restarted, small packets keep getting
+accumulated into the NTB, until either TX_MAX_NUM_DPE packets are stored
+or NTB_DEFAULT_IN_SIZE is reached, which is an unknown amount of time.
+
+Check the return value of ndo_start_xmit() and restart the timer after
+another 300us.
+
+Cc: stable <stable@kernel.org>
+Fixes: 6d3865f9d41f ("usb: gadget: NCM: Add transmit multi-frame.")
+Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Tested-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
+Tested-by: Leonardo Costa <leonardo.costa@toradex.com>
+Reported-by: Hiago De Franco <hiago.franco@toradex.com>
+Closes: https://lore.kernel.org/all/20231204183751.64202-1-hiagofranco@gmail.com/
+Link: https://patch.msgid.link/20260817192638.437798-1-cosmin-gabriel.tanislav.xa@renesas.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- include/net/bluetooth/l2cap.h |  1 +
- net/bluetooth/l2cap_core.c    | 78 +++++++++++++++++------------------
- 2 files changed, 40 insertions(+), 39 deletions(-)
+ drivers/usb/gadget/function/f_ncm.c |    7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
-index f7f60d64933b7..6f91e1accda5f 100644
---- a/include/net/bluetooth/l2cap.h
-+++ b/include/net/bluetooth/l2cap.h
-@@ -746,6 +746,7 @@ enum {
- 	FLAG_DEFER_SETUP,
- 	FLAG_LE_CONN_REQ_SENT,
- 	FLAG_ECRED_CONN_REQ_SENT,
-+	FLAG_ECRED_RECONF_REQ_SENT,
- 	FLAG_PENDING_SECURITY,
- 	FLAG_HOLD_HCI_CONN,
- 	FLAG_DEL,
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 3fec67f521d10..92aaa06fb613b 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -149,23 +149,12 @@ static struct l2cap_chan *l2cap_get_chan_by_dcid(struct l2cap_conn *conn,
- 	return c;
- }
- 
--static struct l2cap_chan *__l2cap_get_chan_by_ident(struct l2cap_conn *conn,
--						    u8 ident)
--{
--	struct l2cap_chan *c;
--
--	list_for_each_entry(c, &conn->chan_l, list) {
--		if (c->ident == ident)
--			return c;
--	}
--	return NULL;
--}
--
- /* Our connection request has been sent and is still outstanding */
- static bool l2cap_chan_connect_pending(struct l2cap_chan *chan)
+--- a/drivers/usb/gadget/function/f_ncm.c
++++ b/drivers/usb/gadget/function/f_ncm.c
+@@ -1148,6 +1148,7 @@ static enum hrtimer_restart ncm_tx_timeo
  {
- 	return chan->state == BT_CONNECT &&
--	       test_bit(CONF_CONNECT_PEND, &chan->conf_state);
-+	       (test_bit(CONF_CONNECT_PEND, &chan->conf_state) ||
-+		test_bit(FLAG_LE_CONN_REQ_SENT, &chan->flags));
- }
+ 	struct f_ncm *ncm = container_of(data, struct f_ncm, task_timer);
+ 	struct net_device *netdev = READ_ONCE(ncm->netdev);
++	netdev_tx_t ret;
  
- /* Other channels may hold the same ident for a response they still have
-@@ -177,7 +166,7 @@ static struct l2cap_chan *__l2cap_get_connect_chan_by_ident(struct l2cap_conn *c
- 	struct l2cap_chan *c;
- 
- 	list_for_each_entry(c, &conn->chan_l, list) {
--		if (c->ident == ident && l2cap_chan_connect_pending(c))
-+		if (l2cap_chan_connect_pending(c) && c->ident == ident)
- 			return c;
+ 	if (netdev) {
+ 		/* XXX This allowance of a NULL skb argument to ndo_start_xmit
+@@ -1158,7 +1159,11 @@ static enum hrtimer_restart ncm_tx_timeo
+ 		 *
+ 		 * This will call directly into u_ether's eth_start_xmit()
+ 		 */
+-		netdev->netdev_ops->ndo_start_xmit(NULL, netdev);
++		ret = netdev->netdev_ops->ndo_start_xmit(NULL, netdev);
++		if (ret == NETDEV_TX_BUSY) {
++			hrtimer_forward_now(data, TX_TIMEOUT_NSECS);
++			return HRTIMER_RESTART;
++		}
  	}
- 	return NULL;
-@@ -4870,7 +4859,7 @@ static int l2cap_le_connect_rsp(struct l2cap_conn *conn,
- 	BT_DBG("dcid 0x%4.4x mtu %u mps %u credits %u result 0x%2.2x",
- 	       dcid, mtu, mps, credits, result);
- 
--	chan = __l2cap_get_chan_by_ident(conn, cmd->ident);
-+	chan = __l2cap_get_connect_chan_by_ident(conn, cmd->ident);
- 	if (!chan)
- 		return -EBADSLT;
- 
-@@ -5383,9 +5372,10 @@ static inline int l2cap_ecred_conn_rsp(struct l2cap_conn *conn,
- 		struct l2cap_chan *orig;
- 		u16 dcid;
- 
--		if (chan->ident != cmd->ident ||
-+		if (chan->state != BT_CONNECT ||
- 		    chan->mode != L2CAP_MODE_EXT_FLOWCTL ||
--		    chan->state == BT_CONNECTED)
-+		    !test_bit(FLAG_ECRED_CONN_REQ_SENT, &chan->flags) ||
-+		    chan->ident != cmd->ident)
- 			continue;
- 
- 		l2cap_chan_hold(chan);
-@@ -5600,23 +5590,24 @@ static inline int l2cap_ecred_reconf_rsp(struct l2cap_conn *conn,
- 
- 	BT_DBG("result 0x%4.4x", result);
- 
--	if (!result) {
--		list_for_each_entry(chan, &conn->chan_l, list) {
--			if (chan->ident == cmd->ident)
--				chan->ident = 0;
--		}
--		return 0;
--	}
--
- 	list_for_each_entry_safe(chan, tmp, &conn->chan_l, list) {
--		if (chan->ident != cmd->ident)
-+		/* Reconfiguration updates ident with only chan->lock held. */
-+		if (data_race(READ_ONCE(chan->ident)) != cmd->ident)
- 			continue;
- 
- 		if (!l2cap_chan_hold_unless_zero(chan))
- 			continue;
- 		l2cap_chan_lock(chan);
- 
--		l2cap_chan_del(chan, ECONNRESET);
-+		if (chan->ident == cmd->ident &&
-+		    test_and_clear_bit(FLAG_ECRED_RECONF_REQ_SENT, &chan->flags)) {
-+			if (result) {
-+				l2cap_chan_del(chan, ECONNRESET);
-+				chan->ops->close(chan);
-+			} else {
-+				chan->ident = 0;
-+			}
-+		}
- 
- 		l2cap_chan_unlock(chan);
- 		l2cap_chan_put(chan);
-@@ -5630,25 +5621,33 @@ static inline int l2cap_le_command_rej(struct l2cap_conn *conn,
- 				       u8 *data)
- {
- 	struct l2cap_cmd_rej_unk *rej = (struct l2cap_cmd_rej_unk *) data;
--	struct l2cap_chan *chan;
-+	struct l2cap_chan *chan, *tmp;
- 
- 	if (cmd_len < sizeof(*rej))
- 		return -EPROTO;
- 
--	chan = __l2cap_get_chan_by_ident(conn, cmd->ident);
--	if (!chan)
--		goto done;
-+	list_for_each_entry_safe(chan, tmp, &conn->chan_l, list) {
-+		/* Reconfiguration updates ident with only chan->lock held. */
-+		if (data_race(READ_ONCE(chan->ident)) != cmd->ident)
-+			continue;
- 
--	chan = l2cap_chan_hold_unless_zero(chan);
--	if (!chan)
--		goto done;
-+		if (!l2cap_chan_hold_unless_zero(chan))
-+			continue;
- 
--	l2cap_chan_lock(chan);
--	l2cap_chan_del(chan, ECONNREFUSED);
--	l2cap_chan_unlock(chan);
--	l2cap_chan_put(chan);
-+		l2cap_chan_lock(chan);
-+		if (chan->ident == cmd->ident &&
-+		    ((chan->state == BT_CONNECT &&
-+		      (test_bit(FLAG_LE_CONN_REQ_SENT, &chan->flags) ||
-+		       test_bit(FLAG_ECRED_CONN_REQ_SENT, &chan->flags))) ||
-+		     test_bit(FLAG_ECRED_RECONF_REQ_SENT, &chan->flags))) {
-+			l2cap_chan_del(chan, ECONNREFUSED);
-+			chan->ops->close(chan);
-+		}
-+
-+		l2cap_chan_unlock(chan);
-+		l2cap_chan_put(chan);
-+	}
- 
--done:
- 	return 0;
+ 	return HRTIMER_NORESTART;
  }
- 
-@@ -7483,6 +7482,7 @@ static void l2cap_ecred_reconfigure(struct l2cap_chan *chan)
- 	pdu.scid    = cpu_to_le16(chan->scid);
- 
- 	chan->ident = l2cap_get_ident(conn);
-+	set_bit(FLAG_ECRED_RECONF_REQ_SENT, &chan->flags);
- 
- 	l2cap_send_cmd(conn, chan->ident, L2CAP_ECRED_RECONF_REQ,
- 		       sizeof(pdu), &pdu);
--- 
-2.53.0
+
 
