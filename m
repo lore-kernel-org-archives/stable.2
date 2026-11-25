@@ -1,75 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795620954;
-	b=OdNYcWOTZM+CoqYiaYGu5HfwcSZXjfQJ+YigFw1a1cDIfAbdgIzCiDfJW8yaasZq4f5o
-	 dHqO6jAnbWiBuFg8yUO3lYVbHl6KdIRVFR+SVfkOzGazR34vGvh6cY34CSHCjfGL61DiB
-	 NxvaZ/AkFjBZwuXFaT2K/iEBofo+3Nm2atxJYxIKTbryy4NzNFYTG65LXOjHA2chqdOTG
-	 rj/QOGmjMWUBeT2Zx/paAZYjrvPYrB7GP1TRlL/wqnpezZErqxJefJ8RqBqjpDGU/WQ6v
-	 DYky1/j+hDLXKEBtY2IGv0/0+mXB6hYdKRpkUFXaZHi8XE85DCe+9ALFA6kfpJsVq3A==
+	t=1795620951;
+	b=g1V0yOzWblJQS3AGofROA5oH0H09aF7B9nW68GQ2tnHZD4p1GWULbgsjCYcwuWu4Z2Mg
+	 xbBULuZL0wt+t7Zru2LUIaiJQoACVEwAxsCFzffjGDwYLH7AcSOpJ4UxDtzIknq7cB1Qg
+	 /cXg4Dg57uNYhF79W8uwH95WVpCR4zI2CUNXdlFJSfLGinj3F9xn9ZWm0oaB0mUYyQsiN
+	 beUNQ/BPdbVvAVfAs+jz5xVTnC96Mdr0TRwIvJ+L7gDC13BXMl3xbWrsdYceNb0rM03R+
+	 KtFTkA5F3shmrQL+5CMHaZvCVF9rPkv/ICm11y+hIAsIvNOFCbL517ZAGFqwAY9AVPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795620954;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=VuxqO60SfIBEuqsK6n4/P79x+kzhDZYWP7FbuCsCQ34=;
-	b=edb++NxDS/sXTcLb265I46Q0Xvo3h4FWQC4nkFgmaA1eL8oAcf1e0V4H0TjClo2FgK9J
-	 uEGDLXIJk2JkYu7cTbrSfB4Yu9XwHqWxmTRlNwPUXcBXhzgyEoUtUTW+XvXgF4cpHsJYb
-	 39VMPm9hMJ2UgcJUnPgzEA27mJB7is9or38DREHOCi8VoYF+DIgBP/n/CrvcslzO/nu9j
-	 bcD7d5hcbrqrvKi6qj70LcTR7DrhwjmnI3b2rsHtpeNJjatnUElZdNHpbnEgKHH51qtyo
-	 MhA30o4Medf/wQhru1DXAi3ZQWAOkfAdmLaxnnCayCy6wDj4PW1fr8ghlXbbUBA1pkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795620951;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=bdwxsgj4m5tE+10x/DbcudIIBM10evzxRJkWQgAz3+g=;
+	b=1fniu2+xXnF+ye9KcyX4g4RDbBezmdszMQplSrxfKbkr14IMxDDM6PgoF52WcDuznEr9
+	 vZr5qHVOSoYObHAVTqctbWij1NZDjGG4WNuOiKTrKBCs4zvOjXtMHvgzXlGkwMQiKDvQ4
+	 sr5oMzyUAzt/LRQFUTaQ/PtQYVKBvaTfvZmrlvwxFDuXbZ46cLvZ3W6rq+qUQ8IElRotN
+	 M4JMbgaM/iIaVK8CacwOk4ZVxstBywevCyG7uwnGaGocl5BBMeBdhh5oFI5veJsv8/gVu
+	 GoaFmyJEuXgXfd7WzbFtvxdrnn/OCVvsbLDXgqTj5S6BCe6dWxqdQ+4DMW5iKAUD/2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="SVPIy/Ce";
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2dyiVva3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A2460A383B;
-	Wed, 25 Nov 2026 15:35:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65A2460A383B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38EEA60A380B;
+	Wed, 25 Nov 2026 15:35:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SVPIy/Ce
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795620953; x=1827156953;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=TpcPUxXUMiuSzfXM00FOshGXSknpfhiuyV6xSE4ppbE=;
-  b=SVPIy/CeHobiWaw0Nnkgu1fSr9TGxSU8XaJ0EMXl38VYbA3pYCO9De47
-   GFhRQjGwuXp3laHz2OaKCxCfCZ6FWBqMrqFJdUZ2IMk/CKMWbUd1Bho/6
-   AHeX+Po5RfEP0dkPlb5nGn1DEGBuU20eVP3ntOVkvl3mLg1n1Dxhp9Eo2
-   dn7672awqqwvI3azvgazg6b/ii0ANOXqGF2ircyJqj2OXx8g2kW4sYjFQ
-   6Yw0foeaN37IPSqMdXvqcaWVLtiBt7jDUe+x4rqdIDU1gYUVjqgb9iafe
-   1Y+4cXD+xkTym2zfamlQfbX+o4/8lmyAeZlaiJHtAJRVqJ56k10F+gT6k
-   A==;
-X-CSE-ConnectionGUID: x8f1IUaRQhqFJEp2+PY0tw==
-X-CSE-MsgGUID: 5cYYTHncS22hJun4Jl05yQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4434294"
-X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="4434294"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 07:35:52 -0800
-X-CSE-ConnectionGUID: DQ2nQHpGR1G6/Pu9chbd5w==
-X-CSE-MsgGUID: nY4lbNS/TT29N6hdU37N9Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="12480861"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.244.1])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 07:25:22 -0800
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2dyiVva3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B7EE1F0089F;
+	Wed, 25 Nov 2026 15:35:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795620950;
+	bh=bdwxsgj4m5tE+10x/DbcudIIBM10evzxRJkWQgAz3+g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=2dyiVva37ai8hCKg+gWjomSZA0HRGgjr195H/9UgxrUSGfzEPx+9d+yLlIX8nPFbd
+	 HZlYcznf0iIhMaf3Sdiv0yHMphfcgRHKUpPlr/oBnUXBUY4Nwbc8uVhM/mMuI9WZpL
+	 3guHy1+kH2f6wxl2yctVZFOj5KqkcvRD65tZk2o8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	kai.vehmanen@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	broonie@kernel.org
-Subject: [PATCH stable 6.18.y backport] ASoC: SOF: Intel: lnl: Enable offload for UAOL link
-Date: Wed, 25 Nov 2026 17:26:02 +0200
-Message-ID: <20261125152602.22513-1-peter.ujfalusi@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Remi Pommarel <repk@triplefau.lt>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 075/990] 9p: Enable symlink caching in page cache
+Date: Wed, 25 Nov 2026 15:24:02 +0100
+Message-ID: <20261125143823.844730239@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+References: <20261125143822.072087159@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,93 +64,213 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit fdfbd9ff86a145f09978ab49305ed7acfad66a1d upstream.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-The handling of UAOL (USB Audio Offload Link) is similar to SSP and DMIC,
-it is handled by the DSP firmware.
-Set the offload enable for it similar to SSP and DMIC.
+------------------
 
-Cc: <stable@vger.kernel.org> # 6.18.x
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Link: https://patch.msgid.link/20260520150639.25301-3-peter.ujfalusi@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ Peter: Adjusted to the int returning hdac_bus_eml_enable_offload() as
-  commit 978152b2cab5 ("ASoC: SOF: Intel: hda-mlink/lnl: Convert offload
-  enable functions to void") is not backported. The helper is renamed from
-  hdac_bus_offload_dmic_ssp() to hdac_bus_set_dsp_offload() to match
-  upstream, since it now also handles UAOL.
-  Firmware built with UAOL support reads the UAOL registers and crashes if
-  the host has not granted the DSP access to them. ]
+From: Remi Pommarel <repk@triplefau.lt>
+
+[ Upstream commit 712da38d134b6681946368dd5c9400b43eb772b0 ]
+
+Currently, when cache=loose is enabled, file reads are cached in the
+page cache, but symlink reads are not. This patch allows the results
+of p9_client_readlink() to be stored in the page cache, eliminating
+the need for repeated 9P transactions on subsequent symlink accesses.
+
+This change improves performance for workloads that involve frequent
+symlink resolution.
+
+Signed-off-by: Remi Pommarel <repk@triplefau.lt>
+Message-ID: <982462d17c0c0d2856763266a25eb04d080c1dbb.1779355927.git.repk@triplefau.lt>
+Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
+Stable-dep-of: a3a6212c7d67 ("9p: treat read return values of 0 as EOF")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/intel/lnl.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ fs/9p/vfs_addr.c       | 38 ++++++++++++++++++++++++++---
+ fs/9p/vfs_inode.c      |  6 +++--
+ fs/9p/vfs_inode_dotl.c | 54 ++++++++++++++++++++++++++++++++++++++----
+ 3 files changed, 88 insertions(+), 10 deletions(-)
 
-diff --git a/sound/soc/sof/intel/lnl.c b/sound/soc/sof/intel/lnl.c
-index 2f3222040f98..7b859bb9dea4 100644
---- a/sound/soc/sof/intel/lnl.c
-+++ b/sound/soc/sof/intel/lnl.c
-@@ -20,8 +20,8 @@
- #include "lnl.h"
- #include <sound/hda-mlink.h>
- 
--/* this helps allows the DSP to setup DMIC/SSP */
--static int hdac_bus_offload_dmic_ssp(struct hdac_bus *bus, bool enable)
-+/* Configure DSP offload for DMIC/SSP/UAOL */
-+static int hdac_bus_set_dsp_offload(struct hdac_bus *bus, bool enable)
+diff --git a/fs/9p/vfs_addr.c b/fs/9p/vfs_addr.c
+index 6bf5973445b66..0a77ce5d11767 100644
+--- a/fs/9p/vfs_addr.c
++++ b/fs/9p/vfs_addr.c
+@@ -97,11 +97,34 @@ static void v9fs_issue_read(struct netfs_io_subrequest *subreq)
  {
- 	int ret;
+ 	struct netfs_io_request *rreq = subreq->rreq;
+ 	struct p9_fid *fid = rreq->netfs_priv;
++	char *target;
+ 	unsigned long long pos = subreq->start + subreq->transferred;
+-	int total, err;
+-
+-	total = p9_client_read(fid, pos, &subreq->io_iter, &err);
++	int total = 0, err, len, n;
++
++	if (S_ISLNK(rreq->inode->i_mode)) {
++		/* p9_client_readlink() must not be called for legacy protocols
++		 * 9p2000 or 9p2000.u.
++		 */
++		BUG_ON(!p9_is_proto_dotl(fid->clnt));
++		if (WARN_ON_ONCE(pos)) {
++			/* reading a link at a non null offset should
++			 * not happen
++			 */
++			err = -EIO;
++			goto fill_subreq;
++		}
++		err = p9_client_readlink(fid, &target);
++		if (err != 0)
++			goto fill_subreq;
++		len = strlen(target);
++		n = copy_to_iter(target, len, &subreq->io_iter);
++		kfree(target);
++		total = n;
++	} else {
++		total = p9_client_read(fid, pos, &subreq->io_iter, &err);
++	}
  
-@@ -35,7 +35,8 @@ static int hdac_bus_offload_dmic_ssp(struct hdac_bus *bus, bool enable)
- 	if (ret < 0)
- 		return ret;
- 
--	return 0;
-+	return hdac_bus_eml_enable_offload(bus, true,
-+					   AZX_REG_ML_LEPTR_ID_INTEL_UAOL, enable);
- }
- 
- static int lnl_hda_dsp_probe(struct snd_sof_dev *sdev)
-@@ -46,17 +47,17 @@ static int lnl_hda_dsp_probe(struct snd_sof_dev *sdev)
- 	if (ret < 0)
- 		return ret;
- 
--	return hdac_bus_offload_dmic_ssp(sof_to_bus(sdev), true);
-+	return hdac_bus_set_dsp_offload(sof_to_bus(sdev), true);
- }
- 
- static void lnl_hda_dsp_remove(struct snd_sof_dev *sdev)
++fill_subreq:
+ 	/* if we just extended the file size, any portion not in
+ 	 * cache won't be on server and is zeroes */
+ 	if (subreq->rreq->origin != NETFS_UNBUFFERED_READ &&
+@@ -126,6 +149,7 @@ static void v9fs_issue_read(struct netfs_io_subrequest *subreq)
+ static int v9fs_init_request(struct netfs_io_request *rreq, struct file *file)
  {
- 	int ret;
+ 	struct p9_fid *fid;
++	struct dentry *dentry;
+ 	bool writing = (rreq->origin == NETFS_READ_FOR_WRITE ||
+ 			rreq->origin == NETFS_WRITETHROUGH ||
+ 			rreq->origin == NETFS_UNBUFFERED_WRITE ||
+@@ -142,6 +166,14 @@ static int v9fs_init_request(struct netfs_io_request *rreq, struct file *file)
+ 		if (!fid)
+ 			goto no_fid;
+ 		p9_fid_get(fid);
++	} else if (S_ISLNK(rreq->inode->i_mode)) {
++		dentry = d_find_any_alias(rreq->inode);
++		if (!dentry)
++			goto no_fid;
++		fid = v9fs_fid_lookup(dentry);
++		dput(dentry);
++		if (IS_ERR(fid))
++			goto no_fid;
+ 	} else {
+ 		fid = v9fs_fid_find_inode(rreq->inode, writing, INVALID_UID, true);
+ 		if (!fid)
+diff --git a/fs/9p/vfs_inode.c b/fs/9p/vfs_inode.c
+index 34fda75c77607..7af14775dffaf 100644
+--- a/fs/9p/vfs_inode.c
++++ b/fs/9p/vfs_inode.c
+@@ -302,10 +302,12 @@ int v9fs_init_inode(struct v9fs_session_info *v9ses,
+ 			goto error;
+ 		}
  
--	ret = hdac_bus_offload_dmic_ssp(sof_to_bus(sdev), false);
-+	ret = hdac_bus_set_dsp_offload(sof_to_bus(sdev), false);
- 	if (ret < 0)
- 		dev_warn(sdev->dev,
--			 "Failed to disable offload for DMIC/SSP: %d\n", ret);
-+			 "Failed to disable offload for DMIC/SSP/UAOL: %d\n", ret);
+-		if (v9fs_proto_dotl(v9ses))
++		if (v9fs_proto_dotl(v9ses)) {
+ 			inode->i_op = &v9fs_symlink_inode_operations_dotl;
+-		else
++			inode_nohighmem(inode);
++		} else {
+ 			inode->i_op = &v9fs_symlink_inode_operations;
++		}
  
- 	hda_dsp_remove(sdev);
+ 		break;
+ 	case S_IFDIR:
+diff --git a/fs/9p/vfs_inode_dotl.c b/fs/9p/vfs_inode_dotl.c
+index cbc72a17b01a8..72aca3106d76f 100644
+--- a/fs/9p/vfs_inode_dotl.c
++++ b/fs/9p/vfs_inode_dotl.c
+@@ -686,9 +686,11 @@ v9fs_vfs_symlink_dotl(struct mnt_idmap *idmap, struct inode *dir,
+ 	int err;
+ 	kgid_t gid;
+ 	const unsigned char *name;
++	struct v9fs_session_info *v9ses;
+ 	struct p9_qid qid;
+ 	struct p9_fid *dfid;
+ 	struct p9_fid *fid = NULL;
++	struct inode *inode;
+ 
+ 	name = dentry->d_name.name;
+ 	p9_debug(P9_DEBUG_VFS, "%lu,%s,%s\n", dir->i_ino, name, symname);
+@@ -712,6 +714,26 @@ v9fs_vfs_symlink_dotl(struct mnt_idmap *idmap, struct inode *dir,
+ 
+ 	v9fs_invalidate_inode_attr(dir);
+ 
++	/* instantiate inode and assign the unopened fid to the dentry */
++	fid = p9_client_walk(dfid, 1, &name, 1);
++	if (IS_ERR(fid)) {
++		err = PTR_ERR(fid);
++		p9_debug(P9_DEBUG_VFS, "p9_client_walk failed %d\n",
++			 err);
++		goto error;
++	}
++
++	v9ses = v9fs_inode2v9ses(dir);
++	inode = v9fs_get_new_inode_from_fid(v9ses, fid, dir->i_sb);
++	if (IS_ERR(inode)) {
++		err = PTR_ERR(inode);
++		p9_debug(P9_DEBUG_VFS, "inode creation failed %d\n",
++			 err);
++		goto error;
++	}
++	v9fs_fid_add(dentry, &fid);
++	d_instantiate(dentry, inode);
++	err = 0;
+ error:
+ 	p9_fid_put(fid);
+ 	p9_fid_put(dfid);
+@@ -853,16 +875,18 @@ v9fs_vfs_mknod_dotl(struct mnt_idmap *idmap, struct inode *dir,
  }
-@@ -69,7 +70,7 @@ static int lnl_hda_dsp_resume(struct snd_sof_dev *sdev)
- 	if (ret < 0)
- 		return ret;
  
--	return hdac_bus_offload_dmic_ssp(sof_to_bus(sdev), true);
-+	return hdac_bus_set_dsp_offload(sof_to_bus(sdev), true);
+ /**
+- * v9fs_vfs_get_link_dotl - follow a symlink path
++ * v9fs_vfs_get_link_nocache_dotl - Resolve a symlink directly.
++ *
++ * To be used when symlink caching is not enabled.
++ *
+  * @dentry: dentry for symlink
+  * @inode: inode for symlink
+  * @done: destructor for return value
+  */
+-
+ static const char *
+-v9fs_vfs_get_link_dotl(struct dentry *dentry,
+-		       struct inode *inode,
+-		       struct delayed_call *done)
++v9fs_vfs_get_link_nocache_dotl(struct dentry *dentry,
++			       struct inode *inode,
++			       struct delayed_call *done)
+ {
+ 	struct p9_fid *fid;
+ 	char *target;
+@@ -884,6 +908,26 @@ v9fs_vfs_get_link_dotl(struct dentry *dentry,
+ 	return target;
  }
  
- static int lnl_hda_dsp_runtime_resume(struct snd_sof_dev *sdev)
-@@ -80,7 +81,7 @@ static int lnl_hda_dsp_runtime_resume(struct snd_sof_dev *sdev)
- 	if (ret < 0)
- 		return ret;
- 
--	return hdac_bus_offload_dmic_ssp(sof_to_bus(sdev), true);
-+	return hdac_bus_set_dsp_offload(sof_to_bus(sdev), true);
- }
- 
- static int lnl_dsp_post_fw_run(struct snd_sof_dev *sdev)
++/**
++ * v9fs_vfs_get_link_dotl - follow a symlink path
++ * @dentry: dentry for symlink
++ * @inode: inode for symlink
++ * @done: destructor for return value
++ */
++static const char *
++v9fs_vfs_get_link_dotl(struct dentry *dentry,
++		       struct inode *inode,
++		       struct delayed_call *done)
++{
++	struct v9fs_session_info *v9ses;
++
++	v9ses = v9fs_inode2v9ses(inode);
++	if (v9ses->cache & (CACHE_META|CACHE_LOOSE))
++		return page_get_link(dentry, inode, done);
++
++	return v9fs_vfs_get_link_nocache_dotl(dentry, inode, done);
++}
++
+ int v9fs_refresh_inode_dotl(struct p9_fid *fid, struct inode *inode)
+ {
+ 	struct p9_stat_dotl *st;
 -- 
-2.56.1
+2.53.0
+
+
 
