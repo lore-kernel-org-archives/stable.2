@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795620332;
-	b=ibQ9h2QpzvB/gRVCcSY+V3+e2fdN1IzyKkFynS85UMLiJUbPqAmpWBw+xeDDIjj+5cba
-	 E0uVYHfIswNnGL2EQx/KwUyf/hSoaJW1yiNueW5JDXyyHlQoNsjciOtwVb8I1n/h36Kwj
-	 b2OOB4G54U5JOQzzJHPw7VHcmQeYeV3EzO1dr2V6GLVut9gGeM7JLwgeQKHCr8QSBHKZR
-	 +FfKQGGQinzIfaOnIdGlGp3Mp5WPz/BZ9gmpNOwt0+cSISFb5m5N4M3IiJLvEor5gLl31
-	 WUHTvKHOS+VwdaUw256MF2NM93GiohCGsV98lcBtdtIxzwukLMLH36hq7192JUe6Wfg==
+	t=1795620334;
+	b=0lANN53SnY4wPFEfpCNA6THnuuRcgmD+n5PxbJq+kxUxAXZr0zZfi7j5p4KTo2aZ+RM2
+	 g2uWyYnLDg8qoOQl9fRw1RyMy8syqRgOilHUsXg8VHWf4sOO24knXRfz6rWBRkeDrGuqP
+	 E2FFYGYqr3bXbvAhEYz4lUM21upZuylXbqYbf2lzOnCZJprDgCmrDOZBrLEpnadqYv355
+	 vSvnpu6XBQn72R/5U9Scr7BtT7GGdDtTFUlnok4W4MTinH/yFokk9me2XepIEcxyg69Bg
+	 Lwm1cFwwt+FDf8eILpsCLygAw1sgXffSiiuRntaqFdqqdPErvbEKgqLpSyiQQ8TQjXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795620332;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795620334;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WCVtjxItPEH0zXpqDbKQx/5snQrmn4JStnUV+RGkvSY=;
-	b=IOHJGxvYJOYsLYNSi47slrKGSbZEgDy46GsXOK5z5lrjZFOKbJ7oYhVBvvFW5B62LNR2
-	 57l8dydZgMpVs4Kot0UJNm9Rd5KvOklL8KcEu2AOiwO2Han0NEl1dEMu6MqVSQ5WymQ9p
-	 fgp9CNiSXdqKU1SakKocqSRuvLOVtuTwqS645SdO7bKEUF1Z97ROskwePLhtfqkdlgQ8Z
-	 pacrVDTWbrl2/5IcZWHTA3WLxc09sa3x9Kb+wCi1bK2bkJ0JYurjDH4c3J0d++0u4arfX
-	 bSZfY3zHMgTGx7hJcam3dobmgQSVfOWrTQC4Jjbc/MbeXPm3qRCbU1YUD1NTCTDdNgg==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=xiikKLt2GP+Gb5L/Py95SW7c58Nc3ZpmECKydFG5Oiw=;
+	b=fhakKHO3QWwcxf0Sc+iU1IMxVap9SRPmCbePrq1inMYfBNoUXfRuVKYpTucTC+uf0y8F
+	 7eAcJJRu82WoaXS/7QF+t8++ZqrB5fF7shbWIgUKdGcWk3ADMMYUdI1DXjImnKfZprwTP
+	 lzQST4AJpIzdrIN+YxeE/aeKIx5EpCi7ZPqslPtLHCifXlumHzS61AjmGRd4Y1Am35lDQ
+	 8nGqSMemCbB7IPksZCOap9yIi2na/EqS97d81U5ebFwndcOhpyr7iWZ6wATJC7vHcNBZM
+	 ovtf104vpQGs01i/8BWN1ixiBZn8YuF7kp4VlpuhNzy8Bzh8H+LmgFG9SPRRHUR1YUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d+MX3p9u;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="UYw/V0EM";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FFD606A33B
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:25:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F912606A339;
+	Wed, 25 Nov 2026 15:25:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d+MX3p9u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 224D21F000E0;
-	Wed, 25 Nov 2026 15:25:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795620331;
-	bh=WCVtjxItPEH0zXpqDbKQx/5snQrmn4JStnUV+RGkvSY=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UYw/V0EM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E373F1F00AD4;
+	Wed, 25 Nov 2026 15:25:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795620334;
+	bh=xiikKLt2GP+Gb5L/Py95SW7c58Nc3ZpmECKydFG5Oiw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d+MX3p9uQNAY7747cS/xyqQvAIygIjXAweFCCN7ikNsX33f6Gxd4UuIRqCRjG+oFR
-	 gHzttrcuPYRSl8x4FwZcPJ3mY9BP4Bzn+x0l1YvsiMHrWhIISDUczlJv/u3xBfCUhw
-	 ZPEoRdiLp+fqeCNg2YqgYmCnM7i/FQkFEWh9zR9xidU5xlnB5kcf55+hfZw/dpBLv/
-	 +kQyngt2qm93Ycvu8X8YV5pyjZ3OUIUKC0qHpPnbwpPt4CNObMdBunqqTjNtCU/Urb
-	 A3AmCpQRw6W4vXaGrJo4yeY/u5mOFC9uQ0KDI+Xb0CIK8p9FZQ0YJ93V7IESQXokiU
-	 vGljAmkrEWXRA==
-From: Sasha Levin <sashal@kernel.org>
+	b=UYw/V0EM0GtwKZZpM6pFHtK7ziILjdVguXrYe3xDvj8KRp/9Jn1aFmjcazGBtwPgW
+	 u+61GiOARRH+u0gSv3yI+2hEtRjQFvv/7PrMXDgDpvN8kW6ncDF43d06CzE+eGW2yf
+	 UhtGUQpAoH8Lcwtqox7VE4jEXo4nPlaspZk2SqDA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] net: gro: do not undo remote checksum offload on merged packets
-Date: Wed, 25 Nov 2026 10:25:29 -0500
-Message-ID: <20261125152414.183875-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112508-straddle-cosponsor-ad6e@gregkh>
-References: <2026112508-straddle-cosponsor-ad6e@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jay Vadayath <jay@artiphishell.com>,
+	Mikulas Patocka <mpatocka@redhat.com>
+Subject: [PATCH 7.3 0881/1005] dm-raid: bound array_position before indexing failed_devices
+Date: Wed, 25 Nov 2026 15:36:59 +0100
+Message-ID: <20261125143842.340416947@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+References: <20261125143821.729802100@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,105 +63,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@kernel.org>
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit c817ec1b06875b98460fbd19591be541bc3fa924 ]
+------------------
 
-skb_gro_flush_final_remcsum() calls skb_gro_remcsum_cleanup() to undo
-the checksum adjustment done by skb_gro_remcsum_process() when the
-packet was not consumed by GRO.
+From: Jay Vadayath <jay@artiphishell.com>
 
-When the inner handler merged the packet (NAPI_GRO_CB(skb)->same_flow
-is set), grc->offset can no longer be trusted:
+commit 11b5cd14c0eecae458cecbe53d21a3dbc10190f5 upstream.
 
-- skb_gro_receive() either gives the frags or the head of the skb
-  to the held packet, or uses __skb_pull(skb, offset) before adding
-  the skb to the frag_list of the held packet.
+super_init_validation() reads role = le32_to_cpu(sb2->array_position)
+out of an on-disk dm_raid_superblock and then uses it as a bit index into
+the failed_devices bitmap via test_bit(role, (void *)failed_devices).
+failed_devices is a uint64_t[DISKS_ARRAY_ELEMS] (DISKS_ARRAY_ELEMS == 4,
+i.e. 256 bits) living on the stack. The only guard is role < 0, so any
+on-disk array_position >= 256 makes test_bit() read past the end of the
+stack array (array_position == 256 reads failed_devices[4], 8 bytes past
+the object). For a raid1 set the role != raid_disk reorder branch falls
+through to the same test_bit().
 
-- skb_gro_receive_list() uses skb_pull(skb, skb_gro_offset(skb)).
+A crafted dm-raid superblock therefore causes a stack out-of-bounds read
+during table load. Reachable by anyone able to issue a dmsetup create
+with attacker-controlled metadata (CAP_SYS_ADMIN in the target
+namespace); the crash fires in the constructor / analyse_superblocks
+path, before any md_run or array sizing.
 
-grc->offset is relative to the original skb->data, so the 2-byte
-read-modify-write done by skb_gro_remcsum_cleanup() can land in
-the payload of a packet which now belongs to the GRO packet.
-pskb_may_pull() can also be called on this frag_list member.
+  BUG: KASAN: stack-out-of-bounds in super_validate+0x1cd0/0x3390
+  Read of size 8 at addr ffff888007b17828 by task poc/152
+  Call Trace:
+   dump_stack_lvl+0x64/0x80
+   print_report+0xd0/0x630
+   kasan_report+0xe5/0x120
+   kasan_check_range+0x105/0x1b0
+   super_validate+0x1cd0/0x3390        (super_init_validation, inlined)
+   raid_ctr+0x2c4b/0xa0f0
+   dm_table_add_target+0x66f/0xf80
+   table_load+0x2ee/0x780
+   ctl_ioctl+0x362/0x9f0
+   dm_ctl_ioctl+0x9/0x10
+   __x64_sys_ioctl+0x134/0x1c0
+   do_syscall_64+0xe2/0x4b0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-With fraglist GRO, this can also be a use-after-free:
-pskb_may_pull(skb, skb_gro_offset(skb)) in skb_gro_receive_list()
-or udp_gro_receive_segment() releases the first page fragment if it
-only contains headers. NAPI_GRO_CB(skb)->frag0 and frag0_len are not
-updated, so skb_gro_remcsum_cleanup() takes the fast path and writes
-through frag0 into a page the skb no longer holds a reference on.
-The non merged case, where frag0 is used after this pull, is handled
-in the following patch.
+role is a device position that must refer to an actual member of the
+array, so reject anything outside [0, rs->raid_disks) instead of only the
+negative case. rs->raid_disks is always <= the 256-bit capacity of
+failed_devices, so this both closes the out-of-bounds access and matches
+the intended semantics.
 
-For skbs merged by skb_gro_receive(), the cleanup can be skipped:
-the skb is freed, or its headers are rebuilt from the head skb in
-skb_segment().
+This bug was discovered by Artiphishell's vTriage pipeline, which
+generated a crafted raid1 superblock (magic "DmRd", compat_features=1,
+num_devices=2, array_position=256, level=1) and a dmsetup-create
+reproducer that reliably triggers the KASAN report on an unpatched kernel
+(the precursor DMINFO "raid device #256 now at position #0" is visible in
+the serial log just before the splat). The fix below was drafted with the
+Claude coding assistant; a userspace reproducer is available on request.
 
-Fraglist members keep their own inner headers, as skb_segment_list()
-only copies the link-layer and tunnel headers from the head skb.
-Their checksum can not be right in all cases: a packet forwarded with
-its tunnel header needs the original value, while a VXLAN packet
-decapsulated locally needs the adjusted one, as vxlan_remcsum() only
-adjusts the head skb. Make skb_gro_receive_list() refuse packets with
-skb->remcsum_offload set, so that fraglist members never carry an
-adjusted checksum.
-
-This affects VXLAN (VXLAN_F_REMCSUM_NOPARTIAL) and GUE
-(FOU_F_REMCSUM_NOPARTIAL).
-
-This was found while fixing a report from Taesoo Kim and Cen Zhang,
-who used LLM assisted code analysis and provided reproducers.
-
-Fixes: 26c4f7da3e41 ("net: Fix remcsum in GRO path to not change packet")
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Jay Vadayath <jay@artiphishell.com>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Eric Dumazet <edumazet@kernel.org>
-Link: https://patch.msgid.link/20261104151042.1157782-2-edumazet@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: adjusted the placement of the remcsum_offload check in skb_gro_receive_list() because this tree lacks the pskb_may_pull() call that upstream has there (the pull is in the UDP caller). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- include/net/gro.h | 8 +++++++-
- net/core/gro.c    | 7 +++++++
- 2 files changed, 14 insertions(+), 1 deletion(-)
+ drivers/md/dm-raid.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/include/net/gro.h b/include/net/gro.h
-index 439aa18578f69..886e267528d26 100644
---- a/include/net/gro.h
-+++ b/include/net/gro.h
-@@ -352,7 +352,13 @@ static inline void skb_gro_remcsum_cleanup(struct sk_buff *skb,
- 	void *ptr;
- 	size_t plen = grc->offset + sizeof(u16);
+--- a/drivers/md/dm-raid.c
++++ b/drivers/md/dm-raid.c
+@@ -2420,7 +2420,8 @@ static int super_init_validation(struct
+ 		 */
+ 		if (!test_bit(FirstUse, &r->flags) && (r->raid_disk >= 0)) {
+ 			role = le32_to_cpu(sb2->array_position);
+-			if (role < 0)
++			/* Bound @role before it indexes the failed_devices stack bitmap. */
++			if (role < 0 || role >= rs->raid_disks)
+ 				continue;
  
--	if (!grc->delta)
-+	/* Once merged, grc->offset can not be trusted: the frags or head
-+	 * of this skb now belong to the GRO packet, or skb->data was pulled
-+	 * past the headers before adding it to a frag_list.
-+	 * skb_gro_receive_list() does not merge packets with an adjusted
-+	 * checksum, other merged packets do not use their headers anymore.
-+	 */
-+	if (!grc->delta || NAPI_GRO_CB(skb)->same_flow)
- 		return;
- 
- 	ptr = skb_gro_header(skb, plen, grc->offset);
-diff --git a/net/core/gro.c b/net/core/gro.c
-index 755496f53415e..4a5822591a7de 100644
---- a/net/core/gro.c
-+++ b/net/core/gro.c
-@@ -244,6 +244,13 @@ int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
- 		     NAPI_GRO_CB(skb)->flush))
- 		return -E2BIG;
- 
-+	/* Fraglist members keep their own headers. Their checksum can not
-+	 * be right both for a forwarded packet and for a decapsulated one,
-+	 * if remote checksum offload adjusted it.
-+	 */
-+	if (unlikely(skb->remcsum_offload))
-+		return -EINVAL;
-+
- 	if (NAPI_GRO_CB(p)->last == p)
- 		skb_shinfo(p)->frag_list = skb;
- 	else
--- 
-2.53.0
+ 			if (role != r->raid_disk) {
+
 
