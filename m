@@ -1,58 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795621774;
-	b=fmYtS/aCLEqafjR6Ib5TB6LvWyFdrLKO4Cyx9FKQy7T1W2i9eYbjcbGOOBkAiGzM3Ids
-	 PBQ5mnsOZ8OqnFwrjNMhGt98o/FSvbg28dPl+8KzRdfikQd0ABmGoZD+douCm+momMl7I
-	 PpTQJ3DUBYfkpXWhv0w6O3HTfuY3io9vxcKIvJtjJyF7PHeDDFpk63atn4f5mIiwbQQb8
-	 JWBnLN7MLVGoSfJJxHDMqAkxLFJN0Jhobtc4f5QEgKAwHwYVIAm6cHzbOuNIp1BPOBwPT
-	 9ndMEELheMPfj15UibfGYmMssqEQlxFTePHmsFWy4mgTPckHtzoB1xByEWhjBREGQOA==
+	t=1795621775;
+	b=o/RmZzt4FcJxlL/6aGSQel/l5VxxjS7u82Lp+9NvC61ZuZIMtMWzsVERxIv669aLwkut
+	 l0eo/AlD68iCZO+yJarVeu9Uf3vApc4Jae2zZK1t4HGn/aN5NvMaodLXSKar5yBX/qbHa
+	 3MTcZSH7oET/LnwYUhFKsT3e5eZ/2SRr1iizd72cNpjZGtYOyZ5/u4yYAInRx9FDHn0B9
+	 FOJ0VbOQSiTd2k3Jc2QL1H6loFtGde+CwuOKxROjRrgBD6VOMqZCIn6A2B9h2VhPI1cSv
+	 U3QSfq1Qy+6cLq4rJwWV1qLqBe+1AuCMKojEk+bJbJ8udcvu4kX77308e/mv1pznZ0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795621774;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=UOHAF7pGgKud9ViroeLA79jU3Xduu+sNnbr6sPVDLSY=;
-	b=PzlaWumFiim5qIu0zk/Lvgs3g8A0o7ApZg38siviK0tGOf5MCblv32C1/Q8PxI2ebIkT
-	 t6BPhhqPtCjRX9FgO6U03+XI6jJAOuJoLr622RBCDE4MjKP+VyBuqq4Rqr3QlbU3UzTRS
-	 /hk0dC5NPZ2Nw4RCldMtaqTE8E4S3XlT2zyrdIBUwoSBgOQe8gHGSx35kzt55jD+LFSCK
-	 fkfjU11QJtd1iiqoqhOFczpkv9k3UW0L1EjK6NSDSgkoZbn8EEkURDNSEqV5eR5lYsEve
-	 r42Yd3NdG0BFRilI9C2mn98ySdzOmkGH/XjlR7wx31ky/FaMJ1/YfvfHJ/tT2QD0g7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795621775;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=xwN7N2TJ/AxtSCaqTfLM9jPZ0Ogy+48kHJQgnpkXTHY=;
+	b=WVQTBV4cG//VvIZHyBM45f1TPQ8Qke9U3XDuNOR2KZNRap1axnanK+FpNwBN7rMbtBzX
+	 1Bnt8Nmlo8E3CLc9+qyODVf44P++cZi9NRKFSPnb/tH6TPSOQvUcRsgWLhUH75/pYzmRt
+	 Zy5jHQqkvPh137Zt9UhqnoVAmshWlONDFfnWR9C6VLmoUxdzVtuOYtVRd0TyT6XH07PP8
+	 F3UjaEAEsE4H25HW2jBqfpREZ+BwJNB34fT08Jl/ciuY4lSJ19X2foKbGIv59wX4mbdS8
+	 +6IsOXnWOLzRv1XDRpqPITvLVB3L4hY3vjtVBfT6fX40I5wadPBwAivYt88hz276ktA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WYOAjM+x;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LOOzE1Ia;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BA9B606A326;
-	Wed, 25 Nov 2026 15:49:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B932606A332;
+	Wed, 25 Nov 2026 15:49:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WYOAjM+x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 102CC1F000D1;
-	Wed, 25 Nov 2026 15:49:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795621773;
-	bh=UOHAF7pGgKud9ViroeLA79jU3Xduu+sNnbr6sPVDLSY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WYOAjM+xjJB/0fN5QJEGgh5ncOhkfdgR4+1sMGaD96hVFTWvO4nRWBbxEo3gEuT57
-	 QooCcr8t35i2l/qGVU1vdBbVgd0ogxWSN88rBwBX0fvsFFfXOUbP/V5xgcZDQLWTFZ
-	 5R3p/Dp1Vl2ccg+3DVT7sRTiZf7C8pM6Y+sxqgOI=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 332/990] ata: libata-scsi: fix MODE SELECT handling of data after the mode page
-Date: Wed, 25 Nov 2026 15:28:19 +0100
-Message-ID: <20261125143829.864481291@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-References: <20261125143822.072087159@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LOOzE1Ia
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79BE81F00ACF;
+	Wed, 25 Nov 2026 15:49:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795621775;
+	bh=xwN7N2TJ/AxtSCaqTfLM9jPZ0Ogy+48kHJQgnpkXTHY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=LOOzE1IaHjp88Xb0pe3QCQu7CIqsf9lvB2bWUHMyrquKLsE4mk3eSefypXwCchx3/
+	 EgDm9WYoe9egxS4uzllqv4tVecTYA4VGcRRpMrF6IZn9+kOnaqnGiTyRjV7ad+DIPf
+	 kiRZkpUSghvkaz+DxSJ+hB7Rae8h02h/GXcc8vmDBYeLGWK4fZygL3H/I2Bdj6bkGJ
+	 PagDwhj4P2FJg4JoA/yA2/SGYxaB/eZmY3/+F9aFz++Kq0PaHWKz/qGtQ3rUCGL2vn
+	 zoCiluotK1PIu1HVzJVPeNyK1XVICu+74JYxil/rYHKTDWqn5RR6PbqKKTDQ5drbOj
+	 C9Ap2JSXYBDKw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Wed, 25 Nov 2026 15:48:52 +0000
+Subject: [PATCH v3 4/4] mm/huge_memory: only compare PFNs of huge entries
+ on huge fault insert
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,87 +53,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261125-huge-pfnmap-fault-races-v3-4-bbc44489341b@kernel.org>
+References: <20261125-huge-pfnmap-fault-races-v3-0-bbc44489341b@kernel.org>
+In-Reply-To: <20261125-huge-pfnmap-fault-races-v3-0-bbc44489341b@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>, 
+ Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>, 
+ Roman Kisel <romank@linux.microsoft.com>, 
+ Saurabh Sengar <ssengar@linux.microsoft.com>, 
+ Naman Jain <namjain@linux.microsoft.com>, 
+ Michael Kelley <mhklinux@outlook.com>
+Cc: ljs@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Eliav Farber <farbere@amazon.com>, stable@vger.kernel.org, 
+ "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
+ "Gregory Price (Meta)" <gourry@gourry.net>, 
+ "T.J. Mercier" <tjmercier@google.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3097; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=JsUg5bNeXJ+T8vfVeKVvW7LaLcQrJO3bFcpJ22VjJ8o=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLZmTPfaT6JTWB5lP5ylWZvkL14xaT58xaapXudKV8gP
+ EfJy/VyRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACayKZThf43eEc45337s6NKu
+ 8KqICTCase4gU46K+67dvwI2BukI2jH8d3qlIGQX9zWlsqs5fHu0RUjLPMtZCc/23ZmvE/zhVqU
+ aFwA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+A driver that implements both ->fault and ->huge_fault must anticipate
+concurrent use of both.
 
-------------------
+This can happen, for example, if a user calls prctl(PR_SET_THP_DISABLE)
+concurrent with faulting, as that only holds the mmap write lock and thus
+does not exclude faulting threads stabilised by VMA lock.
 
-From: Niklas Cassel <cassel@kernel.org>
+insert_pmd() and insert_pud() have issues with this as they both assume
+that, if the page table entry being populated is not empty, it must be a
+present huge entry.
 
-[ Upstream commit 6fde0444d07ec954f3d885375e0402ff2f2e5064 ]
+This is problematic as if it is a write fault, it compares its PFN against
+the one being inserted, warning if they differ, on the assumption that the
+entry is a huge leaf.
 
-ata_scsi_mode_select_xlat() only supports one mode page per MODE SELECT
-command, and rejects a parameter list with data after the mode page with
-INVALID FIELD IN PARAMETER LIST. However:
+Since the entry may be a page table, this is invalid and can result in
+spurious warnings.
 
-- It does not set the field pointer, so the sense data reports 0xffff as
-  the FIELD POINTER.
+Equally, the entry might be non-present. Nothing can install such an entry
+in the VMAs that reach this code today, but there is no reason to rely upon
+that.
 
-- It only checks for data after the mode page after the mode page
-  handler has been called. ata_mselect_control_ata_feature() has then
-  already updated the CDL enabled flag of the device, even though the
-  command is rejected and the CDL setting of the device is not changed.
+Therefore only examine the PFN if the entry is both present and huge, and
+otherwise simply return VM_FAULT_NOPAGE so the fault is retried and handled
+at the appropriate level.
 
-- For the control mode page, ata_mselect_control_spg0() does not need an
-  ATA command, so the check is skipped, and the data after the mode page
-  is silently ignored.
+This is what already happens for a read fault, for which the existing entry
+is not examined at all.
 
-Check for data after the mode page before calling the mode page
-handlers, and set the FIELD POINTER to the first byte after the mode
-page, i.e. to the first byte of the next mode page.
+Target the commit which introduced the first driver which both mixes fault
+orders and passes the write flag for the fix (since this commit, both
+drm_gem_shmem and panthor are prey to this issue).
 
-The reason why only one mode page per command is supported is that a
-MODE SELECT command is translated into at most one ATA command, so
-update the comment accordingly.
-
-Fixes: 1b26d29ccd59 ("[libata] scsi: implement MODE SELECT command")
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Link: https://lore.kernel.org/r/20261103205448.931471-11-cassel@kernel.org
-Signed-off-by: Niklas Cassel <cassel@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reported-by: Eliav Farber <farbere@amazon.com>
+Closes: https://lore.kernel.org/all/20261112051440.16140-4-farbere@amazon.com/
+Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
+Cc: stable@vger.kernel.org
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: Naman Jain <namjain@linux.microsoft.com>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/ata/libata-scsi.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
+ mm/huge_memory.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index ce206f90d8bc4..ee0346de04744 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -4359,6 +4359,17 @@ static unsigned int ata_scsi_mode_select_xlat(struct ata_queued_cmd *qc)
- 	if (pg_len > len)
- 		goto invalid_param_len;
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 0d589be136d2..ab267ad48020 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1643,6 +1643,10 @@ static vm_fault_t insert_pmd(struct vm_area_struct *vma, unsigned long addr,
+ 		const unsigned long pfn = fop.is_folio ? folio_pfn(fop.folio) :
+ 					  fop.pfn;
  
-+	/*
-+	 * A MODE SELECT command is translated into at most one ATA command, so
-+	 * only one mode page per command is supported. Reject any data after
-+	 * the mode page before calling the mode page handlers, which may
-+	 * already update the device flags.
-+	 */
-+	if (len > pg_len) {
-+		fp = p - buffer + pg_len;
-+		goto invalid_param;
-+	}
++		/* We may have raced a fault which installed a page table. */
++		if (!pmd_present(*pmd) || !pmd_leaf(*pmd))
++			goto out_unlock;
 +
- 	switch (pg) {
- 	case CACHE_MPAGE:
- 		if (ata_mselect_caching(qc, p, pg_len, &fp) < 0) {
-@@ -4381,13 +4392,6 @@ static unsigned int ata_scsi_mode_select_xlat(struct ata_queued_cmd *qc)
- 		goto invalid_param;
- 	}
+ 		if (write) {
+ 			if (pmd_pfn(*pmd) != pfn) {
+ 				WARN_ON_ONCE(!is_huge_zero_pmd(*pmd));
+@@ -1770,6 +1774,10 @@ static vm_fault_t insert_pud(struct vm_area_struct *vma, unsigned long addr,
+ 		const unsigned long pfn = fop.is_folio ? folio_pfn(fop.folio) :
+ 					  fop.pfn;
  
--	/*
--	 * Only one page has changeable data, so we only support setting one
--	 * page at a time.
--	 */
--	if (len > pg_len)
--		goto invalid_param;
--
- 	return 0;
- 
-  invalid_fld:
++		/* We may have raced a fault which installed a page table. */
++		if (!pud_present(*pud) || !pud_leaf(*pud))
++			goto out_unlock;
++
+ 		if (write) {
+ 			if (WARN_ON_ONCE(pud_pfn(*pud) != pfn))
+ 				goto out_unlock;
+
 -- 
-2.53.0
-
-
+2.56.1
 
