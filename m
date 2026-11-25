@@ -1,59 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795619004;
-	b=xZ0VHBdqNe1PnJwh8cufywAnOmrf76ORtJPdMwzacRsJAwyVoHdW2QeLlRaB8CxC1vPl
-	 EieMXHhlG23Z0faQ9SmCpA+6kB2ryPppTR0iEbJZDs+ZqcqpJnzJInuPmAeR6SeKE19fo
-	 VYbnnXUJlit0tVF4hKVrVE7R3F0Gg613/muPDgdAYBB/AJrMbM5CMrf4sxgFhtgWtrYE8
-	 w3UQ0ovn+Aw7nvovpsrwMNoXuMCmAvMfo8PRsp4CeeNyIzNpOmEuK9yzCiRPWycKn/uEm
-	 2LwiMQfL9O/tuxD8N/RDRXMjJpCFf4EThpVI85myvPMdyj644w7ObBKr+V7ihN6gGHA==
+	t=1795619005;
+	b=vx5dcLuNWDQRVM5JWHRzCgqqj6CiaCcAVBJ5hYFWezg4Vbh+GdzXLN1Dvb6hY2h6N9WY
+	 H5cyzejTEzyZbUM6MC6I92FGD5buySwgRGZMEhFRf2NR/k4yg1neepNQVIYxnIA9sSz89
+	 6aOEJrPFnHiCBe9WkK9bgdMJWRTKX2JC7shP5oAzfWTTlRJw/KFeg+Lx4pm50Oqb9S4di
+	 vz2hADSpsSm+vNsG9CQ+l6wEitt/WlniQIKQCGb4Zm+NRSDhKR2KIHUtQCq6HoD5skphR
+	 dijE7Jy/sCW7rbhcPDK1jagrFJmcbGQ4AtHNb5ShS1Fn5WO2k2J/879J9uhLuBqjQeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795619004;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795619005;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=icdt3bJfH5PlXAfZ3LQh2xFciHi+zSGGkt56RPjVJBQ=;
-	b=YGwJbKqrY60uTTSF+0wqH6DHsR5DntoJtIjyhWWRAYp8jev12X18Vg4rpJP4+PENWyBX
-	 JyltxfQ3B8IbkmrkDOYU+mCFper0FWDINuffRLfHyXbJHZl4hHnaaZlD7obF/l+6L37Cv
-	 54tw8U/NV+HaCCmuZLypNB37A8T1ntvmImgXnrHhfVMTIFLA/LonozxSFyPrmKUNNz06Q
-	 eMVVI4riCWbHqqmCQqPOb0SiDaVyqeRPiSkTfwcDIHwMO1w39AES044Y3g+KXiS0tacAT
-	 qrgzcVvuJjMhVPfq20X6Gjk9/WkmPxAbV/7SlqhWXlJn0h4l1HvcLJBECptgIwzID3Q==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=fwLhGowkQgtfjF46Vb6pG6GFQVwza8oeXHIabzxE1rk=;
+	b=Irl+m16vXcaEzXCz2LA9AdaIDGblq9Pin5w0WKyjon5GosuYUwQjqk6O/1VPPrj92ibM
+	 RhY3OP++cEBVh/IGvG0J/cYUUOWRE1gTynZjejjErTpHc9BJuM/FSCRw23yEWhsZ2H3yx
+	 KW7XdDvamg8dlJ4KaolfRke6eXsq3APtRim50YzEDKXPplpeoBMwNtD+fHVDYZBsATBeg
+	 7GjHPbuPxci2+a/bAHmlWD93uOgqVD93sHIp59xd7mxsAF/0aYzxODeBYeP4and8bE3dy
+	 SdaI+k1qp8UQeg109TTDoL/YykOQfHjVUgk5oUiQrQIVeYGIKC2USvi364RoVvjXXAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="j/BN+gti";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qhnie4Mm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884B8606A31E;
-	Wed, 25 Nov 2026 15:03:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318A0606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 15:03:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=j/BN+gti
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD23E1F01566;
-	Wed, 25 Nov 2026 15:03:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795619004;
-	bh=icdt3bJfH5PlXAfZ3LQh2xFciHi+zSGGkt56RPjVJBQ=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qhnie4Mm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C4A21F000CA;
+	Wed, 25 Nov 2026 15:03:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795619004;
+	bh=fwLhGowkQgtfjF46Vb6pG6GFQVwza8oeXHIabzxE1rk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j/BN+gtithgpwwuSse5YhQyPBrwfMyZ8NkXQt0X5WIvW3qESnsyxFuEQLsfVVRZxA
-	 C3ixAA1m5o55+NRJz1ZfJEJE3CsP8JYFzzHlc+eoW5IlV1Y1QUGjTYMq6qg1hn4Xsb
-	 6McBJ6BdRGjaeVDqWJ0OQKB/YBA92jVUgWreVLpw=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=Qhnie4MmDCtkfhaW/+j62Gr3KEJOrOMyJbSwnU+KmXVrM2iWIkd6LBTjOv2z+1Zz9
+	 sRgXLh23WEJTPGVbdCyIOBbCIg6DVxF5/eS9/WNyxQozYXgXUXppxBOncIFUR36hUQ
+	 tUr75uqSHEMZ6XUExvVB0xv2aP6AUhnebXp1SO/D70RrRDZmxFe06gs7Fy/1OaXjDM
+	 hoGTuTgunb6fykClP7FUU2k5YR0D2NGyHXK37+lLDaiwqrW9LCfP9olVNAUkGe3ArM
+	 TRGoQoiuwmdco2wkFP/OX6F6DCQN2mxRRC105TwOM/tqq3VTHrBAVOVnqa9J3kAuzh
+	 qryVR+E6DwgTw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	=?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0413/1005] drm/panfrost: Enable cycle counting when perfcnt is enabled
-Date: Wed, 25 Nov 2026 15:29:11 +0100
-Message-ID: <20261125143831.427889444@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y 1/2] tcp: move __reqsk_free() out of line
+Date: Wed, 25 Nov 2026 10:03:21 -0500
+Message-ID: <20261125150312.4193312-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112536-tweak-sushi-fb9e@gregkh>
+References: <2026112536-tweak-sushi-fb9e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,88 +60,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+From: Eric Dumazet <edumazet@google.com>
 
-------------------
+[ Upstream commit 22c1264415ef0d4564dd74e3de66e1895d3f7bc0 ]
 
-From: Boris Brezillon <boris.brezillon@collabora.com>
+Inlining __reqsk_free() is overkill, let's reclaim 2 Kbytes of text.
 
-[ Upstream commit 99a2e2b1690f48b074bf14a3b7d5d52f45d26ecc ]
+$ scripts/bloat-o-meter -t vmlinux.old vmlinux.new
+add/remove: 2/4 grow/shrink: 2/14 up/down: 225/-2338 (-2113)
+Function                                     old     new   delta
+__reqsk_free                                   -     114    +114
+sock_edemux                                   18      82     +64
+inet_csk_listen_start                        233     264     +31
+__pfx___reqsk_free                             -      16     +16
+__pfx_reqsk_queue_alloc                       16       -     -16
+__pfx_reqsk_free                              16       -     -16
+reqsk_queue_alloc                             46       -     -46
+tcp_req_err                                  272     177     -95
+reqsk_fastopen_remove                        348     253     -95
+cookie_bpf_check                             157      62     -95
+cookie_tcp_reqsk_alloc                       387     290     -97
+cookie_v4_check                             1568    1465    -103
+reqsk_free                                   105       -    -105
+cookie_v6_check                             1519    1412    -107
+sock_gen_put                                 187      78    -109
+sock_pfree                                   212      82    -130
+tcp_try_fastopen                            1818    1683    -135
+tcp_v4_rcv                                  3478    3294    -184
+reqsk_put                                    306      90    -216
+tcp_get_cookie_sock                          551     318    -233
+tcp_v6_rcv                                  3404    3141    -263
+tcp_conn_request                            2677    2384    -293
+Total: Before=24887415, After=24885302, chg -0.01%
 
-If we don't do that, we end up with invalid timestamps in the block
-headers.
-
-We also need to skip the warning on the cycle counter reference being
-other than 0 during device reset, because of perfcnt's lingering ref.
-
-Ideally this would be dealt with by splitting the reset sequence into
-pre and post stages, so that a hypothetical panfrost_perfcnt_pre_reset()
-would release the cycle counter reference. In the absence thereof, we
-just make do.
-
-Fixes: 7786fd108777 ("drm/panfrost: Expose performance counters through unstable ioctls")
-Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-Reviewed-by: Steven Price <steven.price@arm.com>
-Link: https://patch.msgid.link/20261104-panfrost-reset-races-fixes-v3-1-09868a88c351@collabora.com
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20260204055147.1682705-5-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 2b9fd1a0abf0 ("tcp: free saved_syn after an RCU grace period")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/panfrost/panfrost_gpu.c     | 7 +++----
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 3 +++
- 2 files changed, 6 insertions(+), 4 deletions(-)
+ include/net/request_sock.h      |  9 +--------
+ net/ipv4/inet_connection_sock.c | 10 ++++++++++
+ 2 files changed, 11 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/panfrost/panfrost_gpu.c
-index 8a15ccce08e9b..5ef6897fc05ed 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
-@@ -94,11 +94,10 @@ int panfrost_gpu_soft_reset(struct panfrost_device *pfdev)
- 		  GPU_IRQ_CLEAN_CACHES_COMPLETED);
- 
- 	/*
--	 * All in-flight jobs should have released their cycle
--	 * counter references upon reset, but let us make sure
-+	 * Even though all in-flight jobs should have released their cycle counter
-+	 * references upon reset, perfcnt's might still hang about.
- 	 */
--	if (drm_WARN_ON(&pfdev->base, atomic_read(&pfdev->cycle_counter.use_count) != 0))
--		atomic_set(&pfdev->cycle_counter.use_count, 0);
-+	atomic_set(&pfdev->cycle_counter.use_count, 0);
- 
- 	return 0;
+diff --git a/include/net/request_sock.h b/include/net/request_sock.h
+index b07b1cd14e9f4..49e69b681ad10 100644
+--- a/include/net/request_sock.h
++++ b/include/net/request_sock.h
+@@ -128,14 +128,7 @@ static inline struct sock *skb_steal_sock(struct sk_buff *skb,
+ 	return sk;
  }
-diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-index 03a6dcd8da2f5..46b5141932ee8 100644
---- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-@@ -17,6 +17,7 @@
- #include "panfrost_device.h"
- #include "panfrost_features.h"
- #include "panfrost_gem.h"
-+#include "panfrost_gpu.h"
- #include "panfrost_issues.h"
- #include "panfrost_job.h"
- #include "panfrost_mmu.h"
-@@ -52,6 +53,7 @@ static void panfrost_perfcnt_hw_disable(struct panfrost_device *pfdev)
- 	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
  
- 	if (perfcnt->owns_as_ref) {
-+		panfrost_cycle_counter_put(pfdev);
- 		panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
- 		perfcnt->owns_as_ref = false;
- 	}
-@@ -81,6 +83,7 @@ static int panfrost_perfcnt_hw_enable(struct panfrost_device *pfdev)
- 		return ret;
+-static inline void __reqsk_free(struct request_sock *req)
+-{
+-	req->rsk_ops->destructor(req);
+-	if (req->rsk_listener)
+-		sock_put(req->rsk_listener);
+-	kfree(req->saved_syn);
+-	kmem_cache_free(req->rsk_ops->slab, req);
+-}
++void __reqsk_free(struct request_sock *req);
  
- 	perfcnt->owns_as_ref = true;
-+	panfrost_cycle_counter_get(pfdev);
+ static inline void reqsk_free(struct request_sock *req)
+ {
+diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+index 6b6a195ca7954..9095c49fcb235 100644
+--- a/net/ipv4/inet_connection_sock.c
++++ b/net/ipv4/inet_connection_sock.c
+@@ -957,6 +957,16 @@ struct request_sock *inet_reqsk_alloc(const struct request_sock_ops *ops,
+ }
+ EXPORT_SYMBOL(inet_reqsk_alloc);
  
- 	as = ret;
- 	cfg = GPU_PERFCNT_CFG_AS(as) |
++void __reqsk_free(struct request_sock *req)
++{
++	req->rsk_ops->destructor(req);
++	if (req->rsk_listener)
++		sock_put(req->rsk_listener);
++	kfree(req->saved_syn);
++	kmem_cache_free(req->rsk_ops->slab, req);
++}
++EXPORT_SYMBOL_GPL(__reqsk_free);
++
+ static struct request_sock *inet_reqsk_clone(struct request_sock *req,
+ 					     struct sock *sk)
+ {
 -- 
 2.53.0
-
-
 
