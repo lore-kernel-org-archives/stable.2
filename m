@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608342;
-	b=vmYI+tTvwOyCpX45PkCdSRQqvIvwZEHXtVPK1m8+ZoSqdJBhV5CUWWbAha4avJr1ya5T
-	 6BI2K07YfdCcYM3edvCZ1YE/H4sxSBd0Lq5DD0rl1y2mei5qrDLAiSV6pzghQZEPmsfvc
-	 sUpDDcOjxrFm5OPomgwl0Yvq2iCQ6/IHvukyKPSgojX4hpJiRnCOyNf9AjO1boh+C0ECI
-	 kOnQimIvxpx1aeyGifx7kdlwHxNR4aGm9rmaT+GFwaLljWFdQNNHauMUPRgWlVxNwrGRC
-	 zemr9oY7vMQwLoka35MP8qjEeO8YBKRXHk9TU6Rxb4uEtxkiqSBmhhoOoRA5J3rntAQ==
+	t=1795608346;
+	b=uQwzqW6uv+TK6s5NH8oH5lEsLnFSe1hmeG+09yUJvTKTulXE4O7rvU/Qja92+/YEFL1v
+	 DRwBzVvY7lkgz9AjYxacPF3zrqcldMqhh2wPFNKFbg+BsgX2//XZP13jCS9Tyd4BhUgGa
+	 sm1L4rdiPxecS2KfCMk6yURSIogbcQsjI994DM57SeAF0yY7FP0knxUyAdDSDki3qUvH8
+	 aaCz+zWQeR9VzpvPHPHRH1+6XDjlHsieZGq76h68jjQwOqMt5qnqbRjpcCkyYBWyriGF5
+	 LW9wjIvzpOQaV4xAd2JrJ4eryfHSFAmD9D5jUBuuG81aDdyuhbI6TsXe7WgxbFwAITA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608342;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608346;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=sQwUwMr9Z8mvy0qjIlGsKs7awBmgb9BTBcvjrmV1Mao=;
-	b=VKY07HLsLIF8+5J68bv7RLzAB6EJP93/Yiuh6/UhJZgXs7cBZvZKCXvrisXrE3NAucef
-	 Zfier2xdcKTLZT+3uFZV5LpI2vHsJzOzi1syAsGBcCXaEaZs3E9bWo4ubHtILeyM7lWXg
-	 tGNqIW4Z+oOcOpiTQj1iKozTxHFUzAJN7raYL35rTT/6XujERtXtFGxxBXMwJfZ1ya++1
-	 cZbhhqjokpXij3ziQDVbyIxM+YLZ++Bw2aF877kSYRDP/CzhP1BF8awz3Ji6VlJCU0FZR
-	 R4af1SgJB7QjWsNT8iDnzREIVxo+lpPcVexu/cGBKlp+qLIZwU69EZP+ztetdBgc0fQ==
+	bh=/6QhYAPdz4EKmjtocuJ+KKl2Pq7WLGEOyg1n1DDFqTM=;
+	b=LF6DTpcAVKEhst8KCtNoxzkYWI0V8tBPutYuHe8cJNw/XoinQ3zdPkT8sxLnKTN4Vi3w
+	 q3+Q5P0UFsG6rZzIWgwrV52Gx0pXudE6M3KNa6iKuskymrKa5/0D7V7YgR0GJ1vOFuv9W
+	 3tZyzFxKrF761soMILcas/Ftts0WhxUL7cUn6REdHo7Zx0eaD0nuozceu/0aQ5F8i2g4+
+	 5JgAlPWD32NKeTPY5RnmGppfy7UTo6oPOTM6fuMEfojeeMrfvb3WbWAlUDRILnh3EvePv
+	 b0sFi4a2cBb3FU/mhV9cLO3FO7qrAzneFvHl3AriwHtWEil3WHp2Ap8MM7mcdhXpNOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="xEjs8fI/";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PTYtVqkh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF4BD606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:05:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECABE606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:05:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xEjs8fI/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 474CC1F000C4;
-	Wed, 25 Nov 2026 12:05:41 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PTYtVqkh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB2A41F000C4;
+	Wed, 25 Nov 2026 12:05:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795608341;
-	bh=sQwUwMr9Z8mvy0qjIlGsKs7awBmgb9BTBcvjrmV1Mao=;
+	s=korg; t=1795608345;
+	bh=/6QhYAPdz4EKmjtocuJ+KKl2Pq7WLGEOyg1n1DDFqTM=;
 	h=Subject:To:Cc:From:Date;
-	b=xEjs8fI/cyiF0qpikxYCwH4VH8YDfech4ZSzTkSaXFWD68dg2uIo/I118pDiZ/TX6
-	 iHimmt5Np1GzbJJoPGDxHjevHZiJWAfCh6baCB7SgNNNscXw0Uz8F2rIZepxs7zp4f
-	 tBvQeC9ik0v6/Q52mSQ/IDgN5ZF7FtmgfDI8Mdww=
-Subject: FAILED: patch "[PATCH] rust_binder: push BR_TRANSACTION_COMPLETE before" failed to apply to 7.3-stable tree
-To: aliceryhl@google.com,gregkh@linuxfoundation.org,stable@kernel.org
+	b=PTYtVqkhgZUu10R6cmejHjYBIH2rUThPndAmbLNRZhg3f7LYw3vlaJIw3o4SeWgMF
+	 ALXSVMuiYkaIYv3kY0NHSn3IqxQzhGc+WVxc7gDoCKw4e3H0lCXDqyj7oDCXqGOoL8
+	 DpAGxj3FPwiBJJTBlmAfMMwc8VsHUsy1g3g3AvIw=
+Subject: FAILED: patch "[PATCH] serial: core: respect runtime PM when sending x_char" failed to apply to 6.12-stable tree
+To: josef@toxicpanda.com,gregkh@linuxfoundation.org,hvilleneuve@dimonoff.com,jirislaby@kernel.org,johan@kernel.org,john.ogness@linutronix.de,kmehltretter@gmail.com,stable@kernel.org,tony.lindgren@linux.intel.com,u.kleine-koenig@baylibre.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:31:53 +0100
-Message-ID: <2026112553-washbasin-jingling-2217@gregkh>
+Date: Wed, 25 Nov 2026 12:32:22 +0100
+Message-ID: <2026112522-crinkly-seducing-d403@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,23 +51,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.3-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x ff9de8571f05e8f62f9cbe29f38e0aedda9389cf
+git cherry-pick -x 84da8238f7bd3025fc16da32c4cd9992c95a783b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112553-washbasin-jingling-2217@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112522-crinkly-seducing-d403@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,113 +79,110 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ff9de8571f05e8f62f9cbe29f38e0aedda9389cf Mon Sep 17 00:00:00 2001
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Wed, 28 Oct 2026 09:46:45 +0000
-Subject: [PATCH] rust_binder: push BR_TRANSACTION_COMPLETE before
- BR_FAILED_REPLY
+From 84da8238f7bd3025fc16da32c4cd9992c95a783b Mon Sep 17 00:00:00 2001
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Tue, 27 Oct 2026 12:06:28 +0100
+Subject: [PATCH] serial: core: respect runtime PM when sending x_char
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-When building a reply fails in Thread::reply_inner(), BR_FAILED_REPLY is
-delivered to the caller before BR_TRANSACTION_COMPLETE is pushed to the
-replying thread's work list.
+__uart_start() calls the start_tx operation only if the port is runtime
+active.  Otherwise it asks for a resume, and
+serial_port_runtime_resume() starts the transmitter.
 
-In a nested transaction, the caller can wake up upon receiving
-BR_FAILED_REPLY and send an outer reply to the replying thread before
-BR_TRANSACTION_COMPLETE is queued. This causes the outer BR_REPLY to
-arrive ahead of BR_TRANSACTION_COMPLETE, which is not legal. This leads
-to userspace tripping on an assertion.
+uart_send_xchar() calls start_tx at once, under the port lock, whatever
+the state of the device.  With 8250_omap, serial8250_start_tx() then
+calls pm_runtime_get_sync() for a suspended device: that sleeps, and
+omap8250_runtime_resume() takes the port lock again.  A tcflow(TCIOFF)
+on an idle port is enough, if autosuspend has been enabled.  It was
+allowed as long as that driver used pm_runtime_irq_safe().
 
-Thus, push BR_TRANSACTION_COMPLETE in Thread::reply_inner() before
-delivering BR_FAILED_REPLY to the caller.
+Share the part of __uart_start() that deals with runtime PM.  A stopped
+transmission still does not hold up an XON or XOFF character.  Let a
+pending x_char count as work for serial_port_runtime_resume(), and keep
+the port from being suspended with it.
 
-As a nice side effect, this lets us remove the now-unused
-BR_TRANSACTION_COMPLETE error path in Thread::transaction().
-
+Fixes: 8700a7ea5519 ("serial: 8250_omap: Drop pm_runtime_irq_safe()")
 Cc: stable <stable@kernel.org>
-Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
-Signed-off-by: Alice Ryhl <aliceryhl@google.com>
-Link: https://patch.msgid.link/20261028-binder-reply-fail-v1-1-8b71d4daaf1d@google.com
+Cc: Jiri Slaby <jirislaby@kernel.org>
+Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Cc: Johan Hovold <johan@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: John Ogness <john.ogness@linutronix.de>
+Cc: "Uwe Kleine-König (The Capable Hub)" <u.kleine-koenig@baylibre.com>
+Cc: Tony Lindgren <tony.lindgren@linux.intel.com>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Link: https://patch.msgid.link/20261027-tty-llm-v1-2-99b0202ae546@linuxfoundation.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/android/binder/error.rs b/drivers/android/binder/error.rs
-index 89077c5baeaf..acf0aa09c555 100644
---- a/drivers/android/binder/error.rs
-+++ b/drivers/android/binder/error.rs
-@@ -114,7 +114,6 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-             BR_DEAD_REPLY => f.pad("BR_DEAD_REPLY"),
-             BR_FROZEN_REPLY => f.pad("BR_FROZEN_REPLY"),
-             BR_TRANSACTION_PENDING_FROZEN => f.pad("BR_TRANSACTION_PENDING_FROZEN"),
--            BR_TRANSACTION_COMPLETE => f.pad("BR_TRANSACTION_COMPLETE"),
-             _ => match self.source.as_ref() {
-                 Some(source) => source.fmt(f),
-                 None => self.reply.fmt(f),
-diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
-index f5965e838a96..4ce6fc533203 100644
---- a/drivers/android/binder/thread.rs
-+++ b/drivers/android/binder/thread.rs
-@@ -1332,20 +1332,16 @@ fn transaction(self: &Arc<Self>, cmd: u32, reader: &mut UserSliceReader) -> Resu
-             self.transaction_inner(&mut info)
-         };
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index c0deec0e6af4..b06d2649be34 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -135,17 +135,11 @@ static void uart_stop(struct tty_struct *tty)
+ 	uart_port_unlock_deref(port, flags);
+ }
  
--        // This runs when return work is passed to the caller. This is not
--        // always the same as the transaction failing, as reply errors are
--        // delivered to the remote process.
-+        // This runs when a transaction fails with an error returned to the caller.
-         if let Err(err) = ret {
-             self.push_return_work(err.reply);
--            if err.reply != BR_TRANSACTION_COMPLETE {
--                info.reply = err.reply;
--                info.error_line = Some(err.line);
--                if let Some(source) = err.source {
--                    info.errno = Some(source);
-+            info.reply = err.reply;
-+            info.error_line = Some(err.line);
-+            if let Some(source) = err.source {
-+                info.errno = Some(source);
+-static void __uart_start(struct uart_state *state)
++static void uart_port_start_tx(struct uart_port *port)
+ {
+-	struct uart_port *port = state->uart_port;
+-	struct serial_port_device *port_dev;
++	struct serial_port_device *port_dev = port->port_dev;
+ 	int err;
  
--                    self.inner.lock().extended_error =
--                        ExtendedError::new(info.debug_id as u32, err.reply, source.to_errno());
--                }
-+                self.inner.lock().extended_error =
-+                    ExtendedError::new(info.debug_id as u32, err.reply, source.to_errno());
-             }
-         }
- 
-@@ -1450,7 +1446,7 @@ fn reply_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
-         info.to_pid = orig.from.process.task.pid();
- 
-         // We need to complete the transaction even if we cannot complete building the reply.
--        let out = (|| -> BinderResult<_> {
-+        if let Err(err) = (|| -> BinderResult<_> {
-             let completion = DTRWrap::arc_try_new(DeliverCode::new(
-                 BR_TRANSACTION_COMPLETE,
-                 self.process.task.pid(),
-@@ -1471,11 +1467,10 @@ fn reply_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
-             }
-             orig.from.deliver_reply(Ok(reply), &orig, None);
-             Ok(())
--        })()
--        .map_err(|mut err| {
-+        })() {
-             // At this point we only return `BR_TRANSACTION_COMPLETE` to the caller, and we must let
-             // the sender know that the transaction has completed (with an error in this case).
+-	if (!port || port->flags & UPF_DEAD || uart_tx_stopped(port))
+-		return;
 -
-+            self.push_return_work(BR_TRANSACTION_COMPLETE);
-             let param = err.source.as_ref().map_or(0, |e| e.to_errno());
-             let ee = ExtendedError::new(info.debug_id as u32, err.reply, param);
-             orig.from
-@@ -1483,11 +1478,9 @@ fn reply_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
-             info.reply = BR_FAILED_REPLY;
-             info.errno = err.source;
-             info.error_line = Some(err.line);
--            err.reply = BR_TRANSACTION_COMPLETE;
--            err
--        });
-+        }
+-	port_dev = port->port_dev;
+-
+ 	/* Increment the runtime PM usage count for the active check below */
+ 	err = pm_runtime_get(&port_dev->dev);
+ 	if (err < 0 && err != -EINPROGRESS) {
+@@ -164,6 +158,16 @@ static void __uart_start(struct uart_state *state)
+ 	pm_runtime_put_autosuspend(&port_dev->dev);
+ }
  
--        out
-+        Ok(())
-     }
++static void __uart_start(struct uart_state *state)
++{
++	struct uart_port *port = state->uart_port;
++
++	if (!port || port->flags & UPF_DEAD || uart_tx_stopped(port))
++		return;
++
++	uart_port_start_tx(port);
++}
++
+ static void uart_start(struct tty_struct *tty)
+ {
+ 	struct uart_state *state = tty->driver_data;
+@@ -718,8 +722,9 @@ static void uart_send_xchar(struct tty_struct *tty, u8 ch)
+ 	else {
+ 		guard(uart_port_lock_irqsave)(port);
+ 		port->x_char = ch;
+-		if (ch)
+-			port->ops->start_tx(port);
++		/* It goes out even if the transmission is stopped */
++		if (ch && !(port->flags & UPF_DEAD))
++			uart_port_start_tx(port);
+ 	}
+ 	uart_port_deref(port);
+ }
+diff --git a/drivers/tty/serial/serial_port.c b/drivers/tty/serial/serial_port.c
+index 2fc48cd63f6c..f2f7cdd3a54c 100644
+--- a/drivers/tty/serial/serial_port.c
++++ b/drivers/tty/serial/serial_port.c
+@@ -23,8 +23,8 @@
+ /* Only considers pending TX for now. Caller must take care of locking */
+ static int __serial_port_busy(struct uart_port *port)
+ {
+-	return !uart_tx_stopped(port) &&
+-		!kfifo_is_empty(&port->state->port.xmit_fifo);
++	return port->x_char || (!uart_tx_stopped(port) &&
++		!kfifo_is_empty(&port->state->port.xmit_fifo));
+ }
  
-     fn oneway_transaction_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
+ static int serial_port_runtime_resume(struct device *dev)
 
