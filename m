@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795608374;
-	b=1flpEfzYkRaoXgxdy6sSPPPatqW5KMwmhc9Qiu4I4erjyIBDsVFMuIqu5rDtTjYHHgl6
-	 1nY3D23yR0WPKgzvo7Btnk5Joka/zDzz63p8EYTxiNKo8W+gnI+N+5rzmypCdcYc4aBEu
-	 UMNq+FZPK81Jxx/y0hoeia2YO4Tn+InB+7JsolzEFZGVS1h3769Y1WkoByFvyjNg3RnCU
-	 i7B1CaRJGUIbQdHn5pmjv7XCwyowpavzgJwM85eYOLaLNh8gpLGTY6cpDiv7QTEUUcIWE
-	 9rFpQ8XwC+O9KulCgff05UjssgRWf+Cz+s56pfOVv0xbdjs0wSmmuPERmCRXV43u22Q==
+	t=1795608378;
+	b=D4sZQnN7xvrTG9i9HjQyELWunEcKs59ZTQaFFMHe5BdSYvyWqBcb+XXO9CYXt2suHU8Z
+	 86rHmTBgnIRX6ZxTVk5BYBlOAaxtHWgV8fDQQo2YELiDmH6DNNRQWzx6aubnDRvQ/VHFU
+	 XcX7hxBawlLFCO3Sb3JJJXQqu9Lf7yTFPVG1v3o/KGJsROMfdpF7TBbR4jN2otgGmeUct
+	 7Xa7Wusp5x87UoJocBh2ussSPOG5i77Q9iyhrQXiNirxhX2Nf3T2HDifKUmQG2w/BmiaG
+	 qzFmdGtV9slEjDgdTQonDUnEDiyCJAipvAsZQ6L3zO05VxEUJjqfGshV3sQNhdcLk4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795608374;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608378;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xcMQhF5Zko9nZOnhiRQEeLwOHgFTs/fB6rd+4awCjzU=;
-	b=HEo4l/uGABTbDFyE3KJRtcDi0Y1aaGf1f7M4fDeHFNanvCS4dlMKJKKh06HJB50O6VA0
-	 R2U3AUUxkQZ8vPowo34dhuvwFc42UCZmZmW5tZUL9FgKaYJGfLKhEwsf42gx6NZR8hcsZ
-	 b3pXRPV+A/SD3QcOu/EUoiSkeInDkwtMRcCc2gW1v6rBlkEBbDd31ovT3VmRZDXWO7Kyu
-	 NowIqpbGCnep8/VmVjr6gXq+tA3aHhpRsIS+4pv1iKlM4ZHSh+SYx5IcT30CxP5O0zHR7
-	 OCJ8Lx9I+917+xgzV7KZmHh1AXez35KmZ5vpv30x/WiyDWatM/ntU1ciuKorzz2F9uQ==
+	bh=UYYpGtuyFlSfaO3mxBZjPlD2d64/qK//iQ48Tmevwwg=;
+	b=N/tOrtcFyPFUkecwApYt338B48wGrODS5tXFWMHm+cujZiY22YsBLjzrTglvaF56iPsM
+	 cqJP+FcN/JtNfKnYK/rKXXQfvI8SCDpWywOGeM2q/yLv2nBGWfEmXuIdZpJMaAj1Otecf
+	 +3EzCIs73JiLEHIvai5tWpqEkNurt3ZktRwj/rUM1OOCPVZPqpqUoGyXs9hOdmllM3gKX
+	 yMdkSHdTPq6I56Mmi4KAh9MCHHAzYoDuTa0FUpJUU2vgEgzyKCGflUAdomVfXhHTiEPBd
+	 obvC38g7GXUF/owM4hdzo88GkpKeaI5FzIuHziwmR4XsGqbhyqblK4tkL3vH54Sr8hQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aJiDr4hq;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="iZ/oonlN";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A4D0606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:06:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CDA7606A321
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 12:06:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aJiDr4hq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 362151F000C6;
-	Wed, 25 Nov 2026 12:06:13 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iZ/oonlN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F87E1F000F4;
+	Wed, 25 Nov 2026 12:06:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795608373;
-	bh=xcMQhF5Zko9nZOnhiRQEeLwOHgFTs/fB6rd+4awCjzU=;
+	s=korg; t=1795608377;
+	bh=UYYpGtuyFlSfaO3mxBZjPlD2d64/qK//iQ48Tmevwwg=;
 	h=Subject:To:Cc:From:Date;
-	b=aJiDr4hq06J4+yaMR2jne1hZTVEU7Cc5QPMT9iEtypIup9TX9BCBL5WUCr6Tsn3L3
-	 rs3ABDwSSUCYCbpCgQJFC64MtgNq6o55yK0PKtKkmbeo+Bd37T7atGimglGg3xrldY
-	 8e1E1AUD2EU4gpc3+81YFsHvRNweqmf37kyax8ek=
-Subject: FAILED: patch "[PATCH] usb: typec: ucsi: acpi: Assume UCSI 1.0 on HP ZBook 8 G2i 14" failed to apply to 6.12-stable tree
+	b=iZ/oonlN0gwDeqVblWYxcu9bXnAUrefhiU3qi5qrcYeDOh+4XZ7+Kk2zkU/qhlWNN
+	 xIaYueT/7IV0mV/lzV0pEguSo+zQwT7RC3jIru9k9RPasehGgW1ao1rva5lA0/Z0eK
+	 LyfMSCOByajgMg889e9harSeXTSnZWaVjEtcP2VM=
+Subject: FAILED: patch "[PATCH] usb: typec: ucsi: acpi: Assume UCSI 1.0 on HP ZBook 8 G2i 14" failed to apply to 6.1-stable tree
 To: z0rc3r@gmail.com,gregkh@linuxfoundation.org,heikki.krogerus@linux.intel.com,huangwei@kylinos.cn,ncesco@interstellar.eu,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:34:34 +0100
-Message-ID: <2026112534-occupancy-unifier-94c3@gregkh>
+Date: Wed, 25 Nov 2026 12:34:35 +0100
+Message-ID: <2026112535-cried-husked-8ee4@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 3ee1e1c3fca6fb5d0abbe0fc91539951ffa60aa7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112534-occupancy-unifier-94c3@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112535-cried-husked-8ee4@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
