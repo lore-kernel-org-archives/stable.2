@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795597959;
-	b=Tne8DpynTD60lVWbszCxPI+G/YjLbu90KBrdlISQDVkywIegl3mFt0EzsW8Y6NkUWS+C
-	 Nwpe8+9J+0YNub+MhjPtxPnIzXUb1vwSnCQG3K5CTY6U1W1gJzq8XW3q0G8ILrZaEv148
-	 6+d+VOD5hW+KDm0osCZaJim6uf/iQ3cOnIaVrylW8+cY1vIFcLnnNTAm+hEZzyQwssUPU
-	 rkquNfGKFKoJ3DlpjgqD73To8lJzMsF042A9rf9Cj1i1HH6cEunb8DlUOs0B58Phi90mI
-	 yBW265RrhKH2i6b0R5Fg4neFfxNj/jDvk/RGNSVxGFIF5OmGsqn7iPh6E9ZIT6C3FIA==
+	t=1795597963;
+	b=LLqdlcus46GxKU/Umesd/4ojNBEoIyjggM5c0M1SNXmnEnY/03E0d0Z9pqAyVJeFYAqB
+	 KJixxzuLeCvN6q0l1JntXCAs78lPQjmQrrEtK39j0u60dodFlT3jITv/8XrvoQCAZ19i+
+	 yExAZv2JTJlkhEVBGQdHScVfI5hN3x/0Ar0RTt4XlC4ytdUp91cNMQXe/+5d2i5bRz6S9
+	 1y4a+7cfaVM5Y9OoGMK3UePHjPDiOWjaedH6A2O0vZeE1B4Yla0f5LalBU2EL9PxDR6P5
+	 vqHiQDoWTkVwNs57C8swt7u2nxBsi9XrO0fKS2NosMXU4yd8rGOW5rSQnjZ6Itn8AyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795597959;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795597963;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=uDJ5Y9wT/b2fHizyJr1QjmDm0Fgl3E28THdW0JF8D/I=;
-	b=NVS2NQuguTYXNJbCU47WfF1wRqZcK0H4uNVXD8j9MXNFe1+CwLNg38UCx6EGRKIElORP
-	 gN/TgIv9NW+yTODeMk6eqSELK69SAE/3JhW0Z/aXZR8JNfXb/LZ7z1yzPnnI8g+/ASeK0
-	 tlhQRPF676vnoFnAB2H5e0Wk7O2geen9Q3Q0qFhtvC4AahCwXLoujadwc+B83yyxcmD8A
-	 vScgaVhtihKUr8xleZklPSL8u1QZmxAjUU1BYMboB0KIGL5D/DqNmjnwlGzYbGyUWITLb
-	 Me+WJYlbo1x85boYW34gEyn9RelgXIBkjHZbPxW71ht+P0U8G8FI0qOQ3mJTznJHObw==
+	bh=TIkzhDUVDhkTz+voBwMZt7D2HzoHmpuxSXFe3+46NY0=;
+	b=AOhG+oLRHqKaHJYVns6AKBRJquwmdlsu2YIo4sjm3BGHEz2t/NFXPaRPaY5/u/yjiKKM
+	 pwOc2vDWGMn/J/BsI9Bavhn/rlVgu2G//MG60Ad+CdjgYqrK1CreQhZeleOxRcKveabTk
+	 DOQSVs0dpauvc0hGDbJebEjSHdAtCqs51Hrc76bRiyKgw8Ew7LlG7fE0TnPepIvy/IbFj
+	 oKX+3yBfZ6BATJSF4wIJIzGTlzAp4hs0KMZLFjIB6puWyuV9lyX12JpdArEz3bZYJL1OW
+	 JCdxZnKNPxw5QnOA1X8i/BKNoq0VOELAdldNK+94mR1iSRh9gkFecKZVdmt45WO03JQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=P+lypgJX;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DLDGJ9nU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF3760A2636
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:12:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B82360A2637
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 09:12:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=P+lypgJX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09F361F000D1;
-	Wed, 25 Nov 2026 09:12:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DLDGJ9nU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A8C11F000EE;
+	Wed, 25 Nov 2026 09:12:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795597959;
-	bh=uDJ5Y9wT/b2fHizyJr1QjmDm0Fgl3E28THdW0JF8D/I=;
+	s=korg; t=1795597963;
+	bh=TIkzhDUVDhkTz+voBwMZt7D2HzoHmpuxSXFe3+46NY0=;
 	h=Subject:To:Cc:From:Date;
-	b=P+lypgJX6MkqP6bcPy3MlfS7zKVOe6sSSLh73bwdMh92PGJVSdDcsb5cgqJacOlp1
-	 hxlUL2Dj9opURrcig4EGhubTRE2BCLemhEBPkmbZvU8zQeqwSawy0utZQAAdg6cgM6
-	 hgdg94uQmrDASnE1vmux8V/HsCOb1Z0mehpnclZE=
-Subject: FAILED: patch "[PATCH] netfilter: nf_dup: preserve guard across NFQUEUE reinjection" failed to apply to 5.15-stable tree
+	b=DLDGJ9nUYsi07yBXB8PbDsWM7fGhQjg1IZsX8XQputooRZEGh9yhnkhW7h5xT9Cb/
+	 7DZJsh7+sMrxxDubeysaXaCRRmxVadwT03Id70k5SROrT7eDjyYnddRDA4xY1PU/kC
+	 llt+AWt0QQ9g+hkqgSe+twNfCXkoSuWgjkzJ6Png=
+Subject: FAILED: patch "[PATCH] netfilter: nf_dup: preserve guard across NFQUEUE reinjection" failed to apply to 6.6-stable tree
 To: zihanx@nebusec.ai,pablo@netfilter.org,root@tr0jan.top,vega@nebusec.ai
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 25 Nov 2026 10:01:52 +0100
-Message-ID: <2026112552-deputy-ipad-7bcb@gregkh>
+Message-ID: <2026112551-expiring-pursuant-4942@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 82052e5b5ec36504fe1b9c3c28a711a78fcacf37
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112552-deputy-ipad-7bcb@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112551-expiring-pursuant-4942@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
