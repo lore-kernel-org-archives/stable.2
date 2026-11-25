@@ -1,60 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795618764;
-	b=Sc/gs9rOcEfKGSWRvBHmMId8kS0gTwTwHnwrxe88JAn+HbG2vtuy3Ua5eBc77qNVlTDu
-	 S/eycy9TwdaVGX3cYRbJHrh2+cnSQebDiV/Xd1Egbw/PF0ZkNTYDsX5iCRJlwcqTzi26j
-	 SzoKQ16eHJr+yyxoqlQ86Ta1DuHrESsdPVTcDgssnsTUeLUNCQ2qctXhMUV4tmUZpJd/R
-	 P1xHIoQPDp1UHmhMoIs7pW+fqXv9tIMkJ4hq6yyiUue1wF+m8ng5Koha/2H7Eu5ehwOKf
-	 l6BZ8kxDSNr6X9uclMVK/TnY7MiPpNd9fmXZDCxlklF7JXTC0pU2sTkk7R1FTkkoMbA==
+	b=F+Wz+TbrsQo87WXVdWvGOmpoY5OpwZPgAwHWl1JdYj2hnB4MHl/i3DwIFnAMuquEGOBE
+	 k7O9bk40+HaC3YjArr/FvnFM/XZzks0ln6ywlxEwkxA06u7uoMZjFNIXydfHqbv7rP8vB
+	 7fER0blhnuIAACzqLz6dlxUBipJXk18pYaM2gBUhxrZi4wzmHmmPnSs7K2M82PUCk6+7M
+	 2KkwbfJsRaT7eK38/ljMyTpzeawiZhewZHlG8w0aZQY4jjV71hgBfjEXERFOr0xWlBH03
+	 dJIFZUZaD9dcrKVM29b5y0doTsrkxwEMboR9+zkYj082l+dObGKe/9jRKesaxy9Nz/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795618764;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xwZYuR9A9tKt0+9srnKnQCR1TgT4NHPTYPy6skdFxEw=;
-	b=kSHQgOnSAYsUQ9KsjZ0VoAY5JTJbqyIKeH2vlmBUwdp2DviFfh8FeSrDwHOXEtHPeVu7
-	 D7fo25MmD5T+ADFHmPPlmbA5TUNK6SRcwieG1U2raQ9/SaVDEi0hnn7hh3wfCvTBEeAAw
-	 nvmeAgwTYjCJODo2M/l2Y8KGEWKMmVeWW8Xz8ayufD93faZfld7JbFyOyL5o3l79hn5a3
-	 lA9nWbP7EBB8HqzSHtD5/hDaTNcABg0tgxdtCNq25Pg2CYupws1gdi1T6zXaeswTs6BUZ
-	 Sqo94OWFQTyaOtGqOkqYbJyP7HPcFez0BqJclS+He+sn9MMeFmPhOU9gPEhhNNUIJTA==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
+	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
+	 Date:Message-ID;
+	bh=S11egCmIZNf2DdU+UaZ2Mgs8vc7cLCK9qyK0d8R4VkU=;
+	b=VWRCHBZogWuSkj2mMp81dkgMnEJwMu0NmISqcRMsOnKSXyxg/o2P8M39FKdwHDzxXL2e
+	 dQA5cyhhEDPHhYSy7pT1uK/wxRgqPmumrK960GddtoGvq63LvhDanqxK1EoDwHhqgNq9a
+	 Us0tQ2Ik+IR3wLZTmsGbARTE5bIVWr9f6dpvLkYfBKn5I3BtR2/aZdsm0gfdG+qRMdhx+
+	 astjhQuS9rh7jspLIslIE0jQ52vsh87xqflnHdCtk2LAZENo8YtaDsRBiJjskyod9zRjo
+	 3VFs+JueQPWKyCj5MbTuMuE+gOipr35GQrBeO91wJEDIATB10us8goiZPa4BQl0jBvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Y5xv8ZPB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=kernelci.org;
+	spf=pass smtp.mailfrom=kernelci.org;
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=Rhnbsw+n;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46EF3606A321;
-	Wed, 25 Nov 2026 14:59:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15073606A31E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 14:59:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15073606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Y5xv8ZPB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37FC41F000C6;
-	Wed, 25 Nov 2026 14:59:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795618763;
-	bh=xwZYuR9A9tKt0+9srnKnQCR1TgT4NHPTYPy6skdFxEw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y5xv8ZPBrTxGmRegzWqK3KtGSjRdoP+RG+NaFTb3CbeyRoaiKULet+Pe3nY5f4wie
-	 5JTX1lHsW/5C/B2C96sRBuq8RzWW3IryZYoFFD2/Eug4McBICnJURWPx5Al8yQLny/
-	 K4vu53GVyZydrs4tY2+Bbg85LFbPs894qSgiTRZs=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Satyanarayana K V P <satyanarayana.k.v.p@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	=?UTF-8?q?Piotr=20Pi=C3=B3rkowski?= <piotr.piorkowski@intel.com>,
-	Dave Airlie <airlied@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0382/1005] drm/xe/guc: Protect timeout handling from device unplug
-Date: Wed, 25 Nov 2026 15:28:40 +0100
-Message-ID: <20261125143830.686565186@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
-References: <20261125143821.729802100@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=Rhnbsw+n
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-170135e43c7so8980490c88.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 06:59:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernelci.org; s=google; t=1795618763; x=1796223563; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=S11egCmIZNf2DdU+UaZ2Mgs8vc7cLCK9qyK0d8R4VkU=;
+        b=Rhnbsw+nF7f5gsQbdBZGDbgI8skd3jTbdwkq1XQIjq90IwdyJkKGBRXk/8m4n12Qw7
+         BqMKXFUdX/eodODtk57rdYbsbSy9CWabU+bUgWiMOBS59fidikuvjaUjoHyqX+zha6/K
+         MpeD4zy+yyMJUUPxZJ1h/wnL3DODvrkxzLAIw7tETwR0zrdxRUeIllbnXbcqqrOWbHbJ
+         C8YJT+PAH3IHGbtENhQlZdEcb1kdfqIURmZ4FVwQWdMmIEo2LRju9JmaEEqp/xktp7Xz
+         sZG5G3lJ4LUAj4D1OnKUHon4tAS4J5qoby++/cqWWX0Y26IuDZ2T5UWV6M1kIOrFReFh
+         I4Yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795618763; x=1796223563;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S11egCmIZNf2DdU+UaZ2Mgs8vc7cLCK9qyK0d8R4VkU=;
+        b=naViG3xWL97LuIiJHumysMkjK6nh2KIc9U8rHVeUpCZF4Z7DPmYltBHJJLsNH42c7Z
+         p06G5zEaOsA8ISNlSfoJkKeS8kdr2UirKOAOwAWfquSbj8UJln8uoI+WjCzcx+RnvGK/
+         SUwxgNM6dJ0Ye+ZzIcu9NkEORaCEnLT1kmcSvQSTgEvvEaFNnvoPMe4RFikXEyodT2K0
+         OLf0bwJnicVY7vxcwYnCO0d9S7c8Yp3WcK9vSPwEmXVkXaGM/ivqtNh6FpfceA1seyQM
+         L5+oRYEtScdFSESxWswJl9EtVc67EDzDntRnA6egSSUjL4KPAGcBlDltNx4JmbcouJvv
+         /reQ==
+X-Gm-Message-State: APuU4Z/ssXxFG9K23rpx+jlMemb9GpD6tUDfzfcfzFTFtAksPqlkPSwo
+	vL8Fe6sry8QhcQXoma85YaEYJTxsZ4VkuRohA57UnHibhCswm5Kv4HZF2NNuMvjW3UNNYoZlzrD
+	K/f8x
+X-Gm-Gg: AZFdTZcz7F9Myyij8Nw5c9zg1vBT51sT06iSxOKa2vGgg6JgJaBuIeDD0lUNAIo+esK
+	CnU34goiaZaRRF1wPBInqewlyRk4n9+flb86ElZGGNEBv73KXlMQgN2GQqUxhUItttdESC6kuCr
+	005as2nPf6zFjNoHolWw0kR3qLTBJ384xPCd6XtUykYKzscEgFPF6YhA8N2zgUJbpdlMkFJcji8
+	tU9OHJ5Jc6WiXvnFb48fIS9XLRDCxoHRaLbqyH9yp6oAJ4V+seAVRep9rNrSDLgxxz5KGNOHriH
+	pgS6UrTv04ZofUUBAI9XiD3PHHl23iZt4p+ydH8ALo4qWG+i6AGFN4ABzcJnHOXXLv5hMNeNYr7
+	UANm0JbpGTQjTjKw7rKva6NUMTTzyWM9B0LPWj9wf1Qdzw45B/i2cF8RgHEgdehl+Q+KfB43S4v
+	qD0O1CTAiNnWs7rK1PDbTfzqtv03DKJ+hYZjUP4usT2yrN7mBgrJYt7FyOAJ13gK0UF7QyQ1LIb
+	yegDpVfNkzUsXHlBat1texf71HEZ+PYoUT+Q645knva94kcEdXVYpaTG1pR8X7lwq+uokOBtery
+	o/bVLCN+NlniyRJt7s40qGiajqeI3S0QmPCuMgnV8UI=
+X-Received: by 2002:a05:7300:cc83:b0:381:2f5d:a696 with SMTP id 5a478bee46e88-386a0ab6732mr14863088eec.34.1795618763030;
+        Wed, 25 Nov 2026 06:59:23 -0800 (PST)
+Received: from 52d83ede7c60 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e99fdsm67900503eec.5.2026.11.25.06.59.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 06:59:22 -0800 (PST)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,81 +89,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: [REGRESSION] stable-rc/linux-5.10.y: (build)implicit declaration of
+ function
+ 'init_flush_fput' [-Werror,-Wimpli...
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: stable@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Wed, 25 Nov 2026 14:59:22 -0000
+Message-ID: <179561876184.101431.16938579162660442035@kernelci.org>
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+Cc from: regression/stable-rc.yaml
 
-------------------
+New build issue found on stable-rc/linux-5.10.y:
 
-From: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>
-
-[ Upstream commit 78945c8c44bb2cfd6e5d2f762535efce0cefb086 ]
-
-The GuC scheduler timeout callback accesses device and GT state while
-handling a timed-out job. Guard the callback with drm_dev_enter() and
-drm_dev_exit() so device unplug waits for in-flight timeout handling.
-If unplug has already started, mark the job with -ENODEV and return it
-to the scheduler for cleanup.
-
-Fixes: 6eb2aad402cc ("drm/xe: Move hw_engine_fini to devm managed")
-Signed-off-by: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Piotr Piórkowski <piotr.piorkowski@intel.com>
-Assisted-by: LLM
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Link: https://patch.msgid.link/20261013152417.3189567-7-satyanarayana.k.v.p@intel.com
-(cherry picked from commit 3e9a95f3df5b0f9de163c5ee4e4e287750ef9655)
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Dave Airlie <airlied@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_guc_submit.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+implicit declaration of function 'init_flush_fput' [-Werror,-Wimplicit-function-declaration] in init/do_mounts_rd.o (init/do_mounts_rd.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
-diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c b/drivers/gpu/drm/xe/xe_guc_submit.c
-index 864859bd0ccc9..bdaec10c6d197 100644
---- a/drivers/gpu/drm/xe/xe_guc_submit.c
-+++ b/drivers/gpu/drm/xe/xe_guc_submit.c
-@@ -1505,6 +1505,7 @@ guc_exec_queue_timedout_job(struct drm_sched_job *drm_job)
- 	int err = -ETIME;
- 	pid_t pid = -1;
- 	bool wedged = false, wedge_device = false, skip_timeout_check;
-+	int idx;
- 
- 	xe_gt_assert(guc_to_gt(guc), !exec_queue_destroyed(q));
- 
-@@ -1520,6 +1521,11 @@ guc_exec_queue_timedout_job(struct drm_sched_job *drm_job)
- 	    vf_recovery(guc))
- 		return DRM_GPU_SCHED_STAT_NO_HANG;
- 
-+	if (!drm_dev_enter(&xe->drm, &idx)) {
-+		xe_sched_job_set_error(job, -ENODEV);
-+		return DRM_GPU_SCHED_STAT_NO_HANG;
-+	}
-+
- 	/* Kill the run_job entry point */
- 	if (xe_exec_queue_is_multi_queue(q))
- 		xe_guc_exec_queue_group_stop(q);
-@@ -1683,6 +1689,7 @@ guc_exec_queue_timedout_job(struct drm_sched_job *drm_job)
- 	 * We want the job added back to the pending list so it gets freed; this
- 	 * is what DRM_GPU_SCHED_STAT_NO_HANG does.
- 	 */
-+	drm_dev_exit(idx);
- 	return DRM_GPU_SCHED_STAT_NO_HANG;
- 
- rearm:
-@@ -1696,6 +1703,7 @@ guc_exec_queue_timedout_job(struct drm_sched_job *drm_job)
- 	else
- 		xe_sched_submission_start(sched);
- handle_vf_resume:
-+	drm_dev_exit(idx);
- 	return DRM_GPU_SCHED_STAT_NO_HANG;
- }
- 
--- 
-2.53.0
+Log excerpt:
+=====================================================
+/tmp/kci/linux/init/do_mounts_rd.c:277:2: error: implicit declaration of function 'init_flush_fput' [-Werror,-Wimplicit-function-declaration]
+  277 |         init_flush_fput();
+      |         ^
+1 error generated.
 
+=====================================================
 
+When fixing this issue, please attribute this report according to the
+patch submission rules:
 
+Reported-by: kernelci.org bot <bot@kernelci.org>
+
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:44ffdc96348b2c6a9eb31fa1dcb9ef9a1c73c96a
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  8e2fb60ab96e45de1da9779df42907b2dd01b85f
+
+# Builds where the incident occurred:
+
+## multi_v7_defconfig on (arm):
+- compiler: clang-21
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6b06ee56286e1965ecb33009
+
+#kernelci issue maestro:44ffdc96348b2c6a9eb31fa1dcb9ef9a1c73c96a
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
