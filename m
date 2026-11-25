@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795618980;
-	b=PZS5g0rzfeiTklMmPerSeynK1Lfj60oufYvIQfZYQqCCnrHG234YoFskAAARdyxJXfec
-	 aW2GXfh0hz5GdLl1p8pv4HdrOhI5MvfyZF3s1FNoVCK3sPTNAog/kcjkp13TJ3o/+zj8p
-	 pp9NYAkwmk8rMnSqe9XMZ/2lPAWbnqgDOvghUyD83nka8HCQZH06h4brG2eoWbpvjE56X
-	 xgu9QR/WG0Rcz9SDkosCKPG00ym+ZTseluixM9VksWL8Ws/z//wOecyUhsd8aVEBr0CKD
-	 1nkeG5CUWARn2CTSAgNq3sLbkjYSDLoS9CdeuguhmLZddP0oVjEJFjenEriIpZp0c1Q==
+	t=1795618985;
+	b=uiY4lmQeDPT6uHRndlovoRd8uAv7PTjfGB34+Pw8zVgJwBrSYpDuiqRfELv2+X4xjgBw
+	 GFmPMFEW23unVOm6rMbAX9WbYsnCFjXaJsFdWrLXu0rYpAz3UWKhtr9mEuMIfj7jXiva7
+	 CuCvDWMdsEko9VGK+ihPU7MsmjbxW/KP4qi5dTq174v5REQ0CBixMzpMM8y7siBfUFGp4
+	 uTAm4vXIDP3VMpaZaClS4RGq6husc9ps+yNm+2URzr117t2Bs5lqsTDIQ6LYn6QhJCQ6G
+	 DHjLnjfG5iGgEBbzodidelG8SHvuAeyxNVArhDKOjcliZkuGfj9bap74e+VYdcOalOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618980;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618985;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=M9csYQyH9f8paD8Q/OLfAsoIpGfJ/VG9mvkQPRNY588=;
-	b=KCpGftpnIvYTnluZLEVkwGPHhKNlwwk+rCKAUBh7ZlqWDyxYb/r0eqE6wD5eiNJICuKP
-	 6NF+GuOPrDoxgg7FpGcaTozJ8Wuw4DqEVzQNPZVtBa+1p2ixGv2xhd95YL3eesxgLThK3
-	 LvNVABhL9qdNGqbHLZ9tJeibs8BSDtEgh9WfAGzm0oOAE5L8KQ/kLz38jbqKOOH+4vt52
-	 lb7L92ZhmMPR6JcnPO+CpjOyjiGNzUY/jvqhvp6NxxMD7GoYGVTGdRkDO+77Ut0BJrvzi
-	 EU03zxUywe0PlVFrfY2juuVo9mC12i/8Ow1JR55paajQgEFxt9ATCL4iiWuFFihioUw==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=L72L/4RNg8bcdGiWi1VR/fQdQWqwCN3r+9SrBlyBO6k=;
+	b=LONVmXAsS5SkXUyuFvPCCKQlD5cms2TiMHTFVFiPSi8/PBwm1P9LsdJ5WAbHHVEqtEGR
+	 4fYXQWzZWT+CEXhZj/bf7wKZyNOveWsWFbwYtcby6IjQXZkXyQTpjqmkm7FvK4xp9lPBK
+	 UjNNXYDfsvMx7Fumo+z5HU0fUVaWOxW7Y+D7x7oxSxN7cUPlH+ZLgnK993Zk/UfZj1anC
+	 QJBaFrl1VJ9DPaxIckbUg9T4kvRQdNXUhv0pY6OZ1qjhP8F1Zkkcie6okovpdH8+z4qhC
+	 feGwoP1C69AB79ymYjphiQTQoTAIvT9os2hXDtwhybP55OrjSMj2lJyEYfcLl+UFmxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Eo2eYec3;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jZy3+VnA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 188F1606A329;
-	Wed, 25 Nov 2026 15:03:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED76606A321;
+	Wed, 25 Nov 2026 15:03:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Eo2eYec3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 299191F000CF;
-	Wed, 25 Nov 2026 15:02:58 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jZy3+VnA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C7471F000C0;
+	Wed, 25 Nov 2026 15:03:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795618979;
-	bh=M9csYQyH9f8paD8Q/OLfAsoIpGfJ/VG9mvkQPRNY588=;
+	s=korg; t=1795618985;
+	bh=L72L/4RNg8bcdGiWi1VR/fQdQWqwCN3r+9SrBlyBO6k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Eo2eYec3wKoddPHWDKzIW5rGrx+brOs+q2N5QnuS3drQjzaCVRhPL2O93tc5ajkl8
-	 O4GT1SQmJ/3dBcj/X+pdmbazkrK8k7ZIc6AdVfzYQdm9Dh81wT2fTJzkRyQ2Aeqvlg
-	 KEbfoGLGmozYpon6qCCBGmfAON+Ze0NRMge2o1dg=
+	b=jZy3+VnAyNE87bPElBsN6D/nfcMrphjAycPERFtpIuLdt9I1ZwwdPF+JYXc3BLsbV
+	 t9oXwN2ma7FLRloGmpBd1qK83OmWebpf1kR7twgO/PNwiHmRFgMVQsBSIRyc0qmWQ+
+	 VnMnyhaG7+ajIbDz6PtDhL+RGIJCR76M9WASgWbo=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
-	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+	Stefano Munari <stefanomunari.sm@gmail.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0448/1005] ice: xsk: free stashed Rx frame when cleaning the ring
-Date: Wed, 25 Nov 2026 15:29:46 +0100
-Message-ID: <20261125143832.243198206@linuxfoundation.org>
+Subject: [PATCH 7.3 0450/1005] net: usb: lan78xx: resume phylink on non-reset USB resume
+Date: Wed, 25 Nov 2026 15:29:48 +0100
+Message-ID: <20261125143832.289276903@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
 References: <20261125143821.729802100@linuxfoundation.org>
@@ -63,57 +63,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 7.3-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+From: Stefano Munari <stefanomunari.sm@gmail.com>
 
-[ Upstream commit d5e7a86b7cd6c38a628635baace7eb2fdce14a43 ]
+[ Upstream commit be9587c47db16faaca5415f533637755c65a4eb0 ]
 
-ice_clean_rx_irq_zc() stashes a partially received multi-buffer frame
-in rx_ring->xsk, with its frags on pool->xskb_list. next_to_clean is
-already past its buffers, so ice_xsk_clean_rx_ring(), which walks
-next_to_clean..next_to_use, misses the frame, and ice_vsi_cfg_rxq()
-later clears the pointer via ring->xdp.data.
+lan78xx_suspend() calls phylink_suspend(dev->phylink, false) on an open
+interface, which always stops phylink and halts the PHY. The matching
+phylink_resume() is only called from lan78xx_reset_resume().
+When the USB device stays powered across system sleep (e.g. s2idle) and
+the USB core calls .resume instead, the link stays down until the interface
+is brought down and up by hand. The ifdown triggers:
 
-The buffers are lost to user space and, as the pool outlives the ring
-across ifdown/ifup or a reset, the stale frags are taken as frags of
-the next frame. Before commit 93f53db9f9dc ("ice: switch to Page
-Pool"), the frame was tracked by rx_ring->first_desc and leaked the
-same way.
+  WARNING: drivers/net/phy/phy.c:1670 at phy_stop+0x44/0xc8
+  called from state HALTED
 
-Free the stashed frame when cleaning the ring.
+Move phylink_resume() to the end of lan78xx_resume(), which both resume
+paths go through, and call it only if the resume succeeded and the
+interface was open, mirroring lan78xx_suspend(). As a side effect,
+lan78xx_reset_resume() no longer starts phylink on a closed interface.
 
-Fixes: 1bbc04de607b ("ice: xsk: add RX multi-buffer support")
-Signed-off-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Reviewed-by: Björn Töpel <bjorn@kernel.org>
-Link: https://patch.msgid.link/20261102124950.958345-9-maciej.fijalkowski@intel.com
+Tested on a Raspberry Pi 3B+ (LAN7515) with s2idle: the link now comes
+back up on its own after resume and ifdown no longer warns.
+
+Fixes: e110bc825897 ("net: usb: lan78xx: Convert to PHYLINK for improved PHY and MAC management")
+Signed-off-by: Stefano Munari <stefanomunari.sm@gmail.com>
+Tested-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Link: https://patch.msgid.link/20261102235133.23011-1-stefanomunari.sm@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/intel/ice/ice_xsk.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/net/usb/lan78xx.c | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/net/ethernet/intel/ice/ice_xsk.c b/drivers/net/ethernet/intel/ice/ice_xsk.c
-index bf14ed8f87a3b..0c1ce3e86a45b 100644
---- a/drivers/net/ethernet/intel/ice/ice_xsk.c
-+++ b/drivers/net/ethernet/intel/ice/ice_xsk.c
-@@ -912,6 +912,11 @@ void ice_xsk_clean_rx_ring(struct ice_rx_ring *rx_ring)
- 	if (xdp_rxq_info_is_reg(&rx_ring->xdp_rxq))
- 		xdp_rxq_info_unreg(&rx_ring->xdp_rxq);
+diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
+index af845623bf609..e170c1114d8f2 100644
+--- a/drivers/net/usb/lan78xx.c
++++ b/drivers/net/usb/lan78xx.c
+@@ -5370,6 +5370,12 @@ static int lan78xx_resume(struct usb_interface *intf)
+ out:
+ 	mutex_unlock(&dev->dev_mutex);
  
-+	if (rx_ring->xsk) {
-+		xsk_buff_free(&rx_ring->xsk->base);
-+		rx_ring->xsk = NULL;
++	if (!ret && dev_open) {
++		rtnl_lock();
++		phylink_resume(dev->phylink);
++		rtnl_unlock();
 +	}
 +
- 	while (ntc != ntu) {
- 		struct xdp_buff *xdp = *ice_xdp_buf(rx_ring, ntc);
+ 	return ret;
+ }
  
+@@ -5384,15 +5390,7 @@ static int lan78xx_reset_resume(struct usb_interface *intf)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = lan78xx_resume(intf);
+-	if (ret < 0)
+-		return ret;
+-
+-	rtnl_lock();
+-	phylink_resume(dev->phylink);
+-	rtnl_unlock();
+-
+-	return 0;
++	return lan78xx_resume(intf);
+ }
+ 
+ static const struct usb_device_id products[] = {
 -- 
 2.53.0
 
