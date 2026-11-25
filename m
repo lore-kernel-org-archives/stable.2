@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603109;
-	b=UvOk6hJvrU2Ztt8tUw6NM698lo6IyCJY8iN3xU5bDkzUCsDXMwiWn66c+HaJoj3BezxG
-	 U2/mYfzEGEq+edxYl/RjOgTyU8nX8ETr0vLdT2WUYbkYlmbUFdiOocCeN/Cf8AM5Kne4r
-	 DjMZYQX6xQEm/uICSPRFOClzYShL7EbCiXpcaA/o1LOwqUxBBpOjML9XzZtfBzmfPGD80
-	 g6EKd58HiIN8wfpYVLmKcEzo8PfTrhr8pWn9hVp0KG1i4MAaNIZa2p5ZGTOsLAjWZAUCs
-	 T7dTfd0M9msWZ16RDTiGtWRn0xlEy6zAHh5ucYCoqUm5bDj6Lj8lMuot+AEPPw3Ox9A==
+	t=1795603113;
+	b=mxiZyR0E+z6UBCl0jW/Lm/b6yirHy4iVHAi37JXD4uGQiZEg+inzihidQiIzszWHI4WN
+	 4XFDzIiTYXCo6fHJtq6cWSr460rN23I2DFB4sWChHqnK1tJ0jmzlcimOIbl/6jQz8heR4
+	 mqn4vuptbWQ1yQ0BI9OlRUH/agQ3wRsB0Rp3+7gtMe5+R+wgMHJGVmqknCriW7779nelb
+	 Q5m1eDgmxjoMr/+0R7pmuTEdpZWxKYTbPYeA9zUPCe96HV4MD8FuC8Wrf9lJdVXww8qwE
+	 y1WIx3wPlYUrDJ26UuAKMB6t8Zmg9cuYnDLN6mi0Q5z4/TevcpqoMFPPewAn+MHkxpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603109;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603113;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+WwTzE0cKsPaUEwsFKrrfVlVMfNH3E6Yi0bNWsZAiBU=;
-	b=EOTiwrvjbTeRg9IGjqQDTxlYpmp/wCHG09FsRH5V8uf2Ta9Z48rAgwQ5sGbVDCIlVwqo
-	 9aShvRioStyWjQLz2ngdufneUaHwZOr3M5sfqnOv9jQt6MOW/5D0HWoHBfgkhJ7ESeO43
-	 qkHBjl/do2J96HQn9GGWPWd8bPADPbc69ExNLBJIXHmHVQj8SJB/wAolyVySZX7RMbTna
-	 CVYNUMoToEKKbWVNUyO7Ql4wf33m3P0g5sG/7PZ+GcGEGZvg/Hw3rdrRjXNPIudznrpNU
-	 SKKr8NYATnYB3HGG77nQUv1EtX6hJaZoHtfh70NMj+ZxondnGAH3TXRi65aHvLdEQ7A==
+	bh=44nXhpxh85PdGT8ehDYyIr+spSK5wIQkQCzYKnGfgwU=;
+	b=Y92e0p3nUL4UH+YPPwPHTQYUsfJ6CWddjE2yom1RsrH2kyFzBy3i3OhuX+8tB6poBPV8
+	 6FUwzg5UfJ3OCZOLXviXXZRkIXDQAzLMabhY9LyGgeOYZihfNw9g9WIzG8Svw/i61YHXP
+	 jF0Cp4prGC0RlcKwqC5qot8aCdWfNfWHfQg5zv2IYNdyaPoSjYhmAer3W7qIDefAzVgcA
+	 Kzq7CntDStPFgIMsaxKaW96y80n9zFcA1nbWTtq21tKfPj5xqOe5ZWd/snUkKePhRYqdp
+	 w6Y6MKWxQRcwz0zMUN+NKjzD/0K+bDtceBP0x2gIt56DzyI1W36islYLB7BjVSnao0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GTIke2QU;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ajisYZGF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 678DD606A330
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:38:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1482606A32E
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:38:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GTIke2QU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9959C1F000D8;
-	Wed, 25 Nov 2026 10:38:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ajisYZGF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0A1D1F000CF;
+	Wed, 25 Nov 2026 10:38:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795603109;
-	bh=+WwTzE0cKsPaUEwsFKrrfVlVMfNH3E6Yi0bNWsZAiBU=;
+	s=korg; t=1795603112;
+	bh=44nXhpxh85PdGT8ehDYyIr+spSK5wIQkQCzYKnGfgwU=;
 	h=Subject:To:Cc:From:Date;
-	b=GTIke2QUp2dLfAl1GrXmbqo2id5OiWF/nrSj3jFFcUYp9unGrcHfcbpx5GETZlpU7
-	 AkS5fUrR9BQbQH8NSqTCXhcETWLRSmi8qsS8l8mgiM0VEw5ZaE6nevNyENzpG7yEpX
-	 1DT3nGI6tiKqv5kxTpscx01Xh5sUQe234ieDI9x8=
-Subject: FAILED: patch "[PATCH] ksmbd: pin parent dentries in SMB2 CREATE ACL path" failed to apply to 5.15-stable tree
-To: arpe1618@gmail.com,linkinjeon@kernel.org
+	b=ajisYZGFTkOwHCkA2Wh5/b1LJxeeSRQls6pJ24Plk3lVfgOKklxo1W1S/tpJbuPMg
+	 5ZNlPGYldyKn350kZxIXXgm0enFlU9IG0tivp4nLiNP2ByONkdU2JoAKfLODAI/vUV
+	 CXcGcYUvugVOarEm0b28b0HEiUXOq+BSezu9oBGk=
+Subject: FAILED: patch "[PATCH] ksmbd: refuse to read a handle that is not open for reading" failed to apply to 7.3-stable tree
+To: wahidzk0091@gmail.com,icb@fastmail.org,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 11:26:20 +0100
-Message-ID: <2026112520-subheader-ship-7f49@gregkh>
+Date: Wed, 25 Nov 2026 11:26:24 +0100
+Message-ID: <2026112524-enamel-landslide-2197@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 7.3-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0383a66dabd7aa06237b9b24713c03656abeffe4
+git cherry-pick -x 2fd145f8865bb1a6c38a3dc68fa44290008789d8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112520-subheader-ship-7f49@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112524-enamel-landslide-2197@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,134 +79,52 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0383a66dabd7aa06237b9b24713c03656abeffe4 Mon Sep 17 00:00:00 2001
-From: Jiwoo Kim <arpe1618@gmail.com>
-Date: Tue, 10 Nov 2026 16:24:05 +0900
-Subject: [PATCH] ksmbd: pin parent dentries in SMB2 CREATE ACL path
+From 2fd145f8865bb1a6c38a3dc68fa44290008789d8 Mon Sep 17 00:00:00 2001
+From: Wahid Khan <wahidzk0091@gmail.com>
+Date: Thu, 5 Nov 2026 23:08:38 +0530
+Subject: [PATCH] ksmbd: refuse to read a handle that is not open for reading
 
-smb2_open() and smb_inherit_dacl() read a child's d_parent without a
-dentry reference. A concurrent SMB request can move the child and
-remove the parent while CREATE uses its inode for permission, status,
-and ACL inheritance work. A remote SMB race with concurrent opener and
-mover connections on a writable KSMBD acl_xattr share triggered an
-8-byte slab-use-after-free read in get_cached_acl on tmpfs and ext4
-KASAN guests. With oops=panic, it also caused an Oops and kernel panic
-on an ext4 guest.
+smb2_create_open_flags() picks the open mode from the read and write
+bits of the desired access. FILE_EXECUTE and FILE_READ_ATTRIBUTES select
+neither, so a request for FILE_WRITE_DATA | FILE_EXECUTE |
+FILE_READ_ATTRIBUTES opens the file O_WRONLY.
 
-Take a parent dentry reference around each parent inode or ACL access
-in these paths and release it when the operation completes. Treat a
-negative parent dentry as -ENOENT for the affected operation.
+smb2_read() accepts FILE_READ_ATTRIBUTES and ksmbd_vfs_read() accepts
+FILE_EXECUTE, so a later READ on that handle passes both checks and
+reaches __kernel_read() on a file that has no FMODE_READ:
 
-On a tmpfs KASAN QEMU guest, two 3,000-round reproducer instances
-completed without a KASAN report or Oops; SMB remained reachable. On
-an ext4 non-KASAN QEMU guest with oops=panic, a 2,000-operation no-race
-control and two 5,000-round reproducer instances completed without an
-Oops or panic. An SMB health probe still succeeded.
+  WARNING: fs/read_write.c:518 at __kernel_read
+   __kernel_read
+   ksmbd_vfs_read
+   smb2_read
+   handle_ksmbd_work
 
-OpenAI Codex assisted with finding the bug, generating the SMB race
-reproducer, drafting this fix and changelog, and running the tests.
+Any client that can open a file with write access on a share, including
+a guest session, can trigger it; with panic_on_warn it takes the machine
+down.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@kernel.org
-Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
+Return STATUS_ACCESS_DENIED when the file is not readable.
+
+Fixes: f44158485826 ("cifsd: add file operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
+Reviewed-by: Ian Bridges <icb@fastmail.org>
+Tested-by: Ian Bridges <icb@fastmail.org>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 72981756ee23..b03f0287d4d5 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -4969,16 +4969,32 @@ int smb2_open(struct ksmbd_work *work)
+diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
+index 1f2bc76f0d09..cb3f4f5fe9cf 100644
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@ -367,6 +367,10 @@ int ksmbd_vfs_read(struct ksmbd_work *work, struct ksmbd_file *fp, size_t count,
+ 	if (ksmbd_stream_fd(fp))
+ 		return ksmbd_vfs_stream_read(fp, rbuf, pos, count);
  
- 			if ((daccess & FILE_DELETE_LE) ||
- 			    (req->CreateOptions & FILE_DELETE_ON_CLOSE_LE)) {
--				rc = inode_permission(idmap,
--						      d_inode(path.dentry->d_parent),
--						      MAY_EXEC | MAY_WRITE);
-+				struct dentry *parent = dget_parent(path.dentry);
-+				struct inode *parent_inode = d_inode(parent);
++	/* The access granted on open can include FILE_EXECUTE for a write-only file */
++	if (!(filp->f_mode & FMODE_READ))
++		return -EACCES;
 +
-+				if (parent_inode)
-+					rc = inode_permission(idmap, parent_inode,
-+							      MAY_EXEC | MAY_WRITE);
-+				else
-+					rc = -ENOENT;
-+				dput(parent);
- 				if (rc)
- 					goto err_out;
- 			}
- 		}
- 	}
- 
--	rc = ksmbd_query_inode_status(path.dentry->d_parent);
-+	{
-+		struct dentry *parent = dget_parent(path.dentry);
-+
-+		if (!d_inode(parent)) {
-+			dput(parent);
-+			rc = -ENOENT;
-+			goto err_out;
-+		}
-+		rc = ksmbd_query_inode_status(parent);
-+		dput(parent);
-+	}
- 	if (rc == KSMBD_INODE_STATUS_PENDING_DELETE) {
- 		rc = -EBUSY;
- 		goto err_out;
-@@ -5061,10 +5077,17 @@ int smb2_open(struct ksmbd_work *work)
- 	if (created) {
- 		int posix_acl_rc;
- 		struct inode *inode = d_inode(path.dentry);
-+		struct inode *parent_inode;
-+		struct dentry *parent;
- 
--		posix_acl_rc = ksmbd_vfs_inherit_posix_acl(idmap,
--							   &path,
--							   d_inode(path.dentry->d_parent));
-+		parent = dget_parent(path.dentry);
-+		parent_inode = d_inode(parent);
-+		if (parent_inode)
-+			posix_acl_rc = ksmbd_vfs_inherit_posix_acl(idmap, &path,
-+								   parent_inode);
-+		else
-+			posix_acl_rc = -ENOENT;
-+		dput(parent);
- 		if (posix_acl_rc)
- 			ksmbd_debug(SMB, "inherit posix acl failed : %d\n", posix_acl_rc);
- 
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 1b387c262d59..a81f17fa725a 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -7,6 +7,7 @@
-  */
- 
- #include <linux/fs.h>
-+#include <linux/dcache.h>
- #include <kunit/visibility.h>
- #include <linux/slab.h>
- #include <linux/string.h>
-@@ -1207,7 +1208,7 @@ int smb_inherit_dacl(struct ksmbd_conn *conn,
- 	struct smb_acl *parent_pdacl;
- 	struct smb_ntsd *parent_pntsd = NULL;
- 	struct smb_sid owner_sid, group_sid;
--	struct dentry *parent = path->dentry->d_parent;
-+	struct dentry *parent;
- 	const struct mnt_idmap *idmap = mnt_idmap(path->mnt);
- 	int inherited_flags = 0, flags = 0, i, nt_size = 0, pdacl_size;
- 	int rc = 0, pntsd_type, ppntsd_size, acl_len, aces_size;
-@@ -1217,8 +1218,14 @@ int smb_inherit_dacl(struct ksmbd_conn *conn,
- 	char *aces_base;
- 	bool is_dir = S_ISDIR(d_inode(path->dentry)->i_mode);
- 
-+	parent = dget_parent(path->dentry);
-+	if (!d_inode(parent)) {
-+		dput(parent);
-+		return -ENOENT;
-+	}
- 	ppntsd_size = ksmbd_vfs_get_sd_xattr(conn, idmap,
- 					    parent, &parent_pntsd);
-+	dput(parent);
- 	if (ppntsd_size <= 0)
- 		return -ENOENT;
+ 	if (!fp->is_posix_ctxt) {
+ 		int ret;
  
 
