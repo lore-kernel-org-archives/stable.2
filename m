@@ -1,61 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795603223;
-	b=ohUn2tYxcpdvg2BMi8r31nkO5W6bVjJ0fMxBnO9NLgq3+xazjmWCun0IcHqgQAEDLoq/
-	 e4PU17zBS7cfXA5UvaX0TlSCeiPPrxBTB1M+9ca7ayApm0g6RyuNzwkZWhx9rRYg8saL0
-	 Dz5a/0eCEb/dRqda+aSpFB8zihRbKyXsD7/UWCYI2twCrQqtUc4T1iBoqKiwjG9F9rXuh
-	 C8zXHysB5Yi7ik3B9Tzoz4ILfgIa2Fk1bl1Ls8HpMzVAEyQZuSyZkQW/RcJeJJWsvIib2
-	 TneQg66RjIJWbrQlh1BquG2Vf1Pd4xPEQQ74wdnw3IKPnp/56Wrzb18su4FRownOmbA==
+	t=1795603225;
+	b=xYiZFfmJoEEGj5HfFIw49s/LH6RE2iN8gI40zW/YxEub5dSBQCjD/uUk4hr4aKIYNM/3
+	 HbpBTCMI261YmooeH2MGytTgX2ex0/2rp1sjjeeyNkppObfGdY4TXXGIVVVVoSjJyAyYO
+	 Eo633as5nGNvNWLZKsexvI0NNZUDLThFqbl8BGufdF5g4DOAvkWI3o4a0J4NMKLCoIDo7
+	 eMCCsBCi/axMBHkyNR39X8900b1y7QzfLgTHCFGCL/xfaRAtBdX12wr8oGpSbD2aiD0Vo
+	 Wt9DQr8DQMvJ4JwDd935Ekwx12N1mgv7Qk4DgdERBoYAI7Dhm6sIcxAAhUfPUdlg+Ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795603223;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=34E+JD94HLu2tQOT261thhU4F4zT9kW4NNRZx9aDA0o=;
-	b=PKrktkDJStugOaLq4EOTZEVensQ/tjJJVHspaz/bY7830D4sMnSG74TNHfWGrhmQDxU0
-	 6LMe9FObuuti6AvZUk8qk0jIcN5tfUeUecuNeNm0DyLEAuMUWSOBZHVmjkjdf9d7MJNs0
-	 luGKQMS0ARPNBZAqI+i3nmE+I0VJRQD0o94mMnt9Ernp7sMS7lP+H7ZJJcndxr8t6xGUG
-	 y9LzxY7r7yyFVyf/LjYodH83VXqmgsBQj1DfFVM9JgQxM3mSyMC1/FtAMIX9Z+W9qINUl
-	 C9OipFnamwwwE6qS5m58cPog1Iy0PEE6rddJmvmw88i7MD+7GWGQbTM+7M33gHU3L7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795603225;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=XNAnCf3O6GZwQzAaXCh3vmXbcKDkTdnJ6nz/uBPrygg=;
+	b=0ttZOnpYWeKl6I58COTE4QhgqN1ZC/gvoL+hEFzIkTc1kDDDRBsrUSKGtGiEJd6w/drB
+	 QdNYwzRaCnImVPh2lVvHYatSCs0mHltRIxesZJnT8rZzhcZb+c0fWUngwykFgHVxTbllM
+	 MSrr/S+ye6aUa6ibt1B/9Pow7etMahenQuyCmVhjbuYUBa1AUPJ1qP97Fe+kTDKmxSW6P
+	 ikAkh4gohu/usA+MgnYgBrKLdpNZEp9zGajNlOCianGy/aOurI9Efl5NbbxvmjBvWAbKP
+	 sjmGJNx5J01FCdlfrIRRe2OYSguclLdDeGUPcCmTGw4avQ6ViNKPZf1bbHhFa3KypMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=l8mmBT7X;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gWrJSq67;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2453F606A31E
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:40:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2453F606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3AE3606A327
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:40:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=l8mmBT7X
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=34E+
-	JD94HLu2tQOT261thhU4F4zT9kW4NNRZx9aDA0o=; b=l8mmBT7XZj6ypCWdj5kB
-	YJ1PzztPYgyH9gCD0lPrnZSR9TY2N0DxnZwVQEwxvWa+OU8l3KYa8j9rrjISygcR
-	iCMVBUhMwPef/FpHJACfPbHGhZ5naoEG6czTIL5lvLFw1GSot6pWDyFmXdQBOORQ
-	Z02YeT4NtgjaZCulTGLRSEEYDd0PVfHb5DoT1FLqI/MR3C3ALb93ZQ/gL0mBYUHP
-	eOfHEnxdVkqq/oWekyI5n95buYF4pzGOSL6Pgtvf2fB9EKqAnkXPVwdTYRgU8ISi
-	Cyp9n/tYj2Tpl8tnarE79a/sUF1aoVWJ6Ps8BLt1uzvWD4pRsOffqJkNiMW6XZJl
-	gA==
-Received: (qmail 881287 invoked from network); 25 Nov 2026 11:40:11 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 25 Nov 2026 11:40:11 +0100
-X-UD-Smtp-Session: l3s3148p1@Q3OWcxdhlMAujnvc
-Date: Wed, 25 Nov 2026 11:40:11 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Diogo Ivo <diogo.ivo.sx@renesas.com>
-Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, linux-i3c@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] i3c: renesas: Fix MDYAD(x) field length
-Message-ID: <awa7C9LO_9Gr8htO@ninjato>
-References: <20261001-divo-ssgrlpcsrc-2966-i3c_mdyad-v1-1-2250225e6d20@renesas.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gWrJSq67
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7D361F000CA;
+	Wed, 25 Nov 2026 10:40:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795603224;
+	bh=XNAnCf3O6GZwQzAaXCh3vmXbcKDkTdnJ6nz/uBPrygg=;
+	h=Subject:To:Cc:From:Date;
+	b=gWrJSq67Qzyht9PinYwMGdwCzaWCGfRWwdMM2Uw+uKUrusG6XSJGxLHvRgMr3qdFm
+	 Vm7b75R28obJEHqHZ51RRffmplMXJZvyWUSZGwEr0UKuSInr/fx3qlMnWMu+Z8z9Q+
+	 WePaLLXImxCgeHHFs2S0oDuvUGoYgUf0NkeJvowg=
+Subject: FAILED: patch "[PATCH] wifi: nxpwifi: guard the 11ax response handlers against a" failed to apply to 7.3-stable tree
+To: yhlee@isslab.korea.ac.kr,jeff.chen_1@nxp.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 25 Nov 2026 11:30:54 +0100
+Message-ID: <2026112554-preteen-repaying-2352@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,21 +51,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001-divo-ssgrlpcsrc-2966-i3c_mdyad-v1-1-2250225e6d20@renesas.com>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 01, 2026 at 04:10:09PM +0100, Diogo Ivo wrote:
-> Fix the length of the MDYAD(x) macro to be 7 bits as it represents an
-> I3C address, which is 7 bits. The length of this field was confirmed on
-> the documentation of the RZ/G3{E,L,S} SoCs.
-> 
-> Fixes: d028219a9f148 ("i3c: master: Add basic driver for the Renesas I3C controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
 
-This is true for R-Car X5H as well. Thanks!
+The patch below does not apply to the 7.3-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git checkout FETCH_HEAD
+git cherry-pick -x 6a5cf549f4dcbd502db8cd00c5f49d20a2b9648f
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112554-preteen-repaying-2352@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 6a5cf549f4dcbd502db8cd00c5f49d20a2b9648f Mon Sep 17 00:00:00 2001
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Date: Tue, 20 Oct 2026 09:50:25 +0900
+Subject: [PATCH] wifi: nxpwifi: guard the 11ax response handlers against a
+ detached command buffer
+
+nxpwifi_wait_queue_complete() clears curr_cmd->data_buf when a
+synchronous command is interrupted, but nxpwifi_process_cmdresp() still
+hands that field to the response handler. The three handlers in 11ax.c
+store through it without checking, so a late response oopses.
+
+Check the buffer first and return 0 when it is NULL, as the sta_cmd.c
+handlers that commit 068986fd6f2a5 ("wifi: nxpwifi: detach sync command
+buffer on interrupted wait") covers already do.
+
+This is a local denial of service: it needs an interrupted synchronous
+command and a late response, both on the local host.
+
+Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Reviewed-by: Jeff Chen <jeff.chen_1@nxp.com>
+Signed-off-by: Jeff Chen <jeff.chen_1@nxp.com>
+
+diff --git a/drivers/net/wireless/nxp/nxpwifi/11ax.c b/drivers/net/wireless/nxp/nxpwifi/11ax.c
+index dc1e747383ec..7e9127ae2f42 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/11ax.c
++++ b/drivers/net/wireless/nxp/nxpwifi/11ax.c
+@@ -205,9 +205,13 @@ int nxpwifi_ret_11ax_cfg(struct nxpwifi_private *priv,
+ 	struct host_cmd_11ax_cfg *he_cfg = &resp->params.ax_cfg;
+ 	struct nxpwifi_ie_types_header *header;
+ 	u16 left_len, tlv_type, tlv_len;
++	struct nxpwifi_11ax_he_cap_cfg *he_cap;
+ 	u8 ext_id;
+-	struct nxpwifi_11ax_he_cap_cfg *he_cap = &ax_cfg->he_cap_cfg;
+ 
++	if (!ax_cfg)
++		return 0;
++
++	he_cap = &ax_cfg->he_cap_cfg;
+ 	left_len = le16_to_cpu(resp->size) - sizeof(*he_cfg) - S_DS_GEN;
+ 	header = (struct nxpwifi_ie_types_header *)he_cfg->tlv;
+ 
+@@ -346,6 +350,9 @@ int nxpwifi_ret_11ax_cmd(struct nxpwifi_private *priv,
+ 	struct host_cmd_11ax_cmd *he_cmd = &resp->params.ax_cmd;
+ 	struct nxpwifi_ie_types_data *tlv;
+ 
++	if (!ax_cmd)
++		return 0;
++
+ 	ax_cmd->sub_id = le16_to_cpu(he_cmd->sub_id);
+ 
+ 	switch (ax_cmd->sub_command) {
+@@ -584,6 +591,9 @@ int nxpwifi_ret_twt_cfg(struct nxpwifi_private *priv,
+ 	struct host_cmd_twt_cfg *twt_cfg_cmd = &resp->params.twt_cfg;
+ 	u16 action;
+ 
++	if (!twt_cfg)
++		return 0;
++
+ 	action = le16_to_cpu(twt_cfg_cmd->action);
+ 	twt_cfg->sub_id = le16_to_cpu(twt_cfg_cmd->sub_id);
+ 
 
