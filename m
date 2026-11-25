@@ -1,58 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795624367;
-	b=Syn5UG3WeHuflizCt7YRT8d5y3yipraGpR8BkkIwDzOJgECZIzr04ad4TfOI8PD2bA2t
-	 dFu6MRx2Y98TgKN6ra/uaTzpwHmVnljMLZ6ukgENYv2MDw/tbZao8rMOg1dycx9FSz9yG
-	 qeoKzCjy17rcyUo7CfnF2L05oATkDuV2B8dmVpITEyvJoHq2l8EIHoo7/piQhL6IV44y0
-	 Nr1XX0fOda0YmNCuiNc+SeRRn1L8lWos0GAd55emtjVwZjtM0u4CF4mMRiRdwoL/Odr+T
-	 TUMRUQtkIN+mq9/dTPfyGglv87Nuc3aFeOR5N7lL93Y1lK5ncvHT7uazqQ5z1m/OhBw==
+	t=1795624369;
+	b=j+QRKzMsz4IytmmPSw33Q5U7dVZOky2+1EqLxoVXC9ZA3AhwqT9PNWnLT4JG+jN6NQr1
+	 +Jqqbc4zapYcZUT7kXnpcqhZp2z9l38WIzg+q56pz4eTGSYBCChd9fcVxikZm+C3e5/Ac
+	 BmHRq9i0ZZidzbiM8oCCq90HjLbiuYrQVNSvWCR/9PWC1lMeqFygvtppyyb6Ro7R877HE
+	 t5iBeVl0pLrPsGZJidpnK0kVYXewRvOKEO3CLI5n9pTKXxEAbKdFoTCOTVrLhKvSYwotw
+	 JDEqBHyiWp/iNZsJhZ4+fpxrdxlPUtARE4lKHGNpM4BS8xCeZy52B6FZ0yrBnA+Reng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795624367;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Tpc+c1JKjwajDujcqFYVLPPOSOTGZHUbZ2rja3zl3eg=;
-	b=O2Ro+v6W+w8GfSQsyyQyroRevGgik+18qpmn6lh5wZYmuiRy3sSskn0eZ3oBhIgGxtXy
-	 1Doh2apXofas2GWkz8XWCyyHqmF5NUwDy1rFPIScXZEgi4gEjGKZXI8VuzJbV2VpwsP4T
-	 QJjYbPgrhUFLx+JDniccZOEJnq7C5XFaChDvYMDac6k6oreRYlQBnnUAz5F6C01McEjvV
-	 zdCWyAhcvOew5aK5mFXiu056kVt0IA+aUiOusDEmg3JhGmEXfBzwepqFwiA8mJdhAzwHT
-	 Shm0GAaSztS96tsAGJ6y0NXsswgNU3P5qfvxgx9dMTHBTJBumHJOKissu9QBaif1dzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795624369;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=fjeXOElCViRQmgZvgDDdONv2Uyhg+At7B3MV4y/CS3E=;
+	b=mG41ENtkU2CM/9LcQtXCrX3aC5domhiVHYvbR74IWY7AfGE2ZlQXtfzInj/UvYliwSYr
+	 6QTL30cMQIXvs/h8+XWfXdgotbXv8wZUHVCVG8sw7ROE6TYYUoCD8Jz9nCm+C9VP4YwT5
+	 B5cV+CAyyaoOIvt/s2+EJBgGemZ57wF6cKTRh5aaU+rcmem+7uWcPoXuZ8sIYDRhLLuA9
+	 bnCCXK5ArBGMAjw1G+PpE+mh4iGa+YCuzZHeZtWYOC3MUUTCCi/Y3sXZ9RaFh/y5Ny6h+
+	 9WpuuZdcchebHgFHHhIQVegmDhM38UPo36W+dUyiS/fMRNv6dUUwAggaLDHdWPsSDnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Nj8F3DAx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OeYV92tR;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7105606A338;
-	Wed, 25 Nov 2026 16:32:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44B9606A339
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:32:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D44B9606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Nj8F3DAx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28FA01F000CA;
-	Wed, 25 Nov 2026 16:32:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795624366;
-	bh=Tpc+c1JKjwajDujcqFYVLPPOSOTGZHUbZ2rja3zl3eg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Nj8F3DAxqTNLcn3gqajZd7nP/C+OXCUvivG3uAwdLUvd+T1LA4C7cjx5gBFIqSgTl
-	 JtpE4v5Y/elkcZkWtAvaHIlKQj4qOfPMDn3bWY3ccgNgDRrmMP0tkvm3ioN1G600YW
-	 HwQZudANkeqL60kFJXAu9qfVGRyG+5ULyPHjAQ+M=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Kevin Dewald <kevin@simpleble.org>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 168/816] Bluetooth: MGMT: Fix discovery stuck after a failed Stop Discovery
-Date: Wed, 25 Nov 2026 15:28:36 +0100
-Message-ID: <20261125143853.083515570@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
-References: <20261125143849.205329330@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OeYV92tR
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so51075065e9.2
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 08:32:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795624367; x=1796229167; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fjeXOElCViRQmgZvgDDdONv2Uyhg+At7B3MV4y/CS3E=;
+        b=OeYV92tRoy3r9HM1arkFD4XQZAtUvBnArRdHX3S+tRAhPlHWD42AGwa0CbMKQhe1A8
+         hpFCCQOqCtJtMB3yL2tkM9ewgVf+3TQlOdTOcVE8tVzC/N4x8FroFZ+4s1KkyyMRvvb9
+         qO/v6gwiQ8v90pSSZhqvkv6IYdGMj5DDlM7FngblUIRRPd38C+Ed/z1fWqykg5LOt0Fa
+         vY3HRgF55bzfsCw87qYRanRQB1D1EbX5syTy7RO3nqaT0AQpETdCfqNcTUPneuz5hpf8
+         oU2uS23TLTIxbKspf8f5Yv9TS0g8f5S3dwLjkUQ1/P0pAemljB7Z3QkJDb+uUFDaiQpz
+         UQNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795624367; x=1796229167;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fjeXOElCViRQmgZvgDDdONv2Uyhg+At7B3MV4y/CS3E=;
+        b=bQmnHMvDnRyoqAczfL2g8jyPPY1HjSdjy7ZAFILgrT+THCFIDIrxDga0kDi46lc4zL
+         t+ydcRNY/nm22XRXzmJCAHCrkjn6oOuyoNPb8+ycBLLofHgmC7TKfLNhxhET6+5tRECS
+         4jesRlg9Wx+DQv9kVJx+EMMuSoMAX+zxJ1zzoi92GW11NgL3ZAmFtMJEpAz+rLvOV/8h
+         i54flzjTElvvWT5UaKug/OQN7JcZVOcroSQWR/qtdRrM9yGTorN7AUL5wq/HimUd0F82
+         TtZm0YyYJqDV6WlT5ByFxcGiRzsez1vsGItOotCPLGe7c25p09ChOaC0H+fG6hFTYhal
+         CH9Q==
+X-Forwarded-Encrypted: i=1; AL+hErFEJSDUtAy6dCdZ9n6i7yqp+8Ch76PSj/7E8tsEtIGp4mXH+sGefAHtS+x9fNdLyxlB7pBA/Ts=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/TcW+XiaLENebBZOlyabRwjGMlxu9wiFqOFrSrC/s6TwBlKbOl
+	SMFETiTMOhg0To4g/slItvfLeS1XIMfHkmk3NQY8aFIXNVEXxNu/Bw8P
+X-Gm-Gg: AZFdTZeF2kqaK7jxg1ijJnjnFF8UEB65sBF4fiA6gewXuirpa0ZHrQutM27Vl8do8cE
+	979QSBn0nrbGhvkqrxcTPwcUeIf2Au3qS2Ucsr+PLlix7IrPinyWBbs9I6RR2ywGRc1Cp3Jb0WJ
+	NMyb7iZGV/qYZWe3EL3ZEbGJcDPhyxows6W0WPRuHZTiRhqCy3LgVJYLEinSxMIO81abJexLI8b
+	tUdfr40UDs1i9J8mk0LQNHEywKv+Auz9nWo88UAk8hqXIZ3pcC2+cHzr8+fHxSYs+PynwhN3oJV
+	5GuxfLwGJUi3ugQusnTfaT9uJrUg26E0ueJf7mQ9h+acIYUiBITuiUgVM5gq+5usoSy/WinZq22
+	WOBHGd5XnsHtz2K5uIBNw1pwnUJczphd2F+y3WaDv8h4YfzcKlXmLQrICTsDfAzyXglgKi7fQs3
+	JyTfaKcoMDgudoEffiV5Puj4roCu5hPA4cu3m2XQlqnwHCxn0CQ9hhlDKX5kQsQKPdbDLHUc6zq
+	flX174UcQvO+RjbbLVrhzLqzHeVrP/r9hyiKs57BZEtwsujowyDXWvh2NRfvHhjxLXBIipa0RSf
+	mDNyeFfMsF0Y4ALjWHGcXteVoSsqvX6o2HwDfWe0jB4929LgV1FGSt4qO1AToqRoUapmay4eenk
+	g325w9Kw2s9/JOnOgSQSwvgf2JdtCbal+NLqTeyr+O3WZMFnEOfj2Lftujks+nJB/qX5MbnpBB4
+	i2mjMqTP/na0I5qyMQhaBiJ/bLIkvV0lDTl0cKPttsN9LNN96LDzVXXvBWXORRWXRncgANpebma
+	c+A1HoA84/kuXpQwyEEkUkR1Y0rzUQTfEn4wqjG8aoNRAj5XEScnpK0FwDDtmyWCNhEIqpxaFUg
+	ts/N7p+2
+X-Received: by 2002:a05:600c:800e:b0:4bb:7757:fe58 with SMTP id 5b1f17b1804b1-4bb8881b9d7mr381679255e9.19.1795624366963;
+        Wed, 25 Nov 2026 08:32:46 -0800 (PST)
+Received: from jernej-laptop.localnet (77-38-7-250.dynamic.telemach.net. [77.38.7.250])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853a12acsm560493135e9.8.2026.11.25.08.32.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 08:32:46 -0800 (PST)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Liu Ying <victor.liu@nxp.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Chen-Yu Tsai <wenst@chromium.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-sunxi@lists.linux.dev,
+ imx@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject:
+ Re: [PATCH RFT v3 3/5] drm/sun4i: layers: Fix VI buffer address for clipped
+ offsets
+Date: Wed, 25 Nov 2026 17:32:45 +0100
+Message-ID: <sBipOLw6T_aZ1e-H2zFl3g@gmail.com>
+In-Reply-To: <20261124074041.115251-4-wenst@chromium.org>
+References:
+ <20261124074041.115251-1-wenst@chromium.org>
+ <20261124074041.115251-4-wenst@chromium.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,182 +114,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+Dne torek, 24. november 2026 ob 08:39:31 Srednjeevropski standardni =C4=8Da=
+s je Chen-Yu Tsai napisal(a):
+> Commit 79ac1c945ab8 ("drm/sun4i: layers: Use drm_fb_dma_get_gem_addr() to
+> get display memory") dropped the code to calculate the framebuffer's DMA
+> address in favor of drm_fb_dma_get_gem_addr().
+>=20
+> This turned out to be wrong in a couple ways. The hardware is programmed
+> with clipped dimensions, so it needs the buffer address to start at the
+> clipped boundary. Moving to the helper negated the clipping. Also, when
+> clipping on the left, the buffer address needs to start at the first
+> pixel in the sub-sampling group even for the luma plane. The hardware
+> handles the interpolation internally.
+>=20
+> Switch to the new drm_fb_dma_get_gem_clipped_addr(), which provides the
+> buffer address starting at the clipped boundary. Calculate the intra-group
+> offset and adjust the luma plane buffer address so that it points to the
+> start of the sub-sampling group.
+>=20
+> Fixes: 79ac1c945ab8 ("drm/sun4i: layers: Use drm_fb_dma_get_gem_addr() to=
+ get display memory")
+> Cc: <stable@vger.kernel.org> # v7.1+, needs drm_fb_dma_get_gem_clipped_ad=
+dr()
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> ---
+> This is an alternative to Jernej's original revert:
+> https://lore.kernel.org/all/3980ea1aeb3f7fe8b4700e36560deeba3d050664.1785=
+772659.git.jernej.skrabec@gmail.com/
+> ---
+>  drivers/gpu/drm/sun4i/sun8i_ui_layer.c |  2 +-
+>  drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 16 +++++++++++++++-
+>  2 files changed, 16 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c b/drivers/gpu/drm/sun=
+4i/sun8i_ui_layer.c
+> index f9c7f28f9fa2..67cce1b0e70f 100644
+> --- a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
+> +++ b/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
+> @@ -130,7 +130,7 @@ static void sun8i_ui_layer_update_buffer(struct sun8i=
+_layer *layer,
+>  	ch_base =3D sun8i_channel_base(layer);
+> =20
+>  	/* Get the start of the displayed memory */
+> -	dma_addr =3D drm_fb_dma_get_gem_addr(fb, state, 0);
+> +	dma_addr =3D drm_fb_dma_get_gem_clipped_addr(fb, state, 0);
+> =20
+>  	/* Set the line width */
+>  	DRM_DEBUG_DRIVER("Layer line width: %d bytes\n", fb->pitches[0]);
+> diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun=
+4i/sun8i_vi_layer.c
+> index 4d3fc03f9877..b6796416d550 100644
+> --- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+> +++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+> @@ -205,7 +205,21 @@ static void sun8i_vi_layer_update_buffer(struct sun8=
+i_layer *layer,
+> =20
+>  	for (i =3D 0; i < format->num_planes; i++) {
+>  		/* Get the start of the displayed memory */
+> -		dma_addr =3D drm_fb_dma_get_gem_addr(fb, state, i);
+> +		dma_addr =3D drm_fb_dma_get_gem_clipped_addr(fb, state, i);
+> +
+> +		/*
+> +		 * The mixer can handle odd offsets into sub-sampled YUV
+> +		 * planes, but needs the address of the first pixel in each
+> +		 * sub-sampled block. Adjust the luma buffer address backwards.
+> +		 */
+> +		if (i =3D=3D 0) {
+> +			u32 x_diff, y_diff;
+> +
+> +			x_diff =3D (state->src.x1 >> 16) & (format->hsub - 1);
+> +			y_diff =3D (state->src.y1 >> 16) & (format->vsub - 1);
+> +			dma_addr -=3D y_diff * fb->pitches[i];
+> +			dma_addr -=3D x_diff * format->cpp[i];
+> +		}
 
-------------------
 
-From: Kevin Dewald <kevin@simpleble.org>
+This could be done differently.
 
-[ Upstream commit 60b10121db602a43ada3dbc39792bbf93d25991b ]
+Before for loop (done only once):
+src_x =3D (state->src.x1 >> 16) & ~(format->hsub - 1);
+src_y =3D (state->src.y1 >> 16) & ~(format->vsub - 1);
 
-Stop Discovery moves the discovery to DISCOVERY_STOPPING, and
-stop_discovery_complete() only moves it on to DISCOVERY_STOPPED when
-stopping succeeded. When it fails, for example because LE Set Scan
-Enable times out, nothing moves the discovery out of
-DISCOVERY_STOPPING: Stop Discovery is rejected, as the discovery is not
-active anymore, and the LE scan timeout was cancelled before the scan
-was disabled. Until the controller is powered off, every Start
-Discovery then fails with Busy, and hci_update_passive_scan_sync()
-skips background scanning, so devices set to auto-connect are not
-connected anymore.
+Inside for loop:
+gem =3D drm_fb_dma_get_gem_obj(fb, i);
+dma_addr =3D gem->dma_addr + drm_framebuffer_get_block_offset(fb, i, src_x,=
+ src_y);
 
-Move the discovery back to DISCOVERY_FINDING when stopping it failed
-while its inquiry or active LE scan is still running, so that it can be
-stopped again. Only change the state while the discovery is still
-stopping, as Inquiry Cancel may already have stopped it, for example
-when only the passive scan could not be disabled, and a new Start
-Discovery may have followed. Do this under hci_dev_lock(), like the
-command completions that change these flags, and before replying, so
-that a client acting on the reply sees the new state. Only cancel the
-LE scan timeout once the scan is disabled, so that the discovery still
-ends on its own, except when suspending, where it is still cancelled
-first.
+But it works in any case, so:
+Tested-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-A timed out LE Set Scan Enable can still complete afterwards, which
-cancels the timeout as well, so also stop the discovery when its scan
-is disabled while the timeout is pending, or while the timeout work
-waits for the lock.
+Best regards,
+Jernej
 
-Fixes: 0e05bba6f6f8 ("Bluetooth: Update stop_discovery to use HCI request")
-Assisted-by: Claude:claude-opus-5.5
-Signed-off-by: Kevin Dewald <kevin@simpleble.org>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/bluetooth/hci_event.c | 12 +++++++++++-
- net/bluetooth/hci_sync.c  | 26 +++++++++++++++++++++++---
- net/bluetooth/mgmt.c      | 23 ++++++++++++++++++++---
- 3 files changed, 54 insertions(+), 7 deletions(-)
+> =20
+>  		/* Set the line width */
+>  		DRM_DEBUG_DRIVER("Layer %d. line width: %d bytes\n",
+>=20
 
-diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-index 9e5b71786122e..1fb641656fe0a 100644
---- a/net/bluetooth/hci_event.c
-+++ b/net/bluetooth/hci_event.c
-@@ -1759,6 +1759,8 @@ static void store_pending_adv_report(struct hci_dev *hdev, bdaddr_t *bdaddr,
- 
- static void le_set_scan_enable_complete(struct hci_dev *hdev, u8 enable)
- {
-+	bool timeout_pending;
-+
- 	hci_dev_lock(hdev);
- 
- 	switch (enable) {
-@@ -1788,10 +1790,18 @@ static void le_set_scan_enable_complete(struct hci_dev *hdev, u8 enable)
- 		/* Cancel this timer so that we don't try to disable scanning
- 		 * when it's already disabled.
- 		 */
--		cancel_delayed_work(&hdev->le_scan_disable);
-+		timeout_pending = cancel_delayed_work(&hdev->le_scan_disable);
- 
- 		hci_dev_clear_flag(hdev, HCI_LE_SCAN);
- 
-+		/* The scan of a discovery was disabled before its timeout,
-+		 * for example by a Stop Discovery that timed out and still
-+		 * completed, so nothing else would end the discovery.
-+		 */
-+		if (timeout_pending &&
-+		    hdev->discovery.state == DISCOVERY_FINDING)
-+			hci_discovery_set_state(hdev, DISCOVERY_STOPPED);
-+
- 		if (hdev->discovery.type == DISCOV_TYPE_INTERLEAVED &&
- 		    test_bit(HCI_QUIRK_SIMULTANEOUS_DISCOVERY, &hdev->quirks) &&
- 		    !test_bit(HCI_INQUIRY, &hdev->flags) &&
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index d0ae0e01c52f7..e51af37b10152 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -376,8 +376,18 @@ static void le_scan_disable(struct work_struct *work)
- 	bt_dev_dbg(hdev, "");
- 	hci_dev_lock(hdev);
- 
--	if (!hci_dev_test_flag(hdev, HCI_LE_SCAN))
-+	if (!hci_dev_test_flag(hdev, HCI_LE_SCAN)) {
-+		/* The scan of a discovery can be disabled while this work
-+		 * waits for the lock, for example by a Stop Discovery that
-+		 * timed out and still completed, so end the discovery as
-+		 * le_set_scan_enable_complete() does when it cancels this
-+		 * work.
-+		 */
-+		if (hdev->discovery.state == DISCOVERY_FINDING)
-+			goto discov_stopped;
-+
- 		goto _return;
-+	}
- 
- 	status = hci_cmd_sync_queue(hdev, scan_disable_sync, NULL, NULL);
- 	if (status) {
-@@ -5763,11 +5773,15 @@ int hci_stop_discovery_sync(struct hci_dev *hdev)
- 		}
- 
- 		if (hci_dev_test_flag(hdev, HCI_LE_SCAN)) {
--			cancel_delayed_work(&hdev->le_scan_disable);
--
- 			err = hci_scan_disable_sync(hdev);
- 			if (err)
- 				return err;
-+
-+			/* Only cancel the LE scan timeout once the scan is
-+			 * disabled, so that the discovery still ends if
-+			 * stopping it failed.
-+			 */
-+			cancel_delayed_work(&hdev->le_scan_disable);
- 		}
- 
- 	} else {
-@@ -6403,6 +6417,12 @@ static int hci_pause_discovery_sync(struct hci_dev *hdev)
- 		return 0;
- 
- 	hci_discovery_set_state(hdev, DISCOVERY_STOPPING);
-+
-+	/* Cancel the LE scan timeout first, so that it does not run while
-+	 * suspended if the scan cannot be disabled.
-+	 */
-+	cancel_delayed_work(&hdev->le_scan_disable);
-+
- 	err = hci_stop_discovery_sync(hdev);
- 	if (err)
- 		return err;
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index 6405c41f8ceec..fa91db7dab4f4 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -6320,12 +6320,29 @@ static void stop_discovery_complete(struct hci_dev *hdev, void *data, int err)
- 
- 	bt_dev_dbg(hdev, "err %d", err);
- 
-+	hci_dev_lock(hdev);
-+
-+	/* Change the state before replying, so that a client acting on the
-+	 * reply sees it, and only while the discovery is still stopping, as
-+	 * Inquiry Cancel may already have stopped it and a new Start Discovery
-+	 * may have followed. Go back to DISCOVERY_FINDING when stopping failed
-+	 * while the inquiry or the active LE scan of the discovery is still
-+	 * running, so that it can be stopped again.
-+	 */
-+	if (hdev->discovery.state == DISCOVERY_STOPPING) {
-+		if (err && (test_bit(HCI_INQUIRY, &hdev->flags) ||
-+			    (hci_dev_test_flag(hdev, HCI_LE_SCAN) &&
-+			     hdev->le_scan_type == LE_SCAN_ACTIVE)))
-+			hci_discovery_set_state(hdev, DISCOVERY_FINDING);
-+		else
-+			hci_discovery_set_state(hdev, DISCOVERY_STOPPED);
-+	}
-+
-+	hci_dev_unlock(hdev);
-+
- 	mgmt_cmd_complete(cmd->sk, cmd->hdev->id, cmd->opcode, mgmt_status(err),
- 			  cmd->param, 1);
- 	mgmt_pending_free(cmd);
--
--	if (!err)
--		hci_discovery_set_state(hdev, DISCOVERY_STOPPED);
- }
- 
- static int stop_discovery_sync(struct hci_dev *hdev, void *data)
--- 
-2.53.0
 
 
 
