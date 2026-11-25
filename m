@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606358;
-	b=ws0ZOrfPRnhlcQgfIjxXTvWBUXkwvnIigsDZVIFmP7Ot4t1TIxDe/mc3z6pk3k2CgFlu
-	 Ynn0MqiDJ24PHUJ9DRRQFmmRhW7VsZ1BXISdNWZjZ5GklQn/yYZS1o+fZO9T3mDF35OjO
-	 upbAhq3pALv+qF29oHEvY/CzUmLvZn2dJsVYqt5A91cBDlcfRUUBVOCni/REQhK0Clztp
-	 KGMOXfzO+4+46mu4DO45odQAZ8GX7rQFphadTDWCmH4xwSZf5Jf9AocCc/l+OcPJhGmt5
-	 7MpKvMXy4oBrxRfzSnf9nMp5Tp69+bOMAQCLKLc1zYZvWTBHbr67TIPWxpMCurfqKuA==
+	t=1795606361;
+	b=IOHhNOhSUK8YU9KcWLACqO79u0DMk7nciFx6Jgs5mS+XSaxTQdPVt30DAdYbhZ53Qqpq
+	 dOvYOzAbNlx+4TWHMM7vcJ1HCTy9v3o/ptrc4bGZSPGMSvFG/rIgmFvIO10RL4XPvEPVl
+	 T306IBJ0XI2NvGhupxxlQuPJ3Jy1dLf4qfMioCVLTxYLkdy2kRHcNbHZtrnt069yA5A8x
+	 EW9TNhPnig0zSbS0L34wvBeT1yb66db9pdxBHNod3c/DV9KEKv+7S0FDdwDRQCrf1y5nJ
+	 XZANYAKvGjViyTEJJaHoBbvKROOhcJQAdQ/l3XXJltn3CB3CxCEmXZ/nwDKDqw7QyFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606358;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606361;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=PTffZoUMjIdRV4TFZJzorYrqtKAidV/RAwLl43/yTfs=;
-	b=ofKBBAKksHwLcv/9giO9g+7Vk1I2bTGG+rtFg+7QDi4ObFUR2aFnECTs/wpUFRfFhvpX
-	 0yWanYHmTdX6OlQW2wC/LLpmUW1TDlOgJRwwOVlad+gTrjbt33xJdhgL+GXolR2+0oaHO
-	 8IRYl0BTKQXB1YfECbDeVFSwR5gqYLnT7+3F04BJ/Fia1l0OYDq8dXL8ndf4sXqW4IeIB
-	 F/jksZ0VoWJKceAOcFDVQdO1x+B18SoFw580ewpmgFmfWCIMy0vwP1LsSIIu3xeX9hFga
-	 CQlfkgg5hYBd4s5ftrsZYlBPqj2KyapSzxUO6U0JcHugoER2BEuFiUFxx6LnsY/QdPg==
+	bh=aLt1fK6XAGAsl0BATEqpyiiDW27sGc/8Uk2Sf5iPKWg=;
+	b=Fqp7MCTqijgEBSIkP8EWV60LzVSFSpgSFlnqn3wVMyMgwXtSJSriDNWZhriJhR0Ngma5
+	 gbgPc5hmuHxNXqNfz/iE7SRx7zfnkwYjrs8rqvnl5jSSZXs1gjrsjnd06ZQG+qYoWCObH
+	 knn/wFx8nORLNMghE+M8lQW64NZAbY+fjdn/oSR7B2NaqLgaUHPP4H3IM/jXwpHZN0q/R
+	 T0/Ea4rz292JQxAdeC888xjbZ3gqbb/tV/945nX0gzUqtVAOcDjX1tMID8btFUPH1Z71b
+	 dhIIC24X9jWMuO/1saM7vah3djtLClouLWf53mgI0/PqgFQpKFWGAjfKIJUUUFoKy3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a1lsVn9m;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="W/U2l37d";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 772E4606A33B
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:32:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5ADE606A338
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 11:32:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a1lsVn9m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA2E11F000F4;
-	Wed, 25 Nov 2026 11:32:37 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=W/U2l37d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 283291F000C0;
+	Wed, 25 Nov 2026 11:32:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795606358;
-	bh=PTffZoUMjIdRV4TFZJzorYrqtKAidV/RAwLl43/yTfs=;
+	s=korg; t=1795606361;
+	bh=aLt1fK6XAGAsl0BATEqpyiiDW27sGc/8Uk2Sf5iPKWg=;
 	h=Subject:To:Cc:From:Date;
-	b=a1lsVn9mtGmbynPD+XOxobquTRBY+FCu63wCFa4bz906Qq85f/nV3bwDCtFLOH3l2
-	 /0V7xOGAeCwxNsxzZ6/UqnUPFytsIUbAWU8Pzo6Swb28JPMcQbs8sYrzVnR6Kw3KqP
-	 S3zstJzkjvij5sBO1vMD7ZG02D2AX7tr7ozF0+VE=
-Subject: FAILED: patch "[PATCH] dm: fix use-after-free when dm_get_device() widens the open" failed to apply to 5.15-stable tree
-To: mtsai@redhat.com,mpatocka@redhat.com,noreply@anthropic.com
+	b=W/U2l37dT6j+1xw1f+zfEb7oP+0+fFat46/xCnpj3ewc2281vyU17y8wi8IVNyfIJ
+	 VbTZ/Mg7pY5CdiresNPC8LfP8IZS/ZSvHg15PPK0DdOlVwIhHmHOFXWANZv1wTr3+e
+	 OuHVlL0/xK//LC6F3BJmn1r9nP5dIkQA5uCfSNwY=
+Subject: FAILED: patch "[PATCH] dm cache: validate the discard block size before narrowing" failed to apply to 6.18-stable tree
+To: kirtiar15502@gmail.com,mpatocka@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 25 Nov 2026 12:18:40 +0100
-Message-ID: <2026112540-charm-recliner-c6ca@gregkh>
+Date: Wed, 25 Nov 2026 12:19:09 +0100
+Message-ID: <2026112509-relish-capitol-9ef2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x c834161ded1a141a58d5f03b24f6894291222c96
+git cherry-pick -x df8daa4d916c88ef7888c738e0eb3b6f11714a6f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112540-charm-recliner-c6ca@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026112509-relish-capitol-9ef2@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,318 +79,78 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c834161ded1a141a58d5f03b24f6894291222c96 Mon Sep 17 00:00:00 2001
-From: Ming-Hung Tsai <mtsai@redhat.com>
-Date: Fri, 6 Nov 2026 19:59:22 +0100
-Subject: [PATCH] dm: fix use-after-free when dm_get_device() widens the open
- mode
+From df8daa4d916c88ef7888c738e0eb3b6f11714a6f Mon Sep 17 00:00:00 2001
+From: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
+Date: Thu, 5 Nov 2026 20:48:07 +0100
+Subject: [PATCH] dm cache: validate the discard block size before narrowing
 
-There's an UAF bug in dm_get_device(): when a table construction calls
-dm_get_device() on the same device twice with widen access mode (e.g.,
-read-only first then read-write), the second dm_get_device() calls
-upgrade_mode(), which reopens the device in upgraded mode, making
-previously returned dm_dev* a stale pointer.
+The discard block size doubles until the origin fits within the discard
+bitset limit. too_many_discard_blocks() passes this sector_t size to
+sector_div(), whose divisor is only 32 bits. Once the size exceeds that
+range, the division uses a truncated divisor, which can become zero.
 
-Fixing approaches:
-- Add per-mode views (dm_dev_ref) from a per-device dm_dev_internal to
-  multiple table_devices.
-- Keep reusing the dm_dev_ref when the requested mode is included, i.e.,
-  a read-only reference can reuse the read-write opened device within a
-  table.
-- Maintain a canonical block_device pointer in dm_dev_internal for
-  handling the DM_TABLE_DEPS ioctl.
+Use a 64-bit divisor when checking the block count. The selected size is
+stored in a u32, so reject sizes that cannot be represented before the
+assignment and before calculating the bitset size. This prevents a
+truncated zero size from reaching dm_sector_div_up().
 
-Also tweak the way of mode sharing check in find_ref() to
-"(x & mask) == mask". The result stays the same to the previous
-upgrade_mode() guard "(x | mask) == x".
+An earlier proposal checks whether the mapped length exceeds the origin
+device. This fix also covers an origin device whose valid size requires a
+discard block size beyond the field's range.
 
-Pros: keep the relationship between dm_dev_internal and table_device:
-one dm_dev_internal per device, regardless the mode, so the output of
-DMM_TABLE_DEPS ioctl unchanged.
-
-Cons: extra dm_dev_ref allocation.
-
-Note that now the table_device's count not necessarily mean the number
-tables referecing this <dev, mode> pair, since we're allowing multiple
-references within a table.
-
-Signed-off-by: Ming Hung Tsai <mtsai@redhat.com>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
-Fixes: 86f1152b117a ("dm: allow active and inactive tables to share dm_devs")
+Reported-by: syzbot+c8564fc0a96e3ecbe4d4@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c8564fc0a96e3ecbe4d4
 Cc: stable@vger.kernel.org
+Fixes: 08b184514f65 ("dm cache: revert 'prevent corruption caused by discard_block_size > cache_block_size'")
+Signed-off-by: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 
-diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-index 8f945f0aeda5..4a7cb0926c17 100644
---- a/drivers/md/dm-ioctl.c
-+++ b/drivers/md/dm-ioctl.c
-@@ -1794,7 +1794,7 @@ static void retrieve_deps(struct dm_table *table,
- 	deps->count = count;
- 	count = 0;
- 	list_for_each_entry(dd, dm_table_get_devices(table), list)
--		deps->dev[count++] = huge_encode_dev(dd->dm_dev->bdev->bd_dev);
-+		deps->dev[count++] = huge_encode_dev(dd->bdev->bd_dev);
- 
- 	param->data_size = param->data_start + needed;
- }
-diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-index a483f49dd4ce..db1ec4ae8e56 100644
---- a/drivers/md/dm-table.c
-+++ b/drivers/md/dm-table.c
-@@ -165,14 +165,16 @@ int dm_table_create(struct dm_table **result, blk_mode_t mode,
- 
- static void free_devices(struct list_head *devices, struct mapped_device *md)
+diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
+index b562bf59124c..809184371629 100644
+--- a/drivers/md/dm-cache-target.c
++++ b/drivers/md/dm-cache-target.c
+@@ -17,6 +17,7 @@
+ #include <linux/jiffies.h>
+ #include <linux/init.h>
+ #include <linux/kstrtox.h>
++#include <linux/math64.h>
+ #include <linux/mempool.h>
+ #include <linux/module.h>
+ #include <linux/rwsem.h>
+@@ -2383,9 +2384,7 @@ static int create_cache_policy(struct cache *cache, struct cache_args *ca,
+ static bool too_many_discard_blocks(sector_t discard_block_size,
+ 				    sector_t origin_size)
  {
--	struct list_head *tmp, *next;
-+	struct dm_dev_internal *dd, *dd_next;
-+	struct dm_dev_ref *ref, *ref_next;
+-	(void) sector_div(origin_size, discard_block_size);
+-
+-	return origin_size > MAX_DISCARD_BLOCKS;
++	return div64_u64(origin_size, discard_block_size) > MAX_DISCARD_BLOCKS;
+ }
  
--	list_for_each_safe(tmp, next, devices) {
--		struct dm_dev_internal *dd =
--		    list_entry(tmp, struct dm_dev_internal, list);
--		DMWARN("%s: dm_table_destroy: dm_put_device call missing for %s",
--		       dm_device_name(md), dd->dm_dev->name);
--		dm_put_table_device(md, dd->dm_dev);
-+	list_for_each_entry_safe(dd, dd_next, devices, list) {
-+		list_for_each_entry_safe(ref, ref_next, &dd->refs, list) {
-+			DMWARN("%s: dm_table_destroy: dm_put_device call missing for %s",
-+			       dm_device_name(md), ref->dm_dev->name);
-+			dm_put_table_device(md, ref->dm_dev);
-+			kfree(ref);
-+		}
- 		kfree(dd);
+ static sector_t calculate_discard_block_size(sector_t cache_block_size,
+@@ -2422,6 +2421,7 @@ static int cache_create(struct cache_args *ca, struct cache **result)
+ 	struct cache *cache;
+ 	struct dm_target *ti = ca->ti;
+ 	dm_block_t origin_blocks;
++	sector_t discard_block_size;
+ 	struct dm_cache_metadata *cmd;
+ 	bool may_format = ca->features.mode == CM_WRITE;
+ 
+@@ -2521,9 +2521,15 @@ static int cache_create(struct cache_args *ca, struct cache **result)
  	}
- }
-@@ -218,12 +220,27 @@ static struct dm_dev_internal *find_device(struct list_head *l, dev_t dev)
- 	struct dm_dev_internal *dd;
+ 	clear_bitset(cache->dirty_bitset, from_cblock(cache->cache_size));
  
- 	list_for_each_entry(dd, l, list)
--		if (dd->dm_dev->bdev->bd_dev == dev)
-+		if (dd->bdev->bd_dev == dev)
- 			return dd;
- 
- 	return NULL;
- }
- 
-+/*
-+ * See if the device is already open with a mode that covers the
-+ * requested one.
-+ */
-+static struct dm_dev_ref *find_ref(struct dm_dev_internal *dd, blk_mode_t mode)
-+{
-+	struct dm_dev_ref *ref;
-+
-+	list_for_each_entry(ref, &dd->refs, list)
-+		if ((ref->dm_dev->mode & mode) == mode)
-+			return ref;
-+
-+	return NULL;
-+}
-+
- /*
-  * If possible, this checks an area of a destination device is invalid.
-  */
-@@ -303,31 +320,6 @@ static int device_area_is_invalid(struct dm_target *ti, struct dm_dev *dev,
- 	return 0;
- }
- 
--/*
-- * This upgrades the mode on an already open dm_dev, being
-- * careful to leave things as they were if we fail to reopen the
-- * device and not to touch the existing bdev field in case
-- * it is accessed concurrently.
-- */
--static int upgrade_mode(struct dm_dev_internal *dd, blk_mode_t new_mode,
--			struct mapped_device *md)
--{
--	int r;
--	struct dm_dev *old_dev, *new_dev;
--
--	old_dev = dd->dm_dev;
--
--	r = dm_get_table_device(md, dd->dm_dev->bdev->bd_dev,
--				dd->dm_dev->mode | new_mode, &new_dev);
--	if (r)
--		return r;
--
--	dd->dm_dev = new_dev;
--	dm_put_table_device(md, old_dev);
--
--	return 0;
--}
--
- /*
-  * Note: the __ref annotation is because this function can call the __init
-  * marked early_lookup_bdev when called during early boot code from dm-init.c.
-@@ -360,7 +352,9 @@ EXPORT_SYMBOL(dm_devt_from_path);
- 
- /*
-  * Add a device to the list, or just increment the usage count if
-- * it's already present.
-+ * it's already present with a mode that covers the requested one.
-+ * Otherwise open the device again with the requested mode, so the
-+ * dm_devs returned earlier stay valid.
-  */
- int dm_get_device(struct dm_target *ti, const char *path, blk_mode_t mode,
- 		  struct dm_dev **result)
-@@ -368,6 +362,7 @@ int dm_get_device(struct dm_target *ti, const char *path, blk_mode_t mode,
- 	int r;
- 	dev_t dev;
- 	struct dm_dev_internal *dd;
-+	struct dm_dev_ref *ref;
- 	struct dm_table *t = ti->table;
- 
- 	BUG_ON(!t);
-@@ -380,30 +375,46 @@ int dm_get_device(struct dm_target *ti, const char *path, blk_mode_t mode,
- 		return -EINVAL;
- 
- 	dd = find_device(&t->devices, dev);
--	if (!dd) {
-+	if (dd) {
-+		ref = find_ref(dd, mode);
-+		if (ref) {
-+			refcount_inc(&ref->count);
-+			goto out;
-+		}
-+	} else {
- 		dd = kmalloc_obj(*dd);
- 		if (!dd)
- 			return -ENOMEM;
--
--		r = dm_get_table_device(t->md, dev, mode, &dd->dm_dev);
--		if (r) {
--			kfree(dd);
--			return r;
--		}
--
--		refcount_set(&dd->count, 1);
--		list_add(&dd->list, &t->devices);
--		goto out;
--
--	} else if (dd->dm_dev->mode != (mode | dd->dm_dev->mode)) {
--		r = upgrade_mode(dd, mode, t->md);
--		if (r)
--			return r;
-+		INIT_LIST_HEAD(&dd->refs);
- 	}
--	refcount_inc(&dd->count);
-+
-+	ref = kmalloc_obj(*ref);
-+	if (!ref) {
-+		r = -ENOMEM;
+-	cache->discard_block_size =
++	discard_block_size =
+ 		calculate_discard_block_size(cache->sectors_per_block,
+ 					     cache->origin_sectors);
++	if (discard_block_size > U32_MAX) {
++		*error = "Discard block size exceeds 32 bits";
++		r = -EOVERFLOW;
 +		goto bad;
 +	}
-+
-+	r = dm_get_table_device(t->md, dev, mode, &ref->dm_dev);
-+	if (r) {
-+		kfree(ref);
-+		goto bad;
-+	}
-+	refcount_set(&ref->count, 1);
-+
-+	/* A device in the list always has at least one ref */
-+	if (list_empty(&dd->refs)) {
-+		dd->bdev = ref->dm_dev->bdev;
-+		list_add(&dd->list, &t->devices);
-+	}
-+	list_add_tail(&ref->list, &dd->refs);
- out:
--	*result = dd->dm_dev;
-+	*result = ref->dm_dev;
- 	return 0;
-+
-+bad:
-+	if (list_empty(&dd->refs))
-+		kfree(dd);
-+	return r;
- }
- EXPORT_SYMBOL(dm_get_device);
- 
-@@ -453,23 +464,28 @@ static int dm_set_device_limits(struct dm_target *ti, struct dm_dev *dev,
-  */
- void dm_put_device(struct dm_target *ti, struct dm_dev *d)
- {
--	int found = 0;
- 	struct list_head *devices = &ti->table->devices;
- 	struct dm_dev_internal *dd;
-+	struct dm_dev_ref *ref;
- 
--	list_for_each_entry(dd, devices, list) {
--		if (dd->dm_dev == d) {
--			found = 1;
--			break;
--		}
--	}
--	if (!found) {
--		DMERR("%s: device %s not in table devices list",
--		      dm_device_name(ti->table->md), d->name);
-+	list_for_each_entry(dd, devices, list)
-+		list_for_each_entry(ref, &dd->refs, list)
-+			if (ref->dm_dev == d)
-+				goto found;
-+
-+	DMERR("%s: device %s not in table devices list",
-+	      dm_device_name(ti->table->md), d->name);
-+	return;
-+
-+found:
-+	if (!refcount_dec_and_test(&ref->count))
- 		return;
--	}
--	if (refcount_dec_and_test(&dd->count)) {
--		dm_put_table_device(ti->table->md, d);
-+
-+	dm_put_table_device(ti->table->md, d);
-+	list_del(&ref->list);
-+	kfree(ref);
-+
-+	if (list_empty(&dd->refs)) {
- 		list_del(&dd->list);
- 		kfree(dd);
- 	}
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 12c26f42ce51..a73355c0125c 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -1588,7 +1588,7 @@ static void __send_empty_flush(struct clone_info *ci)
- 			 */
- 			clone = alloc_tio(ci, NULL, 0, &len, GFP_NOIO);
- 			atomic_add(1, &ci->io->io_count);
--			bio_set_dev(clone, dd->dm_dev->bdev);
-+			bio_set_dev(clone, dd->bdev);
- 			clone->bi_end_io = clone_endio;
- 			dm_submit_bio_remap(clone, NULL);
- 		}
-diff --git a/drivers/md/dm.h b/drivers/md/dm.h
-index 7a795979ec72..34f58060243f 100644
---- a/drivers/md/dm.h
-+++ b/drivers/md/dm.h
-@@ -37,10 +37,26 @@
- 
- /*
-  * List of devices that a metadevice uses and should open/close.
-+ * There is one dm_dev_internal per device. It holds one dm_dev_ref
-+ * for each mode that the targets opened the device with.
-  */
- struct dm_dev_internal {
- 	struct list_head list;
--	refcount_t count;
-+	struct block_device *bdev;
-+	struct list_head refs;
-+};
-+
-+/*
-+ * One open of a device with one mode, shared by the targets of a table.
-+ * dm_get_device() reuses a dm_dev_ref whose mode covers the requested
-+ * mode, and adds a new one only when none does. So the dm_dev_refs of
-+ * a device have different modes, and a table holds each table_device
-+ * at most once. table_device->count is still the number of tables that
-+ * use the table_device.
-+ */
-+struct dm_dev_ref {
-+	struct list_head list;
-+	refcount_t count;	/* dm_get_device() calls that returned dm_dev */
- 	struct dm_dev *dm_dev;
- };
- 
++	cache->discard_block_size = discard_block_size;
+ 	cache->discard_nr_blocks = to_dblock(dm_sector_div_up(cache->origin_sectors,
+ 							      cache->discard_block_size));
+ 	cache->discard_bitset = alloc_bitset(from_dblock(cache->discard_nr_blocks));
 
