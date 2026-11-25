@@ -1,96 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795630605;
-	b=3gpBz3nlOUoFjj6fD+4ePx/ToIHkv6DkPB3irqxX1GbshUohmU6fW6qhn4fNU7Yx/7WU
-	 nw0zId0BGbnafMpNQoLoE5bth9BxH1Mt6Sj5esUcx33o4ruNhqiTW1R+EaGYVXP4g5iLc
-	 zcpTwouqzSxCSrNBpCN+dCrlUSJxGP19v700mh6EQaTl+15+61wkfjyhAeiVknhg6Far6
-	 oo/4J/LsNNBq9Zeq3jWbyLPqG3WN8FlfMJKYnX6z2zr24hQAbm0FCYkFqSWOwrFHRVX8P
-	 fzK3FtWefHnkPOeCSmJBBRTY95gQubL443tFKqZ9feeYDj4BaGtPvgLjaVTaOP1J4MA==
+	t=1795630664;
+	b=kCwA3GNGHOApgg1oP14bKi/xZ0izcMFCJ/DA7UCw1gNton7xeGZp6dXAF4C5DeAt12dN
+	 QPsKjGK1ugvLsrNrveK3Tccd/GTXGMhiOKFXgdUhtZe+5DFIY4UKdfyajk0mLtm2rrNyi
+	 l3dvxhxCEXZH4lsD2mHQczhrC0cfYA0C+2zDcSIS+IePOqrBlRA7Bd9BSIpxVrBys6+T8
+	 uIqRF3vzLqoh0Zvpd4FUABE3PRbbZiYpPCDQ++cX5GFYW1WqsvKo2+CKOWkKd5Ri+Epo9
+	 vP08G+P2/n9HJhu3yaW/qeVe6s7r0AVOoynMBrbTPID91Ca/TUvz8WTAcH32MG0iHbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795630605;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795630664;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=xJl3VeU28yFIf7u8OboR3R/WMzTEeOW8WHDyp56+HdQ=;
-	b=PdRC+dsKgfefNgMdFqemYM5PZdv6YyCL8YY8VcpGVK9o3UG0q7n6cP0u5lYTgOQqTvhY
-	 IFMjNgQGa1qePRcMhKiH0ccpJz7ovkkUCmNPr+BiEBeiRD9R80p9I7e5zV3kB87bBPKLd
-	 L+4X+djc/wZ6pnn27itbeFsyXuVYaV//kbwx76Wl6nnWVssksb/6L1ib7qwP+QjMeQ3x2
-	 2xZRaq/+sWU7yy6yd+GFnvVIsHplQ/Lm2akmzpz+PazFWWlAN2vOOABukaHpHV8+6Qkrh
-	 I1/kyfuLo/gkd4bYzKAcSQnmx4xYGA40C1Aapw7N2+bceUJheubty50vIr8nD/zhvaA==
+	bh=ZlTaltAMIXdy74Exl84589ya1W1JOnbRZeuo//9ZvcA=;
+	b=EFvjhdk5q3OgP9VMfBbAqTl+gIoCXQwWR34A93TV2OdyccX0qLDAwaal1bXkVsIr2dqu
+	 OysjfPPa7y+Eqdlme2md4U4m60/BQyZ7PCchIXyKRa8g7VTPDNn1x3x/6sa6hUyXmeLGq
+	 3yS06TvOpPejPfQJpGh3xwO0MCgYKSnhOG9j+uYDodoV6nTW3jts4EZZoS1g0hKP5Msqo
+	 2TQiZzUZlB1as1X/RxvFp6uJ5+CtaFiLH/70/s5JOW3QGgdmPGmiFRwxaJsO7H9o2072L
+	 Vquw60Tj10K4UXNZZBsWL3CrCQh4IFYHdUNzEyrIqtMZ3U/7gZA6inJTO3KVQaFhlcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uBrwGaOC;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o1X31hSY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46082606A327
-	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:16:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46082606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A791606A32C
+	for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:17:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uBrwGaOC
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cd69954c755so4465118a12.3
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 10:16:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795630605; x=1796235405; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xJl3VeU28yFIf7u8OboR3R/WMzTEeOW8WHDyp56+HdQ=;
-        b=uBrwGaOCVRNk9CTrbsLZdNKEAP6Ciz0Wj3NYwmH0huTDr5ZptQFbpLdDrXz6Scq3Bd
-         1xiOpjK0kozcVGjxD6/HbCs2yCHxJvSB//7WnkaiZekqSeHEVK4bzkrnRCm88Aj5YT85
-         NkMFikeaacU+yac9L8Z2/pLU3z2B3xws+rLK2zjTD0zn0xbeFLiOivyI0TQKJfPzwTca
-         lPPDUqetX2hEjOx9YhYwMIdi12HWhrd/Mz37i92a+6kiGjdDyFrENFtk/geb/UnjID+Y
-         U4+8Sf7Koht0aVW8w5OO7YtxZUGhpjZluc4xNEi61xuClnnMSYo0SEy9JQyiOucSm98u
-         Wbng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795630605; x=1796235405;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xJl3VeU28yFIf7u8OboR3R/WMzTEeOW8WHDyp56+HdQ=;
-        b=zO1Eo1DyaV2Ow8ZEa5IvoPwzwcwARIxF3fCCxYxftbGDPz0tS1M8wxO9YI2crf8YqZ
-         9a78VuXMWKIsEPGNBmtYPTBI+yaYTX4cIC8tJ08u357Ubh2xk+WDjEsQQ+01lNcNA8Yt
-         kIA9Mw6uBI8v2fs4t9TGSEwr3iTr2DVkPJ8S+fPvRdMgvqhiQC4N6UK8r77wnGvTmL3c
-         zn/xkKDMWZmvq3VG6fJbSmzn5ozY6nhIfS35QQ5rvX/DTLSJmaRAcSIhJbUrWz1RqasE
-         Dk26dQ/w1EahvltYkII9Ks5b9zcUsIgVKHIe0CL2KDuCZ/ghnZIfLzIeCOcbMscw4TtO
-         prEg==
-X-Forwarded-Encrypted: i=1; AL+hErG/IGqVBp+TvH4+HZO32V9pERLdiZLfmQBHckJPvs5lKKwMNK/ChXXu3Q1FQg6rTJR8mE5heuY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+i/58MDki6svULEk5XpHlW1dOvs9ZMFf/ZtDbtv5YZa2FrH7JC
-	GYNn6BAoRArPZzRVNXwLGXXKFHhEfkVADBd2qE9kngCQ4uqaya62C3Mf
-X-Gm-Gg: AZFdTZccpLSgvFoAUxoBE78oQWuiDbK0rRPufMXLehFnzsGDhjEd09QetdPSHfOM8TC
-	CkLZKoXgvB2o2a0ggsgVyJhCp5+T0volC/rtybxZFFXdQsBqZJN5nhEVSXnZGqUwyfmoKAjADbg
-	4COpwPLL6kvxL7NU9dYDBxpgg6olFmTdT3lmYLIEbS7qOYJrKuwD8uPdhrydOmUyjvl/yT/eqlk
-	C6S7fLronxRq2qIbinezmJizokYqRyfdmVjH9NW4Q4Tjh5NrlWS7KB6P3GHXT7mQbMnt3/SUviL
-	BiVUbZ7SvIyqNm5SUUvXfCDyhXm8sP/tNSnszRnWtcncF0D0GFknfICK2XG8CBhJTOa6c4vRYN8
-	6FS1rLd7SKRMjLkNFmNFfWFCorwCn9YesPrZAUgChM9qjaHTvXBLPNw+3KZbsdxcWWIoI0+B6z/
-	SUeDUlSplbOGrmjTZqytfHKZ7/TwlHfadnrA2I4S2zu5aZhtxx+St9fNsrEt71jKKX/jHcCIac5
-	qb+9f5A5KGFaHrwtpgaryp7bxeo6K2w3qTYMyEj8HWcy7qo1wKRtmyAhuyAVgFZbl61AQWm3cND
-	UXHCNhXmLeYPIKl7LGZQh1cMYbgUwCDuTnic2zBmT4Wby4FPGBXkkNCL8FkC5LgfUOoQ9IwXkqA
-	kILcENe8iX7dXHcOWm5gLZKaMBwATFkM4X6mH1HzLwuWu6QgOH8eb337uiRaMcX9vlpuFzC89cL
-	U=
-X-Received: by 2002:a05:6a21:3b8d:b0:3f7:7e3c:af64 with SMTP id adf61e73a8af0-4014c350872mr21282532637.43.1795630604435;
-        Wed, 25 Nov 2026 10:16:44 -0800 (PST)
-Received: from fedora (n49-177-87-40.rdl1.qld.optusnet.com.au. [49.177.87.40])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8cbe173453dsm6163395b3a.25.2026.11.25.10.16.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 10:16:43 -0800 (PST)
-From: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-To: dm-devel@lists.linux.dev
-Cc: agk@redhat.com,
-	snitzer@kernel.org,
-	mpatocka@redhat.com,
-	bmarzins@redhat.com,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] dm era: stop the worker before closing the metadata
-Date: Thu, 26 Nov 2026 04:16:27 +1000
-Message-ID: <20261125181627.625466-1-ronniesahlberg@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o1X31hSY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A89C81F000C4;
+	Wed, 25 Nov 2026 18:17:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795630664;
+	bh=ZlTaltAMIXdy74Exl84589ya1W1JOnbRZeuo//9ZvcA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=o1X31hSYJ+ovEXf2ozFWabbXlsGm1w4uj10mN4ssmpgjGd3MYKrHSlg37k2sAbOua
+	 JnObx93ZGzg5B3khDJu1sPO3GepNqB0pjadceSphYi9Agy4yeKJg5kxAsYoCgSeR4c
+	 55YFI7YbMon/GKc+UpaDk08BlMnnSUX5TPIEZNCOKHT75xdT7eGnU3i5LqV7axz1sF
+	 4TB2XJ+Dh/WZ2oa1dWG8wZNuhFo+dTKgCBx7Kzh3RSVutB5mOuQ/t/6NtInZK47Iek
+	 qCaxCOhV7lGnJPoavKsNEKw4YkqMHrNIy1AakSUeLy1afuAJbzu9EEAomURagM+9v/
+	 yZLlb8IM/GcUA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Stefan Haberland <sth@linux.ibm.com>,
+	=?UTF-8?q?Jan=20H=C3=B6ppner?= <hoeppner@linux.ibm.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] s390/dasd: Re-initialize RCD buffer with "V1.0" before every start
+Date: Wed, 25 Nov 2026 13:17:42 -0500
+Message-ID: <20261125181728.1145347-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112517-reunion-tubeless-87d7@gregkh>
+References: <2026112517-reunion-tubeless-87d7@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,68 +61,199 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-era_destroy() closes the metadata and then destroys the workqueue.
-destroy_workqueue() drains the queue first, so a worker that is still
-queued or running at that point uses the metadata after it was freed.
+From: Stefan Haberland <sth@linux.ibm.com>
 
-The worker is only stopped by postsuspend, and there are two ways to
-get to era_destroy() with it still started:
+[ Upstream commit 25cdc1f63227a1ea69a1ec823a8a860e33299169 ]
 
- - It is started by preresume before the era rollover, and stays
-   started if the rollover fails.  The device is then still suspended,
-   so postsuspend is not called again before the table is destroyed.
+Under z/VM the Read Configuration Data (RCD) buffer has to start with
+EBCDIC "V1.0" to request the virtual device SNEQ that carries the
+minidisk UIT. The request and the response share the same buffer:
+CP evaluates the magic on the way out and the RCD data is written into
+the same buffer on the way back.
 
- - It is started from the constructor on, since era->suspended is
-   initially zero.  A status request for an inactive table runs it, and
-   an inactive table is destroyed without ever being suspended:
+The magic is only written when the request is built and again in
+read_conf_cb() when the original request fails.
 
-     dmsetup load era --table "..."
-     dmsetup status --inactive era
-     dmsetup clear era
+Several restart paths do not run that callback:
+ - ERP use the same buffer and if the same error occurs again,
+   the ERP restarts the existing ERP request;
+   if a different error occurs, it adds another ERP request.
+   Neither re-initializes the magic.
+ - Terminated (timed out) ERP requests, killed requests and requests
+   requeued after the last path was gone are restarted without it.
+ - dasd_sleep_on_immediately() overwrites cqr->callback, so read_conf_cb()
+   never ran for dasd_eckd_read_conf_immediately(), and its fastpath
+   retries in dasd_int_handler() do not call a callback either.
 
-In both cases the worker can be busy digesting archived writesets,
-requeueing itself after every step, when the table is destroyed.
+If such a restart succeeds, z/VM omits the virtual device SNEQ, the UID
+of that path is built without the UIT and the paths are reported as
+"Not all channel paths lead to the same device" although they lead to
+the same minidisk.
 
-Stop the worker, which also stops it from requeueing itself, and destroy
-the workqueue before closing the metadata.
+Every start of a request, whatever path led to it, goes through
+dasd_start_IO(). Add an optional prepare_io function to the request
+that dasd_start_IO() calls before every start of the request and of
+its ERP requests, and use it to write the magic for RCD requests.
 
-Fixes: eec40579d848 ("dm: add era target")
+The ERP handling stays unchanged. read_conf_cb() is no longer needed
+and is removed, which also gets rid of its memset() that only cleared
+a single byte.
+
+Fixes: 5915a873fcb1 ("[S390] dasd: re-initialize read_conf buffer for retries")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Reviewed-by: Jan Höppner <hoeppner@linux.ibm.com>
+Signed-off-by: Stefan Haberland <sth@linux.ibm.com>
+Link: https://patch.msgid.link/20261112102608.1057852-3-sth@linux.ibm.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+[ sashal: adapted the address conversion to the old (__u8 *)((addr_t) ccw->cda) cast instead of dma32_to_virt(), and kept the old misspelled dasd_sleep_on_immediatly() name in context. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-An AI coding assistant (Claude) was used to review this patch and to
-help write the commit message.
+ drivers/s390/block/dasd.c      |  1 +
+ drivers/s390/block/dasd_eckd.c | 52 ++++++++++++----------------------
+ drivers/s390/block/dasd_int.h  | 15 ++++++++++
+ 3 files changed, 34 insertions(+), 34 deletions(-)
 
- drivers/md/dm-era-target.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/md/dm-era-target.c b/drivers/md/dm-era-target.c
-index ea499adca4ce..8b8b8b3dfa19 100644
---- a/drivers/md/dm-era-target.c
-+++ b/drivers/md/dm-era-target.c
-@@ -1438,12 +1438,15 @@ static void stop_worker(struct era *era)
-  */
- static void era_destroy(struct era *era)
- {
-+	/* The worker uses the metadata, and may still be digesting. */
-+	if (era->wq) {
-+		stop_worker(era);
-+		destroy_workqueue(era->wq);
-+	}
+diff --git a/drivers/s390/block/dasd.c b/drivers/s390/block/dasd.c
+index 86e7323dec44a..5ce1f6786f5f6 100644
+--- a/drivers/s390/block/dasd.c
++++ b/drivers/s390/block/dasd.c
+@@ -1456,6 +1456,7 @@ int dasd_start_IO(struct dasd_ccw_req *cqr)
+ 		cqr->status = DASD_CQR_ERROR;
+ 		return -EIO;
+ 	}
++	dasd_start_IO_prepare(cqr);
+ 	cqr->startclk = get_tod_clock();
+ 	cqr->starttime = jiffies;
+ 	cqr->retries--;
+diff --git a/drivers/s390/block/dasd_eckd.c b/drivers/s390/block/dasd_eckd.c
+index 69c9056a97af8..b9e350b661ced 100644
+--- a/drivers/s390/block/dasd_eckd.c
++++ b/drivers/s390/block/dasd_eckd.c
+@@ -812,20 +812,29 @@ static int dasd_eckd_compare_path_uid(struct dasd_device *device,
+ 	return memcmp(&device_uid, &private->uid, sizeof(struct dasd_uid));
+ }
+ 
++/*
++ * The RCD buffer has to start with EBCDIC "V1.0" to show support for
++ * virtual device SNEQ. The RCD data is written into the same buffer, so
++ * a failed attempt may already have overwritten the magic. Re-initialize
++ * it before every start, including restarts by ERP requests.
++ */
++static void dasd_eckd_rcd_prepare_io(struct dasd_ccw_req *cqr)
++{
++	struct ccw1 *ccw = cqr->cpaddr;
++	__u8 *rcd_buffer = (__u8 *)((addr_t) ccw->cda);
 +
- 	if (era->md)
- 		metadata_close(era->md);
++	rcd_buffer[0] = 0xE5;
++	rcd_buffer[1] = 0xF1;
++	rcd_buffer[2] = 0x4B;
++	rcd_buffer[3] = 0xF0;
++}
++
+ static void dasd_eckd_fill_rcd_cqr(struct dasd_device *device,
+ 				   struct dasd_ccw_req *cqr,
+ 				   __u8 *rcd_buffer,
+ 				   __u8 lpm)
+ {
+ 	struct ccw1 *ccw;
+-	/*
+-	 * buffer has to start with EBCDIC "V1.0" to show
+-	 * support for virtual device SNEQ
+-	 */
+-	rcd_buffer[0] = 0xE5;
+-	rcd_buffer[1] = 0xF1;
+-	rcd_buffer[2] = 0x4B;
+-	rcd_buffer[3] = 0xF0;
  
--	if (era->wq)
--		destroy_workqueue(era->wq);
+ 	ccw = cqr->cpaddr;
+ 	ccw->cmd_code = DASD_ECKD_CCW_RCD;
+@@ -842,33 +851,10 @@ static void dasd_eckd_fill_rcd_cqr(struct dasd_device *device,
+ 	cqr->retries = 256;
+ 	cqr->buildclk = get_tod_clock();
+ 	cqr->status = DASD_CQR_FILLED;
++	cqr->prepare_io = dasd_eckd_rcd_prepare_io;
+ 	set_bit(DASD_CQR_VERIFY_PATH, &cqr->flags);
+ }
+ 
+-/*
+- * Wakeup helper for read_conf
+- * if the cqr is not done and needs some error recovery
+- * the buffer has to be re-initialized with the EBCDIC "V1.0"
+- * to show support for virtual device SNEQ
+- */
+-static void read_conf_cb(struct dasd_ccw_req *cqr, void *data)
+-{
+-	struct ccw1 *ccw;
+-	__u8 *rcd_buffer;
 -
- 	if (era->origin_dev)
- 		dm_put_device(era->ti, era->origin_dev);
+-	if (cqr->status !=  DASD_CQR_DONE) {
+-		ccw = cqr->cpaddr;
+-		rcd_buffer = (__u8 *)((addr_t) ccw->cda);
+-		memset(rcd_buffer, 0, sizeof(*rcd_buffer));
+-
+-		rcd_buffer[0] = 0xE5;
+-		rcd_buffer[1] = 0xF1;
+-		rcd_buffer[2] = 0x4B;
+-		rcd_buffer[3] = 0xF0;
+-	}
+-	dasd_wakeup_cb(cqr, data);
+-}
+-
+ static int dasd_eckd_read_conf_immediately(struct dasd_device *device,
+ 					   struct dasd_ccw_req *cqr,
+ 					   __u8 *rcd_buffer,
+@@ -888,7 +874,6 @@ static int dasd_eckd_read_conf_immediately(struct dasd_device *device,
+ 	clear_bit(DASD_CQR_FLAGS_USE_ERP, &cqr->flags);
+ 	set_bit(DASD_CQR_ALLOW_SLOCK, &cqr->flags);
+ 	cqr->retries = 5;
+-	cqr->callback = read_conf_cb;
+ 	rc = dasd_sleep_on_immediatly(cqr);
+ 	return rc;
+ }
+@@ -926,7 +911,6 @@ static int dasd_eckd_read_conf_lpm(struct dasd_device *device,
+ 		goto out_error;
+ 	}
+ 	dasd_eckd_fill_rcd_cqr(device, cqr, rcd_buf, lpm);
+-	cqr->callback = read_conf_cb;
+ 	ret = dasd_sleep_on(cqr);
+ 	/*
+ 	 * on success we update the user input parms
+diff --git a/drivers/s390/block/dasd_int.h b/drivers/s390/block/dasd_int.h
+index 052b5d1ba9c12..410db17529fa7 100644
+--- a/drivers/s390/block/dasd_int.h
++++ b/drivers/s390/block/dasd_int.h
+@@ -177,6 +177,8 @@ struct dasd_ccw_req {
+ 	void *data;			/* pointer to data area */
+ 	struct irb irb;			/* device status in case of an error */
+ 	struct dasd_ccw_req *refers;	/* ERP-chain queueing. */
++	/* optional prepare function called before every start_io, must not sleep */
++	void (*prepare_io)(struct dasd_ccw_req *cqr);
+ 	void *function; 		/* originating ERP action */
+ 	void *mem_chunk;
  
-
-base-commit: 8d7fe9885c62fc9a95bf55d9db244d9672a8aadc
+@@ -737,6 +739,19 @@ static inline void *dasd_get_callback_data(struct dasd_ccw_req *cqr)
+ 	return cqr->callback_data;
+ }
+ 
++/*
++ * Walk down the ERP chain to the original CQR and call its
++ * prepare_io function if set.
++ */
++static inline void dasd_start_IO_prepare(struct dasd_ccw_req *cqr)
++{
++	/* ERP requests use the prepare function of the original request */
++	while (cqr->refers)
++		cqr = cqr->refers;
++	if (cqr->prepare_io)
++		cqr->prepare_io(cqr);
++}
++
+ /* externals in dasd.c */
+ #define DASD_PROFILE_OFF	 0
+ #define DASD_PROFILE_ON 	 1
 -- 
-2.56.0
+2.53.0
 
