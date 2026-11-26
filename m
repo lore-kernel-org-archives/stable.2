@@ -1,47 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795702570;
-	b=ZERzHarSgumufXEDSyEd3Kfj1dFtLwjFs+Ty83HgO+vW/0pcf2ZK39fOWTdSFEwUHPyD
-	 TxUG89O4nngzyiw7O0Lvu9zWEuEmuV+fhyHiDRFezii7P3f/hIifUqGRBs74b36vLzdvf
-	 6dNBspNlxss4Fjq8jSG903cWxnTsNJNvbW6n7PK9PXShuujmQuce5CPH5NrLoSNmPuU7d
-	 oba43NpxP62m3qILyxRo/Ke1CNCtwoMZjkAP0z7lI7rO92s0L/G4QSewnBhswhIu6yYJ9
-	 bNfOMoDsSi37Hl7HNyt7FIiVdoZLVWEfIrnSeXfJos8xSKp+FIyJpUAvqC3EEmRS2jg==
+	t=1795702663;
+	b=ukUvEvyyIPnHKmqQ42GrAa0XEtYyFFSckjvrTvZJ/1J+mIMoTX33Tf9MJeNFpcoscwU2
+	 24odHbSn9+uAU5rROTXZZ+1wVZ7Qd2PRPS5+zXTl1LcFP9wWR4XwKXXvZSLT1q/aN7IEY
+	 QgpU+lFzlvjlrXa9rEMQZ73BqvSrnF2+bhijyWnGMnhOxZsvTrAh8VulW0dYiVzktBY+r
+	 6mNtzcEMMrdLXEfVHDndqOsjYQ3OCvlUPdSIKgnvgwFjCIGlY4tzgTHrHJoRYeK9v7QTX
+	 WGbDMrVrgqdynr0Vj4laTqubhaI9Naw9RJPLwzRRb4Dvcjz64zXE1V68odcqm70FQvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795702570;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=YnCo+84HPbdfaoZM7mfzyjHraX5NXelYJI4pMXrMFno=;
-	b=Gk1ZyR/ZI39sedh+c0bmxg1vL4Cc6X0bi4rAoPVrH92XvPMn2VvM1gQdY3EUQ8ypPx/8
-	 UsurvnzauURV3USDBSEWVZ0Og8L9DjW0X6W6t8pkTnBedsOXc2FQY2OKQnye3ojCHXy6F
-	 m3vPp0EhFHFn8UcJqTd5gF/TUbFKqp9vcomQDYXJxoEEPweSoNYxcbzxLFErqWk6yI44X
-	 0CgFOnwWCu8YrI4PE2RvdTzvx8S7KX6F2SoKInmV4okiIH/CTEf66OTRtRdndWj0SkYTo
-	 1GlU34aymu5ziITFx1KUygO/O+JnP3Qu9MDlb7zZ8FXYccDhIThP2JFq9G2eokFq8hA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795702663;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=3gzsNMI7istfaUEKuYPkwQCHQUHjoKWhwRQJ8tLhBus=;
+	b=EYNXX3LjZkdtLgVTnaHGMfji//CA+EbJH31MJdRSxi4EFF0Dn6EodSk4nDB+BC0Lf07e
+	 v+O5Oo8oceuxj/0tlnx7GGYpoEoGMclT7GwFbSH7k5qOWMAek46XLKe3KsDn62wP14kNk
+	 1NB2Knh23An6k7zztbStE3oGVoSYBDx2QTntFTOq3IdM3myeyi186UFfr3nwGScc64m1a
+	 Xm2GY2zIC2QtWRRMMeRCDdJG0neFpi7rydUx9IIxTNpNEpj7rdK1Jsz+mg8nXT5NZiK7s
+	 lQ2JRb6uLy+nEPqRhPQ5Jxx8NaZrQCjsWSqIrgAyzP0XCqhioncJVzdrBIJhsmQQOcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mR7PlcQy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=kroah.com;
+	spf=pass smtp.mailfrom=kroah.com;
+	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=EpProqTG;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=e6yzFnKI;
+	arc=none smtp.remote-ip=202.12.124.150
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 048C1606A31C;
-	Thu, 26 Nov 2026 14:16:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2360606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 14:17:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2360606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mR7PlcQy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF54F1F000D0;
-	Thu, 26 Nov 2026 14:16:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795702569;
-	bh=YnCo+84HPbdfaoZM7mfzyjHraX5NXelYJI4pMXrMFno=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=mR7PlcQyhsbtlsHJdpoW6Zwy8CKjOZohbSPfFUS3bHKqDidmkM1zZPGMiYA3AVIkM
-	 Q7fHBiVeD3WPWF9YM52DVa2I1jMO7+X1A32bvjKpTS76hjFOEOE/zifl0QzsXtiOKU
-	 Sx5wDu6XboyQ9Z7qDhtForDfkaiFAOo4WgQxeBcbbzJ8Wr294VxGdSq5CPe0LxbJlV
-	 8cah9IVQxrzDBCYB6JWkDIS68OUg0z1KwNkMsZMtJUjArFRPivbpvcKcOSr3KLBcCE
-	 ty3fmaZsXtsJiQauG0IKe5BSDgT9jR6B8TFnJFRPlgMF330IStuvkRywkpioBAcsbU
-	 +OkvQAnXkQwzQ==
-Message-ID: <e60ef611-5e67-41b3-9c5a-ade4d183c492@kernel.org>
-Date: Thu, 26 Nov 2026 15:15:57 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=EpProqTG;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=e6yzFnKI
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.stl.internal (Postfix) with ESMTP id CEB211D003BE
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 09:17:41 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Thu, 26 Nov 2026 09:17:41 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1795702661; x=1795789061; bh=3gzsNMI7is
+	tfaUEKuYPkwQCHQUHjoKWhwRQJ8tLhBus=; b=EpProqTGW3JhR1DzTbJCVg368r
+	3Vt+RbRWchzYpUpKNfEIyGDVSLnhnYQ7eQjseaUONVVNC28bBu+2qmEqAsgmoqNV
+	Ybluee74gABael4JVIQZyYGfAWrSy3b1kepFZqiqL3LcIHimkgOyWvUMIWmA3Mr0
+	DBOK9B8/TS+fke2KVW8N0zLB9IMPzd32ENTx0JIWW4S0g6Tj1HxO0g2OMXNSUEr/
+	FhdUtYhI8aB8rt+vMtdcZXazuaCwYULwk8ur4MJPBBnnaZ6rXjtXEz6xRxngxt6A
+	XmrzquhaEaQ8x47x2DMhzCqp1ZWq4RNZI8R5vMb9JsqMde92KaynyWtSjRTg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1795702661; x=1795789061; bh=3gzsNMI7istfaUEKuYPkwQCHQUHjoKWhwRQ
+	J8tLhBus=; b=e6yzFnKIsQO7k/5z5G3LiK81slg6HpBh7GLf2vs1+Lv/mzO4VdB
+	xDMxkZ+pi03WSa39hzBkcGg9K3IUJ8oCqMdKPX8DGDyKJjaIRwB+3wXmqxShtEOp
+	IZejxRRq+xamvvUhoP0RNX6kvoauHLdIXiORoPDbzcFWtcDL91ekA2zlY4g/Zi9x
+	S7VA6QsPf/PTlqaqV+jyEyORjrmkjPI4QSvAW4ZXrqYiHn3BNOUbbMliVKeKNzw9
+	nIff2RmpEGU8HkbCRofSuup8mpJrAbrbhftfviYIKZ7htwV71cA8eCWZL/CiEUk6
+	7osd8G5enwlEZ60G7Tx7/tzxDI8gpMNVGfA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795702661; d=kroah.com;
+	mf=PGdyZWdAa3JvYWguY29tPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:iT0FgvouyUs8J8paZ3Buw71nh6rDkSO4lymX3KkKU6GmW3S
+	v8Muegy/OzpqcwDYFlCxBiDGdWc5ul8+PqUbTdx5ZLljLudp0wtT+dXwGfhRRrP1
+	1fniKEJWIoY5p1RXoGh+GNMDjVB4grD8mC1SsOFsc5ptKG+yFhlgYiD09/mpPN8t
+	uk2F09oB1L/iw+543OPucZl4A5RWWxg4zWdToz2JpImNrgSV74KoRacxJdzZYlZT
+	cxH616m+NYD/N1KgQEdFzm94rwTSAQdZ1ZwBhUBU31iu9/XnzOPffpytCI/ESuD0
+	qxVSZRwrv99/z37RP+J3jIup/1hlAQydiYmOc+w==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:xHdgtVbMEYv999wIWRPYEL/yvpVRgdxoxrTyF2qcKBs=:IjOa7CqaWJ1c+ImnT8tVrQZ7vUEKuQhF+mbzdbBJqdo=;
+X-ME-Sender: <xms:hD8Iazff0Znbh5l13F6vi8xbd3paoH_JW2jW2yrOo55bTBHbKhVEAA>
+    <xme:hD8Ia4qYAqFAwLJv--Oew2NYw834qjILn7JvQEJ8GzqnRUWjj1dfXXSkslno1rKHz
+    jNomDH7sWmpL4dVums-wAlUjX-omGrQhaA2FyRMLdoYE3Dc5N4>
+X-ME-Received: <xmr:hD8Ia9nzicIdca2T6p2jbLri5-gvUDY7Au3AM9pjPXOtlq8EtG55nrLHYtnZ0OpaUCTw585oXBz0mU7WEZmwMc61-tACTbQ>
+X-ME-Proxy-Cause: dmFkZTFGYA7TwUPtd5OM71TWRnqi+ptKWddIrDDRblfV/Ko58vp94MxHyaLrVdzVSMzFql
+    Lm43LqaGNA3W4Kjw7iEBYIDHbxA6aihLVMWxq82lq359i4+D3MnkMsThk4jRI9DlODh2wo
+    m9RG8abRbE/jz7zFmvQRJEM7rlOVIgNDrJxdfgscY5cc5oWCLSNxu8ilOhNp6MhWQpZhgY
+    65r/TVIBzhBy7GcZ/xH5FByZdoXPVhdEpp4jmnVsiNHht8QUdHUTYlQY6bFfPp9aEEpoJA
+    5LjXO91/7vC/EVqDPfHFudG+IcwGNVhY8Ga2cI80PCUXJVB0O0H4Sr65Lsvo99T77VLpSg
+    jDX7X6kDbLiiqMYPQoaKmdk/W7aZIfsTxg3Hs5DPMlyHS/G+V3ISSEOw2O6y2PKX7yvF8l
+    V8zKXAGy4bCOP0r25KrGq6KNwTP8duLUWU8pwPRga+G8Fi8GdXt2JC2a6mGqeV40SudXwV
+    XAt0Jx/aJTqFMOmLZ2h9VMufxmTKqRDpXEw8VYQrbyHzEVgkJUhTn5CTgK3RqcFmujW0HA
+    qwGXqzIpAA3ty86+VWKY77NsCKozQjhQMi6U5/PHEHXDSFqQntKpYN00sCX/j13Y3KNMUU
+    nBJiu6hnJmwM1B0VEREwj6fsvHfMy6bMRd6sQ5SpozDhJlmLHIWJ2We4jzQg
+X-ME-Proxy: <xmx:hT8Ia5Q8iPORI0vR2TGQLBgmnbM8vRtgk-igaSSDicR_Kgr7O7GCeQ>
+    <xmx:hT8IazYzwqjuoUDM_GKtkhKVydqajeivDVH-yhZ406pa2FHJrDBrAw>
+    <xmx:hT8Ia58hDLXXt-gulmgPRu9BYidlU-WYhuoimIk0rASPj6ZUMhLF5g>
+    <xmx:hT8Ia1k1nvd6gf6r-kn0O8Wpu3Grw9yt1PHUDlugtQNXFjKtkvcHzA>
+    <xmx:hT8Ia1s_sYxWJSdwNmkklOt7OKcXWLfy8b7p9zxVyfqZWiVxnY7r_5xj>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 26 Nov 2026 09:17:40 -0500 (EST)
+Date: Thu, 26 Nov 2026 15:18:01 +0100
+From: Greg KH <greg@kroah.com>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: stable@vger.kernel.org,
+	syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com,
+	Pedro Falcato <pfalcato@suse.de>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>
+Subject: Re: [PATCH 5.15.y] khugepaged: fix readahead lock inversion in
+ collapse_file()
+Message-ID: <2026112652-marine-boxer-46e9@gregkh>
+References: <20261109202404-failed-5.15-eadce52a9ef6@kernel.org>
+ <20261111132424.88744-1-lance.yang@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,125 +127,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/4] mm: fix races between huge and non-huge faults in
- PFN mappings
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>,
- Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>,
- Roman Kisel <romank@linux.microsoft.com>,
- Saurabh Sengar <ssengar@linux.microsoft.com>,
- Naman Jain <namjain@linux.microsoft.com>,
- Michael Kelley <mhklinux@outlook.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- "T.J. Mercier" <tjmercier@google.com>, Eliav Farber <farbere@amazon.com>,
- "Gregory Price (Meta)" <gourry@gourry.net>
-References: <20261125-huge-pfnmap-fault-races-v3-0-bbc44489341b@kernel.org>
- <dc62bf2a-9188-4cc6-9850-14ab3a2e5274@kernel.org> <awg3r1kVqhQy7wlZ@gremlin>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <awg3r1kVqhQy7wlZ@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111132424.88744-1-lance.yang@linux.dev>
 
-On 11/26/26 15:01, Lorenzo Stoakes (ARM) wrote:
-> On Thu, Nov 26, 2026 at 02:26:37PM +0100, David Hildenbrand (Arm) wrote:
->> Dropped v2, tried to apply v3, doesn't apply.
->>
->> Against which branch was it based? mm/hotfixes-stable?
+On Wed, Nov 11, 2026 at 09:24:24PM +0800, Lance Yang wrote:
+> collapse_file() can call page_cache_sync_readahead() while still holding
+> source folios locked. If truncate holds mapping->invalidate_lock
+> exclusively and waits for one of those folios, readahead waits for
+> invalidate_lock and neither side can make progress.
 > 
-> mm-new. I can resend against mm-core for-next-fixes if that helps?
+> We need to release those folio locks before starting readahead. On a page
+> cache miss, roll back first, populate the collapse range, and retry once.
+> Doing readahead after rollback avoids an extra pass when all folios are
+> already present. If another miss occurs on retry, give up rather than keep
+> retrying while truncate or reclaim removes folios.
 > 
-> Only one patch is changed anyway - patch 3/4 'mm/memory: do not report OOM if
-> insert_pfn() races a huge fault'.
+> Keep page_cache_sync_readahead() and wait for read I/O with
+> filemap_lock_folio(), releasing each folio before moving to the next. The
+> existing uptodate check during collapse still handles read errors.
 > 
-> Let me know if you want a resend!
-
-Can you resent against mm-core/for-next? That would help a lot.
-
+> Shmem uses shmem_get_folio() for swapin and fallocated folios without
+> taking mapping->invalidate_lock, so it is unaffected.
 > 
->>
->> I this really urgent stuff or can this wait until the next merge window?
->>
->> I had v2 staged for the next merge window.
+> Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
+> Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Acked-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Link: https://patch.msgid.link/20261026152013.10511-1-lance.yang@linux.dev
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 > 
-> It's currently broken in linux-next so you probably want to fix _that_ next
-> sooner rather than later to avoid further reports :)
+> (cherry picked from commit eadce52a9ef657d561b3e76c9b5f178bd99735f5)
+> ---
+> Backport to 5.15:
+> - Use find_lock_page(), unlock_page() and put_page() for the existing
+>   page-based collapse code.
 
-I dropped the series from mm-core/for-next and pushed the branches.
-
-If you're fast I can apply it there again even before I merge -next this evening ;)
-
-> 
-> As to the urgency stuff, as far as I + claude can tell nothing crazy here, so
-> can wait for 7.5.
-
-Ok, good, thanks.
-
-> 
-> OTOH I'm not sure how I feel about the triaging for hotfixes stuff, it feels
-> like it makes it random what gets taken for that/not (if you sent a hotfix early
-> more likely > late).
-> 
-> Also meanwhile Linus moans about that but then took a 41k line 'hotfix' PR
-> from ext4 ;) https://lore.kernel.org/all/awW86EI5fYafQx-o@mit.edu/.
-
-;)
-
--- 
-Cheers,
-
-David
+Does not apply :(
