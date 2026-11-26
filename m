@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795669621;
-	b=1xuuKK8tKQ692r33hHtgyNv0aUyxlnjG8dRxgkTSs99al2b+WKm4SUoMaEYLUI9DZ403
-	 LgaXV0pVAY4rAtr4UmEbkV573I8JSJd06BgWOQjF6DxBsVOMPaAZJbryu+JfFpFpMsG/R
-	 9IE3EZYK1QqlAY/IGLy7na+2n61iEj53dYub7JSVzpErJUe66B4JYfgOASNMX5hLO25sg
-	 yXYXY1FfGg35J4agb6ZLsP1AlZz7zvVIijkf3Hp6rtIyoqK/kK48zS8RwAG6A8UZuub1z
-	 8AT4oWwW8kr0/Qx/rvZCphXF686ZNHGt4+EYRqdt/3hNIMVrMwiAX3njn2+AeeHxBGw==
+	t=1795669652;
+	b=3iAG+wySFNlU8olKzaj27gl4C4DLr7G6D+QrsHdlDzD5dxdngY7ls1rtxYiyNg2hXRLW
+	 brT+Y5cFRVOPEphyUVMRDj2H2Q+U61INixXpuPbNG8mnb8Js98+D+aU/DW+j8BGjsNAS2
+	 1DRgwQo2udA7+ZlexQK/Mv57crHYXV9O68TVOtKZcWUvJMljez+UaGLZMdQnky0JyQfob
+	 x2LivLTCwGKgjwcVigU08GJJnytdlAnSOkyVZqv0oUF3AU38qBYe/NAFUk4/IDd6i0BpB
+	 UbFOhzXwiF5O1cxkXV60n0TqO8+abdu+1revEydICoL+hR0pHAbxcc8HgY4kVx4i1Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795669621;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795669652;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=sbe8nbmG9CpDhbXb2R4phS5qMz1GHK2DDklG/eO1+Eg=;
-	b=j2aDtfBpmALBJglH7Mi41De1Zus8O5w94atsoCnIVP6zjYgsNPnShZTIII0s4VPJgFgW
-	 TQXunmxCgKRG+QOPZVWVoNVunauD+e0ZpD+rQ2bTxrzS1dK/UA0eXVwzKZpTPI+/Vum9K
-	 QVZ3fm36ayxAqOJ/+1lAQHDCyBNUtzxjWFpdQZ+5u89YIKq6+wqVJSdXQMPIC1/TEZSbt
-	 3HKfKxzqrsZHIBU4NXttwIG8bC2N852rYao+Fl6lOdIrZDHxIsdtcTpnmAtpLIbQ2vS9o
-	 p57Vtw/bu1rhhV7W8ghxxrwYPwLWaXs7wQ4mjYiRo9fAnRGo2Fd0M2jDT2OMbl0F5cw==
+	bh=M5dh59kqHqoZRXPfiKHZ+BOL8WOJh0hhNbCfEWsydU0=;
+	b=rz8Wl9BnSwMOcxqd+yji8D2yO6JS+HnU3hxqqGwxw6UbVLHnE7CIMe7ONbumad58n4vg
+	 PQl0Po/ne/e6otdXT2N0yT84Mbl2kjamuW3MwRxvkE3tyuxAhSTnza4gml9LLNdPi38Ma
+	 zSff5yf969asYHQB2qUqb15mDgx2V7u8jzBA4JLTX8OWX0DPR/TBQKqgBWU73nIBLq1x7
+	 ZZ5KDuCH+yltUdRq2Im901XTFSWCfJercdmnZQjXP3XMoPWVLRZX2yTZuixwPrgdqDvMv
+	 OJFORww/qYXUXD0PsxXJ557bgZZj5eus/m7W1H1SDm0kUWhMLBsReo7QZ9E4ElKs5gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mRM57qbK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dJHf1EFi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95909606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:07:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74BC9606A31E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:07:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mRM57qbK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89FEF1F000C4;
-	Thu, 26 Nov 2026 05:07:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dJHf1EFi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 819901F000C6;
+	Thu, 26 Nov 2026 05:07:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795669621;
-	bh=sbe8nbmG9CpDhbXb2R4phS5qMz1GHK2DDklG/eO1+Eg=;
+	s=k20260515; t=1795669652;
+	bh=M5dh59kqHqoZRXPfiKHZ+BOL8WOJh0hhNbCfEWsydU0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mRM57qbKHYkXvUOth5MOFuvqjDWhlPAdZGVyUD7NuAm1QzrM535/nnfwdb7/1IXbi
-	 zV3DuQKaDvZEVhW6ZzDh0Fyrk4f6A5L7FPgTQ4HTnn3jRywjjzqtZ/ArDPMgM0br1o
-	 vehFx49EjzsMFZlcqv1z/OtV8FLUH5v0fmFDgIRw24Ap1Fhj6X9Hic89HGtkQYAK5c
-	 KsK0J3sqOMc0I3efkQMntKFEobmkfoxRbBCD7VKrnrJARu6q95TvdU/sPhaFzXtYvF
-	 LBwlE0q/uPXPazF0ujWb9uleDSpDunt8zx3bEa2kkeZmi1mtpKt3bZsdxN2mdmfV08
-	 8fIyYt5W1NNKg==
+	b=dJHf1EFiTwqeacddx8KzJGfNgJri3JXiDbWD+ZRFd/4zLx1KbIO7ytNRNerKMtboE
+	 PrDebLdk7e7yXPFUZ7m2KzI+cu0ck+7jQjGqg01abu5TXbb9VvFHMzo+BjQaRQ98h/
+	 FVtg3k5IoIYfVk2toZJW7uJZt4gB9CNqh2X8GAesKwzt5i7yomFxY3kVsXSYOo/rAA
+	 I9E74YBABHwjuqPKAFgAbhMqE6DruqXyI6q+eguOkpxNpej5rkhlLX3rWfKpDwfpoA
+	 KR3zIEp+7EA9qWdTmQ90dTzK9x8QYKV2f3zUVj4mnLNjDlIOokJLj+VpubpujiXDeI
+	 uYREI95HbeFcw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daejun Park <daejun7.park@samsung.com>,
-	Tejun Heo <tj@kernel.org>,
+Cc: Weijiang Zhou <weijiang.zhou@unisoc.com>,
+	Hongyu Jin <hongyu.jin@unisoc.com>,
 	Mikulas Patocka <mpatocka@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] dm: fail a REQ_PREFLUSH bio with data when its preflush fails
-Date: Thu, 26 Nov 2026 00:06:59 -0500
-Message-ID: <20261126050648.2100171-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] dm-verity: don't restart or panic on errors during system shutdown
+Date: Thu, 26 Nov 2026 00:07:30 -0500
+Message-ID: <20261126050707.2107329-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112517-activator-retract-73ba@gregkh>
-References: <2026112517-activator-retract-73ba@gregkh>
+In-Reply-To: <2026112517-most-helium-cf76@gregkh>
+References: <2026112517-most-helium-cf76@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,51 +62,89 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daejun Park <daejun7.park@samsung.com>
+From: Weijiang Zhou <weijiang.zhou@unisoc.com>
 
-[ Upstream commit e92cd41e8e5ee5616c6c7cd4378661d942f0a7c0 ]
+[ Upstream commit 47930d1236d2988cdc580c10d3af21b6b02d7ece ]
 
-For a bio with REQ_PREFLUSH and data, dm core may send an empty flush
-first. If the flush fails, __dm_io_complete() still reissues the bio
-without REQ_PREFLUSH and drops the error. When that write succeeds,
-the XFS log keeps running and fsync() can return 0.
+Commit 252bd1256396 ("dm verity: skip verity work if I/O error when system
+is shutting down") stopped I/O errors during shutdown from triggering a
+restart, since devices may legitimately be gone by then. Errors that reach
+verity_handle_err(), e.g. through a failed hash block read followed by a
+failed FEC attempt, are not covered and still call kernel_restart() or
+panic().
 
-End the bio with the flush error instead of writing the data, as
-blk-mq does.
+During a reboot that is both wrong (nothing is corrupt) and harmful: it
+races with the reboot already in progress and replaces its reason with
+"dm-verity device corrupted", which bootloaders such as Android's treat as
+a verity failure and switch the device to EIO mode.
 
-Fixes: 6a8736d10cb4 ("dm: relax ordering of bio-based flush implementation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Acked-by: Tejun Heo <tj@kernel.org>
+Apply the same shutdown check in verity_handle_err(). Corruption is still
+logged, recorded in hash_failed and reported via uevent, and the I/O still
+fails.
+
+Signed-off-by: Hongyu Jin <hongyu.jin@unisoc.com>
+Signed-off-by: weijiang.zhou <weijiang.zhou@unisoc.com>
 Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-[ sashal: adjusted the condition to use bio_is_flush_with_data(bio) directly, since this tree has no requeue_flush_with_data variable. ]
+Fixes: 252bd1256396 ("dm verity: skip verity work if I/O error when system is shutting down")
+Cc: stable@vger.kernel.org
+[ sashal: Dropped the removal of the now-unused system-shutdown helper's old context: the surrounding return value and neighboring function context differ (return 0 vs return r), with the same helper removal applied. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/md/dm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/md/dm-verity-target.c | 27 ++++++++++++++++++---------
+ 1 file changed, 18 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index e4ebdd3d56d47..ee729dafd924b 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -960,7 +960,7 @@ static void __dm_io_complete(struct dm_io *io, bool first_stage)
- 	if (requeued)
- 		return;
+diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
+index 926a8c990163b..c36c90d1b2166 100644
+--- a/drivers/md/dm-verity-target.c
++++ b/drivers/md/dm-verity-target.c
+@@ -207,6 +207,15 @@ static void verity_hash_at_level(struct dm_verity *v, sector_t block, int level,
+ 		*offset = idx << (v->hash_dev_block_bits - v->hash_per_block_bits);
+ }
  
--	if (bio_is_flush_with_data(bio)) {
-+	if (bio_is_flush_with_data(bio) && !io_error) {
- 		/*
- 		 * Preflush done for flush with data, reissue
- 		 * without REQ_PREFLUSH.
-@@ -968,7 +968,7 @@ static void __dm_io_complete(struct dm_io *io, bool first_stage)
- 		bio->bi_opf &= ~REQ_PREFLUSH;
- 		queue_io(md, bio);
- 	} else {
--		/* done with normal IO or empty flush */
-+		/* done with normal IO, empty flush or failed preflush */
- 		if (io_error)
- 			bio->bi_status = io_error;
- 		bio_endio(bio);
++/*
++ * Skip verity work in response to I/O error when system is shutting down.
++ */
++static inline bool verity_is_system_shutting_down(void)
++{
++	return system_state == SYSTEM_HALT || system_state == SYSTEM_POWER_OFF
++		|| system_state == SYSTEM_RESTART;
++}
++
+ /*
+  * Handle verification errors.
+  */
+@@ -254,6 +263,15 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,
+ 	if (v->mode == DM_VERITY_MODE_LOGGING)
+ 		return 0;
+ 
++	/*
++	 * Devices may already be quiesced (e.g. UFS set offline by its
++	 * shutdown hook), so a failure here does not imply corruption.  Fail
++	 * the I/O but do not restart or panic, which would also override the
++	 * reboot reason of the shutdown already in progress.
++	 */
++	if (verity_is_system_shutting_down())
++		return 1;
++
+ 	if (v->mode == DM_VERITY_MODE_RESTART)
+ 		kernel_restart("dm-verity device corrupted");
+ 
+@@ -548,15 +566,6 @@ static int verity_verify_io(struct dm_verity_io *io)
+ 	return 0;
+ }
+ 
+-/*
+- * Skip verity work in response to I/O error when system is shutting down.
+- */
+-static inline bool verity_is_system_shutting_down(void)
+-{
+-	return system_state == SYSTEM_HALT || system_state == SYSTEM_POWER_OFF
+-		|| system_state == SYSTEM_RESTART;
+-}
+-
+ /*
+  * End one "io" structure with a given error.
+  */
 -- 
 2.53.0
 
