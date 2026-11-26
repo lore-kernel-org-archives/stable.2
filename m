@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795713681;
-	b=MKCTXC9q01Lbaz0o0oCKbNAtbX6zwHiTZNMZm9O0uCQhpHuWvBNEwR4NtRsjiihdqKpp
-	 opvOukJGrEblc2Na9VidJpGpop1b7K7uvs1gjBExap1XoRojc4Dc4P43GsCjinaVc1XBf
-	 LUK4Is6AzSG+E/KJhI15c+icuMRJ1Devq8QwJGKpKFsbUDrHMbvz69lGQvuOV06/MOxUG
-	 1EijVIax8TBceQ1emJNNWjJ768u8BTZDhuzjY19295uCiWKj16a6mykufVZ0gOGIAdzAu
-	 2KARtXrweChwDRiN25XtkRy+kps7n7k+Ml4+ZsbkJbKtKVERUGTRrKPyjGQpolPguRA==
+	t=1795713688;
+	b=p7WT0Pi3P6+sbfcA03sfKFegMnxobCEc+ZfFouGW+FiG0F1y/VW7MHaponXE7lVEi9xH
+	 8augEcIswOGH0dxmdWQnybi8lXiJqCMPPt/l8TcQ83b5LWJwcb5NwJ91v+jG9YH8WSR5C
+	 0GH5ycy29EffEGpe63FPqCoVa8mgXos89rhELlZ/l4JTVC6NSA2Q5FOcyvucTj6BmaOJl
+	 7kG76xqF6L6Sx3fr2XVivlfn0i5CkCAXTCIWQ9SSbWZhvZF60htFvCWWLcHw0hOM2aXhJ
+	 M6lVFAOfnHDkCjx5SYbvBBxDk2IOCSxhrWHO3y9LSFqZGtqSsA9yD9B0Rgqu83vs90w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795713681;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795713688;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qsGW6dVCn6imW0/lV9Clz9pMRKg/IwJXR5iUl70F8/M=;
-	b=X8m7uGMDWujE/B4GkJEOkmux98neq4N6SL9AB29142+cwxBHvg1tWr+xwI6+JUGA6mkR
-	 VybHbhegYYv6euVTgvqVVoo/tNxOE5A1m4eH6ccSfygjirbG7xZRVbwUHHz8KabmKRi0o
-	 1s7CahmE+5lAz+HxW3Xg2pKeFzobidsg8dcuSfcytB7Oqt6lgtwKWbwf+XEDThUCwAvt7
-	 SZNCdfwgI6yoi2UJ0zexjgN5KTojn8kf82fQupz2kPT2OnQbf0DmO7KxwFd8Yi9MKKApj
-	 95I0X2ZUk9fIlUsVXsOEwyK8Fvr0YH/GwNfn0RndRxtYFvuOqDp2PiyRMjRsVFKTWXw==
+	bh=STF5w+Sia/U7FbjQIeDG5ejbW9/U+HhTK5QG5ApBzGQ=;
+	b=mYaO5CWGxKgFs5xF8j6Y1FBjNx5zmc5HSmLJ2iolAOTOtbgKw9Bj8evV/NVLDpDXxxkA
+	 h3UqNSwV9K0FkLC1y0jGtSv1Y1mM/ozePvsmope1Qi+euudPDKPwfmIkeP2Is6+gE/8kx
+	 b8C0mnLdYo8nG1b+P3qZ/FkVZTCKPsGBBpBhtjyOdnK3f7ndwb9dazZTUs89M1bYjpSTo
+	 x7YTWy9/vf//BtAtsaapJwFSjNUdvtBOk3kxKub4wodOFceuHBBKZbOMZpvy5lECQvViP
+	 UZXGlJ/IItnmniBcJjofNkmrFzor23fvY8G0V8yWsc9e5TegA8vhuonV5u1ibmIFH8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cJ40hVab;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bWgRZV5s;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA63606A326;
-	Thu, 26 Nov 2026 17:21:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83AD0606A32C;
+	Thu, 26 Nov 2026 17:21:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cJ40hVab
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C51571F000C6;
-	Thu, 26 Nov 2026 17:21:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bWgRZV5s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 580271F000D3;
+	Thu, 26 Nov 2026 17:21:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795713681;
-	bh=qsGW6dVCn6imW0/lV9Clz9pMRKg/IwJXR5iUl70F8/M=;
+	s=k20260515; t=1795713688;
+	bh=STF5w+Sia/U7FbjQIeDG5ejbW9/U+HhTK5QG5ApBzGQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cJ40hVabU2mFW3Sk1Nnq/KWHeDsN3SleHx1p5lIwOStC3wYLO+DKPJhQAdjLwzYeF
-	 PDP1la/VPtjsMzKckH36pFkwz8fQPbcSOV3o+6dodWnK9eLya8t1ILlpLwa6pjZ6sb
-	 YctBM667YvDeqwXd+2wDO5KDU/lfPGKU9w+NJWEqBP2mm/JNQbUl/XLPfJngV1Y5so
-	 7bCN3hK4Bq6foMexYiXtXQDhJ3V7WwvEJ3FugcAT8vIaxZD1F5Vy9+xwJMyv4SGu58
-	 KmDpd4ym25yX3zWWHayCpO1vdDNR0otJqkMTwr0Jx3MiEJ4iuoplmRRWL+jHlPAtLh
-	 MN1m6Lcw4KsXw==
+	b=bWgRZV5sCKigzA2O3op/bPaPQ/GPKQSPM2w9wQ8TZsWdoVqgip7Theap/RvWPS654
+	 042cH2hY3JrO5+sUvPu6+RQk1hSb7myK0SL85XLXTd7t1+E4izNEQeOXUQ9eWMAVk7
+	 xsUgjD/ybDUT2C8bN6wv+7N3BAwhd3k3HEFiCyI5jgLD+AksQ8YoqRfcEnRT9sVaS4
+	 hjA3NEkwSA4AnLoob/osFV0PyFNqaomDsPQdOy8vgQONz2g1ALMnFhReQ1ijcxiYWl
+	 ElwA7l7PYEdDsjzvORWrG9OXXbZ8mFRAK45Uyg64QyQiiRBHPIPgEl16yfD79R8+Uc
+	 ZBUMR1b0kCWTA==
 From: Philipp Stanner <phasta@kernel.org>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -66,9 +66,9 @@ Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	amd-gfx@lists.freedesktop.org,
 	stable@vger.kernel.org
-Subject: [PATCH 2/3] drm/sched: Hot-fix timestamp misordering
-Date: Thu, 26 Nov 2026 18:20:46 +0100
-Message-ID: <20261126172046.2473303-4-phasta@kernel.org>
+Subject: [PATCH 3/3] drm/amdgpu: Hot-fix timestamp misordering
+Date: Thu, 26 Nov 2026 18:20:47 +0100
+Message-ID: <20261126172046.2473303-5-phasta@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261126172046.2473303-2-phasta@kernel.org>
 References: <20261126172046.2473303-2-phasta@kernel.org>
@@ -87,39 +87,34 @@ dma_fence timestamps could so far be written and read without any memory
 ordering, a bug that presumably got overlooked because x86 is strongly
 ordered.
 
-Hot-fix the scheduler's manual timestamp evaluation until we found a
-more suitable solution for mainline linux.
+Hot-fix amdgpu's manual timestamp evaluation until we found a more
+suitable solution for mainline linux.
 
 Cc: stable@vger.kernel.org
-Fixes: f7fe64ad0f22 ("drm/sched: Split free_job into own work item")
+Fixes: af0b54167009 ("drm/amdgpu: Convert to common fdinfo format v5")
 Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/gpu/drm/scheduler/sched_main.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 99252674e266..3d26a48ff1c3 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -928,8 +928,16 @@ drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
- 		next = list_first_entry_or_null(&sched->pending_list,
- 						typeof(*next), list);
- 		if (next) {
--			/* make the scheduled timestamp more accurate */
--			if (test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,
-+			/* Make the scheduled timestamp more accurate.
-+			 *
-+			 * TODO
-+			 * The test_bit_acquire() is a hotfix against timestamp
-+			 * misordering. Replace it with something better.
-+			 *
-+			 * The counter-part of the barrier is located in
-+			 * dma_fence_signal_timestamp_locked().
-+			 */
-+			if (test_bit_acquire(DMA_FENCE_FLAG_TIMESTAMP_BIT,
- 				     &next->s_fence->scheduled.flags))
- 				next->s_fence->scheduled.timestamp =
- 					dma_fence_timestamp(&job->s_fence->finished);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index 2f0349233695..415f23aa08a0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -177,11 +177,11 @@ static ktime_t amdgpu_ctx_fence_time(struct dma_fence *fence)
+ 
+ 	/* When the fence is not even scheduled it can't have spend time */
+ 	s_fence = to_drm_sched_fence(fence);
+-	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->scheduled.flags))
++	if (!test_bit_acquire(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->scheduled.flags))
+ 		return ns_to_ktime(0);
+ 
+ 	/* When it is still running account how much already spend */
+-	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->finished.flags))
++	if (!test_bit_acquire(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->finished.flags))
+ 		return ktime_sub(ktime_get(), s_fence->scheduled.timestamp);
+ 
+ 	return ktime_sub(s_fence->finished.timestamp,
 -- 
 2.56.0
 
