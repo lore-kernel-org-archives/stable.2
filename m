@@ -1,77 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795713688;
-	b=p7WT0Pi3P6+sbfcA03sfKFegMnxobCEc+ZfFouGW+FiG0F1y/VW7MHaponXE7lVEi9xH
-	 8augEcIswOGH0dxmdWQnybi8lXiJqCMPPt/l8TcQ83b5LWJwcb5NwJ91v+jG9YH8WSR5C
-	 0GH5ycy29EffEGpe63FPqCoVa8mgXos89rhELlZ/l4JTVC6NSA2Q5FOcyvucTj6BmaOJl
-	 7kG76xqF6L6Sx3fr2XVivlfn0i5CkCAXTCIWQ9SSbWZhvZF60htFvCWWLcHw0hOM2aXhJ
-	 M6lVFAOfnHDkCjx5SYbvBBxDk2IOCSxhrWHO3y9LSFqZGtqSsA9yD9B0Rgqu83vs90w==
+	t=1795713697;
+	b=uLY+NqjEtjWosfBViPjzuCUGTJqHyGeD8nMdixILjNgIUJu1XQZmSNU3umkh9uhFXrEr
+	 CFgAP7LQtFEYhQXyNy/SmI5AMJOL/1zg1P8EoqvBe8bQ50uucqvOoUtXBP745qsf2d5oK
+	 n2AwUFy8pg5Qu4TqQsyShoLB+V40q/vT5KmwUnPDQed+S/hHOrQE3k/HPolPkOp05wqIf
+	 TFw7bHGcEmk/MplJpPGhEr4ogYJuzuAZKq2htxRf8B+pQmvD0l/lFGDsOzHxDAITXqmUN
+	 ctb4OZVztFMFfxTod3YsIk2+pOfHBtoiBsUBNLupIoboOu6XBu2CGaB3dRL4myIYOnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795713688;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795713697;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=STF5w+Sia/U7FbjQIeDG5ejbW9/U+HhTK5QG5ApBzGQ=;
-	b=mYaO5CWGxKgFs5xF8j6Y1FBjNx5zmc5HSmLJ2iolAOTOtbgKw9Bj8evV/NVLDpDXxxkA
-	 h3UqNSwV9K0FkLC1y0jGtSv1Y1mM/ozePvsmope1Qi+euudPDKPwfmIkeP2Is6+gE/8kx
-	 b8C0mnLdYo8nG1b+P3qZ/FkVZTCKPsGBBpBhtjyOdnK3f7ndwb9dazZTUs89M1bYjpSTo
-	 x7YTWy9/vf//BtAtsaapJwFSjNUdvtBOk3kxKub4wodOFceuHBBKZbOMZpvy5lECQvViP
-	 UZXGlJ/IItnmniBcJjofNkmrFzor23fvY8G0V8yWsc9e5TegA8vhuonV5u1ibmIFH8g==
+	bh=WEtxjUJNyCg5rhAThfrpDMLVSn1Y24qgWM7Wv7T5lXw=;
+	b=WGMJh2vgXP24GjjIifsnBvuICUzgj2bXUZ2iCk/UaYCpJyMA7MSkrp++vbnulpcqdo92
+	 2sVtSXVdGTbnwheOaGx8KVKKEYsuksz9gftuYb9uvNo1hKCQ2NWUh1Li2oURRC6uN+2Zo
+	 t2ysUjhNbmLLOkqnplaXH5IWVHUa3q44YvrhTW8TzEWM6Zr95Yt8dNki/Luci0aHOxUez
+	 sykceN3LEuzSedHACtQKZ24FxcOQpEG78VIadiX7dALnusKPW4jFeuNB08wzs2bfgkZYX
+	 lBUMG37MI88tPyWb339YtZYHmbis24n7Lv8DwYh6uuBidQCwjU73qFBQf8346UMtefA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bWgRZV5s;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQiR0yjX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83AD0606A32C;
-	Thu, 26 Nov 2026 17:21:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA02606A326
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 17:21:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bWgRZV5s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 580271F000D3;
-	Thu, 26 Nov 2026 17:21:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQiR0yjX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 823581F0156D;
+	Thu, 26 Nov 2026 17:21:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795713688;
-	bh=STF5w+Sia/U7FbjQIeDG5ejbW9/U+HhTK5QG5ApBzGQ=;
+	s=k20260515; t=1795713697;
+	bh=WEtxjUJNyCg5rhAThfrpDMLVSn1Y24qgWM7Wv7T5lXw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bWgRZV5sCKigzA2O3op/bPaPQ/GPKQSPM2w9wQ8TZsWdoVqgip7Theap/RvWPS654
-	 042cH2hY3JrO5+sUvPu6+RQk1hSb7myK0SL85XLXTd7t1+E4izNEQeOXUQ9eWMAVk7
-	 xsUgjD/ybDUT2C8bN6wv+7N3BAwhd3k3HEFiCyI5jgLD+AksQ8YoqRfcEnRT9sVaS4
-	 hjA3NEkwSA4AnLoob/osFV0PyFNqaomDsPQdOy8vgQONz2g1ALMnFhReQ1ijcxiYWl
-	 ElwA7l7PYEdDsjzvORWrG9OXXbZ8mFRAK45Uyg64QyQiiRBHPIPgEl16yfD79R8+Uc
-	 ZBUMR1b0kCWTA==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
-	"Mario Limonciello (AMD)" <superm1@kernel.org>,
-	Aurabindo Pillai <aurabindo.pillai@amd.com>,
-	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
-	Gustavo Padovan <gustavo.padovan@collabora.com>,
-	Chris Wilson <chris@chris-wilson.co.uk>,
-	Luben Tuikov <ltuikov89@gmail.com>,
-	Shashank Sharma <shashank.sharma@amd.com>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	Gary Guo <gary@garyguo.net>
-Cc: linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	amd-gfx@lists.freedesktop.org,
-	stable@vger.kernel.org
-Subject: [PATCH 3/3] drm/amdgpu: Hot-fix timestamp misordering
-Date: Thu, 26 Nov 2026 18:20:47 +0100
-Message-ID: <20261126172046.2473303-5-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261126172046.2473303-2-phasta@kernel.org>
-References: <20261126172046.2473303-2-phasta@kernel.org>
+	b=XQiR0yjX1dYyYiZPfTbsVamgbUYF6dxHTyuOqFcAEkhmPh20CrXVW48eRjsCpd1u1
+	 GS7rS5OrNtsGMqPHmQgb4S5ngaqlflvDVt1LtS3LGpuZ5je8kypa66LuJ3ssQd0HyY
+	 HfLa17gKc82MHWfmMRtzboPIFAByFs1iTTTKbLqdcdHb4C6x2AnUKRVsKp/kg9fgs3
+	 MaA8JlFce+7ttP5uKizkwem9htsquCd63UkqVCBG/nPpP7J8g22jWu2dKoWgZ20FQd
+	 cTt09zVj/WWdll5NhclsqP8o//jGFagkow+LmoKYwUKmFqxJ8OYGHSsNVGfxm7HHRt
+	 M3EhC8DDmszbg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: keliu <liuke94@huawei.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] iio: Directly use ida_alloc()/free()
+Date: Thu, 26 Nov 2026 12:21:34 -0500
+Message-ID: <20261126172128.2745277-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112508-repose-unboxed-3df2@gregkh>
+References: <2026112508-repose-unboxed-3df2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,38 +61,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dma_fence timestamps could so far be written and read without any memory
-ordering, a bug that presumably got overlooked because x86 is strongly
-ordered.
+From: keliu <liuke94@huawei.com>
 
-Hot-fix amdgpu's manual timestamp evaluation until we found a more
-suitable solution for mainline linux.
+[ Upstream commit 319dbcd84fd2676afb2bcfee575fbc1fce474ec3 ]
 
-Cc: stable@vger.kernel.org
-Fixes: af0b54167009 ("drm/amdgpu: Convert to common fdinfo format v5")
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
+Use ida_alloc()/ida_free() instead of deprecated
+ida_simple_get()/ida_simple_remove() .
+
+Signed-off-by: keliu <liuke94@huawei.com>
+Link: https://lore.kernel.org/r/20220527091739.2949426-1-liuke94@huawei.com
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Stable-dep-of: d32bf759801e ("iio: trigger: free the trigger ID after device_del()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/iio/industrialio-core.c    | 6 +++---
+ drivers/iio/industrialio-trigger.c | 6 +++---
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index 2f0349233695..415f23aa08a0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -177,11 +177,11 @@ static ktime_t amdgpu_ctx_fence_time(struct dma_fence *fence)
+diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
+index c52b79a86ab49..d58cc1994c80e 100644
+--- a/drivers/iio/industrialio-core.c
++++ b/drivers/iio/industrialio-core.c
+@@ -1651,7 +1651,7 @@ static void iio_dev_release(struct device *device)
  
- 	/* When the fence is not even scheduled it can't have spend time */
- 	s_fence = to_drm_sched_fence(fence);
--	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->scheduled.flags))
-+	if (!test_bit_acquire(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->scheduled.flags))
- 		return ns_to_ktime(0);
+ 	iio_device_detach_buffers(indio_dev);
  
- 	/* When it is still running account how much already spend */
--	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->finished.flags))
-+	if (!test_bit_acquire(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->finished.flags))
- 		return ktime_sub(ktime_get(), s_fence->scheduled.timestamp);
+-	ida_simple_remove(&iio_ida, iio_dev_opaque->id);
++	ida_free(&iio_ida, iio_dev_opaque->id);
+ 	kfree(iio_dev_opaque);
+ }
  
- 	return ktime_sub(s_fence->finished.timestamp,
+@@ -1694,7 +1694,7 @@ struct iio_dev *iio_device_alloc(struct device *parent, int sizeof_priv)
+ 	mutex_init(&iio_dev_opaque->info_exist_lock);
+ 	INIT_LIST_HEAD(&iio_dev_opaque->channel_attr_list);
+ 
+-	iio_dev_opaque->id = ida_simple_get(&iio_ida, 0, 0, GFP_KERNEL);
++	iio_dev_opaque->id = ida_alloc(&iio_ida, GFP_KERNEL);
+ 	if (iio_dev_opaque->id < 0) {
+ 		/* cannot use a dev_err as the name isn't available */
+ 		pr_err("failed to get device id\n");
+@@ -1703,7 +1703,7 @@ struct iio_dev *iio_device_alloc(struct device *parent, int sizeof_priv)
+ 	}
+ 
+ 	if (dev_set_name(&indio_dev->dev, "iio:device%d", iio_dev_opaque->id)) {
+-		ida_simple_remove(&iio_ida, iio_dev_opaque->id);
++		ida_free(&iio_ida, iio_dev_opaque->id);
+ 		kfree(iio_dev_opaque);
+ 		return NULL;
+ 	}
+diff --git a/drivers/iio/industrialio-trigger.c b/drivers/iio/industrialio-trigger.c
+index f85478742d505..bf09ddee2bf7f 100644
+--- a/drivers/iio/industrialio-trigger.c
++++ b/drivers/iio/industrialio-trigger.c
+@@ -71,7 +71,7 @@ int __iio_trigger_register(struct iio_trigger *trig_info,
+ 
+ 	trig_info->owner = this_mod;
+ 
+-	trig_info->id = ida_simple_get(&iio_trigger_ida, 0, 0, GFP_KERNEL);
++	trig_info->id = ida_alloc(&iio_trigger_ida, GFP_KERNEL);
+ 	if (trig_info->id < 0)
+ 		return trig_info->id;
+ 
+@@ -98,7 +98,7 @@ int __iio_trigger_register(struct iio_trigger *trig_info,
+ 	mutex_unlock(&iio_trigger_list_lock);
+ 	device_del(&trig_info->dev);
+ error_unregister_id:
+-	ida_simple_remove(&iio_trigger_ida, trig_info->id);
++	ida_free(&iio_trigger_ida, trig_info->id);
+ 	return ret;
+ }
+ EXPORT_SYMBOL(__iio_trigger_register);
+@@ -109,7 +109,7 @@ void iio_trigger_unregister(struct iio_trigger *trig_info)
+ 	list_del(&trig_info->list);
+ 	mutex_unlock(&iio_trigger_list_lock);
+ 
+-	ida_simple_remove(&iio_trigger_ida, trig_info->id);
++	ida_free(&iio_trigger_ida, trig_info->id);
+ 	/* Possible issue in here */
+ 	device_del(&trig_info->dev);
+ }
 -- 
-2.56.0
+2.53.0
 
