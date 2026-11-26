@@ -1,57 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795728367;
-	b=Tf1nnTPZzHXN6odzHk4T+Q6jUKuZ65Zvr5cc43Jirjn2BdHeHnJ1JDetU0qQCyoMughL
-	 pJKx4juNG/+7W4tvBt0wJRSv9z0wtoy6cbJVRJNDKhTFA7+YkCU6O4sDlgTTnjpyd1TFz
-	 TKxYhKVbe9jvs2UoWbAIZywG96wbSINXAApG8uIamqzixg1Yv7Rr7yHeUKe4yp5bcq3r+
-	 JnOegBn7TeFJdCTCx8zdcMNvuh82I97X0HS+CJ+jzE0xw56VKgPEQIutKEiVprr02N1ya
-	 gpN3lC3J8zoziYiBCl4OQ30zXY8m8UKg2MZ9/TAus2WAqX3DLEKOoJUGiOTOokI6Y4g==
+	t=1795729550;
+	b=TdzCffnzwyy+9kDRM6I6mELT5BNa/PRQdl5nrvbABSs1EFekcKmxhghGfw5ZotuJqqFw
+	 Wbn9n51ySqiBwU+lsyxAsWRRk7AIuPI3KWgSepN25JR6xhrB0Xa+lP2cojUvdY9/fq/Pt
+	 Kujo5EmBmbuaoxd4KjqaaZF0R24HKWz52wyrxy/8zS3xQiQ89/QW0BymBym9HS7PgOJi1
+	 fZSeAGhk4oopRCNmteobPLXGVDipGJHoGhxmcn1im09ogvB4b9Q+CyiU4j6dUdmlDdFdK
+	 Bx6tCL/dzbb1x23Wa/nyKGgyU+0wMJHO7XKg8TRJvfA/53DXcTzu4iH7JqBruIvm5cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795728367;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=sYkHvG1XK7pHWdLcW4SLWaX5Hq1pyKiTV7VEU0uWFzE=;
-	b=yx02iKzhy+X9UyH2voeYFySBnh7Wgz9GOCkkq3lSZl0lUYqMJiXdkQ4T2D4mdr2evEdG
-	 pyIDg/BNpDnKAb7YV3JXwU0ZXEYglQ8rweaZBQ2Q4LMgOOgLbu4/Qh8egooszwdMh0RvP
-	 yEQhBQOxTcbkkzYRhi3GBCNPWft9h2bVwnUH2wOwX6aGXm4xvv9KvuIBxgsa5dvADNeTj
-	 rnDXmpVjKzSpBAdl53maFdncdmD5OgQsURIA47bllt8AJvuE1Z7UZSdhC76vs0QTxbB68
-	 POttt1Pls3aQxCw7dcleiBPLslFib3ngE9E7Mvk4Mi8moJctOamxZvFOwwS5Sm+tbtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795729550;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rbnALwWQni6QwZzrT13h6XvdU083PfOU1t4S0GjBaUw=;
+	b=NmAlv42eQZf+PJ31Y61YByebHSsTyEa5EtFxvL2XbivHnbOGRhXXOqMhYz7ERrOJirU8
+	 pVTyWOwL1JG1zz6ibXbS3bbFOwc2jWZcn7TbN2Y/OwRz5ZrqzLH9W9jxD8QAN5QTj115j
+	 lFBEww2fQTlVDgl3k8WtJKsVkrGRAvoj8W9VJ6CErpqaw6fC957VuSYFvY/LjVhFUMJA8
+	 jtw3+IkiYBYaZfucFC7wxrFpqpdIoWnKbsOFTSjLx5zJJPRmbzrrENt869pgVcWkCsAw6
+	 VQUZm/JMhLwsydFcee5PzjeUzvLk+RqSNUeVPnHcWpF6gDUHcehVANhS3gtyjCibHZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EuiXYEfS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nvn5o3t4;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0F2606A31E;
-	Thu, 26 Nov 2026 21:26:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F51606A31E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 21:45:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0F51606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EuiXYEfS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F3611F00893;
-	Thu, 26 Nov 2026 21:26:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795728367;
-	bh=sYkHvG1XK7pHWdLcW4SLWaX5Hq1pyKiTV7VEU0uWFzE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EuiXYEfSE7wYpMsY7ddx0KUdJJNL2+1K2hmfOnMbTwX0PjOLpUGQwtH/x/1dHkv7w
-	 NFuQHzNmcK6NFlmayd7vQcy1A37gye5KQi6ZgUYdyP+EMErS/dXTjPiIm0so/iAmh2
-	 V6CzlCRPcq3MHl+nV05ZzepJfRenz/3UUiMhchXfuStmkFG/b9/3dfMRDTPloU/W9Q
-	 8Em7hEhD8grnkLcj51KlWhWB/08suw3bhqg0CuOyw/FY4cj3a59NLfjeyqZMlMH5lm
-	 ABHufVldE0hkL6//EvecXa08GHioW5tU1ySMtmnejJUNsXz4/LZX32Hayn0Wj3RtF8
-	 80SGZHRjlBspA==
-Date: Thu, 26 Nov 2026 22:26:02 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: linux-perf-users@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
-	Jann Horn <jannh@google.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] perf: look up address filter files without
- ctx->mutex held
-Message-ID: <20261126-erlogen-bedrucken-dementieren-5de5e5460481@brauner>
-References: <20261126-work-exec-update_lock-leftovers-v1-0-1024b26792bc@kernel.org>
- <20261126-work-exec-update_lock-leftovers-v1-1-1024b26792bc@kernel.org>
- <20261126152414.GH49833@noisy.programming.kicks-ass.net>
- <20261126-gedruckt-gastarbeiter-vorsorgen-5fea7cea1877@brauner>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nvn5o3t4
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso54172045e9.2
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 13:45:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795729548; x=1796334348; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rbnALwWQni6QwZzrT13h6XvdU083PfOU1t4S0GjBaUw=;
+        b=Nvn5o3t4utjFHwq8P8C6aVYApdvQi/eP6pXDMwbDBFNn+Zgs+Spze6FEolyTC2A32Z
+         w46FB8WOcZWJVaNrPLBu66odoBKakmSn6VG+/uO+VsppyYJU8O9cyQ8jmcSIp+bm7piE
+         URb3Is1TN7AbvHT04OMQVQnQ5gV430WRjcampM7+J7jQdNV7Ufq4+jUDbR4ztiYtABZk
+         S2gT+BLg97r0yPg6jKQNXzJyItAtSz3UxeyZ5CxFmA9EHnJAlsr2plu3Q4HqT5HN3HFf
+         Cz/FI32hxPt106VQserQpFlOmXee2KupSO1NBxKW17hz4yt0f+BRX68pg91EWjnNhkDd
+         l3BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795729548; x=1796334348;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rbnALwWQni6QwZzrT13h6XvdU083PfOU1t4S0GjBaUw=;
+        b=Nxe0yeGip+MZJo4dri2t3rPpjNFI4SlwePm9w7mh9zSytoT72opuVSSrx8iidQ6BIq
+         vlZ/smWbZJpbpwfoW4yG+eJPpyYfQQT1SpYgIxWwbtHw8ddMaJux+9lLQrzTgI3pAkaw
+         FjnvcLG6mqadsB8LnMYmGnGRm0JH0P85Q21QB1vSgslbCXrre3V54vZMIYmAdzg4G+F6
+         QfubSfHe0pZrYjUJLRUhPjjfeqiUDVMp0OFowgScKv+50yQ7u6YxUqCv2U3yCy9V4CnL
+         DUMh/aeaqozhR0kNVjcxXc+11ULYIBi9kcxg+aedTnwTby0gRGWzTPOn0xI4ZcaGSiAO
+         eTMA==
+X-Forwarded-Encrypted: i=1; AL+hErHn1K9v2BwKenXmSl56foJn1i3+U705Od4Nlon0vKbMGPyXhoi0zeNI1rrmL96l5sjGzIbX0cE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z91A68ajX8LC5CkdHIdl8aoMx+JCM2P0zg0ifxCCm5fmi+2U+H+
+	ZM2vp9WouAN/ODeIsEXtgXCwjur6rosTNbCumFx97tvIxYMXzEcmrFGO
+X-Gm-Gg: AZFdTZcgK+gENgcRUS6vl5lZPHBFJ4bt0+vA1vzEZDIVGwpkJNrPCQZKTk9bHn0nNYG
+	ckugrxDjGBoS6bJohBbRFqQtSSqlxkNexYPUjEI8FkArzLYliAGfcfVS2S0DTsVckr0MJYlWTiD
+	tzrn22sjtxswIcXeppps3SUEJ7PhJwu8FTd6mYLydoERDQicqW/Qs+sUPcXebxG9Q2deueTPVzP
+	Wzs8F88mfMZIT4aBBTv+soU5eK8yrfwYXp04zkoPR2ZibwmH3c1bC53NMTEjdfvvdWZFwCreQYz
+	K33BAFavVpJKYTVU5BmpKjQifd3mSJDNaKYt4BOOgdmR1PJ3vBjATzWyVUUWFORyHlXl9FENv2V
+	S2J5vcalNQdfcUJY+d2wM3obEehZTGj4rspMi+BpbX5L0SQytt/CczfFhDn3QACpaZ6jecD5zjM
+	JZoiGiv62rxuDt05sAgrWwx+koOUxc1gsXIFYwTOQchzuNaY6YgLZs/RjCvVacHOUFsXobVe9sR
+	VyEqfp80isoEjCxTIFzkZAIFSA1NASpS2mUqg1WFcHdrbNoUqBa0o2ivD1MUSjS9FEc2C0ku9GG
+	Cfuncink+wnp8XFYcHKyYSguMfgGlSW/fpJaCyNPa65McufBaPPjEMtHJILLp2nrSa9AxTOoc54
+	3LJeO6pqOd4YfTQ==
+X-Received: by 2002:a05:600c:1d86:b0:4a1:fa27:df7c with SMTP id 5b1f17b1804b1-4bb88922972mr472705935e9.34.1795729547788;
+        Thu, 26 Nov 2026 13:45:47 -0800 (PST)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884a3a3dsm623698185e9.10.2026.11.26.13.45.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 13:45:47 -0800 (PST)
+From: David Carlier <devnexen@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] tracing: Fix trace_event_file leak on read-only instances
+Date: Thu, 26 Nov 2026 21:45:44 +0000
+Message-ID: <20261126214544.1202386-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,61 +99,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261126-gedruckt-gastarbeiter-vorsorgen-5fea7cea1877@brauner>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 26, 2026 at 09:56:37PM +0100, Christian Brauner wrote:
-> On Thu, Nov 26, 2026 at 04:24:14PM +0100, Peter Zijlstra wrote:
-> > (Why can we add proc files to the filter?)
->
-> I think we can. But it feels a bit annoying because this such lock
-> inversions involving exec_update_lock and perf isn't the first time.
-> So I tried to get this inversion out of the way.
+event_create_dir() takes a reference on the trace_event_file that is
+dropped by the release callback of the "enable" eventfs entry. A
+read-only (backup) instance only registers the first
+NR_RO_EVENT_ENTRIES entries, so release_ei() never reaches that
+callback and every trace_event_file of the instance is leaked when it
+is removed.
 
-So I looked at this. It doesn't work. The filter never contains a procfs
-file. It's just that kern_path() follows /proc/<pid>/exe to the binary
-and the parser wants a regular file. IOW, procfs is only walked through
-and exec_update_lock is then taken in the middle of that walk:
+Move the release callback to the "format" entry, which all instances
+have.
 
-kern_path()
--> ...
-   -> pick_link()
-      -> proc_pid_get_link()
-         -> call_proc_get_link()
-            -> down_read_killable(&exec_update_lock)
-         -> nd_jump_link()        // checks LOOKUP_NO_MAGICLINKS
+Fixes: 2c79da099aac ("tracing: Make the backup instance non-reusable")
+Cc: stable@vger.kernel.org # 7.1+
+Signed-off-by: David Carlier <devnexen@gmail.com>
+---
+ kernel/trace/trace_events.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Same for cwd, root, fd/<n> and map_files/, and proc_ns_get_link() does
-it for ns/. So by the time kern_path() returns the lock has been taken
-and dropped again. WE can't catch that.
+diff --git a/kernel/trace/trace_events.c b/kernel/trace/trace_events.c
+index 7f89160aeff3..b3f63b1f86e0 100644
+--- a/kernel/trace/trace_events.c
++++ b/kernel/trace/trace_events.c
+@@ -3276,7 +3276,7 @@ static int event_callback(const char *name, umode_t *mode, void **data,
+ 	return 0;
+ }
+ 
+-/* The file is incremented on creation and freeing the enable file decrements it */
++/* The file is incremented on creation and freeing the event directory decrements it */
+ static void event_release(const char *name, void *data)
+ {
+ 	struct trace_event_file *file = data;
+@@ -3298,6 +3298,7 @@ event_create_dir(struct eventfs_inode *parent, struct trace_event_file *file)
+ 		{
+ 			.name		= "format",
+ 			.callback	= event_callback,
++			.release	= event_release,
+ 		},
+ #ifdef CONFIG_PERF_EVENTS
+ 		{
+@@ -3317,7 +3318,6 @@ event_create_dir(struct eventfs_inode *parent, struct trace_event_file *file)
+ 		{
+ 			.name		= "enable",
+ 			.callback	= event_callback,
+-			.release	= event_release,
+ 		},
+ 		{
+ 			.name		= "filter",
+@@ -3380,7 +3380,7 @@ event_create_dir(struct eventfs_inode *parent, struct trace_event_file *file)
+ 
+ 	file->ei = ei;
+ 
+-	/* Gets decremented on freeing of the "enable" file */
++	/* Gets decremented by event_release() when the ei is freed */
+ 	event_file_get(file);
+ 
+ 	return 0;
+-- 
+2.55.0
 
-procfs itself would have to look at the lookup flags before it takes
-exec_update_lock. IOW, path lookup would have to work around perf's
-lock ordering. And that only takes care of procfs. On FUSE the lookup
-still blocks for as long as the server wants with ctx->mutex held and
-exec waits for that.
-
-So ok, if we can't drop ctx->mutex in the middle of the ioctl then how
-about we don't hold ctx->mutex during parsing to begin with?
-We let perf_ioctl() hand PERF_EVENT_IOC_SET_FILTER off before it takes
-the mutex:
-
-ioctl(PERF_EVENT_IOC_SET_FILTER)
--> perf_ioctl()
-   -> perf_event_set_filter()                // no ctx->mutex
-      -> perf_event_set_addr_filter()
-         -> perf_event_parse_addr_filter()   // kern_path(), own list
-         -> perf_event_ctx_lock()
-            // revoked? has_addr_filter()? ->addr_filters_validate()
-            -> perf_addr_filters_splice()
-            -> perf_event_addr_filters_apply() on each child
-         -> perf_event_ctx_unlock()
-
-The parser fills its own list and counts the file filters in locals.
-Everything that needs ctx->mutex then happens in one go under
-perf_event_ctx_lock().
-
-So ctx->mutex is never dropped in the middle of an ioctl, a migrated
-event is handled by perf_event_ctx_lock() like everywhere else and no
-ctx is carried across the lookup?
