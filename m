@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795715390;
-	b=lgIjgLnNBcgP6bFazZ2acnSuy6MOdcLx7NJhFqx2or8tl34WAfXOwN0BhwdkDchQeNRb
-	 00Xpl8Ju5CeHXtdAgBUkzGn5/2XBFwv4WLzwe2EpEcFKLXEOdANWzwX80efoIkWV4w/ri
-	 3SCDCEM05sagLIgwWOtOX9bjfPJMESuqGLfCharDxKGi/AeQYvkkNTG4nIa7LWPLM7VUX
-	 bpgS0HNsLPcgao2zWZb654Lq8/ZlMtPu21JOQROPjNXuwjbx4m6JQxw1tr96CpmYcam7C
-	 CXSh6qF1AOGS/YQAoeZSFIHs9W3WqFhuKpruAsgCf7+hc0DMEKux9KKKDDFYBaBMcSA==
+	t=1795715471;
+	b=qwf/8AvT0ZCUvr9DsRxMDYmLAukWzfV05xZd0+UT6cwTyGOe7jalNQfqmMNJ5MK2fLo6
+	 Gh4Jl4MLul8ZQwxyvdsWBeK5fXdSBg7cjRxYmCSxDyxnfJTy0H3k0EhbpYr0F36M5B3eW
+	 eVItZYnP72doUweVB6p5jctF2g+nXAovWrWxyOT9KZMIcEqzGQIGWszirYanMrn7qvuQD
+	 ZX46kKvrxEaCOUce2D7ayyw/XJh5B2P41T5ZN8k1/PPajGU4FzjryLnxR5o/lrfZGM7Z6
+	 T3RIKpMyMnzPF48RuZK3HCYftsfUkNav5WRemFGYNV+Is4Yp4WWVhbT9axszb4L7/9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795715390;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ouBVtknwG+MP0jN8AhTfO47zIk3bNGvLbyRW2rgifEc=;
-	b=AoOePyDSx2A8bxeH1RQPKoIbQZ/+KF8tArt8ppteqJp2aL10aXSbKdvqZJ3xH5m+tdGf
-	 50zrKhAPfT082Q4TnSDid3woih/jIQlGsbNHXxc7aSYhQZzdRl4yY3Z7YNvrR9KStvn+F
-	 SrcMQ3arsDvVoUTKiOoe7ntVAmrA6+Hu0dK7+Ehy2d6XC1Zxad4qW4MUZcd02j0FnAA5X
-	 qI114BpYbTD7FY942sXlJ8XIXNwDNCHCpVf7e2GVhNBTL1JCgA62gAdxDXrb41yahS4EA
-	 fGLO0/P8VRXL0pumvCj6FhlJmTH32BoSa9GkO4NB/m+oS4Pscvh49NQUnHJc9dCm9WQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795715471;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=e6NIlKdHZpf6i5WxOE68askGCewEzIQZHvaFRNGMU/g=;
+	b=EbPnCVVDA4l+WcAdqXPjIsHot8d2mwMbRW55b2/n37ldO2JVeyyy/u328X5bhMjA5xFO
+	 6YuSkQaGtgFJfb3DA+mBgFogGrP8PiN3UPN9eQn2YnOrfObSTTR4aANhfwr7KIiTSpc6/
+	 TMeaPRUe6gWJjALjllNayrc2hwZ00NWNo0JZ1hpvjh3jCmEbkEMBHuXwVpxYTa2qVQsUb
+	 HVHna28fdm5AE4UWfUeVOTPoFd2poOs7u0zf0HFazc2So+kNye8BVxfhB/jRLXwaTFQPw
+	 LONZr+f7yaK7hH7b2EQ9L0egCXmSJp3BoEikkcT1MvBDsqTMx9Bp6hz8oTodVaty3mA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oPaF3KLd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7bgKiIy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03095606A31C;
-	Thu, 26 Nov 2026 17:49:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C12606A31E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 17:51:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oPaF3KLd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A787E1F000C0;
-	Thu, 26 Nov 2026 17:49:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7bgKiIy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1D951F000CA;
+	Thu, 26 Nov 2026 17:51:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795715389;
-	bh=ouBVtknwG+MP0jN8AhTfO47zIk3bNGvLbyRW2rgifEc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oPaF3KLdlUtjc82qMAU9L96X3pShH/ohEB0DaOO+ZqbM/phFNVqyvO+ZAdu3kbRKm
-	 1L/kf/gmIVQ8VhxUG5a6SDSeFsR9lfznHcKMlMqwtagtwuiZiSTYsLfNMVNxzCnxac
-	 OiPNje8W/EYHotY8QRrcd4lDRVGIRjrygpspdcCfWHI9QRK/t3G/TFiKeXRWoWiq4h
-	 6Q0PPmepML/+790kwYwFnifPjwAxuavCM3pED0FZdWjqVbTU8SOMc4vTRRFukByP+m
-	 0Aj16geH6SdMaiQj4qItCnXnAO+OlQ21BBN2ucM/hyXmE0qEDn6kYI/NFoH8Eu3Rag
-	 ZxXx1vzuLwTaw==
-Date: Thu, 26 Nov 2026 18:49:45 +0100
-From: Andi Shyti <andi.shyti@kernel.org>
-To: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, 
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Markus Haberlander <markus.haberlander@rosenberger.com>
-Subject: Re: [PATCH] i2c: cgbc: Fetch the status of a write transfer
-Message-ID: <awhxAlhwF4QF3V6a@zenone.zhora.eu>
-References: <20261123-cgbc-i2c-write-status-v1-1-5b0fa0322b57@rosenberger.com>
- <179568834099.302193.16315749597111506309.b4-review@b4>
- <awgwO98qx3zX4MaY@zenone.zhora.eu>
+	s=k20260515; t=1795715470;
+	bh=e6NIlKdHZpf6i5WxOE68askGCewEzIQZHvaFRNGMU/g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=m7bgKiIy0MefGiZSYPDv9w3P7bM72q7daZx8ROZnl7gYBVeN0pGA8r+VHcWqGijA8
+	 ID5CWSUAdXJwjUQdgt337vQcUQOkS4bZ/Osx8/Z40/I9xJq921/x/KvJTPp239Ho6e
+	 qSvlgaIrCX2qam0qYXvlwui9OPajT5bYdWo3kEcNoAHvvif57QIU8AsQq4g7qVnT15
+	 7pp5FlbDCbMegchJYoh85qYOPrWWzhUt6nPxeH2OG5L2X2piNUFQSXY8vmGfrB5H0o
+	 RMlEBe7jvYXFYTzPRf/96j4Sj44RMSdHc+ESagd8EwgzQXwzQ3NsltE2NMfXOAQ/El
+	 dy9wUJCQjkeVA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Christopher Hoover <ch@murgatroid.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] iio: temperature: hid-sensor-temperature: Use per-instance callbacks
+Date: Thu, 26 Nov 2026 12:51:08 -0500
+Message-ID: <20261126175054.2854886-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112552-salvation-spyglass-56fb@gregkh>
+References: <2026112552-salvation-spyglass-56fb@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,33 +61,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <awgwO98qx3zX4MaY@zenone.zhora.eu>
+Content-Transfer-Encoding: 8bit
 
-Hi Thomas,
+From: Christopher Hoover <ch@murgatroid.com>
 
-...
+[ Upstream commit 36eeb26031e90eeb81bbac3d3acad61d23fcbdf3 ]
 
-> > Yes it conflicts (compile issue) with the series [1]. The possibilies are:
-> > - I pick this patch in my series and send a v7.
-> > - [1] is applied, an immutable branch is created, you rebase your patch on
-> >   top of it, and patch is applied in I2C tree.
-> > - [1] is applied, you rebase on top of mfd-next, and your patch is applied
-> >   in MFD tree.
-> > 
-> > Andi, Lee, what do you prefer?
-> 
-> Let's wait your patches to get in first and then Markus can
-> rebase on top of them.
+hid-sensor-temperature keeps a single static struct
+hid_sensor_hub_callbacks for all instances and overwrites its pdev in
+every probe.  With two temperature sensors, input reports for one are
+delivered with the other's platform device; once that device is
+removed, platform_get_drvdata() returns NULL and
+temperature_capture_sample() dereferences it:
 
-as you are going to resend your series, would you be so kind to
-include this, as well?
+  BUG: kernel NULL pointer dereference, address: 00000000000003a8
+  RIP: 0010:temperature_capture_sample+0xd/0x50 [hid_sensor_temperature]
 
-Thanks,
-Andi
+The oops happens in sensor_hub_raw_event() with the hub's spinlock
+held, so the hub's removal then hangs.  It reproduces with two uhid
+devices that each declare a temperature sensor, one destroyed while
+the other still sends input reports.
 
-> I will now prioritize your series.
-> 
-> Thanks,
-> Andi
+Keep the callbacks in struct temperature_state, as the other HID
+sensor drivers (accel, gyro, als, ...) do.
+
+Fixes: 59d0f2da3569 ("iio: hid: Add temperature sensor support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christopher Hoover <ch@murgatroid.com>
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ sashal: adapted to older tree: timestamp field uses u64 __aligned(8) instead of aligned_s64, and adjusted the register_callback argument indentation context. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/iio/temperature/hid-sensor-temperature.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/iio/temperature/hid-sensor-temperature.c b/drivers/iio/temperature/hid-sensor-temperature.c
+index e440b7f692870..6bd18c95f4001 100644
+--- a/drivers/iio/temperature/hid-sensor-temperature.c
++++ b/drivers/iio/temperature/hid-sensor-temperature.c
+@@ -15,6 +15,7 @@
+ struct temperature_state {
+ 	struct hid_sensor_common common_attributes;
+ 	struct hid_sensor_hub_attribute_info temperature_attr;
++	struct hid_sensor_hub_callbacks callbacks;
+ 	struct {
+ 		s32 temperature_data;
+ 		u64 timestamp __aligned(8);
+@@ -184,11 +185,6 @@ static int temperature_parse_report(struct platform_device *pdev,
+ 	return ret;
+ }
+ 
+-static struct hid_sensor_hub_callbacks temperature_callbacks = {
+-	.send_event = &temperature_proc_event,
+-	.capture_sample = &temperature_capture_sample,
+-};
+-
+ /* Function to initialize the processing for usage id */
+ static int hid_temperature_probe(struct platform_device *pdev)
+ {
+@@ -238,9 +234,13 @@ static int hid_temperature_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, indio_dev);
+ 
+-	temperature_callbacks.pdev = pdev;
++	temp_st->callbacks = (struct hid_sensor_hub_callbacks) {
++		.send_event = temperature_proc_event,
++		.capture_sample = temperature_capture_sample,
++		.pdev = pdev,
++	};
+ 	ret = sensor_hub_register_callback(hsdev, HID_USAGE_SENSOR_TEMPERATURE,
+-					&temperature_callbacks);
++					   &temp_st->callbacks);
+ 	if (ret)
+ 		goto error_remove_trigger;
+ 
+-- 
+2.53.0
+
