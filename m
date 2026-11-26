@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795713697;
-	b=uLY+NqjEtjWosfBViPjzuCUGTJqHyGeD8nMdixILjNgIUJu1XQZmSNU3umkh9uhFXrEr
-	 CFgAP7LQtFEYhQXyNy/SmI5AMJOL/1zg1P8EoqvBe8bQ50uucqvOoUtXBP745qsf2d5oK
-	 n2AwUFy8pg5Qu4TqQsyShoLB+V40q/vT5KmwUnPDQed+S/hHOrQE3k/HPolPkOp05wqIf
-	 TFw7bHGcEmk/MplJpPGhEr4ogYJuzuAZKq2htxRf8B+pQmvD0l/lFGDsOzHxDAITXqmUN
-	 ctb4OZVztFMFfxTod3YsIk2+pOfHBtoiBsUBNLupIoboOu6XBu2CGaB3dRL4myIYOnA==
+	t=1795713698;
+	b=a10Rz1eEeYjwnme23DAOQO1ykG6UToaw/rbuhUAdbk9y17JXSn/bWSYfhIOfCj74UR4b
+	 v+iyBBPNJtd9w3y0p+NZD6L42TvxdzmO4HG8Cuy3OSz+YNK+baPgrz0iYeS41IvsD7s4Z
+	 uxa62TbUz0WYU10H+nlbUcAgLkDe9tkRqRmXpqlcRDb5ZIJlvjn0vgqgJZO0gt7K7/EOl
+	 9i1OQieUPY1Iiy9IJNhnD17YawyONs+ILcdbsmqqNsldvSsZRz05wUIY04IPNjh9M5rNT
+	 DcJQmJ22EGkGsUv1FG+wr5v4oadMMvo5/ZAZ92r2uk/ky31noXJQ6BaQ0mrSXeiIz2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795713697;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795713698;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WEtxjUJNyCg5rhAThfrpDMLVSn1Y24qgWM7Wv7T5lXw=;
-	b=WGMJh2vgXP24GjjIifsnBvuICUzgj2bXUZ2iCk/UaYCpJyMA7MSkrp++vbnulpcqdo92
-	 2sVtSXVdGTbnwheOaGx8KVKKEYsuksz9gftuYb9uvNo1hKCQ2NWUh1Li2oURRC6uN+2Zo
-	 t2ysUjhNbmLLOkqnplaXH5IWVHUa3q44YvrhTW8TzEWM6Zr95Yt8dNki/Luci0aHOxUez
-	 sykceN3LEuzSedHACtQKZ24FxcOQpEG78VIadiX7dALnusKPW4jFeuNB08wzs2bfgkZYX
-	 lBUMG37MI88tPyWb339YtZYHmbis24n7Lv8DwYh6uuBidQCwjU73qFBQf8346UMtefA==
+	bh=thTW5B905MYp85Zu/iGBKj33GxF2Nnx5pO28a0OAOWI=;
+	b=NKZPVF0Pb6qR91hz475uoL7n/4H3D0PKzPEzctDoswxaRczMFn3wB6xuAWy1ZWEcybqv
+	 gf2jFFRszNKlOAZUY90K00JFEeQUmxOSdeMCj8TvBXleZ5/zXHvm+e/7468+dZQwLo/Vf
+	 ssoDwEMDIVK/y2VqQVGKB2q5BTwr8kPY8aXdy/swSixPrEIrqpOF7YRwL7KqvubjTtBVp
+	 db0x4Z9YClnpkXwDmwKx1sKqz/awsecLrafw/UWzBk7J29rB4xMGssbjl9672cP9sj4Eq
+	 tbwWGOs13yrBJ3+LrupG12gsyqGHLi0lQO0p83J+3/wKtg9BoU6Xgv+zpRWirMoiXkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQiR0yjX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fo7vShe5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA02606A326
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 17:21:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBBD0606A32D
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 17:21:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQiR0yjX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 823581F0156D;
-	Thu, 26 Nov 2026 17:21:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fo7vShe5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AD1C1F00A19;
+	Thu, 26 Nov 2026 17:21:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795713697;
-	bh=WEtxjUJNyCg5rhAThfrpDMLVSn1Y24qgWM7Wv7T5lXw=;
+	s=k20260515; t=1795713698;
+	bh=thTW5B905MYp85Zu/iGBKj33GxF2Nnx5pO28a0OAOWI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XQiR0yjX1dYyYiZPfTbsVamgbUYF6dxHTyuOqFcAEkhmPh20CrXVW48eRjsCpd1u1
-	 GS7rS5OrNtsGMqPHmQgb4S5ngaqlflvDVt1LtS3LGpuZ5je8kypa66LuJ3ssQd0HyY
-	 HfLa17gKc82MHWfmMRtzboPIFAByFs1iTTTKbLqdcdHb4C6x2AnUKRVsKp/kg9fgs3
-	 MaA8JlFce+7ttP5uKizkwem9htsquCd63UkqVCBG/nPpP7J8g22jWu2dKoWgZ20FQd
-	 cTt09zVj/WWdll5NhclsqP8o//jGFagkow+LmoKYwUKmFqxJ8OYGHSsNVGfxm7HHRt
-	 M3EhC8DDmszbg==
+	b=fo7vShe5ZC4knuf7aMfNT75UW+A9Z5iAmTKP/zJRdNCs4XhtKmSPWXI9AFCWidzKn
+	 Ze3z+rn119SPnRYxOC6YhzkjOLKUQuFhaYgOA+hFyf7wIZkADqk32PoLSU6JFAZQNG
+	 wXNcCOLJns10ujtugp6LoJIDqEv+YTkWOdjyNAYSBE+Q625aSUS0g6bzJetfS8YN7a
+	 wySiGM0UW9O6k+k1DeZTQbqMnRGiSzu9xI6S9xgglwOP4A3NLJBXcQ5KB06heJ+sbt
+	 7t4cGb7IO85fhwRawqXcsxiivlN3DQtmub3/eg2CtwyzThlh3lUds8vhIItptVyM38
+	 z1+7T1M52mFkg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: keliu <liuke94@huawei.com>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+Cc: Changyul Lee <lcy8047@gmail.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] iio: Directly use ida_alloc()/free()
-Date: Thu, 26 Nov 2026 12:21:34 -0500
-Message-ID: <20261126172128.2745277-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] iio: trigger: free the trigger ID after device_del()
+Date: Thu, 26 Nov 2026 12:21:35 -0500
+Message-ID: <20261126172128.2745277-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112508-repose-unboxed-3df2@gregkh>
+In-Reply-To: <20261126172128.2745277-1-sashal@kernel.org>
 References: <2026112508-repose-unboxed-3df2@gregkh>
+ <20261126172128.2745277-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,85 +62,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: keliu <liuke94@huawei.com>
+From: Changyul Lee <lcy8047@gmail.com>
 
-[ Upstream commit 319dbcd84fd2676afb2bcfee575fbc1fce474ec3 ]
+[ Upstream commit d32bf759801e6df23038dc834622a122ec76a4dd ]
 
-Use ida_alloc()/ida_free() instead of deprecated
-ida_simple_get()/ida_simple_remove() .
+iio_trigger_unregister() returns the trigger ID to iio_trigger_ida
+before device_del() removes the "trigger<N>" device. A trigger
+registered in between can get the same ID, and its device_add() fails:
 
-Signed-off-by: keliu <liuke94@huawei.com>
-Link: https://lore.kernel.org/r/20220527091739.2949426-1-liuke94@huawei.com
-Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Stable-dep-of: d32bf759801e ("iio: trigger: free the trigger ID after device_del()")
+  sysfs: cannot create duplicate filename '/bus/iio/devices/trigger0'
+
+For example, adding a sysfs trigger while an hrtimer trigger is being
+removed through configfs, or the other way around, hits this because the
+two paths do not share a lock.
+
+Free the ID after device_del(), as the error path of
+iio_trigger_register() already does, and drop the "Possible issue in
+here" comment.
+
+Fixes: 1637db44413e ("Staging: IIO: Trigger support added to core.")
+Signed-off-by: Changyul Lee <lcy8047@gmail.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/industrialio-core.c    | 6 +++---
- drivers/iio/industrialio-trigger.c | 6 +++---
- 2 files changed, 6 insertions(+), 6 deletions(-)
+ drivers/iio/industrialio-trigger.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
-index c52b79a86ab49..d58cc1994c80e 100644
---- a/drivers/iio/industrialio-core.c
-+++ b/drivers/iio/industrialio-core.c
-@@ -1651,7 +1651,7 @@ static void iio_dev_release(struct device *device)
- 
- 	iio_device_detach_buffers(indio_dev);
- 
--	ida_simple_remove(&iio_ida, iio_dev_opaque->id);
-+	ida_free(&iio_ida, iio_dev_opaque->id);
- 	kfree(iio_dev_opaque);
- }
- 
-@@ -1694,7 +1694,7 @@ struct iio_dev *iio_device_alloc(struct device *parent, int sizeof_priv)
- 	mutex_init(&iio_dev_opaque->info_exist_lock);
- 	INIT_LIST_HEAD(&iio_dev_opaque->channel_attr_list);
- 
--	iio_dev_opaque->id = ida_simple_get(&iio_ida, 0, 0, GFP_KERNEL);
-+	iio_dev_opaque->id = ida_alloc(&iio_ida, GFP_KERNEL);
- 	if (iio_dev_opaque->id < 0) {
- 		/* cannot use a dev_err as the name isn't available */
- 		pr_err("failed to get device id\n");
-@@ -1703,7 +1703,7 @@ struct iio_dev *iio_device_alloc(struct device *parent, int sizeof_priv)
- 	}
- 
- 	if (dev_set_name(&indio_dev->dev, "iio:device%d", iio_dev_opaque->id)) {
--		ida_simple_remove(&iio_ida, iio_dev_opaque->id);
-+		ida_free(&iio_ida, iio_dev_opaque->id);
- 		kfree(iio_dev_opaque);
- 		return NULL;
- 	}
 diff --git a/drivers/iio/industrialio-trigger.c b/drivers/iio/industrialio-trigger.c
-index f85478742d505..bf09ddee2bf7f 100644
+index bf09ddee2bf7f..721ee9ae946bd 100644
 --- a/drivers/iio/industrialio-trigger.c
 +++ b/drivers/iio/industrialio-trigger.c
-@@ -71,7 +71,7 @@ int __iio_trigger_register(struct iio_trigger *trig_info,
- 
- 	trig_info->owner = this_mod;
- 
--	trig_info->id = ida_simple_get(&iio_trigger_ida, 0, 0, GFP_KERNEL);
-+	trig_info->id = ida_alloc(&iio_trigger_ida, GFP_KERNEL);
- 	if (trig_info->id < 0)
- 		return trig_info->id;
- 
-@@ -98,7 +98,7 @@ int __iio_trigger_register(struct iio_trigger *trig_info,
- 	mutex_unlock(&iio_trigger_list_lock);
- 	device_del(&trig_info->dev);
- error_unregister_id:
--	ida_simple_remove(&iio_trigger_ida, trig_info->id);
-+	ida_free(&iio_trigger_ida, trig_info->id);
- 	return ret;
- }
- EXPORT_SYMBOL(__iio_trigger_register);
-@@ -109,7 +109,7 @@ void iio_trigger_unregister(struct iio_trigger *trig_info)
+@@ -109,9 +109,8 @@ void iio_trigger_unregister(struct iio_trigger *trig_info)
  	list_del(&trig_info->list);
  	mutex_unlock(&iio_trigger_list_lock);
  
--	ida_simple_remove(&iio_trigger_ida, trig_info->id);
-+	ida_free(&iio_trigger_ida, trig_info->id);
- 	/* Possible issue in here */
+-	ida_free(&iio_trigger_ida, trig_info->id);
+-	/* Possible issue in here */
  	device_del(&trig_info->dev);
++	ida_free(&iio_trigger_ida, trig_info->id);
  }
+ EXPORT_SYMBOL(iio_trigger_unregister);
+ 
 -- 
 2.53.0
 
