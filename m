@@ -1,73 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795732765;
-	b=5hu4twS76m4kZlReq2cJdoXS01kIH1Hh2RGW4Xws0qrNzYsNvtGEcMt8CHZu6TQuTekC
-	 3Esr2h3P4GYCeXr1RNhCArQ0Cbmt3rClIDLPDcT9LjlTxVdCMVQJ/bPaexWNO1cxWd62r
-	 hezQzqwCd8i6ioBA93Rh8Df1bIw8cP2R8nB84DyCcQOJuFGogAJNQFahvRfOOo/94bjl7
-	 HxDZ5zHcYlb1dZHrTJcWuR6qXUFj4i+Ojl2uPnOJB5dGdpDrwWyLijCGy2L3n+Ove7F0j
-	 ck04FDEO24BaDYh47OQSNGvB6jQVK44u77fmpvWAj+ZbbFXIJZE+sfcppdA2CK94KtQ==
+	t=1795732767;
+	b=YeGvfmMLfgGKPxL7xbXrr4wWbB45PMDjTnDcL1m8V2sQvGo/5nlmHYaqdSwhu7DIhlkI
+	 NkC+QlwIT0Iynm6UnxA56oytvGEPlaYh45WfdpoDrCnmPtv6kcLXQfureGUO3YoyPIU5h
+	 rgrVXhh5k5NocKnWVrDyk/lRXqfTZP8hvGL4GxjVz6UZbGxjUs692JRJ7ZjJmX0COSnjF
+	 5072P+NvMjiWbLe8Pav0qk1FoMQsbMRSVWdyfAZmqRzT1333JWS/5rq8FXLc7e6d0146y
+	 0FzSaDalU8JNobLCyEE4BIVx2UeUDV2v5PLhckvk380ln2W+6I86felBaWRLJj9EhKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795732765;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795732767;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Ls1Tao0tpzuKTHu6keuYzBn0SKo2kaYIKIQAuXYOuAA=;
-	b=yx7t/b+r3MMBkPxUrBYyw6dMtBBHkr16yIJdaqYHDQ3WU40NmnWoxVtgR+W18qPMspqE
-	 nPZTO9hF6Peeo+KArdvSjJxmJPBwt5FLne2zyZPacwb9yBE0wklmNtkRA4O2tHg2PIJze
-	 BelzhaXT2QZn+wZW5j+WzfyGgrBkjTd7TO/rNmalGEnRr92hiVTP+J0PeCvZNQQWALRmu
-	 GssEBBdhE8c2/FOPD0/5tdAT19Kv85H0cMk8icR0eD8nKxC8AhjUCCgzRKmCYGv+g9Xy8
-	 GUD5zLvwpUdkxwMjkNKXcEskTCHo2EmcFmjeJDuzyANL0g9KNlMmL2pp2n0hjUSYCuQ==
+	bh=XLVLk6tx9szQj4RRuuOODEHNywl+w3WIa0JhuMX+CyM=;
+	b=nW2+OMik9jFHd6C1gRxBdPEK49iz8NpJ/NJprdom/12/Xp3o8rpC7Cxoy0FotOYa8sBB
+	 bTSv3sCvwFB6Ud4W+em/nk7OC8OxhLKEPRdTAmVHxix2rkZBexQWmke+9F6V8gfuZ3SpW
+	 pEzcebDOtU25ZM5/I068PHcvK/CEXQxyrSijG/ZDiKtSkLjpKKOf3O6jD8ccXSWe+PSCX
+	 BfRDRThyZKspAlPhzIgZO7cwiD24L+JJc4MQ9ZwEKNjRyrlRheihf0waBsFMipjk8VnMt
+	 YvvSNwxMrInBE8tHXCLkH27nKBG6cG8aT8RnpS7cgjxo0vhSJarlvW+CTSyCHsD14gA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oZuqwZ2L;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fQso9WKs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A36606A337;
-	Thu, 26 Nov 2026 22:39:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C699606A33F
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 22:39:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oZuqwZ2L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC6AA1F0089C;
-	Thu, 26 Nov 2026 22:39:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fQso9WKs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93C581F00919;
+	Thu, 26 Nov 2026 22:39:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795732764;
-	bh=Ls1Tao0tpzuKTHu6keuYzBn0SKo2kaYIKIQAuXYOuAA=;
+	s=k20260515; t=1795732766;
+	bh=XLVLk6tx9szQj4RRuuOODEHNywl+w3WIa0JhuMX+CyM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oZuqwZ2L8F2Qv7wNXF4yrB8vHvHShYVQaAsjSkN4LYbSeWbkU5je5uRH+bonrPDPE
-	 qkBLk2n6i8ALnASWxqUoiQs3Xm3I+PQdx+7gOX9IoaL9xgiqz96MCmTatH55CfJPxG
-	 TF9jah3hBda20nGejnuTutBJ8bPPnlwXLbwWVyILaFItlIKwOlUaLp0zfmlAplwSt0
-	 QuBwnwzDwOLhB47u2z/BeJ1uk5tIUU9MB7U1vw98MhWJOlrnxklZIIy+9htDLvSrSJ
-	 0DeBcyGsgXW/8H+fR0CtTkzL8Kplf3OL0RTn74iygdOg020O3bPYd3WUF7mX87HxbT
-	 kDM2YtTNO19gw==
+	b=fQso9WKsFUOitjfiBczWc7E2vu7kya1POvG2vyenxG+FvBJQhqOz117aHPsMaSU1s
+	 ETZ4lxC/KRqGHDJtjqO5xaCT6s5WdFu9eIfb3klcwiMGDYmu82ul4OpmVoLDy1W5Tw
+	 camdKe6A6fggExcu0lM232x9+wYszRuT1To1kY6pqSNhwEr8+PkHCFViD/g1N0hnHg
+	 F25tPkIzyZgH5jbemwJViHqMwpcM9qLEhvZDQ0gVh7npgHnBMRiOEODhuVr0d9zJ6k
+	 Xz7o40Hb7S8of/8Yp7irOBxWSnno2CBc6HIzNhzexqEwvp0nNpezDrj3Af09JsgkGz
+	 HC0cZkuGpi6fw==
 From: Sasha Levin <sashal@kernel.org>
-To: Brett A C Sheffield <bacs@librecast.net>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Salvatore Dipietro <dipiets@amazon.it>,
 	stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	pavel@nabladev.com,
-	jonathanh@nvidia.com,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 5.10 000/265] 5.10.276-rc1 review
-Date: Thu, 26 Nov 2026 17:39:16 -0500
-Message-ID: <20261126223918.1165617-2-sashal@kernel.org>
+	dipietro.salvatore@gmail.com,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 6.18.y v2 0/2] mm/page_alloc: fix iomap buffered write regression from 5d8edfb900d5
+Date: Thu, 26 Nov 2026 17:39:17 -0500
+Message-ID: <20261126223918.1165617-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <awhKVWQBs_Et1lYn@karahi.librecast.net>
-References: <20261126143605.076581697@linuxfoundation.org> <awhKVWQBs_Et1lYn@karahi.librecast.net>
+In-Reply-To: <5b47ee1e-0b0c-4b0c-9db9-43c9fbaaec96@kernel.org>
+References: <20261113110259.2901456-1-dipiets@amazon.it> <20261116111734.3798483-1-dipiets@amazon.it> <5b47ee1e-0b0c-4b0c-9db9-43c9fbaaec96@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,14 +65,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 26, 2026 at 04:03:49PM +0100, Brett A C Sheffield wrote:
-> Build failure:
->
->   CC      init/do_mounts_rd.o
+On Wed, Nov 25, 2026 at 10:51:16AM +0100, Vlastimil Babka (SUSE) wrote:
+> without also b480cbb071020bd590a0dc0166635b448e9fc46b and especially
+> 9f2fd03c9bde366c928c9242fc9b2e2c5111a134. We didn't initially thought those
+> worth backporting, but now they should, otherwise we have a weird
+> combination of behavior for highatomic pageblocks in the stable kernels.
+> Sasha can you see if those apply easily wherever 6ee3d87b9408 went, or need
+> help? Thanks.
 
-Same patch as on 5.15: I've dropped 807c1d7125a2 ("initrd: flush
-deferred fput() before mounting root") from the 5.10 queue (and from
-5.15 and 6.1). init_flush_fput() doesn't exist before v6.9.
+7.3 already has both b480cbb07102 ("mm/page_alloc: don't increase
+highatomic reserve after pcp alloc") and 9f2fd03c9bde ("mm/page_alloc:
+use existing highatomic reserves on the buddy fastpath") from mainline.
+
+6.18 and 6.12: both apply with context changes only (on 6.18 the
+gfp_to_alloc_flags() context differs for 9f2fd03c9bde, on 6.12
+cond_accept_memory() still takes two arguments next to the
+b480cbb07102 hunk). I'll queue them for those two trees.
+
+6.6 and 6.1: b480cbb07102 doesn't apply. __rmqueue_pcplist() has no
+nr_pcp_alloc() there, and reserve_highatomic_pageblock() takes
+(page, zone) on 6.6 and (page, zone, order) on 6.1. These need real
+backports.
+
+5.15: rmqueue() does "page = rmqueue_pcplist(...); goto out;" with no
+fallback to the buddy allocator, so b480cbb07102's "return NULL" for
+ALLOC_HIGHATOMIC would fail the allocation instead of sending it to
+the reserve. That one needs a rework.
+
+5.10 doesn't have 6ee3d87b9408 and needs nothing.
+
+fe21f930d1e6 and 0e05a469c294 stay queued as they are. Backports for
+6.6, 6.1 and 5.15 would be welcome.
 
 -- 
 Thanks,
