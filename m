@@ -1,66 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795680681;
-	b=S6GtiBEwoY1nDE1CUQaybcfuNhWXg0ivKTqDvBA0/DZWjSsHJbnEDjZMXLhLA5+UIC9v
-	 NWC5xDPjDoHGLVTXhmzAT6UR+TkB4Butai5xJ1uFwxJZx6H8TRHEjpJG1icS4oXMKObJ+
-	 /SOCFJ3OSTlpRoyYVMIBJinPEXRANCJUFSeQKFF89wiVmkL6Tx7JWzZT+uEF4GB7ECUxV
-	 4xqfBZ7QXuTf48tqGeDHa+cOshciHj2BBQTe7/GFdQ8lzlLhVmxV8x9zcktblG9xf9yFG
-	 ESxILC2xUPT4syLsH0K3BV3xkUATAjZIVNj1XMHB/56OKpVGPojce9qVi04wx3fL5EQ==
+	t=1795680775;
+	b=hNwg7D/duFhFiNzSkhk5y5dQSqXmK9knQ/gUdpi67kpn+QD+mbQoOWx5dwnDlg1vnCqQ
+	 38Wk5NETit/YnaX+45NuXRhAI2lrVHo0irvAC81rVdEjgKV1C+n9IoIIAgtDPIPvrROff
+	 IuoKRvn7X/mYVhY5sxQV3JJUchr1UEjs8jYmu24cG71jQX7oy0Iq6yUccK5jLYerxLaXx
+	 oYp4Xop63aEyLwKEOdQGhH33pzHGNSn9SHnAc0TTzKaipoAXOWc7FyFZP8kv54n6AORX7
+	 gDHLMZbAEwSm2lQ9nVd+PFmdyQyEABuCy5kKpWDhRiewXQGvVgI9UU6PKs3TIbuZLKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795680681;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=zEQwtcUWwjAq78GdjPwtjH5gDHtM20DukqhFmEz6c/g=;
-	b=PxAfzeSgWD30vRSuL0M8oDgNLsIS4vtd7fLdJpOuEuT7UZa1LkmlSYO/4EgKbZFLkPkk
-	 4Y6mnuIGXfPg41IgfLDzerMUtcCHnDdmnx6iyzp45z6TVBh/uKbbODQbluG6vbLcdSat9
-	 QMtCHEcosk4m4v/P+PHDCaHRIb6zYZfeLDor9lKA/AGNxUXcPfL5gcIl08gTQy3uNWdFJ
-	 muV5SFMsyB27Gv+TpQm3Go7b8Ein/MFpf72cZFRJz0mP8bJQoXX04n8Qu3mUryeQrz0VI
-	 klKybPqt0Ye+9Cw72fYcZvWySEmXYE3kCLacG/Q89EfI7ATnaHW7/+RFO+XzSi6MYeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795680775;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=HF1NIA9YcotgBX4Xrtg69ziwH7IW313XtsQmHrwnOgM=;
+	b=v0yZH1Dj9eaJayKgeaUIxRpcJLh/e7LM23ZrdqGDL45o2a/l/g7hFcd6S5KptEvUOnkW
+	 LuRC4EGxjWPqxwJzWODKhwGkToDODjXNGGUQJL9Ohgl0RyKcQcAxybvfJ0onAlVAR+zYi
+	 ei6mB2i4oeZcVkeoO5aL/F8HkPzmNQcBsZcov1gZxkoRrZ24OU2yqBppnMf4icHPa8ebr
+	 M0YoJKM5HGd9R/aR0XSwxqEbYsMvXBx1FxSU0PRPaDSnG2zc8HhhuRsWmCcGqhoGLRuCM
+	 pB8vPqMRKiGW1enmzdtI6m1UbsR6vrJJC1lDW9Uhb/DLv8cUm7D4KEkP4BUZRjX9tkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Ei22lknx;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=aZ1IqDN0;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D13606A327;
-	Thu, 26 Nov 2026 08:11:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1D13606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5532E606A321
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 08:12:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5532E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Ei22lknx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=zE
-	QwtcUWwjAq78GdjPwtjH5gDHtM20DukqhFmEz6c/g=; b=Ei22lknx7JSeUpb/2v
-	Ekt8HgRfA1xvDgERXeZrgs8zM1sX70K3ooREsFL0+m6gbHAo+HBNruGcr+q5RJPw
-	+e71A0/pojFw3UnPt9bberiG1rJVvZmzcFdLwukB5wWB8t+8RZ4nugZXuF0q6VGA
-	xXSEPVZ2fYofvyaz4CwuDBHG0=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgAnxpp36Qdr_XPjIA--.32026S2;
-	Thu, 26 Nov 2026 16:10:32 +0800 (CST)
-From: "Li Youhong" <dayou5941@163.com>
-To: song@kernel.org,
-	yukuai@fygo.io,
-	agk@redhat.com,
-	snitzer@kernel.org,
-	mpatocka@redhat.com,
-	bmarzins@redhat.com
-Cc: dm-devel@lists.linux.dev,
-	magiclinan@didiglobal.com,
-	xiao@kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Li Youhong <liyouhong@kylinos.cn>,
-	syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v6 2/2] md: fix sync_work vs array teardown races
-Date: Thu, 26 Nov 2026 16:10:30 +0800
-Message-Id: <20261126081030.150032-1-dayou5941@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=aZ1IqDN0
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4ac109a8a12so3913165f8f.3
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 00:12:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1795680774; x=1796285574; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HF1NIA9YcotgBX4Xrtg69ziwH7IW313XtsQmHrwnOgM=;
+        b=aZ1IqDN0uIoiNuSSBMl0X5B84fRbreqaiDS9uA4+WP+o0Xcd3JThKU1wp836YnIoJR
+         01rv3lMRMX6EHqkPhVfOzzPBXDZ2YS2Rrr8ORRGAHYNmWnhwS85mvyNr7uufeWswoEVz
+         AKxIcSni0Y9XVcqixFP8C1vwcJXmqspKGWzCrzI8uJsYLNl2ppYy/MNrbD903GepnKrm
+         cph6sclytv9c3mh0/NZzD98MviAQbuRFVcqgPQmqQWVhMoKwrKErrhXK17rk39Ajwlgp
+         0Sf2iS4IpC5LB+/GcjoiMc+Pn+Mq0RHAAaeO69u4t3oJVuFd6VtkKOUPCD+Mf+pHxzJG
+         LzwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795680774; x=1796285574;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HF1NIA9YcotgBX4Xrtg69ziwH7IW313XtsQmHrwnOgM=;
+        b=H5M5EXXEd1b7FD5fZTcyAH99J9uy6QUTBOhBGDCjjCVZI1IxCj1QpywIyugyJUVxre
+         Fk2HOlGvW1kkM0tSy+q8ZemXAX3gV24Z3t1kzvFWFIt3IRyjyK+Rf3yUe8iEcjX4zswJ
+         D9fasH9i+/WuzDLl0ciKltIE1Qih1HZS9vWfHaXEYeB25+Ar8UvQ3mJVUKPMGrIcACYW
+         tPB8L7lxipNcrQZ2e7pij+Z6CM6MIbfd3TS4NzWKPNMB+neoI7MTIa2pGHwQBVKCw4zT
+         OWyUiwPD71MT69jXPExhu+Cd/00Z1D1P1MIyA94dhnqloBNmwCNBiaSVCWmZHb9M5ckC
+         f7AQ==
+X-Forwarded-Encrypted: i=1; AL+hErFfnHYGIYz/KBap3l3MKZXIMOgrxECefjxeTD9C5Np6AyZCfkpw9jJR/P/J4Ey2K+cNWtBfgX4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/xIKW+E7erA+BbV9lx8sg+br1JTOQQO5j+9imRq2Q9q/BY+4cx
+	utXBoA9tfbjYBPYSnZn2UKXhXOBvWg6VfdU/OlLr3lpdZlRXyS9eerNxt1b8
+X-Gm-Gg: AZFdTZfZLMk8DEiqryQmUYpSRRyJ9/92+xizT/tcmKKUYvYRiv8YX2VIsHbMxvwMa5i
+	HTeBBmpaDn/jik2KIwXWmgfBvG+vvMmDYGSaytQAh3H71wdjBDZSC6qTFCem64/+YrcmungGeW5
+	MV1/WLSbTnu9XK/W6W7ZNKFxshYpJDV4LjLbE4uNb+sGip9MnDYU7Z814G5zIKQuhKBSLYDuZPe
+	I4jyqfCGeT/hABnyTFL7OqyJc/zByI4mT2ker7xcWT16DQhuM5l2eHfpLPWDtVaGdZi8Dvpy9CA
+	DM3yRZ0SRZpuEgVMuuPHO+LB08WTO8wwChakP0zzIRXV3dxFxplaEHshNoBL+tMnjmMl8tVXAk4
+	qyvIsDoTvFoxC1FeAkYIQ+ADR4OtwM0loLxW0yW8mCeSLDr31AsBWsvDLZhuKf940qztsosrqkV
+	jsqnQWfge2Y06/BlF2HmvjQuVktc6bAuaxUVJRfMRe/exJFFRPzm6sQdQ2zCtUrS0ssfxlmHy+r
+	ZJJr1tqP425XVjFb+dmQTeyyIHee/c94mm/graStC0nolX9O+WKchen33CNaQOSF5/ltdnuN/D4
+	Sibu7on2khQoDHW55odIu9GTx5KdcddocVEBXQcFCxDRhK9B4bpochi71CCzOCyhXFWMR7isvHy
+	BDEG0
+X-Received: by 2002:a05:6000:420b:b0:4a7:518f:bec2 with SMTP id ffacd0b85a97d-4abb2ce47d7mr40551231f8f.28.1795680773406;
+        Thu, 26 Nov 2026 00:12:53 -0800 (PST)
+Received: from [192.168.1.3] (p5b2ac210.dip0.t-ipconnect.de. [91.42.194.16])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a67f281sm36790497f8f.22.2026.11.26.00.12.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Nov 2026 00:12:53 -0800 (PST)
+Message-ID: <db3d4f41-d0c3-44f7-b601-770031fcda5c@googlemail.com>
+Date: Thu, 26 Nov 2026 09:12:52 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,133 +93,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.12 000/816] 6.12.120-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261125143849.205329330@linuxfoundation.org>
+Content-Language: de-DE
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261125143849.205329330@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgAnxpp36Qdr_XPjIA--.32026S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZF15AF4xZry3Kw45tr1DKFg_yoWruryxp3
-	yrJFn8Jr4Ut3yrZFyDKFyDua4Yvw1ag3yDtryxua4rAw1ftr4a9Fy093WjvFWDJas3tayU
-	Z3yrJFZxZFyvgF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jjCJQUUUUU=
-X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC+hg142sH6XjahAAA3X
 
-From: Li Youhong <liyouhong@kylinos.cn>
+Am 25.11.2026 um 15:25 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.12.120 release.
+> There are 816 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-dm-raid tears down arrays via md_stop(), which cleared mddev->pers
-without waiting for previously queued sync_work. That work could
-then call remove_spares() with pers == NULL, or keep using mddev
-after raid_dtr() frees it.
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-do_md_stop()/md_stop_writes() already call stop_sync_thread() before
-teardown. Do the same in md_stop().
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-Calling stop_sync_thread() from md_stop() can drop reconfig_mutex,
-which introduces two follow-on issues:
 
-- When nothing is in flight, keep reconfig_mutex if the caller held
-  it (gate the idle early-return with work_busy()). Otherwise clear
-  of an inactive array can race with do_md_run().
+Beste Grüße,
+Peter Schneider
 
-- While the mutex is dropped, mddev->thread may run
-  md_reap_sync_thread() and queue event_work. Flush event_work on
-  the raid_ctr() error path before raid_set_free().
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
-Separately, the read-only path in md_check_recovery() queued
-sync_work without honouring MD_RECOVERY_FROZEN, unlike the
-read-write path. Check FROZEN there so freeze/stop cannot race
-with a new queue.
-
-Fixes: db5e653d7c9f ("md: delay choosing sync action to md_start_sync()")
-Fixes: 81e2ce1b3d5a ("md: delay remove_and_add_spares() for read only array to md_start_sync()")
-Reported-by: syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=a53c2918175b36cfd601
-Cc: stable@vger.kernel.org
-Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
----
-diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
-index ac019a0f5a92..f82c09d858de 100644
---- a/drivers/md/dm-raid.c
-+++ b/drivers/md/dm-raid.c
-@@ -3319,6 +3319,13 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	md_stop(&rs->md);
- 	mddev_unlock(&rs->md);
- bad:
-+	/*
-+	 * md_stop() may drop reconfig_mutex so mddev->thread can run
-+	 * md_reap_sync_thread() and queue event_work; wait for it before
-+	 * freeing raid_set. Skip if INIT_WORK has not run yet.
-+	 */
-+	if (rs->md.event_work.func)
-+		flush_work(&rs->md.event_work);
- 	raid_set_free(rs);
- 
- 	return r;
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 1974943bf746..2d87b3297da4 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -5199,7 +5199,14 @@ static void stop_sync_thread(struct mddev *mddev, bool locked)
- {
- 	int sync_seq = atomic_read(&mddev->sync_seq);
- 
--	if (!test_bit(MD_RECOVERY_RUNNING, &mddev->recovery)) {
-+	/*
-+	 * If nothing is in flight, keep reconfig_mutex when locked so
-+	 * callers such as do_md_stop() cannot race with do_md_run().
-+	 * work_busy() is required: md_start_sync() may clear RUNNING and
-+	 * still use mddev after unlocking.
-+	 */
-+	if (!test_bit(MD_RECOVERY_RUNNING, &mddev->recovery) &&
-+	    !work_busy(&mddev->sync_work)) {
- 		if (!locked)
- 			mddev_unlock(mddev);
- 		return;
-@@ -5207,12 +5214,14 @@ static void stop_sync_thread(struct mddev *mddev, bool locked)
- 
- 	mddev_unlock(mddev);
- 
--	set_bit(MD_RECOVERY_INTR, &mddev->recovery);
--	/*
--	 * Thread might be blocked waiting for metadata update which will now
--	 * never happen
--	 */
--	md_wakeup_thread_directly(&mddev->sync_thread);
-+	if (test_bit(MD_RECOVERY_RUNNING, &mddev->recovery)) {
-+		set_bit(MD_RECOVERY_INTR, &mddev->recovery);
-+		/*
-+		 * Thread might be blocked waiting for metadata update which
-+		 * will now never happen
-+		 */
-+		md_wakeup_thread_directly(&mddev->sync_thread);
-+	}
- 	if (work_busy(&mddev->sync_work))
- 		flush_work(&mddev->sync_work);
- 
-@@ -7130,6 +7139,14 @@ void md_stop(struct mddev *mddev)
- {
- 	lockdep_assert_held(&mddev->reconfig_mutex);
- 
-+	/*
-+	 * md_check_recovery() may have queued sync_work; that work accesses
-+	 * pers. Wait for it here before __md_stop() clears pers, as
-+	 * do_md_stop()/md_stop_writes() do.
-+	 */
-+	set_bit(MD_RECOVERY_FROZEN, &mddev->recovery);
-+	stop_sync_thread(mddev, true);
-+
- 	/* stop the array and free an attached data structures.
- 	 * This is called from dm-raid
- 	 */
-@@ -10520,9 +10537,11 @@ void md_check_recovery(struct mddev *mddev)
- 
- 			/*
- 			 * Let md_start_sync() to remove and add rdevs to the
--			 * array.
-+			 * array. Honour MD_RECOVERY_FROZEN like the read-write
-+			 * path so freeze/stop does not race with a new queue.
- 			 */
--			if (md_spares_need_change(mddev)) {
-+			if (md_spares_need_change(mddev) &&
-+			    !test_bit(MD_RECOVERY_FROZEN, &mddev->recovery)) {
- 				set_bit(MD_RECOVERY_RUNNING, &mddev->recovery);
- 				queue_work(md_misc_wq, &mddev->sync_work);
- 			}
-
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
