@@ -1,58 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795705750;
-	b=OMNKF5L5tB7gwzaEBNGlpOM0XkXJwSN6BMb/PhanPTUrg/9FbbBuUrx2lmQeEySnEKaz
-	 AidzI6vYqFtaTbeNHk7m+T72BjYFQjcMVrQ17sSAQkP8rG/RiINWe476hnkKUAmYzzKKJ
-	 iXwdqpBimJ4YzLF9OBh9klueT8s9WKCV9ckeWKzXYCfb0UeOIYRBnw7hibygYpdCkJWdx
-	 8ZClQOedrPJfmmNfRVulKKnqU3ihPsVVfZqdzt3KVygYGDzbSZ8lYH3/0ELbScnC4g9pg
-	 sRr3GA/2m4c3abhGeBktp45GkWNyogjw+VdWYOsv7kIUB3QDo6l8eOYezTXS5Vx6yUA==
+	b=2XkJsioXHRxlRnEKi9V8IP2TserGoXpfs+Bz2FVuIgNLmRtVv+O4Zn9y0LtxMkMtKaB9
+	 QYSPsdD+QA6GdXfZnErYxrfjFDdt/Q5D5jCCKcFb7bfUNVXRG33XUBCQ6d7x8BqziHh3R
+	 Rs2cMOI9IslE0J3fntqVxtu6JdFnUMs/mybCE06nzwI/NxqS3jE+9hIYloa2M3pgSbnTN
+	 Cmf+gSepLHEqpra84b1Owm3dxACcTk0SPEZ/cl74cc1M5dcT8FSJvsVLQgehWwa4xyLch
+	 SFbzc6haie5xn95hplPdQBb4oq2w7pUkp3dsoszQc/kY9HUgjg+BkpQE8KF70LFZe2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795705750;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=9P9RVzMJjhRVR5Wdw+GxHKyOIn0Gy6sh8Op7EjNi56Y=;
-	b=RegUuSKlNqNE26SYgv5w6ABn6/RKU/2/z078FeJdqXS9q5WA4T421rUoxQPuVukQeHiq
-	 bE6KxNfuFfrUdc+b6l7qGtepiGsOAgwiCKQG0sDuL9Zh7X4vPqmyg7XFHizXnb1fTzVOg
-	 jV4yySlQrfiAsymvKLuwv3GBEsa2Pur9JHBPJChVE+LCcTn88+Bi9lZ1YGYauDENO/Wk3
-	 FFZ6nTcaftwihJoMczaRLpeR23fzqXR8L0ibzN1QPQGg6wM0lM/oBWTnil+Ip/YwVtM8w
-	 wFyF8rtoZzbk0YpSpYmrNDXbebY8rt39tHOivT9KiaQGU8hk62K8Azhg8dW0f2UhSxA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=A2ICbzFb+bJ39M63igcZXn6u2UnEfqBz8m7zceaMk3Q=;
+	b=UHHUiZo1tviFBV/oMW9Fx0/JtP7ZjGs03/dVGd+5SkaIXv2z/hJdXBnZLxUeoulXMs6M
+	 r1TXs0InbSJoM2M+25T3J9rRcwvwXpPoW8VSGYPJxvQ4E81Fw3LBehxZ/qVTx0ucWxYY0
+	 9pXprll6Hxqk/4LwaR+4KuvbwZ2hsuzCGkucZW9wfkiwA8X2LOFydR/rM9FAUo2whvc+6
+	 NaRv3rxg5Q5FM39CfW0iuEOs4IFatYLnuBhRY4oobvwjzLVQ8Wf7t96yblto+yA+XuTsj
+	 rknlpnKeed4g0wp42k3RmfIcTzHJx6V7NtaoJoSi4VfF/xphfBNI7CLiyDNUaL2JAPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kUwRaATh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SCy9bTP2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25991606A69F;
-	Thu, 26 Nov 2026 15:09:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556F4606A6A9
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:09:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kUwRaATh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C0FA1F000E0;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SCy9bTP2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C5571F00A3C;
 	Thu, 26 Nov 2026 15:09:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795705750;
-	bh=9P9RVzMJjhRVR5Wdw+GxHKyOIn0Gy6sh8Op7EjNi56Y=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795705750;
+	bh=A2ICbzFb+bJ39M63igcZXn6u2UnEfqBz8m7zceaMk3Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kUwRaAThXpdhNY9sYBGymItyS29iq/wvZX+m1DItOJp+6mmHEAR5szcjuAWrNkbGz
-	 AU9Gioc2V8LIdG/AtgGWuC3JKAKetqQjRhXDt1kMrubacURH0qA6Wxvn0qG/edhNZR
-	 rZik05tfdZ4qH4EKEHaSgCJ6ML+EhXId4WJyo/+o=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=SCy9bTP2Mp1BnKzdCtu3wdokiTUaOE6I3GjoUoLQj2FHvS+ALzvmb3TIJwnO50rcQ
+	 ffX9Q9ogOJexlzz3Rk2C08gmXM3JrLW6eO1PcnlVl28nE9Y/bbdN0lj7vuD7wVwf4B
+	 exi46Ij/HUWIca1TWOLiy0hTxmE3Ql86rgKGJ0E3hyj3VdyTyY6lck7vS5+W7rC+pf
+	 DtabZMhuo/+cPFMPBj3hEufmGWGP6ADOm7qDLGOHOMCFSB5ibsT2MHa6AFJlMfOq7/
+	 RflqwdX/zGcBbJe0a83QDf7EaIR+HxyJy9wZyZpVds6Vr7NR3jnQiCtfooh6arBAUA
+	 /GBJhidNcYfSw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Maximilian Czirr <maxx-cz@web.de>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH 5.15 301/319] iio: hid-sensor: Fix scale for magnetic north heading
-Date: Thu, 26 Nov 2026 15:41:09 +0100
-Message-ID: <20261126144013.551610109@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261126144006.732901931@linuxfoundation.org>
-References: <20261126144006.732901931@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	stable <stable@kernel.org>,
+	Bryan Tan <bryan-bt.tan@broadcom.com>,
+	Vishnu Dasa <vishnu.dasa@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] misc: vmw_vmci: wait for callbacks in event unsubscribe
+Date: Thu, 26 Nov 2026 10:09:06 -0500
+Message-ID: <20261126150859.2240360-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261126150859.2240360-1-sashal@kernel.org>
+References: <2026112527-revert-unable-e720@gregkh>
+ <20261126150859.2240360-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,47 +67,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+From: Josef Bacik <josef@toxicpanda.com>
 
-------------------
+[ Upstream commit 824a27d391cf934d3232e8e2dabee221fc4e18ae ]
 
-From: Maximilian Czirr <maxx-cz@web.de>
+event_deliver() calls the callbacks of the subscribers inside an RCU read
+side critical section. vmci_event_unsubscribe() used to call
+synchronize_rcu() before it freed the subscription. This did more than
+to protect the struct vmci_subscription: when the function returned, no
+callback was running any more, and its callers rely on that.
 
-commit c72dcaeaabd60e164e7324f80ccb037e879eefdd upstream.
+vmci_transport_free_resources() unsubscribes from
+VMCI_EVENT_QP_PEER_DETACH and frees the struct vmci_transport, which is
+the callback data, a few lines later:
 
-hid_sensor_format_scale() applies the HID unit exponent only when
-the usage and unit match an entry in unit_conversion[].
+  CPU0                                CPU1
+  event_deliver()
+    rcu_read_lock()
+    vmci_transport_peer_detach_cb()
+                                      vmci_event_unsubscribe()
+                                        list_del_rcu(&s->node)
+                                        kvfree_rcu_mightsleep(s)
+                                      kfree(transport)
+      spin_lock_bh(&trans->lock)
 
-Rotation-from-north support uses
-HID_USAGE_SENSOR_ORIENT_COMP_MAGN_NORTH, but that usage has no entry in
-the conversion table. As a result, the unit exponent is ignored and the
-heading can be exposed with a scale of 1 instead of the scale specified
-by the HID descriptor.
+The event is sent when the peer of the queue pair detaches, so the other
+end of a vsock connection chooses the time. vmci_transport_exit() and
+vmci_guest_remove_device() unsubscribe callbacks which are gone with
+their module.
 
-Add a unitless conversion entry so the HID unit exponent is applied to
-the magnetic north heading. A sensor reporting an exponent of -5 then
-correctly exposes a scale of 0.00001 instead of 1.
+kvfree_rcu_mightsleep() only waits for a grace period if it cannot
+allocate memory. Bring the synchronize_rcu() back. The cleanup work of
+the vmci transport now waits for one grace period per socket again.
 
-Fixes: abea9c62c32f ("iio: hid-sensor-magn-3d: Add support for rotation from north")
-Cc: stable@vger.kernel.org
-Signed-off-by: Maximilian Czirr <maxx-cz@web.de>
-Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Fixes: 6da3f33770e0 ("misc: vmw_vmci: Switch to kvfree_rcu() API")
+Cc: stable <stable@kernel.org>
+Cc: Bryan Tan <bryan-bt.tan@broadcom.com>
+Cc: Vishnu Dasa <vishnu.dasa@broadcom.com>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Link: https://patch.msgid.link/2026102715-escapable-quaintly-8530@gregkh
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/common/hid-sensors/hid-sensor-attributes.c |    2 ++
- 1 file changed, 2 insertions(+)
+ drivers/misc/vmw_vmci/vmci_event.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
---- a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
-+++ b/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
-@@ -38,6 +38,8 @@ static struct {
- 	{HID_USAGE_SENSOR_COMPASS_3D, 0, 0, 1000000},
- 	{HID_USAGE_SENSOR_COMPASS_3D, HID_USAGE_SENSOR_UNITS_GAUSS, 1, 0},
+diff --git a/drivers/misc/vmw_vmci/vmci_event.c b/drivers/misc/vmw_vmci/vmci_event.c
+index 89ab9f05b88c5..dcfe639abcb5e 100644
+--- a/drivers/misc/vmw_vmci/vmci_event.c
++++ b/drivers/misc/vmw_vmci/vmci_event.c
+@@ -213,7 +213,12 @@ int vmci_event_unsubscribe(u32 sub_id)
+ 	if (!s)
+ 		return VMCI_ERROR_NOT_FOUND;
  
-+	{HID_USAGE_SENSOR_ORIENT_COMP_MAGN_NORTH, 0, 1, 0},
-+
- 	{HID_USAGE_SENSOR_INCLINOMETER_3D, 0, 0, 17453293},
- 	{HID_USAGE_SENSOR_INCLINOMETER_3D,
- 		HID_USAGE_SENSOR_UNITS_DEGREES, 0, 17453293},
-
+-	kvfree_rcu_mightsleep(s);
++	/*
++	 * Wait for event_deliver(): the caller is going to free what the
++	 * callback works on.
++	 */
++	synchronize_rcu();
++	kfree(s);
+ 
+ 	return VMCI_SUCCESS;
+ }
+-- 
+2.53.0
 
