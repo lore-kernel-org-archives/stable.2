@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795707140;
-	b=Z8M2gcHbhH67knH/lNmyClE65MM3LD4tZ68JuCrOk6DHjcaSkCb11gpfpz75z1g/fyGP
-	 p8qMTmUwROMbs1gYuMsjhgruHdaVnwMkKGMU59TcWR/e3NTRXlF5TUUES3K0bxm+eqhRo
-	 6yeobQCAEUNrqZtBxA3A3bzmsLv+tLX96m9tZGOAnUtlRtMbzlNUQjZ/ne7EVB8dZHuTR
-	 HCF9QgG0EbHF4IqDtUKj697ssVpid0bim+H2QlLOsAA+uIupZxMBG6GPRIlZQPKnLOnJ+
-	 UWvur016gqcj7XOQKsg5h3LIV5idyypIOHR/jk8rrUMZXKS25H2NcKZKKvM2P7A+DRA==
+	t=1795707141;
+	b=gOQa+RRPT2eQyAyMkuiyH5sLHhxqOlkVgSJ3Ak07FVXpp6nGJ5kyKjstSv9c/PEjp6UN
+	 aEQG/WnPo1CSHu35EyTJNHrCBX3/6yqglKNUy0Qy5pcalSCdB53HAfpQMswQOGfXn9AO7
+	 tYpm7nz+ZVixREoG35A0JIeNZqzOzmGCvieSGKKw1bbbDM8eRw7E/Q3KjEh0Q3JsVTWGe
+	 JktUFJCEavUJ+6/XzeBVDYZj4XEJAk+6BDZjb9UAFbmzmGGWgrX38aH9XZZzo8QWi1SXY
+	 jFJOHy+JYbyB8J8y8r3Ywf0kTlmmle7BoTj21C+CxzHLg3R+1ECt/0WETDt37pk0nZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795707140;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795707141;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=MRguvQQj8fr3aWjUO1Fg1mhG42wYoAr1+yTcYe48bmY=;
-	b=tHY5lvvDCszu0VYMe61yiO3PWCPJFDKL+BNOqswTa2g92Tcr5raRznYrx6HVsxtvzLuW
-	 6KZ7NP5CpgMawALBVdTT7wE/721vrNPD55QwMdzFflphlNJzkv1GKcyX+surjGBmIu0j9
-	 2tIxD+ZMPiH4x5JcfQpSPC/MR/mLH8bPNWq2zly6C6Zz97srj5fUq/S2WdDYPSYRbyKPE
-	 rKrCtFDHrUAvsEL2+UaggqMojnXUVkh0FO4B6l7QFLECW+ocFS+U0MsRLV/5v1+boTE2Y
-	 wfuhH8OXf9hx0FuLKQ0vOAtKrLrtiis7feHruMCj4GOaDC4C1m42QMZNrOwjj0YiprA==
+	bh=hUxtKSM8NHdSMydiJSuka7kGUw7v6nkUnMv8bKgJpgk=;
+	b=vVp8DTArgkjYwag9eKO9FyaEH5xXKNnk2dbvkHjKIsT/DdfdNNL822/p/aqtPaReE+8j
+	 NNcT54zfIWkb1W4qlubuAQs5DQ9V4YtJP4699DMlN6j9grv+7bPsiWZmi36cSEBKydfcD
+	 44pzVxmIOE1EKCz4SwqxJwf2gcnetn0KOQodUSLPEb7bDW3Hx2Ndtm6gZVOhuUWC1admQ
+	 kcdL4I0tGCONrdt3FuUMTtE21BvbhaVyiPuX5orqHjy4SWJZvkVKUJuvs6quH2are4LFz
+	 8mmlt+UEjyGtnsQ1CprEO9yTEuXntNoTsPlPU+LVp0aRn6JI/tMxv2lnSTAzj7oR44A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QxlfntoT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Te+gnwtr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FFB606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2915606A31C
 	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:32:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QxlfntoT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C807B1F000C0;
-	Thu, 26 Nov 2026 15:32:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Te+gnwtr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CB7F1F000CA;
+	Thu, 26 Nov 2026 15:32:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795707139;
-	bh=MRguvQQj8fr3aWjUO1Fg1mhG42wYoAr1+yTcYe48bmY=;
+	s=k20260515; t=1795707140;
+	bh=hUxtKSM8NHdSMydiJSuka7kGUw7v6nkUnMv8bKgJpgk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QxlfntoTWoVxKm7OIbAS5obaxDOmn8WxpjHZgOEmId8wtYJQrc93YRdJhkOw+LzdP
-	 xgtMC2xoRIkfABBzdqojeIS3Vm3hzYPMNEu73KW9+e8I6o09g2cTCF1IoUtkV5c/6g
-	 313qf9jADB4efVKTpjmBT8e+/ELJSgFUTLodry7nrUXRMIDIMd1imRwbuU09wdAqQw
-	 0zbcsVQUFhf4mrPiirgvNZz8k2HmPO4qZW7XS3eL12i3cWAW3yUGZ3mrfXkojYEW/A
-	 dpD8mSGSqsIw8M2esI6eoJC31/N8MYYHanRRazpKQsignU9LZr6/0/HAn8cOzZAqI7
-	 /BpwG78AUhIjQ==
+	b=Te+gnwtrsUDFKsPW3bERCCz+Bd+dJ0eKfOFnGwLN5xlnILkVCXB9aR5SeKChaO0fz
+	 C2XtNh5ZAtPBvs0fwnpVyrJ5o9iQSn5crQ1W52Ygh3butfRcm92w19bWYX2uQ9pF7H
+	 4rCEBEtkTto+6q5YjsiCt19EA9xNljzQmRw5+uxKfQ5jNaNdTrQq72KT0c5sB2+5tB
+	 y9Nehhgp+Lm7lieCTRonKSDbxcsr/Ln/kAlehLaZO3VHzH9INd37gUyPRUrJzFzfeE
+	 j49Yn3cAnRK5cjLc7nypM83tF/h+S4V+ODFBesZNgCZZjc4KzAuS9nZVYrx6PuGqRO
+	 yz+z8uWgVM9hQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Elson Serrao <elson.serrao@oss.qualcomm.com>,
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
 	stable <stable@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Selvarasu Ganesan <selvarasu.g@samsung.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/3] usb: dwc3: clear forceRM when issuing EndTransfer
-Date: Thu, 26 Nov 2026 10:32:15 -0500
-Message-ID: <20261126153139.2455075-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/3] usb: dwc3: gadget: Issue no-op Start Transfer only for stream endpoints
+Date: Thu, 26 Nov 2026 10:32:16 -0500
+Message-ID: <20261126153139.2455075-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261126153139.2455075-1-sashal@kernel.org>
 References: <2026112535-humming-whimsical-6e80@gregkh>
@@ -64,143 +64,148 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Elson Serrao <elson.serrao@oss.qualcomm.com>
+From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
 
-[ Upstream commit b58e6200450d350314db0ecda7d6d1bde3281e80 ]
+[ Upstream commit e616d91e02881983e5dadf6980c4aa08123800b3 ]
 
-The forceRM bit of the DEPCMD register controls the behavior of the
-EndTransfer command used to stop an active transfer. Older DWC3
-programming guide revisions recommended setting forceRM=1 when
-issuing EndTransfer. Newer programming guide revisions recommend
-issuing EndTransfer with forceRM cleared.
+The function driver may re-enable an endpoint before the End Transfer
+command issued on ep disable completes. The no-op Start Transfer issued
+on ep enable then fails with "No Resource".
 
-With forceRM=1 on DWC_usb31 v2.00a and v2.10a controllers, a transfer
-aborted through the ep_dequeue path was observed to remain active
-after EndTransfer completion. A subsequent StartTransfer issued on the
-same endpoint triggered writes associated with the aborted transfer.
-This resulted in an SMMU fault because the transfer buffer had already
-been unmapped during EndTransfer command-completion cleanup.
+Only stream endpoints need the no-op Start Transfer to initiate a
+stream. Other bulk and interrupt endpoints start their transfer when a
+request is queued. Skip it for those endpoints, and move it to a helper
+to be reused.
 
-Using forceRM=0 eliminates the issue. Although older DWC3 programming
-guide revisions recommended setting forceRM=1, no issues are known
-from using forceRM=0. Clear forceRM when issuing EndTransfer to provide
-consistent EndTransfer behavior and align with newer programming guide
-recommendations.
-
-Fixes: 1e43c86d84fb ("usb: dwc3: core: Add DWC31 version 2.00a controller")
+Fixes: a97ea994605e ("usb: dwc3: gadget: offset Start Transfer latency for bulk EPs")
 Cc: stable <stable@kernel.org>
-Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
-Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Link: https://patch.msgid.link/20260813151456.867008-1-elson.serrao@oss.qualcomm.com
+Reported-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+Closes: https://lore.kernel.org/linux-usb/20260227121236.963-1-selvarasu.g@samsung.com/
+Signed-off-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Link: https://patch.msgid.link/227e97e30d26a017c92d7008a8633c01f955d088.1792542945.git.Thinh.Nguyen@synopsys.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: e616d91e0288 ("usb: dwc3: gadget: Issue no-op Start Transfer only for stream endpoints")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/dwc3/ep0.c    |  2 +-
- drivers/usb/dwc3/gadget.c | 21 +++++++++++++--------
- 2 files changed, 14 insertions(+), 9 deletions(-)
+ drivers/usb/dwc3/gadget.c | 97 ++++++++++++++++++++-------------------
+ 1 file changed, 50 insertions(+), 47 deletions(-)
 
-diff --git a/drivers/usb/dwc3/ep0.c b/drivers/usb/dwc3/ep0.c
-index c4aa925bcd7cf..764360ac7e368 100644
---- a/drivers/usb/dwc3/ep0.c
-+++ b/drivers/usb/dwc3/ep0.c
-@@ -311,7 +311,7 @@ void dwc3_ep0_out_start(struct dwc3 *dwc)
- 
- 		dwc3_ep->flags &= ~DWC3_EP_DELAY_STOP;
- 		if (dwc->connected)
--			dwc3_stop_active_transfer(dwc3_ep, true, true);
-+			dwc3_stop_active_transfer(dwc3_ep, false, true);
- 		else
- 			dwc3_remove_requests(dwc, dwc3_ep, -ESHUTDOWN);
- 	}
 diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
-index 1ed6f4fc89eb9..67ec3de16652c 100644
+index 67ec3de16652c..01f2729bcbfb5 100644
 --- a/drivers/usb/dwc3/gadget.c
 +++ b/drivers/usb/dwc3/gadget.c
-@@ -962,7 +962,7 @@ static int __dwc3_gadget_ep_enable(struct dwc3_ep *dep, unsigned int action)
- 			 * controller to generate an ERDY to initiate the
- 			 * stream.
- 			 */
--			dwc3_stop_active_transfer(dep, true, true);
-+			dwc3_stop_active_transfer(dep, false, true);
+@@ -862,6 +862,54 @@ static int dwc3_gadget_resize_tx_fifos(struct dwc3_ep *dep)
+ 	return 0;
+ }
  
- 			/*
- 			 * All stream eps will reinitiate stream on NoStream
-@@ -990,7 +990,7 @@ void dwc3_remove_requests(struct dwc3 *dwc, struct dwc3_ep *dep, int status)
- {
- 	struct dwc3_request		*req;
- 
--	dwc3_stop_active_transfer(dep, true, false);
-+	dwc3_stop_active_transfer(dep, false, false);
- 
- 	/* If endxfer is delayed, avoid unmapping requests */
- 	if (dep->flags & DWC3_EP_DELAY_STOP)
-@@ -1676,7 +1676,7 @@ static int __dwc3_gadget_kick_transfer(struct dwc3_ep *dep)
- 		if (ret == -EAGAIN)
++static int dwc3_gadget_ep_start_noop_transfer(struct dwc3_ep *dep)
++{
++	struct dwc3_gadget_ep_cmd_params params;
++	struct dwc3		*dwc = dep->dwc;
++	struct dwc3_trb		*trb;
++	dma_addr_t		trb_dma;
++	u32			cmd;
++	int			ret;
++
++	memset(&params, 0, sizeof(params));
++	trb = &dep->trb_pool[0];
++	trb_dma = dwc3_trb_dma_offset(dep, trb);
++
++	params.param0 = upper_32_bits(trb_dma);
++	params.param1 = lower_32_bits(trb_dma);
++
++	cmd = DWC3_DEPCMD_STARTTRANSFER;
++
++	ret = dwc3_send_gadget_ep_cmd(dep, cmd, &params);
++	if (ret < 0)
++		return ret;
++
++	/*
++	 * For streams, at start, there maybe a race where the host primes the
++	 * endpoint before the function driver queues a request to initiate a
++	 * stream. In that case, the controller will not see the prime to
++	 * generate the ERDY and start stream. To workaround this, issue a
++	 * no-op TRB as normal, but end it immediately. As a result, when the
++	 * function driver queues the request, the next START_TRANSFER command
++	 * will cause the controller to generate an ERDY to initiate the
++	 * stream.
++	 */
++	dwc3_stop_active_transfer(dep, false, true);
++
++	/*
++	 * All stream eps will reinitiate stream on NoStream rejection.
++	 *
++	 * However, if the controller is capable of TXF_FLUSH_BYPASS, then IN
++	 * direction endpoints will automatically restart the stream without
++	 * the driver initiation.
++	 */
++	if (!dep->direction ||
++	    !(dwc->hwparams.hwparams9 & DWC3_GHWPARAMS9_DEV_TXF_FLUSH_BYPASS))
++		dep->flags |= DWC3_EP_FORCE_RESTART_STREAM;
++
++	return 0;
++}
++
+ /**
+  * __dwc3_gadget_ep_enable - initializes a hw endpoint
+  * @dep: endpoint to be initialized
+@@ -929,55 +977,10 @@ static int __dwc3_gadget_ep_enable(struct dwc3_ep *dep, unsigned int action)
+ 	 * Issue StartTransfer here with no-op TRB so we can always rely on No
+ 	 * Response Update Transfer command.
+ 	 */
+-	if (usb_endpoint_xfer_bulk(desc) ||
+-			usb_endpoint_xfer_int(desc)) {
+-		struct dwc3_gadget_ep_cmd_params params;
+-		struct dwc3_trb	*trb;
+-		dma_addr_t trb_dma;
+-		u32 cmd;
+-
+-		memset(&params, 0, sizeof(params));
+-		trb = &dep->trb_pool[0];
+-		trb_dma = dwc3_trb_dma_offset(dep, trb);
+-
+-		params.param0 = upper_32_bits(trb_dma);
+-		params.param1 = lower_32_bits(trb_dma);
+-
+-		cmd = DWC3_DEPCMD_STARTTRANSFER;
+-
+-		ret = dwc3_send_gadget_ep_cmd(dep, cmd, &params);
++	if (dep->stream_capable) {
++		ret = dwc3_gadget_ep_start_noop_transfer(dep);
+ 		if (ret < 0)
  			return ret;
- 
--		dwc3_stop_active_transfer(dep, true, true);
-+		dwc3_stop_active_transfer(dep, false, true);
- 
- 		list_for_each_entry_safe(req, tmp, &dep->started_list, list)
- 			dwc3_gadget_move_cancelled_request(req, DWC3_REQUEST_STATUS_DEQUEUED);
-@@ -1715,6 +1715,11 @@ static void dwc3_schedule_err_recovery(struct dwc3 *dwc);
-  * the controller won't update the TRB progress on command
-  * completion. It also won't clear the HWO bit in the TRB.
-  * The command will also not complete immediately in that case.
-+ *
-+ * Older programming guide revisions recommended setting ForceRM to 1
-+ * when ending a transfer. Newer programming guide revisions now
-+ * recommend keeping ForceRM cleared, and TRBs are properly updated
-+ * on command completion.
-  */
- static int __dwc3_stop_active_transfer(struct dwc3_ep *dep, bool force, bool interrupt)
- {
-@@ -1843,7 +1848,7 @@ static int dwc3_gadget_start_isoc_quirk(struct dwc3_ep *dep)
- 		 * to wait for the next XferNotReady to test the command again
- 		 */
- 		if (cmd_status == 0) {
--			dwc3_stop_active_transfer(dep, true, true);
-+			dwc3_stop_active_transfer(dep, false, true);
- 			return 0;
- 		}
+-
+-		if (dep->stream_capable) {
+-			/*
+-			 * For streams, at start, there maybe a race where the
+-			 * host primes the endpoint before the function driver
+-			 * queues a request to initiate a stream. In that case,
+-			 * the controller will not see the prime to generate the
+-			 * ERDY and start stream. To workaround this, issue a
+-			 * no-op TRB as normal, but end it immediately. As a
+-			 * result, when the function driver queues the request,
+-			 * the next START_TRANSFER command will cause the
+-			 * controller to generate an ERDY to initiate the
+-			 * stream.
+-			 */
+-			dwc3_stop_active_transfer(dep, false, true);
+-
+-			/*
+-			 * All stream eps will reinitiate stream on NoStream
+-			 * rejection.
+-			 *
+-			 * However, if the controller is capable of
+-			 * TXF_FLUSH_BYPASS, then IN direction endpoints will
+-			 * automatically restart the stream without the driver
+-			 * initiation.
+-			 */
+-			if (!dep->direction ||
+-			    !(dwc->hwparams.hwparams9 &
+-			      DWC3_GHWPARAMS9_DEV_TXF_FLUSH_BYPASS))
+-				dep->flags |= DWC3_EP_FORCE_RESTART_STREAM;
+-		}
  	}
-@@ -2131,7 +2136,7 @@ static int dwc3_gadget_ep_dequeue(struct usb_ep *ep,
- 			struct dwc3_request *t;
  
- 			/* wait until it is processed */
--			dwc3_stop_active_transfer(dep, true, true);
-+			dwc3_stop_active_transfer(dep, false, true);
- 
- 			/*
- 			 * Remove any started request if the transfer is
-@@ -2208,7 +2213,7 @@ int __dwc3_gadget_ep_set_halt(struct dwc3_ep *dep, int value, int protocol)
- 			return 0;
- 		}
- 
--		dwc3_stop_active_transfer(dep, true, true);
-+		dwc3_stop_active_transfer(dep, false, true);
- 
- 		list_for_each_entry_safe(req, tmp, &dep->started_list, list)
- 			dwc3_gadget_move_cancelled_request(req, DWC3_REQUEST_STATUS_STALLED);
-@@ -3267,7 +3272,7 @@ static void dwc3_nostream_work(struct work_struct *work)
- 		dwc3_send_gadget_generic_command(dwc, cmd, dep->number);
- 	} else {
- 		dep->flags |= DWC3_EP_DELAY_START;
--		dwc3_stop_active_transfer(dep, true, true);
-+		dwc3_stop_active_transfer(dep, false, true);
- 		spin_unlock_irqrestore(&dwc->lock, flags);
- 		return;
- 	}
-@@ -3611,7 +3616,7 @@ static bool dwc3_gadget_endpoint_trbs_complete(struct dwc3_ep *dep,
- 	if (usb_endpoint_xfer_isoc(dep->endpoint.desc) &&
- 		list_empty(&dep->started_list) &&
- 		(list_empty(&dep->pending_list) || status == -EXDEV))
--		dwc3_stop_active_transfer(dep, true, true);
-+		dwc3_stop_active_transfer(dep, false, true);
- 	else if (dwc3_gadget_ep_should_continue(dep))
- 		if (__dwc3_gadget_kick_transfer(dep) == 0)
- 			no_started_trb = false;
+ out:
 -- 
 2.53.0
 
