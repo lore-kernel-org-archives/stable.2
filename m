@@ -1,99 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795689219;
-	b=YC2D1tbtmfYU6+kLgHcmUq5rfUk9VGRMAHBR72FNbaez5KiTRUjr8M/XboG8GAtMGZpl
-	 fgwZsQEbHAtD8JQtJZ7KE2WiMwupMEt0ODAgwHo4GNK6Zoqk//ZPT9QQZrdR0i9vZ/Um0
-	 41sDxMFqlYRXk5V0ZZ+KNz7jIBMD0XXpIf8WURy4VRFbld4hgLFgiYGUNq/ArcXZkiBJP
-	 rkHeuWfOdVCiK8nHdh1K5JUr8rPG4NfDLTAS4SRmTIFQcgxwS08IZIckxAv+uGe1FpjP8
-	 uPdnZptdezZ12cpMKm2S1KJdhKTKx6eCWr7e+7CKLEgXBut2gEfafO4zvcm7HmEvb8A==
+	t=1795689285;
+	b=BE4AAyb8UogDA3T9zbqb4bULhK0LNJZB0JT9Oby/zkEAqsTd+p+tBamwEsT0gUT9iJnY
+	 ovJ5VdrxTb3oqvPD9a7lRdANdPlGmoPjJxcVJVhQJ6aS/ORB6zvB2myuO2ITzWFnPxXZw
+	 YINNSuPY2EEqDU75cPq7G2cpT46hp82OBwUY7NU1Xp1dvUHtkdSjjnXoKShIs+nB3AOFV
+	 ysIEZQpP5SVpNWSTaoXsLoQQ+B0SUXSm42IX+Rhy3n/4ElmJ6ZmFPXx20+azy7TUu0kV5
+	 ybbLfjQjKeMV6qv+QFTVoFkL2fMv/8JxxE1Y0GDaO6oHukuzKGffcLF1C4gacwlOEtg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795689219;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=CjQ8gPON54ImxNch/vz81iv8pHWJvCH/N5cvF02jvyA=;
-	b=kna2SCmsankct3SteC7/A6SmvwUMorSUzX2kL0BNjzeyjZfryGJ9FE+fJVR4oURIcSO6
-	 uFZgRWVlPJwp0za9aBiLJbE7lbVJNYqeOjJpFCTl7GWFnqiZ5vyV8o7u9DhaMxIRBw609
-	 WGLFUiNjPKt///idHTNcyGqAYyz9/WklmSeuNLrNP/S9lzyukYJx+S6pNEW/yMDOFCSJ/
-	 iuWFIc3HWRfsiEMW1ukmCa1apNmsvbX9FAwpaDncCg508Li7NDbQ01efCIck9IEvkDdp9
-	 4U210OUH0YV4OvIUwZqFqrsW5ZplzpmVnF+0kQ03HiCl609kl2mKm/cpiy5+ggYNJQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795689285;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=8eZBaU6z95EeRYC0FmVtB0seoiQZSZeUPr/3m7VzgOU=;
+	b=JnIlXkR2W5tCAsMFKNfy/TxJyIWIbeAQcZvmgh47I+YsGP+GmHyZtCPzU4NT5/fJWBH3
+	 /iblWvyCYyNJAGKAzmQpUVG6nge3E30RhmyYoIWXiDQFUg08L5tzPm9OAyoKwZUUcyfSd
+	 uJf34kOfwT/WEW2G32ymrsfTdg44aqjLtZybKJq1hmoTIGZE6r+QAGqHozb54g7i+vML5
+	 1SOU8i59xn133rfdoVMqYc2z4C6btare2f44OAtAqcqrYyRdcbpEf0micFaCX12eD9STC
+	 x3BCzagFhQgGWxBwXVg/dybL9KFX+3X0qccIenbuXYFoC8iurkozq33eAsy/lN4m1qQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=De4U3Nri;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.176
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R85x3qYL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F5D0606A684;
+	Thu, 26 Nov 2026 10:34:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R85x3qYL
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795689284;
+	b=OV+xAIFrBLu8Pe+64Id2+BUY8rqZ5UmehkZ4OeWzQ4YNO3wYmKZER5Jx2Cy55YkI5OPV
+	 p9h5OBbWP9d+cl9nLg/CTReI2hHnM5NLOKa4P2aAFGvtYxfu+o0hD6z8m9Ee1aJMYe0Lz
+	 wPqNpAXHCG1yz7uB+Vtz3jfy5Au8SddjWII/TfyiLharTQBi+VFQES6pRbWuHRP0FTBhI
+	 YiCdce0+aGe0wly5P75pcx9LkOwJ1Pm7dlLRXo2/ROLwuFigW6V9kYH5tpwjoHwwPjr/B
+	 KVidLPbq28eFNDIEaCR+8gnTNFKdjiNiUPy0QIeLAVBvFRHlF31xgwfw9OtO6c8/dPg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795689284;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=8eZBaU6z95EeRYC0FmVtB0seoiQZSZeUPr/3m7VzgOU=;
+	b=XUIndh4mRCRHC4m6bdyoimWwc2h8wwanl8pZVqPaDLV6ZvpGMvmzR1CEpVrBz0hpCKrh
+	 kGfHitHakbdgv8TwCW0/wbcL8ERzlxG5ucSUmNA40n4BUsMJAgsuafipNlL7cS4kNLly0
+	 hSZ0Wr2q4oYwVIvKXLnquw34u8vWr9eD3ffs92slUXy0+NfLF5hUAdc8jU06UW3T+BSAz
+	 ulttcEgde55APRM9A4ZyK8R34gRiHAbIlYWlxYD7IJtDFFbSilnUU/hLQMw4QuYwQ7DQR
+	 FrrbdOukBUUtVHWMwxWvJd+WFI7HS6m8uWdTzdHK7TvWkirztOR0h7Ks1DWnpilE4MA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD92606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 10:33:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFD92606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=De4U3Nri
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cdac6d19ddaso2853526a12.2
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:33:38 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795689218; cv=none;
-        d=google.com; s=arc-20260327;
-        b=D6YRE909Xq1Enve+7GWpuJtdna5X77hasZCUxlXctmq4OBY+UrSOJLWL/yD+0mjfxC
-         hHCRJUysVYBnUwjU5R+4giUDxY6sDTvgPGbsH6pomVKi1O7ZjwfqSZwCHXsdkIc9Cpri
-         uHlH4Mi4wQUPGdeyF6ArXx/z+888ERuBlEPNevajx0xyrbfExIrSuxDBCWxPMQ8RyMUq
-         UlYblop6FU7UJRYEsnDf1yuy/HwdMEGjCxleEJSd5fwVlVL1mmA/TbFTr5mbU3eHsAgx
-         RLC+o+nZUC9j7L+NhOxjFMP8ejbQAJSIWDKL/kVRWd8e8OFhSPkfueNx3nomGzEcLBtU
-         Lj0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=CjQ8gPON54ImxNch/vz81iv8pHWJvCH/N5cvF02jvyA=;
-        fh=dei5726y7EX89hlqLbR0rqRJMQo8z70x2qs4eg0nH3Y=;
-        b=bi+w6/+pPv1cr3sxXAU04nGFKKyRu4Rz5TZaVDmUjFqZ1gSs/N08XrBJHIFbemLEuO
-         wjjw1Er1v2uWxH4NVd5/r84iJhOknWNKrXSG/x008GQpQ5G1Q+CsYEKhKIuIjffPln6e
-         LCRc8YPVZK0BMl55whxeXcspzlg879qfQLcboGcqnIKbex3eEhJ1XfQBTCPbRxdwMSqV
-         zjvF3D4YgCCXWrZbo5iN6vT8vxCVVX8ZTGH7uQntPihT7y1iQh/t2vcbfx1NtEgBwfY/
-         Ih6p4qcAWaNhoMgliZFh2btzSik3Fek9Ty44/ge//pIVl1MudF8PzkBrRFXhJuTgj8eA
-         iVcA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795689218; x=1796294018; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CjQ8gPON54ImxNch/vz81iv8pHWJvCH/N5cvF02jvyA=;
-        b=De4U3NriG0pnU5n61Rds0bGZ4V4UfHP8EPTjilbt+dGMz8sXOFX8ozPnVhuRkEl2Tt
-         f6hSadLeVrHVyfqbY4XiA7LNkgGGqFSuF6t+umXE1r0hBHy8hCbpY03LMx7YEJswSNkv
-         MeuWhnXmoZ7DJUuK/7MD34oP9RlXx3Kr+QRPRP6qVEfPLn1ZB/IOGCutz9AebD+FZtgz
-         G89s27EsVAEkWBF3o+DQH33KX2quV9uDdZMdGBJDZLxGQwCO+3ezu0FN2DSYzCu5BWZa
-         BNFJGHqP696CfMb0NbfcSRRF19SQowj79qbb32iZbjDSvSnaVJgRZJzN24rnzo02rit/
-         i0iA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795689218; x=1796294018;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=CjQ8gPON54ImxNch/vz81iv8pHWJvCH/N5cvF02jvyA=;
-        b=HTRaQedFZPi/tA7P7vwh7xlCvQXorJivuVfP/hbuTqM3US8YqY/50nhx6A6UgaKSy1
-         YIgd6Bo6r2/asavWdgIBrgYjT7hOM4zv7RwQLGQFHW3CnNeOEB2AcHD4rYhH5ZxxfErC
-         KzEn5ejKZTmRZcwR1Hv4MWgzjd5Jd+7IZpmP1v4YYQxi0YNIxI9yG8xJ22bSp+txBzRR
-         2i+H4fk9nFHVr6C0EPVSySQ4Ed5g44OODtnPUKCrzQj9C1L+2ws7Uhy/7XD1WU3cFd7z
-         AWuGJxHqY1lkDyrhdsrHkgpB0rFixq2e98lVu/u3ZoDr7kU6xK7cPLkrSaYP+BiA1hPA
-         RrMw==
-X-Forwarded-Encrypted: i=1; AL+hErFjJqeu3szUXppTuInWKPS0K+UrMizyk8ApJzia39fcBx5/Y/8N4rQjVsaHaiN5GIuwgTMkZhc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/pXFTh6+lMrq4W9jOXecApAMefnq5mOvCClLGJbSr6IzKpQLNc
-	E2kOS5bZnsol/LvEsahl3/iMPC1Nw49FZMVGnbZM9rkfzcIkl6N8Wx/hY0QAHgtm7MwojK/6uok
-	DAvy8yqGgyGUGusiWp0igAxrMpxpmGQkr6KmPt1M=
-X-Gm-Gg: AZFdTZfE0H6r/oByEG0PwGXxqZlh1LczYbUFPZ3aSN1DcLjAAsVD3UYQSS4UoDuQqjF
-	gGnXB06fYTP9yBIuhAIYos2f+NW5pGSl29bpPutvuZRr8lwhwXrkeOeWN0qY812GvinnOYZO1dD
-	JIkxERho3L7QS6+ZEwgx7Y5xq99jDFJb2ABM5dObpFSbalVjwOsDdY901wlD714xFI145N3OhH2
-	ePXJQ9ymRvGXwZtXgiHDoss4t9hDOmdlD+s8W+Rl28UbwDjGQ/9exE7mXgtaecuuv05dqUo/A6J
-	W8389MLLW62/TJE/DacWMFq5n6Km/gnAU1jFp+bJ60nODy2zK15NXSEBZPRj/5ivHsNwCf25NDN
-	uqiYAyFsirTcPJU+p2JgQx2aLfLsFKWVBRYpu37gnsXw5eGR/vgA+pfOglA==
-X-Received: by 2002:a17:90b:2f8c:b0:3a2:b16d:928b with SMTP id
- 98e67ed59e1d1-3b41c95aec8mr18512828a91.46.1795689218173; Thu, 26 Nov 2026
- 02:33:38 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 7F4ED1F000EB;
+	Thu, 26 Nov 2026 10:34:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795689284;
+	bh=8eZBaU6z95EeRYC0FmVtB0seoiQZSZeUPr/3m7VzgOU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=R85x3qYLex516igtTOP18i4JXsRMI9bx3zeXEtrJwR156PTpjmfQWnTmpGeAKqVyL
+	 yOjncV9AR+QjDwOKE5UJVxaLYFpwSNEDFUjkpcftjxoffM8CeGYXFZpOFu+Q/4llJJ
+	 KqhCiy4i5Zox7J2F2GEIi11oTwTtchK7pW1Wjrbi2HS9nthl4OLurVTzJeWwplCnWJ
+	 q+AeZibaCVaRlIQpDuQXGKM52XxmeGmblOF1jVJ33lbf5SaZkgQug4fntOTvM+b8T5
+	 zUjJdb8cNOSn1V0IViT9BUk2Tm80+zQqHvqmtnQXV/ulFkYWO4gYwqHtnNJpywUamG
+	 QyYctTxIGlEYw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1164C4D448;
+	Thu, 26 Nov 2026 10:34:40 +0000 (UTC)
+From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
+Date: Thu, 26 Nov 2026 10:31:57 +0000
+Subject: [PATCH 5.10.y v2 1/2] KVM: x86: pull kvm->srcu read-side to
+ kvm_arch_vcpu_ioctl_run
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,175 +83,183 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261122190008.21278-2-arbabhaider649@gmail.com> <4724fb41-06a0-457c-be3a-25ad9e49e25f@kernel.org>
-In-Reply-To: <4724fb41-06a0-457c-be3a-25ad9e49e25f@kernel.org>
-From: Arbab Haider <arbabhaider649@gmail.com>
-Date: Thu, 26 Nov 2026 15:33:26 +0500
-X-Gm-Features: Aa3M54r0J6MsPFv-FI2m1pPxneDAzgN4uFfUfog5-WhTsHNyfmVJ8PwjCWIuLXE
-Message-ID: <CAHPLoh+1WDe2YFxuyP65MHtCbSmmg6FORnk-bJ8FxTgq-PQW8A@mail.gmail.com>
-Subject: Re: [PATCH] media: em28xx: clear dev->v4l2 on init failure and fini
- to avoid double put
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	syzbot+fb0d2df09b56117605fc@syzkaller.appspotmail.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261126-kvm-510d-v2-1-bcba96aa2088@certik.com>
+References: <20261126-kvm-510d-v2-0-bcba96aa2088@certik.com>
+In-Reply-To: <20261126-kvm-510d-v2-0-bcba96aa2088@certik.com>
+To: stable@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>, 
+ Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795689116; l=5395;
+ i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
+ bh=aWlRKTULD3CULaHPvBETo5OWJQzrTM787U9y9afMXqY=;
+ b=/Zc0OGramgsMxtQpZ9yJX9U88b3svJgKHqE3rON3D809yG9SntKymh1C5aJrFPIaa6AvADnb4
+ HR23ixzMHWbAVlEZhGr74cbBn9vN8CqB173FIxmrhWohp/DkNkiDnni
+X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
+ pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
+X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
+ auth_id=1647
+X-Original-From: Dickson Wu <dickson.wu@certik.com>
+Reply-To: dickson.wu@certik.com
 
-Hi Hans,
+From: Paolo Bonzini <pbonzini@redhat.com>
 
-I checked media-committers/next at b4e3c4b6a36f. The init error path
-already clears dev->v4l2 under dev->lock before dropping the initial
-reference, and em28xx_v4l2_fini() checks the pointer under the same
-lock. That covers the double put this patch was meant to fix, so
-I'm dropping the standalone patch.
+commit 8d25b7beca7ed6ca34f53f0f8abd009e2be15d94 upstream.
 
-Thanks,
-Arbab
+kvm_arch_vcpu_ioctl_run is already doing srcu_read_lock/unlock in two
+places, namely vcpu_run and post_kvm_run_save, and a third is actually
+needed around the call to vcpu->arch.complete_userspace_io to avoid
+the following splat:
+
+  WARNING: suspicious RCU usage
+  arch/x86/kvm/pmu.c:190 suspicious rcu_dereference_check() usage!
+  other info that might help us debug this:
+  rcu_scheduler_active = 2, debug_locks = 1
+  1 lock held by CPU 28/KVM/370841:
+  #0: ff11004089f280b8 (&vcpu->mutex){+.+.}-{3:3}, at: kvm_vcpu_ioctl+0x87/0x730 [kvm]
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x59/0x73
+   reprogram_fixed_counter+0x15d/0x1a0 [kvm]
+   kvm_pmu_trigger_event+0x1a3/0x260 [kvm]
+   ? free_moved_vector+0x1b4/0x1e0
+   complete_fast_pio_in+0x8a/0xd0 [kvm]
+
+This splat is not at all unexpected, since complete_userspace_io callbacks
+can execute similar code to vmexits.  For example, SVM with nrips=false
+will call into the emulator from svm_skip_emulated_instruction().
+
+While it's tempting to never acquire kvm->srcu for an uninitialized vCPU,
+practically speaking there's no penalty to acquiring kvm->srcu "early"
+as the KVM_MP_STATE_UNINITIALIZED path is a one-time thing per vCPU.  On
+the other hand, seemingly innocuous helpers like kvm_apic_accept_events()
+and sync_regs() can theoretically reach code that might access
+SRCU-protected data structures, e.g. sync_regs() can trigger forced
+existing of nested mode via kvm_vcpu_ioctl_x86_set_vcpu_events().
+
+Reported-by: Like Xu <likexu@tencent.com>
+Co-developed-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+[ adapted to 5.10.y: keep wants_to_run, no Xen reader; folds in 2d08935682ac ]
+Signed-off-by: Dickson Wu <dickson.wu@certik.com>
+---
+The backport and the test runs were prepared with AI coding tools
+(OpenAI Codex agents, with review by Claude). I went over the result
+before signing off.
+
+ arch/x86/kvm/x86.c | 24 +++++++++++++-----------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
+
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 58660d5de141..69ab4e317422 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -8486,6 +8486,7 @@ static int dm_request_for_irq_injection(struct kvm_vcpu *vcpu)
+ 		likely(!pic_in_kernel(vcpu->kvm));
+ }
+ 
++/* Called within kvm->srcu read side.  */
+ static void post_kvm_run_save(struct kvm_vcpu *vcpu)
+ {
+ 	struct kvm_run *kvm_run = vcpu->run;
+@@ -9098,6 +9099,7 @@ void __kvm_request_immediate_exit(struct kvm_vcpu *vcpu)
+ EXPORT_SYMBOL_GPL(__kvm_request_immediate_exit);
+ 
+ /*
++ * Called within kvm->srcu read side.
+  * Returns 1 to let vcpu_run() continue the guest execution loop without
+  * exiting to the userspace.  Otherwise, the value will be returned to the
+  * userspace.
+@@ -9421,6 +9423,7 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
+ 	return r;
+ }
+ 
++/* Called within kvm->srcu read side.  */
+ static inline int vcpu_block(struct kvm *kvm, struct kvm_vcpu *vcpu)
+ {
+ 	if (!kvm_arch_vcpu_runnable(vcpu) &&
+@@ -9463,12 +9466,12 @@ static inline bool kvm_vcpu_running(struct kvm_vcpu *vcpu)
+ 		!vcpu->arch.apf.halted);
+ }
+ 
++/* Called within kvm->srcu read side.  */
+ static int vcpu_run(struct kvm_vcpu *vcpu)
+ {
+ 	int r;
+ 	struct kvm *kvm = vcpu->kvm;
+ 
+-	vcpu->srcu_idx = srcu_read_lock(&kvm->srcu);
+ 	vcpu->arch.l1tf_flush_l1d = true;
+ 
+ 	for (;;) {
+@@ -9503,25 +9506,18 @@ static int vcpu_run(struct kvm_vcpu *vcpu)
+ 		if (__xfer_to_guest_mode_work_pending()) {
+ 			srcu_read_unlock(&kvm->srcu, vcpu->srcu_idx);
+ 			r = xfer_to_guest_mode_handle_work(vcpu);
++			vcpu->srcu_idx = srcu_read_lock(&kvm->srcu);
+ 			if (r)
+ 				return r;
+-			vcpu->srcu_idx = srcu_read_lock(&kvm->srcu);
+ 		}
+ 	}
+ 
+-	srcu_read_unlock(&kvm->srcu, vcpu->srcu_idx);
+-
+ 	return r;
+ }
+ 
+ static inline int complete_emulated_io(struct kvm_vcpu *vcpu)
+ {
+-	int r;
+-
+-	vcpu->srcu_idx = srcu_read_lock(&vcpu->kvm->srcu);
+-	r = kvm_emulate_instruction(vcpu, EMULTYPE_NO_DECODE);
+-	srcu_read_unlock(&vcpu->kvm->srcu, vcpu->srcu_idx);
+-	return r;
++	return kvm_emulate_instruction(vcpu, EMULTYPE_NO_DECODE);
+ }
+ 
+ static int complete_emulated_pio(struct kvm_vcpu *vcpu)
+@@ -9646,18 +9642,23 @@ static void kvm_put_guest_fpu(struct kvm_vcpu *vcpu)
+ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+ {
+ 	struct kvm_run *kvm_run = vcpu->run;
++	struct kvm *kvm = vcpu->kvm;
+ 	int r;
+ 
+ 	vcpu_load(vcpu);
+ 	kvm_sigset_activate(vcpu);
+ 	kvm_load_guest_fpu(vcpu);
+ 
++	vcpu->srcu_idx = srcu_read_lock(&kvm->srcu);
+ 	if (unlikely(vcpu->arch.mp_state == KVM_MP_STATE_UNINITIALIZED)) {
+ 		if (!vcpu->wants_to_run) {
+ 			r = -EINTR;
+ 			goto out;
+ 		}
++		srcu_read_unlock(&kvm->srcu, vcpu->srcu_idx);
+ 		kvm_vcpu_block(vcpu);
++		vcpu->srcu_idx = srcu_read_lock(&kvm->srcu);
++
+ 		kvm_apic_accept_events(vcpu);
+ 		kvm_clear_request(KVM_REQ_UNHALT, vcpu);
+ 		r = -EAGAIN;
+@@ -9707,8 +9708,9 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+ 	if (kvm_run->kvm_valid_regs)
+ 		store_regs(vcpu);
+ 	post_kvm_run_save(vcpu);
+-	kvm_sigset_deactivate(vcpu);
++	srcu_read_unlock(&kvm->srcu, vcpu->srcu_idx);
+ 
++	kvm_sigset_deactivate(vcpu);
+ 	vcpu_put(vcpu);
+ 	return r;
+ }
+
+-- 
+2.43.0
 
 
-On Wed, 25 Nov 2026 at 12:40, Hans Verkuil <hverkuil+cisco@kernel.org> wrote:
->
-> On 22/11/2026 20:00, Arbab Haider wrote:
-> > Commit 288254383674 ("media: em28xx: use v4l2_device release callback")
-> > switched em28xx_v4l2 teardown to v4l2_device reference counting, where
-> > dev->v4l2 is only cleared inside em28xx_free_v4l2() once the refcount
-> > reaches zero.
-> >
-> > If em28xx_v4l2_init() fails after video_register_device() (for example,
-> > when v4l2_mc_create_media_graph() returns -EINVAL) while userspace has
-> > opened the video node, the unregister_dev error path calls
-> > v4l2_device_put(&v4l2->v4l2_dev) to drop the initial reference, but
-> > em28xx_free_v4l2() does not run yet because the open file handle still
-> > holds a reference, leaving dev->v4l2 non-NULL.
-> >
-> > When the USB device is subsequently disconnected, em28xx_v4l2_fini()
-> > sees dev->v4l2 != NULL and calls v4l2_device_put(&v4l2->v4l2_dev) a
-> > second time for the initial reference, freeing struct em28xx_v4l2 while
-> > the video device node is still referenced and causing a
-> > slab-use-after-free in media_device_unregister() /
-> > __media_entity_remove_links().
-> >
-> > Fix this by:
-> > - Calling v4l2_device_disconnect() and clearing dev->v4l2 = NULL under
-> >   dev->lock in em28xx_v4l2_init()'s unregister_dev path before dropping
-> >   the initial v4l2_device reference.
-> > - Checking and clearing dev->v4l2 under dev->lock in em28xx_v4l2_fini()
-> >   so the initial reference is dropped at most once.
-> > - Reading dev->v4l2 under dev->lock and checking for !v4l2 in
-> >   em28xx_v4l2_close() so a close racing with teardown cannot dereference
-> >   a NULL pointer.
-> >
-> > Tested locally in QEMU (x86_64, KASAN+UBSAN) using dummy_hcd and
-> > raw-gadget emulating an EM2820 device with failed media graph creation
-> > and concurrent /dev/video0 open/disconnect.
-> >
-> > Reported-by: syzbot+fb0d2df09b56117605fc@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=fb0d2df09b56117605fc
-> > Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Arbab Haider <arbabhaider649@gmail.com>
->
-> This patch no longer applies, can you rebase it on top of
-> https://gitlab.freedesktop.org/linux-media/media-committers, next branch?
->
-> This patch might not be needed anymore, it's unclear.
->
-> Regards,
->
->         Hans
->
-> > ---
-> >  drivers/media/usb/em28xx/em28xx-video.c | 23 ++++++++++++++++-------
-> >  1 file changed, 16 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-> > index 84424284d..50998aa1c 100644
-> > --- a/drivers/media/usb/em28xx/em28xx-video.c
-> > +++ b/drivers/media/usb/em28xx/em28xx-video.c
-> > @@ -2333,7 +2333,6 @@ static void em28xx_free_v4l2(struct v4l2_device *v4l2_dev)
-> >
-> >       v4l2_ctrl_handler_free(&v4l2->ctrl_handler);
-> >       v4l2_device_unregister(v4l2_dev);
-> > -     dev->v4l2 = NULL;
-> >       kfree(v4l2);
-> >       kref_put(&dev->ref, em28xx_free_device);
-> >  }
-> > @@ -2414,7 +2413,7 @@ static int em28xx_v4l2_open(struct file *filp)
-> >   */
-> >  static int em28xx_v4l2_fini(struct em28xx *dev)
-> >  {
-> > -     struct em28xx_v4l2 *v4l2 = dev->v4l2;
-> > +     struct em28xx_v4l2 *v4l2;
-> >
-> >       if (dev->is_audio_only) {
-> >               /* Shouldn't initialize IR for this interface */
-> > @@ -2426,13 +2425,16 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
-> >               return 0;
-> >       }
-> >
-> > -     if (!v4l2)
-> > +     mutex_lock(&dev->lock);
-> > +
-> > +     v4l2 = dev->v4l2;
-> > +     if (!v4l2) {
-> > +             mutex_unlock(&dev->lock);
-> >               return 0;
-> > +     }
-> >
-> >       dev_info(&dev->intf->dev, "Closing video extension\n");
-> >
-> > -     mutex_lock(&dev->lock);
-> > -
-> >       v4l2_device_disconnect(&v4l2->v4l2_dev);
-> >
-> >       em28xx_uninit_usb_xfer(dev, EM28XX_ANALOG_MODE);
-> > @@ -2455,6 +2457,8 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
-> >               vb2_video_unregister_device(&v4l2->vdev);
-> >       }
-> >
-> > +     dev->v4l2 = NULL;
-> > +
-> >       mutex_unlock(&dev->lock);
-> >
-> >       /*
-> > @@ -2502,18 +2506,19 @@ static int em28xx_v4l2_close(struct file *filp)
-> >  {
-> >       struct video_device   *vdev = video_devdata(filp);
-> >       struct em28xx         *dev  = video_drvdata(filp);
-> > -     struct em28xx_v4l2    *v4l2 = dev->v4l2;
-> > +     struct em28xx_v4l2    *v4l2;
-> >       struct usb_device *udev = interface_to_usbdev(dev->intf);
-> >       int              err;
-> >       bool last_user;
-> >
-> >       mutex_lock(&dev->lock);
-> > +     v4l2 = dev->v4l2;
-> >       last_user = v4l2_fh_is_singular_file(filp);
-> >       _vb2_fop_release(filp, vdev->queue->lock);
-> >
-> >       if (last_user) {
-> >               /* No sense to try to write to the device */
-> > -             if (dev->disconnected)
-> > +             if (dev->disconnected || !v4l2)
-> >                       goto exit;
-> >
-> >               /* Save some power by putting tuner to sleep */
-> > @@ -3110,6 +3115,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
-> >       return 0;
-> >
-> >  unregister_dev:
-> > +     v4l2_device_disconnect(&v4l2->v4l2_dev);
-> > +
-> >       if (video_is_registered(&v4l2->radio_dev)) {
-> >               dev_info(&dev->intf->dev,
-> >                        "V4L2 device %s deregistered\n",
-> > @@ -3129,6 +3136,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
-> >               vb2_video_unregister_device(&v4l2->vdev);
-> >       }
-> >
-> > +     dev->v4l2 = NULL;
-> > +
-> >       mutex_unlock(&dev->lock);
-> >
-> >       /*
->
