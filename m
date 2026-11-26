@@ -1,55 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795716172;
-	b=RqmAVTh2h7ISpIiczDXnTUYU7sBP38QtoZlSF4zCDy3Ho+7phnaaMrOnbhxrZcU05MD3
-	 d6vSWt0Y7CgTNXeb1g/hS/5VJvLl60L0jcDZnioIz+jRKNp0dL8XynkBYm3BVRokbd6BH
-	 JRx09ZDZneyC0eGK+lo0s9sbA/hdFnIopUtkNdJdTX6zeJPGag9Mst65p5U8MUZfeaNZ5
-	 TJHD3bnvvV5gPJtuDv3k23H++PChvojEiKz4m2FyAqQ+gk6q7rdJKU7vZEvHZRBFXALYu
-	 l4jrewge/r5hZX5cdoc8w4Ck6hZoa/tJ4nBO27+hPcOHSyYjmGguD1XnaZp6GpPYjFw==
+	t=1795716271;
+	b=zEv5Ve2QYZn08rHMACxlbYlm+VMiiF29nrDlr+wprWy9xM59ibEJXSh5OzWmUfBffEBb
+	 ysMs6pmUSWHGRJmAcaGykuJ/SgSJTL2F6ZPS9E/Ih7j/YAuWA4lYyGz6YSSjuoeKeSxvY
+	 WGscwK6TnkreVEQDMwwBwfY8rzIbvlBXAnmvNWPt2ZZxGrdQ6joPfUJsrqV1i7oUsxiTi
+	 YhlFLk5Gi1+n9v6+CIi0z504CD+4iawJZdERL8u00f0qBH56+shmfPZBSZds7rWKab1Mc
+	 375b1AMkp2ddW05buU29dWF3UMGbK3iHpUQ6RiLG/bRDv/21aVOv1cHZKom0gCPgEFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795716172;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
-	 From:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=OBmftwX5xkmh2yEUhqByt4ga8q9hssUc5Tn86F/AT9s=;
-	b=AWeMzIP4mjElMptH2hvptfhTtO276fG8VtV78eewB5NgrpsJVb8tBECk2DLhxdz3tlKc
-	 QwiHvQ7VPNVVAk5JgtALrOf6SWqvzLbkrUw+/FtwcN4KVDadOdf730XkgKq44aXN9WT19
-	 2fAhEj4Zjt5ITpMgSfffvjWHuu5isHz32dNGBA8a3Yze/i0F5sF0YrSD4lguV2yBywj+U
-	 Z3WE8kztmyTSH2+m5RixnLcB1XphL0ojK4SS2r+BNhydavE7h8P/mlScjvxoiXdCXP0zk
-	 5ApqtzmcN7Smp/sr4/dYUSfUjYGaQ8KjWhgcocPSPaxVPLFayybJ4UJMYm4w9U+EqMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795716271;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=1c5PCbIwwV6vQj5//fN+ktrM/G6dDkpUjrvlgV4uuqc=;
+	b=anhOCa8DFAiTUOAUMXkmm9YQEGOtddRP5XTyEr2WXG+fmGVrst1yEJoZRQncB8CRXjBH
+	 nCVEPYGZ17Ljg5hUaxRVFoOJuawbnLqexufzqbP9rM7QBGAY6589JvmIbAklpzmse7JaC
+	 c5p6CK54UFh0/pU3mUqCsbReH9fDvgNhS+E/8eTqXz+iq3I+yaVnxlXBP2DrVnP4ZCoV6
+	 k6tbi8FvrY25C/mc5qGPq77NfNxq3egG5yt8OEqBTF4U8+QphDojDWtQsn8SQRMwt8rIb
+	 DTOtxb7bHYjd0c0qqGmw9zCgFI9M+9XUxYmWz1R6k+nuO05TAQEgkaWjqAapYaQrdLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=2YUCeZto;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="1yEXqF/A";
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40DE6606A31C;
-	Thu, 26 Nov 2026 18:02:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40DE6606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B244F606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 18:04:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B244F606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=2YUCeZto
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1yEXqF/A
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 7BCFA4E417AB;
-	Thu, 26 Nov 2026 18:02:50 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 5E0281A0645;
+	Thu, 26 Nov 2026 18:04:29 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4461E60558;
-	Thu, 26 Nov 2026 18:02:50 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9464B11E69199;
-	Thu, 26 Nov 2026 19:02:39 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2981860558;
+	Thu, 26 Nov 2026 18:04:29 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id ED06F11E69016;
+	Thu, 26 Nov 2026 19:04:26 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795716168; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=OBmftwX5xkmh2yEUhqByt4ga8q9hssUc5Tn86F/AT9s=;
-	b=2YUCeZto/xB7S8Ytj+9Kwaw2TcEYtRWgowALzmEFPgsU/ZYf30P0y364TFWHsW+aeHnpK2
-	5POwVJ11e1JKblQsa7TAsF9so7aczS71cgkXTYx+AO+gRpw+XCK3795VrAYsCp15guWqXx
-	0QHvk93ETtX7KUR+U4SI21olURehwtZdcSCOt2YqaDMMfT9YVX3AogK/EI7/XUMK6QoPgd
-	jEKDfPsptO0+0Oh8gY59z/BBt/XqGs5XxejLraCkmYrgpmpxIliI1ptKntc9fCJf8ltWb/
-	6NZ9MGc4bvEBa+4blKQusF+tPX0qdSjPHBhq5u+ycRch10LGov/ZJR8vinegjw==
+	t=1795716268; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=1c5PCbIwwV6vQj5//fN+ktrM/G6dDkpUjrvlgV4uuqc=;
+	b=1yEXqF/AvWVGxDC80ZsqgZJgPjMtRtg+ger1/TeF3eFPH/8UyuB8f8Iwv0O3KAOVg4S8Kz
+	XdsUwf2RUkOy4OOTVrgJyCxjwPJQ/qBawTLHUupzmsi5YdlpTS5Qn6/MdCF4Aj4kgg1g5y
+	6HIUJTHqIYXGSCIM/S19bBjs5p9ac/OKPvqUag0+HImxb6JkcncYWfhPWwNIQKo9jskPdv
+	XTKnJDTESorub4cQtkPQcSOa58ZHZF0FgmpVcGkh2noaKSX9s6vgedl4W6EntEK2y0XjD5
+	VHjqRzbkzJ9gWKm65mXutWoAcihLNbDi1ds3BJfCibZ7LZzWP0ksotHJi1e0NA==
+Message-ID: <ef2953ba-1510-4bd8-85c1-81d4e45d2693@bootlin.com>
+Date: Thu, 26 Nov 2026 19:04:26 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,88 +61,44 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] i2c: cgbc: Fetch the status of a write transfer
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
+ linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org,
+ Markus Haberlander <markus.haberlander@rosenberger.com>
+References: <20261123-cgbc-i2c-write-status-v1-1-5b0fa0322b57@rosenberger.com>
+ <179568834099.302193.16315749597111506309.b4-review@b4>
+ <awgwO98qx3zX4MaY@zenone.zhora.eu> <awhxAlhwF4QF3V6a@zenone.zhora.eu>
+Content-Language: en-US
+From: Thomas Richard <thomas.richard@bootlin.com>
+In-Reply-To: <awhxAlhwF4QF3V6a@zenone.zhora.eu>
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 26 Nov 2026 19:02:38 +0100
-Message-Id: <DN5C92OQ40J6.21PMG8R70TEDK@bootlin.com>
-Subject: Re: [PATCH v7] drm/bridge: dw-hdmi-qp: serialize HDMI audio
- callbacks with PHY enable/disable
-Cc: <dri-devel@lists.freedesktop.org>, <linux-rockchip@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-To: "Frank Zhang" <rmxpzlb@gmail.com>, <hjc@rock-chips.com>,
- <heiko@sntech.de>, <andyshrk@163.com>, <andrzej.hajda@intel.com>,
- <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
- <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
- <jernej.skrabec@gmail.com>, <luca.ceresoli@bootlin.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <royalnet026@gmail.com>, <me@timsurber.de>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20261112101155.47777-1-rmxpzlb@gmail.com>
-In-Reply-To: <20261112101155.47777-1-rmxpzlb@gmail.com>
+Content-Transfer-Encoding: 7bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu Nov 12, 2026 at 11:11 AM CET, Frank Zhang wrote:
-> The following panic was observed during system reboot, it can also be
-> triggered by the following sequences:
->
-> - Disable the HDMI drm display, open and close the HDMI PCM device.
-> - Enable the HDMI drm display and start audio stream on the HDMI PCM
->   device, then switch the HDMI drm display to disable, stop and close
->   audio stream.
->
-> Kernel panic - not syncing: Asynchronous SError Interrupt
-> CPU: 6 UID: 1000 PID: 2348 Comm: pipewire ... 7.0.5+ #4 PREEMPT(full)
-> Call trace:
->  ...
->  regmap_update_bits_base+0x70/0xa8
->  dw_hdmi_qp_bridge_clear_audio_infoframe+0x3c/0x58 [dw_hdmi_qp]
->  drm_bridge_connector_clear_audio_infoframe+0x2c/0x48 [drm_display_helper=
-]
->  ...
->  dw_hdmi_qp_audio_disable+0x28/0xa8 [dw_hdmi_qp]
->  drm_bridge_connector_audio_shutdown+0x38/0x68 [drm_display_helper]
->  drm_connector_hdmi_audio_shutdown+0x28/0x40 [drm_display_helper]
->  hdmi_codec_shutdown+0x60/0x90 [snd_soc_hdmi_codec]
->  ...
->  snd_pcm_release_substream+0xcc/0x120 [snd_pcm]
->  snd_pcm_release+0x4c/0xc0 [snd_pcm]
->  ...
->
-> The crash occurs when HDMI audio callbacks access registers after DRM
-> atomic framework disabled the PHY.
->
-> The root cause is a race condition exists between ALSA and DRM atomic
-> framework. During a modeset disable sequence, the DRM path disables the
-> PHY, while ALSA may still execute HDMI audio callbacks such as
-> audio_shutdown(), leading to accessing registers while the PHY is down
-> and eventually a kernel panic.
->
-> Fix this by introducing a mutex lock and PHY enabled state to serialize
-> PHY state transitions and HDMI audio callbacks. This ensures that HDMI
-> audio callbacks can only access registers while the PHY is enabled.
->
-> Fixes: fd0141d1a8a2 ("drm/bridge: synopsys: Add audio support for dw-hdmi=
--qp")
-> Cc: stable@vger.kernel.org
->
-> Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus (RK35=
-88)
-> Tested-by: Tim Surber <me@timsurber.de> # FriendlyElec CM3588 NAS (RK3588=
-)
-> Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
+On 11/26/26 6:49 PM, Andi Shyti wrote:
+> Hi Thomas,
+> 
+> ...
+> 
+>>> Yes it conflicts (compile issue) with the series [1]. The possibilies are:
+>>> - I pick this patch in my series and send a v7.
+>>> - [1] is applied, an immutable branch is created, you rebase your patch on
+>>>   top of it, and patch is applied in I2C tree.
+>>> - [1] is applied, you rebase on top of mfd-next, and your patch is applied
+>>>   in MFD tree.
+>>>
+>>> Andi, Lee, what do you prefer?
+>>
+>> Let's wait your patches to get in first and then Markus can
+>> rebase on top of them.
+> 
+> as you are going to resend your series, would you be so kind to
+> include this, as well?
+Yes no problem. Thanks for the review!
 
-I'm not really an ALSA expert, but the patch looks sane to me:
-
-Acked-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
-I'd apply it to drm-misc-fixes in ~1 week if there are no objections.
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Best Regards,
+Thomas
