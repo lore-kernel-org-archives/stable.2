@@ -1,95 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795708384;
-	b=SPRqEYe0lfH1Zo0knlRkozKVLagTWOH3BjLRs7YRfmhlITNgBCVT1+2dJXzwD2QNf5/h
-	 JXOWcYyLRpYVYaWkZrfoziLY5SB/hWpKrnvKdtW58Xp4y8WXwf5qML/iFZlOgbQ9sDufb
-	 h2z2Bil8p2hwmm3G2Tf9Z6ZKbbUqqvPZdCZfT1nkt9O+50kv5iBKp218rRq1qICU0xSdn
-	 Q9zqm/4HycBoYh8zIiQx7vD97Q0IzyGKZVfpu3k40wiu0v/YOU+3MZBSwsKSaj7msu+Yq
-	 kHoH+iiIBdFIM8qne4Ud9dMb08mVRtZOVQM7wh0W/WOty5DXoZxg3IkLYfDvhM/INbw==
+	t=1795708395;
+	b=Jryb5zUuPDGVS7JoEpdRpB8rIsRkb+PK/XcdXI6gIOYvQ7O2oiXizsF7O3wrOedaGDnr
+	 lsUigjLf3VLfGwv488UpTcftFpHb1Uf7BoQQR+7iQhH6bg6MI5xm9bVn7IYjubpJ3dh0R
+	 2bG2XwyEnhERU2HxXSdD0WAIC5pm9eC6TcxO+NGU3zDNPf2IE78C4st6sKr8IBFjAzuBS
+	 JmHWEoYEtYc4Snuvpy73q0LIbNArK4oyOinacTXLvyBECrwM3eVa67C8APoG7/k9LXvVQ
+	 5gL+4TklkYNF5/mez0TBO8vFy2eOuqONYxqBM4/4mMu7nMe3Uiv44eOnS9sMVloH+KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795708384;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=329C+ObflaGrYeJM1Uot0DWEfxpJGTZhLlPmSd8KCDM=;
-	b=fVNgV9PgQHHET6NA1RZFYkd5wm/0oJcOK7uqYHW3R07wzbx98Tmq7KMOfTzuJx+wLWNw
-	 cqY1eIBSbWv0xVrrR+mTEVKXRwHJ1jKPdXnfYoufchGT9TyBUd1vyeQdDv/7401K0tS+p
-	 YBmbtOceOG4ZOwalQsHkYA5YXtnC5eqmRHsCRsMNs3AcvZTRbmjJ4arfxaXgx/zqgWxca
-	 O4NarNqXg8WCv70By//O56vDL2WFGus06lQpIZBvCv5t3ioCA7GHGfaz1tL6XDyJgKIfL
-	 02kyrTO2QZ1w3mujb32WclUj/7RtewaO9ibwWP6BzmxFU+/03z6nZMcJVLvYEx62GEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795708395;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=Kry3Z9RUQstwZhg75tn4ymi/tsst+B1XBTvLmOJUn5w=;
+	b=07VXW+pahxj+6ZvC4Eliv/EY4wQtyTuLmXIV2vdtorfBFeyKL/M9rV4Rskc3pX/IZVje
+	 CYqmFYeFudOXB9CP7gNOtEh8R+S75id/JYth9CTrUkgg2BZVMobY3TCXLvWou046R9l3c
+	 wn3iCSEudV+JPqI0X5xclfiQPBVQ1yH8w/309XpasqXFeWeP+ankDualE1F6w5eowtEZb
+	 uoXSFMSe1kvECGPvl47Y8M0Ngy3qp81L3lHC2u+Jigc3Xc2yq32pRYPavwthcDYi3HdKO
+	 JKtiKErhSUwXytcLNnbWBa3g1ssjArs7sZ7o5zjqbHMpx1s+OFzQP+pAzbNGHBlsTlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="t/SoC3jt";
-	arc=none smtp.remote-ip=209.85.221.182
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=czgfANIX;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9D2606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:53:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D9D2606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689DE606A31C;
+	Thu, 26 Nov 2026 15:53:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 689DE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t/SoC3jt
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5eaa5e03c47so6543495e0c.0
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 07:53:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795708383; x=1796313183; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=329C+ObflaGrYeJM1Uot0DWEfxpJGTZhLlPmSd8KCDM=;
-        b=t/SoC3jtV0KvwF2cmafxNEx4F2ggLj2qXY3egSMHdzhxt++JfUQfyqDJLDX+QatAXR
-         VokmzVoEZ99HAYo/6XJrFB6g5YLfAJFwZihbIFaTldkYC789NDHY075SS4xVFslGfo5z
-         uzbBbPA2Er4hKhEoNP5yV8HAKjlW4wZ0bztSOc3mKI1FjX+tc8ONsx/rsDIK+6ShBijf
-         Z+YDrPn4GaXlH7JUHqTj9WA8qFeSidUaigVHPZprnxesObG5P1+BTBwiwtcxR4D2/KRZ
-         sSAqJO8KJW1X5p+0R+j/yC7Fxrnb/c+/tQlpDtQqvu73lnDHfNAHrJLQffl9lJ8dSlPH
-         HJOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795708383; x=1796313183;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=329C+ObflaGrYeJM1Uot0DWEfxpJGTZhLlPmSd8KCDM=;
-        b=bXuYASA/bKKrCIc0chCzHu9mUe7nBG1DZdKGl2RhbG5DJhHZvqVhCdhebKYG7DOyMG
-         B8588mG/gevKYbdseFjl0OgyVgwrNS2RFhqQIlquHgVCWr/NV+sX3AmJ+EbKjL/XFFHe
-         BIoGKXf01Sy6FufXQd5EIdFoBqV6uwW9txl8PFhpth2grN1P+lirVe7wSFHnXDabeF+d
-         4lbo8f2Ihno8my+yFPXOfE8x/o3IMKZWe2iZ039p5CxjlQkv1DUsz4iHb+yGNWttOi/S
-         UO1rsuCjjV8bWbKo0jKbKg3wAKXT/aF4Jn9Po5+AA160S4eJedrDlDC2kgqA8YnNtLLG
-         7klA==
-X-Gm-Message-State: APuU4Z9EIb5tQOzXVVhkxVBAVUIHCCznZSAHIo0os/jJJJIYcCZBwfvR
-	mTjkNip9h/6Ey+01zUglbvpbcIKWTtDpuewdnMXhJAAR0Sg47Lv+t3JWDayVGkfON+4=
-X-Gm-Gg: AZFdTZc7O/TC2GmEE2NSe4v+tF8iHAHf+w+c6+lDcXllgLDUamUrx8zQyr6KcwuQvgC
-	z9OS0PCOo9feftyHKxkMaM5CuRBAvg78BzOQgP48pmi094IxRGqn9qXX9lJGpyRP+JlBcZro8q4
-	FL0rUMzMQ2uM2ViaKV0XJc0TmdITkz7hZiKoI+/QbJStmZAnEXK07TNiqfduUQx0nbZJ0I63gah
-	Xrp16j7DC4nOy6bMOR7YOqdPbJs+Vxwy88HmdP/XW0laqrQmCfSl0KJPnWJy7FqyU2iEaeEScjm
-	ZhRbDuXc3Ub7aLFrwHJR7BqUlE4/mBgEj3qZX81OTpROM0hXy22fgd+kId9dToTl4MFE/aN/Lw+
-	0NZvW5/U8mtZoTAsx7Ni80nV+TJbi9ONGBHSQ17rKoqjFUEw6gAXN9/JxbtdRpx1MCXYdlW6y7h
-	H+1YZugVfTXvgBBTzWXXh/+BmKnfHq64uuhyDaetlurfBrwlUu5ZbtQYJel1eC6Rh4jAag3BU06
-	SlmD53QiTtSiCzinuvXmqHsa62Yi6vy5jXfIoye+dxEvOyEo6eZsJVIUUlrE/0Tal66dcSEs2tY
-	7TxysUnk9ofqoyhMyt7+fuDyV5wQtmUa12dcoT61p5IyFSN957BSTrlDO/XYSD5ZVyt6QOUPDHH
-	JQ1J4Hvr1eIDtbIQUr8DsRQ==
-X-Received: by 2002:a05:6123:4204:10b0:5ea:bc01:a2f9 with SMTP id 71dfb90a1353d-5ee81fe07f8mr7007269e0c.0.1795708383219;
-        Thu, 26 Nov 2026 07:53:03 -0800 (PST)
-Received: from localhost.localdomain ([207.174.22.68])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee8b5bb61asm20980341e0c.10.2026.11.26.07.52.58
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 26 Nov 2026 07:53:03 -0800 (PST)
-From: Yingke Xiao <inkxiao12@gmail.com>
-To: stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org,
-	sashal@kernel.org,
-	bpf@vger.kernel.org,
-	Yingke Xiao <inkxiao12@gmail.com>
-Subject: [PATCH 6.6.y] bpf: Drop inet_conn_established from lsm sleepable hooks
-Date: Thu, 26 Nov 2026 23:52:48 +0800
-Message-ID: <20261126155248.56002-1-inkxiao12@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <2026112616-garden-overfeed-1512@gregkh>
-References: <2026112616-garden-overfeed-1512@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=czgfANIX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795708394; x=1827244394;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=TxKr8O26zsBT1nq6mdPFpy0AfZIag+YE7HUI/Oq56N4=;
+  b=czgfANIXwxEFnX7kO+xg72F/nMIjjbSOm0uHCWTtjPpDxu1VYyJmBUzc
+   Kx7d6pC5bxQGNOBZslx7XMerROVjkTy+EjsPB2mwfUBnTI/dy4zLd2ZMl
+   IT5M0ettJhwIIP6IXqT1MRsj6Mydu61gjiM+NZZ4JWQHxM4ee8KL64Ieu
+   8DL6jDjPL8MPDq9BFd6DHiwfPcB69dAIN1iJNAUUP9RXQ3zmyTeCjWEEq
+   0fxdouIZmdiY1tFDvhHoVPfER79kIOuUlhc5QpzuqKnY+jp9jPuslYctb
+   ecSLEBIzDvs+H9ILajjxyTClDpXmrKR0MNAjvnq7TzI1ufluoZ5hBpUo2
+   w==;
+X-CSE-ConnectionGUID: b+Vx18zsR5WXFXcniWywKg==
+X-CSE-MsgGUID: 0LcvlZ3ZTD2qcAKs1xSDtQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4620013"
+X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
+   d="scan'208";a="4620013"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 07:53:13 -0800
+X-CSE-ConnectionGUID: OjVfJP5SSrOKg1lk63KPxw==
+X-CSE-MsgGUID: 4sYHL9iyQMiEb8XBWy8opw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
+   d="scan'208";a="11981224"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.208])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 07:53:11 -0800
+Date: Thu, 26 Nov 2026 17:53:08 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: GaryWang <is0124@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Thomas Richard <thomas.richard@bootlin.com>,
+	Daniele Cleri <danielecleri@aaeon.eu>,
+	JunYingLai <junyinglai@aaeon.com.tw>,
+	Louis Chen <louischen@aaeon.com.tw>,
+	BillyChou <BillyChou@aaeon.com.tw>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 0/5] upboard pinctrl support for device id INTC1055 &
+ INTC1057 & INTC105E
+Message-ID: <awhV5OkehBYETKAd@ashevche-desk.local>
+References: <20261126-upboard-pinctrl-add-intc1057-intc105e-support-v3-0-81d35c9ba246@gmail.com>
+ <awhPAzKefJVW2meb@ashevche-desk.local>
+ <CANYHO6o-eNMV1YkRfP=W7XxmefBW=U_CALRMyWSixkXzk1uBtw@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,49 +87,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CANYHO6o-eNMV1YkRfP=W7XxmefBW=U_CALRMyWSixkXzk1uBtw@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The backport of upstream commit beaf0e96b1da ("bpf: Drop task_to_inode and
-inet_conn_established from lsm sleepable hooks") to linux-6.6.y (commit
-26b380a3ca0b) removed only bpf_lsm_task_to_inode from
-sleepable_lsm_hooks.
+On Thu, Nov 26, 2026 at 11:36:48PM +0800, GaryWang wrote:
+> On Thu, Nov 26, 2026 at 11:23 PM Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> wrote:
+> >
+> > On Thu, Nov 26, 2026 at 11:09:43PM +0800, Gary Wang wrote:
+> > > Add support for "UP Xtreme ARL","UP Xtreme i14","UP Squared Pro 7000",
+> > > "UP Squared i12","UP 7000" and missing groups and functions data for
+> > > INTC1055 & INTC1057 & INTC105E.
+> > >
+> > > Fix pinmux-select set CPLD GPIO OUT not function mode for I2C pins
+> > > on the AANT0F04.
+> > >
+> > > There are no compile-time dependencies for each file, all pin groups
+> > > functions data will forward to set default when pinctrl upboard probe.
+> > > It shows an error when run-time dependencies are not mapping to right
+> > > groups and functions.
+> > >
+> > > The pinctrl-upboard is provide additional driving power and pin mux
+> > > function through native SOC pins->FPGA/CPLD->hat pins for flexible board
+> > > level applications. it's probe from ACPI device id AANT0F01 & AANT0F04.
+> >
+> > Thanks for update! Looks much better now. I'm about to apply, but I want to
+> > make one thing clear before that, id est is it indeed ISH has only a single
+> > UART? Or do we need to add an index there?
+> ISH has 2 UART ports, we can add an index to identify.
 
-bpf_lsm_inet_conn_established is still listed in sleepable_lsm_hooks in
-kernel/bpf/bpf_lsm.c, even though security_inet_conn_established() is
-called from softirq context in tcp_finish_connect() (net/ipv4/tcp_input.c)
-and cannot be used by sleepable LSM programs (CVE-2026-63865).
+Yes, please do in v4.
 
-Remove bpf_lsm_inet_conn_established from sleepable_lsm_hooks to complete
-the backport on linux-6.6.y.
-
-Fixes: 26b380a3ca0b ("bpf: Drop task_to_inode and inet_conn_established from lsm sleepable hooks")
-Signed-off-by: Yingke Xiao <inkxiao12@gmail.com>
----
-Tested on linux-6.6.y (v6.6.163, x86_64 QEMU with CONFIG_BPF_LSM=y,
-CONFIG_DEBUG_INFO_BTF=y, CONFIG_SECURITY_NETWORK=y):
-- Pre-patch: BPF_PROG_LOAD for SEC("lsm.s/inet_conn_established") with
-  BPF_F_SLEEPABLE (calling bpf_copy_from_user) succeeded (prog_fd >= 0).
-- Post-patch: BPF_PROG_LOAD rejected with -EINVAL
-  ("bpf_lsm_inet_conn_established is not sleepable").
-
- kernel/bpf/bpf_lsm.c | 4 ----
- 1 file changed, 4 deletions(-)
-
-diff --git a/kernel/bpf/bpf_lsm.c b/kernel/bpf/bpf_lsm.c
-index 790451337..411622162 100644
---- a/kernel/bpf/bpf_lsm.c
-+++ b/kernel/bpf/bpf_lsm.c
-@@ -305,10 +305,6 @@ BTF_ID(func, bpf_lsm_file_lock)
- BTF_ID(func, bpf_lsm_file_open)
- BTF_ID(func, bpf_lsm_file_receive)
- 
--#ifdef CONFIG_SECURITY_NETWORK
--BTF_ID(func, bpf_lsm_inet_conn_established)
--#endif /* CONFIG_SECURITY_NETWORK */
--
- BTF_ID(func, bpf_lsm_inode_create)
- BTF_ID(func, bpf_lsm_inode_free_security)
- BTF_ID(func, bpf_lsm_inode_getattr)
 -- 
-2.25.1
+With Best Regards,
+Andy Shevchenko
+
 
