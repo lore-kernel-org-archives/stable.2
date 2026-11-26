@@ -1,57 +1,77 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795713682;
-	b=bIG47Pk+Ze4R527Mp639Qsa5Zw+uk7lirWT5eEEHlVfyOfQ/PFsmVagRyoTou4m/EEqu
-	 zKTE3i7vwrqSs8SgrzEES+YGvRroDMp4pjpTr4sE8IpXrsclyLU4eSVxobT4hzmynb6ae
-	 lcDEeIPw625pzvVzCCjUD0Zb7GHRY3yDydeqJ4DzeFWB15lbJkS5O1pZdy2pJMDlrsShj
-	 HuTRbUc/AUAQrm4gWzHuHjMaKQL5wFJzfPY2QtMLcXj0fRvpqRUyUsqZk4zEgioj3WFYU
-	 +atnK+pf5JTvUO3PEj+CD8qfOpAgeGKeDRRfoqb9HyOps7AwSLT3xiKTU2ASuSiNHig==
+	t=1795713681;
+	b=MKCTXC9q01Lbaz0o0oCKbNAtbX6zwHiTZNMZm9O0uCQhpHuWvBNEwR4NtRsjiihdqKpp
+	 opvOukJGrEblc2Na9VidJpGpop1b7K7uvs1gjBExap1XoRojc4Dc4P43GsCjinaVc1XBf
+	 LUK4Is6AzSG+E/KJhI15c+icuMRJ1Devq8QwJGKpKFsbUDrHMbvz69lGQvuOV06/MOxUG
+	 1EijVIax8TBceQ1emJNNWjJ768u8BTZDhuzjY19295uCiWKj16a6mykufVZ0gOGIAdzAu
+	 2KARtXrweChwDRiN25XtkRy+kps7n7k+Ml4+ZsbkJbKtKVERUGTRrKPyjGQpolPguRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795713682;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795713681;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=XrMHoJvj01dfZrLo2CMmP0QJOMbZ25H8wfplKgbBUd0=;
-	b=mVNnE+lgv1xv+beU3oalibVWM6LcsEDZmhRVTKnrroomJxtA0Yw8jLpGqXwDrtjkFh3x
-	 IAki9mRimDkxjbR0Yx0eulP3zX60bLjrkwcfzicMiXto4CuYFSz7PKcpzvZIFse6dYnmD
-	 yavnLOlhQKAsm0gUNJM7IRbcq6iEpIlvgkjPJT2rnvKH2XmF0dhHtZBKdJMVLJypDOCUF
-	 fbAWYsKxupepYbeaHGD17jd25d1HOdTA7IGG/Mkw/URAiZV/9nMCGROh73E2bwEK1MLdG
-	 nEdu/ojFP80Be3+2kOpkID/sxIUkB1PsT7RJ+Q9l1KpQjzJeKn6m8rsRpztFF5kha6w==
+	bh=qsGW6dVCn6imW0/lV9Clz9pMRKg/IwJXR5iUl70F8/M=;
+	b=X8m7uGMDWujE/B4GkJEOkmux98neq4N6SL9AB29142+cwxBHvg1tWr+xwI6+JUGA6mkR
+	 VybHbhegYYv6euVTgvqVVoo/tNxOE5A1m4eH6ccSfygjirbG7xZRVbwUHHz8KabmKRi0o
+	 1s7CahmE+5lAz+HxW3Xg2pKeFzobidsg8dcuSfcytB7Oqt6lgtwKWbwf+XEDThUCwAvt7
+	 SZNCdfwgI6yoi2UJ0zexjgN5KTojn8kf82fQupz2kPT2OnQbf0DmO7KxwFd8Yi9MKKApj
+	 95I0X2ZUk9fIlUsVXsOEwyK8Fvr0YH/GwNfn0RndRxtYFvuOqDp2PiyRMjRsVFKTWXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWqEAeQi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cJ40hVab;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 162D6606A32C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 17:21:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA63606A326;
+	Thu, 26 Nov 2026 17:21:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWqEAeQi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F19E1F000D4;
-	Thu, 26 Nov 2026 17:21:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cJ40hVab
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C51571F000C6;
+	Thu, 26 Nov 2026 17:21:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795713681;
-	bh=XrMHoJvj01dfZrLo2CMmP0QJOMbZ25H8wfplKgbBUd0=;
+	bh=qsGW6dVCn6imW0/lV9Clz9pMRKg/IwJXR5iUl70F8/M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KWqEAeQiR6Ddy9OhhkFrCT2VBNvfieLTxbq7HtkmizAT0cgmkFb/plcAU0XaXxnCg
-	 dsiFBYdoeb+oRJzhj7569dB++rCwONe0nLqcth0hWhNII1JJvkwfqR867xBrTkQps0
-	 siJ7BjfZb3tHBSrNNtiTJY5nZjwa7VNVv76z23qVNse63vspOwQrfVqXfdRbC0paRU
-	 7whV1L7ECCaRfkTAVvupzfGY5jS4A0/KZyg0m68KC6nEDJ3ttGoP5Xx+ozvdTMMOEg
-	 RHegFqUBKNTq193Zq1HZzLnGjtjkflL9hIVcr5l1IQ32uWO4E59QFBsmH8aI85a418
-	 +liWaWjX3NVgQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christopher Hoover <ch@murgatroid.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] iio: temperature: hid-sensor-temperature: Use per-instance callbacks
-Date: Thu, 26 Nov 2026 12:21:19 -0500
-Message-ID: <20261126172108.2744914-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112550-remote-flakily-39a5@gregkh>
-References: <2026112550-remote-flakily-39a5@gregkh>
+	b=cJ40hVabU2mFW3Sk1Nnq/KWHeDsN3SleHx1p5lIwOStC3wYLO+DKPJhQAdjLwzYeF
+	 PDP1la/VPtjsMzKckH36pFkwz8fQPbcSOV3o+6dodWnK9eLya8t1ILlpLwa6pjZ6sb
+	 YctBM667YvDeqwXd+2wDO5KDU/lfPGKU9w+NJWEqBP2mm/JNQbUl/XLPfJngV1Y5so
+	 7bCN3hK4Bq6foMexYiXtXQDhJ3V7WwvEJ3FugcAT8vIaxZD1F5Vy9+xwJMyv4SGu58
+	 KmDpd4ym25yX3zWWHayCpO1vdDNR0otJqkMTwr0Jx3MiEJ4iuoplmRRWL+jHlPAtLh
+	 MN1m6Lcw4KsXw==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	"Mario Limonciello (AMD)" <superm1@kernel.org>,
+	Aurabindo Pillai <aurabindo.pillai@amd.com>,
+	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+	Gustavo Padovan <gustavo.padovan@collabora.com>,
+	Chris Wilson <chris@chris-wilson.co.uk>,
+	Luben Tuikov <ltuikov89@gmail.com>,
+	Shashank Sharma <shashank.sharma@amd.com>,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	Gary Guo <gary@garyguo.net>
+Cc: linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	amd-gfx@lists.freedesktop.org,
+	stable@vger.kernel.org
+Subject: [PATCH 2/3] drm/sched: Hot-fix timestamp misordering
+Date: Thu, 26 Nov 2026 18:20:46 +0100
+Message-ID: <20261126172046.2473303-4-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261126172046.2473303-2-phasta@kernel.org>
+References: <20261126172046.2473303-2-phasta@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,80 +83,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christopher Hoover <ch@murgatroid.com>
+dma_fence timestamps could so far be written and read without any memory
+ordering, a bug that presumably got overlooked because x86 is strongly
+ordered.
 
-[ Upstream commit 36eeb26031e90eeb81bbac3d3acad61d23fcbdf3 ]
+Hot-fix the scheduler's manual timestamp evaluation until we found a
+more suitable solution for mainline linux.
 
-hid-sensor-temperature keeps a single static struct
-hid_sensor_hub_callbacks for all instances and overwrites its pdev in
-every probe.  With two temperature sensors, input reports for one are
-delivered with the other's platform device; once that device is
-removed, platform_get_drvdata() returns NULL and
-temperature_capture_sample() dereferences it:
-
-  BUG: kernel NULL pointer dereference, address: 00000000000003a8
-  RIP: 0010:temperature_capture_sample+0xd/0x50 [hid_sensor_temperature]
-
-The oops happens in sensor_hub_raw_event() with the hub's spinlock
-held, so the hub's removal then hangs.  It reproduces with two uhid
-devices that each declare a temperature sensor, one destroyed while
-the other still sends input reports.
-
-Keep the callbacks in struct temperature_state, as the other HID
-sensor drivers (accel, gyro, als, ...) do.
-
-Fixes: 59d0f2da3569 ("iio: hid: Add temperature sensor support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Christopher Hoover <ch@murgatroid.com>
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-[ sashal: Applied cleanly with only line offsets and a re-indented removed context line (&temperature_callbacks);) because the base file differs; the resulting code matches upstream. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: f7fe64ad0f22 ("drm/sched: Split free_job into own work item")
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/iio/temperature/hid-sensor-temperature.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/scheduler/sched_main.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iio/temperature/hid-sensor-temperature.c b/drivers/iio/temperature/hid-sensor-temperature.c
-index 34bff7e9f3a33..2b3478c6902cc 100644
---- a/drivers/iio/temperature/hid-sensor-temperature.c
-+++ b/drivers/iio/temperature/hid-sensor-temperature.c
-@@ -16,6 +16,7 @@
- struct temperature_state {
- 	struct hid_sensor_common common_attributes;
- 	struct hid_sensor_hub_attribute_info temperature_attr;
-+	struct hid_sensor_hub_callbacks callbacks;
- 	struct {
- 		s32 temperature_data;
- 		aligned_s64 timestamp;
-@@ -182,11 +183,6 @@ static int temperature_parse_report(struct platform_device *pdev,
- 	return ret;
- }
- 
--static struct hid_sensor_hub_callbacks temperature_callbacks = {
--	.send_event = &temperature_proc_event,
--	.capture_sample = &temperature_capture_sample,
--};
--
- /* Function to initialize the processing for usage id */
- static int hid_temperature_probe(struct platform_device *pdev)
- {
-@@ -238,9 +234,13 @@ static int hid_temperature_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, indio_dev);
- 
--	temperature_callbacks.pdev = pdev;
-+	temp_st->callbacks = (struct hid_sensor_hub_callbacks) {
-+		.send_event = temperature_proc_event,
-+		.capture_sample = temperature_capture_sample,
-+		.pdev = pdev,
-+	};
- 	ret = sensor_hub_register_callback(hsdev, HID_USAGE_SENSOR_TEMPERATURE,
--					&temperature_callbacks);
-+					   &temp_st->callbacks);
- 	if (ret)
- 		goto error_remove_trigger;
- 
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 99252674e266..3d26a48ff1c3 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -928,8 +928,16 @@ drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
+ 		next = list_first_entry_or_null(&sched->pending_list,
+ 						typeof(*next), list);
+ 		if (next) {
+-			/* make the scheduled timestamp more accurate */
+-			if (test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,
++			/* Make the scheduled timestamp more accurate.
++			 *
++			 * TODO
++			 * The test_bit_acquire() is a hotfix against timestamp
++			 * misordering. Replace it with something better.
++			 *
++			 * The counter-part of the barrier is located in
++			 * dma_fence_signal_timestamp_locked().
++			 */
++			if (test_bit_acquire(DMA_FENCE_FLAG_TIMESTAMP_BIT,
+ 				     &next->s_fence->scheduled.flags))
+ 				next->s_fence->scheduled.timestamp =
+ 					dma_fence_timestamp(&job->s_fence->finished);
 -- 
-2.53.0
+2.56.0
 
