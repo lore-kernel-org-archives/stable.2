@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795665936;
-	b=VxGD2uVQ7pIFQEBCfrh1PXFQFSYfN8fWYCHfEUcMFPjwnQ8vlwFJBrEBl609qdrrII3a
-	 bH+Dbzi7dW7zwWStTPGhONb2geDn5G0w8i50uMm8DZWXDf3PpTTaGxBPaXhCClTK8yrjl
-	 vg5fz+nl0uobiT4+YVXkdZ3B3eAa+S7nQ7z8iOjkKsFN8Z8I/uYujFylEhYnJjoBCNyby
-	 2CC9zJ+mG+Kyoqn+jV9f6vJSYysI8Bwpl10YmqE+EO4VEMsAYSElr3zHIrPojpHW63lyY
-	 d/sZUaz1UhyXZAgRpfxpZ0nxhLErW3aQSV/x2GgIAgkqah7X1PgrpQM8DGjLGk71b5Q==
+	t=1795665937;
+	b=LDz+/PHHW4weaRDnzfAoLipKkKU4/CcmClJelSCGm6tg5seCzBKrRIKOT4EwE5kFGO+V
+	 JdtdUDCiGa8oXLSwZnw6YqSBw9pthhHb/efP15teWALBXs7Dg5DwkRxmVSDWTZTZm2Z8o
+	 /j7juF4XKCLIF/UMxexO3WqWDFiRZez296NUaSkVgYGSEEhRN2vdbZj0qhEY0RgmskLFw
+	 SzVF6OZyY5X3MWuDxfgHW6kkVg7FoU5RGAwpSOpMPVFW5Xnits7fKYQ2ZsGnpmObRLl9A
+	 mCbyrRQhwTWrMU5/9e6OSyyLHrUUtGwzCLPj3Wm6a3Ii0IsZONhqGouOphzw+kiqqgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795665936;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795665937;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=cvQCaI6DLp3nrfq1EAHHKdvVYhrCqljBmhBLwjVMnwk=;
-	b=d4zmLqVLVkCFPbB2q5gBXham4uJIas4uGyg1x5upK2nOQY4N5FMF9RmeYb4t/4fr9Zai
-	 azW3Bj91zywTPauq2VhdX1bOVSoLZrkplsE321Th/+TfEyRfyWoytjdiDz+Z6r5nGxIdM
-	 nU+kZ2kd5uclfsgomx7L0qqMqrIoOrvNX31UTaF1hQ49Qe1Sz9ktfWnNF9unXBIYxcvcq
-	 QSb6qJ39DU1Ea9CYoN50VMVIHpMhzBOrk46jFjixeHm94SAidCoL6D274kjDygdUSETTE
-	 SN57P2KUCcLb5I0w8wll0RKf2CrDDNPx6AcF1u0/cfhedv5W2aSFntBha2h+bP+W39g==
+	bh=Z0DcopaQEDCqlitse4NFvxqrmWxNAKTy3a3/XwlPu5c=;
+	b=LLmZVObn/rAeS86deZfIYVwN0Dy6YoiJ8LpwIHLtBamMKlEwGOxWKOFDxv3whs+/LgOX
+	 PiH2MchxVK/Dl988tu/5338Nz85cG57Y7sEdK6h2UG1dkZ/IoCEJFnuzhNT8QWITDLL90
+	 1JzLuEdW0FHe0ljAWb3wL2OcFY+v1rgFn6B9+81hffvzx25nY6ljwTGehirHuI/ChZGb4
+	 XqSDKpUZXPJ4/CXeo97DPUuO2DkVvS+tvEA70SPV18LDeVtQpPl6Z1DmJR3nykt/0Kl/U
+	 MNlzcrE2ptXGqGNL8Z6y/jkosGuNreKGl3hDSEsyqx1rXK3wZ5YQ+9I/7X42RFqP8Kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E6jePzmX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lh4tmEHt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26A20606A326;
-	Thu, 26 Nov 2026 04:05:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1462606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:05:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E6jePzmX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32A151F000C0;
-	Thu, 26 Nov 2026 04:05:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lh4tmEHt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 435BB1F000C4;
+	Thu, 26 Nov 2026 04:05:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795665936;
-	bh=cvQCaI6DLp3nrfq1EAHHKdvVYhrCqljBmhBLwjVMnwk=;
+	bh=Z0DcopaQEDCqlitse4NFvxqrmWxNAKTy3a3/XwlPu5c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E6jePzmXab5lSP+CINNeOFAMmcdN5ckgsrLuaLlwhkwJcGNHpWaMNCfT+GO5tYRtZ
-	 DB4kvnTVF4E9PviQLxxpqAvhhLVoqgcFtSQyuMWRJojpsJJCktvGTRJH8V6xYOwgiF
-	 KNjO1ZqcZ68Ke01QHcbD+T2RHO23nWfA4eZXM79uXwFW0EJrLHLRi5qStINbZabgng
-	 2mMsvDwAjpvImGhvox4KKRq0cCvHedjnlNqtdNIobkN0bkmfgEb88unGdZ/Jg/sQ4D
-	 lqpccI84stSHcQL1cQiM/LS32TNsr/4Em1grWFXw5RfcaVCWjqZC57RhNVoHWTr/ug
-	 ECmqZnjZBQTlQ==
+	b=Lh4tmEHtB91+UaK9bu9GnybJkV8q8CVKLOqn0OgkUcUxpFhgaBl5FPKYA3zoD1F/0
+	 2h3Fjr99HOQRwrf8XGFTtxfCB0aaRbqnyafP4YA/6S9VMeSuBC7c3r5fzPBvN/J46f
+	 NtBzGmXeYHBD/5LfC7hnBS5kHaJG/ZFFfEKyc/GiBNxA2WBBg0axiK6WuHmohseG2i
+	 fPzd2qFh35oSUdPagZyDExVxoMU4znQ7ncKLdL+32BzuF6bZNjabyX9rBi8uzqpuau
+	 S1JidFbz8studwl86dNy2HLSf23aaAH9a83BYHD2lR/5q07K7kr1vBEhQ3xJv/ja4h
+	 xkx9tUEQgRNYw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	David Howells <dhowells@redhat.com>,
-	Pierguido Lambri <plambri@redhat.com>,
-	linux-cifs@vger.kernel.org,
-	Steve French <stfrench@microsoft.com>,
+Cc: Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] smb: client: relax session and tcon reconnect attempts
-Date: Wed, 25 Nov 2026 23:05:33 -0500
-Message-ID: <20261126040504.1872414-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] smb: client: hold server ref while queueing reconnect work
+Date: Wed, 25 Nov 2026 23:05:34 -0500
+Message-ID: <20261126040504.1872414-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112544-groin-automatic-abac@gregkh>
+In-Reply-To: <20261126040504.1872414-1-sashal@kernel.org>
 References: <2026112544-groin-automatic-abac@gregkh>
+ <20261126040504.1872414-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,124 +62,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paulo Alcantara <pc@manguebit.org>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-[ Upstream commit 855982a52ff7d188188f0ecf86c2ce95957202c6 ]
+[ Upstream commit f02d249e9756b78990aaaa1635e47e06deb2cb51 ]
 
-When the client re-establishes connection to the server, it will queue
-a worker thread that will attempt to reconnect sessions and tcons on
-every two seconds, which is kinda overkill as it is a very common
-scenario when having expired passwords or KRB5 TGT tickets, or deleted
-shares.
+When query_server_interfaces() returns -EOPNOTSUPP on a secondary
+channel, smb2_reconnect() calls smb3_update_ses_channels() which for a
+channel runs cifs_chan_skip_or_disable().  That clears the channel's
+slot in the session and calls cifs_put_tcp_session(), which can drop
+the last reference of the channel and tear it down.
 
-Use an exponential backoff strategy to handle session/tcon reconnect
-attempts in the worker thread to prevent the client from overloading
-the system when it is very unlikely to re-establish any session/tcon
-soon while client is idle.
+smb2_reconnect() then falls through to skip_add_channels and queues
+reconnect work on that server, using a server that may already be
+freed.  The send path obtained the channel from cifs_pick_channel(),
+which does not take a reference, so the session's channel reference is
+the only one.
 
-Signed-off-by: Paulo Alcantara (Red Hat) <pc@manguebit.org>
-Reviewed-by: David Howells <dhowells@redhat.com>
-Cc: Pierguido Lambri <plambri@redhat.com>
-Cc: linux-cifs@vger.kernel.org
-Signed-off-by: Steve French <stfrench@microsoft.com>
-Stable-dep-of: f02d249e9756 ("smb: client: hold server ref while queueing reconnect work")
+Take our own reference on the channel before calling
+smb3_update_ses_channels() and drop it after the reconnect work has
+been queued, so the channel cannot be freed while it is still used.
+
+Fixes: f591062bdbf4 ("cifs: handle servers that still advertise multichannel after disabling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ sashal: Used cifs_chan_skip_or_disable() in place of smb3_update_ses_channels(), which doesn't exist in this tree, while keeping the same extra-reference locking and put as upstream. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cifsglob.h | 21 +++++++++++++++++++++
- fs/smb/client/connect.c  |  4 ++--
- fs/smb/client/smb2pdu.c  |  6 +++---
- 3 files changed, 26 insertions(+), 5 deletions(-)
+ fs/smb/client/smb2pdu.c | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
-index ea6533d057acf..68d664e3415ee 100644
---- a/fs/smb/client/cifsglob.h
-+++ b/fs/smb/client/cifsglob.h
-@@ -747,6 +747,7 @@ struct TCP_Server_Info {
- 	struct session_key session_key;
- 	unsigned long lstrp; /* when we got last response from this server */
- 	unsigned long neg_start; /* when negotiate started (jiffies) */
-+	unsigned long reconn_delay; /* when resched session and tcon reconnect */
- 	struct cifs_secmech secmech; /* crypto sec mech functs, descriptors */
- #define	CIFS_NEGFLAVOR_UNENCAP	1	/* wct == 17, but no ext_sec */
- #define	CIFS_NEGFLAVOR_EXTENDED	2	/* wct == 17, ext_sec bit set */
-@@ -2398,4 +2399,24 @@ struct cifs_calc_sig_ctx {
- 	struct shash_desc *shash;
- };
- 
-+#define CIFS_RECONN_DELAY_SECS	30
-+#define CIFS_MAX_RECONN_DELAY	(4 * CIFS_RECONN_DELAY_SECS)
-+
-+static inline void cifs_queue_server_reconn(struct TCP_Server_Info *server)
-+{
-+	if (!delayed_work_pending(&server->reconnect)) {
-+		WRITE_ONCE(server->reconn_delay, 0);
-+		mod_delayed_work(cifsiod_wq, &server->reconnect, 0);
-+	}
-+}
-+
-+static inline void cifs_requeue_server_reconn(struct TCP_Server_Info *server)
-+{
-+	unsigned long delay = READ_ONCE(server->reconn_delay);
-+
-+	delay = umin(delay + CIFS_RECONN_DELAY_SECS, CIFS_MAX_RECONN_DELAY);
-+	WRITE_ONCE(server->reconn_delay, delay);
-+	queue_delayed_work(cifsiod_wq, &server->reconnect, delay * HZ);
-+}
-+
- #endif	/* _CIFS_GLOB_H */
-diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
-index 4864fe6b19e30..caad568c6daed 100644
---- a/fs/smb/client/connect.c
-+++ b/fs/smb/client/connect.c
-@@ -431,7 +431,7 @@ static int __cifs_reconnect(struct TCP_Server_Info *server,
- 			spin_unlock(&server->srv_lock);
- 			cifs_swn_reset_server_dstaddr(server);
- 			cifs_server_unlock(server);
--			mod_delayed_work(cifsiod_wq, &server->reconnect, 0);
-+			cifs_queue_server_reconn(server);
- 		}
- 	} while (server->tcpStatus == CifsNeedReconnect);
- 
-@@ -570,7 +570,7 @@ static int reconnect_dfs_server(struct TCP_Server_Info *server)
- 		spin_unlock(&server->srv_lock);
- 		cifs_swn_reset_server_dstaddr(server);
- 		cifs_server_unlock(server);
--		mod_delayed_work(cifsiod_wq, &server->reconnect, 0);
-+		cifs_queue_server_reconn(server);
- 	} while (server->tcpStatus == CifsNeedReconnect);
- 
- 	dfs_cache_noreq_update_tgthint(ref_path, target_hint);
 diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index 7b95493b94642..01e582967df47 100644
+index 01e582967df47..d0b1b4c430a78 100644
 --- a/fs/smb/client/smb2pdu.c
 +++ b/fs/smb/client/smb2pdu.c
-@@ -464,7 +464,7 @@ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
- 	spin_unlock(&ses->ses_lock);
+@@ -219,9 +219,10 @@ static int
+ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
+ 	       struct TCP_Server_Info *server, bool from_reconnect)
+ {
++	bool hold_server_ref = false;
+ 	struct cifs_ses *ses;
+-	int xid;
+ 	int rc = 0;
++	int xid;
+ 
+ 	/*
+ 	 * SMB2s NegProt, SessSetup, Logoff do not have tcon yet so
+@@ -439,6 +440,20 @@ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
+ 			 * treat this as server not supporting multichannel
+ 			 */
+ 
++			/*
++			 * If server is a secondary channel,
++			 * cifs_chan_skip_or_disable() called below may
++			 * drop its last reference, so hold our own
++			 * reference until the reconnect work below has
++			 * been queued.
++			 */
++			spin_lock(&cifs_tcp_ses_lock);
++			if (server->srv_count) {
++				server->srv_count++;
++				hold_server_ref = true;
++			}
++			spin_unlock(&cifs_tcp_ses_lock);
++
+ 			rc = cifs_chan_skip_or_disable(ses, server,
+ 						       from_reconnect);
+ 			goto skip_add_channels;
+@@ -465,6 +480,8 @@ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
  
  	if (smb2_command != SMB2_INTERNAL_CMD)
--		mod_delayed_work(cifsiod_wq, &server->reconnect, 0);
-+		cifs_queue_server_reconn(server);
+ 		cifs_queue_server_reconn(server);
++	if (hold_server_ref)
++		cifs_put_tcp_session(server, from_reconnect);
  
  	atomic_inc(&tconInfoReconnectCount);
  out:
-@@ -4342,7 +4342,7 @@ void smb2_reconnect_server(struct work_struct *work)
- done:
- 	cifs_dbg(FYI, "Reconnecting tcons and channels finished\n");
- 	if (resched)
--		queue_delayed_work(cifsiod_wq, &server->reconnect, 2 * HZ);
-+		cifs_requeue_server_reconn(server);
- 	mutex_unlock(&pserver->reconnect_mutex);
- 
- 	/* now we can safely release srv struct */
-@@ -4366,7 +4366,7 @@ SMB2_echo(struct TCP_Server_Info *server)
- 	    server->ops->need_neg(server)) {
- 		spin_unlock(&server->srv_lock);
- 		/* No need to send echo on newly established connections */
--		mod_delayed_work(cifsiod_wq, &server->reconnect, 0);
-+		cifs_queue_server_reconn(server);
- 		return rc;
- 	}
- 	spin_unlock(&server->srv_lock);
 -- 
 2.53.0
 
