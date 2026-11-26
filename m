@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795711871;
-	b=ty0iGr9kkCns73H1AYxKmPqanzrjHAsdVVXJHRfdaKJrEsNnqez0aiebmVGy7Rg0HEpf
-	 vRPg8BurHb5yQJZzv/en4/sFDSuwA8tPj4qxm/C41cummdlBLWuwxepTq1YpqSWkLAHD8
-	 owBCbbStx8WGPkzW7pB2qTPUwTnmPpOgvJMTSi6h7AXgXcjgy2qJhXFY1TmR2M35DV9TB
-	 X6UZDh4vWaSCAC/ikA4VUeNj+RuPcmTXsfDyCRuEPMzkDB8HfHwFeLlHSrLdR0+GfbhvP
-	 f4dvrEQ2Lp6OPQAq3hCyMHeV8RZ+I/EVpkzitpVB5EeFwpcFHuiYlOTVYjKokQ5I4uA==
+	t=1795711872;
+	b=ewtHT7Pq0kA8j5fqlWhwrYWCqk89bQ6cz+ggE+k57ErZna913AshOeuWUjj9Ml1j0OcM
+	 WRl6sqRMRc43Xkd9QOagOqsZcNBdtHHC/ip7pO5zc/alsOOZFyk4/O3fgf9SAot7Rrdq6
+	 MMa4cWTEcK7QvVq83R0B8l7Uy4WN13kdTiliFYW53VCFsDvCyUBb+O/yiRFQrcKvEu+kd
+	 Rub6PHx/OntPLh3Mi6CqL+HeGIHb+CyJ/hqhO2+UPWzqmd3HF1Lwzs+5CGTaak46bEapM
+	 DxOdq9DBZRJCHNT4vakr3rbsm8XvLI4ijAY+Lx+GLTvved5bVJL/SnVM33rfIYU9tsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795711871;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795711872;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=SFkjeMH9cRbO7tleN2+mKlOYaTgd0ZrzzzD7v7mG4FY=;
-	b=JvMjjPeq72Yu/c5wA2e3IjBEHiU+e3fsxvKo+rXmBymxG15G/ER4cCVz8dBpIt93wa+F
-	 GmCEp5P0GAEhatJC593I2KbjLoQBVSbOW2hw9Kyt0d//+bmwBpKvOqHHZ36vu2FlImnK8
-	 ZUDcHdi1Uv1Yks/xtiRRtACUztKZiyI06p6h+Y4aInmK46sFANEl+QdaEeyMn33mD6Rss
-	 9vSXit0BvGR+2MozsPCY9OPT/rpjWuLv2cvMRstwIPFM92lTg5SYvAdyA53iAXTEuMrqp
-	 EIGM0L1Vbjj6LI3VBw8FBeHm771mayafT35DTDNBl4QI3/A9DxUokEP2wE5cePCLbew==
+	bh=UPREIQcVT1UkMDsdsT86Ok5BhzWUni5GeNYHdx+/z4M=;
+	b=i4qsxvqoHkqCspl91FX3YZQgtW1twYjXMYv/LuwKAk71G47J7Kk7GpRRm+Z0TT3sOiV0
+	 MD1Po+X/KhJMWM0ErsF9ReDhaG/8FhnoRYmjOnQjLkCX+ydznIe5bUzXN1eyFiGhfPo2A
+	 j1tfq44ie/W3OGw8wo86wASXWkPfmM3Beyhpab4iSLGpj3FmV930XSzSaDU2YhhOxO1Pt
+	 sIV547gQB0EnuNiRu/PgXivblBnAkNHlU/JDGI4pupMKbCc84s2Sr9P6jxHkMreSyeUjl
+	 tb8B1FaBVm2wsGVlHgoN3Of0ffyuj+hoCPwqlqy3FxJ+S/SDNI1/Ju9/ipqDIzEnUYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Qaj/62OA";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oMiVfewl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA2A606A321
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:51:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23ADF606A321
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:51:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qaj/62OA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B19D1F000D2;
-	Thu, 26 Nov 2026 16:51:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oMiVfewl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 342C31F000D4;
+	Thu, 26 Nov 2026 16:51:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795711871;
-	bh=SFkjeMH9cRbO7tleN2+mKlOYaTgd0ZrzzzD7v7mG4FY=;
+	s=k20260515; t=1795711872;
+	bh=UPREIQcVT1UkMDsdsT86Ok5BhzWUni5GeNYHdx+/z4M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Qaj/62OA+TWgwNf2Eq5X+FB70aQBBDfa/k+n3plHL3ghbTdRPASDxFRLfwGXmwlnh
-	 JSpMKw4QHhShzrZ8Jg3HMMV0LG9lPaZBnxNYMTWimp0rFIeeGIzXWcWToL3cglxvFZ
-	 j4CyD23tvfTAwxxmurc9w/x6i7ZO4vNDtgott5NepsAgEaXLwK64TegkvxoC7nXSUi
-	 23BXuwGby9cqU4iwO+TjC217MWyXwH/YmFgWmKf1e1LGJsEuJ6UVUnVVg1BDvMzSyO
-	 hkdVFzVzAhyeeEzFpqvtDGK0i4mLExq32V4tPNxwdxGY+8FAY26oEXd5ZNzFjx+14U
-	 zDuF4EY3If12A==
+	b=oMiVfewlMZK/r3vIi8PS2lHuHhbjLP2k9Xa+7og1e6xrEzlHdspSQWrpHSLZh4vp8
+	 LJ5njzT9hmgHKpx2WQdTdD75ICOIp9V6nvsUKV5REhwF9+M71g+VpFkziac/8kfdQo
+	 CN3+O8vGn4cvAGe2zRpHoGq0uLGEtkA+DCg4qX9tRpnn0s0aM0QcB5DXUhLS80XjoG
+	 rW/o9wDxlv1yZiiCuaNCEMPye97WG9uBVAtPzK4GV0ycxLGVN2salqY+cCP8tnd5IO
+	 iwY49iq/0UUvIzEgP7ZYwfmTDULrXn1M2qbC4CL40oyF0In64Ipxd/sJPZyGgX5Hqz
+	 j+8/3hJKOybyA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Raag Jadav <raag.jadav@intel.com>,
+	Zijun Hu <quic_zijuhu@quicinc.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] iio: imu: inv_icm42600: fix parsing of all FIFO frames for odr change
-Date: Thu, 26 Nov 2026 11:51:09 -0500
-Message-ID: <20261126165101.2654005-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/4] devres: Add devm_is_action_added() helper
+Date: Thu, 26 Nov 2026 11:51:07 -0500
+Message-ID: <20261126165025.2602010-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112557-lustiness-canning-81fb@gregkh>
-References: <2026112557-lustiness-canning-81fb@gregkh>
+In-Reply-To: <20261126165025.2602010-1-sashal@kernel.org>
+References: <2026112512-disfigure-marmalade-b2e1@gregkh>
+ <20261126165025.2602010-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,84 +65,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-[ Upstream commit 4a141623442888458d147f4e61fe47411c0e4e17 ]
+[ Upstream commit e383bb8f958444620d96386811aacf6a49757996 ]
 
-For getting all odr change events, we need to parse all FIFO frames
-in each iio device. Fix this correctly by sending effectively all
-frames to all iio devices.
+In some code we would like to know if the action in device managed resources
+was added by devm_add_action() family of calls. Introduce a helper for that.
 
-Previously only batches of frames containing a matching sensor event
-were sent to the corresponding iio device.
-
-Fixes: f670d4d34773 ("iio: imu: inv_icm42600: fix odr change not caught in certain cases")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Reviewed-by: Raag Jadav <raag.jadav@intel.com>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Zijun Hu <quic_zijuhu@quicinc.com>
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Link: https://lore.kernel.org/r/20250220162238.2738038-3-andriy.shevchenko@linux.intel.com
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Stable-dep-of: 6c6508e742b4 ("usb: dwc3: xilinx: unwind ZynqMP platform init on probe failure and remove")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../imu/inv_icm42600/inv_icm42600_buffer.c    | 24 ++++++++-----------
- 1 file changed, 10 insertions(+), 14 deletions(-)
+ drivers/base/devres.c         | 11 +++++++++++
+ include/linux/device/devres.h |  2 ++
+ 2 files changed, 13 insertions(+)
 
-diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-index cb4520b184b01..9bb5fe639955e 100644
---- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-+++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-@@ -531,22 +531,20 @@ int inv_icm42600_buffer_fifo_parse(struct inv_icm42600_state *st)
- 		ts = iio_priv(st->indio_gyro);
- 		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_gyro,
- 						st->timestamp.gyro);
--		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
--		if (ret)
--			return ret;
- 	}
- 
-+	ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
-+	if (ret)
-+		return ret;
-+
- 	/* handle accelerometer timestamp and FIFO data parsing */
- 	if (st->fifo.nb.accel > 0) {
- 		ts = iio_priv(st->indio_accel);
- 		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_accel,
- 						st->timestamp.accel);
--		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
--		if (ret)
--			return ret;
- 	}
- 
--	return 0;
-+	return inv_icm42600_accel_parse_fifo(st->indio_accel);
+diff --git a/drivers/base/devres.c b/drivers/base/devres.c
+index 03da20f0431dc..89fcb95efad93 100644
+--- a/drivers/base/devres.c
++++ b/drivers/base/devres.c
+@@ -756,6 +756,17 @@ int __devm_add_action(struct device *dev, void (*action)(void *), void *data, co
  }
+ EXPORT_SYMBOL_GPL(__devm_add_action);
  
- int inv_icm42600_buffer_hwfifo_flush(struct inv_icm42600_state *st,
-@@ -569,20 +567,18 @@ int inv_icm42600_buffer_hwfifo_flush(struct inv_icm42600_state *st,
- 	if (st->fifo.nb.gyro > 0) {
- 		ts = iio_priv(st->indio_gyro);
- 		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.gyro, gyro_ts);
--		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
--		if (ret)
--			return ret;
- 	}
- 
-+	ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
-+	if (ret)
-+		return ret;
++bool devm_is_action_added(struct device *dev, void (*action)(void *), void *data)
++{
++	struct action_devres devres = {
++		.data = data,
++		.action = action,
++	};
 +
- 	if (st->fifo.nb.accel > 0) {
- 		ts = iio_priv(st->indio_accel);
- 		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.accel, accel_ts);
--		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
--		if (ret)
--			return ret;
- 	}
++	return devres_find(dev, devm_action_release, devm_action_match, &devres);
++}
++EXPORT_SYMBOL_GPL(devm_is_action_added);
++
+ /**
+  * devm_remove_action_nowarn() - removes previously added custom action
+  * @dev: Device that owns the action
+diff --git a/include/linux/device/devres.h b/include/linux/device/devres.h
+index 9cd1787ef28ed..ae696d10faff4 100644
+--- a/include/linux/device/devres.h
++++ b/include/linux/device/devres.h
+@@ -165,4 +165,6 @@ static inline int __devm_add_action_or_reset(struct device *dev, void (*action)(
+ #define devm_add_action_or_reset(dev, action, data) \
+ 	__devm_add_action_or_reset(dev, action, data, #action)
  
--	return 0;
-+	return inv_icm42600_accel_parse_fifo(st->indio_accel);
- }
- 
- int inv_icm42600_buffer_init(struct inv_icm42600_state *st)
++bool devm_is_action_added(struct device *dev, void (*action)(void *), void *data);
++
+ #endif /* _DEVICE_DEVRES_H_ */
 -- 
 2.53.0
 
