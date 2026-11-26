@@ -1,118 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795686583;
-	b=C/eJRBn+1E0AP6c3P8SP2DhSmz1gJj6yW0w3hAFItjTah7N4ZdLch27kfRKD7kdNzsR/
-	 n4Bnh8HlJkK1M2vnlXZV+Fdza9e8BjQ1eH5derTnRV4CEiXMavoVa1d4icpD8gKBYpJf/
-	 OHL8eb8LTjz85t/bPOQhx2BL74eH+9SHRBt6+kecMOk9yhGSUUJ2puEEnK0ed9R6iUes4
-	 kYOkT9DrOwZf5xXsaKEUz8ibsZrrxPTm838hBNiC2tWFDKDbLJlK9EhgJ1cOtQN0iRREU
-	 DQ1WvJtVTjAP92cZryjcwvmU1tPbTFe/uDSumshoFf/7zI0JXBtdtqHi63cXsmtikYg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795686583;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=GNrgKTXTrOFzDhPgeYf03Ncje4wZ/Zh1NZKNX0O4g38=;
-	b=D/i+8fhXSXjMUwb1hGTVE3kzAzo57UX0DiESqKMlhaZhA5w7cYjgjfB/sUrnbb+kkm80
-	 DndaGuk+GiwsJDIXybyEN6NPVFoSZ50eawN5o4NviE3U2vTcaZ71Ly9abFuji0s8/yey0
-	 jrdQ4zv6Mhwt465S4KPomBBN9xHlr1Cnf7y12nEF/FyLmki9fp533+jIS0pmAPEputn0G
-	 q0AbcCCsUxc00Wb94S6tp7PB77el2BzSebZvK/j0kRAmw4DlJQ1MsEbedRFVWvd+CdRUL
-	 tSQ4Kgfawr+3D3HyRwc+NyJNawprYoK54i9PGrLOHa8z4vje+ifGMGyhopAWWq0EJdA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=hZ2xBB7A;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=nu0tiS4o;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795686597;
+	b=WW4m6PYGtn4v5oq0HkejSfEAitZnmC95dprhbbJEa7lenGnShpVVnLLSCyxE97MYYlEA
+	 kzUbGoRGrbsFFJ4U4b4wRxQzLG2cL8o947tc7VKlGstU0HzoRnjSfP/9twd/RV7BU5yHA
+	 F239c+PJoH9VySMgbcY4z+B7rNtVmMBddXrWHdopblekmiiz+fn3FL8k2BKNxAvUwYUtz
+	 sX/398gndw0xSn2tzrTSRgK3C5t0UO6mmRmywKFLNVhSosfdoiwTtrD+96ije31htgQNl
+	 JglwJQXw+PSQiX7D71vohcaaB+M4H46G27DHFjV685/90LpkkuqPnOYU8wOPsFfZL/g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795686597;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Last-TLS-Session-Version;
+	bh=ei+vRNvvaaEtyjfLzQncehkFlOKtAw1jiPfrrwX4ZWA=;
+	b=vQwZomxvLtV0PihL0MdEUjoxnUuPIeu/gNRv2LSDcgqVnFr9hhrU5brmYBZsat6g9bmN
+	 j3U3AX0shG4EtM/i10xsVq2fpJURQOwWdZ2VdLQwehnvBe6MACjYajxL/OdD5rIgTgrSh
+	 2NisgWS1T60tucks09C+jXzrENSo2FtMDTxni8sLEHA2/9kkTpd0tAx0+UjjBvP+dVX/B
+	 8T1LUEv6JvLfglZx4pe342T40cDLPIebR+aIl4xuhlHtFjL2TxKc97gC1clKpYgIgpYaK
+	 qFxO/2m5e7Apbd4DAv7qu7bWndR5B4pjvYgyplcBieXwF0wkbYLPCFmbdISJU1BB+UQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=FvWIKJYg;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CDB8606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 09:49:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CDB8606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8189B606A323;
+	Thu, 26 Nov 2026 09:49:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8189B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=hZ2xBB7A;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=nu0tiS4o
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795686581;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GNrgKTXTrOFzDhPgeYf03Ncje4wZ/Zh1NZKNX0O4g38=;
-	b=hZ2xBB7Azv4omwSVIkM/Hh2GyVCm7IS8p21DXChB3JScwkpPULY/hAYd25WfljkqE/xyKB
-	bNFRa2ViFr/gNwmnc8Hed958J0ZURHqHHo5S4CNIOm4og3TEplUt8+ix6+2HwjijxfmzqC
-	2Wl+iQ0RQhw+Akja/GRnWNujqDmHsgs=
-Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
- [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-625-Ekp0popONf-Uo7Ycoe_udA-1; Thu, 26 Nov 2026 09:49:39 +0000
-X-MC-Unique: Ekp0popONf-Uo7Ycoe_udA-1
-X-Mimecast-MFC-AGG-ID: Ekp0popONf-Uo7Ycoe_udA_1795686579
-Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-8b0f1c06332so99398077b3.3
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 01:49:39 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795686579; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hD8yVcTQ6oC89iuJTGpKh0vDUt/ByuyPIlXqyBcJru13hxDJBYoIiExsESF+iRRxJg
-         6Dw2SrFx13186f+vCdHtl5tO50SUMgbL1O+oQcJMc7/LDWl2bhRbthD4gFUVUEeskCT+
-         XLVeemjF5C8BmrBUHlTE7dOFftJuAb1JETwLY3F2U2RGEP/OSrAK3A1DtT95xVEzGTDC
-         ZTQ9hjVIGD3xfRytsgQKCSOeiJS9iDziOii7wDjsaTchEcMQobT1SccquBWXTQWNcfK+
-         7JUhUVQnz2DijZvrZhHc2Qj9quXNejb//yOtqccFRBPjs5wyNM/js/sofz1Sj2+rnuL+
-         oQ7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=GNrgKTXTrOFzDhPgeYf03Ncje4wZ/Zh1NZKNX0O4g38=;
-        fh=suXUzZO0afD9jarKBUHEUFCBeMJml5cU2uUvDfgia+k=;
-        b=TJKlp8Y0Pp057Ao5LlVs+LIcqGPN+QzqYv171ElaGdGdWuHl3yMdZhT+a5pPbyFsMX
-         0tFIn/Kl9+4KDB3mxNQnKTGyLEPfmElqE+ns1bKkze0UbUSFZEaP40WD3PLCe0bb/dzO
-         4uyLbmlLE40o4DPN48G9d8Bu/EmpiZFE0tbJH60iBaQ7TiNfi8yzKTaLZ2VpeCZ+b6Dh
-         qd0VlCEEBgfhCs5AFIPhPJlUHYeRmofhn53fhHJ62C2pp893mW/7xBR0d2x9izhPy3eQ
-         eJMwKE/4E20w+kGox6oPBkrTiAD5grwL5rqfO54UmnLwFyqYwQ1F4Zzephk3NUDBjw9x
-         m9Eg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1795686579; x=1796291379; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GNrgKTXTrOFzDhPgeYf03Ncje4wZ/Zh1NZKNX0O4g38=;
-        b=nu0tiS4oYUqkmQThR783q8O0nB7tU1BqwBA+laChw1cNfjE8I5oC8ERK+0CINw7i79
-         BnlKkX23iwZgD9Kk0NzlD1nc8Wg7mzlYTMe1FrUHL4WPj0hRHMU3zqVvhnL13HlouY6i
-         0VcXq+GY1/p14knr+fQolSpjSr7YQPnZDtab8XBAjvxHNHjzM3t4Rs4SL8KUVw2hdEAe
-         xP8QxkqueDucJ6W6wmd3Gcijzc22yfOKmy8ziw47thb7IYzRt4mcDzdKVsgnI3YzhNN4
-         qnx9Gp6XjxhruR1fIetUhGsvCZqoFDfNeovJZVP8IMSKNMwP/In030GGiEvRgVZZAUs8
-         +Hyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795686579; x=1796291379;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GNrgKTXTrOFzDhPgeYf03Ncje4wZ/Zh1NZKNX0O4g38=;
-        b=TpTo8ngLwY7EDIaG6loytax5sB9qrPDDQfy6KrWG2dxkc342UlCzlURNX+ftSTx+mn
-         343ICNLgR9qL2Fx6ccXqXmjHK1guxLXQSE4+7uhnqKWXbuvam3I0rUC6VGtXqQ02lYUZ
-         xvv9hm/hfU6owBFLShxKlBkzNa3LNnCbfl2Q4yfVVrM59dxrrhisSjFSTu6tuvzhQbt+
-         umVGkNbd17rIvwICgDYNN7SmHWz51gOtcL+hB6M1uihtJMjFI6BDz9/Aig1a0Df1UW2E
-         FBZtTZVzdkAHH31em++htRn5peW5SGW1mz+giMQzL3MkSgUPDmivdbPKl+Lev5MhW7gp
-         orXw==
-X-Forwarded-Encrypted: i=1; AL+hErGUu2Wi+0U54tQODYS6YoTVhoK0HYEFkYTvmC66nvybHl40Zgp7ylQn+TIrPC4h68ismZfXvxs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9bsBB+2nIuilgobzmtFTM0sJWnjTGa0tIg62c+GpAYU6dikh8t
-	LAGjYL6VBGML17nWjzq2yQ7EhK4W1CXikb9wKA/YfNTIcjsY0bjXlWrsC0/+88miDO/0flcFrsF
-	T3qk31vBKz3s/RRHR5lf7snNS9iDAJ/PD1gb6+LVTtl6FeoBPn4MvKcdSHIpD/2R1W/L7G78uOZ
-	EZpuDn6GkYCOirLybNzvykPzrLivxJZS0l
-X-Gm-Gg: AZFdTZc934s5nZ19mQkkuq7X/9ORYPqSpDXCiCkPbHmIs8BpwrzM4PC+xT8SN4J0QNB
-	Nf9cTz7/wYMEz9n/2VyqfvqkRpZdv47bWXRxWaxl3kUd+LAZ0BNGTKMMvPUzmlWJHzvFOvx0HcQ
-	GtTElEk7Sr2QJgL9HGx771k9YhakxXhjlyfD8bCOk3liCbKUzfSLACZssYmoyODxcZ/UGEWvCyu
-	t1FLU6lF06la4Saqtq+Elw5BobczoR+nslpm1oWEcLuXQ==
-X-Received: by 2002:a05:690c:9986:b0:8b4:c71b:e4d6 with SMTP id 00721157ae682-8b5204b4e2dmr82175027b3.35.1795686579009;
-        Thu, 26 Nov 2026 01:49:39 -0800 (PST)
-X-Received: by 2002:a05:690c:9986:b0:8b4:c71b:e4d6 with SMTP id
- 00721157ae682-8b5204b4e2dmr82174937b3.35.1795686578546; Thu, 26 Nov 2026
- 01:49:38 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=FvWIKJYg
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4BB321094E6;
+	Thu, 26 Nov 2026 10:49:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1795686590;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=ei+vRNvvaaEtyjfLzQncehkFlOKtAw1jiPfrrwX4ZWA=;
+	b=FvWIKJYgTV1vCjrMnY/0yZV33zLcgkAcuHMweH8xGqGQer8cCu6uSHkc1Vif92NCLI1Fyn
+	FmWkzX9OrGJ+LIJfKEsme3gQGDUZdCYRG7BvA5g7tjIq0CYjuPYT2HQnkNUq+1klqJcvzH
+	AE1vsflyaRAwnmNfSU00mjwu1ZGsrjuusbMUS3zEfJYpl1Q6nkkUzvWSBRMI1vfyvE9m9w
+	trH9vvdVB7PYamegNIYWgyt+uBwgMoXmIUJy+jiXovZ0aCO1xO0/r5sNtTt7h21aFvTNsu
+	IOIei/ihi/HC1pahtsygXq8YRhsNak2Jw5t87hINAegkvK+4ySgiW/LCgieQhg==
+Date: Thu, 26 Nov 2026 10:49:45 +0100
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.3 0000/1005] 7.3.7-rc1 review
+Message-ID: <awgAuX3tvvXL73fK@duo.ucw.cz>
+References: <20261125143821.729802100@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -122,77 +67,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261125175007.3659558-1-hengyul@cs.unc.edu> <20261125185332.2549812-1-agruenba@redhat.com>
- <20261126032826.4156477-1-hengyul@cs.unc.edu>
-In-Reply-To: <20261126032826.4156477-1-hengyul@cs.unc.edu>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Thu, 26 Nov 2026 10:49:26 +0100
-X-Gm-Features: Aa3M54pOdvxu5XUY1DJw0M0cDCzeBZYAQTrBCHj1-4qHVGgpDIiPEkW5-yGupmc
-Message-ID: <CAHc6FU7MnFrA8E6OyvOk8WwiiozCT4=QPjne7ftoLq_n7dOmYw@mail.gmail.com>
-Subject: Re: [PATCH] gfs2: restart rename when a signal interrupts the glock wait
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="dv1nl8+AO0Rn7JX9"
+Content-Disposition: inline
+In-Reply-To: <20261125143821.729802100@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, 26 Nov 2026 at 04:28, Hengyu Liang <hengyul@cs.unc.edu> wrote:
-> Hi Andreas,
->
-> On Wed, 25 Nov 2026 at 19:53, Andreas Gruenbacher <agruenba@redhat.com> wrote:
-> > Why not make gfs2_glock_async_wait() non-interruptible instead?
-> > Something like the below should work.
->
-> That is better, thanks.
->
-> There is one problem in the sketch:
->
-> >                       prepare_to_wait(waitq[i], wait + i, TASK_INTERRUPTIBLE);
-> >               if (!glocks_pending(num_gh, ghs))
-> >                       break;
-> > -             if (signal_pending(current)) {
-> > +             ret = schedule_timeout_killable(ret);
->
-> schedule_timeout_killable() sets the task state to TASK_KILLABLE again
-> after glocks_pending() has been checked. If the last pending glock is
-> granted between the check and that point, the wakeup sets the task to
-> TASK_RUNNING and removes the wait entry, and then the state is
-> overwritten. The task then sleeps until the timeout expires. It does
-> not hang, but the rename waits for the rest of the timeout.
->
-> I would pass TASK_KILLABLE to prepare_to_wait() and keep
-> schedule_timeout():
->
->         for (;;) {
->                 for (i = 0; i < num_gh; i++)
->                         prepare_to_wait(waitq[i], wait + i, TASK_KILLABLE);
->                 if (!glocks_pending(num_gh, ghs))
->                         break;
->                 if (fatal_signal_pending(current)) {
->                         ret = -EINTR;
->                         break;
->                 }
->                 ret = schedule_timeout(ret);
->                 if (!glocks_pending(num_gh, ghs))
->                         break;
->                 if (!ret) {
->                         ret = -ESTALE; /* request timed out. */
->                         break;
->                 }
->         }
->
-> The back-off sleep would be schedule_timeout_killable() followed by
-> fatal_signal_pending(), as in your sketch.
->
-> I tested this version on gfs2 for-next with lock_nolock, KASAN and
-> lockdep. The mv reproducer from the patch moves all 12000 files, and no
-> rename fails with EINTR under SA_RESTART handlers, handlers without
-> SA_RESTART, or stop / continue. SIGKILL and SIGTERM still end a rename,
-> and fsck.gfs2 is clean afterwards.
->
-> If that is fine with you, I will send a v2 like this with your
-> Suggested-by.
 
-Yes, that sounds good.
+--dv1nl8+AO0Rn7JX9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thanks,
-Andreas
+Hi!
 
+> This is the start of the stable review cycle for the 7.3.7 release.
+> There are 1005 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+
+CIP testing did not find any problems here:
+
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-7.3.y
+
+Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+
+Best regards,
+                                                                Pavel
+
+--dv1nl8+AO0Rn7JX9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCawgAuQAKCRAw5/Bqldv6
+8o9sAKCg5hVOsenB/NvrxuLk1/9XOymh6wCgvvVhxvKimfUQInduSpyx95zhhmg=
+=MqIO
+-----END PGP SIGNATURE-----
+
+--dv1nl8+AO0Rn7JX9--
