@@ -1,65 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795663514;
-	b=VMHvvWf0p9qci4iqpUCDLLJrB4ydTm7RBupcZRsmPv/DQ9Yth49xRpvtiIB9KlzUTUD4
-	 VGS+r7aBZmmy0cH18SIrOlAdqiKX35yH+YE1Pvsxp1QdT07iOSeGP42i+yrN+aTsX9dJA
-	 G/9QYjND9t/+WyKbVhY/n05lJuvy6G4Ch3bBpzIqHwZW3kKkWKt/JcArX6gsUnuae74R/
-	 vZkVmNGKOgrxr+7ugzoYgbmbbQMs/IBZLwnZcMX5f2A/QMHefIDRd2rNeMfGcxOpv6F78
-	 3omIenc8m4wYSURU515O1J5ko0p4t/9stR3lWWMnfw/4kvYNLiKHvJ2NoLLZTDMBF8g==
+	t=1795663571;
+	b=ibqbgXSiE6uFmvLoXTaehXNOFiKGuMwZtc5TZCMdQNBdha55Ys/BlY4llizrTSx9V9Nz
+	 UtxYSK/d26jnTyfPpf+e5Pr93NGYk0gMOw2Xk21tgxnGsZ2yl2YERI7QxtLQIsuhtRtc4
+	 zh4pZ+oelo6Vhq16mye+nm95OCIdwjRK2zMy51aS05m8RxnIYNZf9vqx8rrLlMhG+BTtI
+	 zJb956k0/NOo4RllGTGyEh24Rh/kNsyE+73DMS40CC7JCJPiTc/uGSnOOM8o0aHSOEwiE
+	 zBtnH+E9wgwAN3r2ORAi9fglks8MEzfP8Z9+C8NiiIpIPlqF4ioiAtj4QN8gx2sChNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795663514;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=AZUsrq291ioXtIFLJBp+mfWr4CexSy+VwYbhvQRqUfw=;
-	b=Lz2pAHQSqB1eklcAn3CO5rsqSBRQbAgWglmCB1dFT2tTugZX2+tTZoFcg4JeDKzvDV9f
-	 uJ1vnh1yW5z4P/gIqittUO1zNYJxicCKT05pPnwLoA2fiv4Ww1AoFcAmijN+cwBaf+n6O
-	 CMboavQASlGHocCFR7jeRNcZ0Pe7w3izYbJG48ZKS21Y4gQVsrwA/40EX9PgqJWfxnUDu
-	 6a2j3l2E+yJts+SCZHfI+IiRilHbIjtFIp5iTUVF9iV7JRsNOdTk4FGuiVZdPSzr3uEKX
-	 S0hm8GL/pKWHd1+tR9WF3A877MTR4QyCA8gqaM3VuWHWzzybgDqIrUTs9nkfWMU7cZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795663571;
+	h=Received:DKIM-Signature:To:Cc:Subject:From:In-Reply-To:Message-ID:
+	 References:Date:MIME-Version:Content-Type;
+	bh=ofJy08aWX1//YrHoygi/IkjCsi3MA9HBCDQXykemzuY=;
+	b=buUu0+P1E+5hwzieL2v/wrcexImNiG5tTHK5pidjbgusZpvwy9CQUrg7p9fqlJjG4v74
+	 YzpbPkEC1zcLaZvfvJGnmM0JRi5Vekt3yA/7QWbSzUumLJpwEC3tSjlre3/q8jIi8Gq0h
+	 Q96LAOzJbP23dSbhOiUHLEmPSHRTroutS50WvgViVvMxfonOFRfPPpdXbt0rcxqz2e/D4
+	 CuVGEHInsIuaMauiZmJ0jMOMeh7f4nD8aKojmnwiOzhINRwpqb61i87OItx0VmnDxyiav
+	 YTIquhDQbpXaZquZJH164EQy21Sh/SFmmOENN7UHIqDBdSAN9zT8x1lcUSic6T9bibg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=psWHWB0Z;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 46CE8606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 03:25:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46CE8606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GLrXlgFG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0833B606A31E;
+	Thu, 26 Nov 2026 03:26:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=psWHWB0Z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=psWHWB0Zhyn83oTsLULif69/LWeVAMFzs9vIqVwDReX1gQ04rVHArrJgoQWujkmCQVnLMVmhvx1VE
-	 xE5v7IawyTYGwvcF3bQJ4UdhL/SVmuTDz4ujmx9W8Frt9riOh52cTfc4SUFF/fYBf1gHlwiJRAVanZ
-	 CR8TUXFVuJr2lBEA=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86b07a696ca7-f770b;
-	Thu, 26 Nov 2026 11:25:10 +0800 (CST)
-X-RM-TRANSID:2ee86b07a696ca7-f770b
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181456177947 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16b07a69384d-5afce;
-	Thu, 26 Nov 2026 11:25:10 +0800 (CST)
-X-RM-TRANSID:2ee16b07a69384d-5afce
-From: zhaofeng2@cmss.chinamobile.com
-To: stable@vger.kernel.org
-Cc: Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
-	Guenter Roeck <linux@roeck-us.net>
-Subject: [PATCH 6.12.y] watchdog: npcm: fix clock prepare leak when setting timeout on a running watchdog
-Date: Thu, 26 Nov 2026 11:25:06 +0800
-Message-ID: <20261126032506.1227-1-zhaofeng2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <2026112521-cartel-refresh-660a@gregkh>
-References: <2026112521-cartel-refresh-660a@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GLrXlgFG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C245D1F000C6;
+	Thu, 26 Nov 2026 03:26:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795663570;
+	bh=ofJy08aWX1//YrHoygi/IkjCsi3MA9HBCDQXykemzuY=;
+	h=To:Cc:Subject:From:In-Reply-To:References:Date;
+	b=GLrXlgFGpqdk1+lX+eHjW0IqPI+8at1Y3kYciPFt7X3TYN1IQrBZmph+i0hntghM2
+	 17OUOXX6kmRgRRDZpRl1+eiBb4owmtjaT1eK4Wh+PrVleJ8L7rVoDjf0t8boKetB16
+	 7SMw38QDMKyJntDxIBBb0QmxIiSA4zt1N/eD7oPy6Auc/bWOel4MQy9Bc4cHzh31ys
+	 fXSWW5BIC7JWW9yKvmS3UenSF/LGQqU0bZtPMjGmQ9L7WSZ/7zwRlOZ+CeLrFZ6cso
+	 FULKOF45mlbt5u9lP4QN8/AUp4er9E3WlUWU+6frOUPlc9Z/swBANxVQ3ncK/UDFi4
+	 dCn7AEL/WSutw==
+To: Ziheng Wei <zihengw03@163.com>
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+  "Martin K . Petersen" <mkp@kernel.org>,  linux-scsi@vger.kernel.org,
+  linux-m68k@lists.linux-m68k.org,  linux-kernel@vger.kernel.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH] scsi: 53c700: fix invalid frees in m68k driver remove
+ paths
+From: "Martin K. Petersen" <mkp@kernel.org>
+In-Reply-To: <20261122160447.519889-1-zihengw03@163.com>
+Message-ID: <yq17bi0jmt4.fsf@mail.kernel.org>
+References: <20261122160447.519889-1-zihengw03@163.com>
+Date: Wed, 25 Nov 2026 22:26:08 -0500
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,79 +60,17 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-
-commit 57c7cbe21acc77291ec0fbdd4bd72aa259cf4986 upstream.
-
-npcm_wdt_start() unconditionally prepares and enables the watchdog
-clock, and npcm_wdt_stop() is the only place that disables it.
-npcm_wdt_set_timeout() calls npcm_wdt_start() again whenever the
-watchdog is already active, so every WDIOC_SETTIMEOUT ioctl issued
-while the watchdog is running takes one extra clock prepare/enable
-reference that is never dropped.
-
-Split the register programming out of npcm_wdt_start() into a
-__npcm_wdt_start() helper that assumes the clock is already running,
-and call the helper from npcm_wdt_set_timeout() instead; only the
-watchdog .start callback (and the restart path, which intentionally
-keeps the clock) now acquires the clock.
-
-Fixes: af084fdccfaf ("watchdog: npcm: Enable clock if provided")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
----
- 6.12.y backport: 6.12 retains the `if (wdt->clk)` NULL check which
- upstream removed before this fix.  The backport keeps the NULL check
- in the new npcm_wdt_start() wrapper and is otherwise identical.
-
- drivers/watchdog/npcm_wdt.c | 24 ++++++++++++++++++++-----
- 1 file changed, 17 insertions(+), 3 deletions(-)
-
---- a/drivers/watchdog/npcm_wdt.c
-+++ b/drivers/watchdog/npcm_wdt.c
-@@ -63,13 +63,10 @@
- 	return 0;
- }
- 
--static int npcm_wdt_start(struct watchdog_device *wdd)
-+static void __npcm_wdt_start(struct watchdog_device *wdd)
- {
- 	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
- 	u32 val;
--
--	if (wdt->clk)
--		clk_prepare_enable(wdt->clk);
- 
- 	if (wdd->timeout < 2)
- 		val = 0x800;
-@@ -95,6 +92,16 @@
- 	val |= NPCM_WTRE | NPCM_WTE | NPCM_WTR | NPCM_WTIE;
- 
- 	writel(val, wdt->reg);
-+}
-+
-+static int npcm_wdt_start(struct watchdog_device *wdd)
-+{
-+	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
-+
-+	if (wdt->clk)
-+		clk_prepare_enable(wdt->clk);
-+
-+	__npcm_wdt_start(wdd);
- 
- 	return 0;
- }
-@@ -136,7 +143,7 @@
- 		wdd->timeout = 2750;
- 
- 	if (watchdog_active(wdd))
--		npcm_wdt_start(wdd);
-+		__npcm_wdt_start(wdd);
- 
- 	return 0;
- }
+Content-Type: text/plain
 
 
+Ziheng,
+
+> NCR_700_detect() stores the allocated host parameters in
+> host->hostdata[0]. The m68k remove paths instead use shost_priv(host),
+> which returns the address of the pointer slot and causes an interior
+> free.
+
+Applied to 7.5/scsi-staging, thanks!
+
+-- 
+Martin K. Petersen
