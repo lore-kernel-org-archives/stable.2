@@ -1,64 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.47.171.185
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795678118;
-	b=Rrn0WCcXNCGRglPgEIwhsLw66611ThXxz9nVW0oFk5Uwp53PyxWOULWzzba3J+cJX1ST
-	 RRhVuR6lUCqMWq+BaBULrCG4CsrgTuzr1vXb+Z82drv+N/8P1QZQon2jTIsdpk3CW8Pi3
-	 kvc9cDnqQ8nZ3GM60D/ZF0tN00P/zqO71PZkQyKggAESLSKg4OIj93FU8wTrlTEVaUxIy
-	 GeGZyr5VMvilumlIW+dMRG986giiNnAP6rWML+JJjP3iYlRCG+R+JVrPMHk71k1oiZX7a
-	 /d4BEJp2g9Yd9jO/PbWEjcNV1Ccgbpvp/vk+uXM4hIZAZkgiTpYvQID0VW25m/CGAJQ==
+	t=1795678858;
+	b=36TrxODTF24E4r0ZnW/0sHniPSWFv1HuPOapl8LJigW9GE6d5dtzibeTmjRtNzonJEGZ
+	 3aBnbmkWrYCmD/gvvxVvQTx0/Lv/ImBYzM8hTsB3u2bGtroLbj8vVXr3wFHpdu1v9GNj1
+	 F4iUtT4c0lCsmeHPFjP8iCCyJoHNCV8EqjwJsAxofM1cW6m8MAC4vZoZ4E+IGk3CrQyQT
+	 lEOW7jIVOXWG2H0i2iNK9au+A/ot6dLkkuVM7zCM6PRUBQ0HnGEDWvIMUMhJrYJ5b44sw
+	 UmeJteSFiiaxkK46bN6ooZJix1edoO8X3Ygg/VkrugUwkE1r9AyTBiwLwkFfcTH9whw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795678118;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=9er3puoTvMyRaWiL3gMCIc4iB91P1C4PLn8ZexfgLKY=;
-	b=Gw8ZNtGGAr6KXCI4kVA/ZpZShyTMzhSZya31QVgM7ewaLoWfOf+2atG67lDAbw8s2g5N
-	 4ij6syHOt2Qhpf1HfR0QudpdLA8jEosTFDewqKtVW+erhjIOc+9JX4oshDZ7hpz3xK3Yl
-	 p6UvnAZOzc7EY8yEVSgjfTIVCU0KP5wiKhjeHX2itxZSY728x/u7FzCdgewU6H1zChuiu
-	 YJw5+ZR0ohiNzE3ZselSopkjcxyUe/lSGb0FvbeULaeTSSZwY2HggPeVlhP9x+TMkZDon
-	 NH/3fFGD7xSwHUFdc+ZX/N6gCqoEtXbXivWol7Ow/EWZ7mQNjKsPAMEmk9jrplEphbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795678858;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=juJqpQkwJyoO/Hv1+4ZAcxpgZmO1t2pSKM+EEldO6zU=;
+	b=AdyE5fcM3UHK1VTtS1JihGwxTcpnG22hnxV2SvezK9HIb+QmI3dLrVLBCg7YdIN9XTGE
+	 CUA/4JLh/NBjVhPhvF4Q6Jb/uapKcl4Yg3FMniOYbjMrtnp0rvCguiKUfLveB5e0FmWxQ
+	 KvGyPJRW6P7DURJcPIy0wgrS0+J9nqSrbNcttDgTNV+f5PaaCTDG62Epr2rP874h7KjBg
+	 SQcLtvHj/tw96PfqBzu3NpDfliwT7vBMtsCLgYKtEfvHouYc4hWUqSURBqkqk2OSqqyRt
+	 9fdY8+r5CaC9GfvBP/73WrLO+zPxw370eyfacZa3/vWau6XdWJ93+8EfT/3enH3gjdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=datenfreihafen.org;
-	spf=pass smtp.mailfrom=datenfreihafen.org;
-	arc=none smtp.remote-ip=78.47.171.185
-Received: from proxima.lasnet.de (proxima.lasnet.de [78.47.171.185])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PPpBreAO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6862D606A31C;
-	Thu, 26 Nov 2026 07:28:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6862D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=datenfreihafen.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=datenfreihafen.org
-Received: from work.datenfreihafen.local (unknown [46.253.254.165])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: stefan@sostec.de)
-	by proxima.lasnet.de (Postfix) with ESMTPSA id DD0AEC06DB;
-	Thu, 26 Nov 2026 08:28:27 +0100 (CET)
-From: Stefan Schmidt <stefan@datenfreihafen.org>
-To: linux-wpan@vger.kernel.org,
-	Xuanqiang Luo <xuanqiang.luo@linux.dev>
-Cc: Stefan Schmidt <stefan@datenfreihafen.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	alex.aring@gmail.com,
-	miquel.raynal@bootlin.com,
-	david.girault@qorvo.com,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	stable@vger.kernel.org,
-	Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
-	Eric Dumazet <edumazet@kernel.org>
-Subject: Re: [PATCH net v1] mac802154: avoid extra skb references in RX queues
-Date: Thu, 26 Nov 2026 08:28:15 +0100
-Message-ID: <179567678219.1859476.7303574828087613735.b4-ty@datenfreihafen.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20260905061524.91223-1-xuanqiang.luo@linux.dev>
-References: <20260905061524.91223-1-xuanqiang.luo@linux.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D18E2606A68C;
+	Thu, 26 Nov 2026 07:40:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PPpBreAO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 710081F000C0;
+	Thu, 26 Nov 2026 07:40:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795678858;
+	bh=juJqpQkwJyoO/Hv1+4ZAcxpgZmO1t2pSKM+EEldO6zU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PPpBreAOknJ9HVtVdapWaRbmlwZW0l5Z2RfgGAxOg2yVLveO6Cz6EZY2m1W2Y1R51
+	 L580LQDXz0bRYj9g0Cs+cN5cW/UOdXEM/+sVk+WB4sQPYzOiB6S81fWSU79eeRob8c
+	 JfCdNW6nyR5nJxvDBvAf9cSRqeK9BEo9DP7FiikE=
+Date: Thu, 26 Nov 2026 08:40:55 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Ron Economos <re@w6rz.net>
+Cc: Jiri Slaby <jirislaby@kernel.org>, stable@vger.kernel.org,
+	patches@lists.linux.dev, Rahad Bhuiya <rahadbhuiya2021@gmail.com>,
+	Tejun Heo <tj@kernel.org>, Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH 7.3 0361/1005] sched_ext: Reset task fields on exit of an
+ SCX_TASK_READY task
+Message-ID: <2026112630-cadillac-unsliced-1ef8@gregkh>
+References: <20261125143821.729802100@linuxfoundation.org>
+ <20261125143830.189554233@linuxfoundation.org>
+ <0782adf7-20af-45a3-a09b-2a34c76afbac@kernel.org>
+ <2026112640-recite-tipping-891f@gregkh>
+ <dc5dc970-d7d5-46e4-8b2e-327c7e31a90b@kernel.org>
+ <2026112625-skittle-retouch-c4bd@gregkh>
+ <60eaa0ee-adbd-4bdb-bc7f-63f4631e022f@w6rz.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,28 +62,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <60eaa0ee-adbd-4bdb-bc7f-63f4631e022f@w6rz.net>
 
-Hello Xuanqiang Luo.
-
-On Sat, 05 Sep 2026 14:15:23 +0800, Xuanqiang Luo wrote:
-> __ieee802154_rx_handle_packet() passes each cloned skb to
-> ieee802154_subif_frame() and does not release it after the call. The
-> callee consumes the skb on every path: it either frees it, hands it to
-> the networking stack, or stores it in a queued RX descriptor.
+On Wed, Nov 25, 2026 at 11:16:13PM -0800, Ron Economos wrote:
+> On 11/25/26 23:00, Greg Kroah-Hartman wrote:
+> > On Thu, Nov 26, 2026 at 07:53:04AM +0100, Jiri Slaby wrote:
+> > > On 26. 11. 26, 7:36, Greg Kroah-Hartman wrote:
+> > > > On Thu, Nov 26, 2026 at 07:19:47AM +0100, Jiri Slaby wrote:
+> > > > > On 25. 11. 26, 15:28, Greg Kroah-Hartman wrote:
+> > > > > > 7.3-stable review patch.  If anyone has any objections, please let me know.
+> > > > > > 
+> > > > > > ------------------
+> > > > > > 
+> > > > > > From: Rahad Bhuiya <rahadbhuiya2021@gmail.com>
+> > > > > > 
+> > > > > > [ Upstream commit 564405c424f49d70b13debe7fe5b550234ad6b84 ]
+> > > > > ...
+> > > > > > --- a/kernel/sched/ext/ext.c
+> > > > > > +++ b/kernel/sched/ext/ext.c
+> > > > > > @@ -4198,6 +4198,7 @@ void __scx_disable_and_exit_task(struct scx_sched *sch, struct task_struct *p)
+> > > > > >     		args.cancelled = true;
+> > > > > >     		break;
+> > > > > >     	case SCX_TASK_READY:
+> > > > > > +		scx_reset_task_fields(task_rq(p), p);
+> > > > > This fails to build:
+> > > > > ../kernel/sched/ext/ext.c:4223:17: error: implicit declaration of function
+> > > > > ‘scx_reset_task_fields’; did you mean ‘scx_set_task_sched’?
+> > > > Ugh, I wonder why this code never hits my build tests...
+> > > We seem to have:
+> > > CONFIG_SCHED_CLASS_EXT=y
+> > > maybe you don't?
+> > I don't, and 'make allmodconfig' doesn't select it due to the
+> > CONFIG_DEBUG_INFO_BTF dependancy which does not get set either for some
+> > other reason perhaps.  That explains it, and we've tripped over this
+> > before...
+> > 
+> > thanks,
+> > 
+> > greg k-h
 > 
-> The beacon and MAC command paths nevertheless call skb_get() before
-> storing the skb. The worker drops only that additional reference, leaving
-> the original clone reference without an owner and leaking every queued
-> skb.
-> 
-> [...]
+> CONFIG_DEBUG_INFO_BTF requires that pahole is installed on your system.
 
-Applied to wpan/wpan.git, thanks!
+It is:
 
-[1/1] mac802154: avoid extra skb references in RX queues
-      https://git.kernel.org/wpan/wpan/c/6b4e5919526f
+bob ~ $ pahole --version
+v1.32
 
-regards,
-Stefan Schmidt
