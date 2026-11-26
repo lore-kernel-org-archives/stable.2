@@ -1,54 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795688383;
-	b=ZSCUdcuNAfJl8cF44TsV6c/LrU1OaWAabkB9e5Ws1aVQ03dX26KyKPi0/Vw8d2CR+nwQ
-	 X5sR5gGAzSnCus7bQnNF0+Gz/YWfnSN810Q919anUi/5eSlGwleGk1GIsSVix3SYVK7aT
-	 2/5BrqQ+qwBYvhUKh9RHFN5a8NgBkLYi3MX58aOiho8nfw9qtThbsuKn8uaJA6qRo2izv
-	 Y5Ubrx6gEjjsUzqCnVeaE/NrkAia+3wL0uzKRNxgeJt2Mb+Qficraufv+pnoolzQ9y7UM
-	 lyvj/LHYtf6at/kq+qF0ubs2WbacjH8X25cedM5kTn0q/ICKgRoGAGOCQVb+hJ6SW/w==
+	t=1795688673;
+	b=AJHiv1bwHh+z4F9or9ug156z4jBV+AmYePs+tfj3FGdHmJi5sVnyeVTT9nFnpqjmAXU+
+	 L8p+xpIsKpxiJ65FF+fWOHfGYpz6c9fL52yBOAXT/cPheXD/1MY3yAGMDBIBDqYNKqMFD
+	 9NywpXC2+sfg85R2ICUl/ZsPV99vVac34iQOCgFVSalJmsoJU1KknRASKviS3qkn30PBL
+	 ZzAkawObCGd7/V7a7ZPf0gMG4W1INxoheDwdS/dGsGvA3qYDK+ev7BS+zjRHkSwo83tPv
+	 BzWI/jiI11K75SwH/FdWXnOW38v4WSZCZaFl4J/0/TxP5NgZG83ZEN5Uc+I63w7Svgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795688383;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=7yiqVziuoi4MUfhVWRGe9sc8is8UXpPYgU3rcxw8mKU=;
-	b=Dg48ZPNFHDQDOxatKMk2f3Dd3O8VwJCSbbaQC04REysWUCRsqWJZ57cQsNMWgvBn+1MX
-	 iiuNJpUgAtoUL1SZcj9N7sTpfX2BEVQOr/3nD3y7PCdWaXW89uGiX2u27xsdna8cV3+KP
-	 x8J1pS2REhXV/C1BMQTX1mVttErK05jYdrWyR07IUMg7Bsprf9hRIdlJle5lm8tH6oU2z
-	 lUYjaS2K6S0vy1Q+YTebG4sreufOY/fEI8I9rX+l9O/J6jcIEcp797mReQVxOcR/pxFCo
-	 +Mr1OaLob0VGDQSDWIVCvVP4B7pBoWxHSs1zVACIKR8iFwAC/lYyJsS6TUVEKJqQnrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795688673;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=HWXhD2T0YqRDo710NdzVWCmw80S5rSuIE5qAwGglR9Q=;
+	b=1xi0pwDI/fopyu999RUATueZGDO3UPlel6G49zlsoS2zHZxKc8QFJj3yjMWU7ldqKBTb
+	 mAv2DiItUw2g2V24xR4+gKroZP7+5+Kh4W2IDb8j2cmhetQKcFxGoTWhY7FRDpmZv68gA
+	 fU/RawRhqma93WzVI0ic+E7ChRnptGKbMAC6iR2zAKL8wHqOAS3y+qIjMYXKOv3YsM+nO
+	 NE/yL68+JoXeBnvx9Fg80N2eb3LFeO7EgKOpz6w2Vkj1wHUTxGlOpsCR4VNARkkUb5IN1
+	 cY8h5MuZ4KzJFNsts/u7bIyh/TMZ5FZwH9OFY0UmPh2g5uJunj+k8j9PStBSPltO3eQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bVU339Zw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hT2tNv90;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B86B5606A31E;
-	Thu, 26 Nov 2026 10:19:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F80606A321
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 10:24:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65F80606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bVU339Zw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B7331F000CA;
-	Thu, 26 Nov 2026 10:19:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795688382;
-	bh=7yiqVziuoi4MUfhVWRGe9sc8is8UXpPYgU3rcxw8mKU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bVU339ZwHLeIYWtY5sVcD1LAE2FstDOZkhQJjmHk+mpCwl/BkMu0SvUuyg1FC5BJF
-	 +jdEcGOYrQm1DYnjYRKvXs73van3bMg9FNhLs3M43/e3h0fIct1TFQKHGrxqqiXUPr
-	 0pw8uz6W2b7b3qGit/RvwCZWkKPZwCHAvZomLdbc=
-Date: Thu, 26 Nov 2026 11:20:03 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Yu Junzhe <junzheyu1@gmail.com>
-Cc: stable@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>,
-	Johan Hedberg <johan.hedberg@gmail.com>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	linux-bluetooth@vger.kernel.org, Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 0/3] Bluetooth: hci_core: lookup hci_conn on the RX path
-Message-ID: <2026112622-galley-skipping-e8a2@gregkh>
-References: <20261118123533.25-1-junzheyu1@gmail.com>
- <20261119035758.45-1-junzheyu1@gmail.com>
- <2026-11-19-1-daily-reply-0012@kernel.org>
- <20261126075554.106-1-junzheyu1@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hT2tNv90
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id A14EC4E4179C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 10:24:31 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6E7F660237;
+	Thu, 26 Nov 2026 10:24:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CA70211E6A5EC;
+	Thu, 26 Nov 2026 11:24:28 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795688670; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=HWXhD2T0YqRDo710NdzVWCmw80S5rSuIE5qAwGglR9Q=;
+	b=hT2tNv90ahKjUQOa2PA9w+ig6qobgxqJGnnsNUsMe71Jj8uMN8jI0+7woKeG0XQaba8s0o
+	0rAl+v6dGXw4zWstY2by8epYPzTD5qX1FVC1uOwpzCXMj/WMNc3WlmvZm4NSX/XIvKuUtW
+	hauygcBny7aVlM+8z562vmsGNdssOq23cbAQyamxzOAtiIyXLuk+9+I7R6nF3vyIXQa8I1
+	ERBxzOI9xKVeJFR7U/5t3dHbdxa1y4cgcpbO2kj+tkIjnA5xEzjXeIDBLyZDweWd1yb5K2
+	HW8RIJYF3jsf2v2aGJ1gp/H/bR9/4AKnOtOKsGIv1UbbIAaM9Qz2PXhe93g5Tw==
+Message-ID: <0e983410-bc97-46cf-9ee0-c4cd11dcfa64@bootlin.com>
+Date: Thu, 26 Nov 2026 11:24:28 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,48 +62,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261126075554.106-1-junzheyu1@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 00/10] Congatec Board Controller: Add storage devices
+ support
+To: Lee Jones <lee@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+References: <20261117-cgbc-i2c-storage-devices-support-v6-0-bb070ad3e9aa@bootlin.com>
+ <20261119190350.GB70182@joneslee-macbookpro.roam.internal>
+Content-Language: en-US
+From: Thomas Richard <thomas.richard@bootlin.com>
+In-Reply-To: <20261119190350.GB70182@joneslee-macbookpro.roam.internal>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Nov 26, 2026 at 07:55:51AM +0000, Yu Junzhe wrote:
-> Sasha, this replaces the 6.6-only v2.
+On 11/19/26 8:03 PM, Lee Jones wrote:
+> On Tue, 17 Nov 2026, Thomas Richard (congatec GmbH) wrote:
 > 
-> 79a2d4678ba9 ("Bluetooth: hci_core: lookup hci_conn on RX path on
-> protocol side") is in v6.18 and is already in bluetooth.git. These
-> diffs are for the stable trees that still lack it. They do not apply
-> to bluetooth.git HEAD, so the BlueZ CI apply check will fail. Please
-> review them for the stable branches.
+>> This is the 6th iteration. As discussed with Lee [1] I just picked his I2C
+>> patch [2] (to handle the conflict) and rebased the series on top of
+>> next-20261116.
+>>
+>> [1] https://lore.kernel.org/all/c9d26395-93f8-4e63-9cd0-586ce913931b@bootlin.com/
+>> [2] https://lore.kernel.org/all/20261027093306.2812695-27-lee@kernel.org/
 > 
-> 6.12.y already has l2cap_conn_hold_unless_zero() and
-> iso_conn_hold_unless_zero(). 6.6.y and 6.1.y have the L2CAP helper
-> only. sco_conn has no kref on any of the three, so SCO is unchanged.
-> hci_conn_get() does not pin sco_conn.
+> I assume this all needs to go in at once?
 > 
-> Booted KASAN guests, same racer (patch-test/repro.c):
-> 
-> - 6.12.119 unpatched printed slab-use-after-free in l2cap_recv_acldata.
->   6.12.119 with patch 1/3 finished 371 connect/auth/disconnect rounds
->   and printed no KASAN report. The racer exercises ACL, not ISO.
-> - 6.6.162 with patch 2/3 finished 123 rounds and printed no KASAN
->   report. That image is a build of this diff. The earlier #1 image
->   still contained the v1 SCO and ISO edits.
-> - 6.1.193 with patch 3/3 booted and completed one connection with no
->   KASAN report. The racer then lost sync with the virtual controller
->   (unexpected command-complete length), so it did not repeat the
->   6.12 and 6.6 stress.
-> 
-> Yu Junzhe (3):
->   Bluetooth: hci_core: lookup hci_conn on the ACL and ISO RX paths
->   Bluetooth: hci_core: lookup hci_conn on the ACL RX path
->   Bluetooth: hci_core: lookup hci_conn on the ACL RX path
+> So we just need the I2C Acks, then I can take the set and send out a PR.
 
-Why are these different subjects?
+Hi Andi,
 
-Also, don't send a patch series for different branches.  Please redo
-this, one patch per branch, and keep the changelog and subjects
-identical to upstream.
+Could you have a look to the I2C patches, Lee is waiting your ack to
+apply the series in his tree.
 
-thanks,
-
-greg k-h
+Best Regards,
+Thomas
