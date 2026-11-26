@@ -1,61 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795705809;
-	b=nNwh9WIrZpz9QqFo1YJ2dXku96leUVOsyHw0p6vDzaC40ethDCCDPiYx9FpVyWARaW+H
-	 kqbjt5OR9rzWrfuZ+8aXjSYHUPAK+akhVap9lWq1bZr3NjYegI7mljd1KQZckM9LcbDNu
-	 lfA8MOrkjaLF8AKmVOq2Uo/4N5P2Uu/JPnsfQodHKHieMIly7ocEXswttzEILgpky91y1
-	 8WEaa2/Ci3EuJjF5yuWrSQd0edW7Ee1SFxc1NhOsgbU85x/twEeLv0lCGrktK+t6NYEy7
-	 cQWcF3kEPksC4p/Zmu+QLBrt4GI75+vGvdL9NIx+ysXDa+1uZHGC+Dj+N1+1zBDGAjA==
+	b=ZPCcq9OeG2hK0HNkkevBTN+fuG9PTWAupXWF40h/G9EPuynN7GpSwoKe1TOEJJRFosp8
+	 IdWaKLp8A9rw91rK7TG2PEskNUGs9BEzcN9TKlfvy0hTX5pDJGvEYtB7g4FSX6QbDVCKT
+	 REgAITatcRKU0Tpp/8JTUM2uGfBYVBg4/Fm7y+Ym1sf5KfJ9ZXr5GL8lvno9ptP/qZtJg
+	 nknGDxv7lN1AKCSYv5QnjUY3k2qGjN78Exq058ykGaLwXqwF0+hQ/LXRI9DtrOvWezKGF
+	 lQqAUu8USFYF4AcOY1rroCmL5YT9Awk6J7kVIMVVm26s2cQsmAlZRkKiquh89buSIug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795705809;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=qgM5rMexZr8VKYBNrp4V4cYEtVBDgpwXCNRJ2t440pE=;
-	b=KRULp+S6uxXjmwXPuwEGMSyzcGAk2rvz0pKxIkjzVHZF2m/vjq82FFUYrjQngqCxjxBL
-	 q0h+nYqPxxZxm3pzOOrytAbHcQ2jLWuDPqi/qv9gK3WNIDEdV86SAdyJQYNrbxXPSki1n
-	 uwnengBIAuvHEiUTDjeY2pSpsQNS9JXl84cY9nTbg72KfOdWYvxkvaCSiS+dS43EebA4d
-	 eMjqg93gCxO10D0yucDyH8mz3nk8/F9c2ZONYd3FmIcquvui9ZQh++CUYQ/NtLT0j4rVE
-	 FxG1LVoaP0QgyaD0RB84nCwUASDapDmk0/WS+4vblP6kWUM18Wdua+Oe4uygY7rQq5g==
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=nve0oiWt3fDBEFLCLIFQKd/HP7O7o2kSx1+K6NEp3nc=;
+	b=rsTtR2dq2Wez4I1/oAXng9dPnOBdvRRWa3L9eXl5g2nvT8SbA1T4Yyw4VwSyvd5V3zWo
+	 b9nR+XJZjrOeomWJLk7l4TWtVjv1QHaN5nH5arwNdJTWHH7kro1jbfc05G2xgrHZvVFAw
+	 YCoam7+ubEXfYO4IC9k7PTuC4w42HCGeu0oCnNRisCLGZiOmF/QcKx1KsdnJ5tutLbom9
+	 qNpXzRfsmhiEDnOmPSOiQLfyQm6XDIr49j7yVeQqnvv1qndi7A8sIHzjJzGESVUpO5kIi
+	 fNWcpDQzsU5YM0RiVMEjX2+cXX8VA8Gf81XZiCua8D5gdl79/2s893HkSbyIauF+T7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Xo+HjfdN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aelEwF6A;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3CA0606A32A;
-	Thu, 26 Nov 2026 15:10:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23DC1606A332;
+	Thu, 26 Nov 2026 15:10:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Xo+HjfdN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15C441F000CA;
-	Thu, 26 Nov 2026 15:10:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795705808;
-	bh=qgM5rMexZr8VKYBNrp4V4cYEtVBDgpwXCNRJ2t440pE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Xo+HjfdNGvtHKH3AfKEwzk0AL+kx+7D0rLFgbW058jA0FLB2UcBhENNcNGW9VPsOt
-	 ajhxT8I2S350X7Zl0KvWtIvjsxzkcUhYdi9ueC9+LSRksjsIqmktzyC+CveaTWh7QL
-	 HLZWqRtJWq9IvNoKCVgB0zfzPxQQiNqFV0pCBk7I=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Mostafa Saleh <smostafa@google.com>,
-	Eric Auger <eric.auger@redhat.com>,
-	Pranjal Shrivastava <praan@google.com>,
-	Abdifatah Suruur <suruurism@gmail.com>,
-	Alex Williamson <alex@shazbot.org>,
-	Alexander Martyniuk <alexevgmart@gmail.com>
-Subject: [PATCH 5.15 315/319] vfio/platform: prevent read-only region mappings from becoming writable
-Date: Thu, 26 Nov 2026 15:41:23 +0100
-Message-ID: <20261126144013.871146235@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261126144006.732901931@linuxfoundation.org>
-References: <20261126144006.732901931@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aelEwF6A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE7E1F000CF;
+	Thu, 26 Nov 2026 15:10:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795705808;
+	bh=nve0oiWt3fDBEFLCLIFQKd/HP7O7o2kSx1+K6NEp3nc=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=aelEwF6A03r3YWdtYsLZPM9kvOmQFrhn7zpswNC32gfEfUBl5dMYRElCUEcYrhqGw
+	 z7FV1skppZDcvhD23+lrQHZMWdRCVsDh+NO907CHknnDvs1Qst45NWjW0gvhs9Dv+u
+	 TF3Ez5l5oRISNn+kARNT/g3+WaXqGFWDOnZfqjQa1vnMfi/cQSH08VRSBT5O6m/1gK
+	 9NJc8WNFyiozd40Dm78TkZCUjWCGcgC75/xwwNx6Gk9xCf8DfYhsAePkPwqu9LWxI5
+	 KC2N9En3vvNJd8so0VJgoZbqa5K7LLfvlVwG6zdlBR50aS3Schr+zCGfmpZht+w65E
+	 UuTB2L8hZeerQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B445E380A96C;
+	Thu, 26 Nov 2026 15:10:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,59 +54,63 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net 01/12] can: bcm: copy the CAN frames outside of
+ lock_sock()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179570580753.1889275.331318921844606497.git-patchwork-notify@kernel.org>
+Date: Thu, 26 Nov 2026 15:10:07 +0000
+References: <20261124085757.1093632-2-mkl@pengutronix.de>
+In-Reply-To: <20261124085757.1093632-2-mkl@pengutronix.de>
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
+ linux-can@vger.kernel.org, kernel@pengutronix.de, socketcan@hartkopp.net,
+ stable@vger.kernel.org
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+Hello:
 
-------------------
+This series was applied to netdev/net.git (main)
+by Marc Kleine-Budde <mkl@pengutronix.de>:
 
-From: Abdifatah Suruur <suruurism@gmail.com>
+On Tue, 24 Nov 2026 09:51:28 +0100 you wrote:
+> From: Oliver Hartkopp <socketcan@hartkopp.net>
+> 
+> bcm_sendmsg() copies the CAN frames of TX_SETUP, RX_SETUP and TX_SEND
+> from user space while holding lock_sock(). A copy that faults or
+> stalls, e.g. on a FUSE backed mapping, holds lock_sock() for its whole
+> duration.
+> 
+> [...]
 
-commit 420bed9131dbbe37abe9d6b32af51219875811e0 upstream.
+Here is the summary with links:
+  - [net,01/12] can: bcm: copy the CAN frames outside of lock_sock()
+    https://git.kernel.org/netdev/net/c/a2bdc43c05f9
+  - [net,02/12] can: bcm: do not remove the procfs entry in bcm_notify()
+    https://git.kernel.org/netdev/net/c/2caf66eca1bc
+  - [net,03/12] can: raw: use a private mutex instead of lock_sock()
+    https://git.kernel.org/netdev/net/c/f7c5b6e19684
+  - [net,04/12] can: isotp: use a private mutex instead of lock_sock()
+    https://git.kernel.org/netdev/net/c/c781fc329528
+  - [net,05/12] can: bcm: use a private mutex instead of lock_sock()
+    https://git.kernel.org/netdev/net/c/bcea265a4c04
+  - [net,06/12] can: isotp: always start the rx timeout in ISOTP_WAIT_DATA state
+    https://git.kernel.org/netdev/net/c/4b558c0ccb62
+  - [net,07/12] can: isotp: reject socket options while a transfer is active
+    https://git.kernel.org/netdev/net/c/da0eaf6fd9bb
+  - [net,08/12] can: netlink: fix static FD-NON-ISO mode validation
+    https://git.kernel.org/netdev/net/c/36da93199869
+  - [net,09/12] can: netlink: fix IFLA_CAN_BITRATE_MAX attribute sizing
+    https://git.kernel.org/netdev/net/c/0bfb76b7c927
+  - [net,10/12] can: netlink: fix CAN XL PWM attribute sizing
+    https://git.kernel.org/netdev/net/c/3949d692d646
+  - [net,11/12] can: gs_usb: gs_can_start_xmit(): don't leak uninitialized memory over USB
+    https://git.kernel.org/netdev/net/c/4dfaa1160683
+  - [net,12/12] can: flexcan: Fix probing for m68k/coldfire
+    https://git.kernel.org/netdev/net/c/869199293237
 
-vfio_platform_mmap() rejects writable mappings of regions without the
-WRITE flag, but leaves VM_MAYWRITE set.  Userspace can map such a region
-read-only and then upgrade the mapping to writable with mprotect().
-
-Clear VM_MAYWRITE for regions without the WRITE flag, as i915 does for
-its read-only objects and as fixed in drm/vc4 (CVE-2026-68445),
-drm/panthor (CVE-2024-53071) and commit a5edadbae57e ("ptp: vmclock:
-prevent read-only mappings from becoming writable").
-
-Note this is defensive hardening: no in-tree platform driver currently
-publishes a region without the WRITE flag.  The guard costs nothing and
-keeps the mmap() interface honest if a read-only region ever appears.
-
-Fixes: fad4d5b1f042 ("vfio/platform: support MMAP of MMIO regions")
-Reviewed-by: Mostafa Saleh <smostafa@google.com>
-Reviewed-by: Eric Auger <eric.auger@redhat.com>
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
-Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
-Link: https://lore.kernel.org/r/20260929094848.7439-2-suruurism@gmail.com
-Signed-off-by: Alex Williamson <alex@shazbot.org>
-Signed-off-by: Alexander Martyniuk <alexevgmart@gmail.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/vfio/platform/vfio_platform_common.c |   10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
---- a/drivers/vfio/platform/vfio_platform_common.c
-+++ b/drivers/vfio/platform/vfio_platform_common.c
-@@ -603,9 +603,13 @@ static int vfio_platform_mmap(struct vfi
- 			&& (vma->vm_flags & VM_READ))
- 		return -EINVAL;
- 
--	if (!(vdev->regions[index].flags & VFIO_REGION_INFO_FLAG_WRITE)
--			&& (vma->vm_flags & VM_WRITE))
--		return -EINVAL;
-+	/* Prevent read-only region mappings from being upgraded with mprotect() */
-+	if (!(vdev->regions[index].flags & VFIO_REGION_INFO_FLAG_WRITE)) {
-+		if (vma->vm_flags & VM_WRITE)
-+			return -EINVAL;
-+
-+		vma->vm_flags &= ~VM_MAYWRITE;
-+	}
- 
- 	vma->vm_private_data = vdev;
- 
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
