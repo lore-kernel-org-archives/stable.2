@@ -1,78 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795657335;
-	b=s1ird6QnzTjc6OUbAkWwHyTzQJ3A/lT1OjUIwxYDn/kVGEDi1HsbP88RVw/mYiQfDtU/
-	 YFRP6oDZ203MZR9HP0DkCKBmS+XmA30nfJPIY00MjfvytAtijLIBWKhjSNMXbgQAg18/Q
-	 aLXV4eyG/zJVQQjiyT9FLurDh/8HIy8CMrlsp4bpB8KztnNqUFzoQJ3yzY0ObmrF+9pZs
-	 IJcSk+tVuRVwNEikYKT76HWUMBIkqhNSi5tHbMd10OfPq7U6OKF7IqorK6/dVLNDJ90eg
-	 +etruGFTy+sqWXSEfBNKj/3Td8oZMjfPbJnmOBdzOw9uEQ/nDa3A4x94C+ea0KTq0xg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795657335;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=A7MK+0JZdOCZ6OteoBzUeiNtDWO9oGxvpaMs7GXGdz4=;
-	b=ghztrcd/+M2ldrfpmfqMJL5pcnuBKV39yBpdPFMp/j4fuLu1LuUXqZSMb+Aehe4bywNx
-	 dQ7AZUiUyvlBp1IfRusRj2bt7wdBIELLavz2PYAAU2rW6poe5aq1tr1AwzBAS1muFUR1B
-	 +RMP9SLpC97UxbcYGik1X6/ku5QMIw78IeeQqSkxyvfs8hJcS3Izw0rIqTuiAjmW7Cx9K
-	 8JWdBSYG+dzN/NakRmd0nw/CTVR++Y4+YDdEVsrdwjuKc/tStfWw3d3jkOB7G1sQ2bkUH
-	 MdqnOhpcXMeSpXoCh9E21r3WRuQCa8DA2tx/Hia3+y3PiJSj01BVDXVwRnvDoHaXjxw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YfAFamKX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DEA2606A31E;
-	Thu, 26 Nov 2026 01:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YfAFamKX
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795657334;
-	b=3PhUZtdNjXuHioMjRsF6t0whFkD51teSwjH04pzuJJQtzQqgXJAE3bERMeFqf6tkpCNt
-	 /ty0O2G0FItCAjCN6Oit5MxaBFbNkGGi07cZ6uAo6KowcT9qiEyUrmQTbWLyXNMuRfc0A
-	 1g1TiVlcWSJTDkXNcoOGYlJQCxPibKL2f9QZ5ZMxZuuZAiIUwAraHI5LNpPiCV4/USlvG
-	 MM6idNZKdkKXHkmmsDAcE16nANqzgMqPojcsGsxkdp1sfqIzfNaqI6vlWxFPDzWp8QEGn
-	 WUKMcjtKl0Qg2nPMnQtXQ2QScsaPa/JdAxzzi1UKnYqaZ0aTvucPNy8XUI6vgYmUiAg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795657334;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=A7MK+0JZdOCZ6OteoBzUeiNtDWO9oGxvpaMs7GXGdz4=;
-	b=m1Sv3XtwglRNwNe2LbA07PnCBivDejYf+qYwotJNBjYB65BuZNV0R2K/MBaeJWHsMd/7
-	 GzI9pgM1zauS6kpEUbwUxg+TiDt2Tj0wRx6sFd6r6L1xnrgmxj3FJCK6J0slokQ5s+adW
-	 TpBsj1NNCi9hS96vSUXCN6LE7UwzX3qxmNr01ApPbS6X/hPvjz8GjuM2acXeNMdJvXFbL
-	 xxsU2Vj98GnUBeUs/VtqfVQI3FWz21Fe6y5WABRHgCMbTwAfQKwj+T0K8FZlOxD8ExEhI
-	 E3a4kMxsWeLgsym02L8JQPwgt+8R39j7ilkSzNF+UmBxrntKwI7Hw+zyk8MVh3/d2Bg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.226
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795657416;
+	b=ZyNwthcTIXTRUt6Z6y6RdRQKiU+3mBMAA7KbJ+ZslVhgxTWs2sGa7kHyM5cbHc2+zESr
+	 2FBFuSPvlVxNU/fxIVjcQi1BX5g/c274iq7BXCHFnwoE5OP/p3M1XKOWKESp/daNsx+5P
+	 /YZyjkATC0HZO9rN4PsGyBouEZqHsSZT643T42Nkt7uTPIpvKYYw/2xHbppeK/B70fpUb
+	 Hx67bRdZymMRbpfDzdEG6tH1T+ynOlaLkLNFIi7Gmt13E0e4SH2Qb8Llghl4sT2ka3n9j
+	 OnwGqDZnRfZJPCG9CDAHSjf7cixhAs1zmZFP/QcVF245tAtXtRTTq+aowSh6J9WSFjQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795657416;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8IuEO7UE2YPsr6kQNPAUlV208dDrufnV7pr9TuunrwU=;
+	b=pPbJ04UjgYSkOkNHN+wQEzsvz87y6DfxooednDd8sUkz/tCpw7J5PAWHAZaHna8jc0xZ
+	 Jz3TgfI52NKQrYg2+O2oNe15PuHgKj7OFutXdeu7GH/dTNacBs0x7wzL28gtfBgipWWAe
+	 hu+UeKJay16I2606lENn76axyPYVKDlMv9no/Cqb708Fw8EhrcLJSxMjDVADJEdfWr3pY
+	 XOJ5EVo4yig6YEJOWNYRo+j/+gz0CgACKsDEEgFkcO0g99560u1gqmmfItDPiQjTejkQ8
+	 w/KRGjd2Qk9K29jwACXKr13J5UJTm909ZsvYqys8Le1KIM4qO5daeyZkfV30b7YXoNQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=LfygWFme;
+	arc=none smtp.remote-ip=74.125.82.226
+Received: from mail-dy1-f226.google.com (mail-dy1-f226.google.com [74.125.82.226])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 37DE61F000C4;
-	Thu, 26 Nov 2026 01:42:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795657334;
-	bh=A7MK+0JZdOCZ6OteoBzUeiNtDWO9oGxvpaMs7GXGdz4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=YfAFamKXxrRpAqL9t+wh3NrO3b2Ab6wtCI2Jjm5WbrH5pBsKjwU3DlH9b9ASSoSW/
-	 aHIlxV9UpbfEN3oG/y2mGaToAKvSiYqAoDjPzpgB7eJMF5KITgW0o5ES+B8wyFawMr
-	 KvZxaMY3r10olDU6GApzllrgJGM3MYfDBi/g2jTsD1pLJ3RSO3TdYvyB6hFcUFyeyD
-	 c5aDlt67/fMtX/LOLPdqwNDkCVK5J3SSnPHVWJGw/Nq75uBYSBSy4qBGbidZCXLtnT
-	 mxu3d4qwLEg+SGkGRmO/Z4knovHQTyiAGS+O19wy80/AqqFpFsdltbLUYnN/reRbqj
-	 GluAhVvCOMCWA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BD4C44D164;
-	Thu, 26 Nov 2026 01:42:03 +0000 (UTC)
-From: Brad Fitzpatrick via B4 Relay <devnull+bradfitz.tailscale.com@kernel.org>
-Date: Thu, 26 Nov 2026 01:42:04 +0000
-Subject: [PATCH] KVM: arm64: GICv3: Keep active LPIs in the LRs
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618A9606A32C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 01:43:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 618A9606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=LfygWFme
+Received: by mail-dy1-f226.google.com with SMTP id 5a478bee46e88-3866a784546so8821241eec.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:43:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1795657415; x=1796262215; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8IuEO7UE2YPsr6kQNPAUlV208dDrufnV7pr9TuunrwU=;
+        b=LfygWFmesZKKfM8+8Ky9IjZuIRANhsNbfh2Xy8WPJVf2zC/b7ecZoMEtERRuiTeh8P
+         CkDHvZDrCMJedrVyfZaJ9zc7pGMGcBNjBo1PNM0/wL0Wod7iBIXgSyNkyrX/aIq+wXYu
+         mBIJD0A3OIQDehbTN8GfWQchcZAoID/aYkpel+blHSaZFQ3IVVo8XniZdVgRu8u7K/1E
+         ZNqTbF2ZPnsh6toxBjIT2GWb75wD57NMAQrZ3rLmYgGUHDtgN9EmbftVd12I/eab3NVG
+         gfjjT5uXFbR7sMXKvdLBV9qfmHktvM5uldH7LgGTG5hHD5V05YJD/O7xLpChNk6oXeEb
+         gkuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795657415; x=1796262215;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8IuEO7UE2YPsr6kQNPAUlV208dDrufnV7pr9TuunrwU=;
+        b=MKa1n0zV455MaoerxzZyie7pqVgHyipPjmLpWUmDVQq36pIfEupc3yYrkXEZbcRlyX
+         ZY+JygWfPZ2gQ8ZDTc2bh4MKsHxFXOAHzck/AVoEUu3HHzjBJGBQgzhbq6iJDV/aMF8h
+         MjnYqOP6PodjAKfWvTCrkuonokusfnT9+KWjStdlTWhGFhUkKE1PvXfKALYLtFDZjCxg
+         hMvf05pXsXJCV6xjXHQ79BgW8maEEhVfs0plrGXif7wutZXWd6HIyIKsxzDSLsvk1Yr7
+         l8gK4IQDnsNbRlnWzzi81/OwklYa+B8xlmTph3FgM9aokm+3tvdu7/I/6mDvjMhiTgPC
+         PFjA==
+X-Forwarded-Encrypted: i=1; AL+hErHir1YpbsDFn5xGgVQxbQRUOjxOt6e2FXv1ZbjYsWtzqUqRjDFg+A8ouaOO0tlJYLpuGyXHMBc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ysAkPaeAFDYPebbGCrtytV7cS9dForDVEMnEeIQxDVdbR0gFd
+	ImDeUABwceyf+58ifR2JB0uyJm6kbH2SPX09dErcXzl++HbOwJQPZ42ZOVKsqCyns3zxSlyYJaC
+	7vzgVZTTQJqc0U7GngP6H1jE7lMEvQRCQzFFP
+X-Gm-Gg: AZFdTZem+4/sFj0zWv8zKRSavoo7nXAg88kvsBpBVx6p5raze5Rx0ZuhlZA4IOU3ca2
+	MqfmU62EO2ReGlN9uIFW+N1++qp0fNM3MQt1ywvJre7savu3yKUzkmLeytvyl+BkxiVL4uY5IJV
+	khGmuvMWV7bbPrJOcapPqLhXyz0BywGTzoJI5UL2hgqPAL5jagJvGV//50qBnWArAnpIy3zviry
+	wqlqlW/CbJsDMOOSkw9mlsWxCxwJOE8rUfmNUAVMSL6f6gAH7ghn1fBAjTlYsEf1tMTBWyn5JGC
+	fdyKKufYBceUV9BF1fz86tCPNdIYjIj+FqFwh/usmSyHNAEZFM2R82Rodk/XHUT0PM/bD6SRSvE
+	Jpsgk27x/K6SdvBie33HOkLcIhBDlT+rNV7w=
+X-Received: by 2002:a05:7301:2e30:b0:376:19bd:2af9 with SMTP id 5a478bee46e88-3856c2c4a0dmr22218236eec.5.1795657415329;
+        Wed, 25 Nov 2026 17:43:35 -0800 (PST)
+Received: from c7-smtp-2026.dev.purestorage.com ([208.88.159.128])
+        by smtp-relay.gmail.com with ESMTPS id 5a478bee46e88-38566cd605dsm2953154eec.12.2026.11.25.17.43.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 17:43:35 -0800 (PST)
+X-Relaying-Domain: purestorage.com
+Received: from dev-rjethwani.dev.purestorage.com (dev-rjethwani.dev.purestorage.com [10.17.2.234])
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 834BB400B7;
+	Wed, 25 Nov 2026 18:43:34 -0700 (MST)
+Received: by dev-rjethwani.dev.purestorage.com (Postfix, from userid 1557719937)
+	id 80281DC0C28; Wed, 25 Nov 2026 18:43:34 -0700 (MST)
+From: Rishikesh Jethwani <rjethwani@purestorage.com>
+To: netdev@vger.kernel.org
+Cc: Rishikesh Jethwani <rjethwani@purestorage.com>,
+	stable@vger.kernel.org,
+	John Fastabend <john.fastabend@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Simon Horman <horms@kernel.org>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Alice Mikityanska <alice.kernel@fastmail.im>
+Subject: [PATCH net v7 1/3] tls: fix socket use-after-free during device-down
+Date: Wed, 25 Nov 2026 18:42:42 -0700
+Message-ID: <20261126014327.1638133-2-rjethwani@purestorage.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261126014327.1638133-1-rjethwani@purestorage.com>
+References: <20261126014327.1638133-1-rjethwani@purestorage.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,225 +112,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261126-bradfitz-kvm_lpi_active-v1-1-9ff28176bf66@tailscale.com>
-X-B4-Tracking: v=1; b=H4sIAGuOB2sC/yXMQQqDMBBA0avIrBtwUlDwKqVIMpnU0WolSUOpe
- PfGunyL/zeIHIQjdNUGgbNEeS0FeKmABrM8WIkrBl3rBlE3ygbjvKSvmvLcP1fpDSXJrLj2V2o
- dGksIpV4De/n8z7f76fi2I1M6drDvP2uisdh7AAAA
-X-Change-ID: 20261126-bradfitz-kvm_lpi_active-e0f3c7d1abc1
-To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
- Steffen Eiden <seiden@linux.ibm.com>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Zenghui Yu <yuzenghui@huawei.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
- stable@vger.kernel.org, Brad Fitzpatrick <bradfitz@tailscale.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795657323; l=9811;
- i=bradfitz@tailscale.com; s=20261011; h=from:subject:message-id;
- bh=BipltIb3Lr8cSMMj0mxE4M1WaC2QTa+l/ibW/HJbl7w=;
- b=la6OSwzvf+EEB6WnO34xzCyVLZjdkBGux0smwdqe6xbHThMaL04cxuyLvxOZbjCRhf8SNeS4E
- n3+qQqrguYrDyzZ4fnneNmQ+/Onaykq2fIV9++zhTdKSphOor3M4wUA
-X-Developer-Key: i=bradfitz@tailscale.com; a=ed25519;
- pk=RL25YdOUenVJzQaiZDrw/Aqu9ZEwUQBon30yMHGsIKY=
-X-Endpoint-Received: by B4 Relay for bradfitz@tailscale.com/20261011 with
- auth_id=1152
-X-Original-From: Brad Fitzpatrick <bradfitz@tailscale.com>
-Reply-To: bradfitz@tailscale.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Brad Fitzpatrick <bradfitz@tailscale.com>
+tls_device_down() takes a reference on each TLS context, then drops
+tls_device_lock before setting ctx->sk->sk_validate_xmit_skb to
+tls_validate_xmit_skb_sw(). The socket can be freed in between:
+tls_device_sk_destruct() calls tls_device_queue_ctx_destruction(),
+which drops the socket's context reference but does not free the
+context because device-down still holds one, and __sk_destruct() then
+frees the socket.
 
-Since commit 73c9726975af ("KVM: arm64: GICv3: Drop LPI active state
-when folding LRs"), the active state of a virtual LPI is discarded on
-every exit. If the guest has acknowledged an LPI but not yet EOI'd it
-when an exit happens, the LPI is then pruned from the ap_list, and the
-guest's subsequent EOI targets an INTID that is not in any LR. KVM then
-relies on the virtual CPU interface performing the priority drop
-regardless.
+Set sk_validate_xmit_skb while walking tls_device_list under
+tls_device_lock. tls_device_queue_ctx_destruction() takes the same lock
+to drop its reference and remove the context from the list, so the
+socket cannot be freed before the store completes.
 
-That doesn't hold for Apple's emulated GICv3 interface, as exposed by
-macOS Virtualization.framework to a Linux guest running with nested
-virtualization (M3 and later, e.g. "tart run --nested"). There, an EOI
-of a vLPI that has no LR leaves the corresponding ICH_AP1R0_EL2 bit set.
-The running priority of the vCPU stays at the LPI's priority forever,
-and since Linux uses the same priority for all of its interrupts,
-nothing is ever delivered to that vCPU again. The nested guest's CPU
-spins on WFI, with KVM seeing pending interrupts and waking it up over
-and over (about 30k WFI exits per second), while the guest itself
-reports a hard lockup on that CPU. With a 2-vCPU Debian guest, this
-happens within the first minute of boot, every time.
+Checking sk_refcnt instead would not work: it can already be zero while
+queued SKBs still hold sk_wmem_alloc and need the software fallback.
 
-The architecture is arguably ambiguous here: the ICV_EOIR1_EL1
-description says that a write "drops the priority for the virtual
-interrupt" and the VirtualWriteEOIR1() comment says "just priority drop
-and return", but the pseudocode itself only drops the priority on that
-path if the IMPLEMENTATION DEFINED "Drop before checks" behaviour is
-implemented (Arm IHI 0069E, 9.20 Pseudocode).
+Found by code inspection. An ASan harness running the extracted teardown
+functions with userspace shims reproduces the UAF before this fix and
+passes afterward. Tested on Mellanox ConnectX-6 Dx (Crypto Enabled).
 
-Avoid depending on this when we don't have to: keep the active state of
-LPIs when folding the LRs, so that an acknowledged LPI stays in its LR
-until the guest EOIs it, as was the case before v6.19. The only LPIs
-whose active state is now dropped are the ones that don't make it into
-the LRs, which is where EOIcount can't track their deactivation. On
-implementations like Apple's, that case still relies on the priority
-drop, but it now requires LR overflow instead of a single exit at the
-wrong time.
-
-Tested on Apple M5 Pro, M4 Pro and M1 Macs and on AWS Graviton3.
-
-Fixes: 73c9726975af ("KVM: arm64: GICv3: Drop LPI active state when folding LRs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Brad Fitzpatrick <bradfitz@tailscale.com>
+Fixes: c55dcdd435aa ("net/tls: Fix use-after-free after the TLS device goes down and up")
+Cc: stable@vger.kernel.org # needs commit f08d8c1bb97c ("net/tls: Fix race in TLS device down flow")
+Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
 ---
-This is a bug report in the form of a vibe-coded patch, which came out of
-me asking Claude to bisect why my Linux kernel upgrade broke nested virt
-on my Mac mini Proxmox cluster. Things worked fine with
-proxmox-kernel-6.17 (6.17.13-1-pve), but every kernel option after that
-(7.0.14-30-pve, 7.3.5-1-pve, mainline 7.4-rc4) was busted: Linux guests
-of the Proxmox node hang during boot with a hard lockup on one vCPU.
+ net/tls/tls_device.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-Claude bisected it and tested this patch, which makes Proxmox nested virt
-work on my Mac minis again (both M5 Pro and M4 Pro minis).
-
-Claude slop text follows. I don't claim to know any of this. You're
-welcome to ignore this patch entirely and fix it in a proper way.
-
-The setup: macOS's Virtualization.framework (via Tart, "tart run
---nested") runs an arm64 Linux VM with EL2, which runs KVM in nVHE mode
-as a Proxmox node; that node runs a Linux guest. The vGIC in the middle
-VM is Apple's emulated GICv3 CPU interface (ICH_VTR_EL2 = 0x90580007,
-8 LRs, 5 priority bits, TDS set).
-
-What goes wrong, per instrumentation of the middle kernel: the stuck vCPU
-has ICH_AP1R0_EL2 = BIT(24), i.e. an active priority of 0xc0, with no
-interrupt active in KVM's view, and all four used LRs still holding
-pending interrupts (timer PPI 27, SGIs 1 and 6, an LPI). Since Linux uses
-0xc0 for all of its interrupts, nothing is ever delivered again; the vCPU
-spins on WFI about 30k times per second with KVM waking it every time.
-Logging every time vgic_v3_fold_lr() discards an LPI's active state shows
-that it happened exactly once in a hung run, on the vCPU that then got
-stuck, for virtio-blk's MSI at priority 0xc0.
-
-So the guest's EOI of an LPI that is no longer in any LR doesn't drop
-the priority on Apple's emulated GIC. The patch keeps active LPIs in the
-LRs, as before v6.19, and drops the active state only of LPIs that don't
-fit in the LRs. Details are in the commit message.
-
-This looks specific to Virtualization.framework's emulated GIC, not to
-Apple silicon: on an M1 MacBook Pro running Asahi Linux on bare metal,
-with Fedora Asahi Remix's stock 7.3.4 kernel (which includes
-73c9726975af1), the same Debian sid guest under QEMU/KVM, using the ITS
-and LPIs, booted fine 4/4 times with 2 and 4 vCPUs. So M1's hardware vGIC
-does the priority drop.
-
-Testing:
-
-  - Nested (KVM in nVHE mode in a Tart VM), QEMU guest (Debian sid, 2
-    and 4 vCPUs), M5 Pro Mac mini on macOS 27.0: unpatched 7.4-rc4+ hung
-    5/5 boots, patched booted 4/4.
-  - Same on an M4 Pro Mac mini on macOS 26.6.2: unpatched hung 2/2,
-    patched booted 4/4.
-  - Nested, real Proxmox VE 9.2 node on the M5 Pro, booting a Proxmox
-    guest (Debian sid): 6.12 and 6.17.13-1-pve boot, 7.0.14-30-pve hangs,
-    and patched 7.4-rc4+ built with Proxmox's full config booted 4/4 (2
-    and 4 vCPUs), with the node's cluster and Ceph services healthy.
-  - Bare metal M1 (Asahi, Fedora's 7.3.4-401.asahi.fc43 source): boots
-    4/4 both unpatched, as above, and with this patch applied on top.
-  - Bare metal AWS Graviton3 (c7g.metal, Neoverse-V1, GICv3 with ITS, 4
-    LRs), mainline 4dce97c6c265 with and without this patch, each in VHE,
-    nVHE and protected mode:
-      - KVM selftests: identical results with and without the patch in
-        every mode (VHE and nVHE: 40 pass, 9 skip, 0 fail; protected: 37
-        pass, 10 skip, 2 fail, where vgic_init gets EINVAL instead of
-        E2BIG and mmu_stress_test times out, both without the patch too).
-      - vgic_lpi_stress at up to 16 vCPUs and 64 devices: passes.
-      - Debian sid guests with 2, 4 and 16 vCPUs and 32 virtio-blk
-        queues under O_DIRECT read load: boot and finish, no stalls.
-      - To exercise the LR overflow path with active LPIs: a local copy
-        of vgic_lpi_stress whose guest handler spins between ack and EOI,
-        with a kprobe on vgic_v3_configure_hcr() histogramming the
-        ap_list summary on every guest entry. With this patch, the LRs
-        overflowed while LPIs were active 904 times (VHE), 376 (nVHE) and
-        344 (protected), and all 160 runs passed. Without the patch that
-        count is always 0, since LPI active state is dropped on exit.
-
-Not tested: kvm-unit-tests, GICv4.1 direct injection (KVM reported
-"GICv4 support disabled" on the Graviton3), and any non-Apple, non-AWS
-hardware.
----
- arch/arm64/kvm/vgic/vgic-v3.c |  4 +---
- arch/arm64/kvm/vgic/vgic.c    | 26 +++++++++++++++++++++-----
- 2 files changed, 22 insertions(+), 8 deletions(-)
-
-diff --git a/arch/arm64/kvm/vgic/vgic-v3.c b/arch/arm64/kvm/vgic/vgic-v3.c
-index 65b77fb35be37..ba50809f66928 100644
---- a/arch/arm64/kvm/vgic/vgic-v3.c
-+++ b/arch/arm64/kvm/vgic/vgic-v3.c
-@@ -90,9 +90,7 @@ static void vgic_v3_fold_lr(struct kvm_vcpu *vcpu, u64 val)
- 		return;
+diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
+index fa7170cd4fd1..3ea764bdc949 100644
+--- a/net/tls/tls_device.c
++++ b/net/tls/tls_device.c
+@@ -1345,6 +1345,11 @@ static int tls_device_down(struct net_device *netdev)
+ 		    !refcount_inc_not_zero(&ctx->refcount))
+ 			continue;
  
- 	scoped_guard(raw_spinlock, &irq->irq_lock) {
--		/* Always preserve the active bit for !LPIs, note deactivation */
--		if (irq->intid >= VGIC_MIN_LPI)
--			val &= ~ICH_LR_ACTIVE_BIT;
-+		/* Always preserve the active bit, note deactivation */
- 		deactivated = irq->active && !(val & ICH_LR_ACTIVE_BIT);
- 		irq->active = !!(val & ICH_LR_ACTIVE_BIT);
- 
-diff --git a/arch/arm64/kvm/vgic/vgic.c b/arch/arm64/kvm/vgic/vgic.c
-index fe09ada322625..05459d662965c 100644
---- a/arch/arm64/kvm/vgic/vgic.c
-+++ b/arch/arm64/kvm/vgic/vgic.c
-@@ -1013,11 +1013,13 @@ static void summarize_ap_list(struct kvm_vcpu *vcpu,
-  * - Virtual LPIs have an active state (surprise!), which gets removed on
-  *   priority drop (EOI). However, EOIcount doesn't get bumped when the LPI
-  *   is not present in the LR (surprise again!). Special care must therefore
-- *   be taken to remove the active state from any activated LPI when exiting
-- *   from the guest. This is in a way no different from what happens on the
-- *   physical side. We still rely on the running priority to have been
-- *   removed from the APRs, irrespective of the LPI being present in the LRs
-- *   or not.
-+ *   be taken to remove the active state from any activated LPI that doesn't
-+ *   make it into the LRs. This is in a way no different from what happens
-+ *   on the physical side. Active LPIs that fit are kept in the LRs, as some
-+ *   implementations (such as Apple's emulated GICv3 under nested virt)
-+ *   don't perform the priority drop for an EOI of a vLPI that has no LR,
-+ *   leaving the running priority stuck forever. Overflowing the LRs with
-+ *   active LPIs still relies on the priority drop.
-  *
-  * - Virtual SGIs directly injected via GICv4.1 must not affect EOIcount, as
-  *   they are not managed in SW and don't have a true active state. So only
-@@ -1059,6 +1061,20 @@ static void vgic_flush_lr_state(struct kvm_vcpu *vcpu)
- 			break;
- 	}
- 
-+	/*
-+	 * Active LPIs left out of the LRs can't be deactivated by EOIcount, so
-+	 * drop their active state. See the LPI rules above.
-+	 */
-+	irq = *host_data_ptr(last_lr_irq);
-+	if (irq) {
-+		list_for_each_entry_continue(irq, &vgic_cpu->ap_list_head, ap_list) {
-+			if (irq->intid >= VGIC_MIN_LPI) {
-+				guard(raw_spinlock)(&irq->irq_lock);
-+				irq->active = false;
-+			}
-+		}
-+	}
++		/* Stop offloaded TX and switch to the fallback.
++		 * tls_is_skb_tx_device_offloaded will return false.
++		 */
++		WRITE_ONCE(ctx->sk->sk_validate_xmit_skb, tls_validate_xmit_skb_sw);
 +
- 	/* Nuke remaining LRs */
- 	for (int i = count ; i < kvm_vgic_global_state.nr_lr; i++)
- 		vgic_clear_lr(vcpu, i);
-
----
-base-commit: 4dce97c6c265544342e716e62fd24bbb232590c5
-change-id: 20261126-bradfitz-kvm_lpi_active-e0f3c7d1abc1
-
-Best regards,
---  
-Brad Fitzpatrick <bradfitz@tailscale.com>
-
+ 		list_move(&ctx->list, &list);
+ 	}
+ 	spin_unlock_irqrestore(&tls_device_lock, flags);
+@@ -1352,11 +1357,6 @@ static int tls_device_down(struct net_device *netdev)
+ 	list_for_each_entry_safe(ctx, tmp, &list, list)	{
+ 		bool free_ctx;
+ 
+-		/* Stop offloaded TX and switch to the fallback.
+-		 * tls_is_skb_tx_device_offloaded will return false.
+-		 */
+-		WRITE_ONCE(ctx->sk->sk_validate_xmit_skb, tls_validate_xmit_skb_sw);
+-
+ 		/* Stop the RX and TX resync.
+ 		 * tls_dev_resync must not be called after tls_dev_del.
+ 		 */
+-- 
+2.50.1
 
