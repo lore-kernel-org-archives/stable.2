@@ -1,97 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795679760;
-	b=OjJ4t/CWpFu0es8MtBuZrWTYt9kQrKNt34BSP4cvOr902Sgtjm2sqVc+WvHhbLaQviQp
-	 za69hQzVCRPifyAD6kY7u7Nj/Ro+RFnhRubwc9D8v+fXMVd3K+isz+GSZfesvv/C8DZGT
-	 GXSd3WbuVXYXDmpb4Zpeqvmt5wophBZXLxeoGTjmBH8yE9SSpUNqR2B625h7SRl95XNfJ
-	 NQSiaZm0zVKi/OQFjunRsysxNn95sGik1i30P8C/FyRgNbscXp0lEBNvAY2Q83cbfrrZg
-	 8dwR5pmy1fXyty5VALVHjRDYe2ob9PCdIvUiSkWhxp5k5XbfG1MvAMoHkL6sOwQgCNA==
+	t=1795679772;
+	b=z6hSxb2sgEevHkl3xAo/7YPammG17uje+pWZ13IJWOmWu/0p3uY7bmqzZzzoTYKcMv86
+	 e1ZMx/J4ySV5CE24oFDrDY6x8u6ivWJDH62f/36yCQvNp8S7Txx6TveMPnhM6/xAWP1ZD
+	 ovhFFNEcYH66ZNspOLbmrJrk8xshcbdROgRVRejsnL77roV3gqbJCPcVWxupqsdOZErC3
+	 qHv97Zdjh3kOQZ8X9UdB20gniKr5O0dwddvPIn2n14n8KaVMhlDe1UvXZfAshoZZN2G+x
+	 bIlVPXZ6/zIUqjYHFqAi3P61q5qdPLTUFsITbNgQDz9uiu53F2/9quG2MbbUshb+wZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795679760;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=crXowXqxLPttCCSWDd6acmRioxTezv7WhIgrsEki5Js=;
-	b=ASbYxq/IHP+RMxMihO2OKgyXulmhJQUdk/mUZKY3tPPmdItpx7537142OJguJZufW9tF
-	 dGp1XmrtHcA/cB6l/CKoJtsRoXPB2lmi4v2QyHuXsqX3SWWbK642An/GwOZHI0rAS6ucG
-	 W1QtbuALOFexgd1FKcL5U1HSyp4m3ioEwytoHmb5JSg6WZ6l12bfpamyGFIp6NrbjAPt/
-	 O1vpyYjYBMUhX0TDlbACs2WQoaLAm/q9segCe3nOFtw9JtH0SbRViS2szdGYoWDO3LILN
-	 mkpHK7Lq70yaD0OaYapCAjXO5QCTA+/y92huPZzciXV+/tAE00/syvfrbFlk5Jyoc/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795679772;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=t1vybqbqAIY5ttKg7OTFZsrfdL51sIR48bUIWxH8R10=;
+	b=YoyCgWosUNrlFm21wsZz8xte/ihjG7EIagaimmI1xtbZ4jsmRGC0hCWWLSRPenNmduK3
+	 vdbm2pe0s9XHkV94kYUx8kBGuIxbonImWorHUpNdwXdtB96DLxOTEhSuAkC7K9ZkRxncO
+	 ZCjbafF7IQSCtIWdIIpjQjd9l2R/INZfcJ+Cc5DiweOMn71Wovjqd9euKBAbofzgzRq2p
+	 mCKz7U4arGExG5rHlQJg6ZVXy+alkpDvvrblXg2L0PteBUAhI6aO8gPM30p6S63zIVyZQ
+	 fxaY6Ea3dLxyfu48rW/MADneVH6qXJBkv9kKwUh9IUZGSnRpvXCH5uYiRgxtnEdx+Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zY+l7WzD;
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7BMaJNs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E9A606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 07:56:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50E9A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2AF6606A31C;
+	Thu, 26 Nov 2026 07:56:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zY+l7WzD
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3b083afebe4so813201a91.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 23:56:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795679759; x=1796284559; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=crXowXqxLPttCCSWDd6acmRioxTezv7WhIgrsEki5Js=;
-        b=zY+l7WzD5y5mzETCJxz11WJCxbTXZDWG3udmbzxJzLUdjioJkIhkRQyIQv/+E1VPSq
-         BqXFqve1CzY3fH43KkKfYEAaKk8NISHzXLZYNpP5CnOiCMQsrqxFBaI/ETWPAUv4lHhz
-         ResksybXRFO0H/dNmBpDOjXEMCP/Cn+tOW4oVhRrgLaOP0gbFL2i6YYnPvUGY6UjKGhR
-         1C25cccW9uIlB+Xl6SQaWOOCGWQpA3KQNzioZmefBmjzdzkOsZJMRqtOyrmxfyLwNqlT
-         4YJGmAkHOuYK1HmK2MqmwNz5TYWfCV4DDbmC8o2iS11PmItMT+X58n4YDAEyLDO2uatt
-         cxzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795679759; x=1796284559;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=crXowXqxLPttCCSWDd6acmRioxTezv7WhIgrsEki5Js=;
-        b=JPpnD9WwN1MtNnG/4OkCunp98rs3Oolph6wZWeW2NQ/dYJP6DrbxWePAn9cVWnkuMl
-         wz0Qckb1Rqvn8LjeZzHAhkFpB0ZHykPKWCV+nnrdT5WJHyEnF0m4voCPwrAOwAwEq0BS
-         uevSSJ5cR2j5f643bGj8DViqHmD3ihVinM3eWTRJnlK5LZtXcOO8uST5u5d/mkk3xKPh
-         8DHSizSfSrFTmvW31n/TnWjm9vVd/cx2Ua+zoGLa5vtexoG9xHL2qcKr+hp14mgQ0FIA
-         IgDeYHoOJBRTXhUgmEwpCOnnBxiFZsLhVsqXAmzosyerbbPeZl0tcbPdimOn99ruR677
-         /Odg==
-X-Gm-Message-State: APuU4Z+pw3DlLioElNF6F+X7u6tvcZHX9ZwPZUXYzNlMLNHIghG+ojDJ
-	OaLt6EHyZUhaMHV5nc0TVyouj6F5gXOiD8/CSNcmqdtewsvKCeA68FRRmU8/Hsuf5rs=
-X-Gm-Gg: AZFdTZeuOryFkinBgSd+aexN2lgRAnZ8Q8M0h2xNJhSnF+qJBm5XGJ5iQ1bjE6ub5d8
-	vBPsIoHGjLurHLEwrTYPWEJITx7g/tCp81sO2nx+VdQR7bYVo3G2XcT0r0loKmra5gR6vJkI2fI
-	Exd2KS40yCJ/EAABsXe/gKzgGX4RyRMLWH4OZCd36t8Y+TK7/VEfU/Nde3KT5hta45CX2Pa2Tin
-	kWnOsroF8A0Agy3v4qHwZHjBV4X+8rT9lIIw6rTSiz3MhH+tr5emPtxmIJ5Q4kZ9Wgg7CSTwDDh
-	KBjTHMzliMc8/OJ+u8itzZYzF8fVpGE87q5TIU/ubZpJDWEB/CL36oW+fJ0po2lakWgOn/cvfSi
-	53GM8tQMU3jPAZA97iz5s5d5bKnqFqxJmtj43llVTqeJgnprp0E4f6qdpFOfePOQ9OWR0DUgPmE
-	rymGSOL4oAQEUzbwvTetOy5Haam4LZlRsL0U/aWW74l6B9qsU474AtDa6SGZr87NInQmu2kkZK3
-	KaDXsEk/grLDfrN90JonjlmDo8N3eVuJ/YPQa6/XGb02fQ/HWpXlqtZZ2J5C5mSDSTuqbp0t2tH
-	XAlfQSRQdN9BPtv2NbT2oDxzAvgLc/+xOkGm1GVPPGpykrlBQA==
-X-Received: by 2002:a17:90b:17cd:b0:3b4:9d6:5be1 with SMTP id 98e67ed59e1d1-3b41c93b187mr31884782a91.4.1795679759440;
-        Wed, 25 Nov 2026 23:55:59 -0800 (PST)
-Received: from security.datascience.hku.hk ([175.159.181.20])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6d03adafsm10690855a12.23.2026.11.25.23.55.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 23:55:59 -0800 (PST)
-From: Yu Junzhe <junzheyu1@gmail.com>
-To: stable@vger.kernel.org
-Cc: Yu Junzhe <junzheyu1@gmail.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Johan Hedberg <johan.hedberg@gmail.com>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	linux-bluetooth@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 0/3] Bluetooth: hci_core: lookup hci_conn on the RX path
-Date: Thu, 26 Nov 2026 07:55:51 +0000
-Message-ID: <20261126075554.106-1-junzheyu1@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026-11-19-1-daily-reply-0012@kernel.org>
-References: <20261118123533.25-1-junzheyu1@gmail.com> <20261119035758.45-1-junzheyu1@gmail.com> <2026-11-19-1-daily-reply-0012@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7BMaJNs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAC7D1F000CA;
+	Thu, 26 Nov 2026 07:56:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795679771;
+	bh=t1vybqbqAIY5ttKg7OTFZsrfdL51sIR48bUIWxH8R10=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=U7BMaJNsNW9YoISW0Xcz/B0z7LJ1rGT20mi+jBAhkdr/uU5v7sgasBBnIBK6nZ4x/
+	 ZkNElPutbWY+J9I96ACCMrg1jBBg/Qw057mh/GGX0WPkrFUltjtMiZjpluTQ9BX+uS
+	 IK5cYaBbO3KAepjz46e6e2kkbfU9nlWRePv64Emz1Yg5G78ykUUWIgLuIwUiEyZb3D
+	 +7B5+2u86pPTxqosFTknXGPLgx0jXQ4hS6gst7JDfoKM1A4W/qbqdfkIAWpG6tpR/w
+	 mBiMNKbup6ElXF/kasTx/iDETbXvOhIWOYo57z+UsU2QU/OqXyfHldfNyryGBJhZ5k
+	 LMtzsSbtM+Qig==
+Message-ID: <fa532123-2fcf-4236-90c1-a47d5438502c@kernel.org>
+Date: Thu, 26 Nov 2026 16:56:09 +0900
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,42 +51,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] null_blk: reject device size overflow
+To: Yingjie Wang <x-professor@outlook.com>, "axboe@kernel.dk"
+ <axboe@kernel.dk>
+Cc: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <20261126074748.1076774-1-x-professor@outlook.com>
+ <20261126074748.1076774-2-x-professor@outlook.com>
+Content-Language: en-US
+From: Damien Le Moal <dlemoal@kernel.org>
+Organization: Western Digital Research
+In-Reply-To: <20261126074748.1076774-2-x-professor@outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Sasha, this replaces the 6.6-only v2.
+On 11/26/26 16:47, Yingjie Wang wrote:
+> The configfs size attribute accepts an unsigned long value in MiB without
+> checking whether it can be converted to bytes. Both null_add_dev() and
+> mb_to_sects() multiply that value by SZ_1M before converting it to
+> sectors, so on 64-bit systems a size of 2^44 MiB wraps the byte count to
+> zero.
+> 
+> For a zoned device with the default zone size, this also produces zero
+> zones. The zero-length zone allocation returns ZERO_SIZE_PTR, and the
+> conventional-zone adjustment underflows zone_nr_conv to UINT_MAX. The
+> subsequent zone initialization then accesses invalid memory:
+> 
+>   null_blk: changed the number of conventional zones to 4294967295
+>   BUG: kernel NULL pointer dereference, address: 0000000000000030
+>   #PF: supervisor write access in kernel mode
+>   RIP: 0010:lockdep_init_map_type+0x1b/0x230
+>   Call Trace:
+>    __raw_spin_lock_init+0x3a/0x110
+>    null_init_zoned_dev+0x5a2/0x1270 [null_blk]
+>    null_add_dev+0x15f5/0x1e70 [null_blk]
+>    nullb_device_power_store+0x29d/0x350 [null_blk]
+>    configfs_write_iter+0x306/0x500
+>    vfs_write+0x6a4/0x1030
+>    ksys_write+0x12a/0x250
+> 
+> Non-zoned devices can instead be registered with a wrapped capacity.
+> 
+> Reject sizes above LLONG_MAX / SZ_1M in null_validate_conf(), before
 
-79a2d4678ba9 ("Bluetooth: hci_core: lookup hci_conn on RX path on
-protocol side") is in v6.18 and is already in bluetooth.git. These
-diffs are for the stable trees that still lack it. They do not apply
-to bluetooth.git HEAD, so the BlueZ CI apply check will fail. Please
-review them for the stable branches.
+Why not ULLONG_MAX / SZ_1M ?
+Any particular reason?
 
-6.12.y already has l2cap_conn_hold_unless_zero() and
-iso_conn_hold_unless_zero(). 6.6.y and 6.1.y have the L2CAP helper
-only. sco_conn has no kref on any of the three, so SCO is unchanged.
-hci_conn_get() does not pin sco_conn.
+> allocating device resources or initializing zones. This also keeps the
+> byte capacity within the signed 64-bit range supported by the block
+> layer. This check runs for both configfs power-on and module
+> initialization.
+> 
+> This bug was found by a fuzzer.
+> 
+> Fixes: cedcafad8277 ("nullb: add interface to power on disk")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+> ---
+>  drivers/block/null_blk/main.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/block/null_blk/main.c b/drivers/block/null_blk/main.c
+> index ec0d7ba4d938..2d6d71690d10 100644
+> --- a/drivers/block/null_blk/main.c
+> +++ b/drivers/block/null_blk/main.c
+> @@ -1893,6 +1893,11 @@ static int null_setup_tagset(struct nullb *nullb)
+>  
+>  static int null_validate_conf(struct nullb_device *dev)
+>  {
+> +	if (dev->size > LLONG_MAX / SZ_1M) {
+> +		pr_err("Device size is too large\n");
+> +		return -EINVAL;
+> +	}
+> +
+>  	if (dev->queue_mode == NULL_Q_RQ) {
+>  		pr_err("legacy IO path is no longer available\n");
+>  		return -EINVAL;
 
-Booted KASAN guests, same racer (patch-test/repro.c):
-
-- 6.12.119 unpatched printed slab-use-after-free in l2cap_recv_acldata.
-  6.12.119 with patch 1/3 finished 371 connect/auth/disconnect rounds
-  and printed no KASAN report. The racer exercises ACL, not ISO.
-- 6.6.162 with patch 2/3 finished 123 rounds and printed no KASAN
-  report. That image is a build of this diff. The earlier #1 image
-  still contained the v1 SCO and ISO edits.
-- 6.1.193 with patch 3/3 booted and completed one connection with no
-  KASAN report. The racer then lost sync with the virtual controller
-  (unexpected command-complete length), so it did not repeat the
-  6.12 and 6.6 stress.
-
-Yu Junzhe (3):
-  Bluetooth: hci_core: lookup hci_conn on the ACL and ISO RX paths
-  Bluetooth: hci_core: lookup hci_conn on the ACL RX path
-  Bluetooth: hci_core: lookup hci_conn on the ACL RX path
-
- 6.12.y: 4 files changed, 66 insertions(+), 47 deletions(-)
- 6.6.y:  3 files changed, 28 insertions(+), 23 deletions(-)
- 6.1.y:  3 files changed, 32 insertions(+), 25 deletions(-)
 
 -- 
-2.53.0
+Damien Le Moal
+Western Digital Research
