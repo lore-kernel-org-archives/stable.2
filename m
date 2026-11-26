@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795705332;
-	b=xWEOI742DOZtP7m4t/Mv/9j7IIJwQL0gpt+MeTwpbg8MEJzevTz+p2IJSksF4a6oqOT/
-	 EFC8PBgjvO8cCHOj/1usB0yCVIjBog7vhL2kpsyWbVVgMbf4nZRqxo1O6Q+yzavKe8aP5
-	 eda703RdHbwtDiFYEgnmmIfUHipdO7G255UgJ/UQ38z41lJ+RiyZO7lLlZJ1rJQu5kSv5
-	 wQ6v8Zqte2E47KxqAMp4ytaV8vgOfdalm0og0CJmdNI/lgUimsbEeb9DDbjiyau3c1PGE
-	 cM0s3wt49GwV35v/Dlin91JRo68XbD5JTvPECxWeMmQqyRZakMXTgFTXvja1ttsqGmg==
+	t=1795705335;
+	b=a098NBY+SikHCHJZW4kILIpABIlgKpHRaeBeC7dTBcXxnftNmMeQSuJXuhiPG/2x4lae
+	 xzm7etQyBntMx1TIhyG1ufdIajA9Ue9Jy37+kYOYNao01boH3qzvGlYYksNtlxzKttwIk
+	 5X7kH2iBEzYf/HSNHFJyxyQdRl+olVKDlU+Rl9E4jwpsrlqFJUQ0rAGW0hE4o1ThUuHLJ
+	 vS71JqspAbXc7bEr+jweznrLVMfjVymosiNAtotYPDCOo20VIb1a7GeRDW5gvQ0qgPbnP
+	 fBDGp44y1rBgXjolJLuqBm5sqzuB9DYElEsfOkjRZbT8RCYGWyuqvXQozbqyicxh3Ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795705332;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795705335;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=4lZaRZerT0TO0HdGRLVO052WB+WoqBpeN8seFB5I+3s=;
-	b=IDvrFafciwWOFziH1QQPKyHTC2OjyaE4Oe9bwjEHKpQvQnWK13JUIe0K2Gue6zA/BYLO
-	 Xsbc3R5Y0fnJBTR0ZReqEJiWlKhgnRjHmjCNsSZciJsh0QyAx5mR/nKTggKY0HL/+qPwc
-	 nnZeo9COPPY6kJQ6KntkWsyCHy5NfVcq32asBXTqXyj/7esmKAtzaI5LEQVqU7enAvuE1
-	 jttmX9f7itOa6LrAeIu/hvG2hZ4w1cb3O5zQBM1fcdWenhmarvxsDda5HpU0bP474xTHv
-	 lbEQ1S0KmcUxa02rNLZvDrJ3xc/EmX/Vx9gyQXVH6yhCJYDY8ecwNNIwdzmhiNInIMA==
+	bh=4L9jnopwies3jkYcnJyJgEtG4AQuJgERoEsMPpyMHFg=;
+	b=3pzyXgB6p6we8zS6sPnpijnpVmXY/eHYrMQbIWs5gbyxKvbwBYHneQ7wWFVOlHF0ZzpF
+	 /0XSK6kGgAT7KcJY+1Ti/cen7dcCRdIMLQZdariMMYXKuttUtiwbG3Kn/baKQ1dPwVnvG
+	 icNY1No1kKBw05iBwyQRzoVoL93Z5zZxdhTo5l4XLiBcQqWfyBHisXA6Di1SBwmJ/Xx2z
+	 aYS++MrB8Ab11/fa0NBvS7vZRcEVUnaXrzj+q5KruWMCXi7CNFCJHzd4ZBd6rWgwAR3fL
+	 GM7Z6MrSIiczGy8rRokFKBfEM4GUAiROU2H5dTU4GDyq/dH0vcuI70PaEiYxAcUnO2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EuMl532Y;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=h6gTX3Qh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E883F606A32C;
-	Thu, 26 Nov 2026 15:02:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09144606A31E;
+	Thu, 26 Nov 2026 15:02:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EuMl532Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C1381F000E0;
-	Thu, 26 Nov 2026 15:02:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=h6gTX3Qh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C07C21F000D3;
+	Thu, 26 Nov 2026 15:02:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795705331;
-	bh=4lZaRZerT0TO0HdGRLVO052WB+WoqBpeN8seFB5I+3s=;
+	s=korg; t=1795705334;
+	bh=4L9jnopwies3jkYcnJyJgEtG4AQuJgERoEsMPpyMHFg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EuMl532Ynquj4x5HYQZfyyVMkZ1EAKqo18ngq0YXTx4ZbY3WGcjoUl8YdzWdiAi+e
-	 FnpGtAXF6sFSdrmeNLDH5w6SA6byFHSVzLSFx51Th572kYVydCf3tbwnlnzdzZjtaN
-	 XZTpkvI3GCamwKQaNlIVxkAsIdKrcfhDAzgRZr8E=
+	b=h6gTX3QhkyLSkdsBvT4MT7jXgJstLqLL2wJVTXSPIkrhH5HVKJnwn+txAQhtW8utz
+	 6QpR53bVaxknJi0DW5A+n/YWQoEX8cDPbbaz7sjkpMOZxdgMLWQrgL1lfmWhT3b26+
+	 m07vVPwHPrXoTJJmvg/195v+lMOUQ7UvVxiu5HbE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Kuniyuki Iwashima <kuniyu@google.com>,
+	Prathamesh Deshpande <prathameshdeshpande7@gmail.com>,
+	Tariq Toukan <tariqt@nvidia.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 161/319] tcp: Pass req->rsk_listener to inet_csk_reqsk_queue_drop() in tcp_check_req().
-Date: Thu, 26 Nov 2026 15:38:49 +0100
-Message-ID: <20261126144010.380159364@linuxfoundation.org>
+Subject: [PATCH 5.15 126/319] net/mlx5e: IPoIB, Fix QPN lookup race
+Date: Thu, 26 Nov 2026 15:38:14 +0100
+Message-ID: <20261126144009.587222769@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261126144006.732901931@linuxfoundation.org>
 References: <20261126144006.732901931@linuxfoundation.org>
@@ -68,77 +69,126 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Kuniyuki Iwashima <kuniyu@google.com>
+From: Prathamesh Deshpande <prathameshdeshpande7@gmail.com>
 
-[ Upstream commit a9782a6f2bbd0c444689725a710d8b21eab61bc5 ]
+[ Upstream commit 29066b0fc046a2965129a74325b98d9abb4647a9 ]
 
-When connection migration happens in tcp_v[46]_rcv(), a new
-listener is passed to tcp_check_req().
+The parent RX completion path can load a QPN hash entry before
+mlx5i_pkey_del_qpn() unlinks and frees it, then dereference freed memory.
 
-When either of the following is true,
+Use RCU hlist operations and defer freeing with kfree_rcu(). The existing
+RCU read-side section in mlx5e_napi_poll() covers the lookup. Keep ht_lock
+for writers and acquire it before looking up the entry to delete.
 
-  * the new listener queue is full and
-    net.ipv4.tcp_abort_on_overflow is set
-
-  * the packet has RST or (not stripped) SYN
-
-tcp_check_req() sends RST and calls inet_csk_reqsk_queue_drop().
-
-Here, the new listener is passed, and its qlen is decremented
-wrongly while reqsk is tied to the old listener.
-
-Once qlen underflows, inet_csk_reqsk_queue_is_full() always
-return true, and the new listener stops serving.
-
-Without the patch, this script times out while waiting for SYN+ACK
-since the new listener drops SYN, but with the patch, 3WHS completes.
-
-    0 `sysctl -q net.ipv4.tcp_migrate_req=1`
-   +0 `sysctl -q net.ipv4.tcp_syncookies=0`
-   +0 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
-   +0 setsockopt(3, SOL_SOCKET, SO_REUSEPORT, [1], 4) = 0
-   +0 bind(3, ..., ...) = 0
-   +0 socket(..., SOCK_STREAM, IPPROTO_TCP) = 4
-   +0 setsockopt(4, SOL_SOCKET, SO_REUSEPORT, [1], 4) = 0
-   +0 bind(4, ..., ...) = 0
-   +0 listen(4, 128) = 0
-   +0 < S 0:0(0) win 32792 <mss 1000>
-   +0 > S. 0:0(0) ack 1 <...>
-   +0 listen(3, 128) = 0
-   +0 close(4) = 0
- +.01 < R 1:1(0) win 0
-   +0 socket(..., SOCK_STREAM, IPPROTO_TCP) = 5
-   +0 listen(5, 1) = 0
- +.01 < S 0:0(0) win 32792 <mss 1000>
-   +0 > S. 0:0(0) ack 1 <...>
-   +0 < . 1:1(0) ack 1 win 32792
-   +0 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
-   +0 accept(3, ..., ...) = 6
-
-Let's pass req->rsk_listener instead.
-
-Fixes: d4f2c86b2b7e ("tcp: Migrate TCP_NEW_SYN_RECV requests at receiving the final ACK.")
-Signed-off-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20261111020304.1532064-2-kuniyu@google.com
+Fixes: 7e7f4780c340 ("net/mlx5e: IPoIB, Use hash-table to map between QPN to child netdev")
+Signed-off-by: Prathamesh Deshpande <prathameshdeshpande7@gmail.com>
+Reviewed-by: Tariq Toukan <tariqt@nvidia.com>
+Link: https://patch.msgid.link/20261031225749.14214-1-prathameshdeshpande7@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/tcp_minisocks.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../ethernet/mellanox/mlx5/core/ipoib/ipoib.h |  2 +-
+ .../mellanox/mlx5/core/ipoib/ipoib_vlan.c     | 26 +++++++++++--------
+ 2 files changed, 16 insertions(+), 12 deletions(-)
 
-diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
-index be4fb0ce2574c..1abe28b8bfc5e 100644
---- a/net/ipv4/tcp_minisocks.c
-+++ b/net/ipv4/tcp_minisocks.c
-@@ -810,7 +810,7 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
- 		tcp_reset(sk, skb);
- 	}
- 	if (!fastopen) {
--		bool unlinked = inet_csk_reqsk_queue_drop(sk, req);
-+		bool unlinked = inet_csk_reqsk_queue_drop(req->rsk_listener, req);
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ipoib.h b/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ipoib.h
+index 99d46fda9f82f..69a666d91c643 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ipoib.h
++++ b/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ipoib.h
+@@ -78,7 +78,7 @@ void mlx5i_pkey_qpn_ht_cleanup(struct net_device *netdev);
+ int mlx5i_pkey_add_qpn(struct net_device *netdev, u32 qpn);
+ int mlx5i_pkey_del_qpn(struct net_device *netdev, u32 qpn);
  
- 		if (unlinked)
- 			__NET_INC_STATS(sock_net(sk), LINUX_MIB_EMBRYONICRSTS);
+-/* Get the net-device corresponding to the given underlay QPN */
++/* Get the net-device for a QPN. Caller must hold rcu_read_lock(). */
+ struct net_device *mlx5i_pkey_get_netdev(struct net_device *netdev, u32 qpn);
+ 
+ /* Shared ndo functions */
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ipoib_vlan.c b/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ipoib_vlan.c
+index 5308f23702bca..f0df52aa26a77 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ipoib_vlan.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ipoib_vlan.c
+@@ -31,6 +31,7 @@
+  */
+ 
+ #include <linux/hash.h>
++#include <linux/rculist.h>
+ #include "ipoib.h"
+ 
+ #define MLX5I_MAX_LOG_PKEY_SUP 7
+@@ -39,11 +40,12 @@ struct qpn_to_netdev {
+ 	struct net_device *netdev;
+ 	struct hlist_node hlist;
+ 	u32 underlay_qpn;
++	struct rcu_head rcu;
+ };
+ 
+ struct mlx5i_pkey_qpn_ht {
+ 	struct hlist_head buckets[1 << MLX5I_MAX_LOG_PKEY_SUP];
+-	spinlock_t ht_lock; /* Synchronise with NAPI */
++	spinlock_t ht_lock; /* Serialize hash table updates */
+ };
+ 
+ int mlx5i_pkey_qpn_ht_init(struct net_device *netdev)
+@@ -68,13 +70,14 @@ void mlx5i_pkey_qpn_ht_cleanup(struct net_device *netdev)
+ 	kfree(ipriv->qpn_htbl);
+ }
+ 
+-static struct qpn_to_netdev *mlx5i_find_qpn_to_netdev_node(struct hlist_head *buckets,
+-							   u32 qpn)
++static struct qpn_to_netdev *
++mlx5i_find_qpn_to_netdev_node(struct mlx5i_pkey_qpn_ht *ht, u32 qpn)
+ {
+-	struct hlist_head *h = &buckets[hash_32(qpn, MLX5I_MAX_LOG_PKEY_SUP)];
++	struct hlist_head *h = &ht->buckets[hash_32(qpn, MLX5I_MAX_LOG_PKEY_SUP)];
+ 	struct qpn_to_netdev *node;
+ 
+-	hlist_for_each_entry(node, h, hlist) {
++	hlist_for_each_entry_rcu(node, h, hlist,
++				 lockdep_is_held(&ht->ht_lock)) {
+ 		if (node->underlay_qpn == qpn)
+ 			return node;
+ 	}
+@@ -96,7 +99,7 @@ int mlx5i_pkey_add_qpn(struct net_device *netdev, u32 qpn)
+ 	new_node->netdev = netdev;
+ 	new_node->underlay_qpn = qpn;
+ 	spin_lock_bh(&ht->ht_lock);
+-	hlist_add_head(&new_node->hlist, &ht->buckets[key]);
++	hlist_add_head_rcu(&new_node->hlist, &ht->buckets[key]);
+ 	spin_unlock_bh(&ht->ht_lock);
+ 
+ 	return 0;
+@@ -109,16 +112,17 @@ int mlx5i_pkey_del_qpn(struct net_device *netdev, u32 qpn)
+ 	struct mlx5i_pkey_qpn_ht *ht = ipriv->qpn_htbl;
+ 	struct qpn_to_netdev *node;
+ 
+-	node = mlx5i_find_qpn_to_netdev_node(ht->buckets, qpn);
++	spin_lock_bh(&ht->ht_lock);
++	node = mlx5i_find_qpn_to_netdev_node(ht, qpn);
+ 	if (!node) {
++		spin_unlock_bh(&ht->ht_lock);
+ 		mlx5_core_warn(epriv->mdev, "QPN to netdev delete from HT failed\n");
+ 		return -EINVAL;
+ 	}
+ 
+-	spin_lock_bh(&ht->ht_lock);
+-	hlist_del_init(&node->hlist);
++	hlist_del_rcu(&node->hlist);
+ 	spin_unlock_bh(&ht->ht_lock);
+-	kfree(node);
++	kfree_rcu(node, rcu);
+ 
+ 	return 0;
+ }
+@@ -128,7 +132,7 @@ struct net_device *mlx5i_pkey_get_netdev(struct net_device *netdev, u32 qpn)
+ 	struct mlx5i_priv *ipriv = netdev_priv(netdev);
+ 	struct qpn_to_netdev *node;
+ 
+-	node = mlx5i_find_qpn_to_netdev_node(ipriv->qpn_htbl->buckets, qpn);
++	node = mlx5i_find_qpn_to_netdev_node(ipriv->qpn_htbl, qpn);
+ 	if (!node)
+ 		return NULL;
+ 
 -- 
 2.53.0
 
