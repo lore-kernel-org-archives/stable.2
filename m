@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795674986;
-	b=pfRPv7ms0jjWlpRs1gqZe2lBLQ4y9wDzViag3nouaEREgJ0LP7bumOZCxtEEYJc1wwLT
-	 4zCHQSBN0M/hT5qPzWEzwZS49C+B6MlYfIPjP7CMDMpwwsjHRGRfMAX8boCH0dbhjnHz6
-	 90okPCyk+FG55evfrfrf4xr5YZMrJE6cstoa5VznkU8s4N3bCuV+ARbovCoJMxf4Gaef5
-	 S5MLXXnV8EKDPQHc+i1lmHihy9lpF+2ELcKkDiMOgyaJEVzzDXjO4LFqsx1bwGf77K8rj
-	 OUqYc8cuyBNoU8FXI/8AJL813obCDHtHTM5lbjCbflqB7SNie8+yqiCANnV9KQeWI9w==
+	t=1795674977;
+	b=Q7KqjbIWukfE3kr9JtMrodjhqDHf9FSsZZ2kXcA1s6tSvrfuBSkh+VKAm3pHBExGVx0z
+	 Gh+smBuXHLvkkGpd4FP7preqOoNtxXYE5aUOceKeAPIB6/2T6MrZIKfLNfI0KZb8abGUP
+	 UF7wY8gDi/MKnSuerX3qIZvJ23uBYFVRwmdGbTb8t/+wXFTEKNk8M6eoc3/3+0UA8bzlC
+	 YOFBwQ3XWG8FPvjSHXmjEM7ZlgU/wJwAgsKOqju06/EeTcDKUmMAW6IxD4QqJCXwgi80P
+	 TzPzkzkMc0XT/AAQYXt0QcXuwDe1oJ+bVDjK+P4yHNS8WMXOZMkHvWHesCLXVM6jFvg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795674986;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795674977;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=ac1Ikm+0oUYJ7NoGwgsIR9r0KMDjWbZv2G87ig7VjRE=;
-	b=tykwdYNvolTnpOmcBCFW6ZnQczTIf+sqgb008+8CXNwGe9ID/xmUA0YSokPDQ4ct2G00
-	 xKURjr6g2j+WR1LlMBz6foiYLZ5glqrgrLKx5jUztJGGusfwJFd7gbBHmRK5EWVwheiMY
-	 3f6FS4Llr9WYAR165EA1w8bB7Hy73foGYQYI4V0QoP3B+vZo4zn1JANJSN5rI/40EWxeu
-	 9oIQvRbxYejHItRWFDVXG2AoceAQj9k8J/IHY2lFX8nf0zx4pyeJlmGRbXYRxilnwTi27
-	 a9XrfYai4n3tpH6yhfVcPPxLA+qffCtgnkUVgyD9BCauvpHeD34LqFBXy6kjjYpUiag==
+	bh=tvLCjBKmutV5BgeydgV+M5L3jhBbtJIwM5d/ZCkN60Y=;
+	b=qzcb0UAXhCAwg5PqRzCFOzuZX297aIMDty4RpfrDeSpmI/0kYJvjAZgbymBABQzmV3+B
+	 XTlxmuOUKnhfPaOYIOKVHTpY+FO1JenO5KVh9TIFS26k1gq9enqRe0vTTs4smuxS82Jnl
+	 5fJRkmsC2uBjor+PaOFeljK8HSCc7o3YJ+q8ny6QRcvkfFRqdSzi3XF/IytThpbEepcsb
+	 SBF1dx4fvcWj8t9FMFSRUoOOTsrbLyKl+SXj8vcZpercQW6i83RGrM8N6xf+jwR4Q2K36
+	 BiYyIXpg5aEQ2SzoqdxC6ULDp79E/hkmhlUWBRkFdfxt8TwfxcLO6Ogq4tmqIgZONAQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dm8Vdzys;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RXEBvfC8;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0389606A31C;
-	Thu, 26 Nov 2026 06:36:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB36E606A330;
+	Thu, 26 Nov 2026 06:36:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dm8Vdzys
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RXEBvfC8
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795674986;
-	b=HYwoYTV7VCyWdr1zsXsjaxEhSVbD/hvEOen4zJh/+7cLZEmtDhi/dU4zcS4WtQ7N90Pd
-	 bi/F9R5o6ycDwP/k7zQf88ksRZNEFDNJ701lWhxOuDTn/cWYgcWUPjtoTVmNW4/5LC9x7
-	 E8sUzYaV46UhJJ+vWY/qwFKmfnrPdfJUKGH82SGFSsMgGMO0Vt9un3JCNYRKs8oQZpGxY
-	 4Mos4r4H/OKv6fcmliUiXPbvnfQiD5DESrS6PJ5wo+O8J5TyrRjgsvXNerSZr3FPnKAde
-	 ocwiavFaDyJNs1lZLAV5DieKHHJqa/J4mqQR8XdlfFYxS7l2xhDdBplfPylbgKrhWTA==
+	t=1795674977;
+	b=tL7YEx3MaQqIMoJoTefdN/tXfU31iGIpR5Sm51pvLfvPFKrK0tB5Z6mMQXjyvoDDcfJn
+	 TnBujpVeJ1OMjeYwgTS2UN9FEGIuM1I7Xg6N78PeBtqpMKxA4UVcP7fbLuVs++HGA1uL4
+	 SLr6nIvTPs53MbbE5rZ7K8nWMMwFhRbqROrUlSLHIXydFDXeW3mt3xY+9tMGE85mXQaDg
+	 bDkz8PqaOvcxBhn64dHZ1Q4jkptlulrfN6r6qJ2LfxNaRCo/60Q0lH+q0pmxrlBAUzDXQ
+	 1BrbxV4y2xnZYqZRwiGMSsUN4OeXOrE5Edd0pNdq0/+driDqipRZNIMve+2gKSE26Tg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795674986;
+	c=relaxed/relaxed; t=1795674977;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=ac1Ikm+0oUYJ7NoGwgsIR9r0KMDjWbZv2G87ig7VjRE=;
-	b=mSrXut7+j3Mcc6KnKxnhlh6s1su8sj9qsZKx+psZO/KiANaGCG/d2kuKslJlebPJZicj
-	 WOIRI4r0QG9ElObOZHp9aRLR9OvFoo2lqo0AQ6qucZwv4SjsJ32lD4k2rc7ZY4OsHUvH7
-	 K+7whiDdt2L4MQe68cUrmUqouyL68uSq+tfysbziflJRHuALQVv1xhHYKk+IZvMRDFGEq
-	 iqh3sBbr/CyaTdNq7WbUMvbHPuh1iYlos0FXQ23PZ68OKKM6+mxaUgEHzSOaZr0dtSSqF
-	 Q9PfQyCYtQ6oz5w4zHJImkN6Uz9kejD4dU6uTaRL7JbvjiOsZx7xOnsVzHTblL2go0Q==
+	bh=tvLCjBKmutV5BgeydgV+M5L3jhBbtJIwM5d/ZCkN60Y=;
+	b=cACTLqmq8U18/9LHXhJTTKIFVcKv5Y5+TiwB+aFg7QHVNcWZSl3EVLV/MfwYTP2ebkey
+	 DauM/GiJU8YPMC6XCHZFzjnj+lNol38GOF1q295asYErqrRl1609VyfREW/i5qoLJLs7o
+	 Hm/aA5hHvNRnVs+t4RKu9obOZX8Cn9g18vGyxNVzsUrz1lIK92Nn3dTWj5QTtBzVkpmfj
+	 9mGENeDCatoH8EN+MYGx3TYJw001Hs+nilZSW7Ft8uqvbVIbp6rmaNSEvRDd3OZbWhcCw
+	 FBxHbVt1JjTGYVjuWJYfTJDwETJN4oZmr2S1A6VFMROq6lREBfrepDgp4Q3V2Ex4/jQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C3DFC1F000CF;
-	Thu, 26 Nov 2026 06:36:16 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id DC5A81F000E0;
+	Thu, 26 Nov 2026 06:35:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795674986;
-	bh=ac1Ikm+0oUYJ7NoGwgsIR9r0KMDjWbZv2G87ig7VjRE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=dm8Vdzys+IyPKd71LRZ81B0Uc1OswETRrg/mcvejV0FeIs/PcLUevILJeJxkwgEn9
-	 gkx3tCWiK45uRxooTyjCASwGN64KfafLSTIvK2QUXNEnz6vcaiQ3T1y8snhopRN3BF
-	 lmbyUXEYDc4l5vYAhkMVlzmnVpqKwaSiM6FEkJlS89TmZwCz3qQRkbUtnNOnMvBb7+
-	 uSJHmlxFvsJNei2/Pq+kmPIkuuwioPvSP81bq4vTjNiM7IvMk5h+rn1JWygVpUQOJc
-	 Z12K8rvYnAiB2MofTptxyZ+RncEBtu+Tys7LwMwyXsjh3lctLM6HkQd4SMKUrKlnHH
-	 Bambavahz1rnw==
+	s=k20260515; t=1795674977;
+	bh=tvLCjBKmutV5BgeydgV+M5L3jhBbtJIwM5d/ZCkN60Y=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=RXEBvfC8uGrnW85r1bCmKRUrSZcCMImhLV7DBLLVFJ0KybE3YXPKYGd1qQs9vVE1k
+	 pki8vE4CLbo1oIwS8xnw5qjqg4Z4S+sQ3N7ovBzF8XNfOzoVNPWu9lWQIoE86Y6RJi
+	 8KM3wCHrXKt5ovrLgNtj+r0Mqe2c1vZRWIKxkAsIRo6/1FLEUEglT9UhMXPXP8YftU
+	 HTTlIF9BGnFfPhW38GNUuOwdOlaouj0vY/HRnZBuHTvj4323IdnTFV2w30bchAfG2T
+	 UDcsd0OfCXFDLpSVsmQ8KEkKiTsU2oWYeHFH2pFY+55VXkZ7aaE5+DhDofZGZtDYc3
+	 O1IHRNNqQ/JJw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 146F74D28D;
-	Thu, 26 Nov 2026 06:35:57 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 68A3B4D26F;
+	Thu, 26 Nov 2026 06:35:56 +0000 (UTC)
 From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
-Date: Thu, 26 Nov 2026 06:18:43 +0000
-Subject: [PATCH 6.12.y v2 3/4] virtio_balloon: factor out
- virtballoon_quiesce()
+Date: Thu, 26 Nov 2026 06:04:58 +0000
+Subject: [PATCH v2 5.10.y] pid_namespace: prevent TIF_NOTIFY_SIGNAL from
+ interrupting the reaper
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,20 +85,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-virtio-final-v2-3-4cfd5590e924@certik.com>
-References: <20261126-virtio-final-v2-0-4cfd5590e924@certik.com>
-In-Reply-To: <20261126-virtio-final-v2-0-4cfd5590e924@certik.com>
+Message-Id: <20261126-pid-510-v2-1-f528abaf9d3c@certik.com>
+X-B4-Tracking: v=1; b=H4sIAAnMB2sC/y2MywrCMBAAf6Xs2dQkkCD+injIY2NXJCnZVpTSf
+ zdRjzMMswFjJWQ4DxtUfBJTyQ30YYAwuXxDQbExaKmtUtqKmaIwSgqJyToMKRh3glbPFRO9vqc
+ LmFHJ8Q3Xn+fV3zEsfdNL7xiFry6HqSvGHJdSHqL7438P+/4BHb50JpsAAAA=
+X-Change-ID: 20261126-pid-510-0ef6aecfc5a8
 To: stable@vger.kernel.org
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, 
- "Denis V. Lunev" <den@openvz.org>, David Hildenbrand <david@kernel.org>, 
- Eric Auger <eric.auger@redhat.com>, Jason Wang <jasowang@redhat.com>, 
- virtualization@lists.linux.dev
+Cc: Christian Brauner <brauner@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ linux-kernel@vger.kernel.org, Sasha Levin <sashal@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795673921; l=3100;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795673098; l=3176;
  i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
- bh=Y4oTZs4IcsIFztVC2+YESkhgwty/uTkVeQ1e6nZ6dz4=;
- b=qcdJBRYmbcXtqUu829O7b9u5P6UaWBHYczeECADq2OQHpdNioD/XsyoLiv70jw7bwszYUeAgY
- DGoI7CTXSMXDHdG24+K8PTWibQzI/bzg/3nWMQuihsOslkFRgZiudUd
+ bh=3NDn9fE75xOZ9wPgLWG/nqyjoyHoMyS/t4NUADphw4s=;
+ b=ZuwHO1MkeOvSWFTeov5kOKS7DzuukPs21HVsYnEKy1mke2c8g94OYkC+0c6qsi5EZDIhFn+A1
+ ykh8ydyoHNaA/1YIJBLHt85lRc+OPfJOP7DfbwCS9iishvlnEUij49Z
 X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
  pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
 X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
@@ -106,84 +106,79 @@ X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
 X-Original-From: Dickson Wu <dickson.wu@certik.com>
 Reply-To: dickson.wu@certik.com
 
-From: "Denis V. Lunev" <den@openvz.org>
+From: Christian Brauner <brauner@kernel.org>
 
-commit 29536a923a9412812eb3e378258019b54538a220 upstream.
+commit 5c0985dd3c32fc2bbd0e8beaf13cf52cd97376a2 upstream.
 
-virtballoon_remove() stops all of the balloon's asynchronous work (the
-free page reporting worker, the inflate/deflate and stats workers, the
-OOM notifier and the free page shrinker) before tearing the device
-down. A following change needs the same teardown from a .shutdown
-handler, so move it into a virtballoon_quiesce() helper.
+Since commit 7fea700e04bd ("zap_pid_ns_processes: clear
+TIF_NOTIFY_SIGNAL along with TIF_SIGPENDING") zap_pid_ns_processes()
+clears TIF_NOTIFY_SIGNAL before every kernel_wait4() call. Otherwise
+kernel_wait4() doesn't sleep and returns -ERESTARTSYS if
+signal_pending() is true and the reaper busy-waits.
 
-No functional change.
+But clearing TIF_NOTIFY_SIGNAL doesn't fix it. It can get raised again.
+For example, klp_send_signals() sets it raw against any task that hasn't
+transitioned yet. And it keeps sending it until the livepatch finishes.
 
-Signed-off-by: Denis V. Lunev <den@openvz.org>
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20260624140846.2616797-3-den@openvz.org>
+The sleep loop waiting for pid_allocated to drop has the same problem
+and it doesn't even clear anything. So a schedule() in
+TASK_INTERRUPTIBLE returns immediately.
+
+Use a no_notify_signal guard. signal_pending() will ignore
+TIF_NOTIFY_SIGNAL and the pid namespace reaper sleeps until a child
+exits or free_pid() wakes it.
+
+Link: https://patch.msgid.link/20260824-work-tif_notify_signal-v2-5-6609e42b3157@kernel.org
+Fixes: 7fea700e04bd ("zap_pid_ns_processes: clear TIF_NOTIFY_SIGNAL along with TIF_SIGPENDING")
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+Cc: stable@vger.kernel.org
+Suggested-by: Oleg Nesterov <oleg@redhat.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ adapted to 5.10: explicit save/restore instead of guard() to avoid a declaration-after-statement warning ]
 Signed-off-by: Dickson Wu <dickson.wu@certik.com>
 ---
- drivers/virtio/virtio_balloon.c |   27 ++++++++++++++++++++-------
- 1 file changed, 20 insertions(+), 7 deletions(-)
+ kernel/pid_namespace.c |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 Changes in v2
-v2: resent through a whitespace-safe path; v1 <CAFaZ9eopsb3vgcpzOjiZ500oafv02QzNV3dEUrvOMN1vV90RuQ@mail.gmail.com> was damaged by my mail client and does not apply.
+v2: resent through a whitespace-safe path; v1 <CAFaZ9ep64RtaNeyK42OVLSCwD_g-E5RqjP4qbK0=45unkG=Zag@mail.gmail.com> was damaged by my mail client and does not apply.
+v2: dropped the signal helper patch, Sasha already posted it as <20261028224958.2405498-1-sashal@kernel.org>; this patch depends on it.
 
 The backport and the test runs were prepared with AI coding tools
 (OpenAI Codex agents, with review by Claude). I went over the result
 before signing off.
 
-diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
-index c67b29e5f799..726aef5be178 100644
---- a/drivers/virtio/virtio_balloon.c
-+++ b/drivers/virtio/virtio_balloon.c
-@@ -1121,26 +1121,39 @@ static void remove_common(struct virtio_balloon *vb)
- 	vb->vdev->config->del_vqs(vb->vdev);
+diff --git a/kernel/pid_namespace.c b/kernel/pid_namespace.c
+index e032b1ce7964..2c525208b6ad 100644
+--- a/kernel/pid_namespace.c
++++ b/kernel/pid_namespace.c
+@@ -174,6 +174,7 @@ void zap_pid_ns_processes(struct pid_namespace *pid_ns)
+ {
+ 	int nr;
+ 	int rc;
++	unsigned int no_notify_flags;
+ 	struct task_struct *task, *me = current;
+ 	int init_pids = thread_group_leader(me) ? 1 : 2;
+ 	struct pid *pid;
+@@ -219,9 +220,10 @@ void zap_pid_ns_processes(struct pid_namespace *pid_ns)
+ 	 * kernel_wait4() will also block until our children traced from the
+ 	 * parent namespace are detached and become EXIT_DEAD.
+ 	 */
++	/* Task work must not busy-loop the reaper, see signal_pending(). */
++	no_notify_flags = no_notify_signal_save();
+ 	do {
+ 		clear_thread_flag(TIF_SIGPENDING);
+-		clear_thread_flag(TIF_NOTIFY_SIGNAL);
+ 		rc = kernel_wait4(-1, NULL, __WALL, NULL);
+ 	} while (rc != -ECHILD);
+ 
+@@ -277,6 +279,7 @@ void zap_pid_ns_processes(struct pid_namespace *pid_ns)
+ 		current->signal->group_exit_code = pid_ns->reboot;
+ 
+ 	acct_exit_ns(pid_ns);
++	no_notify_signal_restore(no_notify_flags);
+ 	return;
  }
  
--static void virtballoon_remove(struct virtio_device *vdev)
-+/*
-+ * Stop all asynchronous balloon work. The device must still be alive so that
-+ * in-flight requests can drain via the host before it is reset or freed.
-+ */
-+static void virtballoon_quiesce(struct virtio_balloon *vb)
- {
--	struct virtio_balloon *vb = vdev->priv;
-+	struct virtio_device *vdev = vb->vdev;
- 
--	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_REPORTING))
-+	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_REPORTING))
- 		page_reporting_unregister(&vb->pr_dev_info);
--	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_DEFLATE_ON_OOM))
-+	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_DEFLATE_ON_OOM))
- 		unregister_oom_notifier(&vb->oom_nb);
--	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
-+	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		virtio_balloon_unregister_shrinker(vb);
-+
- 	spin_lock_irq(&vb->stop_update_lock);
- 	vb->stop_update = true;
- 	spin_unlock_irq(&vb->stop_update_lock);
- 	cancel_work_sync(&vb->update_balloon_size_work);
- 	cancel_work_sync(&vb->update_balloon_stats_work);
- 
--	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT)) {
-+	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		cancel_work_sync(&vb->report_free_page_work);
-+}
-+
-+static void virtballoon_remove(struct virtio_device *vdev)
-+{
-+	struct virtio_balloon *vb = vdev->priv;
-+
-+	virtballoon_quiesce(vb);
-+
-+	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		destroy_workqueue(vb->balloon_wq);
--	}
- 
- 	remove_common(vb);
- 	kfree(vb);
 
 
