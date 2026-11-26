@@ -1,87 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795685664;
-	b=rfvkZj8JFysJs6nur0QkpylrpZpC6JvkwHYljpeYsK62Iq/7d2AaSmnNlZvQdMKENCYY
-	 rRM2uE8/qJG1Mkza3+E3VCaa1l3UVoCzM5uTrn8M30JUQCMNJV0cjm7enYjUKel3+4np5
-	 Gs7nsNkwPgneRvjb6eLtDGRFGai+1bvYRrnQvmP6XKpVF+xSU3ttqJ2EnfZjMMQLnbJu+
-	 PPUlAiu6emNJDoVtkS2yMtlKFpi6auKfc7w6L72TaEzevqrkvzFV728Ki4ftLb5bNu+g+
-	 LwZFKFpL0lLXi+PETTa3JiScC6jpVC3AxBhioMBddP3TelkRZdfV42g7Ev4hl+h3Gmw==
+	t=1795685710;
+	b=NuI+C3juj6itFTpHr8deM+F/yg0MQZDTtaoANT9A3NA025z1ywnaLvWYXsbmvMsEd69C
+	 SsNhVQlL24dP1ICDX4kO34cqyGnTGakzvrI2lATv0jQRZt4u2f57Gmcwx7olvV6PWyhnW
+	 kfsFpIDYNqEIikJJJ8cK6tvAGwzSDqxJNZdvXfs6AViC9gEtAtGf0f0kD6y7uhRhXmdYd
+	 8wBAvrVQXjCbuj2InACdcZntbyRxrL+Utr1H8uXPavliO7oOAxJ7o3+WS/eR1SX+u1Bt6
+	 CB243eHmnppQjNrLMnbGU+KRkSJiqqTrmiKqda3BHLSlj1piPgXCwue5zIrvhq4N16w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795685664;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=itCjuIfyFywfPE2jt7Ui8jJPSuZ+kYwvFoObcBS2K3k=;
-	b=BLvC2/FpJGa3115W+pVbaMwdUoTs/P5UBCM3WjpZ7X4YFQw0CoqZMFQ2TyMzv6YSv3Zg
-	 AlTMPG8yt5xYk3X2Ymn/l6/HBCaBr/Rjl2CnstVXEZsQfslde7QHsilKsrnNUlxk77Xk+
-	 WJcATniyet0J6iC2mKC2I83rablLe3kBJzseJ36UqPFx0sgQxgfR2d9JxXvRKmvrs37jx
-	 y7OE7mQ4MRZ/jbbV64yNhituM9JyUsB+B20HqNtWzZoyqPN0qOyNLFxNe0AJRHolAPGLb
-	 mVTEfyshQ9EHbcmfcEv4C9qOeORhxm987Osmoe3d+6IX6fUDm3ijrTTo4iWN+wy6OlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795685710;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
+	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
+	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=4rXhKT8TtFGgK7PSIy2cEeLBQd2+yyLrWU2UR0XS9OY=;
+	b=EGEwabnWApEqZIOVBE/Yhka+uLy5IHInn+J2Jp80XiOv2XzqsmytbHPhgomzSwgT7zd+
+	 M/xEYynhyFS6TMrTSLs6OzyMWY/bXU6bFVrIyHGVpHc+jhP45yzbsH0fv7A63HW4BvUXS
+	 DpSRq2UsGve4fwJkdcxmjS4WEtmI8jkU/psOKKQpr8bzMgIqOu8pyhEuLbLpJ5AVSczUH
+	 8+3Hgpk82tmtym2Ieq4vyrPiDFzwYwC2TRNEcqYBSs1SLkBB0Fxuf7yKzCKu0hRcPa3F3
+	 +owzLrbxeDtPUb0/RfXy33PF/O2w3IZegNCkQARWqwYw16/BXHO0D/hWv4lDNuA6gQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TJT2XVr9;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=126.com;
+	spf=pass smtp.mailfrom=126.com;
+	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=ZgNMhUAU;
+	arc=none smtp.remote-ip=117.135.210.6
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.6])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C7A1606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 09:34:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C7A1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B0F606A31E;
+	Thu, 26 Nov 2026 09:35:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03B0F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TJT2XVr9
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cd6028ff33fso3505326a12.0
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 01:34:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795685663; x=1796290463; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=itCjuIfyFywfPE2jt7Ui8jJPSuZ+kYwvFoObcBS2K3k=;
-        b=TJT2XVr9pYrgsry0KXz8sbTbk3KWbTZjaSt1O3fjNva0NK6fgS92jZrGLqPa8V2iee
-         O019+x4gUEYFnJu8QdCiyv1dc9D7eO5Bm37ME1t6ilEp4obaOkVNV5HekNPdjXQLCHGM
-         2ucgwz/nPSBG1uh7yoHmsG9xeof0BVi1lhNaQlE8wF+Xp5CeTETllsLE88oMQ60s49Qz
-         4GfAZ0hYYdX7XGZwo1G/4YmCvA5w8N90JrC9UEag5mLA+Y198q0uxuu7FIF245dOxoLx
-         UWi3wbJ4WDB/q7v1fPclWNkV9xuVdbGL6gWv5TNsVCAmEqsaKxVWxDhxZjSqcsPstBgH
-         yE5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795685663; x=1796290463;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=itCjuIfyFywfPE2jt7Ui8jJPSuZ+kYwvFoObcBS2K3k=;
-        b=nDZK4OV5+JZibqII41BYAINYPGYuDNgP1w3Odm2/mcSIeioyNnel8BfATZ4XqOlam/
-         XgUixPZA1E+oq2fBUh42s/tAmVMvmCN7nKiqe/78cvDFglu2mAPFoF4SF2Q8mZ2Bxv25
-         3St7Kpe+x5+/mWapQmF6qXbE9MSKwHqVZQfw83MVRAyzyFcJSrcioEq7eiSp6j8J+557
-         plhXfLI5MOZ8AbY40MKwTwGS6yQsk1hH91TzSVWj4f6IiyOsnIB9aMJXokCxM1Y5LBgP
-         VLz1JFVrCuW91HRYJHMmurJa6ycHrNsE0XFBq/HR4sKoAeH8lrgvRYB63ym4bxmsAb9+
-         XBNA==
-X-Forwarded-Encrypted: i=1; AL+hErEUraX/PMOf4DITbUhl184s1yB6/WgBkt/L4p8eVIqqZedwA71RDZkMz5RwDLzrxvi0dC/tAXg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9RyAPmQpmDIZbnd3vXL1Jz0poUiTpsx0jRY7f9ZCqklqoNGgf1
-	lk8q7Hiv4SfEeFKrAW6e7LFm9oE3/E6HBgqPv7TSDDHQcgDZbv9E32Rm
-X-Gm-Gg: AZFdTZeJl884ZMpA0Kt9z2Iz8NojzxCzClwttXupBvztyIAVr3JZXiJu1MVlODo8RGh
-	XIno6ra/MhUXvGIDbR98Dw5jQ/QlETmEi04RgBlfFn4CFYT9d8ywWdRjPfG7IGYP3iE/shapUfY
-	T+u6JWcATML6kQs3fcI9k0CaOfbualvp+Cq508TaK3Z1viQbr6idgDi84uDIcrVu2D10r05tCT0
-	Jza/zcj+Z6xAPQRhzN/75MJN6LWoxIzyNoSyj2Ya227+KNnD/6HZiI2jggLGytysm0cu9LtRplT
-	Bi4yJg3RiD/OQzvquBLVfekxySTNFTVsnMO4HlZqfoYmjFkFkD8YGSAsQzYtbyJ/lCEaADv+wOp
-	QtAHLEclAHVXjgXhS1wlH4Drl1VpKKAIfzEXym/YDOc/k6MwyO2rWMgMu0Xrh8tE+W8TQTmQeQZ
-	qFI+NK+VV62ZaUkqZbxc7xZgg4jnAaxbJszGMCpmSh/QrUMsfLxwvNhACxxXGOth/PqK3ElZixQ
-	MFQJQp14IRnoj+PWRfQ931cGg5++3kf6DpcItia83vp0qB1YuB9ecA7CGt8DigIRXu0SdQejfl8
-	9g1TYEHvEZa3XOgCjKi0TjaZpGUUUQ47HdUPm0lF46/Cp6s99AQmyFGG8R4OzdjMbwI8Om/YbIq
-	cHriGWA==
-X-Received: by 2002:a17:902:f645:b0:2ef:dc42:10a9 with SMTP id d9443c01a7336-2f03ef3d32dmr216044935ad.7.1795685663337;
-        Thu, 26 Nov 2026 01:34:23 -0800 (PST)
-Received: from [192.168.255.10] ([43.132.141.21])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03ee844acsm103955985ad.2.2026.11.26.01.34.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 01:34:22 -0800 (PST)
-Message-ID: <5d1f3ff8-b995-4496-a59f-2a01f38603b1@gmail.com>
-Date: Thu, 26 Nov 2026 17:34:19 +0800
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=ZgNMhUAU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=4rXhKT8TtFGgK7PSIy2cEeLBQd2+yyLrWU2UR0XS9OY=; b=Z
+	gNMhUAUcklFYXKfTMNIUBm/CKZkSZH5q9wsyebphEl2D9jelp51BXM0o6o4gSL4x
+	Yoo/uCmuGpOD/1Sea0YOa6elkMtsD71c0Ipifs+upIGloo+qkXjTgRgXgVfCTr/y
+	WbxEVDtWKaUGrDaLmsBzN8zI17eqpIkcDn6k9LWGZM=
+Date: Thu, 26 Nov 2026 17:34:45 +0800 (CST)
+From: dd  <zhongling0719@126.com>
+To: "Hyunchul Lee" <hyc.lee@gmail.com>
+Cc: "Hongling Zeng" <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+	liubaolin12138@163.com, ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re:Re: [PATCH 3/6] ntfs: read initialized_size under size_lock in
+ the iomap paths
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 126com
+In-Reply-To: <awfxvg7w_i49JxBv@hyunchul-PC02>
+References: <20261125073547.154150-1-zenghongling@kylinos.cn>
+ <20261125073547.154150-4-zenghongling@kylinos.cn>
+ <awfxvg7w_i49JxBv@hyunchul-PC02>
+X-NTES-SC: AL_Qu2SB/qTuk4j4ymdZOkfmUoQhu82WMW3uvog3I9UP514jAvj+BsGdFRZMlTSwMGzKieyiCCWSRNg7vxLXq1cXaYxtvSDZLZ5RZjEh28sWQpEjg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,98 +67,30 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] openvswitch: reject negative L2 length in
- ovs_fragment()
-To: Jiri Benc <jbenc@redhat.com>
-Cc: aconole@redhat.com, echaudro@redhat.com, i.maximets@ovn.org,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- dev@openvswitch.org, Lin Jiapeng <jiapenglin@tencent.com>,
- stable@vger.kernel.org, TencentOS Corvus AI <corvus@tencent.com>
-References: <20261126083218.55429-1-ljp1205831794@gmail.com>
- <20261126101410.4a310394@jbenc-thinkpadp1gen4i.rmtcz.csb>
-From: Lin Jiapeng <ljp1205831794@gmail.com>
-In-Reply-To: <20261126101410.4a310394@jbenc-thinkpadp1gen4i.rmtcz.csb>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Message-ID: <63810a45.6fa0.1a217351ac6.Coremail.zhongling0719@126.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:cikvCgD31wY1_Qdrf5VoAA--.45874W
+X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBoBUp+WsH-TV-bwAA3R
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On 2026-11-26 5:14 p.m., Jiri Benc wrote:
-> On Thu, 26 Nov 2026 16:31:41 +0800, Lin Jiapeng wrote:
->> From: Lin Jiapeng <jiapenglin@tencent.com>
->> ...
->> Reject a negative offset together with an oversized one and drop the
->> packet through OVS_DROP_FRAG_L2_TOO_LONG. Valid offsets are unchanged.
-> 
-> This was supposed to be fixed by
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=78a86d75a70e1e227711c72865c59b1422d0a5ae
-> 
-> What kernel did you reproduce this on?
-> 
->   Jiri
-
-Thank you for pointing me to that fix. I reproduced the issue on the 
-then-current mainline, commit
-4dce97c6c265544342e716e62fd24bbb232590c5, fetched on 2026-11-25.
-I also verified that 78a86d75a70e1e227711c72865c59b1422d0a5ae is
-already an ancestor of this commit.
-
-You are right that 78a86d75 addresses the original issue. However, it
-does not cover this particular variant.
-
-The existing fix is reached through the following POP path:
-
-     do_execute_actions()
-       -> pop_mpls()
-          -> skb_mpls_pop()
-             -> if (!eth_p_mpls(next_proto))
-                    skb->inner_protocol = 0;
-
-Thus, when the last POP specifies a non-MPLS next_proto, the stale
-inner_protocol state is cleared as intended.
-
-My reproducer instead installs the following action list:
-
-     PUSH_MPLS,
-     POP_MPLS(ETH_P_MPLS_UC),
-     POP_MPLS(ETH_P_MPLS_UC),
-     OUTPUT
-
-This takes a different path:
-
-     PUSH_MPLS
-       -> skb_mpls_push()
-          -> record inner_network_header and inner_protocol
-
-     POP_MPLS(0x8847) x 2
-       -> pop_mpls()
-          -> skb_mpls_pop()
-             -> advance skb->data by four bytes per POP
-             -> !eth_p_mpls(next_proto) is false for both POPs
-             -> inner_protocol is not cleared
-
-     OUTPUT
-       -> do_output()
-          -> ovs_fragment()
-             -> skb->network_header = skb->inner_network_header
-             -> skb_network_offset(skb) becomes -4
-             -> the signed "> MAX_L2_LEN" check does not reject it
-          -> prepare_frag()
-             -> unsigned int hlen = skb_network_offset(skb)
-             -> hlen becomes 0xfffffffc
-             -> memcpy(&data->l2_data, skb->data, hlen)
-
-After PUSH_MPLS followed by the two POP_MPLS actions, skb->data is four
-bytes past the saved inner_network_header. Because both POP actions
-still declare next_proto as MPLS, the clearing condition added by
-78a86d75 is never satisfied, even though the label stack has already
-been emptied.
-
-This produces the reported KASAN signature:
-
-     BUG: KASAN: slab-out-of-bounds in prepare_frag
-     Read of size 4294967292
-
-So this is not a case of the fix being absent from the tested kernel;
-rather, the all-MPLS POP sequence described above is not covered by its
-clearing condition.
+CgoKCkF0IDIwMjYtMTEtMjYgMTY6NDU6NTAsICJIeXVuY2h1bCBMZWUiIDxoeWMubGVlQGdtYWls
+LmNvbT4gd3JvdGU6Cj4+ICAJaWYgKCEoZmxhZ3MgJiBJT01BUF9aRVJPKSAmJgo+PiAtCQkJaW9t
+YXAtPnR5cGUgPT0gSU9NQVBfTUFQUEVEICYmCj4+IC0JCQlpb21hcC0+b2Zmc2V0IDwgbmktPmlu
+aXRpYWxpemVkX3NpemUgJiYKPj4gLQkJCWlvbWFwLT5vZmZzZXQgKyBpb21hcC0+bGVuZ3RoID4g
+bmktPmluaXRpYWxpemVkX3NpemUpIHsKPj4gLQkJaW9tYXAtPmxlbmd0aCA9IHJvdW5kX3VwKG5p
+LT5pbml0aWFsaXplZF9zaXplLCAxIDw8IGlub2RlLT5pX2Jsa2JpdHMpIC0KPj4gLQkJCWlvbWFw
+LT5vZmZzZXQ7Cj4+ICsJCQlpb21hcC0+dHlwZSA9PSBJT01BUF9NQVBQRUQpIHsKPj4gKwkJbG9m
+Zl90IGluaXRpYWxpemVkX3NpemU7Cj4+ICsKPj4gKwkJcmVhZF9sb2NrX2lycXNhdmUoJm5pLT5z
+aXplX2xvY2ssIGlycWZsYWdzKTsKPj4gKwkJaW5pdGlhbGl6ZWRfc2l6ZSA9IG5pLT5pbml0aWFs
+aXplZF9zaXplOwo+PiArCQlyZWFkX3VubG9ja19pcnFyZXN0b3JlKCZuaS0+c2l6ZV9sb2NrLCBp
+cnFmbGFncyk7Cj4KPklzIGl0IHNhZmUgdG8gcmVhZCB0aGUgc2l6ZSBhZ2FpbiBpbnN0ZWFkIG9m
+IHJldXNpbmcgdGhlIGZpcnN0IG9uZT8KCk5vLiAgVGhlIHR5cGUgb2YgdGhlIG1hcHBpbmcgd2Fz
+IGRlY2lkZWQgYWdhaW5zdCB0aGUgZmlyc3Qgc25hcHNob3QsCmFuZCBhIGNvbmN1cnJlbnQgZXh0
+ZW5zaW9uIGluIGJldHdlZW4gY291bGQgY2xhbXAgYSBNQVBQRUQgZXh0ZW50IHRvIGEKYm91bmRh
+cnkgdGhlIHR5cGUgZGVjaXNpb24gbmV2ZXIgc2F3LiAgdjIgcmV1c2VzIHRoZSBmaXJzdCBzbmFw
+c2hvdApmb3IgdGhlIGxlbmd0aCBhZGp1c3RtZW50LgoKPkFuZCB0aGUgc2l6ZV9sb2NrIGlzIG1p
+c3NpbmcgaW4gbnRmc19pb21hcF9yZWFkX2VuZF9pby4KWW91IGFyZSByaWdodCwgdGhhdCBpcyBh
+IG1pc3M6IGl0IHJ1bnMgaW4gdGhlIGJpbyBjb21wbGV0aW9uIHBhdGggYW5kIGhvbGRzIG5vCm90
+aGVyIGxvY2ssIGFuZCBvbiAzMi1iaXQgdGhlIHVubG9ja2VkIHJlYWQgY2FuIHRlYXIuICB2MiB0
+YWtlcyB0aGUKc2l6ZV9sb2NrIHRoZXJlIGFzIHdlbGwsIGluIHRoZSBzYW1lIHBhdGNoLgpUaGFu
+a3MgZm9yIHRoZSByZXZpZXcuCgo+Cj4tLSAKPlRoYW5rcywKPkh5dW5jaHVsCg==
