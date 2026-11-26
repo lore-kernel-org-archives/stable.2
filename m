@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795689293;
-	b=C/MltAXybRBXJ8skCiUkCNQooeJBAe44G5deJGSH2mSV+giRrlcTbPFml+3DOR5ZF26k
-	 cRmw1RDJL1TzFS1ytAo9lBGumR3VuZ8C4DdLfDPp4Y2YSN4dVCEV1pi80y2YcLRroXEnJ
-	 tdpQQ8Mp9ybjUwLyWkJBUao76PJLoaTXEUjWtpcmYrQBVQWBXO2hNRSM74WW/i+OZtaCh
-	 fJYZluGq/IzNhl3qqQIcn3oTc3bZtVdZpIcTK9MarIM6+Fp4QKuJscRG2qYdhNIyohqd5
-	 Z9yxzPI6/NE6d4OjOAZF8Yi0T2yQCrQNkc5ExEYndJnXDMQ5IZGehb/RdB3FZJhRapw==
+	t=1795689296;
+	b=XjavuOagXIMsmRwk+bchEzxz2zkgemNykAE79jpyIrpopDxDt9iSs2AVOrQBzYASPqat
+	 5oQlLGVqRVl1ceGHk4EPuLVDm1yUxT+z5f8EHMGvL47GUXYpupiUfvpvWfmh1tK+zjkwO
+	 H8SAQdsllyU+QUqzUycBkV19d0/onEkv46r3F4hmZbgE9bNF+2q0F1E4GZ0ODz6LvfHMJ
+	 S4tkhPUaaMFy+JIW09+L3DbZnI1CWflSg455JCWR5rv7EQWjXR5aV1EFBTHh8jCmKrcWY
+	 ItQdQOxe3V1P//vSCnmGbybV5/CFgeQZwC1WjeRIoO+VF3PSVIEgV6dQ+hkMKqOpVIw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795689293;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795689296;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=2JYZPx51REunevoZ4dK0f/jIdotpD84eHhmzozcTR1s=;
-	b=Tm/lOnzl/JzQyoGd/mrB1NQu+IjkbVNQQHsw4tf44RqZehn32q92ch3lRVhwR7yUwU79
-	 +d1aTJEp3vrgrxZV00lpTA7Ze+WRysI8MUFFiUQms/lvJiyscS8v75fGPXwIvWwPhKClh
-	 p5C1nyG5zwi2zOyKilYpQlAhMr/p+7I/n0kg8ZhD8yvqzBk+xO2pzYgCafiZDDn3E6CgB
-	 A0WInIEG3P+CwtpfljRQr9RbiBtmxjlu1ZB/fhqrZMkWKUNLh7Lm+nCxTKCWdmWo0ayDr
-	 XCxdwl/N3zcs7FpOzvsSN50VOR8500HKeUddyCIbnqXSI1lTZh+9mx/jBW5gudDem0g==
+	bh=JgQXv7FdgOeE5H/CalcuK3oIqiWd+ZRvVVk3oyr25Ko=;
+	b=e05mDlK4VaMXtlfXRBVat0lJ4bg/V6NKIU14G/mFQZfxOpZwlFSvu+saAVb2gP3VZy8u
+	 +g4v5x1vln2FLaCBX+pVA4558ErYT/mMt4TfE4/IwSlTHsHOKHLxIaBy08siliaulhmw+
+	 0P4/TjVOi7bo7wHm7DNO2pfDLS1h3co4IIOV/2+VoZcNWdjpEOA0B8+ZZonkAl9g5AmFK
+	 dUPcl72CIzs62RNHz0KryjhTVkmF6TApOKZAS9R8DvJZ1dyW0+T5pG9XpYlqXmuO511Zj
+	 5WY1c6THSHc2v64xtY+4PGHBY+N5/GVPUOb9Uk/HzHDxX7nozX7Bir8Z04Aycvlh5Fw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=enSLGa5U;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VS+d6Pt1;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 573BA606A685;
-	Thu, 26 Nov 2026 10:34:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79F3606A336;
+	Thu, 26 Nov 2026 10:34:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=enSLGa5U
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VS+d6Pt1
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795689293;
-	b=f4dmtEtdkDnM9kgegzwDgN+Zp9v7HwsuSKYlMEGuCMiSn+6gx/oEA97eLBmR3sqzTRUW
-	 IwqlhKTUo0xyw64rpcw+x8tCtZyuH+DxUBhVijqQCHGjwqh4spy7j1TXgowrdm8KGxc/8
-	 i4p1LdvZXTFs2s+N/Xl2e+bSqGJtuMuOQFfLB68Mw0mq9RcF0rch/bBnBfiqR1gDYw8yO
-	 thFGZHLcP3q5GUkBaFxIICo8thIH4kmKKKqB0J4DHegmexEAWCOT8WurVbYdHC4w6XS9Q
-	 ZpxJwlANq0EmyE61UEZ7LiIosxR3tX3yBxsOJHDUSoFXIzwavOU8HokUQLAbhqk6nMg==
+	t=1795689296;
+	b=CcWARuQKkEo/GEoxfkNw+N8A/oMrBUIenavlG+ZX1wbV4LyFaAplJBLCjYvZekElPSYa
+	 7KVMa02jT0LlA+f6qg69XlfMMUHnUhl+rwDxmdo6aJ0uMNuW618028qqABk2zrlyiuOmh
+	 B/FjDCVr1wPGfd7c7belUZXWKmOTxSqSxr+oZt2b2c8hyaYt9V3Sm02iNDRyNxthfSwyq
+	 BnTqT8HrQaEU0SCCldugvCWY9OpYorDf505SnkU2KewvYMcHa68zsMJtPGasgL7DA9mn0
+	 ynOM7NQzjm4c55xlay7kLnlNTPjcWVTsgrHHNcOs1v7hw6qRPB+H3l5s5pKh+j52dCQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795689293;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	c=relaxed/relaxed; t=1795689296;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=2JYZPx51REunevoZ4dK0f/jIdotpD84eHhmzozcTR1s=;
-	b=dmpQl6CRS+t9MTI2xX2UpVjQlq0qk2ef+zILyBMmS5+cxFqw75p1ugZLHQa+kQRbg84F
-	 khhiDMpKrl48vCpmIlmX29CHPIESmGW/3y3+LkgcQpzCIaVTKWXYCBbLw8lzgTTFj7X0t
-	 kF7y3u5AfrJimn5k8nKSGeNRV7I2XD28ID2hRHjao7Nmfs19oo07wLG1d2Egd5D9478jm
-	 s1BvlKTdziiFCNtK2nVdXY3CQAON/n2DtKXLWuvdi9DK8sAsM+f63t3xqSIFh3mRC0wGU
-	 9VPGBVEefd2/imkIbqamo9Y+xI2QS5mPTAnvE+vgBADHFjBbQoRvN6IeK+rSOfSAJeg==
+	bh=JgQXv7FdgOeE5H/CalcuK3oIqiWd+ZRvVVk3oyr25Ko=;
+	b=22EVORb6rMjWNx7AL6qdJ6TlXyqMsCBq57Q7yJV5+VA3AryMqlm6qcRsDQGjyj2lBA6K
+	 GWIUSkuGkuZYY7nmYgxNcwKWQ2hUSdj5jxZYVPleOlobESCX7BST0GYNmio6LZh6b3EsQ
+	 KcCxY5PeVsywsE7M09O4MfO+on1GYzQpKZ09I3sVzuk7nHci2N3dWy2l50ZpOfVyuwLHY
+	 md/c0HWzxKP19RcK3RR8DBkxh8x4pLbQemqTIuaIyr8FQ6VXbJISSK5XE97XbsS8YRO4v
+	 Cuenk0I6EqGU//NFnO7EUFFU+6tty98SFZH/7liA3+vFZcIU0T9zX128fTSR9lSJmjA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CC4FF1F000EC;
+	by smtp.kernel.org (Postfix) with ESMTPS id 603DA1F000E6;
 	Thu, 26 Nov 2026 10:34:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795689293;
-	bh=2JYZPx51REunevoZ4dK0f/jIdotpD84eHhmzozcTR1s=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=enSLGa5UthnGWupLRQDjvmEGoyBaaSXNXFRdEA+uFydZDzILto9NGjquvQ4cai0Oi
-	 cvgZ4vIKo9Y2tfx+IxTXexOV2pjtjKk1UrH8x/LnM/Y22i5BS0PkLTfHIhqXGRadka
-	 dvvmP/6z3HKohsyAm2xyx8d2mAdKUkAoLgLEi1BLAR2pfeb1I5GZTrXAx3B5Ucn9Ut
-	 NRkASpY5dzzynBdSH9sq5M4l1Ntv4cWOSRr50SEPxuXqFUJ2IwG8j9kJwyfQ7xEdIh
-	 X93gQf6QoVjpsTJWJiZq91YvjELWbPFmBL/O1hpwBrAL4Foey6xXamOHUNaiF7Rm8y
-	 YhhMqzDNDIdMQ==
+	s=k20260515; t=1795689296;
+	bh=JgQXv7FdgOeE5H/CalcuK3oIqiWd+ZRvVVk3oyr25Ko=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=VS+d6Pt1G44+/5VFkW4PSjAF7octuB1NnUIRf0VR58EvC3wZ9tI+S9d5MKq9iijY6
+	 F2fDrx6Pm2bOfyRmmqCFO9caz/nIiY16fXLWotBZN1F/YKU2OE8zWAu0SaSRZP+f0f
+	 PzW5Z+Ajqm1eM/mC4RuwloXADSkzh4RDKNx39EGrTyJTlvjvBMrFmZx/dNdWMNKQ21
+	 oZlcbL5NHLVfcl792PNeHWp7qgIvP7idBAsBh6Xq0ek30FT6ILC05ZcuJXczNqELUD
+	 xZIHCS+UHyNVUDJcgUNMLZ6DbrRf9t1sv34HkOiecDKQLFRPJKVWXHnVdj0PmzDnlO
+	 21OcyG1bZ8w+Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5A4E24D44D;
-	Thu, 26 Nov 2026 10:34:40 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id E5C5C4D449;
+	Thu, 26 Nov 2026 10:34:39 +0000 (UTC)
 From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
-Date: Thu, 26 Nov 2026 10:31:58 +0000
-Subject: [PATCH 5.10.y v2 2/2] KVM: x86: Acquire kvm->srcu when handling
- KVM_SET_VCPU_EVENTS
+Subject: [PATCH 5.10.y v2 0/2] KVM: x86: complete SRCU coverage for vCPU
+ events
+Date: Thu, 26 Nov 2026 10:31:56 +0000
+Message-Id: <20261126-kvm-510d-v2-0-bcba96aa2088@certik.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,18 +86,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-kvm-510d-v2-2-bcba96aa2088@certik.com>
-References: <20261126-kvm-510d-v2-0-bcba96aa2088@certik.com>
-In-Reply-To: <20261126-kvm-510d-v2-0-bcba96aa2088@certik.com>
+X-B4-Tracking: v=1; b=H4sIAJwKCGsC/zWMywrCMBAAf6Xs2a2b0ATxV8RDHquNj0SSWpTSf
+ zdRPM4wzAKFc+AC+26BzHMoIcUKctOBG008MwZfGSRJLYTUeJ3vqAR51M4N5HdKEQ1Q80fmU3h
+ 9VwdQvaD+DcefL097YTe1TyutKYw2m+jGpgpHP6V0w+a3/z+s6wfjFa5bnQAAAA==
+X-Change-ID: 20261126-kvm-510d-6cc40d855004
 To: stable@vger.kernel.org
 Cc: Sean Christopherson <seanjc@google.com>, 
  Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795689116; l=3140;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795689116; l=1912;
  i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
- bh=PMK0gZrBAmRQrVrXOfeI0jd8iITYPjI9GzoyJjp5PyQ=;
- b=AsNEqMlI3dBGqzOWLi52zGIO5UhAN1dWaR5vo5DfilLwILCQivK0vI/dLLcKXv5gMX6lGoj2f
- 5Nd/fukKfjZAugt/rMjZ6/vW6yPksZRXjnGnE2WfM5pnDrYWGqGPl1P
+ bh=tZO36opxcxWmYFpvOATral8/1zZH55TXraMh88jDJHk=;
+ b=ApqeA9bExi8qy5tP2NK4EbBv7S1Mr2DckuKO99gynUeL6IjtL5NAD+cf9KHmI7oU7Tf0QJPDq
+ tQbMQPpPnoXCFCuyTRlREdUYQqUQ9ICQiOpDRBFU95yyRn3U0YE1ug7
 X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
  pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
 X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
@@ -104,90 +106,56 @@ X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
 X-Original-From: Dickson Wu <dickson.wu@certik.com>
 Reply-To: dickson.wu@certik.com
 
-From: Sean Christopherson <seanjc@google.com>
+Hi,
 
-commit 4bcdd831d9d01e0fb64faea50732b59b2ee88da1 upstream.
+v1 was a single patch: the 5.15.y version of commit 4bcdd831d9d0 ("KVM:
+x86: Acquire kvm->srcu when handling KVM_SET_VCPU_EVENTS"). On 5.10 that
+isn't enough. KVM_RUN also reaches kvm_vcpu_ioctl_x86_set_vcpu_events()
+through sync_regs(), and on 5.10 that happens before vcpu_run() takes
+kvm->srcu. Upstream covers that path with commit 8d25b7beca7e ("KVM:
+x86: pull kvm->srcu read-side to kvm_arch_vcpu_ioctl_run"), which 5.10
+doesn't have.
 
-Grab kvm->srcu when processing KVM_SET_VCPU_EVENTS, as KVM will forcibly
-leave nested VMX/SVM if SMM mode is being toggled, and leaving nested VMX
-reads guest memory.
+Patch 1 is that commit with its follow-up commit 2d08935682ac ("KVM:
+x86: Don't re-acquire SRCU lock in complete_emulated_io()") folded in,
+so emulated MMIO and PIO completion can't overwrite the outer SRCU
+index. Patch 2 is the v1 patch.
 
-Note, kvm_vcpu_ioctl_x86_set_vcpu_events() can also be called from KVM_RUN
-via sync_regs(), which already holds SRCU.  I.e. trying to precisely use
-kvm_vcpu_srcu_read_lock() around the problematic SMM code would cause
-problems.  Acquiring SRCU isn't all that expensive, so for simplicity,
-grab it unconditionally for KVM_SET_VCPU_EVENTS.
+Tested on v5.10.275:
+- x86_64 allmodconfig W=1 build of the touched objects, base vs
+  patched, no new warnings
+- booted a PROVE_LOCKING/PROVE_RCU kernel as a nested KVM host under
+  QEMU and ran the evmcs, smm, state and sync_regs selftests. All pass
+  with no lockdep or RCU splats. vmx_preemption_timer_test fails the
+  same way on base and patched in this nested setup.
 
- =============================
- WARNING: suspicious RCU usage
- 6.10.0-rc7-332d2c1d713e-next-vm #552 Not tainted
- -----------------------------
- include/linux/kvm_host.h:1027 suspicious rcu_dereference_check() usage!
+5.15.y has the SET_VCPU_EVENTS fix but not patch 1, so I'm sending patch
+1 for 5.15.y separately.
 
- other info that might help us debug this:
+Changes in v2:
+- v1 <CAFaZ9eoOtFxAansjaUbA-CDNQLcVAVJre2R9vaTQONG9MYUEng@mail.gmail.com>
+  only had patch 2 and missed the sync_regs() path. Added patch 1.
+- resent through a whitespace-safe path, v1 was also damaged by my
+  mail client.
 
- rcu_scheduler_active = 2, debug_locks = 1
- 1 lock held by repro/1071:
-  #0: ffff88811e424430 (&vcpu->mutex){+.+.}-{3:3}, at: kvm_vcpu_ioctl+0x7d/0x970 [kvm]
+Thanks,
+Dickson
 
- stack backtrace:
- CPU: 15 PID: 1071 Comm: repro Not tainted 6.10.0-rc7-332d2c1d713e-next-vm #552
- Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 0.0.0 02/06/2015
- Call Trace:
-  <TASK>
-  dump_stack_lvl+0x7f/0x90
-  lockdep_rcu_suspicious+0x13f/0x1a0
-  kvm_vcpu_gfn_to_memslot+0x168/0x190 [kvm]
-  kvm_vcpu_read_guest+0x3e/0x90 [kvm]
-  nested_vmx_load_msr+0x6b/0x1d0 [kvm_intel]
-  load_vmcs12_host_state+0x432/0xb40 [kvm_intel]
-  vmx_leave_nested+0x30/0x40 [kvm_intel]
-  kvm_vcpu_ioctl_x86_set_vcpu_events+0x15d/0x2b0 [kvm]
-  kvm_arch_vcpu_ioctl+0x1107/0x1750 [kvm]
-  ? mark_held_locks+0x49/0x70
-  ? kvm_vcpu_ioctl+0x7d/0x970 [kvm]
-  ? kvm_vcpu_ioctl+0x497/0x970 [kvm]
-  kvm_vcpu_ioctl+0x497/0x970 [kvm]
-  ? lock_acquire+0xba/0x2d0
-  ? find_held_lock+0x2b/0x80
-  ? do_user_addr_fault+0x40c/0x6f0
-  ? lock_release+0xb7/0x270
-  __x64_sys_ioctl+0x82/0xb0
-  do_syscall_64+0x6c/0x170
-  entry_SYSCALL_64_after_hwframe+0x4b/0x53
- RIP: 0033:0x7ff11eb1b539
-  </TASK>
-
-Fixes: f7e570780efc ("KVM: x86: Forcibly leave nested virt when SMM state is toggled")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/20240723232055.3643811-1-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-[ adapted to 5.10.y: open-coded srcu_read_lock() as in the 5.15.y backport ]
-Signed-off-by: Dickson Wu <dickson.wu@certik.com>
 ---
-The backport and the test runs were prepared with AI coding tools
-(OpenAI Codex agents, with review by Claude). I went over the result
-before signing off.
+Paolo Bonzini (1):
+      KVM: x86: pull kvm->srcu read-side to kvm_arch_vcpu_ioctl_run
 
- arch/x86/kvm/x86.c | 2 ++
- 1 file changed, 2 insertions(+)
+Sean Christopherson (1):
+      KVM: x86: Acquire kvm->srcu when handling KVM_SET_VCPU_EVENTS
 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 69ab4e317422..d0bbf595dd47 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -4970,7 +4970,9 @@ long kvm_arch_vcpu_ioctl(struct file *filp,
- 		if (copy_from_user(&events, argp, sizeof(struct kvm_vcpu_events)))
- 			break;
- 
-+		vcpu->srcu_idx = srcu_read_lock(&vcpu->kvm->srcu);
- 		r = kvm_vcpu_ioctl_x86_set_vcpu_events(vcpu, &events);
-+		srcu_read_unlock(&vcpu->kvm->srcu, vcpu->srcu_idx);
- 		break;
- 	}
- 	case KVM_GET_DEBUGREGS: {
+ arch/x86/kvm/x86.c | 26 +++++++++++++++-----------
+ 1 file changed, 15 insertions(+), 11 deletions(-)
+---
+base-commit: 99112ea818e35b606397c84fbc05e6fadb6ea162
+change-id: 20261126-kvm-510d-6cc40d855004
 
--- 
-2.43.0
+Best regards,
+--  
+Dickson Wu <dickson.wu@certik.com>
 
 
