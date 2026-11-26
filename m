@@ -1,58 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795724295;
-	b=eBA1dLP6zh29d3Ugal4gB6X+MHPW7/vWdPDMIgjV/kHp1/1JQh0U0GCqA3cgBr5rd4gb
-	 puGTqH5CPnVV6ur8EIQVb0feVcwa5jN3TVbGNZ6CPu0xJTSqrTe1vqsjUp8apj7NLp+MC
-	 dhQLAjFfffHIpUoNheD49JJ5mmTQwNpjDrZGfUFK2MGyIhlDOQLcienFtUppouU0nFGcR
-	 HJg87C9OOWf85oTT8Q7eyUWC+rqHCqYRBRDZjbaFQch5PjmKa8okxd87pTFUVhdPC+h2b
-	 CJkvZutTjJLhDAPHUw6rlAJqIq1hy9RBmiF5J/e8AB0EhXrRyPsHWBFK3Vf8sHcnDYA==
+	t=1795724602;
+	b=h1zjJzxaay5wCRCQj47E/ZTLs+TMGDdC7vC9s7Q9wp2eOSvs6NMYhl0i7GGwcqMSoqpg
+	 cfyBqMjBlqvmi/MKVGLqKwdbcAOM+uC1OlGdd1j4mxoKR0ZbRhKemkTvXZ7/blUf4AwWE
+	 mhLgVmj3obqBcXkLPlR3ylT/WhjjMCsIX88OYYW1hj43dToDzgA8mlhCNRiFTjSVDsMT8
+	 IFunfDL03CQg99FpuYYWp1QOwdOgvyJs8TApN0eFlc9f8xhNVgWjOLmxmytS/FDRnJcix
+	 sm0xC/h9vZ0f542yZ9YI5l7jCAorV4D0JQGjP8dG0K1SBazb0vTzX+D+P/Q2BhHhJyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795724295;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795724602;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=1FnAhgk25xC5O2y7bub24VBFft3zUQeuPp/u1EKgXxw=;
-	b=jdP31W5cGptSKBHVeHRdtyIuyn3GpV0YWsRAhSBD1EgJRG+gfpUljgceA8gdqVX1KFuA
-	 0CzA3ItlGvTTIfghgg7cpG7eT3y+ESQJPUNrlefRW5ly/WEefsnx8T94PF9Rr2ig4rG/M
-	 8vqATQkwGXIvhz2KuNzSOa61NrJrerwovSARGhuaB800avmZy35QJxmdVodqwXR2dCRi2
-	 Icw0s66Ty1xx29yalNMS0NTAXXQQFMY4+cERalFUb7yw9S2KFTIsnYB8pTYqgi4inFpJ/
-	 svhqa8Xb2QO3J/IAIWeR4Ch8hI8E9ZSaq4VC8Gkosr4Pif6F9/2Oh2ZriiTl8Ebd0Ew==
+	 Content-Transfer-Encoding;
+	bh=nwNmT3+N2K6C+WQBtWD0mcJtZx8RSgDfIN1Kq5hD7g4=;
+	b=cJmNbfVlibS9tT3nLR3qPZ30Hg6jJhZw0ysrz9ypPB2Lcuqk/gGTVtSlaVMYFWOfX0zD
+	 xsTJWGhlypYPXykcSuofJFRH78YMp1PzRSJXN+PbWwJy2mlFT19RV477XWLASQo7gKP1l
+	 rw34XIxgkQc3O6Lz5Rr2Cc+DhN4OgWnEf6xh2w9NZVQ2O834ROgHEDB6Y2Kas9R2dWb7R
+	 Hu/xqvlRi1b5g+54NUNqpWCU4VEU/JPrJBYjL+Wa0f9AtdP1V3NSwE+zeJ61DgZ7sgx5l
+	 Bipx+f1Xxp20ktVWWNpnoM31PoP6EhuDY1MzGfrkiUustuEG+8dR/r1S9tttAJaL3Qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=PYEqj8d1;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ywB1p9iP;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69096606A31E;
-	Thu, 26 Nov 2026 20:18:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69096606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7209C606A329
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 20:23:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7209C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=PYEqj8d1
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id DD1A74E417B6;
-	Thu, 26 Nov 2026 20:18:11 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A688B60558;
-	Thu, 26 Nov 2026 20:18:11 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 51DBE11E691C1;
-	Thu, 26 Nov 2026 21:18:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795724290; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=1FnAhgk25xC5O2y7bub24VBFft3zUQeuPp/u1EKgXxw=;
-	b=PYEqj8d1Z4cjlTJyqbx6x6NReRTDGkqobrnpgMgNXsj/PxnD23ArEKGvVu4GvLEs10R3Dd
-	sdNgVKJ1BxwRNJdFuflLTv8LN4k+U4Ws/ku9Tyeug89YC4jJkrQn15686F8/1Y38MvazTY
-	+eymYI/8QWu6miCpxsMeumUpC9qWw1UjTBgsJ6C7TGsNbwbAUzNsa3T8+t9fN1SY4b1pmo
-	CYgLjKGjL7igA2uTrPbXqep6iZ6ly9sAbSE4MN57BV6e4jEz0aBo8DIWM8/sxVQSm7nIdp
-	Mq1+1bz5+47Df4uEUxYD9v/lkqpnZN5KUy3OiA6lr4zCGU1FFHUrDyy5uQS0nQ==
-Message-ID: <b0d32861-c123-4f4f-8bac-aa0e7e48c719@bootlin.com>
-Date: Thu, 26 Nov 2026 21:18:07 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ywB1p9iP
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-490d59c3f0aso3402217f8f.1
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 12:23:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795724601; x=1796329401; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nwNmT3+N2K6C+WQBtWD0mcJtZx8RSgDfIN1Kq5hD7g4=;
+        b=ywB1p9iPdGEmqVZlkXKOggU5r1cO44C0Wi0MdMKxLdnecPUPgaerI5xVKkpNtv7nnO
+         4DM2RT2c4FO2eYnhgZvBT6hJfJ9XWZQqXyaHhuSYwvNo/2g+sZDEsrJpu2DkMlFGC1nP
+         B4tYXQApvotMYA4u/iKyWF2HTeYCDeYuzVgM7LQo9y+5qrFykHDB9/RRzS2IAajn5W7F
+         DlFcBX1D9ptI0E3SJCVe7esdLI5zV8ekdGIKqmPuyO5hwLAPyBVDqSxCzbh1+qojhimM
+         +srEKo82XpEU3CEFwh1cP67/yK4kPYhznK3LHYXTF9VZxBaa3FIck8oGpj7BxlBEWlkA
+         5R9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795724601; x=1796329401;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nwNmT3+N2K6C+WQBtWD0mcJtZx8RSgDfIN1Kq5hD7g4=;
+        b=knfTDLX1VzSXnsZLCWNP/Xy5ID38GtOigs3VCHLE/jkn+/NIOPKz9Yquc8iolcWfsm
+         PIRWE5YwBe7WbWKtRuSws4A3to06qP77XwtMiFzm9FOK1F1BDiBugctWD2P+tu9RAED5
+         CiLg6jtDgiQCFvFh/5mYrBACfKF8TYm8RC9gbcTJ9eaJh1E+ltresYFGbGM2BrJLa1pH
+         D3McEjF/r6DRBfEyGIy8t5Nafx3hg63VKN/BzqhUVbitohYUMGjDLMpAQvWTfdM+zxV+
+         8wpiXFXsHkYBoYuH2wjTFbcfopeo6MWHMdt4+efDOxM3Rl2hxeHTizKMqyJ+fkNfdj7G
+         hYVg==
+X-Forwarded-Encrypted: i=1; AL+hErG9hQyCW6bK3bcQksdiE2JU/AiPfVlW7aNCFF5T+5V693/0DNYtnrqcvZz2tnvkwq3qUit94pM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Df5aGghLPg7gHOhuWvb2pca9dBIuPJxFPw4ZjJ4GnrlfK2YuM
+	Bico7fWmYw+5YtPDnkMej7tTTQS/Y4vXnHbKLSRXZy2lENgSZzcydgt7
+X-Gm-Gg: AZFdTZd2XZMG+X84bIJ3hirzwU7E9Cl8d9m0MisTcqy6xJKrziPI10zszbk0ayOvIg0
+	P5FqDeKMG6khRIJDvy15KPxEq2BMMh5deR3P8SV8iZO1loBL0hSvS+JBqw7Uy4I684qqSLs6MRp
+	TbCQ1uTik1y8fOUxEXMrQuc/cM24YpFHyTIGf3FlSQOom+PoNKe4UKPagoMGF/6LyKy1Z8M7Gvp
+	9WSxogrCDs3lBaqIRtJAWiS92sVj7A011CCnHSmTzPpoIF1i2K49nplAuZobsQGD4PilY1H2hzr
+	bD/NZRJ/eWDA64xFVgGlKPNYCCHJfZ6WVCSVnwEZHxCuN6Tq+TYSsuhALFag4zr1wN+cqSYew8l
+	LKiZmWTKgGe1BeupM7bonz+qwFVrxg6BwavxyUxGQU+Ht19qH5OrVwqzEmw9xas2imu183A6UrW
+	OKzlXYCIYWcITi0gj/hDpNkh80jL4m1h6T1IMANoXrm8kiqkyfFye9966hue+if+Zwhlzhlb8yk
+	1cwV/rHBDTOuFH/vu9PsEic5LqS8XGEOtMDBarWz3c7e8FFH9bt7SsCUrwyUxw+HvML9kaL02TY
+	vJNmTW2tfEuwL2iC0eP2nQoik7Yyjfq68Nt+WBkdOO8skQ==
+X-Received: by 2002:a05:6000:2586:b0:4b7:760c:70db with SMTP id ffacd0b85a97d-4b7760c713cmr19227429f8f.4.1795724600577;
+        Thu, 26 Nov 2026 12:23:20 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6bb989eesm43021525f8f.50.2026.11.26.12.23.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Nov 2026 12:23:20 -0800 (PST)
+Message-ID: <c5bc383d-fd32-455a-b946-e5f232c7fdf3@gmail.com>
+Date: Thu, 26 Nov 2026 21:23:18 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,52 +93,68 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] i2c: cgbc: Fetch the status of a write transfer
-To: Andi Shyti <andi.shyti@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
- linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- Markus Haberlander <markus.haberlander@rosenberger.com>
-References: <20261123-cgbc-i2c-write-status-v1-1-5b0fa0322b57@rosenberger.com>
- <179568834099.302193.16315749597111506309.b4-review@b4>
- <awgwO98qx3zX4MaY@zenone.zhora.eu>
+Subject: Re: [PATCH 1/4] mm/khugepaged: allocate page tables before locking
+ the folio
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Zach O'Keefe <zokeefe@google.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ Dev Jain <dev.jain@arm.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Hugh Dickins <hughd@google.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Rik van Riel <riel@surriel.com>,
+ Song Liu <songliubraving@fb.com>
+Cc: "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Michal Hocko <mhocko@suse.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+References: <20261125100058.15200-1-azpijr@gmail.com>
+ <20261125100058.15200-2-azpijr@gmail.com>
+ <042ab922-4707-4c96-80a2-83a0378646d1@kernel.org>
 Content-Language: en-US
-From: Thomas Richard <thomas.richard@bootlin.com>
-In-Reply-To: <awgwO98qx3zX4MaY@zenone.zhora.eu>
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <042ab922-4707-4c96-80a2-83a0378646d1@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 11/26/26 2:14 PM, Andi Shyti wrote:
-> Hi Thomas and Markus,
+On 11/26/26 5:24 PM, David Hildenbrand (Arm) wrote:
+> On 11/25/26 10:59, Jose A. Perez de Azpillaga wrote:
+>> try_collapse_pte_mapped_thp() calls set_huge_pmd() with the folio
+>> locked. set_huge_pmd() allocates the missing p4d/pud/pmd tables there,
+>> and on ppc64 with the hash MMU do_set_pmd() also allocates the page
+>> table to deposit.
+>>
+>> Allocating with __GFP_FS while holding a folio lock can deadlock in
+>> reclaim. For example, memcg reclaim on cgroup v1 waits for writeback
+>> that may be waiting for the folio lock we hold.
+>>
+>> Allocate these page tables before locking the folio. The mmap lock
+>> keeps the upper levels around, and an unused deposit table is freed
+>> after unlocking the folio.
+>>
+>> Fixes: 34488399fa08 ("mm/madvise: add file and shmem support to MADV_COLLAPSE")
+>> Fixes: f8a01513f574 ("mm/khugepaged: do not fail collapse_pte_mapped_thp() on SCAN_PMD_NULL")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+>> ---
+>>  mm/khugepaged.c | 79 +++++++++++++++++++++++++++++++++++--------------
+>>  1 file changed, 56 insertions(+), 23 deletions(-)
+>>
 > 
->>> diff --git a/drivers/i2c/busses/i2c-cgbc.c b/drivers/i2c/busses/i2c-cgbc.c
->>> index dfdb9ffc6447..2361591a1e31 100644
->>> --- a/drivers/i2c/busses/i2c-cgbc.c
->>> +++ b/drivers/i2c/busses/i2c-cgbc.c
->>> @@ -254,6 +254,22 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
->>>  		ret = cgbc_command(cgbc, &cmd, cmd_len, NULL, 0, NULL);
->>>  		if (ret)
->>>  			goto err;
->>> +
->>> +		ret = read_poll_timeout(cgbc_i2c_get_status, status,
->>> +					status != CGBC_I2C_STAT_BUSY, 0,
->>> +					2 * algo_data->read_maxtime_us, false, adap);
+> That's a lot of churn for a corner case (powerpc with hash MMU).
 > 
-> would it make sense use USEC_PER_SEC here to preserve the
-> existing one-second timeout between write chunks?
-read_maxtime_us was computed based on the bus frequency and the maximum
-amount of data that can be read by one transfer.
-CGBC_I2C_WRITE_MAX_LEN is 32 whereas CGBC_I2C_READ_MAX_LEN is 31, but
-multiplied by 2 we should be safe.
+> What about simply running in NOFS context when allcoating that page table?
+> 
+> Apparently pte_alloc_one() doesn't consume GFP flags ... but we could add NOFS
+> around the allocation.
+> 
+> Any reason you went for this more complicated solution?
+> 
 
-If I'm not mistaken, USEC_PER_SEC is only used if master_xfer returns
--EGAIN (arbitration loss), else __i2c_transfer() directly returns so no
-1s timeout. And we never return -EAGAIN.
+no reason, it was just the solution I came up with. I'll rework it with
+NOFS then, it's a lot less churn.
 
-So why should we wait 1s?
-
-Maybe I did not get your point.
-
-Best Regards,
-Thomas
+-- 
+cheers,
+jose a. p-a
