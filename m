@@ -1,56 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795726602;
-	b=NKjHrl012c3Hxd8FqFKRgh8fV8xG1RvJpbijQWPzHOchK8+3/dgnyLzRu+VslqaYMb3G
-	 Km2n845XT4jf6KxBRH4LSw1wGNiWwdlWAFOe8eNNV5DD5Ss5l1uc5pd2jIBJn8H7ImaPY
-	 AgWw9P1Q0bVpK4TyWSKfTblH+uzMw0BgsZwDoSOHVLf/RZGgPIFHA59qb0/rfNOCRTIsV
-	 JkHVRCR8ToNFc1mX/m5J4rqVe8EbKE/dF+E/RrGsMLpUinUqys1H3/J8ZkiCnHC4AWLhD
-	 CSHB2fx3uedjHFEV3lmdDz5smyJZi1cEEARQzpJBKUqghWbiwDOp9/dNv2HWAWXBt2A==
+	t=1795727932;
+	b=muUBquwHZiHqSxq1QJchGs1ddU4Q2mK7GAzSlPF8iahhAp5MpXJGj77192yatt/rEDiR
+	 PYtvFSc5gTy4NK36EWZCRexoGncKXzPu7VQ/ZKzixueQdqAMzlZVXZCkb7oERSaPZa9y/
+	 EisOIYiqtqmRVHscwMY+o1Ett/zO6eGlDxtcWUIgpdVaohNKeN7QSoLTt+Jo3erYRB2w1
+	 ikl1wk7SNjTrEcwkUVHwjuD94ie0Koy4msKWQ9d0xJYtu6/B4CvqjQpP0+dy7F6hZTxTx
+	 cXTz7bb1F0I4yutP9ww9szu1q4cNEiNq/9w8xEzrCsb3kLgDWruaVKfC5Bx2Mb62JUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795726602;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=AuKn591EgQ1tWMd/4PZVEoVe72lj8WLpCUaituRFd7s=;
-	b=U5li2IJlL/WHxCqDoYqior9rTGfGsn+5woO0AMqyP3i8QdbNRbWfjkG96gfMUe8RTF+J
-	 oAZgbVBSQmubPC8ZiqlWQVd8J56yFjr5hMV3270dmQ4RRmYN7Et805lKxWYxQippK1yjn
-	 lJRsWt6XNZ64y82BiPObxCcxBgNk6MiUpQIgsHVOcX3TNg+Snepx1vEVWacV6N+wgqzx3
-	 CD3/ukw9rqZXVwb/P+eOuaJ3ESj7sqsFNEtts0nlLG85l7HUS0szxXFj8d6xM6dPmg/E0
-	 XvFNaoyO1L0Z1BsiojXNTHgO4qQqF8sKO4Fk2UPZmhP6XpK+oKNyxTGOIsNFKlVaiEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795727932;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=w4CqDwg7D7154OuRysg7R/98YqHxmOgh6GHFXhtckiw=;
+	b=rZUEZPOawI/vwOAQZIsqRdc79Mk72uWji5q2CoCNvTuHjYYJVKSOWisthmD3deu6YUym
+	 EuHPK5KnLRb2sCSROFBGMMSoppZ/ihD2Yt6Rdo5Ms0znnB/WYRQa2XYe1TuqoIaxY2gW2
+	 p6/X0ymU4hY3iV7pnUushGemYejSPav7tXtmdnA91zfwauEXw+sfweN1QebSs4v1sLNVd
+	 Mgf9ltlwGrwfDcy9zTrNcHIVniMqtBnqUiOU//NLxPNrkVMQtCYwgnwEnGVYUwI/j92e6
+	 vb4VCqmxf97YRTjbRG2yHKQGbW/uoGsC82+QE1jMcGFsZzy+b4DZvkUtfC4MqbdjpUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nDx48RjO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eFshtLzJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE9EF606A31E;
-	Thu, 26 Nov 2026 20:56:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C5C8606A31C;
+	Thu, 26 Nov 2026 21:18:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nDx48RjO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 610A31F00896;
-	Thu, 26 Nov 2026 20:56:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eFshtLzJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C08E21F000C1;
+	Thu, 26 Nov 2026 21:18:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795726602;
-	bh=AuKn591EgQ1tWMd/4PZVEoVe72lj8WLpCUaituRFd7s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nDx48RjOcbil4/XGdGMnGgwz/+FbKRZTbeNPMSI8urs/Yqw0RVXKLqanm3LNDFDKR
-	 3Ss89g/ORVxslTBdCk3G1hlXzu5viwU1L/kt1snNVpv6PiWbs49+kprDDhSJmoGz6d
-	 aDyW/JZnJ2ojldM4pVdWTrQm/g+iODPMuyCJZwLDU2kpfpmIZRFE/Uoj5lVMhfmDM/
-	 qP47H6ht0E9hYQj38iojbJkkQal4mUKjTq/mW39kGqSyUdCMsPa3Qv9gRQpofxa/KY
-	 o5Om/RHBA2wQ+UJeJtOmruZ8GFrHGywlfswOw2qGRDfcX7Vd83kfis68B3uqg0MKvf
-	 Z13NJRpVSfBeA==
-Date: Thu, 26 Nov 2026 21:56:37 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: linux-perf-users@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
-	Jann Horn <jannh@google.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] perf: look up address filter files without
- ctx->mutex held
-Message-ID: <20261126-gedruckt-gastarbeiter-vorsorgen-5fea7cea1877@brauner>
-References: <20261126-work-exec-update_lock-leftovers-v1-0-1024b26792bc@kernel.org>
- <20261126-work-exec-update_lock-leftovers-v1-1-1024b26792bc@kernel.org>
- <20261126152414.GH49833@noisy.programming.kicks-ass.net>
+	s=k20260515; t=1795727932;
+	bh=w4CqDwg7D7154OuRysg7R/98YqHxmOgh6GHFXhtckiw=;
+	h=From:Subject:Date:To:Cc;
+	b=eFshtLzJ/qZhIuDavJGMHhx0awqSSLOmqIK+rtEp3hFJGJsXGZp89mYuJ0A2oflwe
+	 WPjABWLlBns1I6Gpe1W3XZGnCdq7jSWTGPUQyeOkVmmQRQy8IgxiawOkCmrG/1zgEO
+	 eESU6WCiodorlDqXUIXFTOcA6BJ2tDqcXtW2yLhywgq0ZojA041FHtBYK2MknIb8MU
+	 oJv4WcqlaWM1MpPY7fKv9kixGfxkcsNBzxM2tkOx+8ZvKYFk6ctt6Ocxu7uwKKFUZL
+	 /UZgbnXSlWo4Nq25r/q2s7Gpew/DaW+ywHX7yhxv4/yrC2G+0LK2yGIXRSzA8sisTU
+	 xuxNQUPxv3ikw==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [PATCH net v2 0/4] net: skbuff: limit pagecache folio refcount
+Date: Thu, 26 Nov 2026 22:18:36 +0100
+Message-Id: <20261126-skb_refcount_overflow-v2-0-a6f600a5634a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,127 +53,149 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261126152414.GH49833@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/3WN0Q6CIBRAf4XdZ2mgoulT/9GcU7oo6aABUs357
+ 03rtdezs3NW8Og0eqjJCg6j9toaqEmaEJBjZwak+gY1gZSlBee8pH7qW4dK2sWE1kZ0arZPWoq
+ OsSzHvKgQEgIPh0q/ju4VDAZovtAv/R1l2Iu7NmofrHsf98gP+Tc6/xlFThkVQvA+r0QuM3WZ0
+ BmcT9YN0Gzb9gEfcs4u0gAAAA==
+X-Change-ID: 20261117-skb_refcount_overflow-75a0034e469e
+To: "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Stanislav Fomichev <sdf.kernel@gmail.com>, 
+ Willem de Bruijn <willemb@google.com>, Simon Horman <horms@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Kiryl Shutsemau <kas@kernel.org>, 
+ Song Liu <songliubraving@fb.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Rik van Riel <riel@surriel.com>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Chuck Lever <cel@kernel.org>, 
+ Jeff Layton <jlayton@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, "David Hildenbrand (Arm)" <david@kernel.org>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5224; i=david@kernel.org;
+ h=from:subject:message-id; bh=3E6okuV7gkYorzSuAVGWdCzZhWj30E+ec9fUig6K0PM=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLI5Fhn38llMXxfVz2q0s2jN+791KUdTQ3Se/9a7Xb/G8
+ ay09bv8jlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDKEgYtTACayTZCRYdfdXwv3Kr03PpUl
+ v3XP76BOnjcqivlTt/s51jGtWzF3pxcjw3Kz/hluE1tXX7M+LxFt8GxbePipKOMJnzqUJmV9XX5
+ 3HwsA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On Thu, Nov 26, 2026 at 04:24:14PM +0100, Peter Zijlstra wrote:
-> On Thu, Nov 26, 2026 at 12:45:37PM +0100, Christian Brauner wrote:
-> > PERF_EVENT_IOC_SET_FILTER parses the address filters with the mutex of
-> > the event's context held. A filter can name a file and the parser looks
-> > that file up with kern_path(). So the mutex is held for as long as the
-> > lookup takes and on a FUSE filesystem it's the caller who decides how
-> > long that is.
-> > 
-> > Since commit 2e498d0a74e5 ("perf: Add support for event removal on
-> > exec") perf_event_exec() takes that mutex with exec_update_lock held
-> > whenever the task has a perf context. So an exec of the task the event
-> > counts for hangs past the point of no return until the lookup is done
-> > and can't be killed. And everyone who needs the exec_update_lock of the
-> > task waits with it.
-> 
-> Nah, we do this per commit:
-> 
-> 79c9ce57eb2d ("perf/core: Fix perf_event_open() vs. execve() race").
-> 6914303824bb ("perf: Use new infrastructure to fix deadlocks in execve")
-> f7cfd871ae0c ("exec: Transform exec_update_mutex into a rw_semaphore")
-> 
-> > It gets worse. Since commit 6255da28d4bb ("proc: protect
-> > ptrace_may_access() with exec_update_lock (FD links)") looking up
-> > /proc/<pid>/exe takes the exec_update_lock of the task. So with such a
-> > file in a filter the ioctl takes the two locks the other way round:
-> > 
-> >   WARNING: possible circular locking dependency detected
-> >   ------------------------------------------------------
-> >   perf-addr-filte/113 is trying to acquire lock:
-> >   (&sig->exec_update_lock){++++}-{4:4}, at: call_proc_get_link+0x4f/0x110
-> > 
-> >   but task is already holding lock:
-> >   (&ctx->mutex){+.+.}-{4:4}, at: perf_event_ctx_lock_nested+0xb2/0x200
-> > 
-> >          CPU0                    CPU1
-> >          ----                    ----
-> >     lock(&ctx->mutex);
-> >                                  lock(&sig->exec_update_lock);
-> >                                  lock(&ctx->mutex);
-> >     rlock(&sig->exec_update_lock);
-> > 
-> > and an exec of the task deadlocks with it:
-> > 
-> >   task:exec-task       state:D pid:114
-> >   Call Trace:
-> >    __schedule+0x53e/0x13f0
-> >    schedule+0x36/0x100
-> >    schedule_preempt_disabled+0x11/0x20
-> >    __mutex_lock+0x7bf/0x11f0
-> >    perf_event_exec+0xb9/0x640
-> >    begin_new_exec+0x622/0xf90
-> >    load_elf_binary+0x12a/0x1990
-> >    bprm_execve+0x39d/0x870
-> >    do_execveat_common.isra.0+0x165/0x180
-> >    __x64_sys_execve+0x38/0x50
-> >    do_syscall_64+0x110/0x600
-> >    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> > 
-> >   task:paf-setter      state:D pid:116
-> >   Call Trace:
-> >    __schedule+0x53e/0x13f0
-> >    schedule+0x36/0x100
-> >    schedule_preempt_disabled+0x11/0x20
-> >    rwsem_down_read_slowpath+0x186/0x5f0
-> >    down_read_killable+0x78/0x1b0
-> >    call_proc_get_link+0x4f/0x110
-> >    proc_pid_get_link+0x3c/0x70
-> >    pick_link+0x52b/0x640
-> >    step_into_slowpath+0x16a/0x3a0
-> >    path_lookupat+0x169/0x2e0
-> >    filename_lookup+0x124/0x230
-> >    kern_path+0x2c/0x50
-> >    _perf_ioctl+0xbd9/0xea0
-> >    perf_ioctl+0x50/0x90
-> >    __x64_sys_ioctl+0xb4/0x100
-> >    do_syscall_64+0x110/0x600
-> >    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> > 
-> > The parser doesn't need the mutex. So drop it while the filters are
-> > parsed like perf_event_set_filter() already does for the filter of a
-> > tracepoint. The pmu may be unregistered in the meantime so check again
-> > whether the event has been revoked once the mutex is back.
-> > 
-> > The parser bumped the event's count of file based filters as it went
-> > along and looked at event->ctx->task. Count in a local, store that when
-> > the new filters are installed and test PERF_ATTACH_TASK instead.
-> > 
-> > This also makes the count exact. It was only ever reset when a set of
-> > filters was refused. So once an event had a file based filter every
-> > later set took the mmap lock of the task and for a task without an mm
-> > the new ranges were never written.
-> > 
-> > Fixes: 2e498d0a74e5 ("perf: Add support for event removal on exec")
-> > Fixes: 6255da28d4bb ("proc: protect ptrace_may_access() with exec_update_lock (FD links)")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-> 
-> Somewhat hard to read; and I'm not sure I follow. You're saying:
-> 
->   ioctl(PERF_EVENT_IOC_SET_FILTER)
->     perf_ioctl()
->       perf_event_ctx_lock()		// perf_event_context::mutex
->       _perf_ioctl()
->         perf_event_set_filter()
-> 	  perf_event_set_addr_filter()
-> 	    perf_event_parse_addr_filter()
-> 	      kern_path()
-> 	        ...
-> 		  call_proc_get_link()
-> 		    down_read_killable(&exec_update_lock)
+Hi,
 
-Yes.
+This is v2 of the remaining folio refcount overflow fixes that should go
+through the net tree, ideally soon. They address the known cases where
+networking can still overflow the folio refcount by taking unbounded
+references.
 
-> This violates established locking order; which is correct.
-> 
-> (Why can we add proc files to the filter?)
+The series is based on Linus' tree, which includes the MM prerequisite
+c6c9a4c1c9a16 ("mm: limit pagecache folio refcount when splicing into
+pipes") that adds the refcount limit checks to try_get_page().
 
-I think we can. But it feels a bit annoying because this such lock
-inversions involving exec_update_lock and perf isn't the first time.
-So I tried to get this inversion out of the way.
+More details in [1], but in essence:
+
+There are ways to overflow the folio refcount and cause trouble either
+by letting it go negative or letting it go all the way back to 0.
+
+This is particularly easy with large pagecache folios, where page table
+mappings can "easily" create many references. The MM changes limit
+references from page tables, GUP and pipes, and leave some headroom for
+races, other bounded refcount users etc.
+
+However, skbs can easily multiply folio references, so any such skb path
+that can take unbounded folio references must also obey the new limits: we
+must use try_get_page() to obtain an additional folio reference and handle
+failures accordingly.
+
+Patch #1 introduces skb_frag_try_ref() and skb_frags_try_ref() and uses
+them when copying skb frag references. Patch #2 covers rearranging
+frags. Patches #3 and #4 cover splicing pages into skbs and splicing data
+from sockets into pipes.
+
+We use existing failure paths where possible. Socket splicing returns
+the bytes already spliced, or -EFAULT if no data could be spliced because
+try_get_page() failed.
+
+Net paths that take folio references that I don't touch because the
+references are either bounded or the paths are not relevant in practice:
+
+ - skb_split(): each reference needs a new socket-charged skb.
+ - IP-TFS reassembly: each reference needs a new inner skb.
+ - io_uring zerocopy send: each piece is charged >= 4 KiB of TCP memory.
+ - kTLS software splicing: only transfers references from the pipe.
+ - kTLS device offload: pushing the record fails in skb_append_pagefrags()
+   (patch #3), so a socket can exceed the limit by about one record.
+ - AF_XDP zerocopy TX, nfsd splice reads, sockmap / sk_msg, espintcp:
+   bounded, or require privileges / special setups.
+ - Other driver-specific paths: not looked into for now, as I can neither
+   test them nor see if they actually trigger unbounded references.
+ - page_pool and net_iov frags: not pagecache pages.
+
+The original refcount overflow problem was reported by Anthropic; we
+knew that it was possible in theory, but didn't expect to have easy ways
+to trigger it. After fixing the splice issue, I used AI to identify
+other unbounded folio refcount users, and it flagged various skb-related
+paths. I made it actually reproduce unbounded references. These patches
+address the paths that were actually reproduced.
+
+I ran tests before and after applying the changes, using a kernel with
+reduced folio refcount limits. These tests focused on exercising the new
+error paths and checking that the refcount limits were respected.
+
+These tests covered AF_PACKET, nft dup, NFQUEUE, software GSO
+segmentation, TCP receive coalescing with dropped ACKs, and socket
+splicing.
+
+I also ran the following networking selftests successfully:
+
+ - net:tls
+ - net:udp_splice_checksum
+ - net:udpgso.sh
+ - net:msg_zerocopy.sh
+
+If there are any further tests I can run, please let me know; help with
+testing would be appreciated as well, as I only have access to limited
+hardware and have limited net experience in general.
+
+[1] https://lore.kernel.org/linux-mm/20261112-refcount_overflow_stable-v4-0-ad3deef0bd23@kernel.org/
+
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+Changes in v2:
+- "net: skbuff: limit folio refcount when copying skb frag references"
+  - Fix skb_zerocopy() kernel-doc indentation
+- "net: skbuff: limit folio refcount when splicing pages into skbs"
+  - Mention nfsd connection teardown in the description
+- "net: skbuff: limit folio refcount when splicing from sockets"
+  - Propagate the error through an "err" pointer
+  - Document the skb_splice_bits() return value
+  - Update the description accordingly
+  - Drop Pedro's Ack
+- Extend the cover letter
+- The GVE issue sashiko reported has already been fixed in commit
+  3946899dbeac ("gve: fix RX page refcount overflow from INT_MAX
+  pagecnt_bias").
+- Link to v1: https://patch.msgid.link/20261118-skb_refcount_overflow-v1-0-5551b4954c3f@kernel.org
+
+---
+David Hildenbrand (Arm) (4):
+      net: skbuff: limit folio refcount when copying skb frag references
+      net: skbuff: limit folio refcount when rearranging skb frags
+      net: skbuff: limit folio refcount when splicing pages into skbs
+      net: skbuff: limit folio refcount when splicing from sockets
+
+ include/linux/skbuff_ref.h |  53 ++++++++++++++++++++
+ net/core/skbuff.c          | 117 +++++++++++++++++++++++++++++----------------
+ net/ipv4/tcp_output.c      |   8 ++--
+ 3 files changed, 134 insertions(+), 44 deletions(-)
+---
+base-commit: 63fdb511c27afcebce797e3db580b3534ddfa639
+change-id: 20261117-skb_refcount_overflow-75a0034e469e
+
+Best regards,
+--  
+David Hildenbrand (Arm) <david@kernel.org>
+
