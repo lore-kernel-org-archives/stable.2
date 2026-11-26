@@ -1,63 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.6
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795674929;
-	b=0as60qUXEJc0NUVjMIymvV1HmCP/NhbpmBFHrRx2omKBytUkA7lqCO9uouezeUxuotH4
-	 gA0DfELDlJwX733PmUn/WM1LEsbta0/LttMA5C1yuu6PgIN7vfjDOpnh6yLYAX8QbYYiw
-	 xBe8ShvZ5307ZgYlY4+k72oKO4S15TXIZOXtCRq13/MBO22OkiEZaqj3wfF1vpgbJLAdp
-	 D9kfBa6s7hXsd0mXw3LXe0B5gw9G0w2xP6ERFTk9yv1DbcG2B7+1JqPQiwm9QokAy1JAI
-	 +7qYOsnIe5LD6X1DEjY0AyE6UebYbdjBuWawyuEUtXtq9nU+ocF4Sq7p4a34VIqWeBQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795674929;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
-	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=mPO0k9Um6B0EKx6Q6FI4sbj2CUg2TOA35nvg0waKMjM=;
-	b=2z5Caj1WAqti/T4lW4ANo8ICvy/6Bp/17MI3BqVAc2teDzk+b50I/J8bQ7AZ9n0HpaGO
-	 UoBU0b7zyAWDqcSnDHVimTDIkbswHppgsF9eB/QbxYvifad0GFrDB2z/k1A5R3DUMq1af
-	 QKGho64LoDuDhxZu4c7t4FIyEhrn/mO6PSs4IZotP5k+py5wm0SDeZRnbxKzllJGi/GOh
-	 ZlDjIRyPpBZK089tvrO2ArjOYQrhjSnHnw+IJO5MwRXaMXO4KB8Of14ayHzCLT5M1CjFo
-	 2HNqpV/MVscZSlxkFqpQhRtJ1o4guO3fyFephSPhGcDUWH1BJ4A9tUws+p/PoxFk6eg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=126.com;
-	spf=pass smtp.mailfrom=126.com;
-	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=N0YwHkvf;
-	arc=none smtp.remote-ip=220.197.31.6
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795674972;
+	b=rd8DvFjCFAlkiBBudo+QORNVSrZYi+2s/wFbTN/kkPvW8vozeuAQ0Bq7MCny50BTt4f+
+	 WY4oCOg6OaCrndaBvra5XiMkNbat6lejunpE9dYOKZ1viTpcz83f5JOif85C4Zhju/enh
+	 8CQmgqjn1c/B2JXDfdAj2taPZnxlnCXM1+Q9oupJM8z5QL88E5NWpykL0xqjtFwgeAtNm
+	 znlMdsRbOVIX/56neHgzcY0uXan7DHQAwojFlFVzchEhgbnPmNM2/QHr0IOEhf6s3Hm6k
+	 oN6/lKANm5uKjR1Ptyqf8d6Vm0Rv0qxdHHks0JZuPEwVeJ+kZwtjF6WITUCOhxe42pA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795674972;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=W5FIDJNeVyxLyIdS7PkE08uy97LYwHSOYWyVauUcar0=;
+	b=3o3GzskCu+m26UIYUX3ZhyZ8JCLoxk6XGXCOe+OdDMGzyyX+Wv3hoEbmvzGMWX2VrHHB
+	 gTpghfpJP6Q0sYnejbveUsCMTVIV6mNDK0L4k7dYTt9+xz4g2Wj9nq6lgdOFXX65NjiVP
+	 vbnX5nBzZJnXITGdcLiPVP5TOF6tlef/Ca7923B7pqIz4m6fbuTdlB2nCyFyEADa1iQNv
+	 1QAQ++yu3KJAos/WiRy0pFh0GKg+mD9wMlBkidlS0Z7ZaPnoSwuP8A0OlyvWTvR0Q9yIk
+	 jHXBXIt3Q5yzaWiR6oXmkz4XjIoQjRzBpSydHfWeIeKgELOEjFRBMeZcxoATm3uEi0A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YdJT60rW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A67606A323;
+	Thu, 26 Nov 2026 06:36:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YdJT60rW
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795674971;
+	b=dDhorvjtF1jZJNngq1dbjlfIrLUTxVkd53FgwHlKpShvLQ0o8BaR0erIl0uyur4D3uEP
+	 sAq7kGCxwx3ghVFE6U79/DRtXYLS2q2PLG3bB7t3QAEAty9Uj4rjmy/t/4wRTzWNDFS+p
+	 MgaUCFwGQxz29OKjBxq6LXwutJ6QN+aTFM0WvlJlu4ZpVEv6QMrtr9W5pI9Xpx4KfC4Hv
+	 iD3tvdoySGvvPetY3A+eq9YLcI+e8iR11EurDPiLS/BpYuC0k2/nwjnZN4oVB+iGP+WoD
+	 GowIyKdX37jITyfWuGMU37bq07yF5q/dQoijmuDTmaSkUEdzAVdqlH3DJVGRbJHh5jg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795674971;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=W5FIDJNeVyxLyIdS7PkE08uy97LYwHSOYWyVauUcar0=;
+	b=jyTYAlj8VLpFiipATWc3vtKJls2AbEh6az8DbQoF9ouqxeaQTmfJ4hOKgqWbuSfdAMA/
+	 02Ep5DgStyb+2PmSegsdUVt7NLbdq0jGQK5s7QsB7Nc/cJCcXFKakHltmMHeYdm/qhX/q
+	 4yaR/ELihNKxwpVpSEdEAO408tZy6pvmJMkzoYox4tKhal5jCyP41yDUZbtMvrO3/iS6U
+	 JcgMl79b7Z47+PCU4DpubkHHNVcdLflYen/ugF3nAmmZ4rdNQc9ESxcKBXWFXL8TgmCee
+	 Fp6PASb1bfZ8HiVdO/bAST6NXUW6yYM5+RXzJxhy2I+gh+Oh95nCRsUMczGvNKwO9Eg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8821606A31C;
-	Thu, 26 Nov 2026 06:35:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8821606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=N0YwHkvf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=mPO0k9Um6B0EKx6Q6FI4sbj2CUg2TOA35nvg0waKMjM=; b=N
-	0YwHkvf/BLmOmqoLdRVP3qmj0B5FGAzuexlbzN1+8i2QCkFwZQ6ktIUAcvDdDv3W
-	B3NHGVHSrIQ/A+qlU4P6Cg4m1ewj6QNp79N6AHYkgF9JCOr5nP9egvtx92UxvCCw
-	wvDDxOc8z3TPp2MSnLRxWRC39NM7YOAsZLkXb7qGg8=
-Date: Thu, 26 Nov 2026 14:34:46 +0800 (CST)
-From: dd  <zhongling0719@126.com>
-To: liubaolin <liubaolin12138@163.com>
-Cc: "Hongling Zeng" <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
-	hyc.lee@gmail.com, ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re:Re: [PATCH 2/6] ntfs: roll back the size update when the
- attribute lookup fails
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 126com
-In-Reply-To: <89ca24c7-1ba8-41e1-81ef-1b60b7cc64bd@163.com>
-References: <20261125073547.154150-1-zenghongling@kylinos.cn>
- <20261125073547.154150-3-zenghongling@kylinos.cn>
- <89ca24c7-1ba8-41e1-81ef-1b60b7cc64bd@163.com>
-X-NTES-SC: AL_Qu2SB/qcu0Aj4CCZYukfmUoQhu82WMW3uvog3I9UP514jAvj+BsGdFRZMlTSwMGzKieyiCCWSRNg7vxLXq1cXaYxeh7kbZxyVojwlIcfxq7RWw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	by smtp.kernel.org (Postfix) with ESMTPS id C31291F000D8;
+	Thu, 26 Nov 2026 06:35:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795674971;
+	bh=W5FIDJNeVyxLyIdS7PkE08uy97LYwHSOYWyVauUcar0=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=YdJT60rWArtA/bFJPZt3MsIvxIKPTeFFq/mBTSB1WCOhp/1AHhncFgnmkv6tM19Wi
+	 44YRvwGKUlwdkenLqp+kFwUdRSuY5SgXoat2NXna+MAdAuiqMdZ2l4J+nCOWCLFLJ9
+	 yRhWnh/qKSIULJCotJUh6WwIVa6nvc7OtemoTQJrIcmTgXzIkQ1de53VvuEYSRY3SR
+	 N44N+SbnM/HqRAeokL8YdXq4iTgAhRWIbwuk8o5xG9D0iTP7pFiuT2PPtt52ZZOY5Z
+	 po5DBsac77cipqcmfg8Ulnf7SrWcCQv3FWicTV5RQxjblOFqhUofftSfBpliAXR2OF
+	 mLYKrKPGSb/yw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2340A4D267;
+	Thu, 26 Nov 2026 06:35:56 +0000 (UTC)
+From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
+Date: Thu, 26 Nov 2026 06:02:02 +0000
+Subject: [PATCH 5.10.y v2] net: mvpp2: refill RX buffers before XDP or skb
+ use
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,97 +83,170 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <28017ef0.440e.1a216904f88.Coremail.zhongling0719@126.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:cikvCgD3HxEG0wdrnFZoAA--.45027W
-X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBoAaSY2sH0waxwwAA3c
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261126-mvpp2-5e8e-v2-1-ef63da5e986d@certik.com>
+X-B4-Tracking: v=1; b=H4sIAFrLB2sC/0WNwQrCMBBEf6Xs2a3NQkPxV8RDsl1tRJOQtEUp/
+ XcTPXicx8ybDbIkJxlOzQZJVpdd8CXQoQGejL8JurFkoI60UqTxucZI2MsgyMykOlY0aIIyiEm
+ u7vWVnaFvVde+4fLjebF34bmaatOaLGiT8TxVlMWPcwgPrPz4f4B9/wD3axuUoQAAAA==
+X-Change-ID: 20261126-mvpp2-5e8e-ccc210c12862
+To: stable@vger.kernel.org
+Cc: Til Kaiser <mail@tk154.de>, Paolo Abeni <pabeni@redhat.com>, 
+ netdev@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795672922; l=5401;
+ i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
+ bh=q1z21D2oSS0MfDyUGQDXPgR2WSKojsBUli2aZzmavWg=;
+ b=ckKJ57S7gEMu1Dffs0drulLjxMFEi8Q/PU2Aygl4ggrCFt0nfB7/2/Fn4imB9vLTyD1LcqD3l
+ t367b1/OtX+AAdisCo6aGsM+FpmhsQdrpyv9+Co2B2A/IpICgbYnf7m
+X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
+ pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
+X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
+ auth_id=1647
+X-Original-From: Dickson Wu <dickson.wu@certik.com>
+Reply-To: dickson.wu@certik.com
 
-CgoKCkF0IDIwMjYtMTEtMjUgMjI6MDU6NTAsICJsaXViYW9saW4iIDxsaXViYW9saW4xMjEzOEAx
-NjMuY29tPiB3cm90ZToKPgo+Cj7U2iAyMDI2LzExLzI1IDE1OjM1LCBIb25nbGluZyBaZW5nINC0
-tcA6Cj4+IG50ZnNfZW5sYXJnZV9hdHRyaWJ1dGUoKSB0cnVuY2F0ZXMgdGhlIGF0dHJpYnV0ZSB0
-byB0aGUgZW5kIG9mIHRoZQo+PiB3cml0ZSBiZWZvcmUgbG9va2luZyBpdCB1cCBhZ2FpbiwgYmVj
-YXVzZSB0aGUgdHJ1bmNhdGlvbiBjYW4gbW92ZSB0aGUKPj4gYXR0cmlidXRlIHRvIGEgZGlmZmVy
-ZW50IG1mdCByZWNvcmQuIElmIHRoYXQgbG9va3VwIGZhaWxzLCB0aGUgZXJyb3IKPj4gaXMgcmV0
-dXJuZWQgYnV0IHRoZSBhdHRyaWJ1dGUgc3RheXMgYXQgdGhlIGV4dGVuZGVkIHNpemUsIHNvIGEg
-ZmFpbGVkCj4+IHdyaXRlIGV4dGVuZHMgdGhlIGZpbGUuCj4+IAo+PiBVbmRvIHRoZSB0cnVuY2F0
-aW9uIGJlZm9yZSByZXR1cm5pbmcgdGhlIGVycm9yLiBJZiB0aGUgcm9sbGJhY2sgZmFpbHMKPj4g
-YXMgd2VsbCwgbWFyayB0aGUgdm9sdW1lIGFzIGhhdmluZyBlcnJvcnMgYW5kIHN5bmNocm9uaXpl
-IGlfc2l6ZSB3aXRoCj4+IHRoZSBjdXJyZW50IGRhdGFfc2l6ZSBpbnN0ZWFkIG9mIHRoZSBvbGQg
-c25hcHNob3QuCj4+IAo+PiBGaXhlczogYWYwZGI1N2Q0MjkzICgibnRmczogdXBkYXRlIGlub2Rl
-IG9wZXJhdGlvbnMiKQo+PiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwo+PiBTaWduZWQtb2Zm
-LWJ5OiBIb25nbGluZyBaZW5nIDx6ZW5naG9uZ2xpbmdAa3lsaW5vcy5jbj4KPj4gLS0tCj4+ICAg
-ZnMvbnRmcy9pbm9kZS5jIHwgNDggKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKy0tCj4+ICAgMSBmaWxlIGNoYW5nZWQsIDQ2IGluc2VydGlvbnMoKyksIDIgZGVs
-ZXRpb25zKC0pCj4+IAo+PiBkaWZmIC0tZ2l0IGEvZnMvbnRmcy9pbm9kZS5jIGIvZnMvbnRmcy9p
-bm9kZS5jCj4+IGluZGV4IDRmYmRjZDQ1OTY1Mi4uN2Q3YmI3NDE0NTVlIDEwMDY0NAo+PiAtLS0g
-YS9mcy9udGZzL2lub2RlLmMKPj4gKysrIGIvZnMvbnRmcy9pbm9kZS5jCj4+IEBAIC0zODQyLDgg
-KzM4NDIsMTkgQEAgc3RhdGljIGlubGluZSBpbnQgbnRmc19lbmxhcmdlX2F0dHJpYnV0ZShzdHJ1
-Y3QgaW5vZGUgKnZpLCBzNjQgcG9zLCBzNjQgY291bnQsCj4+ICAgewo+PiAgIAlzdHJ1Y3QgbnRm
-c19pbm9kZSAqbmkgPSBOVEZTX0kodmkpOwo+PiAgIAlzdHJ1Y3Qgc3VwZXJfYmxvY2sgKnNiID0g
-dmktPmlfc2I7Cj4+ICsJdW5zaWduZWQgbG9uZyBmbGFnczsKPj4gKwlzNjQgb2xkX2RhdGFfc2l6
-ZTsKPj4gICAJaW50IHJldDsKPj4gICAKPj4gKwkvKgo+PiArCSAqIFNuYXBzaG90IHRoZSBvbGQg
-ZGF0YV9zaXplIHVuZGVyIHNpemVfbG9jazogaXQgaXMgdGhlIHJvbGxiYWNrCj4+ICsJICogdGFy
-Z2V0LCB0aGUgb3RoZXIgc2l6ZXMgYXJlIHVwZGF0ZWQgYnkgbnRmc19hdHRyX3RydW5jYXRlKCkK
-Pj4gKwkgKiBpdHNlbGYKPj4gKwkgKi8KPj4gKwlyZWFkX2xvY2tfaXJxc2F2ZSgmbmktPnNpemVf
-bG9jaywgZmxhZ3MpOwo+PiArCW9sZF9kYXRhX3NpemUgPSBuaS0+ZGF0YV9zaXplOwo+PiArCXJl
-YWRfdW5sb2NrX2lycXJlc3RvcmUoJm5pLT5zaXplX2xvY2ssIGZsYWdzKTsKPj4gKwo+PiAgIAlp
-ZiAocG9zICsgY291bnQgPD0gbmktPmluaXRpYWxpemVkX3NpemUpCj4+ICAgCQlyZXR1cm4gMDsK
-Pj4gICAKPj4gQEAgLTM4NTMsNyArMzg2NCw3IEBAIHN0YXRpYyBpbmxpbmUgaW50IG50ZnNfZW5s
-YXJnZV9hdHRyaWJ1dGUoc3RydWN0IGlub2RlICp2aSwgczY0IHBvcywgczY0IGNvdW50LAo+PiAg
-IAlpZiAoTklub0NvbXByZXNzZWQobmkpKQo+PiAgIAkJcmV0dXJuIC1FT1BOT1RTVVBQOwo+PiAg
-IAo+PiAtCWlmIChwb3MgKyBjb3VudCA+IG5pLT5kYXRhX3NpemUpIHsKPj4gKwlpZiAocG9zICsg
-Y291bnQgPiBvbGRfZGF0YV9zaXplKSB7Cj4+ICAgCQlyZXQgPSBudGZzX2F0dHJfdHJ1bmNhdGUo
-bmksIHBvcyArIGNvdW50KTsKPj4gICAJCWlmIChyZXQpIHsKPj4gICAJCQludGZzX2RlYnVnKCJG
-YWlsZWQgdG8gdHJ1bmNhdGUgYXR0cmlidXRlIik7Cj4+IEBAIC0zODY1LDcgKzM4NzYsNDAgQEAg
-c3RhdGljIGlubGluZSBpbnQgbnRmc19lbmxhcmdlX2F0dHJpYnV0ZShzdHJ1Y3QgaW5vZGUgKnZp
-LCBzNjQgcG9zLCBzNjQgY291bnQsCj4+ICAgCQkJCSAgICAgICBDQVNFX1NFTlNJVElWRSwKPj4g
-ICAJCQkJICAgICAgIDAsIE5VTEwsIDAsIGN0eCk7Cj4+ICAgCQlpZiAocmV0KSB7Cj4+IC0JCQlu
-dGZzX2Vycm9yKHNiLCAiRmFpbGVkIHRvIGxvb2sgdXAgYXR0ciAlI3giLCBuaS0+dHlwZSk7Cj4+
-ICsJCQlpbnQgcm9sbGJhY2tfZXJyOwo+PiArCj4+ICsJCQkvKgo+PiArCQkJICogVGhlIHRydW5j
-YXRpb24gYWxyZWFkeSBoYXBwZW5lZCwgc28gdW5kbyBpdAo+PiArCQkJICogYmVmb3JlIHJldHVy
-bmluZyB0aGUgZXJyb3IKPj4gKwkJCSAqLwo+PiArCQkJcm9sbGJhY2tfZXJyID0gbnRmc19hdHRy
-X3RydW5jYXRlKG5pLCBvbGRfZGF0YV9zaXplKTsKPgo+SGkgSG9uZ2xpbmcsCj4gICAgVGhhbmtz
-IGZvciBzZW5kaW5nIHRoaXMgcGF0Y2ggc2VyaWVzLgo+Cj4gICAgQ291bGQgdGhpcyByb2xsYmFj
-ayBkZWFkbG9jayB3aXRoIHdyaXRlYmFjaz8KPiAgICBudGZzX2lub2RlX2F0dHJfcHdyaXRlKCkg
-aG9sZHMgbXJlY19uaS0+bXJlY19sb2NrIHdoZW4gY2FsbGluZwo+bnRmc19lbmxhcmdlX2F0dHJp
-YnV0ZSgpLiBGb3IgYSBub24tcmVzaWRlbnQgYXR0cmlidXRlLCB0aGUgcm9sbGJhY2sKPmNhbiBy
-ZWFjaCBudGZzX25vbl9yZXNpZGVudF9hdHRyX3NocmluaygpIGFuZCB0cnVuY2F0ZV9pbm9kZV9w
-YWdlcygpLAo+d2hpY2ggbWF5IHdhaXQgZm9yIGEgZm9saW8gbG9jay4KPiAgICBNZWFud2hpbGUs
-IGlvbWFwIHdyaXRlYmFjayBjYW4gaG9sZCB0aGF0IGZvbGlvIGxvY2sgYW5kIHdhaXQgZm9yIHRo
-ZQo+c2FtZSBtcmVjX2xvY2sgaW4gbnRmc193cml0ZV9pb21hcF9iZWdpbl9ub25fcmVzaWRlbnQo
-KToKPiAgIHJvbGxiYWNrOiAgbXJlY19sb2NrIC0+IGZvbGlvIGxvY2sKPiAgIHdyaXRlYmFjazog
-Zm9saW8gbG9jayAtPiBtcmVjX2xvY2sKPgo+ICAgIFRoZSBmb2xpbyBjb250YWluaW5nIHRoZSBv
-bGQgRU9GIG1heSBhbHJlYWR5IGJlIGRpcnR5IGZyb20gYW4gZWFybGllcgo+d3JpdGUsIHNvIHRo
-aXMgZG9lcyBub3QgcmVxdWlyZSB0aGUgZmFpbGVkIHdyaXRlIHRvIGhhdmUgY29waWVkIGFueQo+
-ZGF0YS4KPiAgICBDb3VsZCB3ZSBhdm9pZCB3YWl0aW5nIGZvciBmb2xpb3Mgd2hpbGUgaG9sZGlu
-ZyBtcmVjX2xvY2ssIHdpdGhvdXQKPmFsbG93aW5nIGNvbmN1cnJlbnQgd3JpdGVzIHRvIGludGVy
-ZmVyZSB3aXRoIHRoZSByb2xsYmFjaz8KPgo+VGhhbmtzLAo+QmFvbGluLgo+Cj4KClllcywgdGhh
-dCBpcyBhIHJlYWwgZGVhZGxvY2ssIHRoYW5rcyBmb3IgY2F0Y2hpbmcgaXQuCgpJIGNvbnNpZGVy
-ZWQgZHJvcHBpbmcgdGhlIGZvbGlvcyB1bmRlciBtcmVjX2xvY2sgd2l0aG91dCB3YWl0aW5nLCBi
-dXQKSSBkbyBub3Qgc2VlIGhvdyB0byBtYWtlIHRoYXQgd29yazogbWFwcGluZ19ldmljdF9mb2xp
-bygpIHJlZnVzZXMgdGhlCmRpcnR5IGFuZCB3cml0ZWJhY2sgZm9saW9zIHRoZSByb2xsYmFjayBt
-dXN0IGRyb3AsIHRoZSBwYXJ0aWFsIGZvbGlvCmF0IHRoZSBvbGQgRU9GIG5lZWRzIHNsZWVwaW5n
-IHRydW5jYXRlIHNlbWFudGljcywgYW5kIGJhaWxpbmcgb3V0CndvdWxkIHNldCB0aGUgc3RpY2t5
-IHZvbHVtZSBlcnJvciBmb3IgYSByb3V0aW5lIGZhaWx1cmUuCgpTbyB2MiBkZWZlcnMgYSBub24t
-cmVzaWRlbnQgcm9sbGJhY2sgdG8gbnRmc19pbm9kZV9hdHRyX3B3cml0ZSgpCmFmdGVyIGl0IHJl
-bGVhc2VzIG1yZWNfbG9jaywgcmV1c2luZyB0aGUgVkZTIHRydW5jYXRlIHBhdHRlcm4KKG50ZnNf
-c2V0YXR0cl9zaXplKCkpOiB0cnVuY2F0ZV9zZXRzaXplKCkgb3V0c2lkZSB0aGUgbG9jaywKX19u
-dGZzX2F0dHJfdHJ1bmNhdGVfdmZzKCkgdW5kZXIgaXQgYWZ0ZXIgcmUtY2hlY2tpbmcgdGhlIHNp
-emUuClJlc2lkZW50IGF0dHJpYnV0ZXMgc3RpbGwgcm9sbCBiYWNrIGlubGluZS4KClRoYW5rcyBh
-Z2FpbiBmb3IgdGhlIHJldmlldy4KCgo+PiArCQkJaWYgKHJvbGxiYWNrX2Vycikgewo+PiArCQkJ
-CXM2NCBjdXJyZW50X2RhdGFfc2l6ZTsKPj4gKwo+PiArCQkJCS8qCj4+ICsJCQkJICogUm9sbGJh
-Y2sgZmFpbGVkLCB0aGUgc2l6ZXMgbWF5IGJlCj4+ICsJCQkJICogaW5jb25zaXN0ZW50LiBNYXJr
-IHRoZSB2b2x1bWUgYXMgaGF2aW5nCj4+ICsJCQkJICogZXJyb3JzIGFuZCBzeW5jIGlfc2l6ZSB3
-aXRoIHRoZSBjdXJyZW50Cj4+ICsJCQkJICogZGF0YV9zaXplCj4+ICsJCQkJICovCj4+ICsJCQkJ
-cmVhZF9sb2NrX2lycXNhdmUoJm5pLT5zaXplX2xvY2ssIGZsYWdzKTsKPj4gKwkJCQljdXJyZW50
-X2RhdGFfc2l6ZSA9IG5pLT5kYXRhX3NpemU7Cj4+ICsJCQkJcmVhZF91bmxvY2tfaXJxcmVzdG9y
-ZSgmbmktPnNpemVfbG9jaywgZmxhZ3MpOwo+PiArCj4+ICsJCQkJaV9zaXplX3dyaXRlKHZpLCBj
-dXJyZW50X2RhdGFfc2l6ZSk7Cj4+ICsJCQkJTlZvbFNldEVycm9ycyhuaS0+dm9sKTsKPj4gKwkJ
-CQludGZzX2Vycm9yKHNiLAo+PiArCQkJCQkiRmFpbGVkIHRvIGxvb2sgdXAgYXR0ciAlI3ggYW5k
-ICIKPj4gKwkJCQkJInJvbGwgYmFjayB0aGUgc2l6ZSB1cGRhdGU6ICVkIiwKPj4gKwkJCQkJbmkt
-PnR5cGUsIHJvbGxiYWNrX2Vycik7Cj4+ICsJCQl9IGVsc2Ugewo+PiArCQkJCS8qCj4+ICsJCQkJ
-ICogUm9sbGJhY2sgc3VjY2VlZGVkLCB0aGUgc2l6ZXMgd2VyZSB1cGRhdGVkCj4+ICsJCQkJICog
-YnkgbnRmc19hdHRyX3RydW5jYXRlKCkgaXRzZWxmCj4+ICsJCQkJICovCj4+ICsJCQkJbnRmc19l
-cnJvcihzYiwgIkZhaWxlZCB0byBsb29rIHVwIGF0dHIgJSN4IiwKPj4gKwkJCQkJbmktPnR5cGUp
-Owo+PiArCQkJfQo+PiAgIAkJCXJldHVybiByZXQ7Cj4+ICAgCQl9Cj4+ICAgCX0K
+From: Til Kaiser <mail@tk154.de>
+
+commit 5e8e2a9624df72fca7c736b2966b2cbf6c9c3ff6 upstream.
+
+The RX error path returns the current descriptor buffer to the hardware
+BM pool. That is only valid while the driver still owns the buffer.
+
+mvpp2_rx_refill() can fail after the current buffer has been handed to
+XDP or attached to an skb. In those cases mvpp2_run_xdp() may have
+recycled, redirected, or queued the page for XDP_TX, and an skb free also
+retires the data buffer. Returning such a buffer to BM lets hardware DMA
+into memory that is no longer owned by the RX ring.
+
+Refill the BM pool before handing the current buffer to XDP or to the
+skb. If the allocation fails there, drop the packet and return the
+still-owned current buffer to BM, preserving the pool depth. Once the
+refill succeeds, later local drops retire/free the current buffer instead
+of returning it to BM.
+
+Fixes: 07dd0a7aae7f ("mvpp2: add basic XDP support")
+Fixes: d6526926de73 ("net: mvpp2: fix memory leak in mvpp2_rx")
+Signed-off-by: Til Kaiser <mail@tk154.de>
+Link: https://patch.msgid.link/20260607134943.21996-4-mail@tk154.de
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ adapted to 5.10: page_pool_release_page() in place of skb_mark_for_recycle() ]
+Signed-off-by: Dickson Wu <dickson.wu@certik.com>
+---
+ .../net/ethernet/marvell/mvpp2/mvpp2_main.c   | 43 +++++++++++--------
+ 1 file changed, 24 insertions(+), 19 deletions(-)
+
+Changes in v2
+v2: resent through a whitespace-safe path; v1 <CAFaZ9eob6Kg4WDo_m203vhom-XtsNN1kFUKgyUs3DcCTev5msQ@mail.gmail.com> was damaged by my mail client and does not apply.
+
+The backport and the test runs were prepared with AI coding tools
+(OpenAI Codex agents, with review by Claude). I went over the result
+before signing off.
+
+5.15.y and newer already have this. 5.10 has no skb_mark_for_recycle();
+mvpp2_rx() there hands the page over with page_pool_release_page()
+instead, so that call moves up to right after build_skb() succeeds,
+where the 5.15.y backport has skb_mark_for_recycle(). Everything else
+matches 5.15.y.
+
+It goes with f3c6aa078927 ("net: mvpp2: limit XDP frame size to the RX
+buffer") that I sent for 5.10.y earlier. The two don't depend on each
+other.
+
+Tested on v5.10.275:
+- x86_64 allmodconfig (CONFIG_MVPP2=m) W=1 build of mvpp2_main.o, base
+  vs patched, no new warnings
+- x86_64 defconfig with CONFIG_MVPP2=y builds and boots under QEMU/KVM
+- I don't have mvpp2 hardware, so the RX refill path itself is untested
+  here.
+
+diff --git a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
+index 3e60d40b3f6f..5915a8cdeddd 100644
+--- a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
++++ b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
+@@ -3613,6 +3613,12 @@ static int mvpp2_rx(struct mvpp2_port *port, struct napi_struct *napi,
+ 		else
+ 			frag_size = bm_pool->frag_size;
+ 
++		err = mvpp2_rx_refill(port, bm_pool, pp, pool);
++		if (err) {
++			netdev_err(port->dev, "failed to refill BM pools\n");
++			goto err_drop_frame;
++		}
++
+ 		if (xdp_prog) {
+ 			xdp.data_hard_start = data;
+ 			xdp.data = data + MVPP2_MH_SIZE + MVPP2_SKB_HEADROOM;
+@@ -3630,12 +3636,6 @@ static int mvpp2_rx(struct mvpp2_port *port, struct napi_struct *napi,
+ 
+ 			if (ret) {
+ 				xdp_ret |= ret;
+-				err = mvpp2_rx_refill(port, bm_pool, pp, pool);
+-				if (err) {
+-					netdev_err(port->dev, "failed to refill BM pools\n");
+-					goto err_drop_frame;
+-				}
+-
+ 				ps.rx_packets++;
+ 				ps.rx_bytes += rx_bytes;
+ 				continue;
+@@ -3645,8 +3645,21 @@ static int mvpp2_rx(struct mvpp2_port *port, struct napi_struct *napi,
+ 		skb = build_skb(data, frag_size);
+ 		if (!skb) {
+ 			netdev_warn(port->dev, "skb build failed\n");
+-			goto err_drop_frame;
++			if (pp) {
++				page_pool_put_page(pp, virt_to_head_page(data),
++						   rx_bytes + MVPP2_MH_SIZE,
++						   true);
++			} else {
++				dma_unmap_single_attrs(dev->dev.parent, dma_addr,
++						       bm_pool->buf_size,
++						       DMA_FROM_DEVICE,
++						       DMA_ATTR_SKIP_CPU_SYNC);
++				mvpp2_frag_free(bm_pool, pp, data);
++			}
++			goto err_drop_frame_retired;
+ 		}
++		if (pp)
++			page_pool_release_page(pp, virt_to_page(data));
+ 
+ 		/* If we have RX hardware timestamping enabled, grab the
+ 		 * timestamp from the queue and convert.
+@@ -3657,16 +3670,7 @@ static int mvpp2_rx(struct mvpp2_port *port, struct napi_struct *napi,
+ 					 skb_hwtstamps(skb));
+ 		}
+ 
+-		err = mvpp2_rx_refill(port, bm_pool, pp, pool);
+-		if (err) {
+-			netdev_err(port->dev, "failed to refill BM pools\n");
+-			dev_kfree_skb_any(skb);
+-			goto err_drop_frame;
+-		}
+-
+-		if (pp)
+-			page_pool_release_page(pp, virt_to_page(data));
+-		else
++		if (!pp)
+ 			dma_unmap_single_attrs(dev->dev.parent, dma_addr,
+ 					       bm_pool->buf_size, DMA_FROM_DEVICE,
+ 					       DMA_ATTR_SKIP_CPU_SYNC);
+@@ -3683,13 +3687,14 @@ static int mvpp2_rx(struct mvpp2_port *port, struct napi_struct *napi,
+ 		continue;
+ 
+ err_drop_frame:
+-		dev->stats.rx_errors++;
+-		mvpp2_rx_error(port, rx_desc);
+ 		/* Return the buffer to the pool */
+ 		if (rx_status & MVPP2_RXD_BUF_HDR)
+ 			mvpp2_buff_hdr_pool_put(port, rx_desc, pool, rx_status);
+ 		else
+ 			mvpp2_bm_pool_put(port, pool, dma_addr, phys_addr);
++err_drop_frame_retired:
++		dev->stats.rx_errors++;
++		mvpp2_rx_error(port, rx_desc);
+ 	}
+ 
+ 	rcu_read_unlock();
+
+
