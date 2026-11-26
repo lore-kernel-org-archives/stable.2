@@ -1,81 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795712158;
-	b=N9mkl0X6bSulddt6QERaod68M0FPGOcvsJ5PHBWWzF2MXA3dEKBmyhpYMFlK9uQPvMK4
-	 uf3e/X94May1KWjQ9jh8X4arYfW5qG8zfaw9RJm81sH3vpE+SziGf1rILhw5SKDMYWeUA
-	 dVUqHlTAmlbSJMGLm+FshC5C860AodfaFcMzCpQp2/WuvSNqHlxUqUay3eCKrxZWyDBv9
-	 dYf1FGBAu4TNVVur13FMqfpwJOPp2kP0R4naFTWVhuIsoUA2PCq3VSWlaUhIejqg6LiNz
-	 Itusn8Gij2U7rU7XsyYARATI2AvJ0e629fIGkYWzPCnhaJeMtLjNfT7bYUkWffIn1mg==
+	t=1795712307;
+	b=t4tx5ukVhdux+t4ywXU35zFsgJ/x7X2ZQYuwTVRKeB8x6VmlyduTSsB+j/abm0vZpDaM
+	 gxrEAiD5DaL44y6FD41TQeFKBdn4YsECk2in3Sg59ap2/4sbYJgyjDO2yaHeKxEW+nQmk
+	 9KV4WY4ydi1Ajg+wMjthMd+PK8cQ35bNDlh2nM5fZyDGeELfSLaVMfZeVUShzZw2ZFx3i
+	 VXd46oaJkfDYKzb1tjTI/7WJ+tv5hXeq6oMHvOOUk5k7jBn3uOGaDhDmP2PCb5oTgsIDL
+	 Kfa4jAWh9qvjYiydtMC0HiJnXcHYFcangh0u26PD24SPamo5t5I/PrYDaFOV/17jX3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795712158;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=7UMJ5fq59vACu6YIC6Tb/A5NemhqR9H7sJxjwk062+A=;
-	b=ImQwNw0cyIzNqdIIafl96dkwx746Z02FQi5H64MpdbFPuuZx3EfVOxN8KsrPqhfHtSA4
-	 NEPeDqNn2yjxVCxENhZbN+M7qTB5tGOdsFsRmFz4B313x7UW8r8MKDW0y1et1ZDce0tMM
-	 yo2eytR1DK3x9l5FzqmvrPvdACgSMpPeyv7m+ydnzwxkBKsQybmh5t0p9UdFCMaZIit7y
-	 a89OvSSEPkfxS9dGq9tg/4+/5ImsFlEjpZhs40A5gsFsfsqVF+SDpArbs4yj+1XuiEgVg
-	 NjA5j1TWCc8wsCJXyVi9xfhI34k671fQOZpIDaj1FYFjvSrjFQ1YSbo9xc8gIElk4Dg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795712307;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=SFkjeMH9cRbO7tleN2+mKlOYaTgd0ZrzzzD7v7mG4FY=;
+	b=TzJNkEoJD1HLRv3OjWOQ4TacxbeGN4R5+A41j0MWvcKrvGikXaTr62EYsqaf//hDwjUP
+	 N4mdKSUX9uvRo0RxdqBiIe2DcOSHjpQNLKsEf7tK76WaYrmN6IGhS0ew6aaX+GVF2T//X
+	 784PXyuYmbzy5if3o7HrZheiwY39yNbzzmjf10nqO03Xm7EOxZYDaIHs99bYYymHocMmA
+	 038sotAoL6rv1nZ5PWJ7PkHWbXxUZO5mZRsMJ1t3uKVnjCaWZtSTMXoptM88ql1BMSGPF
+	 apu6tZhNQN5GvaYhMnQWUfxqP68lfcQoTTEwFnvkn5XwADazGJsshNkVA4Ht6+2ruWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="QC2DL/P2";
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0VAEDfQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F46606A321;
-	Thu, 26 Nov 2026 16:55:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96F46606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587CC606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:58:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QC2DL/P2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795712158; x=1827248158;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=37k69uxyRJzVO9uddzYhhEnx5L7zKQsrBkRXxwOZKbw=;
-  b=QC2DL/P2hcdzxwbJJSTnCrQ03QDs5lPS9vX2Gj93TZRGEpzZIkbJqwnn
-   aR/2es/ne9Dc80ggm+Q6ZH8XMj+3AYfb/E+jl7nkbc/er4nMsdNa8zUCN
-   lqaUvN507Y7HiY8lC8LZuz2xl4jGfTyPq9VbzSV2XHypJ2TXYfXeJJgOH
-   HLR/GljUVUIO1Cr2CbjywVMkIAMRa0gbM7no0JFhnplKP6MXFIK19GrBz
-   LNtgO9r2QKVoV4Fc0dZXlSebPsZFy5IyTmo9UOdw2WfN6b8UWD+98SpnG
-   ix7evuDS3ZqGBO+GAngK5wzkqLJdmmGv+MzMGJi+mlKHhMAYjdTy3ZaNx
-   w==;
-X-CSE-ConnectionGUID: acTgpQUSQfyXlxGOdRiHvA==
-X-CSE-MsgGUID: 1rOZXWRaRcCv6J8ZaNq3yg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4596261"
-X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
-   d="scan'208";a="4596261"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 08:55:57 -0800
-X-CSE-ConnectionGUID: p+r39IeoTeS/5WhFAxkNHQ==
-X-CSE-MsgGUID: 5FAT+iOpSeq7ciSi986WGg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
-   d="scan'208";a="12536476"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa007.fm.intel.com with ESMTP; 26 Nov 2026 08:55:56 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xWclE-00000001UVe-2lJt;
-	Thu, 26 Nov 2026 16:55:52 +0000
-Date: Fri, 27 Nov 2026 00:55:23 +0800
-From: kernel test robot <lkp@intel.com>
-To: Yingjie Wang <x-professor@outlook.com>,
-	"axboe@kernel.dk" <axboe@kernel.dk>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"dlemoal@kernel.org" <dlemoal@kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH v2 1/3] null_blk: reject device size overflow
-Message-ID: <20261127004636.Zw6bu9Dk-lkp@intel.com>
-References: <20261126074748.1076774-2-x-professor@outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0VAEDfQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0068F1F000C0;
+	Thu, 26 Nov 2026 16:58:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795712306;
+	bh=SFkjeMH9cRbO7tleN2+mKlOYaTgd0ZrzzzD7v7mG4FY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=P0VAEDfQd+KMAUromVxfCcCMZRhwNFeJFxJzid+Nlsdk6TKzLIuiUYNJ0OFyL0fPD
+	 DBvYIi7xJOWa2eJz96y1/JMugVMjQAgg23X9tQ0qkIJgjEeidV/wc0LsX9jhwB1Vzq
+	 d4SdTwIiymy3mYkQmSMHvUgCNUwBUBWbvIN9xv3kCyLAvcVGn3Qm2JtJystc+MAixp
+	 R6MpLkmMJHVQj7huZcwuvZ5nnc+EhXU8zMYUPT2hxMapZGdJQoboX6JUgRVsIUYb5O
+	 l7swYakpa4QqZhst5OWNFR0ZSW9dUt5NO7/6+g0ZFMtPkDNwZ8rYKnnCAO0y2ZeiTY
+	 qxayMx9n5VjmQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] iio: imu: inv_icm42600: fix parsing of all FIFO frames for odr change
+Date: Thu, 26 Nov 2026 11:58:24 -0500
+Message-ID: <20261126165818.2674164-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112558-eggbeater-lapdog-fece@gregkh>
+References: <2026112558-eggbeater-lapdog-fece@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,89 +59,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261126074748.1076774-2-x-professor@outlook.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Yingjie,
+From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
 
-kernel test robot noticed the following build warnings:
+[ Upstream commit 4a141623442888458d147f4e61fe47411c0e4e17 ]
 
-[auto build test WARNING on 5a29cfaf51105039d156dd8a61d2783e8b653667]
+For getting all odr change events, we need to parse all FIFO frames
+in each iio device. Fix this correctly by sending effectively all
+frames to all iio devices.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Yingjie-Wang/null_blk-reject-device-size-overflow/20261126-074752
-base:   5a29cfaf51105039d156dd8a61d2783e8b653667
-patch link:    https://lore.kernel.org/r/20261126074748.1076774-2-x-professor%40outlook.com
-patch subject: [PATCH v2 1/3] null_blk: reject device size overflow
-config: hexagon-allmodconfig (https://download.01.org/0day-ci/archive/20261127/20261127004636.Zw6bu9Dk-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project fb29ca8163c3309160711e5a14eb46bc6d4fdad2)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261127/20261127004636.Zw6bu9Dk-lkp@intel.com/reproduce)
+Previously only batches of frames containing a matching sensor event
+were sent to the corresponding iio device.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/20261127004636.Zw6bu9Dk-lkp@intel.com/
+Fixes: f670d4d34773 ("iio: imu: inv_icm42600: fix odr change not caught in certain cases")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../imu/inv_icm42600/inv_icm42600_buffer.c    | 24 ++++++++-----------
+ 1 file changed, 10 insertions(+), 14 deletions(-)
 
-All warnings (new ones prefixed by >>):
-
->> drivers/block/null_blk/main.c:1896:16: warning: result of comparison of constant 8796093022207 with expression of type 'unsigned long' is always false [-Wtautological-constant-out-of-range-compare]
-    1896 |         if (dev->size > LLONG_MAX / SZ_1M) {
-         |             ~~~~~~~~~ ^ ~~~~~~~~~~~~~~~~~
-   1 warning generated.
-
-
-vim +1896 drivers/block/null_blk/main.c
-
-  1893	
-  1894	static int null_validate_conf(struct nullb_device *dev)
-  1895	{
-> 1896		if (dev->size > LLONG_MAX / SZ_1M) {
-  1897			pr_err("Device size is too large\n");
-  1898			return -EINVAL;
-  1899		}
-  1900	
-  1901		if (dev->queue_mode == NULL_Q_RQ) {
-  1902			pr_err("legacy IO path is no longer available\n");
-  1903			return -EINVAL;
-  1904		}
-  1905		if (dev->queue_mode == NULL_Q_BIO) {
-  1906			pr_err("BIO-based IO path is no longer available, using blk-mq instead.\n");
-  1907			dev->queue_mode = NULL_Q_MQ;
-  1908		}
-  1909	
-  1910		if (dev->use_per_node_hctx) {
-  1911			if (dev->submit_queues != nr_online_nodes)
-  1912				dev->submit_queues = nr_online_nodes;
-  1913		} else if (dev->submit_queues > nr_cpu_ids)
-  1914			dev->submit_queues = nr_cpu_ids;
-  1915		else if (dev->submit_queues == 0)
-  1916			dev->submit_queues = 1;
-  1917		dev->prev_submit_queues = dev->submit_queues;
-  1918	
-  1919		if (dev->poll_queues > g_poll_queues)
-  1920			dev->poll_queues = g_poll_queues;
-  1921		dev->prev_poll_queues = dev->poll_queues;
-  1922		dev->irqmode = min_t(unsigned int, dev->irqmode, NULL_IRQ_TIMER);
-  1923	
-  1924		/* Do memory allocation, so set blocking */
-  1925		if (dev->memory_backed)
-  1926			dev->blocking = true;
-  1927		else /* cache is meaningless */
-  1928			dev->cache_size = 0;
-  1929		dev->cache_size = min_t(unsigned long, ULONG_MAX / 1024 / 1024,
-  1930							dev->cache_size);
-  1931		dev->mbps = min_t(unsigned int, 1024 * 40, dev->mbps);
-  1932	
-  1933		if (dev->zoned &&
-  1934		    (!dev->zone_size || !is_power_of_2(dev->zone_size))) {
-  1935			pr_err("zone_size must be power-of-two\n");
-  1936			return -EINVAL;
-  1937		}
-  1938	
-  1939		return 0;
-  1940	}
-  1941	
-
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
+index cb4520b184b01..9bb5fe639955e 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
+@@ -531,22 +531,20 @@ int inv_icm42600_buffer_fifo_parse(struct inv_icm42600_state *st)
+ 		ts = iio_priv(st->indio_gyro);
+ 		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_gyro,
+ 						st->timestamp.gyro);
+-		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
+-		if (ret)
+-			return ret;
+ 	}
+ 
++	ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
++	if (ret)
++		return ret;
++
+ 	/* handle accelerometer timestamp and FIFO data parsing */
+ 	if (st->fifo.nb.accel > 0) {
+ 		ts = iio_priv(st->indio_accel);
+ 		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_accel,
+ 						st->timestamp.accel);
+-		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
+-		if (ret)
+-			return ret;
+ 	}
+ 
+-	return 0;
++	return inv_icm42600_accel_parse_fifo(st->indio_accel);
+ }
+ 
+ int inv_icm42600_buffer_hwfifo_flush(struct inv_icm42600_state *st,
+@@ -569,20 +567,18 @@ int inv_icm42600_buffer_hwfifo_flush(struct inv_icm42600_state *st,
+ 	if (st->fifo.nb.gyro > 0) {
+ 		ts = iio_priv(st->indio_gyro);
+ 		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.gyro, gyro_ts);
+-		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
+-		if (ret)
+-			return ret;
+ 	}
+ 
++	ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
++	if (ret)
++		return ret;
++
+ 	if (st->fifo.nb.accel > 0) {
+ 		ts = iio_priv(st->indio_accel);
+ 		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.accel, accel_ts);
+-		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
+-		if (ret)
+-			return ret;
+ 	}
+ 
+-	return 0;
++	return inv_icm42600_accel_parse_fifo(st->indio_accel);
+ }
+ 
+ int inv_icm42600_buffer_init(struct inv_icm42600_state *st)
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.53.0
+
