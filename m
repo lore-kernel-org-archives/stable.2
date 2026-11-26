@@ -1,44 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.94.104
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795665776;
-	b=pAO32585dmqCKRAdE2NjGPtcXzqKlFvqx/QeCtFViyOgbCm/a/nputHykl5HHHI2TI2p
-	 LsYQutnbw26CMt6YkDyhnI4w2VCLvhLf/ZYRhnk/YsB8o6+ujPXHvHvvDxWDwEN3mysKI
-	 qiJyun51M0mwrob9ZjVlMkeSVdPXqWDf/NrAiJJ8PUiC+3qX4FjKdX+0E9JIPTXGKjIPn
-	 7uyzQbN42bsMWXSQfnyv9iMJTqgemJxEnVAWk2YqrO5MWBS67c3rXY1QXl93EOe8AU8jc
-	 8Rh3HjAexq+Ems4KzP2e0uATQneg+NghNZNZvM8jTYcO5JrkLI/FSk7d5OR3P3X5b+g==
+	t=1795665781;
+	b=4uTQDSFnvsS60ZvJoQsdrWInbzR2ucKGFcnEVAUAnZJVU/HDd8V/YrtGY6oynN9iZzz9
+	 ABHv1rkfa1XKHvAKN3O8+pLA9fF3ygLAYQij+lPGSnsofN8ZVLVTKE2ByPmUcDfDY0DwP
+	 6UqjouUYAuyJUuIgnddSbyN1Mw1fM1lS3Tu29Vt25T0spGrOyO5fa3oyD7EoX3OrOJR76
+	 aBUHbBK72YNphi/pnu54Y3mh/YKkoUcb6DCylY7sdHC/zReESdStdwdpkHt9/t5k04vSW
+	 bl9lrQOp08al9+Tbnipvf6MRej1IZ1HKoxwT6tC2UpeBmDYU9FeRPVnhnmhhcOl19Dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795665776;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795665781;
 	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=NN4M4Jo+5ge6yw1x29JgvGW6JvzHEGW3JJZE1kQgeRg=;
-	b=srgvVkarYFtsvA/3NIpfxA9/hmDUe7uHU7JCV6xgF2iu4PhNdvT/Zk101iggV9Dp2jvY
-	 0q8QHU/AiqkLluNPNOqACkCtszN4iDMJOPIkoJzJy+MJladLKC3bGuC7oRIXm6wq1lvN0
-	 lC1bZVYnToBsBZ2jH8LbqV9v7OWFoEBSVWUJ2AN0Iy1fzGpkzO8pjCuj8iV3T9JXIPWgs
-	 zn3NEg5hMiY5tVbcl9i/kTYfkTV4F+gJHdAyDT3XWdSrzcemRZ2SSohfFIPeoi2vvpE30
-	 LsMWYbcOGwoh1lCDyMair9wHGIsRyNUmPhohL4kmPluA/USk2ltELYE4/sbmc2TrSAw==
+	bh=tj2PIh8Kbuc4kronMnddn7XP0gr8whxK5H5QRLH76SE=;
+	b=lfWtbSGRo3LSB79DpWBWqORRq2J0IxVhLBpJJi/ypGAZje+AyIEE+B4n5sYa3atsXNdQ
+	 m8q/lM4nbS1xxgvLW/+0+SH9Jg3C7HANXxXem9x7VIX3mW2A7lj4CgpWCZGxC9iXGJODr
+	 rT5E69lsW/L1vxBZv/X5q07Opu+uiLvQf4tnsuDQsMWTZskUQF2OOKJQDZegLxgTMvHPW
+	 Bh+refHr404hVn6OHvE/M6F29GGFPOGsSXJdbwal9ZJEnIiHL+GfoH+xRIUm7vJxDsCe+
+	 6gy0EflIUeqWvvd5e1ryxLicpkmbh0iZyAYl/l1fEBe6IJFKvqQlT8c9Jxi4Qjj70ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=huaweicloud.com;
 	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=124.71.94.104
-Received: from dggmsgout13.his.huawei.com (dggmsgout13.his.huawei.com [124.71.94.104])
+	arc=none smtp.remote-ip=124.71.93.112
+Received: from dggmsgout12.his.huawei.com (dggmsgout12.his.huawei.com [124.71.93.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72B7606A323;
-	Thu, 26 Nov 2026 04:02:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A72B7606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC7D606A33D;
+	Thu, 26 Nov 2026 04:02:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BC7D606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
 Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggmsgout13.his.huawei.com (SkyGuard) with ESMTP id 4jZjYz0PcLz1rqxP;
+	by dggmsgout12.his.huawei.com (SkyGuard) with ESMTP id 4jZjYz3WmHz20bw;
 	Thu, 26 Nov 2026 12:02:47 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id 77177405F2;
-	Thu, 26 Nov 2026 12:02:51 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTP id 3617240C8C;
+	Thu, 26 Nov 2026 12:02:52 +0800 (CST)
 Received: from huawei.com (unknown [10.67.174.193])
-	by APP4 (Coremail) with UTF8SMTPA id gCh0CgAHOullrwdrepVXFw--.42150S2;
+	by APP4 (Coremail) with UTF8SMTPA id gCh0CgAHOullrwdrepVXFw--.42150S7;
 	Thu, 26 Nov 2026 12:02:51 +0800 (CST)
 From: Luo Gengkun <luogengkun@huaweicloud.com>
 To: stable@vger.kernel.org,
@@ -63,10 +63,12 @@ Cc: Will Deacon <will@kernel.org>,
 	linux-perf-users@vger.kernel.org,
 	bpf@vger.kernel.org,
 	alexander.shishkin@linux.intel.com
-Subject: [PATCH stable/linux-6.6.y 0/9] perf/bpf: Fix NULL pointer dereference
-Date: Thu, 26 Nov 2026 04:34:49 +0000
-Message-Id: <20261126043458.2394658-1-luogengkun@huaweicloud.com>
+Subject: [PATCH stable/linux-6.6.y 5/9] perf/bpf: Remove unneeded uses_default_overflow_handler()
+Date: Thu, 26 Nov 2026 04:34:54 +0000
+Message-Id: <20261126043458.2394658-6-luogengkun@huaweicloud.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261126043458.2394658-1-luogengkun@huaweicloud.com>
+References: <20261126043458.2394658-1-luogengkun@huaweicloud.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,176 +78,149 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:gCh0CgAHOullrwdrepVXFw--.42150S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3GryUXF1UCryrZF4kCw1kGrg_yoWxZrW8pF
-	ZxKrnIkr4kGF1I9w4fA3W2yFnrur4fXr45Jw1vyrWrCa90grZxXF9rK343KrW5JryvvFy2
-	qw18KrWYkryUZa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x
-	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
-	6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
-	Cjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0E
-	n4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I
-	0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8
-	ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcV
-	CY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAF
-	wI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa
-	7IU0s2-5UUUUU==
+X-CM-TRANSID:gCh0CgAHOullrwdrepVXFw--.42150S7
+X-Coremail-Antispam: 1UD129KBjvJXoWxJF1kKF1xtF4kWrWxtF4kXrb_yoW7Jry3pr
+	Wqgrn0yFsrWF1jganIy3WDZF1UXwn7X3y3Ga18K3yFv34jgr93WFyqkw1Yqrs8JFyxuFyj
+	yw1UKryUZry5Z37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPmb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
+	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
+	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
+	AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x02
+	67AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I
+	80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCj
+	c4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4
+	kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
+	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZV
+	WrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
+	1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
+	AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZE
+	Xa7IU0sqXPUUUUU==
 X-CM-SenderInfo: 5oxrwvpqjn3046kxt4xhlfz01xgou0bp/
 
-We hit the following problem on x86:
+From: Kyle Huey <me@kylehuey.com>
 
-	BUG: kernel NULL pointer dereference, address: 0000000000000000
-	#PF: supervisor instruction fetch in kernel mode
-	#PF: error_code(0x0010) - not-present page
-	RIP: 0010:0x0
-	Call Trace:
-	 <IRQ>
-	 bpf_overflow_handler+0xa4/0x120
-	 __perf_event_overflow+0x11d/0x2f0
-	 perf_swevent_hrtimer+0x127/0x140
-	 __hrtimer_run_queues+0x108/0x250
-	 hrtimer_interrupt+0xfb/0x230
-	 sysvec_apic_timer_interrupt+0x69/0x90
-	 </IRQ>
-	 <TASK>
-	 asm_sysvec_apic_timer_interrupt+0x1a/0x20
-	 __perf_event_set_bpf_prog+0xb7/0x180
-	 _perf_ioctl+0x1f9/0xb40
-	 perf_ioctl+0x41/0x70
-	 __se_sys_ioctl+0x82/0xc0
-	 do_syscall_64+0x44/0xb0
-	 entry_SYSCALL_64_after_hwframe+0x78/0xe2
-	 </TASK>
+[ Upstream commit 76f6d58845829e5d6ef55532e67a323e7d30c26e ]
 
-RIP is 0 with error_code(0x0010) (instruction fetch, not-present), i.e.
-an indirect call through a NULL function pointer.
+Now that struct perf_event's orig_overflow_handler is gone, there's no need
+for the functions and macros to support looking past overflow_handler to
+orig_overflow_handler.
 
-perf_event_set_bpf_handler() records the handler currently installed on
-the event and replaces it with bpf_overflow_handler():
+This patch is solely a refactoring and results in no behavior change.
 
-	event->prog = prog;
-	event->bpf_cookie = bpf_cookie;
-	event->orig_overflow_handler = READ_ONCE(event->overflow_handler);
-	WRITE_ONCE(event->overflow_handler, bpf_overflow_handler);
+Signed-off-by: Kyle Huey <khuey@kylehuey.com>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Acked-by: Will Deacon <will@kernel.org>
+Acked-by: Song Liu <song@kernel.org>
+Acked-by: Jiri Olsa <jolsa@kernel.org>
+Acked-by: Andrii Nakryiko <andrii@kernel.org>
+Link: https://lore.kernel.org/r/20240412015019.7060-6-khuey@kylehuey.com
+Signed-off-by: Luo Gengkun <luogengkun@huaweicloud.com>
+---
+ arch/arm/kernel/hw_breakpoint.c   |  8 ++++----
+ arch/arm64/kernel/hw_breakpoint.c |  4 ++--
+ include/linux/perf_event.h        | 17 +++--------------
+ 3 files changed, 9 insertions(+), 20 deletions(-)
 
-WRITE_ONCE() is a single-copy atomic access, not a compiler barrier, and
-the store to orig_overflow_handler is a plain assignment, so the compiler
-may reorder the two stores. GCC 11.4.0 does; disassembly of
-__perf_event_set_bpf_prog():
-
-	mov    0x3d0(%rbp),%rax                  ; prev = overflow_handler
-	mov    %rsi,0x3e8(%rbp)                  ; event->prog = prog
-	mov    %r13,0x3f0(%rbp)                  ; event->bpf_cookie = cookie
-	movq   $bpf_overflow_handler,0x3d0(%rbp) ; publish overflow_handler
-	mov    %rax,0x3e0(%rbp)                  ; orig_overflow_handler = prev
-
-For a software event the overflow comes from perf_swevent_hrtimer() in
-hardirq context on the same CPU, so no memory ordering is involved at all,
-only the store order; the publish lands first and the hrtimer interrupt
-fires in between. bpf_overflow_handler() then runs the attached BPF program
-and, for a non-zero return value, calls the still-NULL
-orig_overflow_handler (struct perf_event is allocated with __GFP_ZERO).
-
-Upstream status:
-Not affected. f11f10bfa1ca ("perf/bpf: Call BPF handler directly, not
-through overflow machinery", v6.10) removed orig_overflow_handler and
-calls bpf_overflow_handler() directly from __perf_event_overflow(), so
-the reordering window no longer exists. That rework was not backported
-to any stable tree, and there is no standalone upstream fix for the
-ordering itself.
-
-Affected version:
-Introduced by aa6a5f3cb2b2 ("perf, bpf: add perf events core support for
-BPF_PROG_TYPE_PERF_EVENT programs", v4.9) and still present in the 5.10,
-5.15, 6.1 and 6.6 LTS trees; v6.10 removed the field altogether.
-
-To backport f11f10bfa1ca ("perf/bpf: Call BPF handler directly, not
-through overflow machinery"), that commit has to come with the series it
-was posted in, and with the fixups it later needed. f11f is not a
-standalone change: it calls bpf_overflow_handler() from
-__perf_event_overflow(), i.e. from a position the series first moves that
-function to, and the new call site reads struct perf_event members that
-the series first un-conditionalizes. On its own it does not produce a
-tree that builds in every Kconfig combination, and it regresses bpftrace
-until the follow-up fix is in.
-
-The series f11f was posted in, and which this backport carries in full:
-
-  Link: https://lore.kernel.org/r/20240412015019.7060-1-khuey@kylehuey.com
-
-  1. 4c03fe11b96b perf/bpf: Reorder bpf_overflow_handler() ahead of
-     __perf_event_overflow()                             [prerequisite]
-  2. 924d934393f9 perf/bpf: Create bpf_overflow_handler() stub for
-     !CONFIG_BPF_SYSCALL                                 [prerequisite]
-  3. 14e40a9578b7 perf/bpf: Remove #ifdef CONFIG_BPF_SYSCALL from struct
-     perf_event members                                  [prerequisite]
-  4. f11f10bfa1ca perf/bpf: Call BPF handler directly, not through
-     overflow machinery                                 [the fix]
-  5. 76f6d5884582 perf/bpf: Remove unneeded uses_default_overflow_handler()
-  6. c4fcc7d1f415 perf/bpf: Allow a BPF program to suppress all sample
-     side effects                                  [rest of the series]
-
-  f11f (0004 here) is the fix. 0001-0003 are prerequisites: 0001 moves
-  bpf_overflow_handler() ahead of __perf_event_overflow(), which is where
-  0004 calls it from; 0002 and 0003 make the new call site, which sits
-  outside #ifdef CONFIG_BPF_SYSCALL and reads event->prog
-  unconditionally, work when BPF is disabled. 0005 and 0006 are part of
-  the same series: they clean up what the refactoring left behind and add
-  the ability to suppress side effects, which is the point of the rework
-  but not the reason we are backporting it.
-
-The follow-up fixes, i.e. what upstream had to correct after the series
-landed:
-
-  7. 93d3fde7fd19 perf/bpf: Change the !CONFIG_BPF_SYSCALL stubs to
-     static inlines                                  [compile fix, Ingo]
-  8. 854dd99b5ddc perf/bpf: Mark perf_event_set_bpf_handler() and
-     perf_event_free_bpf_handler() as inline too     [compile fix, Ingo]
-  9. 100bff23818e perf/bpf: Don't call bpf_overflow_handler() for tracing
-     events                                          [Fixes: f11f10bfa1ca]
-
-The result is a verbatim backport of the series and its follow-up fixes
-(one hunk re-based, see "Adaptation notes"), so the tree stays identical
-to mainline and later perf/bpf backports continue to apply.
-
-Adaptation notes
-----------------
-
-Only 0005 needs manual handling.  0001-0004 and 0006-0009 apply with
-plain "git apply".  0005 conflicts on include/linux/perf_event.h because
-the hunk trailer references perf_event_header__init_id(), which does not
-exist in 6.6.y (perf_event_header__init() still has the extra
-type/misc/size arguments).  It was applied by replacing exactly the
-removed block; the resulting file is byte-identical to the mainline
-result for that hunk.
-
-Ingo Molnar (2):
-  perf/bpf: Change the !CONFIG_BPF_SYSCALL stubs to static inlines
-  perf/bpf: Mark perf_event_set_bpf_handler() and
-    perf_event_free_bpf_handler() as inline too
-
-Kyle Huey (7):
-  perf/bpf: Reorder bpf_overflow_handler() ahead of
-    __perf_event_overflow()
-  perf/bpf: Create bpf_overflow_handler() stub for !CONFIG_BPF_SYSCALL
-  perf/bpf: Remove #ifdef CONFIG_BPF_SYSCALL from struct perf_event
-    members
-  perf/bpf: Call BPF handler directly, not through overflow machinery
-  perf/bpf: Remove unneeded uses_default_overflow_handler()
-  perf/bpf: Allow a BPF program to suppress all sample side effects
-  perf/bpf: Don't call bpf_overflow_handler() for tracing events
-
- arch/arm/kernel/hw_breakpoint.c   |   8 +-
- arch/arm64/kernel/hw_breakpoint.c |   4 +-
- include/linux/perf_event.h        |  23 +---
- kernel/events/core.c              | 193 +++++++++++++++---------------
- 4 files changed, 108 insertions(+), 120 deletions(-)
-
+diff --git a/arch/arm/kernel/hw_breakpoint.c b/arch/arm/kernel/hw_breakpoint.c
+index dc0fb7a81371..054e9199f30d 100644
+--- a/arch/arm/kernel/hw_breakpoint.c
++++ b/arch/arm/kernel/hw_breakpoint.c
+@@ -626,7 +626,7 @@ int hw_breakpoint_arch_parse(struct perf_event *bp,
+ 	hw->address &= ~alignment_mask;
+ 	hw->ctrl.len <<= offset;
+ 
+-	if (uses_default_overflow_handler(bp)) {
++	if (is_default_overflow_handler(bp)) {
+ 		/*
+ 		 * Mismatch breakpoints are required for single-stepping
+ 		 * breakpoints.
+@@ -798,7 +798,7 @@ static void watchpoint_handler(unsigned long addr, unsigned int fsr,
+ 		 * Otherwise, insert a temporary mismatch breakpoint so that
+ 		 * we can single-step over the watchpoint trigger.
+ 		 */
+-		if (!uses_default_overflow_handler(wp))
++		if (!is_default_overflow_handler(wp))
+ 			continue;
+ step:
+ 		enable_single_step(wp, instruction_pointer(regs));
+@@ -811,7 +811,7 @@ static void watchpoint_handler(unsigned long addr, unsigned int fsr,
+ 		info->trigger = addr;
+ 		pr_debug("watchpoint fired: address = 0x%x\n", info->trigger);
+ 		perf_bp_event(wp, regs);
+-		if (uses_default_overflow_handler(wp))
++		if (is_default_overflow_handler(wp))
+ 			enable_single_step(wp, instruction_pointer(regs));
+ 	}
+ 
+@@ -886,7 +886,7 @@ static void breakpoint_handler(unsigned long unknown, struct pt_regs *regs)
+ 			info->trigger = addr;
+ 			pr_debug("breakpoint fired: address = 0x%x\n", addr);
+ 			perf_bp_event(bp, regs);
+-			if (uses_default_overflow_handler(bp))
++			if (is_default_overflow_handler(bp))
+ 				enable_single_step(bp, addr);
+ 			goto unlock;
+ 		}
+diff --git a/arch/arm64/kernel/hw_breakpoint.c b/arch/arm64/kernel/hw_breakpoint.c
+index c94dcffb7e83..559bf7b5f0f0 100644
+--- a/arch/arm64/kernel/hw_breakpoint.c
++++ b/arch/arm64/kernel/hw_breakpoint.c
+@@ -663,7 +663,7 @@ static int breakpoint_handler(unsigned long unused, unsigned long esr,
+ 		perf_bp_event(bp, regs);
+ 
+ 		/* Do we need to handle the stepping? */
+-		if (uses_default_overflow_handler(bp))
++		if (is_default_overflow_handler(bp))
+ 			step = 1;
+ unlock:
+ 		rcu_read_unlock();
+@@ -742,7 +742,7 @@ static u64 get_distance_from_watchpoint(unsigned long addr, u64 val,
+ static int watchpoint_report(struct perf_event *wp, unsigned long addr,
+ 			     struct pt_regs *regs)
+ {
+-	int step = uses_default_overflow_handler(wp);
++	int step = is_default_overflow_handler(wp);
+ 	struct arch_hw_breakpoint *info = counter_arch_bp(wp);
+ 
+ 	info->trigger = addr;
+diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
+index f3bf97c4877b..43033a651bc0 100644
+--- a/include/linux/perf_event.h
++++ b/include/linux/perf_event.h
+@@ -1336,8 +1336,10 @@ extern int perf_event_output(struct perf_event *event,
+ 			     struct pt_regs *regs);
+ 
+ static inline bool
+-__is_default_overflow_handler(perf_overflow_handler_t overflow_handler)
++is_default_overflow_handler(struct perf_event *event)
+ {
++	perf_overflow_handler_t overflow_handler = event->overflow_handler;
++
+ 	if (likely(overflow_handler == perf_event_output_forward))
+ 		return true;
+ 	if (unlikely(overflow_handler == perf_event_output_backward))
+@@ -1345,19 +1347,6 @@ __is_default_overflow_handler(perf_overflow_handler_t overflow_handler)
+ 	return false;
+ }
+ 
+-#define is_default_overflow_handler(event) \
+-	__is_default_overflow_handler((event)->overflow_handler)
+-
+-#ifdef CONFIG_BPF_SYSCALL
+-static inline bool uses_default_overflow_handler(struct perf_event *event)
+-{
+-	return is_default_overflow_handler(event);
+-}
+-#else
+-#define uses_default_overflow_handler(event) \
+-	is_default_overflow_handler(event)
+-#endif
+-
+ extern void
+ perf_event_header__init(struct perf_event_header *header,
+ 			struct perf_sample_data *data,
 -- 
 2.34.1
 
