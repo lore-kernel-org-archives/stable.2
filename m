@@ -1,88 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795724602;
-	b=h1zjJzxaay5wCRCQj47E/ZTLs+TMGDdC7vC9s7Q9wp2eOSvs6NMYhl0i7GGwcqMSoqpg
-	 cfyBqMjBlqvmi/MKVGLqKwdbcAOM+uC1OlGdd1j4mxoKR0ZbRhKemkTvXZ7/blUf4AwWE
-	 mhLgVmj3obqBcXkLPlR3ylT/WhjjMCsIX88OYYW1hj43dToDzgA8mlhCNRiFTjSVDsMT8
-	 IFunfDL03CQg99FpuYYWp1QOwdOgvyJs8TApN0eFlc9f8xhNVgWjOLmxmytS/FDRnJcix
-	 sm0xC/h9vZ0f542yZ9YI5l7jCAorV4D0JQGjP8dG0K1SBazb0vTzX+D+P/Q2BhHhJyg==
+	t=1795724638;
+	b=lkUMIUiDc8/lS4Mgcjad3HKhHOyzai0AU5xo7tKdNMmoKB6qL6sGn5tkhwB2JXVGrKt5
+	 Y1Iie9IPAJ1k/2QVu2qiIFJug0gffcjiSgMYYoRARMPXwCxunxkmlyP92UDWPLwELKAIS
+	 OeUbpFq/1QbvXv/rWq8BZQFYgxpIu9asbhA4TFi9QoVi0dd6TXhq7G9GB9UB6XAu/UlGS
+	 qThZifrluRHMunB+pj6yC7qyzVYnnEhHMsmOO0hpcPamPcABYQc1kys/buDDFIyPKEj+z
+	 li/zXZOabdqq0G4THgVes2+W6CcUx7OaDfuybxzpDK9mg2o+2Iow1kKXD10Pb74Im3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795724602;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=nwNmT3+N2K6C+WQBtWD0mcJtZx8RSgDfIN1Kq5hD7g4=;
-	b=cJmNbfVlibS9tT3nLR3qPZ30Hg6jJhZw0ysrz9ypPB2Lcuqk/gGTVtSlaVMYFWOfX0zD
-	 xsTJWGhlypYPXykcSuofJFRH78YMp1PzRSJXN+PbWwJy2mlFT19RV477XWLASQo7gKP1l
-	 rw34XIxgkQc3O6Lz5Rr2Cc+DhN4OgWnEf6xh2w9NZVQ2O834ROgHEDB6Y2Kas9R2dWb7R
-	 Hu/xqvlRi1b5g+54NUNqpWCU4VEU/JPrJBYjL+Wa0f9AtdP1V3NSwE+zeJ61DgZ7sgx5l
-	 Bipx+f1Xxp20ktVWWNpnoM31PoP6EhuDY1MzGfrkiUustuEG+8dR/r1S9tttAJaL3Qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795724638;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=yzpk6VNzLkbdccrx6tz6Pvz7oZb/B/kBaeEMJzrRmQ0=;
+	b=lKO16ZZV3P0clT+mboxTAgz52yBstMGLsbcEsmF1oG4TIvT8tqbB0ehikbFbX0NPijPL
+	 gjtN+6iFmprBYFGrncY4b7fPtX++dSCxbUAI2IQyCqlOksSdFbID9oYIh7HmOZ40/IEl5
+	 ALGY8dM/DqjexXLyIjR+wCsDq7hOFSd1hBtF8Fp6I3npQIGDrQ+eynLmdzuN7k9aG1p2N
+	 yHWvcKHSoSs7W/KkAuJBdQmGUVhUpgGQsFIPQ5RN/4ykKIUwNacyFw176hgS/BJtxXEGh
+	 i4Oe1Son84kyQMPpqvQ8wkz3JCripQaygLYHFfbyJFQPKowTH7qV625rTW2akyTRK8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ywB1p9iP;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=M6dIAKJr;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7209C606A329
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 20:23:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7209C606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94984606A31C;
+	Thu, 26 Nov 2026 20:23:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94984606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ywB1p9iP
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-490d59c3f0aso3402217f8f.1
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 12:23:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795724601; x=1796329401; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nwNmT3+N2K6C+WQBtWD0mcJtZx8RSgDfIN1Kq5hD7g4=;
-        b=ywB1p9iPdGEmqVZlkXKOggU5r1cO44C0Wi0MdMKxLdnecPUPgaerI5xVKkpNtv7nnO
-         4DM2RT2c4FO2eYnhgZvBT6hJfJ9XWZQqXyaHhuSYwvNo/2g+sZDEsrJpu2DkMlFGC1nP
-         B4tYXQApvotMYA4u/iKyWF2HTeYCDeYuzVgM7LQo9y+5qrFykHDB9/RRzS2IAajn5W7F
-         DlFcBX1D9ptI0E3SJCVe7esdLI5zV8ekdGIKqmPuyO5hwLAPyBVDqSxCzbh1+qojhimM
-         +srEKo82XpEU3CEFwh1cP67/yK4kPYhznK3LHYXTF9VZxBaa3FIck8oGpj7BxlBEWlkA
-         5R9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795724601; x=1796329401;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nwNmT3+N2K6C+WQBtWD0mcJtZx8RSgDfIN1Kq5hD7g4=;
-        b=knfTDLX1VzSXnsZLCWNP/Xy5ID38GtOigs3VCHLE/jkn+/NIOPKz9Yquc8iolcWfsm
-         PIRWE5YwBe7WbWKtRuSws4A3to06qP77XwtMiFzm9FOK1F1BDiBugctWD2P+tu9RAED5
-         CiLg6jtDgiQCFvFh/5mYrBACfKF8TYm8RC9gbcTJ9eaJh1E+ltresYFGbGM2BrJLa1pH
-         D3McEjF/r6DRBfEyGIy8t5Nafx3hg63VKN/BzqhUVbitohYUMGjDLMpAQvWTfdM+zxV+
-         8wpiXFXsHkYBoYuH2wjTFbcfopeo6MWHMdt4+efDOxM3Rl2hxeHTizKMqyJ+fkNfdj7G
-         hYVg==
-X-Forwarded-Encrypted: i=1; AL+hErG9hQyCW6bK3bcQksdiE2JU/AiPfVlW7aNCFF5T+5V693/0DNYtnrqcvZz2tnvkwq3qUit94pM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Df5aGghLPg7gHOhuWvb2pca9dBIuPJxFPw4ZjJ4GnrlfK2YuM
-	Bico7fWmYw+5YtPDnkMej7tTTQS/Y4vXnHbKLSRXZy2lENgSZzcydgt7
-X-Gm-Gg: AZFdTZd2XZMG+X84bIJ3hirzwU7E9Cl8d9m0MisTcqy6xJKrziPI10zszbk0ayOvIg0
-	P5FqDeKMG6khRIJDvy15KPxEq2BMMh5deR3P8SV8iZO1loBL0hSvS+JBqw7Uy4I684qqSLs6MRp
-	TbCQ1uTik1y8fOUxEXMrQuc/cM24YpFHyTIGf3FlSQOom+PoNKe4UKPagoMGF/6LyKy1Z8M7Gvp
-	9WSxogrCDs3lBaqIRtJAWiS92sVj7A011CCnHSmTzPpoIF1i2K49nplAuZobsQGD4PilY1H2hzr
-	bD/NZRJ/eWDA64xFVgGlKPNYCCHJfZ6WVCSVnwEZHxCuN6Tq+TYSsuhALFag4zr1wN+cqSYew8l
-	LKiZmWTKgGe1BeupM7bonz+qwFVrxg6BwavxyUxGQU+Ht19qH5OrVwqzEmw9xas2imu183A6UrW
-	OKzlXYCIYWcITi0gj/hDpNkh80jL4m1h6T1IMANoXrm8kiqkyfFye9966hue+if+Zwhlzhlb8yk
-	1cwV/rHBDTOuFH/vu9PsEic5LqS8XGEOtMDBarWz3c7e8FFH9bt7SsCUrwyUxw+HvML9kaL02TY
-	vJNmTW2tfEuwL2iC0eP2nQoik7Yyjfq68Nt+WBkdOO8skQ==
-X-Received: by 2002:a05:6000:2586:b0:4b7:760c:70db with SMTP id ffacd0b85a97d-4b7760c713cmr19227429f8f.4.1795724600577;
-        Thu, 26 Nov 2026 12:23:20 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6bb989eesm43021525f8f.50.2026.11.26.12.23.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 12:23:20 -0800 (PST)
-Message-ID: <c5bc383d-fd32-455a-b946-e5f232c7fdf3@gmail.com>
-Date: Thu, 26 Nov 2026 21:23:18 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=M6dIAKJr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795724638; x=1827260638;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=WOXL6O59LdMbGTGemwzZEjIOHymjEDmtjogzgCmH8Ys=;
+  b=M6dIAKJrC1EhOwydrjDMMGzFQmvAsvGxJOYJE/zNPRA9yi+Ns2QPgbCu
+   ly236hs2s9zVoyYbm+80uUo+j7CoStEYYBWuEbuD40yEigfEezOnIgh+f
+   6bg/HJGWhJ9lfD+uPaSLLewVF2CIInCKW9G4EWZa/4eBR4CwNB1dxzxFV
+   p+6+2fK3fAI3fWn7TiUe7nDcndHbKpwcgITPUhxRg2fBvv3JCV843y0ad
+   4oRm4Dx910r2NnLFqmD9Hy7NAwUUR7H5COzc6skU8afOXJhdgmbcW0xSV
+   4+7x4dsSrrgT7AgaaQBwEu22MdYtswhcejQ0gsIVC6XammRMdwDokFtr5
+   g==;
+X-CSE-ConnectionGUID: UnBCbpiOT1W9W3XC8JHfWA==
+X-CSE-MsgGUID: ANliMafYTou+ipluDJqAhg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4483385"
+X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
+   d="scan'208";a="4483385"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 12:23:57 -0800
+X-CSE-ConnectionGUID: LXHBBSfrS1WYegUxgJOYcQ==
+X-CSE-MsgGUID: GsgCpKKZQvu2Sa2XAiLQaQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
+   d="scan'208";a="14014422"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.208])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 12:23:54 -0800
+Date: Thu, 26 Nov 2026 22:23:52 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Thomas Richard <thomas.richard@bootlin.com>
+Cc: Gary Wang <is0124@gmail.com>, Andy Shevchenko <andy@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Daniele Cleri <danielecleri@aaeon.eu>,
+	JunYingLai <junyinglai@aaeon.com.tw>,
+	Louis Chen <louischen@aaeon.com.tw>,
+	BillyChou <BillyChou@aaeon.com.tw>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 4/5] pinctrl: upboard: fix I2C pinmux-select set CPLD
+ GPIO OUT not function mode
+Message-ID: <awiVWP3CN4Jc3L1_@ashevche-desk.local>
+References: <20261126-upboard-pinctrl-add-intc1057-intc105e-support-v3-0-81d35c9ba246@gmail.com>
+ <20261126-upboard-pinctrl-add-intc1057-intc105e-support-v3-4-81d35c9ba246@gmail.com>
+ <awhPbIZjDazImfBf@ashevche-desk.local>
+ <awhQ0mvdzSw9NaVM@ashevche-desk.local>
+ <42cbe8ff-cfe9-4720-8d5f-685e7ff1c560@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,69 +88,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] mm/khugepaged: allocate page tables before locking
- the folio
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Zach O'Keefe <zokeefe@google.com>, Lorenzo Stoakes <ljs@kernel.org>,
- Dev Jain <dev.jain@arm.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Hugh Dickins <hughd@google.com>, Kiryl Shutsemau <kas@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Rik van Riel <riel@surriel.com>,
- Song Liu <songliubraving@fb.com>
-Cc: "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Michal Hocko <mhocko@suse.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-References: <20261125100058.15200-1-azpijr@gmail.com>
- <20261125100058.15200-2-azpijr@gmail.com>
- <042ab922-4707-4c96-80a2-83a0378646d1@kernel.org>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <042ab922-4707-4c96-80a2-83a0378646d1@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <42cbe8ff-cfe9-4720-8d5f-685e7ff1c560@bootlin.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 11/26/26 5:24 PM, David Hildenbrand (Arm) wrote:
-> On 11/25/26 10:59, Jose A. Perez de Azpillaga wrote:
->> try_collapse_pte_mapped_thp() calls set_huge_pmd() with the folio
->> locked. set_huge_pmd() allocates the missing p4d/pud/pmd tables there,
->> and on ppc64 with the hash MMU do_set_pmd() also allocates the page
->> table to deposit.
->>
->> Allocating with __GFP_FS while holding a folio lock can deadlock in
->> reclaim. For example, memcg reclaim on cgroup v1 waits for writeback
->> that may be waiting for the folio lock we hold.
->>
->> Allocate these page tables before locking the folio. The mmap lock
->> keeps the upper levels around, and an unused deposit table is freed
->> after unlocking the folio.
->>
->> Fixes: 34488399fa08 ("mm/madvise: add file and shmem support to MADV_COLLAPSE")
->> Fixes: f8a01513f574 ("mm/khugepaged: do not fail collapse_pte_mapped_thp() on SCAN_PMD_NULL")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
->> ---
->>  mm/khugepaged.c | 79 +++++++++++++++++++++++++++++++++++--------------
->>  1 file changed, 56 insertions(+), 23 deletions(-)
->>
+On Thu, Nov 26, 2026 at 06:43:20PM +0100, Thomas Richard wrote:
+> On 11/26/26 4:31 PM, Andy Shevchenko wrote:
+> > On Thu, Nov 26, 2026 at 05:25:37PM +0200, Andy Shevchenko wrote:
+> >> On Thu, Nov 26, 2026 at 11:09:47PM +0800, Gary Wang wrote:
+> >>> The CPLD I2C pin mode setting through pinmux-select is not correct.
+> >>> Should be set UPBOARD_PIN_MODE_FUNCTION on AANT0F04 devices.
+> >>>
+> >>> Set UPBOARD_PIN_MODE_FUNCTION to 1 to prevent a NULL pointer
+> >>> dereference error on .modes[i] for any pin group using this setting.
+> > 
+> > Hmm... bit how the modes[i] can be messed up here? 0 is integer
+> > and NULL is void *...
+> > 
+> > Can you provide a compiler warning or traceback of broken kernel with this?
+> > 
 > 
-> That's a lot of churn for a corner case (powerpc with hash MMU).
+> I guess the problem is here [1]. It should triggers a NULL pointer error
+> when you select the I2C0/1 functions.
 > 
-> What about simply running in NOFS context when allcoating that page table?
-> 
-> Apparently pte_alloc_one() doesn't consume GFP flags ... but we could add NOFS
-> around the allocation.
-> 
-> Any reason you went for this more complicated solution?
-> 
+> His patch fixes 2 issues:
+> - The first one is the wrong pin mode for I2C0/1 functions
+> (UPBOARD_PIN_MODE_FUNCTION instead of UPBOARD_PIN_MODE_GPIO_OUT) which
+> makes the second one visible.
+> - The second one is having UPBOARD_PIN_MODE_FUNCTION=0 because of [1].
 
-no reason, it was just the solution I came up with. I'll rework it with
-NOFS then, it's a lot less churn.
+Ah, I see, but why not fix the [1] before this patch?
+
+		mode = upgroups[group_selector].mode ?: upgroups[group_selector].modes[i];
+
+Shouldn't it be
+
+		if (upgroups[group_selector].modes)
+			mode = upgroups[group_selector].modes[i];
+		else
+			mode = upgroups[group_selector].mode;
+
+> [1]
+> https://elixir.bootlin.com/linux/v7.4-rc1/source/drivers/pinctrl/pinctrl-upboard.c#L713
 
 -- 
-cheers,
-jose a. p-a
+With Best Regards,
+Andy Shevchenko
+
+
