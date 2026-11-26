@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795714194;
-	b=DRM0ST0tnxeXXaPN9BmGKJBXRfcw0yiYJjdv38wEf9fsmF/PSwoPhm5TybbAKjM56Oya
-	 wX8fqNMbOwFrAqOqP9dU+rFylfL8uFHcUk4yj4gXdJ1ZtfO1LyMAHT0BagkkuUAPJ9FNO
-	 aFv5xDsuUGk7yH0/RmRlDRMuK0fjoHxCS22pJx3gm2c7hUty/Ij433HyRdf7Z45FvP09j
-	 kSLz+b9hbDA2j4G9IMPvDvQ7DrZBfZRPWfRkobARek4HAsuTe22mz03zMfuLuHdEFd/JO
-	 W1xpaZFMNWbPzzU3/Ct7mcC5KN56WkTZTkCHIpdZfOXUnUlIWORCc0V2Y3kwoGKP0bQ==
+	t=1795714195;
+	b=wjB91x2LLLpvUX027D/pY8O3gcxuyqFIm1Q0akT2g0sbwdKvczMqeqsxcJ7cF0dclkOJ
+	 iBASbBGw8rdaSc21lyS1rF2T93smJ+xwF3+Dn0ln76vuXzHo72s/m47WD3NcWcaxJpVZZ
+	 J1+ppdkC6Oz+S1ZTEQRVUlKyX2LLIZCbKgZofvPPtr7uJt3henhUtFQAEKUWuqJiBo/U6
+	 U0GTjWhahYCGseRU7o5F5uPaCtdmn6oIqDfm8BggqOlZycbaYI8HWhARAaArFnoyIlYzN
+	 y+IyG+PmOYoRccerVz3rLH9LN6d5ixgqwES3Swbn3gENJj8a6HDO69Jiq/2r26gMTSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795714194;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795714195;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=gn5cVyChJgKQb7V1LTTPvHXalylht6EjUj0JLXa2rCo=;
-	b=034OcT/xNmksBYBty8Qr9cpJu9F4u+wvtqIL3bRUGiLCdnkvDxMMb40lnNXEL5x75Smk
-	 mf90WFXUcAZJWjAu6ZXAhWWnaQCFGF4a0GedNOvfSAjuQMlM3Xc0wnezwEAOBgYBC/HpK
-	 yROgNBXJXbv3DcAm47mspL+ZPq8peWxAz1L5UCen5XV8AnZo8nNW6o5MfxmV3yjs4Jidn
-	 P5KP5maFiyz4uHK2H6QE7EKaWus0VmM1wTLXzwUL0LIjDcZ4ySovGnpGj58S4cdnBUlPH
-	 FV0E9xe0I8LjuZB0QZxrHnMoue3+OvaXYuG5/iDOKPPnqcS+7bjEQnFTkev3M1rykxg==
+	bh=DzFHvLgDyY2Uy1GF4lb5EKHirWOwIsgeGfYY4JG/iaU=;
+	b=VG0ZdsQz3d+t4ch6MTrBbW7KSBR0YUPb0euXB1ufHNUJ+6i6pIIZV+RH3t4747eK5YSh
+	 /FHUnspyHgDP7U7krTBC5qZ3Oigkn4+gEmgh+om6Qe1+mXWW5IIRMypEeTfmSZ+J72JEv
+	 +Tm0O1AdcBeFIUmLKOriMZcimiJSCnzELRgJUJ/wiqekKFfnrQQ6EHZMvXZOaDXGZb497
+	 j8UDp0PIuOqF6aM3C/pRXU8hTsEcKeXHQxzfxvtPZPL1FqKL2YBDye1y3BOnTG0T7UG5r
+	 edb/7HLb/ytQYsIYM04IkLzqJ16Sw8dcuFwyepwwTbCJF5sGwdI/eQrC6BPSWzs2dFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mZFSMxJ0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AeqfTivl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBD37606A321
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 17:29:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61E9606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 17:29:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mZFSMxJ0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 459A61F000CA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AeqfTivl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 042D61F000C4;
 	Thu, 26 Nov 2026 17:29:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795714194;
-	bh=gn5cVyChJgKQb7V1LTTPvHXalylht6EjUj0JLXa2rCo=;
+	s=k20260515; t=1795714195;
+	bh=DzFHvLgDyY2Uy1GF4lb5EKHirWOwIsgeGfYY4JG/iaU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mZFSMxJ0TTAhhG1iSJ1P7Ab7dpOqFoUDCe12evazjbm2yqaIWLg0DQnE8TRt4KWEZ
-	 oJSKHNL/TuKYt7zax+af8h3rLxDs+Aqngz2gRng8hRNbn82o/4d66sfgQN0QPMdLno
-	 h0wQDldPC0nogMALhB8TPUdk8WTIIIPaP1JLipaFKo5Jeaunc595huHOpbmVA1yx7d
-	 ZK86Go8e0oxS13VuULzTgD61vAEUQQlLs/APnEMMo2R/DvkknM/Rz+uaLfwBjEzqZj
-	 L6XDdmPxjcXwfSKhHUgBOO3ewbd/GJL+Ct0C8ukPgfviPHXwYOwk8k65um5tMSITY5
-	 K3wjOPHg6syDw==
+	b=AeqfTivlqke0bTXXTqVkBSCa/aKn31ebiBRkjSZ6p9sx8wmD044lEhPGTMnDJ/riK
+	 Mt/Lv+Fio9Ihoe4Q2sjNs2/vb2/OSYKrE8dRLljJZZbNhNjcHaNnjWSXFWtk3Rvgnt
+	 qpnQzBNZlj/HXqgCvJa+qcELeqmdGlICWH/6kD+swFcHvbUkL8VsHcTT+OHj5wjTQv
+	 q1YaNSYVLgYoGTJEHvcee1gvApNUKpzV3IPrbhIql6N4kdgiiP5YSRSfZHXDGsf8fx
+	 PMr5AOfsrK8gxdSPpVFmyHQMsoBUEbFfAQF0815RZUXQjBYyAikt+rWv4b3n/bS2uO
+	 yTyndv8+7s7YQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Karan Sanghavi <karansanghvi98@gmail.com>,
+Cc: Shi Hao <i.shihao.999@gmail.com>,
 	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/6] iio: invensense: Prevent possible integer overflow while multiplication
-Date: Thu, 26 Nov 2026 12:29:48 -0500
-Message-ID: <20261126172925.2769957-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/6] iio: common: fix spelling mistakes in comments
+Date: Thu, 26 Nov 2026 12:29:49 -0500
+Message-ID: <20261126172925.2769957-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112539-smugly-stole-0816@gregkh>
+In-Reply-To: <20261126172925.2769957-1-sashal@kernel.org>
 References: <2026112539-smugly-stole-0816@gregkh>
+ <20261126172925.2769957-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,37 +62,90 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Karan Sanghavi <karansanghvi98@gmail.com>
+From: Shi Hao <i.shihao.999@gmail.com>
 
-[ Upstream commit 6dfc256151e842fa894a2b579f9a4551c6961e2c ]
+[ Upstream commit 96f46405219d9bf62d9fab76e055e3b6059b0bd5 ]
 
-Typecast a variable to int64_t for 64-bit arithmetic multiplication.
+Fix spelling mistakes in comments.
 
-Signed-off-by: Karan Sanghavi <karansanghvi98@gmail.com>
-Link: https://scan7.scan.coverity.com/#/project-view/51946/11354?selectedIssue=1586045
-Link: https://patch.msgid.link/20241103-coverity1586045integeroverflow-v1-1-43ea37a3f3cd@gmail.com
+- exepects -> expects
+- fuction -> function
+- theoritical -> theoretical
+- appopriate -> appropriate
+- iio -> IIO
+
+Signed-off-by: Shi Hao <i.shihao.999@gmail.com>
 Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 Stable-dep-of: 3785dffc7c68 ("iio: inv_sensors: prevent timestamps going back in time in transitions")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ drivers/iio/common/cros_ec_sensors/cros_ec_sensors.c   | 2 +-
+ drivers/iio/common/hid-sensors/hid-sensor-attributes.c | 2 +-
  drivers/iio/common/inv_sensors/inv_sensors_timestamp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/iio/common/ms_sensors/ms_sensors_i2c.c         | 2 +-
+ 4 files changed, 5 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/iio/common/cros_ec_sensors/cros_ec_sensors.c b/drivers/iio/common/cros_ec_sensors/cros_ec_sensors.c
+index 66153b1850f10..58c935e182639 100644
+--- a/drivers/iio/common/cros_ec_sensors/cros_ec_sensors.c
++++ b/drivers/iio/common/cros_ec_sensors/cros_ec_sensors.c
+@@ -106,7 +106,7 @@ static int cros_ec_sensors_read(struct iio_dev *indio_dev,
+ 		switch (st->core.type) {
+ 		case MOTIONSENSE_TYPE_ACCEL:
+ 			/*
+-			 * EC returns data in g, iio exepects m/s^2.
++			 * EC returns data in g, IIO expects m/s^2.
+ 			 * Do not use IIO_G_TO_M_S_2 to avoid precision loss.
+ 			 */
+ 			*val = div_s64(val64 * 980665, 10);
+diff --git a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c b/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
+index 650016e4a40fc..065efd1ecf476 100644
+--- a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
++++ b/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
+@@ -352,7 +352,7 @@ int hid_sensor_write_raw_hyst_rel_value(struct hid_sensor_common *st,
+ EXPORT_SYMBOL_NS(hid_sensor_write_raw_hyst_rel_value, IIO_HID);
+ 
+ /*
+- * This fuction applies the unit exponent to the scale.
++ * This function applies the unit exponent to the scale.
+  * For example:
+  * 9.806650000 ->exp:2-> val0[980]val1[665000000]
+  * 9.000806000 ->exp:2-> val0[900]val1[80600000]
 diff --git a/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c b/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
-index 37d0bdaa8d824..327f456b53c5c 100644
+index 327f456b53c5c..883cb08806be8 100644
 --- a/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
 +++ b/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
-@@ -109,8 +109,8 @@ static bool inv_update_chip_period(struct inv_sensors_timestamp *ts,
+@@ -154,7 +154,7 @@ void inv_sensors_timestamp_interrupt(struct inv_sensors_timestamp *ts,
+ 		valid = inv_update_chip_period(ts, period);
+ 	}
  
- static void inv_align_timestamp_it(struct inv_sensors_timestamp *ts)
- {
--	const int64_t period_min = ts->min_period * ts->mult;
--	const int64_t period_max = ts->max_period * ts->mult;
-+	const int64_t period_min = (int64_t)ts->min_period * ts->mult;
-+	const int64_t period_max = (int64_t)ts->max_period * ts->mult;
- 	int64_t add_max, sub_max;
- 	int64_t delta, jitter;
- 	int64_t adjust;
+-	/* no previous data, compute theoritical value from interrupt */
++	/* no previous data, compute theoretical value from interrupt */
+ 	if (ts->timestamp == 0) {
+ 		/* elapsed time: sensor period * sensor samples number */
+ 		interval = (int64_t)ts->period * (int64_t)sample_nb;
+@@ -185,7 +185,7 @@ void inv_sensors_timestamp_apply_odr(struct inv_sensors_timestamp *ts,
+ 
+ 	/*
+ 	 * After ODR change the time interval with the previous sample is
+-	 * undertermined (depends when the change occures). So we compute the
++	 * undertermined (depends when the change occurs). So we compute the
+ 	 * timestamp from the current interrupt using the new FIFO period, the
+ 	 * total number of samples and the current sample numero.
+ 	 */
+diff --git a/drivers/iio/common/ms_sensors/ms_sensors_i2c.c b/drivers/iio/common/ms_sensors/ms_sensors_i2c.c
+index 9c9bc77003c7f..b67453bd31f81 100644
+--- a/drivers/iio/common/ms_sensors/ms_sensors_i2c.c
++++ b/drivers/iio/common/ms_sensors/ms_sensors_i2c.c
+@@ -96,7 +96,7 @@ EXPORT_SYMBOL_NS(ms_sensors_read_prom_word, IIO_MEAS_SPEC_SENSORS);
+  *
+  * Generic ADC conversion & read function for Measurement Specialties
+  * devices.
+- * The function will issue conversion command, sleep appopriate delay, and
++ * The function will issue conversion command, sleep appropriate delay, and
+  * issue command to read ADC.
+  *
+  * Return: 0 on success, negative errno otherwise.
 -- 
 2.53.0
 
