@@ -1,88 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795699715;
-	b=hf/dhvYckbnixiI8ecopWr4xzibogoUfGjhAHGfeHgOsyGHZgrc61P8kPlVGPTyWko7o
-	 B5Ox+YYZXqOXrmtMf2CNyKrVyeU55I9wtDFuiXrHHP2LcNJccNL17UDu5m2fVG/baFIb/
-	 GQWCve6fHtljPDTWNo94n9dAzCTBdZNBhIleOnk0uuVFRbtRwX+X+Ht15yRJLgEcCIqK+
-	 6dAxNrPKcmr//+Gz5W9EiZlKu7J7GSAbyi1ejRYffd0PLxSMndZ131zwdGnOKDoeMN5h6
-	 CciwRmAVH9I9Pu3t7Dc1J5A0VqALcIixvfryb2rnWtP6mbQCEHc6p50XC2kjgfMbBZA==
+	t=1795699901;
+	b=rozlif0JXAHyOs8B1ubyVDdKpDRij1Jqujju/IFVEzSxRwLtlskd9/6KkUJHKdFavD70
+	 jbHa+sKwHRp5hOuz6xLT/hJG713tFJ0OWZg35McfX7fJMkW4yu23gPhSlIajE8bQp5vru
+	 tyfrbewEbq/gfDgtPqjBQfJ41snsm/RrBazEcMxEmxo0o4NsOreVkGswbsm0oL9o2kF7v
+	 zhI1hroTJ4P0XWuAgB31k19JqyD0tM198v5E1YdAW3x+S6+SlW8wlUw8ncLJ1wFL/AYQm
+	 wKHBYeD6ONOk/km2qrlFda+KsbLWcQWgXtyIZtCoP8ZcGsbwEPPTP5rKKs31IKlE3sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795699715;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795699901;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Reply-To:Subject:
-	 Content-Language:To:Cc:References:From:In-Reply-To:Content-Type:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=pFahHhnApCqp4xWzSbnlx6J9bvCFbftUctTIaRpbdJw=;
-	b=cfDOA9wtaNa58ilw0wb984TGRvK1PctyHxiIQ5eCyTskHv2xDPuQ7FOngyby+F68iI+R
-	 3OsaZeevDRBvNc65A/ZncWpIdfiOEwxArJpKvvsIt4wRGFX6ghMgBLXKnSMxK6xCjYhv4
-	 HNd+WVY+jCJKvYpmE4YpsFcRF0ACVPjrvgkI0c/8xekvmAoX4TVD1BjzOjYACjbDSckim
-	 ntoYQpP4QW2ce5eZD4LVGYNJ4YRR6Ia2Ico0AUBP9/o83rd9HqcvkKM0cfSd7j4Bf+OaT
-	 dkH1jKpk+1hQaxdSH85OkgF1kz9vmR6o6ovWfllaMMR0cdm9awbek22bQqTT08fg6rQ==
+	bh=4bpLkGggKND4rdI5aeb1fC1YriisxypN5V4Ha9pY8nc=;
+	b=Uihjreo0/Nvfxbf69uEBC3IauGoyyh1ZxtcbCa8RW48NzyyxDpXJfSASfRY0+XJmEQCT
+	 cgD13gJs9M0/IXf3EvDts9/wMNYA+SEiiGOZDS7mcGeY8Xdifrz6YhR6L3rY6OWFF8Mfg
+	 B7lFIEDGLTbxSa8fe81RQdA6kVKUMvPxSmTYCPBSzgSUyEqYitAviEYuenyyfgOgfnfOl
+	 JV7639viyHR5d14rHqx4SlIv+HGiwjhqh/7IXeeT9lx3ikWbIDXhf91MW4ygSCN03jKxK
+	 3qodx0OE0oTT1pWq5e4LlAZhbS+LqAf1KhfqUd65p49GQ49wnDXRFp4p2m+F7FRIW0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="MC/TKS47";
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ex4MPbIQ;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6348606A335
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 13:28:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6348606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944E7606A321
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 13:31:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 944E7606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MC/TKS47
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-38190551625so13610926eec.1
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:28:34 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ex4MPbIQ
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3869f03af6aso6167213eec.1
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:31:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795699714; x=1796304514; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:reply-to:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pFahHhnApCqp4xWzSbnlx6J9bvCFbftUctTIaRpbdJw=;
-        b=MC/TKS47PCVThH4hxBVbgYAI17PI8aoyvnUrzLlf5cUFLIk+p2ddtVf+hQToBZH+Q/
-         rB5Im9GJK7ymW6o+kw2H38ubAlvFSPrnLV7QUMeiielvCCVXjFgTv9pPaMj7j5bKFWgq
-         IbMU6BMgevQG1NxYkx63x1CZ1CrFMrFtSuCi8sABEky3K6kX7E0ldh4+6UPuYNnMdTHW
-         Bz1jigNK9fpe2VkAaSyGXsKvGbRhb+8I4k8LzZkkFdqc/bZrTYAIonP49b8b0MsEuwkT
-         GAW+ARRDnT9SD9ayDaZpUz7XLSvG1CfXy+gvHuMerhQ22jporeapnIv76onGGYCGVYpw
-         lXdg==
+        d=gmail.com; s=20260707; t=1795699901; x=1796304701; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4bpLkGggKND4rdI5aeb1fC1YriisxypN5V4Ha9pY8nc=;
+        b=Ex4MPbIQnlsBn7GAG4/VCuSYs61TCmhayVVfq0Y2vPPT1s2YO2jM1Wo16z1gICrh8C
+         gk0/EROp+S/tI22esTQi/MuxCWTZHMtMv7Y19sYaiRE27ynUhlKUBUI0LrW8lGbHvU8w
+         WOXbaSFDHR843eYyhcdP0O0oioe2SiAynDEpEefqLDL9o1N6K3IxwKxRMl5b2DiUr4WG
+         ByMLICKpZAmRIpHEN7UOAMOIbNKLjP4oNQvhwBTxkr3DpG7AmgkJC+KUMNQjMJ3s6yTX
+         zfFVYGyUdGAwQp/TVxPLn217yeFpHpXE2MjJYOOmM5JbYDaO78rrvt75w59X4j3I9yE7
+         7+tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795699714; x=1796304514;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:reply-to:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1795699901; x=1796304701;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pFahHhnApCqp4xWzSbnlx6J9bvCFbftUctTIaRpbdJw=;
-        b=PhIxU9ZipqkPGU++lM6CX+YnlvsV0v7UuRVvO6Hu4L8QPHIzWbuL97Rph1WZnYaBZZ
-         viyBhW5BcCESEIwsD2nOimh7emLQYeRet1FQjYDPBOjXbKo5Y7jt4bwKkHbgFQ2EMEyC
-         SFB9UywBZswGzSTCu05qMz0PMefAwD5dldjltN5EI7PxINxlqVrK1kqo0q+G7RA2irdp
-         bsBYXCVLsc7EZRSRWhQYb8wVXAV9qwEN/NI7uIkrfPRrTqujaBW5oTWwVu3/RWqT15sU
-         ssUNSdKy+EiG6dkRf+7cgU9YW4V0a1nZEmdTK9DmT4EUHun217TaaYbskriaSiRZNuZg
-         A51Q==
-X-Forwarded-Encrypted: i=1; AL+hErErE/zL8+Rd6ZzjcDHs3Ip1yDOFojJmieaJO199Zal3+qNy5Mu/7jddVF25H3rWhV0TSAFmO6g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/s8Eu9PMj9VEOj06AOh53ps+WSUdTpXsmRBgC5d9fyDgZGA8Lt
-	JpRxlpzSZqZkqd/5ip0FnqMUGhGRJ9IHj7ZjfS8jH47dmFrxrZKuc4Uu
-X-Gm-Gg: AZFdTZeoD2aeWUi7awMycW0DEX1djsNylbSo6SXuQpFoo+AW2HEyzG4d6833cBOkYfM
-	Q80qiqPuyozzcLFCciGTCjLMlncrR9deUZ5hD4F/LyFrjM5jOcsQPbj7+p+m5mGBdk/E6ifgIYr
-	Rhrj294MpZArYNcv/dmT+icBIOZ1Z/TQ0uhpj5K355wLlVhmvLJRJxhpRkfQuulL7wK4b98J+/Z
-	VCHax1QMNGLc+OC5dlrwcDjH1AUfOuXLJCVToa/bqZ/BnFFw6drQ0f2HGWVWmOPjYXiqp8FUyXG
-	prWnbVN5uG5Ez+xXS3sJZ/baVl/NB93E9NLNVJcj/ycZgYklORoHXzRf/AGbfIwdtzc86t8tnwD
-	RBzuRuoEG3gGpLnKcyR1vxfremYEhvIbb/0/2gMMpR0JupumHEpvmH9zl8SIYLwkyq6IXj6Iia4
-	C/RrkkitEgLuM8t93dJUB8OYRJ1So41Vo+rfdvBhGwP2ZPTWIUhJ6S+YqSH+kXYQ4a4rooGATX5
-	6XV74+lzAu/Oc+owB8/Q3NQBA4s6Ma4KKifiFjQU03aFJYMIysKXlrG9gLUqxKtcNWMwjEMar2p
-	bHryAdmm5RdwP9LET/Wz0EAq5pY/HY7Drs/HrtQABlTA1mzxi3rNND2SFKP+cDMdJpw=
-X-Received: by 2002:a05:7300:c00e:20b0:386:c3ab:ab7d with SMTP id 5a478bee46e88-386c3abaf3bmr8681892eec.3.1795699713612;
-        Thu, 26 Nov 2026 05:28:33 -0800 (PST)
-Received: from [192.168.35.43] ([218.50.238.131])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e96bdsm59213477eec.7.2026.11.26.05.28.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 05:28:32 -0800 (PST)
-Message-ID: <86a7174f-c44b-4663-862b-3631b0d6c5bd@gmail.com>
-Date: Thu, 26 Nov 2026 22:28:28 +0900
+        bh=4bpLkGggKND4rdI5aeb1fC1YriisxypN5V4Ha9pY8nc=;
+        b=PpJFWnyAWCJZJLmxXltSwQq23KHaVoVItjUozFRjAaG4bN93nT+yLMu7OlxLdt/vcH
+         ZewwF45yZU4rgKCcFn5h51OppOUdPZ1fnO4DPBppVBCyeQadtq1/S6H50WsfO1JSaUrk
+         BJSJsMbEYuV8WNcd0GX4l0g0QICKCOouiKLDfMV8SaMpgWUGQv601urc3Es7Th5ztTOb
+         tOkJmvlhmDNdYc4WlCLfQsidb1gt8zeYcWDT/S6NW1gKQEPv648S2T83DLgawSdme+a5
+         fuvzVm4y9InnW89by0Uy/R3FJaT5pOanR7uiU8phCk5eoi+zO+/FS3CKucPuVOw2UyZI
+         +Azg==
+X-Forwarded-Encrypted: i=1; AL+hErGZI/oHHFCEDsmQUy2aWow5Fc+IcP8bloOdiutagonKHZH6jH4Qv59B1FvEVRi1tuHP8sDsBXI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+AuKSHXzVCEq7TqEv9hPvSHjVYnc8YL0AKlpRxLyriDg/VYr1A
+	FZoZthCEMg705csoRYVArm+5jy47FEU0JFO3dsGK7NlUd8H9RspqJoE=
+X-Gm-Gg: AZFdTZfU78bWXTcrlfdOm+Ej1X/qB5cyHcP7ysTNmE1QVir6Vy44H5rfwM4iCrxS8mJ
+	xviExKLw+lf//xiSgcfVsTqdAd1pNYuT/6pFYuT/rHYM7me7CmzOcyDqx2KRAVsu9S8y/lyRn4A
+	9hufE74IHkdioh66TAWMwQ11TpKIlL/OMCF2loLJflYflg0CTEyWWSeamNsZ1cok5cgMrEc+RSo
+	Od7hJDoERKtJkBhsGhzbx1QmYitmLEKGP6CnL//5X3V2zER3kmAIK4861Xc3a8GkmuXE3D74CvA
+	KlrpNvzTExkJbcgcf1y+Wei+NCXCCnamJb4zQrmmz7Y73eHinHms0bhb0ydy3QHkhrRB9W3JONO
+	mmqb6z92tqJkJpF1WlS910CExMhjdLMZZXv3Jksp2RtHYZMffneHlij+txlM9YTFnCHQxk1+UbM
+	9MCIEgGQm9BEZZ8We4B2gI9WYrJTeTe4V3RWPVOE2aLV7xmGC9ND9bhGuY2oRrtef73DZMQ1rhD
+	qDlo7AXBAjlk2yYo7kf1AN3FVp9gp3q0Q3hdNpE+TkW4duN66HAC3/drGcUFbhA9WNuUiLqgj8w
+	j/k5ntmi/KYsIqJFUbr4wOfrP6edDha0Cnw7NAWnJSXmfJDQ/Jo2noaaTIsf/KiAt6UmuplWYvr
+	GOwlhypcUZyku
+X-Received: by 2002:a05:693c:20ce:20b0:381:761b:f335 with SMTP id 5a478bee46e88-3856f94eda0mr22296290eec.6.1795699900556;
+        Thu, 26 Nov 2026 05:31:40 -0800 (PST)
+Received: from localhost.localdomain ([2406:3003:2002:639c:a06e:23f:85ed:4cfe])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-386992b404bsm50244649eec.1.2026.11.26.05.31.38
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 26 Nov 2026 05:31:40 -0800 (PST)
+From: Yige Jiang <yigejiang86@gmail.com>
+To: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>
+Cc: Yige Jiang <yigejiang86@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] bcma: Release the found cores when the bus scan fails
+Date: Thu, 26 Nov 2026 21:31:36 +0800
+Message-ID: <rc-b1-20261110-vc-96-1d8d0afe258d@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,87 +97,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: chanwoo@kernel.org
-Subject: Re: [PATCH v4 00/11] PM / devfreq: rockchip-dfi: cleanups and RK3576
- support
-Content-Language: ko
-To: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, MyungJoo Ham
- <myungjoo.ham@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, kernel@collabora.com,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20261119-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v4-0-517a68c008fe@collabora.com>
-From: Chanwoo Choi <cwchoi00@gmail.com>
-In-Reply-To: <20261119-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v4-0-517a68c008fe@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/19/2026 10:01 PM, Sebastian Reichel wrote:
-> This is a combination of the DFI driver patches from the following two
-> series to ease applying to devfreq tree. It is based on devfreq-next
-> and there are no other dependencies.
-> 
->  * https://lore.kernel.org/linux-rockchip/20260921-rockchip-dfi-cleanup-v2-0-43ff34ac8599@collabora.com/
->  * https://lore.kernel.org/linux-rockchip/20260921-b4-rockchip-dfi-rk3576-support-v2-0-04f847016321@collabora.com/
-> 
-> Changes in PATCHv4:
->  * Link to v3: https://patch.msgid.link/20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-0-32ff1546b0e4@collabora.com
->  * In PATCHv3 I accidentally used the patches from PATCHv1 as base with
->    the wrong DT bindings; this is now fixed
->  * I've fixed num_clks typo in kernel doc (Sashiko)
->  * I've fixed incorrect LPDDR5 BANK_MODE_MASK for RK3576 (Sashiko)
->  * I added a fix at the start of the series correcting LPDDR5 bank
->    mode value (Sashiko)
->  * I've added a fix at the start of the series avoiding usage of
->    uninitialized memory (Sashiko)
-> 
-> Changes in PATCHv3:
->  * split out DFI driver patches from both series and merge them into a
->    new one; clock controller and DT patches will be sent separately.
->  * rebase to devfreq-next
->  * collecting Reviewed-by / Acked-by
-> 
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
-> Nicolas Frattaroli (6):
->       dt-bindings: devfreq: event: rockchip,dfi: add clocks to rk3588
->       dt-bindings: devfreq: event: rockchip,dfi: add rk3576
->       PM / devfreq: rockchip-dfi: move to per-variant const structs
->       PM / devfreq: rockchip-dfi: add NO_INTERRUPT perf capability
->       PM / devfreq: rockchip-dfi: use bulk clock APIs
->       PM / devfreq: rockchip-dfi: make RK3588 use its clocks
-> 
-> Sebastian Reichel (5):
->       PM / devfreq: rockchip-dfi: drop incorrect shift of LP5 bank mode
->       PM / devfreq: rockchip-dfi: initialize dmc_count structs
->       PM / devfreq: rockchip-dfi: move register offsets to variant struct
->       PM / devfreq: rockchip-dfi: prepare support for v4 DDRMON
->       PM / devfreq: rockchip-dfi: add RK3576 support
-> 
->  .../bindings/devfreq/event/rockchip,dfi.yaml       |  89 +++++-
->  drivers/devfreq/event/rockchip-dfi.c               | 297 +++++++++++++++------
->  2 files changed, 290 insertions(+), 96 deletions(-)
-> ---
-> base-commit: f9316c13d6f621af4f6f4a6089d3c989ffe899e6
-> change-id: 20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-74727d64d729
-> 
-> Best regards,
-> --  
-> Sebastian Reichel <sebastian.reichel@collabora.com>
+bcma_bus_scan() initializes each core it finds with bcma_prepare_core()
+and links it on bus->cores. If a later EROM entry is malformed, or an
+allocation or ioremap() fails, the scan returns an error with those
+cores still linked, and neither host cleans them up:
+bcma_host_pci_probe() jumps past bcma_unregister_cores() and frees the
+bus, and bcma_host_soc_probe() only unmaps its MMIO window.
 
-Applied them. But you also need to send the clock patch[1] and get it applied.
-[1] https://lore.kernel.org/linux-rockchip/20260921-rockchip-dfi-cleanup-v2-6-43ff34ac8599@collabora.com/
+Each failed probe therefore leaks the device reference of every core
+found so far, and with it the core, its name and, on SoC hosts, its
+ioremap() mappings. The Sashiko AI review reported this as a
+pre-existing issue in October 2026; an unmerged patch by Haotian Zhang
+from August 2026 would have covered the SoC path as a side effect.
 
-Thanks,
+Release the cores in bcma_bus_scan() when it fails, with put_device()
+as bcma_unregister_cores() does for cores that were never registered,
+and reset bus->nr_cores so the bus is not treated as already scanned.
+put_device() is the right release only since commit b63aed3ff195
+("bcma: Fix memory leak for internally-handled cores"), which made
+bcma_prepare_core() call device_initialize().
 
--- 
-Best Regards,
-Chanwoo Choi
-Principal Engineer, Samsung Electronics
+Fixes: 8369ae33b705 ("bcma: add Broadcom specific AMBA bus driver")
+Cc: stable@vger.kernel.org # 5.15.x
+Link: https://patchwork.kernel.org/project/linux-wireless/patch/20260813100836.2913-1-vulab@iscas.ac.cn/
+Link: https://sashiko.dev/#/patchset/87897
+Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
+---
+Based on linux-next next-20261109 (630059a5a632).
+Compile-tested: arm64, aarch64-linux-gnu-gcc 14.2.0, W=1, COMPILE_TEST=y, BCMA=m, BCMA_HOST_PCI=y, BCMA_HOST_SOC=y, OF_DYNAMIC=y; drivers/bcma/{main,scan}.o built before and after, no new warnings.
+No hardware or runtime test was performed.
+
+Needs bcma_bus_scan() to fail after at least one core was found: a malformed EROM entry, or an allocation/ioremap() failure.
+
+ drivers/bcma/scan.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/bcma/scan.c b/drivers/bcma/scan.c
+index 84742408a59c..6aea15f54b30 100644
+--- a/drivers/bcma/scan.c
++++ b/drivers/bcma/scan.c
+@@ -520,5 +520,16 @@ int bcma_bus_scan(struct bcma_bus *bus)
+ 	if (bus->hosttype == BCMA_HOSTTYPE_SOC)
+ 		iounmap(eromptr);
+ 
++	if (err) {
++		struct bcma_device *core, *tmp;
++
++		/* Release the cores found before the failure */
++		list_for_each_entry_safe(core, tmp, &bus->cores, list) {
++			list_del(&core->list);
++			put_device(&core->dev);
++		}
++		bus->nr_cores = 0;
++	}
++
+ 	return err;
+ }
+
+base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
