@@ -1,91 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795672617;
-	b=yodHWptAmNCwXp6UJ2b4gA349cSRMw7f5ytn2O6IevKk6yQULGC/tx+chLwrRdpoQx3F
-	 WwfsEIHIsKwGLm93bTS/liRWNHLqHzEaDxLcB5LDFeZ5XWhIy97EFIeNIeNTdsh1reV3D
-	 mHShbS1rKf/k2GJKg2VlsrHLrBO8S8+FjL3bzoBAwods+xN5wo6LepyiInj7oYHiml1bS
-	 /zJBRY6ybszh5iKCzpCyU6zRtGaHSvecwr4H5z2anliPH2smdy3ckF1uOJJmaOs686vGy
-	 vOSIoZa3UZ1srOkRLpmP5wclQ4f9+iE5L+RT8tq2wh7V3nw7jFqljBl+53SnC9LteDQ==
+	t=1795672742;
+	b=RzbouEPRJajD0ejqhZTTYsOBLDTjEr3ZM38KvJchvirBD6IBbxoS4Ut0eB+NKv3jD/Lk
+	 Lq1dlumUaWt8wAnIoeN2Dtjmg87BwKQ1OZ/ZUTXNvjGC9ycb3xhg6B1atswDqBndbjb74
+	 vg0+wT61IVY5JZ0rgceyEwXuRqLr1WuzJ7E3ttyiUy1pFuuFK8Ok9ZgYdpKakeIAj7n2k
+	 hs+fSjlIO2w9Hla6NQJZ7iu8H2sz5KWqR7iE0cYKhePaaoN+YI+FdPyvOS1bsvsMqQGdW
+	 Hu81YseoxIuNWms0UsqTuISLCu2LHxnT3fw6O28mm0UCmwDLCS5l7FGYb/+GRdOSkSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795672617;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795672742;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=GaDF/oabtnPz5CC+z3Y48KsX5H9ec5sap3k/VVqc69M=;
-	b=eESqHs2L8m4R4J4BA5gDbb+AqaebU9Iwgm+3tYRu1M+lMKefiVSAa0+TgYGfWrXhcz+p
-	 0OLbe+GcL78wqvlsSQwkDHDTLsB+/v9Y4pIXWejGM0D6evnvuj6H3cURKd3LGjBsdR+6N
-	 J2Gh4YAcK1ChucimlrJUtTQWUOzMWBJzSeDi6TRm/rSOkWxZgzYtTLh1I7ftycrsTFpc3
-	 8RgQAJhCBzTz8+AAbYprXfFiSMpLya2yIqvZiG7LhCjJ68fOxEuvHdh5qW10BZ5XF2QbL
-	 BuWw5TJRaK5KtwdAvPelOAg7sAlWrHZJxRNAvejNe4sUQp+RfeYbGivDmiHS+64IhfA==
+	bh=8ENOEvWpXS/hO0xFIEmj5YuEGPhTN4rxHq1cUYnvsQg=;
+	b=QHkKEy0hO6iml9rU4d4ucNlLbNuyKmj7jUmSnDP8d0NSdGUMXgnK9ODEIxV7mrLp1WDq
+	 cg34ruk/HjY2FPvH02fcbYKjm7WVo3I5qwoFmZgZBUPuWRFZMLx0SHsvkYgcH+Kpju6a1
+	 sGxIFSpFg6ghwWeyWK8g2MskhbENdcwWYqrRv0NLFAKw5ij1oKYrhOGV3bROdbmsXsHmh
+	 XAM8wFxzuOZDvxbKDwFPPH8OVlRA457yG6kdAWHe0Sg1hnruPgCRHgTQwKRFCPgq6O6iY
+	 2L1WxtMd2g98G+cbzR0CAHP6TWtqm0D2fwLrDQjext0xC/3ms7TZita4RL2XChuYaKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ggdGyTHK;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0XAsnkII;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D86606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:56:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87D86606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23AF0606A31E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:59:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23AF0606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ggdGyTHK
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3866a784546so9065431eec.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 21:56:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0XAsnkII
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1b3acec6677so10061441c88.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 21:59:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795672617; x=1796277417; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795672741; x=1796277541; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GaDF/oabtnPz5CC+z3Y48KsX5H9ec5sap3k/VVqc69M=;
-        b=ggdGyTHKICLNcWcMun1QBSRIj+w58Q8fDLAGuRoUVpqWwEYcJl+IxC0paMlWlrjzj8
-         LkGy2S/7LOjq3cxbx+Gx8CPb9F24aCXiSNacF5N/VuvMLIc1qGO7kNqUEymVtJSVrYrJ
-         btK0pCq7u4HBVGSiYT9T3NV7J1umh28GUfrkEpmjYVo8itfIZXcSOcfu5jRvnrPrCy3M
-         7lsAwtRQ5AoUCgB5yL6MD+Jf0lmHeydBFXU5tefO9XjUv6B9bArbtDfpndnB0S5UwVHY
-         T4ppcVXwvo82LuNSccQTzYmIEw9SH3NGX0WteqaLndZ3Rlka/hL03DlUiqyvgC8n3w1e
-         Hqaw==
+        bh=8ENOEvWpXS/hO0xFIEmj5YuEGPhTN4rxHq1cUYnvsQg=;
+        b=0XAsnkIIH/J1m0YQZbpAYLj93XQ5MM4Yp6RCzt/EPqp35wqexoyQKwav3soOPNZH/k
+         pzFNyUItCpEqqNkwOXnGxX2YNdsAI7fkNubYsuGmZZn7TIgNNJ624dmST1EFCAzn79ZT
+         LOLFgy/x1WIoaBRZGucYAMM9JX9xCN2Mx7zz7WJoHRjxMTNb6eu5HnWxafb5+IlNF2wd
+         IaXj477cN4KFwqnP/DHYXoXO62owL4GFaDucl5jxeqBzi53SYPHi098CCh3NwwsdkWU0
+         gROe50ilPRpXDIF6UcVqKWhco9aepPw+i16NxOi6Hm3GKl3eywLEyL5fOfz60bLfkDWi
+         k5Qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795672617; x=1796277417;
+        d=1e100.net; s=20260707; t=1795672741; x=1796277541;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GaDF/oabtnPz5CC+z3Y48KsX5H9ec5sap3k/VVqc69M=;
-        b=TQmJoswTgoH4yb/vRLfd1WiCEAsoI6LPK/szKH7Wx1Uv7x1JtbdZ42Nctah3kstiG4
-         737/BeN1PQCgXF7crfm2lZ+PF8CoT7fgGuVcPmfG0kfYycPycAfOxbZZmza1UER8I3Tg
-         Dugfu0nvGpyg1a6ry34PvFrV6VCAvBBQsHsfpZwX3t2JHvucQGttXGKVtnzEAwpD1XSo
-         tkpGmT6Q/YWGns+cGm8bO5ZZY06sInpy7vHjVUEe0vKlGnNrquq53TEIpz3usx1MHck7
-         876bEPJcoNr4T1stUvx6O6i+oYmEymRUr6uSI2fNO23tJ7Nrtwinb46sUjHpUe8iubHw
-         7WFw==
-X-Forwarded-Encrypted: i=1; AL+hErENmMmZ6LYVmTDn6T4n6rrcjyogDC9ps5NI/K4cyooaMjv0zwAAxitngQHB/3GATJzOnBgOVj4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+YRwgbIaIns4PwNYYTrnNbTDTXyIR4yFYfEu9sh55vffNDqQTT
-	kbVnK1iS2g8WOHF1nXt4vHEy2ZpjCNOqhtsVZc/CSqhpFNFpxBoV4VQ=
-X-Gm-Gg: AZFdTZcCAChz+TMhfv6550Ce6iueEYk7dCqEcC5p8Es41iUQe/KBcL0vzgedVNcHT8B
-	joW2jPOZVS92V16RZcuBYIC/ipXbyIKerHBFu0dOiFd2pYUfKP8holZOxRwGCmWMl2zTO25Yiif
-	y+dF7iOcVfAw+spc7kjO/TeQCuSO3pPL5j6SLiHGIKZWMSVb/dX/n9IJUFD142W3kCjPokHFS7z
-	Nn00rLCoN8TSU65OEXd970ZZhn/aHQo4O0NwiZJa5wn4TOn52VL+FoGQe2KY+NsSSs6IZaYqvUt
-	q6yPc/jdF/F4mwbSEdfgldhoevtqfbKDhGU9eqnN5bUcPVhny/feZ2Wknv6lVMONo4SdGDjvjs2
-	JLMwga5xKvVh2g+5jHVeu8oYGq+tyV+yJopUz2fFm+wo57Fo+j3B4u1XMfjUrObQpJKuobX0w0a
-	10//gubPg5kfGBbCPQMfnDGmwM3mMpDlT7rAmyBXAtpXScBoakEb2lL0wC9CIAoR2A8bQPusLXM
-	ojbEUvLWXISVSgv5PEngweencDopLBIUIy4CvMisfyRqpDWCe0ETOY0cvS5P3fNu+iQilmcKDF3
-	zPS9/eLIzHRIg6t5HzpoHeO9t9YWnQWyo1Iq20qULbz8W9MUKt4hXtF/PEn9CqC314g=
-X-Received: by 2002:a05:7301:4201:b0:385:b8f4:755d with SMTP id 5a478bee46e88-385b8f47ad3mr20537639eec.20.1795672616579;
-        Wed, 25 Nov 2026 21:56:56 -0800 (PST)
+        bh=8ENOEvWpXS/hO0xFIEmj5YuEGPhTN4rxHq1cUYnvsQg=;
+        b=AvTKHwEKq7c42giTbU6NrhduqwZn5wr7p7nS25Fk6ii8Q/iNynfEiVOp4DxOqLw74a
+         ZIJXmXJTLCSXD7WtioCslYZQ0tSQ3jkUdqhrbH2dWFUTKDW/2n+0BbKxh8AMJkO9kOrt
+         Ls9mwQKeuhMJ2OScFdbX5VUAu+/KZwYSV9UWO9BvHKAZc+wg4QhLUlM9BSxE56FSnysx
+         n/dnhJITq5XcJ9GJeYTWLcoBG5MqHrWHeSTMhAbsZlV0WjsQE+y/+LL9xCWmnkv5R+fy
+         Ce9kzWaPhySbBUuIbJ2Gmry9Rf5HAjKpYDbE3tNt7Cvkrc665L8NlzaR0boVUAjml21c
+         /0cw==
+X-Forwarded-Encrypted: i=1; AL+hErEFgPyt/Svg+UE6IOAY35sLITvOikPz5gWu9Kw73VqRm/2X6R0oQ9UTKdy4xtta1XwaKjhTRbU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/UpJW+3yYFrDCOmYsLdGY796tpvBpITZUgBxqEG+IBnqJ5DbCC
+	xdmgjIinebbfrR5SzYf7/eGeUecUsMU109wCED2OnuYxRkj7E7ydFkQ=
+X-Gm-Gg: AZFdTZfh/HZSAVdabvf8v59+Bn0smlzmaH8R8XqI8kOcT0DiOEAUhwJxVtko1Q275wd
+	BiZXm6Y1LNYcv7r/IWmOM4L3YQtYY0wnFuCKFmah08qyDp9QUpXRE/N8MT8keg1muVEbxALqjpK
+	gIResaCyiZ7/5xCGJJc74XiFzjY5NS94PmghwNBIb4Ff7W1/60PsBDJLytZ2B+jxght2uryKT7H
+	r59Eihuzp9tQcaIVyvJbFSiIv66gv0onQ1sTSDRwii+JR8lDFUBvgucYokGiuHEZb8FvKkxYq9B
+	iEbLCgTvESVSCwSo/P2D2sXJy8D7yjnAT3n/AwmzqQylHSFprDm87pGivAKEVsu7b9FMq12coyA
+	A5fZeElMHvzLGlQXSlrJQgEZ7tjglKAmQ9mRehkIUox3RixCmSIVZx+1QxIk2BFPXltto1dKXrm
+	dxMfV0mRsIWgawXNQmTJWo0Xjgm1/wjzv2vLvUoGALAwNAMinvLYN5W2HXzDg/7PyWbtX8QMlW5
+	Qf0ALQsjX/0D0or7bIvfHIeHAdqF3pi9vZlZjsosuQrQf/qBmi3PBO9crFgMswyx/82G7MKDQsD
+	XJhfA3Lcamzmoh3msgzBS3hlpcCIKbKKKZrM0pIcMnClLcV0xLfJoFN20Gk5MMLWkto=
+X-Received: by 2002:a05:701b:2816:b0:1b5:3b83:5374 with SMTP id a92af1059eb24-1b5568cfbd9mr18022188c88.19.1795672741112;
+        Wed, 25 Nov 2026 21:59:01 -0800 (PST)
 Received: from localhost.localdomain ([2406:3003:2002:639c:a06e:23f:85ed:4cfe])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385672c6f31sm57523404eec.15.2026.11.25.21.56.54
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5566c1142sm45249439c88.2.2026.11.25.21.58.57
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 25 Nov 2026 21:56:56 -0800 (PST)
+        Wed, 25 Nov 2026 21:59:00 -0800 (PST)
 From: Yige Jiang <yigejiang86@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Inki Dae <inki.dae@samsung.com>,
+	Seung-Woo Kim <sw0312.kim@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>
 Cc: Yige Jiang <yigejiang86@gmail.com>,
-	linux-media@vger.kernel.org,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] media: tvp5150: Free connectors on probe failure
-Date: Thu, 26 Nov 2026 13:56:51 +0800
-Message-ID: <rc-b1-20261110-vc-28-73976feaa334@gmail.com>
+Subject: [PATCH] drm/exynos: hdmi: put bridge reference on probe failure
+Date: Thu, 26 Nov 2026 13:58:53 +0800
+Message-ID: <rc-b1-20261110-vc-19-b220c856ecbb@gmail.com>
 X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -98,62 +109,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tvp5150_parse_dt() fills core->connectors[] using
-v4l2_fwnode_connector_parse() and v4l2_fwnode_connector_add_link().
-Each connector then owns a label string and a list of allocated
-links, and each link holds a reference on its local and remote
-fwnode. Only tvp5150_remove() releases them with
-v4l2_fwnode_connector_free().
+hdmi_resources_init() ends with hdmi_bridge_init(), which takes a
+reference on the next bridge with of_drm_find_and_get_bridge(). That
+reference is only dropped in hdmi_remove(). When hdmi_probe() fails
+after hdmi_resources_init(), including the -EPROBE_DEFER returns for
+the DDC adapter, the PHY and the syscon lookups, the reference is
+leaked, once per failed probe attempt.
 
-Every tvp5150_probe() failure after a successful tvp5150_parse_dt()
-skips that release. tvp5150_mc_init() and tvp5150_detect_version()
-failures return directly, and the control handler, IRQ and
-v4l2_async_register_subdev() failures go to the err label, which only
-frees the control handler. Each such failed probe, for example when
-the decoder does not respond on I2C, leaks the links, the label and
-the fwnode references held by the links.
+The sashiko AI review bot pointed this out on dri-devel on 2026-07-16,
+in its review of an unrelated exynos_hdmi patch.
 
-Free the connectors on these error paths, as tvp5150_remove() does.
+Drop the reference at the end of the probe error path and route the two
+early returns after hdmi_resources_init() through it. drm_bridge_put()
+ignores NULL, which covers boards without a bridge on port 1.
 
-Fixes: 0556f1d580d4 ("media: tvp5150: add input source selection of_graph support")
+Fixes: 2db0d298f22d ("drm/exynos: hdmi: convert to of_drm_find_and_get_bridge()")
 Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/r/20260716132919.A3EA81F000E9@smtp.kernel.org
 Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
 ---
 Based on linux-next next-20261109 (630059a5a632).
-Compile-tested: arm64, GCC 14.2, W=1, CONFIG_VIDEO_TVP5150=y, CONFIG_MEDIA_CONTROLLER=y, CONFIG_OF_DYNAMIC=y, CONFIG_COMPILE_TEST=y; no new warnings versus the base object.
+Compile-tested: arm64, GCC 14.2.0, W=1, CONFIG_DRM_EXYNOS=m, CONFIG_DRM_EXYNOS_HDMI=y, CONFIG_DRM_EXYNOS_MIXER=y, CONFIG_COMPILE_TEST=y; baseline and patched exynos_hdmi.o, no new warnings.
 No hardware or runtime test was performed.
-The path is taken when tvp5150_probe() fails after DT parsing, e.g. a DT-described decoder that does not answer on I2C.
+The path needs a bridge on HDMI port 1 and a later probe failure or deferral, e.g. a DDC adapter or PHY that is not ready yet.
 
- drivers/media/i2c/tvp5150.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/exynos/exynos_hdmi.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/i2c/tvp5150.c b/drivers/media/i2c/tvp5150.c
-index c889624..efbb588 100644
---- a/drivers/media/i2c/tvp5150.c
-+++ b/drivers/media/i2c/tvp5150.c
-@@ -2158,11 +2158,11 @@ static int tvp5150_probe(struct i2c_client *c)
+diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exynos/exynos_hdmi.c
+index d67a493c8fe4..cf570be8fdc3 100644
+--- a/drivers/gpu/drm/exynos/exynos_hdmi.c
++++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
+@@ -1997,12 +1997,12 @@ static int hdmi_probe(struct platform_device *pdev)
+ 	hdata->regs = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(hdata->regs)) {
+ 		ret = PTR_ERR(hdata->regs);
+-		return ret;
++		goto err_bridge;
+ 	}
  
- 	res = tvp5150_mc_init(core);
- 	if (res)
--		return res;
-+		goto err_free_connectors;
+ 	ret = hdmi_get_ddc_adapter(hdata);
+ 	if (ret)
+-		return ret;
++		goto err_bridge;
  
- 	res = tvp5150_detect_version(core);
- 	if (res < 0)
--		return res;
-+		goto err_free_connectors;
+ 	ret = hdmi_get_phy_io(hdata);
+ 	if (ret)
+@@ -2079,6 +2079,8 @@ static int hdmi_probe(struct platform_device *pdev)
+ 		iounmap(hdata->regs_hdmiphy);
+ err_ddc:
+ 	i2c_put_adapter(hdata->ddc_adpt);
++err_bridge:
++	drm_bridge_put(hdata->bridge);
  
- 	/*
- 	 * Iterate over all available connectors in case they are supported and
-@@ -2232,6 +2232,9 @@ static int tvp5150_probe(struct i2c_client *c)
- 
- err:
- 	v4l2_ctrl_handler_free(&core->hdl);
-+err_free_connectors:
-+	for (i = 0; i < core->connectors_num; i++)
-+		v4l2_fwnode_connector_free(&core->connectors[i].base);
- 	return res;
+ 	return ret;
  }
- 
 
 base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
