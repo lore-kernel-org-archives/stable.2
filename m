@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795670089;
-	b=zNMN0Qe+a+nxWW2gffM7d0a/nELV5cRYWEMBM0Fi9so3FNM4HaxQe5uOd67vrJa1WTDr
-	 9sL2Tzzpu7Qb/DDsbbqK1wVjar4BxaNCDqaSsSsv4LOiM9QtrXVobX25mhlXDjlu+fJlD
-	 gpp0htA3Bu7Mh5ZJ7ki259vMC9L5apr6kLGwqtNuK6zHxj4VNXjmR5MA/e1ME1NowlnMa
-	 KdUm2KJv/iMMYeemdnedzolmLBZQI5OiSNXc26muKBirBX3DuGlN5E2ixZxr9mZ93kIB6
-	 sP5AEoVzofdvqu0qQGZ/ztsk0Ee7u2d0XwpzSsyb4LQQqRtHO+NqNi4TVdezstkRJqA==
+	t=1795670223;
+	b=IcbHCcqJxLLRp7gGSG9EnKcbkQ9t16deldsuiqu+uEEJVD7Q6iCGuHQ8Qx/KJTCaQm3J
+	 VQ5r2TS1nGmgx6SiRhkATnj5sBo0hs6uHToZsFCwpxYEyylw5z5dZOWvLtFzj+QVfGzIv
+	 pjq2hBLCMrQbYy4jKpA1/GUW+Cek1SZ1ucZb6yVBH6oProTYbVtmkKsSOFCq7wMQZzcql
+	 5rRyo9V0ikkzHYBjzkPZ3WnJmSNqtfdMcO74W+uIGi5xr2bH+lhe8LOWrT2Bjf/l5IJ2K
+	 /DtfLg3yIv3XGA+l+jx2yNqjSHSL4AsyTK8OjOfEE+I19MzBVc8mVBmunP7jlR4Brng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795670089;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795670223;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=yje1LiJ59bRgj8AhcxGARN+Qk3J+M08JuYX0UUNGG4Q=;
-	b=nK82H0C0UAWVux5otA+piT9yTzhNaEJg1VINUNKmRFFQEdVnZ10yFFxXwXW4yOeC0RsN
-	 pboxRS8kf9CIp8uJEgPcAUgZ4264ZVgYM6jFCnWRZ9SM0QuiSmRCyma7rS2ulA0dpr+iX
-	 Mj5B9GsKvPaUu+HCENTrttn508RIiQyhqYqvFJAJRpLWGfcxbiJaikNnd7Jqajil8Kb+X
-	 oV7UItJZS6KnroQHL3Bd9JUbfeA0AdmLM+5vASFitSjbsmiJimb3rXqstLIv1CH0IYt85
-	 HC6fOe8IdImTk3IOtV5q2/wykR9XHhmleyhVqETAMJxdY+wl7rdmMNf0ExKNhRwYtLw==
+	bh=7Unv43v/glTonTqKuI639K5Om/qW2p+A7y/QTmNAdjM=;
+	b=sCVr5XMtT6TWa5fNInBRKKeDeiwuDuGbOOv4zxZRMuVmosQmPslvdBwVexQp/ZsGcZCn
+	 Tug+vMC72pq8giulQC3SIp0zTXOSbFuYJqS6jKNyhnIUTKI9As7ab/rN8brAk8D/6xJaJ
+	 AUZ6zUjw8kEv3vSW77o2/0hsyR0aN86GrCjtmlYaZr69MFG/J1idZ9XNQSf5mjy4lkRnD
+	 A2uYSXI8bSNa8gerrsycA8v+cwQqVBSn2NqGWKf12uGyIaIEt0hYz5r+XStTgbPA945n3
+	 6XJfq26oomRXFNH+pOoPQlWOh12Di6Dre/HFudv1BeXgeZCJVanEleFXxsfguhQQdyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OJarIRgX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KXvY6vzY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9D8606A330
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:14:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968C8606A321
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:17:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OJarIRgX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3B6B1F01562;
-	Thu, 26 Nov 2026 05:14:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KXvY6vzY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B43521F000C4;
+	Thu, 26 Nov 2026 05:17:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795670089;
-	bh=yje1LiJ59bRgj8AhcxGARN+Qk3J+M08JuYX0UUNGG4Q=;
+	s=k20260515; t=1795670223;
+	bh=7Unv43v/glTonTqKuI639K5Om/qW2p+A7y/QTmNAdjM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OJarIRgXPItpJf1rPMMD+Dx71KyLTVLJYW7+QUpLRwbielJTMfs4jE/tInaQMcMtA
-	 jmuPcdVDBm4lth0HRRDZZ6yuHI/f+qHIyrv0Er9wvUEY54pf7+ka2kuuOXC48bnONv
-	 qILGTU0Ud0NqrVb6oUkmuOfIf+CjtLRMmZhuX7UIOPNn9WQ4otl2lEI30i9DY9QpuD
-	 hCix5mpvQSpkyT6fnJP2AVdJEzcT//LFTGXJpeP5AJFAs4aaHNdzhMZymnwP5FSLbn
-	 GHnRqJ5KeWDLjQuUMtC+FzJB17RLG2WVuJNbfXA1y+UL+fgpZr5990tgYXVM+m0z91
-	 nWqX+A++M/LGA==
+	b=KXvY6vzYoJ9lPeIDeKHjHi+PJnSgsAahX8G2opLvAXVL3es7RD9krf1D46BAwQzpq
+	 o3XKQOCLNhHbLliLxttSn3f8HxAdo8u6W36XwVCJEVgxaFtW0wqkx0s+Samz5qydhj
+	 mNvmr6WQOcKaIf7ieawLPUD+1WRtM2dOkdWRWXtpTAy8fP9nNSyqMhp1ar+LNujJGB
+	 +JVxRV18Kflf7pJBsQbFjINUoC7/4+Cqqe7TSoquTUswjhlPiuujyZAzcHng7N5f7v
+	 6kl0vYpK1aPISE5GLjdlDxvVkpzsgJYwfliKTqanSNXkR0vmRBMnsnmPUKKot3qq/+
+	 VdNwneQahb8Nw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>,
-	syzbot+c8564fc0a96e3ecbe4d4@syzkaller.appspotmail.com,
+Cc: Daejun Park <daejun7.park@samsung.com>,
+	Tejun Heo <tj@kernel.org>,
 	Mikulas Patocka <mpatocka@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] dm cache: validate the discard block size before narrowing
-Date: Thu, 26 Nov 2026 00:14:47 -0500
-Message-ID: <20261126051432.2135467-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] dm: fail a REQ_PREFLUSH bio with data when its preflush fails
+Date: Thu, 26 Nov 2026 00:17:01 -0500
+Message-ID: <20261126051651.2140477-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112511-raft-shadily-48b2@gregkh>
-References: <2026112511-raft-shadily-48b2@gregkh>
+In-Reply-To: <2026112518-retype-seldom-2c33@gregkh>
+References: <2026112518-retype-seldom-2c33@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,84 +62,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
+From: Daejun Park <daejun7.park@samsung.com>
 
-[ Upstream commit df8daa4d916c88ef7888c738e0eb3b6f11714a6f ]
+[ Upstream commit e92cd41e8e5ee5616c6c7cd4378661d942f0a7c0 ]
 
-The discard block size doubles until the origin fits within the discard
-bitset limit. too_many_discard_blocks() passes this sector_t size to
-sector_div(), whose divisor is only 32 bits. Once the size exceeds that
-range, the division uses a truncated divisor, which can become zero.
+For a bio with REQ_PREFLUSH and data, dm core may send an empty flush
+first. If the flush fails, __dm_io_complete() still reissues the bio
+without REQ_PREFLUSH and drops the error. When that write succeeds,
+the XFS log keeps running and fsync() can return 0.
 
-Use a 64-bit divisor when checking the block count. The selected size is
-stored in a u32, so reject sizes that cannot be represented before the
-assignment and before calculating the bitset size. This prevents a
-truncated zero size from reaching dm_sector_div_up().
+End the bio with the flush error instead of writing the data, as
+blk-mq does.
 
-An earlier proposal checks whether the mapped length exceeds the origin
-device. This fix also covers an origin device whose valid size requires a
-discard block size beyond the field's range.
-
-Reported-by: syzbot+c8564fc0a96e3ecbe4d4@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c8564fc0a96e3ecbe4d4
+Fixes: 6a8736d10cb4 ("dm: relax ordering of bio-based flush implementation")
 Cc: stable@vger.kernel.org
-Fixes: 08b184514f65 ("dm cache: revert 'prevent corruption caused by discard_block_size > cache_block_size'")
-Signed-off-by: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Acked-by: Tejun Heo <tj@kernel.org>
 Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-[ sashal: adjusted include context: the math64.h include is added after a different neighboring include, and the upstream-commit reference line was added. ]
+[ sashal: Adapted the hunk to the older dm_io_dec_pending() tail, since __dm_io_complete() and requeue_flush_with_data don't exist, by adding !io_error to the inline flush-with-data condition. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/md/dm-cache-target.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ drivers/md/dm.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
-index b4c7ed26e3de9..ded5b65249891 100644
---- a/drivers/md/dm-cache-target.c
-+++ b/drivers/md/dm-cache-target.c
-@@ -13,6 +13,7 @@
- #include <linux/dm-kcopyd.h>
- #include <linux/jiffies.h>
- #include <linux/init.h>
-+#include <linux/math64.h>
- #include <linux/mempool.h>
- #include <linux/module.h>
- #include <linux/rwsem.h>
-@@ -2422,9 +2423,7 @@ static int create_cache_policy(struct cache *cache, struct cache_args *ca,
- static bool too_many_discard_blocks(sector_t discard_block_size,
- 				    sector_t origin_size)
- {
--	(void) sector_div(origin_size, discard_block_size);
--
--	return origin_size > MAX_DISCARD_BLOCKS;
-+	return div64_u64(origin_size, discard_block_size) > MAX_DISCARD_BLOCKS;
- }
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index 1a6bf13cea9b0..1d0dc2e9a1bc4 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -894,7 +894,8 @@ void dm_io_dec_pending(struct dm_io *io, blk_status_t error)
+ 		if (io_error == BLK_STS_DM_REQUEUE)
+ 			return;
  
- static sector_t calculate_discard_block_size(sector_t cache_block_size,
-@@ -2461,6 +2460,7 @@ static int cache_create(struct cache_args *ca, struct cache **result)
- 	struct cache *cache;
- 	struct dm_target *ti = ca->ti;
- 	dm_block_t origin_blocks;
-+	sector_t discard_block_size;
- 	struct dm_cache_metadata *cmd;
- 	bool may_format = ca->features.mode == CM_WRITE;
- 
-@@ -2559,9 +2559,15 @@ static int cache_create(struct cache_args *ca, struct cache **result)
- 	}
- 	clear_bitset(cache->dirty_bitset, from_cblock(cache->cache_size));
- 
--	cache->discard_block_size =
-+	discard_block_size =
- 		calculate_discard_block_size(cache->sectors_per_block,
- 					     cache->origin_sectors);
-+	if (discard_block_size > U32_MAX) {
-+		*error = "Discard block size exceeds 32 bits";
-+		r = -EOVERFLOW;
-+		goto bad;
-+	}
-+	cache->discard_block_size = discard_block_size;
- 	cache->discard_nr_blocks = to_dblock(dm_sector_div_up(cache->origin_sectors,
- 							      cache->discard_block_size));
- 	cache->discard_bitset = alloc_bitset(from_dblock(cache->discard_nr_blocks));
+-		if ((bio->bi_opf & REQ_PREFLUSH) && bio->bi_iter.bi_size) {
++		if ((bio->bi_opf & REQ_PREFLUSH) && bio->bi_iter.bi_size &&
++		    !io_error) {
+ 			/*
+ 			 * Preflush done for flush with data, reissue
+ 			 * without REQ_PREFLUSH.
+@@ -902,7 +903,7 @@ void dm_io_dec_pending(struct dm_io *io, blk_status_t error)
+ 			bio->bi_opf &= ~REQ_PREFLUSH;
+ 			queue_io(md, bio);
+ 		} else {
+-			/* done with normal IO or empty flush */
++			/* done with normal IO, empty flush or failed preflush */
+ 			if (io_error)
+ 				bio->bi_status = io_error;
+ 			bio_endio(bio);
 -- 
 2.53.0
 
