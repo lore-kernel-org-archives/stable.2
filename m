@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795669293;
-	b=ecsmbI96WWciFMMXjl11IB2nZqLWk8WH1GEB71JM/WFLioCKG9bXBKIHje5dQdKD32ym
-	 xVzYRLDzFK6TM/GaKrErcSdKqdWfP5E5s3+BdysZKG4fVg5LYQRmVDCG7CpcC/MPYjENX
-	 Tt5TeOtNKeX9Zuq88FzmPu/2gPUUrzInWjawBIGJof74vhZXEK9rF1FSI9Brn7aq0ZAbo
-	 CWUpQouXQuMAYvOa3vGmSFmdBIs9cDAscQeumJL7MMuz6B7Jslt6rYOBBrJPtVG43RE5N
-	 YQKRlBjITMw+8kAtD9W5ti86/6UujVazfp2uTXskeT+hg+ISfHvyqC5GiFWsxUjfp8A==
+	t=1795669400;
+	b=HhznNaIbHXpkBb1TuGavNln1nOTVtBdlSmJL9lE/4IJzx0KSXbujm/Qyp/Vn5aEIy1nZ
+	 +EFjsxLc/aSsZNzVuq2ItPgW+F7Jdiz7PGLNfWoxi/Vfbl5UQ8aSNt1wj77jMnDoKtvWr
+	 +HXIFetsL15cjHHmeF5rmupoXFOvBHiUvuFTD9ZUF2eP4LoFCJAsvGyXS4dGiEcYK8h3B
+	 +jV9F8gx0mfDpb0FOQpxMYsE7EEoK6EgAaVBwklhws6DuIBR+i7fxJWO9+kb07LHFogth
+	 OY+ABODqbZPEZVZR3lzZWWBBg1D1eDrXKrryr0HnZkF8iNx8A9W9arf/x2fhA0RTywg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795669293;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795669400;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BICEd2mJPHyVCsnilGalZwmAXQNzLB3i8kGaT6cdlP4=;
-	b=qkvbqDFqWPOQcGfiK6KYGk9Xml3uRYHL6ok8fAyD5qLjylstXdD9rxbUtUaBOdbbkJTr
-	 o6kbEbtYHCOdrXDZ5vF2Pn4gX9UVbmcoU3evPuHKPYtVV9gqMA80HSMVcz63FVhHL14Si
-	 JHzYCbl0iiImyq4tVjqsNNelBedIzRDU9WJ+Q4FSm9ojUgFQ4a1lW1q+rEl2aQhHIhesV
-	 ijeV7fZF2wK7zKdnS7TI5JDyswaiBX3J4dmOXadDx0RSUlXltML4TrpaYsumri984UhUp
-	 KgR+6hXAPulg6WeheA5FrNktLXO93EHSP7O8+LSyDhG74/hY1AT2rcfxwfQYheGLsNw==
+	bh=heVfl1ICaDOXETcrmo77E/BYreHEA7qFtxE4qriVI1Y=;
+	b=TwGtzwLCfnr0Mdw4uqxhGijXkpxDwE36unE0P9dzhCBgsx1oWLTJKiNkmMZhDERXfq3L
+	 9MzEuKHJBGSyA9Z8OauSF+UFHi9tD0/lSPDmAg9t9+c+8fz0kLTvptsZhwLCJx0xKtXhA
+	 QEyNcIttIS8HHsfpUwgKmS0/G7WmGJK0DkDa66btvwrhQ2vcTgTw1TiZTKSiWD3y5mvs5
+	 sU6difkEfFE7K+tCk50JSWrUr5ezDX9FmYkIQctTigFLr+iV4CDnsrw0x/ngMMhjHs2wC
+	 4ml9N3Nf/AGpi77vwDsJaP0O2qgFguMKvMrNQtLJ0fnMVpKsl0HGtQUHC49rwGN6EFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CQYU2oxG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lqeTY02Z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4951D606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:01:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CD41606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:03:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CQYU2oxG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C00B1F000C0;
-	Thu, 26 Nov 2026 05:01:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lqeTY02Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EBD21F000C4;
+	Thu, 26 Nov 2026 05:03:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795669292;
-	bh=BICEd2mJPHyVCsnilGalZwmAXQNzLB3i8kGaT6cdlP4=;
+	s=k20260515; t=1795669399;
+	bh=heVfl1ICaDOXETcrmo77E/BYreHEA7qFtxE4qriVI1Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CQYU2oxGUzB8EQx4Ur9x4GEkHL62Tg+wXZrfg5l1nKq0I9jTWYTsS8Q4kg/8dqbF0
-	 lFm04Ur8xSC4BgceCCNf3KCYJhYhkUKJbbGCUDVbIT7OWc81ffHHuCQBwLrQEURROU
-	 AkqcaZlptbeP8y2MQq2YM0Q63DIm7gAZImjjLJcwPsiH9i5hvzqT0zIFedFJ1lqd2P
-	 ACk1Xq9H4MfUupDGYgrrOkhe5yViQMD+C9gGSDBJesoCGhsdtlcpkBp9jmMB+El3oC
-	 AmFJ9gij+kgv3/+baFQre6Ru11CI7gThOZm7tlEJKFrun1bNVN22NwJBm5nvSSpPSm
-	 T45uRBWaCS6mg==
+	b=lqeTY02ZsFv+DIvxXlHXjm0qhqRYPGrCBPKNY6Ub+9vDnuLQmyO7xylMKZNq6NIwE
+	 A7N30Ks+E7cCf0oHzPyumZBfLUHLX4X09S10uX3w3V8kcWvlR6fYJlZc9SmvUd0hdd
+	 kLrYLOzO7NrZVSX4gTHaB22vamZKgI426jDfgSvspi3ddhZ6vE9qxZwUtkoE/dIieG
+	 uO1FrJULQGzqhVn3Li53MTGbeQoy060y9kK2+VJWm/XZLqunD9bKNqMStIvxOcQBsV
+	 k32kapE9HXmSy6Fj6mCAHFnyk8/k+4ygjmDGwQu6sdvxQrHzUZI9ErybaRmjH8Arc9
+	 xneJ8XiF6ntvg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Weijiang Zhou <weijiang.zhou@unisoc.com>,
-	Hongyu Jin <hongyu.jin@unisoc.com>,
-	Mikulas Patocka <mpatocka@redhat.com>,
+Cc: Mikulas Patocka <mpatocka@redhat.com>,
+	Bart Van Assche <bvanassche@acm.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] dm-verity: don't restart or panic on errors during system shutdown
-Date: Thu, 26 Nov 2026 00:01:31 -0500
-Message-ID: <20261126050014.2081983-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] dm: optimize REQ_PREFLUSH with data when using the linear target
+Date: Thu, 26 Nov 2026 00:03:17 -0500
+Message-ID: <20261126045401.2029286-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112516-crystal-retriever-61b9@gregkh>
-References: <2026112516-crystal-retriever-61b9@gregkh>
+In-Reply-To: <2026112516-prude-hurried-f333@gregkh>
+References: <2026112516-prude-hurried-f333@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,89 +61,126 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Weijiang Zhou <weijiang.zhou@unisoc.com>
+From: Mikulas Patocka <mpatocka@redhat.com>
 
-[ Upstream commit 47930d1236d2988cdc580c10d3af21b6b02d7ece ]
+[ Upstream commit 2b1c6d7a890aeaeabfeabd1cef5a4808043dc1a4 ]
 
-Commit 252bd1256396 ("dm verity: skip verity work if I/O error when system
-is shutting down") stopped I/O errors during shutdown from triggering a
-restart, since devices may legitimately be gone by then. Errors that reach
-verity_handle_err(), e.g. through a failed hash block read followed by a
-failed FEC attempt, are not covered and still call kernel_restart() or
-panic().
+If the table has only linear targets and there is just one underlying
+device, we can optimize REQ_PREFLUSH with data - we don't have to split
+it to two bios - a flush and a write. We can pass it to the linear target
+directly.
 
-During a reboot that is both wrong (nothing is corrupt) and harmful: it
-races with the reboot already in progress and replaces its reason with
-"dm-verity device corrupted", which bootloaders such as Android's treat as
-a verity failure and switch the device to EIO mode.
-
-Apply the same shutdown check in verity_handle_err(). Corruption is still
-logged, recorded in hash_failed and reported via uevent, and the I/O still
-fails.
-
-Signed-off-by: Hongyu Jin <hongyu.jin@unisoc.com>
-Signed-off-by: weijiang.zhou <weijiang.zhou@unisoc.com>
 Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Fixes: 252bd1256396 ("dm verity: skip verity work if I/O error when system is shutting down")
-Cc: stable@vger.kernel.org
-[ sashal: adjusted the final hunk's context, since the surrounding code in this tree differs (verity_verify_io returns r instead of 0, and the removed helper is followed by a different function). ]
+Tested-by: Bart Van Assche <bvanassche@acm.org>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Stable-dep-of: e92cd41e8e5e ("dm: fail a REQ_PREFLUSH bio with data when its preflush fails")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/md/dm-verity-target.c | 27 ++++++++++++++++++---------
- 1 file changed, 18 insertions(+), 9 deletions(-)
+ drivers/md/dm-core.h |  1 +
+ drivers/md/dm.c      | 32 ++++++++++++++++++++++++--------
+ 2 files changed, 25 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-index 3e582c1b544fe..ce72eed21d6c5 100644
---- a/drivers/md/dm-verity-target.c
-+++ b/drivers/md/dm-verity-target.c
-@@ -215,6 +215,15 @@ static void verity_hash_at_level(struct dm_verity *v, sector_t block, int level,
- 		*offset = idx << (v->hash_dev_block_bits - v->hash_per_block_bits);
+diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
+index 391c1df19a764..9f3250d596d85 100644
+--- a/drivers/md/dm-core.h
++++ b/drivers/md/dm-core.h
+@@ -295,6 +295,7 @@ struct dm_io {
+ 	struct dm_io *next;
+ 	struct dm_stats_aux stats_aux;
+ 	blk_status_t status;
++	bool requeue_flush_with_data;
+ 	atomic_t io_count;
+ 	struct mapped_device *md;
+ 
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index 1df8a808d279e..755d8fd6760c7 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -488,18 +488,13 @@ u64 dm_start_time_ns_from_clone(struct bio *bio)
  }
+ EXPORT_SYMBOL_GPL(dm_start_time_ns_from_clone);
  
-+/*
-+ * Skip verity work in response to I/O error when system is shutting down.
-+ */
-+static inline bool verity_is_system_shutting_down(void)
-+{
-+	return system_state == SYSTEM_HALT || system_state == SYSTEM_POWER_OFF
-+		|| system_state == SYSTEM_RESTART;
-+}
-+
- /*
-  * Handle verification errors.
-  */
-@@ -262,6 +271,15 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,
- 	if (v->mode == DM_VERITY_MODE_LOGGING)
- 		return 0;
- 
-+	/*
-+	 * Devices may already be quiesced (e.g. UFS set offline by its
-+	 * shutdown hook), so a failure here does not imply corruption.  Fail
-+	 * the I/O but do not restart or panic, which would also override the
-+	 * reboot reason of the shutdown already in progress.
-+	 */
-+	if (verity_is_system_shutting_down())
-+		return 1;
-+
- 	if (v->mode == DM_VERITY_MODE_RESTART)
- 		kernel_restart("dm-verity device corrupted");
- 
-@@ -656,15 +674,6 @@ static int verity_verify_io(struct dm_verity_io *io)
- 	return 0;
- }
- 
--/*
-- * Skip verity work in response to I/O error when system is shutting down.
-- */
--static inline bool verity_is_system_shutting_down(void)
+-static inline bool bio_is_flush_with_data(struct bio *bio)
 -{
--	return system_state == SYSTEM_HALT || system_state == SYSTEM_POWER_OFF
--		|| system_state == SYSTEM_RESTART;
+-	return ((bio->bi_opf & REQ_PREFLUSH) && bio->bi_iter.bi_size);
 -}
 -
- /*
-  * End one "io" structure with a given error.
-  */
+ static inline unsigned int dm_io_sectors(struct dm_io *io, struct bio *bio)
+ {
+ 	/*
+ 	 * If REQ_PREFLUSH set, don't account payload, it will be
+ 	 * submitted (and accounted) after this flush completes.
+ 	 */
+-	if (bio_is_flush_with_data(bio))
++	if (io->requeue_flush_with_data)
+ 		return 0;
+ 	if (unlikely(dm_io_flagged(io, DM_IO_WAS_SPLIT)))
+ 		return io->sectors;
+@@ -588,6 +583,7 @@ static struct dm_io *alloc_io(struct mapped_device *md, struct bio *bio, gfp_t g
+ 	io = container_of(tio, struct dm_io, tio);
+ 	io->magic = DM_IO_MAGIC;
+ 	io->status = BLK_STS_OK;
++	io->requeue_flush_with_data = false;
+ 
+ 	/* one ref is for submission, the other is for completion */
+ 	atomic_set(&io->io_count, 2);
+@@ -955,6 +951,7 @@ static void __dm_io_complete(struct dm_io *io, bool first_stage)
+ 	struct mapped_device *md = io->md;
+ 	blk_status_t io_error;
+ 	bool requeued;
++	bool requeue_flush_with_data;
+ 
+ 	requeued = dm_handle_requeue(io, first_stage);
+ 	if (requeued && first_stage)
+@@ -971,6 +968,7 @@ static void __dm_io_complete(struct dm_io *io, bool first_stage)
+ 		__dm_start_io_acct(io);
+ 		dm_end_io_acct(io);
+ 	}
++	requeue_flush_with_data = io->requeue_flush_with_data;
+ 	free_io(io);
+ 	smp_wmb();
+ 	this_cpu_dec(*md->pending_io);
+@@ -983,7 +981,7 @@ static void __dm_io_complete(struct dm_io *io, bool first_stage)
+ 	if (requeued)
+ 		return;
+ 
+-	if (bio_is_flush_with_data(bio)) {
++	if (unlikely(requeue_flush_with_data)) {
+ 		/*
+ 		 * Preflush done for flush with data, reissue
+ 		 * without REQ_PREFLUSH.
+@@ -2022,12 +2020,30 @@ static void dm_split_and_process_bio(struct mapped_device *md,
+ 	}
+ 	init_clone_info(&ci, io, map, bio, is_abnormal);
+ 
+-	if (bio->bi_opf & REQ_PREFLUSH) {
++	if (unlikely((bio->bi_opf & REQ_PREFLUSH) != 0)) {
++		/*
++		 * The "flush_bypasses_map" is set on targets where it is safe
++		 * to skip the map function and submit bios directly to the
++		 * underlying block devices - currently, it is set for dm-linear
++		 * and dm-stripe.
++		 *
++		 * If we have just one underlying device (i.e. there is one
++		 * linear target or multiple linear targets pointing to the same
++		 * device), we can send the flush with data directly to it.
++		 */
++		if (map->flush_bypasses_map) {
++			struct list_head *devices = dm_table_get_devices(map);
++			if (devices->next == devices->prev)
++				goto send_preflush_with_data;
++		}
++		if (bio->bi_iter.bi_size)
++			io->requeue_flush_with_data = true;
+ 		__send_empty_flush(&ci);
+ 		/* dm_io_complete submits any data associated with flush */
+ 		goto out;
+ 	}
+ 
++send_preflush_with_data:
+ 	if (static_branch_unlikely(&zoned_enabled) &&
+ 	    (bio_op(bio) == REQ_OP_ZONE_RESET_ALL)) {
+ 		error = __send_zone_reset_all(&ci);
 -- 
 2.53.0
 
