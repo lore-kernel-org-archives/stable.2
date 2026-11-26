@@ -1,88 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795724831;
-	b=oTmm/+YJyL26gHwjXIO5M29zzITb+rfkqfbrkUJKkfCRslEQRpEX4B8cEkpHiCQx9Hdj
-	 DNc+OKXghu3CLdCdLmgmW7sNTzRBjBYSguSZB0G7vPiSOyByp/7tJB7qYhYjlFVKdkX4x
-	 MhFBM72Sn6Ndfcs17mXPfZ5zhWN5T+S4cliHLXPZp+vgXCJwkfY2svxcMUvThYa09/mH3
-	 q8yRAlJMDVxmKv0nzX0WQVrSaov82AfJsGPZwvn6iwSHiZ6GBFms51EGVU/GyWsdGsgMT
-	 77vMBB5p/WgAOC4tMPCzCLFl+uKt9q5BRlrxRVl9Dn4wSB4UkfPAI8uYFP3gv1FvgTQ==
+	t=1795724902;
+	b=z2hEQlyHJGZYayM1QhHFB/nvHXs1xFjVhdHupBD/pj+hx94vYUObAEhHWDFvHdKkj8FV
+	 V57qTt1QvHtOIhMOQnZS3e+uq1QpEZfGFw6rNg7WoQ62o0Nluvp33opHF8EaSwWwuEu7H
+	 cwINztyG0p18nKRGavR0bJ16WZAIDZeVfhGU+nOa6KlZei+l3c/jpLxATuUmfeLMpkSWd
+	 b6/Vs5ZviYCHLsFrLZArlsjKrxlHHQionzkGNuZ472TZLqXaq4fB0jeXB0eZeelbkaq38
+	 /rdk+wR+GKKlmHc+FlUHwZea1P6AeTjbJVEzlnn8ukRi7FbWRA2tnTpnc0AOTf8CcSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795724831;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=mPIUXK+tyYI9lmjrCipc96I5GvVnkf1nt74AkZOGWME=;
-	b=rd83wlp84OSdrDOd4CnHIUqBpn4H8x5nLvPqioUCXFV+slYUvZ2bwUwWzzC8aWTZdbkc
-	 5v10ybGa9F1M9BswWlzNAukT+9yjAV1eEgt04tz1sqGafk3cEmadkvREnm0Jbonh+N5fz
-	 R68iZdHqPY3Ra185ALR3t7chW4RdnhULGS//c6IWuFTjEsh+m8TxKydSen3uPu4sDrugR
-	 zVn4i2UdVt2Rof9PRylKY5rzqHffIz20qQTvnSy0jL55QQL78he6UJb7USq0q1Lkr7mJN
-	 pBXxymp3k+rDeunBGARBvsCfPBJXCoP/Hl/d/llWIIDjgyv0Cn/E/AViEl2sIwoPANw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795724902;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=y+PZxCBsSa9CaPD1mxweKbYUrMjw4HQHJ4ZtYjAEGa8=;
+	b=o8t/4ZC4xgQd02PqNSEdyMUEzf/A5+4qp1uITRmDe1s6IzZVFomWJUL1rQ4ucX2HY0Si
+	 vOjKOnvsq2ngk6gCFFr1M+uMm/smv+gaSeJl2J+MYbmycOneR4EV2ylqzqB7HB1Pm+Zjq
+	 VYJSj9mhAHNrv1snZ9kDSrld54QYYKvAq2uqbBWpwjURYGpBZu472+3Q2RfbJZFEVvRD4
+	 WHlpra0ft8L7W8mJ57uPbHRalzIZnz35u+hQw02joPrbSgR0YANFgmdC0GUYrX/LDTDuB
+	 1Zn4Kyk/WWvFGbvMekXfdW4wfW5C9qGdfu4Sd3viiwiMy+rJ+sVGxDIqp9gPGO7k2ZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AN5S4dmm;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=SFw+Al6F;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44056606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 20:27:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44056606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ADB6606A321;
+	Thu, 26 Nov 2026 20:28:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ADB6606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AN5S4dmm
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4a42b34e930so6501323f8f.2
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 12:27:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795724830; x=1796329630; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mPIUXK+tyYI9lmjrCipc96I5GvVnkf1nt74AkZOGWME=;
-        b=AN5S4dmmjEfr0x23doiCAhsgP9Rct0N1mVc31Eg7GWkoAhc8qZJXgJIGhwutKS4mN+
-         zZxOwkvtjkS+UDTRYWpG38iWwNR3HTL+w5bMAS3q+Sm5xle86yKQtBTFIv96lEb3X/R4
-         cJhUUzBzaTRYcFNx5A/CmCBUnFxHr7zVxdbCRiRTNSOPM6bTiYWk+H8s0DprAJ662SmO
-         mFQFsD6FF8mtDrquIe+lxxN7+2nmyt8tlSWemAWNSDWjyZb7N2jWrrp+VijPIxiQnxNQ
-         5aZ3ufDu56x7egcJO7RK/Kr3O8hviZzT/7mp2K8dTR6IEDuDObu/5Vzy8WJBEMZMrzRq
-         sJwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795724830; x=1796329630;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mPIUXK+tyYI9lmjrCipc96I5GvVnkf1nt74AkZOGWME=;
-        b=Xlnffc/pvlzIgdwMI+OA1v1YiUKqULNZ37ccnmkQWZlE+Bx3Es4BADVp6plZIQ06Ug
-         pvNGsaHdUm0S5IFynKjj+Plp6DaMSXan6TrCxGmmEGDUzXrRsJ0EdwlxhJTTsbBLLqrK
-         xAl60bEizFsUwdOSFglSaxs1nv2M3n2jK2ntrzBgBbb4nucWkthRW0vwZfV0uyGrQq2y
-         4WaKfDatXiv9cYC8f019Bf12JhEPwc00kEqqPFmwJxVZkHGbFb7a0ymhArGP42P1oIhb
-         T2BcJH5IPF0uBeF1rcR3kXldE1sqxE0BsxtK1Hr42Zzaxe/+h4fD9mlGpYXjomKrXv+R
-         puxA==
-X-Forwarded-Encrypted: i=1; AL+hErHStLG2QzLc+qw16179hPPGdIp8gdeUnIdNcKaI/c+NhcvwvE9iPaq/3sVeiB8Qw8fttgMoQ5Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z876X52go5pR+xmuv4R2aT66NorICqWN4vSYg0Ap5wkprtUDg5/
-	MI1iSOZpfDOkfDh1q50954c94go/F6cylZGMZhVUf+Xy8wFlxOfwwZrD
-X-Gm-Gg: AZFdTZetZHIBXaazdHi4eXdwummyZ/0j9MbB/9WzydGnfAqmap7YtnA2nnP/rDF2M1p
-	vXCjybeMo7YLnG5/Zo67NnqP4xNmxq+NGzN0xvpAwYjuPgTr00oWpdyuSwweEsnqrDHsDf6nC8B
-	3L4qkXQqFOkNwzYr2jkJR5Xx6O5XzVlVbqWkLb6lZcXhL7eockGnX9pEWnxsa1Pag3ecsp7QtRe
-	kskzQIRJ1vW4IwXOCYA8vFDu3FbVP4VcFvaznb1jZbT/dnV62R55fbe+M/pYmJxxZQuaa4oVrd2
-	W1lIVesTgFADWsdCxer7de5m6duZxRcidMUr1yIsiiPZLbkyj0Ixd/7MPViibR1BiDZjhyLS91r
-	rEgbgrNopnb3qt8eg++faIUVn9gfw0iC4Y4KxZGTYxPHScJrV9yWwzbywxpToIGEa0dghCbCgNu
-	Nk/m8ku8VhVuSvy1GuFu3BHfdnh3n3twHhOVSZO11kWfTc5jBtK4HWll3utguK49+bVFTZkPQJ/
-	KaFvVPmPW6Wld+XiJXYWN+9lfKxMsvntRYs9ytttq400CwjWlgPIHLhcOOfItfcmMUj4J5Rc2ik
-	OJ/K7hWXEm1d7BRzYv5/5T9n
-X-Received: by 2002:a05:6000:310c:b0:487:27f9:844 with SMTP id ffacd0b85a97d-4abb627ed47mr53600472f8f.57.1795724829363;
-        Thu, 26 Nov 2026 12:27:09 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b10b1ebsm44007075f8f.33.2026.11.26.12.27.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 12:27:08 -0800 (PST)
-Message-ID: <03ab430b-83a2-48c5-883a-70b20c4bcffe@gmail.com>
-Date: Thu, 26 Nov 2026 21:27:07 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=SFw+Al6F
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=y+PZxCBsSa9CaPD1mxweKbYUrMjw4HQHJ4ZtYjAEGa8=; b=SFw+Al6FlSMRL+KFWLN6+G3aW1
+	rGeeoQojH84twShugOLsskqJ0kZzHYpcEdebm80H4xCeChVYAHnSNM6k7KT95ZDIvqUSXO2FZgxjG
+	5ygr5vaNTbzURCs6K286zjkA0CAX2X7Me742aRJY9Y1A8u8mimmTmYfLgNQ3Ppmt9NhK4v09qB7w7
+	sXyJJysxMP42R5N88/unub5bpAGyyhQwHvoS0MYE72PU+x+Q6+Mom+l0bSco0K+KIhRNqKs2LfE2x
+	uFqD0VVEkY/X5asxOZOy66pOAtQGlkz+73HHzIxNWL9+O5uD1i2RJlxrsXokPhxhnDm9mHMiaiqhl
+	NXOh0vOA==;
+Received: from [38.23.173.23] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xWg4i-0000000ESgO-0GDX;
+	Thu, 26 Nov 2026 20:28:12 +0000
+Date: Thu, 26 Nov 2026 15:28:08 -0500
+From: "Liam R. Howlett" <liam@infradead.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	Kees Cook <kees@kernel.org>, David Hildenbrand <david@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Pedro Falcato <pfalcato@suse.de>, Jann Horn <jannh@google.com>, 
+	Puranjay Mohan <puranjay@kernel.org>, Alexei Starovoitov <ast@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, Chris Mason <mason@kernel.org>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/vma: drop mm asynchronously in vma_start_read()
+Message-ID: <mhibvp7socozh4kdctbopbkpngta7a6mol3u57hly7cu35rgpo@s6yvqaq2dm5y>
+References: <20261124-vma-read-lock-mmdrop-async-v2-1-8139b5cf24bb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,97 +74,182 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] mm/memory: don't allocate in finish_fault() with the
- folio locked
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Zach O'Keefe <zokeefe@google.com>, Lorenzo Stoakes <ljs@kernel.org>,
- Dev Jain <dev.jain@arm.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Hugh Dickins <hughd@google.com>, Kiryl Shutsemau <kas@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Rik van Riel <riel@surriel.com>,
- Song Liu <songliubraving@fb.com>
-Cc: "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Michal Hocko <mhocko@suse.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-References: <20261125100058.15200-1-azpijr@gmail.com>
- <20261125100058.15200-3-azpijr@gmail.com>
- <9d506473-4844-4ed2-ac58-e72cd72b5c9e@kernel.org>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <9d506473-4844-4ed2-ac58-e72cd72b5c9e@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261124-vma-read-lock-mmdrop-async-v2-1-8139b5cf24bb@kernel.org>
 
-On 11/26/26 5:29 PM, David Hildenbrand (Arm) wrote:
-> On 11/25/26 10:59, Jose A. Perez de Azpillaga wrote:
->> __do_fault() preallocates a page table only when the PMD is empty, so
->> that finish_fault() does not have to allocate one with the folio locked.
->>
->> Since retract_page_tables() no longer takes the mmap and VMA locks, the
->> page table can be removed while the fault waits in ->fault().
->> finish_fault() then finds an empty PMD without a preallocated table, and
->> calls pte_alloc() with the folio locked. On ppc64 with the hash MMU,
->> do_set_pmd() allocates the page table to deposit in the same case.
->>
->> Allocating with __GFP_FS while holding a folio lock can deadlock in
->> reclaim, for example the memcg reclaim deadlock on cgroup v1 described
->> in commit 63f3655f9501 ("mm, memcg: fix reclaim deadlock with
->> writeback").
->>
->> Return VM_FAULT_NOPAGE instead, as we already do when
->> pte_offset_map_lock() fails. The retried fault preallocates the page
->> table before locking the folio.
->>
->> Fixes: 1d65b771bc08 ("mm/khugepaged: retract_page_tables() without mmap or vma lock")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
->> ---
->>  mm/memory.c | 13 +++++++++----
->>  1 file changed, 9 insertions(+), 4 deletions(-)
->>
->> diff --git a/mm/memory.c b/mm/memory.c
->> index 11cc4039b853..b7e53d7cf6e5 100644
->> --- a/mm/memory.c
->> +++ b/mm/memory.c
->> @@ -5986,16 +5986,21 @@ vm_fault_t finish_fault(struct vm_fault *vmf)
->>  	}
->>  
->>  	if (pmd_none(*vmf->pmd)) {
->> +		/*
->> +		 * The page table was removed after __do_fault() found it, so
->> +		 * nothing was preallocated. Allocating with the folio locked
->> +		 * can deadlock in reclaim, so retry the fault instead.
->> +		 */
->> +		if (!vmf->prealloc_pte)
->> +			return VM_FAULT_NOPAGE;
+On 26/11/24 06:56PM, Lorenzo Stoakes (ARM) wrote:
+> Commit bee9ef4a40a2 ("bpf: switch task_vma iterator from mmap_lock to
+> per-VMA locks") open-codes a lock_next_vma() implementation that does
+> roughly the same thing in bpf_iter_task_vma_find_next(), only without
+> fallback to an mmap_lock.
 > 
-> Hm, but do_set_pmd() really only needs one for ppc64. Assuming we allocate it as
-> NOFS in there for that corner cases ...
+> This is because bpf_iter_task_vma_find_next() can be called from
+> non-sleepable contexts.
 > 
-
-yes, I'll allocate it with NOFS in do_set_pmd() instead of 3/4.
-
->> +
->>  		if (!needs_fallback && folio_test_pmd_mappable(folio)) {
->>  			ret = do_set_pmd(vmf, folio, page, /* may_alloc= */ true);
->>  			if (ret != VM_FAULT_FALLBACK)
->>  				return ret;
->>  		}
->>  
->> -		if (vmf->prealloc_pte)
->> -			pmd_install(vma->vm_mm, vmf->pmd, &vmf->prealloc_pte);
->> -		else if (unlikely(pte_alloc(vma->vm_mm, vmf->pmd)))
->> -			return VM_FAULT_OOM;
-> Could we instead fallback here, after we tried to install the PMD ?
+> However, lock_vma_under_rcu() gave no guarantee as to which contexts it is
+> safe to be called from, and indeed it turns out this assumption is unsafe.
 > 
+> Since commit 9bbffee67ffd ("mm: fix a UAF when vma->mm is freed after
+> vma->vm_refcnt got dropped"), this call chain is possible on x86:
+> 
+> lock_vma_under_rcu()
+>   -> vma_start_read()
+>     -> mmdrop()
+>       -> __mmdrop()
+>         -> mm_free_pgd()
+>           -> pgd_free()
+>             -> pgd_dtor()
+>               -> spin_lock(&pgd_lock)
+> 
+> Thus, a plain spin_lock() can occur when lock_vma_under_rcu() is
+> called. Since bpf_iter_task_vma_find_next() can be called in softirq
+> context, this can deadlock, for example:
+> 
+> pgd_alloc()
+>   -> spin_lock(&pgd_lock)
+>     <softirq>
+>     bpf_iter_task_vma_next()
+>       -> lock_vma_under_rcu()
+>         ...
+> 	  -> spin_lock(&pgd_lock) [ DEADLOCK ]
+> 
+> Alexei Starovoitov also pointed out that a BPF program attached to
+> trace_contention_end() can similarly cause a deadlock:
+> 
+>   pgd_alloc()
+>     spin_lock(&pgd_lock)
+>       queued_spin_lock_slowpath()
+>         trace_contention_end()          <- pgd_lock is held
+>           tp_btf/contention_end prog
+>             bpf_iter_task_vma_next()
+>               lock_vma_under_rcu()
+>                 vma_start_read()
+>                   mmdrop(other_mm)      <- last put takes pgd_lock again
+> 
+> Resolve the issue by having vma_start_read() use mmdrop_async() instead of
+> mmdrop() so the work is deferred to a work queue.
+> 
+> Make mmdrop_async() an internal mm function, defined in mm/internal.h, to
+> avoid abuse elsewhere (kernel/fork.c includes this header, so still retains
+> access).
+> 
+> Commit 0b16f8bed19c ("mm: change vma_start_read() to drop RCU lock on
+> failure") accounted for the fact that the RCU lock had to be dropped for
+> this operation, which is no longer applicable.
+> 
+> Remove the now-defunct comment on the 'heavy operation', but leave
+> examining that to a follow up.
+> 
+> Reported-by: Chris Mason <mason@kernel.org>
+> Fixes: bee9ef4a40a2 ("bpf: switch task_vma iterator from mmap_lock to per-VMA locks")
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/all/DN267JUKDRNS.2VMV07CQ58R4X@gmail.com/
+> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+> Acked-by: Pedro Falcato <pfalcato@suse.de>
+> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-sure, I'll return VM_FAULT_NOPAGE there when nothing was preallocated :)
+Reviewed-by: Liam R. Howlett (Google) <liam@infradead.org>
 
--- 
-cheers,
-jose a. p-a
+> ---
+> v2:
+> * Put the rcu_read_unlock() back where it was, a follow-up can address
+>   anything else here.
+> 
+> v1:
+> https://lore.kernel.org/r/20261124-vma-read-lock-mmdrop-async-v1-1-257f99f551de@kernel.org
+> ---
+>  kernel/fork.c  | 16 ----------------
+>  mm/internal.h  |  3 +++
+>  mm/mmap_lock.c | 19 +++++++++++++++++--
+>  3 files changed, 20 insertions(+), 18 deletions(-)
+> 
+> diff --git a/kernel/fork.c b/kernel/fork.c
+> index 5efceb8d58a7..4d5866c83481 100644
+> --- a/kernel/fork.c
+> +++ b/kernel/fork.c
+> @@ -744,22 +744,6 @@ void __mmdrop(struct mm_struct *mm)
+>  }
+>  EXPORT_SYMBOL_GPL(__mmdrop);
+>  
+> -static void mmdrop_async_fn(struct work_struct *work)
+> -{
+> -	struct mm_struct *mm;
+> -
+> -	mm = container_of(work, struct mm_struct, async_put_work);
+> -	__mmdrop(mm);
+> -}
+> -
+> -static void mmdrop_async(struct mm_struct *mm)
+> -{
+> -	if (unlikely(atomic_dec_and_test(&mm->mm_count))) {
+> -		INIT_WORK(&mm->async_put_work, mmdrop_async_fn);
+> -		schedule_work(&mm->async_put_work);
+> -	}
+> -}
+> -
+>  static inline void free_signal_struct(struct signal_struct *sig)
+>  {
+>  	taskstats_tgid_free(sig);
+> diff --git a/mm/internal.h b/mm/internal.h
+> index de4593b3e3b6..cc95019c7e4b 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -1671,4 +1671,7 @@ static inline bool can_spin_trylock(void)
+>  /* char-mem.c */
+>  bool file_is_dev_zero(const struct file *file);
+>  
+> +/* mmap_lock.c */
+> +void mmdrop_async(struct mm_struct *mm);
+> +
+>  #endif	/* __MM_INTERNAL_H */
+> diff --git a/mm/mmap_lock.c b/mm/mmap_lock.c
+> index 073c5125b424..d28bbc3ba734 100644
+> --- a/mm/mmap_lock.c
+> +++ b/mm/mmap_lock.c
+> @@ -306,11 +306,10 @@ static struct vm_area_struct *vma_start_read(struct mm_struct *mm,
+>  	 */
+>  	other_mm = vma->vm_mm; /* use a copy as vma can be freed after we drop vm_refcnt */
+>  
+> -	/* __mmdrop() is a heavy operation, do it after dropping RCU lock. */
+>  	rcu_read_unlock();
+>  	mmgrab(other_mm);
+>  	vma_refcount_put(vma);
+> -	mmdrop(other_mm);
+> +	mmdrop_async(other_mm);
+>  
+>  	return NULL;
+>  }
+> @@ -560,6 +559,22 @@ void __mm_reset_vma_seqcounts(struct mm_struct *mm)
+>  }
+>  EXPORT_SYMBOL(__mm_reset_vma_seqcounts);
+>  
+> +static void mmdrop_async_fn(struct work_struct *work)
+> +{
+> +	struct mm_struct *mm;
+> +
+> +	mm = container_of(work, struct mm_struct, async_put_work);
+> +	__mmdrop(mm);
+> +}
+> +
+> +void mmdrop_async(struct mm_struct *mm)
+> +{
+> +	if (unlikely(atomic_dec_and_test(&mm->mm_count))) {
+> +		INIT_WORK(&mm->async_put_work, mmdrop_async_fn);
+> +		schedule_work(&mm->async_put_work);
+> +	}
+> +}
+> +
+>  #ifdef CONFIG_LOCK_MM_AND_FIND_VMA
+>  #include <linux/extable.h>
+>  
+> 
+> ---
+> base-commit: 913390e679e23e3a45643028ee7f992889094051
+> change-id: 20261124-vma-read-lock-mmdrop-async-ba417cd1c1f0
+> 
+> Cheers,
+> -- 
+> Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> 
