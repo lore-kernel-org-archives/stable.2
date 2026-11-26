@@ -1,108 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795709408;
-	b=IMD+90mZBvZprdGlMPnzHcrWVyPSnvPKE0hroEzBbpRwsAo3LjICI9TCjNZsH0R2HkAA
-	 ppJ/UogzWhXq0BpTvP3KPjOAo3sanr6c5+oNWNKB0iPJn3PpKCDmyX5fc18RhcqF70zHb
-	 IFGyNZBio/t4CTZzaGlydi4xP2CY3ZdLpNKzXYNua/szJTr8YL4PhIO9UMHTHzn56ocFM
-	 mjo4n/e7hhcVqbfqbRyrRbPIeocO6BoWTih06nffZM+BOG5TuaIUHSn4mewTnxpiqZjJy
-	 JrQquFETRTUNrKYFAQxZIIn498WVI7lCnyXBl9SDLp4TiQFlf4W+IWEpAdWUPky8CCQ==
+	t=1795709473;
+	b=puXDU94clCLE22KevFvMhLYIjrQqVwOqfu0hQZktubxgptHe/fuoU5Eg41/fmIZ8uYuh
+	 nI81zJGvAcmMvuavmlF/SJZ3VY+gZ9+EIAtpNghCB6FeoHugBdgIlJFfrYVmBJMW/sZD3
+	 wrJcEh/yR3+3pehGbrj0L4JAVwg6xDzvZ5vO1MswOoHcqePZ0oWCrYsZ/aufH8Uy7qtNM
+	 KDYN8djK4CFJ4/IGOB59/gegQLozVQ/0Kv1DZHV03g6JKigGpc3I/VUDOeIuJQ+kchRmh
+	 zP65WFNS9R/tLSo8MjdOU7qoISG2cF0I2waMOmL6oGk1x4R2QVCUyT86coI0slfqk2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795709408;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Wxm0q+9pqrQa87GpYE9M2lUimiUIeR4Fl+shQ/7gsqI=;
-	b=h+LEUeqCWp9js7glSb7cXmRt5uGk8Id7QuSJPjwF/1TBOXrSBDSVKFXyEDCV2XN2Oppf
-	 u7K12TjBIvLEmDajd7adDog2TsXhin6r+aTu2CnHsKff9/1SG0S1laeX9L5ZtUbJ+fJEf
-	 FBqLasKmz3qeFQqhIet2KdOSfptXkVVFsjtRcggPT0E8xG+TcVlTJNlmgIFQYpS4cA3o+
-	 6L3s98IsUPBlAYiM+HZV8ANMix9KXhyPLNne/x2tuGcIS7T66939fAFGl40dPe0RIk8eK
-	 SqVDbDFJ9E4yn0z3+mRSZ7ELDrS6oakc58t7BMf/iYqUygESr9WV3X7qtR5j7WZJtnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795709473;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=9PUTKZGGgfgqYuitNa8TnCVCVRf0zoWL9r7h2cVKo54=;
+	b=Pi2njIAufAmMvNFPCQua0jEiP7HGeZFrAIAPR60BuKbOjqcxl02PscEN0bj+u+Z4jO2C
+	 hdfD7Ycja3+CMoyD5QFFWPo9yl9CJW8eGxY3GSP+hMeuQqQvVN4OMXo5JQUov3vor4R3G
+	 2wEbosNAANV0YU6plSShirDWyu44HCS1eM2XPrYzLFl4vDI+ubJw8XV9UnZbcLt/doBct
+	 SRyGrRlm1UggGqSKhjCJw08xUq1i/dUbA92bsCOZu0n/nDFIgM9aMF8VLSM4syxwceOmz
+	 ywvVodDWnPEyoNwWOZEdgNhZNZOsWrWKvjzjbZf2/Cyr3rpON1Hhx0Kr4pEiYxecbZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=d3fYmMUp;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ObNigFBh;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K2o0pABO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F7F9606A321
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:10:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F7F9606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A13606A31E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:11:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=d3fYmMUp;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ObNigFBh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795709407;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Wxm0q+9pqrQa87GpYE9M2lUimiUIeR4Fl+shQ/7gsqI=;
-	b=d3fYmMUpdpho+a1ezTY1dNSj6NW7jFOVTJoM4+HtJhU55vy0Ox6BtpBQ54bgePY3WP0CGv
-	dpr5Qwvx6cs4Iwi1PDMgUSnINA8BCV/5a7X2co4UrSPCudImI+BqMi/A7sR4CLNC+lr7em
-	SlgCP+C8rw/jDTSAdGI7pv0uEP8KtqY=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-96-jn1ecyuLNim6jvDahC0kow-1; Thu, 26 Nov 2026 16:10:05 +0000
-X-MC-Unique: jn1ecyuLNim6jvDahC0kow-1
-X-Mimecast-MFC-AGG-ID: jn1ecyuLNim6jvDahC0kow_1795709404
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-490c1867460so4087633f8f.2
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 08:10:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1795709404; x=1796314204; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Wxm0q+9pqrQa87GpYE9M2lUimiUIeR4Fl+shQ/7gsqI=;
-        b=ObNigFBhOx+JLbP6N3ncQjfnJzrL0TpzPV6FKj3GydJWyT6u2kx8aFKE7UQHrJJ7ws
-         RsjH9pc5WW9+UxEckClkKvS3h5hoINrCpIuchDZGlHHydPlI2npU2H+uz01vLy0SX0Va
-         x5kMuVsk0dHYDLGkQUCUOOyEoUfx0oMaF3YIuFW5Zx4LRj+9ylWCkqSnb///3OdrWllg
-         M7Wr6XXtQVbwJnnRN2wamIoBsDK3hS8BuKPSGW3Q+wkaPC+ejbYdXNY+7dM4QHX4p/QK
-         c5MuSd096oMeobFfm4TQ8CBBBFBblyJMhYmFpxaaO4DycOb3euoa1uP97nvD4+gvVYeL
-         sChg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795709404; x=1796314204;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Wxm0q+9pqrQa87GpYE9M2lUimiUIeR4Fl+shQ/7gsqI=;
-        b=WnrHGxJ5y0usfLH/CSzjQUgPD9d9CJtJHMt9dZw3gUKnMIMf5NoIkMyMULNyz3M2mp
-         tbfVkgUWrga85sbtH52T7spSYHMHiXEDMFju1PP0Ihg8ROkYuidCllGyceF+OmzB7h88
-         fRVpmyALfPua2pM6dVvh5GOUUURcopweAl8BDCBYC6bBwujPFrc6XxBCFCC6NyK7esN0
-         ZDjv0aNw2z+YVnPgqR3Q4K5pmrhP10hygtefBRLpIncNOWZ5BZgLBUhIKINy4FG+l2w8
-         zC/KxH1eQAUzgft9ZQ8YqKRt2mtsZ1zVHSFJa2+Bxp35PfE6WOYlcQ82jQWP01RMA72F
-         DChw==
-X-Forwarded-Encrypted: i=1; AL+hErETXhqZ257yHhYlu8AVeEwpA6bQU/d6RrcbXCy6SeGG+8kao+Y1H5bxlUHcC7Rbh4/jRC600WA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+KyLmbJsH+sJu8OJyRn/73d7sk7MG3Y0KYEDXWvznVJ4VLg8Cq
-	fioALZxjkV/ZuAJfJGgqT3mXBVOJhpg0xjfh7P2/OrqqGVLPHSwsDIQfP0vGh77rZn/3Opo9sMn
-	CF/1q95mNBmFtzR4ELEmYZKDuR0dZRa7X6bKscWvVarC7htdG2Ff14oFPcg==
-X-Gm-Gg: AZFdTZf3qCPCZwGA7DXw+GhwlBwfRarjFj64AIlpbmcweCw72MDIj7n5vRBf18aGPM9
-	mWXeukqlTxuRj0emJ15+dmdI/AcOmNd78s1nvL45DKbzw5iF9Z2kSuKl2FrgAipSKqQILcoYb5z
-	jKIwqmqeWM6qJhlclPTCLpuHyyOMCh/ptWVjCN5l5PqHH7sqcYlTwAm0l0PxkNn5kTMusPOaarB
-	aAIW5gGL3SHJy+GIcp1NLAG9kr7KpD+gOwB4jsN2B9bsm0bEZLbDDuWHZ2QmCbTiQzf0xc10Qiw
-	hk5Lf/ny/I/b5tMBwcSZUXVb6Dw3j7fJgXcXc/a/lQO2rlt38NnUaF2lQVPg6DB0HRrXDGvGE8m
-	MXCYYGRGmWi4BJULyJuFCmEIc7Px8tWMP8WjiMIspE7USROBp7E2YHciOuFa7qdJtrshSZMM+iM
-	NoTi2bSFcgxsDn6kGQRudjQI2bDlZkC6l2mXsG2UqU5quQ
-X-Received: by 2002:a05:600c:8210:b0:4a1:dbdf:17a8 with SMTP id 5b1f17b1804b1-4bb887e25e8mr430750295e9.2.1795709404055;
-        Thu, 26 Nov 2026 08:10:04 -0800 (PST)
-X-Received: by 2002:a05:600c:8210:b0:4a1:dbdf:17a8 with SMTP id 5b1f17b1804b1-4bb887e25e8mr430749705e9.2.1795709403638;
-        Thu, 26 Nov 2026 08:10:03 -0800 (PST)
-Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884865b1sm622216265e9.5.2026.11.26.08.10.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 08:10:03 -0800 (PST)
-Message-ID: <bcbb57bd-6447-4faa-a56c-9bdf1c7bc90a@redhat.com>
-Date: Thu, 26 Nov 2026 17:10:01 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K2o0pABO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 840671F000C4;
+	Thu, 26 Nov 2026 16:11:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795709472;
+	bh=9PUTKZGGgfgqYuitNa8TnCVCVRf0zoWL9r7h2cVKo54=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=K2o0pABO5LpyLhTN4+7WwHseEqPd/5gwQcaJPrptg1SSIFegJ9yOJgGlO6PDvX8sS
+	 lCPT6QOwdftYMmUoV2yZ4HesmfXtrVnfMJZamL7kt/KSmiA0nNyudZKVj54neGkcvR
+	 VsCwE7QzILd6JjUT9cS2oTJb9c5hNvNI/liTVkK24qaqK5U2iU0DGmtiIPwKMmFYwc
+	 rNdZ6xEIF3BlpBHDaIoR8Z92KXZ/D8kxD7kFm509JQtF3jByfnEg5yzYKWkDdi2vK5
+	 w46b20OAIH/uSpUdb06TqjZdyRaNSADRZYjcA1oXiiyvYi6NE3LEn/BkimvAN0OQ3K
+	 NGAoQZDyYRbTQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sean Anderson <sean.anderson@linux.dev>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] usb: dwc3: Always deassert xilinx resets
+Date: Thu, 26 Nov 2026 11:11:09 -0500
+Message-ID: <20261126161055.2530202-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112501-sloppy-overrun-e142@gregkh>
+References: <2026112501-sloppy-overrun-e142@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,51 +60,129 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 4/4] net: skbuff: limit folio refcount when splicing
- from sockets
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Kiryl Shutsemau <kas@kernel.org>,
- Song Liu <songliubraving@fb.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Rik van Riel <riel@surriel.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>,
- Pedro Falcato <pfalcato@suse.de>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- stable@vger.kernel.org
-References: <20261118-skb_refcount_overflow-v1-0-5551b4954c3f@kernel.org>
- <20261118-skb_refcount_overflow-v1-4-5551b4954c3f@kernel.org>
- <14059088-7992-4d89-ac6c-1e6d1f61b3c8@redhat.com>
- <832f42a7-1d44-4138-a7f5-7cead4a28e57@kernel.org>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <832f42a7-1d44-4138-a7f5-7cead4a28e57@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/26/26 15:44, David Hildenbrand (Arm) wrote:
-> On 11/26/26 15:18, Paolo Abeni wrote:
->> which is arguably ugly but IMHO no more than the tristate
->> return value in the current version.
-> 
-> That doesn't work. "len" you write in the function is not tlen ...
+From: Sean Anderson <sean.anderson@linux.dev>
 
-Sorry, I rushed it too much.
+[ Upstream commit ec06c8039d396a1b558cc138f5c5aba17698e175 ]
 
-> __splice_segment() passes &flen.
-> 
-> Further all these lengths are unsigned int, not signed :/
-> 
-> Also, I think we have to respect spd.nr_pages.
-> 
-> If we want it minimal, a separate error pointer might be the easiest way to fix it. Still
-> ugly, but I tried to get it clean above and there is no way around some churn I'm afraid.
+If we don't have a usb3 phy we don't need to assert the core resets.
+Deassert them even if we didn't assert them to support booting when the
+bootloader never released the core from reset.
 
-I actually prefer what you suggest here more than the current patch.
-I suspect Willem may have some other option avail, but he will
-not back for a few days.
+Signed-off-by: Sean Anderson <sean.anderson@linux.dev>
+Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Link: https://patch.msgid.link/20260106171018.501612-1-sean.anderson@linux.dev
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: f33f0dd2eb01 ("usb: dwc3: xilinx: re-assert resets on ZynqMP init error paths")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/usb/dwc3/dwc3-xilinx.c | 71 ++++++++++++++++------------------
+ 1 file changed, 34 insertions(+), 37 deletions(-)
 
-/P
+diff --git a/drivers/usb/dwc3/dwc3-xilinx.c b/drivers/usb/dwc3/dwc3-xilinx.c
+index 8897fbe554745..449c03223c7f3 100644
+--- a/drivers/usb/dwc3/dwc3-xilinx.c
++++ b/drivers/usb/dwc3/dwc3-xilinx.c
+@@ -132,21 +132,6 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
+ 		goto err;
+ 	}
+ 
+-	/*
+-	 * The following core resets are not required unless a USB3 PHY
+-	 * is used, and the subsequent register settings are not required
+-	 * unless a core reset is performed (they should be set properly
+-	 * by the first-stage boot loader, but may be reverted by a core
+-	 * reset). They may also break the configuration if USB3 is actually
+-	 * in use but the usb3-phy entry is missing from the device tree.
+-	 * Therefore, skip these operations in this case.
+-	 */
+-	if (!priv_data->usb3_phy) {
+-		/* Deselect the PIPE Clock Select bit in FPD PIPE Clock register */
+-		writel(PIPE_CLK_DESELECT, priv_data->regs + XLNX_USB_FPD_PIPE_CLK);
+-		goto skip_usb3_phy;
+-	}
+-
+ 	crst = devm_reset_control_get_exclusive(dev, "usb_crst");
+ 	if (IS_ERR(crst)) {
+ 		ret = PTR_ERR(crst);
+@@ -171,22 +156,31 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
+ 		goto err;
+ 	}
+ 
+-	ret = reset_control_assert(crst);
+-	if (ret < 0) {
+-		dev_err(dev, "Failed to assert core reset\n");
+-		goto err;
+-	}
+-
+-	ret = reset_control_assert(hibrst);
+-	if (ret < 0) {
+-		dev_err(dev, "Failed to assert hibernation reset\n");
+-		goto err;
+-	}
+-
+-	ret = reset_control_assert(apbrst);
+-	if (ret < 0) {
+-		dev_err(dev, "Failed to assert APB reset\n");
+-		goto err;
++	/*
++	 * Asserting the core resets is not required unless a USB3 PHY is used.
++	 * They may also break the configuration if USB3 is actually in use but
++	 * the usb3-phy entry is missing from the device tree. Therefore, skip
++	 * a full reset cycle and just deassert the resets if the phy is
++	 * absent.
++	 */
++	if (priv_data->usb3_phy) {
++		ret = reset_control_assert(crst);
++		if (ret < 0) {
++			dev_err(dev, "Failed to assert core reset\n");
++			goto err;
++		}
++
++		ret = reset_control_assert(hibrst);
++		if (ret < 0) {
++			dev_err(dev, "Failed to assert hibernation reset\n");
++			goto err;
++		}
++
++		ret = reset_control_assert(apbrst);
++		if (ret < 0) {
++			dev_err(dev, "Failed to assert APB reset\n");
++			goto err;
++		}
+ 	}
+ 
+ 	ret = phy_init(priv_data->usb3_phy);
+@@ -199,11 +193,15 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
+ 		goto err_phy_exit;
+ 	}
+ 
+-	/* Set PIPE Power Present signal in FPD Power Present Register*/
+-	writel(FPD_POWER_PRSNT_OPTION, priv_data->regs + XLNX_USB_FPD_POWER_PRSNT);
+-
+-	/* Set the PIPE Clock Select bit in FPD PIPE Clock register */
+-	writel(PIPE_CLK_SELECT, priv_data->regs + XLNX_USB_FPD_PIPE_CLK);
++	if (priv_data->usb3_phy) {
++		/* Set PIPE Power Present signal in FPD Power Present Register*/
++		writel(FPD_POWER_PRSNT_OPTION, priv_data->regs + XLNX_USB_FPD_POWER_PRSNT);
++		/* Set the PIPE Clock Select bit in FPD PIPE Clock register */
++		writel(PIPE_CLK_SELECT, priv_data->regs + XLNX_USB_FPD_PIPE_CLK);
++	} else {
++		/* Deselect the PIPE Clock Select bit in FPD PIPE Clock register */
++		writel(PIPE_CLK_DESELECT, priv_data->regs + XLNX_USB_FPD_PIPE_CLK);
++	}
+ 
+ 	ret = reset_control_deassert(crst);
+ 	if (ret < 0) {
+@@ -221,7 +219,6 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
+ 	if (ret < 0)
+ 		goto err_phy_exit;
+ 
+-skip_usb3_phy:
+ 	/* ulpi reset via gpio-modepin or gpio-framework driver */
+ 	reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
+ 	if (IS_ERR(reset_gpio)) {
+-- 
+2.53.0
 
