@@ -1,55 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795667270;
-	b=pRKXSZU4fTFgx/X6TTK9Z1HWAMOoaihjJAujLLqKl6UAiCnuCE1+ZYSZxx7a4UMGUlVA
-	 Dfc1UQLjFQOXzzOwzNOSkidpdf/e/F3S1jZ+11XL8N0k1/VsPKd+mipTESlU/lz7zlVb5
-	 0G3VgoDcFuH3WQxe6g6KDkig6lUc1Yc7FaY/WcyY8Evy4fum/SG6t0hrkWJELjrr0E/Qw
-	 NPGSnCYusQWzdgWOATnJLZSzwjCY4Ur4EYEiF1VhIcAcnVh/ogzj7DJqkDuDLc19volV9
-	 VnFtNITIyJTzs4P5+2MJRJ4bsuY+XTL/11sudh08B78yd8jTbbPXhKbVeL7qiAWTmDg==
+	t=1795667287;
+	b=cE2ojsa+m99TD3yoZ1CSXTYcTUl64Uv1YyOkr8mpbJN8TfaQm+AGk5twFY46NxAB3upk
+	 oY7z0cMlc++/dvpjrkla0eG5aIZX362e+INmvz9oN3jehC4cEPbP4GnVM+F18QKPqoOro
+	 9VYXS24QA1sIm2QUi00gNGcTWuAgvezimWBwzgrNgsPqMlHpwD6wzvFxD8MyoNYkMix1k
+	 BtLaCqd+/+i/HrwiMroLmH5lm23X9soMjQba7hl+nppLESE4C6X7X9lUU83Wp4u85o6ig
+	 aZj0x+tg/HBtu1Uy64AeyxvOgfhebp2Kl8ZwJJJgZmlYwHpkty0onItWOmX0hsW/e2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795667270;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FBbpQztYdUM9tYncKdpoO2zbgwN/s94hh5EFsX2Bnnk=;
-	b=DgsR0Zd/IFKywAoqGaX+jEI02ZUtVfxJv/2QhjuchGrCjEdlvoLuwfUfj6rwHg954ZGD
-	 Ih90G2nDhvxIA4jsyPvvS8RbsPIXYjyCEm3j6oGsrDkTNdH/q2qJf5Be33d7bAo+O7apE
-	 QOyrk1gvbp6+bNAPbuX43Vs4VPMioC3J/GwPv41/5d5z8TPBaDczEghWQkueu3gdwQ/qc
-	 o1eEtdEEaNRwc4PV4xNoMXVfn8OoOKeCkeFjZ7zLU/qnFJb2xGn8suS4yfXoGW79U/yEK
-	 JCmBZlUySqbFbtP2cIDH2BEEpdiXeb6srmme6ncaqEJFq4s21HW0Ej4ExaPFtmArUwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795667287;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=J0c7g32Vkst5ZTZD1D3dAok+IJ411KyHzBH0wWFTswU=;
+	b=M19iDDqfg07wNV/M1GWGo2r41lVrKw/tvwfV8kXRQ/f3awiSvelzMY+3E5YU2VrIwtTI
+	 AaBPhArF7Fy2IbYoe6qiE8Kn1EhNSmV2hzlgXlgX+6C9wtdI+hakqDr8wlzRUblJUuhBe
+	 N3CdctAF13aWBlwVzD6eWKioF7TIZaqI13RzcrXzB/pqj4a8gfu8dz7eqZamL/TS4qbR3
+	 hMBrh9KFEDkWdv7KD8Kjq9d9S9Mt1z3WvPx3FeKueMW9mAXVBFhiWPf/dn6WuB9FpyTDe
+	 Gar9H3MheSfvO9RX1HgjMnlAxAdFXisZ9kolISDfGRLJR2Gz4xgSIhOCSymOmpp+3vA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gYPdpOM5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FeiS0zcq;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFEF606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:27:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49544606A321
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:28:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49544606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gYPdpOM5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CB141F000C0;
-	Thu, 26 Nov 2026 04:27:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795667269;
-	bh=FBbpQztYdUM9tYncKdpoO2zbgwN/s94hh5EFsX2Bnnk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gYPdpOM550NzcBV43YmOe1z6fik7XkfbZ+9Qg2lcobqiVqKBz7NpjmzQuTCcg39mV
-	 G7EQT7jJZROi4pPd0S3JZye70xjMvnKLCzBqe9HeJiUv/2oANFqiGd5XaP/s6xhT29
-	 KrZw2lkh7usznYjNHPQELv2oYUAzuWn32mcMYJGGIaDKFrjbps+LeKc+wUtmckzXfY
-	 sdbNO76JDoelb3X4HWKLkmosjeDiMGb7r9Gh6YowpcvOWKd9bqBhldTCVGxmTcCjBC
-	 /DgK7Y/KOFbEEMfEAQZJs2TJIfuvtSN7ky49eA6jxIQPDkgnQbco08Oyxctrn1K0S3
-	 12dozIpPLA/Sw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] smb: client: hold server ref while queueing reconnect work
-Date: Wed, 25 Nov 2026 23:27:47 -0500
-Message-ID: <20261126042723.1962827-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112545-crowbar-trio-f08b@gregkh>
-References: <2026112545-crowbar-trio-f08b@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FeiS0zcq
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-14394530ec6so9147634c88.1
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:28:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795667286; x=1796272086; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J0c7g32Vkst5ZTZD1D3dAok+IJ411KyHzBH0wWFTswU=;
+        b=FeiS0zcqgoOFmLr56DCXuVS+WPZRG48AWzZCrtrSDLlcxUGMT5sMj0I3Fo2It/PlAJ
+         VjilD4Vcwo0RjJY99WdRJlzHc3ihRmA9bzkY1iVhahC2V8baUNxe8pFcR0WjTFoIOhY6
+         MSnppkX+xKNYOguAEXff9gHg0y3C01/d2VbNql42xneC8VCPAlCY84JT4R7Q1nnaDJCc
+         Rm3FvpKOgz2tC87Hg23eu3BEuVIpmQ2BcvxlyzraxqaQi/0oumo3lmnaDMV/wJ3OGF+c
+         Rauyxf/zxC5x0lNztAIGHiWzq+BuK/tDAvAbmDN2jeQUUwqHXVWZameqraWcwPqez6j8
+         apRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795667286; x=1796272086;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=J0c7g32Vkst5ZTZD1D3dAok+IJ411KyHzBH0wWFTswU=;
+        b=ScDrNu9D5vBDOx7VmoG6718HJon9tthc9kSN/NUIZUHMB0Wh8wbWmKJXvWMdClFNq+
+         LngSDplxWSbuuMH2JwsSXNCzrXKOmuECcfBYAgjlKe1aA5VR6DVLAhfXo0Phm6FAP8hb
+         5L/a+XdUJFI8ouonFQOm08PY7docEguF5OphnDwr/4DOuM6YoWdRp/BgKIUAOpaOq79R
+         VuFZRX73M6fD57Ng2DHj/R0T3OMTV5kMhR7rDhOMkqATTNrInwmvETLeb9wHfYZc4Hpa
+         bgjNWDLxtTsHQ6wOM6URNLPqIxcca1g/9wHhbc6CgppObo9x2ynLzlt2WQVszqJR37+m
+         Qusg==
+X-Forwarded-Encrypted: i=1; AL+hErHrIryNDQ/nGXrJOuDNRwnYf86JT5CDqWbpQ07mACTCcfM9kiHllzHIWmDVV1ELMsSzejrDfT4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8OTtS/XGx1KvAXeWV4Y8jCsOW5jFSsVD314PW1mnVsUqjBpVL9
+	+d3WEGAh6SAWTvnAmpP7oh3C8+2DTWriFtsmHsdC1A1ShNXmsKIztClv
+X-Gm-Gg: AZFdTZfElMCPHs5Jsx+F9Mwj64rT2kmIuKoRQ7KZ6QGIXDY21hbmR94B+/sGu/ZydlK
+	6O6leA42o1jlzRDIvv8sjWp50lzL3wGrFIkarOinhHzkj7TclrSApT6XrmzaAPOfHlS5xYha0/K
+	CdkZ5nHbg+JB6HnSeavAhTXzXkxdeKudNOiyEOnB1qnMrIpGLqLekkJtM/imy254JdNlnXDn6Wm
+	yAfDgeT9P6ZVzXKvC1g6fRHVtBCtc0cIe3r+Hyp5pZT4D4hWZ4/3e53Zx3o33bdhTql19ylVbgT
+	GMUkugutoYAwDmeOZ1R/l3MnTXrQM00qnj6FsHZAitNi+MA5lPzFcSJaElwOoL+gxBHqR82gsWd
+	8DUenl7EnWaIDG7cz2Hot1uKZzsH2gWTx18Y9L+nI0iUUgwXlXPJTtFHEAp1eTIKm0+rbhmOpd+
+	l0uIFF33Qiwg2xvAjpD87xIPFBMMzFtyz4oa8m072D3C1zNU62LFDgA3Pz3E1UTRp3TQGYc/ZBB
+	6aFuvCB1vPjWdK+c1m8mJVtPZIpjCAInW59mGXimNdcgoIWzahDaQ86WlxpTthwxFrtnQX2g4b5
+	qrUH80xzSBEzjf/194y1rx11SHDFCyt7RRMHAVpNnaKHqvwm65pnKdRMP+cr2QgycfcDzo1LwxP
+	lnLSZSVaaTYQWXS9VmUbV4A==
+X-Received: by 2002:a05:701a:cccb:10b0:179:a1d0:be39 with SMTP id a92af1059eb24-1b56b709cfbmr13685966c88.29.1795667286345;
+        Wed, 25 Nov 2026 20:28:06 -0800 (PST)
+Received: from [192.168.10.3] (ip70-187-214-22.oc.oc.cox.net. [70.187.214.22])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b556847fdasm51792405c88.13.2026.11.25.20.28.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 20:28:05 -0800 (PST)
+Message-ID: <9e9f4aa1-7823-42dc-83b5-e9776096950e@gmail.com>
+Date: Wed, 25 Nov 2026 20:28:06 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,80 +93,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/990] 6.18.66-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261125143822.072087159@linuxfoundation.org>
+Content-Language: en-US
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-[ Upstream commit f02d249e9756b78990aaaa1635e47e06deb2cb51 ]
 
-When query_server_interfaces() returns -EOPNOTSUPP on a secondary
-channel, smb2_reconnect() calls smb3_update_ses_channels() which for a
-channel runs cifs_chan_skip_or_disable().  That clears the channel's
-slot in the session and calls cifs_put_tcp_session(), which can drop
-the last reference of the channel and tear it down.
+On 11/25/2026 6:22 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.66 release.
+> There are 990 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 27 Nov 2026 14:36:57 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.66-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-smb2_reconnect() then falls through to skip_add_channels and queues
-reconnect work on that server, using a server that may already be
-freed.  The send path obtained the channel from cifs_pick_channel(),
-which does not take a reference, so the session's channel reference is
-the only one.
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-Take our own reference on the channel before calling
-smb3_update_ses_channels() and drop it after the reconnect work has
-been queued, so the channel cannot be freed while it is still used.
-
-Fixes: f591062bdbf4 ("cifs: handle servers that still advertise multichannel after disabling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: adapted to older code: open-coded the reconnect work queueing and channel disable calls (mod_delayed_work, cifs_chan_skip_or_disable) and adjusted variable declaration context. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/client/smb2pdu.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
-
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index 24863ba8a0926..3c6d26f6a6921 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -214,6 +214,7 @@ static int
- smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
- 	       struct TCP_Server_Info *server, bool from_reconnect)
- {
-+	bool hold_server_ref = false;
- 	int rc = 0;
- 	struct nls_table *nls_codepage = NULL;
- 	struct cifs_ses *ses;
-@@ -452,6 +453,20 @@ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
- 			 * treat this as server not supporting multichannel
- 			 */
- 
-+			/*
-+			 * If server is a secondary channel,
-+			 * cifs_chan_skip_or_disable() called below may
-+			 * drop its last reference, so hold our own
-+			 * reference until the reconnect work below has
-+			 * been queued.
-+			 */
-+			spin_lock(&cifs_tcp_ses_lock);
-+			if (server->srv_count) {
-+				server->srv_count++;
-+				hold_server_ref = true;
-+			}
-+			spin_unlock(&cifs_tcp_ses_lock);
-+
- 			rc = cifs_chan_skip_or_disable(ses, server,
- 						       from_reconnect);
- 			goto skip_add_channels;
-@@ -478,6 +493,8 @@ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
- 
- 	if (smb2_command != SMB2_INTERNAL_CMD)
- 		mod_delayed_work(cifsiod_wq, &server->reconnect, 0);
-+	if (hold_server_ref)
-+		cifs_put_tcp_session(server, from_reconnect);
- 
- 	atomic_inc(&tconInfoReconnectCount);
- out:
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-2.53.0
+Florian
 
