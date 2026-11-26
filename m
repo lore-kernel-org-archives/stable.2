@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795705337;
-	b=j5nHOaRu35gtX4Cxk+Cdc31dLSZYlZHWDIbETmB/nraTuejYWUEFEb0qlbJAsNukGPSP
-	 u+uRlgO6N5WNd1iixQDpDAh/9QYIu9IAoDJq0m+byuC4KbJgBgesJRq7Bpab1aFgIlaMW
-	 Ns71E7NbV9Ut1N7W8DPq4bVQEvZaJNFCpmsZ+ofpObUA1OXDDhMHsqmJDkFZcCSN6tXun
-	 8n5Cwin2gK6TKIS+VEwC+iTcwD0hYuE8zdsTyfK/1jbQgtmE5fFw8ir/kZ7e83l6Lmoez
-	 92VbR7NwXG24b6t8w3C5ITtrJD9o1UQZZCuxleNIOU1Fxkak9jEhA4kIrBd0tyZp5Sw==
+	t=1795705341;
+	b=UYigJ0Kg/Z4gzcA02n7hl1pj00nuzAlKgnUcZjhWGymbQXm/xm91w6pbRZGwhsbZ9l9a
+	 3PMv0mKVGCbFXtAv3nV9AA95HU1kQO9Nux8UuB8ILLgJaKaz97wpkAseT/XqWPU/ysN24
+	 cB+FRN5WqlH7+t1rCY1AgsTBVRMZh4+C/dt47Bv1MFxt437fqfP7uKoa+l9ONNJqOlxFV
+	 Eq2e+6DuY74ezgb2Y1Lz3UTQhTLNjIwLT1UkthiY4qik1GWD2GFMXkXdGmMTacoqQroqB
+	 MJ5K0C5fkX4sk1vqviRQ0uOQEv/xSOubyMsrHd6P/JfzNUFqRXiBQpFcQULxSIMXLdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795705337;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795705341;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=a7NSQ37eomNxnb4CmnfF4NN25k87c4Xl3YT/rMtPuHo=;
-	b=hk109eUwel7duQh6qPgE9mxvV1eb1JGoy5v7/R6OyOBrjY6pHQcLnl4UcMiB5gnjINbz
-	 3GjhRy9R3trP6pY9VSgVhtbB08UcI20KTv8Pof+/flg7F87n0WxB1TNmJKgJVtBLj52s9
-	 UR1HUzb+Rhw+ig8GcCPMG5/27jTgzlrerLmKxsR64dXtqPPoNcVW/yMtrJ/PBSbe8yMOo
-	 lUrQNHWUn7wzXDv+gvSzO2agnoGYr4ToS1ZdhF/QrjTKaOOV+Q6ScpsgECnjK9Lb62iWn
-	 a+WPYRd+50EDIuPLFcmeKbx3v8ZkXvifR4RC8E/cADaw6NH3AOw/qwwGyUEgcXuEXEw==
+	bh=JlOvyv9Ph4cgJ8pHcTRk097w+NMhwnIhv6tpn2ikAxw=;
+	b=QWj5aGq40tp+uVKqEjmuRAEfNHWikGjrLWDPg4TviCLb59FjbnyaT3sWsZrU/k3MUjLM
+	 dxyJQWh0i9Xo/3deyxsOXT/AJ28ng29HVGNUYa7rDv0k8s/Dnqrky5k4LVoUR1LRfvsMa
+	 JVp6brRvwi0y8l7Wp5VKPXM9rlHg+fMIsLl3Dg3gP4mNvqLID/4loel1ctVgVcMc9Snv/
+	 We+3ckg1rdOO/wBPfuEck72QL6hXEhrTK9z0oeAsr4kDAqkImFz/HgECFUEazc1A6IDy7
+	 bNBAh57wcHPnZJyoE1MnWWnOa7T+g1joGJl6UpDCNhbigbGS1Dy1MtYyP60BN/72+nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DQpS7Nzf;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=S2wCabPf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C6EC606A323;
-	Thu, 26 Nov 2026 15:02:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54CF606A33B;
+	Thu, 26 Nov 2026 15:02:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DQpS7Nzf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9D131F000D3;
-	Thu, 26 Nov 2026 15:02:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=S2wCabPf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75FA61F000D1;
+	Thu, 26 Nov 2026 15:02:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795705337;
-	bh=a7NSQ37eomNxnb4CmnfF4NN25k87c4Xl3YT/rMtPuHo=;
+	s=korg; t=1795705340;
+	bh=JlOvyv9Ph4cgJ8pHcTRk097w+NMhwnIhv6tpn2ikAxw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DQpS7Nzfz+iYeM1F7sIpAEFxVFj0qqFnTjd4wx5JtWPSPhT9HRGAYow2wvswvJ1fs
-	 0uh6x4s1CsKr3lV3ZPvhWe8geV0H/IMODrkXQDFt7ImB4m9ZoX8keJM38HiFkAVJh+
-	 4Sixsgj2MjkvTAr3dlpGyIVbAVYoQBour0L0G04w=
+	b=S2wCabPf9LZtsJhfgG+/jVnp6szzJk6RnqARwq+n5r7QSp7sh1vURt0pK1aAeHq6j
+	 MVS9FGHdsn8m/crXZKJIkKDVX1KxZH+6i5pH9B/J0zNsTCj2wUOqksTCw02GzeHq8j
+	 tPwpcArHRSEprFiVTmz9Fq581lPzTU7QbCrcFG8I=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	syzbot+1994e2ecf323ed90f255@syzkaller.appspotmail.com,
-	Jiahao Xu <xujiahao@cmss.chinamobile.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+	Wenwen Fu <wenwfu@qti.qualcomm.com>,
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 162/319] net: usb: cdc_ncm: dont underflow the NDP room check
-Date: Thu, 26 Nov 2026 15:38:50 +0100
-Message-ID: <20261126144010.403772383@linuxfoundation.org>
+Subject: [PATCH 5.15 163/319] tracing: skip boot kprobe setup when no events were requested
+Date: Thu, 26 Nov 2026 15:38:51 +0100
+Message-ID: <20261126144010.426534375@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261126144006.732901931@linuxfoundation.org>
 References: <20261126144006.732901931@linuxfoundation.org>
@@ -69,87 +68,48 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Jiahao Xu <xujiahao@cmss.chinamobile.com>
+From: Wenwen Fu <wenwfu@qti.qualcomm.com>
 
-[ Upstream commit b507828c7b6135ff7a4b69eba6e33502b4839fb9 ]
+[ Upstream commit 2388a673e9276de30c7e917fce50830e497d46cc ]
 
-cdc_ncm_ndp16() and cdc_ncm_ndp32() verify that the new NDP and the
-datagram fit into the NTB with an unsigned subtraction:
+setup_boot_kprobe_events() calls enable_boot_kprobe_events() even when
+the kprobe_event= boot parameter was not supplied. That call takes
+event_mutex without any command-line probes to enable.
 
-	if ((ctx->tx_curr_size - skb->len - reserve) < ctx->max_ndp_size)
-		return NULL;
+Asynchronous eval-map updates also hold event_mutex. A normal boot can
+therefore wait in init_kprobe_trace() for this background work despite
+having no boot probes to set up.
 
-Nothing guarantees that skb->len plus the reserve stays below
-tx_curr_size, and when it does not the subtraction wraps around to a
-huge value, the check passes, and the skb_put_zero() of max_ndp_size
-bytes that follows overruns the NTB:
+Return early when the boot-event buffer is empty. Keep the mutex
+protection in trace_event_update_all() and retain setup for explicit
+kprobe_event= parameters. Bootconfig handles its own probe enablement,
+and the existing trace_eval_sync() still waits for background work
+before init memory is freed.
 
-  skbuff: skb_over_panic: text:ffff80000db33558 len:428 put:172
-  head:ffff0000c2c66100 tail:0x1ac end:0x140
-  kernel BUG at net/core/skbuff.c:200
-  skb_put_zero include/linux/skbuff.h:2595 [inline]
-  cdc_ncm_ndp16 drivers/net/usb/cdc_ncm.c:1132 [inline]
-  cdc_ncm_fill_tx_frame+0xdf0/0x30e0 drivers/net/usb/cdc_ncm.c:1309
+Link: https://lore.kernel.org/all/20261106021457.2648231-1-wenwfu@qti.qualcomm.com/
 
-Here tx_curr_size is 0x140 = 320, skb->len is already 256 and the
-skb_put_zero() wants another 172 bytes.
-
-Two device controlled settings make this reachable:
-
-  - dwNtbOutMaxSize = 320 caps tx_max at 320.  The lower bound computed
-    in cdc_ncm_check_tx_max() is max_datagram_size + max_ndp_size + the
-    NTH header, but cdc_ncm_setup() clamps tx_max before
-    cdc_ncm_set_dgram_size() runs, so max_datagram_size is still 0 and
-    the bound is only max_ndp_size + the NTH header.  It does not
-    reserve room for one datagram plus one NDP.
-
-  - wNdpOutAlignment = 256 is accepted by cdc_ncm_fix_modulus() as long
-    as it is smaller than tx_max, and cdc_ncm_align_tail() then pads the
-    12 byte NTH header up to 256 bytes right before this check.
-
-An NDP can also be added to an NTB that already holds datagrams through
-cdc_mbim_tx_fixup(), which uses a different signature per MBIM session.
-On plain cdc_ncm the chain lookup in cdc_ncm_ndp16() returns the
-existing NDP for the single signature, so there the create path is
-normally reached for the first datagram of each NTB.
-
-Rewrite the test as an addition, which cannot underflow and gives the
-same answer whenever the original subtraction did not wrap.
-
-Fixes: c78b7c586657 ("net: cdc_ncm: refactoring for tx multiplexing")
-Fixes: 0fa81b304a79 ("cdc_ncm: Implement the 32-bit version of NCM Transfer Block")
-Reported-by: syzbot+1994e2ecf323ed90f255@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1994e2ecf323ed90f255
-Signed-off-by: Jiahao Xu <xujiahao@cmss.chinamobile.com>
-Link: https://patch.msgid.link/20261111124156.637661-1-xujiahao@cmss.chinamobile.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Fixes: 970988e19eb0 ("tracing/kprobe: Add kprobe_event= boot parameter")
+Signed-off-by: Wenwen Fu <wenwfu@qti.qualcomm.com>
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/usb/cdc_ncm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ kernel/trace/trace_kprobe.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/net/usb/cdc_ncm.c b/drivers/net/usb/cdc_ncm.c
-index 7c9108205743a..6c2aa3aae7716 100644
---- a/drivers/net/usb/cdc_ncm.c
-+++ b/drivers/net/usb/cdc_ncm.c
-@@ -1120,7 +1120,7 @@ static struct usb_cdc_ncm_ndp16 *cdc_ncm_ndp16(struct cdc_ncm_ctx *ctx, struct s
- 		cdc_ncm_align_tail(skb, ctx->tx_ndp_modulus, 0, ctx->tx_curr_size);
+diff --git a/kernel/trace/trace_kprobe.c b/kernel/trace/trace_kprobe.c
+index 03d4ac41d9031..354ad90ceb68a 100644
+--- a/kernel/trace/trace_kprobe.c
++++ b/kernel/trace/trace_kprobe.c
+@@ -1920,6 +1920,9 @@ static __init void setup_boot_kprobe_events(void)
+ 	char *p, *cmd = kprobe_boot_events_buf;
+ 	int ret;
  
- 	/* verify that there is room for the NDP and the datagram (reserve) */
--	if ((ctx->tx_curr_size - skb->len - reserve) < ctx->max_ndp_size)
-+	if (skb->len + reserve + ctx->max_ndp_size > ctx->tx_curr_size)
- 		return NULL;
++	if (!kprobe_boot_events_buf[0])
++		return;
++
+ 	strreplace(kprobe_boot_events_buf, ',', ' ');
  
- 	/* link to it */
-@@ -1175,7 +1175,7 @@ static struct usb_cdc_ncm_ndp32 *cdc_ncm_ndp32(struct cdc_ncm_ctx *ctx, struct s
- 		cdc_ncm_align_tail(skb, ctx->tx_ndp_modulus, 0, ctx->tx_curr_size);
- 
- 	/* verify that there is room for the NDP and the datagram (reserve) */
--	if ((ctx->tx_curr_size - skb->len - reserve) < ctx->max_ndp_size)
-+	if (skb->len + reserve + ctx->max_ndp_size > ctx->tx_curr_size)
- 		return NULL;
- 
- 	/* link to it */
+ 	while (cmd && *cmd != '\0') {
 -- 
 2.53.0
 
