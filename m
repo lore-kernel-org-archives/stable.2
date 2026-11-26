@@ -1,80 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795709741;
-	b=EJJLccsStDnAZKfXH1c+1qvcGherAksYE01FLzwCpl/HcQpDhMVZRUhhoClTP05yQFES
-	 4Y+plqVhzB4mGcu9H0IivvgZofIx3I95xYRAesJOFShATQIgloYD44sFP22OfUiHQVboB
-	 bEOD9jiSUF0Zx0zATNaF6VShc7vfabVKZ7f+0kvUd62zlMBMGYi53t63kfHNrdyMEpi+9
-	 hb6oroT8rkPQ5lQeU4s5g3Nmesf3d+ttizFOSAuBToSdwpIaOltWKD9yHFxbMp1pcU4q+
-	 VSluBV8IwK/SV8lp/Oh/2lnwoVw2Ja6jo8qsgsBWLsrXsW7h7YTktc/sFBMjIkoqFFg==
+	t=1795709793;
+	b=V+D+FX7MSfnmPyRf94lTvqygEMxzGqMOBLy/U/2FnWNgWKvhdTpU7FHoOzME0ACWRrTi
+	 NYVU3trowAG3XP3pXBBQltyQkQDzhRIAe8sI0xizFLat2eUYus5ST/cOJ6RU7M9HL/IQH
+	 xvmZBbw6Sj4ncBADP/PKDbPzcBYx+B54l2LvURnOpDvoGhN/n/QGTcmZ+YkJtEV7ATCP1
+	 u2C8rtF1B8zARTngcgYMr9JfPxBCbsgEoyJzvwG6MBAt1z+jwFSTzlDXsY0Ahscgjr0/z
+	 8CUDSO0FqkDa1Pnj0/Yb/iyLlZ5gBaTfdPvdECBHBcaXYhfHG075GEXWwgkiPUgEtJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795709741;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=UQkC8Tq1xe+vqF6ekMwTzZzbCpLMKq5QVP3VvlYU/kM=;
-	b=Ln/KJgaugPph8fFheXqTcX3it6w/q7dlSdyfvT+vBPhmDwluxbV09HsEjddUs3d9A5x5
-	 FqTGuJnPhCPDnfFJxWPLCIqIUC2MgANj278RALGnlfNer/Df8RRU/bDjqwc6FX1gxM8bd
-	 Acbb0BRn1OMbvGJdgjqBYUUB2tEpc2BZbldYQSm6J7fvYC0LXce/ipKMNsgKFK9PQuiCu
-	 mselEglCUa7/Grf9ENJSPTXK2CGMRXLeoEVA/9nplhJd0/pubw7aQYVx+tMnfJu7pQTu1
-	 JeSS/RLfZPfYdm+Ex4SLT3SfgUzIyndvPpDzyWQ+13s/2GqoODuIv6sZSjyONLBk+Lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795709793;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=XzdcHK6sPem9AFIfHQQwNou55wtq3kdg3qM42aalKxU=;
+	b=UpKTeqCX/5c45NZzHa2CBwj4miR1R5HizXABnBt8dFPtV5TeoqgyZTjgiWnjHtZRz34n
+	 kL3zogANqcwyzqUUVLf/mSco0RWsKVgkCEk7wKsR2da0P1tsXv1mjVorPZWm4w4MYknod
+	 cU0bN+0ynXZUbn7pPK3EO3ty8b3fzUOUpmDrQ1wOwtCF3Fo7jssgeaDeD1QDo4dpYAJNZ
+	 Bjakxvz++jmPencA9oXSLLsSYcFuVQlGEAiiXiyPoNJXERToHdoNLDfDB4gNJ8ijDx226
+	 Pqe/59os0lGy1gSvRyB+AoW4uCOpTnKcnG3lNgOcKAqOHX65OTTSmizlWtod/z+X/Ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JuP46dOs;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yfrjl9mq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90188606A326
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:15:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90188606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0599D606A31E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:16:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JuP46dOs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795709740;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UQkC8Tq1xe+vqF6ekMwTzZzbCpLMKq5QVP3VvlYU/kM=;
-	b=JuP46dOs1uiX38gRyqCy9t1SS6Wk7IQLjfRzk5o+1vpXKkW5Yc5cGpEI2B9iBFzD6663iM
-	b3LyVzkHLsj8qoZDG34NccnQpWeO/gOoTW1FsB8FtA9fD2ggSX8XKXTIzDf0gX1NJC91ay
-	U76cUW6s6+FFhxBFO3fyjfUe8cxNCtg=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-33-pCsuPvD5MMOkSc40pWq5yw-1; Thu,
- 26 Nov 2026 16:15:35 +0000
-X-MC-Unique: pCsuPvD5MMOkSc40pWq5yw-1
-X-Mimecast-MFC-AGG-ID: pCsuPvD5MMOkSc40pWq5yw_1795709734
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0D4CD1955DE1;
-	Thu, 26 Nov 2026 16:15:34 +0000 (UTC)
-Received: from jhladky-thinkpadp1gen7.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0CC401956045;
-	Thu, 26 Nov 2026 16:15:30 +0000 (UTC)
-From: Jirka Hladky <jhladky@redhat.com>
-To: will@kernel.org
-Cc: catalin.marinas@arm.com,
-	kristina.martsenko@arm.com,
-	luyang@redhat.com,
-	dockseed@proton.me,
-	jmario@redhat.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v4] arm64: clear_user: keep alignment padding out of the zeroing loop
-Date: Thu, 26 Nov 2026 17:15:26 +0100
-Message-ID: <20261126161526.1745191-1-jhladky@redhat.com>
-In-Reply-To: <CAL2CeByu46f48j8O9=237fvhpPUCsKjOZkFuuHU3xrr3wVF5Eg@mail.gmail.com>
-References: <CAL2CeByu46f48j8O9=237fvhpPUCsKjOZkFuuHU3xrr3wVF5Eg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yfrjl9mq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9C101F000CA;
+	Thu, 26 Nov 2026 16:16:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795709792;
+	bh=XzdcHK6sPem9AFIfHQQwNou55wtq3kdg3qM42aalKxU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Yfrjl9mqXjOYRQJXdrlD9YmGCL6t071HlE1oRvmJwQKcEmlybdxkcuq+jXT8ReI1L
+	 zq5DIjRc4pcYmSzDgLqI7Jn7CtaGqpNY5RSbUFnaX8Z2ry/AfV7T0mV7lv6Ym4YAvb
+	 dzjtWEm5F8cbU9s5A889BmeayCHXheaIf+dcxinOkfqdVJfUKRq00kYcPHpVm/2d07
+	 AeG6tqPONM8pZPpoMxddnAMVuEcLff2SHtftACEX8rZ436P8JoDH9l7gqemVLvVOa7
+	 Z5m+PGwR0g/twuR0Qm5djAVRvPD0cwgDTON0+Z10NMIwmI0+buAnsrNzFvBFhDpZxX
+	 3bCK37dHRJxmg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sean Anderson <sean.anderson@linux.dev>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] usb: dwc3: Always deassert xilinx resets
+Date: Thu, 26 Nov 2026 11:16:29 -0500
+Message-ID: <20261126161615.2569078-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112502-trailing-living-e804@gregkh>
+References: <2026112502-trailing-living-e804@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,90 +60,129 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Commit fe59e0358d9b ("arm64: lib: Use MOPS for usercopy routines")
-restructured __arch_clear_user() and moved the loop alignment inside
-the function. In doing so, the loop label ended up in front of its
-own alignment directive:
+From: Sean Anderson <sean.anderson@linux.dev>
 
-	1:	.p2align 4
-	USER(9f, sttr	xzr, [x0])
-	add	x0, x0, #8
-	subs	x1, x1, #8
-	b.hi	1b
+[ Upstream commit ec06c8039d396a1b558cc138f5c5aba17698e175 ]
 
-The backward branch at the bottom of the loop therefore lands in the
-alignment padding, and every iteration of the 8-byte zeroing loop
-needlessly executes the padding NOPs. The NOP count is fixed at
-assembly time (the assembler aligns the .text section of clear_user.o
-to 16 bytes), so the NOPs have been executed on every iteration since
-the MOPS update. What link-time layout can change is the position of
-the function, in 16-byte increments, and with it whether the NOPs and
-the first sttr straddle a cache-line boundary: an irqbypass
-reorganisation in 6.17 [1] moved the function, and the loop's cost
-showed up as a ~30% /dev/zero read throughput regression on affected
-builds.
+If we don't have a usb3 phy we don't need to assert the core resets.
+Deassert them even if we didn't assert them to support booting when the
+bootloader never released the core from reset.
 
-Norman Herms diagnosed this and proposed moving the label below the
-directive, so the padding is executed only once on the fall-through
-path and the loop body starts 16-byte aligned as intended:
-
-	.p2align 4
-	1:
-USER(9f, sttr	xzr, [x0])
-
-Measured on Ampere Altra (Neoverse N1, no FEAT_MOPS), reading 4 GiB
-from /dev/zero, two otherwise identical kernels built from the same
-tree and toolchain, differing only in this change (two NOPs of
-padding in the unpatched loop):
-
-  kernel instructions per MiB:	797.5k -> 536.4k
-  throughput:			11.6 GB/s -> 22.3 GB/s (+92%)
-
-The instruction delta is exactly the two removed NOPs: 2 x 131072
-instructions per MiB at 8 bytes per iteration.
-
-[1] https://lore.kernel.org/all/20250516230734.2564775-6-seanjc@google.com/
-
-Fixes: fe59e0358d9b ("arm64: lib: Use MOPS for usercopy routines")
-Reported-by: Luke Yang <luyang@redhat.com>
-Suggested-by: Norman Herms <dockseed@proton.me>
-Reviewed-by: Kristina Martšenko <kristina.martsenko@arm.com>
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Jirka Hladky <jhladky@redhat.com>
+Signed-off-by: Sean Anderson <sean.anderson@linux.dev>
+Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Link: https://patch.msgid.link/20260106171018.501612-1-sean.anderson@linux.dev
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: f33f0dd2eb01 ("usb: dwc3: xilinx: re-assert resets on ZynqMP init error paths")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes since v3 (commit message only, no code change since v2):
+ drivers/usb/dwc3/dwc3-xilinx.c | 71 ++++++++++++++++------------------
+ 1 file changed, 34 insertions(+), 37 deletions(-)
 
-- reworded the explanation per Catalin Marinas: the padding NOP
-  count is fixed by the assembler rather than by link-time layout,
-  and the NOPs have been in the loop since the MOPS update (the
-  irqbypass rework only moved the function)
-- dropped the Co-Authored-By trailer per Catalin; for the record,
-  this patch and its verification were prepared with the help of an
-  AI assistant
-- added Cc: stable
----
- arch/arm64/lib/clear_user.S | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/lib/clear_user.S b/arch/arm64/lib/clear_user.S
-index de9a303..143d2f7 100644
---- a/arch/arm64/lib/clear_user.S
-+++ b/arch/arm64/lib/clear_user.S
-@@ -37,7 +37,8 @@ USER(6f, setet	[x0]!, x1!, xzr)
- 	subs	x1, x1, #8
- 	b.mi	2f
+diff --git a/drivers/usb/dwc3/dwc3-xilinx.c b/drivers/usb/dwc3/dwc3-xilinx.c
+index 96ff5789f7f45..135fa9d3c747a 100644
+--- a/drivers/usb/dwc3/dwc3-xilinx.c
++++ b/drivers/usb/dwc3/dwc3-xilinx.c
+@@ -112,21 +112,6 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
+ 		goto err;
+ 	}
  
--1:	.p2align 4
-+	.p2align 4
-+1:
- USER(9f, sttr	xzr, [x0])
- 	add	x0, x0, #8
- 	subs	x1, x1, #8
+-	/*
+-	 * The following core resets are not required unless a USB3 PHY
+-	 * is used, and the subsequent register settings are not required
+-	 * unless a core reset is performed (they should be set properly
+-	 * by the first-stage boot loader, but may be reverted by a core
+-	 * reset). They may also break the configuration if USB3 is actually
+-	 * in use but the usb3-phy entry is missing from the device tree.
+-	 * Therefore, skip these operations in this case.
+-	 */
+-	if (!priv_data->usb3_phy) {
+-		/* Deselect the PIPE Clock Select bit in FPD PIPE Clock register */
+-		writel(PIPE_CLK_DESELECT, priv_data->regs + XLNX_USB_FPD_PIPE_CLK);
+-		goto skip_usb3_phy;
+-	}
+-
+ 	crst = devm_reset_control_get_exclusive(dev, "usb_crst");
+ 	if (IS_ERR(crst)) {
+ 		ret = PTR_ERR(crst);
+@@ -151,22 +136,31 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
+ 		goto err;
+ 	}
+ 
+-	ret = reset_control_assert(crst);
+-	if (ret < 0) {
+-		dev_err(dev, "Failed to assert core reset\n");
+-		goto err;
+-	}
+-
+-	ret = reset_control_assert(hibrst);
+-	if (ret < 0) {
+-		dev_err(dev, "Failed to assert hibernation reset\n");
+-		goto err;
+-	}
+-
+-	ret = reset_control_assert(apbrst);
+-	if (ret < 0) {
+-		dev_err(dev, "Failed to assert APB reset\n");
+-		goto err;
++	/*
++	 * Asserting the core resets is not required unless a USB3 PHY is used.
++	 * They may also break the configuration if USB3 is actually in use but
++	 * the usb3-phy entry is missing from the device tree. Therefore, skip
++	 * a full reset cycle and just deassert the resets if the phy is
++	 * absent.
++	 */
++	if (priv_data->usb3_phy) {
++		ret = reset_control_assert(crst);
++		if (ret < 0) {
++			dev_err(dev, "Failed to assert core reset\n");
++			goto err;
++		}
++
++		ret = reset_control_assert(hibrst);
++		if (ret < 0) {
++			dev_err(dev, "Failed to assert hibernation reset\n");
++			goto err;
++		}
++
++		ret = reset_control_assert(apbrst);
++		if (ret < 0) {
++			dev_err(dev, "Failed to assert APB reset\n");
++			goto err;
++		}
+ 	}
+ 
+ 	ret = phy_init(priv_data->usb3_phy);
+@@ -179,11 +173,15 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
+ 		goto err_phy_exit;
+ 	}
+ 
+-	/* Set PIPE Power Present signal in FPD Power Present Register*/
+-	writel(FPD_POWER_PRSNT_OPTION, priv_data->regs + XLNX_USB_FPD_POWER_PRSNT);
+-
+-	/* Set the PIPE Clock Select bit in FPD PIPE Clock register */
+-	writel(PIPE_CLK_SELECT, priv_data->regs + XLNX_USB_FPD_PIPE_CLK);
++	if (priv_data->usb3_phy) {
++		/* Set PIPE Power Present signal in FPD Power Present Register*/
++		writel(FPD_POWER_PRSNT_OPTION, priv_data->regs + XLNX_USB_FPD_POWER_PRSNT);
++		/* Set the PIPE Clock Select bit in FPD PIPE Clock register */
++		writel(PIPE_CLK_SELECT, priv_data->regs + XLNX_USB_FPD_PIPE_CLK);
++	} else {
++		/* Deselect the PIPE Clock Select bit in FPD PIPE Clock register */
++		writel(PIPE_CLK_DESELECT, priv_data->regs + XLNX_USB_FPD_PIPE_CLK);
++	}
+ 
+ 	ret = reset_control_deassert(crst);
+ 	if (ret < 0) {
+@@ -201,7 +199,6 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
+ 	if (ret < 0)
+ 		goto err_phy_exit;
+ 
+-skip_usb3_phy:
+ 	/* ulpi reset via gpio-modepin or gpio-framework driver */
+ 	reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
+ 	if (IS_ERR(reset_gpio)) {
 -- 
-2.56.1
+2.53.0
 
