@@ -1,60 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795705283;
-	b=HIyGaExWnnBcWQ2gkvkXEfNRkxy0DBEoOX31R1Zyhs9pjr6pcYkmU3vzIuY8BsvAPZVh
-	 LGqz/cWwkoY8diAn314OYZKY8BYs8te1RvSbwwNGMNiDxejawcCVvtq2dPKlHD3q8Ehl1
-	 Ig5ronuRx3PF7supdy2clEh4+Jo/s7eOAiRoDQkrv1bAVyl2RoLGaapl8coeEePSmS6aR
-	 s3DjyqckAcPXIHtfT06MjE9Gd8hL9gl+V1tWKvf5uLqt44S9bypZJZn2Z4qyGOgWxh30Y
-	 fysF6+aWLtnh18HszdSlaSiKdld+ro4sTUFtDgv4ETwi9tRPmqsKIHvQ8mQ8Pwnhh3w==
+	b=vDPbwlmGZQVjbKVDZd5FjfimNheQf4DLNALpn202UUqNmh1DWjKRARKTXz+DFBIDrz+v
+	 58fPySQQrs4vuv2gIKtyvydchByXspM7wIXSW0MrQL3c2FWvqWztLWuzmLYGzvU+jtpEM
+	 lniubxTKo7Y/BG2GDnzkNhLGKINiRKnPnUoZpasNX96h1inRkwteUhB5UZSQM5tZvVb7z
+	 GnFD8TcmmxC69FysU57xyJeJMx8+pM99qi9j1yKulm1KCNfVbC5H9+GHTqh48iD4RMt9w
+	 S8foOFIDDc1RPFsJSbnf5Dji7pmwOqYRJD1D9BC/8/zIgdqRP/eE+BJULP8Uk4LtS+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795705283;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mqhAhHB7vPlwGDwxZqYLFatY/bfJH2IOuH9vDe+kUjI=;
-	b=ZeRWJ4OVUWC3cp5aSRog8Gn+nXy8rxC9w3Ywk0I2T71LRvuGwIGPes77eoIl2tF0jHGz
-	 SnJU/6mmkYNP1G2oOIccRY+8nDVibWYqqgVMnRy+/O9Rom6cledHfEBku/MYPP55SXQfr
-	 cnR681zqsTsdKyBIjILxR9bp6yyMLY4t3TZqVaAI+aAyQ1l6sZfrlowPM6/YHIluP6MZU
-	 6HiSqlmpEwqRc2tYmciRr5kyHH133bhLWHQIrDRznsp+fej/CA+/ZZA081ABfkTH8yvcf
-	 74FbvKe3TliUH6mxqlHDi09pKwul0cMykUoHIUwguzVxvb3wV8x7n9YrEdF8Ka8L8UA==
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
+	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
+	 In-Reply-To:References;
+	bh=C/w2FyBdqBk/dnq0rfKVT2UXuhJSj3cnrs8P5rgRnBk=;
+	b=bEukPhU6MSEpjqOdo9IA5KgQfRFVtrNbmxDHJ7juhrHoHL26E38/maWmgln4wkxmHb1D
+	 hHWNU5xcDWAYUjQATQppZlLx80skwwFauegd6yeM0HZHen5XV/ee8w+V6xhOO5vIqXlMN
+	 8Xb6H54zA3DWS/+AVI/z7uLLljtWpf8ZBwzdxzcN9eKoGCTZSairbWIjmmeJhGdAiOL4W
+	 EUSyahV4ozgesRVD6LtRIRodbgnNgJ3u8BCbafoqPJFNIPpaoOhZ17lYr9HukITUl2xct
+	 pI62gH3RT1B/SFo/8TTAg77PQNXtFAoipilVL67JaCMAURnfT3MY4N/26qB4PGvGPFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xY6Q8jYd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h7U4vNew;
+	arc=none smtp.remote-ip=95.215.58.219
+Received: from mta1.migadu.com (out-219.mta1.migadu.com [95.215.58.219])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621F2606A321;
-	Thu, 26 Nov 2026 15:01:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87742606A31E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:01:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87742606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xY6Q8jYd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFB901F000C0;
-	Thu, 26 Nov 2026 15:01:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795705282;
-	bh=mqhAhHB7vPlwGDwxZqYLFatY/bfJH2IOuH9vDe+kUjI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=xY6Q8jYdCUv1Wlg7ETCICWh0j4PmX6Wy6RUoA15pBKkBTebSV+ZyAb1UzID99Tu8k
-	 ru6vVD85lJO4T0P8wsHANq1OVHlYK392paUOBYtFQRU2Vsi3V5GfLUR5AsORto4fah
-	 i5sgiIZ0IQC9PbfgSqz0GnU8dFDfluEWwUNZk/1E=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Kyle Zeng <kylebot@openai.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 146/319] net: require a full socket in sock_confirm_neigh()
-Date: Thu, 26 Nov 2026 15:38:34 +0100
-Message-ID: <20261126144010.043474004@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261126144006.732901931@linuxfoundation.org>
-References: <20261126144006.732901931@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h7U4vNew
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7vskAqRNnBmACM3MiTOmQ1c8xLgZhtoid38o3TJo+mY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795705280; v=1; x=1796310080;
+ b=h7U4vNewq2EA/ud1s984TEfpOe7VHgDW/22z/8VSeFlv/2B5YP47KHGdYOMlndN6eINUeYSV
+ lUm7rDfgAUrMFWnSdFs8dW2qh/j1Q0QFb8mCpHB9oCxxyawh2cewKvZqxh2eOjfz9VkNeXtZ3bD
+ sAUez1oR0veS7xhKWv0yI99c=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 81eba1fba23596cf;
+	Thu, 26 Nov 2026 15:01:20 +0000
+X-Mizu-Trace-ID: 81eba1fba23596cf
+X-Migadu-Flow: FLOW_OUT
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,94 +56,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Thu, 26 Nov 2026 15:01:19 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: gang.yan@linux.dev
+Message-ID: <0f1d9633b78cdacd57f4c235a5a787426083d788@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH mptcp-net v9 1/2] mptcp: pm: in-kernel: fullmesh: skip
+ closed subflows
+To: "Abdul Wasey" <w453y.me@gmail.com>, mptcp@lists.linux.dev
+Cc: "Matthieu Baerts" <matttbe@kernel.org>, "Mat Martineau"
+ <martineau@kernel.org>, "Geliang Tang" <geliang@kernel.org>, "Paolo
+ Abeni" <pabeni@redhat.com>, "Mohit P. Tahiliani" <tahiliani@nitk.edu.in>,
+ stable@vger.kernel.org
+In-Reply-To: <20261126101818.3916631-2-w453y.me@gmail.com>
+References: <20261126101818.3916631-1-w453y.me@gmail.com>
+ <20261126101818.3916631-2-w453y.me@gmail.com>
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+Hi Abdul,
 
-------------------
+>=20
+>=20diff --git a/net/mptcp/pm_kernel.c b/net/mptcp/pm_kernel.c
+> index d465524902f0..af3b092e45ba 100644
+> --- a/net/mptcp/pm_kernel.c
+> +++ b/net/mptcp/pm_kernel.c
+> @@ -199,6 +199,16 @@ fill_remote_addr(struct mptcp_sock *msk, struct mp=
+tcp_addr_info *local,
+>  return 1;
+>  }
+>=20=20
+>=20+/* Closed subflows can stay in the conn_list, e.g. the initial one: =
+their
+> + * addresses and IDs are not reliable, possibly even reset.
+> + */
 
-From: Kyle Zeng <kylebot@openai.com>
+What about dropping this comment here?=20
 
-[ Upstream commit c78b47704934e44442f4e48bfdcc99039e3b85a5 ]
+mptcp_subflow_is_closed()=20is a generic predicate =E2=80=94 "is this sub=
+flow
+closed?" =E2=80=94 while "closed subflows can stay in the conn_list with
+unreliable IDs" is a concern of the two loops calling it. And the commit =
+message
+already spells out the rationale.=20
 
-An skb can retain dst_pending_confirm after its original output and
-socket owner have changed. For example, a raw MSG_CONFIRM packet can
-cross veth, have a TCP request socket assigned by TPROXY, and be bridged
-into gretap. Neighbor output for the outer packet then calls
-sock_confirm_neigh() with the request socket in skb->sk.
+>=20+static bool mptcp_subflow_is_closed(struct mptcp_subflow_context *su=
+bflow)
+> +{
+> + struct sock *ssk =3D mptcp_subflow_tcp_sock(subflow);
+> +
+> + return subflow->closing || inet_sk_state_load(ssk) =3D=3D TCP_CLOSE;
+> +}
+> +
+>  static unsigned int
+>  fill_remote_addresses_fullmesh(struct mptcp_sock *msk,
+>  struct mptcp_addr_info *local,
+> @@ -216,11 +226,18 @@ fill_remote_addresses_fullmesh(struct mptcp_sock =
+*msk,
+>  * already created by incoming ADD_ADDR
+>  */
+>  bitmap_zero(unavail_id, MPTCP_PM_MAX_ADDR_ID + 1);
+> - mptcp_for_each_subflow(msk, subflow)
+> + mptcp_for_each_subflow(msk, subflow) {
+> + if (mptcp_subflow_is_closed(subflow))
+> + continue;
+> +
+>  if (READ_ONCE(subflow->local_id) =3D=3D local->id)
+>  __set_bit(subflow->remote_id, unavail_id);
+> + }
+>=20=20
+>=20 mptcp_for_each_subflow(msk, subflow) {
+> + if (mptcp_subflow_is_closed(subflow))
+> + continue;
+> +
+>  ssk =3D mptcp_subflow_tcp_sock(subflow);
+>  mptcp_remote_address((struct sock_common *)ssk, &addrs[i]);
+>  addrs[i].id =3D READ_ONCE(subflow->remote_id);
+> @@ -243,6 +260,20 @@ fill_remote_addresses_fullmesh(struct mptcp_sock *=
+msk,
+>  break;
+>  }
+>=20=20
+>=20+ /* The initial subflow can be closed: like fill_remote_addr(), use =
+the
+> + * remote address of the MPTCP socket for the remote ID 0.
+> + */
 
-The helper unconditionally treats a non-NULL skb->sk as a full socket
-when accessing sk_dst_pending_confirm. TCP request and TIME_WAIT sockets
-do not contain that field. This produces an out-of-bounds four-byte read
-and, if the word is nonzero, an out-of-bounds four-byte zero write. A
-KASAN-enabled kernel reports:
+Another question, why don't you just use 'full_remote_addr' here, like:
+'''
+  if (!test_bit(0, unavail_id) && i < addrs_size &&
+            msk->pm.extra_subflows < limit_extra_subflows)
+        i +=3D fill_remote_addr(msk, local, &addrs[i]);
+'''
 
-  BUG: KASAN: slab-out-of-bounds in ip_finish_output2+0xc9f/0xd60
-  Read of size 4 at addr ffff8880bdc3d880 by task tproxy_dst_conf/1771
+It hasn't been tested, just wondering if there is a specific reason to ke=
+ep
+the duplication here, as I would rather reuse the existing code.
 
-Require sk_fullsock() before accessing the socket field, moving the
-existing helper earlier in the header to make it available here. Keep
-neigh_confirm() independent of the socket type so the skb's neighbor
-confirmation still works, including for socketless packets. This also
-covers the IPv6, VRF, and BPF neighbor-output callers.
 
-Fixes: 4ff0620354f2 ("net: add dst_pending_confirm flag to skbuff")
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Eric Dumazet <edumazet@kernel.org>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20261104132900.1071940-1-edumazet@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/net/sock.h | 19 ++++++++++---------
- 1 file changed, 10 insertions(+), 9 deletions(-)
-
-diff --git a/include/net/sock.h b/include/net/sock.h
-index b178e4b05540a..095a3490c99e4 100644
---- a/include/net/sock.h
-+++ b/include/net/sock.h
-@@ -2214,6 +2214,14 @@ struct dst_entry *__sk_dst_check(struct sock *sk, u32 cookie);
- 
- struct dst_entry *sk_dst_check(struct sock *sk, u32 cookie);
- 
-+/* This helper checks if a socket is a full socket,
-+ * ie _not_ a timewait or request socket.
-+ */
-+static inline bool sk_fullsock(const struct sock *sk)
-+{
-+	return (1 << sk->sk_state) & ~(TCPF_TIME_WAIT | TCPF_NEW_SYN_RECV);
-+}
-+
- static inline void sk_dst_confirm(struct sock *sk)
- {
- 	if (!READ_ONCE(sk->sk_dst_pending_confirm))
-@@ -2225,7 +2233,8 @@ static inline void sock_confirm_neigh(struct sk_buff *skb, struct neighbour *n)
- 	if (skb_get_dst_pending_confirm(skb)) {
- 		struct sock *sk = skb->sk;
- 
--		if (sk && READ_ONCE(sk->sk_dst_pending_confirm))
-+		if (sk && sk_fullsock(sk) &&
-+		    READ_ONCE(sk->sk_dst_pending_confirm))
- 			WRITE_ONCE(sk->sk_dst_pending_confirm, 0);
- 		neigh_confirm(n);
- 	}
-@@ -2815,14 +2824,6 @@ skb_sk_is_prefetched(struct sk_buff *skb)
- #endif /* CONFIG_INET */
- }
- 
--/* This helper checks if a socket is a full socket,
-- * ie _not_ a timewait or request socket.
-- */
--static inline bool sk_fullsock(const struct sock *sk)
--{
--	return (1 << sk->sk_state) & ~(TCPF_TIME_WAIT | TCPF_NEW_SYN_RECV);
--}
--
- static inline bool
- sk_is_refcounted(struct sock *sk)
- {
--- 
-2.53.0
+Thanks
+Gang
 
 
 
+> + if (!deny_id0 && !test_bit(0, unavail_id) && i < addrs_size &&
+> + msk->pm.extra_subflows < limit_extra_subflows) {
+> + struct mptcp_addr_info remote =3D { 0 };
+> +
+> + mptcp_remote_address((struct sock_common *)sk, &remote);
+> + if (mptcp_pm_addr_families_match(sk, local, &remote)) {
+> + addrs[i++] =3D remote;
+> + msk->pm.extra_subflows++;
+> + }
+> + }
+> +
+>  return i;
+>  }
+>=20=20
+>=20--=20
+>=202.43.0
+>
