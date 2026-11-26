@@ -1,47 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795688045;
-	b=TihwJtm74AxCdtz7vYCbmtMghHslOFHzmASqdfisUJNCb4pkgyKk1l28TtGvp1Owxngm
-	 SpipOLqWMMbAhTFgVhOgCma3vo2FSgTzioXURCLUDzK9Sx5cli8UfYGP9a3653U8pNU9W
-	 WqBcHWrugXos8wBqrqZt95FS02uUvZP8+j02TAKoK0Ae1/ArvvFWkskwdy6janj/xvFtq
-	 y3vEjt0btk4No5q2CVBF9dF+iATgxivkKfhjKDQYYJo8J68yl9Q1fz5t+20ItzSL/vo1T
-	 KhfzCN6Qvj++nPfUodmaNuIhaeLS/xIDhzpaQ4IF4RrnDg9QzI+afRsCK2Zo0q/d30g==
+	t=1795688308;
+	b=ayGgsdrWJydKKwStY4Sn0Tq1PFk0ql8yG1Ii8fIQoXQPVVlhVZf/D4y8JHQ+FVPAvZxf
+	 rh5M8eUbiv8QtMebmFLYOjiwANG6zIb3Rv4+AR7yMqfXuuTS4owoOHhuTcbInAcp72jCf
+	 LFFgz8o3w5g1a3xY3rZ/SkykLUDKh7w7VtEcTOUZVa/nUy6f1MywTVoJQKjKERS6hAdtR
+	 i0FnTICDFsjNJTdbq5j7G6hlMUYrqs75G5U90ei9VzaK9mK++F1NAUsBJxwsYV/J6WDUs
+	 UTI6nLo6h4O6uAwr0p2hj9VAnK/ymCGVZYVK1W/aCD4yXJKXLCF60VP0vGJGDhsM3Kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795688045;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=vDriNQ3B2hWeCHBvaX/FNBaF3g0HVn2vF0XkVS24jM4=;
-	b=MyS+1bVowFSDMQsYgg7vMrVnPNi+a+A2waLa7INw8aimhzLdwbD8s50UyHVuaOrC3Llv
-	 LqqV6ImfR3CvM6PZzolN3eDQNqZYT6SR+Lj4UAVTbMOr4f1PKKC6bqFeef95tXNxTCnEA
-	 x6mBLV6bbZawWtJsdxsI6+RCNhHXcSit5p8Ltv/fjUYerpOvDQXR7MxW/prVgXOZCrsBs
-	 ml8EjgRM0/ET1A3KdG90m5qAJRJgyN6jjSBeeoQOZqcpkisQ03e97uSONW1aNVTBAfuyR
-	 f5TL4fkvE/lYyWD9jTcn1YR7jXyG3Fbv/Ia615WmmUQaNU4OTbNIVNBWh2gJ2n9zycA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795688308;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=SQ18LAQ1HnU801OItuw005RCsDZr9KcDeT+UKU9QZrk=;
+	b=eKhgalk9cAxmDEEbSUNa9iTp9mItntVvizzutKhri/r22Y/wHN4HQ/x7iHdYAIAtIz4/
+	 86il343dPoUz8OPyWM3bSXcKNDWcTQFxPF1O0I2q0FykFH0G3KbQf4pOAPkCr2v4ydaje
+	 UqPE639pFxU6bfy/C5WcAPIH4h8G0den7dLyDi3lZnkWNtpTf61fr/aSM7r/Dc4i7Sra4
+	 ONuwku4wDGfSYmL3PH72T5VhAmBZplnRYoOY/MZh08cR+jEXGmxFIv4VjG4Oa0M+HhDl+
+	 ShAbMxaonsDsICA+wdXe4SX1F2YgYkwao3S+lT4vofd91hFvTAZJXat+F3Dk2Z5cmaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eKqat4bN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n4ipSRfe;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C620606A31C;
-	Thu, 26 Nov 2026 10:14:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A6E0606A31E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 10:18:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A6E0606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eKqat4bN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 352F81F000D1;
-	Thu, 26 Nov 2026 10:14:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795688044;
-	bh=vDriNQ3B2hWeCHBvaX/FNBaF3g0HVn2vF0XkVS24jM4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=eKqat4bNRTpejCSTRfpkiRlcCOEMRlT8NwZ/pHg6vfu7reJpQHvm1gzUdOLQVH5JN
-	 9lFDX8h7Y0IUCW+1ga/TXRpiYly1T9dkiyMoRkx7F3/+moGRuIq1v4lbndzzmBwLoR
-	 rWfvP3LYofaD5BsCxZY50BtzGpm9yo9cMQdsuzEChF47ku4oR0fiYUGJpCPR2NzVpD
-	 K8tsWciYBubc9AkpRMdQhV/lc0sg3o06lGa/syTxeADyiYztdeTbrhk4W9QVsKmvBl
-	 NQOMjnuRtQ+S/dR5bh09pN/Cq42eG5W2KoGys8uv2hfTzV5iHXYQvRmR9069SN6/JZ
-	 YAKP4LLfgjWoQ==
-Message-ID: <76a1d48f-7425-4cd9-a88b-dbb453c6f95c@kernel.org>
-Date: Thu, 26 Nov 2026 11:13:59 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n4ipSRfe
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-38190551625so13341773eec.1
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:18:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795688307; x=1796293107; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SQ18LAQ1HnU801OItuw005RCsDZr9KcDeT+UKU9QZrk=;
+        b=n4ipSRfe585AiYJganVy5ezuAaIHTsmG3RD87+5ZCOqcHtb488yP5R6v8XO9yqBrcC
+         dmXwPygmt7glXEY8qVoqJfFK9HHN3MRZIgmVxq5muyj5gbZM/ZILnLoku8MvjZ8ssRg2
+         e+YIMMMII9szW7edcKWh5h6Bn47V6WnJlTBXjp1AW2xhgGT8N/6IlGVrAVdOXUyr1qKw
+         AHWjbgmDFz2qAyFn6lZOEmVxk+UcK+7vj6SgjDU/eCmTIznnSwZO6GjA5lj/gaze3bDx
+         UZHuSML3TJKuPWu/O0GI4HnTcaFEiLa6irnK3RIOyi1Y2hhyFmFAfjQL0NX+no3TvoxF
+         RKiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795688307; x=1796293107;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SQ18LAQ1HnU801OItuw005RCsDZr9KcDeT+UKU9QZrk=;
+        b=TC3smueRJQr7yduIyzjNCbl8K/8l/uxQETOO1SJL9LYA0nRyGjmetyeq+MR/rEireR
+         cPbkBQxB6pK9lg7690bNAQ3Pr5FfgPaIew2GJHdIGM6AXA5WoF0mOQ4fsgc//kut0R4v
+         vshkzS/f6vDagfWNSw6GBparhAiMeoRXIhDK9IgVHFq+uIVK6dPDW1vZn7OxHBw9xxdu
+         u4XFPYKE6bieC2+Ng2ss5QLwOnQXMfqPAJw5cBAyq2m0mmPgO1oqtYlbz9cFJyZ9pjMV
+         3lKqRfaq28pLxKQsf/BYD0xkOkqg6dtJ+siLIh9mdabeX9MV5dOcqHgS9gcMl3sFpgCX
+         ub1A==
+X-Forwarded-Encrypted: i=1; AL+hErHDpvHR9IV42e3Z5awv5Uw4QKufYCFukykoYl48Y0J5aDvLLFcx1flddJXeAM5F+fxa4fcpO00=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/84m2Dt5d89ZvOSysQSN/CxBp6LYJ1NZVEpHUt/6wveabNdsDp
+	31WxPFCLZrhHAkoDqBp20rm/kqA77CzVn03TcIiZQ+jAH6+ViA39wR5j
+X-Gm-Gg: AZFdTZeDuPCNc0teKRDN1rEPKd09j0emAyuOJRaIYipDHqGHYemrgTKHTwrUA/+qAVi
+	QPXY1KQ2AVknYw0PLORoZ7R/yMIghpDDSg+wrI5gGcRhjsny6MfxYwIsGFLHhChD5EepwIw/IAu
+	6gMKM86OmqcqeeYSrNrh+HiKNdV6HinCyvJM4Sp93i7ZAaFQHqyGhYgVT0YXwN7Ide6ZvNINOYL
+	nxG62ztqyIaP3/yrysR96EmKe4znzwP3ObD2qq1wiX4XUJUbHiT2sr+jzSqrmZEGTDTknBUHqE3
+	xSR50llsLi3GV47/RMjPeJ4Jdh3v900CZXR37bp9DfZ9TOEZCcTelgYcyuUU9PGSiW4n40oxyOX
+	6CDbDtfcKuwcGgG/JBWM4M4/7Omg/t1UeOexk25PPo2zfBBYHIJo7CaR5WXkW4JLVKIgdN4x98h
+	Rk2pcy/o5DWhqKji7+VFZB0hR8pwnT1PAkqlDn6UF4m95lPSeXAc3i6IGFaFAmghc2s7pk87b7B
+	bkZRXv62y1XuQW01WFgeafHYiSHCBVeVJRTBbiO3+8iW7ZOQlZRyMXfTWl5SvpPoVCx2Z2kILTB
+	Ow3/lHkoYX2tjh9dZqgJ/kop+bo0OeEwdnQ=
+X-Received: by 2002:a05:7300:bf10:b0:376:b957:bfb with SMTP id 5a478bee46e88-3856f7563b1mr25741485eec.17.1795688307302;
+        Thu, 26 Nov 2026 02:18:27 -0800 (PST)
+Received: from mptcp-lab.w453y.xyz ([59.164.88.43])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38566cd40c5sm74221227eec.10.2026.11.26.02.18.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 02:18:26 -0800 (PST)
+From: Abdul Wasey <w453y.me@gmail.com>
+To: mptcp@lists.linux.dev
+Cc: Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	"Mohit P. Tahiliani" <tahiliani@nitk.edu.in>,
+	stable@vger.kernel.org
+Subject: [PATCH mptcp-net v9 1/2] mptcp: pm: in-kernel: fullmesh: skip closed subflows
+Date: Thu, 26 Nov 2026 10:18:17 +0000
+Message-ID: <20261126101818.3916631-2-w453y.me@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261126101818.3916631-1-w453y.me@gmail.com>
+References: <20261126101818.3916631-1-w453y.me@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,144 +101,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv3 2/4] powerpc/watchdog: Disable preemption in
- arch_touch_nmi_watchdog()
-To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-Cc: linuxppc-dev@lists.ozlabs.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
- Venkat Rao Bagalkote <venkat88@linux.ibm.com>, linux-kernel@vger.kernel.org,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>, stable@vger.kernel.org
-References: <cover.1795441238.git.ritesh.list@gmail.com>
- <8a70fa42449a63a73b8340d3296974cc519b5826.1795441238.git.ritesh.list@gmail.com>
- <awZ2qXSxXPO3XUUb@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
- <o6bdjkq1.ritesh.list@gmail.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <o6bdjkq1.ritesh.list@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+With fullmesh endpoints, if the endpoint used by the initial subflow is
+removed and then added back, no new subflow is created from it: the
+connection never uses this local address again.
 
+The initial subflow is kept in the conn_list once closed. If it was
+still established when closed, it keeps the local ID 0, which is also
+the ID used by the re-added endpoint, and
+fill_remote_addresses_fullmesh() then marks its remote ID as
+unavailable. If it was already in TCP_CLOSE, e.g. after a reset, it is
+disconnected and its context is reset: the 'closing' flag and the remote
+ID are cleared, and its destination port is zeroed. It is then picked as
+a remote address, with the port 0 and the ID 0, which also marks the
+remote ID 0 as unavailable. In both cases, when the peer has a single
+address, all subflows use the remote ID 0, and no valid remote address
+is left.
 
-Le 25/11/2026 à 10:58, Ritesh Harjani a écrit :
-> Mukesh Kumar Chaurasiya <mkchauras@gmail.com> writes:
-> 
->> On Mon, Nov 23, 2026 at 07:21:51PM +0530, Ritesh Harjani (IBM) wrote:
->>> touch_nmi_watchdog() can be called from preemptible context, e.g.
->>> sysrq-w via /proc/sysrq-trigger. The powerpc implementation uses
->>> smp_processor_id(), so with DEBUG_PREEMPT we get:
->>>
->>>    root@buildroot:/# echo w > /proc/sysrq-trigger
->>>    sysrq: Show Blocked State
->>>    BUG: using smp_processor_id() in preemptible [00000000] code: bash/238
->>>    caller is arch_touch_nmi_watchdog+0x3c/0xd4
->>>    CPU: 0 UID: 0 PID: 238 Comm: bash Not tainted 7.4.0-rc2-00029-g7664547149ae-dirty #126 PREEMPT
->>>    Call Trace:
->>>     dump_stack_lvl+0x138/0x150 (unreliable)
->>>     check_preemption_disabled+0x120/0x158
->>>     arch_touch_nmi_watchdog+0x3c/0xd4
->>>     show_state_filter+0xf0/0x338
->>>     sysrq_handle_showstate_blocked+0x24/0x38
->>>     __handle_sysrq+0x134/0x3a8
->>>     write_sysrq_trigger+0x178/0x22c
->>>     proc_reg_write+0xf4/0x150
->>>     vfs_write+0xfc/0x71c
->>>     ksys_write+0x8c/0x150
->>>     system_call_exception+0x310/0x590
->>>     system_call_vectored_common+0x15c/0x2ec
->>>    ---- interrupt: 3000 at 0x7ffd01755b98
->>>
->>> Unlike the generic version, which only sets a flag, we update the CPU's
->>> timebase stamp and its SMP watchdog pending bit, so a migration in
->>> between touches the state of a CPU we are no longer on.
->>>
->>> Disable preemption across the update. While at it, let's also mark the
->>> function as notrace (since we might be within a tracer when this
->>> function gets called).
->> Do we need to also mark wd_smp_clear_cpu_pending as notrace?
->>
-> 
-> aah yes, I didn't see that there is another function which is not
-> inlined. Thanks for spotting that. The reason I added "notrace" was
-> mainly to have consistency with kernel/watchdog.c which is due to this
-> commit:
-> 
-> cb9d7fd51d9f ("watchdog: Mark watchdog touch functions as notrace")
-> 
-> 
-> However, after looking more closely now, I don't think we need notrace
-> here at all. To simply put, on powerpc, we don't use stop_machine() from
-> within arch_ftrace_update_code() like how arch/arm does and besides, I
-> think it is even safe for one cpu to be executing the instruction on
-> powerpc, while another cpu modifying that atomically.
+Skip the subflows being closed or in TCP_CLOSE state, both when looking
+for the remote IDs already in use and when picking the remote addresses.
+__mptcp_subflow_active() cannot be used here: subflows still being
+established have to keep their remote ID marked as in use, to avoid
+creating duplicated subflows.
 
-But haven't we identified in another discussion that it might be needed 
-to use stop_machine() ? See 
-https://lore.kernel.org/all/qzh06fxn.ritesh.list@gmail.com/
+When no subflow is left to take the remote ID 0 address from, e.g. when
+the initial subflow was the only one, use the remote address of the MPTCP
+socket, as fill_remote_addr() does for non-fullmesh endpoints. Before,
+re-adding the initial endpoint created no subflow in this case either,
+and another endpoint only worked by picking the closed initial subflow.
 
-Christophe
+Without the fullmesh flag, the remote address is taken from the MPTCP
+socket, so this issue is specific to fullmesh endpoints.
 
-> 
-> For e.g. see this -
-> 
-> commit ee456bb346e75a9b6d941224b108250e6ee5f79f
-> Author: Steven Rostedt <srostedt@redhat.com>
-> Date:   Thu Apr 26 08:31:17 2012 +0000
-> 
->      powerpc/ftrace: Have PPC skip updating with stop_machine()
->      
->      PowerPC does not have the synchronization issues that x86 has with
->      modifying code on one CPU while another CPU is executing it.
->      The other CPU will either see the old or new code without any
->      issues, unlike x86 which may issue a GPF.
->      
->      Instead of calling the heavy stop_machine, just update the code.
->   
-> 
-> And as I see it, this problem only exists on ARM with THUMB2
-> instruction, as can be seen from their implementation of
-> arch_ftrace_update_code(), which uses stop_machine().
-> 
-> 
-> So, let me drop the "notrace" as it is not really needed here and
-> re-spin a v4 with it being dropped.
-> 
-> -ritesh
-> 
->>> Fixes: 2104180a5369 ("powerpc/64s: implement arch-specific hardlockup watchdog")
->>> Cc: stable@vger.kernel.org
->>> Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
->>> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
->>> ---
->>>   arch/powerpc/kernel/watchdog.c | 8 ++++++--
->>>   1 file changed, 6 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/arch/powerpc/kernel/watchdog.c b/arch/powerpc/kernel/watchdog.c
->>> index 44f178e07531..32d4e716cb0a 100644
->>> --- a/arch/powerpc/kernel/watchdog.c
->>> +++ b/arch/powerpc/kernel/watchdog.c
->>> @@ -456,12 +456,16 @@ static enum hrtimer_restart watchdog_timer_fn(struct hrtimer *hrtimer)
->>>   	return HRTIMER_RESTART;
->>>   }
->>>   
->>> -void arch_touch_nmi_watchdog(void)
->>> +notrace void arch_touch_nmi_watchdog(void)
->>>   {
->>>   	unsigned long ticks = tb_ticks_per_usec * wd_timer_period_ms * 1000;
->>> -	int cpu = smp_processor_id();
->>> +	int cpu;
->>>   	u64 tb;
->>>   
->>> +	/* Callers may be preemptible. Stay on this CPU for the update. */
->>> +	guard(preempt_notrace)();
->>> +	cpu = raw_smp_processor_id();
->>> +
->>>   	if (!cpumask_test_cpu(cpu, &watchdog_cpumask))
->>>   		return;
->>>   
->>> -- 
->>> 2.39.5
->>>
+Fixes: 045e9d812868 ("mptcp: fix duplicate subflow creation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Abdul Wasey <w453y.me@gmail.com>
+---
+ net/mptcp/pm_kernel.c | 33 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 32 insertions(+), 1 deletion(-)
+
+diff --git a/net/mptcp/pm_kernel.c b/net/mptcp/pm_kernel.c
+index d465524902f0..af3b092e45ba 100644
+--- a/net/mptcp/pm_kernel.c
++++ b/net/mptcp/pm_kernel.c
+@@ -199,6 +199,16 @@ fill_remote_addr(struct mptcp_sock *msk, struct mptcp_addr_info *local,
+ 	return 1;
+ }
+ 
++/* Closed subflows can stay in the conn_list, e.g. the initial one: their
++ * addresses and IDs are not reliable, possibly even reset.
++ */
++static bool mptcp_subflow_is_closed(struct mptcp_subflow_context *subflow)
++{
++	struct sock *ssk = mptcp_subflow_tcp_sock(subflow);
++
++	return subflow->closing || inet_sk_state_load(ssk) == TCP_CLOSE;
++}
++
+ static unsigned int
+ fill_remote_addresses_fullmesh(struct mptcp_sock *msk,
+ 			       struct mptcp_addr_info *local,
+@@ -216,11 +226,18 @@ fill_remote_addresses_fullmesh(struct mptcp_sock *msk,
+ 	 * already created by incoming ADD_ADDR
+ 	 */
+ 	bitmap_zero(unavail_id, MPTCP_PM_MAX_ADDR_ID + 1);
+-	mptcp_for_each_subflow(msk, subflow)
++	mptcp_for_each_subflow(msk, subflow) {
++		if (mptcp_subflow_is_closed(subflow))
++			continue;
++
+ 		if (READ_ONCE(subflow->local_id) == local->id)
+ 			__set_bit(subflow->remote_id, unavail_id);
++	}
+ 
+ 	mptcp_for_each_subflow(msk, subflow) {
++		if (mptcp_subflow_is_closed(subflow))
++			continue;
++
+ 		ssk = mptcp_subflow_tcp_sock(subflow);
+ 		mptcp_remote_address((struct sock_common *)ssk, &addrs[i]);
+ 		addrs[i].id = READ_ONCE(subflow->remote_id);
+@@ -243,6 +260,20 @@ fill_remote_addresses_fullmesh(struct mptcp_sock *msk,
+ 			break;
+ 	}
+ 
++	/* The initial subflow can be closed: like fill_remote_addr(), use the
++	 * remote address of the MPTCP socket for the remote ID 0.
++	 */
++	if (!deny_id0 && !test_bit(0, unavail_id) && i < addrs_size &&
++	    msk->pm.extra_subflows < limit_extra_subflows) {
++		struct mptcp_addr_info remote = { 0 };
++
++		mptcp_remote_address((struct sock_common *)sk, &remote);
++		if (mptcp_pm_addr_families_match(sk, local, &remote)) {
++			addrs[i++] = remote;
++			msk->pm.extra_subflows++;
++		}
++	}
++
+ 	return i;
+ }
+ 
+-- 
+2.43.0
 
