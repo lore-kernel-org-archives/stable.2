@@ -1,55 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.128.211.58
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795706459;
-	b=zzFaMrHNeotR8pTK7WHcJ5A95/zwl+fgwd5hPzUQ313ZoowOWBPHFcD9vULIcKEBrgLk
-	 iLrvFPMzBcRMzM/YXeELOUy6/tEmdkE3F5NTNsYTyQIQxT9bNYbUoLl1iij3DBN7Pvf3/
-	 nln13DHJqQUVKo/fxT25dcWnVTFEMc2yfMHFzdxk2DjaQUHoZHpcaD1S9uvPIYJAkrkSJ
-	 orC1F7QL7tKaIkQvE1WfN+O152sHx//7cxWvCuTZMU8+07r+KgAeli2cQdee2GEoM5ek3
-	 g0+HU1oGoy7pbbko53lVeZCF+L3imfBVA5XhPCr9zH3QTweC5zY7dcJGUIVFMGCygBg==
+	t=1795706473;
+	b=PHKGrAxyd/QOSw2WTYY3bsi191r/pXi5oJwta3vKnJNsy78vxoV4XgqvuuGxeoFgkHi8
+	 2759UPjYdrlmt10cxViARsjCeQuvUceouc7BUlwxTpsBNeVRzSLoiCE00BVrf7w11uIjB
+	 MN6+c5umu6xDRB7Ei/XaFjvwx8NIT6G9MhD68x4+xfNgX/ShRQcf1FgBMURRF/wqzQfxW
+	 OclmqWdqs6gKzFxVCAEB9jxaGFTiwcEbKhfcKTCG6MyrYRj3Ksxy/3zoOA7F88lbewTdK
+	 +l4PoVQjZZDPgzfq9VN78WZStQb3G5I4hnrwD2gt5bMgNtnlmlZCQ2lviQwmN9A7jMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795706459;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Ayq5vtzWS2oYbGLEO5dP5uVn44ubctqfKqYWVB0qSyE=;
-	b=CKqQ135lHLMXhUzsppO4V+x7ToEYWAoXBmqrvaWXhPDvF9q5XdEI5OgA1Qd/+INKONBN
-	 gMIKn6rLhYjTlshiMAvWj/fAYUDymwrQ5a1G/u7/zPYAi4uqxjiCJaXEQPfH+/Us1NwZN
-	 t6DThPJX52Lp931Q8Lkh8TPqiGgvuxfK6i+FbtGr1pf2N12lJ4NSaCiecJCZH7IPAnDrw
-	 oeNzhgbLnDoqn7Ga5CaLopq0YtDGrxPos1voX53eur8aG7GL2nqsXx3VeU62eWIFIEL6U
-	 x/erdpl8KQqaiMsAfbwZdcPQ0/Eg7L0NcaSK44UoBKJ5Zm4LDhYl47wrgwTgT59ZwfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795706473;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=LPCVK2nUqlJeOSs2RKIyxIYO2gZqoAZrPrguVsEqfzs=;
+	b=pOCUaiZ7SwAzuKcaS1lokdbn65CzODK2zpxb4+6WwcbqZD0Wh3G6RdKJlHaDr9obp3Aw
+	 LixgKIM+eKSe0qJuCA7jnq8E+DnOlhk7wzgKUc6vGdSmWIzhoK/eRnXPaCF2GmwaYot6s
+	 Gq9+kEH1SYo8VkOg7YL+fdAWIhIm+Xue0aQ6rof1/wUP2crWpgTZssbFgJtRIKcJIvJQv
+	 R/p8WDop2FNyRs1O8yRGRkLE3E/L/bEnlDJO1bq4frY838WkRtkQYXGpCwxoWapks6w+q
+	 4Md64j0vzkGRAYfqYLxTTVMSpcuC084x2poFQBpXieErs74R0KOcCD9GTJOdghudmaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q9ok+NFl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=librecast.net;
+	spf=pass smtp.mailfrom=librecast.net;
+	dkim=pass header.d=librecast.net header.i=@librecast.net header.a=rsa-sha256 header.s=2026110900 header.b=B9qjo5kJ;
+	arc=none smtp.remote-ip=185.128.211.58
+Received: from bregans-1.gladserv.net (bregans-1.gladserv.net [185.128.211.58])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58069606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:20:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD9C606A31E;
+	Thu, 26 Nov 2026 15:21:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBD9C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=librecast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=librecast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q9ok+NFl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 683451F000C4;
-	Thu, 26 Nov 2026 15:20:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795706458;
-	bh=Ayq5vtzWS2oYbGLEO5dP5uVn44ubctqfKqYWVB0qSyE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q9ok+NFlebQ1h/AAs3gNs+65Yfu32sXIYGkEAbHaelJzKe5tjN1OROOGDKRkLoacX
-	 2lDT3RXRHrKSE4o3QffhBw6crY4t4OBgFU11I0Pi0HblTbVAAeuSVaX2GvCuTvKRsD
-	 w2oH2P2VFZI+YB9IfjJunR4VjzsOM3H3mLFHA8pPWWwuwIqY+xby3Kwn9xTa8BMclE
-	 E2g/28BEeJso8HxLUl1+G9ONcJH5QQCoxX7Irz3R4y6Hge52nu7wbVzuS3yOn8S6M1
-	 5lIaA9mlog+zgBDkgMGIT8jzzAFQDlDq5fMjSf2MCtvT5aBbDdVePkj3CU/MKwN8wz
-	 +p0QI2bcetL0A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] tty: fix misapplied compat_ptr() in tty_compat_ioctl()
-Date: Thu, 26 Nov 2026 10:20:57 -0500
-Message-ID: <20261126151632.2370124-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112515-cardigan-coke-3d3d@gregkh>
-References: <2026112515-cardigan-coke-3d3d@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=librecast.net header.i=@librecast.net header.a=rsa-sha256 header.s=2026110900 header.b=B9qjo5kJ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=librecast.net; s=2026110900; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=LPCVK2nUqlJeOSs2RKIyxIYO2gZqoAZrPrguVsEqfzs=; t=1795706471; x=1796570471; 
+	b=B9qjo5kJad71kR/OssxJlLOQgD5zBNxDB4RhdGlfacNeMIOo95GQStWgCJ1pxxVjqmFjWwxRi+1
+	FcYNs9s4J+ztWfZAhJLMlLd4o7ls1y0GKNCE2QVvdTiNoUHk/OFFH7XGgYtMzlmIvb4GJmhwzd7QL
+	CepB8Ad61AMRHQ8bNKEOGE422YOJYY+RXJ+gkCgZu86ViEt4dO3VQ4M7SZgzUoN7vIAAS86UJ4Hrt
+	0LlFCd9tDGALIf0LUkjM400JHjEt0mx0A/6aMnBodfN1yA4i2aPoK8MOjTi+XvIi9T/bNYNrTzCVx
+	bLq3VK8f2w5NR3lGU9mU13Jbw7+44lloC1vQ==;
+Date: Thu, 26 Nov 2026 16:21:03 +0100
+From: Brett A C Sheffield <bacs@librecast.net>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 5.15 000/319] 5.15.227-rc1 review
+Message-ID: <awhOX69A7DAA_-UX@karahi.librecast.net>
+References: <20261126144006.732901931@linuxfoundation.org>
+ <awhK_0exBWstjZw7@karahi.librecast.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,51 +69,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <awhK_0exBWstjZw7@karahi.librecast.net>
 
-From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+On 2026-11-26 16:06, Brett A C Sheffield wrote:
+> On 2026-11-26 15:36, Greg Kroah-Hartman wrote:
+> > -------------
+> > Note, this is the LAST 5.15.y kernel release to happen.  After this, it
+> > is end-of-life.  You should not be using this kernel tree at all, UNLESS
+> > you are an Android system.  If you are running Android, please go get
+> > your 5.15.y updates from Google's public kernel tree after this release
+> > for any "important" bugfixes for that platform as they will be keeping
+> > it alive for another year or so for their specific platform
+> > configurations and then it will wind down. But really, even Android
+> > systems should have moved on by now to a more modern kernel...
+> > -------------
+> > 
+> > This is the start of the stable review cycle for the 5.15.227 release.
+> > There are 319 patches in this series, all will be posted as a response
+> > to this one.  If anyone has any issues with these being applied, please
+> > let me know.
+> > 
+> > Responses should be made by Sat, 28 Nov 2026 14:39:40 +0000.
+> > Anything received after that time might be too late.
+> 
+> Build failure:
+> 
+>   CC      init/do_mounts_rd.o
+> init/do_mounts_rd.c: In function ‘rd_load_image’:
+> init/do_mounts_rd.c:277:9: error: implicit declaration of function ‘init_flush_fput’ [-Wimplicit-function-declaration]
+>   277 |         init_flush_fput();
+>       |         ^~~~~~~~~~~~~~~
+> make[1]: *** [scripts/Makefile.build:289: init/do_mounts_rd.o] Error 1
+> make: *** [Makefile:1925: init] Error 2
 
-[ Upstream commit 895dc0eaa2779ff46a0b2a20b5ce9eb0b1125cb2 ]
+There's only one commit that's touched that file, but here's the bisect log
+anyway to confirm:
 
-Since commit f0193d3ea73b below, `cmd` was converted with compat_ptr(),
-while `arg` was passed to ld->ops->ioctl() unmodified. Fix it so `cmd`
-stays `cmd` and `arg` gets converted through compat_ptr() as intended.
+git bisect start
+# status: waiting for both 'good' and 'bad' commits
+# bad: [a9da0b4a13a74d7a1467763436363f282daf1dc3] Linux 5.15.227-rc1
+git bisect bad a9da0b4a13a74d7a1467763436363f282daf1dc3
+# status: waiting for 'good' commit(s), 'bad' commit known
+# good: [4f2df9a01754521fbba3493e8ad91ef65515e68c] Linux 5.15.226
+git bisect good 4f2df9a01754521fbba3493e8ad91ef65515e68c
+# bad: [47697c180afc80509e5e97988d4d89752e2c2a0b] igmp: use the joined device when leaving a multicast group
+git bisect bad 47697c180afc80509e5e97988d4d89752e2c2a0b
+# good: [742f6ce280227e06c5733ff398d06ec3493dab21] nvmet-tcp: limit the connections accepted per work run
+git bisect good 742f6ce280227e06c5733ff398d06ec3493dab21
+# bad: [6b9cba97bd3643bcc6e34d5a820a4355b6338aa9] locking/osq: Switch osq_wait_next()/atomic_cmpxchg() ordering
+git bisect bad 6b9cba97bd3643bcc6e34d5a820a4355b6338aa9
+# good: [61c45b12bc4686b73eebba53ce4c21cc294d4410] ALSA: hda/core: Stop capability walk on empty capability header
+git bisect good 61c45b12bc4686b73eebba53ce4c21cc294d4410
+# good: [4ce5f905314dc6434f6f1aa3f2d24c7de0d17076] MIPS: Avoid dead code/data elimination when using recordmcount
+git bisect good 4ce5f905314dc6434f6f1aa3f2d24c7de0d17076
+# bad: [d72db6abd57295c6353918412ce527de32d317a5] include/linux/fs.h: add inode_lock_killable()
+git bisect bad d72db6abd57295c6353918412ce527de32d317a5
+# good: [c2f40975285feab0a3a0733a193290db0f941a52] MIPS: SB1250: Validate and update IRQ affinity
+git bisect good c2f40975285feab0a3a0733a193290db0f941a52
+# bad: [099ed898765127422a634c2768820b3de329ef5d] vfs: preserve subsecond timestamps at filesystem time limits
+git bisect bad 099ed898765127422a634c2768820b3de329ef5d
+# bad: [f1311182306c2b85f4724cb776467034a36baaa6] initrd: flush deferred fput() before mounting root
+git bisect bad f1311182306c2b85f4724cb776467034a36baaa6
+# first 'bad' commit: [f1311182306c2b85f4724cb776467034a36baaa6] initrd: flush deferred fput() before mounting root
 
-Notes:
-2) compat_ptr() did nothing to `cmd`, provided it is uint,
-1) compat_ptr() is no-op everywhere (was different on s390 before
-   8e0b986c59c6 ("s390: Remove compat support")),
-3) `arg` might not have been chopped correctly until 8e0b986c59c6. But I
-   am not sure why noone noticed all those (7) years (from f0193d3ea73b
-   to 8e0b986c59c6)?
+Confirmed that reverting f1311182306c2b85f4724cb776467034a36baaa6 fixes the
+build.
 
-Fixes: f0193d3ea73b ("change semantics of ldisc ->compat_ioctl()")
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Cc: stable@vger.kernel.org # applicable from 4.20 to 6.18 incl
-Assisted-by: LLM
-Link: https://patch.msgid.link/63e9d84a1e8e23852423206cf3f8907aafc88f17.1793704520.git.jirislaby@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: adapted the ldisc ioctl calls to the older signature that takes an extra file argument, so compat_ptr() is applied to arg while file and cmd pass through unchanged. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/tty/tty_io.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
-index af8a45dcf1354..a05f1b44f79b3 100644
---- a/drivers/tty/tty_io.c
-+++ b/drivers/tty/tty_io.c
-@@ -2964,8 +2964,8 @@ static long tty_compat_ioctl(struct file *file, unsigned int cmd,
- 	if (ld->ops->compat_ioctl)
- 		retval = ld->ops->compat_ioctl(tty, file, cmd, arg);
- 	if (retval == -ENOIOCTLCMD && ld->ops->ioctl)
--		retval = ld->ops->ioctl(tty, file,
--				(unsigned long)compat_ptr(cmd), arg);
-+		retval = ld->ops->ioctl(tty, file, cmd,
-+				(unsigned long)compat_ptr(arg));
- 	tty_ldisc_deref(ld);
- 
- 	return retval;
 -- 
-2.53.0
-
+Brett Sheffield (he/him)
