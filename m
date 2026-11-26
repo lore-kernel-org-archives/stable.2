@@ -1,80 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.48
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795689296;
-	b=XjavuOagXIMsmRwk+bchEzxz2zkgemNykAE79jpyIrpopDxDt9iSs2AVOrQBzYASPqat
-	 5oQlLGVqRVl1ceGHk4EPuLVDm1yUxT+z5f8EHMGvL47GUXYpupiUfvpvWfmh1tK+zjkwO
-	 H8SAQdsllyU+QUqzUycBkV19d0/onEkv46r3F4hmZbgE9bNF+2q0F1E4GZ0ODz6LvfHMJ
-	 S4tkhPUaaMFy+JIW09+L3DbZnI1CWflSg455JCWR5rv7EQWjXR5aV1EFBTHh8jCmKrcWY
-	 ItQdQOxe3V1P//vSCnmGbybV5/CFgeQZwC1WjeRIoO+VF3PSVIEgV6dQ+hkMKqOpVIw==
+	t=1795689684;
+	b=txkIjeynBYCATSAwe3aFUUCKWup1qBCEPY/3tv04k1mZm5wNmdz31acLPsr5iNw2GbRD
+	 9O5ZTQcDKahJkCggC3iDlQYJk9g4qsx2TxOPok5Jg5i5Ti8kD114UAI5U7aAJJ3DfOozE
+	 PLsk1DCoFJz87ZxeOYBoYV4TZLz8imkJw1DD/tZafX2TKG9UrPPxb6xijSiFs+f5wQZnj
+	 sfeNUtzZ2qbs5yiDpxye6FXaYZ4iu5tBjS4NhL7cEqRRB1ryRaC6W6pKbXLa9epUKEujt
+	 CcGlfK/sTwerqu8+C/mgeMg5knRXoF4GjrN8bRw2UmNgl/0iL/nBk08hwYG0YimwHsg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795689296;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=JgQXv7FdgOeE5H/CalcuK3oIqiWd+ZRvVVk3oyr25Ko=;
-	b=e05mDlK4VaMXtlfXRBVat0lJ4bg/V6NKIU14G/mFQZfxOpZwlFSvu+saAVb2gP3VZy8u
-	 +g4v5x1vln2FLaCBX+pVA4558ErYT/mMt4TfE4/IwSlTHsHOKHLxIaBy08siliaulhmw+
-	 0P4/TjVOi7bo7wHm7DNO2pfDLS1h3co4IIOV/2+VoZcNWdjpEOA0B8+ZZonkAl9g5AmFK
-	 dUPcl72CIzs62RNHz0KryjhTVkmF6TApOKZAS9R8DvJZ1dyW0+T5pG9XpYlqXmuO511Zj
-	 5WY1c6THSHc2v64xtY+4PGHBY+N5/GVPUOb9Uk/HzHDxX7nozX7Bir8Z04Aycvlh5Fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795689684;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:MIME-Version:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Content-Type;
+	bh=5L10UPph3rpRCzL0clTnMvz/d6onHkzoKgkZYIrhdEA=;
+	b=awsMGQ+SLKsJ1Ah/YibF8JKvCGh+vHNc3In40lBEJrerQjqe2BLX0WTBxVVS3pU3Dzra
+	 qtVm9UfVLDGuzd9fA/1NNBU2OubNAu83b7m4GhNqIy+emtuLx5ePiS3bnlr3JSMv4P6vd
+	 IgjxXF4mnWJIAJ/uFr5l27v/waRqNIm0LN70uRlHTk10GtnRnrdIicNyl9LCiOkdNwjhJ
+	 5wL2ONq0nJ5vH0S2VkI76jOBJxtK9lNflR+UylZgWtoVL5i116J2Re0DphvMbZOjqp0dT
+	 e5GrCh0iBTjmg2KxBt+ip0wsF61GsNgVPG8SFuMKW0PdwpEq6XS111mxFTHuOh9YllA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VS+d6Pt1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79F3606A336;
-	Thu, 26 Nov 2026 10:34:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VS+d6Pt1
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795689296;
-	b=CcWARuQKkEo/GEoxfkNw+N8A/oMrBUIenavlG+ZX1wbV4LyFaAplJBLCjYvZekElPSYa
-	 7KVMa02jT0LlA+f6qg69XlfMMUHnUhl+rwDxmdo6aJ0uMNuW618028qqABk2zrlyiuOmh
-	 B/FjDCVr1wPGfd7c7belUZXWKmOTxSqSxr+oZt2b2c8hyaYt9V3Sm02iNDRyNxthfSwyq
-	 BnTqT8HrQaEU0SCCldugvCWY9OpYorDf505SnkU2KewvYMcHa68zsMJtPGasgL7DA9mn0
-	 ynOM7NQzjm4c55xlay7kLnlNTPjcWVTsgrHHNcOs1v7hw6qRPB+H3l5s5pKh+j52dCQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795689296;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=JgQXv7FdgOeE5H/CalcuK3oIqiWd+ZRvVVk3oyr25Ko=;
-	b=22EVORb6rMjWNx7AL6qdJ6TlXyqMsCBq57Q7yJV5+VA3AryMqlm6qcRsDQGjyj2lBA6K
-	 GWIUSkuGkuZYY7nmYgxNcwKWQ2hUSdj5jxZYVPleOlobESCX7BST0GYNmio6LZh6b3EsQ
-	 KcCxY5PeVsywsE7M09O4MfO+on1GYzQpKZ09I3sVzuk7nHci2N3dWy2l50ZpOfVyuwLHY
-	 md/c0HWzxKP19RcK3RR8DBkxh8x4pLbQemqTIuaIyr8FQ6VXbJISSK5XE97XbsS8YRO4v
-	 Cuenk0I6EqGU//NFnO7EUFFU+6tty98SFZH/7liA3+vFZcIU0T9zX128fTSR9lSJmjA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=certik.com;
+	spf=pass smtp.mailfrom=certik.com;
+	dkim=pass header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=POFbXVVr;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.48
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 603DA1F000E6;
-	Thu, 26 Nov 2026 10:34:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795689296;
-	bh=JgQXv7FdgOeE5H/CalcuK3oIqiWd+ZRvVVk3oyr25Ko=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=VS+d6Pt1G44+/5VFkW4PSjAF7octuB1NnUIRf0VR58EvC3wZ9tI+S9d5MKq9iijY6
-	 F2fDrx6Pm2bOfyRmmqCFO9caz/nIiY16fXLWotBZN1F/YKU2OE8zWAu0SaSRZP+f0f
-	 PzW5Z+Ajqm1eM/mC4RuwloXADSkzh4RDKNx39EGrTyJTlvjvBMrFmZx/dNdWMNKQ21
-	 oZlcbL5NHLVfcl792PNeHWp7qgIvP7idBAsBh6Xq0ek30FT6ILC05ZcuJXczNqELUD
-	 xZIHCS+UHyNVUDJcgUNMLZ6DbrRf9t1sv34HkOiecDKQLFRPJKVWXHnVdj0PmzDnlO
-	 21OcyG1bZ8w+Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E5C5C4D449;
-	Thu, 26 Nov 2026 10:34:39 +0000 (UTC)
-From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
-Subject: [PATCH 5.10.y v2 0/2] KVM: x86: complete SRCU coverage for vCPU
- events
-Date: Thu, 26 Nov 2026 10:31:56 +0000
-Message-Id: <20261126-kvm-510d-v2-0-bcba96aa2088@certik.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03DEA606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 10:41:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03DEA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=certik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=certik.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=POFbXVVr
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-67db35e7953so6943669d50.0
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:41:23 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795689683; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pQzNzQfpYgHKfaVawhsaSfJk0+OS2/qqr9j9zNdb5jj4l4/WQb4MbvTG6WGW0uDUpr
+         YFlP4gp6+NQVuTRh2Es+QSNEcmeps/CggUb90bxTw1hgEVVu4L56o7PYHkDnz28vncay
+         /LrF669YKCFf6+rE7OgRCJ1Ny4obWcK9CLmPUTQlt5BU4l4SVGSsYFlFXhWE/duvXeUt
+         txMwno2hFV5fyVKdttOO7yNQUXlU69verPn6xnAD8p8DRwH05uLzJjYzq9NLtZ6Js8X7
+         BJfG+tdsqW8vpfKZMeDiAONsS9/sZYrowT1cSvzRA6+8VUqVO7YY2rByNPa6kTDFsHeK
+         hntw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=5L10UPph3rpRCzL0clTnMvz/d6onHkzoKgkZYIrhdEA=;
+        fh=RvEWwL4CdzthXqFPrJY1v5EhszSUJtREhzms1oh7XMQ=;
+        b=PLAAPJEucN7XsgS3IbCajtnFAVlnyOmOOUlKcH97sAPI+vNbpdEIlMDa8eauU1Sg9y
+         qt2T0GQHxQGrbytf3Vh08YJ/4eI28PJL/UayN3556lYKaj3SZP+B8+dO3XULVbvWKWLJ
+         bIpWbL2QIf74bU6ok47UEN7aFX1MpG7DgcVPQF0w3nYKac4qdfI0TUPv9qL1OAVelaLK
+         rK2WTNVjH1pNDDeRi/giuAPU0/KYq/GdXAv+hpLao5wlk7SyX/Z836IzArdmapVWhSpK
+         AtjLBA1CJDfCaDLzKCnBafrDYkDAoo82sn8MF+TFzgkS9jRAK429+FNxdT81GL93VfFD
+         ioiA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=certik.com; s=google; t=1795689683; x=1796294483; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:mime-version:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=5L10UPph3rpRCzL0clTnMvz/d6onHkzoKgkZYIrhdEA=;
+        b=POFbXVVr2dFYl+k2T5NHVOrxOeCdtm3ar1/BKK5zLK+WxIr1PzmyCsu0uZcaVRQVSi
+         hpAajRYHs56YqcIqY5uUIf2QUrC+zUZ/8Jrp6qa70YHJ0WS4UvffnL+YoP8INLGAdGFS
+         xWcv9WyqXnDzloCneWmHQAh76VcFuNgnSBplE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795689683; x=1796294483;
+        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5L10UPph3rpRCzL0clTnMvz/d6onHkzoKgkZYIrhdEA=;
+        b=0txAd3mZVKFW0TW9Kr+G2COuyye2x+SLMeOLLVixeopXgcXRekpptZZEWz6ZVe20dO
+         KcqglRcIwNRAl96jPezLrqRJlPfxI2Lj6egJwhTu72jFmcDF+VAvPE+v9ijk/mW69Lrd
+         FoHNzVZ90IN42459Pi/N/SZpw7Db3KDbNYSaPwoIAdhAluolrBMWI0AhdhWie1wVcYGP
+         kZy+0GJtvNNus4G9DBmUxrQM6gAazW4hKM6xFUXre4jixBKSr9YRMcxJmKDAW/2VtmC4
+         uExnWc5zI6gjaoTi/NhVxF5U2XeLuNF8ujWqePmO1gRj025S5aCiXxY8/44Fttyu4Gmn
+         d1Vg==
+X-Gm-Message-State: APuU4Z83mUAXf+NWfVZzcXW8u4o+3yyJnZJNHSHUAvbT8EL6Cgt5ZfWr
+	8DNR621AkmMJ6EjvXemrktq1iTvcOAXrOcN0WcTBagAIF9R3h/VZPn7+peFlEXVmeAkuHKdcGcZ
+	roQdGCufvTUmvpRKRr3dagwnPs96CfQc0nm07o02hO1Eipa39tiglq0U=
+X-Gm-Gg: AZFdTZfAssB5sdWvZQipnGkY44P77QJdtwIrltUdyd69pi0XSYxcsiLgJS/au2oHLbF
+	CpSkyHr9kChfNQIbd0gJfhBsqdOzFIzwTNkfiSTaAbnOAqjb4XEZwmmCvHS7ExKNIY1IMjHMmIQ
+	6NohNKCPMrdcAuUzpJw+z+Xp4T9gdcGH6pchqPA0yZsdzyt3NpBAaqCSzBkFdIZPmEUYzal3Cc3
+	DxdubPSoSwZJ8okcXKpqMehl2zP6Ut9bySZJYCUjbc/I19HFlCiKIfzI97lkK3AKzifEyd0/fxY
+	2Bs71Ge6nErgtpy26FAehWTstHiQAPMGpWq8zpgAurlYBV5iRmftxWufUEBnmFJqgAUD9PiL/dC
+	16s+g3PhTK+ZaUJ1L6d8zP4QyVsLmLlTEVn28bhP3EELcoJ6F2NERBophYKHiahW96kKO2MXmLh
+	LkqDBWAnfsv0IzX+NwBVJI0wqAN/G8paRGbjRf+WSLjZEijP+QacKKFY7ZRIlgURVDEayt2MwVD
+	OQM4O1r8ergTSjN2lQYJh6FnxbxCXuc/sgL
+X-Received: by 2002:a05:690e:408b:b0:679:8c5f:3fb6 with SMTP id
+ 956f58d0204a3-67df42cdademr7228166d50.9.1795689682920; Thu, 26 Nov 2026
+ 02:41:22 -0800 (PST)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Thu, 26 Nov 2026 02:41:22 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,78 +100,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJwKCGsC/zWMywrCMBAAf6Xs2a2b0ATxV8RDHquNj0SSWpTSf
- zdRPM4wzAKFc+AC+26BzHMoIcUKctOBG008MwZfGSRJLYTUeJ3vqAR51M4N5HdKEQ1Q80fmU3h
- 9VwdQvaD+DcefL097YTe1TyutKYw2m+jGpgpHP6V0w+a3/z+s6wfjFa5bnQAAAA==
-X-Change-ID: 20261126-kvm-510d-6cc40d855004
+From: Dickson Wu <dickson.wu@certik.com>
+Date: Thu, 26 Nov 2026 02:41:22 -0800
+X-Gm-Features: Aa3M54pbvsy-Rd8GKjV7yIJcw92m78lxrGsA6UuzH4xnQCiRG0xp9cTZWcC0JnQ
+Message-ID: <CAFaZ9eogwNaXVeVhOrtz9montDVg6G8zYR8rOGdpZr26nHFO-A@mail.gmail.com>
+Subject: Request: security fixes for 5.10.y and 5.15.y
 To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>, 
- Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795689116; l=1912;
- i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
- bh=tZO36opxcxWmYFpvOATral8/1zZH55TXraMh88jDJHk=;
- b=ApqeA9bExi8qy5tP2NK4EbBv7S1Mr2DckuKO99gynUeL6IjtL5NAD+cf9KHmI7oU7Tf0QJPDq
- tQbMQPpPnoXCFCuyTRlREdUYQqUQ9ICQiOpDRBFU95yyRn3U0YE1ug7
-X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
- pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
-X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
- auth_id=1647
-X-Original-From: Dickson Wu <dickson.wu@certik.com>
-Reply-To: dickson.wu@certik.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+Hi Greg and Sasha,
 
-v1 was a single patch: the 5.15.y version of commit 4bcdd831d9d0 ("KVM:
-x86: Acquire kvm->srcu when handling KVM_SET_VCPU_EVENTS"). On 5.10 that
-isn't enough. KVM_RUN also reaches kvm_vcpu_ioctl_x86_set_vcpu_events()
-through sync_regs(), and on 5.10 that happens before vcpu_run() takes
-kvm->srcu. Upstream covers that path with commit 8d25b7beca7e ("KVM:
-x86: pull kvm->srcu read-side to kvm_arch_vcpu_ioctl_run"), which 5.10
-doesn't have.
+Could you please queue these upstream commits for the trees below?
+They're security fixes that newer stable branches already have or have
+queued, and each one cherry-picks cleanly onto the current branch tip.
 
-Patch 1 is that commit with its follow-up commit 2d08935682ac ("KVM:
-x86: Don't re-acquire SRCU lock in complete_emulated_io()") folded in,
-so emulated MMIO and PIO completion can't overwrite the outer SRCU
-index. Patch 2 is the v1 patch.
+5.10.y:
+- 18e126e97c96 ("firmware: dmi-sysfs: Fix null-ptr-deref in
+  dmi_sysfs_register_handle")
+  CVE-2023-53250. 5.10.y has the commit it fixes as 985706bd3bbe, and
+  5.15.y already took this one.
+- 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0 on
+  syscall entry")
+- 5306f124f317 ("arm64: ptrace: don't warn on missing siginfo in a
+  group-stop")
+  CVE-2026-90347. 5.10.y took e057b9477232 and then reverted it
+  (ba8b9a906d80), same as the newer branches, but it never got the
+  replacement fix that 6.1.y and newer have. The second commit fixes a
+  warning the first one adds and is queued for 6.1.y, 6.6.y, 6.12.y,
+  6.18.y and 7.3.y.
 
-Tested on v5.10.275:
-- x86_64 allmodconfig W=1 build of the touched objects, base vs
-  patched, no new warnings
-- booted a PROVE_LOCKING/PROVE_RCU kernel as a nested KVM host under
-  QEMU and ran the evmcs, smm, state and sync_regs selftests. All pass
-  with no lockdep or RCU splats. vmx_preemption_timer_test fails the
-  same way on base and patched in this nested setup.
+5.15.y:
+- a81047154e7c ("netfilter: flowtable_offload: fix using __this_cpu_add
+  in preemptible")
+  CVE-2022-48976. 5.15.y has the counter change it fixes as
+  5345d78ae64d. 6.1.y and newer have it from v6.1.
+- 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0 on
+  syscall entry")
+- 5306f124f317 ("arm64: ptrace: don't warn on missing siginfo in a
+  group-stop")
+  CVE-2026-90347. Same situation as 5.10.y: e057b9477232 was taken and
+  reverted (7ec6eebb438b), and the replacement is missing.
 
-5.15.y has the SET_VCPU_EVENTS fix but not patch 1, so I'm sending patch
-1 for 5.15.y separately.
+Testing, on v5.10.275 and v5.15.226: cherry-picked onto the branch
+tip, W=1 build of the touched objects before and after with no new
+warnings. The dmi-sysfs and netfilter picks were built and booted with
+x86_64 defconfig plus the relevant options under QEMU/KVM. The arm64
+pair was built with an aarch64 cross compiler and booted with seccomp
+enabled under qemu-system-aarch64. I didn't run targeted runtime tests
+for these paths.
 
-Changes in v2:
-- v1 <CAFaZ9eoOtFxAansjaUbA-CDNQLcVAVJre2R9vaTQONG9MYUEng@mail.gmail.com>
-  only had patch 2 and missed the sync_regs() path. Added patch 1.
-- resent through a whitespace-safe path, v1 was also damaged by my
-  mail client.
+The list and the test runs were prepared with AI coding tools (OpenAI
+Codex agents, with review by Claude).
 
-Thanks,
+Best,
 Dickson
-
----
-Paolo Bonzini (1):
-      KVM: x86: pull kvm->srcu read-side to kvm_arch_vcpu_ioctl_run
-
-Sean Christopherson (1):
-      KVM: x86: Acquire kvm->srcu when handling KVM_SET_VCPU_EVENTS
-
- arch/x86/kvm/x86.c | 26 +++++++++++++++-----------
- 1 file changed, 15 insertions(+), 11 deletions(-)
----
-base-commit: 99112ea818e35b606397c84fbc05e6fadb6ea162
-change-id: 20261126-kvm-510d-6cc40d855004
-
-Best regards,
---  
-Dickson Wu <dickson.wu@certik.com>
-
-
