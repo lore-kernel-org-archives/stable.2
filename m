@@ -1,57 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795711909;
-	b=nY8Ptt8XZEkwhmKLDrSOfmZXL8XhXwlbtIzv9cgmVxPFPNwcludTiefGZfycC5hp5K4f
-	 XJuqSwcGJjVlpog8RonavT/o2w9VBTTs9EV36U13rsmV/ZDXaurznvLJ+OP3E3wFQeCkR
-	 /3GiojjyQhvSg7ErhP25z9J1Iop22KUfyCWFolv9NS5KteyeARqdd45/m8THlMZ6bX3Te
-	 OZhki27WUO3cngI3JXkX6tVlZR8sP2i3zdHlk3K/NSWnchxaxIR4x6MGxBmEHn6vYVoid
-	 SIv2YnSmd6twZuOYP4ndM0BESdzETv95iDeRcYXNUThGzBrwBwzOTv1nP72ISgAS8UQ==
+	t=1795711962;
+	b=T531sAxdzfx3KKUrE/HwXbu16eaG+EsIH8rKY+VNHOPSqcgQcydH3EKU/ygelmtXCfCU
+	 rYgqBJKRILPw463kOgG+tGhBn1eK+bY6RpdtBPMuX+V21Q4j0O2jYTWzvLKwAg7of3A/T
+	 r80z05/3HO16wcmK7FgR6mEQbfouMey9nQLavOHeDE+iQmVIjMcb6Jasnogk8xOD4i9TF
+	 FnnpV54CTyRiQU8GRpQAIOJVhkrOwrNaSs6nb6iPZwCWg6bix7EM99t2dFQtMvLC7XmQN
+	 H2uRWihvtLe1nzcsuuSuiyIL3KI0oLlJfNU1VDMf3T2v1ZB7AV93jWn3EGIVL0/1I3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795711909;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795711962;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=gPZzmTvQ28r5cAcfyOxGZuE4D/6Q/iiZzfwll5qWjb8=;
-	b=YDLHYcL3iG6JwVB2v1ratmGdHjpFYSWyhtWMkQRfyTzenpUFRo022HRZ57y2mMNhzivO
-	 M+my3gWw6RKl3oRcNIQ0ICoCpsNkvX1NsiE1+HGkyC3JV5ThhipFJBY4tdZf0aYKAVtjd
-	 elTSZlN7wfRLFXqyfQgKYUxKjFShwqA3whD871AVC0ovXLuKTUpyuqJcQckg8HEeMT+JJ
-	 UzBL3K9QVdQQR/vSGNdm63CN6SLJAAJWlgJqDxzV08ol7yg9H1LotMXibYNWEf7ixsJds
-	 J1SAuf36LAGQLPrS7cFqMCVmMpwb3M1aj1wJH0p6jEwVYAddk4lmWIYzZwkRBX2mXpg==
+	bh=WXgiRd7p3GgvBS1rUE/KkvRzg/YV0dvHl55eN2fBa+0=;
+	b=Q4sgQ8/gSs8mfvp4pIdMb+tfBhxmUPBpvXJSws76SLxUIzQpAsWn0WizfBzGFPYKuu35
+	 v3JvXEC4TqT973WC4PIejV5LeQbY5+2fSC+OjZAc+cjBDvHSUJn7OIr/2l1jm0WtQU8jr
+	 WUdeY7YfbXiJJ+Yi23CHFMYYtZnAIXiUPargs7Xx921b+77ou5AIsBKWt7QH4/dgKErTl
+	 9aX19YcA9wp97UF2PkiKAnE267wQy9EHHnoW9SLUTZlxai0uPxFpbsctWX+iPIa52uuP1
+	 i+Hxag0C4TChHvcyb8ehD9AluNoq7s0v+ABMwQmFSRmEGovdh9ZXUTvqVgj+gtrumxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VfVx14l0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D4UqUWsF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F14C0606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:51:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 825D4606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:52:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VfVx14l0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E29D21F000CA;
-	Thu, 26 Nov 2026 16:51:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D4UqUWsF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB3A11F000C0;
+	Thu, 26 Nov 2026 16:52:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795711908;
-	bh=gPZzmTvQ28r5cAcfyOxGZuE4D/6Q/iiZzfwll5qWjb8=;
+	s=k20260515; t=1795711962;
+	bh=WXgiRd7p3GgvBS1rUE/KkvRzg/YV0dvHl55eN2fBa+0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VfVx14l0oQ4yyk0FxE0HcjypV73/PSsnOcUlwMUAPbYz2HtUHetf53syfBT3gEFmo
-	 J1RVNO/Df6n8WGEw+3AGAblwJ6KcRLGXNhz/5UPN3TDW+wKfqmLmYK+8dZsmARCzgi
-	 V80diKmfM4US6QBE8RSwucuC7KditNvBaHLqCImhys2dP/HSh3pzDvPYrpVe+k4tJc
-	 43mXyFB10wWj2LtAmU64Z+7MLbINfBLbXyqk5YAX7eXUuGKMZ7SZsZwzqEeW5eEaZb
-	 zW78FlcWim4/5jmc2JT6jIEf+nyL5i5+Wa/AoiWG5Uoj9atInzJXLJsvIA8+UXMXJa
-	 ENWB+fi/y1apw==
+	b=D4UqUWsFcwjiGI3ru//7LQiU6APfxDunnhEyMx8Dhp/jLp5Ro0m8rbUsbJ0K0OIa6
+	 oN5usUFfUf9QNLth7La5IW7L5NVB50AV5wRqWBSiHzeg3/8EsGLJaYiJ2rKaXUDiu6
+	 /W5Q4qwcbbKiK4BG0I9XAuEySoC66J7KeDhdhoWjVFcC8iDd+skvbLAJI1xRg5NTM5
+	 pNYPMno1WgDjmq0H1cZd3QXYJXfupRjtIY/9CHdl0QlrgHaME3BbY3ZwBFipVYZSLn
+	 Iih8Fqv0lhSyy7K0y9LzaVeb7yaa5KQ/dUEu9CnSvAupV5nuyuCDviCaXia+ak5Lge
+	 rG21ZP/lsXtQg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christopher Hoover <ch@murgatroid.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+Cc: Johan Hovold <johan@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] iio: humidity: hid-sensor-humidity: Use per-instance callbacks
-Date: Thu, 26 Nov 2026 11:51:46 -0500
-Message-ID: <20261126165136.2661051-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] USB: serial: io_edgeport: move initial termios update to open()
+Date: Thu, 26 Nov 2026 11:52:40 -0500
+Message-ID: <20261126165226.2630796-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112544-defection-extending-3aa2@gregkh>
-References: <2026112544-defection-extending-3aa2@gregkh>
+In-Reply-To: <2026112543-possible-impish-f0e1@gregkh>
+References: <2026112543-possible-impish-f0e1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,72 +60,149 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christopher Hoover <ch@murgatroid.com>
+From: Johan Hovold <johan@kernel.org>
 
-[ Upstream commit bbe4f3f668babc9443fc1f075695e43e17ca7976 ]
+[ Upstream commit febadc65a4ef8d08a12e76d6ec50834d72cc0e59 ]
 
-hid-sensor-humidity keeps a single static struct
-hid_sensor_hub_callbacks for all instances and overwrites its pdev in
-every probe, so with two humidity sensors, input reports for one are
-delivered with the other's platform device, and a NULL dereference
-follows once that device is removed.  The same bug was found in
-hid-sensor-temperature, which shares this code.
+Explicitly update the terminal settings on open() instead of doing so
+from the interrupt completion handler when receiving an open command
+response, which in theory can be received after a failed open attempt.
 
-Keep the callbacks in struct hid_humidity_state, as the other HID
-sensor drivers (accel, gyro, als, ...) do.
+Note that this will be used to fix a FIFO corruption issue and also
+allows for switching to synchronous commands.
 
-Fixes: d7ed89d5aadf ("iio: hid: Add humidity sensor support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Christopher Hoover <ch@murgatroid.com>
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-[ sashal: Adapted the padding of the timestamp field from aligned_s64 to u64 __aligned(8), and fixed the continuation-line indentation of the sensor_hub_register_callback() argument. ]
+Signed-off-by: Johan Hovold <johan@kernel.org>
+[ sashal: Dropped const from the old_termios parameter of edge_set_termios() (prototype and definition) to match this tree's non-const set_termios callback; the rest matches upstream. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/humidity/hid-sensor-humidity.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/usb/serial/io_edgeport.c | 63 +++++---------------------------
+ 1 file changed, 10 insertions(+), 53 deletions(-)
 
-diff --git a/drivers/iio/humidity/hid-sensor-humidity.c b/drivers/iio/humidity/hid-sensor-humidity.c
-index bf6d2636a85e7..7c9ae77f33f49 100644
---- a/drivers/iio/humidity/hid-sensor-humidity.c
-+++ b/drivers/iio/humidity/hid-sensor-humidity.c
-@@ -16,6 +16,7 @@
- struct hid_humidity_state {
- 	struct hid_sensor_common common_attributes;
- 	struct hid_sensor_hub_attribute_info humidity_attr;
-+	struct hid_sensor_hub_callbacks callbacks;
- 	struct {
- 		s32 humidity_data;
- 		u64 timestamp __aligned(8);
-@@ -184,11 +185,6 @@ static int humidity_parse_report(struct platform_device *pdev,
- 	return ret;
+diff --git a/drivers/usb/serial/io_edgeport.c b/drivers/usb/serial/io_edgeport.c
+index 4ec2ae2165803..03b51d2f9bf64 100644
+--- a/drivers/usb/serial/io_edgeport.c
++++ b/drivers/usb/serial/io_edgeport.c
+@@ -280,8 +280,7 @@ static void handle_new_lsr(struct edgeport_port *edge_port, __u8 lsrData,
+ static int  send_iosp_ext_cmd(struct edgeport_port *edge_port, __u8 command,
+ 				__u8 param);
+ static int  calc_baud_rate_divisor(struct device *dev, int baud_rate, int *divisor);
+-static void change_port_settings(struct tty_struct *tty,
+-				struct edgeport_port *edge_port,
++static void edge_set_termios(struct tty_struct *tty, struct usb_serial_port *port,
+ 				struct ktermios *old_termios);
+ static int  send_cmd_write_uart_register(struct edgeport_port *edge_port,
+ 				__u8 regNum, __u8 regValue);
+@@ -924,6 +923,9 @@ static int edge_open(struct tty_struct *tty, struct usb_serial_port *port)
+ 		return -ENOMEM;
+ 	}
+ 
++	if (tty)
++		edge_set_termios(tty, port, NULL);
++
+ 	spin_lock_irq(&edge_port->ep_lock);
+ 	edge_port->open = true;
+ 	spin_unlock_irq(&edge_port->ep_lock);
+@@ -1448,29 +1450,6 @@ static void edge_unthrottle(struct tty_struct *tty)
  }
  
--static struct hid_sensor_hub_callbacks humidity_callbacks = {
--	.send_event = &humidity_proc_event,
--	.capture_sample = &humidity_capture_sample,
--};
+ 
+-/*****************************************************************************
+- * SerialSetTermios
+- *	this function is called by the tty driver when it wants to change
+- * the termios structure
+- *****************************************************************************/
+-static void edge_set_termios(struct tty_struct *tty,
+-	struct usb_serial_port *port, struct ktermios *old_termios)
+-{
+-	struct edgeport_port *edge_port = usb_get_serial_port_data(port);
 -
- /* Function to initialize the processing for usage id */
- static int hid_humidity_probe(struct platform_device *pdev)
+-	if (edge_port == NULL)
+-		return;
+-
+-	if (!edge_port->open) {
+-		dev_dbg(&port->dev, "%s - port not opened\n", __func__);
+-		return;
+-	}
+-
+-	/* change the port settings to the new ones specified */
+-	change_port_settings(tty, edge_port, old_termios);
+-}
+-
+-
+ /*****************************************************************************
+  * get_lsr_info - get line status register info
+  *
+@@ -1762,7 +1741,6 @@ static void process_rcvd_status(struct edgeport_serial *edge_serial,
  {
-@@ -240,9 +236,13 @@ static int hid_humidity_probe(struct platform_device *pdev)
+ 	struct usb_serial_port *port;
+ 	struct edgeport_port *edge_port;
+-	struct tty_struct *tty;
+ 	struct device *dev;
+ 	__u8 code = edge_serial->rxStatusCode;
+ 	unsigned long flags;
+@@ -1821,15 +1799,6 @@ static void process_rcvd_status(struct edgeport_serial *edge_serial,
+ 			__func__, edge_serial->rxPort, byte2, edge_port->txCredits);
+ 		handle_new_msr(edge_port, byte2);
  
- 	platform_set_drvdata(pdev, indio_dev);
+-		/* send the current line settings to the port so we are
+-		   in sync with any further termios calls */
+-		tty = tty_port_tty_get(&edge_port->port->port);
+-		if (tty) {
+-			change_port_settings(tty,
+-				edge_port, &tty->termios);
+-			tty_kref_put(tty);
+-		}
+-
+ 		/* we have completed the open */
+ 		edge_port->openPending = false;
+ 		spin_unlock_irqrestore(&edge_port->ep_lock, flags);
+@@ -2340,18 +2309,12 @@ static int send_cmd_write_uart_register(struct edgeport_port *edge_port,
+ }
  
--	humidity_callbacks.pdev = pdev;
-+	humid_st->callbacks = (struct hid_sensor_hub_callbacks) {
-+		.send_event = humidity_proc_event,
-+		.capture_sample = humidity_capture_sample,
-+		.pdev = pdev,
-+	};
- 	ret = sensor_hub_register_callback(hsdev, HID_USAGE_SENSOR_HUMIDITY,
--					&humidity_callbacks);
-+					&humid_st->callbacks);
- 	if (ret)
- 		goto error_remove_trigger;
  
+-/*****************************************************************************
+- * change_port_settings
+- *	This routine is called to set the UART on the device to match the
+- *	specified new settings.
+- *****************************************************************************/
+-
+-static void change_port_settings(struct tty_struct *tty,
+-	struct edgeport_port *edge_port, struct ktermios *old_termios)
++static void edge_set_termios(struct tty_struct *tty, struct usb_serial_port *port,
++		struct ktermios *old_termios)
+ {
+-	struct device *dev = &edge_port->port->dev;
+-	struct edgeport_serial *edge_serial =
+-			usb_get_serial_data(edge_port->port->serial);
++	struct edgeport_serial *edge_serial = usb_get_serial_data(port->serial);
++	struct edgeport_port *edge_port = usb_get_serial_port_data(port);
++	struct device *dev = &port->dev;
+ 	int baud;
+ 	unsigned cflag;
+ 	__u8 mask = 0xff;
+@@ -2362,12 +2325,6 @@ static void change_port_settings(struct tty_struct *tty,
+ 	__u8 txFlow;
+ 	int status;
+ 
+-	if (!edge_port->open &&
+-	    !edge_port->openPending) {
+-		dev_dbg(dev, "%s - port not opened\n", __func__);
+-		return;
+-	}
+-
+ 	cflag = tty->termios.c_cflag;
+ 
+ 	switch (cflag & CSIZE) {
+@@ -2503,7 +2460,7 @@ static void change_port_settings(struct tty_struct *tty,
+ 
+ 	dev_dbg(dev, "%s - baud rate = %d\n", __func__, baud);
+ 	status = send_cmd_write_baud_rate(edge_port, baud);
+-	if (status == -1) {
++	if (status == -1 && old_termios) {
+ 		/* Speed change was not possible - put back the old speed */
+ 		baud = tty_termios_baud_rate(old_termios);
+ 		tty_encode_baud_rate(tty, baud, baud);
 -- 
 2.53.0
 
