@@ -1,87 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795694875;
-	b=zJLEOeVaJnY7H8NtIrSEdEXr8HaHq1KqWtiGZPik2DruXoZKO7jWN4Fo3F7heuCB80Ie
-	 j8y+GPC3CPFSoqx2JiRE3v0jDCmkBexM3gOpInO03OqZzX0DhdODjDRPTxZz3+9gGzpUj
-	 o7ZDnVRRUOW2EGjTSOL59XdBXA0DDrk/L0IQkOkYKboaG2aocr7hwiXXZY1I+ak/OWN2B
-	 +g/crvDv2hououboDhFAxQuWmlztjiDZ/5mXBTheoTFqJd4fjPgdu/Jwo+IbFAPmoITBa
-	 WhPs6lOARUA+X7lT+5l5VvoXnfiNWhUs+2KlLqaVxD/trzcONkTnTo/OC+N+38WI2SA==
+	t=1795694895;
+	b=AXCzwcfKKVEqfNzgxlkJ7jtCUtgnUv2hl48A0WJ3lqqshaANKuK5jNaFH22BqSCyeEwb
+	 yy/l9H5JbOGeA+HI/Jh5H9e2Sr8PvxIkmo0JdYUlL9azAH30+pL1jll4HeVn6D1um9j5d
+	 sOckL1pcg+Gik/9PQ3UlRT1q1mPcZWYUWYikfaDmbl9roHBL0bksKYZfoQkPgYbpYm1/J
+	 /FGAISctyGss5Dx6ZfQ7r9eIh7MlH76qrHv1AnSKk6pQCo3xzkmulTpcp2jnQBbWo5Y0u
+	 2bI5/9FhsNKJR6+4sYC8jv7gJ+07xRThfj1cR/C9OW+5/aelA/lYAoKqtO4iDibg4GQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795694875;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=lqFV5m5qZxryiSh706S6c3l55qITQc74+MuV+mDzbVQ=;
-	b=1YjFX3V8ebkmWIntkU2+k68jT4cr82lJzd/ku4VDv4TfrnOW/T95+ospXwiCSK28U7iw
-	 ttWdhQGrmS9JKoJqQdkchE/Bj5tB1dEKkqA9lhI6onTZkWv+nkHCA704G6pmiQ5JFn0Tu
-	 n2mtyu4pMA/VrPmYjXqWkxjQjATAvVhymIxD8LvHJNTZ0Ibwp0jY2Kbai4SFNAjAj65BI
-	 Hw6+ijLuEym4vwpQYxOl1XmK++arFKEcoR3QSt6gHtoC+kPF2oeJTEdFsjIVhxf1bhBXY
-	 W5OYTsyEh/jOdiimSc5bGMlt8Tk9ApR+U8Oaffvm+UNUX7LwgRxO7v5LRnWmJRk1R2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795694895;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=4SVfDoLwtWsNqklX6U3Vo1vpURtzjNZI3fsbY/rTazM=;
+	b=PFvv6UKHYjzVeLKqbIH6Z6LEic9Eum5l45Wd/3ucNlf6W4R6tMbRph5stNhXq6if+3Eq
+	 PQyJVi+yhf1k9VpL1lwVH8/jeMfRlNms3z7muyZkCWRMWxM/JaC8mnJRC/vXlL33HMaFs
+	 NYApFa91ocXff1w7bD6j8jQUx06M8rSteYSMQjrrGkY8rEGOh9F1XRrkjhFFIKuUElO0Z
+	 3S/KTTENQTRwYHN7IN++Fl4U8e0TmuXJ0PvQKDYkWvt05YDgNJJqYr3O5utLOs2SCjm1c
+	 TFOhWLkId4MiipYTMXYe/7IuBiO83TLBIdgM5uS6qXLEgfnSTUZfB1XJhV2JDa+SezA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=pbjG9PcX;
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=B7KIW8u5;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C86606A321
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 12:07:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66C86606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731E4606A31C;
+	Thu, 26 Nov 2026 12:08:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 731E4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=pbjG9PcX
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4322d310e7so190584166b.0
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:07:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795694874; x=1796299674; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=lqFV5m5qZxryiSh706S6c3l55qITQc74+MuV+mDzbVQ=;
-        b=pbjG9PcX4Crz1VhitguX/i8q7xKueg0aBeU+1fIILn6lLzM1EQnki8DdhlVIzga+3c
-         LJRD195qiKLsQcjoKN5P66ycIlaRdH0tblNVdR+B8xHtzPD2rCl+o5NjNP3bdAyvnPlz
-         +r8MEhQgZY/MO+rJg620H8HlalpCHd2mCkTHbRITT4dsklyxobKa+SJsz13Fagpf9/yF
-         hv6d5RxYkDMcw3bPtTyIGWl6R6FH63dAYpwtt16eM6NEyTQ6zDB7zEjYM53ZvGpmfm88
-         6RxUyG2dQ38rWoBiCU7RI+vp/juazTlTMAbnyAaRbkXHdLPxs/IuOfzBYqNGIyp4hwgx
-         eauA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795694874; x=1796299674;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=lqFV5m5qZxryiSh706S6c3l55qITQc74+MuV+mDzbVQ=;
-        b=iDQfuDLFxHhbaqy+aOXqfTy2oduJY0c6mm2I6mX/Qqf3i+KoIfNVDA0CzkBBkxaw7E
-         b4yKZyL3/k3VRLqX7PM8hnR1GohUX+a2JxTZMRG5vNfNVOKnfW9wapNQQKdgh9wt05Y+
-         OWT6Mla5IICjCQA96wT9LfK503g+dqPyAwQcVv3r/a+OFEPa7JOmeubgKnz7T2CrUQFW
-         2foRpB0/nheRZaoUcAOOEV0V4dRFYLn071mx/uVKf1HmNNFRkFnLD0UbJ9VOBECzpn6x
-         0+emZ7BlWxspPccP9t+yktP56cS56OXAWZdMJIY4riQTlzheUzsl7DmhQ2OOAerH1HsV
-         wtcg==
-X-Forwarded-Encrypted: i=1; AL+hErEFa1dX/lOEinoyY3eEdXFkaaIMUV3CjJhoVAfktkusA6wsGx9xcPLtcBIEr6whgHydh4ocSFo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ZVz7Ljxu7fgiyZxMZEsTOgmGmlP32DUEN2wyRTwm1/dzYRSWl
-	7DeWoQUFjWZf2KDv+M0V1VlcVyl+HouIFubmSLUKGv8zdaoPUp7Qmo4VFMQm/wK9aJ0=
-X-Gm-Gg: AZFdTZdDFkE2CTLAF/TjrHvhBLuBwU/ZSPgjWiCQ5AzKZumGfo6G97QLdF6n0dz9WFw
-	f/gx6zS7Yy10r/pXynWWKBoPPLu3B737Zl1uv4a5vhfaGsGS4Kp158g7me4Jfka8ASln/d5PMJa
-	E1bAbg1lNFZQ1b7ahdV/8SUM2jn8NaMAO60DpYJYsyM4UV27ms3Wl0FEHu94J/rwnrZsNT88yF5
-	4aTqSuFYpdFGUKcIxMRisxw7Z2b+vZLnqEPqhAycCSWCJar7Vca2Pfzzum41kNS2xfNW1MblXcs
-	HP8uR+Bf2tV+ztpAMRvG2hyAm+LPWUSTW6+m3GeVAa92HisYsMeifJhWfHa+h/C6etvxubGcBkB
-	KlDGM7Nmx6x08P6JhDscmZTGNJm5pnlsajeSr0THHYrEHvgFx/9y2A9NPsFejfEAX1IZ2tAHOy5
-	fi/g4SGiHHGfqC+fNAdS/yrDltofQkd1dNLI4XG5wnNYvzsIWrvB+5Na7VqGQBv4mzqj/ARq6Hp
-	xuo3wlJ8PBdF/c/hr67Oz0P6IKM1BLlP8KobEh2UdPqnBPeUck07mlEsBVha1b0qdbkfgTu8G1o
-	2LjTNc0hSnWd38d2V+wPuSZGnKeSoCqDjoDCG05juFCFDa4UdZr1mb4hd9UV/5lxsmLwpSCDLrJ
-	ytmYD8StO3qZgmCyrgA==
-X-Received: by 2002:a17:906:c10f:b0:c51:b21d:72f4 with SMTP id a640c23a62f3a-c51b21d76b4mr426109566b.36.1795694873703;
-        Thu, 26 Nov 2026 04:07:53 -0800 (PST)
-Received: from puffmais2.c.googlers.com (226.124.90.34.bc.googleusercontent.com. [34.90.124.226])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513aec5115sm740527966b.51.2026.11.26.04.07.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 04:07:53 -0800 (PST)
-From: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Date: Thu, 26 Nov 2026 12:07:52 +0000
-Subject: [PATCH] power: supply: core: fix use-after-free of supplier names
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=B7KIW8u5
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=4SVfDoLwtWsNqklX6U3Vo1vpURtzjNZI3fsbY/rTazM=; b=B7KIW8u5AVWuwIDsjtarSTTzPZ
+	V7qAQyAOXyOQFwozgEZnWuoRdZdmp7zaLebqm0i+bC03hX3bYqguhEHREHt3SDinkIbawVxcytytm
+	IUfoY1oh0AbrdVey55sQ9QSAG2comlaHVYgfDJrN4fmhq/uou8zGjl6TMFFA5VOsT5Z5gKDGARvE0
+	tvzAGjLENDVlXsplt6iOv1CzDZaiiNBiU1QNHUW3PuvFv29rVjeIHbdLd0HQVZGBlxAPdmN0aOTZd
+	RzTZygi0Q/+UOo0EP/XyrTd0KnFUu7rvRAzYm37hJHQeY0BXTZUsl23PfagnfiZfxVDeoD2mu/TFj
+	Ihck30Lg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xWYGo-00000006SRK-230B;
+	Thu, 26 Nov 2026 12:08:10 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 4F88E302186; Thu, 26 Nov 2026 13:08:09 +0100 (CET)
+Date: Thu, 26 Nov 2026 13:08:09 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Nick Desaulniers <ndesaulniers@google.com>,
+	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH v3] sched/topology: Avoid unsequenced accesses to jiffies
+ in sd_init()
+Message-ID: <20261126120809.GA83911@noisy.programming.kicks-ass.net>
+References: <20261125-topology-wunsequenced-v3-1-efa3db7e0bf8@kernel.org>
+ <20261125094643.GY2668804@noisy.programming.kicks-ass.net>
+ <CAKwvOdmyGdn4ES6Ku+Yovd7a5imzmtmYtd7KB=OMCqKpv1X8rg@mail.gmail.com>
+ <20261125200311.GA3625068@ax162>
+ <20261126115032.GE49833@noisy.programming.kicks-ass.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,149 +80,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261126-psy-core-supplier-fixes-v1-1-33de6aa53cd8@linaro.org>
-X-B4-Tracking: v=1; b=H4sIABchCGsC/x3L0QpAQBBA0V/RPJvanWLxK/IgBlNim4lI/t3m8
- XS7DxirsEGTPaB8ism+Jfg8g2Hpt5lRxmQgR6X3VGC0G4ddGe2IcRVWnORiQ0+uoOBCVQeCdEf
- lP6S57d73A3LceTFpAAAA
-X-Change-ID: 20261125-psy-core-supplier-fixes-120527078972
-To: Sebastian Reichel <sre@kernel.org>
-Cc: Peter Griffin <peter.griffin@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>, 
- kernel-team@android.com, linux-pm@vger.kernel.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, stable@vger.kernel.org, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-X-Mailer: b4 0.14.3
+In-Reply-To: <20261126115032.GE49833@noisy.programming.kicks-ass.net>
 
-A consumer's psy->supplied_from[] array keeps pointing at the supplier's
-desc->name after the supplier is unregistered. That pointer dangles once
-the name is freed or when the name lives in the supplier's module
-.rodata and the module is unloaded.
+On Thu, Nov 26, 2026 at 12:50:32PM +0100, Peter Zijlstra wrote:
+> On Wed, Nov 25, 2026 at 01:03:11PM -0700, Nathan Chancellor wrote:
+> > On Wed, Nov 25, 2026 at 11:32:31AM -0800, Nick Desaulniers wrote:
+> > > On Wed, Nov 25, 2026 at 1:46 AM Peter Zijlstra <peterz@infradead.org> wrote:
+> > > >
+> > > > On Wed, Nov 25, 2026 at 12:23:35AM -0700, Nathan Chancellor wrote:
+> > > > > Clang's warning is ultimately pointing out that jiffies may have two
+> > > > > separate values in this initializer because it is volatile and accessed
+> > > > > twice and the order of these accesses is not specified. This could
+> > > > > result in unexpected or inconsistent behavior depending on the code
+> > > > > author's intent and whether they realized the variable was volatile or
+> > > > > not.
+> > > > >
+> > > > > As two separate accesses is not necessary here, add a local variable to
+> > > > > hold the value of jiffies before the designated initializer so that a
+> > > > > consistent value is used for initializing both members, clearing up the
+> > > > > warning.
+> > > >
+> > > > None of this tells me why we should not just disable that warning and
+> > > > get on with life.
+> > 
+> > See below, I believe this warning has general value (but maybe not
+> > here).
+> 
+> Yeah, not here.
+> 
+> > > I think the warning has value generally across the tree, even if this
+> > > particular single instance "isn't a bug, per se."
+> > 
+> > Hard agree. Just because this particular instance is not a bug does not
+> > mean future instances won't be. We pay a small cost to silence the
+> > initial instances then we get to see what it flags in the future. If it
+> > turns out there are never bugs, we can just turn the warning off
+> > globally (we've done it before) but I'd rather have hard evidence of
+> > that first; to me, these initial instances don't count. No maintainer
+> > has objected to the other patches I have sent for the other instances of
+> > this warning and there were not all that many for how much code the
+> > kernel has.
+> 
+> I just don't understand any of this. Perhaps I'm being super dense, but
+> calling this UB is utterly stupid IMO. It is trivial to define what
+> should happen here and make the compiler do it, although perhaps it is
+> not what people expect -- but at that point you can have a warning about
+> performance, rather than it being UB.
+> 
+> Most all of this is me being distrustful towards the C committee about
+> volatile; they hate it while we live by it.
+> 
+> But I really don't see the difference between two jiffie reads in an
+> initializer vs two jiffie reads in random code. Its just two reads that
+> cannot be fused, big deal.
+> 
+> So they're making a big deal out of the unsequenced thing; but at the
+> same time they're eroding actual sequence points; I mean WTF ?!
+> 
+> So function calls used to be a sequence point; but then they allowed
+> auto inlining (without the use of the inline keyword), and guess what?
+> An inlined function is explicitly not a sequence point.
+> 
+> So they cannot be both concerned about sequence *and* erode sequence.
+> 
+> All of this just sounds like a whole pile of wankery without actual
+> merit.
+> 
+> Also; the purported justification of UB has always been room for
+> optimization, but volatile is the anti-thesis of that, it explicitly
+> does not allow optimization. Marking something with volatile as UB is
+> just batshit.
+> 
+> I mean, I suppose I can apply the patch, but I'm not buying any of it.
+> This is not an improvement, it actively makes clang worse!
 
-Every subsequent power_supply_changed() passes that freed pointer to
-strcmp() in __power_supply_is_supplied_by(), triggering a
-use-after-free. If the freed memory is poisoned or reused, consumers
-also fail to match the supplier when it is bound again:
+So, if we hide this evil volatile in an external function call; then the
+C frontend will not see this most evil of UB. If we then LTO these
+objects together, the optimizer will happily merge it all back together
+again.
 
-    BUG: KASAN: slab-use-after-free in strcmp+0x40/0x80
-    Read of size 1 at addr ffff0008039e8840 by task kworker/4:2/173
-    Workqueue: events power_supply_changed_work
-    Call trace:
-     kasan_report+0xb0/0x108
-     __asan_load1+0x98/0xa0
-     strcmp+0x40/0x80
-     __power_supply_is_supplied_by+0x98/0x160
-     __power_supply_changed_work+0x2c/0x68
-     psy_for_each_psy_cb+0x44/0x60
-     class_for_each_device+0x178/0x1c0
-     power_supply_changed_work+0x100/0x238
-     process_one_work+0x4a0/0x960
-
-    Allocated by task 60:
-     devm_kmalloc+0x6c/0x180
-     tcpm_register_port+0x840/0xd30 [tcpm]
-     tcpci_register_port+0x2a8/0x400 [tcpci]
-     max_tcpci_probe+0x224/0x430 [tcpci_maxim]
-     i2c_device_probe+0x254/0x4c0
-
-    Freed by task 238:
-     kfree+0x228/0x5f0
-     dr_node_free+0x18/0x38
-     release_nodes+0xb4/0xe8
-     devres_release_group+0x1ec/0x248
-     i2c_device_remove+0x70/0x138
-     device_remove+0x74/0xc0
-     device_release_driver_internal+0x2b0/0x330
-     driver_detach+0x78/0x100
-     bus_remove_driver+0xa4/0x160
-     driver_unregister+0x4c/0x88
-     i2c_del_driver+0x5c/0xb0
-     max_tcpci_i2c_driver_exit+0x18/0x5a8 [tcpci_maxim]
-
-__power_supply_populate_supplied_from() stores epsy->desc->name directly
-in psy->supplied_from[] without duplicating the string, so the consumer
-borrows memory tied to the supplier's device or module lifetime.
-
-Make psy->supplied_from const char ** (removing the now-redundant cast
-in power_supply_check_supplies_by_name()), duplicate the supplier name
-with devm_kstrdup_const() on the consumer device, and return -ENOMEM
-(releasing the fwnode reference) on allocation failure.
-
-Fixes: f6e0b081fb30 ("power_supply: Populate supplied_from hierarchy from the device tree")
-Cc: stable@vger.kernel.org # 6.18+
-Signed-off-by: André Draszik <andre.draszik@linaro.org>
----
-Tested on Pixel 6 (Oriole) with CONFIG_KASAN_GENERIC=y:
-
-    rmmod tcpci_maxim && modprobe tcpci_maxim
-
-Without this patch, the first reload triggers the KASAN
-slab-use-after-free in strcmp() above. With this patch, repeated
-unload/reload cycles don't trigger it anymore.
----
- drivers/power/supply/power_supply_core.c | 12 +++++++++---
- include/linux/power_supply.h             |  2 +-
- 2 files changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/supply/power_supply_core.c
-index 1cc203f2780b..4dfcdb720a31 100644
---- a/drivers/power/supply/power_supply_core.c
-+++ b/drivers/power/supply/power_supply_core.c
-@@ -208,8 +208,7 @@ static int power_supply_check_supplies_by_name(struct power_supply *psy)
- 		return -ENOMEM;
- 
- 	ret = device_property_read_string_array(parent, "supplied-from",
--						(const char **)psy->supplied_from,
--						nval);
-+						psy->supplied_from, nval);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -223,6 +222,7 @@ static int __power_supply_populate_supplied_from(struct power_supply *epsy,
- {
- 	struct power_supply *psy = data;
- 	struct fwnode_handle *np;
-+	const char *name;
- 	int i = 0;
- 
- 	do {
-@@ -231,9 +231,15 @@ static int __power_supply_populate_supplied_from(struct power_supply *epsy,
- 			break;
- 
- 		if (np == epsy->dev.fwnode) {
-+			name = devm_kstrdup_const(&psy->dev, epsy->desc->name,
-+						  GFP_KERNEL);
-+			if (!name) {
-+				fwnode_handle_put(np);
-+				return -ENOMEM;
-+			}
- 			dev_dbg(&psy->dev, "%s: Found supply : %s\n",
- 				psy->desc->name, epsy->desc->name);
--			psy->supplied_from[i-1] = (char *)epsy->desc->name;
-+			psy->supplied_from[i - 1] = name;
- 			psy->num_supplies++;
- 			fwnode_handle_put(np);
- 			break;
-diff --git a/include/linux/power_supply.h b/include/linux/power_supply.h
-index 7fbc0b80bcbb..7d8044d91be6 100644
---- a/include/linux/power_supply.h
-+++ b/include/linux/power_supply.h
-@@ -355,7 +355,7 @@ struct power_supply {
- 	char **supplied_to;
- 	size_t num_supplicants;
- 
--	char **supplied_from;
-+	const char **supplied_from;
- 	size_t num_supplies;
- 
- 	/* Driver private data */
-
----
-base-commit: 3191063649dbf7c0d0b768e1f3655e4c5fc6edb5
-change-id: 20261125-psy-core-supplier-fixes-120527078972
-
-Best regards,
--- 
-André Draszik <andre.draszik@linaro.org>
-
+There is no spoon^WUB.
