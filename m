@@ -1,70 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.129
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795708122;
-	b=QBmjrccMBCw+UZvl8hooIuf0KfMhSEysvjSYhYoJfDnWEkDHQjTIm1lolAIHaj2sX8ze
-	 1s2UDreVYqMTAZhjU++z8iTrsNm1DAs3VAHq4IQsY/V8J7EzJh3ez9LCXN3fQIXvsuvmK
-	 fxqP/doV83G58SEgjWT7TNwh7CtBmafNpZrYmI/rYoFvvT+bSgwpN8TSg713TydNDif+5
-	 WYZ6Jf44t68qomvHlqANt8k26hQXqUtDrLRCu72Tm9bzUw1YZdYYc3nV6vgfOlH/Ly8BR
-	 2RVre/FQrjx3kqzWjvenySJSg3CrAwEr4RuVeBYA4Hh3vK1POWppn6D+bUrJE8bsktA==
+	t=1795708384;
+	b=SPRqEYe0lfH1Zo0knlRkozKVLagTWOH3BjLRs7YRfmhlITNgBCVT1+2dJXzwD2QNf5/h
+	 JXOWcYyLRpYVYaWkZrfoziLY5SB/hWpKrnvKdtW58Xp4y8WXwf5qML/iFZlOgbQ9sDufb
+	 h2z2Bil8p2hwmm3G2Tf9Z6ZKbbUqqvPZdCZfT1nkt9O+50kv5iBKp218rRq1qICU0xSdn
+	 Q9zqm/4HycBoYh8zIiQx7vD97Q0IzyGKZVfpu3k40wiu0v/YOU+3MZBSwsKSaj7msu+Yq
+	 kHoH+iiIBdFIM8qne4Ud9dMb08mVRtZOVQM7wh0W/WOty5DXoZxg3IkLYfDvhM/INbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795708122;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795708384;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Az0jRdxGz47BjnODeEnvbQw0VUqHNe+289mTFIQtnuI=;
-	b=DH9hcFZ+7i9nywOr8spLoueAVGrMSvVZGBtFTyqVz2di6NLMCztAxC9C+EsFN+xAgfL1
-	 tey3EMuP6ALaybE1e7h1Ytg6dWRE81Fl9waMspOct7bf0a3xDm1CrxOcYhjpUXHUigaqP
-	 RCPkWbZSXAPqw6lBDSmJRtrySf7rNfg98Iy4IOxJQpmh9fWLaMrFeIFfwOTKpLFwB8adq
-	 6UkH2pz52eNtyAdXtvbL5bKlGRl5GVvvtauKZ4MFHZZqOPgt3YgdKBTDAaBu5jvrXT9+/
-	 tKE1vNyhkMVRnk5cMZE1VdGeNZ6ikuWsPO3BXlqGOIYhUuIBSTOTJ9F4vwp1/k5muFA==
+	bh=329C+ObflaGrYeJM1Uot0DWEfxpJGTZhLlPmSd8KCDM=;
+	b=fVNgV9PgQHHET6NA1RZFYkd5wm/0oJcOK7uqYHW3R07wzbx98Tmq7KMOfTzuJx+wLWNw
+	 cqY1eIBSbWv0xVrrR+mTEVKXRwHJ1jKPdXnfYoufchGT9TyBUd1vyeQdDv/7401K0tS+p
+	 YBmbtOceOG4ZOwalQsHkYA5YXtnC5eqmRHsCRsMNs3AcvZTRbmjJ4arfxaXgx/zqgWxca
+	 O4NarNqXg8WCv70By//O56vDL2WFGus06lQpIZBvCv5t3ioCA7GHGfaz1tL6XDyJgKIfL
+	 02kyrTO2QZ1w3mujb32WclUj/7RtewaO9ibwWP6BzmxFU+/03z6nZMcJVLvYEx62GEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ULK2gffl;
-	arc=none smtp.remote-ip=95.215.58.129
-Received: from mta1.migadu.com (out-129.mta1.migadu.com [95.215.58.129])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="t/SoC3jt";
+	arc=none smtp.remote-ip=209.85.221.182
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE79606A321
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:48:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BE79606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9D2606A31E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:53:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D9D2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ULK2gffl
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=81K8WfCO8nBk12qXo8VaeOOQz2j4c2B//fXEZS73Xuk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795708119; v=1; x=1796312919;
- b=ULK2gfflzlP3r23liZ8MPyd+t2AH2aJwLZifOfqXFToamgSvKseujjaNbQQN3oO4tNEgg5yT
- TNCT7qBGzArcpjaDTDJiYsN50lPEdHrk68PDC6HGXw3d/YJDEsL0PUY3CGvhlhKeK27M4QGHcaA
- jBRI8bo5EVUuWMXodb8F50T8=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6afe1e7c39021c6c;
-	Thu, 26 Nov 2026 15:48:39 +0000
-X-Mizu-Trace-ID: 6afe1e7c39021c6c
-X-Migadu-Flow: FLOW_OUT
-From: Leon Hwang <leon.hwang@linux.dev>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Guillaume Laporte <glapt.pro@outlook.com>,
-	Vincent Thiberville <vincent@harfanglab.fr>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t/SoC3jt
+Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5eaa5e03c47so6543495e0c.0
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 07:53:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795708383; x=1796313183; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=329C+ObflaGrYeJM1Uot0DWEfxpJGTZhLlPmSd8KCDM=;
+        b=t/SoC3jtV0KvwF2cmafxNEx4F2ggLj2qXY3egSMHdzhxt++JfUQfyqDJLDX+QatAXR
+         VokmzVoEZ99HAYo/6XJrFB6g5YLfAJFwZihbIFaTldkYC789NDHY075SS4xVFslGfo5z
+         uzbBbPA2Er4hKhEoNP5yV8HAKjlW4wZ0bztSOc3mKI1FjX+tc8ONsx/rsDIK+6ShBijf
+         Z+YDrPn4GaXlH7JUHqTj9WA8qFeSidUaigVHPZprnxesObG5P1+BTBwiwtcxR4D2/KRZ
+         sSAqJO8KJW1X5p+0R+j/yC7Fxrnb/c+/tQlpDtQqvu73lnDHfNAHrJLQffl9lJ8dSlPH
+         HJOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795708383; x=1796313183;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=329C+ObflaGrYeJM1Uot0DWEfxpJGTZhLlPmSd8KCDM=;
+        b=bXuYASA/bKKrCIc0chCzHu9mUe7nBG1DZdKGl2RhbG5DJhHZvqVhCdhebKYG7DOyMG
+         B8588mG/gevKYbdseFjl0OgyVgwrNS2RFhqQIlquHgVCWr/NV+sX3AmJ+EbKjL/XFFHe
+         BIoGKXf01Sy6FufXQd5EIdFoBqV6uwW9txl8PFhpth2grN1P+lirVe7wSFHnXDabeF+d
+         4lbo8f2Ihno8my+yFPXOfE8x/o3IMKZWe2iZ039p5CxjlQkv1DUsz4iHb+yGNWttOi/S
+         UO1rsuCjjV8bWbKo0jKbKg3wAKXT/aF4Jn9Po5+AA160S4eJedrDlDC2kgqA8YnNtLLG
+         7klA==
+X-Gm-Message-State: APuU4Z9EIb5tQOzXVVhkxVBAVUIHCCznZSAHIo0os/jJJJIYcCZBwfvR
+	mTjkNip9h/6Ey+01zUglbvpbcIKWTtDpuewdnMXhJAAR0Sg47Lv+t3JWDayVGkfON+4=
+X-Gm-Gg: AZFdTZc7O/TC2GmEE2NSe4v+tF8iHAHf+w+c6+lDcXllgLDUamUrx8zQyr6KcwuQvgC
+	z9OS0PCOo9feftyHKxkMaM5CuRBAvg78BzOQgP48pmi094IxRGqn9qXX9lJGpyRP+JlBcZro8q4
+	FL0rUMzMQ2uM2ViaKV0XJc0TmdITkz7hZiKoI+/QbJStmZAnEXK07TNiqfduUQx0nbZJ0I63gah
+	Xrp16j7DC4nOy6bMOR7YOqdPbJs+Vxwy88HmdP/XW0laqrQmCfSl0KJPnWJy7FqyU2iEaeEScjm
+	ZhRbDuXc3Ub7aLFrwHJR7BqUlE4/mBgEj3qZX81OTpROM0hXy22fgd+kId9dToTl4MFE/aN/Lw+
+	0NZvW5/U8mtZoTAsx7Ni80nV+TJbi9ONGBHSQ17rKoqjFUEw6gAXN9/JxbtdRpx1MCXYdlW6y7h
+	H+1YZugVfTXvgBBTzWXXh/+BmKnfHq64uuhyDaetlurfBrwlUu5ZbtQYJel1eC6Rh4jAag3BU06
+	SlmD53QiTtSiCzinuvXmqHsa62Yi6vy5jXfIoye+dxEvOyEo6eZsJVIUUlrE/0Tal66dcSEs2tY
+	7TxysUnk9ofqoyhMyt7+fuDyV5wQtmUa12dcoT61p5IyFSN957BSTrlDO/XYSD5ZVyt6QOUPDHH
+	JQ1J4Hvr1eIDtbIQUr8DsRQ==
+X-Received: by 2002:a05:6123:4204:10b0:5ea:bc01:a2f9 with SMTP id 71dfb90a1353d-5ee81fe07f8mr7007269e0c.0.1795708383219;
+        Thu, 26 Nov 2026 07:53:03 -0800 (PST)
+Received: from localhost.localdomain ([207.174.22.68])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee8b5bb61asm20980341e0c.10.2026.11.26.07.52.58
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 26 Nov 2026 07:53:03 -0800 (PST)
+From: Yingke Xiao <inkxiao12@gmail.com>
+To: stable@vger.kernel.org
+Cc: gregkh@linuxfoundation.org,
+	sashal@kernel.org,
 	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Leon Hwang <leon.hwang@linux.dev>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Subject: [PATCH 6.18.y 4/4] bpf: Disallow interpreter fallback for BPF_ADDR_PERCPU insn
-Date: Thu, 26 Nov 2026 15:47:13 +0000
-Message-ID: <20261126154714.169698-5-leon.hwang@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261126154714.169698-1-leon.hwang@linux.dev>
-References: <20261126154714.169698-1-leon.hwang@linux.dev>
+	Yingke Xiao <inkxiao12@gmail.com>
+Subject: [PATCH 6.6.y] bpf: Drop inet_conn_established from lsm sleepable hooks
+Date: Thu, 26 Nov 2026 23:52:48 +0800
+Message-ID: <20261126155248.56002-1-inkxiao12@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <2026112616-garden-overfeed-1512@gregkh>
+References: <2026112616-garden-overfeed-1512@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,93 +101,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-[ Upstream commit 7a0855e73757ee9cf25ba635a1c735018ecba742 ]
+The backport of upstream commit beaf0e96b1da ("bpf: Drop task_to_inode and
+inet_conn_established from lsm sleepable hooks") to linux-6.6.y (commit
+26b380a3ca0b) removed only bpf_lsm_task_to_inode from
+sleepable_lsm_hooks.
 
-The BPF_MOV64_PERCPU_REG insn requires JIT to emit native code to for
-'dst_reg = src_reg + <percpu_base_off>'.
+bpf_lsm_inet_conn_established is still listed in sleepable_lsm_hooks in
+kernel/bpf/bpf_lsm.c, even though security_inet_conn_established() is
+called from softirq context in tcp_finish_connect() (net/ipv4/tcp_input.c)
+and cannot be used by sleepable LSM programs (CVE-2026-63865).
 
-However, the interpreter ignores the 'off' at its ALU64_MOV_X label.
-The 'off' indicates the insn is BPF_MOV64_PERCPU_REG insn. Then, when
-the interpreter loads memory from the register, it will hit a page
-fault.
+Remove bpf_lsm_inet_conn_established from sleepable_lsm_hooks to complete
+the backport on linux-6.6.y.
 
-[    2.545572] BUG: unable to handle page fault for address: ffffffffacaaf034
-[    2.546485] #PF: supervisor read access in kernel mode
-[    2.547167] #PF: error_code(0x0000) - not-present page
-[    2.547850] PGD 134e63067 P4D 134e63067 PUD 134e64063 PMD 10021c063 PTE 800ffffeca550062
-[    2.548912] Oops: Oops: 0000 [#1] SMP PTI
-
-Set jit_required as true in order to disallow interpreter fallback in
-core.c::__bpf_prog_select_runtime(), if any BPF_ADDR_PERCPU insn is
-patched to the prog.
-
-BTW, rename the helper bpf_map_supports_cpu_flags() to
-bpf_map_is_percpu_map().
-
-Fixes: 7bdbf7446305 ("bpf: add special internal-only MOV instruction to resolve per-CPU addrs")
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
-Link: https://lore.kernel.org/bpf/20260715141122.15783-4-leon.hwang@linux.dev
-Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-[edit]
-  Add bpf_map_is_percpu_map() directly because 6.18.y lacks
-  bpf_map_supports_cpu_flags().
-
-  Apply the map lookup and bpf_get_smp_processor_id() changes to
-  do_misc_fixups() in kernel/bpf/verifier.c.
-
-  Omit the current-task helper hunk because 6.18.y lacks the verifier
-  inlining introduced by commit
-  eaedea154eb9 ("bpf, x86: inline bpf_get_current_task() for x86_64").
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
+Fixes: 26b380a3ca0b ("bpf: Drop task_to_inode and inet_conn_established from lsm sleepable hooks")
+Signed-off-by: Yingke Xiao <inkxiao12@gmail.com>
 ---
- include/linux/bpf.h   | 13 +++++++++++++
- kernel/bpf/verifier.c |  4 ++++
- 2 files changed, 17 insertions(+)
+Tested on linux-6.6.y (v6.6.163, x86_64 QEMU with CONFIG_BPF_LSM=y,
+CONFIG_DEBUG_INFO_BTF=y, CONFIG_SECURITY_NETWORK=y):
+- Pre-patch: BPF_PROG_LOAD for SEC("lsm.s/inet_conn_established") with
+  BPF_F_SLEEPABLE (calling bpf_copy_from_user) succeeded (prog_fd >= 0).
+- Post-patch: BPF_PROG_LOAD rejected with -EINVAL
+  ("bpf_lsm_inet_conn_established is not sleepable").
 
-diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-index bb78a97085f6..eab8a4953621 100644
---- a/include/linux/bpf.h
-+++ b/include/linux/bpf.h
-@@ -3765,4 +3765,17 @@ int bpf_prog_get_file_line(struct bpf_prog *prog, unsigned long ip, const char *
- 			   const char **linep, int *nump);
- struct bpf_prog *bpf_prog_find_from_stack(void);
+ kernel/bpf/bpf_lsm.c | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/kernel/bpf/bpf_lsm.c b/kernel/bpf/bpf_lsm.c
+index 790451337..411622162 100644
+--- a/kernel/bpf/bpf_lsm.c
++++ b/kernel/bpf/bpf_lsm.c
+@@ -305,10 +305,6 @@ BTF_ID(func, bpf_lsm_file_lock)
+ BTF_ID(func, bpf_lsm_file_open)
+ BTF_ID(func, bpf_lsm_file_receive)
  
-+static inline bool bpf_map_is_percpu_map(enum bpf_map_type map_type)
-+{
-+	switch (map_type) {
-+	case BPF_MAP_TYPE_PERCPU_ARRAY:
-+	case BPF_MAP_TYPE_PERCPU_HASH:
-+	case BPF_MAP_TYPE_LRU_PERCPU_HASH:
-+	case BPF_MAP_TYPE_PERCPU_CGROUP_STORAGE:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
- #endif /* _LINUX_BPF_H */
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 0ed5d9e0db39..865d474407f0 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -23209,6 +23209,9 @@ static int do_misc_fixups(struct bpf_verifier_env *env)
- 					return -EFAULT;
- 				}
- 
-+				if (bpf_map_is_percpu_map(map_ptr->map_type))
-+					prog->jit_required = true;
-+
- 				new_prog = bpf_patch_insn_data(env, i + delta,
- 							       insn_buf, cnt);
- 				if (!new_prog)
-@@ -23313,6 +23316,7 @@ static int do_misc_fixups(struct bpf_verifier_env *env)
- 			 * way, it's fine to back out this inlining logic
- 			 */
- #ifdef CONFIG_SMP
-+			prog->jit_required = true;
- 			insn_buf[0] = BPF_MOV64_IMM(BPF_REG_0, (u32)(unsigned long)&cpu_number);
- 			insn_buf[1] = BPF_MOV64_PERCPU_REG(BPF_REG_0, BPF_REG_0);
- 			insn_buf[2] = BPF_LDX_MEM(BPF_W, BPF_REG_0, BPF_REG_0, 0);
+-#ifdef CONFIG_SECURITY_NETWORK
+-BTF_ID(func, bpf_lsm_inet_conn_established)
+-#endif /* CONFIG_SECURITY_NETWORK */
+-
+ BTF_ID(func, bpf_lsm_inode_create)
+ BTF_ID(func, bpf_lsm_inode_free_security)
+ BTF_ID(func, bpf_lsm_inode_getattr)
 -- 
-2.55.0
+2.25.1
 
