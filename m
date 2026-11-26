@@ -1,58 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795709794;
-	b=JuisPrbbu6wjMcMgjZokpFVKqifOjt5G9Rx6mziFyX9SurpWRSkTYTuMjqIgyc1p6KKX
-	 rVOPM4llIE4LYR2MRExQgRbtjScyxJlla9H+ovKhmc45wlzC1p8JLl52sTYE/8VqV1Y5J
-	 vBkoF12bW2e4vMoZd4ezSdQXQYbqRsn0m7VWb8Nhi+EfJPqyc5VGAW4Z9g0SB35pUKBan
-	 dR+mUN/jr3/KePis8PviXl0OgrWxjk50/tia9rzqMukkzXTJduLV+x3CDgMYrMCQ+rb64
-	 pGarBU+oXM9+cZKTpy0pqJFXokJ9YyUw71haqxNO7Jm4sHU1bru8p+wVBJyt6csBWqw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795709794;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3brOEDASwlL6eb+KhBSUoWZzXY6vVjXruAtcg542T0g=;
-	b=TNyB0xHuBjf6WJiZmn0ejjaAiCgOORi10/32N0Zuwq6lBbfhlPOo/Q4NZB99lRcVJZ15
-	 qOZCzeqv5DXXQR9EpNovfoExnotSYViZa+3piBdT3lbtHWhg8iDHBXpZBeFiMUZYhY7rH
-	 PvS8SgZ/Ww9bbf0vzRfyHsNCKVYsV56EzTHBbQ9xKOmd44VPggaqgcpfJnXSBn/1qMDg8
-	 jWHIJNJX/AxmuY5ZfK46/uoTnYwX8i9L/94b5lcpKYU7fzOZouY8f92IvzB/X8I9eTOkw
-	 FPZMvKiefbiDwXx5SAveyocUBHfqkfzNzu55YXMhMJwAcI5E8rPIzw15GVlvfvH9weg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UL5+hRKP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795709932;
+	b=fZdqM+NVfL2ZKW0lvPwfkbj5FBbC8u1UobLueLbtkw0p86ppIMvhA/HkduHgMnsZe5H9
+	 3yg2D8nZRSIugO1Tj4ZUvsN0G6swm1edt6tC47qkrU3DRT07iJbzhw8UilNFQVVLXGuhq
+	 TxDsuwWnEl5YOJI1L0Bzbl1NedNk+JSeGYZVAD/c1uaLaoqVtzTneKXtLe7JzuAaNoVmE
+	 lOUvqlRHV2ypBb3NEMC6FGdjhQiO2S8mjnJIW7hUN07wZsn2vukHpUtfpQ/xMEZeK4TcR
+	 3xfVFiuNIlC33MMCci58BUgDqDzHU5r8uxy9b828MvM/gOMrPEWB0UBNtqKVsY8C12Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795709932;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=Sheh8Re0PVDjBdVA3EltFLk4JbLOu8Er8OMJmYxJgaY=;
+	b=ssNClvzuq2iXTrEap2+WbBFmIwqI3b9uylYkH3gVWK3B61qXo1b9X873hXA/VJ4F9DEq
+	 5NITNryOWJlLyZQk1gh+orJcf42orS9Ow7+mEfsfDCqiqYkMmhPxaX+iVmKj71cQ5gOKB
+	 6lQxa+2jTAdBFaXSI6xRI542CWq3O6Q6TCBQSXgOCH7C0sSVimm+QEmiUiRmJbayaDwsj
+	 3WtVMF/mN72V4prrw7a0p/BnUBTx4KqJ5mgwim420EqqGDrYBBbmpT3iycqbRi1EOsIa/
+	 f1KRruoWy1iDx+OOJWy7IRSGmsFbQApw/zTkMt6m4lW4qWaM2vZS8AAlWsUS38QFxYA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=N4eJIi74;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F65606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:16:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A47C606A31C;
+	Thu, 26 Nov 2026 16:18:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A47C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UL5+hRKP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5DAD1F000D1;
-	Thu, 26 Nov 2026 16:16:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795709793;
-	bh=3brOEDASwlL6eb+KhBSUoWZzXY6vVjXruAtcg542T0g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UL5+hRKPnp3TT210tlOcz9T93C4dkNO5oip2ehEfYm5WW+4owiePaqiKNedeqZsC0
-	 7nqLokcuMfcZwzUTLD1ZBd3/9qAFMz4+jF+ub7eigo43ZAkfBTY5EMYYtPbqOsNrCq
-	 k2GRtSfzL0nxrHzoLimYQv2jf2oSkbb1/2ROOnSRhjSqCFxu24kIk0YFhbvYTLDnF1
-	 8iKLJ17AvG36X2AOT3a3A/vbmH4bkldGvoRdaw8ja7V65Q2JMjCnIOKlbnLian9vOm
-	 LN5wrZhCeCf8TqgnhV9sBpu8FSilRemBOyrSM3ou7m7Z2sXRMMR7dOML/939ud2xiC
-	 51mbQ4jlqRLyg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	stable <stable@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] usb: dwc3: xilinx: re-assert resets on ZynqMP init error paths
-Date: Thu, 26 Nov 2026 11:16:30 -0500
-Message-ID: <20261126161615.2569078-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126161615.2569078-1-sashal@kernel.org>
-References: <2026112502-trailing-living-e804@gregkh>
- <20261126161615.2569078-1-sashal@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=N4eJIi74
+ARC-Seal: i=1; a=rsa-sha256; t=1795709910; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=n8GT9DA/b/dufTX9LgvVofXdLlN3BC36O6/ydE/f9tMvhoEMheukiFTToQBb4e9KQwOr44+F71kpXAld8Ii9NNkvYn1IOcGODw93chYAUEr/q1noGfazPFSh5sVu+8ROoCgaJi+9s20n8qbNlQczS9scdv5tveLXC7h/JQT168I=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1795709910; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Sheh8Re0PVDjBdVA3EltFLk4JbLOu8Er8OMJmYxJgaY=; 
+	b=flgEM/ggFBn4Sb+vjKM13wy3NygJ3i6HrKodCIWijtTmfXA5iUPbDb287PWYb0lS85KeoDsrnwhs7BzONfduUxuCYamOKgAWRhfvxb3tfjXbT8O79FR7eXOxegYVKXb14yb3hQcdcubFVqoVEFSH1VILgf4C+0vHfNifsZqBgcQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=N4eJIi74vkSqP+pvXtfONpD3X2GWHG+f2PvYihGlAhDv/yO1ArA4Nek1pPPe3pewoUVF+TD7BVefLCVau7ny1vP2cUYFpXSx4DGZ9q+EgU5YlTDXf+meF8uGbfBGlQ7FzFlLGA3/spmGCa/io7yFhUtsFvnM2qCLWl7mUcIJi3k=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=Sheh8Re0PVDjBdVA3EltFLk4JbLOu8Er8OMJmYxJgaY=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795709907264444.03070160972027;
+	Thu, 26 Nov 2026 08:18:27 -0800 (PST)
+Message-ID: <b79882a0-d438-4798-9a28-5019ae3be4c0@collabora.com>
+Date: Thu, 26 Nov 2026 19:18:23 +0300
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,176 +58,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: synopsys: hdmirx: move the reset bulk data out of
+ the driver data
+To: Sascha Hauer <s.hauer@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, kernel@collabora.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261116-hdmirx-resets-uaf-v1-1-1903146a3118@pengutronix.de>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20261116-hdmirx-resets-uaf-v1-1-1903146a3118@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+On 11/16/26 18:06, Sascha Hauer wrote:
+> devm_reset_control_bulk_get_exclusive() keeps a pointer to the bulk data
+> it is handed and releases the controls through it when devres is torn
+> down. Since the driver data is freed from the v4l2_device release
+> callback, remove() and the probe error paths may free it before that
+> happens: on every unbind without an open file descriptor, and on every
+> probe that fails after hdmirx_parse_dt(), in practice a deferral.
+> devm_reset_control_bulk_release() then reads the controls from freed
+> memory. KASAN reports the use-after-free, the controls stay claimed, and
+> the deferred probe fails for good with -EBUSY on the exclusive get.
+> 
+> Give the array an allocation of its own with devm_kcalloc(), so it lives
+> exactly as long as devres needs it.
+> 
+> Fixes: 03ec4aa9817b ("media: synopsys: hdmirx: free the driver data when the last user is gone")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+> ---
+> Hans, this fixes the patch you applied from v3 of the hdmirx bridge
+> series. Sashiko pointed out the use-after-free on v3, and the fix was
+> meant to go into v4 of that patch. If you can still replace 03ec4aa9817b
+> in your tree, please squash this into it; otherwise it applies on top.
+> 
+> The remaining patches of the series will follow as v4, rebased onto this
+> and with the v4l2-compliance output you asked for.
+> 
+> The fix was developed with the help of an AI coding assistant (Claude),
+> which also drafted this message.
+> ---
+>   drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c | 9 ++++++++-
+>   1 file changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> index a241761b1bcd9..8a5304603c00d 100644
+> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> @@ -144,7 +144,8 @@ struct snps_hdmirx_dev {
+>   	struct mutex phy_rw_lock; /* to protect phy r/w configuration */
+>   	struct mutex stream_lock; /* to lock video stream capture */
+>   	struct mutex work_lock; /* to lock the critical section of hotplug event */
+> -	struct reset_control_bulk_data resets[HDMIRX_NUM_RST];
+> +	/* devres may release these after the driver data is freed */
+> +	struct reset_control_bulk_data *resets;
+>   	struct clk_bulk_data *clks;
+>   	struct regmap *grf;
+>   	struct regmap *vo1_grf;
+> @@ -2296,6 +2297,12 @@ static int hdmirx_parse_dt(struct snps_hdmirx_dev *hdmirx_dev)
+>   		}
+>   	}
+>   
+> +	hdmirx_dev->resets = devm_kcalloc(dev, HDMIRX_NUM_RST,
+> +					  sizeof(*hdmirx_dev->resets),
+> +					  GFP_KERNEL);
+> +	if (!hdmirx_dev->resets)
+> +		return -ENOMEM;
 
-[ Upstream commit f33f0dd2eb014bffda02ecfd182de3ddab058596 ]
+hdmirx_dev->resets array is a part of hdmirx_dev struct, the hdmirx_dev 
+is used by hdmirx_v4l2_release(). This looks like a slop, what am I missing?
 
-If reset deassert or PHY setup fails partway through
-dwc3_xlnx_init_zynqmp(), re-assert the resets that were already
-released before unwinding the PHY.
-
-Only undo the reset cycle the function actually performed. The cycle is
-skipped when no usb3-phy is present, because asserting the core resets
-can break a USB3 configuration that is live but missing from the device
-tree, so the error path skips it for the same reason. Asserting an
-already asserted reset is harmless, so one block covers however far the
-deasserts progressed.
-
-Save the ZynqMP reset handles in driver private data so later probe
-teardown can re-assert released resets.
-
-Fixes: 84770f028fab ("usb: dwc3: Add driver for Xilinx platforms")
-Cc: stable <stable@kernel.org>
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Link: https://patch.msgid.link/20260928120015.3152461-3-radhey.shyam.pandey@amd.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/usb/dwc3/dwc3-xilinx.c | 55 ++++++++++++++++++++++------------
- 1 file changed, 36 insertions(+), 19 deletions(-)
-
-diff --git a/drivers/usb/dwc3/dwc3-xilinx.c b/drivers/usb/dwc3/dwc3-xilinx.c
-index 135fa9d3c747a..103a9e6ef35c4 100644
---- a/drivers/usb/dwc3/dwc3-xilinx.c
-+++ b/drivers/usb/dwc3/dwc3-xilinx.c
-@@ -45,6 +45,9 @@ struct dwc3_xlnx {
- 	void __iomem			*regs;
- 	int				(*pltfm_init)(struct dwc3_xlnx *data);
- 	struct phy			*usb3_phy;
-+	struct reset_control		*usb_crst;
-+	struct reset_control		*usb_hibrst;
-+	struct reset_control		*usb_apbrst;
- };
- 
- static void dwc3_xlnx_mask_phy_rst(struct dwc3_xlnx *priv_data, bool mask)
-@@ -99,7 +102,6 @@ static int dwc3_xlnx_init_versal(struct dwc3_xlnx *priv_data)
- static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
- {
- 	struct device		*dev = priv_data->dev;
--	struct reset_control	*crst, *hibrst, *apbrst;
- 	struct gpio_desc	*reset_gpio;
- 	int			ret = 0;
- 	u32			reg;
-@@ -112,25 +114,25 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
- 		goto err;
- 	}
- 
--	crst = devm_reset_control_get_exclusive(dev, "usb_crst");
--	if (IS_ERR(crst)) {
--		ret = PTR_ERR(crst);
-+	priv_data->usb_crst = devm_reset_control_get_exclusive(dev, "usb_crst");
-+	if (IS_ERR(priv_data->usb_crst)) {
-+		ret = PTR_ERR(priv_data->usb_crst);
- 		dev_err_probe(dev, ret,
- 			      "failed to get core reset signal\n");
- 		goto err;
- 	}
- 
--	hibrst = devm_reset_control_get_exclusive(dev, "usb_hibrst");
--	if (IS_ERR(hibrst)) {
--		ret = PTR_ERR(hibrst);
-+	priv_data->usb_hibrst = devm_reset_control_get_exclusive(dev, "usb_hibrst");
-+	if (IS_ERR(priv_data->usb_hibrst)) {
-+		ret = PTR_ERR(priv_data->usb_hibrst);
- 		dev_err_probe(dev, ret,
- 			      "failed to get hibernation reset signal\n");
- 		goto err;
- 	}
- 
--	apbrst = devm_reset_control_get_exclusive(dev, "usb_apbrst");
--	if (IS_ERR(apbrst)) {
--		ret = PTR_ERR(apbrst);
-+	priv_data->usb_apbrst = devm_reset_control_get_exclusive(dev, "usb_apbrst");
-+	if (IS_ERR(priv_data->usb_apbrst)) {
-+		ret = PTR_ERR(priv_data->usb_apbrst);
- 		dev_err_probe(dev, ret,
- 			      "failed to get APB reset signal\n");
- 		goto err;
-@@ -144,19 +146,19 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
- 	 * absent.
- 	 */
- 	if (priv_data->usb3_phy) {
--		ret = reset_control_assert(crst);
-+		ret = reset_control_assert(priv_data->usb_crst);
- 		if (ret < 0) {
- 			dev_err(dev, "Failed to assert core reset\n");
- 			goto err;
- 		}
- 
--		ret = reset_control_assert(hibrst);
-+		ret = reset_control_assert(priv_data->usb_hibrst);
- 		if (ret < 0) {
- 			dev_err(dev, "Failed to assert hibernation reset\n");
- 			goto err;
- 		}
- 
--		ret = reset_control_assert(apbrst);
-+		ret = reset_control_assert(priv_data->usb_apbrst);
- 		if (ret < 0) {
- 			dev_err(dev, "Failed to assert APB reset\n");
- 			goto err;
-@@ -167,7 +169,7 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
- 	if (ret < 0)
- 		goto err;
- 
--	ret = reset_control_deassert(apbrst);
-+	ret = reset_control_deassert(priv_data->usb_apbrst);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to release APB reset\n");
- 		goto err_phy_exit;
-@@ -183,21 +185,21 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
- 		writel(PIPE_CLK_DESELECT, priv_data->regs + XLNX_USB_FPD_PIPE_CLK);
- 	}
- 
--	ret = reset_control_deassert(crst);
-+	ret = reset_control_deassert(priv_data->usb_crst);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to release core reset\n");
--		goto err_phy_exit;
-+		goto err_reset_assert;
- 	}
- 
--	ret = reset_control_deassert(hibrst);
-+	ret = reset_control_deassert(priv_data->usb_hibrst);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to release hibernation reset\n");
--		goto err_phy_exit;
-+		goto err_reset_assert;
- 	}
- 
- 	ret = phy_power_on(priv_data->usb3_phy);
- 	if (ret < 0)
--		goto err_phy_exit;
-+		goto err_reset_assert;
- 
- 	/* ulpi reset via gpio-modepin or gpio-framework driver */
- 	reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
-@@ -227,6 +229,21 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
- 
- err_phy_power_off:
- 	phy_power_off(priv_data->usb3_phy);
-+err_reset_assert:
-+	/*
-+	 * Undo only the reset cycle performed above.  That cycle is skipped
-+	 * when there is no usb3-phy.  The deasserts stay unconditional so a
-+	 * core the bootloader left in reset still comes up, but they are
-+	 * deliberately not paired with an assert here: resetting a USB3
-+	 * configuration that is live but missing from the device tree could
-+	 * break it.  Asserting an already asserted reset is harmless, so one
-+	 * block covers however far the cycle's deasserts got.
-+	 */
-+	if (priv_data->usb3_phy) {
-+		reset_control_assert(priv_data->usb_hibrst);
-+		reset_control_assert(priv_data->usb_crst);
-+		reset_control_assert(priv_data->usb_apbrst);
-+	}
- err_phy_exit:
- 	phy_exit(priv_data->usb3_phy);
- err:
 -- 
-2.53.0
-
+Best regards,
+Dmitry
