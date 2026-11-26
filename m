@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795705396;
-	b=MZHz4CQQ6k9EZ9N+eOp3W49SPvBg1z3ijrOwmAqQcHqVwyUSs+r1xqusvN3FuFxbOX5x
-	 wm+aGACcaIAMINIyR8vC13bMnqfik2MufoB2AWZ3Y5Xh0ktT0WJi12b1Iwj6QkKgkM0W2
-	 XI+kilO7PLzFLGz9q0EWmz7HwHrSSC/+YelQN14uzPGkQBOzwTEcFDSHqhsEuhhEAVllS
-	 q5OzMwXDvnDMv3r5Q1tNNpAiUPPhAMv2a72yNXntwmX/mWqujRDBM/GifPDlognIrbfqX
-	 H1ho6LUoMOLMG3jniKOTYVDAwnC7ePQQaNmhSavYRMhqOhC5WxKFqz5XRdY/g5B9Q6A==
+	t=1795705397;
+	b=k8WydGkRHAhhzwsGGqkIjhtDfXvka1+XgvrSrrMUpQiEZyGtf73FZccD3kMZQQqjhlLJ
+	 vc/BkpgF7Df2gLrjqgVZxsla1bUTPftGbWl7dFSW13MhoMmOQcR0Bh2iHeQ9/JSsP89fs
+	 XJSiCAp2duuGjvruWtxSJKQjtPscDvyOKIt+t12rC4f/V4pWMfT+0mHdgC/UEK7pG75Lr
+	 lC76hlISRXLRV8AbfHXrOX9OLaNeaqw10MkLshJtMwEfyra1Hg2FikCMVYOBwIAoCpeF2
+	 SNldlo+d0YENCr3qMg4lPvrjNzwzzucmnlu273R6WwdbYywoy1thGOpI8EnoDwWsvxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795705396;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795705397;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=kSdkYxU7bMSS0OSDPbDhuCd0pJV+cG2PfKkmvl+Dd1Y=;
-	b=XW44Br7bIE2aJPKaYx5Ex2AZJyavHBma0l0EVjRx7xahRpdMr/81ROAqzlnSQGCcsEav
-	 wuQFpdbux3t0sU5FHra20h9TtKbmUjzEZhEA5EtGw1qEm2boA246Y+vAZ+w5Op10HqsXy
-	 UuJ65kcvqsoQDk27jkWaC5F07NKQyv902G0XJj3qe3SCnY1gescElWOUQ6Ry8i/do7vqO
-	 UcXcaKcQpfS5UXvRXxhz4lryd+1bJ97ZuvvYwWb2cqpVR6ydv304LsBC+NaEQSc9fHYzf
-	 2rJYD+DA8e2KvS/oYmGzQ5VK/MgtktslSTB58r1GQE52WgOCYuUpXoaJu9xxvXxIXpw==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=J1QilM+aYDElq8YlP1xFkza0HRCaGOl4ERWqk10bcJw=;
+	b=rCwq89QpkDFbtBB2H29FILm/ByLBrytIRUeoNLf1DBJHB+34QuBGVBcouQxrHbA1jbqa
+	 mn5OVnlGCBhKB2/DzG758DaCs/xhP1t05G5ndeEku1I7vlFSaQk2ZFGspgTMs9x0dy0cY
+	 G7tyClRmi59abztm9woojc12ViDlygv85gaIk70oDKnSWRyP2O8OnTeBU4ovnk+kd3DFk
+	 zJhiBsFw6XsI8lX/KG4qSVA4Md7S1b0I0Rj8jj6v/2eeXrZBJDrA3xPOuxnE3WoaAVrKI
+	 NxBHlubdsvcLuhfUd/f8bj51D8s66yGhVbAYOEr3dF6rYYsNj35ptRdL2ElGT2vVaEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jmaw3X1x;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0wj8hkA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F89606A31C;
-	Thu, 26 Nov 2026 15:03:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B09B606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:03:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jmaw3X1x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300591F000C6;
-	Thu, 26 Nov 2026 15:03:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795705395;
-	bh=kSdkYxU7bMSS0OSDPbDhuCd0pJV+cG2PfKkmvl+Dd1Y=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0wj8hkA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 674941F000D0;
+	Thu, 26 Nov 2026 15:03:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795705396;
+	bh=J1QilM+aYDElq8YlP1xFkza0HRCaGOl4ERWqk10bcJw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jmaw3X1xkX1aJSNQ/1F1939B+GfFVZgLMMl7msW1bjKzZ8/aKvvbqjJf+UmzSoW+I
-	 CHOvHzwiewvN7Xppx8/RkGRhOc5oyh+pgh5F+c6TwFRi6M3s1+08FdYdg+7weKpe7K
-	 7FGscgCoibMj7LTTtU36r9NX0NpnGmrcYI+yaHJk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=P0wj8hkAuzVljs6bqf5pMGrWlF7kzlqLWlBSioYmFIYQDRyYUWjF+l3578WA593F+
+	 FTsdp7etjlY9D1xESCm52ziBlgs8GI404AQsHpJAqOVz0gO4BzcW/5prt1t+0ePHoi
+	 1jjGKuiPRFSkF87rKc/TV4QB6qsYhLiOB7VXOuvSN4MJrQEaLgDvjKoW6enWAzE11U
+	 U5UAlpHn7+M5mIeYlqjLpQgQHxPEZOWM0ok8q1kT5dw/KyK3P8iLDmyXvS/B6V5MjC
+	 4zP3dBhTVQ/FpN5c9jfSZXJzzSAHMT/JrWkHISyeHrwUXgg8TTT9j94lOVYC7N5dUB
+	 dNOLqBCqdpCOA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 5.15 185/319] mctp: accept MSG_CMSG_COMPAT in recvmsg
-Date: Thu, 26 Nov 2026 15:39:13 +0100
-Message-ID: <20261126144010.921150457@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261126144006.732901931@linuxfoundation.org>
-References: <20261126144006.732901931@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Josef Schlehofer <pepe.schlehofer@gmail.com>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] dm-crypt: defer async write submission to write thread
+Date: Thu, 26 Nov 2026 10:03:15 -0500
+Message-ID: <20261126150254.2214336-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112521-nibble-keg-edbd@gregkh>
+References: <2026112521-nibble-keg-edbd@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,39 +61,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+From: Josef Schlehofer <pepe.schlehofer@gmail.com>
 
-------------------
+[ Upstream commit 6fed9e26810f0b466dbcebe35a73d1fd48793ff5 ]
 
-From: Davidlohr Bueso <dave@stgolabs.net>
+With no_write_workqueue, kcryptd_crypt_write_io_submit() submits the
+bio directly, even when called from kcryptd_async_done(). An async
+cipher may run this callback in softirq or with BH disabled, where
+submit_bio_noacct() must not be called because it can sleep.
 
-commit 350e1d0d3b386fcc0cff2d37aa920fab4800bf72 upstream.
+Submit inline only when async is false. Async completions are sent to
+the write thread, as is already done for submit_from_crypt_cpus. Use
+the async flag rather than in_interrupt(), since callback context
+depends on the cipher driver. Sync ciphers still submit inline.
 
-32-bit userspace running on a 64-bit kernel is unable to receive MCTP
-messages on an AF_MCTP socket, even though sending succeeds. There is
-nothing for MCTP to do with it beyond not rejecting it, as af_packet,
-af_key and can/isotp already do, for example.
+Tested with cryptd in QEMU (x86_64 and arm64) with
+CONFIG_DEBUG_ATOMIC_SLEEP, and on a P2020 running 6.18.55 without it.
 
-Fixes: 833ef3b91de6 ("mctp: Populate socket implementation")
+In QEMU:
+
+- 4k writes logging "sleeping function called from invalid context":
+  100/100 unpatched, 0/155 patched.
+- nr_requests=4 on a loop device: 0/6 unpatched runs completed,
+  4/4 patched runs completed.
+
+On the P2020, a warning in blk_mq_run_hw_queue() appeared in the
+6th unpatched run and did not appear in 30 patched runs.
+
+Fixes: 39d42fa96ba1 ("dm crypt: add flags to optionally bypass kcryptd workqueues")
 Cc: stable@vger.kernel.org
-Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
-Link: https://patch.msgid.link/20261105160704.2546031-1-dave@stgolabs.net
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+[ sashal: Kept the tree's existing submit_bio_noacct(clone) call where upstream's context uses dm_submit_bio_remap(), since that helper is absent here; the condition change itself is identical. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mctp/af_mctp.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/md/dm-crypt.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
---- a/net/mctp/af_mctp.c
-+++ b/net/mctp/af_mctp.c
-@@ -148,7 +148,7 @@ static int mctp_recvmsg(struct socket *s
- 	u8 type;
- 	int rc;
+diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
+index 611d92ae3218c..16135160501a4 100644
+--- a/drivers/md/dm-crypt.c
++++ b/drivers/md/dm-crypt.c
+@@ -1941,8 +1941,9 @@ static void kcryptd_crypt_write_io_submit(struct dm_crypt_io *io, int async)
  
--	if (flags & ~(MSG_DONTWAIT | MSG_TRUNC | MSG_PEEK))
-+	if (flags & ~(MSG_DONTWAIT | MSG_TRUNC | MSG_PEEK | MSG_CMSG_COMPAT))
- 		return -EOPNOTSUPP;
+ 	clone->bi_iter.bi_sector = cc->start + io->sector;
  
- 	skb = skb_recv_datagram(sk, flags, flags & MSG_DONTWAIT, &rc);
-
+-	if ((likely(!async) && test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags)) ||
+-	    test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags)) {
++	if (likely(!async) &&
++	    (test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags) ||
++	     test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags))) {
+ 		submit_bio_noacct(clone);
+ 		return;
+ 	}
+-- 
+2.53.0
 
