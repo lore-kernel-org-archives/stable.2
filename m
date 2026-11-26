@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795710118;
-	b=zFBKj0PAzIT54aNQnthYNHg8zO04QvzQybEo3Q7bT0Qr8vIXXKMB6HfO/k0DnLyPtjvd
-	 GMGN/wBSMfO+6A5mQ4qpdY3k6FYHbhALe79RFrX12psJGsZ9kb2doV3niJqTYL5OjvHWh
-	 nRURY6sQDJqF/YfX1VhKtV1mcQ0XWsK/Co/h5d49SDwzZ6fJYfNfrCTEu2PgnsyMbM/M4
-	 ZcBQfONRHShDWBnw3vg718K9fPlqAWGlxcEWYv1BkVUQVHkAedCsaOJvPoCGMAjKIhEpA
-	 702TfvM/4CzX/CAQulyInVDcm16G5VzcJURflTsr3xQyNSnt/owij4bZ+WdWHwCg1zQ==
+	t=1795710119;
+	b=E1rXBbAa/ZdKI3qoBGDVoQucCkSznUdau/nRlENnQR/01qb4INBLkDxOmti2h8XBMDm8
+	 LijxAfl5dbt6wDS4TZ9FtnmPtkNW9vk+PiY+Wy69Mhk5MHyp0tY7sxhO8x3D5BDp6yhZT
+	 SQIW/ZMeK6K/KJKNZuemoq532AjzXPf/h0WU1qWR+p2uETHmMmvkK3xI7hkvjxtqx55kQ
+	 ovgRlklNbWeVilorQfMdgi9jlt1su63MBOAaqiX3xwU3c0bnLv2nu5xZ9wF/VJqWBjbJg
+	 Yr2vFLC3qSWPmaFnEEl/teCdGbwYIyKHwGK65HOZlW8edcrUpBIsm62U0T/YufobaZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795710118;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795710119;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hvW+hXmV+4c/SegDBJEmL+eo5nPCDsfSBXxJbSNF8os=;
-	b=VN5TjAe9IxXcJwSTbxNCy9ZVdc9/7+1bq22VX6FkuGgG88lY3pV3nUEf5Abycu3onVOB
-	 VMKJcv5mjmAAV2MrTPhxOZ8KvomYBqelc+ER+pPsVmtVp9Sma1ofCraTFafCHQ2UdOVKo
-	 TstL4ttqwrMaY+eID9LXmgaS2gOWOl8QFOAcH50ZN+8skYhDUq0bP+xNeWmUW6getB7Wu
-	 mlDJ3QNVQJsl8YSUlQC+2TSCrzHWNMH2FMk+cxtPn9gfOIv/HnDchgmwEMZ/GLTrCAQ8+
-	 seom5fTskvMO6aNsLbqnkZyZjwjCNVkP60sRUMpetYhbvd2cU0K+Rg43TluAZ/t3fAw==
+	bh=U2KE+Ehmx4DBSoGEbxJ81KlrqYhu5NtAKHmejrYocmc=;
+	b=HHzJEf2AwWEV+v+WAz70EieHnYgwUoeJhCKAPlojVujv6QneRJf2UFYDdsv23KE7C0ni
+	 Ibj4KBfvOaUX86pstEbzfu2LQ6W+WJGtqWBApk6F3DUSiwLEBb3PaBBBwrGHy16JiWY+j
+	 1ezC8o4J2HG340TJFOknpERX2UMT0KwJH5eBP0npaFRtzEYPmriCnTqvsW+Peyp1iu0c9
+	 ly0C5iFLmCL7w4CrmfH7eeFQ9X29CQJ5qYxTrR6K+etlcNTUANIHl/0rVo2vzen/pA6iz
+	 bRkaKIhOTJO8b/EVQ7GxK34x0n6y0WucAVwHM4KGqlxMF+4i26N/ySaqXq8hve/tRBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aEb9NyuF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LRLhl2WF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C58F606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:21:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C84606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:21:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aEb9NyuF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83C7A1F000C4;
-	Thu, 26 Nov 2026 16:21:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LRLhl2WF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CF001F000C0;
+	Thu, 26 Nov 2026 16:21:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795710118;
-	bh=hvW+hXmV+4c/SegDBJEmL+eo5nPCDsfSBXxJbSNF8os=;
+	s=k20260515; t=1795710119;
+	bh=U2KE+Ehmx4DBSoGEbxJ81KlrqYhu5NtAKHmejrYocmc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aEb9NyuF7s0uj3s/8p8WfBa7jlO62F9vn9jUEX5+5Ihfy7scvWDq5MMha4kglC/u+
-	 cNr070FN/Cv1Ss+lCXCBoDZOJwSwutTV0WhQFV//SzJXPzTvsR0CuLBP5a/U0utv6l
-	 lkQVJG0PZa7kMg01BwBz2UMeiLW7wl0OUwBMiPLmYKH6rt0e1dM3+0Qt6T2AgFiIqW
-	 gz6R0s8VcnfSvwtJN2u/wuzS/XRY6Je8n4Ss1dWIRTWBoPY1DbFyzwFELDuohCZ3Tg
-	 S453tw05FC/0H2hRRvG3zCTstVzAVE0I3TdWLORP805A+ei7NDgbfkDQGCc5cDXiB0
-	 9517gPZlFaDfw==
+	b=LRLhl2WFPs8EsVbzutkVHLK+uw8yZIToSxkqNukNgfhnNVsUdvM+jr91BFN9U6APX
+	 LJejbY7s65OpBx4Ou3bBzGjFTR1W47MeQl2h/fI+T/lyTH32pZ3pK7xmkLFfnZt8xq
+	 bITS8518Y/ESxW5S1dVuWDhe+mFOFdilgHD+bY/vNIsebXAlHYY/TwikqQk5O9NB8t
+	 wz8AkhfonY/CHbnJArnOSx+NfgorCtB8at4sSsVhv75pPXf2YowcY7t33FW0WFPVZe
+	 glNEUtpjjzEvtcyo2lZgBX6iBTcsIVkjWMZKRQsPv9SETU11RZMrap1fKV7rYaCbkF
+	 FwA1BDv3oq6Eg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zain Aboobacker <zainaboobacker33@gmail.com>,
+Cc: Yiyu Zhou <yiyu@yiyuzhou.io>,
+	stable <stable@kernel.org>,
+	Dennis Wissel <dennis@dsine.de>,
 	Mathias Nyman <mathias.nyman@linux.intel.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 1/2] usb: xhci: fix typos in comments
-Date: Thu, 26 Nov 2026 11:21:55 -0500
-Message-ID: <20261126162118.2536749-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y 2/2] xhci: give back TDs and clean up ep0 after disconnect
+Date: Thu, 26 Nov 2026 11:21:56 -0500
+Message-ID: <20261126162118.2536749-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112543-handcraft-impolite-2d69@gregkh>
+In-Reply-To: <20261126162118.2536749-1-sashal@kernel.org>
 References: <2026112543-handcraft-impolite-2d69@gregkh>
+ <20261126162118.2536749-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,158 +65,219 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zain Aboobacker <zainaboobacker33@gmail.com>
+From: Yiyu Zhou <yiyu@yiyuzhou.io>
 
-[ Upstream commit d7458590f585aea58f24047195f163adc6ecb045 ]
+[ Upstream commit 6895dbdc19d927a2872bd4f111e1911874d5dce4 ]
 
-Fix various spelling mistakes in comments found by codespell.
+Fix a regression in v7.3 introduced by the commits in the Fixes tags.
+Those patches avoid endpoint recovery and rapid state changes after
+the root port link is lost.
 
-Assisted-by: Claude:claude-opus-5-5 codespell
-Signed-off-by: Zain Aboobacker <zainaboobacker33@gmail.com>
+This caused a regression in device enumeration.
+
+It turns out that a subset of USB HID devices briefly disconnect during
+enumeration. USB core manages to resuscitate these devices without
+reallocating them, and thus continue using the same udev, xhci vdev and
+default control endpoint (ep0) of the device.
+xhci didn't give back or clean up halted TDs behind disconnected ports
+as it assumed that the disconnect cancels all URBs, and drops and frees
+all endpoints.
+
+This is not the case, so cancel and give back TDs on halted endpoint
+behind disconnected ports, make sure ep0 is cleared and in a proper state
+to continue working even after a link error or disconnect is detected.
+Also prevent new URBs until device is reset.
+
+One issue related to the TDs not being given back was seen on a PFU
+HHKB Professional HYBRID Type-S keyboard (04fe:0021).
+It drops off the bus about 300 ms after its first enumeration, while
+usbhid is still probing its third interface. The probe runs in hub_wq,
+so the disconnect is not handled until the probe returns.
+On a root port the HID descriptor request and its four retries in
+hid_get_class_descriptor() each wait for the full 5 second
+USB_CTRL_GET_TIMEOUT:
+
+  [57685.006036] usb 3-2: new full-speed USB device number 24 using xhci_hcd
+  ...
+  [57685.291304] hid-generic 0003:04FE:0021.0017: input,hidraw1: USB HID v1.11 Keyboard [PFU Limited HHKB-Hybrid] on usb-0000:00:14.0-2/input1
+  [57711.221083] usbhid 3-2:1.2: can't add hid device: -110
+  [57711.221613] usbhid 3-2:1.2: probe with driver usbhid failed with error -110
+  [57711.221842] usb 3-2: USB disconnect, device number 24
+
+[mn: merge EP_DROP_PENDING and link_inactive checks in xhci_urb_enqueue(),
+ return TDs and clean up ep0 on disconnect, rewrite commit message]
+
+Fixes: 042aad8d0db6 ("xhci: prevent endpoint recovery after roothub disconnect")
+Fixes: 7e0ef4332ed9 ("xhci: avoid xHC endpoint changes after disconnect or link error.")
+Cc: stable <stable@kernel.org>
+Closes: https://lore.kernel.org/all/20261010071811.20483-1-yiyu@yiyuzhou.io/
+Closes: https://lore.kernel.org/linux-usb/4MjB9K-2SoiA85WbI9iEig@dsine.de/
+Tested-by: Yiyu Zhou <yiyu@yiyuzhou.io>
+Tested-by: Dennis Wissel <dennis@dsine.de>
+Signed-off-by: Yiyu Zhou <yiyu@yiyuzhou.io>
+Co-developed-by: Mathias Nyman <mathias.nyman@linux.intel.com>
 Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-Link: https://patch.msgid.link/20261009151624.618967-4-mathias.nyman@linux.intel.com
+Link: https://patch.msgid.link/20261029204324.658845-2-mathias.nyman@linux.intel.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: 6895dbdc19d9 ("xhci: give back TDs and clean up ep0 after disconnect")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/host/xhci-ring.c | 14 +++++++-------
- drivers/usb/host/xhci.c      | 14 +++++++-------
- 2 files changed, 14 insertions(+), 14 deletions(-)
+ drivers/usb/host/xhci-ring.c | 73 ++++++++++++++++++++++++++++++------
+ drivers/usb/host/xhci.c      | 13 ++++---
+ 2 files changed, 69 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index fffd901b59e7f..aedb2af01e2f7 100644
+index aedb2af01e2f7..2a8585581aa8a 100644
 --- a/drivers/usb/host/xhci-ring.c
 +++ b/drivers/usb/host/xhci-ring.c
-@@ -243,7 +243,7 @@ static void inc_enq_past_link(struct xhci_hcd *xhci, struct xhci_ring *ring, u32
- 		 * fixed in the 0.96 specification errata, but we have to assume that all 0.95
- 		 * xHCI hardware can't handle the chain bit being cleared on a link TRB.
- 		 *
--		 * On 0.95 and some 0.96 HCs the chain bit is set once at segment initalization
-+		 * On 0.95 and some 0.96 HCs the chain bit is set once at segment initialization
- 		 * and never changed here. On all others, modify it as requested by the caller.
- 		 */
- 		if (!xhci_link_chain_quirk(xhci, ring->type)) {
-@@ -661,7 +661,7 @@ struct xhci_ring *xhci_triad_to_transfer_ring(struct xhci_hcd *xhci,
-  * Get the hw dequeue pointer xHC stopped on, either directly from the
-  * endpoint context, or if streams are in use from the stream context.
-  * The returned hw_dequeue contains the lowest four bits with cycle state
-- * and possbile stream context type.
-+ * and possible stream context type.
-  */
- static u64 xhci_get_hw_deq(struct xhci_hcd *xhci, struct xhci_virt_device *vdev,
- 			   unsigned int ep_index, unsigned int stream_id)
-@@ -989,7 +989,7 @@ static int xhci_handle_halted_endpoint(struct xhci_hcd *xhci,
- 	int err;
+@@ -65,6 +65,7 @@
+ static int queue_command(struct xhci_hcd *xhci, struct xhci_command *cmd,
+ 			 u32 field1, u32 field2,
+ 			 u32 field3, u32 field4, bool command_must_succeed);
++static void xhci_kill_endpoint_urbs(struct xhci_hcd *xhci, int slot_id, int ep_index);
  
- 	/*
--	 * Avoid resetting endpoint if link is inactive or device disonnected.
-+	 * Avoid resetting endpoint if link is inactive or device disconnected.
- 	 * Can cause host hang.
- 	 * Device will be reset to recover an inactive link, so don't do anything
- 	 */
-@@ -1384,7 +1384,7 @@ static void xhci_kill_endpoint_urbs(struct xhci_hcd *xhci,
-  * held for the URBs to finish during device disconnect, blocking host remove.
-  *
-  * Call with xhci->lock held.
-- * lock is relased and re-acquired while giving back urb.
-+ * lock is released and re-acquired while giving back urb.
-  */
- void xhci_hc_died(struct xhci_hcd *xhci)
- {
-@@ -1969,7 +1969,7 @@ static void handle_device_notification(struct xhci_hcd *xhci,
+ /*
+  * Returns zero if the TRB isn't in this segment, otherwise it returns the DMA
+@@ -955,6 +956,24 @@ static void xhci_giveback_invalidated_tds(struct xhci_hcd *xhci, struct xhci_vir
+ 	}
  }
  
- /*
-- * Quirk hanlder for errata seen on Cavium ThunderX2 processor XHCI
-+ * Quirk handler for errata seen on Cavium ThunderX2 processor XHCI
-  * Controller.
-  * As per ThunderX2errata-129 USB 2 device may come up as USB 1
-  * If a connection to a USB 1 device is followed by another connection
-@@ -3087,7 +3087,7 @@ static void xhci_clear_interrupt_pending(struct xhci_interrupter *ir)
++static void xhci_cancel_ring_tds(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
++				 struct xhci_ring *ring, int td_status)
++{
++	struct xhci_td *tmp_td;
++	struct xhci_td *td;
++
++	/* Add all TDs on ring to cancelled td list */
++	list_for_each_entry_safe(td, tmp_td, &ring->td_list, td_list) {
++		if (list_empty(&td->cancelled_td_list)) {
++			list_add_tail(&td->cancelled_td_list,
++				      &ep->cancelled_td_list);
++			td->cancel_status = TD_DIRTY;
++			if (!td->status)
++				td->status = td_status;
++		}
++	}
++}
++
+ static int xhci_reset_halted_ep(struct xhci_hcd *xhci, unsigned int slot_id,
+ 				unsigned int ep_index, enum xhci_ep_reset_type reset_type)
+ {
+@@ -986,25 +1005,53 @@ static int xhci_handle_halted_endpoint(struct xhci_hcd *xhci,
+ {
+ 	struct xhci_port *rhub_port = ep->vdev->rhub_port;
+ 	unsigned int slot_id = ep->vdev->slot_id;
++	bool disconnected = false;
++	struct xhci_ring *ring;
+ 	int err;
  
- /*
-  * Handle all OS-owned events on an interrupter event ring. It may drop
-- * and reaquire xhci->lock between event processing.
-+ * and reacquire xhci->lock between event processing.
-  */
- static int xhci_handle_events(struct xhci_hcd *xhci, struct xhci_interrupter *ir,
- 			      bool skip_events)
-@@ -3798,7 +3798,7 @@ int xhci_queue_ctrl_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
- 		/*
- 		 * If next available TRB is the Link TRB in the ring segment then
- 		 * enqueue a No Op TRB, this can prevent the Setup and Data Stage
--		 * TRB to be breaked by the Link TRB.
-+		 * TRB to be broken by the Link TRB.
- 		 */
- 		if (last_trb_on_seg(ep_ring->enq_seg, ep_ring->enqueue + 1)) {
- 			field = TRB_TYPE(TRB_TR_NOOP) | ep_ring->cycle_state;
+-	/*
+-	 * Avoid resetting endpoint if link is inactive or device disconnected.
+-	 * Can cause host hang.
+-	 * Device will be reset to recover an inactive link, so don't do anything
+-	 */
++	/* link is inactive or device disconnected */
+ 	if (rhub_port->link_inactive || !rhub_port->connected) {
+ 		ep->ep_state |= EP_DROP_PENDING;
+-		return -ENODEV;
++		disconnected = true;
++		if (!td && ep->ep_index != 0) {
++			xhci_kill_endpoint_urbs(xhci, slot_id, ep->ep_index);
++			return -ENODEV;
++		}
+ 	}
+ 
+-	/* add td to cancelled list and let reset ep handler take care of it */
+-	if (reset_type == EP_HARD_RESET) {
+-		ep->ep_state |= EP_HARD_CLEAR_TOGGLE;
++	/* Add halted td to cancelled list and let reset ep handler take care of it */
++	if (reset_type == EP_HARD_RESET || disconnected) {
+ 		if (td && list_empty(&td->cancelled_td_list)) {
+ 			list_add_tail(&td->cancelled_td_list, &ep->cancelled_td_list);
+ 			td->cancel_status = TD_HALTED;
++			if (disconnected && !td->status)
++				td->status = -EPROTO;
++		}
++	}
++
++	/*
++	 * Avoid resetting non-ep0 endpoints if link is inactive or device
++	 * disconnected. Can cause host hang.
++	 * Endpoints other than ep0 won't restart before the device is reset or
++	 * the endpoint is dropped, so cancel all TDs, and give back non-ep0 TDs
++	 * now instead of letting them time out. Ep0 can survive a short device
++	 * disconnect during enumeration so reset ep0 normally and clean it up.
++	 */
++	if (disconnected) {
++		ring = td ? xhci_urb_to_transfer_ring(xhci, td->urb) : ep->ring;
++		xhci_cancel_ring_tds(xhci, ep, ring, -ESHUTDOWN);
++		if (ep->ep_index != 0) {
++			xhci_dbg(xhci, "Not resetting ep %u slot %u after disconnect\n",
++				 ep->ep_index, slot_id);
++
++			xhci_process_cancelled_tds(xhci, ep);
++			xhci_kill_endpoint_urbs(xhci, slot_id, ep->ep_index);
++			return -ENODEV;
+ 		}
++		/* hard-reset a halted disconnected ep0 */
++		xhci_dbg(xhci, "Reset and clean up ep0 slot %u after disconnect\n",
++			 slot_id);
++		reset_type = EP_HARD_RESET;
+ 	}
+ 
+ 	if (ep->ep_state & EP_HALTED) {
+@@ -1013,6 +1060,9 @@ static int xhci_handle_halted_endpoint(struct xhci_hcd *xhci,
+ 		return 0;
+ 	}
+ 
++	if (reset_type == EP_HARD_RESET)
++		ep->ep_state |= EP_HARD_CLEAR_TOGGLE;
++
+ 	err = xhci_reset_halted_ep(xhci, slot_id, ep->ep_index, reset_type);
+ 	if (err)
+ 		return err;
+@@ -1063,8 +1113,9 @@ static int xhci_invalidate_cancelled_tds(struct xhci_hcd *xhci, struct xhci_virt
+ 			continue;
+ 		}
+ 
+-		/* device disconnected or link error, ep will be dropped */
+-		if (ep->ep_state & EP_DROP_PENDING) {
++		/* device disconnected or link error, non-ep0 endpoints will be dropped */
++		if (ep->ep_state & EP_DROP_PENDING && ep->ep_index != 0) {
++			td_to_noop(xhci, ep, td, false);
+ 			td->cancel_status = TD_CLEARED;
+ 			continue;
+ 		}
 diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index ec9ae4e15b5b8..d6dc696b385ac 100644
+index d6dc696b385ac..c5000b82b1078 100644
 --- a/drivers/usb/host/xhci.c
 +++ b/drivers/usb/host/xhci.c
-@@ -406,7 +406,7 @@ static void compliance_mode_recovery(struct timer_list *t)
-  * The quirk creates a timer that polls every 2 seconds the link state of
-  * each host controller's port and recovers it by issuing a Warm reset
-  * if Compliance mode is detected, otherwise the port will become "dead" (no
-- * device connections or disconnections will be detected anymore). Becasue no
-+ * device connections or disconnections will be detected anymore). Because no
-  * status event is generated when entering compliance mode (per xhci spec),
-  * this quirk is needed on systems that have the failing hardware installed.
-  */
-@@ -796,7 +796,7 @@ static void xhci_save_registers(struct xhci_hcd *xhci)
- 	xhci->s3.config_reg = readl(&xhci->op_regs->config_reg);
+@@ -1666,12 +1666,6 @@ static int xhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+ 		goto free_priv;
+ 	}
  
- 	/* save both primary and all secondary interrupters */
--	/* fixme, shold we lock  to prevent race with remove secondary interrupter? */
-+	/* fixme, should we lock  to prevent race with remove secondary interrupter? */
- 	for (i = 0; i < xhci->max_interrupters; i++) {
- 		ir = xhci->interrupters[i];
- 		if (!ir)
-@@ -2047,7 +2047,7 @@ int xhci_add_endpoint(struct usb_hcd *hcd, struct usb_device *udev,
+-	if (xhci->devs[slot_id]->rhub_port->link_inactive) {
+-		xhci_dbg(xhci, "Can't queue urb, port error, link inactive\n");
+-		ret = -ENODEV;
+-		goto free_priv;
+-	}
+-
+ 	if (xhci->xhc_state & XHCI_STATE_DYING) {
+ 		xhci_dbg(xhci, "Ep 0x%x: URB %p submitted for non-responsive xHCI host.\n",
+ 			 urb->ep->desc.bEndpointAddress, urb);
+@@ -1681,6 +1675,13 @@ static int xhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
  
- 	/*
- 	 * Configuration and alternate setting changes must be done in
--	 * process context, not interrupt context (or so documenation
-+	 * process context, not interrupt context (or so documentation
- 	 * for usb_set_interface() and usb_set_configuration() claim).
- 	 */
- 	if (xhci_endpoint_init(xhci, virt_dev, udev, ep, GFP_NOIO) < 0) {
-@@ -3303,7 +3303,7 @@ static void xhci_endpoint_disable(struct usb_hcd *hcd,
-  * state. For software that wishes to reset the data toggle or sequence number
-  * of an endpoint that isn't in the halted state this function will issue a
-  * configure endpoint command with the Drop and Add bits set for the target
-- * endpoint. Refer to the additional note in xhci spcification section 4.6.8.
-+ * endpoint. Refer to the additional note in xhci specification section 4.6.8.
-  *
-  * vdev may be lost due to xHC restore error and re-initialization during S3/S4
-  * resume. A new vdev will be allocated later by xhci_discover_or_reset_device()
-@@ -4297,7 +4297,7 @@ int xhci_alloc_dev(struct usb_hcd *hcd, struct usb_device *udev)
- 		pm_runtime_get_noresume(hcd->self.controller);
+ 	ep_state = &xhci->devs[slot_id]->eps[ep_index].ep_state;
  
- 	/* Is this a LS or FS device under a HS hub? */
--	/* Hub or peripherial? */
-+	/* Hub or peripheral? */
- 	return 1;
- 
- disable_slot:
-@@ -4516,7 +4516,7 @@ static int xhci_enable_device(struct usb_hcd *hcd, struct usb_device *udev)
- 
- /*
-  * Transfer the port index into real index in the HW port status
-- * registers. Caculate offset between the port's PORTSC register
-+ * registers. Calculate offset between the port's PORTSC register
-  * and port status base. Divide the number of per port register
-  * to get the real index. The raw port number bases 1.
-  */
-@@ -5398,7 +5398,7 @@ static void xhci_hcd_init_usb3_data(struct xhci_hcd *xhci, struct usb_hcd *hcd)
- 	/*
- 	 * Early xHCI 1.1 spec did not mention USB 3.1 capable hosts
- 	 * should return 0x31 for sbrn, or that the minor revision
--	 * is a two digit BCD containig minor and sub-minor numbers.
-+	 * is a two digit BCD containing minor and sub-minor numbers.
- 	 * This was later clarified in xHCI 1.2.
- 	 *
- 	 * Some USB 3.1 capable hosts therefore have sbrn 0x30, and
++	if (xhci->devs[slot_id]->rhub_port->link_inactive ||
++	    *ep_state & EP_DROP_PENDING) {
++		xhci_dbg(xhci, "Can't queue urb, port disconnect or link inactive\n");
++		ret = -ENODEV;
++		goto free_priv;
++	}
++
+ 	if (*ep_state & (EP_GETTING_STREAMS | EP_GETTING_NO_STREAMS)) {
+ 		xhci_warn(xhci, "WARN: Can't enqueue URB, ep in streams transition state %x\n",
+ 			  *ep_state);
 -- 
 2.53.0
 
