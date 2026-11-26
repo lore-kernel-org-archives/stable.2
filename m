@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795670574;
-	b=Z/CtWFneWhHEB3u4w3Bx7cBIo7ijax4m1fnHTN/mDT2DkbrVeD/UduExDJntdZMsSHUL
-	 tuzGetLftZhJ0UH79hpEEDCIhDG0We5ADK4q8x1iGcAZnt6kNQaR40VbHQOPAKqzMaTNd
-	 d3AGrxZErVx2EKMwU9urmQBjEiGW1fp/LrKcJYXuleQfSOtqYpvK3srYNFteagdHPM3ec
-	 jvZApXPQ18jXGyGtdiTWZMU7gaKy4xHlfY1eZEwqE/UtUXdEdFqANoS0KOkoKl7HicNIg
-	 tmW0hYGm84PsGKBGM85yH+y/DacLnLi5ZdKUN6Uf8tXzvpr4HAvFmPJj7TE4c6r5MCg==
+	t=1795670715;
+	b=fx6mtys1Q8en7a3HDD2RMuRY4fx//OZpInbhnKMvd6F/6B3c0gMPa6nU/ZaBe0xYY2zZ
+	 1WuJzRLKqYtWC5KUorj1+8DwsPbr+ygKOBtkDde5LYeMhPeMWUrIiBe//RGTb6FqihObx
+	 5Hij2iL17vmYI+qZrOwexwGaYCvXKS/0PnuNmT/s4ViR2JRG8ZZge33Np9Cmwy+o900YB
+	 MdYCuIHky33DSGu6LlCQjBiRleDwXOMtYWYHVsPOaQO0bKHLgSmMH17g8RO8Cg37UGmTE
+	 8dQ/MCGDjE+AlHBCjsU2jEJL5frD7nZp/2DZ1XxQDXDyBiN1dDOIKnULi05HZM+3W4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795670574;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795670715;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vjJ/xf6noZhh7few4OrQjkZDHCSDF5VHa526WEOALwc=;
-	b=Qwu+haIIbStTBoB6+2EPcL1qU1AD2GCePxiki+urRIPT3EF9fapBCOQMNVOpRt575eTF
-	 nES2xd8euxy6wKuJlTatpMq/EF5AaPBagMHZWGr1FrnscFCCizJ/qk1PweFRMriSRDEy7
-	 wRDsIqlcvi6SM4eVsLnmqpnC5dVQMTP9g04mDT/XtYlO2RF8b2xtHdFhku/hyx3TgCFId
-	 v6XBZz/GG9OoLnB0vXixuUFw+PuhEbLDPCp5v5Wm/c3pS/wskcWUpTsDnJXGBS4Q6upu/
-	 MupvQNDEPv2Y4XVEzs7p94hp9+ENwXWcCVTpUUOOVsvqUZMWL5JgPU+La4ebwJ/ymOg==
+	bh=e7Bvak88K5HUopDvqmfYO7WhycYG6faQREXfskqhLco=;
+	b=2aLIkWdFEIf2awNyhfXGFGMA3EwuhiI97xz2TX/xvizAADBRk+epxvuKWpNInZDqhd05
+	 bdDwyd+pYUQToF69xvBHKeec3GVRBMAFBhQ2uHItRPPDFnT9kttTyhbL+SWOj3W6MAxFk
+	 YCr5uhYa/vh5tZfJgve9LU92iWzk/exICWfh7tqSuvzSKfiYqCMwiZwRGd87Pq8Lmk15T
+	 bzZvlU0tQqAQLJbCfAIiJALleC+ers8FLUYXdAOvMr3u3HXnt3360W88KzYqb3DEo9aTa
+	 8/7gxbKUtES03XOi9NthmkxOycbAULs2/0v/JMEQPdon1PPFLQIzK9LJvuyDA3CTOkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bJNeKPYo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k1aa6rzF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10A3606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:22:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EDB8606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:25:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bJNeKPYo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0695E1F000C6;
-	Thu, 26 Nov 2026 05:22:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k1aa6rzF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AF5C1F000C4;
+	Thu, 26 Nov 2026 05:25:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795670573;
-	bh=vjJ/xf6noZhh7few4OrQjkZDHCSDF5VHa526WEOALwc=;
+	s=k20260515; t=1795670714;
+	bh=e7Bvak88K5HUopDvqmfYO7WhycYG6faQREXfskqhLco=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bJNeKPYok+8MwaaNU0U81B9Ru0vdwn87ZOn9oa5TIJJceHiXmaJgsEOUgzekQiZRf
-	 quI69rY8N3PTqlzhTmOcKRlPQk6pAXBQIK7ER/i2Pf4GzxIU0R9mZ5oF2rNd0yzMHK
-	 uKBYTZ7zb9yHtSad0Wb5uEWqjq03VXxyK0Ih+xsoeHIZC4lo85LPzx/dIaJHMWQQRH
-	 v5t7zjjnq1lrMnsoGKIuDuVWVpQafwd3pKPyv+b09MF6JuvEYjKTXF1aUrNbexRzQv
-	 Gh7Nr2/bCA0ClMojoda7gujUK0VkpAJmb2kAqq4KigkyrUP2llhAm845T53H4SCVvS
-	 ep6jZIqk6GUqA==
+	b=k1aa6rzFav2zYAlqunxlHzza+foF/20ISOcBwaA8p0kNpLiHSUEWeavsCkLiKaa5J
+	 99SreEyVSwv5Ng7SI1IU+hBh5DfnIf7sJKIJtacp7foRWJBc7bw7GR/agKTVuTSXNe
+	 VzLzKS8LNaZefk8Dloh2+DiEKDXASgIDDbb/t/VAVIce7QDDcY75tqFDGLZxfSpafE
+	 F116ZUGhBhshFJ96nx/o7glhsxm0Oinep+4OZbMN3VdPyu1Qx0EcwtgBM8KUPBr1oM
+	 Ej2oOTIB1h8TUziHay54EeK4euioFLbUHcqHiFhtGjBiTxy50sud2DFeI1Kedd5kEQ
+	 HQMNqh93Z8VKQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Ming-Hung Tsai <mtsai@redhat.com>,
 	Mikulas Patocka <mpatocka@redhat.com>,
 	Claude Opus 5 <noreply@anthropic.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] dm: fix use-after-free when dm_get_device() widens the open mode
-Date: Thu, 26 Nov 2026 00:22:51 -0500
-Message-ID: <20261126052235.2152058-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] dm: fix use-after-free when dm_get_device() widens the open mode
+Date: Thu, 26 Nov 2026 00:25:12 -0500
+Message-ID: <20261126052456.2158311-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112540-charm-recliner-c6ca@gregkh>
-References: <2026112540-charm-recliner-c6ca@gregkh>
+In-Reply-To: <2026112540-keg-disabled-e7cf@gregkh>
+References: <2026112540-keg-disabled-e7cf@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,7 +100,7 @@ Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
 Fixes: 86f1152b117a ("dm: allow active and inactive tables to share dm_devs")
 Cc: stable@vger.kernel.org
-[ sashal: Replaced upstream's dm_get_device() context with this tree's fmode_t/dm_get_dev_t() code, and switched dm_table_get_integrity_disk() to dd->bdev; the dm.c hunk was dropped. ]
+[ sashal: Adapted to the older tree: fmode_t instead of blk_mode_t, kmalloc() instead of kmalloc_obj(), DMWARN instead of DMERR, and an added dm_table_get_integrity_disk() bdev conversion, with no dm.c hunk. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  drivers/md/dm-ioctl.c |   2 +-
@@ -109,10 +109,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  3 files changed, 98 insertions(+), 65 deletions(-)
 
 diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-index 816b9527394cd..ebfba55af6db9 100644
+index d067006285e64..d49e2a3a4ba1c 100644
 --- a/drivers/md/dm-ioctl.c
 +++ b/drivers/md/dm-ioctl.c
-@@ -1614,7 +1614,7 @@ static void retrieve_deps(struct dm_table *table,
+@@ -1516,7 +1516,7 @@ static void retrieve_deps(struct dm_table *table,
  	deps->count = count;
  	count = 0;
  	list_for_each_entry (dd, dm_table_get_devices(table), list)
@@ -122,10 +122,10 @@ index 816b9527394cd..ebfba55af6db9 100644
  	param->data_size = param->data_start + needed;
  }
 diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-index b9fe92337b36f..efca14647983e 100644
+index f78979cc5baec..7d65c20c1a0dd 100644
 --- a/drivers/md/dm-table.c
 +++ b/drivers/md/dm-table.c
-@@ -162,14 +162,16 @@ int dm_table_create(struct dm_table **result, fmode_t mode,
+@@ -180,14 +180,16 @@ int dm_table_create(struct dm_table **result, fmode_t mode,
  
  static void free_devices(struct list_head *devices, struct mapped_device *md)
  {
@@ -150,7 +150,7 @@ index b9fe92337b36f..efca14647983e 100644
  		kfree(dd);
  	}
  }
-@@ -217,12 +219,27 @@ static struct dm_dev_internal *find_device(struct list_head *l, dev_t dev)
+@@ -231,12 +233,27 @@ static struct dm_dev_internal *find_device(struct list_head *l, dev_t dev)
  	struct dm_dev_internal *dd;
  
  	list_for_each_entry (dd, l, list)
@@ -179,7 +179,7 @@ index b9fe92337b36f..efca14647983e 100644
  /*
   * If possible, this checks an area of a destination device is invalid.
   */
-@@ -307,31 +324,6 @@ static int device_area_is_invalid(struct dm_target *ti, struct dm_dev *dev,
+@@ -321,31 +338,6 @@ static int device_area_is_invalid(struct dm_target *ti, struct dm_dev *dev,
  	return 0;
  }
  
@@ -211,7 +211,7 @@ index b9fe92337b36f..efca14647983e 100644
  /*
   * Convert the path to a device
   */
-@@ -347,7 +339,9 @@ EXPORT_SYMBOL_GPL(dm_get_dev_t);
+@@ -368,7 +360,9 @@ EXPORT_SYMBOL_GPL(dm_get_dev_t);
  
  /*
   * Add a device to the list, or just increment the usage count if
@@ -222,7 +222,7 @@ index b9fe92337b36f..efca14647983e 100644
   */
  int dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
  		  struct dm_dev **result)
-@@ -357,6 +351,7 @@ int dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
+@@ -378,6 +372,7 @@ int dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
  	unsigned int major, minor;
  	char dummy;
  	struct dm_dev_internal *dd;
@@ -230,7 +230,7 @@ index b9fe92337b36f..efca14647983e 100644
  	struct dm_table *t = ti->table;
  
  	BUG_ON(!t);
-@@ -373,29 +368,46 @@ int dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
+@@ -394,29 +389,46 @@ int dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
  	}
  
  	dd = find_device(&t->devices, dev);
@@ -291,7 +291,7 @@ index b9fe92337b36f..efca14647983e 100644
  }
  EXPORT_SYMBOL(dm_get_device);
  
-@@ -431,23 +443,28 @@ static int dm_set_device_limits(struct dm_target *ti, struct dm_dev *dev,
+@@ -452,23 +464,28 @@ static int dm_set_device_limits(struct dm_target *ti, struct dm_dev *dev,
   */
  void dm_put_device(struct dm_target *ti, struct dm_dev *d)
  {
@@ -333,7 +333,7 @@ index b9fe92337b36f..efca14647983e 100644
  		list_del(&dd->list);
  		kfree(dd);
  	}
-@@ -1123,7 +1140,7 @@ static struct gendisk * dm_table_get_integrity_disk(struct dm_table *t)
+@@ -1149,7 +1166,7 @@ static struct gendisk * dm_table_get_integrity_disk(struct dm_table *t)
  	}
  
  	list_for_each_entry(dd, devices, list) {
@@ -343,7 +343,7 @@ index b9fe92337b36f..efca14647983e 100644
  			goto no_integrity;
  		else if (prev_disk &&
 diff --git a/drivers/md/dm.h b/drivers/md/dm.h
-index 10e4a3482db8f..1b6e8ddbae696 100644
+index b441ad772c188..5d9f207f4da00 100644
 --- a/drivers/md/dm.h
 +++ b/drivers/md/dm.h
 @@ -36,10 +36,26 @@
