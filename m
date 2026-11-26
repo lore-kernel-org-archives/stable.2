@@ -1,64 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795660938;
-	b=mha6HJ/YjwOXBE7rPnIqodFixRIkVt8KLo8Rb3jw3nXEelkn/3coQ7CQdHnoFN0azzrA
-	 BsKLyjgO2rM67BlgMeA+uu1Ll41IfsJ/RbsPUGU0uu3YD0TWGS+yqTKo90zHeZBc1nwZO
-	 EkF5UxDDDpHETzCF6OmDlbsQMSFlvrHV0viv4s8B5+b4gL9Od0wziBSHYIdaoElLyDYnl
-	 QYNpLSgAz2hbAP+bor2kQZA/AaVzF3JUvso5vY6dThJhDE4IJYm4njggHUjR1YHww0VBl
-	 /CaYcjKWq9hzWhetZ/Nnc0baeZTI15Spg6f44oG5KxtPwNFtZyh0KRd4ZK0roOoXxqw==
+	t=1795661002;
+	b=YMCTfqj6ltDb2xIsS/sSuQff88gZp7NeVM6SISCD866fhdgCZ67xFaKfXW+9L9FiTdzg
+	 g9mSM+dITP7GUdL+0dtpCLjN6atln1asC7GVseraR/ta9hDfKFE9QR4dRPAXuABNOoQBu
+	 NjEcUYaW/rtQernmUfMQaXKBTQxchttK5UZ29+U/CFRD3sBbZsZMkxtF8jwJ1GVVRvslm
+	 8PHAwaCjgTBJSrKF43udytHNMSEfZqUZgTVYVgN543u1PjeQpFCkb9SmGn5vbW3Sigg4A
+	 G6QVf+okY46meeq4L7RYUMZHcwPfld1kx/dhBH6+JRgUCrPrwHSZlLQRrEVkq53Fo5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795660938;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:In-Reply-To:References:Date:Message-ID:User-Agent:
-	 MIME-Version:Content-Type;
-	bh=6Wy5oFRN2V0Kiq6yTdbpLe5sq9EA0nzBLoJ1V+78Tzk=;
-	b=E5fX+aZGsd1KPu4no8103+UxMn7/lk/Gnj7jKBA9BBMHGJoYOktKojErELGIAJtMbtLy
-	 y21sVdxacjNt+hT1H8GDEGu35U3vIgtoWUnPtL5f4sWB3zPhY98VE2yeEEp+tuVRCnJ3p
-	 82tZ9rn5iI6Qpgqt0lV1tE5LKC6eWWQhX9VMalYRafMwOAVfMeSjBGEbvyF0hRPmqmTxF
-	 D97cOg8aYKlEvXF5nYbRQj64xBpPT7ny+SfPJ87OAA2sKB8zKlcyApvcHikIO79VogfUi
-	 N22PAM8Ckwm+iHGPTszDip45BFA4RhN7v8EjfZjdTXSdJszW6Kd+rb28Bmk7Xrw9/0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795661002;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=qWvv2TqLG+DDcD+PAmBT8QsFJXn/Tm36sf/CUsjlj1E=;
+	b=2wsj7D45IzrGYiGkbGVsPqgZPFq541veC390hOpnUVbeYPhHqAsLY/qriArvcW+mq/Gt
+	 HWc5ECl8io3tuTEcSCEndqL/BDAwyLatzx29RAsroemHZwHOYMF/Tn1qHCfvg3FF3ZHi+
+	 tqnFvWrs6w4gARMuGpVPUR9KAhIx1n48dKTo/yUOgSgH2g8hB7Lt7dff5KlkH1NRnBolq
+	 gYsxVy4U0O5W5oS/bW84vcvC2VTAGE+alKTDFlB2Rf51yoz4Ot9RiNskO2vyrwjFGhm6T
+	 43IFzJ39WBaCPcBapTk4EDj7v8e0OZUK1PB2ju9jKJlfhxs5mAPfyQN8kIjC9a5OZLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=ysZhgFT+;
-	arc=none smtp.remote-ip=115.124.30.99
-Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A608606A31E;
-	Thu, 26 Nov 2026 02:42:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A608606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=uBFBQdyY;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A244A606A31E;
+	Thu, 26 Nov 2026 02:43:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A244A606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=ysZhgFT+
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1795660933; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=6Wy5oFRN2V0Kiq6yTdbpLe5sq9EA0nzBLoJ1V+78Tzk=;
-	b=ysZhgFT+NinjLaPnG/zjYSP1GbeW/XQuZlqKXNkXBTjBylETvmY3FkVWy/cN2IDIZ6c5uTL6KC4WdWKenk6PNCesdcIxS7M8GSOYdFqv0IGsxRlFQ+bVnOc5XL2co5bEvFwIFHj9hzVLnDVOt89jPGDvb/RbScdsiUAzFfVhSwg=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=ying.huang@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XFT.1oD_1795660931;
-Received: from DESKTOP-5N7EMDA(mailfrom:ying.huang@linux.alibaba.com fp:SMTPD_---0XFT.1oD_1795660931 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 26 Nov 2026 10:42:12 +0800
-From: "Huang, Ying" <ying.huang@linux.alibaba.com>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Yadong Qi <yadong.qi@linux.alibaba.com>,  will@kernel.org,
-  mark.rutland@arm.com,  linux-arm-kernel@lists.infradead.org,
-  linux-kernel@vger.kernel.org,  ryan.roberts@arm.com,  robh@kernel.org,
-  gregkh@linuxfoundation.org,  ptg-linux-kernel@linux.alibaba.com,
-  stable@vger.kernel.org
-Subject: Re: [PATCH] arm64: fixmap: fix missing break-before-make in
- __set_fixmap()
-In-Reply-To: <awbvHVSX7sB8jzYA@arm.com> (Catalin Marinas's message of "Wed, 25
-	Nov 2026 14:22:21 +0000")
-References: <20261123093505.974-1-yadong.qi@linux.alibaba.com>
-	<awW3Dw743-rw_-cf@arm.com> <87mrqxto23.fsf@DESKTOP-5N7EMDA>
-	<awbvHVSX7sB8jzYA@arm.com>
-Date: Thu, 26 Nov 2026 10:42:11 +0800
-Message-ID: <87wlq0s48s.fsf@DESKTOP-5N7EMDA>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=uBFBQdyY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=uBFBQdyY7eeGvDEu1EHoA1sjznvuGZOpp8m2I05L7s20Nh08C8d+h54fqvCSFGhYBYfhxEs9+0Ogi
+	 1YNKda2Efa8cC1/xnVTqSCo986gvMZo7O6ZLhGbZ1yAjyAWVwQnNed2YQ4OoJ+6RN4E9C5Tp5sZNgB
+	 wtzeGsSOKVMtpAvk=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66b079cbee5a-23449;
+	Thu, 26 Nov 2026 10:43:11 +0800 (CST)
+X-RM-TRANSID:2ee66b079cbee5a-23449
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[223.112.32.189])
+	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36b079cbece4-595b9;
+	Thu, 26 Nov 2026 10:43:11 +0800 (CST)
+X-RM-TRANSID:2ee36b079cbece4-595b9
+From: guohongyu <guohongyu@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: intel-wired-lan@lists.osuosl.org,
+	anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	alan.brady@intel.com,
+	stable@vger.kernel.org,
+	13057616121@163.com
+Subject: Re: [PATCH] idpf: fix vport_id used as array index in MAC filter async handler
+Date: Thu, 26 Nov 2026 10:35:54 +0800
+Message-ID: <20261126023554.236227-1-guohongyu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179565949384.3294.6218603099017752049@kernel.org>
+References: <179565949384.3294.6218603099017752049@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,59 +78,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ascii
+Content-Transfer-Encoding: 8bit
 
-Catalin Marinas <catalin.marinas@arm.com> writes:
+Answers to the three questions:
 
-> On Wed, Nov 25, 2026 at 02:36:36PM +0800, Huang, Ying wrote:
->> Catalin Marinas <catalin.marinas@arm.com> writes:
->> 
->> > On Mon, Nov 23, 2026 at 05:35:05PM +0800, Yadong Qi wrote:
->> >> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
->> >> index f66a0016dd02..5593d7e0d523 100644
->> >> --- a/arch/arm64/mm/fixmap.c
->> >> +++ b/arch/arm64/mm/fixmap.c
->> >> @@ -126,12 +126,19 @@ void __set_fixmap(enum fixed_addresses idx,
->> >>  
->> >>  	ptep = fixmap_pte(addr);
->> >>  
->> >> -	if (pgprot_val(flags)) {
->> >> -		__set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
->> >> -	} else {
->> >> +	/*
->> >> +	 * Break-before-make: when the slot still holds a valid mapping
->> >> +	 * (e.g. earlycon re-mapping FIX_EARLYCON_MEM_BASE), invalidate the
->> >> +	 * old entry and flush the TLB entries caching it before a new
->> >> +	 * mapping is installed, so old and new translations never coexist.
->> >> +	 */
->> >> +	if (pte_valid(__ptep_get(ptep))) {
->> >>  		__pte_clear(&init_mm, addr, ptep);
->> >> -		flush_tlb_kernel_range(addr, addr+PAGE_SIZE);
->> >> +		flush_tlb_kernel_range(addr, addr + PAGE_SIZE);
->> >>  	}
->> >> +
->> >> +	if (pgprot_val(flags))
->> >> +		__set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
->> >>  }
->> >
->> > I guess that's easier than getting the driver or earlycon code to do
->> > clear_fixmap().
->> 
->> Yes.  And because set_fixmap() flushes the tlb on x86, IMHO, it's a
->> little hard to justify the driver modification.
->> 
->> However, set_fixmap() only flushes the tlb on the local CPU instead of
->> broadcasting the flush, because fixmap is either per-CPU or used during
->> early boot.  In theory, we could follow that approach and perform a
->> local flush instead though the benefit may be marginal.
->
-> Local TLBI won't work on arm64 since the page tables are shared (any CPU
-> can speculatively load the TLB) and only FIX_VNCR has per-CPU entries.
+- How the issue was discovered: manual code inspection.  The handler
+was found during a code audit of the idpf virtchnl receive paths;
+the bug is visible by reading the function: it resolves the vport
+with idpf_vid_to_vport() and then does not use it, indexing
+vport_config[] with the raw vport_id instead, unlike every other
+call site in the driver.
 
-Got it.  IIUC, because we have the shared page table and the BBM
-restriction, even if we change the PTE for a per-CPU entry, we still
-need to use a global TLBI.
+- Whether the issue was actually triggered: no, it is not proven at
+runtime.  The out-of-bounds path requires a control plane that hands
+out a vport id not smaller than num_max_vports and then reports a
+failing ADD/DEL_MAC_ADDR status for it; no hardware was available to
+exercise this, so the issue is theoretical, found by inspection.
 
----
-Best Regards,
-Huang, Ying
+- Testing: no real hardware available.  The change is a one-line
+substitution of an array index; it was compile-tested with
+CONFIG_IDPF=m (x86_64, gcc 12), builds without new warnings.
+
+Thanks.
+
+
