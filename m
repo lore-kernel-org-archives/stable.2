@@ -1,63 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795706516;
-	b=KQLm0BRx/y/v6yV7Tiu+dX/vsvBOeRHrcXvIHZwM0cD2tzqDxWb3ih/kh82Fh+yJaZY5
-	 DBY2/ZX6uOOBRgzBvzdUdCWzPfsr/LoP0n6OAR20o1ROGQC5P4sBA29MZTe+vm5Ww6WUT
-	 +WhGTgan4vo77bNdDFGi+JFkxfRS37o2U4yW9xUeg55cQPRR2uE+f0mET84ogGwsFssrS
-	 f1PtRK8ytqXiBVDWNkm9BAMx/vayquqFWMaCr2jIJ//uDe0VCKhdgBvO0K9b78DUX+1Pn
-	 xVLnvXE1jg/S+M7yf6c6LitO8gOMuEXwFgCMxUi9UdAzEVZsOLj0uNRXP74QG1YdiGw==
+	t=1795706545;
+	b=e4iETF8nHvP5AGwAqS0wf4phKwZ8o+uQxpgHxJJ83z6kgYwqZFnxvn9UoHk6ipLLz44i
+	 U407t2OJOeJkuV3kVJEKTeBbVWbebydNl95HnHBXQGH6egNTvCugh6Qkw53ECcThCRdhQ
+	 tfj+L0DM+0k5tlsLMiX/XDveujvQIdpy83H3PdO8FP4FlZNPThj7zbA0iXpsYu2zbx8xz
+	 NaToP9D5EIremIR9wRYTKVbSHJaIf9c+dOrDn6VersC4PHP0fm+Ad6Rls6CM2xOQa4hXi
+	 aCucY6fr1wnV+4lunucm0PzPx99pMYVeE5Tdf1AO7XSU3PSii6isuomPc6tazkfdkzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795706516;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795706545;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=NNW+Ehx/XV62r0SvKGkV9qkWSbBM0zPoxnUSJcVYdeM=;
-	b=yjrru3uwRIwe1dHcjeVsSsJwQ4rQMCk4mE+jSMpnIpolG/C1uTIUbGpCPN7JFwf4MHMe
-	 J3oTeVcITADd6ZGrsGmcjXl7TSQ02AnaOTqEEoaOzTyWH7wJ8OMhmMNLCndjaH0c5/v17
-	 1LaTNP5hkDiLTKhvVR3cULjmrp3ZVhSep2O7W7HJRczFGvtf+3X+fNXzhk22nJr1+x8EW
-	 7veLry9e2pARCovMmDiN4Mzy9Vj4Ri6+KQsaZEnTzGouZJ+uPuxRKH97aCMR9rwqVbadm
-	 kIhd8j076O+YQx0TvMeL/UzFL9NBJdRZ6TMGnv7wdtqR93D8amfxHS0hJpjwNKDnDlg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ltvcXCD8wi0hdjVDqrs7BtjcA/G+xW1vaVlz09XJn/s=;
+	b=zo0mWkBgP2ZgL2nRueKUktgbNUz8qbaz72S1aPIYu9KG2X5yn6yECZ1ebTVburhNW7EX
+	 T4vYmW8XIt2PDS8yr977bO22g9zLz/CATCeYLt/2dHLoF3vmiWjDvUVcR9WuUWV6fvtaa
+	 Th/dJR8XWI26mx57Qm04wO71T7jxAvXlgbG3nFvn2Wr04VDGjVOHXu3c6i8DjlTwV7M0+
+	 OaCv6K4xnTlF/LXFKBXPvP4EG1iNTx9ouZxIeTqIA6RqJ6Zp7hiIo8vMjZ6cNeHMSNXYs
+	 V/fZahS52mHin69GkoclNug6MLgXivJANS2L/olKR+Dz2JxkeWQ3AK5eVMKl1PW4TVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EKzV5uQ4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FDol2RFu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31CEA606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:21:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0AA8606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:22:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EKzV5uQ4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E61DC1F000C0;
-	Thu, 26 Nov 2026 15:21:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FDol2RFu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEB9E1F000C6;
+	Thu, 26 Nov 2026 15:22:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795706516;
-	bh=NNW+Ehx/XV62r0SvKGkV9qkWSbBM0zPoxnUSJcVYdeM=;
+	s=k20260515; t=1795706545;
+	bh=ltvcXCD8wi0hdjVDqrs7BtjcA/G+xW1vaVlz09XJn/s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EKzV5uQ47InnMLMUqpLGi0lhFiB1iI6OhbLOetV/jBAgID0AOIkU1HR+QU35HH8AB
-	 F3SJg6Fd9XZDsfq2oimgXwTBmWy/k1VGF8bNrsG+pi1/9AB5rq4M1qgULMaGza03QQ
-	 ZS7X/10jiZ3NG8sJJrMJH02InZISD1SnhizUJ0+mKB72x1kHTGoIE3htGQIptMMDuF
-	 +LdhKAt3czF+3v/FCO5DdL9jgZ386HEsRGZWLIQzPYxnzvVTxcooPTemTSOpx2cKyA
-	 T5uczJsODnE8iMvsgkArbUTQZm+AH4LOHXTZMaN9lUfFso18HYxwZ2Ns17tUXi9rKc
-	 Xt+UEfq5TBJvg==
+	b=FDol2RFuVmCw0JfUW6wrlMYLSPs80neKXhlT8jarV6wVOklWy5+qjbPBj31c32knU
+	 o4qZ7TAG80xwO5eRsQRA9+M9bLGpaIpSi0ZEsYoXHnX+nCo+CAFSzCfNEo3W3qK/km
+	 3W6VZR3O47cnLuH7DMSMtqK1vZQXlkolLqShCgYbK+Ohb9Z2TYjtnLe7wJ+XxLjOaE
+	 ckJdBy2Bw/Xc9UiBOjlwR7MHvbC4Dx9QfyI/wtKJOebjpOUT8oGrIrCyK/EL/Ux4nh
+	 ZsWwTIZ51Mx6WUCQrTo3dVBPkpVMCGwpP7+1Te2tmqNHVE/Z7l4b0ogRGvVZFpPrVD
+	 Asp/9Wr2CyGdg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	stable <stable@kernel.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	=?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>,
-	Olof Johansson <olof@lixom.net>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+Cc: Xu Rao <raoxu@uniontech.com>,
+	Niklas Neronin <niklas.neronin@linux.intel.com>,
+	Mathias Nyman <mathias.nyman@linux.intel.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] serial: rda: free the interrupt on shutdown
-Date: Thu, 26 Nov 2026 10:21:52 -0500
-Message-ID: <20261126151455.2350374-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] usb: xhci: disable the correct slot on alloc_dev failure
+Date: Thu, 26 Nov 2026 10:22:23 -0500
+Message-ID: <20261126151529.2356364-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126151455.2350374-1-sashal@kernel.org>
-References: <2026112540-patio-outwit-bcef@gregkh>
- <20261126151455.2350374-1-sashal@kernel.org>
+In-Reply-To: <2026112503-encourage-croak-8fc9@gregkh>
+References: <2026112503-encourage-croak-8fc9@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,48 +61,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Xu Rao <raoxu@uniontech.com>
 
-[ Upstream commit 859f7c56709b161a72b629b6f2f1384dcd374404 ]
+[ Upstream commit 2f2fe3201029ffc215b46ac40a0a9587715bc43a ]
 
-rda_uart_startup() requests the interrupt, and nothing ever frees it.
-It is not shared, so once the port has been closed, the next startup
-fails with -EBUSY and the port cannot be opened any more.
+xhci_alloc_dev() stores the Slot ID returned by the Enable Slot command
+in the local slot_id variable.  udev->slot_id is updated only after
+xhci_alloc_virt_device() succeeds.
 
-Free it in rda_uart_shutdown().
+If endpoint resource reservation or virtual device allocation fails
+before that update, the error path passes udev->slot_id to
+xhci_disable_and_free_slot().  During initial enumeration this is slot 0.
+When reallocating a device whose virtual device is missing or belongs to
+another usb_device, udev->slot_id may contain a stale Slot ID.
+The newly enabled slot can therefore remain active, or the wrong slot can
+be disabled.
 
-Fixes: c10b13325ced ("tty: serial: Add RDA8810PL UART driver")
-Cc: stable <stable@kernel.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>
-Cc: "Andreas Färber" <afaerber@suse.de>
-Cc: Olof Johansson <olof@lixom.net>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Pass slot_id, which identifies the slot enabled by this invocation.
+xhci_disable_and_free_slot() already handles a missing xhci->devs entry.
+
+Fixes: 3ffbba9511b4 ("USB: xhci: Allocate and address USB devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Reviewed-by: Niklas Neronin <niklas.neronin@linux.intel.com>
+Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+Link: https://patch.msgid.link/20261105175106.241182-3-mathias.nyman@linux.intel.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Link: https://patch.msgid.link/20261027-tty-llm-v1-20-99b0202ae546@linuxfoundation.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: Replaced udev->slot_id with the local slot_id in both the xhci_disable_slot() and xhci_free_virt_device() calls, since this tree has no xhci_disable_and_free_slot() helper. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/rda-uart.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/usb/host/xhci.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/tty/serial/rda-uart.c b/drivers/tty/serial/rda-uart.c
-index 9deb1c11f743a..fcbc49508d467 100644
---- a/drivers/tty/serial/rda-uart.c
-+++ b/drivers/tty/serial/rda-uart.c
-@@ -477,6 +477,8 @@ static void rda_uart_shutdown(struct uart_port *port)
- 	rda_uart_write(port, val, RDA_UART_CTRL);
+diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+index 6cfc8205d10db..7e137f671e056 100644
+--- a/drivers/usb/host/xhci.c
++++ b/drivers/usb/host/xhci.c
+@@ -4210,8 +4210,8 @@ int xhci_alloc_dev(struct usb_hcd *hcd, struct usb_device *udev)
+ 	return 1;
  
- 	uart_port_unlock_irqrestore(port, flags);
-+
-+	free_irq(port->irq, port);
+ disable_slot:
+-	xhci_disable_slot(xhci, udev->slot_id);
+-	xhci_free_virt_device(xhci, udev->slot_id);
++	xhci_disable_slot(xhci, slot_id);
++	xhci_free_virt_device(xhci, slot_id);
+ 
+ 	return 0;
  }
- 
- static const char *rda_uart_type(struct uart_port *port)
 -- 
 2.53.0
 
