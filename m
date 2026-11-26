@@ -1,54 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795665845;
-	b=5Psa8jOV2qjpxGjiRFIvXhEe7KSKzt3iHPh1VI9n0q4HnnQ8mLpbGEPC6nN5xhQz2sde
-	 AtoC4J1+5P1wLh4EhZVNbW+MTSno5qJTE0lN94Vool2e8w3LuvrjfNB91no+zgyr4nPN7
-	 G1gtAMCzNuTChl0Z+EynIG8RS8GQxqU49RP3HYmPinkfLO0oQ3MZ8EylI7gZAUNVkfrK7
-	 7G7h3b/6zzHR0FIy7Vt9jGkKj14YRKT34kTFpCnO95F3darKMbrfuQP/2oJhqhzHszx9I
-	 1rudvOqLlCblHTrNY0KdoS5bOdoY41HgLCbibTs6mLcxU86OJc6IoF3xtiHh5imE5Yw==
+	t=1795665913;
+	b=IriKEDc2DngtEHjO9Hi2ldLnTSb24l8KzW+N0zX6Z4BwX6KPlnf74N0ww5Kx5E8QN51O
+	 Q7R5S/NxLyscLRHZs+vTB3uKELpB/WTOgOVH3XyLPfwtMprOIA2dZ4jcx3ZTw11mSw/70
+	 7MfdAmfCBW+osQoWaMvMCIx6E4oeUpeWHXUrlgUrlDs+zpnfGso+fnR3hzOmQayHidr3N
+	 MqVUkHXluj7xplanzhbE8FteM+PnrBL/ukKs+r6Y0cszUknLiuvgNyZpB9PGiDJVmTcgg
+	 mM3Xj1m3umCkFUW1C6KnQw+kSx2zq5CLPXgEQ0uSq3E7+2m8S5veL4j4uj74DDq1YCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795665845;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795665913;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UkAGJnO9JkFfJ1PaGsXuQa4uUH2dKOrX1F9vHRi7g7E=;
-	b=225v0FHgAykNT9SEMUxO9lgwZs4s/2xyKkjrEPSd5A/Uyz8PLsZtp1AZvjuslm39y2az
-	 23er8FmAZPtXW0lpKncJtu0PFnR/k9MZpRilbQxnX43CNiGWHchLdKTj7B3VRU0vrimbW
-	 hKXOG7y2URp8ZBfzGFUBIbe3DX/TcfxNye9IvtcYXg8Y+QNWGfvnDPs/Ah+dgtVJYTO2x
-	 fXTqWzWFYe0a2luWBUmZbFoqUcd30I1fsnx9bSuqLleptJpAeQCuOWW1A0rjzMrCUbvsc
-	 CPeGtJxX1JyV26/oqOlSv7XdzZoMuS4k9UWixNTKl1phgyzZT1uwneFIwkRnleFnzhQ==
+	bh=CS7JV2kgUnixntemUGE65AUA7DOKdI8JPSvOm4ISsPc=;
+	b=L2jrUhaDDi1hakv224P1LwOnyVU2hTkIYn70maOn+d9muElfNedgc1N4BbXKMEVM6j0G
+	 k95PKq1AtQ7Ytzl1vvckhjFUwjkDQJtHiqypI3Ga4r4xp/sdGwmR/zrScvLfSgAamTpLt
+	 9d++eEo1N62V9kTA6b3rGNrCnqspQ36oT7+G3tz8ffEE5TiOqClWK4TGzY4tT1B6pNCUe
+	 be6QU5ya+PuR4TSqUwJnzUm9Ty8gnua2vlbdK6wJufiNtzwBu6Z0u+HeMpsh9lY3brCU8
+	 mK2Gyn26LrGPZvln4LiTnNpS4H9bZCBFO3p6Xercb+Co5lRDwdqp10MVQ91k3+E2eaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TFCnqvga;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mox8CZFR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75433606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:04:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DDA1606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:05:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TFCnqvga
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4A991F000C4;
-	Thu, 26 Nov 2026 04:04:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mox8CZFR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78B231F000C6;
+	Thu, 26 Nov 2026 04:05:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795665845;
-	bh=UkAGJnO9JkFfJ1PaGsXuQa4uUH2dKOrX1F9vHRi7g7E=;
+	s=k20260515; t=1795665913;
+	bh=CS7JV2kgUnixntemUGE65AUA7DOKdI8JPSvOm4ISsPc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TFCnqvga3pxvZzBOBOOTrB/Wrxhcuhvzo9aE/pO5dCKj36MHHNbMU1aJPltMAnZdh
-	 zbTz/xNEuMPZcDIdf2H8Z2CPPVUtKmFgq1JHOP1DYHnN6nYs8x0uo/vFSSj7YS8bXB
-	 VtmskuPrhvSU0ltKG0gZNjEc7wz8HmtSJ0ajMOT19N3beqOJB7OBKkyE8aXlLD/BNi
-	 ZlPBeb9P+LmWgaAIuwijp4JIykGrWDaaz4CqXQkgndqyVcHQ2OpOpyr3IXV4ox4cJR
-	 TDVOSenzdf8IwagFwL74GqA5C/2prK9LRT9o7GtOte7UxslIbwbi7C5FkpnBG8/W0n
-	 UPB1arilMV4lQ==
+	b=Mox8CZFRqDrg193MN6rdAkQBx5MhoshYJyDeyfI4LBVTETWc82je9OWmvXz+Tq5U2
+	 DlxVcoFDcLZQnaVNmTtAen24t3Y3+jhA7Z67m1GxNruDDMGoyPuCEFhUSz19zs42Pf
+	 wzMHxwlQ8GtyrSxnMDMfL9zui4DNIVwvdWk1eUriUR2Wi5eP1M4OHt8HgZ2SjfTnNc
+	 0Yr+412D/sj6MfripODq1tDGjRMY8gVitvms8czOedQcRnC1Lrz3Tka4qU3vRrFyiV
+	 LhQGxx5/w0KnlZSI7Oq+xq8f14ZnQHphUntGETgZG2Wmx/zvGz/zhl8BmGt8zRRLbl
+	 u5YkSEgxeUh7g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
+Cc: Daejun Park <daejun7.park@samsung.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Amir Goldstein <amir73il@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] smb: client: don't block dying tasks waiting for writeback on close
-Date: Wed, 25 Nov 2026 23:04:03 -0500
-Message-ID: <20261126040330.1871779-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ovl: bump the impure dir version when linking a file with origin
+Date: Wed, 25 Nov 2026 23:05:11 -0500
+Message-ID: <20261126040500.1902221-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112534-exorcism-shirt-2fa2@gregkh>
-References: <2026112534-exorcism-shirt-2fa2@gregkh>
+In-Reply-To: <2026112549-spearhead-donor-ab3f@gregkh>
+References: <2026112549-spearhead-donor-ab3f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,86 +62,100 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paulo Alcantara <pc@manguebit.org>
+From: Daejun Park <daejun7.park@samsung.com>
 
-[ Upstream commit 15ea186abbcd04157c62e0901701870b812bb2bd ]
+[ Upstream commit 86e2facd8630cc2fdec6ea80c53e370b26b441d9 ]
 
-cifs_flush() waits uninterruptibly for the writeback it starts.  A task
-that gets killed while closing a file on a hard mount with an
-unresponsive server is stuck in D state until the server comes back.  It
-also consumes any writeback error for a caller that is about to exit,
-hiding it from everyone else.
+Linking a file with copy up origin into a non-merge impure dir does
+not bump the dir version. readdir then reuses the impure dir cache
+built before the link. It reports the upper inode number as d_ino of
+the new link, not st_ino.
 
-Wait killably instead.  If the closer gets killed, stop waiting and leave
-the error bits in the mapping for others to see; writeback already in
-flight completes on its own.  Don't wait at all, nor check for errors,
-if it is already dying.
+Pass whether the linked file has an origin to ovl_dir_modified(), as
+rename and unlink do.
 
-This is also needed before letting dying tasks issue their writes from a
-worker, which would otherwise make them wait for every one of them.
-
-Fixes: d3f1322af8f8 ("cifs: wait for writeback to complete in cifs_flush")
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-98f207b6-3936-48e9-a40f-88f20be4db7b
+Fixes: 4edb83bb1041 ("ovl: constant d_ino for non-merge dirs")
 Cc: stable@vger.kernel.org
-[ sashal: adapted folio_batch and filemap_get_folios_tag() usage to struct pagevec and pagevec_lookup_range_tag(), and folio_wait_writeback_killable() to wait_on_page_writeback_killable() ]
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+[ sashal: Adapted to older code: ovl_instantiate() gets an origin parameter instead of the dir-modified call moving out, and the create paths call ovl_create_upper/over_whiteout directly without the whiteout helper. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/file.c | 34 +++++++++++++++++++++++++++++++---
- 1 file changed, 31 insertions(+), 3 deletions(-)
+ fs/overlayfs/dir.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/fs/cifs/file.c b/fs/cifs/file.c
-index affb1ade0c15f..3014a9099daae 100644
---- a/fs/cifs/file.c
-+++ b/fs/cifs/file.c
-@@ -2768,17 +2768,45 @@ int cifs_fsync(struct file *file, loff_t start, loff_t end, int datasync)
- 	return rc;
+diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
+index d2f7b68f8ee63..cb53cb58bdd19 100644
+--- a/fs/overlayfs/dir.c
++++ b/fs/overlayfs/dir.c
+@@ -260,14 +260,14 @@ static int ovl_set_opaque(struct dentry *dentry, struct dentry *upperdentry)
+  * may not use to instantiate the new dentry.
+  */
+ static int ovl_instantiate(struct dentry *dentry, struct inode *inode,
+-			   struct dentry *newdentry, bool hardlink)
++			   struct dentry *newdentry, bool hardlink, bool origin)
+ {
+ 	struct ovl_inode_params oip = {
+ 		.upperdentry = newdentry,
+ 		.newinode = inode,
+ 	};
+ 
+-	ovl_dir_modified(dentry->d_parent, false);
++	ovl_dir_modified(dentry->d_parent, origin);
+ 	ovl_dentry_set_upper_alias(dentry);
+ 
+ 	if (!hardlink) {
+@@ -324,7 +324,7 @@ static bool ovl_type_origin(struct dentry *dentry)
  }
  
-+static int cifs_wait_writeback_killable(struct address_space *mapping)
-+{
-+	struct pagevec pvec;
-+	pgoff_t index = 0;
-+	int rc = 0;
-+	unsigned int nr, i;
-+
-+	pagevec_init(&pvec);
-+	while (!rc &&
-+	       (nr = pagevec_lookup_range_tag(&pvec, mapping, &index,
-+					      (pgoff_t)-1,
-+					      PAGECACHE_TAG_WRITEBACK))) {
-+		for (i = 0; !rc && i < nr; i++)
-+			rc = wait_on_page_writeback_killable(pvec.pages[i]);
-+		pagevec_release(&pvec);
-+		cond_resched();
-+	}
-+	return rc;
-+}
-+
- /*
-  * As file closes, flush all cached write data for this inode checking
-  * for write behind errors.
-  */
- int cifs_flush(struct file *file, fl_owner_t id)
+ static int ovl_create_upper(struct dentry *dentry, struct inode *inode,
+-			    struct ovl_cattr *attr)
++			    struct ovl_cattr *attr, bool origin)
  {
-+	struct address_space *mapping = file->f_mapping;
- 	struct inode *inode = file_inode(file);
--	int rc = 0;
-+	int rc = 0, rc2;
+ 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
+ 	struct dentry *upperdir = ovl_dentry_upper(dentry->d_parent);
+@@ -347,7 +347,8 @@ static int ovl_create_upper(struct dentry *dentry, struct inode *inode,
+ 		ovl_set_opaque(dentry, newdentry);
+ 	}
  
--	if (file->f_mode & FMODE_WRITE)
--		rc = filemap_write_and_wait(inode->i_mapping);
-+	if (file->f_mode & FMODE_WRITE) {
-+		rc = filemap_fdatawrite(mapping);
-+		if (fatal_signal_pending(current) ||
-+		    cifs_wait_writeback_killable(mapping))
-+			return 0;
-+		rc2 = filemap_check_errors(mapping);
-+		if (!rc)
-+			rc = rc2;
-+	}
+-	err = ovl_instantiate(dentry, inode, newdentry, !!attr->hardlink);
++	err = ovl_instantiate(dentry, inode, newdentry, !!attr->hardlink,
++			      origin);
+ 	if (err)
+ 		goto out_cleanup;
+ out_unlock:
+@@ -461,7 +462,7 @@ static int ovl_set_upper_acl(struct ovl_fs *ofs, struct dentry *upperdentry,
+ }
  
- 	cifs_dbg(FYI, "Flush inode %p file %p rc %d\n", inode, file, rc);
- 	if (rc)
+ static int ovl_create_over_whiteout(struct dentry *dentry, struct inode *inode,
+-				    struct ovl_cattr *cattr)
++				    struct ovl_cattr *cattr, bool origin)
+ {
+ 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
+ 	struct dentry *workdir = ovl_workdir(dentry);
+@@ -547,7 +548,7 @@ static int ovl_create_over_whiteout(struct dentry *dentry, struct inode *inode,
+ 		if (err)
+ 			goto out_cleanup;
+ 	}
+-	err = ovl_instantiate(dentry, inode, newdentry, hardlink);
++	err = ovl_instantiate(dentry, inode, newdentry, hardlink, origin);
+ 	if (err) {
+ 		ovl_cleanup(ofs, udir, newdentry);
+ 		dput(newdentry);
+@@ -625,9 +626,9 @@ static int ovl_create_or_link(struct dentry *dentry, struct inode *inode,
+ 	}
+ 
+ 	if (!ovl_dentry_is_whiteout(dentry))
+-		err = ovl_create_upper(dentry, inode, attr);
++		err = ovl_create_upper(dentry, inode, attr, origin);
+ 	else
+-		err = ovl_create_over_whiteout(dentry, inode, attr);
++		err = ovl_create_over_whiteout(dentry, inode, attr, origin);
+ 
+ out_revert_creds:
+ 	revert_creds(old_cred);
 -- 
 2.53.0
 
