@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795714198;
-	b=jU/3tWj0+pNdGLNHlz+IAKsncE6OI8Ayj5RpzZmPDqaRHEUsk528BMuccMrzhp7hijuo
-	 kCVeKMog6X+99QD085QJJebV+wSLPKoIKN6WRP1hL+OXABEXBBVw7tdWVYdgED+GsiKXP
-	 YnZNz+Knmllv4imKcNYBFIpUDyulW+YL4RqlLUbte8aBEp54XRVsvNEmPq+GR1wMeafgU
-	 3C0XZpAbezRpJuJgXOwgYRD2zOPAjI3FPlOf3PxLvVeeYrrse41Aaj8oEAyaA1vqSgUcy
-	 rOBjzumi0P9ZxJWK0hrR3RgAdJqDsl3xH7E4vIMvHvWLEazpptZWl2nceX4jI+IX5Uw==
+	t=1795714367;
+	b=RV5lSA2i693fazCj0aD8Q14KEzCjREDirSqQcv4mkWQpYU7RpdEIvLMjC7+aLblQq9sR
+	 AvF8k62EMwsS2qixrClQWNbvOJwuKsdxQQUR4VWXsAXAMz17x4QxxB8fHTLD03P7vws/B
+	 0d4fHhW7RJtyArvdqy6ePvWqehgjtemJbmYPlK7m74d5d2vJ4xAM2BYqVkVQTXeqWC7Ri
+	 txnUUaEv+Crvx7lptMX5PVV8f6M3OFh6J3MEVG/VQjFE3OVhPpXoNKDMMbAFPJY7B4SFI
+	 e95Q0cpjtG3NmFsRlka8w2R+3NwyWM6OM9DiYnE7enasmXkXmsun1YicGiYSwYzbHMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795714198;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795714367;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=gWoI7Du3SAuaVNfkd4/4oEH0MNdvzidJgWyLcfCaWhg=;
-	b=MzDXZ1/g1bxccwDKchNH8eF7bHqPDEfKd8LS274AfKGX5kRHzUv1mxSNaTyf1BNoy3wC
-	 YGdXoTp8cQtNmmTHoF+o+BHFVyxkknhkqE8h5TTwWbMCUnTOwQ6xj/jM4qb2LjuNYwsoa
-	 TzxOCz5LsxNsbDeIe3ASeFBuvXo83tv69FBSSNWjNTgVh7/PYsfjcPh64FHSwjdHwZ4SC
-	 Hf6ZON+w5ggdNfUAEmGNJ6oYYKaOLr05etBzNd6P7LV1EKhPdLmlXGYHlemrB+k5Fx0xU
-	 dG/uqL5TQyGagZgM0rgCwpW2uxHWS+jXIHrWI/eCXQM2YG2sIxBgS4JBm4yFsij3v7w==
+	bh=mlUO+WVAxLOzu+o9hGrnbwmco6qWz8VA6LcwiCErpBc=;
+	b=fUiMQltPnEF3rP0lX9b082q3WAweIar002B3sp53LR3DTdwvA2gFCg2RmxqyfSOZIh52
+	 LWo4dTX5HZK9U8W8TpmtHypcilJTzI+9PdRSZkOB7yaD8GlCCQDAEzyySzlEstjia3mRV
+	 tzo6E1/EefI6VxLt65ienT59kLkq5ZS3D+CTrHuJB8wzjahNR/UKfUW/ZE26lP2v0+uHY
+	 d4E41JuRKcH6H0QWzXsCDf9QBBkAtiaC1ybYzAsimjsTZGBhy2QTJ0QzkQYDkdZhr9iZm
+	 pjEIuVstP0FHiEK5BIVpwfKwDaE0tfSI+h+dn/YpHFj9xKHgDQLlIx4j3CvDibzmhNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b5pxuubR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hlCI3pXt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBBD9606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 17:29:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED884606A321
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 17:32:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b5pxuubR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1551D1F000C6;
-	Thu, 26 Nov 2026 17:29:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hlCI3pXt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0B041F000CF;
+	Thu, 26 Nov 2026 17:32:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795714198;
-	bh=gWoI7Du3SAuaVNfkd4/4oEH0MNdvzidJgWyLcfCaWhg=;
+	s=k20260515; t=1795714366;
+	bh=mlUO+WVAxLOzu+o9hGrnbwmco6qWz8VA6LcwiCErpBc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b5pxuubR+gWtKzBTxE9TCmE4U8IzwECW3M1jaro2phs5beSt40aKDYAZDGZANkp6j
-	 Vh6peQZxDvw9sgiyj0RqHp+MrX45ulCPhFFviwHp890f8RdNbEda3t1vYpIlOLUdkD
-	 e/c7FBPjBiZAkKXZ84+QtgkjHthsFY/tF7GhMj/0PMSkie8qknVUvkOszrFmNr9CDr
-	 0TsmCNvMh1/9hWlJHi/dV5AtOtuGp2CLgJJQvZZnDSlVQEWisUVkHKQMvj+kZbS/Ri
-	 +pOw1W/VKATGHxP3f34RoOxwIXRiMFost2irGprfxvjyf4rfUqqfjsdbKPSluMswTP
-	 E98HEn8WETYfA==
+	b=hlCI3pXt+Abb0FPsaIlvgnhOkhxZTFk/7F7qpAcfuXVLjJNW7TwCDsYaJLSInpbDF
+	 Jim6zglqUvn4u+wXlT8YyaYp7fN5ufN2YTESxwBgjW9XOGFmmIvCmwRyno56Xzl1rB
+	 s0E7UGID2zP6l3gW/rr46RqiCF9hJpjA1kbSmTiaDpT4zmwt/IsalCH8smMUIdhed8
+	 liugWm7hz8RqDu5gpKUB9KE8VjUOl3ZZ2dCN0QNxH2xr1iscthzD23GqOK+y+PPrMr
+	 VtFqJCra2fX+bbyt9V14aGAe7LTrytLKARLPKdNoCP7yDAfKCkAbQoQKwlS3n2mIR6
+	 X0Oaamd4/UiGQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+Cc: Christopher Hoover <ch@murgatroid.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
 	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 6/6] iio: inv_sensors: prevent timestamps going back in time in transitions
-Date: Thu, 26 Nov 2026 12:29:53 -0500
-Message-ID: <20261126172925.2769957-6-sashal@kernel.org>
+Subject: [PATCH 6.6.y] iio: temperature: hid-sensor-temperature: Use per-instance callbacks
+Date: Thu, 26 Nov 2026 12:32:44 -0500
+Message-ID: <20261126173231.2809777-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126172925.2769957-1-sashal@kernel.org>
-References: <2026112539-smugly-stole-0816@gregkh>
- <20261126172925.2769957-1-sashal@kernel.org>
+In-Reply-To: <2026112550-kindly-shone-5215@gregkh>
+References: <2026112550-kindly-shone-5215@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,92 +63,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+From: Christopher Hoover <ch@murgatroid.com>
 
-[ Upstream commit 3785dffc7c68751a8429ae6dd75804c14a5a7c7a ]
+[ Upstream commit 36eeb26031e90eeb81bbac3d3acad61d23fcbdf3 ]
 
-Ensure when computing first timestamp and when applying odr change,
-that the next timestamp will not be lower than the previous one.
+hid-sensor-temperature keeps a single static struct
+hid_sensor_hub_callbacks for all instances and overwrites its pdev in
+every probe.  With two temperature sensors, input reports for one are
+delivered with the other's platform device; once that device is
+removed, platform_get_drvdata() returns NULL and
+temperature_capture_sample() dereferences it:
 
-This way there is no risk to have a timestamp going back in time, meaning
-being lower than the previous one. It already can never happen without
-a transition because we are generating timestamps by adding the period
-to the last timestamp.
+  BUG: kernel NULL pointer dereference, address: 00000000000003a8
+  RIP: 0010:temperature_capture_sample+0xd/0x50 [hid_sensor_temperature]
 
-Fixes: 0ecc363ccea7 ("iio: make invensense timestamp module generic")
+The oops happens in sensor_hub_raw_event() with the hub's spinlock
+held, so the hub's removal then hangs.  It reproduces with two uhid
+devices that each declare a temperature sensor, one destroyed while
+the other still sends input reports.
+
+Keep the callbacks in struct temperature_state, as the other HID
+sensor drivers (accel, gyro, als, ...) do.
+
+Fixes: 59d0f2da3569 ("iio: hid: Add temperature sensor support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Signed-off-by: Christopher Hoover <ch@murgatroid.com>
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ sashal: adapted to older tree: aligned_s64 timestamp is u64 __aligned(8), and the sensor_hub_register_callback call had different argument indentation. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../common/inv_sensors/inv_sensors_timestamp.c   | 16 ++++++++++++----
- include/linux/iio/common/inv_sensors_timestamp.h |  3 ++-
- 2 files changed, 14 insertions(+), 5 deletions(-)
+ drivers/iio/temperature/hid-sensor-temperature.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c b/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
-index aacc56d1a2c77..4795a24171af0 100644
---- a/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
-+++ b/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
-@@ -133,10 +133,15 @@ void inv_sensors_timestamp_interrupt(struct inv_sensors_timestamp *ts,
- 		return;
+diff --git a/drivers/iio/temperature/hid-sensor-temperature.c b/drivers/iio/temperature/hid-sensor-temperature.c
+index ba735d758cb44..a96d9a5e35790 100644
+--- a/drivers/iio/temperature/hid-sensor-temperature.c
++++ b/drivers/iio/temperature/hid-sensor-temperature.c
+@@ -16,6 +16,7 @@
+ struct temperature_state {
+ 	struct hid_sensor_common common_attributes;
+ 	struct hid_sensor_hub_attribute_info temperature_attr;
++	struct hid_sensor_hub_callbacks callbacks;
+ 	struct {
+ 		s32 temperature_data;
+ 		u64 timestamp __aligned(8);
+@@ -181,11 +182,6 @@ static int temperature_parse_report(struct platform_device *pdev,
+ 	return ret;
+ }
  
- 	/* no previous data, compute theoretical value from interrupt */
--	if (ts->timestamp == 0) {
-+	if (!ts->init) {
- 		/* elapsed time: sensor period * sensor samples number */
- 		interval = (s64)ts->period * (s64)sample_nb;
--		ts->timestamp = timestamp - interval;
-+		delta = timestamp - interval;
-+		/* prevent next timestamp to be lower than the last one */
-+		if ((delta + ts->period) > ts->timestamp)
-+			ts->timestamp = delta;
-+		ts->init = true;
-+
- 	}
- 
- 	/* update delta timestamps and estimated period */
-@@ -179,7 +184,7 @@ void inv_sensors_timestamp_apply_odr(struct inv_sensors_timestamp *ts,
- 				     u32 fifo_period, size_t fifo_nb,
- 				     unsigned int fifo_no)
+-static struct hid_sensor_hub_callbacks temperature_callbacks = {
+-	.send_event = &temperature_proc_event,
+-	.capture_sample = &temperature_capture_sample,
+-};
+-
+ /* Function to initialize the processing for usage id */
+ static int hid_temperature_probe(struct platform_device *pdev)
  {
--	s64 interval;
-+	s64 interval, timestamp;
- 	u32 fifo_mult;
+@@ -237,9 +233,13 @@ static int hid_temperature_probe(struct platform_device *pdev)
  
- 	if (ts->new_mult == 0)
-@@ -202,7 +207,10 @@ void inv_sensors_timestamp_apply_odr(struct inv_sensors_timestamp *ts,
- 		fifo_period = fifo_mult * ts->chip_period.val;
- 		/* computes time interval between interrupt and this sample */
- 		interval = (s64)(fifo_nb - fifo_no) * (s64)fifo_period;
--		ts->timestamp = ts->it.up - interval;
-+		timestamp = ts->it.up - interval;
-+		/* prevent next timestamp to be lower than current one */
-+		if ((timestamp + ts->period) > ts->timestamp)
-+			ts->timestamp = timestamp;
- 	}
- }
- EXPORT_SYMBOL_NS_GPL(inv_sensors_timestamp_apply_odr, IIO_INV_SENSORS_TIMESTAMP);
-diff --git a/include/linux/iio/common/inv_sensors_timestamp.h b/include/linux/iio/common/inv_sensors_timestamp.h
-index 4f08204ede3b4..91690778ae88b 100644
---- a/include/linux/iio/common/inv_sensors_timestamp.h
-+++ b/include/linux/iio/common/inv_sensors_timestamp.h
-@@ -66,6 +66,7 @@ struct inv_sensors_timestamp {
- 	u32 new_mult;
- 	u32 period;
- 	struct inv_sensors_timestamp_acc chip_period;
-+	bool init;
- };
+ 	platform_set_drvdata(pdev, indio_dev);
  
- void inv_sensors_timestamp_init(struct inv_sensors_timestamp *ts,
-@@ -94,7 +95,7 @@ static inline void inv_sensors_timestamp_reset(struct inv_sensors_timestamp *ts)
- 	ts->it = interval_init;
- 	ts->delta = interval_init;
- 	ts->delta_counter = 0;
--	ts->timestamp = 0;
-+	ts->init = false;
- }
+-	temperature_callbacks.pdev = pdev;
++	temp_st->callbacks = (struct hid_sensor_hub_callbacks) {
++		.send_event = temperature_proc_event,
++		.capture_sample = temperature_capture_sample,
++		.pdev = pdev,
++	};
+ 	ret = sensor_hub_register_callback(hsdev, HID_USAGE_SENSOR_TEMPERATURE,
+-					&temperature_callbacks);
++					   &temp_st->callbacks);
+ 	if (ret)
+ 		goto error_remove_trigger;
  
- #endif
 -- 
 2.53.0
 
