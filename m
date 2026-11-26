@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795687017;
-	b=16K+Vo9ozo3mCjHwQXko0jyvlut9pjxrEzZFIzLoEbo8DCwYlTaBvC+sHCaIBcch1h2q
-	 Hs6qrDrtnkXQWK2R3QKQDP3cGioz7jp4y681VnRMGas4Um3eTMurzTGCJ4Qf4bsTl0anG
-	 3Ybs2+sX+YNb1BVyaVhZKFqHYTu1oZWYzvCyMb9JvQ2+kJvgd37DQk+26tGxr5MPBO/EU
-	 cD1B0oHDLNRyUjC+6e93Dw4pqUehBye4pG7BbaVv3EfAGzKxBeoV8fWc2JsZsTEO2gJ2q
-	 St1U+Fj96GpgMS54DRZl+KFUQQExN8+zWdCi0Af2M6rtRY8vG6BPWeeEBvYaNNgM6TA==
+	t=1795687103;
+	b=2e9aDtfOgMHMHmmFuNUFiXONZZrg7PeF72rIs6nvR+PRMnTi5F0vrHAuXDqmEHxrTzUr
+	 xNrXZ9skHpN0fRgXlWb8tmYkjVo332o/s6UiukOsHy5ZDNJbc3j7pFqe+co4CvBX+e4QW
+	 qCyT0kvYMsJ+UFtdyUa92kfsIA+UWhVlf2xaO05rVEQtojj2Rqu7vK5GyQfDswhwpfWQG
+	 l+4oIr/11fK4Wk2jjQ2cY7wfnaivB3D6FYeKTYYHpuehAPelbp3TXoxtxeqJrhHang0p9
+	 Wf/MbL/Xlzlcxp1cqEtalz4PDDNY8BQDI/QFCz375796+nwLvEFgxXG+WC/91L/kl0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795687017;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795687103;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=rHK7ugbX/RMzKr1pPu3mSFVGP/fH09WdJS5CXhJ99Os=;
-	b=jn5aPSeckkVHXHrAnFZ0IzAdZEnIxFvkjKYokWGIiUWGiip9Lhl9gm+Q7aGWmnSv65tG
-	 kzh/AMAui+lHwpALTSRJXQRlYGiKGRUywSBEMmD0wGOparbud5vAiXRUtbqZHxJdGHeUH
-	 TTR0LPF8Dx37UkUVnsI07WF1IbtN2b+dosi2e0QgjijC6f5xf64QK616hsKomxzxgIAKQ
-	 TGGt5ytcg8lmdIZdMuLycU3yTA18frZOvyEkUzoSRlU9OrjjpMOXBKHQ6w9PjprVxQBwu
-	 hFS4BSnawCV8gOLaisPymhH3O/oOR0OwuPekN/3HVZEI3Xs8ctrk/DUDqgQJcM757XQ==
+	bh=CMPzilywSB0BY9L2Teq2vIgsxnr+wRA47wTymsp256M=;
+	b=sdN/hfbP+TRE9prAMETHHqsYERCN7v4vjnTRkYUa9nmVaqU7tlSNvqGKEEGWPTUz1ccv
+	 S5hk1oev+qmtzYmgOwR+uhkPNAqQxX4AVjYW2iz52qxa6vdUrxqFTT9f/ck8PbOHyZbFz
+	 EXXHGKrOgYyhDl4qdzh2UNXv4+Vl4kzCLBAOIRoSLbzAn2AS4Bbil/P76T26d9FdvNmKl
+	 2+De4hYAYT6GjxNle+pRS3y5fXBbq0V8s2ZxqVkdqjOueCBxnfOYnQTU8urVwn//B+I40
+	 e8faGFgO4jLXhRd7FT+bD5r5vAUmYBnFs7Q6Fm3FbcsZFa4QblBeHiZjjf4fcCeGI5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GPX3Wl7F;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AKagZpBn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9699606A326;
-	Thu, 26 Nov 2026 09:56:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752A7606A31E;
+	Thu, 26 Nov 2026 09:58:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GPX3Wl7F
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D7271F000CA;
-	Thu, 26 Nov 2026 09:56:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AKagZpBn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16DFF1F000C6;
+	Thu, 26 Nov 2026 09:58:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795687017;
-	bh=rHK7ugbX/RMzKr1pPu3mSFVGP/fH09WdJS5CXhJ99Os=;
+	s=k20260515; t=1795687102;
+	bh=CMPzilywSB0BY9L2Teq2vIgsxnr+wRA47wTymsp256M=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GPX3Wl7FbyrIagF0lBQcklbIYOAvUqR6p5Gv6f96/HnRYBZmrEtooA3U/Z5iwLVRN
-	 nqqse/UGgLqHu9GagDHI2Ze48A+pQkaoRfPVxaHpoqrzOmdMbor3I5P7Z5XmyOpVqv
-	 xkNO6H3QrQEv3ltZAjqFykTRczJXaZG4fshFSPKWR3og8XGF5wkNLGRx+LGW4qXLLT
-	 513Y8RscNvzkHTW19JX7h7C0BAwpG5J3qzeGzYs9+9xiNFNEk1sTCBXBTbYGSQg4sk
-	 /Msat1+pLGMQjnHu5/sTJOtSc22pw3hCEnkuNNgZJE+3iZLt9ZafFH0YxGcicdXgXr
-	 P7Z6duZTQxNOA==
-Date: Thu, 26 Nov 2026 10:56:40 +0100
+	b=AKagZpBn09AMbaWKLVVyKAJAUx9rdzxn5/4X2BaEMhVscDXISnhAXMP+67fB0+NLE
+	 +L1iyYQ+PzRxiOnq7Z7lckWKWYA0MJ4zn0Ndo31NuPvyNz/U9QzPl/RtMc9nRy2IVu
+	 /u8KqcUDY2UH3cJqKTjjnxzun6NlSMQetsy0RPceCAw0QLpfvat8hr4q/jK6YG/Fu2
+	 Vt6L+bsyDNM4fGCvaYAckuNqXVjtavc5m9alq5R79ljduTjslbQGsxMWtVAxfEqOis
+	 GlH5d/P2EV4eiLuLnTHtvUXPD9PQWhUsmk1VVUDOfZaSvct0VtCmL7/0NqlT7s84Sn
+	 n2ZwN/mGR+2Mg==
+Date: Thu, 26 Nov 2026 10:58:06 +0100
 From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
@@ -88,13 +88,12 @@ Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
 	Wanpeng Li <liwp.linux@gmail.com>, linux-mm@kvack.org,
 	Jason Gunthorpe <jgg@ziepe.ca>, linux-kernel@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@osdl.org>,
-	linux-doc@vger.kernel.org, Chris Mason <mason@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 02/21] mm/hugetlb: fix truncated copy result in
- UFFDIO_COPY
-Message-ID: <awgCWBs4rkuTTxBn@localhost.localdomain>
+	linux-doc@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 03/21] mm/hugetlb: always mark new page cache folios
+ migratable
+Message-ID: <awgCro3ymVNkIykq@localhost.localdomain>
 References: <20261125-hugetlb_fixes_2-v1-0-db27fd2f71a8@kernel.org>
- <20261125-hugetlb_fixes_2-v1-2-db27fd2f71a8@kernel.org>
+ <20261125-hugetlb_fixes_2-v1-3-db27fd2f71a8@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,34 +105,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261125-hugetlb_fixes_2-v1-2-db27fd2f71a8@kernel.org>
+In-Reply-To: <20261125-hugetlb_fixes_2-v1-3-db27fd2f71a8@kernel.org>
 
-On Wed, Nov 25, 2026 at 11:33:00PM +0100, David Hildenbrand (Arm) wrote:
-> From: Chris Mason <mason@kernel.org>
+On Wed, Nov 25, 2026 at 11:33:01PM +0100, David Hildenbrand (Arm) wrote:
+> hugetlb_no_page() and hugetlb_mfill_atomic_pte() only set
+> hugetlb_migratable for a new folio once they installed the PTE.
 > 
-> Folios that span more bytes than can fit into an unsigned integer (e.g.,
-> 16 GiB folios on arm64) are problematic with UFFDIO_COPY: the result
-> from copy_folio_from_user() can be truncated, possibly indicating
-> success instead of an error.
+> If they back out after adding the new folio to the page cache, for
+> example because the PTE changed or is no longer empty, the folio will
+> stay in the page cache without the migratable flag set.
 > 
-> We will then continue with the folio that has stale data, and make it
-> accessible to user space.
+> Later faults will find it as an existing folio and never reset the flag.
+> Such a folio can never be isolated for migration, which breaks memory
+> offlining, alloc_contig_range(), longterm pinning and memory failure
+> handling.
 > 
-> For example, if copy_folio_from_user() fails such that the number of
-> bytes not copied is a multiple of 4 GiB, we'll get an effective ret ==
-> 0.
+> Worse, if the folio is not longterm pinnable, because it resides in
+> ZONE_MOVABLE or CMA, memfd_pin_folios() and the longterm GUP path retry
+> forever on -EAGAIN. memfd_pin_folios() cannot even be killed, which will
+> be fixed independently.
 > 
-> Let's fix it by simply testing the return value directly.
+> Let's fix it by setting hugetlb folios migratable whenever (1) a new
+> anon folio gets mapped; or (2) a new folio was added to the page cache,
+> like hugetlbfs_fallocate() already does.
 > 
-> This has medium urgency, as it's an information leak.
+> This has low urgency.
 > 
-> Fixes: 8fb5debc5fcd ("userfaultfd: hugetlbfs: add hugetlb_mcopy_atomic_pte for userfaultfd support")
+> Fixes: cb6acd01e2e4 ("hugetlbfs: fix races and page leaks during migration")
 > Cc: <stable@vger.kernel.org>
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ david: cleanup code and description ]
 > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Reviewed-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
+Acked-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
 
  
 
