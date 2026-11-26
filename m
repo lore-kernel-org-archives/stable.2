@@ -1,96 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.47
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.41
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795661116;
-	b=RwAdjyW2+2ZIED7Sslkg5rFs9Lwq+b55HTmHFcUyX4n1SMzaMDNt1y+zwEkzD8eAkNHi
-	 yOdX5QKoniW9zEqk0xXlyWn3zWVwQIKDE7ZOOdW7LYAMPKcdpaZG87hPFQvixcF7RyiUS
-	 +SUVMf+ffaKeoylrfboMH85F5ffHqoznAdr02GqUUp9vWSzITVEcfAB452vX1zAFy9A4u
-	 L5TeB3f6plhrphAnMkkl5MsbOECNVqqysM9w6o9yuuReAWqI164iDFVS6wKqQMC20z3xl
-	 Paw3xH3nHDc1GGU5/aq/Itggr8QaBdRgx5xSDm9IIs/pO5L66t/7FufbyBCfP2dck4Q==
+	t=1795661118;
+	b=pMLZNSF6dKSmbrXKXvhBiPSSWrW3mnXJaY/HWOWVKpP3XtoTb4tWAMPGyxwqBXRYusex
+	 o4yq/GkUrp7RXUqcYvI5hAuX1/iOEy4OkpReY8RzuBFUsg590yUlRp5EUd7T1F9Ot1xgx
+	 3jzT5aGHWlVPAcAvHY7jqtdVZr5yH7miJhTxDADusdeNalaOHkDpzFatXBz2k5JjKCb0h
+	 I7HT5FO8PgdjVVrn5xB41GFKuhEc8pM7eLzno2EtP9SkNBrNQixCzH1aGUAHKtivbck/Y
+	 9T4nMe/rCCgKUJ3CWpJdmu2hS0BEBpM2QwwSY2IDgLOPsTMHxMY7tvfQ4+UHcPGxBSQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795661116;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795661118;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:MIME-Version:From:Date:
 	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=Qy0LDxWtU3WiFF4Cpmua/6KfacVExA5tS3ogGXwY7VI=;
-	b=pcTLLtQwYQbokKZnEY9FBtAqkzJ8vnl5UassmgpTGZab7Djc2O9UnALrFfTwp6sOSkf4
-	 sMbJ3S4umaKypbVd21nTM6BB71g7ihW0MStgJ+16VeIQnXSQ1BApJCR3DMtKXNRwP5VIB
-	 pJUh08TcwRycQYLuh6X+AcYa3UiGwZLOnsQORymGTQ7AcPHQ4FWW0eUTTpIXdbHuS/T4x
-	 6cAsCYbl+G6s6E9xe5/So3xso2qQ7p8K41d6yW1FXTUoX5sL9WV0SWmXQj4EX2jzfg1HS
-	 WMuitjUluLv3xmYUmr9meKt0FqTlHJa/3YCcitq/FkqilwR0RMOQqV3NWTVVNJ1LqYQ==
+	bh=GGVu2LAHkDf3iJCcJXqnrLKgzUFBeUsFgEKNp1vIP10=;
+	b=1uwOxCUimAf5dFpZbf0f5QDnZ4CjehQxUsbC9TqW8Jt067g870/E5p78XqYdfK2RE8IH
+	 XG7KY8ggrJ3lMpTA6XLVNx555tqyKIQyvOog9ca2+iHJ4l6kk5oP2mBsAQZnnjup+jksT
+	 +PQ2pezSyiRtsAv1f1qwQV4gkg7P9W37nSIEqsJh+CQMBDDvvGgS+sqYkiMAJQk17cB7J
+	 KfxpJuMmG0XKiALSN7hvMpjd8vuABonM3S1mIBenToOHQmcfJnvEUexTQdxjPkvjHOCex
+	 MaC96X5Lqu5vX0tZCy/eHvIkTIzU+dmWgp9PMWLVX4MRwz3ezFRD/ShgE/umMGkXzGw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=certik.com;
 	spf=pass smtp.mailfrom=certik.com;
-	dkim=pass header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=Uz7PizGr;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.47
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
+	dkim=pass header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=Huo9dShm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.41
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A26606A333
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:45:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66A26606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E3F606A33A
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:45:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1E3F606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=certik.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=certik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=Uz7PizGr
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-67da3d03263so6785735d50.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:45:16 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795661115; cv=none;
+	dkim=pass (1024-bit key) header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=Huo9dShm
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-67da62357acso8812513d50.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:45:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795661117; cv=none;
         d=google.com; s=arc-20260327;
-        b=XQK0djXWVX8fguhtaFib/n4LqTJ8Wdngjq+O2QChzvz2/RDTzScvyAQ2loO2oyV/V3
-         flIFgaJyJ77DZnsBrqbMY8Iu6Ja7kKFLrzOiP1+iR2tCt+gcqHjkYIUdUFzVmhLQvs/P
-         WbMO9YqWWHESWsCEWQjMQ0wrhzDnRjbtbkj989ZnQRjN6v4T+4NCnFcwXZmoO0gaTNAw
-         fUBscNrYqywbTXiRkjaVHMtFQWO4JPK47iN2DhTWhZh/2QFur2rZWAcNBbi3tgMoltzq
-         pWrNF1cnPXPkvD/DD+lG5Y23rhcONH0uCKRBzPFg88ZeYYQvyMUII5nAJ7Zdu8MPZ1uL
-         /IpQ==
+        b=HVKgE2OVaAx005WCwXTj1u6+zeYeFJy5OsuSsNXXqQwvbxVYxz0T/hMgSvVdyPhDNo
+         T4/6lfH/71xjGu+sDL9di8A4OlqvgdLVhTXdA9NLO0QE9E5S9C8lv3BXUtD4u8SBDTJZ
+         wA3FLtfKPXsNtgClRbGcFvM86HhmQN3WDAGkMm2RHxWZBDbkGiT5ov/KlsvKGBG435AD
+         yQHQCTghgKFUFY8d+uZXY1i9fzHfheqxNjCsiu38qqnvhnQKTOdWt4kHcuiyAP0H6aGn
+         zGXiS5GF+qxQry2qeedEDdRL5AkMDorOiwrboeWVjCXClTjmsOkgbTI/Sek1u42X+N6I
+         SjHw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=Qy0LDxWtU3WiFF4Cpmua/6KfacVExA5tS3ogGXwY7VI=;
-        fh=EChBzbLoYYIHUg6MNT2HesXilPFIDKYim1Gp5xiFOHQ=;
-        b=bvduQlvroiFxIwJXg1ZWVOf+p8K4oBirKgMkLffNAiA0/WEfCFofyAPCHGP8/Jmf8P
-         KA8XsUXM47ffuZNyrzUFcHZTrqIYCedNKcNZdMT6ozEqKgeKpXi0BjT7u1Nb+ax8WcXh
-         Ijo6Xov5x4f3xDykMzlwk5JVzmjHOFsmYnLDvEZ+jmXBYRbjgQx7jrCVLOfc+UZZE9mj
-         fHYRS4Bsn52/CBicAgKxpO6JB0a7M1VmuE48c+IT540rY2p9mKUvMHFRhyZSZuds//Ko
-         WPwojGaklDo11nZ1J7Eqf6vc1NB9jlzWN1Gh6X7kBhbM9NMhivD/aHjfI3dgWdwf18Vf
-         f1wQ==;
+        bh=GGVu2LAHkDf3iJCcJXqnrLKgzUFBeUsFgEKNp1vIP10=;
+        fh=AIrBuAclZrkW2rl1AKI6uFjmcQF/pUVlMaxQw55Yq2o=;
+        b=iZ31Kf5yR6VyT+8t81Up0U0RN63uezNqT4itO5fn42Oh+tPc1jWWhghxwYsN+udhIq
+         iNNVrmeP4nyJ6fanNcCA0thhEuQZhSrunIXzY59YebMiO+fqekEYXI0MmZPBtUSf51rf
+         KK3XZBHWaHs+HFC+TRhXyZZGFnYSiW3q/m6b0N35uRe3VClNIM8SgUZbRaD1SMiYM7Aa
+         Bo9x7/gn+4FvFK66exVU87ehN3pD4+kOU85JVVAu01c8esWolt0ehQaViJnEn3s4J7Bg
+         Uqs248SeL1F0yVuUG7pNWsYBg3NRGDyocIbM9gvLkBWhxG3DnJNCG8wIGmR9gCLe8iKa
+         TQ8g==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=certik.com; s=google; t=1795661115; x=1796265915; darn=vger.kernel.org;
+        d=certik.com; s=google; t=1795661117; x=1796265917; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:mime-version:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qy0LDxWtU3WiFF4Cpmua/6KfacVExA5tS3ogGXwY7VI=;
-        b=Uz7PizGrPPUeLp1h+R+wrNBbwpySLPvVXG1ZD9uifhwGMwE9UrwNwARIbAbJtaFLK8
-         Tbs1SpxiAeZaQQK0Qv0BUUfkHQlw7moNmybMAQIXN0pHCwis4PIUuqKRO6rkxv1MZYEz
-         Mp0ReY4tWE1xNd6VW1qWhyvDlhPjtyyfHoWvY=
+        bh=GGVu2LAHkDf3iJCcJXqnrLKgzUFBeUsFgEKNp1vIP10=;
+        b=Huo9dShmB4eTHar9RyfY+1EEiktCh0weT6eOp7AK+RJ8puODlNzkjqnk/gkCAghpgp
+         QGc/aAifzloiK3KKt50fcwGS0ZR3rEGqRiqez/8X+ESst+cEinR2d7WE//p0/JXwnV18
+         bwR2fBwE4oB0Y+yGEPjq3wuSmXjWVRZjLjDAA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795661115; x=1796265915;
+        d=1e100.net; s=20260707; t=1795661117; x=1796265917;
         h=content-type:cc:to:subject:message-id:date:from:mime-version
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=Qy0LDxWtU3WiFF4Cpmua/6KfacVExA5tS3ogGXwY7VI=;
-        b=rTAPW+MzzotGrsuBgHznJ061lr2c3VI8RHm9uC1cH34/GIFQHa0E8S0zPGYkW2XU9p
-         dziNUZFIYK7HgyOJWapMPewjv6CIRg+LufwGFZZxdUl17XRfk59ewWq7IZNG1Vu/dYCg
-         Orr7V2G63yaMYf9WBQLgOjojHTEmc+Wafdslj56GyGI2dWqXir12TDfhX5Nf6k7yYqmC
-         SMuq/ObffyAb780bM/6TA26E/wWBSxHMWdf7Gx8QD7sNFvbaoBn6EDM+Oexk1Q3wqV88
-         q4EcmlreH1L8xWaDl4LRe1k7Tt6E20+ovvzjEVkb+DRDdA5DcATOyj90W6DRQPzKr3NY
-         x46Q==
-X-Gm-Message-State: APuU4Z/XGGjGdA5zzNRxZAhIv5RhvaTpx0hy50tR5zXJAAyU9NFWi43m
-	wCV4t6pAeW6c0C09I+YsUiq9fl3kWHL+WG0eZR7EyuvvaiGKXitn9gslR3qs6lMK4Uc+JJ2DFF+
-	L5fu7Rhed0QT3zbJ/Ymd7yFZArD0V94UxA45pnEZqnDkHGLTJsXfIpE8=
-X-Gm-Gg: AZFdTZfj01xXwEnrVFDKX77VLzw9ND833mEvGCZEKBVx0N9sZ5Srqou4yo8R23rWz+o
-	8fL5N83rk/0+qVRFwd95lM+pGwM2xXe0choqmtGOLsQ42FNzS8gIfbJRVipIQQP5IG79OtR3sma
-	lAcH1vMbCFv6nINf70ss49PvqTD2YaSQJm6x5P8RgSbMzcjl9QPpcQxjhZBrb7nXtpM/zkCpVTL
-	hrNJIBSnvqoYNGkwXCCH4kdZKERj5g8deue/8N1+jEBgcuyFON8p2QONJrMy6CFmFzW5lRtH144
-	yf+yVbvuI/I5J/1EpacVW0q8N44MGql8YMdoow6WYt7JNcVHdfgsHeUURkVGtIuNjkDARgi291t
-	hDdRusIsUo3SHW6nl+pLtkoUY8w71T+BtJ8BXCl5OR5KRWngYgjfPbD6QIVos6xxD7vb+QIhnU8
-	EEgXgvsZ+nMvSls78N70V+XEP+4Y4vUvF1PvLjRiP0xguOsFRper6kYfd1CxSwoJYbiqjY5EmMZ
-	j1i+OCRthORULGy79XdueO4vwDc4jX8fYo3
-X-Received: by 2002:a05:690e:bca:b0:67d:bdcc:4264 with SMTP id
- 956f58d0204a3-67df44c180dmr6240267d50.147.1795661115337; Wed, 25 Nov 2026
- 18:45:15 -0800 (PST)
+        bh=GGVu2LAHkDf3iJCcJXqnrLKgzUFBeUsFgEKNp1vIP10=;
+        b=G/Mpb5GzVMYEn8o+mcFkAFG71+FkzTU9UEYTAipQyO1rj/V8xiMS+/naTduSMgBwDA
+         9HhtdcwbK2GTzn+MFQBmuUf9sDSltotWKl5wvfSOyrchu4qFHLnbCazVmcfDtAiayl3S
+         xc3z8s9Coo3H1gvS8ZE4xY7j7Lq3YjgRyumjtmRhbhdHRJn2MtyUkibL7UaC5P7Veh/b
+         qO9xkC4cKhXpgkkZhzn4gfXAI/pt2/8lGm2FeAAqXTKWqbJhXU/FTkAsLQEO0GMvwyW8
+         D8qVDDQkPHnrH0eMQeWmn0r1o9kWYeyXFNy0AKZoGVBKjgqT97lvNz9mqw6hnaiJMC0F
+         oDPA==
+X-Gm-Message-State: APuU4Z8OHVQUNs+hLj8le96KVamj/3bW2brxmp5z1d7/F7v6d85K88wG
+	qbm6YUDE2aU9PKiqHxH6dd5GquGhE9mBSmhIdBUXQty1ZjyLGUPpS/qctTOV3unFLA/A2UYdaWJ
+	MOJjl4vehbLpsFjaAKBfBNPRqQCqZkmIGS4U8oNkNnzJIKFmykkyHng8=
+X-Gm-Gg: AZFdTZeWY8rAyJWBbo5J3l3UQJCxHZ93FSP3qMYlt4V5oC3Wa88U7WN9bLGupLNE2Iu
+	Ibu0aLMxDlcz3fA5ixdqMAvp15lyIwwZHr9Dljf2rhMni1fEnyLgxtlh/fTEKeHLzQtGcQDJkxp
+	LtSuYCOZMssqxnUnp9xlDDECPiRKwAlCGu3dbOK377e4cN0w/w+LVij7N9QygeSO89XuQAzTUia
+	mMexr102QZhy9XgCfULQIk4Cn8BfydgRvl5vkoOG6wWvVb+WVsAtWYzBLlG0oGwzdiYG/ykA/yh
+	VA65I5+A43ABXf8XGwNrZjxxcTOwOcL6jGOSrNUn5jhupKPurAzoui2rTdcN2db8Y5I+rUl/SfT
+	SG79fFesKEGYDKTlx5kcJkcli+DiWO6uOkxNhTOsrJwZ/LnCw5U5xtcpHDxNEVBKPZ4RVT85Q0V
+	eghfJeP5CUsOhcH4yFUxKhV8o6EOh3ac1t8HwoCzNQGnVKYbtCl75RE+6G9hWqwC2hzONPRMO7O
+	66AiRYlBbmBOTRbZmxXeuLyPgbxAuYKZzohjQ==
+X-Received: by 2002:a05:690e:4505:10b0:67d:be72:879b with SMTP id
+ 956f58d0204a3-67df44c230emr6133951d50.81.1795661116641; Wed, 25 Nov 2026
+ 18:45:16 -0800 (PST)
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 25 Nov 2026 20:45:14 -0600
+ Wed, 25 Nov 2026 18:45:16 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,156 +101,105 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 From: Dickson Wu <dickson.wu@certik.com>
-Date: Wed, 25 Nov 2026 20:45:14 -0600
-X-Gm-Features: Aa3M54qTPLQ5kn2kbiAX2CcqbSNatDCxsIG9F8dIgEARuqCsHbX4tztvVfGoQSo
-Message-ID: <CAFaZ9eob6Kg4WDo_m203vhom-XtsNN1kFUKgyUs3DcCTev5msQ@mail.gmail.com>
-Subject: [PATCH 5.10.y] net: mvpp2: refill RX buffers before XDP or skb use
+Date: Wed, 25 Nov 2026 18:45:16 -0800
+X-Gm-Features: Aa3M54q8QrbiHxph-P-I586S9RXcVG2RoodKKg3v3nkECQJtpo61OGNzcer7D2M
+Message-ID: <CAFaZ9eoNqw+mFPg2RXkP=gd=VPkHy3xxOFkj3Vc5iCpqSxwawg@mail.gmail.com>
+Subject: [PATCH 5.10.y 1/2] signal: allow taks to temporarily block TIF_NOTIFY_SIGNAL
 To: stable@vger.kernel.org
-Cc: Til Kaiser <mail@tk154.de>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org
+Cc: Christian Brauner <brauner@kernel.org>, Oleg Nesterov <oleg@redhat.com>, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-From: Til Kaiser <mail@tk154.de>
+From: Christian Brauner <brauner@kernel.org>
 
-commit 5e8e2a9624df72fca7c736b2966b2cbf6c9c3ff6 upstream.
+commit 22b7f491be8f93ff72de0a3fe02b8ee9e64d3f21 upstream.
 
-The RX error path returns the current descriptor buffer to the hardware
-BM pool. That is only valid while the driver still owns the buffer.
+TIF_NOTIFY_SIGNAL is used to kick a task in uninterruptible sleep to
+return to userspace and run task work and then go back to sleep. This
+mechanism works well but breaks e.g., coredumps. dump_interrupted() only
+allows fatal signals to interrupt a coredump and the whole regular write
+path going to actual filesystems is impervious to TIF_NOTIFY_SIGNAL as
+well.
 
-mvpp2_rx_refill() can fail after the current buffer has been handed to
-XDP or attached to an skb. In those cases mvpp2_run_xdp() may have
-recycled, redirected, or queued the page for XDP_TX, and an skb free also
-retires the data buffer. Returning such a buffer to BM lets hardware DMA
-into memory that is no longer owned by the RX ring.
+Add PF_NO_NOTIFY_SIGNAL and helpers to raise and restore it. This is the
+same approach as memalloc_nofs_save(). signal_pending() will not report
+a fake pending signal via TIF_NOTIFY_SIGNAL if inside a
+PF_NO_NOTIFY_SIGNAL section.
 
-Refill the BM pool before handing the current buffer to XDP or to the
-skb. If the allocation fails there, drop the packet and return the
-still-owned current buffer to BM, preserving the pool depth. Once the
-refill succeeds, later local drops retire/free the current buffer instead
-of returning it to BM.
+No functional changes.
 
-Fixes: 07dd0a7aae7f ("mvpp2: add basic XDP support")
-Fixes: d6526926de73 ("net: mvpp2: fix memory leak in mvpp2_rx")
-Signed-off-by: Til Kaiser <mail@tk154.de>
-Link: https://patch.msgid.link/20260607134943.21996-4-mail@tk154.de
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ adapted to 5.10: page_pool_release_page() in place of skb_mark_for_recycle() ]
+Link: https://patch.msgid.link/20260824-work-tif_notify_signal-v2-1-6609e42b3157@kernel.org
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ adapted to 5.10: use PF bit 0x01000000, 0x00800000 is still
+PF_SWAPWRITE here ]
 Signed-off-by: Dickson Wu <dickson.wu@certik.com>
 ---
-5.15.y and newer already have this. 5.10 has no skb_mark_for_recycle();
-mvpp2_rx() there hands the page over with page_pool_release_page()
-instead, so that call moves up to right after build_skb() succeeds,
-where the 5.15.y backport has skb_mark_for_recycle(). Everything else
-matches 5.15.y.
 
-It goes with f3c6aa078927 ("net: mvpp2: limit XDP frame size to the RX
-buffer") that I sent for 5.10.y earlier. The two don't depend on each
-other.
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index 1c5bd595f560..52624ff4a1f5 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -1564,6 +1564,7 @@ extern struct pid *cad_pid;
+ #define PF_KTHREAD		0x00200000	/* I am a kernel thread */
+ #define PF_RANDOMIZE		0x00400000	/* Randomize virtual address space */
+ #define PF_SWAPWRITE		0x00800000	/* Allowed to write to swap */
++#define PF_NO_NOTIFY_SIGNAL	0x01000000	/* see no_notify_signal_save() */
+ #define PF_NO_SETAFFINITY	0x04000000	/* Userland is not allowed to
+meddle with cpus_mask */
+ #define PF_MCE_EARLY		0x08000000      /* Early kill for mce process policy */
+ #define PF_MEMALLOC_NOCMA	0x10000000	/* All allocation request will
+have _GFP_MOVABLE cleared */
+diff --git a/include/linux/sched/signal.h b/include/linux/sched/signal.h
+index 3a1b4c5118cd..dd468059ce71 100644
+--- a/include/linux/sched/signal.h
++++ b/include/linux/sched/signal.h
+@@ -2,6 +2,7 @@
+ #ifndef _LINUX_SCHED_SIGNAL_H
+ #define _LINUX_SCHED_SIGNAL_H
 
-Tested on v5.10.275:
-- x86_64 allmodconfig (CONFIG_MVPP2=m) W=1 build of mvpp2_main.o, base
-  vs patched, no new warnings
-- x86_64 defconfig with CONFIG_MVPP2=y builds and boots under QEMU/KVM
-- I don't have mvpp2 hardware, so the RX refill path itself is untested
-  here.
++#include <linux/cleanup.h>
+ #include <linux/rculist.h>
+ #include <linux/signal.h>
+ #include <linux/sched.h>
+@@ -366,14 +367,36 @@ static inline int task_sigpending(struct task_struct *p)
+ 	return unlikely(test_tsk_thread_flag(p,TIF_SIGPENDING));
+ }
 
-The backport and the test runs were prepared with AI coding tools
-(OpenAI Codex agents, with review by Claude). I went over the result
-before signing off.
-
- .../net/ethernet/marvell/mvpp2/mvpp2_main.c   | 43 +++++++++++--------
- 1 file changed, 24 insertions(+), 19 deletions(-)
-
-diff --git a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-index 3e60d40b3f6f..5915a8cdeddd 100644
---- a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-+++ b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-@@ -3613,6 +3613,12 @@ static int mvpp2_rx(struct mvpp2_port *port,
-struct napi_struct *napi,
- 		else
- 			frag_size = bm_pool->frag_size;
-
-+		err = mvpp2_rx_refill(port, bm_pool, pp, pool);
-+		if (err) {
-+			netdev_err(port->dev, "failed to refill BM pools\n");
-+			goto err_drop_frame;
-+		}
++/* Prevent TIF_NOTIFY_SIGNAL from interrupting this task. */
++static inline unsigned int no_notify_signal_save(void)
++{
++	unsigned int flags = current->flags;
 +
- 		if (xdp_prog) {
- 			xdp.data_hard_start = data;
- 			xdp.data = data + MVPP2_MH_SIZE + MVPP2_SKB_HEADROOM;
-@@ -3630,12 +3636,6 @@ static int mvpp2_rx(struct mvpp2_port *port,
-struct napi_struct *napi,
-
- 			if (ret) {
- 				xdp_ret |= ret;
--				err = mvpp2_rx_refill(port, bm_pool, pp, pool);
--				if (err) {
--					netdev_err(port->dev, "failed to refill BM pools\n");
--					goto err_drop_frame;
--				}
--
- 				ps.rx_packets++;
- 				ps.rx_bytes += rx_bytes;
- 				continue;
-@@ -3645,8 +3645,21 @@ static int mvpp2_rx(struct mvpp2_port *port,
-struct napi_struct *napi,
- 		skb = build_skb(data, frag_size);
- 		if (!skb) {
- 			netdev_warn(port->dev, "skb build failed\n");
--			goto err_drop_frame;
-+			if (pp) {
-+				page_pool_put_page(pp, virt_to_head_page(data),
-+						   rx_bytes + MVPP2_MH_SIZE,
-+						   true);
-+			} else {
-+				dma_unmap_single_attrs(dev->dev.parent, dma_addr,
-+						       bm_pool->buf_size,
-+						       DMA_FROM_DEVICE,
-+						       DMA_ATTR_SKIP_CPU_SYNC);
-+				mvpp2_frag_free(bm_pool, pp, data);
-+			}
-+			goto err_drop_frame_retired;
- 		}
-+		if (pp)
-+			page_pool_release_page(pp, virt_to_page(data));
-
- 		/* If we have RX hardware timestamping enabled, grab the
- 		 * timestamp from the queue and convert.
-@@ -3657,16 +3670,7 @@ static int mvpp2_rx(struct mvpp2_port *port,
-struct napi_struct *napi,
- 					 skb_hwtstamps(skb));
- 		}
-
--		err = mvpp2_rx_refill(port, bm_pool, pp, pool);
--		if (err) {
--			netdev_err(port->dev, "failed to refill BM pools\n");
--			dev_kfree_skb_any(skb);
--			goto err_drop_frame;
--		}
--
--		if (pp)
--			page_pool_release_page(pp, virt_to_page(data));
--		else
-+		if (!pp)
- 			dma_unmap_single_attrs(dev->dev.parent, dma_addr,
- 					       bm_pool->buf_size, DMA_FROM_DEVICE,
- 					       DMA_ATTR_SKIP_CPU_SYNC);
-@@ -3683,13 +3687,14 @@ static int mvpp2_rx(struct mvpp2_port *port,
-struct napi_struct *napi,
- 		continue;
-
- err_drop_frame:
--		dev->stats.rx_errors++;
--		mvpp2_rx_error(port, rx_desc);
- 		/* Return the buffer to the pool */
- 		if (rx_status & MVPP2_RXD_BUF_HDR)
- 			mvpp2_buff_hdr_pool_put(port, rx_desc, pool, rx_status);
- 		else
- 			mvpp2_bm_pool_put(port, pool, dma_addr, phys_addr);
-+err_drop_frame_retired:
-+		dev->stats.rx_errors++;
-+		mvpp2_rx_error(port, rx_desc);
- 	}
-
- 	rcu_read_unlock();
++	current->flags |= PF_NO_NOTIFY_SIGNAL;
++	return flags;
++}
++
++/* Restore the previous PF_NO_NOTIFY_SIGNAL state. */
++static inline void no_notify_signal_restore(unsigned int flags)
++{
++	current_restore_flags(flags, PF_NO_NOTIFY_SIGNAL);
++}
++
++DEFINE_LOCK_GUARD_0(no_notify_signal,
++		    _T->flags = no_notify_signal_save(),
++		    no_notify_signal_restore(_T->flags),
++		    unsigned int flags)
++
+ static inline int signal_pending(struct task_struct *p)
+ {
+ 	/*
+ 	 * TIF_NOTIFY_SIGNAL isn't really a signal, but it requires the same
+ 	 * behavior in terms of ensuring that we break out of wait loops
+-	 * so that notify signal callbacks can be processed.
++	 * so that notify signal callbacks can be processed. Not for a task
++	 * that asked not to be interrupted by it, see no_notify_signal_save().
+ 	 */
+-	if (unlikely(test_tsk_thread_flag(p, TIF_NOTIFY_SIGNAL)))
++	if (unlikely(test_tsk_thread_flag(p, TIF_NOTIFY_SIGNAL)) &&
++	    likely(!(READ_ONCE(p->flags) & PF_NO_NOTIFY_SIGNAL)))
+ 		return 1;
+ 	return task_sigpending(p);
+ }
+-- 
+2.43.0
