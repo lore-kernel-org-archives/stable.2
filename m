@@ -1,79 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795730295;
-	b=owVN9DafT6Ng479/rs6hajRUOFgnsmkGMDn20xPhfL64iUzbVZtBss4IIh/4VatMVY2p
-	 yrJxkcsDHx+vIsAx2+tR+j2bjQWoP09W1ZxnlQJhK5UKvzX9iTE3JbTqExed+W1UnJRmr
-	 nJVVSL69VROPq6nnjtRbZPv59yhOvhOjjw/tKTXyaQ0f0GWAubQ7Wh0qwFvbQ7E+Lsl25
-	 CedDV+lIUrmNFJJyzESka/KbCL5fDz52aWVQfDqvV7olPlGEjxuOdTOgJrwbB1Gk7TIf8
-	 bI75USiJTBlqmKAFmPDZaDMDHWwfABRmh8nHdBp2Ma0PjYQKcR/FybzONqAeeZtXlHg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795730295;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp;
-	bh=cv1jcP2NCWHHaTZoGDPS2zYOxgzsyVEhti5NT28c/KQ=;
-	b=UjvLEyNEc2WsBpjPhoHjylvkpQlk+rIK6C5FdFgPjQknEFD/m89sS89YuZF9kuDrPrMs
-	 X8bCAnAQZWgRH6hvp3zrwHwlwJT7PyihOMnCQFCDvsFEhx5zxlthmnBGKTj3f7hliTKQE
-	 BiGacRetqgo6B+JB5KVL9aScMsJj2za6znD3WG3y9NZZc3oj3nmxI8NoXs+o1m00FC5QZ
-	 a/LgDFzCp86uFy0YmfH9yCuhJ24O0YsaqbnTCwuCZA3IVuJe7PiJH9cOEkTtH6nWKdcZk
-	 yRiSTbDz1/1dXf1smMiRhcnnOYoGE9qsDXqcOrhbnpveNlleXFCsfl2rr61CbSbd2XQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b="NoP/VQTS";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795730361;
+	b=hq/LFBoucl+bIOi3fjPbg+WV9xdtjIXRhIVE7Vj9wXmBqsnytk8WaIovUv5foJVXkKMd
+	 PHi0PGRbntm/XRG0QHYS1oJSp36S5AZxycOe1BbAJZpKWXvl9Un+8xzp6P8015DdmN8Nq
+	 KD86jxaOSERT+noLDZqP87AOUN/bAIUm5OGjijnC24XO5Pv2Vw7C9sBHOHXejvoWPYdMb
+	 OtfepNeFaJ7PcOza09vxgW2/4xgfnyu73wBGQfCRDYr3BCAoaaaYaILg4DZ2Nj2SXywZz
+	 6S8mFK9VV+KqVMgmfFHBuDAYbPp/K7BBBMxLB/za8RFG7y+iC4MsePO4S2dbeGi55/A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795730361;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nicg9fOaQYqkvebvo23Azvs2njPERMZDMTaNYJH5mJk=;
+	b=RXb0cN4otYn2HpTB3Wj6dahtaZhngJDqF1f8Yf+c/yJ3t8jzwq7eiWqUtKUn/0DfUB7J
+	 oUXiDk3gvwHHJbFeLdJlh95kRuobRe2qJuKj8QxpPOqjheHDYR5t6nLNzXgcv9aStluR4
+	 4SpJW/SMZlzroRBFjrNFnKDP2TQ5/UvrWpmiVfZHo9CVGXGYt7g/8avlGiPOaywXzlclE
+	 bm9Ot91MZLtiX8pN6gBhkj5HYCPakW02x1NWz71rr7vD0dgki2Ztt7IAhh1ztHINMBUjm
+	 SRQxy85D5t9hokWJv8avW46/Qk70bs5jsCQAcLlTjQe1SrgPFrFUAOUev8hWHUmkT7w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J2JPCKnd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E80606A331;
-	Thu, 26 Nov 2026 21:58:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2E80606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A8E606A326;
+	Thu, 26 Nov 2026 21:59:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=NoP/VQTS
-ARC-Seal: i=1; a=rsa-sha256; t=1795730230; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=iTcwd8Xp/547Iv+8Q9NX/RmRc95tagyBsdqLCDhbKDajX4OUly5OSStcrTf/w4H5mugysRCVanw0OBvcJzCnM/bp8BwT5YFsl2FiWPnCf1/D2ccADCvc7GXoRgItHtWNwi/93EDH/OY8OCDJhgqp3vsmnEZFpeN8+SRsuGdlbos=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795730230; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=cv1jcP2NCWHHaTZoGDPS2zYOxgzsyVEhti5NT28c/KQ=; 
-	b=T+WPMLmhxBBu/rh4Ip6+c1YYGaWnrLMvz3aI0LyQsIPlV2oXNZIox1oHKlxN2F2cYwj669M4bQ37UKdMieAvhb7GmtBU3mV9vVGI8bLwkYSMBTfakbzepIgD1eJt6tUFggE0WaWGD4lTUGtxgoWcB10eh37ZKfHocnn8PWLZN9I=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
-	dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=NoP/VQTSLJwgXVjcQCQu5SFK6wqD/i8LWv+j3KcLB5vO59ezzBk0xo03BXzFiGhtwnAVOQ9JMCt/g3mGrI/WTJ/r2ua7W08TsRTL0jqq3bsBRtNNjF6WiWGKq+NUKiQ84pWB1x+3/ttZKHj3F7KULpSNmk0pjKO05Lw5N08vfJQ=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=cv1jcP2NCWHHaTZoGDPS2zYOxgzsyVEhti5NT28c/KQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795730228027378.1289641848697;
-	Thu, 26 Nov 2026 13:57:08 -0800 (PST)
-Date: Thu, 26 Nov 2026 14:57:06 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Janne Grunau <j@jannau.net>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Lyude Paul <lyude@redhat.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev,
-	stable@vger.kernel.org, stable+noautosel@kernel.org
-Subject: Re: [PATCH v2 0/5] Fix import of dma-buf buffers as DRM GEM shmem
- objects
-Message-ID: <awirMlJMlyqKwPQq@um790>
-References: <20261124-rust-drm-gem-shmem-imported-sgt-v2-0-000f7a9ccb8d@jannau.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J2JPCKnd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CAB21F00897;
+	Thu, 26 Nov 2026 21:59:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795730361;
+	bh=nicg9fOaQYqkvebvo23Azvs2njPERMZDMTaNYJH5mJk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=J2JPCKnd88FYuN7qFSSogD2kMw7b7qtSiCF+wnVJUeXtcbfgBwy5xv204ys/R5YR9
+	 /sV4mkfoZd5zGxJlICv9yZHbMH543BYdzlycpe/Wn6CPl4QH1qSdDXsKd2jO1VpFEm
+	 8IJq89vIdH7VEAqLomE3mMnmewqA7vhD4zqBMqP9AxQ7u1zISy3V5EbKj4SNu3R/2M
+	 PxXjhpd38Ghbd6UUg3KTBFxtbGs199cmQNpW+OnSp/+OFu9tpKE4PCCl7IMh9DuIOb
+	 L4s7kJVx6RlaUJVYmMf5AaGo0FjLQqcErQYlj5ePrKWKi8Zy75lbnKm9kH5E/WW2Ga
+	 T2+Vzg+Pt/2pg==
+Date: Thu, 26 Nov 2026 22:59:17 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: linux-perf-users@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+	Jann Horn <jannh@google.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] perf: look up address filter files without
+ ctx->mutex held
+Message-ID: <20261126-texten-bewusst-ruinieren-9aa88e75cec5@brauner>
+References: <20261126-work-exec-update_lock-leftovers-v1-0-1024b26792bc@kernel.org>
+ <20261126-work-exec-update_lock-leftovers-v1-1-1024b26792bc@kernel.org>
+ <20261126152414.GH49833@noisy.programming.kicks-ass.net>
+ <20261126-gedruckt-gastarbeiter-vorsorgen-5fea7cea1877@brauner>
+ <20261126-erlogen-bedrucken-dementieren-5de5e5460481@brauner>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,95 +62,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261124-rust-drm-gem-shmem-imported-sgt-v2-0-000f7a9ccb8d@jannau.net>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/295.709.99
+In-Reply-To: <20261126-erlogen-bedrucken-dementieren-5de5e5460481@brauner>
 
-On Tue, Nov 24, 2026 at 12:37:42PM +0100, Janne Grunau wrote:
-> Hej,
+On Thu, Nov 26, 2026 at 10:26:02PM +0100, Christian Brauner wrote:
+> On Thu, Nov 26, 2026 at 09:56:37PM +0100, Christian Brauner wrote:
+> > On Thu, Nov 26, 2026 at 04:24:14PM +0100, Peter Zijlstra wrote:
+> > > (Why can we add proc files to the filter?)
+> >
+> > I think we can. But it feels a bit annoying because this such lock
+> > inversions involving exec_update_lock and perf isn't the first time.
+> > So I tried to get this inversion out of the way.
 > 
-> this series is triggered by the discussion of gem/shmem.rs SGTableMap
-> issues in [1] which has an additional issue with imported objects.
-> Imported objects are supported since GEM shmem's AllocOps use
-> drm_gem_shmem_prime_import_sg_table() as gem_prime_import_sg_table which
-> sets the same function pointer field in struct drm_driver.
+> So I looked at this. It doesn't work. The filter never contains a procfs
+> file. It's just that kern_path() follows /proc/<pid>/exe to the binary
+> and the parser wants a regular file. IOW, procfs is only walked through
+> and exec_update_lock is then taken in the middle of that walk:
 > 
-> The code is broken in two ways. SGTableMap::drop() calls
-> __drm_gem_shmem_free_sgt_locked() uncondiftionally which it must not do
-> for imported objects as the object does not own `sgt`.
-> The second issue is that the imported object is allocated by
-> __drm_gem_shmem_create() with sizeof(struct drm_gem_shmem_object) as
-> size instead of the size of Rust's Object<T>.
+> kern_path()
+> -> ...
+>    -> pick_link()
+>       -> proc_pid_get_link()
+>          -> call_proc_get_link()
+>             -> down_read_killable(&exec_update_lock)
+>          -> nd_jump_link()        // checks LOOKUP_NO_MAGICLINKS
 > 
-> The first issue is fixed in the Asahi downstream driver together with a
-> drm_gem_is_imported() wrapper change taken from the Tyr downstream
-> driver.
-> The second issue is fixed by avoiding to allocate Rust GEM objects
-> from C. In addition to size issue v1 addressed Rust gem objects may
-> contain fields with non-trivial `Drop` implementations. Those fields
-> won't be destroyed in error paths in C code which "destroys" the objects
-> with `kfree(obj)`. Solve this by re-implementing
-> gem_prime_import_sg_table() in Rust.
-> The same issues apply to drm_gem_shmem_dumb_create(). As Asahi and Tyr
-> as render only devices do not use the `dumb_create` callback just drop
-> it. When a future driver uses the callback drm_gem_shmem_dumb_create()
-> needs to be re-implemented in Rust as well.
+> Same for cwd, root, fd/<n> and map_files/, and proc_ns_get_link() does
+> it for ns/. So by the time kern_path() returns the lock has been taken
+> and dropped again. WE can't catch that.
 > 
-> The series is tested in the Asahi downstream driver. As the prime import
-> code path is unused in-tree I marked the fixes as not suitable for stable
-> backports. The known downstream users of the code are aware of the
-> issues and carry fixes downstream. I don't expect new Rust DRM drivers
-> to be based on (old) stable trees.
+> procfs itself would have to look at the lookup flags before it takes
+> exec_update_lock. IOW, path lookup would have to work around perf's
+> lock ordering. And that only takes care of procfs. On FUSE the lookup
+> still blocks for as long as the server wants with ctx->mutex held and
+> exec waits for that.
 > 
-> Link: https://lore.kernel.org/rust-for-linux/20261019-rust-shmem-fixes-v1-1-3f7f6de5b5e7@google.com/ [1]
-> Signed-off-by: Janne Grunau <j@jannau.net>
+> So ok, if we can't drop ctx->mutex in the middle of the ioctl then how
+> about we don't hold ctx->mutex during parsing to begin with?
+> We let perf_ioctl() hand PERF_EVENT_IOC_SET_FILTER off before it takes
+> the mutex:
+> 
+> ioctl(PERF_EVENT_IOC_SET_FILTER)
+> -> perf_ioctl()
+>    -> perf_event_set_filter()                // no ctx->mutex
+>       -> perf_event_set_addr_filter()
+>          -> perf_event_parse_addr_filter()   // kern_path(), own list
+>          -> perf_event_ctx_lock()
+>             // revoked? has_addr_filter()? ->addr_filters_validate()
+>             -> perf_addr_filters_splice()
+>             -> perf_event_addr_filters_apply() on each child
+>          -> perf_event_ctx_unlock()
+> 
+> The parser fills its own list and counts the file filters in locals.
+> Everything that needs ctx->mutex then happens in one go under
+> perf_event_ctx_lock().
+> 
+> So ctx->mutex is never dropped in the middle of an ioctl, a migrated
+> event is handled by perf_event_ctx_lock() like everywhere else and no
+> ctx is carried across the lookup?
 
-Thank you Janne for this series, I tested it on my rock 5B
-by running the igt tests [1]
-with the proposed ioctl changes to tyr [2]
-and it is working great.
-
-So, for the whole series:
-
-Tested-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-
-[1] https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/tree/master/tests/panthor
-[2] https://lore.kernel.org/rust-for-linux/20261122-tyr-ioctls-v7-0-3a2af624b992@linux.dev/
-
-> ---
-> Changes in v2:
-> - Switch to Rust gem_prime_import_sg_table() implementation
-> - Drop unsound drm_gem_shmem_dumb_create() as well
-> - Add `#[inline] annotation to BaseObject::is_imported()
-> - Drop typoed mail address from To:
-> - Added Alice's Reviewed-by tags
-> - Link to v1: https://lore.kernel.org/r/20261026-rust-drm-gem-shmem-imported-sgt-v1-0-36f15ace04b1@jannau.net
-> 
-> ---
-> Janne Grunau (4):
->       rust: drm: gem: shmem: Do not use drm_gem_shmem_dumb_create()
->       drm/gem/shmem: Initialize private objects via drm_gem_shmem_init() too
->       rust: drm: gem: shmem: Implement prime_import_sg_table callback
->       rust: drm: gem: shmem: Do not free SG table of imported objects
-> 
-> Sami Tolvanen (1):
->       rust: drm: gem: add an is_imported() accessor
-> 
->  drivers/gpu/drm/drm_gem_shmem_helper.c | 34 +++++++-------
->  drivers/gpu/drm/nova/gem.rs            |  4 ++
->  drivers/gpu/drm/tyr/gem.rs             |  4 ++
->  include/drm/drm_gem_shmem_helper.h     |  3 +-
->  rust/helpers/drm.c                     |  6 +++
->  rust/kernel/drm/gem/mod.rs             | 17 +++++++
->  rust/kernel/drm/gem/shmem.rs           | 81 ++++++++++++++++++++++++++++++++--
->  7 files changed, 126 insertions(+), 23 deletions(-)
-> ---
-> base-commit: 3497a403264b094ebd61b8b755165d56e7d9dc37
-> change-id: 20261026-rust-drm-gem-shmem-imported-sgt-85c4a45be283
-> 
-> Best regards,
-> -- 
-> Janne Grunau <j@jannau.net>
-> 
+Just as a general final comment: holding any global lock over a whole
+path lookup is a not a good idea. We've seen that over and over again.
+So if we can get rid of that, we should.
