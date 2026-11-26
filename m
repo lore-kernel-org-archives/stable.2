@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795667022;
-	b=FaqxVIIkjcFrzJmnh7enuWHlKrcHq4+EnsFedo5AWRqMgtIX/OtPNvT+D0mLAzDpCm0/
-	 /EJD0DCcndlRLHE4vYt91EozikJOinZa55+yZSuodblDTQ2rcPHOIFTO5nmBWOkaX401D
-	 WKgHjy3Qyx11dkPQ888k4LY40fEByTuh52CHXDAeR6Zck/eva2gQxAAH5dVF1zFu2K04L
-	 FwHXNr4ZI1Fi+L4CHm4IqYdTnS3KmBc2KxkrgHEVRDv2Km0uW2/fmIfsnOWkk36NSLqpw
-	 5qcNn9f1q3xF6LP6ZHdQtMYAjlBrEP2aVflArQregky5MUjSF7ihtRKCEjtzxNOxmZQ==
+	t=1795667270;
+	b=pRKXSZU4fTFgx/X6TTK9Z1HWAMOoaihjJAujLLqKl6UAiCnuCE1+ZYSZxx7a4UMGUlVA
+	 Dfc1UQLjFQOXzzOwzNOSkidpdf/e/F3S1jZ+11XL8N0k1/VsPKd+mipTESlU/lz7zlVb5
+	 0G3VgoDcFuH3WQxe6g6KDkig6lUc1Yc7FaY/WcyY8Evy4fum/SG6t0hrkWJELjrr0E/Qw
+	 NPGSnCYusQWzdgWOATnJLZSzwjCY4Ur4EYEiF1VhIcAcnVh/ogzj7DJqkDuDLc19volV9
+	 VnFtNITIyJTzs4P5+2MJRJ4bsuY+XTL/11sudh08B78yd8jTbbPXhKbVeL7qiAWTmDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795667022;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795667270;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5PSU/YLixyVQOCVPgEdTrN5ZlsKLMng3hkgCE8VYYPM=;
-	b=mJaokjZ2HkPZJ45GliPYv17D4tH75ReSpngTbtmF0CQh0wy6Yjcu1XVrPUWGsfMY8adF
-	 Rh+gqg9PYPQQmNTxM/ez0xuARx2Wji3P8QfEHp7yEaMpIYeVeZ4K2CMF6yYUQ/Zhfp6Dw
-	 CZgGIO+taOfT/NVP+lLzljM+BRsNcXkpfWuLXuSXa5RCtPjcrV5cGKfuAHAal9lTvq4u9
-	 yvVq+Ki2aSv+pU4bIhy/WEYV6ZOkvMUNfze2x/H4LqYWIZiFKs4+EsAYvqLwq/c0j9o4I
-	 p6KagDDKVTZgiWGKB8cIpJQ55rWFRJbDlo/onTbVXrbZRJkKvWN46Fe+W/JOO3uW6sQ==
+	bh=FBbpQztYdUM9tYncKdpoO2zbgwN/s94hh5EFsX2Bnnk=;
+	b=DgsR0Zd/IFKywAoqGaX+jEI02ZUtVfxJv/2QhjuchGrCjEdlvoLuwfUfj6rwHg954ZGD
+	 Ih90G2nDhvxIA4jsyPvvS8RbsPIXYjyCEm3j6oGsrDkTNdH/q2qJf5Be33d7bAo+O7apE
+	 QOyrk1gvbp6+bNAPbuX43Vs4VPMioC3J/GwPv41/5d5z8TPBaDczEghWQkueu3gdwQ/qc
+	 o1eEtdEEaNRwc4PV4xNoMXVfn8OoOKeCkeFjZ7zLU/qnFJb2xGn8suS4yfXoGW79U/yEK
+	 JCmBZlUySqbFbtP2cIDH2BEEpdiXeb6srmme6ncaqEJFq4s21HW0Ej4ExaPFtmArUwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=On16Pyxj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gYPdpOM5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 113BE606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:23:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFEF606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:27:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=On16Pyxj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 971D81F000C0;
-	Thu, 26 Nov 2026 04:23:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gYPdpOM5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CB141F000C0;
+	Thu, 26 Nov 2026 04:27:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795667021;
-	bh=5PSU/YLixyVQOCVPgEdTrN5ZlsKLMng3hkgCE8VYYPM=;
+	s=k20260515; t=1795667269;
+	bh=FBbpQztYdUM9tYncKdpoO2zbgwN/s94hh5EFsX2Bnnk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=On16PyxjtJl59wZ0sCuHdCnhPhRT6armbz3SaiIdAM1ZWb+q21B+t/qhkWg2aNNn0
-	 aC2a77M6pKXdbAGQKGI8yT2TGt7qRGeFMbX9gfrrtYKHCD2TD8KEjsEHyEBAAn0iFy
-	 2xs9iGGx2qzxmRgSfJBFUJY1JvBGDgGUitkBdo7mnTsurzSk4HfqfdR7w9F6YZ/3O7
-	 33vkxNoK4UiLohAJX3y/LDM00OLGRCsjtDkQqiKLJFydgVYQDlqYpZy6vBDxmlKmrL
-	 CaJe2j/ydf8s8EJq7bC5skqNLzjPfmEdG0QRfny/tPxsGR9LmX5l/q1IXbIgNdDc0t
-	 draQIq+JmwkEg==
+	b=gYPdpOM550NzcBV43YmOe1z6fik7XkfbZ+9Qg2lcobqiVqKBz7NpjmzQuTCcg39mV
+	 G7EQT7jJZROi4pPd0S3JZye70xjMvnKLCzBqe9HeJiUv/2oANFqiGd5XaP/s6xhT29
+	 KrZw2lkh7usznYjNHPQELv2oYUAzuWn32mcMYJGGIaDKFrjbps+LeKc+wUtmckzXfY
+	 sdbNO76JDoelb3X4HWKLkmosjeDiMGb7r9Gh6YowpcvOWKd9bqBhldTCVGxmTcCjBC
+	 /DgK7Y/KOFbEEMfEAQZJs2TJIfuvtSN7ky49eA6jxIQPDkgnQbco08Oyxctrn1K0S3
+	 12dozIpPLA/Sw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: liuyong <pkfxxxing@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
+Cc: Joseph Qi <joseph.qi@linux.alibaba.com>,
 	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/3] smb: client: validate descriptor headers before query result allocation
-Date: Wed, 25 Nov 2026 23:23:36 -0500
-Message-ID: <20261126042229.1926905-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y] smb: client: hold server ref while queueing reconnect work
+Date: Wed, 25 Nov 2026 23:27:47 -0500
+Message-ID: <20261126042723.1962827-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126042229.1926905-1-sashal@kernel.org>
-References: <2026112506-zipfile-subpanel-c0d3@gregkh>
- <20261126042229.1926905-1-sashal@kernel.org>
+In-Reply-To: <2026112545-crowbar-trio-f08b@gregkh>
+References: <2026112545-crowbar-trio-f08b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,91 +61,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: liuyong <pkfxxxing@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-[ Upstream commit ffb59029c0d52bf76fdd2678f5d6fd13e26220dd ]
+[ Upstream commit f02d249e9756b78990aaaa1635e47e06deb2cb51 ]
 
-query_info() uses the server's returned length instead of the caller's
-minimum when a dynamic result is requested. A zero-length ACL response
-can therefore return ZERO_SIZE_PTR to id_mode_to_cifs_acl(), whose
-ownership-change path reads dacloffset before checking the header size.
-A KASAN-enabled test shows a read at address 0x20 and a kernel Oops.
+When query_server_interfaces() returns -EOPNOTSUPP on a secondary
+channel, smb2_reconnect() calls smb3_update_ses_channels() which for a
+channel runs cifs_chan_skip_or_disable().  That clears the channel's
+slot in the session and calls cifs_put_tcp_session(), which can drop
+the last reference of the channel and tear it down.
 
-Validate the returned range and the caller's minimum before allocating
-the dynamic result. Keep the reported length zero if validation fails.
+smb2_reconnect() then falls through to skip_add_channels and queues
+reconnect work on that server, using a server that may already be
+freed.  The send path obtained the channel from cifs_pick_channel(),
+which does not take a reference, so the session's channel reference is
+the only one.
 
-Use the security descriptor header size as the minimum in SMB2_query_acl().
-DACL-only and SACL-only xattr queries do not require owner and group SIDs,
-so enforcing MIN_SEC_DESC_LEN would reject short descriptors that these
-queries could previously return. The rewrite paths validate the required
-owner/group SIDs and DACL separately before using their contents.
+Take our own reference on the channel before calling
+smb3_update_ses_channels() and drop it after the reconnect work has
+been queued, so the channel cannot be freed while it is still used.
 
-These issues were discovered and fixed by Qihoo 360's Tulongfeng
-multi-agent system.
-
-Fixes: 9ee2afe5207b ("cifs: prevent copying past input buffer boundaries")
+Fixes: f591062bdbf4 ("cifs: handle servers that still advertise multichannel after disabling")
 Cc: stable@vger.kernel.org
-Signed-off-by: liuyong <pkfxxxing@gmail.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ sashal: adapted to older code: open-coded the reconnect work queueing and channel disable calls (mod_delayed_work, cifs_chan_skip_or_disable) and adjusted variable declaration context. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cifsacl.h | 14 --------------
- fs/smb/client/smb2pdu.c | 11 ++++++++++-
- 2 files changed, 10 insertions(+), 15 deletions(-)
+ fs/smb/client/smb2pdu.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/fs/smb/client/cifsacl.h b/fs/smb/client/cifsacl.h
-index 31b51a8fc2561..ebc1b7c08c6ad 100644
---- a/fs/smb/client/cifsacl.h
-+++ b/fs/smb/client/cifsacl.h
-@@ -93,18 +93,4 @@ struct owner_group_sids {
- 	struct owner_sid group;
- } __packed;
- 
--/*
-- * Minimum security identifier can be one for system defined Users
-- * and Groups such as NULL SID and World or Built-in accounts such
-- * as Administrator and Guest and consists of
-- * Revision + Num (Sub)Auths + Authority + Domain (one Subauthority)
-- */
--#define MIN_SID_LEN  (1 + 1 + 6 + 4) /* in bytes */
--
--/*
-- * Minimum security descriptor can be one without any SACL and DACL and can
-- * consist of revision, type, and two sids of minimum size for owner and group
-- */
--#define MIN_SEC_DESC_LEN  (sizeof(struct smb_ntsd) + (2 * MIN_SID_LEN))
--
- #endif /* _CIFSACL_H */
 diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index e6ce1d8528cb5..0dae54d2c4d56 100644
+index 24863ba8a0926..3c6d26f6a6921 100644
 --- a/fs/smb/client/smb2pdu.c
 +++ b/fs/smb/client/smb2pdu.c
-@@ -3931,6 +3931,14 @@ query_info(const unsigned int xid, struct cifs_tcon *tcon,
- 				ses->Suid, info_class, (__u32)info_type);
+@@ -214,6 +214,7 @@ static int
+ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
+ 	       struct TCP_Server_Info *server, bool from_reconnect)
+ {
++	bool hold_server_ref = false;
+ 	int rc = 0;
+ 	struct nls_table *nls_codepage = NULL;
+ 	struct cifs_ses *ses;
+@@ -452,6 +453,20 @@ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
+ 			 * treat this as server not supporting multichannel
+ 			 */
  
- 	if (dlen) {
-+		rc = smb2_validate_iov(le16_to_cpu(rsp->OutputBufferOffset),
-+				       le32_to_cpu(rsp->OutputBufferLength),
-+				       &rsp_iov, min_len);
-+		if (rc) {
-+			*dlen = 0;
-+			goto qinf_exit;
-+		}
++			/*
++			 * If server is a secondary channel,
++			 * cifs_chan_skip_or_disable() called below may
++			 * drop its last reference, so hold our own
++			 * reference until the reconnect work below has
++			 * been queued.
++			 */
++			spin_lock(&cifs_tcp_ses_lock);
++			if (server->srv_count) {
++				server->srv_count++;
++				hold_server_ref = true;
++			}
++			spin_unlock(&cifs_tcp_ses_lock);
 +
- 		*dlen = le32_to_cpu(rsp->OutputBufferLength);
- 		if (!*data) {
- 			*data = kmalloc(*dlen, GFP_KERNEL);
-@@ -4002,7 +4010,8 @@ SMB2_query_acl(const unsigned int xid, struct cifs_tcon *tcon,
+ 			rc = cifs_chan_skip_or_disable(ses, server,
+ 						       from_reconnect);
+ 			goto skip_add_channels;
+@@ -478,6 +493,8 @@ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
  
- 	return query_info(xid, tcon, persistent_fid, volatile_fid,
- 			  0, SMB2_O_INFO_SECURITY, extra_info,
--			  SMB2_MAX_BUFFER_SIZE, MIN_SEC_DESC_LEN, data, plen);
-+			  SMB2_MAX_BUFFER_SIZE, sizeof(struct smb_ntsd),
-+			  data, plen);
- }
+ 	if (smb2_command != SMB2_INTERNAL_CMD)
+ 		mod_delayed_work(cifsiod_wq, &server->reconnect, 0);
++	if (hold_server_ref)
++		cifs_put_tcp_session(server, from_reconnect);
  
- int
+ 	atomic_inc(&tconInfoReconnectCount);
+ out:
 -- 
 2.53.0
 
