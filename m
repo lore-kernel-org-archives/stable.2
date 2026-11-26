@@ -1,60 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795659492;
-	b=Whqdq4c5NerbcOvyR/acw4b4c8cJH/RkBkRZLThj7cIsxvYBgDd6CHFmiK3VrLP0ZjAh
-	 xyWZM0Q/qEUB0f54jH5tQid1qR1M0XIyjvK0UZ1bQ/mb0YZaeBNEgEulyxATPNIl4KVB7
-	 dp0Xj3+1wa/j0rMo27suZb9YeE4XfWZMdBzUlDWEYfOodc1KkZNqTFzrgK0avqWzNOEC3
-	 0x19NdjNUh2FkYwXyJapvVL2q0CO7scmBIImawMg35skF+SziKtqpzqFq9FalFu41IR1H
-	 Jy0/R6lD/ChbBM81PqyLFLS1gu1fO/0PYF2Q0fJtcIJg9ave77t2nM+a9qz/+5H4dgw==
+	t=1795659495;
+	b=UmUUR4BzBIiJJRGwKhbdOgP/hRR78/QK8Mu6aPU2JT2qEQa67hWEK1PVH2NU+uORu51a
+	 2W26myZc1LNKZylSKUcdC0z7otlHOZXelqglWBZG3kxlWfYBSIOr99Te0PnPynuIlkl4k
+	 jUADSoZquKbeJnRNpCw3VaEHQ58zZamnfLjMIhqRKhCDbI/5j9aoeDzPW6BMvYOpIPSEg
+	 YY/VcseNKXhCBXtP/8bmtUblhmet7FlkWYryPEaRwNm4I3IhTNho8bAmroRDiULjI5B5e
+	 c4+dDz9ig9c3Wd/+b9jJ9zu+q/brO0tINYYv47tV64wNaGSbn8lXf6BCEh6WJO+zT3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795659492;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=LQUBvpsucYn0MXvaNFNdOGS2lcFbmHtWdBHiuR+bvsI=;
-	b=AE9KtuDjCiY3qEZ+xFgrr1sJM43u4KqdSp3WtaagquR4/FI7M4a0vtV1Nf0gvZjPNwy2
-	 mJxGSCQwNJW1Bx8BRPNdh4wgEy0TGijfjdndeMdCaKUkCrO8+hoNOBOlJ+m0W7YDbNBuN
-	 nF8B+ZjylMk/dvHFEWQGQ+NgdIWs2lphhcgo6BR1JGQhZamf5pj1ib2INbZcKPLJ7HYGm
-	 LNtrzHKuqDAGgxdnMAzeWggfEvpg3FnHNHPiMqD08YMicmXcSwj5fRfMud6vWd3sCV8bU
-	 zmjet8SSxT8LeNdlshMDVx/kYOaNxaV0ZbxjOiPK1W07lalKY9dErPKstlv2T3WZL3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795659495;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Ld9+YyGfs/W/wYUchYl+G0tuTdeNOsMW/DqiAiz5bT8=;
+	b=X4ycQ/Rjq8wxCJYr+g0KT3oowqr5n7mV3Y5OOMwxY3+rOhDlMfirdZpsqhxcp/+ygf27
+	 AiK10PG3gMabV2/67D0AJykec+onx3fqqtqsP5dKNUmXEKIgTE1QLC/tubPdMdekQUZJ8
+	 r3+PbmF/AiHLMHYRq+5wHKsRPNQ4Zuph/e+jhqCEHlMVKeqU9XcRPyAful3EU8trJtOir
+	 oWNh76teCtqPRT3AXwGNrtLNigFg1nlELmQY1xJhhgJt/H5xAW5iqpNqucSmVuu4cbI/Z
+	 C6eZ83f6nztpljwggSfYVsoYstusNeBZQKgT4/YnqN3H92SecTuXNWTjeG9C0+JT46g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l5+n1eRT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hLuArq7D;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C58606A31E;
-	Thu, 26 Nov 2026 02:18:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DC80606A321;
+	Thu, 26 Nov 2026 02:18:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l5+n1eRT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4234F1F000C0;
-	Thu, 26 Nov 2026 02:18:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hLuArq7D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 538801F000C6;
+	Thu, 26 Nov 2026 02:18:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795659491;
-	bh=LQUBvpsucYn0MXvaNFNdOGS2lcFbmHtWdBHiuR+bvsI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=l5+n1eRTGE9j6AIAyRzjQe/w4VI7wW1qmM4hiEidqSJ8JqcusW2kfRIo19XqMlDH8
-	 63SXriiJ/JYbvTNiCCrbh3kIqtfHg8Jwyc2XZzgwFfgU3DrE1bAwoYGMn2SZWgwwci
-	 QRih/z5S5dKUtZK7QiE3mbgk4wkL1VKvUATHXPO1izzJcbskA2Ns8NfQJ1q95kSAzz
-	 AdJkZphZVj/TRM1bWazvO+oGcM4LFcRnCWM2fW12mTZDRdUXGY1AgqTo04Q11fOE/9
-	 wvuEtHiiyihwZff+HSE7c50387aZ7iie881iZz8eJ5Ak9+FrB8WGNoVcX1GSVlyIzq
-	 7UkfrBcD+Upuw==
-Date: Thu, 26 Nov 2026 02:18:05 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: phil.williams@advisoft.co.nz, David Lechner <dlechner@baylibre.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Mario Tesi <martepisa@gmail.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: imu: st_lsm6dsx: set ts_sensitivity on parts
- without freq_fine
-Message-ID: <20261126021805.3060ed3e@jic23-hlaptop>
-In-Reply-To: <awaYTa63V-LnP-T-@lore-desk>
-References: <20261125-st-lsm6dsx-ts-fallback-v2-1-ea0ea2512070@advisoft.co.nz>
-	<awaYTa63V-LnP-T-@lore-desk>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1795659495;
+	bh=Ld9+YyGfs/W/wYUchYl+G0tuTdeNOsMW/DqiAiz5bT8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hLuArq7DazoSFkz0wELCN9Gom4sLBmCEA0yU6bRpnWEOD2IMn59lFATXBhFXbmfZK
+	 hYqW/Kzvj4kk9x9vVwRc+Mn9VVaE0sKzBXkv2O12V25abpJim3DS19sHkPRv9c6sWY
+	 s2ufk1BlJfqzPObmGynVCwWqiEBvBkhG7ZEWkiB/W02oTEn4FahATQKhWCWkdoBI/Q
+	 6RexlwPcOAqPCEdGQ/YoMhsfawN0BGdJ5ppjrikm0VGiket0DK2GPZbMXmH+RickFt
+	 gKega6aYM7j0fzVddKkwtkS9zeMqq2ZZUhSxuUvrbvfiKOf1RUVS0bf15xNIkWRpNP
+	 qIEJdNerr7faw==
+From: netdev-bot+sinfo@kernel.org
+To: guohongyu <guohongyu@cmss.chinamobile.com>
+Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
+ anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, alan.brady@intel.com,
+ stable@vger.kernel.org, 13057616121@163.com
+Subject: Re: [PATCH] idpf: fix vport_id used as array index in MAC filter
+ async handler
+Date: Thu, 26 Nov 2026 02:18:13 +0000
+Message-ID: <179565949384.3294.6218603099017752049@kernel.org>
+In-Reply-To: <20261126020854.233971-1-guohongyu@cmss.chinamobile.com>
+References: <20261126020854.233971-1-guohongyu@cmss.chinamobile.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,95 +65,30 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Wed, 25 Nov 2026 09:11:57 +0100
-Lorenzo Bianconi <lorenzo@kernel.org> wrote:
+Hi!
 
-> > From: Phil Williams <phil.williams@advisoft.co.nz>
-> > 
-> > Commit 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
-> > calculation") takes the FIFO timestamp scale from ts_sensitivity.
-> > That field is only filled in for parts that have freq_fine. The
-> > untagged-FIFO parts are left at zero:
-> > 
-> >   LSM6DS3
-> >   LSM6DS3H
-> >   LSM6DSL, LSM6DSM, ISM330DLC and LSM6DS3TR-C
-> > 
-> > st_lsm6dsx_read_fifo() multiplies the raw counter by hw->ts_gain, so
-> > every sample is published with the timestamp taken when the buffer
-> > was enabled. The accelerometer and gyroscope values still update.
-> > Userspace that integrates attitude from the timestamp delta treats a
-> > stuck timestamp as dt = 0.
-> > 
-> > Set ts_sensitivity to the previous fixed scale of 25000 ns/tick on
-> > those entries. They have no freq_fine register, so ts_trim_coeff is
-> > left unset and no trim is applied.
-> > 
-> > Fixes: 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp calculation")
-> > Cc: stable@vger.kernel.org  
-> 
-> Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
-> 
-> > Suggested-by: Lorenzo Bianconi <lorenzo@kernel.org>
-> > Suggested-by: Jonathan Cameron <jic23@kernel.org>
-> > Signed-off-by: Phil Williams <phil.williams@advisoft.co.nz>
-Applied to the fixes-togreg branch of iio.git.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-> > ---
-> > Resending inline. The first copy went out as an attachment.
-> > No code changes.
-> > ---
-> > Changes in v2:
-> > - Drop the ts_gain fallback in st_lsm6dsx_init_hw_timer() and set
-> >   .ts_sensitivity = 25000 in the LSM6DS3, LSM6DS3H and LSM6DSL settings
-> >   entries instead (Lorenzo, Jonathan).
-> > - Leave .ts_trim_coeff unset on those entries since they have no
-> >   freq_fine register (Francesco).
-> > - Link to v1: https://lore.kernel.org/r/20261116-st-lsm6dsx-ts-fallback-v1-1-8ace30afbfb5@advisoft.co.nz
-> > ---
-> >  drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> > 
-> > diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-> > index 823f8ac66..dffaf76b5 100644
-> > --- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-> > +++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-> > @@ -434,6 +434,7 @@ static const struct st_lsm6dsx_settings st_lsm6dsx_sensor_settings[] = {
-> >  				.addr = 0x09,
-> >  				.mask = GENMASK(5, 3),
-> >  			},
-> > +			.ts_sensitivity = 25000,
-> >  		},
-> >  		.event_settings = {
-> >  			.sources = {
-> > @@ -601,6 +602,7 @@ static const struct st_lsm6dsx_settings st_lsm6dsx_sensor_settings[] = {
-> >  				.addr = 0x09,
-> >  				.mask = GENMASK(5, 3),
-> >  			},
-> > +			.ts_sensitivity = 25000,
-> >  		},
-> >  		.event_settings = {
-> >  			.sources = {
-> > @@ -802,6 +804,7 @@ static const struct st_lsm6dsx_settings st_lsm6dsx_sensor_settings[] = {
-> >  				.addr = 0x09,
-> >  				.mask = GENMASK(5, 3),
-> >  			},
-> > +			.ts_sensitivity = 25000,
-> >  		},
-> >  		.shub_settings = {
-> >  			.page_mux = {
-> > 
-> > ---
-> > base-commit: fa2933aac170dd19c6a7f0d7b81a8f537e40915c
-> > change-id: 20261116-st-lsm6dsx-ts-fallback-cd21f1d1e30e
-> > 
-> > Best regards,
-> > --  
-> > Phil Williams <phil.williams@advisoft.co.nz>
-> > 
-> >   
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by LLM and not proven at runtime). If it was triggered
+   please include the symptoms, like the stack trace or kernel messages.
 
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account.
+
+*IMPORTANT*: If you do repost (for other reasons) - please include
+the relevant info in the cover letter or commit messages.
+-- 
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
