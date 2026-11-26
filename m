@@ -1,88 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795705829;
-	b=wHmlBVdhHmiZl+8U18h2tKpshmFyaveTQjN8FlI/6mxrcqlBoUEsDYDjM0pu3LgUcpzg
-	 RsOSsYLjrdWq8gqyW6qM3Up9MIRhRss/0ZcXZiR/o7YybzX/yfIvV6qp59iwK8qkBRT76
-	 JMo4vC1cOt5BpjInD14PD/cBfn3G+WQPH9T227jF1FV2JOExAn6u7TM0VaZax7HTF6ZrL
-	 0VyRp39lJfC727gA+7wMtKbF+zThMIyYcQUj/y7+MvtgsO6x3WlE/QFi/cpZHxOA4JfSv
-	 1SVMdEi7J2Bc4fvDQK8lTu69HzUZ3mnmrmpQ940uQqYv4dkL6cJu2knn6wxKmIZLDUg==
+	t=1795705858;
+	b=xGOrutp/GpVLVqUFZpel7qvPLf+LjQ0evdfQMCXO8P8IQyiItiwrJztT8XhDnpQmEVNu
+	 fLPjiqTQNkxEkFoALnpp+7r5yUfKxE7b2wvqiBd+6kQmG8mAbiGb/FBhp8ntd2S2HOmaZ
+	 ISNXo0tbyoHK0lJ1QDDzcLFKndhxIBKbTHZpwGHv/d71oz65kBYDtP5WOSKxRMe2Mkf0z
+	 lnJ+6pLlsm+akAkqe+ZulAyI7ypBTw9WO+6wT7Sis+Gt1Ggz9ZWqVyEUVUQt4IwiFviXQ
+	 nVHXFi0lT15cVO2Jbx2lKrzVpW4quxzZywwb47yvBnse+5264JS32A1Be1JoJJpP3OA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795705829;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=wmDIQo20uS6O1DnD+oq0Q5d1d/SJjeCFVriKtYROA4w=;
-	b=ILZTy9InnhcwzKYaWXHo/frYkItZZ12EszUi7Tl3JMy3ESSCWp0M1jDcrZ8tioDr5bIW
-	 KE8DonL1KFNtZ/1dT9CPEMotnaVKPsWUD0sxjQJ/f3MBXAOZ//rSA+L9/Wj73j6WoZnnM
-	 2FR5SOwTXiFE2iNu4ZHX9pl5+aNlgc3b+BkyAoygoq9uZP+4VxJjQS6lgI7mgdJOg9tes
-	 t0OQjRaI4fUoc9t8RmLQAKfgA8b2Q90yjUqnsYgMYNYQd2E0fQkx7/q9MdLb6v10kk9Az
-	 Ch1bMieLCefywxanhAV922eFHMkQ6ymsVKTNbrMlntEzzTEuOAtnhXzrot1e2N5lvfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795705858;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vIdyXwLZifmGt4o6JVaV3X/92JzlrO56OTWNnBWXLeM=;
+	b=RkD0A0Sy4qsXsEPmGrKSp1k5FLcPwEyBLa2pHuRYTg9GjxzfDWVvpc1RyjejwA66MCOL
+	 +pPMYW7+LBxffAG/4b8IDLicDOOwoe2dv+Vhe3nCFg8hB00VXmU9mck//2pAo2sR9YKxs
+	 yN7GSErBuCrnWyHqnedy6X0OPOL/hI9HjcXBNsAoN0/pRIF+PVnlr8D7RaAUSMwC72Sxt
+	 BRwrWsKjUjs18O9i+CVXTpbX9wE9Fh0/qWhkx4m0nTc+PAw34f85EzYvg9G1ih2fo/2MV
+	 sju4XzFNL6XM5RwNcDJW7tEcUBXBXZisvCJK0WsHpIX3wJEwPNAwXTjKllVkKUnyJVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cs3ohIph;
-	arc=none smtp.remote-ip=209.85.215.175
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OzQClwwE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FCB9606A691
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:10:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FCB9606A691
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9378D606A327
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:10:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cs3ohIph
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cdd9d0c9bbdso4091127a12.1
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 07:10:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795705829; x=1796310629; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wmDIQo20uS6O1DnD+oq0Q5d1d/SJjeCFVriKtYROA4w=;
-        b=Cs3ohIpheW2gSgLfy8Ct/Dp2Iugp1WNSOWui5en8x876oqTEtMEI4kUyJG6jIFRtOc
-         Esf9cgmDLFmLq1Fa5fk2bH4qmfD0EarnJpza20JXNq2NCJvK+/1NMpx2DduvcjrKfZYY
-         WEfR5dAkc4kyXsgBepPDcTqyZQdNGEM4Ex+zTW+1LOUlVXHXLWv6fEcitG2qAvnYKwSc
-         +PzAVKdoYTDBggYkeCvz8hxxSfogBBJ0vmxdrWBMtfrtZ+Qhm8eX2YZUzNrtrV/DITci
-         AQdoY7bSht5cs0tfknR79PKLbc+G1z2pkHskQdG5iV2gA2arIzYzcSjm3Irn6rgJ2DAu
-         IwsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795705829; x=1796310629;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wmDIQo20uS6O1DnD+oq0Q5d1d/SJjeCFVriKtYROA4w=;
-        b=rbDSPPiO9l1YWsVEbLjaUwptK54L6ATLoXY7FhyaFoVPkw3F7dx8LKl3cOsHl6MJXT
-         K4hOyIMvLGyxHaPMBdFg0+GHPbTuEAeui7W1e0WgYQcWAdm++gMDZu0wnUp9sFE+Z1og
-         MTaEL1j78lQACxHzUcGBNNRUXzt4zQ7OyNNwDeHOold6e2xvsPig8Qjqy3hprIfqdc/i
-         mR4FxtJEdecXP80E7GNZ07jeN0CQrw9Hz4kdSjeGW8MLufQb8PYvnnjDHmtPmDikuoT1
-         I7jTI7LB4YjX3gY0DfGSL+DHDYCgnkcnu5dmRa8ThCpyqVkO/UxzwWhomFkfnGZUFhXY
-         khjw==
-X-Forwarded-Encrypted: i=1; AL+hErED7COAl+KtCcXG9lxwG4Az5AEMhAYpycpv823LS6v1n1bcJfrhSB29ax5L4cDn/OHR3ZIE9bY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z80j6TNNtClJK8IyAj2VmG1DMhLAjpd7cgHqEpZQpWUSUycvA7a
-	XPZ8nRG24MdJsXiwGN1hdOCbbXQGmnNf3hkscHIkH+kTL1Xks9iVl2Z6qtP1K3CB
-X-Gm-Gg: AZFdTZdzqxebwPcjcUOKO9KYIhV/+wJtKQz8X3qTJ92hr3i+GtNNogfjFl+a0FG4Ery
-	Q/0ziWPIfOZXljHgE627EO9NEMNL6cBwWcfjW6cuQ/q6pyiuWseKbB9Y3pVXrUWsP0NDF0D/77w
-	22UVPfnyY7E3Wo23No6SwYwCrujzG3lhiw4yPmbYri/p/wQTwrEdKSRc3Px2LyBoBWOngFHY7Ca
-	/wwxMOnNFDZ5pBwSpfVGO5f3FAjgoO5eVbf+YW6RvWacNyFaR/g1WpVnLvYqJ6Ev1rn/jhIsdNZ
-	YvnS7DPybm1gyJg88HZTpNK7qlGSqOe0LVUiqQu+5+a6w4KHFT9JopgEzKr+E4Cgs99kFwbN7R4
-	hgcw/nUn1QxBFuXlmsHdLkNejCl0AsIpm6BKzHXLg0GN1xy/WYNIUfTJZQ9WMW/Tuej/9tokPKZ
-	rZ823GIVhS5YCEkrmzDetPrJFhpf2aabjSwf/+K8lMO5gvoeiR1AG1wxJEF9pClUqvvPDh6Ju3Y
-	tR8bUdcQSu95Rk8aT5NfnX6kIP8RhnTptlohU6209k5A58eKC4qD0xVOdOuYDwGUjxwRQnMU2k3
-	SWSLBF6FYqkkTBifIct6FRWSAQGs
-X-Received: by 2002:a17:90a:d2cf:b0:3b4:d22:8600 with SMTP id 98e67ed59e1d1-3b41c8fe1e2mr18824415a91.18.1795705828955;
-        Thu, 26 Nov 2026 07:10:28 -0800 (PST)
-Received: from [127.0.1.1] ([150.117.174.129])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6cfc8829sm11099923a12.8.2026.11.26.07.10.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 07:10:28 -0800 (PST)
-From: Gary Wang <is0124@gmail.com>
-Date: Thu, 26 Nov 2026 23:09:47 +0800
-Subject: [PATCH v3 4/5] pinctrl: upboard: fix I2C pinmux-select set CPLD
- GPIO OUT not function mode
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OzQClwwE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFB4A1F000C0;
+	Thu, 26 Nov 2026 15:10:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795705857;
+	bh=vIdyXwLZifmGt4o6JVaV3X/92JzlrO56OTWNnBWXLeM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OzQClwwELzuc35r7ZIVmoDr0n9GWlfCsmxstKK43v9jm7/UuZOeMxAPQ01usrhVdg
+	 DHRpkTTCiT1cemWA9tmpk3gJeYlripEq7k+go6o+AOlwfgRsB2qmqVYjhTf15fJQVz
+	 cVal3TpGNIqAIdgiSpl2d08nlLJkLfwsl8/dL7E1pu6C97L0CSHkux0ZDsjqpk1vph
+	 Lw86/hR545G3c/QFwFla3Y7wlLjarIMtrU0+31ZuN7oDTKa+PyxBCOV599kjge4owB
+	 Em96hZjDuJk/8ZTflSpTlX1KCElgnQ1zhnLtTeFwWHIfQChWmkbJij/OQIYODr1yt5
+	 ruMX5Zy2kXC0w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	stable <stable@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] iio: adc: ad7923: add the AD7927 to the SPI ID table
+Date: Thu, 26 Nov 2026 10:10:55 -0500
+Message-ID: <20261126151043.2335512-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112501-chamomile-occupier-b81e@gregkh>
+References: <2026112501-chamomile-occupier-b81e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,59 +63,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-upboard-pinctrl-add-intc1057-intc105e-support-v3-4-81d35c9ba246@gmail.com>
-References: <20261126-upboard-pinctrl-add-intc1057-intc105e-support-v3-0-81d35c9ba246@gmail.com>
-In-Reply-To: <20261126-upboard-pinctrl-add-intc1057-intc105e-support-v3-0-81d35c9ba246@gmail.com>
-To: Andy Shevchenko <andy@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- Thomas Richard <thomas.richard@bootlin.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Daniele Cleri <danielecleri@aaeon.eu>, 
- JunYingLai <junyinglai@aaeon.com.tw>, Louis Chen <louischen@aaeon.com.tw>, 
- BillyChou <BillyChou@aaeon.com.tw>, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Gary Wang <is0124@gmail.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The CPLD I2C pin mode setting through pinmux-select is not correct.
-Should be set UPBOARD_PIN_MODE_FUNCTION on AANT0F04 devices.
+From: Josef Bacik <josef@toxicpanda.com>
 
-Set UPBOARD_PIN_MODE_FUNCTION to 1 to prevent a NULL pointer
-dereference error on .modes[i] for any pin group using this setting.
+[ Upstream commit 594157b4f3f64db5833dee679194c33a5968f92e ]
 
-Cc: stable@vger.kernel.org
-Fixes: dca2f73cf19f ("pinctrl: Add pin controller driver for AAEON UP boards")
-Signed-off-by: Gary Wang <is0124@gmail.com>
+The binding describes the AD7927 as
+
+  compatible = "adi,ad7927", "adi,ad7928";
+
+The OF match takes the second string. The modalias of the SPI device is
+made from the first one, "ad7927", which is not in the spi_device_id table:
+spi_get_device_id() returns NULL and ad7923_probe() dereferences it for
+the chip information. The module is not loaded automatically either, as the
+uevent of an SPI device says "spi:ad7927".
+
+Add the name, with the data of the AD7928.
+
+Fixes: 1140f96cd4af ("dt-bindings: iio: adc: ad7923: adjust documentation")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reviewed-by: Nuno Sá <nuno.sa@analog.com>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ sashal: Adapted the spi_device_id entry to the older positional initializer style ({ "ad7927", AD7928 }) instead of designated .name/.driver_data fields. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pinctrl/pinctrl-upboard.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/iio/adc/ad7923.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/pinctrl/pinctrl-upboard.c b/drivers/pinctrl/pinctrl-upboard.c
-index b9af6dd93c34..090316349331 100644
---- a/drivers/pinctrl/pinctrl-upboard.c
-+++ b/drivers/pinctrl/pinctrl-upboard.c
-@@ -33,7 +33,7 @@
- #include "pinmux.h"
- 
- enum upboard_pin_mode {
--	UPBOARD_PIN_MODE_FUNCTION,
-+	UPBOARD_PIN_MODE_FUNCTION = 1,
- 	UPBOARD_PIN_MODE_GPIO_IN,
- 	UPBOARD_PIN_MODE_GPIO_OUT,
- 	UPBOARD_PIN_MODE_DISABLED,
-@@ -289,8 +289,8 @@ static const unsigned int upboard_up_adc0_pins[] = {
- 
- static const struct upboard_pingroup upboard_up_pin_groups[] = {
- 	UPBOARD_PINGROUP("uart1_grp", upboard_up_uart1_pins, &upboard_up_uart1_modes[0]),
--	UPBOARD_PINGROUP("i2c0_grp", upboard_up_i2c0_pins, UPBOARD_PIN_MODE_GPIO_OUT),
--	UPBOARD_PINGROUP("i2c1_grp", upboard_up_i2c1_pins, UPBOARD_PIN_MODE_GPIO_OUT),
-+	UPBOARD_PINGROUP("i2c0_grp", upboard_up_i2c0_pins, UPBOARD_PIN_MODE_FUNCTION),
-+	UPBOARD_PINGROUP("i2c1_grp", upboard_up_i2c1_pins, UPBOARD_PIN_MODE_FUNCTION),
- 	UPBOARD_PINGROUP("spi2_grp", upboard_up_spi2_pins, &upboard_up_spi2_modes[0]),
- 	UPBOARD_PINGROUP("i2s0_grp", upboard_up_i2s0_pins, &upboard_up_i2s0_modes[0]),
- 	UPBOARD_PINGROUP("pwm0_grp", upboard_up_pwm0_pins, UPBOARD_PIN_MODE_GPIO_OUT),
-
+diff --git a/drivers/iio/adc/ad7923.c b/drivers/iio/adc/ad7923.c
+index acc44cb34f824..46e1d64c294af 100644
+--- a/drivers/iio/adc/ad7923.c
++++ b/drivers/iio/adc/ad7923.c
+@@ -367,6 +367,7 @@ static const struct spi_device_id ad7923_id[] = {
+ 	{ "ad7924", AD7924 },
+ 	{ "ad7908", AD7908 },
+ 	{ "ad7918", AD7918 },
++	{ "ad7927", AD7928 },
+ 	{ "ad7928", AD7928 },
+ 	{ }
+ };
 -- 
-2.43.0
+2.53.0
 
