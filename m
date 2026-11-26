@@ -1,56 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795664454;
-	b=Ywxnr5FUhHMxeCEk287gP8QTsl2dwxlyQCUkyiccWBjzP5Z7V4RY/VlfM9nP7LvTgVXM
-	 o9vH7Ruh7csQIJksvf7F9J92rw6JQCGl9JGD+nBFG0vecypm0P5Ft2KftcB3GM8wu+6mW
-	 +6mEcadEChsFWYo0ZhPGP80GZkfzaCOsogjEKnOCQj773k3je0GxyqFdvWxJB4v6tnBPf
-	 WfRYEHuTntvaw6x0WhP8mjLkjqnPXNTDZ6zaIrSbnbsutgtqT28Dlrao8Av9KgJ4B/5wS
-	 oiCvqwdUigHUUNeN8wLfSkQYmRQO1RnV8neRPbdNxZvOUJ2I02qFbF/xs+VKVB2OQCA==
+	t=1795664545;
+	b=EHzoYSGr6oI+jbMTkNocPwKYpEzSm2IweZLIJgvX7SXhvSwc6QL5h1khBtzXASUBBGgd
+	 yMRKK1tCKuW82Dju9q1ZagWt5enPNBX6jPnI9Z5m5UkPeACRZu321piKVb0r0GfNF4gUG
+	 2V6bJZLocH3Ormlc17ff70p4yQGHzAbz4RwyimZhUJl+asaz1qclPeCPchQm29SZXC1/H
+	 SZNOuwg7cblHSaAbDmjVXzMyUfHJYmDh52vhPyic8NRlcs+fWTH6MWY2zdzH0APqGMit4
+	 wjoWOWaxQRxOq1RrEjxY0M53MhkB+xbILHu98upOYbyBN1RrGVJ3ZxqQG082cyldddg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795664454;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795664545;
 	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=hiie43vbQhgwO+8bh43IQ1x0kI3W2gj1GivBQN/aU18=;
-	b=B/c67zpUNVuBkGyMxA99xjErLAE3dnc8UDgwo76U0ThIIJbY77cyMlKiMCHVrtwrPE4b
-	 gbwhAxYZHd7paiAZ2eoZpQA5PoHdiQGbdzCrVS0okyCq6jQt11hEV5jX+OWCK24CtwfDf
-	 0wYH323CaVDxHD/sCI6D9PwaHdQx+M+rJdLIhcSYxrAYg9R4eosWVyNL40aRfg7nD5OsB
-	 QdzgiLv654ipCky3AYQPpByQrY23Rm0MTjEt5+e+7TKrbNrZ4t3q85DeUYd7cCikc66d7
-	 PZ6f9K3hGccF+1cWF7jU9u/ZiAfGdH0OTYVzWlvKMHn27LJ6x+UVrvpudgAF7QN9YzQ==
+	bh=ASc53FTdCDNtqSiOj4VcLem5LqRvCYBOPA4aTaaWJow=;
+	b=DGbk5CsFVsttz7c/Xq3Jxbmyu1uEE4qYoTtLd8gJAyT8Zhd0F15HzQGxAdGwBvk8Ndvg
+	 mVveozH4SWYZ4vqBLnSMvK8ENLPYt/m+jrhCAARvN3iwmZn5kRH4CSpIxTG7c4zWB87zT
+	 o7k8MdSVixHpYTp3XfjCT2MssaJ/5Ld9WjifJWoa+fmbvSgwTa8vd0hPHmnPC6tb+PDgU
+	 nNwX98jgAnMPm57Yen3zBTszDUCuexm72PdBMgVVlfzhOTXG8KsZMkDGL52oO7j6ijuny
+	 OVK4nrFBkVhO+Fj5Wo9F2fP0mD1SZ0jMpCODGfo4q07I1L0PKt/IVbsuIJdGeB2wqcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=JE7aJRv9;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nL5Fj962;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 014F7606A323
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 03:40:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 014F7606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D13D606A31E;
+	Thu, 26 Nov 2026 03:42:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D13D606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=JE7aJRv9
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nL5Fj962
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID; bh=hiie43vbQhgwO+8
-	bh43IQ1x0kI3W2gj1GivBQN/aU18=; b=JE7aJRv9pTU0SQsrcqef0NIAG0YI1g2
-	arnPca8Z7FobHPK+iSAMS0PzgYjMgFYqUn8yQ91vW6A42ZlMhIURfJLpuz68UlJr
-	+P8jWky24yjh//I9tut2DZVZZZNjwOmszDQ1iSQdGg8h8hLcLORAKy/vnV8/0MnU
-	5/GeDT/rr0IM=
+	s=s110527; h=From:To:Subject:Date:Message-ID; bh=ASc53FTdCDNtqSi
+	Oj4VcLem5LqRvCYBOPA4aTaaWJow=; b=nL5Fj9622Rj8dx31cLHsrXtaxPFt87Y
+	AiOhUNgrFK9w2+Yx7YiFSL3d+wKw4EJD56wHi62QNegRtu7xjFn6zhKtFGUggtAx
+	y8LRMNsTB5x9kMtndf7YK6MDKJ6kCox3vTsnZq3UyfaTYr+8Fn0bsxlhYLC6lqMR
+	Z+z3I97cDRYE=
 From: shaos <shawnq1@163.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>,
-    ntfs@lists.linux.dev, stable@vger.kernel.org
-Subject: [PATCH] ntfs: avoid re-locking the parent for stream timestamps
+To: Mickaël Salaün <mic@digikod.net>
+Cc: Günther Noack <gnoack@google.com>,
+    Jonathan Corbet <corbet@lwn.net>,
+    Shuah Khan <skhan@linuxfoundation.org>,
+    Randy Dunlap <rdunlap@infradead.org>,
+    Steven Rostedt <rostedt@goodmis.org>,
+    Masami Hiramatsu <mhiramat@kernel.org>,
+    Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+    Paul Moore <paul@paul-moore.com>,
+    James Morris <jmorris@namei.org>,
+    Serge E. Hallyn <serge@hallyn.com>,
+    linux-security-module@vger.kernel.org,
+    linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+    linux-trace-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] landlock: restrict opening namespace file descriptors
 Date: Thu, 26 Nov 2026 03:40:27 GMT
-Message-ID: <179566442733.1993761.5390442849622005459@163.com>
-X-CM-TRANSID:PygvCgCH74QrqgdrvLbtIA--.60447S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtr43tF48uw48tFWDAw4ktFb_yoW3CFy7pr
-	ZFk3yfKwnrtF1Igwn3tws09ryF9r1kCw42gry7Xa1xAws0qw1rtF40kr1kCFWftrZ5Wr45
-	ZF4Ygw13ur1UXrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jO3kAUUUUU=
-X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbCzwxSYGsHqixvPwAA3L
+Message-ID: <179566442733.1993761.8053687674090289362@163.com>
+X-CM-TRANSID:PygvCgCH74QrqgdrvLbtIA--.60447S4
+X-Coremail-Antispam: 1Uf129KBjvAXoW3KF47tFW7try8uw13XF4UXFb_yoW8GrykJo
+	WI93WIqa18Aw43ZFyDtFZFyFy5Aan5ua18Ar1IqrZ8A3WIqa4SkF18Cw40yF47JFyrtF13
+	Zr1xJrWFv3yDJa47n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUxwvtDUUUU
+X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbC8g1SYGsHqi22iAAA3Y
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,22 +73,23 @@ Precedence: list
 
 Hello,
 
-The VFS holds a directory's i_rwsem while calling ->create() and
-->unlink(). A legacy NTFS named-stream path can use that same directory
-as the stream's base inode. Creating or removing the stream then calls
-ntfs_stream_update_base_time(), which attempts to acquire the already
-held i_rwsem and leaves the caller blocked in down_write_nested().
+Landlock checks NAMESPACE_USE when a task creates a namespace or
+installs one with setns(), but does not check acquisition of a file
+descriptor for an existing namespace. A sandboxed task can use
+SIOCGSKNS on a retained socket to obtain a descriptor for a network
+namespace denied by its Landlock rules, then pass that descriptor to
+RTM_SETLINK to move an interface into that namespace.
 
-Pass the VFS-locked parent to the timestamp update path. When the base
-inode is that parent, update its timestamps under the lock already
-held. Other callers retain the existing lock and update behavior.
+The reproducer uses a task with CAP_NET_ADMIN in its own user namespace
+and a retained socket reference to the target namespace. It demonstrates
+a Landlock namespace-use policy bypass; it does not demonstrate
+privilege escalation beyond that capability.
 
-A crafted NTFS directory entry reproduces both create and unlink
-deadlocks as uid 65534. The same operations complete with this change.
-The unlink harness also emits a lockdep circular-dependency warning
-during stream setup on both the vulnerable and fixed kernels. That
-warning is separate from the reproduced self-deadlock and is not
-claimed to be fixed here.
+This change checks nsfs file opens from Landlock's file_open hook. It
+covers proc namespace links and namespace ioctls that create an nsfs
+file. It keeps the current namespace implicitly accessible, consistent
+with the documented behavior, and records fd acquisition distinctly in
+audit and trace events.
 
 HEAD commit:    8d7fe9885c62fc9a95bf55d9db244d9672a8aadc
 Git tree:       fe970b05333fb8e41da21e9e289f652abcc7cba7
@@ -85,176 +97,296 @@ Source version: Linux 7.4.0-rc4
 Compiler:       gcc 11.4.0, GNU ld 2.38
 Test runtime:   QEMU 6.2.0, x86-64 TCG
 
-The evidence, create and unlink PoCs, and image/initramfs helpers are
-in this unlisted Gist:
+The PoC, complete configuration, console logs, and initramfs helpers
+are in this unlisted Gist:
 
-https://gist.github.com/shaos26/eb846131f7945b8541b2f1b99fd5c34e
+https://gist.github.com/shaos26/b2c0b1e1951692b79d2bc2f9421abfbc
 
 Console output:
-https://gist.githubusercontent.com/shaos26/eb846131f7945b8541b2f1b99fd5c34e/raw/c9b6fcec4363c6b1ea2f168f12a2b4918dd29af3/console-output.txt
+https://gist.githubusercontent.com/shaos26/b2c0b1e1951692b79d2bc2f9421abfbc/raw/d2278bbd001f2c62b611fc0a5325cc4c8f7451b0/console-output.txt
 Kernel config:
-https://gist.githubusercontent.com/shaos26/eb846131f7945b8541b2f1b99fd5c34e/raw/c9b6fcec4363c6b1ea2f168f12a2b4918dd29af3/kernel-config.txt
-Create PoC:
-https://gist.githubusercontent.com/shaos26/eb846131f7945b8541b2f1b99fd5c34e/raw/c9b6fcec4363c6b1ea2f168f12a2b4918dd29af3/poc.c
-Unlink PoC:
-https://gist.githubusercontent.com/shaos26/eb846131f7945b8541b2f1b99fd5c34e/raw/c9b6fcec4363c6b1ea2f168f12a2b4918dd29af3/unlink-poc.c
+https://gist.githubusercontent.com/shaos26/b2c0b1e1951692b79d2bc2f9421abfbc/raw/d2278bbd001f2c62b611fc0a5325cc4c8f7451b0/kernel-config.txt
+PoC source:
+https://gist.githubusercontent.com/shaos26/b2c0b1e1951692b79d2bc2f9421abfbc/raw/d2278bbd001f2c62b611fc0a5325cc4c8f7451b0/poc.c
 
-The reproduction script needs QEMU and the ntfs-3g tools mkntfs,
-ntfscp, and ntfsinfo. It builds the test kernel and initramfs, creates
-fresh crafted images, and runs create, unlink, and normal-image control
-cases:
+The reproduction script builds the specified kernel, builds the PoC and
+initramfs, and runs the baseline, deny, allow, and invalid-fd cases:
 
-    git clone https://gist.github.com/eb846131f7945b8541b2f1b99fd5c34e.git repro
-    git -C repro checkout c9b6fcec4363c6b1ea2f168f12a2b4918dd29af3
+    git clone https://gist.github.com/b2c0b1e1951692b79d2bc2f9421abfbc.git repro
+    git -C repro checkout d2278bbd001f2c62b611fc0a5325cc4c8f7451b0
     chmod +x repro/*.sh
     ./repro/reproduce.sh
 
-The vulnerable create runs reached D state in down_write_nested() with
-ntfs_stream_update_base_time() on the stack. On the patched kernel,
-create returned instead of hanging; unlink completed with rc=0. The
-normal-image control also completed. The unlink logs retain the
-independent lockdep warning described above.
+Two vulnerable boots allowed SIOCGSKNS and RTM_SETLINK despite the deny
+rule: the move request was acknowledged and the interface appeared in
+the denied namespace. With this patch, opening the current namespace
+still succeeds, setns() and unshare() remain denied, SIOCGSKNS returns
+EPERM, and the interface remains in its original namespace. Baseline,
+explicit allow-rule, and invalid-fd controls pass.
 
-Fixes: 3f11c48d4f94 ("ntfs: add pathname access for named streams")
+Fixes: 15dd86021b57 ("landlock: Enforce namespace use restrictions")
 Cc: stable@vger.kernel.org
 Signed-off-by: shaos <shawnq1@163.com>
 
 ---
- fs/ntfs/named_stream.c | 47 +++++++++++++++++++++++++++++++++++-------
- fs/ntfs/stream.h       |  3 ++-
- 2 files changed, 41 insertions(+), 9 deletions(-)
+ Documentation/userspace-api/landlock.rst |  3 +++
+ include/trace/events/landlock.h          | 12 ++++++----
+ security/landlock/audit.c                |  4 ++++
+ security/landlock/fs.c                   | 11 +++++++++
+ security/landlock/log.c                  |  2 ++
+ security/landlock/log.h                  |  1 +
+ security/landlock/ns.c                   | 30 ++++++++++++++++--------
+ security/landlock/ns.h                   |  4 ++++
+ security/landlock/trace.c                |  1 +
+ 9 files changed, 54 insertions(+), 14 deletions(-)
 
-diff --git a/fs/ntfs/named_stream.c b/fs/ntfs/named_stream.c
-index 70c5892077133..8bae9a9f53047 100644
---- a/fs/ntfs/named_stream.c
-+++ b/fs/ntfs/named_stream.c
-@@ -82,6 +82,13 @@ void ntfs_stream_inode_refresh(struct inode *vi)
- 	vi->i_generation = base_vi->i_generation;
- }
+diff --git a/Documentation/userspace-api/landlock.rst b/Documentation/userspace-api/landlock.rst
+index 7cc5fde482623..b1e78eef17bac 100644
+--- a/Documentation/userspace-api/landlock.rst
++++ b/Documentation/userspace-api/landlock.rst
+@@ -598,6 +598,9 @@ that references it.  The covered syscall paths are:
+   descriptor referring to a newly-created mount namespace.
+ * :manpage:`fsmount(2)` (default): the caller obtains a file descriptor
+   referring to a newly-created anonymous mount namespace.
++* Opening an nsfs file descriptor, including through :manpage:`open(2)` on
++  ``/proc/<pid>/ns/`` or :manpage:`ioctl(2)` operations such as ``SIOCGSKNS``
++  and ``NS_GET_USERNS``.
  
-+/* Caller must hold the base inode's i_rwsem. */
-+static void ntfs_stream_set_base_time(struct inode *base_vi)
-+{
-+	inode_set_mtime_to_ts(base_vi, inode_set_ctime_current(base_vi));
-+	mark_inode_dirty(base_vi);
-+}
-+
- /*
-  * ntfs_stream_update_base_time() - Update base timestamps after a stream change
-  * @base_ni: base inode containing the stream attribute
-@@ -94,11 +101,32 @@ void ntfs_stream_update_base_time(struct ntfs_inode *base_ni)
- 	struct inode *base_vi = VFS_I(base_ni);
+ Anonymous mount namespaces (created by ``open_tree(OPEN_TREE_CLONE)`` and the
+ default :manpage:`fsmount(2)`) are intentionally covered by the bit even though
+diff --git a/include/trace/events/landlock.h b/include/trace/events/landlock.h
+index 09e90e4a9cd7b..ae385ffb3a360 100644
+--- a/include/trace/events/landlock.h
++++ b/include/trace/events/landlock.h
+@@ -40,6 +40,7 @@ TRACE_DEFINE_ENUM(LANDLOCK_REQUEST_FS_ACCESS);
+ TRACE_DEFINE_ENUM(LANDLOCK_REQUEST_NET_ACCESS);
+ TRACE_DEFINE_ENUM(LANDLOCK_REQUEST_NAMESPACE_CREATE);
+ TRACE_DEFINE_ENUM(LANDLOCK_REQUEST_NAMESPACE_ENTER);
++TRACE_DEFINE_ENUM(LANDLOCK_REQUEST_NAMESPACE_ACQUIRE);
+ TRACE_DEFINE_ENUM(LANDLOCK_REQUEST_CAPABILITY);
  
- 	inode_lock_nested(base_vi, I_MUTEX_PARENT);
--	inode_set_mtime_to_ts(base_vi, inode_set_ctime_current(base_vi));
--	mark_inode_dirty(base_vi);
-+	ntfs_stream_set_base_time(base_vi);
- 	inode_unlock(base_vi);
- }
- 
-+/*
-+ * ntfs_update_base_time_for_dir() - Update base timestamps from
-+ * a directory operation
-+ * @base_ni: base inode containing the stream attribute
-+ * @locked_dir: parent directory locked by the VFS, or NULL
-+ *
-+ * The VFS already holds @locked_dir's i_rwsem for create and unlink. Avoid
-+ * recursively acquiring it when the base inode is that directory itself.
-+ */
-+static void ntfs_update_base_time_for_dir(struct ntfs_inode *base_ni,
-+					  struct inode *locked_dir)
-+{
-+	struct inode *base_vi = VFS_I(base_ni);
-+
-+	if (base_vi != locked_dir) {
-+		ntfs_stream_update_base_time(base_ni);
-+		return;
-+	}
-+
-+	ntfs_stream_set_base_time(base_vi);
-+}
-+
- /*
-  * ntfs_stream_inode_validate() - Validate a named-stream inode
-  * @vi: stream inode to validate
-@@ -653,7 +681,7 @@ struct inode *ntfs_create_named_stream(const struct mnt_idmap *idmap,
- 		}
- 		mutex_unlock(&base_ni->mrec_lock);
- 		if (stream_created)
--			ntfs_stream_update_base_time(base_ni);
-+			ntfs_update_base_time_for_dir(base_ni, dir);
- 		if (!IS_ERR(stream_vi))
- 			iput(stream_vi);
- 		if (rollback_vi)
-@@ -663,7 +691,7 @@ struct inode *ntfs_create_named_stream(const struct mnt_idmap *idmap,
- 	}
- 	mutex_unlock(&base_ni->mrec_lock);
- 	if (stream_created)
--		ntfs_stream_update_base_time(base_ni);
-+		ntfs_update_base_time_for_dir(base_ni, dir);
- 	iput(base_vi);
- 	return stream_vi;
- 
-@@ -720,7 +748,7 @@ int ntfs_unlink_named_stream(struct inode *dir, struct dentry *dentry)
- 	 * file write access. The shared helper enforces NTFS delete restrictions.
- 	 */
- 	err = ntfs_remove_named_stream(NTFS_I(base_vi), stream_name,
--			stream_len, dentry->d_inode);
-+			stream_len, dentry->d_inode, dir);
- 
- out_iput:
- 	iput(base_vi);
-@@ -1076,6 +1104,7 @@ int ntfs_stream_put(struct inode *vi)
-  * @uname: UTF-16LE stream name
-  * @uname_len: length of @uname in UTF-16 code units
-  * @expected_vi: expected cached stream inode, or NULL
-+ * @locked_dir: parent directory locked by the VFS, or NULL
+ #ifdef CREATE_TRACE_POINTS
+@@ -993,8 +994,8 @@ TRACE_EVENT(landlock_deny_access_net,
+  * @namespace_id: Namespace ID, not directly visible from user space when
+  *                creation was denied.
   *
-  * Refuse removal while the stream is open. If @expected_vi is non-NULL, it
-  * must be the inode currently associated with the named attribute.
-@@ -1084,7 +1113,8 @@ int ntfs_stream_put(struct inode *vi)
-  * errno.
+- * Emitted when a Landlock domain denies namespace creation or entry.  The
+- * namespace_op field distinguishes these operations.
++ * Emitted when a Landlock domain denies namespace creation, entry, or fd
++ * acquisition. The namespace_op field distinguishes these operations.
   */
- int ntfs_remove_named_stream(struct ntfs_inode *ni, __le16 *uname,
--		u32 uname_len, struct inode *expected_vi)
-+		u32 uname_len, struct inode *expected_vi,
-+		struct inode *locked_dir)
+ TRACE_EVENT(landlock_deny_permission_namespace,
+ 
+@@ -1028,14 +1029,17 @@ TRACE_EVENT(landlock_deny_permission_namespace,
+ 	TP_printk("domain=%llx same_exec=%d logged=%d blockers=%s namespace_op=%s namespace_type=0x%x namespace_id=%llu",
+ 		  __entry->domain_id, __entry->same_exec, __entry->logged,
+ 		  (__entry->blockers_type == LANDLOCK_REQUEST_NAMESPACE_CREATE ||
+-		   __entry->blockers_type == LANDLOCK_REQUEST_NAMESPACE_ENTER) ?
++		   __entry->blockers_type == LANDLOCK_REQUEST_NAMESPACE_ENTER ||
++		   __entry->blockers_type == LANDLOCK_REQUEST_NAMESPACE_ACQUIRE) ?
+ 			  __print_flags(__entry->blockers_access, "|",
+ 					_LANDLOCK_PERMISSION_BLOCKER_NAMES) :
+ 			  "unknown",
+ 		  __entry->blockers_type == LANDLOCK_REQUEST_NAMESPACE_CREATE ?
+ 			  "create" :
+ 		  __entry->blockers_type == LANDLOCK_REQUEST_NAMESPACE_ENTER ?
+-			  "enter" : "unknown",
++			  "enter" :
++		  __entry->blockers_type == LANDLOCK_REQUEST_NAMESPACE_ACQUIRE ?
++			  "acquire" : "unknown",
+ 		  __entry->namespace_type, __entry->namespace_id)
+ );
+ 
+diff --git a/security/landlock/audit.c b/security/landlock/audit.c
+index 6d9e54f5deedf..ddd653b686d72 100644
+--- a/security/landlock/audit.c
++++ b/security/landlock/audit.c
+@@ -82,6 +82,7 @@ get_blocker(const enum landlock_request_type type,
+ 
+ 	case LANDLOCK_REQUEST_NAMESPACE_CREATE:
+ 	case LANDLOCK_REQUEST_NAMESPACE_ENTER:
++	case LANDLOCK_REQUEST_NAMESPACE_ACQUIRE:
+ 	case LANDLOCK_REQUEST_CAPABILITY:
+ 		if (WARN_ON_ONCE(access_bit >= ARRAY_SIZE(permission_strings)))
+ 			return "unknown";
+@@ -118,6 +119,7 @@ blocker_prefix(const enum landlock_request_type type)
+ 
+ 	case LANDLOCK_REQUEST_NAMESPACE_CREATE:
+ 	case LANDLOCK_REQUEST_NAMESPACE_ENTER:
++	case LANDLOCK_REQUEST_NAMESPACE_ACQUIRE:
+ 		return _LANDLOCK_PERMISSION_NAMESPACE_NAME ".";
+ 
+ 	case LANDLOCK_REQUEST_CAPABILITY:
+@@ -218,6 +220,8 @@ void landlock_audit_denial(const struct landlock_request *const request,
+ 		audit_log_format(ab, " namespace_op=create");
+ 	else if (request->type == LANDLOCK_REQUEST_NAMESPACE_ENTER)
+ 		audit_log_format(ab, " namespace_op=enter");
++	else if (request->type == LANDLOCK_REQUEST_NAMESPACE_ACQUIRE)
++		audit_log_format(ab, " namespace_op=acquire");
+ 	audit_log_lsm_data(ab, &request->audit);
+ 	audit_log_end(ab);
+ 
+diff --git a/security/landlock/fs.c b/security/landlock/fs.c
+index 2ab67bcad1983..97b30fbffa48e 100644
+--- a/security/landlock/fs.c
++++ b/security/landlock/fs.c
+@@ -31,6 +31,8 @@
+ #include <linux/net.h>
+ #include <linux/path.h>
+ #include <linux/pid.h>
++#include <linux/proc_fs.h>
++#include <linux/proc_ns.h>
+ #include <linux/rcupdate.h>
+ #include <linux/sched/signal.h>
+ #include <linux/spinlock.h>
+@@ -49,6 +51,7 @@
+ #include "fs.h"
+ #include "limits.h"
+ #include "log.h"
++#include "ns.h"
+ #include "object.h"
+ #include "ruleset.h"
+ #include "setup.h"
+@@ -1861,6 +1864,14 @@ static int hook_file_open(struct file *const file)
+ 	const struct landlock_cred_security *const subject =
+ 		landlock_get_applicable_subject(file->f_cred, any_fs, NULL);
+ 	struct landlock_request request = {};
++	int err;
++
++	if (proc_ns_file(file)) {
++		err = landlock_check_namespace_fd(file->f_cred,
++						  get_proc_ns(file_inode(file)));
++		if (err)
++			return err;
++	}
+ 
+ 	if (!subject)
+ 		return 0;
+diff --git a/security/landlock/log.c b/security/landlock/log.c
+index c132b343f0ee0..fbcfa962cca32 100644
+--- a/security/landlock/log.c
++++ b/security/landlock/log.c
+@@ -390,6 +390,7 @@ static bool is_valid_request(const struct landlock_request *const request)
+ 	switch (request->type) {
+ 	case LANDLOCK_REQUEST_NAMESPACE_CREATE:
+ 	case LANDLOCK_REQUEST_NAMESPACE_ENTER:
++	case LANDLOCK_REQUEST_NAMESPACE_ACQUIRE:
+ 		if (WARN_ON_ONCE(request->permission !=
+ 				 LANDLOCK_PERMISSION_NAMESPACE_USE) ||
+ 		    WARN_ON_ONCE(request->audit.type != LSM_AUDIT_DATA_NS))
+@@ -488,6 +489,7 @@ is_denial_quieted(const struct landlock_request *const request,
+ 			  LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET);
+ 	case LANDLOCK_REQUEST_NAMESPACE_CREATE:
+ 	case LANDLOCK_REQUEST_NAMESPACE_ENTER:
++	case LANDLOCK_REQUEST_NAMESPACE_ACQUIRE:
+ 		return !!(youngest_denied->quiet_permission.ns_types &
+ 			  landlock_ns_type_to_bit(request->audit.u.ns.ns_type));
+ 	case LANDLOCK_REQUEST_CAPABILITY:
+diff --git a/security/landlock/log.h b/security/landlock/log.h
+index 5ca87870c7b78..dee55270a7b89 100644
+--- a/security/landlock/log.h
++++ b/security/landlock/log.h
+@@ -29,6 +29,7 @@ enum landlock_request_type {
+ 	LANDLOCK_REQUEST_SCOPE_SIGNAL,
+ 	LANDLOCK_REQUEST_NAMESPACE_CREATE,
+ 	LANDLOCK_REQUEST_NAMESPACE_ENTER,
++	LANDLOCK_REQUEST_NAMESPACE_ACQUIRE,
+ 	LANDLOCK_REQUEST_CAPABILITY,
+ };
+ 
+diff --git a/security/landlock/ns.c b/security/landlock/ns.c
+index 3d443599b16f4..1ef41ac4f977b 100644
+--- a/security/landlock/ns.c
++++ b/security/landlock/ns.c
+@@ -89,25 +89,28 @@ static const struct access_masks ns_permission = {
+ /**
+  * check_ns_type - Check namespace use permission
+  *
+- * @ns: The namespace being allocated or installed.
++ * @ns: The namespace being created, installed, or opened.
++ * @cred: Credentials whose Landlock domain is checked.
+  * @request_type: Namespace operation reported on denial.
+  *
+- * Shared check for namespace_init (creation via clone(2), unshare(2),
+- * open_tree(2), or fsmount(2)) and namespace_install (use via setns(2)): denies
+- * when the namespace type is not in the domain's allowed set.  At allocation
+- * time @ns->ns_id is already set even though the namespace is not reachable
+- * from user space yet.
++ * Shared check for namespace creation, installation, and nsfs file opening.
++ * Namespaces in which the current task is already a member remain accessible.
++ * At allocation time @ns->ns_id is already set even though the namespace is
++ * not reachable from user space yet.
+  *
+  * Return: 0 if allowed, -EPERM if denied.
+  */
+ static int check_ns_type(struct ns_common *const ns,
++			 const struct cred *const cred,
+ 			 const enum landlock_request_type request_type)
  {
- 	struct inode *attr_vi;
- 	struct ntfs_inode *attr_ni;
-@@ -1137,7 +1167,7 @@ int ntfs_remove_named_stream(struct ntfs_inode *ni, __le16 *uname,
+ 	const struct landlock_cred_security *subject;
+ 	size_t denied_layer;
  
- 	err = ntfs_stream_finish_remove(attr_vi);
- 	if (!err)
--		ntfs_stream_update_base_time(ni);
-+		ntfs_update_base_time_for_dir(ni, locked_dir);
- 	iput(attr_vi);
- 	return err;
+-	subject = landlock_get_applicable_subject(current_cred(), ns_permission,
+-						  NULL);
++	if (is_current_namespace(ns))
++		return 0;
++
++	subject = landlock_get_applicable_subject(cred, ns_permission, NULL);
+ 	if (!subject)
+ 		return 0;
  
-@@ -1444,7 +1474,8 @@ static long ntfs_ioctl_stream(struct file *filp, unsigned long arg,
- 		err = mnt_want_write_file(filp);
- 		if (err)
- 			goto out_free;
--		err = ntfs_remove_named_stream(base_ni, sname, sname_len, NULL);
-+		err = ntfs_remove_named_stream(base_ni, sname,
-+					       sname_len, NULL, NULL);
- 		mnt_drop_write_file(filp);
- 		goto out_free;
- 	}
-diff --git a/fs/ntfs/stream.h b/fs/ntfs/stream.h
-index 76b6c9cca5cc0..18b20e7d7ff48 100644
---- a/fs/ntfs/stream.h
-+++ b/fs/ntfs/stream.h
-@@ -46,7 +46,8 @@ bool ntfs_stream_unlinked(struct ntfs_inode *base_ni,
- 		const __le16 *name, u32 name_len);
- int ntfs_stream_put(struct inode *inode);
- int ntfs_remove_named_stream(struct ntfs_inode *ni, __le16 *name,
--		u32 name_len, struct inode *expected_inode);
-+		u32 name_len, struct inode *expected_inode,
-+		struct inode *locked_dir);
+@@ -132,13 +135,20 @@ static int check_ns_type(struct ns_common *const ns,
  
- int ntfs_stream_validate_for_mutation(struct inode *inode, bool nowait);
- long ntfs_ioctl_stream_read(struct file *file, unsigned long arg);
+ static int hook_namespace_init(struct ns_common *const ns)
+ {
+-	return check_ns_type(ns, LANDLOCK_REQUEST_NAMESPACE_CREATE);
++	return check_ns_type(ns, current_cred(),
++			     LANDLOCK_REQUEST_NAMESPACE_CREATE);
+ }
+ 
+ static int hook_namespace_install(const struct nsset *const nsset,
+ 				  struct ns_common *const ns)
+ {
+-	return check_ns_type(ns, LANDLOCK_REQUEST_NAMESPACE_ENTER);
++	return check_ns_type(ns, current_cred(),
++			     LANDLOCK_REQUEST_NAMESPACE_ENTER);
++}
++
++int landlock_check_namespace_fd(const struct cred *cred, struct ns_common *ns)
++{
++	return check_ns_type(ns, cred, LANDLOCK_REQUEST_NAMESPACE_ACQUIRE);
+ }
+ 
+ static struct security_hook_list landlock_hooks[] __ro_after_init = {
+diff --git a/security/landlock/ns.h b/security/landlock/ns.h
+index 46d3bd17479d2..cdf6dc2f7326e 100644
+--- a/security/landlock/ns.h
++++ b/security/landlock/ns.h
+@@ -10,8 +10,12 @@
+ 
+ #include <linux/types.h>
+ 
++struct cred;
++struct ns_common;
++
+ u64 landlock_ns_type_to_bit(u32 ns_type);
+ u64 landlock_ns_types_to_bits(u64 ns_types);
++int landlock_check_namespace_fd(const struct cred *cred, struct ns_common *ns);
+ 
+ __init void landlock_add_ns_hooks(void);
+ 
+diff --git a/security/landlock/trace.c b/security/landlock/trace.c
+index a47fb10dec459..9d71b31e9c27a 100644
+--- a/security/landlock/trace.c
++++ b/security/landlock/trace.c
+@@ -83,6 +83,7 @@ void landlock_trace_denial(
+ 	switch (request->type) {
+ 	case LANDLOCK_REQUEST_NAMESPACE_CREATE:
+ 	case LANDLOCK_REQUEST_NAMESPACE_ENTER:
++	case LANDLOCK_REQUEST_NAMESPACE_ACQUIRE:
+ 		if (trace_landlock_deny_permission_namespace_enabled()) {
+ 			const struct landlock_blockers blockers = {
+ 				.access = missing,
 -- 
 2.34.1
 
