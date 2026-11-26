@@ -1,57 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795714653;
-	b=P9MxS4hpQPxTek24hmz49imQbVayJ89S93aSkxBTS6O9FcnOj6xNvkUywj9CBvPd145P
-	 CxEpbFxXFNFzE2ufySvBMOP52sAmX1RjJj/yhxQp4KJAD77LLtIwhZgVaKl4Tb1e369p6
-	 JymTu0HsGUkVCnmVsboIx+U5cgM+1ZIS4loa09VpBrNzG2v6CyyQVr880gwaIG0gdGdy9
-	 TtzjzFFlZiVVeifHrPKg0QdfANzHVHe8dCLmhw58UOk3nwlHa6tkazTYv3RqD9k+K96Tv
-	 wqLLgbvoNJjMEYg2TLGwyG4UQ6SwAM15DfquvXUh8hKW7Pd58i9oCLvaQR0KgrSKkZA==
+	t=1795714769;
+	b=PQqPSuE+ocz530gCXffvan5LLvEbSvcXPuTZRdRhZDmQPGoyXbijFkli3ZUkscS4vIPi
+	 n1/9MT2gRUi8gZdmJb3dDsRY5FZZ68moLUtoYiGEHOVCeLCBQdfdEsnCVauQ1RF7lwyTX
+	 IPQkVav9HYE6StFIyDq4eMFtZSnpFEGrHKd3yCVTVgWNQBSNPw1yh2+BfvFwXZfxmzFJR
+	 wcZETl5femhJN1PHlz1HvnGunaGcDLegVKExYsyr6LKi4gwp6OlZdsCzr/PkyzofjJDw2
+	 T4fsGdJUMRUpcoEvsEdSvff24sUIC8kDBXhOI4c1YhwRyftlqmv0J4ARqMt6E8a5ozw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795714653;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=D0fgPLR1z4/EVTuFRqQ4PMJkOfinqO6QGlNPYA6x+go=;
-	b=Q8DE+yZ2aSyemaXuaFuLjAXRT1zTmxs/wUPYgDjzxsbWc/BrM91In6ehXbMbod+c9t12
-	 Rvn8jyUTaaJ7liM9X4HDVa3tUoRk42JQLIDkCfbTWBy68f4MtkRfU1MlpOpdWSmXpKH02
-	 uyCLUzDVvVibnb2G2tzRnWG/W2al6VoSLNOeobNIdb+NHwpPKibqGwPAt1LsewQEtJ3Mc
-	 6qwS9O1mcxJWoUaC8V8ymC9KFELu7ndqjS727C6vhOhdRQvExS3kWb+GvFMVbmgjRIlLV
-	 M3klANEtjsi26riNuw8ZSRINBAcGIlHNAx11Ka5XSK+TDkgZYxgo+MdABonv2bjXSnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795714769;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=vjKPx8Oct1fhU4GmmUv33pDO/iZO410ObJiapa+6LsY=;
+	b=HylIQGfaNwSPxL7Qa+qhz3Av7EamaErhy+tbbSGQTDGuoKqYK2dteQI6F3wUtPTl/Tau
+	 WBTlH8pOaFm6KubHIS+yPhuF84OCWNlGVFUegWyoWEMBHeD4fxKHpSymwl5nBl3crcoDt
+	 ywWdu1raKpTS1hj+VgnU3jx/rB1UGbluXtlULOJqC+apBzG0o66pkM9D6+yygn9aH5lXy
+	 6shhEmClwPJ10nJtIp/9S4tgmN8Hwe2ISbNJvxfj1ELfVQYrGdnL1/aembGBK0NIojXSJ
+	 vWMLGMT5ngVA6HQ1gvNbYvFvAWOU32FHAIslXwlYwBb6bgSufpLVFr+Aivn6dosiZ0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bkAZKHBJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=dolcini.it;
+	spf=pass smtp.mailfrom=dolcini.it;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=p1DyyxhY;
+	arc=none smtp.remote-ip=217.194.8.81
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC272606A323
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 17:37:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32603606A31E;
+	Thu, 26 Nov 2026 17:39:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32603606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bkAZKHBJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 054841F000C0;
-	Thu, 26 Nov 2026 17:37:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795714652;
-	bh=D0fgPLR1z4/EVTuFRqQ4PMJkOfinqO6QGlNPYA6x+go=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bkAZKHBJwBv9DOBBl0YvB4d1MlhI4vE8d8w3sa35Uzpu37wEatvQ7oJAuQscFs0ny
-	 DgBcJ+jt7sFgjOIitrk0CBsQb77mLlxv3bEOPQwBVZI/zBFzUk/aH2cHEsL0CKN9sJ
-	 OcXyz+DO8E9SzP5f5u/N7Eqo8M0g8HVt2shjlqGdPyex+6Kvy4up8xNBhQcT4IwQHy
-	 5/f4Da7sJBULd3+JW0OhyKYZTzWC4Ymzx0wHzmbn/WemZQJloMfcjR+G1CbmO73FBe
-	 ULj5WtKjtbEG+ifG4rgUzFcI/oMJAXdu/QbjR05caurqp3c9Jns5ac+tBsh3ma6wBp
-	 4YDutOFA/P8qQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christopher Hoover <ch@murgatroid.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] iio: temperature: hid-sensor-temperature: Use per-instance callbacks
-Date: Thu, 26 Nov 2026 12:37:30 -0500
-Message-ID: <20261126173719.2825273-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112551-dawdler-operator-d4db@gregkh>
-References: <2026112551-dawdler-operator-d4db@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=p1DyyxhY
+Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id AE6222002F;
+	Thu, 26 Nov 2026 18:39:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1795714764;
+	bh=vjKPx8Oct1fhU4GmmUv33pDO/iZO410ObJiapa+6LsY=; h=From:To:Subject;
+	b=p1DyyxhY+A8szHG0kuJZ1T6qBOPiZnYBNsYTlSnQwjIT85yjA1xwZElY434wC+VHm
+	 zjh1GSFaEAKNskWDME0lS2n5kH2vZlhQ4e+njbrssOfWmz9e/4dR62ZDvyWJ53XO2m
+	 3nu88H8I0fTPTw5v4Rfa22J1Wr1PBMWYnBmGd0Mg/7QGw0+NLgHCGZCex+1uxt3JvI
+	 29forau0ijMMWw6YtNPd3p7Iqulfz8flzMPc4rrMWr3wujMz+5xDSJnWyC+Vi6C1h7
+	 /sliw18c7WHE9qrFDMwqa7BdIKaEeiCkgYBHZov5zdKI2CjGZVRdK+yUNZZz2xlag+
+	 h2ELbeWLYtPDg==
+Date: Thu, 26 Nov 2026 18:39:20 +0100
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	sungbyeongchan <tjdqudcks0424@naver.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>, Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.18 000/990] 6.18.66-rc1 review
+Message-ID: <20261126173920.GA180459@francesco-nb>
+References: <20261125143822.072087159@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,82 +71,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
 
-From: Christopher Hoover <ch@murgatroid.com>
++Nishanth, Vignesh, Michael and sungbyeongchan
 
-[ Upstream commit 36eeb26031e90eeb81bbac3d3acad61d23fcbdf3 ]
+Hello Greg,
 
-hid-sensor-temperature keeps a single static struct
-hid_sensor_hub_callbacks for all instances and overwrites its pdev in
-every probe.  With two temperature sensors, input reports for one are
-delivered with the other's platform device; once that device is
-removed, platform_get_drvdata() returns NULL and
-temperature_capture_sample() dereferences it:
+On Wed, Nov 25, 2026 at 03:22:47PM +0100, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.66 release.
+> There are 990 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-  BUG: kernel NULL pointer dereference, address: 00000000000003a8
-  RIP: 0010:temperature_capture_sample+0xd/0x50 [hid_sensor_temperature]
+Failure on various TI K3 boards (AM62, AM62P and AM69), during our CI/CD tests
 
-The oops happens in sensor_hub_raw_event() with the hub's spinlock
-held, so the hub's removal then hangs.  It reproduces with two uhid
-devices that each declare a temperature sensor, one destroyed while
-the other still sends input reports.
+[  477.440292] rtc-ds1307 0-0032: write error -110
+[  478.374406] wm8904 1-001a: ASoC error (-110): at snd_soc_component_update_bits() on wm8904.1-001a for register: [0x00000043]
+[  478.464258] rtc-ds1307 0-0032: read error -110
+[  479.520264] rtc-ds1307 0-0032: write error -110
+[  480.342404] wm8904 1-001a: ASoC error (-110): at snd_soc_component_update_bits() on wm8904.1-001a for register: [0x0000005a]
+[  480.576282] rtc-ds1307 0-0032: read error -110
+[  481.600274] rtc-ds1307 0-0032: write error -110
+[  482.310409] wm8904 1-001a: ASoC error (-110): at snd_soc_component_update_bits() on wm8904.1-001a for register: [0x0000000e]
+[  482.624288] rtc-ds1307 0-0032: read error -110
+[  483.680291] rtc-ds1307 0-0032: write error -110
+[  484.278402] wm8904 1-001a: ASoC error (-110): at soc_component_read_no_lock() on wm8904.1-001a for register: [0x0000004a]
+[  484.320383] INFO: task kworker/1:5:66 blocked for more than 362 seconds.
+[  484.330368]       Not tainted 6.18.66-rc2-8.1-devel #1
+[  484.338741] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+[  484.350050] INFO: task weston-simple-e:783 blocked for more than 241 seconds.
+[  484.360452]       Not tainted 6.18.66-rc2-8.1-devel #1
 
-Keep the callbacks in struct temperature_state, as the other HID
-sensor drivers (accel, gyro, als, ...) do.
+According to claude the issue is
 
-Fixes: 59d0f2da3569 ("iio: hid: Add temperature sensor support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christopher Hoover <ch@murgatroid.com>
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-[ sashal: adapted to older tree: used u64 timestamp __aligned(8) in the data struct and adjusted whitespace alignment of the sensor_hub_register_callback argument context. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/iio/temperature/hid-sensor-temperature.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+commit e498eb93f961 ("virtio_ring: use shadow flags when detaching split descriptors")
 
-diff --git a/drivers/iio/temperature/hid-sensor-temperature.c b/drivers/iio/temperature/hid-sensor-temperature.c
-index ba735d758cb44..a96d9a5e35790 100644
---- a/drivers/iio/temperature/hid-sensor-temperature.c
-+++ b/drivers/iio/temperature/hid-sensor-temperature.c
-@@ -16,6 +16,7 @@
- struct temperature_state {
- 	struct hid_sensor_common common_attributes;
- 	struct hid_sensor_hub_attribute_info temperature_attr;
-+	struct hid_sensor_hub_callbacks callbacks;
- 	struct {
- 		s32 temperature_data;
- 		u64 timestamp __aligned(8);
-@@ -181,11 +182,6 @@ static int temperature_parse_report(struct platform_device *pdev,
- 	return ret;
- }
- 
--static struct hid_sensor_hub_callbacks temperature_callbacks = {
--	.send_event = &temperature_proc_event,
--	.capture_sample = &temperature_capture_sample,
--};
--
- /* Function to initialize the processing for usage id */
- static int hid_temperature_probe(struct platform_device *pdev)
- {
-@@ -237,9 +233,13 @@ static int hid_temperature_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, indio_dev);
- 
--	temperature_callbacks.pdev = pdev;
-+	temp_st->callbacks = (struct hid_sensor_hub_callbacks) {
-+		.send_event = temperature_proc_event,
-+		.capture_sample = temperature_capture_sample,
-+		.pdev = pdev,
-+	};
- 	ret = sensor_hub_register_callback(hsdev, HID_USAGE_SENSOR_TEMPERATURE,
--					&temperature_callbacks);
-+					   &temp_st->callbacks);
- 	if (ret)
- 		goto error_remove_trigger;
- 
--- 
-2.53.0
+and those commits should be dropped
+
+  e498eb93f961 ("virtio_ring: use shadow flags when detaching split descriptors") [22944d517ff8]
+  9dc6b944f16c ("virtio_ring: factor out split indirect detaching logic") [44b6e54e4a0a]
+  4b7bf8d55032 ("virtio_ring: code cleanup in detach_buf_split") [032159f85f3f]
+
+I am not able to do any test now or tomorrow, unfortunately. And the
+above analysis is just claude. Might be correct, might be wrong.
+
+Francesco
 
