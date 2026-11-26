@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795705749;
-	b=NAHtUp8bIh0Xe03hXeQ34fp1lX3nE+Px/pZksYpNITMGnuNoe1lpbD8EURv7avMaiyYl
-	 vE8dbDrsvOBekcIibSNd6DlGP64hnEOOVgf5N72REmYFNvz3pIM8oIbd3xyKLzTmPbqD/
-	 uIklP10w6GUYkweKsoLcj1ZZ/KKmFGqbrl+BB5PuQhtKbbrwUY8N9I1x1mV71L2EUU35H
-	 Gz3uhs6hCo4AtaGQqPrm9vhEnGaSHInCVrDoKjqaWBfNg1Q0sxIYcSyISQuh6B9sMRFd0
-	 SzwXM6t93Ag8Z6AuRriF5D+N1donFpMsdGXgW1F4BC5khlcwchviQNfRbDNunGlVFbw==
+	t=1795705750;
+	b=OMNKF5L5tB7gwzaEBNGlpOM0XkXJwSN6BMb/PhanPTUrg/9FbbBuUrx2lmQeEySnEKaz
+	 AidzI6vYqFtaTbeNHk7m+T72BjYFQjcMVrQ17sSAQkP8rG/RiINWe476hnkKUAmYzzKKJ
+	 iXwdqpBimJ4YzLF9OBh9klueT8s9WKCV9ckeWKzXYCfb0UeOIYRBnw7hibygYpdCkJWdx
+	 8ZClQOedrPJfmmNfRVulKKnqU3ihPsVVfZqdzt3KVygYGDzbSZ8lYH3/0ELbScnC4g9pg
+	 sRr3GA/2m4c3abhGeBktp45GkWNyogjw+VdWYOsv7kIUB3QDo6l8eOYezTXS5Vx6yUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795705749;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795705750;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=U+SQNzcTtGr8aKPfOCjXV71oeuvkFosApEG9ZXEcCIw=;
-	b=P7lAc+bWx85kSSG3gY/PrsFcHkRVju/lRRVAdEpqgcOiA2F4cjlXKpf+nWPwg0zy7/0h
-	 oP2UR1IDONRqZDT8PQzavIjg8zeMFTNKICKQgC9XALo6vTd7uGxjH7RHMvezbZacyZVti
-	 w50PRp69SQdmssysCCVavEj/c43vVJ2Vc0s6TJbYkbDkIhr7IXQXk6v4Bnze7UHfuHDgK
-	 QRYEAJeUFthcUPcfPO+JY+GvOplrQBayltZR4SeC+nx10puG5OCMmuUbxA+M0GjQJIpaa
-	 nfAYJz1tg3welxLT+TpLDPAsCYWyx67MFR8UDvu0Xm++LjkwPbTKFccJJCPwbLHsqfg==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=9P9RVzMJjhRVR5Wdw+GxHKyOIn0Gy6sh8Op7EjNi56Y=;
+	b=RegUuSKlNqNE26SYgv5w6ABn6/RKU/2/z078FeJdqXS9q5WA4T421rUoxQPuVukQeHiq
+	 bE6KxNfuFfrUdc+b6l7qGtepiGsOAgwiCKQG0sDuL9Zh7X4vPqmyg7XFHizXnb1fTzVOg
+	 jV4yySlQrfiAsymvKLuwv3GBEsa2Pur9JHBPJChVE+LCcTn88+Bi9lZ1YGYauDENO/Wk3
+	 FFZ6nTcaftwihJoMczaRLpeR23fzqXR8L0ibzN1QPQGg6wM0lM/oBWTnil+Ip/YwVtM8w
+	 wFyF8rtoZzbk0YpSpYmrNDXbebY8rt39tHOivT9KiaQGU8hk62K8Azhg8dW0f2UhSxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M99zp/CT";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kUwRaATh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09155606A68C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:09:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25991606A69F;
+	Thu, 26 Nov 2026 15:09:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M99zp/CT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC66C1F000EF;
-	Thu, 26 Nov 2026 15:09:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795705748;
-	bh=U+SQNzcTtGr8aKPfOCjXV71oeuvkFosApEG9ZXEcCIw=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kUwRaATh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C0FA1F000E0;
+	Thu, 26 Nov 2026 15:09:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795705750;
+	bh=9P9RVzMJjhRVR5Wdw+GxHKyOIn0Gy6sh8Op7EjNi56Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M99zp/CTCVuMlGgchGDBkBO0DL6pyITeH9+egN+fn1gx3ScAQGoBBbKiog6j7MnfG
-	 eYtJ0aHwh4SK4vrI4BLelrJ2aQIYd8sIAMZa3IBRgDvyJpNfVGWfN7HOddOOvnh0Lq
-	 SCF1F9msX8r/3Kf/peTfoaUGfJ5AtxP1FW5DPV6U7QfX8UGKV+NZuRCc/VZEMzL2WG
-	 pOeF04NVZDp66nRgS1kjWBenoayqgsKZ7MKmrmY/LvHvzq/cQ3Ju28PmrFtZUPxDzA
-	 uzN7NUNKatoXx9CE55P0SA/RM6Ax2VZpeiru8MkGeMA5hWXgevFslJCT6hzY/dFX+e
-	 lwa4aFgN3pU0g==
-From: Sasha Levin <sashal@kernel.org>
+	b=kUwRaAThXpdhNY9sYBGymItyS29iq/wvZX+m1DItOJp+6mmHEAR5szcjuAWrNkbGz
+	 AU9Gioc2V8LIdG/AtgGWuC3JKAKetqQjRhXDt1kMrubacURH0qA6Wxvn0qG/edhNZR
+	 rZik05tfdZ4qH4EKEHaSgCJ6ML+EhXId4WJyo/+o=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>,
-	Bryan Tan <bryantan@vmware.com>,
-	Vishnu Dasa <vdasa@vmware.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	"Joel Fernandes (Google)" <joel@joelfernandes.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] misc: vmw_vmci: Rename kvfree_rcu() to kvfree_rcu_mightsleep()
-Date: Thu, 26 Nov 2026 10:09:05 -0500
-Message-ID: <20261126150859.2240360-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112527-revert-unable-e720@gregkh>
-References: <2026112527-revert-unable-e720@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Maximilian Czirr <maxx-cz@web.de>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: [PATCH 5.15 301/319] iio: hid-sensor: Fix scale for magnetic north heading
+Date: Thu, 26 Nov 2026 15:41:09 +0100
+Message-ID: <20261126144013.551610109@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261126144006.732901931@linuxfoundation.org>
+References: <20261126144006.732901931@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,56 +64,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 09b2286af617bc6f9480404b565393628f86037d ]
+------------------
 
-The kvfree_rcu() macro's single-argument form is deprecated.  Therefore
-switch to the new kvfree_rcu_mightsleep() variant. The goal is to
-avoid accidental use of the single-argument forms, which can introduce
-functionality bugs in atomic contexts and latency bugs in non-atomic
-contexts.
+From: Maximilian Czirr <maxx-cz@web.de>
 
-Cc: Bryan Tan <bryantan@vmware.com>
-Cc: Vishnu Dasa <vdasa@vmware.com>
-Reviewed-by: Vishnu Dasa <vdasa@vmware.com>
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
-Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
-Signed-off-by: Joel Fernandes (Google) <joel@joelfernandes.org>
-Stable-dep-of: 824a27d391cf ("misc: vmw_vmci: wait for callbacks in event unsubscribe")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+commit c72dcaeaabd60e164e7324f80ccb037e879eefdd upstream.
+
+hid_sensor_format_scale() applies the HID unit exponent only when
+the usage and unit match an entry in unit_conversion[].
+
+Rotation-from-north support uses
+HID_USAGE_SENSOR_ORIENT_COMP_MAGN_NORTH, but that usage has no entry in
+the conversion table. As a result, the unit exponent is ignored and the
+heading can be exposed with a scale of 1 instead of the scale specified
+by the HID descriptor.
+
+Add a unitless conversion entry so the HID unit exponent is applied to
+the magnetic north heading. A sensor reporting an exponent of -5 then
+correctly exposes a scale of 0.00001 instead of 1.
+
+Fixes: abea9c62c32f ("iio: hid-sensor-magn-3d: Add support for rotation from north")
+Cc: stable@vger.kernel.org
+Signed-off-by: Maximilian Czirr <maxx-cz@web.de>
+Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/misc/vmw_vmci/vmci_context.c | 2 +-
- drivers/misc/vmw_vmci/vmci_event.c   | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/iio/common/hid-sensors/hid-sensor-attributes.c |    2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/misc/vmw_vmci/vmci_context.c b/drivers/misc/vmw_vmci/vmci_context.c
-index 172696abce31b..f22b44827e929 100644
---- a/drivers/misc/vmw_vmci/vmci_context.c
-+++ b/drivers/misc/vmw_vmci/vmci_context.c
-@@ -687,7 +687,7 @@ int vmci_ctx_remove_notification(u32 context_id, u32 remote_cid)
- 	spin_unlock(&context->lock);
+--- a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
++++ b/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
+@@ -38,6 +38,8 @@ static struct {
+ 	{HID_USAGE_SENSOR_COMPASS_3D, 0, 0, 1000000},
+ 	{HID_USAGE_SENSOR_COMPASS_3D, HID_USAGE_SENSOR_UNITS_GAUSS, 1, 0},
  
- 	if (notifier)
--		kvfree_rcu(notifier);
-+		kvfree_rcu_mightsleep(notifier);
- 
- 	vmci_ctx_put(context);
- 
-diff --git a/drivers/misc/vmw_vmci/vmci_event.c b/drivers/misc/vmw_vmci/vmci_event.c
-index 5c35874671783..89ab9f05b88c5 100644
---- a/drivers/misc/vmw_vmci/vmci_event.c
-+++ b/drivers/misc/vmw_vmci/vmci_event.c
-@@ -213,7 +213,7 @@ int vmci_event_unsubscribe(u32 sub_id)
- 	if (!s)
- 		return VMCI_ERROR_NOT_FOUND;
- 
--	kvfree_rcu(s);
-+	kvfree_rcu_mightsleep(s);
- 
- 	return VMCI_SUCCESS;
- }
--- 
-2.53.0
++	{HID_USAGE_SENSOR_ORIENT_COMP_MAGN_NORTH, 0, 1, 0},
++
+ 	{HID_USAGE_SENSOR_INCLINOMETER_3D, 0, 0, 17453293},
+ 	{HID_USAGE_SENSOR_INCLINOMETER_3D,
+ 		HID_USAGE_SENSOR_UNITS_DEGREES, 0, 17453293},
+
 
