@@ -1,96 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.53
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795661101;
-	b=zpBNF62jTEt0Ct8uOEBwt+1w9sC4zVjC2viC9qBIhDgowtkwqH02tb1vtopLgwJ3NkTu
-	 +wAhlxFG9bFetYd9Q0+RrkiygnpmQ07u00WJk6hcn1eAb9GQ2eIAMRfXDhPkbQ80JNo9u
-	 zAfz3cbT1683rCZORYXf6utZgYqcskTjiXV1gnfcSOrD43WBSVPkFXN/z3KTIJ2Uvs+Mi
-	 GsdFXgZqGv8wb1lYdZPrB7Xqpqh8ax9XNdBFqFmw0qjRgH9O5tCwram4BEKNmeH7a01y5
-	 Ev/AL5jltZBDwDKlU8sQ0D9R5AVtTAmcn+GAUiV9TBI33C16T4CRj3HDs2tBEQ6jwiQ==
+	t=1795661110;
+	b=ddXzNdZ07n+LR8caDSo1EFvzNnF0br7h8VOo7DYyq/CtJz1WWiBelZIDv9JhVJUT5m/B
+	 08ntT5EAiB4WJ8qfZxmxil2EW/gN5FQ5MEP2koP1wVaRAgkyL6XJ1VzDrS+DOfyq3eHwm
+	 wR9yFOZwdLUXxwMDwf00RauMsB4EAVWn4uVfqKrS8vpuND4cixx5TYv3GigbxtuNJFavd
+	 b+wF5ZNvAtjmIfJBmpqJ0UVSZ8FdUQrnzcK/laK5jH9z5fYg1LGqpBmRFe4HjLRi2qrgH
+	 H8KAg1L27jcWjYB+BDwJrRS99UlJ5ruZk6wvLBTDxDxvobykQmCdQxwH0gCl35uMFzw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795661101;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795661110;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:MIME-Version:From:Date:
 	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=VhNUJQwP8CSjFXalqYtowL6Skz/j8h1yFOaRbiFXG5k=;
-	b=Obp2O+OH+G3bG50Iku4E2KcSrGnqhyCHajP7u8nyMbVEVNDj8bBEpYszdv9WEbFsNg4t
-	 dQFWxUICKdyy8sgdhKfr63n6MDAd1l8m5gRGBUZVLTTYXrablrTfmUcixIiQCHBKrkfyr
-	 Ha2ZY1wINusus2uyhkilqfJ0Yg5x24n0/+YS20gZTrXlow75KSi7n1xUl0E3QqmD5cZ3o
-	 lJht6HuuPWBh7WRC2B1toaZQ7Wn46/5ojmoOFAUHIuDl+VR5l5yGiFDUFh/vLatD7tWM+
-	 acGt5MZeUrfKPT5Sfp7/0UHtjHY6TyAIYgUcVeKG7TWFoPfQWzfq+d+bYs36oaMqL1Q==
+	bh=/0xg9WnJ4xA4j3RnhckkeXOmdyeehSClwBqizSGK2+E=;
+	b=4O7upMohiibqxbW42A9FoicxJlYq842h+UJiIEON2C3I5aBMaw1gUCI+Pb6p7HSyubYz
+	 ZxTjWOzDSh3pA5pPLPOJM43tYVuFTdZaHCjK9+ZLuUkW4w2UzGujn1qZTahGm7qxhHetM
+	 L76bqh67Mw1d1XkOrZb6OZ2saHCRpOh8mYaCV/gip86SOwSajCyhiWPxm4qrB7ZZUAkNq
+	 YvIc0Hcrn2GWOUWerRBcM5B5QffKebaltjmBziyXdrGrbusjadzANY+nebdBqfGIpRcj2
+	 4h+zSLF9yucRWAfuBn4/IUtRUNO2sm07wXvtghUPQKuofQLFgQqfmHbXYGnucpjbAYw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=certik.com;
 	spf=pass smtp.mailfrom=certik.com;
-	dkim=pass header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=HInRNYWB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.53
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+	dkim=pass header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=YSZyFojK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C78606A321
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:45:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80C78606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F0D606A32A
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:45:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41F0D606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=certik.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=certik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=HInRNYWB
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-67db763cec7so6732808d50.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:45:00 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795661099; cv=none;
+	dkim=pass (1024-bit key) header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=YSZyFojK
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-677bc4704cbso7726960d50.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:45:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795661109; cv=none;
         d=google.com; s=arc-20260327;
-        b=YK1gNU6HZd2HcJj6F5utIhwnIts9S5x+gzCn+MNgeMvuWTLcR6OM7ixi4n/XrCI6B/
-         Dy56Zv8QYNEHRdmEyGPdz9C6e/O3mPTnPhkuKHhmBvn+7+l5KtgcIAF6sT0FTdd8XWjn
-         +Z84q19C4KeVNukld2OeXza+7GQqmU7+I0wqjwYxRDuJrL6C0qB0tc0eyeyi76zvEvUl
-         hBXW7YlcjXdiuA7uKtyK80jGMD7McLUjXTZWdrHyVejVFDuN0J/a0CLUGwElQVkSaFn0
-         1dclFO96jFgG+lzdimswbrUMQGmxx/tRaHIiyCQIhiIyPD66mkRLeHQJIiE9oj875sNf
-         6TgA==
+        b=iUhRUv7zEsPlzOutthByWQ3o6heF3dQTP1w1Wga97bNPrjwKwnNB8kiAh8i0/bCdyV
+         +mPRm7rTivxk8ypNuLxTYKNg5tLdTwcHVe7rwIoC0y8ezYO3qAs1dCMxPT7JHVVO0Rk7
+         W//lrFiuus0xiOr5qLwONc3gNQrTVhOZFbvqHqSNqvZ4Kq/siNZtmZZz9GDFrwtPsfnn
+         U7iuzPfiouAtbhqnSwrM7iii2ePEai3+FTVjvupq2eSR9pF9UBQqqVsnOE9I4eeomV1E
+         4ElHh42nQ75aaBXhdOkjI7l36yAu58c/c70KivAtS9gE+xEPadjxgXSnUOrWL8s81MOx
+         ef7A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=VhNUJQwP8CSjFXalqYtowL6Skz/j8h1yFOaRbiFXG5k=;
+        bh=/0xg9WnJ4xA4j3RnhckkeXOmdyeehSClwBqizSGK2+E=;
         fh=59V8OffDL4lTKuEjiGaz+wvnez2O8ZH196QtmfEDrMw=;
-        b=MRi3fo93LepQhTPs6sXOi+0BHHKjtPqZ9eyusM9uemcQs2ChUJyITOWkO5m6mzkeAt
-         3ocjLTkRebXSyl/Az3zsnCWWBub2aa+u8RRawmZ3PnaNqVOJVvQ/FIyPfU54h4O8jH2E
-         8vtEyuMuYkIYVjbU55P4KQsn7RTHhYhbb359BIfqjXTmBfLrZ4Yv1GFDbjVEsPfyzMiq
-         AwDS05ZlQxLo8ooYzBdbPQd855tXJxRz5ItY1eBTkWyp98n9mmxd+WiaSZs0HYwe8Afh
-         DQtAzLTy0FGZbU1nrwBrCpUS5fKUv5IVoeLjMceo0MmAGtYF/MbjYLgsTM5C47WRPPLb
-         Vgzg==;
+        b=H1eyE64F79mYfhqfLz/Og2iWl+nNztwtRH5bq7GtJn77jjuneWXEAT74ZszecWyfbH
+         pI6+DqFozGP9G57VddkghU7FyVZuksYugXaOV5UW94uZGmiqDf7J9vBOt4JpcQO6UBob
+         lDMb/N1DGWi50RbniJUsCxnOgmP6brrQsADrOOs/5izl4Yh7aLp5VM7JfkM6e8PUu9oV
+         NMJEF2ujBHAyJZwXxwRvoODULlFg23kDd+rChdmQHMQEZET0ePvyeF6ch9NPGLQIr1BS
+         RzbQGjc39ioShTelQXi5em2Kv02xu9Hlv4Xq1q1CTHSLpk55dcDOodd178SbQwENQVlA
+         TgSA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=certik.com; s=google; t=1795661099; x=1796265899; darn=vger.kernel.org;
+        d=certik.com; s=google; t=1795661109; x=1796265909; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:mime-version:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VhNUJQwP8CSjFXalqYtowL6Skz/j8h1yFOaRbiFXG5k=;
-        b=HInRNYWBEpAkttfKoUKhCN9ya9AJs+VgL556Fw0wlghjBJgcF7YfaYfSn/XV7OSihH
-         d28Fx/8m05flpEmtgBQiIQImNSRC7jvfPY2GgPaXLkWB/j0u3kj+4oBOh1+bJU2Senjo
-         pHbJABXpDnhrWieTIszJo78B4jmxB7MU7NZgw=
+        bh=/0xg9WnJ4xA4j3RnhckkeXOmdyeehSClwBqizSGK2+E=;
+        b=YSZyFojKq3bG4WC8T2VFHphp90WVwR7sQy3s2Qq53CeOw3XNRFZpI+qpJ8Qn7ADhDL
+         FoWn/llGclwpr+4muEtL7hKhwiI7VYdLwR+O578uaAIWwOdogiNtRPiD5fJqZoEQgxFm
+         7yDkzZ7FAWOSyE0aq2XI+LAwnl7i/58KxcCHI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795661099; x=1796265899;
+        d=1e100.net; s=20260707; t=1795661109; x=1796265909;
         h=content-type:cc:to:subject:message-id:date:from:mime-version
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=VhNUJQwP8CSjFXalqYtowL6Skz/j8h1yFOaRbiFXG5k=;
-        b=GJFQ9VxPAqZSG26uMzVUYuvPYRKt1qJDq6Q4zNV1CepHqvePcbU8zO8u40UQlVONCR
-         xha5pGnsNwqEtnYPW0Bxs0A6NcMmemUcxWVmomusLVWFRoaEJqOLzrtQEEkh4CZWSoQ+
-         tQ+fLvSJJfS/euTYZoO/KhdixtJN9Y95o7GJxIoM0hc9i9sG7lxVatO9pNz66DjrKrt6
-         XjB6BRE1h6pRlQENKpQ38jglz8Pyh5Ulk8/DoyyL+jJwuoc6RWvFi+/HGR5+YbREBjP1
-         ciLDQpnQxnYJhF7x25e1PjtzvRwZ7IFZOALii7XzQN/Z+dWd6ynZb+VjjxrzBOzVR/3C
-         cEaw==
-X-Gm-Message-State: APuU4Z9SIIp8Q5PVcNbileXViUgfuF5TwBajQXz/cbYznuUM/fxtrCDK
-	D76bN553MTcCrXOxm4YJ4jWTwNWBH3ThN1vYFlLXcf+W46zBrlV85KdtLmgeefCqIuk+AuwjLBf
-	jGEwKDqBO5q6BGVUZymNWaTcyNsJmJ+yzCfK8OpmhtkXyrVFlZZBUXf4=
-X-Gm-Gg: AZFdTZfpZSWaoYPFDEE9y4oLwgv6on5VrLq3/uTEkcRfjQs1a2EQAdZWfV1fxd533it
-	n6DlWOmSQk74kKIy6zUpy6jpnzVl0YQOYtXvZcGvMclSOw6OY2WH04kcnfzAmMiq4/ImsntGcak
-	H4ZqnIFriVIw3QNYZIRiIHhKf1zXj2W2+BaMIskq4b8h5ggvhuHl8wKGFNJJXbjFr6DGMV0LWbk
-	93UTQkrKVZl5phEe5kx82JJHx1/HYDs+CxmzcX/juRy/iOizP3oHrEZcz9iHAThiVzTUbqW/195
-	0l5esa0ULX4n80WHrh5Z6qWyydclyOUVs667wlR65GrwZ+5Ge+Mn0auACjW/0MAX3RnKFf9c5FF
-	0gBD28qUq6TZyELygXLu5Vf3NQhwdYFE0mZmemoDs8+RepBxKT+AAVOAx3F4E7Eog7a3ibmEA8q
-	815FWXuuLeJiYbUjlP74UmzYFD77upp4kChj/a9moRcgVy6ekyg2UyLqvaHh5ZLa90ieQlZ/GvD
-	czvBkBRJCQDrebmuCKpWM9Ct+n19dm0kO3+
-X-Received: by 2002:a05:690e:1388:b0:67c:1cf8:84fc with SMTP id
- 956f58d0204a3-67df44f731dmr8007625d50.125.1795661099430; Wed, 25 Nov 2026
- 18:44:59 -0800 (PST)
+        bh=/0xg9WnJ4xA4j3RnhckkeXOmdyeehSClwBqizSGK2+E=;
+        b=cseWHufwryAOlCYPeSFMwF1bs+dcLFMgqPr0jS1G2jL0d4WEcrc9NIJ5O1uJbAL/vw
+         2gbe6G6a7b/GDDeU5a90MOJyOhtVzRl2A+jkVF44/axlQrNOtQ+CZMG7jaURAn6b0AQR
+         A08LsIshndG/yAb5EoNtnkKvm67QUoxBG7W58EQd6oICA+K2aHm4OUurlhrpkbpgrslA
+         mcqdRlGVj5wbimUmM48xgAWngxKm5bu02PaKbJ7nQWg/drXimQoYI/w1QuEPeZl5j2Fl
+         dGnRvS8ipnPg/Zum0N2kwg5ckKqWaUQTZNQBT4uz87ceaeXCGV6/YjDzCkReHdm9vk+f
+         FLLQ==
+X-Gm-Message-State: APuU4Z+oXHDdPZn2f/1ZZW4MqL7UqKiLNKA0GeQbKr8XUYqAlvsjIktY
+	NzuUEeKhV/5lzWNYLoLXlyR7pcQHcx5wmStUQQ/P7NShoE2+eCMHmLmBiLjB2zYxDp5GwM+/amK
+	KRp8CFxzt2tOpYctfEzu4c6xEfWelzzSotxiAtwNdNcQuuhv2WMWZmHU=
+X-Gm-Gg: AZFdTZe0/5lRyiCXeBM9Stw1XanuGiysNIM7bAfUyvgqKkbPhxWFEAQrq/HEBEmXwUf
+	R+eMgW3RKBVLXAH345PoYFZokPCUVJBZXCHJFtYWkadvdSk/8dLUc9Pewuo9iOcSRxOViVslPWf
+	kR3GBCkrclFmxjjZQmm9bJfP8JkgVwIO+9ZMYz3OKwr9yTlStsYdfVHanI2AjS2GeHabOS1DcFM
+	rmuwd5d1sslEqSpapiFZ62J/9ALrnxMhfwP4YxKYzA1ECW6bKRctcsyoNn0sn+fjcY85pi5xGt1
+	FcnYcZkjdgtM8ZC8dToEo94qq1Bpp51W29PHNo1N/DsK94BxmNCHcoHiHXSzB0nqRQv0bTJh/tb
+	6NJNTTxR6XQnl9Ca6I0hitOJz8kUCMeKmHCTQLsKStDblSFpxvrMiu5WVGBc9ycSRFlfWc/Pdl7
+	CWUG7YBuPR7gz0JTN9gVkCUDDNSHrrHEwOqp/hSDvoS/HehqunwPtPi8Vm9XNknjetZIW0ICi3l
+	wOf8gC1YrsyX3r3On/217hknNP4ZCpVS/xb
+X-Received: by 2002:a05:690e:438d:b0:67d:b9c2:3d39 with SMTP id
+ 956f58d0204a3-67df44556ecmr4098773d50.97.1795661109244; Wed, 25 Nov 2026
+ 18:45:09 -0800 (PST)
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 25 Nov 2026 18:44:59 -0800
+ Wed, 25 Nov 2026 20:45:08 -0600
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,10 +101,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 From: Dickson Wu <dickson.wu@certik.com>
-Date: Wed, 25 Nov 2026 18:44:59 -0800
-X-Gm-Features: Aa3M54rZmltByzdyAAi6FQe8eTe1tx6OXDLIAOKM4fBYabFft5IXKXsVufugpMg
-Message-ID: <CAFaZ9epjtBjMgjWapQR6QAzUYK4Ytq1m+VvwFv1Wu9kYauW0Zg@mail.gmail.com>
-Subject: [PATCH 6.1.y] Bluetooth: hci_uart: clear HCI_UART_SENDING when
+Date: Wed, 25 Nov 2026 20:45:08 -0600
+X-Gm-Features: Aa3M54paIFJUchZVb6P5CQuzxQRXvyj5HLL0xeT27KaPRrHW7XTFKnxEJ06Kuhw
+Message-ID: <CAFaZ9ep1MzprNHirA++5XpLuQC4PhibJr_FBWHxEt=Exvic1QA@mail.gmail.com>
+Subject: [PATCH 6.6.y] Bluetooth: hci_uart: clear HCI_UART_SENDING when
  write_work is canceled
 To: stable@vger.kernel.org
 Cc: Pauli Virtanen <pav@iki.fi>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
@@ -134,11 +134,11 @@ Link: https://lore.kernel.org/linux-bluetooth/07e0a28650773abec711ee492fdb1bf5d2
 Cc: stable@vger.kernel.org
 Signed-off-by: Pauli Virtanen <pav@iki.fi>
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-[ adapted to 6.1: no disable_work_sync()/enable_work(), use tx_lock
+[ adapted to 6.6: no disable_work_sync()/enable_work(), use tx_lock
 and HCI_UART_FLUSHING around cancel_work_sync() ]
 Signed-off-by: Dickson Wu <dickson.wu@certik.com>
 ---
-6.12.y and 6.18.y already have this. 6.1 has no disable_work_sync() or
+6.12.y and 6.18.y already have this. 6.6 has no disable_work_sync() or
 enable_work(), so instead of disabling write_work during the flush this
 adds a tx_lock and an HCI_UART_FLUSHING bit. hci_uart_tx_wakeup() won't
 queue write_work while a flush is running, the flush cancels and waits
@@ -150,7 +150,7 @@ The serdev follow-up, ee43bade37c4 ("Bluetooth: hci_serdev: serialize
 flush with transmit work"), isn't in 6.12.y or 6.18.y yet, so it's not
 included here.
 
-Tested on v6.1.193:
+Tested on v6.6.163:
 - x86_64 allmodconfig W=1 build of drivers/bluetooth/, base vs patched,
   no new warnings
 - x86_64 defconfig with BT_HCIUART, BT_HCIUART_SERDEV and BT_HCIUART_H4
@@ -171,7 +171,7 @@ before signing off.
  3 files changed, 31 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/bluetooth/hci_ldisc.c b/drivers/bluetooth/hci_ldisc.c
-index 0116dbaf7431..1378ae614ca4 100644
+index 548e58e69eb7..8c43ffb30725 100644
 --- a/drivers/bluetooth/hci_ldisc.c
 +++ b/drivers/bluetooth/hci_ldisc.c
 @@ -116,6 +116,8 @@ static inline struct sk_buff
@@ -268,10 +268,10 @@ index 0116dbaf7431..1378ae614ca4 100644
 
  	/* disable alignment support by default */
 diff --git a/drivers/bluetooth/hci_serdev.c b/drivers/bluetooth/hci_serdev.c
-index 158b057ed3a6..b3148a84e9af 100644
+index 753343ca8489..835ec8f2f09e 100644
 --- a/drivers/bluetooth/hci_serdev.c
 +++ b/drivers/bluetooth/hci_serdev.c
-@@ -312,6 +312,7 @@ int hci_uart_register_device(struct hci_uart *hu,
+@@ -313,6 +313,7 @@ int hci_uart_register_device_priv(struct hci_uart *hu,
 
  	if (percpu_init_rwsem(&hu->proto_lock))
  		return -ENOMEM;
@@ -280,7 +280,7 @@ index 158b057ed3a6..b3148a84e9af 100644
  	err = serdev_device_open(hu->serdev);
  	if (err)
 diff --git a/drivers/bluetooth/hci_uart.h b/drivers/bluetooth/hci_uart.h
-index 70449949d527..195957f41f28 100644
+index 39f39704be41..2687f76cc01b 100644
 --- a/drivers/bluetooth/hci_uart.h
 +++ b/drivers/bluetooth/hci_uart.h
 @@ -12,6 +12,8 @@
