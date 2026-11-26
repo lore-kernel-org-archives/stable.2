@@ -1,98 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795662921;
-	b=Q9hxJ4a/SvadnjbPYGvw94+HcD1VQQd8mOhSaAac5RPuxjuMfaZnxy9d68l5JA4zY5oG
-	 us7yXHxRFSQqDAuPBCHamsNr6g0BkXzjbcEpSIFivMdQnxmxo40OWN4A8BOd/ijzMWE/Q
-	 tR0z7+WM8ZYbUkDtbiXD2neklaR7+bHRwY67iuxozXQwQKqXFdO7tv/ILGW/oUjGPEs1/
-	 V+AVLCk5KRHcDCAz7k69Q8l+tRP8bzJOwcPmGMkek+xaGz4H+7dTie4yG5l0uyNIL69qo
-	 mulYBsKZY5dGphxveM/n9VQlS9izTMv92ZWsM3onEbmDuQVLGKrdSwD5J9KDbhiJB5A==
+	t=1795662948;
+	b=Jh0NHiKIjkMbEzIEExddkFQcBS5Eezc/TlyzkO4hl/ckFr/nCrrx4m/1sd3epSrl6GY4
+	 3VKf35Co06y4d7/Pm+gyKItvxJhlvwi+hrJoCJC0FYpsYvAMWAcSK4YCtMnAlghEhF99h
+	 55yFyrLROrt9vpaTluEn265AXYPESvqh8jzz7MukBbHMMkJmNkAZtO41uhh1jTu/1MQpj
+	 1O31yQivhHeav1nKrwq0ioVWhy1LYOSPvbbiIKo2umg85pNNN5Q6BCpc1EUs+rxBWtr/I
+	 AaWcAqWgEsbIMinHZdYeWj1AUJPiYeCVr0O314C07Q1mjfLqQG5p1KB6MkW5okJDFqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795662921;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795662948;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=sNzRYBNLRKkf0Y/gp9OREoymKpw7SvFmjDC5u9+y2bU=;
-	b=V6FIhT6QZheZnt+PsweEaVqS3hh8+nsfqORaKOIM8o8TQyprVMSR74FdH0mAJHYGgXJq
-	 XeVfgtYorhaOFZB6F5Q0qjDo76O1srPiHQVX9noazuI00J1yxr5TWud+0fPe5TAXKOWEP
-	 en1/h9fw9+ssZY7Z2a52KdBNnKTyvurd2VbRlbmeKiSW/PuipwD8vdX/Ai6MK0iFTDCVs
-	 JyYc9nGWKqvADNTsTSVGeXRKfya3OnQxw3s4UQ9cqDEYgPJabB13DehCvUpEBX/jlIBSj
-	 7aujk2PARrrz6eP//+rESqWnMNWptwTfxxU5CKFd47q8aAjJvERS4OROH9iZ/wY+ttQ==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Uz5Xnl2AfSCtii2DAKq2bHJm7Z1k2Z78VEojlr0dwow=;
+	b=30sZTRrms2HOgRsVdlvGoQ8eeAXDEK+5gxcjs9kxmlXV1eogJYwW04u0ToEAzW2RIyYs
+	 o2bLKUUgkLp5jofgxfDrV9T2ovyrUZ+QrN0D+0+DQZ9QJ1ERaVBqpa/SHJHSMyDWeABgC
+	 Kga7vBuigth6RSNmB59VSD7ABahZ9PgxsmrWoBnU20D7X+fM2jPqaifIjMeULOfmxopRh
+	 fb2oOtJpYeoYbanzPnNTt8l42Jj4pBbSwSX+U3L1/hVcP3SQICzsIDYFmSrUIIyLpnA4r
+	 1l9VHaRQ99kSpR8IfoG4r+NMNUq+TKGSPpQYWVQO3ryxyXk7/e+4Y1uzm4B3dMuS/5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=skD2ppcL;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b="lXX3H1/A";
+	arc=none smtp.remote-ip=209.85.222.169
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F6A3606A326
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 03:15:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F6A3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B2F3606A685
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 03:15:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B2F3606A685
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=skD2ppcL
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4bba5e17728so12529755e9.2
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:15:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=lXX3H1/A
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93f269e335eso752871685a.3
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:15:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795662919; x=1796267719; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sNzRYBNLRKkf0Y/gp9OREoymKpw7SvFmjDC5u9+y2bU=;
-        b=skD2ppcLp8Io6d1UOVIAK49rjMBwYkQ5KwfoDF0RZK3PJEsvZ0LRJ3kNOLo8CLUrRP
-         YLgirbXYWF9Pg9MZUgEMOnzVrY2jwIVgD7OmWr3IYRQwKyqy628c3iwbsYdB+YJQv7KB
-         vHhTGwfGVQ3Ei0/E0CuAjbYVsoyAsuh4DwxJKQlJQG5zWgmy8JWX3el5c2MZDoBrEgcF
-         ZN7vym/yWsZoZoI9UTV2UtpiK92wOnTScZWeNi7wW7BRstB1Dh8V/N33bx6zhsYP+9yp
-         Zm/DpZzl5ar/0ekbWXqDkdgm09FolS3Df0wdOKRkbsHHV9DAyK/AQ43ba3ISCwUoWztd
-         l2lg==
+        d=rowland.harvard.edu; s=google; t=1795662947; x=1796267747; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Uz5Xnl2AfSCtii2DAKq2bHJm7Z1k2Z78VEojlr0dwow=;
+        b=lXX3H1/ADsjXeAjpJPsORX6gkMO1WFd7JCpJ6lgGjADil6c1A057LJ3NCN3g7Hik/o
+         2qjv9+FyuyBMeCQJldxkVXJiqcDbmc3NmNVpPxfOr3g3DUguVJIPADkT24y9Xo15ZfNc
+         qb84dA34F/Ffp4ihgEOLh7ug+KTL8zKkv4qy+DQdWlRG1Q2iFWlHOuxS2p6CtJEX8jzv
+         BurKCmvMNAYVrD4CEduefmdA7eEAX8CmPGmBhJDmpJqOmsckacy/Jg/2wjG3XEij3StU
+         cOSU4Uh6jJvq+2MXX//EDy/Gg9jH0DkV+Ch6Jc/Nz/Ws20CAju1ljwH2qAk6GrYyfhM8
+         rDCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795662919; x=1796267719;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sNzRYBNLRKkf0Y/gp9OREoymKpw7SvFmjDC5u9+y2bU=;
-        b=x6V/+dlxrHiY48ZOFqqq4E89cJ9BYy/9CGimH+K17IyqLRV7T/efqNESv/Yj9ZhlCE
-         6z6HDGx5xo08Sl4+kdhRmjmZEFGDGbAChoeE3K859p+z94uibQRMAnMR+KxtjkAWF5Vi
-         W0RJmCffs70w6xVRjc2+ENQlqNGJ+RmgCltylQm3ugD3DRwRn2FV0urpn7K24qreSLju
-         P5iocFNXxuRfdanhe8rVluEKlUYeZ7ByTXZrwdn6HWjS4JTerzaqZBmi+CqJwBmN6ago
-         uRxDDfOPQqzXfKUAxtt2p+1QjeV4HHGx7hLZuHMiPz5WsCcGxQwkV8h1YkSdv8VWxR9u
-         GS+A==
-X-Forwarded-Encrypted: i=1; AL+hErFF4EZrPk5KKAqV7bPkHGaD8I80kuSbGO4TIofBhTxdb+hNaabHo+Mk4PYGq7gpG0Um7Ut78CQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ZGZaMRUyeWqrUMOlNmQN1Q1JO3E22GA7tHVeh1Tyi9G992scQ
-	J08IC/MQZTTS/j6TvviUOJ6fotGvxflG6jXBRZMejuue/TL+ErlNPDM5
-X-Gm-Gg: AZFdTZerziV9u7STiTW2J747nWGnBIa8WcDGmqTaTgApBYs4fZj9veEgQ0CsdQTgfxn
-	tMbCgT3T5KWKMGZYzDqCkf6kOHKoo7lC6nA0Xn0YkLgQ8HsEk6waD4T/ieD16YPjARg/Dj3Krbf
-	e8bap8o60+HnhVL1wmsnitDfRUwyM7cXj83iAqO9UbhNURIKImcvYSQQtfLbt+iX2sXmYDOodyK
-	HXCBRHJbWmyo2l7VeZIm0ygAkS76Jr2ZcJjbqAyOIyn5YFVUrCvKbgNm+wF8hQ3izE9pMm6UNFh
-	SEel0ZTobFoM9f/w6LkqIl72nZUr1YE73W6rVOfaBui2aqCL6WcqvwYgd5fEE5zRsG8P2X/1GDJ
-	pifSbVpPPYKlL+e3ZsFVPJsQO0aof1P0M34QWpKi/6vbDGl9GLFmEYc5gAyTscbZ3PPVFOX2hOO
-	ut5eSZ++mp2npOkueDM2wE5zvtU36Co32IX91CWu6nNAFDiFmHjPQgwE6EGLiuZjvSf4X1HMxLr
-	13lWHrMD1wpx5EBURDBWGh2KzeM77XG0+nI6SEHphwSyNU++49uT6q/zZlFty1v3uqpfdJJicBg
-	Rtw65MB9tiTUXtWRgFXfzXM8luP5hSwMoL4dES9vQYa+5nX7oZY9h9Lkcwe7wpLiPLna23eAWxv
-	gh0ZP761MwMZtxdsuSLvFU6mUvRRbApC8lGsJyMd4xhRAwGhsDHE2jl5HXrZYVg5haQM5rK2VVW
-	MdcB9NsFspNm3J9jlJTLIZXJ7w9s/zoJZJbA==
-X-Received: by 2002:a05:600c:3b98:b0:4bb:7033:c92f with SMTP id 5b1f17b1804b1-4bb88826810mr384054565e9.11.1795662919396;
-        Wed, 25 Nov 2026 19:15:19 -0800 (PST)
-Received: from localhost.localdomain ([31.223.101.75])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6baa3882sm37189290f8f.49.2026.11.25.19.15.17
+        d=1e100.net; s=20260707; t=1795662947; x=1796267747;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Uz5Xnl2AfSCtii2DAKq2bHJm7Z1k2Z78VEojlr0dwow=;
+        b=t+NMG/tinPV6ekYURlJpeNcWmeDorMuhKAj9eXUYbWM7UE8tf4f6xUOQAKFuP13MpD
+         bIC04/agcifYaciruXLBkDiinOEsn88DNlsy80DWPFHkMPzWZq++9N1EF1f/To7HH4Of
+         1tQNSCriMxfCEYs7KBxflFWJaRQYcoEh1mIdmi/c81eHIaXkijfMrrl0FqN4Vsaz3Mfy
+         ieQEWrixGDwtQTttK5h75aXzgxa1d6NVA8DFoQ/oKHKMpl/E/5PKakSjRL6v5opNCvKb
+         ayU/HdR6RNkhV7cndjWgR4u6crt5MTKv+2/v8Tyrp6JCuk3JO3GaGuIzc+Pmmyb78XBy
+         eG7w==
+X-Forwarded-Encrypted: i=1; AL+hErEyeThNorBdDhpnwSG4HlkhWm6QqYMv1eVp4oEcNo1qfo0/JAGu450PRJnbWSodRGoXP6hjIDg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+CEq7+baGcQzc2251ZoR517AYeV2pL5ya2pWmmxWKnHBK4etYx
+	5sPMFFRwRLMSByjfVIVyy6U8h1Pqo65dciTmZywN7Hwt5JLSi9h3nPJKk6Ue0xN7yg==
+X-Gm-Gg: AZFdTZdUop0SdurvO+ZNIcj91BPZhyGgIPuaEszrsjRg6UIPxLKN18tGLkvnSOHgCbB
+	MYVkbwmLabZFCCHbYB5F7O2v/g23CVeaZsZs+Rh80sli3mUtK1LDSBML00VRlj9zE/eMLXpXV4R
+	KeqIT5++/wZNRHxJhUk9vCWpPhlhycPAqmtOkC4tpTzC/df36pxX2EaNkwwiL1Rsa8yjDc6YSY2
+	17rP6/7yEqpf9Ooncfhm7oZntk4XsA3ZQAghmo4YLZUFE2S+YoHWazW4oq456963Gu8pSYPd8Rv
+	A8bu7WD7duJILYRiZS+0kuUiLBqiLa3yPoVoCZdHBZiwsePmf9kbIeljVUIrShVOcAw1fxA+9kH
+	eAWf9G9IoPyKiAY//FA5lbmOMch6LyWs68OzNyPCd29NtSHtbqYZYZcVOpqLrN8hsWrOlu9bHQ7
+	5TwYxfP52jZ6whjKikG6Rwn+YNmvLa6wA7ENH3K9ft9wXQ5Lz03xh/iPhkKS6V77zlfJk1/evIF
+	TIsJhNPPyyWOapijfPTSQOkceGe+B1LyCCony6ngjww2D/xVdJ2yNf6RQOgwoOckSlRfiZB6QOs
+	IVCSkh9tnnybNooF1ofFtbqyLkZgWw==
+X-Received: by 2002:a05:620a:2605:b0:949:9f1e:d8b with SMTP id af79cd13be357-949ba99cb12mr3436849885a.16.1795662947036;
+        Wed, 25 Nov 2026 19:15:47 -0800 (PST)
+Received: from rowland.harvard.edu ([2601:19b:d00:161a::9a34])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949ca846322sm1290787985a.34.2026.11.25.19.15.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 19:15:19 -0800 (PST)
-From: Oguzhan KAYNAK <kaynak.oguzhan0@gmail.com>
-To: Jon Mason <jdmason@kudzu.us>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Allen Hubbe <allenbh@gmail.com>
-Cc: ntb@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Oguzhan KAYNAK <kaynak.oguzhan0@gmail.com>,
-	stable@vger.kernel.org,
-	regressions@lists.linux.dev,
-	yangqixiao <yangqixiao@inspur.com>
-Subject: [PATCH] ntb: ntb_tool: accept hexadecimal addresses in peer_mw_trans again
-Date: Thu, 26 Nov 2026 06:15:06 +0300
-Message-Id: <20261126031506.165973-1-kaynak.oguzhan0@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Wed, 25 Nov 2026 19:15:46 -0800 (PST)
+Date: Wed, 25 Nov 2026 22:15:43 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: kayano050408@gmail.com
+Cc: Neill Kapron <nkapron@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v8 1/4] usb: gadget: gadgetfs: fix ep0 request lifetime
+ and buffer races
+Message-ID: <b71d58f5-ca09-4f11-bac1-ab9720cac5dc@rowland.harvard.edu>
+References: <20261110-gadgetfs-ep0-v8-v8-0-8f90434574fe@gmail.com>
+ <20261110-gadgetfs-ep0-v8-v8-1-8f90434574fe@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,65 +101,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-gadgetfs-ep0-v8-v8-1-8f90434574fe@gmail.com>
 
-Commit 21fbdc4d0b1e ("ntb/ntb_tool: correct sscanf format for u64 and
-size_t in tool_peer_mw_trans_write") changed the format of the
-peer_mw_trans parser from "%lli:%zi" to "%llu:%zu". Unlike %lli, the
-kernel's vsscanf() parses %llu in base 10 only, so an address written in
-hexadecimal is read as 0, the ':' in the format no longer matches, and
-the write fails with -EINVAL.
+At last, I finally got some time to go over this material.
 
-This breaks the usage documented at the top of ntb_tool.c
-("echo 0xADD0BA5E:16384 > $DBG_DIR/peer0/peer_mw_trans0") and the NTB
-selftest. tools/testing/selftests/ntb/ntb_test.sh writes back the "DMA
-Address" that mw_trans<N> prints with %pad, i.e. in hexadecimal. As the
-address format comes from ntb_tool itself, the first memory window test
-fails this way independent of the NTB hardware driver:
+On Tue, Nov 10, 2026 at 12:13:22PM +0800, Jing Lin via B4 Relay wrote:
+> From: Jing Lin <kayano050408@gmail.com>
+> 
+> gadgetfs_unbind() frees the preallocated ep0 request after disconnecting
+> the gadget, assuming that no I/O remains active.
+> 
+> With controllers such as dummy_hcd, disconnecting does not necessarily
+> drain ep0, so a delayed userspace response can leave dev->req queued
+> when it is freed.  This triggers the warning in dummy_free_request() and
+> a use-after-free when dummy_udc_stop() subsequently drains the endpoint
+> queue.
 
-  Running mw0 tests on: 0000:00:04.0 /  0000:00:05.0
-  ntb_test.sh: line 117: echo: write error: Invalid argument
+This is a genuine problem.
 
-Parse the address with %lli again, which accepts any base, as before
-that commit. To keep the format and the argument type matching, which
-was the point of that commit, store it in a long long; it is passed on
-as u64 as before. A negative address is accepted and converted to u64,
-as it was before that commit. Keep %zu for the size.
+> gadgetfs_setup() and the userspace copy helpers also race on dev->req
+> and req->buf:
+> 
+> 1. ep0_read() versus gadgetfs_setup().  A delegated control OUT request
+>    is queued by gadgetfs_setup() and completed by ep0_complete(), which
+>    leaves the payload in dev->req->buf and sets setup_out_ready.
+>    ep0_read() copies that payload with copy_to_user() after dropping
+>    dev->lock, so the copy can fault and sleep.  If a new control
+>    transfer arrives during that window, gadgetfs_setup() reuses dev->req
+>    for it; for example, GET_DESCRIPTOR(config) points req->buf at
+>    dev->config.  When ep0_read() resumes, clean_req() frees whatever
+>    req->buf points to, which is now dev->config.
 
-Found by running the NTB selftest against a virtual NTB device in
-QEMU; the fix was tested the same way (the unmodified selftest passes,
-and hexadecimal writes to peer_mw_trans0 succeed 10 out of 10 times).
+But this isn't.  Or at least, your analysis is incomplete.
 
-Fixes: 21fbdc4d0b1e ("ntb/ntb_tool: correct sscanf format for u64 and size_t in tool_peer_mw_trans_write")
-Cc: stable@vger.kernel.org
-Cc: regressions@lists.linux.dev
-Cc: yangqixiao <yangqixiao@inspur.com>
-Assisted-by: LLM
-Signed-off-by: Oguzhan KAYNAK <kaynak.oguzhan0@gmail.com>
----
- drivers/ntb/test/ntb_tool.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+The real problem here is that gadgetfs does not handle "aborted" 
+control-OUT transfers correctly.  The request for the OUT data stage is 
+submitted when the setup packet arrives, and the host is told that the 
+transfer was successful when the request completes correctly, but the 
+user program doesn't receive the data until some time later.  And if 
+another control transfer arrives in the meantime, "aborting" the earlier 
+transfer, the user program doesn't ever receive the data.  It's not good 
+for the host and the peripheral to disagree over whether a transfer was 
+successful!
 
---- a/drivers/ntb/test/ntb_tool.c
-+++ b/drivers/ntb/test/ntb_tool.c
-@@ -928,7 +928,7 @@ static ssize_t tool_peer_mw_trans_write(
- 	size_t buf_size, wsize;
- 	char buf[TOOL_BUF_LEN];
- 	int ret, n;
--	u64 addr;
-+	long long addr;
- 
- 	buf_size = min(size, (sizeof(buf) - 1));
- 	if (copy_from_user(buf, ubuf, buf_size))
-@@ -936,7 +936,7 @@ static ssize_t tool_peer_mw_trans_write(
- 
- 	buf[buf_size] = '\0';
- 
--	n = sscanf(buf, "%llu:%zu", &addr, &wsize);
-+	n = sscanf(buf, "%lli:%zu", &addr, &wsize);
- 	if (n != 2)
- 		return -EINVAL;
- 
--- 
-2.34.1
+The start of a new transfer should not be allowed to erase all knowledge 
+of a properly completed control-OUT transfer until the data has been 
+read.  Instead, the gadget should NAK the new transfer until then (i.e., 
+not submit any request in response to the new setup).
 
+Fixing that will be a fairly substantial change.  Furthermore, this 
+whole issue is so entirely different from the race involving 
+gadgetfs_unbind() above that it belongs in its own patch.
+
+> 2. ep0_write() versus gadgetfs_setup().  For a delegated control IN
+>    request, ep0_write() prepares dev->req and copies the response from
+>    userspace with copy_from_user() after dropping dev->lock.  A control
+>    request that arrives during that copy can point req->buf at dev->dev
+>    or dev->config, so the userspace copy overwrites a descriptor buffer,
+>    or reset req->buf to dev->rbuf so completion calls clean_req() on the
+>    wrong object.
+
+It should be possible to handle this problem without copying the buffer.  
+For instance, the user data could be put in its own kmalloc-ed buffer 
+instead of in dev->rbuf.
+
+> Copy completed control OUT payloads into a private setup_buf in
+> ep0_complete(), copy control IN payloads into a stack buffer before
+> preparing dev->req and leaving STATE_DEV_SETUP in ep0_write(), and track
+> buffers allocated by setup_req() separately in dev->ep0_req_buf so
+> clean_req() never frees descriptor storage.  Ignore zero-length reads
+> while a non-zero control OUT data stage is pending so they cannot queue
+> a status request early and clobber setup_out_len.
+> 
+> Submit ep0 requests through a shared queue_ep0_req() helper that tracks
+> dev->ep0_req_queued and wakes dev->wait whenever the flag clears.  In
+> gadgetfs_unbind(), tear down non-ep0 endpoints first, then dequeue any
+> active ep0 request and wait under dev->lock with wait_event_lock_irq()
+> for completion to finish.  If the controller rejects ep0 dequeue, keep a
+> reference on dev and let the completion handler free the request when
+> udc_stop() drains ep0.
+
+These descriptions are a little confusing to read, because they mix 
+together your solutions to three separate problems.  Each solution 
+really should be in its own patch.
+
+Also, don't worry about a rejected dequeue call.  In practice, the only 
+reason such a call can fail is because the request to be dequeued has 
+already completed (or was never successfully submitted in the first 
+place).
+
+Alan Stern
