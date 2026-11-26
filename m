@@ -1,58 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795688673;
-	b=AJHiv1bwHh+z4F9or9ug156z4jBV+AmYePs+tfj3FGdHmJi5sVnyeVTT9nFnpqjmAXU+
-	 L8p+xpIsKpxiJ65FF+fWOHfGYpz6c9fL52yBOAXT/cPheXD/1MY3yAGMDBIBDqYNKqMFD
-	 9NywpXC2+sfg85R2ICUl/ZsPV99vVac34iQOCgFVSalJmsoJU1KknRASKviS3qkn30PBL
-	 ZzAkawObCGd7/V7a7ZPf0gMG4W1INxoheDwdS/dGsGvA3qYDK+ev7BS+zjRHkSwo83tPv
-	 BzWI/jiI11K75SwH/FdWXnOW38v4WSZCZaFl4J/0/TxP5NgZG83ZEN5Uc+I63w7Svgw==
+	t=1795688943;
+	b=PHsDat0gXJ8Q/hJyTfIOzlnbwn2FU6+HFEyLmmd59XSdgNSeaEWY3R9u/7RK6spkCwwY
+	 2V4ESXVvl2Oi75QoPdoPbHmKsp0tj3K5AXmrF7trSCO2sRzoGqEj43rcvXFtMC2fD/TvS
+	 9x4NVPcklwjA4y8U2x3Ns8pAcGKr+12AOJbWHpWG8dMH9TgieRGwKv8NtLObUN2J7OSP5
+	 GcGp2G0GGVn5Ep500NpspJvU5O78MRGu3eIkoT4tX5P2rrWAQqKVXkk5Pba6S4GA9fXl3
+	 yBaRj+EOGI50iF623BYh/nmzFQkRWIg4dfNzOOLrE/xYiB6Nd96B1xpdizZm13ugf4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795688673;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=HWXhD2T0YqRDo710NdzVWCmw80S5rSuIE5qAwGglR9Q=;
-	b=1xi0pwDI/fopyu999RUATueZGDO3UPlel6G49zlsoS2zHZxKc8QFJj3yjMWU7ldqKBTb
-	 mAv2DiItUw2g2V24xR4+gKroZP7+5+Kh4W2IDb8j2cmhetQKcFxGoTWhY7FRDpmZv68gA
-	 fU/RawRhqma93WzVI0ic+E7ChRnptGKbMAC6iR2zAKL8wHqOAS3y+qIjMYXKOv3YsM+nO
-	 NE/yL68+JoXeBnvx9Fg80N2eb3LFeO7EgKOpz6w2Vkj1wHUTxGlOpsCR4VNARkkUb5IN1
-	 cY8h5MuZ4KzJFNsts/u7bIyh/TMZ5FZwH9OFY0UmPh2g5uJunj+k8j9PStBSPltO3eQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795688943;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=R+7rhXnZ1gY96gjLnofIqdr2fJQxfTPvt1Dq9WYDRV0=;
+	b=YrV4qHNVGUsSCZyID24L7C1LUNWTQ8OpiUFGYoTGGkQ2rcJFe4yQ1Hmz1WNQIBiesY7Z
+	 DyItLk1rgKP+x7SopwgwC9dZoAuWnhDSUx8ikr6VWFIZvACI8Dmg/B2xWexDLfkWCx3O6
+	 Z0Ql4Ti6Bb/qs3hYQQafE/ryctXoy45lVouuBT7Fi66TO3BhfB+EIvAsJHY5UCBGhMh7o
+	 HksiFfq3ZKbrqYn5bjoxsyH4hY8J2jeYKdpwpDvuRUE0Hybr5+HQppSGBLOOeICYZS/Tn
+	 xSG198m/vgW6HJOFLyMnXn2KFplwkuMnlkGhirBvUe4XoYSI48YJe0gWeZuK5URyW9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hT2tNv90;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wg0X+ZpM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F80606A321
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 10:24:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65F80606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96388606A31C;
+	Thu, 26 Nov 2026 10:29:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hT2tNv90
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id A14EC4E4179C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 10:24:31 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6E7F660237;
-	Thu, 26 Nov 2026 10:24:31 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CA70211E6A5EC;
-	Thu, 26 Nov 2026 11:24:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795688670; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=HWXhD2T0YqRDo710NdzVWCmw80S5rSuIE5qAwGglR9Q=;
-	b=hT2tNv90ahKjUQOa2PA9w+ig6qobgxqJGnnsNUsMe71Jj8uMN8jI0+7woKeG0XQaba8s0o
-	0rAl+v6dGXw4zWstY2by8epYPzTD5qX1FVC1uOwpzCXMj/WMNc3WlmvZm4NSX/XIvKuUtW
-	hauygcBny7aVlM+8z562vmsGNdssOq23cbAQyamxzOAtiIyXLuk+9+I7R6nF3vyIXQa8I1
-	ERBxzOI9xKVeJFR7U/5t3dHbdxa1y4cgcpbO2kj+tkIjnA5xEzjXeIDBLyZDweWd1yb5K2
-	HW8RIJYF3jsf2v2aGJ1gp/H/bR9/4AKnOtOKsGIv1UbbIAaM9Qz2PXhe93g5Tw==
-Message-ID: <0e983410-bc97-46cf-9ee0-c4cd11dcfa64@bootlin.com>
-Date: Thu, 26 Nov 2026 11:24:28 +0100
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wg0X+ZpM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D6921F000C4;
+	Thu, 26 Nov 2026 10:29:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795688943;
+	bh=R+7rhXnZ1gY96gjLnofIqdr2fJQxfTPvt1Dq9WYDRV0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=wg0X+ZpMRSsq38JmN3ul2zxFrRFARxOvVOlGp0nBY9JA/0KRIT9uVLKTTert0KL+d
+	 y+fY+IqqoMPd/McJ+geAG0QGUxK7nzvmm7iTExMSaRCEmdTlNqeoY4/KjN9EoAlbJV
+	 6v0N+qxBxM01Rh3bKZT5a+YJFJ7R7hbiSKpUOG8o=
+Date: Thu, 26 Nov 2026 11:29:22 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jiri Slaby <jirislaby@kernel.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	kernel test robot <lkp@intel.com>,
+	Matt Roper <matthew.d.roper@intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Dave Airlie <airlied@redhat.com>, Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH 7.3 0395/1005] drm/xe: Fix build with DRM_XE=y and
+ CONFIGFS_FS=m
+Message-ID: <2026112659-swivel-catering-d9b6@gregkh>
+References: <20261125143821.729802100@linuxfoundation.org>
+ <20261125143830.996724307@linuxfoundation.org>
+ <912422fe-72c8-498b-a210-e8c385840674@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,41 +60,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 00/10] Congatec Board Controller: Add storage devices
- support
-To: Lee Jones <lee@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-References: <20261117-cgbc-i2c-storage-devices-support-v6-0-bb070ad3e9aa@bootlin.com>
- <20261119190350.GB70182@joneslee-macbookpro.roam.internal>
-Content-Language: en-US
-From: Thomas Richard <thomas.richard@bootlin.com>
-In-Reply-To: <20261119190350.GB70182@joneslee-macbookpro.roam.internal>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <912422fe-72c8-498b-a210-e8c385840674@kernel.org>
 
-On 11/19/26 8:03 PM, Lee Jones wrote:
-> On Tue, 17 Nov 2026, Thomas Richard (congatec GmbH) wrote:
+On Thu, Nov 26, 2026 at 08:18:48AM +0100, Jiri Slaby wrote:
+> On 25. 11. 26, 15:28, Greg Kroah-Hartman wrote:
+> > 7.3-stable review patch.  If anyone has any objections, please let me know.
+> > 
+> > ------------------
+> > 
+> > From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> > 
+> > [ Upstream commit da475c094342b6d5c8bc020b19d6900130bed047 ]
 > 
->> This is the 6th iteration. As discussed with Lee [1] I just picked his I2C
->> patch [2] (to handle the conflict) and rebased the series on top of
->> next-20261116.
->>
->> [1] https://lore.kernel.org/all/c9d26395-93f8-4e63-9cd0-586ce913931b@bootlin.com/
->> [2] https://lore.kernel.org/all/20261027093306.2812695-27-lee@kernel.org/
+> This has a later (proper) fix to actually "select CONFIGFS_FS":
+> c1234293de14 ("drm: xe: select configfs")
 > 
-> I assume this all needs to go in at once?
-> 
-> So we just need the I2C Acks, then I can take the set and send out a PR.
+> It needs a context update (xe_configfs_get_migrate_ulls_period_ms and
+> xe_configfs_get_disable_vram_page_offline do not exist in 7.3 yet), though
+> -- a 7.3 backport attached.
 
-Hi Andi,
+Thanks, I noticed that this wouldn't apply, but didn't do the backport.
+I've taken this also for 6.18.y as well.
 
-Could you have a look to the I2C patches, Lee is waiting your ack to
-apply the series in his tree.
-
-Best Regards,
-Thomas
+greg k-h
