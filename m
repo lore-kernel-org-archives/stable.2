@@ -1,102 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795681959;
-	b=3bw26vo6GqgtJQdXrKvlUcEihocL7DB3iF0aNBbckN7UYevNWtUMj8EjNUi051ZfIeDA
-	 sBywaNSdjj4Cnh5D/A3anj+JGXS5fYTgpTVSB2SCadg+itEcqC3GhZo/KZ+IL3MuJaHCk
-	 wzQhMKQwDVRQsDIKoGi7M8lxte544amIqasVGdvsKbjp/C9HSLjtIDeq2AOM5BwyUDXqw
-	 ArSxSnJlu/6sj30hLEq5KvBJvVil/+N8Qtc7cCzNEHPY/8ABFGNcZofUFR1xEFxzNwmxe
-	 F2QdU6Vv4w1xLCI6d+fGFcuZIxfz8iUhMIeDPnseCzaAYNF6vZo12WqFO3GHmHSfePA==
+	t=1795681985;
+	b=oOa0Ogk2jo1Nbl543s39JmIk9WMoKgqqTCBAZKfvtJUv4x4kTRcz5r18DqD3zccwfWqj
+	 sDmlcIl14RZcGI7Lc36/Y78MttQ+uIuM03fQSCwKQ6gfVk9Kptw5clCf5EwBOYQxWxibi
+	 piuKNUL/topSDGes1kUWW1d+OkgXcXbIxVGyZk5A/WXn6gmHZvQxpYjOwSwIP3iJtbI72
+	 sqUE4YdDqqbR/A+Qlw6PNaJAXqRTkIY2udt9G2nTZowVsRAFaXpCgep5sxgh7IXjyMv2w
+	 Po8mOOobRQkXrgP0jryBoOSMZsaDkwxAZke2inv5oeQRkxziKg/JtHKfDspMEytHYvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795681959;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=wzjJUYtJq/00jKf5atGKZJsY/VwF/Fx8FYMZJrmIn00=;
-	b=3kC2qOgXI5nXIBU9BaBRO+afaTXq/vBbhhI1g6U7acpoG+NWft1lN9MOrdVPMWatwqe3
-	 rPqOLTUUeJaLv5+LdEV0akQX6PzeVqCu0wAlYV0zpV28zf5A2ac4Syy5B3mcMc90d7xHo
-	 Nl2yns4tYpSXLFP1+dHzyNL/Z6WSd6akbJnZtrShrwETpTkFJFB0jyyq7nT+VDRhoGja2
-	 6oi3mO72VBluN88fjoEI7rBWQRhdJOAMDaYYnh5FM7RfWzVI/ZCAyQQmke1QjKE4iA+ER
-	 CB/3k9VGCV9LbCEdAcBbfBZyasvir/odRJic49mTQ1VBd98mZeXb0cgrN7EYOzIe+Mw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795681985;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=CVPnZRSCWOQxsvGWQVXg1N1wwt11N5KB5w/geIRGCyM=;
+	b=O8ZAZWxOI9slMTc++wHKSAaM5QYHTXLpv1CmL022zK7J22ZiCHJ1fC9kti5yvVKoqmDI
+	 DBWWKoryxq9VThcTVfbBsUszKiUd5lq71NYyN7xWLB48Gr3NJLRpjbhWJUfriD0Ft6LDm
+	 WQW9xVm24bqTQHTRNS1KINa0Yp7jYKUg/RY4ZKm941GmCQcvs76kQtqSsS1ymERvsRoXa
+	 9kJ1RMmULJiMm+LFaKfu8iubHvF92Wy3DILp/3ED3eJJ7lDIkl4+6NhH7q7g7xynBsSij
+	 4u2KcQ14rFkzX1w58BcvLPN1JiuldJosSUfn3+5Wr8GHhB9iScszkDBmsCot7c3BWJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="PtljBC/O";
-	arc=none smtp.remote-ip=209.85.215.174
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=BxlfYtwY;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D15D606A323
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 08:32:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D15D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C35606A321;
+	Thu, 26 Nov 2026 08:33:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7C35606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PtljBC/O
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cde84cb8803so1754050a12.1
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 00:32:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795681959; x=1796286759; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wzjJUYtJq/00jKf5atGKZJsY/VwF/Fx8FYMZJrmIn00=;
-        b=PtljBC/OMu+gIK/pomFMLQGhgxHPIInM/bASFncZErxN1Fh+6ARFHis8rY2E5+SQD+
-         lsd6H9QCdPp0ip1ywkclyQ4xnl7YY+YKdBxwSqfcYR8Xl2XZvCS98wYnLTAhPZEpabth
-         n3Gx2NdzH6fKqxvzmE+k6obTbVvKLeFJyBQpIP0D2mV52IpdmiHxSHFblwnfOOcGCllL
-         Vx6ojvnRiftGdsBzA6nULK7j6kslBFvMBjlzna7uQW91+dMl2Jis8aaHYkEMWSTU6xcl
-         T9+2TglB3CKoc5mO/HgDaVCO/JvgtIVa/HFpzD+e6vih36CySWblXmmx0uQNRGn7EjQn
-         r6SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795681959; x=1796286759;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wzjJUYtJq/00jKf5atGKZJsY/VwF/Fx8FYMZJrmIn00=;
-        b=VSEkbzOrKvjNLP5OoyX/8TdyBePtrmqePuUcrcJjme9lhVjF2NOU7Dhag2kJ7ILAVn
-         cwD9MEXYqxUpsipBW1zANTmtvGcvpf1/ho8BwUQuTDxpAWT8wTBK5nOtLxTV3q/wihP7
-         Y+ytM4TMLGdYWY9S4aCUVUxIBhxLuhfQxSAqUk8PvAVIcOL+pnZAFD7M7f4YubZnH8sb
-         v1lHwVeir6Ir1YnkkeKaKIyj1GaZpvT6iwHRL9r9U1NKrj08XKYNq1rR6ffeDeRU3hgt
-         /DQfeAYWWBr0PgLiMp4o1oqhfMTLGVpdEdUyovM6ktGehfdJUf5pBPHa7XkFA0C9BIho
-         TH5Q==
-X-Forwarded-Encrypted: i=1; AL+hErF84NalMER7CRV8EukqWl7FRWrcOXKaguGHwH+8fVgbPttlA4aEy8tQNHnVYj265DmIPnlsfqA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9vzmcIShlwtwXJjqWjfTHBO5jBfaefES1EwmxCeXmGLDy6ELeO
-	3FqQo9Ckl3rkDbRM7LxXQAwFkp4zx8MbeZ0UvHdvmNNgKvDoFAhQtsRk
-X-Gm-Gg: AZFdTZfK8DM5XSak+w3H+AJlbCJbpEWqGKCpDSPpxyIuKb2zaTTNFqQsaaTXZSMsjkX
-	QW2/plvgO4js9BIULOA8a/u9rNbTMpeWSf45IAY09WMfUaJ+Axa+1pLGkZYTr94QhNW+TksXU8a
-	OoEdNa59UUqgoB+5OXgxn2GKoeythABi91AcHrr9a5PqMMT8s6QIb/wxZMsk2NBsMThPxgdCNj5
-	2D8YN2O/CUUi+R7e7qh93iYCB0i4u5dK0e257/2sMJbfLqNWJbGBIqpLCD6EPTHanqIzvSCZB/o
-	oe5Gfbnm1s3Isf6NtuUFAvnv03S7I67ouYMru9wrSABHMgWlmGwir8ojv1e8hzkRqLjwE/Mt9JN
-	O7nmmlZTRnd4mhNN9MlezRxawjF2y0cCREoAnV++gOkWgqGbWhPG18fLHX59fBTg4z5zrQezuQN
-	Z3/WqMMbS1oYdTMCr22QAoaoGPDyZorlmAWe8IPzFrZcvjZmtedXW97oKMr2GbDpiUSkXxT9ZOr
-	Nx8eCkm8iNaJIQu827euvUvWKAWOIlBbhNUclPwTLxFXr5IyVBwSNfhTmPx/Yd7tgBdW9/oLDxN
-	1hAXcGLUImg5FeChmhdHHCdmqguVFgI3N57hmdHwk4hSH9QPV2z6nTk2LJ0eZ4CS7JuNz2NkQQ=
-	=
-X-Received: by 2002:a17:90b:4a48:b0:3b4:1884:984c with SMTP id 98e67ed59e1d1-3b41c7b573amr19343527a91.6.1795681958544;
-        Thu, 26 Nov 2026 00:32:38 -0800 (PST)
-Received: from JIAPENGLIN-MC0.tencent.com ([43.132.141.21])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b44b82e624sm13834575a91.4.2026.11.26.00.32.35
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 26 Nov 2026 00:32:38 -0800 (PST)
-From: Lin Jiapeng <ljp1205831794@gmail.com>
-To: aconole@redhat.com,
-	echaudro@redhat.com,
-	i.maximets@ovn.org,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	jbenc@redhat.com,
-	netdev@vger.kernel.org,
-	dev@openvswitch.org
-Cc: Lin Jiapeng <jiapenglin@tencent.com>,
-	stable@vger.kernel.org,
-	TencentOS Corvus AI <corvus@tencent.com>
-Subject: [PATCH net] openvswitch: reject negative L2 length in ovs_fragment()
-Date: Thu, 26 Nov 2026 16:31:41 +0800
-Message-ID: <20261126083218.55429-1-ljp1205831794@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=BxlfYtwY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=CV
+	PnZRSCWOQxsvGWQVXg1N1wwt11N5KB5w/geIRGCyM=; b=BxlfYtwYZHssk8y/r5
+	wANDT8vMT4ubKdZsZ7FzjdSsiZtDoZuMmPAIOCCrn0yHWvi6qDmj0/NjR1HPwZlo
+	W0rI3GdPVGJq+cK21pHrTmQ1ha5Vf2/L8YIjOp0MbZGQoC30E/W+JecPTek0mfls
+	Ghihdxp8dJWuquRaRxZmk+Gcg=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3_72N7gdr0m+nLA--.38709S3;
+	Thu, 26 Nov 2026 16:32:15 +0800 (CST)
+From: "Li Youhong" <dayou5941@163.com>
+To: song@kernel.org,
+	yukuai@fygo.io,
+	agk@redhat.com,
+	snitzer@kernel.org,
+	mpatocka@redhat.com,
+	bmarzins@redhat.com
+Cc: magiclinan@didiglobal.com,
+	xiao@kernel.org,
+	linux-raid@vger.kernel.org,
+	dm-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com,
+	liyouhong@kylinos.cn,
+	stable@vger.kernel.org
+Subject: [PATCH v7 1/2] md: use work_busy() to flush sync_work in stop_sync_thread()
+Date: Thu, 26 Nov 2026 16:32:09 +0800
+Message-Id: <20261126083210.210866-2-dayou5941@163.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261126083210.210866-1-dayou5941@163.com>
+References: <20261126083210.210866-1-dayou5941@163.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,49 +74,37 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3_72N7gdr0m+nLA--.38709S3
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtFy5Ww47Gry5WryxJw18Zrb_yoWfuwcE9F
+	W5Xry7Gry7Kr1rJF1rZwn7ZrWrtrnIgw1DWF1IyFW2kryUZr1jvFs8CwnIvwnava97Ww4a
+	9rWDCa4IywsxujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbApnPUUUUU==
+X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC+Q97KmsH7o++qwAA3-
 
-From: Lin Jiapeng <jiapenglin@tencent.com>
+From: Li Youhong <liyouhong@kylinos.cn>
 
-ovs_fragment() refragments MPLS packets from their inner network header
-and saves the L2 header in a MAX_L2_LEN-byte buffer before fragmenting.
+stop_sync_thread() only flushes sync_work when work_pending() is true.
+Once the work is running, PENDING is cleared, so an in-flight
+md_start_sync() can be missed and teardown can race with it.
 
-POP_MPLS can leave inner_network_header behind skb->data. The signed
-offset is then negative and passes the "> MAX_L2_LEN" check, so
-prepare_frag() widens it to 0xfffffffc for memcpy() into l2_data. An
-unprivileged user can trigger this on both IPv4 and IPv6 paths. KASAN
-reports:
-     BUG: KASAN: slab-out-of-bounds in prepare_frag+0x3c2/0x4c0
-     Read of size 4294967292 at addr ff110001059cf044 by task
-     ovs_frag_trigge/132
-     __asan_memcpy+0x23/0x60
-     prepare_frag+0x3c2/0x4c0
-     ovs_fragment+0x578/0x860
+Use work_busy() instead, so both queued and executing sync_work are
+flushed.
 
-Reject a negative offset together with an oversized one and drop the
-packet through OVS_DROP_FRAG_L2_TOO_LONG. Valid offsets are unchanged.
-
-Fixes: c66549ffd666 ("openvswitch: correctly fragment packet with mpls headers")
+Fixes: db5e653d7c9f ("md: delay choosing sync action to md_start_sync()")
 Cc: stable@vger.kernel.org
-Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-Signed-off-by: Lin Jiapeng <jiapenglin@tencent.com>
----
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
 
-diff --git a/net/openvswitch/actions.c b/net/openvswitch/actions.c
-index 12e339cbf791..9c19fe8676a7 100644
---- a/net/openvswitch/actions.c
-+++ b/net/openvswitch/actions.c
-@@ -788,7 +788,8 @@ static void ovs_fragment(struct net *net, struct vport *vport,
- 		skb->network_header = skb->inner_network_header;
- 	}
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 03e35386a802..1974943bf746 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -5213,7 +5213,7 @@ static void stop_sync_thread(struct mddev *mddev, bool locked)
+ 	 * never happen
+ 	 */
+ 	md_wakeup_thread_directly(&mddev->sync_thread);
+-	if (work_pending(&mddev->sync_work))
++	if (work_busy(&mddev->sync_work))
+ 		flush_work(&mddev->sync_work);
  
--	if (skb_network_offset(skb) > MAX_L2_LEN) {
-+	if (skb_network_offset(skb) > MAX_L2_LEN ||
-+	    skb_network_offset(skb) < 0) {
- 		OVS_NLERR(1, "L2 header too long to fragment");
- 		reason = OVS_DROP_FRAG_L2_TOO_LONG;
- 		goto err;
-
--- 
-2.55.0
+ 	wait_event(resync_wait,
 
