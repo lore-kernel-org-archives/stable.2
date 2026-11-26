@@ -1,54 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795667012;
-	b=NuyIosBI2YJiu4Q5keHm+0VAYtWZv9U007TDi1az0zPXIf6kf45CK1bwBeO7iJWxRZWO
-	 iEvmKOj27jOPXVPj44mjIn0pF8XtfSBJqT+ENt3/nRvtbwCQrtiqKGHssUkxRrPMM4Sw/
-	 hNxzg0vi4ONbmu2rKzw4BhrWtEAgJp/yOEVZ/jSQYi8dtkO/j/No6IATjVvUuyWpoj2Qx
-	 FlQjIHkTprODupnsmMDAgmUOl8mp8ZH4EVXGfNtqA6ohzq0Evom0VCfrPBSfWXwCXhIg+
-	 DgmDY5l2RF8OMUmbA/Zvkka0qU25GqhUDrWbRP7oDnPFY5vD+buUpA5BIuZqJd97lNA==
+	t=1795667019;
+	b=U/qPu4wcjQbymwrY//E+ofW3lCPGUiwtTa0iLx/cQ5giMKbj7npNbwT18VqSSqXy5bDg
+	 o/R5SRZv8JJLd8kpFAz5Xg8Z9PEfaU6HGZrBBQr08S5P5b6RbVxqRf6iv8Cne00fQMfqM
+	 D7zRYCJPSr2z3wTbDlev5eqBxNsVfHHO4OeUebQtwcuiWZuYrNb8Ql4U9m2VLNjakCKa1
+	 I5ima5QiU8MIHJpX3/bv5cWJOaDTXwS2LiL7ouzT9QI3p5MJARlhP2WVJZ4lMwPVzJbco
+	 YxlxmG1XJsSYzWM8DvPZkiNSOnFgBdBgqOJMuXKzML5+CgkEKGG5UsSB6gFDE8St9FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795667012;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795667019;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UEBLoEVOFh0yTlrwg7u/ulSxZUJmzmvvNtWhKxXRCoc=;
-	b=N6aKJT5BAXQXKV4ns4tylhQoK3vDNyJgXdNCvOtd08vOOG9+OFGxgx+YX4ahi45slCUR
-	 hHzNjAmN9e0bEKPVqeNhhv9w2TN4/PpNYJ2BA0fCCRmPGGW0HVJHy1pkLVzbabmOAU1B2
-	 Q1FQNuXBhykcaCstKRWoffi2IJFtSx+oKcSUNFwujmh5iHHaqpB1zPFVr8g1F/3sZ15Rb
-	 oaAmWk3LFQ1lyqG0fFI7ITE8tINVO36c5rv2z/oFJiSxCC5RQ7P4UFnf6t2AxjBUsGF7g
-	 4oCfPL1yYbsg6joN5sKMuGZxAXUI4WcYHdW88Xr2EEtjCDlJ+Svh03utW2MsIQKMxkg==
+	bh=bv85iyz6QPhsWFMJ5K8m9CK7IbUGmLWej8TbnLc4uUI=;
+	b=doS+MukqF9Xz44oFqSd+862SSchF5GVkHt19/W1/FaG093juYV5fzhOlAcnhj8H9fo2L
+	 SOi58IcFcqEvV40KaemdJJIuj16Re/JvNp/bbhXsHAvMi61yB0ygo3JKjXN4KWyDgCofw
+	 4Sn3Du61ndhPXYQhZBsvButLmSQ/Nn6fk4LRNvG2QntLqjfOYfN1vxy3174knvxvRsuFv
+	 Vw25eh0zK+9OOkqfsgtCTEU63sIXKVjzGDWUfK1gbIy6kIHDgugQrqg7pAiDl1grhnlUi
+	 Susx2JOWtUqYxBM/m1dB2dabEMwZsMQWuqvZ6K3honE+P4hBDJEb36kmoTaisWjazww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nxeq2I8J;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=el0hRs6e;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B778B606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:23:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D38606A31E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:23:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nxeq2I8J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4C941F000C6;
-	Thu, 26 Nov 2026 04:23:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=el0hRs6e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E9D71F000D0;
+	Thu, 26 Nov 2026 04:23:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795667012;
-	bh=UEBLoEVOFh0yTlrwg7u/ulSxZUJmzmvvNtWhKxXRCoc=;
+	s=k20260515; t=1795667018;
+	bh=bv85iyz6QPhsWFMJ5K8m9CK7IbUGmLWej8TbnLc4uUI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Nxeq2I8Jfawx091Y5wz6bZkO4VbTiXyKtBx41KKfvPWy1guD1IVKTJzXXo+vDoHl3
-	 wAZdLX7PGJJyuMj2Xn0INiTuSbjrsYEcYd+R0uR4EWqx2MeWXad1XP1GBSovDh/DMA
-	 /d9F36ZwL9eZxavTxYQpWTP0VGsm2qCmUyr8NjoAh2jzw2k/NPK0cPGfAlZ4wPI2KE
-	 ymd1wDbZqLvDZIZVkjl1c94s47atBmIn9lBLPdHoznPUgz054Ym72WHMSTo3dNK/f9
-	 g37eQPcCWRDcilDfpazgJBROKilEPX+21zCMCn2RfwhcLJ8PbJ0COvSOVAshA27f1G
-	 NX88Wv5CPf5HA==
+	b=el0hRs6evlx8+ZIw7nNPhrSE3XlmyQdfkOZMF36fS6+M1J+kmBOI0CLTFI1MUusEw
+	 O51TtZNPNK/YuiLzOqd9bE0gqs3PSCHuS1smpOW/IwigigBpTeVjjuNzVtZzwEfyER
+	 jRWBJiS0mTOIdi1rA5AvGDSpeSU7m+3dVv4te96gE4eYWeI3a6FoAOZbUDiIYzSm2a
+	 gPR9OsQuNZMAx19YMmJP7dx02zGqJhiOVWkFkowRgKT0P2HEQ4DO+bpcitzyeXXcNY
+	 Fu4mi10g8wcpN4WQVbq0XUIPGLT7oJ5A/dMx86Ipt/PICP6jTQdI5hSGyFoMIprb8X
+	 KHkuSFyAjBE7Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
+Cc: Dan Carpenter <dan.carpenter@linaro.org>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] smb: client: don't block dying tasks waiting for writeback on close
-Date: Wed, 25 Nov 2026 23:23:30 -0500
-Message-ID: <20261126042230.1914554-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] smb/client: Prevent error pointer dereference
+Date: Wed, 25 Nov 2026 23:23:34 -0500
+Message-ID: <20261126042229.1926905-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112534-bullfight-wanting-5e38@gregkh>
-References: <2026112534-bullfight-wanting-5e38@gregkh>
+In-Reply-To: <2026112506-zipfile-subpanel-c0d3@gregkh>
+References: <2026112506-zipfile-subpanel-c0d3@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,91 +62,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paulo Alcantara <pc@manguebit.org>
+From: Dan Carpenter <dan.carpenter@linaro.org>
 
-[ Upstream commit 15ea186abbcd04157c62e0901701870b812bb2bd ]
+[ Upstream commit 7a2158b73c36903e8822dae5442c27d6d0e1014b ]
 
-cifs_flush() waits uninterruptibly for the writeback it starts.  A task
-that gets killed while closing a file on a hard mount with an
-unresponsive server is stuck in D state until the server comes back.  It
-also consumes any writeback error for a caller that is about to exit,
-hiding it from everyone else.
+The cifs_sb_tlink() function can return error pointers, but this code
+dereferences it before checking for error pointers.  Re-order the code
+to fix that.
 
-Wait killably instead.  If the closer gets killed, stop waiting and leave
-the error bits in the mapping for others to see; writeback already in
-flight completes on its own.  Don't wait at all, nor check for errors,
-if it is already dying.
-
-This is also needed before letting dying tasks issue their writes from a
-worker, which would otherwise make them wait for every one of them.
-
-Fixes: d3f1322af8f8 ("cifs: wait for writeback to complete in cifs_flush")
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: stable@vger.kernel.org
-[ sashal: Replaced folio batch and folio writeback-wait calls with pagevec and wait_on_page_bit_killable equivalents, and dropped the braces around the if (rc) body to match the older code. ]
+Fixes: 0f9b6b045bb2 ("fs/smb/client: implement chmod() for SMB3 POSIX Extensions")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+Reviewed-by: Bharath SM <bharathsm@microsoft.com>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Stable-dep-of: ffb59029c0d5 ("smb: client: validate descriptor headers before query result allocation")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/file.c | 39 ++++++++++++++++++++++++++++++++++++---
- 1 file changed, 36 insertions(+), 3 deletions(-)
+ fs/smb/client/cifsacl.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/fs/cifs/file.c b/fs/cifs/file.c
-index 0da9c11cae278..a2b390facd7e0 100644
---- a/fs/cifs/file.c
-+++ b/fs/cifs/file.c
-@@ -2676,17 +2676,50 @@ int cifs_fsync(struct file *file, loff_t start, loff_t end, int datasync)
- 	return rc;
- }
+diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
+index ac2e09eacabc7..dd88f0ad23915 100644
+--- a/fs/smb/client/cifsacl.c
++++ b/fs/smb/client/cifsacl.c
+@@ -1734,14 +1734,16 @@ id_mode_to_cifs_acl(struct inode *inode, const char *path, __u64 *pnmode,
+ 	struct smb_ntsd *pntsd = NULL; /* acl obtained from server */
+ 	struct smb_ntsd *pnntsd = NULL; /* modified acl to be sent to server */
+ 	struct cifs_sb_info *cifs_sb = CIFS_SB(inode->i_sb);
+-	struct tcon_link *tlink = cifs_sb_tlink(cifs_sb);
++	struct tcon_link *tlink;
+ 	struct smb_version_operations *ops;
+ 	bool mode_from_sid, id_from_sid;
+-	bool posix = tlink_tcon(tlink)->posix_extensions;
+ 	const u32 info = 0;
++	bool posix;
  
-+static int cifs_wait_writeback_killable(struct address_space *mapping)
-+{
-+	struct pagevec pvec;
-+	pgoff_t index = 0;
-+	int rc = 0;
-+	unsigned int nr, i;
-+
-+	pagevec_init(&pvec);
-+	while (!rc &&
-+	       (nr = pagevec_lookup_range_tag(&pvec, mapping, &index,
-+					      (pgoff_t)-1,
-+					      PAGECACHE_TAG_WRITEBACK))) {
-+		for (i = 0; !rc && i < nr; i++) {
-+			struct page *page = pvec.pages[i];
-+
-+			while (PageWriteback(page) && !rc)
-+				rc = wait_on_page_bit_killable(page,
-+							       PG_writeback);
-+		}
-+		pagevec_release(&pvec);
-+		cond_resched();
-+	}
-+	return rc;
-+}
-+
- /*
-  * As file closes, flush all cached write data for this inode checking
-  * for write behind errors.
-  */
- int cifs_flush(struct file *file, fl_owner_t id)
- {
-+	struct address_space *mapping = file->f_mapping;
- 	struct inode *inode = file_inode(file);
--	int rc = 0;
-+	int rc = 0, rc2;
++	tlink = cifs_sb_tlink(cifs_sb);
+ 	if (IS_ERR(tlink))
+ 		return PTR_ERR(tlink);
++	posix = tlink_tcon(tlink)->posix_extensions;
  
--	if (file->f_mode & FMODE_WRITE)
--		rc = filemap_write_and_wait(inode->i_mapping);
-+	if (file->f_mode & FMODE_WRITE) {
-+		rc = filemap_fdatawrite(mapping);
-+		if (fatal_signal_pending(current) ||
-+		    cifs_wait_writeback_killable(mapping))
-+			return 0;
-+		rc2 = filemap_check_errors(mapping);
-+		if (!rc)
-+			rc = rc2;
-+	}
+ 	ops = tlink_tcon(tlink)->ses->server->ops;
  
- 	cifs_dbg(FYI, "Flush inode %p file %p rc %d\n", inode, file, rc);
- 	if (rc)
 -- 
 2.53.0
 
