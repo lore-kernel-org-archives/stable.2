@@ -1,101 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795669181;
-	b=TmMdwebkgYZN0ciiWfFNeRyQcfEaWnAduaQIuGdOF3jjFu7s23JNVIcr/i/dU7eF4Ayv
-	 woQsopdKCcW/m2H+5rAvjoVnv6gGx3EmorwSC9TwLTD1Bosu+543iPI+I15I7ipnUnocV
-	 mGkZz5HzZvLKygb/kMtuAiuRw/tHMtN0g5cyl7oreeMQTVdt4JvdroF+tKdZR17PwZoCk
-	 ugGsSItW6z8ZjE7KFdpUtKvK8Ak6neqAmBvxe9UAuiuH6s/hJQeVBB1EaUEHtIsKDJn0d
-	 thjJQf0bR5H8KFEQmbJysCNrRupJsQf+kJ0N33/SOHrjuo9ucO597aD5Oh3SWuzlIyg==
+	t=1795669263;
+	b=CCfObUaCFnCXi+c34VqBeFedrPxkGywVF2az1jpFsmr5rhxIfunvQVDQM+y58Wcnjjub
+	 DppBMXt4wHNQZVfYZ0pYBOhP6M32UCGNM613x48uGZXS/xzvNVnJJRwIAB6C8oECRxGrT
+	 U17/Z+pluqnk55WCYqfUedmLVY4Sc/pBzyrj6mmZt3DZQsKTtXbM7X6npzW4TBS7K4PEe
+	 trujbQGgNxG1o0ErkFex94Nc0A+1Phstw2dcBmttlIWhrhCgMJNxGP/UBkZ3UiuqJfcmu
+	 CjjZWcBd3VGXr53TydVmR3wC1STouLrbQXQdbTDDrA0XqttbBsPO5V7nlmHA7XvtQZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795669181;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=X+nJHVRosiUPbQF5ndFjmNHYck9oE5omsocbkDSOO/o=;
-	b=00LnJikYBwoBb/UrSAt1v2R5XAr6yZ1FWLn5VqacvzF29ES+VUX7h5wLB4cECAVgFklO
-	 oDLmpOYXm9SY7trFRkj4sXP4aWxYkyokO7e693gcu43Xd34fuRsVFz+NEnLgWyQIKzTU8
-	 FHwH4wGKXYzpKYxurgXqqZe2RES0jNygJWQU8efO9VLvfDmtGQDj0Y1/nWjimecrlB5lC
-	 Bw15gKUI4VWsUfri8LFvpGTjgYI36kP5JL3YNDCnC5wbhlIULtvoX5zxu9K9Vg5d1FUCs
-	 bVjzpygQL+P+5GZqV83Pj8UUuYKmVI0KN1oYu0E1bCHHbGyYHOlMXfKvrzjmafDPP+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795669263;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=NtJ1wSUAOoFiCMe299Gl/OC9+hyJ5qlVsrrInyEAvn4=;
+	b=Cp+XbP5y/Aw/QbmR6x92HrMXflp5ydCFxcRnTxDMpfL63jWMphm2oY9zkcM3mXsoejal
+	 1ov6hbDsXgN8sT3dIWTy2rFGnyK3KCn3NSE1ifvK9TQ2z1WQUfb+nhII7Hrn6RBjewjpe
+	 2b6Y+W12DGksuquGFpe4vmoKFLo99G2jC6hbV5bv/5CXmCMbk+p0pTEJCS75CNO6i2u0t
+	 rN9mDaS1qQV4/A140gViP453muc649maxcep8wHSCRU2qH0cyGPGFpgg6XURiBQCBQrgv
+	 aDgmRiUpJH0eCBaTXEh6QxEkbi+JcOkybaqZxPWelRxjcwIYTcwjrZn5XeclwbIs/Jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L1z09xs+;
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mw60T2fn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E038606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:59:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E038606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1963A606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:01:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L1z09xs+
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3b44bdcea8aso3724107a91.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:59:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795669181; x=1796273981; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=X+nJHVRosiUPbQF5ndFjmNHYck9oE5omsocbkDSOO/o=;
-        b=L1z09xs+l6yotNjMoqY+4OnbwTKue1rlBTJL74KHEvHu5gxCUa6rWoKN0TBHkzjItk
-         pkdeWwdmpchcAbPf2UTu/oC/H+4uEyRl4HFmiTJ+U43xXkPQxAeP0gWkps9bBK6s3E7U
-         GIw0jMeC74HEoJp2d4QjVj/caCEtIoOecjfJZEVtslVz+p/HXKQSgCFIAZ4blsUluy6R
-         kIRZHUuUWVXJg01pCxzpMWgcAokcsroMjmSrpGTiyKjwxPOOufwNDCRJxe1Rx6YZ5tPt
-         ZYTEX1wWvsR6/ossvz8czGlw/I4VRCtGc/p/BoviCxTDB/hzdy6J8b3XtS2pPza9I6za
-         XG4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795669181; x=1796273981;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X+nJHVRosiUPbQF5ndFjmNHYck9oE5omsocbkDSOO/o=;
-        b=Gpy4vueaa3ItZHEGwBW6tbsB9Mo+50dPQvLSVWQ2J+F0gM+Nsd1fwkBk42G13R5912
-         iVsfQC/HKQVcvXsuG33BjBFyNELuOJ0UIWuz/MMYMwlFjOcLH5nPcFRD4oA67o0gt8hX
-         SZjTbDTugzwsnJ+MEH7wbwVVvbtfcMfgdaWuNcEA3hMPQcyw/yaOqOPwvOigauqTpalt
-         RrfQTk68+eDCFlkhWm1BqSLiAqgRhwDJ62LFV6KZMWI0gACds8Rt1AmYz97NZn2d64gP
-         08M1M9qNAh0YFCjDsYx3rhwTj7lyihvebezRRqJMCp3oPry91U4lyiVr402/BxEbdKk2
-         j/rw==
-X-Forwarded-Encrypted: i=1; AL+hErGi51ibCUy/z3n+sRImpgNJ6nx6oUdYq2FbCB15DITGqOVkqBxOZ11e0U3w2eBm+pyicY8deN4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+SvseEXRCTp/J7GF87AOVWWolcFvINBl/2G+aTjmyqLtFWeaFe
-	LyZu1Pw+GpnOu2hbgOG+50Ln0qybFmZtcyCLH1WnJuyVn+E2vlsDizzt
-X-Gm-Gg: AZFdTZcRtTNBVVq01vDi5HWVMTXZVCmJHr28lAlBmCdd1ieqDyiELXDHVD3YncQ3FTV
-	s4jAprMfdt+bsMLZuQJq7UTMrpIcxAghGqSHPSLCsVb8dDT0glxvU9vzZOpZESeQyfzzJvEzfHh
-	KYZdZeiJiqF2QuJpLsBcUTZlb8omwThTrgBvVfd2VOJY5Jlq2+SP9qfXQeEB89IIq2csG18i8Uk
-	qWbHs5pVAP40o3yEc1mQ4ukhOz2oJPk4HeDAvUxNJUVjGMW2ehKLzgWuoFDTDH+8qrhtQtaUCom
-	CKMGtXoQE1qGqzrYoygtDn8k9RTyGRf9QAAKBeLT70LU2W8F0dOwA1KMopayyGUHkJ4C5Rk+E+P
-	35CJ325mC7mDKXHEZnY1OZ9pxP5OGlnfVIUi+R6I3zzUN11H61FZERGmJVuMbR5D+MxyPUk98x5
-	oUXidS17X91NbRS8PsmZvHjo/fcJJ0tYTJ5W/ZcZ/w+YQkFrG2yuVYPaXUVLrycgzRGSA4bs5XM
-	faIQgKaALHGhD0+D+vco0cFRztEnNGXNIq+51V45dQcNoXH3hI68X9ADnKLikFYMLVWYx36cFjq
-	e4Xh/3OK30QjGaYxw65yJjKed5Dh/duow8xSm7R68W3VsOv6kG1b6YY3wPFOIfwJsEGtZbGAAlj
-	Ef4+tZUp9fge1Om0IaXeS2M+eyEHzHDZvi4lFhSiatIqAS87Ug2iF0PEX8b7Av/ivmzyLsJ6DCX
-	UVzFH0Fhv1W0IxPIin7RIYi60=
-X-Received: by 2002:a17:90a:e710:b0:39e:6c68:fd91 with SMTP id 98e67ed59e1d1-3b41c96151cmr12803039a91.38.1795669180620;
-        Wed, 25 Nov 2026 20:59:40 -0800 (PST)
-Received: from kapoor ([149.40.62.17])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad46ef5sm30661677a91.8.2026.11.25.20.59.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 20:59:40 -0800 (PST)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
-To: Zhiqi Zhang <zhiqizhangg@gmail.com>
-Cc: Tomasz Duszynski <tduszyns@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] iio: chemical: pms7003: Reject frames with invalid length
-Date: Thu, 26 Nov 2026 10:29:28 +0530
-Message-ID: <20261126045928.518052-1-kapoorarnav43@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mw60T2fn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 287F61F000C0;
+	Thu, 26 Nov 2026 05:01:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795669262;
+	bh=NtJ1wSUAOoFiCMe299Gl/OC9+hyJ5qlVsrrInyEAvn4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mw60T2fnQ8sF53ulkVP3/Pq4zG+k21W+KL5C27RIicNnuBGrkTGBE5rupQIdx+VjY
+	 jLNLBNQiwnNcL9Z8nHtier4ZKb+E24/pc49Kipx8ArgHaBlK5KbSbELT/v21EGitXC
+	 4iUm80LDHMAXsh3UXifeHO1h/woSq3FRTGcE7lCBbzoFXY04imFiZKwkHtITWyPRWt
+	 5VTT7RO4Z5q1BX5SOelLY91wZJYqKBZHRbpRQkgLhZ2qT+QVEG9IE48CyYbKlEjQ2n
+	 9B4wGKk+8w2oGp5jvBURfBW+s8Jec0oe1gkvZhmZPYApufKF6ROhnoBKXpmEr0oCsR
+	 6/hZ+qORRMNJA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Samuel Moelius <sam.moelius@trailofbits.com>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Ming-Hung Tsai <mtsai@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] dm cache: parse invalidate_cblocks with kstrtouint()
+Date: Thu, 26 Nov 2026 00:00:59 -0500
+Message-ID: <20261126050045.2080405-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126041911.55827-1-zhiqizhangg@gmail.com>
-References: <20261126041911.55827-1-zhiqizhangg@gmail.com>
+In-Reply-To: <2026112510-mama-skintight-d6f5@gregkh>
+References: <2026112510-mama-skintight-d6f5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,41 +60,149 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 26, 2026 at 12:19:11PM +0800, Zhiqi Zhang wrote:
-> Accept only the fixed 28-byte PMS7003 data payload and make the checksum
-> helper reject any other length before deriving the checksum offset.
+From: Samuel Moelius <sam.moelius@trailofbits.com>
 
-The out-of-bounds read for lengths below PMS7003_CHECKSUM_LENGTH is
-real, but 28 is not the only valid length here.
+[ Upstream commit 00211ede62facec2915a7e6cfc17f8ce987a0078 ]
 
-pms7003_do_cmd() waits on frame_ready after every command, not only
-CMD_READ_PASSIVE. The replies to CMD_WAKEUP, CMD_ENTER_PASSIVE_MODE and
-CMD_SLEEP are short frames with a data length of 4, so with this patch
-they are dropped and probe waits the full PMS7003_TIMEOUT and fails
-with -ETIMEDOUT. The driver also binds to "plantower,pms3003", whose
-measurement frames have a data length of 20, so reads on that part
-would never complete either.
+invalidate_cblocks parses cache block numbers with sscanf() and then
+stores them in the narrower dm_cblock_t type.  Values larger than the
+cblock representation are truncated before invalidation, so a request
+for one cache block can invalidate a different block.
 
->  		num = get_unaligned_be16(buf + 2);
-> -		if (num <= PMS7003_MAX_DATA_LENGTH) {
-> +		if (num == PMS7003_MAX_DATA_LENGTH) {
+Checking the parsed value after sscanf() is not sufficient because
+sscanf() does not reliably reject values beyond U64_MAX before storing
+into the destination.  Such inputs can still be converted to a wrapped
+u64 value and then pass a later range check.
 
-Keeping the upper bound and adding a lower one should be enough to
-close the bug without dropping valid frames:
+Split ranges in place and parse each single value or range endpoint
+directly with kstrtouint() instead.  This rejects malformed values and
+values that do not fit in dm_cblock_t before they can be converted to
+cblock values.  The existing range validation continues to reject empty
+or out-of-cache ranges, including the single-value U32_MAX case whose
+exclusive end wraps to zero.
 
-		if (num >= PMS7003_CHECKSUM_LENGTH &&
-		    num <= PMS7003_MAX_DATA_LENGTH) {
+Assisted-by: Codex:gpt-5.5-cyber-preview
+Signed-off-by: Samuel Moelius <sam.moelius@trailofbits.com>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Reviewed-by: Ming-Hung Tsai <mtsai@redhat.com>
+Stable-dep-of: df8daa4d916c ("dm cache: validate the discard block size before narrowing")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/md/dm-cache-target.c | 56 ++++++++++++++++++------------------
+ 1 file changed, 28 insertions(+), 28 deletions(-)
 
-With that, the extra check in pms7003_frame_is_okay() is no longer
-needed, since a completed frame can't be shorter than the checksum.
+diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
+index a9e54bdd378bd..6dc177c51f8f0 100644
+--- a/drivers/md/dm-cache-target.c
++++ b/drivers/md/dm-cache-target.c
+@@ -16,6 +16,7 @@
+ #include <linux/dm-kcopyd.h>
+ #include <linux/jiffies.h>
+ #include <linux/init.h>
++#include <linux/kstrtox.h>
+ #include <linux/mempool.h>
+ #include <linux/module.h>
+ #include <linux/rwsem.h>
+@@ -3304,42 +3305,46 @@ struct cblock_range {
+ 	dm_cblock_t end;
+ };
+ 
++static inline dm_cblock_t cblock_succ(dm_cblock_t b)
++{
++	return to_cblock(from_cblock(b) + 1);
++}
++
+ /*
+  * A cache block range can take two forms:
+  *
+  * i) A single cblock, eg. '3456'
+  * ii) A begin and end cblock with a dash between, eg. 123-234
+  */
+-static int parse_cblock_range(struct cache *cache, const char *str,
++static int parse_cblock_range(struct cache *cache, char *str,
+ 			      struct cblock_range *result)
+ {
+-	char dummy;
+-	uint64_t b, e;
++	char *blocknr = strsep(&str, "-");
++	unsigned int b, e;
+ 	int r;
+ 
+-	/*
+-	 * Try and parse form (ii) first.
+-	 */
+-	r = sscanf(str, "%llu-%llu%c", &b, &e, &dummy);
++	r = kstrtouint(blocknr, 10, &b);
++	if (r)
++		goto bad;
+ 
+-	if (r == 2) {
+-		result->begin = to_cblock(b);
+-		result->end = to_cblock(e);
+-		return 0;
+-	}
++	result->begin = to_cblock(b);
+ 
+-	/*
+-	 * That didn't work, try form (i).
+-	 */
+-	r = sscanf(str, "%llu%c", &b, &dummy);
++	if (str) {
++		blocknr = str;
+ 
+-	if (r == 1) {
+-		result->begin = to_cblock(b);
+-		result->end = to_cblock(from_cblock(result->begin) + 1u);
+-		return 0;
++		r = kstrtouint(blocknr, 10, &e);
++		if (r)
++			goto bad;
++
++		result->end = to_cblock(e);
++	} else {
++		result->end = cblock_succ(result->begin);
+ 	}
+ 
+-	DMERR("%s: invalid cblock range '%s'", cache_device_name(cache), str);
++	return 0;
++
++bad:
++	DMERR("%s: invalid cblock range '%s'", cache_device_name(cache), blocknr);
+ 	return -EINVAL;
+ }
+ 
+@@ -3370,11 +3375,6 @@ static int validate_cblock_range(struct cache *cache, struct cblock_range *range
+ 	return 0;
+ }
+ 
+-static inline dm_cblock_t cblock_succ(dm_cblock_t b)
+-{
+-	return to_cblock(from_cblock(b) + 1);
+-}
+-
+ static int request_invalidation(struct cache *cache, struct cblock_range *range)
+ {
+ 	int r = 0;
+@@ -3398,7 +3398,7 @@ static int request_invalidation(struct cache *cache, struct cblock_range *range)
+ }
+ 
+ static int process_invalidate_cblocks_message(struct cache *cache, unsigned int count,
+-					      const char **cblock_ranges)
++					      char **cblock_ranges)
+ {
+ 	int r = 0;
+ 	unsigned int i;
+@@ -3453,7 +3453,7 @@ static int cache_message(struct dm_target *ti, unsigned int argc, char **argv,
+ 	}
+ 
+ 	if (!strcasecmp(argv[0], "invalidate_cblocks"))
+-		return process_invalidate_cblocks_message(cache, argc - 1, (const char **) argv + 1);
++		return process_invalidate_cblocks_message(cache, argc - 1, argv + 1);
+ 
+ 	if (argc != 2)
+ 		return -EINVAL;
+-- 
+2.53.0
 
-The commit message point about shorter frames passing the checksum and
-leaving stale PM values would then need a different fix, e.g. checking
-the length in pms7003_read_raw() / the trigger handler where the PM
-fields are read, so it is probably better as a separate patch.
-
-Thanks,
-Arnav
