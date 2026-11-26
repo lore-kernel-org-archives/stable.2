@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795658634;
-	b=v7WIYsOFSujfC2gG8o04L/hTxehn4Emy0AJdLG7NnAmR62cibWnj6Vm0itkm8qfEeWRv
-	 r8GSHaatKOejj72vnomDSyjl5W0lC8kBcWF473ULy/EL843Q4oy+rXN405CaPDKBv9+h+
-	 WZmm/5aeHm4r/nnHlwHAoh9aIW5CCjNIhIalI16+Rj8egooUph2CHbvjxNaJ4lGltAc22
-	 nRn9c5A8z6lhV9IuDOo/HygyTmjIDkg0ZsGXJqy0jj5YSnOEBKLn9jAyCitiA3VdnRtqU
-	 n/ooqkigQZaa+D9TCP3IYCEwlCC5V8QL1Ae/hRkBHdsiIn9fvMfzmVr7Sx6o3OxDMYg==
+	b=pnTf3ifm4SqBYZDLLIH3P/qklmGZUsoNucVaVdbZHKeqF+KoE4+rMAAhBAlGPVnklqiX
+	 2gWaFpzz3zQTIHPCeVWcByERCOYoVD6CpW9sHuiPeZnCcrphgIuQlznYNKWhQscnbAE4t
+	 W/+xaESWFUFyblCBp8/ZhOQBs41jIndVSQw6j9CZaRMMK1mvYeK/xjbarUB0Y585a5V71
+	 SF+7LTvawdT9eyZBdR0JzIlNcpgh+7/7b+tYdz3kVjbgbop0e8rHjfYl0VtiV7pviZPdE
+	 Os0jWTUfLeRjxZ//5z4vFyw6LdqN9VvQG3YybzXrBd8LnG/kGIkDZcojiquCqNKvOkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795658634;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Fsd5GnRW/Jmd1cWtCxsJhf1rveejlCEcyaT5kRxuw9A=;
-	b=EaILln+oqROk7B/xhvbcSIaSuomtt5YtRId9PnEVDWoKleemWyAxdLTNA6yeeViaGItc
-	 a+ej8aq6GRiyBcCjtd3HMWlCQziSwBCiDi5wOM/C3BDUcQLGWMmoI21V1zHvTWZuHlyxv
-	 PwOKLnUABBDTPONkWupvR/0Yrno14CM1QU5+EnZzI75B7OH01KoChiR80vi9HS/dDNf/l
-	 RWtUYytqKFW8CsCEHLQKO3vXG0mk0GyC88fTA8+Rj7SEI8xSbRN3UwC1UjuXtajlTmroz
-	 RYEaR6I/M7T9euvCz7L12LD5jaWuNfA4TcJkh3hoCU5llhmhvkgr/9XoTxOvPEEc71A==
+	bh=DyEev/aWlQn2szVmKc4tJ+Kkvwl6qNqDpy9bLe4H3OE=;
+	b=P+q6lKrjEe3wxovHbJPKmg+7lKj2yCb+mlBLBtzjSJ0Ggbu0d5eQfMivwoZWZkgiduZu
+	 EnCvMeiBqguPn9PiSCRAAbrvWnxQDzNusCBb60+OdWP6n+UdwFzy3yPLMNn0Tpcvjgnst
+	 3SAyP5zvGCDE5Gc6obd1m6bspJ1GWwhiiV1wnSuLs6KCWyIQ9Mjj0iY2QXLWW9SChM+Tr
+	 X5NF9se/h8CI+IX7SJBL89cdsrIDwOhGup890FTdKjC4KUlxY356GUlKSXzxYXQUx08LL
+	 TMQ+gXjEhs1G0/jU9UfK7lVnD9DT3tU4P4oR5176U7idku2Gwr5WbCHILZdsllZdwRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZQogM17x;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cJDMOiZ5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005D8606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:03:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69CB1606A321
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:03:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZQogM17x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAB8E1F000C6;
-	Thu, 26 Nov 2026 02:03:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cJDMOiZ5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF2421F000C0;
+	Thu, 26 Nov 2026 02:03:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795658633;
-	bh=Fsd5GnRW/Jmd1cWtCxsJhf1rveejlCEcyaT5kRxuw9A=;
+	s=k20260515; t=1795658634;
+	bh=DyEev/aWlQn2szVmKc4tJ+Kkvwl6qNqDpy9bLe4H3OE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZQogM17xsaoJldRNM4a3ygB36WrXFstJgA3j/SQdx54VKvjWcEPUpeCIPfVtUUsHT
-	 Cf1V4i8+XkQtdZJ+GHP3UVuoGWxGr2Tw484jnpv9xVz/xxnywRgRJC2HE3ajTmOXz4
-	 bA4A8YXClX7ZF9CxA4JywaAzQLTO+tc1kp1FIuDFx6rn9fILExGLnqV0Ab+p2xY0ID
-	 xqb4wq0g+6BmtEA61h86zzhxSPXeZPoOOMOufX7BOW/P3KYzYfLSzjOuUlGzqrUw8r
-	 QhouqYeP5LHq3LnN9FwPSCsSYGn1fH0ZXvvjE04H5HyeGSfLlt5la7Op1BR+Hxdqpy
-	 I0xU4Vz3Q+/ew==
+	b=cJDMOiZ5rYJ7evEnZ5AheiHXvXJVXODTTDmSLwjpSEpWivDmEPY+3NWCqm5j/JR/A
+	 ZFnPUGOnBsL7kk5hW9aeUDm9TiCqw8dVoWS/0Lc+8jQK9wK7n0hiqq3DqbfyWa5RNy
+	 1NJNC7yQdofjwqXSmu824U+DFmo8lLKsQ8hcLv1GFvd/bWGPpXQ+HdX09OySxjaR0h
+	 ckhINqGGWNmXEknDeLECRExadPqOnNalF6WJIf3VWa/wXAu7xCbn68JXErKh7SMDva
+	 c4GtPZchJqoCzxyrLs3etSOqWZvIUAtITLWJ/JTbqUhiTdrDUSVCPy6IFVkgI98nwf
+	 fn6RJG8ETd3TA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christian Brauner <brauner@kernel.org>,
 	Amir Goldstein <amir73il@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/6] ovl: port ovl_create_or_link() to cred guard
-Date: Wed, 25 Nov 2026 21:03:46 -0500
-Message-ID: <20261126020308.1696715-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/6] ovl: add ovl_override_creator_creds cred guard
+Date: Wed, 25 Nov 2026 21:03:47 -0500
+Message-ID: <20261126020308.1696715-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261126020308.1696715-1-sashal@kernel.org>
 References: <2026112548-vowed-carded-1ef2@gregkh>
@@ -64,107 +64,83 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 8c9531edcf60014b7e36739697f5cc15d5e853a1 ]
+[ Upstream commit f37b334728814b14745e15d46f9eab73750b67ec ]
 
-Use the scoped ovl cred guard.
+The current code to override credentials for creation operations is
+pretty difficult to understand. We effectively override the credentials
+twice:
 
-Link: https://patch.msgid.link/20251117-work-ovl-cred-guard-v4-3-b31603935724@kernel.org
+(1) override with the mounter's credentials
+(2) copy the mounts credentials and override the fs{g,u}id with the inode {u,g}id
+
+And then we elide the revert because it would be an idempotent revert.
+That elision doesn't buy us anything anymore though because I've made it
+all work without any reference counting anyway. All it does is mix the
+two credential overrides together.
+
+We can use a cleanup guard to clarify the creation codepaths and make
+them easier to understand.
+
+This just introduces the cleanup guard keeping the patch reviewable.
+We'll convert the caller in follow-up patches and then drop the
+duplicated code.
+
+Link: https://patch.msgid.link/20251117-work-ovl-cred-guard-prepare-v2-1-bd1c97a36d7b@kernel.org
 Reviewed-by: Amir Goldstein <amir73il@gmail.com>
 Signed-off-by: Christian Brauner <brauner@kernel.org>
 Stable-dep-of: 86e2facd8630 ("ovl: bump the impure dir version when linking a file with origin")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/overlayfs/dir.c | 70 ++++++++++++++++++++--------------------------
- 1 file changed, 31 insertions(+), 39 deletions(-)
+ fs/overlayfs/dir.c | 36 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
 diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
-index 8377f112feca3..935dc2187e6e2 100644
+index 935dc2187e6e2..058e18331dd47 100644
 --- a/fs/overlayfs/dir.c
 +++ b/fs/overlayfs/dir.c
-@@ -617,52 +617,44 @@ static int ovl_create_or_link(struct dentry *dentry, struct inode *inode,
- 			      struct ovl_cattr *attr, bool origin)
- {
- 	int err;
--	const struct cred *old_cred, *new_cred = NULL;
-+	const struct cred *new_cred __free(put_cred) = NULL;
- 	struct dentry *parent = dentry->d_parent;
- 
--	old_cred = ovl_override_creds(dentry->d_sb);
--
--	/*
--	 * When linking a file with copy up origin into a new parent, mark the
--	 * new parent dir "impure".
--	 */
--	if (origin) {
--		err = ovl_set_impure(parent, ovl_dentry_upper(parent));
--		if (err)
--			goto out_revert_creds;
--	}
--
--	if (!attr->hardlink) {
-+	scoped_class(override_creds_ovl, old_cred, dentry->d_sb) {
- 		/*
--		 * In the creation cases(create, mkdir, mknod, symlink),
--		 * ovl should transfer current's fs{u,g}id to underlying
--		 * fs. Because underlying fs want to initialize its new
--		 * inode owner using current's fs{u,g}id. And in this
--		 * case, the @inode is a new inode that is initialized
--		 * in inode_init_owner() to current's fs{u,g}id. So use
--		 * the inode's i_{u,g}id to override the cred's fs{u,g}id.
--		 *
--		 * But in the other hardlink case, ovl_link() does not
--		 * create a new inode, so just use the ovl mounter's
--		 * fs{u,g}id.
-+		 * When linking a file with copy up origin into a new parent, mark the
-+		 * new parent dir "impure".
- 		 */
--		new_cred = ovl_setup_cred_for_create(dentry, inode, attr->mode,
--						     old_cred);
--		err = PTR_ERR(new_cred);
--		if (IS_ERR(new_cred)) {
--			new_cred = NULL;
--			goto out_revert_creds;
-+		if (origin) {
-+			err = ovl_set_impure(parent, ovl_dentry_upper(parent));
-+			if (err)
-+				return err;
- 		}
--	}
- 
--	if (!ovl_dentry_is_whiteout(dentry))
--		err = ovl_create_upper(dentry, inode, attr);
--	else
--		err = ovl_create_over_whiteout(dentry, inode, attr);
-+		if (!attr->hardlink) {
-+			/*
-+			 * In the creation cases(create, mkdir, mknod, symlink),
-+			 * ovl should transfer current's fs{u,g}id to underlying
-+			 * fs. Because underlying fs want to initialize its new
-+			 * inode owner using current's fs{u,g}id. And in this
-+			 * case, the @inode is a new inode that is initialized
-+			 * in inode_init_owner() to current's fs{u,g}id. So use
-+			 * the inode's i_{u,g}id to override the cred's fs{u,g}id.
-+			 *
-+			 * But in the other hardlink case, ovl_link() does not
-+			 * create a new inode, so just use the ovl mounter's
-+			 * fs{u,g}id.
-+			 */
-+			new_cred = ovl_setup_cred_for_create(dentry, inode, attr->mode, old_cred);
-+			if (IS_ERR(new_cred))
-+				return PTR_ERR(new_cred);
-+		}
- 
--out_revert_creds:
--	ovl_revert_creds(old_cred);
--	put_cred(new_cred);
-+		if (!ovl_dentry_is_whiteout(dentry))
-+			return ovl_create_upper(dentry, inode, attr);
-+
-+		return ovl_create_over_whiteout(dentry, inode, attr);
-+	}
- 	return err;
+@@ -580,6 +580,42 @@ static int ovl_create_over_whiteout(struct dentry *dentry, struct inode *inode,
+ 	goto out_dput;
  }
  
++static const struct cred *ovl_override_creator_creds(struct dentry *dentry, struct inode *inode, umode_t mode)
++{
++	int err;
++
++	if (WARN_ON_ONCE(current->cred != ovl_creds(dentry->d_sb)))
++		return ERR_PTR(-EINVAL);
++
++	CLASS(prepare_creds, override_cred)();
++	if (!override_cred)
++		return ERR_PTR(-ENOMEM);
++
++	override_cred->fsuid = inode->i_uid;
++	override_cred->fsgid = inode->i_gid;
++
++	err = security_dentry_create_files_as(dentry, mode, &dentry->d_name,
++					      current->cred, override_cred);
++	if (err)
++		return ERR_PTR(err);
++
++	return override_creds(no_free_ptr(override_cred));
++}
++
++static void ovl_revert_creator_creds(const struct cred *old_cred)
++{
++	const struct cred *override_cred;
++
++	override_cred = revert_creds(old_cred);
++	put_cred(override_cred);
++}
++
++DEFINE_CLASS(ovl_override_creator_creds,
++	     const struct cred *,
++	     if (!IS_ERR_OR_NULL(_T)) ovl_revert_creator_creds(_T),
++	     ovl_override_creator_creds(dentry, inode, mode),
++	     struct dentry *dentry, struct inode *inode, umode_t mode)
++
+ static const struct cred *ovl_setup_cred_for_create(struct dentry *dentry,
+ 						    struct inode *inode,
+ 						    umode_t mode,
 -- 
 2.53.0
 
