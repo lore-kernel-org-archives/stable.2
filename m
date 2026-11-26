@@ -1,60 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795708776;
-	b=r6UD6mnNkcpFLSIX9AcIkWO5atd/78p4cTMzQzV6cQoGOhRrhyDNlisTll36fdb0Rzv2
-	 gWoS6wv3+SJh+u5/hzQFnS6DoGYBuJz9QX3qMkIPMTx7bv/RoqHAWwFyN5NC/6H650IE2
-	 Mk9Z5AlcHYOipa8voh2H2qr/2Vw0Kf2X8JkPItkMjSBIQHmWXM5PDih44r9wZzZrVH+7s
-	 Jh22vigeg3DOlHMMjVl9+dibh38V63rSQVuFvEhpbnMQDotq9ZscW6NuJeQMvNLYpO1c8
-	 j70DlOOlng6lNkQpzkabL1NP+x6BJVja/0wX5174gaSLdPbRftGY7SixwuSVL0YN8Aw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795708776;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=gm5G/fJu6IlNahvOmNHpb8doV0YCn5tddQmBs7WSS1s=;
-	b=R7Qbt5ShJKA2qmtutSnjVb4lDIme/VQWtQVfJ1xnUVQySZyzOA09Dv97XHir7x7z5GfQ
-	 TgJOW39r7tE+bKy4M3EAPwCS+f8/RVN8Q3xaYli+EoepQZj/D4qAUuS7+TMyFXMiWQxTh
-	 d9yIYo5dXgjspYsLgHH1FKSPoiIDC/1YYQ/Se39BWR9c1XH57JvzVu0zB2dh5kgllVN1l
-	 NZTQICRo0m4OsTITDUc9RTQBCdgMSqNg8KpyVLX45pgT2R18HJx54a5TW5wqi6gVA3o1X
-	 gd9rfepvSOsXp94kUhQVHn6u+iqkTLnNRKxL2PYaDEuIRfAEaf2XpzL1XFbn9jx2UcA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P3oYgiEJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.91
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795708891;
+	b=S2doTwd+NuEyFtv9QIaosXLHeTrtvf1drgctpSUclu0jySvAhyGEYUMroOc8YOGzRotQ
+	 VfTujUptyXE/eVB1yXTsRlAMbGiJxJYo7Bn6eiFXr5IMY4MYc3B6MA7O5NGilialYYTrJ
+	 sLRQM7wEgmw81FM/DNMpkcNqrFhMx+534I417pK1yf19Ynzw4x21OD+MWlAu8OyiN7XAF
+	 psILiXEUl8pXj2+z1AzFf5nfuMbrjgIO7YNmvWq0nMBmVTlFTvHB4Ow2r/c2NWpwcpyV7
+	 5y7WLSFI5NlCTB2EFXUJ4LyKGonsobSKeoP7VplNmyZoN5W5AYia2d9F+gOr3lPbJiw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795708891;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=eqmgHj+KyvxEVxd2aIN7Y36hxhbA/1YsmnaLw6WzTPo=;
+	b=HT2MYR91Cm7yySnDwlY7xoHw+JlIt92Gj1wgX5kgI57MvQQJTpBRXKRKQ2siyQA+tG0w
+	 amfa+gRjrQBgp1g0gOzFSoEzMUSusKDAfJy4psN2JVCKhjwty/7CPQS0ydvBNuatvT4mm
+	 A2DNU10rHdBLWUM6nEZlvTdt9ev7fq0K/G0FWmFbv64gqHXg20fvsayP/J5K5oGkNYeWR
+	 bapNcBXOiWT+t45BhHcimFpmEtbKp/kJttjZFKndqw5R/kQ52Zc2dhZiqynckSlAEHyFK
+	 7KHt6DlfME+LyI//2PUrwCF3YV9SEEYxkHXFnf35lkksN37PlzIhQD3ysqur45vsrkQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=telcobridges.com;
+	spf=pass smtp.mailfrom=telcobridges.com;
+	dkim=pass header.d=telcobridges.com header.i=@telcobridges.com header.a=rsa-sha256 header.s=selector2 header.b=toyRrejy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.91
+Received: from YQZPR01CU011.outbound.protection.outlook.com (mail-canadaeastazon11020091.outbound.protection.outlook.com [52.101.191.91])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 037A7606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:59:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 866A0606A335;
+	Thu, 26 Nov 2026 16:01:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 866A0606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=telcobridges.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=telcobridges.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P3oYgiEJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84F521F000C6;
-	Thu, 26 Nov 2026 15:59:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795708775;
-	bh=gm5G/fJu6IlNahvOmNHpb8doV0YCn5tddQmBs7WSS1s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P3oYgiEJvqzNimn9EujMgc9uddX4HdOYQtq5RFkNnOMK/vYcciha5yNsWH8qqk49f
-	 CeNzcTKZVNCw3lytQWtg8m+YkgTyEXWIDECrrongaha1IJegcJG48OCC+rMsyrZoXi
-	 KnQJ69IiXMXvcPpC5nz7to02wizMV94fK1xoBYJOVV3L2AzxiwOq2rm4DkdSTk87zV
-	 2RmMBV1MZJHsAcKMJc3MKtcBmKd2Zl/VXL6Q7NsbCM9dEhfP38LvAvZBjG0LL8cCmc
-	 FBmxEr39FJ5cXkRc1Ug2htr2gMm4JrvGYM4vn8CrIMt+yzSgbMqhWxftY6eiKj+QaK
-	 YSItdCA6gYwMw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Krystian Kaniewski <krystianmkaniewski@gmail.com>,
-	syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com,
-	stable <stable@kernel.org>,
-	syzbot@syzkaller.appspotmail.com,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>,
-	syzbot+bca09f5d8b843bbf7571@syzkaller.appspotmail.com,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] usb: gadget: u_serial: pin ports while TTYs are installed
-Date: Thu, 26 Nov 2026 10:59:33 -0500
-Message-ID: <20261126155900.2536389-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112522-unnerve-repugnant-a1eb@gregkh>
-References: <2026112522-unnerve-repugnant-a1eb@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=telcobridges.com header.i=@telcobridges.com header.a=rsa-sha256 header.s=selector2 header.b=toyRrejy
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Gw7UatGcUbaKholSS4pOIFemN6edTcycqfG5GSkRz0xh5vNGbAOo+UeruNHHKZN1D33+LlEoLdIr3uCE3smILjNIueUPOH9H+jsYn0W9z2FZCCCSDabhzxblB/uGZUGzhqdZxR+EXNWIFz0Zl3nBjv33hrEEo8j3adqrG8P4RgpPqK+bcYoqUKY+8fOfGUOMI70bYxY5Fby8ysmjYIDfoluuAZJZRYAFQcFkhTVHYu8qoNAQHNNxcZYAKnzve3I412as/JOixYViAIMQjQGXrVK7rXy0u12bCwBd3PFDNJIZo+DzVinQReVtKsUeznHmQBibHgVfer6A9rYVu6Js6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eqmgHj+KyvxEVxd2aIN7Y36hxhbA/1YsmnaLw6WzTPo=;
+ b=EF/TF4iKkNb8Abtf1p1Nb5fXPswgArjxB8JNs6nG9hfqq7k8j1Cka27z+ZmOLn+LDwKNKKNrFuuiI0tNCUdcGTurJ3Rjxq9OXJpHSyDzzp7WY4gwzRz7y+ivmzhWXRLKdcDmlCuYiXSfhUw2e2LVTYYGLFpCE5nbL/NDGVlfu8170bdHeG8LQH2dICXNnj6ZPdxC2s0ak++2ONZgs+QiKz9DPKGuG/qkVNcbk8w+ZRUeTIZez7KdckO70Hz9q/IxJE9coli4W1JDQaL7Dr4eiWOJFBQJfGil0odwyR2KaE3DKntc+EAG7B5qKbSGtQM/zzJyGnkg8/dKEpJGPIFItQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 142.180.224.216) smtp.rcpttodomain=davemloft.net
+ smtp.mailfrom=telcobridges.com; dmarc=pass (p=quarantine sp=quarantine
+ pct=100) action=none header.from=telcobridges.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=telcobridges.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eqmgHj+KyvxEVxd2aIN7Y36hxhbA/1YsmnaLw6WzTPo=;
+ b=toyRrejyuAFexQmVcfYy/+DBGRn89QsEl+wQLWI+f5+yoy84KnF3oEV9tRGgWWMfFecYB6mONOsE6vFcO+xsf1TH+b0nV6GE6qq8OQWlhPcojzpGyDEjdeoVyadYz8ITNdViFFxyupEf1z74ZJLEHszVdAvqY+DQbKSEYPzEGZ0=
+Received: from YT4PR01CA0317.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:10a::10)
+ by YT3PR01MB5350.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:62::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.7; Thu, 26 Nov
+ 2026 16:01:23 +0000
+Received: from QB1PEPF00004E0F.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10a:cafe::34) by YT4PR01CA0317.outlook.office365.com
+ (2603:10b6:b01:10a::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.7 via Frontend Transport; Thu, 26
+ Nov 2026 16:01:23 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 142.180.224.216) smtp.mailfrom=telcobridges.com; dkim=none (message not
+ signed) header.d=none;dmarc=pass action=none header.from=telcobridges.com;
+Received-SPF: Pass (protection.outlook.com: domain of telcobridges.com
+ designates 142.180.224.216 as permitted sender)
+ receiver=protection.outlook.com; client-ip=142.180.224.216;
+ helo=srv-code1.telcobridges.lan; pr=C
+Received: from srv-code1.telcobridges.lan (142.180.224.216) by
+ QB1PEPF00004E0F.mail.protection.outlook.com (10.167.240.7) with Microsoft
+ SMTP Server id 15.21.688.5 via Frontend Transport; Thu, 26 Nov 2026 16:01:22
+ +0000
+Received: from srv-vmware-cmcburney-tbos10.telcobridges.lan (unknown [10.0.0.68])
+	by srv-code1.telcobridges.lan (Postfix) with ESMTP id 431BB9655;
+	Thu, 26 Nov 2026 11:01:22 -0500 (EST)
+From: Curtis McBurney <cmcburney@telcobridges.com>
+To: netdev@vger.kernel.org
+Cc: Curtis McBurney <cmcburney@telcobridges.com>,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	andrew+netdev@lunn.ch,
+	willemb@google.com,
+	toke@redhat.com,
+	daniel@iogearbox.net,
+	almasrymina@google.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v3 1/2] net: keep txq->trans_start on repeated netif_tx_stop_queue()
+Date: Thu, 26 Nov 2026 11:01:13 -0500
+Message-ID: <20261126160117.652865-2-cmcburney@telcobridges.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20261126160117.652865-1-cmcburney@telcobridges.com>
+References: <20261126160117.652865-1-cmcburney@telcobridges.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,375 +119,128 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: QB1PEPF00004E0F:EE_|YT3PR01MB5350:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 152d9e02-9426-43ab-490e-08df4bd6845e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|7416014|23010399003|18002099003|261009223027099003|22082099003|10067099003|56012099006|261022075727099003|261026121527099003|261102123227099003|261022105027099003|261028144727099003|261026140227099003|261021121427099003|261021135927099003;
+X-Microsoft-Antispam-Message-Info:
+	DNZatKmCZJWrKaDfaq+t4//BQIcPfFL9hJ2EZKRf0YlTy02i+yPnA0ujNzJ3WsYOGjb9a0VDGTPMQzaXQ7GDZY7NfOyFJ5zUckvd52i1tp8yPoulgxcXyhW+0/TebqNJRC0b+4wOzxwuh00DyakcRFGCKoNukGuxOMNt4k4eOciUHazdv5JhXeTG35tKVLJlze0RYQVcBkzpd7h85wAHiak3DxkEXhXCo20JKHT9thX5eG/x9ngy1z0vRBxaGO+b6QZKeghv81pxnAg4/k3TdWtGLWW/mvwfmWpm6bU+v31sOfl/rrHofkZd7E+oKmpHdcR3JxLHdCcvOAB63X/HJv1NGwfpzJE35m9NKruP4EkZX9dIuNniu1oPGCNL0PfoT7LAruTEorTCNuy0Q5qJO3jdWVbSkTkqGMstkmPiNWQ8LVdFvAIP8B2EHbGA8/LICHNQd5lkdlF/CT4bgbe2xlw9imeZG0tqy8QXNoSVfqUyJk19pblHfibomIahHENykMa8EF8VyycO5SMlwp1WrNeDU/qz1sZCCtOvaM5/BnjWn0eRTA+O3pa7B/W8vavMopKpCQaFZjRDTDISseNXDqn69iTSCZH/p9semfOhW8YV4LM8OjKw2UppDN7c6YUsgS2CoNmohWoHsNNaxyseFkVHrcKDdtBKHxM8ZU7OWXubHB0bWSKRZ7sjJ1QhH3wxSAv7QJGwQHgAEhEJrE3szw==
+X-Forefront-Antispam-Report:
+	CIP:142.180.224.216;CTRY:CA;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:srv-code1.telcobridges.lan;PTR:ipagstaticip-a30715f8-af06-ab92-2e59-6516aeac2c90.sdsl.bell.ca;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(7416014)(23010399003)(18002099003)(261009223027099003)(22082099003)(10067099003)(56012099006)(261022075727099003)(261026121527099003)(261102123227099003)(261022105027099003)(261028144727099003)(261026140227099003)(261021121427099003)(261021135927099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	lnnNr2sAcZVetkzpQerqQe/OynKriPHM+VFr3MPbugWxPDuz796sFV9U8npgCCeJ5kAjwteM+5J5YRSajFieziuDXq581MGrtpVWa/NsjqQ16DYnEFAZgi9sUu5qdyYbwGLofzAIKvlEg2UJetd3WRhan/9/WsNkc+Gtp2tGBO4Bf1YWlXiEMVJtao2Z1wL5HMo4MyvqOyyuwxZOsOHLLfNGh+hlG96Ej9lbPvoZexGCgNciVfeIKdEMyOfO83zNm+g+jhxvavUG1MelkdW9RS6+sTKeF5LMY6OIsfxhUQKvVClSF3D3UtwdMCfvEvDfimF0k8Zfr3FIstsrthsWbQRPAJfVf1i4K1aBJR9BydRhd5gvSIwpTq+/Tk7BLBnBwLK7vx9ulIhhOyeaNl910/4OETP/iZuVVQxmkDwYkv43LNOrss30FyntbAG5ql3O
+X-OriginatorOrg: telcobridges.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2026 16:01:22.5252
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 152d9e02-9426-43ab-490e-08df4bd6845e
+X-MS-Exchange-CrossTenant-Id: 5dc833ed-bd96-4d5b-aaa0-0d8be83ae4e5
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=5dc833ed-bd96-4d5b-aaa0-0d8be83ae4e5;Ip=[142.180.224.216];Helo=[srv-code1.telcobridges.lan]
+X-MS-Exchange-CrossTenant-AuthSource:
+	QB1PEPF00004E0F.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT3PR01MB5350
 
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Since commit 95ecba62e2fd ("net: fix races in
+netdev_tx_sent_queue()/dev_watchdog()"), netif_tx_stop_queue() writes
+txq->trans_start on every call, also when the queue is already stopped.
 
-[ Upstream commit 1981b53c2b52a00f0f4b9eb87183c9aedc8dac5d ]
+Several drivers stop the queue from their periodic Tx hang check and
+leave the recovery to dev_watchdog(). e1000, e1000e, igb and igc call
+netif_stop_queue() or netif_stop_subqueue() each time the hang check,
+requested every 2 seconds by the driver watchdog, finds the hang again,
+and do not wake the queue. Each call now moves trans_start forward, so
+dev_watchdog() never sees the queue stopped for longer than
+watchdog_timeo (5 seconds for these drivers). ndo_tx_timeout() is never
+called and the adapter is never reset: the driver logs "Detected Tx Unit
+Hang" every 2 seconds while the NIC stays hung.
 
-A slab-use-after-free can occur when gserial_free_line() frees struct
-gs_port while it is still reachable through an installed TTY. The
-port->port.count value tracks successful opens, but it is zero before
-gs_open() and again after gs_close(), before TTY cleanup has finished.
-Teardown can therefore free gs_port while tty_init_dev() or release_tty()
-still accesses its tty_port.
+Return early from netif_tx_stop_queue() when __QUEUE_STATE_DRV_XOFF is
+already set, so a stop on a queue that the driver already stopped
+writes neither trans_start nor the bit. A queue stopped only by BQL
+(__QUEUE_STATE_STACK_XOFF) still gets a new trans_start when the driver
+stops it. On the path that sets the bit, trans_start is still written
+before set_bit(), which keeps the ordering against dev_watchdog() added
+by 95ecba62e2fd. The early return issues smp_mb(), so callers that
+follow the stop with smp_mb__after_atomic(), such as
+netif_txq_try_stop(), still get a full barrier.
 
-Manage gs_port lifetime with tty_port references. Take a reference in
-gs_install(), drop it in gs_cleanup(), and move the final free to
-gs_port_destruct(). Unregister the TTY device before dropping the owner
-reference.
+netif_tx_wake_queue() can clear the bit between test_bit() and the
+return. The queue is then running, as if the wake had come after the
+stop, and the next stop writes a new trans_start. Setting the bit
+without writing trans_start would instead leave a newly stopped queue
+with the trans_start of an earlier stop, from any time before if the
+caller is preempted, and dev_watchdog() could report a spurious
+timeout. netif_tx_stop_queue() is the only function that sets
+DRV_XOFF, so every transition of the bit from 0 to 1 follows a
+trans_start write by the same caller. The time between that write and
+set_bit() is unchanged from 95ecba62e2fd.
 
-Keep each minor reserved until the old port is destroyed so an installed
-TTY for one generation cannot overlap a replacement at the same minor.
-Publish the new port before device registration so the cdev and add uevent
-never expose a TTY before gs_install() can pin it. Since commit
-8df07fe93573 ("tty: fix saved termios reset race"), u_serial registration
-no longer frees saved termios. On registration failure, unpublish the port
-before dropping its owner reference.
+The issue was observed on a system in real use: a hung NIC kept
+reporting a Tx unit hang and was never reset. Code inspection then
+pointed to 95ecba62e2fd.
 
-Check in gs_open() that the installed port is still the published
-generation. Track failures after a successful install so close callbacks
-issued by the TTY core do not decrement port->port.count for opens that
-never incremented it.
+I reproduced the issue and tested the fix on an AlmaLinux 10 kernel
+(6.12.0-211.74.2.el10_2, which contains 95ecba62e2fd) with the e1000
+driver on a VMware-emulated Intel 82545EM. Reproducing required
+modifying the driver: a test-only module parameter makes
+e1000_clean_tx_irq() report a Tx unit hang on every hang check of one
+interface. netif_tx_stop_queue() is inlined into the driver, so the
+patched variant was e1000 built out of tree against the 6.12 headers
+with this change applied. With the fake hang held for 30 seconds:
 
-Fixes: 19b10a8828a6 ("usb: gadget: allocate & giveback serial ports instead hard code them")
-Assisted-by: Gemini:gemini-3.8-flash syzbot
-Reported-by: syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=fe63e4d633540f230624
-Link: https://syzkaller.appspot.com/ai_job?id=ec789387-2e7b-4a8f-a7a1-a47bf7fa57f5
-Cc: stable <stable@kernel.org>
-Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-Tested-by: syzbot@syzkaller.appspotmail.com
-Tested-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
-Reported-by: syzbot+bca09f5d8b843bbf7571@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=bca09f5d8b843bbf7571
-Link: https://patch.msgid.link/20261022091359.1187468-1-krystianmkaniewski@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: Dropped the icount field and gs_get_icount context from the hunks because this tree's u_serial lacks async_icount support, so context lines were adjusted. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+  unpatched: 15 "Detected Tx Unit Hang", no NETDEV WATCHDOG,
+             tx_timeout 0 -> 0
+  patched:   first "NETDEV WATCHDOG ... timed out 5052 ms" 5 seconds
+             after the first stop, followed by an adapter reset; the
+             cycle repeated 5 times (5052 to 5584 ms), each time
+             followed by a reset; tx_timeout 0 -> 5
+
+This patch was not booted on the net tree. The KUnit tests added in the
+next patch pass with this change and fail without it.
+
+I wrote the first version of the fix. Claude Code (Anthropic) reviewed
+it, wrote the current change, built the e1000
+reproducer and wrote this changelog.
+
+Fixes: 95ecba62e2fd ("net: fix races in netdev_tx_sent_queue()/dev_watchdog()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Curtis McBurney <cmcburney@telcobridges.com>
 ---
- drivers/usb/gadget/function/u_serial.c | 167 ++++++++++++++++++++-----
- 1 file changed, 134 insertions(+), 33 deletions(-)
+ include/linux/netdevice.h | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
-index 3553ad5703271..10782c14caf2b 100644
---- a/drivers/usb/gadget/function/u_serial.c
-+++ b/drivers/usb/gadget/function/u_serial.c
-@@ -67,10 +67,28 @@
-  *	gserial->ioport == usb_ep->driver_data ... gs_port
-  *	gs_port->port_usb ... gserial
-  *
-- * gs_port <---> tty_struct ... links will be null when the TTY file
-- * isn't opened; managed by gs_open()/gs_close()
-- *	gserial->port_tty ... tty_struct
-- *	tty_struct->driver_data ... gserial
-+ * gs_port <---> tty_struct:
-+ *	tty->driver_data refers to gs_port from install through cleanup,
-+ *	pinning the port via tty_port reference counting.
-+ *	gs_port->port.tty exists only while the port is open.
-+ *
-+ * Each entry in ports[] is guarded by ports[i].lock and models three states:
-+ *   - Free:      !port && !reserved
-+ *   - Published:  port &&  reserved
-+ *   - Retiring:   !port &&  reserved
-+ *
-+ * A minor remains reserved until gs_port_destruct() runs upon final tty_port
-+ * release, preventing minor reuse while cleanup of the installed TTY is still
-+ * underway. The owner reference is retained through device unregister so the
-+ * destructor releases the reservation only after device teardown is complete.
-+ *
-+ * open_close_failures tracks failed gs_open() calls where port->port.count
-+ * was not incremented. The TTY core calls gs_close() on open failure to tear
-+ * down the tty; tracking failures as aggregate credits allows gs_close() to
-+ * consume a credit and exit without decrementing port->port.count. Credits
-+ * are aggregate rather than paired with individual files (another gs_close()
-+ * can consume a failed open's credit before that file's own close runs).
-+ * It is protected by tty_lock.
-  */
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 435be7880d7e..6c0c38d8884a 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -3805,6 +3805,20 @@ static inline void netif_tx_wake_all_queues(struct net_device *dev)
  
- /* RX and TX queues can buffer QUEUE_SIZE packets before they hit the
-@@ -125,14 +143,16 @@ struct gs_port {
- 	wait_queue_head_t	close_wait;
- 	bool			suspended;	/* port suspended */
- 	bool			start_delayed;	/* delay start when suspended */
-+	unsigned int		open_close_failures; /* protected by tty_lock */
- 
- 	/* REVISIT this state ... */
- 	struct usb_cdc_line_coding port_line_coding;	/* 8-N-1 etc */
- };
- 
- static struct portmaster {
--	struct mutex	lock;			/* protect open/close */
-+	struct mutex	lock;			/* protect open/close and port slot */
- 	struct gs_port	*port;
-+	bool		reserved;
- } ports[MAX_U_SERIAL_PORTS];
- 
- #define GS_CLOSE_TIMEOUT		15		/* seconds */
-@@ -588,22 +608,60 @@ static int gs_start_io(struct gs_port *port)
- 
- /* TTY Driver */
- 
-+static int gs_install(struct tty_driver *driver, struct tty_struct *tty)
-+{
-+	struct gs_port *port;
-+	struct tty_port *tport;
-+	int ret;
-+
-+	mutex_lock(&ports[tty->index].lock);
-+	port = ports[tty->index].port;
-+	if (!port) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		return -ENODEV;
-+	}
-+
-+	tport = tty_port_get(&port->port);
-+	if (!tport) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		return -ENODEV;
-+	}
-+
-+	ret = tty_port_install(tport, driver, tty);
-+	if (ret) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		tty_port_put(tport);
-+		return ret;
-+	}
-+
-+	tty->driver_data = port;
-+	mutex_unlock(&ports[tty->index].lock);
-+
-+	return 0;
-+}
-+
-+static void gs_cleanup(struct tty_struct *tty)
-+{
-+	tty_port_put(tty->port);
-+}
-+
- /*
-- * gs_open sets up the link between a gs_port and its associated TTY.
-- * That link is broken *only* by TTY close(), and all driver methods
-- * know that.
-+ * gs_open associates an open TTY with its gs_port.
-+ *
-+ * There are two TTY-to-port relationships: port->port.tty exists from the
-+ * first successful open until final close, while tty->driver_data is assigned
-+ * during gs_install() and remains valid through gs_cleanup().
-  */
- static int gs_open(struct tty_struct *tty, struct file *file)
+ static __always_inline void netif_tx_stop_queue(struct netdev_queue *dev_queue)
  {
- 	int		port_num = tty->index;
--	struct gs_port	*port;
-+	struct gs_port	*port = tty->driver_data;
- 	int		status = 0;
- 
- 	mutex_lock(&ports[port_num].lock);
--	port = ports[port_num].port;
--	if (!port) {
-+	if (ports[port_num].port != port) {
- 		status = -ENODEV;
--		goto out;
-+		goto fail_unlock;
- 	}
- 
- 	spin_lock_irq(&port->port_lock);
-@@ -623,7 +681,7 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 		if (status) {
- 			pr_debug("gs_open: ttyGS%d (%p,%p) no buffer\n",
- 				 port_num, tty, file);
--			goto out;
-+			goto fail_unlock;
- 		}
- 
- 		spin_lock_irq(&port->port_lock);
-@@ -633,7 +691,6 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 	if (port->port.count++)
- 		goto exit_unlock_port;
- 
--	tty->driver_data = port;
- 	port->port.tty = tty;
- 
- 	/* if connected, start the I/O stream */
-@@ -657,7 +714,11 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 
- exit_unlock_port:
- 	spin_unlock_irq(&port->port_lock);
--out:
-+	mutex_unlock(&ports[port_num].lock);
-+	return status;
-+
-+fail_unlock:
-+	port->open_close_failures++;
- 	mutex_unlock(&ports[port_num].lock);
- 	return status;
- }
-@@ -683,6 +744,11 @@ static void gs_close(struct tty_struct *tty, struct file *file)
- 	if (!port)
- 		return;
- 
-+	if (port->open_close_failures > 0) {
-+		port->open_close_failures--;
++	/* A queue already stopped by the driver keeps the trans_start of
++	 * the stop that set DRV_XOFF, so repeated stops from a driver hang
++	 * check do not postpone dev_watchdog(). Neither the stamp nor the
++	 * bit is written: a wake racing with this call leaves the queue
++	 * running, as if it came after the stop.
++	 */
++	if (test_bit(__QUEUE_STATE_DRV_XOFF, &dev_queue->state)) {
++		/* Full barrier, as given by set_bit() followed by
++		 * smp_mb__after_atomic(), see netif_txq_try_stop()
++		 */
++		smp_mb();
 +		return;
 +	}
 +
- 	spin_lock_irq(&port->port_lock);
- 
- 	if (port->port.count != 1) {
-@@ -855,8 +921,10 @@ static int gs_break_ctl(struct tty_struct *tty, int duration)
- }
- 
- static const struct tty_operations gs_tty_ops = {
-+	.install =		gs_install,
- 	.open =			gs_open,
- 	.close =		gs_close,
-+	.cleanup =		gs_cleanup,
- 	.write =		gs_write,
- 	.put_char =		gs_put_char,
- 	.flush_chars =		gs_flush_chars,
-@@ -1148,14 +1216,41 @@ static void gs_console_exit(struct gs_port *port)
- 
- #endif
- 
--static int
-+static void gs_port_destruct(struct tty_port *tport)
-+{
-+	struct gs_port *port = container_of(tport, struct gs_port, port);
-+	unsigned int port_num = port->port_num;
-+
-+	mutex_lock(&ports[port_num].lock);
-+	if (WARN_ON(ports[port_num].port))
-+		ports[port_num].port = NULL;
-+	WARN_ON(!ports[port_num].reserved);
-+	if (gs_tty_driver)
-+		gs_tty_driver->ports[port_num] = NULL;
-+	ports[port_num].reserved = false;
-+	mutex_unlock(&ports[port_num].lock);
-+
-+	kfifo_free(&port->port_write_buf);
-+	kfree(port);
-+}
-+
-+static const struct tty_port_operations gs_port_ops = {
-+	.destruct = gs_port_destruct,
-+};
-+
-+static struct gs_port *
- gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- {
- 	struct gs_port	*port;
- 	int		ret = 0;
- 
- 	mutex_lock(&ports[port_num].lock);
--	if (ports[port_num].port) {
-+	if (WARN_ON_ONCE(ports[port_num].port && !ports[port_num].reserved)) {
-+		ret = -EBUSY;
-+		goto out;
-+	}
-+
-+	if (ports[port_num].reserved) {
- 		ret = -EBUSY;
- 		goto out;
- 	}
-@@ -1167,6 +1262,7 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- 	}
- 
- 	tty_port_init(&port->port);
-+	port->port.ops = &gs_port_ops;
- 	spin_lock_init(&port->port_lock);
- 	init_waitqueue_head(&port->drain_wait);
- 	init_waitqueue_head(&port->close_wait);
-@@ -1180,10 +1276,14 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- 	port->port_num = port_num;
- 	port->port_line_coding = *coding;
- 
-+	ports[port_num].reserved = true;
- 	ports[port_num].port = port;
-+	mutex_unlock(&ports[port_num].lock);
-+	return port;
-+
- out:
- 	mutex_unlock(&ports[port_num].lock);
--	return ret;
-+	return ERR_PTR(ret);
- }
- 
- static int gs_closed(struct gs_port *port)
-@@ -1203,8 +1303,7 @@ static void gserial_free_port(struct gs_port *port)
- 	/* wait for old opens to finish */
- 	wait_event(port->close_wait, gs_closed(port));
- 	WARN_ON(port->port_usb != NULL);
--	tty_port_destroy(&port->port);
--	kfree(port);
-+	tty_port_put(&port->port);
- }
- 
- void gserial_free_line(unsigned char port_num)
-@@ -1221,15 +1320,15 @@ void gserial_free_line(unsigned char port_num)
- 	ports[port_num].port = NULL;
- 	mutex_unlock(&ports[port_num].lock);
- 
--	gserial_free_port(port);
- 	tty_unregister_device(gs_tty_driver, port_num);
-+	gserial_free_port(port);
- }
- EXPORT_SYMBOL_GPL(gserial_free_line);
- 
- int gserial_alloc_line_no_console(unsigned char *line_num)
- {
- 	struct usb_cdc_line_coding	coding;
--	struct gs_port			*port;
-+	struct gs_port			*port = ERR_PTR(-EBUSY);
- 	struct device			*tty_dev;
- 	int				ret;
- 	int				port_num;
-@@ -1240,19 +1339,20 @@ int gserial_alloc_line_no_console(unsigned char *line_num)
- 	coding.bDataBits = USB_CDC_1_STOP_BITS;
- 
- 	for (port_num = 0; port_num < MAX_U_SERIAL_PORTS; port_num++) {
--		ret = gs_port_alloc(port_num, &coding);
--		if (ret == -EBUSY)
--			continue;
--		if (ret)
-+		port = gs_port_alloc(port_num, &coding);
-+		if (IS_ERR(port)) {
-+			ret = PTR_ERR(port);
-+			if (ret == -EBUSY)
-+				continue;
- 			return ret;
-+		}
- 		break;
- 	}
--	if (ret)
--		return ret;
-+	if (IS_ERR(port))
-+		return PTR_ERR(port);
- 
- 	/* ... and sysfs class devices, so mdev/udev make /dev/ttyGS* */
- 
--	port = ports[port_num].port;
- 	tty_dev = tty_port_register_device(&port->port,
- 			gs_tty_driver, port_num, NULL);
- 	if (IS_ERR(tty_dev)) {
-@@ -1261,14 +1361,15 @@ int gserial_alloc_line_no_console(unsigned char *line_num)
- 
- 		ret = PTR_ERR(tty_dev);
- 		mutex_lock(&ports[port_num].lock);
-+		WARN_ON(ports[port_num].port != port);
- 		ports[port_num].port = NULL;
- 		mutex_unlock(&ports[port_num].lock);
--		gserial_free_port(port);
--		goto err;
-+		tty_port_put(&port->port);
-+		return ret;
- 	}
-+
- 	*line_num = port_num;
--err:
--	return ret;
-+	return 0;
- }
- EXPORT_SYMBOL_GPL(gserial_alloc_line_no_console);
+ 	/* Paired with READ_ONCE() from dev_watchdog() */
+ 	WRITE_ONCE(dev_queue->trans_start, jiffies);
  
 -- 
-2.53.0
+2.52.0
 
