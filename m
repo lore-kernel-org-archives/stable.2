@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.240
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795658610;
-	b=sXFplqoVqpQF/Tz0l62s29h0h+AcKUKrYzl27hEmwiH2IJNKiC9+wmY1SD7Ynh4m8VP4
-	 Sl0HXymWxDIMTsYK5PEpRmVPiVuSAXpCFLuAux5m+HRQ2IR1cs3fl4KRGvdiZi4u5hj/C
-	 BSHDZF/odBRlSnRKgOYYdoRn/SwQRycnAFFkynZU9SnZn2OT+CyMvdQMnvu8b2v1LAK/C
-	 m1YUmwnuClcjlxlkIq248fiAtRkxPyV/LGjMUYVhVDKfkgiI69Lxa95KTCh5JwCkoGyVE
-	 /BYVuZ2Vd7xxv11k0bSIXmHiWSxSznvHKTvbm6AGCPgU+ArS1iQAhqb/1JjqaYv11hw==
+	t=1795658632;
+	b=RYuzzVpUaH5+zHcOTyrRM0j/bJWGr9ME79dbDD99qg8Rgvgr/CAvtzviS7cem5cSDE63
+	 o+Us8QutyomwSFLAPSSn+0SXRj+7MDyIOKHOFzycXaDeE5VnpqGnNepuw+uYbQQXtJaJF
+	 mBN5a7vAZ0O4pyiqhH2M3Rynl0HNVXqvld3Tvnen593VmaFzxbvVKe9Mk8SrD4sDQ6BrX
+	 a+QcYEpVegSZPi/zqfMBPJW5zwqPh2dABiFmxcfstsh8/ayEv6MhdsnhOA22GP/6o9Noz
+	 32glrZJtxAr2iihhdCBB+OSqd6ekzOofNALi/yxpf1rMLPeK6974/uU/5hNnC59pCKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795658610;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=mDPdURnq3OYJxD9FHhva4DbPjq66mRuiBiRc8sZ8u50=;
-	b=2atdZ8V7LrtK2RcdQebNo8h5w9lzT67ZLv3zbmn34wVqH3STGVZoJaqrLhh+QNl1O3OY
-	 8vxXkIFRAzYWCZZph6vd1f33ce4r9FWr8B8KcuFgNBP3i9Wjdcocwka3B5iHUZRXDCpAg
-	 xAbJfAbA3SXVNH+vYPH+FpjS1ZOhlGs5oqjt8VXURL6BUtOxQM7KJYKpqI81OUrbAD44O
-	 uILnHn5APVQ6ZODsNn0firMiLDapujAjjJI0fwklkfQKv5fyZH2bU4kJQ3U8cVkYFIoGG
-	 y+uO98ecl/eUostiKhrrJ+HrzHpjfnZCz0Jy5xcGsc7k5TEJsXvBwboZJgkNB8gVbdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795658632;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=XvP7vor8njeylWRaQgFcnSfpAOGtdso7JsoES3ggOpA=;
+	b=sSkp8X1oZM+hEVTfBjUAFEh/HXXX/LcK9fuSuF0m7G4q2aO9/rN2NY5vfsaFe1JEQ/UI
+	 usQFZDSKmFhAudrn+7LgNP8zqkHFtDXGY9PeITuJoSo8QGCWc21oUvm0uBfxuJuUU/0SO
+	 atfOWSmXenQGk6LTK8KFqITMZVL/Tu/iL7/uRUlemmCWy8O5LXEvv6DNv6ThzPiZkpVSu
+	 AYMkAbvITd8NVgNREbT6GILza//7tF1ZnvAarKjMJZqrDWD/LcP/oAVithL1vmxb/Hx1M
+	 bt/4VxzHpeKpqooJ976W8CIX/I9cvXNtfBxn/O/JrS5Ev+NbVCmhy9YRHXWdD0mnfHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZErz2gHT;
-	arc=none smtp.remote-ip=91.218.175.240
-Received: from mta0.migadu.com (out-240.mta0.migadu.com [91.218.175.240])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g6tRDfIi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0DF7606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:03:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0DF7606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC88606A31E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:03:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZErz2gHT
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=mDPdURnq3OYJxD9FHhva4DbPjq66mRuiBiRc8sZ8u50=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795658606; v=1; x=1796263406;
- b=ZErz2gHTqsz8fab7qlaB/35lX5tzDF84D27Q3qVrATZPxzLDk9sBcv4U0VvjoYWHWc+zcj5b
- idNoA3INzUORoNAmYbOeoHPnn/zi9Dd5M+b2ckpPS5++szpfnoFxQwlFB23r4OEYO3rZlqvMBnC
- p5DjSxP24y7eMF6a17IEFdZE=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 99fa385bc754693e;
-	Thu, 26 Nov 2026 02:03:26 +0000
-X-Mizu-Trace-ID: 99fa385bc754693e
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g6tRDfIi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 129871F000C4;
+	Thu, 26 Nov 2026 02:03:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795658632;
+	bh=XvP7vor8njeylWRaQgFcnSfpAOGtdso7JsoES3ggOpA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=g6tRDfIiVWkRk30Q316B0qDJYcOWv4Gw0pAnkY8ZY6Jn9KU1YZtq46bjmEbJWxxk2
+	 ibegREy3ugwN8xj8ra0xLIsKtY8FLk2LNvAuNKq/JuzSXclbX9/ue3sHjPWFKRwNWO
+	 egSBzmvhllCbf8jy628+oK7zHKiwQ2w0+YvQKqiayW1o7J0Qo+GtloMjTAwmv34MVH
+	 3B2IJ29R7YwYIjbqzl2kAtKSp9rXFCkt591JGBwqt714U5+Yx8VisQr+OtRFvG8Ha9
+	 haLaSEngTscIbtAedk6WxVaiOKrrRrSrtPhmT5C2Reryy/mSoj17dLP6zIDjEMgsEp
+	 kTHG+zZRAOrNA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Christian Brauner <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/6] cred: add prepare credential guard
+Date: Wed, 25 Nov 2026 21:03:45 -0500
+Message-ID: <20261126020308.1696715-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112548-vowed-carded-1ef2@gregkh>
+References: <2026112548-vowed-carded-1ef2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,114 +57,45 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH 02/21] mm/hugetlb: fix truncated copy result in
- UFFDIO_COPY
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261125-hugetlb_fixes_2-v1-2-db27fd2f71a8@kernel.org>
-Date: Thu, 26 Nov 2026 10:03:04 +0800
-Cc: Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- Jinmeng Zhou <jinmengzhou22@gmail.com>,
- Hongfu Li <lihongfu@kylinos.cn>,
- Andrea Arcangeli <aarcange@redhat.com>,
- Mike Kravetz <mike.kravetz@oracle.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Hugh Dickins <hughd@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Dave Airlie <airlied@redhat.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Mike Rapoport <rppt@kernel.org>,
- Mel Gorman <mel@csn.ul.ie>,
- Dave McCracken <dave.mccracken@oracle.com>,
- Andy Whitcroft <apw@shadowen.org>,
- Adam Litke <agl@us.ibm.com>,
- Lorenzo Stoakes <ljs@kernel.org>,
- Rik van Riel <riel@surriel.com>,
- "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>,
- Lance Yang <lance.yang@linux.dev>,
- James Houghton <jthoughton@google.com>,
- Yang Shi <shy828301@gmail.com>,
- Suren Baghdasaryan <surenb@google.com>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Pedro Falcato <pfalcato@suse.de>,
- Gregory Price <gourry@gourry.net>,
- Zi Yan <ziy@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Byungchul Park <byungchul@sk.com>,
- Alistair Popple <apopple@nvidia.com>,
- Wanpeng Li <liwanp@linux.vnet.ibm.com>,
- Andi Kleen <ak@linux.intel.com>,
- Kenneth W Chen <kenneth.w.chen@intel.com>,
- Hugh Dickins <hugh@veritas.com>,
- Michal Hocko <mhocko@suse.com>,
- David Rientjes <rientjes@google.com>,
- Joern Engel <joern@logfs.org>,
- Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Michal Hocko <mhocko@suse.cz>,
- "Aneesh Kumar K.V" <aneesh.kumar@linux.vnet.ibm.com>,
- KAMEZAWA Hiroyuki <kamezawa.hiroyu@jp.fujitsu.com>,
- "Kirill A. Shutemov" <kirill@shutemov.name>,
- Sasha Levin <sasha.levin@oracle.com>,
- Guillaume Morin <guillaume@morinfr.org>,
- Wanpeng Li <liwp.linux@gmail.com>,
- linux-mm@kvack.org,
- Jason Gunthorpe <jgg@ziepe.ca>,
- linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@osdl.org>,
- linux-doc@vger.kernel.org,
- Chris Mason <mason@kernel.org>,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <36B2540E-D15B-4A56-88B3-2283A26B40BA@linux.dev>
-References: <20261125-hugetlb_fixes_2-v1-0-db27fd2f71a8@kernel.org>
- <20261125-hugetlb_fixes_2-v1-2-db27fd2f71a8@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Christian Brauner <brauner@kernel.org>
 
+[ Upstream commit c8ad3098e1272444b6c75910d6196a36f5c8bc17 ]
 
-> On Nov 26, 2026, at 06:33, David Hildenbrand (Arm) <david@kernel.org> =
-wrote:
->=20
-> From: Chris Mason <mason@kernel.org>
->=20
-> Folios that span more bytes than can fit into an unsigned integer =
-(e.g.,
-> 16 GiB folios on arm64) are problematic with UFFDIO_COPY: the result
-> from copy_folio_from_user() can be truncated, possibly indicating
-> success instead of an error.
->=20
-> We will then continue with the folio that has stale data, and make it
-> accessible to user space.
->=20
-> For example, if copy_folio_from_user() fails such that the number of
-> bytes not copied is a multiple of 4 GiB, we'll get an effective ret =3D=3D=
+A lot of code uses the following pattern:
 
-> 0.
->=20
-> Let's fix it by simply testing the return value directly.
->=20
-> This has medium urgency, as it's an information leak.
->=20
-> Fixes: 8fb5debc5fcd ("userfaultfd: hugetlbfs: add =
-hugetlb_mcopy_atomic_pte for userfaultfd support")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ david: cleanup code and description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+* prepare new credentials
+* modify them for their use-case
+* drop them
 
-Reviewed-by: Muchun Song (ByteDance) <muchun.song@linux.dev>
+Support that easier with the new guard infrastructure.
 
+Link: https://patch.msgid.link/20251103-work-creds-guards-prepare_creds-v1-1-b447b82f2c9b@kernel.org
+Signed-off-by: Christian Brauner <brauner@kernel.org>
+Stable-dep-of: 86e2facd8630 ("ovl: bump the impure dir version when linking a file with origin")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/linux/cred.h | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/include/linux/cred.h b/include/linux/cred.h
+index be2cd07b174c5..418c4a4ac2955 100644
+--- a/include/linux/cred.h
++++ b/include/linux/cred.h
+@@ -278,6 +278,11 @@ static inline void put_cred(const struct cred *cred)
+ 	put_cred_many(cred, 1);
+ }
+ 
++DEFINE_CLASS(prepare_creds,
++	      struct cred *,
++	      if (_T) put_cred(_T),
++	      prepare_creds(), void)
++
+ DEFINE_FREE(put_cred, struct cred *, if (!IS_ERR_OR_NULL(_T)) put_cred(_T))
+ 
+ /**
+-- 
+2.53.0
 
