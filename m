@@ -1,58 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795678858;
-	b=36TrxODTF24E4r0ZnW/0sHniPSWFv1HuPOapl8LJigW9GE6d5dtzibeTmjRtNzonJEGZ
-	 3aBnbmkWrYCmD/gvvxVvQTx0/Lv/ImBYzM8hTsB3u2bGtroLbj8vVXr3wFHpdu1v9GNj1
-	 F4iUtT4c0lCsmeHPFjP8iCCyJoHNCV8EqjwJsAxofM1cW6m8MAC4vZoZ4E+IGk3CrQyQT
-	 lEOW7jIVOXWG2H0i2iNK9au+A/ot6dLkkuVM7zCM6PRUBQ0HnGEDWvIMUMhJrYJ5b44sw
-	 UmeJteSFiiaxkK46bN6ooZJix1edoO8X3Ygg/VkrugUwkE1r9AyTBiwLwkFfcTH9whw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795678858;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=juJqpQkwJyoO/Hv1+4ZAcxpgZmO1t2pSKM+EEldO6zU=;
-	b=AdyE5fcM3UHK1VTtS1JihGwxTcpnG22hnxV2SvezK9HIb+QmI3dLrVLBCg7YdIN9XTGE
-	 CUA/4JLh/NBjVhPhvF4Q6Jb/uapKcl4Yg3FMniOYbjMrtnp0rvCguiKUfLveB5e0FmWxQ
-	 KvGyPJRW6P7DURJcPIy0wgrS0+J9nqSrbNcttDgTNV+f5PaaCTDG62Epr2rP874h7KjBg
-	 SQcLtvHj/tw96PfqBzu3NpDfliwT7vBMtsCLgYKtEfvHouYc4hWUqSURBqkqk2OSqqyRt
-	 9fdY8+r5CaC9GfvBP/73WrLO+zPxw370eyfacZa3/vWau6XdWJ93+8EfT/3enH3gjdw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PPpBreAO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795678877;
+	b=CFiUIvjfL+vEheMMRZPwjtxEd1LC9U9UuttNUmuPNEwej7aw7VjTq3t5XoyQpsArMSBr
+	 LkixggFncLs6OAEVAry+HFtdZtSoEzJ9W1SXuvkMC2QygBApwAjv6p+OAyphotke1GaKs
+	 E2wfqzqXm7Nb6r/3OHqN+LRztLrdYqAmQVK642A9DKwRXYJWItQutR/kDReCjNHw0ewgW
+	 qrwQZmBCrTgsw+/IGA8iMOSwbW7IOWV2+iCvjO9hm9iaRkFCVacS8Edk9YsmM53oB72xJ
+	 TI6lhr2evRMgeSjtxbERzeTcFriTR0M0B+zLgz+hMpIqbp51Sx378BtGrphSNbxO3Iw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795678877;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=q+Ubm2QAGWkkevqcn++H+wXuVangaT2LjNLkyOWvZa4=;
+	b=k9NQBQp7dMREVRptnJaPZp3eDkyNW+7FYXENNSf7b+eZd8gvMkiEhTRdHxkO7VzRqWI9
+	 Ea0+tFWp0Ui7//LQdoGfWFHkUxvnP9WBKis7UEUQkzy2VHrswXIUzT+gmkhgWo36t3OSW
+	 VnNWUQ1hfx/0ebp+PvROGoVKVR0u7lafF+puzwxQy7uPDuWh5lk70ZJhWB7MTK/7nB7vl
+	 Nz9n7Facly8ur3cjb9Gz8sAZuEjVK1/rLNLfsk2eUUX3uKC3YFkXpUeLFjwyYWNQgdqaq
+	 8e7QsvgNVOZAYYgm2+yYdi9EIcK/KerQfgFYgp+08wkkb+rDUPtOaGvziw0YSxFwXcQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vjYWWtOT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D18E2606A68C;
-	Thu, 26 Nov 2026 07:40:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBB7606A33E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 07:41:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BBB7606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PPpBreAO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 710081F000C0;
-	Thu, 26 Nov 2026 07:40:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795678858;
-	bh=juJqpQkwJyoO/Hv1+4ZAcxpgZmO1t2pSKM+EEldO6zU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PPpBreAOknJ9HVtVdapWaRbmlwZW0l5Z2RfgGAxOg2yVLveO6Cz6EZY2m1W2Y1R51
-	 L580LQDXz0bRYj9g0Cs+cN5cW/UOdXEM/+sVk+WB4sQPYzOiB6S81fWSU79eeRob8c
-	 JfCdNW6nyR5nJxvDBvAf9cSRqeK9BEo9DP7FiikE=
-Date: Thu, 26 Nov 2026 08:40:55 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Ron Economos <re@w6rz.net>
-Cc: Jiri Slaby <jirislaby@kernel.org>, stable@vger.kernel.org,
-	patches@lists.linux.dev, Rahad Bhuiya <rahadbhuiya2021@gmail.com>,
-	Tejun Heo <tj@kernel.org>, Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 7.3 0361/1005] sched_ext: Reset task fields on exit of an
- SCX_TASK_READY task
-Message-ID: <2026112630-cadillac-unsliced-1ef8@gregkh>
-References: <20261125143821.729802100@linuxfoundation.org>
- <20261125143830.189554233@linuxfoundation.org>
- <0782adf7-20af-45a3-a09b-2a34c76afbac@kernel.org>
- <2026112640-recite-tipping-891f@gregkh>
- <dc5dc970-d7d5-46e4-8b2e-327c7e31a90b@kernel.org>
- <2026112625-skittle-retouch-c4bd@gregkh>
- <60eaa0ee-adbd-4bdb-bc7f-63f4631e022f@w6rz.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vjYWWtOT
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91f0274f88cso88424736d6.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 23:41:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795678876; cv=none;
+        d=google.com; s=arc-20260327;
+        b=O56ZRtTkFSSu5M6TjYHHt4NoRgMDBh8M8bskOD4o1WIOQ26YgL8oxaGMQejHcP4iWY
+         OsL7tIVc45GVbcL8bQO4UED7CzrsQ6R5NqN1wqcayRB1kbYw2FS+fjyhoabv+QcVPoeC
+         0A2v3phXYcG4i2+2lEQ2JmW3UIecdkVrRoCwg9VJV6tsfGfnBpLNQlct1jiUljJVfg0L
+         Qga2iKHP3DrcI69XsWx4/yiy4pbMGio81NVGOT8Xn7zMxUIB47876WHEcyTtbeDBaSlk
+         ocQbFdsEhuR61/5r0GkmCZ8EbfIGIk+vFB7vtP+eg/o721VRRGoBG29DVnrM0iNZ4yG4
+         qp0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=q+Ubm2QAGWkkevqcn++H+wXuVangaT2LjNLkyOWvZa4=;
+        fh=hek+ANSaYqmCzW42Dm+9eDt2ZSdqLcJUfAt2EYW5TnM=;
+        b=H1ndCEx+idACbQ4DEPrg+XhtY/4W1ufNamzXJHM3piSN1j957ZypnA03uOyh+L1UvD
+         z4Daymlg4IUEeZqrkjgi99DAYDo4qgEnhWAlCM4BTQnnUr/5+1vn/RD2zFGcVLGScpPN
+         r39envHuNoN62sp0l/HSlH3KrgS2QYrRpka7d0+Hmb8xOEx2QvVCgddwOfmPMqgmr3B9
+         HRwNncLKP2t7DmPU4Xe57nFHxIiD9gWmxX5eEx8pZiO7DZ03WhE32AfTVL3eKs/uxhSU
+         8fFHEJt1ayODeCuCWU6poQfw0br0Xg5Fd6oF9VcFA7pfWbee74icVU/YADll/UT3YIgE
+         S5ww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795678876; x=1796283676; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=q+Ubm2QAGWkkevqcn++H+wXuVangaT2LjNLkyOWvZa4=;
+        b=vjYWWtOTVjxpRitCs1Ov3QfzRRQ2tY06zy3Y4ik8hHED3h0mwrmhU4UHOeuxdpnybT
+         7K0KCZprMY+v7Kf3EnwopbyboNiElX037NRr3V/r8mrSPbt0dydicTRGKCNM/YvakosY
+         DeFt3u1m6GAKDxGX0FP7t0dj/wi37BL+9UGm/YJ+/WM03m2s6XB3JpF6UXxiVEOgR5+P
+         cTgi43oizecs1Yim1tbYfiQipIDE1BH6qm26/gMv3m/BnArrLv5J+9iKty2YWpjH93QA
+         QI3RxCRnkIkW7Ab/zCVx5SJlLYJ5y19biI3QXqmrVdCqPbG9V7gxMUJTtvgwFum0snZ9
+         peCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795678876; x=1796283676;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=q+Ubm2QAGWkkevqcn++H+wXuVangaT2LjNLkyOWvZa4=;
+        b=xhUTAdN8ZR2IQOTz/0rcERKXcU2iuDrVfudxfMJQtipuZ1O9HgwousQBaiLy/ZXgES
+         ZxCNMkHaF6V1hD3XimbiwxIPIPF0L8YjZ+MDlyE/MSqNty7Hhx8lh1tHUt06TxxjMWuw
+         ybkcsJBCNkRhpKdQyRvMPPnjYBEJS5OiQSCrCRGMVFbHBANrAChJH+zAtrtsIK1J+EuB
+         uCvabFp1TilF87a4XFIk/ltn/+LlWikOCy6AQu4pIEXtcUUHcf2TMSoGC8JiYLu2+Glc
+         M/CWHvVmG0xrFuq4onl0N6asGFIWBYC+TEa1nLRseMwo1kE/P8BHcHhdYOR1aJcMZZj6
+         CZRA==
+X-Gm-Message-State: APuU4Z86ijxN7ERR0y+D+jSsIi1qshn+eyVCN2pGmwQ+ZMA11REFBf1o
+	t3VxpMjLxqVIK/ZWEpHvyRpc0+2YpU51OG34OUr0Xdq+hw6vdkGT+qTMFyg83tkItwym/+GDo3C
+	6brTxomefTAY7t25AUjd8D3rXuvRi934=
+X-Gm-Gg: AZFdTZdZ4jgvePmxmo8R+C0fktQqqRt9wib71edoRkRmwStXoMsLArlv3mYC33b5+R8
+	2DcJR/KkGwHPdlSDCHDUDYKoC4ddbxDMEg5krn+Y3Z8O1QkvdrTPGgScCJiYaBumrnErvhelRmd
+	VTt+h60P5RDKN/9X9wQq7KxL5io0Gl7JXOMkKoAZAKxYuk851aR5XeAhfPnu+pbj2K+SyjLzQpY
+	cuw0oTuk1CblU+LmzJOfvpxcIgb6iSHBDlhjyetPoWJ5g+fERWhqk+kGiOStAGLbcJ+pfL8xJR3
+	VrkzOK4cPdFasOTkFLE88ShoksuhuH3UsBUGD+id37PQsndaH6sstS72hQTxIXKHCuDrjv54xXt
+	mhTu2nFwrle2hoRLXyQSzj8+RhgR3qfjRbUQ6UEK4NbUXt4GSNOYXMF6uY5DTBrbubv8uNYIcSW
+	QP1d2/HWoohLB/VB8MQw==
+X-Received: by 2002:a05:6214:8616:b0:91f:2374:d001 with SMTP id
+ 6a1803df08f44-92134aef4e6mr379882716d6.25.1795678876352; Wed, 25 Nov 2026
+ 23:41:16 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,52 +104,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <60eaa0ee-adbd-4bdb-bc7f-63f4631e022f@w6rz.net>
+References: <CAMcAce97zgo7c2f5Th9FguAHEL5gL87NrJ9MJkJghMm6M44g6Q@mail.gmail.com>
+ <2026112651-peso-sandy-64a1@gregkh>
+In-Reply-To: <2026112651-peso-sandy-64a1@gregkh>
+From: Yingke Xiao <inkxiao12@gmail.com>
+Date: Thu, 26 Nov 2026 02:41:05 -0500
+X-Gm-Features: Aa3M54oG0R2UVhL1kMFuTme6_Ok82BveIP2T0l92n5M8-7IZtdNkPstPzAyhzvA
+Message-ID: <CAMcAce-_hShop0MH1Q4p6Y0uf=ApmLoxuKQ9Kjms_4s-Gv1epw@mail.gmail.com>
+Subject: Re: [PATCH 6.12.y v2] bpf: Reject NULL data/sig in bpf_verify_pkcs7_signature
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, bpf@vger.kernel.org, kpsingh@kernel.org, 
+	sashal@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 25, 2026 at 11:16:13PM -0800, Ron Economos wrote:
-> On 11/25/26 23:00, Greg Kroah-Hartman wrote:
-> > On Thu, Nov 26, 2026 at 07:53:04AM +0100, Jiri Slaby wrote:
-> > > On 26. 11. 26, 7:36, Greg Kroah-Hartman wrote:
-> > > > On Thu, Nov 26, 2026 at 07:19:47AM +0100, Jiri Slaby wrote:
-> > > > > On 25. 11. 26, 15:28, Greg Kroah-Hartman wrote:
-> > > > > > 7.3-stable review patch.  If anyone has any objections, please let me know.
-> > > > > > 
-> > > > > > ------------------
-> > > > > > 
-> > > > > > From: Rahad Bhuiya <rahadbhuiya2021@gmail.com>
-> > > > > > 
-> > > > > > [ Upstream commit 564405c424f49d70b13debe7fe5b550234ad6b84 ]
-> > > > > ...
-> > > > > > --- a/kernel/sched/ext/ext.c
-> > > > > > +++ b/kernel/sched/ext/ext.c
-> > > > > > @@ -4198,6 +4198,7 @@ void __scx_disable_and_exit_task(struct scx_sched *sch, struct task_struct *p)
-> > > > > >     		args.cancelled = true;
-> > > > > >     		break;
-> > > > > >     	case SCX_TASK_READY:
-> > > > > > +		scx_reset_task_fields(task_rq(p), p);
-> > > > > This fails to build:
-> > > > > ../kernel/sched/ext/ext.c:4223:17: error: implicit declaration of function
-> > > > > ‘scx_reset_task_fields’; did you mean ‘scx_set_task_sched’?
-> > > > Ugh, I wonder why this code never hits my build tests...
-> > > We seem to have:
-> > > CONFIG_SCHED_CLASS_EXT=y
-> > > maybe you don't?
-> > I don't, and 'make allmodconfig' doesn't select it due to the
-> > CONFIG_DEBUG_INFO_BTF dependancy which does not get set either for some
-> > other reason perhaps.  That explains it, and we've tripped over this
-> > before...
-> > 
-> > thanks,
-> > 
-> > greg k-h
-> 
-> CONFIG_DEBUG_INFO_BTF requires that pahole is installed on your system.
+Sorry for the mistyped full SHA-1 in this earlier v2 email.
+The valid upstream commit is 49b18315be4eecfc36b75f4aecb4d40a87d68a20
+("bpf: Reject NULL data/sig in bpf_verify_pkcs7_signature"), which was
+corrected in v3 and already queued as [PATCH 6.12 015/816]. Please
+ignore this old v2 thread.
 
-It is:
+Thanks,
+Yingke
 
-bob ~ $ pahole --version
-v1.32
-
+Greg KH <gregkh@linuxfoundation.org> =E4=BA=8E2026=E5=B9=B411=E6=9C=8826=E6=
+=97=A5=E5=91=A8=E5=9B=9B 02:22=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Thu, Nov 19, 2026 at 11:55:07AM -0500, Yingke Xiao wrote:
+> > [ Upstream commit 49b18315be4e590fae0fc39c87d46c87e9ec903c ]
+>
+> Not a valid upstream git id :(
