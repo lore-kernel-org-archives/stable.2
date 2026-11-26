@@ -1,55 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795693877;
-	b=VLcsf//1LVG1VeqXKmWDMqegVymdvLi5SSuR/PqlB4S1abSHlP5ILBryOye89Hyfzsmw
-	 F9Sr4WCsonjXG+v9BbWWX3Rg61KpYRKaFtm4l5ZjWxqbgTA18Abw/kE9f9wZpQZq6rZhy
-	 Xaz8X60p7vtwUoCj/Ye0vIZhTd0AhA81ShqMV3YDcQrHhMKCsmNxTcrVFAGHp72d6d9kP
-	 4o4PzmCKZXuKnDg3QKoOvqzRC8RuBekCaskd2hAIoWdZwWVBdVI5PhqxAqX4wei62Urun
-	 KJ/H2ZxBYSZZAcbrhT44oQyMrKf3PFL4gaFkAYVLF35og+9/2iqGO7QNheOfAoDIwzw==
+	t=1795694248;
+	b=3FGikjrb2U3Tk7JV+2eN50Dl38Kb9nqBuDcz69zaFoaosf7ulKCj/qOa642xIagw6Wmz
+	 XVESC/dNGRxkygP0nct3L2rhZIc68FnE30oeLW+OvXCTWR2ftWJCe4aXXsJTh7G+Rtpue
+	 JjwuYUIbEz+F9slODlnNFf65WtBcvwm21ZVlha651uKWbmGXDzo2971DylM+PDdaqcb22
+	 YLb2XcSTAQUu35bHaclhg+6gU8TKxjRJn8gPNE7PH2CjamloG7z817aHxxiuM7BkGFCel
+	 LgElbnXWBWFcULXdfo8mqKMdrrf8Z0genqJn8v8rF7d9PJHOmjPA+6kJFaMmKHkesog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795693877;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=liE+IJazZ5oAskLl1TgZ0dicfhbRnZKFpT1xxjcaIV4=;
-	b=VeaS7IrtVcpIgIpuFNuBdEoAaA60LHr128sm7CksX9cwSwqmGUh91mfihY0s0mYkflPq
-	 KoRIg42Qp2SnZqVOBAY3UvoGBJmvFmez1+gLzu/ivEIZHsJ38VqUbCE1L+pM5lQPqfyHG
-	 5yUFCcVxNW5K3tyPGIcqAkKJ1AwCOAn/9RPrQ26Vk7MdpI6Dbsx4hPqtVTWjxrS8AxTCz
-	 NPdgEq1xHmenSGsM/xaJ/sa08vklIzyM/j41K6aUiT7m+gFJCDLs/hUCN64iN2LEbH2pa
-	 ayVOIvAzLvKJoNDnO6Oxz1B1fLeXEg0kH9ggknvFEze8nd/Z5yGg9aILy1dtP+HOA+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795694248;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:In-Reply-To:
+	 From:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=Orjg/Sm3uWrFea5Qd+IH/YEbQtQgcSirRXSwttytYyQ=;
+	b=ijPB+xSl22sAwoTIl342cPEW3yowK+l77AEjLVPiMkBDRq03O9MBAkGxmgt6AmEtsWUj
+	 bleLQcYIvDFYc8XOVJEm7WT3DO9BMJgjAmCApeDB08dNC0zxz9XRBiGwxI7yDi2l1Ki6L
+	 VXb7admA0uEaI1+e8rR8WCLt8qXdM7e1fW6uOWgZSdOVpeGaD0wiFq/nKt9NxVjgVIsx9
+	 aH6hYu2LweWr712Qf0b+LnHq5h74hzOIv3wM50tUj0CTQMEWDQtjJZzShW3ZA4bmz5fpC
+	 JTBGkbN/eiUMmlcIusYdzj2xH++TEENLpx3Httvi0gZkSRAVWutXe+5EsdjFvtb0Lcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HOoX5cdp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=5VBd8MWe;
+	arc=none smtp.remote-ip=113.46.200.227
+Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F02606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 11:51:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B12606A31C;
+	Thu, 26 Nov 2026 11:57:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40B12606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HOoX5cdp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEA241F008B2
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 11:51:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795693876;
-	bh=liE+IJazZ5oAskLl1TgZ0dicfhbRnZKFpT1xxjcaIV4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=HOoX5cdpqas6YaDLda8NQPo9m3BoYqastRShJFtlPinlbdYA/wwwznMIoUGv1Ifof
-	 KXU4+LtHUMdigAw3VE9xJKiMDYUdiJZdZ7ddH4z+OQu/2PEUDHBHPZpHPRKpBex+6B
-	 zdMYSrrr59RauaqIffrbCUjFZlCbeJxmAYJ1SsHoQBZOFW8zEnDLf0Mn6tyf39vo0p
-	 TcyLdkNJrFKIBb0Jd5B6dPS0gOgKvKrwuJglVkkq8+FCWD0HgAgHryW+lPGLnebdgF
-	 gpULuv4dSTAkxH8tkaKlWmY1Kv4avapmm4PzR/9/PkW1HmgnhBNaBDhzd8BKUCVfqF
-	 9a1z0XRdggkEw==
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-94961b68685so569033385a.3
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 03:51:16 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFbONYwDpBg6Sl3B/zjXl5pG2DC9k/KfYlK+eqiFC3MoYWyjematugs+TvJi5yfefKEdUWQp7o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8aFUnQjqNdfiX3Y9q/TOzQ7Fr38eYVpQ+N791t+PZe/1mnSshE
-	vqj29XtnnUPDqQn9cVvl8WhnmU/fan5j6AvSR4L7M9Nwb3GAKyT3dVZH8y2hzokhwAdIgy6dfFe
-	p2w7Q6BfHEOZC/YZwXTk5D9hau8S+H8c=
-X-Received: by 2002:a05:620a:29c8:b0:949:7270:b95 with SMTP id
- af79cd13be357-949baa0b256mr3618065185a.32.1795693875794; Thu, 26 Nov 2026
- 03:51:15 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=5VBd8MWe
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Orjg/Sm3uWrFea5Qd+IH/YEbQtQgcSirRXSwttytYyQ=;
+	b=5VBd8MWeQouIX/NZgbHZYWmU6dkfFK3cyfUJlvorUQ2pavMZR9nYI5PiTqza6Fv/vKoHsReFk
+	uZU4z0masDC9CU5zgDH929vQkyoTPodUTQNHGXDvdlE9gdtMmktYMxFSli0xocrxuy0BiHdfgzZ
+	sY6xMFilWGtSbUVCxXtjkKA=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4jZw4d4z28znTXh;
+	Thu, 26 Nov 2026 19:56:33 +0800 (CST)
+Received: from whupemk300014.china.huawei.com (unknown [7.152.185.8])
+	by mail.maildlp.com (Postfix) with ESMTPS id 142E44058E;
+	Thu, 26 Nov 2026 19:57:22 +0800 (CST)
+Received: from [10.174.177.221] (10.174.177.221) by
+ whupemk300014.china.huawei.com (7.152.185.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 26 Nov 2026 19:57:20 +0800
+Message-ID: <294d1cbc-9137-4d13-ad61-625db76bd9f9@huawei.com>
+Date: Thu, 26 Nov 2026 19:57:19 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,182 +62,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261125-fix-mglru-kswapd-age-v2-1-4cc37437af9b@tencent.com>
- <CAGsJ_4z-UdXQg0LYqymEZdoHALPmAZC7eGcXbGad6f0sdjmkcw@mail.gmail.com>
- <awarDrT/DT7tQu+U@lima-default> <CAGsJ_4zf5NabZJanr2_Czr3oVQe6tTTdXmddx+PxowbKBN9M8Q@mail.gmail.com>
- <awgCInIqygIBMRGt@lima-default>
-In-Reply-To: <awgCInIqygIBMRGt@lima-default>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 26 Nov 2026 19:51:03 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wBuFz=Nxn=aiwUONerkJVgwKVyp0sbfg0tSa=J=VCo+g@mail.gmail.com>
-X-Gm-Features: Aa3M54rmeYOf-N8Nk_jy_G3CeuifqjF8MjvxO4s3hxNTXy0zU7zsvhgvahj5T2Q
-Message-ID: <CAGsJ_4wBuFz=Nxn=aiwUONerkJVgwKVyp0sbfg0tSa=J=VCo+g@mail.gmail.com>
-Subject: Re: [PATCH v2] mm/mglru: skip oom killing for order != 0 allocs in kswapd
-To: Bingfang Guo <bfguo@icloud.com>
-Cc: bingfangguo@tencent.com, Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Yu Zhao <yuzhao@google.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] rpcrdma: Serialize removal callbacks with
+ unregister
+To: Chuck Lever <cel@kernel.org>
+CC: Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Olga
+ Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey
+	<tom@talpey.com>, Trond Myklebust <trondmy@kernel.org>, Anna Schumaker
+	<anna@kernel.org>, "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
+	"linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, yuehaibing
+	<yuehaibing@huawei.com>, zhangchangzhong <zhangchangzhong@huawei.com>,
+	"weiyongjun (A)" <weiyongjun1@huawei.com>
+References: <20261124021842.130141-1-lixiasong1@huawei.com>
+ <20261124021842.130141-3-lixiasong1@huawei.com>
+ <aa51ee58-3404-494b-bbdc-2f9b6a6a7cd6@slotpi15m67>
+In-Reply-To: aa51ee58-3404-494b-bbdc-2f9b6a6a7cd6@slotpi15m67
+From: Li Xiasong <lixiasong1@huawei.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ whupemk300014.china.huawei.com (7.152.185.8)
 
-On Thu, Nov 26, 2026 at 5:56=E2=80=AFPM Bingfang Guo <bfguo@icloud.com> wro=
-te:
->
-> Hi, Barry!
->
-> On Thu, Nov 26, 2026 at 08:40:44AM +0800, Barry Song wrote:
-> > On Wed, Nov 25, 2026 at 5:32=E2=80=AFPM Bingfang Guo <bfguo@icloud.com>=
- wrote:
-> > [...]
-> > > You are right. Maybe we can start from skipping aging in reclaim path=
- if the
-> > > youngest gen is still too young? And maybe for this path, min_ttl can=
- have a
-> > > default value? Is that a good idea?
-> > >
-> > > diff --git a/mm/vmscan.c b/mm/vmscan.c
-> > > index d891ae46baf49..7f9b14b772d14 100644
-> > > --- a/mm/vmscan.c
-> > > +++ b/mm/vmscan.c
-> > > @@ -5136,8 +5136,11 @@ static bool should_run_aging(struct lruvec *lr=
-uvec, unsigned long max_seq,
-> > >                 return false;
-> > >
-> > > +       /* avoid excessive aging for huge allocations */
-> > > +        if (unlikely(sc->order)) {
-> > > +               int gen =3D lru_gen_from_seq(max_seq);
-> > > +               unsigned long birth =3D READ_ONCE(lruvec->lrugen.time=
-stamps[gen]);
-> > > +               return !time_is_before_jiffies(birth + min_ttl);
-> > > +        }
-> >
-> > I'm not convinced that we need to couple the aging decision with
-> > min_ttl protection.
-> >
-> > This has been a long-standing problem: high-order allocations can
-> > trigger excessive reclaim and still fail to obtain contiguous
-> > memory.
-> >
-> > I've tried to address this twice, but haven't found a satisfactory
-> > solution yet:
-> >
-> > https://lore.kernel.org/linux-mm/20260422021842.78495-1-baohua@kernel.o=
-rg/
-> >
-> > Johannes shared some thoughts on this here:
-> >
-> > https://lore.kernel.org/linux-mm/aejtfpBUu7gNV6Tk@cmpxchg.org/
-> >
-> > Do you have any traces showing how many pages kswapd scans and
-> > reclaims while kcompactd makes little progress toward satisfying
-> > order-9 allocations?
->
-> We encountered this problem when running a stability test on a 6G
-> VM with 2 nodes. It populates the system with hwpoisoned pages
-> per 511 pages so order-9 migrations should mostly fail. Then it
-> tries to allocate order-9 pages. So the results might not quite
-> reflect real scenarios, but I think that applies to unmigratable
-> pages such as slab as well.
->
-> When the system OOMs and kills all the processes, we have about
-> 4.8 GiB memory free and:
->
-> PGSCAN_KSWAPD                 : 162,406,932
-> PGSTEAL_KSWAPD                : 91,233,588
-> COMPACTMIGRATE_SCANNED        : 6,542,604,811  (kcompactd: 4,041,105,566,=
- 61.8%)
-> COMPACTFREE_SCANNED           : 541,265,798    (kcompactd: 348,448,520, 6=
-4.4%)
-> COMPACTISOLATED               : 174,688,832    (2.67% of migrated)
-> PGMIGRATE_SUCCESS             : 100,824,439
-> PGMIGRATE_FAIL                : 2,022,069
->
-> So seems in this case, compaction fail rate is quite high and we
-> have really many scanned pages compared to the actually used size
-> (about 1G).
->
-> >
-> > Basically, I think we need some form of throttling to prevent
-> > kswapd from freeing more and more memory when there is already
-> > plenty of free memory, yet compaction is making little progress
-> > toward satisfying order-9 allocations.
-> >
->
-> Yes! And I've read your and Johannes's previous discussions. It
-> also seems weird to me to keep reclaiming even if there are
-> plenty of pages available there. And it's quite tricky to balance
-> between that and concurrency...
->
-> Looking into shrink path in kswapd,
->
->         sc->nr_to_reclaim +=3D max(high_wmark_pages(z: zone), SWAP_CLUSTE=
-R_MAX);
->
-> I think this is too much, for this case. So I think maybe we can
-> still reclaim for scalability, but reduce its target. At least we
-> should take reclaimable memory size and free memory size into
-> consideration, and rescale nr_to_reclaim.
+On 11/25/2026 12:56 AM, Chuck Lever wrote:
 
-So, conceptually, is this along the lines of what we have in mind?
-I'd also be interested in hearing Johannes's thoughts on this.
+> 
+> Can rpcrdma_remove_one() call rn_done() for every registrant first,
+> and run the release hooks after the walk finishes? The hooks would
+> have to be collected somewhere, because a registrant can unregister as
+> soon as the mutex is dropped.
+> 
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 81797b71228f..0144fe4be738 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -7450,17 +7450,31 @@ static bool prepare_kswapd_sleep(pg_data_t
-*pgdat, int order,
-  * This is used to determine if the scanning priority needs to be raised.
-  */
- static bool kswapd_shrink_node(pg_data_t *pgdat,
--                              struct scan_control *sc)
-+                              struct scan_control *sc,
-+                              int highest_zoneidx)
- {
-        struct zone *zone;
-        int z;
-        unsigned long nr_reclaimed =3D sc->nr_reclaimed;
-+       bool can_compact =3D sc->order > 0;
+Thanks, Chuck. I'll run the release hooks after the walk.
 
-        /* Reclaim a number of pages proportional to the number of zones */
-        sc->nr_to_reclaim =3D 0;
-+
-        for_each_managed_zone_pgdat(zone, pgdat, z, sc->reclaim_idx) {
-+               unsigned long mark =3D high_wmark_pages(zone);
-+
-+               if (can_compact && !compaction_suitable(zone,
-sc->order, mark, highest_zoneidx))
-+                       can_compact =3D false;
-                sc->nr_to_reclaim +=3D max(high_wmark_pages(zone),
-SWAP_CLUSTER_MAX);
-        }
-+       /*
-+        * If all eligible zones are already suitable for compaction,
-+        * limit further reclaim to avoid over-reclaiming due to
-+        * fragmentation.
-+        */
-+       if (can_compact)
-+               sc->nr_to_reclaim =3D min(sc->nr_to_reclaim,
-compact_gap(sc->order));
+The server calls svc_xprt_close() from its release hook, so a client
+xprt_put() that blocks can still delay a server close if the hooks
+run serially. I'll look at that ordering too.
 
-        /*
-         * Historically care was taken to put equal pressure on all zones b=
-ut
-@@ -7637,7 +7651,7 @@ static int balance_pgdat(pg_data_t *pgdat, int
-order, int highest_zoneidx)
-                 * enough pages are already being scanned that the high
-                 * watermark would be met at 100% efficiency.
-                 */
--               if (kswapd_shrink_node(pgdat, &sc))
-+               if (kswapd_shrink_node(pgdat, &sc, highest_zoneidx))
-                        raise_priority =3D false;
+> But "Pin the client transport during its callback" in the patch
+> description promises more than xprt_get() provides. Let's reword the
+> description or note that 3/3 is what makes ep->re_xprt safe to
+> dereference in this callback.
+> 
 
-                /*
+Agreed. xprt_get() assumes ep->re_xprt is already valid. I'll note
+in the commit message that the teardown change unregisters the
+endpoint before xprt_free().
 
 Thanks,
-Barry
+Li Xiasong
