@@ -1,47 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795713139;
-	b=z6MBHHA7zGqGfo60ezwQTEdut2Qp3bYqhDs5LOTH3xh6bwlVxSMV6st2bdx6lKm4ZLk4
-	 ha1D2g3kRWLVtntU2CqgJdEHvnet0Ojrw/bSrlqjx/NcMn5hytkUOLpvYJrJ/eiuDaO9z
-	 WISHNjqqf/0IhkSp3kBqmcV2rnNynCG4O/UuPGkZxpPtMleHtiDUS0g11LSrJMSjh4SSU
-	 zokuK5RHndiz1GGrMEbeKk/YBFtgO2JQ8G1YtwgD0L+niMoOiN95MqCjS+pZ80hQVXY1a
-	 FA+su8/HH6zjKofy1cC2437nmgsntZ2jN2GtBior00bJrDODa1XbSwUbCoODEAH8RoA==
+	t=1795713173;
+	b=qkdApImQdKQ5MGWrVayVorco/8fHoW8bQtAeUbHx7cGx2nvaVLZeuEE9DNPgp0w9mnDQ
+	 7GvAxwmFEZBrsacGTv6tAenQT3c+UKEiy8xfUpOW/TZdgHlndpPKaeIEqcUDZeIXwd+JA
+	 PWYtEVOXHK+Obce/WQA00MuPe2MPUPTKfNzsV3NieZ0GMtYe0CrX0sq3nrhN8KyseCZPH
+	 uVGbrsVgcvRP5/QvSMrBBCbSzM8m1uCTszbGZOtskHlU2mWgklirLfWD5RCOrfzdIJRly
+	 ROLMTDEXGKDnkvPnGKYL0l9XLPDUs0poB4rCxXVSvRkTDdUCSzajmVJ63nPZg9Cw7pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795713139;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=NRZwYYtJY1FBmZapDven7z6o3IJs9tgIYt6fVrFcmSg=;
-	b=v0YagpTIZ9d1Q+juPvEpo7qx07xVpShAIH569xSbSF0aZSApu3iHtLQrL7c+Fwsb4ojK
-	 YZo+EzD/W+OKHmv3m5W/kvRc2iaFpZMVjKC6pvl7jXlTBwRDvNRxVGoUNaTtbIEp6zncD
-	 8I1mIbhpcsBr5M4tl10s4pYuSNSXOTSPjpi0FQoIRHb50DObdDjjEfYFmx3xJF9Cn0v9P
-	 5YTjqeBtGESy7VqjNI3yPhP3t5hxz8v0q+gwzh2ETiWhPpPkPdI2A/ukav05B7S0Gx5L2
-	 +sk/Kkib/bxmBVnxW5Vj3+AiUdkFiL0OplhyDK7dWADHHcmmULC6yFocWWrT9d7wIHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795713173;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=jDIyQ4vP4xWOwyNd/2P1XXJSPGMmnwIjczRyK0fqZMQ=;
+	b=RUn/rPUk+zRc8flxroVW6PASqfLNs+nQh8sBAuyU8Xu7OFd2iM/VFv9EALdb2wyYNWkB
+	 8M2z5cjWmQiAa9jWzC6PSpOWiQDNvs994f9wuST8r0fOCslQIyCTQL2Uz/7iMrC5A6qec
+	 KOT1P+oOy5yqLtR5Mr/ZVm/aHo9w5h5RYeR8YzNwB9B70FJuNXcuV/jH56lZRmAOjHwKq
+	 oxICH4R2RQRqEKDjMZA9nWlP472+qdnWnTeTEK4mduB2L51mLwEaR9XqFS04on8st6qNn
+	 ST8gMdfGQiEpjJmvssZTQDupZ5x1zcCIx57nyrsRhfRKvzSyVe9KrKQ0MhiCyBMh7aA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5oHTCud;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F4+InH1Y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38EA1606A31C;
-	Thu, 26 Nov 2026 17:12:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1616D606A31E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 17:12:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5oHTCud
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9FA71F000CA;
-	Thu, 26 Nov 2026 17:12:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F4+InH1Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FC261F000C6;
+	Thu, 26 Nov 2026 17:12:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795713138;
-	bh=NRZwYYtJY1FBmZapDven7z6o3IJs9tgIYt6fVrFcmSg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=K5oHTCudkOQtURtEXGSjrRALJorjM8pmTyWJ4CCTe/gkJ3Gi72icFLQv/FSVPfYhA
-	 NwHVoWkVytNi7TSC89s4jjsSUEtIK1C67agHtXbl38xMoQPfBbxMPnWikLacyKJcQ7
-	 iKFIi9LL6juWBsMTiKd1YQxvmej/q3sSWcIBCUc6lxj/K3sPHbCsekLVr02hOcKCt2
-	 3lRNO+BuMzff45rhspJgzWEZfifNVSH2NXhz/ItQhD9dmJIXVF25D4ytZIUECdYJyQ
-	 F5uln5ry7spXmtHA9w+xvxYhb2/U3pSjUV+xTBzcnsLtN9YzKimIt9SlEBxi6ED+D8
-	 ++OJFFq4QtJDw==
-Message-ID: <f833e17b-3a30-46c8-aac9-060157cc6973@kernel.org>
-Date: Thu, 26 Nov 2026 19:12:14 +0200
+	s=k20260515; t=1795713172;
+	bh=jDIyQ4vP4xWOwyNd/2P1XXJSPGMmnwIjczRyK0fqZMQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=F4+InH1Y8xArAg2ACCpWSSHthPqeP87yWaAEna9NfWWMAKYhV7gz1rWXgV68Ia78W
+	 0evWLNFAPOeBHG2wKnXs0MbUlQ26qS9IIgNlKfTI67kn2oEdj/x3wFHJnSSEMDZ6QU
+	 TaF3zJCDCZ7cnwZuGCKpSEbU5KsBQEa4B80jUIM3wFz/pvOAORfwUwtSbCEVuFinyh
+	 wtzY+yZTPHPW+fQjxGWYKSf6EOhOKeI5yIpyq4/xzg+T7uAeoZlS4viL4SbIrp1s8M
+	 raPpucG7lJxWQHt9/kKaLT/uSPL0NQACpGo6YMBM9U3OTWSt/yshl3OGTgGoGxZ+Su
+	 dVMPIht2VdWAQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Christopher Hoover <ch@murgatroid.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] iio: humidity: hid-sensor-humidity: Use per-instance callbacks
+Date: Thu, 26 Nov 2026 12:12:51 -0500
+Message-ID: <20261126171239.2719947-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112545-shining-retake-7d48@gregkh>
+References: <2026112545-shining-retake-7d48@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,42 +61,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 04/14] PCI: rzg3s-host: Create the INTx IRQ domain
- before setting the chained handlers
-To: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
- robh@kernel.org, bhelgaas@google.com, p.zabel@pengutronix.de,
- geert+renesas@glider.be, magnus.damm@gmail.com, claudiu.beznea@tuxon.dev,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org,
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, stable@vger.kernel.org
-References: <20261019065025.2146539-1-claudiu.beznea@kernel.org>
- <20261019065025.2146539-5-claudiu.beznea@kernel.org>
- <179562505368.5580.2150497706749194750.b4-reply@b4>
-Content-Language: en-US
-From: Claudiu Beznea <claudiu.beznea@kernel.org>
-In-Reply-To: <179562505368.5580.2150497706749194750.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: Christopher Hoover <ch@murgatroid.com>
 
+[ Upstream commit bbe4f3f668babc9443fc1f075695e43e17ca7976 ]
 
-On 11/25/26 18:44, Manivannan Sadhasivam wrote:
-> On 2026-10-19 09:50 +0300, Claudiu Beznea wrote:
->> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->>
->> rzg3s_pcie_init_irqdomain() installs the chained INTx handlers before
->> creating the INTx IRQ domain. irq_set_chained_handler_and_data() also
->> enables the interrupt, so an INTx interrupt arriving in between is
->> handled by rzg3s_pcie_intx_irq_handler() while host->intx_domain is
->> still NULL, leading to a NULL pointer dereference.
->>
-> 
-> Did you observe the NULL ptr dereference on the device or just figuring it out
-> from the code? If you have seen it, please include the log, otherwise just state
-> it that it could be possible.
-I haven't reproduce it. Will mention it in the patch description.
+hid-sensor-humidity keeps a single static struct
+hid_sensor_hub_callbacks for all instances and overwrites its pdev in
+every probe, so with two humidity sensors, input reports for one are
+delivered with the other's platform device, and a NULL dereference
+follows once that device is removed.  The same bug was found in
+hid-sensor-temperature, which shares this code.
 
-Thank you for your review,
-Claudiu
+Keep the callbacks in struct hid_humidity_state, as the other HID
+sensor drivers (accel, gyro, als, ...) do.
+
+Fixes: d7ed89d5aadf ("iio: hid: Add humidity sensor support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christopher Hoover <ch@murgatroid.com>
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ sashal: adapted the timestamp field to the older u64 timestamp __aligned(8) form and adjusted the sensor_hub_register_callback argument indentation to match the older context. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/iio/humidity/hid-sensor-humidity.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/iio/humidity/hid-sensor-humidity.c b/drivers/iio/humidity/hid-sensor-humidity.c
+index fa0fe404a70a2..b13b20a36ddfd 100644
+--- a/drivers/iio/humidity/hid-sensor-humidity.c
++++ b/drivers/iio/humidity/hid-sensor-humidity.c
+@@ -16,6 +16,7 @@
+ struct hid_humidity_state {
+ 	struct hid_sensor_common common_attributes;
+ 	struct hid_sensor_hub_attribute_info humidity_attr;
++	struct hid_sensor_hub_callbacks callbacks;
+ 	struct {
+ 		s32 humidity_data;
+ 		u64 timestamp __aligned(8);
+@@ -184,11 +185,6 @@ static int humidity_parse_report(struct platform_device *pdev,
+ 	return ret;
+ }
+ 
+-static struct hid_sensor_hub_callbacks humidity_callbacks = {
+-	.send_event = &humidity_proc_event,
+-	.capture_sample = &humidity_capture_sample,
+-};
+-
+ /* Function to initialize the processing for usage id */
+ static int hid_humidity_probe(struct platform_device *pdev)
+ {
+@@ -240,9 +236,13 @@ static int hid_humidity_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, indio_dev);
+ 
+-	humidity_callbacks.pdev = pdev;
++	humid_st->callbacks = (struct hid_sensor_hub_callbacks) {
++		.send_event = humidity_proc_event,
++		.capture_sample = humidity_capture_sample,
++		.pdev = pdev,
++	};
+ 	ret = sensor_hub_register_callback(hsdev, HID_USAGE_SENSOR_HUMIDITY,
+-					&humidity_callbacks);
++					&humid_st->callbacks);
+ 	if (ret)
+ 		goto error_remove_trigger;
+ 
+-- 
+2.53.0
+
