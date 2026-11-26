@@ -1,57 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795705429;
-	b=avMBigxa60k9pY4EQWl9sDPNj1wwl+aIn6x43bdcSLkBrTNaCejNfgoEFVVKkDfrxPHM
-	 aFGTdbch8YHtqa6CY4BrdFKpxJigSYvhR4wEnpmAS4CtaCDyHc30vjVq+r+KaKPxU9NYq
-	 6iCzWenuNQS/c/WODb06rCCLLHEzwRIW34lm8cDevc4DuJTXzrWisiKIoFrrvQvNsI40r
-	 3xgHdr/BOJsK98bcDpY9OJcp9AXjOdFnUP+ZBMDhHf0Gy+QK85wJT/LwwuYDGL+v/+YJL
-	 TCDIAqvVFoVn0aG6cNL5j9Bp+2UidqMf7qWLLDQE+okwsjzq7IstYZu9cbyImEsncgQ==
+	t=1795705431;
+	b=r1tWevTf6E8JLMu1xuqY0xCEOgdrjj9yXd3XLJJ+1Ha3azZ8s/43coNzxNiLGYcUDKQh
+	 iCkrQMf1eRozcI8DdL2QJJif0fCtLiH6bBXITUQjzaxMt5cqk3q5G8xi4AR7QoGBpEDpW
+	 PGI5aBTFMHHS9D3xG0JUTj75/QIWlZ25uRz8R16tuiSnlF//Fyut+44oX2IJ+U5UzjFwi
+	 PJ/2/3NMshdRDDE7vG1KBJUcwQNbBmmzyU18wv9rF+qwVOeWtSDgMFuqXWucHbylBu2M6
+	 7sGCwBq6xCtxzTGSNQTMJQY+7CvMOO/t/ulHPHgv+JRgyDzvijfkCwZAqzi4MUzUUpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795705429;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795705431;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=JOFXatYNDHn2ZXlKFP6zW4LT5k22LlD6klYuVCGv6tU=;
-	b=Ryk2Z9ioXOCZK2dzSuza5ENgTlksgyDbEKdfvbLLN4AgEvqsmw6OPridKamG1o80FVFm
-	 TJmZazLd+8lk2lTLZmvS4Cr4IhGzjLzMfT0ltbv/9jIWHPo9+ALIR2ZU4knkSJAw51oeO
-	 FKiD5BSxRUaiQo4Dn3q90b5Y5vh79Dh1a9+Dj4VZ6JXHQCnKdneZdc6W2EDe9UKBc/bm4
-	 eSkDhAHzgsFPakRf0HcFaXuNpfd5PIDisi3YssqTNAZMrn0dTl0Jmwef+a+tGoftnHVVt
-	 /A10vqFWabPLyS++MIyIxwfyyz+WNGZ283m7YLEJ6d9swGKKjIT2txrFk+50X3g4GuQ==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=mhExryPwd1m39eifvFgB83YgWUtxgJ0e7pMC3lisHgU=;
+	b=yB/g8IfU6S77TZ3OimEsVK0VYfTHsYepAemU+lCVDWoykZOdKKAonbgtRzKjAPcFB0Wr
+	 zguswxoMS5P4E3mm3ExkS5hSPTnqvMOu7PFX0WGH7m4S5L8lI0XAxTOq/aCNcvR6LZfpH
+	 VOroAzl1NDLupNXJ9rlX7V3B8mtJbeIzp/YVRVdjSIhu9xEiyrmYx1z3AREsgi8qyjoVB
+	 q6M5Xm/5a8ador2IgcL0aReqJi4EG3ZsUuPU5ctroJXqkkU5n6n/cOmGwCX29I+qG8VzH
+	 bdSKfM8ExjfpL+a1YeSLXdLv4xwnMAm0EW6XB+H7yqxi0Qyt2odS9HrH+DDaAn5BM+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lEimAHtx;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="DKHW/8oy";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38B9606A33B
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:03:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F44606A326;
+	Thu, 26 Nov 2026 15:03:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lEimAHtx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCECB1F000D1;
-	Thu, 26 Nov 2026 15:03:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795705429;
-	bh=JOFXatYNDHn2ZXlKFP6zW4LT5k22LlD6klYuVCGv6tU=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DKHW/8oy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B75351F000EC;
+	Thu, 26 Nov 2026 15:03:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795705430;
+	bh=mhExryPwd1m39eifvFgB83YgWUtxgJ0e7pMC3lisHgU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lEimAHtxty0owvNVcfx2QlYBhYjmQqvJJ4A5AFCFqkdPlMAupHtsTm51u5HYISaWv
-	 H/E4gKkXfJigUmPP4C7taYHwPkIhQBA4g6L66UNdsDKkM12uaoF+9owbsflCnih+YZ
-	 GoBR4qX3qFJrnhedesQxoqZMzhPiGuvQM7Gab1bFMUk3SMT7iFU/UqG6vKsWyI/nd7
-	 YL/GCE9TNmpMzcXlYzPOioFP5ig3k875KX8t6gBd/x+m5pUH8UjXJtS0GJZPLgW4YN
-	 NqYa2P0OiqzbEFNtxE9sZJuKKLWMvm5vdABTn2jVHWdnKNTptUG8V4dQAA2+l2LqYg
-	 yz9krjossaEmw==
-From: Sasha Levin <sashal@kernel.org>
+	b=DKHW/8oy/Mfi2tgxgZaI2b0vZpUHCUzVALq68YkMVXLnsLZYHo3KCYMpSIKnSBd7/
+	 4QpdOgwAa74/WeBjBx+OII6eDw/1EofmlMpNxfaFaTH5KFaciST40XlaO2tQ8tlEiR
+	 YwR+LF0k3T06FXY0mifpDD6KynLIV8DBqcIiYvsc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: wuyuehong <wuyuehong@cmss.chinamobile.com>,
-	syzbot+1288484b13bf6af3620d@syzkaller.appspotmail.com,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] dm snapshot: fix discard_granularity unit in snapshot_io_hints
-Date: Thu, 26 Nov 2026 10:03:46 -0500
-Message-ID: <20261126150336.2214049-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126150336.2214049-1-sashal@kernel.org>
-References: <2026112506-afraid-flogging-8ebf@gregkh>
- <20261126150336.2214049-1-sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Alexei Starovoitov <ast@kernel.org>,
+	Hangbin Liu <liuhangbin@kylinos.cn>,
+	Yingjie Wang <1075151112@qq.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 5.15 196/319] ipv6: reject routes without an inet6_dev
+Date: Thu, 26 Nov 2026 15:39:24 +0100
+Message-ID: <20261126144011.168575648@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261126144006.732901931@linuxfoundation.org>
+References: <20261126144006.732901931@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,66 +66,91 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: wuyuehong <wuyuehong@cmss.chinamobile.com>
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit d7216d7be2bbfdf3312695b6e41a4fc7c5e22902 ]
+------------------
 
-snapshot_io_hints() copies the snapshot store's chunk_size, which is
-in 512-byte sectors, into queue_limits.discard_granularity, which, like
-all other members of struct queue_limits, is in bytes.
+From: Yingjie Wang <1075151112@qq.com>
 
-For snapshots with a chunk size smaller than 512 sectors, e.g. the
-16 KiB (32-sector) chunks created by the syzkaller reproducer, the
-resulting granularity is smaller than a single sector.  When
-dm_calculate_queue_limits() then stacks the target limits into the
-table limits:
+commit 08a1eb7a634f665718ebe74e0960e242f597135e upstream.
 
-	blk_stack_limits(limits, &ti_limits, 0)
+ip6_route_output() and ip6_route_lookup() can return an error-free route
+whose rt6i_idev is NULL.  Lowering an external nexthop device's MTU below
+IPV6_MIN_MTU tears down its inet6_dev, while fib6_ifdown() leaves routes
+using nexthop objects in the FIB.
 
-queue_limit_discard_alignment() truncates that granularity to zero
-sectors and sector_div() divides by zero:
+An unprivileged user with CAP_NET_ADMIN in a private user and network
+namespace can construct this state.  Consumers which treat a route without
+an error as usable can then dereference the NULL rt6i_idev.  This was
+reproduced as a KASAN NULL pointer dereference in ip6_tnl_xmit().
 
-  Oops: divide error: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:queue_limit_discard_alignment block/blk-settings.c:645 [inline]
-  RIP: 0010:blk_stack_limits+0x1105/0x2d00 block/blk-settings.c:916
-  Call Trace:
-   dm_calculate_queue_limits+0x70c/0x1510 drivers/md/dm-table.c:1823
-   dm_setup_md_queue+0x199/0x4f0 drivers/md/dm.c:2618
-   table_load+0x4fd/0x8a0 drivers/md/dm-ioctl.c:1661
+An audit of IPv6 route and tunnel users found this unchecked
+ip6_dst_idev() dereference.
 
-The divide fault itself only became reachable when commit e924da7d6622
-("block: Drop granularity check in queue_limit_discard_alignment()")
-removed the check for a sub-sector granularity in v6.13.  Kernels
-before that returned a zero discard alignment instead of faulting, but
-they still advertised a granularity 512 times too small.
+A similar missing inet6_dev check was fixed in commit 1b9b5323725e
+("netfilter: ip6t_rpfilter: reject routes without inet6_dev").  However,
+the route construction path still marks routes without an inet6_dev as
+successful, leaving every consumer responsible for the same check.
 
-Use the same chunk_size << SECTOR_SHIFT conversion that
-io_overlaps_chunk() already applies to turn chunk_size into bytes.
+Acquire the inet6_dev reference before initializing the destination.  If a
+non-reject route has no inet6_dev, initialize it as RTN_UNREACHABLE instead
+of a successful route.  Explicit reject routes keep their original type and
+error.  This establishes that ordinary error-free IPv6 routes have an
+inet6_dev while retaining the existing defensive checks at callers.
 
-Fixes: 2e6023850e17 ("dm snapshot: add optional discard support features")
-Reported-by: syzbot+1288484b13bf6af3620d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1288484b13bf6af3620d
+The modified route object builds cleanly with W=1.  A full x86_64 KASAN
+bzImage build completes; it reports two pre-existing kernel-doc warnings
+outside this change.
+
+Tests:
+  - `make W=1 net/ipv6/route.o`
+  - full x86_64 KASAN `bzImage` build with `W=1`
+  - KASAN QEMU with an unprivileged user and network namespace: after
+    lowering the MTU, the stale route returned `No route to host`, a normal
+    route still resolved, and the collect_md trigger completed without
+    KASAN, oops, or panic
+  - `tools/testing/selftests/net/ip6_tunnel.sh` in the same KASAN QEMU
+
+Fixes: 5b98324ebe29 ("ipv6: Allow routes to use nexthop objects")
+Closes: https://lore.kernel.org/netdev/DMP4WRIOGMBX.3VW2KNLBGDZ0K@gmail.com/
+Suggested-by: Alexei Starovoitov <ast@kernel.org>
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
 Cc: stable@vger.kernel.org
-Signed-off-by: wuyuehong <wuyuehong@cmss.chinamobile.com>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Yingjie Wang <1075151112@qq.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/tencent_91DA7FD8277B509C55906702D1E425FBC906@qq.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/md/dm-snap.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/ipv6/route.c |    8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
-index 4649fb5f73732..b44d9d10b1427 100644
---- a/drivers/md/dm-snap.c
-+++ b/drivers/md/dm-snap.c
-@@ -2424,7 +2424,7 @@ static void snapshot_io_hints(struct dm_target *ti, struct queue_limits *limits)
- 			snap = snap_src;
+--- a/net/ipv6/route.c
++++ b/net/ipv6/route.c
+@@ -1094,6 +1094,12 @@ static void ip6_rt_init_dst(struct rt6_i
+ 		return;
+ 	}
  
- 		/* All discards are split on chunk_size boundary */
--		limits->discard_granularity = snap->store->chunk_size;
-+		limits->discard_granularity = snap->store->chunk_size << SECTOR_SHIFT;
- 		limits->max_hw_discard_sectors = snap->store->chunk_size;
++	/* addrconf_ifdown() removed inet6_dev. The device can't do IPv6. */
++	if (!rt->rt6i_idev) {
++		ip6_rt_init_dst_reject(rt, RTN_UNREACHABLE);
++		return;
++	}
++
+ 	rt->dst.error = 0;
+ 	rt->dst.output = ip6_output;
  
- 		up_read(&_origins_lock);
--- 
-2.53.0
+@@ -1128,10 +1134,10 @@ static void ip6_rt_copy_init(struct rt6_
+ 	const struct net_device *dev = nh->fib_nh_dev;
+ 	struct fib6_info *f6i = res->f6i;
+ 
++	rt->rt6i_idev = dev ? in6_dev_get(dev) : NULL;
+ 	ip6_rt_init_dst(rt, res);
+ 
+ 	rt->rt6i_dst = f6i->fib6_dst;
+-	rt->rt6i_idev = dev ? in6_dev_get(dev) : NULL;
+ 	rt->rt6i_flags = res->fib6_flags;
+ 	if (nh->fib_nh_gw_family) {
+ 		rt->rt6i_gateway = nh->fib_nh_gw6;
+
 
