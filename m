@@ -1,65 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.64.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795707946;
-	b=3lJfCcmDl/hk71ksavAUPp/nRj2N4KHGLK++tabRp39+hx2wmr1yWi6FbFcEMmjFkq9/
-	 fitqZSztMdiaXd6qAgBk6p6PeLDqQxcaAB16X5MlVjhrnSEYuRsHH7ZeC0jslTtXS4lQM
-	 i1v56vPTUnAS5uSCrlDAYfBgrg6kBPy95zath1b7rLpSl2tU7N432FHDM0NWpqDP7B0u0
-	 TkB+NvxIGA8vleIsDTItNIrRT358PpWD1IUCLOgE0XKIouXej4diJ7ampQo8eZ5HaAXsd
-	 CNuOEyMDW8M6wJaUmgK3ciBLU7My4MJw932PCWQFTlwS/Up05ovlryMzxehth/XSYmA==
+	t=1795707992;
+	b=rqFbdJniE0PfDjIIakDyXZN0Zf+dNB7uB8dlka81ZAssRzgNm4eKH334Bu60GiZNio5m
+	 0h3iPrTnMIKYpwW3Pkq0EVD3/e6UyPwQV7u+hBzwNmbksm/xFA9g+79F4OaU80CTyc/JW
+	 +NfEoL9MWiGvwUaRW2g4U6hgg672xqaEcOUIaZIt5ieIG1syz8ux8jlgyJ1162dVFA/D4
+	 rEecmOsX1dpJXff7WIT6r6AR0G9RXXBtAKU+4dvPaY1qfx+XWvgpL6jOP837thx29xHPP
+	 TaYRDLEJbF3wqVnqyIE5FRTDgcj/nakA6GAQkAMNU0jf7SgCpjLJEa6vxa18u62A1cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795707946;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Flowmailer-Platform:Feedback-ID;
-	bh=Zqe81CUvl0CetbkbGMnAV9O0XTNAJxsTRcckQyPgzXA=;
-	b=uNk1WccPKAv0qd+mYWcmyYsUkonSFavvqNwO3A9h3+J0PqtHtcL4rHim6ymXyIH2hMMq
-	 9DnDjCdH/lj3os4Fq16hXn5gVTpcZnDZUwORQ3yfRf6UqVbpxJjQjPdxSn4JIL+kmaO2U
-	 4VPoPK6LtxXGEYx9lCl3bXhLGmtqjBYFlgAvDaECnULARQs1x7LfNAJlTXGXuMZRmV7B+
-	 0nTbfgyp+fGhOjda7QIngdZ1Gnhbvh9EbENVJvUC0EJIL1GQVrFNm8m3XwGaLLSeISbV7
-	 8SApGjT91Hir2r6uEtLDaXRwVrMeoSw641oG8Bne8pU3jVre+NKnQbqV+u8ivCXE65A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795707992;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=gMhm7Cv+XZdyvHGfq24oMiXyYYljymDJJ/reK/K6qdQ=;
+	b=19I7fwa77AdQ22nom/HbI/vob8iwGHPCcWYj8dQMfXLXZug03sYtVQeKczH8YdbV1IsW
+	 BUR60RXqgwShUzJM8JDMruXhxI7dKuNBqMbMDveWdunK5K+7GEtlfrCuw81nV1y7aBgbW
+	 DJJ27In+UdJBiC8hchpM16rtc+nVCHA+cMhAIzdWeT33hGDGfuQyqW1zlfQHPD9ueNyX3
+	 Cc1OSvIYr6/4q6/73GPIV2cDxKuIUyA28HVvUPY6zFeCqPgiFctDeArXF/bJSEZmLYbXU
+	 POZdSrj100vmL1Z1zfsJbMsAosS1CWTap3hPTUAAgm23JucH+rykPA1KaS92f+vvQbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=siemens.com;
-	spf=pass smtp.mailfrom=rts-flowmailer.siemens.com;
-	dkim=pass header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.a=rsa-sha256 header.s=fm1 header.b=Kz7GrG4l;
-	arc=none smtp.remote-ip=185.136.64.225
-Received: from mta-64-225.siemens.flowmailer.net (mta-64-225.siemens.flowmailer.net [185.136.64.225])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FJQPkAMo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66490606A33E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:45:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66490606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5102606A696
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:46:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.a=rsa-sha256 header.s=fm1 header.b=Kz7GrG4l
-Received: by mta-64-225.siemens.flowmailer.net with ESMTPSA id 20261126154535f71cdbe04e00020704
-        for <stable@vger.kernel.org>;
-        Thu, 26 Nov 2026 16:45:35 +0100
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
- d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=Zqe81CUvl0CetbkbGMnAV9O0XTNAJxsTRcckQyPgzXA=;
- b=Kz7GrG4l+IPMRASsQ52hEw7hdl/YxyNPX4Th5GEcrg2x8Fv/cgTXMICYKDFyFLRyBgSpK+
- eQ+cuaOusrCZt3aNofOMfERfSFO/RxIWqIwA0GjJiur71P0DHt94jN3kWlnBpA/3SeMWKl3r
- WtBPI9cZ50l0MLDP1NOtRIz5DYCw4DLwAjcP3oOBeuvis9fiPkperbsuamDg1tvdJGjJFIDm
- HJJNTVzhqxYQlIadIqoaOpyxV3AvbpQHsGoIdzPn+X/dA73sE4C71qItt0H41WlYR+SGJPrW
- LdU8MRKToj1Op6ZAfFsYeNgQJAb9bogXe9Ro+rFDzA+6CYD15RUR46Pg==;
-From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-To: linux-gpio@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Tony Lindgren <tony@atomide.com>,
-	Haojian Zhuang <haojian.zhuang@linaro.org>,
-	Linus Walleij <linusw@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-omap@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lee Jones <lee@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/4] pinctrl: single: Also free the pinconf table of a duplicate function
-Date: Thu, 26 Nov 2026 16:45:22 +0100
-Message-ID: <20261126154529.1599568-2-alexander.sverdlin@siemens.com>
-In-Reply-To: <20261126154529.1599568-1-alexander.sverdlin@siemens.com>
-References: <20261126154529.1599568-1-alexander.sverdlin@siemens.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FJQPkAMo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1EF91F000EC;
+	Thu, 26 Nov 2026 15:46:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795707992;
+	bh=gMhm7Cv+XZdyvHGfq24oMiXyYYljymDJJ/reK/K6qdQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=FJQPkAMoCPL4U7QgNfy0GDEq/p68ffvZiM9nTgAPAHTXGmlpZAFdg4anuSxwFAjVz
+	 gTUHtGekFQ21mDAKwMZHERPoVDjwDOznWRcyEL0sF0wrJCEIVkB4HSRBW4XKOEJOjm
+	 BdhqMIxgiXhMqbyEadLYH67LxQ/rtoTbm/jRaiscJdODzGzUBr0diI43WyfbCz5IvC
+	 u1rL1y7MNmgUsHAPdlbIAlF5MtuVRjcs3HYE2CzXucrPBJZdomo1EkUIfQi92rtejD
+	 7O756ZPD9UWPRGy8PnAMlrIUpjwtVqr9KRyYkoISdqN+dZ7e5d2OXPgRdLxQdpPj14
+	 knTvnVcctlViA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Prashanth K <quic_prashk@quicinc.com>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] usb: dwc3: Wait unconditionally after issuing EndXfer command
+Date: Thu, 26 Nov 2026 10:46:28 -0500
+Message-ID: <20261126154618.2487574-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112521-swinging-willed-f488@gregkh>
+References: <2026112521-swinging-willed-f488@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,41 +61,64 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-456497:519-21489:flowmailer
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+From: Prashanth K <quic_prashk@quicinc.com>
 
-pcs_parse_pinconf() attaches a devm-allocated pcs_conf_vals array to the
-function pcs_add_function() has just allocated. When a node is mapped
-again, e.g. on consumer re-probe, that function is a duplicate of the one
-the core keeps and is freed since commit ad2093840ca3 ("pinctrl: single:
-don't leak group/function tables on consumer re-probe"), but its conf
-array stays on the controller's devres list. It accumulates with every
-re-probe of a consumer whose pin group has pinconf properties, until the
-controller is unbound.
+[ Upstream commit 1d26ba0944d398f88aaf997bda3544646cf21945 ]
 
-Free it together with the function.
+Currently all controller IP/revisions except DWC3_usb3 >= 310a
+wait 1ms unconditionally for ENDXFER completion when IOC is not
+set. This is because DWC_usb3 controller revisions >= 3.10a
+supports GUCTL2[14: Rst_actbitlater] bit which allows polling
+CMDACT bit to know whether ENDXFER command is completed.
 
-Fixes: 9dddb4df90d1 ("pinctrl: single: support generic pinconf")
+Consider a case where an IN request was queued, and parallelly
+soft_disconnect was called (due to ffs_epfile_release). This
+eventually calls stop_active_transfer with IOC cleared, hence
+send_gadget_ep_cmd() skips waiting for CMDACT cleared during
+EndXfer. For DWC3 controllers with revisions >= 310a, we don't
+forcefully wait for 1ms either, and we proceed by unmapping the
+requests. If ENDXFER didn't complete by this time, it leads to
+SMMU faults since the controller would still be accessing those
+requests.
+
+Fix this by ensuring ENDXFER completion by adding 1ms delay in
+__dwc3_stop_active_transfer() unconditionally.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+Fixes: b353eb6dc285 ("usb: dwc3: gadget: Skip waiting for CMDACT cleared during endxfer")
+Signed-off-by: Prashanth K <quic_prashk@quicinc.com>
+Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Link: https://lore.kernel.org/r/20240502044103.1066350-1-quic_prashk@quicinc.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: af91c6322e63 ("usb: dwc3: gadget: Track a timed out End Transfer")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pinctrl/pinctrl-single.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/usb/dwc3/gadget.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/pinctrl/pinctrl-single.c b/drivers/pinctrl/pinctrl-single.c
-index d72ebb186b894..64472465800c4 100644
---- a/drivers/pinctrl/pinctrl-single.c
-+++ b/drivers/pinctrl/pinctrl-single.c
-@@ -1107,6 +1107,7 @@ static int pcs_parse_one_pinctrl_entry(struct pcs_device *pcs,
- 	if (pinmux_generic_get_function(pcs->pctl, fsel)->data != function) {
- 		devm_kfree(pcs->dev, pins);
- 		devm_kfree(pcs->dev, vals);
-+		devm_kfree(pcs->dev, function->conf);
- 		devm_kfree(pcs->dev, function);
- 		devm_kfree(pcs->dev, pgnames);
- 	}
+diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
+index 0fda58b77ebc1..ec31136a5f867 100644
+--- a/drivers/usb/dwc3/gadget.c
++++ b/drivers/usb/dwc3/gadget.c
+@@ -1685,7 +1685,6 @@ static void dwc3_schedule_err_recovery(struct dwc3 *dwc);
+  */
+ static int __dwc3_stop_active_transfer(struct dwc3_ep *dep, bool force, bool interrupt)
+ {
+-	struct dwc3 *dwc = dep->dwc;
+ 	struct dwc3_gadget_ep_cmd_params params;
+ 	u32 cmd;
+ 	int ret;
+@@ -1717,8 +1716,7 @@ static int __dwc3_stop_active_transfer(struct dwc3_ep *dep, bool force, bool int
+ 	dep->resource_index = 0;
+ 
+ 	if (!interrupt) {
+-		if (!DWC3_IP_IS(DWC3) || DWC3_VER_IS_PRIOR(DWC3, 310A))
+-			mdelay(1);
++		mdelay(1);
+ 		dep->flags &= ~DWC3_EP_TRANSFER_STARTED;
+ 	} else if (!ret) {
+ 		dep->flags |= DWC3_EP_END_TRANSFER_PENDING;
 -- 
-2.56.1
+2.53.0
 
