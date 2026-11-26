@@ -1,58 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.211.150
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795693689;
-	b=ab57yMbGcFRVPsNcIapDOEck+Q5thUn2fs698O3COg5t7SpCiBo2n71IgkDaRKpl+zAG
-	 DE5lQ7uvg/eHzUu8gCpeRSGt58e2A7DYhHKRHt9pzjt4NrfgSGVEOT/0vVCkY6CdmghK5
-	 OZN/hXabyNkn+z6A/RGPKo/otnFaMWzqVzxI7UgglbS7cvCByXb4Awtk92Btimand7ogp
-	 tgro5n627Ch5JnFYfFkSbK5edZs7Ix5la2g9ziccifPjfR4NDtqfl+55wTyRgL6g5DTCJ
-	 ytpk401yXHOYbnlIi7opwz72UhLY6SbHvURyCO2rQPKPLnKkcp0m+GNv1P+brzDD9hQ==
+	t=1795693838;
+	b=ZgzyT8RbzV3qsBrODbVRqzJ+5y1a2h1KkjvfnAaQdS5fUKfPwbi/WqmmWtTNg0gTGggY
+	 nODCUBLFtbeYE41EjBKtbrzNueGswYz3nHTNF5zwQ0hs0FrroyI3O2FnjOVJfV/r2v3fN
+	 m7xl6WO31dfTlIADrkHxh4a5GcgbISkyRsQqaJMz86WO1C5ywxP4N8jWlz8Fd7SZKLQRp
+	 I1sBJadoWPX7YKg70LzDxvi/HtUHdKCHxzZFOL8vG9SI5j6UKvfPB81Er7b/D3UVB/SIN
+	 ZnlVCrNxqjOcEHGOL4CBswN3dtD8pJA9lEl7q1285ncG1VQZ7gyT3rK6hUd+4TG34lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795693689;
-	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=yUFA3aodD7h3Gv/Q2z05lq0mkFEsnyA5+gRezY214jM=;
-	b=W4pLzst2gsFvXMM2qlq0wy0xbtBxNUaj57mGWDzWnFwWQ4f2OSSk7VbFIOTZdHl1wq9O
-	 XNl6uebDWWc1I5EltFVi7FkQB0pBBItbQwzFUgfT3GBjrFBCRNDOQRijbC8AVH2HQdDsh
-	 zfz70ODULxwPAEOoBST0Z0Or9i2Ix7aJCFsjecEl1z9iUl2bWu8GfhvxcJaNqU63jCsG0
-	 AypNoDHuEoodxtHM/0OAQGOrVHombqGSF/fsASmyTP2i6xP0So/ocOx1R3usuwUJBOh9R
-	 o4osdVAh7LQf3+GGWSCng6s6j8nbOQgxaibjuSl8RxxumrNWjPf40bdkXbapH9JXVcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795693838;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=IJ5jsxL0IuDyDDqZ5htbZgPEjfueBemxUKX+IpUo4oI=;
+	b=0q14XzoiwVAZQLoB4b1uuMAjfxTCVYqUs5BpzYBhBfMW9wIJ07tLkQk0IHdXNuT7InRs
+	 eDd7TEZRhhw6JxU2bPaeZFLo3FBLl623ShXV1ez4+GAzo3NxCWRZD670+SrZspD7+bqqu
+	 KV/GQYhXHqhSRLmA8btJyn886fNB9aci3X4wUnC5bj1d7kGSv5Qs86e0e+Bp1yTMHil8u
+	 rBb69nsAXglAlfi8KbJOYR9bAzLV5RwNASRIeLf1g5QsgkLQejm6w84IT7zlIRk90XWEG
+	 14mpXMfUQvfPja2E/C/qPZzms4VQprw23Ln1+S6jn4DWze9cEoeHlr6s8uk81igyXew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=swemel.ru;
-	spf=pass smtp.mailfrom=swemel.ru;
-	dkim=pass header.d=swemel.ru header.i=@swemel.ru header.a=rsa-sha256 header.s=mail header.b=smpjLB2G;
-	arc=none smtp.remote-ip=95.143.211.150
-Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=O5+HyVBQ;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 789B5606A6B5;
-	Thu, 26 Nov 2026 11:48:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 789B5606A6B5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swemel.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB188606A321;
+	Thu, 26 Nov 2026 11:50:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB188606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=swemel.ru header.i=@swemel.ru header.a=rsa-sha256 header.s=mail header.b=smpjLB2G
-From: Denis Arefev <arefev@swemel.ru>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
-	t=1795693678;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=yUFA3aodD7h3Gv/Q2z05lq0mkFEsnyA5+gRezY214jM=;
-	b=smpjLB2GglBNYBr7v52garf51ALxie+ssZgtx2ncQQkvCrbSo1suK6BecKfnoXz5hTnB24
-	sDqE62Ej1EqPlfmo+B5aTMWAYT1OJntymHAPkrhEwq3oIpYoNDDaXajllFuoq7VSNtaXSU
-	y7ggwxKY9DJ7uQVMNvyJBPk2eJWE6Es=
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	iommu@lists.linux-foundation.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Joerg Roedel <jroedel@suse.de>
-Subject: [PATCH v2 5.10] iommu/amd: Check return value of mmu_notifier_register()
-Date: Thu, 26 Nov 2026 14:47:55 +0300
-Message-ID: <20261126114758.58775-1-arefev@swemel.ru>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=O5+HyVBQ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=IJ5jsxL0IuDyDDqZ5htbZgPEjfueBemxUKX+IpUo4oI=; b=O5+HyVBQZ2YAxfcaUj5Xq2tCtW
+	I/UhPI4SYWJkx0yySCP39JT00U/BovcyKluthDlwsu+hKFDBlKdIGh5+MYBtMBsBR3uuvriCDbj0W
+	v1B8UQ6yhuZ/QlI1gdWccnRBPA/fnxzj6selMyWrik9c+qfcxqngKJ6ExJiS/f44Tb6EXyoabxdJ1
+	765g8l5g7nfOWdai9D5vuAAdlLAJcCwBGjZBB4s8aAVLBAAulPOmsgm0Xqv1mXSM2IJjnaVGGOPye
+	BpLh/LlNT6y/yPSw3Bj1S+IU/jtG6PkNeLo8tGiQLsnDqI9RADGV8vLvUAia1dK6ON24uAMlZm8iz
+	z82cuJBQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xWXzm-00000006Roe-0fVl;
+	Thu, 26 Nov 2026 11:50:34 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 9B26B302186; Thu, 26 Nov 2026 12:50:32 +0100 (CET)
+Date: Thu, 26 Nov 2026 12:50:32 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Nick Desaulniers <ndesaulniers@google.com>,
+	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH v3] sched/topology: Avoid unsequenced accesses to jiffies
+ in sd_init()
+Message-ID: <20261126115032.GE49833@noisy.programming.kicks-ass.net>
+References: <20261125-topology-wunsequenced-v3-1-efa3db7e0bf8@kernel.org>
+ <20261125094643.GY2668804@noisy.programming.kicks-ass.net>
+ <CAKwvOdmyGdn4ES6Ku+Yovd7a5imzmtmYtd7KB=OMCqKpv1X8rg@mail.gmail.com>
+ <20261125200311.GA3625068@ax162>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,59 +79,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261125200311.GA3625068@ax162>
 
-From: Denis Arefev <arefev@swemel.ru>
+On Wed, Nov 25, 2026 at 01:03:11PM -0700, Nathan Chancellor wrote:
+> On Wed, Nov 25, 2026 at 11:32:31AM -0800, Nick Desaulniers wrote:
+> > On Wed, Nov 25, 2026 at 1:46 AM Peter Zijlstra <peterz@infradead.org> wrote:
+> > >
+> > > On Wed, Nov 25, 2026 at 12:23:35AM -0700, Nathan Chancellor wrote:
+> > > > Clang's warning is ultimately pointing out that jiffies may have two
+> > > > separate values in this initializer because it is volatile and accessed
+> > > > twice and the order of these accesses is not specified. This could
+> > > > result in unexpected or inconsistent behavior depending on the code
+> > > > author's intent and whether they realized the variable was volatile or
+> > > > not.
+> > > >
+> > > > As two separate accesses is not necessary here, add a local variable to
+> > > > hold the value of jiffies before the designated initializer so that a
+> > > > consistent value is used for initializing both members, clearing up the
+> > > > warning.
+> > >
+> > > None of this tells me why we should not just disable that warning and
+> > > get on with life.
+> 
+> See below, I believe this warning has general value (but maybe not
+> here).
 
-commit b09b56734fae28be9332021ae3e84c9b05020fda upstream.
+Yeah, not here.
 
-Added a return value check for the function
-mmu_notifier_register().
+> > I think the warning has value generally across the tree, even if this
+> > particular single instance "isn't a bug, per se."
+> 
+> Hard agree. Just because this particular instance is not a bug does not
+> mean future instances won't be. We pay a small cost to silence the
+> initial instances then we get to see what it flags in the future. If it
+> turns out there are never bugs, we can just turn the warning off
+> globally (we've done it before) but I'd rather have hard evidence of
+> that first; to me, these initial instances don't count. No maintainer
+> has objected to the other patches I have sent for the other instances of
+> this warning and there were not all that many for how much code the
+> kernel has.
 
-Return value of a function 'mmu_notifier_register'
-called at iommu_v2.c:642 is not checked,
- but it is usually checked for this function
+I just don't understand any of this. Perhaps I'm being super dense, but
+calling this UB is utterly stupid IMO. It is trivial to define what
+should happen here and make the compiler do it, although perhaps it is
+not what people expect -- but at that point you can have a warning about
+performance, rather than it being UB.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+Most all of this is me being distrustful towards the C committee about
+volatile; they hate it while we live by it.
 
-Signed-off-by: Denis Arefev <arefev@swemel.ru>
-Link: https://lore.kernel.org/r/20221118104252.122809-1-arefev@swemel.ru
-[joro: Fix commit message ]
-Signed-off-by: Joerg Roedel <jroedel@suse.de>
-Signed-off-by: Denis Arefev <arefev@swemel.ru>
----
-Changes in v2:
-- Drop the mm reference taken by get_task_mm() when
-  mmu_notifier_register() fails (mm_struct refcount leak).
-v1: https://lore.kernel.org/all/20261125084142.30679-1-arefev@swemel.ru/
+But I really don't see the difference between two jiffie reads in an
+initializer vs two jiffie reads in random code. Its just two reads that
+cannot be fused, big deal.
 
- drivers/iommu/amd/iommu_v2.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+So they're making a big deal out of the unsequenced thing; but at the
+same time they're eroding actual sequence points; I mean WTF ?!
 
-diff --git a/drivers/iommu/amd/iommu_v2.c b/drivers/iommu/amd/iommu_v2.c
-index 16776e3c6eab..37b757e91198 100644
---- a/drivers/iommu/amd/iommu_v2.c
-+++ b/drivers/iommu/amd/iommu_v2.c
-@@ -640,7 +640,9 @@ int amd_iommu_bind_pasid(struct pci_dev *pdev, u32 pasid,
- 	if (pasid_state->mm == NULL)
- 		goto out_free;
- 
--	mmu_notifier_register(&pasid_state->mn, mm);
-+	ret = mmu_notifier_register(&pasid_state->mn, mm);
-+	if (ret)
-+		goto out_mm;
- 
- 	ret = set_pasid_state(dev_state, pasid_state, pasid);
- 	if (ret)
-@@ -668,6 +670,8 @@ int amd_iommu_bind_pasid(struct pci_dev *pdev, u32 pasid,
- 
- out_unregister:
- 	mmu_notifier_unregister(&pasid_state->mn, mm);
-+
-+out_mm:
- 	mmput(mm);
- 
- out_free:
--- 
-2.43.0
+So function calls used to be a sequence point; but then they allowed
+auto inlining (without the use of the inline keyword), and guess what?
+An inlined function is explicitly not a sequence point.
 
+So they cannot be both concerned about sequence *and* erode sequence.
+
+All of this just sounds like a whole pile of wankery without actual
+merit.
+
+Also; the purported justification of UB has always been room for
+optimization, but volatile is the anti-thesis of that, it explicitly
+does not allow optimization. Marking something with volatile as UB is
+just batshit.
+
+I mean, I suppose I can apply the patch, but I'm not buying any of it.
+This is not an improvement, it actively makes clang worse!
