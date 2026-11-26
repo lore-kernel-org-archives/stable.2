@@ -1,100 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795682300;
-	b=Fl/bazIo3wIsk6umTbJAgFhmujerODjGWBOO+gFjYYmVzmN6GHgsgFPraxe07H9Xebxx
-	 qpslrB2FtK2ZhgNEHL78R0vIY/36RY/U9bXl0wCqINop9llEFzXbGGO6LqM9emXJv34qe
-	 MFMLG3HykXnbu/t0PzZTYbrD45knOLG7lWlAZkZ/9/lzfR2MUIirk4f9EvQXUVd/1RG/+
-	 7XCU7pwE+j7vDZ4wufuHeC5P+OROC4009sBwd69hIBlAdrHhMngVoftOIj2gmiUGV1Yn6
-	 hqc3IND20cmTKKLcTE22GvoMKqTZtbAYKshgVA7V/idgaRyGI3ImH7+xFDztNhvbQsg==
+	t=1795682749;
+	b=c9oVFD/JLTet0tAnuj/YB3Bn/efKkcR5FDDO43deiM58nN39SjwpNJhy4sS6a/0JEknT
+	 Myywk4jRnQErKz/ClVDq87RS6iCYWrfiPZWB8GE7nGU7U2RqgnR/eDC0bOFxMC/8BV7ff
+	 P4+/92c4K+0W2ipffQABcpa/96ZwBAsZ56QzOkDdOtT4q+v9JZ8242p4fCOJcU+7kCXG8
+	 DtBtvbmbsKhJ4CNV8vyo9uOQ2MWqBP9bBrX/3L7JVh20pSd5u2egUMNrZn0w04o4NZvCg
+	 JM88Io+Wolsz2oU+c1sJo8NdJFjrX1vMCujMDYIuOXwZ3dMR/mxSgQEOqje0j3VWf2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795682300;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Fn8L5A34OqOZXMiN5h9TriZztWnWG14J3/PeOauC6Mo=;
-	b=qhisd0E9RVqFD31tNH29HmFfIJeBajOdgIGk84diJruyQKaeEDWCeGUVRPrJ8idor412
-	 pLRzInr2TSVyxqtrO2X18+Z0Lwud4nQnJwylYcv681LqpGjKYyyOqPg9AfLDowVKj7aFn
-	 vJ6MGbCnV0CGUw/ihTAZeWmxZa+rBVLTKOICHdK4RdaCuEmBlgACp+8daQ4yqS/peBYoJ
-	 aqYFChQ6yhzvKt2NfHEO4+ejaEdZ+mUpv36FmDLVpkuU53QMkJl2nA1sphyar7sZqryM4
-	 xCZ8l1KZsIfInm6vXd/nYcaeonxpVZQbTs/UMb8Db5bnua4M2bpXgnk+BUzfv7vAoYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795682749;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=7zcR/ikWclJnhYs2fKp9HLMsUdRTdij9sxjOELYqmY8=;
+	b=sxj86i2B4lKV2PxUmIfm+3XXAOCdNMnQOHVS3sa0uC/w/qxyU0F7Ln9dSk0Og6Uoqqjy
+	 Vq6wYzr75m4sG9nKnc9pUu06rQhdrS7garlmpHjDIeGWgQp9g2Kbqo2E9Y/E6eDLibwe7
+	 9fqSTXif0qZ1Pwp4s9T+uqWw9YvWvYoD1zTT28VnyWI+z1Gfz4sJMeRrZRFBqjZo/BHxK
+	 f92hlKUUZODYGk2MSsiQQ2pLyc9XW0jkb/hfOe/U6lvxsZjN5dlypOZnkCAf/yqL+DvwS
+	 G4BmgRyCFokatg+i2NroQrJXtIBoriNxkHu6jRkpfEmoXfXQQfEF8Jiz9q5sfIMwQAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=luxonis.com;
-	spf=pass smtp.mailfrom=luxonis.com;
-	dkim=pass header.d=luxonis.com header.i=@luxonis.com header.a=rsa-sha256 header.s=google header.b=ApDLdg3M;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nO+mJC6O;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 946E9606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 08:38:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 946E9606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=luxonis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=luxonis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC8A606A33A;
+	Thu, 26 Nov 2026 08:45:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=luxonis.com header.i=@luxonis.com header.a=rsa-sha256 header.s=google header.b=ApDLdg3M
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49d05d51553so47498385e9.2
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 00:38:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=luxonis.com; s=google; t=1795682298; x=1796287098; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Fn8L5A34OqOZXMiN5h9TriZztWnWG14J3/PeOauC6Mo=;
-        b=ApDLdg3MdRswDEI7SeBO2xKiJcqBl0rRT5U6lBsWE1J+T3HPXhJtZ00ThjSdzXlsaZ
-         JcydvIqWYbIjexwKdV2b8h435oivEihEfqKiB7wAzXTJ3xxs3kjM2vjEW0Maz1L0QcaT
-         p83gyjcDBKtXGaZOtFwaQTkQnD87qkeFimPcEUTJt6XaeGfipjY+RzTjlIXimPt01Ci7
-         oOcLvDNMgV/5QcV6Xde8wXe8kUXrjI+LsLGJhXohkYD+7+44z8DeHDVSTVJ0Ye5FyAy/
-         JnZfGTQI7f6y0WPgchwYikAQKiUMZjRW9x6mIBOMHAkR0vcaia/iWYJKXsMq2KKT6OHB
-         /dsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795682298; x=1796287098;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Fn8L5A34OqOZXMiN5h9TriZztWnWG14J3/PeOauC6Mo=;
-        b=qMS0we0u2wuWEjQ2y49xnrXHuhD/F8hADklLyBdyuoQe0/J17xJS3x7pHl0lDO5pO3
-         a7Jd6vEnNB3o16BWZijTKoFsAudvYVk9LfqyYydjpAFZjPMrEhdo86NlKiB840km4ajz
-         +qQmWzUynHHeoEVh6WBJ1PskcyTvfp32wItMs+scR4aswFfItRFg/xpDYFP4hzIp+yUu
-         rTKdG1XJtN19oujG49hOe5AhtizY2/GnzC2IEiMOaGWNn7f52v1b118MmlQKCDlm8Wwm
-         L4S5prmCyFMgjZnRVes865e73Iuou0HLHfjFGcivWjJ0fDyIH5kORTZRoWUI47mxbzNm
-         mquw==
-X-Forwarded-Encrypted: i=1; AL+hErGENJcZBxx8hhIDtjYOrezstu3beYUDiwy0+UfdfJnlIhBotNES3dCs/v08UjIHZmyxhJOtmQ4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8MDicEHSbt2fsjov+dXggl0m5L/7y95tGc8eod2nVM0uSDE68i
-	GdDHNVb9S+NGCXqrkWg2FDdxYsTRkXk1AnEkiW89cVp0loDMuW3oeEDYp0JvOi4U8kk=
-X-Gm-Gg: AZFdTZfvK5gyFPs3tdZbpquHTlxwNZ+M6YxN0UY8uOdf/GII2ay+cwDxXspHzRxf20s
-	q7KSRZ9YPiZhzx+kRKW/mobFlQClitx9iFNMcbhtUE7yTFrMDI48WTR+GE7L//HvP4LK0zyGXJC
-	lIqqiQBtLwVli6g61KRvjMwCUVbGXndAZ5T4FXZzaa+AMDCQPmyfvq9aOOf6eNPydzeGcd2Z1wx
-	RYuK2/zphUp9DzACNChmxOyiBSdrq5j6P3O8ke5/K2YiQxv3oHF78HsWq02BOTZMiYUo35pX525
-	p6fQb9xrtQWh+xw6z4bbjHB31Ebix65UK4YnNtymPFzeF92QLSVj6T0nMGt1tU6etXl8GeiZM3k
-	mO+kzvpLuqnicZtpPzd4DYhZAJ73PbP47wrXYIuu22XpJh5j5dvDvSXMMQKSA7pvD8bgqR4y1m7
-	51xOadMkpyzUauiamIQXsTeneT4SbS4BkOz1yousAENpFSETdUDBZ0oxO2em/dVMg2JyXgBQ+H7
-	9s7fmoaPR/07n0J1LUEKR2NS6WgBi7i04jVXEi6NJkgFBy5MjRl3ln3Pnyc6SrcJs484b5GYNb/
-	IPBY008XqHM22q4A3i5m1UWNlUe64dN7QdP3LPAWSxAViO+y7BJ/nZZ/D0EnvBshDvX9GQ==
-X-Received: by 2002:a05:600c:3b9e:b0:4a1:cf60:dcc3 with SMTP id 5b1f17b1804b1-4bb88820687mr474456765e9.29.1795682297748;
-        Thu, 26 Nov 2026 00:38:17 -0800 (PST)
-Received: from JureBuildPC (46-150-36-237.static.telemach.net. [46.150.36.237])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884865b1sm589984285e9.5.2026.11.26.00.38.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 00:38:17 -0800 (PST)
-From: Jure Rebernik <jure.rebernik@luxonis.com>
-To: Heiner Kallweit <hkallweit1@gmail.com>,
-	nic_swsd@realtek.com,
-	netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sunil Goutham <sgoutham@marvell.com>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	linux-kernel@vger.kernel.org,
-	Jure Rebernik <jure.rebernik@luxonis.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nO+mJC6O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DFE01F000D1;
+	Thu, 26 Nov 2026 08:45:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795682748;
+	bh=7zcR/ikWclJnhYs2fKp9HLMsUdRTdij9sxjOELYqmY8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=nO+mJC6O09ovshzuOQZxxg4pao4iwqiW4gHuAG7wOjvMuj4lZ4bXC1908+elx66Vi
+	 5sCXwGBOJw3QRbfiNxAsM3foforxsN2p9RWWWht9OlUTODk/rkYgUWmP1bARv5bIai
+	 xnLRBqrXB7KiQMPtrh2b2rDm0MrxsStEAAorDvoRoBahqtwYY9X+CtieVZicGfMIPc
+	 B97r+EIbTcKGHpsrc6paC33t7EjDoDnDzmoLjXVD+hyZ0Zdye3oQYiFapMJZvWTJd6
+	 vz12eB7uyEbO3dIXabqPzI7G5EJAS90xJ6zvts1azI6yaueq61Dlo+B2N9j0cSm4wE
+	 pnDTX6cGtlxnA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xWV6w-00000003WhU-0V6l;
+	Thu, 26 Nov 2026 08:45:46 +0000
+Date: Thu, 26 Nov 2026 08:45:45 +0000
+Message-ID: <86y0agx9om.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: bradfitz@tailscale.com
+Cc: Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH net v3] r8169: clear RxOverflow before unmasking interrupts
-Date: Thu, 26 Nov 2026 09:37:55 +0100
-Message-ID: <20261126083755.1530514-1-jure.rebernik@luxonis.com>
-X-Mailer: git-send-email 2.56.0
+Subject: Re: [PATCH] KVM: arm64: GICv3: Keep active LPIs in the LRs
+In-Reply-To: <20261126-bradfitz-kvm_lpi_active-v1-1-9ff28176bf66@tailscale.com>
+References: <20261126-bradfitz-kvm_lpi_active-v1-1-9ff28176bf66@tailscale.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,126 +77,78 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: bradfitz@tailscale.com, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-When the RTL8125B runs out of RX descriptors it sets RxOverflow
-(RxDescUnavail in the vendor driver) and stops receiving until
-RxOverflow is cleared in IntrStatus, even after the driver has returned
-the descriptors. Since commit 6994520a3328 ("r8169: disable interrupt
-source RxOverflow") nothing may clear it:
+Hi Brad,
 
- 1. The ring fills. The chip completes the last frames (RxOK), then
-    sets RxOverflow and stops receiving.
- 2. rtl8169_interrupt() read IntrStatus before RxOverflow was set, so it
-    clears only RxOK.
- 3. NAPI empties the ring and unmasks the interrupts.
- 4. The stopped receiver raises no new RxOK, and RxOverflow is not an
-    interrupt source, so reception stays stopped until another event,
-    such as TxOK, makes the handler clear all status bits.
+On Thu, 26 Nov 2026 01:42:04 +0000,
+Brad Fitzpatrick via B4 Relay <devnull+bradfitz.tailscale.com@kernel.org> wrote:
+> 
+> From: Brad Fitzpatrick <bradfitz@tailscale.com>
+> 
+> Since commit 73c9726975af ("KVM: arm64: GICv3: Drop LPI active state
+> when folding LRs"), the active state of a virtual LPI is discarded on
+> every exit. If the guest has acknowledged an LPI but not yet EOI'd it
+> when an exit happens, the LPI is then pruned from the ap_list, and the
+> guest's subsequent EOI targets an INTID that is not in any LR. KVM then
+> relies on the virtual CPU interface performing the priority drop
+> regardless.
+> 
+> That doesn't hold for Apple's emulated GICv3 interface, as exposed by
+> macOS Virtualization.framework to a Linux guest running with nested
+> virtualization (M3 and later, e.g. "tart run --nested"). There, an EOI
+> of a vLPI that has no LR leaves the corresponding ICH_AP1R0_EL2 bit set.
+> The running priority of the vCPU stays at the LPI's priority forever,
+> and since Linux uses the same priority for all of its interrupts,
+> nothing is ever delivered to that vCPU again. The nested guest's CPU
+> spins on WFI, with KVM seeing pending interrupts and waking it up over
+> and over (about 30k WFI exits per second), while the guest itself
+> reports a hard lockup on that CPU. With a 2-vCPU Debian guest, this
+> happens within the first minute of boot, every time.
 
-This was observed on an RTL8125B (XID 641) on an arm64 Qualcomm QCS8550
-with a 2.5 Gbit/s link, running v7.2.6 and receiving UDP at
-1500 Mbit/s: reception stopped for seconds in most 30 s runs. During
-stops in earlier runs, RxOverflow was set with all RX descriptors owned
-by the NIC, and clearing only RxOverflow from user space restarted
-reception. The order of steps 1 and 2 is inferred from that state.
-Reproducing the stall needs no kernel change.
+[...]
 
-Clear RxOverflow in rtl8169_poll() whenever rtl_rx() stops at a
-descriptor owned by the NIC, before napi_complete_done(). Clearing it
-only when NAPI completes is not enough: with threaded busy polling NAPI
-never completes and reception would stay stopped.
+This is a known bug on Apple HW running MacOS, which has been reported
+a number of times to Apple (both directly and through hypervisor
+vendors), and resulted in a deafening silence.
 
-The clear runs on all chips that use rtl8169_poll(), that is all except
-RTL8127 with more than one interrupt vector, but was tested only on
-RTL8125B. Where RxOverflow is not set, the write has no effect.
+The nature of the bug is unclear: either the host hypervisor is buggy,
+and it needs to be fixed, or the HW is buggy, and the host hypervisor
+needs to work around the bug (working around that bug in each and
+every guest is not an acceptable outcome).
 
-Testing on v7.2.6 with two RTL8125B boards; a stall means reception
-stopped for at least 1 s:
+The other bug is of course in the spec, where the provided pseudocode
+for aarch64/support/VirtualWriteEOIR1 is remarkably buggy. But for
+that generation of older ARM specification, the pseudocode is not
+authoritative, and it is the text that matters. Dozen of
+implementations got it right, and it is surprising that Apple didn't.
 
- - Inbound UDP at 1500 Mbit/s, switching between the old and the new
-   behaviour on the same boot, 40 runs of 30 s each: old, 30 runs
-   stalled and 11% of the datagrams were lost; new, no run stalled and
-   0.012% were lost, almost all counted in rx_missed while the default
-   256-entry ring was briefly full.
- - Threaded busy polling with the NAPI thread starved for 20 ms of every
-   200 ms, inbound UDP at 800 and 1500 Mbit/s, 12 runs of 40 s each:
-   old, no frame was received in any run; new, frames were received
-   throughout.
+The proposed fix breaks all sorts of other things, and can prevent
+pending interrupts from making it into the LRs, as we now have active
+LPIs occupying LRs for no good reasons. And to be brutally honest,
+carrying hacks that make the vgic even harder to maintain is not
+something I want to entertain anymore. If this problem is to be
+solved, it must be done on the host hypervisor, and nowhere else.
 
-On this tree the patch was only built. rtl8169_poll() and
-rtl_ack_events() changed since v7.2 for multiple RX queues
-(36af5aac9545, 5df447aee076), but the changed lines behave the same on
-single-vector chips.
+The workaround I can offer is to set "kvm-arm.vgic_v3_group1_trap=1"
+on the Linux kernel command line. This will ask the L0 hypervisor to
+forward ICC_IAR1_EL1/ICC_EOIR1_EL1 traps to KVM, which will itself
+emulate the HW. This is expensive (each interrupt will result in about
+4 extra full context switches in MacOS), but your guest will hopefully
+work reliably (assuming that MacOS implements trap forwarding
+correctly). This is exactly what the host hypervisor should implement
+if the HW is buggy.
 
-The investigation was done with an AI coding assistant (Claude Code):
-it wrote the HIL test scripts, the debugfs instrumentation and the
-register tools used above, proposed this change and drafted this
-changelog. I reviewed the change and the evidence, and the test
-results above come from runs on our hardware.
+Feel free to additionally report the issue to Apple (once more).
 
-Fixes: 6994520a3328 ("r8169: disable interrupt source RxOverflow")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jure Rebernik <jure.rebernik@luxonis.com>
----
+Thanks,
 
-Notes:
-    v3:
-    - Clear RxOverflow whenever rtl_rx() has returned all descriptors, not
-      only when napi_complete_done() returns true, so that busy polling
-      cannot keep reception stopped (Sashiko)
-    - Say in the comment and the changelog that the clear runs on all
-      single-vector chips but was tested only on RTL8125B (Sashiko)
-    - Say how this tree differs from the tested v7.2 code (Sashiko)
-    - Test both paths at 1500 Mbit/s, where the stall reproduces reliably,
-      and busy polling with a starved NAPI thread
-    - Dropped Jacob's Reviewed-by, as the code changed
-    
-    A build of this patch that counts the clears where RxOverflow was
-    actually set: in 20 runs at 1500 Mbit/s without a stall, 269 were
-    followed by NAPI completing and interrupts being re-enabled, and 320 by
-    NAPI not completing yet because of deferred hard interrupts.
-    
-    With the RX ring raised to 1024 entries, which this patch does not do,
-    no run stalled with this patch: at 800 Mbit/s the NIC dropped no frames
-    in 60 runs on three boards, and at 1500 Mbit/s only 157 datagrams were
-    lost in 20 runs on two boards. With busy polling and the starved thread
-    it received about 69200 and 125100 frames/s at 800 and 1500 Mbit/s.
-    
-    Stable trees do not have the multi-queue rework, so backports need
-    their context adapted; I can send those.
-    
-    v2: https://lore.kernel.org/netdev/20261121073652.410916-1-jure.rebernik@luxonis.com/
-    v1: https://lore.kernel.org/netdev/20261101102720.702600-1-jure.rebernik@luxonis.com/
+	M.
 
- drivers/net/ethernet/realtek/r8169_main.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
-index f151ab681393..1da64c6e39e2 100644
---- a/drivers/net/ethernet/realtek/r8169_main.c
-+++ b/drivers/net/ethernet/realtek/r8169_main.c
-@@ -5670,8 +5670,17 @@ static int rtl8169_poll(struct napi_struct *napi, int budget)
- 	/* rtl8169_poll() is used only when there is a single RX ring. */
- 	work_done = rtl_rx(dev, tp, &tp->rx_ring[0], budget, napi);
- 
--	if (work_done < budget && napi_complete_done(napi, work_done))
--		rtl_irq_enable(tp);
-+	if (work_done < budget) {
-+		/* At least the RTL8125B stops receiving after running out of
-+		 * RX descriptors until RxOverflow is cleared. All descriptors
-+		 * are back with the chip now, so clear it, also when busy
-+		 * polling keeps NAPI from completing.
-+		 */
-+		rtl_ack_events(tp, RxOverflow);
-+
-+		if (napi_complete_done(napi, work_done))
-+			rtl_irq_enable(tp);
-+	}
- 
- 	return work_done;
- }
 -- 
-2.56.0
-
+Without deviation from the norm, progress is not possible.
