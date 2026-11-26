@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795707105;
-	b=3jly16LRpCTLJCpfBxdU2iuE9U2lLZ5a5YQC8VZWlzQ+agp0TyaGpSGj/BVq0YHHRQ5Y
-	 mU7XF8vm7VEB0XdKH9bZK5b+gUiS9apmW8Ol9g8DVqqO2GojXu60Dgm6xt53VxTZ1foio
-	 0sYJM4/W0S13kW9dg9Dud0ZjiaWbEEpOpJH9i5KIQzHA50IzD8EtwZ+V5wN/GCcvi+1R3
-	 LZuCxpkaYeq3RnvpUJlJnsrQay8quhrOfNUY2aP6SxKnHaTyyaqrwBeDNDX2yLVxC3VN1
-	 FwaCMw1AyKZcu+Uf7g3DVW/SYc0DAFpTz4v8mYl2D3Dyu0SKqtnHoZLDpSajLL4qKQg==
+	t=1795707107;
+	b=DwAjQjgg9t3p1qoTeuGQ/BhNSmehPKC+00P9r1jvztTZaHg4i5Me+JIxbk3idAZRUl0o
+	 G+4oVzbkhqqr0SgZsyLmeLl67igQlFeAQ3cR/P4QiiF3VYy1dYruUedqsDpa9SuY423n5
+	 4FXr/LVZnSNszPvQMK0A+LICf90KLHnglO1SPsIuJashDvcBzrGg7k/nNxjcmVxz+PqEG
+	 7wkxs2Hpi9vaqnVW/zmBNgKwU6+qQAI5HPJGYoIj+GSRztd6PPmUJhV7mDyY0Oad4NdyQ
+	 S2DaGKjpt/lP9e0O1J7RAYZ0J+zyhRsdA8Zu981psw5CYVftIRLZlMCnq738hC+1QDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795707105;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795707107;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=aHz0GoEJDXlU9lcHIo3h9szXx/6VYSD56o+N1aYihas=;
-	b=dRUswVOwVJzRYjL8fTkGAryrlft/5YX4UxLjFHOaFKxCQuH4LXRJPVYjmofv84ymiDTK
-	 4kMMaALyMf2xr1Dt6ZnIZoRB6h2hOeQDY5i/br+T2BjTG3TevJ9BRBwD6vTOT+KqR/IQx
-	 3+/kItonYhP+95yKgd84w3+uyBJ7ZzCCjBAlSlgVtV/vww9j5xAca17nYXwORhiNvfZjl
-	 8KhMFneanHbcUsLUOADZ5BG5tBB4m+TB2ZgHzetTzqslE86fpARx/UPI0pgm+JmGAFE38
-	 WPokB6i3Qzq8f3nxpB1IMwfg/09+FfjXczeACRPoTAHF/cPlka8lUqtiSxY+F0Ze0UQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=WGagtH9Op0eS4oJh58kBxn/t+ZB2KEi6T7OpdXTGLVQ=;
+	b=vNeGDt2WKYHwBmTZLkU5Hnmha0zck+vaDWwBQ6j1E5YRi0UNONObQS2rZgpAGBlTHH3e
+	 leKNRgfNgHVP1EYk+izxUO/FJg5A1K0YdsDGGUKePtcHSi9JwWwZDxgqvzGT8uy7Vy6rq
+	 iYFtqlt4EtKFZ89VLIPyHrqTGPT0bKut+K9QTjw/49zQoC4DcYQVCqLCUrPBDKPJCW7CL
+	 XDO2+4d6D6O7xIYTmsgmFBG96lKP5FoR+YX01R8dn+qHf1upYRNunpNmps65+Wo2N/ZNV
+	 W9g21PjcK/x6MSN/XE0FQAZk6j9DAtI1OwYFFtUhIPvXkF945Qxtl/3us0Co1VgkSdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CjsHfZSR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g3yWNQDz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC7BD606A682
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:31:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73EBD606A69B
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:31:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CjsHfZSR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB04A1F000ED;
-	Thu, 26 Nov 2026 15:31:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g3yWNQDz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441391F00A36;
+	Thu, 26 Nov 2026 15:31:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795707105;
-	bh=aHz0GoEJDXlU9lcHIo3h9szXx/6VYSD56o+N1aYihas=;
+	s=k20260515; t=1795707107;
+	bh=WGagtH9Op0eS4oJh58kBxn/t+ZB2KEi6T7OpdXTGLVQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CjsHfZSR6KMpRWu6D8/xDgUXRGCobWLtBLVAU7Qik40LWkcEAcD+zRSHfm1WZrCw4
-	 q6orF3Oh1GntQ6PkuF+myK/EmXQV4wc+gJWEnOyZqZTUBvoEGJXwk+QQPXRnHFhXLr
-	 pArKOrguJwxlhcbjod6GWuXuThYm/dT4QH/OTfLSnbAwnb77tUGOSfPZFexMXBj/2p
-	 PJ5PBtBgMzyZBzCO79vwOBPjKV8U/iT5YbtvcRCTSCTxKpYyDCX0GUIzYXs5BUBWIY
-	 +7lkFYrJs3wd1mCWSpPWsvW+9AsbkcUFOAZsbVrJdQncuzp+WLMjKO25deVjYQGQNB
-	 fhI84o/ESIO9w==
+	b=g3yWNQDzZU6rNiBYbUe9jsgESOgY56A9dBlxVD0qBV2Vb6xBRbMmia7hvvKhvQAjv
+	 gHtgTsZQXVMvkmDshuwAmBwb0l6YxoXwRzcEspfXQL+2mvthnPK8iwfXMk+TqUAkMJ
+	 bSYTaaW+zp7UPXWFYuukDEYmhI+uWENYUkdMPlSnNoQ5vnVhM59Og+DbJKgYJSUSLm
+	 GyqRZXRYvOKbV62ZbRMKsiki+MjByCVlFHYi7cCeLLdKEW++R5nCwgL2k0kgE5BcWS
+	 0JQx1KB4Euxrb8lKkLReikj141lpMGEhIHu5XLSYZszlOS30jKW4FU/XpI11li42zd
+	 pM7mJwLqvPGhg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Maciej=20=C5=BBenczykowski?= <maze@google.com>,
-	Brooke Basile <brookebasile@gmail.com>,
-	"Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
-	Felipe Balbi <balbi@kernel.org>,
+Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
+	stable <stable@kernel.org>,
+	Vladyslav Tymoshchuk <tvlad744@gmail.com>,
+	Leonardo Costa <leonardo.costa@toradex.com>,
+	Hiago De Franco <hiago.franco@toradex.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Lorenzo Colitti <lorenzo@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/3] usb: gadget: f_ncm: remove spurious boolean timer_stopping
-Date: Thu, 26 Nov 2026 10:31:40 -0500
-Message-ID: <20261126153132.2453772-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 3/3] usb: gadget: f_ncm: restart the TX timer if the TX freelist is empty
+Date: Thu, 26 Nov 2026 10:31:41 -0500
+Message-ID: <20261126153132.2453772-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261126153132.2453772-1-sashal@kernel.org>
 References: <2026112552-crinkle-hurling-1987@gregkh>
@@ -65,87 +64,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Maciej Żenczykowski <maze@google.com>
+From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
 
-[ Upstream commit cf4e2e880bde13af103d229be261e8f80c37921f ]
+[ Upstream commit 78585f90feb3bbaf3b1c642294c8c47e451dc3cf ]
 
-It is equivalent to ncm->netdev being NULL.
+ncm_wrap_ntb() aggregates datagrams into a pending NTB, which is sent
+either when it becomes full, or after 300us since the NTB was started,
+using ndo_start_xmit() (eth_start_xmit()).
 
-Cc: Brooke Basile <brookebasile@gmail.com>
-Cc: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
-Cc: Felipe Balbi <balbi@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Lorenzo Colitti <lorenzo@google.com>
-Signed-off-by: Maciej Żenczykowski <maze@google.com>
-Link: https://lore.kernel.org/r/20210701114834.884597-2-zenczykowski@gmail.com
+ndo_start_xmit() returns NETDEV_TX_BUSY when the TX freelist is empty.
+
+For regular packets this is fine since the networking core will requeue
+them, but for timer-flushed packets there is no logic to handle this
+situation, and HRTIMER_NORESTART is returned from ncm_tx_timeout()
+without checking eth_start_xmit()'s return value.
+
+Under sustained TX saturation the request freelist is empty most of the
+time. Since the timer is never restarted, small packets keep getting
+accumulated into the NTB, until either TX_MAX_NUM_DPE packets are stored
+or NTB_DEFAULT_IN_SIZE is reached, which is an unknown amount of time.
+
+Check the return value of ndo_start_xmit() and restart the timer after
+another 300us.
+
+Cc: stable <stable@kernel.org>
+Fixes: 6d3865f9d41f ("usb: gadget: NCM: Add transmit multi-frame.")
+Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Tested-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
+Tested-by: Leonardo Costa <leonardo.costa@toradex.com>
+Reported-by: Hiago De Franco <hiago.franco@toradex.com>
+Closes: https://lore.kernel.org/all/20231204183751.64202-1-hiagofranco@gmail.com/
+Link: https://patch.msgid.link/20260817192638.437798-1-cosmin-gabriel.tanislav.xa@renesas.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: 78585f90feb3 ("usb: gadget: f_ncm: restart the TX timer if the TX freelist is empty")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/gadget/function/f_ncm.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/usb/gadget/function/f_ncm.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/usb/gadget/function/f_ncm.c b/drivers/usb/gadget/function/f_ncm.c
-index 558ecd0331a80..630b131422022 100644
+index 630b131422022..acdb6522dc2e7 100644
 --- a/drivers/usb/gadget/function/f_ncm.c
 +++ b/drivers/usb/gadget/function/f_ncm.c
-@@ -73,7 +73,6 @@ struct f_ncm {
- 	struct sk_buff			*skb_tx_ndp;
- 	u16				ndp_dgram_count;
- 	struct hrtimer			task_timer;
--	bool				timer_stopping;
- };
- 
- static inline struct f_ncm *func_to_ncm(struct usb_function *f)
-@@ -891,7 +890,6 @@ static int ncm_set_alt(struct usb_function *f, unsigned intf, unsigned alt)
- 
- 		if (ncm->port.in_ep->enabled) {
- 			DBG(cdev, "reset ncm\n");
--			ncm->timer_stopping = true;
- 			ncm->netdev = NULL;
- 			gether_disconnect(&ncm->port);
- 			ncm_reset_values(ncm);
-@@ -929,7 +927,6 @@ static int ncm_set_alt(struct usb_function *f, unsigned intf, unsigned alt)
- 			if (IS_ERR(net))
- 				return PTR_ERR(net);
- 			ncm->netdev = net;
--			ncm->timer_stopping = false;
- 		}
- 
- 		spin_lock(&ncm->lock);
-@@ -1159,16 +1156,19 @@ static struct sk_buff *ncm_wrap_ntb(struct gether *port,
- static enum hrtimer_restart ncm_tx_timeout(struct hrtimer *data)
+@@ -1157,6 +1157,7 @@ static enum hrtimer_restart ncm_tx_timeout(struct hrtimer *data)
  {
  	struct f_ncm *ncm = container_of(data, struct f_ncm, task_timer);
-+	struct net_device *netdev = READ_ONCE(ncm->netdev);
+ 	struct net_device *netdev = READ_ONCE(ncm->netdev);
++	netdev_tx_t ret;
  
  	/* Only send if data is available. */
--	if (!ncm->timer_stopping && ncm->skb_tx_data) {
-+	if (netdev && ncm->skb_tx_data) {
- 		/* XXX This allowance of a NULL skb argument to ndo_start_xmit
- 		 * XXX is not sane.  The gadget layer should be redesigned so
- 		 * XXX that the dev->wrap() invocations to build SKBs is transparent
- 		 * XXX and performed in some way outside of the ndo_start_xmit
- 		 * XXX interface.
-+		 *
-+		 * This will call directly into u_ether's eth_start_xmit()
+ 	if (netdev && ncm->skb_tx_data) {
+@@ -1168,7 +1169,11 @@ static enum hrtimer_restart ncm_tx_timeout(struct hrtimer *data)
+ 		 *
+ 		 * This will call directly into u_ether's eth_start_xmit()
  		 */
--		ncm->netdev->netdev_ops->ndo_start_xmit(NULL, ncm->netdev);
-+		netdev->netdev_ops->ndo_start_xmit(NULL, netdev);
+-		netdev->netdev_ops->ndo_start_xmit(NULL, netdev);
++		ret = netdev->netdev_ops->ndo_start_xmit(NULL, netdev);
++		if (ret == NETDEV_TX_BUSY) {
++			hrtimer_forward_now(data, TX_TIMEOUT_NSECS);
++			return HRTIMER_RESTART;
++		}
  	}
  	return HRTIMER_NORESTART;
  }
-@@ -1386,7 +1386,6 @@ static void ncm_disable(struct usb_function *f)
- 	DBG(cdev, "ncm deactivated\n");
- 
- 	if (ncm->port.in_ep->enabled) {
--		ncm->timer_stopping = true;
- 		ncm->netdev = NULL;
- 		gether_disconnect(&ncm->port);
- 	}
 -- 
 2.53.0
 
