@@ -1,55 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795653657;
-	b=ogR0vx92aRIRmPlLpXcYfUPlneZrY0i/CYX9budBEw0YQ5rfBAVHpyyOjtGCK0KHN3hk
-	 Grstw6NV0k2fmVOSyr8eo4I81LvlOsb+dGv25p9r58LTaqsuJ0QJgUQ23Y583/2keqKgg
-	 HP9hSQ8eNRZrASk//aaKrv+PGSHxBqbf2OM3vStW85Is1M8DOAoOwJbnKa0CHnaVVKdo8
-	 UpN5Zx89BaQ2BHc+vTmkP1BIlv6QxLkXtBEpECgFDXqFcORqmHmTsp0Xr/x5ji2z/qBcU
-	 95E2W4g/ERtV9WRSGSiIbkVAFTt2qT1LFtlVeO0uA+wj966t54LCU8Sfvv60o+nPmtw==
+	t=1795653845;
+	b=Wg2O3dHVGeOCBXTN4+9s/c/NnLVTkR/2RIqkI4ZfgRgLfXVnqn5uELzbsPd304sRDhpp
+	 aXYxoqCYYtsCvY719cehvFF2Ediyi06xHYkp0zjvn7gGi5cdjbnPa4nEzDjIsIOMvQwMQ
+	 J/IIV2Wn2H+4AdT4Q5zxIkQQDqe9feoHaJ2b1xBMmsNqlTTJtmihlUG1L4WpE+/mgMIlr
+	 ufLY8pf8xs6kYp4fPUxZBR3EUqdBLNxEXWoX/oRdbgkhq1Uozh2q8+CEzbjQ5f/vdb4SK
+	 UTRg7rN36KzQ4F+zXJHUZTY7znA1IuKf3N1wL6++edup4yolM+pb4Mz8QWUIFXeZfJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795653657;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ROqfz97ZpfUHHWsM2JzaOj+b4tvNFO3hHXdoi3R6Bx4=;
-	b=jQ1uOUor89xUQbe3gdROnQU7wYuSD/LJ8wRKAK/8osrh/sfmt8CBWKWdpZKM7XRGQWUd
-	 LZTKwgLXCRtDKYlmJ8vDQusoIq7u5mXuq0YbRPUPbh/FXdOiHagWao1csFqTgCipkMuH9
-	 fdLAVYCh8h8YN0HZI25LLQlyJcK0dzEW68ODv4KrAAABtR6/o0tKP5YeW9OznujbYPFOi
-	 RdRCSglqzEsCCBM7eax1dKZyJ0aOdLPUPpxN50R7rMovZzaa96CGwdKNm1Nm88Nlz07UF
-	 bL/9KpfMw617kptSlpSoRhZLn/GRs8juE0z+qH61X/kMVX2FnzjXF4L9vi7aKUwzvzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795653845;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=kntvEAl8c9UlNNjGZIvxtVFbdMIQt57S01N2AkNPnUM=;
+	b=zA0RgEYOdxejEz7ng2A0mCZWf46c4h5i6fHUWYtw660TmXY7Kmjvg/dx2JN/aEObvtzB
+	 +G2pe2AqmHgn2P8+45u0yAKavVpXxs6EJgYAMdfZogGiqP3mwcHYfAHqMSIJjTlMOBSSX
+	 DXy9/0kTL0HR3n8rFxziUR8c4QhHm8D9PlieqiSVluswfhMjhQRcxqbDjgFgenInkYsRd
+	 qWOJPpA9lEEArG/t4MYP0JSRbnv9+ChZrj776a31saf/8e1Li0KqcL9U+/Rnaa2LOSFnZ
+	 njbnaDpzfpt4gZC9i7yZR88ea+aut/Iywws3D1i8KdPOLxxB5izG8lD/Iq/vZs+MM+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IIsSkvRm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--elkin.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BoNrw4dc;
+	arc=none smtp.remote-ip=74.125.82.198
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE21A606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 00:40:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4177D606A323
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 00:44:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4177D606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--elkin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IIsSkvRm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB4EB1F000D1
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 00:40:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795653656;
-	bh=ROqfz97ZpfUHHWsM2JzaOj+b4tvNFO3hHXdoi3R6Bx4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=IIsSkvRmrxVpdt2ZNq7F8YmH1k07rPBBHdA5/CYaWIJydO+J973A1KWLslA0i1DP6
-	 599Mgk4greqpc6ghIkzL1gYqthcINWxidXMeQExEnYWGXUC/E8gG3nW2JSL89c/QfX
-	 cta3o4lZoFQXL5a9p7W85owYHhIEQxQOmJ4qHMNUqC2mamkDo1zjLccYvzeMKdVtvx
-	 qtsYtcHaMX4Ds+6vPOZXLfEuwJC1pEJQDCgmnmySrWpTS+6dh+x+0GWhvjSCZv8YA7
-	 NUSm3Yla6h+UqGg6vVPxJnYmzaTEJloHEuZmC7nDrrLG1Ghj7A4Iac5yMU1nj9IgWN
-	 0EuiwHOVnDk5w==
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-949680e6d83so578781185a.3
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:40:56 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErG5Ki/3TLqUNquXB9KBlAjP3CNtljlTfXeC5CX1/BHaUKisurbkhkrsGcbUjp6oAhyzKk78Ub4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HFn/r32SeTYXctsNjZmtsYv12BHn/7/mXfuVJFfCfV2q3UnfZ
-	L3O748LaK4GyqkS8b94MADAHTk4xRqJRX085ZZLolXBV77WOYReAbqS3pFSXIvkSU/YXfCH7PSR
-	dW+BrxTV7iign3rTvGNudX7Oyr6SDw24=
-X-Received: by 2002:a05:620a:17ab:b0:93f:6e05:22eb with SMTP id
- af79cd13be357-949ba9e1425mr3467128985a.48.1795653656141; Wed, 25 Nov 2026
- 16:40:56 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BoNrw4dc
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-384c78aa0dbso8483841eec.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:44:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1795653843; x=1796258643; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kntvEAl8c9UlNNjGZIvxtVFbdMIQt57S01N2AkNPnUM=;
+        b=BoNrw4dc0wesVjDd+co6oCGosrNKKDLwVcayt+Uq4JDCQ4k8wM2BaT2HXHXtW0y9yY
+         4yB/olIQXKxP1SsOqKpKrjbsIb/X/tl52QhyzAgZeTIDME93CS0Ueyn2l4A57Hln3+fN
+         xhG5/T3R4cR3Sk7Tr2VpUgisHB7nWyTnsc0DNzUomU4P55P2qw3ldNwZ1c/miXqHOZli
+         g3MFFfT8Wz4gV3zJ9VHmLqnuViABWwA5Kf0bN+FiOMQQLN5PsFHIfFRTyiseo7gaXn1H
+         LgUQQ3aeqG5JTHfVQPQoCIbGX2ZK/8906aAadolKVC8Jpps6NkYFE+DIgrPhygb5dkYU
+         42ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795653843; x=1796258643;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kntvEAl8c9UlNNjGZIvxtVFbdMIQt57S01N2AkNPnUM=;
+        b=e4wRpmkqnYtl9kfdqnvVc6v7AeZnxO23g+LFWTSEmUwEVdU1AO33SXzS7CO4CFToRy
+         oSAZ0WNyMwnEBj7BRRVSD8QRNkhmmV+KjY6tLrtbOaPAx82iBuu8kTqQsvxDgdLhCi3A
+         TkE230yO9eIrmMBXrvzoS0T0azxtG60hIo3K+cBmPBSnWClWaGQhKQS5UDQNwgEAB3ip
+         0ypOh26OqBSI/2xjyt/voy/JruVfc7GT3ZBmRtD6HAP3ndRsdyaiDtj79zpmjy2sAGYj
+         iA0FnZUaHl2uFJcf1J036emdUCbpO59fZazM5UobqxDpkCPyN46GGVJSyuvxqAU4vaJm
+         5BAg==
+X-Forwarded-Encrypted: i=1; AL+hErG5gGVBQEmAEDRwhID5114XyRjppH15kxbZd0ySzGHHtU5U3Q859HcJrVrMXTrY+iybp5fVxJ4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/WrcM6/oH3vN0OCBB5Lyt552y52ysP9dU76AF1fy5zMXGCvZYw
+	bUIo3ZRBN8tDfZS/x13Oz8+w9ebDwCRk4myE1RSdgUzfWg6+0P2dcUOkJyzNjLWA3IbLjp5Jpdm
+	jDw==
+X-Received: from dybgk2.prod.google.com ([2002:a05:7301:182:b0:385:e49a:dd09])
+ (user=elkin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:8084:b0:36f:4981:da16
+ with SMTP id 5a478bee46e88-3857073f5ebmr18632806eec.25.1795653842992; Wed, 25
+ Nov 2026 16:44:02 -0800 (PST)
+Date: Thu, 26 Nov 2026 00:43:32 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,84 +75,67 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261125-fix-mglru-kswapd-age-v2-1-4cc37437af9b@tencent.com>
- <CAGsJ_4z-UdXQg0LYqymEZdoHALPmAZC7eGcXbGad6f0sdjmkcw@mail.gmail.com> <awarDrT/DT7tQu+U@lima-default>
-In-Reply-To: <awarDrT/DT7tQu+U@lima-default>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 26 Nov 2026 08:40:44 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zf5NabZJanr2_Czr3oVQe6tTTdXmddx+PxowbKBN9M8Q@mail.gmail.com>
-X-Gm-Features: Aa3M54qqdItbwgjoEHWn9-crdqoWLQnJV4aNvDHtTbWqBrdWHNaBEhfxmdXesaw
-Message-ID: <CAGsJ_4zf5NabZJanr2_Czr3oVQe6tTTdXmddx+PxowbKBN9M8Q@mail.gmail.com>
-Subject: Re: [PATCH v2] mm/mglru: skip oom killing for order != 0 allocs in kswapd
-To: Bingfang Guo <bfguo@icloud.com>
-Cc: bingfangguo@tencent.com, Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Yu Zhao <yuzhao@google.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
+Message-ID: <20261126004332.1712403-1-elkin@google.com>
+Subject: [PATCH v2] btrfs: tree-checker: verify tree_block_info bounds in check_extent_item()
+From: Elkin Cruz <elkin@google.com>
+To: David Sterba <dsterba@suse.com>, Qu Wenruo <quwenruo.btrfs@gmx.com>
+Cc: Chris Mason <mason@kernel.org>, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, irogers@google.com, 
+	Elkin Cruz <elkin@google.com>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 25, 2026 at 5:32=E2=80=AFPM Bingfang Guo <bfguo@icloud.com> wro=
-te:
-[...]
-> You are right. Maybe we can start from skipping aging in reclaim path if =
-the
-> youngest gen is still too young? And maybe for this path, min_ttl can hav=
-e a
-> default value? Is that a good idea?
->
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index d891ae46baf49..7f9b14b772d14 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -5136,8 +5136,11 @@ static bool should_run_aging(struct lruvec *lruvec=
-, unsigned long max_seq,
->                 return false;
->
-> +       /* avoid excessive aging for huge allocations */
-> +        if (unlikely(sc->order)) {
-> +               int gen =3D lru_gen_from_seq(max_seq);
-> +               unsigned long birth =3D READ_ONCE(lruvec->lrugen.timestam=
-ps[gen]);
-> +               return !time_is_before_jiffies(birth + min_ttl);
-> +        }
+check_extent_item() only verifies item_size >= sizeof(*ei) before
+reading struct btrfs_tree_block_info on non-skinny tree block extent
+items (BTRFS_EXTENT_ITEM_KEY with BTRFS_EXTENT_FLAG_TREE_BLOCK). A
+crafted filesystem image with 24 <= item_size < 42 causes
+btrfs_tree_block_level() to read past the item and potentially past the
+extent buffer's populated folios.
 
-I'm not convinced that we need to couple the aging decision with
-min_ttl protection.
+Verify ptr + sizeof(*info) <= end before accessing
+btrfs_tree_block_info, matching the inline ref bounds checks below.
 
-This has been a long-standing problem: high-order allocations can
-trigger excessive reclaim and still fail to obtain contiguous
-memory.
+Fixes: f82d1c7ca8ae ("btrfs: tree-checker: Add EXTENT_ITEM and METADATA_ITEM check")
+Cc: stable@vger.kernel.org
+Signed-off-by: Elkin Cruz <elkin@google.com>
+---
 
-I've tried to address this twice, but haven't found a satisfactory
-solution yet:
+Changes in v2:
+- Use (ptr + sizeof(*info) > end) with matching extent_err() format to
+  follow the existing pattern in check_extent_item(), thanks to Qu
+  Wenruo for the review.
 
-https://lore.kernel.org/linux-mm/20260422021842.78495-1-baohua@kernel.org/
+v1: https://lore.kernel.org/r/20261125221849.1424464-1-elkin@google.com
 
-Johannes shared some thoughts on this here:
-
-https://lore.kernel.org/linux-mm/aejtfpBUu7gNV6Tk@cmpxchg.org/
-
-Do you have any traces showing how many pages kswapd scans and
-reclaims while kcompactd makes little progress toward satisfying
-order-9 allocations?
-
-Basically, I think we need some form of throttling to prevent
-kswapd from freeing more and more memory when there is already
-plenty of free memory, yet compaction is making little progress
-toward satisfying order-9 allocations.
-
->
->         /* better to run aging even though eviction is still possible */
->         return evictable_min_seq(min_seq, swappiness) + MIN_NR_GENS =3D=
-=3D max_seq;
->
-> I will give this a test later and share more findings.
+I am trying out new Clang static analysis checks for kernel bug
+classes, and they flagged this code as possibly buggy. The findings
+were triaged/fixed and commit descriptions were drafted with help of AI,
+then checked against linux-next (not runtime-tested on hardware).
 
 Thanks,
-Barry
+Elkin
+
+ fs/btrfs/tree-checker.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
+index d2bf21c7b848..40f2355cbb1d 100644
+--- a/fs/btrfs/tree-checker.c
++++ b/fs/btrfs/tree-checker.c
+@@ -1665,6 +1665,12 @@ static int check_extent_item(struct extent_buffer *leaf,
+ 	if (is_tree_block && key->type != BTRFS_METADATA_ITEM_KEY) {
+ 		struct btrfs_tree_block_info *info;
+ 
++		if (unlikely(ptr + sizeof(*info) > end)) {
++			extent_err(leaf, slot,
++				   "tree block info overflows extent item, ptr %lu info size %zu end %lu",
++				   ptr, sizeof(*info), end);
++			return -EUCLEAN;
++		}
+ 		info = (struct btrfs_tree_block_info *)ptr;
+ 		if (unlikely(btrfs_tree_block_level(leaf, info) >= BTRFS_MAX_LEVEL)) {
+ 			extent_err(leaf, slot,
+-- 
+2.56.1.839.g22a8290db9-goog
+
