@@ -1,56 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795666223;
-	b=dZkTDHLMWMbXwpApQ7+wOG/AO33R3onszGZ0oQl33skjxXwDAVSzD7utoJT85EyuhhMX
-	 Lh96QmYCnmFQoOEsFsnr9xOfyr8UoQJfxP2ExToxxH1KpJPHpZXE4zdU8jKGOK/oJ+4e0
-	 OK5tXfdO679+J4LdUItNIuX5K+WvZ42pmCOKFX7gNnPAzoQIJV6YPPbk1+8ITjh4i/b9T
-	 YK3/T0Ps/tMEBcWpBdP5ATfjs+axXViKzw5lIRJTBrnbsv42ATUhS0yTk+mzxVaTJB0Tr
-	 +gG/l2CMqoeWWRTKSHLAg563PzWX4aDPAOklMw54P4Bo+obm7yHibzAhdUwSuclPqMw==
+	t=1795666758;
+	b=QuRWsm1RhNUBMFmJJFrXwqUUgiBW61fktMvd/z4Sis9BcBOak4JVOeFp2XMLcufoOE49
+	 lX/ckPkG86EdSbfDX0biX5iOMYE95xKW4eihlfpHthCVQNDAWCnwIWAErfkHWtBLTYb5p
+	 9MaAq42+xJN357mhzZVZDWN9QxJuMVGwWQeR5yBfjfb+47djOmK9ISVUJ6BQ/VaGRmRZ7
+	 gaw2Bcmzz4uWDRsTtdTUYf6atxq9Wqsi9eDm/mMYYzPhrDLGJy2Wq223K7LuOpPepVqcj
+	 w12n1u/aZ29/D4qVkZPYGT7M0txNajU78bjI9jVYf3iFmPvQ1WBOO37+c00e9e81Wag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795666223;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6hM0I1K5MTw53Ep9mmuQghYvMkoRbXh4q18JqKGpZaw=;
-	b=Cw90pmO3a8WKheUjVRgtwgzZ2l4xXdap+jbepqHpSyu+FPuKbch3ndfPU9VSkKkoTRt3
-	 TEKOeIiqwGXI9Rj77S+/QOz6cCIQFSgqQhNVmGEjohikBPOYr1tPjIoCVN6K20B7c2B0Z
-	 jvlIBlgwq2X/rLuMHPSD9HJ1Ikz9pXF8vsBr0hJ5Ztv+FI/wbzq+VevgbObmfZUYlzPkS
-	 Z3XZowco/ECXtIABOwqiQCrQrVzeEGR1Fad9Z+c5Wlzu6FU66v3embNawpMMGhMe9IEQA
-	 Y/q7duIyGmYgcalqroBHK93r074FPVT5Xjg0DtKqSRncOaK3zwHKBACd5VuHNeqG6PA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795666758;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=wu5lDuRgkYhHSywuSlGY6BNnn9XlDv9stYOOgzfHduo=;
+	b=FzzNwNyjIFd190z1UBJzx4PAMqMrZQIqnHKNkTu1VP706VKnLNZJAWC8EaRCo71yLyW4
+	 S/k/uWf6lZOkrhCVyQ2E+XtUK4BO0xMossyGoEESGZ0GX+WrjwbeDeiDNrPtRilY+ctBO
+	 zlkd0vnXTCXJPkk9q9hIHcQshf8a8assQzE5CBRnwsWbIzGOPEaTP9rRmNCVg/6nGx8ia
+	 oQ6wLDph/skNdFW/8p52Gekn4tDyH1J/aV450hJeQEWw0KBwsn5wYwn1Mt7sCip/2sArr
+	 z/hKolz5k4zNYHnHyi2LA3+kGhz8He2RnfYz87a+r/P1UmhAHz6dO2NFuOzJVW2z6Fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjp7PF6L;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ZQcCpc/b";
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C209606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:10:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA95606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:19:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EA95606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjp7PF6L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0F6C1F000C4;
-	Thu, 26 Nov 2026 04:10:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795666223;
-	bh=6hM0I1K5MTw53Ep9mmuQghYvMkoRbXh4q18JqKGpZaw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kjp7PF6LhYISXueTeveiCsRDy9xuhAeI0tCc/GE1/bXlNc33HTe2q6xjpmsc5cRYy
-	 z2SG+RSMBGUUGta7EqDR5RfdaZXanx5BJz5TQw0IZAw+9pLS/WhqD8cBrmIktvOPdf
-	 XIR2x6yTaihxzYEVgZ5LM3hHuY+famJ8nMLSMnuZ2uEOl4plsT9qTKCOsrsgCtKUVk
-	 1tFoqNwLd0dB4h0WPUW99FlCklb+A6mywKKIgfWArRcfWLNOsXJolzWYgJo43J7zGD
-	 9ZdH3jOD9MSLlO/gS3WEmENFRkslWVGOPuUHlErj3ENNjcz0b5ne2w8NlbYf2CVJcL
-	 bbLJF8r8kzHqg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Daejun Park <daejun7.park@samsung.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Amir Goldstein <amir73il@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] ovl: bump the impure dir version when linking a file with origin
-Date: Wed, 25 Nov 2026 23:10:21 -0500
-Message-ID: <20261126041003.1937810-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112549-strangely-cardboard-25d9@gregkh>
-References: <2026112549-strangely-cardboard-25d9@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZQcCpc/b
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3b421e8d111so4466481a91.3
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:19:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795666757; x=1796271557; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wu5lDuRgkYhHSywuSlGY6BNnn9XlDv9stYOOgzfHduo=;
+        b=ZQcCpc/b4moUBO3hNXHKIR5pTa6j4s2brFgmZQXaau8TAb/hc9ZkExV38h2Dv9L+zo
+         uBtYJoek0v6a8fiziQ5ywr6BceiHQ1xtBvJOut7FBzVm/jVkybI58Fmy+MQu8DN5OPlg
+         2GuOJhPrfW+fzldGmOkEsbqrr3Yw+FUDi0Obec1P1/ctlZlGFS3RsRuSDmyRsqNkWv0r
+         GqbHKaQtsL9NWI8NApKbne3TKfTw3j9klqRZynfwPmAqveQ01y6dBDkfR/wG2CiF1JPS
+         tUbLAO0p4FqmN8jmXPrMPYeJc+nA5VuMpPFYvf+yeL9WrrRyH2bamALxBZ3I4+8wCVmh
+         i6Pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795666757; x=1796271557;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wu5lDuRgkYhHSywuSlGY6BNnn9XlDv9stYOOgzfHduo=;
+        b=LfWY7gW6HEk3ujd+Q/IQCWIxjTl9sJUS9O+LCEj0/s4FDyVRafIBefJn1Lhg1V7Lzu
+         rCuUejMHgOg/jUm17qrMSDpG1svzFRW3FLZgQMbCEzLWO1SiGTznRnNcsm4EYA1ktHLl
+         z6whjeRZPKRGhIAh5gU7c+5tbcHD4FZqLAjFtUHoiy35AAzbTU05uiV9VncGk6wBlFTm
+         qptmmYTRKTsi2ljejyIXMSb0gQe7WcCNJ9Q2ePEIlJ3wHr83Uyx4dtCg0E0fx0ErC4vy
+         3twqqLtONEdjem0e2YUOjZpUb5qiZXwjxwEsDi/jWLqjhHMX1+LtEqqvF2d/79OkT1O4
+         ME3w==
+X-Forwarded-Encrypted: i=1; AL+hErGelfCIo6DoBBB4e23wz72NPgmvI8CprhKbQxJiQSHA+hgAKNCnnNCVQ1INtjWdxqlOJcl6vSo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+JkTR85KAgJjbwKcOqAXMxtNmyf+rid//V+V44PoU/Nxrb+wc2
+	bTvzdFCYGGkCDf/nlVU9WYDNjrfVF+m0NKrBU0pUXt6Ap0mW10DZGDCy
+X-Gm-Gg: AZFdTZdjAK4DwRrxwwmfYzI96ZBBBoPPU8G8tuTE6qRLf47HEvkUJqei8Es2FqEmeQo
+	wZLUvUy3fOGfwNnVm2bCVL2MU/40lLs6cDF5SOdH7vuBvaFuni/r7TvhncyYytiDsi48YrIl71e
+	PSyO4Y6cx6ODf194ToELZ7cXSnGZ246MCY2nP+a8sGE+MavhrMAlOWLqEtzhe45pgFhZOQEiLyd
+	S+JGLEZrgXWYGsMm/XxrINm/CBCE8ufIr7Aks2VJeGp+litjNfb3luiXi48EAcETjROqnnr96Eh
+	bEgkYipLPIF6byOjUwthWG/MQlgvDPz6S2Pwc5xEWIJMU9X4n0fj+QjJaxHxRhKSSuW51k5VScs
+	9vIL9g8Zq1+FbGUgFmcWZ6nN6tX57s5jCh5zx4F3SZ6FrjD4YzjohmRilDxeCW4sQSVmmVfIJ0N
+	25dnA00M4+riFXpUHQdfzWe/c+YUmSBel7Q72EBXTeJsvY6KQ/lVRQKuKRAJSRpS+1q2EZEYimr
+	soCG7tZXx8WFqZ1OAhVVWoKePspv5QvHrRw+YnBeIZFhdWv9ar9X8uMjkPPnB4K9AQOCqBSlFIt
+	Cd1XrzWBNUeKPHxule+mdYKtB9QxFBgLCNM72tttLrSSv8bNwBjgjcN/3YDmga97EPlnlqqwlHg
+	Rp/JhZ2DnVHtBTrlyVT7a
+X-Received: by 2002:a17:90b:5543:b0:3a4:f75d:d194 with SMTP id 98e67ed59e1d1-3b41caeca54mr18611047a91.36.1795666757269;
+        Wed, 25 Nov 2026 20:19:17 -0800 (PST)
+Received: from LDYT9Q2G2M.pvgl.sap.corp ([2a09:bac5:cad0:1caa::2db:4c])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad48786sm30527530a91.9.2026.11.25.20.19.14
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 25 Nov 2026 20:19:16 -0800 (PST)
+From: Zhiqi Zhang <zhiqizhangg@gmail.com>
+To: Tomasz Duszynski <tduszyns@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	stable@vger.kernel.org,
+	Zhiqi Zhang <zhiqizhangg@gmail.com>
+Subject: [PATCH] iio: chemical: pms7003: Reject frames with invalid length
+Date: Thu, 26 Nov 2026 12:19:11 +0800
+Message-ID: <20261126041911.55827-1-zhiqizhangg@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,100 +102,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daejun Park <daejun7.park@samsung.com>
+The PMS7003 driver accepts any frame data length up to the size of its
+frame buffer. This lets a device send a frame with a length shorter than
+the two checksum bytes. When that frame is completed,
+pms7003_frame_is_okay() subtracts PMS7003_CHECKSUM_LENGTH and reads the
+checksum from before frame->data.
 
-[ Upstream commit 86e2facd8630cc2fdec6ea80c53e370b26b441d9 ]
+Lengths that are at least two bytes but shorter than the fixed PMS7003
+data payload can also pass checksum validation and leave the later PM
+reads using bytes that were never received for the current frame.
 
-Linking a file with copy up origin into a non-merge impure dir does
-not bump the dir version. readdir then reuses the impure dir cache
-built before the link. It reports the upper inode number as d_ino of
-the new link, not st_ino.
+Accept only the fixed 28-byte PMS7003 data payload and make the checksum
+helper reject any other length before deriving the checksum offset.
 
-Pass whether the linked file has an origin to ovl_dir_modified(), as
-rename and unlink do.
+Tooling disclosure: I found this bug. OpenAI Codex helped prepare the
+fix, and I reviewed the changes.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-98f207b6-3936-48e9-a40f-88f20be4db7b
-Fixes: 4edb83bb1041 ("ovl: constant d_ino for non-merge dirs")
+Fixes: a1d642266c14 ("iio: chemical: add support for Plantower PMS7003 sensor")
 Cc: stable@vger.kernel.org
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-[ sashal: Adapted ovl_instantiate()/create helpers to the older signatures (no ofs or cred-override classes, no extra NULL argument), passing the origin flag through ovl_create_upper/over_whiteout directly. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Zhiqi Zhang <zhiqizhangg@gmail.com>
 ---
- fs/overlayfs/dir.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ drivers/iio/chemical/pms7003.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
-index 5f35ac80b38b2..f5b62a9eacd44 100644
---- a/fs/overlayfs/dir.c
-+++ b/fs/overlayfs/dir.c
-@@ -257,14 +257,14 @@ static int ovl_set_opaque(struct dentry *dentry, struct dentry *upperdentry)
-  * may not use to instantiate the new dentry.
-  */
- static int ovl_instantiate(struct dentry *dentry, struct inode *inode,
--			   struct dentry *newdentry, bool hardlink)
-+			   struct dentry *newdentry, bool hardlink, bool origin)
+diff --git a/drivers/iio/chemical/pms7003.c b/drivers/iio/chemical/pms7003.c
+index c50edb24a..4f62b5092 100644
+--- a/drivers/iio/chemical/pms7003.c
++++ b/drivers/iio/chemical/pms7003.c
+@@ -206,7 +206,12 @@ static u16 pms7003_calc_checksum(struct pms7003_frame *frame)
+ static bool pms7003_frame_is_okay(struct pms7003_frame *frame)
  {
- 	struct ovl_inode_params oip = {
- 		.upperdentry = newdentry,
- 		.newinode = inode,
- 	};
+ 	int offset = frame->length - PMS7003_CHECKSUM_LENGTH;
+-	u16 checksum = get_unaligned_be16(frame->data + offset);
++	u16 checksum;
++
++	if (frame->length != PMS7003_MAX_DATA_LENGTH)
++		return false;
++
++	checksum = get_unaligned_be16(frame->data + offset);
  
--	ovl_dir_modified(dentry->d_parent, false);
-+	ovl_dir_modified(dentry->d_parent, origin);
- 	ovl_dentry_set_upper_alias(dentry);
- 	ovl_dentry_init_reval(dentry, newdentry);
- 
-@@ -316,7 +316,7 @@ static bool ovl_type_origin(struct dentry *dentry)
+ 	return checksum == pms7003_calc_checksum(frame);
  }
+@@ -231,7 +236,7 @@ static size_t pms7003_receive_buf(struct serdev_device *serdev, const u8 *buf,
+ 			return 2;
  
- static int ovl_create_upper(struct dentry *dentry, struct inode *inode,
--			    struct ovl_cattr *attr)
-+			    struct ovl_cattr *attr, bool origin)
- {
- 	struct dentry *upperdir = ovl_dentry_upper(dentry->d_parent);
- 	struct inode *udir = upperdir->d_inode;
-@@ -341,7 +341,8 @@ static int ovl_create_upper(struct dentry *dentry, struct inode *inode,
- 		ovl_set_opaque(dentry, newdentry);
- 	}
- 
--	err = ovl_instantiate(dentry, inode, newdentry, !!attr->hardlink);
-+	err = ovl_instantiate(dentry, inode, newdentry, !!attr->hardlink,
-+			      origin);
- 	if (err)
- 		goto out_cleanup;
- out_unlock:
-@@ -454,7 +455,7 @@ static int ovl_set_upper_acl(struct dentry *upperdentry, const char *name,
- }
- 
- static int ovl_create_over_whiteout(struct dentry *dentry, struct inode *inode,
--				    struct ovl_cattr *cattr)
-+				    struct ovl_cattr *cattr, bool origin)
- {
- 	struct dentry *workdir = ovl_workdir(dentry);
- 	struct inode *wdir = workdir->d_inode;
-@@ -539,7 +540,7 @@ static int ovl_create_over_whiteout(struct dentry *dentry, struct inode *inode,
- 		if (err)
- 			goto out_cleanup;
- 	}
--	err = ovl_instantiate(dentry, inode, newdentry, hardlink);
-+	err = ovl_instantiate(dentry, inode, newdentry, hardlink, origin);
- 	if (err) {
- 		ovl_cleanup(udir, newdentry);
- 		dput(newdentry);
-@@ -617,9 +618,9 @@ static int ovl_create_or_link(struct dentry *dentry, struct inode *inode,
- 	}
- 
- 	if (!ovl_dentry_is_whiteout(dentry))
--		err = ovl_create_upper(dentry, inode, attr);
-+		err = ovl_create_upper(dentry, inode, attr, origin);
- 	else
--		err = ovl_create_over_whiteout(dentry, inode, attr);
-+		err = ovl_create_over_whiteout(dentry, inode, attr, origin);
- 
- out_revert_creds:
- 	revert_creds(old_cred);
+ 		num = get_unaligned_be16(buf + 2);
+-		if (num <= PMS7003_MAX_DATA_LENGTH) {
++		if (num == PMS7003_MAX_DATA_LENGTH) {
+ 			frame->expected_length = num;
+ 			frame->length = 0;
+ 		}
 -- 
-2.53.0
+2.54.0 (Apple Git-157)
 
