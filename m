@@ -1,123 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795702693;
-	b=IeqEoZbQzbWY8jBZwD9ePKyBy6+LAvmo5oGKuDDxIwi7Z16YwjIZy0nJZvtbUUyxkNJC
-	 9MUHlwCJlGtU6yWN5sro5tLL1jS4O6wIH6VG/gr591yMjFkzmkuC2mRDw4neu4B4hqYFW
-	 DPe9vPPmkaZBKu1rb7JS10fYOdNa+n7SLWsjFb1gkbOUm0nTT+4CUC/W+LpL7AXik2FT/
-	 hnvsarlV8h9EW++d4RDAQRlANDYxtP2Y7utQVOt2/6p+MXV8aZi66+ZNo8qU08q8t0ABV
-	 rNYuWYPAjLqDcHwQyYqGkAnv2uaUNXlgSbawutWizwP2/xnqu+YKa7l58wbGqug+pbQ==
+	t=1795702719;
+	b=b1KL2/KhmKeb7tYK8pFozZ+/XXaWiYpqjVGE3uVvwXnEombEdFtRnlC0ytoyd8hhaYjn
+	 PBuMfsFilMJQ0YkC5F40KLsrmSslUGpT/pwZjkm9QjUFt/Ht7i5W6hIZ3MK9w/gAJXu2F
+	 B+aLgTB7gLvNMgT3w7SncfwKTTTMolIkBnktQc3Ro5kUzugIZuaqf/3EH+TrzG2qk8SlR
+	 FXwgqnmU0pdhL/26tIVkq9PLWgpkiKNSY2ALbKoR05LXjqIjxqndq90Nb7HNZala1WWWJ
+	 IkHTSiycJoOSAk6UkTKb9ktzHp46H2l29wrNfEpTD1mZf5uXxQt4rsRHby8J8UWC5rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795702693;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=MNJP5J4WKXx1jL6OKNbp8AhvMgZ2H2QDlO5rhgruVOs=;
-	b=o2xyM/V0G676npuB4E1oHCtqkOPvUVAQ+EjCMZvN2oxzg6/bUi187tnqdOQlUhJGuzXq
-	 Y+ZbQdHkZ0+YNlHc1hyE43VWbS88x+PQzbeNbqFdU9zROPWsZ6JISJSIsIwXKgYqkA/X2
-	 JKZ9Drv3ljnF6dCTmSbXivPLGnmYrF9VeAo2Ef0Npl4p1FMQo2p2IlWXPa14CJDGlGB7e
-	 96BIYReFEof8Ozcw7NsMb6g8A28Mi9c5X8I1jEbeUFctOOuElcbYR+7e9Ew0cMdu6lRVH
-	 cz04qNeax+lx89SIL9LgEDBxxVQWN74EhW6bnNVU3Uq1ahAHX74Bk1EwiDQFH4InDFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795702719;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Oc0e78R7GnTku6S9kDpVJbJPkJaWrIi7MbRLcQ86nNY=;
+	b=twZ80sFNZ4fM8nVxJymAh/jvByEcRLdAn3uzxAtc7U/VBMivk7b/mvaxuh7s05GjH2NJ
+	 PDDpIJOldfu236hIpTRr+FeV9+DTe43Z/bOoiXYglV0SYbWhJ5QunW16KRfmevwwc5BYW
+	 JHCEPCWtQ+sBaMePjQv6ZlVHtnbdshwwDmnw4EoDPFrrsq82gLaeoLXLFLLPyGZoKl6CB
+	 h6gbugli5gZDZ7ALvl4w6Qj69DPt32VctmWFvWLcFdeiU6Y/l9UJ5RJJMBAhG9SxrpCsc
+	 aI64Dg7xnF4kAHpuzbIr9IWO3kKSjUqnqv908pqRIQEp7AtN8USzHz6nazSYIwm0BFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kroah.com;
-	spf=pass smtp.mailfrom=kroah.com;
-	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=iI566ntX;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=HJdtMKHv;
-	arc=none smtp.remote-ip=202.12.124.152
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IQvQ+jx5;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Ys9EsDdr;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D1B606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 14:18:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48D1B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9441B606A32D
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 14:18:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9441B606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=iI566ntX;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=HJdtMKHv
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 983427A02DC
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 09:18:12 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Thu, 26 Nov 2026 09:18:12 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1795702692; x=1795789092; bh=MNJP5J4WKX
-	x1jL6OKNbp8AhvMgZ2H2QDlO5rhgruVOs=; b=iI566ntXHTdZLfcmk7qdDq4bFS
-	kpynnJzmRrmn5R2924OWkP9F5MjZ2qaZHsWJFhadCOkLQSgQ6t0JIpqdSKMD+O8o
-	qhQEDg3Op4nBBGz9yMxVeya+u6NlUmoxDWMta/mcUv8NlWt3uGj8OFcsLqtBFF3E
-	Vsq8/5HeE6H6rmyVvu44kpFjQzhqgwqFTVpQmt0/WgE5BQHBGyiaSunTx9hVuNi4
-	Vr2tCgrpZYYmSVzpYqgn4G77qLQCNEMizbQBoRbo9PQhGxo878BAWYgADaHZOOCr
-	uqFM4HeVaAGOPD5+HQ83njlQ3ubk3UvEHFht05ltZAil396e4juBCjfqdr1A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1795702692; x=1795789092; bh=MNJP5J4WKXx1jL6OKNbp8AhvMgZ2H2QDlO5
-	rhgruVOs=; b=HJdtMKHvggE7+RNGJDgBoovT16S1PNcJNDtf5AAdJKz21zUweGm
-	oP55vdc5uLobKZQeNoPgZ3miLxeoK6ORGTn1dU8Lq3lH4lPlY+zPEiodRdAF3X1R
-	agRkGUYwO7wLDSd4vToMcW5kmOxOn2BanC+HjPeb2v/UQ022CYiVOKUiNeAHllYl
-	caE1BpZJcdzg7hi5va+wsxs+xRYpIJ2ADoe0Vtu5eOSvEyq9fBDiIUUN6iNUHjmC
-	80sw9SM4caQpYm7jod1xqjvSCXdpXZN/axw5z7qDatv1AWumZaPodH5q6XcsbmP7
-	V/Jfmig5ObL5dhXiTqfiRmeTgq5qp7MxGtQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795702692; d=kroah.com;
-	mf=PGdyZWdAa3JvYWguY29tPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:byfa45rjMamnfvHpc8RE5cPTnoJc+72eUBrM4For9V3FUQf
-	vMgPZmXi1jVYkk2yduh4q2jSLKDhKbnlBmGYMedGOJ1Bk6GXcI12jx22CORIeA78
-	sAHauf5PDW72gyKSO2fdV0V7fqTYxxUPCsDCStfrxgT425KHrCcodpIWJb+0s5PL
-	fgEJyr3ucvitu9fL7WWENvxzVI1mViYGS9FKmqML6l1sZ3LZGMxgru0MTrlwc/+p
-	KDdGaIgYsZFt/bQ8IlkYncSWdRdL0sn7RTdRh7U5Ly88iV/VwjCTDUt7v5Zr0Ge2
-	/dPGaO9Z4xTyfi4CmH8WMSWKKRHc+Lbqhl9RfEQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:sP5/+k9JUC/N/GBk3SzvZymX/M6kISK1QaMHhv3s79Q=:NEwlN8C8Wzik88svlKHfW0+dsX9Ibn9g0H9mKGEESqg=;
-X-ME-Sender: <xms:pD8Ia5bTq2pFJZFedzuvQ9OPuQs1Kzbxm_sSKhSP9WhixHSeTeIpIQ>
-    <xme:pD8Ia_3-8Aj_pYNsVnengVPnyyf4QBlnpN8tFhZS0ywvGA_fuEEClYDbZE6GBk-aC
-    YlJ0TWUgN2LmXZF4_wjLLZacyloKYtjVFUPrc5jj5QFdDMNFSo>
-X-ME-Received: <xmr:pD8Ia9DkGl-LrQ7UjG-obqI1gwOerbSdLRcJ0xoFmkJZ0NVzvWlesFNjxoX34xJvkxeO8HdfThXrEoP_q2hS5bVehSNxH78>
-X-ME-Proxy-Cause: dmFkZTFiveiKlmvLWLeyon3f7kVwyIlsLzRRmR9/KJ4AcwisN9PtMOVP6mPgWvHQ8gQlgr
-    SfI1/Z5jbtBTZpW9LKjSpG0J74W2rjIl+xVb1vIuHGCtFDObsodXmQcWf90RIAbQNuz7m0
-    vk6awfdjcyhkTflscxH4/8xs+8cIZZrYcfVPKmpsG02LPA2l36AinfTN4QKiUbdcrc/4+G
-    GxYSr1rxrVhLhuMKw+nPSEu9jJQbb41xeqgCsaF1GuEgpe6mDGYqpJV/bYPUyNp+eHX1GO
-    ibjf6ePY60zQaf5fOfr/QvF8Of9cCNiZfjgPSQ1Y8ekDnR5UcANykPeLuJw9D+JjnjSOJl
-    DOk61PMY7y7chdNM4OfVEIuiwzUwvwgJJ76PPZArO55RoVdJO1HpQIlQTpli5zSyfKajCE
-    tlHvjSPFsTc5Z5i3EzqpbCfO7AzQTaQ3jYpkBoO6aXKrvkWV1+fEhXsBUf5wDH8L4l4yyl
-    GYZj9rK8jlNY9v3viIz9uh3aRDDGbNHuY7gBK5yRp03s7UcDVb7rOs16vqeWY3SKfs1VoZ
-    bkexA0zYz9V7d8Eq4Hf7fTw+eb80T2p8rMiDUHWm+TJMJq4+k0Q1myBXBswSLgVvvD53ld
-    YDdBYoeiOAlkxEAvSj46ga8IZwDmx7wbAvE6Js37d9P5TeamC/7gsv7n3NOw
-X-ME-Proxy: <xmx:pD8Ia7-_cCsLEADKfHD4GkEov8NC3jydgSCk-BOOWok77UPivZ1_yQ>
-    <xmx:pD8Ia4WuPpK1QkaFOfl_FJPhXjtxCyjmEN27Ra0pRAaT6Ps2AdnDJQ>
-    <xmx:pD8Ia0KcqSSPn_b3HvrjhUPWlb_n-zetRUbPBRXuFnAlA8K3vQMwvg>
-    <xmx:pD8Ia8DeHWKt62HwZd5SSR_14F75NIB7pHxaMnKVyYQJWt5bnkN33g>
-    <xmx:pD8Ia4rDE1zji04bd-vigh8YFFqxXIX1vmhAwutnbZB6cb_zGQiNxvHk>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 26 Nov 2026 09:18:11 -0500 (EST)
-Date: Thu, 26 Nov 2026 15:18:32 +0100
-From: Greg KH <greg@kroah.com>
-To: Lance Yang <lance.yang@linux.dev>
-Cc: stable@vger.kernel.org,
-	syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com,
-	Pedro Falcato <pfalcato@suse.de>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>
-Subject: Re: [PATCH 6.1.y] khugepaged: fix readahead lock inversion in
- collapse_file()
-Message-ID: <2026112627-anagram-unselfish-0719@gregkh>
-References: <20261109201858-failed-6.1-eadce52a9ef6@kernel.org>
- <20261111132506.88827-1-lance.yang@linux.dev>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IQvQ+jx5;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Ys9EsDdr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795702717;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Oc0e78R7GnTku6S9kDpVJbJPkJaWrIi7MbRLcQ86nNY=;
+	b=IQvQ+jx506yOy/x4yvg8d6uOB9A6r/WEYX4lq96Ol2I6Rv/SlmUr6Y6RxajOMnSma/aAfd
+	A9bsKYZHhHPRKwe1XRTSGD6XOfgn6zcqFI8wEOdhbakXxWiWRVjfreWXDApHhL6SGSdQP/
+	xPyk3/mNX1NLhwjyKf3BrOTNQvAYLPU=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-510-ctlO1uezPV-ZLuu2cLhXCg-1; Thu, 26 Nov 2026 14:18:35 +0000
+X-MC-Unique: ctlO1uezPV-ZLuu2cLhXCg-1
+X-Mimecast-MFC-AGG-ID: ctlO1uezPV-ZLuu2cLhXCg_1795702714
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a204ac318aso33601365e9.2
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 06:18:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1795702714; x=1796307514; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Oc0e78R7GnTku6S9kDpVJbJPkJaWrIi7MbRLcQ86nNY=;
+        b=Ys9EsDdrD5piq4RdxKQVYvH3piYXoPWplyhnfpJP/rp7INiy9Y1Zejgy0SoGtg3E8U
+         kGoPD4DrOd+KwEH1gEk1TjwU/AhH2OHPQGHemjMJxtRkV+rrn+k3+ldQLct8a2GssNwA
+         NkbMJB4d7bt5+3k+FMgHuH7WF8bQmaSmJh/K3/ci9RvxSKWi5ixxyiDsdyK8pCy8e1Dt
+         Xq0BRq+dHdYAoGuyqXng2A3bJ6bwlDCEjhfrVSJ5I7fnIltk/JRhHV4l1ZiRoVCruGx6
+         q/28ZZxp/6pdwFDm7bTNqv/9NuQpf0DeMPXPt6qqA3Ckzam+a3BnZzkj8/1mcnpyNcNe
+         Z6Pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795702714; x=1796307514;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Oc0e78R7GnTku6S9kDpVJbJPkJaWrIi7MbRLcQ86nNY=;
+        b=O6dB4R0L+nLuOkiBARaFwZNZjIbdFOedc0aFZqJQKrGEZ+OHyYXXJsU6G6Oh3ThoA+
+         jojZ75i08P1yL905jJ9RY3PsNgeywCl5mor5MGWXOZAdWuPhuvYAXeRq/IYOWvgPj0s4
+         TvM6vEbMc7El0CnGgD4PLTKBcLayZfGze4CfqTzoJp8np6IRpfo7U0WLK9IcfeVTZ7IG
+         /nFXa8M6k/FeTT+otgHjs2PnTJmhMvkkIEWs/3GVNGX5QMmFYgsbnFYrkEQxQ1LvgAH2
+         a3cQ4I3WPsOIo/DdYFE0jXbZv/gKfjWEhOjSTjQbfgNXgtoJeOhdTOwMO39GhhExLxsa
+         6ETA==
+X-Forwarded-Encrypted: i=1; AL+hErHU9N+ocQ9F+0FQSX3UwXM62yoaF/6YguZY/4XmmGN18PhRxFHHinGocR48N6YLlEIPKFZdzkU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9VfzGVWAqNKz47wQrX1OrW5NcWEysFh7MCycJ02BkR24NWIOGr
+	+kzClbYO3B0GVW1Lck5yy6CZHlGZ7uH8ZcHEKcBhwRzx73lkPNR5tn6Xdt2/ewPB63LNsJ454I3
+	KpcuH/o6grFKQ1+7SIuZMwqtTs0DmDBf4O+UdG/PGz0dk0NRTOvrCc1PfDBeLXcTDF6VZ
+X-Gm-Gg: AZFdTZcQpEPoVG2P75BBuRl89ofvjcrl1fR9GkqlGeLHeKwWs08aj9LF6clFnASiNsJ
+	DGxh71C/80MkpVj1HL8mrNWz+wBxRUzS1y0NpR4WWJ5XxBQaXumfgfCRurIotJPr9SCGxWok8i4
+	jd7FQmKIP5E0zxuL4x4pOyuUcC/tiMLisQKPoHpOn380XmsZdNbOEKJ1XkcZ+0a2kKccgCkm94h
+	VwV6noYMadRvJC4KuSVOZMNXa8J/yhLUJMN9W+xlmPINXaSQ8mzAJi2hzzfJy6+i2PFx7NTlktN
+	o1GUD6PA4ml9JiT2NTAgRrI90nx/NWhu7/pJ+Zkp3ioDCOd1RUXSIu5m2xJoo19+IlsxJUxCI1n
+	7x8liu9m1vOtbwvmysbpBCIyDmgKyqj8fua82+ALmazAQwf7bz2yyy7Xt8iMlbzcNryMkZ6degJ
+	qDTLN1xNsl6Xw7rDRcHti9KUrAIffZjDZSpEsUxSqBoiO3
+X-Received: by 2002:a05:600c:190d:b0:4ba:2bfc:c8b5 with SMTP id 5b1f17b1804b1-4bb888267aemr430554095e9.10.1795702714047;
+        Thu, 26 Nov 2026 06:18:34 -0800 (PST)
+X-Received: by 2002:a05:600c:190d:b0:4ba:2bfc:c8b5 with SMTP id 5b1f17b1804b1-4bb888267aemr430553595e9.10.1795702713623;
+        Thu, 26 Nov 2026 06:18:33 -0800 (PST)
+Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8538b09bsm1120826425e9.4.2026.11.26.06.18.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Nov 2026 06:18:33 -0800 (PST)
+Message-ID: <14059088-7992-4d89-ac6c-1e6d1f61b3c8@redhat.com>
+Date: Thu, 26 Nov 2026 15:18:31 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -127,48 +112,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111132506.88827-1-lance.yang@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 4/4] net: skbuff: limit folio refcount when splicing
+ from sockets
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Kiryl Shutsemau <kas@kernel.org>,
+ Song Liu <songliubraving@fb.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Rik van Riel <riel@surriel.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Pedro Falcato <pfalcato@suse.de>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ stable@vger.kernel.org
+References: <20261118-skb_refcount_overflow-v1-0-5551b4954c3f@kernel.org>
+ <20261118-skb_refcount_overflow-v1-4-5551b4954c3f@kernel.org>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261118-skb_refcount_overflow-v1-4-5551b4954c3f@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026 at 09:25:06PM +0800, Lance Yang wrote:
-> collapse_file() can call page_cache_sync_readahead() while still holding
-> source folios locked. If truncate holds mapping->invalidate_lock
-> exclusively and waits for one of those folios, readahead waits for
-> invalidate_lock and neither side can make progress.
-> 
-> We need to release those folio locks before starting readahead. On a page
-> cache miss, roll back first, populate the collapse range, and retry once.
-> Doing readahead after rollback avoids an extra pass when all folios are
-> already present. If another miss occurs on retry, give up rather than keep
-> retrying while truncate or reclaim removes folios.
-> 
-> Keep page_cache_sync_readahead() and wait for read I/O with
-> filemap_lock_folio(), releasing each folio before moving to the next. The
-> existing uptodate check during collapse still handles read errors.
-> 
-> Shmem uses shmem_get_folio() for swapin and fallocated folios without
-> taking mapping->invalidate_lock, so it is unaffected.
-> 
-> Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
-> Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lance Yang <lance.yang@linux.dev>
-> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Acked-by: Zi Yan <ziy@nvidia.com>
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Link: https://patch.msgid.link/20261026152013.10511-1-lance.yang@linux.dev
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> 
-> (cherry picked from commit eadce52a9ef657d561b3e76c9b5f178bd99735f5)
-> ---
-> Backport to 6.1:
-> - Use find_lock_page(), unlock_page() and put_page() for the existing
->   page-based collapse code.
-> 
->  mm/khugepaged.c | 43 ++++++++++++++++++++++++++++++++-----------
->  1 file changed, 32 insertions(+), 11 deletions(-
+On 11/18/26 09:32, David Hildenbrand (Arm) wrote:
+> @@ -3299,14 +3311,14 @@ int skb_splice_bits(struct sk_buff *skb, struct sock *sk, unsigned int offset,
+>   		.ops = &default_pipe_buf_ops,
+>   		.spd_release = sock_spd_release,
+>   	};
+> -	int ret = 0;
+> +	int ret;
+>   
+> -	__skb_splice_bits(skb, pipe, &offset, &tlen, &spd, sk);
+> +	ret = __skb_splice_bits(skb, pipe, &offset, &tlen, &spd, sk);
+>   
+>   	if (spd.nr_pages)
+> -		ret = splice_to_pipe(pipe, &spd);
+> -
+> -	return ret;
+> +		return splice_to_pipe(pipe, &spd);
+> +	/* Returning 0 would make callers report EOF. */
+> +	return ret < 0 ? ret : 0;
 
-Does not apply :(
+AFAICS the above introduces a change of behavior:
+caller with tlen==0 get 1 as return value, while they
+used to get EOF. I think the return code from
+`__skb_splice_bits` should be ignored, when not negative.
+
+I think the churn here could be reduced re-using the `len`
+ptr argument to store the error code; something alike the
+(completely untested) following:
+
+---
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index 85d5caa08887..9fd5116f33f3 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -3177,6 +3177,10 @@ static bool spd_fill_page(struct splice_pipe_desc *spd, struct page *page,
+                 spd->partial[spd->nr_pages - 1].len += *len;
+                 return false;
+         }
++       if (!try_get_page(page)) {
++               *len = -EFAULT;
++               return true;
++       }
+         get_page(page);
+         spd->pages[spd->nr_pages] = page;
+         spd->partial[spd->nr_pages].len = *len;
+@@ -3299,6 +3303,8 @@ int skb_splice_bits(struct sk_buff *skb, struct sock *sk, unsigned int offset,
+         int ret = 0;
+
+         __skb_splice_bits(skb, pipe, &offset, &tlen, &spd, sk);
++       if (tlen < 0)
++               return tlen;
+
+         if (spd.nr_pages)
+                 ret = splice_to_pipe(pipe, &spd);
+---
+
+which is arguably ugly but IMHO no more than the tristate
+return value in the current version.
+
+Possibly some comment around __skb_splice_bits and/or
+spd_fill_page() would make this option more palatable.
+
+/P
+
