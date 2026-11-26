@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795679772;
-	b=z6hSxb2sgEevHkl3xAo/7YPammG17uje+pWZ13IJWOmWu/0p3uY7bmqzZzzoTYKcMv86
-	 e1ZMx/J4ySV5CE24oFDrDY6x8u6ivWJDH62f/36yCQvNp8S7Txx6TveMPnhM6/xAWP1ZD
-	 ovhFFNEcYH66ZNspOLbmrJrk8xshcbdROgRVRejsnL77roV3gqbJCPcVWxupqsdOZErC3
-	 qHv97Zdjh3kOQZ8X9UdB20gniKr5O0dwddvPIn2n14n8KaVMhlDe1UvXZfAshoZZN2G+x
-	 bIlVPXZ6/zIUqjYHFqAi3P61q5qdPLTUFsITbNgQDz9uiu53F2/9quG2MbbUshb+wZA==
+	t=1795679888;
+	b=HmF5ybtE+6Mte8/REiamjuaMff8yvE3w3FKdYqTZxEt6gFJq5BqNXiTcvUTngRQLuP/f
+	 pdFkpFpT2eC9cUYEN1Owo+KkMbNHhoAq+sIfsi/FCZHS+ZloK7ZKYDxwNCMzGAqON/RGe
+	 wLTMTB+23JNVrrE1M+36CSIrsNRrCY7y9mSls4mD8FtLzVXV8Lj2iEHENWdNjFp9ZUAnl
+	 lqn9oMb22sYbHiJcKJKLfwRz4d/fe/njJ7bOYTcvxp9TjNK7g8jn3Juc55Hxo63jHWy82
+	 5G64/LXZre6j2Sm63dUqykUJ9d1MKxKSA1xXx7pYYRKBFPu4NeR7U6LX+VuiawtBf4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795679772;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795679888;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:Content-Language:From:Organization:
 	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=t1vybqbqAIY5ttKg7OTFZsrfdL51sIR48bUIWxH8R10=;
-	b=YoyCgWosUNrlFm21wsZz8xte/ihjG7EIagaimmI1xtbZ4jsmRGC0hCWWLSRPenNmduK3
-	 vdbm2pe0s9XHkV94kYUx8kBGuIxbonImWorHUpNdwXdtB96DLxOTEhSuAkC7K9ZkRxncO
-	 ZCjbafF7IQSCtIWdIIpjQjd9l2R/INZfcJ+Cc5DiweOMn71Wovjqd9euKBAbofzgzRq2p
-	 mCKz7U4arGExG5rHlQJg6ZVXy+alkpDvvrblXg2L0PteBUAhI6aO8gPM30p6S63zIVyZQ
-	 fxaY6Ea3dLxyfu48rW/MADneVH6qXJBkv9kKwUh9IUZGSnRpvXCH5uYiRgxtnEdx+Uw==
+	bh=QSq5ORPf5QSt1A7hVod7h+nH/UP5A8Ij3Xcu2wloyoM=;
+	b=zF6ZhmqSo0Yaw7Ryf6ypwYflLnsNXqwBTX8gT1DMEOwwtA1+Np/06SE41cFtbICh28uI
+	 BQ2BR+RntY1qj7TypV2FSpbVWCBdZ0MykCPmKtyiyg5/4GpX3dA9+FfFnnBSTAnii2upB
+	 g38zNZBvAYezhuDJr3p+ddTLjLLNVbZHbngl1xjPB4RxVHe0z4j8qr9ZzYMjg52ptYSnV
+	 PEJE3xVA5cyeY0Bfn2mnLYko3TTu5BmyeqbLd3L8wAY9Uwri1kDu4hL1Rx+R43Gc4PN++
+	 dOZjECDkTs40H1q3bNrfzQ0Kyn8Wfzw7eUoDnHsNHIbVVfc5wpmt4Svm1TOpnUYZoUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7BMaJNs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L4BbOwcj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2AF6606A31C;
-	Thu, 26 Nov 2026 07:56:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F70606A32C;
+	Thu, 26 Nov 2026 07:58:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7BMaJNs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAC7D1F000CA;
-	Thu, 26 Nov 2026 07:56:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L4BbOwcj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DF321F000EE;
+	Thu, 26 Nov 2026 07:58:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795679771;
-	bh=t1vybqbqAIY5ttKg7OTFZsrfdL51sIR48bUIWxH8R10=;
+	s=k20260515; t=1795679888;
+	bh=QSq5ORPf5QSt1A7hVod7h+nH/UP5A8Ij3Xcu2wloyoM=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=U7BMaJNsNW9YoISW0Xcz/B0z7LJ1rGT20mi+jBAhkdr/uU5v7sgasBBnIBK6nZ4x/
-	 ZkNElPutbWY+J9I96ACCMrg1jBBg/Qw057mh/GGX0WPkrFUltjtMiZjpluTQ9BX+uS
-	 IK5cYaBbO3KAepjz46e6e2kkbfU9nlWRePv64Emz1Yg5G78ykUUWIgLuIwUiEyZb3D
-	 +7B5+2u86pPTxqosFTknXGPLgx0jXQ4hS6gst7JDfoKM1A4W/qbqdfkIAWpG6tpR/w
-	 mBiMNKbup6ElXF/kasTx/iDETbXvOhIWOYo57z+UsU2QU/OqXyfHldfNyryGBJhZ5k
-	 LMtzsSbtM+Qig==
-Message-ID: <fa532123-2fcf-4236-90c1-a47d5438502c@kernel.org>
-Date: Thu, 26 Nov 2026 16:56:09 +0900
+	b=L4BbOwcjLj1sjxKww4EYNoPnA212wyzbGvtmSQVPFQhWzhEOgD8DTX4/TqwlyhK7x
+	 fmVPVbX/h270oyafDx6+D/9/3Ng2chrWJQpM9niL+XrFkc545bveF0+8aqn5L7WkNR
+	 EKUyuT2CoTUuIxRNqVDsM6tlT3bdhhAlZ+0ZWEWBUculRs6rQa1WBeS+swGE0ZY51E
+	 Cv3J+cGSg2J9uDSBQmaYiU+gQ8LCbywne0yskx4kx5jTgf6DtPdhga+Yg1KCjWhBq7
+	 BcYrr0eI1DQgA+7NeFfWI5CAjEGsZ1PbW2CjJbz6d/88SApdOtWDkDgm3r5Uk5Pgxe
+	 86zlBPjB9Ijnw==
+Message-ID: <e8817800-21d7-43c3-954a-7a4814039f93@kernel.org>
+Date: Thu, 26 Nov 2026 16:58:06 +0900
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,82 +52,77 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] null_blk: reject device size overflow
+Subject: Re: [PATCH v2 2/3] null_blk: reject zone counts that overflow
+ unsigned int
 To: Yingjie Wang <x-professor@outlook.com>, "axboe@kernel.dk"
  <axboe@kernel.dk>
 Cc: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
  "stable@vger.kernel.org" <stable@vger.kernel.org>
 References: <20261126074748.1076774-1-x-professor@outlook.com>
- <20261126074748.1076774-2-x-professor@outlook.com>
+ <20261126074748.1076774-3-x-professor@outlook.com>
 Content-Language: en-US
 From: Damien Le Moal <dlemoal@kernel.org>
 Organization: Western Digital Research
-In-Reply-To: <20261126074748.1076774-2-x-professor@outlook.com>
+In-Reply-To: <20261126074748.1076774-3-x-professor@outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11/26/26 16:47, Yingjie Wang wrote:
-> The configfs size attribute accepts an unsigned long value in MiB without
-> checking whether it can be converted to bytes. Both null_add_dev() and
-> mb_to_sects() multiply that value by SZ_1M before converting it to
-> sectors, so on 64-bit systems a size of 2^44 MiB wraps the byte count to
-> zero.
+> null_init_zoned_dev() calculates the zone count from sector_t values but
+> stores it in the unsigned int nr_zones field without checking the range.
+> For example, a size of 2^40 MiB with the default 256 MiB zone size
+> requires 2^32 zones. This count is truncated to zero when stored in
+> nr_zones.
 > 
-> For a zoned device with the default zone size, this also produces zero
-> zones. The zero-length zone allocation returns ZERO_SIZE_PTR, and the
-> conventional-zone adjustment underflows zone_nr_conv to UINT_MAX. The
-> subsequent zone initialization then accesses invalid memory:
+> The resulting zero-length allocation returns ZERO_SIZE_PTR. Adjusting the
+> number of conventional zones then underflows zone_nr_conv to UINT_MAX,
+> and initializing those zones accesses invalid memory. This happens even
+> when the device capacity itself fits in a signed 64-bit byte count.
 > 
->   null_blk: changed the number of conventional zones to 4294967295
->   BUG: kernel NULL pointer dereference, address: 0000000000000030
->   #PF: supervisor write access in kernel mode
->   RIP: 0010:lockdep_init_map_type+0x1b/0x230
->   Call Trace:
->    __raw_spin_lock_init+0x3a/0x110
->    null_init_zoned_dev+0x5a2/0x1270 [null_blk]
->    null_add_dev+0x15f5/0x1e70 [null_blk]
->    nullb_device_power_store+0x29d/0x350 [null_blk]
->    configfs_write_iter+0x306/0x500
->    vfs_write+0x6a4/0x1030
->    ksys_write+0x12a/0x250
-> 
-> Non-zoned devices can instead be registered with a wrapped capacity.
-> 
-> Reject sizes above LLONG_MAX / SZ_1M in null_validate_conf(), before
-
-Why not ULLONG_MAX / SZ_1M ?
-Any particular reason?
-
-> allocating device resources or initializing zones. This also keeps the
-> byte capacity within the signed 64-bit range supported by the block
-> layer. This check runs for both configfs power-on and module
-> initialization.
+> Keep the calculated zone count in a sector_t temporary and reject values
+> above UINT_MAX before assigning nr_zones or allocating the zone array.
 > 
 > This bug was found by a fuzzer.
 > 
-> Fixes: cedcafad8277 ("nullb: add interface to power on disk")
+> Fixes: ca4b2a011948 ("null_blk: add zone support")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Yingjie Wang <x-professor@outlook.com>
 > ---
->  drivers/block/null_blk/main.c | 5 +++++
->  1 file changed, 5 insertions(+)
+>  drivers/block/null_blk/zoned.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/block/null_blk/main.c b/drivers/block/null_blk/main.c
-> index ec0d7ba4d938..2d6d71690d10 100644
-> --- a/drivers/block/null_blk/main.c
-> +++ b/drivers/block/null_blk/main.c
-> @@ -1893,6 +1893,11 @@ static int null_setup_tagset(struct nullb *nullb)
->  
->  static int null_validate_conf(struct nullb_device *dev)
+> diff --git a/drivers/block/null_blk/zoned.c b/drivers/block/null_blk/zoned.c
+> index b271d0a88ff2..432a0a2f3893 100644
+> --- a/drivers/block/null_blk/zoned.c
+> +++ b/drivers/block/null_blk/zoned.c
+> @@ -54,6 +54,7 @@ int null_init_zoned_dev(struct nullb_device *dev,
+>  			struct queue_limits *lim)
 >  {
-> +	if (dev->size > LLONG_MAX / SZ_1M) {
-> +		pr_err("Device size is too large\n");
+>  	sector_t dev_capacity_sects, zone_capacity_sects;
+> +	sector_t nr_zones;
+
+Please use unsigned long long here. sector_t is for, well, sectors :)
+
+Other than this, looks OK to me.
+
+>  	struct nullb_zone *zone;
+>  	sector_t sector = 0;
+>  	unsigned int i;
+> @@ -94,8 +95,13 @@ int null_init_zoned_dev(struct nullb_device *dev,
+>  		pr_err("zone_size too large or too small, leads to zero sectors\n");
+>  		return -EINVAL;
+>  	}
+> -	dev->nr_zones = round_up(dev_capacity_sects, dev->zone_size_sects)
+> +	nr_zones = round_up(dev_capacity_sects, dev->zone_size_sects)
+>  		>> ilog2(dev->zone_size_sects);
+> +	if (nr_zones > UINT_MAX) {
+> +		pr_err("Too many zones\n");
 > +		return -EINVAL;
 > +	}
-> +
->  	if (dev->queue_mode == NULL_Q_RQ) {
->  		pr_err("legacy IO path is no longer available\n");
->  		return -EINVAL;
+> +	dev->nr_zones = nr_zones;
+>  
+>  	dev->zones = kvmalloc_objs(struct nullb_zone, dev->nr_zones,
+>  				   GFP_KERNEL | __GFP_ZERO);
 
 
 -- 
