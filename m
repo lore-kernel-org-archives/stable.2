@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795700243;
-	b=nHbZDybw9ERY10+7jVWlI99MS/adTN1jfjlm/f2RvS0tmqrxeeNLno5bHNLpPR64gvsL
-	 2C3gpS43WQKOTUEugyP0yNTmbrNqskNeOhGVUUowqHAEr/8dPe2wHQuuePBIARlWkC3KI
-	 0dAxVfkUDvv8ACTUOcOdiGgXcd1IHtdKf4mZHHftvnRgu0Sy+bRibZtrLkDCEx07FtCg3
-	 y+faY2FvehtRmFUGUfgzxWpdI+nqCDjc2XLxh0QOgi0prvyZgjIP2J3Nh2DMKpWt/hJu6
-	 aYz+EjALUkKl/1SBucZFnnV1XZVM31Y1W2YYHFf2pFR/t5SPBpGdT/9GFpAOBciGQcA==
+	t=1795700507;
+	b=0Bf9VkD4wT5ubwKC4W9vHc3VCwKWNdKn3D3D0o2zeaNhseJHNwhim9mFeZ+jzyprr8/H
+	 ZzYBlXYzHIkV0Rz7O7XTHKGNe2F1BPhAsTz3jGZi+nXK68hhhmOnlDbk2Rz4UsyOn7Qxc
+	 xuEl+I7lfXjKibxDugTABsDM74ePzXLPbn88tyXpsigDCG/dE8wbgit8k/SvWNezjMTJ6
+	 LRPVQRC5zpf8desNRKJBGeyA9+rTsUuZmOP8vNh+1Xhwo0Kku5GV1hgwgk5dnTYWF/U05
+	 ADp7hmpit2Vx0zgiqEpXMN4bp4J/ek2FOWmX+1BttxRdIbm/a6piBNN9a8IAdGh07QA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795700243;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
-	 From:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=OTlAdjsMnjHpK7mYzreF1Hc8nBUzyBy1IwUaOdo6L+A=;
-	b=0TFNkWichRCsRUeevr2Eb9FNQqaciwf4+F9CvVicQrRZ1IHhT8Pwyn2EYNxumr2Q2C2o
-	 QbXJbNE/qIM6TybNaH+eK8PKaLfX1/CeCgpcKC4ENzLPLg+fi0TYsYXkGvpuoe2t36ES4
-	 rhxDX4oNA0m8lTyMFn0jAl3mC3jnz0pYgDE/hE/d0hH7VXQ/nXX+KYrHjQip7AT+kRmaz
-	 C9gU0Onxq0hC8FRqJGLHCw32k/T6keCVNNb5P+Hbusvh330mJdKT5T2fnuZsmYpTkPyGR
-	 VZ3hJudg6QtV67pNKaZmDxQG3wjQutvp3gStX92p+Xuqf29caVHmR845iTJeysnkVAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795700507;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qu+ULS1G/vHgDQaSepKD9o12HnSf0Zm9QTE2GXOFXjE=;
+	b=wMQJd7baEs2g1gVpDruLxiE75Vf7oQgw3ktV7xODLAj4axv3efnXhaTh5iCHmPPfQba6
+	 UO/VV3IDEggT5JlrtoRbSGzfygLFB1PjJJ1XoHYba4JpkIdnLzLGQefqDldRJwO+HJ5eg
+	 LZ7pHuM9b8k3GOPwmpwzIHo9KZDLVElq6GkwSurpRHYZ6l8W+TZ8JruJJizMQ5H1hbEws
+	 ydLjLqYOS7uKcCavwR0rPkHac8ZlSY+mkuOjiWh6juBl2wo8xCmJ7L+/GXXMLaA6llC9I
+	 WBO5iRPg0s7o8lD16TBc8GOuk2Pll8XA3dD1rYBKO7lSLv3MfzLTMg38LaFYXXdWzWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=pCvaSWpT;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H950uVkj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F32606A32C;
-	Thu, 26 Nov 2026 13:37:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3F32606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD291606A31C;
+	Thu, 26 Nov 2026 13:41:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=pCvaSWpT
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id E3F7B4E417A3;
-	Thu, 26 Nov 2026 13:37:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B2701604ED;
-	Thu, 26 Nov 2026 13:37:20 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8E6DA11E68072;
-	Thu, 26 Nov 2026 14:37:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795700239; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=OTlAdjsMnjHpK7mYzreF1Hc8nBUzyBy1IwUaOdo6L+A=;
-	b=pCvaSWpTPSboOeyPCEWxm296dT2ARRfMHg/jxbWuTxvylPGzKgJGYSQl4h3BS7GKq4Q7zv
-	yx45WbFdHbJUsYFG63QlEWM4hh6IgGzsK/ZRLyPe9xQGgKBgtU+thk+PLi8vzw2f4naOvZ
-	aqPBFCt6c5hPWGI0+WONFQofOVevtXply55MOfTMTGeMpzkDfLIhv+HCDIz4lEtQ9w9ruk
-	k2TkAeZrkinf3xDXs1rnFcVIwVyqEqn8At85hso4wkH2ohbjo5qROvmiPVbE4ag2NbEgIY
-	4xOZi0b6C6VCvMk2wuh3F7S+nVnwUaMoOXhfDp0A8viZR4ItOrZps+w6ysOyGA==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H950uVkj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA6BE1F000C4;
+	Thu, 26 Nov 2026 13:41:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795700506;
+	bh=qu+ULS1G/vHgDQaSepKD9o12HnSf0Zm9QTE2GXOFXjE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H950uVkjdHVBcmwvRvu0yoe7S13dsymXZJoYapyu1pzxqpgirLkadRq6HFUrNg3vD
+	 zDDHQvpgQwcxAjZ4+Vgwfw68MaUyvXbjhDfz3swzmNoR/yZ/RCwbDWSchYUy3n4ncM
+	 JpdN8N2mNpoz8kBTOGgdZaXcqvGXpNqpzI44maTr4V8ppwoyo9SsIV6oMwzdGRUBdv
+	 AjReAkE3MZDLHhXYoJPBleBXNMHYNE7MdxHmc43Q3ZNw6gv7vpzSZgj85q4Pib2Djp
+	 i1X83Z8XDAvkDFUTplWMqAFq2n/3ZdWfYAN5ITUdWsTeGuLy9nx1F4LxG+jL3zKQLE
+	 a6f3Cu+MbM/AQ==
+Date: Thu, 26 Nov 2026 14:41:42 +0100
+From: Andi Shyti <andi.shyti@kernel.org>
+To: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
+Cc: Lee Jones <lee@kernel.org>, 
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Werner Gartner <Werner.Gartner@congatec.com>, 
+	mfd@lists.linux.dev, linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v6 03/10] i2c: cgbc: Use real I2C bus names
+Message-ID: <awg2_PLCeNgio_bp@zenone.zhora.eu>
+References: <20261117-cgbc-i2c-storage-devices-support-v6-0-bb070ad3e9aa@bootlin.com>
+ <20261117-cgbc-i2c-storage-devices-support-v6-3-bb070ad3e9aa@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,54 +58,25 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 26 Nov 2026 14:37:14 +0100
-Message-Id: <DN56LVC0GG0Z.31QWFJ8SS5206@bootlin.com>
-Subject: Re: [PATCH] drm/exynos: hdmi: put bridge reference on probe failure
-Cc: "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Krzysztof Kozlowski" <krzk@kernel.org>, "Peter Griffin"
- <peter.griffin@linaro.org>, "Alim Akhtar" <alim.akhtar@samsung.com>, "Luca
- Ceresoli" <luca.ceresoli@bootlin.com>, "Marek Szyprowski"
- <m.szyprowski@samsung.com>, <dri-devel@lists.freedesktop.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-samsung-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>
-To: "Yige Jiang" <yigejiang86@gmail.com>, "Inki Dae" <inki.dae@samsung.com>,
- "Seung-Woo Kim" <sw0312.kim@samsung.com>, "Kyungmin Park"
- <kyungmin.park@samsung.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <rc-b1-20261110-vc-19-b220c856ecbb@gmail.com>
-In-Reply-To: <rc-b1-20261110-vc-19-b220c856ecbb@gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117-cgbc-i2c-storage-devices-support-v6-3-bb070ad3e9aa@bootlin.com>
 
-On Thu Nov 26, 2026 at 6:58 AM CET, Yige Jiang wrote:
-> hdmi_resources_init() ends with hdmi_bridge_init(), which takes a
-> reference on the next bridge with of_drm_find_and_get_bridge(). That
-> reference is only dropped in hdmi_remove(). When hdmi_probe() fails
-> after hdmi_resources_init(), including the -EPROBE_DEFER returns for
-> the DDC adapter, the PHY and the syscon lookups, the reference is
-> leaked, once per failed probe attempt.
->
-> The sashiko AI review bot pointed this out on dri-devel on 2026-07-16,
-> in its review of an unrelated exynos_hdmi patch.
->
-> Drop the reference at the end of the probe error path and route the two
-> early returns after hdmi_resources_init() through it. drm_bridge_put()
-> ignores NULL, which covers boards without a bridge on port 1.
->
-> Fixes: 2db0d298f22d ("drm/exynos: hdmi: convert to of_drm_find_and_get_br=
-idge()")
+Hi Thomas,
+
+On Tue, Nov 17, 2026 at 10:47:43AM +0100, Thomas Richard (congatec GmbH) wrote:
+> The adapter names described the expected purpose of the buses ("General
+> Purpose I2C adapter", "Power Management I2C adapter") on conga-sa7 board
+> rather than their actual names on the Board Controller.
+> 
+> Rename them to the real bus names "cgbc-i2c0" and "cgbc-ddc0", matching
+> the naming used by Congatec.
+> 
 > Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/r/20260716132919.A3EA81F000E9@smtp.kernel.o=
-rg
-> Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
+> Fixes: 6894f640b8f3 ("i2c: Congatec Board Controller i2c bus driver")
+> Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+BTW, do we really need the Fixes tag here and the Cc stable?
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Andi
