@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795705682;
-	b=L94S9eGUvGglv4GmlwXLPJoQ+sXBEBsCcrN17+aOO522roSbJyKg+HKM1GKue1PGZPj5
-	 +4QDJFmx3XrqsVadG1NYiD7PM19bsbqEus3rRjYcn1o3F6Af7iZH//EJFJMKwp0MxU9Tz
-	 O4dC08C5yyjQiiAQHwvJq/x4Ir7bPojbExrrFG22JrvjKBGb+WG/BYeGXz4aAjk4nnkJ1
-	 cwGJj+z1/E8i+tbSXb8u+i0ItoVlz/Jg4+GPUH/CgtMSfPUhlV3cmETVSN/In0SscGcK8
-	 BNZWxIUyGhLWr+b3kCvcVXiY1oREPM9wbx5HC3D77SQG4DBecwByJtoS9lSrlC6aDMQ==
+	t=1795705684;
+	b=nCs9oupTA0J2zQ4/hu6+1tJ21Df3ZGgTnWV7+DqOAj8gO62Gu/QoxdydsdokDPbpQe7C
+	 dHwdAnk2yhbLPH53cPDy1CdifVMjyWiu4JaKFXhOP+JB3E5dEfMq0RP5Df7Fgo6bxH572
+	 E9lDn8ZhGfZg8+zQBjve+ow/5qoWTveQAY+vgcWbVwUnu9xG0T3x7nl6fsaQoA1+ACLwG
+	 2KxGCzVlczieXIArXw2RsbZF3B7neeiUlpcHF9XLbidvNSa69TCQOsqU4OyLWYQj3mF2n
+	 l9472+LQQucVXJZ3ilxkofrtcHGkTFj48sPWN5Qf1uVifIyH3ZEtNoAlFITaeRumPjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795705682;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795705684;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=+7eOqufy449fq8eUoQhHMCbFY1UC45vnAzFeAe0C/Hc=;
-	b=AW0CA4CqRc3TEgXl8pz4uK5x42HDxLduP6UFA3QqElUInFGm8U3aTUbFNLlvm+8BAzZX
-	 KurPo1VQEdgMEw3PlyIzmupSAo0hM6dT2pVlJpCvgFuNFl5cwQ1LfJFlkoibLddhAXkp0
-	 Zq0FsUK2kc/YCYeaIEaShonKeHIzKieKuqnOWDC730/ksZUsOCW22vaq3vA71VruWbbUo
-	 Pb+BuCWaBPFpoHucuVoHYqdUdwxb3S68Ruh1Vw/8kVs7FbN+S6UR0vGazBCG7iVepsesm
-	 +129ZEIcvKpjOr+V9tp6YDjhygkUuQTh7abx9qKmeHa0HvlYZYXmMGowPotT1zL7ezw==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=0B6sH6AwS7KHAEysrE0ghFTT8nF+QcltrMVdvvLl5ag=;
+	b=yG7PO7q3mntshnKEvpSo3P0qU3iKfriXpRip88vWC7hsTRiGr89Ez8QX6JKJfvN50Sel
+	 xxXY9wVBTTjpoRnuWjZsIJBFd0ut0zwKLJgZ7mU63YrTNdw6bV4mZmopYnC2BdjEiG/6V
+	 AxqhF3CSJZ2heFP0uaC6y0meGzPWgeNk84WI5I9K2aquxf1zBcualn1IBfCBhS0oBbR/5
+	 zxcsyDtd/iJ1vRsIllRvkkYb+amxBgJDvo/nM2yefvdr54ebbeKZZ0TIF+FmW5lAS/m0n
+	 K/pOsp1f7adZC0qlvPlBLO3vDUieP1Gi9cZNH6bKQZvBpS4daGHgvYyXDgokP7Gic5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yaOInYc3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XtPrlvBu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B39ED606A32C;
-	Thu, 26 Nov 2026 15:08:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BCFB606A32A
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:08:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yaOInYc3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 078271F000D3;
-	Thu, 26 Nov 2026 15:08:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795705682;
-	bh=+7eOqufy449fq8eUoQhHMCbFY1UC45vnAzFeAe0C/Hc=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XtPrlvBu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FA3A1F000D0;
+	Thu, 26 Nov 2026 15:08:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795705684;
+	bh=0B6sH6AwS7KHAEysrE0ghFTT8nF+QcltrMVdvvLl5ag=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=yaOInYc3pPM9WAxnc28cWvB6HHE6exEaGB2Fanvczi171aq6B9gpn8JvuaIGrZcPF
-	 2z0va5oByFwFJG8fzaXCQ5Cwjd2/P2PBLqau6VnQY09d6wMaU6k8xjZJtLhFZ0M6Bt
-	 zWMtVxgFbl+g33dZyloHFGLUxsr8sTs8ej5Raylo=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=XtPrlvBu0gGHSaScsUzQdJ9UhyuevS64a5CkwGwCLbwaFN/149SK67cc/JycZaTx6
+	 LRlsrw5c3DYk/hcrtzDvi6SKccE1uuYfEdsqHMHmBBsZFS+go9uymNG/r89hR+sGUH
+	 vZ2x/0NDYz5QbVsZiYuJTIJC3wt2TEdPqA8S0NeaO6cUqhlvBddqPCH/7KmkaJM+BN
+	 jbLnOndbPv+ApvwN7A0i58lQwXA8+sfdOvAkSNiJ0cou/6nXZ1lUZr42rwgWJwd7Fu
+	 2h164e+Icg2LMhZntekiBDZbgyGlKXXkT31S5h1rc8dp91RxFtDpYtC/aO97eK5FI5
+	 U1RRU2Oz9rcvA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	stable <stable@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH 5.15 281/319] w1: ds2482: set the strong pull-up with its byte
-Date: Thu, 26 Nov 2026 15:40:49 +0100
-Message-ID: <20261126144013.098071973@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261126144006.732901931@linuxfoundation.org>
-References: <20261126144006.732901931@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: wuyuehong <wuyuehong@cmss.chinamobile.com>,
+	syzbot+1288484b13bf6af3620d@syzkaller.appspotmail.com,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] dm snapshot: fix discard_granularity unit in snapshot_io_hints
+Date: Thu, 26 Nov 2026 10:08:01 -0500
+Message-ID: <20261126150737.2238290-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112507-headed-parade-2f77@gregkh>
+References: <2026112507-headed-parade-2f77@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,112 +62,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+From: wuyuehong <wuyuehong@cmss.chinamobile.com>
 
-------------------
+[ Upstream commit d7216d7be2bbfdf3312695b6e41a4fc7c5e22902 ]
 
-From: Josef Bacik <josef@toxicpanda.com>
+snapshot_io_hints() copies the snapshot store's chunk_size, which is
+in 512-byte sectors, into queue_limits.discard_granularity, which, like
+all other members of struct queue_limits, is in bytes.
 
-commit e4f673632fa8292a2922bcfbb39519b08016b382 upstream.
+For snapshots with a chunk size smaller than 512 sectors, e.g. the
+16 KiB (32-sector) chunks created by the syzkaller reproducer, the
+resulting granularity is smaller than a single sector.  When
+dm_calculate_queue_limits() then stacks the target limits into the
+table limits:
 
-The eight channels of a DS2482-800 are eight independent 1-wire masters
-for the w1 core, but share one I2C device. Each bus operation consists of
-several I2C transfers: select the channel, send the command, poll the
-status, set the read pointer, read the result. access_lock keeps the
-operations of the channels apart.
+	blk_stack_limits(limits, &ti_limits, 0)
 
-ds2482_w1_set_pullup() polls the status, writes the configuration and
-polls again without the lock. Polling sets the read pointer of the device
-to the status register. In the middle of a read on another channel, after
-that one has set the pointer to the data register, this makes the read
-return the status instead of the data. The cached copy of the pointer in
-pdev->read_prt can go wrong as well.
+queue_limit_discard_alignment() truncates that granularity to zero
+sectors and sector_div() divides by zero:
 
-The lock alone is not enough. The strong pull-up is a setting of the
-whole chip which is used up by the next byte. If an operation of another
-channel gets in before the byte it was meant for, that channel gets the
-pull-up, and the sensor converts without power.
+  Oops: divide error: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:queue_limit_discard_alignment block/blk-settings.c:645 [inline]
+  RIP: 0010:blk_stack_limits+0x1105/0x2d00 block/blk-settings.c:916
+  Call Trace:
+   dm_calculate_queue_limits+0x70c/0x1510 drivers/md/dm-table.c:1823
+   dm_setup_md_queue+0x199/0x4f0 drivers/md/dm.c:2618
+   table_load+0x4fd/0x8a0 drivers/md/dm-ioctl.c:1661
 
-So only note the request in ds2482_w1_set_pullup(), and write the
-configuration in ds2482_w1_write_byte(), under the lock and after the
-channel has been selected. The w1 core calls the former right before the
-latter, under the bus mutex of the channel.
+The divide fault itself only became reachable when commit e924da7d6622
+("block: Drop granularity check in queue_limit_discard_alignment()")
+removed the check for a sub-sector granularity in v6.13.  Kernels
+before that returned a zero discard alignment instead of faulting, but
+they still advertised a granularity 512 times too small.
 
-Fixes: 9c95bb6f25ff ("w1: ds2482: Added 1-Wire pull-up support to the driver")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Link: https://patch.msgid.link/20261027-llm-char-misc-w1-v1-3-d2e6bfafb6a4@linuxfoundation.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Use the same chunk_size << SECTOR_SHIFT conversion that
+io_overlaps_chunk() already applies to turn chunk_size into bytes.
+
+Fixes: 2e6023850e17 ("dm snapshot: add optional discard support features")
+Reported-by: syzbot+1288484b13bf6af3620d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=1288484b13bf6af3620d
+Cc: stable@vger.kernel.org
+Signed-off-by: wuyuehong <wuyuehong@cmss.chinamobile.com>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+[ sashal: adjusted context: kept the old max_discard_sectors line in place of upstream's max_hw_discard_sectors, since that rename is absent here; the discard_granularity change itself is identical. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/w1/masters/ds2482.c |   36 +++++++++++++++++++++---------------
- 1 file changed, 21 insertions(+), 15 deletions(-)
+ drivers/md/dm-snap.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/drivers/w1/masters/ds2482.c
-+++ b/drivers/w1/masters/ds2482.c
-@@ -105,6 +105,7 @@ struct ds2482_data;
- struct ds2482_w1_chan {
- 	struct ds2482_data	*pdev;
- 	u8			channel;
-+	bool			spu;	/* strong pullup after the next byte */
- 	struct w1_bus_master	w1_bm;
- };
+diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
+index 1422dcde989a4..78c3dc10a826e 100644
+--- a/drivers/md/dm-snap.c
++++ b/drivers/md/dm-snap.c
+@@ -2428,7 +2428,7 @@ static void snapshot_io_hints(struct dm_target *ti, struct queue_limits *limits)
+ 			snap = snap_src;
  
-@@ -338,6 +339,19 @@ static void ds2482_w1_write_byte(void *d
- 	if (pdev->w1_count > 1)
- 		ds2482_set_channel(pdev, pchan->channel);
+ 		/* All discards are split on chunk_size boundary */
+-		limits->discard_granularity = snap->store->chunk_size;
++		limits->discard_granularity = snap->store->chunk_size << SECTOR_SHIFT;
+ 		limits->max_discard_sectors = snap->store->chunk_size;
  
-+	if (pchan->spu) {
-+		pchan->spu = false;
-+		/* the wait above and this one are crucial, otherwise devices
-+		 * might not be powered long enough, causing e.g. a w1_therm
-+		 * sensor to provide wrong conversion results
-+		 */
-+		/* note: it seems like both SPU and APU have to be set! */
-+		ds2482_send_cmd_data(pdev, DS2482_CMD_WRITE_CONFIG,
-+				     ds2482_calculate_config(DS2482_REG_CFG_SPU |
-+							     DS2482_REG_CFG_APU));
-+		ds2482_wait_1wire_idle(pdev);
-+	}
-+
- 	/* Send the write byte command */
- 	ds2482_send_cmd_data(pdev, DS2482_CMD_1WIRE_WRITE_BYTE, byte);
- 
-@@ -422,27 +436,19 @@ static u8 ds2482_w1_reset_bus(void *data
- static u8 ds2482_w1_set_pullup(void *data, int delay)
- {
- 	struct ds2482_w1_chan *pchan = data;
--	struct ds2482_data    *pdev = pchan->pdev;
--	u8 retval = 1;
- 
- 	/* if delay is non-zero activate the pullup,
- 	 * the strong pullup will be automatically deactivated
- 	 * by the master, so do not explicitly deactive it
-+	 *
-+	 * The setting is used up by the next byte on any channel of the chip:
-+	 * ds2482_w1_write_byte() makes it, in one go with the byte.
- 	 */
--	if (delay) {
--		/* both waits are crucial, otherwise devices might not be
--		 * powered long enough, causing e.g. a w1_therm sensor to
--		 * provide wrong conversion results
--		 */
--		ds2482_wait_1wire_idle(pdev);
--		/* note: it seems like both SPU and APU have to be set! */
--		retval = ds2482_send_cmd_data(pdev, DS2482_CMD_WRITE_CONFIG,
--			ds2482_calculate_config(DS2482_REG_CFG_SPU |
--						DS2482_REG_CFG_APU));
--		ds2482_wait_1wire_idle(pdev);
--	}
-+	if (!delay)
-+		return 1;
- 
--	return retval;
-+	pchan->spu = true;
-+	return 0;
- }
- 
- 
-
+ 		up_read(&_origins_lock);
+-- 
+2.53.0
 
