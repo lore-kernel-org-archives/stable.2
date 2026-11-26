@@ -1,64 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795684585;
-	b=D3ZC1YHFcCy887JoaLh7E9UO3suyQRqxHunRTMr9OXSHo7pLrIjP1HAz35Mjx30Wfa0d
-	 0OFBqAP1jfIgNN/fFdFF2YPQgjkHYs1PnB65l9xJTmdaBueXxCZAfuO2AAPeZEBjAAA48
-	 X2oJRKCZuS4NshrbNlOiEbfFyccLc+R+bqFgwCPTy3g9a2QnDaNPddKqAMLS2DMYQRpV6
-	 AFAX4lKA6pDr9xtW2xL8yDyuTYA0A5mpzy/gjNE9i1M79OcWelZ0O3O4S8VGx2/cNfk1v
-	 3al7Jpb8PTM/B7hfH8UCJL0kUYpEiK9h+z3fd6GgzhU3UQDbHcB/6ZYmwFhCEmAgZ/w==
+	t=1795684616;
+	b=PSyZ+IlOkT27sxidIOn2fVu9WWZeZnKNqsvDqqK5WKQAlKZb+cpDkYYLX0o4YCc85ElD
+	 Wg3VPkjYmUtnbL4gtz58GNQcYD+v11V74e/2JJ3iDLdqQscqz5GPx9i6NNzCf531wd4ds
+	 Hi1dfXJR3xgikg+A7TrLC6AA/JiUL6PF67QMPQf57fyGSQsdKZvG8IE1axuMuUZUlo68W
+	 xaJZ5+NLe4DHaUDZE3MLeSnOcFS84Jb4dyTeEp1KGw4PW7Uy15FOQZorRPIy6IGeyS+pt
+	 TFGxFZQHWQdSIZev/NRyOxPcH9oNDAAS40KHnX7BooR1dNaz5j2hv0pqTuI211tR8AA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795684585;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=FomIFRqNcDYe4Uif/pDykgM4WPczRC7lkjTQd1DRayU=;
-	b=HhxfUfKwzbtKjdWVaH7926zJyZKq4aG3UaLI6uI708gORFxxf/LZklWzOLZuRPc9aPny
-	 jyEH7TywtfP5vSV+JiD+BJTIP8MP/diOP1/jTf3wQIdnL7wMduYy6ye7Q85LVRVmZKaM4
-	 Zsm37bafRMwUrWQEiGyT0ufpbWRcVY8T1KEuCWEjYF5QUwVsBDbaMspsnAzTkOpNMFZTL
-	 qr/zPOa6H7Noap1OnUIu3lQ6ORvmaW9wjCEKBwyZO9FrRjDVdPd5ze8ZrrF79/91VWQyu
-	 K2MhM2O0NEmx/VmrCp7QEz+MxDbN/Di0BEh8xs/Cp7nHMk2aBp9+s9otsty1WuSJiWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795684616;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ZfdcZ48c//AzqVH7rKfuc7GAHFokrDENxga69K9MVf0=;
+	b=gRM91y3QG+9FIFiwZaujwvirlaPHAXUEuICgqPwaO0pFSJLi/5aG5twdYYxnKMxDzWMK
+	 2acTiwzKQG9wJXgNus33ad42GHVfRxuXxfFHiGkvhKbpzYwvXrC2gsRBxC5N3scQ07QGV
+	 XwAs8N8q43foJUfYO5oND2drMqxF6DNG/1zh6md+irlhbJkqNJCOKlw3r/9XMpmhY7zds
+	 wC2JbgmZdAuHSUtr8W2fntViu50v/btPKj0C4hoqpbTC2slgHgHLK+HISp7UGIGmsXdgf
+	 v9bA4+APKPwK65623Yy8HlyCbCwUCOYLXJaCTmVH2EyQVDiJnUJEvhkUSNOVVyFXH+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JmniaB5V;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXi4jtdy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4826D606A31C;
-	Thu, 26 Nov 2026 09:16:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA12F606A31C;
+	Thu, 26 Nov 2026 09:16:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JmniaB5V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 639B41F000C4;
-	Thu, 26 Nov 2026 09:16:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXi4jtdy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7A801F000C4;
+	Thu, 26 Nov 2026 09:16:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795684585;
-	bh=FomIFRqNcDYe4Uif/pDykgM4WPczRC7lkjTQd1DRayU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JmniaB5V7A0mveMIagrKxgCcQ8uJ0ii87tekcvPqPkPhYBIH5BH3XgkekYNep/4LI
-	 BLxXyp1WNtGnta7c7Av13In9YwMH0XQHyStVt/FLEehaBuWzd2y1lVgLpxqq3oq47N
-	 FhCwPcMSwUtC6M+4nLJdHkLPFKuH/N6l/QXalKshvAODAqA3Iuz/fSUjSqhzQ+WLuu
-	 uy8Iy8CV1Y41DTWm42KXwyWqfVn/y7E17Mb5pBFlpVzKf+SPR156CYD1uJTeH+sNQ9
-	 22VN0nwHrVL2ZcVsSlVfOS1lnbpoqav8Jdah77zZZPtyBrpfvhp0upGJoNPNcZ6VxL
-	 JCvFYNE9QAO/Q==
-Date: Thu, 26 Nov 2026 09:16:19 +0000
-From: Lee Jones <lee@kernel.org>
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	linux-remoteproc@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 05/10] remoteproc: imx_rproc: Avoid stale mailbox
- pointers on request failure
-Message-ID: <20261126091619.GD38590@joneslee-macbookpro.roam.internal>
-References: <20261123172140.3547896-6-lee@kernel.org>
- <20261124032344.5314-1-peng.fan@oss.nxp.com>
- <awZ-XC1efo5QQvNI@bombadil>
- <awZ_HjrhS3Uiyssd@bombadil>
+	s=k20260515; t=1795684616;
+	bh=ZfdcZ48c//AzqVH7rKfuc7GAHFokrDENxga69K9MVf0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MXi4jtdyxHYxeNd9GvD8/qTFBek+uKD/UwQvdkBGMpRoBOKugRg1mH/Sgv8frDoTk
+	 W0hwp50y+gziYVZkt41i99BFLSJEup8+HwVZwkJ1tsunz+k4Hug8CfwibkTj4EgYov
+	 eHcq8Hi0MJdTD47i1JQs3SnmqQot035w4Rl0yQ6OpcKs0MpS8qCPBRvCSiQr0LJ15J
+	 vQvkWgMepbe6g9vBPRrN9ZbMDxbMh85D7+o7r9bErMGnarnZWdbHZpEM3e1zPeWw12
+	 7ctXM5s0ZmPEQCTuwt3euxOfFxj7lfoy2SH9D0UQaQUyJHWcQ/tP3CXyL7YWeuXhyj
+	 EMlp5ct0ly5Hw==
+Message-ID: <534f7330-d4de-47a8-ba6b-68c29c138186@kernel.org>
+Date: Thu, 26 Nov 2026 09:16:53 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,53 +51,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <awZ_HjrhS3Uiyssd@bombadil>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] soundwire: qcom: Fix off-by-one error in port
+ exhaustion check
+To: Christopher Obbard <chris.obbard@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261126-wip-obbardc-soundwire-qcom-fix-port-off-by-one-v2-1-c424edf85968@oss.qualcomm.com>
+From: Srinivas Kandagatla <srini@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20261126-wip-obbardc-soundwire-qcom-fix-port-off-by-one-v2-1-c424edf85968@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, 25 Nov 2026, Richard Leitner wrote:
 
-> On Wed, Nov 25, 2026 at 07:23:37AM +0100, Richard Leitner wrote:
-> > Hi Lee, Hi Peng,
-> > 
-> > On Tue, Nov 24, 2026 at 11:23:41AM +0800, Peng Fan (OSS) wrote:
-> > > Hi Lee,
-> > > On Mon, 23 Nov 2026 17:20:49 +0000 Lee Jones <lee@kernel.org> wrote:
-> > > 
-> > > > imx_rproc_xtr_mbox_init() stores the result of
-> > > > mbox_request_channel_byname() directly into priv->tx_ch and priv->rx_ch.
-> > > > Because mailbox channels are freed on stop() and detach() and
-> > > > re-requested on start(), attach(), and system shutdown, a failure while
-> > > > requesting "tx" leaves an ERR_PTR in priv->tx_ch, which is later
-> > > > dereferenced by imx_rproc_kick() and imx_rproc_free_mbox().  If "rx"
-> > > > fails after "tx" succeeds, priv->tx_ch is freed without being cleared
-> > > > while priv->rx_ch retains an ERR_PTR, causing subsequent calls to see
-> > > > both pointers as non-NULL and skip initialisation, leading to a
-> > > > use-after-free on priv->tx_ch and an ERR_PTR dereference on priv->rx_ch.
-> > > > 
-> > > > Request both channels into local variables and assign priv->tx_ch and
-> > > > priv->rx_ch only after both requests succeed.
-> > > 
-> > > I think Richard Leitner <richard.leitner@linux.dev> is working on this.
-> > > 
-> > > https://lore.kernel.org/linux-remoteproc/CANLsYkx=M_TXN10qAcQC0be065TYnzfOae6E8ss-9DTj9MzogA@mail.gmail.com/T/#ma2f8e4c332d47e5bdd1787f82f4dd2feeafc67d6
-> > 
-> > AFAICT my series fixes a similar, but other problem. Mine is about the
-> > free'ing order and a possible race when a kick occurs during
-> > cleanup/close. This one is targeted towards the setup/initialisation.
-> > Therefore IMHO this is a valid, fix for a different problem than mine.
-> > 
-> > What's your opinion on this Lee?
+
+On 11/26/26 8:56 AM, Christopher Obbard wrote:
+> Qualcomm SoundWire master ports are indexed from 1, with bit 0 of
+> port_mask reserved. Valid port numbers therefore range from 1 to
+> maxport.
 > 
-> Sorry, was too quick with answering and messed up things, as this fixes the
-> sashiko finding, not the "my" initial bug. So for me it's fine if we keep
-> this one, as I have not sended mine yet. ;-)
+> Commit 6ccec91c3535 ("soundwire: qcom: Fix port exhaustion check in
+> stream_alloc_ports") changed the port exhaustion check from
+> pn > maxport to pn >= maxport which rejects the last valid port.
 > 
-> Therefore please feel free to add:
+> On RB3gen2 (QCS6490), two WSA883x speaker amplifiers are connected
+> to swr2, which has qcom,dout-ports = <6> and qcom,din-ports = <2>
+> (8 ports). Each amplifier uses one port for playback and another for
+> voltage and current sensing (VISENSE). The right amplifier's
+> qcom,port-mapping is <4 5 6 8>, so its VISENSE port is master port 8,
+> which is rejected by the new check.
 > 
-> Reviewed-by: Richard Leitner <richard.leitner@linux.dev>
+> Since all ports in a SoundWire stream are allocated together during
+> hw_params, this causes the stream to fail with:
+> 
+>     qcom-soundwire 3250000.soundwire: All ports busy
+> 
+> The -EBUSY propagates through hw_params, preventing speaker playback.
+> Disabling VISENSE works around the issue. Speaker protection is not
+> enabled on this device in upstream, but with AudioReach userspace the
+> userspace PAL mixer paths enable VISENSE on every speaker stream, so a
+> mixer change alone does not avoid the failure.
+> 
+> The original fix addressed an exhaustion check that could never
+> trigger because find_first_zero_bit() returns maxport when all
+> searched bits are set. Include the reserved bit 0 in the search so
+> exhaustion returns maxport + 1 and restore the pn > maxport check.
+> 
+> Tested on RB3gen2 with a v7.4-rc3 based kernel and AudioReach
+> userspace: with the stock PAL mixer paths, which enable VISENSE on
+> both amplifiers, speaker playback through the PAL speaker sink is
+> audible and no longer fails with "All ports busy".
+> 
+> Fixes: 6ccec91c3535 ("soundwire: qcom: Fix port exhaustion check in stream_alloc_ports")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christopher Obbard <chris.obbard@oss.qualcomm.com>
+lgtm,
 
-Thank you Richard.
+Reviewed-by: Srinivas Kandagatla<srinivas.kandagatla@oss.qualcomm.com>
 
--- 
-Lee Jones
+--Srini
+> ---
+> Changes in v2:
+> - Rebase onto soundwire/next.
+> - soundwire/next now has commit d9ea256ee889 ("soundwire: qcom: Prevent
+>   pconfig buffer overflow in qcom_swrm_stream_alloc_ports()"), which
+>   adds an nports >= maxport bound on the pconfig array. That bound is
+>   separate from the off-by-one fixed here: it keeps pn >= maxport, so
+>   the last valid master port (maxport) is still rejected and RB3gen2
+>   speaker playback with VISENSE still fails with "All ports busy". This
+>   patch is still needed; keep both checks as
+>   pn > maxport || nports >= maxport.
+> - Add Cc: stable@vger.kernel.org, as 6ccec91c3535 landed in v7.3 and
+>   was backported to stable (Srini).
+> - Drop the claim that disabling VISENSE disables speaker protection;
+>   speaker protection is not enabled on any upstream device (Srini).
+> - Give the concrete swr2 port counts and the right WSA883x
+>   qcom,port-mapping from the RB3gen2 DT.
+> - Note that the PAL mixer paths enable VISENSE on every speaker
+>   stream, so a mixer change alone does not work around the issue.
+> - Add a note about testing on RB3gen2.
+> - Say the -EBUSY propagates through hw_params rather than naming the
+>   codec DMA backend.
+> - Link to v1: https://patch.msgid.link/20261012-wip-obbardc-soundwire-qcom-fix-port-off-by-one-v1-1-81f1a4c9c73a@oss.qualcomm.com
+> ---
+>  drivers/soundwire/qcom.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> index 65add9a74ffd9..05311cf639e4c 100644
+> --- a/drivers/soundwire/qcom.c
+> +++ b/drivers/soundwire/qcom.c
+> @@ -1461,9 +1461,9 @@ static int qcom_swrm_stream_alloc_ports(struct qcom_swrm_ctrl *ctrl,
+>  				if (m_port)
+>  					pn = m_port;
+>  				else
+> -					pn = find_first_zero_bit(port_mask, maxport);
+> +					pn = find_first_zero_bit(port_mask, maxport + 1);
+>  
+> -				if (pn >= maxport || nports >= maxport) {
+> +				if (pn > maxport || nports >= maxport) {
+>  					dev_err(ctrl->dev, "All ports busy\n");
+>  					*port_mask &= ~allocated;
+>  					return -EBUSY;
+> 
+> ---
+> base-commit: d9ea256ee889f3db9f0bd07ce5d114ce92e31b4f
+> change-id: 20261012-wip-obbardc-soundwire-qcom-fix-port-off-by-one-47c0a8af1c5e
+> 
+> Best regards,
+> --  
+> Christopher Obbard
+> 
+
