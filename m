@@ -1,56 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.94.104
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795665685;
-	b=yLkz3WFOg8vLNLY3ATDmUWRWze4510OsiXxiGhZWb7ghFf/IVcN9uVk1CAsVMUeUFws3
-	 q1snVbXtNitnfTzAHLgdrSWGtYZ0wH/ZNULnJLHUJ0kOpRhXPeTxGzHUgh2t1QKdjN95N
-	 XFyUqrA76rQaUZoON8fdmEh1D9EtKF3IfmBH35cSyifE6htzziOM8xYAkt3M0XzAvlCfC
-	 ruNdqQFkF7lNwA9RZktRopGWFo5qOwL4lNrzqCVttG+6iwutDEX5yMgqBjSOQJiKl3gux
-	 LDlv/i5smum0QhEWLVndmv6T8/7zbxo8kgKu55WaJ2Rfj59m16tgLgC0mpkzq2stRdQ==
+	t=1795665776;
+	b=sJrnMRGhrALd32K1d8xBIYwm9T/HVUlRAuHFbF66SYs2+0bUTRuN1/mIAgEOiw6E2zPP
+	 CZ4fOId7SdxqMoMyp08JVyzM+raoxXeMBPXWU/Yow1AZrbOI9byVEj5z+4DBchjTDMM19
+	 30ryfm7Hyuuxk7liEHv0MQCoHoAlX7OBO72B3fdaTTMAGR1dKaumLJjrcWj6sVihKA6uJ
+	 DpWHxH31fWXw4Zx4CkJFCoMmIL6nqQOPwtfKFAo8rdTI9QdXg8NvhSlFRIKDvNGKmDkT+
+	 cXr5QBsZzGtl8AyTgJn90BXIQ9sDIJ+2HrYgMeQ9p39+imrvepTHCmefGHaHEPN2+4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795665685;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=R6ec2oekWgB7vNcSapvnvzrJiJu6tiI4e5JpHFwzPxc=;
-	b=tGhxk5zLz/1bFVwB5AR2nwgPJwM+aRX75W9QjttVT1fcW6u/mDK1cbmLHu60vYMpYrID
-	 DqF60p3ugT/u46lY5e6mdN1TZIZoyTbnvecd/gT1n+LZWsEHsRMdG0yZ9XOl3qexFhbwg
-	 QPEGh2Q1T1VqeaEvRpmu0MXcrUjbkxeihHEkvGHCoNBlhkDViskllNbvbv7hFL66PWeI5
-	 bQ1hprsEhdDIjM221flXbPdxmp8a4mA9g/jiXZ84azsHpvePhH8IJTXVJAZvl5ne/gJ2g
-	 pdQ5nmgoYhJhX/4oKgJiKR0++PRVZiiNHEou8GDhnm02XO+sXUNDBLtiScI3YZJzYeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795665776;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=CqkX50TWd87UiNMb/G7h/MJtsKRrgzbFQl/rc+cZH70=;
+	b=DoqHHA5rCczINI87hw2d0bjFJMRStSVtpknqAtPENPJ9rzmAXrKM/YUfVJEp+N12jMWo
+	 2lljilHwOmer+NH1UqhKGXWAgRQlOpeSAtXqYuNtZq6IMby5dldyHrM4RHDV7p9BCps2I
+	 z62IHdQepALiZjHKP1+MzapYiHaDH0McvpRSKXgXkOaH0gMHV3OGUYPhc5OK5h9w7G1Om
+	 /UjdRiQ7mnGhGJFjMlF61GoadsPgH6DM22QxFZDFPo5mCo0+D7CrAm8MxMzlsyqs+nHmJ
+	 bFhWuHsCusllAHHC/E+/Yd9tzoDGiF5NJjnKVAd9FTpm2XyC/Vi9ragUPPVbuH9VCkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ldCyODkY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=124.71.94.104
+Received: from dggmsgout13.his.huawei.com (dggmsgout13.his.huawei.com [124.71.94.104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D767606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:01:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ldCyODkY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F12221F000C4;
-	Thu, 26 Nov 2026 04:01:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795665684;
-	bh=R6ec2oekWgB7vNcSapvnvzrJiJu6tiI4e5JpHFwzPxc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ldCyODkYXVzTlvKq1eJsmKlDgtQucPKaKQfvG4iaKSzIc58u2WsqA5C7pBVFe7lr+
-	 COC/IiRPcVHrIxhNg9hDMEc9D1BqcfB3/ye4pMQw65hQebNmAFJ+ZKENylkbNHyH/n
-	 YXQ7bFKslxYwGWuctdPaDAQ2yYBopfeUjF9xO8qXfvozsXb1sLNzx7JA1zSSe23bXs
-	 0q1AwXWA0XMM/EafTdmEHyilRG4PFC4KIk8JdxX1ln6dsuM/yJ89VHWWm882vgCrt9
-	 C3drYN871/Ff15YWELHNPJQvJh4/QpBtdsD5L+s/PINFivj+zWQS2+QHKr4+xeLmPH
-	 nwFOeeBxWfh7Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Daejun Park <daejun7.park@samsung.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Amir Goldstein <amir73il@gmail.com>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4C6606A326;
+	Thu, 26 Nov 2026 04:02:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D4C6606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggmsgout13.his.huawei.com (SkyGuard) with ESMTP id 4jZjZ00ssGz1rs0M;
+	Thu, 26 Nov 2026 12:02:48 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id 868B240C97;
+	Thu, 26 Nov 2026 12:02:52 +0800 (CST)
+Received: from huawei.com (unknown [10.67.174.193])
+	by APP4 (Coremail) with UTF8SMTPA id gCh0CgAHOullrwdrepVXFw--.42150S9;
+	Thu, 26 Nov 2026 12:02:52 +0800 (CST)
+From: Luo Gengkun <luogengkun@huaweicloud.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ovl: bump the impure dir version when linking a file with origin
-Date: Wed, 25 Nov 2026 23:01:22 -0500
-Message-ID: <20261126040109.1870238-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112548-glamorous-playroom-3ca9@gregkh>
-References: <2026112548-glamorous-playroom-3ca9@gregkh>
+Cc: Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Song Liu <song@kernel.org>,
+	Kyle Huey <me@kylehuey.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	bpf@vger.kernel.org,
+	alexander.shishkin@linux.intel.com
+Subject: [PATCH stable/linux-6.6.y 7/9] perf/bpf: Change the !CONFIG_BPF_SYSCALL stubs to static inlines
+Date: Thu, 26 Nov 2026 04:34:56 +0000
+Message-Id: <20261126043458.2394658-8-luogengkun@huaweicloud.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261126043458.2394658-1-luogengkun@huaweicloud.com>
+References: <20261126043458.2394658-1-luogengkun@huaweicloud.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,101 +79,74 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:gCh0CgAHOullrwdrepVXFw--.42150S9
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr4fuw1fuFy7tFyktry7Jrb_yoW8XF4xpF
+	WDCwnIyr4UKFnFg3y5Jr4vk345A340gws8JF1xK3ySvr4jq395JF4UWr1YvrWrtr92kFyx
+	Jw4qqrnrt3y7JaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPmb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
+	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
+	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
+	AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x02
+	67AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I
+	80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCj
+	c4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4
+	kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
+	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZV
+	WrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
+	1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
+	AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZE
+	Xa7IU0sqXPUUUUU==
+X-CM-SenderInfo: 5oxrwvpqjn3046kxt4xhlfz01xgou0bp/
 
-From: Daejun Park <daejun7.park@samsung.com>
+From: Ingo Molnar <mingo@kernel.org>
 
-[ Upstream commit 86e2facd8630cc2fdec6ea80c53e370b26b441d9 ]
+[ Upstream commit 93d3fde7fd19c2e2cde7220e7986f9a75e9c5680 ]
 
-Linking a file with copy up origin into a non-merge impure dir does
-not bump the dir version. readdir then reuses the impure dir cache
-built before the link. It reports the upper inode number as d_ino of
-the new link, not st_ino.
+Otherwise the compiler will be unhappy if they go unused,
+which they do on allnoconfigs.
 
-Pass whether the linked file has an origin to ovl_dir_modified(), as
-rename and unlink do.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-98f207b6-3936-48e9-a40f-88f20be4db7b
-Fixes: 4edb83bb1041 ("ovl: constant d_ino for non-merge dirs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-[ sashal: Threaded the existing origin argument through the two create helpers into ovl_instantiate(), since this tree has no ovl_create_handle_whiteouts() and ovl_dir_modified() is called inside ovl_instantiate(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Cc: Kyle Huey <me@kylehuey.com>
+Link: https://lore.kernel.org/r/ZhkE9F4dyfR2dH2D@gmail.com
+Signed-off-by: Luo Gengkun <luogengkun@huaweicloud.com>
 ---
- fs/overlayfs/dir.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ kernel/events/core.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
-index 3bf306330a8c2..0e1531dbeaec6 100644
---- a/fs/overlayfs/dir.c
-+++ b/fs/overlayfs/dir.c
-@@ -260,14 +260,14 @@ static int ovl_set_opaque(struct dentry *dentry, struct dentry *upperdentry)
-  * may not use to instantiate the new dentry.
-  */
- static int ovl_instantiate(struct dentry *dentry, struct inode *inode,
--			   struct dentry *newdentry, bool hardlink)
-+			   struct dentry *newdentry, bool hardlink, bool origin)
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index a6d7fc2a9ab2..edced196597c 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -9674,21 +9674,21 @@ static void perf_event_free_bpf_handler(struct perf_event *event)
+ 	bpf_prog_put(prog);
+ }
+ #else
+-static int bpf_overflow_handler(struct perf_event *event,
+-				struct perf_sample_data *data,
+-				struct pt_regs *regs)
++static inline int bpf_overflow_handler(struct perf_event *event,
++				       struct perf_sample_data *data,
++				       struct pt_regs *regs)
  {
- 	struct ovl_inode_params oip = {
- 		.upperdentry = newdentry,
- 		.newinode = inode,
- 	};
- 
--	ovl_dir_modified(dentry->d_parent, false);
-+	ovl_dir_modified(dentry->d_parent, origin);
- 	ovl_dentry_set_upper_alias(dentry);
- 
- 	if (!hardlink) {
-@@ -325,7 +325,7 @@ static bool ovl_type_origin(struct dentry *dentry)
+ 	return 1;
  }
  
- static int ovl_create_upper(struct dentry *dentry, struct inode *inode,
--			    struct ovl_cattr *attr)
-+			    struct ovl_cattr *attr, bool origin)
+-static int perf_event_set_bpf_handler(struct perf_event *event,
+-				      struct bpf_prog *prog,
+-				      u64 bpf_cookie)
++static inline int perf_event_set_bpf_handler(struct perf_event *event,
++					     struct bpf_prog *prog,
++					     u64 bpf_cookie)
  {
- 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
- 	struct dentry *upperdir = ovl_dentry_upper(dentry->d_parent);
-@@ -348,7 +348,8 @@ static int ovl_create_upper(struct dentry *dentry, struct inode *inode,
- 		ovl_set_opaque(dentry, newdentry);
- 	}
- 
--	err = ovl_instantiate(dentry, inode, newdentry, !!attr->hardlink);
-+	err = ovl_instantiate(dentry, inode, newdentry, !!attr->hardlink,
-+			      origin);
- 	if (err)
- 		goto out_cleanup;
- out_unlock:
-@@ -446,7 +447,7 @@ static int ovl_set_upper_acl(struct ovl_fs *ofs, struct dentry *upperdentry,
+ 	return -EOPNOTSUPP;
  }
  
- static int ovl_create_over_whiteout(struct dentry *dentry, struct inode *inode,
--				    struct ovl_cattr *cattr)
-+				    struct ovl_cattr *cattr, bool origin)
+-static void perf_event_free_bpf_handler(struct perf_event *event)
++static inline void perf_event_free_bpf_handler(struct perf_event *event)
  {
- 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
- 	struct dentry *workdir = ovl_workdir(dentry);
-@@ -532,7 +533,7 @@ static int ovl_create_over_whiteout(struct dentry *dentry, struct inode *inode,
- 		if (err)
- 			goto out_cleanup;
- 	}
--	err = ovl_instantiate(dentry, inode, newdentry, hardlink);
-+	err = ovl_instantiate(dentry, inode, newdentry, hardlink, origin);
- 	if (err) {
- 		ovl_cleanup(ofs, udir, newdentry);
- 		dput(newdentry);
-@@ -610,9 +611,9 @@ static int ovl_create_or_link(struct dentry *dentry, struct inode *inode,
- 	}
- 
- 	if (!ovl_dentry_is_whiteout(dentry))
--		err = ovl_create_upper(dentry, inode, attr);
-+		err = ovl_create_upper(dentry, inode, attr, origin);
- 	else
--		err = ovl_create_over_whiteout(dentry, inode, attr);
-+		err = ovl_create_over_whiteout(dentry, inode, attr, origin);
- 
- out_revert_creds:
- 	revert_creds(old_cred);
+ }
+ #endif
 -- 
-2.53.0
+2.34.1
 
