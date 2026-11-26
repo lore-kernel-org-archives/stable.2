@@ -1,72 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795659384;
-	b=2fcnDmmcfZEaneNuivI2QxtSXmg/aWsWKia/5Re/QWZeJ9MfkNBIA7BBLlwEhORPsnf/
-	 Eh4nvacQ0ZIh/juGlRMzOF36sZL0yEPPN6qT5TGUhCOgdTtQXz8s4bLoPJJGXVirNJ9VM
-	 PxJae2/Nn6YnREBUCsDoU4L0N53mygO3BHcADZ6MiuKDBjvEfYjsw1jwpWkFB9EzLBQ5f
-	 hWvzu4KfKS7p4hTGrfVsaPoviEpQ+PH7k6fyjTaROByHOL3DTjRUIxoJTJOO/pjLShdEi
-	 YEwEK3oW8kEqk5+V8chU/pXDBnodsO9stNFtZrBYnkysOYFRg1fLQD3NgaJqtwIyqSA==
+	t=1795659492;
+	b=Whqdq4c5NerbcOvyR/acw4b4c8cJH/RkBkRZLThj7cIsxvYBgDd6CHFmiK3VrLP0ZjAh
+	 xyWZM0Q/qEUB0f54jH5tQid1qR1M0XIyjvK0UZ1bQ/mb0YZaeBNEgEulyxATPNIl4KVB7
+	 dp0Xj3+1wa/j0rMo27suZb9YeE4XfWZMdBzUlDWEYfOodc1KkZNqTFzrgK0avqWzNOEC3
+	 0x19NdjNUh2FkYwXyJapvVL2q0CO7scmBIImawMg35skF+SziKtqpzqFq9FalFu41IR1H
+	 Jy0/R6lD/ChbBM81PqyLFLS1gu1fO/0PYF2Q0fJtcIJg9ave77t2nM+a9qz/+5H4dgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795659384;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795659492;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=uPDIrhBZZQhYm/jOhRKU4pdro1NOP3kPaXWAAZHnIVc=;
-	b=CpwR4njyCa6zOoDu40hXIpGMLZxxsBd4JA7JxUo8cITP9w3fvsehIw+Ws+ysvgTk2IBR
-	 4muo4nujUXbkZ1bNVcPevAaJmApkgtUy2bq7EF9WyoXEoJHA6UWXJ+hqqp+Eja8B8bNuu
-	 XnE6WFcE3gZIb/KnXdGx/LIN87VAuNE6Y9hI23evT/Lw5u9Ia7ncDaOgnneLB8JAa7K01
-	 MSmixvC4Mznq4f5C0bzxEUts4lBWsHH08tbZw04LOxOstM/xUnJSNPx8r109D7tMTOLYE
-	 8FEwbfiNZ+UCVcfUBPTG1FBZCyiA5/ZhVZlNGgqsnjt1SqelffjIMKfmn1L9OKRITeg==
+	bh=LQUBvpsucYn0MXvaNFNdOGS2lcFbmHtWdBHiuR+bvsI=;
+	b=AE9KtuDjCiY3qEZ+xFgrr1sJM43u4KqdSp3WtaagquR4/FI7M4a0vtV1Nf0gvZjPNwy2
+	 mJxGSCQwNJW1Bx8BRPNdh4wgEy0TGijfjdndeMdCaKUkCrO8+hoNOBOlJ+m0W7YDbNBuN
+	 nF8B+ZjylMk/dvHFEWQGQ+NgdIWs2lphhcgo6BR1JGQhZamf5pj1ib2INbZcKPLJ7HYGm
+	 LNtrzHKuqDAGgxdnMAzeWggfEvpg3FnHNHPiMqD08YMicmXcSwj5fRfMud6vWd3sCV8bU
+	 zmjet8SSxT8LeNdlshMDVx/kYOaNxaV0ZbxjOiPK1W07lalKY9dErPKstlv2T3WZL3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=NehphdrY;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C1767606A321;
-	Thu, 26 Nov 2026 02:16:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1767606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l5+n1eRT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C58606A31E;
+	Thu, 26 Nov 2026 02:18:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=NehphdrY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=NehphdrYlNJuhK/r3Pgz7mDNHQt6RPkJll3TIxy+8ZS1PPYun3eXPNZIY42GfunhZS+ZdWAJmcK5c
-	 0sCASkkkykHR3NQBrS26wGVuMPhnDz/w0Ge5ub26/IQzJqKuQusv6bIeAsfmjYpPOfz0GxbBL00Z+y
-	 aR3p5ij53/BkqIdU=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76b07966df1d-5720b;
-	Thu, 26 Nov 2026 10:16:13 +0800 (CST)
-X-RM-TRANSID:2ee76b07966df1d-5720b
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[223.112.32.189])
-	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86b07966c228-589e7;
-	Thu, 26 Nov 2026 10:16:13 +0800 (CST)
-X-RM-TRANSID:2ee86b07966c228-589e7
-From: guohongyu <guohongyu@cmss.chinamobile.com>
-To: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org
-Cc: anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	alan.brady@intel.com,
-	stable@vger.kernel.org,
-	13057616121@163.com
-Subject: [PATCH] idpf: fix vport_id used as array index in MAC filter async handler
-Date: Thu, 26 Nov 2026 10:08:54 +0800
-Message-ID: <20261126020854.233971-1-guohongyu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l5+n1eRT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4234F1F000C0;
+	Thu, 26 Nov 2026 02:18:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795659491;
+	bh=LQUBvpsucYn0MXvaNFNdOGS2lcFbmHtWdBHiuR+bvsI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=l5+n1eRTGE9j6AIAyRzjQe/w4VI7wW1qmM4hiEidqSJ8JqcusW2kfRIo19XqMlDH8
+	 63SXriiJ/JYbvTNiCCrbh3kIqtfHg8Jwyc2XZzgwFfgU3DrE1bAwoYGMn2SZWgwwci
+	 QRih/z5S5dKUtZK7QiE3mbgk4wkL1VKvUATHXPO1izzJcbskA2Ns8NfQJ1q95kSAzz
+	 AdJkZphZVj/TRM1bWazvO+oGcM4LFcRnCWM2fW12mTZDRdUXGY1AgqTo04Q11fOE/9
+	 wvuEtHiiyihwZff+HSE7c50387aZ7iie881iZz8eJ5Ak9+FrB8WGNoVcX1GSVlyIzq
+	 7UkfrBcD+Upuw==
+Date: Thu, 26 Nov 2026 02:18:05 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: phil.williams@advisoft.co.nz, David Lechner <dlechner@baylibre.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Mario Tesi <martepisa@gmail.com>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2] iio: imu: st_lsm6dsx: set ts_sensitivity on parts
+ without freq_fine
+Message-ID: <20261126021805.3060ed3e@jic23-hlaptop>
+In-Reply-To: <awaYTa63V-LnP-T-@lore-desk>
+References: <20261125-st-lsm6dsx-ts-fallback-v2-1-ea0ea2512070@advisoft.co.nz>
+	<awaYTa63V-LnP-T-@lore-desk>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,46 +64,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-idpf_mac_filter_async_handler() resolves the vport for an incoming
-ADD/DEL_MAC_ADDR async response with idpf_vid_to_vport(), but then
-ignores the resolved vport and indexes adapter->vport_config[]
-directly with the raw 32-bit vport_id from the virtchnl message.
-vport_config[] has num_max_vports entries and vport_id is an opaque
-device-side identifier that the protocol does not bound by it, so
-a vport id not smaller than num_max_vports makes the handler read
-past the end of the array and use the garbage result as a
-struct idpf_vport_config (spinlock taken, filter list walked,
-entries list_del()'ed through out-of-bounds pointers).
+On Wed, 25 Nov 2026 09:11:57 +0100
+Lorenzo Bianconi <lorenzo@kernel.org> wrote:
 
-Fix this by using the software index of the already-resolved vport,
-adapter->vport_config[vport->idx], as every other call site in the
-driver already does.  The index comes from the vport allocation
-slot and is always in range.
-
-Fixes: 41252855df77 ("idpf: add async_handler for MAC filter messages")
-Cc: stable@vger.kernel.org
-Signed-off-by: guohongyu <guohongyu@cmss.chinamobile.com>
----
- drivers/net/ethernet/intel/idpf/idpf_virtchnl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c b/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c
-index 1caf52706973..e72877242612 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c
-+++ b/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c
-@@ -3794,7 +3794,7 @@ static void idpf_mac_filter_async_handler(void *ctx,
- 	if (!vport)
- 		goto invalid_payload;
- 
--	vport_config = adapter->vport_config[le32_to_cpu(ma_list->vport_id)];
-+	vport_config = adapter->vport_config[vport->idx];
- 	ma_list_head = &vport_config->user_config.mac_filter_list;
- 
- 	/* We can't do much to reconcile bad filters at this point, however we
--- 
-2.43.0
+> > From: Phil Williams <phil.williams@advisoft.co.nz>
+> > 
+> > Commit 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
+> > calculation") takes the FIFO timestamp scale from ts_sensitivity.
+> > That field is only filled in for parts that have freq_fine. The
+> > untagged-FIFO parts are left at zero:
+> > 
+> >   LSM6DS3
+> >   LSM6DS3H
+> >   LSM6DSL, LSM6DSM, ISM330DLC and LSM6DS3TR-C
+> > 
+> > st_lsm6dsx_read_fifo() multiplies the raw counter by hw->ts_gain, so
+> > every sample is published with the timestamp taken when the buffer
+> > was enabled. The accelerometer and gyroscope values still update.
+> > Userspace that integrates attitude from the timestamp delta treats a
+> > stuck timestamp as dt = 0.
+> > 
+> > Set ts_sensitivity to the previous fixed scale of 25000 ns/tick on
+> > those entries. They have no freq_fine register, so ts_trim_coeff is
+> > left unset and no trim is applied.
+> > 
+> > Fixes: 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp calculation")
+> > Cc: stable@vger.kernel.org  
+> 
+> Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
+> 
+> > Suggested-by: Lorenzo Bianconi <lorenzo@kernel.org>
+> > Suggested-by: Jonathan Cameron <jic23@kernel.org>
+> > Signed-off-by: Phil Williams <phil.williams@advisoft.co.nz>
+Applied to the fixes-togreg branch of iio.git.
 
 
+> > ---
+> > Resending inline. The first copy went out as an attachment.
+> > No code changes.
+> > ---
+> > Changes in v2:
+> > - Drop the ts_gain fallback in st_lsm6dsx_init_hw_timer() and set
+> >   .ts_sensitivity = 25000 in the LSM6DS3, LSM6DS3H and LSM6DSL settings
+> >   entries instead (Lorenzo, Jonathan).
+> > - Leave .ts_trim_coeff unset on those entries since they have no
+> >   freq_fine register (Francesco).
+> > - Link to v1: https://lore.kernel.org/r/20261116-st-lsm6dsx-ts-fallback-v1-1-8ace30afbfb5@advisoft.co.nz
+> > ---
+> >  drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c | 3 +++
+> >  1 file changed, 3 insertions(+)
+> > 
+> > diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
+> > index 823f8ac66..dffaf76b5 100644
+> > --- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
+> > +++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
+> > @@ -434,6 +434,7 @@ static const struct st_lsm6dsx_settings st_lsm6dsx_sensor_settings[] = {
+> >  				.addr = 0x09,
+> >  				.mask = GENMASK(5, 3),
+> >  			},
+> > +			.ts_sensitivity = 25000,
+> >  		},
+> >  		.event_settings = {
+> >  			.sources = {
+> > @@ -601,6 +602,7 @@ static const struct st_lsm6dsx_settings st_lsm6dsx_sensor_settings[] = {
+> >  				.addr = 0x09,
+> >  				.mask = GENMASK(5, 3),
+> >  			},
+> > +			.ts_sensitivity = 25000,
+> >  		},
+> >  		.event_settings = {
+> >  			.sources = {
+> > @@ -802,6 +804,7 @@ static const struct st_lsm6dsx_settings st_lsm6dsx_sensor_settings[] = {
+> >  				.addr = 0x09,
+> >  				.mask = GENMASK(5, 3),
+> >  			},
+> > +			.ts_sensitivity = 25000,
+> >  		},
+> >  		.shub_settings = {
+> >  			.page_mux = {
+> > 
+> > ---
+> > base-commit: fa2933aac170dd19c6a7f0d7b81a8f537e40915c
+> > change-id: 20261116-st-lsm6dsx-ts-fallback-cd21f1d1e30e
+> > 
+> > Best regards,
+> > --  
+> > Phil Williams <phil.williams@advisoft.co.nz>
+> > 
+> >   
 
