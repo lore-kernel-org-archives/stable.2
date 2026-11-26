@@ -1,58 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795694248;
-	b=3FGikjrb2U3Tk7JV+2eN50Dl38Kb9nqBuDcz69zaFoaosf7ulKCj/qOa642xIagw6Wmz
-	 XVESC/dNGRxkygP0nct3L2rhZIc68FnE30oeLW+OvXCTWR2ftWJCe4aXXsJTh7G+Rtpue
-	 JjwuYUIbEz+F9slODlnNFf65WtBcvwm21ZVlha651uKWbmGXDzo2971DylM+PDdaqcb22
-	 YLb2XcSTAQUu35bHaclhg+6gU8TKxjRJn8gPNE7PH2CjamloG7z817aHxxiuM7BkGFCel
-	 LgElbnXWBWFcULXdfo8mqKMdrrf8Z0genqJn8v8rF7d9PJHOmjPA+6kJFaMmKHkesog==
+	t=1795694608;
+	b=13ScUbc7XzFUCops7fBghUswiq+/Z2q3UQKZfLayS+2ozlJCYMiZmtyaNxwXNl0EOlAX
+	 NweSncFaoNY8wu4ccPlhxts5XtQsQgdsmNqSVm3sKCyWpzzOLnXwgUxyqY51udoYahgaN
+	 YvLkfkya0C2HZ8nLtaFnlRWr1PlCAykfdmqiJLjNBZHF9ELVh2+w9MoCiQFLcvo9tugNb
+	 MslarWcPk/9pCrGoNKoDwHDgBUXlRnB5Cco8spRHcxXuacreuX+aDdVXnNm/9JAeLo/+y
+	 B9leF5SVKWCULAFGxo5neZ0Miizzvgqb/1/FvTsvMSdzHHPFjm/ZqvXG2OlkMh0wbww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795694248;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:In-Reply-To:
-	 From:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=Orjg/Sm3uWrFea5Qd+IH/YEbQtQgcSirRXSwttytYyQ=;
-	b=ijPB+xSl22sAwoTIl342cPEW3yowK+l77AEjLVPiMkBDRq03O9MBAkGxmgt6AmEtsWUj
-	 bleLQcYIvDFYc8XOVJEm7WT3DO9BMJgjAmCApeDB08dNC0zxz9XRBiGwxI7yDi2l1Ki6L
-	 VXb7admA0uEaI1+e8rR8WCLt8qXdM7e1fW6uOWgZSdOVpeGaD0wiFq/nKt9NxVjgVIsx9
-	 aH6hYu2LweWr712Qf0b+LnHq5h74hzOIv3wM50tUj0CTQMEWDQtjJZzShW3ZA4bmz5fpC
-	 JTBGkbN/eiUMmlcIusYdzj2xH++TEENLpx3Httvi0gZkSRAVWutXe+5EsdjFvtb0Lcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795694608;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
+	 UI-OutboundReport;
+	bh=1uXlAv81smkuUGJnHF02JcKUsVrSpmh7HDz4gNJ8hNE=;
+	b=dzsIhpoipLeRNv5UIPw/H0wv1zS6VcvVxk0nivXzDMIUvg/PdQQ+OP/+ntLmZnEgtRBd
+	 +yvuGv5j4Sj1l1oFFCmVwgAmLX6Lcsnmitq3gHAqUP8A0uLYjza+fkTAj8DdnififQJn9
+	 XtRfBsa7+z//2r8nk7J7DE+ueshpRR713vL8SgVKhlo8APydCytyG1fcCsuUvzvK0nOg9
+	 PtsntyEt5qiXuoGPMp9OGYIr0NC70yUhqTmQ5Fz/MpaLVoeCo74PkCVxKFCTmM8OLTIVC
+	 f5gNI3EL30Jcj8cHs6Ih8XbM9bdVClqvknHJLBnN4PrBwRgWciWGbZLyahc1A29VqZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=5VBd8MWe;
-	arc=none smtp.remote-ip=113.46.200.227
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
+	dmarc=pass header.from=gmx.de;
+	spf=pass smtp.mailfrom=gmx.de;
+	dkim=pass header.d=gmx.de header.i=rwarsow@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=MZQg8lnY;
+	arc=none smtp.remote-ip=212.227.17.20
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B12606A31C;
-	Thu, 26 Nov 2026 11:57:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40B12606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F563606A336
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 12:03:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F563606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=5VBd8MWe
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=Orjg/Sm3uWrFea5Qd+IH/YEbQtQgcSirRXSwttytYyQ=;
-	b=5VBd8MWeQouIX/NZgbHZYWmU6dkfFK3cyfUJlvorUQ2pavMZR9nYI5PiTqza6Fv/vKoHsReFk
-	uZU4z0masDC9CU5zgDH929vQkyoTPodUTQNHGXDvdlE9gdtMmktYMxFSli0xocrxuy0BiHdfgzZ
-	sY6xMFilWGtSbUVCxXtjkKA=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4jZw4d4z28znTXh;
-	Thu, 26 Nov 2026 19:56:33 +0800 (CST)
-Received: from whupemk300014.china.huawei.com (unknown [7.152.185.8])
-	by mail.maildlp.com (Postfix) with ESMTPS id 142E44058E;
-	Thu, 26 Nov 2026 19:57:22 +0800 (CST)
-Received: from [10.174.177.221] (10.174.177.221) by
- whupemk300014.china.huawei.com (7.152.185.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 26 Nov 2026 19:57:20 +0800
-Message-ID: <294d1cbc-9137-4d13-ad61-625db76bd9f9@huawei.com>
-Date: Thu, 26 Nov 2026 19:57:19 +0800
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=MZQg8lnY
+DKIM2-Signature:  i=1; m=1; t=1795694606;
+ mf=PHJ3YXJzb3dAZ214LmRlPg==;
+ rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+ d=gmx.de;
+ s=s31663417:rsa-sha256:RkvhDNmdZsXIqnaSf4q+7YT+Rkye
+   Y7mjEO7Btm7kpR962vxKeHub+nOZfbuvo+lVRPBXWbXcMmg/xdL8ghoAoK02yDNSo0WW/dq5Pkx
+   m1RaEPjgTqbONip8dsjsO1Re7BVZKDcn8I/e/IJSD9Bf93so2ujhbvxKYQV17RNhc9YnHmAcqXI
+   Ktzim7wRz12NUhLfkPoouJbA0tKNdeig0hHk48As3l19/8wcwoXxpFbI9mm3cI7P+eECTyz33M6
+   HEI8Bv5Awow4hxYsFjU6o7GhW4O5sAXjhrMRX+/qOwU4tEgS+n/BLhzBMKkXw2+UjX6S5xT9QmR
+   c3U3YqvZW1uAJw==;
+Message-Instance:  m=1;
+ h=sha256:
+   j4FvFeEIt8askXEg0WHkffyCxpfoLsrOMCEpA5jCAv8=:
+   1uXlAv81smkuUGJnHF02JcKUsVrSpmh7HDz4gNJ8hNE=,
+  sha512:
+   RXFwghCRVlcW6JozIKt4EA43EppxxJMAo0iGytWZl/xuRWgU02sbZ1boeFpY/QcwzCP0flMNtASn9r7c6mXlqA==:
+   KXmPVppYD/XQ6rXAh5l84SjhG06jRU9t4HkKr0mo9a3NaOKNY6/F3WQv8H+Y9LNNMn+bDYLOVmtfLpu53N/yGA==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1795694598; x=1796299398; i=rwarsow@gmx.de;
+	bh=1uXlAv81smkuUGJnHF02JcKUsVrSpmh7HDz4gNJ8hNE=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=MZQg8lnYoev38AnJjTD6Tc6nqX5VZTSsKvr4N1bq+A+uEL/GPNRq8mHxGj9U3UD8
+	 TQRzKlkVJlpyYGIb+mUSgww3HmoHIiCqkFcaiEABTOyK7jAsfTj+WFoXZE3VxPIBS
+	 s5egpTJRI++c6U8TQikn+tOUMabm38UQq7kHkbgvhisHytvnqQRrJSiOhyfMHhwAf
+	 M6dJ5zVlI5ciTinrwJbKrb1b4KxKux+LaHiOsYnQ9yUtRREaQ2t0SR5WnpyCCCTg8
+	 Vvayre5g9hkIo/szp/yLqKiAVp1i1+xVqoUFPoyaWEcnN1e13pCXfJKEGFm+1QoCb
+	 OcnNPnh5RmBEStWB5Q==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MGhyc-1xkHie2ZRi-004wf6; Thu, 26
+ Nov 2026 13:03:18 +0100
+Message-ID: <683540be-96b0-4263-b1d9-180b25627463@gmx.de>
+Date: Thu, 26 Nov 2026 13:03:16 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,51 +82,141 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] rpcrdma: Serialize removal callbacks with
- unregister
-To: Chuck Lever <cel@kernel.org>
-CC: Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Olga
- Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey
-	<tom@talpey.com>, Trond Myklebust <trondmy@kernel.org>, Anna Schumaker
-	<anna@kernel.org>, "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
-	"linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, yuehaibing
-	<yuehaibing@huawei.com>, zhangchangzhong <zhangchangzhong@huawei.com>,
-	"weiyongjun (A)" <weiyongjun1@huawei.com>
-References: <20261124021842.130141-1-lixiasong1@huawei.com>
- <20261124021842.130141-3-lixiasong1@huawei.com>
- <aa51ee58-3404-494b-bbdc-2f9b6a6a7cd6@slotpi15m67>
-In-Reply-To: aa51ee58-3404-494b-bbdc-2f9b6a6a7cd6@slotpi15m67
-From: Li Xiasong <lixiasong1@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- whupemk300014.china.huawei.com (7.152.185.8)
+Subject: Re: [PATCH 7.3 0000/1005] 7.3.7-rc1 review
+To: Jiri Slaby <jirislaby@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261125143821.729802100@linuxfoundation.org>
+ <1ba253a4-fdef-4169-9e9b-cdb6652e47c6@gmx.de>
+ <87bca99f-82b5-461d-bd3b-23f217b895d1@kernel.org>
+From: Ronald Warsow <rwarsow@gmx.de>
+Content-Language: de-DE, en-US
+In-Reply-To: <87bca99f-82b5-461d-bd3b-23f217b895d1@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:f3KGxG2aNoMhC8v3hkv24YRkZkVBN3XPD12WlNj+v7l9YnmCXiv
+ 9Cm9kXwqUGOtMjsdA4fT0Y5o+/BUcmDMstN9tM7hsRkMpO1qleZSonVwIeLsxflLyB2ermp
+ r0ViElhrGsLYPTT8GK+00bHUed2SFxo6kY4+REB3oYkqAPeNALdU3WzXT3lLcK5Rq8dQXAp
+ 19lb5Hd8Rjj20aQdcbgFA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:j079YgMIkjY=;sjyr6U172R1TcFTdNMZIgmKNSNX
+ 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
 
-On 11/25/2026 12:56 AM, Chuck Lever wrote:
+On 26.11.26 07:34, Jiri Slaby wrote:
+> On 25. 11. 26, 19:12, Ronald Warsow wrote:
+>> Hallo
+> Gruss gott,
+>=20
+>> RC doesn't compile here and currently couldn't figure what's up.
+>>
+>> Question as an git greenhorn:
+>> Is it able to bisect a kernel which initial doesn't compile ?
+>=20
+> Sure.
+>=20
+>> if YES: what is the bisect start then ?
+>=20
+> The previous stable release (v7.3.6 in this case).
+>=20
+Thanks
 
-> 
-> Can rpcrdma_remove_one() call rn_done() for every registrant first,
-> and run the release hooks after the walk finishes? The hooks would
-> have to be collected somewhere, because a registrant can unregister as
-> soon as the mutex is dropped.
-> 
-
-Thanks, Chuck. I'll run the release hooks after the walk.
-
-The server calls svc_xprt_close() from its release hook, so a client
-xprt_put() that blocks can still delay a server close if the hooks
-run serially. I'll look at that ordering too.
-
-> But "Pin the client transport during its callback" in the patch
-> description promises more than xprt_get() provides. Let's reword the
-> description or note that 3/3 is what makes ep->re_xprt safe to
-> dereference in this callback.
-> 
-
-Agreed. xprt_get() assumes ep->re_xprt is already valid. I'll note
-in the commit message that the teardown change unregisters the
-endpoint before xprt_free().
-
-Thanks,
-Li Xiasong
+Ronald
