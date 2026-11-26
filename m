@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795711062;
-	b=B1LM3FfYkF+PIWH38Xx1pfGrAQ2T6VTZKuXdSzr78HJxWpHKsbTEdqSnCrLp4nyv6YWC
-	 zRSR0scovoKx0SC7uHe/Mh8efDqj4bzSGNoJbRTHpiSkwAQYXA0eCj6B8CxsqNxMnAJ+M
-	 wKSyNekQflmVwJpMk2tUAxiBuyAFRFJ1TZgPF1Lhu+DBSZ61rSzyozvBTCkoW3wwiX89U
-	 Rb2v8tv6V6KvjHSdujxKeVav6ENTVdJDqOo4Ozrd1rjQMYwkijUSXC8fdZDXFx0liqwym
-	 Qqp6iCh5RYIvMgkOMIx044iVzLtR6SmBgEFBGcA2iN3IUTTsmK66c9KaCup9x57z33A==
+	t=1795711205;
+	b=INlCHqbUZ/KHFzRV097H7xGJXX6KcUOYAF0Ggs2hTY0d4M0InDl4iBVyoyjKUCOn59h1
+	 2PrVd6u0UL0TKtSKWnnTnNQgdY1Mms8b7ISeT8Tvxw2mU+5Mm/Gi68NY/aOPSn0obF+US
+	 GoRz2CpcXhz9COZXNHg74H1p4dHn7uaGKaANpuuEqArEXr+CWTC7hoRwMfpx729E4NDi4
+	 dPjNC84mjDK5+3qgNLbtXbGhBo/Jx8xVTcYvy/mEbyBMx4W96mmh+zKuc+FFvwooS8iyk
+	 aJG3NGc6mhpPWApX8I4VSCYYYTj5emVVYqhZWsqE4QHNnYM77HLmg23y7P7We9pa5Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795711062;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795711205;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=8DhOvwuNfeg4u/9qEKzmwxVmKvVadK/QDEIdLLEsjqU=;
-	b=m0cv46a2721eoeMFcrLhS4aP1/OkhSHAk0cgDG+3fJRuP6WOzMJ7exfhBAFVHeFgN9rx
-	 Q7/Nx0aJ8q8hzVNJ/cNEL+CINEN5fzt5iMa7XXDLbemIjPlq4oqiJ5NKZbOksDEfaKbNe
-	 c5D4dI0DXsmNFtQZoATg7zjAKLRW7MQk122rHz0doIr2VMn/+AvYWdkblw/E3klpF8rnN
-	 jBLONxLJBRlM9+hTumO5l8E8X3rhOfmz02f36cnO9u/wgM6g14K8V6bjLsOTXjvh8rKOx
-	 75KdwzaK4wavjJpVlM1fEvc1kodGGYYsm0jWW9WXoi+eZ0GuqX1d+gYuIiWMsAM1VDg==
+	bh=Jd7SsxRMrB19Ef6vzj5uKWi61UGUfRiYtdyPg8YuIwo=;
+	b=mcuWiV8m/xRnnUQOfJQRz4it8s1nHrZgaAXBM9MZCxxS1HDK/fgGJX3qBWVzkq0AYSwj
+	 39/AB00pyjIloPAeEqgVkWB71sja+M05NLEHYUf8VBcFf0vrEm+yHCQon5fQyge+v9TcQ
+	 R27GUlHI0hRCd3Ic6ZTCxyQ5Yo7q8PgW1hbEwwi7XaowNiAIbfZwIpWBwgkIftDaSHb83
+	 sZlUFM+d+zlfTWlBoybldI949E+2Wa6CnQQaJPU0LRbab2hYlKR/YDHc2V7eJ+2hiXUvO
+	 V/7H7HSdY2UJUwsCtwpf0oGmgpEGCbGQpbng5UXzNH9sLO8fzsMp5yyP/lcD1Q9//6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GLq2Q+Mj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SwV8iV2H;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44194606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:37:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5749606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:40:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GLq2Q+Mj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A23D1F000E0;
-	Thu, 26 Nov 2026 16:37:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SwV8iV2H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A058F1F000C0;
+	Thu, 26 Nov 2026 16:40:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795711062;
-	bh=8DhOvwuNfeg4u/9qEKzmwxVmKvVadK/QDEIdLLEsjqU=;
+	s=k20260515; t=1795711205;
+	bh=Jd7SsxRMrB19Ef6vzj5uKWi61UGUfRiYtdyPg8YuIwo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GLq2Q+MjLhGsPFtCwcNM3PWSlLP8SqqHwlp4V2+GUojZGWcqPay+ptEdQBztdTS5b
-	 zT61sn+g6WDyrYSGIiIAgK5qdhfv2sfgXUiGg5LwLETYUbNZHsOhP2th4BHUInDwVQ
-	 eGOptdO0r60ShHqgO4WHfoW+68m/j3FBo/obvDDCY0QZSayOta2OpJUhs7hGG1wX85
-	 bkiUvSRG4rABey5Kb+/GmZbtLuNBtusVg/w1/M04+pEtqxXA14p93bmjm52lvTG3/6
-	 cdjBD3hxY9ftPoHTBHkxfCPhfaeJ8sOBepHEglZTYXTgkKLEXBbSW2wGWMaQkuIbqh
-	 qc4BDFV+zCKBQ==
+	b=SwV8iV2HpHOol/0EX6VH+CFUE9yN5Il8iBvlJcu7n0GWZDBsNDa95WiWXKJcOXWeW
+	 yd38lJwMF3xouIBpv892MzgY7Z3p8A0shhrRzroZY9jg405m13PXVXM9+9/uK3N1Rc
+	 H2o1gGUPpIBaz6TvZwzz6X4yIU65lAm4wkI7L1QQ0J0GaW+iU77qAhRDC3FfzSbMuc
+	 qlZeiTXyOZGMj5cEQoXoClgrjBdxUs0Ahz4MD0T/ZKNe0L84YFs35muBI76fSjCnww
+	 lmYPv5XjbRy7AMxzi6RKar7le4Z+tTAy6TwrZRGdqUYlBr8PDKYqjgGJEXg/bQP2bI
+	 mxgF04ciAGzrQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Josef Bacik <josef@toxicpanda.com>,
@@ -46,12 +46,12 @@ Cc: Josef Bacik <josef@toxicpanda.com>,
 	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] w1: w1_therm: lock the list of slaves for the bulk read
-Date: Thu, 26 Nov 2026 11:37:39 -0500
-Message-ID: <20261126163733.2621575-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] w1: w1_therm: lock the list of slaves for the bulk read
+Date: Thu, 26 Nov 2026 11:40:03 -0500
+Message-ID: <20261126163957.2641396-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112504-ember-cranial-3fdc@gregkh>
-References: <2026112504-ember-cranial-3fdc@gregkh>
+In-Reply-To: <2026112505-foe-shrill-7cc1@gregkh>
+References: <2026112505-foe-shrill-7cc1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,7 +106,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 8 insertions(+)
 
 diff --git a/drivers/w1/slaves/w1_therm.c b/drivers/w1/slaves/w1_therm.c
-index 361067390b714..58ba8a41dc7e8 100644
+index 739d73349d58d..b53cd284f7911 100644
 --- a/drivers/w1/slaves/w1_therm.c
 +++ b/drivers/w1/slaves/w1_therm.c
 @@ -1519,6 +1519,7 @@ static int trigger_bulk_read(struct w1_master *dev_master)
