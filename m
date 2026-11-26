@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795705547;
-	b=05L7mewPTE9nB/07HsEU8nmEFfgACwumsweD90FkD04+DZRy1h86hwkj2lAj1B7GLN4S
-	 mPQ3bR/IR02HPdJZKPgtIl7CqexT/ScG9rm1dBRwITUSZNLbgmktvcKIM29BFnbZaKZP3
-	 RqCb3NBg8RNObhaY6T1k47plZBiIZzpr6103VbqjxgItYHWCZrGibp482qjdGWRG8ryce
-	 R7qgi7qHkeBqzvrSiBAZQhdfLVP2yRF0l9+uZZqM0IaEkTTH6IrjJCrC5DAN27Lk2oXkE
-	 TNjNjLb0qpxYujHvW6C4gawsVym3EGy7rgTHIiZEES69yTDb4mrmmlI9rjhsaRxhWaA==
+	t=1795705549;
+	b=NR2jcWJPwLxP0xEtctWxRGa2/an5Ed1ZQMQC+8CsSq+qWKJPCHPoeryRNnmHuI+UilWN
+	 iUftoMcCveKpsypg8L9YaPaE0RfZx1QSOO0h3whLPx+ukA+qXMCbWTGHP7qZ6/TwNpBS+
+	 024zo0wJuPEnXz3S8vliZThLn6jHSnojyuSI6bZq0hMx2ZTVBgY/id55BoHXz+MxM/ScW
+	 wsH/gY1dU+NlZid+7CdQehEb/m2yIopOaF/JJlpcUghUC4BDZxC6SZQuWf02PKgxyTj/Y
+	 hS2rESRP45A3qPOACC/3xcOL5aMq5/aaU5stF5E3a7YVOMN/Fy69gityFH7fcblBT1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795705547;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795705549;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=fvU9x/aPFVVb2NaTG1izoVYSc5CD/TU9wun9Yo74EtE=;
-	b=klJhvSutQOBQ+nB59RwSSdev23I/eS4BkB+6X01tv0TKDrckbpLla/cd6FLug7Fc1MWk
-	 oBR854iIMbQaV+j10H1wktHoefeJadgvz9Eyl/ZAxotoHcyzQTiWsTHwpdRNVUFAxWq9k
-	 iB2ANup2J9GbEx5joHSiHfMRImrder9H+4axTM/1CdQZ/v80TEekvssWEK+FMnJePea51
-	 7Zn/K4OxEudKYhYEQTRIJE3Sfe5nac0kZ6X9mcH17NlUXYUp2DTkuMmqyEtaiORoJtr3J
-	 p6U2QJHpYfEVZKRD/kOOpfvwZNu/HeiPo0pHu65Or0uBcfZ01HThAL4qh5hZG9RqDiA==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=iM3eQqqbSTMhOECk0D0vnaWdy9l/n7wkrV5IOVx6g70=;
+	b=opShld7F+irsdcuofl2NC0arDJWYraCZYm1Uzl9yW3AXjL+hqATTPbjYPui82vHSLKwJ
+	 EdFN/dEQBd7b/d6KUoy50zj81Z/zpJpqijfA+UV2+o8ymJJxW4W7H3iei38QivmSWkGKf
+	 jmNnVFi++TuawbvN0b19bdWZCZ6rIv3ta3zHQx6mw9CJb3kv/4Pc7+6Wf9mapjL5j+u4a
+	 oRjAaFU8A4SX1deH7rH0IbP7Ccmqc906DCHCUJKx7CMA8JbwyPQiNFaBh+MWq42L9+eba
+	 f2AzsuBw8tzWEqe760tsgD69V1+7E6llqwPA6Qdk4r0EYpDKHZDrIlNAz5Kk+w7DBJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XS55VKtM;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kCmmlRf6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 545D0606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:05:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB3D606A31E;
+	Thu, 26 Nov 2026 15:05:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XS55VKtM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4738B1F000C4;
-	Thu, 26 Nov 2026 15:05:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795705546;
-	bh=fvU9x/aPFVVb2NaTG1izoVYSc5CD/TU9wun9Yo74EtE=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kCmmlRf6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64B391F000C4;
+	Thu, 26 Nov 2026 15:05:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795705549;
+	bh=iM3eQqqbSTMhOECk0D0vnaWdy9l/n7wkrV5IOVx6g70=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XS55VKtMFdXO4si9UnjbeGMiuYWV1j4bN8dPtf2QU/bd98EEr7sKPPjL7fXr4sNS7
-	 yhL6FxPwNseoTRuKk+Mjdu5zD8eq/3j9ND/3CLupIOboEGRBOTpHEyA13KpG9Z/ZO4
-	 4RivAzs/877kedyaUnhPwxbUg9HVwP/EsPw6kraXZBrR1i4KgKIMcFkRmo6lZrUsIH
-	 +LMLp2arSA/zRpW/PIYG+gqZn/4WlJXDdDNp+KIdzY5ko1wS11Ds91wGPU6bALfu5q
-	 XfxMgPhroC2pGahYKqGb2ZlrXgp3QJNWCFZ1TFCKTbrOl8sYiHQPn0yvMNgCqefbX4
-	 ilmHrkObq1jMA==
-From: Sasha Levin <sashal@kernel.org>
+	b=kCmmlRf6wDwkntxzy8ySD8X5sStWjPYhx7/8eGq8ZkL6KrutB1CXEpsQHc9g6LFwe
+	 WgpQ7sCWXzSJcnqXfztVFCeVzqaSLJTiV3Xxx3mnhlftOzek3WV3Cz6nzIxfD5JOc0
+	 MJqZiU5y+xXumr/nzKz8U35FOd3gVkd1O19+orBo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Josef Schlehofer <pepe.schlehofer@gmail.com>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] dm-crypt: defer async write submission to write thread
-Date: Thu, 26 Nov 2026 10:05:44 -0500
-Message-ID: <20261126150529.2235735-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112521-babied-pebbly-f2aa@gregkh>
-References: <2026112521-babied-pebbly-f2aa@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Zhao Li <enderaoelyther@gmail.com>,
+	Johannes Berg <johannes.berg@intel.com>
+Subject: [PATCH 5.15 236/319] wifi: mac80211: bound pending OCB station allocations
+Date: Thu, 26 Nov 2026 15:40:04 +0100
+Message-ID: <20261126144012.074552550@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261126144006.732901931@linuxfoundation.org>
+References: <20261126144006.732901931@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,59 +63,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Josef Schlehofer <pepe.schlehofer@gmail.com>
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 6fed9e26810f0b466dbcebe35a73d1fd48793ff5 ]
+------------------
 
-With no_write_workqueue, kcryptd_crypt_write_io_submit() submits the
-bio directly, even when called from kcryptd_async_done(). An async
-cipher may run this callback in softirq or with BH disabled, where
-submit_bio_noacct() must not be called because it can sleep.
+From: Zhao Li <enderaoelyther@gmail.com>
 
-Submit inline only when async is false. Async completions are sent to
-the write thread, as is already done for submit_from_crypt_cpus. Use
-the async flag rather than in_interrupt(), since callback context
-depends on the cipher driver. Sync ciphers still submit inline.
+commit ee1a5e92dba0a98cabe476c780e3af4f0ab88b27 upstream.
 
-Tested with cryptd in QEMU (x86_64 and arm64) with
-CONFIG_DEBUG_ATOMIC_SLEEP, and on a P2020 running 6.18.55 without it.
+Delaying the OCB station worker while frames arrive from new peers can
+retain an unbounded number of station allocations.
 
-In QEMU:
+The receive-side limit counts installed stations, while new allocations
+wait on incomplete_stations until process context inserts them. The list
+lock does not cover the interval between allocation and list insertion.
 
-- 4k writes logging "sleeping function called from invalid context":
-  100/100 unpatched, 0/155 patched.
-- nr_requests=4 on a loop device: 0/6 unpatched runs completed,
-  4/4 patched runs completed.
+Reserve one of 128 pending slots per interface before allocation. Release
+the reservation on allocation failure, after the worker inserts or frees
+the station, and when leave frees the pending list.
 
-On the P2020, a warning in blk_mq_run_hw_queue() appeared in the
-6th unpatched run and did not appear in 30 patched runs.
+LLM assistance was used to find the bug and review.
 
-Fixes: 39d42fa96ba1 ("dm crypt: add flags to optionally bypass kcryptd workqueues")
+Fixes: 239281f803e2 ("mac80211: 802.11p OCB mode support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-[ sashal: adjusted context since the clone bio is submitted with submit_bio_noacct() instead of dm_submit_bio_remap(), and the surrounding lines lack the BUG_ON check on iter_out. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Link: https://patch.msgid.link/20261028142302.16634-3-enderaoelyther@gmail.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/md/dm-crypt.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ net/mac80211/ieee80211_i.h |    2 ++
+ net/mac80211/ocb.c         |   13 ++++++++++++-
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index 7a528f62fbbd0..dcb42505cd78e 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -1963,8 +1963,9 @@ static void kcryptd_crypt_write_io_submit(struct dm_crypt_io *io, int async)
+--- a/net/mac80211/ieee80211_i.h
++++ b/net/mac80211/ieee80211_i.h
+@@ -611,6 +611,7 @@ struct ieee80211_if_ibss {
+  * @wrkq_flags: OCB deferred task action
+  * @incomplete_lock: delayed STA insertion lock
+  * @incomplete_stations: list of STAs waiting for delayed insertion
++ * @incomplete_sta_count: pending entries and reserved allocations
+  * @joined: indication if the interface is connected to an OCB network
+  */
+ struct ieee80211_if_ocb {
+@@ -619,6 +620,7 @@ struct ieee80211_if_ocb {
  
- 	clone->bi_iter.bi_sector = cc->start + io->sector;
+ 	spinlock_t incomplete_lock;
+ 	struct list_head incomplete_stations;
++	atomic_t incomplete_sta_count;
  
--	if ((likely(!async) && test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags)) ||
--	    test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags)) {
-+	if (likely(!async) &&
-+	    (test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags) ||
-+	     test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags))) {
- 		submit_bio_noacct(clone);
+ 	bool joined;
+ };
+--- a/net/mac80211/ocb.c
++++ b/net/mac80211/ocb.c
+@@ -71,9 +71,18 @@ void ieee80211_ocb_rx_no_sta(struct ieee
+ 	scan_width = cfg80211_chandef_to_scan_width(&chanctx_conf->def);
+ 	rcu_read_unlock();
+ 
++	if (!atomic_add_unless(&ifocb->incomplete_sta_count, 1,
++			       IEEE80211_OCB_MAX_STA_ENTRIES)) {
++		net_info_ratelimited("%s: No room for a new OCB STA entry %pM\n",
++				     sdata->name, addr);
++		return;
++	}
++
+ 	sta = sta_info_alloc(sdata, addr, GFP_ATOMIC);
+-	if (!sta)
++	if (!sta) {
++		atomic_dec(&ifocb->incomplete_sta_count);
  		return;
++	}
+ 
+ 	/* Add only mandatory rates for now */
+ 	sband = local->hw.wiphy->bands[band];
+@@ -144,6 +153,7 @@ void ieee80211_ocb_work(struct ieee80211
+ 			ieee80211_ocb_finish_sta(sta);
+ 			rcu_read_unlock();
+ 		}
++		atomic_dec(&ifocb->incomplete_sta_count);
+ 		spin_lock_bh(&ifocb->incomplete_lock);
  	}
--- 
-2.53.0
+ 	spin_unlock_bh(&ifocb->incomplete_lock);
+@@ -226,6 +236,7 @@ int ieee80211_ocb_leave(struct ieee80211
+ 		spin_unlock_bh(&ifocb->incomplete_lock);
+ 
+ 		sta_info_free(local, sta);
++		atomic_dec(&ifocb->incomplete_sta_count);
+ 		spin_lock_bh(&ifocb->incomplete_lock);
+ 	}
+ 	spin_unlock_bh(&ifocb->incomplete_lock);
+
 
