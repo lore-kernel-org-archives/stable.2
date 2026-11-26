@@ -1,60 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795707788;
-	b=yad3zDFJNNQozzw7dmoHgR1D0dYInFwv+WUK0Mr7YQLpFZ7s66KxL/1CnKcoRrTIeZkm
-	 Ty+2zVlmXG73VEp2GeR/MYcAyiSbcSDelGWQDb/Ie9/mNPL77+JZGi7kCBFWtEHj/lTnn
-	 JdDKJdaRShSvwq2ieNswwGUW7Xwz4qEmzj9Isut3lriLUzAnJdjsOz1LYU9/XUQWQwJSJ
-	 Dh1fw6gbhc2BfhKAj7sF9VzXtywRZWDkZkKbdGjltljEfDTv97tB5/IYclNRT7ssc5rGA
-	 bQcBwl2WU+Dvfj6x6pJHrGaB3gu+zJkic/sSgNXIHfyv5LeLcwcplKjTHbVaRZCM+qw==
+	t=1795707847;
+	b=MQ/Q/kcNnNoRc2gU/W6rHqe2C0h3A+rWljTr4TabyreQOkH4Q+YLjjrJv1lWo2wE8iK3
+	 ML1NU8YqN1cavgm85oSF1wDcBdUIiDQRhTYV0c3EGCUZFmMN4bA3NOUnk+4gGxZQTkvaK
+	 5hzikb2Dx2v3bJpo+ZQwqN3htyd9QTpStsZquSQ51xznri+Gv985Kv83zIhFasrHYOGVS
+	 sOQRU9MecK78hUotj8ZnQui/lsDO1h37VFCvyipYmMZNMmasOOVJGpJQvNNqxx5wDATYo
+	 c9ruz8BLKuqFHe1cC70wYyBdF5dLV0ID/NR/ES/kFIP2q1JsvGJ8x2Pm/knJTDqQtzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795707788;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795707847;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=yRujde4zpC9sFkjHtmoDhVSlx8J20l4DhmL2czOU6+0=;
-	b=WBk+y+wRHIFJrRJErSEnQLcbX62/sY9/nfY1K6N1L+K9yNNLSUXBjGnBBDzucNcdTKfK
-	 qdR4qu9JhxvqO3HZ093BeRXnqoalGTMwG2UqvkGeq5X01UF8onxCg6bL9A1PJ9eG8JDy/
-	 697EGOpHBrz6IMkbblk09b43OkRPjC9ieFo/1U41Sr78+QiN2o6htbuuG5UHjEcKmdfDX
-	 CdLMFqcYmfovQqSvBEMtT2dzXr8rCOK+AFpPCEk0rJkl0iYFWQqF04yKrHNz0Y6zI4br6
-	 kmIlZiYhMMzytsh/X2rK71dWv8lyudIi5ap5+fdK6OjPPu/+jyaSlJtrjw9cbabMDGw==
+	bh=54VreeWLEBpgiNbZx52nuSDJZiLcd7uG3hUPfeaCttE=;
+	b=ijHUoN7iJI06xG1914zAGtpRE1Sx/z//efK30BJTYihI8GDs+Iv4EZTmNJtPr5qblbkZ
+	 go3peVDRF4kS2JeobLp7njiiETj8e7bkumppHsfU41yKa5ZMPErGfQo7jgzwo6P0L77iw
+	 OpodvZbjZhBgA7PSYcuGXoXz/SeUVDhJh+HUu3ScYlTTPb2k2C/ReGbgr46yRRNov4T1G
+	 Z4yX60qUL/Gnsk1lhZQQr8JrLlYcyekhXsCZxZWU1pvtcYSCeiD3477OSYEw2swCjIV4w
+	 3vBfQX0wZj4QX1TKQCVYkm7X2/F7QpmyUho961iJPMPtBWr19uE+nCufKQRe3Ef52Ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NIOgk9V5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eugcL4GC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7158D606A32A
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:43:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D863A606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:44:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NIOgk9V5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF7891F000C4;
-	Thu, 26 Nov 2026 15:43:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eugcL4GC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8423D1F000C0;
+	Thu, 26 Nov 2026 15:44:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795707787;
-	bh=yRujde4zpC9sFkjHtmoDhVSlx8J20l4DhmL2czOU6+0=;
+	s=k20260515; t=1795707847;
+	bh=54VreeWLEBpgiNbZx52nuSDJZiLcd7uG3hUPfeaCttE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NIOgk9V5DVAciHHlFTWkAGAkHPSXw8Zw84vvDStmXTZG1S1oyrrG6j4uBtnKnynPU
-	 dozG9cg/lcP0UW7IGqO2veYLc5Yyq1hILBdsbJDM7jZOVfVY2jrQsFWqaD5MpnEKuX
-	 Se0lwy6BIy1wXlskjzoBgAhBqfhA1whx4E6GCL3Zrl0NicpPC99jxeMT8mDzeD9y/3
-	 s0oKjHlp1I9i27QS3yXWEP3Lt7/3BL2gDwQh5rcPrYSSb3pwQQ631r1R19KyxZo2nQ
-	 e5v42xvL++R75LzW3OK1SGUKUdy6wBD92lcE25Kk0Lum/9dk7b1fxsOZ55prIaliA/
-	 PYTxIkpa15pEQ==
+	b=eugcL4GCtMV0cQeWZnd4/1UC3sYALU9KAmJHg/+B6Nb/QHn6QgQJkBOdhZU2fqyFC
+	 YEvSWLwX3mRmUQcrqCgRQJ0Q2j7+X9+fWPzR3zXCJtpK9YkiNnovgYRDfr3a/LPv+q
+	 IV+gOZEDtaYpkXbFw30v0qvO1D8SXUHcUwO8qNkg/P0kjzWvYDiC17wX+dPuAtPWyj
+	 Msz8pVQWzsh0nTZHv72CwQvaUyDz57ArIPBFLIiq3/99VW1XMB9BKCcfxo879Hq18F
+	 VB+TvwnzAflr2Au2XDV0gxbhXTZ79YbHCtDY9ghlhik2OBADk4bsyd31V/s9rKTZBb
+	 Z/Uy+wLM9iGwQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Krystian Kaniewski <krystianmkaniewski@gmail.com>,
-	syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com,
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
 	stable <stable@kernel.org>,
-	syzbot@syzkaller.appspotmail.com,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>,
-	syzbot+bca09f5d8b843bbf7571@syzkaller.appspotmail.com,
+	Selvarasu Ganesan <selvarasu.g@samsung.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] usb: gadget: u_serial: pin ports while TTYs are installed
-Date: Thu, 26 Nov 2026 10:43:05 -0500
-Message-ID: <20261126154233.2487962-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] usb: dwc3: gadget: Wait for End Transfer completion on ep disable
+Date: Thu, 26 Nov 2026 10:44:05 -0500
+Message-ID: <20261126154351.2488308-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112521-crispness-anchovy-de6b@gregkh>
-References: <2026112521-crispness-anchovy-de6b@gregkh>
+In-Reply-To: <2026112538-freebase-eggshell-85bc@gregkh>
+References: <2026112538-freebase-eggshell-85bc@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,373 +63,168 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
 
-[ Upstream commit 1981b53c2b52a00f0f4b9eb87183c9aedc8dac5d ]
+[ Upstream commit 1338410c21a5710b7ba88057034d35367ba0f054 ]
 
-A slab-use-after-free can occur when gserial_free_line() frees struct
-gs_port while it is still reachable through an installed TTY. The
-port->port.count value tracks successful opens, but it is zero before
-gs_open() and again after gs_close(), before TTY cleanup has finished.
-Teardown can therefore free gs_port while tty_init_dev() or release_tty()
-still accesses its tty_port.
+The End Transfer command on ep disable is issued without interrupt, and
+the endpoint flags are cleared right after a fixed delay. The command
+may not have completed by then. If the function driver re-enables the
+endpoint and queues a request, the next Start Transfer fails with "No
+Resource".
 
-Manage gs_port lifetime with tty_port references. Take a reference in
-gs_install(), drop it in gs_cleanup(), and move the final free to
-gs_port_destruct(). Unregister the TTY device before dropping the owner
-reference.
+Issue the End Transfer command with interrupt on ep disable, and keep
+DWC3_EP_END_TRANSFER_PENDING and DWC3_EP_TRANSFER_STARTED until the
+command completes. Defer the no-op Start Transfer of a stream endpoint
+re-enabled in the meantime to the command completion.
 
-Keep each minor reserved until the old port is destroyed so an installed
-TTY for one generation cannot overlap a replacement at the same minor.
-Publish the new port before device registration so the cdev and add uevent
-never expose a TTY before gs_install() can pin it. Since commit
-8df07fe93573 ("tty: fix saved termios reset race"), u_serial registration
-no longer frees saved termios. On registration failure, unpublish the port
-before dropping its owner reference.
-
-Check in gs_open() that the installed port is still the published
-generation. Track failures after a successful install so close callbacks
-issued by the TTY core do not decrement port->port.count for opens that
-never incremented it.
-
-Fixes: 19b10a8828a6 ("usb: gadget: allocate & giveback serial ports instead hard code them")
-Assisted-by: Gemini:gemini-3.8-flash syzbot
-Reported-by: syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=fe63e4d633540f230624
-Link: https://syzkaller.appspot.com/ai_job?id=ec789387-2e7b-4a8f-a7a1-a47bf7fa57f5
+Fixes: c5353b225df9 ("usb: dwc3: gadget: don't enable interrupt when disabling endpoint")
 Cc: stable <stable@kernel.org>
-Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-Tested-by: syzbot@syzkaller.appspotmail.com
-Tested-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
-Reported-by: syzbot+bca09f5d8b843bbf7571@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=bca09f5d8b843bbf7571
-Link: https://patch.msgid.link/20261022091359.1187468-1-krystianmkaniewski@gmail.com
+Reported-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+Closes: https://lore.kernel.org/linux-usb/20260227121236.963-1-selvarasu.g@samsung.com/
+Signed-off-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Link: https://patch.msgid.link/24fa8adeb0222dab415c8c2799405188440bad4b.1792542945.git.Thinh.Nguyen@synopsys.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: adjusted context lines in struct gs_port and hunk headers because the older tree lacks the async_icount/icount field and gs_get_icount, with no functional changes. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/gadget/function/u_serial.c | 167 ++++++++++++++++++++-----
- 1 file changed, 134 insertions(+), 33 deletions(-)
+Depends on <20261126153139.2455075-1-sashal@kernel.org>
 
-diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
-index 3f126381bee3f..03efc35ce4951 100644
---- a/drivers/usb/gadget/function/u_serial.c
-+++ b/drivers/usb/gadget/function/u_serial.c
-@@ -67,10 +67,28 @@
-  *	gserial->ioport == usb_ep->driver_data ... gs_port
-  *	gs_port->port_usb ... gserial
-  *
-- * gs_port <---> tty_struct ... links will be null when the TTY file
-- * isn't opened; managed by gs_open()/gs_close()
-- *	gserial->port_tty ... tty_struct
-- *	tty_struct->driver_data ... gserial
-+ * gs_port <---> tty_struct:
-+ *	tty->driver_data refers to gs_port from install through cleanup,
-+ *	pinning the port via tty_port reference counting.
-+ *	gs_port->port.tty exists only while the port is open.
-+ *
-+ * Each entry in ports[] is guarded by ports[i].lock and models three states:
-+ *   - Free:      !port && !reserved
-+ *   - Published:  port &&  reserved
-+ *   - Retiring:   !port &&  reserved
-+ *
-+ * A minor remains reserved until gs_port_destruct() runs upon final tty_port
-+ * release, preventing minor reuse while cleanup of the installed TTY is still
-+ * underway. The owner reference is retained through device unregister so the
-+ * destructor releases the reservation only after device teardown is complete.
-+ *
-+ * open_close_failures tracks failed gs_open() calls where port->port.count
-+ * was not incremented. The TTY core calls gs_close() on open failure to tear
-+ * down the tty; tracking failures as aggregate credits allows gs_close() to
-+ * consume a credit and exit without decrementing port->port.count. Credits
-+ * are aggregate rather than paired with individual files (another gs_close()
-+ * can consume a failed open's credit before that file's own close runs).
-+ * It is protected by tty_lock.
-  */
+ drivers/usb/dwc3/core.h   |  4 +++-
+ drivers/usb/dwc3/ep0.c    |  2 +-
+ drivers/usb/dwc3/gadget.c | 42 ++++++++++++++++++++++++++++++++-------
+ 3 files changed, 39 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
+index 56208f7d8cf5e..37a92474c4802 100644
+--- a/drivers/usb/dwc3/core.h
++++ b/drivers/usb/dwc3/core.h
+@@ -748,6 +748,7 @@ struct dwc3_ep {
+ #define DWC3_EP_TXFIFO_RESIZED		BIT(12)
+ #define DWC3_EP_DELAY_STOP             BIT(13)
+ #define DWC3_EP_RESOURCE_ALLOCATED	BIT(14)
++#define DWC3_EP_PENDING_NOOP_START	BIT(15)
  
- /* RX and TX queues can buffer QUEUE_SIZE packets before they hit the
-@@ -125,14 +143,16 @@ struct gs_port {
- 	wait_queue_head_t	close_wait;
- 	bool			suspended;	/* port suspended */
- 	bool			start_delayed;	/* delay start when suspended */
-+	unsigned int		open_close_failures; /* protected by tty_lock */
+ 	/* This last one is specific to EP0 */
+ #define DWC3_EP0_DIR_IN			BIT(31)
+@@ -1613,7 +1614,8 @@ int dwc3_send_gadget_ep_cmd(struct dwc3_ep *dep, unsigned int cmd,
+ int dwc3_send_gadget_generic_command(struct dwc3 *dwc, unsigned int cmd,
+ 		u32 param);
+ void dwc3_gadget_clear_tx_fifos(struct dwc3 *dwc);
+-void dwc3_remove_requests(struct dwc3 *dwc, struct dwc3_ep *dep, int status);
++void dwc3_remove_requests(struct dwc3 *dwc, struct dwc3_ep *dep, int status,
++			  bool interrupt);
+ #else
+ static inline int dwc3_gadget_init(struct dwc3 *dwc)
+ { return 0; }
+diff --git a/drivers/usb/dwc3/ep0.c b/drivers/usb/dwc3/ep0.c
+index 764360ac7e368..700fb9f450070 100644
+--- a/drivers/usb/dwc3/ep0.c
++++ b/drivers/usb/dwc3/ep0.c
+@@ -313,7 +313,7 @@ void dwc3_ep0_out_start(struct dwc3 *dwc)
+ 		if (dwc->connected)
+ 			dwc3_stop_active_transfer(dwc3_ep, false, true);
+ 		else
+-			dwc3_remove_requests(dwc, dwc3_ep, -ESHUTDOWN);
++			dwc3_remove_requests(dwc, dwc3_ep, -ESHUTDOWN, false);
+ 	}
+ }
  
- 	/* REVISIT this state ... */
- 	struct usb_cdc_line_coding port_line_coding;	/* 8-N-1 etc */
- };
- 
- static struct portmaster {
--	struct mutex	lock;			/* protect open/close */
-+	struct mutex	lock;			/* protect open/close and port slot */
- 	struct gs_port	*port;
-+	bool		reserved;
- } ports[MAX_U_SERIAL_PORTS];
- 
- #define GS_CLOSE_TIMEOUT		15		/* seconds */
-@@ -586,22 +606,60 @@ static int gs_start_io(struct gs_port *port)
- 
- /* TTY Driver */
- 
-+static int gs_install(struct tty_driver *driver, struct tty_struct *tty)
-+{
-+	struct gs_port *port;
-+	struct tty_port *tport;
-+	int ret;
-+
-+	mutex_lock(&ports[tty->index].lock);
-+	port = ports[tty->index].port;
-+	if (!port) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		return -ENODEV;
-+	}
-+
-+	tport = tty_port_get(&port->port);
-+	if (!tport) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		return -ENODEV;
-+	}
-+
-+	ret = tty_port_install(tport, driver, tty);
-+	if (ret) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		tty_port_put(tport);
-+		return ret;
-+	}
-+
-+	tty->driver_data = port;
-+	mutex_unlock(&ports[tty->index].lock);
-+
-+	return 0;
-+}
-+
-+static void gs_cleanup(struct tty_struct *tty)
-+{
-+	tty_port_put(tty->port);
-+}
-+
- /*
-- * gs_open sets up the link between a gs_port and its associated TTY.
-- * That link is broken *only* by TTY close(), and all driver methods
-- * know that.
-+ * gs_open associates an open TTY with its gs_port.
-+ *
-+ * There are two TTY-to-port relationships: port->port.tty exists from the
-+ * first successful open until final close, while tty->driver_data is assigned
-+ * during gs_install() and remains valid through gs_cleanup().
-  */
- static int gs_open(struct tty_struct *tty, struct file *file)
- {
- 	int		port_num = tty->index;
--	struct gs_port	*port;
-+	struct gs_port	*port = tty->driver_data;
- 	int		status = 0;
- 
- 	mutex_lock(&ports[port_num].lock);
--	port = ports[port_num].port;
--	if (!port) {
-+	if (ports[port_num].port != port) {
- 		status = -ENODEV;
--		goto out;
-+		goto fail_unlock;
+diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
+index 01f2729bcbfb5..13adf2b495fcb 100644
+--- a/drivers/usb/dwc3/gadget.c
++++ b/drivers/usb/dwc3/gadget.c
+@@ -978,9 +978,14 @@ static int __dwc3_gadget_ep_enable(struct dwc3_ep *dep, unsigned int action)
+ 	 * Response Update Transfer command.
+ 	 */
+ 	if (dep->stream_capable) {
+-		ret = dwc3_gadget_ep_start_noop_transfer(dep);
+-		if (ret < 0)
+-			return ret;
++		if (dep->flags & (DWC3_EP_END_TRANSFER_PENDING |
++				  DWC3_EP_DELAY_STOP)) {
++			dep->flags |= DWC3_EP_PENDING_NOOP_START;
++		} else {
++			ret = dwc3_gadget_ep_start_noop_transfer(dep);
++			if (ret < 0)
++				return ret;
++		}
  	}
  
- 	spin_lock_irq(&port->port_lock);
-@@ -621,7 +679,7 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 		if (status) {
- 			pr_debug("gs_open: ttyGS%d (%p,%p) no buffer\n",
- 				 port_num, tty, file);
--			goto out;
-+			goto fail_unlock;
- 		}
- 
- 		spin_lock_irq(&port->port_lock);
-@@ -631,7 +689,6 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 	if (port->port.count++)
- 		goto exit_unlock_port;
- 
--	tty->driver_data = port;
- 	port->port.tty = tty;
- 
- 	/* if connected, start the I/O stream */
-@@ -655,7 +712,11 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 
- exit_unlock_port:
- 	spin_unlock_irq(&port->port_lock);
--out:
-+	mutex_unlock(&ports[port_num].lock);
-+	return status;
-+
-+fail_unlock:
-+	port->open_close_failures++;
- 	mutex_unlock(&ports[port_num].lock);
- 	return status;
+ out:
+@@ -989,16 +994,21 @@ static int __dwc3_gadget_ep_enable(struct dwc3_ep *dep, unsigned int action)
+ 	return 0;
  }
-@@ -681,6 +742,11 @@ static void gs_close(struct tty_struct *tty, struct file *file)
- 	if (!port)
+ 
+-void dwc3_remove_requests(struct dwc3 *dwc, struct dwc3_ep *dep, int status)
++void dwc3_remove_requests(struct dwc3 *dwc, struct dwc3_ep *dep, int status,
++			  bool interrupt)
+ {
+ 	struct dwc3_request		*req;
+ 
+-	dwc3_stop_active_transfer(dep, false, false);
++	dwc3_stop_active_transfer(dep, false, interrupt);
+ 
+ 	/* If endxfer is delayed, avoid unmapping requests */
+ 	if (dep->flags & DWC3_EP_DELAY_STOP)
  		return;
  
-+	if (port->open_close_failures > 0) {
-+		port->open_close_failures--;
-+		return;
++	/* Give the controller time to stop accessing the request buffers */
++	if (dep->flags & DWC3_EP_END_TRANSFER_PENDING)
++		mdelay(1);
++
+ 	/* - giveback all requests to gadget driver */
+ 	while (!list_empty(&dep->started_list)) {
+ 		req = next_request(&dep->started_list);
+@@ -1047,7 +1057,7 @@ static int __dwc3_gadget_ep_disable(struct dwc3_ep *dep)
+ 
+ 	dep->flags &= ~DWC3_EP_ENABLED;
+ 
+-	dwc3_remove_requests(dwc, dep, -ESHUTDOWN);
++	dwc3_remove_requests(dwc, dep, -ESHUTDOWN, true);
+ 
+ 	dep->stream_capable = false;
+ 	dep->type = 0;
+@@ -1059,6 +1069,15 @@ static int __dwc3_gadget_ep_disable(struct dwc3_ep *dep)
+ 	 */
+ 	if (dep->flags & DWC3_EP_DELAY_STOP)
+ 		mask |= (DWC3_EP_DELAY_STOP | DWC3_EP_TRANSFER_STARTED);
++
++	/*
++	 * The End Transfer command is still in progress.  Do not clear the
++	 * flags, so that the ep is only rearmed once the command completes.
++	 */
++	if (dep->flags & DWC3_EP_END_TRANSFER_PENDING)
++		mask |= (DWC3_EP_END_TRANSFER_PENDING |
++			 DWC3_EP_TRANSFER_STARTED);
++
+ 	dep->flags &= mask;
+ 
+ 	/* Clear out the ep descriptors for non-ep0 */
+@@ -2438,7 +2457,7 @@ static void dwc3_stop_active_transfers(struct dwc3 *dwc)
+ 		if (!dep)
+ 			continue;
+ 
+-		dwc3_remove_requests(dwc, dep, -ESHUTDOWN);
++		dwc3_remove_requests(dwc, dep, -ESHUTDOWN, false);
+ 	}
+ }
+ 
+@@ -3756,7 +3775,16 @@ static void dwc3_gadget_endpoint_command_complete(struct dwc3_ep *dep,
+ 			dwc3_ep0_send_delayed_status(dwc);
+ 	}
+ 
++	if (dep->flags & DWC3_EP_PENDING_NOOP_START) {
++		dep->flags &= ~DWC3_EP_PENDING_NOOP_START;
++
++		if (!(dep->flags & DWC3_EP_DELAY_START) &&
++		    (dep->flags & DWC3_EP_ENABLED))
++			dwc3_gadget_ep_start_noop_transfer(dep);
 +	}
 +
- 	spin_lock_irq(&port->port_lock);
- 
- 	if (port->port.count != 1) {
-@@ -853,8 +919,10 @@ static int gs_break_ctl(struct tty_struct *tty, int duration)
- }
- 
- static const struct tty_operations gs_tty_ops = {
-+	.install =		gs_install,
- 	.open =			gs_open,
- 	.close =		gs_close,
-+	.cleanup =		gs_cleanup,
- 	.write =		gs_write,
- 	.put_char =		gs_put_char,
- 	.flush_chars =		gs_flush_chars,
-@@ -1146,14 +1214,41 @@ static void gs_console_exit(struct gs_port *port)
- 
- #endif
- 
--static int
-+static void gs_port_destruct(struct tty_port *tport)
-+{
-+	struct gs_port *port = container_of(tport, struct gs_port, port);
-+	unsigned int port_num = port->port_num;
-+
-+	mutex_lock(&ports[port_num].lock);
-+	if (WARN_ON(ports[port_num].port))
-+		ports[port_num].port = NULL;
-+	WARN_ON(!ports[port_num].reserved);
-+	if (gs_tty_driver)
-+		gs_tty_driver->ports[port_num] = NULL;
-+	ports[port_num].reserved = false;
-+	mutex_unlock(&ports[port_num].lock);
-+
-+	kfifo_free(&port->port_write_buf);
-+	kfree(port);
-+}
-+
-+static const struct tty_port_operations gs_port_ops = {
-+	.destruct = gs_port_destruct,
-+};
-+
-+static struct gs_port *
- gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- {
- 	struct gs_port	*port;
- 	int		ret = 0;
- 
- 	mutex_lock(&ports[port_num].lock);
--	if (ports[port_num].port) {
-+	if (WARN_ON_ONCE(ports[port_num].port && !ports[port_num].reserved)) {
-+		ret = -EBUSY;
-+		goto out;
-+	}
-+
-+	if (ports[port_num].reserved) {
- 		ret = -EBUSY;
- 		goto out;
- 	}
-@@ -1165,6 +1260,7 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- 	}
- 
- 	tty_port_init(&port->port);
-+	port->port.ops = &gs_port_ops;
- 	spin_lock_init(&port->port_lock);
- 	init_waitqueue_head(&port->drain_wait);
- 	init_waitqueue_head(&port->close_wait);
-@@ -1178,10 +1274,14 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- 	port->port_num = port_num;
- 	port->port_line_coding = *coding;
- 
-+	ports[port_num].reserved = true;
- 	ports[port_num].port = port;
-+	mutex_unlock(&ports[port_num].lock);
-+	return port;
-+
- out:
- 	mutex_unlock(&ports[port_num].lock);
--	return ret;
-+	return ERR_PTR(ret);
- }
- 
- static int gs_closed(struct gs_port *port)
-@@ -1201,8 +1301,7 @@ static void gserial_free_port(struct gs_port *port)
- 	/* wait for old opens to finish */
- 	wait_event(port->close_wait, gs_closed(port));
- 	WARN_ON(port->port_usb != NULL);
--	tty_port_destroy(&port->port);
--	kfree(port);
-+	tty_port_put(&port->port);
- }
- 
- void gserial_free_line(unsigned char port_num)
-@@ -1219,15 +1318,15 @@ void gserial_free_line(unsigned char port_num)
- 	ports[port_num].port = NULL;
- 	mutex_unlock(&ports[port_num].lock);
- 
--	gserial_free_port(port);
- 	tty_unregister_device(gs_tty_driver, port_num);
-+	gserial_free_port(port);
- }
- EXPORT_SYMBOL_GPL(gserial_free_line);
- 
- int gserial_alloc_line_no_console(unsigned char *line_num)
- {
- 	struct usb_cdc_line_coding	coding;
--	struct gs_port			*port;
-+	struct gs_port			*port = ERR_PTR(-EBUSY);
- 	struct device			*tty_dev;
- 	int				ret;
- 	int				port_num;
-@@ -1238,19 +1337,20 @@ int gserial_alloc_line_no_console(unsigned char *line_num)
- 	coding.bDataBits = USB_CDC_1_STOP_BITS;
- 
- 	for (port_num = 0; port_num < MAX_U_SERIAL_PORTS; port_num++) {
--		ret = gs_port_alloc(port_num, &coding);
--		if (ret == -EBUSY)
--			continue;
--		if (ret)
-+		port = gs_port_alloc(port_num, &coding);
-+		if (IS_ERR(port)) {
-+			ret = PTR_ERR(port);
-+			if (ret == -EBUSY)
-+				continue;
- 			return ret;
-+		}
- 		break;
- 	}
--	if (ret)
--		return ret;
-+	if (IS_ERR(port))
-+		return PTR_ERR(port);
- 
- 	/* ... and sysfs class devices, so mdev/udev make /dev/ttyGS* */
- 
--	port = ports[port_num].port;
- 	tty_dev = tty_port_register_device(&port->port,
- 			gs_tty_driver, port_num, NULL);
- 	if (IS_ERR(tty_dev)) {
-@@ -1259,14 +1359,15 @@ int gserial_alloc_line_no_console(unsigned char *line_num)
- 
- 		ret = PTR_ERR(tty_dev);
- 		mutex_lock(&ports[port_num].lock);
-+		WARN_ON(ports[port_num].port != port);
- 		ports[port_num].port = NULL;
- 		mutex_unlock(&ports[port_num].lock);
--		gserial_free_port(port);
--		goto err;
-+		tty_port_put(&port->port);
-+		return ret;
- 	}
-+
- 	*line_num = port_num;
--err:
--	return ret;
-+	return 0;
- }
- EXPORT_SYMBOL_GPL(gserial_alloc_line_no_console);
+ 	if ((dep->flags & DWC3_EP_DELAY_START) &&
++	    (dep->flags & DWC3_EP_ENABLED) &&
+ 	    !usb_endpoint_xfer_isoc(dep->endpoint.desc))
+ 		__dwc3_gadget_kick_transfer(dep);
  
 -- 
 2.53.0
