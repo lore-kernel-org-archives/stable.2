@@ -1,59 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795706255;
-	b=TBEXe3ZEmaqNgx7Q6vs/GFWVilhFo5ZE0MxalqgqFgnaNX/G8NmGASuyR/+EorLF10Oi
-	 U8+Q55HtHQKW1PqB9Pxre5dSuL4hvt0Sas4WyTc37UgJZ+vBTVIk9PgYBx40I12uLw6eJ
-	 tHUvQ7LY8L2NZ7IdjXJhHpqGXMj9enUHAz/y+Oqrtz9SLnTrW46mfIX1WEBCYqQvFVA62
-	 k6JwHrYYzU/B1sE3a7M1uCGOjdnB2fPDW/CTCnW5UbRz5+PZ7hniY1CzrpAoOVz16VWjG
-	 5hJp8KmZM2/aAuaRNeTYnC/YbqPsv/drr/y2kyyhFgvPIxo6wOa0fvZKE6K6W8frUnw==
+	t=1795706348;
+	b=pw94dguVJIwcORlXnihlLbPffLRcDvSwOZ9HM7tnhvUU9qsQpgwSgEzR6Gpekgs1UUp8
+	 cCBolm/pC7otWclX4rN8C4dD2/SndoawANdQYkcM/kdqMeo086712a8OKcD+b2KWnZoW/
+	 qnAbBYmQjT32Bk6Lb7VpaIbIhBrWDGETlyO34Wdl4FjqPt03/Xq0KiYJPnifwRHQtd521
+	 yHvWiTR3ULRQ6cjoV/C+kDbT8zIkbSYDqVrPL1w14VN1IWWGw+zb0ao9u3l8xage1obMd
+	 zXzyYDM7Vj838Ym7PAFqw2n7w3TRouScJ0XE7OSUNk4fzvKCxWMCSbQG7If1Sc6x+rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795706255;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:MIME-Version:Content-Type;
-	bh=6cNJYOTmZ5MbGA5Pko1tW8+2uGtwtwOR7s1crng2nX0=;
-	b=Jq9RmiIonO8MgXDteLxdmu9XyxaY+AM9Qvliio2sjJb5qhqiPRiXLH7akXGcc2shhd6Q
-	 8nz8TppGshvJlXE2OJR7Id7B5veI86VpZOLfdUyxw8+xM+MA1SQY6dAI5el4cTO+A5qbX
-	 hx0RO3is8viK9GWOSPtFwhzHBm+dp5e27KFjJUYuFhB4OP6V7bWFl6sgw0GmVb5SO5Q/x
-	 Ibss7Po9R68O/gCv4HR+pPZXpuJ1o9zg61j4pCFR0ZZiFG7R6fnsiT4mvOmMN9hwShs7M
-	 5TRXVZBAnthAbPa/nakwRCFJNneNJcYndGUrSUanDEk+JfISz4wqyIspwuv2kNLWmbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795706348;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=NM4nz9aew5wjWaZGnlwZLmcEYWDSmI68XZPIRQYOtfU=;
+	b=Nr0ZkulBX3OnGi7Z1E+Hb+NjDGyv6o8UwtxErF9eTAVsaArOVQvqAP9EiNpvntg8dj8G
+	 aLKjcfL/FcCicyrQn3zT/aenJBUCINCeArFdXVo1csKhYjJmvOplXR5DP+52plyKGY5L1
+	 4tIGo80CbdmLyKvifveUGmV9zUB5Cz2hZxhSZGuXd4f60R4NSrEhVKRUc7OoSiHyfOoAm
+	 vJGoiAsWYcjgHl7Rw6BK6QIq3TXdcWiXNJintpBTrDIIo46bZILjAqKifV4ATfMUDxoWf
+	 hFiuDhJ9Q1rNHrnsvCDVKFN39fNAlKC2xikdPzS/Mv2QxNzh4ua8j6ec7MBoAuj0vHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=manguebit.org;
-	spf=pass smtp.mailfrom=manguebit.org;
-	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=3b+rqWAU;
-	arc=none smtp.remote-ip=143.255.12.172
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DbGuhL2U;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD9D1606A321;
-	Thu, 26 Nov 2026 15:17:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD9D1606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D90606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:19:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=3b+rqWAU
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=6cNJYOTmZ5MbGA5Pko1tW8+2uGtwtwOR7s1crng2nX0=; b=3b+rqWAUiW2+pRdAe5ditUXtJE
-	UWsJk8lxjGhGDoKAlDejpLmn4eMupKQQxb7gAcfLKMEZ3qHLGfSf9i9eCLMVlhF0VH/gH+FMn5uxX
-	Gurmm9jm2QQZR3koFzQtAL+xn4Tr62XXibVHXr27Fz4JA1DUwAxZvY73Afso3XrByfmB7fD0lEG4B
-	XnMr09H7eNzl0ae9kgteQaBvXayzkvm6cvMy7vdKvmDjFO7wE8rtpG4hba96J6ujfcUEHxGexjuMB
-	5r81Zzl2uSRqz/KgHC84AdklI2Z4bvdY18NUOu3iv8lh8Dk/WLTLaJ0t9u46GMHCHkiIrlV+Ip0PR
-	YSb67O3g==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
-	id 1xWbE4-000000010eB-1JxU;
-	Thu, 26 Nov 2026 12:17:32 -0300
-Message-ID: <0123330912f899e2f60ea647d767880d@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Abdifatah Suruur <suruurism@gmail.com>, Steve French <smfrench@gmail.com>
-Cc: linux-cifs@vger.kernel.org, Abdifatah Suruur <suruurism@gmail.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH] smb: client: reject oversized SMB1 SET_SECURITY_DESC data
-In-Reply-To: <20261118125249.25375-1-suruurism@gmail.com>
-References: <20261118125249.25375-1-suruurism@gmail.com>
-Date: Thu, 26 Nov 2026 12:17:31 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DbGuhL2U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AF991F000C4;
+	Thu, 26 Nov 2026 15:19:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795706348;
+	bh=NM4nz9aew5wjWaZGnlwZLmcEYWDSmI68XZPIRQYOtfU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DbGuhL2UdhjC2m3bqh8VVO5DzDzK4/1PCvCi2Uz5c3S6K2h3oKpZmLWkkvA/XnZJa
+	 ZOYCP1RPHzguCn6JrIqdAV3Ee03EARAXyAE4uzcSSjQGl9kQLamldJG8Fh+XUEKiPW
+	 xAuNv5/IB5z4eMSp5c8dCJZDy21kUDFlqfBy93Qlz+c+oDj1LGbPKt3bcBk8mXj63Y
+	 35way6VnZKKXq8/T4gpn2WbbQm5HWhbliBt2P5xy4ADFscSZOngx3i/R2eYXazZ9VY
+	 5aglps57ioookY4pH/CI0zfFJ0gyIU9anhkSARxDR+bxymZdDTfrl1BMm2+FP7QMRH
+	 wQnrW6Tu3qyGQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ihor Urazov <z0rc3r@gmail.com>,
+	stable <stable@kernel.org>,
+	Francesco Orro <ncesco@interstellar.eu>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Huang Wei <huangwei@kylinos.cn>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] usb: typec: ucsi: acpi: Assume UCSI 1.0 on HP ZBook 8 G2i 14
+Date: Thu, 26 Nov 2026 10:19:05 -0500
+Message-ID: <20261126151829.2349738-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112531-attic-paddle-80aa@gregkh>
+References: <2026112531-attic-paddle-80aa@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,20 +63,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Abdifatah Suruur <suruurism@gmail.com> writes:
+From: Ihor Urazov <z0rc3r@gmail.com>
 
-> CIFSSMBSetCIFSACL() copies acllen bytes into the single cifs_buf_get()
-> request buffer at data_offset without checking that the data fits.  The
-> buffer is CIFSMaxBufSize + MAX_SMB2_HDR_SIZE bytes, while acllen comes
-> from the rewritten security descriptor produced by id_mode_to_cifs_acl().
-> A malicious server can return a descriptor whose rewritten ACL is larger
-> than the buffer, so a chmod()/chown() on a cifsacl mount over SMB1 writes
-> past the cifs_request object.
->
-> Reject data that cannot fit before the memcpy(), as the SMB2 path now does.
+[ Upstream commit 3ee1e1c3fca6fb5d0abbe0fc91539951ffa60aa7 ]
 
-Please check sashiko's review
+The HP ZBook 8 G2i 14 (board 8ED9) exposes a working UCSI ACPI PPM, but
+its UCSI VERSION field reads zero until the first command completes.
+ucsi_register() rejects a zero version with -ENODEV, so no Type-C ports
+are registered.
 
-        https://sashiko.dev/#/patchset/20261118125249.25375-1-suruurism%40gmail.com
+The firmware's _DSM READ function (2) is a stub. The mailbox VERSION
+field is written only by the EC response handler, after a command
+completes, after which it reads 0x0100 (UCSI 1.0). The mailbox is
+48 bytes with 16-byte MESSAGE_IN/MESSAGE_OUT fields, the UCSI 1.x
+layout, and _DSM function 5 is not implemented.
+
+Add a DMI-specific read_version for this board that substitutes the
+version the firmware itself reports, UCSI 1.0, only when VERSION reads
+zero. A non-zero firmware version is used as is.
+
+The same firmware defect on the HP ZBook Fury G1i 16 was discussed in
+"[RFC PATCH] usb: typec: ucsi: acpi: bootstrap PPM on HP systems with
+empty _DSM func 2" [1]. The defect was reported to HP as case
+5166176673.
+
+Tested on an HP ZBook 8 G2i 14 with BIOS Y70 01.02.08, from a fresh
+boot where VERSION reads zero: three connectors register, the PD
+contract and alternate modes of a Thunderbolt dock are reported, and
+its DisplayPort output stays up across the PPM reset in ucsi_init().
+Dock unplug/replug and s2idle suspend/resume update the connector
+state without errors.
+
+Link: https://lore.kernel.org/linux-usb/f3M_fpjtt8FxDqGKcA84vqXmRbKzCBfpCrIK4-jCWvIscER51zkD8qD8FYpz75qZw51rMDRSkUyYlrBvLvdM8CGRY2l8TFVvr4MC1LdTzbc=@interstellar.eu/ [1]
+Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
+Cc: stable <stable@kernel.org>
+Cc: Francesco Orro <ncesco@interstellar.eu>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Ihor Urazov <z0rc3r@gmail.com>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Reviewed-by: Huang Wei <huangwei@kylinos.cn>
+Link: https://patch.msgid.link/20261026-ucsi-hp-zbook-8-g2i-v1-1-91002e9ef073@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: Dropped the .write_message_out line from the new ucsi_hp_ops table, since this tree's ucsi_operations has no such member or helper. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/usb/typec/ucsi/ucsi_acpi.c | 34 ++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+
+diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
+index c3f6856032c20..0fbc13ce79237 100644
+--- a/drivers/usb/typec/ucsi/ucsi_acpi.c
++++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
+@@ -131,6 +131,33 @@ static const struct ucsi_operations ucsi_acer_ops = {
+ 	.async_control = ucsi_acpi_async_control
+ };
+ 
++static int ucsi_hp_read_version(struct ucsi *ucsi, u16 *version)
++{
++	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
++	int ret;
++
++	ret = ucsi_acpi_read_version(ucsi, version);
++	if (ret)
++		return ret;
++
++	/* Firmware fills in VERSION (1.0) only after the first command completes */
++	if (!*version) {
++		dev_warn(ua->dev, "UCSI version is zero, assuming 1.0\n");
++		*version = UCSI_VERSION_1_0;
++	}
++
++	return 0;
++}
++
++static const struct ucsi_operations ucsi_hp_ops = {
++	.read_version = ucsi_hp_read_version,
++	.read_cci = ucsi_acpi_read_cci,
++	.poll_cci = ucsi_acpi_poll_cci,
++	.read_message_in = ucsi_acpi_read_message_in,
++	.sync_control = ucsi_sync_control_common,
++	.async_control = ucsi_acpi_async_control
++};
++
+ static int ucsi_gram_sync_control(struct ucsi *ucsi, u64 command, u32 *cci,
+ 				  void *val, size_t len)
+ {
+@@ -177,6 +204,13 @@ static const struct dmi_system_id ucsi_acpi_quirks[] = {
+ 		},
+ 		.driver_data = (void *)&ucsi_acer_ops,
+ 	},
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "HP"),
++			DMI_MATCH(DMI_BOARD_NAME, "8ED9"),
++		},
++		.driver_data = (void *)&ucsi_hp_ops,
++	},
+ 	{
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "LG Electronics"),
+-- 
+2.53.0
+
