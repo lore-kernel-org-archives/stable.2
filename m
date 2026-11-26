@@ -1,89 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795657720;
-	b=DNDsNEtJjR6RYaoi959CIhEKna4vvzlt85JmxjbgtQBgVXhPxYlO8tQeLLTmO9gC8urm
-	 LtzxuehDRkC3NQXa11ArasoMtLIR+YR3u3902XV9omwH09yXhjFih/SiqDebScs9BbcpI
-	 xByyBdYBFushOhP3aEFaQWj3MFKzSJ79Pra34d63BeXYyV2UBU+fvSbnQqsGj0V2yYkvR
-	 Ujz3oFM3+6RT3ldSJ5WLVCI5GYQHKdpb+9743iwD8g/HPfH8HODuRe9632l7jnVfL0Yoi
-	 r3dn2aIOZByRjdvxbtcDfe+f70g+rTLtTfZoLW0/mYLzOmj2Hpn/9Sv+uVcapqi9lhQ==
+	t=1795657743;
+	b=xrY+9OgjbCAY4juomnwV4da5wBkiWFDK5FYXsmj1UcsXQaoSo7CepFkS1mYkWof6BDIV
+	 fAOrizLSh7Jl9/0Wav6FZ0Lnt6i07XPngwq0/PSoxyHibO5Ifzz0clCIzu819PCyuuFSt
+	 Yit6++ElbxkupVLx8KFm2ipBr8FUulamPpga3ehSjpfVt8WAjIy1PNsrLX3/ggwqqqJ3+
+	 zFaIL/muonvXGxGZWjMyvU7d6D6uRsZVVSbOYYIkggYiZwxmf0//HS/pYxUO0OdQeTIL0
+	 zhQdSJYlh84n5ZKkD5Kbft6xgHqkHUmDtbmuWImPBjcoqECHfCxVjYWvBE5Twvh3Dxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795657720;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ShyQmu0ddnJkdrSZothJXBYQH0ElJQ6+WmuFcfsJFK0=;
-	b=mpWVL3lWIJqVlKXBVFfEQPeVfpMMKn+eu1Z1dppJdo78r4vRSjJrDYvzdejt0lbJmo6H
-	 1Su06jAY4r+y4AcUnu7V67DXnvlaCVFd2vdXgP2iOxtNXblaLPqiKwb8GXbDSxw5cq4KT
-	 6wPlaoBrjHe8zL+k2/Dv6wIiGJv0586S8nTWJQgwVuMQQcDFuGPiNzjD8QoynJf08j/nl
-	 ZdobxdnuLeaC6fSpvj2jjqAQ+ptpB8ZqTkNA1KobJinpABNpXde6u/52PphF7qt9iTadR
-	 sc032sFhrwKc9Muq1J2VfHiI9O+ttAcy/QGwMgYp00a59SOfen9NUbV9kDHuBa7Vm6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795657743;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=XfkmyAbG74wypFhGwrzBiE7jWMzZjVwrMaaxCug4Zq4=;
+	b=Y2W7fI/h06T5gaZzm9D7AdyXBvPSXpC3ZHCgcO6fsPmCk6ciTKe/qYvVAjeAe5CNA3D0
+	 ZZ3nehdfX2rR6EmuMJS6yicFHGh/Z7OVrIuuQk/ZJ+BlNCxVBdyv1UPSE3AiOeNIOPMf8
+	 OMkAFRuK+SNpXxBEuIH6W8OTBjTbSqrBbiWqu0+dXkI6RXFHZDr/mRppniPhKq8+4v/qT
+	 hGOK2CNzc0jSc6Zbq7p6rZ/G2RcOgG8yifphUFUfOhwdsHa2+l4D76OxpUrnhpGL31U6F
+	 5moT2RKIeb0sqpa6Bgc2YMwDEjivJLZO6GQ1hb/Lro+cv7xrIA4ftnXLCg1D1KSK80A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hQSzxchW;
-	arc=none smtp.remote-ip=209.85.222.182
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gxCQLCvD;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE4A606A321
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 01:48:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DE4A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C91606A31E;
+	Thu, 26 Nov 2026 01:49:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74C91606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hQSzxchW
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-9495d543b91so392288085a.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:48:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795657719; x=1796262519; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ShyQmu0ddnJkdrSZothJXBYQH0ElJQ6+WmuFcfsJFK0=;
-        b=hQSzxchWLCNm4jB8simRGB8bDBAlY0D9Vh/YLFVYubFLqvvbO5kQsiKwyECCuUcXUh
-         OT5CfaXyHJVzxBIEv3CHuZcLcUYu6EbR3hwY4vD0U3mK5jd4FsXR71vidJIRF6FETUgj
-         pZO85ubHxTG5dNZtimvzlxV6JFEOoRUctUhcsJnE2p3wkZV5RQ0VzIogJPIuvsOJHSXx
-         5cmQh40zbSQXBHJA1Wp3qFYp4fOxIJFfVkm510sE0fsIKh8Y1zLt5cUeS4xjfpD5IChD
-         O+3aZmS/IQwM8kpfPQ+Rs2iIIGISCo0A695Awspu82ujSfzWMjm1XeTeewLZapku/tRN
-         hbQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795657719; x=1796262519;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ShyQmu0ddnJkdrSZothJXBYQH0ElJQ6+WmuFcfsJFK0=;
-        b=wYHpsmxDPIQE156an+PS0uF3UB+CPOJieWXbJ3i9G5HsMCJt/B6hU9sy14an7/M+1x
-         YReAwXEgfehPMquDbuF5M3fJtmGNeUvZ5eDBPMJALmuWpgvxU6m6bndcSpLXMoKy731z
-         MCyiFyAzcVeVTrkOMVrthO+fJcKmibuPjI8IFTnrOo5+xE5dpCI1IsryehaBwSdPoZmD
-         +zuPgG3glxhlZTBWogwlu81Mq7qiCp7vOrHlDa2ggoFFqkvvCttucwPJqoCuXzTGj/IA
-         Bnz8IcQCbiXfY2oJ4pQDFb17OyaSf6QgEuBEjYEvO6jMmlJwSO57X8unbPLQeV0wyYIR
-         basQ==
-X-Forwarded-Encrypted: i=1; AL+hErF62sQQXBE3CtbBmsD/F95gxelifF7aqD6sKW4m0IgBfD+4Q+WAni1ehczv5Uru8RpjDoic83c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Q0L6knqvdKuJr79+2gOaD+Uji903jRyYakYkLR5YqHyeqUyjx
-	ez4WQHYKUf4P7BcEaOHdNWz/D6HIj7ybJk9mmLn2Gl/ky6j7d1qspd6pNYSrzLy5ll0=
-X-Gm-Gg: AZFdTZdZR+cMdnI3YiwlbsvC/eRsnlFPolNa8m6hxtQHuO1m+K/U0C2vyCenfBgeG3U
-	xlXWr/LdWHlc9wbEHDjg54ws+iln1XTgHC9gLfjEZVT/m3kQ++06MoyZM7BJattRKM8jVTCDbFL
-	U3rzgXyFoGiO2aSQYMVQfD8RGTJt9OddlssO+g3MnraZxSwikSWzoO0l5jm6knZsPnYEBDJhV3f
-	4fjiPSpHLsDW00zbSOi+xA0gwXHvi94Q8qUeczPF4s1N/RYzrbe4nK3SJMByKuOaqAcaWuKeZiw
-	ti8Rpcf60bmhA7kjOil/QEQsjdEIodpPkcUpWyVUPzZVMlRnWja7BoKFSqLTtxg7XB6/4v9GXuX
-	BJwuwmK6BfhNDmF+tgXFEY0iyCx6vS1CoxzQdhUQwNQA+VOco3+4EubqtiVid6nTkN3phZRYgFa
-	THZ9k6xkUmPHb3S+MFDEM0xcqUCypcS7yTGHQQXMDotZZstCb1kRMUJp9YZY0BCVh9IGFA0sQaZ
-	tfOpNNfGECTOON/1F5R7J4dvk9RwsaZ9HUTm5hZ5+2Dl7MhRNZ7BoUWrpEAKrJlGJgM8AuCuNHU
-	khnPxT3TK/aZr//E152xSMW78hVIR9FYh7eY0wxqaCuNCVBU96yP7q8GBV9aARxCfpHYCtM5kNO
-	W8k4CpwT0mvzoCB8j/3YzHsvbqH7QnvQm1vJ5pI/C+4d+KjDfTwGU
-X-Received: by 2002:a05:620a:454c:b0:93e:c12c:fbcd with SMTP id af79cd13be357-949bac7665amr3259261585a.73.1795657719106;
-        Wed, 25 Nov 2026 17:48:39 -0800 (PST)
-Received: from ?IPV6:2600:4040:5abf:f200::9dd? ([2600:4040:5abf:f200::9dd])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb41c105sm1476099385a.39.2026.11.25.17.48.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Nov 2026 17:48:38 -0800 (PST)
-Message-ID: <3167e5ef-920a-4e1d-ba03-bc928687577c@gmail.com>
-Date: Wed, 25 Nov 2026 20:48:37 -0500
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gxCQLCvD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795657742; x=1827193742;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=GmyJq18JfTnpsiuaIdG3/VmYnhggXO6MFEljsQgOgaw=;
+  b=gxCQLCvDNDU7AkdQbqon0ONr0ZJtiF+SXA6kCcUyo7aPb+aw1z43oh87
+   09zVP+bTjFJjwINOe0RS5yEDhkeegH+J4gEcDYzOKdGywKsxSD984wcqL
+   X7rHUQ+830+mIXZfCdtBCkX6ok1/27GKRjziyT4AxkLVWdWxxYRGsLJSL
+   ryvA0eF6rL4LniY72VgNOu7yRz/SVQiDA5ptSIjsXcosme8Y3wKn4HS+b
+   MnFKtW6Bz8ZrWnLOzDv7/8Vyk7q4t/4prNcGqeXXrOApZA2hGBAnn8zH3
+   +hsTIuBRh9tQcu6isb5P2pF+h4Frq0xcLjKGOMhweV6+wyrhB7RsnNMh7
+   w==;
+X-CSE-ConnectionGUID: IDeaf98KQA6UwVp1snj6nA==
+X-CSE-MsgGUID: oTFnOy7bTwWfXuelz4An2g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4443689"
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="4443689"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 17:49:01 -0800
+X-CSE-ConnectionGUID: j1hFuDEhQ8Wnq9FwM6yZ4Q==
+X-CSE-MsgGUID: 8+k3hbzoTMiX/Z4PuYTkfA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="12455992"
+Received: from unknown (HELO [10.238.0.68]) ([10.238.0.68])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 17:48:58 -0800
+Message-ID: <436c641a-9d35-4695-b41f-547c46479a5d@intel.com>
+Date: Thu, 26 Nov 2026 09:48:55 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,56 +73,42 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] firmware: arm_scmi: Don't mark OPPs as turbo without a
- sustained frequency
-To: Dale Whinham <daleyo@gmail.com>, Sudeep Holla <sudeep.holla@kernel.org>
-Cc: Cristian Marussi <cristian.marussi@arm.com>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Dhruva Gole <d-gole@ti.com>,
- Charlie Garner <charlie@akao.au>, arm-scmi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261121-sp11-noturbo-v1-1-37e1083cec5b@gmail.com>
- <20261123-eccentric-ludicrous-roadrunner-0a7efe@sudeepholla>
- <CAFcmK8g+Udyp9h24WSEx2RepBA=rZpEQs==1hTi83A+_zF-GOw@mail.gmail.com>
+Subject: Re: [PATCH v4 0/2] virt: tdx-guest: Fix and speed up the wait for a
+ Quote
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "kas@kernel.org" <kas@kernel.org>,
+ "sathyanarayanan.kuppuswamy@linux.intel.com"
+ <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ "thomas.lendacky@amd.com" <thomas.lendacky@amd.com>,
+ "Aktas, Erdem" <erdemaktas@google.com>, "djbw@kernel.org" <djbw@kernel.org>,
+ "moe@flashbots.net" <moe@flashbots.net>
+Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+ "Miao, Jun" <jun.miao@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "x86@kernel.org" <x86@kernel.org>
+References: <20261125-tdx-guest-quote-poll-v4-0-d89f26854b88@flashbots.net>
+ <cd7bd4428398413e16ff214fc46f5d65076757d8.camel@intel.com>
 Content-Language: en-US
-From: Haipeng Lin <jimmie.lin@gmail.com>
-In-Reply-To: <CAFcmK8g+Udyp9h24WSEx2RepBA=rZpEQs==1hTi83A+_zF-GOw@mail.gmail.com>
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <cd7bd4428398413e16ff214fc46f5d65076757d8.camel@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/25/26 8:04 PM, Dale Whinham wrote:
-> On Mon, 23 Nov 2026 at 10:26, Sudeep Holla <sudeep.holla@kernel.org> wrote:
-[...]
+On 11/26/2026 5:42 AM, Edgecombe, Rick P wrote:
+> On Wed, 2026-11-25 at 14:11 +0000, Moe Mahhouk via B4 Relay wrote:
+>> Getting a TDX Quote takes at least one second, because
+>> wait_for_quote_completion() sleeps a full second before each status
+>> check, while a local Quote Generation Service answers in a few
+>> milliseconds. Patch 2 rechecks the status every 10 ms instead.
 > 
->> I worked out something very similar as a solution. Anyways does it work
->> if we also add the check for non-zero dom->sustained_perf_level ?
-> 
-> Haipeng Lin has an X1P machine so hopefully he will be able to confirm
-> soon if adding a check for non-zero sustained_perf_level into the
-> chain still works.
-[...]
+> I think something went wrong in the send. All I got was the coverletter and it
+> looks like lore did too.
 
-Confirmed it works. Tested on Surface Pro 11 (X1P64100) on v7.3.4 tree
-with this check
+FYI. I did receive patch1 and patch2.
 
-	data.turbo = dom->sustained_freq_khz &&
-		     dom->sustained_perf_level &&
-		     freq > dom->sustained_freq_khz * 1000UL;
+And the this lore link shows all the mails, at least on my browser.
 
-Firmware reports both values as 0 for the two 3-core domains (not just
-the frequency). I took a debug print of PERFORMANCE_DOMAIN_ATTRIBUTES
-
-  domain 0: sustained_freq_khz=3417600 sustained_perf_level=12
-  domain 1: sustained_freq_khz=0       sustained_perf_level=0
-  domain 2: sustained_freq_khz=0       sustained_perf_level=0
-
-With the patch all three cpufreq policies are created (cpus 0-3, 4-6,
-7-9), each has the full 710400-3417600 kHz table, no boost freq, boost
-disabled. Under load every cluster scaled up to 3417600 and drops back
-when idle.
-
-Please feel free to carry the Tested-by in the fixup commit.
-
-Thanks,
-Haipeng
+https://lore.kernel.org/all/20261125-tdx-guest-quote-poll-v4-0-d89f26854b88@flashbots.net/
