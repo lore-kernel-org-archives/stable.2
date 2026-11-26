@@ -1,68 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795653557;
-	b=FYDRhCIvJiXhwbkYuABwZfOYHsT6IOw+UVDJ2aZNaZZbDz7UR7XFkklgRbY92HYlfCgO
-	 t0S2dxJZt0JCc6aXlr8ICWRe+7mQKMyBZbjijzPgZxls6mGZ1pkdNN73m87sA3I0Bhwgg
-	 P0+ZWz4O2+xp0yoXE3r/X5kd5Qw/Pv7Q6lpyZuFSRuMtJplSHJfwlStGUQKvOIPyIxQ+3
-	 DN8j3wBxSxHj+uJFIwAjeFgGge5z7I4SDnUAd6rOHYmus2ysqlhb+9CDzwy6y3HkfaUmD
-	 OX5ZNq5a3cZANtbykJCsLdIBA2ZdoaDcnNAie/+lOq9GAMwPS2m+agh0QqQFQDSkYlw==
+	t=1795653657;
+	b=ogR0vx92aRIRmPlLpXcYfUPlneZrY0i/CYX9budBEw0YQ5rfBAVHpyyOjtGCK0KHN3hk
+	 Grstw6NV0k2fmVOSyr8eo4I81LvlOsb+dGv25p9r58LTaqsuJ0QJgUQ23Y583/2keqKgg
+	 HP9hSQ8eNRZrASk//aaKrv+PGSHxBqbf2OM3vStW85Is1M8DOAoOwJbnKa0CHnaVVKdo8
+	 UpN5Zx89BaQ2BHc+vTmkP1BIlv6QxLkXtBEpECgFDXqFcORqmHmTsp0Xr/x5ji2z/qBcU
+	 95E2W4g/ERtV9WRSGSiIbkVAFTt2qT1LFtlVeO0uA+wj966t54LCU8Sfvv60o+nPmtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795653557;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
-	bh=bBlNwFZ+fNyTjA/Lofoe4aKT6dSVGZVRnabD6V+RQuY=;
-	b=yvnQg/DATNsvpxkJWp3ke7Xu3RTF2DYn2yaonAI+k0X+/PLv+5SAy29fY/iitIgbNw4N
-	 kZnZC67UKp8KNMZmuvidMfVf0pyBkD0AzzRxauSkW7fn8DIVICAZRBjV5evjaO72Bg2Dz
-	 kp1bivAFhdg/RUW6K19YN76LH6Og6ENtBPWftDV7qQR6KZVldX4GksU9F6+NZBws28Kez
-	 4v+xLhxxVYOZYAWCLUVyeiRsMoiQqHnoaNHuwsKwAssFlwzp9J6F1k08qeprcKDuOMFv9
-	 w7VwbLuHjbKiHdqOQCpjuQvPdP/2enbjVZsuRo383eH9in3ZO+Kbo/7CD32ssbBeNWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795653657;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ROqfz97ZpfUHHWsM2JzaOj+b4tvNFO3hHXdoi3R6Bx4=;
+	b=jQ1uOUor89xUQbe3gdROnQU7wYuSD/LJ8wRKAK/8osrh/sfmt8CBWKWdpZKM7XRGQWUd
+	 LZTKwgLXCRtDKYlmJ8vDQusoIq7u5mXuq0YbRPUPbh/FXdOiHagWao1csFqTgCipkMuH9
+	 fdLAVYCh8h8YN0HZI25LLQlyJcK0dzEW68ODv4KrAAABtR6/o0tKP5YeW9OznujbYPFOi
+	 RdRCSglqzEsCCBM7eax1dKZyJ0aOdLPUPpxN50R7rMovZzaa96CGwdKNm1Nm88Nlz07UF
+	 bL/9KpfMw617kptSlpSoRhZLn/GRs8juE0z+qH61X/kMVX2FnzjXF4L9vi7aKUwzvzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=netfilter.org;
-	spf=pass smtp.mailfrom=netfilter.org;
-	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=bJRTvZO+;
-	arc=none smtp.remote-ip=217.70.190.124
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IIsSkvRm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C4B9B606A327;
-	Thu, 26 Nov 2026 00:39:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4B9B606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE21A606A31E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 00:40:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=bJRTvZO+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1795653554;
-	bh=bBlNwFZ+fNyTjA/Lofoe4aKT6dSVGZVRnabD6V+RQuY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bJRTvZO+FiUvEQuD5kWrZYayWtScEqIkGYdVpP0KBXifbRgzq78CU5DZT6Lz98C3m
-	 DtSARt17IaXu5cFNfSZfmUsahmhhWmEMhUw6+omWPQMZ8ZA/mNSyuy7IoiYUpNzoNS
-	 m1xaQvT0Lp4kA/0eNfMqHxfAVbmr/5xrGFhzywXxdBnuLNIKvv0H0/DobDewHG5DTS
-	 SRbr4Qx2pzpDzNnCnWl7rlT3b4yPqIw6irU2jCuEcqCT5PheSyT3SZ1wWdM3ml40Gw
-	 xVaHhzoNmbHkmpbYOjivDNCcdtCiWWvUPKlKjwBAoZ0LM5Hp0VhummGR8XRCJM2hLr
-	 u7LcQBcAjvByA==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 1E38660081;
-	Thu, 26 Nov 2026 01:39:14 +0100 (CET)
-Date: Thu, 26 Nov 2026 01:39:11 +0100
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Xiang Mei <xmei5@asu.edu>
-Cc: Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Simon Horman <horms@kernel.org>, netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	co+85229ab197510ca7@bugs.sh
-Subject: Re: [PATCH nf] netfilter: nft_exthdr: pull the IPv6 header before
- ipv6_find_hdr()
-Message-ID: <awd_r2mOR7xuYzh4@chamomile>
-References: <20261126001151.13793-1-xmei5@asu.edu>
- <awd9f47inahmDWRP@chamomile>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IIsSkvRm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB4EB1F000D1
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 00:40:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795653656;
+	bh=ROqfz97ZpfUHHWsM2JzaOj+b4tvNFO3hHXdoi3R6Bx4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=IIsSkvRmrxVpdt2ZNq7F8YmH1k07rPBBHdA5/CYaWIJydO+J973A1KWLslA0i1DP6
+	 599Mgk4greqpc6ghIkzL1gYqthcINWxidXMeQExEnYWGXUC/E8gG3nW2JSL89c/QfX
+	 cta3o4lZoFQXL5a9p7W85owYHhIEQxQOmJ4qHMNUqC2mamkDo1zjLccYvzeMKdVtvx
+	 qtsYtcHaMX4Ds+6vPOZXLfEuwJC1pEJQDCgmnmySrWpTS+6dh+x+0GWhvjSCZv8YA7
+	 NUSm3Yla6h+UqGg6vVPxJnYmzaTEJloHEuZmC7nDrrLG1Ghj7A4Iac5yMU1nj9IgWN
+	 0EuiwHOVnDk5w==
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-949680e6d83so578781185a.3
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:40:56 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErG5Ki/3TLqUNquXB9KBlAjP3CNtljlTfXeC5CX1/BHaUKisurbkhkrsGcbUjp6oAhyzKk78Ub4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HFn/r32SeTYXctsNjZmtsYv12BHn/7/mXfuVJFfCfV2q3UnfZ
+	L3O748LaK4GyqkS8b94MADAHTk4xRqJRX085ZZLolXBV77WOYReAbqS3pFSXIvkSU/YXfCH7PSR
+	dW+BrxTV7iign3rTvGNudX7Oyr6SDw24=
+X-Received: by 2002:a05:620a:17ab:b0:93f:6e05:22eb with SMTP id
+ af79cd13be357-949ba9e1425mr3467128985a.48.1795653656141; Wed, 25 Nov 2026
+ 16:40:56 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,78 +59,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="VkGGqG0RUrhCu0NS"
-Content-Disposition: inline
-In-Reply-To: <awd9f47inahmDWRP@chamomile>
+References: <20261125-fix-mglru-kswapd-age-v2-1-4cc37437af9b@tencent.com>
+ <CAGsJ_4z-UdXQg0LYqymEZdoHALPmAZC7eGcXbGad6f0sdjmkcw@mail.gmail.com> <awarDrT/DT7tQu+U@lima-default>
+In-Reply-To: <awarDrT/DT7tQu+U@lima-default>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 26 Nov 2026 08:40:44 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zf5NabZJanr2_Czr3oVQe6tTTdXmddx+PxowbKBN9M8Q@mail.gmail.com>
+X-Gm-Features: Aa3M54qqdItbwgjoEHWn9-crdqoWLQnJV4aNvDHtTbWqBrdWHNaBEhfxmdXesaw
+Message-ID: <CAGsJ_4zf5NabZJanr2_Czr3oVQe6tTTdXmddx+PxowbKBN9M8Q@mail.gmail.com>
+Subject: Re: [PATCH v2] mm/mglru: skip oom killing for order != 0 allocs in kswapd
+To: Bingfang Guo <bfguo@icloud.com>
+Cc: bingfangguo@tencent.com, Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Yu Zhao <yuzhao@google.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
---VkGGqG0RUrhCu0NS
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-
-On Thu, Nov 26, 2026 at 01:29:55AM +0100, Pablo Neira Ayuso wrote:
-> On Wed, Nov 25, 2026 at 05:11:51PM -0700, Xiang Mei wrote:
+On Wed, Nov 25, 2026 at 5:32=E2=80=AFPM Bingfang Guo <bfguo@icloud.com> wro=
+te:
 [...]
-> > Pull the header before the call, as act_ct, virtio_net_hdr_to_skb() and
-> > nft_set_pktinfo_ipv6_ingress() already do.
+> You are right. Maybe we can start from skipping aging in reclaim path if =
+the
+> youngest gen is still too young? And maybe for this path, min_ttl can hav=
+e a
+> default value? Is that a good idea?
+>
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index d891ae46baf49..7f9b14b772d14 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -5136,8 +5136,11 @@ static bool should_run_aging(struct lruvec *lruvec=
+, unsigned long max_seq,
+>                 return false;
+>
+> +       /* avoid excessive aging for huge allocations */
+> +        if (unlikely(sc->order)) {
+> +               int gen =3D lru_gen_from_seq(max_seq);
+> +               unsigned long birth =3D READ_ONCE(lruvec->lrugen.timestam=
+ps[gen]);
+> +               return !time_is_before_jiffies(birth + min_ttl);
+> +        }
 
-I prefer this patch (see attachment).
+I'm not convinced that we need to couple the aging decision with
+min_ttl protection.
 
-Please, don't take, I will submit it myself including your
-Reported-by: tag.
+This has been a long-standing problem: high-order allocations can
+trigger excessive reclaim and still fail to obtain contiguous
+memory.
 
-Thanks.
+I've tried to address this twice, but haven't found a satisfactory
+solution yet:
 
---VkGGqG0RUrhCu0NS
-Content-Type: text/x-diff; charset=utf-8
-Content-Disposition: attachment; filename="linearize-nh.patch"
+https://lore.kernel.org/linux-mm/20260422021842.78495-1-baohua@kernel.org/
 
-diff --git a/include/net/netfilter/nf_tables_ipv4.h b/include/net/netfilter/nf_tables_ipv4.h
-index e715405a73cb..5df31948c42d 100644
---- a/include/net/netfilter/nf_tables_ipv4.h
-+++ b/include/net/netfilter/nf_tables_ipv4.h
-@@ -21,14 +21,13 @@ static inline void nft_set_pktinfo_ipv4(struct nft_pktinfo *pkt)
- static inline int __nft_set_pktinfo_ipv4_validate(struct nft_pktinfo *pkt,
- 						  int nhoff)
- {
--	struct iphdr *iph, _iph;
- 	u32 len, thoff, skb_len;
-+	struct iphdr *iph;
- 
--	iph = skb_header_pointer(pkt->skb, skb_network_offset(pkt->skb) + nhoff,
--				 sizeof(*iph), &_iph);
--	if (!iph)
-+	if (!pskb_may_pull(pkt->skb, sizeof(*iph)))
- 		return -1;
- 
-+	iph = ip_hdr(pkt->skb);
- 	if (iph->ihl < 5 || iph->version != 4)
- 		return -1;
- 
-diff --git a/include/net/netfilter/nf_tables_ipv6.h b/include/net/netfilter/nf_tables_ipv6.h
-index d7b8c559b795..06c0a57d54f0 100644
---- a/include/net/netfilter/nf_tables_ipv6.h
-+++ b/include/net/netfilter/nf_tables_ipv6.h
-@@ -30,17 +30,16 @@ static inline int __nft_set_pktinfo_ipv6_validate(struct nft_pktinfo *pkt, int n
- {
- #if IS_ENABLED(CONFIG_IPV6)
- 	unsigned int flags = IP6_FH_F_AUTH;
--	struct ipv6hdr *ip6h, _ip6h;
- 	unsigned int thoff = nhoff;
- 	unsigned short frag_off;
-+	struct ipv6hdr *ip6h;
- 	u32 pkt_len, skb_len;
- 	int protohdr;
- 
--	ip6h = skb_header_pointer(pkt->skb, skb_network_offset(pkt->skb) + nhoff,
--				  sizeof(*ip6h), &_ip6h);
--	if (!ip6h)
-+	if (!pskb_may_pull(pkt->skb, sizeof(*ip6h)))
- 		return -1;
- 
-+	ip6h = ipv6_hdr(pkt->skb);
- 	if (ip6h->version != 6)
- 		return -1;
- 
+Johannes shared some thoughts on this here:
 
---VkGGqG0RUrhCu0NS--
+https://lore.kernel.org/linux-mm/aejtfpBUu7gNV6Tk@cmpxchg.org/
+
+Do you have any traces showing how many pages kswapd scans and
+reclaims while kcompactd makes little progress toward satisfying
+order-9 allocations?
+
+Basically, I think we need some form of throttling to prevent
+kswapd from freeing more and more memory when there is already
+plenty of free memory, yet compaction is making little progress
+toward satisfying order-9 allocations.
+
+>
+>         /* better to run aging even though eviction is still possible */
+>         return evictable_min_seq(min_seq, swappiness) + MIN_NR_GENS =3D=
+=3D max_seq;
+>
+> I will give this a test later and share more findings.
+
+Thanks,
+Barry
