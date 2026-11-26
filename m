@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795669500;
-	b=Yy8a5st13hWbp/dbEkZK9f7eIWDfPKnyZQS1yeWtrxtSllnLxEqHFW98JLh/9hQf599V
-	 k2WjAogJZFQ6kffGFUydEzsgnN+Cux5z8dnRSrRjHCMLqKHuScLL6/CR8hJiee27dKnWJ
-	 RDmDZvfE8sEZHUbaRRpKlCnn2fHMiOSqXPVcJon8E+mwTOVZNUtJKCZLxarjJoxtAGEr1
-	 4IVLP6wsnCMtj4fW5EcDRKToFvo8lOQlCmaTFQRobsYayLkknh88Yw+HuT5Ww8I19jV8g
-	 XAZSwgPN0Lt443amVb10DmjRI4QRIrANPoRoqpaMFHqAFdKYmDq003PJka3/NgsZmrw==
+	t=1795669549;
+	b=yH4Na0x+TnitFiQ3maoqjE0IVWwnlz0tSj2D/GZNgXS4OEjBen/aR3lk2oJNVc+x2ctL
+	 pcze6o5NvtulNH8GzszM2e0la4f+RPj5JCwMwYIg4Ysya1bpzRxPwPXUjGlzmcSJdYDp1
+	 ZUsef1GRKVlR7VqEvVRazVSlbY59EF2IMT03aMzNUR3/nOuGtYcG+5QeeuTIjxlsKkB3I
+	 oc6Nuw1UPkUSTiiYRLHHVchiFgV8yl2aGYvA8cuFSKIUKDu6zulX8WxnetBY/zWYVUbIc
+	 GUNLYNqDQoQCTRXQWNR9sUnzPCLpuk8ulC41TiyHooPiWUExz8xSOj67SsNPvlkhwIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795669500;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795669549;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=fnI9fUiuSHBT3AmJ/kAlgmIimI8+chPnVw6fHdyz8LQ=;
-	b=xx/nOT6u5qwK95M/y6tePqC/MF2DHnOysomMVTmbV6CDPQwJDiYvU/WgOHOvIPh5ZMmO
-	 0v/t/2HVGju9IEjRTkMIDlydapjgeXe4zmFqgutB0+IZDagEWIO8QQ1Etx8Iz3IlABylm
-	 XKbuccS7sbDXhCxlGkPoGdSlCkGG3cSJXEqUIKgVkDkFQfOV7uKI5wzU3i9r03Z1gYN+c
-	 guV8UmGQPjsFk5re+PxtoncJSlGDv9GV1qwHx5p4np4c0aGqaPYK0Ec1SaFK1JcLmCKFn
-	 v2welQSmNVSjaVtNhA8/VO8RCw9GKay0F8GkIzrxdk+1nnZJnGKFX6s/ljOlHhnlGAA==
+	bh=x8dbAoZSkg+EajqZkqIm6PORMnA2yfEze5aiARIaEBM=;
+	b=DIUCThN78kDeQA7HCsR/HXlwktB9YjB5pC4ydhHXLOUExgvR+w1jO6tPxNBiZmm7Z1l/
+	 z1MgHDC+V03syOsCGZppYWZu5KTq7YBeZk9sXbdnREsVn5m1w88MmtCL7wVWuPQBOVLmm
+	 lLbj9WzhPWyLS2aIYCIgqHJEYRz0BqxK18c+3JQFeOqROpC4FwNo3yvUH7sdoNCG4sMos
+	 XX6aW61OCf3XoePMGw/6saGL669Ded/EPdSkHSfQeQXnjg43NYh+hldKrPuwZ+YsZ8Rpn
+	 N7JbcRQENwqOHBAjjtKO7vfEGgoU15i2zRp4mZ+WsjqsqyVi+aKI3bA9a9qYdh8hkLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lj1Qwby8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="N6UGAVa/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7461A606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:05:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0580C606A31E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:05:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lj1Qwby8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AC101F000CA;
-	Thu, 26 Nov 2026 05:04:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N6UGAVa/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48A091F000C4;
+	Thu, 26 Nov 2026 05:05:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795669500;
-	bh=fnI9fUiuSHBT3AmJ/kAlgmIimI8+chPnVw6fHdyz8LQ=;
+	s=k20260515; t=1795669548;
+	bh=x8dbAoZSkg+EajqZkqIm6PORMnA2yfEze5aiARIaEBM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lj1Qwby8/yY9Fhbyy7PD45LQvsK8oZbOVEsDDkvHsZWSaflQ0P27/zFCE0P4ay0qe
-	 1s90R7OtSApqf7fdSvb41zb6JOKfHfvpV3Hfn6zxYmGqm9ENf7ZOVyCq3sKh9dlGX6
-	 9d6sMInWp7RVdOqODJbhRnCZ8F2L1oSisUO5VC23OyKPjeCFT0yF4Ul3oQqGjdBcry
-	 KVMTlgsioTbnopmzQ97eq2dCtgrLfPZY7ropeDKXHicd3g5EKy4SiH0AIAX86OuVoI
-	 Ybcq2ZqnF+sm0PJ0AdVjfuZ7t9JFDzP/tXIj/CJ9vbzkTlRW6Z8deP4FSe5h8dyhG0
-	 RaN2t+Klbi6Uw==
+	b=N6UGAVa/8Y54sCwjgEwpu+9ZffziP0niRHgS8Axvb/7s+sYbE4SWi5XnvGy+qL6D4
+	 vM3RMlwPYnFilzt6pK63Cmte6bgU3Pfbuh8kTlqI36uGTM0obL3sxhsZwqBlp30p+t
+	 9iqOFcK38ur8SFidHJxz+V80FiIOwVoIFI3yJo9gERyzPRQ3YmWPIQ3BhlsVaoeifN
+	 sPV0WmW2/P8oCZJS7P8ghK43qAhrsTUIk8imO1BOHyCxDUHzkahmrk5L2aXcTXmpba
+	 ySEmWAhHCVw/VgSoRrGtyazY73Js2pHOBhyo0KLKJXwDkH9QdDM5pW+MgOTvKRg18H
+	 Piia4XmK35UxQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Weijiang Zhou <weijiang.zhou@unisoc.com>,
-	Hongyu Jin <hongyu.jin@unisoc.com>,
+Cc: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>,
+	syzbot+c8564fc0a96e3ecbe4d4@syzkaller.appspotmail.com,
 	Mikulas Patocka <mpatocka@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] dm-verity: don't restart or panic on errors during system shutdown
-Date: Thu, 26 Nov 2026 00:04:58 -0500
-Message-ID: <20261126050433.2096184-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] dm cache: validate the discard block size before narrowing
+Date: Thu, 26 Nov 2026 00:05:46 -0500
+Message-ID: <20261126050529.2095647-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112516-magnetize-reverb-2675@gregkh>
-References: <2026112516-magnetize-reverb-2675@gregkh>
+In-Reply-To: <2026112510-cesspool-letdown-737d@gregkh>
+References: <2026112510-cesspool-letdown-737d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,89 +62,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Weijiang Zhou <weijiang.zhou@unisoc.com>
+From: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
 
-[ Upstream commit 47930d1236d2988cdc580c10d3af21b6b02d7ece ]
+[ Upstream commit df8daa4d916c88ef7888c738e0eb3b6f11714a6f ]
 
-Commit 252bd1256396 ("dm verity: skip verity work if I/O error when system
-is shutting down") stopped I/O errors during shutdown from triggering a
-restart, since devices may legitimately be gone by then. Errors that reach
-verity_handle_err(), e.g. through a failed hash block read followed by a
-failed FEC attempt, are not covered and still call kernel_restart() or
-panic().
+The discard block size doubles until the origin fits within the discard
+bitset limit. too_many_discard_blocks() passes this sector_t size to
+sector_div(), whose divisor is only 32 bits. Once the size exceeds that
+range, the division uses a truncated divisor, which can become zero.
 
-During a reboot that is both wrong (nothing is corrupt) and harmful: it
-races with the reboot already in progress and replaces its reason with
-"dm-verity device corrupted", which bootloaders such as Android's treat as
-a verity failure and switch the device to EIO mode.
+Use a 64-bit divisor when checking the block count. The selected size is
+stored in a u32, so reject sizes that cannot be represented before the
+assignment and before calculating the bitset size. This prevents a
+truncated zero size from reaching dm_sector_div_up().
 
-Apply the same shutdown check in verity_handle_err(). Corruption is still
-logged, recorded in hash_failed and reported via uevent, and the I/O still
-fails.
+An earlier proposal checks whether the mapped length exceeds the origin
+device. This fix also covers an origin device whose valid size requires a
+discard block size beyond the field's range.
 
-Signed-off-by: Hongyu Jin <hongyu.jin@unisoc.com>
-Signed-off-by: weijiang.zhou <weijiang.zhou@unisoc.com>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Fixes: 252bd1256396 ("dm verity: skip verity work if I/O error when system is shutting down")
+Reported-by: syzbot+c8564fc0a96e3ecbe4d4@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c8564fc0a96e3ecbe4d4
 Cc: stable@vger.kernel.org
-[ sashal: adjusted context in verity_verify_io() (it returns r instead of 0) and in the removed system-shutdown helper's neighbors, where restart_io_error() is absent from the surrounding code. ]
+Fixes: 08b184514f65 ("dm cache: revert 'prevent corruption caused by discard_block_size > cache_block_size'")
+Signed-off-by: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+[ sashal: Adjusted the include context: added only #include <linux/math64.h> between init.h and mempool.h, since kstrtox.h isn't present in this tree. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/md/dm-verity-target.c | 27 ++++++++++++++++++---------
- 1 file changed, 18 insertions(+), 9 deletions(-)
+ drivers/md/dm-cache-target.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-index d92eae5278309..2a7266f96ce6a 100644
---- a/drivers/md/dm-verity-target.c
-+++ b/drivers/md/dm-verity-target.c
-@@ -207,6 +207,15 @@ static void verity_hash_at_level(struct dm_verity *v, sector_t block, int level,
- 		*offset = idx << (v->hash_dev_block_bits - v->hash_per_block_bits);
- }
- 
-+/*
-+ * Skip verity work in response to I/O error when system is shutting down.
-+ */
-+static inline bool verity_is_system_shutting_down(void)
-+{
-+	return system_state == SYSTEM_HALT || system_state == SYSTEM_POWER_OFF
-+		|| system_state == SYSTEM_RESTART;
-+}
-+
- /*
-  * Handle verification errors.
-  */
-@@ -254,6 +263,15 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,
- 	if (v->mode == DM_VERITY_MODE_LOGGING)
- 		return 0;
- 
-+	/*
-+	 * Devices may already be quiesced (e.g. UFS set offline by its
-+	 * shutdown hook), so a failure here does not imply corruption.  Fail
-+	 * the I/O but do not restart or panic, which would also override the
-+	 * reboot reason of the shutdown already in progress.
-+	 */
-+	if (verity_is_system_shutting_down())
-+		return 1;
-+
- 	if (v->mode == DM_VERITY_MODE_RESTART)
- 		kernel_restart("dm-verity device corrupted");
- 
-@@ -548,15 +566,6 @@ static int verity_verify_io(struct dm_verity_io *io)
- 	return 0;
- }
- 
--/*
-- * Skip verity work in response to I/O error when system is shutting down.
-- */
--static inline bool verity_is_system_shutting_down(void)
--{
--	return system_state == SYSTEM_HALT || system_state == SYSTEM_POWER_OFF
--		|| system_state == SYSTEM_RESTART;
--}
+diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
+index 79b4eec0ce8de..8b4e64b36a6e0 100644
+--- a/drivers/md/dm-cache-target.c
++++ b/drivers/md/dm-cache-target.c
+@@ -16,6 +16,7 @@
+ #include <linux/dm-kcopyd.h>
+ #include <linux/jiffies.h>
+ #include <linux/init.h>
++#include <linux/math64.h>
+ #include <linux/mempool.h>
+ #include <linux/module.h>
+ #include <linux/rwsem.h>
+@@ -2393,9 +2394,7 @@ static int create_cache_policy(struct cache *cache, struct cache_args *ca,
+ static bool too_many_discard_blocks(sector_t discard_block_size,
+ 				    sector_t origin_size)
+ {
+-	(void) sector_div(origin_size, discard_block_size);
 -
- /*
-  * End one "io" structure with a given error.
-  */
+-	return origin_size > MAX_DISCARD_BLOCKS;
++	return div64_u64(origin_size, discard_block_size) > MAX_DISCARD_BLOCKS;
+ }
+ 
+ static sector_t calculate_discard_block_size(sector_t cache_block_size,
+@@ -2432,6 +2431,7 @@ static int cache_create(struct cache_args *ca, struct cache **result)
+ 	struct cache *cache;
+ 	struct dm_target *ti = ca->ti;
+ 	dm_block_t origin_blocks;
++	sector_t discard_block_size;
+ 	struct dm_cache_metadata *cmd;
+ 	bool may_format = ca->features.mode == CM_WRITE;
+ 
+@@ -2531,9 +2531,15 @@ static int cache_create(struct cache_args *ca, struct cache **result)
+ 	}
+ 	clear_bitset(cache->dirty_bitset, from_cblock(cache->cache_size));
+ 
+-	cache->discard_block_size =
++	discard_block_size =
+ 		calculate_discard_block_size(cache->sectors_per_block,
+ 					     cache->origin_sectors);
++	if (discard_block_size > U32_MAX) {
++		*error = "Discard block size exceeds 32 bits";
++		r = -EOVERFLOW;
++		goto bad;
++	}
++	cache->discard_block_size = discard_block_size;
+ 	cache->discard_nr_blocks = to_dblock(dm_sector_div_up(cache->origin_sectors,
+ 							      cache->discard_block_size));
+ 	cache->discard_bitset = alloc_bitset(from_dblock(cache->discard_nr_blocks));
 -- 
 2.53.0
 
