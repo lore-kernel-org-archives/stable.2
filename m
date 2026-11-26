@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795669771;
-	b=e9Q2a/tpnLsxrLJgOdsJOYxHH7a9/wTQ/SJwS0EJZXGRx3NIibk4jY55P2UuGwgRkjO7
-	 uPpQ41VYIP3VM+a1TZabHWMDsgUliNM/i+OnQSC+UGpo/TQyzZMOg/inFMjusPxR9/rTc
-	 CjMhrj/Tv24Jm5F6R0KZ1D7gHePEBxg/zv/8HxrA8K0BIrfMQhQxVQQzeQsRag8Onn+Is
-	 M/ieNaNFPBxmfx1Ids9Lh13VKutyOZ2JcH0H5kEAOsoNhJWWrxt0uXERnn3G/sSfU6khm
-	 E2R5rpvzG5zD18lHocIOS+AgGUoXoqTQknMfmFmS3n7xJLuc3v9B5UjgQ6TJP7fkbDg==
+	t=1795669773;
+	b=QA4kBGmWT6mOiZ/lafaR6tjUFOEX2WAl3ClUv8Qe4933kHnQuYARW1b/zsYlhgktWn1e
+	 qaTjQmOfFuhwCl32PfjxWh8wk4kD1l54Ecd4dHUDlUP89fNbIayiEKX28yk7Ncq+gzukr
+	 3PCfc6B/QcvlioIZ1w9BvAbUEDTxBG2XIq1gv6XOItdvWyVxnwhDARLD0d19LH8QMhkAi
+	 7xJA21ba8IHbfhOvmylGb3Oz8W5BIaNG7vUhQf0i1LFxzXfS3rmWP7TUEINWEiboQqRdt
+	 L7zVQ+rxlYHH+pgcZQs8o8aPMdU+O4wyDsqNDSJEc8NNTwrF+I7O99g7AFYg/cAxyTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795669771;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795669773;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=osE3/eOhEkL+VjTp2OEjMYKItmA7z0rMcUS/IUtcuf4=;
-	b=CeZPjOvFazRhO2xZG7g+YQI6UFUMZNSBkNyM1JBZ5w5AJR7D0j9Y9p5YUpOQ8U0BlqT+
-	 luRe80oCdquV7boEbRzyvUyE21Sv7PTqfRFEY7/4KGKvW3YDoc7FJelCyxjjgL1fgDbai
-	 fp8C573Gusiw46ikRDG5blv+tJtRnlQsxXnbTePq9gtvxZUw8tcVbw6bbiD42WzpFJ/W2
-	 t+3mNRlz4OGf2I0M5EjAu2mdyRZAOPVh/lqRz0ctWKqVzcEE/WNKqNrXIsQpxLxAR5obW
-	 T074T05GS3vf1TZoZoF3FuvpJXT74CMmGCwPmld2XLTjlhmUb3zCEGTRv4TMGE3agww==
+	bh=lSqVwXvj52yALqt74Jq/T4t2G1wSU1e3b7vmb5FK1EU=;
+	b=MU2fxFo9sAXRTMfFs3wKX63FzfOTkCtSYWccpx8yeqMYbjgDnMmHHOh97+zlT5flEXnA
+	 HEywE/G0qB2aDWMnjP2O/YHZLNSzrepB5Jr02T6xM8Cm4QPHTNKH60qOYL/6GM5EAS7al
+	 lPrWj5Psd+6SJVkae/7Sa9yhG7cSlTtgwPM0IdkcPqVDhbau17qls4L1C2t3Q07G2u6Uq
+	 Acx4zpN/vDZfYZlQbHQwWa9ot3eZHZf/Rs9KwvXQrWmtvH4rTPvzqeeImLJdllcSdQmCf
+	 ENaZ42YfwFJAQsYoSCFzYHmRRMuqFzPN9vPOd0R4bJeVC7ZVasuojtsFy+Iq3TTSF0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Go48e9/G";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KSAOPjEc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E589D606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:09:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A68F606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:09:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Go48e9/G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1772B1F000EF;
-	Thu, 26 Nov 2026 05:09:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KSAOPjEc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81AF01F000D4;
+	Thu, 26 Nov 2026 05:09:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795669770;
-	bh=osE3/eOhEkL+VjTp2OEjMYKItmA7z0rMcUS/IUtcuf4=;
+	s=k20260515; t=1795669772;
+	bh=lSqVwXvj52yALqt74Jq/T4t2G1wSU1e3b7vmb5FK1EU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Go48e9/GBh6vq5ThTP0OCK+3lSV38+RYck6FwBIlV/Sv5CE9hVgsnKZbZ+CzveOWm
-	 pt8Y0/qXh9qhXg+6jUTUlssJxb1+1RlQRV39GfTkIBEmLDiuOBC0ZyANWJwwkD8iBY
-	 NxDB1zEaLZKakXjJtV33qTkrY1JCTArEP/Gm35i4bjAZYz/YNwLK0neHKcwG077AP1
-	 DToMJ6CGmtIIoJpaSBCj/eicSDRCxxsOtWGC0It721mDLKajO+VmvzIDPBSkjlkUjq
-	 4IFA7PO5YifEySlYaNXIeWXfnIC5q/irP+u8bn06cbQ7ZshmI1Yvm1c6zMZGrEoN9l
-	 AxZdL134SP7RA==
+	b=KSAOPjEc92u63ied6mrJsRIJjYlZSdC/koFj6ggtPr1bHsQjQ/9Nd0F86k4E/IQtt
+	 EHsRkvtOFRLtdkz3BUn1VCUxKZuBGyVlIPjUlDTovURImJIraLUovdtT2YucNpTcYD
+	 1OIIodag+LB9EETZ3ZD+uwWdg9x5Wuch3EpiKxGsvPz0FFR/KEyGuU4xLzlPTuIwyb
+	 6WO9d8AkIBM72K+7e9qGAeZK+4GY85Mui+rumYyn+tD7+xSm0e9ZT4E9hoZz/K+Gbb
+	 aBsTfetrsdspUVnHp1orzh6rYDiqnm1yP7w0zmd4nqjVeOuwMYqVzptsphzyP9lG7S
+	 H7quKpkzbJwGA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Samuel Moelius <sam.moelius@trailofbits.com>,
+Cc: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>,
+	syzbot+c8564fc0a96e3ecbe4d4@syzkaller.appspotmail.com,
 	Mikulas Patocka <mpatocka@redhat.com>,
-	Ming-Hung Tsai <mtsai@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/3] dm cache: parse invalidate_cblocks with kstrtouint()
-Date: Thu, 26 Nov 2026 00:09:26 -0500
-Message-ID: <20261126050921.2111286-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/3] dm cache: validate the discard block size before narrowing
+Date: Thu, 26 Nov 2026 00:09:27 -0500
+Message-ID: <20261126050921.2111286-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261126050921.2111286-1-sashal@kernel.org>
 References: <2026112510-mandatory-improve-2cc3@gregkh>
@@ -63,147 +63,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Samuel Moelius <sam.moelius@trailofbits.com>
+From: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
 
-[ Upstream commit 00211ede62facec2915a7e6cfc17f8ce987a0078 ]
+[ Upstream commit df8daa4d916c88ef7888c738e0eb3b6f11714a6f ]
 
-invalidate_cblocks parses cache block numbers with sscanf() and then
-stores them in the narrower dm_cblock_t type.  Values larger than the
-cblock representation are truncated before invalidation, so a request
-for one cache block can invalidate a different block.
+The discard block size doubles until the origin fits within the discard
+bitset limit. too_many_discard_blocks() passes this sector_t size to
+sector_div(), whose divisor is only 32 bits. Once the size exceeds that
+range, the division uses a truncated divisor, which can become zero.
 
-Checking the parsed value after sscanf() is not sufficient because
-sscanf() does not reliably reject values beyond U64_MAX before storing
-into the destination.  Such inputs can still be converted to a wrapped
-u64 value and then pass a later range check.
+Use a 64-bit divisor when checking the block count. The selected size is
+stored in a u32, so reject sizes that cannot be represented before the
+assignment and before calculating the bitset size. This prevents a
+truncated zero size from reaching dm_sector_div_up().
 
-Split ranges in place and parse each single value or range endpoint
-directly with kstrtouint() instead.  This rejects malformed values and
-values that do not fit in dm_cblock_t before they can be converted to
-cblock values.  The existing range validation continues to reject empty
-or out-of-cache ranges, including the single-value U32_MAX case whose
-exclusive end wraps to zero.
+An earlier proposal checks whether the mapped length exceeds the origin
+device. This fix also covers an origin device whose valid size requires a
+discard block size beyond the field's range.
 
-Assisted-by: Codex:gpt-5.5-cyber-preview
-Signed-off-by: Samuel Moelius <sam.moelius@trailofbits.com>
+Reported-by: syzbot+c8564fc0a96e3ecbe4d4@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c8564fc0a96e3ecbe4d4
+Cc: stable@vger.kernel.org
+Fixes: 08b184514f65 ("dm cache: revert 'prevent corruption caused by discard_block_size > cache_block_size'")
+Signed-off-by: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
 Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Reviewed-by: Ming-Hung Tsai <mtsai@redhat.com>
-Stable-dep-of: df8daa4d916c ("dm cache: validate the discard block size before narrowing")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/md/dm-cache-target.c | 56 ++++++++++++++++++------------------
- 1 file changed, 28 insertions(+), 28 deletions(-)
+ drivers/md/dm-cache-target.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
-index 69ab5f9a33483..d304e62fe2cc2 100644
+index d304e62fe2cc2..7d7bd25e27517 100644
 --- a/drivers/md/dm-cache-target.c
 +++ b/drivers/md/dm-cache-target.c
-@@ -14,6 +14,7 @@
- #include <linux/dm-kcopyd.h>
+@@ -15,6 +15,7 @@
  #include <linux/jiffies.h>
  #include <linux/init.h>
-+#include <linux/kstrtox.h>
+ #include <linux/kstrtox.h>
++#include <linux/math64.h>
  #include <linux/mempool.h>
  #include <linux/module.h>
  #include <linux/rwsem.h>
-@@ -3306,42 +3307,46 @@ struct cblock_range {
- 	dm_cblock_t end;
- };
- 
-+static inline dm_cblock_t cblock_succ(dm_cblock_t b)
-+{
-+	return to_cblock(from_cblock(b) + 1);
-+}
-+
- /*
-  * A cache block range can take two forms:
-  *
-  * i) A single cblock, eg. '3456'
-  * ii) A begin and end cblock with a dash between, eg. 123-234
-  */
--static int parse_cblock_range(struct cache *cache, const char *str,
-+static int parse_cblock_range(struct cache *cache, char *str,
- 			      struct cblock_range *result)
+@@ -2392,9 +2393,7 @@ static int create_cache_policy(struct cache *cache, struct cache_args *ca,
+ static bool too_many_discard_blocks(sector_t discard_block_size,
+ 				    sector_t origin_size)
  {
--	char dummy;
--	uint64_t b, e;
-+	char *blocknr = strsep(&str, "-");
-+	unsigned int b, e;
- 	int r;
- 
--	/*
--	 * Try and parse form (ii) first.
--	 */
--	r = sscanf(str, "%llu-%llu%c", &b, &e, &dummy);
-+	r = kstrtouint(blocknr, 10, &b);
-+	if (r)
-+		goto bad;
- 
--	if (r == 2) {
--		result->begin = to_cblock(b);
--		result->end = to_cblock(e);
--		return 0;
--	}
-+	result->begin = to_cblock(b);
- 
--	/*
--	 * That didn't work, try form (i).
--	 */
--	r = sscanf(str, "%llu%c", &b, &dummy);
-+	if (str) {
-+		blocknr = str;
- 
--	if (r == 1) {
--		result->begin = to_cblock(b);
--		result->end = to_cblock(from_cblock(result->begin) + 1u);
--		return 0;
-+		r = kstrtouint(blocknr, 10, &e);
-+		if (r)
-+			goto bad;
-+
-+		result->end = to_cblock(e);
-+	} else {
-+		result->end = cblock_succ(result->begin);
- 	}
- 
--	DMERR("%s: invalid cblock range '%s'", cache_device_name(cache), str);
-+	return 0;
-+
-+bad:
-+	DMERR("%s: invalid cblock range '%s'", cache_device_name(cache), blocknr);
- 	return -EINVAL;
- }
- 
-@@ -3372,11 +3377,6 @@ static int validate_cblock_range(struct cache *cache, struct cblock_range *range
- 	return 0;
- }
- 
--static inline dm_cblock_t cblock_succ(dm_cblock_t b)
--{
--	return to_cblock(from_cblock(b) + 1);
--}
+-	(void) sector_div(origin_size, discard_block_size);
 -
- static int request_invalidation(struct cache *cache, struct cblock_range *range)
- {
- 	int r = 0;
-@@ -3400,7 +3400,7 @@ static int request_invalidation(struct cache *cache, struct cblock_range *range)
+-	return origin_size > MAX_DISCARD_BLOCKS;
++	return div64_u64(origin_size, discard_block_size) > MAX_DISCARD_BLOCKS;
  }
  
- static int process_invalidate_cblocks_message(struct cache *cache, unsigned int count,
--					      const char **cblock_ranges)
-+					      char **cblock_ranges)
- {
- 	int r = 0;
- 	unsigned int i;
-@@ -3455,7 +3455,7 @@ static int cache_message(struct dm_target *ti, unsigned int argc, char **argv,
+ static sector_t calculate_discard_block_size(sector_t cache_block_size,
+@@ -2431,6 +2430,7 @@ static int cache_create(struct cache_args *ca, struct cache **result)
+ 	struct cache *cache;
+ 	struct dm_target *ti = ca->ti;
+ 	dm_block_t origin_blocks;
++	sector_t discard_block_size;
+ 	struct dm_cache_metadata *cmd;
+ 	bool may_format = ca->features.mode == CM_WRITE;
+ 
+@@ -2530,9 +2530,15 @@ static int cache_create(struct cache_args *ca, struct cache **result)
  	}
+ 	clear_bitset(cache->dirty_bitset, from_cblock(cache->cache_size));
  
- 	if (!strcasecmp(argv[0], "invalidate_cblocks"))
--		return process_invalidate_cblocks_message(cache, argc - 1, (const char **) argv + 1);
-+		return process_invalidate_cblocks_message(cache, argc - 1, argv + 1);
- 
- 	if (argc != 2)
- 		return -EINVAL;
+-	cache->discard_block_size =
++	discard_block_size =
+ 		calculate_discard_block_size(cache->sectors_per_block,
+ 					     cache->origin_sectors);
++	if (discard_block_size > U32_MAX) {
++		*error = "Discard block size exceeds 32 bits";
++		r = -EOVERFLOW;
++		goto bad;
++	}
++	cache->discard_block_size = discard_block_size;
+ 	cache->discard_nr_blocks = to_dblock(dm_sector_div_up(cache->origin_sectors,
+ 							      cache->discard_block_size));
+ 	cache->discard_bitset = alloc_bitset(from_dblock(cache->discard_nr_blocks));
 -- 
 2.53.0
 
