@@ -1,54 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795698893;
-	b=1oyFpPs/eQOddynv2GieXnLK67IdeDv4L8n22GXh8necBnvkt/gBUwx7wxFDTDRIqWs+
-	 ze+SCFp3gM4SvqjMoSAQ9NoUc37XMdU7mN39al2foSTZ9xH3kYjAUf0WhjK6IwF/WNZPH
-	 Yu+20/PolZvTvHYWdqvWrrM8LlD4fV0MygFMDhxvAsSX232ADPeKTMwKxVZq9yr4ILPIl
-	 tNln/kQYOLKVVX4jfc7U09ShxdBNKeO/Ps8tO5+BbxslCZ+nZKAAoQ6FcCK/jPgDtCNcr
-	 YTLj1HOCgYDMm3Zl6YcShdzG0eRj5obQBLvm6W8nGJOT6czchWU6JxSV1zwgagrKsOw==
+	t=1795698907;
+	b=YoH8mNxx1Sb5m18ZjC30L4DjLIWao1suSwGzBE0ZAJ877kgd8+v4xFB9bWyO/PkIRnDi
+	 oVaXePWEhHSjxQIG/Y4pq5BmeUjIfBBxP26PBpcUsPPRYVdD7G8/cm/Fz+5/7Axz1qrsO
+	 NnFhf16oEORBPqYbP2RSifsdnPNJXKHa1MszU4h/nZd9uaNsu5TVsIYIcho+5xW84vYMX
+	 1NWLAFbiDxZsIbOV4tdc/dpdTwKTGE+oNBNNJ0on0myWqxAtHEFcQBoZUaOd4u47erzeA
+	 6s2uYUtBJ9Y46IqpWcZp3ambKoMUg1Bb6ou1goJfaJlFlTzH05P9M+gQU0RvNlHZtOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795698893;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2KA9MqjKO6Y0itKOF5tb4TxqbmmYNjVJ8YP1PqMh9IM=;
-	b=1NUmAZyzAYeqYJ+t60MY7P6I5s7Gu5rtE4YVq/ahO67wNs2gMboVMkHnrsdsIxlGweAe
-	 87PXXrm3fQ5GpRmOwEdkj6cxd40x5lQ6fSTxx2/eyaM9jJQ3jQiTUa47N2VyHsCwRluCm
-	 MnpoJDJtvh2J1vvkTKlNQv64cfh+cmNIaDb4s3sdCU/to0zTA03hmLSc+btrF6kyac68V
-	 lbjLICF8MUcBRc7qYSTBGi5DaVHOf6Sel7JUpmwtJVpeKttiLpT80vo+iXgWajyu94wpS
-	 qigXcNsrZ6MPovo4paxkwlsMA+dgIUxWBh3T43fTX6BqNNk5OT+XerSfuLgs1LkaDCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795698907;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=nvZSFE/PjkvX1iQqHe4rEkvvaUjjq3HmhX1scd4d9CY=;
+	b=IlCnPxlLPVenVElMlvz8WsOPbAO3MxkzLZ0w8iTPo3NRWzWr908+zDtUTFmTA0JX7wuD
+	 enS3XROvx7zEsg2/Hf4eF9byRsmPEyBsR+RJJQzPFaX8jx3lvS0JlhlO+HWY/qXtx00iw
+	 54DqFlIVxpp+Akn0ErQ0i77kzr7tih9fri8DmRGUsRbul30ZceIFEXk2C2LIjuigyJu6k
+	 aYk2ffBFolop5it5ozV/JOBOv6CjrcBqUw/e1e+8p2uhVW3e9Ua2uJO6VLkprDI9vN6/g
+	 vNMp7uDf/L4bTphvZeWmh/IBFYIczSK/Kya7VVFg9YwT6iXadGjGUF4IDAi4dXD/K8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hChVRP+s;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JXNunxIM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E82F606A329;
-	Thu, 26 Nov 2026 13:14:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F49E606A327;
+	Thu, 26 Nov 2026 13:15:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hChVRP+s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9199D1F000D1;
-	Thu, 26 Nov 2026 13:14:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JXNunxIM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B207F1F000CF;
+	Thu, 26 Nov 2026 13:15:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795698892;
-	bh=2KA9MqjKO6Y0itKOF5tb4TxqbmmYNjVJ8YP1PqMh9IM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hChVRP+sp4WkuxaxWWgjsCwNsMtIPgNRvVQM42gAlafrAWE/Ia+WnSTQr0t8pU4i7
-	 SKBvNzbluU8Ywh8inYRFXh07aJK6OnMOaYI/IKeoiMmWlbs/hGLQ+v53knpkbYzozM
-	 o4c1kz8VUU2afBVFkqSVfh5KjbiBK77siR4o9OWR8mukBaMOPGRsqXeSHwI0Db87Rk
-	 68+qCdrvbpCFccGQkRY6vxHGGtL5qeGZ3tUw/HfEbKH26vjIwHkyIcfnLMwYFEKfYV
-	 +kLkCGh/Bi2Z8mZIeDns6fu8tnRpVf17aMYhr7L2ETgQu0+Rouw37I0HaaOmartfxO
-	 /m8sA7U35xfkw==
-Date: Thu, 26 Nov 2026 14:14:48 +0100
-From: Andi Shyti <andi.shyti@kernel.org>
-To: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, 
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Markus Haberlander <markus.haberlander@rosenberger.com>
-Subject: Re: [PATCH] i2c: cgbc: Fetch the status of a write transfer
-Message-ID: <awgwO98qx3zX4MaY@zenone.zhora.eu>
-References: <20261123-cgbc-i2c-write-status-v1-1-5b0fa0322b57@rosenberger.com>
- <179568834099.302193.16315749597111506309.b4-review@b4>
+	s=k20260515; t=1795698906;
+	bh=nvZSFE/PjkvX1iQqHe4rEkvvaUjjq3HmhX1scd4d9CY=;
+	h=From:To:Cc:Subject:Date;
+	b=JXNunxIM1hhLnZB/if9UZ5Tv6G2xhKy2nPei+c+x8gRZAN/ibNWnWGfvCkl01Oyv3
+	 IwmkLCI2G/pkC8ORUdw1tF01ol/eVOA+O22l7AONgXmuSxKzTVmfbY5fItqe6m+tEq
+	 crqogXB1etXRFzNmNv86hYj4eeWiLBHQaXWxTcCfj4XMXHtxtRa7Au621DNjHDP8dm
+	 tI9+x0moco/LaDUTs5hXnxoMn/uAdhqG1fEAvo/SPDXovq+H7bMEgJFSCrx4l1ZoVc
+	 Onkf7rMgZp4XSZsXtRokaWqLOe6fUh8ATyU1kYy2K9YU+9a3R4ElMwzADiF3ONTUi/
+	 7i3abT7w2F3JQ==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: Benno Lossin <lossin@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	Miguel Ojeda <ojeda@kernel.org>
+Cc: rust-for-linux@vger.kernel.org,
+	Boqun Feng <boqun@kernel.org>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH] rust: init: clean Rust 1.102.0's `clippy::large_unopt_stack_frames` lint
+Date: Thu, 26 Nov 2026 14:14:56 +0100
+Message-ID: <20261126131456.87524-1-ojeda@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,75 +67,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179568834099.302193.16315749597111506309.b4-review@b4>
+Content-Transfer-Encoding: 8bit
 
-Hi Thomas and Markus,
+Starting with Rust 1.102.0 (expected 2027-02-04), Clippy renames the
+`large_stack_frames` lint to `large_unopt_stack_frames` and moves it to
+`suspicious` from `nursery` [1], and thus we start to see it in the
+examples of `try_init!` and `try_pin_init!`:
 
-> > diff --git a/drivers/i2c/busses/i2c-cgbc.c b/drivers/i2c/busses/i2c-cgbc.c
-> > index dfdb9ffc6447..2361591a1e31 100644
-> > --- a/drivers/i2c/busses/i2c-cgbc.c
-> > +++ b/drivers/i2c/busses/i2c-cgbc.c
-> > @@ -254,6 +254,22 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
-> >  		ret = cgbc_command(cgbc, &cmd, cmd_len, NULL, 0, NULL);
-> >  		if (ret)
-> >  			goto err;
-> > +
-> > +		ret = read_poll_timeout(cgbc_i2c_get_status, status,
-> > +					status != CGBC_I2C_STAT_BUSY, 0,
-> > +					2 * algo_data->read_maxtime_us, false, adap);
+    warning: closure generated by this macro may allocate a lot of stack space
+        --> rust/doctests_kernel_generated.rs:6716:9
+         |
+    6716 | /         try_init!(Self {
+    6717 | |             big: KBox::init(init_zeroed(), GFP_KERNEL)?,
+    6718 | |             small: [0; 1024 * 1024],
+    6719 | |         }? Error)
+         | |_________________^
+         |
+         = help: for further information visit https://clippy.rust-lang.org/main/index.html#large_unopt_stack_frames
+         = note: `-W clippy::large-unopt-stack-frames` implied by `-W clippy::all`
+         = help: to override `-W clippy::all` add `#[allow(clippy::large_unopt_stack_frames)]`
 
-would it make sense use USEC_PER_SEC here to preserve the
-existing one-second timeout between write chunks?
+The 1 MiB array is initialized by value, thus the closure that is
+generated would need to hold it in its stack frame (without optimizations,
+which is what the lint goes by).
 
-> > +		if (ret)
-> > +			goto err;
-> > +
-> > +		if (status < 0) {
-> > +			ret = status;
-> > +			goto err;
-> > +		}
-> > +
-> > +		if (status != CGBC_I2C_STAT_IDL) {
-> > +			ret = -EIO;
-> > +			goto err;
-> > +		}
-> >  	} else if (i2c->state == CGBC_I2C_STATE_READ) {
-> >  		xfer.write = 0;
-> >  		xfer.read = len;
-> 
-> I was able to reproduce the issue on conga-SA7 (and also the reboot crash).
-> 
-> $ i2ctransfer -y 11 w1@0x40 0x00	 <- non-existing device
-> $ i2ctransfer -y 11 w1@0x50 0x00 r1@0x50 <- read EEPROM
-> Error: Sending messages failed: Input/output error
-> $ i2ctransfer -y 11 w1@0x50 0x00 r1@0x50 <- read EEPROM
-> 0x01
-> 
-> And with your patch:
-> 
-> $ i2ctransfer -y 11 w1@0x40 0x00	 <- non-existing device
-> Error: Sending messages failed: Input/output error
-> $ i2ctransfer -y 11 w1@0x50 0x00 r1@0x50 <- read EEPROM
-> 0x01
-> 
-> Reviewed-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
-> Tested-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
-> 
-> Yes it conflicts (compile issue) with the series [1]. The possibilies are:
-> - I pick this patch in my series and send a v7.
-> - [1] is applied, an immutable branch is created, you rebase your patch on
->   top of it, and patch is applied in I2C tree.
-> - [1] is applied, you rebase on top of mfd-next, and your patch is applied
->   in MFD tree.
-> 
-> Andi, Lee, what do you prefer?
+Thus initialize it in place instead.
 
-Let's wait your patches to get in first and then Markus can
-rebase on top of them.
+Note that the warning only goes away together with commit 5a2024c03eb6
+("rust: pin-init: internal: allow `clippy::large_unopt_stack_frames`").
 
-I will now prioritize your series.
+Cc: stable@vger.kernel.org # 6.12.x (Rust is pinned in older LTSs)
+Link: https://github.com/rust-lang/rust-clippy/pull/17749 [1]
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+---
+ rust/kernel/init.rs | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Thanks,
-Andi
+diff --git a/rust/kernel/init.rs b/rust/kernel/init.rs
+index 1fdc3963e3e3..238ebb3b1a71 100644
+--- a/rust/kernel/init.rs
++++ b/rust/kernel/init.rs
+@@ -211,7 +211,7 @@ fn init<E>(init: impl Init<T, E>, flags: Flags) -> error::Result<Self>
+ ///     fn new() -> impl Init<Self, Error> {
+ ///         try_init!(Self {
+ ///             big: KBox::init(init_zeroed(), GFP_KERNEL)?,
+-///             small: [0; 1024 * 1024],
++///             small <- init_zeroed(),
+ ///         }? Error)
+ ///     }
+ /// }
+@@ -263,7 +263,7 @@ macro_rules! try_init {
+ ///     fn new() -> impl PinInit<Self, Error> {
+ ///         try_pin_init!(Self {
+ ///             big: KBox::init(init_zeroed(), GFP_KERNEL)?,
+-///             small: [0; 1024 * 1024],
++///             small <- init_zeroed(),
+ ///             ptr: core::ptr::null_mut(),
+ ///         }? Error)
+ ///     }
+
+base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
+-- 
+2.56.0
+
