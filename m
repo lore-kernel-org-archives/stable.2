@@ -1,90 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795686415;
-	b=TQmdlMkv56M52CJ+RLHEpzUNPTLlQTmJXj91c3h86DNWpznqIP2OhWZ0274MlH7+zLXp
-	 mMfi6bGE9m4+QE5pXZRIo7aRZwxLajc+3sAubp0QieN0zjjWEzkoT8TDl5Ru56X4z1OK4
-	 VURjFqbe4qNMHLf3fokeu7z8rljyKr1zCGAyn3jeOOhRhgbNXRmKAiw8f4nPpLOiCD6Rx
-	 yXv2rNXvzmj2HysQfpM9TEl3Z/VHTzX0jJ3HxSjtiMziverTJAByuBpxsFhV50HW5g6a0
-	 ZMIyOp1K1aTRMhrQfYvjI2L0S+2gXZ+Fu20s+jXjauv3Ve+wYJUlSEbHb5E7+j1B/fQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795686415;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=MC4h41uEDaIRngWv7swOFD5Ize0oaW8izgbEnRz8qLI=;
-	b=EJS3AxNKHodN2OQwXGYzCJCKhMnAspf9x60EKy3tWQdVixjgXanoPdL0zaEtL/mW8/0c
-	 GeZC7nIuF0afIqKkDcbYmU/Fb5gH+dFvGWjXHd4QhXGgcoXY3F8apMBwCgZOmpFdjGkZo
-	 8VQ6AdUAh2nCotnJ+OenQIxu4Dp0AvDUU/+6KExBWQWUwdOwqKMiSj7udcT1epl+jcKHP
-	 XXfUEIgmh9wkZVLoolKbjMYq+3YPiNV4Ilma+P2powRstXpQ+eurzcUuga8NKNvGg2QGo
-	 Ip5cMvlTExndvUKhj01yRXCZ4/hgOjyVnWJUoFDKPuIjDU7+BKF8gZY0tWWElqPRSyA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=cFqsoP72;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.70
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795686549;
+	b=wn+xIfRTN1VXGvYngxVVKTRhr57IbnNBXZPetw1Gif2AW3x7rIteOZT6UizxSpQJ/Plu
+	 Q3iEqQnPGccKlFNjJ7hQCm4LbogbSsmM3klqO8+CbiB2fhreyEnvGXAl1OqsZF8F/4eE+
+	 emxXy9fpfJr2XUEOOHDvy83bSrG8UE7LA+ECCWm3xzP32YTEgr9ZKsdkOfVVXtfTUiukE
+	 64zOjiNP1v4Ddc/Viu0EqFPqAbXRH484rr+yry+3PYMOBTdIveuvzrADykyh2YbrxzMUM
+	 1hrsnBmtY0qQggEzHQgfFYmihby8zTTe3a4byqe5+h6lqq/UHtP11KmOGmozMgZNWxg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795686549;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-B4-Tracking:X-Change-Id:X-Developer-Key:X-Developer-Signature:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=6dZB05s8L/xa0x/oyJAw9mH4rJKsN+Tc+ttIJvUQqrI=;
+	b=QNMUGHwX09dXK3cjkdH2PH6+yYNQJ32YXFgpKgKs+u8aGAy/yKBvw7mHXU0067vQBHxb
+	 saVns7awnzoKr9Dpw3amKPV0J2yb0qpgJV8EKcRWnAJ6zH/mNxhP/+23Q2YHGJqA2LlK3
+	 E14tHEQlXCaTiEVd+kXdmlqjUEh4le/WpToKrvJFWkF/fe7naiSCdGhF09tvZMY3SzeDc
+	 Fybg/HbB7SozOQ+w5ofb3H2WWu11AXXDVVlhqCiHUNM69HpuuDUCe3E1Ou2+I5y3WYNKP
+	 btSPEEQ9GjUIX/lgfQbERcNxf5T4+dQq6WIDuGj6hi+B6lxlMYtmsvqVTes/mpch+4A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fp8N7lzS;
+	arc=none smtp.remote-ip=209.85.221.70
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AE99606A329;
-	Thu, 26 Nov 2026 09:46:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AE99606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16CC7606A31E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 09:49:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16CC7606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=cFqsoP72
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 806BA2007F9;
-	Thu, 26 Nov 2026 10:46:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795686412;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MC4h41uEDaIRngWv7swOFD5Ize0oaW8izgbEnRz8qLI=;
-	b=cFqsoP72y639fqeuayd6tCXH5ELLMc6vJ9jmyXioQt+WK4/ZIQ3itbc3CxGZYW0j9erMJa
-	1P+jjBhG1losB54bIuYqBj01/iGkyH6xwQptFsBHB0+1h3vYmPszDM77CR66ZuOF/WnbV9
-	t6a7OpUgBp60MWx3GC/eR48/yTZW++5X/67TMb2uZW1ClAKzp03XCk+MvLmvsE2cHUStqk
-	+hiqHsnoUOKB2cbUa918NDv1d4wQ3gJqFetHjKB2o9eHOK9PiV6byqtpL95tUJMJ2/0r+M
-	IVBihPR+QBJgbftUKMclvsGdX0xdGw8oXiP7aUZVOdtVm5KeOxauBh6gTFMBpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795686412;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MC4h41uEDaIRngWv7swOFD5Ize0oaW8izgbEnRz8qLI=;
-	b=f8FqESZTwfikt108tJpMPFoYGVChEq+yv+BU9tYjf4lFGW34Cqyj8Qb5nchlfzAwucm69a
-	i7mxXyFVT6d5DyGMkPt8x368eMBtD1k6FNTYlVeyUJv0Bv18TEyuluxMGJnX2vWx6WvHH+
-	7Q9KtY9JVHMOqhpt6+BXSpTTL/AL8LM/fsCXmkOHOEaV78/we/XUkFmmgxF8XSjYYmj5/M
-	kzb8ZPJ+9oW18YOAFBY41smeuc8qCSngcQyegu4k/7KGeKsptCJhco5hHrhFKOsYse3N1N
-	XxDIpUtIHt3tLdfZgsMs0wuYBSZqPqb0reFsWOehVMyzPtvwnaPaXpoML4vbpw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795686412; a=rsa-sha256;
-	cv=none;
-	b=arGxwUgv5R4kYSmyGvImS3qy0zI7qAS/Z5G7RTl0nmE5zO8W5s4yHeCA/l5OW6WARsS4ej
-	LGCp7TD0xMqPfDSNKPgO0iAkQKOE0xeHZLWRsqZXMM2GmDQ0RIZF6MhnRzzwC2QWAyr8vU
-	5QImmXm3pK8p4195Zsc3B21L0tZmpsH0yFLXaHeNr67Y+QiKUNn9wNviUm70dayJRRGI+v
-	dizZpdknVZwzF4z2//lHHE/P1w7nqJOr6CDM4irSY34L4YGECFBFW42eBwOyrXt0K9OFUL
-	I4CFI2P06SIbfpNf7EC3rb2ipFLbHyAdZfhKCJDVGgXzcxko4N365dPrYJAqWA==
-Message-ID: <41ab851c110a3391f1e202a80ac3e0fed913f4b1.camel@pengutronix.de>
-Subject: Re: [PATCH] media: coda: Release firmware if code buffer allocation
- fails
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Yige Jiang <yigejiang86@gmail.com>, Mauro Carvalho Chehab
-	 <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Thu, 26 Nov 2026 10:46:52 +0100
-In-Reply-To: <rc-b1-20261126-vc-161-779570fc1703@gmail.com>
-References: <rc-b1-20261126-vc-161-779570fc1703@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fp8N7lzS
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-4bbc86e1eb0so705684f8f.0
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 01:49:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1795686547; x=1796291347; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6dZB05s8L/xa0x/oyJAw9mH4rJKsN+Tc+ttIJvUQqrI=;
+        b=fp8N7lzSwrTu/9GPaWUsM5v6iLg4AYau+nLme97eCrNL++BNkEGNvfPrHaM/vo8F5K
+         zngzStknlQ39jD6B8t/1rEsrX3bQEkCXS5uLIqMsLhiokK5y2lix7nuFXu5yLQoUB7W7
+         0VxwKSzVoWLhFol8y4egya9cJq5IyRLs7DdtQDJu2hZGpjZTdguc7EP9m2STIMgFKr2M
+         A76B4LRPHMf1MkfJMqtlO6gbS09zd673Yd8jZzy7NIq/jaYMYsKFqzjvF/iuUhH30Hx0
+         X3YlO0Q8STUsOAcLCgUytAoVjidvFIBQVetkHbV726vp4qltv90sMoT7ySZOPEuo8aQV
+         /UQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795686547; x=1796291347;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6dZB05s8L/xa0x/oyJAw9mH4rJKsN+Tc+ttIJvUQqrI=;
+        b=hyT/ENbKvi2meWEwiSDB73z+nA8ongnJT0s5qZb9FKaF9pBWXbHSH5xeZ3zMtqaOTC
+         JwP7oVY88/ZAjQdcA+TuDUY9FKaZg47gL2XPoNPis0p9/baxN5sWiIbMqKgi3sY7dhqD
+         ft9STRwssvdRLfTl8vuez/zJm2VIQG4THF5hw7Kq/1koQnKIrVEiSTNb/nHxZYrDlP+n
+         TsXkjn4gkzR9smo0b/HCsWJ8bpOF0B0BJnw/u3UdTWKHN8PgQoPibx5poYeiO9WJ+0N7
+         12rvKXqJIqy7rJgFnbgitoweb7+XMCQDhfxKqf9IF/c0btnSxBbdziGRCZdea75qN52l
+         aiDA==
+X-Forwarded-Encrypted: i=1; AL+hErGA4oyS1BY+EwHptnL1pcBNhsN1BAMGccVbZUtxikYvT7AxmR2Sj1jX9lZCBdGAB7HyyY9lSNs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+LMH07XYt9nk6X2NthNOt5fR+jNZq+YjAwJcxPQ3YObqEACZln
+	CWk1FrJLF4hcjtYAASPaMuJLFaS8cwDQ9//LxEkL4hGVbv08PCSjvq0WLXc7sX1tn5jWAUbcZjn
+	b4Gsh0LFqvTmxjck3wA==
+X-Received: from wrn9.prod.google.com ([2002:a05:6000:2b89:b0:4bc:7f09:ce4b])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6000:4b13:b0:4b7:75cf:44c6 with SMTP id ffacd0b85a97d-4b775cf4568mr15049720f8f.11.1795686546960;
+ Thu, 26 Nov 2026 01:49:06 -0800 (PST)
+Date: Thu, 26 Nov 2026 09:48:55 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,60 +76,78 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAIcACGsC/x2MSwqAMAwFryJZG7DF/1XEhW1TzSaVFkQQ725wO
+ W9480ChzFRgrh7IdHHhJAqmrsAfm+yEHJTBNrY3xvboWAJllBRUSUyYKeLUtYNzo49DaECvp45 8/9llfd8PQ0bDNGYAAAA=
+X-Change-Id: 20261126-binder-node-info-ref-9547bb8cf7d0
+X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1810; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=R1LORDAvDp4NuZMtOtb8uChUQIctktLSNQnXbs2iwUA=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBrCACNZiRU0nSs9sDT2DUVGV4ZLL/QnKSo4b2oK
+ DeWPZw/A9KJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCawgAjQAKCRAEWL7uWMY5
+ RiwrEACO59M8fGBM2i5vcu9N67sYCetcAHUCfazpxOxDoUzho91GoPYdOJlSf/iePnmZX/oWStS
+ jNHbZYD2GBseA2vwPdHeQHgMT67bVPdvmOVmXmrDG6t0GrTsrcUarwo8MOtnwllJP4N+RM70hYg
+ czzdEWhSje3Ie/9skQJa40X9LUUVSIegAiiYLeg8LwjQTelwlLwou2oXd1eGfd/w1EpxQeQsM/W
+ 42NGjkfUgrUkrMdOWUudR2jwjxSkueatQv8FHhTVUGpHq2Rs/6YPqCFi9ehGJLG9z12Wb+X8eQz
+ dr0aFQEYNSOvI9vYM5LeKTLTPsVikLCaPdIxt7bKAU2FL2kDaObbVqi3IJiqoinK2LiWyrAFbzV
+ KvD/yt0Ytomm44jD0RZ112iWw8tfoWz6tqVoraMeNWsNgsO8naDqwAUjAm+JBTwQa3cZMh8+SFP
+ FmfNBIntjc0eG707t8DpYsuatvWy8HdRTxlASFqPfd6X0SwhIMXNWfCr8QVWY4YnZqhwYreG59Q
+ je3QSvArrs/7y6v5zEhG6rh9rBhjlZCjLu9G8n8h+SofGqqgmmrdUAMVlgBxUuw7nYacqbTpMAA
+ Aj+DZ0UfCjfHfj67z/xEo5K1FZWzb54CR+nMsh4iUh0ef9+XkiPaptWxZ/tLK9+JjxoWvtXiHU1 /KUa5HNPkDDdapA==
+X-Mailer: b4 0.14.3
+Message-ID: <20261126-binder-node-info-ref-v1-1-efbc97174846@google.com>
+Subject: [PATCH] rust_binder: validate handle in get_node_info_from_ref()
+From: Alice Ryhl <aliceryhl@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, "=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 
-On Do, 2026-11-26 at 13:21 +0800, Yige Jiang wrote:
-> coda_fw_callback() owns the firmware passed to it by
-> request_firmware_nowait(). It normally releases the firmware after copyin=
-g
-> it into the BIT processor's code buffer. If allocating that buffer fails,
-> the callback jumps to put_pm and skips release_firmware(), leaking the
-> firmware and its associated resources.
->=20
-> Release the firmware before jumping to put_pm, which drops the runtime PM
-> reference taken in coda_probe().
->=20
-> An AI coding assistant helped identify the leak during review of static
-> analysis results and helped draft the fix and commit message.
->=20
-> Fixes: 186b250a0725 ("[media] media: coda: Add driver for Coda video code=
-c")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
-> ---
-> Based on linux-next next-20261109 (630059a5a632).
-> Compile-tested: arm64 coda-common.o with GCC 14.2 and W=3D1,
-> CONFIG_COMPILE_TEST=3Dy, CONFIG_ARCH_MXC=3Dy and CONFIG_VIDEO_CODA=3Dm.
-> The baseline and patched object builds both produced 0 warnings.
-> No hardware or runtime test was performed.
-> The path needs the coherent DMA allocation of the code buffer to fail in =
-the async firmware callback (OOM or fault injection).
->=20
->  drivers/media/platform/chips-media/coda/coda-common.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/media/platform/chips-media/coda/coda-common.c b/driv=
-ers/media/platform/chips-media/coda/coda-common.c
-> index 3fe33c4..ca8f953 100644
-> --- a/drivers/media/platform/chips-media/coda/coda-common.c
-> +++ b/drivers/media/platform/chips-media/coda/coda-common.c
-> @@ -3004,8 +3004,10 @@ static void coda_fw_callback(const struct firmware=
- *fw, void *context)
->  	/* allocate auxiliary per-device code buffer for the BIT processor */
->  	ret =3D coda_alloc_aux_buf(dev, &dev->codebuf, fw->size, "codebuf",
->  				 dev->debugfs_root);
-> -	if (ret < 0)
-> +	if (ret < 0) {
-> +		release_firmware(fw);
->  		goto put_pm;
-> +	}
-> =20
->  	coda_copy_firmware(dev, fw->data, fw->size);
->  	release_firmware(fw);
->=20
-> base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+When servicing BINDER_GET_NODE_INFO_FOR_REF, get_node_info_from_ref()
+returns ENOENT for unknown handles and succeeds on handles that only
+hold a weak reference. This diverges from C Binder, which requires a
+strong reference and returns EINVAL in both cases. Thus, return EINVAL
+for unknown or weak-only handles in get_node_info_from_ref().
 
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-756a00e6-8404-4b56-badf-e15ba0bd93a3
+Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+---
+ drivers/android/binder/process.rs | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-regards
-Philipp
+diff --git a/drivers/android/binder/process.rs b/drivers/android/binder/process.rs
+index 1f4cb43f1de6..ece319f52b76 100644
+--- a/drivers/android/binder/process.rs
++++ b/drivers/android/binder/process.rs
+@@ -1248,8 +1248,12 @@ fn get_node_info_from_ref(&self, data: UserSlice) -> Result {
+ 
+         {
+             let mut node_refs = self.node_refs.lock();
+-            let node_info = node_refs.by_handle.get_mut(&out.handle).ok_or(ENOENT)?;
++            let node_info = node_refs.by_handle.get_mut(&out.handle).ok_or(EINVAL)?;
+             let node_ref = node_info.node_ref();
++            if node_ref.get_count().0 == 0 {
++                binder_debug!(UserError, "tried to use weak ref as strong ref");
++                return Err(EINVAL);
++            }
+             let owner_inner = node_ref.node.owner.inner.lock();
+             node_ref.node.populate_counts(&mut out, &owner_inner);
+         }
+
+---
+base-commit: 277f222cf565a408c604a3aa6b6b152eec2e6b60
+change-id: 20261126-binder-node-info-ref-9547bb8cf7d0
+
+Best regards,
+-- 
+Alice Ryhl <aliceryhl@google.com>
+
