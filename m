@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795658262;
-	b=jOHZt5jwNAjfKPWHBmT2AQGTXW6Mkyu+tuIATG8dokjEA3GKnlYfsCayVv1rBVO9CB5Y
-	 Cs7+onYc7jMrg7Xs0SCuC6lzYSXzsA4LDg8I0cElIlcENX1n/BY44Z+1ztCLjMXmNIufQ
-	 RYRk5i5qX+EXxtgex0F27EpJ4QZpRn4j0T/LE/8wZyaFrCeHny+Z3JZnsU9OeU5o1QRbg
-	 OE2Scj995mAk2tcl5boGKEH6aaasdr0meY/LxSDXCdEuiQu11fbAPOGGuWoInRR/Ne7Pp
-	 /POm8sCH45cwYZg0Uqv0CGKXNve2Cq7TO9NKvxnnhDBlJ1aqkl7/dWbln0QBCU9KpCQ==
+	b=BlGZbCEvO2UhqxpSZxofrBQsqbiapMHCxy/wW1R+6nP411KKi/ZM07spI1pTQ738ZI4I
+	 sCdQ+7nl2vvBwvZbCPmE3i4i1YhOKZzjzJ8nlXIj+QUNipg0ClM7bfEQgZoRTGhJp7uLn
+	 UfazppuB21Y8Gf6cp83tegcYzWrCmF/BnXZu8A2W7A8ZAoXOTvjDUDfwpmb61/yafSAtr
+	 L0gAvHNHY3Sc9YL6b5nK6g2ZjPcdyRcxsTmkX6QUiyZZ1687Xk/U9zpEnGgeAizRmyO0n
+	 4sDehwnf7d27fZ1Lx8YKA0jJzgtp1+Qfg9P+Rpxl9HcNmj170A8jY0p49+qWqUH2MWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795658262;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=d3ueETMmsD30qNjvPeyjq8nXaBCbVd6Zwj/Ag4rJlM4=;
-	b=wUioTVB+35yIyTtNxYqfGbSC4s4Fc4Omr8i+JULWWKxFc+UY1Qj3srdzmL0kT0qGETG4
-	 MkTJM6gYMlzevYQEhSoEj04UgHp4+rgFAbp/jhX+QzsWNggfBAPdv70wYv+F6eFPEFYQ0
-	 TDP05Ohb/8oXdnsmOGvCLYpwKYxPjUKYrzgXOgYVvd4yBvFdpyryVlHr/xP9u+JGNItOg
-	 YbAG6NWmAU0JQqKJhYU+d03c4iQbYGeBCPaAt3u+LnaxK+QiDF9LOL0j6jzU7Woo1MdP1
-	 28Zs1WwNkQYmewsr806NtSCKDbhWo4v5hzxss8M75BtHR2NRYWIQDtM8xT77/ei2RNg==
+	bh=wYv5fstN7cUxlniGzMjcPl0g8vTHjO5mQQPlb1N/AvE=;
+	b=axS4g1Us+b5OacKKCRmWqUxctKOCaczS5XlfHQQyXQN5c6nzLZgaq52o7YCfalMk/bj/
+	 E6seGcAepY4jfts17l8VIf36D+qFzhrKaiuE5LmIEzgZ7HZze6TmgF5u0I36bND+4RP46
+	 xM+K29yxFdDDlebB7k3htDyIM1VSSyt2glNhb6j2jCZ7ddD2tIeekRqvx9RIHsXAD00UW
+	 08+nFoqdXyHHoPA7Zv9uPVU8eA5F1uca0w8rGGW1cv6ucZh4F0DBSizeItewvDqH5nS2z
+	 f5WnUbzQyle0MEUi4fkz2AWv4tueL9iVf9nKI5J7RxfjrBpI4Qu7Uums73u/iCGiVDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dl3peGsC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ayvzudda;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0927F606A33E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 01:57:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F48606A32D
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 01:57:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dl3peGsC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F19F1F000D0;
-	Thu, 26 Nov 2026 01:57:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ayvzudda
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 984E51F000E0;
+	Thu, 26 Nov 2026 01:57:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795658260;
-	bh=d3ueETMmsD30qNjvPeyjq8nXaBCbVd6Zwj/Ag4rJlM4=;
+	s=k20260515; t=1795658262;
+	bh=wYv5fstN7cUxlniGzMjcPl0g8vTHjO5mQQPlb1N/AvE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dl3peGsCYMbVmC+xahPp+GQmf5I5PcTujGjef4d4x0UTJRHUTGHDzWfPbbmALRwNG
-	 JwdNYaBt76CBIdnTNe2uUIxSuTI2CX8mLxx/kR885G4Tjqeei07hkfd4Cc/KsSHR7v
-	 1mdCTP4vDtBEAOBgxd3a/AFifqq3T36S1FVkhyTi0rqDlK2u7hpXLsEIbUuPwzLFWV
-	 Vvp3G4XXbyKXXER31hu4K3Bd8ZVd0s/ZmfcFeTfCyJERvpgXNGeMAUZvbFbpU1Z7Dm
-	 B5wF+OXk1f0uj9NfxM3IfVB7Cal2AMU1ueoafYxz/R7qVBbRTGRF1PPSr4Yma/3+LI
-	 LzsLLToZHcYSA==
+	b=ayvzuddagsOhk+VCb2x1GfJ+2s1J26Fsdq3yaOEu8kcx5B/pgrxKGIQqT51JocCtu
+	 2PtxPSe+oa4DIW5QjNim3uDzPMFYr7i4Mfuzdnrgi3C8+Ztqfcdv9uyUTZg1RUHNza
+	 srvpdAi9CIiKDqA981Pw3IZH+4eNbjR+lbW0cHd/GZwJIin5VLth72a0Tt2LfWvHSh
+	 nPRbsDX0jEFbgjq0coVckC5HzLVNJ8tlpqNInyC4hLCcF6aogABQfNPq4KCMYPoknU
+	 GRo1nPrAmcT0SBqqfvyqhTmbo58cNk/ZvhomC+9JXA5lgApe1T09Q3Rtw58fRof5/G
+	 OKBKuRGdoysNg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Miklos Szeredi <mszeredi@redhat.com>,
+Cc: Christian Brauner <brauner@kernel.org>,
+	Amir Goldstein <amir73il@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/4] ovl: make redirect/metacopy rejection consistent
-Date: Wed, 25 Nov 2026 20:57:35 -0500
-Message-ID: <20261126015719.1731625-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/4] ovl: refactor ovl_lookup()
+Date: Wed, 25 Nov 2026 20:57:36 -0500
+Message-ID: <20261126015719.1731625-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261126015719.1731625-1-sashal@kernel.org>
 References: <2026112530-preplan-eldest-5662@gregkh>
@@ -61,228 +62,499 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Miklos Szeredi <mszeredi@redhat.com>
+From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit a6fcfe9bb26df18ba7b5c4d064edd13c80ea2466 ]
+[ Upstream commit 15da486ad3bde6119d9b6353bebc2ffb6e9165c1 ]
 
-When overlayfs finds a file with metacopy and/or redirect attributes and
-the metacopy and/or redirect features are not enabled, then it refuses to
-act on those attributes while also issuing a warning.
+Split the core into a separate helper in preparation of converting the
+caller to the scoped ovl cred guard.
 
-There was an inconsistency in not checking metacopy found from the index.
-
-And also only warning on an upper metacopy if it found the next file on the
-lower layer, while always warning for metacopy found on a lower layer.
-
-Fix these inconsistencies and make the logic more straightforward, paving
-the way for following patches to change when data redirects are allowed.
-
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+Link: https://patch.msgid.link/20251117-work-ovl-cred-guard-v4-37-b31603935724@kernel.org
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+Signed-off-by: Christian Brauner <brauner@kernel.org>
 Stable-dep-of: 7031366be218 ("ovl: do not read the flags of a put upper dentry in lookup")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/overlayfs/namei.c | 90 +++++++++++++++++++++++++++-----------------
- 1 file changed, 55 insertions(+), 35 deletions(-)
+ fs/overlayfs/namei.c | 313 ++++++++++++++++++++++---------------------
+ 1 file changed, 160 insertions(+), 153 deletions(-)
 
 diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
-index 5a6581fc19da6..39ce3b5c8646a 100644
+index 39ce3b5c8646a..2eddcaab781ba 100644
 --- a/fs/overlayfs/namei.c
 +++ b/fs/overlayfs/namei.c
-@@ -18,6 +18,7 @@
- 
- struct ovl_lookup_data {
- 	struct super_block *sb;
-+	struct dentry *dentry;
- 	const struct ovl_layer *layer;
- 	struct qstr name;
- 	bool is_dir;
-@@ -26,6 +27,7 @@ struct ovl_lookup_data {
- 	bool stop;
- 	bool last;
- 	char *redirect;
-+	char *upperredirect;
- 	int metacopy;
- 	/* Referring to last redirect xattr */
- 	bool absolute_redirect;
-@@ -1042,6 +1044,31 @@ int ovl_verify_lowerdata(struct dentry *dentry)
- 	return ovl_maybe_validate_verity(dentry);
+@@ -1069,56 +1069,43 @@ static bool ovl_check_follow_redirect(struct ovl_lookup_data *d)
+ 	return true;
  }
  
-+/*
-+ * Following redirects/metacopy can have security consequences: it's like a
-+ * symlink into the lower layer without the permission checks.
-+ *
-+ * This is only a problem if the upper layer is untrusted (e.g comes from an USB
-+ * drive).  This can allow a non-readable file or directory to become readable.
-+ *
-+ * Only following redirects when redirects are enabled disables this attack
-+ * vector when not necessary.
-+ */
-+static bool ovl_check_follow_redirect(struct ovl_lookup_data *d)
-+{
-+	struct ovl_fs *ofs = OVL_FS(d->sb);
+-struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+-			  unsigned int flags)
++struct ovl_lookup_ctx {
++	struct dentry *dentry;
++	struct ovl_entry *oe;
++	struct ovl_path *stack;
++	struct ovl_path *origin_path;
++	struct dentry *upperdentry;
++	struct dentry *index;
++	struct inode *inode;
++	unsigned int ctr;
++};
 +
-+	if (d->metacopy && !ofs->config.metacopy) {
-+		pr_warn_ratelimited("refusing to follow metacopy origin for (%pd2)\n", d->dentry);
-+		return false;
-+	}
-+	if ((d->redirect || d->upperredirect) && !ovl_redirect_follow(ofs)) {
-+		pr_warn_ratelimited("refusing to follow redirect for (%pd2)\n", d->dentry);
-+		return false;
-+	}
-+	return true;
-+}
-+
- struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
- 			  unsigned int flags)
++static int ovl_lookup_layers(struct ovl_lookup_ctx *ctx, struct ovl_lookup_data *d)
  {
-@@ -1057,7 +1084,6 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
- 	unsigned int ctr = 0;
- 	struct inode *inode = NULL;
+-	struct ovl_entry *oe = NULL;
+-	const struct cred *old_cred;
++	struct dentry *dentry = ctx->dentry;
+ 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
+ 	struct ovl_entry *poe = OVL_E(dentry->d_parent);
+ 	struct ovl_entry *roe = OVL_E(dentry->d_sb->s_root);
+-	struct ovl_path *stack = NULL, *origin_path = NULL;
+-	struct dentry *upperdir, *upperdentry = NULL;
++	struct dentry *upperdir;
++	struct dentry *this;
+ 	struct dentry *origin = NULL;
+-	struct dentry *index = NULL;
+-	unsigned int ctr = 0;
+-	struct inode *inode = NULL;
  	bool upperopaque = false;
--	char *upperredirect = NULL;
- 	struct dentry *this;
- 	unsigned int i;
- 	int err;
-@@ -1065,12 +1091,14 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+-	struct dentry *this;
+-	unsigned int i;
+-	int err;
+ 	bool uppermetacopy = false;
  	int metacopy_size = 0;
- 	struct ovl_lookup_data d = {
- 		.sb = dentry->d_sb,
-+		.dentry = dentry,
- 		.name = dentry->d_name,
- 		.is_dir = false,
- 		.opaque = false,
- 		.stop = false,
- 		.last = ovl_redirect_follow(ofs) ? false : !ovl_numlower(poe),
- 		.redirect = NULL,
-+		.upperredirect = NULL,
- 		.metacopy = 0,
- 	};
+-	struct ovl_lookup_data d = {
+-		.sb = dentry->d_sb,
+-		.dentry = dentry,
+-		.name = dentry->d_name,
+-		.is_dir = false,
+-		.opaque = false,
+-		.stop = false,
+-		.last = ovl_redirect_follow(ofs) ? false : !ovl_numlower(poe),
+-		.redirect = NULL,
+-		.upperredirect = NULL,
+-		.metacopy = 0,
+-	};
+-
+-	if (dentry->d_name.len > ofs->namelen)
+-		return ERR_PTR(-ENAMETOOLONG);
++	unsigned int i;
++	int err;
  
-@@ -1112,8 +1140,8 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+-	old_cred = ovl_override_creds(dentry->d_sb);
+ 	upperdir = ovl_dentry_upper(dentry->d_parent);
+ 	if (upperdir) {
+-		d.layer = &ofs->layers[0];
+-		err = ovl_lookup_layer(upperdir, &d, &upperdentry, true);
++		d->layer = &ofs->layers[0];
++		err = ovl_lookup_layer(upperdir, d, &ctx->upperdentry, true);
+ 		if (err)
+-			goto out;
++			return err;
  
- 		if (d.redirect) {
+-		if (upperdentry && upperdentry->d_flags & DCACHE_OP_REAL) {
+-			dput(upperdentry);
+-			err = -EREMOTE;
+-			goto out;
+-		}
+-		if (upperdentry && !d.is_dir) {
++		if (ctx->upperdentry && ctx->upperdentry->d_flags & DCACHE_OP_REAL)
++			return -EREMOTE;
++
++		if (ctx->upperdentry && !d->is_dir) {
+ 			/*
+ 			 * Lookup copy up origin by decoding origin file handle.
+ 			 * We may get a disconnected dentry, which is fine,
+@@ -1129,50 +1116,50 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+ 			 * number - it's the same as if we held a reference
+ 			 * to a dentry in lower layer that was moved under us.
+ 			 */
+-			err = ovl_check_origin(ofs, upperdentry, &origin_path);
++			err = ovl_check_origin(ofs, ctx->upperdentry, &ctx->origin_path);
+ 			if (err)
+-				goto out_put_upper;
++				return err;
+ 
+-			if (d.metacopy)
++			if (d->metacopy)
+ 				uppermetacopy = true;
+-			metacopy_size = d.metacopy;
++			metacopy_size = d->metacopy;
+ 		}
+ 
+-		if (d.redirect) {
++		if (d->redirect) {
  			err = -ENOMEM;
--			upperredirect = kstrdup(d.redirect, GFP_KERNEL);
--			if (!upperredirect)
-+			d.upperredirect = kstrdup(d.redirect, GFP_KERNEL);
-+			if (!d.upperredirect)
- 				goto out_put_upper;
- 			if (d.redirect[0] == '/')
+-			d.upperredirect = kstrdup(d.redirect, GFP_KERNEL);
+-			if (!d.upperredirect)
+-				goto out_put_upper;
+-			if (d.redirect[0] == '/')
++			d->upperredirect = kstrdup(d->redirect, GFP_KERNEL);
++			if (!d->upperredirect)
++				return err;
++			if (d->redirect[0] == '/')
  				poe = roe;
-@@ -1131,6 +1159,11 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
- 	for (i = 0; !d.stop && i < ovl_numlower(poe); i++) {
+ 		}
+-		upperopaque = d.opaque;
++		upperopaque = d->opaque;
+ 	}
+ 
+-	if (!d.stop && ovl_numlower(poe)) {
++	if (!d->stop && ovl_numlower(poe)) {
+ 		err = -ENOMEM;
+-		stack = ovl_stack_alloc(ofs->numlayer - 1);
+-		if (!stack)
+-			goto out_put_upper;
++		ctx->stack = ovl_stack_alloc(ofs->numlayer - 1);
++		if (!ctx->stack)
++			return err;
+ 	}
+ 
+-	for (i = 0; !d.stop && i < ovl_numlower(poe); i++) {
++	for (i = 0; !d->stop && i < ovl_numlower(poe); i++) {
  		struct ovl_path lower = ovl_lowerstack(poe)[i];
  
-+		if (!ovl_check_follow_redirect(&d)) {
-+			err = -EPERM;
-+			goto out_put;
-+		}
-+
+-		if (!ovl_check_follow_redirect(&d)) {
++		if (!ovl_check_follow_redirect(d)) {
+ 			err = -EPERM;
+-			goto out_put;
++			return err;
+ 		}
+ 
  		if (!ovl_redirect_follow(ofs))
- 			d.last = i == ovl_numlower(poe) - 1;
- 		else if (d.is_dir || !ofs->numdatalayer)
-@@ -1144,13 +1177,6 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+-			d.last = i == ovl_numlower(poe) - 1;
+-		else if (d.is_dir || !ofs->numdatalayer)
+-			d.last = lower.layer->idx == ovl_numlower(roe);
++			d->last = i == ovl_numlower(poe) - 1;
++		else if (d->is_dir || !ofs->numdatalayer)
++			d->last = lower.layer->idx == ovl_numlower(roe);
+ 
+-		d.layer = lower.layer;
+-		err = ovl_lookup_layer(lower.dentry, &d, &this, false);
++		d->layer = lower.layer;
++		err = ovl_lookup_layer(lower.dentry, d, &this, false);
+ 		if (err)
+-			goto out_put;
++			return err;
+ 
  		if (!this)
  			continue;
- 
--		if ((uppermetacopy || d.metacopy) && !ofs->config.metacopy) {
--			dput(this);
--			err = -EPERM;
--			pr_warn_ratelimited("refusing to follow metacopy origin for (%pd2)\n", dentry);
--			goto out_put;
--		}
--
- 		/*
+@@ -1181,11 +1168,11 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
  		 * If no origin fh is stored in upper of a merge dir, store fh
  		 * of lower dir and set upper parent "impure".
-@@ -1203,23 +1229,6 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
- 			ctr++;
+ 		 */
+-		if (upperdentry && !ctr && !ofs->noxattr && d.is_dir) {
+-			err = ovl_fix_origin(ofs, dentry, this, upperdentry);
++		if (ctx->upperdentry && !ctx->ctr && !ofs->noxattr && d->is_dir) {
++			err = ovl_fix_origin(ofs, dentry, this, ctx->upperdentry);
+ 			if (err) {
+ 				dput(this);
+-				goto out_put;
++				return err;
+ 			}
  		}
  
--		/*
--		 * Following redirects can have security consequences: it's like
--		 * a symlink into the lower layer without the permission checks.
--		 * This is only a problem if the upper layer is untrusted (e.g
--		 * comes from an USB drive).  This can allow a non-readable file
--		 * or directory to become readable.
--		 *
--		 * Only following redirects when redirects are enabled disables
--		 * this attack vector when not necessary.
--		 */
--		err = -EPERM;
--		if (d.redirect && !ovl_redirect_follow(ofs)) {
--			pr_warn_ratelimited("refusing to follow redirect for (%pd2)\n",
--					    dentry);
--			goto out_put;
--		}
--
- 		if (d.stop)
+@@ -1198,23 +1185,23 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+ 		 * matches the dentry found using path based lookup,
+ 		 * otherwise error out.
+ 		 */
+-		if (upperdentry && !ctr &&
+-		    ((d.is_dir && ovl_verify_lower(dentry->d_sb)) ||
+-		     (!d.is_dir && ofs->config.index && origin_path))) {
+-			err = ovl_verify_origin(ofs, upperdentry, this, false);
++		if (ctx->upperdentry && !ctx->ctr &&
++		    ((d->is_dir && ovl_verify_lower(dentry->d_sb)) ||
++		     (!d->is_dir && ofs->config.index && ctx->origin_path))) {
++			err = ovl_verify_origin(ofs, ctx->upperdentry, this, false);
+ 			if (err) {
+ 				dput(this);
+-				if (d.is_dir)
++				if (d->is_dir)
+ 					break;
+-				goto out_put;
++				return err;
+ 			}
+ 			origin = this;
+ 		}
+ 
+-		if (!upperdentry && !d.is_dir && !ctr && d.metacopy)
+-			metacopy_size = d.metacopy;
++		if (!ctx->upperdentry && !d->is_dir && !ctx->ctr && d->metacopy)
++			metacopy_size = d->metacopy;
+ 
+-		if (d.metacopy && ctr) {
++		if (d->metacopy && ctx->ctr) {
+ 			/*
+ 			 * Do not store intermediate metacopy dentries in
+ 			 * lower chain, except top most lower metacopy dentry.
+@@ -1224,30 +1211,30 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+ 			dput(this);
+ 			this = NULL;
+ 		} else {
+-			stack[ctr].dentry = this;
+-			stack[ctr].layer = lower.layer;
+-			ctr++;
++			ctx->stack[ctx->ctr].dentry = this;
++			ctx->stack[ctx->ctr].layer = lower.layer;
++			ctx->ctr++;
+ 		}
+ 
+-		if (d.stop)
++		if (d->stop)
  			break;
  
-@@ -1230,6 +1239,11 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+-		if (d.redirect && d.redirect[0] == '/' && poe != roe) {
++		if (d->redirect && d->redirect[0] == '/' && poe != roe) {
+ 			poe = roe;
+ 			/* Find the current layer on the root dentry */
+ 			i = lower.layer->idx - 1;
  		}
  	}
  
-+	if (!ovl_check_follow_redirect(&d)) {
-+		err = -EPERM;
-+		goto out_put;
-+	}
-+
- 	/* Defer lookup of lowerdata in data-only layers to first access */
- 	if (d.metacopy && ctr && ofs->numdatalayer && d.absolute_redirect) {
- 		d.metacopy = 0;
-@@ -1316,20 +1330,26 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+-	if (!ovl_check_follow_redirect(&d)) {
++	if (!ovl_check_follow_redirect(d)) {
+ 		err = -EPERM;
+-		goto out_put;
++		return err;
+ 	}
  
- 		/*
- 		 * It's safe to assign upperredirect here: the previous
--		 * assignment of happens only if upperdentry is non-NULL, and
-+		 * assignment happens only if upperdentry is non-NULL, and
+ 	/* Defer lookup of lowerdata in data-only layers to first access */
+-	if (d.metacopy && ctr && ofs->numdatalayer && d.absolute_redirect) {
+-		d.metacopy = 0;
+-		ctr++;
++	if (d->metacopy && ctx->ctr && ofs->numdatalayer && d->absolute_redirect) {
++		d->metacopy = 0;
++		ctx->ctr++;
+ 	}
+ 
+ 	/*
+@@ -1258,20 +1245,20 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+ 	 * For metacopy dentry, path based lookup will find lower dentries.
+ 	 * Just make sure a corresponding data dentry has been found.
+ 	 */
+-	if (d.metacopy || (uppermetacopy && !ctr)) {
++	if (d->metacopy || (uppermetacopy && !ctx->ctr)) {
+ 		pr_warn_ratelimited("metacopy with no lower data found - abort lookup (%pd2)\n",
+ 				    dentry);
+ 		err = -EIO;
+-		goto out_put;
+-	} else if (!d.is_dir && upperdentry && !ctr && origin_path) {
+-		if (WARN_ON(stack != NULL)) {
++		return err;
++	} else if (!d->is_dir && ctx->upperdentry && !ctx->ctr && ctx->origin_path) {
++		if (WARN_ON(ctx->stack != NULL)) {
+ 			err = -EIO;
+-			goto out_put;
++			return err;
+ 		}
+-		stack = origin_path;
+-		ctr = 1;
+-		origin = origin_path->dentry;
+-		origin_path = NULL;
++		ctx->stack = ctx->origin_path;
++		ctx->ctr = 1;
++		origin = ctx->origin_path->dentry;
++		ctx->origin_path = NULL;
+ 	}
+ 
+ 	/*
+@@ -1293,38 +1280,39 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+ 	 * is enabled and if upper had an ORIGIN xattr.
+ 	 *
+ 	 */
+-	if (!upperdentry && ctr)
+-		origin = stack[0].dentry;
++	if (!ctx->upperdentry && ctx->ctr)
++		origin = ctx->stack[0].dentry;
+ 
+ 	if (origin && ovl_indexdir(dentry->d_sb) &&
+-	    (!d.is_dir || ovl_index_all(dentry->d_sb))) {
+-		index = ovl_lookup_index(ofs, upperdentry, origin, true);
+-		if (IS_ERR(index)) {
+-			err = PTR_ERR(index);
+-			index = NULL;
+-			goto out_put;
++	    (!d->is_dir || ovl_index_all(dentry->d_sb))) {
++		ctx->index = ovl_lookup_index(ofs, ctx->upperdentry, origin, true);
++		if (IS_ERR(ctx->index)) {
++			err = PTR_ERR(ctx->index);
++			ctx->index = NULL;
++			return err;
+ 		}
+ 	}
+ 
+-	if (ctr) {
+-		oe = ovl_alloc_entry(ctr);
++	if (ctx->ctr) {
++		ctx->oe = ovl_alloc_entry(ctx->ctr);
+ 		err = -ENOMEM;
+-		if (!oe)
+-			goto out_put;
++		if (!ctx->oe)
++			return err;
+ 
+-		ovl_stack_cpy(ovl_lowerstack(oe), stack, ctr);
++		ovl_stack_cpy(ovl_lowerstack(ctx->oe), ctx->stack, ctx->ctr);
+ 	}
+ 
+ 	if (upperopaque)
+ 		ovl_dentry_set_opaque(dentry);
+-	if (d.xwhiteouts)
++	if (d->xwhiteouts)
+ 		ovl_dentry_set_xwhiteouts(dentry);
+ 
+-	if (upperdentry)
++	if (ctx->upperdentry)
+ 		ovl_dentry_set_upper_alias(dentry);
+-	else if (index) {
++	else if (ctx->index) {
++		char *upperredirect;
+ 		struct path upperpath = {
+-			.dentry = upperdentry = dget(index),
++			.dentry = ctx->upperdentry = dget(ctx->index),
+ 			.mnt = ovl_upper_mnt(ofs),
+ 		};
+ 
+@@ -1333,77 +1321,96 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+ 		 * assignment happens only if upperdentry is non-NULL, and
  		 * this one only if upperdentry is NULL.
  		 */
--		upperredirect = ovl_get_redirect_xattr(ofs, &upperpath, 0);
--		if (IS_ERR(upperredirect)) {
--			err = PTR_ERR(upperredirect);
--			upperredirect = NULL;
-+		d.upperredirect = ovl_get_redirect_xattr(ofs, &upperpath, 0);
-+		if (IS_ERR(d.upperredirect)) {
-+			err = PTR_ERR(d.upperredirect);
-+			d.upperredirect = NULL;
- 			goto out_free_oe;
- 		}
-+
+-		d.upperredirect = ovl_get_redirect_xattr(ofs, &upperpath, 0);
+-		if (IS_ERR(d.upperredirect)) {
+-			err = PTR_ERR(d.upperredirect);
+-			d.upperredirect = NULL;
+-			goto out_free_oe;
+-		}
++		upperredirect = ovl_get_redirect_xattr(ofs, &upperpath, 0);
++		if (IS_ERR(upperredirect))
++			return PTR_ERR(upperredirect);
++		d->upperredirect = upperredirect;
+ 
  		err = ovl_check_metacopy_xattr(ofs, &upperpath, NULL);
  		if (err < 0)
- 			goto out_free_oe;
--		uppermetacopy = err;
-+		d.metacopy = uppermetacopy = err;
+-			goto out_free_oe;
+-		d.metacopy = uppermetacopy = err;
++			return err;
++		d->metacopy = uppermetacopy = err;
  		metacopy_size = err;
-+
-+		if (!ovl_check_follow_redirect(&d)) {
-+			err = -EPERM;
-+			goto out_free_oe;
-+		}
+ 
+-		if (!ovl_check_follow_redirect(&d)) {
++		if (!ovl_check_follow_redirect(d)) {
+ 			err = -EPERM;
+-			goto out_free_oe;
++			return err;
+ 		}
  	}
  
- 	if (upperdentry || ctr) {
-@@ -1337,7 +1357,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
- 			.upperdentry = upperdentry,
- 			.oe = oe,
- 			.index = index,
--			.redirect = upperredirect,
-+			.redirect = d.upperredirect,
+-	if (upperdentry || ctr) {
++	if (ctx->upperdentry || ctx->ctr) {
++		struct inode *inode;
+ 		struct ovl_inode_params oip = {
+-			.upperdentry = upperdentry,
+-			.oe = oe,
+-			.index = index,
+-			.redirect = d.upperredirect,
++			.upperdentry = ctx->upperdentry,
++			.oe = ctx->oe,
++			.index = ctx->index,
++			.redirect = d->upperredirect,
  		};
  
  		/* Store lowerdata redirect for lazy lookup */
-@@ -1379,7 +1399,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
- 		kfree(origin_path);
+-		if (ctr > 1 && !d.is_dir && !stack[ctr - 1].dentry) {
+-			oip.lowerdata_redirect = d.redirect;
+-			d.redirect = NULL;
++		if (ctx->ctr > 1 && !d->is_dir && !ctx->stack[ctx->ctr - 1].dentry) {
++			oip.lowerdata_redirect = d->redirect;
++			d->redirect = NULL;
+ 		}
++
+ 		inode = ovl_get_inode(dentry->d_sb, &oip);
+-		err = PTR_ERR(inode);
+ 		if (IS_ERR(inode))
+-			goto out_free_oe;
+-		if (upperdentry && !uppermetacopy)
+-			ovl_set_flag(OVL_UPPERDATA, inode);
++			return PTR_ERR(inode);
++
++		ctx->inode = inode;
++		if (ctx->upperdentry && !uppermetacopy)
++			ovl_set_flag(OVL_UPPERDATA, ctx->inode);
+ 
+ 		if (metacopy_size > OVL_METACOPY_MIN_SIZE)
+-			ovl_set_flag(OVL_HAS_DIGEST, inode);
++			ovl_set_flag(OVL_HAS_DIGEST, ctx->inode);
  	}
- 	dput(upperdentry);
--	kfree(upperredirect);
-+	kfree(d.upperredirect);
- out:
- 	kfree(d.redirect);
+ 
+-	ovl_dentry_init_reval(dentry, upperdentry, OVL_I_E(inode));
++	ovl_dentry_init_reval(dentry, ctx->upperdentry, OVL_I_E(ctx->inode));
++
++	return 0;
++}
++
++struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
++			  unsigned int flags)
++{
++	const struct cred *old_cred;
++	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
++	struct ovl_entry *poe = OVL_E(dentry->d_parent);
++	int err;
++	struct ovl_lookup_ctx ctx = {
++		.dentry = dentry,
++	};
++	struct ovl_lookup_data d = {
++		.sb	= dentry->d_sb,
++		.dentry = dentry,
++		.name	= dentry->d_name,
++		.last	= ovl_redirect_follow(ofs) ? false : !ovl_numlower(poe),
++	};
++
++	if (dentry->d_name.len > ofs->namelen)
++		return ERR_PTR(-ENAMETOOLONG);
++
++	old_cred = ovl_override_creds(dentry->d_sb);
++
++	err = ovl_lookup_layers(&ctx, &d);
+ 
  	ovl_revert_creds(old_cred);
+-	if (origin_path) {
+-		dput(origin_path->dentry);
+-		kfree(origin_path);
++	if (ctx.origin_path) {
++		dput(ctx.origin_path->dentry);
++		kfree(ctx.origin_path);
+ 	}
+-	dput(index);
+-	ovl_stack_free(stack, ctr);
++	dput(ctx.index);
++	ovl_stack_free(ctx.stack, ctx.ctr);
+ 	kfree(d.redirect);
+-	return d_splice_alias(inode, dentry);
+ 
+-out_free_oe:
+-	ovl_free_entry(oe);
+-out_put:
+-	dput(index);
+-	ovl_stack_free(stack, ctr);
+-out_put_upper:
+-	if (origin_path) {
+-		dput(origin_path->dentry);
+-		kfree(origin_path);
++	if (err) {
++		ovl_free_entry(ctx.oe);
++		dput(ctx.upperdentry);
++		kfree(d.upperredirect);
++		return ERR_PTR(err);
+ 	}
+-	dput(upperdentry);
+-	kfree(d.upperredirect);
+-out:
+-	kfree(d.redirect);
+-	ovl_revert_creds(old_cred);
+-	return ERR_PTR(err);
++
++	return d_splice_alias(ctx.inode, dentry);
+ }
+ 
+ bool ovl_lower_positive(struct dentry *dentry)
 -- 
 2.53.0
 
