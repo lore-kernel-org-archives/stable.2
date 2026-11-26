@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795688371;
-	b=yzURm7Bh6nCjS0jce9XC8rpsAmPyhu5ScMPVe8DhOrtRPFPw4p3/dYGEuChthWjE+rWY
-	 +Mog9XQv0vQv3071IC52P4ws+kzu+m2hp1pYYRG8CR0sA3AlpexK/qPEBdFlbrpStCwyf
-	 j/PaZt8LwL71RjLJjf9pyjoDlUtfRvomnk5q7DhJtxzlK9VtLtZHF/KlQ0Egp76p3m12y
-	 DhRyE+AHt6d6SKYAPWlDxCVFPcOim72hDL1ZUA1xSVHtktNAxTmQgyYpan1Z6nV2rYUih
-	 UAgoIr7w6u892X0OlMTo2zffSu8PljGFwjxC2VL2FBh9BjPp5TxydN5nsFSu2KJC7Kg==
+	t=1795688383;
+	b=ZSCUdcuNAfJl8cF44TsV6c/LrU1OaWAabkB9e5Ws1aVQ03dX26KyKPi0/Vw8d2CR+nwQ
+	 X5sR5gGAzSnCus7bQnNF0+Gz/YWfnSN810Q919anUi/5eSlGwleGk1GIsSVix3SYVK7aT
+	 2/5BrqQ+qwBYvhUKh9RHFN5a8NgBkLYi3MX58aOiho8nfw9qtThbsuKn8uaJA6qRo2izv
+	 Y5Ubrx6gEjjsUzqCnVeaE/NrkAia+3wL0uzKRNxgeJt2Mb+Qficraufv+pnoolzQ9y7UM
+	 lyvj/LHYtf6at/kq+qF0ubs2WbacjH8X25cedM5kTn0q/ICKgRoGAGOCQVb+hJ6SW/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795688371;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
-	bh=SQGonsD2PK7GWC/netIzR2TM8App6Wl9rs87xlw6FJA=;
-	b=oWjlfFCGblR1JvSLpKcIsj9MHPurs2+/81Ay9lUZ4eTqniUXFxc7eB5He10kmniVr02A
-	 51kfJl/f1/FRLXFV4lFnfXXO0d5T1cUZ+URP3gwB3yjuUqrlhXbjV22xgCX/0r6L061Wq
-	 ctR6I/NFg2fCUJw59UKwvLoepcMdaqzukFJVvW1rxit3g54LKR9iAARxArbCzkn1jrVPt
-	 4jyJ6ZarGdZcQEbjrP+ZJis+uFyl48edFq4WU1aBBvCVnGVEPI02S/I68KjaxVcuajpLQ
-	 QwDZ57VSz0ii0TZwn+7ywf4nA7BSfmDSUy6azMz8NCTHnbW0BfgoRK7Cdpg/oXR1Jkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795688383;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=7yiqVziuoi4MUfhVWRGe9sc8is8UXpPYgU3rcxw8mKU=;
+	b=Dg48ZPNFHDQDOxatKMk2f3Dd3O8VwJCSbbaQC04REysWUCRsqWJZ57cQsNMWgvBn+1MX
+	 iiuNJpUgAtoUL1SZcj9N7sTpfX2BEVQOr/3nD3y7PCdWaXW89uGiX2u27xsdna8cV3+KP
+	 x8J1pS2REhXV/C1BMQTX1mVttErK05jYdrWyR07IUMg7Bsprf9hRIdlJle5lm8tH6oU2z
+	 lUYjaS2K6S0vy1Q+YTebG4sreufOY/fEI8I9rX+l9O/J6jcIEcp797mReQVxOcR/pxFCo
+	 +Mr1OaLob0VGDQSDWIVCvVP4B7pBoWxHSs1zVACIKR8iFwAC/lYyJsS6TUVEKJqQnrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=jSP6Whf8;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bVU339Zw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0245606A333
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 10:19:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0245606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B86B5606A31E;
+	Thu, 26 Nov 2026 10:19:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=jSP6Whf8
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id A0B40C2B9C6
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 10:19:31 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5E74460237;
-	Thu, 26 Nov 2026 10:19:23 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1193411E68598;
-	Thu, 26 Nov 2026 11:19:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795688362; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=SQGonsD2PK7GWC/netIzR2TM8App6Wl9rs87xlw6FJA=;
-	b=jSP6Whf85i8qwAwUPYtobw53QR/zvwF7ux1WIRVyNkmwbjC7lft1m8mbr3ZDXw37LKN2ex
-	CcLFjBpRmKMgzesx6tQlAFflXr8iIW1t2TSMpdVov0chWqNdd9qAuuKrdmnA9vxHGKDx8a
-	DQpMxmA+7iLu2OybHA25A2Jj0MsRwTJjk2Lpd22A/st1zirAJLlRtA99QdEeZzvzZhfck2
-	OYDo/rf+uV/DUWkny+fBpPs3Kz8RkS5lt9k67MSMY2UWIZUxo2SUga9HSfhruJQeT8DyeF
-	rQgMRHwzCfFBpKFeOOWfp3790ywOTl4V1EqmE+mjdpAoCsPcVWXinN9B8v4Y6g==
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bVU339Zw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B7331F000CA;
+	Thu, 26 Nov 2026 10:19:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795688382;
+	bh=7yiqVziuoi4MUfhVWRGe9sc8is8UXpPYgU3rcxw8mKU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bVU339ZwHLeIYWtY5sVcD1LAE2FstDOZkhQJjmHk+mpCwl/BkMu0SvUuyg1FC5BJF
+	 +jdEcGOYrQm1DYnjYRKvXs73van3bMg9FNhLs3M43/e3h0fIct1TFQKHGrxqqiXUPr
+	 0pw8uz6W2b7b3qGit/RvwCZWkKPZwCHAvZomLdbc=
+Date: Thu, 26 Nov 2026 11:20:03 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Yu Junzhe <junzheyu1@gmail.com>
+Cc: stable@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>,
+	Johan Hedberg <johan.hedberg@gmail.com>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	linux-bluetooth@vger.kernel.org, Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH 0/3] Bluetooth: hci_core: lookup hci_conn on the RX path
+Message-ID: <2026112622-galley-skipping-e8a2@gregkh>
+References: <20261118123533.25-1-junzheyu1@gmail.com>
+ <20261119035758.45-1-junzheyu1@gmail.com>
+ <2026-11-19-1-daily-reply-0012@kernel.org>
+ <20261126075554.106-1-junzheyu1@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,111 +58,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] i2c: cgbc: Fetch the status of a write transfer
-From: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
-To: Thomas Richard <thomas.richard@bootlin.com>, 
- Andi Shyti <andi.shyti@kernel.org>, Lee Jones <lee@kernel.org>
-Cc: mfd@lists.linux.dev, linux-i2c@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Markus Haberlander <markus.haberlander@rosenberger.com>
-In-Reply-To: <20261123-cgbc-i2c-write-status-v1-1-5b0fa0322b57@rosenberger.com>
-References: <20261123-cgbc-i2c-write-status-v1-1-5b0fa0322b57@rosenberger.com>
-Date: Thu, 26 Nov 2026 11:19:00 +0100
-Message-Id: <179568834099.302193.16315749597111506309.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261126075554.106-1-junzheyu1@gmail.com>
 
-> A write transfer sends the I2C command to the board controller and
-> returns without reading the controller's I2C status, while a read polls
-> the status until the controller is no longer busy. The status of a write
-> is therefore never fetched:
+On Thu, Nov 26, 2026 at 07:55:51AM +0000, Yu Junzhe wrote:
+> Sasha, this replaces the 6.6-only v2.
 > 
-> - the write reports success before the bus transfer has finished, and
->   an error such as a NAK is only reported by the next transfer;
-> - the controller keeps the status of the last write pending. On a
->   conga-PA7 (BIOS PA70R026, board controller CGBCP032), a board reset
->   with a write status pending does not power the board up again: after
->   a reboot that follows a write on the general purpose bus, the board
->   stays off until it is power cycled.
+> 79a2d4678ba9 ("Bluetooth: hci_core: lookup hci_conn on RX path on
+> protocol side") is in v6.18 and is already in bluetooth.git. These
+> diffs are for the stable trees that still lack it. They do not apply
+> to bluetooth.git HEAD, so the BlueZ CI apply check will fail. Please
+> review them for the stable branches.
 > 
-> Read the status after a write as well, as the read path does: poll until
-> the controller is no longer busy, return the error it reports, and treat
-> any state other than idle as an error.
+> 6.12.y already has l2cap_conn_hold_unless_zero() and
+> iso_conn_hold_unless_zero(). 6.6.y and 6.1.y have the L2CAP helper
+> only. sco_conn has no kref on any of the three, so SCO is unchanged.
+> hci_conn_get() does not pin sco_conn.
 > 
-> Tested on a conga-PA7 with v6.18.64 and "i2c: cgbc: Propagate hardware
-> errors when polling read status": without this patch, a write to an
-> absent address returns success, the next read fails, and a reboot after
-> a write does not come back. With it, the write itself fails, the next
-> transfer succeeds, and 14 reboots, each right after an acknowledged or a
-> NAKed write, all came back.
+> Booted KASAN guests, same racer (patch-test/repro.c):
 > 
-> The patch and this changelog were drafted with the help of Claude
-> Opus 5.5 and reviewed and tested by me.
+> - 6.12.119 unpatched printed slab-use-after-free in l2cap_recv_acldata.
+>   6.12.119 with patch 1/3 finished 371 connect/auth/disconnect rounds
+>   and printed no KASAN report. The racer exercises ACL, not ISO.
+> - 6.6.162 with patch 2/3 finished 123 rounds and printed no KASAN
+>   report. That image is a build of this diff. The earlier #1 image
+>   still contained the v1 SCO and ISO edits.
+> - 6.1.193 with patch 3/3 booted and completed one connection with no
+>   KASAN report. The racer then lost sync with the virtual controller
+>   (unexpected command-complete length), so it did not repeat the
+>   6.12 and 6.6 stress.
 > 
-> Fixes: 6894f640b8f3 ("i2c: Congatec Board Controller i2c bus driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Markus Haberlander <markus.haberlander@rosenberger.com>
->
-> diff --git a/drivers/i2c/busses/i2c-cgbc.c b/drivers/i2c/busses/i2c-cgbc.c
-> index dfdb9ffc6447..2361591a1e31 100644
-> --- a/drivers/i2c/busses/i2c-cgbc.c
-> +++ b/drivers/i2c/busses/i2c-cgbc.c
-> @@ -254,6 +254,22 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
->  		ret = cgbc_command(cgbc, &cmd, cmd_len, NULL, 0, NULL);
->  		if (ret)
->  			goto err;
-> +
-> +		ret = read_poll_timeout(cgbc_i2c_get_status, status,
-> +					status != CGBC_I2C_STAT_BUSY, 0,
-> +					2 * algo_data->read_maxtime_us, false, adap);
-> +		if (ret)
-> +			goto err;
-> +
-> +		if (status < 0) {
-> +			ret = status;
-> +			goto err;
-> +		}
-> +
-> +		if (status != CGBC_I2C_STAT_IDL) {
-> +			ret = -EIO;
-> +			goto err;
-> +		}
->  	} else if (i2c->state == CGBC_I2C_STATE_READ) {
->  		xfer.write = 0;
->  		xfer.read = len;
+> Yu Junzhe (3):
+>   Bluetooth: hci_core: lookup hci_conn on the ACL and ISO RX paths
+>   Bluetooth: hci_core: lookup hci_conn on the ACL RX path
+>   Bluetooth: hci_core: lookup hci_conn on the ACL RX path
 
-I was able to reproduce the issue on conga-SA7 (and also the reboot crash).
+Why are these different subjects?
 
-$ i2ctransfer -y 11 w1@0x40 0x00	 <- non-existing device
-$ i2ctransfer -y 11 w1@0x50 0x00 r1@0x50 <- read EEPROM
-Error: Sending messages failed: Input/output error
-$ i2ctransfer -y 11 w1@0x50 0x00 r1@0x50 <- read EEPROM
-0x01
+Also, don't send a patch series for different branches.  Please redo
+this, one patch per branch, and keep the changelog and subjects
+identical to upstream.
 
-And with your patch:
+thanks,
 
-$ i2ctransfer -y 11 w1@0x40 0x00	 <- non-existing device
-Error: Sending messages failed: Input/output error
-$ i2ctransfer -y 11 w1@0x50 0x00 r1@0x50 <- read EEPROM
-0x01
-
-Reviewed-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
-Tested-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
-
-Yes it conflicts (compile issue) with the series [1]. The possibilies are:
-- I pick this patch in my series and send a v7.
-- [1] is applied, an immutable branch is created, you rebase your patch on
-  top of it, and patch is applied in I2C tree.
-- [1] is applied, you rebase on top of mfd-next, and your patch is applied
-  in MFD tree.
-
-Andi, Lee, what do you prefer?
-
-[1] https://lore.kernel.org/all/20261117-cgbc-i2c-storage-devices-support-v6-0-bb070ad3e9aa@bootlin.com/
-
--- 
-Best Regards,
-Thomas Richard
-
+greg k-h
