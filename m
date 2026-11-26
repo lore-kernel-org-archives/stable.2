@@ -1,71 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795716119;
-	b=A0PBMvVYwD6FNRYxfbfDPMyx2biHxIXuPshZ342MsVv49osByOjbUhDX5Q/yzb59TvRF
-	 MdpLSZDavz0nG7JYr+zVQuVHpaz1merasTiknz28fuf7ekSNC+8qhrQCORwwB9wX7XsXP
-	 b+KTPqvzEAk1sYV+g/LAL+DMhye0Gqdrc9exIG5UWogfOisjJtEj5JGJ9o8xxA6iaAuXZ
-	 81EEBpwbqUEIXYv5jtxq19LWGvfGaggsFbGIe0Oadd3EV4EdV58ANQEyMFnaIEtfYXNxL
-	 63k9ve3OCWY/+RyqJ0zwt8D8fllKmiVGP4gKfNdxktEOA8tD/XnmKivBBQh5e7gNyug==
+	t=1795716172;
+	b=RqmAVTh2h7ISpIiczDXnTUYU7sBP38QtoZlSF4zCDy3Ho+7phnaaMrOnbhxrZcU05MD3
+	 d6vSWt0Y7CgTNXeb1g/hS/5VJvLl60L0jcDZnioIz+jRKNp0dL8XynkBYm3BVRokbd6BH
+	 JRx09ZDZneyC0eGK+lo0s9sbA/hdFnIopUtkNdJdTX6zeJPGag9Mst65p5U8MUZfeaNZ5
+	 TJHD3bnvvV5gPJtuDv3k23H++PChvojEiKz4m2FyAqQ+gk6q7rdJKU7vZEvHZRBFXALYu
+	 l4jrewge/r5hZX5cdoc8w4Ck6hZoa/tJ4nBO27+hPcOHSyYjmGguD1XnaZp6GpPYjFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795716119;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:X-Last-TLS-Session-Version;
-	bh=kl7bg688dXQ0GAc0QXvKBX0thFl5TKdWcSAQVME7qL0=;
-	b=BFz63vJXeMffM/qQvlU/naQGsSX+0+GCmjBW5xtOymPhHXBBVxhhMhZoilMhGNB/NWlm
-	 8LOhwGMygXoorORO9aiRtJp3fNLuLdsfDRDj7C8iax55PjWFDoQREJnbjyLgZ/QftHwAB
-	 i6khb7962UuZKtba+1q+df6Se2yGBnVNeZpOlWz7WVWp+cV45lEbb2iaZDuD0rIaQTA9a
-	 zExr9ngyADOcC0Saa60FJjNhkJSg1n9GONxS05SLs4mUOQN4pPZHDE/XhCoZLSo80RYpA
-	 nJuyaQ3EWMeG37DGW4Iag6Hmyl8MfTNFBuSd1VZ5qOzbYsmVbb97Q0dOE+YKnDnpD+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795716172;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
+	 From:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=OBmftwX5xkmh2yEUhqByt4ga8q9hssUc5Tn86F/AT9s=;
+	b=AWeMzIP4mjElMptH2hvptfhTtO276fG8VtV78eewB5NgrpsJVb8tBECk2DLhxdz3tlKc
+	 QwiHvQ7VPNVVAk5JgtALrOf6SWqvzLbkrUw+/FtwcN4KVDadOdf730XkgKq44aXN9WT19
+	 2fAhEj4Zjt5ITpMgSfffvjWHuu5isHz32dNGBA8a3Yze/i0F5sF0YrSD4lguV2yBywj+U
+	 Z3WE8kztmyTSH2+m5RixnLcB1XphL0ojK4SS2r+BNhydavE7h8P/mlScjvxoiXdCXP0zk
+	 5ApqtzmcN7Smp/sr4/dYUSfUjYGaQ8KjWhgcocPSPaxVPLFayybJ4UJMYm4w9U+EqMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=B3bSM3ji;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=2YUCeZto;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B267606A31E;
-	Thu, 26 Nov 2026 18:01:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B267606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40DE6606A31C;
+	Thu, 26 Nov 2026 18:02:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40DE6606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=B3bSM3ji
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=2YUCeZto
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id ECF84C2B9D5;
-	Thu, 26 Nov 2026 18:02:04 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 7BCFA4E417AB;
+	Thu, 26 Nov 2026 18:02:50 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7EB9660558;
-	Thu, 26 Nov 2026 18:01:56 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0528A11E69167;
-	Thu, 26 Nov 2026 19:01:46 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4461E60558;
+	Thu, 26 Nov 2026 18:02:50 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9464B11E69199;
+	Thu, 26 Nov 2026 19:02:39 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795716111; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=kl7bg688dXQ0GAc0QXvKBX0thFl5TKdWcSAQVME7qL0=;
-	b=B3bSM3jiUK4noIe6e1knXOQNbSpWZfGs3R1GXa6wZ3FImgsCFptNW6q0DzKt+gmqZvJQwr
-	dSDr5dkmCUujMxkPkyiCmAu5OIPMV2KCIB5nIqOnhcWe8/cpFFuLy0q5S2eyDqRrlFYASw
-	BLVGru3+EVfYM60JVxcPnUdxeTeLHvaURR2I7Jo2V2nROSta4wyy2wmxD06IUhaWbe+A/C
-	n4ZaOb7a3xXMHJ/zTBslsJw4duEKvRGRIzNtI+1kIUoRR0GvZCZ9NKhKTzCvAgPMUOh6gf
-	36MLWOi+y2LzIHyIWhRKguPoWy8G4K0y5cLjKMrqBLFbP7dAdE+j/2+nFrRqRw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
- <vigneshr@ti.com>,  Stefan Agner <stefan@agner.ch>,  Lucas Stach
- <dev@lynxeye.de>,  Thierry Reding <thierry.reding@kernel.org>,  Jonathan
- Hunter <jonathanh@nvidia.com>,  Dmitry Osipenko <digetx@gmail.com>,  Boris
- Brezillon <bbrezillon@kernel.org>,  linux-mtd@lists.infradead.org,
-  linux-kernel@vger.kernel.org,  linux-tegra@vger.kernel.org,
-  stable@vger.kernel.org
-Subject: Re: [PATCH] mtd: rawnand: tegra: drain the IRQ before disabling the
- clock
-In-Reply-To: <20261108-submit-tegra-nand-irq-teardown-v1-v1-1-2c570ad4a22c@gmail.com>
-	(James Hilliard's message of "Sun, 08 Nov 2026 14:05:55 -0700")
-References: <20261108-submit-tegra-nand-irq-teardown-v1-v1-1-2c570ad4a22c@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Thu, 26 Nov 2026 19:01:45 +0100
-Message-ID: <87se0nv5di.fsf@bootlin.com>
+	t=1795716168; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=OBmftwX5xkmh2yEUhqByt4ga8q9hssUc5Tn86F/AT9s=;
+	b=2YUCeZto/xB7S8Ytj+9Kwaw2TcEYtRWgowALzmEFPgsU/ZYf30P0y364TFWHsW+aeHnpK2
+	5POwVJ11e1JKblQsa7TAsF9so7aczS71cgkXTYx+AO+gRpw+XCK3795VrAYsCp15guWqXx
+	0QHvk93ETtX7KUR+U4SI21olURehwtZdcSCOt2YqaDMMfT9YVX3AogK/EI7/XUMK6QoPgd
+	jEKDfPsptO0+0Oh8gY59z/BBt/XqGs5XxejLraCkmYrgpmpxIliI1ptKntc9fCJf8ltWb/
+	6NZ9MGc4bvEBa+4blKQusF+tPX0qdSjPHBhq5u+ycRch10LGov/ZJR8vinegjw==
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,22 +58,88 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 26 Nov 2026 19:02:38 +0100
+Message-Id: <DN5C92OQ40J6.21PMG8R70TEDK@bootlin.com>
+Subject: Re: [PATCH v7] drm/bridge: dw-hdmi-qp: serialize HDMI audio
+ callbacks with PHY enable/disable
+Cc: <dri-devel@lists.freedesktop.org>, <linux-rockchip@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+To: "Frank Zhang" <rmxpzlb@gmail.com>, <hjc@rock-chips.com>,
+ <heiko@sntech.de>, <andyshrk@163.com>, <andrzej.hajda@intel.com>,
+ <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
+ <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
+ <jernej.skrabec@gmail.com>, <luca.ceresoli@bootlin.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <royalnet026@gmail.com>, <me@timsurber.de>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20261112101155.47777-1-rmxpzlb@gmail.com>
+In-Reply-To: <20261112101155.47777-1-rmxpzlb@gmail.com>
 X-Last-TLS-Session-Version: TLSv1.3
 
-On 08/11/2026 at 14:05:55 -07, James Hilliard <james.hilliard1@gmail.com> wrote:
-
-> The managed IRQ handler remains installed until devres cleanup, after
-> removal or a late probe failure has suspended the controller and disabled
-> its clock. The handler can still be accessing registers at that point:
-> it signals the command and DMA completions before its final register
-> accesses, so waiting for a NAND operation does not drain the IRQ handler.
+On Thu Nov 12, 2026 at 11:11 AM CET, Frank Zhang wrote:
+> The following panic was observed during system reboot, it can also be
+> triggered by the following sequences:
 >
-> Mask controller interrupts and release the managed IRQ before dropping
-> the runtime PM reference. Apply the same ordering when chip initialization
-> fails after the IRQ has been requested.
+> - Disable the HDMI drm display, open and close the HDMI PCM device.
+> - Enable the HDMI drm display and start audio stream on the HDMI PCM
+>   device, then switch the HDMI drm display to disable, stop and close
+>   audio stream.
+>
+> Kernel panic - not syncing: Asynchronous SError Interrupt
+> CPU: 6 UID: 1000 PID: 2348 Comm: pipewire ... 7.0.5+ #4 PREEMPT(full)
+> Call trace:
+>  ...
+>  regmap_update_bits_base+0x70/0xa8
+>  dw_hdmi_qp_bridge_clear_audio_infoframe+0x3c/0x58 [dw_hdmi_qp]
+>  drm_bridge_connector_clear_audio_infoframe+0x2c/0x48 [drm_display_helper=
+]
+>  ...
+>  dw_hdmi_qp_audio_disable+0x28/0xa8 [dw_hdmi_qp]
+>  drm_bridge_connector_audio_shutdown+0x38/0x68 [drm_display_helper]
+>  drm_connector_hdmi_audio_shutdown+0x28/0x40 [drm_display_helper]
+>  hdmi_codec_shutdown+0x60/0x90 [snd_soc_hdmi_codec]
+>  ...
+>  snd_pcm_release_substream+0xcc/0x120 [snd_pcm]
+>  snd_pcm_release+0x4c/0xc0 [snd_pcm]
+>  ...
+>
+> The crash occurs when HDMI audio callbacks access registers after DRM
+> atomic framework disabled the PHY.
+>
+> The root cause is a race condition exists between ALSA and DRM atomic
+> framework. During a modeset disable sequence, the DRM path disables the
+> PHY, while ALSA may still execute HDMI audio callbacks such as
+> audio_shutdown(), leading to accessing registers while the PHY is down
+> and eventually a kernel panic.
+>
+> Fix this by introducing a mutex lock and PHY enabled state to serialize
+> PHY state transitions and HDMI audio callbacks. This ensures that HDMI
+> audio callbacks can only access registers while the PHY is enabled.
+>
+> Fixes: fd0141d1a8a2 ("drm/bridge: synopsys: Add audio support for dw-hdmi=
+-qp")
+> Cc: stable@vger.kernel.org
+>
+> Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus (RK35=
+88)
+> Tested-by: Tim Surber <me@timsurber.de> # FriendlyElec CM3588 NAS (RK3588=
+)
+> Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
 
-Can we instead include power mangement in the devres logic? In general
-when one need to manually devm_remove/freee/unregister(), it means there
-is problem and the solution is incorrect.
+I'm not really an ALSA expert, but the patch looks sane to me:
+
+Acked-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
+I'd apply it to drm-misc-fixes in ~1 week if there are no objections.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
