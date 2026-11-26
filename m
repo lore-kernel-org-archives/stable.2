@@ -1,100 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795710468;
-	b=FggOt77mQ4OjmD6E0RnbhZ/Iwc8kNOefp+0G6l6MRgkJl8/OrVTDvFU3rXN1aitX3ZJK
-	 3hDhcXZUveaqDyCwBoaVQnQIrzhd0fIo94zsi9DsF68ljaXKrhwxEUvf0sWqKmLwoZQJM
-	 +uKOcqnSSsRucmmyBBd9JOA+mGxpgteRx8wVBDmoLGQQX1HMu0a3dZklsacKsMjO12pxT
-	 kPHqEIiy2yIFRRrvvcsy85io2FnZ+0uLJUFn3eviwqqbZ0j7gacCAAFlIQwTsbKPadoOl
-	 dv+ds2OhrY18LNU0tnBiC/7jjp9q6Im+GHvJrd+tTC9x/KW4GLhiZyX8LVZitq6cjnA==
+	t=1795710472;
+	b=mTTGlGnpi00QSniYzpUKdfVDtpR4Jz41KobzRb2aNgz78mUUyv1FkXjmb/IC6CmGVKDy
+	 i9/RI7qnNE4hvUEWq0R1nmaFdPvdUxIypIn9fQyanwCnOkwhoQX3e7Hv8waJ8syJHQ6MQ
+	 8PVnPAMYD757veTElzbgn6yc0TpLI9rGZPTXOwFj0X5EYJpOkDY6Mq/L0NYQ5dFcATIgy
+	 BDjQ1El7o3PNcuhNre9dHIht+ZxZfQbqKCH1iDdV6FvwciGmqQVFvYseRoJ90y67NUts0
+	 fnLo738SlimVjBqpz3GBP0O5uEqUenxaF4jyBkqjU2HThEnMk2++PKjxw2UcWpSaiPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795710468;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795710472;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=/b7JOvQXXmoQ6+riyfmFa4IOM+ApazbsNDpOEn/4jwQ=;
-	b=Rcc2LI8wupfgygZwv5X3cGZFiDTLt/ATUXyysGYrioW5PC/9ws6/rNXeCP8WdzLSqf4z
-	 DXWijbOfvul0l6lj5ZDaLV0it+1T1H6UYD5eig3yRRu4LoRM/pewsB/dw/h5WRlLJ0EPG
-	 3nPqCCl0IkKpDvkula+R9rdENQW116vP2jNwzTShUQK7CDurPdnSKBUBaQKpvLS54/HgW
-	 oAVSwXtRcK3TtiQdQHzFfHm4I5BJ6kW6dOAYKmVn7qQ3cEKJSEFnQ3UFVSEN4qHPM8IOC
-	 l2cHXNv9RquwtHXHlcC4b5jhlPuj0lLDsZAog2l9rDqf1VUREz4Xss3cUniRv7E8T2Q==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=FP0roxHyrWk88AZNLgTy+sqCX40+tPZRlLLzxGj21Iw=;
+	b=v4HOCd3pbVshvQnNk/BQA9u2GxNkCmjyIoldzcGV1cqH6Ex2Cn0AMN94vbys4qO0fiXr
+	 Fz5h39Zgy+vvflcnxybQ7fzkjKvHpT2hp8g2rtA31fTJ9GY6BkMeSUGsUQEo9ybVvDk+k
+	 Pf7Jbl+9Yny1+gRe8d1nr5vQ5dXiv75EeQ3YQuhLkYKGTIkwg394/tjFGnAdWEIX6Jbm2
+	 sxsy06Y78UJMKjD3Za2DeUcOuPBvFkO4ZRXwbhg8qyvexc2s1Uz+ShZq/AmZuDlZ7Vi1r
+	 DVNMP9oYIw7Nd/wLsjMq401Ij8Q1cvLWPI29gNmIVkPAl2YGN+h3pSxrXBdZZH+pD2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="eddM3Tz/";
-	arc=none smtp.remote-ip=209.85.210.181
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=meNKxsf0;
+	arc=none smtp.remote-ip=209.85.210.173
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D65606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:27:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9D65606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04BF2606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:27:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04BF2606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eddM3Tz/
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8b32bc605d9so3534181b3a.2
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 08:27:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=meNKxsf0
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8d1aec63541so287005b3a.3
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 08:27:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795710467; x=1796315267; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/b7JOvQXXmoQ6+riyfmFa4IOM+ApazbsNDpOEn/4jwQ=;
-        b=eddM3Tz/hy9WOl5fwh/imckNfBoirKacci3hdOuvENr9e17zVf2gJEyizNrVl1/RRP
-         V8Ld+SYV7893kLXhWduOxebAHA8nvv/vAy+9YO230b62eMJ2boXQ8TFROjs4rGe6pXtr
-         +yUbdJbW00q0jOV68kgvCLR3NqocLRmb0K58736+powwrxAdTP+M0X1sdNnqus5xGaac
-         q93E7g7dBrjEAj2TPqLv0r6h1UMTqNDNsEgdBE8G8OEaGJmw/pelGTjBrRg6vF0ppchZ
-         /yX04f1UPceXJy0x+j1SZJ295w8TtPc+7wdnuEpU92VF8lpFUxBBWOWZLYNhL8SWSD1s
-         NxXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795710467; x=1796315267;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1795710471; x=1796315271; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/b7JOvQXXmoQ6+riyfmFa4IOM+ApazbsNDpOEn/4jwQ=;
-        b=MgA8O/0uCEmdWj3v++zyOH7JqGvbZe8durU5B/MXUiwiaQV8zQkrzRGf0SczQ1HxSK
-         REx2HabZLk1p/V6QlEQf+Jshvm/WGiGpITNQH6LdPHL+7dQ4nREJ3UjY14UajmCaRnBK
-         nQjGMPh42iNMH5Iq6fFQ+mA2XxrC9ypoKfOwMTjg3edVZbDewz3+DurlKsdF8N2AvVNb
-         NCN3aoVCKyBA9p2tmXG9U5Bn3Df6fhJCe5Ox6bkKauFIXiG7gWYe7UMPHS9dvXSTys9O
-         pe9EGzspsK3FNbnxTGjqIUB59zcKurnNH4oxWFIXj1/yMXn+ghlRhcXhJW99g7/21NeT
-         mX3g==
-X-Gm-Message-State: APuU4Z9oFLdKqRCam6dyWmTnBuXBzBfgpWWpBsHojtd264HQAP/3lr1k
-	jJ2QXjQ0VwxqoxlqjBmbFwrPQsXuUfmpnWenXAci9BBB3BEf02KikJm4M9g+25NU
-X-Gm-Gg: AZFdTZctlmf8eHXBCoFCi/jS/D8xtJ40Zb39czzQCFdQPCZI5vos/Lk/mY9lYk6RCf/
-	7EaO/e4o1mt3VvPiJI2vKAgmP8tfFMxpOeQoRwKtnRpJdyy97cQkQd5zCxThTyxNS1qfIk7nFGV
-	iaHjMVitpKL3krEPt8tPozk1MlkVZlxz2sXXi811sYs69X4Auakk2D7OoDDTu6BZGz/Kgj5f7XU
-	A1asx4raaNW2kr9A7myd6KXgKninhsiTazPPKx9AUek+uYLfmPQEaDUVECYXtklZEpEToEANtGr
-	QcemUExIsW1TuMa/2WURm3C1jd5FbNbrSgAGISmhi3q4G5uZAkoQ/N3Fyhrq1dBgp+1bXRbcJnR
-	PtUSKS12j7X/ubWBQu/dyH18txqPa9WN5R8dkDFoCgyQ5p/iq5s8GAOLmsQ78a3MzS6DXuedZwz
-	d+O/JEu+xHqJuqsFwTihHELsCRgMB7qRVpWYZclRzT029FfhhDqceijNmbkX33d/jG8r/Jf7eGs
-	s+K1VprOoUyPpYl6gZylQ4gQPy+eFUHlF/bGAXgOUbuS0JX0F52/Ybl9gG7ZSTA5HcD1vYZRpFH
-	+62LDl25sKzYUJo8t6yBIcy8/o894WTzIW1fUNgIdbpzKFdsGPtWU4DbnvDcLg8ut7ZfDC4p9jX
-	leAdUDshKKsGNLoXVy4sUkRntArumVoEN0g==
-X-Received: by 2002:a05:6a00:4405:b0:880:e4a7:b1aa with SMTP id d2e1a72fcca58-8c87daf2130mr20658095b3a.55.1795710466917;
-        Thu, 26 Nov 2026 08:27:46 -0800 (PST)
+        bh=FP0roxHyrWk88AZNLgTy+sqCX40+tPZRlLLzxGj21Iw=;
+        b=meNKxsf0pZ3kR0RW086wDMbOnaeIakjTWAMoOlh48L3u7FNKSTs9e8FGzNFrNUcnS4
+         WSxLQBvcTzfno6a7bWm28vH18ezHEy99iLhjpv1+G2mCk9Nj+WIBIjN7FTiQZjlZlaV1
+         wwi5TBa61LVuBBt/OcXQKw+WgiNkSev0foAiWiWPvgM84UmCQS9UPJRO7BTkjg9B+So4
+         YCnjFmCl6BGz+DCTTahYnnz/I1uV5NuQ641gxKlJEoYkhbyabezgDj4UeFUoiNOkGi3e
+         86m7DLNaBPD8UK2UDlPVQpWA0SH2hUQ5Xu2fJWgUxmtMXJTjDdmw9tEcJ0d5d8UFpsBq
+         ZY1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795710471; x=1796315271;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FP0roxHyrWk88AZNLgTy+sqCX40+tPZRlLLzxGj21Iw=;
+        b=Eq34mTTq/YBaX5fqerhsvx7N0kyI1+grNyfGX0br1+AgjCLgXVxG+eDOV042PKn7fz
+         zwYcM3mVLKmC6zQDRjeCoLbHKYBsYr63ga5UwEStOXxT1gr74q8d9O5RaO9qhpyiH5b4
+         NvkZ+2e7lnvt7/TC7khlmq3AAM8hsweATmX6L5Vv0FEGcRJLIARgwWvHkrIWiA/aIeMd
+         BQggRZIqaXByP4BMMhBQmffKbFgckjyWQhMG/DMPUisapt4z23fXNXdg3v93bkhTEcVc
+         v18XOHqV4wi2HJKBboOUyZiKtVfOc1apdO+Bb+YnIA1zspQo0zbAhFR8RhT4wW68RJAC
+         szDQ==
+X-Gm-Message-State: APuU4Z83Netdpa6h/U+HXMExJvJlR8I2YOZA/MLFPXUhkMuxxRqQVZui
+	hK2QLktrIZ39oSeqhYCVB/81dp+mt+v9G+yE4JM6jIMmY4GMp8NG/rUWYT2++G4g
+X-Gm-Gg: AZFdTZc34wWqXK1xg6k+f0mG+S05X/qt7S5Y7CptqztJ0osLFEwG6vLVGLpAdHk090h
+	gDa53TgzP5f/c6X8eeDK2QgPspEFi9UEdSh2xtqim4FwVZTmL5g5wih4CYzD7jzgNO74aCAshIm
+	dgNBZWTtsiS3DLvT0Ng9HgnjAk1kOomJDa78Pm4SFp+InBS1J4fde0kPR1QblG2pKwNIq1LZNwQ
+	atr2dfrnxCvGh34UpkF+eGUs/MdIx0yZ7UEDGesWqVSAywW882iEv8d1GVZREvoc4KgRcmq1/wL
+	ly0mjEuU+CPBbrVjb6RLv5q83kfhloIcQYz6z67SeWRfs9iy0ujJXms92c9fYGzGSPYzVR2unPc
+	qr2RSgb1d0UdgsB+tMN36dbIcBMo2KhUcuY0B8tVmAGbbA3T3+XDettvRkdTnpQ6iPn1eyFnUeT
+	AXMNGXnLFn+eSS//nKcgFK86D07nZKsG3f2keaYYTylFKUgQHVn+XHt6QVlWItj6yNblKCbErJG
+	2rPTs1gLM0R67pcKtQyl8v5XSwVIzaKCVVUDjfU2exCCGTFf6iZ6oNoCImz1pG9yN/4d0ZqFUph
+	5t7NM8Q8rP5Uk1KYJszQVK+0AIlhjCsCNZEl3i3ILtARIhOxzntGwKy4PW+x5p53rDBld4qKLNa
+	W8uYehQNJa4ZmZbo03p/ZBORQM5qqfaWDZgU=
+X-Received: by 2002:aa7:930b:0:b0:8b5:f9b1:a8cf with SMTP id d2e1a72fcca58-8c87d32a732mr21318565b3a.51.1795710471016;
+        Thu, 26 Nov 2026 08:27:51 -0800 (PST)
 Received: from cchengyang.duckdns.org (1-164-86-80.dynamic-ip.hinet.net. [1.164.86.80])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87343f83dsm11037097b3a.39.2026.11.26.08.27.43
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87343f83dsm11037097b3a.39.2026.11.26.08.27.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 08:27:46 -0800 (PST)
+        Thu, 26 Nov 2026 08:27:50 -0800 (PST)
 From: Cheng-Yang Chou <yphbchou0911@gmail.com>
 To: stable@vger.kernel.org,
 	Tejun Heo <tj@kernel.org>,
 	David Vernet <void@manifault.com>,
 	Andrea Righi <arighi@nvidia.com>,
 	Changwoo Min <changwoo@igalia.com>
-Cc: Cheng-Yang Chou <yphbchou0911@gmail.com>,
+Cc: Rahad Bhuiya <rahadbhuiya2021@gmail.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>,
 	Jiri Slaby <jirislaby@kernel.org>,
-	Rahad Bhuiya <rahadbhuiya2021@gmail.com>,
 	Kang Chen <k.chen@smail.nju.edu.cn>,
 	Ching-Chun Huang <jserv@ccns.ncku.edu.tw>,
 	Chia-Ping Tsai <chia7712@gmail.com>,
-	sched-ext@lists.linux.dev
-Subject: [PATCH 7.3.y 0/2] sched_ext: Backport two fixes dropped from 7.3.7-rc1
-Date: Fri, 27 Nov 2026 00:26:56 +0800
-Message-ID: <20261126162700.22257-1-yphbchou0911@gmail.com>
+	sched-ext@lists.linux.dev,
+	Cheng-Yang Chou <yphbchou0911@gmail.com>
+Subject: [PATCH 7.3.y 1/2] sched_ext: Reset task fields on exit of an SCX_TASK_READY task
+Date: Fri, 27 Nov 2026 00:26:57 +0800
+Message-ID: <20261126162700.22257-2-yphbchou0911@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261126162700.22257-1-yphbchou0911@gmail.com>
+References: <20261126162700.22257-1-yphbchou0911@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,28 +110,101 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-These are 7.3 backports of two sched_ext fixes dropped from 7.3.7-rc2
-because their rc1 versions failed to build [1][2].
+From: Rahad Bhuiya <rahadbhuiya2021@gmail.com>
 
-- Patch1: factor scx_reset_task_fields() out of scx_disable_task()
-		   instead of taking a298fd5f4ee8.
-- Patch2: drop the __SCX_DSQ_ITER_HAS_REENQ context line, so 
-		  b3768d058c98, which adds a new kfunc, isn't needed.
+commit 564405c424f49d70b13debe7fe5b550234ad6b84 upstream.
 
-Build tested on 7.3.7-rc2 with CONFIG_SCHED_CLASS_EXT=y.
+Tasks in SCX_TASK_READY are attached to a scheduler but outside the ext
+class, such as RT/DL tasks, or non-SCHED_EXT tasks under a partial switch.
+The scheduler's BPF code can still update their dsq_vtime and slice (for
+instance, via ops.cgroup_move() as done by scx_flatcg).
 
-[1] https://lore.kernel.org/r/0782adf7-20af-45a3-a09b-2a34c76afbac@kernel.org
-[2] https://lore.kernel.org/r/6e2e92cb-6663-457b-8225-0809917f4332@kernel.org
+Because __scx_disable_and_exit_task() currently breaks out of the state
+switch for SCX_TASK_READY without calling scx_reset_task_fields(), these
+fields are not cleared when the task leaves the scheduler. If the task is
+subsequently moved to another cgroup/sub-scheduler and later switches to
+SCHED_NORMAL, the new scheduler's ops.enable() sees stale dsq_vtime from
+the previous scheduler's clock.
 
-Kang Chen (1):
-  sched_ext: make DSQ iterator stay drained after NULL
+Call scx_reset_task_fields() in the SCX_TASK_READY case of
+__scx_disable_and_exit_task() to ensure SCX-managed fields are properly
+reset when leaving the scheduler.
 
-Rahad Bhuiya (1):
-  sched_ext: Reset task fields on exit of an SCX_TASK_READY task
+Fixes: 5771e79e461e ("sched_ext: Reset dsq_vtime and slice when a task leaves SCX")
+Signed-off-by: Rahad Bhuiya <rahadbhuiya2021@gmail.com>
+Signed-off-by: Tejun Heo <tj@kernel.org>
+[ chengyang: 7.3 lacks scx_reset_task_fields(), so factor it out of
+  scx_disable_task() ]
+Signed-off-by: Cheng-Yang Chou <yphbchou0911@gmail.com>
+---
+ kernel/sched/ext/ext.c | 40 ++++++++++++++++++++++++----------------
+ 1 file changed, 24 insertions(+), 16 deletions(-)
 
- kernel/sched/ext/ext.c | 57 +++++++++++++++++++++++++++++-------------
- 1 file changed, 39 insertions(+), 18 deletions(-)
-
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index cc8d09924fa1..1049a0914d60 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -4159,6 +4159,27 @@ void scx_enable_task(struct scx_sched *sch, struct task_struct *p)
+ 	scx_set_task_state(p, SCX_TASK_ENABLED);
+ }
+ 
++/*
++ * Reset the SCX-managed fields when @p leaves the BPF scheduler's control.
++ */
++static void scx_reset_task_fields(struct rq *rq, struct task_struct *p)
++{
++	lockdep_assert_rq_held(rq);
++
++	p->scx.dsq_vtime = 0;
++	scx_task_slice_ended(rq, p);
++	scx_set_task_slice(p, 0);
++	p->scx.reenq_cnt = 0;
++
++	/*
++	 * If @p is runnable but not running, its wait started at runnable_at,
++	 * which ops_dequeue() didn't reset. Leaving the scheduler ends the
++	 * wait. Reset runnable_at the next time @p is enqueued on SCX, so that
++	 * the watchdog doesn't count the time @p spends elsewhere.
++	 */
++	p->scx.flags |= SCX_TASK_RESET_RUNNABLE_AT;
++}
++
+ static void scx_disable_task(struct scx_sched *sch, struct task_struct *p)
+ {
+ 	struct rq *rq = task_rq(p);
+@@ -4172,22 +4193,8 @@ static void scx_disable_task(struct scx_sched *sch, struct task_struct *p)
+ 		SCX_CALL_OP_TASK(sch, disable, rq, p);
+ 	scx_set_task_state(p, SCX_TASK_READY);
+ 
+-	/*
+-	 * Reset the SCX-managed fields when @p leaves the BPF scheduler's
+-	 * control, after ops.disable() has observed their final values.
+-	 */
+-	p->scx.dsq_vtime = 0;
+-	scx_task_slice_ended(rq, p);
+-	scx_set_task_slice(p, 0);
+-	p->scx.reenq_cnt = 0;
+-
+-	/*
+-	 * If @p is runnable but not running, its wait started at runnable_at,
+-	 * which ops_dequeue() didn't reset. Leaving @sch ends the wait. Reset
+-	 * runnable_at the next time @p is enqueued on SCX, so that the watchdog
+-	 * doesn't count the time @p spends elsewhere.
+-	 */
+-	p->scx.flags |= SCX_TASK_RESET_RUNNABLE_AT;
++	/* after ops.disable() has observed the final values */
++	scx_reset_task_fields(rq, p);
+ 
+ 	/*
+ 	 * Verify the task is not in BPF scheduler's custody. If flag
+@@ -4213,6 +4220,7 @@ void __scx_disable_and_exit_task(struct scx_sched *sch, struct task_struct *p)
+ 		args.cancelled = true;
+ 		break;
+ 	case SCX_TASK_READY:
++		scx_reset_task_fields(task_rq(p), p);
+ 		break;
+ 	case SCX_TASK_ENABLED:
+ 		scx_disable_task(sch, p);
 -- 
 2.56.0
 
