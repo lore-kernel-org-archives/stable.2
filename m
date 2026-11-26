@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795674988;
-	b=TjB2DRbPcuBF7J22MpUxzo8rCINJb4nDVWNGoVxRSSH5bnfjanGipgLDUvMRzP7KBIsK
-	 CyHwv7QvPvqEZ0Ajs6NzHpY8hD/6LTE8yujLhFPYjTY9PJPHTiU44EGoP+dlUybPt/3YZ
-	 LPHF/ZPH8ZLNhuGCfIuAmqz/Rer+tadTIXXcFTDZJU7oiv5n5hZzXhSb1S59KzxDdORfw
-	 x1QMNpbxlYIiy0smxYXUHpWjsQ4zwME0RiXyTWa41hKptsBuVWv5uQtF+9RWGxaRdPuka
-	 3e97QPxgmDawiZhpqb3nBBN4N02ujR/2QUEK70NEg1P51UshGFL7w65mKowsLmzshWw==
+	t=1795675031;
+	b=M7heswNctb21cv9GjEktyl9vR9G/4kYIfCooIrq6mLlG31JZIEfxnQtZ+5XsCagqjVXx
+	 yj6XiWZncTOzmcvQhXtW9MI7MXgJgaEGC12TUxgjWcN6vxqq1rUFqCy/TWLQhCMGhX6j/
+	 GBYfH/h9g5QoAcQwSZlo9Dq/hrMYabUJidH80uFX2RJNFlXLvifNrY0d02FfIXA+uQXv8
+	 v3IbbDVNJXP5avJvl+F8jK0jCgyrmKOFHMZuFrUxJxT0ygI+pwjnLRFBaytAn3uwcIh63
+	 JvlMiwY9eyxs1OvwxmlxCMM//M5KxYrDvSTWJHsq+XhjlDdtnNdlHFIp25Rq93u9RZg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795674988;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795675031;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=pX+a3pAm0+kczIi67t1E7b8PvmEcUnVZOk0Q1Sv3XT8=;
-	b=R75qYSZYwBxKz0oy1+QhD7tBVj/g2cCK4DASZookriqd0+a9p3duOHAyHjPoR/pFu9VA
-	 wDDquEcpyUd/kYmcj7EfCDdcTHOWhfQufbQrPLsesl9VmLlbvZtHbzlH/LBSTEdWKtfA2
-	 p2hj0cJXud0MowbgIS8X8U9w6E+9p9AFS+nXGHYmZjbIV54qPhzei5YDU3Xkq9uyOIpAz
-	 s8vbFwUfvV3hUoWRs626onf7DKmMd71xynpVY9H/8rhLmYmZVeEyjoLM7T1pECauPyRNf
-	 J4JjHcj52ZO3VQqG/cHSp7JoWl/uAhIL+GBTzFRkyGJzoZsWCuEP0D33GCrLUdotyVw==
+	bh=IGDhuoZYCkO0y7/Dp5n43qYEMJGCg442coo5FW74yLg=;
+	b=j5svCpk3EUE3eD/UrNaFQ3cPm0zlMjofUa9LWhfTm2s6wuEyBiDOGLbNeH2yhzDSsSx1
+	 6i+PkFHLN6SbrOMzF3wgbMP12H01YxnnQNTMEOkL+BaNNoroOAy9GhgJs+JNVNpKqKYkB
+	 +KlqerB9kBMY8ntLom0eOPYXVMUiZQNN56nFryZzrCiI0kyuaLArajWktQTZpK3WRg8dj
+	 2cz59uwvTHbQcieP2hCxRXn9kqUOdK3Ahhixtp1VBvSb5txMrUjEhyBe9CJCW/LI3HWuP
+	 yhh9qIYCeEBOUbzwYQxwxh200oVL461V52w3L+siQTKlnjASpMUvcddQLaJ5VEZc2Tg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gklqrzc2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hOi0Xk7T;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53C3606A326;
-	Thu, 26 Nov 2026 06:36:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82531606A31C;
+	Thu, 26 Nov 2026 06:37:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gklqrzc2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hOi0Xk7T
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795674987;
-	b=0drhnaBOOVEbovWxwefSpn/MQiSOHydl5wnEQt0FWddc/RQdxF5QFE5grWX7FNomSXV+
-	 Khz4u1mC74dHDtn5SiTOV+onEzxaWZJhZu9cU8wdUzkz2yhRwf6IQv5IHqhRieVaH1nB1
-	 oWCsIN6wAGQZKxs1hRdoS66zWvHgdSk0yidBjeIYK3w0TlvmcavbDTHNSRtQ++/RMd5vT
-	 f/h334o9vabDvZP67QgYrIjPKMvkJtrgKix+k2pqjJxWjCEEuEkUO1lmdzySfKEH9Q4QI
-	 IqH5Dez8uQ6ad5ZbFGentJiA4KcHMgRymEGw16gP2BXs+i64LEo/z6RtVL1ZvzQMhQw==
+	t=1795675031;
+	b=SLX1Ihet0kkRpFJgYtVaI8hKr1V7yCtZgJILUMFpqQoaf1uPMnsCMomwjnVZvZs9QobO
+	 TqpOyMviPRu6uQTx66eNOWFvKd3a7krA4Op8fD8byyAOvTynFs9fxGtJc0UHyVt7OwdAx
+	 dZxdyNiO2aP9UZY+jZFUhrLNLRA2UdQWnqxmQUfUrRylHBTuf0JepeqqE1n/GuILsE3zJ
+	 FpBBRI7vCkREl8y0XAGKQjvliN5N+cPmaMuM2pBf9L7PU682yjs+2LZukQbL0Ik3UNeFs
+	 jwCsJ/BZoUDWqaAoesfKDpgsWBpi847z10/yP7/fRQUAW7IzEjs0wYFlIP5LYx40lig==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795674987;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	c=relaxed/relaxed; t=1795675031;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=pX+a3pAm0+kczIi67t1E7b8PvmEcUnVZOk0Q1Sv3XT8=;
-	b=JD0Dj8QWJ+l19caxHVC8o4Iy/C61w18RDCjt8TDDmXlNu5r54lb5BlQWw00emxOBPXiw
-	 IzPLcqwTDOFBf3Yre7nMs29k/4alqk0aolsvN3/RHMEaYaeLswxWPBxzSUnegkXdpuWpc
-	 ZSStJn2EiH30/hWf3Ac/R5PKZ8ejEAVFkXUo4mg2mrvUWBIeXNppVEBe+HuqK/rWYSKx/
-	 6hWGuRRszurURuWg9Q9eWeywUjwaDjEXdgRtX3dPXPeFdshzE4tPH4y/2mEGuiJnSa8Ec
-	 fzXOWUIzSNWFs4D76RYKcAbt+aLp+RYt6c4Q3rZxrkjiWHMGUSMl4YRicI8iGP7J+cw==
+	bh=IGDhuoZYCkO0y7/Dp5n43qYEMJGCg442coo5FW74yLg=;
+	b=oXFaT27SI8Q5IU1uCF9984vFyOffGZsZhoeZcayVBzQyxHUTNethseeHJw5k52MFpd1w
+	 wGbMpwTJAMUUMC8n9oupOQ2YkemR5uivDtUpfchl74vEwoPUfTyQXcUVaG3QK9sj+mr1r
+	 uDnPGpFvyQC6G3+D10bBjUmvJ/Tuubj2/MKQQsSlAQ0Pc80T5X4672mXp4e60mjARwWar
+	 GpFoNAiJKDPJpaHGbtBSM1qqNQwZg3iJniSITq7Y1OyqCkxVz1ENSnBqMd1fTW/6juIaD
+	 g1QK9H4kLhKm95KiLYvBZY8Gk5bzYeFxttKEGd02M0YoN1eeJvCEzIzpNvt5AZIAY+Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C9FE01F000D2;
-	Thu, 26 Nov 2026 06:36:16 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 2E0621F000C6;
+	Thu, 26 Nov 2026 06:37:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795674987;
-	bh=pX+a3pAm0+kczIi67t1E7b8PvmEcUnVZOk0Q1Sv3XT8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=gklqrzc2drXwT7t916+t/fxi27+aVgQ+O/gq4SZS76Z8MO/QlmswRxPYh6AMFzSLO
-	 s7QcvZYheoXw9u9P3yreFNr6qBCvelByywzdnDI5Y/Xa/mpoYrAAYCEkfnncPReesk
-	 oe+qUNR98mgWhnXPxMs/Hr1sYFZc7UhfOwlo2/Ok9F/ezG20MOo5ySGKFvgjGaJB3x
-	 JrXCEqWqQTfGItsnmJCDovJJc0kaa24RO8NbhLFaYTZu6sy3Dr3IHxaE890BjXCb1g
-	 RAUKvRsC8hq6ynbEuvS0cN/I8FwFMwF+9xgrcSYn5MuFF+8z0/BrPj2CM6SBhPGk3f
-	 YxqRRGj0f/QOA==
+	s=k20260515; t=1795675031;
+	bh=IGDhuoZYCkO0y7/Dp5n43qYEMJGCg442coo5FW74yLg=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=hOi0Xk7TdAORfivXxt6CRoNGv0Rgy4Zjn5PtgMHcRYO0Sjah3a82pH+9czC6aVlbI
+	 Urng045hltr4dEeSjJYFVFCkIM1NDc9+qpWDGGnXu8ItysIhHhih9Iihs8lFMjn9zs
+	 ve3x0pEAtXvEcLphXqCVqAtuSqyDq0TVMfGRYB4av5H0Yu/WXXB5IIGWZObOgIk8Cv
+	 2BZSsoPU7cO+hxOg+m3SO2vkgpkoCsyVWZGOO9gLY5oJv61wlFGbcmPvFmh/z1nVxG
+	 yMCRWJ2WL89jhSfEudb2CtQMS62qE0n5uEaMPa12xGczi6CVbF9nHbrSDhOGM7fcOT
+	 fofdDkVp4vNSg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 32EC14D291;
-	Thu, 26 Nov 2026 06:35:57 +0000 (UTC)
-From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
-Date: Thu, 26 Nov 2026 06:18:44 +0000
-Subject: [PATCH 6.12.y v2 4/4] virtio_balloon: quiesce balloon work before
- device shutdown
+	by lkml.kernel.org (Postfix) with ESMTP id B315E4D267;
+	Thu, 26 Nov 2026 06:37:06 +0000 (UTC)
+From: Jing Lin via B4 Relay <devnull+kayano050408.gmail.com@kernel.org>
+Subject: [PATCH v9 0/6] usb: gadget: gadgetfs: fix ep0 request lifetime and
+ control races
+Date: Thu, 26 Nov 2026 14:37:03 +0800
+Message-Id: <20261126-gadgetfs-ep0-v9-0-81b464c6e641@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,99 +86,106 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-virtio-final-v2-4-4cfd5590e924@certik.com>
-References: <20261126-virtio-final-v2-0-4cfd5590e924@certik.com>
-In-Reply-To: <20261126-virtio-final-v2-0-4cfd5590e924@certik.com>
-To: stable@vger.kernel.org
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, 
- "Denis V. Lunev" <den@openvz.org>, David Hildenbrand <david@kernel.org>, 
- Eric Auger <eric.auger@redhat.com>, Jason Wang <jasowang@redhat.com>, 
- virtualization@lists.linux.dev
+X-B4-Tracking: v=1; b=H4sIAI/TB2sC/1WNyw6CMBREf4XctTWlUF4r/8OwqOW2XCOUtEg0h
+ H+XohuT2Zxk5swKAT1hgCZZweNCgdy4Q31KQPdqtMio2xkEF0WaioJZ1VmcTWA4cWa0EFJmXKp
+ Swj6ZPBp6Hbpr++XwvN1Rz9ERGz2F2fn38bdUsfdTp/xfvVQxnFWm5nmWyzI3eLGDosdZuwHab
+ ds+1xKosL0AAAA=
+X-Change-ID: 20261126-gadgetfs-ep0-fc2255305a75
+To: Neill Kapron <nkapron@google.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alan Stern <stern@rowland.harvard.edu>, linux-usb@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com, 
+ stable@vger.kernel.org, Jing Lin <kayano050408@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795673921; l=3090;
- i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
- bh=YxT0JEcZt8be1Aod6X8plRSlx7+82SPoYFncZ9ti8IE=;
- b=UgO1apl0z0LJE8kVRiZ9zir503rVvLFWs8V6CuuHmaeib+SvAPyv1AFZA3rdymu7RxtiqSiJP
- xs6LPUIMkX8Au/Y6X6+61gROyuFmnawCJvKoLCtaPjsnOkTdwaQZdUe
-X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
- pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
-X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
- auth_id=1647
-X-Original-From: Dickson Wu <dickson.wu@certik.com>
-Reply-To: dickson.wu@certik.com
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795675024; l=3893;
+ i=kayano050408@gmail.com; s=20261126; h=from:subject:message-id;
+ bh=fvfwlA9wimqwVKnxLxvsfDJkX3M7MoycSS4Qn4OBS1Q=;
+ b=bOdNzpvTZmi8LCOaQlCH7+dUQtZxXvvh+W5jRQ9aPcskDohwk8u7hmklZFJyCd5b3DMxArj+F
+ O67PO+YlGOwDubELwbd44C4W50HkfAi2dEKj/R1/gnWwvbeovTFJmzj
+X-Developer-Key: i=kayano050408@gmail.com; a=ed25519;
+ pk=40M3hugIx++9w3nkAoFXGcN/vLWsPMGDYdbduV+lUlI=
+X-Endpoint-Received: by B4 Relay for kayano050408@gmail.com/20261126 with
+ auth_id=1648
+X-Original-From: Jing Lin <kayano050408@gmail.com>
+Reply-To: kayano050408@gmail.com
 
-From: "Denis V. Lunev" <den@openvz.org>
+This series fixes the ep0 request lifetime on unbind, control buffer and
+setup_abort state races, lost completed control-OUT transfers, event
+counter underflow, and the const cast in gadgetfs_setup().
 
-commit 7e17eef04600c399c7e0f5ce765da5cf9d40d8e1 upstream.
+1/6 tracks active ep0 requests and waits for completion after
+    usb_ep_dequeue() in gadgetfs_unbind() before freeing dev->req, while
+    keeping descriptor buffers out of kfree().
+2/6 copies delegated control-IN payloads into a private memdup_user()
+    buffer before touching dev->req and drops responses superseded
+    during the unlocked copy.
+3/6 fixes setup_abort tracking across ep0_poll(), gadgetfs_disconnect(),
+    and early returns or in-kernel requests in gadgetfs_setup().
+4/6 preserves completed control-OUT payloads until ep0_read() collects
+    them, leaving ep0 unqueued so the controller NAKs newly arriving
+    control transfers in the meantime and replaying the deferred setup
+    afterwards.
+5/6 dequeues ep0 events before dropping dev->lock for copy_to_user() to
+    prevent dev->ev_next underflow.
+6/6 removes the const cast on ctrl->wLength in gadgetfs_setup().
 
-Commit 8bd2fa086a04 ("virtio: break and reset virtio devices on
-device_shutdown()") added a generic virtio bus .shutdown handler that
-breaks and resets every virtio device during device_shutdown(), i.e. on
-reboot and kexec.
+The setup() callback runs in atomic context and may not sleep, so a
+mutex cannot serialize it against ep0_read() and ep0_write(); shared ep0
+state remains protected by dev->lock.
 
-virtio_balloon provides no .shutdown of its own, so that generic path
-runs while the balloon's asynchronous work is still armed. Once the
-device has been broken, virtqueue_add_inbuf() in
-virtballoon_free_page_report() returns -EIO and trips its
-WARN_ON_ONCE(). On a kernel booted with panic_on_warn that turns an
-ordinary reboot, for example a kexec based upgrade, into a fatal panic
-in the middle of device_shutdown(), so the machine never reaches the
-new kernel.
-
-Relaxing that single WARN_ON_ONCE() would only hide the symptom: the
-inflate/deflate and OOM paths do not warn, they call
-wait_event(vb->acked, ...) and would instead block forever on a broken
-queue that can no longer complete. The device has to be quiesced, not
-just kept quiet.
-
-Add a .shutdown handler that quiesces the balloon via the shared
-virtballoon_quiesce() helper while the device is still alive, and only
-then breaks and resets it via virtio_device_shutdown(). Unlike
-virtballoon_remove() the balloon workqueue is not destroyed, as shutdown
-does not free the device and cancel_work_sync() together with stop_update
-already prevent any further work from being queued.
-
-Fixes: 8bd2fa086a04 ("virtio: break and reset virtio devices on device_shutdown()")
-Signed-off-by: Denis V. Lunev <den@openvz.org>
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20260624140846.2616797-4-den@openvz.org>
-Signed-off-by: Dickson Wu <dickson.wu@certik.com>
 ---
- drivers/virtio/virtio_balloon.c |    7 +++++++
- 1 file changed, 7 insertions(+)
+Changes in v9:
+- Split the first two patches into single-purpose patches (1/6 through
+  4/6) so each problem is addressed separately.
+- Drop the rejected usb_ep_dequeue() fallback (ep0_req_free) in 1/6.
+- Allocate a private buffer with memdup_user() for control-IN writes in
+  2/6 instead of copying through a stack buffer, and clarify that the
+  generation check narrows rather than eliminates the unlocked window.
+- Preserve properly completed control-OUT transfers in 4/6 by deferring
+  any subsequent SETUP (leaving ep0 without a queued request so the UDC
+  NAKs it) until userspace reads the completed OUT payload, then replay
+  the deferred SETUP.
+- Drop the STATE_DEV_UNBOUND event-read changes from this series.  For
+  context on how unbind can happen before close(ep0): unloading the UDC
+  driver (usb_del_gadget_udc()) or writing to
+  /sys/bus/gadget/drivers/gadgetfs/unbind runs gadgetfs_unbind() while
+  userspace still holds the open ep0 descriptor, where a queued
+  GADGETFS_SETUP event could otherwise put dev->state back into
+  STATE_DEV_SETUP on the next read().  If that case is worth guarding
+  against, a small follow-up patch can clear dev->ev_next and wake
+  dev->wait in gadgetfs_unbind() and check STATE_DEV_UNBOUND before
+  delivering events in ep0_read().
+- Use a local events[N_EVENT] array in 5/6 instead of sharing a buffer
+  with control-OUT reads.
+- Link to v8: https://patch.msgid.link/20261110-gadgetfs-ep0-v8-v8-0-8f90434574fe@gmail.com
 
-Changes in v2
-v2: resent through a whitespace-safe path; v1 <CAFaZ9epp-Y8efod8a7CQuQqYEjk5L_ruwP+c1SoBRPjdu9uGyQ@mail.gmail.com> was damaged by my mail client and does not apply.
+To: Neill Kapron <nkapron@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alan Stern <stern@rowland.harvard.edu>
+Cc: linux-usb@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com
+Cc: stable@vger.kernel.org
+Signed-off-by: Jing Lin <kayano050408@gmail.com>
 
-The backport and the test runs were prepared with AI coding tools
-(OpenAI Codex agents, with review by Claude). I went over the result
-before signing off.
+---
+Jing Lin (6):
+      usb: gadget: gadgetfs: fix ep0 request lifetime on unbind
+      usb: gadget: gadgetfs: isolate ep0_write() buffer and reduce setup race
+      usb: gadget: gadgetfs: fix ep0 setup_abort tracking and reporting
+      usb: gadget: gadgetfs: NAK new setups until control-OUT data is read
+      usb: gadget: gadgetfs: prevent ep0 event counter underflow
+      usb: gadget: gadgetfs: avoid writing through the const setup pointer
 
-diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
-index 726aef5be178..efa77daa93b8 100644
---- a/drivers/virtio/virtio_balloon.c
-+++ b/drivers/virtio/virtio_balloon.c
-@@ -1159,6 +1159,12 @@ static void virtballoon_remove(struct virtio_device *vdev)
- 	kfree(vb);
- }
- 
-+static void virtballoon_shutdown(struct virtio_device *vdev)
-+{
-+	virtballoon_quiesce(vdev->priv);
-+	virtio_device_shutdown(vdev);
-+}
-+
- #ifdef CONFIG_PM_SLEEP
- static int virtballoon_freeze(struct virtio_device *vdev)
- {
-@@ -1229,6 +1235,7 @@ static struct virtio_driver virtio_balloon_driver = {
- 	.validate =	virtballoon_validate,
- 	.probe =	virtballoon_probe,
- 	.remove =	virtballoon_remove,
-+	.shutdown =	virtballoon_shutdown,
- 	.config_changed = virtballoon_changed,
- #ifdef CONFIG_PM_SLEEP
- 	.freeze	=	virtballoon_freeze,
+ drivers/usb/gadget/legacy/inode.c | 514 +++++++++++++++++++++++++++-----------
+ 1 file changed, 366 insertions(+), 148 deletions(-)
+---
+base-commit: 90d6263e867be7089b3d3323bef8d2accd327c77
+change-id: 20261126-gadgetfs-ep0-fc2255305a75
+
+Best regards,
+--  
+Jing Lin <kayano050408@gmail.com>
 
 
