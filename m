@@ -1,80 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795687734;
-	b=aS6oxX0QVsWMNOdvp9CvJnkPc/1LDHomumv0tD/JpFGweQ3CaTKDPyCk5ZR1UK4hagv6
-	 dyZa7SE0lRbzvGiMRFMG1lQLlLkmK8TcBtnh26JTB6Mf22MZOGEqVQagv4X3CgUjgX7vM
-	 P33VLwIt6pZTDHGJ/LWdVt5yUmk/+Tabbapp4Rsvql483swL/QRrd0TcN8YwIg/23te6G
-	 C/6rFgtUNMnpLsQYe02HmiK2tlw0lPtB9uAQICFfIkkPnnXJcdVQSzsxuLfKRKendidjm
-	 BUOMQAmGdFUMuSMS8jskEn2rgh5yeltvXR1U/rQeYUtNitVVyfNWca6j9MnI658M74A==
+	t=1795688017;
+	b=GI2U2+9D8EYBTsxAefCorXiEmycSQNtUeDqkz+iLYNfeS8HFxP/GwIdrF1l1vkOxZQx1
+	 JXwshphEBSQneX/T/Mv7v2JEOJqWLfwD1VQtTdikv5rsfA2aRnHEBYwwUR8AqLIIoljLC
+	 S15/Xb9fYakbsYG5maCA3jrGPvY+9FuZfRKLCDN6OthcqhiZAPs280ifR95cTlKiZAIm3
+	 kEKoOxcg5vGX+9dlx0rTOGH/MZCVIvfWF+B1AjFJTP7vza4JpT9OaWwiRuEINCP8AdT3W
+	 WG2JhoAEfwC+xtANKD5lq4IIo99Gs2ivnjP244oxfRE6dZ5leajbSfAMx2KAS3i6h1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795687734;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=kARfGtMOF+Hf5J72M41uplNYkAH3lMeoKErE8vZmf48=;
-	b=BCElLe/3EAZX+fG/9SD+/P3hPbEYdqiP8FSE1Nnwz773GUUHVr1pjJ02Q2nVZk/i9ggg
-	 P+jCwekOpYFc4W7CueoD3hLEaN4DkE/7e6ju85adQqUYAKTo+J8Ozct5HyJM9yIZNCj5h
-	 cMvGWjuXDMMWWRCeRbnH4FKzop9SsRWFhDmIspWc1mNtZbdOMSsFTFLWnw0zUGv3tBZB6
-	 l8UIDd29wgIc3J0exSJ6gL8/tKL2uNNtx/t4j7n/CfhfNCBJWUnuTg0SSjlAcfe74rYXh
-	 Au1MWV4I3OOLh7lKnILllhZU0r+xcsCkn+hprxbfi3TCicptHvLhfL0ht80Do/D/ryQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795688017;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=QjmQWDOhXjPduQCPFEYnWWElx9QajV47LMWbsl16/a0=;
+	b=EX+zm1Djjn3AzOErvFNmsETBa8Q9rDZFn/yAZM3vUoPnmBL+VZtaXEcd5dG92/bzpGVP
+	 wf6d9VPnLdxG9GXZk204vMyOq1J1M/4jDLabE7RJlchLQ3V103QmmTzWeH0gxuQfnMxqi
+	 mqVFgZUp6GOc5vykyRRajPCwhUmQbkQgfkFfft5ttVZVyV2Ue/nPuc7GRMyTLS0dled1+
+	 0tyWOs011euKRzCawmZsMG87LxvWjXrCeY0EmEBwjWjitUAx0FG+PNDWuxSAajEEq3hQb
+	 8EUZFHZh/9pryzs6QNiDl5vdE/pV89dPWnfIfDb43JUvwBrbIGGcFGh1MLpJ5vl5ucg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=N8vhm2gO;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=o5ytL25S;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=NtxCwrv7;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=IiP1dU5h;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=L3wKBgHc;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2114D606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 10:08:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2114D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18121606A330;
+	Thu, 26 Nov 2026 10:13:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18121606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=N8vhm2gO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795687733;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kARfGtMOF+Hf5J72M41uplNYkAH3lMeoKErE8vZmf48=;
-	b=N8vhm2gObj3x0wtgr88soYfSwrU94Rw/8zMbtBT/59fm4c4bKPgu93shh280RqUNIlO2v2
-	Qb5zWpaIB1ZAFTRDwVEwyZjQ7IOc/gkfiNWzsyvBAH9ZZ03Jy1mFbez4tOXafqQE5MrL5r
-	BaspZPsBwAdTxJgPud5ShGd2lPEObkI=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-338-MWGLfK7uO8Kna3H3a-l0UQ-1; Thu,
- 26 Nov 2026 10:08:48 +0000
-X-MC-Unique: MWGLfK7uO8Kna3H3a-l0UQ-1
-X-Mimecast-MFC-AGG-ID: MWGLfK7uO8Kna3H3a-l0UQ_1795687726
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=o5ytL25S;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=NtxCwrv7;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=IiP1dU5h;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=L3wKBgHc
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CDEA41955F2E;
-	Thu, 26 Nov 2026 10:08:45 +0000 (UTC)
-Received: from jbenc-thinkpadp1gen4i.rmtcz.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 11C3630001BE;
-	Thu, 26 Nov 2026 10:08:41 +0000 (UTC)
-Date: Thu, 26 Nov 2026 11:08:39 +0100
-From: Jiri Benc <jbenc@redhat.com>
-To: Lin Jiapeng <ljp1205831794@gmail.com>
-Cc: aconole@redhat.com, echaudro@redhat.com, i.maximets@ovn.org,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- dev@openvswitch.org, Lin Jiapeng <jiapenglin@tencent.com>,
- stable@vger.kernel.org, TencentOS Corvus AI <corvus@tencent.com>
-Subject: Re: [PATCH net] openvswitch: reject negative L2 length in
- ovs_fragment()
-Message-ID: <20261126110839.6cd6aa8c@jbenc-thinkpadp1gen4i.rmtcz.csb>
-In-Reply-To: <5d1f3ff8-b995-4496-a59f-2a01f38603b1@gmail.com>
-References: <20261126083218.55429-1-ljp1205831794@gmail.com>
-	<20261126101410.4a310394@jbenc-thinkpadp1gen4i.rmtcz.csb>
-	<5d1f3ff8-b995-4496-a59f-2a01f38603b1@gmail.com>
+	by smtp-out1.suse.de (Postfix) with ESMTPS id CAF112205E;
+	Thu, 26 Nov 2026 10:13:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1795688015; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QjmQWDOhXjPduQCPFEYnWWElx9QajV47LMWbsl16/a0=;
+	b=o5ytL25S74zKhzoZ+L/MmCeIxYsfUDPsFQP8U264cGDR1xf0onaNgdHG+2VLIlR+ZAwtiA
+	bJoqzQ98O8ROY31N3bBORfnSToqhC6V2bp5kETYPtq8UbeWeN/V21Ucplr23W4vTDJTCkh
+	JdYg8siazbSwqolJwmEbhaI1wh4gP00=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1795688015;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QjmQWDOhXjPduQCPFEYnWWElx9QajV47LMWbsl16/a0=;
+	b=NtxCwrv7S/7ynap1/6hIKZcPkRolv5tpyFexw5xFuZ7Rz9DIQh+qfhxRxdDXaJ235ZlwtD
+	5wVhn/FC2gu7fBAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1795688013; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QjmQWDOhXjPduQCPFEYnWWElx9QajV47LMWbsl16/a0=;
+	b=IiP1dU5hX4g8bwJC6G4XdxRX3Ye4+mP2b2tVxWSeRG7gEegmbobQBdYwmnufQYAltmQnbM
+	ByWBF1kisbSYJZmqpzyvuaQ7tWm5jtVnYKhMBeEU8Nt+p1oHPsjqDBCGjbb3DT83Neh35c
+	cV2gcZKIYkhf8s4mr141KWy7H7vf0yc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1795688013;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QjmQWDOhXjPduQCPFEYnWWElx9QajV47LMWbsl16/a0=;
+	b=L3wKBgHcTaNAimRxwcOFSX+v3MGgugkzImqkeNlY9rvttELYhq2/13uEOWDjph+1xfE46W
+	YYOFwFka7y5eULAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7AF8D13432;
+	Thu, 26 Nov 2026 10:13:33 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 0a8XFU0GCGtcFQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 26 Nov 2026 10:13:33 +0000
+Date: Thu, 26 Nov 2026 11:13:33 +0100
+Message-ID: <87ik1j6gtu.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Pavel Hofman <pavel.hofman@ivitera.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: pcm: oss: Refine slave hw_params after setting format
+In-Reply-To: <20261125181005.3683575-1-hengyul@cs.unc.edu>
+References: <20261125181005.3683575-1-hengyul@cs.unc.edu>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,32 +112,85 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Spamd-Result: default: False [-12.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[unc.edu:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On Thu, 26 Nov 2026 17:34:19 +0800, Lin Jiapeng wrote:
-> After PUSH_MPLS followed by the two POP_MPLS actions, skb->data is four
-> bytes past the saved inner_network_header. Because both POP actions
-> still declare next_proto as MPLS, the clearing condition added by
-> 78a86d75 is never satisfied, even though the label stack has already
-> been emptied.
+On Wed, 25 Nov 2026 19:10:05 +0100,
+Hengyu Liang wrote:
+> 
+> Commit 93d7d38fa61d ("ALSA: aloop: add DSD formats") added DSD_U8 to
+> the formats of snd-aloop. Before that, its narrowest format had 16 bits.
+> 
+> However, snd_pcm_oss_change_params_locked() sets the slave format with
+> _snd_pcm_hw_param_set(), which does not refine the parameters, while
+> the access, rate and channels before it are set with refining helpers.
+> snd_pcm_oss_period_size() then reads a buffer size maximum that is
+> still computed for the narrowest format, now DSD_U8, so the OSS period
+> doubles. With the default U8 client format, the doubled period no
+> longer fits in the format plugin, and snd_pcm_plugin_alloc() returns
+> -ENOMEM. As of now, an OSS program that asks snd-aloop for 8 channels
+> at 192 kHz gets ENOMEM from SNDCTL_DSP_SPEED and from every later
+> ioctl on the same file.
+> 
+> The issue can be reproduced with this program, where card 1 is
+> snd-aloop:
+> 
+>     #include <fcntl.h>
+>     #include <stdio.h>
+>     #include <sys/ioctl.h>
+>     #include <sys/soundcard.h>
+> 
+>     int main(void)
+>     {
+>             int fd = open("/dev/dsp1", O_WRONLY | O_NONBLOCK);
+>             int ch = 8, rate = 192000, blk = 0;
+> 
+>             ioctl(fd, SNDCTL_DSP_CHANNELS, &ch);
+>             if (ioctl(fd, SNDCTL_DSP_SPEED, &rate) < 0)
+>                     perror("SNDCTL_DSP_SPEED");
+>             if (ioctl(fd, SNDCTL_DSP_GETBLKSIZE, &blk) < 0)
+>                     perror("SNDCTL_DSP_GETBLKSIZE");
+>             printf("block size %d\n", blk);
+>             return 0;
+>     }
+> 
+> Before that commit, it prints "block size 65536". After that commit,
+> the result is:
+> 
+>     SNDCTL_DSP_SPEED: Cannot allocate memory
+>     SNDCTL_DSP_GETBLKSIZE: Cannot allocate memory
+>     block size 0
+> 
+> This patch will set the format with snd_pcm_hw_param_set(), which
+> refines the parameters, as is done for the channels just before.
+> 
+> Fixes: 93d7d38fa61d ("ALSA: aloop: add DSD formats")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 
-In other words, the fix in 78a86d75a70e was incomplete. In addition to
-checking whether the caller is claiming to pop the last header, we also
-need to check whether the inner_network_header is still inside the
-packet and reset the inner_protocol if it's not.
+Applied now.  Thanks.
 
-Please adjust, test and send v2.
 
-Note the severity of this bug is close to zero (as also evidenced by
-no previous reports of such panic). Your action list is not going to
-appear anywhere in practice.
-
-Also, permanently add to your prompt that your AI must check the git
-log for similar bugs in the past, analyze the past fixes and verify the
-proposed fix is in alignment with them.
-
- Jiri
-
+Takashi
