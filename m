@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795657555;
-	b=lAI3kf8HbfYOsji5zLIXXuzEAzuF/P21Hi8JDpzeJnjadDXnsDc503Xbtag738CAnSQt
-	 p53cTbmWoKiKJkWKKZjvzWJzyJERJsmdvZosqBqPwVEozvoBysR8EoujfONMAR05+zYxk
-	 MPBoKTauPTdoeGq6PvqEfU1f3QUA9eTPokmED9THcCQQdt4YErN7gV37EK/pbxRzkXbEG
-	 M8rOz74Z/S+5d5aYT8xMwfRTdEW8EdyZi0+bOPyX+wo7SOJ4D+e8G9pfEJJPNMXQzKnGT
-	 bc005D8MhAVGrMO8QIdOpMsNpQAT6drW91Pct360UrgstDx1vjmtditKxPS85qFDNfg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795657555;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=2vRcQUH4j6DCmTq6IZOsqNTflV8D2q9QUJ6I2py+lz8=;
-	b=pOzTuk5eMViISmSffoixH/ZIOBKJ8oZ2gDscamwgoV1otLwMLEtIx4AOuBb8ClOQ1AWw
-	 /UPP617pYQ+WfHt/a7P9eCkjH2RdneVqtFGl6ZBQ5oLa0B+vSE9O5SuigWXo/Amlj9al7
-	 g19AF4Dar/oYVwWxFv95WGXgFA+C5EqFLZcpMWVv8nSUdT5+CFq2IAEmma2yeHiXBvSwK
-	 qdQO/OUOSa8Voy9WAffp+jcOuCKXP2EhP1LYO9xPyjY7OAPpkzgHg/EEkx3WLQsa2t9dQ
-	 CwE0bNw3n44U5TVVXpTBvnIjv47r7c6Kf8E5ooaf9Hu4TTKP7WyEa9PharD9eo9PFQg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YDEI7KIb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795657576;
+	b=tS/OoSjJlULRxJgqEqMTDYptOHTqQiwFmJpVbeK5PNaa8MKKpHLnWgtCoZ7Ufg/T7Y6L
+	 zIp+a1IC363s9IS1Jqo8lXx6Zz9jYkDRbo6wol3aFVKXLVKNcsH0iy5N2J/hpBT2jF7O5
+	 Lfn5PQFmU4DzZEEyzhKWn3+j+ty28bbh7znNyjK7rS4ZsygMeCizWMy+6BSOrVExxe41W
+	 6XGlxV8GYNzefkuKh1gh30vXlKRsabkmTrk08/9uSfvwUUwezsEFVXwd7JPq0Mx2nqfWv
+	 wTKs6w7rAD5ZWAUOLaFiXrxgtQLnC4LuozVV4BXMAOw3ZqDhOI3f7XEqBKtCpFD7QdQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795657576;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=+RzEzM4UchiOi8hQfSO0+t44cqbPeOZ1/zMd5FDZBWI=;
+	b=CN01NNhLCxmpjGTZotg5UHMdRuqAX7vC6MDEJu5MLMQKJxgdpMKUdu+9TrmjPD5y/ZMe
+	 rxmhbxb+BXkT/ho2BE+T26A84Ku5NKjAetVAwv7KW+EJATFN2Py16mLw/umMuMcUyb06u
+	 WMta9AlZf3Q91bdShbaDsi1T+k0KX3kcB0ShoDl5EbekW1hdxKsgmGURC3BRCFdqtKBxT
+	 0Pi+Ak4yP3iPyr1K/R3t59cjMIAdr61WoZuZ1eTdLcFgNcQ/LBHyhgM7JwCitFWEMerEM
+	 3/gvKG89Xf+lx8ZgfjKE18cuBNL2l265McpY3A21LzF85qEjzKDKXu86zmSCkqVdbMg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bSb10Ksr;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B9EE606A31E;
-	Thu, 26 Nov 2026 01:45:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1119606A321
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 01:46:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YDEI7KIb
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795657554;
-	b=TwQaCLiMfrdsaiAKSXQmQxBH9yAMymKzAKhV2fNaS9N0zLpEaaw6LzdBvxjQcgu4HNR2
-	 uWhK5OTwK4ItCgzBvwX+jJc7ySnkibmShmY0knvgy8DPq4dywdOIv5askF1j8+VPRabWB
-	 robhpz2Fg+7lWYnDJ/TVq49pslj2T6YsRp0EVYFkVOuTJMTUGgJp8e0OawqXrPSTeDZrN
-	 /LxLrLAWr/+sNE1ujbzRu6BLUw/QUdaVTOHu4uo81P66QZIfdD3YNYZtlRjLVMRvBPqEU
-	 22Id1SID1IH8X9O66Hpc0PHYMy+6011q5tWI9Znpeqz55AlN5iOZcp4hxeTk2kVWnUQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795657554;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=2vRcQUH4j6DCmTq6IZOsqNTflV8D2q9QUJ6I2py+lz8=;
-	b=hB7JftuHfMmg7PfqKtTqbm2QhPI8BmlpXW1g0t1ZI7Rv8u1O3vTu+sNj84rzLBER/eap
-	 SP95pa51bkpEBSviKsmjICKRDh2/+FC8qjqdAZp8mQUP438lzos5y4E/C7RgDnAZJ/aZM
-	 kIi9pLhmJfXtDx4CypdAmQSrq/TA17sjb2bfaJa2c8KoIRmafGm1r56RUXzgRhKM2Od/w
-	 mN7omrG1OJ1qmjHKkBcdQyTpxEjSdRoUC4LQ1+VPVC9dfo6fE13gRKKxqLD1MeM3jU1GH
-	 JDXUSsNCMvD5s861PTXMNZ9gnf7O4Oyx++3cZwHi26y4ANui2MBp6yy33FPe1H95h4g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A88F71F000C4;
-	Thu, 26 Nov 2026 01:45:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bSb10Ksr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD4171F000EF;
+	Thu, 26 Nov 2026 01:46:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795657554;
-	bh=2vRcQUH4j6DCmTq6IZOsqNTflV8D2q9QUJ6I2py+lz8=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=YDEI7KIbc7tAihOLz6JPpxV8P6q5z+vEdLg89HLqxOmUm+SqYQQKZJn1ezcgrITn0
-	 0sTgtPiLjlWPgN0qRlHmqORaUPW527Fd4KA+3aS921y4ijPkUy8bsLXOmEeSHKB/ko
-	 2LCIhxfCUSa2LyBnxaZJifBlRBTeSCz+8Jxy4nqUyCDzgbkCYlJyuL7ZGTJsbUGCTo
-	 OpLi+Q5igEk3GV7Nr7u2Jytu/pG2if3TA/6fygs/ltFVB950sNfI06s/sCbAHkO7CG
-	 /NRMOieshRwyyMW91AojbD0Wkf5Nk13iuK5AZ6UOmRN82RDr+Zr7EJ7+rQUhbnsMuM
-	 Tt5EJS6g6Ewxg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3864F4D130;
-	Thu, 26 Nov 2026 01:45:47 +0000 (UTC)
-From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Date: Thu, 26 Nov 2026 10:45:47 +0900
-Subject: [PATCH] xfs: punch delalloc blocks past EOF before mapping a pNFS
- layout
+	s=k20260515; t=1795657576;
+	bh=+RzEzM4UchiOi8hQfSO0+t44cqbPeOZ1/zMd5FDZBWI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bSb10KsrN03InOarPdh+bEKcy6hLJ4IZXFqRxi4tsT/qUpr4JPOxIX4GHiB0T5jHV
+	 Hk1dGgQjvFgYqvPURteH1ERaQdiNyGGMfPxcYc3EJEvW+HkBYQkOG0WoXxf8uBGsgF
+	 nFEHUOI0neHmee0qwokjjb6Mf6l6n/NNT0rWvm1yjTG3C2piJMa3xND2jaiFPytjJ9
+	 mCpaXKhHGbmDr1WMH9onu26OVTBtvxK+0UP7sGHWYmwXEbsjINapJOytDaiX9mOOeg
+	 144iFQ8M0pD3netAHkRC2jjl5I6zSuu6DCF7BH0Bec5zbRa4lvmeF0BFdwQTlTDMeX
+	 iXjp8PM1C2NWA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	Christian Brauner <brauner@kernel.org>,
+	Amir Goldstein <amir73il@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] ovl: reject different lower idmaps on the same fs
+Date: Wed, 25 Nov 2026 20:46:14 -0500
+Message-ID: <20261126014559.1700035-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112500-shrivel-harmony-7572@gregkh>
+References: <2026112500-shrivel-harmony-7572@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,95 +61,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261126-xfs-pnfs-delalloc-eof-v1-1-509deb79a255@samsung.com>
-X-B4-Tracking: v=1; b=H4sIAEqPB2sC/x2MywqAIBAAfyX23EIaGfQr0cHHWguioRCB+O9Jl
- 4E5zFQolJkKbEOFTA8XTrGLGAewl44nIbvuICephJAKX1/wjh2Ogg4hWaTkcV3MLNWkyRoLvb0
- zeX7/73609gHZHh15ZwAAAA==
-To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
-Cc: "Darrick J. Wong" <djwong@kernel.org>, Dave Chinner <dgc@kernel.org>, 
- Christoph Hellwig <hch@lst.de>, Chuck Lever <cel@kernel.org>, 
- Jeff Layton <jlayton@kernel.org>, linux-nfs@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Daejun Park <daejun7.park@samsung.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795657546; l=2347;
- i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=V363AEekfhVNmNgFRwTSiV54vNvZ++lzcBIxwNKpDXM=;
- b=QfPaSk/iTM48NWJBRh6hlUOsMSA7R7UxCc8uUT+wcBjKEdN/6+kBRYDn5lz2DaJurf7YbBVY6
- 0Rr+HhvA0+RBKhDcl7dLR0L0elHdE2IOn9l4rs4OZDH7AByGXEsCbco
-X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
- pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
-X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
- auth_id=1122
-X-Original-From: Daejun Park <daejun7.park@samsung.com>
-Reply-To: daejun7.park@samsung.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Daejun Park <daejun7.park@samsung.com>
+From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 
-Writeback on fragmented free space can leave speculative
-preallocation past EOF as delalloc. A LAYOUTGET over it BUG()s on
-XFS_DEBUG kernels. Other kernels warn in nfsd and refuse the layout.
-A LAYOUTCOMMIT past it moves EOF over it. Inode reclaim then asserts.
+[ Upstream commit 720f40c05b2785406121da0151543751204f2953 ]
 
-Punch it after the flush. Delalloc past EOF holds no data.
+Overayfs mounted with index=on or nfs_export=on require file handle
+support from backing filesystems.
 
-Fixes: 527851124d10 ("xfs: implement pNFS export operations")
+Overlay file handles identify a backing filesystem, but not the lower
+mount used to decode it. If lower layers share a superblock and use
+different idmaps, a handle can decode through the wrong layer.
+
+Record the first idmap on a private lower clone for each backing
+filesystem. Fail if another clone has a different idmap. Comparing
+the private clones prevents mount_setattr() from changing the checked
+state. Distinct idmap objects are treated as ambiguous.
+
+Fixes: bc70682a497c ("ovl: support idmapped layers")
+Suggested-by: Christian Brauner <brauner@kernel.org>
+Link: Link: https://lore.kernel.org/all/20260925-server-hager-riskieren-06116eded213@brauner/
 Cc: stable@vger.kernel.org
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Tested with pynfs on XFS_DEBUG, with free space fragmented as in
-xfs/538 and the bmap_alloc_minlen_extent error tag set. LAYOUTGETs over
-the 512 KiB left delalloc no longer assert. Neither does eviction after
-a LAYOUTCOMMIT past it. The pynfs block tests and fstests over pNFS
-show no change (BLOCK3, generic/075, 112 and 127 fail either way).
+ fs/overlayfs/ovl_entry.h |  2 ++
+ fs/overlayfs/super.c     | 22 ++++++++++++++++++++++
+ 2 files changed, 24 insertions(+)
 
-xfs_bmap_punch_delalloc_range() takes the same arguments in the 6.18.y
-and 7.3.y stable trees. Older trees need them adjusted (5.10.y and
-5.15.y take a start block and a length).
----
- fs/xfs/xfs_pnfs.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
-index 945f7a3e11c..4a6c1a399d7 100644
---- a/fs/xfs/xfs_pnfs.c
-+++ b/fs/xfs/xfs_pnfs.c
-@@ -11,6 +11,7 @@
- #include "xfs_inode.h"
- #include "xfs_trans.h"
- #include "xfs_bmap.h"
-+#include "xfs_bmap_util.h"
- #include "xfs_iomap.h"
- #include "xfs_pnfs.h"
- #include <linux/exportfs_block.h>
-@@ -192,6 +193,18 @@ xfs_fs_map_blocks(
- 	if (WARN_ON_ONCE(error))
- 		goto out_unlock;
+diff --git a/fs/overlayfs/ovl_entry.h b/fs/overlayfs/ovl_entry.h
+index a479680a5ccd8..67a3b8f6c162e 100644
+--- a/fs/overlayfs/ovl_entry.h
++++ b/fs/overlayfs/ovl_entry.h
+@@ -25,6 +25,8 @@ struct ovl_config {
+ struct ovl_sb {
+ 	struct super_block *sb;
+ 	dev_t pseudo_dev;
++	/* Idmap of the first lower layer on this fs */
++	const struct user_namespace *lower_idmap;
+ 	/* Unusable (conflicting) uuid */
+ 	bool bad_uuid;
+ 	/* Used as a lower layer (but maybe also as upper) */
+diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+index e8e7e1c59d95d..215ab87c4c2bf 100644
+--- a/fs/overlayfs/super.c
++++ b/fs/overlayfs/super.c
+@@ -1769,6 +1769,28 @@ static int ovl_get_layers(struct super_block *sb, struct ovl_fs *ofs,
+ 			goto out;
+ 		}
  
-+	/*
-+	 * Writeback stops allocating a delalloc extent once the page it writes
-+	 * is covered, so speculative preallocation past EOF can stay delalloc.
-+	 * Delalloc past EOF never holds data. Punch all of it, as
-+	 * xfs_free_eofblocks() does for preallocated files, so that a layout
-+	 * never maps it and a LAYOUTCOMMIT never moves EOF over it.
-+	 */
-+	if (ip->i_delayed_blks)
-+		xfs_bmap_punch_delalloc_range(ip, XFS_DATA_FORK,
-+				round_up(XFS_ISIZE(ip), mp->m_sb.sb_blocksize),
-+				LLONG_MAX, NULL);
++		/*
++		 * Lower file handles identify the lower fs, but not the layer,
++		 * so with different idmaps on the same lower fs, index and
++		 * nfs_export may decode a file handle through a layer with the
++		 * wrong idmap.  Following copy up origin without index is only
++		 * used for st_ino, which does not depend on the idmap.
++		 */
++		if (ofs->config.index || ofs->config.nfs_export) {
++			const struct user_namespace *idmap = mnt_user_ns(mnt);
++			struct ovl_sb *fs = &ofs->fs[fsid];
 +
- 	end_fsb = XFS_B_TO_FSB(mp, (xfs_ufsize_t)offset + length);
- 	offset_fsb = XFS_B_TO_FSBT(mp, offset);
- 
-
----
-base-commit: 5e7b6fe39324913f6416c854c6ed3a1793aaba8e
-change-id: 20261126-xfs-pnfs-delalloc-eof-75b3260aecbc
-
-Best regards,
++			if (!fs->lower_idmap) {
++				fs->lower_idmap = idmap;
++			} else if (fs->lower_idmap != idmap) {
++				pr_err("lower layer '%pd2' conflicts with idmap of another lower layer on the same fs, mount with '-o index=off,nfs_export=off' to override.\n",
++				       stack[i].dentry);
++				iput(trap);
++				kern_unmount(mnt);
++				return -EINVAL;
++			}
++		}
++
+ 		/*
+ 		 * Make lower layers R/O.  That way fchmod/fchown on lower file
+ 		 * will fail instead of modifying lower fs.
 -- 
-Daejun Park <daejun7.park@samsung.com>
-
+2.53.0
 
