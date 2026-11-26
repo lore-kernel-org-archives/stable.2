@@ -1,79 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.56.165
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795681487;
-	b=NRzcMrvZSwL0mYq3vzz/fbyLVNjb3MUOYWwhj8gmGrCd01SNJ7K6jVpIwzGRK1rXA56N
-	 xmd9cZA8bkTM0YI/9txrkyHvsIil0G9jjpagnG0SQO4qkFkIReCB9sV+XN4V7tzzzrvF4
-	 LvymNrzSuH+RoqqgtOLLBlHpumgmwYkhJdg5kRmG6ofQMVwis3Q94L2PE0UeYzwdIlaLM
-	 uEdsZseJSfFN9Jpk7PmTmbm/uxM4agZuzjTbxesC9puQKgvB/QSIA/I2/JEYcM36UuT/Z
-	 5j1a8fpXOwoFneNk+wUzVFT6w519wRK60XDIKLVnm4rFjuyVgXZKyzm7UoMovAW9rzQ==
+	t=1795681492;
+	b=wZrNGYdJ71EKNBlDfQxOpNukVg4bCyBLrib30/Mm01J2GafzZJ8YKI149ZcZeT8yt++q
+	 FB0yeOXyrVVsouWTmfCVO3lpygihHeIROtnFknrg0+cCkCWhbUI6nwrxMfW50XpWisyit
+	 6FC0KURXBZo5qf6TYn/v1tUbP7B7eVtEA3oRKycl4Gr9z5djGdkEsXFViqq+pMvvQGRKo
+	 LHhGk7Lu27VL0VDmH9ZCK4WagvMjoqbbwlmeK1r0qA3ZKTyr0CLY7LxrteN2e2CuiVUmg
+	 9ufB3PwANw6Hr6pQsu5ZmMbI5vumxa0GvI2A0GJ2pMcv9ctCYDjt60CkidtCx7ffzPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795681487;
-	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=QG7x41CbbyirdC2OMK80hsT9es9iEMG3U7KuCt7Ho90=;
-	b=AfnsnE5hasMJ8i4TjjNjPxdyKZUoqw7PuPJP70EBbx+tuB1jri5CxhkkeNW13+I/d2UZ
-	 JkP/LhZGb5d66Kl8liuM/q1BdlCuWpVcuFB7fiHyoyDRkkqJiOnY9FzRgh4Kr2qD4un4j
-	 SimPDKXG2dIGI7Js1YpbJ+5B4KYYvSLYbvKGBZdyJwxvxQI+vX1hgTM4Jp7g5WDuYkXss
-	 00kkwaW/tu+9MrSMNZXQQf1tHSnhUsIQ/YbJedkVl5cFk4YDmLFB8ySqePOqtwSbRdjfm
-	 QbD2NQUijQEBfsQ5mbqqm63KYJOGHe8TMrqv1G0lpDyyTuIW2p7Avgp+pCwv5pBThDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795681492;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=c/xuhSgrDi5Evjz9QC5SNlbLmx4tXIO0jjq3+L8fUUU=;
+	b=X9svkgC8NIpHJ7BaZU1u5A5xugD9wFHQHPsEcxGqPI8IXV7G3bjv3z7QEzrsjjwB0Uqc
+	 U2BHO+u8G8Mt6X/EnvWVC0Ah8mWvW7kwv2JecFnk27WteLc4LJUbgZOFK/+9OSb11LJOi
+	 a7kZOj3buBNIk+FWRY7RKV/TiSahqJQBEZQ3IVnzabO9UiPWKs+Hwvh8DEZ6UK+EBIdQ6
+	 VEqROZirhczj2m6bnXk/GOMQLpHPt2Seh4l22Zzv7JVkuzfS0+AbJTwaHkHNiX8l+5Z5x
+	 93swBa2qkp85NUtcEJcd6Ou7hHkMSthQOX6kT0iWjL5u4i2Y+GPU6gSOk86hQGIrpHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideco.ru;
-	spf=pass smtp.mailfrom=ideco.ru;
-	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=V7JnUiaT;
-	arc=none smtp.remote-ip=51.250.56.165
-Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ebY5K/EX";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52DB0606A338
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 08:24:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52DB0606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ideco.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006BE606A337;
+	Thu, 26 Nov 2026 08:24:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=V7JnUiaT
-Received: from [169.254.254.254] (localhost [127.0.0.1])
-	by smtp.ideco.ru (Postfix) with ESMTP id B5E7F2032496;
-	Thu, 26 Nov 2026 13:24:39 +0500 (+05)
-Received: from fedora (5cfcd9fa.dynamic.mv.ru [92.252.217.250])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.ideco.ru (Postfix) with ESMTPSA id A1D962037210;
-	Thu, 26 Nov 2026 13:16:30 +0500 (+05)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru A1D962037210
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
-	t=1795680992; bh=QG7x41CbbyirdC2OMK80hsT9es9iEMG3U7KuCt7Ho90=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V7JnUiaTcCnW0T0aalfoWlJmCqKJwfmbGX3RAYzGYQdAsTsGfwAZT0IlUJxFBGFrJ
-	 +oA2TYrTjstAk3dEKLVLB+GXyQxfDpLUOd9suIiYebxtrYky6PeXOTfdUHde6VtLvh
-	 xCbngRqgFlwlcKairHTDlIBiPfg2Myya7EDVD09sqWznPjUMxV2ydOsv0REoEyI2C5
-	 BnigBTjCsQYS1CuWC5noLjgLNZy41XrS+9tEK8cG9arkxgeCULfgrNZj/4P6NPLE4I
-	 EmmXom0Z4n9/dIkjAD4qCsGfJpGaktom30a7eZz42OpEo9lnw+VOJ1NEQW2vlxEIJ0
-	 KY/ex3NmAYbaA==
-From: Alex Kazinsky <a.kazinsky@ideco.ru>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Alex Kazinsky <a.kazinsky@ideco.ru>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Eric Anholt <eric@anholt.net>,
-	Jesse Barnes <jbarnes@virtuousgeek.org>,
-	Dave Airlie <airlied@redhat.com>,
-	dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	lvc-project@linuxtesting.org,
-	stable@vger.kernel.org
-Subject: [PATCH 2/5] drm/connector: Handle DVI-I property allocation failures
-Date: Thu, 26 Nov 2026 12:15:57 +0400
-Message-ID: <20261126081602.2901498-3-a.kazinsky@ideco.ru>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261126081602.2901498-1-a.kazinsky@ideco.ru>
-References: <20261126081602.2901498-1-a.kazinsky@ideco.ru>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebY5K/EX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8278D1F000C0;
+	Thu, 26 Nov 2026 08:24:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795681491;
+	bh=c/xuhSgrDi5Evjz9QC5SNlbLmx4tXIO0jjq3+L8fUUU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ebY5K/EXh6yUpAOaOGAPYixvLgD2Hm4OrXdy41KYC7GFjEnm1HvucHNEQg/F9u09q
+	 9VVlMugAis7yAYoD8wgebw4oKaTfK748lz9VIr6cihO64oKMc5VKK4T53dZkoEjzpd
+	 TEfHarhqFFo/uEotTRSdIUSPF1XCA/gmyMZCiXwn0IavCPwImzgNhk0ShIQ0hMDZWt
+	 drPqF28vZBjUXcvQfs58wcE8md+suSJBBa9bKI6ReTacUA0MThjU3yNLSMjIjdmtpj
+	 MQXbbWNKJ4DAbgNiI742ymc0G+MVhRXDVOrZsxHtivwFUm0iLTB3u4GOe1MpTADjsy
+	 Hwh7k3XHXv3Wg==
+Date: Thu, 26 Nov 2026 08:24:46 +0000
+From: Lee Jones <lee@kernel.org>
+To: Brian Masney <masneyb@kernel.org>
+Cc: Drew Fustini <fustini@kernel.org>,
+	Joel Stanley <jms@oss.tenstorrent.com>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	linux-riscv@lists.infradead.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 08/10] clk: tenstorrent: Poll atomically in
+ atlantis_clk_pll_enable()
+Message-ID: <20261126082446.GA38590@joneslee-macbookpro.roam.internal>
+References: <20261123164834.3330320-1-lee@kernel.org>
+ <20261123164834.3330320-9-lee@kernel.org>
+ <awXYHBcmdDQ9OvlD@x1g10>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,83 +65,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <awXYHBcmdDQ9OvlD@x1g10>
 
-drm_mode_create_dvi_i_properties() returns success even if either
-drm_property_create_enum() call fails. Nouveau then continues display
-initialization and may pass a NULL property to
-drm_object_attach_property(), causing a NULL pointer dereference.
+On Tue, 24 Nov 2026, Brian Masney wrote:
 
-Return -ENOMEM on allocation failure and destroy the selector property
-if creating the subconnector property fails. Publish the property pointers
-only after both allocations succeed.
+> Hi Lee,
+> 
+> On Mon, Nov 23, 2026 at 04:47:41PM +0000, Lee Jones wrote:
+> > The Common Clock Framework invokes .enable callbacks in atomic context
+> > with interrupts disabled and enable_lock held.  In atlantis_clk_pll_ops,
+> > atlantis_clk_pll_enable() is registered as the .enable callback yet
+> > waits for PLL lock using regmap_read_poll_timeout() with a 500 us sleep
+> > interval, triggering a sleep-in-atomic bug via usleep_range().
+> > 
+> > Since the PRCM regmap is backed by MMIO, use
+> > regmap_read_poll_timeout_atomic() instead.
+> > 
+> > Fixes: 23c8ebc95284 ("clk: tenstorrent: Add Atlantis clock controller driver")
+> > Closes: https://sashiko.dev/#/bug/linux-980395a6-f282-478a-bf18-b5695a725735
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Lee Jones <lee@kernel.org>
+> > ---
+> >  drivers/clk/tenstorrent/atlantis-prcm.c | 9 +++++----
+> >  1 file changed, 5 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/drivers/clk/tenstorrent/atlantis-prcm.c b/drivers/clk/tenstorrent/atlantis-prcm.c
+> > index eccc8015da23..d9155f133713 100644
+> > --- a/drivers/clk/tenstorrent/atlantis-prcm.c
+> > +++ b/drivers/clk/tenstorrent/atlantis-prcm.c
+> > @@ -313,10 +313,11 @@ static int atlantis_clk_pll_enable(struct clk_hw *hw)
+> >  			   PLL_CFG_EN_BIT, PLL_CFG_EN_BIT);
+> >  
+> >  	/* Step 3: Wait for PLL lock */
+> > -	ret = regmap_read_poll_timeout(pll->common.regmap,
+> > -				       pll->config.reg_offset, val,
+> > -				       val & PLL_CFG_LOCK_BIT,
+> > -				       PLL_BYPASS_WAIT_US, PLL_LOCK_TIMEOUT_US);
+> > +	ret = regmap_read_poll_timeout_atomic(pll->common.regmap,
+> > +					      pll->config.reg_offset, val,
+> > +					      val & PLL_CFG_LOCK_BIT,
+> > +					      PLL_BYPASS_WAIT_US,
+> > +					      PLL_LOCK_TIMEOUT_US);
+> 
+> This should actually be converted to use the enable lock instead of the
+> prepare lock since this will sleep with interrupts disabled. The _atomic
+> variant won't be needed there.
 
-Handle the error in Nouveau by cleaning up the mode configuration and
-freeing the display structure before returning.
+Thank you Brian.  Can do.
 
-Fixes: f453ba046074 ("DRM: add mode setting support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
----
- drivers/gpu/drm/drm_connector.c           | 12 ++++++++++--
- drivers/gpu/drm/nouveau/nouveau_display.c |  8 +++++++-
- 2 files changed, 17 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 41cbd76e0b1c..51e616f5aa5e 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -2061,7 +2061,8 @@ int drm_connector_create_standard_properties(struct drm_device *dev)
-  *
-  * Called by a driver the first time a DVI-I connector is made.
-  *
-- * Returns: %0
-+ * Returns:
-+ * Zero on success, negative errno on failure.
-  */
- int drm_mode_create_dvi_i_properties(struct drm_device *dev)
- {
-@@ -2076,12 +2077,19 @@ int drm_mode_create_dvi_i_properties(struct drm_device *dev)
- 				    "select subconnector",
- 				    drm_dvi_i_select_enum_list,
- 				    ARRAY_SIZE(drm_dvi_i_select_enum_list));
--	dev->mode_config.dvi_i_select_subconnector_property = dvi_i_selector;
-+	if (!dvi_i_selector)
-+		return -ENOMEM;
- 
- 	dvi_i_subconnector = drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE,
- 				    "subconnector",
- 				    drm_dvi_i_subconnector_enum_list,
- 				    ARRAY_SIZE(drm_dvi_i_subconnector_enum_list));
-+	if (!dvi_i_subconnector) {
-+		drm_property_destroy(dev, dvi_i_selector);
-+		return -ENOMEM;
-+	}
-+
-+	dev->mode_config.dvi_i_select_subconnector_property = dvi_i_selector;
- 	dev->mode_config.dvi_i_subconnector_property = dvi_i_subconnector;
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
-index 07882624a7f6..04e9a512eaec 100644
---- a/drivers/gpu/drm/nouveau/nouveau_display.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_display.c
-@@ -657,7 +657,13 @@ nouveau_display_create(struct drm_device *dev)
- 
- 	drm_mode_config_init(dev);
- 	drm_mode_create_scaling_mode_property(dev);
--	drm_mode_create_dvi_i_properties(dev);
-+	ret = drm_mode_create_dvi_i_properties(dev);
-+	if (ret) {
-+		drm_mode_config_cleanup(dev);
-+		drm->display = NULL;
-+		kfree(disp);
-+		return ret;
-+	}
- 
- 	/* this only gets set if the driver has the ATOMIC flag */
- 	if (drm_drv_uses_atomic_modeset(dev))
 -- 
-2.56.0
-
-
+Lee Jones
