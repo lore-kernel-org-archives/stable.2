@@ -1,60 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795736413;
-	b=FoBocCP6C6r6CMR0TdhryhLwbUHdZmxubl7kbfCyTcDACeFknifm/Zqbe6gCbO1460Qf
-	 Fluplbmvl0APtECJzFB80qWEEPVlO49PzO1RBb+BQAQ8sYU6C1K2Xrott3WHesazWXUCH
-	 Hur/zdYu7TqPFuu2qudkzrFGX5ZFJDQKH12XjOZ9jsdI3dMvsSG7lCYefLUi9dQgkA1u0
-	 Z9/Z3g3BvqLlQUMcNbwnv+u0YqRUe7TSONu9TObuikst6SOURVjig8T+8H3D+hRUvZDKk
-	 1g0gPkqH7o7W2h08NTi39OvHL5/isGCMreUK1wcUAC5wNm7OoJ//XYL85y3dPQep2Dg==
+	t=1795736926;
+	b=gYsMgIp7XPiPESURYsFmIwXrm06TDje1zv/zNMZZ9zmMhb196KnjGA5sfsjjBb7cHvIX
+	 9G5ouxiPLcdOkrSR7FOFz/NKlC29l09m7wkURl4HFvwii7NcTAAVINtNLFB0s3o0CO8DL
+	 CE9ciCjnIbKvPWjC0XXpPsGH/KspXtv770VE0hSVU3uiLFcV6ZJHVLG+sYq3WRLrUOIS6
+	 Ncr37DVHcDFsykXCT/hxAZmQnCNeVq1met6u1++ayhFaV5L6qf4N+QkdlG6m8QzFLpAP3
+	 bqv5ljiO54YA/j3aTjdPekZy+lVJ6IONv6gldxDDzGqINDLCMyB1LP6z1Smp0XHKzcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795736413;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=p1NwBe1+g7IymIttwNUADtbPs7ADwM1V7cZzWRri7t8=;
-	b=FP9w+2Xf2Smi2sm4x06UDxJWV3CjEV+DliShRNuKE99a2N56b25Rfq7AfYdZiVADEDxT
-	 aDgm/NcM+HiOUwP8dcN6Kv6JAW52CIWvbQT1c8FJjypKUTvXTWz6EF+Zu16WP/wAYSQJ8
-	 iTCAuSPFLJT+VcOTsfvbDKnU2ylCPXjnEhPXkWbO1VOmiycEiaegDI+/gvzc1d6mS0iYT
-	 iyIMGqfSOLVIp2P595K3581Bm8drP25HlOn6qHdS8C8rKLafTaXqNJTWPwjNb5eW44qjn
-	 fPo2EENi5IgKffffk8WuBJVTQw1QlWMubKcbw+ygaRt2x9uwhiOfyg9DZ1aF3lWRoiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795736926;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=VxeD4WAIT3mFKrFVmaWm8s04eoB2/2UJsBXQx10SSts=;
+	b=QPtv37Bcr9+XC3YSX/FxpnKebfGPQ1yc9dg9Q1kz7DjOog8oJ5T3WdE8qRCI43Bbf8pS
+	 UfhNUw55XJfaGZ+O6YqDZ70EhgBbz9EsGMiNPHR8V9Jh5/yLde7Pj2HZ+plpROSDI5Cw4
+	 98sFzWmUFa3z5QPNj1EXEWTlTMQUV+Xr3VV+c0JLL8jHQBxrYKvmt5eU2rAaKSgQwYIeu
+	 tgW/vHyUD2U9MlZ2aPGab7efksnuFBmhVmKsWzEFpL0PhscV+YPZraIpJ3TW/Ir3D3ruk
+	 QFqSDRJ/21KvagkNWw6RvmJpQq2gws7OG2iXKn2c/MGlTAOr9wUzKpa2tKBf+BEzeEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YzN0HqBj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J0woiC7F;
+	arc=none smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA499606A321;
-	Thu, 26 Nov 2026 23:40:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0ED606A323
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 23:48:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E0ED606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YzN0HqBj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB06F1F0089A;
-	Thu, 26 Nov 2026 23:40:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795736412;
-	bh=p1NwBe1+g7IymIttwNUADtbPs7ADwM1V7cZzWRri7t8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=YzN0HqBjURUjbvjhld6Qz0/vG7ZqxKEeYiYlbaK/ROnYhf4XycQ/8IFTzkdQYqnv0
-	 UHGxS6789AwMDblQudnhvqx6itrAP6aXB09W5MNYRWRHNdWH0ZP+IS0ZqYnf4b/wVK
-	 I3C1uOQ0Hqug3hUkoxfW1L73Ox38HlTsS6XH2LFpU/2htKoIWP3czwKzseFZf6hqCE
-	 jRrmIQPQXzUk+bSYs67rV2J7PrpKxOsvQeCgCbP6yZftnGqcoOjUi1QvGXwOYYzwO6
-	 W9PEUcIVh8k+LkcxioG/tFvXjpAiy92q1NMhws/NLMjGBTODbvnSHc79wFOhFpT1Gh
-	 rh3TVUQndbHkg==
-Subject: Re: [PATCH net 3/6] idpf: ignore link events once removal has started
-From: netdev-bot+sashiko@kernel.org
-To: anthony.l.nguyen@intel.com
-Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
- edumazet@kernel.org, andrew+netdev@lunn.ch, willemb@google.com,
- netdev@vger.kernel.org, tianxun.ng@bytedance.com, oss.patchbox@gmail.com,
- emil.s.tantilov@intel.com, richardcochran@gmail.com, milena.olech@intel.com,
- konstantin.ilichev@intel.com, stable@vger.kernel.org, Samuel.salin@intel.com
-Date: Thu, 26 Nov 2026 23:40:11 +0000
-Message-ID: <179573641139.3135.13380331474083412807@kernel.org>
-In-Reply-To: <20261125225145.4126333-4-anthony.l.nguyen@intel.com>
-References: <20261125225145.4126333-4-anthony.l.nguyen@intel.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J0woiC7F
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-5364d86f7f0so78553401cf.1
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:48:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795736925; x=1796341725; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VxeD4WAIT3mFKrFVmaWm8s04eoB2/2UJsBXQx10SSts=;
+        b=J0woiC7F/RACfXylDb2Pg7RFxj87Lf/WXYuSrub40GGj7yRZLI+lCaJTE7cSfsZNP9
+         NRDLm+Dh3Rngi2KnlH5tdMM22LVP+/FBnLvxr0syYNeCJMh8ev7DwL6Qdyw+uYo2FGX7
+         WzJnj13FLrL+y2E3/6fsU2tgJYajJ0oEcUYf7EHxwcTUmjHYAcNmheNJI869x/ka88d/
+         es38XreCpxgFDIKafUBUIE3qb9Vk679SDfnxw3IvE/d4ZPeUSeyqffXUzPIUXKpPyqeM
+         rHJTiQ2wTKAQkWJ/EP+vAsNwYKbIqeuDyBCS8C7IqlkMQiq1/iT9PE+HUbNXJduAmUkV
+         fH9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795736925; x=1796341725;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VxeD4WAIT3mFKrFVmaWm8s04eoB2/2UJsBXQx10SSts=;
+        b=P/ZgYrVx5iPhmByu25ztQwKePefAKPQxQ+Ko3vjy/99Vd38m8KkFSQgUgx0Ba4bWPS
+         St4f66HO8FB3vnO6O4hl7hc/XGIYR23GWnpBtzaYe8yE4baZl+oB1AmmwJUj26wNjdJD
+         wfPgQQAhh6zHeinZTArcsol37KLjIHMt6uFLVxCdknlwUEaCssNvjqMYsEKNTjFuS/fE
+         +JsgEy5QSnoHmoKHEGw62/ZUkBtaanK2N+lOd/Dg3903UNNNe8lavsOPa6hYIHLy1zm2
+         rtsJMwGhKE88+BUqmoApol4wY2o8afEDFCnFEhnXNclBW8t/akXw8tuzXiAn9dWYZr5U
+         CqiQ==
+X-Forwarded-Encrypted: i=1; AL+hErF93cdk4t48YdizbUtE0K3yh5LqA8a03EjnJB3zzRQPTUgtye2UvqcaQ8j+2KnZu1T6MedSP1A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+5vXVGPKckqnh4szwPMH/iNvFMOPtYBEFrtLgR3y0+ewReN5xs
+	WKL1L5TrUPhhRNjNnOgEVeeKsQEv9Uh9AwLbJIFuNxMerqlNyitU4pVs
+X-Gm-Gg: AZFdTZeMemc9dBHkZgVrKeq48nMwxXCay1uIM4vxUjEsEEOP9STQlOqeDMGaiDY1/Qq
+	idGGU8ojZVG2eeg9iN2tVqADaBq8HzcysuCQycWGXzmUwXuDXGf2dKxlzMpXlxWiAq7VFYfzgJ2
+	+UnKbzwJqcp7WRqEcSKOOXVR4n08F01SnIjl5KqWjyCsrIZjg4UYtudeKuheXXVtd1Kkpq10s/Y
+	xOG/pVvJF23XfqQEojf9QXTnLg1a5pNh64LKoOa3i6+Y6stMbIc4UrsVzlPvppp564iPgemXXLS
+	vP0YMlf+rH2BMxWBJwqNbA4BXuY6vFCdbmyZF+eGZFexQ1ySPr11fuABFUWlSkGtxGpF8mtJoea
+	LHfVCWuu5EOmCxeTrgvqwEn47LDlIuk9rTvzq/acA9ML01i32x6a72WD9UxyMBvlL8R9mMtSOe4
+	VaxtvyT0quoZLO6+vSrnet1Q+RmEqFAS1SconNQpB3l0qGhb1NsgGZ2RzdOT6MwftEGnR+SAH2P
+	qRZo0Gikp0K43sWYi7SeGDUQuP2RzNzHPHuAfV7XIuXC8AsgUkot164YUC5VaVmsOmwgus14LOq
+	yMtFn3NXoAIpLux2IJWV0tbyKNJulZd4f5/Eo0GP0MRV9z4iKLPg+B3/uB7UroN/lD70Ecj7M6V
+	ROhwzKCLHgfs2shbzw1Kq/QjttIti8+Ykp7swZUQ8j/RgYLqCmEMy
+X-Received: by 2002:ac8:6906:0:b0:55d:330f:e2d3 with SMTP id d75a77b69052e-55d76a204b7mr376177381cf.34.1795736924942;
+        Thu, 26 Nov 2026 15:48:44 -0800 (PST)
+Received: from Apollo.mynetworksettings.com ([2600:4040:a89a:c500:a9e0:bc34:811c:7ed0])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d7884d01csm193792991cf.21.2026.11.26.15.48.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 15:48:44 -0800 (PST)
+From: Enjan Chou <zhouer@gmail.com>
+To: linux-bluetooth@vger.kernel.org
+Cc: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Siwei Zhang <oss@fourdim.xyz>,
+	linux-kernel@vger.kernel.org,
+	Enjan Chou <zhouer@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] Bluetooth: hci_conn: Don't leak hci_conn when dequeuing its create command
+Date: Thu, 26 Nov 2026 18:47:01 -0500
+Message-ID: <20261126234701.215190-1-zhouer@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,235 +99,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+hci_abort_conn() returns without queuing abort_conn_sync() when
+hci_cancel_connect_sync() dequeues a create connection command that has
+not started yet. Nothing else fails the connection in that case: the
+destroy callback of the dequeued command only drops a reference, so the
+hci_conn stays in the connection hash with abort_reason set, which makes
+every later hci_abort_conn() on it return early too. For LE, its
+connection parameters also stay on pend_le_conns.
 
-Low priority / nit picks for your consideration:
+For an LE connection made through L2CAP (BT_CONNECT, still scanning)
+this leaves the adapter unable to make LE connections until it is
+powered off. A new connect to the same address reuses the stale
+hci_conn and never completes. Once the peer's advertising is reported
+again, check_pending_le_conn() queues the create command again, the
+controller connects, and le_conn_complete_evt() bails out because
+hci_conn_set_handle() refuses a connection with abort_reason set. The
+hci_conn then stays in BT_CONNECT, so hci_lookup_le_connect() keeps
+returning it and connection attempts to any other LE device never
+start: hci_connect_le() returns -EBUSY, which check_pending_le_conn()
+ignores, and hci_update_passive_scan_sync() does not start the
+background scan they wait for. A dequeued BT_OPEN (ACL) connection is
+likewise left behind.
 
-- [Low] The new IDPF_REMOVE_IN_PROG test in idpf_handle_event_link()
-  (idpf_virtchnl.c:45) only works together with the…
+The early return was added by commit 881559af5f5c ("Bluetooth: hci_sync:
+Attempt to dequeue connection attempt"), when hci_cancel_connect_sync()
+only tried to dequeue BT_OPEN connections. Commit 12917f591cea
+("Bluetooth: hci_conn: Fix null ptr deref in hci_abort_conn()") dropped
+that state check, so LE connections in BT_CONNECT started to hit it.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the patch
-  leaves the same vport-lifetime race open on two other teardown paths,…
-- [High] This problem wasn't introduced by this patch, but
-  idpf_handle_event_link() can see a vport whose netdev pointer is not…
-- [High] This problem wasn't introduced by this patch, but
-  idpf_handle_event_link() does an unlocked check-then-act on…
+Queue abort_conn_sync() whether or not the create command was dequeued.
+hci_abort_conn_sync() sends no HCI command for a connection that never
+reached the controller (BT_OPEN, or LE still scanning) and just calls
+hci_conn_failed(). If an advertising report queues the create command
+again in the meantime, that entry runs after abort_conn_sync() and fails
+hci_conn_valid().
 
---
+Reproduced on bluetooth-next (ffb95458a0f7) with an RTL8761BU USB
+controller passed through to a KVM guest, without bluetoothd: an L2CAP
+ATT socket connects to an advertising LE peer while a BR/EDR connect to
+a non-existent address keeps the cmd_sync worker busy paging, and the
+LE socket is closed before the page times out. Without this patch every
+round that dequeued the create command (11 of 11) left the stale
+hci_conn, with or without discovery running; with it none of 60 rounds
+did (50 of them dequeued it) and LE connections kept working. KASAN,
+lockdep, DEBUG_LIST and DEBUG_OBJECTS reported nothing.
 
-idpf: ignore link events once removal has started
+An AI coding assistant (Claude) helped find and analyse the problem,
+write the reproducer, and draft this patch and message.
 
-This patch makes idpf_handle_event_link() return early once
-IDPF_REMOVE_IN_PROG is set. During remove, mbx_task can handle a
-VIRTCHNL2_EVENT_LINK_CHANGE while idpf_vport_dealloc() is freeing the
-vport, and the early return keeps that event from using it. It depends on
-an earlier patch in the series that waits for a running mbx_task after
-the bit is set.
+Fixes: 881559af5f5c ("Bluetooth: hci_sync: Attempt to dequeue connection attempt")
+Fixes: 12917f591cea ("Bluetooth: hci_conn: Fix null ptr deref in hci_abort_conn()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Enjan Chou <zhouer@gmail.com>
+---
+Found on a desktop running Ubuntu's 7.0.0-44 kernel, which carries
+12917f591cea: after repeated failed connection attempts to a BLE device
+the adapter could not make any LE connection (noticed when a BLE scale
+stopped connecting) until it was powered off. What kept the cmd_sync
+worker busy at that moment was not captured; the reproducer uses a page
+instead. The same reproducer also leaves the stale hci_conn on that
+kernel, and does not with this patch.
 
-> Make idpf_handle_event_link() return once IDPF_REMOVE_IN_PROG is set.
-> The previous patch waits for a running mbx_task after the bit is set and
-> before anything is released, so on remove a link event is either handled
-> before the vports are torn down or ignored.
+hci_cancel_connect_sync()'s return value is now unused (hci_abort_conn()
+is its only caller). I left it as is to keep the fix small for stable.
 
-[ ... ]
+Reproducer:
 
-> Fixes: 02cbfba1add5 ("idpf: add ethtool callbacks")
-> Cc: stable@vger.kernel.org
+  # Reproducer for hci_abort_conn() leaking an hci_conn whose create command
+  # was dequeued.  Python >= 3.14 (LE L2CAP addresses), run as a normal user.
+  # Needs an advertising LE peer; bluetoothd and discovery are not required.
+  import socket, subprocess, time
 
-[Severity: Low]
-Could the prerequisite be named by subject or SHA here, instead of "The
-previous patch"?
+  PEER = "E1:E9:83:B4:21:65"      # advertising LE peer (random address)
+  NOBODY = "02:00:00:00:00:01"    # BR/EDR address that does not exist
 
-The new check only closes the window together with this pair in the
-remove_in_prog branch of idpf_vc_core_deinit():
+  le = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_SEQPACKET,
+                     socket.BTPROTO_L2CAP)
+  le.bind(("00:00:00:00:00:00", 0, 4, socket.BDADDR_LE_PUBLIC))
+  le.setblocking(False)
+  page = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_SEQPACKET,
+                       socket.BTPROTO_L2CAP)
+  page.setblocking(False)
 
-	} else {
-		...
-		cancel_delayed_work_sync(&adapter->mbx_task);
-		queue_delayed_work(adapter->mbx_wq, &adapter->mbx_task, 0);
-	}
+  le.connect_ex((PEER, 0, 4, socket.BDADDR_LE_RANDOM))
+  page.connect_ex((NOBODY, 1))    # pages ~5.12 s, keeping cmd_sync busy
+  time.sleep(3.5)                 # peer's advertising queues the LE create
+  le.close()                      # hci_abort_conn() dequeues it
+  time.sleep(3)
+  page.close()
+  time.sleep(30)
+  # Without the fix the LE connection to PEER is still listed (state 5).
+  print(subprocess.run(["hcitool", "con"], capture_output=True,
+                       text=True).stdout)
 
-Without that wait, an mbx_task that passed test_bit() just before
-idpf_remove() set the bit can still be inside the handler when
-idpf_deinit_task()->idpf_vport_dealloc() frees the vport.
+ net/bluetooth/hci_conn.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-The pair comes from "idpf: ignore Tx timestamp replies once removal has
-started". That patch has Fixes: 1a49cf814fe1 ("idpf: add Tx timestamp
-flows"). This patch has Fixes: 02cbfba1add5, which is much older.
-
-Stable trees that have 02cbfba1add5 but not 1a49cf814fe1 could pick up
-this patch by its Fixes: tag and miss the prerequisite. The prerequisite
-also has no PTP code to apply against in those trees. They would get a
-smaller race window rather than a fix.
-
-Would a dependency note on the Cc: stable line help here? For example,
-"Cc: stable@vger.kernel.org # needs ...".
-
-> diff --git a/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c b/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c
-> index 348c7875134ad..854eb1f1ada4c 100644
-> --- a/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c
-> +++ b/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c
-> @@ -41,6 +41,10 @@ static void idpf_handle_event_link(struct idpf_adapter *adapter,
->  	struct idpf_netdev_priv *np;
->  	struct idpf_vport *vport;
->  
-> +	/* The vports are released on remove and shutdown */
-> +	if (test_bit(IDPF_REMOVE_IN_PROG, adapter->flags))
-> +		return;
-> +
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the same vport lifetime
-race is still open on two teardown paths that never set
-IDPF_REMOVE_IN_PROG. It is still there at the end of the series.
-
-idpf_vport_dealloc() frees the vport through idpf_vport_rel(), which ends
-in kfree(vport), before it clears the slot:
-
-	idpf_vport_rel(vport);
-
-	adapter->vports[i] = NULL;
-
-adapter->vport_ids[i] is never cleared.
-
-That means this call chain can return the freed vport:
-
-idpf_mbx_task()->libie_ctlq_xn_recv()->idpf_recv_event_msg()->
-  idpf_handle_event_link()->idpf_vid_to_vport()
-
-The handler then loads vport->netdev from the freed vport, writes
-np->link_speed_mbps through that pointer, and writes vport->link_up into
-freed memory.
-
-The first path is hard reset. idpf_vc_event_task() does:
-
-func_reset:
-	if (adapter->xnm)
-		libie_ctlq_xn_shutdown(adapter->xnm);
-drv_load:
-	set_bit(IDPF_HR_RESET_IN_PROG, adapter->flags);
-	idpf_init_hard_reset(adapter);
-
-With remove_in_prog false, idpf_vc_core_deinit() only calls
-libie_ctlq_xn_shutdown(). That does not stop event delivery, because
-libie_ctlq_xn_recv() still passes unmatched messages to
-idpf_recv_event_msg().
-
-mbx_task is only cancelled after idpf_deinit_task() has freed the vports:
-
-	idpf_ptp_release(adapter);
-	idpf_deinit_task(adapter);
-	...
-	cancel_delayed_work_sync(&adapter->serv_task);
-	cancel_delayed_work_sync(&adapter->mbx_task);
-
-The second path is the error unwind in idpf_init_task(). The commit
-message doesn't mention it:
-
-unwind_vports:
-	if (default_vport) {
-		for (index = 0; index < adapter->max_vports; index++) {
-			if (adapter->vports[index])
-				idpf_vport_dealloc(adapter->vports[index]);
-		}
-	}
-	...
-	if (test_and_clear_bit(IDPF_HR_DRV_LOAD, adapter->flags)) {
-		cancel_delayed_work_sync(&adapter->serv_task);
-		cancel_delayed_work_sync(&adapter->mbx_task);
-	}
-
-Here mbx_task is cancelled only after the vports are freed, and only on
-driver load. The KASAN report in the last patch of this series shows
-that this init failure window is real for the PTP worker.
-
-On both paths IDPF_HR_RESET_IN_PROG is set. idpf_decfg_netdev() is
-therefore skipped, and vport->netdev is not cleared before the free.
-
-Can a link change event that arrives between idpf_vid_to_vport() and
-adapter->vports[i] = NULL cause a use-after-free on these paths?
-
-The new comment ("The vports are released on remove and shutdown") also
-leaves these paths out.
-
->  	vport = idpf_vid_to_vport(adapter, le32_to_cpu(v2e->vport_id));
->  	if (!vport) {
->  		dev_err_ratelimited(&adapter->pdev->dev, "Failed to find vport_id %d for link event\n",
-
-[Severity: High]
-This is also a pre-existing issue, not one introduced by this patch. Can
-idpf_handle_event_link() see a vport whose netdev pointer is not set yet?
-
-idpf_vport_alloc() publishes the zeroed vport:
-
-	/* fill vport slot in the adapter struct */
-	adapter->vports[idx] = vport;
-	adapter->vport_ids[idx] = idpf_get_vport_id(vport);
-
-vport->netdev is only assigned later, in idpf_cfg_netdev(). That happens
-after idpf_check_supported_desc_ids() and, on first load, after
-alloc_etherdev_mqs(), which may sleep.
-
-mbx_task is already running at that point, because idpf_vc_core_init()
-queues it before init_task.
-
-A link event for the new vport_id in that window passes both early
-returns. The handler then does:
-
-	np = netdev_priv(vport->netdev);
-
-	np->link_speed_mbps = le32_to_cpu(v2e->link_speed);
-
-With a NULL netdev, this write goes to a near-NULL address in mbx_task
-context. The same window opens again on every hard reset re-init.
-
-The error path in idpf_cfg_netdev() also calls free_netdev(vport->netdev)
-and then sets vport->netdev = NULL while the vport is still published.
-That leaves a short use-after-free window as well.
-
-[Severity: High]
-This is another pre-existing issue that this patch does not introduce.
-Further down in idpf_handle_event_link(), the IDPF_VPORT_UP test is an
-unlocked check-then-act:
-
-	if (!test_bit(IDPF_VPORT_UP, np->state))
-		return;
-
-	if (vport->link_up) {
-		netif_tx_start_all_queues(vport->netdev);
-		netif_carrier_on(vport->netdev);
-
-idpf_vport_stop() resets link_up and frees the queues before it clears
-the bit:
-
-	vport->link_up = false;
-	idpf_vport_intr_deinit(vport, rsrc);
-	idpf_xdp_rxq_info_deinit_all(rsrc);
-	idpf_vport_queues_rel(vport, rsrc);
-	idpf_vport_intr_rel(rsrc);
-	clear_bit(IDPF_VPORT_UP, np->state);
-
-mbx_task holds neither rtnl nor vport_ctrl_lock. It keeps processing
-events in this window, because the stop path needs it for its own
-mailbox replies.
-
-A link-up event in this window sees vport->link_up != link_status and
-IDPF_VPORT_UP still set. It then restarts the Tx queues and the carrier.
-
-In the soft reset path the netdev stays running, and the qdisc stays
-active because linkwatch needs rtnl. That path is
-idpf_initiate_soft_reset(), called from ethtool set_channels and
-set_ringparam and from ndo_change_mtu.
-
-idpf_vport_queues_rel() frees vport->txqs and sets it to NULL. Could the
-next transmit reach this line in idpf_tx_start() after that, and before
-idpf_vport_open() reallocates the queues?
-
-	tx_q = vport->txqs[skb_get_queue_mapping(skb)];
-
+diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
+index e86b7a310a..3b172e8f13 100644
+--- a/net/bluetooth/hci_conn.c
++++ b/net/bluetooth/hci_conn.c
+@@ -3311,11 +3311,12 @@ int hci_abort_conn(struct hci_conn *conn, u8 reason)
+ 
+ 	conn->abort_reason = reason;
+ 
+-	/* Cancel the connect attempt. A return of 0 means the create command
+-	 * was still queued and got dequeued, so there is nothing to disconnect.
++	/* Cancel the connect attempt. If the create command was still queued
++	 * and got dequeued, nothing reached the controller, but the connection
++	 * still has to be failed: abort_conn_sync() does that without sending
++	 * any HCI command.
+ 	 */
+-	if (!hci_cancel_connect_sync(hdev, conn))
+-		return 0;
++	hci_cancel_connect_sync(hdev, conn);
+ 
+ 	/* Run immediately if on cmd_sync_work since this may be called
+ 	 * as a result to MGMT_OP_DISCONNECT/MGMT_OP_UNPAIR which does
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261125225145.4126333-1-anthony.l.nguyen%40intel.com
+2.53.0
+
