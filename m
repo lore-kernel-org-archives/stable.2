@@ -1,63 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.47.171.185
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795685960;
-	b=uv3AcMIpIk/hsgvruZ8x+V39qlaniMv22HdOA9OQmi/RrDGsaeXtC3rSCPYZkwZB9jNx
-	 irRKh2NHPzXc1XTFbdT1b12hxG1PDmpyU8cnIbi/p4lgSb+XoFh7Sta9eb1GvHzQDXJ9Y
-	 3N12CtfKvR9S+22JzIp6+ZIKd8QGllyhLI/QROo7GUEi1u6aG78sAGhwOvn2WiQQ35AdZ
-	 JoUziGwpqoeUG7k55Z6skLkNQdmqXtD9CzcLeKoBeDBKkwrGuQ4KsP1yM1DOyXTi7TrdN
-	 jEAAjkvz51ZSRokQT4oQPPjjTFH1PP+MeH8OvOmYVcXwoh7YKfd6oeeCV3VJsGkkZ9w==
+	t=1795686295;
+	b=4n97YAV5QHsMuv5SXUP6nLuefnDS6V5VTJbhgkUJfOjs3Tdtod388dugzsqxnTgKAcx8
+	 FNT2hm6rTRCTGP+LdJVls8D6Gp10KOJE9OkHvv/cLZp1JY68eFAcB+KKQyyA8yxyjLZ9q
+	 d2/67/ZwxQdo4hFO8Avrz3gT45NKG1z+qaECD4SwVFsQVu3V4acChyVgCuJlpCHzJByv5
+	 gFay6GkHPH+cMOEvDK4OvSfsRsMmcZwWXRh2fI76lSNJ/lrhscAlZHYaFVkjlUGUomfCO
+	 AFMLSgWQXfUfqtYLPzfUdlB95NxgaFolOgz+X9AEpV52YOcnapt5Ar8SDBMhwWZvrEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795685960;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=kz/JgbfHTGHT03E4Z95Rm3enHUNv9FOlOSaYbRPY6QU=;
-	b=1liCEK8wa07Ip+kt1/hxqa1/aOSstCxLi3ERs0WdytAvGQ+EF8amhp1w39xSF2KM0g2T
-	 Yzwf4BYr6QgNLGZ2ST8DGJV4AxqqzSDnZKFetdz9JCEzrX8bHI1DjoptNcCFqb4Q9C4Gg
-	 DqLaUzcs8YDjUtkQyccPy2XVnW1jmw05mSj24PBcaqrbcbGNZlHW+xLU16bF0LNU8CM2q
-	 oAbhNoRxqst0Kr+rWhwkoocgDQ0fY+oAGwI316pLuyKIoKMQxQHaIZ+qVt9q/U1/tLH48
-	 W0Pxeb6aaEtlmALMRfYbxkQw5Gad1U8UHMhDePdDcWGqNvkV0etV7SbWxyfXepPAh6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795686295;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=9tXmhQkuf+p461M69vTwgg+lluCKw6UL5bselaHaJEw=;
+	b=P6FQYxINU7+ixS6cxmu1aqErrRim/OFMO8cE0RvOIHNPh3G7LjocOMhFRIgytSau+c2a
+	 Z9YaJlsmyaFitanZ/x6kxr2L9oXxlNXe0XQQSzbOq0rofutbfLrcFb0lFkkh71BRVrBnN
+	 lTz5L7R7hRDj2TSNbO5tBK6jqo3nuPzKhTycAU9UpJdV3Ch4yGOFQ8SeLH7rnU4OqUXae
+	 q3sDhuDrbmyv9aytQvkgd7A1ShzfkP9swDY+JPUil+0HwNuzayfKoMfORfhkEgB+Qqw3d
+	 D+k7gvGm4/vOqjay6T52wgzF/ECemdceK9DJLfiufGN4kdlzto9INKXGjmDBLLWaFlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=datenfreihafen.org;
-	spf=pass smtp.mailfrom=datenfreihafen.org;
-	arc=none smtp.remote-ip=78.47.171.185
-Received: from proxima.lasnet.de (proxima.lasnet.de [78.47.171.185])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MU6Dbjdj;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C347606A31C;
-	Thu, 26 Nov 2026 09:39:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C347606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=datenfreihafen.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=datenfreihafen.org
-Received: from work.datenfreihafen.local (unknown [46.253.254.165])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: stefan@sostec.de)
-	by proxima.lasnet.de (Postfix) with ESMTPSA id 3839DC02DA;
-	Thu, 26 Nov 2026 10:39:18 +0100 (CET)
-From: Stefan Schmidt <stefan@datenfreihafen.org>
-To: alex.aring@gmail.com,
-	miquel.raynal@bootlin.com,
-	linux-wpan@vger.kernel.org,
-	Petr Vaganov <petrvaganoff@gmail.com>
-Cc: Stefan Schmidt <stefan@datenfreihafen.org>,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	phoebe.buckheister@itwm.fraunhofer.de,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 net] mac802154: fix uninit-value in ieee802154_header_create()
-Date: Thu, 26 Nov 2026 10:39:12 +0100
-Message-ID: <179568594695.1960449.12773877877903526209.b4-ty@datenfreihafen.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99120606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 09:44:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99120606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MU6Dbjdj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795686295; x=1827222295;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Y3hSz2dK7H5UJZ0ekMVX9oPCGw3hg2Sw+JW0JWgjTbY=;
+  b=MU6DbjdjjA2E7keWhZ/ZVZI7qLNJAKrn1NaJa5Vm+y7TOKoLYUE8r4D4
+   AE3uOavYJRoGQgvULtckhfLERu632cddwOifdlPS6QKI98SCDoyfSmJsH
+   Qo44FmFLVlco7gvT1uIgazpKTBYKp9r/QTlikaS5O+ae+5i2HhKW9o8Iq
+   u423Z8xoox8Ypcnq+kOcgiwr5rh9TyP0Syr/TQOVPWImh9AFvKKI9Xd+G
+   ignfIGnLwshUNzxoj8RjETSJjvGujuNElmm8vB0nGW67IdxrLBe6j+jn+
+   7pR7vyBKZYfcZBfM8M7IWvrGdSD7QuoKiOtyTEzBs6ybh2nW5ZcFprVa9
+   A==;
+X-CSE-ConnectionGUID: qTXD3LVITDGPi0sDqltpsA==
+X-CSE-MsgGUID: Mc5diyUtTlekhNTUqLTBNw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4604824"
+X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; 
+   d="scan'208";a="4604824"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 01:44:54 -0800
+X-CSE-ConnectionGUID: z/FPr4q2TjOArQtZi3xnKQ==
+X-CSE-MsgGUID: TfgPabtuTVKX16QOHGaaHQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; 
+   d="scan'208";a="12453854"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.171])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 01:44:52 -0800
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+To: Intel graphics driver community testing & development <intel-gfx@lists.freedesktop.org>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Zakaria Belkadi <zakaria.belkadi@inria.fr>,
+	stable@vger.kernel.org,
+	Matthew Auld <matthew.william.auld@gmail.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>
+Subject: [PATCH] drm/i915: Reject relocation writes to RO userptr
+Date: Thu, 26 Nov 2026 11:44:44 +0200
+Message-ID: <20261126094444.52858-1-joonas.lahtinen@linux.intel.com>
 X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261120084537.31991-1-petrvaganoff@gmail.com>
-References: <20261116065235.27348-1-petrvaganoff@gmail.com> <20261120084537.31991-1-petrvaganoff@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,41 +82,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-Hello Petr Vaganov.
+Read-only userptr BOs shouldn't be allowed to have relocation
+addresses written back to them. Enforce that.
 
-On Fri, 20 Nov 2026 15:45:37 +0700, Petr Vaganov wrote:
-> During fuzz testing, the following issue was discovered:
-> 
-> BUG: KMSAN: uninit-value in ieee802154_hdr_push_sechdr net/ieee802154/header_ops.c:54 [inline]
-> BUG: KMSAN: uninit-value in ieee802154_hdr_push+0xa62/0xb20 net/ieee802154/header_ops.c:108
->  ieee802154_hdr_push_sechdr net/ieee802154/header_ops.c:54 [inline]
->  ieee802154_hdr_push+0xa62/0xb20 net/ieee802154/header_ops.c:108
->  ieee802154_header_create+0xa83/0xd20 net/mac802154/iface.c:396
->  wpan_dev_hard_header include/net/cfg802154.h:525 [inline]
->  dgram_sendmsg+0xc6d/0x15d0 net/ieee802154/socket.c:677
->  ieee802154_sock_sendmsg+0x8f/0xd0 net/ieee802154/socket.c:96
->  sock_sendmsg_nosec net/socket.c:711 [inline]
->  __sock_sendmsg+0x2f3/0x360 net/socket.c:726
->  ____sys_sendmsg+0x960/0xc30 net/socket.c:2581
->  ___sys_sendmsg+0x285/0x3e0 net/socket.c:2635
->  __sys_sendmmsg+0x33c/0x950 net/socket.c:2724
->  __do_sys_sendmmsg net/socket.c:2751 [inline]
->  __se_sys_sendmmsg net/socket.c:2748 [inline]
->  __x64_sys_sendmmsg+0xc6/0x150 net/socket.c:2748
->  x64_sys_call+0x12a8/0x3cf0 arch/x86/include/generated/asm/syscalls_64.h:308
->  do_syscall_x64 arch/x86/entry/common.c:47 [inline]
->  do_syscall_64+0xd9/0x1c0 arch/x86/entry/common.c:78
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
-> [...]
+The relocation slow path where this could have happened has been
+in place, reverted and then re-introduced. GPU relocations path
+protected against this via ppGTT flags was also reverted at point.
 
-Applied to wpan/wpan.git, thanks!
+There's no legimate use-case for this, so instead of trying to track
+which kernel versions were impacted and which not, just outright
+reject with EFAULT on all kernels with RO userptr support.
 
-[1/1] mac802154: fix uninit-value in ieee802154_header_create()
-      https://git.kernel.org/wpan/wpan/c/b2c0ed45f1ea
+Reported-by: Zakaria Belkadi <zakaria.belkadi@inria.fr>
+Fixes: 0b100760e3e8 ("drm/i915/userptr: Enable read-only support on gen8+")
+Cc: <stable@vger.kernel.org> # v4.19+
+Cc: Matthew Auld <matthew.william.auld@gmail.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-regards,
-Stefan Schmidt
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index c41e1b9a40bc..7ed23dc392b8 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -511,6 +511,10 @@ eb_validate_vma(struct i915_execbuffer *eb,
+ 	if (unlikely(entry->flags & eb->invalid_flags))
+ 		return -EINVAL;
+ 
++	if (unlikely(i915_gem_object_is_readonly(vma->obj) &&
++		     entry->relocation_count))
++		return -EFAULT;
++
+ 	if (unlikely(entry->alignment &&
+ 		     !is_power_of_2_u64(entry->alignment)))
+ 		return -EINVAL;
+-- 
+2.56.1
+
