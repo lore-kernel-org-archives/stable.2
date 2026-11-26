@@ -1,99 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795700545;
-	b=OoLB9bars0DzTdYevOK+bVtrCXmID2ArngZRW9Nx153wG2pHa5tRKy1ysaY8BqhMocrw
-	 XIxsiGd9Jv8K/K0pzMNFs9j0Hp2U2XLNL+YBtXgEkHDbb37VfRPRHjlsXEWuIf8li+Adn
-	 c6ZgJrEE/0l0JDxNlrUlYsZvwY5IQcBLammgCqVyXZKNcPBRHSCALbCxVabJQVlF04T5+
-	 pfOv5wCzvDkCWtkYBjKXywkhtjLgjlk+1rpRCiNsRjql3HfC7emdEO3rEsdEmE7BMcChd
-	 wgdlJML/2RpQXfPT/jhnISQMqTZmoKRGbrxf84VawIgJfRly1jv8URsbXMrzWAk8t+A==
+	t=1795700675;
+	b=TV9tOTUOMCFngF4MFlthWvAhN4CqnFTXaDtQruToM01mCoI2R3qk4bA2/j9TeL2YG2hM
+	 dGmHQOPegKm6Q92yN+xWDvxJEy/ojTber1VvGfTTPsWYkJBVHvAAFAeZv9Thg6QU21RK/
+	 d4CEHnEhacKGHGoHdxiAZCCEKRF3JXDRetaNVSGSfhp49FP9W5YA4zSOC2iSe8oYYJnIV
+	 wLzkjJ4bevaILFeuBaLpllJAR7IWPplwyj6kdGPYRz76UgW/fjc67etEybQlq9JhxHLXE
+	 Kll4HcAdywq9rENU2rE2XgahktXCa3RDrfcsrH/ud8mnQKocNtR0bXaOjIVSsxYnEVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795700545;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=NSvDUdhiPsT9wujlLJTCQMGtMq3JsdUlTo3B/+Qtxs8=;
-	b=HZsfM/OyTQsXUgBrc4W0kdptI7LzPN5RTAMXniYRXsYL5rjYSrz3AqQe9rw/W+1DAYvK
-	 bTP7JThevo73kRqwinYCGvuVdAlJkWsVadpmC56lRiyas6580nKiRINIeNGmDqkciFmrK
-	 7UOhcLxWeksPsoVyjLBFJ31q7hggHNiBKH96vM+56p2ZF8tWnR2JC2V3yOqYh5C4lVT2d
-	 YztDGhPqCWkAd+akY6x56EJjeC3JuREeHm/E3uFzDhfDQE1FA+5OuhhgrAgZ5Ngm/uvDP
-	 /xNiYbVXbsBjw7NeGrkUuL8eUd1FFpnh/WWvUnV8b2GtfcdPs6m9lKMqOTocv7LDV6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795700675;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=jY7SRS8EY4WvgV5Hy1de+tHZT9Z4JJSU2OV+0aUvWLY=;
+	b=UIBjc9knmMk/Bndl0SySzIHMbbONkgjmyibqcqiOJu3AM+idGz1I1KHxe2n8cOQqU918
+	 VeDPDBNNBOkxQcyNnM1kSFfmTuciMqRbd/aTUHwWKOeQ5ajfW9KSXJn8XAIZV2EQpG0Ug
+	 s5Hu8YjoQ4+2P+1cIlIqKd1UcaIOU7m9KOB340nPao4DmCwC3LQTA1vdbOphwB5MJitzD
+	 YlSFxO8w0mLwmZw96aBxjfxtzS8ud/BpPpyazNtl+AVsiarmkWLYQcbICloor6b9PPi3X
+	 vjn72Ygs9BKmRSpP9ktc5u5f6gN0AmPrI4TOWHcpK1r5Qh+Zp40bPfQ4YW7WJiUmDRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FCUZiapw;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=glider.be;
+	spf=pass smtp.mailfrom=glider.be;
+	dkim=pass header.d=glider.be header.i=@glider.be header.a=rsa-sha256 header.s=fm1 header.b=ks9M+NXe;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=aJHgQI0K;
+	arc=none smtp.remote-ip=103.168.172.138
+Received: from flow-a3-smtp.messagingengine.com (flow-a3-smtp.messagingengine.com [103.168.172.138])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73BA5606A321
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 13:42:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73BA5606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46313606A330
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 13:44:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46313606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=glider.be
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=glider.be
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FCUZiapw
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2f05b465cd1so38615635ad.3
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:42:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795700545; x=1796305345; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NSvDUdhiPsT9wujlLJTCQMGtMq3JsdUlTo3B/+Qtxs8=;
-        b=FCUZiapwgCV0NccPRLyMCz4v4T3XpjsQ58JWuphME0mUW8OpcSdTyNG/jVc3LUuJeG
-         dH79/1sR2huCmlp+7eUAAg2rfvZPvZhtpYVZq/9ug5QRHVjg55ZnJBko7FkuNdIPVMhF
-         HOa+dPa/fmrCXJadGANy2s7Dqjo63MxwR6elwkxJhc9fCc3oSoeJ4GYWWFm5qeB5aGCn
-         Bqb0sm1NQXR+/7/3wmYqvv8ZAbJYkeDivTZZdTQIArstf2JiPgIzwQ/RYXq7CQPGg+mh
-         jgAD0iMRtkuetLcq3g0OpUqK0Bl8yfGXCF5bnJuiXiN+mr8eFBNeJEyQE/0Vr6uilDae
-         pYHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795700545; x=1796305345;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NSvDUdhiPsT9wujlLJTCQMGtMq3JsdUlTo3B/+Qtxs8=;
-        b=n75YMRZ/MtBVkRzEOt6znhStCxgEHkJzp5QSWxVkbTTfxR80ebaeSIKim+u/I9PFfG
-         KoGZXXXigS+dxHvLgzWJrhxxlDqzjBnw9iTZyQeZLxAyF40eT4l7c7cv0hxvpks0PZp8
-         ikkAnQYCSmnIAmtIMdCXa9CSDdfeIanKkznLZBP+zSOs+AGgeYBatupOmABF/VQkYlrH
-         fPyYb1nYkJbPc9nqjVvYEx4LXv81gmrJx0REfluAbBxCSm5AdGTKtCby7ffrJcJ6+9L7
-         tluPOhoWvndshJxKs/Q9Yn5IhO6d5ZKqIERYrdHrnaTZwGtZFUGN12+gPsNO8CuJe8qX
-         RQOA==
-X-Forwarded-Encrypted: i=1; AL+hErFaN4XGwign/Jvoed1gSxhVkuRL8zNsDomGDX1EhxcwBSwIt2KQymtprxlI4B5r0tesan8QjgY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/in9ltdm5/O168wWFJvf82eINNPDOsNH+F65SdKGIWwulPTH3P
-	15NZlSTsZIYxJ68T5JzvTStRDmxSicJmsG142Aiq/dk2P05QmLtg36I=
-X-Gm-Gg: AZFdTZfs6qtM/Mie3kBxo6OXuGLIQmMis3ZUAyo5GixPbPHiMLef1YiTnurvr4saVIw
-	LvTDmbkcbAVQMWGyCclbeKie0tnBGdqO3w+u8ynNcJMthZabH/Ssw38PsI7Um5LbK7ACXO7/Yk3
-	T8jp7Jsrg4vWXjPEsWKPLj6mn9K47bZsAW1Kuj2C4q5RlMHB/oYmKSPUhKeyACdcezNeVAwrlJd
-	0VBbWmX4SvvMC2ssmKdjgEM16v5UR5EJHnjlikus0PKhfphgoDftk7+aZRcX55KqWT8kLU2aXh9
-	Xsfa9exq8Q56nha44Gh3XrOM0Mbt2FiAlXepPcDMvK40LjufSZN/oSm/3YLK+aUS6+XMssRStKM
-	26aYJ/K6ctb0cSn2hRXa6UtWA7PORWz74iKvu/Q94IjzM5gdH/dkcpUSBVxn//hYKPZgNboiKfn
-	iV+tjtULCzPVnvrCJ9NY3d/xD5uUTg/mvZf9vwGY+HN6t3GRIJVZ2hQdAfV/Pcfs7sLDSW6ablq
-	t50oG8IgFdWCS583tkVUwPxbsVqKePtKaFgfoRiC3Ua6q8LniBOvHVBRYsX0yvNUIuD7+P7mWxZ
-	pGJiPy1Sg5eKhthxRJM3hOPRgumlJG8Lhfj8Ko7oizLCaOvuNqbcB3FdTbzs8qqaGaY=
-X-Received: by 2002:a17:902:e551:b0:2ed:ff4a:6d21 with SMTP id d9443c01a7336-2f03f1beef6mr206550255ad.73.1795700544707;
-        Thu, 26 Nov 2026 05:42:24 -0800 (PST)
-Received: from localhost.localdomain ([2406:3003:2002:639c:a06e:23f:85ed:4cfe])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03ee84294sm102467265ad.9.2026.11.26.05.42.21
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 26 Nov 2026 05:42:24 -0800 (PST)
-From: Yige Jiang <yigejiang86@gmail.com>
-To: Chas Williams <3chas3@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Yige Jiang <yigejiang86@gmail.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-atm-general@lists.sourceforge.net,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Willem de Bruijn <willemb@google.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] atm: Fix atm_dev reference leak on VCC close for built-in drivers
-Date: Thu, 26 Nov 2026 21:42:16 +0800
-Message-ID: <rc-b1-20261110-vc-164-2a437f3c5ecd@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=glider.be header.i=@glider.be header.a=rsa-sha256 header.s=fm1 header.b=ks9M+NXe;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=aJHgQI0K
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailflow.phl.internal (Postfix) with ESMTP id 351EF13803F4
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 08:44:34 -0500 (EST)
+Received: from ams-imap-13 ([10.64.2.33])
+  by ams-compute-02.internal (MEProxy); Thu, 26 Nov 2026 08:44:34 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=glider.be; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1795700670;
+	 x=1795704270; bh=jY7SRS8EY4WvgV5Hy1de+tHZT9Z4JJSU2OV+0aUvWLY=; b=
+	ks9M+NXeZToCkNeyCEcOiO57Vrff20M6XgsDpWwrzz7/99elcZw89qmkkNU7a8XF
+	W9knFLhuXGK5+nHGGqTzHbcNNrAjH5T7S6wKwx0NhagvoKM+3vuEmzAD2UBbK7BL
+	lAY6zCiBnAeiawp6a5hPfjsoYWe/eMmx4cgKjN+dsJtPteiJRAsCP+AF9Luy6/9p
+	97Ycl3hRWouLImTT2i83xFXLuFoPBdf4Ha3hI+0VAVw1RZ0l1mFrQnAkJOOWy+Lb
+	vGqI0JoWdgEzBCkT0dtrf8uThSHpndUoSSFcQPAExQYwPVKx3Z8nSfUQ1+q4ta3m
+	TNMfi2OP8RVYW7NCfaySlg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1795700670; x=
+	1795704270; bh=jY7SRS8EY4WvgV5Hy1de+tHZT9Z4JJSU2OV+0aUvWLY=; b=a
+	JHgQI0KIdaNNSs30w5t4TZxOw7mXGverwiNhoRJwNZ5K0QO5ncWRRUf/SzZ5aduc
+	PoNa6uKtipFes1JQ8AB2zSzkSr5AlgpJxyDHyRF28uqBlkUs+BDr5lsQiCy9VQIR
+	0S5DFK5+ALe2/wuyVfSAGq8ti9UMeBpzNe6JMAPbKM3bMBbi921J56d6Bixpat47
+	48bjiokL645lklxXX6UCs9LTMl6XxKdexXwnwyxueK4NHxbWsWNjmp1+6dAvT60h
+	+KejqD3f9gBejuveG/E7d3v0VkLzI6APPJW6IlyflLpttsByx1FV/21sgUdpxwdF
+	HInHpoWLG5ZzZhDpDQxBQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=glider.be a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795700670; d=glider.be;
+	mf=PGdlZXJ0K3JlbmVzYXNAZ2xpZGVyLmJlPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:PupQX9jNlxGU8FOhayjRGHjJw0R84ZbklXyeV4/BUL4gz3O
+	FTQE7CwdJpituyV4dOXs68urrxRNTSOo7I1lZez9S2gcnkRZePJVEyHJvgN9qm2i
+	nAiaRV9kc9is1MZkP7+m3cGP6vhCPXAnZt0f8uFoz3cOOZnULtHiUA+roxfTZX1L
+	lNyn0SCCD9Se+Kp6ArVkmUMggwqMXrQvPygnTwCIA90w5c4CfMmYjnNroIoo22QK
+	8Vp6FTxz9OeNGsh4jXRSg+cDhUSeC2Va5sQEzrHqzg+kIoKk0TTleqbhi1tVsHfB
+	EIPO55IBKjlZCxoCCuS0xjU45r0Fs9NwcfWs3Zg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:CH5LxRj4t7fUnkD/K9gm9IqfmmHJlbgLCoYZhkvySOA=:STMR6hsVSFCsgck2T08ksDap6/kwxk6X43QzRdvj+Ck=;
+X-ME-Sender: <xms:uzcIa441yI-H9ilfRWxqDlaJNCtYtgrLA-OrB2ZGeFyC0r2AIdW2sg>
+    <xme:uzcIa0s103boGVZssNZZSPCpa7HdvpqSqt7uFKFxjHLN71lhp7BfWDsrkAHODfvwV
+    RwjqE4LlAKS_jJWTnqCIHlHDeEEBx2g_xymND0oaVEWUw7HsXamNhU>
+X-ME-Proxy-Cause: dmFkZTGiE3u+QPdbaOCW+PkpYwEs1CFrKcWeYM604yYgXfDsFBYxjQMMgVHFUqRERJSYUt
+    /ekq/G541e9LXNUlfiNzNnL6bc6s2cb0zMshW18VpRzvQ7HeH/Ln6Tt/ynSpgqqra0JECT
+    rmKMLIqvOUhCilWj57mKJrc5kCRWZNYAlx2nukAIuKI1u4P0xSQMv9WgfAth0Q+Xq79OKf
+    TkIHs07z8Z+owMB3TsrNFLpWsCJ+NmMR3MgmsfERXWGjQW08bTNiXtdRV7kTGoJz7E8t0f
+    ngz8k++2bURX45zZ4HIhEFCJFbozNAJp9cA9UOBTUHdGxmFw51u8dux9bu3RL3FcVbRsc+
+    7eukkmksuIMCal2gD2+cEbcxEmUp1HCvGB31duJJFfmu+PPQwCG9YsbVeq3k9IS/7CWBf4
+    eRfxo/0C7F3xL/nHQ5eFHLVLJPFUdh3cy41hVTN32NlVi0ypseK/tIr/zcPvs+qnNGHS5b
+    SQGoALwIMnb6XpVlbhkmuKwlad0nEHNDVXn7ESM57qqrv3VewNzHwCKfDpq8vqaO49An1u
+    uivcraA0Yo8Ej5eW2hOz3XAsT/5LfQmDSkT4qcE8HvQUrUjvO4xyumB4Gl+roeHnLwneGi
+    k9fRwqa1zy+T3KPtgnzteySuaOXRRv59Ad3d+M07BkFpruUfKG3Hs0NSB8Iw
+X-ME-Proxy: <xmx:vDcIa32ztnOw2c8OL8LDX6_BPg4e_qYIpXhE0qZdrgJc_nHqwgpE9Q>
+    <xmx:vDcIa7Bv1VQzRSGPzFoDIlllQp1VWmz-P0ytFDP_231LFfdUNDY-XQ>
+    <xmx:vDcIa8Ld-PiqDL785CuVC334lstFkfK5mDRQ9ptlppHqm4hrksMRag>
+    <xmx:vDcIa8ltrFVYQAeNHmRHkdsenv9ZwOT6yz1mHbqd7BYbJLbFJDCQvA>
+    <xmx:vTcIa_ScZLEsLt_j2TAlpzjoYZ_qNrbGQXJ84YkdY55tZ4HjUiRRmiwg>
+Feedback-ID: ia0f84a9e:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 8FE88F800A1; Thu, 26 Nov 2026 08:44:27 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,58 +115,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AsmFC5iU653B
+Date: Thu, 26 Nov 2026 14:44:07 +0100
+From: "Geert Uytterhoeven" <geert+renesas@glider.be>
+To: "Yige Jiang" <yigejiang86@gmail.com>,
+ "Wolfram Sang" <wsa+renesas@sang-engineering.com>,
+ "Andi Shyti" <andi.shyti@kernel.org>, "Magnus Damm" <magnus.damm@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Message-Id: <ec57d879-3b89-43d0-855d-723086e0a9fd@app.fastmail.com>
+In-Reply-To: <rc-b1-20261110-vc-182-eee62ef398fd@gmail.com>
+References: <rc-b1-20261110-vc-182-eee62ef398fd@gmail.com>
+Subject: Re: [PATCH] i2c: rcar: release DMA channels when host notify setup fails
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-vcc_connect() takes a reference on the atm_dev, and __vcc_connect()
-stores the device in vcc->dev together with a reference on
-dev->ops->owner. vcc_destroy_socket() drops both only when
-dev->ops->owner is non-NULL. usbatm and solos-pci set .owner to
-THIS_MODULE, which is NULL when they are built in, so in that
-configuration every connected PVC leaks one atm_dev reference on close.
-After atm_dev_deregister() the count then never reaches zero, so
-->dev_close() is not called and the atm_dev, and for usbatm the driver
-instance, are never freed.
+Hi Yige,
 
-The owner check was added so that static meta devices such as
-lecatm_dev and sigd_dev, which were attached without a reference, were
-not put. The last of them was removed by commit aa582dc25ace ("atm:
-remove SVC socket support and the signaling daemon interface"), and
-__vcc_connect() is now the only place that sets vcc->dev, always with a
-reference held. Drop the reference whenever vcc->dev is set.
-module_put(NULL) is a no-op, so modular drivers still get exactly one
-module_put() and one atm_dev_put() per close.
+On Thu, Nov 26, 2026, at 14:31, Yige Jiang wrote:
+> rcar_i2c_master_xfer() requests the DMA channels lazily, on the first
+> transfer that finds priv->dma_tx or priv->dma_rx still set to
+> ERR_PTR(-EPROBE_DEFER). Clients probed while i2c_add_numbered_adapter()
+> registers the adapter can already issue such transfers, so the channels
+> may be held by the time rcar_i2c_probe() creates the host notify client.
+>
+> If i2c_new_slave_host_notify_device() then fails, the out_del_device
+> path deletes the adapter but does not call rcar_i2c_release_dma(); only
+> rcar_i2c_remove() does. The channels then stay allocated, together with
+> their DMA engine references, after probe has failed and priv is freed.
+>
+> Release the DMA channels right after deleting the adapter, in the same
+> order as rcar_i2c_remove(). rcar_i2c_release_dma() skips channels that
+> were never requested.
+>
+> Fixes: c4651f11d09a ("i2c: rcar: add HostNotify support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
 
-Kernels before 7.2 still have the meta devices, so a backport there
-must keep skipping atm_dev_put() for them.
+Thanks for your patch!
 
-Fixes: 93a2014afbac ("atm: fix a UAF in lec_arp_clear_vccs()")
-Cc: stable@vger.kernel.org # 7.2.x
-Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
----
-Based on linux-next next-20261109 (630059a5a632).
-Compile-tested: arm64, GCC 14.2.0, W=1, defconfig + CONFIG_COMPILE_TEST=y, CONFIG_ATM=y (net/atm/common.o; no new warnings vs base).
-Runtime-tested in QEMU (arm64 virt, KASAN, kmemleak) on a model: a test module that registers an atm_dev with ops->owner == NULL stands in for a built-in driver. Before the patch each connect/close cycle leaves one more reference and the device is never released after deregistration; after it the count returns to 1 and the device is released. A device with ops->owner == THIS_MODULE sees no double put. No hardware test.
-Triggered by close() of a PF_ATMPVC socket that was connected to a usbatm or solos-pci device built into the kernel; the leak shows once the device is removed.
+> ---
+> Based on linux-next next-20261109 (630059a5a632).
+> Compile-tested: arm64, GCC 14.2.0, W=1, CONFIG_I2C_RCAR=m, 
+> CONFIG_COMPILE_TEST=y (object only; no new warnings).
+> No hardware or runtime test was performed.
+> Needs a pre-Gen3 R-Car I2C node with the "smbus" property and dmas, a 
 
-Stable is limited to 7.2.x because before aa582dc25ace (v7.2-rc1) the static meta devices still reach vcc_destroy_socket() without a reference, and this change would put them.
-A real built-in usbatm or solos device (USB unplug) was not tested.
+Why does it need a pre-Gen3 R-Car I2C node to trigger?
+Pre-Gen3 I2C controller do not support DMA, so this cannot happen?
 
- net/atm/common.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> client transfer during adapter registration, and a failing 
+> i2c_new_slave_host_notify_device() (e.g. a client already at 0x08); no 
+> in-tree DT sets "smbus" on an R-Car I2C node.
 
-diff --git a/net/atm/common.c b/net/atm/common.c
-index 8119572..f68bf8d 100644
---- a/net/atm/common.c
-+++ b/net/atm/common.c
-@@ -184,7 +184,7 @@ static void vcc_destroy_socket(struct sock *sk)
- 		kfree_skb(skb);
- 	}
- 
--	if (vcc->dev && vcc->dev->ops->owner) {
-+	if (vcc->dev) {
- 		module_put(vcc->dev->ops->owner);
- 		atm_dev_put(vcc->dev);
- 	}
+Gr{oetje,eeting}s,
 
+                                                Geert
 
-base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                                            -- Linus Torvalds
