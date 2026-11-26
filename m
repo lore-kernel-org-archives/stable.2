@@ -1,62 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.47.171.185
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795684941;
-	b=yX/JbeJVP9FLBGWwCIbhOwRQUDF9XiI64XzZFrMn0DffDMlTfft11lRmkOYQ3M/OHhXV
-	 MvCRmwUNHgsxfy/KNOoOcrdAtTOyx5MRUdpMwWzAbIV9F/hISj+zNtK7U7EjCCbR4LR8o
-	 kFTQopEqf3D4CObu26lbv9/cAZMEDbKmtrTbQsZM0p4OS4RPxsPnLvuA5Zw92MEitN0u2
-	 58Ht1dW/xTnbJ1XXQ2rBG+boPN/u/6BDK3zO3fMO8SLAGInVrdY90/Uwln8dI1HgYRBtL
-	 xnKmgeL+xx1d38qXAaU2CLMBMWn8rSB0KbRAJkivoXuvht/39EhZvMdCeb8ePC3rbxg==
+	t=1795685053;
+	b=wlC2vGmV02zopNbMKWXlibcccwYRCtolpocYcd7Xhqmky1uqNnUmLpfPwXwnoMS6aEbF
+	 WtXbHutP9Dj1vTv5ZDY1ewreOW1DABoaH/RkvLXI3d/oytFCLoivkhI//D2itB9ZZQ3qy
+	 PhDuIGJHZ/TTc2NGw3lxiz9bgsaDMQm3NE/4DSv3Bz3vMbErXfz216n1fX4tuBxIR0O8/
+	 CSxIudo4H/pJ/rAXWG4Ur1tONfv6DWyibS3vKB4jaK5L/4d1aqHQhBGwP0Rvv25P28ZXr
+	 e6ZwkPVxGbjjcif/0CyEaAkAv4NsyjDRjbfl6NCPK4f5YGBNkRjSWjrpQIXmHZdqDPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795684941;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=f9NuElDwmx9JKzBH+xtXilAFMLSLkvMpGnhqiyMaCkE=;
-	b=Q+83W+9YgnVzpJ9M94Pn3MHTv4ejZktqn6dto4fjc8nnz0jBZwVgnG7lpP/OFMNzZnWC
-	 bXAbroG5Ifo7hwHVBH7aSp9ceAWSuvaCf+k07E91w/Y/W8dH4dEgr/BsyJ++yxG5R0Osu
-	 SiyvoevAVvy6uZ/s3z1qq6Ty/iVnz432P2xi920AUHbADYZLXxpGk71Gv7pRmjL62wQ8U
-	 qYMWAvm56F2yJcUetFclR8HSeLKiTbZKO9EbV5W6kgiQysJuq3iCm3OGsnVCxmENU/6at
-	 AJqgoddyTIc5WLkOl3L1kuHZNF31h09ZAR6Bq/uDc8B1VXHTjzxHoUYGOkdNa2F+6pg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795685053;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=98AuoaBy6scAqdpD1bFpY8R263vuCvhHxS6e/zP2npM=;
+	b=xTjQE0IKrkNipZUqajEbNVGXKP/+I3WVFmuxo5srmxHk2SGTtiD8SHcWTku+RI2soIl2
+	 Vq00QRLz20xbtE9OL2Wy2sWNrjRjmWzoEQCxo57MZAP6eT2uV3y9pFisD5oeYxg0rlYQn
+	 6RrSKhinijEiJ62ZTMI9Gk09odJ7u9Okvz+NAAZFokAoL5uZdYT9emlDeeb2Wt1oajbh4
+	 0FgD02eYMpw9uI59oGtwD4MXSkVRGmpw2Uemqs+TNUF1WySBNy85fN0lZ1+r+I89uAV7f
+	 XGx94FkRLouYmp97QfHe3g8DHSbRyDKIk4LYCKIwqH7vS087zF2cuRV23DP9BUsQj1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUwelAap;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=datenfreihafen.org;
+	spf=pass smtp.mailfrom=datenfreihafen.org;
+	arc=none smtp.remote-ip=78.47.171.185
+Received: from proxima.lasnet.de (proxima.lasnet.de [78.47.171.185])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1B8606A31E;
-	Thu, 26 Nov 2026 09:22:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUwelAap
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 785BC1F000C0;
-	Thu, 26 Nov 2026 09:22:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795684940;
-	bh=f9NuElDwmx9JKzBH+xtXilAFMLSLkvMpGnhqiyMaCkE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UUwelAap3lS3Bvdnj9h0Qtbpx8sIJc00DcdbYb4TcBr1Ymzp0wFoeXKcYyCZ/K7af
-	 QEapR5Bdj+9HKP+NimN/goz+/EdUA2WO3VMuz6OKgHycexEPT7ITVxLLWW5feSm4jc
-	 HLdrI3SLTELdvHViFvbaIgi1kWFj/YAaM4DOSH4HXfAbzDr96emSYfaZ+Wva7Memwp
-	 qtFCWL3yfmS8pR4qY0zqI69JLx+/kZTWfVpMpyhnspBiPR75EyrCQ8kOBAKmpuEEu3
-	 XdRSjEPIZT2sdn7YT86n2I0gEydYkTyjkb2B8pRU8SMl9RZJJgsFpFmILJc28cfGxx
-	 oJSxPglwibcPA==
-Date: Thu, 26 Nov 2026 10:22:14 +0100
-From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Mani Tofigh <mt4022@columbia.edu>, Oscar Salvador <osalvador@suse.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Gregory Price <gourry@gourry.net>, linux-mm@kvack.org,
-	linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
-	tz2294@columbia.edu, stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/memory_hotplug: don't offline a hwpoisoned page
- still in the page cache
-Message-ID: <awf6RghUETgb41pr@localhost.localdomain>
-References: <20261105-memhp-hwpoison-pagecache-v2-1-029d35634d42@columbia.edu>
- <d4812513-6cfb-4865-8636-b83dd92c23a0@kernel.org>
- <2e11ba52-b5c6-463e-a5ea-c165ba935704@columbia.edu>
- <89037847-8875-4d8b-a8f3-d77a59aaddea@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76BEA606A31C;
+	Thu, 26 Nov 2026 09:24:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76BEA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=datenfreihafen.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=datenfreihafen.org
+Received: from work.datenfreihafen.local (unknown [46.253.254.165])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: stefan@sostec.de)
+	by proxima.lasnet.de (Postfix) with ESMTPSA id EFA8AC02DA;
+	Thu, 26 Nov 2026 10:24:10 +0100 (CET)
+From: Stefan Schmidt <stefan@datenfreihafen.org>
+To: linux-wpan@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Yifan Zhang <yfzhang23@stu.pku.edu.cn>
+Cc: Stefan Schmidt <stefan@datenfreihafen.org>,
+	alex.aring@gmail.com,
+	miquel.raynal@bootlin.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	zihanx@nebusec.ai,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v3] mac802154: validate pinned interface before beacon transmission
+Date: Thu, 26 Nov 2026 10:24:06 +0100
+Message-ID: <179568504196.1941682.10640221246377134318.b4-ty@datenfreihafen.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <179378621331.55520.8126896786309171541@stu.pku.edu.cn>
+References: <179337523079.51423.6573078122047317758@stu.pku.edu.cn> <179378621331.55520.8126896786309171541@stu.pku.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,30 +67,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <89037847-8875-4d8b-a8f3-d77a59aaddea@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 23, 2026 at 08:45:37PM +0100, David Hildenbrand (Arm) wrote:
-> We'll have to find a way to make that reliable. Everything else is just hacking
-> around it.
+Hello Yifan Zhang.
+
+On Wed, 04 Nov 2026 17:56:53 +0800, Yifan Zhang wrote:
+> mac802154_beacon_worker() selects a beacon request under RCU and pins
+> the corresponding netdev before dropping the read lock.  The transmit
+> helper used to read the request again, so a concurrent interface switch
+> could make it dereference an unpinned netdev.
 > 
-> Why can we block concurrent offlining through get_online_mems/put_online_mems?
-> But I hate these functions.
+> Use the pinned wpan_dev throughout transmission.  Under RTNL, verify that
+> the request still belongs to that interface and that the interface is
+> running.  Build the beacon from the protected template while still
+> holding RTNL, then hand it to the locked MLME transmit helper.  Free the
+> skb only on errors before that handoff.
 > 
-> Or alternatively (better?), have a memory notifier that block concurrent
-> memory_failure() by grabbing the mf_mutex when MEM_GOING_OFFLINE and releasing
-> it when MEM_CANCEL_OFFLINE/MEM_OFFLINE.
+> [...]
 
-I think this is the way to go.
-memory-failure is a shaky operation and over the years we have seen how challenging
-was to interact with other parts of the kernel without crashing.
+Applied to wpan/wpan.git, thanks!
 
-IMHO, we can try to be clever and try to workaround those issues
-(memhotplug vs memfailure) or just make the two exclusive.
+[1/1] mac802154: validate pinned interface before beacon transmission
+      https://git.kernel.org/wpan/wpan/c/95f866334454
 
-@Miaohe: Thoughts?
-
--- 
-Oscar Salvador
-SUSE Labs
+regards,
+Stefan Schmidt
