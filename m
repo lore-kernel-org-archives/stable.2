@@ -1,58 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795713011;
-	b=qdagyDZXEdwOLiPCBHyvbt89gHrKDNlVojTtNvd+WxJX9kAqDwbcM9yznVhy8J7jqRUY
-	 dWBr7E9n5BDkLMq7bi0d44P9obCsb25EYqYM+RxGblzHgalUh6f9LroRn4XvdFctuV9a/
-	 Jua+1ptBTw47B/DWSOT3kSVQiV8VReBScJyz5qwoMqHyGKXlHVyUvF4QQA3GKQ9+AuIT7
-	 t/lUu9bGScFZhxqK4tZcCBZQSJYKa3SZqoKDxIt2/LdbfPqR6P3PyCuXNNXCdjycvJSRg
-	 /+3k4mk0tmmlnGJ4zs1CXs4w80GxXPN50+JT8bdMc5j5nB74FLapVMVMSKzy5+Rg00w==
+	t=1795713027;
+	b=1j+RuvSj1O5LHCvkSwVbhJ7jiEj5SJsmcN2MKKITi0rdH5QkbVAsOhWkly2PlsbKrRs1
+	 HaS+xL7KUeVPzx/W6tEEr1k2PI0DiDOgODwk/uvJcZw/1i2F7g3xXkcQz4ybRKOnlaUeI
+	 j4gkWsNZWQCMVkmGl9Tx7rCT5P5TQxa5oa1LW0NBkWHDyb2ietDUVBUGKrfmPCljrebU7
+	 dunweJquNzTQeHC+wThkfpnyIhZZ+HmIV5TDhG4oUdyupNpxVH4cFfl+8uKDj/0n40Urq
+	 PNxMOmxsuU3Q+Gl75xgEKKKunU7w6Q39y4dj1fq4HhoJQkzZcJAgCbly3cllzN/9Arw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795713011;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/TQAxZWvGiTXODZv0TJVdIOqvRSbPp1Br6DGJpZcNJE=;
-	b=RdITju7lFvMI5+3CfZZkWKoqCHrCNDpoLE8Qd4mnNIiy8OQ9Bp/0gKNqA8dvi59yq7vc
-	 g14PlSQ2i8gSXvXVsuSvWoBxGgeh1fEcT5clvbrtJKwEGcv0M92kIQrOtjU+kATafp/bE
-	 KoPxsaM/Po7sgSopGvXQfuaorMN5x++V3TUkbd+N5IRPON4k0o12zFwoaAglhWpTKk5HA
-	 ig7euG6DiveoHnZYXTiRr+cfpGHB5a9GxVLedbWBEJm0g0oKbNb83F5tb3uMGeduFzOTH
-	 uoH1hyFiT6FLLS/olp1SNBFGtoYUcmUN/0jrW8yQzQEKrn1FXPIbM+0+uSjVn7JbfAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795713027;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=FyyXaulDNsV1sLugG5jJc46SYf72/gB7nyQwyq3TG/U=;
+	b=B0QRkhivCX0Gh9hWgfv/Yaobn1zDxLSBp4RrxMWE6PBxHFRjjIlByixW3pCRhfQSVzGc
+	 lii0nm0TVn/QgWUIy8f4Fs7dMoY/WwMqXEHGrLxln4KIa0kH0hxr/x7j17foLucmi2fxE
+	 2mFnUaxXGPMUCFOBhJac7e9M22Vgv1rK/rE0mvEoASGP60ubtHu9ztG8oM9ZIo6QmV/Vm
+	 1eMJzzCW7K2ipkas/FmQuzZmrwYnnPHO2mG2Jrs57QheUWIYYGSVrrGHuSKQhj5+cBEvr
+	 U2AaSUq5bKyYJiTm4QVtrhViY9QRMYOIENDoVDjED0Ws6oooGYLmQ3q+1VmfCXyiN2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c5+DNyI1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R1cWSuSl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2A0606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 17:10:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2316606A31C;
+	Thu, 26 Nov 2026 17:10:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c5+DNyI1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 471B11F000D0;
-	Thu, 26 Nov 2026 17:10:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R1cWSuSl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84DC21F000D2;
+	Thu, 26 Nov 2026 17:10:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795713011;
-	bh=/TQAxZWvGiTXODZv0TJVdIOqvRSbPp1Br6DGJpZcNJE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c5+DNyI1MWT5z4iuHWINn/T4CNrnS0a6S5BlxqTqez7AcsbNw6mrdQG+PTVf9pMup
-	 5FR6475mmEKFGj7Er4gqF9v6KTFgqSpqgJnaBwuE3zsibppstLd0O189T4doRG7EiX
-	 UA76CCErQ+v94sdgLRDhYwX7MZ9E31oicWFqMI3WxDTyvM6g2/we6QsyrU844P6nqz
-	 pUTna5igLqfG1JoAE2QMLxsOE7F1LK1KHYuq9Cal9QR7ijQnjVPSpw5YpTNIYdq9al
-	 /ffAFyx/D+DgIYEIwlaILNjbCVsr3DPbr6mNg+YPCgThTxgBHNFaftw4fzLCBA8c3M
-	 Yz41KzS3HBJMA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] iio: proximity: hx9023s: Allocate trigger before requesting IRQ
-Date: Thu, 26 Nov 2026 12:10:07 -0500
-Message-ID: <20261126171001.2690575-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126171001.2690575-1-sashal@kernel.org>
-References: <2026112510-rhyme-sizable-422b@gregkh>
- <20261126171001.2690575-1-sashal@kernel.org>
+	s=k20260515; t=1795713026;
+	bh=FyyXaulDNsV1sLugG5jJc46SYf72/gB7nyQwyq3TG/U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=R1cWSuSlgpdW+Jd9ZN5+vSRFQrgmabxLkV5QxePCtX9eaDMwpUIiY7JpE3pnDmQL6
+	 pIxrqcirhLpEsIEFK1V8hz7s9z+An/QtB8OUBuyywTndTeCuGWs5APvZkeTJPDsVQa
+	 C+lCfMIYQDOxneNk2Az/BAmSJCsg5KlemO4Z4K7JuH/+4bY0ev3ld5VIIy4YQObu9W
+	 ojm6apMtqR6zyiVzEMLzTr8c4lq5lFtuwG7RcJ82/IxhS604UeXQPjqcpJkr6qWzTB
+	 rUBFZmCC4pIsR0AsnU7NqcMMozLms1oUJ6wHz/HwZa5+H09d2vfNEy96Z8HmhwtllD
+	 dY9+kWUPz97Jg==
+Message-ID: <d2cc5da0-fc31-4565-8cff-cb505bd1d3eb@kernel.org>
+Date: Thu, 26 Nov 2026 19:10:21 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,69 +51,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 03/14] PCI: rzg3s-host: Don't mix goto-based unwinding
+ and cleanup helpers
+To: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+ robh@kernel.org, bhelgaas@google.com, p.zabel@pengutronix.de,
+ geert+renesas@glider.be, magnus.damm@gmail.com, claudiu.beznea@tuxon.dev,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, stable@vger.kernel.org
+References: <20261019065025.2146539-1-claudiu.beznea@kernel.org>
+ <20261019065025.2146539-4-claudiu.beznea@kernel.org>
+ <179562484639.5580.736218629244331876.b4-reply@b4>
+Content-Language: en-US
+From: Claudiu Beznea <claudiu.beznea@kernel.org>
+In-Reply-To: <179562484639.5580.736218629244331876.b4-reply@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Myeonghun Pak <mhun512@gmail.com>
 
-[ Upstream commit bfa3b177d839bb303d0187335115b572a2644920 ]
 
-An IRQ handler that already read trigger_enabled can poll data->trig
-after buffer disable. Detaching the virtual IRQ does not join this
-physical IRQ, and trigger deselection can drop the consumer reference.
-Devres may then free the trigger before joining the handler.
+On 11/25/26 18:40, Manivannan Sadhasivam wrote:
+> On 2026-10-19 09:50 +0300, Claudiu Beznea wrote:
+>> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>>
+>> rzg3s_pcie_probe() releases the sysc_np OF node through the
+>> __free(device_node) annotation, while the rest of the function uses
+>> goto-based unwinding. According to cleanup.h, the two styles should
+>> not be mixed within a function, as this makes the ownership semantics
+>> hard to follow. Drop the annotation and call of_node_put() explicitly
+>> on the exit paths instead.
+>>
+>> Fixes: 7ef502fb35b2 ("PCI: Add Renesas RZ/G3S host controller driver")
+>> Cc: stable@vger.kernel.org
+> 
+> Is this really a stable candidate?
+Indeed, will drop the fixes tag.
 
-Allocate the trigger before requesting the IRQ so devres joins the
-handler before dropping the allocation reference.
-
-This issue was identified as part of our ongoing research while
-reviewing kernel code.
-
-Fixes: 60df548277b7 ("iio: proximity: Add driver support for TYHX's HX9023S capacitive proximity sensor")
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/iio/proximity/hx9023s.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/iio/proximity/hx9023s.c b/drivers/iio/proximity/hx9023s.c
-index 8488b9a751f2c..1fba29265bfd5 100644
---- a/drivers/iio/proximity/hx9023s.c
-+++ b/drivers/iio/proximity/hx9023s.c
-@@ -1131,14 +1131,6 @@ static int hx9023s_probe(struct i2c_client *client)
- 		return dev_err_probe(dev, ret, "reg config failed\n");
- 
- 	if (client->irq) {
--		ret = devm_request_threaded_irq(dev, client->irq,
--						hx9023s_irq_handler,
--						hx9023s_irq_thread_handler,
--						IRQF_ONESHOT,
--						"hx9023s_event", indio_dev);
--		if (ret)
--			return ret;
--
- 		data->trig = devm_iio_trigger_alloc(dev, "%s-dev%d",
- 						    indio_dev->name,
- 						    iio_device_id(indio_dev));
-@@ -1148,6 +1140,14 @@ static int hx9023s_probe(struct i2c_client *client)
- 		data->trig->ops = &hx9023s_trigger_ops;
- 		iio_trigger_set_drvdata(data->trig, indio_dev);
- 
-+		ret = devm_request_threaded_irq(dev, client->irq,
-+						hx9023s_irq_handler,
-+						hx9023s_irq_thread_handler,
-+						IRQF_ONESHOT,
-+						"hx9023s_event", indio_dev);
-+		if (ret)
-+			return ret;
-+
- 		ret = devm_iio_trigger_register(dev, data->trig);
- 		if (ret)
- 			return dev_err_probe(dev, ret,
--- 
-2.53.0
-
+Thank you for your review,
+Claudiu
