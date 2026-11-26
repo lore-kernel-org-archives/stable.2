@@ -1,57 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795705468;
-	b=soSVwG/WGoZ1D3hcg9pDc4QKuafZ5hMGGiDgP4m29z0bMHwBqaCdkjnJe2s2+5VyXbEM
-	 Mmjh0zVlsV2rn+nwKg+FfqDcUNzXuXeBpwPGKkBSkQB5lP9XrYRdXsIU6X8y0G9RCDOMi
-	 5X9+kf7kcowTZUoiioc0xgKaf3fn8J8zhZu30lpoTn9BwZvT3BnMgLj7kU224uxBorhIB
-	 rFzdsMBT+5Km/LHuRRYRdFDUm1hjAd+ttjT2pyEX/IEd9wm4fr1209FUTbXSGAPdZ57VC
-	 k2C7GFxJyabA3KzlrPgl9igeqNJPGEU8S25QNZVaukMeeW5cwfA9rtsi9FudQlg4k1A==
+	b=W9+qHa4QS5gaQCkKt8+AtN3KhcQhFFn952KusLeSwB81mxPBiTfGh8teZ5wzbpwFLn8x
+	 Ai5kxxfpy3N4zFoy4nXHQ7Q2qaLFLYUBiZ/biSPk625Z1BS/e/405hQwKxQES6thRKtNg
+	 sZu3S7OgAYTorsE8QFsdELmPiX4AInBnyi9niCpgjfSwbeVfoPE9WLbMx7eixFE85jJjw
+	 myIUbQ7clDgE+/8daF8NOHBk2w3QbVOmt3z3pfmykX0puFfljonGFrbeMj7TfQQhNH9nj
+	 N1mtybt1vzKQE4xAN+Z5qYVqoDNbnX7vpOxn3gkT0ZzdhQp8Fj9VSnbQtZjD4oRMpdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795705468;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=tEX06U3yF9cHzDPL++SpiSNCgY9Mt3p6RIRRcsl3uPc=;
-	b=Gj3BIU6xZm142WA47m8OEex1ZjxE6x3FISqDXxJjVuMlmRTPedGhhr7G4NjZT/5s35BF
-	 BQImE2P8vADbJrUpKwSwlTPskfHcE26Dy3SA0dED/sgq186BlUjDAiovfYS02Cp1knuDl
-	 F92nOAG7sSOCAId/TmEpyZxABe6ki+VObqxcJLoaDZUT6h6FRtF0YNvoFVojyfpfNPReP
-	 9IgGXUWUhL8uoZ0D2avCyyGetDqb5rCD7tx/1Z9tRQKmTEIEUvWKwqGNnZoHCDnqTG1Lc
-	 OcvKV91BpBrsAWM+2KO4UnTL0G5G8lbcATqQmMjnh6v2TSirIi74ph56PwhA+FP8aww==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=46vr+tNfvgw0z/JttHWsqmE/sZvMU3Hw1eiqBmywgIM=;
+	b=ki1E/0CbJJ1F6HC6c/6bu/AYAriKehTOYGuGDw+MuVxYjQKbBHqP6/T4oCbFC1VpFa1v
+	 dVA+Oo64NDwn64MEI8wzzI+3CyPAjusYToVvu1pAE0/j6kFBPlUJoy1e99Y7UKS8P6a+q
+	 yWWe3uwxZAdOfdstZPwIvwHgQ/Y7FCE6BPSoGn9JN7rGFHIuqJ4bNrDeBbxsyljyAwnV6
+	 E7v7Ou9wiislnuSBPX6Hhq4Q23e5aMZVrIGGsUYf0fXaAIs/HAwiw8mjskhpcn9gzeJML
+	 lsMiDxC20AcblysCN8EuM2CyWO3eQR5dq+qYPbSsBlhWqzCfwZAw55Kqgm2mU90Y64g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=L6gdeyia;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gXJnUIsE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE856606A327;
-	Thu, 26 Nov 2026 15:04:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E63B606A338
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:04:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=L6gdeyia
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05E331F000C6;
-	Thu, 26 Nov 2026 15:04:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795705467;
-	bh=tEX06U3yF9cHzDPL++SpiSNCgY9Mt3p6RIRRcsl3uPc=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gXJnUIsE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1002E1F000C0;
+	Thu, 26 Nov 2026 15:04:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795705467;
+	bh=46vr+tNfvgw0z/JttHWsqmE/sZvMU3Hw1eiqBmywgIM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L6gdeyiaxtVjXxzaf7HYQ9VuAmYdnWHzPGmGCHOfE152doRDSOPaFJ7ODS2v2kR9r
-	 495DxlmemPPvc5GdEjipWBHkBhp70Pa87+17uHYOvU10NrI+zbw1fktBer7C0qsYlX
-	 wfilP+oZGdXErfQW6UPPL5Wtv2tT0O+hYVY5BISc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=gXJnUIsENct9IIIhU/uC4ANQhB844Gh5xjuCzFnyIDV26cnon17yK/Xm7coOuoXX3
+	 qbYTL1curgz8XWHh0KbVuuu4ndxz/uVll+PidRNz2sjiCzXgvuGEXToF3847Aaa7Ws
+	 Gk53U62yIzay9qL16bNRSVViE+1EBlAfrDQOlPt5yEFHO6F0JJRbStGBZDpYsVGYZ6
+	 wytm5vwQRM15RkyNwT4KTe+cNBzHQ74DWd7aJhIQhYUn+TxPwU+TjGxO/tgUi3ul6Y
+	 sMytwNK9wDKuZQ9MYRSwDtIzYblas4zu317UB95UET8q21RZn8Ci8Pz/DELqWGtxWw
+	 OyztB3EGtZltA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Cheng Yongkang <teel4res@gmail.com>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>
-Subject: [PATCH 5.15 207/319] fs/proc: fix the write length returned by proc_sys_call_handler()
-Date: Thu, 26 Nov 2026 15:39:35 +0100
-Message-ID: <20261126144011.416952928@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261126144006.732901931@linuxfoundation.org>
-References: <20261126144006.732901931@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Chris Mason <mason@kernel.org>,
+	stable <stable@kernel.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Nicolas Pitre <npitre@baylibre.com>,
+	Kees Cook <kees+treewide@kernel.org>,
+	Joshua Rogers <linux@joshua.hu>,
+	Helge Deller <deller@gmx.de>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Mingyu Wang <25181214217@stu.xidian.edu.cn>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Ronan Pigott <ronan@rjp.ie>,
+	Liav Mordouch <liavmordouch@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] vt: serialise the producers of the flip buffer
+Date: Thu, 26 Nov 2026 10:04:24 -0500
+Message-ID: <20261126150358.2214600-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112548-finale-enigmatic-9f31@gregkh>
+References: <2026112548-finale-enigmatic-9f31@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,67 +72,131 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+From: Chris Mason <mason@kernel.org>
 
-------------------
+[ Upstream commit 5d1d814408c1c8e797031eac8ddd40de1a9e8e93 ]
 
-From: Cheng Yongkang <teel4res@gmail.com>
+Typing on a virtual console while the console replies to an escape
+sequence can make the kernel write past the end of a buffer. A user who
+can write to the foreground console can cause this on purpose if they
+can also inject key events, through /dev/uinput or by writing to the
+/dev/input/event* node of a keyboard.
 
-commit fbdc020ee1b82079102e493aaa7200de5f497a38 upstream.
+Input for a tty goes through the flip buffer of its port. A driver
+inserts the data with tty_insert_flip_*() and then calls
+tty_flip_buffer_push() to pass it on to the line discipline. The insert
+functions take no lock: they check that the current struct tty_buffer
+has room, copy the data to offset ->used, and then advance ->used. So a
+flip buffer supports only one producer at a time, and a driver that has
+several must serialise them.
 
-proc_sys_call_handler() reads the write length from iov_iter_count() and
-copies that many bytes from the iterator into kbuf.  A cgroup/sysctl BPF
-program can replace the new value through bpf_sysctl_set_new_value() and
-update count to the length of the replacement value.  The handler then
-returns that adjusted count as the number of bytes written, even though
-the iterator originally held a different number of bytes.
+Four functions feed the flip buffer of a virtual console:
 
-If the replacement value is longer than the original input, ->write_iter()
-reports more bytes than the iterator held.  splice(2) passes that value to
-iter_file_splice_write(), which subtracts it from the pipe length and
-walks past the pipe head:
+- put_queue(), puts_queue() and fn_send_intr() insert typed characters
+  and breaks for the keyboard handler. They run under kbd_event_lock.
+- respond_string() inserts the reply when a program writes an escape
+  sequence that requests one, such as a cursor position report. It runs
+  under the console lock.
 
-  Splice Exceeded! ret=7 tot=1 left=0
-  Oops: general protection fault
-  RIP: 0010:iter_file_splice_write+0xb6f/0x1170
+The keyboard handler gets its events from the input layer and feeds the
+foreground console. Key events that a program writes to /dev/uinput or
+to an event node reach it in the same way as typed keys.
 
-The write path consumes at most the original iterator length in
-copy_from_iter_full() before the BPF hook runs.  Return the smaller of the
-adjusted and original counts on the write path, so an expanded BPF value
-cannot exceed the iterator while a handler that reports a shorter parsed
-length still produces a short write.  The read path keeps using the
-adjusted count for copy_to_iter().
+The keyboard handler and respond_string() share no lock, so they can
+interleave:
 
-Fixes: 4e63acdff864 ("bpf: Introduce bpf_sysctl_{get,set}_new_value helpers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
-Link: https://patch.msgid.link/179328314073.648427.7892850166511253762@gmail.com
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+    keyboard handler                respond_string()
+    ================                ================
+    room check passes
+                                    room check passes
+    memcpy() to offset used
+    used += len
+                                    memcpy() to offset used
+                                    used += len
+                                      /* used > size of the buffer */
+
+The room check subtracts ->used from the size, and both are unsigned.
+Once ->used exceeds the size, the result wraps, so the check always
+passes, and each later insert lands further past the buffer.
+
+Reproduced as root, with keys from a uinput keyboard and cursor position
+reports on the same console: KFENCE reported an out-of-bounds write
+1,024 bytes past the buffer in under 10 s.
+
+Fix this by taking port->lock, with interrupts disabled, around the
+insert and the push in these four functions. kbd_keycode() already takes
+port->lock under kbd_event_lock, so this lock ordering is not new.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable <stable@kernel.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>
+Cc: Nicolas Pitre <npitre@baylibre.com>
+Cc: Kees Cook <kees+treewide@kernel.org>
+Cc: Joshua Rogers <linux@joshua.hu>
+Cc: Chris Mason <mason@kernel.org>
+Cc: Helge Deller <deller@gmx.de>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Cc: Randy Dunlap <rdunlap@infradead.org>
+Cc: Ronan Pigott <ronan@rjp.ie>
+Cc: Liav Mordouch <liavmordouch@gmail.com>
+Signed-off-by: Chris Mason <mason@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Link: https://patch.msgid.link/20261027-tty-llm-v1-1-99b0202ae546@linuxfoundation.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: Kept the older puts_queue() per-character insert loop and added the guard(spinlock_irqsave) line above it, since the tree lacks the tty_insert_flip_string() form that upstream's context expects. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/proc/proc_sysctl.c |    5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/tty/vt/keyboard.c | 6 ++++++
+ drivers/tty/vt/vt.c       | 2 ++
+ 2 files changed, 8 insertions(+)
 
---- a/fs/proc/proc_sysctl.c
-+++ b/fs/proc/proc_sysctl.c
-@@ -539,6 +539,8 @@ static ssize_t proc_sys_call_handler(str
- 	struct ctl_table_header *head = grab_header(inode);
- 	struct ctl_table *table = PROC_I(inode)->sysctl_entry;
- 	size_t count = iov_iter_count(iter);
-+	/* ->write_iter() must never report more than the iterator held */
-+	size_t orig_count = count;
- 	char *kbuf;
- 	ssize_t error;
+diff --git a/drivers/tty/vt/keyboard.c b/drivers/tty/vt/keyboard.c
+index 1f0b93126f69b..ef00f5675397d 100644
+--- a/drivers/tty/vt/keyboard.c
++++ b/drivers/tty/vt/keyboard.c
+@@ -307,15 +307,20 @@ int kbd_rate(struct kbd_repeat *rpt)
  
-@@ -589,7 +591,8 @@ static ssize_t proc_sys_call_handler(str
- 			goto out_free_buf;
- 	}
+ /*
+  * Helper Functions.
++ *
++ * A flip buffer allows one producer at a time, and respond_string() in vt.c
++ * feeds the same one under the console lock. So take the lock of the port.
+  */
+ static void put_queue(struct vc_data *vc, int ch)
+ {
++	guard(spinlock_irqsave)(&vc->port.lock);
+ 	tty_insert_flip_char(&vc->port, ch, 0);
+ 	tty_flip_buffer_push(&vc->port);
+ }
  
--	error = count;
-+	/* the write path consumed at most the original iterator length */
-+	error = write ? min(count, orig_count) : count;
- out_free_buf:
- 	kvfree(kbuf);
- out:
-
+ static void puts_queue(struct vc_data *vc, char *cp)
+ {
++	guard(spinlock_irqsave)(&vc->port.lock);
+ 	while (*cp) {
+ 		tty_insert_flip_char(&vc->port, *cp, 0);
+ 		cp++;
+@@ -564,6 +569,7 @@ static void fn_inc_console(struct vc_data *vc)
+ 
+ static void fn_send_intr(struct vc_data *vc)
+ {
++	guard(spinlock_irqsave)(&vc->port.lock);
+ 	tty_insert_flip_char(&vc->port, 0, TTY_BREAK);
+ 	tty_flip_buffer_push(&vc->port);
+ }
+diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
+index 474f6abc900b0..82a868ef0aa5c 100644
+--- a/drivers/tty/vt/vt.c
++++ b/drivers/tty/vt/vt.c
+@@ -1835,6 +1835,8 @@ static void csi_m(struct vc_data *vc)
+ 
+ static void respond_string(const char *p, size_t len, struct tty_port *port)
+ {
++	/* The keyboard handler feeds the same flip buffer. */
++	guard(spinlock_irqsave)(&port->lock);
+ 	tty_insert_flip_string(port, p, len);
+ 	tty_flip_buffer_push(port);
+ }
+-- 
+2.53.0
 
