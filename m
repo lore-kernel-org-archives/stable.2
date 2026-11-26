@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795713027;
-	b=1j+RuvSj1O5LHCvkSwVbhJ7jiEj5SJsmcN2MKKITi0rdH5QkbVAsOhWkly2PlsbKrRs1
-	 HaS+xL7KUeVPzx/W6tEEr1k2PI0DiDOgODwk/uvJcZw/1i2F7g3xXkcQz4ybRKOnlaUeI
-	 j4gkWsNZWQCMVkmGl9Tx7rCT5P5TQxa5oa1LW0NBkWHDyb2ietDUVBUGKrfmPCljrebU7
-	 dunweJquNzTQeHC+wThkfpnyIhZZ+HmIV5TDhG4oUdyupNpxVH4cFfl+8uKDj/0n40Urq
-	 PNxMOmxsuU3Q+Gl75xgEKKKunU7w6Q39y4dj1fq4HhoJQkzZcJAgCbly3cllzN/9Arw==
+	t=1795713139;
+	b=z6MBHHA7zGqGfo60ezwQTEdut2Qp3bYqhDs5LOTH3xh6bwlVxSMV6st2bdx6lKm4ZLk4
+	 ha1D2g3kRWLVtntU2CqgJdEHvnet0Ojrw/bSrlqjx/NcMn5hytkUOLpvYJrJ/eiuDaO9z
+	 WISHNjqqf/0IhkSp3kBqmcV2rnNynCG4O/UuPGkZxpPtMleHtiDUS0g11LSrJMSjh4SSU
+	 zokuK5RHndiz1GGrMEbeKk/YBFtgO2JQ8G1YtwgD0L+niMoOiN95MqCjS+pZ80hQVXY1a
+	 FA+su8/HH6zjKofy1cC2437nmgsntZ2jN2GtBior00bJrDODa1XbSwUbCoODEAH8RoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795713027;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795713139;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=FyyXaulDNsV1sLugG5jJc46SYf72/gB7nyQwyq3TG/U=;
-	b=B0QRkhivCX0Gh9hWgfv/Yaobn1zDxLSBp4RrxMWE6PBxHFRjjIlByixW3pCRhfQSVzGc
-	 lii0nm0TVn/QgWUIy8f4Fs7dMoY/WwMqXEHGrLxln4KIa0kH0hxr/x7j17foLucmi2fxE
-	 2mFnUaxXGPMUCFOBhJac7e9M22Vgv1rK/rE0mvEoASGP60ubtHu9ztG8oM9ZIo6QmV/Vm
-	 1eMJzzCW7K2ipkas/FmQuzZmrwYnnPHO2mG2Jrs57QheUWIYYGSVrrGHuSKQhj5+cBEvr
-	 U2AaSUq5bKyYJiTm4QVtrhViY9QRMYOIENDoVDjED0Ws6oooGYLmQ3q+1VmfCXyiN2w==
+	bh=NRZwYYtJY1FBmZapDven7z6o3IJs9tgIYt6fVrFcmSg=;
+	b=v0YagpTIZ9d1Q+juPvEpo7qx07xVpShAIH569xSbSF0aZSApu3iHtLQrL7c+Fwsb4ojK
+	 YZo+EzD/W+OKHmv3m5W/kvRc2iaFpZMVjKC6pvl7jXlTBwRDvNRxVGoUNaTtbIEp6zncD
+	 8I1mIbhpcsBr5M4tl10s4pYuSNSXOTSPjpi0FQoIRHb50DObdDjjEfYFmx3xJF9Cn0v9P
+	 5YTjqeBtGESy7VqjNI3yPhP3t5hxz8v0q+gwzh2ETiWhPpPkPdI2A/ukav05B7S0Gx5L2
+	 +sk/Kkib/bxmBVnxW5Vj3+AiUdkFiL0OplhyDK7dWADHHcmmULC6yFocWWrT9d7wIHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R1cWSuSl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5oHTCud;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2316606A31C;
-	Thu, 26 Nov 2026 17:10:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38EA1606A31C;
+	Thu, 26 Nov 2026 17:12:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R1cWSuSl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84DC21F000D2;
-	Thu, 26 Nov 2026 17:10:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5oHTCud
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9FA71F000CA;
+	Thu, 26 Nov 2026 17:12:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795713026;
-	bh=FyyXaulDNsV1sLugG5jJc46SYf72/gB7nyQwyq3TG/U=;
+	s=k20260515; t=1795713138;
+	bh=NRZwYYtJY1FBmZapDven7z6o3IJs9tgIYt6fVrFcmSg=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=R1cWSuSlgpdW+Jd9ZN5+vSRFQrgmabxLkV5QxePCtX9eaDMwpUIiY7JpE3pnDmQL6
-	 pIxrqcirhLpEsIEFK1V8hz7s9z+An/QtB8OUBuyywTndTeCuGWs5APvZkeTJPDsVQa
-	 C+lCfMIYQDOxneNk2Az/BAmSJCsg5KlemO4Z4K7JuH/+4bY0ev3ld5VIIy4YQObu9W
-	 ojm6apMtqR6zyiVzEMLzTr8c4lq5lFtuwG7RcJ82/IxhS604UeXQPjqcpJkr6qWzTB
-	 rUBFZmCC4pIsR0AsnU7NqcMMozLms1oUJ6wHz/HwZa5+H09d2vfNEy96Z8HmhwtllD
-	 dY9+kWUPz97Jg==
-Message-ID: <d2cc5da0-fc31-4565-8cff-cb505bd1d3eb@kernel.org>
-Date: Thu, 26 Nov 2026 19:10:21 +0200
+	b=K5oHTCudkOQtURtEXGSjrRALJorjM8pmTyWJ4CCTe/gkJ3Gi72icFLQv/FSVPfYhA
+	 NwHVoWkVytNi7TSC89s4jjsSUEtIK1C67agHtXbl38xMoQPfBbxMPnWikLacyKJcQ7
+	 iKFIi9LL6juWBsMTiKd1YQxvmej/q3sSWcIBCUc6lxj/K3sPHbCsekLVr02hOcKCt2
+	 3lRNO+BuMzff45rhspJgzWEZfifNVSH2NXhz/ItQhD9dmJIXVF25D4ytZIUECdYJyQ
+	 F5uln5ry7spXmtHA9w+xvxYhb2/U3pSjUV+xTBzcnsLtN9YzKimIt9SlEBxi6ED+D8
+	 ++OJFFq4QtJDw==
+Message-ID: <f833e17b-3a30-46c8-aac9-060157cc6973@kernel.org>
+Date: Thu, 26 Nov 2026 19:12:14 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,8 +52,8 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 03/14] PCI: rzg3s-host: Don't mix goto-based unwinding
- and cleanup helpers
+Subject: Re: [PATCH v7 04/14] PCI: rzg3s-host: Create the INTx IRQ domain
+ before setting the chained handlers
 To: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
  robh@kernel.org, bhelgaas@google.com, p.zabel@pengutronix.de,
@@ -62,32 +62,31 @@ Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
  linux-renesas-soc@vger.kernel.org,
  Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, stable@vger.kernel.org
 References: <20261019065025.2146539-1-claudiu.beznea@kernel.org>
- <20261019065025.2146539-4-claudiu.beznea@kernel.org>
- <179562484639.5580.736218629244331876.b4-reply@b4>
+ <20261019065025.2146539-5-claudiu.beznea@kernel.org>
+ <179562505368.5580.2150497706749194750.b4-reply@b4>
 Content-Language: en-US
 From: Claudiu Beznea <claudiu.beznea@kernel.org>
-In-Reply-To: <179562484639.5580.736218629244331876.b4-reply@b4>
+In-Reply-To: <179562505368.5580.2150497706749194750.b4-reply@b4>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
 
-On 11/25/26 18:40, Manivannan Sadhasivam wrote:
+On 11/25/26 18:44, Manivannan Sadhasivam wrote:
 > On 2026-10-19 09:50 +0300, Claudiu Beznea wrote:
 >> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 >>
->> rzg3s_pcie_probe() releases the sysc_np OF node through the
->> __free(device_node) annotation, while the rest of the function uses
->> goto-based unwinding. According to cleanup.h, the two styles should
->> not be mixed within a function, as this makes the ownership semantics
->> hard to follow. Drop the annotation and call of_node_put() explicitly
->> on the exit paths instead.
+>> rzg3s_pcie_init_irqdomain() installs the chained INTx handlers before
+>> creating the INTx IRQ domain. irq_set_chained_handler_and_data() also
+>> enables the interrupt, so an INTx interrupt arriving in between is
+>> handled by rzg3s_pcie_intx_irq_handler() while host->intx_domain is
+>> still NULL, leading to a NULL pointer dereference.
 >>
->> Fixes: 7ef502fb35b2 ("PCI: Add Renesas RZ/G3S host controller driver")
->> Cc: stable@vger.kernel.org
 > 
-> Is this really a stable candidate?
-Indeed, will drop the fixes tag.
+> Did you observe the NULL ptr dereference on the device or just figuring it out
+> from the code? If you have seen it, please include the log, otherwise just state
+> it that it could be possible.
+I haven't reproduce it. Will mention it in the patch description.
 
 Thank you for your review,
 Claudiu
