@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795701624;
-	b=S3IRwI5YsMBZ9bo1YYuysW84b3Xqd4V03SUr8txQ4VLCAUZgBL93RrNARr967+5hYQU6
-	 R4JTRQyLaiG4qt4/OSgIoOvfHN2oaqGgUZyZf0LLMkgSut3oHW6zG68Psxg0rLqssOQ/t
-	 r6yemI5EFXYJlmVmLAn/9jm/kZjbckEO1iDSWZAiC0qlOff/gdTR3BIzcdQzsMmxEXDhm
-	 EvGFdKxnkou9WezxQKJxXElaFU7U2clz6HjfzAEu9dYFulE5I54Hw5FYwoKnIRuWAqygG
-	 +18SxDW4ie3kC+VOydijveCGhq5A3nDYA6+bpMtguziF5FZvDQeO+pjPXOEwq+bORtw==
+	t=1795701642;
+	b=K9My+gYI2798LSrqoQoaAytWrgjpAgU/mRhIKkHpNCJTloyZ8OQhGspwyZk0u8izDAvs
+	 IrPIBM1obbhqsHsz2uOOPIe59R16pG5/woMNFObDPgFXV1A1jnAaBjRJby4bSjJQJQ8RO
+	 yqpY8gLwH92bj4XOsbmSyFhzya4SUcXQ4aRdqVukYxubDel0+tJ0iewl89woSHs9zRA/o
+	 MgP3cSiFnmkHXNX18AEszPNDFJgnLZ7aCzfAxsD/hWeXw94TUhplz4p2Q8NXyCMkrC/p/
+	 lqdvObnG1bqfvEqyn8U5at6nWmKSSqW2b+MP+0sQtyY5sc/FxYz0BaEGrKg3VLOFVGQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795701624;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795701642;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
 	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=zNF9X7rTDVeQIL1qXMTFZqIj160rbEREzKVYWf30DKU=;
-	b=B6rFS9dh9exqi4tQS70w+PtVu9NtSBcScagjpv0Ly8JJ4tFIexQZTH8k6FYETHIfaYOY
-	 UY79hj2VRI8y8puh0BehuvUGN99QxNVwLYYU2K3IbNXZuk15+JhZmQCC+dALmw8B6y1xq
-	 7X/3hrl2HNKZWnukXnlj0TAJBLwVw2krIrLVIlNvf7mzPMZ4TwepOj+r1MvQbIygiyJB8
-	 adlvl6UwBjFDAjdgVn0EfQGrft45cDROBQ+GJp5fj8C3oPZN4+Wr1E3ZKpq3s7Z/Xv80p
-	 nHK3+DhdYld+71kh3PTd+bcuYYzVqsN4bcCMV/6IN65zaDe25xawG09eboKUZa0A0ng==
+	bh=S65x+I1GFn5ftefFzMVidQ5A5B4xCjVERLy7lksSAbo=;
+	b=Egisc0mEWO3uvcXsZdfTkHmrPU1K503yFTxUMeVQcniqBQZTSw+KNci4EBZ1OdhWv5ak
+	 QMg5ZGFvA4G8k8L21Zo7qliq7/zomA39NeeA006o8wkK+1JQu/bZl9sUoZGfT4epeu6z0
+	 h9TD5j5j6+GFeg3kPUxHMMkkIlgpdgbRMXcronPOXcomxtdlfMj6yRMkPLOh1hVfTjr4+
+	 mwbWxkl/K6mtQLZkEis/DXAGduwDB5f6AtmPX8Nf7OiFlHsM1YUagNSiAsbFb6LeTQePo
+	 KfAzL5UZRA4N6Y8VlGNaUuVsx7FSMeuBJ0dEjSFBCpf3hF69W2pRcIOj94XZbo5fHCg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="InqO/hi2";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FOlNxFJF;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6F2606A323;
-	Thu, 26 Nov 2026 14:00:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F6F606A31C;
+	Thu, 26 Nov 2026 14:00:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=InqO/hi2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FOlNxFJF
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795701623;
-	b=I6sIrOrEP1k+ElWoY5ooPZEELJ/o/UV5JAgwcbIjYSlLY807F8dA7JGCNFTj3dg3LE4D
-	 cT5rbhkG5BEkN0jdYaT9dPBzlED7mfLOM7VFV+YpIovw1PZ4/N+CUhH7KrSJ7GuB70BUF
-	 YDEn7CrUjTiw3UNnX3tfLJf1S1/yslS/84OAdhu/28Op1TCWAvqxSf9tHh+EvzIt3YZyG
-	 zp7jU+At0rcaZSrd3kmH14O/E6BHmhOm02MRLEmlcnpWzUSUQx9TBqODq6F0nE1AFN5wj
-	 v+HZ6PF+0Gj1sZpYFruE2v/PUTN/2oApoTBeg40CZqPk40yFIFKfndxJDLiCG1qU8mw==
+	t=1795701641;
+	b=gTlaxFNlweDdKM9trJqPWFZ4AEZWn4KaBVAUEnG6kgOZ7QDCLFqgM530v/uSedt3J5nj
+	 QYE6oV5j/23J/RrYgeOX7cp/IExneArGTPsRoyg7X/tCyVPuwRqE5mYKVd+lUnfGnJgOi
+	 801LH11YDTvtAxxC58YTQZ6P70DuYThp83OgN9ePR1PKumNUcX/iBJHIPvwYTFE1EzMrt
+	 WJUzLdJR79T4aqg3JekUFVzj5bJPV7i5HkAz2z82WcGirD0dzcLJOj5no32qtULH0wjOG
+	 UsXla0vC31hB7qfkT8IlqEMpJWcFlnAeUWDfwBekHjoMcEUeOJf8vJ8eP64K8z7ELWQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795701623;
+	c=relaxed/relaxed; t=1795701641;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=zNF9X7rTDVeQIL1qXMTFZqIj160rbEREzKVYWf30DKU=;
-	b=CeYf5o2cuhAn0LPHDUMKYBYlVh2mSq/Ms+K8o/6kHlx2w4bC5wRqFgcrFlNbQtlOuNGZ
-	 lTzofoOoueUAw4kkBx2iY9VNzsHqMkQckCFLYifTsXsFEGYPgCRQsZuw4i+UZG7AnyMsP
-	 ZK9vYBFGle5g4Y4ZlFWykRZmMvBuBPPlpIXRmM9jtZ8gvAEtf3maGc2UeZcI35wca/iKL
-	 jIPmCcz59sM2uaeYZXBm72znQMaoSHenmKxxRFy5XuDjcfhgAn4BeENeQelTkHL76mZFO
-	 v/754JSZEj7HZYvBAY2d1Hs/fS1/Vs1YaIUpdMlgA3yjrXMcpW/TD0rEpP48YGogkdA==
+	bh=S65x+I1GFn5ftefFzMVidQ5A5B4xCjVERLy7lksSAbo=;
+	b=o6OIKbun0ojsB0TGbQ53vWYgg0HaZAITYs96LvMfZBX7rEqaR+293t9UnWtiHcy51RfI
+	 Gnhw5NXfPhSS1rqDaZ5viqVjjSwWLVO8SFSodNPyw1aiSafp+7tbU4Ef7UYWZ3sao+Rvy
+	 yO0FjgjIxKL4eRcUhMtr07uqYhd/1C9uizh55qPvmWD0euE1vKLMpDc0YaZVvvNryDUXe
+	 TfqmNbCvjUR+THeHOayCo7TdCbxPqM5abdTpoGYArXvUgB9PsvrJgpAVTpbMrN03NON2G
+	 OtqWuwdZhPmYP+CtCDL5iKRwS3mLN4S8G2IjeQ6hjYbbHi/q4Z6cfVlSoCHuQzn8L/A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 21E6E1F000CA;
-	Thu, 26 Nov 2026 14:00:22 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id F363E1F000CA;
+	Thu, 26 Nov 2026 14:00:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795701623;
-	bh=zNF9X7rTDVeQIL1qXMTFZqIj160rbEREzKVYWf30DKU=;
+	s=k20260515; t=1795701641;
+	bh=S65x+I1GFn5ftefFzMVidQ5A5B4xCjVERLy7lksSAbo=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=InqO/hi2PY2H0BZmZU+EytewMAqGDh8riYT7DZ3R1t5wp4XydOkybWuROU93irB3G
-	 NPrJ55gTsthtqPzPt4P9rDPfCTkddwLbjcEcG8N2ohYfUhzCAwB+v33P0ofpPIZ09n
-	 d/hOFZ3aGzh/OTyIRbRjNTlM3pQhocyTk0WFUlzim9ACxZ7RhjrXC8YiPiH06xnrY5
-	 dXlDOvC+4K7clTao9cnqXtZmVmYOimaMIhyess7kqt+iHsBS6fHKLz78KRAArczyuv
-	 BihwKFO8Ch1ZgnjV3Nrheh8igfUnnYGLYLwIEIbgIpzd2qyqAzFnyZCqP6WRmjMEex
-	 dNYxt4F6qxQjQ==
+	b=FOlNxFJFMxer6W9rIuFZ09Hr88L74Xf8VcjiYQ0i2TzVvv0/WMHee6SarYBOO+0QD
+	 wYVnuK9C/uz5tWKQAR/zLVp5q79HlxSdgpXUxIez8Gmi7RfY62ueIkDUmUjd+47udg
+	 4OCLMvDeqCgOZgNdfKFXtebEtDHEWt4h6qSa0Oqu7MMfjQHJQSSMapofIqnzJokQZC
+	 ZqXDVphTuAUQuPT1T826LmoNbPyKTQnLcW+U/CPMgA2VARqPKb5ndNpvN/aJA3JYiR
+	 1dYZvAUpoZ759IJU2ltufvf50//qCDPjIazCRTkIs8tNcuCwk4wMrIBt+rnPy9IqAq
+	 3Yx+eHRPH1e9A==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AA1484D562;
-	Thu, 26 Nov 2026 14:00:21 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 87C2F4D556;
+	Thu, 26 Nov 2026 14:00:40 +0000 (UTC)
 From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
-Date: Thu, 26 Nov 2026 13:27:45 +0000
-Subject: [PATCH 5.10.y] Bluetooth: hci_sysfs: Fix NULL pointer dereference
+Date: Thu, 26 Nov 2026 13:58:37 +0000
+Subject: [PATCH 5.15.y] Bluetooth: hci_sysfs: Fix NULL pointer dereference
  in device_del()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -85,21 +85,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-so1b-bt-510-v1-1-bff6435e792d@certik.com>
-X-B4-Tracking: v=1; b=H4sIANEzCGsC/02NzQrCMBCEX6Xs2a3ZQAr1VcRDfrY2IolkW1FK3
- 91ELx7nY+abDYRLZIFTt0HhZ5SYUw106MDPNl0ZY6gZtNIDkR5QMjl0CxpSOBmlwjiwpZGhLh6
- Fp/j62s5gelL9Gy4/Lqu7sV+aqjWdFUZXbPJzQ8IpLDnfsfHj3wXs+wdAO7bZowAAAA==
-X-Change-ID: 20261126-so1b-bt-510-f500d96ea19e
+Message-Id: <20261126-so1b-bt-515-v1-1-e657824c0e45@certik.com>
+X-B4-Tracking: v=1; b=H4sIAAw7CGsC/02NQQ7CMAwEv1L5jAsOSgV8peIQpy4NQgmKAwJV/
+ TsNXDjuaHd2BpUcROHUzJDlGTSkuAbaNOAnFy+CYVgzmJ3piEyHmoiRC1qyyIf9kdmLk9HDurh
+ nGcPra+vBtmTbN5x/XB98FV+qqjbZqSBnF/1UkUocSko3rHz7dwHL8gHwngL2owAAAA==
+X-Change-ID: 20261126-so1b-bt-515-b839bbceaefc
 To: stable@vger.kernel.org
 Cc: Krystian Kaniewski <krystianmkaniewski@gmail.com>, 
  Luiz Augusto von Dentz <luiz.von.dentz@intel.com>, 
  Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795699665; l=4954;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795701516; l=4954;
  i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
- bh=2oX3LmQzgfr3BLUZlIpwA7c1t5yFys2nt+Hejx0BAwk=;
- b=Q/WMqm6+5wK4cct2DfIgsskUFNO6dHHehcU5WtF07Vc4fpJ73yhbvSNB2PbNtUYtfz0ynUHut
- ph9reLzilTfDMGr/E357CMprNkw0FblVHYFt3HRjbXRV18gAsn336hF
+ bh=YDEClDvnL/97beq6Fz8yjuMxJhlC9v3p+nU96NvxVoQ=;
+ b=Q8XXJIUwbTeo/PTcLm4fMXcxNFn8IThehr4UX2Xp6LJB9tFjFVzBN9uWLlnZnODfuB8x+EmdS
+ 7V5HOoGK52tDj6tV6dbA7vzxqmIseokd27AgDaFXWg3N4rdkb3jzlyT
 X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
  pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
 X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
@@ -151,14 +151,14 @@ Closes: https://syzkaller.appspot.com/bug?extid=6df45dd3d03e1a9aca96
 Link: https://syzkaller.appspot.com/ai_job?id=f1c0e740-db21-40af-a9ff-84db0fd8b8bd
 Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-[ adapted to 5.10.y: device_find_child() match callback takes void * ]
+[ adapted to 5.15.y: device_find_child() match callback takes void * ]
 Signed-off-by: Dickson Wu <dickson.wu@certik.com>
 ---
 6.6.y and newer already have this fix. The only change from upstream
 is the __match_tty() signature: device_find_child() takes a void *
 match argument on this branch.
 
-Tested on v5.10.275:
+Tested on v5.15.226:
 - x86_64 allmodconfig W=1 build of net/bluetooth/hci_sysfs.o, base
   vs patched, no new warnings
 - booted the patched kernel with CONFIG_BT=y under QEMU/KVM. I didn't
@@ -172,7 +172,7 @@ before signing off.
  1 file changed, 15 insertions(+), 2 deletions(-)
 
 diff --git a/net/bluetooth/hci_sysfs.c b/net/bluetooth/hci_sysfs.c
-index 1b4d81ffb4b5..3d5e76992552 100644
+index b1886e517a78..89cd9ea1ba43 100644
 --- a/net/bluetooth/hci_sysfs.c
 +++ b/net/bluetooth/hci_sysfs.c
 @@ -11,7 +11,10 @@ static struct class *bt_class;
@@ -223,8 +223,8 @@ index 1b4d81ffb4b5..3d5e76992552 100644
  		device_move(dev, NULL, DPM_ORDER_DEV_LAST);
 
 ---
-base-commit: 99112ea818e35b606397c84fbc05e6fadb6ea162
-change-id: 20261126-so1b-bt-510-f500d96ea19e
+base-commit: 4f2df9a01754521fbba3493e8ad91ef65515e68c
+change-id: 20261126-so1b-bt-515-b839bbceaefc
 
 Best regards,
 --  
