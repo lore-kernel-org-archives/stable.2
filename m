@@ -1,47 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.122
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795675433;
-	b=QcQAvq3jYwYwWy0Od2Vrg4eoRgiU5Y1DNJ3K9PucM33YMZMbEwQ+NA89S2HPvV412sg9
-	 YCYlshc7mv5s0ARokS6m42J5yOlLO9mFeXUXUtpE0vutoMhgiNKF2Wg+GtfZYLuN3vtsv
-	 hMJDrV0OHBev42fTwrXjKMZs7SEWS6q/9uAoetjbvDzphah/6NzNjwIhnzR+v9sou05w/
-	 k5bCbpMkeh0XNTHd1rgibgLyKfrS42U/+QvEKOkQwGmfX30ZSAd/ghEsrS238RvdtUtVr
-	 KASbby6zQXjzMW8zJv7PwewEK6KNn9Bu4Y2g7gUmFtbayBOTfCdLMmVlYORXZRdXnSQ==
+	t=1795675644;
+	b=2Mf238TdX9pggROBgYFVKA5GffC5k5a8BvR9LCsIfm/ZrQIzTYowG92Th7fvcl5OmnxG
+	 zbVdeyplJEItkqIkuqxjB9zEJtK9cbxaq9VnlZmFJy3BrY3ypMvm3M6Y5kKiNWF6Ujh79
+	 vNzxcVkIg01QZxd+oCQZ1S+tjJv7z4peMJhaOyhhVIU62qQhf2+jzfDbYaAcWEbd8FPZq
+	 w5YrsnQNQ2kkPEXyRc/EB0cUru4XZpZ2UazUgLQdst5Lqb6iEy5CKODNVEckf0PhONeoK
+	 gZRKS0xO2TRFJChuuojpESsLcNx9KGFo4fIl1J3r0kWiphZUQIk/TqdCBSbh9JQeSgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795675433;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=55bsZS3cIcuqHnwPLGxOy5fV6OTtTanCWxejpNB1N5o=;
-	b=alAE4cJdm5poWSfawBcpcGpc418SR+tnM8OtFuC7lQswirKpBU0v1LizfRGR08lz4MFW
-	 2Anz3Zn2wZ8cUCin8h961SaEhAFb80N2z4kJksKszCgpLqHzqHg2RWS9PAsCEWvyw1ghl
-	 GhphV9PY9EXRfY2aY/lzmUqUS6eRl6kEILOAYbHJkJyQE4p6EWtMMopf8oTjj3PsDzV0Q
-	 lm8K4smbi5EKmmpBa3NDbrvma7thPmGGQotQMzOsPdxJqjlB1DjLOy6o/MRWTO4aUtcLM
-	 r5FzJ3PVAJD2cUxqWfZVgSSxNKQL7ImOjyxGYyV6T1u8cYT3r/W/1xzyhQVlkQhQOpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795675644;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=DUqqxcGMWIG6tnXymk9Lyuyj8m3/xrj/arGN3/CmiM4=;
+	b=kWpMfNJLcbwxzipNC090xmP6AvtvHjoHk5I093TsIPVIhfu3LRw5JW3Qv6p6PuXaxnug
+	 rR9zPUaTNpGVbSijgQ3CvJDd9eHoMYfU0D9f1Og+0JXk9wYBtbf0kVtMVDE2eltzRjb9b
+	 A+Oe3bUbsL9DkGKgHKSMgXL2fpds5RwS9DwapiNjvq+3hj8EqDTNksRKManneYicZKR0A
+	 iAV4j7ldlki+v9qOqnA68ZztHyrwXWnPFLnmnGtgB1MikEhk9NobWfSH0OM6qEXUg06eR
+	 neh7PA9zrpkdGYoO2sHk1ZhrcnyuFSBCGsUTrR0tEOLK0Zjz5eZgQVnd+vHWaGKgTYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GD1QMk7A;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=BTwoOtgU;
+	arc=none smtp.remote-ip=185.125.188.122
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8739606A321;
-	Thu, 26 Nov 2026 06:43:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77E2606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 06:47:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D77E2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GD1QMk7A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8DAC1F000D3;
-	Thu, 26 Nov 2026 06:43:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795675433;
-	bh=55bsZS3cIcuqHnwPLGxOy5fV6OTtTanCWxejpNB1N5o=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=GD1QMk7Au9pSYonyrPsyVvey0M8BSM0iTtPrsO//M/VX1/OjXiciHroKhOomhOJ5s
-	 /UlalHde1P24QisHMoYnpDJrr8jxLrq3/LsMSUOrfllrHImGICiAx1UClXktaHUspO
-	 BxGaeuWMe/I5qok8Ounbng0qPlAGSF2ZN7Mazv9T7DMxtApLT3Vz85TDO4pyzIOUmZ
-	 sjFODvsvQQb3oqjJvgpqlTVnRyYLPfONZFB72kcyV5/cO2rFzuXNN1nrL4fDwxdKck
-	 U1ttURtmZkqEPqA9AhqMsmq6IRtblyAI26UqxIveuzik9YXCTnum8ezaeZaxQzM7ey
-	 kfntytOKYUsUw==
-Message-ID: <50045fa1-0b46-402f-baf0-a08d05282410@kernel.org>
-Date: Thu, 26 Nov 2026 07:43:37 +0100
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=BTwoOtgU
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 5B8403FE2D
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 06:47:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1795675637;
+	bh=DUqqxcGMWIG6tnXymk9Lyuyj8m3/xrj/arGN3/CmiM4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version;
+	b=BTwoOtgUpFZJhhsb2IXCUuP3LjxZ3Sml8CK5AtqqIb0HZVBpwe2T+nZ6jw5R85lbT
+	 HKrDhxs3ARkQll68P5SOMYYnX+QQOOnvCAL+11M9uO5/0r41MUGk4pkG2aE5M5IVU/
+	 HZD+YcTUmIOArTF7276OxCVDADVW+vyt4IYJ6Y1Bp7LhA26GNZDGRquzQszNohb8uy
+	 4ElQV3vySj4J0o0R4SPdcgiXmVJQ6m7H/4x3UrWx1JJho3dNzIiva0rfj/0FCrFeRI
+	 lc+swVm6o41clTpt8U1iE5136hLLKKIPF13Qq8ITFPUS76EJlnRZSG91manWgUtXQf
+	 1AToVmAtgtV2gOU/Gr5H3Gglezm313Y7mBFTBGpUc/VJTktion5JCuEcaj/JJPWROR
+	 07kfKmCm6GICwqFXxAVaqqpoTx6Im58c5oKV5ZU/AeM/xRQFxLh3lC3tyY1Vyay5xA
+	 eWaUL3P9GQxPznr6IvmR8bcgjfUQrpmbiV+KDf09WJ2G3ud4t4mknIbuioBcbTotfy
+	 c5rVqdyZFxQRTv8++CsvI4g91FH38jk3LQu8UoJ6+oxop1iobSvHRau4Hne0MlGTfk
+	 vz+Gr9mbtyYu3AJQIsDCVSU0Nr7Vpqvn/MCotptussUOU84fdLbDsAH/HD5+PXeax0
+	 uJBnE3Hhkescv1kYnwHhgLRs=
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3b4139b7abcso5929786a91.3
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 22:47:17 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795675636; x=1796280436;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DUqqxcGMWIG6tnXymk9Lyuyj8m3/xrj/arGN3/CmiM4=;
+        b=dorB3PjahdWiupqv+PIBYycR3lM3cW3hcbyGTO+KV1gLK+CR46nyOFGWlfqIb+b1sl
+         5ppdo7A2uXj5BBDFOSVyQEmquTJDL7iT4PMFn9b9MJqdIk6BrjTvi5dxiz096HVcx369
+         mtm1kiDijcojuC1zSJvwOEYD4Nuj1nnkRE0kY+rKz3UeJB3/eYwJlaMqqZxW4D6NXgBl
+         afhKF9D90TPS94owHxRXc0I9IzeEvDk7Zi7TS7oQ7RmwAntLEVEotvYLAmPe2JgPyeK9
+         flQNxTaQf+W2OvVPXBlHaNum9oeMO8eWTaBZdP6u0gurV5mlVW11IMFeyyIqO7ol5Uqb
+         LW7A==
+X-Forwarded-Encrypted: i=1; AL+hErE5TxS1qZUDV80BWXRRx2hZC/aIyoZJpjdiizUzzjBNkwN+OaWix7aGQ5TTuSUu/A+puKk2+hw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8X+fUWXorCw8NXieeVPw6YYdwQF+uomMLVrP5jGPF9R8e+dqB4
+	RCy+hIEzzEv96BarlSwiUPvjNjz2iLEsBWd+Y85EZB55rGat2qGxUdpUB9Ufg70CjK7E77N/sLr
+	7FgWWGPfqbds9pAYuy/AN5HX941DyPumQNi4uz6Snwwr7X82t0K2iAKHPwSWbamT08krpG3NsrA
+	==
+X-Gm-Gg: AZFdTZcHtAqEchwyDrh6Wf/ZK8DZ+LpZttakyDC+V4ZnCkSe5o5XUg4rDnT636FcTNj
+	e00DvdH6UWoKcqGxqaNloRyG9DbJ9vHJyKxQ0rW1lTaJVVzXBb8algCSE4ui3DVANdADhmnRR37
+	7iBjgiT34klL4GrouDmcaYwDX21QnVY9ef2Ft3+YSNHCZf1asysUz2mPrcp3MdenU+/PHT8Diky
+	YRpQsjRVyHvyzlhqTchSMK6/9Q2xUtnvzKvMOoGa6yPkFQNauyyberzardl5ba8J5dUBd07ZFzG
+	5UdabJe3Iu7HhhAaZDcFuqjBINIq5ii0NLucpM56H6Ig8ZhRBNQJOHevck7MLYRZIyEF1zhVUG8
+	XulBQC2qELnfKXQdRgHkQtgkOTZ6FR3yRi6/KKvdRTsFbkivonj5340W0knQH7G3WduHxocUwKE
+	HFyB/KHzIR5Y3v0N+6Db4boaCbXkJehg==
+X-Received: by 2002:a17:90a:e7d0:b0:3b0:aaa3:ce8c with SMTP id 98e67ed59e1d1-3b41c8debe8mr18647744a91.14.1795675635516;
+        Wed, 25 Nov 2026 22:47:15 -0800 (PST)
+X-Received: by 2002:a17:90a:e7d0:b0:3b0:aaa3:ce8c with SMTP id 98e67ed59e1d1-3b41c8debe8mr18647731a91.14.1795675635145;
+        Wed, 25 Nov 2026 22:47:15 -0800 (PST)
+Received: from resolute-linux.lxd (124-218-37-86.cm.dynamic.apol.com.tw. [124.218.37.86])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41adcafe0sm33398567a91.16.2026.11.25.22.47.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 22:47:14 -0800 (PST)
+From: Aristo Chen <aristo.chen@canonical.com>
+To: Alan Stern <stern@rowland.harvard.edu>,
+	Alexey Charkov <alchark@flipper.net>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Neill Kapron <nkapron@google.com>,
+	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
+	linux-usb@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] usb: gadget: udc: do not fail bind when the UDC has no pullup callback
+Date: Thu, 26 Nov 2026 06:46:49 +0000
+Message-ID: <20261126064649.75179-1-aristo.chen@canonical.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <722603d5-ad2b-44d4-93b5-a629ceec9305@rowland.harvard.edu>
+References: <722603d5-ad2b-44d4-93b5-a629ceec9305@rowland.harvard.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,115 +115,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/5] mm: GUP dirty + ->release_folio() fixes
-To: Tal Zussman <tz2294@columbia.edu>, Christoph Hellwig <hch@infradead.org>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, fuse-devel@lists.linux.dev,
- Pedro Falcato <pfalcato@suse.de>, John Hubbard <jhubbard@nvidia.com>,
- Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>,
- Zi Yan <ziy@nvidia.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Peter Xu <peterx@redhat.com>,
- Johannes Weiner <hannes@cmpxchg.org>, linux-ext4@vger.kernel.org,
- linux-nfs@vger.kernel.org, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Kairui Song <kasong@tencent.com>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Michal Hocko <mhocko@kernel.org>, linux-fsdevel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261119-gup-dirty-what-v1-0-236d69f25c24@suse.de>
- <4f096d70-6f94-4148-8f47-242b8551e5f9@nvidia.com>
- <awWNyDZT2SVu2Zp9@pedro-suse.tail5790ac.ts.net>
- <55114986-0ba1-4a80-8498-bf674d64e01b@kernel.org>
- <away88BuU8ibcTA5@infradead.org>
- <d088452f-1118-4a06-bc16-1942e523e0fc@kernel.org>
- <20261126022418.3620783-1-tz2294@columbia.edu>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261126022418.3620783-1-tz2294@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/26/26 03:24, Tal Zussman wrote:
-> +CC Miklos
-> 
-> On 11/25/26 5:19 AM, David Hildenbrand (Arm) wrote:
->> On 11/25/26 11:05, Christoph Hellwig wrote:
->>>
->>> We need to, if not for this series then for all the other outstanding
->>> issues with GUP writes.
->>
->> Cool, and I agree (that's why I placed it at 1).
->>
->> But who is "we"? Because I recall that "we" wanted to do that a while ago.
->>
->> (I won't be "we" ;) Pedro, can you take a look? I'm afraid the fuse thing might
->> be the harder nut to crack)
-> 
-> Coincidentally, I sent out a patch to convert fuse_copy_fill() to use
-> iov_iter_extract_pages() a few days ago in order to remove its usage of
-> set_page_dirty_lock() and address a different race. I think it should
-> address the fuse side of this issue as well.
-> 
-> https://lore.kernel.org/all/20261120-fuse-copy-fill-pin-v1-1-72a0d888f140@columbia.edu/
+On Wed, Nov 25, 2026 at 09:35:39AM -0500, Alan Stern wrote:
+> Your patch may conflict with this one from Alexey Charkov:
+>
+> https://lore.kernel.org/linux-usb/20261117-udc-connect-v3-3-9413b491d213@flipper.net/
+>
+> You should look into this and see if any changes are needed.
 
-Oh, nice! I was assuming the usual "we use put_page() on some random hidden path
-or core code" would make that harder. I recall that's the reason why vmsplice
-still uses FOLL_GET years after we discussed that it should be using
-FOLL_PIN|FOLL_LONGTERM.
+Thanks, I had missed that series. I have added Alexey.
 
--- 
-Cheers,
+Yes, they conflict. Both patches change the same code in
+gadget_bind_driver(). My patch 1/2 applies on top of v3. My patch 2/2
+does not.
 
-David
+v3 3/3 also handles a UDC without a pullup callback:
+usb_udc_update_connection_locked() returns 0 for it, so the bind no
+longer fails for that reason.
+
+I ran the KUnit test from my cover letter (emulated MAX3420, with KASAN
+and UBSAN) on usb-linus, commit 730acad0b83d. That tree already has
+v3 1/3.
+
+  usb-linus:
+    The bind fails with -EOPNOTSUPP.
+
+  usb-linus plus v3 2/3 and 3/3:
+    The bind works. 2 tests pass. The 3 tests with bad endpoint
+    numbers fail, with UBSAN and KASAN reports. 1 test is skipped.
+
+  The same plus my patch 1/2:
+    5 tests pass. 1 test is skipped. No UBSAN or KASAN report.
+
+The test that is skipped in the last two runs only runs when the bind
+fails.
+
+Alexey, I saw the bind failure that you describe in 3/3 on the emulated
+MAX3420.
+
+Two things follow from this.
+
+1. With v3 the bind works and the test hits the out of bounds index.
+   So my patch 1/2 should go in before either bind fix, or together
+   with it.
+
+2. For the bind fix I see two ways.
+
+   a) Take my patch 2/2 now, so that stable can pick it up. It only
+      changes the bind step. v3 then takes over that code. I tried
+      this order. With my two patches first, v3 2/3 applies cleanly.
+      A three way merge of v3 3/3 has one conflict, in
+      gadget_bind_driver(). Taking the v3 side of it gives the same
+      tree as in the last test above.
+
+   b) Use v3 for the bind fix. I can resend patch 1/2 alone, so that
+      it can go in before v3 3/3 or together with it. Once v3 is in
+      mainline, I can propose the small bind fix as an equivalent
+      backport for the affected stable trees.
+
+I would prefer a), but I am fine with either. Which do you prefer?
+
+I used an AI coding assistant to run these tests and to draft this
+reply.
+
+Thanks,
+Aristo
