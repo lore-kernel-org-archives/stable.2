@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795687103;
-	b=2e9aDtfOgMHMHmmFuNUFiXONZZrg7PeF72rIs6nvR+PRMnTi5F0vrHAuXDqmEHxrTzUr
-	 xNrXZ9skHpN0fRgXlWb8tmYkjVo332o/s6UiukOsHy5ZDNJbc3j7pFqe+co4CvBX+e4QW
-	 qCyT0kvYMsJ+UFtdyUa92kfsIA+UWhVlf2xaO05rVEQtojj2Rqu7vK5GyQfDswhwpfWQG
-	 l+4oIr/11fK4Wk2jjQ2cY7wfnaivB3D6FYeKTYYHpuehAPelbp3TXoxtxeqJrhHang0p9
-	 Wf/MbL/Xlzlcxp1cqEtalz4PDDNY8BQDI/QFCz375796+nwLvEFgxXG+WC/91L/kl0g==
+	t=1795687194;
+	b=V+cu3T238PeNyBZFHJ7pkpSQfsECPSo6xIAkrAPvJALq/welPIRxV3oJX97leqFBATrs
+	 fcpkZfacwY5AYW040jLnxBiKPb/ps/v1JWXGd1SBOnC5rJivCY+0uVNAbXoFSQNUSNecA
+	 QlQouYfOHT3z8lLBVDjXHNVC/NlItxFmh/17pDatTg9fs5+inEuyrNNXoVCOdPsNZCtgj
+	 a5hGEGAmTtVU7ABRHc+/3nXAYVHM++RmUyy47+3e7ER5PK+Tz8tSjJwy0bNgwG+ewXIo7
+	 IN8QeKkccGwq9CstRNJe/mUjXhItBKw2H9w9sygwvdwiykIADwVKKCZGFnmXFbr+03w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795687103;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795687194;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=CMPzilywSB0BY9L2Teq2vIgsxnr+wRA47wTymsp256M=;
-	b=sdN/hfbP+TRE9prAMETHHqsYERCN7v4vjnTRkYUa9nmVaqU7tlSNvqGKEEGWPTUz1ccv
-	 S5hk1oev+qmtzYmgOwR+uhkPNAqQxX4AVjYW2iz52qxa6vdUrxqFTT9f/ck8PbOHyZbFz
-	 EXXHGKrOgYyhDl4qdzh2UNXv4+Vl4kzCLBAOIRoSLbzAn2AS4Bbil/P76T26d9FdvNmKl
-	 2+De4hYAYT6GjxNle+pRS3y5fXBbq0V8s2ZxqVkdqjOueCBxnfOYnQTU8urVwn//B+I40
-	 e8faGFgO4jLXhRd7FT+bD5r5vAUmYBnFs7Q6Fm3FbcsZFa4QblBeHiZjjf4fcCeGI5Q==
+	bh=HqYzO/eSRDch7jJCLzvTRvERSohL54BCcWWSz/h0074=;
+	b=IvR00uColyKHLFJAznXJhv9UXkstPbxdvumb+SRX7/rIDza4yKxTuWASi0cXK4ppzP9X
+	 mfzlzSPkQGkn7xgsZ5tSW6B/QtlrCy4Lnj54Ul7ncGTnqW35auT67y5lqpHgfiGwN/+oN
+	 QwN29NoGlz3uVkpcb6jTQfL69+nP9cb4N/Lu8sb5aHZqb1fXzBJWJNm11V33HoAGOnlIt
+	 Ms1glTYg3ZfaPacy+HeMo+CeezRLm4t1JVqlZUXzXJtCtv7UO7K+HIFbR2cAW3O7zs+TA
+	 LEhbBwh/aFEgsXn6dx3gulJL9+C1AcMHoGyMGNmVaZr2/cfU3sx4DrbfK7wrW1Uz1vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AKagZpBn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FSbQknkw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752A7606A31E;
-	Thu, 26 Nov 2026 09:58:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA591606A31C;
+	Thu, 26 Nov 2026 09:59:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AKagZpBn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16DFF1F000C6;
-	Thu, 26 Nov 2026 09:58:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FSbQknkw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E63D1F000CA;
+	Thu, 26 Nov 2026 09:59:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795687102;
-	bh=CMPzilywSB0BY9L2Teq2vIgsxnr+wRA47wTymsp256M=;
+	s=k20260515; t=1795687194;
+	bh=HqYzO/eSRDch7jJCLzvTRvERSohL54BCcWWSz/h0074=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AKagZpBn09AMbaWKLVVyKAJAUx9rdzxn5/4X2BaEMhVscDXISnhAXMP+67fB0+NLE
-	 +L1iyYQ+PzRxiOnq7Z7lckWKWYA0MJ4zn0Ndo31NuPvyNz/U9QzPl/RtMc9nRy2IVu
-	 /u8KqcUDY2UH3cJqKTjjnxzun6NlSMQetsy0RPceCAw0QLpfvat8hr4q/jK6YG/Fu2
-	 Vt6L+bsyDNM4fGCvaYAckuNqXVjtavc5m9alq5R79ljduTjslbQGsxMWtVAxfEqOis
-	 GlH5d/P2EV4eiLuLnTHtvUXPD9PQWhUsmk1VVUDOfZaSvct0VtCmL7/0NqlT7s84Sn
-	 n2ZwN/mGR+2Mg==
-Date: Thu, 26 Nov 2026 10:58:06 +0100
+	b=FSbQknkw38FgllhfssHvNv0MbT1LPViaDlO7msWVDVWlr2dZ+tvZyZXD8lGkrbJHH
+	 NYatujlK5nSOyXTq1MoXkh0Ui/+V7dJ8bsSqbCC5hfjdzSqaLiy1W1VSJM+Ub8JZZC
+	 lNor7sv13clqY8nIKxzJ22Azl6QAVaWLfd1Q5ifVI2zTt5NOl5GRASRx7HsTxWVb5k
+	 MnVw07RlfYCdZaTyLQqUZz2O5dJkLKr2JUWexPW3r+RU1oQ17f+b0gGD1n/UEvUF1R
+	 4qTCsiY1jEyd6gzvvS/oBdhWhfjw4dE/SZ314lf43F1Y/r0j7juM4+ZoAaYeFow7mR
+	 aI+WWCfDP7aiA==
+Date: Thu, 26 Nov 2026 10:59:35 +0100
 From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
@@ -89,11 +89,10 @@ Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
 	Jason Gunthorpe <jgg@ziepe.ca>, linux-kernel@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@osdl.org>,
 	linux-doc@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 03/21] mm/hugetlb: always mark new page cache folios
- migratable
-Message-ID: <awgCro3ymVNkIykq@localhost.localdomain>
+Subject: Re: [PATCH 04/21] mm/memfd: mark new hugetlb folios migratable
+Message-ID: <awgDB3ocsRhKH4dw@localhost.localdomain>
 References: <20261125-hugetlb_fixes_2-v1-0-db27fd2f71a8@kernel.org>
- <20261125-hugetlb_fixes_2-v1-3-db27fd2f71a8@kernel.org>
+ <20261125-hugetlb_fixes_2-v1-4-db27fd2f71a8@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,37 +104,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261125-hugetlb_fixes_2-v1-3-db27fd2f71a8@kernel.org>
+In-Reply-To: <20261125-hugetlb_fixes_2-v1-4-db27fd2f71a8@kernel.org>
 
-On Wed, Nov 25, 2026 at 11:33:01PM +0100, David Hildenbrand (Arm) wrote:
-> hugetlb_no_page() and hugetlb_mfill_atomic_pte() only set
-> hugetlb_migratable for a new folio once they installed the PTE.
+On Wed, Nov 25, 2026 at 11:33:02PM +0100, David Hildenbrand (Arm) wrote:
+> memfd_alloc_folio() adds a new hugetlb folio to the page cache, but
+> never sets it migratable, unlike hugetlb_no_page() and
+> hugetlbfs_fallocate().
 > 
-> If they back out after adding the new folio to the page cache, for
-> example because the PTE changed or is no longer empty, the folio will
-> stay in the page cache without the migratable flag set.
+> Later faults will find it as an existing folio and never set the
+> migratable flag.
 > 
-> Later faults will find it as an existing folio and never reset the flag.
-> Such a folio can never be isolated for migration, which breaks memory
-> offlining, alloc_contig_range(), longterm pinning and memory failure
-> handling.
+> Such a folio can never be isolated for migration, even once it is no
+> longer pinned, which breaks memory offlining, alloc_contig_range() and
+> memory failure handling.
 > 
-> Worse, if the folio is not longterm pinnable, because it resides in
-> ZONE_MOVABLE or CMA, memfd_pin_folios() and the longterm GUP path retry
-> forever on -EAGAIN. memfd_pin_folios() cannot even be killed, which will
-> be fixed independently.
-> 
-> Let's fix it by setting hugetlb folios migratable whenever (1) a new
-> anon folio gets mapped; or (2) a new folio was added to the page cache,
-> like hugetlbfs_fallocate() already does.
+> Let's fix it by setting the new folio migratable after adding it to the
+> page cache, like hugetlbfs_fallocate() already does.
 > 
 > This has low urgency.
 > 
-> Fixes: cb6acd01e2e4 ("hugetlbfs: fix races and page leaks during migration")
+> Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
 > Cc: <stable@vger.kernel.org>
 > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Acked-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
+Reviewed-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
 
  
 
