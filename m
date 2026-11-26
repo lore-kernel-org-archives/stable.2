@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.60
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795707200;
-	b=bQ5Pj2CuF+ZIsmIZBUlB83nln38ghwPJ29tvM6uK/62QGPzoMnWUSF+IprAaJdKm/D9K
-	 dneRniufgJwZ1vnmiVc1incOEXBUQtSb5FedFmDzHkxahZkPFxbJOkTlAXe3cfzYqoYnu
-	 bUpdnehclhzhYV1LvrwzjxSjvDKTNLpqZggM8jMJ0q/DDAM1cbxqTEVxGTO8XC4aJn+qo
-	 SIQAPyN4UyTP0VS5F9ocqrSP2S1PWgLbkSdFu60Va29GL+Gn1iBC5uM+cp0ViDqb2wWkZ
-	 LG2wx7eu0Y89tQD0BU2cg/fnqLmA1CmSGQTtbKUWBAFlSME3+o9qxxq50ljns4LbVFg==
+	t=1795707201;
+	b=WGepvT2CJBjOi+sZGIpgS3ZDbHt9husbhHfhqnZU9aqNr2iKiDkM/HFAuL0gy89SW8Ov
+	 /gYsIVSUoUT2CeghAIxY5QE/NY0trrALO3wSs8d8x0elY0VhCwTiGVeLcgGxUDRqz7v6x
+	 wGsd/e97QEro5/vgqhoHAJp9kgvp7A34aknkDsswYDnC4m+Yb3PN7MlLjZijkGpkn1guP
+	 CKv8G61BMWW4sgpjuQRt0UOQQepu1txcr0hbO+/kXD4ZOPTxAXuv37RRlXBtmtVnHovgf
+	 EeHUXNevbfgXz/Xzjq2gzMYb/wYUqka5O0rlWjnp0y8KN58GG3V8yu/L2NSlATJE/7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795707200;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=p2gu9OJZLR3ha8ZLeNR0ZCH6KxVleHc2tqsXria5VtA=;
-	b=UtEAKHCwjJG4hGza+7bs2boVkFv4K7g7qrzSpRbSo26OfOw8QQrS9/4ZFdsDdTnYV5Io
-	 370bhQ/WFG6lqzmFSxzqDQPNgyKq4HMgRK/NbyL/O4k4hEUO5XYqX6GnQjZHwnKJcGg4r
-	 PdM+FRdeLEinLIziliRVqz/wo3x459b4O1ZkBUqjomoJOFmlgopiaPgoxyutXmv0P9Go1
-	 Qfn7VFcCmYk4vGERNVxrmczIEN+V3TyPPqCkSqE4lBNlAr8myGsyv3SXw55io6f5TTzYN
-	 46bvpPdapRDBU/7RqyoCzRNn0Hr71tU1qhEiVTL4MWRzWuVe84EsuOlVVprvRVcu6+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795707201;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=kRp4wRTGUX5Nc07ITKcIm26w+g1oTAepPRAIzZzp2p0=;
+	b=sbURk8x3AyBMxyoyWNcC7ghUGknXeq5ski8P+fH9S7YysoT+DjS84v5WNiBEENQVPbO3
+	 yLQ8sVZGngsYVRrG579S0xoyW1py3YK1Sewnv4kDSC9j9dS0fsSDECFb6D3VF2hm6vwAh
+	 V2EwZPZdJ4N3atiOWnEy8HOk6Lhsa35uqgnkGLz3QFOF7v5a/gkEkiW2y5Fy+JluCnfLD
+	 PpPavbEaOnQKi6g3K0CbuweeFwtCi7iz09M8kVbjz/1WW02DwPsjnJMIiAlTSucv4N6jN
+	 9n9QfaVETk+10hqOPAIEBXviyFjQaTPg4mp20x0F8DLpoy+RVkwLj8RPultHnQZNaZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PzI8dsDY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=E5m87UiI;
+	arc=none smtp.remote-ip=95.215.58.60
+Received: from mta1.migadu.com (out-60.mta1.migadu.com [95.215.58.60])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0168606A323
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:33:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37BE606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:33:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F37BE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PzI8dsDY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A22D71F000C0;
-	Thu, 26 Nov 2026 15:33:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795707200;
-	bh=p2gu9OJZLR3ha8ZLeNR0ZCH6KxVleHc2tqsXria5VtA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PzI8dsDYKN5y+JUR7jHdp0ZpPsyBQz1C0B/YYivezJmgZ/xrmgm5K0CfQh/C90rxT
-	 yt3IoZsq3ChvphmzHgwRq0pUp4Yr3WMWv6WhluxoVgd6P8nqOQeCHE2HLAATTZEr84
-	 YEJPc4v2OMs5tUhBpJtDnldrS3wYPo5j+7I5Q3CcRtrDXZ2Niayh4glHxQ4SUI3LRx
-	 6kWNutiDq8moWEswecB0OKUJrR4+PLBdcM5MOUQp8Kj5xCca9OKONtBPrgHuL+isKJ
-	 yv7ObEaHQEr6hRmxloAKmbXwVC7nxLdYJBj4MHER2He0qZ0k3NWw4s6FXMsfdeK0jO
-	 CZjPygBNFJ31g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ihor Urazov <z0rc3r@gmail.com>,
-	stable <stable@kernel.org>,
-	Francesco Orro <ncesco@interstellar.eu>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Huang Wei <huangwei@kylinos.cn>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] usb: typec: ucsi: acpi: Assume UCSI 1.0 on HP ZBook 8 G2i 14
-Date: Thu, 26 Nov 2026 10:33:18 -0500
-Message-ID: <20261126153227.2468958-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112535-cried-husked-8ee4@gregkh>
-References: <2026112535-cried-husked-8ee4@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=E5m87UiI
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=mwJLewJ9zSnI5WWBwaIqRXXu8I3527mjgT72PP6DPTc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795707198; v=1; x=1796311998;
+ b=E5m87UiIVTh5aopPtUryf6t8fVBmYN+bUlyQ4rnpUAZHpP9mjtBCzfgg1/lhENZlPf25of+g
+ 88MVClLSBrsuTUFIQhV5sF0ncqYPl7qw4rJd2umGGbPK74hH4rPDkUjp0aWQivEJV4YYMDehdI6
+ UZ1g0FLlfvuO+4sOCo50a8tw=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fa146ce35f58f9d5;
+	Thu, 26 Nov 2026 15:33:17 +0000
+X-Mizu-Trace-ID: fa146ce35f58f9d5
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a3f3f62b-7642-423f-ab86-9faf6bbc0ffd@linux.dev>
+Date: Thu, 26 Nov 2026 23:33:13 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,119 +58,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH linux-6.12.y 0/4] bpf: Fix interpreter-unsupported insns
+To: Guillaume Laporte <glapt.pro@outlook.com>,
+ Vincent Thiberville <vincent@harfanglab.fr>, stable@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261126153002.162337-1-leon.hwang@linux.dev>
+Content-Language: en-US
+From: Leon Hwang <leon.hwang@linux.dev>
+In-Reply-To: <20261126153002.162337-1-leon.hwang@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Ihor Urazov <z0rc3r@gmail.com>
+cc Guillaume and Vincent.
 
-[ Upstream commit 3ee1e1c3fca6fb5d0abbe0fc91539951ffa60aa7 ]
+Guillaume, please test them.
 
-The HP ZBook 8 G2i 14 (board 8ED9) exposes a working UCSI ACPI PPM, but
-its UCSI VERSION field reads zero until the first command completes.
-ucsi_register() rejects a zero version with -ENODEV, so no Type-C ports
-are registered.
+Thanks,
+Leon
 
-The firmware's _DSM READ function (2) is a stub. The mailbox VERSION
-field is written only by the EC response handler, after a command
-completes, after which it reads 0x0100 (UCSI 1.0). The mailbox is
-48 bytes with 16-byte MESSAGE_IN/MESSAGE_OUT fields, the UCSI 1.x
-layout, and _DSM function 5 is not implemented.
-
-Add a DMI-specific read_version for this board that substitutes the
-version the firmware itself reports, UCSI 1.0, only when VERSION reads
-zero. A non-zero firmware version is used as is.
-
-The same firmware defect on the HP ZBook Fury G1i 16 was discussed in
-"[RFC PATCH] usb: typec: ucsi: acpi: bootstrap PPM on HP systems with
-empty _DSM func 2" [1]. The defect was reported to HP as case
-5166176673.
-
-Tested on an HP ZBook 8 G2i 14 with BIOS Y70 01.02.08, from a fresh
-boot where VERSION reads zero: three connectors register, the PD
-contract and alternate modes of a Thunderbolt dock are reported, and
-its DisplayPort output stays up across the PPM reset in ucsi_init().
-Dock unplug/replug and s2idle suspend/resume update the connector
-state without errors.
-
-Link: https://lore.kernel.org/linux-usb/f3M_fpjtt8FxDqGKcA84vqXmRbKzCBfpCrIK4-jCWvIscER51zkD8qD8FYpz75qZw51rMDRSkUyYlrBvLvdM8CGRY2l8TFVvr4MC1LdTzbc=@interstellar.eu/ [1]
-Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
-Cc: stable <stable@kernel.org>
-Cc: Francesco Orro <ncesco@interstellar.eu>
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Ihor Urazov <z0rc3r@gmail.com>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Reviewed-by: Huang Wei <huangwei@kylinos.cn>
-Link: https://patch.msgid.link/20261026-ucsi-hp-zbook-8-g2i-v1-1-91002e9ef073@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: adapted to the older ucsi_operations API by using a read() hook that patches the VERSION read instead of read_version(), and added the missing UCSI_VERSION_1_0 define. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/usb/typec/ucsi/ucsi.h      |  1 +
- drivers/usb/typec/ucsi/ucsi_acpi.c | 33 ++++++++++++++++++++++++++++++
- 2 files changed, 34 insertions(+)
-
-diff --git a/drivers/usb/typec/ucsi/ucsi.h b/drivers/usb/typec/ucsi/ucsi.h
-index 16ead80d3a4e7..30cbc95adf40e 100644
---- a/drivers/usb/typec/ucsi/ucsi.h
-+++ b/drivers/usb/typec/ucsi/ucsi.h
-@@ -26,6 +26,7 @@ struct ucsi_connector;
- #define UCSIv2_MESSAGE_OUT		272
- 
- /* UCSI versions */
-+#define UCSI_VERSION_1_0	0x0100
- #define UCSI_VERSION_1_2	0x0120
- #define UCSI_VERSION_2_0	0x0200
- #define UCSI_VERSION_2_1	0x0210
-diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
-index eeb457ff255e4..47630be780ebb 100644
---- a/drivers/usb/typec/ucsi/ucsi_acpi.c
-+++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
-@@ -131,6 +131,32 @@ static const struct ucsi_operations ucsi_acer_ops = {
- 	.async_write = ucsi_acpi_async_write
- };
- 
-+static int ucsi_hp_read(struct ucsi *ucsi, unsigned int offset,
-+			void *val, size_t val_len)
-+{
-+	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
-+	u16 *version = val;
-+	int ret;
-+
-+	ret = ucsi_acpi_read(ucsi, offset, val, val_len);
-+	if (ret)
-+		return ret;
-+
-+	/* Firmware fills in VERSION (1.0) only after the first command completes */
-+	if (offset == UCSI_VERSION && val_len == sizeof(*version) && !*version) {
-+		dev_warn(ua->dev, "UCSI version is zero, assuming 1.0\n");
-+		*version = UCSI_VERSION_1_0;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct ucsi_operations ucsi_hp_ops = {
-+	.read = ucsi_hp_read,
-+	.sync_write = ucsi_acpi_sync_write,
-+	.async_write = ucsi_acpi_async_write
-+};
-+
- static int
- ucsi_zenbook_read(struct ucsi *ucsi, unsigned int offset, void *val, size_t val_len)
- {
-@@ -205,6 +231,13 @@ static const struct dmi_system_id ucsi_acpi_quirks[] = {
- 		},
- 		.driver_data = (void *)&ucsi_acer_ops,
- 	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "HP"),
-+			DMI_MATCH(DMI_BOARD_NAME, "8ED9"),
-+		},
-+		.driver_data = (void *)&ucsi_hp_ops,
-+	},
- 	{
- 		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
--- 
-2.53.0
+On 2026/11/26 23:29, Leon Hwang wrote:
+> Request from Guillaume and Vincent [1][2], backport the following commits to
+> linux-6.12.y with editing the commits manually.
+> 
+> 9a6df65d5c6a ("bpf: Introduce jit_required flag and remove bpf_prog_has_kfunc_call()")
+> f1c27922576e ("bpf: Reject programs with inlined helpers if JIT is not available")
+> 34746b5a84ec ("bpf: Disallow interpreter fallback for arena-related insns")
+> 7a0855e73757 ("bpf: Disallow interpreter fallback for BPF_ADDR_PERCPU insn")
+> 
+> As there was a big code refactoring in linux 7.1, the changes in the new
+> file kernel/bpf/fixups.c will be backported to the positions in
+> kernel/bpf/verifier.c.
+> 
+> Patch 1 introduces a new bit 'jit_required' in struct bpf_prog. The
+> other patches set 'jit_required' to fix the issues.
+> 
+> Links:
+> [1] https://lore.kernel.org/bpf/BESPR02MB12296D62B1B3F33BA21C4F24AF1432@BESPR02MB12296.eurprd02.prod.outlook.com/
+> [2] https://lore.kernel.org/bpf/MR1P264MB331494502C9D13D8A9EAFB99B7E82@MR1P264MB3314.FRAP264.PROD.OUTLOOK.COM/
+> 
+> Leon Hwang (2):
+>   bpf: Disallow interpreter fallback for arena-related insns
+>   bpf: Disallow interpreter fallback for BPF_ADDR_PERCPU insn
+> 
+> Tiezhu Yang (2):
+>   bpf: Introduce jit_required flag and remove bpf_prog_has_kfunc_call()
+>   bpf: Reject programs with inlined helpers if JIT is not available
+> 
+>  include/linux/bpf.h   | 22 +++++++++++++++-------
+>  kernel/bpf/core.c     |  7 ++-----
+>  kernel/bpf/verifier.c | 21 ++++++++++++---------
+>  3 files changed, 29 insertions(+), 21 deletions(-)
+> 
+> --
+> 2.55.0
+> 
 
