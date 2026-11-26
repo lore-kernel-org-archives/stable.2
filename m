@@ -1,63 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.56.165
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795681519;
-	b=MB/gY+miB4VeIYTSjZXNTKu82OQxdNz+W3GzXjjEL8f0nXM6R3dYKe9kgvb9R0LIQAQI
-	 WvJ09lhqULxO3+e9tI+BcILPszd8dZuncg5keUZTHDbZijk17SRw5NYX09k6D7z4qvzuQ
-	 V35g6K+O1V+MSOXYfxPCbD16HQN8u+OV4qd32x7AWtvlGWhshc5w2SwSGT71PG6uU8z0+
-	 YRfArDByFXy78jHuBL80X4aAmeuc2LrgadSilLQBZ7P+wMJdOL6UIKy5jX1JM72xxCAhJ
-	 i/R/WYK4AJPot1OJa/TBDXU4Sy6bcyuOUuwNa/ketwbRX5ZIYfymTIdPttSqp5ad4mw==
+	t=1795681525;
+	b=ldXpz6M/Aql9B5A//GyPwlX/voZrF7pPrnNxcgOIxgpFiJxKnzt4BpWK8OTIYLUb+sDJ
+	 WQW9Loz6BtVwSRXP9PcR3FZdSiORCKb8/qiz7X7Cq481OoPUgnQuXY3pzw/MEvyiULeok
+	 6G/rlVY3mzaeqSB7ZxKMqytNlCof/SxBEaD7D7bY+0fJbhEQz3NUlr6du/yp8bEJokGN7
+	 MiTUw3cXENq99pfFNAG8IL3VXBZglAZgzuk0gC/hWF8gKWEcQfnIN0JyBm20XnnLjrUor
+	 8hfqkoMYoPjlJFHOLj3FikOKHwwjosXGc9LPRAU58l1eMyBrzGfvmiAUX8kWnozqyrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795681519;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nasJW35t/3GDXcnrQth4xXcfZ6A0BlwMudYBlU7KjCs=;
-	b=ciWGZ9tT4OcTp8tCm2n5lYF+oLMzXn0kje1tI4cCd2ZdLL4Vv8JK19Dw0c1cLqmm4Iqv
-	 vwxYQJbyYNWtl4gKfenIeQbzZ4xZsgpZgbhvK39vdVPc/zRBtdm+fKiEHvAgJy5h5V7hr
-	 eQPLdPv6u24tI4FiWgm1puAlTU78LbzAIv3pItulzrA3GXQrhlzGB1MiaCtBtyTTpSsiJ
-	 Gf4vooUhlP3Fj30P8agtTRA4EYQHNQiA8ixw81oRvdCVJoq3AzscrRNPZqCkLYK6t0NE8
-	 pr66XZxOnTIlp4lG8WabtKxSRoa2lFslSAvZQxHQ2qv3e8j9h8tO8BmaK+VG2HmrdJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795681525;
+	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=X7J+hw2kqFGgnofY99iUzsx1PeH/kA/agGV+KoyE0CE=;
+	b=YSxENa6KOEPXLB6Pwc+s+uSVoIczr6LHcj5NZxHqDe4OCAdh/0Ks3W+cjhwP9v0gzdhU
+	 hGDhmYXl/My7WZSikJQ5nO78ZpkGDsasWwxuZqJSx2/Z15+Tf4EiFYgMY1OwvErInZfnl
+	 2uhvuXWz+VWs7y9iZYxEQtiaOAzxV0dCqx6BUiw4ysEVEb0wa8hDTvPrZ5tGF4s7Hmzlh
+	 2lrBszMTH+qXKrXf72QSFHn8dNeDwwOsaEElBgMWsyeXU9DcwIKvC5TC8YvkZFTlWg27A
+	 d6aaA6yVejRLwS2ahqUA8pmIIdnCsqGm8V9muHtBw9poUPMY3NchdGZUX6s2EL0CMXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TTBWCJyf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideco.ru;
+	spf=pass smtp.mailfrom=ideco.ru;
+	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=cL+4A+X+;
+	arc=none smtp.remote-ip=51.250.56.165
+Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865A4606A33B;
-	Thu, 26 Nov 2026 08:25:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E4A606A339
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 08:25:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5E4A606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ideco.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TTBWCJyf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 987731F000C6;
-	Thu, 26 Nov 2026 08:25:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795681518;
-	bh=nasJW35t/3GDXcnrQth4xXcfZ6A0BlwMudYBlU7KjCs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TTBWCJyfFXUVV2nsweHhl2exzA27u/yHLeFjqSovhBZJVskH8jwmKRE+BT7dMaHvj
-	 1S7TlVsSvD48kwdqCyPwMhe1/GtZsKOvMGxE9tyhoC0+doAiVyAsIHuN4vN3WCJKN+
-	 m6HKdRFpSDn2xW7B5dXaczA8PV7SPrQWVVE6kWVCV06vQDV21X1YaIB+oFBcvlQaVB
-	 GkFqAbHhKLtPp5gJAk9oxLiE5iu4M0aBqvAPoM6aZe9RBCYzLOlWkBnLYQ56d2sFJO
-	 OFy8Oz2TIuw56ke4jCPWavGQbcF52KBqfL0LrbXOUR/EADeoS08GAFmuO//rBc04jz
-	 l71eqWlcke+SA==
-Date: Thu, 26 Nov 2026 08:25:14 +0000
-From: Lee Jones <lee@kernel.org>
-To: Brian Masney <masneyb@kernel.org>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	"Zhao, Linaro" <richard.zhao@linaro.org>,
-	Linaro Ltd <mturquette@linaro.org>,
-	Maxime Coquelin <maxime.coquelin@st.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=cL+4A+X+
+Received: from [169.254.254.254] (localhost [127.0.0.1])
+	by smtp.ideco.ru (Postfix) with ESMTP id 5E078202F376;
+	Thu, 26 Nov 2026 13:25:21 +0500 (+05)
+Received: from fedora (5cfcd9fa.dynamic.mv.ru [92.252.217.250])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.ideco.ru (Postfix) with ESMTPSA id A9989204480B;
+	Thu, 26 Nov 2026 13:16:44 +0500 (+05)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru A9989204480B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
+	t=1795681006; bh=X7J+hw2kqFGgnofY99iUzsx1PeH/kA/agGV+KoyE0CE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cL+4A+X+3jLqPxX2lvBlxHP2bd2Jaz0Vn0tWQS+aUoOBQkwKVsw8pic10/+7B+yqA
+	 rlF+eiZ39jUgnfoonupp+Popx4mcI0aIMIcLXM2fhQkR2BGRmaU3gWYoFd07GQluB4
+	 d1aOfqpvRmc9/FCR4F/hnoqN6F3LE1Xqqd3eWWmFqCpIcVITtiMFlr1hRgd5IL9OHF
+	 vEhpqZuV18DV9mdFzjRhZtk1X6ok+foKX04S/ASIFqjqhEzEfoe1mudyRPBfn/8NPx
+	 hzT102yTRHRtOTy0tRq3dh7riCxON6prY7P7uTb5jG3+oUrk55UPNsIJmfyQNKBTgQ
+	 BWgZPVLGrMkew==
+From: Alex Kazinsky <a.kazinsky@ideco.ru>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Alex Kazinsky <a.kazinsky@ideco.ru>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rajat Jain <rajatja@google.com>,
+	Lyude Paul <lyude@redhat.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Mario Limonciello <Mario.limonciello@dell.com>,
+	Emil Velikov <emil.l.velikov@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	lvc-project@linuxtesting.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH 05/10] clk: divider: Avoid division by zero in
- _div_round_closest()
-Message-ID: <20261126082514.GB38590@joneslee-macbookpro.roam.internal>
-References: <20261123164834.3330320-1-lee@kernel.org>
- <20261123164834.3330320-6-lee@kernel.org>
- <awXLDDmHUpELwCio@x1g10>
+Subject: [PATCH 5/5] drm/connector: Handle privacy-screen property allocation failures
+Date: Thu, 26 Nov 2026 12:16:00 +0400
+Message-ID: <20261126081602.2901498-6-a.kazinsky@ideco.ru>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261126081602.2901498-1-a.kazinsky@ideco.ru>
+References: <20261126081602.2901498-1-a.kazinsky@ideco.ru>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,55 +82,129 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <awXLDDmHUpELwCio@x1g10>
+Content-Transfer-Encoding: 8bit
 
-On Tue, 24 Nov 2026, Brian Masney wrote:
+drm_connector_create_privacy_screen_properties() does not check whether
+either property allocation succeeds. Failure to create the hardware
+state property can lead to a NULL pointer dereference when updating or
+attaching it.
 
-> Hi Lee,
-> 
-> On Mon, Nov 23, 2026 at 04:47:38PM +0000, Lee Jones wrote:
-> > When CLK_SET_RATE_PARENT is not set on a CLK_DIVIDER_ROUND_CLOSEST
-> > divider, clk_divider_bestdiv() invokes _div_round_closest() before
-> > clamping the resulting divisor to at least 1.  If the requested rate
-> > exceeds parent_rate (for instance via clk_round_rate(clk, ULONG_MAX))
-> > or parent_rate is zero, parent_rate / rate evaluates to 0.
-> > 
-> > Passing down == 0 into __rounddown_pow_of_two() triggers an undefined
-> > shift and truncates back to 0, after which DIV_ROUND_UP_ULL() divides by
-> > zero.
-> > 
-> > Since a divider cannot increase its parent rate, return the minimum
-> > valid divisor directly whenever rate is greater than or equal to
-> > parent_rate.
-> > 
-> > Fixes: 9315514252a9 ("clk: divider: fix calculation of initial best divider when rounding to closest")
-> > Closes: https://sashiko.dev/#/bug/linux-cc7c0851-a317-4348-ab29-9d748aa20cfc
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lee Jones <lee@kernel.org>
-> > ---
-> >  drivers/clk/clk-divider.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> > 
-> > diff --git a/drivers/clk/clk-divider.c b/drivers/clk/clk-divider.c
-> > index f68216c65d3d..d05dc595ec4c 100644
-> > --- a/drivers/clk/clk-divider.c
-> > +++ b/drivers/clk/clk-divider.c
-> > @@ -244,6 +244,9 @@ static int _div_round_closest(const struct clk_div_table *table,
-> >  	int up, down;
-> >  	unsigned long up_rate, down_rate;
-> >  
-> > +	if (rate >= parent_rate)
-> > +		return table ? _round_up_table(table, 1) : 1;
-> > +
-> 
-> Carlo Caione posted a separate fix for this that I merged yesterday.
-> Patch 2 in his series covers what you posted.
-> 
-> https://lore.kernel.org/linux-clk/20261119-upstream-clk-divider-large-rates-v3-0-838eccd2e497@baylibre.com/
+Return -ENOMEM on allocation failure and store the property pointers
+only after both properties have been created. Destroy the software
+state property if creating the hardware state property fails.
 
-Perfect.  Dropped.
+Handle the error before storing the privacy-screen provider. Log the
+failure and release the provider reference, preserving the helper's
+ownership contract and leaving privacy-screen support disabled.
 
+Fixes: 107fe9043020 ("drm/connector: Add support for privacy-screen properties (v4)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
+---
+ drivers/gpu/drm/drm_connector.c | 54 ++++++++++++++++++++++++---------
+ include/drm/drm_connector.h     |  2 +-
+ 2 files changed, 40 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index af3dbdcaaca5..0f430911c88f 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -3449,25 +3449,39 @@ static const struct drm_prop_enum_list privacy_screen_enum[] = {
+  *
+  * This function creates the "privacy-screen sw-state" and "privacy-screen
+  * hw-state" properties for the connector. They are not attached.
++ *
++ * Returns:
++ * Zero on success, negative errno on failure.
+  */
+-void
++int
+ drm_connector_create_privacy_screen_properties(struct drm_connector *connector)
+ {
++	struct drm_property *sw_state, *hw_state;
++
+ 	if (connector->privacy_screen_sw_state_property)
+-		return;
++		return 0;
+ 
+ 	/* Note sw-state only supports the first 2 values of the enum */
+-	connector->privacy_screen_sw_state_property =
+-		drm_property_create_enum(connector->dev, DRM_MODE_PROP_ENUM,
+-				"privacy-screen sw-state",
+-				privacy_screen_enum, 2);
+-
+-	connector->privacy_screen_hw_state_property =
+-		drm_property_create_enum(connector->dev,
+-				DRM_MODE_PROP_IMMUTABLE | DRM_MODE_PROP_ENUM,
+-				"privacy-screen hw-state",
+-				privacy_screen_enum,
+-				ARRAY_SIZE(privacy_screen_enum));
++	sw_state = drm_property_create_enum(connector->dev, DRM_MODE_PROP_ENUM,
++					    "privacy-screen sw-state",
++					    privacy_screen_enum, 2);
++	if (!sw_state)
++		return -ENOMEM;
++
++	hw_state = drm_property_create_enum(connector->dev,
++					    DRM_MODE_PROP_IMMUTABLE | DRM_MODE_PROP_ENUM,
++					    "privacy-screen hw-state",
++					    privacy_screen_enum,
++					    ARRAY_SIZE(privacy_screen_enum));
++	if (!hw_state) {
++		drm_property_destroy(connector->dev, sw_state);
++		return -ENOMEM;
++	}
++
++	connector->privacy_screen_sw_state_property = sw_state;
++	connector->privacy_screen_hw_state_property = hw_state;
++
++	return 0;
+ }
+ EXPORT_SYMBOL(drm_connector_create_privacy_screen_properties);
+ 
+@@ -3539,16 +3553,26 @@ static int drm_connector_privacy_screen_notifier(
+  * a generic notifier for generating sysfs-connector-status-events
+  * on external changes to the privacy-screen status.
+  * This function takes ownership of the passed in drm_privacy_screen and will
+- * call drm_privacy_screen_put() on it when the connector is destroyed.
++ * release it when the connector is destroyed or property creation fails.
++ * If property creation fails, the connector is left without a privacy-screen
++ * provider.
+  */
+ void drm_connector_attach_privacy_screen_provider(
+ 	struct drm_connector *connector, struct drm_privacy_screen *priv)
+ {
++	int ret;
++
++	ret = drm_connector_create_privacy_screen_properties(connector);
++	if (ret) {
++		drm_err(connector->dev, "Failed to create privacy-screen properties\n");
++		drm_privacy_screen_put(priv);
++		return;
++	}
++
+ 	connector->privacy_screen = priv;
+ 	connector->privacy_screen_notifier.notifier_call =
+ 		drm_connector_privacy_screen_notifier;
+ 
+-	drm_connector_create_privacy_screen_properties(connector);
+ 	drm_connector_update_privacy_screen_properties(connector, true);
+ 	drm_connector_attach_privacy_screen_properties(connector);
+ }
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 2ee7c59329aa..ec142fe61568 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -2918,7 +2918,7 @@ int drm_connector_set_orientation_from_panel(
+ 	struct drm_panel *panel);
+ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
+ 					  int min, int max);
+-void drm_connector_create_privacy_screen_properties(struct drm_connector *conn);
++int drm_connector_create_privacy_screen_properties(struct drm_connector *conn);
+ void drm_connector_attach_privacy_screen_properties(struct drm_connector *conn);
+ void drm_connector_attach_privacy_screen_provider(
+ 	struct drm_connector *connector, struct drm_privacy_screen *priv);
 -- 
-Lee Jones
+2.56.0
+
+
