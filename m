@@ -1,56 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.106
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795719183;
-	b=ii4jMq5O5oTkTmfRmD7CGeUNiMCPgWsOevByk2qqnUzhfoHtrD1xVfZ827VoodYl1g2+
-	 Rq2AZ0JlB5PolFbIGpgr9rC1A3uBJAt/uuJhWB2Icbphag7YPtbQWT48gYZRCZYeUEEJc
-	 w6WRRWAZYAx+iIkqRvCL8z2QGLtCYJVwFVSgDFYKIi65/RuBp+c4r26jbqV9YbjL0Tiz0
-	 9Poj3c5O4gRLUqxZ6IeEp/fZjX92mw9lD349pbV6OutkJIn/7ftZK0ze9ZFTOx29/CB7Y
-	 YfoK/o/JAWGWchdNYSi7grRlW5BtQr8F3qoIxqyfZ+opG9bX6YKy4xXoMoA6iqwdV5g==
+	t=1795719601;
+	b=dNoqcv91lBCTz3bReC4dNvCsDUkOYiLlRTSTPCRL83wHsbc7cfPF8l6nnfsNZ7uPgDYK
+	 SzoOtmsSiVOstNXW/5/EiPhSI4VR5iQJqNrsmzB5OHbAHXk2eRpo4UVuugeGpI7S/AyJ9
+	 6VfJmYluaZC4feZMzRq5tqa8I6GNad7fzptyFE2iV3OfFTYfkq5ysHpkFNvYPsViTznop
+	 Bm4LEs4Q6SIwioO4rOzncGGDu+h0bS5M7yR4W4wERjTW4gJZcDd1n4E2Mnkj3zzTdVhJw
+	 LSWqi9IO1lbCI17PfKEq0ABfkfyUniXBmSzNs/D+IwtbeaJ/48YpNSDUJBMnMIIZc/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795719183;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=ZxuOEuY77r1BVBtOkZ0+BPmez4QF02B9BaHjTytAurU=;
-	b=xJyaCu8f3tZMYOJ7HFquomvAdOseAPKx24haXcT4HG4pnn/EIVjP2R2JYz7jKscRy99s
-	 i1xkk3yJD8yBTY2Le8SoRuUQ8C3GmqlIZGC3uU3WVWadO+RBhMQiJjevPo2xUGEfInN6/
-	 N9u1eXIOXTWsNkTyBTrxZ5pGa6s8DAWf/kH8rDX0gBzeKYmx40HK6Z/gMyMSMuY5NAHLr
-	 /Xb3xymQlqxtHi0Bb0KpUFJAshv2918mupc1/Q8CiXkHTgOhmwbI/qIkWQ9rylyGtPrCF
-	 94wSGPumiL+nk1ClDBlMzmN18INx5tHF6oGXMhXblLdXmENCoFyN3W2oIHWJk7LZTxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795719601;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Date:
+	 Subject:Message-ID:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=jWwv6SLgvSFFDCvgqquvmQoWH49kQLiOQm3ccYIx0dE=;
+	b=EnSaAtDMw1gzW+6emrkLc90xnuV3wgsCqeIaEF6cADdF2pKPSVHZKcqOkgwc9oXb2UFS
+	 44c1Cjjp0IcRd648KBS/Ta82HHfBw5KYiw0f8oFZeUaF+56kSzRxc4HDqTYPl1ZBFUEqj
+	 JxZ731uIZQCf4kdj4gO7CdNF+khrTHbPMRS7LQW13GJgoJ0MAAUVAWujb0XWL51lw8ci9
+	 pKjmAcwwwZgOqMZuHvq3SmaPwP6iCw0q6IoXk6UCiwFaJW5W1d8h/nYHftlLjLv1xkxSs
+	 tXPOYEx6l6uOaou4BQ51h056ixqEh+Jp86uVBzHaPcORHy0wr/8q2qatCLgaz+j7KxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="m/C6wK/v";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=michaelmcallister.org;
+	spf=pass smtp.mailfrom=michaelmcallister.org;
+	dkim=pass header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=tuuhb0vF;
+	arc=none smtp.remote-ip=109.224.244.106
+Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442A0606A31C;
-	Thu, 26 Nov 2026 18:53:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822E1606A31E;
+	Thu, 26 Nov 2026 19:00:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 822E1606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelmcallister.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=michaelmcallister.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m/C6wK/v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CC0E1F000C0;
-	Thu, 26 Nov 2026 18:53:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795719182;
-	bh=ZxuOEuY77r1BVBtOkZ0+BPmez4QF02B9BaHjTytAurU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=m/C6wK/vKN0BVQdGyaf0Q64SN5mSoxJndHpQVKEpkT/vKwd6CcD6mO6qOXRfyG/HV
-	 xdMZmckkcyjig+RXl7XssfluR6vL11WdWo7A7yzSnpP3xNPg1eel9CN3VT/pLuvKLe
-	 52ZVGK7k+cw/NijVLTXE9vGWqMqHiwWrLXIKs86EAX0nFx00jZPJEY7PpZ7KkCdQem
-	 Fs2J8Wt6T+wD5Urkvea0pVxQZ0jptHTBGAaCZ0ROEVzQMrV0qa2MiLMcqH9zr4xn5F
-	 VohcXMh4+la9vBQLakUZCYJ6giOG5J7mjntFTucPZUf7rzKguWm/mdqGMPEkafY4N9
-	 nBXyG5WcoQoZw==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bart Van Assche <bvanassche@acm.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Praneeth Balasubramanian <praneethb2002@gmail.com>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Praneeth Balasubramanian <praneeth@ucsb.edu>, stable@vger.kernel.org
-In-Reply-To: <20261126002227.3598226-1-praneethb2002@gmail.com>
-References: <20261126002227.3598226-1-praneethb2002@gmail.com>
-Subject: Re: [PATCH v2] RDMA/srp: Reserve send queue and CQ space for
- ib_drain_qp()
-Message-Id: <179571918019.1293210.177305723817097808.b4-ty@kernel.org>
-Date: Thu, 26 Nov 2026 13:53:00 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=tuuhb0vF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=michaelmcallister.org; s=protonmail2; t=1795719597; x=1795978797;
+	bh=jWwv6SLgvSFFDCvgqquvmQoWH49kQLiOQm3ccYIx0dE=;
+	h=From:To:Cc:Date:Subject:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=tuuhb0vFEMYISj6momk35v/v5qgDBZAa9aFS+T+0Ev2OI5ww8BNcH6WK3qW684zKP
+	 2jeymXE2Glo+raGlH3YCSPeYYB7QJW+hJU5qmCNzquiPAfOLtAAwOany3rIbRpwfKn
+	 etOdvd5hzL49zboZ3MWarYgQDiuwN6IFj6SlklJpZGD3KfEazsuOJPHUfTuV9oPMSa
+	 cTTalGhmhEycWv06149uBW8ifOQRCvTqflV4aHclb9ddrFHqFVGtJJuJLL8CbmLkbT
+	 QHbW+uMeiimQg2D5n4hD135ExhilYcRvuJdMomZBfsoYHUb88xMQC9INknp+OdDrAc
+	 J/gmCc6dr762A==
+X-Pm-Submission-Id: 4jb5T80YqWz2ScX2
+From: Michael McAllister <me@michaelmcallister.org>
+To: marcel@holtmann.org, luiz.dentz@gmail.com
+Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org, brgl@kernel.org, zhaojinming@uniontech.com,
+ stable@vger.kernel.org, me@michaelmcallister.org
+Date: Thu, 26 Nov 2026 18:59:41 +0000
+Subject:
+ [PATCH v4] Bluetooth: hci_serdev: Unregister HCI before freeing the TX buffer
+Message-ID: <179571958163.81221.18219121256319863408.hci-serdev-unregister-v4@michaelmcallister.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,36 +65,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
 
+Unregister frees hu->tx_skb before hci_unregister_dev() waits for an
+in-flight HCI close or reset. That path can still flush the same frame,
+causing a use-after-free or double free.
 
-On Wed, 25 Nov 2026 16:22:27 -0800, Praneeth Balasubramanian wrote:
-> srp_destroy_qp() calls ib_drain_qp(), which also drains the send queue.
-> ib_drain_sq() requires the caller to "ensure there is room in the CQ and
-> SQ for the drain work request and completion".
-> 
-> SRP reserves that room on the receive side, where the queue and CQ have
-> queue_size + 1 entries. Commit 9294000d6d89 ("IB/srp: Drain the send
-> queue before destroying a QP") switched from ib_drain_rq() to
-> ib_drain_qp() but did not grow the send side. The send queue and send
-> CQ hold exactly m * queue_size entries, which is the most work requests
-> SRP can have outstanding. If the channel is torn down while the send
-> queue is full, for example during error handling after a target stops
-> responding, posting the drain work request can fail with "failed to
-> drain send queue", or its completion can find the CQ full. The QP is
-> then destroyed without the guarantee that ib_drain_qp() is meant to
-> provide.
-> 
-> [...]
+Unregister HCI first, before clearing protocol readiness and cancelling
+write_work. Skip the HCI flush and close callbacks during unregister;
+the transport teardown frees the frame and closes the protocol and port
+once setup and HCI close have finished.
 
-Applied, thanks!
+Flush controller TX after stopping UART work, before protocol and port
+close, so previously accepted bytes are discarded rather than drained.
 
-[1/1] RDMA/srp: Reserve send queue and CQ space for ib_drain_qp()
-      https://git.kernel.org/rdma/rdma/c/2e869a30085ec1
+Fixes: 21139b3ac62a ("Bluetooth: hci_serdev: Fix use-after-free in hci_uart_unregister_device()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Michael McAllister <me@michaelmcallister.org>
+---
+Split out from the WCN3950 series, as Bartosz requested. Rebased onto
+f57f78086ab5, including Zhao's flush and close fixes. Keep the unregister
+guard in the HCI flush callback so close still balances disabling and
+enabling write_work if unregister starts while close is in progress.
 
-Best regards,
+The standalone fix now flushes controller TX itself, before protocol and
+port close; that flush was previously part of the dependent QCA patch.
+
+Previous version: https://lore.kernel.org/179484638195.54009.16928291772826938293.wcn3950-poweroff-v3-1@michaelmcallister.org/
+
+ drivers/bluetooth/hci_serdev.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/bluetooth/hci_serdev.c b/drivers/bluetooth/hci_serdev.c
+index 9f038ab65..dfa921afc 100644
+--- a/drivers/bluetooth/hci_serdev.c
++++ b/drivers/bluetooth/hci_serdev.c
+@@ -124,6 +124,9 @@ static void __hci_uart_flush(struct hci_dev *hdev, bool resume_tx)
+ 
+ static int hci_uart_flush(struct hci_dev *hdev)
+ {
++	if (hci_dev_test_flag(hdev, HCI_UNREGISTER))
++		return 0;
++
+ 	__hci_uart_flush(hdev, true);
+ 
+ 	return 0;
+@@ -162,6 +165,9 @@ static int hci_uart_close(struct hci_dev *hdev)
+ 
+ 	BT_DBG("hdev %p", hdev);
+ 
++	if (hci_dev_test_flag(hdev, HCI_UNREGISTER))
++		return 0;
++
+ 	if (!test_bit(HCI_UART_PROTO_READY, &hu->flags))
+ 		return 0;
+ 
+@@ -431,6 +437,10 @@ void hci_uart_unregister_device(struct hci_uart *hu)
+ 	/* Wait for init_ready to finish to prevent registration races */
+ 	cancel_work_sync(&hu->init_ready);
+ 
++	/* Drain HCI setup before clearing protocol readiness. */
++	if (test_bit(HCI_UART_REGISTERED, &hu->flags))
++		hci_unregister_dev(hdev);
++
+ 	proto_ready = test_bit(HCI_UART_PROTO_READY, &hu->flags);
+ 	if (proto_ready) {
+ 		/* Clear HCI_UART_PROTO_READY under the write lock so a
+@@ -452,16 +462,16 @@ void hci_uart_unregister_device(struct hci_uart *hu)
+ 	cancel_work_sync(&hu->write_work);
+ 
+ 	/* Free any partially transmitted frame left over by write_work now
+-	 * that the transmit path is fully quiesced. hci_uart_close() would
+-	 * skip hci_uart_flush() because HCI_UART_PROTO_READY is cleared.
++	 * that the transmit path is fully quiesced. The HCI close and flush
++	 * callbacks leave transport teardown to us during unregister.
+ 	 */
+ 	if (hu->tx_skb) {
+ 		kfree_skb(hu->tx_skb);
+ 		hu->tx_skb = NULL;
+ 	}
+ 
+-	if (test_bit(HCI_UART_REGISTERED, &hu->flags))
+-		hci_unregister_dev(hdev);
++	if (proto_ready)
++		serdev_device_write_flush(hu->serdev);
+ 
+ 	/* Close the protocol before freeing hdev (intrinsically purges queues).
+ 	 * Some protocol close handlers (e.g. qca_close) may still access the
+
+base-commit: f57f78086ab54f3b3122fbaeba2c842ba7bb6d00
 -- 
-Leon Romanovsky <leon@kernel.org>
+2.39.5
 
