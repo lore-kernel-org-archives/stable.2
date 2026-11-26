@@ -1,96 +1,96 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.47
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795661112;
-	b=0C/OG1WBbTbQ9eUTvqcczlGU3vWhPg+WqZ1q0peGf+mhqCxQRQlCI+U62ZIvc8nNIOAm
-	 vOC3DWu3vnlqMNLEzbfCxcNRER5YwIYnjeXwkwf4RHk/YxyKSw/KBt5lth/qzlOwLGUAR
-	 PPZ1nEC2E0CKMiAgexIGHosW7FEOE0Ea/HlqBLMMlnRPWX/1IEzTR8wpQYDPBDE6jA17q
-	 vOBWjSG8s9Jw1Zxk+YW2PqNmT3ToLn0KlDcF9ablvossPDkKROjCfwCHL2vWXIoSkbXIq
-	 rQG8nC+X2Ov6UhZ+s5npc3JOQlTcK6V6wp+BO51ldOPQJf/pXbOhuxfS1JkH3PaO46g==
+	t=1795661113;
+	b=au8MD/eVzDmUHRxsS+dWczSyuHO3lf31FjIoVKXkAuhXpJqRoiyPB2KBLfrYpCUj+4Ig
+	 SKnCRmFnJ4Jj+icmgqO0Me899YCz/CweTLi/xoBr2i55AKEGGvMDnJ3iScbKZoSC9JJ48
+	 lzqxUC2Iwl1ccnzeQ5NOTZpF3f0S1Uu5x2PBVeWAXsq/5gYwn1fqMCETqNqUK8gMq1Pfa
+	 Ap+ImSnkz0+QDJpUvh3s1w2++0O/NPzBymxUROlcfiGCuKE20IdUwiHJfQ6Q9lmoYSfmH
+	 uac8yej48rWHGI5U6u1acfRsI/yDI8MFuoZOSi5l8dOBdl/v2Yt7l5K2EpkHzUNUf2A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795661112;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795661113;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:MIME-Version:From:Date:
 	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=84DdSevlHdho2iOPdHyadO6XW3qwMBjauZijK5v2WFU=;
-	b=C7yKtYhHpIpr7BlmIYKEuUFMSzvOJBc2Q6Uxljxvmizzs7vdaFl1pkV55UAgv93XozZx
-	 UYl3treS4zVmEeGnQa9Hy8I+tl/qm/vFIRJuGOKyMTGE8L7qvlkIdrakga3pnkR6obnun
-	 O7ij6+Bcl8EbuzHDLEZbSgzjnV0N6rAlDgOdm7Hd4vUz3/DoW+76HK66IWGNyl+EfLs6u
-	 oIcxWJERmjo/njpGW43Y6A1M41O9Jwa2cXMFzz68+l2RWDlFtWwIBdxQsLfNYnA2vhp+/
-	 5kfS3grdLFq8nj+/r3L2Kr21bZiIrdIYMaDQpxJ5St3RGLeq1d3w6tFnP9e7FujpYmg==
+	bh=ALLFS86xd4RGFa8E/7vxrVdTFwuvnAUj+VEWzSUqH4E=;
+	b=F2Gbwa70qV58Fk9WOn3HxbZMprlqwEnqpLFRaIWMIx9UgBtCcXlq6kyuMdazjgcF/Ejj
+	 MnlR51cepi0Km+1ZqBJKBIeU80+VHwkagvVWBNuIB+Jrl3NKdWOLCcvBCBzZYegkh9n5C
+	 nmlFAMxXcEEUSoWX3GGEObF7AGgpzuvLPLmP5TJCLyJgwEGfUQYHqEij6udEr4GDjMjfx
+	 iPlyLFHKrtHYt+3x3kX/8koJiwjgaSjq7ZIrJR8cW/dsO+rBA8bkPZ9hkqi0fRJutt+iJ
+	 UQKD+lCyy4voD4CKynnjV0XjbYfx98ng/4shOZ0kMu4VA7jyDCVu6WbXt6WKmERUljQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=certik.com;
 	spf=pass smtp.mailfrom=certik.com;
-	dkim=pass header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=RBsZVA5o;
+	dkim=pass header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=jDr1F7ns;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.47
 Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF36606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F14CD606A326
 	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:45:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CF36606A327
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F14CD606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=certik.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=certik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=RBsZVA5o
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-67db3a48dc6so7837250d50.3
+	dkim=pass (1024-bit key) header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=jDr1F7ns
+Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-67dabd38cdfso6593944d50.2
         for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:45:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795661111; cv=none;
+ARC-Seal: i=1; a=rsa-sha256; t=1795661112; cv=none;
         d=google.com; s=arc-20260327;
-        b=GGeQfUd0TQpPnhDnIlKsZYrrDq76qPUe1i8Ha5MNZJw/iQ3gj0XPzI7643kBRcH1/O
-         BW0Rl7oVqNxB43+R20I45Yuz5PUo76I3IEZ8lf2qBs+A9CUPZ3Tfy3bxYSHKe2j2yoHF
-         R7cr4lF1rVfAx/lzixW6ls56DD/znez17tAMmgH5NmAt+bt6ZIbTbw6RIAyaGP7lpv2D
-         d4ZkxxFeRkksv2o5ZUhtSXEEVkVPbJwtak7j3n0J/YqPtZuw89bpgTxX6TTtXZ6tXxZy
-         WRB2emb2MelHGmarJJ70HsOmpkBEoJ8Ahv/B4g7hrWsj2RjLrRI/L7S5MfNYy12ode2y
-         BQgw==
+        b=Y0D/OevzM8IKC128nSLEJUwRscNcUgR+d26KqhBN+Nr/b6jh08zIb03Q4eda/S6ey5
+         NSgsc647SknAbfzQyVoUmOsB24aYKS7MNZZEfd8dZHFqQlF+Pw0V+xDDVKI45wU9ydwx
+         zIcyKVex1GSuRw9OKhxaMcK08F5n76XUN86w4QoYNE2fKgter4Eyx6+6+BaO/AAqzpDN
+         IGmQGWKPT8tUFq75fGOt/FLlHEGJlPC8g++i4xjW8wxmGPA+GmSY38IZ1VVnmOhPo839
+         zX9UOz+VJjBWr7d+Yv70vogau2n/o/32YgtBEEgPG1V78o09aU2rgANtW5EOuNn511vO
+         YzVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=84DdSevlHdho2iOPdHyadO6XW3qwMBjauZijK5v2WFU=;
+        bh=ALLFS86xd4RGFa8E/7vxrVdTFwuvnAUj+VEWzSUqH4E=;
         fh=Cl8p86fIxraTdAPl9TMEjG1uOAHTz1nspTZpzog1E7w=;
-        b=fSgw8lL9/KbvmfCbsHp9CKLdmdZRyv3elFmT0dv/uD0lDV5t6HDx64XSwTcJhLZ6nu
-         n1sIVyR1hOASyx3ar1AjSiFJ/1vzXNNMTceNNBAJgbD4gO4CeSuvYvKc8ClPLH9Lyr+Q
-         iXh1j2mUS2mLJiLuEHXSrp6wYSkywJIeE99U4sSIJHsGOhdX2UR3ZVJ88L4r/ySVJezz
-         rBDSzMv1Pz26+QZN0ls6cYTtBaDjsmSTgZhuLPVqPqkL39l6cPwou9gL0Q29MXy1e1RO
-         +24LIblXa6trm8aDVoKXt+/rQPpIdvxCvUnYLD0Cy2ns55PodmmbhPY6tmTZ4cMbtntk
-         TgcA==;
+        b=aE1HJE5Coesi1URdS4gSA4Goe79kzCCXN4QvAB3hHR+SyVrdRBLLzkI06rqmvLrHkC
+         TqrA8ArAKkPTwwLkJkZ3W9UPLeymIdWvS2iCiRaaGMRF0qatH1PYTAQ960mCYckcF1s9
+         pEikZz2g2XM+xMCfK1dA43TGX/mmem9UM1SJytfBWP7RNiajTxYhFVuBUvBFL5GnoeHr
+         xBFyoHnkR0dLzGXPUK9K983qzxW1CrqFsPNxRuC7Uslqp8N91iHLZdB54c4218HJYJzv
+         58virUP0fjx+NzzSYZoqTnHqZIHVICp5WPBUWgoJCXtBmxxxOAibRrWMDd1cvGNV89yv
+         kYUA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=certik.com; s=google; t=1795661111; x=1796265911; darn=vger.kernel.org;
+        d=certik.com; s=google; t=1795661112; x=1796265912; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:mime-version:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=84DdSevlHdho2iOPdHyadO6XW3qwMBjauZijK5v2WFU=;
-        b=RBsZVA5orsQExKBILjXa5AaUf5t4r7IUt4uZeuF8guecWX8UvcZEcL3Tee+Fg+ZNf0
-         Urd1AJwKnb7/5cDUDbYFNmXDrkNTn9DpSRLt5rovMk48z5DXJ+A1Ex/MYoVLQt9b6lVs
-         hg8KvqUfc4Bf0Ta7ePW/uxoj7Jl7ObLDtMAy0=
+        bh=ALLFS86xd4RGFa8E/7vxrVdTFwuvnAUj+VEWzSUqH4E=;
+        b=jDr1F7nsCR6aWEH0SCL/67Ab/lWCBWQBMeJyKj2xVMrxP83c6pMCqD3QIQwqGkC5LV
+         wNanY1z+sIP+8xx1vutxgxX3Zuxy73JhN139y6HNMMZ29V4parQ8pBhg0unilI18nusB
+         DZkMNXrP6OGSfuXAA/ofjfbzJNSTooH0vGzyY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795661111; x=1796265911;
+        d=1e100.net; s=20260707; t=1795661112; x=1796265912;
         h=content-type:cc:to:subject:message-id:date:from:mime-version
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=84DdSevlHdho2iOPdHyadO6XW3qwMBjauZijK5v2WFU=;
-        b=r+QoQUgau/ueZcxFVrPIUMHNB7c0J36Q69BvuwFShVInAtLsw5vpZI/AuBO7i/SBFY
-         8zwYsbqxJxxQaymd/dezjvrXtJ81DYgFqO/zJBciO5MwFr4fe2kScEuknJcAtZ+qnAuF
-         RERo/BROPCeD2bY9wZokDiuVb6XznC6byGR260nc9/ppLlZGGj86z15qpyDY5FyFVEzm
-         hOARAdBk4UBkXQrC6tadpQeCUew6gsbCQ2DgynoyZAQdDI+RD0NlaVE0Y+gwd3AEqwiB
-         nZitORLo3tkAGz1CcEm7vMeACeweS88X7ZtexPo6FKM8VE5zYUWid5L4+Hcjla86nBFw
-         ilVw==
-X-Gm-Message-State: APuU4Z9e1D3+LqXNatKINKlH59SB+z2YaMN3ZFhcCZ6UU9BcmKIF/P1G
-	NTVCL5WWK0ovHE6WtVN47IISqwPp/eC9JUC+rPD30w1rwACVUfaXeL7LrWsOsNsBjLgNh+yaGdy
-	XXmt8f7Sg1EF4nhmM7ldCwar/QQTfCLLRwYryDva++kIfkulyO+3beZw=
-X-Gm-Gg: AZFdTZdoTv6aAlGoqo7BqRpwnbKd1bEfTUjC9q2y9zzlIBzcCGY/I4lLvVrLl57Kroq
-	MwfrYzDWdk7pBs2DQ7JkgW47j2/mWU0mH3qWsHUwVzl0b+kkeMm69ET5KsNVoEht4xn52WXOwr8
-	MxrL3XtqLxriyfjXBIhH9oq7TroLD07GrNpKZp4JeHZllR7W4Rrmnhvznm4c0D9KBXMFqbNfKZ7
-	3pqeT9+xIOr3ky8JbHaVWA5n5o0xihVJiR77Jd15HYacfLfd2erNXD2Klins0u8d0I1MzMbE9Lw
-	j30AycllU79XuZ3vgjxGzOrOXJekHSfxEPgoqxP3xcw0PnQvxZP4f9gbtoe5PPJGXeKMubU4U07
-	x+fZR9dxo0hsPgXZ7Ck5WVgF8CBpSokGJjUsxhB/Ls/rcDCnlvbQ+4BxOBiY3p2vAArsHvB7rkR
-	NUr5XRgyby5FuigkQPU69zoY3TW4n7PY7Xw/2oii66Zk+EQjihKQRIkkPszqZ/kkKKQ0uznYGSf
-	BUT0c3Oajs9/mSkUtgzSJwAyDeMGlJu4kntz0gZ9PBQGOWgVL430Mjt+Q==
-X-Received: by 2002:a05:690e:b89:b0:67d:c37d:331c with SMTP id
- 956f58d0204a3-67df44ddeb8mr8126491d50.159.1795661111365; Wed, 25 Nov 2026
- 18:45:11 -0800 (PST)
+        bh=ALLFS86xd4RGFa8E/7vxrVdTFwuvnAUj+VEWzSUqH4E=;
+        b=XA/ao/AMXCcb+PZLCwKWvdBN3e549WYqHWVhm13WlroUhtygHN9AqH+ivmpegcas04
+         b7gxCSb7mSdG+HVozVuvH4LE6c0Tcu2lMmjvElVAzMOylcXFTMQGWsoK5GRNhZUMYRBu
+         0TkywQcYNtZvjsoEICr5VvWffABRK1nWJnOq6T+rZcDKkei9DuLNaeaI3HM1EOMTPvWZ
+         GXLqjlgWyGkZJWYJir+/zEUbt+gnxvi4RN4tJ8PHIUKYkKSglfXOVmA7o1d38OuwZNaf
+         W24Ms3T4xsCxV8+/08yltRIgDm8lqbg6r0y2x37qIlhVhxzbt3zmAJu5grNr2PuEVrgJ
+         K6Ng==
+X-Gm-Message-State: APuU4Z+lqPJluZGX4BouFkwgDuqlC7ko9YtUiIQoveUo9ewIqhwEqWrC
+	G9ucudPe1+g2o0MYo/DMdqYGBv8rpleLnE50rQbupNpuuINON6vQ8IAraTcpR4S2pgPvv8WgPKL
+	gRRMX+zDnsNNvKvUSxMWlt9+a8U0gcMvTMVdlZqrUZQl/qSprf9GTqZk=
+X-Gm-Gg: AZFdTZfYKV8+RksNlF4KHvDLEkcsfXrY853utZwv6ID8JsiQFCrLg5h/rLP9ItUEIli
+	Y3s5J+XNaA9yCsztA50OSxQvxJOFeLB7uRdP1ZFhepbM6jylBMxGYqQnx3QqRooKeErsfAa0nV8
+	fPj2kk9g9GrfyKDAC6yoC5RpNHAz3LS3dvNb/rWI2CNbznMFUJnaMniYeLlCMyA6YkEeddX3BIH
+	RPfA3oDcuTWXJiZtwW9+oIz49z8qE9cIGcjUeVco2herj9yyGjTVjQ5NISN4yHYjXaJL1JOfSYV
+	VNjE3wz22BGIPcyozo79Y7OcInYSZbsf1BghLGyRFmle8FCXiTWC6kSLzKoQvgiK26b/X0Isd+4
+	d5uaOehJPbmSKxwSdf2WckzYF8qQ18Uwpic3tfqgfD2wEIaIxthnKlGAtEnyAT2K/3u3k2ZqGwW
+	ptmF9IyqkL80QFU3i0yDeI4+hpJfFvT9aTau5RxZ7ovFcxJA7Q27IvKKuzeul99yCtqWIpn4kRV
+	q0ZLIUOcBjK5I6HLXxZ1MhKcomWYDrjjgKM
+X-Received: by 2002:a05:690e:408a:b0:679:a183:27f2 with SMTP id
+ 956f58d0204a3-67df42ba9c4mr11119420d50.7.1795661112046; Wed, 25 Nov 2026
+ 18:45:12 -0800 (PST)
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 25 Nov 2026 20:45:10 -0600
+ Wed, 25 Nov 2026 18:45:11 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,183 +101,108 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 From: Dickson Wu <dickson.wu@certik.com>
-Date: Wed, 25 Nov 2026 20:45:10 -0600
-X-Gm-Features: Aa3M54oYYln_PYaeGvWJPmyHTFtgp5tbd4RkECzndSrc2_KWyM6QBHXs2A8H9Sw
-Message-ID: <CAFaZ9eqZCgDaXJ=2QSBmHVz9WEL4cpthQX02xVesUB5G3NRQWg@mail.gmail.com>
-Subject: [PATCH 6.12.y 1/4] virtgpu: don't reset on shutdown
+Date: Wed, 25 Nov 2026 18:45:11 -0800
+X-Gm-Features: Aa3M54pg_p5M7dws-uZCLLDjGlQf6GfLFqOjUXWLdOYMZYdkJ86Xa9O1blHnpDY
+Message-ID: <CAFaZ9eovUow4CR0U-iaUtFHbvf2Dk97Vs6hz6hZWh747R6Xr-Q@mail.gmail.com>
+Subject: [PATCH 6.12.y 2/4] virtio: add virtio_device_shutdown() helper
 To: stable@vger.kernel.org
 Cc: "Michael S. Tsirkin" <mst@redhat.com>, "Denis V. Lunev" <den@openvz.org>, David Hildenbrand <david@kernel.org>, 
 	Eric Auger <eric.auger@redhat.com>, Jason Wang <jasowang@redhat.com>, 
 	virtualization@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 
-From: "Michael S. Tsirkin" <mst@redhat.com>
+From: "Denis V. Lunev" <den@openvz.org>
 
-commit 183a08715af1491d381b4e22efd61578fbe05fa5 upstream.
+commit 0d8aebe089b4ba887e792884cf041ce9f1040ff4 upstream.
 
-It looks like GPUs are used after shutdown is invoked.
-Thus, breaking virtio gpu in the shutdown callback is not a good idea -
-guest hangs attempting to finish console drawing, with these warnings:
+The generic virtio bus .shutdown handler, virtio_dev_shutdown(), breaks
+and resets a device once it has established that the driver has no
+.shutdown of its own. A driver that does implement .shutdown, to quiesce
+its own activity first, still needs the same break and reset afterwards
+and would otherwise have to open code it.
 
-[   20.504464] WARNING: CPU: 0 PID: 568 at
-drivers/gpu/drm/virtio/virtgpu_vq.c:358
-virtio_gpu_queue_ctrl_sgs+0x236/0x290 [virtio_gpu]
-[   20.505685] Modules linked in: nft_fib_inet nft_fib_ipv4
-nft_fib_ipv6 nft_fib nft_reject_inet nf_reject_ipv4 nf_reject_ipv6
-nft_reject nft_ct nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6
-nf_defrag_ipv4 rfkill ip_set nf_tables nfnetlink vfat fat
-intel_rapl_msr intel_rapl_common intel_uncore_frequency_common nfit
-libnvdimm kvm_intel kvm rapl iTCO_wdt iTCO_vendor_support virtio_gpu
-virtio_dma_buf pcspkr drm_shmem_helper i2c_i801 drm_kms_helper lpc_ich
-i2c_smbus virtio_balloon joydev drm fuse xfs libcrc32c ahci libahci
-crct10dif_pclmul crc32_pclmul crc32c_intel libata virtio_net
-ghash_clmulni_intel net_failover virtio_blk failover serio_raw
-dm_mirror dm_region_hash dm_log dm_mod
-[   20.511847] CPU: 0 PID: 568 Comm: kworker/0:3 Kdump: loaded
-Tainted: G        W         -------  ---
-5.14.0-578.6675_1757216455.el9.x86_64 #1
-[   20.513157] Hardware name: Red Hat KVM/RHEL, BIOS
-edk2-20241117-3.el9 11/17/2024
-[   20.513918] Workqueue: events drm_fb_helper_damage_work [drm_kms_helper]
-[   20.514626] RIP: 0010:virtio_gpu_queue_ctrl_sgs+0x236/0x290 [virtio_gpu]
-[   20.515332] Code: 00 00 48 85 c0 74 0c 48 8b 78 08 48 89 ee e8 51
-50 00 00 65 ff 0d 42 e3 74 3f 0f 85 69 ff ff ff 0f 1f 44 00 00 e9 5f
-ff ff ff <0f> 0b e9 3f ff ff ff 48 83 3c 24 00 74 0e 49 8b 7f 40 48 85
-ff 74
-[   20.517272] RSP: 0018:ff34f0a8c0787ad8 EFLAGS: 00010282
-[   20.517820] RAX: 00000000fffffffb RBX: 0000000000000000 RCX: 0000000000000820
-[   20.518565] RDX: 0000000000000000 RSI: ff34f0a8c0787be0 RDI: ff218bef03a26300
-[   20.519308] RBP: ff218bef03a26300 R08: 0000000000000001 R09: ff218bef07224360
-[   20.520059] R10: 0000000000008dc0 R11: 0000000000000002 R12: ff218bef02630028
-[   20.520806] R13: ff218bef0263fb48 R14: ff218bef00cb8000 R15: ff218bef07224360
-[   20.521555] FS:  0000000000000000(0000) GS:ff218bef7ba00000(0000)
-knlGS:0000000000000000
-[   20.522397] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[   20.522996] CR2: 000055ac4f7871c0 CR3: 000000010b9f2002 CR4: 0000000000771ef0
-[   20.523740] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-[   20.524477] DR3: 0000000000000000 DR6: 00000000fffe07f0 DR7: 0000000000000400
-[   20.525223] PKRU: 55555554
-[   20.525515] Call Trace:
-[   20.525777]  <TASK>
-[   20.526003]  ? show_trace_log_lvl+0x1c4/0x2df
-[   20.526464]  ? show_trace_log_lvl+0x1c4/0x2df
-[   20.526925]  ? virtio_gpu_queue_fenced_ctrl_buffer+0x82/0x2c0 [virtio_gpu]
-[   20.527643]  ? virtio_gpu_queue_ctrl_sgs+0x236/0x290 [virtio_gpu]
-[   20.528282]  ? __warn+0x7e/0xd0
-[   20.528621]  ? virtio_gpu_queue_ctrl_sgs+0x236/0x290 [virtio_gpu]
-[   20.529256]  ? report_bug+0x100/0x140
-[   20.529643]  ? handle_bug+0x3c/0x70
-[   20.530010]  ? exc_invalid_op+0x14/0x70
-[   20.530421]  ? asm_exc_invalid_op+0x16/0x20
-[   20.530862]  ? virtio_gpu_queue_ctrl_sgs+0x236/0x290 [virtio_gpu]
-[   20.531506]  ? virtio_gpu_queue_ctrl_sgs+0x174/0x290 [virtio_gpu]
-[   20.532148]  virtio_gpu_queue_fenced_ctrl_buffer+0x82/0x2c0 [virtio_gpu]
-[   20.532843]  virtio_gpu_primary_plane_update+0x3e2/0x460 [virtio_gpu]
-[   20.533520]  drm_atomic_helper_commit_planes+0x108/0x320 [drm_kms_helper]
-[   20.534233]  drm_atomic_helper_commit_tail+0x45/0x80 [drm_kms_helper]
-[   20.534914]  commit_tail+0xd2/0x130 [drm_kms_helper]
-[   20.535446]  drm_atomic_helper_commit+0x11b/0x140 [drm_kms_helper]
-[   20.536097]  drm_atomic_commit+0xa4/0xe0 [drm]
-[   20.536588]  ? __pfx___drm_printfn_info+0x10/0x10 [drm]
-[   20.537162]  drm_atomic_helper_dirtyfb+0x192/0x270 [drm_kms_helper]
-[   20.537823]  drm_fbdev_shmem_helper_fb_dirty+0x43/0xa0 [drm_shmem_helper]
-[   20.538536]  drm_fb_helper_damage_work+0x87/0x160 [drm_kms_helper]
-[   20.539188]  process_one_work+0x194/0x380
-[   20.539612]  worker_thread+0x2fe/0x410
-[   20.540007]  ? __pfx_worker_thread+0x10/0x10
-[   20.540456]  kthread+0xdd/0x100
-[   20.540791]  ? __pfx_kthread+0x10/0x10
-[   20.541190]  ret_from_fork+0x29/0x50
-[   20.541566]  </TASK>
-[   20.541802] ---[ end trace 0000000000000000 ]---
+Factor the break + synchronize_cbs + reset sequence out of
+virtio_dev_shutdown() into an exported virtio_device_shutdown() helper so
+such drivers can reuse it instead of duplicating the core logic.
 
-It looks like the shutdown is called in the middle of console drawing, so
-we should either wait for it to finish, or let drm handle the shutdown.
+No functional change.
 
-This patch implements this second option:
-
-Add an option for drivers to bypass the common break+reset handling.
-As DRM is careful to flush/synchronize outstanding buffers, it looks like
-GPU can just have a NOP there.
-
-Reviewed-by: Eric Auger <eric.auger@redhat.com>
-Tested-by: Eric Auger <eric.auger@redhat.com>
-Fixes: 8bd2fa086a04 ("virtio: break and reset virtio devices on
-device_shutdown()")
-Cc: Eric Auger <eauger@redhat.com>
-Cc: Jocelyn Falempe <jfalempe@redhat.com>
+Signed-off-by: Denis V. Lunev <den@openvz.org>
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-Id: <8490dbeb6f79ed039e6c11d121002618972538a3.1744293540.git.mst@redhat.com>
-[ adapted to 6.12: no reset_prepare/reset_done in struct
-virtio_driver, add only .shutdown ]
+Message-ID: <20260624140846.2616797-2-den@openvz.org>
+[ adapted to 6.12: no virtio_irq_get_affinity(), put the helper above
+virtio_dev_shutdown() ]
 Signed-off-by: Dickson Wu <dickson.wu@certik.com>
 ---
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c
-b/drivers/gpu/drm/virtio/virtgpu_drv.c
-index 44d99e89bb9b..92332f9d1796 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-@@ -126,6 +126,14 @@ static void virtio_gpu_remove(struct virtio_device *vdev)
- 	drm_dev_put(dev);
- }
-
-+static void virtio_gpu_shutdown(struct virtio_device *vdev)
-+{
-+	/*
-+	 * drm does its own synchronization on shutdown.
-+	 * Do nothing here, opt out of device reset.
-+	 */
-+}
-+
- static void virtio_gpu_config_changed(struct virtio_device *vdev)
- {
- 	struct drm_device *dev = vdev->priv;
-@@ -160,6 +168,7 @@ static struct virtio_driver virtio_gpu_driver = {
- 	.id_table = id_table,
- 	.probe = virtio_gpu_probe,
- 	.remove = virtio_gpu_remove,
-+	.shutdown = virtio_gpu_shutdown,
- 	.config_changed = virtio_gpu_config_changed
- };
-
 diff --git a/drivers/virtio/virtio.c b/drivers/virtio/virtio.c
-index 078e5483b22f..8241024f0890 100644
+index 8241024f0890..f70ae3a672f7 100644
 --- a/drivers/virtio/virtio.c
 +++ b/drivers/virtio/virtio.c
-@@ -391,6 +391,12 @@ static void virtio_dev_shutdown(struct device *_d)
- 	if (!drv)
- 		return;
+@@ -379,6 +379,32 @@ static void virtio_dev_remove(struct device *_d)
+ 	of_node_put(dev->dev.of_node);
+ }
 
-+	/* If the driver has its own shutdown method, use that. */
-+	if (drv->shutdown) {
-+		drv->shutdown(dev);
-+		return;
-+	}
++/**
++ * virtio_device_shutdown - break and reset a device on shutdown
++ * @dev: the device
++ *
++ * Drivers with their own .shutdown method should quiesce their activity and
++ * then call this to stop the device the way the generic shutdown path does.
++ */
++void virtio_device_shutdown(struct virtio_device *dev)
++{
++	/*
++	 * Some devices get wedged if you kick them after they are
++	 * reset. Mark all vqs as broken to make sure we don't.
++	 */
++	virtio_break_device(dev);
++	/*
++	 * Guarantee that any callback will see vq->broken as true.
++	 */
++	virtio_synchronize_cbs(dev);
++	/*
++	 * As IOMMUs are reset on shutdown, this will block device access to memory.
++	 * Some devices get wedged if this happens, so reset to make sure it does not.
++	 */
++	dev->config->reset(dev);
++}
++EXPORT_SYMBOL_GPL(virtio_device_shutdown);
 +
- 	/*
- 	 * Some devices get wedged if you kick them after they are
- 	 * reset. Mark all vqs as broken to make sure we don't.
+ static void virtio_dev_shutdown(struct device *_d)
+ {
+ 	struct virtio_device *dev = dev_to_virtio(_d);
+@@ -397,20 +423,7 @@ static void virtio_dev_shutdown(struct device *_d)
+ 		return;
+ 	}
+
+-	/*
+-	 * Some devices get wedged if you kick them after they are
+-	 * reset. Mark all vqs as broken to make sure we don't.
+-	 */
+-	virtio_break_device(dev);
+-	/*
+-	 * Guarantee that any callback will see vq->broken as true.
+-	 */
+-	virtio_synchronize_cbs(dev);
+-	/*
+-	 * As IOMMUs are reset on shutdown, this will block device access to memory.
+-	 * Some devices get wedged if this happens, so reset to make sure it does not.
+-	 */
+-	dev->config->reset(dev);
++	virtio_device_shutdown(dev);
+ }
+
+ static const struct bus_type virtio_bus = {
 diff --git a/include/linux/virtio.h b/include/linux/virtio.h
-index 3ad94d939d28..2759e2c24d6e 100644
+index 2759e2c24d6e..2d8820c0832a 100644
 --- a/include/linux/virtio.h
 +++ b/include/linux/virtio.h
-@@ -204,6 +204,8 @@ size_t virtio_max_dma_size(const struct
-virtio_device *vdev);
-  *    changes; may be called in interrupt context.
-  * @freeze: optional function to call during suspend/hibernation.
-  * @restore: optional function to call on resume.
-+ * @shutdown: synchronize with the device on shutdown. If provided, replaces
-+ *    the virtio core implementation.
-  */
- struct virtio_driver {
- 	struct device_driver driver;
-@@ -219,6 +221,7 @@ struct virtio_driver {
- 	void (*config_changed)(struct virtio_device *dev);
- 	int (*freeze)(struct virtio_device *dev);
- 	int (*restore)(struct virtio_device *dev);
-+	void (*shutdown)(struct virtio_device *dev);
- };
+@@ -180,6 +180,7 @@ int virtio_device_freeze(struct virtio_device *dev);
+ int virtio_device_restore(struct virtio_device *dev);
+ #endif
+ void virtio_reset_device(struct virtio_device *dev);
++void virtio_device_shutdown(struct virtio_device *dev);
 
- #define drv_to_virtio(__drv)	container_of_const(__drv, struct
-virtio_driver, driver)
+ size_t virtio_max_dma_size(const struct virtio_device *vdev);
