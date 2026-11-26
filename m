@@ -1,103 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795651925;
-	b=Wylz5yn7ue6Az8oiC59vHiX53L9lOUd+eR0dcYeBdI6dA4mxAusuxP8jFadv8iNtNRY6
-	 UHgAlfpNCxSFkPJbuf8aIC5oymHY6oiVoc4LHlzP3hFjg9FYJNWMNUH+vRZx5EjhCsPZD
-	 pA2OZgQ6/8R2N1ltnpUYw6RGpkPi9+CVSVUtyH+kt0FxAsG50eYAOG0A+Yw/7xJUrl8T5
-	 2JK5kvIAFu6xY3bWFVV+caBQwtNgOKUqfrst8LcDQUJEJwsP0eTlXUu8CO4rmzDVBXUKZ
-	 77//1NVcNXvV6nDDs2Ch1aUqPnTPPz0v6VRVoYU0qtElczjQTLakUKbqbXQYDhEb0Rw==
+	t=1795652007;
+	b=o3mxafRoRGELKKYpc5yTQdBmbLZJGBguXyupS+pVa7rLF4qEKjRsYDVEQ0/C5jUNYv48
+	 yjl8KLk+PgRb+nTaLcYax/IAGI8CuRC+SwSzmTc22AvjDNf8GDjDcKDA7u4YmjdjpG9QI
+	 jZap0Oo/HwIoI7pbTwuXGiu153z2VAiYCi36kemuzUFWYd/YiSu6K3M/BSqHa9OpiMlYv
+	 JdBT+mZpZ8+zQsoza6Zmo9Vi1WNOcGRL4jPkTdmhURG8y9KEOUEuzhPDm0sYv8jn/bYoT
+	 buro5UwUnB7sDyriUfy70fa7tmhDQczsUfE1E7p58iCntRmBph2ED6bIKY7sLi4IUDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795651925;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795652007;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=eh53HWlWeYqc22pkcThqRd+K0CvliST0uP4BTE7Y98w=;
-	b=2rT9dmnc7JDNvdE8qYmnJRtTJmsVQ1K/QUJ67vqEMFEw+uqrwYPmLAia9417WDKYQgiX
-	 ROGrFm26DNIH3a7q/6ZzWNcdCYSJGOT74vAy66/KbtCdYpz0Rg4CSHhLicc35xeX3h0ep
-	 xj4kiHbKOeUSGNx0aVZnlxw+iI5VyrdQlW/pbT7coTZ1uXhOcjy+mGjXbdqDv1fpsLVK9
-	 f9i4fLs3LfQrbqJBpfdZpnpFO29UqVCiCdSxMT+bxyzCyu+LXZsviFz0U6PXQWqTf0FOA
-	 +fvfYgxtcT69RTQx8KKLc1UAcqcMqZPJr0blbEQ/u1fEkBpKL2xxgsHZdkduRjwCanQ==
+	bh=pXPp/90lX1YkR24tu0x78bsF0BUZZN7MTybZBzP2dMs=;
+	b=09hoAgXBcOI2BMr1icBAIS/4E2IenlrgV4hx7dh6YslwzVFBe6UfvuBTZgwEXX2VdtA4
+	 SVQi6cdp8t1lgdoDwTD3P0i/DVuaI7ozwjlsURfkSoB8iHz9TMXmFGhL7kP/W49Tb03AO
+	 +7v6FBYTyoJ5UzAqqB8bhcCVYB1M1r8KsxvNfTE2in3xYLHPM8Es6rIe3VDT60VTYGTZf
+	 AxLH6MokuE5AZyHx8WFUtDNVCSVx9hF1eUI9h3R/d8nDXW2WFWJQOd3h0DSKNfMTu1a8t
+	 s6RaJifzx3y3JTao6wOogx8bV4TAVseY7VC/JJf5J9xnJ/+8flOPY/bkFB5P046Fi+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=asu.edu;
-	spf=pass smtp.mailfrom=asu.edu;
-	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=iTExogPz;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dkT+0a29;
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 851BC606A327
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 00:12:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 851BC606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C2E606A321
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 00:13:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2C2E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=iTExogPz
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso13596907eec.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:12:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dkT+0a29
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ada4c06b7bso3471452a91.2
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:13:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1795651924; x=1796256724; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795652006; x=1796256806; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eh53HWlWeYqc22pkcThqRd+K0CvliST0uP4BTE7Y98w=;
-        b=iTExogPzYoZ7KsoxJgwtQ2u6BEwE1zh7gf2BklH+Y6vYmJ6Cv3tVt8olnC9ccSXNv+
-         IWLK/+A6tNWMmQJYnu+pg7evH+jWsBjzqJDx3lCRd2/3d9vrNRi7rFu/iMpvkqVmPwqi
-         4a8cRe7XlCIxVkruoMUoSoy0SznIgvLBfphNLBYxj5yEATfp2D+zLsUe3QWD1IUtT/65
-         5Q8kyLGEDcMZPcYh3mm6GgWgVb+/E2m0ZTv6833pqMrEN0RFzUIoOAuafEbfiV1jswDA
-         FoJ4AF01ye2h8hQNqAb2xfL9Pk0zVhW2AMEDKV3iD3f2kyQMPLxGykMB9hGyqlnr5zob
-         A+aQ==
+        bh=pXPp/90lX1YkR24tu0x78bsF0BUZZN7MTybZBzP2dMs=;
+        b=dkT+0a29FJ4KfjvyHLjIEAXn6G8GuDTS0bICdbFQKUJoozqkasEpK8Y2aPFOU7Zpvh
+         mU4mqgChrO/meJvCvYcGqClVGpB5vNis42ubJwfYRWzXEjRkm4YQzgSQPCjmPAvJTuzv
+         uQ60CnBm+jlSIT7LVAH/7bH8Qz3mQLRbUt1Ij/hc1anuF/Hqnuu34gt8b8PfAoGuu9VX
+         JOxaLBHoI+ZCVMS2O0VbXOTYhY0hn2CoUcWXrUYg7OrcgeMqhR4a/xmd3JxzpqZ5PAAE
+         Kfr0YFrGpVMtJYxb/zGvzgKsOLnAwn0bk0rPs8ugonHMHtpdmGUdUTHQIT6cfv6zHuPq
+         dyZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795651924; x=1796256724;
+        d=1e100.net; s=20260707; t=1795652006; x=1796256806;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eh53HWlWeYqc22pkcThqRd+K0CvliST0uP4BTE7Y98w=;
-        b=fl+l49L/fkQrhIQ7HelxrWJcTgP2ZPbJBZWfuNy4O4lb4DfhA3xdXvAe+67wopnjYr
-         zEhBLCurqpx3BhdAA6ANrl4yXTy6uPjNutWeMA2myKiSn+91/h6dEjjxfFhg22aEKZfP
-         pk3giKhlARVknpSRf2qEr0KqpKXzyTK47ibV2KDlKpOzcfWVAot7rqYBHrQ0pmb14oW2
-         t2cgSw5MslGcX9Xsp5SJ8Pf5Y3fBUBdDla5Ye4192idpwxKLM64RWsh/oO0xPNfcF1SR
-         XPHcSYMUKPKBxoQ3vDcsYjpoQhJjXFpYHkY6KNHQbw2yoeTugs85ehZwBelqyV2cr37j
-         AWZg==
-X-Forwarded-Encrypted: i=1; AL+hErFBgGScjpSIkG5ZBhuL/I67i57ofmCbWcfMuDC9q6HOF0/kEuAHzp4I9fLgrDrKAfu3uYS6X3o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+hAT8tH5xPQ8fE35cZMPQnLx7lM09ihXx/vfG98hvyRjQuGt1/
-	iQrSoMszQuDWWun+5jjUTJfGsWpYp/8RFsuoSuOpi1DwXXXhYHRUXTQSQ5f5eE8kEQ==
-X-Gm-Gg: AZFdTZdr9pOo0fYYyo1AT5Zp0qOGRJkBovga+RTizau9YzHIkaMVWDJW22B1m2HDzhg
-	thsDOrUZ4pjuIfNmIWy4Hr6kOW0T3Cb+PTmHM/JiNFrAoxN3xVYDqfbgFFfn/QVF0g47qyA5Ap6
-	TIHK9A8Xl0sm8DZ3P89NTST17RHIFp4ReRzZ0W8D5oOXmucNHnSa9yrGGx+56PZyLvleHSbYvnS
-	YVS+sUl36POoNIWSQC9yXs5OrwCFldEir4KJFsZShJ2blRGk07E28I8aD+5C/wBbeJGTboB8Mkc
-	jxECD7BtY+TdeKZICl8SURdS4SHeDs0VVsJMuW7ioEXfz2x0OZZ93OdewLpBjpztko2R0n4MDZx
-	w2fC87fK3dL024Y0bhFzcmHev+zPIIisCfyc1QCsJJad5rSucTeyGktax/8DifZRvkCT1czeNIt
-	m07hIOJ7PY/hRYrSmwAyD22nmPcD/3bIlypqhMTtr2QQ32UkOzb/jo8+L/yZlBCdFQlSdmoI2yY
-	HIfUCC0jMXWmh+/PYegzky/8GDyBfp68NAVMssKWWNmBtrlQP1JdqvhRx+Agv5DvENj40+nMYM9
-	AsJ4ybvCJHvpGZkcTEEbdyDQy7vEVrQfgK36Aj6Po8fN7N+5sNKtotyxq5T0SJ/+dyHP
-X-Received: by 2002:a05:7300:f789:b0:386:abe8:32b0 with SMTP id 5a478bee46e88-386abe835b7mr12918966eec.8.1795651923427;
-        Wed, 25 Nov 2026 16:12:03 -0800 (PST)
-Received: from p1.. (209-147-138-4.nat.asu.edu. [209.147.138.4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-386b1965c02sm26216299eec.27.2026.11.25.16.12.02
+        bh=pXPp/90lX1YkR24tu0x78bsF0BUZZN7MTybZBzP2dMs=;
+        b=JCH9gfz4LE3LnlyqDUyqkQi39mlipM42oHCPHPLGSfVzOUnXb28nz6vuggngp5YFmr
+         EVO3ejakJWdlwtwSXp+sYCunO8fOgddpl5pnt6a7aZT6nx/QlbWX+RKd/x9GqEHwwQ/O
+         c1meCM3fD+cH22OFiPlQXTLvNyb6wuOwJLvBn7ITiz44WkPIzwFUhsXf/5erOqvK4J0q
+         7R2U1d0Lu8RvZnYkBSTyWDYE8eAYzlZsyqf/GbP0fZldX0R2q+0MiRwGDL+BBHw/IMWu
+         8BtnXKEwivrsIZ2g1rT82QIiHGGVyXcdbTcRC4wXwXSJ2F2s2LySiDXJC0bKZXbUbTVs
+         dURg==
+X-Forwarded-Encrypted: i=1; AL+hErHhUXMZ/CaVmJhHMeUbqX5ddpwcQbBYlHhOWgRDP+rIImovyDEyZqtc7Toty18jKo/R1z9jL+U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/3oJVF1VXYJt81DoYcPf6fr305Les71L1guhVzVrTrBDghjBjG
+	MdHVs3qZOlkqFopXbYH8seji2JJnQ/5/iyKBid1bh+o56PqaSruepPwO
+X-Gm-Gg: AZFdTZdiR8h2balA1r0V0eG9xi/jp2kwORCjE1CWQle3/Z5UjzR5eKMtWDWFyjZFLgX
+	bcGPVAkXYPnzJs9icTj57LxzXefnsLT6kCQCjp8AMv5jO0eTQP5xzBKnpaPDMJlOBTXETr3rJ4K
+	L1HN8VL29iOLfPFfVjIdg7llBjeorNaUzUJU6vrMZt8Q6Y7ltZkQhhhQy3PrcfKJjVT+94ZsipM
+	N2yH46JdHWUp5x2h4GICXkNs5+kLMhyU+l8oF0P91HixwD/k1BQ02eioEuzTGrQWAxH5aN6La7D
+	MfVpuUEeQj5tzqTO5MniDEeIIQc9tSQs2pwloTT+zjbjl2I8kUUMiHKNtyVcb5i8zQCJwu1Hqpo
+	CCEGapWJ40I7abt2LoKEJ8p7gb0dQDYb5RfH8bvVltNSLwzDxOFScD7zK9OYAHE0lMm7v1zbMzo
+	ZqSmR2htRD1L0ZZBc+5lk7dL1mCCY0s4p5m5khPv1UHHQNt4gtaAn/dMMfF5Pxe6aPPDGqd4agI
+	S5N67mwZODxVAojN+bSaW4PWgA2Tn9bocZ0vYGODoMuKdd9WunZ/VhR1o0r7bg40E7tT8bkhgWZ
+	V8CumgVHam9Wc0lCELA5Mm4buxK6GEO0DcOvlbrJOv4t+KcfA7fL7HvTgkkO1RtzZ8xD4M2l81I
+	HneV+wjgcO+cBn5CX7H3vMQoUHQ7Fp8GIW0KrQAGW6avujW5PUhzIlSDPeJMp/ImyEYE43QFET9
+	AUVg==
+X-Received: by 2002:a17:90b:4a48:b0:3b3:c675:d923 with SMTP id 98e67ed59e1d1-3b41c908109mr17235877a91.28.1795652005963;
+        Wed, 25 Nov 2026 16:13:25 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405d135e9sm32411110a91.4.2026.11.25.16.13.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 16:12:02 -0800 (PST)
-From: Xiang Mei <xmei5@asu.edu>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	co+85229ab197510ca7@bugs.sh,
-	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH nf] netfilter: nft_exthdr: pull the IPv6 header before ipv6_find_hdr()
-Date: Wed, 25 Nov 2026 17:11:51 -0700
-Message-ID: <20261126001151.13793-1-xmei5@asu.edu>
-X-Mailer: git-send-email 2.43.0
+        Wed, 25 Nov 2026 16:13:24 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-gpio@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v5] gpio: mvebu: fix Armada XP per-CPU mask register save/restore
+Date: Wed, 25 Nov 2026 16:13:23 -0800
+Message-ID: <20261126001323.583722-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -109,62 +101,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nft_exthdr_ipv6_eval() checks only skb->protocol before calling
-ipv6_find_hdr(), whose prologue reads ipv6_hdr(skb)->nexthdr from the
-linear area without a pull. The expression is usable from every family,
-and the netdev ingress hook does not normalise the skb: an 18-byte
-802.1Q frame with an ETH_P_IPV6 inner type has no IPv6 header, so the
-read lands past skb_tail_pointer(), and an AF_PACKET frame larger than a
-page leaves the header in frags, so it lands past skb_headlen(). With
-NFT_EXTHDR_F_PRESENT, it decides the result, and 256 "exthdr ipv6 type=T
-exists counter" rules hand it to an unprivileged user running in its own
-user and network namespace.
+The Armada XP variant keeps the per-CPU edge/level mask registers in a
+second I/O window (percpu_regs) rather than in the main GPIO window.
+The suspend and resume paths however read and wrote them through
+mvchip->regs with the per-CPU offsets, which hits unrelated registers
+in the main window (including the global GPIO_EDGE_MASK /
+GPIO_LEVEL_MASK registers) instead. The per-CPU mask state was
+therefore never saved or restored, so interrupts the kernel had
+unmasked could stay masked after resume, while the main window was
+written with per-CPU mask values.
 
-Raising the device headroom puts the skb head in kmalloc-1k. With freed
-struct net_bridge_port objects sprayed under it, a uid 1000 run on
-current mainline read back kernel-written data, byte 2 of
-WORK_STRUCT_NO_POOL in query_queue_work.data, and bits 16..23 of the
-query_queue.prev self-pointer, i.e. of direct-map heap addresses:
+Use mvchip->percpu_regs for the Armada XP per-CPU mask registers in
+both the suspend save and the resume restore paths, matching the
+mask/unmask handlers and the probe-time masking.
 
-  read offset 570 = byte 2 of the 8-byte slot at 568
-    freed net_bridge_port (32 probes):
-      byte 0xe0 (224): 15/32
-  read offset 554 = byte 2 of the 8-byte slot at 552
-    freed net_bridge_port (32 probes):
-      byte 0x15 ( 21): 2/32
-      byte 0x21 ( 33): 2/32
-      byte 0x59 ( 89): 1/32
-      byte 0xb2 (178): 2/32
-      byte 0xc3 (195): 1/32
-      byte 0xd8 (216): 2/32
-      ...
-
-Pull the header before the call, as act_ct, virtio_net_hdr_to_skb() and
-nft_set_pktinfo_ipv6_ingress() already do. For the ipv6 and inet
-families ipv6_rcv() has already pulled it, so this is a length check.
-
+Fixes: b5b7b487431b ("gpio: mvebu: add suspend/resume support")
 Cc: stable@vger.kernel.org
-Fixes: 96518518cc41 ("netfilter: add nftables")
-Reported-by: co+85229ab197510ca7@bugs.sh
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- net/netfilter/nft_exthdr.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ v5: rebase onto gpio/for-next (on top of 02af7eac17bc "gpio: mvebu: keep
+     resume masks within the irqchip cache"); reword the impact paragraph
+     since that commit already confines the resume masks to the irqchip cache
+ v4: rebase again
+ v3: rebase again
+ v2: rebase
+ drivers/gpio/gpio-mvebu.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/net/netfilter/nft_exthdr.c b/net/netfilter/nft_exthdr.c
-index 861bab93f435..a7c2f7553af8 100644
---- a/net/netfilter/nft_exthdr.c
-+++ b/net/netfilter/nft_exthdr.c
-@@ -52,7 +52,8 @@ static void nft_exthdr_ipv6_eval(const struct nft_expr *expr,
- 	unsigned int offset = 0;
- 	int err;
- 
--	if (pkt->skb->protocol != htons(ETH_P_IPV6))
-+	if (pkt->skb->protocol != htons(ETH_P_IPV6) ||
-+	    !pskb_network_may_pull(pkt->skb, sizeof(struct ipv6hdr)))
- 		goto err;
- 
- 	err = ipv6_find_hdr(pkt->skb, &offset, priv->type, NULL, NULL);
+diff --git a/drivers/gpio/gpio-mvebu.c b/drivers/gpio/gpio-mvebu.c
+index 46604093a01e..a9e6e7a63495 100644
+--- a/drivers/gpio/gpio-mvebu.c
++++ b/drivers/gpio/gpio-mvebu.c
+@@ -1031,10 +1031,10 @@ static int mvebu_gpio_suspend(struct platform_device *pdev, pm_message_t state)
+ 		break;
+ 	case MVEBU_GPIO_SOC_VARIANT_ARMADAXP:
+ 		for (i = 0; i < 4; i++) {
+-			regmap_read(mvchip->regs,
++			regmap_read(mvchip->percpu_regs,
+ 				    GPIO_EDGE_MASK_ARMADAXP_OFF(i),
+ 				    &mvchip->edge_mask_regs[i]);
+-			regmap_read(mvchip->regs,
++			regmap_read(mvchip->percpu_regs,
+ 				    GPIO_LEVEL_MASK_ARMADAXP_OFF(i),
+ 				    &mvchip->level_mask_regs[i]);
+ 		}
+@@ -1104,10 +1104,10 @@ static int mvebu_gpio_resume(struct platform_device *pdev)
+ 		break;
+ 	case MVEBU_GPIO_SOC_VARIANT_ARMADAXP:
+ 		for (i = 0; i < 4; i++) {
+-			regmap_write(mvchip->regs,
++			regmap_write(mvchip->percpu_regs,
+ 				     GPIO_EDGE_MASK_ARMADAXP_OFF(i),
+ 				     mvchip->edge_mask_regs[i] & edge_cache);
+-			regmap_write(mvchip->regs,
++			regmap_write(mvchip->percpu_regs,
+ 				     GPIO_LEVEL_MASK_ARMADAXP_OFF(i),
+ 				     mvchip->level_mask_regs[i] & level_cache);
+ 		}
 -- 
-2.43.0
+2.56.1
 
