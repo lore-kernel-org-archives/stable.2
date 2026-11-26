@@ -1,103 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795672742;
-	b=RzbouEPRJajD0ejqhZTTYsOBLDTjEr3ZM38KvJchvirBD6IBbxoS4Ut0eB+NKv3jD/Lk
-	 Lq1dlumUaWt8wAnIoeN2Dtjmg87BwKQ1OZ/ZUTXNvjGC9ycb3xhg6B1atswDqBndbjb74
-	 vg0+wT61IVY5JZ0rgceyEwXuRqLr1WuzJ7E3ttyiUy1pFuuFK8Ok9ZgYdpKakeIAj7n2k
-	 hs+fSjlIO2w9Hla6NQJZ7iu8H2sz5KWqR7iE0cYKhePaaoN+YI+FdPyvOS1bsvsMqQGdW
-	 Hu81YseoxIuNWms0UsqTuISLCu2LHxnT3fw6O28mm0UCmwDLCS5l7FGYb/+GRdOSkSQ==
+	t=1795673152;
+	b=NJMxRWdxW+ovUXzs3BR0xJiisEZ7m+MaRhDxA1Gm2pLY7WPgMV9mjHU5R7NWzCJ11UGs
+	 mAjsva9NdG3QJZR9XJRXKBfbqT3rarMOttFbl5lNhz+zGESGgNEeVcsZ9zcEnONRSVt5f
+	 ENPFeGPiDwQEakCLjRh10eMz6Ap5as8sp9Wv8J3yoFD+C3XMl3M+xlRP5CHBrbHfHlSej
+	 AK4wHlpubVtc0ekTi72ENS5IB3PkYVpdq8Wpe3QMoxckJElFel3gEXSW/ZjMCQHT3L0IU
+	 /6mZDLEuDQogHUhEU7XLfvhUvv9/vUZ8Z+9Wc15KKd0APA8FLGFxoqW0TzeWknxklHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795672742;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8ENOEvWpXS/hO0xFIEmj5YuEGPhTN4rxHq1cUYnvsQg=;
-	b=QHkKEy0hO6iml9rU4d4ucNlLbNuyKmj7jUmSnDP8d0NSdGUMXgnK9ODEIxV7mrLp1WDq
-	 cg34ruk/HjY2FPvH02fcbYKjm7WVo3I5qwoFmZgZBUPuWRFZMLx0SHsvkYgcH+Kpju6a1
-	 sGxIFSpFg6ghwWeyWK8g2MskhbENdcwWYqrRv0NLFAKw5ij1oKYrhOGV3bROdbmsXsHmh
-	 XAM8wFxzuOZDvxbKDwFPPH8OVlRA457yG6kdAWHe0Sg1hnruPgCRHgTQwKRFCPgq6O6iY
-	 2L1WxtMd2g98G+cbzR0CAHP6TWtqm0D2fwLrDQjext0xC/3ms7TZita4RL2XChuYaKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795673152;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=UdCntxprCybTaCMVMWOZM/tiE4sZACx2t1LvS3AjEP0=;
+	b=nAGEsny66/P6MiqWWK8OurvwGLgHHJauqZkjapK0rTrlAPU3qSQ/P/AMTS5KKPV6K/x9
+	 fdw9coydOEKXWk+1f3hYWvkiwRAxWMa6ZndzTS6oGd0m3ztM9HwsFx6ak7LOVSsdLyUIm
+	 tvvyJoit3A3PgZYRtMgshSs7+iE1Gl06B+b6/5xhYViaxb8RVh6h5MCTNnpC2KNjouG8j
+	 RGWU6pOBPUFNrj5eqX4ldBMgUStjzCMdSAwtyG0TrhFxlLvc0EKrQvtfanigXCyA730Rb
+	 5woAKfiDIluVWDGlpnVB7/AeTHZWSrkLyd1P8j9sanvzuIxOMQParaUVmbd8XrSwubg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0XAsnkII;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=W6PA8etY;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23AF0606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:59:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23AF0606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59FB5606A323
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 06:05:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59FB5606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0XAsnkII
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1b3acec6677so10061441c88.1
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 21:59:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795672741; x=1796277541; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8ENOEvWpXS/hO0xFIEmj5YuEGPhTN4rxHq1cUYnvsQg=;
-        b=0XAsnkIIH/J1m0YQZbpAYLj93XQ5MM4Yp6RCzt/EPqp35wqexoyQKwav3soOPNZH/k
-         pzFNyUItCpEqqNkwOXnGxX2YNdsAI7fkNubYsuGmZZn7TIgNNJ624dmST1EFCAzn79ZT
-         LOLFgy/x1WIoaBRZGucYAMM9JX9xCN2Mx7zz7WJoHRjxMTNb6eu5HnWxafb5+IlNF2wd
-         IaXj477cN4KFwqnP/DHYXoXO62owL4GFaDucl5jxeqBzi53SYPHi098CCh3NwwsdkWU0
-         gROe50ilPRpXDIF6UcVqKWhco9aepPw+i16NxOi6Hm3GKl3eywLEyL5fOfz60bLfkDWi
-         k5Qg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795672741; x=1796277541;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8ENOEvWpXS/hO0xFIEmj5YuEGPhTN4rxHq1cUYnvsQg=;
-        b=AvTKHwEKq7c42giTbU6NrhduqwZn5wr7p7nS25Fk6ii8Q/iNynfEiVOp4DxOqLw74a
-         ZIJXmXJTLCSXD7WtioCslYZQ0tSQ3jkUdqhrbH2dWFUTKDW/2n+0BbKxh8AMJkO9kOrt
-         Ls9mwQKeuhMJ2OScFdbX5VUAu+/KZwYSV9UWO9BvHKAZc+wg4QhLUlM9BSxE56FSnysx
-         n/dnhJITq5XcJ9GJeYTWLcoBG5MqHrWHeSTMhAbsZlV0WjsQE+y/+LL9xCWmnkv5R+fy
-         Ce9kzWaPhySbBUuIbJ2Gmry9Rf5HAjKpYDbE3tNt7Cvkrc665L8NlzaR0boVUAjml21c
-         /0cw==
-X-Forwarded-Encrypted: i=1; AL+hErEFgPyt/Svg+UE6IOAY35sLITvOikPz5gWu9Kw73VqRm/2X6R0oQ9UTKdy4xtta1XwaKjhTRbU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/UpJW+3yYFrDCOmYsLdGY796tpvBpITZUgBxqEG+IBnqJ5DbCC
-	xdmgjIinebbfrR5SzYf7/eGeUecUsMU109wCED2OnuYxRkj7E7ydFkQ=
-X-Gm-Gg: AZFdTZfh/HZSAVdabvf8v59+Bn0smlzmaH8R8XqI8kOcT0DiOEAUhwJxVtko1Q275wd
-	BiZXm6Y1LNYcv7r/IWmOM4L3YQtYY0wnFuCKFmah08qyDp9QUpXRE/N8MT8keg1muVEbxALqjpK
-	gIResaCyiZ7/5xCGJJc74XiFzjY5NS94PmghwNBIb4Ff7W1/60PsBDJLytZ2B+jxght2uryKT7H
-	r59Eihuzp9tQcaIVyvJbFSiIv66gv0onQ1sTSDRwii+JR8lDFUBvgucYokGiuHEZb8FvKkxYq9B
-	iEbLCgTvESVSCwSo/P2D2sXJy8D7yjnAT3n/AwmzqQylHSFprDm87pGivAKEVsu7b9FMq12coyA
-	A5fZeElMHvzLGlQXSlrJQgEZ7tjglKAmQ9mRehkIUox3RixCmSIVZx+1QxIk2BFPXltto1dKXrm
-	dxMfV0mRsIWgawXNQmTJWo0Xjgm1/wjzv2vLvUoGALAwNAMinvLYN5W2HXzDg/7PyWbtX8QMlW5
-	Qf0ALQsjX/0D0or7bIvfHIeHAdqF3pi9vZlZjsosuQrQf/qBmi3PBO9crFgMswyx/82G7MKDQsD
-	XJhfA3Lcamzmoh3msgzBS3hlpcCIKbKKKZrM0pIcMnClLcV0xLfJoFN20Gk5MMLWkto=
-X-Received: by 2002:a05:701b:2816:b0:1b5:3b83:5374 with SMTP id a92af1059eb24-1b5568cfbd9mr18022188c88.19.1795672741112;
-        Wed, 25 Nov 2026 21:59:01 -0800 (PST)
-Received: from localhost.localdomain ([2406:3003:2002:639c:a06e:23f:85ed:4cfe])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5566c1142sm45249439c88.2.2026.11.25.21.58.57
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 25 Nov 2026 21:59:00 -0800 (PST)
-From: Yige Jiang <yigejiang86@gmail.com>
-To: Inki Dae <inki.dae@samsung.com>,
-	Seung-Woo Kim <sw0312.kim@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>
-Cc: Yige Jiang <yigejiang86@gmail.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/exynos: hdmi: put bridge reference on probe failure
-Date: Thu, 26 Nov 2026 13:58:53 +0800
-Message-ID: <rc-b1-20261110-vc-19-b220c856ecbb@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=W6PA8etY
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQ35WVI3136005;
+	Thu, 26 Nov 2026 06:05:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=UdCntxprCybTaCMVM
+	WOZM/tiE4sZACx2t1LvS3AjEP0=; b=W6PA8etYIK3J63XZ9uqnPHOAHKez9R8qH
+	iEwxCUXUbv6nHs7Ef1uaKueLKa9Su3UoM8FrSg/AY0qsmRYYBzGuv6MUI2D20/Ss
+	pR1vmNgu4fxPCHgAUfBjQMIdPV8seE6A60WC+TVyZpxFbHrF2fb4pc3ypXFN5iF2
+	mYncgqYSVyuq/vDbMDP2SQLZxmNtJl7Xg1fZhIC6p4Mg4SHmlyfkbK9xcRzceHBn
+	kyxlChLKL/v7z7nJZbqm66tr8eDYcuDtd7K6fdt4zYfz/MOYuoZ5BwZtYDq7rpd7
+	C+B4eFC11IDloX+sWTxIffHBqZV5WqMfxF0OnuDZ5T24cqbUQSSAQ==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4j34g1fceb-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 26 Nov 2026 06:05:43 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQ34LpC1743264;
+	Thu, 26 Nov 2026 06:05:43 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4j5dcuxah7-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 26 Nov 2026 06:05:43 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AQ65dq151970524
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 26 Nov 2026 06:05:39 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 65C522004B;
+	Thu, 26 Nov 2026 06:05:39 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4573620043;
+	Thu, 26 Nov 2026 06:05:39 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with SMTP;
+	Thu, 26 Nov 2026 06:05:39 +0000 (GMT)
+Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 56341)
+	id 2DF6A16176A; Thu, 26 Nov 2026 07:05:39 +0100 (CET)
+From: Mahanta Jambigi <mjambigi@linux.ibm.com>
+To: stable@vger.kernel.org
+Cc: kuba@kernel.org, Mahanta Jambigi <mjambigi@linux.ibm.com>
+Subject: [PATCH 5.15.y] net/smc: fix link group ownership in handshake abort
+Date: Thu, 26 Nov 2026 07:05:36 +0100
+Message-ID: <20261126060536.642851-1-mjambigi@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112437-serpent-backtrack-b978@gregkh>
+References: <2026112437-serpent-backtrack-b978@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,62 +93,264 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: LJzLKpLVOXT7gDybeSVu_YGJ20Nvb6zK
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAyMyBTYWx0ZWRfX318fHEam1Ale
+ QhIZvOeZLctwY/QhEOfn/qz5GR6HNMUrRCrAANGjJr7dKHO+CuhMr9RWQnnbU12jd9vx/KQJXbw
+ a3hTNyi+TUPzUxPf9UNpoX64zfwiGFA=
+X-Proofpoint-GUID: LJzLKpLVOXT7gDybeSVu_YGJ20Nvb6zK
+X-Authority-Analysis: v=2.4 cv=c8M+0h9l c=1 sm=1 tr=0 ts=6b07cc38 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=Zu8GI1LdFLB4ec2fxy8A:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAyMyBTYWx0ZWRfXxPWQRAl1UOZ6
+ ZyQnO97hI2Ez+jKgkhIsE8bZtlFOeIGg2NhFsPIZC78sKW2cYziXkWGMWMhHrjqSWTAoi1nUMi0
+ 6gykoKdb8k05M/WP71ZWralC3yYx8ys7KvX5uOO5JrYPRakOePL/pCAh2javauTgEB5wU5JSAkT
+ p26/aIbu2NsaIGiApFYGhFNh/Kepq1SUADnM77YwrE3PqjnIDtDvfsRUqrDnEu12VmBXVObSdt1
+ b/J2Ni5ovT/k/TjydDRpp447/8/2Hfcatz/LqLNZWcGw/gmo85pphpXRWrvZLy8ZR1GY/esZ8Og
+ +e9Ba3/ffl+TAWPUkW85iD5umonJfrWVU0B0VpeWk0kqf+bnGCAm4/PZX1KI7ReCgonVxILvY2l
+ mWByaqLV1ndJyZ0vRU9+XBxW7f4gY8uljL/yR4lIFgfbDReJ1S2BcBsLI/vASLirWgpSF0mX4S6
+ kheCFewJMXL2tLE51xA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-26_01,2026-11-25_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 malwarescore=0 suspectscore=0 bulkscore=0
+ priorityscore=1501 phishscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260023
 
-hdmi_resources_init() ends with hdmi_bridge_init(), which takes a
-reference on the next bridge with of_drm_find_and_get_bridge(). That
-reference is only dropped in hdmi_remove(). When hdmi_probe() fails
-after hdmi_resources_init(), including the -EPROBE_DEFER returns for
-the DDC adapter, the PHY and the syscon lookups, the reference is
-leaked, once per failed probe attempt.
+[ Upstream commit e227b511582828c5a6513f70fc6a71211e5efbf0 ]
 
-The sashiko AI review bot pointed this out on dri-devel on 2026-07-16,
-in its review of an unrelated exynos_hdmi patch.
+An aborted first-contact handshake can hang the handshake worker on the
+socket lock it already holds, reset the clcsock of a socket that has
+fallen back to TCP, or corrupt the alert-node lookup when the handshake
+retries with the same connection.
 
-Drop the reference at the end of the probe error path and route the two
-early returns after hdmi_resources_init() through it. drm_bridge_put()
-ignores NULL, which covers boards without a bridge on port 1.
+The abort leaves a connection registered in a link group that another
+context has already unlinked for termination: smc_conn_free() skips the
+unregister when lgr->list is empty, so the alert token and alert node
+stay in lgr->conns_all. If the handshake retries another device or SMC
+version, smc_conn_create() creates a second link group and
+smc_lgr_register_conn() inserts the same alert node into it: the token
+loop is skipped, rb_link_node() links a node that is still in the old
+tree into the new one, and a second sock_hold() is taken where only one
+sock_put() will follow. The old group's terminator then keeps returning
+that node from rb_first() and can kill a connection that now belongs to
+the new group.
 
-Fixes: 2db0d298f22d ("drm/exynos: hdmi: convert to of_drm_find_and_get_bridge()")
+smc_lgr_cleanup_early() also starts a second termination of the link
+group that is already being terminated, which takes lock_sock() on the
+socket the handshake worker holds; if the termination work wins the race
+instead, it later kills the freed connection and aborts the clcsock of a
+socket that has fallen back to TCP. Making the unregister unconditional
+also lets smc_conn_free() reach the delayed free work on a claimed link
+group, where the lockless freeing check can arm it after the owner has
+cancelled it.
+
+Always unregister the connection and claim a link group for termination
+once under lgr_lock, so that a second termination cannot start; arm the
+delayed free work only under the same lock and cancel it synchronously
+before the teardown.
+
+Fixes: 2a0674fffb6b ("net/smc: improve abnormal termination of link group=
+s")
+Fixes: f9aab6f2ce57 ("net/smc: immediate freeing in smc_lgr_cleanup_early=
+()")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/20260716132919.A3EA81F000E9@smtp.kernel.org
-Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
+Signed-off-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
+
+[ 5.15 adaptation: there is no link group refcount here, so the lgr
+  hold/put around the abort is omitted. smc_conn_lgr_valid() (v5.17) is
+  open-coded as conn->lgr && conn->alert_token_local. The conn->freed
+  check (v5.17) is not needed because smc_lgr_unregister_conn() clears
+  conn->lgr and the terminate loop tests conn->lgr =3D=3D lgr. The delaye=
+d
+  work uses system_wq, which is what 5.15 has. ]
 ---
-Based on linux-next next-20261109 (630059a5a632).
-Compile-tested: arm64, GCC 14.2.0, W=1, CONFIG_DRM_EXYNOS=m, CONFIG_DRM_EXYNOS_HDMI=y, CONFIG_DRM_EXYNOS_MIXER=y, CONFIG_COMPILE_TEST=y; baseline and patched exynos_hdmi.o, no new warnings.
-No hardware or runtime test was performed.
-The path needs a bridge on HDMI port 1 and a later probe failure or deferral, e.g. a DDC adapter or PHY that is not ready yet.
+ net/smc/af_smc.c   |  3 +-
+ net/smc/smc_core.c | 69 +++++++++++++++++++++++++++++++---------------
+ net/smc/smc_core.h |  6 ++--
+ 3 files changed, 52 insertions(+), 26 deletions(-)
 
- drivers/gpu/drm/exynos/exynos_hdmi.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exynos/exynos_hdmi.c
-index d67a493c8fe4..cf570be8fdc3 100644
---- a/drivers/gpu/drm/exynos/exynos_hdmi.c
-+++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
-@@ -1997,12 +1997,12 @@ static int hdmi_probe(struct platform_device *pdev)
- 	hdata->regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(hdata->regs)) {
- 		ret = PTR_ERR(hdata->regs);
--		return ret;
-+		goto err_bridge;
- 	}
- 
- 	ret = hdmi_get_ddc_adapter(hdata);
- 	if (ret)
--		return ret;
-+		goto err_bridge;
- 
- 	ret = hdmi_get_phy_io(hdata);
- 	if (ret)
-@@ -2079,6 +2079,8 @@ static int hdmi_probe(struct platform_device *pdev)
- 		iounmap(hdata->regs_hdmiphy);
- err_ddc:
- 	i2c_put_adapter(hdata->ddc_adpt);
-+err_bridge:
-+	drm_bridge_put(hdata->bridge);
- 
- 	return ret;
+diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+index 1d642e0df..8cab7cabb 100644
+--- a/net/smc/af_smc.c
++++ b/net/smc/af_smc.c
+@@ -833,9 +833,10 @@ static void smc_conn_abort(struct smc_sock *smc, int=
+ local_first)
+ {
+ 	struct smc_connection *conn =3D &smc->conn;
+ 	struct smc_link_group *lgr =3D conn->lgr;
++	bool lgr_valid =3D local_first && conn->lgr && conn->alert_token_local;
+=20
+ 	smc_conn_free(conn);
+-	if (local_first)
++	if (lgr_valid)
+ 		smc_lgr_cleanup_early(lgr);
  }
+=20
+diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+index 6da7d2145..bd170ffcf 100644
+--- a/net/smc/smc_core.c
++++ b/net/smc/smc_core.c
+@@ -79,16 +79,21 @@ static void smc_ibdev_cnt_dec(struct smc_link *lnk)
+=20
+ static void smc_lgr_schedule_free_work(struct smc_link_group *lgr)
+ {
++	spinlock_t *lgr_lock;
++
+ 	/* client link group creation always follows the server link group
+ 	 * creation. For client use a somewhat higher removal delay time,
+ 	 * otherwise there is a risk of out-of-sync link groups.
+ 	 */
++	smc_lgr_list_head(lgr, &lgr_lock);
++	spin_lock_bh(lgr_lock);
+ 	if (!lgr->freeing) {
+ 		mod_delayed_work(system_wq, &lgr->free_work,
+ 				 (!lgr->is_smcd && lgr->role =3D=3D SMC_CLNT) ?
+ 						SMC_LGR_FREE_DELAY_CLNT :
+ 						SMC_LGR_FREE_DELAY_SERV);
+ 	}
++	spin_unlock_bh(lgr_lock);
+ }
+=20
+ /* Register connection's alert token in our lookup structure.
+@@ -581,19 +586,34 @@ int smcd_nl_get_lgr(struct sk_buff *skb, struct net=
+link_callback *cb)
+ 	return skb->len;
+ }
+=20
+-void smc_lgr_cleanup_early(struct smc_link_group *lgr)
++/* Claim a link group for termination. Only one context can succeed: the
++ * lgr is removed from its list and marked freeing under lgr_lock.
++ * Returns false if @lgr is NULL or another context owns it.
++ */
++static bool smc_lgr_claim(struct smc_link_group *lgr)
+ {
+ 	spinlock_t *lgr_lock;
+=20
+ 	if (!lgr)
+-		return;
+-
++		return false;
+ 	smc_lgr_list_head(lgr, &lgr_lock);
+ 	spin_lock_bh(lgr_lock);
++	if (lgr->freeing || lgr->terminating || list_empty(&lgr->list)) {
++		spin_unlock_bh(lgr_lock);
++		return false;
++	}
+ 	/* do not use this link group for new connections */
+-	if (!list_empty(&lgr->list))
+-		list_del_init(&lgr->list);
++	list_del_init(&lgr->list);
++	lgr->freeing =3D 1;
+ 	spin_unlock_bh(lgr_lock);
++	return true;
++}
++
++/* The caller must keep @lgr alive for the duration of the call. */
++void smc_lgr_cleanup_early(struct smc_link_group *lgr)
++{
++	if (!smc_lgr_claim(lgr))
++		return;	/* another context owns the termination */
+ 	__smc_lgr_terminate(lgr, true);
+ }
+=20
+@@ -1060,10 +1080,12 @@ void smc_conn_free(struct smc_connection *conn)
+ 		if (current_work() !=3D &conn->abort_work)
+ 			cancel_work_sync(&conn->abort_work);
+ 	}
+-	if (!list_empty(&lgr->list)) {
++	/* The handshake can retry another device or SMC version with this
++	 * connection, so it must never stay registered in an lgr it left.
++	 */
++	if (!list_empty(&lgr->list))
+ 		smc_buf_unuse(conn, lgr); /* allow buffer reuse */
+-		smc_lgr_unregister_conn(conn);
+-	}
++	smc_lgr_unregister_conn(conn);
+=20
+ 	if (!lgr->conns_num)
+ 		smc_lgr_schedule_free_work(lgr);
+@@ -1293,12 +1315,20 @@ static void __smc_lgr_terminate(struct smc_link_g=
+roup *lgr, bool soft)
+ 	struct smc_connection *conn;
+ 	struct smc_sock *smc;
+ 	struct rb_node *node;
++	spinlock_t *lgr_lock;
+=20
+-	if (lgr->terminating)
++	smc_lgr_list_head(lgr, &lgr_lock);
++	spin_lock_bh(lgr_lock);
++	if (lgr->terminating) {
++		spin_unlock_bh(lgr_lock);
+ 		return;	/* lgr already terminating */
+-	/* cancel free_work sync, will terminate when lgr->freeing is set */
+-	cancel_delayed_work(&lgr->free_work);
++	}
+ 	lgr->terminating =3D 1;
++	spin_unlock_bh(lgr_lock);
++	/* The lgr is claimed, so no new free_work can be armed; wait for
++	 * one that is already queued or running.
++	 */
++	cancel_delayed_work_sync(&lgr->free_work);
+=20
+ 	/* kill remaining link group connections */
+ 	read_lock_bh(&lgr->conns_lock);
+@@ -1309,7 +1339,11 @@ static void __smc_lgr_terminate(struct smc_link_gr=
+oup *lgr, bool soft)
+ 		sock_hold(&smc->sk); /* sock_put below */
+ 		read_unlock_bh(&lgr->conns_lock);
+ 		lock_sock(&smc->sk);
+-		smc_conn_kill(conn, soft);
++		/* The connection may have been re-registered in another
++		 * link group by a retried handshake in the meantime.
++		 */
++		if (conn->lgr =3D=3D lgr)
++			smc_conn_kill(conn, soft);
+ 		release_sock(&smc->sk);
+ 		sock_put(&smc->sk); /* sock_hold above */
+ 		read_lock_bh(&lgr->conns_lock);
+@@ -1323,17 +1357,8 @@ static void __smc_lgr_terminate(struct smc_link_gr=
+oup *lgr, bool soft)
+ /* unlink link group and schedule termination */
+ void smc_lgr_terminate_sched(struct smc_link_group *lgr)
+ {
+-	spinlock_t *lgr_lock;
+-
+-	smc_lgr_list_head(lgr, &lgr_lock);
+-	spin_lock_bh(lgr_lock);
+-	if (list_empty(&lgr->list) || lgr->terminating || lgr->freeing) {
+-		spin_unlock_bh(lgr_lock);
++	if (!smc_lgr_claim(lgr))
+ 		return;	/* lgr already terminating */
+-	}
+-	list_del_init(&lgr->list);
+-	lgr->freeing =3D 1;
+-	spin_unlock_bh(lgr_lock);
+ 	schedule_work(&lgr->terminate_work);
+ }
+=20
+diff --git a/net/smc/smc_core.h b/net/smc/smc_core.h
+index 9a0523f4c..5c9653300 100644
+--- a/net/smc/smc_core.h
++++ b/net/smc/smc_core.h
+@@ -234,9 +234,9 @@ struct smc_link_group {
+ 	struct delayed_work	free_work;	/* delayed freeing of an lgr */
+ 	struct work_struct	terminate_work;	/* abnormal lgr termination */
+ 	struct workqueue_struct	*tx_wq;		/* wq for conn. tx workers */
+-	u8			sync_err : 1;	/* lgr no longer fits to peer */
+-	u8			terminating : 1;/* lgr is terminating */
+-	u8			freeing : 1;	/* lgr is being freed */
++	u8			sync_err;	/* lgr no longer fits to peer */
++	u8			terminating;	/* lgr is terminating */
++	u8			freeing;	/* lgr is being freed */
+=20
+ 	bool			is_smcd;	/* SMC-R or SMC-D */
+ 	u8			smc_version;
+--=20
+2.50.1 (Apple Git-155)
 
-base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
