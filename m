@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795704769;
-	b=3qJxg38qV3qdMD42SuUfQN5yGpdgsYUGZQw/i5p7WSQWHJOqtlddLd+YiMlJhiD7wSZp
-	 kzPqZCMneGDrMWulUfYnXhUhYKKeScI9xArpdAfrfgi2dC5OPjFkX52HmV0+8TFBCdt23
-	 8q1jbMlpowHpalRs/5VY8+jiC6bQIr55bf0W/x/kkPaDmvdP5SHKRgHBT3uKyK6HzACuf
-	 1JIrD4RFrb+p1AeiqJCpW+O3cCaDNbCJUO3lvvGhjwETXqBH6AOW8AQu/mIEVTSeN9GR/
-	 Pd1Cwc9CzvCMLlXSTr8ENSgPtt/jSUF+hSzpMTfgG0a8ALppImUubt7VQsCehDbEueg==
+	t=1795704772;
+	b=qIqCnOw/W8o24rsufylf7Vq/wlXo7q9gjRQM1gZEnhbInTeF4Tj+6p8zx7CbkP7TTgEY
+	 aymwdDZp7F63P/wBpTv046xWGCWt37ZkzHwKvWKfs/0ebL/xTlLz5A2sPSLyvDet8tNkP
+	 I7NpQqfwZSn5dbaCQloDyoUyoUBiW+JaduKjPljCftCXBbJCFSOTaBBI7aWOtfxu9ts3K
+	 xzi4dTJkE5DZ8OIc3QcqHFO/PTTJ0NyNp94n98qv+V3Y3LIzWKiQzBbqM1gm4sFeVndN5
+	 OCVysDfVM+HirmPBEuTXBeo2jzbhtLdzlsNiMUx6yqsecvETDOc2BqZUVSJzSPAnOyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795704769;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795704772;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=XoTcKZcp0IxS/idJ5vqzpJCQl6kjTL1yj64CaVegWsk=;
-	b=MliejoclQFOKLYlPt8rfgTOU9AvVb9F409dOe8RNNXG+08nxZhKDItl6jiWQz/LQE9M3
-	 9L0fU60BcCq0GVzZzcS96eSgSNl7/BplS1MuGbgvO21Fw0O0RMURGyz1ZjcRABEQRnCI9
-	 MG4IDVw4JcsX2MFTN1PXRFpMjXyIA518iemuIOnNXn3O2DV7Zs/plX305uxhYfgoUzIwg
-	 okb208W1sb3PSV56xcrXY0TaBBWwrM6VF6KV7CSPCmcO0eW4WZU9sBEk42s8JKsohunO6
-	 qI5DQiCj0PXZ+708kIDJnMRnST5cthdtUpFrUrVya8b6uC6wTKib6a9wLG+ism+4ncg==
+	bh=LquG5UhLIJSOKzCX6tzIQ+tTFE4t4oKV9c5y2nUpynU=;
+	b=5KxaEefHA+Xt2rRWLx0sVy9OzARDl2RhOyZJDf/fDMhgdtWH2e80hArTNY7BEuohLrLa
+	 ajojIqG9M24+A+Sv44AWl0lToDRU6bw8ymFSmh2BCzDym12ZVbwbsqSr5iZZ2UXq42qAa
+	 RbPxm8IUs8RN0SgExNi6XcQ6vWZexKb77HHWuG5ZrxdT7+n7xvss5WJrQVCRsF2dxVHV8
+	 gEZET5/x1lQcvWXaFNJQtqs25yVCv7r/TY2k/Qxcq0VEQj6YiJt0LbW+kL23lKZ687xJf
+	 TFFA9l4LeufzTMnToiAE9WXkiaj8sKQ4DwoN9jjnC1ndVHbqJmZYGz73kgyPeiBPYjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DR7C3vTY;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WY+Kzsg+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59863606A321;
-	Thu, 26 Nov 2026 14:52:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688C1606A32C;
+	Thu, 26 Nov 2026 14:52:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DR7C3vTY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F4771F000C0;
-	Thu, 26 Nov 2026 14:52:48 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WY+Kzsg+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0AF71F000D2;
+	Thu, 26 Nov 2026 14:52:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795704768;
-	bh=XoTcKZcp0IxS/idJ5vqzpJCQl6kjTL1yj64CaVegWsk=;
+	s=korg; t=1795704772;
+	bh=LquG5UhLIJSOKzCX6tzIQ+tTFE4t4oKV9c5y2nUpynU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DR7C3vTYojBfek0CzZQ3ljNB7LyzUyD9Wrips9NFvGOSaOB0uHOgp3OQOyTp34B5R
-	 lQgGvOgU6+6NeVRRrhj0QyfZPJE1yC9iVOO+iVRDDZb/8fiFFbu5Y6Iz1yXRqV6efF
-	 TC7eIypMxqt5befuy4rQzNZg55SNssMr/GVqSVS8=
+	b=WY+Kzsg+XhojTJpOIM4/t83qykeo2P7bPEIUik+qrcz3iM2FAFT7n9/Cfpg5cjQia
+	 94eLYCB6efnkx1NnpRVLb6j4ngVZ3BM+28RvrW8TB8clbPXoVd9rKfjFd+W7v6Mxrj
+	 7y8u4rXyHNuPoLlFC2lVYtbz0EyKkAwt4Y031xAg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Hui Peng <benquike@gmail.com>,
-	Johan Hovold <johan@kernel.org>
-Subject: [PATCH 5.10 235/265] USB: serial: garmin_gps: validate packet data length in nat_receive()
-Date: Thu, 26 Nov 2026 15:39:25 +0100
-Message-ID: <20261126143621.668670377@linuxfoundation.org>
+	Zhao Li <enderaoelyther@gmail.com>,
+	Johannes Berg <johannes.berg@intel.com>
+Subject: [PATCH 5.10 194/265] wifi: mac80211: bound pending IBSS station allocations
+Date: Thu, 26 Nov 2026 15:38:44 +0100
+Message-ID: <20261126143618.753427717@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261126143605.076581697@linuxfoundation.org>
 References: <20261126143605.076581697@linuxfoundation.org>
@@ -67,102 +67,81 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Hui Peng <benquike@gmail.com>
+From: Zhao Li <enderaoelyther@gmail.com>
 
-commit ca783a2d55b3361493917ad4a3573715ba902503 upstream.
+commit 3029ca2112d7bee4d3e3eadd02decdb3eddb9485 upstream.
 
-In nat_receive() (called from garmin_write() when userspace writes to
-/dev/ttyUSBn in MODE_NATIVE mode), while garmin_data_p->insize is less
-than GARMIN_PKTHDR_LENGTH (12), the loop copies up to 12 bytes into
-garmin_data_p->inbuffer. Once garmin_data_p->insize reaches
-GARMIN_PKTHDR_LENGTH, nat_receive() computes the total packet size as:
+Delaying the IBSS station worker while frames arrive from new peers can
+retain an unbounded number of station allocations.
 
-  len = GARMIN_PKTHDR_LENGTH + getDataLength(garmin_data_p->inbuffer);
+The receive-side limit counts installed stations, while new allocations
+wait on incomplete_stations until process context inserts them. The list
+lock does not cover the interval between allocation and list insertion.
 
-Because getDataLength() returns a signed int from __le32_to_cpup(), a
-12-byte header with a negative 32-bit length field (such as 0xfffffff5,
-i.e., -11) causes len to underflow to a small positive value (12 + (-11)
-= 1) without any bounds check at that point. Then garmin_data_p->insize
->= len (12 >= 1) evaluates to true and nat_receive() calls
-garmin_write_bulk(port, inbuffer, 1, 0), which allocates a 1-byte slab
-buffer via kmemdup() and immediately reads 4 bytes from it in
-getLayerId(buffer) (and again in garmin_write_bulk_callback() when the
-URB completes):
+Reserve one of 128 pending slots per interface before allocation. Release
+the reservation on allocation failure, after the worker inserts or frees
+the station, and when disconnect frees the pending list.
 
-  BUG: KASAN: slab-out-of-bounds in garmin_write_bulk.constprop.0+0x3eb/0x500
-  Read of size 4 at addr ffff888002cc0ba0 by task init/1
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x70/0xa0
-   print_report+0x153/0x4c6
-   kasan_report+0xf1/0x120
-   garmin_write_bulk.constprop.0+0x3eb/0x500
-   garmin_write+0x60f/0x1450
-   serial_write+0x123/0x200
-   n_tty_write+0x8ea/0xeb0
-   file_tty_write.isra.0+0x44f/0x7a0
-   vfs_write+0x671/0xd20
+LLM assistance was used to find the bug and review.
 
-Validate the unsigned 32-bit data length (dlen >= GPS_IN_BUFSIZ -
-GARMIN_PKTHDR_LENGTH, matching the existing len >= GPS_IN_BUFSIZ bound)
-in nat_receive() as soon as the 12-byte header is present, resetting
-insize and returning -EINVPKT on invalid lengths so garmin_write_bulk()
-is only ever called with a full valid packet header (12 <= len <
-GPS_IN_BUFSIZ).
-
-Tested in QEMU against Linux 7.3.0-rc3 by emulating a Garmin USB GPS
-device (091e:0003) via dummy_hcd + raw-gadget, switching /dev/ttyUSB0
-to MODE_NATIVE via PRIV_PKTID_SET_MODE, and writing a 12-byte native
-packet with data length 0xfffffff5: on the unfixed kernel this triggers
-KASAN slab-out-of-bounds reads in garmin_write_bulk() and
-garmin_write_bulk_callback(), whereas on the fixed kernel nat_receive()
-rejects the packet with -EINVPKT and 0 KASAN faults.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 8bf11d8d0811 ("mac80211: delay IBSS station insertion")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
-[ johan: move comment and dev_dbg(); add comment about redundant check ]
-Signed-off-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Link: https://patch.msgid.link/20261028142235.15428-3-enderaoelyther@gmail.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/usb/serial/garmin_gps.c |   19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+ net/mac80211/ibss.c        |   13 ++++++++++++-
+ net/mac80211/ieee80211_i.h |    1 +
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
---- a/drivers/usb/serial/garmin_gps.c
-+++ b/drivers/usb/serial/garmin_gps.c
-@@ -750,11 +750,7 @@ static int nat_receive(struct garmin_dat
- 			len = GARMIN_PKTHDR_LENGTH;
+--- a/net/mac80211/ibss.c
++++ b/net/mac80211/ibss.c
+@@ -713,6 +713,7 @@ static void ieee80211_ibss_disconnect(st
+ 		spin_unlock_bh(&ifibss->incomplete_lock);
  
- 		if (len >= GPS_IN_BUFSIZ) {
--			/* seems to be an invalid packet, ignore rest
--			   of input */
--			dev_dbg(&garmin_data_p->port->dev,
--				"%s - packet size too large: %d\n",
--				__func__, len);
-+			/* should never end up here given the dlen check below */
- 			garmin_data_p->insize = 0;
- 			count = 0;
- 			result = -EINVPKT;
-@@ -773,8 +769,17 @@ static int nat_receive(struct garmin_dat
+ 		sta_info_free(local, sta);
++		atomic_dec(&ifibss->incomplete_sta_count);
+ 		spin_lock_bh(&ifibss->incomplete_lock);
+ 	}
+ 	spin_unlock_bh(&ifibss->incomplete_lock);
+@@ -1242,9 +1243,18 @@ void ieee80211_ibss_rx_no_sta(struct iee
+ 	scan_width = cfg80211_chandef_to_scan_width(&chanctx_conf->def);
+ 	rcu_read_unlock();
  
- 		/* do we have a complete packet ? */
- 		if (garmin_data_p->insize >= GARMIN_PKTHDR_LENGTH) {
--			len = GARMIN_PKTHDR_LENGTH+
--			   getDataLength(garmin_data_p->inbuffer);
-+			u32 dlen = getDataLength(garmin_data_p->inbuffer);
++	if (!atomic_add_unless(&ifibss->incomplete_sta_count, 1,
++			       IEEE80211_IBSS_MAX_STA_ENTRIES)) {
++		net_info_ratelimited("%s: No room for a new IBSS STA entry %pM\n",
++				     sdata->name, addr);
++		return;
++	}
 +
-+			if (dlen >= GPS_IN_BUFSIZ - GARMIN_PKTHDR_LENGTH) {
-+				/* invalid packet, ignore rest of input */
-+				dev_dbg(&garmin_data_p->port->dev, "%s - invalid length: %u\n",
-+					__func__, dlen);
-+				garmin_data_p->insize = 0;
-+				result = -EINVPKT;
-+				break;
-+			}
-+			len = GARMIN_PKTHDR_LENGTH + dlen;
- 			if (garmin_data_p->insize >= len) {
- 				garmin_write_bulk(garmin_data_p->port,
- 						   garmin_data_p->inbuffer,
+ 	sta = sta_info_alloc(sdata, addr, GFP_ATOMIC);
+-	if (!sta)
++	if (!sta) {
++		atomic_dec(&ifibss->incomplete_sta_count);
+ 		return;
++	}
+ 
+ 	/* make sure mandatory rates are always added */
+ 	sband = local->hw.wiphy->bands[band];
+@@ -1709,6 +1719,7 @@ void ieee80211_ibss_work(struct ieee8021
+ 			ieee80211_ibss_finish_sta(sta);
+ 			rcu_read_unlock();
+ 		}
++		atomic_dec(&ifibss->incomplete_sta_count);
+ 		spin_lock_bh(&ifibss->incomplete_lock);
+ 	}
+ 	spin_unlock_bh(&ifibss->incomplete_lock);
+--- a/net/mac80211/ieee80211_i.h
++++ b/net/mac80211/ieee80211_i.h
+@@ -592,6 +592,7 @@ struct ieee80211_if_ibss {
+ 
+ 	spinlock_t incomplete_lock;
+ 	struct list_head incomplete_stations;
++	atomic_t incomplete_sta_count;
+ 
+ 	enum {
+ 		IEEE80211_IBSS_MLME_SEARCH,
 
 
