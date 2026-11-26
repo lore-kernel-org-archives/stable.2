@@ -1,97 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795688311;
-	b=xjjfmZ6VWKHztyQz62nx8DiOCCp9GTALixR1pagLFqZUkr0/NrWAR5fHZD1YRaMtTa1Z
-	 PwvL3vFfqmp+jk6gvEE6JgHv49c0buoE7vKmU/xREXUTK9dDMhT8fpYTkwjBLRmIRDlPf
-	 LJnLVEpAkJ7oPBeK3pgt1tzUE03T9vb1AZcySZQ6/iWQO6Fi6MEo77ZHBBF4kVcI6wa/2
-	 nmdlfu6lVo3VkQYKMK8+73DDarI3x0Gafcz0nV1APU624oW7cXeslOndZA3Hrm/xzWQQH
-	 oYn0R1c+IouiVP6COYgIxmEitKi91gHs880xcPNzD84DbGcnOrSOh2kNwEUDSaHFwuQ==
+	t=1795688371;
+	b=yzURm7Bh6nCjS0jce9XC8rpsAmPyhu5ScMPVe8DhOrtRPFPw4p3/dYGEuChthWjE+rWY
+	 +Mog9XQv0vQv3071IC52P4ws+kzu+m2hp1pYYRG8CR0sA3AlpexK/qPEBdFlbrpStCwyf
+	 j/PaZt8LwL71RjLJjf9pyjoDlUtfRvomnk5q7DhJtxzlK9VtLtZHF/KlQ0Egp76p3m12y
+	 DhRyE+AHt6d6SKYAPWlDxCVFPcOim72hDL1ZUA1xSVHtktNAxTmQgyYpan1Z6nV2rYUih
+	 UAgoIr7w6u892X0OlMTo2zffSu8PljGFwjxC2VL2FBh9BjPp5TxydN5nsFSu2KJC7Kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795688311;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ugE/krQOnUdasnCh/aZgODTXRFrG9aKhHyU/6uxiQCo=;
-	b=hoXCwVSea7Zck78FnwUzDZUrWpl2at9347xKbLrLrIdGC042X5aTXcb+ytDr5aONj7h2
-	 y18qhR2Y4JbA+cLSSpH2iC0Te9Hwmtj8+VO5IBAwaGBuD4A6sHcVTqTwa4OOxaJJsgioZ
-	 VNMbWzYiZSoj5A+dMnTnWdYoSQ7JfkxyDrWjPvC6bhx22pi/5IVBdS/SJBqSq+0io2tmM
-	 eiHvd4KCmm07CF4sma0Ljwbud2OB05UrrvkyAIyFNc5UrzGW5CiqBsIy9RVSgsge6+lfB
-	 9g+/nNLlsGu+JVqxs7o2kN399nj8htVxEsKigEMbfyFVGI7hlNXacu79Ppi9SJWv5Jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795688371;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
+	bh=SQGonsD2PK7GWC/netIzR2TM8App6Wl9rs87xlw6FJA=;
+	b=oWjlfFCGblR1JvSLpKcIsj9MHPurs2+/81Ay9lUZ4eTqniUXFxc7eB5He10kmniVr02A
+	 51kfJl/f1/FRLXFV4lFnfXXO0d5T1cUZ+URP3gwB3yjuUqrlhXbjV22xgCX/0r6L061Wq
+	 ctR6I/NFg2fCUJw59UKwvLoepcMdaqzukFJVvW1rxit3g54LKR9iAARxArbCzkn1jrVPt
+	 4jyJ6ZarGdZcQEbjrP+ZJis+uFyl48edFq4WU1aBBvCVnGVEPI02S/I68KjaxVcuajpLQ
+	 QwDZ57VSz0ii0TZwn+7ywf4nA7BSfmDSUy6azMz8NCTHnbW0BfgoRK7Cdpg/oXR1Jkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zxNnE4fT;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=jSP6Whf8;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB3B606A321
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 10:18:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FB3B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0245606A333
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 10:19:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0245606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zxNnE4fT
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso9183629c88.1
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:18:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795688310; x=1796293110; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ugE/krQOnUdasnCh/aZgODTXRFrG9aKhHyU/6uxiQCo=;
-        b=zxNnE4fTKqqU71N+q/Y63sp+bEnhQY9Gv31orAk84pnYGYhLMiJkr+a64ZKOvsIJYn
-         reVGoYqiN0ZBjbaMAroXg/FChSxjzw/s2IKqUm8j0mCBIg39sHYyJ7rsPYswM01oupmL
-         vsu/QzqJ5k+GPhp4p8B2zDcmkC0N7aZq+6VZFkaayzClg5zg6AzEADOwqImJ/HdUCrCH
-         3RnyuAhYeAwAOg810DllqPeDlC3ObwO/u09wUj1dCv0E5TlCqQCHidUwUuNFQzN+1shc
-         oCnxmq7b6c6cy9Q1T4wsac4eRWXVBLLuJtK+g5VDubq3Oha12K9bYO0/L6B39aJi2Swm
-         5orQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795688310; x=1796293110;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ugE/krQOnUdasnCh/aZgODTXRFrG9aKhHyU/6uxiQCo=;
-        b=DDyzCxQvcjxVP7BlvbwMwRCnCRdZo5QcYxAUV5JD3dio9G1IspRjhb6dqdGHNe+4Qf
-         88kpTX+EEfybyast4oj21f/oQcBp8FXYj6cJCTb6rM0XO+nr0raOYVZ/lERIaEXIzKvd
-         d4JnTNvSXtJneDQ6/8pxVaK2a3iZuPZJ6TdY64lSGloOl5gSZV1PlWaN37ktdQvsv39B
-         vPlYetES5He1C6S4Xp9z16CLf4nKgvfWYTkGS4Ml+W5+WimSCoLdjzvjt2PmPY4IHoMY
-         DDKMHDQQ5CZ7S06aHWdFdfW+cycxFPoxh1SRcgqDuAZK1cywukiBLwg+07JfPG/S9b8s
-         p2sw==
-X-Forwarded-Encrypted: i=1; AL+hErH6NBHdkA+35FidFEBCjPMfTOuWcDeU+bFC3f0J9KFHJL178Ii7zYCncVxoFF2UzLZIBh9bG08=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+KEz7D/oG0Fhk23xonxmj6Hb3TSepMofsqIEuViZ0m7Rd48qpL
-	m3DYuXQbojU8XRg4wmuYzNKpTNWTgf1sALt/sBBqWkSHyBXjJK9SIlPn9TMklQ==
-X-Gm-Gg: AZFdTZcvz67+eZQls0RE5kAu4rZ+1GlQblCqbOEwehGt3Q1x4e3ITJazslLlUuAd+qd
-	viVNy/GesTHnRgF05cVPzptrcgf2Nt1bYZRB4/nI35GSU0ngWdnRv8lYR/qCerNJxNGVhk/k+fq
-	4JWq0KTQ86qj96cy/BFNBtZYprmgd3mVYbwDIE1H3VS45AmWc08L98uW1myLnUMKsSbSMRbkrJS
-	axwqn0p4vhwN9J+e0AkdiAEqzU1fNqYXLfIn3RGJ87hfm58dfskNUkvadbEiOmvS/49izeKP3jQ
-	vMa/kFw0nv2VMEweSZKzUAtlzIYBIVzixJ1JiYv0D3vCP7ibtKjGm6cLTFjsXto7LwXTDTNTbL2
-	idGpaV3wF7Zr0AbeT/mObG0ybRAH1/MVYpj2mzxfQyvS6qeu3YPWEmAl6hIf4/EOHlbKJyj9HVS
-	pGXwVBR3qa4dhwY3WNGDxUdZD6SKXdkDkiQsfp3Ksp/H4TCRdOQ+9dIbiyJREwKjw5OE9QCH6WS
-	Wv2xwWXIANkMbiMuaAdxsviZfF4/OILCfnyTi2otK445MOb7RNEd1eAc9orXo+tydsJlvfZ2485
-	tFrkiMhn12Ghz8HBPYg0CFf2MuyoXpj/c3o=
-X-Received: by 2002:a05:7301:6181:10b0:386:b2ac:1f17 with SMTP id 5a478bee46e88-386b2ac2832mr12047770eec.7.1795688310218;
-        Thu, 26 Nov 2026 02:18:30 -0800 (PST)
-Received: from mptcp-lab.w453y.xyz ([59.164.88.43])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38566cd40c5sm74221227eec.10.2026.11.26.02.18.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 02:18:29 -0800 (PST)
-From: Abdul Wasey <w453y.me@gmail.com>
-To: mptcp@lists.linux.dev
-Cc: Matthieu Baerts <matttbe@kernel.org>,
-	Mat Martineau <martineau@kernel.org>,
-	Geliang Tang <geliang@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	"Mohit P. Tahiliani" <tahiliani@nitk.edu.in>,
-	stable@vger.kernel.org
-Subject: [PATCH mptcp-net v9 2/2] selftests: mptcp: join: re-add the initial subflow endp with fullmesh
-Date: Thu, 26 Nov 2026 10:18:18 +0000
-Message-ID: <20261126101818.3916631-3-w453y.me@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261126101818.3916631-1-w453y.me@gmail.com>
-References: <20261126101818.3916631-1-w453y.me@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=jSP6Whf8
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id A0B40C2B9C6
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 10:19:31 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 5E74460237;
+	Thu, 26 Nov 2026 10:19:23 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1193411E68598;
+	Thu, 26 Nov 2026 11:19:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795688362; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=SQGonsD2PK7GWC/netIzR2TM8App6Wl9rs87xlw6FJA=;
+	b=jSP6Whf85i8qwAwUPYtobw53QR/zvwF7ux1WIRVyNkmwbjC7lft1m8mbr3ZDXw37LKN2ex
+	CcLFjBpRmKMgzesx6tQlAFflXr8iIW1t2TSMpdVov0chWqNdd9qAuuKrdmnA9vxHGKDx8a
+	DQpMxmA+7iLu2OybHA25A2Jj0MsRwTJjk2Lpd22A/st1zirAJLlRtA99QdEeZzvzZhfck2
+	OYDo/rf+uV/DUWkny+fBpPs3Kz8RkS5lt9k67MSMY2UWIZUxo2SUga9HSfhruJQeT8DyeF
+	rQgMRHwzCfFBpKFeOOWfp3790ywOTl4V1EqmE+mjdpAoCsPcVWXinN9B8v4Y6g==
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,118 +59,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] i2c: cgbc: Fetch the status of a write transfer
+From: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
+To: Thomas Richard <thomas.richard@bootlin.com>, 
+ Andi Shyti <andi.shyti@kernel.org>, Lee Jones <lee@kernel.org>
+Cc: mfd@lists.linux.dev, linux-i2c@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Markus Haberlander <markus.haberlander@rosenberger.com>
+In-Reply-To: <20261123-cgbc-i2c-write-status-v1-1-5b0fa0322b57@rosenberger.com>
+References: <20261123-cgbc-i2c-write-status-v1-1-5b0fa0322b57@rosenberger.com>
+Date: Thu, 26 Nov 2026 11:19:00 +0100
+Message-Id: <179568834099.302193.16315749597111506309.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-The "delete and re-add" test validates the removal and the re-addition
-of the endpoint used by the initial subflow, but without the fullmesh
-flag.
+> A write transfer sends the I2C command to the board controller and
+> returns without reading the controller's I2C status, while a read polls
+> the status until the controller is no longer busy. The status of a write
+> is therefore never fetched:
+> 
+> - the write reports success before the bus transfer has finished, and
+>   an error such as a NAK is only reported by the next transfer;
+> - the controller keeps the status of the last write pending. On a
+>   conga-PA7 (BIOS PA70R026, board controller CGBCP032), a board reset
+>   with a write status pending does not power the board up again: after
+>   a reboot that follows a write on the general purpose bus, the board
+>   stays off until it is power cycled.
+> 
+> Read the status after a write as well, as the read path does: poll until
+> the controller is no longer busy, return the error it reports, and treat
+> any state other than idle as an error.
+> 
+> Tested on a conga-PA7 with v6.18.64 and "i2c: cgbc: Propagate hardware
+> errors when polling read status": without this patch, a write to an
+> absent address returns success, the next read fails, and a reboot after
+> a write does not come back. With it, the write itself fails, the next
+> transfer succeeds, and 14 reboots, each right after an acknowledged or a
+> NAKed write, all came back.
+> 
+> The patch and this changelog were drafted with the help of Claude
+> Opus 5.5 and reviewed and tested by me.
+> 
+> Fixes: 6894f640b8f3 ("i2c: Congatec Board Controller i2c bus driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Markus Haberlander <markus.haberlander@rosenberger.com>
+>
+> diff --git a/drivers/i2c/busses/i2c-cgbc.c b/drivers/i2c/busses/i2c-cgbc.c
+> index dfdb9ffc6447..2361591a1e31 100644
+> --- a/drivers/i2c/busses/i2c-cgbc.c
+> +++ b/drivers/i2c/busses/i2c-cgbc.c
+> @@ -254,6 +254,22 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
+>  		ret = cgbc_command(cgbc, &cmd, cmd_len, NULL, 0, NULL);
+>  		if (ret)
+>  			goto err;
+> +
+> +		ret = read_poll_timeout(cgbc_i2c_get_status, status,
+> +					status != CGBC_I2C_STAT_BUSY, 0,
+> +					2 * algo_data->read_maxtime_us, false, adap);
+> +		if (ret)
+> +			goto err;
+> +
+> +		if (status < 0) {
+> +			ret = status;
+> +			goto err;
+> +		}
+> +
+> +		if (status != CGBC_I2C_STAT_IDL) {
+> +			ret = -EIO;
+> +			goto err;
+> +		}
+>  	} else if (i2c->state == CGBC_I2C_STATE_READ) {
+>  		xfer.write = 0;
+>  		xfer.read = len;
 
-Do the same with the fullmesh flag: with a second subflow, then once no
-subflow is left, and after a reset of the initial subflow. Without the
-previous patch, no new subflow is created.
+I was able to reproduce the issue on conga-SA7 (and also the reboot crash).
 
-The 'Fixes' tag here below is the same as the one from the previous
-commit: this patch here is not fixing anything wrong in the selftests,
-but it validates the previous fix for an issue introduced by this commit
-ID.
+$ i2ctransfer -y 11 w1@0x40 0x00	 <- non-existing device
+$ i2ctransfer -y 11 w1@0x50 0x00 r1@0x50 <- read EEPROM
+Error: Sending messages failed: Input/output error
+$ i2ctransfer -y 11 w1@0x50 0x00 r1@0x50 <- read EEPROM
+0x01
 
-Fixes: 045e9d812868 ("mptcp: fix duplicate subflow creation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Abdul Wasey <w453y.me@gmail.com>
----
- .../testing/selftests/net/mptcp/mptcp_join.sh | 79 +++++++++++++++++++
- 1 file changed, 79 insertions(+)
+And with your patch:
 
-diff --git a/tools/testing/selftests/net/mptcp/mptcp_join.sh b/tools/testing/selftests/net/mptcp/mptcp_join.sh
-index f4d8afaeda4f..05572c97ff48 100755
---- a/tools/testing/selftests/net/mptcp/mptcp_join.sh
-+++ b/tools/testing/selftests/net/mptcp/mptcp_join.sh
-@@ -4424,6 +4424,85 @@ endpoint_tests()
- 		chk_rm_nr 4 4
- 	fi
- 
-+	# remove and re-add the endpoint of the initial subflow, with fullmesh
-+	if reset_with_events "delete and re-add, fullmesh" &&
-+	   continue_if mptcp_lib_kallsyms_has "subflow_rebuild_header$"; then
-+		pm_nl_set_limits $ns1 0 2
-+		pm_nl_set_limits $ns2 0 2
-+		pm_nl_add_endpoint $ns2 10.0.1.2 id 1 dev ns2eth1 flags subflow,fullmesh
-+		pm_nl_add_endpoint $ns2 10.0.2.2 id 2 dev ns2eth2 flags subflow,fullmesh
-+		{ timeout_test=120 test_linkfail=128 speed=5 \
-+			run_tests $ns1 $ns2 10.0.1.1 & } 2>/dev/null
-+		local tests_pid=$!
-+
-+		wait_event ns2 MPTCP_LIB_EVENT_ESTABLISHED 1
-+		wait_mpj 1
-+		chk_subflow_nr "before delete id 0" 2
-+
-+		pm_nl_del_endpoint $ns2 1 10.0.1.2
-+		sleep 0.5
-+		chk_subflow_nr "after delete id 0" 1
-+
-+		pm_nl_add_endpoint $ns2 10.0.1.2 id 1 dev ns2eth1 flags subflow,fullmesh
-+		wait_mpj 2
-+		chk_subflow_nr "after re-add id 0" 2
-+
-+		# no live subflow left to take the remote address from
-+		pm_nl_del_endpoint $ns2 1 10.0.1.2
-+		wait_rm_addr $ns1 1
-+		pm_nl_del_endpoint $ns2 2 10.0.2.2
-+		sleep 0.5
-+		chk_subflow_nr "after delete all" 0
-+
-+		pm_nl_add_endpoint $ns2 10.0.1.2 id 1 dev ns2eth1 flags subflow,fullmesh
-+		wait_mpj 3
-+		chk_subflow_nr "after re-add id 0 alone" 1
-+
-+		mptcp_lib_kill_group_wait $tests_pid
-+		kill_events_pids
-+
-+		chk_join_nr 3 3 3
-+		chk_rm_nr 3 3
-+	fi
-+
-+	# same, but the initial subflow is reset before removing its endpoint
-+	if reset_with_events "delete and re-add, fullmesh, after reset" &&
-+	   continue_if mptcp_lib_kallsyms_has "subflow_rebuild_header$"; then
-+		pm_nl_set_limits $ns1 0 2
-+		pm_nl_set_limits $ns2 0 2
-+		pm_nl_add_endpoint $ns2 10.0.1.2 id 1 dev ns2eth1 flags subflow,fullmesh
-+		pm_nl_add_endpoint $ns2 10.0.2.2 id 2 dev ns2eth2 flags subflow,fullmesh
-+		{ timeout_test=120 test_linkfail=128 speed=5 \
-+			run_tests $ns1 $ns2 10.0.1.1 & } 2>/dev/null
-+		local tests_pid=$!
-+
-+		wait_event ns2 MPTCP_LIB_EVENT_ESTABLISHED 1
-+		wait_mpj 1
-+		chk_subflow_nr "before reset" 2
-+
-+		local filtered=0
-+		init_nftables
-+		if ip netns exec "${ns1}" nft add rule ip filter INPUT \
-+				ip saddr "10.0.1.2" meta l4proto tcp \
-+				tcp option mptcp exists reject with tcp reset; then
-+			filtered=1
-+			wait_event ns2 MPTCP_LIB_EVENT_SUB_CLOSED 1
-+			ip netns exec "${ns1}" nft flush chain ip filter INPUT
-+			chk_evt_nr ns2 MPTCP_LIB_EVENT_SUB_CLOSED 1 error 1
-+
-+			pm_nl_del_endpoint $ns2 1 10.0.1.2
-+			pm_nl_add_endpoint $ns2 10.0.1.2 id 1 dev ns2eth1 flags subflow,fullmesh
-+			wait_mpj 2
-+			chk_mptcp_info subflows 2 subflows 2
-+			chk_join_nr 2 2 2
-+		fi
-+
-+		mptcp_lib_kill_group_wait $tests_pid
-+		kill_events_pids
-+		# after the cleanup: this exits when all features are expected
-+		[ "${filtered}" = 1 ] || mark_as_skipped "unable to set the filter rules"
-+	fi
-+
- 	# remove and re-add
- 	if reset_with_events "delete re-add signal" &&
- 	   continue_if mptcp_lib_kallsyms_has "subflow_rebuild_header$"; then
+$ i2ctransfer -y 11 w1@0x40 0x00	 <- non-existing device
+Error: Sending messages failed: Input/output error
+$ i2ctransfer -y 11 w1@0x50 0x00 r1@0x50 <- read EEPROM
+0x01
+
+Reviewed-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
+Tested-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
+
+Yes it conflicts (compile issue) with the series [1]. The possibilies are:
+- I pick this patch in my series and send a v7.
+- [1] is applied, an immutable branch is created, you rebase your patch on
+  top of it, and patch is applied in I2C tree.
+- [1] is applied, you rebase on top of mfd-next, and your patch is applied
+  in MFD tree.
+
+Andi, Lee, what do you prefer?
+
+[1] https://lore.kernel.org/all/20261117-cgbc-i2c-storage-devices-support-v6-0-bb070ad3e9aa@bootlin.com/
+
 -- 
-2.43.0
+Best Regards,
+Thomas Richard
 
