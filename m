@@ -1,68 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.201
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795707032;
-	b=UhZz3OTJtSOwrXDBPXk9p6G3bDUkUcDfApXDZjvp/DT7Oq+UrRGam6WCCma3Zso06oy2
-	 Ugf9dBJyOm5sCdaxnjU8MjgpNR8JdQAmKAS9mqWsZx787Fv0c+0OOOO6y2iMWFfSLFqLW
-	 vNMdiTM5DkbkBFEosmHrpgmJj+ytmj0Zl7SITBD/Sv+ccFuTsWljZ/sLIVep0lrLyvEUI
-	 E1xGAg+dLfZu2P9x9ttHaV9PsGYk4Q6hDXo3zcDj3TcJJWX9O1cqlg8sQPaqrGvmBKIof
-	 bXG3cok9NiPTWC/fTgFUUyBgKpUG3dwiBG06bdljdRuCP2SSYUuZYyltLXACLLzdLuQ==
+	t=1795707097;
+	b=s6sbYu/SpdFDMYnKYzIBU2im37Jq//qfy3uWOSbJ9Rg5MWFA2KMRZnXsYShmIqoS6shX
+	 FTCwUyrdjl+bW1X/B7E/NDkY6HXy3yMGnu1j6UCxrVrISXWFHNv4ospBhqE9zS/zVnYNX
+	 50hsSYv3j3mLGGerf9gzEW1xWJ/vIeoFkc9kSFGGARPXsvGWCGQvYJ8xl6K094xWMXkR9
+	 VUPjyo1tP3cIgM4/mFEWwJZnECinr5BGcor/J7EAz81qT50gWEreIgD9LDVlVBq3Dmshb
+	 GGsFTMwqDXRlYFbkR8+VhJZdCHvNgC5ODYA9FfMr09aFaU9RcZqxYe2lg1vg+4v67NA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795707032;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=IOrQAYiFZGkfHaVcGtU2ILDIBM1AgyST3Ynrv8o1atw=;
-	b=It00Iya0sSGOX7+zzlOH8FAZGmiFAi9gC6Hr5meiph9MbxgKkjyvYFIJrHtSCN+9NfIy
-	 oezoxnnH42fIjVSxLwdSV74c6lKfc6j+Zp9GdkJa+jwWuDZeQE2cmmK13z5vM3mVGEN3w
-	 CyAsk8YbAxhVVvZkGCwErgVFzYcoywRmOcsw3TqPY2GRn2j8RFtpZjk/AfMedEYFICxWm
-	 H1/btYQ4Bj9VyQFxS8QEQmvzAy35So6WrJYudG/W/EBbk24eM8tkVW7PDLbPbvwRG/bMS
-	 Tl3/qNsYTipXRk2jpx8j2KrD33wtVk6ukkdzJ+oW9g0og7pDUL45mKHaD259qTbvQKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795707097;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=tQNqYmCO8U6RJi6uvaLNBKhLSSUT6e27NTsnReOP5Uo=;
+	b=rhXAwNSmxKy6E100zqoNG6SwG545n4GbjUK5dnotj7MwyTOqXufrh6pbzXH6fnsjOKo1
+	 G0wAEKX7+CihgAMJb89+5ldiyD+vT/RiOMXE+CC8RPJEvrNDI2q0IGSEQQljk79O8HJ2r
+	 6rjoWY2fzBBEFKtI0TsGKIj9HaVtLA07c9QjsovMeLOfgiRTyRFrFhxeNGE97SVgy+Ptg
+	 QKGPj1fvo6lNNGWvtlKtzl4T0Q8CiM3sKX+l+qRsdazGgCpRH7dFjFSz4bmvkGQgbwhw8
+	 UKSbU6/951p8WsAumHI978K7yzsldNo7BVWgNY1Im1XwKkKcuvqu7UpTZ9l373yOlbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="XTsN/wrD";
-	arc=none smtp.remote-ip=95.215.58.201
-Received: from mta1.migadu.com (out-201.mta1.migadu.com [95.215.58.201])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="fU/Go9g1";
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6A9606A336
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:30:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD6A9606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0F1606A31E;
+	Thu, 26 Nov 2026 15:31:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D0F1606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XTsN/wrD
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZBB7CMWco3C2UZrjURWiKqdxZ+YQ7M6cwRgIBlKdNCQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795707029; v=1; x=1796311829;
- b=XTsN/wrDo2vBX2oZCD5TtiaHm6Me8+EScQSoEuE+lpzTEVqlHbu/C2R4fZKiU7a+gYMYK+k8
- g2Syw2GmBFFZZ0ZFrZiQsQyVKcBIeKjiELlqLUG5Efi4JK5tlAqM9VOFUaj3MERKKwbJ+RbWXE1
- Aobq0EuUcciQT/0SSivptqH4=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 268944202c3aa925;
-	Thu, 26 Nov 2026 15:30:29 +0000
-X-Mizu-Trace-ID: 268944202c3aa925
-X-Migadu-Flow: FLOW_OUT
-From: Leon Hwang <leon.hwang@linux.dev>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Leon Hwang <leon.hwang@linux.dev>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Subject: [PATCH linux-6.12.y 4/4] bpf: Disallow interpreter fallback for BPF_ADDR_PERCPU insn
-Date: Thu, 26 Nov 2026 15:30:02 +0000
-Message-ID: <20261126153002.162337-5-leon.hwang@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261126153002.162337-1-leon.hwang@linux.dev>
-References: <20261126153002.162337-1-leon.hwang@linux.dev>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fU/Go9g1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795707097; x=1827243097;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=WPpUQImv+mfRbVWcaasBa39HKBziPr14wNhR5TVYdI4=;
+  b=fU/Go9g1OFaAdID099iAo1f3CjQJnuHjpzB+gSEZXcgGYK3joXNmjTBF
+   vH6EMDMRf8CwXpSKBHY/qLPMt/x2HtUNlJ10Bpaklk4L15z2SlIe6hmM3
+   OVA0kxHDLLlk2dUSAZpLYjRt2sp4CMzoFdlLOjc2gVZv9149KDZqRhFHb
+   ffwYiOwPvqiQAQDyD4SYjdxV9tN1RDTx0ERLT+YB4RvU3K2XMozjvPsvP
+   8BGCPwhSZrzD9z+PGXKO55Ur5YSU7cQ7ROLRuBqBZzT5v81l5JwBNeXh0
+   IWrMml4nBV+gNvjSqRCwABhQKXDPwU3jnqy7sw3V2haOLlRvCifiDCxZL
+   A==;
+X-CSE-ConnectionGUID: ze0PDmWNRoq3SCUEVEUnCw==
+X-CSE-MsgGUID: tiOYv10HQWC+a+SZ0AwcOw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4617975"
+X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
+   d="scan'208";a="4617975"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 07:31:36 -0800
+X-CSE-ConnectionGUID: HSpzvcUSRaa7pSYZQB7NhQ==
+X-CSE-MsgGUID: z5WCboktQ6OpjR5IViJMlg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
+   d="scan'208";a="12528604"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.208])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Nov 2026 07:31:33 -0800
+Date: Thu, 26 Nov 2026 17:31:30 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Gary Wang <is0124@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Thomas Richard <thomas.richard@bootlin.com>,
+	Daniele Cleri <danielecleri@aaeon.eu>,
+	JunYingLai <junyinglai@aaeon.com.tw>,
+	Louis Chen <louischen@aaeon.com.tw>,
+	BillyChou <BillyChou@aaeon.com.tw>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 4/5] pinctrl: upboard: fix I2C pinmux-select set CPLD
+ GPIO OUT not function mode
+Message-ID: <awhQ0mvdzSw9NaVM@ashevche-desk.local>
+References: <20261126-upboard-pinctrl-add-intc1057-intc105e-support-v3-0-81d35c9ba246@gmail.com>
+ <20261126-upboard-pinctrl-add-intc1057-intc105e-support-v3-4-81d35c9ba246@gmail.com>
+ <awhPbIZjDazImfBf@ashevche-desk.local>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,95 +86,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <awhPbIZjDazImfBf@ashevche-desk.local>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-[ Upstream commit 7a0855e73757ee9cf25ba635a1c735018ecba742 ]
+On Thu, Nov 26, 2026 at 05:25:37PM +0200, Andy Shevchenko wrote:
+> On Thu, Nov 26, 2026 at 11:09:47PM +0800, Gary Wang wrote:
+> > The CPLD I2C pin mode setting through pinmux-select is not correct.
+> > Should be set UPBOARD_PIN_MODE_FUNCTION on AANT0F04 devices.
+> > 
+> > Set UPBOARD_PIN_MODE_FUNCTION to 1 to prevent a NULL pointer
+> > dereference error on .modes[i] for any pin group using this setting.
 
-The BPF_MOV64_PERCPU_REG insn requires JIT to emit native code to for
-'dst_reg = src_reg + <percpu_base_off>'.
+Hmm... bit how the modes[i] can be messed up here? 0 is integer
+and NULL is void *...
 
-However, the interpreter ignores the 'off' at its ALU64_MOV_X label.
-The 'off' indicates the insn is BPF_MOV64_PERCPU_REG insn. Then, when
-the interpreter loads memory from the register, it will hit a page
-fault.
+Can you provide a compiler warning or traceback of broken kernel with this?
 
-[    2.545572] BUG: unable to handle page fault for address: ffffffffacaaf034
-[    2.546485] #PF: supervisor read access in kernel mode
-[    2.547167] #PF: error_code(0x0000) - not-present page
-[    2.547850] PGD 134e63067 P4D 134e63067 PUD 134e64063 PMD 10021c063 PTE 800ffffeca550062
-[    2.548912] Oops: Oops: 0000 [#1] SMP PTI
-
-Set jit_required as true in order to disallow interpreter fallback in
-core.c::__bpf_prog_select_runtime(), if any BPF_ADDR_PERCPU insn is
-patched to the prog.
-
-BTW, rename the helper bpf_map_supports_cpu_flags() to
-bpf_map_is_percpu_map().
-
-Fixes: 7bdbf7446305 ("bpf: add special internal-only MOV instruction to resolve per-CPU addrs")
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
-Link: https://lore.kernel.org/bpf/20260715141122.15783-4-leon.hwang@linux.dev
-Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-[edit]
-  Add bpf_map_is_percpu_map() directly because 6.12.y lacks
-  bpf_map_supports_cpu_flags().
-
-  Apply the map lookup and bpf_get_smp_processor_id() changes to
-  do_misc_fixups() in kernel/bpf/verifier.c.
-
-  Omit the current-task helper hunk because 6.12.y lacks the verifier
-  inlining introduced by commit
-  eaedea154eb9 ("bpf, x86: inline bpf_get_current_task() for x86_64").
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
----
- include/linux/bpf.h   | 13 +++++++++++++
- kernel/bpf/verifier.c |  4 ++++
- 2 files changed, 17 insertions(+)
-
-diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-index d4a9108594bf..ed879905579d 100644
---- a/include/linux/bpf.h
-+++ b/include/linux/bpf.h
-@@ -3504,4 +3504,17 @@ static inline bool bpf_is_subprog(const struct bpf_prog *prog)
- 	return prog->aux->func_idx != 0;
- }
- 
-+static inline bool bpf_map_is_percpu_map(enum bpf_map_type map_type)
-+{
-+	switch (map_type) {
-+	case BPF_MAP_TYPE_PERCPU_ARRAY:
-+	case BPF_MAP_TYPE_PERCPU_HASH:
-+	case BPF_MAP_TYPE_LRU_PERCPU_HASH:
-+	case BPF_MAP_TYPE_PERCPU_CGROUP_STORAGE:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
- #endif /* _LINUX_BPF_H */
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index ab6263a769d2..d34a602b1e76 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -21602,6 +21602,9 @@ static int do_misc_fixups(struct bpf_verifier_env *env)
- 					return -EINVAL;
- 				}
- 
-+				if (bpf_map_is_percpu_map(map_ptr->map_type))
-+					prog->jit_required = true;
-+
- 				new_prog = bpf_patch_insn_data(env, i + delta,
- 							       insn_buf, cnt);
- 				if (!new_prog)
-@@ -21706,6 +21709,7 @@ static int do_misc_fixups(struct bpf_verifier_env *env)
- 			 * way, it's fine to back out this inlining logic
- 			 */
- #ifdef CONFIG_SMP
-+			prog->jit_required = true;
- 			insn_buf[0] = BPF_MOV32_IMM(BPF_REG_0, (u32)(unsigned long)&pcpu_hot.cpu_number);
- 			insn_buf[1] = BPF_MOV64_PERCPU_REG(BPF_REG_0, BPF_REG_0);
- 			insn_buf[2] = BPF_LDX_MEM(BPF_W, BPF_REG_0, BPF_REG_0, 0);
 -- 
-2.55.0
+With Best Regards,
+Andy Shevchenko
+
 
