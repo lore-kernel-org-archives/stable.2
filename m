@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795712307;
-	b=t4tx5ukVhdux+t4ywXU35zFsgJ/x7X2ZQYuwTVRKeB8x6VmlyduTSsB+j/abm0vZpDaM
-	 gxrEAiD5DaL44y6FD41TQeFKBdn4YsECk2in3Sg59ap2/4sbYJgyjDO2yaHeKxEW+nQmk
-	 9KV4WY4ydi1Ajg+wMjthMd+PK8cQ35bNDlh2nM5fZyDGeELfSLaVMfZeVUShzZw2ZFx3i
-	 VXd46oaJkfDYKzb1tjTI/7WJ+tv5hXeq6oMHvOOUk5k7jBn3uOGaDhDmP2PCb5oTgsIDL
-	 Kfa4jAWh9qvjYiydtMC0HiJnXcHYFcangh0u26PD24SPamo5t5I/PrYDaFOV/17jX3Q==
+	t=1795712394;
+	b=JRLqAVxuCrgCwSgpo9A59TQf5BH956KbhJFtpPNaa0YazL77L94sY8U95o/DYTxa81xW
+	 YirxlSpp23oXDAaltWaySjSH42BJswrj2v4pEtFxnbbYr9P1jSH47BXGUbqZW5k9nEvwJ
+	 QdqzsS4M29Pvri/2KytyYIrPncYaT6EkbskQM20DoheV/oagIug5CsB0vHe/3pD/DnJeB
+	 ALUJpFKyTzV0+7MRKEycQEjVFK0qfe8mR8x+RDTD/a2z977tXhwBd69EXPTZB9NPxLk9p
+	 gCrTBZ3NacKuKxWTHMbKmM9KGaABBj2mqMLL43bz4fTytT2m/uCy9HjEZhzOUiiU5hA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795712307;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795712394;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=SFkjeMH9cRbO7tleN2+mKlOYaTgd0ZrzzzD7v7mG4FY=;
-	b=TzJNkEoJD1HLRv3OjWOQ4TacxbeGN4R5+A41j0MWvcKrvGikXaTr62EYsqaf//hDwjUP
-	 N4mdKSUX9uvRo0RxdqBiIe2DcOSHjpQNLKsEf7tK76WaYrmN6IGhS0ew6aaX+GVF2T//X
-	 784PXyuYmbzy5if3o7HrZheiwY39yNbzzmjf10nqO03Xm7EOxZYDaIHs99bYYymHocMmA
-	 038sotAoL6rv1nZ5PWJ7PkHWbXxUZO5mZRsMJ1t3uKVnjCaWZtSTMXoptM88ql1BMSGPF
-	 apu6tZhNQN5GvaYhMnQWUfxqP68lfcQoTTEwFnvkn5XwADazGJsshNkVA4Ht6+2ruWA==
+	bh=r/nNEz2eJjWF638dhR6ZN9ytCIBiNk3aCoLpUSRGDtM=;
+	b=CqyKHJDRB952+/WRp7pSSGKkFMXutYdvaUD54QpgKqv8O552bFAoJ1Rr1k46exWArS+1
+	 PRChFZGdFJ3njW1Kr6GhDlTXs2pxG1FWrv2KXOMAUEekaEiNjS98zQnggkl7WDMRHbrXb
+	 e7u/i7XzhHMpdN9CeW5wSfnmck8byiU4UWZ3VAFJeOLcDHUEsN3hCto+jdhu1m+Dg59WP
+	 1ULI3bShZq7obVuEyB5B5tWa7NzzHATtmaPCSO0KeghsxBx95fNf8Bz/KiJpr/uXX31hl
+	 /oKV9QOcquOM5mR6vkipXydcMxqZypw8XPDN3gpxQXSygVSPxzFeJooiEtoW8rFzHHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0VAEDfQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ETZFaCqk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587CC606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:58:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1EC8606A326
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:59:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0VAEDfQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0068F1F000C0;
-	Thu, 26 Nov 2026 16:58:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ETZFaCqk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB9A61F000C4;
+	Thu, 26 Nov 2026 16:59:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795712306;
-	bh=SFkjeMH9cRbO7tleN2+mKlOYaTgd0ZrzzzD7v7mG4FY=;
+	s=k20260515; t=1795712393;
+	bh=r/nNEz2eJjWF638dhR6ZN9ytCIBiNk3aCoLpUSRGDtM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P0VAEDfQd+KMAUromVxfCcCMZRhwNFeJFxJzid+Nlsdk6TKzLIuiUYNJ0OFyL0fPD
-	 DBvYIi7xJOWa2eJz96y1/JMugVMjQAgg23X9tQ0qkIJgjEeidV/wc0LsX9jhwB1Vzq
-	 d4SdTwIiymy3mYkQmSMHvUgCNUwBUBWbvIN9xv3kCyLAvcVGn3Qm2JtJystc+MAixp
-	 R6MpLkmMJHVQj7huZcwuvZ5nnc+EhXU8zMYUPT2hxMapZGdJQoboX6JUgRVsIUYb5O
-	 l7swYakpa4QqZhst5OWNFR0ZSW9dUt5NO7/6+g0ZFMtPkDNwZ8rYKnnCAO0y2ZeiTY
-	 qxayMx9n5VjmQ==
+	b=ETZFaCqktw6GJdIfZTNn2aObJUq6v7kjXFAzjVzz/1UhGzE0BfisA63s2XRCAplj1
+	 Q9cPXnTR1TJij3GBPAWigxFRb0uXueFlt2uIN4ka2v61yrqJSQpzjgmX6uq7KfHghR
+	 BMHerth6PxvF+nfrKcsApq4QaLrelmN51vkjHnziPVXgphFFRvdAwFzXtv3pm+BZop
+	 xiHjosm1dw/s919SnwnppnIA8nO+op/9+apN84ao2JqRaDE7eskjQLf2hI/I30SRwV
+	 DiNpzacrNnTkj6nko7S71Fc67eSExmFUmrBod9XNcpovSIEygkTa3OCjf3tKBUr07L
+	 jt7TzD948Kttw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+Cc: Christopher Hoover <ch@murgatroid.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
 	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] iio: imu: inv_icm42600: fix parsing of all FIFO frames for odr change
-Date: Thu, 26 Nov 2026 11:58:24 -0500
-Message-ID: <20261126165818.2674164-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] iio: humidity: hid-sensor-humidity: Use per-instance callbacks
+Date: Thu, 26 Nov 2026 11:59:51 -0500
+Message-ID: <20261126165941.2680179-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112558-eggbeater-lapdog-fece@gregkh>
-References: <2026112558-eggbeater-lapdog-fece@gregkh>
+In-Reply-To: <2026112545-shakiness-blitz-8284@gregkh>
+References: <2026112545-shakiness-blitz-8284@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,84 +63,72 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+From: Christopher Hoover <ch@murgatroid.com>
 
-[ Upstream commit 4a141623442888458d147f4e61fe47411c0e4e17 ]
+[ Upstream commit bbe4f3f668babc9443fc1f075695e43e17ca7976 ]
 
-For getting all odr change events, we need to parse all FIFO frames
-in each iio device. Fix this correctly by sending effectively all
-frames to all iio devices.
+hid-sensor-humidity keeps a single static struct
+hid_sensor_hub_callbacks for all instances and overwrites its pdev in
+every probe, so with two humidity sensors, input reports for one are
+delivered with the other's platform device, and a NULL dereference
+follows once that device is removed.  The same bug was found in
+hid-sensor-temperature, which shares this code.
 
-Previously only batches of frames containing a matching sensor event
-were sent to the corresponding iio device.
+Keep the callbacks in struct hid_humidity_state, as the other HID
+sensor drivers (accel, gyro, als, ...) do.
 
-Fixes: f670d4d34773 ("iio: imu: inv_icm42600: fix odr change not caught in certain cases")
+Fixes: d7ed89d5aadf ("iio: hid: Add humidity sensor support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Signed-off-by: Christopher Hoover <ch@murgatroid.com>
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ sashal: Adapted the timestamp field from aligned_s64 to u64 __aligned(8), and fixed the whitespace in the sensor_hub_register_callback() argument alignment. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../imu/inv_icm42600/inv_icm42600_buffer.c    | 24 ++++++++-----------
- 1 file changed, 10 insertions(+), 14 deletions(-)
+ drivers/iio/humidity/hid-sensor-humidity.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-index cb4520b184b01..9bb5fe639955e 100644
---- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-+++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-@@ -531,22 +531,20 @@ int inv_icm42600_buffer_fifo_parse(struct inv_icm42600_state *st)
- 		ts = iio_priv(st->indio_gyro);
- 		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_gyro,
- 						st->timestamp.gyro);
--		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
--		if (ret)
--			return ret;
- 	}
- 
-+	ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
-+	if (ret)
-+		return ret;
-+
- 	/* handle accelerometer timestamp and FIFO data parsing */
- 	if (st->fifo.nb.accel > 0) {
- 		ts = iio_priv(st->indio_accel);
- 		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_accel,
- 						st->timestamp.accel);
--		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
--		if (ret)
--			return ret;
- 	}
- 
--	return 0;
-+	return inv_icm42600_accel_parse_fifo(st->indio_accel);
+diff --git a/drivers/iio/humidity/hid-sensor-humidity.c b/drivers/iio/humidity/hid-sensor-humidity.c
+index fa0fe404a70a2..b13b20a36ddfd 100644
+--- a/drivers/iio/humidity/hid-sensor-humidity.c
++++ b/drivers/iio/humidity/hid-sensor-humidity.c
+@@ -16,6 +16,7 @@
+ struct hid_humidity_state {
+ 	struct hid_sensor_common common_attributes;
+ 	struct hid_sensor_hub_attribute_info humidity_attr;
++	struct hid_sensor_hub_callbacks callbacks;
+ 	struct {
+ 		s32 humidity_data;
+ 		u64 timestamp __aligned(8);
+@@ -184,11 +185,6 @@ static int humidity_parse_report(struct platform_device *pdev,
+ 	return ret;
  }
  
- int inv_icm42600_buffer_hwfifo_flush(struct inv_icm42600_state *st,
-@@ -569,20 +567,18 @@ int inv_icm42600_buffer_hwfifo_flush(struct inv_icm42600_state *st,
- 	if (st->fifo.nb.gyro > 0) {
- 		ts = iio_priv(st->indio_gyro);
- 		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.gyro, gyro_ts);
--		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
--		if (ret)
--			return ret;
- 	}
+-static struct hid_sensor_hub_callbacks humidity_callbacks = {
+-	.send_event = &humidity_proc_event,
+-	.capture_sample = &humidity_capture_sample,
+-};
+-
+ /* Function to initialize the processing for usage id */
+ static int hid_humidity_probe(struct platform_device *pdev)
+ {
+@@ -240,9 +236,13 @@ static int hid_humidity_probe(struct platform_device *pdev)
  
-+	ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
-+	if (ret)
-+		return ret;
-+
- 	if (st->fifo.nb.accel > 0) {
- 		ts = iio_priv(st->indio_accel);
- 		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.accel, accel_ts);
--		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
--		if (ret)
--			return ret;
- 	}
+ 	platform_set_drvdata(pdev, indio_dev);
  
--	return 0;
-+	return inv_icm42600_accel_parse_fifo(st->indio_accel);
- }
+-	humidity_callbacks.pdev = pdev;
++	humid_st->callbacks = (struct hid_sensor_hub_callbacks) {
++		.send_event = humidity_proc_event,
++		.capture_sample = humidity_capture_sample,
++		.pdev = pdev,
++	};
+ 	ret = sensor_hub_register_callback(hsdev, HID_USAGE_SENSOR_HUMIDITY,
+-					&humidity_callbacks);
++					&humid_st->callbacks);
+ 	if (ret)
+ 		goto error_remove_trigger;
  
- int inv_icm42600_buffer_init(struct inv_icm42600_state *st)
 -- 
 2.53.0
 
