@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.23
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795675676;
-	b=uyaz3k4oMl+bfR8CL1ck5zMYmJfrtYKD5PqvJXO8/MV1/M36EnKFP5s09ZAPE9qkrLzb
-	 8+xcebv/RfMw3ptaqXPon990m1BhVZfAXyCT8a/TkwrKBnTDMIbsqOQuBRp7sn5S70Ul0
-	 Xzm96cHV60EP9WlfefaUyWl2aEJnQGtslwmm6igtwRNuObHTa+MMIWYhmYGp19g/GCQgk
-	 IK0yTPQZD+/tu4AdbovyavQPBudAM294ndIk8uc3jXemDByl9mC9zVAtmb5IofhJZm+Qp
-	 aQ+Og8RTq4vRT0pYOpFgbr5fqH/vGRFEF0EXtNyvj+0ULwZ7qtL++Rd1OUvz47tTLoA==
+	t=1795675802;
+	b=IHIwnU0Rv8yK4IdLkPDrTwhNgTzw1cG1o4s4Dqfs7k4E0nqW4QWiWBo17gBACRiznvXC
+	 ItqoLkPIZfIznWsz3IEhd8B3PJKcYt+aZaKAGLaYg6UjZx1yNuwUhmtHkqg9XGLiZB/1I
+	 JzJ3uPMrEhEQvnIbKVR+rGZ9h4wviy+SADNZFheBrrOLt+a8WjLUlHcnB/xV6MRO4Zw+/
+	 mIBZMMl/z32ugl2HU9v5cmyxieOVb2BMC9IAKGeZQQJsR0B1/VWRZt8UPCk1oaxvp3BYM
+	 9gqSCs9DvCLqMMY1DA++V264YOo/L/NfwuBDbDwD9Kb+JPK4UC6no61egLpsggMv0PA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795675676;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:Content-Transfer-Encoding:
-	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=c+BMZ/Bhsn2DpY2EQn+VzntybXZ2UACBm5iLxRxaZ5I=;
-	b=npCgL2uU2i2j3h3+qVmePzqRjI68bHhkyh9BbhZxvKH7UGA7RsielEUWUo0iTGC7wn4W
-	 1Sa2q7R/Ioxe7JoJ/xc/PAfbKBzjbaoHcqFdUhojRJ4qSbaRHv1s4vbJyZH7HQYm3M3Ps
-	 FyJ6L7j97wRwBj4aq78Lus3ZWcmVBVWNBd08RcgWaEfLBOVlRIyBwcdcLhioK55GjKA9H
-	 Q8Fx1lCA5K25J4GSYyP6IxskQ215jWS5wgnUOalY57N70bpQbLnrcgNJ5ehMrgbb062uM
-	 yTH1GWcc2CgJhWwfCU3cxHJpy4VYlMMSq5dXibWRxSp25qWk15sr0tKVUzr8RMo7e4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795675802;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=Mpf7Ljv4QJCH/jn5eOpMHYLJnRNv/ql+rFY7OR9QaFc=;
+	b=gyfon2idbKyu7BLK8kpZrLQ4fsSkR8PGJz0eQy30tOuBYnlVs21s3sV0F0eyxrPBhi/T
+	 5JctszkH9ZiUo3/W6ODgxjnvaVWpwNEerMx6bPGVw+9Bt9Bec/fBRGu4UVBOVg1FvmPTt
+	 hoUl65blXGal+zvI4jGjDEt65RBDKGcoT2c/7f1HqGp2SfoZ6Fqaa8mTyToFU2Cn1BRkG
+	 DTUya+xtlki6LjnBG2LmOkfa2oM9DrYtzpabYlOebmvLVxCmWARx4XBUK13bu92DtwZQF
+	 g8lNz/xVkLr8QoiakWeJSeeinQJJ+zPl1g82hyFGasK4V1nDPFOpjQb24wOlaQziIYA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=X+uIVAvD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.23
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010023.outbound.protection.outlook.com [52.101.201.23])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HM0iUQea;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11B6606A31C;
-	Thu, 26 Nov 2026 06:47:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D11B6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62902606A31E;
+	Thu, 26 Nov 2026 06:50:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=X+uIVAvD
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cLg4ZwjFe+s+tJWETGIiVGQSotzYlXhJhWRmce/bZ8AG3V6yyIYhxH9gyCeatvNdkAip/sc9s1Ei54ZBUwJ+FlA1bGiuGq06Do9uFMYUXI4mpOHXlJKJXJKjfxNz/9v/0noSWjsayA+2YQ/k4zPrIb/63R6rCAjfX7BzIPM6MkBUy4V8FHyHYzKXhkfc79p6Rw8XAWu2kpe++oiFdOtbrf++Yf47RFHPeRn/JUu2BQ8AFN7vzSQihr18A1L96Jc0/H9PcDEUS/jNsBzfvnjn4Q4l36s+fnJBvq4sB9Edhywk02BU7dhqmyT/Gl+Ojlq28rbocuxWhtv2e4V7enf43w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c+BMZ/Bhsn2DpY2EQn+VzntybXZ2UACBm5iLxRxaZ5I=;
- b=B+CKertZobAtRGv/eLaGwAOXz96bfZFJo7+H57Gh0m0RaWEQE3Oeyp3His2hKEadm95yL5b4YTMA7JhuFJhoQLdDRxwhhDEKHEfIAF5fQLMIPickNRKu02ITtaEVtZdxJw4Jwabbs+FHfLP7ItJoe6gFZ7QppHT8QrDGB134BHvFVGG9+ngNdyZjJYRh9e2hJIdPjEemyKfDeQKDn2Iu25lOJBUVlNUhD6Je3bmFiRDeVXoS4rrJCfU/yOtT1mWsiH9lxy7vrZePmQqSgRzQRgDm2+VojqZmFowFPaqzA+BIs4QQxCrNxfq7MljReDAlERi6eQT6PM9LlUskAYsF/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c+BMZ/Bhsn2DpY2EQn+VzntybXZ2UACBm5iLxRxaZ5I=;
- b=X+uIVAvDeiryCKicQkzEfVeQi/CiIQtb2CGWEcuNRSn+WTA3ofDdXJynyij69VIGdxP8zJW0Xs+oj1ll/GHjjCbi20ERzjh+o6In6dFKAr375rkg6xOYYi/115hjvUaS1VGxzXGsCfKajy98ttVPwEAomNh+vy4/MrQJO0r3KBZiob9kSGVJs2QplkOBHPLhnW7gPJWcbQ2XacSq1Cn+XIgsGNrbUqhfLdSs+YSzErOXlz8v0mF3W+pJ9VwLrhC6TbIM3mvLwPlUxDfe+JjNrxmE2NBSNY7l3HaR8n3PjTezPJI2GD4WrWTtWlpz6lhAdJ+B92Ca1Mf5Kqw1s3AObQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by SN7PR12MB7348.namprd12.prod.outlook.com (2603:10b6:806:29b::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.7; Thu, 26 Nov
- 2026 06:47:51 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0639.012; Thu, 26 Nov 2026
- 06:47:50 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-To: Thierry Reding <thierry.reding@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Hunter <jonathanh@nvidia.com>, stable@vger.kernel.org
-Cc: Svyatoslav Ryhel <clamor95@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>,
- admin@tsv-stahl-riesa.de
-Subject:
- Re: [PATCH v2] gpu: host1x: Cancel the fence when a syncpoint wait is
- interrupted
-Date: Thu, 26 Nov 2026 15:47:35 +0900
-Message-ID: <bE28ymIUSh2y3qW_UGpq2g@nvidia.com>
-In-Reply-To:
- <20261122-upstream-host1x-fence-cancel-v2-1-204760056348@tsv-stahl-riesa.de>
-References:
- <20261122-upstream-host1x-fence-cancel-v2-1-204760056348@tsv-stahl-riesa.de>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: OS3P286CA0027.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:1f4::18) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HM0iUQea
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795675802;
+	b=nyAHcdSDIAd68rqbDEvfiHNgv/+8Bb8uXvDlOZ0UFwvG5DrVkQavwrL7PVIxydGOYShm
+	 WeoNTB72wSCUrbMy3muzom92KHiNXjg0ifqIUB5jUK3w98fDl0VhpTJKzzeAqiAAGOk1U
+	 6/ooBwk4L5hsckxqoGFEi1F6sX4lfxOYQneD2s0/j/YrJGpdew1dSZLUVYBxqWM+gr+Zx
+	 MniamDieqqN8vdwosb7AbD/+vnzQRs5OEuZFYiEi9J15ZARJbrIdB94WlzWci6HUc6C6m
+	 5I7oZth8dKwtNaWMbi6J16qwZ+bzj6+p5zju8lR8PHFe/VHZwkQsKNJ8Os36IBDpPGg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795675802;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=Mpf7Ljv4QJCH/jn5eOpMHYLJnRNv/ql+rFY7OR9QaFc=;
+	b=JMPaej4g9LPlPTMItBRU2LCY7vi4oxQnUKx2O7EAN4L+Sv87i3+OOTnRfI4abyffRT9y
+	 8DGv4Qqcz/mBCDyTpiI9P0+IDHRAhq1IGCmpbRjSTpoPBJLlAJs1u2r8LiRTPUjsoC1gx
+	 hcVK65wdAQ/Sd8lxEF3pDMvjSWAh0mPugi7+PdpRJCI1TBZP2FgY7tGztUvh1OSoMaGBo
+	 NZivdQhIHPzfN2GTka/zKhdF758AwtnQJF0ANaVxeAMc2dCkylDeBtIpH+PaYDbVoV5Xw
+	 mZWrgonVfgTNDoV14iqaEW6P60aybt/pOvCISSMGWE+8WqKKAaxHp6M9JjKQsnPSF7g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 48D0E1F000CA;
+	Thu, 26 Nov 2026 06:49:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795675802;
+	bh=Mpf7Ljv4QJCH/jn5eOpMHYLJnRNv/ql+rFY7OR9QaFc=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=HM0iUQeauJF25MLM0ESYvdrLam1iJ2ZZ8IRSEgneOGZpweHWtIH/S2Wqhz5SQz+aM
+	 aspWH1tDPSHSIOw8rPu1i137fZQEPH/b8yNTos2ySwAzyoZuRc66mfkChYUrHoF4b/
+	 WTVV0jfCxyft0C7YH86alqL95rv2trz3ZKT0Z/zUPkRM0x879ppJxNbrUR1cPPniB4
+	 ikpyjilwmlJzlr6pfAPge1AzPde00JJ4uegNjWo+grtZZYSeWheuwuXZ4qmvPK09R8
+	 Zt51AHnlg6BqRrR6AbVeyik9mAbj9dph11LkDE/9P67f/ByrxFSFTlqflLoxkNRSSQ
+	 mbTSo2yjJIz5g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C534F4D2A0;
+	Thu, 26 Nov 2026 06:49:55 +0000 (UTC)
+From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
+Date: Thu, 26 Nov 2026 06:46:19 +0000
+Subject: [PATCH 6.1.y v2] btrfs: fix xattr replace when multiple xattrs are
+ packed in the same item
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,215 +83,304 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|SN7PR12MB7348:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a1e1add-2f66-424c-5bcb-08df4b893057
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|1800799024|23010399003|366016|376014|10067099003|56012099006|261028144727099003|261102123227099003|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261026140227099003|261026121527099003|261009223027099003|18002099003|22082099003|11063799006|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	Tax/EDdEkaKpPRS4h3L8pzlfN1A6dMRrpQOn0m7ZDgG5k9k0J52LdHjHtgG6xhQplceDWqE27HxJhR0fd/GBYTVsGuTFxvCNQlHBCWDk55M0xQlIqStz3nAuTmGPrNWzN60Jv/0T6eYFDU5NAELb8Fmm+MpFqtYjd4nPW8F9QpGaM3rDON33DsKaZI7d0ukWIiIT077cBXCUcZPCTVgBQ7xCWHAno3yAuoeSogJ6sAysHK81d3vyRPke1LBBsRDgVWKDljx4rHEqfXR7JP7BkR8Op87Vf6d7XcXCyLpu/IHws5jQ8Q12g2Xpo/sRCtquSr2IoklgiWdWtlD4IBbVCNzvQ3zfrgNlePu7OP5qtNav9vGfyLi7UDQJVuIGwD15osYBeq6jMJm90lGVVW78YV5dix6oCX9Z/ih3aOyOsTMxWQ9Av8HCZA+NQdpIOZtbZU61d2b/lwi2n92n8yJC183glrJvn6J6atTv27D82Fm/GtymJa31WxHlQukRhHjPgHJYff/sP5FjdLGFxP6tPLuyTJuQKOgKHO0efF9lH4gI7OF4m8pOl4L/tfTTK57ZFq3vBi6uY6GKKKLR7jCv4bYTc601lQ3Pf4mD0ZKAAhgcLK0dMWL0xhk3Hqkr1cTEhrYepv1ry+rf1oS7fPat0vjGQny3s8WVbWQYYydlnyQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(1800799024)(23010399003)(366016)(376014)(10067099003)(56012099006)(261028144727099003)(261102123227099003)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261026140227099003)(261026121527099003)(261009223027099003)(18002099003)(22082099003)(11063799006)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?d1d1NlhRb0RYaTl3VXpYTVZMWUR2YXo2SCtyWTROSldRdDVYZ040ZG11VnYr?=
- =?utf-8?B?N3hRRXJvVGJ3L051K2ZmWXhnL2FrZGtKTE9NN3pmZkJmei9oMERzdFVyVTVa?=
- =?utf-8?B?SGFVZDhCaFd6YTI2ckdISVRWNzJxQkMrZ0ppajJtYW9sT0s4dHJSU2g3ejh1?=
- =?utf-8?B?VHFWRXAvMENrL1FSTlE0elc3MEFnU2hWRE5tdWpVWE5OYzUrV0FuWTE5Q1dr?=
- =?utf-8?B?dkN6eGE4WXFKbldUWXMreU5NVkllQzY1RkxLZFpKT1ZXbkZZRkpYZm9xOEVN?=
- =?utf-8?B?bUNwRmFmd2RlMzFBZ2VoTWljRUpaamVWcVI2bk82UjhsSTV4cUxMNmErMkgx?=
- =?utf-8?B?eFhqTWhxZTNObmtvL0tlUy83aS9PaTFQSTBjc21RYXVxclc4N1lGT1loc1dK?=
- =?utf-8?B?WTRsVFVVVmFGUUZKUzVNcWt6eENBcTBSNXlZcFhzUE9uMkxkZGg2RkZJcE1T?=
- =?utf-8?B?VFVSMks4cEl3eENaWkd5YjFpR0VKaDBrNldaSDlRMWpUSTJEdWI5dVcxM0Ew?=
- =?utf-8?B?ampRbzJrbDRRQmllMnRWZ0IrTlcyMFZQMXNKVEgzQWN2M3kwc1ZNbGFRSHVZ?=
- =?utf-8?B?VC92NitBUjNCazFObGwrckxZQU52OVZBMCthVWNMSUJNZUh3VTNVQ1lldDk3?=
- =?utf-8?B?NUk0T09NNjkzU2NYdzU1UXdVNDlaZiszZXFrUUltK0lmMFRqRm1vWGY5YmRU?=
- =?utf-8?B?UnBPQ0NndG9kYmJUWjdocm5PRVgxR1pSWEF0QUkvOUY3UHp4dVh2MDZnekJW?=
- =?utf-8?B?QjA3QS96S2FFbHY5bjVIbzVHbzZyQUU2Y1k3akVac2YwY053VFNjeEY2Qi9l?=
- =?utf-8?B?SmhRYmMwZ1QvVkhqYXBZdW1EOWxZazVtTm1nSHFpVHhFczFlcS9LTVZ2emJP?=
- =?utf-8?B?MzhUTGJSWVlKYjNzclFjWTRueWRDanVxd0puaDlmZDMrKzQyN2RYMndhaUsx?=
- =?utf-8?B?OGE3MHgzdEI4eCtkTmo1T29ockNWY3NQMm5ITVpvaW10K0x4cURBUW1TZ080?=
- =?utf-8?B?TGFMOTY0UkN4OXZ3dGRHNWh5cnpHVkVyQnAwQksvVVFrYXdGSW5ZK1l2V094?=
- =?utf-8?B?dU10MEJIMzlsNlpVa3hnU2xMTWFldWFUWkdMMllFNDRFaGpRZVV3a3dKbDFo?=
- =?utf-8?B?eVJJUzJVTi9OS1QyVDAxaGo1bWpQU3RtYjhkc1NBM2lhdWFsMjRpSk1GdmRz?=
- =?utf-8?B?T21IU1EzUDRNVTFpdnI1VG9DaTdKUCtBZ2IzYTNVQ1JHTzFKeHJMTENhTGdO?=
- =?utf-8?B?RmxJNHZiWm95SkJVWk9rQmRxTHNGTE82elY0dkpab3ZSeFloVStoWk82OVNK?=
- =?utf-8?B?Um96NHhPSFMzSG5wWTdXekQ2dHpHMHllTXl0ai9KYVF1SGMrNnNOeHp1dDlB?=
- =?utf-8?B?T08xSExCTjh6V0p3YStNbU9WVUpXVFZVOGdHTmEzNWxDVW5CcXBhcE05SUxm?=
- =?utf-8?B?Y01UeC9zZ2p2Qkoxa29jbWQvN3FKREdwT0VSM0xOa1dLUXFGUkxDTGk1UG9Z?=
- =?utf-8?B?TzFxdW13NWRvSWo0b0g5Ni9nMmVKbWM2dDFKMkVBN3RPSWJ0bmMrMGFuRVZr?=
- =?utf-8?B?d2tIQUo4aGxiTktXZnVyakhJeVhDdDdTNHBBL0FNVTkrS0x4MkFFREl0SWND?=
- =?utf-8?B?SW9BSjJVL0VsTXo0dnc4RXY3SkNUNTZvMjZPSTNmd2pianlxNk03NUpjbWpC?=
- =?utf-8?B?VVR5Nkw2Qm5RNnVEY0k0dEVSRHVVUm80N1NzMUV4WHZHcTB0MlprY0wwVzJh?=
- =?utf-8?B?eEJsU25EcGJKb0JxYTk1ODlLbmxVRFBMSEV0cnYyckpIT3RTVmt4dTdrWlBX?=
- =?utf-8?B?SkkySEpBNEdGdUxkUWFReURGdnZ3akxhSlcwKzZBbHljZkNjM0RRRWZhT2Zl?=
- =?utf-8?B?ZEhFOTR0Vk5vVHVOQTd0Mnd4bzh6elEzbjFvN1hQdE5mT09XcE9ob3FaNytU?=
- =?utf-8?B?RHZVRnYzZm5GdXRWQ1lUNCs0YkIwdzc0MEpYZTBoRXBnSkY1L0xIbVl4ZDE0?=
- =?utf-8?B?M05UYnNRRkJyS2podTNSeXdkNFRNUDJTMnpoTHdOYk52WGUwdGRkVHVzWFN4?=
- =?utf-8?B?azM4dTFuNkltMVZYNXo3N2ltSDVtY2lNa09Ld056NktoRGRuOWgxbXlNdVU1?=
- =?utf-8?B?Vzh3eFB5dUZjTG9ROHZXQ3BMbVpLM0lEM0M1U3N5M3lXZXM2QjI5WGtSdHdN?=
- =?utf-8?B?WFJGYzZyVzNCdVFDbVpiKzIrMFIrTExZcDVmMFROTm9yaFBBaTNQNU1aM0Z1?=
- =?utf-8?B?SG12TCs2cWw0b2tUVTFBUVNFQkdnRFZWcWhabE9MczBqV2FTRVVjT3VRK2Jx?=
- =?utf-8?B?TzVkTmVtdjJEVmhzanA5RmF0ejhnLzJtanZKVDRvNmZ6Q1kwK1dRWkwvdzlR?=
- =?utf-8?Q?j+e4jsVmHF2DLmZ9P9jTUIzquI231WOWAGYGT2RX9KXpL?=
-X-MS-Exchange-AntiSpam-MessageData-1: mrsRAu/JI5mZWw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a1e1add-2f66-424c-5bcb-08df4b893057
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2026 06:47:50.7412
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JPdBWjxtPq4qGWgO00f/AGP2BCnxTbb+C+RH6dza1p5uhTG4nRLYmRfIeb0mfbf5cCvl1irwBqrY4K7LEPgeAA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7348
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261126-btrfs-61b-v2-1-aad130df1845@certik.com>
+X-B4-Tracking: v=1; b=H4sIALvVB2sC/z2M0QoCIRAAf+XY57xODaN+JXpwde2M0HAtiuP+P
+ S3ocYZhFmAqkRiOwwKFnpFjTg3UZgA323QhEX1jUJMyUiojsJbAwkgUYY9Be72bUB+g9fdCIb6
+ +rxOYUY5vOP80P/BKrvZPD9EyCSw2ubkrpuRrzjfR/fb/h3X9ALmvWVWeAAAA
+X-Change-ID: 20261126-btrfs-61b-f7bf3d340b39
+To: stable@vger.kernel.org
+Cc: Filipe Manana <fdmanana@suse.com>, Qu Wenruo <wqu@suse.com>, 
+ David Sterba <dsterba@suse.com>, linux-btrfs@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795675579; l=14064;
+ i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
+ bh=O8z0LQVV004wUML1nAGQ3ZozIGALlbDHarb1p4wLvfQ=;
+ b=aMJhiE4S7vnOFGs/A/JyVTfmiAoEod3aPFve6H6DUGgUAh+IXXsI10QeJJjnUw92uQjn9G0WJ
+ KVivBawyQuDAOmXpBEYkYUsSi5Nj61kdo+6NBdM5eoKC+SLRgOf82+X
+X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
+ pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
+X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
+ auth_id=1647
+X-Original-From: Dickson Wu <dickson.wu@certik.com>
+Reply-To: dickson.wu@certik.com
 
-On Sunday, November 22, 2026 6:12=E2=80=AFPM Patrick Fischer via B4 Relay w=
-rote:
-> From: Patrick Fischer <admin@tsv-stahl-riesa.de>
->=20
-> host1x_syncpt_wait() creates its fence without the internal 30 second
-> timeout and cancels it only when dma_fence_wait_timeout() returns 0.
-> If the wait is interrupted, dma_fence_wait_timeout() returns
-> -ERESTARTSYS and the fence is left on the syncpoint's fence list,
-> holding the reference that host1x_syncpt_fence_enable_signaling() took
-> for the interrupt path. It is freed only once the syncpoint reaches the
-> threshold, which may never happen.
->=20
-> Callers that retry on -ERESTARTSYS allocate a new fence each time.
-> tegra20_channel_capture_frame() retries in a loop without delay, and
-> while the syncpoint does not move, for example with a camera that
-> delivers no frames, every round leaks one fence until the system runs
-> out of memory. Svyatoslav Ryhel reported this as an out-of-memory crash
-> in the VI capture thread; the allocations in his report come from
-> host1x_fence_create(), called by host1x_syncpt_wait() from
-> tegra20_chan_capture_kthread_start(). The DRM syncpoint wait IOCTLs end
-> up in host1x_syncpt_wait() as well, so a process that is signalled while
-> waiting leaks a fence the same way.
->=20
-> Cancel the fence whenever the wait did not succeed. host1x_fence_cancel()
-> is safe if the interrupt path has signalled the fence in the meantime,
-> as do_fence_timeout() then returns early.
->=20
-> host1x_fence_cancel() can also run before signalling was enabled on the
-> fence.
+From: Filipe Manana <fdmanana@suse.com>
 
-Well, not before this patch is applied, which is good to clarify, but=20
-not a big deal.
+commit 858bee1c77857aabcc2327cd32dd8266332de332 upstream.
 
-> fence->list is only initialized in host1x_intr_add_fence_locked(),
-> so host1x_intr_remove_fence() would then see a zeroed list head, call
-> list_del_init() on it and report the fence as removed, after which
-> do_fence_timeout() drops an interrupt path reference that was never
-> taken. Initialize the list head in host1x_fence_create() instead.
-> host1x_syncpt_wait() does not hit this today, as
-> dma_fence_wait_timeout() enables signalling before it checks for a
-> pending signal, but the cancel path should not depend on that.
->=20
-> The leak was found with the help of an LLM assistant reading the host1x
-> and dma-fence code against the call chain in the report.
->=20
-> Fixes: d5179020f5ce ("gpu: host1x: External timeout/cancellation for fenc=
-es")
-> Cc: stable@vger.kernel.org
-> Reported-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
-> ---
-> Svyatoslav reported the out-of-memory crash, and he confirmed off-list
-> that v1 stops the leak on his LG P895 (Tegra30). v2 changes the code,
-> so that confirmation does not carry over to it.
->=20
-> I have not run v2 on hardware. The Tegra Note 7 I work on only
-> captures with Svyatoslav's out-of-tree VI/CSI patches, and I have not
-> tried to trigger an interrupted wait there. Build-tested for arm and
-> arm64. The DRM IOCTL case in the changelog comes from reading the code;
-> I have not tried it. The same goes for cancelling a fence before
-> signalling was enabled, which no caller does today.
->=20
-> The retry loop in tegra20_channel_capture_frame() still spins without
-> delay as long as the wait keeps returning -ERESTARTSYS. With this patch
-> that costs CPU time instead of memory; how the VI driver should handle
-> an interrupted wait is a separate question.
->=20
-> Tool use (see Documentation/process/generated-content.rst): an LLM
-> assistant (Claude, in a chat) found the leak by reading
-> host1x_syncpt_wait() and the fence code against the call chain in the
-> OOM report. Claude Code then checked the finding against the code and
-> wrote the change, the changelog and this note from my notes and
-> instructions. For v2, the chat checked Mikko's point against the code,
-> and Claude Code applied the change and extended the changelog. I
-> reviewed the change.
-> ---
-> Changes in v2:
-> - Initialize fence->list in host1x_fence_create() instead of
->   host1x_intr_add_fence_locked(), so that cancelling a fence before
->   signalling was enabled is safe (Mikko Perttunen)
-> - Link to v1: https://patch.msgid.link/20261113-upstream-host1x-fence-can=
-cel-v1-1-89f453504222@tsv-stahl-riesa.de
-> ---
->  drivers/gpu/host1x/fence.c  | 1 +
->  drivers/gpu/host1x/intr.c   | 2 --
->  drivers/gpu/host1x/syncpt.c | 2 +-
->  3 files changed, 2 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/host1x/fence.c b/drivers/gpu/host1x/fence.c
-> index 1acf579c562b..f77a391b9195 100644
-> --- a/drivers/gpu/host1x/fence.c
-> +++ b/drivers/gpu/host1x/fence.c
-> @@ -134,6 +134,7 @@ struct dma_fence *host1x_fence_create(struct host1x_s=
-yncpt *sp, u32 threshold,
->  	fence->sp =3D sp;
->  	fence->threshold =3D threshold;
->  	fence->timeout =3D timeout;
-> +	INIT_LIST_HEAD(&fence->list);
-> =20
->  	dma_fence_init(&fence->base, &host1x_syncpt_fence_ops, &sp->fences.lock=
-,
->  		       dma_fence_context_alloc(1), 0);
-> diff --git a/drivers/gpu/host1x/intr.c b/drivers/gpu/host1x/intr.c
-> index 30f3dff4487b..380f679b4d7f 100644
-> --- a/drivers/gpu/host1x/intr.c
-> +++ b/drivers/gpu/host1x/intr.c
-> @@ -47,8 +47,6 @@ void host1x_intr_add_fence_locked(struct host1x *host, =
-struct host1x_syncpt_fenc
->  {
->  	struct host1x_fence_list *fence_list =3D &fence->sp->fences;
-> =20
-> -	INIT_LIST_HEAD(&fence->list);
-> -
->  	host1x_intr_add_fence_to_list(fence_list, fence);
->  	host1x_intr_update_hw_state(host, fence->sp);
->  }
-> diff --git a/drivers/gpu/host1x/syncpt.c b/drivers/gpu/host1x/syncpt.c
-> index fe74ff6fc6f2..f9c871f218f3 100644
-> --- a/drivers/gpu/host1x/syncpt.c
-> +++ b/drivers/gpu/host1x/syncpt.c
-> @@ -247,7 +247,7 @@ int host1x_syncpt_wait(struct host1x_syncpt *sp, u32 =
-thresh, long timeout,
->  		return PTR_ERR(fence);
-> =20
->  	wait_err =3D dma_fence_wait_timeout(fence, true, timeout);
-> -	if (wait_err =3D=3D 0)
-> +	if (wait_err <=3D 0)
->  		host1x_fence_cancel(fence);
->  	dma_fence_put(fence);
-> =20
->=20
-> ---
-> base-commit: 9d66f26fefacebfeed15de31c1123451a17ff119
-> change-id: 20261113-upstream-host1x-fence-cancel-0b32753150d6
->=20
-> Best regards,
-> -- =20
-> Patrick Fischer <admin@tsv-stahl-riesa.de>
->=20
->=20
->=20
+If we have a btrfs_dir_item item that packs multiple xattrs and then we
+replace the value of one of them (with the setxattr(2) family of syscalls)
+with another value of a different size, we end up not having a fully
+initialized btrfs_dir_item, resulting in a corruption that the tree
+checker will detect at extent buffer writeback time.
 
-Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
+This is because in btrfs_setxattr() when we find a btrfs_dir_item with
+multiple xattrs (due to the crc32c hash of their name being the same)
+we delete one of the xattr items (btrfs_dir_item) and then insert a new
+one, but the deletion and insertion results in shifting existing data in
+the leaf and therefore when the new value of a xattr has a different size,
+the new btrfs_dir_item is placed in a leaf section that was not
+initialized and we only copy the value's data and set the value's length
+in the new btrfs_dir_item, without setting the name, the name's length,
+the key (which must be all zeroes for xattrs), flags (BTRFS_FT_XATTR) and
+transaction ID.
 
+The following script reproduces the issue:
+
+  $ cat test.sh
+  #!/bin/bash
+
+  DEV=/dev/sdi
+  MNT=/mnt/sdi
+
+  mkfs.btrfs -f $DEV
+  mount $DEV $MNT
+
+  touch $MNT/testfile
+
+  # Add two xattrs that, on btrfs, have the same hash (crc32c) for their
+  # name and therefore are packed into the same btrfs_dir_item.
+  setfattr -n user.foobar -v 123 $MNT/testfile
+  setfattr -n user.WvG1c1Td -v qwerty $MNT/testfile
+
+  # Verify the xattrs are present.
+  echo "xattrs before:"
+  getfattr --absolute-names --dump $MNT/testfile
+
+  # Now replace the value of the foobar xattr with a significantly larger
+  # value.
+  setfattr -n user.foobar -v abcdefghijklmnopqrstuvwxyz $MNT/testfile
+
+  # Check the xattrs have the expected values.
+  echo "xattrs after:"
+  getfattr --absolute-names --dump $MNT/testfile
+
+  umount $MNT
+
+Running it:
+
+  $ ./test.sh
+  (...)
+  xattrs before:
+  # file: /mnt/sdi/testfile
+  user.WvG1c1Td="qwerty"
+  user.foobar="123"
+
+  xattrs after:
+  # file: /mnt/sdi/testfile
+  user.WvG1c1Td="qwerty"
+
+So the "user.foobar" xattr is missing and there was a transaction abort
+when unmounting the fs with the following traces in dmesg:
+
+  $ dmesg
+  [869800.159271] BTRFS warning (device sdi): access to eb bytenr 30474240 len 16384 out of range start 16015 len 25964
+  [869800.159293] ------------[ cut here ]------------
+  [869800.159296] WARNING: fs/btrfs/extent_io.c:4408 at report_eb_range+0x44/0x60 [btrfs], CPU#8: getfattr/2605179
+  [869800.168961] Modules linked in: btrfs dm_thin_pool (...)
+  [869800.190527] CPU: 8 UID: 0 PID: 2605179 Comm: getfattr Tainted: G        W           7.3.0-rc3-btrfs-next-244+ #1 PREEMPT(full)
+  [869800.193726] Tainted: [W]=WARN
+  [869800.194502] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.16.2-0-gea1b7a073390-prebuilt.qemu.org 04/01/2014
+  [869800.197576] RIP: 0010:report_eb_range+0x44/0x60 [btrfs]
+  [869800.198985] Code: 48 8b 7b 18 (...)
+  [869800.203531] RSP: 0018:ffffce4541937d58 EFLAGS: 00010246
+  [869800.204609] RAX: 0000000000000000 RBX: ffff8dde054b8738 RCX: 0000000000000000
+  [869800.206137] RDX: 0000000000000000 RSI: 0000000000000001 RDI: ffffffffc04c92a0
+  [869800.207645] RBP: 0000000000003e8f R08: 0000000000000000 R09: 3fffffffffefffff
+  [869800.226175] R10: ffffce4541937a88 R11: 0000000000000003 R12: 000000000000656c
+  [869800.227594] R13: ffff8dde14be800f R14: 000000000000656c R15: 0000000000000069
+  [869800.229097] FS:  00007f59023bb780(0000) GS:ffff8de5788ed000(0000) knlGS:0000000000000000
+  [869800.231137] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+  [869800.232321] CR2: 0000558dc45e6a78 CR3: 0000000765b16004 CR4: 0000000000370ef0
+  [869800.233783] Call Trace:
+  [869800.234330]  <TASK>
+  [869800.234791]  read_extent_buffer+0x4d/0x100 [btrfs]
+  [869800.235898]  btrfs_listxattr+0x199/0x240 [btrfs]
+  [869800.236912]  vfs_listxattr+0x51/0xa0
+  [869800.237683]  listxattr+0x7e/0x100
+  [869800.238398]  path_listxattrat+0x9e/0x190
+  [869800.239117]  do_syscall_64+0x89/0x470
+  [869800.239877]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+  [869800.240914] RIP: 0033:0x7f59024cdcb7
+  [869800.241686] Code: f0 ff ff 73 (...)
+  [869800.245353] RSP: 002b:00007ffd056dcdb8 EFLAGS: 00000246 ORIG_RAX: 00000000000000c2
+  [869800.246892] RAX: ffffffffffffffda RBX: 00007ffd056df2e2 RCX: 00007f59024cdcb7
+  [869800.248853] RDX: 0000000000006600 RSI: 0000558dc45e0470 RDI: 00007ffd056df2e2
+  [869800.250514] RBP: 00007ffd056df2e2 R08: 0000000000006600 R09: 0000000000006600
+  [869800.252295] R10: 0000000000000004 R11: 0000000000000246 R12: 00000000ffffff9c
+  [869800.254105] R13: 0000558dc45e0470 R14: 0000000000006600 R15: 0000000000000000
+  [869800.255931]  </TASK>
+  [869800.256529] ---[ end trace 0000000000000000 ]---
+  [869800.260071] page: refcount:2 mapcount:0 mapping:000000007ccfc77f index:0x1d10 pfn:0x608c69
+  [869800.260075] memcg:ffff8dde00344d40
+  [869800.260076] aops:btree_aops [btrfs] ino:1
+  [869800.260151] flags: 0x17fffc00000402a(uptodate|lru|private|writeback|node=0|zone=2|lastcpupid=0x1ffff)
+  [869800.260154] raw: 017fffc00000402a fffff4adc773d4c8 fffff4adc48f3d88 ffff8de36504ba30
+  [869800.260155] raw: 0000000000001d10 ffff8dde054b8738 00000002ffffffff ffff8dde00344d40
+  [869800.260156] page dumped because: eb page dump
+  [869800.260157] BTRFS critical (device sdi): corrupt leaf: root=5 block=30474240 slot=5 ino=257, invalid location key type, have 46, expect 132 or 1
+  [869800.260161] BTRFS info (device sdi): leaf 30474240 gen 9 total ptrs 6 free space 15629 owner 5
+  [869800.260163] BTRFS info (device sdi): refs 3 lock_owner 0 current 2550294
+  [869800.260164] 	item 0 key (256 INODE_ITEM 0) itemoff 16123 itemsize 160
+  [869800.260165] 		inode generation 3 transid 0 size 0 nbytes 16384
+  [869800.260166] 		block group 0 mode 40755 links 1 uid 0 gid 0
+  [869800.260167] 		rdev 0 sequence 0 flags 0x0
+  [869800.260168] 		atime 1790340637.0
+  [869800.260169] 		ctime 1790340637.0
+  [869800.260169] 		mtime 1790340637.0
+  [869800.260170] 		otime 1790340637.0
+  [869800.260170] 	item 1 key (256 INODE_REF 256) itemoff 16111 itemsize 12
+  [869800.260172] 		index 0 name_len 2
+  [869800.260172] 	item 2 key (256 DIR_ITEM 982728850) itemoff 16073 itemsize 38
+  [869800.260173] 		location key (257 1 0) type 1
+  [869800.260174] 		transid 9 data_len 0 name_len 8
+  [869800.260175] 	item 3 key (257 INODE_ITEM 0) itemoff 15913 itemsize 160
+  [869800.260176] 		inode generation 9 transid 9 size 0 nbytes 0
+  [869800.260177] 		block group 0 mode 100664 links 1 uid 0 gid 0
+  [869800.260177] 		rdev 0 sequence 0 flags 0x0
+  [869800.260178] 		atime 1790340638.38778502
+  [869800.260179] 		ctime 1790340638.38778502
+  [869800.260179] 		mtime 1790340638.38778502
+  [869800.260180] 		otime 1790340638.38778502
+  [869800.260180] 	item 4 key (257 INODE_REF 256) itemoff 15895 itemsize 18
+  [869800.260181] 		index 2 name_len 8
+  [869800.260182] 	item 5 key (257 XATTR_ITEM 751495445) itemoff 15779 itemsize 116
+  [869800.260183] 		location key (0 0 0) type 8
+  [869800.266052] 		transid 9 data_len 6 name_len 13
+  [869800.266053] 		location key (8243121639454149888 46 7229457603934778967) type 0
+  [869800.266055] 		transid 113 data_len 26 name_len 0
+  [869800.266056] 		location key (8608196880778817904 120 162425) type 9
+  [869800.266057] 		transid 8391162079612502016 data_len 26982 name_len 25964
+  [869800.266058] BTRFS error (device sdi): block=30474240 write time tree block corruption detected
+  [869800.266091] ------------[ cut here ]------------
+  [869800.266092] WARNING: fs/btrfs/disk-io.c:336 at btree_csum_one_bio+0x20b/0x220 [btrfs], CPU#7: kworker/u50:7/2550294
+  [869800.268392] Modules linked in: btrfs dm_thin_pool (...)
+  [869800.365851] CPU: 7 UID: 0 PID: 2550294 Comm: kworker/u50:7 Tainted: G        W           7.3.0-rc3-btrfs-next-244+ #1 PREEMPT(full)
+  [869800.368937] Tainted: [W]=WARN
+  [869800.369834] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.16.2-0-gea1b7a073390-prebuilt.qemu.org 04/01/2014
+  [869800.372778] Workqueue: writeback wb_workfn (flush-btrfs-3821)
+  [869800.374314] RIP: 0010:btree_csum_one_bio+0x20b/0x220 [btrfs]
+  [869800.375915] Code: 89 44 24 04 (...)
+  [869800.380639] RSP: 0018:ffffce4548e3f7d0 EFLAGS: 00010246
+  [869800.382008] RAX: 0000000000000000 RBX: ffff8dde054b8738 RCX: 0000000000000000
+  [869800.383850] RDX: 0000000000000000 RSI: 0000000000000001 RDI: ffff8de091c2ddc0
+  [869800.385710] RBP: ffff8dde196a2000 R08: 0000000000000000 R09: 3fffffffffefffff
+  [869800.387388] R10: ffffce4548e3f500 R11: 0000000000000003 R12: ffffce4548e3f7d8
+  [869800.388973] R13: ffff8dde196a2000 R14: ffff8de36504b750 R15: ffff8dde4c497b00
+  [869800.390414] FS:  0000000000000000(0000) GS:ffff8de5788ad000(0000) knlGS:0000000000000000
+  [869800.392002] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+  [869800.393160] CR2: 000055cd6e92ad5c CR3: 00000007cb264001 CR4: 0000000000370ef0
+  [869800.394595] Call Trace:
+  [869800.395113]  <TASK>
+  [869800.395570]  btrfs_submit_bbio+0x872/0x890 [btrfs]
+  [869800.397284]  write_meta_extent_buffer+0x70/0x80 [btrfs]
+  [869800.398940]  btree_writepages+0x141/0x4f0 [btrfs]
+  [869800.400426]  ? get_random_u32+0x8a/0xf0
+  [869800.401417]  ? build_slab_freelist+0x47/0x130
+  [869800.402574]  ? preempt_count_add+0x6b/0xa0
+  [869800.403633]  ? _raw_spin_lock_irqsave+0x23/0x50
+  [869800.404807]  ? _raw_spin_unlock_irqrestore+0x22/0x40
+  [869800.406085]  ? alloc_from_new_slab+0x18f/0x330
+  [869800.407223]  do_writepages+0xc6/0x160
+  [869800.408191]  ? refill_objects+0xd8/0x300
+  [869800.409211]  __writeback_single_inode+0x42/0x350
+  [869800.410408]  writeback_sb_inodes+0x231/0x560
+  [869800.411511]  wb_writeback+0x8a/0x300
+  [869800.412440]  wb_workfn+0xbf/0x460
+  [869800.413291]  ? _raw_spin_unlock+0x14/0x30
+  [869800.414328]  ? finish_task_switch.isra.0+0xb9/0x380
+  [869800.415105]  process_one_work+0x1d1/0x3d0
+  [869800.416633]  worker_thread+0x1c4/0x330
+  [869800.417467]  ? __pfx_worker_thread+0x10/0x10
+  [869800.418452]  kthread+0xfc/0x130
+  [869800.419257]  ? __pfx_kthread+0x10/0x10
+  [869800.420089]  ret_from_fork+0x1f7/0x2c0
+  [869800.420863]  ? __pfx_kthread+0x10/0x10
+  [869800.421654]  ret_from_fork_asm+0x1a/0x30
+  [869800.422484]  </TASK>
+  [869800.422953] ---[ end trace 0000000000000000 ]---
+  [869800.424005] BTRFS error (device sdi state A): Transaction 9 aborted (-EIO)
+  [869800.424010] BTRFS: error (device sdi state A) in __btrfs_run_delayed_items:1162: errno=-5 IO failure
+  [869800.424011] BTRFS info (device sdi state EA): forced readonly
+  [869800.424013] BTRFS warning (device sdi state EA): Skipping commit of aborted transaction.
+  [869800.424014] BTRFS: error (device sdi state EA) in cleanup_transaction:2076: errno=-5 IO failure
+
+Fix this by always setting all fields in the new btrfs_dir_item when we
+replace an existing xattr.
+
+Fixes: 5f5bc6b1e2d5 ("Btrfs: make xattr replace operations atomic")
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+[ adapted to 6.1: use btrfs_set_dir_type() for BTRFS_FT_XATTR ]
+Signed-off-by: Dickson Wu <dickson.wu@certik.com>
+---
+Changes in v2:
+- resent through a whitespace-safe path; v1 <CAFaZ9epaxok_j7R-5075bWyHiUM99JQGKZbJnMfgcb=hOencPw@mail.gmail.com>
+  was damaged by my mail client and does not apply.
+
+6.1.y doesn't have this fix yet. 6.6.y and newer already took it
+(7a53bb4668b3 in 6.6.y). This is the same change as the 6.6.y backport
+except for one call: 6.1 still names the setter btrfs_set_dir_type(),
+which upstream later renamed to btrfs_set_dir_flags(). It writes the
+same on-disk field.
+
+Tested on v6.1.193:
+- x86_64 allmodconfig W=1 build of fs/btrfs/xattr.o, base vs patched,
+  no new warnings
+- booted the patched kernel under QEMU/KVM with
+  CONFIG_BTRFS_FS_RUN_SANITY_TESTS=y
+- ran the reproducer from the commit message, plus a second colliding
+  name pair, on fresh btrfs images. The unpatched kernel loses the
+  replaced xattr and reports a corrupt leaf on unmount. The patched
+  kernel keeps both xattrs with no btrfs errors.
+- I haven't run fstests on it.
+
+The backport and the test runs were prepared with AI coding tools
+(OpenAI Codex agents, with review by Claude). I went over the result
+before signing off.
+---
+ fs/btrfs/xattr.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/fs/btrfs/xattr.c b/fs/btrfs/xattr.c
+index 5bb8d8c86311..d7eb340c818a 100644
+--- a/fs/btrfs/xattr.c
++++ b/fs/btrfs/xattr.c
+@@ -170,6 +170,7 @@ int btrfs_setxattr(struct btrfs_trans_handle *trans, struct inode *inode,
+ 		const u16 old_data_len = btrfs_dir_data_len(leaf, di);
+ 		const u32 item_size = btrfs_item_size(leaf, slot);
+ 		const u32 data_size = sizeof(*di) + name_len + size;
++		unsigned long name_ptr;
+ 		unsigned long data_ptr;
+ 		char *ptr;
+ 
+@@ -198,8 +199,16 @@ int btrfs_setxattr(struct btrfs_trans_handle *trans, struct inode *inode,
+ 		ptr = btrfs_item_ptr(leaf, slot, char);
+ 		ptr += btrfs_item_size(leaf, slot) - data_size;
+ 		di = (struct btrfs_dir_item *)ptr;
++		memzero_extent_buffer(leaf, (unsigned long)ptr +
++				      offsetof(struct btrfs_dir_item, location),
++				      sizeof(struct btrfs_disk_key));
++		btrfs_set_dir_type(leaf, di, BTRFS_FT_XATTR);
++		btrfs_set_dir_transid(leaf, di, trans->transid);
++		btrfs_set_dir_name_len(leaf, di, name_len);
+ 		btrfs_set_dir_data_len(leaf, di, size);
++		name_ptr = (unsigned long)(di + 1);
+ 		data_ptr = ((unsigned long)(di + 1)) + name_len;
++		write_extent_buffer(leaf, name, name_ptr, name_len);
+ 		write_extent_buffer(leaf, value, data_ptr, size);
+ 		btrfs_mark_buffer_dirty(leaf);
+ 	} else {
+
+---
+base-commit: 1ca1436ccc68275d0b43b6a730b3940fcc46b7c2
+change-id: 20261126-btrfs-61b-f7bf3d340b39
+
+Best regards,
+--  
+Dickson Wu <dickson.wu@certik.com>
 
 
