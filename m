@@ -1,96 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.42
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795661114;
-	b=E3uCDUDV+Isz3dWRyMC7mgOpINqdsMk4RKZ4LDMmXUYB+t6ZmBdh22azaXJIIGPG+b+h
-	 OxrAQXUT8cA9tMpUgh7GEmSGJHonVEi8z076qac60nPk9KXJCyw/K/IO/HdV1xxWilqBt
-	 SOgYTiHvJqjZxEGtNVqKpHZYqd6RNXtCor4crtG/IdibA5dmnX6BL/rCcEf5cx3PUj6hK
-	 dx063plU8JJwIUwKR6vQNPLMBVnHenzcRh1WxYjqrBUrmFdnxuUp1zA4A5D1pW/gOgX5X
-	 Scr1roOB/bCUPSoU2Y0v4HfpYc4gbibkaCwADEVfBT9x06Vssi4TQQj5Q5SrF/F340g==
+	t=1795661115;
+	b=4YP9rraNNpjSMSpafefBM6Xejm1QgaHLbwaPwVNV9oVjMKyyhVb+fJ3PC1gtorOoiPdF
+	 TiqboKMyWF3pgCEsW6bGRjgVcS+cP3L60WRYKDZ0nsMsOaBxvhD4imwrIo+p/Iskwzivm
+	 9h0swrBVOLKqw0CaTHsdLT+FjqpSJaOUz4Wq3kRzELlW8sbQcwloj2db9dckmJ8CuIqfv
+	 pWEhsroqwDXqT4hCqPXHd4VR+CmvUIJfruYeTZMmV+chw05m9sQV6418RXyhonM+tYvbF
+	 aHmHNQgOcwGJmixTNbuHd1WNy1+HteqOnQqya8IqOIj3eGk9jIxPxhoEBz1ExtuGd8w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795661114;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795661115;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:MIME-Version:From:Date:
 	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=p0ugNHKyD824H6jac9/myF97YFILT0FDr+3mqDSlt4g=;
-	b=GPe+BsYCWdDzV6oYzdtlJeEazhy09jf0H+b5wyQ0WlAcZuCKiW4hPxsp2clk/CCQ5ptu
-	 kN8kF4OB+Yu1+gg1tC+98hBqU3zOMLUCoQj1yIioB/4ape2YTCrEUJncOMo75Zo4p1lDz
-	 3jz+4smM1xy0r4IDiAJg46iagF4q35SbcqTDbkljpgy79aPnuW1ktBVMIWo9ydoJbJpk4
-	 9XbpotIdjOSqon4jguzXODyO2VRL3Tx0GoTH8dWQgGZT7kGV2UJgY8NpQw1DaXr8Y9Xct
-	 6A7aMI05vikwqOZxHvqxmUptAtEof2NpbOwoLNp1qL4iJz3kda3KP1hoAyqWkJbIhYw==
+	bh=R6c2jmbYqWccEr0Zv9Hq/ZQeve0kZ7n3mGg4UZDjyvA=;
+	b=r3be2tsb02BlSt/i4kbyWdGA2U2mDAp37407BsSOqNyHGIGvymQisQgD6St86BwJeJKB
+	 ak4wKVC90Leh+oaV3eEVgYy8QwrZxwV4y6KoFjaSKhxN+nk/vciPXKep6bNq2fCP8s7cg
+	 IQmnXu0r41hMwyDUF3LCuD0Uz/NZeJhA+x6wm/Hy0ki+w2RZ/No9EW+ogeyw8pP/9amlp
+	 DSvDHc0ZPBSgnWJCXtHBUCxHq/F6agVTT/Hv/32XhJ6TjX8ANnCU++J/Os1lXmfkQTAeS
+	 yzLHfLzMLQj03RoqhxIVClQOEmSS7qkBwjL0hW7GiLU74O9M5DJ+0vBazcUq1D7oHdQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=certik.com;
 	spf=pass smtp.mailfrom=certik.com;
-	dkim=pass header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=QpBPWmJU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.48
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	dkim=pass header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=Q2QsICvw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.42
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1624606A32A
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:45:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1624606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFCD606A333
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:45:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEFCD606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=certik.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=certik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=QpBPWmJU
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-67db35e7953so6674311d50.0
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:45:13 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795661113; cv=none;
+	dkim=pass (1024-bit key) header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=Q2QsICvw
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-67db5e13b0cso5960120d50.3
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 18:45:14 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795661114; cv=none;
         d=google.com; s=arc-20260327;
-        b=E8tHdystkezwxFv8l3de4lIXsmkdFhAeRLt0Mghb/PvsnUAzs8m5kaVW7o/JVGxZSu
-         ZJZlEk2tPRf62R/wB1r69DM2LGrcUgNDKJHN0RSN+9KodMYpHC50cfwQj+JWKTUCkwks
-         EEUDd/8ETeh25dbMlpPeyqgCQiD8l4Kff90IbviOYrzKwfePAneQiZUm5+4k9YB4qNGm
-         oZ7zfp8tUizxk3aL+N4mpzsj7b5E7YhcYytvUFVgKI9rlTNI78L/hPxFFf5moc9JwsCh
-         41pyxv+Y28rjCIRifaKoX5rDT+EVm0AbaL/5eNV4x974EJUbKb6UWtcXdKh8LT4VO/Jp
-         adbw==
+        b=ie9mCB5evVnTqvqtKCn6cj4JU0rlGrgPc1Fu7dHIP6WAdSKx29CjYzA4hNKZfh5Nr/
+         sKzUMdunW43bFlhQS1Xe04ASr73MypYhKZDRy4fIdsNQ2MqCU4+ULqlvk50gPeU77l3G
+         sTJqbv16AcU1awK6WEGPMnicpidEW1q6v0l1ZCznRKaUpia58RsYERH2MEOFz9r46tLe
+         zP887OrqbvotfYi/GRxdzlWxb28LHSEenqWWxlcWxJ15zmR375/agLkp185jFebY8YRp
+         526vc6m2Noiuae57/bRshSL1cdtOisvZglYmrSPphJ5eLqJBIOY/L2LX72NYS1MZg/Fr
+         8fCQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=p0ugNHKyD824H6jac9/myF97YFILT0FDr+3mqDSlt4g=;
+        bh=R6c2jmbYqWccEr0Zv9Hq/ZQeve0kZ7n3mGg4UZDjyvA=;
         fh=Cl8p86fIxraTdAPl9TMEjG1uOAHTz1nspTZpzog1E7w=;
-        b=gUpFkXlFVxlZilUfZcXTLZZivpEJZYOTJACjDni1vMHB7UMAG2bnmFVRYhPd55Fk6N
-         RERtmjie8qTLGhqmHuMEnCfQ/+QKjV7TU6D/gBb98tL1UQX+QzJns4Wore/ikXoBsXUs
-         +6b9rHbnOA1lXkbmKJS+LYGLceRq0oDuDcPAAOpR8X89JNyZMn7ch3999t/zoamRzanJ
-         D5yUHiNhlm4iGsOD+xBAj1P7Uj4pryn4VY14+4s42LJ5UqqaP0lAJHrxfwEUEamL2CSg
-         s7dtehKgR5VcMa7NrdELaALFO9a/eCuZPIdmSexT+d1n1eO28KYl3TkBTajlsqHTkl06
-         FRYA==;
+        b=aoPVYAzRl4zFQjlgdYJ4ajVjhlwKfXVW71bbkzuNJL1PeT/irWZpC/SdGrJjx4XVGe
+         MHRTG8WB7AeWZ+KmuazflbA5OBO/rKv9uswBMRWEug4vKu++nhQrTQKKV+sylYEKyYDo
+         H3mELkjfSRc5LnsnOnNv4RUXpVrDR0LmHZC1r2ZCAh7FSmDVgnTfap35iyPnL4Zc4wNK
+         KXrpvjsbILn3lrPy7z51euaibs9CE5cBW6smFM47MM8WEUaXWXD6/1hksxvYNlljBUhO
+         QKQGS+/l5SnE3iJ/QuRT/oisNLMBEhk2KPSVT+066LiOwgvPN6rHSugMleHLk+RYviAn
+         fyWg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=certik.com; s=google; t=1795661113; x=1796265913; darn=vger.kernel.org;
+        d=certik.com; s=google; t=1795661114; x=1796265914; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:mime-version:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p0ugNHKyD824H6jac9/myF97YFILT0FDr+3mqDSlt4g=;
-        b=QpBPWmJUXlNLNkuOwyqfpJRIaX6jYUCKPr+e8UvE7vZFajPjgSDr3vi9KJd3kY7UtZ
-         A6iZ1J5AnVaIR22305yZ1+IenJd6/dwwTzjnG9ewFiFTQixJuegsEDlzzWqpFpKfuWio
-         erZKRuR/0ZvkXj4Cu7DHFuc8i447rIkTYbJzE=
+        bh=R6c2jmbYqWccEr0Zv9Hq/ZQeve0kZ7n3mGg4UZDjyvA=;
+        b=Q2QsICvwvl/oIqh2A/Pf8xC7m50NMOlOh14GmLJYQCSvh5IG/1Qcgfu/5DYrlvUsZl
+         95aCnY4BjR62ZiSoCYGTYVVkAWRf7WlUGD9kkuk797iAmDRLFpaiCq1JErs4QDIcQe2p
+         HsP2Hi11yzIclhUYgLR4YWxQZL9ysk5hxdTaI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795661113; x=1796265913;
+        d=1e100.net; s=20260707; t=1795661114; x=1796265914;
         h=content-type:cc:to:subject:message-id:date:from:mime-version
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=p0ugNHKyD824H6jac9/myF97YFILT0FDr+3mqDSlt4g=;
-        b=GXksKiPPCcmQnnwlTiXTccYCxITj8RvcdGUGEmn1fhz//xQtKhvnFRY/1j0PSr1gks
-         y6uOmJr2TSzQkIl9cyYySNtfCSBHnw0RMn8EOz6t7TAX79RHZBbUTavnBQJtpSpfD5Xr
-         3AG1heCw08fxFYvODo6TT9Op6MrPtOaBaNz9seFzp9/HDoVDomGWdFAXjF3ke9lm03AT
-         ESH38Bha2OxzfoXwyELqwTAEyzQyYI0IjAvKO4MeU4drOviyXRIbmDQyh0qee6uI3xgh
-         NNSZzj0whNj83zvN07dNGGftOlrm89vGpF1N/x+Tw3iuaH1L1HtuXLYa7AKmdsAGQVIk
-         vpHg==
-X-Gm-Message-State: APuU4Z8U2dLwcVakccC9RcLAPoo9Hgxvu+NIYsgeqruVORw0Km/HjM7Y
-	Lz7f8vgO26G7W5eCy+jqSMzowK17tEk6zVHKgd5PFlxNZgWPeU3lXhJP4jLnN6huKlozCj6RWfm
-	XhdaMMd67l6almXkiromnS+fgJmkbV+OzABDpesB7zJitWhJvNLsya5o=
-X-Gm-Gg: AZFdTZfhNIcNmsuIhOhylgXjJv71DRCT+PcUP51wdPZjXJVYUtU4cLo8HN5FFUKbGRC
-	2KzYQJw0S04Sa71lebt6iogG2OsBO/bFxAeB8b04G/UtZoFdMeu7L7+PmqEDrIrMIUUkwrSLK8a
-	vTc5rCH9h9t2a2eAf4TvUe+zZyDGZ9/N+kIpoT4Mpc3FGkIN8SGxahl/bA8Z1OyizJ9mCP9mhd6
-	/bTt9qM4bW0rHbnVAWYBPsXjJ52eAHVL29wSmO3zUGk1+V1sLgFRQ8OV4Uxk/+Vt/AbRERfJoaZ
-	0c2rsLi4n7yKzQlnQ0esi+YLH8aV2zZDxb/zDZJOKGeY6JebB27hJA3r+2nkhX7yAOTKqP0E8Z8
-	Om4v6m4iX4g6mKQQWMYDni0sjfrSduBkpfJb7Zp4iRIjsBYIL9c0BDYLVTE92uhnpaY5X69E7dN
-	mpuJCxGD6JuiJBfvCWzuFSCTvWrooYhosStKYo0Qx0QjKDrq12pO7SgPhyaSVjckzNooSNmWYLd
-	ksRe5xJ8loLYQ04ze3aBUzMfE11DFhIguUl
-X-Received: by 2002:a05:690e:419a:b0:67d:b673:101 with SMTP id
- 956f58d0204a3-67df44dc404mr5165849d50.84.1795661112974; Wed, 25 Nov 2026
- 18:45:12 -0800 (PST)
+        bh=R6c2jmbYqWccEr0Zv9Hq/ZQeve0kZ7n3mGg4UZDjyvA=;
+        b=gI5khzizgryXAP/au9Pz8mtv06unUaXDGGd09n2PuIVgq15OFs8O96ROjx1nKabD1A
+         zXuP5Xv5cMPJCs24DamUnfgMCD9jDidh0sXU+gFE0DIz8zNytEAbO4NoqJHCXAsbt3dx
+         LBoBtKgfzqUTL9NZ9Zr5Iy2a1y752CQyxUQ6ZLkjo5a4/8BMwJ1SbVDbDoCk+nTE0nUC
+         hWCoxoO6N3AOdhEUN7xqCBzmqRjzHA0y7LrOyQQnZflUtkXldLwDmsrAkwWZpRVIG3m4
+         Ibt1yE14RS6NNXIHnQ3QVjjFvneOPnI6LVsueyY0tEIHlave7WNXI1sUyJ+uh4mHkQnl
+         kqzQ==
+X-Gm-Message-State: APuU4Z9I8EftYV32XWRuEKtIkNT+Ly93+4WP6Si2HIaZym3cZH3mNHzf
+	3er17WebdOAKUrRERHzSRTrGSrbaukpuTKl1ooeDCXzXGgHy1l7s1P/MJpp5lVCghhRD+s8wPHD
+	F//ZpjdAc2Cjo/yWEoLSlTA37BElapseHCRoPHnVnBCkSJ5RfhWLcimE=
+X-Gm-Gg: AZFdTZc1M3aCesLCmWsLFeJe/bjQW2DhDtUWKvzmAkftEKQncOGacUUfFGLYR3qOzle
+	gyqrp2B5uxNX39BZC0lXAPuMLX500UA50Cv+/aK/0Q7Qy8tmC/ZNEEFBmZL3XVKEf5SdGlql7Vc
+	Y07Tir8yJwQDbGunCNbH26v8rI3V/l8iZ7zEmOORQGFjApHMKf+1DONyaDysjf0VWvl8eut/R1u
+	UmVzqE+mVqOF711FY7QqrcnoU7n9B/Z2QT8d2XNIMoMjc8Einr/1FZvKF+uSvNqEB/XwtiZqoDl
+	oCE7hiSQUCXHytHSCHLK4h+0UmA5NBxOgzDkivE6IIb7RCS7qN55+lY7iieBt/gaPtPnKJvn/OJ
+	FUs7rOxD9ZyP1s0nygPyqiMSeO7iYZ/NspaQCbmNWlndhXFOA/iygNWuBdk5NpHqHiny4dtGYIW
+	EIg/lOZ3CJ9wP175ssk/wmHVJCxJs1OyyIAR4QYGGJzYBIgGHTVEFL0HldMMHL9M1dU/udMQUnT
+	z/cLLEpxw2e+JjPrkkgSMcwI8j9YuY9fnUv
+X-Received: by 2002:a05:690e:440d:b0:67c:6e85:56c6 with SMTP id
+ 956f58d0204a3-67df442280emr3979707d50.32.1795661113738; Wed, 25 Nov 2026
+ 18:45:13 -0800 (PST)
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 25 Nov 2026 18:45:12 -0800
+ Wed, 25 Nov 2026 18:45:13 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,10 +101,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 From: Dickson Wu <dickson.wu@certik.com>
-Date: Wed, 25 Nov 2026 18:45:12 -0800
-X-Gm-Features: Aa3M54pIe0_40ib3Wr2ZZ2KWGpKerFTo6l3_rNQezi8pNSta7xAy8v1Ghx_XCsY
-Message-ID: <CAFaZ9eopsb3vgcpzOjiZ500oafv02QzNV3dEUrvOMN1vV90RuQ@mail.gmail.com>
-Subject: [PATCH 6.12.y 3/4] virtio_balloon: factor out virtballoon_quiesce()
+Date: Wed, 25 Nov 2026 18:45:13 -0800
+X-Gm-Features: Aa3M54paebocmbNVntVMdO9KFEoA8PWN3oNp27JwrB7O8xF9Ll5ZA1pgj1Og6sw
+Message-ID: <CAFaZ9epp-Y8efod8a7CQuQqYEjk5L_ruwP+c1SoBRPjdu9uGyQ@mail.gmail.com>
+Subject: [PATCH 6.12.y 4/4] virtio_balloon: quiesce balloon work before device shutdown
 To: stable@vger.kernel.org
 Cc: "Michael S. Tsirkin" <mst@redhat.com>, "Denis V. Lunev" <den@openvz.org>, David Hildenbrand <david@kernel.org>, 
 	Eric Auger <eric.auger@redhat.com>, Jason Wang <jasowang@redhat.com>, 
@@ -113,71 +113,67 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: "Denis V. Lunev" <den@openvz.org>
 
-commit 29536a923a9412812eb3e378258019b54538a220 upstream.
+commit 7e17eef04600c399c7e0f5ce765da5cf9d40d8e1 upstream.
 
-virtballoon_remove() stops all of the balloon's asynchronous work (the
-free page reporting worker, the inflate/deflate and stats workers, the
-OOM notifier and the free page shrinker) before tearing the device
-down. A following change needs the same teardown from a .shutdown
-handler, so move it into a virtballoon_quiesce() helper.
+Commit 8bd2fa086a04 ("virtio: break and reset virtio devices on
+device_shutdown()") added a generic virtio bus .shutdown handler that
+breaks and resets every virtio device during device_shutdown(), i.e. on
+reboot and kexec.
 
-No functional change.
+virtio_balloon provides no .shutdown of its own, so that generic path
+runs while the balloon's asynchronous work is still armed. Once the
+device has been broken, virtqueue_add_inbuf() in
+virtballoon_free_page_report() returns -EIO and trips its
+WARN_ON_ONCE(). On a kernel booted with panic_on_warn that turns an
+ordinary reboot, for example a kexec based upgrade, into a fatal panic
+in the middle of device_shutdown(), so the machine never reaches the
+new kernel.
 
+Relaxing that single WARN_ON_ONCE() would only hide the symptom: the
+inflate/deflate and OOM paths do not warn, they call
+wait_event(vb->acked, ...) and would instead block forever on a broken
+queue that can no longer complete. The device has to be quiesced, not
+just kept quiet.
+
+Add a .shutdown handler that quiesces the balloon via the shared
+virtballoon_quiesce() helper while the device is still alive, and only
+then breaks and resets it via virtio_device_shutdown(). Unlike
+virtballoon_remove() the balloon workqueue is not destroyed, as shutdown
+does not free the device and cancel_work_sync() together with stop_update
+already prevent any further work from being queued.
+
+Fixes: 8bd2fa086a04 ("virtio: break and reset virtio devices on
+device_shutdown()")
 Signed-off-by: Denis V. Lunev <den@openvz.org>
 Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20260624140846.2616797-3-den@openvz.org>
+Message-ID: <20260624140846.2616797-4-den@openvz.org>
 Signed-off-by: Dickson Wu <dickson.wu@certik.com>
 ---
 
 diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
-index c67b29e5f799..726aef5be178 100644
+index 726aef5be178..efa77daa93b8 100644
 --- a/drivers/virtio/virtio_balloon.c
 +++ b/drivers/virtio/virtio_balloon.c
-@@ -1121,26 +1121,39 @@ static void remove_common(struct virtio_balloon *vb)
- 	vb->vdev->config->del_vqs(vb->vdev);
+@@ -1159,6 +1159,12 @@ static void virtballoon_remove(struct
+virtio_device *vdev)
+ 	kfree(vb);
  }
 
--static void virtballoon_remove(struct virtio_device *vdev)
-+/*
-+ * Stop all asynchronous balloon work. The device must still be alive so that
-+ * in-flight requests can drain via the host before it is reset or freed.
-+ */
-+static void virtballoon_quiesce(struct virtio_balloon *vb)
- {
--	struct virtio_balloon *vb = vdev->priv;
-+	struct virtio_device *vdev = vb->vdev;
-
--	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_REPORTING))
-+	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_REPORTING))
- 		page_reporting_unregister(&vb->pr_dev_info);
--	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_DEFLATE_ON_OOM))
-+	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_DEFLATE_ON_OOM))
- 		unregister_oom_notifier(&vb->oom_nb);
--	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
-+	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		virtio_balloon_unregister_shrinker(vb);
-+
- 	spin_lock_irq(&vb->stop_update_lock);
- 	vb->stop_update = true;
- 	spin_unlock_irq(&vb->stop_update_lock);
- 	cancel_work_sync(&vb->update_balloon_size_work);
- 	cancel_work_sync(&vb->update_balloon_stats_work);
-
--	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT)) {
-+	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		cancel_work_sync(&vb->report_free_page_work);
++static void virtballoon_shutdown(struct virtio_device *vdev)
++{
++	virtballoon_quiesce(vdev->priv);
++	virtio_device_shutdown(vdev);
 +}
 +
-+static void virtballoon_remove(struct virtio_device *vdev)
-+{
-+	struct virtio_balloon *vb = vdev->priv;
-+
-+	virtballoon_quiesce(vb);
-+
-+	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		destroy_workqueue(vb->balloon_wq);
--	}
-
- 	remove_common(vb);
- 	kfree(vb);
+ #ifdef CONFIG_PM_SLEEP
+ static int virtballoon_freeze(struct virtio_device *vdev)
+ {
+@@ -1229,6 +1235,7 @@ static struct virtio_driver virtio_balloon_driver = {
+ 	.validate =	virtballoon_validate,
+ 	.probe =	virtballoon_probe,
+ 	.remove =	virtballoon_remove,
++	.shutdown =	virtballoon_shutdown,
+ 	.config_changed = virtballoon_changed,
+ #ifdef CONFIG_PM_SLEEP
+ 	.freeze	=	virtballoon_freeze,
