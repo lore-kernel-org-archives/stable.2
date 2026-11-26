@@ -1,55 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.157.23.187
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795706056;
-	b=ba55XFjl4U2YQ44nzHsmrlNR8oiHQyXb0HByWBYt0V0EFHbSpwnW/MwW+DEAQjjd7eOH
-	 WWU30OoO45d/yZvP5KNZn+emcHMEumrIuZNH+aK3tfYDcO0jzv6mX7fOiOsi/ZG+A9zqc
-	 dsZo//d6aN06L8Vi/oBV1USOTqfUTYw6k6jlUZ3TQ+IRODiBtzUvQSGsJbUvSkotqLDdC
-	 hkgyNPrFJUP5S01TXvuUJwcLt46UCaF+Q0LAhkDyn1SKmk5dbbGf2bNYP3zPMdLF1B5ua
-	 AE2D0CPFKxg5qpAhy9Yi3lSPkQ0fuypuxwv/WU97NAwz0EguQ+2JsR3nwiA6BKgQtHg==
+	t=1795706178;
+	b=SMNxoAXh/tEo6uR+Kev2qaiPk2ysOoNOu9r6kKWlePIScTLIFhgkJCbBFQ6ITeQGDmz5
+	 k0x1V1foHH8f6lSiSzDyirLmFca2c2II578lQbWOW/TjnJxHMx6FpnouozwQWBlTiOwL5
+	 mfEAb70aK6F1J81F0fsFZ3Jjb5shljFAp/dvmTg/TBwp5M9ekkSV8u8tv41iuyvucZEPJ
+	 vABegPn0j219eI3fiF8T/+dgdDJyL6YUvoOw5ywNCAmgTPTMSeQOYuzGCsqTmOWE+G1mw
+	 wYUDb34RNTIS9Lauf/p6S9qC5+KldzWiMay7YvibHucZNktLsBcXqmB3/Pv1O50rGDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795706056;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vXVjH6AbTflBf54a6iU1m9EXjHHc203s45emm/kuOhg=;
-	b=RGA4vY0Z+BWHykkA2Q/8Tp33xUOAy4H4UCpwFqouqs/jLDM7h2xa/msll+JdCEMkLmrC
-	 3K3RBGuFOI6kjTCYmEJcUTOSK7C7Ttyt3GmRNKu+IU4ykXcoXpzjN5C/00vuQ7aCKI+q8
-	 aCsWRaCfboABGr/HdJXxT3NLObcc/fWSNftcqbrbd0L/CnpyxoxSmpCWq6cejyxw//4Mw
-	 RVCWVJPvyCRMCRLzJyPfHvDsYZtpsN6A09FDaxdhjQOAjlrMfEGAo4ieRWowvBKh0CAL0
-	 eS0pGkUwnxQ4s4gBWc25eM1/SicmmUkOwyjyBGWk3diqFb4uBeQ3uq+0cC0Fy0PAjVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795706178;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
+	bh=8Hlh0el6b76DVPPCih0A1ziKHvFdtHwFJVd3gkLvbCo=;
+	b=Fujib9yA6H0exrsUQVUMSaSNwJcu6Bqx5ZRaOVCuexcWwganRwcvlZrYVg9uqHJGM6f0
+	 z7ZRwXl3nBUk5dahyyA57powPSFDGKSuZO2nJQpNG43eU1bRxHjKBV7QcnJSs5HdMyH1J
+	 u2yrpIEpVAaVF7DYMzL7pWv6DtcLJbpsbpbOc8y7prfhdWJ44B9edump7Z0vM6IYV63+W
+	 SLqY2p1zopco7+UkMvIH9NFWIeVntFxPjhqoj/jETAvkkKh0lUZrDDi3DFbS2yJx0MBsK
+	 BoLQyAXATdLuIZiovoNwxGjiLffCeUUXUG/4JrXHFpImsO9QJ1Zz6MTiwA7jm2RJc4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dXZVJqf6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=paragon-software.com;
+	spf=pass smtp.mailfrom=paragon-software.com;
+	dkim=pass header.d=paragon-software.com header.i=@paragon-software.com header.a=rsa-sha256 header.s=mail header.b=YCpgWGZ5;
+	arc=none smtp.remote-ip=35.157.23.187
+Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4BD0606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:14:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A860606A31E;
+	Thu, 26 Nov 2026 15:16:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A860606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dXZVJqf6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8442F1F000CF;
-	Thu, 26 Nov 2026 15:14:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795706056;
-	bh=vXVjH6AbTflBf54a6iU1m9EXjHHc203s45emm/kuOhg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dXZVJqf6yz/GO+psCZfeLcA9qRQV+Hok3Cz6cOTWESMwA2zJ4taLb1HWIOysBJdKa
-	 /4GJKPccmQ0Ob5kQ4yn9Y9VaoLLPSFeJKbOJgZ53q4svzu58KoYmiuhgynAHK6MXBP
-	 EKVMFyRKSBnYxSXNlhiq5+CI0jFaH/xRL4drbrYV70j9hZQWjcxUEaZNn2qcws3C0d
-	 kjumuDaHHIUyCKINt7gnY73TkmBBcgo9OUbGfpYSv2nJU0cImkRVr4J5bROPeZUlAA
-	 E6Nfh52aF+VJ3YVYcAwJr/kjrhdbbhEYJWFYhupHcoILdGXJfngQNhXCh4O7GR2Aen
-	 WUjdmCzy8gY+A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] tty: fix misapplied compat_ptr() in tty_compat_ioctl()
-Date: Thu, 26 Nov 2026 10:14:14 -0500
-Message-ID: <20261126151358.2348156-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112515-sinuous-decaf-4d71@gregkh>
-References: <2026112515-sinuous-decaf-4d71@gregkh>
+	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.a=rsa-sha256 header.s=mail header.b=YCpgWGZ5
+Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
+	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 596061D38;
+	Thu, 26 Nov 2026 15:16:57 +0000 (UTC)
+Authentication-Results: relayaws-01.paragon-software.com;
+	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=YCpgWGZ5;
+	dkim-atps=neutral
+Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
+	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 8A96A2092;
+	Thu, 26 Nov 2026 15:16:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=paragon-software.com; s=mail; t=1795706175;
+	bh=8Hlh0el6b76DVPPCih0A1ziKHvFdtHwFJVd3gkLvbCo=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To;
+	b=YCpgWGZ59cjZCR5jN3dG615kSVLYt4xC1U8D2oQmHJ0LqG5Yos95y4uDuktFS3bDU
+	 04MwcHiTkr2029Ytp1SlfVFU8VJANpNkz9D4r55EEkTTY+LewbafH9ufwhYqG9QT3k
+	 +3Gg36b4xSi4fB9QZkBsS8xTcrOai0EoTI4u7JfE=
+Received: from [192.168.95.128] (172.30.20.193) by
+ vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Thu, 26 Nov 2026 18:16:14 +0300
+Message-ID: <9aa9b7b5-63d3-4b18-8342-96a639c07fcd@paragon-software.com>
+Date: Thu, 26 Nov 2026 16:16:13 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,51 +64,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fs/ntfs3: bound asize by SIZEOF_NONRESIDENT in
+ check_attr()
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+CC: <ntfs3@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+	<zhanxusheng@xiaomi.com>, <stable@vger.kernel.org>
+References: <20260904065437.957677-1-zhanxusheng@xiaomi.com>
+Content-Language: en-US
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+In-Reply-To: <20260904065437.957677-1-zhanxusheng@xiaomi.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: vdlg-exch-02.paragon-software.com (172.30.1.105) To
+ vdlg-exch-02.paragon-software.com (172.30.1.105)
 
-From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+On 9/4/26 08:54, Zhan Xusheng wrote:
 
-[ Upstream commit 895dc0eaa2779ff46a0b2a20b5ce9eb0b1125cb2 ]
+> check_attr() validates a file record attribute during log replay.  Its
+> non-resident branch reads through attr->nres.valid_size, which ends
+> SIZEOF_NONRESIDENT bytes into the attribute, but only checks that the
+> attribute fits the record, not that it is long enough to hold those
+> fields.  check_file_record() admits an attribute starting as late as
+> record_size - SIZEOF_RESIDENT, so one placed there with non_res set reads
+> up to 40 bytes past mi->mrec, a kmalloc(record_size) buffer.  The later
+> "run_off >= asize" rejection is too late: data_size, svcn, evcn and
+> valid_size have already been read.  Nothing earlier covers it, mi_read()
+> checks only rec->total, and do_action() gets here for the ordinary
+> record-modifying operations, so a crafted volume reaches it through
+> normal replay.
+>
+> Reject an attribute that leaves fewer than SIZEOF_NONRESIDENT bytes in the
+> record, as mi_enum_attr() already does outside the log path.  A real
+> non-resident attribute cannot be smaller than its own header, so nothing
+> that mounts today is rejected.
+>
+> Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> ---
+> Reproduced with ASAN in a userspace replica of the layout and of
+> check_attr()'s bounds: an attribute at record_size - SIZEOF_RESIDENT
+> gives "READ of size 8 ... located 24 bytes after 1024-byte region",
+> and is rejected once the guard is added.
+>
+> I did not craft a volume, so there is no mount-level reproducer and no
+> KASAN splat from a real replay; the reachability above comes from
+> reading do_action(), mi_read() and ntfs_fix_post_read().
+>
+>   fs/ntfs3/fslog.c | 3 +++
+>   1 file changed, 3 insertions(+)
+>
+> diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
+> index ed50c1d0c23e..034d72929ac0 100644
+> --- a/fs/ntfs3/fslog.c
+> +++ b/fs/ntfs3/fslog.c
+> @@ -2772,6 +2772,9 @@ static inline bool check_attr(const struct MFT_REC *rec,
+>   		break;
+>   
+>   	case 1:
+> +		if (asize < SIZEOF_NONRESIDENT)
+> +			return false;
+> +
+>   		dsize = le64_to_cpu(attr->nres.data_size);
+>   		svcn = le64_to_cpu(attr->nres.svcn);
+>   		evcn = le64_to_cpu(attr->nres.evcn);
+>
+> base-commit: a500db7819c50db59e55f1b4fa1c3baa5a2616f3
 
-Since commit f0193d3ea73b below, `cmd` was converted with compat_ptr(),
-while `arg` was passed to ld->ops->ioctl() unmodified. Fix it so `cmd`
-stays `cmd` and `arg` gets converted through compat_ptr() as intended.
+Hello,
 
-Notes:
-2) compat_ptr() did nothing to `cmd`, provided it is uint,
-1) compat_ptr() is no-op everywhere (was different on s390 before
-   8e0b986c59c6 ("s390: Remove compat support")),
-3) `arg` might not have been chopped correctly until 8e0b986c59c6. But I
-   am not sure why noone noticed all those (7) years (from f0193d3ea73b
-   to 8e0b986c59c6)?
+The patch is applied, thanks.
 
-Fixes: f0193d3ea73b ("change semantics of ldisc ->compat_ioctl()")
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Cc: stable@vger.kernel.org # applicable from 4.20 to 6.18 incl
-Assisted-by: LLM
-Link: https://patch.msgid.link/63e9d84a1e8e23852423206cf3f8907aafc88f17.1793704520.git.jirislaby@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: Kept the file argument in the ldisc ioctl call, since this tree's hook takes (tty, file, cmd, arg), and applied compat_ptr() to arg instead of cmd. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/tty/tty_io.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
-index ce15f9232195b..1f14ca619dee7 100644
---- a/drivers/tty/tty_io.c
-+++ b/drivers/tty/tty_io.c
-@@ -2982,8 +2982,8 @@ static long tty_compat_ioctl(struct file *file, unsigned int cmd,
- 	if (ld->ops->compat_ioctl)
- 		retval = ld->ops->compat_ioctl(tty, file, cmd, arg);
- 	if (retval == -ENOIOCTLCMD && ld->ops->ioctl)
--		retval = ld->ops->ioctl(tty, file,
--				(unsigned long)compat_ptr(cmd), arg);
-+		retval = ld->ops->ioctl(tty, file, cmd,
-+				(unsigned long)compat_ptr(arg));
- 	tty_ldisc_deref(ld);
- 
- 	return retval;
--- 
-2.53.0
+Regards,
+Konstantin
 
