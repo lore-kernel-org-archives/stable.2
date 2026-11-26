@@ -1,63 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795698907;
-	b=YoH8mNxx1Sb5m18ZjC30L4DjLIWao1suSwGzBE0ZAJ877kgd8+v4xFB9bWyO/PkIRnDi
-	 oVaXePWEhHSjxQIG/Y4pq5BmeUjIfBBxP26PBpcUsPPRYVdD7G8/cm/Fz+5/7Axz1qrsO
-	 NnFhf16oEORBPqYbP2RSifsdnPNJXKHa1MszU4h/nZd9uaNsu5TVsIYIcho+5xW84vYMX
-	 1NWLAFbiDxZsIbOV4tdc/dpdTwKTGE+oNBNNJ0on0myWqxAtHEFcQBoZUaOd4u47erzeA
-	 6s2uYUtBJ9Y46IqpWcZp3ambKoMUg1Bb6ou1goJfaJlFlTzH05P9M+gQU0RvNlHZtOQ==
+	t=1795699007;
+	b=vl4CFMBbQc4MOOqrrHgxCjzsXU7JPK7yzKO2gh2fM9YwHAtkBfBCnECTQYxj4zzvl8QP
+	 TTPlbQIhShTUAVe9V5MtvG9EV/goMFn0DDmuiiOJpaZuSFzzLk1CxghO3Uw6bsm/79EgE
+	 WjT+eUzc5NCGhA6y2/EEOG2vNdg2sBqdeLJiiNaLZ8QWraQf/ad3sn/QRvNw6x7YMjgx0
+	 N6s+VfnQjuLqfZYiOXhvTlL1imle3BK9/G2wYURJOu6dNjpxnvkjwl8GSM6FXSH13YZRD
+	 JL4+/2djVbGzK0diNhU3yzUi0BrEtYxbuJaQMPFYhhMN4PU3N0m9qgJlJd9JEUf5s2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795698907;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=nvZSFE/PjkvX1iQqHe4rEkvvaUjjq3HmhX1scd4d9CY=;
-	b=IlCnPxlLPVenVElMlvz8WsOPbAO3MxkzLZ0w8iTPo3NRWzWr908+zDtUTFmTA0JX7wuD
-	 enS3XROvx7zEsg2/Hf4eF9byRsmPEyBsR+RJJQzPFaX8jx3lvS0JlhlO+HWY/qXtx00iw
-	 54DqFlIVxpp+Akn0ErQ0i77kzr7tih9fri8DmRGUsRbul30ZceIFEXk2C2LIjuigyJu6k
-	 aYk2ffBFolop5it5ozV/JOBOv6CjrcBqUw/e1e+8p2uhVW3e9Ua2uJO6VLkprDI9vN6/g
-	 vNMp7uDf/L4bTphvZeWmh/IBFYIczSK/Kya7VVFg9YwT6iXadGjGUF4IDAi4dXD/K8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795699007;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=ehgUlTp55qdmB35sLa7A0/qjO2eVfa+LAyFNNpEVErI=;
+	b=BHw65P3H+FlJbK8O6TGMfIm1yd4YADEaZ5uCqjqf/WCvdgQe2nXOVoyrRu/3Lw/HrMCD
+	 7wENYes1oMtxRZIjcouqnjORFvuFXBWTqX2c+0CPdM995ymd/d+I8sjnAzFY8f8ziPaCu
+	 m9G2CwkXM+cpG1c67qQ8zg4ZFH1Hp0w2he4bU3iPzn8gK0s40VNwdsOubnOd01nUCankX
+	 K50rQyQ9A+oWRmt+zHjTCuoBYW9OJOw4EOqQA0VmWvY1W52up0cM4D7IG8RJFMin3nE6w
+	 aLViuiU3A8qmDN2GadH0GJwOlPyy9LHOVrtdhKi6m72wMt4t25S3JQe6xL/4vK3btuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JXNunxIM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hvP5uzYV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F49E606A327;
-	Thu, 26 Nov 2026 13:15:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC99A606A31C;
+	Thu, 26 Nov 2026 13:16:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JXNunxIM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B207F1F000CF;
-	Thu, 26 Nov 2026 13:15:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hvP5uzYV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F9831F000ED;
+	Thu, 26 Nov 2026 13:16:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795698906;
-	bh=nvZSFE/PjkvX1iQqHe4rEkvvaUjjq3HmhX1scd4d9CY=;
-	h=From:To:Cc:Subject:Date;
-	b=JXNunxIM1hhLnZB/if9UZ5Tv6G2xhKy2nPei+c+x8gRZAN/ibNWnWGfvCkl01Oyv3
-	 IwmkLCI2G/pkC8ORUdw1tF01ol/eVOA+O22l7AONgXmuSxKzTVmfbY5fItqe6m+tEq
-	 crqogXB1etXRFzNmNv86hYj4eeWiLBHQaXWxTcCfj4XMXHtxtRa7Au621DNjHDP8dm
-	 tI9+x0moco/LaDUTs5hXnxoMn/uAdhqG1fEAvo/SPDXovq+H7bMEgJFSCrx4l1ZoVc
-	 Onkf7rMgZp4XSZsXtRokaWqLOe6fUh8ATyU1kYy2K9YU+9a3R4ElMwzADiF3ONTUi/
-	 7i3abT7w2F3JQ==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: Benno Lossin <lossin@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	Miguel Ojeda <ojeda@kernel.org>
-Cc: rust-for-linux@vger.kernel.org,
-	Boqun Feng <boqun@kernel.org>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	stable@vger.kernel.org
-Subject: [PATCH] rust: init: clean Rust 1.102.0's `clippy::large_unopt_stack_frames` lint
-Date: Thu, 26 Nov 2026 14:14:56 +0100
-Message-ID: <20261126131456.87524-1-ojeda@kernel.org>
+	s=k20260515; t=1795699007;
+	bh=ehgUlTp55qdmB35sLa7A0/qjO2eVfa+LAyFNNpEVErI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=hvP5uzYV/M6mmd/34FK8Mg1hVQnnl7JC2syiVD/BCJPbcQp3xGy130d5votP+66EJ
+	 EsvedPNywuwHqx5NqtnpvSMSf/jkHTaBQY/227R6kE+zjV1gjZYJLpsp+0qqKp+X7B
+	 oNkrrvENLDIjUizp276GwgI7eEwHlDQq/5LfJ7WOoX4xhuTaPGuzD7f/W0oD742UyM
+	 Nq+RqD+6YlalFBxPPmOY0QLfvp1DpnYLGVGRhJK8Hp87iU26p6rFZ6EZdgTxNMSgA0
+	 ldiATGL8MtNaTSC07F3eijcyEFPH5wdsLgWIwu0kREDBOBabUR4G0xnVf6NM5zPTrw
+	 TCmxqQUbporXA==
+From: David Hildenbrand <david@kernel.org>
+To: Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
+ Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
+ Lance Yang <lance.yang@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Ying Huang <huang.ying.caritas@gmail.com>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-mm@kvack.org, linux-rt-devel@lists.linux.dev, 
+ linux-riscv@lists.infradead.org, stable@vger.kernel.org, 
+ Kirk Swidowski <swidowski@google.com>, 
+ Huang Ying <ying.huang@linux.alibaba.com>
+In-Reply-To: <20261125-rmap-v2-1-0ba817662eac@kernel.org>
+References: <20261125-rmap-v2-1-0ba817662eac@kernel.org>
+Subject: Re: [PATCH v2] mm/rmap: avoid reusing batched TLB flush
+ generations
+Message-Id: <179569899881.7893.12894803575730359323.b4-ty@b4>
+Date: Thu, 26 Nov 2026 14:16:38 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,66 +73,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-Starting with Rust 1.102.0 (expected 2027-02-04), Clippy renames the
-`large_stack_frames` lint to `large_unopt_stack_frames` and moves it to
-`suspicious` from `nursery` [1], and thus we start to see it in the
-examples of `try_init!` and `try_pin_init!`:
+On Wed, 25 Nov 2026 10:34:46 +0100, David Hildenbrand (Arm) wrote:
+> mm->tlb_flush_batched packs a 15-bit pending and a 15-bit flushed
+> counter into one atomic_t, and resets both once pending gets large.
+> flush_tlb_batched_pending() updates flushed with a cmpxchg() against the
+> value it read before flushing.
+> 
+> If the counters get reset and reach that same value again while
+> flush_tlb_mm() is running, the cmpxchg() succeeds and unmaps that
+> happened in the meantime are considered flushed. A later zap can then
+> skip the flush and leave stale writable TLB entries behind.
+> 
+> [...]
 
-    warning: closure generated by this macro may allocate a lot of stack space
-        --> rust/doctests_kernel_generated.rs:6716:9
-         |
-    6716 | /         try_init!(Self {
-    6717 | |             big: KBox::init(init_zeroed(), GFP_KERNEL)?,
-    6718 | |             small: [0; 1024 * 1024],
-    6719 | |         }? Error)
-         | |_________________^
-         |
-         = help: for further information visit https://clippy.rust-lang.org/main/index.html#large_unopt_stack_frames
-         = note: `-W clippy::large-unopt-stack-frames` implied by `-W clippy::all`
-         = help: to override `-W clippy::all` add `#[allow(clippy::large_unopt_stack_frames)]`
+Applied, thanks!
 
-The 1 MiB array is initialized by value, thus the closure that is
-generated would need to hold it in its stack frame (without optimizations,
-which is what the lint goes by).
+tree: mm/core.git
+branch: for-next-fixes
 
-Thus initialize it in place instead.
+Applied patches will appear soon in mm-next, followed by linux-next.
 
-Note that the warning only goes away together with commit 5a2024c03eb6
-("rust: pin-init: internal: allow `clippy::large_unopt_stack_frames`").
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
 
-Cc: stable@vger.kernel.org # 6.12.x (Rust is pinned in older LTSs)
-Link: https://github.com/rust-lang/rust-clippy/pull/17749 [1]
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
----
- rust/kernel/init.rs | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
 
-diff --git a/rust/kernel/init.rs b/rust/kernel/init.rs
-index 1fdc3963e3e3..238ebb3b1a71 100644
---- a/rust/kernel/init.rs
-+++ b/rust/kernel/init.rs
-@@ -211,7 +211,7 @@ fn init<E>(init: impl Init<T, E>, flags: Flags) -> error::Result<Self>
- ///     fn new() -> impl Init<Self, Error> {
- ///         try_init!(Self {
- ///             big: KBox::init(init_zeroed(), GFP_KERNEL)?,
--///             small: [0; 1024 * 1024],
-+///             small <- init_zeroed(),
- ///         }? Error)
- ///     }
- /// }
-@@ -263,7 +263,7 @@ macro_rules! try_init {
- ///     fn new() -> impl PinInit<Self, Error> {
- ///         try_pin_init!(Self {
- ///             big: KBox::init(init_zeroed(), GFP_KERNEL)?,
--///             small: [0; 1024 * 1024],
-+///             small <- init_zeroed(),
- ///             ptr: core::ptr::null_mut(),
- ///         }? Error)
- ///     }
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
 
-base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
+[1/1] mm/rmap: avoid reusing batched TLB flush generations
+      https://git.kernel.org/mm/core/c/40e0fced
+
 -- 
-2.56.0
+Cheers,
+
+David
 
