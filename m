@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795658637;
-	b=BaAHREi3GH7JXz74mBfl5P5fjS0F8GJ5s8fNQA8i66T3wt0FRyEB+tFbkQ3GmPIAZBml
-	 GSV5+AZZcvA8dMgMC2QAyX7dDnptmVFW/SZCfYj0oEkAc6liyXCRXRxHyZCXumFuWQI8N
-	 8s5bExKKjr91JlHql1CMuZeKvaj0m72Ac+zbB0kANyisgQrNed/5jzbPxcKto9o1JXs81
-	 mi+DLaY2GFyqh40CHhfjwKNqFh8xcgVUO2zR2cWxSB0kZ3mVWP4zil/FSNrnL19aNoUJG
-	 CjtozAIrRN32GcaJy/A5aDm+pQdMNkv5VUoY42f60VhDWvGEGD0BZTJyS+3gwn+OK+Q==
+	t=1795658720;
+	b=C6YYvX7ssVj5PiMwupAX5rfmSRl8O0M+B/NJk9vMIQcaGFDdqUzY3rrbyVtqUgRAvFFO
+	 eb6qzfqZSYsjFC7WkM7gQf6MGvqOCOtL3CJmvoL4DgjsiIrNM2p76CkUvAEmq2zH7eZ9W
+	 7Wcfs2Jzg6LlXauNFP95Uy3nS8FiPuJZY9/tuvgAJCFXj4Wcswg1/kEILfVEV1ENkCRSU
+	 kdK6D0m09/yDeyxGPrrvgZ7zKq8pst/PWljCrDoVS3/ehbrS/ihBSEzbUwx5P0oH0CpAf
+	 Hc3X6jNZT14Ju+dOGfmGrwBeAfayRWqopszzdtQj3GNo3ezYC6R+pZupbWkR5ZVrMjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795658637;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/e+jEOWJdNYwNBdYuNAC3eS2HdISXI32LlTY1dpwMCw=;
-	b=BRdxWmH52KOwGPBxisDFTfGb1ldZtx4PM0UXalg2OmySPvszsBkDg1x04L29m7LWIWQs
-	 K1p/YUn8sVmCUfsD8pt6P/6s3sCv6V5YvwkrmCBKuxLF5houQLWSIq9HdpN5ovE4J7amB
-	 qeDJQiWFLd6PtR5hYc2bhIWQvu5vSyH2VQ3s+xZSrj87M3Jf2ACU7GP2YLISVmOskepkn
-	 UmIpL+dH/FyONFwmwh+hVlk+WVwT2glV/VzBzR1Sgb3kDk828wJPjXOSzScM0It3IcRc9
-	 xBCUdeb6oqOazVuDZzWMZ6pL9zqpJZnvUdvJU4y/VFdnbzyl315HsPTRqXddvyM2HBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795658720;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=5f8HopAilRekX4oDmbEUHNnRptZx1Qep0LVLshbVfgc=;
+	b=aiIAaa5PvNb+4vTxT8Wv/a/ZkT1h1vUHsLZL6HbH1HrnZqdM+S1mgR9k2rLzLX20RBJ7
+	 Qd5G30v6k3m+mE+5oR2iHM6D3SxHGYtbkUmrv4Fq32TTJDc7Bcm5fjbQ9YA5A467vNmGj
+	 jgYN0p3M7kCo/HAactlWNr99eWX7WFPEpfhmOG9buzfyeBGkKorXkcn/tPteF0HAjlXp8
+	 sauEbFJh7eDE6CWLm1GGJ2On+4NialHrEjvx7PNr6BBdhjQIM1cUmkKkKvQ5A9Bv21Z2G
+	 DFQTlsXmWB8SjsOH9uyLo51rbo7nOi21LYkdRahmfE4vNMw30Wyu1HG3/fOy/O0ekfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MjtDxk4x;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZQnT2Dwd;
+	arc=none smtp.remote-ip=95.215.58.163
+Received: from mta1.migadu.com (out-163.mta1.migadu.com [95.215.58.163])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23DF5606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:03:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A290606A31E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:05:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A290606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MjtDxk4x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DE911F000C0;
-	Thu, 26 Nov 2026 02:03:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795658636;
-	bh=/e+jEOWJdNYwNBdYuNAC3eS2HdISXI32LlTY1dpwMCw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MjtDxk4xRAOnfaLgZtEf/aBKtb/lDYZr4oJJA5Etq9B92uqFcREBrdQwLBxRLMRfj
-	 FJV4u3WewbS9+IEWQn5t2W1EIazQSU41gGlva/PDWGvARZVK7MnKe0D5mCn/vEQHGn
-	 veiF5KK8m1cVvQsvn3UdTTAWKRhTUEOpA69OIP2rVa24esQHEJ1OtfTMQGjjGbVHMQ
-	 6DEfdgAz72EIMsW0jdqTv9aJW1hXsDW/tfJ5p0qQRrFQP2JlnLft58SBnUn5Htioqw
-	 HlnHLH1r9mx01wgpFTUWVpKrojUnp3uGyz8p0tIOO7hDjZs/VWFwwgqox6mZqcpkHW
-	 V6oRbvPgAcgZw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Daejun Park <daejun7.park@samsung.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Amir Goldstein <amir73il@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 6/6] ovl: bump the impure dir version when linking a file with origin
-Date: Wed, 25 Nov 2026 21:03:50 -0500
-Message-ID: <20261126020308.1696715-6-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126020308.1696715-1-sashal@kernel.org>
-References: <2026112548-vowed-carded-1ef2@gregkh>
- <20261126020308.1696715-1-sashal@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZQnT2Dwd
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5f8HopAilRekX4oDmbEUHNnRptZx1Qep0LVLshbVfgc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795658717; v=1; x=1796263517;
+ b=ZQnT2Dwd4OZHvVTwdB+ZOAhxiIQZ514z1N2rUUTvnQYjr9MULJRHrTUmxrahjznEPZqNmMoL
+ ZtAM01J4woT4VYWvbM5HSERLVNGHbKspuEhx7A1r0J6qgn8KEjr+GtZJxZGqD0ZyCRiyDIbBUB7
+ stJckE0FmD73ku1/3AZAocCg=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4765b56b99f04d54;
+	Thu, 26 Nov 2026 02:05:10 +0000
+X-Mizu-Trace-ID: 4765b56b99f04d54
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,105 +57,107 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH 04/21] mm/memfd: mark new hugetlb folios migratable
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261125-hugetlb_fixes_2-v1-4-db27fd2f71a8@kernel.org>
+Date: Thu, 26 Nov 2026 10:04:48 +0800
+Cc: Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Jinmeng Zhou <jinmengzhou22@gmail.com>,
+ Hongfu Li <lihongfu@kylinos.cn>,
+ Andrea Arcangeli <aarcange@redhat.com>,
+ Mike Kravetz <mike.kravetz@oracle.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Hugh Dickins <hughd@google.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Dave Airlie <airlied@redhat.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Mike Rapoport <rppt@kernel.org>,
+ Mel Gorman <mel@csn.ul.ie>,
+ Dave McCracken <dave.mccracken@oracle.com>,
+ Andy Whitcroft <apw@shadowen.org>,
+ Adam Litke <agl@us.ibm.com>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Rik van Riel <riel@surriel.com>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>,
+ Lance Yang <lance.yang@linux.dev>,
+ James Houghton <jthoughton@google.com>,
+ Yang Shi <shy828301@gmail.com>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Pedro Falcato <pfalcato@suse.de>,
+ Gregory Price <gourry@gourry.net>,
+ Zi Yan <ziy@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Byungchul Park <byungchul@sk.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Wanpeng Li <liwanp@linux.vnet.ibm.com>,
+ Andi Kleen <ak@linux.intel.com>,
+ Kenneth W Chen <kenneth.w.chen@intel.com>,
+ Hugh Dickins <hugh@veritas.com>,
+ Michal Hocko <mhocko@suse.com>,
+ David Rientjes <rientjes@google.com>,
+ Joern Engel <joern@logfs.org>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Michal Hocko <mhocko@suse.cz>,
+ "Aneesh Kumar K.V" <aneesh.kumar@linux.vnet.ibm.com>,
+ KAMEZAWA Hiroyuki <kamezawa.hiroyu@jp.fujitsu.com>,
+ "Kirill A. Shutemov" <kirill@shutemov.name>,
+ Sasha Levin <sasha.levin@oracle.com>,
+ Guillaume Morin <guillaume@morinfr.org>,
+ Wanpeng Li <liwp.linux@gmail.com>,
+ linux-mm@kvack.org,
+ Jason Gunthorpe <jgg@ziepe.ca>,
+ linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org,
+ Andrew Morton <akpm@osdl.org>,
+ linux-doc@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <98C27A06-0FE2-428A-9B13-63E9CB0C648E@linux.dev>
+References: <20261125-hugetlb_fixes_2-v1-0-db27fd2f71a8@kernel.org>
+ <20261125-hugetlb_fixes_2-v1-4-db27fd2f71a8@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-From: Daejun Park <daejun7.park@samsung.com>
 
-[ Upstream commit 86e2facd8630cc2fdec6ea80c53e370b26b441d9 ]
 
-Linking a file with copy up origin into a non-merge impure dir does
-not bump the dir version. readdir then reuses the impure dir cache
-built before the link. It reports the upper inode number as d_ino of
-the new link, not st_ino.
+> On Nov 26, 2026, at 06:33, David Hildenbrand (Arm) <david@kernel.org> =
+wrote:
+>=20
+> memfd_alloc_folio() adds a new hugetlb folio to the page cache, but
+> never sets it migratable, unlike hugetlb_no_page() and
+> hugetlbfs_fallocate().
+>=20
+> Later faults will find it as an existing folio and never set the
+> migratable flag.
+>=20
+> Such a folio can never be isolated for migration, even once it is no
+> longer pinned, which breaks memory offlining, alloc_contig_range() and
+> memory failure handling.
+>=20
+> Let's fix it by setting the new folio migratable after adding it to =
+the
+> page cache, like hugetlbfs_fallocate() already does.
+>=20
+> This has low urgency.
+>=20
+> Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning =
+memfd folios")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Pass whether the linked file has an origin to ovl_dir_modified(), as
-rename and unlink do.
+Reviewed-by: Muchun Song (ByteDance) <muchun.song@linux.dev>
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-98f207b6-3936-48e9-a40f-88f20be4db7b
-Fixes: 4edb83bb1041 ("ovl: constant d_ino for non-merge dirs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/overlayfs/dir.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
-
-diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
-index 43a9866428b38..d443c3169dad5 100644
---- a/fs/overlayfs/dir.c
-+++ b/fs/overlayfs/dir.c
-@@ -355,7 +355,7 @@ static bool ovl_type_origin(struct dentry *dentry)
- }
- 
- static int ovl_create_upper(struct dentry *dentry, struct inode *inode,
--			    struct ovl_cattr *attr)
-+			    struct ovl_cattr *attr, bool origin)
- {
- 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
- 	struct dentry *upperdir = ovl_dentry_upper(dentry->d_parent);
-@@ -378,7 +378,7 @@ static int ovl_create_upper(struct dentry *dentry, struct inode *inode,
- 		ovl_set_opaque(dentry, newdentry);
- 	}
- 
--	ovl_dir_modified(dentry->d_parent, false);
-+	ovl_dir_modified(dentry->d_parent, origin);
- 	err = ovl_instantiate(dentry, inode, newdentry, !!attr->hardlink, NULL);
- 	if (err)
- 		goto out_cleanup;
-@@ -471,7 +471,7 @@ static int ovl_set_upper_acl(struct ovl_fs *ofs, struct dentry *upperdentry,
- }
- 
- static int ovl_create_over_whiteout(struct dentry *dentry, struct inode *inode,
--				    struct ovl_cattr *cattr)
-+				    struct ovl_cattr *cattr, bool origin)
- {
- 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
- 	struct dentry *workdir = ovl_workdir(dentry);
-@@ -557,7 +557,7 @@ static int ovl_create_over_whiteout(struct dentry *dentry, struct inode *inode,
- 		if (err)
- 			goto out_cleanup_unlocked;
- 	}
--	ovl_dir_modified(dentry->d_parent, false);
-+	ovl_dir_modified(dentry->d_parent, origin);
- 	err = ovl_instantiate(dentry, inode, newdentry, hardlink, NULL);
- 	if (err) {
- 		ovl_cleanup(ofs, upperdir, newdentry);
-@@ -651,12 +651,12 @@ static const struct cred *ovl_setup_cred_for_create(struct dentry *dentry,
- 
- static int ovl_create_handle_whiteouts(struct dentry *dentry,
- 				       struct inode *inode,
--				       struct ovl_cattr *attr)
-+				       struct ovl_cattr *attr, bool origin)
- {
- 	if (!ovl_dentry_is_whiteout(dentry))
--		return ovl_create_upper(dentry, inode, attr);
-+		return ovl_create_upper(dentry, inode, attr, origin);
- 
--	return ovl_create_over_whiteout(dentry, inode, attr);
-+	return ovl_create_over_whiteout(dentry, inode, attr, origin);
- }
- 
- static int ovl_create_or_link(struct dentry *dentry, struct inode *inode,
-@@ -691,12 +691,14 @@ static int ovl_create_or_link(struct dentry *dentry, struct inode *inode,
- 		 */
- 
- 		if (attr->hardlink)
--			return ovl_create_handle_whiteouts(dentry, inode, attr);
-+			return ovl_create_handle_whiteouts(dentry, inode, attr,
-+							   origin);
- 
- 		scoped_class(ovl_override_creator_creds, cred, dentry, inode, attr->mode) {
- 			if (IS_ERR(cred))
- 				return PTR_ERR(cred);
--			return ovl_create_handle_whiteouts(dentry, inode, attr);
-+			return ovl_create_handle_whiteouts(dentry, inode, attr,
-+							   origin);
- 		}
- 	}
- 	return err;
--- 
-2.53.0
 
