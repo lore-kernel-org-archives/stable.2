@@ -1,56 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795670293;
-	b=Gtnxb0DiU8HBGQSkz9xP47qaTBM1nHV4E2/SqMENU7tpF/TT1j3ZUNepPmVQHQiwsRZ+
-	 QPWqSjG7kD5aNLiQIQWg5av9YjoydTgOQZNeuo8v1syoTN0VIql2Tld32ueDKfUgHJzpS
-	 unaG6xB1r3Saj1AMXjcoCyJ2iDJpn5Yf44hs8jKaIQMIY12A2f9+4cYNn5iz7x3lNsHhl
-	 wpHiNp9sexzwyw8u3FspO5C43RyGBlSzlNd0IAyLlNthhG01o5c7mQMRXqCk7lLuotR02
-	 wdwLrARTi3wxvpmLuvdumuMnrT0t3xwD0TFlRq1BWXKN1tAbDD5g59UouqyH6IX8NJA==
+	t=1795670304;
+	b=RHfpNCcqh20OC99HlhtoCRuW/kW+/L2hSE1g3OZKnrhDTIX2ptkaKKtH2n0omQIwGktc
+	 CngfRB+Yi1FNcmdoUeOqyoQc2Rzs1IETWGtAiNNAtvSXxHjGtYaAp9fOuOx9cObInvp9E
+	 4Jan9lxqEq18Szxmfn9JEAoLuI/1zfuLBrJft8tr9LyHapkZzfVLNCCbZXUQaGsO0XUQE
+	 epmeQLl/B9fDKNOXHuGKq1RTiURHTIGUyCz9s/CzHkYdKgOyLyd5iejnC8G1bZrNPrLMl
+	 eAKdFanj6HnI2dFCwYLfNI1odnUYk/HQa4xra0sLwi12QWYHCmhfbflf5ki7m3rfR8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795670293;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/HrSwK+jYzn8+5lTUncxI1MCfovtoqJvpr2zIcFiiu8=;
-	b=D7SN1fXeWCc+KHGuVVeYAEekfBsP1z2q+p/9oL4pLhvd8ZpdPheUdzKrZXbmUVr+Bypw
-	 fln0JWN6DSHgm4gVxRp5xH9dbLdJykjygl564CBBvOB1s4MirIXC+mvOl/GMH/hW7l310
-	 Cm8h3Nv9+SNu4r2YQIQQ82JF3ZhQRF3l5oOMtIEEQmMOcmh5zqfBkk8l/q5v8r/utcQjH
-	 qTwH+Kjuz6o5B+pTIRrCbb0UxH9J4puI0AOF+jgg8OhMzzaTsqCzYUQkot3nERJDlJXUH
-	 SHLrGo+hYTbIk5SD0MIkhFrno6l1d5fBpqGGMafMtwXeuGtPD1D0vXxhfPe8oO9/VNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795670304;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Zsv+xoIslAlTljqBg12NU+Wygtm3YAvMHqbGgsgpyzQ=;
+	b=zE8U/SL2qW+2AGihh/xciXCWcbnupagFvurTPZQUX4vAougoFpcKtL6mzYzXkv+i0u28
+	 Fg39BPVDe6n6MHJDbqlZOxm2zKAXPPm60uVatg6lDPIYWe6W0tt4WmNNpxkeGWJ/pBv/l
+	 NynKAauUUhSKb4vSJ6q8500+DbyWyy7Rn/nn7SNesC4BYgpBi7luO4CKaZeNyFrNwvDos
+	 wPNBrh8Onwb2Od98fe6q64fh3GfN317UCI2u6dincS5c/PN+VfplWKGxyu864Sad8Q+/D
+	 bTp2qjyaYjD41fnWZfnUFpSHWyFPjwHExE32oHl95RzGeNH+xRkO+Sx9/ivKSyfwkJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQZz8rxa;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eavWJLn7;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBDAB606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:18:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58ECE606A321
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 05:18:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58ECE606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQZz8rxa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 940481F000CA;
-	Thu, 26 Nov 2026 05:18:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795670292;
-	bh=/HrSwK+jYzn8+5lTUncxI1MCfovtoqJvpr2zIcFiiu8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AQZz8rxa8Y3zzmOKFju42R8wMdBXhFfM8WFCxiuvbQYQo2vLl7WDItd7Kl9oJkR04
-	 RyWRcdvYjtJRDqDfmYGdcDj+Hbb9T+D5QtPtbCj7IxpXZqtGFvCrBKr40L3M+G1oqc
-	 y2MishucKtTCNI4szrn0M7MObjSi1mfwDUgwi2CIExJc74tau+eiRoQTAZXIXmIFeE
-	 BCc2Cekr092Bux7Ibag4SRsdLS+WHQZrOwXPFpXXeDOT89CocZ3TgOz/O1Stqn58Nv
-	 JQzcSQYBcLzV9E0Kne3UXMEa5teKznOC0uTKGzw+Oj9Q5qhXYOgWLtZuRn9ktlcJBM
-	 d625FduA+NKGg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ming-Hung Tsai <mtsai@redhat.com>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Claude Opus 5 <noreply@anthropic.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] dm: fix use-after-free when dm_get_device() widens the open mode
-Date: Thu, 26 Nov 2026 00:18:10 -0500
-Message-ID: <20261126051753.2127594-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112539-barrel-unleaded-020b@gregkh>
-References: <2026112539-barrel-unleaded-020b@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eavWJLn7
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso14056515eec.0
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 21:18:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795670303; x=1796275103; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Zsv+xoIslAlTljqBg12NU+Wygtm3YAvMHqbGgsgpyzQ=;
+        b=eavWJLn729s79Wc2z8ut8r+vSxgpeCNFtIrwFIuqebEMAo51j3fYefHUoPdYa2JDNV
+         MR16m50EiyKX4yv3e+JnyJP2mpwZGvJ2BjbxUVuKqtHqI3VTRsOYLmUiGTUsRNpjPzxU
+         KE4k/DSy0TyPtnz2v09XGAR9L15fqWjqlTX1PGTZTxq1qeRyryUYyblyneusgODYCko0
+         kgTQm8zZoa5dE1HBnZZ6xUEFja6VKZkLiUeB4VKnTHd6B6pVnxZxOjun0dJ4eXX/Z8Mq
+         tX3rGup2pjBITvKem26XnDDowqL4klwsGxd2vc+bIufB+dzX++rS9sElJBAMs3ySVwwL
+         GraA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795670303; x=1796275103;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Zsv+xoIslAlTljqBg12NU+Wygtm3YAvMHqbGgsgpyzQ=;
+        b=MiYPmVSM/l1A7Iovns0QdiYD2iaHEVlrwnG+CTMo0qT0FF33C/AcV2/47p67bze5yS
+         kQsQ2EjEyr15LReeWdMKODfuz6IGxmXSgZDY14pxTYWtVwQNAWWHsNunGXHBxpcS4Pu2
+         3s53+Fj5I8vCfd4+kxotM14IelbwVIc4jPeg4Bad9R5mMCOChKZ21iBjZrArIhrmFP3m
+         4TTd8O4CYRPXhg7iY8tWY2OV7lVEraW5K5beo9CcGIhb4h3ivTIiMMYS+d6OIMso79TC
+         Q9+e8Z7QDfWfmQqt88qGWRcQ+cJWGaZ4efFVfZAy3Hr79Q0HTS7O51I5DkbWmx117YHn
+         H4SQ==
+X-Forwarded-Encrypted: i=1; AL+hErE0TTHLvQnBWWxzjyUCjrZ5V8+Uv/zemsMdoaX26z+u1cldYM3m6gLhpD9Gs+2I78B5n/sGR04=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/GJw3TVlvDa/busa0UJB9vE5xiP5VTw5DNewHF/h0HIapYbuX5
+	QRFkSz/ZqOn0oyEzky0iq8TCnp7vSyytqqiPEBTkWEBgM6milc8lbo4=
+X-Gm-Gg: AZFdTZfOrLK7AIGC/zOUgySnbH/0g21hmh4rbc9mH5lMz67M3rBOhJ1z++Qgclx4N9C
+	5atRAYfqYxsIGBA0J+TY6UXjAmSCzgf5xPZ6Wu2vZqbYWsREhq/+LVRgNA2WiyTLtC58/8tQd3H
+	fQUWVysVBb8LWDWesx40/JOBDXvwBsLiIl6JDtmRL0WynzDErVHn3hcyQhDZpsQjQlrZUkLt2Nt
+	arooiRryh/iPCbv6hDVD6WjyRygci/aX2p2VnSGHOUIZuTxizTTDy+RnwP68moXMcgY5/t8AqZy
+	7l0GohBy1xuhmkqmssA10ioVNucXs0/IJFnCaV+J4zMaLp9h8Pgik2LPyJKOcMcySX/bFLGHjPv
+	fpCOQhEf1HeKbrn5SK5NJ+/AHdVB+JYeMhfd2lOuoHj1y0wtLdx0d3R3bI3sezGSUkEF8y1GoPN
+	ldXS1TSTJGdx5Fiq/WGBd9Uv8OMteDGnHphlHc5qZmBNFSYlCSomsXATPTUr2FMXOnzpOh4CW4X
+	cf9fKrOB12PokyBg9S463A+KKapk1pH7zqaOiehr/ImSimqMf+fEid/AKnoQVPOD2Kjh51eTWri
+	decUo8tjFi7i8WYBNL6UqoGCn2Y8U4xybYjY7fs+LuU8EwEIXD4GhBn5H1IG7uSgG68=
+X-Received: by 2002:a05:7300:8811:b0:386:d86d:d445 with SMTP id 5a478bee46e88-386d86dd49amr3135963eec.36.1795670303265;
+        Wed, 25 Nov 2026 21:18:23 -0800 (PST)
+Received: from localhost.localdomain ([2406:3003:2002:639c:a06e:23f:85ed:4cfe])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-386c7c62a91sm17282954eec.17.2026.11.25.21.18.20
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 25 Nov 2026 21:18:22 -0800 (PST)
+From: Yige Jiang <yigejiang86@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	bo liu <bo.liu@senarytech.com>,
+	"qianghua.wang" <qianghua.wang@senarytech.com>
+Cc: Yige Jiang <yigejiang86@gmail.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] ASoC: sdw_utils: Drop rt_sdca_jack codec device reference on exit
+Date: Thu, 26 Nov 2026 13:18:17 +0800
+Message-ID: <rc-b1-20261110-vc-07a-7c635620fec1@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,323 +105,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ming-Hung Tsai <mtsai@redhat.com>
+asoc_sdw_rt_sdca_jack_init() takes a reference on the SoundWire codec
+device with bus_find_device_by_name() and stores it in
+ctx->headset_codec_dev, whatever the jack source quirk is. But
+asoc_sdw_rt_sdca_jack_exit() returns early when SOC_SDW_JACK_JDSRC() is
+zero, so then the reference is never dropped. One reference on the
+codec device leaks each time the card fails to register (including
+-EPROBE_DEFER) or the machine driver is removed, when the quirk has no
+jack source (DMI quirk entries without one, or the quirk module
+parameter).
 
-[ Upstream commit c834161ded1a141a58d5f03b24f6894291222c96 ]
+The jack source check in the exit path is only needed because
+rt_sdca_jack_add_codec_device_props() adds no software node when the
+jack source is not set. Use it to skip device_remove_software_node()
+only, and always drop the reference and clear the pointer, as
+asoc_sdw_rt711_exit() does.
 
-There's an UAF bug in dm_get_device(): when a table construction calls
-dm_get_device() on the same device twice with widen access mode (e.g.,
-read-only first then read-write), the second dm_get_device() calls
-upgrade_mode(), which reopens the device in upgraded mode, making
-previously returned dm_dev* a stale pointer.
-
-Fixing approaches:
-- Add per-mode views (dm_dev_ref) from a per-device dm_dev_internal to
-  multiple table_devices.
-- Keep reusing the dm_dev_ref when the requested mode is included, i.e.,
-  a read-only reference can reuse the read-write opened device within a
-  table.
-- Maintain a canonical block_device pointer in dm_dev_internal for
-  handling the DM_TABLE_DEPS ioctl.
-
-Also tweak the way of mode sharing check in find_ref() to
-"(x & mask) == mask". The result stays the same to the previous
-upgrade_mode() guard "(x | mask) == x".
-
-Pros: keep the relationship between dm_dev_internal and table_device:
-one dm_dev_internal per device, regardless the mode, so the output of
-DMM_TABLE_DEPS ioctl unchanged.
-
-Cons: extra dm_dev_ref allocation.
-
-Note that now the table_device's count not necessarily mean the number
-tables referecing this <dev, mode> pair, since we're allowing multiple
-references within a table.
-
-Signed-off-by: Ming Hung Tsai <mtsai@redhat.com>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
-Fixes: 86f1152b117a ("dm: allow active and inactive tables to share dm_devs")
+Fixes: 526a1876fc48 ("ASoC: Intel: sof_sdw_rt_sdca_jack_common: test SOF_JACK_JDSRC in _exit")
 Cc: stable@vger.kernel.org
-[ sashal: Adapted to the older API by using fmode_t and kmalloc(), keeping the existing devices_lock handling, and switching dm_table_get_integrity_disk() to dd->bdev; the dm.c hunk was dropped as inapplicable. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
 ---
- drivers/md/dm-ioctl.c |   2 +-
- drivers/md/dm-table.c | 141 +++++++++++++++++++++++-------------------
- drivers/md/dm.h       |  18 +++++-
- 3 files changed, 96 insertions(+), 65 deletions(-)
+Based on linux-next next-20261109 (630059a5a632).
+Compile-tested: arm64, GCC 14.2.0, W=1, COMPILE_TEST=y, SND_SOC_INTEL_SOUNDWIRE_SOF_MACH=y, SND_SOC_SDW_UTILS=y; soc_sdw_rt_sdca_jack_common.o built before and after, no new warnings.
+No hardware or runtime test was performed.
+The path needs an rt_sdca jack codec and a quirk with no jack source; it runs on card registration failure (including -EPROBE_DEFER) and on machine driver removal.
 
-diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-index 2153f93a26d06..225a0a8eef624 100644
---- a/drivers/md/dm-ioctl.c
-+++ b/drivers/md/dm-ioctl.c
-@@ -1637,7 +1637,7 @@ static void retrieve_deps(struct dm_table *table,
- 	deps->count = count;
- 	count = 0;
- 	list_for_each_entry(dd, dm_table_get_devices(table), list)
--		deps->dev[count++] = huge_encode_dev(dd->dm_dev->bdev->bd_dev);
-+		deps->dev[count++] = huge_encode_dev(dd->bdev->bd_dev);
- 
- 	param->data_size = param->data_start + needed;
- 
-diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-index 214a7af330f89..b3a407759e760 100644
---- a/drivers/md/dm-table.c
-+++ b/drivers/md/dm-table.c
-@@ -165,14 +165,16 @@ int dm_table_create(struct dm_table **result, fmode_t mode,
- 
- static void free_devices(struct list_head *devices, struct mapped_device *md)
- {
--	struct list_head *tmp, *next;
--
--	list_for_each_safe(tmp, next, devices) {
--		struct dm_dev_internal *dd =
--		    list_entry(tmp, struct dm_dev_internal, list);
--		DMWARN("%s: dm_table_destroy: dm_put_device call missing for %s",
--		       dm_device_name(md), dd->dm_dev->name);
--		dm_put_table_device(md, dd->dm_dev);
-+	struct dm_dev_internal *dd, *dd_next;
-+	struct dm_dev_ref *ref, *ref_next;
-+
-+	list_for_each_entry_safe(dd, dd_next, devices, list) {
-+		list_for_each_entry_safe(ref, ref_next, &dd->refs, list) {
-+			DMWARN("%s: dm_table_destroy: dm_put_device call missing for %s",
-+			       dm_device_name(md), ref->dm_dev->name);
-+			dm_put_table_device(md, ref->dm_dev);
-+			kfree(ref);
-+		}
- 		kfree(dd);
- 	}
- }
-@@ -218,12 +220,27 @@ static struct dm_dev_internal *find_device(struct list_head *l, dev_t dev)
- 	struct dm_dev_internal *dd;
- 
- 	list_for_each_entry(dd, l, list)
--		if (dd->dm_dev->bdev->bd_dev == dev)
-+		if (dd->bdev->bd_dev == dev)
- 			return dd;
- 
- 	return NULL;
- }
- 
-+/*
-+ * See if the device is already open with a mode that covers the
-+ * requested one.
-+ */
-+static struct dm_dev_ref *find_ref(struct dm_dev_internal *dd, fmode_t mode)
-+{
-+	struct dm_dev_ref *ref;
-+
-+	list_for_each_entry(ref, &dd->refs, list)
-+		if ((ref->dm_dev->mode & mode) == mode)
-+			return ref;
-+
-+	return NULL;
-+}
-+
- /*
-  * If possible, this checks an area of a destination device is invalid.
-  */
-@@ -303,31 +320,6 @@ static int device_area_is_invalid(struct dm_target *ti, struct dm_dev *dev,
- 	return 0;
- }
- 
--/*
-- * This upgrades the mode on an already open dm_dev, being
-- * careful to leave things as they were if we fail to reopen the
-- * device and not to touch the existing bdev field in case
-- * it is accessed concurrently.
-- */
--static int upgrade_mode(struct dm_dev_internal *dd, fmode_t new_mode,
--			struct mapped_device *md)
--{
--	int r;
--	struct dm_dev *old_dev, *new_dev;
--
--	old_dev = dd->dm_dev;
--
--	r = dm_get_table_device(md, dd->dm_dev->bdev->bd_dev,
--				dd->dm_dev->mode | new_mode, &new_dev);
--	if (r)
--		return r;
--
--	dd->dm_dev = new_dev;
--	dm_put_table_device(md, old_dev);
--
--	return 0;
--}
--
- /*
-  * Convert the path to a device
-  */
-@@ -343,7 +335,9 @@ EXPORT_SYMBOL_GPL(dm_get_dev_t);
- 
- /*
-  * Add a device to the list, or just increment the usage count if
-- * it's already present.
-+ * it's already present with a mode that covers the requested one.
-+ * Otherwise open the device again with the requested mode, so the
-+ * dm_devs returned earlier stay valid.
-  */
- int dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
- 		  struct dm_dev **result)
-@@ -353,6 +347,7 @@ int dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
- 	unsigned int major, minor;
- 	char dummy;
- 	struct dm_dev_internal *dd;
-+	struct dm_dev_ref *ref;
- 	struct dm_table *t = ti->table;
- 
- 	BUG_ON(!t);
-@@ -371,33 +366,48 @@ int dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
- 	down_write(&t->devices_lock);
- 
- 	dd = find_device(&t->devices, dev);
--	if (!dd) {
-+	if (dd) {
-+		ref = find_ref(dd, mode);
-+		if (ref) {
-+			refcount_inc(&ref->count);
-+			goto out;
-+		}
-+	} else {
- 		dd = kmalloc(sizeof(*dd), GFP_KERNEL);
- 		if (!dd) {
- 			r = -ENOMEM;
- 			goto unlock_ret_r;
- 		}
-+		INIT_LIST_HEAD(&dd->refs);
-+	}
- 
--		if ((r = dm_get_table_device(t->md, dev, mode, &dd->dm_dev))) {
--			kfree(dd);
--			goto unlock_ret_r;
--		}
-+	ref = kmalloc(sizeof(*ref), GFP_KERNEL);
-+	if (!ref) {
-+		r = -ENOMEM;
-+		goto bad;
-+	}
- 
--		refcount_set(&dd->count, 1);
--		list_add(&dd->list, &t->devices);
--		goto out;
-+	r = dm_get_table_device(t->md, dev, mode, &ref->dm_dev);
-+	if (r) {
-+		kfree(ref);
-+		goto bad;
-+	}
-+	refcount_set(&ref->count, 1);
- 
--	} else if (dd->dm_dev->mode != (mode | dd->dm_dev->mode)) {
--		r = upgrade_mode(dd, mode, t->md);
--		if (r)
--			goto unlock_ret_r;
-+	/* A device in the list always has at least one ref */
-+	if (list_empty(&dd->refs)) {
-+		dd->bdev = ref->dm_dev->bdev;
-+		list_add(&dd->list, &t->devices);
- 	}
--	refcount_inc(&dd->count);
-+	list_add_tail(&ref->list, &dd->refs);
- out:
- 	up_write(&t->devices_lock);
--	*result = dd->dm_dev;
-+	*result = ref->dm_dev;
- 	return 0;
- 
-+bad:
-+	if (list_empty(&dd->refs))
-+		kfree(dd);
- unlock_ret_r:
- 	up_write(&t->devices_lock);
- 	return r;
-@@ -435,26 +445,31 @@ static int dm_set_device_limits(struct dm_target *ti, struct dm_dev *dev,
-  */
- void dm_put_device(struct dm_target *ti, struct dm_dev *d)
- {
--	int found = 0;
- 	struct dm_table *t = ti->table;
- 	struct list_head *devices = &t->devices;
- 	struct dm_dev_internal *dd;
-+	struct dm_dev_ref *ref;
- 
- 	down_write(&t->devices_lock);
- 
--	list_for_each_entry(dd, devices, list) {
--		if (dd->dm_dev == d) {
--			found = 1;
--			break;
--		}
--	}
--	if (!found) {
--		DMERR("%s: device %s not in table devices list",
--		      dm_device_name(t->md), d->name);
-+	list_for_each_entry(dd, devices, list)
-+		list_for_each_entry(ref, &dd->refs, list)
-+			if (ref->dm_dev == d)
-+				goto found;
-+
-+	DMERR("%s: device %s not in table devices list",
-+	      dm_device_name(t->md), d->name);
-+	goto unlock_ret;
-+
-+found:
-+	if (!refcount_dec_and_test(&ref->count))
- 		goto unlock_ret;
--	}
--	if (refcount_dec_and_test(&dd->count)) {
--		dm_put_table_device(t->md, d);
-+
-+	dm_put_table_device(t->md, d);
-+	list_del(&ref->list);
-+	kfree(ref);
-+
-+	if (list_empty(&dd->refs)) {
- 		list_del(&dd->list);
- 		kfree(dd);
- 	}
-@@ -1147,7 +1162,7 @@ static struct gendisk *dm_table_get_integrity_disk(struct dm_table *t)
- 	}
- 
- 	list_for_each_entry(dd, devices, list) {
--		template_disk = dd->dm_dev->bdev->bd_disk;
-+		template_disk = dd->bdev->bd_disk;
- 		if (!integrity_profile_exists(template_disk))
- 			goto no_integrity;
- 		else if (prev_disk &&
-diff --git a/drivers/md/dm.h b/drivers/md/dm.h
-index 22eaed1889079..bbbb10e4de792 100644
---- a/drivers/md/dm.h
-+++ b/drivers/md/dm.h
-@@ -36,10 +36,26 @@
- 
- /*
-  * List of devices that a metadevice uses and should open/close.
-+ * There is one dm_dev_internal per device. It holds one dm_dev_ref
-+ * for each mode that the targets opened the device with.
-  */
- struct dm_dev_internal {
- 	struct list_head list;
--	refcount_t count;
-+	struct block_device *bdev;
-+	struct list_head refs;
-+};
-+
-+/*
-+ * One open of a device with one mode, shared by the targets of a table.
-+ * dm_get_device() reuses a dm_dev_ref whose mode covers the requested
-+ * mode, and adds a new one only when none does. So the dm_dev_refs of
-+ * a device have different modes, and a table holds each table_device
-+ * at most once. table_device->count is still the number of tables that
-+ * use the table_device.
-+ */
-+struct dm_dev_ref {
-+	struct list_head list;
-+	refcount_t count;	/* dm_get_device() calls that returned dm_dev */
- 	struct dm_dev *dm_dev;
- };
- 
--- 
-2.53.0
+ sound/soc/sdw_utils/soc_sdw_rt_sdca_jack_common.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
+diff --git a/sound/soc/sdw_utils/soc_sdw_rt_sdca_jack_common.c b/sound/soc/sdw_utils/soc_sdw_rt_sdca_jack_common.c
+index b4e427d55130..7902d423c8b9 100644
+--- a/sound/soc/sdw_utils/soc_sdw_rt_sdca_jack_common.c
++++ b/sound/soc/sdw_utils/soc_sdw_rt_sdca_jack_common.c
+@@ -188,10 +188,9 @@ int asoc_sdw_rt_sdca_jack_exit(struct snd_soc_card *card, struct snd_soc_dai_lin
+ 	if (!ctx->headset_codec_dev)
+ 		return 0;
+ 
+-	if (!SOC_SDW_JACK_JDSRC(ctx->mc_quirk))
+-		return 0;
++	if (SOC_SDW_JACK_JDSRC(ctx->mc_quirk))
++		device_remove_software_node(ctx->headset_codec_dev);
+ 
+-	device_remove_software_node(ctx->headset_codec_dev);
+ 	put_device(ctx->headset_codec_dev);
+ 	ctx->headset_codec_dev = NULL;
+ 
+
+base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
