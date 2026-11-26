@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795668977;
-	b=S4ON+yoBaCyi7nx5uVm6eX0xwCjZXLoYRiYxscwUy6CfuUv3p607ZIFwJwRNy3Cp6qxj
-	 rHVvgAdLx+m1FL6OV/rsw4qCeFl3x5pfRusddkp1y1yaVk4Kip0/4aQz/ozyIMjmmSedG
-	 7oQQCPEaGI5oAvfzS0RSfoELbdIxF0NEK846ac+jzUUwVLBk7ocIT82rPH8/5i/2oRsh1
-	 9VdO40vz+6HteIo7iMLgnb1WeOeXdlZhzj4C8W+Hbvln96rn+tlUd091oBHZGcWu6bZ2L
-	 nMt2QIcv82Sq2n8QWQlj0zMEg5f8uXt1xRm0Zj3rq6zzDiY0N/9ttSeIKtnqIsLsNng==
+	t=1795669033;
+	b=1CDWRXD1gDjJ89EoDAuC1yvE+4snPiV1UDiUsjiA6pZndZZPrmMoeL7wQxGfBTapfEBg
+	 sXDBVCKgJlgleJCEsEMA0+hCDpTZ6qMV6e9Nc+bmN6kBDle+D8ArYGr4AKWe4zmvGmaxE
+	 aN8oye3DNmA+5I9fxj9AInC1JFDNWsjqdm8xBrBNoZT8QTf/Oy4sK7dESuCE1DAIw+gde
+	 +v58KOeyotbBsEru8yatkyt2fQxdbPvQcQ+ETdtYo24o+SO8x/p5mzrD1QZF/tXEvw8QA
+	 ioX3xerE1o+6Wth8UVtini94Xynfky6vOa+q+DrumtXLtgH81ioQtoq9xkWOH/VenyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795668977;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795669033;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FMBMWnZ8P/gkem0qUIw7royXb4EoETr1Zhd2TIl3o4s=;
-	b=a6dPcurGaG6qy89g8tLFJhvjpkWsulMJiPVzpA8wOljEPeQPekvqNWU+JcjvmWKsAUyi
-	 7tXTaFJUEgvnU0+ZLCvp9tLIPl8d0tMezV8mQ7TrH0hvVAf2Ihv3Qf0xPBFuYSP3O7pdf
-	 0+PxzQkDivkVSPUcuU2s7rXdBGRQdJ41oXkKHS+/jyrNK6QlK2nS/IynEsiz/k+DiIYNV
-	 EfNSuUoM2vDuW3sHDYTfWDx2RZTB50bhoO/9V1MSuSpoxt6lFFBEIHUahy2kshuu1/E7c
-	 8+2vRtTkji76sOOqr9s7dDrGXFw1vFWlrKNeRK8/tjnydQMzSbDItQcPCveZFTHyRlA==
+	bh=N1r/9IZ8aztAm2hWy2umWjRPYC9UdAKqSUxxm+hGHIc=;
+	b=Hh2fvF5S63nlSiGHiGarGuO1imfKBuwpraeEd52ommYCWlpaMpxuEPCKtj/NYfNs8uGA
+	 +RQJ+C5uQVEmG8DvID91C3vk4NWVALafG2DePkzm9bu5hbqcNEBHY2DSVr1FtDL5hhOoO
+	 AM9Bo887LRvEAE39mi9TDYbKOc5s9ZGrW5L1m7leiaLGxuaoHPspy/pCW7Pbt9WycxGL5
+	 GzlJ8QZEePlAbvf4AouCkJEnin+9b4fJetdImxH9udpGuSa690yC+miJR07iaH3dG1u3E
+	 50ssEdC6Klo72GlmaLmLSyiSjwWt/e0iy5Bvm7Xi/Y4I8xyizh0gLoUoanxM4FaTv8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KJP8mixb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+iAnDU+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35CA2606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:56:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4CB3606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:57:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KJP8mixb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C97561F000C0;
-	Thu, 26 Nov 2026 04:56:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+iAnDU+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0313E1F000C6;
+	Thu, 26 Nov 2026 04:57:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795668976;
-	bh=FMBMWnZ8P/gkem0qUIw7royXb4EoETr1Zhd2TIl3o4s=;
+	s=k20260515; t=1795669032;
+	bh=N1r/9IZ8aztAm2hWy2umWjRPYC9UdAKqSUxxm+hGHIc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KJP8mixbKoPamigwMYCo+qh/WIWeJVscRCJ42N/7EOOJ4VhejnEPF6/JhmXAsvBdJ
-	 HJCwl9P9e6N8LdbWn+id66575Iq80NBgNfUb5DFXtxQ+6BXzImGmflERqrtD1duoFy
-	 g0gEyXS5t7wQlFS1QbjQgzYGWyzDxi3gIfS810SeVPmkIjpvjj8d2Ms+wIuJtYG5nQ
-	 TQrrczenbP3nNzpTIMYW7oNjv9ACplceQ4f61ZVI6hmtRA/f22UNv85nYRrgdUARAe
-	 lBGMu3xaIpWewVk4KTxUzaGC4rpVwZIMX3d4fG811JdGVFFbSbjCvkAYuOAIiWKR7P
-	 UfM6oGcMs+9Xw==
+	b=k+iAnDU+dI+PiUhqY6LmFcWYr4R8DT310LQsM80C+Ds9Kq5/DHPuFu2Vh+f0rthEH
+	 rJR7ls2fM+9oXsUyzUfdCbjSsPdcTi3IVEQbLxS9Z17IdmXkdoEXxMEUh+7qvunvNK
+	 OOcxca0NoyKlJuy1hRUc/lM+qNIqImuyh1pQpeT/gtzsNjZSbzyMiJUKSyZiZSZvKw
+	 pN7ZEu46cLYPLl7M8Fhq3fVq97ZXIF8utcRjSlkcLbuD2HUNF17dhspGJJ0eMkfvCf
+	 KGxnQ+I5zE6Wm6MvA+aDPz7IzOfkRh4ZQS6xJ/d/pQypXSQlfwh7nGTUE5onms6MSW
+	 0z2Zem632f9NQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>,
-	syzbot+c8564fc0a96e3ecbe4d4@syzkaller.appspotmail.com,
+Cc: Weijiang Zhou <weijiang.zhou@unisoc.com>,
+	Hongyu Jin <hongyu.jin@unisoc.com>,
 	Mikulas Patocka <mpatocka@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] dm cache: validate the discard block size before narrowing
-Date: Wed, 25 Nov 2026 23:56:12 -0500
-Message-ID: <20261126045549.2060110-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] dm-verity: don't restart or panic on errors during system shutdown
+Date: Wed, 25 Nov 2026 23:57:10 -0500
+Message-ID: <20261126045453.2062293-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126045549.2060110-1-sashal@kernel.org>
-References: <2026112509-relish-capitol-9ef2@gregkh>
- <20261126045549.2060110-1-sashal@kernel.org>
+In-Reply-To: <2026112515-electable-treachery-1fe5@gregkh>
+References: <2026112515-electable-treachery-1fe5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,83 +62,89 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
+From: Weijiang Zhou <weijiang.zhou@unisoc.com>
 
-[ Upstream commit df8daa4d916c88ef7888c738e0eb3b6f11714a6f ]
+[ Upstream commit 47930d1236d2988cdc580c10d3af21b6b02d7ece ]
 
-The discard block size doubles until the origin fits within the discard
-bitset limit. too_many_discard_blocks() passes this sector_t size to
-sector_div(), whose divisor is only 32 bits. Once the size exceeds that
-range, the division uses a truncated divisor, which can become zero.
+Commit 252bd1256396 ("dm verity: skip verity work if I/O error when system
+is shutting down") stopped I/O errors during shutdown from triggering a
+restart, since devices may legitimately be gone by then. Errors that reach
+verity_handle_err(), e.g. through a failed hash block read followed by a
+failed FEC attempt, are not covered and still call kernel_restart() or
+panic().
 
-Use a 64-bit divisor when checking the block count. The selected size is
-stored in a u32, so reject sizes that cannot be represented before the
-assignment and before calculating the bitset size. This prevents a
-truncated zero size from reaching dm_sector_div_up().
+During a reboot that is both wrong (nothing is corrupt) and harmful: it
+races with the reboot already in progress and replaces its reason with
+"dm-verity device corrupted", which bootloaders such as Android's treat as
+a verity failure and switch the device to EIO mode.
 
-An earlier proposal checks whether the mapped length exceeds the origin
-device. This fix also covers an origin device whose valid size requires a
-discard block size beyond the field's range.
+Apply the same shutdown check in verity_handle_err(). Corruption is still
+logged, recorded in hash_failed and reported via uevent, and the I/O still
+fails.
 
-Reported-by: syzbot+c8564fc0a96e3ecbe4d4@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c8564fc0a96e3ecbe4d4
-Cc: stable@vger.kernel.org
-Fixes: 08b184514f65 ("dm cache: revert 'prevent corruption caused by discard_block_size > cache_block_size'")
-Signed-off-by: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
+Signed-off-by: Hongyu Jin <hongyu.jin@unisoc.com>
+Signed-off-by: weijiang.zhou <weijiang.zhou@unisoc.com>
 Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Fixes: 252bd1256396 ("dm verity: skip verity work if I/O error when system is shutting down")
+Cc: stable@vger.kernel.org
+[ sashal: Dropped the restart_io_error() context from the deletion hunk, which this tree lacks, so the old verity_is_system_shutting_down() copy was simply removed. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/md/dm-cache-target.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ drivers/md/dm-verity-target.c | 27 ++++++++++++++++++---------
+ 1 file changed, 18 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
-index 207dcefbfb636..949bf669a8884 100644
---- a/drivers/md/dm-cache-target.c
-+++ b/drivers/md/dm-cache-target.c
-@@ -17,6 +17,7 @@
- #include <linux/jiffies.h>
- #include <linux/init.h>
- #include <linux/kstrtox.h>
-+#include <linux/math64.h>
- #include <linux/mempool.h>
- #include <linux/module.h>
- #include <linux/rwsem.h>
-@@ -2390,9 +2391,7 @@ static int create_cache_policy(struct cache *cache, struct cache_args *ca,
- static bool too_many_discard_blocks(sector_t discard_block_size,
- 				    sector_t origin_size)
- {
--	(void) sector_div(origin_size, discard_block_size);
--
--	return origin_size > MAX_DISCARD_BLOCKS;
-+	return div64_u64(origin_size, discard_block_size) > MAX_DISCARD_BLOCKS;
+diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
+index 27ef5c0167cb6..7cc599ef87a4b 100644
+--- a/drivers/md/dm-verity-target.c
++++ b/drivers/md/dm-verity-target.c
+@@ -217,6 +217,15 @@ static void verity_hash_at_level(struct dm_verity *v, sector_t block, int level,
+ 		*offset = idx << (v->hash_dev_block_bits - v->hash_per_block_bits);
  }
  
- static sector_t calculate_discard_block_size(sector_t cache_block_size,
-@@ -2429,6 +2428,7 @@ static int cache_create(struct cache_args *ca, struct cache **result)
- 	struct cache *cache;
- 	struct dm_target *ti = ca->ti;
- 	dm_block_t origin_blocks;
-+	sector_t discard_block_size;
- 	struct dm_cache_metadata *cmd;
- 	bool may_format = ca->features.mode == CM_WRITE;
++/*
++ * Skip verity work in response to I/O error when system is shutting down.
++ */
++static inline bool verity_is_system_shutting_down(void)
++{
++	return system_state == SYSTEM_HALT || system_state == SYSTEM_POWER_OFF
++		|| system_state == SYSTEM_RESTART;
++}
++
+ /*
+  * Handle verification errors.
+  */
+@@ -266,6 +275,15 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,
+ 	if (v->mode == DM_VERITY_MODE_LOGGING)
+ 		return 0;
  
-@@ -2528,9 +2528,15 @@ static int cache_create(struct cache_args *ca, struct cache **result)
- 	}
- 	clear_bitset(cache->dirty_bitset, from_cblock(cache->cache_size));
++	/*
++	 * Devices may already be quiesced (e.g. UFS set offline by its
++	 * shutdown hook), so a failure here does not imply corruption.  Fail
++	 * the I/O but do not restart or panic, which would also override the
++	 * reboot reason of the shutdown already in progress.
++	 */
++	if (verity_is_system_shutting_down())
++		return 1;
++
+ 	if (v->mode == DM_VERITY_MODE_RESTART)
+ 		kernel_restart("dm-verity device corrupted");
  
--	cache->discard_block_size =
-+	discard_block_size =
- 		calculate_discard_block_size(cache->sectors_per_block,
- 					     cache->origin_sectors);
-+	if (discard_block_size > U32_MAX) {
-+		*error = "Discard block size exceeds 32 bits";
-+		r = -EOVERFLOW;
-+		goto bad;
-+	}
-+	cache->discard_block_size = discard_block_size;
- 	cache->discard_nr_blocks = to_dblock(dm_sector_div_up(cache->origin_sectors,
- 							      cache->discard_block_size));
- 	cache->discard_bitset = alloc_bitset(from_dblock(cache->discard_nr_blocks));
+@@ -668,15 +686,6 @@ static int verity_verify_io(struct dm_verity_io *io)
+ 	return 0;
+ }
+ 
+-/*
+- * Skip verity work in response to I/O error when system is shutting down.
+- */
+-static inline bool verity_is_system_shutting_down(void)
+-{
+-	return system_state == SYSTEM_HALT || system_state == SYSTEM_POWER_OFF
+-		|| system_state == SYSTEM_RESTART;
+-}
+-
+ /*
+  * End one "io" structure with a given error.
+  */
 -- 
 2.53.0
 
