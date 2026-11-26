@@ -1,98 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795706974;
-	b=DA+j1e5JfaArSpiW3Jhms+OyGEsf+DrLxMcRGvMddDnC7yqAPP/WgbnLt2aVTA6bgGvX
-	 Nu9rt2UgxZFd7hbqsGKoH4+14v+yTa0QbqWxq4M2FESHAJXjN9zRn+etZ7zC2myXaEGev
-	 QH0et29gH8d1xqFZEZ+ptt7N0GbR2oudC9YfDGeUnhGnmZbqsx+QDvYq7tiQqPpzaiccM
-	 Z+MBLV5s2ar+1SSgPJaNKZzL9FT5XTw1XtRUczbPoVWHK4fNpf3jHSk2UUEZfWGjcoGgE
-	 HoBFLjKmUiznaqyegiXoMUKCRiQ1Fgm/Ze/IEsVNt/7GNJhtZRgMlRjhNZdPfBU2D+g==
+	t=1795707013;
+	b=hloIRzf3TZ/QUbInIl0hAvArFeGMGBOICW4roM5wqsVof/VtA6FOoNkNpjhI9wNpQWFa
+	 5jmfTYSUDH3P49Q5ntZSN555E/ojFIDv/hG0bgW9CpcxUsnOj1DftmMj/ciz9bf9gYsjT
+	 guovpL5NQTrLhSOQycN1E6Ar7g4DnrpkU6Ql52jueCKdv8HErNbjysM8ogjZcHNXoTmid
+	 00n/lRjqLvASBa7vmdweWp1HZ3dJh+2F8SF06sBcQFEB56Qc0GmSoRqjttn8Q2bQ19sC2
+	 Ms3pWS+XwJSZlcNvNOVS9f5wjuMI1iyJyEyBSLZHqNM15al/+DqFsXZV4IkfXa9QgvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795706974;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=TqDA52TiA5EZGrLT5jnVgiF67AGoOi+mrlY8anEiueo=;
-	b=du9rm/frZuAKQJnYqMTwLCx0x6zRyCHpZGV7BOhlVB+zORW6rSV48qYianIe4w4RzvVK
-	 larlp+GK9qgWiEHj8SkUeEcHGkBSmKLZtmcxoIgm2IYF/nps0iGS4FDxSsW2Vl2EyPX/Q
-	 xg0/0dQn8VEgsLOKsyRS26HvjWkxtTM47KuDx1toERjlTt/Hl7l+ZP/JdMpjvG1kh/zCn
-	 TJpL8yu18gmRwPgrMHpROR07XFD+19PN2csaSfUL/eE6tfxhCvbZAL78b/NyRXP+rziTP
-	 8T7t/6PRTo6HLMtZuJZ383JvFiGP363ZygEBpywmApcoVbJHRFn752vITZv0qXUFMnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795707013;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=RUIuNtsNjFQRnriJiAaRNZkrS0anB54nAcvR+tqu5rQ=;
+	b=m7+jdES+fIad8rVCa4+QrJuAMLi384kRav8dDwKm7b/1PynxAcX1EI0VFLiKF1Q+a2IZ
+	 JKzUJq/QiZTOwiNwmWX59WfzXfimWRxCyseHjAptpPqb2GlCU68+ihzoa1YQkiJebF2CA
+	 3/7n4DYEvAC5s8t4WOa5du5FRVGo56iI/JgRAA8246f3ZNwyriEkCFV8LWQffelGKO7Na
+	 2h69KA57lzrRO/fB89JzyFmr8RnlAx+/Ggu0xq8l6oBzBgjKIjXcJPNo4+H2vGBWzbRU/
+	 g/mRpVAeqWY21OP8lADJ2NpE2hICrofIlAYbQUmj2fMMg3kwdC+CMSMmOmiv/JowMbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PnwmdSQc;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nRKQ7WfY;
+	arc=none smtp.remote-ip=95.215.58.171
+Received: from mta1.migadu.com (out-171.mta1.migadu.com [95.215.58.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C14C606A321
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:29:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C14C606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14539606A323
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:30:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14539606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PnwmdSQc
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-38644aedba1so10649807eec.0
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 07:29:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795706973; x=1796311773; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TqDA52TiA5EZGrLT5jnVgiF67AGoOi+mrlY8anEiueo=;
-        b=PnwmdSQcYMwpr0abDalRR1yI8sCnDsViuonW/GEKNPJKfacnJAzLa/aBABAtR/ZSMz
-         W8yzmAeTXA4M+yyvWejoNcGn4NHkohGRZyFb1SYv1ox6v86HU37l6E8KolndzATLA0kw
-         dcMXfM2ZGwjgfdSSLUZWNXwlSdHKK9NYk22a4pkOMd0M2dRswfaDCtMMRCs3OWpG+YZ2
-         slttFZVW4I1LSVa2XSsagLmqf8yivhE3AK2zcB95Zn25hb9yfMXhrWYD5DT/pfA+9Zss
-         QlE1dWGxq5yVo38EzMCPfQ5dSDdMJpg+8NI/14wndrlMpd8f4hahPO+gY9iVuAlkrzkf
-         jjRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795706973; x=1796311773;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TqDA52TiA5EZGrLT5jnVgiF67AGoOi+mrlY8anEiueo=;
-        b=o3Kl3ESxUQLKE8Bm2Rk0TgmofeMGE14b2ljlFX8bOP+7UiGM0Q+9tgIuZTafotCUUK
-         Y00+gYkaM0pIZ0P2jgz3QnpZYRNG1wif+k2Hg5uIG9muinH8eNKIhMfejC9VU2BHm9eI
-         Y2/TMEyjFdScYZDzrhM80cdCMWQkUDr6LLXXdZt6x4PjhNL2FcqIIiXX89MxHlO6zoh1
-         yelQu9VHGy22dZ4pArskbOsYJ/jQxL3MBP4lQ6gOE6C5vw7+YUdea5eiwyMCIwRGzvVM
-         zuBB1qJM0qc36EpaGstLtgzOo9bP+bFO0Ux+XoUmI6/UE25czvJabrycL4K20OCFIa9Q
-         eIXg==
-X-Forwarded-Encrypted: i=1; AL+hErEzGYKKFMoFgKrWaVqGugygG41JR9TvITnGNe5K+Jd4+eOFCN2qy+MsHl4Y4g/FcIzhNa6hUmw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+jiIbvAQtBZ5fvRfSakEO2DpCU2l36OLtbcC+qDpmbJeq6hNsc
-	qEh3p+CYW7A11KoqEc0iB2VvMRylRkyztRegto5VzVzY+tbeyVjQ8A6F
-X-Gm-Gg: AZFdTZeEzyiX0aLaahGJF8JRECSPdu2a2M2YADGLgC6ykP9gRiHpgFpUvHa2EWWjJ6Y
-	woA6w+6s8zliwPP2dxrYSfNoR8Bs15NF3X3/dRadk2A7JRoqKH2WK2isIm+ewmr9oyiSFhEzk6s
-	fafV4PUDxSh4iTH2AvfXkWBLQJsp3Vbvl66Z17EUzgvTnVdkxFw/j6D/liFfluE52gAZNCL6lCz
-	YFAFXRbKRhqdNA2LxvxxgIK+rH+Ifeoi5sAmwcTFD1BWu8L+qQ+ipOADsRKZAnc66Q45Xg49hy5
-	KZihTqq6BlF0vqq9DlJuIM4XD89zekVItyQHFsYtaVhzivfz4COWcNK+Q8TUDoESqM1ydIacn6u
-	qTW2hhkY67km73H3tpofWKe2KTAWld6ZPNCN7kZu1FdMnKgw3jAhIcmi417RFisEa+bIKeu36/9
-	Qw25Tlx/Amm6gdfGI73q+KOC9AGVERl9o1DsaQYeWv09W2kblzEhRQOOp07hk9WOj46ld5Rl55n
-	h1HZ/7UTgXDduoigqtwSG8qTPDDlfuty3B2R2k39YtZCMfocgl409ZwQA2Ut5c3Kl1sytQqjjuS
-	7HaFG6ORYJ/AQA5qFXabjNgkZVvFrDf14nM=
-X-Received: by 2002:a05:7301:e0c8:b0:386:c724:cc68 with SMTP id 5a478bee46e88-386c724ceb2mr7058487eec.2.1795706973233;
-        Thu, 26 Nov 2026 07:29:33 -0800 (PST)
-Received: from mptcp-lab.w453y.xyz ([59.164.88.43])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385665f21aesm77580388eec.4.2026.11.26.07.29.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 07:29:32 -0800 (PST)
-From: Abdul Wasey <w453y.me@gmail.com>
-To: Matthieu Baerts <matttbe@kernel.org>,
-	gang.yan@linux.dev
-Cc: mptcp@lists.linux.dev,
-	Mat Martineau <martineau@kernel.org>,
-	Geliang Tang <geliang@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	"Mohit P. Tahiliani" <tahiliani@nitk.edu.in>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH mptcp-net v9 1/2] mptcp: pm: in-kernel: fullmesh: skip closed subflows
-Date: Thu, 26 Nov 2026 15:29:27 +0000
-Message-ID: <20261126152927.3924317-1-w453y.me@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <c9eb1633-ea90-4b86-b7d5-dc3c7ba2bf1d@kernel.org>
-References: <20261126101818.3916631-1-w453y.me@gmail.com> <20261126101818.3916631-2-w453y.me@gmail.com> <0f1d9633b78cdacd57f4c235a5a787426083d788@linux.dev> <c9eb1633-ea90-4b86-b7d5-dc3c7ba2bf1d@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nRKQ7WfY
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=mSefQdG9q8oprzWmA/cvxJZNWxrmJfpm9iiyYsB1lOk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795707011; v=1; x=1796311811;
+ b=nRKQ7WfY2XOWMEnO65gVPYBEoBV9t4zuBTlmSm3Ev0Vig2UNU8VpsQs6kWoJEav23Yi+LWas
+ m9oMXOu+mMqSrHGwQ1yoJ9aWFf1Q7P9S7UlWLmAXZWhJEgZNbWQeFgBD/rFo54bIsi4tYu3xtpB
+ EPj22AseZXars+lvjASgt57A=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1524a602b15b02a6;
+	Thu, 26 Nov 2026 15:30:10 +0000
+X-Mizu-Trace-ID: 1524a602b15b02a6
+X-Migadu-Flow: FLOW_OUT
+From: Leon Hwang <leon.hwang@linux.dev>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Leon Hwang <leon.hwang@linux.dev>
+Subject: [PATCH linux-6.12.y 0/4] bpf: Fix interpreter-unsupported insns
+Date: Thu, 26 Nov 2026 15:29:58 +0000
+Message-ID: <20261126153002.162337-1-leon.hwang@linux.dev>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,51 +70,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Gang, Matthieu,
+Request from Guillaume and Vincent [1][2], backport the following commits to
+linux-6.12.y with editing the commits manually.
 
-Thank you both for the review!
+9a6df65d5c6a ("bpf: Introduce jit_required flag and remove bpf_prog_has_kfunc_call()")
+f1c27922576e ("bpf: Reject programs with inlined helpers if JIT is not available")
+34746b5a84ec ("bpf: Disallow interpreter fallback for arena-related insns")
+7a0855e73757 ("bpf: Disallow interpreter fallback for BPF_ADDR_PERCPU insn")
 
-On 26/11/2026 16:09, Matthieu Baerts wrote:
-> On 26/11/2026 16:01, gang.yan@linux.dev wrote:
->>> +/* Closed subflows can stay in the conn_list, e.g. the initial one: their
->>> + * addresses and IDs are not reliable, possibly even reset.
->>> + */
->>
->> What about dropping this comment here?
->
-> +1
+As there was a big code refactoring in linux 7.1, the changes in the new
+file kernel/bpf/fixups.c will be backported to the positions in
+kernel/bpf/verifier.c.
 
-Sure, I will drop it in v10.
+Patch 1 introduces a new bit 'jit_required' in struct bpf_prog. The
+other patches set 'jit_required' to fix the issues.
 
->>> + /* The initial subflow can be closed: like fill_remote_addr(), use the
->>> + * remote address of the MPTCP socket for the remote ID 0.
->>> + */
->
-> While at it, you can short this comment to something like:
->
->  /* If the initial subflow is closed, use fill_remote_addr */
+Links:
+[1] https://lore.kernel.org/bpf/BESPR02MB12296D62B1B3F33BA21C4F24AF1432@BESPR02MB12296.eurprd02.prod.outlook.com/
+[2] https://lore.kernel.org/bpf/MR1P264MB331494502C9D13D8A9EAFB99B7E82@MR1P264MB3314.FRAP264.PROD.OUTLOOK.COM/
 
-OK, will do.
+Leon Hwang (2):
+  bpf: Disallow interpreter fallback for arena-related insns
+  bpf: Disallow interpreter fallback for BPF_ADDR_PERCPU insn
 
->> Another question, why don't you just use 'full_remote_addr' here, like:
->> '''
->>   if (!test_bit(0, unavail_id) && i < addrs_size &&
->>             msk->pm.extra_subflows < limit_extra_subflows)
->>         i += fill_remote_addr(msk, local, &addrs[i]);
->> '''
->>
->> It hasn't been tested, just wondering if there is a specific reason to keep
->> the duplication here, as I would rather reuse the existing code.
->
-> Good idea to try this!
+Tiezhu Yang (2):
+  bpf: Introduce jit_required flag and remove bpf_prog_has_kfunc_call()
+  bpf: Reject programs with inlined helpers if JIT is not available
 
-No specific reason, I just didn't think of calling it from there.
-fill_remote_addr() already checks remote_deny_join_id0 and the address
-family, increments extra_subflows, and returns the address with ID 0, so
-it does the same thing. I will use it in v10, and run the tests again
-with it, with and without the fix.
+ include/linux/bpf.h   | 22 +++++++++++++++-------
+ kernel/bpf/core.c     |  7 ++-----
+ kernel/bpf/verifier.c | 21 ++++++++++++---------
+ 3 files changed, 29 insertions(+), 21 deletions(-)
 
-I will wait for the netdev review of v9 before sending v10.
+--
+2.55.0
 
-Thanks,
-Abdul Wasey
