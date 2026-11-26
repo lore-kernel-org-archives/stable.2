@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795667417;
-	b=v695eap1ekcwahYkXUYBIH+/a92EVETyx+LS0nPuYfOU3hFa/38+nG9eT0F+0lj1zDyJ
-	 o4pmNrYb0X0aI0gF9ZQ3GjJk7rzbnlkzm/pEsTbRX75ImwkosM2qFXWMIbIvVRRskEdIc
-	 IZWx3R1r9aufxRLaj8O3WFriAphefojYW9UYPxURJzEkJlXQWoSts7B6ilaRxpRI5cunP
-	 BXYHTu1JZwSWsq5lJ2eZKwUnzLx5Lr8FHir3j+lwNxpUbR0jOBalq6lVYfGgCxbvwJ0R/
-	 V/fvWWykyxlXg5lYiyOkmj2pmbXxhTzRyvIAYX1ShZzPj8uFszpoeH94vmWNrAhKvHw==
+	t=1795667561;
+	b=5dvFhlW2xh2Evrfu/Q7lLCecQpc2IJawkC3AImCfd0plJg6Jj26N2dyrSXzHtLsHDBQ4
+	 NTbKqBopnUpH+a1Heq9xvY32YQQtbLZJnsZYp29VcjgeImuoLCPIRAAwS8U09JJzlNJp7
+	 G7r33aZ01MjDikRy2x1tldquWnBpGkvfr1eDV4qTEX6hhQpRIvrWUCR1HTeWMFQ1CbuM6
+	 MSVfJhnRgm8S1uTmvQKnyzY93gLTagWhzoXHnhBg+35xZy40IbSaKdpYqKBazc9xwPTqo
+	 w9y4tbQFLvj8pbwDU8gzKEiwYt/FEC1mE42w+aq8pXXqj33D8LPJejn61nA5h0BE0lQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795667417;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795667561;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mUVgaqMBQQn7sf5WQTn9YyJy4wtcBbObLeZH7AK9ylA=;
-	b=cuLuwAVpm18SIx9rC8pRHb7gEJYGUaGhmBYbdxYOOY61tc1NnBrf80SXsA7gduyxczKE
-	 sLawydBy4O7kJrqIzIFLMfI8wrIzW7s1nSA0lBR2vnevyIVS7Uw58Gg3pk0mA9hKJtTAQ
-	 spgkDBBnXMUwmyYatuY4XWeeoH/sAHvaD0X8gzJ8BVHsVpc/zTsPZSslE8TsqpjLPd6hZ
-	 eh8GDdVgEYJ/B7jPPgMKEqXi8tbzf8d3G+WgODyBI0wSaDf88ixCqglmaHzr0sZOeCmwc
-	 zTkJwi/WB71+anbYqfXPJbxVGFUM+vODn4YpeBfxwyT7C2MrhmRjkELPU66F1xclTKg==
+	bh=8WlPbEWJWt9mukd8pvKhqtwl/T5nk/QxP0Whf/iCqE0=;
+	b=ui4J5ck6n00HGjzDvDQ6K5Wm2VjfN9TXamyqRlx+ZNxatY0hll1oeiSeMXITuE2vL5cm
+	 iOf2/DMqf/kv19AO6p+o4gs+yE8k+xrWmwxlHfkHW/DklzgLS6g/qPYbhXdfVvscNqFKc
+	 TqBfo+cKNDUWRw4DSU4k6q5MlzT9UkPEmMGvMKIRCXipowvRba1L++2MveEQfehGCmGsv
+	 nfjqIInOAVqQtO4cAdIcPgydwRAyeF3Z4ILPlBxneqvz1Ch6sHvrGtw5EDAaWyd421jyT
+	 5h5Bn0dOm3oGiCfpE+ahxzBmWfWThqupL1hMmNYYJR8SDLCGnLUAXn4tv4Iq+HFVNRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XkV/z2P3";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q1BhT/4r";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1AB9606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:30:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECCB4606A31E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:32:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XkV/z2P3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 164F61F000C4;
-	Thu, 26 Nov 2026 04:30:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q1BhT/4r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91B031F000C6;
+	Thu, 26 Nov 2026 04:32:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795667417;
-	bh=mUVgaqMBQQn7sf5WQTn9YyJy4wtcBbObLeZH7AK9ylA=;
+	s=k20260515; t=1795667560;
+	bh=8WlPbEWJWt9mukd8pvKhqtwl/T5nk/QxP0Whf/iCqE0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XkV/z2P3JLIPyCYev8KeQI8eLP786Lm2DARBq0lnxCYHgosF+k/ilLvIli0vdFbt7
-	 Kzub4eashl45ltbEt28GcXtPVyhlnaJeve9SmfdLC4hR91RRerZ00vmNl7FPgNTODq
-	 K3mptSXJeql1Si+ynf0a8HUMIaClwxebW7lk+bjGUmZWchGH17bKNCG45nXl3Aw7m7
-	 V9Gp/Y99ILrZmcnz1Kz3PBXq2gRVo3/yB7fVosxuIKRGlMYtYEfly0GL1No2fQfzSA
-	 WTm0jXJX3lRmh4n5cpp38yDe1dlTDJpG9suIaQWl5pvVKhYTXYNF3TTV73YDPi1cuH
-	 pSbp2dhv7absQ==
+	b=Q1BhT/4rTripfMREWZrKroO4lDSi2orVcrD19VrEpgORWhxmfwCxqLcbCEg04li73
+	 hpcuAmYQZcmyA17sKX8N+/EIBLdHq8Uj0lMnRlr3+1qu/uz7jrXvYJBK2+t/ODwbrg
+	 DNV0jJPWvqlbmfbK5eTY0ZYTNDUCSRP3l74KHcQ0l+PodIBYGzcNccXMsWcJUCSBGk
+	 JXjLMuQ6l1otBtkWZdNOy6djrfFA2uqVN9ObB+Is5b1RXai0v5hwamu4v++4zWJEBz
+	 Rzq3MWxRtNFEVeMWJXaCoDm6S3XXX1hxQIbfENyyri6slQO9Jez8X5o5llJNBSA2+h
+	 jqiwUHrXurlMQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: liuyong <pkfxxxing@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Paulo Alcantara <pc@manguebit.org>,
+	David Howells <dhowells@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] smb: client: validate descriptor headers before query result allocation
-Date: Wed, 25 Nov 2026 23:30:14 -0500
-Message-ID: <20261126042943.1964790-3-sashal@kernel.org>
+Subject: [PATCH 7.3.y] smb: client: don't fail writeback preparation if the task is dying
+Date: Wed, 25 Nov 2026 23:32:38 -0500
+Message-ID: <20261126043217.1960487-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126042943.1964790-1-sashal@kernel.org>
-References: <2026112507-depraved-reappear-7196@gregkh>
- <20261126042943.1964790-1-sashal@kernel.org>
+In-Reply-To: <2026112518-brim-hatchet-6280@gregkh>
+References: <2026112518-brim-hatchet-6280@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,91 +61,179 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: liuyong <pkfxxxing@gmail.com>
+From: Paulo Alcantara <pc@manguebit.org>
 
-[ Upstream commit ffb59029c0d52bf76fdd2678f5d6fd13e26220dd ]
+[ Upstream commit 29ead886deaa1344a43ab68b1ea305ea2c86c378 ]
 
-query_info() uses the server's returned length instead of the caller's
-minimum when a dynamic result is requested. A zero-length ACL response
-can therefore return ZERO_SIZE_PTR to id_mode_to_cifs_acl(), whose
-ownership-change path reads dacloffset before checking the header size.
-A KASAN-enabled test shows a read at address 0x20 and a kernel Oops.
+cifs_prepare_write() may need to reopen an invalidated handle and to wait
+for credits, both from the context of the task doing writeback.  A dying
+task gets the reopen refused at send time and the killable credit wait
+interrupted, so the subrequest is failed and, as with refused sends, its
+folios end writeback clean and the data is lost.
 
-Validate the returned range and the caller's minimum before allocating
-the dynamic result. Keep the reported length zero if validation fails.
+For writeback in a dying task, skip both and prepare a credit-less
+subrequest capped at SMB2_MAX_BUFFER_SIZE, as already done when the
+server is low on credits.  It gets issued from cifswritebackd, which
+reopens the handle if needed and takes a single credit when sending,
+neither of which can be interrupted there.  Do the same when the reopen
+or credit wait fails because a fatal signal arrived meanwhile.
 
-Use the security descriptor header size as the minimum in SMB2_query_acl().
-DACL-only and SACL-only xattr queries do not require owner and group SIDs,
-so enforcing MIN_SEC_DESC_LEN would reject short descriptors that these
-queries could previously return. The rewrite paths validate the required
-owner/group SIDs and DACL separately before using their contents.
+cifs_begin_writeback() reopens the handle too when all the writable ones
+got invalidated, e.g. by a reconnect.  If that fails, there is no
+upload stream, so netfs ends writeback of every folio clean with no
+error recorded.  Take an invalidated handle as is there and leave
+reopening it to cifs_prepare_write().  If there is no writable handle at
+all, record -EIO for the mapping, so that the loss gets reported.
 
-These issues were discovered and fixed by Qihoo 360's Tulongfeng
-multi-agent system.
-
-Fixes: 9ee2afe5207b ("cifs: prevent copying past input buffer boundaries")
-Cc: stable@vger.kernel.org
-Signed-off-by: liuyong <pkfxxxing@gmail.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Fixes: 3ee1a1fc3981 ("cifs: Cut over to using netfslib")
+Reviewed-by: David Howells <dhowells@redhat.com>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: stable@vger.kernel.org
+[ sashal: moved cifs_writeback_dying() above cifs_prepare_write() so the new calls compile, because the earlier backport had left it after that function. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cifsacl.h | 14 --------------
- fs/smb/client/smb2pdu.c | 11 ++++++++++-
- 2 files changed, 10 insertions(+), 15 deletions(-)
+ fs/smb/client/cifsglob.h |  1 +
+ fs/smb/client/file.c     | 49 +++++++++++++++++++++++++++++-----------
+ 2 files changed, 37 insertions(+), 13 deletions(-)
 
-diff --git a/fs/smb/client/cifsacl.h b/fs/smb/client/cifsacl.h
-index 31b51a8fc2561..ebc1b7c08c6ad 100644
---- a/fs/smb/client/cifsacl.h
-+++ b/fs/smb/client/cifsacl.h
-@@ -93,18 +93,4 @@ struct owner_group_sids {
- 	struct owner_sid group;
- } __packed;
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index 68f56547ef721..c70c214ac7cc6 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -1898,6 +1898,7 @@ enum cifs_find_flags {
+ 	FIND_NO_PENDING_DELETE	= (1U << 2),
+ 	FIND_OPEN_FLAGS		= (1U << 3),
+ 	FIND_NO_DIRECT		= (1U << 4),
++	FIND_NO_REOPEN		= (1U << 5),
+ };
  
--/*
-- * Minimum security identifier can be one for system defined Users
-- * and Groups such as NULL SID and World or Built-in accounts such
-- * as Administrator and Guest and consists of
-- * Revision + Num (Sub)Auths + Authority + Domain (one Subauthority)
-- */
--#define MIN_SID_LEN  (1 + 1 + 6 + 4) /* in bytes */
--
--/*
-- * Minimum security descriptor can be one without any SACL and DACL and can
-- * consist of revision, type, and two sids of minimum size for owner and group
-- */
--#define MIN_SEC_DESC_LEN  (sizeof(struct smb_ntsd) + (2 * MIN_SID_LEN))
--
- #endif /* _CIFSACL_H */
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index 6844bdfcc9b1b..bd61c10ec0f28 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -3927,6 +3927,14 @@ query_info(const unsigned int xid, struct cifs_tcon *tcon,
- 				ses->Suid, info_class, (__u32)info_type);
- 
- 	if (dlen) {
-+		rc = smb2_validate_iov(le16_to_cpu(rsp->OutputBufferOffset),
-+				       le32_to_cpu(rsp->OutputBufferLength),
-+				       &rsp_iov, min_len);
-+		if (rc) {
-+			*dlen = 0;
-+			goto qinf_exit;
-+		}
-+
- 		*dlen = le32_to_cpu(rsp->OutputBufferLength);
- 		if (!*data) {
- 			*data = kmalloc(*dlen, GFP_KERNEL);
-@@ -3998,7 +4006,8 @@ SMB2_query_acl(const unsigned int xid, struct cifs_tcon *tcon,
- 
- 	return query_info(xid, tcon, persistent_fid, volatile_fid,
- 			  0, SMB2_O_INFO_SECURITY, extra_info,
--			  SMB2_MAX_BUFFER_SIZE, MIN_SEC_DESC_LEN, data, plen);
-+			  SMB2_MAX_BUFFER_SIZE, sizeof(struct smb_ntsd),
-+			  data, plen);
+ #define   MID_FREE 0
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index 4da53f84196f1..e999d94ac44fb 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -94,6 +94,12 @@ static bool cifs_io_aborted(struct cifs_io_subrequest *subreq)
+ 	       tcon->need_reconnect;
  }
  
- int
++static bool cifs_writeback_dying(struct netfs_io_subrequest *subreq)
++{
++	return subreq->rreq->origin == NETFS_WRITEBACK &&
++		fatal_signal_pending(current);
++}
++
+ /*
+  * Prepare a subrequest to upload to the server.  We need to allocate credits
+  * so that we know the maximum amount of data that we can include in it.
+@@ -129,12 +135,17 @@ static void cifs_prepare_write(struct netfs_io_subrequest *subreq)
+ 		cifs_negotiate_wsize(server, cifs_sb->ctx,
+ 				     tlink_tcon(req->cfile->tlink));
+ 
++	if (cifs_writeback_dying(subreq))
++		goto defer;
++
+ retry:
+ 	if (open_file->invalidHandle) {
+ 		rc = cifs_reopen_file(open_file, false);
+ 		if (rc < 0) {
+ 			if (rc == -EAGAIN)
+ 				goto retry;
++			if (cifs_writeback_dying(subreq))
++				goto defer;
+ 			subreq->error = rc;
+ 			return netfs_prepare_write_failed(subreq);
+ 		}
+@@ -143,10 +154,17 @@ static void cifs_prepare_write(struct netfs_io_subrequest *subreq)
+ 	rc = server->ops->wait_mtu_credits(server, wsize, &stream->sreq_max_len,
+ 					   &wdata->credits);
+ 	if (rc < 0) {
++		if (cifs_writeback_dying(subreq))
++			goto defer;
+ 		subreq->error = rc;
+ 		return netfs_prepare_write_failed(subreq);
+ 	}
++	goto out;
+ 
++defer:
++	wdata->credits = (struct cifs_credits){};
++	stream->sreq_max_len = min_t(size_t, wsize, SMB2_MAX_BUFFER_SIZE);
++out:
+ 	wdata->credits.rreq_debug_id = subreq->rreq->debug_id;
+ 	wdata->credits.rreq_debug_index = subreq->debug_index;
+ 	wdata->credits.in_flight_check = 1;
+@@ -167,12 +185,6 @@ static void cifs_prepare_write(struct netfs_io_subrequest *subreq)
+ #endif
+ }
+ 
+-static bool cifs_writeback_dying(struct netfs_io_subrequest *subreq)
+-{
+-	return subreq->rreq->origin == NETFS_WRITEBACK &&
+-		fatal_signal_pending(current);
+-}
+-
+ /*
+  * Issue a subrequest to upload to the server.
+  */
+@@ -221,10 +233,15 @@ static void __cifs_issue_write(struct netfs_io_subrequest *subreq)
+ 
+ static void cifs_issue_write_worker(struct work_struct *work)
+ {
+-	struct netfs_io_subrequest *subreq;
++	struct cifs_io_subrequest *wdata;
++	struct cifsFileInfo *cfile;
+ 
+-	subreq = container_of(work, struct netfs_io_subrequest, work);
+-	__cifs_issue_write(subreq);
++	wdata = container_of(work, struct cifs_io_subrequest, subreq.work);
++	cfile = wdata->req->cfile;
++	while (cfile->invalidHandle &&
++	       cifs_reopen_file(cfile, false) == -EAGAIN)
++		;
++	__cifs_issue_write(&wdata->subreq);
+ }
+ 
+ static void cifs_issue_write(struct netfs_io_subrequest *subreq)
+@@ -362,15 +379,17 @@ static void cifs_begin_writeback(struct netfs_io_request *wreq)
+ 	struct cifs_io_request *req = container_of(wreq, struct cifs_io_request, rreq);
+ 	int ret;
+ 
+-	ret = cifs_get_writable_file(CIFS_I(wreq->inode), FIND_NO_DIRECT,
++	ret = cifs_get_writable_file(CIFS_I(wreq->inode),
++				     FIND_NO_REOPEN | FIND_NO_DIRECT,
+ 				     &req->cfile);
+ 	if (ret) {
+-		ret = cifs_get_writable_file(CIFS_I(wreq->inode), FIND_ANY,
+-					     &req->cfile);
++		ret = cifs_get_writable_file(CIFS_I(wreq->inode),
++					     FIND_NO_REOPEN, &req->cfile);
+ 	}
+ 	if (ret) {
+ 		cifs_dbg(VFS, "%s: couldn't find writable handle: %d\n",
+ 			 __func__, ret);
++		mapping_set_error(wreq->mapping, -EIO);
+ 		return;
+ 	}
+ 
+@@ -2841,7 +2860,7 @@ int __cifs_get_writable_file(struct cifsInodeInfo *cifs_inode,
+ 	}
+ 
+ 	if (test_bit(CIFS_INO_TMPFILE, &cifs_inode->flags))
+-		find_flags &= FIND_NO_DIRECT;
++		find_flags &= FIND_NO_REOPEN | FIND_NO_DIRECT;
+ 
+ 	cifs_sb = CIFS_SB(cifs_inode);
+ 
+@@ -2901,6 +2920,10 @@ int __cifs_get_writable_file(struct cifsInodeInfo *cifs_inode,
+ 	spin_unlock(&cifs_inode->open_file_lock);
+ 
+ 	if (inv_file) {
++		if (find_flags & FIND_NO_REOPEN) {
++			*ret_file = inv_file;
++			return 0;
++		}
+ 		rc = cifs_reopen_file(inv_file, false);
+ 		if (!rc) {
+ 			*ret_file = inv_file;
 -- 
 2.53.0
 
