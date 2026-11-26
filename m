@@ -1,56 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795665654;
-	b=AmViPxQaVdCSKydDpuUnWlhp9eWMKBax8jUaBfibxF71SmWd/3UMJsCUCufB/e/a2jOV
-	 iAlwH6bTXKB178liHrNuN3yYeUSoIW0SBxXWBtpHRfSmzBDWArK3lNByrZyhLGbOf20Oy
-	 YFksM0Ast3UuMY43g5JISmHTDRMzjKyvKwkbD5WAlevKULu+AowJDwWGYOSwZZdgA2yQy
-	 Xkn5UiXzS72hwFsFLQnsw7B8rkjL9HORKipF6z/QnUhpKjpdCfHT3P/iIMZtbCauwql12
-	 qujVldfyQcgXExcbH9SDg5QDsvg3NzFtVhk3iUIOlOOkUinJzZ/zIjY0TtSGHfCTUng==
+	t=1795665680;
+	b=u9iJKO47qnALIhREmQc5YQ2coFjQlupw5gpiE8Qbyt5+DYEKt1gLh2dtERUwMNabpD0A
+	 fv6gkGapW7aXi/uA40e+wThOryTnlV36gvAluBiFGdCpiEOYJ4TdHzWtU74jQrVNNONjX
+	 EX1hALfW9pqEjc1db6pLQf/HGbxzC4GW7Hyzg26wUX2JQx3PGn4iF8OHL4JX/QoAhm9hC
+	 spn1j3TP0Gx1Yktl9zf61zhxz+LiiE3c7EfRYM8/U7ctvRkF+eQO9Ty2Opr+cSwyTb/Wm
+	 MRZq+Lys+/tUC7H8xlQOAmIFCEMXqlIOQwjFBYlt70lXprEe5Ty+ntI7mRptYoRcGyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795665654;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795665680;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mEQGVuGWvCLhrgykgf9B2S9Nah1Pj1/wtoIYR2RWYjI=;
-	b=cTlcAZv1sLBMzpGILlG9Ry5sJ3zRKRPGCOESHUUwmKoO7Szvdnuu65yDkLB9ApyBoFX2
-	 o8S7lLAuqIgb91cddIQhx5Rw3uF6/InyYTS8MH9IjGVwdKEbXZAJwLBr2NN/ecvQ1psIt
-	 6888YgUzvkBPXjxKvLPGA8kCs1Sv0Mqwh63sKqQ2/dLA70HrmD8xk8HdZPGH8eD6f3xvA
-	 xgfGC8J6U9lK7ULfoovcYmQ0/mCHp6WlWBI9aaIKkvp34m/qLQA4JpX6zG/Weudb+SIIU
-	 wGGVq4M90my1JxeFoCdDaLGfG6Vn7sH03E+4heGD8I8Vsdac8fO7DjJjS/Ayd39ckxQ==
+	bh=kt4JTsXJeVt+0WtAzRJ220bHeUM4BWTRmRwfeAUlTk8=;
+	b=LjLgSHkNQT471EhjkLJ4NYo8LrJJcRsmj5iHjSVpbrSwAaZTNvMO+7mngA1aLNGKfeBk
+	 RCYtFbunVj+OAQcVc16gplEr+E11iu9t66+jDiiHYUv6O+heKo955hhwC9BEn+s7z8jBj
+	 B9F/p4ISU9WYmyquxgXI5tNcXnvO4rzRiGGGPm2aFf+xDOF7HTtyTLanyRPAdRL+l6fyj
+	 wU0mcL5r41P/LPAa3kjZgc1W5nhrQ2ly9cpUwY/SHLeI1gjOphxqvKSj61Oq4osbkrqYv
+	 vF1X40Hqq/lxXQhLXxM31bgTjdH7ZWgq/csSV1DbCizoJv0OYJZv7fL0wwYSIhW29Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mVA5p9lf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYwWTRLx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0A1606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:00:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F3A1606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:01:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mVA5p9lf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B34031F000CA;
-	Thu, 26 Nov 2026 04:00:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYwWTRLx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 214621F000C4;
+	Thu, 26 Nov 2026 04:01:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795665654;
-	bh=mEQGVuGWvCLhrgykgf9B2S9Nah1Pj1/wtoIYR2RWYjI=;
+	s=k20260515; t=1795665679;
+	bh=kt4JTsXJeVt+0WtAzRJ220bHeUM4BWTRmRwfeAUlTk8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mVA5p9lfADbJSTBCytaYQZxOthsh4m/llsEi6RktEbszU2CJ42tHYqlHAXcV90FZM
-	 T6mBj2bWHQo+4/SOrsj/9QKF8QXOmwriXeX2lgYTxbDcLlc6stUkRca2EirJrJsklj
-	 sIUfBspOSZlUP9bkcx9vEPhVUtSdWrby4gywlq0AaF5fBAvPAQ0uLTHU/mcI90nYyu
-	 kBEKmQaX/6gPNIMMvHHV0ZIkDNvnutydksla4OIbgOkdZGkYKG4W98QaKfbjUDkZWw
-	 ggVizlIhZHPQMjXT6qtExwKWmXa19sAYu3H5m7T5dmnIe93sMUkvUeDgwFZboHXFvx
-	 URsmaVpRyncAw==
+	b=PYwWTRLxF3ujVu9gdM+H1nhNu6ls91l67+1NK+rL6v38aQK87Pwn+FtcAj/JS4u24
+	 eeogEeSSGNWSxldVI+6lI8RTlf8MqVwfpx2IidgFvQesSN1UewNghkp0eIlYzjNETD
+	 J0v1y68w6dmDi8IQfLloB5kKy0hf7Z6ifQ9iRNOJV87ty0OLJfZhrhiEPtsNysz9f1
+	 fu0qh3Vxua71Vfa45U8uCIb/Onh69HlyOPVYYdCZ63uWJ/TJtrXTfZMh0qhuvHwMfg
+	 fSzCoOPZhKxCZuP3WrauhduLbLtSQ1BA2qBpYQ0+whV8igKf86+1IK7r5QBea3Cn3G
+	 CY7GVusgeZNDQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yifan Zhang <yfzhang23@stu.pku.edu.cn>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Amir Goldstein <amir73il@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] smb: client: bound invalid NTLMSSP signature diagnostic
-Date: Wed, 25 Nov 2026 23:00:52 -0500
-Message-ID: <20261126040040.1869924-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] ovl: fix leak of lowerdata redirect on ovl_get_inode() failure
+Date: Wed, 25 Nov 2026 23:01:17 -0500
+Message-ID: <20261126040105.1870857-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112511-natural-provolone-2579@gregkh>
-References: <2026112511-natural-provolone-2579@gregkh>
+In-Reply-To: <2026112540-ipod-frantic-30d3@gregkh>
+References: <2026112540-ipod-frantic-30d3@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,55 +60,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
+From: Amir Goldstein <amir73il@gmail.com>
 
-[ Upstream commit 0584b02669c3e76188097174b4f25ed13723e94c ]
+[ Upstream commit f1b7e5534854043077bb72afc8d87ad1e0b283e0 ]
 
-The NTLMSSP Signature field is an eight-byte binary value and need not be
-NUL-terminated. decode_ntlmssp_challenge() prints it with %s on the
-signature-mismatch path, so the diagnostic can continue beyond the received
-blob until it encounters a zero byte.
+ovl_lookup_layers() moves d->redirect into oip.lowerdata_redirect and
+clears d->redirect before calling ovl_get_inode().  When ovl_get_inode()
+fails, it does not free oip.lowerdata_redirect, and ovl_lookup() frees
+the already cleared d->redirect, so the lowerdata redirect string is
+leaked.
 
-KASAN reports:
+Clear d->redirect only after ovl_get_inode() has succeeded, like
+d->upperredirect, so that ovl_lookup() frees it on failure.
 
-  BUG: KASAN: slab-out-of-bounds in string
-  Read of size 1
-  string
-  vsnprintf
-  _printk
-  decode_ntlmssp_challenge
-
-Print the fixed-width field with the bounded hexadecimal format.
-
-The patched kernel reaches the invalid-signature path and returns -EINVAL
-without a KASAN report.
-
-Fixes: 0b3cc858003b ("[CIFS] NTLMSSP reenabled after move from connect.c to sess.c")
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
+Fixes: 2b21da920866 ("ovl: prepare to store lowerdata redirect for lazy lowerdata lookup")
+Closes: https://sashiko.dev/#/bug/linux-dabbd363-9c71-4915-af72-e2b5e75fa58e
 Cc: stable@vger.kernel.org
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: changed the file path from fs/smb/client/sess.c to fs/cifs/sess.c, with the same one-hunk format-string change applied to the older location. ]
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+[ sashal: adapted the fix to inline ovl_lookup() code using local variables (d.redirect, ctr, stack) because the ovl_lookup_layers() helper and ovl_lookup_ctx struct don't exist here ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/sess.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/overlayfs/namei.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/fs/cifs/sess.c b/fs/cifs/sess.c
-index 0fbd0f78f361b..44392d88f83e8 100644
---- a/fs/cifs/sess.c
-+++ b/fs/cifs/sess.c
-@@ -591,8 +591,8 @@ int decode_ntlmssp_challenge(char *bcc_ptr, int blob_len,
- 	}
+diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
+index b932b3b7bcea0..15613f8ef5b59 100644
+--- a/fs/overlayfs/namei.c
++++ b/fs/overlayfs/namei.c
+@@ -1310,14 +1310,17 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+ 		};
  
- 	if (memcmp(pblob->Signature, "NTLMSSP", 8)) {
--		cifs_dbg(VFS, "blob signature incorrect %s\n",
--			 pblob->Signature);
-+		cifs_dbg(VFS, "%s: blob signature incorrect: %8phN\n",
-+			 __func__, pblob->Signature);
- 		return -EINVAL;
- 	}
- 	if (pblob->MessageType != NtLmChallenge) {
+ 		/* Store lowerdata redirect for lazy lookup */
+-		if (ctr > 1 && !d.is_dir && !stack[ctr - 1].dentry) {
++		if (ctr > 1 && !d.is_dir && !stack[ctr - 1].dentry)
+ 			oip.lowerdata_redirect = d.redirect;
+-			d.redirect = NULL;
+-		}
++
+ 		inode = ovl_get_inode(dentry->d_sb, &oip);
+ 		err = PTR_ERR(inode);
+ 		if (IS_ERR(inode))
+ 			goto out_free_oe;
++
++		if (oip.lowerdata_redirect)
++			d.redirect = NULL;
++
+ 		if (upperdentry && !uppermetacopy)
+ 			ovl_set_flag(OVL_UPPERDATA, inode);
+ 
 -- 
 2.53.0
 
