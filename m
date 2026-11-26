@@ -1,62 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795661894;
-	b=WS5tCvjHx/3tnAtvwOah4B8MKpuvXd7uQMGxnAiXBMmPF/jksOqKcpfrIVGATtQ8B/Wx
-	 3SaaZ5Hr7ucBsJrOy0gmb/mk/pZucBOqatwDB0qWG8vyh0KTXvscZaj6086nFkeW6t1NX
-	 7uDDkQgbIarorPrFBlXeKt37rkAUvTlvt3bezU4A2PGbdBrrhAE22hsRPWgYJYejMcRc2
-	 jfQ9MtAsB0GeLAwO/F5EaLQ/nC2/ONMKk3UZBpeJyzc8K9JclLdpKF0pQLXTWPmQkoaR7
-	 MWSrbHUJY73cGJPaUIEadUqUeBOvFJVWQCclRxUxkflXPSKClbNoWi9zIcCcgzCZwOQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795661894;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=QOEcDp+7IJMgNzkrkV18FLHjUkTLg5/xxzENnntmIO4=;
-	b=csEwBGYOrdGvdgs0GCeIf+/Dxt/wADdPbs/yGPgUZ3iz2CbVWsQCB5wrPSyk+C+BmOPp
-	 kdXX9KJsBiCqdcjMOOy4HDXNlD5AnRSxow0XgKsBf0c7XpSip0L7DKnLrzD64Yiglimja
-	 BdXkhMp/fup31kn4WMnskFCHgfsZTY6rXjXp5AhOvm+W2fMeEy6NFwhTmUBpTiNj0Yn8a
-	 kVbAjmX62WocZijjHhZYFmz1xu2bHNUTw7wufTEqEiBEJ6d+oKZHdrUQ6rBSGxUdkIhlL
-	 QFgCwicdqYJWaHzs5MuRFa6hA20ZvI6OQkAUVCdVWsqZFQbF2ULfPpVwDdalZS092eQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=ODM4lkrQ;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795662125;
+	b=i4IRthkK9DHA2dvh/ek6BmRvuEJXG2sruTgKAWpHYw+IG0rngATB0CuaePXctD19aQeI
+	 +KRWVlaGPLDcKqtT7KHxgv1B36G/kCzA5R1KXOWTNs36Fni8ylfWAp5/o7lOt4WTysojv
+	 JKqNcKIVim1ZpnWP9A36vDTQCWxZnmUyejBp5IrG6YpAYlcHnHR2i+52ET3jee7IBZBNa
+	 l2E3H9yUB4S4IafO9hO62OjmFaFryHMmzRmTYFtdkGPiD4GuTB7aNYwQkZg9NYv7QTc3N
+	 VPyWbdZEH19iCwJhuZTCVqMv1+uHLo3x6n8ClJMESNgLPb3jDnk21JjphvZfuHehucw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795662125;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=Trs4YD9ebzkR8KxzgQ83eqnmWNUmqxqu7WDLYndosy0=;
+	b=0Bj7Y0dm+GdAp2kPs02am2Z70y5n9T/HePfx3XL+r5NRuR7fDqJj9n51M2/5BVF7r7MD
+	 anDTmb4pMTSGg6OHWvTArGbNMJJpHmJ7jKnvjqXGdBWqdaHiIZgNtehmJWPZFu8voiizF
+	 8i/LMMEioWAvLfH+e+vDECFpQZyRK+7Jj3De7z7KekjX2J3PyWFHP0icxtzjXYGtnCeIv
+	 ovnxIeS0gEjGltv0zUaIkhAGRSIPrgrt+a4rKZXCjPZIP1t9rBNhTgDvtOl27a1pxhBEa
+	 DlmZSQzDbpjC7CKtQ9/x0yJNKXWVkVeR18SQN/qDbtIUpM7VqImFkU2sw7D+CXEEwog==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=luxonis.com;
+	spf=pass smtp.mailfrom=luxonis.com;
+	dkim=pass header.d=luxonis.com header.i=@luxonis.com header.a=rsa-sha256 header.s=google header.b=jitGV4WQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93992606A31E;
-	Thu, 26 Nov 2026 02:58:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93992606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F856606A321
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 03:02:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F856606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=luxonis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=luxonis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=ODM4lkrQ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=QOEcDp+7IJMgNzkrkV18FLHjUkTLg5/xxzENnntmIO4=; b=ODM4lkrQQTpzXvAYlWv/BdS8w6
-	tndkhnfEVh4+YNxGBfECQczmlIJC4xUe0jnM06N8XOTTRw7ghYE9tj/DYsMEdxkbW4l06rCNWHrv3
-	m/cFV0/FXtz6cW3WpcHaY3YOLIMyQ9JTbGHAeGhldUSMEFAccOttJmE3wh5W3XxeO65M=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xWPgR-001ULd-68; Thu, 26 Nov 2026 03:58:03 +0100
-Date: Thu, 26 Nov 2026 03:58:03 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Simon Horman <horms@kernel.org>,
-	Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
-Subject: Re: [PATCH v2] net: ethtool: do not call get_regs() for zero-length
- dumps
-Message-ID: <366216bc-ccc3-4547-8587-87cdf35f552f@lunn.ch>
-References: <20261126015239.6038-1-25031212351@stu.xidian.edu.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=luxonis.com header.i=@luxonis.com header.a=rsa-sha256 header.s=google header.b=jitGV4WQ
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b8c60e0d39so8409361a12.2
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 19:02:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795662124; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NI6APv+R+FM1HUPo2e5zCU/re6u7Ru3qnUXnUYjsPEL8WUqEPYjuRmN8eVlSu2uFOB
+         CV6t4ab9RP4/fwBi0x9ShmD0mXmYmJfpGmEBAGloEdz7tjDr7ciYcyhc1EFe8LADmoJN
+         p863lKnM83R/nLLmmN/PKUveeVgy2bJ/DYmhZDQmyAoEgo1O0ngwcfpYG/lHocyDA3L9
+         ngS8sPmFOERYJ2HRG4SxuAoTBAu8lSIUnRPFnmGP883cA4QpFjFe+Code8haYxl/qds9
+         c783IwcJqum4b8GSQdfoguDjHaNF6Cuu0ORcoQDQT3/5+2stUNX9hUmc4FYkkj8fr0jO
+         5I0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Trs4YD9ebzkR8KxzgQ83eqnmWNUmqxqu7WDLYndosy0=;
+        fh=pNwRj13b3GlyDqNdQ+zJYF8N9GO0NI7r5ETJVjB9IoI=;
+        b=ofDY3jas7ydlbJNkfW2KVIzqlnfgFbK16SQiRD2doalNN4n+uMjHz4SHY9ZoKYLsnt
+         19nuEmNF1oO/3JKnwv9XdkYQuqzdynG8dsmU+/RhTdNjOfq2ABOgf3dIYNavDLTIwDOj
+         0JJjCV6MT8xyOTmJOWgjade4Gii8T4a+z1wR/crIzgV17Z/Q3keNgSsLxgEVUNjShu9g
+         5R+VYcJosOOgg3B/0VBJeMMtEZVQwR2HitXLhKICksTre9D3VotPRU/SclKWTS/rdsWu
+         YRwDPU0cRNggrxCpUYykkQAs7Ef+3/ABNYCtMUdn6s/NLzOD1Nj6JooOw/e3Uo/ZwISE
+         mzHw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=luxonis.com; s=google; t=1795662124; x=1796266924; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Trs4YD9ebzkR8KxzgQ83eqnmWNUmqxqu7WDLYndosy0=;
+        b=jitGV4WQr4FT3T9+W4HHzzJyqGPoVKzXEDZsfAX+ERHJSraxnN7DjvwPnhumYhOX8J
+         NNeYVPbzCmSfzGl4hrZy0StzlIVw4AwGjFjooCnnvXzSkn/wjybfcuZVYB11k2cmEu/h
+         m1QfeR51ImQPOnakDntv9BmpjFRCg1M/1O2BALGojrVcqWqy5wyUSovCKZqS31VUERGG
+         BQ7D+FgbLAOkfMoTrd/rDtUFmaFppGXCHRs6kWd0Y6xpZzWZYSxAguBFt2zsGgllBq9X
+         zf2VikZ/yZs3EdK82kprKDsiQuYnIKqZfvmazO9H/jh7Ss9Ibh1WYIn1hxqDS7qGJ2yE
+         L35w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795662124; x=1796266924;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Trs4YD9ebzkR8KxzgQ83eqnmWNUmqxqu7WDLYndosy0=;
+        b=RfJhsXSN3oq0InxmW++oIYSzEwvzp2GZ+7TJETgKvQKN8SJLXoCeiiTOO5mHXkkred
+         F8ZuojjQjaJ2xI5SuyakC32b9lqIxQ+6jEN2Z82e38fXK7WAwBA05dxK5+HWznJFQLFm
+         g2GFxfrLm5AWRHS0qL3KkwRrSqAqNDOdJZVxI15y/tEk3hbwEO8sSH3+CjnMJOgySG3j
+         F4vBKaQPdasawRlkICWsMi3Gu0mVHqhLgdqYQnedwpuFpRpf3tPmwnwQIc03PCnyVLtc
+         XK0pOnAqVwzyTCJP3rsdp/SlZDusH1Q4PU7qb8bRrC4aaVKEXoW3LPpFGXjgU2E+ZS/T
+         9vVA==
+X-Forwarded-Encrypted: i=1; AL+hErELVDahIWrR0k3pAaOzomDczbe5oKNaKYMWykQWODANZs8kO5gshdLLSD1bwcZbWK4Q/Z5D4Tw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8hwk0om4COk3w3u235rbl5BGoJHzAF8k7ddSWloehByW9bnr5U
+	Tlaykwi0jNuh5vPq1FIdMeqDKpjOondBG2b1gTmM4VD2kpOMeubnfcp7G4CF9a9ypSvBNAfHewt
+	rUW/kuJg+dklZ46h4KVUhgldWNtG+BjLFLcSOQbn/fg==
+X-Gm-Gg: AZFdTZcO71YuOxQKpltX1lx8tuuE0tXz9goCdMggjN3Hwmbhan7Y+A62eeHceR12O3c
+	aSy5My4WRxNnqDZpjHdvlkPWNN8ep7AERXP/XQTaWfYAsE5bfyD5jJyLXksjm15vMr53vxWoNAO
+	hAYs5KaFWiLfmCSV6/Y0QyTLUvJq0fwDQ3oNCA3sAEdYc57JbJw+uC4gGcfjXKTlQ0JRxnAJXro
+	LaozDa8/KmCkrx6U7q7Lpj8FrpZELgaxnwTh4JwtEDIFFSvhSPkT9hE8jK9EyYaQPQ0jyurvT4m
+	YNywU7RD4FTMpau56Zvig5NppvemAMnRZ4iwKb3rmAaa0VmMp/Ln0TUVw14eOfftu1uypsGSSaJ
+	bXo2OEM8arSGn9fhXPzjYH6X0HIhX5P0/IauQxtdB//JrGOrWnGVSsjA2+Ohwi9CL+DRIbs8=
+X-Received: by 2002:a05:6402:210e:b0:6ba:9c98:3f4b with SMTP id
+ 4fb4d7f45d1cf-6ba9c9840b3mr9977001a12.27.1795662123877; Wed, 25 Nov 2026
+ 19:02:03 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,55 +103,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261126015239.6038-1-25031212351@stu.xidian.edu.cn>
+References: <20261121073652.410916-1-jure.rebernik@luxonis.com> <179559320769.3135.10021676764558133789@kernel.org>
+In-Reply-To: <179559320769.3135.10021676764558133789@kernel.org>
+From: Jure Rebernik <jure.rebernik@luxonis.com>
+Date: Thu, 26 Nov 2026 04:01:52 +0100
+X-Gm-Features: Aa3M54peN4hAIHnDOSMeix5BdpvlNnY8Qphl_DV5K2Keja8xiPJqidp04Rp5M78
+Message-ID: <CAD9jT+p2nvSpNJ8TA0QCJKW-_8ZV8ceNEXRTA7e6OE42RpDkhg@mail.gmail.com>
+Subject: Re: [PATCH net v2] r8169: clear RxOverflow before unmasking interrupts
+To: Heiner Kallweit <hkallweit1@gmail.com>, nic_swsd@realtek.com, netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Sunil Goutham <sgoutham@marvell.com>, Jacob Keller <jacob.e.keller@intel.com>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Nov 26, 2026 at 09:52:39AM +0800, YuanZhe Liu wrote:
-> ethtool_get_regs() passes the user-supplied regs.len to the driver
-> unchanged, including zero.  A driver that uses that length for its I/O
-> then issues a zero-length transfer.  Such a transfer has no data stage
-> and the USB core treats it as an OUT transfer, so a driver submitting
-> it on the receive pipe trips the direction check:
-> 
->   usb 1-1: BOGUS control dir, pipe 80000380 doesn't match bRequestType c0
->   WARNING: drivers/usb/core/urb.c:411 at usb_submit_urb
+On Wed, 25 Nov 2026 07:53:27 +0000, Sashiko wrote:
+> [Severity: High]
+>
+> Should the RxOverflow ack depend on napi_complete_done() returning true?
+[...]
+> Could the ack be tied to work_done < budget and moved out of the
+> napi_complete_done() condition?
 
-Your commit message is focusing on USB too much. Very few Ethernet
-drivers are USB. Since you are modifying the core, you should make the
-commit message generic.
+Yes. I reproduced it on RTL8125B with threaded busy polling on eth0 and
+the NAPI thread starved by a SCHED_FIFO task for 20 ms of every 200 ms.
+With v2 no frame was received for the whole 40 s in 6 of 6 runs on
+three boards, with IntrMask 0 and RxOverflow set, until busy polling
+was turned off. With the clear tied to work_done < budget, about 65700
+frames/s were received in 6 of 6 runs. v3 does that.
 
-> A zero-length dump cannot return any data, so there is nothing for the
-> driver to do.  Return success without calling into the driver, the same
-> way a zero-length read is a no-op, instead of making every driver check
-> regs->len.
+> [Severity: Low]
+>
+> Is this statement accurate? In this tree, parts of rtl8169_poll() come
+> from the multi-queue rework:
 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Agreed. v3 says what changed since v7.2, where the patch was tested,
+and that the changed lines behave the same on single-vector chips.
 
-Who does this bother?
+> [Severity: Low]
+>
+> This isn't a bug, but the comment presents this as general chip behavior.
 
-> diff --git a/net/ethtool/ioctl.c b/net/ethtool/ioctl.c
-> index 80b7930b3fe0..e8af861ee5de 100644
-> --- a/net/ethtool/ioctl.c
-> +++ b/net/ethtool/ioctl.c
-> @@ -1779,6 +1779,10 @@ static int ethtool_get_regs(struct net_device *dev, char __user *useraddr)
->  	if (copy_from_user(&regs, useraddr, sizeof(regs)))
->  		return -EFAULT;
->  
-> +	/* A zero-length dump has nothing to fill in. */
-> +	if (!regs.len)
-> +		return 0;
-> +
+Agreed. In v3 the comment says "At least the RTL8125B", and the
+changelog says that the clear runs on all single-vector chips but was
+tested only on RTL8125B.
 
-Some of the kAPIs consider passing 0 as being special. It is user
-space asking the kernel how big a buffer is needed to hold the full
-dump. The kernel sets the value in the structure and returns. User
-space then allocates a buffer of that size, and makes the request
-again.
+Jure
 
-I don't know if this API actually does this. You need to look at the
-logic and decide. But by returning this early, if it did, you have
-broken that.
-
-       Andrew
-
+pw-bot: cr
