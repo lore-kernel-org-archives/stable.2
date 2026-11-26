@@ -1,96 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795666758;
-	b=QuRWsm1RhNUBMFmJJFrXwqUUgiBW61fktMvd/z4Sis9BcBOak4JVOeFp2XMLcufoOE49
-	 lX/ckPkG86EdSbfDX0biX5iOMYE95xKW4eihlfpHthCVQNDAWCnwIWAErfkHWtBLTYb5p
-	 9MaAq42+xJN357mhzZVZDWN9QxJuMVGwWQeR5yBfjfb+47djOmK9ISVUJ6BQ/VaGRmRZ7
-	 gaw2Bcmzz4uWDRsTtdTUYf6atxq9Wqsi9eDm/mMYYzPhrDLGJy2Wq223K7LuOpPepVqcj
-	 w12n1u/aZ29/D4qVkZPYGT7M0txNajU78bjI9jVYf3iFmPvQ1WBOO37+c00e9e81Wag==
+	t=1795667009;
+	b=A5Vu8Me3ydSKKusqQO0jo8n78Qw6PTkd3tUatviJ8EsvIwBIAwOmIWo6cQrEf3pZsz3V
+	 jjygys2yW6bfX5F4xGHX7/WsMtl5uoUzI49uKtX11mNjeca30xeCZtCngZ33uMmeXfD8f
+	 xsrPoJKwooVz2t9fadcG/lJmrXYxPx20RpfLuihiAHwBxVGohsT7fRWU2N91eOt2dXANn
+	 HLurBo6NdKA9XhST7tganJ9s5Gs2QeNoFsj3g61eXk3qzEHrOaZHehU7Vh0A8OVF8Ml+a
+	 WrOIJw/CvizMoRuR4qd6QBXG4GZj+M6U2QzvoMy65WiVA1VoA26cfLEIXV1gAm2+KeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795666758;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=wu5lDuRgkYhHSywuSlGY6BNnn9XlDv9stYOOgzfHduo=;
-	b=FzzNwNyjIFd190z1UBJzx4PAMqMrZQIqnHKNkTu1VP706VKnLNZJAWC8EaRCo71yLyW4
-	 S/k/uWf6lZOkrhCVyQ2E+XtUK4BO0xMossyGoEESGZ0GX+WrjwbeDeiDNrPtRilY+ctBO
-	 zlkd0vnXTCXJPkk9q9hIHcQshf8a8assQzE5CBRnwsWbIzGOPEaTP9rRmNCVg/6nGx8ia
-	 oQ6wLDph/skNdFW/8p52Gekn4tDyH1J/aV450hJeQEWw0KBwsn5wYwn1Mt7sCip/2sArr
-	 z/hKolz5k4zNYHnHyi2LA3+kGhz8He2RnfYz87a+r/P1UmhAHz6dO2NFuOzJVW2z6Fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795667009;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=+tQAa2A/g4fm+pJHMw/qK3Gpu5W9/tblSuCMwBkk44E=;
+	b=4+ILBd1yGHdEpwe9WN80EpIRpk597TMUGMdUieFXrCAzD7Az1LYVAQKkqFXczyRZI7KD
+	 /S2UbF+fsZ8nMiep8Xu9c1eP7L+3FZDYodhUNmPvgrbQFRhF5JuOopOwIVH4Vr/3X/u02
+	 sQH86clf21PV3jokngynpU9EadgzO3CKCElWSesyvI8FgKQo48/OBBxmyD1ux93lpF3L9
+	 RAeD7D+8ucgKpQsND+O43NaL9+Wkack88EuHxlC+zxvZJhbgzHYCsGCRqoCyE2H5G1LEe
+	 NkY43bZm3tqrwd7UCMN+mtWd/wcnKWIdoSXZqTUgc1iEexpX5fuAvYRv/wYafwt7c9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ZQcCpc/b";
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=igelRMSw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA95606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:19:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EA95606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18176606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:23:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZQcCpc/b
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3b421e8d111so4466481a91.3
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 20:19:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795666757; x=1796271557; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wu5lDuRgkYhHSywuSlGY6BNnn9XlDv9stYOOgzfHduo=;
-        b=ZQcCpc/b4moUBO3hNXHKIR5pTa6j4s2brFgmZQXaau8TAb/hc9ZkExV38h2Dv9L+zo
-         uBtYJoek0v6a8fiziQ5ywr6BceiHQ1xtBvJOut7FBzVm/jVkybI58Fmy+MQu8DN5OPlg
-         2GuOJhPrfW+fzldGmOkEsbqrr3Yw+FUDi0Obec1P1/ctlZlGFS3RsRuSDmyRsqNkWv0r
-         GqbHKaQtsL9NWI8NApKbne3TKfTw3j9klqRZynfwPmAqveQ01y6dBDkfR/wG2CiF1JPS
-         tUbLAO0p4FqmN8jmXPrMPYeJc+nA5VuMpPFYvf+yeL9WrrRyH2bamALxBZ3I4+8wCVmh
-         i6Pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795666757; x=1796271557;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wu5lDuRgkYhHSywuSlGY6BNnn9XlDv9stYOOgzfHduo=;
-        b=LfWY7gW6HEk3ujd+Q/IQCWIxjTl9sJUS9O+LCEj0/s4FDyVRafIBefJn1Lhg1V7Lzu
-         rCuUejMHgOg/jUm17qrMSDpG1svzFRW3FLZgQMbCEzLWO1SiGTznRnNcsm4EYA1ktHLl
-         z6whjeRZPKRGhIAh5gU7c+5tbcHD4FZqLAjFtUHoiy35AAzbTU05uiV9VncGk6wBlFTm
-         qptmmYTRKTsi2ljejyIXMSb0gQe7WcCNJ9Q2ePEIlJ3wHr83Uyx4dtCg0E0fx0ErC4vy
-         3twqqLtONEdjem0e2YUOjZpUb5qiZXwjxwEsDi/jWLqjhHMX1+LtEqqvF2d/79OkT1O4
-         ME3w==
-X-Forwarded-Encrypted: i=1; AL+hErGelfCIo6DoBBB4e23wz72NPgmvI8CprhKbQxJiQSHA+hgAKNCnnNCVQ1INtjWdxqlOJcl6vSo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+JkTR85KAgJjbwKcOqAXMxtNmyf+rid//V+V44PoU/Nxrb+wc2
-	bTvzdFCYGGkCDf/nlVU9WYDNjrfVF+m0NKrBU0pUXt6Ap0mW10DZGDCy
-X-Gm-Gg: AZFdTZdjAK4DwRrxwwmfYzI96ZBBBoPPU8G8tuTE6qRLf47HEvkUJqei8Es2FqEmeQo
-	wZLUvUy3fOGfwNnVm2bCVL2MU/40lLs6cDF5SOdH7vuBvaFuni/r7TvhncyYytiDsi48YrIl71e
-	PSyO4Y6cx6ODf194ToELZ7cXSnGZ246MCY2nP+a8sGE+MavhrMAlOWLqEtzhe45pgFhZOQEiLyd
-	S+JGLEZrgXWYGsMm/XxrINm/CBCE8ufIr7Aks2VJeGp+litjNfb3luiXi48EAcETjROqnnr96Eh
-	bEgkYipLPIF6byOjUwthWG/MQlgvDPz6S2Pwc5xEWIJMU9X4n0fj+QjJaxHxRhKSSuW51k5VScs
-	9vIL9g8Zq1+FbGUgFmcWZ6nN6tX57s5jCh5zx4F3SZ6FrjD4YzjohmRilDxeCW4sQSVmmVfIJ0N
-	25dnA00M4+riFXpUHQdfzWe/c+YUmSBel7Q72EBXTeJsvY6KQ/lVRQKuKRAJSRpS+1q2EZEYimr
-	soCG7tZXx8WFqZ1OAhVVWoKePspv5QvHrRw+YnBeIZFhdWv9ar9X8uMjkPPnB4K9AQOCqBSlFIt
-	Cd1XrzWBNUeKPHxule+mdYKtB9QxFBgLCNM72tttLrSSv8bNwBjgjcN/3YDmga97EPlnlqqwlHg
-	Rp/JhZ2DnVHtBTrlyVT7a
-X-Received: by 2002:a17:90b:5543:b0:3a4:f75d:d194 with SMTP id 98e67ed59e1d1-3b41caeca54mr18611047a91.36.1795666757269;
-        Wed, 25 Nov 2026 20:19:17 -0800 (PST)
-Received: from LDYT9Q2G2M.pvgl.sap.corp ([2a09:bac5:cad0:1caa::2db:4c])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad48786sm30527530a91.9.2026.11.25.20.19.14
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 25 Nov 2026 20:19:16 -0800 (PST)
-From: Zhiqi Zhang <zhiqizhangg@gmail.com>
-To: Tomasz Duszynski <tduszyns@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
-	stable@vger.kernel.org,
-	Zhiqi Zhang <zhiqizhangg@gmail.com>
-Subject: [PATCH] iio: chemical: pms7003: Reject frames with invalid length
-Date: Thu, 26 Nov 2026 12:19:11 +0800
-Message-ID: <20261126041911.55827-1-zhiqizhangg@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=igelRMSw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F38EA1F000C4;
+	Thu, 26 Nov 2026 04:23:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795667008;
+	bh=+tQAa2A/g4fm+pJHMw/qK3Gpu5W9/tblSuCMwBkk44E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=igelRMSwS8omJRi5ywfTuWppo4NvHXyG1/DFRGLaysmu3gQ4JYwodV9SimPqJj6CK
+	 +etaJIWi+m6BgZaw8GLFVaQSWDGI31a4ETZjaMF5GMeRb3n7xqE1EeUaZ3mYyKToOG
+	 U7ofhAz1pl8pXTTurB4Mw45WVLnIaLyDXzJ3Vl4gf63l1G4vyLnf/HhUf5oRaFlZYj
+	 hAkWRPKzXvK2nNDCytrg8ddcfVXHEX9WXIUKNFqAIO9LkgJlHa2VHA81KXI08pPjgu
+	 Zh9caYtmgHjV5YCnmzhVc4Ty0fQdoupvU8uEje6J1G67TnbY2z6yqNwYBdKw/x/K10
+	 kTlrSLRcBhmiQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] smb: client: hold server ref while queueing reconnect work
+Date: Wed, 25 Nov 2026 23:23:26 -0500
+Message-ID: <20261126042228.1925097-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112545-unlovely-trapped-6193@gregkh>
+References: <2026112545-unlovely-trapped-6193@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,56 +61,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The PMS7003 driver accepts any frame data length up to the size of its
-frame buffer. This lets a device send a frame with a length shorter than
-the two checksum bytes. When that frame is completed,
-pms7003_frame_is_okay() subtracts PMS7003_CHECKSUM_LENGTH and reads the
-checksum from before frame->data.
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-Lengths that are at least two bytes but shorter than the fixed PMS7003
-data payload can also pass checksum validation and leave the later PM
-reads using bytes that were never received for the current frame.
+[ Upstream commit f02d249e9756b78990aaaa1635e47e06deb2cb51 ]
 
-Accept only the fixed 28-byte PMS7003 data payload and make the checksum
-helper reject any other length before deriving the checksum offset.
+When query_server_interfaces() returns -EOPNOTSUPP on a secondary
+channel, smb2_reconnect() calls smb3_update_ses_channels() which for a
+channel runs cifs_chan_skip_or_disable().  That clears the channel's
+slot in the session and calls cifs_put_tcp_session(), which can drop
+the last reference of the channel and tear it down.
 
-Tooling disclosure: I found this bug. OpenAI Codex helped prepare the
-fix, and I reviewed the changes.
+smb2_reconnect() then falls through to skip_add_channels and queues
+reconnect work on that server, using a server that may already be
+freed.  The send path obtained the channel from cifs_pick_channel(),
+which does not take a reference, so the session's channel reference is
+the only one.
 
-Fixes: a1d642266c14 ("iio: chemical: add support for Plantower PMS7003 sensor")
+Take our own reference on the channel before calling
+smb3_update_ses_channels() and drop it after the reconnect work has
+been queued, so the channel cannot be freed while it is still used.
+
+Fixes: f591062bdbf4 ("cifs: handle servers that still advertise multichannel after disabling")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhiqi Zhang <zhiqizhangg@gmail.com>
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ sashal: Replaced the upstream smb3_update_ses_channels() and cifs_queue_server_reconn() calls with this tree's cifs_chan_skip_or_disable() and mod_delayed_work(), and left the local declaration context unchanged. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/chemical/pms7003.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ fs/smb/client/smb2pdu.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/drivers/iio/chemical/pms7003.c b/drivers/iio/chemical/pms7003.c
-index c50edb24a..4f62b5092 100644
---- a/drivers/iio/chemical/pms7003.c
-+++ b/drivers/iio/chemical/pms7003.c
-@@ -206,7 +206,12 @@ static u16 pms7003_calc_checksum(struct pms7003_frame *frame)
- static bool pms7003_frame_is_okay(struct pms7003_frame *frame)
+diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
+index a92226e3e6e9b..4ab53b398721b 100644
+--- a/fs/smb/client/smb2pdu.c
++++ b/fs/smb/client/smb2pdu.c
+@@ -217,6 +217,7 @@ static int
+ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
+ 	       struct TCP_Server_Info *server, bool from_reconnect)
  {
- 	int offset = frame->length - PMS7003_CHECKSUM_LENGTH;
--	u16 checksum = get_unaligned_be16(frame->data + offset);
-+	u16 checksum;
-+
-+	if (frame->length != PMS7003_MAX_DATA_LENGTH)
-+		return false;
-+
-+	checksum = get_unaligned_be16(frame->data + offset);
++	bool hold_server_ref = false;
+ 	int rc = 0;
+ 	struct nls_table *nls_codepage = NULL;
+ 	struct cifs_ses *ses;
+@@ -455,6 +456,20 @@ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
+ 			 * treat this as server not supporting multichannel
+ 			 */
  
- 	return checksum == pms7003_calc_checksum(frame);
- }
-@@ -231,7 +236,7 @@ static size_t pms7003_receive_buf(struct serdev_device *serdev, const u8 *buf,
- 			return 2;
++			/*
++			 * If server is a secondary channel,
++			 * cifs_chan_skip_or_disable() called below may
++			 * drop its last reference, so hold our own
++			 * reference until the reconnect work below has
++			 * been queued.
++			 */
++			spin_lock(&cifs_tcp_ses_lock);
++			if (server->srv_count) {
++				server->srv_count++;
++				hold_server_ref = true;
++			}
++			spin_unlock(&cifs_tcp_ses_lock);
++
+ 			rc = cifs_chan_skip_or_disable(ses, server,
+ 						       from_reconnect);
+ 			goto skip_add_channels;
+@@ -481,6 +496,8 @@ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon,
  
- 		num = get_unaligned_be16(buf + 2);
--		if (num <= PMS7003_MAX_DATA_LENGTH) {
-+		if (num == PMS7003_MAX_DATA_LENGTH) {
- 			frame->expected_length = num;
- 			frame->length = 0;
- 		}
+ 	if (smb2_command != SMB2_INTERNAL_CMD)
+ 		mod_delayed_work(cifsiod_wq, &server->reconnect, 0);
++	if (hold_server_ref)
++		cifs_put_tcp_session(server, from_reconnect);
+ 
+ 	atomic_inc(&tconInfoReconnectCount);
+ out:
 -- 
-2.54.0 (Apple Git-157)
+2.53.0
 
