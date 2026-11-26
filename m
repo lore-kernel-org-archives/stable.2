@@ -1,79 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.48
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795697114;
-	b=2Nw2O8WEfB/j5QLXQ5kZcLD06PLB85ROk/Xszx9grdmRbtrNV7syU+wwEeCeX62o9MCQ
-	 BRjKXuc5TEvTEiTZ/T93VwNcoxnM91kyjpFuugve4vuFo6pxttzHOFSSLorxXh4cMckkq
-	 avHn5G5+Xwvu+4bkFbKtgxPfoRur57v96FnVxULfmOrVRmqPPamsShLbs3VJ6gNtDI2cY
-	 XQjmP+NkbjTUqS8ReHzBimRGZvD94FJnm/xNhja+l+27V72xeXsn7srot8+HdUbOfl4mz
-	 ofwJELubTGrzx5r3wXLYeo5VCO5yWB1kdtT7buEsnJ6NeR5rcD+iScFkHw0guwHc1Lw==
+	t=1795697226;
+	b=LBbCfVCYVadwRxIbCrKrUOBAb9qIlI3KltU4OOFwVYTjOyeLtSleuwgqXeqXtUXU7/IQ
+	 npSOZyKOsSwQ1ixa/4HBdPfkZ+QBrLZwYAuAX/6BblruL8N6GDOBTyUsWyBfkI4A830Py
+	 XigydEt3TvA8/4Od4sGB966NPOH7X8xkXWFixuP4w6CavFqz3PViVUAH2AzmGZZE4H+j6
+	 JjnubK2oU+tamu+q3G/Ok2teukp6XYlrm0XEDVxNGT4/w2AJ3HIz/ll6Z8R+hXzlfc2jx
+	 r+bIjlAspAqvxXPiifuygplleVfeGGKy3SHKiTCESrDaaE11I369JzRgRbAQPKx5k5A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795697114;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=E9yDbQ0remy2qz5TJaNHmIfIamOoLrFTaYrPugpZ6XA=;
-	b=h0srx2UOGq1lvR1/w/vRlyXlYkrQ5/rm+wr+NiwZzqWEZ9ctmBA/EnYF+60XJgx7qWd4
-	 44k3S/OxsbKZlW27uhLq/eCqNKYouWYLZX2S0WjCCq8wjeOdME9ck6DOzhw9VesCMgkUm
-	 Mz7ds00OLdGhUp6yE+OG8dVQO1YW4gSf3INaus6qZ37+pLtVSKNsJn2LSMn9ymdOw8N5+
-	 1s7G9n7EiASHROmKjNBH7wlJpkxZ4IZPHl1VFKqaobf8e8idEHEEkVNmplr5DUUFL3KNp
-	 K7YTcA3K7afF3XvM7jkG2CWoHVZaHx1CTwpzm6i3LkD7O15PNjJI/c181iHger13QSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795697226;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=0sDCO1ovM17uMu/VOcrsRpcY05yXe7IWxHNvX+k7W9A=;
+	b=jYf00t3x7RoGPxuFGELyRcUvZirluStFGWkJDf9YaV73Xua6LfqjmJndvvZbQIf/dKdc
+	 VrzxkpVSyFZivMvpbFzGk2+XchUDYZ2EtSZS+TlRCEOxWKfRT+qZFELl0wPoeUT1rtkeQ
+	 +pUq/o2a9ffRawHDFYdpc0oNlTDNOZ9LUCmN/SmEZ3OBmmHqrjMD0cB9vv/lame30BKg4
+	 edshhCxSM3G2iHwtS3WD2nzzQM4hHbb/f4QjwCYgMZkgqLNAnoz+Th/uIB4MhGXAj+s5N
+	 qaVvzmr1mcyr2DqT3senqdJISI99oPEzgIHMNzCQpc+Cju/kv6glzTiZ4csptdgxoKg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iKjLtgKm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBF4606A331;
-	Thu, 26 Nov 2026 12:45:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iKjLtgKm
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795697113;
-	b=vK31KanTE3P+OgCNdnMo3h5+h6+tohJyVw8g9NtsVhB2ecUSbz7DyrOk1HDQ9Q2d2FV9
-	 BnJ1Rk0shhw0b624uaDGqbd/Cm8DJfXuV8+aubhzre/P1MxiRGTcwBapgmRrc3FoEQ6LO
-	 nYb+SFEZ2rA9JF1kqa7uRPtffscM9uKBB7SdkMNO/9iQijAmAmWIWj5/62BJZeTmeoQPk
-	 tIzn46BOoqpjGGQGZTo7KbU91qfBXu+DdUi/dzepH612WUQWqmF1+tSSfEmUXDw3ACxzo
-	 7PeBkwgkK5RtruI6C/V4rMFAuvc3w12HXKZ0gIWfpTUU/t6usD69cA9NtVgbx+7mxxw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795697113;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=E9yDbQ0remy2qz5TJaNHmIfIamOoLrFTaYrPugpZ6XA=;
-	b=Bp/cxZMQEir5NtWeCFQ+SbtOazEImAHfa03eyI61jdVyUYgThH/e9SoGZofyiEBAKmS9
-	 i01g21z7TW12tAwxSU874UP81WZgDKc57XIWAMAm40POE808aP3vqjdY2cpDu/a+WBtGl
-	 lRe9fagU8zzs15JKjYf2XxQPwsSazb+fPxIviTdRITt8aXNyFs2ojuwtROu9DGMyO14HK
-	 4xxKC9WPhR/k8TY1ExcdZe7/1kCpL9AMeHylDodW3Jc8NAe5WZQ3lFuHlBGXea46/QOOR
-	 20NQ/jT5Fqz+gRtHQ5b0qts29eTRbp0YIFN5N5rApl2r56RSJZCGxKBXCllh6MYgg9Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=flashbots.net;
+	spf=pass smtp.mailfrom=flashbots.net;
+	dkim=pass header.d=flashbots.net header.i=@flashbots.net header.a=rsa-sha256 header.s=google header.b=EQ7J7XaI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.48
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C7F221F000C6;
-	Thu, 26 Nov 2026 12:45:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795697113;
-	bh=E9yDbQ0remy2qz5TJaNHmIfIamOoLrFTaYrPugpZ6XA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=iKjLtgKmGTeAfgS54ptCq88w1LG8FsfsCkr2Bf7CR6ethF+apGk1ZkBY7DJ9egIhq
-	 mZ2THrChD//uXXA6gb/+KEiI2weu/zrJ+MW8i9bIY0Rv8m2msmOsaInbnvpw4AvTVr
-	 moB4JI2QeHsHjmz6xJ7x7WHZH19LSOJI3TBycw01JNEpYbaLxgzhfTCNLokNloiFMV
-	 fAp2W8CFGccjco5f99hzJJWbMG2jOR8QrlqGcHGSzBaRAj4JmJWvBtbPuhzqoh/rtw
-	 bze0mu/uTzkJrmxL+bmlv2Oyuv63+yhWtrmWXt1i72RurgLbdQRxFzS+UyIJUU3a3h
-	 tmJMysClb3/RA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5B2B54D4F7;
-	Thu, 26 Nov 2026 12:44:55 +0000 (UTC)
-From: Jing Lin via B4 Relay <devnull+kayano050408.gmail.com@kernel.org>
-Date: Thu, 26 Nov 2026 21:44:56 +0900
-Subject: [PATCH v10 6/6] usb: gadget: gadgetfs: avoid writing through the
- const setup pointer
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE4B606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 12:47:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CE4B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=flashbots.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flashbots.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=flashbots.net header.i=@flashbots.net header.a=rsa-sha256 header.s=google header.b=EQ7J7XaI
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-71ad099391dso3371963eaf.3
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:47:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795697225; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jSXAvdxhjHKjF7MgmBqye/HDS8O81+y+R//9rbXnqBEuMwkYuO9NO4iBZiMuwrxvSF
+         iSfYxrR3FqIudA2kIms9b07q+gbTTed22uxKjTYnDGSnnXt1aempJwB3NnzPFTbqDfz6
+         n/Vm+c1udknUKPmKYFi0o2J8CO1qJyKmq/mQWNhQZ1KXjJAHj7iZ5aAsBmN9XCVRhLtM
+         iguz/xVID/Av/hPpQkX6ehs07u9srl9bu7dseioD9fowlsc2gbeOH/6g+UKMAo9t8ihL
+         7Hnz0ZmYKB8PvoUUWvOTA4oDYwWKvzO0PVc1fGnPslPRjl/8QYLU73pI92PAjnXwtz//
+         41Mg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=0sDCO1ovM17uMu/VOcrsRpcY05yXe7IWxHNvX+k7W9A=;
+        fh=sT+YvNwG/vKPOxhKneC+nl8L5j4pFoWBDSk4B23t1Y8=;
+        b=lEZGRLoVjiDFnY+SLj8xfO+N8RK3kT0+N0VpqQLLWD6z04z8Jt0HKmm/W/JshpdUGs
+         dO5XDwYqOLODFK4+CdArIwd36peJ7LcsNzTu3TG00EaR+Ur7xd3cjBsnmrOhoz0s3XLS
+         jQJQq8GtNdyWB13AdfDy9HOMLw4Xis6HRVeOkBJJ+WsIaaBgoTRBYNu0uyTt4gsW0VKH
+         lAJKDBCcdQeMreZHcH+2DYooVAaJPhGWV4Thb7BdGvOZjG55cDP3FoySkyO7xP+W+OLQ
+         kxth0LGR4Qev+B3c5dhUnq5n7lWxKqv7jC6+SSSNvMiNQ6KNU8/Q9GSVm+DCi6bbrQSJ
+         7wRw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flashbots.net; s=google; t=1795697225; x=1796302025; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0sDCO1ovM17uMu/VOcrsRpcY05yXe7IWxHNvX+k7W9A=;
+        b=EQ7J7XaIadF3uAn4gbGhDW9T79STu0JpBcKnGDPwJMdcYfp2vzoJ4A3jFOxtwEDQqp
+         dojXRykuli4jE+05IotP5k2+v+UoX3fCRGvkQg1TNhJMZWlrqhOPq83sBJicQc4pFHt2
+         /cleHU92klXpCLQCARLmfaNbraGAaItzY6T27iQIKsRh6G8Yf0L7y+PYNwhxGG42LuvG
+         YqEIdtE5gXippnFoyU8kI+xk6QL+vl8rwIzufLbB1GrLfLqKbuBo8Zek4uVaddpq3xvg
+         LuYEULMIbvaKfNsFn1u3pvqDrcI+/vEqpPxHzAIRwIIMCSNRDGj5FS87s4xkEfqOdC85
+         wZQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795697225; x=1796302025;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0sDCO1ovM17uMu/VOcrsRpcY05yXe7IWxHNvX+k7W9A=;
+        b=e8dy0TfIpmXxQWMx+exsDXBrwaoIuhtmFqSpSHDlh5HveFWQ7aM+L+NEO0aH5NfVud
+         cEaaRie7d7Zm5S41AndhJ7suPiau1GNdF5c5bbTaB2tHw3qik+rvGVsjU6JuI7TAdDTZ
+         dH9Y+ruteeMxrlQ1Cbxh7d684Hvw8hiwTpzzKOxTpJSy++wbzl5cEgHBhnJAsLXHt3aW
+         IeVVb9o01V9kdzQgHbPRKasVgML5G2AA+/9OBYm+NMT3c0c519HlhR2Q51HUdBKbDxDM
+         bGkgVhORR183QUQoDOHhtN3RSQfKGFOtxsWQRIM6qU4BIBGKmWWcQYbUDN5ErqPWXH6W
+         gX6g==
+X-Forwarded-Encrypted: i=1; AL+hErGpH2/qWNxr7+6qdSgqPHiJo9s9trevCYbkvizP7hTRShNe2EAqJzLqfo5gOn6VgMT5ILivL/8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z90kTXWZ4wVeOJtbJtgpUmL7162uQBZMBRmOhPeug/flrgyg7/V
+	+9rDigoJTWY5hILC7BN/VO9owA3TZ8wpDJ7w2zcQMhBSH0cDu0Dtc6AxrxS4inz8i0x20M2hCq3
+	fl2pH1i7Q2bGzPHMe8u6uF0LVCVSfoRcJscs7x7/t3A==
+X-Gm-Gg: AZFdTZeBoyIo0cHTUM9d5wJw8XYGATVBDf6QEHRmHdfEkOWcoFHTsCb6/jX6WjKpg5i
+	TIsoN2uyw68bvX4uOmw03s9TJfw6vVlGYgSQuFN09ceQgGG5aTryPoz+XdHLqjCjtW8rdVpTVfZ
+	nb0XxD3nsHWI2xpjvIfbVHBTe287kEqThMrLGZLAx6TeGhjC3VBOkROpgmHFgn/rVp0ylXv2eJy
+	4b6AdisLYq27EgaHlyVlj6iuWkpK8Aiex+y0sEbB4vuGqLRx5Z+64NSJNkFrLVWs0S8rlj0Kr/i
+	0ZmOC+1o8YHWq4sR6Y0TbIgUVyJXp+lANj/7o5DUv0S9KHRKWZAzmKwSYiQ+Mm0DnB3g9sCHr6V
+	r1CaZDDwVaE2Jiudi3iytGKai3fOHp42zPT0AqFYKPqDcjNA93DEpPlARXPDeB35MQiu1qqUnIm
+	CHdoQfDSrNKE/lEzl6ict9y3aynTGNZpSvRJP1O4cirIRvgW9p7n1w8dZRnEpGIesaMP3U+DWa
+X-Received: by 2002:a05:6820:55da:20b0:717:da:ba2d with SMTP id
+ 006d021491bc7-71b3949694fmr12426690eaf.42.1795697225084; Thu, 26 Nov 2026
+ 04:47:05 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,73 +104,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261126-gadgetfs-ep0-v10-6-8add6d9cace2@gmail.com>
-References: <20261126-gadgetfs-ep0-v10-0-8add6d9cace2@gmail.com>
-In-Reply-To: <20261126-gadgetfs-ep0-v10-0-8add6d9cace2@gmail.com>
-To: Neill Kapron <nkapron@google.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alan Stern <stern@rowland.harvard.edu>, linux-usb@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com, 
- stable@vger.kernel.org, Jing Lin <kayano050408@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795697092; l=1664;
- i=kayano050408@gmail.com; s=20261106-gadgetfs-gmail;
- h=from:subject:message-id;
- bh=K83WCxg7Uqn+9HPmQ31xFCBufL/y6Cnf9nqdhp+j2Fw=;
- b=GufeG7tBLFWkme0krOdN2ZkCnnS5I1BgZ75SDYDlV+g0Vb9fcTSKGZuPo1EWbGk09haWUQdaQ
- kdvFWJsYi73D4OXi1SvmRfzn23UY3qMe/UDWsnqUosUTqq69IcSB4BG
-X-Developer-Key: i=kayano050408@gmail.com; a=ed25519;
- pk=DtAI52kU3F0sVbAiS4n+5b4UKMnVF398eKHlj3H9KBY=
-X-Endpoint-Received: by B4 Relay for
- kayano050408@gmail.com/20261106-gadgetfs-gmail with auth_id=1433
-X-Original-From: Jing Lin <kayano050408@gmail.com>
-Reply-To: kayano050408@gmail.com
-Content-Transfer-Encoding: 7bit
+References: <20261125-tdx-guest-quote-poll-v4-0-d89f26854b88@flashbots.net>
+ <cd7bd4428398413e16ff214fc46f5d65076757d8.camel@intel.com> <436c641a-9d35-4695-b41f-547c46479a5d@intel.com>
+In-Reply-To: <436c641a-9d35-4695-b41f-547c46479a5d@intel.com>
+From: Moe Mahhouk <moe@flashbots.net>
+Date: Thu, 26 Nov 2026 12:46:52 +0000
+X-Gm-Features: Aa3M54qbjy628W_XZiCsTaWPDZAxjlqcXQ_RCIdX0UR7G-Q3f0Ja4RKHzIf02Lc
+Message-ID: <CAKV3HMNoCbBeyAsH-UHHC2wWm5fE7ps0mo_E3TKJw0Vk47W43g@mail.gmail.com>
+Subject: =?UTF-8?Q?Re=3A_=5B=F0=9F=9A=A8ext=5D_Re=3A_=5BPATCH_v4_0=2F2=5D_virt=3A_tdx=2Dguest=3A_Fi?=
+	=?UTF-8?Q?x_and_speed_up_the_wait_for_a_Quote?=
+To: Xiaoyao Li <xiaoyao.li@intel.com>
+Cc: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, 
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "kas@kernel.org" <kas@kernel.org>, 
+	"sathyanarayanan.kuppuswamy@linux.intel.com" <sathyanarayanan.kuppuswamy@linux.intel.com>, 
+	"thomas.lendacky@amd.com" <thomas.lendacky@amd.com>, "Aktas, Erdem" <erdemaktas@google.com>, 
+	"djbw@kernel.org" <djbw@kernel.org>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>, "Miao, Jun" <jun.miao@intel.com>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, "x86@kernel.org" <x86@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Jing Lin <kayano050408@gmail.com>
+On 11/26/2026 5:42 AM, Edgecombe, Rick P wrote:
+> I think something went wrong in the send. All I got was the coverletter and it
+> looks like lore did too.
 
-gadgetfs_setup() receives the setup packet as const, but clamps an
-oversized control-IN request by casting away the constness and writing
-the truncated length back into the caller's wLength field.
+Thanks Xiaoyao. Rick, both patches went out with the cover letter and
+were addressed to you. Lore has them in linux-coco, kvm and lkml:
 
-The setup() callback has no business modifying the setup packet, and
-ctrl->wLength is only used afterwards when initializing event->u.setup.
-Store the clamped w_length into event->u.setup.wLength directly instead.
+https://lore.kernel.org/all/20261125-tdx-guest-quote-poll-v4-1-d89f26854b88@flashbots.net/
+https://lore.kernel.org/all/20261125-tdx-guest-quote-poll-v4-2-d89f26854b88@flashbots.net/
 
-Suggested-by: Alan Stern <stern@rowland.harvard.edu>
-Signed-off-by: Jing Lin <kayano050408@gmail.com>
----
- drivers/usb/gadget/legacy/inode.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+Maybe a filter on your side caught them. This pulls the whole series:
 
-diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
-index ed26cef30..e79a4e401 100644
---- a/drivers/usb/gadget/legacy/inode.c
-+++ b/drivers/usb/gadget/legacy/inode.c
-@@ -1668,10 +1668,6 @@ gadgetfs_do_setup(struct dev_data *dev, const struct usb_ctrlrequest *ctrl,
- 
- 	if (w_length > RBUF_SIZE) {
- 		if (ctrl->bRequestType & USB_DIR_IN) {
--			/* Cast away the const, we are going to overwrite on purpose. */
--			__le16 *temp = (__le16 *)&ctrl->wLength;
--
--			*temp = cpu_to_le16(RBUF_SIZE);
- 			w_length = RBUF_SIZE;
- 		} else {
- 			return value;
-@@ -1828,6 +1824,8 @@ gadgetfs_do_setup(struct dev_data *dev, const struct usb_ctrlrequest *ctrl,
- 			/* state changes when reader collects event */
- 			event = next_event (dev, GADGETFS_SETUP);
- 			event->u.setup = *ctrl;
-+			/* Report the length we can actually handle */
-+			event->u.setup.wLength = cpu_to_le16(w_length);
- 			ep0_readable (dev);
- 			/*
- 			 * Return USB_GADGET_DELAYED_STATUS as a workaround to
+  b4 am 20261125-tdx-guest-quote-poll-v4-0-d89f26854b88@flashbots.net
 
--- 
-Git-155)
-
-
+Happy to resend if that is easier.
