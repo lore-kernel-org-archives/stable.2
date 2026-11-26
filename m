@@ -1,146 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.1.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795674858;
-	b=at24Nv/Csgy1HJWDMlSwMQmARxi8UjLfNw5aPT+jLUFFojJYpnQwvB8h7lVaqq0Bmc9w
-	 IJc9SLVhxPHQGN7d6NssxzvRdDAqn6aTHELH6ckiN9uVdDY+PybhP//YE0EVnbB0jBna4
-	 oVcp3LpxOskbjcVWN2LXLJafIsPZe38X8UMt61cW8Sj/B3cLt0CuHROxbnFU6zkDP+y0D
-	 J2DnuSOUDAQNcYjbkZ6uNTTo6e8ygk1No0aAm6y57HTzxnNhA92rhQglAMjMyFkqHFPuP
-	 /qaxNq+KtO2DHoaBMgHqqw22sOhzWG/iho2OAnPEXjZZsofSQYiU5Fb3Gb4nNQdcMnA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	b=3NzEnn4ZZ844Cin1vrCnFacrVBd0AkdyxdeMXaYT/o9HwUWIGQX3M3+jKNtcuqg8ULYl
+	 huhvqKUR2PIuQb95g4Ji7BnNkl8uozrSp0DHFAI+4oZnaluN+/lJIRAdBxeTPkkgVK6YK
+	 KtnHaBZBenwO5lCrTg+Py4ETlM2xTjKU9GUihMqxCTE0vtouNtQ56lZoHEd3Dm9xK6A0/
+	 veBVYHI4j++dPoeCw9AUo93vEblU8HS6WjYf9tICPp1gHSOYcDAV17x+voMULNmqSWkpD
+	 iWbI/ZXg2AV8kTYcKMttYqSkb5AiNsV67CFZo3mOsuBHYw5SRACCqcHztAxD1S1oiTg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795674858;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:
-	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=xqUtBSLqb2Pww7c+fQZDsrm8Y66MoDBwLzEoEzexPps=;
-	b=f76hI1n2qtiHPSB8R9wYE6Jh/PNExBiVVcxaU3jM4f49uU2m1zquqIwZv+pzU/kAQQfp
-	 em15jT6TfeNmrc3nvXslbshzVjMg8wbOiN0BOgoQIAJy6tq3kBpxdCIYzGvLgz8OWQmYO
-	 Svj6TtmMJHyDWqlhq0u0X6R9wGwU+JRwqBgJHuvFDjQNj1KQesZlDttXCm6b1bSEFxhcV
-	 xbHv2iBpoBal0h8ovrpz2Af5xJmH5SDCzwYA2oE5T9jmC4xfESeoAVxGU3vXhgTG3KAX1
-	 YXcdjxIy7roPSK4WpDK0Uz47GGGaHc0HiBVO68P42Zd8DqEiA/hcZVBzbxQzKRieBxA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=thyDUET0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.1.12
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazolkn19011012.outbound.protection.outlook.com [52.103.1.12])
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=sJxcm9f1ooixESmgsbsPOMx8LazcfEcqf+7g3gT12TM=;
+	b=1eAb6N/DBXctylHTwzw/+kTYLN1GWHzSrb7jR2OdIuflWL5wFca+8urcUJtPO3ExmM7x
+	 HVtp2SS2EwP7UE2/PpD6aJR+rPLpLMBC0wVzz6BW9O4zUgzI8hNtazaKLPi0RfvRqjdtP
+	 93mxpxdkUDsImNkzP8E/z1ppEh/FOP4jGLi8vqYI5gncgDUKu2cv1AH4Py6uWQBjW2s+G
+	 SNwyR6QfAjHIk6eA21yO7VN+4V+BlPctFSGnSyymfWEe/VWS0IoJ6rEYMyi24nnG3qchX
+	 ZLMklno+/MK52qMILsM2G3ceRjuFxMt+4GX9vRoVnqOWepSUBCYDQI6ReQeNidYon/g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=khPl4Kpu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8CFB606A32C;
-	Thu, 26 Nov 2026 06:34:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8CFB606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA19606A334;
+	Thu, 26 Nov 2026 06:34:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=thyDUET0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=miFj9JDPAE/u59UmPQoaQPcOj+Ben3lONYIU3a5DqTBYzkGbngmHOeiD70aDp9zSleIHT3A2LnDj5OTYXtg0R8hphFF1+E/zC/5SFbqWIqcsFw6LkavaCDdLgTMGUXVuLK/b36oap02uRi/MGaEjRTrGqtaWVrwxFHO+yI94BhLrib4LEq9isoDkVb8stlkRNOSTtYpyeMt2+8CyBLUg52Ff7rfaE/aWTchnlqIQ5HUzBv7RqEcjyaMWmf/LWqw9g8hZKb8oMps8gfKdthNf5MFeectlXTiXn4GemNt5dsrFN36TN8QrKQoam2jBpq1yyhGjkvE7WTqf4fEdqCnyTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=xqUtBSLqb2Pww7c+fQZDsrm8Y66MoDBwLzEoEzexPps=;
- b=WUvzeXn59iNbdx/vxfb62a3gg9dAlKkoK489ny0GZwLyEMyLCFVc31CPO5Pp1IrSm8qJvqZTJ/wgrN4rVmBkEarCOkA6VXBVtZxH2XaiposcSpm4jFv+qLgK6kGXJZCYRkPdF60BJgzKUy9zGavj2Dk91D7mx7xdVr3wn7+5OLvhvBbiE2/nPzQ1vn5A5oXvMPEkZ5/UR8bgTQFnE/R2CqPFgFjx8AZz6omm3zIllkxnrTNXulFLJUqLFyPDgZ981ISjfeqmHJZuXI47tU+ymR+4v8i6Dq7QfoB/6ng3WhtuKrlEJ/pgFNG/SUP3x2GGc6LSY26LUsp8DDiHe9uGPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xqUtBSLqb2Pww7c+fQZDsrm8Y66MoDBwLzEoEzexPps=;
- b=thyDUET0FCddEHQZyKYpyZxqQHyGJl8uRECIlXkBa4m+be3bR6Z0H/f3ZZ0w5sxiMCUWvmCRSvtfVfmknwExydl0L2NBR7bHOnUK/ibJoVGXoB4uIkrAshzbh7g6KTl+9tUxIpSO5B8kq3hgcMmokv8ZBdgDyB7XLmHHLA4bOfsP5H6lSPiaopW9CTxX0VVbs6BdgjqwZZSnkfLcSFLNVuGaI5mmgDraf0PfgWgEh+ImyF/0MoWgqh9vruN43pGGrXADjidk+SqUL7b70tOOsMl1jOatkS5Pk14Duj0rWojsW5YosF03GPSvl5B1NC9s8fF2xdvqmH0ezG59nLGqig==
-Received: from BN6PR05MB3281.namprd05.prod.outlook.com (2603:10b6:405:40::35)
- by BY3PR05MB8273.namprd05.prod.outlook.com (2603:10b6:a03:3b4::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.7; Thu, 26 Nov
- 2026 06:34:15 +0000
-Received: from BN6PR05MB3281.namprd05.prod.outlook.com
- ([fe80::5b9b:67c7:5397:c42]) by BN6PR05MB3281.namprd05.prod.outlook.com
- ([fe80::5b9b:67c7:5397:c42%5]) with mapi id 15.21.0662.004; Thu, 26 Nov 2026
- 06:34:15 +0000
-From: Yingjie Wang <x-professor@outlook.com>
-To: "axboe@kernel.dk" <axboe@kernel.dk>
-CC: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"dlemoal@kernel.org" <dlemoal@kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Subject: [PATCH 2/3] null_blk: reject zone counts that overflow unsigned int
-Thread-Topic: [PATCH 2/3] null_blk: reject zone counts that overflow unsigned
- int
-Thread-Index: AQHdfXAne+doN/0Dc0SIIKJyW7HXgg==
-Date: Thu, 26 Nov 2026 06:34:13 +0000
-Message-ID: <20261126063404.1051061-3-x-professor@outlook.com>
-References: <20261126063404.1051061-1-x-professor@outlook.com>
-In-Reply-To: <20261126063404.1051061-1-x-professor@outlook.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN6PR05MB3281:EE_|BY3PR05MB8273:EE_
-x-ms-office365-filtering-correlation-id: 0bb82e6f-e856-463a-db1f-08df4b874ac2
-x-microsoft-antispam:
- BCL:0;ARA:14566002|24021099003|19110799012|31061999003|38102599003|25010399006|8060799015|8062599012|15080799012|24121999003|22091999003|8022599003|41001999006|26121999007|3071699003|102099032|3412199025|440099028;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?oUSMaGQt5/1nTzKHu7hCYaR4EhRxeBpSpr64uK+iWBzv+Cf8WgnVyWQz6z?=
- =?iso-8859-1?Q?OAO+TvyfOIQC1Q14Dk+7Ef1MyNoIS0ulGKbP6nmVVndO/9+wQ/qGddCJzH?=
- =?iso-8859-1?Q?j0vZ/1PyRYyxFV9ZNJJ82INkgrvddKdyKHE0K6v6XpmPCNaRk4dCFdTNvw?=
- =?iso-8859-1?Q?AHwq2eub/WLyv15fV2P9yvRfvFlku6mw5rYpJpzlj+/3BznRB+1rO1Ry4i?=
- =?iso-8859-1?Q?MWIVy+flT14JDNbgqRKAc8koFeu6XXfphp4ZeB0FHs5NL22C+OxveLhJ08?=
- =?iso-8859-1?Q?e2To1SdhdHNDmurY2gKBhwczab5tq8KoCnZ/Gb5jxqqvPoG0NqLJl/gIi+?=
- =?iso-8859-1?Q?pskvl/b1fB81HYnftfQBqyyyUBKopwH7GbYkLQcMJM0/O+kDVL+Skp4s7Q?=
- =?iso-8859-1?Q?DJZUAJnLVq3dc80m9CJiVGdnYEKy80RO/ucxFlj2NGiYrrd0CbRYa8Q17K?=
- =?iso-8859-1?Q?krjBxHJKeQk03s9nq3RD+LOPHMGC2AdwBj5I0nx5S85etNcN/SOJGvzDMv?=
- =?iso-8859-1?Q?k7ypmUUuobNWMnkBIrgxFkR7ZpZD+YXONRnFMtNUojnyOn7KBnrKkCPdel?=
- =?iso-8859-1?Q?2RNRaCO2i5I1x5AodGkv3N7a8jVDqcFYpXr3pO3W30v+h9jFP4jrNN2A0a?=
- =?iso-8859-1?Q?eHpoKKbEsxIonn+ZWec6j4Cd1RqR9V6UqUh+UdONzB5whX4rposN+xe+LD?=
- =?iso-8859-1?Q?ErApXgP6cEx5kxIZHJbx5zKshyvBR+h+4o2N12p+gNuD259ir1YDrxakuV?=
- =?iso-8859-1?Q?h4ajtT8NFWSErifhUkPJI6WCuF7e44bF7QO3EKYc94gI2hk5whJIIaU3aK?=
- =?iso-8859-1?Q?ar919zxZttsZu2RtDEnTV9zQxiqGMvNJiTcHR+O5G9VsTzUe1NTFtD4/SM?=
- =?iso-8859-1?Q?ukgmWo5gQAElwSid53VER6WxRbQv3kKG5i9N4PpiqJgag5x2PrJVyEdQp8?=
- =?iso-8859-1?Q?XT4kziWrDgj/CBX/YBDRCGxOnVQwpYHRHUOVO6jVCwckQTPEhr4W8CvnPB?=
- =?iso-8859-1?Q?DoxggJm6lvrRaTd8vxXTPbe1/GrAm+thN8cf6rm72OiDP7WGYIAtCvDwum?=
- =?iso-8859-1?Q?/bECYIS1Boa3J74nSqTkoXcr2yQV0x+00p2OQOqq+tzi55AXYwOL2krT5s?=
- =?iso-8859-1?Q?8zydLxmQ=3D=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?ntLweMKW4Z9PSVUnzqeeaJRRf9pAP9OdAt+11WDY9iUKR4inqd7BaVVWqy?=
- =?iso-8859-1?Q?WhrBdNDrFBEn58jKJKdOOHlEGHdOOCfWE+qVMANE+eaE41u94XEcjTRq54?=
- =?iso-8859-1?Q?9hS50KiS/nvrUFqfUBinnJ13izrHEh0O0ygkDujdQGHVaZcZPPLADJeNyn?=
- =?iso-8859-1?Q?WZK4YC9BdZ/313iPgl6MXQFfbxTfN+anA1fhBmzyxy8l3gsjY36AyN82D1?=
- =?iso-8859-1?Q?87SBLZtYRsCgAEXyJOTwh3GuN7tP0vccwQooOwXGvgsaWhNi1Pl7l6h0lU?=
- =?iso-8859-1?Q?TMscwkwh2rkk0A1jos8mChGPv1T8iw3ZIuKdsnb8YF3Le6l3SicKzWU7pw?=
- =?iso-8859-1?Q?mQvKEpfufHps0p5VqwF3jUJwqrU77q6+CdxofTJsxi2awlw3pLOqFu2gBn?=
- =?iso-8859-1?Q?elHCRvkAxkOzKL0sAfzxGDvygdjtyafB1y4VL79A5dCftd+DHAeHuXB5FV?=
- =?iso-8859-1?Q?mddsLdq8yloYPbwKWDABdwQwMNqV9KKS4iIVQ7QMcDyNJ7lcZk1f28K1J7?=
- =?iso-8859-1?Q?glwr6gj8BGZbC7BimdrjY6ORLncad17FTZvPonWkX4cFqe7CkAgEb6YLn3?=
- =?iso-8859-1?Q?8az3kdl/MA09qwb2Hi3oHhaDzv4dCCU/ZxkVRo/O3Frv9NKE7TVi2DYH48?=
- =?iso-8859-1?Q?Z6W4EIB2xOmPmU2V91vTrKG/dG3pTgzwbMkm6DqbUnPsij6R6fdJytXZ+h?=
- =?iso-8859-1?Q?LZDDrdNGuMcemc0rVVxXDxgOA23Dh6rXHt4YmxxU7WeY/0UrCdrrBpNC39?=
- =?iso-8859-1?Q?DHVjnFtj9JpnUnnz1TaZR+ZPdW8zjsjNLbEX9WxuCBoa6BBfqO/lXsqVry?=
- =?iso-8859-1?Q?R7Q5uKx74b3cqjfQAgzf4fYKexofA5BLk/0aPmHIPn7eMhs8k9EL3j6dyU?=
- =?iso-8859-1?Q?YD/4P/LbAUxF/YTbyAkWtfI7w2J13zOrY8Y6H0UDDMPM+xhJ87ZjgqrCoP?=
- =?iso-8859-1?Q?ofUP0DXt7GbAvzupYvXz9rU8UDny5Jf8hJTRF0EGPMGeMNzPQ2i6WHpE9O?=
- =?iso-8859-1?Q?u+flk1vWRzmw2TRbuRam8jUdxTxfDWjtCbQgWOMgywdugQTLb0yaBFl3po?=
- =?iso-8859-1?Q?BWIf3lMVBiQidXmEN1DlKcvB5y6jLGlCLUnf+ndJKl9Qzfrn1lS3uWQMwg?=
- =?iso-8859-1?Q?PSStHBsylQe/pGQOEnMqvg0J3yzvc2wEGekX4dE9CMvOkCN6yh736akmeF?=
- =?iso-8859-1?Q?aLeLk+/iWORcaTDYqkTYD8LAEn0kTDibjZPgNRdVQ4sRyJx1c6iNS9l2Ew?=
- =?iso-8859-1?Q?VghMBBMl4FpoGaJ2XX3dybZgm0u42hjZ2xtWv2R9bXcF8NX5Lj2Kg9xcno?=
- =?iso-8859-1?Q?/kyIrbXyi6rRiL4QmkD0ngtB5Bbn7QCpczRfsi8Ux5LMzHfvc4uWoWR4RL?=
- =?iso-8859-1?Q?7vaNFnPPtFUfjlEyG/apMFJgwW0CCAQ5UziY6diIh4LLHuNDw1sV8BMl2T?=
- =?iso-8859-1?Q?woEJUlnFf0yadcpY?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=khPl4Kpu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8D791F000C0;
+	Thu, 26 Nov 2026 06:34:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795674858;
+	bh=sJxcm9f1ooixESmgsbsPOMx8LazcfEcqf+7g3gT12TM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=khPl4KpuPiGbxHtJT2x+EeiiRZdRP5+Hm5NKbDxKt4aV0jDdHKzJvDCTr7uDAAV0m
+	 5h1Uacqz+scskT0DyoDceN0x6GyF7UFGSGXYF2r7U6vEjguQqNczzXphWskNQUQbw7
+	 JCxgqB/B+TaZZGKmUWhBPpttLwV07UVkaJ5d8AUHXwvimKunW2GiZA/sHhN5CdBv7o
+	 mK+AadWYZVtHXuJ0/4Lt7GZcMPqoK2HGMt3T8RuSoVPzMcQl4rrBrWz9idJ2tAWhJX
+	 qwsfJyCuZ+hGp9sHk22UE/9h+c5ZmQevdn6jFXcFZ89ea1h1jWpW9H83nrLqXEcOPC
+	 9IHE83/FLg/YQ==
+Message-ID: <87bca99f-82b5-461d-bd3b-23f217b895d1@kernel.org>
+Date: Thu, 26 Nov 2026 07:34:13 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -150,67 +51,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN6PR05MB3281.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0bb82e6f-e856-463a-db1f-08df4b874ac2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Nov 2026 06:34:13.7405
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY3PR05MB8273
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 0000/1005] 7.3.7-rc1 review
+To: Ronald Warsow <rwarsow@gmx.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261125143821.729802100@linuxfoundation.org>
+ <1ba253a4-fdef-4169-9e9b-cdb6652e47c6@gmx.de>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <1ba253a4-fdef-4169-9e9b-cdb6652e47c6@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-null_init_zoned_dev() calculates the zone count from sector_t values but=0A=
-stores it in the unsigned int nr_zones field without checking the range.=0A=
-For example, a size of 2^40 MiB with the default 256 MiB zone size=0A=
-requires 2^32 zones. This count is truncated to zero when stored in=0A=
-nr_zones.=0A=
-=0A=
-The resulting zero-length allocation returns ZERO_SIZE_PTR. Adjusting the=
-=0A=
-number of conventional zones then underflows zone_nr_conv to UINT_MAX,=0A=
-and initializing those zones accesses invalid memory. This happens even=0A=
-when the device capacity itself fits in a signed 64-bit byte count.=0A=
-=0A=
-Keep the calculated zone count in a sector_t temporary and reject values=0A=
-above UINT_MAX before assigning nr_zones or allocating the zone array.=0A=
-=0A=
-Fixes: ca4b2a011948 ("null_blk: add zone support")=0A=
-Cc: stable@vger.kernel.org=0A=
----=0A=
- drivers/block/null_blk/zoned.c | 8 +++++++-=0A=
- 1 file changed, 7 insertions(+), 1 deletion(-)=0A=
-=0A=
-diff --git a/drivers/block/null_blk/zoned.c b/drivers/block/null_blk/zoned.=
-c=0A=
-index b271d0a88ff2..432a0a2f3893 100644=0A=
---- a/drivers/block/null_blk/zoned.c=0A=
-+++ b/drivers/block/null_blk/zoned.c=0A=
-@@ -54,6 +54,7 @@ int null_init_zoned_dev(struct nullb_device *dev,=0A=
- 			struct queue_limits *lim)=0A=
- {=0A=
- 	sector_t dev_capacity_sects, zone_capacity_sects;=0A=
-+	sector_t nr_zones;=0A=
- 	struct nullb_zone *zone;=0A=
- 	sector_t sector =3D 0;=0A=
- 	unsigned int i;=0A=
-@@ -94,8 +95,13 @@ int null_init_zoned_dev(struct nullb_device *dev,=0A=
- 		pr_err("zone_size too large or too small, leads to zero sectors\n");=0A=
- 		return -EINVAL;=0A=
- 	}=0A=
--	dev->nr_zones =3D round_up(dev_capacity_sects, dev->zone_size_sects)=0A=
-+	nr_zones =3D round_up(dev_capacity_sects, dev->zone_size_sects)=0A=
- 		>> ilog2(dev->zone_size_sects);=0A=
-+	if (nr_zones > UINT_MAX) {=0A=
-+		pr_err("Too many zones\n");=0A=
-+		return -EINVAL;=0A=
-+	}=0A=
-+	dev->nr_zones =3D nr_zones;=0A=
- =0A=
- 	dev->zones =3D kvmalloc_objs(struct nullb_zone, dev->nr_zones,=0A=
- 				   GFP_KERNEL | __GFP_ZERO);=0A=
--- =0A=
-2.43.0=0A=
-=0A=
+On 25. 11. 26, 19:12, Ronald Warsow wrote:
+> Hallo
+Gruss gott,
+
+> RC doesn't compile here and currently couldn't figure what's up.
+> 
+> Question as an git greenhorn:
+> Is it able to bisect a kernel which initial doesn't compile ?
+
+Sure.
+
+> if YES: what is the bisect start then ?
+
+The previous stable release (v7.3.6 in this case).
+
+> Error:
+
+I reported these against the respective commits already:
+[PATCH 7.3 0361/1005] sched_ext: Reset task fields on exit of an 
+SCX_TASK_READY task
+[PATCH 7.3 0478/1005] sched_ext: Add scx_bpf_dsq_reenq_task() to 
+re-enqueue single tasks from a DSQ iteration
+
+> In file included from kernel/sched/build_policy.c:71:
+> kernel/sched/ext/ext.c: In function ‘__scx_disable_and_exit_task’:
+> kernel/sched/ext/ext.c:4223:17: error: implicit declaration of function 
+> ‘scx_reset_task_fields’; did you mean ‘scx_set_task_sched’? [-Wimplicit- 
+> function-declaration]
+>   4223 |                 scx_reset_task_fields(task_rq(p), p);
+>        |                 ^~~~~~~~~~~~~~~~~~~~~
+>        |                 scx_set_task_sched
+> kernel/sched/ext/ext.c: In function ‘scx_bpf_dsq_reenq_task’:
+> kernel/sched/ext/ext.c:10432:20: error: implicit declaration of function 
+> ‘kf_switch_rq_lock’; did you mean ‘switch_rq_lock’? [-Wimplicit- 
+> function-declaration]
+> 10432 |         entry_rq = kf_switch_rq_lock(src_rq, &flags);
+>        |                    ^~~~~~~~~~~~~~~~~
+>        |                    switch_rq_lock
+> kernel/sched/ext/ext.c:10432:18: error: assignment to ‘struct rq *’ from 
+> ‘int’ makes pointer from integer without a cast [-Wint-conversion]
+> 10432 |         entry_rq = kf_switch_rq_lock(src_rq, &flags);
+>        |                  ^
+> kernel/sched/ext/ext.c:10450:9: error: implicit declaration of function 
+> ‘kf_restore_rq_lock’ [-Wimplicit-function-declaration]
+> 10450 |         kf_restore_rq_lock(src_rq, entry_rq, flags);
+>        |         ^~~~~~~~~~~~~~~~~~
+> make[4]: *** [scripts/Makefile.build:290: kernel/sched/build_policy.o] 
+> Error 1
+> 
+> 
+> Tested-by: Ronald Warsow <rwarsow@gmx.de>
+> 
+
+-- 
+js
+suse labs
+
