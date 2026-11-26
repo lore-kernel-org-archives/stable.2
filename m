@@ -1,47 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795684616;
-	b=PSyZ+IlOkT27sxidIOn2fVu9WWZeZnKNqsvDqqK5WKQAlKZb+cpDkYYLX0o4YCc85ElD
-	 Wg3VPkjYmUtnbL4gtz58GNQcYD+v11V74e/2JJ3iDLdqQscqz5GPx9i6NNzCf531wd4ds
-	 Hi1dfXJR3xgikg+A7TrLC6AA/JiUL6PF67QMPQf57fyGSQsdKZvG8IE1axuMuUZUlo68W
-	 xaJZ5+NLe4DHaUDZE3MLeSnOcFS84Jb4dyTeEp1KGw4PW7Uy15FOQZorRPIy6IGeyS+pt
-	 TFGxFZQHWQdSIZev/NRyOxPcH9oNDAAS40KHnX7BooR1dNaz5j2hv0pqTuI211tR8AA==
+	t=1795684635;
+	b=nRiBYYtVp5o17didizmnNbiY82DO9tRsPBQMRocwPPFeVSzjCjo6w3340H9AlvkQ+hq0
+	 yfcYp3S91tekYFKGSs18nYX/Xb/3v1nTLwS04hsQLQLT/0s4J5FFODa3eQ7N571EQjR86
+	 Zv2xuMK+FV0Vf6cfPaAUGFTb/2Ze42UhxPRXS9wZazimd+krqNgO/doEQpPUtr/UcMTF1
+	 orQ0ELGL3gUahKzHKICWY9BLhNW0KEpZnzgh8Rvs9JOAoLYUn8/7/074Soo4n+PLQ3T7q
+	 sBui8x1qvR0BDG+ydBr28oppuKej2rcQ2FtVYb2BiBemxgasQRxAaS2zsulHdhYTXng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795684616;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ZfdcZ48c//AzqVH7rKfuc7GAHFokrDENxga69K9MVf0=;
-	b=gRM91y3QG+9FIFiwZaujwvirlaPHAXUEuICgqPwaO0pFSJLi/5aG5twdYYxnKMxDzWMK
-	 2acTiwzKQG9wJXgNus33ad42GHVfRxuXxfFHiGkvhKbpzYwvXrC2gsRBxC5N3scQ07QGV
-	 XwAs8N8q43foJUfYO5oND2drMqxF6DNG/1zh6md+irlhbJkqNJCOKlw3r/9XMpmhY7zds
-	 wC2JbgmZdAuHSUtr8W2fntViu50v/btPKj0C4hoqpbTC2slgHgHLK+HISp7UGIGmsXdgf
-	 v9bA4+APKPwK65623Yy8HlyCbCwUCOYLXJaCTmVH2EyQVDiJnUJEvhkUSNOVVyFXH+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795684635;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=C/z0kFZffqp1LFtR2rltFphJVQEqkB2za+Qwi9gT7eY=;
+	b=NwznK4iS2oq0XGDFODfoGUNkme7re5nOZy3KVjTSGHamL53gv7Hct8SNV2WhP3nz9DWx
+	 oOvK1L0JRGO/bsa0dRNi2v/LJlUUgoLkS1VcqsezL4ZdkW7pIFyWDNiSagl5xs/ZFRh6a
+	 tzSMsqYifXvMPnePCjJDL7DtsyerDKWJYMhfkSx4xhZ/1PsAH+E5o4oHZqZbmXgm3zCUn
+	 awsozb79PoP7GoXxn7chiyVowspv/A6v53z2LQzs3YeZbN/rmTsdNbR56sduJ4dTnLTB1
+	 oCCXNQuQXGvpvz/CnhB2AsozpT0//fJBRDm1h0KF6Ow6RwiNUsaoSAifIpi5a/KwEtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXi4jtdy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r6p70MTL;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA12F606A31C;
-	Thu, 26 Nov 2026 09:16:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CCCA606A33A
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 09:17:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CCCA606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXi4jtdy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7A801F000C4;
-	Thu, 26 Nov 2026 09:16:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795684616;
-	bh=ZfdcZ48c//AzqVH7rKfuc7GAHFokrDENxga69K9MVf0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MXi4jtdyxHYxeNd9GvD8/qTFBek+uKD/UwQvdkBGMpRoBOKugRg1mH/Sgv8frDoTk
-	 W0hwp50y+gziYVZkt41i99BFLSJEup8+HwVZwkJ1tsunz+k4Hug8CfwibkTj4EgYov
-	 eHcq8Hi0MJdTD47i1JQs3SnmqQot035w4Rl0yQ6OpcKs0MpS8qCPBRvCSiQr0LJ15J
-	 vQvkWgMepbe6g9vBPRrN9ZbMDxbMh85D7+o7r9bErMGnarnZWdbHZpEM3e1zPeWw12
-	 7ctXM5s0ZmPEQCTuwt3euxOfFxj7lfoy2SH9D0UQaQUyJHWcQ/tP3CXyL7YWeuXhyj
-	 EMlp5ct0ly5Hw==
-Message-ID: <534f7330-d4de-47a8-ba6b-68c29c138186@kernel.org>
-Date: Thu, 26 Nov 2026 09:16:53 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r6p70MTL
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3b40b3772f0so816696a91.0
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 01:17:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795684634; x=1796289434; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C/z0kFZffqp1LFtR2rltFphJVQEqkB2za+Qwi9gT7eY=;
+        b=r6p70MTL3/Xp7tYLBv0xUqK504I7RvC/GMoANlXUQwqgpJFW0Q4Y2tC2alhflbNCcq
+         /A8OA8nFLlUaOsHPDDxNBtdwCZPltr1p2LvUwRUQhOyArmF/IR3WwgGe5dXg6IfHlKNS
+         +CdwQ4IQmsDjXCIdGvgan72z07pP11kM/KVZ7xqRc2CWoZryv8mmX51MM67mmPj4Vmd8
+         AxWq64uSSQvpvxxiJteq0d46UF1dtU+vczWaEJGHBm41Bpnx1gBebTGekyVP+MR/n0dn
+         7+pRd2c9o37KOdlt2eNX23MFQlOe1WECONDYqFpdILvnKHPceVidEXjVbPBliyfgliAY
+         EYdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795684634; x=1796289434;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=C/z0kFZffqp1LFtR2rltFphJVQEqkB2za+Qwi9gT7eY=;
+        b=aNo81ez33WdQbqpO7ggDPq1ZHUYKTmX+6PBlE1uIVJlHA0jvPgrNmFtIcqqeXR8c8x
+         L4MWpqsP9W1JM75QX7kz9bLlhqcFrc6mK6e8WNXvD36b3sYoODVJ8Tf2XlyqkhrgSfYI
+         H3QaBuzzPWzeCkareEiS706XnKa6se2m9cNQuaHJ/m9RowZDUH2JC7iMOyAWasKROuWx
+         ZKOAWywE/RHib/fFN2SoTARvOKgOEEM0QuyNqNNZRtik7dbUBI77A3sogX3LU9+7EUKI
+         1CcNO4xIx6/P+pizAksNNFc5QvT9ofZH1k6/3jHl74wBKJpPIOMTe7EPC9yxAyPpm5sY
+         JURQ==
+X-Forwarded-Encrypted: i=1; AL+hErE70K+JLX3cKS5muRHNH+lQGDTlo5UyTI3G9+1ymOiZPmUT9v53fjgrzD/CMUldvFGq7P1ImxQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+1rOOPZ7e8MSsqO5xWB9ZUD8feKGPGTiVzQilwySN9LQq+J/ED
+	HItcT7mkl4MEeJXbmQ+UmoCJuD2wVZxsz7/VAowaIr/37cAvl+xhgHgn
+X-Gm-Gg: AZFdTZeRD41Dmo2qNOmcVhHd91ct1ODNBjb6sShNWgpCWx5VwmCo7JCaoNzoau/+WCs
+	IJC23LDJsR19O4UWN6K+xQ5cI/Y3JUuaXIU5iikKesur1WY2/931Zd4MOf3qpZJeOO34ACNWIww
+	NAsEFlHE0DpaROg4NQ+hPRM+dmbuZqBzUL03Wq5Zf8g3HntPiVbeY2odtmRUd5SbNZJESBsaSAk
+	IdOsafRtP9dJJnTm+k5FTuFfnBFni2NXTG+SCUTSplOTttkHqMq8/MBhDiF4hgiRMPOOAIIr2Fg
+	c0gcrZKnFckGC/s6Q1SKVm//FlFdmoVf23egKdVTmma4psCWiyJpZ82aKr0q9a6C+YrAkBkXw8d
+	uW7TkM2azdvT7XAlp+O0+DMLHh32+I2bkIyideWumXPmQYj91Bg4ABZaojFx8XdzkNz8t93cfgz
+	OuWTgpjdIW9u3fr3UvOmO8j+qz9LYJ50c7x3u2O2Y06V4bz1B1I0NOFD6gsaRaIoVmaiAJ2ZeRo
+	VRIQLdnG6lpeca9mFZAbcA3SV5aiErUJBa7dK5/+lr49HGVaBAQ/RrGii0p6NE+W0i7LZXIlcuE
+	nZucf52rAdc41MsFMBSssoAqIGVuoXUVJeR74U9WQsz4HQ==
+X-Received: by 2002:a17:90b:498c:b0:3ac:73c7:9c07 with SMTP id 98e67ed59e1d1-3b41c55b914mr29233956a91.0.1795684634345;
+        Thu, 26 Nov 2026 01:17:14 -0800 (PST)
+Received: from gmail.com ([43.224.245.234])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b4dfbe54a2sm11023723a91.17.2026.11.26.01.17.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 01:17:13 -0800 (PST)
+Date: Thu, 26 Nov 2026 17:16:42 +0800
+From: Wenwu Hou <hwenwur@gmail.com>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com, linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] tracing/hwlat: Bind the sampler kthread instead of
+ setting its affinity
+Message-ID: <awf4-hjPFkBxPUev@gmail.com>
+References: <20261125084600.2306377-1-hwenwur@gmail.com>
+ <awbklFE66PIMKFop@localhost.localdomain>
+ <20261125103822.2129a7ec@gandalf.local.home>
+ <awcLwio_qyE3d1bL@localhost.localdomain>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,120 +102,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] soundwire: qcom: Fix off-by-one error in port
- exhaustion check
-To: Christopher Obbard <chris.obbard@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261126-wip-obbardc-soundwire-qcom-fix-port-off-by-one-v2-1-c424edf85968@oss.qualcomm.com>
-From: Srinivas Kandagatla <srini@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20261126-wip-obbardc-soundwire-qcom-fix-port-off-by-one-v2-1-c424edf85968@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <awcLwio_qyE3d1bL@localhost.localdomain>
 
+On Wed, Nov 25, 2026 at 05:24:34PM +0100, Frederic Weisbecker wrote:
+> Le Wed, Nov 25, 2026 at 10:38:22AM -0500, Steven Rostedt a écrit :
+> > On Wed, 25 Nov 2026 14:37:24 +0100
+> > Frederic Weisbecker <frederic@kernel.org> wrote:
+> > 
+> > > >  static int kthread_fn(void *data)
+> > > >  {
+> > > > +	unsigned long flags;
+> > > >  	u64 interval;
+> > > >  
+> > > > +	/*
+> > > > +	 * kthread_bind_mask() sets PF_NO_SETAFFINITY to keep the initial
+> > > > +	 * affinity from being overridden by kthread_affine_node(). Clear it
+> > > > +	 * now to allow userspace affinity changes and cgroup migration, but
+> > > > +	 * keep per-CPU threads bound to their CPUs.
+> > > > +	 */
+> > > > +	if (hwlat_data.thread_mode != MODE_PER_CPU) {
+> > > > +		raw_spin_lock_irqsave(&current->pi_lock, flags);
+> > > > +		current->flags &= ~PF_NO_SETAFFINITY;
+> > > > +		raw_spin_unlock_irqrestore(&current->pi_lock, flags);  
+> > > 
+> > > This is not pretty but moreover, is it a good idea to let the user override
+> > > that affinity?
+> > 
+> > No, but we used to. Perhaps we should make that not possible instead? :-/
+> 
+> Right, the affinity should only be changed by the kernel if tracing_cpumask is
+> written. Otherwise it doesn't seem to make sense to let the user play with the
+> affinity.
 
+I agree. Perhaps v1 is better.
 
-On 11/26/26 8:56 AM, Christopher Obbard wrote:
-> Qualcomm SoundWire master ports are indexed from 1, with bit 0 of
-> port_mask reserved. Valid port numbers therefore range from 1 to
-> maxport.
-> 
-> Commit 6ccec91c3535 ("soundwire: qcom: Fix port exhaustion check in
-> stream_alloc_ports") changed the port exhaustion check from
-> pn > maxport to pn >= maxport which rejects the last valid port.
-> 
-> On RB3gen2 (QCS6490), two WSA883x speaker amplifiers are connected
-> to swr2, which has qcom,dout-ports = <6> and qcom,din-ports = <2>
-> (8 ports). Each amplifier uses one port for playback and another for
-> voltage and current sensing (VISENSE). The right amplifier's
-> qcom,port-mapping is <4 5 6 8>, so its VISENSE port is master port 8,
-> which is rejected by the new check.
-> 
-> Since all ports in a SoundWire stream are allocated together during
-> hw_params, this causes the stream to fail with:
-> 
->     qcom-soundwire 3250000.soundwire: All ports busy
-> 
-> The -EBUSY propagates through hw_params, preventing speaker playback.
-> Disabling VISENSE works around the issue. Speaker protection is not
-> enabled on this device in upstream, but with AudioReach userspace the
-> userspace PAL mixer paths enable VISENSE on every speaker stream, so a
-> mixer change alone does not avoid the failure.
-> 
-> The original fix addressed an exhaustion check that could never
-> trigger because find_first_zero_bit() returns maxport when all
-> searched bits are set. Include the reserved bit 0 in the search so
-> exhaustion returns maxport + 1 and restore the pn > maxport check.
-> 
-> Tested on RB3gen2 with a v7.4-rc3 based kernel and AudioReach
-> userspace: with the stock PAL mixer paths, which enable VISENSE on
-> both amplifiers, speaker playback through the PAL speaker sink is
-> audible and no longer fails with "All ports busy".
-> 
-> Fixes: 6ccec91c3535 ("soundwire: qcom: Fix port exhaustion check in stream_alloc_ports")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christopher Obbard <chris.obbard@oss.qualcomm.com>
-lgtm,
-
-Reviewed-by: Srinivas Kandagatla<srinivas.kandagatla@oss.qualcomm.com>
-
---Srini
-> ---
-> Changes in v2:
-> - Rebase onto soundwire/next.
-> - soundwire/next now has commit d9ea256ee889 ("soundwire: qcom: Prevent
->   pconfig buffer overflow in qcom_swrm_stream_alloc_ports()"), which
->   adds an nports >= maxport bound on the pconfig array. That bound is
->   separate from the off-by-one fixed here: it keeps pn >= maxport, so
->   the last valid master port (maxport) is still rejected and RB3gen2
->   speaker playback with VISENSE still fails with "All ports busy". This
->   patch is still needed; keep both checks as
->   pn > maxport || nports >= maxport.
-> - Add Cc: stable@vger.kernel.org, as 6ccec91c3535 landed in v7.3 and
->   was backported to stable (Srini).
-> - Drop the claim that disabling VISENSE disables speaker protection;
->   speaker protection is not enabled on any upstream device (Srini).
-> - Give the concrete swr2 port counts and the right WSA883x
->   qcom,port-mapping from the RB3gen2 DT.
-> - Note that the PAL mixer paths enable VISENSE on every speaker
->   stream, so a mixer change alone does not work around the issue.
-> - Add a note about testing on RB3gen2.
-> - Say the -EBUSY propagates through hw_params rather than naming the
->   codec DMA backend.
-> - Link to v1: https://patch.msgid.link/20261012-wip-obbardc-soundwire-qcom-fix-port-off-by-one-v1-1-81f1a4c9c73a@oss.qualcomm.com
-> ---
->  drivers/soundwire/qcom.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-> index 65add9a74ffd9..05311cf639e4c 100644
-> --- a/drivers/soundwire/qcom.c
-> +++ b/drivers/soundwire/qcom.c
-> @@ -1461,9 +1461,9 @@ static int qcom_swrm_stream_alloc_ports(struct qcom_swrm_ctrl *ctrl,
->  				if (m_port)
->  					pn = m_port;
->  				else
-> -					pn = find_first_zero_bit(port_mask, maxport);
-> +					pn = find_first_zero_bit(port_mask, maxport + 1);
->  
-> -				if (pn >= maxport || nports >= maxport) {
-> +				if (pn > maxport || nports >= maxport) {
->  					dev_err(ctrl->dev, "All ports busy\n");
->  					*port_mask &= ~allocated;
->  					return -EBUSY;
-> 
-> ---
-> base-commit: d9ea256ee889f3db9f0bd07ce5d114ce92e31b4f
-> change-id: 20261012-wip-obbardc-soundwire-qcom-fix-port-off-by-one-47c0a8af1c5e
-> 
-> Best regards,
-> --  
-> Christopher Obbard
-> 
-
+> -- 
+> Frederic Weisbecker
+> SUSE Labs
