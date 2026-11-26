@@ -1,79 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795701782;
-	b=vzA8XVZwxLxSZUg/spdKPEyKJqtrW47hEG/C24ZgzoxjuDC3Qe8knwZ+M7FXW9zLmn6C
-	 564q3NcJr3iGHjfRM+2IpXXMqC+zAG9G9Xv4gVqn6E1o0OARHLb/bxl+SIVPccFQh4TBZ
-	 7kKsVDX3Ohxhq/jz+xxQlTpLmmi2nEFD4PRwIseoJ2fIPsPVeQKo36RKj2T0CTjUFgMWn
-	 w8U9je+Y3IhqPKHCYOU6+UxpR8PiMt/PA5uBYkp1xCCP8pm9VmGdUms0D26qDvj4hNLwL
-	 5917z+McwqOjOLlPvZlBbuk1cG34NCTd/Uu32x+nsH/DUQ2yhWF2p/E30YJYBUsC1dg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795701782;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=usPorDLSGLfvveq9O3zFWXHFtoe7dXXggMKyYE6g17U=;
-	b=oW4Wwt5KCcl5oPvVOIPWhsH3qlez1y1IFJbdWxcZOTl/eC/m5b8t/22i+wFPFk2HeQ2j
-	 Iy3KcAsa3qxRAExj7V8XKPgnBd6NCMlM1QWXK/CyI5yHfi4hBClcMeJfmo1xvmztg+MzU
-	 YU0Mh6pBXNHufUK0/7GCo7YhjCXnHi6ToFAux+0RfaJBa00LVZJltri4EefTYFJLNMWzw
-	 A13VAG+K15wX9vwzzxMJ3YhofK9mDJjG6b4vZEJEG2ZdutvSbgNvSiHPwbTuYr2SDx+tY
-	 YWHZ0vFK2R9UaqnieoYp38fXHiz8Vv1jmq3V6+bheEDo4V90edkGRJaq+szAv1RKOow==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=akRzkLBS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60759606A31C;
-	Thu, 26 Nov 2026 14:03:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=akRzkLBS
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795701781;
-	b=wcFFWqgg59hD86/98oaNPZ3WupYvBBGPCqOOro9SqVAHARO1bzNJYT+6gXRULR/148kG
-	 dT5IZT8WLB2iOch4tWsspfFwtlAybifCabFPlC8/u573bKwzRQhl4PSRVbHNLfN7zxN5i
-	 joftfWUyHRWOrPIxQPGWPs+yZX71Ljh1SZse/eGW67bG0OpO6fefvQC4e9OTkke6Hojg7
-	 ZuRARSznPddujG01VweQE9AAotE326+n0eZzzGwfu0CWrbsYaCxVwwiJQ2KI1VOWrpNlq
-	 JKtL9ft0UJqfG5QqiIC2ZQpWnriSC/Rt3Jc9qa6AMVhvUdQhyEGx6VUrCqFC2xY+WJA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795701781;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=usPorDLSGLfvveq9O3zFWXHFtoe7dXXggMKyYE6g17U=;
-	b=ZcecAuovdcl3pPOVGc4X9anetOhmm3m2TpjVO9G3ML7QGMzTvUHe2txhoUW8SyhdKyh2
-	 9+fcb9ZnEsNiEZovrHoG0i7AXSINPovmwA9B11CmZp2aEOYTJEr+uoIN5C/B3sD/jEw5R
-	 RHcqg3QhVzPg5lPeCGs9xAY+lW9axkoodZCk3NhMSLxgy2+mmsAl8gCatQg/yQ8HoK+ME
-	 0wkRUSt3jyVOjWPK3DS4gkO2QVKbR61vBy14uG3CWrd4wwrxWziZLcbjAKmgCFl/azcnD
-	 eYzXpjxCmtklWgnzhhB1ZY+ozIwMMYaQRQRy56uVIiet5PH7s8QgiHAttJhnYhqNXow==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.123
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795701980;
+	b=w/V4H8DXtDf41+oVyKW67UyQA5hqfwBQFvjhlGWWquo96qLDjAUluBHbwZd9fXhJR5/c
+	 UItYAa8vZQiOyeYouUwJLb08dtPLEIshmfU31R3+QAoI8blSnmNLICFeQRtduJ8AZxpmx
+	 LAm8UQ3b7uy7TKF/s8YNYzgsn9atA/IknEFcRo2ciQreLOrnD7J96lPadc3WiWNagF297
+	 5YWgZtnRFoPTfInGrWNl8owo/9gRT+ch2P6+QBfcPWcJkreEIK6SAarqtWXhFY1ifBsdT
+	 CKfPYFFFixDMXl4OG34vtihEuxmsdn382Q0BuNpYb4DlcX3rCOw2rC1qezASA68mbVg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795701980;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=z6yDRTcU4R01ur/fecdkMQS1c66OkwJs8if54klUoSA=;
+	b=fZTyN9x5f8X6Y1R24M0ns14UuevsQKBtLkOftTgdLPepGFFRYZtuNT+eGuwDo2BvmYTC
+	 3V9hYcEAPh8KOL7Ajgp2QuDgIlH88L3jzBuvubtYvt7jkXYjBv5d8eMFKk+5XxAs3RX+o
+	 AIg6JfVJftw9i1qJQW926uGATvA8Vut+jrVGbG006HsAEQPesu6C/Jj7D8NRwAMnSkW6o
+	 isW3BM/RLfwE9xQ0Me2cS5tFSGxJrpExg/n0/hj8oZYvy3Q4ocnlb0TnlTe2yitgZNl8U
+	 H/GOOGLN1xHDknolKuIURxRcmcGhre3aUlhaBqzpAg88G08kps3yxjOA5JIyGkDLVEg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=eYRlpmqy;
+	arc=none smtp.remote-ip=185.125.188.123
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A87051F000C0;
-	Thu, 26 Nov 2026 14:02:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795701781;
-	bh=usPorDLSGLfvveq9O3zFWXHFtoe7dXXggMKyYE6g17U=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=akRzkLBS6uCzT0xMLP2uzlejqljKCOOjdbW95+FNtTbrDLMKKRTptytdsONeQsO4M
-	 t+X715245QonV0eiS/ai6ynusTvhq/MxdTbmJ3cLNHKYlaWILqv7pu58d94Mz8raML
-	 HnE99x3sD3oJO+N37dUsPjJUr5VYhkY++JK1c8K7Scl9aovxKR+Sz0S++8ipaMZroD
-	 Pu5brYiBlf9em+guya4KEY3xIFfI0JseIgXFAw6MuVKaz6ZHHbRszQCMLL8dqXsLK5
-	 z5WdsxfbcnMsiq1uDsZvpMcuLHo217GAkqLIg3ecY4N73XHPV/1sP6EfYR1FhJxLlG
-	 Vq/6xRWYdlL3A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3C7664D556;
-	Thu, 26 Nov 2026 14:02:48 +0000 (UTC)
-From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
-Date: Thu, 26 Nov 2026 14:00:31 +0000
-Subject: [PATCH 5.10.y] staging: rtl8723bs: rtw_mlme: add bounds checks
- before ie_length subtraction
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F40606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 14:06:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65F40606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=eYRlpmqy
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id D0B113F750
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 14:06:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1795701971;
+	bh=z6yDRTcU4R01ur/fecdkMQS1c66OkwJs8if54klUoSA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
+	b=eYRlpmqyFdkfgRN1H20kNSqt4kLbXbp+n2xAz/f/dR+6pBDoe1UY0QwUc9EBXFaeE
+	 log8CucK7AoHw1d0HPtCUO4flMPMNRiBIbOF2xiL2+GFoCEXQdt/n9/XLo3pHvqjBD
+	 zi//xTS/I32yiqRGd0k7kiYBYK16E+1PGKgTJBOakLa4mnODmnxcQ+9j+uVSnCUTzu
+	 8UGye3q8GyFS6amxQY79hKtPMhKhnxechG03p6d+Jj/fxLiUze0R+C1YpZkECLcns5
+	 EfhEQ3QFgW+GCOkRkoBmNFF901k8ZQ785ArGzVcl3lN58OAfSv+OT7Sk5ZdAtyFSbD
+	 D/gSdnedIe49FoWMRI0rFaGe7L5ljOI1m1A24g7FaFdgP3UQwV/vPCOyDlqcnhr+z4
+	 O5Ovmux46kgAXKKdigvO5ejM1UovtYZxZHYBJJTzv4XAXr2rUn0WMQqdT1ttg/OM5X
+	 YZiUx+WE2qlgBC2X4Ak9un6XG7O/xFrU8Wn4ZI0G9m0ZoSoFVDqs2FNlahn4RPlTEE
+	 aNozElS0vciMwFu3TrWiMwt7Op6Gj5UiaS7AgTI/tfiN3Jja4kSK5DjU5C66JSrO0o
+	 gTXfjeg++wTu4bbh1DKUAXGAf2pU4KBcsIdPP5vNy6geDGYgpBAYl4bqJ9ELJ7yIaC
+	 vHA1/OslLE8eqviEI0AJ6ILc=
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b3f3e256e8so6744085a91.2
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 06:06:11 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795701970; x=1796306770;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z6yDRTcU4R01ur/fecdkMQS1c66OkwJs8if54klUoSA=;
+        b=sC58F/ddk5HZQLKdgFk90m/ZWrZOF8w2zwGf1cvmoTnWLXYyhvvV9fn9+BUMK5afTe
+         9eT8PEHL3BndLwYqUBSGge2zdIEuueoj+ScK2uil2HCc49BxZkBQSABHqnFG+tH2FsEI
+         l1znW2eBEZJArmM4OAKnEmrzR1MPJtpDjLgcZf7NZGm2ugCt0ch1CuxKLuXN2rmiFG6p
+         CDiJqlU1d3Kfc6fZqbNLzRFKJGpjAiA/LWvCaYO2wcPsrklq7zHKT2ZQMIQm26JVcSg6
+         oVyoaRxQnGtDPYKZSyIM50ZSl/zRPEDGQKjdLszBwvTYuNOhs+aBeQkMkmRIHPsDwf6/
+         J6/A==
+X-Forwarded-Encrypted: i=1; AL+hErEF0+kMhc0qCB9V4L3S+rfFRiNBI+UFd2SwSVQzhey23b3KCiKVK1e8mAJBfopL4fPF9RHCSr8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ksZbFKCVmDXl0xtOuMgGx95uhNeytXonMG5PtFZZHGY1ZIDlJ
+	rtKnOQ6kIEVWvC4CPW5m93L2yZ7PoQrar0W3hxdEkWSLniTiSSITU8iz90zCp67IztepdQ7I+WO
+	f+BVETevUHiey8ZbAoAWawkH5YkSnty8CmZf1uwTp69ilswUVyAXNN15lwClRsSwDVrxgVWdDLw
+	==
+X-Gm-Gg: AZFdTZfbBulzm5w1npY0g5blWMeiHI14k5UL0SUwljf8OluuVoxRTddScxZwc9c7pvX
+	NVIvamuiaXe5fTcQWWNuHewLR9jSZKfyc0L6j7FjtbcgyI3KB92fveGiUlT1jDrZcKjqi0CfFre
+	hdG7WeDNezaO2/+FhKPMuYEMnpF9xY3ZDFabb8gQPpGkuLLWJ0Z8mGr5Y5yri6CwFS3xSfXFfSZ
+	GhoCGSNQLjgxtdKB7bhdrBc/HGVhijlmJLXpe4E9yWyQCTPCDhPMl2ieVy1R/k08V/QwLzKEUrd
+	qMrL9pROOTRjxf8LxyYXBbGvnbNC1JfR3JSDXtbFo+zt8Rpotk9p3qzPxOQ3josZSAQvYYmKj6C
+	1VkgY7+6bvyzMK3BsIbwL/oEXfqtO7uSlGiUqLpMkE8TOyKAw3ICSK0cB
+X-Received: by 2002:a17:90b:554d:b0:3ad:d29c:5e64 with SMTP id 98e67ed59e1d1-3b41c9b361fmr20365717a91.65.1795701970088;
+        Thu, 26 Nov 2026 06:06:10 -0800 (PST)
+X-Received: by 2002:a17:90b:554d:b0:3ad:d29c:5e64 with SMTP id 98e67ed59e1d1-3b41c9b361fmr20365663a91.65.1795701969667;
+        Thu, 26 Nov 2026 06:06:09 -0800 (PST)
+Received: from localhost ([2001:8003:ec27:e900:9eb2:9fad:60b1:766e])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6cfc8829sm11022054a12.8.2026.11.26.06.06.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 06:06:09 -0800 (PST)
+From: Yufeng Gao <yufeng.gao@canonical.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	Steen Hegelund <Steen.Hegelund@microchip.com>,
+	Daniel Machon <daniel.machon@microchip.com>,
+	UNGLinuxDriver@microchip.com,
+	linux-phy@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Yufeng Gao <yufeng.gao@canonical.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] phy: microchip: build both SerDes drivers when they share a config value
+Date: Fri, 27 Nov 2026 00:05:21 +1000
+Message-ID: <20261126140521.237240-1-yufeng.gao@canonical.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,106 +113,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-so3-rtl-510-v1-1-4c22f41706db@certik.com>
-X-B4-Tracking: v=1; b=H4sIAH47CGsC/02NwQ7CIBBEf6XZs1uBWqr+ivEAdLWYBgyLRtP03
- wW9eJyXmTcLMCVPDMdmgURPzz6GEuSmATeZcCX0Y8mghNJSKo0cO0x5xl4KNDQcdmavXTcIKIt
- 7oot/fW0n6Fsp2jecf5wf9kYuV1VtWsOENpngpoqYwphjnLHy7d8FrOsHbw5u7aMAAAA=
-X-Change-ID: 20261126-so3-rtl-510-ae794a86c370
-To: stable@vger.kernel.org
-Cc: Salman Alghamdi <me@cipherat.com>, Luka Gejak <luka.gejak@linux.dev>, 
- linux-staging@lists.linux.dev
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795701630; l=3127;
- i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
- bh=V3GPftrUasuRGRSXywo9YOVzZnazbn9fCfCl0Gt8TVA=;
- b=hi6hubty2MowvZbbN+TZYZoR2veLkggcyuMBGp8Onqe/TpjgY7rPBHOcaeCVivjQeVCEVqE3m
- 4u5jNH7IgNJCJy4FhqPyVkZd4y1atv8gxpXPip8y/27wq8f6/TV5+Ti
-X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
- pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
-X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
- auth_id=1647
-X-Original-From: Dickson Wu <dickson.wu@certik.com>
-Reply-To: dickson.wu@certik.com
+Content-Transfer-Encoding: 8bit
 
-From: Salman Alghamdi <me@cipherat.com>
+The Makefile adds the two drivers with ":=" instead of "+=":
 
-commit 88e994c57a79f62d5338231d8d37ee8dd98baffe upstream.
+  obj-$(CONFIG_PHY_SPARX5_SERDES) := sparx5_serdes.o
+  obj-$(CONFIG_PHY_LAN966X_SERDES) := lan966x_serdes.o
 
-Add guards to ensure ie_length is large enough before subtracting
-fixed IE offsets to prevent unsigned integer underflow.
+When PHY_SPARX5_SERDES and PHY_LAN966X_SERDES are both 'y' or 'm',
+both lines assign the same variable and the second replaces the first:
 
-Fixes: 2038fe84b8bd ("staging: rtl8723bs: fix spacing around operators")
-Fixes: d3fcee1b78a5 ("staging: rtl8723bs: fix camel case in struct wlan_bssid_ex")
-Closes: https://lore.kernel.org/linux-staging/DI2H39EAAFBZ.3KI5NWN02AQ2S@linux.dev/
-Cc: stable <stable@kernel.org>
-Signed-off-by: Salman Alghamdi <me@cipherat.com>
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-Link: https://patch.msgid.link/20260513203455.31792-1-me@cipherat.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ adapted to 5.10.y: use IELength, IEs, and _RSN_IE_2_ ]
-Signed-off-by: Dickson Wu <dickson.wu@certik.com>
+  obj-y := sparx5_serdes.o
+  obj-y := lan966x_serdes.o
+
+In this case, sparx5_serdes is silently not built despite enabled. To
+fix this, use "+=" (for both drivers).
+
+Fixes: 305524902a00 ("phy: Add lan966x ethernet serdes PHY driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yufeng Gao <yufeng.gao@canonical.com>
 ---
-6.6.y and newer already have this fix. This branch still uses
-the older IELength/IEs field names and _RSN_IE_2_; the added checks
-are otherwise the same as upstream.
+ drivers/phy/microchip/Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Tested on v5.10.275:
-- x86_64 allmodconfig W=1 build of
-  drivers/staging/rtl8723bs/core/rtw_mlme.o, base vs patched, no new
-  warnings
-- booted the patched kernel with the driver built as a module under
-  QEMU/KVM. I don't have rtl8723bs hardware, so the scan path wasn't
-  run.
-
-The backport and the test runs were prepared with AI coding tools
-(OpenAI Codex agents, with review by Claude). I went over the result
-before signing off.
----
- drivers/staging/rtl8723bs/core/rtw_mlme.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme.c b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-index c7fab90550f0..a172121b8171 100644
---- a/drivers/staging/rtl8723bs/core/rtw_mlme.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-@@ -723,6 +723,8 @@ int rtw_is_desired_network(struct adapter *adapter, struct wlan_network *pnetwor
- 	privacy = pnetwork->network.Privacy;
+diff --git a/drivers/phy/microchip/Makefile b/drivers/phy/microchip/Makefile
+index fd73b87960a5..0ea4004abf75 100644
+--- a/drivers/phy/microchip/Makefile
++++ b/drivers/phy/microchip/Makefile
+@@ -3,5 +3,5 @@
+ # Makefile for the Microchip phy drivers.
+ #
  
- 	if (check_fwstate(pmlmepriv, WIFI_UNDER_WPS)) {
-+		if (pnetwork->network.IELength < _FIXED_IE_LENGTH_)
-+			return false;
- 		if (rtw_get_wps_ie(pnetwork->network.IEs+_FIXED_IE_LENGTH_, pnetwork->network.IELength-_FIXED_IE_LENGTH_, NULL, &wps_ielen))
- 			return true;
- 		else
-@@ -737,11 +739,15 @@ int rtw_is_desired_network(struct adapter *adapter, struct wlan_network *pnetwor
- 	    bselected = false;
- 
- 		if (psecuritypriv->ndisauthtype == Ndis802_11AuthModeWPA2PSK) {
--			p = rtw_get_ie(pnetwork->network.IEs + _BEACON_IE_OFFSET_, _RSN_IE_2_, &ie_len, (pnetwork->network.IELength - _BEACON_IE_OFFSET_));
--			if (p && ie_len > 0)
--				bselected = true;
--			else
-+			if (pnetwork->network.IELength < _BEACON_IE_OFFSET_) {
- 				bselected = false;
-+			} else {
-+				p = rtw_get_ie(pnetwork->network.IEs + _BEACON_IE_OFFSET_, _RSN_IE_2_, &ie_len, (pnetwork->network.IELength - _BEACON_IE_OFFSET_));
-+				if (p && ie_len > 0)
-+					bselected = true;
-+				else
-+					bselected = false;
-+			}
- 		}
- 	}
- 
+-obj-$(CONFIG_PHY_SPARX5_SERDES) := sparx5_serdes.o
+-obj-$(CONFIG_PHY_LAN966X_SERDES) := lan966x_serdes.o
++obj-$(CONFIG_PHY_SPARX5_SERDES) += sparx5_serdes.o
++obj-$(CONFIG_PHY_LAN966X_SERDES) += lan966x_serdes.o
 
----
-base-commit: 99112ea818e35b606397c84fbc05e6fadb6ea162
-change-id: 20261126-so3-rtl-510-ae794a86c370
-
-Best regards,
---  
-Dickson Wu <dickson.wu@certik.com>
-
+base-commit: e7d2f93a4426ea6b33dbca1ce585a9876e3a7344
+-- 
+2.53.0
 
