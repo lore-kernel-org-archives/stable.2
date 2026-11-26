@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.128.210.58
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795693031;
-	b=OZjkUTuE0guzgWh7qWEO0j6B5MH4U7xTNbGB6/ngnxdu5haNtxlpEiqZQWsitmc7A/ua
-	 hpgH11Ep4oZyNDK2fRSBU2jKcz2wQ5CQuzsdr0pUrQuPyMLn9gkrxxWsoNw+bfuZTneIT
-	 ZedGpR4wuah3v3F70jay4PnUGtWPhS7ATfcC7Iz7O/2N73Llzgv3Eqd3OHOJTokJ1rhNe
-	 dF47VAODqECq6Z7d86FQNb1sZ6syBuDTaeu3DxYYXTSRHfbho2sOPDYB/hrO9xv1Wt0AL
-	 BPCz8NmqaytZN0K+NeRvbDCIvlNOu573odrDilbMo04HabCIcuuEfSwlY+Ccr/qxo9g==
+	t=1795693027;
+	b=hI8S9NOejCi5vFGrM2+rNjqDq4DwsjgMwv3/y4H+00uXtNvu2yahwyx5HTPF0Ht8CNLC
+	 WybL9zNtTLIEjbyiDa9jYw45Im0lNprPy9rgYUG6YYSZhyC0b2MD5zGg7gX4qu9k8zaiP
+	 nPGu2gi+gMGqUwSLtjAamdoiL4HubTMUFXgEFKzyZ9uV9KHwhz0sB9vXp6KsCg2SZYgXX
+	 rpwUsW0Esod9v0fhhWUscnpYBc0lwvsMLwFPbY9sfmb0PpPKWPDC92iv8AUkOX5w3xkQJ
+	 A0SaF60pyct7DxuHQtFCTPjze6wehy7eaI7W57Md3NlCn22r6dvhQrU/yOBe6h/5HsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795693031;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795693027;
 	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=nEMeqFNhstAN2lC6P9gwJgRz0fsd/BJYA1AVyXdoQDw=;
-	b=SeaFdA6v5erhBNPNhCvbAEWOUudAScccMQuc2fohMKufJCbyQegek4ODovWA1xDhJCDh
-	 5KCcgp076zpq0ft78tgdU4bIyfh2Lwclsrg6JiKU7LsE9B7scGD05+NX/WoP1KEY7PWyM
-	 1v4z8MLG+hD9RyJO4uiA9dH96M7yOG9Rh7hUvIuR8WlPQv1k5WQJyye0lcwPtOFCQOATR
-	 Pg7wDMNIuc0zPCM2LiFcLpWttQ6IyTP7GVFwqePYMUQue1curO36vFYHt9uN+DSPGwaow
-	 azZz0jO9WU9NsUt3N2auTJls/TGb803EMmy+mTHNo7Pr3dzAQA2nrF76ouKzRywyxHg==
+	bh=rxfLRNzwBcIfah1Dd0N8bQ5Q7YIZeEDdPZObdo6GmrI=;
+	b=zgTZnpi+5B/VJu4Yeexh4kRBMzzTv6svy+2+4DbQDA0SOn444Rtsb9RZF4wlK/nUsN09
+	 D5niYiZ4Mw2sGz+dFqoR6EFw4hUcMy2VHVamTpafnIaWo72aRmFBmS4cwcpXiSNJMuJjW
+	 lP0Z2TqLoMN5R4tktjSMhPAeTc2xNjYW/58Gr8/SOma4XyHh3wSqeKl6PX5hEFBp+yu7T
+	 uHzltXEoqA7TEN9E3hUg495PaGUgMV1Twh9rbrLcnCRQCTtEhu4dsr9IW3yUP5HbFMQLK
+	 sRo0C6T7cZ/tkD04wyFGzCxLNkIhWE7ScLwCIfC1KrULVd9DvaA6n7tIzp3/Tda227g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=librecast.net;
 	spf=pass smtp.mailfrom=librecast.net;
-	dkim=pass header.d=librecast.net header.i=@librecast.net header.a=rsa-sha256 header.s=2026110900 header.b="VLrXz2/p";
+	dkim=pass header.d=librecast.net header.i=@librecast.net header.a=rsa-sha256 header.s=2026110900 header.b=jcIgcEAU;
 	arc=none smtp.remote-ip=185.128.210.58
 Received: from bregans-0.gladserv.net (bregans-0.gladserv.net [185.128.210.58])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0766A606A33A;
-	Thu, 26 Nov 2026 11:37:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0766A606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6052606A31C;
+	Thu, 26 Nov 2026 11:37:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6052606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=librecast.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=librecast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=librecast.net header.i=@librecast.net header.a=rsa-sha256 header.s=2026110900 header.b=VLrXz2/p
+	dkim=pass (2048-bit key, unprotected) header.d=librecast.net header.i=@librecast.net header.a=rsa-sha256 header.s=2026110900 header.b=jcIgcEAU
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=librecast.net; s=2026110900; h=Content-Transfer-Encoding:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
 	Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
 	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
 	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=nEMeqFNhstAN2lC6P9gwJgRz0fsd/BJYA1AVyXdoQDw=; t=1795693030; x=1796557030; 
-	b=VLrXz2/phTNgdj/VHptaKED6vvsmyMG86tK6sXH29Aeelkw7y/Ta0ruj1JOPbc6Gh6haLla+G1g
-	M2FcSWVuznoP2nEDWvjhDjbZfLcLVtfde5xP/Y9xLj11fIcZIftkBYvuzEXkmI42CUnXWxMLCNnE9
-	NEPiVKgbbTa8JkfKylwg+jESq6VcFdIEmj7BfPcJcKu6rrYvKEkJudaYmbmTTdBy5C8UUlPQciP7W
-	ArUsaP3I3ZRZRn1U+VMfLDD5rZsX+bfJFV4xvmMGGYPCPC6QilFZrU/7sZ+pP57llc2ElaobP8/e4
-	rxh4Ie0u/dUeKZp0SFwXvUUFag+CUIOJGCmA==;
+	bh=rxfLRNzwBcIfah1Dd0N8bQ5Q7YIZeEDdPZObdo6GmrI=; t=1795693025; x=1796557025; 
+	b=jcIgcEAU0VNB7oXLMTR9eEClPv7KFw9MoXUbUWUbHrDbWa+r+VABk9ZCWR9536GR4rEXhS4BB9t
+	ThVCMEGsKuFwyNazFa5jkf54CEAV6ahYkHRnbgQcdpDp1MOdY6wlQaTmHWqx/Oa3uJ3uLZKNaq5LX
+	tHfiBNwJKdysg/79CCgXJDmqY+r+61YMzIOfS4OnqPPonyzh2qyUrFjbMCmmSdWixEIySEVHIWdCd
+	JUyeTJBHRdSIS9VgIRZjvpNV95CWeApAhOPgeq8U3thYOf6sD4kFxiCnStu36xDdqx9CkWlNcZXwY
+	qcjZG5EDoEOcNVnWDPcVSxznrChfUgVVz5BA==;
 From: Brett A C Sheffield <bacs@librecast.net>
 To: gregkh@linuxfoundation.org
 Cc: stable@vger.kernel.org,
@@ -67,12 +67,12 @@ Cc: stable@vger.kernel.org,
 	achill@achill.org,
 	sr@sladewatkins.com,
 	Brett A C Sheffield <bacs@librecast.net>
-Subject: Re: [PATCH 7.3 0000/1002] 7.3.7-rc2 review
-Date: Thu, 26 Nov 2026 11:28:18 +0000
-Message-ID: <20261126112821.27924-1-bacs@librecast.net>
+Subject: Re: [PATCH 6.12 000/815] 6.12.120-rc2 review
+Date: Thu, 26 Nov 2026 11:28:08 +0000
+Message-ID: <20261126112814.27840-1-bacs@librecast.net>
 X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261126105729.110697432@linuxfoundation.org>
-References: <20261126105729.110697432@linuxfoundation.org>
+In-Reply-To: <20261126105709.009001842@linuxfoundation.org>
+References: <20261126105709.009001842@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,6 +90,6 @@ Content-Transfer-Encoding: 8bit
 010/010 [ OK ] libmld
 120/120 [ OK ] liblibrecast
 
-CPU/kernel: Linux auntie 7.3.7-rc2-gce73b94700e6 #1 SMP PREEMPT_DYNAMIC Thu Nov 26 11:25:50 -00 2026 x86_64 AMD Ryzen 9 9950X 16-Core Processor AuthenticAMD GNU/Linux
+CPU/kernel: Linux auntie 6.12.120-rc2-g4d01a7c6afd6 #1 SMP PREEMPT_DYNAMIC Thu Nov 26 11:08:03 -00 2026 x86_64 AMD Ryzen 9 9950X 16-Core Processor AuthenticAMD GNU/Linux
 
 Tested-by: Brett A C Sheffield <bacs@librecast.net>
