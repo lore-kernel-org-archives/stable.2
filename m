@@ -1,110 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795679992;
-	b=sTI5+EWYjIG4dZNcF9rLa8mXet2RH9ouoiBz60t4uYVSYAKnocfv5/Wr3a398Cj25sCe
-	 ORg/XElsgI0iBZLhVDlFw+uy/XE5ruKMNeWsZct+srCjIdWNSaPTvRxHXls0ERH0hWjdb
-	 UWZVCYATcgh0pkfTSAlUypaAX4tQqnEMu/10gcRD8gxTWYv2q+I3OYEdUehdrapI0aRa1
-	 3yfLD28/6b0veeeYs2uu+HcKRX+cmW6sv4ejx4SM4y9yAm3U4NNtRolhB4S9tBD7U3Kax
-	 5mB5tv+Vlp3B0vhVzoZgr3jjjMxu67UiDuPyW3M0Gxi2ucQz7qPieLF6GuCgd8wf5+A==
+	t=1795680221;
+	b=CLuDE/QrfjfdRWJexnr3JV1ne1hO2SIvJusX47IamOY40vWPxg8A+lTn0u98jy5iOMAo
+	 figh/fzDf0VIiJ/h/y2Cyspp7/aQ/lFe2divb6Ls8Mw9mTb1yl5/4OJxPnNTt6996cDF4
+	 F21MDGmCjQmc2fg+IqImvh+AxMEwGk+51XZvjUhBzKF2Nnwtd8sTN37g3wIjYojsCMuAd
+	 zPAKDcN7FPrU3iYIe89STpdu3SS3jERrB4NeA2ioHtF9jSL2v0iIfpuJ5PU57tVsVo7DF
+	 dzihV+hqpLK0Xgy6W0KD+UBDoTrNet0JFeaQ5EOUBm8Abc9Vx36c5lxHw6JRYGFcepQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795679992;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=gCPt567FbipQ8XQWwv7dIOHhbEG1keVFm7aWXmFbupg=;
-	b=pIuqcCsZPxyb2OBKUoUpdyvo79yh/UFAXwC0QLzQw3uip2zBWhQUMf8I3F5Dq4fqkfjc
-	 A6Rk5szoRkIPHNPjaRGk+lk511h/zXALdVDrDPRl8HnVKMWb+MWqSa/wc0QAcAWgXMVLs
-	 DoOV4j27maLShfNbitpXNk8dK4gf6bMH6vy7f9OQvX0fg45uXm8OMPsrvQEZbUQQE5Rz+
-	 H01GIf5zcfGHirEFJaaNr9GcyUnKgmJNVGzY3r8FbSF7t5WWYiy2FzgiV6F41BeVQTbCl
-	 EW8K6QZiDXCuNmg3JaAydwP2i+C3C1gRrm1qsggNLH5Y39kUwO7pXupLwI/sozttJTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795680221;
+	h=DMARC-Filter:Received:From:To:Cc:References:In-Reply-To:Subject:Date:
+	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:Thread-Index:Content-Language:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=vygooTiSjYbQO8/tsqc0vjgWPN/b7cF63dCgZbTAnpc=;
+	b=KpufbiE0gnPN0wLWX2yxqs/TGUn285nbIrhfNY7PCl27+RLcUsc/jCCP8XOJ1I22Z0Yt
+	 6zePuAhkf2kaX3Lf8vt7EHhgcqQbVHsYrbS/g5iiKTnveSavXQ2rcelxiYXoVzUt47yRP
+	 MhWCm4ojBP2bNh+8ivJ2gSsgzPD6Ea3o1/fkLX7EnNOWLYnIK+O0w0/ihgBExzaLgxVOQ
+	 4FBdD3U3MYjWa+rHABW0b7HTLTwng52BoN3LgfFD3/h3VqH8muueqRDYJxTyo1pTnG9Cc
+	 xjVdEj5bnM2un7gwNSKBkgIqxL1yxSK8qcwzyc1hmbc+5d0ZxodKvGNvQ8Y0KwFyz3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MYgQ6js8;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=amPlUiyF;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MYgQ6js8;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=amPlUiyF;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=senarytech.com;
+	spf=pass smtp.mailfrom=senarytech.com;
+	dkim=pass header.d=senarytech.com header.i=@senarytech.com header.a=rsa-sha256 header.s=default header.b=H2o7HWEm;
+	arc=none smtp.remote-ip=103.209.128.113
+Received: from mail-m128113.netease.com (mail-m128113.netease.com [103.209.128.113])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A49D4606A31C;
-	Thu, 26 Nov 2026 07:59:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A49D4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A695F606A31C;
+	Thu, 26 Nov 2026 08:03:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A695F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=senarytech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=senarytech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MYgQ6js8;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=amPlUiyF;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MYgQ6js8;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=amPlUiyF
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 662A12261F;
-	Thu, 26 Nov 2026 07:59:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1795679989; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gCPt567FbipQ8XQWwv7dIOHhbEG1keVFm7aWXmFbupg=;
-	b=MYgQ6js8aXpLrX4w3gZOX3/L7t6pU3fUCT7WpwXDySv6BnAjiv0JX0m+bZmchfrCBNrpHY
-	lYf4gdYrbc0UKeP5vD+4J5n+cvUguA2XOo2XQkYE+ui/nri2luoH0lzMutBKFsbZSGOCrX
-	vb+kMkBGv35RCUHE/9KCCq71Wk48nk0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1795679989;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gCPt567FbipQ8XQWwv7dIOHhbEG1keVFm7aWXmFbupg=;
-	b=amPlUiyFq26eSZasWvCZOLZoxf4F78BljD2e3knhZ1Co28BBr0ry9kuwULGwUtOhD/mSKr
-	W0PVFDx4dEBs5dCw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=MYgQ6js8;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=amPlUiyF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1795679989; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gCPt567FbipQ8XQWwv7dIOHhbEG1keVFm7aWXmFbupg=;
-	b=MYgQ6js8aXpLrX4w3gZOX3/L7t6pU3fUCT7WpwXDySv6BnAjiv0JX0m+bZmchfrCBNrpHY
-	lYf4gdYrbc0UKeP5vD+4J5n+cvUguA2XOo2XQkYE+ui/nri2luoH0lzMutBKFsbZSGOCrX
-	vb+kMkBGv35RCUHE/9KCCq71Wk48nk0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1795679989;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gCPt567FbipQ8XQWwv7dIOHhbEG1keVFm7aWXmFbupg=;
-	b=amPlUiyFq26eSZasWvCZOLZoxf4F78BljD2e3knhZ1Co28BBr0ry9kuwULGwUtOhD/mSKr
-	W0PVFDx4dEBs5dCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D14B813432;
-	Thu, 26 Nov 2026 07:59:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id U3/GKPTmB2vsCQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 26 Nov 2026 07:59:48 +0000
-Date: Thu, 26 Nov 2026 08:59:48 +0100
-Message-ID: <87pkvs58gb.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Rongen Wang <security@nitrohex.com>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: timer: Protect the slave instance flags with the timer lock
-In-Reply-To: <20261125192053.5664-1-security@nitrohex.com>
-References: <20261125192053.5664-1-security@nitrohex.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key) header.d=senarytech.com header.i=@senarytech.com header.a=rsa-sha256 header.s=default header.b=H2o7HWEm
+Received: from Wangqianghua (unknown [27.38.157.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 56164301b;
+	Thu, 26 Nov 2026 16:03:29 +0800 (GMT+08:00)
+From: <qianghua.wang@senarytech.com>
+To: "'Yige Jiang'" <yigejiang86@gmail.com>,
+	"'Liam Girdwood'" <lgirdwood@gmail.com>,
+	"'Mark Brown'" <broonie@kernel.org>,
+	"'Jaroslav Kysela'" <perex@perex.cz>,
+	"'Takashi Iwai'" <tiwai@suse.com>,
+	"'bo liu'" <bo.liu@senarytech.com>
+Cc: "'Bard Liao'" <yung-chuan.liao@linux.intel.com>,
+	"'Pierre-Louis Bossart'" <pierre-louis.bossart@linux.dev>,
+	<linux-sound@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <rc-b1-20261110-vc-07a-7c635620fec1@gmail.com>
+In-Reply-To: <rc-b1-20261110-vc-07a-7c635620fec1@gmail.com>
+Subject: reply: [PATCH 1/2] ASoC: sdw_utils: Drop rt_sdca_jack codec device reference on exit
+Date: Thu, 26 Nov 2026 16:03:28 +0800
+Message-ID: <000301dd7d7c$9fcd1fe0$df675fa0$@senarytech.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -113,90 +62,106 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: 662A12261F
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -12.51
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: Ad19fJ6sRAfmq4G2QxSCaV7GDUoxxQ==
+Content-Language: zh-cn
+X-HM-Tid: 0aa216e18a4409d8kunm35a5610b95a460
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQxgYVktPSh5JSU8aTxgeHlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlJTFVIQ1VKTkxVSU9JWVdZFhoPEhUdFFlBWU9LSFVKS0
+	lCQ0NMVUpLS1VLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=H2o7HWEm/ziPQxKrJmoZlIPPnG+d+HdAZ2WxnZmKyz0op8jFQq5lZmZ9JgBMJrBdGJxIMiIzVKB/hhhi1gH3evxWDFWCQrkacfiW8jBPVcQYiZIUNJSxaIXOl2dvhPn4k6tNhkhBxS/awmManzLexBO4W/RwMSRLj9xd6pa3XKU=; c=relaxed/relaxed; s=default; d=senarytech.com; v=1;
+	bh=vygooTiSjYbQO8/tsqc0vjgWPN/b7cF63dCgZbTAnpc=;
+	h=date:mime-version:subject:message-id:from;
 
-On Wed, 25 Nov 2026 20:21:12 +0100,
-Rongen Wang wrote:
-> 
-> snd_timer_start_slave() and snd_timer_stop_slave() set and clear
-> SNDRV_TIMER_IFLG_RUNNING in timeri->flags while holding only
-> timeri_lock.  For a slave that is linked to a master, the interrupt
-> path updates the same word under timer->lock:
-> snd_timer_process_callbacks() sets SNDRV_TIMER_IFLG_CALLBACK before it
-> calls the instance callback and clears it afterwards.  Both sides do a
-> plain read-modify-write, so when they overlap one of the two updates is
-> lost.
-> 
-> If the set of SNDRV_TIMER_IFLG_CALLBACK is lost,
-> snd_timer_close_locked() does not wait for the callback that is still
-> running, the owner frees the instance, and the interrupt path clears
-> the flag in the freed object:
-> 
->   BUG: KASAN: slab-use-after-free in snd_timer_process_callbacks+0x269/0x2b0
->   Read of size 4 at addr ffff888007e5cc10 by task poc/90
->    snd_timer_process_callbacks+0x269/0x2b0
->    snd_timer_interrupt+0x7b8/0x1100
->    snd_utimer_ioctl+0x7c/0xb0
->   Freed by task 91:
->    kfree+0x127/0x3b0
->    __snd_timer_
-> user_ioctl.isra.0+0xe93/0x28f0
-> 
-> If the clear is lost instead, the flag stays set: the instance gets no
-> further callbacks, and closing it spins in the drain loop of
-> snd_timer_close_locked() with register_mutex held, which blocks every
-> other open and close of an ALSA timer.
-> 
-> Take timer->lock around the whole flag update of a linked slave, as
-> snd_timer_start1() and snd_timer_stop1() do for master instances.  The
-> callers hold timeri_lock, so timeri->timer is stable, and the lock
-> order is the one these functions already use.  A slave that is not
-> linked to a master cannot be reached from any timer and needs no
-> additional protection.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Rongen Wang <security@nitrohex.com>
+Thanks for the catch.
 
-The code change looks OK, but the patch can't be applied cleanly,
-as some lines are strangely broken in the middle.
+asoc_sdw_rt_sdca_jack_init() always stores the bus_find_device_by_name()
+reference in ctx->headset_codec_dev, while
+rt_sdca_jack_add_codec_device_props()
+adds no software node when SOC_SDW_JACK_JDSRC() is zero. Returning early
+from asoc_sdw_rt_sdca_jack_exit() in that case therefore leaks the reference
+(and leaves a stale pointer) on card registration failure / EPROBE_DEFER
+/driver removal.
 
-Please resubmit a clean patch, at best, verify that the posted patch
-can be applied cleanly beforehand.
+Your change matches the intended cleanup: only call
+device_remove_software_node() when a jack-source software node was added,
+and always put_device() + clear the pointer, as asoc_sdw_rt711_exit() does
+for the
+device reference. Cc:stable looks appropriate for Fixes: 526a1876fc48.
 
+Reviewed-by: Qianghua Wang <qianghua.wang@senarytech.com>
 
-thanks,
+-----Original Message-----
+From: Yige Jiang <yigejiang86@gmail.com> 
+Sent: 11/26/2026 13:18
+To: Liam Girdwood <lgirdwood@gmail.com>; Mark Brown <broonie@kernel.org>;
+Jaroslav Kysela <perex@perex.cz>; Takashi Iwai <tiwai@suse.com>; bo liu
+<bo.liu@senarytech.com>; qianghua.wang <qianghua.wang@senarytech.com>
+Cc: Yige Jiang <yigejiang86@gmail.com>; Bard Liao
+<yung-chuan.liao@linux.intel.com>; Pierre-Louis Bossart
+<pierre-louis.bossart@linux.dev>; linux-sound@vger.kernel.org;
+linux-kernel@vger.kernel.org; stable@vger.kernel.org
+Subject: [PATCH 1/2] ASoC: sdw_utils: Drop rt_sdca_jack codec device
+reference on exit
 
-Takashi
+asoc_sdw_rt_sdca_jack_init() takes a reference on the SoundWire codec device
+with bus_find_device_by_name() and stores it in
+ctx->headset_codec_dev, whatever the jack source quirk is. But
+asoc_sdw_rt_sdca_jack_exit() returns early when SOC_SDW_JACK_JDSRC() is
+zero, so then the reference is never dropped. One reference on the codec
+device leaks each time the card fails to register (including
+-EPROBE_DEFER) or the machine driver is removed, when the quirk has no jack
+source (DMI quirk entries without one, or the quirk module parameter).
+
+The jack source check in the exit path is only needed because
+rt_sdca_jack_add_codec_device_props() adds no software node when the jack
+source is not set. Use it to skip device_remove_software_node() only, and
+always drop the reference and clear the pointer, as
+asoc_sdw_rt711_exit() does.
+
+Fixes: 526a1876fc48 ("ASoC: Intel: sof_sdw_rt_sdca_jack_common: test
+SOF_JACK_JDSRC in _exit")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
+---
+Based on linux-next next-20261109 (630059a5a632).
+Compile-tested: arm64, GCC 14.2.0, W=1, COMPILE_TEST=y,
+SND_SOC_INTEL_SOUNDWIRE_SOF_MACH=y, SND_SOC_SDW_UTILS=y;
+soc_sdw_rt_sdca_jack_common.o built before and after, no new warnings.
+No hardware or runtime test was performed.
+The path needs an rt_sdca jack codec and a quirk with no jack source; it
+runs on card registration failure (including -EPROBE_DEFER) and on machine
+driver removal.
+
+ sound/soc/sdw_utils/soc_sdw_rt_sdca_jack_common.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/sound/soc/sdw_utils/soc_sdw_rt_sdca_jack_common.c
+b/sound/soc/sdw_utils/soc_sdw_rt_sdca_jack_common.c
+index b4e427d55130..7902d423c8b9 100644
+--- a/sound/soc/sdw_utils/soc_sdw_rt_sdca_jack_common.c
++++ b/sound/soc/sdw_utils/soc_sdw_rt_sdca_jack_common.c
+@@ -188,10 +188,9 @@ int asoc_sdw_rt_sdca_jack_exit(struct snd_soc_card
+*card, struct snd_soc_dai_lin
+ 	if (!ctx->headset_codec_dev)
+ 		return 0;
+ 
+-	if (!SOC_SDW_JACK_JDSRC(ctx->mc_quirk))
+-		return 0;
++	if (SOC_SDW_JACK_JDSRC(ctx->mc_quirk))
++		device_remove_software_node(ctx->headset_codec_dev);
+ 
+-	device_remove_software_node(ctx->headset_codec_dev);
+ 	put_device(ctx->headset_codec_dev);
+ 	ctx->headset_codec_dev = NULL;
+ 
+
+base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+
