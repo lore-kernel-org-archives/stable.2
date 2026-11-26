@@ -1,108 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795710714;
-	b=boajwgsirDMtXMLVMsEAGRv6pcJJufxGt9KdWOuBQsu9R4DyWZx5vbnYA1X7vQrV9+HY
-	 3hs8hnDkX34VmwHGcrb9bbMpNWZtZ0cWBscmP2LnuyZjpTq30jvkjwnHLk7+9e3gZb/JT
-	 n3Nbh8HDDgSwBevycSFK6NufIsz5s2KJsPEmkNQUVU1QIFe80oVvbQQYH4liJNjMnV97a
-	 Kd1tegXO/3Xu0jArBJy8XEjm/9yXOz8yVel/nm9Le08qK/obRRa0Y+DEfBx92SW4anopE
-	 XiuwLDWD10frRXcGwV69Zz+RVYcM8RTdT4JvIB1eqLDZZfP58WGhJVct4DKGbUM7yOA==
+	t=1795710970;
+	b=OBEy4d4xkN7I0wPufr+yD1sBiOXHxfVvzxksbW54YZc958cllo/1L74dnxW+0AOqvuNr
+	 pveZVnGRwEFE5G1qJLOMHuYkaxuTNqKf+j4XmBEtW2yK6tRR8eFk9FLudLII0H3wSqbPE
+	 qFIjNp+RJpK+TBp3ehJS14m3qEr3fDRcehKT11aGH+BLjKmQsQ7PbxXD4g6Auu1gvFOu4
+	 KFJ92fCKaxoNnuE4TDuH3gDvRal1olJd7OqGwc8qH5y3BW0DNRuZ4yLEYISTKVB6VGxWQ
+	 y9IcPfym84Xlud6eb58GCHajdW+swpG85ugMkOsLGOBl++PwRwC7OARqVzJN0WJj+ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795710714;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795710970;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
+	 Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=t9zuf6AtiZX3yOJGNCRqBvoPw6Ll8AmPwZKNUXFPImg=;
-	b=gFf1h2wHN/dUglmzLc3ujJ50E2cUH8s3v1oIDmg5/dQjAizS6VZM+J8WCPERd8tPZf98
-	 sZ06gvtoFRUO9OfUbO+CxjdxIlrnGK2ackfpMV/Gr5GoXga0FawsGGK7XuaFFUAuj/ya8
-	 QZZFG/8juk0RMnXzfJSz0flqEx1Syh3619iAZz+dwRd8hpDKi8XGUge+8aZ9en9Y6YLrH
-	 ytmqU4s19veW96uKjg47NlJcAcUvMsviPuHpOFHaD1iQJ+YTp42jRNLmOUxomSB62/tI8
-	 zPEiC+A+wfqrRqW8CL4e/LxVjZMbQ2vyfC2N9OnXL+7rXGbUrPqTM56zeVXeiVbP0IQ==
+	bh=/V/q6vN01qyM55wT6FtlhrNcKv+AqGvLCJ3sSHicCRM=;
+	b=5SC51cwA4Bgft6CiyrFnNjVGayFvrlsra5Rmz5/9K0CmW6At9mVL/1pBG6+Ru5fQ75l/
+	 mfnyLaqjEAUuVvRYVuKk/lhM+3nG4qkR3R9Eam5T8h5Jjt9XZ8Sfan/Mh6yWDfXCF6+gt
+	 liHSWWE1f42vfLf7XfjQjqmI9zxuQzgNENEl0oxED8jVdX+Q6eMxaMJO5/8M4Rwtt5f2p
+	 4DQzhFbcuaVk4ZCgoXzecsn9xmuGQWYrdNa5+LMTuCy3uaZL9EwUqjh060yc2q63B2O9k
+	 GpK+Ed/oCHs7JyJ9RUrOCqwjFN+YZzKo+XFQ2jd7t3Q+Gz1l7yw/YKTVXPuNmyxku/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FNXITSxk;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="slA4/mwR";
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=jTqSgiI5;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CDE860A2618
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:31:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CDE860A2618
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92CB5606A688
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:36:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92CB5606A688
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FNXITSxk;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=slA4/mwR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795710712;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=t9zuf6AtiZX3yOJGNCRqBvoPw6Ll8AmPwZKNUXFPImg=;
-	b=FNXITSxke5jsILp5WcRxckJFkbtVo8niQpqKers6+xbfFFj//VOVmBiOMlXxs8FgcuhwHe
-	rBNuNJU8C8eBS/wh8RQdG13ovQCu40zWp2re/c8ueCPboTeytt2ntqs6ptN90PzARCTB6S
-	ONVCEF0Xc6Zer3p3wKgUStFxM4J7jH4=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-590-MwoSnkAHO36cMTip217FGQ-1; Thu, 26 Nov 2026 16:31:50 +0000
-X-MC-Unique: MwoSnkAHO36cMTip217FGQ-1
-X-Mimecast-MFC-AGG-ID: MwoSnkAHO36cMTip217FGQ_1795710709
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a1f03f2e8aso62838545e9.1
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 08:31:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=jTqSgiI5
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so72676645e9.2
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 08:36:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1795710709; x=1796315509; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t9zuf6AtiZX3yOJGNCRqBvoPw6Ll8AmPwZKNUXFPImg=;
-        b=slA4/mwRHgGh6eC4qPsg3ma9GBSUsqK+U3eisX/eHTTzuMe9UVW34SAZb2WQ4xwtDW
-         +eTlg4zzIEYgRhWv10nWv5x5T3JlI6QddpVrTkOJObIGF+K8LKMBDO7cnu3dPDJtPhQL
-         CZDUM2f0Iqxbpm2t6bylh2m331ykHT4Tqcmalk8GGBX/6ci0bI2FsiobISE1FCnytjJ3
-         ke1KQ10Q0OcxmAeL15nzspqgR4H+nY7OJmLIzmxbISwCUYA7foftptOIg9PyYcgafjz+
-         ozgEUJybOvgv250riBScj739LMHu9Tdm0zKV/z4jwY2nVJg/f1dzlcFk+PO2ga8zC1W8
-         wouA==
+        d=googlemail.com; s=20260707; t=1795710969; x=1796315769; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/V/q6vN01qyM55wT6FtlhrNcKv+AqGvLCJ3sSHicCRM=;
+        b=jTqSgiI5rL1PLDfYRGEUYiTiZCRCnpYLJfz5etGQl5yGV1yeukXttQocy/Y8iDopJD
+         fnmG6PtwwHfkUC/yYi7r36XV4E2835Ezpm1K28MBGCjY0ckav4wfPHOagynYcaMizArD
+         jk4EOvN+ni6me6j8ENHTPC1NiPgg9LDYCEBEmlDtQXUq0QPm/FpmoXiJ23TPirhnMxPA
+         woiDK59qSLg3cmCYziQgrEgMzbvYhakiA1w7SRWTFVqrdsvExfPfKOFkSopd/NBsuTm9
+         1FhNgVOhPm56JD/yjhUPuBz6cAMLjRo/R8eL17Ga7OQ9tuKgyEwVas0vYv5PKaBCUbra
+         vM3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795710709; x=1796315509;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1795710969; x=1796315769;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=t9zuf6AtiZX3yOJGNCRqBvoPw6Ll8AmPwZKNUXFPImg=;
-        b=t+NAADNjAzykZ92tullvhFYyt5dCIC6uMvITN+40MvxSIf4p20qOat+P/Nm/L2uSKQ
-         Z/rUfrLqM5ZRXXBfvyAt1xatD8E+vOxeP7HLeyyBBobMEPVbs2HzWBAzadDSjvOyXqC9
-         /8ANAiHHBswvHwKqQh9ntRCyo03IlodQqo7/5TsS5Z8xC0MI3s/xMPJ41+weOTi28igk
-         FN1DiOb8XYjsvKGhkjsLGiyNcDqDYg1dCjo1dqKMo1DP/R2ehyjC3LzjMkTIMaLNS2wN
-         Y8AToeZbtJ6UczVf0t2EFndGIQpTphEs0zEXwauCLeQwntWGo3HvB8rjiUzokReWklhR
-         OsQw==
-X-Forwarded-Encrypted: i=1; AL+hErHgwI+R/ghVmoqtXtv+uhNJkW6bCXSiFLdC6qSBHau5lh9JHfNCz6vMbV31yHguYiNP3FcJpRc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/aaQfJdgLxSU01+bIlDrt+8Yjct/ZedQuOk4OL4fa1gYB0nd7V
-	cwp9LDFngKcjR54R/yZhlnCd8ppYnxgIAeaTLAHC3sjW0nUyGR/xTh7SJvZ/CCHePuXBRJ7JK41
-	k7RLIexFyrRdvw24wNG4elIcDdErmUK81KxkkjQE7/N7zYwRnkL829SA2Eg==
-X-Gm-Gg: AZFdTZcTeUL1y66uTRK+tYvzI8ceGjNAy0ZpoD6O5ThbRgZPY5/USBH2n6/ufnRiqeE
-	9ZpZkWjGUeUR19vAJu2iKuFHdyvReJOvzKAp4enL+QCPGObv/KJZAw73N1cX0qBvHiVKDBy/0Ry
-	WKwtQj2EJd4odbc046HOT4roWcyJPlV1zjdUID9Ungzid+HlvpiIZbIkqO0v79E8bMgbyDXKeOw
-	jbDucyfb5uTMDwYmYt5owV2KZdJRU0lzMiKjWQtzOrnIp8kAmsHcO5HReBau9sgMhk3RhTXKIr3
-	xxjmQNb3DffxHq5weEkFfG92rSU4j4aRyr5yLztdL0y7E7kzw1q5wTedFWa7E+NAMoQC3iSwcld
-	D8fuGkWPHWZGttoz4/lDueukWNcwd47oEoMjUwbAOoNx06ZdUHw51SPFTGYR/S7sKu0XLKQ/LJX
-	zHsqgj5R2LenzAPFbP4yY2uSD/8b0+0O+AhSIdM6DSFZqY
-X-Received: by 2002:a05:600c:6749:b0:4a2:1867:10e8 with SMTP id 5b1f17b1804b1-4bb8881a294mr421918855e9.25.1795710709185;
-        Thu, 26 Nov 2026 08:31:49 -0800 (PST)
-X-Received: by 2002:a05:600c:6749:b0:4a2:1867:10e8 with SMTP id 5b1f17b1804b1-4bb8881a294mr421918405e9.25.1795710708737;
-        Thu, 26 Nov 2026 08:31:48 -0800 (PST)
-Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b8b7888sm41448852f8f.42.2026.11.26.08.31.47
+        bh=/V/q6vN01qyM55wT6FtlhrNcKv+AqGvLCJ3sSHicCRM=;
+        b=u8ZpTlxkvzttbg3dK0Mq4A11bqu39+Iu96EfzOS3PoNIZE18bjj27ynA3ZToPgVQpn
+         aDYDDejzQUAzJqIGIAGt1s92a0h3c615bcpxb4dZAlpdxksT9yhUdcOHFoudTLsN6/p4
+         UjwdHYlIGuO2aHnv3Ka20NoWw3MD5a/1HZPgtsD3UuN3BxMC7nVMkVmOZzu4ZUX9nOVt
+         +nBVrxeTRq+fc+cwwGxomascGRN7kK0tEGD4RGGpzqK1l8AK+uSoRpVJ4HRD3Rzzjza+
+         9PEtoJ9xF23ULbqGwDne+8BC6kdD/DpHdnJcw4HmTHqq5yG0s3OV4NFKAeyJ7IKwPP6b
+         Irug==
+X-Forwarded-Encrypted: i=1; AL+hErFPn5hYHqxRRwUpsA48onokXMW/Q6tPUaHdF5Pi286GjwaNrGi8+y8KiOA0lT8D4pn1f1J0+9s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Accze23upIaltSi7GxrnAd8UG4u76jokVFN83GNcHHOMZEMWN
+	J+dQzYf9X6UcA0DMGhf3gUYDcqxNJ3Bbm7F01FNKIVpsHhmH/uyhzFQ=
+X-Gm-Gg: AZFdTZe2fUp+QLtox63z75NeWbsbNx/UkIkVv6oG9P0pHOEa+RxjIOB5kQBPPRBB+Wz
+	tyzu8lA7RBV7CEziR926wpVcQeKGMJ9VdN+xw5NtGAsnWjl+goHhDx2jVreATIGduUlAP7cuVCz
+	xxtBAraGEsREyBwDF5sxZ/4ocXS+VcrHSWT5Gs+r8TCrkBzfkNMpdjwI/RWT0L7uT4Mf9GEhwnH
+	Y2HeZoZc8uBPLxpiXZtQFPbY8/fCKPA5TIaLWzL6/Z9bnPJNL91udCcIN/WRtBmKpAZJOUykrWT
+	wUjQUBYi7+uF51WAdT+HeQ/kZW12juGodP3ED037HJfG08NxG43t/lc9gpsOMC96oxBssy/rQxV
+	ZWAJjGAW0OEbSC2Ts75mDnyKCC9uaLPYfG8J+QVdht5mSSxReTzWd8wuUexN0KVhSlyjWIwS55w
+	XNkPw0pvBBDrTJqA3B9vXUhZMm40JKkXY3DrNGmE3upo30U5F7eNN//CtBcyZnxCg08RMqbE0SF
+	GIBK5vBXv4Ezc07kTZJSQyfJHjnYwBqk64ZHwJ2zGnr86qytxIGPTc/zIpO8a2GwQ7HZdlS2ZTo
+	7GW838CcrNVBBljbxopbW5tzLQxXGm8xgCek6ROvmv8KAPX8f0YHNWlPoo5PEab96Wolt+QrpYx
+	cz1tM
+X-Received: by 2002:a05:600c:64c7:b0:4bb:68b9:f610 with SMTP id 5b1f17b1804b1-4bb887ffee2mr416755365e9.9.1795710968740;
+        Thu, 26 Nov 2026 08:36:08 -0800 (PST)
+Received: from [192.168.1.3] (p5b2ac210.dip0.t-ipconnect.de. [91.42.194.16])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884c3063sm606032885e9.15.2026.11.26.08.36.07
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 08:31:48 -0800 (PST)
-Message-ID: <72ec342e-18a9-4b40-ac3b-a20e4e9608a6@redhat.com>
-Date: Thu, 26 Nov 2026 17:31:46 +0100
+        Thu, 26 Nov 2026 08:36:08 -0800 (PST)
+Message-ID: <2b097c77-6ffb-4463-b154-661f3731c412@googlemail.com>
+Date: Thu, 26 Nov 2026 17:36:07 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,43 +92,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 4/4] net: skbuff: limit folio refcount when splicing
- from sockets
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Kiryl Shutsemau <kas@kernel.org>,
- Song Liu <songliubraving@fb.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Rik van Riel <riel@surriel.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>,
- Pedro Falcato <pfalcato@suse.de>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- stable@vger.kernel.org
-References: <20261118-skb_refcount_overflow-v1-0-5551b4954c3f@kernel.org>
- <20261118-skb_refcount_overflow-v1-4-5551b4954c3f@kernel.org>
- <14059088-7992-4d89-ac6c-1e6d1f61b3c8@redhat.com>
- <832f42a7-1d44-4138-a7f5-7cead4a28e57@kernel.org>
- <bcbb57bd-6447-4faa-a56c-9bdf1c7bc90a@redhat.com>
- <b36f40f0-3f9c-4ba6-8c1c-a76f99623944@kernel.org>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <b36f40f0-3f9c-4ba6-8c1c-a76f99623944@kernel.org>
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.12 000/815] 6.12.120-rc2 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261126105709.009001842@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261126105709.009001842@linuxfoundation.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/26/26 17:12, David Hildenbrand (Arm) wrote:
-> On 11/26/26 17:10, Paolo Abeni wrote:
->> I actually prefer what you suggest here more than the current patch.
->> I suspect Willem may have some other option avail, but he will
->> not back for a few days.
-> 
-> Okay, just let me now whenever you want a resend with the proposed changes. I
-> tested them a bit and they seem to get the job done as well.
-Please, go ahead.
+Am 26.11.2026 um 11:58 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.12.120 release.
+> There are 815 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Thanks,
+Just like rc1, rc2 builds, boots and works fine on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or 
+regressions found.
 
-Paolo
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
+
+Beste Grüße,
+Peter Schneider
+
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
+
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
