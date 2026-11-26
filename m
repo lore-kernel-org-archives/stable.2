@@ -1,23 +1,23 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795665781;
-	b=LtiUvMJXSAYNPT7ZoOVmQZW7btIQaCYzpCWFS4eKVw10Y9gvkBtxEET3klCdfICFJXtW
-	 LDpy96tQF+qloRy+lhZ53CWIPjJ4xCLgh3zXgsktRup5BWV/hPyXo5wDMjJOvZDKdIkQl
-	 5L/agS9hQMtSOn1I0h+70Zbz3waN9qcV7YOgxpeQHVUN77uLCerMn/q6xdTl++2Vbmqix
-	 pEwEbckIKWht10bYy11gKT4G46e3t3KOhZi7AspScJQ1wPEn3Iw4alHAz4qm/2+x0yV5r
-	 2ZvTcyV5KFCnvjS44kLSR0z0KnM48vLVRCT4PguLMohFJRm1m8r8Z2ujlO1tNrg0s0g==
+	b=LkTJe3aV1YGBhv+Lz5nqJKJa5l9Tk4C9tiDV+YWcUzJZxTBFQaXt71CDJa/stpv85pAN
+	 L0DIZx5XozPzLVfDJyT6SESjuWuAwyKH+ie75xEt7NTFfJ97rOHPK0Z3n98xXKAQqNSDa
+	 RG5LVHgS65CXoxH/yeXt8dAuPKzyNCKBPEr+PW/NtlpKj9N1Br+oDjiA28eojIw+KUsQc
+	 pZmoXi00fKn9je0tr7nFd4iF4otp3tk2qAmJ4IhkgKU5bjofcD+ErOYERbVwGUWtTtmJW
+	 t68kj6mIU0xTQb6pt8XcpmlXdTMBuVNvEOKQ+ETSis23XcosC5cDaISpVCrBvb2wGqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795665781;
 	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=7XEWjj2Ozc6k6qZGmaW6MtGuicHpLu43YxUD2Eb1Ubk=;
-	b=msXpjM43pSatJPcLxQbefx2TVjRDaNBxZwlf9jIgTK7/1c8zxNgMfWOv3hiIm2oEhlQ4
-	 9MqjX5roZmStuTJtenulKCv2PmbQoC4n5i0ICvY3xVzi6WjzOuO/ue88HAqbOhkFx4civ
-	 HgNI1bY87hFp025Cclt7Lf2Up1A3fx9yDj8yYQYbjlfm6bLU9FGC3bUCfVWiZhjCuWNwW
-	 ArDee8uSDTv2u5/1F6pxoBJ1UYGcAXbX+tkU1SdXQY0RnbExCoXjDSr9lsnqMAiP3xOAI
-	 qoDjwLbjktnk7ZZoXHvHxoxxtf8u8BpQbjQQgB4JjkTl6irjvAIhcTLFYtdBtdLF+Rw==
+	bh=u8a+JmUNTQKadV14JX7bLRj0bKHwOADjmyLB7mBg+Pk=;
+	b=oiTizCKRXXpFyfAtEo5Wkga0MS6NOWaiRHaHSgrwjx30t6GnG+KiatQtA1eJPVX8+KWo
+	 MhKiDg8yMOybbrVsTJlRVgbxf7A3LWvNS6GP7HwoiMBPFEeieU6eZDLwH+tTsuCTpox2z
+	 bLmwZ5WU7sxH3pgqw5azv8eJ8jKFOCPPtL6z0qAHCLzrprRiVxa0rqZ6q6cBKCi/hzqvR
+	 3ntccwKCo/6qz2H2U5KJTUPMMtqZLwDg8HMS6DoiYiATFvzTInST/zcoHKAxiP8N0Ihia
+	 a0oevOZgy7mbTlpR22kxQc0chhzMzQo9bcE4sltVspFTkTBuf7xJ4RRtyoFW5PQy9zQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=huaweicloud.com;
 	spf=pass smtp.mailfrom=huaweicloud.com;
@@ -26,20 +26,20 @@ Received: from dggmsgout12.his.huawei.com (dggmsgout12.his.huawei.com [124.71.93
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD24606A33E;
-	Thu, 26 Nov 2026 04:02:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BD24606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260C2606A684;
+	Thu, 26 Nov 2026 04:03:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 260C2606A684
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggmsgout12.his.huawei.com (SkyGuard) with ESMTP id 4jZjYz2KQRz20bw;
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggmsgout12.his.huawei.com (SkyGuard) with ESMTP id 4jZjYz4jCnz20ff;
 	Thu, 26 Nov 2026 12:02:47 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id 0E1C6409D1;
+	by mail.maildlp.com (Postfix) with ESMTP id 5F1A740576;
 	Thu, 26 Nov 2026 12:02:52 +0800 (CST)
 Received: from huawei.com (unknown [10.67.174.193])
-	by APP4 (Coremail) with UTF8SMTPA id gCh0CgAHOullrwdrepVXFw--.42150S6;
-	Thu, 26 Nov 2026 12:02:51 +0800 (CST)
+	by APP4 (Coremail) with UTF8SMTPA id gCh0CgAHOullrwdrepVXFw--.42150S8;
+	Thu, 26 Nov 2026 12:02:52 +0800 (CST)
 From: Luo Gengkun <luogengkun@huaweicloud.com>
 To: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -63,9 +63,9 @@ Cc: Will Deacon <will@kernel.org>,
 	linux-perf-users@vger.kernel.org,
 	bpf@vger.kernel.org,
 	alexander.shishkin@linux.intel.com
-Subject: [PATCH stable/linux-6.6.y 4/9] perf/bpf: Call BPF handler directly, not through overflow machinery
-Date: Thu, 26 Nov 2026 04:34:53 +0000
-Message-Id: <20261126043458.2394658-5-luogengkun@huaweicloud.com>
+Subject: [PATCH stable/linux-6.6.y 6/9] perf/bpf: Allow a BPF program to suppress all sample side effects
+Date: Thu, 26 Nov 2026 04:34:55 +0000
+Message-Id: <20261126043458.2394658-7-luogengkun@huaweicloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261126043458.2394658-1-luogengkun@huaweicloud.com>
 References: <20261126043458.2394658-1-luogengkun@huaweicloud.com>
@@ -79,10 +79,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:gCh0CgAHOullrwdrepVXFw--.42150S6
-X-Coremail-Antispam: 1UD129KBjvJXoW3AF1UZw1rCw17WrWUtFW5Wrg_yoW7GF4UpF
-	ZrAr9Iyr4DWFnF9wn8AF1qy3W7Zr1xWrZ8Ja18K3yrtFy0g393WFyUGw15trs5Jry8uFy7
-	tw4Utry5A34Uua7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:gCh0CgAHOullrwdrepVXFw--.42150S8
+X-Coremail-Antispam: 1UD129KBjvJXoWxJrW8CFy3trW5ArWUXF43ZFb_yoW8AFW7pF
+	Z7Crs8Kw4jgrnFvw15Jrn7Za4UWw4rZwsxXw4kKw4fAryYq3sxXF4DW34aqrn0yF9Fka4f
+	tw1IvFyjv34UGFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUPmb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
 	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
 	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
@@ -93,7 +93,7 @@ X-Coremail-Antispam: 1UD129KBjvJXoW3AF1UZw1rCw17WrWUtFW5Wrg_yoW7GF4UpF
 	c4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4
 	kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
 	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZV
-	WrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY
+	WrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
 	1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
 	AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZE
 	Xa7IU0sqXPUUUUU==
@@ -101,139 +101,49 @@ X-CM-SenderInfo: 5oxrwvpqjn3046kxt4xhlfz01xgou0bp/
 
 From: Kyle Huey <me@kylehuey.com>
 
-[ Upstream commit f11f10bfa1ca23b32020b2073aa13131a27978fe ]
+[ Upstream commit c4fcc7d1f41532e878087c7c43f4cf247604d68b ]
 
-To ultimately allow BPF programs attached to perf events to completely
-suppress all of the effects of a perf event overflow (rather than just the
-sample output, as they do today), call bpf_overflow_handler() from
-__perf_event_overflow() directly rather than modifying struct perf_event's
-overflow_handler. Return the BPF program's return value from
-bpf_overflow_handler() so that __perf_event_overflow() knows how to
-proceed. Remove the now unnecessary orig_overflow_handler from struct
-perf_event.
+Returning zero from a BPF program attached to a perf event already
+suppresses any data output. Return early from __perf_event_overflow() in
+this case so it will also suppress event_limit accounting, SIGTRAP
+generation, and F_ASYNC signalling.
 
-This patch is solely a refactoring and results in no behavior change.
-
-Suggested-by: Namhyung Kim <namhyung@kernel.org>
 Signed-off-by: Kyle Huey <khuey@kylehuey.com>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
 Acked-by: Song Liu <song@kernel.org>
 Acked-by: Jiri Olsa <jolsa@kernel.org>
+Acked-by: Namhyung Kim <namhyung@kernel.org>
 Acked-by: Andrii Nakryiko <andrii@kernel.org>
-Link: https://lore.kernel.org/r/20240412015019.7060-5-khuey@kylehuey.com
+Link: https://lore.kernel.org/r/20240412015019.7060-7-khuey@kylehuey.com
 Signed-off-by: Luo Gengkun <luogengkun@huaweicloud.com>
 ---
- include/linux/perf_event.h |  6 +-----
- kernel/events/core.c       | 27 +++++++++++----------------
- 2 files changed, 12 insertions(+), 21 deletions(-)
+ kernel/events/core.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-index b504d7eec86f..f3bf97c4877b 100644
---- a/include/linux/perf_event.h
-+++ b/include/linux/perf_event.h
-@@ -809,7 +809,6 @@ struct perf_event {
- 	u64				(*clock)(void);
- 	perf_overflow_handler_t		overflow_handler;
- 	void				*overflow_handler_context;
--	perf_overflow_handler_t		orig_overflow_handler;
- 	struct bpf_prog			*prog;
- 	u64				bpf_cookie;
- 
-@@ -1352,10 +1351,7 @@ __is_default_overflow_handler(perf_overflow_handler_t overflow_handler)
- #ifdef CONFIG_BPF_SYSCALL
- static inline bool uses_default_overflow_handler(struct perf_event *event)
- {
--	if (likely(is_default_overflow_handler(event)))
--		return true;
--
--	return __is_default_overflow_handler(event->orig_overflow_handler);
-+	return is_default_overflow_handler(event);
- }
- #else
- #define uses_default_overflow_handler(event) \
 diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 523d9bbc305b..ba9cbf50773e 100644
+index ba9cbf50773e..a6d7fc2a9ab2 100644
 --- a/kernel/events/core.c
 +++ b/kernel/events/core.c
-@@ -9600,9 +9600,9 @@ static inline bool sample_is_allowed(struct perf_event *event, struct pt_regs *r
- }
+@@ -9713,6 +9713,9 @@ static int __perf_event_overflow(struct perf_event *event,
  
- #ifdef CONFIG_BPF_SYSCALL
--static void bpf_overflow_handler(struct perf_event *event,
--				 struct perf_sample_data *data,
--				 struct pt_regs *regs)
-+static int bpf_overflow_handler(struct perf_event *event,
-+				struct perf_sample_data *data,
-+				struct pt_regs *regs)
- {
- 	struct bpf_perf_event_data_kern ctx = {
- 		.data = data,
-@@ -9623,10 +9623,8 @@ static void bpf_overflow_handler(struct perf_event *event,
- 	rcu_read_unlock();
- out:
- 	__this_cpu_dec(bpf_prog_active);
--	if (!ret)
--		return;
+ 	ret = __perf_event_account_interrupt(event, throttle);
  
--	event->orig_overflow_handler(event, data, regs);
-+	return ret;
- }
- 
- static int perf_event_set_bpf_handler(struct perf_event *event,
-@@ -9662,8 +9660,6 @@ static int perf_event_set_bpf_handler(struct perf_event *event,
- 
- 	event->prog = prog;
- 	event->bpf_cookie = bpf_cookie;
--	event->orig_overflow_handler = READ_ONCE(event->overflow_handler);
--	WRITE_ONCE(event->overflow_handler, bpf_overflow_handler);
- 	return 0;
- }
- 
-@@ -9674,15 +9670,15 @@ static void perf_event_free_bpf_handler(struct perf_event *event)
- 	if (!prog)
- 		return;
- 
--	WRITE_ONCE(event->overflow_handler, event->orig_overflow_handler);
- 	event->prog = NULL;
- 	bpf_prog_put(prog);
- }
- #else
--static void bpf_overflow_handler(struct perf_event *event,
--				 struct perf_sample_data *data,
--				 struct pt_regs *regs)
-+static int bpf_overflow_handler(struct perf_event *event,
-+				struct perf_sample_data *data,
-+				struct pt_regs *regs)
- {
-+	return 1;
- }
- 
- static int perf_event_set_bpf_handler(struct perf_event *event,
-@@ -9766,7 +9762,8 @@ static int __perf_event_overflow(struct perf_event *event,
++	if (event->prog && !bpf_overflow_handler(event, data, regs))
++		return ret;
++
+ 	/*
+ 	 * XXX event_limit might not quite work as expected on inherited
+ 	 * events
+@@ -9762,8 +9765,7 @@ static int __perf_event_overflow(struct perf_event *event,
  		irq_work_queue(&event->pending_irq);
  	}
  
--	READ_ONCE(event->overflow_handler)(event, data, regs);
-+	if (!(event->prog && !bpf_overflow_handler(event, data, regs)))
-+		READ_ONCE(event->overflow_handler)(event, data, regs);
+-	if (!(event->prog && !bpf_overflow_handler(event, data, regs)))
+-		READ_ONCE(event->overflow_handler)(event, data, regs);
++	READ_ONCE(event->overflow_handler)(event, data, regs);
  
  	if (*perf_event_fasync(event) && event->pending_kill) {
  		event->pending_wakeup = 1;
-@@ -12121,13 +12118,11 @@ perf_event_alloc(struct perf_event_attr *attr, int cpu,
- 		overflow_handler = parent_event->overflow_handler;
- 		context = parent_event->overflow_handler_context;
- #if defined(CONFIG_BPF_SYSCALL) && defined(CONFIG_EVENT_TRACING)
--		if (overflow_handler == bpf_overflow_handler) {
-+		if (parent_event->prog) {
- 			struct bpf_prog *prog = parent_event->prog;
- 
- 			bpf_prog_inc(prog);
- 			event->prog = prog;
--			event->orig_overflow_handler =
--				parent_event->orig_overflow_handler;
- 		}
- #endif
- 	}
 -- 
 2.34.1
 
