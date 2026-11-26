@@ -1,74 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795682749;
-	b=c9oVFD/JLTet0tAnuj/YB3Bn/efKkcR5FDDO43deiM58nN39SjwpNJhy4sS6a/0JEknT
-	 Myywk4jRnQErKz/ClVDq87RS6iCYWrfiPZWB8GE7nGU7U2RqgnR/eDC0bOFxMC/8BV7ff
-	 P4+/92c4K+0W2ipffQABcpa/96ZwBAsZ56QzOkDdOtT4q+v9JZ8242p4fCOJcU+7kCXG8
-	 DtBtvbmbsKhJ4CNV8vyo9uOQ2MWqBP9bBrX/3L7JVh20pSd5u2egUMNrZn0w04o4NZvCg
-	 JM88Io+Wolsz2oU+c1sJo8NdJFjrX1vMCujMDYIuOXwZ3dMR/mxSgQEOqje0j3VWf2w==
+	t=1795682754;
+	b=zzUlRM0wQxKE86S2wrHZ+ChegaURyHp4ymECqS20VfDhmx3cMEWWTY2TYSU26iycdryp
+	 fLu4FwOeLmYNuCdimbbQSGhD+zdmd3R0DcBea5uTLGpx0+thEnuudjcuN3mGWuprM+Lmf
+	 bHXxH4WVD5gv0//ulVUn1PyhaEn/k6+lL3qJ//0+uXAXMh6j2B6a0nvvGHfHoK5PjbnxT
+	 HinVngg6yUAsAw+d6JK289T/e0j1d1CbYRWR7np/YaDIo1mzCgjU4l+lMy8UXdbuO2bkO
+	 5WKvNWkyiemkRVDopWVn5zvypcbXeZ81gQWPZzJIXdPrDvG2r1BsnT7Msjo5jHhyyEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795682749;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=7zcR/ikWclJnhYs2fKp9HLMsUdRTdij9sxjOELYqmY8=;
-	b=sxj86i2B4lKV2PxUmIfm+3XXAOCdNMnQOHVS3sa0uC/w/qxyU0F7Ln9dSk0Og6Uoqqjy
-	 Vq6wYzr75m4sG9nKnc9pUu06rQhdrS7garlmpHjDIeGWgQp9g2Kbqo2E9Y/E6eDLibwe7
-	 9fqSTXif0qZ1Pwp4s9T+uqWw9YvWvYoD1zTT28VnyWI+z1Gfz4sJMeRrZRFBqjZo/BHxK
-	 f92hlKUUZODYGk2MSsiQQ2pLyc9XW0jkb/hfOe/U6lvxsZjN5dlypOZnkCAf/yqL+DvwS
-	 G4BmgRyCFokatg+i2NroQrJXtIBoriNxkHu6jRkpfEmoXfXQQfEF8Jiz9q5sfIMwQAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795682754;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=AJu04eNoB1sBlEXHCPuiDkza8mteAHzav0QvwSSwQK0=;
+	b=IwBiRfHo7ZHdi6EDZ8H5PiEVbirsz2fQpN9aV/QTjvs0Q3z6feXHybS/Wbm+us/vFXMf
+	 g071/kXd+HhuwgEdtOwU4+tPEYMFA7ZZyM5B5zRoaTM1jyz2UCVAfVyyVt5DY/xlqSevv
+	 ywqI/lPMo/b+4UoMkNC404grOtE9eaLFkGwdVc4jRpzcoPaIbzrZdajRyS/yBudbZAJ/0
+	 fbPPODpwx/deD2zCgYIix7u8NvFcAmaLzzorYhPpH5GflHySdlQIiyLQDJm8Jvs63Ryhj
+	 RBZ1xd0r1hmMPrpjze1CDHV6v9pnSReP8YyoYqw1dehesbqj/eI9mZ5mx4Mw9MMMIQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nO+mJC6O;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eTfmiHtH;
+	arc=none smtp.remote-ip=209.85.214.169
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC8A606A33A;
-	Thu, 26 Nov 2026 08:45:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057CA606A329
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 08:45:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 057CA606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nO+mJC6O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DFE01F000D1;
-	Thu, 26 Nov 2026 08:45:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795682748;
-	bh=7zcR/ikWclJnhYs2fKp9HLMsUdRTdij9sxjOELYqmY8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=nO+mJC6O09ovshzuOQZxxg4pao4iwqiW4gHuAG7wOjvMuj4lZ4bXC1908+elx66Vi
-	 5sCXwGBOJw3QRbfiNxAsM3foforxsN2p9RWWWht9OlUTODk/rkYgUWmP1bARv5bIai
-	 xnLRBqrXB7KiQMPtrh2b2rDm0MrxsStEAAorDvoRoBahqtwYY9X+CtieVZicGfMIPc
-	 B97r+EIbTcKGHpsrc6paC33t7EjDoDnDzmoLjXVD+hyZ0Zdye3oQYiFapMJZvWTJd6
-	 vz12eB7uyEbO3dIXabqPzI7G5EJAS90xJ6zvts1azI6yaueq61Dlo+B2N9j0cSm4wE
-	 pnDTX6cGtlxnA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xWV6w-00000003WhU-0V6l;
-	Thu, 26 Nov 2026 08:45:46 +0000
-Date: Thu, 26 Nov 2026 08:45:45 +0000
-Message-ID: <86y0agx9om.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: bradfitz@tailscale.com
-Cc: Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eTfmiHtH
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2f02b9c1f6fso46699185ad.0
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 00:45:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795682753; x=1796287553; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AJu04eNoB1sBlEXHCPuiDkza8mteAHzav0QvwSSwQK0=;
+        b=eTfmiHtHARlh1l3Oq0yk7fmF9qOswcLuF1wfU8hNzwn1a0VoAoJriwk3MBo0VZRpr1
+         P8LblYEeCxa7e9hM/u81XQXgLYwLg55y2+Su6PSifNeLxtU6wwbKMINdpaKfJB00r7vI
+         RQ6qm5MnDngwJxUNGj0XN3B3VrT6Oraae/FEGMCnel5Bj8wRmUN6pcnYb3svmmG43PUv
+         J00A2xLLNs+Z8/AcWGDIoSoZQ/AsljOxoUQke4LNmzrMCJLCZY0ZvuM38iVxNuJ28g9w
+         VbTd3lcTg/arMSbqh5lkwywdOJd24mr0KINa+lPOHjldODGhfyWpRWok+mKjol9d+Y+X
+         Vy4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795682753; x=1796287553;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AJu04eNoB1sBlEXHCPuiDkza8mteAHzav0QvwSSwQK0=;
+        b=MXF4v3NDGzZM6gKsVzk+CE7N+szv0K/tGGZJfEJ7y/GJveHjxIbp1/bhdaaneuzQxT
+         eMmadbYOKnct/l9OqSTDbyhBYfkeDV0eOq5lCu4OjJ7yP2BsG6MJOPaG9EO4pFEM9Zk4
+         aVGy6bj9as0g0+DZq1Grs49ZzRsxu6TgNByJ999AGDkzokX7S1OtX9lp+jdQodEY4fC8
+         YOMkellFESOaClYR322vjFLLMuAw9fFNsrk3aE2UgU7sOFgDvtBDB/Cs0zyU6jUL0mPc
+         fz9/eDx8WNPG6CtRMA87f/hP/uKzzu+4TOZCaBlnBlu6+2PMLR3GHeVQaMZYPCdgIET9
+         xwfQ==
+X-Forwarded-Encrypted: i=1; AL+hErFrKaNCP5MDXGbPghTxPL8rLGKbPZujm3S2M5cR299DuUTRIks3iOlEXDOxBcTYScLpE3KNuWk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+UUpxDtRpESsPRptW30I9LgrSfr/utGUM4ANPWFQ2NNeqTNVhr
+	16+I6iqK5ple+rmf4IwdGpcEmpzn+od42lEl6q4OjbAhXQcoAmanwuXP
+X-Gm-Gg: AZFdTZfinQAGlBo5ZPi6esrfFGtd7a4hCP6olnVo63LGEks0KkiZvij0yrESPh0QmLx
+	W3jg9ZbgvWmNmWeuvdIYQzvRET2u8ThUiIXZ1zItv/EPv5hhX6EagsSBzdTQRbw01NA8ixHzCXn
+	dr/2C38ydfxCF2iQ6SYsu7CjPwIF+YdvDzfwShZOoqwHQqpIC3EFxKAxfcsrAr6WyQ0TGc7zHor
+	H6cnNJh7OeGuOF6RFiZD/wYQA9ZBkmv3s/Gq5EDifTKxnqu7aYs6RcUpSRjheyOqs2mIpie3kj6
+	W8xbIUFkhacgEfCHa9kLBN8EJDtaKtds9+UatQyzJf4mXGXyhxk5zSc4+ncgae3G/aB+dPmlYzT
+	e2bQkAfhKfHo0Z86JNiukISKtcSw9SOgZlyXtq5O3kFAZM5jakzv8wSDefX5eh9/PmjKMFl+Zsl
+	bsa1a6ElqyFBd21aeWh7r4GH2oOjwQD5SMUoH+wqXYKVtglfZ9xLeMNrYYDjyKLIPsDJO4AfJAq
+	Ft7sTv3q7t8tGodfpX/gmC8KCrn1SXMuLfCmrpJjjqtn3efBMwjONzxY86dFHyLBSYu4LYH8c1K
+	Zp0bxhhcQo12q2/j8kM=
+X-Received: by 2002:a17:902:ec8b:b0:2ed:662:e485 with SMTP id d9443c01a7336-2f03efa420fmr137669995ad.2.1795682753264;
+        Thu, 26 Nov 2026 00:45:53 -0800 (PST)
+Received: from localhost ([27.122.242.71])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f08d73dfe0sm65354835ad.69.2026.11.26.00.45.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 00:45:52 -0800 (PST)
+Date: Thu, 26 Nov 2026 17:45:50 +0900
+From: Hyunchul Lee <hyc.lee@gmail.com>
+To: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: linkinjeon@kernel.org, liubaolin12138@163.com, ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org, zhongling0719@126.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] KVM: arm64: GICv3: Keep active LPIs in the LRs
-In-Reply-To: <20261126-bradfitz-kvm_lpi_active-v1-1-9ff28176bf66@tailscale.com>
-References: <20261126-bradfitz-kvm_lpi_active-v1-1-9ff28176bf66@tailscale.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+Subject: Re: [PATCH 3/6] ntfs: read initialized_size under size_lock in the
+ iomap paths
+Message-ID: <awfxvg7w_i49JxBv@hyunchul-PC02>
+References: <20261125073547.154150-1-zenghongling@kylinos.cn>
+ <20261125073547.154150-4-zenghongling@kylinos.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,78 +98,27 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: bradfitz@tailscale.com, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261125073547.154150-4-zenghongling@kylinos.cn>
 
-Hi Brad,
+>  	if (!(flags & IOMAP_ZERO) &&
+> -			iomap->type == IOMAP_MAPPED &&
+> -			iomap->offset < ni->initialized_size &&
+> -			iomap->offset + iomap->length > ni->initialized_size) {
+> -		iomap->length = round_up(ni->initialized_size, 1 << inode->i_blkbits) -
+> -			iomap->offset;
+> +			iomap->type == IOMAP_MAPPED) {
+> +		loff_t initialized_size;
+> +
+> +		read_lock_irqsave(&ni->size_lock, irqflags);
+> +		initialized_size = ni->initialized_size;
+> +		read_unlock_irqrestore(&ni->size_lock, irqflags);
 
-On Thu, 26 Nov 2026 01:42:04 +0000,
-Brad Fitzpatrick via B4 Relay <devnull+bradfitz.tailscale.com@kernel.org> wrote:
-> 
-> From: Brad Fitzpatrick <bradfitz@tailscale.com>
-> 
-> Since commit 73c9726975af ("KVM: arm64: GICv3: Drop LPI active state
-> when folding LRs"), the active state of a virtual LPI is discarded on
-> every exit. If the guest has acknowledged an LPI but not yet EOI'd it
-> when an exit happens, the LPI is then pruned from the ap_list, and the
-> guest's subsequent EOI targets an INTID that is not in any LR. KVM then
-> relies on the virtual CPU interface performing the priority drop
-> regardless.
-> 
-> That doesn't hold for Apple's emulated GICv3 interface, as exposed by
-> macOS Virtualization.framework to a Linux guest running with nested
-> virtualization (M3 and later, e.g. "tart run --nested"). There, an EOI
-> of a vLPI that has no LR leaves the corresponding ICH_AP1R0_EL2 bit set.
-> The running priority of the vCPU stays at the LPI's priority forever,
-> and since Linux uses the same priority for all of its interrupts,
-> nothing is ever delivered to that vCPU again. The nested guest's CPU
-> spins on WFI, with KVM seeing pending interrupts and waking it up over
-> and over (about 30k WFI exits per second), while the guest itself
-> reports a hard lockup on that CPU. With a 2-vCPU Debian guest, this
-> happens within the first minute of boot, every time.
-
-[...]
-
-This is a known bug on Apple HW running MacOS, which has been reported
-a number of times to Apple (both directly and through hypervisor
-vendors), and resulted in a deafening silence.
-
-The nature of the bug is unclear: either the host hypervisor is buggy,
-and it needs to be fixed, or the HW is buggy, and the host hypervisor
-needs to work around the bug (working around that bug in each and
-every guest is not an acceptable outcome).
-
-The other bug is of course in the spec, where the provided pseudocode
-for aarch64/support/VirtualWriteEOIR1 is remarkably buggy. But for
-that generation of older ARM specification, the pseudocode is not
-authoritative, and it is the text that matters. Dozen of
-implementations got it right, and it is surprising that Apple didn't.
-
-The proposed fix breaks all sorts of other things, and can prevent
-pending interrupts from making it into the LRs, as we now have active
-LPIs occupying LRs for no good reasons. And to be brutally honest,
-carrying hacks that make the vgic even harder to maintain is not
-something I want to entertain anymore. If this problem is to be
-solved, it must be done on the host hypervisor, and nowhere else.
-
-The workaround I can offer is to set "kvm-arm.vgic_v3_group1_trap=1"
-on the Linux kernel command line. This will ask the L0 hypervisor to
-forward ICC_IAR1_EL1/ICC_EOIR1_EL1 traps to KVM, which will itself
-emulate the HW. This is expensive (each interrupt will result in about
-4 extra full context switches in MacOS), but your guest will hopefully
-work reliably (assuming that MacOS implements trap forwarding
-correctly). This is exactly what the host hypervisor should implement
-if the HW is buggy.
-
-Feel free to additionally report the issue to Apple (once more).
-
-Thanks,
-
-	M.
+Is it safe to read the size again instead of reusing the first one?
+And the size_lock is missing in ntfs_iomap_read_end_io.
 
 -- 
-Without deviation from the norm, progress is not possible.
+Thanks,
+Hyunchul
