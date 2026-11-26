@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795705397;
-	b=k8WydGkRHAhhzwsGGqkIjhtDfXvka1+XgvrSrrMUpQiEZyGtf73FZccD3kMZQQqjhlLJ
-	 vc/BkpgF7Df2gLrjqgVZxsla1bUTPftGbWl7dFSW13MhoMmOQcR0Bh2iHeQ9/JSsP89fs
-	 XJSiCAp2duuGjvruWtxSJKQjtPscDvyOKIt+t12rC4f/V4pWMfT+0mHdgC/UEK7pG75Lr
-	 lC76hlISRXLRV8AbfHXrOX9OLaNeaqw10MkLshJtMwEfyra1Hg2FikCMVYOBwIAoCpeF2
-	 SNldlo+d0YENCr3qMg4lPvrjNzwzzucmnlu273R6WwdbYywoy1thGOpI8EnoDwWsvxQ==
+	t=1795705399;
+	b=SppGlyAWllCMPRd4f2mGPIfE8at41QR8iH+p0LByharFAYR4JITHnRtS1q0UBwzn8DkY
+	 4F+G9oSLv8z6ZC3AQA84uibspGgEnbU9zrw5gZxEOQS/qz0/uDXwy6H8esn+E+LL0neyp
+	 s4RzP/JxPPKZTggtvPqg8sjKXOZ5GffQe1yf3q01xIHmnvGDZSkdJtwFL0GZxd51xlDZz
+	 JStxJeiG27GuWxkKMhGn6eBrn4j/rX6p7kmtQsuFYtNNCG2zjEoIioUR94FuJBsyOxRKO
+	 KGKZViFMb5/k+rijVY8+rKu8qJghZKeBA7FsJtWgRIyR3pCHsatdQLzZm5N8ULZcM4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795705397;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795705399;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=J1QilM+aYDElq8YlP1xFkza0HRCaGOl4ERWqk10bcJw=;
-	b=rCwq89QpkDFbtBB2H29FILm/ByLBrytIRUeoNLf1DBJHB+34QuBGVBcouQxrHbA1jbqa
-	 mn5OVnlGCBhKB2/DzG758DaCs/xhP1t05G5ndeEku1I7vlFSaQk2ZFGspgTMs9x0dy0cY
-	 G7tyClRmi59abztm9woojc12ViDlygv85gaIk70oDKnSWRyP2O8OnTeBU4ovnk+kd3DFk
-	 zJhiBsFw6XsI8lX/KG4qSVA4Md7S1b0I0Rj8jj6v/2eeXrZBJDrA3xPOuxnE3WoaAVrKI
-	 NxBHlubdsvcLuhfUd/f8bj51D8s66yGhVbAYOEr3dF6rYYsNj35ptRdL2ElGT2vVaEA==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=WsyAmkl3Lcuq6/BfEfysTSkBUtKM0IgiQ3Q8z+HDyHs=;
+	b=MG/qxHzETpEFKd3X1bOGvN4oukGnzTZZY68hHxvtPNgFm13bjgSUFogksjICzYCCfD27
+	 IRVcSIKekCuNbiP0ivfubyKCOmzGT5SOYNlfxBSdAPbptCbA+MkARuqNKc8cTNB0nsKHE
+	 PSE7LproVIJS17QgaFlugM/0m8pDZJUPMGA6VzON8E+T6rQcYdRjykePI/mXGSVLdtGUf
+	 pHyTuJHQhYH2aGQPECV4ScVD5H9zR/5RKBIGtHAhBysmJG7j0hvfprhx2ShkqyaFnA82h
+	 TwpbGqoO+6ZGz1zrcDPKE4p3jlC2eHozlqsQQHEVe5+DdHJRBGJ3ZYN6xGFiHa225/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0wj8hkA;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xUYDT5cC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B09B606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 15:03:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA6D606A31C;
+	Thu, 26 Nov 2026 15:03:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0wj8hkA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 674941F000D0;
-	Thu, 26 Nov 2026 15:03:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795705396;
-	bh=J1QilM+aYDElq8YlP1xFkza0HRCaGOl4ERWqk10bcJw=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xUYDT5cC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 559551F000C4;
+	Thu, 26 Nov 2026 15:03:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795705398;
+	bh=WsyAmkl3Lcuq6/BfEfysTSkBUtKM0IgiQ3Q8z+HDyHs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P0wj8hkAuzVljs6bqf5pMGrWlF7kzlqLWlBSioYmFIYQDRyYUWjF+l3578WA593F+
-	 FTsdp7etjlY9D1xESCm52ziBlgs8GI404AQsHpJAqOVz0gO4BzcW/5prt1t+0ePHoi
-	 1jjGKuiPRFSkF87rKc/TV4QB6qsYhLiOB7VXOuvSN4MJrQEaLgDvjKoW6enWAzE11U
-	 U5UAlpHn7+M5mIeYlqjLpQgQHxPEZOWM0ok8q1kT5dw/KyK3P8iLDmyXvS/B6V5MjC
-	 4zP3dBhTVQ/FpN5c9jfSZXJzzSAHMT/JrWkHISyeHrwUXgg8TTT9j94lOVYC7N5dUB
-	 dNOLqBCqdpCOA==
-From: Sasha Levin <sashal@kernel.org>
+	b=xUYDT5cCqpaoslCodLIK0H8Qun2khS+Qt2fIk757OW+T6p4jaq/yJiNDodHgFjXml
+	 3BItnqpAiysiqvTAq8V3eBmkvSLIYPv7u0pnuRoka6CBgrWtfJmLAoBGcUAMsr0GeA
+	 e5dytHaNNfx9S7TlPaC8KvSuQWYVpha54wowN/pg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Josef Schlehofer <pepe.schlehofer@gmail.com>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] dm-crypt: defer async write submission to write thread
-Date: Thu, 26 Nov 2026 10:03:15 -0500
-Message-ID: <20261126150254.2214336-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112521-nibble-keg-edbd@gregkh>
-References: <2026112521-nibble-keg-edbd@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	stable@kernel.org,
+	Kyle Zeng <kylebot@openai.com>,
+	Allison Henderson <achender@kernel.org>,
+	Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
+Subject: [PATCH 5.15 186/319] net/rds: Do not unpin a page after a failed atomic pin
+Date: Thu, 26 Nov 2026 15:39:14 +0100
+Message-ID: <20261126144010.944435614@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261126144006.732901931@linuxfoundation.org>
+References: <20261126144006.732901931@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,59 +65,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Josef Schlehofer <pepe.schlehofer@gmail.com>
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 6fed9e26810f0b466dbcebe35a73d1fd48793ff5 ]
+------------------
 
-With no_write_workqueue, kcryptd_crypt_write_io_submit() submits the
-bio directly, even when called from kcryptd_async_done(). An async
-cipher may run this callback in softirq or with BH disabled, where
-submit_bio_noacct() must not be called because it can sleep.
+From: Kyle Zeng <kylebot@openai.com>
 
-Submit inline only when async is false. Async completions are sent to
-the write thread, as is already done for submit_from_crypt_cpus. Use
-the async flag rather than in_interrupt(), since callback context
-depends on the cipher driver. Sync ciphers still submit inline.
+commit 8d5ce4751fad9499ea408163af7f410f18a85782 upstream.
 
-Tested with cryptd in QEMU (x86_64 and arm64) with
-CONFIG_DEBUG_ATOMIC_SLEEP, and on a P2020 running 6.18.55 without it.
+rds_cmsg_atomic() assumes that a non-NULL output from rds_pin_pages()
+represents a pin that it owns. However, pin_user_pages_fast() can roll
+back a fast-GUP pin after racing fork() and then fail in the slow path,
+for example after a concurrent mprotect(PROT_NONE). The output slot can
+still contain the already-unpinned page.
 
-In QEMU:
+The common error path calls unpin_user_page() on that stale pointer.
+This can consume another subsystem's pin and allow the page to be freed
+while it is still in use. A local unprivileged reproducer triggers a
+KASAN use-after-free write through an io_uring registered buffer.
 
-- 4k writes logging "sleeping function called from invalid context":
-  100/100 unpatched, 0/155 patched.
-- nr_requests=4 on a loop device: 0/6 unpatched runs completed,
-  4/4 patched runs completed.
+Clear page when rds_pin_pages() does not return one. The error path
+continues to release the page on errors after a successful pin, and
+successful requests retain their existing ownership and behavior. All
+four RDS atomic ancillary operations share this path.
 
-On the P2020, a warning in blk_mq_run_hw_queue() appeared in the
-6th unpatched run and did not appear in 30 patched runs.
+The issue was found by an LLM.
 
-Fixes: 39d42fa96ba1 ("dm crypt: add flags to optionally bypass kcryptd workqueues")
-Cc: stable@vger.kernel.org
-Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-[ sashal: Kept the tree's existing submit_bio_noacct(clone) call where upstream's context uses dm_submit_bio_remap(), since that helper is absent here; the condition change itself is identical. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 15133f6e67d8 ("RDS: Implement atomic operations")
+Cc: stable@kernel.org
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Reviewed-by: Allison Henderson <achender@kernel.org>
+Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/md/dm-crypt.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ net/rds/rdma.c |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index 611d92ae3218c..16135160501a4 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -1941,8 +1941,9 @@ static void kcryptd_crypt_write_io_submit(struct dm_crypt_io *io, int async)
- 
- 	clone->bi_iter.bi_sector = cc->start + io->sector;
- 
--	if ((likely(!async) && test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags)) ||
--	    test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags)) {
-+	if (likely(!async) &&
-+	    (test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags) ||
-+	     test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags))) {
- 		submit_bio_noacct(clone);
- 		return;
+--- a/net/rds/rdma.c
++++ b/net/rds/rdma.c
+@@ -960,8 +960,11 @@ int rds_cmsg_atomic(struct rds_sock *rs,
  	}
--- 
-2.53.0
+ 
+ 	ret = rds_pin_pages(args->local_addr, 1, &page, 1);
+-	if (ret != 1)
++	if (ret != 1) {
++		/* A failed pin can leave a stale page pointer. */
++		page = NULL;
+ 		goto err;
++	}
+ 	ret = 0;
+ 
+ 	sg_set_page(rm->atomic.op_sg, page, 8, offset_in_page(args->local_addr));
+
 
