@@ -1,55 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795659257;
-	b=klUdGalMlJtKQGCyv1sG85fYJAbTswsL6e3jNaGbqfS5+nfSq+7r7XvmL/HQ+d+LRnSE
-	 n0TcxbCF0aesSTYFcV4G6U7EkKREZ/v5hwfPoWz01Jy02egkF674llZ0uNlPlZpWvPESO
-	 DRx/V2fLfdu5iFCleyBfY4BRbaMbnAsnvr7dLRIGGWdrna4RUcsAEjL87Z9SP7cD7KV5G
-	 l2gM/ZkOOnbNUo99Hg+DkWGABzvxB/MUu8GNDkcfnMnx0aDBOSca5tHLSay6yZ8bMKXZS
-	 KTjtPuwq1vc47Kr+jS8yBHS+k+VwcCcpFFV0HhLTLGpaBR475yb2VN2Smo0kpaEqHww==
+	t=1795659384;
+	b=2fcnDmmcfZEaneNuivI2QxtSXmg/aWsWKia/5Re/QWZeJ9MfkNBIA7BBLlwEhORPsnf/
+	 Eh4nvacQ0ZIh/juGlRMzOF36sZL0yEPPN6qT5TGUhCOgdTtQXz8s4bLoPJJGXVirNJ9VM
+	 PxJae2/Nn6YnREBUCsDoU4L0N53mygO3BHcADZ6MiuKDBjvEfYjsw1jwpWkFB9EzLBQ5f
+	 hWvzu4KfKS7p4hTGrfVsaPoviEpQ+PH7k6fyjTaROByHOL3DTjRUIxoJTJOO/pjLShdEi
+	 YEwEK3oW8kEqk5+V8chU/pXDBnodsO9stNFtZrBYnkysOYFRg1fLQD3NgaJqtwIyqSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795659257;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=d3bVOz1zGlY7vd+TgeAfVtmhPThU+TaUoeTNnsx41Q4=;
-	b=sxJS5/9YTVsrqo+xjKQWu009EQX5Ro5G9on6A3KN3bkd1pBIbsTRTBEUC7tIoX7Myc0Q
-	 Szy/KZyXWJEixPp/KmXcqu/WYTyjV0SOytBTLqFMrt3Cq0KSpo9JaOCvxISfCjEUhu38n
-	 K7LvSj8yuPhl3AlShgPzNN7A77EeFnhDDnXL+STGIZSD2QYa+I1lmgq6SCb49K+Z/Czh0
-	 W3vWaeet9PXRelDjFM6wdqyAT4Fdg5Bn8PLzdOuW2vj2ffLXddOdyDLZbCn5XeDfJSx1C
-	 3MhKJQChQmKfQTItot8Vd3Jc1/o059OO6EjlsoorWlgQOhd5QqioSVdUagB7f1lA4PQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795659384;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=uPDIrhBZZQhYm/jOhRKU4pdro1NOP3kPaXWAAZHnIVc=;
+	b=CpwR4njyCa6zOoDu40hXIpGMLZxxsBd4JA7JxUo8cITP9w3fvsehIw+Ws+ysvgTk2IBR
+	 4muo4nujUXbkZ1bNVcPevAaJmApkgtUy2bq7EF9WyoXEoJHA6UWXJ+hqqp+Eja8B8bNuu
+	 XnE6WFcE3gZIb/KnXdGx/LIN87VAuNE6Y9hI23evT/Lw5u9Ia7ncDaOgnneLB8JAa7K01
+	 MSmixvC4Mznq4f5C0bzxEUts4lBWsHH08tbZw04LOxOstM/xUnJSNPx8r109D7tMTOLYE
+	 8FEwbfiNZ+UCVcfUBPTG1FBZCyiA5/ZhVZlNGgqsnjt1SqelffjIMKfmn1L9OKRITeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PfkNaRQw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25006606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:14:16 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=NehphdrY;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C1767606A321;
+	Thu, 26 Nov 2026 02:16:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1767606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PfkNaRQw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 375011F000C0;
-	Thu, 26 Nov 2026 02:14:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795659256;
-	bh=d3bVOz1zGlY7vd+TgeAfVtmhPThU+TaUoeTNnsx41Q4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PfkNaRQwdC+Cwcvcf4qFL2Rrudm8n3dhBS0DiEJeibZeKtACaMvg+9NUbV0tXCIcW
-	 /n4rCdtTqUNKxiaCIrOJca2dxHkPXZGKo24l5iTD0rcWOlKGMxlQMa81klF8XhUxff
-	 q89pm3gAH1rcIOgbOgtQCb3i5XLe02F5q+zFwtWONn8CuUdt+uQjcPTvrg14DxTssH
-	 4ws8C3ZxrRnZ7j+xtN7+0bqYDaJlxHVK16Ntf0Pz62bNWrO1MYBF7CkKy/lzmDuEE6
-	 l4per4JH3MLGEO9rWbLlt4Wl8WzQUFtBhFp/PFFy7W7DmMMkSa18JR4QguC3KrdW4r
-	 +L/pX8gZA5XFQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Amir Goldstein <amir73il@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ovl: do not read the flags of a put upper dentry in lookup
-Date: Wed, 25 Nov 2026 21:14:14 -0500
-Message-ID: <20261126021358.1779586-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112530-unflawed-limes-7ee6@gregkh>
-References: <2026112530-unflawed-limes-7ee6@gregkh>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=NehphdrY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=NehphdrYlNJuhK/r3Pgz7mDNHQt6RPkJll3TIxy+8ZS1PPYun3eXPNZIY42GfunhZS+ZdWAJmcK5c
+	 0sCASkkkykHR3NQBrS26wGVuMPhnDz/w0Ge5ub26/IQzJqKuQusv6bIeAsfmjYpPOfz0GxbBL00Z+y
+	 aR3p5ij53/BkqIdU=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76b07966df1d-5720b;
+	Thu, 26 Nov 2026 10:16:13 +0800 (CST)
+X-RM-TRANSID:2ee76b07966df1d-5720b
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[223.112.32.189])
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86b07966c228-589e7;
+	Thu, 26 Nov 2026 10:16:13 +0800 (CST)
+X-RM-TRANSID:2ee86b07966c228-589e7
+From: guohongyu <guohongyu@cmss.chinamobile.com>
+To: intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org
+Cc: anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	alan.brady@intel.com,
+	stable@vger.kernel.org,
+	13057616121@163.com
+Subject: [PATCH] idpf: fix vport_id used as array index in MAC filter async handler
+Date: Thu, 26 Nov 2026 10:08:54 +0800
+Message-ID: <20261126020854.233971-1-guohongyu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,58 +78,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Amir Goldstein <amir73il@gmail.com>
+idpf_mac_filter_async_handler() resolves the vport for an incoming
+ADD/DEL_MAC_ADDR async response with idpf_vid_to_vport(), but then
+ignores the resolved vport and indexes adapter->vport_config[]
+directly with the raw 32-bit vport_id from the virtchnl message.
+vport_config[] has num_max_vports entries and vport_id is an opaque
+device-side identifier that the protocol does not bound by it, so
+a vport id not smaller than num_max_vports makes the handler read
+past the end of the array and use the garbage result as a
+struct idpf_vport_config (spinlock taken, filter list walked,
+entries list_del()'ed through out-of-bounds pointers).
 
-[ Upstream commit 7031366be218f291592a7ad38bc34a7cd1459737 ]
+Fix this by using the software index of the already-resolved vport,
+adapter->vport_config[vport->idx], as every other call site in the
+driver already does.  The index comes from the vport allocation
+slot and is always in range.
 
-ovl_lookup_layers() passes ctx->upperdentry to ovl_get_inode(), which
-takes over the reference. If an overlay inode for the upper inode is
-already cached, as for a second hard link, ovl_get_inode() puts the
-dentry and returns the cached inode. ovl_lookup_layers() then passes
-the put dentry to ovl_dentry_init_reval(), which reads its d_flags.
-
-With a local upper fs the put dentry usually stays in the dcache, but
-with a FUSE upper whose entry has timed out, dput() kills it, so this
-is a use-after-free.
-
-Fix this by taking the revalidate flags from the upper dentry of the
-overlay inode, which is the one that ovl_dentry_revalidate_common()
-revalidates.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-986db859-840c-479d-944c-b9c43b93377e
-Fixes: bccece1ead36 ("ovl: allow remote upper")
+Fixes: 41252855df77 ("idpf: add async_handler for MAC filter messages")
 Cc: stable@vger.kernel.org
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-[ sashal: Moved the ovl_dentry_init_reval() call inside the if (upperdentry || ctr) block, taking flags from ovl_i_dentry_upper(inode) with an else branch for negative dentries, and dropped upstream's third argument since this tree's helper takes two. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: guohongyu <guohongyu@cmss.chinamobile.com>
 ---
- fs/overlayfs/namei.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/intel/idpf/idpf_virtchnl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
-index 124c437e65e6a..a255102adc624 100644
---- a/fs/overlayfs/namei.c
-+++ b/fs/overlayfs/namei.c
-@@ -1123,9 +1123,16 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
- 			goto out_free_oe;
- 		if (upperdentry && !uppermetacopy)
- 			ovl_set_flag(OVL_UPPERDATA, inode);
--	}
+diff --git a/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c b/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c
+index 1caf52706973..e72877242612 100644
+--- a/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c
++++ b/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c
+@@ -3794,7 +3794,7 @@ static void idpf_mac_filter_async_handler(void *ctx,
+ 	if (!vport)
+ 		goto invalid_payload;
  
--	ovl_dentry_init_reval(dentry, upperdentry);
-+		/*
-+		 * ovl_get_inode() puts upperdentry if it finds a cached
-+		 * inode, e.g. for another hard link, so use the upper dentry
-+		 * of the inode.
-+		 */
-+		ovl_dentry_init_reval(dentry, ovl_i_dentry_upper(inode));
-+	} else {
-+		ovl_dentry_init_reval(dentry, NULL);
-+	}
+-	vport_config = adapter->vport_config[le32_to_cpu(ma_list->vport_id)];
++	vport_config = adapter->vport_config[vport->idx];
+ 	ma_list_head = &vport_config->user_config.mac_filter_list;
  
- 	revert_creds(old_cred);
- 	if (origin_path) {
+ 	/* We can't do much to reconcile bad filters at this point, however we
 -- 
-2.53.0
+2.43.0
+
+
 
