@@ -1,55 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795659703;
-	b=Jnr66rR/RDrDmKrFu4COz2ueCHXcaKB0wgqGvzTz+EMAk9qk7GTVf/giVV4+yHHPPXMG
-	 9JyAJFchlDqbyPVbqHZCLkLKGSaNvxxTLMry/Eppmr182GdL1l5JGtSKlBEynirUEM6lG
-	 FN1bvHZCBaY3rmqXGj+sO6/YIb8hvSxjbfKHZu1g1YNU5Wu2J0mVHFn2aWZevGuW5GU/x
-	 Wb2u8iyU3aWgYSF/OBE5yYMuzozPILp626ovLpOj899lgXRweOzba2vUJDE0M8JQWLt4T
-	 YWYygOOU+3xVee31zYBoVm3JQaI2nEXqtn2z1FN/RB5FxoxdiNkW3/o8PJ5egujhfSg==
+	t=1795659768;
+	b=cKS81ZNEPfrvc4J35GhhMEZ0GSZQL8RB2o1enIwgjOOJdznvdpk8pfvtGi9+h6VB8MIm
+	 uIKFCWG/PBSJKbaMh0wtaMmx88on0DEwX+YNzc7RYUuMW9Sx9APNoMzdZkptqlTLuDE8/
+	 c1PJiOKxwfswDhzIwjiWqtH3j/F94oIDVCh7DHqGhj98hBO8opRGMUkfHyScuL5c16l3y
+	 KhsCTmFrKZf8x/FVPLZkV24W6h+oeBLvZz4p+amWLysyFeke2xYHAbbe6CvnHCWEwiK0p
+	 ovHqXZObRqh5343eUK//vMN29WW6h6j2UiGoe7yoH6XbcBPnWyrkbk+4CaTg+i1STIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795659703;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=g393nK9hi6tlYtusgcPYZyhAztW4leyw/vbTjbaiwtk=;
-	b=KXljB9O4MwH4NfMxPiOCJUK3ZcWbfEFDXU8DlZrDK7AqJYKQVWWsAYPPirpVgC6gBWcq
-	 2b6nhl8xul21XXq4CKQL5P5M5qespkzg2wCtGDog2R+oke64wo5i17nTjhV7MexB5TfmC
-	 navcl+ihkeob+jQ54fjgVjikLUJcyNr8gjX+7/cOxAkCUF4V3DKuLAyNpCkuFAvdiBAVc
-	 0rvJEdhlzDQyed0psW/F0hSXp3FrtL5EMhdDstWSr67O27K4sXR+ZPsCUfM+fpVBa/p41
-	 644ce2jbxN6IYZ5lI7FVDKO8iCWm5FHMt5oaFW36yQyC7tfHphJ8US240/cVKR7sdhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795659768;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yyx3uSOohB+Fl4XAtSucbcMbOjZ0KFt5ODHENuzoZHY=;
+	b=OYL0ci2zVQ7t5DDlG3+C5euf5yPmVHIQcGxS9p77PxKvPkEhl8RD5kIyYpVGezaswt/Y
+	 0T0OmVPzbJjhZQTywZhzS+dsy8lEECjiwGtUU/SRAwQdbCs7wrRpOO0K1z37QcB1Df4PN
+	 t7lCCLXtQohMuPQ0jQABZls+RfllLP48iqSp+bmIj6XDsTHCaDaXCryUXIok9LLQc54nH
+	 8/xA3JzcvRUkLIkSqwbVHQ8QS/7iQfCZQufj7PHMkW8X7bcxgMxiFrpQ7DjjlExThpjyP
+	 PIsjWeZMV1GzQ2s/NxJBMUTspxL5KtEWsC/j+LpNhhp9OwU0yZm92SX+w1pSeaOcyDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CIpwBGan;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=bVlg5bQt;
+	arc=none smtp.remote-ip=115.124.30.130
+Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1A7606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:21:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58184606A31E;
+	Thu, 26 Nov 2026 02:22:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58184606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CIpwBGan
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BEF41F000C4;
-	Thu, 26 Nov 2026 02:21:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795659703;
-	bh=g393nK9hi6tlYtusgcPYZyhAztW4leyw/vbTjbaiwtk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CIpwBGan9on3sDkK/driRtdcGzVyc0qXcL1Xw7ZGkqR/Nx3N9/VRlTJRaZ6pU+YYa
-	 L9IiGdD/jMP83JoAZ+WrSVQeZp4bimkx3QSwVWXHU5kTA6G5KFaqFzoujd2400pg5i
-	 AaPOvUHDkzEc6EvYmbVO0dtcD7Gm9eTQtrNBaGCRVQAmGa7Cg22ujkFCjx9CDjMgL0
-	 ng7bYipn18z74BrE40pW/aMbICG3kz1vjDwyBnqoP1GdQZAQF/z3xCcjCR0u4m0gRu
-	 eFiTjvsZzZWKObEAuB7G3idWVH5eSudVel0LgX0CdhcyKrg2geGoKqkYsemu2kOpAM
-	 I8mptaehvoO8g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Amir Goldstein <amir73il@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ovl: do not read the flags of a put upper dentry in lookup
-Date: Wed, 25 Nov 2026 21:21:41 -0500
-Message-ID: <20261126022118.1793963-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112531-appetizer-unclaimed-d653@gregkh>
-References: <2026112531-appetizer-unclaimed-d653@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=bVlg5bQt
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1795659763; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=yyx3uSOohB+Fl4XAtSucbcMbOjZ0KFt5ODHENuzoZHY=;
+	b=bVlg5bQt8W6y/438ecggUpd7nhtDdg5IxfDI7vRYYtVcPuU+sPUvPLOGpThMRrWBNdrboIRqNhH9HbJJ3qsROCxTu8DbKA1OpMWQZLimfkeHkSvApx67+i0TxHll2e+EzLSzIHOqh+dnMpjPvfvhlzrA/DvFfMONm/+j/KLpXG4=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=yadong.qi@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0XFT3lz9_1795659761;
+Received: from L-G4162440-1116.localdomain(mailfrom:yadong.qi@linux.alibaba.com fp:SMTPD_---0XFT3lz9_1795659761 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 26 Nov 2026 10:22:43 +0800
+From: Yadong Qi <yadong.qi@linux.alibaba.com>
+To: catalin.marinas@arm.com,
+	will@kernel.org,
+	mark.rutland@arm.com,
+	ying.huang@linux.alibaba.com
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	ryan.roberts@arm.com,
+	robh@kernel.org,
+	gregkh@linuxfoundation.org,
+	ptg-linux-kernel@linux.alibaba.com,
+	yadong.qi@linux.alibaba.com,
+	stable@vger.kernel.org
+Subject: [PATCH v3] arm64: fixmap: fix missing break-before-make in __set_fixmap()
+Date: Thu, 26 Nov 2026 10:22:27 +0800
+Message-Id: <20261126022227.1618-1-yadong.qi@linux.alibaba.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,58 +70,101 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Amir Goldstein <amir73il@gmail.com>
+__set_fixmap() installs a new PTE with __set_pte() but never invalidates
+the TLB; only the clear path calls flush_tlb_kernel_range(). The
+dsb(ishst)/isb that __set_pte() emits makes the new PTE visible to the
+table walker but does not invalidate stale TLB entries. Overwriting a
+still-valid slot therefore leaves the old translation cached and
+violates break-before-make: accesses may keep hitting the old output
+address, and changing the attributes of a cached entry can trigger TLB
+conflict aborts or CONSTRAINED UNPREDICTABLE behaviour.
 
-[ Upstream commit 7031366be218f291592a7ad38bc34a7cd1459737 ]
+Two in-tree callers overwrite a valid FIX_EARLYCON_MEM_BASE slot:
 
-ovl_lookup_layers() passes ctx->upperdentry to ovl_get_inode(), which
-takes over the reference. If an overlay inode for the upper inode is
-already cached, as for a second hard link, ovl_get_inode() puts the
-dentry and returns the cached inode. ovl_lookup_layers() then passes
-the put dentry to ovl_dentry_init_reval(), which reads its d_flags.
+ - earlycon: earlycon_map() maps the UART before match->setup() runs.
+   If setup fails, con->write is unset, or the DT reg-io-width is
+   unsupported, the slot stays valid but no console is registered. The
+   console_is_registered() guard only blocks successful registrations,
+   so a later attempt (e.g. a failed DT earlycon followed by earlycon=
+   on the command line) remaps the slot to a different UART.
 
-With a local upper fs the put dentry usually stays in the dcache, but
-with a FUSE upper whose entry has timed out, dput() kills it, so this
-is a use-after-free.
+ - samsung_tty: apple_s5l_early_console_setup() overrides the
+   just-installed entry from PROT_DEVICE_nGnRE (FIXMAP_PAGE_IO) to
+   PROT_DEVICE_nGnRnE on the normal successful boot path.
 
-Fix this by taking the revalidate flags from the upper dentry of the
-overlay inode, which is the one that ovl_dentry_revalidate_common()
-revalidates.
+Both are valid-to-valid changes (different output address or memory
+type), which arm64 requires to be break-before-make.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-986db859-840c-479d-944c-b9c43b93377e
-Fixes: bccece1ead36 ("ovl: allow remote upper")
+Fix this in __set_fixmap() by invalidating any existing valid mapping
+up front: clear the old PTE and flush the TLB, then install the new PTE
+only when setting. The old translation is gone before the new one is
+created, so the two can never coexist in the TLB. A first-time mapping
+(old entry invalid) skips the invalidation and pays no extra cost, and
+clearing a slot is handled by the same step.
+
+A clear (!flags) always clears and flushes, even when the PTE is already
+invalid. An invalid PTE does not imply an invalid TLB: another CPU may
+have cleared the PTE but not yet completed its TLB flush, leaving a stale
+entry cached locally. Take KVM arm64 VNCR unmap path as example:: in
+this_cpu_reset_vncr_fixmap(), a CPU that loses the atomic_xchg_relaxed()
+ownership race in unmap_l1_vncr() still calls clear_fixmap() on its own
+slot. Gating that flush on pte_valid() would let vcpu_put() return while
+the winner's TLB flush is still in flight, so a new vCPU could remap the
+slot with the old translation still cached. The unconditional flush
+preserves clear_fixmap()'s TLB shootdown guarantee.
+
+This belongs in the callee, as on x86: __set_fixmap() there calls
+set_pte_vaddr(), which flushes the TLB unconditionally after writing the
+PTE. x86 can flush after the write because it has no break-before-make
+requirement; arm64 must invalidate and flush before installing the new
+valid entry to avoid TLB conflict aborts.
+
+Fixes: bf4b558eba92 ("arm64: add early_ioremap support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-[ sashal: adapted to the older ovl_lookup() code, using local upperdentry/inode variables and the two-argument ovl_dentry_init_reval() instead of the ctx-based three-argument form. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reported-by: Huang Ying <ying.huang@linux.alibaba.com>
+Signed-off-by: Yadong Qi <yadong.qi@linux.alibaba.com>
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
 ---
- fs/overlayfs/namei.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+v3:
+- Change the Fixes to bf4b558eba92 ("arm64: add early_ioremap support")
+- Shorten the code comment to a few lines; the rationale stays in the
+  commit log 
+v2:
+- Rebase to arm64 for-next/fixes
+- Fix comments from sashiko: always clear and flush on the clear path
+  (!flags), even when the PTE is already invalid.
+---
+ arch/arm64/mm/fixmap.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
-index ee4e37646e85c..b1c4a62030441 100644
---- a/fs/overlayfs/namei.c
-+++ b/fs/overlayfs/namei.c
-@@ -1119,9 +1119,16 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
- 			goto out_free_oe;
- 		if (upperdentry && !uppermetacopy)
- 			ovl_set_flag(OVL_UPPERDATA, inode);
--	}
+diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
+index 951004ad700c..c8a0d008cf2a 100644
+--- a/arch/arm64/mm/fixmap.c
++++ b/arch/arm64/mm/fixmap.c
+@@ -126,13 +126,20 @@ void __set_fixmap(enum fixed_addresses idx,
  
--	ovl_dentry_init_reval(dentry, upperdentry);
-+		/*
-+		 * ovl_get_inode() puts upperdentry if it finds a cached
-+		 * inode, e.g. for another hard link, so use the upper dentry
-+		 * of the inode.
-+		 */
-+		ovl_dentry_init_reval(dentry, ovl_i_dentry_upper(inode));
-+	} else {
-+		ovl_dentry_init_reval(dentry, NULL);
+ 	ptep = fixmap_pte(addr);
+ 
++	/*
++	 * Break-before-make if the slot holds a valid mapping. Always
++	 * flush on clear since another CPU may have cleared the pte
++	 * without completing its TLBI yet.
++	 */
++	if (pte_valid(__ptep_get(ptep)) || !pgprot_val(flags)) {
++		__pte_clear(&init_mm, addr, ptep);
++		flush_tlb_kernel_range(addr, addr + PAGE_SIZE);
 +	}
++
+ 	if (pgprot_val(flags)) {
+ 		/* The slot must be usable on return, even in lazy MMU mode. */
+ 		__set_pte_nosync(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
+ 		emit_pte_barriers();
+-	} else {
+-		__pte_clear(&init_mm, addr, ptep);
+-		flush_tlb_kernel_range(addr, addr+PAGE_SIZE);
+ 	}
+ }
  
- 	revert_creds(old_cred);
- 	if (origin_path) {
 -- 
-2.53.0
+2.43.0
 
