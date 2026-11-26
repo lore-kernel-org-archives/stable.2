@@ -1,96 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795729946;
-	b=r8cJ9ji3pFNTCZkKoQX0etRJIo20YSsb1TP+KCjYx0p/3SXPb6T3e5KA7wNqgElzEKqP
-	 bW1OgUUwcomO7LUBA5lR03cWQ/GL99hDEBhjtPDg7dmnLLmQiXRHlWF5fE16vOAOvaMMM
-	 hg8HOxLtmqB+Da7nvgjzrkR823LxRo+UtQXkPD+iyPGUrZcLU1jfhRjeWk/TB77lTttEG
-	 CcKwtQ/6caRE794n4ifSInB3aPyMGQ+k0uqFPb56+6iDDjicTBKpHnZup1Fi8GEZdvMro
-	 DBrR4NmmrxN/Nt5ipk3CW/vRRMRexrkkybYUjDARjgZJO7lY5f6YTB1V+1pCvzgxabg==
+	t=1795730015;
+	b=B72yqRjPqXDy13Ohv6aGfvgClhSsqOJqxuAdg2pzMN+W5Qw5LZBgnbvjUZdj2AXFBYiu
+	 T8qn+hVzV1Kls12X9YZGZcpk4Ba63SXtjBDdXVCNYRZC1GGIyApNoLD/iOaUzj51Zyfn+
+	 0BbKx+W87BIV6wu1KWrPAaEQPk8gPcHSTvh6Qc0bcQ4NyIfCZypWg2WQZHjsN0nHNPMm4
+	 XkKnyczhSrFKitSfT6yuYSc79n4Vo+OLcvahNjg3zRqDo8/6Ha2ntOOHeCp7v9cv6lGzo
+	 FPu3PBrJGUOj+spJX5TcBJs7Dxrz4e+IX0M/LvTzAKUnH7lgr+1jCyTJUHbCOAmOmJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795729946;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795730015;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1YnQvOR3Gw4bXN9YUJx9Lq77dYCC8vrMp788asvQVV4=;
-	b=sbn7ysRcPQKbBITe4rMNGLdYaFwDGwz8KgnDjn8a0+lvrkL1tAB+vR63ra6hAaxpP9AZ
-	 2udsgz287ITvQAC35pZ28QeXY22ZEpDE7lVpj1v9hW8iD9RIlA2sJvEirD6xK/ObN6W7F
-	 iPKRjbn2AdxqtU8WRydMoPr8KZhVLAqW/Yk4I/prVbB0TCFhIt5JaFZ7Q6iBvwQjDr4CO
-	 fR0BoirCyJOfIbZiliR8wttgEyfnaq4QQw78g+QkvXEtfhZrcBLjMM5lLVDzwhDlrPzEx
-	 qVkqQvjvC+LT6LYHhf1cvBm0TKFPQv356+4CO93hshmzxzc17e7uLWro39G3LkUt4hg==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=env9OD6WJ5uGqN3vphpmLPvAyZWACc9jYsEiViZZwfI=;
+	b=NRva1WG3Vl33ne9MYz5yxTpmhCtyXi9PVOhdIN8+Iz/dtOetNrWttYadpojSHeghHsNF
+	 7FSSw6pVfybuX6bHNvDWdrdbt8ak8GQtYuqRL8VU1nFANdQKz2fOQrT0OPv/xbz4GElOU
+	 iyRGG2evpA1uhzmWMKS7QijtFQDokHUbPe5LWcW6gPjwEmIMIuGaAqgswm+DfGODu1mNI
+	 0fAcwEsABstfrtK4AddMEeT9L2iW6se5loAyEkdh6maa0wKURUGZXQDsq8qA3oFMrkOPU
+	 j88itOjMqFbHV9ALXXu6PsdnVAFDqXbD4zRCHceEyz5A5R8qI1+WY3as5863c6EN53Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rhRgkBfE;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	dmarc=pass header.from=ndufresne.ca;
+	spf=pass smtp.mailfrom=ndufresne.ca;
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="HuAe/wTW";
+	arc=none smtp.remote-ip=209.85.222.182
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B25F606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 21:52:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B25F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C765606A321
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 21:53:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C765606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rhRgkBfE
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4acb44dcd7bso6709560f8f.0
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 13:52:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=HuAe/wTW
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-94999a08973so683363585a.0
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 13:53:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795729945; x=1796334745; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1YnQvOR3Gw4bXN9YUJx9Lq77dYCC8vrMp788asvQVV4=;
-        b=rhRgkBfEQfLvE1Z0jzXnQdFA1S7obYbq9YpsAIojpl6lupXu83Qa5rnCMEmkz7SO+t
-         41S3vzCyfG8ktfvgZJWMACce9N+m7McHMQTKFOLoCo8zW/hcnfGajl6RfJrLjcTc1He2
-         UfBAnxJQaKBHT416TFk+Wu/t+727QrqAhGcygteSR/r/cDp3OnG1znT4ecUN4OX40ljo
-         XUG94eZFv+FQ+zjkaoVoCxXcOurqdDdhnB7oTCWhbX0yH292J6KtTZLJWPtptUHQMsV1
-         qg/aLV2L14jtCGCHCkjCDVOMKXOGDAp0BLqoeYbcCGG2Vdj+H3s1vzXGjv/Ix1753Gs1
-         3j3Q==
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795730014; x=1796334814; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=env9OD6WJ5uGqN3vphpmLPvAyZWACc9jYsEiViZZwfI=;
+        b=HuAe/wTWSVBcTgkxqCs3FJVZTgk/EcI6TOIk/kQi88nOHPAz0IshwbNbEr9Us7ruS9
+         oUhp8H+XFRHy66KiBCKv5x7c1t25JuGVrf/6gTpXoX/Q4yi8td24zb+qNt4vl+x8JF9j
+         3TePrqRHUwd96jczTkAsWm2Sc2zluXhSr7i95q5wn4+m6CJ1OaMe3tfBOPWVU/GMp1/f
+         yaqEplLMmytsHbZf9bChl1Te1JVAbwU1f6gs44bw89kfVDemUCWTSnBRBWgBxq4Dh9Vl
+         vvCtLyecMfxLcxBGfFCNqqVrcDk7aLV2HDYFOUllwxc2aWPqsfEgKcRyr2ZFRNHT5WmC
+         I5WA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795729945; x=1796334745;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1YnQvOR3Gw4bXN9YUJx9Lq77dYCC8vrMp788asvQVV4=;
-        b=w4GNLKktKINGLevn6kJ+n1Uqu8NXr8Pn3/N8fWnemfxT5Y1swXpkkI2RiWwKDCi/dA
-         Iqb7h8+YqJJZu9In1BUWrteZczZHpS7znNV0zVFHKi8ePCSIcXQMz/JeNPjmCZ+y7E8B
-         sxvRBRiZzhiDMyI3N/tAdoZ18/V+QNRwBynPID6swYipDyCGry7rtpKj0d3hNe7Uxagu
-         oJ6qY3d/Wk03fsUsiSeBs2oWaBwoJCaKf2Q8B00GBAeOJrJx5YScEabnSleKEvaFAlQc
-         MOYD3ainfsaFkL1TWNGse+nejNoyEVnGyNOJ62VprXwIfKIKTqKOTaQUfF+2XOvbC16l
-         slcg==
-X-Forwarded-Encrypted: i=1; AL+hErH3pEWiZV7UBp7VHwoFUDq3+JfixDGTONPYgXUS36v5DSlfLht58CwmSvNShn0kHkFo+cZgWSw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/H43vCvrY2w+5W/FBS/TTw7W8C/RGG3xgNqZN6S+N+h3gr7j6K
-	ntpkIDZsT3BKcbis3wkBRWQ3d7Gjd5MN1l2sdUjqSuVY9Gt7iS2l2XGN
-X-Gm-Gg: AZFdTZfVzDbAhrO0ktpPFceeo3O4BJMJ11ISx85XIzH7H+H9hkDAg7W7SMvrEcDZ+0d
-	tjEqGn/jNKRhnRzsJ7oheb7i0b9Ip/MrWP4latoLIXxR/uYzXRt8U9Bnf7HlRBcxxW4bnZ30uy0
-	Eqd78gWmAsk70FFTI3++1n5EPg3Eih8LRtbadXkvsF/+Y6Rcvxc97fpBgwGBpKZuHdu9JRiOJ+l
-	yKU+igKj589N9x6JD55WO0qSNAyPE+IgW8rGxf/DrbKOlHg3BZGj3BooBJ9rKaJFNXP32MjPWFU
-	YFROsNt5fMYbHh3LI/EriYbMpBHDBRhULZN5/WfyLRfUUoWRJt6wcvuTWKgC7zzlVL6YynPGACz
-	7zNfjMs3iK5WM4fb4rdui5+rRYbi6LhnUS3fy0HiTKIYpSBAqDysfNvBcr/X1MTX3CMddqQWK/p
-	UzIntLFbNOaFMYLSO29xKbabfPiu9da2XU4MYB3eeTDGsgXsrg2ngO6mghX+iXRHHve3PbWaxf7
-	oUiCYiVvxcaKcr7SrO+HQKZGNbS9VCEty9JGiw4J84VPgqBIcfeepqE/8X36D2gPawIvdJXfQ8S
-	86cmp8cWOQX6dk6266VnRtmAw2JdgoYAALBbkcyl4Kc791+EvE3Ymy9d94R7kOtliGza+euWNe+
-	VQBqdRd7dCV/EL8n5MCYN29UlnEx1WtOJwHc=
-X-Received: by 2002:a05:6000:2c13:b0:4a6:dfe3:fd93 with SMTP id ffacd0b85a97d-4abb41f4dc6mr41417768f8f.40.1795729944154;
-        Thu, 26 Nov 2026 13:52:24 -0800 (PST)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b8b7888sm42820523f8f.42.2026.11.26.13.52.23
+        d=1e100.net; s=20260707; t=1795730014; x=1796334814;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=env9OD6WJ5uGqN3vphpmLPvAyZWACc9jYsEiViZZwfI=;
+        b=cylAx7Q84TdC17vHmuFN47yZ8npGdIz3JbfB+GEmNmsAW00He0DEMzgyEXOfiRn+EK
+         c0wGcWtMpQPGnvpY8P9vlN3JHfg0HuoSnFQR6tCC2zn6W3Xp9svKO3ElfomoLoMOjnGS
+         Nvc5mtRXC64BaCQzdQnyKMjGtvGh14yVQKDuYxpX+xO0HyWFM4gTazjDRAxxoQWhz3C4
+         HYz83IsWl19Lz8GZp+uiqpn/TMxzkyp6EBWPFhw05M+y7BQRXmEyskZoCLBK7xNZEWXA
+         EQFxdo2EXBVaKUjIoUaqPKw6YF+iwS5DrYtd3ezCBGIWnBhD7A/Wa2Au/DWYsvhAxd1U
+         Qbww==
+X-Gm-Message-State: APuU4Z9WB30oXUHPurmU8L+o/7hfLO90N1WdfpC/lOnrJV9CajtsmLWV
+	EVju2e+05L68yphyKk6LH1utFqLCF5/VWaDRhCccPdSyILtiFc8lCfUUkr79u5fyfLw=
+X-Gm-Gg: AZFdTZd2Rfc1aR3IiXd3snEFmeIr0EJC5g1IEwn3w5TVSahKSEisH0CQ6glvW8G/Npz
+	Ge4EwSNv8We3djltLzt3ZoZXNMZ6v2D7UCYAR4ZpslP5nDVQ2v8x4eAx6BvTJeqSqEGHG21kJa6
+	q0TODBslIx3U3WAMssGcqTaARkxeZ6HOaK6wKs5X0Xpp6Xbub1TUhw4ruALEvG/MY/lnzRp53Gh
+	QWLEQ0Q3+pybvOVnQ04EvIBc7r2litsERQeQwrxKesdM/NJncBEOScK1yVwi+PN3t/8GSJeVPxZ
+	Sg873LX5XWakjooQATmJ2sPaCZJYGa4+eWFIiAJYvcunqhQSsl6e2dc3xt+PieYNKwqP06Nm7b/
+	OU/jBdQb+BGOZJZ85TxyDqZbOAph4C6ITictK7f3XtMuEhg4G7dw64sxVFGS0zWbT8cLV9JWC7l
+	lHdj+ulVZZJld9JAqZGcFSK4Z2JS1xIUgnRb6GZXkbX3GoMH63tj9unYehr1LwrpwF9N1ynIF5s
+	7/fos1Ema+A5eKtn6lF7CgeJwE/P5cLwydZYNXKxrTRl8RUchdSCWjpdSnnLTPm98DRA2ah+jAd
+	a2PeqqqTo57n+ELs6L2IYWs0T9q+AFy4Xr5P9YDKlKX+6KGQPiu0WpU=
+X-Received: by 2002:a05:620a:6011:b0:93c:c1e8:6504 with SMTP id af79cd13be357-949ba9555e2mr3721601785a.23.1795730014488;
+        Thu, 26 Nov 2026 13:53:34 -0800 (PST)
+Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb349db3sm1654907285a.7.2026.11.26.13.53.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 13:52:23 -0800 (PST)
-From: David Carlier <devnexen@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Huihui Huang <hhhuang@smu.edu.sg>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] tracing/filters: Fix glob matching on zero size string fields
-Date: Thu, 26 Nov 2026 21:52:20 +0000
-Message-ID: <20261126215220.1205315-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Thu, 26 Nov 2026 13:53:33 -0800 (PST)
+Message-ID: <a7e72cdb67e7ab8578b9ce44a4817ba35d1f822b.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: mediatek: vcodec: NUL-terminate debugfs input
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Jiale Yao <yaojiale02@163.com>, Tiffany Lin <tiffany.lin@mediatek.com>, 
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>, Yunfei Dong
+ <yunfei.dong@mediatek.com>, Mauro Carvalho Chehab	 <mchehab@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,  AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Hans Verkuil
+ <hverkuil@kernel.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org
+Cc: stable@vger.kernel.org
+Date: Thu, 26 Nov 2026 16:53:32 -0500
+In-Reply-To: <20261029053024.2526059-1-yaojiale02@163.com>
+References: <20261029053024.2526059-1-yaojiale02@163.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-DlJB1J9haeeqeVzf+bdm"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,41 +118,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The "buf" field of the ftrace print event is a char[] of size zero,
-and filter_pred_string() passes that size as the length. The regex
-callbacks take a zero length as a NUL-terminated string of unknown
-length, but since regex_match_glob() was switched to glob_match_len()
-it treats it as an empty string, so a glob never matches:
+--=-DlJB1J9haeeqeVzf+bdm
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-  # echo 'snapshot if buf ~ "st*r*"' > events/ftrace/print/trigger
-  # echo start > trace_marker
+Le jeudi 29 octobre 2026 =C3=A0 13:30 +0800, Jiale Yao a =C3=A9crit=C2=A0:
+> mtk_vdec_dbgfs_write() allows userspace to overwrite every byte in the
+> persistent debugfs buffer. The read handler later searches that buffer wi=
+th
+> strstr(), which can read past its end when no NUL remains.
+>=20
+> Reserve one byte and terminate the copied input at the updated file
+> position before releasing the debugfs lock.
+>=20
+> Fixes: 5e488a4fd859 ("media: mediatek: vcodec: Add a debugfs file to get =
+different useful information")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
 
-Use glob_match() when the length is zero.
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
-Fixes: 0a6070839b1e ("tracing: Prevent out-of-bounds read in glob matching")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
- kernel/trace/trace_events_filter.c | 4 ++++
- 1 file changed, 4 insertions(+)
+> ---
+>  .../media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbg=
+fs.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c
+> index 2da11521fc7b..8528534e41ef 100644
+> --- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c
+> +++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c
+> @@ -77,8 +77,11 @@ static ssize_t mtk_vdec_dbgfs_write(struct file *filp,=
+ const char __user *ubuf,
+>  =09struct mtk_vcodec_dbgfs *dbgfs =3D &vcodec_dev->dbgfs;
+> =20
+>  =09mutex_lock(&dbgfs->dbgfs_lock);
+> -=09dbgfs->buf_size =3D simple_write_to_buffer(dbgfs->dbgfs_buf, sizeof(d=
+bgfs->dbgfs_buf),
+> +=09dbgfs->buf_size =3D simple_write_to_buffer(dbgfs->dbgfs_buf,
+> +=09=09=09=09=09=09 sizeof(dbgfs->dbgfs_buf) - 1,
+>  =09=09=09=09=09=09 ppos, ubuf, count);
+> +=09if (dbgfs->buf_size > 0)
+> +=09=09dbgfs->dbgfs_buf[*ppos] =3D '\0';
+>  =09mutex_unlock(&dbgfs->dbgfs_lock);
+>  =09if (dbgfs->buf_size > 0)
+>  =09=09return count;
 
-diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index a9d77df3e19a..42a57cb57ff9 100644
---- a/kernel/trace/trace_events_filter.c
-+++ b/kernel/trace/trace_events_filter.c
-@@ -1118,6 +1118,10 @@ static int regex_match_end_dynstr(char *str, struct regex *r, int len)
- 
- static int regex_match_glob(char *str, struct regex *r, int len)
- {
-+	/* Zero is reserved for a NUL-terminated string of unknown length. */
-+	if (!len)
-+		return glob_match(r->pattern, str);
-+
- 	return glob_match_len(r->pattern, str, len) ? 1 : 0;
- }
- 
--- 
-2.55.0
+--=-DlJB1J9haeeqeVzf+bdm
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawiqXAAKCRDZQZRRKWBy
+9HvlAQC+KcPKwSaD7Ix8GCPtMRz0njYszGlIhj94VYNm0BjnnQEA8O7IpD79HTUk
+JcUCeKPKDEyp+qT34NJFPS+wfxGcZwY=
+=kTt2
+-----END PGP SIGNATURE-----
+
+--=-DlJB1J9haeeqeVzf+bdm--
