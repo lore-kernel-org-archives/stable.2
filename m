@@ -1,95 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795652007;
-	b=o3mxafRoRGELKKYpc5yTQdBmbLZJGBguXyupS+pVa7rLF4qEKjRsYDVEQ0/C5jUNYv48
-	 yjl8KLk+PgRb+nTaLcYax/IAGI8CuRC+SwSzmTc22AvjDNf8GDjDcKDA7u4YmjdjpG9QI
-	 jZap0Oo/HwIoI7pbTwuXGiu153z2VAiYCi36kemuzUFWYd/YiSu6K3M/BSqHa9OpiMlYv
-	 JdBT+mZpZ8+zQsoza6Zmo9Vi1WNOcGRL4jPkTdmhURG8y9KEOUEuzhPDm0sYv8jn/bYoT
-	 buro5UwUnB7sDyriUfy70fa7tmhDQczsUfE1E7p58iCntRmBph2ED6bIKY7sLi4IUDg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795652007;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=pXPp/90lX1YkR24tu0x78bsF0BUZZN7MTybZBzP2dMs=;
-	b=09hoAgXBcOI2BMr1icBAIS/4E2IenlrgV4hx7dh6YslwzVFBe6UfvuBTZgwEXX2VdtA4
-	 SVQi6cdp8t1lgdoDwTD3P0i/DVuaI7ozwjlsURfkSoB8iHz9TMXmFGhL7kP/W49Tb03AO
-	 +7v6FBYTyoJ5UzAqqB8bhcCVYB1M1r8KsxvNfTE2in3xYLHPM8Es6rIe3VDT60VTYGTZf
-	 AxLH6MokuE5AZyHx8WFUtDNVCSVx9hF1eUI9h3R/d8nDXW2WFWJQOd3h0DSKNfMTu1a8t
-	 s6RaJifzx3y3JTao6wOogx8bV4TAVseY7VC/JJf5J9xnJ/+8flOPY/bkFB5P046Fi+Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dkT+0a29;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795652179;
+	b=GrcQYw2VmyE7oZUTdjKXb09XpxcAkloRkbdy62NCx5v1dC9vA3sc1w0PgTgdEFY6Gbcu
+	 1miKl+CEzu4SenZIT0FlTwND8WUpFXCCESfN6Sn2aFnMCjjEl8YFE1O98IihMWyiE8nBT
+	 RybTFtTIty8kJU5/rxxp4L/zha9c11oycCJ4CDDyCiVIm2fEZCx1o+QElWDcgjneyEKnG
+	 Dt/9zvSTN/Dl47olW7M8UwonF1pe3/OULVBYS/kIyOES4Rev9PbojNZU3TsdnQkn3dwMl
+	 RduDbmtPqMQHeQ5LZH/o4+X+l0LQklfjamC3W2JE2qHoGBQu3U/TjipaRZXIgWQaL3Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795652179;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=zNmJAkA6y9juDpGQpY7+mrGr13D6iYwVy8Jvx8ehUd0=;
+	b=XHXel32/fzqyfXA8kMD5lw1szg3pLEhIyi31iW4AbFwOBiFmUQuk1obFgTt3xBRJrKpS
+	 JhkmIvL2pwDVWmk8S/9BFuLLq/vRQ2MkX7y42x/yHZdcwudcx7r+8mkWCulT3uc/nFYkQ
+	 9tbFk8vNlYnRuz3C6wfZyQUTo5zC92o7iPRGwMAlpZIKSIsEKk7CwcrwBUNzlIvm3F6GK
+	 M0ma3LvniHeb4dvXgbNMwb68VoakkjXAzwr3Lv2IOpGyzbEZ9lnZ4CVazwAU+CVtLak5x
+	 cIRmyEYS26whpRAyfIneOZvhUqQmvIl72WLGQCoEA78BToEKJAoZSMMa4PZvamP3+gw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=owVAGp9V;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C38606A31E;
+	Thu, 26 Nov 2026 00:16:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=owVAGp9V
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795652179;
+	b=VrUIeZ9CxcxAi7DM6vfG4NDeE5HmArA9/vSvG/MS+zUbF0jPKAHFcu8LTNofgULj6dav
+	 DKUKcYn8OBYoMCEsgoj9OOzmopCPRGtohZT8sIjxl5x50H8EtCdR10Ni95yCMKzMVVAuw
+	 QUXtWvMi8xDKo+BkFGPiQ20q35/cVs9fTJHSGTQmSZZyEbngdPSDTo2YueHWqOO9O5QYz
+	 U7/4Qd31oFXMcHILScp27ti39/W4I2dGsi3MofkxWFdJ9ix11JmMLZwO/B8ddVj+ze07t
+	 UtEzTHlwdDyplU9CT8ue3hUs1M3MqDAAgNBNSGsBO+XS1kavrP9yLASdn1SqKBkH1yQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795652179;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=zNmJAkA6y9juDpGQpY7+mrGr13D6iYwVy8Jvx8ehUd0=;
+	b=ao6pvecwaAKmOoepMiOe9Rp5bYBvFagWXZMbebi1Qpzi/a7r7JhoJUOhFZr3Wkel/O15
+	 mO8w0GqxCsCjuowHg7ncjAUGusCI+AyPPlT0a0H8tj85pqyovhd8ftFbLwsONy9MLcQz6
+	 83fZMzqfSh7JFQr8frSWMlsDWQ43o4ZPI8zYp1gVDdnMi64cuEwVxHnArSzNYm/LVO4Ed
+	 nBY8H/EXiVUWuYWAlSNYB9u+YoV9+eIlelhud8jSZI4zENZOSGcSRnIpW9Jh1lsHzYT3m
+	 z/60yHowQgBophmx/Smll0pAVQ7tl0IMQzplewukGT9n+sSn+spH3LcYIPRc2m3KKNA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C2E606A321
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 00:13:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2C2E606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dkT+0a29
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ada4c06b7bso3471452a91.2
-        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 16:13:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795652006; x=1796256806; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pXPp/90lX1YkR24tu0x78bsF0BUZZN7MTybZBzP2dMs=;
-        b=dkT+0a29FJ4KfjvyHLjIEAXn6G8GuDTS0bICdbFQKUJoozqkasEpK8Y2aPFOU7Zpvh
-         mU4mqgChrO/meJvCvYcGqClVGpB5vNis42ubJwfYRWzXEjRkm4YQzgSQPCjmPAvJTuzv
-         uQ60CnBm+jlSIT7LVAH/7bH8Qz3mQLRbUt1Ij/hc1anuF/Hqnuu34gt8b8PfAoGuu9VX
-         JOxaLBHoI+ZCVMS2O0VbXOTYhY0hn2CoUcWXrUYg7OrcgeMqhR4a/xmd3JxzpqZ5PAAE
-         Kfr0YFrGpVMtJYxb/zGvzgKsOLnAwn0bk0rPs8ugonHMHtpdmGUdUTHQIT6cfv6zHuPq
-         dyZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795652006; x=1796256806;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pXPp/90lX1YkR24tu0x78bsF0BUZZN7MTybZBzP2dMs=;
-        b=JCH9gfz4LE3LnlyqDUyqkQi39mlipM42oHCPHPLGSfVzOUnXb28nz6vuggngp5YFmr
-         EVO3ejakJWdlwtwSXp+sYCunO8fOgddpl5pnt6a7aZT6nx/QlbWX+RKd/x9GqEHwwQ/O
-         c1meCM3fD+cH22OFiPlQXTLvNyb6wuOwJLvBn7ITiz44WkPIzwFUhsXf/5erOqvK4J0q
-         7R2U1d0Lu8RvZnYkBSTyWDYE8eAYzlZsyqf/GbP0fZldX0R2q+0MiRwGDL+BBHw/IMWu
-         8BtnXKEwivrsIZ2g1rT82QIiHGGVyXcdbTcRC4wXwXSJ2F2s2LySiDXJC0bKZXbUbTVs
-         dURg==
-X-Forwarded-Encrypted: i=1; AL+hErHhUXMZ/CaVmJhHMeUbqX5ddpwcQbBYlHhOWgRDP+rIImovyDEyZqtc7Toty18jKo/R1z9jL+U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/3oJVF1VXYJt81DoYcPf6fr305Les71L1guhVzVrTrBDghjBjG
-	MdHVs3qZOlkqFopXbYH8seji2JJnQ/5/iyKBid1bh+o56PqaSruepPwO
-X-Gm-Gg: AZFdTZdiR8h2balA1r0V0eG9xi/jp2kwORCjE1CWQle3/Z5UjzR5eKMtWDWFyjZFLgX
-	bcGPVAkXYPnzJs9icTj57LxzXefnsLT6kCQCjp8AMv5jO0eTQP5xzBKnpaPDMJlOBTXETr3rJ4K
-	L1HN8VL29iOLfPFfVjIdg7llBjeorNaUzUJU6vrMZt8Q6Y7ltZkQhhhQy3PrcfKJjVT+94ZsipM
-	N2yH46JdHWUp5x2h4GICXkNs5+kLMhyU+l8oF0P91HixwD/k1BQ02eioEuzTGrQWAxH5aN6La7D
-	MfVpuUEeQj5tzqTO5MniDEeIIQc9tSQs2pwloTT+zjbjl2I8kUUMiHKNtyVcb5i8zQCJwu1Hqpo
-	CCEGapWJ40I7abt2LoKEJ8p7gb0dQDYb5RfH8bvVltNSLwzDxOFScD7zK9OYAHE0lMm7v1zbMzo
-	ZqSmR2htRD1L0ZZBc+5lk7dL1mCCY0s4p5m5khPv1UHHQNt4gtaAn/dMMfF5Pxe6aPPDGqd4agI
-	S5N67mwZODxVAojN+bSaW4PWgA2Tn9bocZ0vYGODoMuKdd9WunZ/VhR1o0r7bg40E7tT8bkhgWZ
-	V8CumgVHam9Wc0lCELA5Mm4buxK6GEO0DcOvlbrJOv4t+KcfA7fL7HvTgkkO1RtzZ8xD4M2l81I
-	HneV+wjgcO+cBn5CX7H3vMQoUHQ7Fp8GIW0KrQAGW6avujW5PUhzIlSDPeJMp/ImyEYE43QFET9
-	AUVg==
-X-Received: by 2002:a17:90b:4a48:b0:3b3:c675:d923 with SMTP id 98e67ed59e1d1-3b41c908109mr17235877a91.28.1795652005963;
-        Wed, 25 Nov 2026 16:13:25 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405d135e9sm32411110a91.4.2026.11.25.16.13.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 16:13:24 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-gpio@vger.kernel.org
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v5] gpio: mvebu: fix Armada XP per-CPU mask register save/restore
-Date: Wed, 25 Nov 2026 16:13:23 -0800
-Message-ID: <20261126001323.583722-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	by smtp.kernel.org (Postfix) with ESMTPS id 4A4701F000C6;
+	Thu, 26 Nov 2026 00:16:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795652179;
+	bh=zNmJAkA6y9juDpGQpY7+mrGr13D6iYwVy8Jvx8ehUd0=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=owVAGp9VL8YsabmKuhZSToT4WI4zJXF3xRrZyxoZMzC81nPIg714hZfhscuouST1n
+	 hJcdGaIH5gQKMJFvFvJO2//FSZabCdk7Xb+glVr5Oox+wvdiCa219qDuqOg8VXz/1m
+	 jy7JWjwuIClQvJtzyBMsdvmkC6AhqxXn1DKYY0y1NJr+V69mfZZaOwDPcw3Feaof2+
+	 Z9FoGs93iuicV1R0RUHaQoD8pTEThF0Ucdo4fhxu8KJunCASFzpCL2FCQQ5xB9ywns
+	 arQKOvP7Lw4xU6k4RFiW0fA1mZildG+10onz7YcdmrEOThMoIwZaMj5eV3nJwB1pwB
+	 XqizMW0koBm8w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id BCF884D0EC;
+	Thu, 26 Nov 2026 00:16:15 +0000 (UTC)
+From: Daniel Svendsen via B4 Relay <devnull+das.emlogic.no@kernel.org>
+Date: Thu, 26 Nov 2026 01:15:35 +0100
+Subject: [PATCH] eeprom: at24: wait for write cycle before releasing
+ runtime PM
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,65 +83,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261126-at24-write-cycle-v1-1-ec9c38617130@emlogic.no>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMywrCMBBG4Vcps3YgGaRSX0Vc1MkfO6VUSVIvl
+ L67UZff4pyVMpIh07FZKeFh2W5zhd81pEM/X8EWqkmctN5Ly32RPT+TFbC+dQIfFCEG52IXhWp
+ 2T4j2+i1P57/zchmh5fuhbfsATyB/BHQAAAA=
+X-Change-ID: 20261126-at24-write-cycle-7cedfd00f9f2
+To: Bartosz Golaszewski <brgl@kernel.org>, 
+ Srinivas Kandagatla <srini@kernel.org>
+Cc: Bibby Hsieh <bibby.hsieh@mediatek.com>, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Daniel Svendsen <das@emlogic.no>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795652175; l=2263;
+ i=das@emlogic.no; s=20261125; h=from:subject:message-id;
+ bh=jcPKGomz5djCGzdGpnaBBVY00UgyabG9Lq9DL7YvIlg=;
+ b=E0uKLD3Ha7ZC/+CmF60IMx8YtdMMTlBT+Z0LdwwmzzUaMLHHRKShaDzMFiZH2ZMzteyt+Mnt7
+ tvOEjBbvdT8A+yQ/gbUwxly6jwSCdkNSFrBYosuU79fgK4RlWNenY5u
+X-Developer-Key: i=das@emlogic.no; a=ed25519;
+ pk=NOuNK5ezs2CmhXHDzJ0VumKw5T6c3m0ayEJIk/HKbyA=
+X-Endpoint-Received: by B4 Relay for das@emlogic.no/20261125 with
+ auth_id=1644
+X-Original-From: Daniel Svendsen <das@emlogic.no>
+Reply-To: das@emlogic.no
+Content-Transfer-Encoding: 7bit
 
-The Armada XP variant keeps the per-CPU edge/level mask registers in a
-second I/O window (percpu_regs) rather than in the main GPIO window.
-The suspend and resume paths however read and wrote them through
-mvchip->regs with the per-CPU offsets, which hits unrelated registers
-in the main window (including the global GPIO_EDGE_MASK /
-GPIO_LEVEL_MASK registers) instead. The per-CPU mask state was
-therefore never saved or restored, so interrupts the kernel had
-unmasked could stay masked after resume, while the main window was
-written with per-CPU mask values.
+From: Daniel Svendsen <das@emlogic.no>
 
-Use mvchip->percpu_regs for the Armada XP per-CPU mask registers in
-both the suspend save and the resume restore paths, matching the
-mask/unmask handlers and the probe-time masking.
+at24_regmap_write() returns as soon as the chip has ACKed the
+transfer, but the EEPROM only programs the data afterwards, during its
+internal write cycle (typically up to 5 ms). For all but the last
+chunk, the following write is NACKed and retried until that cycle has
+finished. After the last chunk nothing waits, and at24_write() drops
+its runtime PM reference right away. When vcc is controlled through
+runtime PM and has no other users, at24_suspend() disables the
+regulator in the middle of the write cycle and the last chunk is lost,
+while the write is reported as successful.
 
-Fixes: b5b7b487431b ("gpio: mvebu: add suspend/resume support")
+This was seen on a board where the EEPROM supply is a switchable
+regulator used only by at24: 32-byte writes with a 16-byte page size
+programmed just the first 16 bytes.
+
+Wait for the write cycle to finish before releasing runtime PM by
+doing a one-byte read of the last written address. at24_regmap_read()
+retries while the chip NACKs, up to write_timeout.
+
+Fixes: cd5676db0574 ("misc: eeprom: at24: support pm_runtime control")
 Cc: stable@vger.kernel.org
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Signed-off-by: Daniel Svendsen <das@emlogic.no>
 ---
- v5: rebase onto gpio/for-next (on top of 02af7eac17bc "gpio: mvebu: keep
-     resume masks within the irqchip cache"); reword the impact paragraph
-     since that commit already confines the resume masks to the irqchip cache
- v4: rebase again
- v3: rebase again
- v2: rebase
- drivers/gpio/gpio-mvebu.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/nvmem/at24.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpio/gpio-mvebu.c b/drivers/gpio/gpio-mvebu.c
-index 46604093a01e..a9e6e7a63495 100644
---- a/drivers/gpio/gpio-mvebu.c
-+++ b/drivers/gpio/gpio-mvebu.c
-@@ -1031,10 +1031,10 @@ static int mvebu_gpio_suspend(struct platform_device *pdev, pm_message_t state)
- 		break;
- 	case MVEBU_GPIO_SOC_VARIANT_ARMADAXP:
- 		for (i = 0; i < 4; i++) {
--			regmap_read(mvchip->regs,
-+			regmap_read(mvchip->percpu_regs,
- 				    GPIO_EDGE_MASK_ARMADAXP_OFF(i),
- 				    &mvchip->edge_mask_regs[i]);
--			regmap_read(mvchip->regs,
-+			regmap_read(mvchip->percpu_regs,
- 				    GPIO_LEVEL_MASK_ARMADAXP_OFF(i),
- 				    &mvchip->level_mask_regs[i]);
- 		}
-@@ -1104,10 +1104,10 @@ static int mvebu_gpio_resume(struct platform_device *pdev)
- 		break;
- 	case MVEBU_GPIO_SOC_VARIANT_ARMADAXP:
- 		for (i = 0; i < 4; i++) {
--			regmap_write(mvchip->regs,
-+			regmap_write(mvchip->percpu_regs,
- 				     GPIO_EDGE_MASK_ARMADAXP_OFF(i),
- 				     mvchip->edge_mask_regs[i] & edge_cache);
--			regmap_write(mvchip->regs,
-+			regmap_write(mvchip->percpu_regs,
- 				     GPIO_LEVEL_MASK_ARMADAXP_OFF(i),
- 				     mvchip->level_mask_regs[i] & level_cache);
- 		}
--- 
-2.56.1
+diff --git a/drivers/nvmem/at24.c b/drivers/nvmem/at24.c
+index b9db13cc3e33..03cd83e5caff 100644
+--- a/drivers/nvmem/at24.c
++++ b/drivers/nvmem/at24.c
+@@ -482,6 +482,7 @@ static int at24_write(void *priv, unsigned int off, void *val, size_t count)
+ 	struct at24_data *at24;
+ 	struct device *dev;
+ 	char *buf = val;
++	char dummy;
+ 	int ret;
+ 
+ 	at24 = priv;
+@@ -514,11 +515,17 @@ static int at24_write(void *priv, unsigned int off, void *val, size_t count)
+ 		count -= ret;
+ 	}
+ 
++	/*
++	 * Wait for the last chunk's internal write cycle to finish before
++	 * dropping the runtime PM reference, which may switch off vcc.
++	 */
++	ret = at24_regmap_read(at24, &dummy, off - 1, 1);
++
+ 	mutex_unlock(&at24->lock);
+ 
+ 	pm_runtime_put(dev);
+ 
+-	return 0;
++	return ret < 0 ? ret : 0;
+ }
+ 
+ static int at24_make_dummy_client(struct at24_data *at24, unsigned int index,
+
+---
+base-commit: ebb7a8dc1e74c705daffe11c2faf38ec2628f838
+change-id: 20261126-at24-write-cycle-7cedfd00f9f2
+
+Best regards,
+--  
+Daniel Svendsen <das@emlogic.no>
+
 
