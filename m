@@ -1,88 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795710970;
-	b=OBEy4d4xkN7I0wPufr+yD1sBiOXHxfVvzxksbW54YZc958cllo/1L74dnxW+0AOqvuNr
-	 pveZVnGRwEFE5G1qJLOMHuYkaxuTNqKf+j4XmBEtW2yK6tRR8eFk9FLudLII0H3wSqbPE
-	 qFIjNp+RJpK+TBp3ehJS14m3qEr3fDRcehKT11aGH+BLjKmQsQ7PbxXD4g6Auu1gvFOu4
-	 KFJ92fCKaxoNnuE4TDuH3gDvRal1olJd7OqGwc8qH5y3BW0DNRuZ4yLEYISTKVB6VGxWQ
-	 y9IcPfym84Xlud6eb58GCHajdW+swpG85ugMkOsLGOBl++PwRwC7OARqVzJN0WJj+ow==
+	t=1795711062;
+	b=B1LM3FfYkF+PIWH38Xx1pfGrAQ2T6VTZKuXdSzr78HJxWpHKsbTEdqSnCrLp4nyv6YWC
+	 zRSR0scovoKx0SC7uHe/Mh8efDqj4bzSGNoJbRTHpiSkwAQYXA0eCj6B8CxsqNxMnAJ+M
+	 wKSyNekQflmVwJpMk2tUAxiBuyAFRFJ1TZgPF1Lhu+DBSZ61rSzyozvBTCkoW3wwiX89U
+	 Rb2v8tv6V6KvjHSdujxKeVav6ENTVdJDqOo4Ozrd1rjQMYwkijUSXC8fdZDXFx0liqwym
+	 Qqp6iCh5RYIvMgkOMIx044iVzLtR6SmBgEFBGcA2iN3IUTTsmK66c9KaCup9x57z33A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795710970;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
-	 Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=/V/q6vN01qyM55wT6FtlhrNcKv+AqGvLCJ3sSHicCRM=;
-	b=5SC51cwA4Bgft6CiyrFnNjVGayFvrlsra5Rmz5/9K0CmW6At9mVL/1pBG6+Ru5fQ75l/
-	 mfnyLaqjEAUuVvRYVuKk/lhM+3nG4qkR3R9Eam5T8h5Jjt9XZ8Sfan/Mh6yWDfXCF6+gt
-	 liHSWWE1f42vfLf7XfjQjqmI9zxuQzgNENEl0oxED8jVdX+Q6eMxaMJO5/8M4Rwtt5f2p
-	 4DQzhFbcuaVk4ZCgoXzecsn9xmuGQWYrdNa5+LMTuCy3uaZL9EwUqjh060yc2q63B2O9k
-	 GpK+Ed/oCHs7JyJ9RUrOCqwjFN+YZzKo+XFQ2jd7t3Q+Gz1l7yw/YKTVXPuNmyxku/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795711062;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=8DhOvwuNfeg4u/9qEKzmwxVmKvVadK/QDEIdLLEsjqU=;
+	b=m0cv46a2721eoeMFcrLhS4aP1/OkhSHAk0cgDG+3fJRuP6WOzMJ7exfhBAFVHeFgN9rx
+	 Q7/Nx0aJ8q8hzVNJ/cNEL+CINEN5fzt5iMa7XXDLbemIjPlq4oqiJ5NKZbOksDEfaKbNe
+	 c5D4dI0DXsmNFtQZoATg7zjAKLRW7MQk122rHz0doIr2VMn/+AvYWdkblw/E3klpF8rnN
+	 jBLONxLJBRlM9+hTumO5l8E8X3rhOfmz02f36cnO9u/wgM6g14K8V6bjLsOTXjvh8rKOx
+	 75KdwzaK4wavjJpVlM1fEvc1kodGGYYsm0jWW9WXoi+eZ0GuqX1d+gYuIiWMsAM1VDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=jTqSgiI5;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GLq2Q+Mj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92CB5606A688
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:36:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92CB5606A688
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44194606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:37:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=jTqSgiI5
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so72676645e9.2
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 08:36:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1795710969; x=1796315769; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/V/q6vN01qyM55wT6FtlhrNcKv+AqGvLCJ3sSHicCRM=;
-        b=jTqSgiI5rL1PLDfYRGEUYiTiZCRCnpYLJfz5etGQl5yGV1yeukXttQocy/Y8iDopJD
-         fnmG6PtwwHfkUC/yYi7r36XV4E2835Ezpm1K28MBGCjY0ckav4wfPHOagynYcaMizArD
-         jk4EOvN+ni6me6j8ENHTPC1NiPgg9LDYCEBEmlDtQXUq0QPm/FpmoXiJ23TPirhnMxPA
-         woiDK59qSLg3cmCYziQgrEgMzbvYhakiA1w7SRWTFVqrdsvExfPfKOFkSopd/NBsuTm9
-         1FhNgVOhPm56JD/yjhUPuBz6cAMLjRo/R8eL17Ga7OQ9tuKgyEwVas0vYv5PKaBCUbra
-         vM3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795710969; x=1796315769;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/V/q6vN01qyM55wT6FtlhrNcKv+AqGvLCJ3sSHicCRM=;
-        b=u8ZpTlxkvzttbg3dK0Mq4A11bqu39+Iu96EfzOS3PoNIZE18bjj27ynA3ZToPgVQpn
-         aDYDDejzQUAzJqIGIAGt1s92a0h3c615bcpxb4dZAlpdxksT9yhUdcOHFoudTLsN6/p4
-         UjwdHYlIGuO2aHnv3Ka20NoWw3MD5a/1HZPgtsD3UuN3BxMC7nVMkVmOZzu4ZUX9nOVt
-         +nBVrxeTRq+fc+cwwGxomascGRN7kK0tEGD4RGGpzqK1l8AK+uSoRpVJ4HRD3Rzzjza+
-         9PEtoJ9xF23ULbqGwDne+8BC6kdD/DpHdnJcw4HmTHqq5yG0s3OV4NFKAeyJ7IKwPP6b
-         Irug==
-X-Forwarded-Encrypted: i=1; AL+hErFPn5hYHqxRRwUpsA48onokXMW/Q6tPUaHdF5Pi286GjwaNrGi8+y8KiOA0lT8D4pn1f1J0+9s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Accze23upIaltSi7GxrnAd8UG4u76jokVFN83GNcHHOMZEMWN
-	J+dQzYf9X6UcA0DMGhf3gUYDcqxNJ3Bbm7F01FNKIVpsHhmH/uyhzFQ=
-X-Gm-Gg: AZFdTZe2fUp+QLtox63z75NeWbsbNx/UkIkVv6oG9P0pHOEa+RxjIOB5kQBPPRBB+Wz
-	tyzu8lA7RBV7CEziR926wpVcQeKGMJ9VdN+xw5NtGAsnWjl+goHhDx2jVreATIGduUlAP7cuVCz
-	xxtBAraGEsREyBwDF5sxZ/4ocXS+VcrHSWT5Gs+r8TCrkBzfkNMpdjwI/RWT0L7uT4Mf9GEhwnH
-	Y2HeZoZc8uBPLxpiXZtQFPbY8/fCKPA5TIaLWzL6/Z9bnPJNL91udCcIN/WRtBmKpAZJOUykrWT
-	wUjQUBYi7+uF51WAdT+HeQ/kZW12juGodP3ED037HJfG08NxG43t/lc9gpsOMC96oxBssy/rQxV
-	ZWAJjGAW0OEbSC2Ts75mDnyKCC9uaLPYfG8J+QVdht5mSSxReTzWd8wuUexN0KVhSlyjWIwS55w
-	XNkPw0pvBBDrTJqA3B9vXUhZMm40JKkXY3DrNGmE3upo30U5F7eNN//CtBcyZnxCg08RMqbE0SF
-	GIBK5vBXv4Ezc07kTZJSQyfJHjnYwBqk64ZHwJ2zGnr86qytxIGPTc/zIpO8a2GwQ7HZdlS2ZTo
-	7GW838CcrNVBBljbxopbW5tzLQxXGm8xgCek6ROvmv8KAPX8f0YHNWlPoo5PEab96Wolt+QrpYx
-	cz1tM
-X-Received: by 2002:a05:600c:64c7:b0:4bb:68b9:f610 with SMTP id 5b1f17b1804b1-4bb887ffee2mr416755365e9.9.1795710968740;
-        Thu, 26 Nov 2026 08:36:08 -0800 (PST)
-Received: from [192.168.1.3] (p5b2ac210.dip0.t-ipconnect.de. [91.42.194.16])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884c3063sm606032885e9.15.2026.11.26.08.36.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 08:36:08 -0800 (PST)
-Message-ID: <2b097c77-6ffb-4463-b154-661f3731c412@googlemail.com>
-Date: Thu, 26 Nov 2026 17:36:07 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GLq2Q+Mj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A23D1F000E0;
+	Thu, 26 Nov 2026 16:37:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795711062;
+	bh=8DhOvwuNfeg4u/9qEKzmwxVmKvVadK/QDEIdLLEsjqU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GLq2Q+MjLhGsPFtCwcNM3PWSlLP8SqqHwlp4V2+GUojZGWcqPay+ptEdQBztdTS5b
+	 zT61sn+g6WDyrYSGIiIAgK5qdhfv2sfgXUiGg5LwLETYUbNZHsOhP2th4BHUInDwVQ
+	 eGOptdO0r60ShHqgO4WHfoW+68m/j3FBo/obvDDCY0QZSayOta2OpJUhs7hGG1wX85
+	 bkiUvSRG4rABey5Kb+/GmZbtLuNBtusVg/w1/M04+pEtqxXA14p93bmjm52lvTG3/6
+	 cdjBD3hxY9ftPoHTBHkxfCPhfaeJ8sOBepHEglZTYXTgkKLEXBbSW2wGWMaQkuIbqh
+	 qc4BDFV+zCKBQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	stable <stable@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] w1: w1_therm: lock the list of slaves for the bulk read
+Date: Thu, 26 Nov 2026 11:37:39 -0500
+Message-ID: <20261126163733.2621575-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026112504-ember-cranial-3fdc@gregkh>
+References: <2026112504-ember-cranial-3fdc@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,44 +61,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.12 000/815] 6.12.120-rc2 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261126105709.009001842@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20261126105709.009001842@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Am 26.11.2026 um 11:58 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 6.12.120 release.
-> There are 815 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+From: Josef Bacik <josef@toxicpanda.com>
 
-Just like rc1, rc2 builds, boots and works fine on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or 
-regressions found.
+[ Upstream commit 1e46334d38e0217f5d255dc6fd63243593052f8e ]
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+The callbacks of the file therm_bulk_read walk the list of the slaves of
+the master, trigger_bulk_read() three times and therm_bulk_read_show()
+once, without the list_mutex which protects it.  In the meantime the
+thread of the master may find out that a sensor has gone:
 
+  write to therm_bulk_read              w1_process()
+  trigger_bulk_read()                     w1_slave_detach()
+    list_for_each_entry(sl, ...)            w1_unref_slave()
+      bulk_read_slave(sl)                     list_del()
+                                              w1_therm_remove_slave()
+                                                kfree(sl->family_data)
+                                              kfree(sl)
+      SLAVE_CONVERT_TRIGGERED(sl) = 1
 
-Beste Grüße,
-Peter Schneider
+The walk reads, and writes to, memory which has been freed, and follows
+the poisoned list pointers.
 
+Take list_mutex around each of the four walks.  No pointer to a slave is
+kept from one walk to the next.
+
+This could not be done as long as w1_unref_slave() held the mutex while
+it waited, in w1_therm_remove_slave(), for these very callbacks and for
+the readers of the sensor, who need the bus_mutex which
+trigger_bulk_read() holds around its second walk.  Now nothing is waited
+for with list_mutex held, and none of the other mutexes of the subsystem
+is taken under it, so it can be nested inside bus_mutex.
+
+Fixes: 57c76221d5af ("w1_therm: adding bulk read support to trigger multiple conversion on bus")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Link: https://patch.msgid.link/20261027-llm-char-misc-w1-v1-8-d2e6bfafb6a4@linuxfoundation.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/w1/slaves/w1_therm.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/w1/slaves/w1_therm.c b/drivers/w1/slaves/w1_therm.c
+index 361067390b714..58ba8a41dc7e8 100644
+--- a/drivers/w1/slaves/w1_therm.c
++++ b/drivers/w1/slaves/w1_therm.c
+@@ -1519,6 +1519,7 @@ static int trigger_bulk_read(struct w1_master *dev_master)
+ 	 * and compute duration of conversion for these devices
+ 	 * so we can apply a strong pullup if required
+ 	 */
++	mutex_lock(&dev_master->list_mutex);
+ 	list_for_each_entry(sl, &dev_master->slist, w1_slave_entry) {
+ 		if (bulk_read_slave(sl)) {
+ 			int t_cur = conversion_time(sl);
+@@ -1530,6 +1531,7 @@ static int trigger_bulk_read(struct w1_master *dev_master)
+ 					w1_strong_pullup));
+ 		}
+ 	}
++	mutex_unlock(&dev_master->list_mutex);
+ 
+ 	/*
+ 	 * t_conv is the max conversion time required on the bus
+@@ -1556,11 +1558,13 @@ static int trigger_bulk_read(struct w1_master *dev_master)
+ 			w1_write_8(dev_master, W1_CONVERT_TEMP);
+ 
+ 			/* set a flag to instruct that converT pending */
++			mutex_lock(&dev_master->list_mutex);
+ 			list_for_each_entry(sl,
+ 				&dev_master->slist, w1_slave_entry) {
+ 				if (bulk_read_slave(sl))
+ 					SLAVE_CONVERT_TRIGGERED(sl) = -1;
+ 			}
++			mutex_unlock(&dev_master->list_mutex);
+ 
+ 			if (strong_pullup) { /* some device need pullup */
+ 				sleep_rem = msleep_interruptible(t_conv);
+@@ -1586,10 +1590,12 @@ static int trigger_bulk_read(struct w1_master *dev_master)
+ 	mutex_unlock(&dev_master->bus_mutex);
+ set_flag:
+ 	/* set a flag to register convsersion is done */
++	mutex_lock(&dev_master->list_mutex);
+ 	list_for_each_entry(sl, &dev_master->slist, w1_slave_entry) {
+ 		if (bulk_read_slave(sl))
+ 			SLAVE_CONVERT_TRIGGERED(sl) = 1;
+ 	}
++	mutex_unlock(&dev_master->list_mutex);
+ error:
+ 	return ret;
+ }
+@@ -1954,6 +1960,7 @@ static ssize_t therm_bulk_read_show(struct device *device,
+ 	struct w1_slave *sl = NULL;
+ 	int ret = 0;
+ 
++	mutex_lock(&dev_master->list_mutex);
+ 	list_for_each_entry(sl, &dev_master->slist, w1_slave_entry) {
+ 		if (bulk_read_slave(sl)) {
+ 			if (SLAVE_CONVERT_TRIGGERED(sl) == -1) {
+@@ -1966,6 +1973,7 @@ static ssize_t therm_bulk_read_show(struct device *device,
+ 		}
+ 	}
+ show_result:
++	mutex_unlock(&dev_master->list_mutex);
+ 	return sprintf(buf, "%d\n", ret);
+ }
+ 
 -- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+2.53.0
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
