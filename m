@@ -1,55 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795659936;
-	b=Ouy+cj2qIAvFmIunqM6tzj4bIFJuALDaCjLHs3slm8iViUKrwC+yIABGhrJmHprPgVp+
-	 3cUfE8MJ67kqYJBHJHGZzwDLU4rcCCoZFpR2LmH0FlcrR2kTMQ32wM/rDBANvaFrhhAGo
-	 ao/uDipF41u3KSQr2mhEK08859h6b2mzUy5gSKlweMlTxq/7cMnKcq3YRny6okd/Nx0Nw
-	 0C+u+XkT0oRjbeZxNpCPFoyP2nC5Rv9XLKrHQv/73zbZ01DZAhI/3hXVnrn/OgAxQRDq5
-	 +Vfo0cKRFsm2kjBGIN+JT2PvMWFcLgwlVt4PWsB//0vDPElefcm7hjk/I29yXFY5fJw==
+	t=1795660938;
+	b=mha6HJ/YjwOXBE7rPnIqodFixRIkVt8KLo8Rb3jw3nXEelkn/3coQ7CQdHnoFN0azzrA
+	 BsKLyjgO2rM67BlgMeA+uu1Ll41IfsJ/RbsPUGU0uu3YD0TWGS+yqTKo90zHeZBc1nwZO
+	 EkF5UxDDDpHETzCF6OmDlbsQMSFlvrHV0viv4s8B5+b4gL9Od0wziBSHYIdaoElLyDYnl
+	 QYNpLSgAz2hbAP+bor2kQZA/AaVzF3JUvso5vY6dThJhDE4IJYm4njggHUjR1YHww0VBl
+	 /CaYcjKWq9hzWhetZ/Nnc0baeZTI15Spg6f44oG5KxtPwNFtZyh0KRd4ZK0roOoXxqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795659936;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=GiUQh0PNr5ezelcSTAGGwPQACBhUwA84niAJHi53K3E=;
-	b=j3njb/gYL9HY64959gv3+oqKVktWOzDpUPhriwp6DJRuHD5qKYDqGSF1ZS1L2be8aLZq
-	 6KcKx8N3YrKHuXH1uLZoiH6zhOaHPxxA3nk6v77WAXK6MKdNOtT55BB5BJBSlXi0N/z4Z
-	 3+D3V1BGMJB9VZHq6vzpJ+bZ/jAbAWzbN4ztKJYqWpDuZppf+hXZFhiL1VEGAcm/j6WAx
-	 1rolkCPLaDcEgNRsGreWWVe3EtvQrRPpOU/6GKDEFOcBIQ/rol1KfDzzMmbN6/UTaKA9r
-	 Nqeu0FazkKwsXm87MrbuW7DTIEzFBgO5jq8Pw0k06eWx/B1uOWANBhzqx8/RbOSbw8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795660938;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:In-Reply-To:References:Date:Message-ID:User-Agent:
+	 MIME-Version:Content-Type;
+	bh=6Wy5oFRN2V0Kiq6yTdbpLe5sq9EA0nzBLoJ1V+78Tzk=;
+	b=E5fX+aZGsd1KPu4no8103+UxMn7/lk/Gnj7jKBA9BBMHGJoYOktKojErELGIAJtMbtLy
+	 y21sVdxacjNt+hT1H8GDEGu35U3vIgtoWUnPtL5f4sWB3zPhY98VE2yeEEp+tuVRCnJ3p
+	 82tZ9rn5iI6Qpgqt0lV1tE5LKC6eWWQhX9VMalYRafMwOAVfMeSjBGEbvyF0hRPmqmTxF
+	 D97cOg8aYKlEvXF5nYbRQj64xBpPT7ny+SfPJ87OAA2sKB8zKlcyApvcHikIO79VogfUi
+	 N22PAM8Ckwm+iHGPTszDip45BFA4RhN7v8EjfZjdTXSdJszW6Kd+rb28Bmk7Xrw9/0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LDwHPQ3u;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=ysZhgFT+;
+	arc=none smtp.remote-ip=115.124.30.99
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B898F606A323
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 02:25:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A608606A31E;
+	Thu, 26 Nov 2026 02:42:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A608606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LDwHPQ3u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8D351F000D3;
-	Thu, 26 Nov 2026 02:25:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795659936;
-	bh=GiUQh0PNr5ezelcSTAGGwPQACBhUwA84niAJHi53K3E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LDwHPQ3ucAcMbUcFYXHukNTZC7xF+pBsE5S4gsMZCjEsD08Mlu/RmqbwH0IztIN7R
-	 cY2XfBN6bLn0BgQJO4NRi7u0fqWYAbzRQC8pY/HnyPfR93t3g52MGhp7TnXB7m/PPi
-	 7QoVH+37CG4+DTHrmaaPAj9PGZjbYfUWG68ZKwDIyunc/Kd2VhCLHLurgP1NN62pA6
-	 kjBTjBHoMz5etvMLqRk2+2yeq6GJfZHlEa4MEJ5RboJszp5g7siUbo9PM07TlzDclk
-	 501KijLg2//YMVRWUbiAHC0pkkVS7cJNgxBkIgCHqYegfcqBTpaCSpBnXFAL+wNQFd
-	 f86mIMsLB8Zew==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Amir Goldstein <amir73il@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] ovl: do not read the flags of a put upper dentry in lookup
-Date: Wed, 25 Nov 2026 21:25:34 -0500
-Message-ID: <20261126022518.1800049-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112531-plod-groggily-1277@gregkh>
-References: <2026112531-plod-groggily-1277@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=ysZhgFT+
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1795660933; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=6Wy5oFRN2V0Kiq6yTdbpLe5sq9EA0nzBLoJ1V+78Tzk=;
+	b=ysZhgFT+NinjLaPnG/zjYSP1GbeW/XQuZlqKXNkXBTjBylETvmY3FkVWy/cN2IDIZ6c5uTL6KC4WdWKenk6PNCesdcIxS7M8GSOYdFqv0IGsxRlFQ+bVnOc5XL2co5bEvFwIFHj9hzVLnDVOt89jPGDvb/RbScdsiUAzFfVhSwg=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=ying.huang@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XFT.1oD_1795660931;
+Received: from DESKTOP-5N7EMDA(mailfrom:ying.huang@linux.alibaba.com fp:SMTPD_---0XFT.1oD_1795660931 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 26 Nov 2026 10:42:12 +0800
+From: "Huang, Ying" <ying.huang@linux.alibaba.com>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Yadong Qi <yadong.qi@linux.alibaba.com>,  will@kernel.org,
+  mark.rutland@arm.com,  linux-arm-kernel@lists.infradead.org,
+  linux-kernel@vger.kernel.org,  ryan.roberts@arm.com,  robh@kernel.org,
+  gregkh@linuxfoundation.org,  ptg-linux-kernel@linux.alibaba.com,
+  stable@vger.kernel.org
+Subject: Re: [PATCH] arm64: fixmap: fix missing break-before-make in
+ __set_fixmap()
+In-Reply-To: <awbvHVSX7sB8jzYA@arm.com> (Catalin Marinas's message of "Wed, 25
+	Nov 2026 14:22:21 +0000")
+References: <20261123093505.974-1-yadong.qi@linux.alibaba.com>
+	<awW3Dw743-rw_-cf@arm.com> <87mrqxto23.fsf@DESKTOP-5N7EMDA>
+	<awbvHVSX7sB8jzYA@arm.com>
+Date: Thu, 26 Nov 2026 10:42:11 +0800
+Message-ID: <87wlq0s48s.fsf@DESKTOP-5N7EMDA>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,60 +68,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=ascii
 
-From: Amir Goldstein <amir73il@gmail.com>
+Catalin Marinas <catalin.marinas@arm.com> writes:
 
-[ Upstream commit 7031366be218f291592a7ad38bc34a7cd1459737 ]
+> On Wed, Nov 25, 2026 at 02:36:36PM +0800, Huang, Ying wrote:
+>> Catalin Marinas <catalin.marinas@arm.com> writes:
+>> 
+>> > On Mon, Nov 23, 2026 at 05:35:05PM +0800, Yadong Qi wrote:
+>> >> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
+>> >> index f66a0016dd02..5593d7e0d523 100644
+>> >> --- a/arch/arm64/mm/fixmap.c
+>> >> +++ b/arch/arm64/mm/fixmap.c
+>> >> @@ -126,12 +126,19 @@ void __set_fixmap(enum fixed_addresses idx,
+>> >>  
+>> >>  	ptep = fixmap_pte(addr);
+>> >>  
+>> >> -	if (pgprot_val(flags)) {
+>> >> -		__set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
+>> >> -	} else {
+>> >> +	/*
+>> >> +	 * Break-before-make: when the slot still holds a valid mapping
+>> >> +	 * (e.g. earlycon re-mapping FIX_EARLYCON_MEM_BASE), invalidate the
+>> >> +	 * old entry and flush the TLB entries caching it before a new
+>> >> +	 * mapping is installed, so old and new translations never coexist.
+>> >> +	 */
+>> >> +	if (pte_valid(__ptep_get(ptep))) {
+>> >>  		__pte_clear(&init_mm, addr, ptep);
+>> >> -		flush_tlb_kernel_range(addr, addr+PAGE_SIZE);
+>> >> +		flush_tlb_kernel_range(addr, addr + PAGE_SIZE);
+>> >>  	}
+>> >> +
+>> >> +	if (pgprot_val(flags))
+>> >> +		__set_pte(ptep, pfn_pte(phys >> PAGE_SHIFT, flags));
+>> >>  }
+>> >
+>> > I guess that's easier than getting the driver or earlycon code to do
+>> > clear_fixmap().
+>> 
+>> Yes.  And because set_fixmap() flushes the tlb on x86, IMHO, it's a
+>> little hard to justify the driver modification.
+>> 
+>> However, set_fixmap() only flushes the tlb on the local CPU instead of
+>> broadcasting the flush, because fixmap is either per-CPU or used during
+>> early boot.  In theory, we could follow that approach and perform a
+>> local flush instead though the benefit may be marginal.
+>
+> Local TLBI won't work on arm64 since the page tables are shared (any CPU
+> can speculatively load the TLB) and only FIX_VNCR has per-CPU entries.
 
-ovl_lookup_layers() passes ctx->upperdentry to ovl_get_inode(), which
-takes over the reference. If an overlay inode for the upper inode is
-already cached, as for a second hard link, ovl_get_inode() puts the
-dentry and returns the cached inode. ovl_lookup_layers() then passes
-the put dentry to ovl_dentry_init_reval(), which reads its d_flags.
+Got it.  IIUC, because we have the shared page table and the BBM
+restriction, even if we change the PTE for a per-CPU entry, we still
+need to use a global TLBI.
 
-With a local upper fs the put dentry usually stays in the dcache, but
-with a FUSE upper whose entry has timed out, dput() kills it, so this
-is a use-after-free.
-
-Fix this by taking the revalidate flags from the upper dentry of the
-overlay inode, which is the one that ovl_dentry_revalidate_common()
-revalidates.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-986db859-840c-479d-944c-b9c43b93377e
-Fixes: bccece1ead36 ("ovl: allow remote upper")
-Cc: stable@vger.kernel.org
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-[ sashal: adapted the hunk to the older ovl_lookup() structure and the older ovl_dentry_init_reval() signature, which takes no inode argument. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/overlayfs/namei.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
-index 9b09697754f75..479f5013a91e9 100644
---- a/fs/overlayfs/namei.c
-+++ b/fs/overlayfs/namei.c
-@@ -1100,9 +1100,16 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
- 			goto out_free_oe;
- 		if (upperdentry && !uppermetacopy)
- 			ovl_set_flag(OVL_UPPERDATA, inode);
--	}
- 
--	ovl_dentry_init_reval(dentry, upperdentry);
-+		/*
-+		 * ovl_get_inode() puts upperdentry if it finds a cached
-+		 * inode, e.g. for another hard link, so use the upper dentry
-+		 * of the inode.
-+		 */
-+		ovl_dentry_init_reval(dentry, ovl_i_dentry_upper(inode));
-+	} else {
-+		ovl_dentry_init_reval(dentry, NULL);
-+	}
- 
- 	revert_creds(old_cred);
- 	if (origin_path) {
--- 
-2.53.0
-
+Best Regards,
+Huang, Ying
