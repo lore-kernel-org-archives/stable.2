@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795714196;
-	b=L2qyhuPJ3iJIkR5OPM3Y5TOTVyd62WmTFSWKE7uaBQb6ztxM8ZUiqKZxzv4d7MzcJ8b/
-	 6S2l4p9fTVkNlOZKCer5zYyw6FNDQYl42AS7RsPMKufWJ65CLJW5ZwmL8qB7mW6dUrXIB
-	 BGoG+bYF/VRslRt+CUQXd2AtT8VlZX2CV3XJMCNNYJvtUDA4CdCN9xWhiPAn/hbAWYgRy
-	 wyaQ8/ewLQlD223gUUMofhvlpZK/EBKDtpYpnC4hR9sIBVlciuTqkr0SisMwR4ypVza2c
-	 67wI/EhkcT9x99GpE4Z2UXcrnLCgY9CQ5b+yZmXUuQYdzB7O8nqkh+WVrZbdgU08IzQ==
+	t=1795714197;
+	b=fuaAm8plA+Iy/to1evBycjSiolkaxUtyEKku540EUbIa9Dp5wurOZuw+SLuIuO4pjsnM
+	 921AlkZsLbnhLgZxRw/d3yQMuBaapLxwx3YsBdQC1b8ZGoAO8QhxhFQyh+s6++Zm0gH7j
+	 TowrQv3L1Q2LGJCWn/Rv4SxIHv/Nc5+AGliyarfyP7p1bwM9VkB6NOubyqR7VFzmOz9m5
+	 r2hUHhM7Nk7epuI1iRzUGGGLoK1jlIQCEtgoEmPF9MKdLTElDPKj+7Aw1WSaNBCpL+djE
+	 1uAe94MYQvSR4j5azTSt8Kg4XinDBHHWQLJXjJ8iMOMeWv/KGoBA04flTCLY0R8/0Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795714196;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795714197;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=YZPZBWVWOSEodS6UorajtVzSytMqlv6Bhq5+mczWxag=;
-	b=XUoqrvhVFsWhEMgXjfbBr1BaTh2bsdsEGL4icBKn37pjbbM/YIBRT5AsyaFimb8W3rzP
-	 fc70yHFLbL0QUsQ65EdBdPXcP7LZUc9zUdYA9/ILQlXoyfM/l7BGfLYLfbeL7LTCU0CSw
-	 Z4QlPqapjD03au5kzEC+sqdybzo/LwDxtuZ8b5gKgrXtHc4dmlajjhlJlDoXYX2Ywj7D7
-	 7XS2CyeGZj/0Zl4y4/4lkCczoSRNDEh14260dqLTBRJ9PvJ8GyLLeufIlShngozqv+4Zu
-	 v0dm7xaARWl9ls05Ca0e4Bm1/sxWkngug9NGemaQJ9ke16UyjuMLV49emlWGVc+AiEQ==
+	bh=GvqgKFTSbzQtmejz9dUoOXA6bWcX78F+r5g1vt+AAxI=;
+	b=R3/fo9Oih8NAKgFwfd5B2xhUEBNRfX1NuCnjyp0b5qyoFx4UD6rUw4+LHxmqfFi4VIgv
+	 eu93Ty+vjFewJVHCvw0zCHEzDce2KbyEPAGFEGs/Xs6gRMePzGHMWt1hmDEXxi/vcPuFX
+	 FtEAr8MMzppIqnL/ThN7D5t/W8JE3zwTo+cbwLRSA76+/woK+q3RbUwNdQlX4XS0rLEK6
+	 O/RrASJlLYTBsoLkQ7VAtX75bceSgzjZVxVcHjIVAvn9TkZP+II6zwP7ObRK9h46XIK+8
+	 k9JdmCWQWO1Omko19yBwzDkUWP/KWZ17Q8nvmsfVmVVtvBB5I5FPVf+7xt4wtFagrFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I2+PpSeE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=juAIEiX3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1BE606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 17:29:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39EE4606A31E
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 17:29:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I2+PpSeE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C44F91F000CA;
-	Thu, 26 Nov 2026 17:29:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=juAIEiX3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9804A1F000CF;
+	Thu, 26 Nov 2026 17:29:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795714196;
-	bh=YZPZBWVWOSEodS6UorajtVzSytMqlv6Bhq5+mczWxag=;
+	s=k20260515; t=1795714197;
+	bh=GvqgKFTSbzQtmejz9dUoOXA6bWcX78F+r5g1vt+AAxI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I2+PpSeEjUWcehp8m7+KfucJ1SuIkXvdif7pPKklY1C8GWF8WxMmdeFL6FzSLEE8M
-	 r/AaMX0KhXMP7SfV5QIjODV9G3K8BflmNkeMd2EfENucsOLPgZhCsfZK16oDOi31lg
-	 0YaPJcrDmPtD9aU8IHR79xQamzi/QJ0kt3sv9s6ATkPiTZQcJK30n5u5yBo+zDiiAA
-	 GUcES1DcrxkBLon6cIbfyofy5o+hj5oa5EucZ2+7QuY+PpHMkQioZXHIwx2mnP4zx5
-	 0ERgJwBCORl8LHPY6+Ro6KKrWnlGZQjspeAZTWQF3wENzvDZDZ2Wr6TKRNAH81VL/v
-	 6nZ/xeLGZv0pw==
+	b=juAIEiX34v4rFrEca29Z6SkLZxOISseFe56RDLh0a1RmYXnnY+ck9kwDljCW6T89j
+	 gg0Xap/fxNUMVFh+LFM4ZcLCTtehU5/BByChqE65qkKhX/rzz8CbP2pifLsm8FydId
+	 LLqh6hj4xu/R0m0fo7alUz3VapiNNmykdL/AKxZymVUjoipxIqL+X3Y9Wo6GKjBpf2
+	 pKr7Npj8JEKXtf0wXWzcOzulBUh71jk3tFSM+BdWDoXznslZKWuro1j+c236BxCBLB
+	 JDNqXOdg5L8iTYq653Mwd9l+FJG4AyF5NOPVQ/KEHqMAicIBvAW21r1W4cG4HWH8C5
+	 EUEB0BKqvyh9A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
 	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/6] iio: inv_sensors: convert to kernel types
-Date: Thu, 26 Nov 2026 12:29:50 -0500
-Message-ID: <20261126172925.2769957-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 4/6] iio: inv_sensors: better timestamp alignment when using watermark
+Date: Thu, 26 Nov 2026 12:29:51 -0500
+Message-ID: <20261126172925.2769957-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261126172925.2769957-1-sashal@kernel.org>
 References: <2026112539-smugly-stole-0816@gregkh>
@@ -65,233 +64,117 @@ Content-Transfer-Encoding: 8bit
 
 From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
 
-[ Upstream commit 1330597c7480611334977ff66878fd40b411fa41 ]
+[ Upstream commit 8f4b627656fa1767d8337a95849fe7c895b6f68a ]
 
-Convert standard types (u)intXX_t to kernel type u/sXX.
+Current interrupt timestamp alignment only changes the final timestamp.
+When the watermark is in use, we have a batch of samples for each
+interrupt. The current code doesn't manage to align the timestamp
+because the jitter is too high.
 
-Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Instead modify the estimated inter interrupt period and use that to
+adjust the timestamp alignment over the batch in a linear fashion.
+
 Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 Stable-dep-of: 3785dffc7c68 ("iio: inv_sensors: prevent timestamps going back in time in transitions")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../inv_sensors/inv_sensors_timestamp.c       | 48 +++++++++----------
- .../linux/iio/common/inv_sensors_timestamp.h  | 34 ++++++-------
- 2 files changed, 41 insertions(+), 41 deletions(-)
+ .../inv_sensors/inv_sensors_timestamp.c       | 51 +++++++------------
+ 1 file changed, 19 insertions(+), 32 deletions(-)
 
 diff --git a/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c b/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
-index 883cb08806be8..2fdb4cea8a54f 100644
+index 2fdb4cea8a54f..88ad439ac14c6 100644
 --- a/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
 +++ b/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
-@@ -19,9 +19,9 @@
- 	(((_val) * (1000 + (_jitter))) / 1000)
+@@ -10,9 +10,7 @@
  
- /* Add a new value inside an accumulator and update the estimate value */
--static void inv_update_acc(struct inv_sensors_timestamp_acc *acc, uint32_t val)
-+static void inv_update_acc(struct inv_sensors_timestamp_acc *acc, u32 val)
- {
--	uint64_t sum = 0;
-+	u64 sum = 0;
- 	size_t i;
+ #include <linux/iio/common/inv_sensors_timestamp.h>
  
- 	acc->values[acc->idx++] = val;
-@@ -58,9 +58,9 @@ void inv_sensors_timestamp_init(struct inv_sensors_timestamp *ts,
- EXPORT_SYMBOL_NS_GPL(inv_sensors_timestamp_init, IIO_INV_SENSORS_TIMESTAMP);
+-/* compute jitter, min and max following jitter in per mille */
+-#define INV_SENSORS_TIMESTAMP_JITTER(_val, _jitter)		\
+-	(div_s64((_val) * (_jitter), 1000))
++/* compute min and max following jitter in per mille */
+ #define INV_SENSORS_TIMESTAMP_MIN(_val, _jitter)		\
+ 	(((_val) * (1000 - (_jitter))) / 1000)
+ #define INV_SENSORS_TIMESTAMP_MAX(_val, _jitter)		\
+@@ -102,34 +100,22 @@ static bool inv_update_chip_period(struct inv_sensors_timestamp *ts,
+ 	/* update chip internal period estimation */
+ 	new_chip_period = period / ts->mult;
+ 	inv_update_acc(&ts->chip_period, new_chip_period);
+-	ts->period = ts->mult * ts->chip_period.val;
  
- int inv_sensors_timestamp_update_odr(struct inv_sensors_timestamp *ts,
--				     uint32_t period, bool fifo)
-+				     u32 period, bool fifo)
- {
--	uint32_t mult;
-+	u32 mult;
- 
- 	/* when FIFO is on, prevent odr change if one is already pending */
- 	if (fifo && ts->new_mult != 0)
-@@ -78,9 +78,9 @@ int inv_sensors_timestamp_update_odr(struct inv_sensors_timestamp *ts,
- }
- EXPORT_SYMBOL_NS_GPL(inv_sensors_timestamp_update_odr, IIO_INV_SENSORS_TIMESTAMP);
- 
--static bool inv_validate_period(struct inv_sensors_timestamp *ts, uint32_t period)
-+static bool inv_validate_period(struct inv_sensors_timestamp *ts, u32 period)
- {
--	uint32_t period_min, period_max;
-+	u32 period_min, period_max;
- 
- 	/* check that period is acceptable */
- 	period_min = ts->min_period * ts->mult;
-@@ -92,9 +92,9 @@ static bool inv_validate_period(struct inv_sensors_timestamp *ts, uint32_t perio
+ 	return true;
  }
  
- static bool inv_update_chip_period(struct inv_sensors_timestamp *ts,
--				   uint32_t period)
-+				   u32 period)
+-static void inv_align_timestamp_it(struct inv_sensors_timestamp *ts)
++static u32 inv_align_timestamp_it(struct inv_sensors_timestamp *ts,
++				  unsigned int sample_nb)
  {
--	uint32_t new_chip_period;
-+	u32 new_chip_period;
+ 	const s64 period_min = (s64)ts->min_period * ts->mult;
+ 	const s64 period_max = (s64)ts->max_period * ts->mult;
+-	s64 add_max, sub_max;
+-	s64 delta, jitter;
+-	s64 adjust;
+-
+-	/* delta time between last sample and last interrupt */
+-	delta = ts->it.lo - ts->timestamp;
+-
+-	/* adjust timestamp while respecting jitter */
+-	add_max = period_max - (s64)ts->period;
+-	sub_max = period_min - (s64)ts->period;
+-	jitter = INV_SENSORS_TIMESTAMP_JITTER((s64)ts->period, ts->chip.jitter);
+-	if (delta > jitter)
+-		adjust = add_max;
+-	else if (delta < -jitter)
+-		adjust = sub_max;
+-	else
+-		adjust = 0;
++	s64 new_period;
++
++	/* compute new period aligning last timestamp with interrupt timestamp */
++	new_period = div_s64(ts->it.up - ts->timestamp, sample_nb);
  
- 	if (!inv_validate_period(ts, period))
- 		return false;
-@@ -109,19 +109,19 @@ static bool inv_update_chip_period(struct inv_sensors_timestamp *ts,
- 
- static void inv_align_timestamp_it(struct inv_sensors_timestamp *ts)
- {
--	const int64_t period_min = (int64_t)ts->min_period * ts->mult;
--	const int64_t period_max = (int64_t)ts->max_period * ts->mult;
--	int64_t add_max, sub_max;
--	int64_t delta, jitter;
--	int64_t adjust;
-+	const s64 period_min = (s64)ts->min_period * ts->mult;
-+	const s64 period_max = (s64)ts->max_period * ts->mult;
-+	s64 add_max, sub_max;
-+	s64 delta, jitter;
-+	s64 adjust;
- 
- 	/* delta time between last sample and last interrupt */
- 	delta = ts->it.lo - ts->timestamp;
- 
- 	/* adjust timestamp while respecting jitter */
--	add_max = period_max - (int64_t)ts->period;
--	sub_max = period_min - (int64_t)ts->period;
--	jitter = INV_SENSORS_TIMESTAMP_JITTER((int64_t)ts->period, ts->chip.jitter);
-+	add_max = period_max - (s64)ts->period;
-+	sub_max = period_min - (s64)ts->period;
-+	jitter = INV_SENSORS_TIMESTAMP_JITTER((s64)ts->period, ts->chip.jitter);
- 	if (delta > jitter)
- 		adjust = add_max;
- 	else if (delta < -jitter)
-@@ -133,11 +133,11 @@ static void inv_align_timestamp_it(struct inv_sensors_timestamp *ts)
+-	ts->timestamp += adjust;
++	/* ensure that period never overflows the jitter */
++	return clamp(new_period, period_min, period_max);
  }
  
  void inv_sensors_timestamp_interrupt(struct inv_sensors_timestamp *ts,
--				     size_t sample_nb, int64_t timestamp)
-+				     size_t sample_nb, s64 timestamp)
- {
- 	struct inv_sensors_timestamp_interval *it;
--	int64_t delta, interval;
--	uint32_t period;
-+	s64 delta, interval;
-+	u32 period;
- 	bool valid = false;
- 
+@@ -143,6 +129,13 @@ void inv_sensors_timestamp_interrupt(struct inv_sensors_timestamp *ts,
  	if (sample_nb == 0)
-@@ -157,7 +157,7 @@ void inv_sensors_timestamp_interrupt(struct inv_sensors_timestamp *ts,
- 	/* no previous data, compute theoretical value from interrupt */
- 	if (ts->timestamp == 0) {
- 		/* elapsed time: sensor period * sensor samples number */
--		interval = (int64_t)ts->period * (int64_t)sample_nb;
-+		interval = (s64)ts->period * (s64)sample_nb;
- 		ts->timestamp = it->up - interval;
  		return;
+ 
++	/* no previous data, compute theoretical value from interrupt */
++	if (ts->timestamp == 0) {
++		/* elapsed time: sensor period * sensor samples number */
++		interval = (s64)ts->period * (s64)sample_nb;
++		ts->timestamp = timestamp - interval;
++	}
++
+ 	/* update interrupt timestamp and compute chip and sensor periods */
+ 	it = &ts->it;
+ 	it->lo = it->up;
+@@ -154,17 +147,11 @@ void inv_sensors_timestamp_interrupt(struct inv_sensors_timestamp *ts,
+ 		valid = inv_update_chip_period(ts, period);
  	}
-@@ -169,11 +169,11 @@ void inv_sensors_timestamp_interrupt(struct inv_sensors_timestamp *ts,
+ 
+-	/* no previous data, compute theoretical value from interrupt */
+-	if (ts->timestamp == 0) {
+-		/* elapsed time: sensor period * sensor samples number */
+-		interval = (s64)ts->period * (s64)sample_nb;
+-		ts->timestamp = it->up - interval;
+-		return;
+-	}
+-
+ 	/* if interrupt interval is valid, sync with interrupt timestamp */
+ 	if (valid)
+-		inv_align_timestamp_it(ts);
++		ts->period = inv_align_timestamp_it(ts, sample_nb);
++	else
++		ts->period = ts->mult * ts->chip_period.val;
+ }
  EXPORT_SYMBOL_NS_GPL(inv_sensors_timestamp_interrupt, IIO_INV_SENSORS_TIMESTAMP);
  
- void inv_sensors_timestamp_apply_odr(struct inv_sensors_timestamp *ts,
--				     uint32_t fifo_period, size_t fifo_nb,
-+				     u32 fifo_period, size_t fifo_nb,
- 				     unsigned int fifo_no)
- {
--	int64_t interval;
--	uint32_t fifo_mult;
-+	s64 interval;
-+	u32 fifo_mult;
- 
- 	if (ts->new_mult == 0)
- 		return;
-@@ -194,7 +194,7 @@ void inv_sensors_timestamp_apply_odr(struct inv_sensors_timestamp *ts,
- 		fifo_mult = fifo_period / ts->chip.clock_period;
- 		fifo_period = fifo_mult * ts->chip_period.val;
- 		/* computes time interval between interrupt and this sample */
--		interval = (int64_t)(fifo_nb - fifo_no) * (int64_t)fifo_period;
-+		interval = (s64)(fifo_nb - fifo_no) * (s64)fifo_period;
- 		ts->timestamp = ts->it.up - interval;
- 	}
- }
-diff --git a/include/linux/iio/common/inv_sensors_timestamp.h b/include/linux/iio/common/inv_sensors_timestamp.h
-index 8d506f1e9df29..e4e720e6f4b72 100644
---- a/include/linux/iio/common/inv_sensors_timestamp.h
-+++ b/include/linux/iio/common/inv_sensors_timestamp.h
-@@ -13,9 +13,9 @@
-  * @init_period:	chip initial period at reset in ns
-  */
- struct inv_sensors_timestamp_chip {
--	uint32_t clock_period;
--	uint32_t jitter;
--	uint32_t init_period;
-+	u32 clock_period;
-+	u32 jitter;
-+	u32 init_period;
- };
- 
- /**
-@@ -24,8 +24,8 @@ struct inv_sensors_timestamp_chip {
-  * @up:	interval upper bound
-  */
- struct inv_sensors_timestamp_interval {
--	int64_t lo;
--	int64_t up;
-+	s64 lo;
-+	s64 up;
- };
- 
- /**
-@@ -35,9 +35,9 @@ struct inv_sensors_timestamp_interval {
-  * @values:	table of all measured values, use for computing the mean
-  */
- struct inv_sensors_timestamp_acc {
--	uint32_t val;
-+	u32 val;
- 	size_t idx;
--	uint32_t values[32];
-+	u32 values[32];
- };
- 
- /**
-@@ -54,13 +54,13 @@ struct inv_sensors_timestamp_acc {
-  */
- struct inv_sensors_timestamp {
- 	struct inv_sensors_timestamp_chip chip;
--	uint32_t min_period;
--	uint32_t max_period;
-+	u32 min_period;
-+	u32 max_period;
- 	struct inv_sensors_timestamp_interval it;
--	int64_t timestamp;
--	uint32_t mult;
--	uint32_t new_mult;
--	uint32_t period;
-+	s64 timestamp;
-+	u32 mult;
-+	u32 new_mult;
-+	u32 period;
- 	struct inv_sensors_timestamp_acc chip_period;
- };
- 
-@@ -68,19 +68,19 @@ void inv_sensors_timestamp_init(struct inv_sensors_timestamp *ts,
- 				const struct inv_sensors_timestamp_chip *chip);
- 
- int inv_sensors_timestamp_update_odr(struct inv_sensors_timestamp *ts,
--				     uint32_t period, bool fifo);
-+				     u32 period, bool fifo);
- 
- void inv_sensors_timestamp_interrupt(struct inv_sensors_timestamp *ts,
--				     size_t sample_nb, int64_t timestamp);
-+				     size_t sample_nb, s64 timestamp);
- 
--static inline int64_t inv_sensors_timestamp_pop(struct inv_sensors_timestamp *ts)
-+static inline s64 inv_sensors_timestamp_pop(struct inv_sensors_timestamp *ts)
- {
- 	ts->timestamp += ts->period;
- 	return ts->timestamp;
- }
- 
- void inv_sensors_timestamp_apply_odr(struct inv_sensors_timestamp *ts,
--				     uint32_t fifo_period, size_t fifo_nb,
-+				     u32 fifo_period, size_t fifo_nb,
- 				     unsigned int fifo_no);
- 
- static inline void inv_sensors_timestamp_reset(struct inv_sensors_timestamp *ts)
 -- 
 2.53.0
 
