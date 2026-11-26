@@ -1,56 +1,77 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795713631;
-	b=oM98JTR7PTSOzVciZ3N4t0q82UiqULm6Y8wHxjRxXV2TDNzB4p/0OXfZ27Tpy4ojQKNG
-	 OzZeP1vlcgB58vt6aNWogoVyw55xQDAaXTokynCFk+YVg9zaQaTUtAE+VSNcnd4Y4ZRZF
-	 lB9uRTMSxM4gBCfJgohXhAYzgrl+6o6AbwHAm2oe/qmyIenexWCloabRGyiep5NRbWrsf
-	 bOaq3//50xD2MzUUc6NcDRE/+fzo4kiGduvD1lnokQ3uMTO9SNy1eGdbd93oaOwySfjj9
-	 dmxJ1B9TmuBHhs7J+CwcLKWa6Ah/KyvC0q9O2/XqynsgNllFLSgrD6Iawm6B0uSe6gw==
+	t=1795713675;
+	b=c0/OCA4lDkMWydwfg1m0lC1E6gH6NCcdd11pJv9hO9Pwk+iSyCThP1Atbk1PuoxYVOBu
+	 kB47UQJWCkfXfsGBF+3ebK+ntHOjV8Zodr7Y4nTGRoflG0Xnf0ySailSDVsxdRkqoSJ+T
+	 as5KG6W3mQ0z9jPJWyYM3uGQRN/hZqFgb33NNovhjMidoIyW84K/YzEICOFxsjIXFJ3vB
+	 +I8MM+TjcFhWsGwtF2ZvvNQUob0LAmUnNITThueGqfHlVIdoBUqTAXSdmpamQ1ZwBh3uD
+	 pFhrs0X3N7F+CMW0f4Ycf9desAnX2gR9a0x/BRSsLNY0kUrHKDJ9EOIhMSWbsfaV1hA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795713631;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795713675;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=gWoI7Du3SAuaVNfkd4/4oEH0MNdvzidJgWyLcfCaWhg=;
-	b=I3uXbhpdeW9S9VOknM84w2qlmcZEwDWDXshZiDRtUSUEWeZQhYtjShuwV2Cpbi/mK6NU
-	 UAfbwj6FHu5oM7y2jUL1I4HcbaPhd8HSM4nEcl8Qysyw9gFurTmGsUpfbavMl/oNuWlYE
-	 XcdhXdNGDGc8mCah716tIhOGMYmQ1OCoEwfBnaOiGxSkhcTSH3Hwd6P9mKJOjyJF9je6G
-	 G6cdrIHpBXgEUyM9YYrSMDka5cbu1WRiOne6VwqhcZdbfbSg4SoX0/N1J6d2NmRngMPnX
-	 R8Mr8sn6JzP7zVzKIei0ERsVOLeH5b1hazyMXKcXi23RkXlRBbi7r/l0RqgHIHsPv9w==
+	bh=84lfspAujxWatUK6nKbRCWveeDZXMspVq2UyqNuKz60=;
+	b=Jj2u8YhIfFfeYHQ6Yw8YjSbB76IurCALneqYu7sm3uT0ss6sBGJNpdZhafuQcJOtAuOA
+	 T+PHMiiVGVdGgM+tdsAIST1LNLzGev2LJe779mISFxRXMsium+f8c2sHdbDFUGAfekbyv
+	 bmABzZ5+QE2pjCLAkrtAyZ+5PZ5HYV8lnAqoKVlU7qum7jeoIO6G/4sfiVmq7QNVQ89Zi
+	 GEzuCYpY6BfJXPGHSoyiP/N0qEG6IrlCWH7J8V9WkRHZUYR8VfMmWtP50Tv/X7LFJVq1M
+	 sot8ouzqlfWChq3UgK3GLzXv/vImqCZDNrqMamdul1FqVU5DDrxN/vuk7kqxUGtVN/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i4BBeC4+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RSb3dD0F;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A6A606A321
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 17:20:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04EFF606A31E;
+	Thu, 26 Nov 2026 17:21:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i4BBeC4+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A3E11F000C4;
-	Thu, 26 Nov 2026 17:20:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RSb3dD0F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04F6A1F000C4;
+	Thu, 26 Nov 2026 17:21:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795713631;
-	bh=gWoI7Du3SAuaVNfkd4/4oEH0MNdvzidJgWyLcfCaWhg=;
+	s=k20260515; t=1795713674;
+	bh=84lfspAujxWatUK6nKbRCWveeDZXMspVq2UyqNuKz60=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i4BBeC4+UhPAo9ouxBzlgBKODYBnHdGDocAzb5OpTFvk6nYDZCjMTgS1KWzmvevM1
-	 ddlfGibqoJXNsqv77sLRwb4NILbAhiVEZlUkel2ZbDCse90tkxZve0CimgEVBPdJD3
-	 lFLZPs8EYLbDaFkV0qEoZVBCwxnGNHB8J6u0vQq9oNbfGOPZmKF0a41Y/7I74fB8UU
-	 BxiQpYjmzbk3+edGBVnq3mURLY7K17vkDX/w2WoNcLhPbu3kG9VrL93c3J7wvr3kdg
-	 jXcQgSyHUBr2TG1Ui6Q7gUHgh78IQKeSgt6d5RLTodmZ4ofGIUrWZJklOUOR6K/HCI
-	 7xP4d7N6Ha3kA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 6/6] iio: inv_sensors: prevent timestamps going back in time in transitions
-Date: Thu, 26 Nov 2026 12:20:23 -0500
-Message-ID: <20261126171945.2727003-6-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126171945.2727003-1-sashal@kernel.org>
-References: <2026112538-supper-bakeshop-1212@gregkh>
- <20261126171945.2727003-1-sashal@kernel.org>
+	b=RSb3dD0FYkKYzmj+j0RNPHk6jGetS4tHhO4QV/aNGksxYSQ/gxNul5VsT7CxSj27a
+	 bbhDrvUnW8wVrwmjHsFTJT7M3owq2ohkLtfoaBv8rkiOwnQXL4nJgkmOEFynVbZGK1
+	 3/lSmoaFA5poNXLmPXMRIFR45di+UwQ7lZK9Yk8o8swkQ3+SEK+dQp0c+AGXg7/m7K
+	 Mgh8wobwFMzaPbwuQNBrYYu1fo87vb+WL3wVlkT/tT/nNd3KL6h+VYkmpaWOqkr4tZ
+	 yWI+r7K2DpSq/QUMvbnXKWr1AWYxqJBGxCryUwT8xUS4jKbw5pKmRb9atdvkxehWBE
+	 F9xkQmE++Kd7Q==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	"Mario Limonciello (AMD)" <superm1@kernel.org>,
+	Aurabindo Pillai <aurabindo.pillai@amd.com>,
+	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+	Gustavo Padovan <gustavo.padovan@collabora.com>,
+	Chris Wilson <chris@chris-wilson.co.uk>,
+	Luben Tuikov <ltuikov89@gmail.com>,
+	Shashank Sharma <shashank.sharma@amd.com>,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	Gary Guo <gary@garyguo.net>
+Cc: linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	amd-gfx@lists.freedesktop.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/3] dma-buf: dma-fence: Hot-fix timestamp misordering
+Date: Thu, 26 Nov 2026 18:20:45 +0100
+Message-ID: <20261126172046.2473303-3-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261126172046.2473303-2-phasta@kernel.org>
+References: <20261126172046.2473303-2-phasta@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,92 +83,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+fence timestamps can be written and read without any memory ordering
+since, presumably, forever. This can cause real bugs, other than false
+accounting, for parties whose algorithms depend on the timestamp.
 
-[ Upstream commit 3785dffc7c68751a8429ae6dd75804c14a5a7c7a ]
+Hot-fix the problem for now so that it can be backported until we found
+a suitable way forward for mainline.
 
-Ensure when computing first timestamp and when applying odr change,
-that the next timestamp will not be lower than the previous one.
-
-This way there is no risk to have a timestamp going back in time, meaning
-being lower than the previous one. It already can never happen without
-a transition because we are generating timestamps by adding the period
-to the last timestamp.
-
-Fixes: 0ecc363ccea7 ("iio: make invensense timestamp module generic")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 76250f2b743b ("dma-buf/fence: Avoid use of uninitialised timestamp")
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- .../common/inv_sensors/inv_sensors_timestamp.c   | 16 ++++++++++++----
- include/linux/iio/common/inv_sensors_timestamp.h |  3 ++-
- 2 files changed, 14 insertions(+), 5 deletions(-)
+ drivers/dma-buf/dma-fence.c | 9 +++++++++
+ include/linux/dma-fence.h   | 8 ++++++--
+ 2 files changed, 15 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c b/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
-index aacc56d1a2c77..4795a24171af0 100644
---- a/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
-+++ b/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
-@@ -133,10 +133,15 @@ void inv_sensors_timestamp_interrupt(struct inv_sensors_timestamp *ts,
- 		return;
+diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+index bd58688b81a7..8a842fc8168f 100644
+--- a/drivers/dma-buf/dma-fence.c
++++ b/drivers/dma-buf/dma-fence.c
+@@ -378,6 +378,15 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+ 	list_replace(&fence->cb_list, &cb_list);
  
- 	/* no previous data, compute theoretical value from interrupt */
--	if (ts->timestamp == 0) {
-+	if (!ts->init) {
- 		/* elapsed time: sensor period * sensor samples number */
- 		interval = (s64)ts->period * (s64)sample_nb;
--		ts->timestamp = timestamp - interval;
-+		delta = timestamp - interval;
-+		/* prevent next timestamp to be lower than the last one */
-+		if ((delta + ts->period) > ts->timestamp)
-+			ts->timestamp = delta;
-+		ts->init = true;
-+
- 	}
+ 	fence->timestamp = timestamp;
++	/*
++	 * TODO:
++	 * This is a temporary hotfix to prevent misordering until we
++	 * can completely remove the TIMESTAMP bit.
++	 *
++	 * The counterpart of this barrier are the test_bit_acquire()s in
++	 * dma_fence_timestamp().
++	 */
++	smp_mb__before_atomic();
+ 	set_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags);
  
- 	/* update delta timestamps and estimated period */
-@@ -179,7 +184,7 @@ void inv_sensors_timestamp_apply_odr(struct inv_sensors_timestamp *ts,
- 				     u32 fifo_period, size_t fifo_nb,
- 				     unsigned int fifo_no)
+ 	list_for_each_entry_safe(cur, tmp, &cb_list, node) {
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index 64330bf52561..6b16095e8521 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -715,10 +715,14 @@ static inline void dma_fence_set_error(struct dma_fence *fence,
+  */
+ static inline ktime_t dma_fence_timestamp(struct dma_fence *fence)
  {
--	s64 interval;
-+	s64 interval, timestamp;
- 	u32 fifo_mult;
+-	if (WARN_ON(!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)))
++	/*
++	 * The test_bit_acquire() calls order against the
++	 * smp_mb__before_atomic() in dma_fence_signal_timestamp_locked().
++	 */
++	if (WARN_ON(!test_bit_acquire(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)))
+ 		return ktime_get();
  
- 	if (ts->new_mult == 0)
-@@ -202,7 +207,10 @@ void inv_sensors_timestamp_apply_odr(struct inv_sensors_timestamp *ts,
- 		fifo_period = fifo_mult * ts->chip_period.val;
- 		/* computes time interval between interrupt and this sample */
- 		interval = (s64)(fifo_nb - fifo_no) * (s64)fifo_period;
--		ts->timestamp = ts->it.up - interval;
-+		timestamp = ts->it.up - interval;
-+		/* prevent next timestamp to be lower than current one */
-+		if ((timestamp + ts->period) > ts->timestamp)
-+			ts->timestamp = timestamp;
- 	}
- }
- EXPORT_SYMBOL_NS_GPL(inv_sensors_timestamp_apply_odr, IIO_INV_SENSORS_TIMESTAMP);
-diff --git a/include/linux/iio/common/inv_sensors_timestamp.h b/include/linux/iio/common/inv_sensors_timestamp.h
-index 4f08204ede3b4..91690778ae88b 100644
---- a/include/linux/iio/common/inv_sensors_timestamp.h
-+++ b/include/linux/iio/common/inv_sensors_timestamp.h
-@@ -66,6 +66,7 @@ struct inv_sensors_timestamp {
- 	u32 new_mult;
- 	u32 period;
- 	struct inv_sensors_timestamp_acc chip_period;
-+	bool init;
- };
+-	while (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags))
++	while (!test_bit_acquire(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags))
+ 		cpu_relax();
  
- void inv_sensors_timestamp_init(struct inv_sensors_timestamp *ts,
-@@ -94,7 +95,7 @@ static inline void inv_sensors_timestamp_reset(struct inv_sensors_timestamp *ts)
- 	ts->it = interval_init;
- 	ts->delta = interval_init;
- 	ts->delta_counter = 0;
--	ts->timestamp = 0;
-+	ts->init = false;
- }
- 
- #endif
+ 	return fence->timestamp;
 -- 
-2.53.0
+2.56.0
 
