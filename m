@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795668572;
-	b=TgRgvawmOqc+FR2fDR1VOIbkqVnhrq/zhGbgAoZQ3P5u+IP6mvcymYp1Jl/VJ3VT2jd/
-	 Gh8m0XSc8hboDP2wDrkKomGWnItCL24Q228QmXAS3i0m0ZgikqtI/e+GpvQnjYAIUe/38
-	 FBZlg7Wa5XMbpuCKHUjbmA0xzlq8txnLEmOdEx4XSFg5xIWETeYfFGuxeBF5hRTI6YviJ
-	 74I8yreY9uWfgTqGbgytW0NrBy3CN+u7SZ0BCb7I1QxXd45mXaxdINk56JMAkPNXJE4Ff
-	 xjzMiD+/GRulFJ4ldzMaRq4/Lt+J1am8wFvOXBnucR5TqITyREyEDtjc99GCmfWkNWw==
+	t=1795668602;
+	b=kocbiLPDpKUislk+t2MeND56dUilxT84lNug4/57/CljlI5L+N9QHBEpgGG/KU3bmuqT
+	 eurg/XbjfCSSjamvm1jjeeUQjp/7I6XOEbJOR1oP7qXEmcM1GKQN9z6vSnF4mlHpi/2ap
+	 YVQcftZga/mkq09U29lcq/f0IzbJpoQqCtC5AJUZGxUPWcS+jS6YBL56+FLUOJJka4XNo
+	 oyKGTa/x18vmubFlvlSDmfoaMQ4F3bEd4g0cnbEwa6wGchb1/0khDNbmXo/Lw+ak4Sp31
+	 +KhFF4oGzJt1qZ46g3ITUGRw9SwHAaeonJ8TE3epDnvTaCuXjr5xvqPyJQfuCtHyXQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795668572;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795668602;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BdauTFr6cQCWgerOT3g5u3DAiAP8M5FP+7qP8q+hzCc=;
-	b=o+mkpGSHbLyeaIjvy6OOf7Oa2Vhj8x/EfrEholrLwjUnIwRHKOrZwNrnGuD5bwgSv1et
-	 zHpCGn8xDALrXIfMCerxMl0XQAEwrZ1vsuG4YxTV9SBSY+gqTe6iSEtQc4W7B+2zDFLVP
-	 KibGUfuNJa9zvQesQ7dK7S8C/1C0Ug5RYh/5uqSni07pDsiaat5Qvb9DQ+KXMqaqA7owS
-	 3d8ljTYntOvybD3n8hUiIDhF5eO7u/Hn6tshdFoXSPFI8sN9XDLfVUWjgy4s+9tAf6mkX
-	 Ru0XJuqyt5qqvitvM265O31O96u3YibCQJj+gPW/FOfEkyBvQBDvTZPlhPNruzx2Zmg==
+	bh=1vVoJlNNeJacpyg+xHLEElhzmn3yXu4ReNrOE2b8W0g=;
+	b=rCee+xKtMx1etih8G3BqFWyuOpzECtc7hH3PWQce4EWRI7L7jXxtFVbGQUemG5tSe8LX
+	 mbXBB29zuISDewjUAOJMrQFNBhL+xET/QrugJy12hVTo2opCmliJJD49s20tWFNKgzE9Z
+	 eznLfjIFH9y2YXQ5gpkoT+J2QzZEmnTLDYv4Yi+J5u5xxSgtNCiu4NMLd/6tP00p58pDB
+	 rDvUzJxoDSH3ZF2x91WPogSchISPNHVwcE8mj/3eeVvkaEzA5DObEUmami/jiidMqttJR
+	 ALkQhVTdE7wAylSWdJCuyLGSN+9C4i8n7dECykfslTKinOLu6Einsa2BG0XsgUCUq0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ckhtb7NE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O63ohb42;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82652606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:49:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44322606A31C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 04:50:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ckhtb7NE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AF4B1F000CF;
-	Thu, 26 Nov 2026 04:49:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O63ohb42
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B7901F000C4;
+	Thu, 26 Nov 2026 04:50:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795668571;
-	bh=BdauTFr6cQCWgerOT3g5u3DAiAP8M5FP+7qP8q+hzCc=;
+	s=k20260515; t=1795668602;
+	bh=1vVoJlNNeJacpyg+xHLEElhzmn3yXu4ReNrOE2b8W0g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ckhtb7NEB6/OgTjNH3RbmkWx5ylzDWUhZHX5bRRNowbi+aDkz/t2YLpZmbYAWWFpN
-	 Xj29WbdJVvrI6DJhss7Bo3lAN1YkpIbVykZuSzBbkwiwF/UoKLdszbobFKXrp+qm5r
-	 qRMeiPClNnLBs5FYIGVHXlHKCa32Mq4yM3smlzg9SOyRmjdteqCC5TzjC8p+FAcohS
-	 fel4eJfm3ka1ICGn26hfq1dBX6vTYPHnFvh0LscWZJxd52hX3MSggF5KSoenCIEkMa
-	 jOFmlL2VxZoRA7kDNZ4UgXcPGjrKpK1RcDrCE3JD7FwzHf/Lq7Tu8eDQ0Wd/Mo5fD5
-	 dYYbRPGAALUBw==
+	b=O63ohb42EC3ARHqGyLE78CKqL0I+Ml9gZoeTjOaOPp5nBOc4UFoKtHf2WAYBQHcOg
+	 TJrnvG3VhT+IlqxKVDJqyhbsxfvsjtzgyP5lMz8PkLlDlWNypLQnNSGm2M3pzf8KSj
+	 zy78k/JBpAlQcE4T/p3RtR9npYMeSP7DatkmVNxeEezbz+A/R0kBPoNQv7VcipUjST
+	 sZroM5xsHD/vfwD55Y4tMTNEPVJoqUKvneUv+xozkp4xyngCJ1Jhq6LQcpIJ6qtULD
+	 KrRVrrZGZS5yzl+SBcOJjdFJui/fC9LSS+/DZitjUfG0vKf1Uxc6ITp5Hhqy8ZNeWK
+	 k6b1lYgCIv1gw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Paulo Alcantara <pc@manguebit.org>,
 	David Howells <dhowells@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] smb: client: don't fail writeback preparation if the task is dying
-Date: Wed, 25 Nov 2026 23:49:29 -0500
-Message-ID: <20261126044611.2007466-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] smb: client: don't fail writeback preparation if the task is dying
+Date: Wed, 25 Nov 2026 23:50:00 -0500
+Message-ID: <20261126044921.2024643-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026112554-overeater-dividend-3be2@gregkh>
-References: <2026112554-overeater-dividend-3be2@gregkh>
+In-Reply-To: <2026112554-backwater-proving-5a93@gregkh>
+References: <2026112554-backwater-proving-5a93@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,7 +89,7 @@ Fixes: 3ee1a1fc3981 ("cifs: Cut over to using netfslib")
 Reviewed-by: David Howells <dhowells@redhat.com>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Cc: stable@vger.kernel.org
-[ sashal: Replaced the missing FIND_NO_DIRECT two-step lookup with a single call using a new FIND_WR_NO_REOPEN flag, and dropped the TMPFILE find_flags mask that doesn't exist here. ]
+[ sashal: Adapted the no-reopen flag to the older FIND_WR_* macro scheme, made a single call in cifs_begin_writeback(), dropped the tmpfile hunk, and moved cifs_writeback_dying() above cifs_prepare_write(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  fs/smb/client/cifsglob.h |  1 +
@@ -97,19 +97,19 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 34 insertions(+), 10 deletions(-)
 
 diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
-index ea6533d057acf..93ea0b4b0f524 100644
+index 27bdb50751852..4508f9294001a 100644
 --- a/fs/smb/client/cifsglob.h
 +++ b/fs/smb/client/cifsglob.h
-@@ -1868,6 +1868,7 @@ enum cifs_writable_file_flags {
- 	FIND_WR_FSUID_ONLY		= (1U << 0),
- 	FIND_WR_WITH_DELETE		= (1U << 1),
- 	FIND_WR_NO_PENDING_DELETE	= (1U << 2),
-+	FIND_WR_NO_REOPEN		= (1U << 3),
- };
+@@ -1815,6 +1815,7 @@ static inline bool is_replayable_error(int error)
+ #define FIND_WR_ANY         0
+ #define FIND_WR_FSUID_ONLY  1
+ #define FIND_WR_WITH_DELETE 2
++#define FIND_WR_NO_REOPEN   4
  
  #define   MID_FREE 0
+ #define   MID_REQUEST_ALLOCATED 1
 diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
-index 652206fead33c..8da5c9ab13589 100644
+index 4a62787891292..7baf55b0e7ffe 100644
 --- a/fs/smb/client/file.c
 +++ b/fs/smb/client/file.c
 @@ -40,6 +40,12 @@
@@ -125,9 +125,9 @@ index 652206fead33c..8da5c9ab13589 100644
  /*
   * Prepare a subrequest to upload to the server.  We need to allocate credits
   * so that we know the maximum amount of data that we can include in it.
-@@ -68,12 +74,17 @@ static void cifs_prepare_write(struct netfs_io_subrequest *subreq)
- 		cifs_negotiate_wsize(server, cifs_sb->ctx,
- 				     tlink_tcon(req->cfile->tlink));
+@@ -63,12 +69,17 @@ static void cifs_prepare_write(struct netfs_io_subrequest *subreq)
+ 	server = cifs_pick_channel(tlink_tcon(open_file->tlink)->ses);
+ 	wdata->server = server;
  
 +	if (cifs_writeback_dying(subreq))
 +		goto defer;
@@ -143,7 +143,7 @@ index 652206fead33c..8da5c9ab13589 100644
  			subreq->error = rc;
  			return netfs_prepare_write_failed(subreq);
  		}
-@@ -82,10 +93,17 @@ static void cifs_prepare_write(struct netfs_io_subrequest *subreq)
+@@ -77,10 +88,17 @@ static void cifs_prepare_write(struct netfs_io_subrequest *subreq)
  	rc = server->ops->wait_mtu_credits(server, wsize, &stream->sreq_max_len,
  					   &wdata->credits);
  	if (rc < 0) {
@@ -161,7 +161,7 @@ index 652206fead33c..8da5c9ab13589 100644
  	wdata->credits.rreq_debug_id = subreq->rreq->debug_id;
  	wdata->credits.rreq_debug_index = subreq->debug_index;
  	wdata->credits.in_flight_check = 1;
-@@ -106,12 +124,6 @@ static void cifs_prepare_write(struct netfs_io_subrequest *subreq)
+@@ -97,12 +115,6 @@ static void cifs_prepare_write(struct netfs_io_subrequest *subreq)
  #endif
  }
  
@@ -174,7 +174,7 @@ index 652206fead33c..8da5c9ab13589 100644
  /*
   * Issue a subrequest to upload to the server.
   */
-@@ -153,10 +165,15 @@ static void __cifs_issue_write(struct netfs_io_subrequest *subreq)
+@@ -142,10 +154,15 @@ static void __cifs_issue_write(struct netfs_io_subrequest *subreq)
  
  static void cifs_issue_write_worker(struct work_struct *work)
  {
@@ -193,7 +193,7 @@ index 652206fead33c..8da5c9ab13589 100644
  }
  
  static void cifs_issue_write(struct netfs_io_subrequest *subreq)
-@@ -282,9 +299,11 @@ static void cifs_begin_writeback(struct netfs_io_request *wreq)
+@@ -267,9 +284,11 @@ static void cifs_begin_writeback(struct netfs_io_request *wreq)
  	struct cifs_io_request *req = container_of(wreq, struct cifs_io_request, rreq);
  	int ret;
  
@@ -206,7 +206,7 @@ index 652206fead33c..8da5c9ab13589 100644
  		return;
  	}
  
-@@ -2696,6 +2715,10 @@ cifs_get_writable_file(struct cifsInodeInfo *cifs_inode, int flags,
+@@ -2581,6 +2600,10 @@ cifs_get_writable_file(struct cifsInodeInfo *cifs_inode, int flags,
  	spin_unlock(&cifs_inode->open_file_lock);
  
  	if (inv_file) {
