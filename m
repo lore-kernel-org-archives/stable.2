@@ -1,78 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795684465;
-	b=NRnxHeGdI1WF5yi0cX+EpPS3/ObJDwnQYmGCCJaYHFDOxmyJkZm7A7smf/asDqLHV6OP
-	 gTiViN5sKjyYTf9CewEadPGdBujQsV4HpA27RQjhscT8JsIGB7Y1dvflpZrNOeomHcYFD
-	 NKA7shfyEmv/W9A1KKRhtCLRS1VZ13Pgb6hzbJPaVR2rmGriqisXiB2fNCB5WqzH/31kI
-	 eGDeHTvjnb2vy4exIy9s8lUYmJmTDJpGocRJd3DiwUCvTEpso6dljMV3ovSYjeU2oL3LZ
-	 EQ4bU/BZQ4jCywrttm5DrMEsAjp3+iaSLpnrw+mA/87Gbg0PUV01iRbShylrZmgFNIQ==
+	t=1795684585;
+	b=D3ZC1YHFcCy887JoaLh7E9UO3suyQRqxHunRTMr9OXSHo7pLrIjP1HAz35Mjx30Wfa0d
+	 0OFBqAP1jfIgNN/fFdFF2YPQgjkHYs1PnB65l9xJTmdaBueXxCZAfuO2AAPeZEBjAAA48
+	 X2oJRKCZuS4NshrbNlOiEbfFyccLc+R+bqFgwCPTy3g9a2QnDaNPddKqAMLS2DMYQRpV6
+	 AFAX4lKA6pDr9xtW2xL8yDyuTYA0A5mpzy/gjNE9i1M79OcWelZ0O3O4S8VGx2/cNfk1v
+	 3al7Jpb8PTM/B7hfH8UCJL0kUYpEiK9h+z3fd6GgzhU3UQDbHcB/6ZYmwFhCEmAgZ/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795684465;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=Uv90ZkLhbhexSdeTuLHraZLQFBYDHiLicEO9C0xVaHE=;
-	b=UuZUA19bJhNjhaB0HHt2d0YGIMAfoBcxy/eaMR0IAFotUTiJKgXsRdq029GwyU7GyWhD
-	 3nOEMNE55UtvIJ6YyZWNoluHpSfjr6QKvtMLy8QE+4MxG0MAqwgoi44KGlaVlG+qVqeGF
-	 MRNvaPirO0tlhxc5+E9xMKrs0A4KxqOjRHCxcTI2iO3/vEZ8b/KEN+MvVQRHRZiOUIJ9/
-	 kZUNMB1jp7D53IkLqCtte5+u1DPbd+u3v9zqYDvCLEAb5CoM4vljhnVpQPadUaLx75oBv
-	 Ult8abrJIaSeAFqrrgToGt6eHCn2U0tfmlyK2B/OitY0DotlK97FMrsleE6BbId5flQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795684585;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=FomIFRqNcDYe4Uif/pDykgM4WPczRC7lkjTQd1DRayU=;
+	b=HhxfUfKwzbtKjdWVaH7926zJyZKq4aG3UaLI6uI708gORFxxf/LZklWzOLZuRPc9aPny
+	 jyEH7TywtfP5vSV+JiD+BJTIP8MP/diOP1/jTf3wQIdnL7wMduYy6ye7Q85LVRVmZKaM4
+	 Zsm37bafRMwUrWQEiGyT0ufpbWRcVY8T1KEuCWEjYF5QUwVsBDbaMspsnAzTkOpNMFZTL
+	 qr/zPOa6H7Noap1OnUIu3lQ6ORvmaW9wjCEKBwyZO9FrRjDVdPd5ze8ZrrF79/91VWQyu
+	 K2MhM2O0NEmx/VmrCp7QEz+MxDbN/Di0BEh8xs/Cp7nHMk2aBp9+s9otsty1WuSJiWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="WhQ/0Pd7";
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JmniaB5V;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD0E606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 09:14:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CD0E606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4826D606A31C;
+	Thu, 26 Nov 2026 09:16:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WhQ/0Pd7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795684463;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Uv90ZkLhbhexSdeTuLHraZLQFBYDHiLicEO9C0xVaHE=;
-	b=WhQ/0Pd7NMJbvfRLgo+X5hRfPY6fvgTGc7WEydMn9d411GsTl34vbDZBU5eEFDjeFBaygM
-	hMOrZQzYZGV75WUOGVBvsYBQcogWlNZ+reIFZrlC+AHj7t+CLxCm693iLylU4yWlUuxmwr
-	XmkGJ3mVhEOFV8h9KmolSRtFQL73fN0=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-126-SRTgTkmRNCiECG4PoQZlmA-1; Thu,
- 26 Nov 2026 09:14:19 +0000
-X-MC-Unique: SRTgTkmRNCiECG4PoQZlmA-1
-X-Mimecast-MFC-AGG-ID: SRTgTkmRNCiECG4PoQZlmA_1795684457
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CBF831800549;
-	Thu, 26 Nov 2026 09:14:16 +0000 (UTC)
-Received: from jbenc-thinkpadp1gen4i.rmtcz.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 80C843000229;
-	Thu, 26 Nov 2026 09:14:12 +0000 (UTC)
-Date: Thu, 26 Nov 2026 10:14:10 +0100
-From: Jiri Benc <jbenc@redhat.com>
-To: Lin Jiapeng <ljp1205831794@gmail.com>
-Cc: aconole@redhat.com, echaudro@redhat.com, i.maximets@ovn.org,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- dev@openvswitch.org, Lin Jiapeng <jiapenglin@tencent.com>,
- stable@vger.kernel.org, TencentOS Corvus AI <corvus@tencent.com>
-Subject: Re: [PATCH net] openvswitch: reject negative L2 length in
- ovs_fragment()
-Message-ID: <20261126101410.4a310394@jbenc-thinkpadp1gen4i.rmtcz.csb>
-In-Reply-To: <20261126083218.55429-1-ljp1205831794@gmail.com>
-References: <20261126083218.55429-1-ljp1205831794@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JmniaB5V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 639B41F000C4;
+	Thu, 26 Nov 2026 09:16:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795684585;
+	bh=FomIFRqNcDYe4Uif/pDykgM4WPczRC7lkjTQd1DRayU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JmniaB5V7A0mveMIagrKxgCcQ8uJ0ii87tekcvPqPkPhYBIH5BH3XgkekYNep/4LI
+	 BLxXyp1WNtGnta7c7Av13In9YwMH0XQHyStVt/FLEehaBuWzd2y1lVgLpxqq3oq47N
+	 FhCwPcMSwUtC6M+4nLJdHkLPFKuH/N6l/QXalKshvAODAqA3Iuz/fSUjSqhzQ+WLuu
+	 uy8Iy8CV1Y41DTWm42KXwyWqfVn/y7E17Mb5pBFlpVzKf+SPR156CYD1uJTeH+sNQ9
+	 22VN0nwHrVL2ZcVsSlVfOS1lnbpoqav8Jdah77zZZPtyBrpfvhp0upGJoNPNcZ6VxL
+	 JCvFYNE9QAO/Q==
+Date: Thu, 26 Nov 2026 09:16:19 +0000
+From: Lee Jones <lee@kernel.org>
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	linux-remoteproc@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 05/10] remoteproc: imx_rproc: Avoid stale mailbox
+ pointers on request failure
+Message-ID: <20261126091619.GD38590@joneslee-macbookpro.roam.internal>
+References: <20261123172140.3547896-6-lee@kernel.org>
+ <20261124032344.5314-1-peng.fan@oss.nxp.com>
+ <awZ-XC1efo5QQvNI@bombadil>
+ <awZ_HjrhS3Uiyssd@bombadil>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,35 +68,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <awZ_HjrhS3Uiyssd@bombadil>
 
-On Thu, 26 Nov 2026 16:31:41 +0800, Lin Jiapeng wrote:
-> From: Lin Jiapeng <jiapenglin@tencent.com>
+On Wed, 25 Nov 2026, Richard Leitner wrote:
+
+> On Wed, Nov 25, 2026 at 07:23:37AM +0100, Richard Leitner wrote:
+> > Hi Lee, Hi Peng,
+> > 
+> > On Tue, Nov 24, 2026 at 11:23:41AM +0800, Peng Fan (OSS) wrote:
+> > > Hi Lee,
+> > > On Mon, 23 Nov 2026 17:20:49 +0000 Lee Jones <lee@kernel.org> wrote:
+> > > 
+> > > > imx_rproc_xtr_mbox_init() stores the result of
+> > > > mbox_request_channel_byname() directly into priv->tx_ch and priv->rx_ch.
+> > > > Because mailbox channels are freed on stop() and detach() and
+> > > > re-requested on start(), attach(), and system shutdown, a failure while
+> > > > requesting "tx" leaves an ERR_PTR in priv->tx_ch, which is later
+> > > > dereferenced by imx_rproc_kick() and imx_rproc_free_mbox().  If "rx"
+> > > > fails after "tx" succeeds, priv->tx_ch is freed without being cleared
+> > > > while priv->rx_ch retains an ERR_PTR, causing subsequent calls to see
+> > > > both pointers as non-NULL and skip initialisation, leading to a
+> > > > use-after-free on priv->tx_ch and an ERR_PTR dereference on priv->rx_ch.
+> > > > 
+> > > > Request both channels into local variables and assign priv->tx_ch and
+> > > > priv->rx_ch only after both requests succeed.
+> > > 
+> > > I think Richard Leitner <richard.leitner@linux.dev> is working on this.
+> > > 
+> > > https://lore.kernel.org/linux-remoteproc/CANLsYkx=M_TXN10qAcQC0be065TYnzfOae6E8ss-9DTj9MzogA@mail.gmail.com/T/#ma2f8e4c332d47e5bdd1787f82f4dd2feeafc67d6
+> > 
+> > AFAICT my series fixes a similar, but other problem. Mine is about the
+> > free'ing order and a possible race when a kick occurs during
+> > cleanup/close. This one is targeted towards the setup/initialisation.
+> > Therefore IMHO this is a valid, fix for a different problem than mine.
+> > 
+> > What's your opinion on this Lee?
 > 
-> ovs_fragment() refragments MPLS packets from their inner network header
-> and saves the L2 header in a MAX_L2_LEN-byte buffer before fragmenting.
+> Sorry, was too quick with answering and messed up things, as this fixes the
+> sashiko finding, not the "my" initial bug. So for me it's fine if we keep
+> this one, as I have not sended mine yet. ;-)
 > 
-> POP_MPLS can leave inner_network_header behind skb->data. The signed
-> offset is then negative and passes the "> MAX_L2_LEN" check, so
-> prepare_frag() widens it to 0xfffffffc for memcpy() into l2_data. An
-> unprivileged user can trigger this on both IPv4 and IPv6 paths. KASAN
-> reports:
->      BUG: KASAN: slab-out-of-bounds in prepare_frag+0x3c2/0x4c0
->      Read of size 4294967292 at addr ff110001059cf044 by task
->      ovs_frag_trigge/132
->      __asan_memcpy+0x23/0x60
->      prepare_frag+0x3c2/0x4c0
->      ovs_fragment+0x578/0x860
+> Therefore please feel free to add:
 > 
-> Reject a negative offset together with an oversized one and drop the
-> packet through OVS_DROP_FRAG_L2_TOO_LONG. Valid offsets are unchanged.
+> Reviewed-by: Richard Leitner <richard.leitner@linux.dev>
 
-This was supposed to be fixed by
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=78a86d75a70e1e227711c72865c59b1422d0a5ae
+Thank you Richard.
 
-What kernel did you reproduce this on?
-
- Jiri
-
+-- 
+Lee Jones
