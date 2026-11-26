@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795710015;
-	b=Y2d9lnRUkDyWR39znUZJ2299w8jbDcr0uw4ItVgW0CHk0V7msb6iqKaEJX02616xhRqq
-	 POVO5VNRNbdEVQSFf9yTOB1sADBs6hjM1M7JWN6MAuYvOb7V2i/yikvh9PYgWFYCo5tJy
-	 Mfo7GI1k6dJacX/tEjogSX9i74ymPG9W48152+QH9Da+S9y6dNxOv+BcTWn6d3C5/93d1
-	 NdnqHXHhUY6y2ThK2vuk8hJ4GsXqp0HDy/KApOvYTYYBpx7nExX+CJrGDPGx/C1+qp6I4
-	 hKL4YnXqi7tTGzTZsIItZP2jUyX3TRZhtUjcVpPbv/WbnrHw14HAR7Kjmi5o175xVqg==
+	t=1795710086;
+	b=uNQjWy8UB4oYHRqBG6858h1jwXhTUeP8e95odPHkKK6//nZkWvxrcl5GNFLT4S5TDvqt
+	 amZexqqX5IN1rHC4xXuMIU38HmSLrXrTR7MyAv4VSMVZSfJ21chOtmE4jcXxZYL6itfyx
+	 fZDWwaUUeHP5Z8TEQs5Mp56RJ1+vJpePWG7gqZxVe6sUsThW1bk3ihtJyRoekBFjV40Fw
+	 yZX2xCBarl8cUFmG+YghNgP1kF741MuDBhXDBq7TNsDCFnd4mdK1FLXLZB1RBaUywPbNG
+	 EyhaM6NME/FyMqI0bVGAmTHt6lsNNJCT/WVUVSE3QakEOROaxOm3VjVKb8lFq5KCTpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795710015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795710086;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=DPS0IRol0g/KBVg5nEmZ0cm43PyuuP5D5nAkm/MQ0+0=;
-	b=mjbdWOsw05/5h6kIxJQ/d1WCy0S32hPkvgCHVZbMtldQlxB6fJZxWOdDJV7XSWl1ihO3
-	 uSP3vnrKQfOE8IgxKBXXNsinsfS4hLFBqx2+7j4upGsiVk3XWXYeSb73LDmCRN5mC3SMs
-	 tMLZSGuLInYAOZjbSIdhmAleU2u1sXUj3Oz5yE7nkoHmVOsuzDQDQ35weLr56eUJ/BbFU
-	 mwV/pgNchRFS2Dz261uRflZcO+ufdHX/2d4d528b5Skw7nHiXpvjxBj/ddA0zgQfX8IQZ
-	 BoCvXivkfJAMYuYpkxmurLorO6NxxbZikpbCmXIE0i7g6/YxYacLpjudyT3ePmK9LSQ==
+	bh=IK9cYHpK2pusQF+HEfIqkWs53MaC4PH6Nrl0yNDg0Qw=;
+	b=Blu9zJest9t5yhG7iaw3eH3ds8LI0pSaqRfrlLEZMPSzDIkFa8tM2qXFow9cc5dx2vep
+	 sMcnmPN37O+INhMKEHLjH+DkaL57muiut13tyYnYJMWHxlaouOvg5PNflDDLrDUODNHjj
+	 0X+9Ki9Kg71VHl4SZekoQE023nw1eY+NpuPBLbgXykw9N9MLCHlVyhQDjL2oCi+xM7x+b
+	 LNyuBl9ulNfJvXbAbL+u2MTZL5zxiSLYEYGQI/skIH2tFezzYLi+MaqpaGo/HbzQxim1n
+	 tBOsroxdm+E9nd7FWbas1OdQabVct8UYgnhqhy6Ei8qEDThgzgXnyXFODAGCiIdpnXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c+0B8jY6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hhnTH8AT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80EC3606A321
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:20:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EC20606A326
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 16:21:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c+0B8jY6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 166CE1F000CA;
-	Thu, 26 Nov 2026 16:20:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hhnTH8AT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 624941F000C0;
+	Thu, 26 Nov 2026 16:21:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795710014;
-	bh=DPS0IRol0g/KBVg5nEmZ0cm43PyuuP5D5nAkm/MQ0+0=;
+	s=k20260515; t=1795710086;
+	bh=IK9cYHpK2pusQF+HEfIqkWs53MaC4PH6Nrl0yNDg0Qw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c+0B8jY63KgCeSf4aKG1zuQ2pLEEedlvuV9dlZZePQV9VOmxbqnQKRbH6NmAe9us3
-	 56bkSBJGR/l/WS6UXuveTbbpLj9qBUHNoXLOBKchjzke4MWH6vb/VvwXqUS24+eCZV
-	 4IMGAXcr7MgH+w701nAkG0dzAlLIPwMemlaoS20OGb/xnP3Gted+tNhgW5/Cb3vPKj
-	 o0gSnp3a7O/kqBqTOHJem1tV1qyh/UeLaaUWffmjOJT1kAMeJS/KzuJJrQNZKY1abo
-	 YT8A7kIf1qwgnA0awff6N8cmRD2RLw/CykZ40+EhO0VFX9hoVEqGIAHR5PXvszN16f
-	 waxGMpvW8vSZQ==
+	b=hhnTH8ATurRfSoBZtfk/LjIhZyeN7wvxj37xOJJeOsWGBJ3PGqnbsg2LT14Bk6wXo
+	 WJlWc05s+fuMW5tk77FQV86oOc1F1uy1FB0kekH6slHi3Ypt2eeoAATpr8uqolH0Qc
+	 LhiFavDv68V7CMK5Q34f5RtBTV3KQCILYXxEForZeIs2KhmSzMCtHf7p32X50olomf
+	 qyOEArQQo1T00RY/8501FipS2VcAOHN11kFms/SmDO0kCwBF0v9u1tCEBbholiI5/c
+	 OY6BcDehpgxR4r9mRA4Px21j3nNg/hIbTY9//uNs1u5Oql7yy/qvXdUDxcCWmYg4Ig
+	 5L/QTkNN2By/Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+Cc: Josef Bacik <josef@toxicpanda.com>,
 	stable <stable@kernel.org>,
-	Selvarasu Ganesan <selvarasu.g@samsung.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/4] usb: dwc3: gadget: Issue no-op Start Transfer only for stream endpoints
-Date: Thu, 26 Nov 2026 11:20:09 -0500
-Message-ID: <20261126161938.2487645-4-sashal@kernel.org>
+Subject: [PATCH 6.18.y] w1: w1_therm: lock the list of slaves for the bulk read
+Date: Thu, 26 Nov 2026 11:21:24 -0500
+Message-ID: <20261126162115.2574779-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126161938.2487645-1-sashal@kernel.org>
-References: <2026112536-chili-unchanged-4493@gregkh>
- <20261126161938.2487645-1-sashal@kernel.org>
+In-Reply-To: <2026112503-barrel-retying-eaa2@gregkh>
+References: <2026112503-barrel-retying-eaa2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,148 +63,111 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit e616d91e02881983e5dadf6980c4aa08123800b3 ]
+[ Upstream commit 1e46334d38e0217f5d255dc6fd63243593052f8e ]
 
-The function driver may re-enable an endpoint before the End Transfer
-command issued on ep disable completes. The no-op Start Transfer issued
-on ep enable then fails with "No Resource".
+The callbacks of the file therm_bulk_read walk the list of the slaves of
+the master, trigger_bulk_read() three times and therm_bulk_read_show()
+once, without the list_mutex which protects it.  In the meantime the
+thread of the master may find out that a sensor has gone:
 
-Only stream endpoints need the no-op Start Transfer to initiate a
-stream. Other bulk and interrupt endpoints start their transfer when a
-request is queued. Skip it for those endpoints, and move it to a helper
-to be reused.
+  write to therm_bulk_read              w1_process()
+  trigger_bulk_read()                     w1_slave_detach()
+    list_for_each_entry(sl, ...)            w1_unref_slave()
+      bulk_read_slave(sl)                     list_del()
+                                              w1_therm_remove_slave()
+                                                kfree(sl->family_data)
+                                              kfree(sl)
+      SLAVE_CONVERT_TRIGGERED(sl) = 1
 
-Fixes: a97ea994605e ("usb: dwc3: gadget: offset Start Transfer latency for bulk EPs")
+The walk reads, and writes to, memory which has been freed, and follows
+the poisoned list pointers.
+
+Take list_mutex around each of the four walks.  No pointer to a slave is
+kept from one walk to the next.
+
+This could not be done as long as w1_unref_slave() held the mutex while
+it waited, in w1_therm_remove_slave(), for these very callbacks and for
+the readers of the sensor, who need the bus_mutex which
+trigger_bulk_read() holds around its second walk.  Now nothing is waited
+for with list_mutex held, and none of the other mutexes of the subsystem
+is taken under it, so it can be nested inside bus_mutex.
+
+Fixes: 57c76221d5af ("w1_therm: adding bulk read support to trigger multiple conversion on bus")
 Cc: stable <stable@kernel.org>
-Reported-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
-Closes: https://lore.kernel.org/linux-usb/20260227121236.963-1-selvarasu.g@samsung.com/
-Signed-off-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Link: https://patch.msgid.link/227e97e30d26a017c92d7008a8633c01f955d088.1792542945.git.Thinh.Nguyen@synopsys.com
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Link: https://patch.msgid.link/20261027-llm-char-misc-w1-v1-8-d2e6bfafb6a4@linuxfoundation.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/dwc3/gadget.c | 97 ++++++++++++++++++++-------------------
- 1 file changed, 50 insertions(+), 47 deletions(-)
+ drivers/w1/slaves/w1_therm.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
-index 7bb843ec9592a..0b2ae9743f627 100644
---- a/drivers/usb/dwc3/gadget.c
-+++ b/drivers/usb/dwc3/gadget.c
-@@ -853,6 +853,54 @@ static int dwc3_gadget_resize_tx_fifos(struct dwc3_ep *dep)
- 	return 0;
+diff --git a/drivers/w1/slaves/w1_therm.c b/drivers/w1/slaves/w1_therm.c
+index 8e0e6f122b08c..f06f87bf976da 100644
+--- a/drivers/w1/slaves/w1_therm.c
++++ b/drivers/w1/slaves/w1_therm.c
+@@ -1509,6 +1509,7 @@ static int trigger_bulk_read(struct w1_master *dev_master)
+ 	 * and compute duration of conversion for these devices
+ 	 * so we can apply a strong pullup if required
+ 	 */
++	mutex_lock(&dev_master->list_mutex);
+ 	list_for_each_entry(sl, &dev_master->slist, w1_slave_entry) {
+ 		if (bulk_read_slave(sl)) {
+ 			int t_cur = conversion_time(sl);
+@@ -1520,6 +1521,7 @@ static int trigger_bulk_read(struct w1_master *dev_master)
+ 					w1_strong_pullup));
+ 		}
+ 	}
++	mutex_unlock(&dev_master->list_mutex);
+ 
+ 	/*
+ 	 * t_conv is the max conversion time required on the bus
+@@ -1546,11 +1548,13 @@ static int trigger_bulk_read(struct w1_master *dev_master)
+ 			w1_write_8(dev_master, W1_CONVERT_TEMP);
+ 
+ 			/* set a flag to instruct that converT pending */
++			mutex_lock(&dev_master->list_mutex);
+ 			list_for_each_entry(sl,
+ 				&dev_master->slist, w1_slave_entry) {
+ 				if (bulk_read_slave(sl))
+ 					SLAVE_CONVERT_TRIGGERED(sl) = -1;
+ 			}
++			mutex_unlock(&dev_master->list_mutex);
+ 
+ 			if (strong_pullup) { /* some device need pullup */
+ 				sleep_rem = msleep_interruptible(t_conv);
+@@ -1576,10 +1580,12 @@ static int trigger_bulk_read(struct w1_master *dev_master)
+ 	mutex_unlock(&dev_master->bus_mutex);
+ set_flag:
+ 	/* set a flag to register convsersion is done */
++	mutex_lock(&dev_master->list_mutex);
+ 	list_for_each_entry(sl, &dev_master->slist, w1_slave_entry) {
+ 		if (bulk_read_slave(sl))
+ 			SLAVE_CONVERT_TRIGGERED(sl) = 1;
+ 	}
++	mutex_unlock(&dev_master->list_mutex);
+ error:
+ 	return ret;
+ }
+@@ -1944,6 +1950,7 @@ static ssize_t therm_bulk_read_show(struct device *device,
+ 	struct w1_slave *sl = NULL;
+ 	int ret = 0;
+ 
++	mutex_lock(&dev_master->list_mutex);
+ 	list_for_each_entry(sl, &dev_master->slist, w1_slave_entry) {
+ 		if (bulk_read_slave(sl)) {
+ 			if (SLAVE_CONVERT_TRIGGERED(sl) == -1) {
+@@ -1956,6 +1963,7 @@ static ssize_t therm_bulk_read_show(struct device *device,
+ 		}
+ 	}
+ show_result:
++	mutex_unlock(&dev_master->list_mutex);
+ 	return sprintf(buf, "%d\n", ret);
  }
  
-+static int dwc3_gadget_ep_start_noop_transfer(struct dwc3_ep *dep)
-+{
-+	struct dwc3_gadget_ep_cmd_params params;
-+	struct dwc3		*dwc = dep->dwc;
-+	struct dwc3_trb		*trb;
-+	dma_addr_t		trb_dma;
-+	u32			cmd;
-+	int			ret;
-+
-+	memset(&params, 0, sizeof(params));
-+	trb = &dep->trb_pool[0];
-+	trb_dma = dwc3_trb_dma_offset(dep, trb);
-+
-+	params.param0 = upper_32_bits(trb_dma);
-+	params.param1 = lower_32_bits(trb_dma);
-+
-+	cmd = DWC3_DEPCMD_STARTTRANSFER;
-+
-+	ret = dwc3_send_gadget_ep_cmd(dep, cmd, &params);
-+	if (ret < 0)
-+		return ret;
-+
-+	/*
-+	 * For streams, at start, there maybe a race where the host primes the
-+	 * endpoint before the function driver queues a request to initiate a
-+	 * stream. In that case, the controller will not see the prime to
-+	 * generate the ERDY and start stream. To workaround this, issue a
-+	 * no-op TRB as normal, but end it immediately. As a result, when the
-+	 * function driver queues the request, the next START_TRANSFER command
-+	 * will cause the controller to generate an ERDY to initiate the
-+	 * stream.
-+	 */
-+	dwc3_stop_active_transfer(dep, false, true);
-+
-+	/*
-+	 * All stream eps will reinitiate stream on NoStream rejection.
-+	 *
-+	 * However, if the controller is capable of TXF_FLUSH_BYPASS, then IN
-+	 * direction endpoints will automatically restart the stream without
-+	 * the driver initiation.
-+	 */
-+	if (!dep->direction ||
-+	    !(dwc->hwparams.hwparams9 & DWC3_GHWPARAMS9_DEV_TXF_FLUSH_BYPASS))
-+		dep->flags |= DWC3_EP_FORCE_RESTART_STREAM;
-+
-+	return 0;
-+}
-+
- /**
-  * __dwc3_gadget_ep_enable - initializes a hw endpoint
-  * @dep: endpoint to be initialized
-@@ -918,55 +966,10 @@ static int __dwc3_gadget_ep_enable(struct dwc3_ep *dep, unsigned int action)
- 	 * Issue StartTransfer here with no-op TRB so we can always rely on No
- 	 * Response Update Transfer command.
- 	 */
--	if (usb_endpoint_xfer_bulk(desc) ||
--			usb_endpoint_xfer_int(desc)) {
--		struct dwc3_gadget_ep_cmd_params params;
--		struct dwc3_trb	*trb;
--		dma_addr_t trb_dma;
--		u32 cmd;
--
--		memset(&params, 0, sizeof(params));
--		trb = &dep->trb_pool[0];
--		trb_dma = dwc3_trb_dma_offset(dep, trb);
--
--		params.param0 = upper_32_bits(trb_dma);
--		params.param1 = lower_32_bits(trb_dma);
--
--		cmd = DWC3_DEPCMD_STARTTRANSFER;
--
--		ret = dwc3_send_gadget_ep_cmd(dep, cmd, &params);
-+	if (dep->stream_capable) {
-+		ret = dwc3_gadget_ep_start_noop_transfer(dep);
- 		if (ret < 0)
- 			return ret;
--
--		if (dep->stream_capable) {
--			/*
--			 * For streams, at start, there maybe a race where the
--			 * host primes the endpoint before the function driver
--			 * queues a request to initiate a stream. In that case,
--			 * the controller will not see the prime to generate the
--			 * ERDY and start stream. To workaround this, issue a
--			 * no-op TRB as normal, but end it immediately. As a
--			 * result, when the function driver queues the request,
--			 * the next START_TRANSFER command will cause the
--			 * controller to generate an ERDY to initiate the
--			 * stream.
--			 */
--			dwc3_stop_active_transfer(dep, false, true);
--
--			/*
--			 * All stream eps will reinitiate stream on NoStream
--			 * rejection.
--			 *
--			 * However, if the controller is capable of
--			 * TXF_FLUSH_BYPASS, then IN direction endpoints will
--			 * automatically restart the stream without the driver
--			 * initiation.
--			 */
--			if (!dep->direction ||
--			    !(dwc->hwparams.hwparams9 &
--			      DWC3_GHWPARAMS9_DEV_TXF_FLUSH_BYPASS))
--				dep->flags |= DWC3_EP_FORCE_RESTART_STREAM;
--		}
- 	}
- 
- out:
 -- 
 2.53.0
 
