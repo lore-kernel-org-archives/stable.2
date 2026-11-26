@@ -1,59 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795680221;
-	b=CLuDE/QrfjfdRWJexnr3JV1ne1hO2SIvJusX47IamOY40vWPxg8A+lTn0u98jy5iOMAo
-	 figh/fzDf0VIiJ/h/y2Cyspp7/aQ/lFe2divb6Ls8Mw9mTb1yl5/4OJxPnNTt6996cDF4
-	 F21MDGmCjQmc2fg+IqImvh+AxMEwGk+51XZvjUhBzKF2Nnwtd8sTN37g3wIjYojsCMuAd
-	 zPAKDcN7FPrU3iYIe89STpdu3SS3jERrB4NeA2ioHtF9jSL2v0iIfpuJ5PU57tVsVo7DF
-	 dzihV+hqpLK0Xgy6W0KD+UBDoTrNet0JFeaQ5EOUBm8Abc9Vx36c5lxHw6JRYGFcepQ==
+	t=1795680541;
+	b=QOfh444F0a9Wtz0jkWQhSqIYNzfLsiLazhRpddBeVFNhE/a0t6ynQJAuNx1U199l8Jbq
+	 FeI1R8rQ0WrtA9G3VX7om/C32tG6Hiyd1sqQ0MRdFEkEma3enmznB10uh+n1nrkxNVGHx
+	 DlULiN0pDh+VrsMxCOqmsYShE/Lx3SiD618a3Md0nbMVVzNuRP1ShbFRFZ5zCQB0/71vL
+	 e6qctmziSCraAAH1In8IAwN3GBizMQYuyD+yfTb2hRaoysum86sS5D7pa5aMObdFT72uB
+	 W0xl6ZZ50R4Eat8cBn4f8ggV0alQTc8Rqs1mFke+/P+tHVI4d5QFOXfIVuiR0RJmHVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795680221;
-	h=DMARC-Filter:Received:From:To:Cc:References:In-Reply-To:Subject:Date:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:Thread-Index:Content-Language:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=vygooTiSjYbQO8/tsqc0vjgWPN/b7cF63dCgZbTAnpc=;
-	b=KpufbiE0gnPN0wLWX2yxqs/TGUn285nbIrhfNY7PCl27+RLcUsc/jCCP8XOJ1I22Z0Yt
-	 6zePuAhkf2kaX3Lf8vt7EHhgcqQbVHsYrbS/g5iiKTnveSavXQ2rcelxiYXoVzUt47yRP
-	 MhWCm4ojBP2bNh+8ivJ2gSsgzPD6Ea3o1/fkLX7EnNOWLYnIK+O0w0/ihgBExzaLgxVOQ
-	 4FBdD3U3MYjWa+rHABW0b7HTLTwng52BoN3LgfFD3/h3VqH8muueqRDYJxTyo1pTnG9Cc
-	 xjVdEj5bnM2un7gwNSKBkgIqxL1yxSK8qcwzyc1hmbc+5d0ZxodKvGNvQ8Y0KwFyz3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795680541;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=yuE/zUNEYMaSqjPjlCfrNop+D72AkNLIjDev14YO6JM=;
+	b=uC6JIlLnNsGGUKneeyXMtfm3w6cSWjDRLupCWBA4Ym0mQd12ANA/nRjWPgni/J9bW7B9
+	 +JsRJO36JSC57NAlOstnPOHDcAsqEN6kN+pMQEwizvapyzvpRMY3+8/rY/KNnqxK3JwRo
+	 rgYVbxSMYaW8RAgP07HlwPxQJs7ewGKC+81YCnU1IXSMAP1vrBJQeDZwRJfBKuIkOPJO3
+	 1X7TQJ+5fyGP++gSBKxv7IA4LuosdYYRV4yoE03+paAJWDkMf74jCsDgOYYFw4mKgrFda
+	 mo+SswWc21fOwl4ykofcU3duKzsD1oTZL4lXorQPX3yJLWSBfWzRItLy66ND4YSWI8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=senarytech.com;
-	spf=pass smtp.mailfrom=senarytech.com;
-	dkim=pass header.d=senarytech.com header.i=@senarytech.com header.a=rsa-sha256 header.s=default header.b=H2o7HWEm;
-	arc=none smtp.remote-ip=103.209.128.113
-Received: from mail-m128113.netease.com (mail-m128113.netease.com [103.209.128.113])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=NyQ21NML;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A695F606A31C;
-	Thu, 26 Nov 2026 08:03:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A695F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=senarytech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=senarytech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6335E606A323;
+	Thu, 26 Nov 2026 08:08:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6335E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=senarytech.com header.i=@senarytech.com header.a=rsa-sha256 header.s=default header.b=H2o7HWEm
-Received: from Wangqianghua (unknown [27.38.157.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 56164301b;
-	Thu, 26 Nov 2026 16:03:29 +0800 (GMT+08:00)
-From: <qianghua.wang@senarytech.com>
-To: "'Yige Jiang'" <yigejiang86@gmail.com>,
-	"'Liam Girdwood'" <lgirdwood@gmail.com>,
-	"'Mark Brown'" <broonie@kernel.org>,
-	"'Jaroslav Kysela'" <perex@perex.cz>,
-	"'Takashi Iwai'" <tiwai@suse.com>,
-	"'bo liu'" <bo.liu@senarytech.com>
-Cc: "'Bard Liao'" <yung-chuan.liao@linux.intel.com>,
-	"'Pierre-Louis Bossart'" <pierre-louis.bossart@linux.dev>,
-	<linux-sound@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <rc-b1-20261110-vc-07a-7c635620fec1@gmail.com>
-In-Reply-To: <rc-b1-20261110-vc-07a-7c635620fec1@gmail.com>
-Subject: reply: [PATCH 1/2] ASoC: sdw_utils: Drop rt_sdca_jack codec device reference on exit
-Date: Thu, 26 Nov 2026 16:03:28 +0800
-Message-ID: <000301dd7d7c$9fcd1fe0$df675fa0$@senarytech.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=NyQ21NML
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=yu
+	E/zUNEYMaSqjPjlCfrNop+D72AkNLIjDev14YO6JM=; b=NyQ21NMLlAB+3XPcTP
+	Qc1BKlWtV8CgLHLOPhT3sUBps58FBZsaAIL4Ik1FcArD59pLWp5koh2xWbminZZ3
+	LNOKg8k/BfTHRy8n4sw3BgnjC0FZPEubNLYLAXe4uTd8azGaHXB3QxMvxm/mdmZm
+	gtJBOVx8PekHEyFlcili7PPTw=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgDXnmz_6Adrmd0YIQ--.26S2;
+	Thu, 26 Nov 2026 16:08:32 +0800 (CST)
+From: "Li Youhong" <dayou5941@163.com>
+To: song@kernel.org,
+	yukuai@fygo.io
+Cc: magiclinan@didiglobal.com,
+	xiao@kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Li Youhong <liyouhong@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v6 1/2] md: use work_busy() to flush sync_work in stop_sync_thread()
+Date: Thu, 26 Nov 2026 16:08:30 +0800
+Message-Id: <20261126080830.144525-1-dayou5941@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,105 +64,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: Ad19fJ6sRAfmq4G2QxSCaV7GDUoxxQ==
-Content-Language: zh-cn
-X-HM-Tid: 0aa216e18a4409d8kunm35a5610b95a460
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQxgYVktPSh5JSU8aTxgeHlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlJTFVIQ1VKTkxVSU9JWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lCQ0NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=H2o7HWEm/ziPQxKrJmoZlIPPnG+d+HdAZ2WxnZmKyz0op8jFQq5lZmZ9JgBMJrBdGJxIMiIzVKB/hhhi1gH3evxWDFWCQrkacfiW8jBPVcQYiZIUNJSxaIXOl2dvhPn4k6tNhkhBxS/awmManzLexBO4W/RwMSRLj9xd6pa3XKU=; c=relaxed/relaxed; s=default; d=senarytech.com; v=1;
-	bh=vygooTiSjYbQO8/tsqc0vjgWPN/b7cF63dCgZbTAnpc=;
-	h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgDXnmz_6Adrmd0YIQ--.26S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtFy5Ww47Gry5WryxJw18Zrb_yoWfZrXE9F
+	Z8Zry7Gr9rKw1rJF1ruwn7ZrWrtrnIg3WDWF1IyFW2kryjvr1IqFs5C39Ivwn3A397W3ya
+	9rWUCa4Ikws8ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbKL9UUUUUU==
+X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC+gAXxWsH6QDNEAAA3w
 
-Thanks for the catch.
+From: Li Youhong <liyouhong@kylinos.cn>
 
-asoc_sdw_rt_sdca_jack_init() always stores the bus_find_device_by_name()
-reference in ctx->headset_codec_dev, while
-rt_sdca_jack_add_codec_device_props()
-adds no software node when SOC_SDW_JACK_JDSRC() is zero. Returning early
-from asoc_sdw_rt_sdca_jack_exit() in that case therefore leaks the reference
-(and leaves a stale pointer) on card registration failure / EPROBE_DEFER
-/driver removal.
+stop_sync_thread() only flushes sync_work when work_pending() is true.
+Once the work is running, PENDING is cleared, so an in-flight
+md_start_sync() can be missed and teardown can race with it.
 
-Your change matches the intended cleanup: only call
-device_remove_software_node() when a jack-source software node was added,
-and always put_device() + clear the pointer, as asoc_sdw_rt711_exit() does
-for the
-device reference. Cc:stable looks appropriate for Fixes: 526a1876fc48.
+Use work_busy() instead, so both queued and executing sync_work are
+flushed.
 
-Reviewed-by: Qianghua Wang <qianghua.wang@senarytech.com>
-
------Original Message-----
-From: Yige Jiang <yigejiang86@gmail.com> 
-Sent: 11/26/2026 13:18
-To: Liam Girdwood <lgirdwood@gmail.com>; Mark Brown <broonie@kernel.org>;
-Jaroslav Kysela <perex@perex.cz>; Takashi Iwai <tiwai@suse.com>; bo liu
-<bo.liu@senarytech.com>; qianghua.wang <qianghua.wang@senarytech.com>
-Cc: Yige Jiang <yigejiang86@gmail.com>; Bard Liao
-<yung-chuan.liao@linux.intel.com>; Pierre-Louis Bossart
-<pierre-louis.bossart@linux.dev>; linux-sound@vger.kernel.org;
-linux-kernel@vger.kernel.org; stable@vger.kernel.org
-Subject: [PATCH 1/2] ASoC: sdw_utils: Drop rt_sdca_jack codec device
-reference on exit
-
-asoc_sdw_rt_sdca_jack_init() takes a reference on the SoundWire codec device
-with bus_find_device_by_name() and stores it in
-ctx->headset_codec_dev, whatever the jack source quirk is. But
-asoc_sdw_rt_sdca_jack_exit() returns early when SOC_SDW_JACK_JDSRC() is
-zero, so then the reference is never dropped. One reference on the codec
-device leaks each time the card fails to register (including
--EPROBE_DEFER) or the machine driver is removed, when the quirk has no jack
-source (DMI quirk entries without one, or the quirk module parameter).
-
-The jack source check in the exit path is only needed because
-rt_sdca_jack_add_codec_device_props() adds no software node when the jack
-source is not set. Use it to skip device_remove_software_node() only, and
-always drop the reference and clear the pointer, as
-asoc_sdw_rt711_exit() does.
-
-Fixes: 526a1876fc48 ("ASoC: Intel: sof_sdw_rt_sdca_jack_common: test
-SOF_JACK_JDSRC in _exit")
+Fixes: f52f5c71f3d4 ("md: fix stopping sync thread")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
+Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
 ---
-Based on linux-next next-20261109 (630059a5a632).
-Compile-tested: arm64, GCC 14.2.0, W=1, COMPILE_TEST=y,
-SND_SOC_INTEL_SOUNDWIRE_SOF_MACH=y, SND_SOC_SDW_UTILS=y;
-soc_sdw_rt_sdca_jack_common.o built before and after, no new warnings.
-No hardware or runtime test was performed.
-The path needs an rt_sdca jack codec and a quirk with no jack source; it
-runs on card registration failure (including -EPROBE_DEFER) and on machine
-driver removal.
-
- sound/soc/sdw_utils/soc_sdw_rt_sdca_jack_common.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/sound/soc/sdw_utils/soc_sdw_rt_sdca_jack_common.c
-b/sound/soc/sdw_utils/soc_sdw_rt_sdca_jack_common.c
-index b4e427d55130..7902d423c8b9 100644
---- a/sound/soc/sdw_utils/soc_sdw_rt_sdca_jack_common.c
-+++ b/sound/soc/sdw_utils/soc_sdw_rt_sdca_jack_common.c
-@@ -188,10 +188,9 @@ int asoc_sdw_rt_sdca_jack_exit(struct snd_soc_card
-*card, struct snd_soc_dai_lin
- 	if (!ctx->headset_codec_dev)
- 		return 0;
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 03e35386a802..1974943bf746 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -5213,7 +5213,7 @@ static void stop_sync_thread(struct mddev *mddev, bool locked)
+ 	 * never happen
+ 	 */
+ 	md_wakeup_thread_directly(&mddev->sync_thread);
+-	if (work_pending(&mddev->sync_work))
++	if (work_busy(&mddev->sync_work))
+ 		flush_work(&mddev->sync_work);
  
--	if (!SOC_SDW_JACK_JDSRC(ctx->mc_quirk))
--		return 0;
-+	if (SOC_SDW_JACK_JDSRC(ctx->mc_quirk))
-+		device_remove_software_node(ctx->headset_codec_dev);
- 
--	device_remove_software_node(ctx->headset_codec_dev);
- 	put_device(ctx->headset_codec_dev);
- 	ctx->headset_codec_dev = NULL;
- 
-
-base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+ 	wait_event(resync_wait,
 
