@@ -1,78 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.171
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795675250;
-	b=ebWA58u6X8R7Z4DcSiMYO4QebpnU/pogbfTRqnP5m+mgGMHWNNtWp9J1WbVpcHe2t9Jz
-	 kKRLJYVWS1cIKhglwAGJs5ZGW6wsXtAv7MpmdjDJBUisALZmmiBtzRTBKkNIpuDPDAePW
-	 im0dlYDsUef6Atu/AiYqIaHhMAjbaeDBehn6t6D6KA0GYXvDirViEBJyFy3dLRYa1bwD0
-	 KB40xbR9UrpOIH8+eMBWIaFvTc7do9qwrz70jCKRxtM9zB+ORI9LMt6XA8Fw1EDp6/VxA
-	 YcvXB3EKJj1dfe+SCz5MI+wQkE+keqZy8stj+bC5JHh3CLh4q24OL3ElJYrbrL2UZnw==
+	t=1795675404;
+	b=Y3lBI1ZcUTJf487/qlax8L3gRlOrIZMBDALuT7XG2sk6gBxuuGC6en/tjvwSC6zYks7c
+	 zxnmdpSxbJYDHqxyQwcWUxfGLJEi5zWx7i5M6oJejFWdP+Bu4HGE5HROcOwEPlr+JJ5jK
+	 xX4g/f3UHTqdBiBggm+k8u3xAcuUsQ14nhx/ERAF2S0+esUhsU39P1+8sOfKQErVQ2U10
+	 S/AewVG38wLpyUZGeqjRUnuVoJdg4076xLR4JmgBKFKoi6+8q4tuvFD/hthBqhR7kWrRT
+	 YRio58aIGaScLbVzBLKXJE7PqDCZjn3EgSsIfWthbKLQ1vQmiVk+aXJRqJSt0yoA2WQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795675250;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=qSxrJZ8mqv3Y+H0yHIfJCiyW6kG5Ove0Pzqj0e0+3z4=;
-	b=CoR1K1bKXAQRlogFERbXgT5CZGSzE9UuHFMceF1sC/0w+vxjlS7CJ69NiSZLniWGEax7
-	 MgA83hP/ku2TzjwqRSfrT4h6C0YcrG7lmaJ1wChAGsv7PSdLHeHizfnlYrJFSn7nmVMIv
-	 hHHAuKa+Z5W81SOp5ilTAk71ChH/t13dzEgCngVNycqsmGKOXim7ohcAEq96aMmcJDYWA
-	 9R2+DagzNS6zWRfswo/EeAdHuGHQ0T7Dpp+E+Brw5FzVpldFK22H7TJO8JU6X1GdE5ur2
-	 7s5DdZp9cajKqCaYfqp+3bEIvQjIHw7NOiktsQK72PaDRtxBbpvxvEimTjoh6LDRsCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795675404;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=6VuaqvZnXbuCtA6VHala2pXt+UVChb1skPG+1z4T5f4=;
+	b=vZS0R4q4HJu5voiiY+VKHtklTYR+ZiLiN4dE3eZgBjcpmDNcGbfQTn+o5YJJLR3U5Gg9
+	 HWrGbDoiI5dIUC+zkoyyiOCMVP5VNHShpXgReoIAqkn6ft10MAeSvwACHgDxbrGaPeHIn
+	 nqepsZ7huxobQcxXdFl5E2XgUOV+hBbZnyS0uysLJmXx9HvQFuuPpBdmefOcyrcdNCAcl
+	 qQjxlZqQsc7iBULJZXDWGBv5bcuiWcUJ7eoPgXkix0bdE2evL+5PCxkgGMniP/TG7dboC
+	 UsfLk2u5QBYs8XEzDQRwMt2o/lR3H6W80+giCX5cEoWgIfA/PsSF0CnHwYTqZ3k+LyQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OsFOZ+Fw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2BA0606A31C;
-	Thu, 26 Nov 2026 06:40:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OsFOZ+Fw
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795675250;
-	b=oEYq/kk6JQx1ssyISUTm8fCX5Gzi6ciX4J+mM32YdT7tiCJVw1RY1oSDzvEynTVH9vJs
-	 9NuI5sVnd2ttE/6f5SrwqDC2rP5wjil/qpR0acAtwa/ijQ5gkDu5yMN6zIBHBmDbCsI3y
-	 rlZ1ELYYfJjt0ANFTbw1JP1g5YI5dfs9GdIcahTAPY3HUaZdb4F5qcrLQXs++QWRMU4Hf
-	 3Zk84fssw2JZKaNrR6iVaKcSm8ydB0WDaOiOLapMHc6XoOKNSWJGe4crEMA3zBGl9f8JK
-	 eA8pJ4U/V+JBA+lBL8Nw5WXTIdo9BsRoG1e4CbY729D3hUGOZ0HdCGmvW0vLu7EXnqw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795675250;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=qSxrJZ8mqv3Y+H0yHIfJCiyW6kG5Ove0Pzqj0e0+3z4=;
-	b=0r9f40ZCGAKLpnvnQWTofcFnuhNLrb04Q4YW6HONYxwcbz9Ak4WkRld959aQnLj3rWAY
-	 bvyuC+Mj66w664alyz8j6NSLnmi/hvSaAEzjyv7T04Qmh9uBM9Rcn5cMhYLmHbNbywdKY
-	 YO7qU5qy1nbNRFz5EeBWyVsAL4171xgvZ8MCzVLuW2GV65EYavnhgtCatVQBBpo0cJ/vy
-	 j2DYuT0DUYZtgnwES1BrcmwcwFgBenQ2jUGbAfc99Cy49HdjQpsejM4nbQ1fCoBjbXk3Q
-	 9HkZmL686xaF8cbnr6HVBGiFqbuzSv3r4K5dkMce04PefAQw9851dOcUh3ehvPs/yyQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MHWVXjL+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.171
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4B5FD1F000C4;
-	Thu, 26 Nov 2026 06:40:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795675250;
-	bh=qSxrJZ8mqv3Y+H0yHIfJCiyW6kG5Ove0Pzqj0e0+3z4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=OsFOZ+Fwhz3R4fd9KddMb0TABHEvdfwrv6at5vv3JpFFi2G92KbojuPsYKtGBdISB
-	 y53NMNo9Dlkp7CtqCdtAC1LJOyCMl/nYlCREaziE89BqFp6g+mRayG3xuHuMTyrdYr
-	 corVpLP5mObxIYjNkGEzibFvDRsZJus+uHGAnAN35ueh9Qm9yef+N1w6I5AvdPfwMq
-	 k9MicCSUsGh0lFPp0naWkCVYrQ+DLWkT0CrQZfwxSpLmVXl3O5FRTvCNsCE1OQ5q7C
-	 FKA4vhWYPABTPFg0rxYGMHwFfTmzD40jtt6UHiFWWprQezEmUVcTiXu6qFVCmL8I9M
-	 VgIOhZhYvr4Jw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BBF194D261;
-	Thu, 26 Nov 2026 06:40:43 +0000 (UTC)
-From: Jaegyun Lee via B4 Relay <devnull+dreams200260.g.skku.edu@kernel.org>
-Date: Thu, 26 Nov 2026 15:40:43 +0900
-Subject: [PATCH] usb: gadget: f_fs: fix UAF read in INTERFACE_REVMAP ioctl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85D49606A32C
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 06:43:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85D49606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MHWVXjL+
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3acc7a0b558so66820531fa.3
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 22:43:24 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795675403; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oKTyC4MRMofnNU9HvZ8wO7QE2m99ZEwuXyHgKh8bADVNdQjHC3hibRMZo7A9v14SRV
+         QZPYwIqOImCUfi2azb1GOlPJC+fUy1KW6vojEJphlb2uh36i1oMd8Sf2pRS++LrZAHHJ
+         7ztzUWuHV/0KcNKk2iVhIT2E1Iss5hpK3pwA9e8XOLko31a8xUQAKyJpp2Zth6LoApVg
+         IrYKfPuutR0b3TwvKIdypcF+8YkJenVkcdVcWj2qjlxx66UcdawiFJUIpIAjN1Oiwf09
+         utxMPyzvaozXZ8LT1wXO4UEzQeYYC9XY33iBlRNok0/Ebfd1LwzYxfdY357/zjF0fhJy
+         JsSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6VuaqvZnXbuCtA6VHala2pXt+UVChb1skPG+1z4T5f4=;
+        fh=VFu6e9b52dC13AjLCq7GMQF9VE/NH7iB7yCaDdP48Ps=;
+        b=reGfBM6BLXZVpQLttq0vpBUhWPDFHlfQ3c3jd/C+b2UBUK2Ctmai3T+Kwwm/XAL2ul
+         Gepy/eeVtabgWDLfOYTItwxQ3YpmGyKoUym29JoGUtW9/6hSq+yjtJLuvI0twJKaPv9Q
+         wb/dCnDa2CPzNQvxOpk9MnOO606KuF9bf1HBbfd3HtXt1IhQ7vFXYE6OJuLPPZ5U4gZF
+         8dojPCv7dQ9cD+Z3/Sw2t39+bLbQ+LwPyEJgUQDQE7GqQgK5B9bCfo+ABpnc1jA33dUZ
+         B5C2cSMwfZt5qPhW3SJYgNMJACxB5aPi/7CgdGEn1o+6/zGVuTpT64u0R/ewV+cAetUl
+         pSqA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795675403; x=1796280203; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6VuaqvZnXbuCtA6VHala2pXt+UVChb1skPG+1z4T5f4=;
+        b=MHWVXjL+97ToX3qIYXibaqn2KtaLw+lEseirA3sMfROPNaJkTEg7ZHAEWl2hpfNL5g
+         aO+tEb7TaSSoJXwlFt5Mv3BP0fNRk63J+ukzLE8AaFjVg+hjpsdKkafJZ2II1a4oiUZz
+         N44Ok2sZev6vm2UkKLDQZ0nuFJvdhpWJumAuIKnLlMAOW+ol8hBbg+IBXVdfweb0WoZU
+         kVApehamv6WkvQf72zz6gK+Z6uW8PQay72VrtwqLAXZztmOurbAP2DomnIcxmsp5Znnq
+         CV2kgHlwU8v4Vo4lNpZvNh18hag55ulfsV9mSVSw/oDcrSzcw5Pa/urUv0z544d+kncw
+         YoTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795675403; x=1796280203;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6VuaqvZnXbuCtA6VHala2pXt+UVChb1skPG+1z4T5f4=;
+        b=YvwYgqwzh8AMqZPr3/QxEt++Jj4pbRKpRgHabcFH00jlHM2Fbie74Cue6mTPADXQP3
+         AH3xh2UIfzgK/sUoVumhu5N1zX4kl3l6XJvnUdXWw0c3tpte2NTo79XahzOMqROAk/PJ
+         kzxHWNv9JDxviEnMlAretSClhMV+AC4dTv1E/BfJ90mzlgsQZO8fLqTYmU/GBsd9K8j0
+         qjjRsySmXeOAvsXqe8EVYhydKULXZqR/tBXcnXIZ7XM2bjibzQLarhbfEEOQ+S6Zfo8g
+         zApH87iE1wPAmJv2cM5XB/9VO182g0rip7l4xyxzaa3622Kb3aKBE0MO9Ugdga5Qh1bY
+         mWxA==
+X-Forwarded-Encrypted: i=1; AL+hErH0+xHdQ+RniJL/hn39PJ4UUDXIfk1lYHKjPEUQ1pLV5lu3ihuWOo24K9vBx6rsYOQdwvhgz+g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+zLpQ4owMLJkftCujfOnfHOfKBenMSsPw/jMj7lDNRyg0ygAO+
+	d4m1EfR6y2ZRAB8wMxu7HXao7Z6i1FyWlyaiM2gc2POoSGn9v2H5cJQTtmKtQMuI3Q72NRUr0gH
+	xDAbyQDM0TeUm7g+TnTNOUrPbldLxbPg=
+X-Gm-Gg: AZFdTZdiGEHWSpy4L9+H2uMevNsMKWDoo1lfiFiVZohB/ZG8FYz9wWINm3YUwLdmm6/
+	zTLeWBWej/f6RxHACRzfyio/eF4XCe/R5rL+AUJWD9Q9SDbJ+5DGaowJeHiy7UANBmv3WQApyA3
+	OQTIc47eXOSL7/U5Ql7HHGW3fBbUwQjiKQ8K6lsz6Kfwdnco5tp1qy4etnMRS6RxP+N6Y9HzOdZ
+	LJUoZpp68aVHUV5UwUNJbBkTkfTiZiAH+0JSDGTrEDZtLpt28g0PLkb61W8S6wD/mFVAHRQnl/P
+	okY0mqq7zjsMFYHurYnRRSwEv8fKBWQXyybSviX/RrwTNHQQfj3zV2HBI0rd3qkjdz9JEtJKY4u
+	T5FhsS7dtRfM7iOF8pRZDUifsppoS953h7M6JMvU8JMvAQh6GmJg4yaw8HpDIqfKqjp/2KQ==
+X-Received: by 2002:a2e:bea2:0:b0:3a9:9c1f:1b9e with SMTP id
+ 38308e7fff4ca-3ae7f9b08dbmr66942221fa.4.1795675402448; Wed, 25 Nov 2026
+ 22:43:22 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,151 +104,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261126-ffs-revmap-v1-1-e1322f6fa290@g.skku.edu>
-X-B4-Tracking: v=1; b=H4sIAGrUB2sC/y2MQQrCMBBFr1Jm7UAmYCpepXSRpJN2BGPJqAild
- 2+iLt/j/7eBchFWuHYbFH6LyiNXoFMHcfF5ZpSpMlhjHZF1mJJiHd79iv3FkDk74uAM1MNaOMn
- nGxvGH+sr3Dg+W6EtglfGUHyOS1P/TrMW9v0AoERnaY0AAAA=
-X-Change-ID: 20261126-ffs-revmap-78010561eb60
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Neill Kapron <nkapron@google.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Jaegyun Lee <dreams200260@g.skku.edu>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795675243; l=4099;
- i=dreams200260@g.skku.edu; s=20261126; h=from:subject:message-id;
- bh=lGzl9QWbGZO+/ZfDqZ6tmIIpCKGN1RaRxZQ6vywnsN8=;
- b=iR7+gtHg34TMl/noXXFkqyYklPjW6DUIXJ3MJNr8o2RdygcdSfsN34tRNkMNizYgPjQHT4CFN
- zgk0h/drSzNAf5375kXD3vaZ2/jiDjHgV8d8aia/G4Rb7avWpGQ1E8O
-X-Developer-Key: i=dreams200260@g.skku.edu; a=ed25519;
- pk=vQE4ltNw5Q74mXWk3rPpCfclWKMKcHJ7J9YJ+gqaLUs=
-X-Endpoint-Received: by B4 Relay for dreams200260@g.skku.edu/20261126 with
- auth_id=1649
-X-Original-From: Jaegyun Lee <dreams200260@g.skku.edu>
-Reply-To: dreams200260@g.skku.edu
-Content-Transfer-Encoding: 7bit
+References: <20261125143821.729802100@linuxfoundation.org> <20261125143830.189554233@linuxfoundation.org>
+ <0782adf7-20af-45a3-a09b-2a34c76afbac@kernel.org> <2026112640-recite-tipping-891f@gregkh>
+In-Reply-To: <2026112640-recite-tipping-891f@gregkh>
+From: Rahad Bhuiya <rahadbhuiya2021@gmail.com>
+Date: Thu, 26 Nov 2026 12:42:59 +0600
+X-Gm-Features: Aa3M54ouDePqYZg9dGf0okJ2sElAYrlc0EtcH7b3FGYFv1E4s2easyFvl4Kr9d4
+Message-ID: <CAFj_507cGXSjDw6kRmatZhVo9k1LdzGxLd6rCVwZ1pV_VKutew@mail.gmail.com>
+Subject: Re: [PATCH 7.3 0361/1005] sched_ext: Reset task fields on exit of an
+ SCX_TASK_READY task
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>, stable@vger.kernel.org, patches@lists.linux.dev, 
+	Tejun Heo <tj@kernel.org>, Sasha Levin <sashal@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Jaegyun Lee <dreams200260@g.skku.edu>
+Thanks Jiri for reporting and thanks Greg for taking care of the
+stable backport!
 
-ffs_ep0_ioctl() snapshots ffs->func without any lock or reference:
-
-	struct ffs_function *func = ffs->func;
-	ret = func ? ffs_func_revmap_intf(func, value) : -ENODEV;
-
-ffs_func_revmap_intf() then walks func->interfaces_nums for
-interfaces_count iterations. ffs_func_unbind() first sets
-ffs->func = NULL, then after drain_workqueue() kfrees func->eps --
-the allocation chunk that also holds interfaces_nums -- and later
-still writes func->interfaces_nums = NULL.
-
-An ioctl that read ffs->func before the NULL write can therefore be
-inside the revmap walk while the chunk is freed.
-John Keeping noted this in 2021:
-https://lkml.rescloud.iu.edu/2112.0/00724.html
-
-The following is the KASAN log:
-
-  BUG: KASAN: slab-use-after-free in ffs_ep0_ioctl+0x29b/0x300
-  Read of size 2 at addr ffff888051b4925a by task park/9666
-  CPU: 1 UID: 0 PID: 9666 Comm: park Not tainted 7.4.0-rc3-g666539eecdf4 #1 PREEMPT(full)
-  Call Trace:
-   ffs_ep0_ioctl+0x29b/0x300
-   __x64_sys_ioctl+0x18f/0x210
-   do_syscall_64+0x132/0x7c0
-  Allocated by task 9675:
-   __kmalloc_noprof+0x357/0x810
-   ffs_func_bind+0xbd1/0x1b00
-   usb_add_function+0x219/0x8a0
-   configfs_composite_bind+0xcd5/0x17f0
-   gadget_bind_driver+0x288/0xc80
-  Freed by task 9675:
-   kfree+0x2ca/0x6e0
-   ffs_func_unbind+0x2f2/0x570
-   purge_configs_funcs+0x283/0x520
-   configfs_composite_unbind+0xae/0x210
-   gadget_unbind_driver+0x211/0x520
-   ...
-   gadget_dev_desc_UDC_store+0x18a/0x2f0
-  The buggy address is located 602 bytes inside of
-   freed 2048-byte region (kmalloc-2k)
-
-Take ffs->eps_lock around the REVMAP snapshot and walk, and move the
-ffs->func = NULL write and the free of the eps chunk in
-ffs_func_unbind() under the same lock.
-
-Reproduced and tested in QEMU (dummy_hcd) only, not on real UDC
-hardware.
-
-Fixes: ddf8abd25994 ("USB: f_fs: the FunctionFS driver")
-Cc: stable@vger.kernel.org
-Assisted-by: ZCode:GLM-5.4
-Signed-off-by: Jaegyun Lee <dreams200260@g.skku.edu>
----
- drivers/usb/gadget/function/f_fs.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
-index c64a268e98a43..c824d1d5ce571 100644
---- a/drivers/usb/gadget/function/f_fs.c
-+++ b/drivers/usb/gadget/function/f_fs.c
-@@ -687,8 +687,13 @@ static long ffs_ep0_ioctl(struct file *file, unsigned code, unsigned long value)
- 	long ret;
- 
- 	if (code == FUNCTIONFS_INTERFACE_REVMAP) {
--		struct ffs_function *func = ffs->func;
-+		struct ffs_function *func;
-+		unsigned long iflags;
-+
-+		spin_lock_irqsave(&ffs->eps_lock, iflags);
-+		func = ffs->func;
- 		ret = func ? ffs_func_revmap_intf(func, value) : -ENODEV;
-+		spin_unlock_irqrestore(&ffs->eps_lock, iflags);
- 	} else if (gadget && gadget->ops->ioctl) {
- 		ret = gadget->ops->ioctl(gadget, code, value);
- 	} else {
-@@ -4203,10 +4208,8 @@ static void ffs_func_unbind(struct usb_configuration *c,
- 	unsigned count = ffs->eps_count;
- 	unsigned long flags;
- 
--	if (ffs->func == func) {
-+	if (ffs->func == func)
- 		ffs_func_eps_disable(func);
--		ffs->func = NULL;
--	}
- 
- 	/* Drain any pending AIO completions */
- 	drain_workqueue(ffs->io_completion_wq);
-@@ -4217,13 +4220,14 @@ static void ffs_func_unbind(struct usb_configuration *c,
- 
- 	/* cleanup after autoconfig */
- 	spin_lock_irqsave(&func->ffs->eps_lock, flags);
-+	if (ffs->func == func)
-+		ffs->func = NULL;
- 	while (count--) {
- 		if (ep->ep && ep->req)
- 			usb_ep_free_request(ep->ep, ep->req);
- 		ep->req = NULL;
- 		++ep;
- 	}
--	spin_unlock_irqrestore(&func->ffs->eps_lock, flags);
- 	kfree(func->eps);
- 	func->eps = NULL;
- 	/*
-@@ -4235,6 +4239,7 @@ static void ffs_func_unbind(struct usb_configuration *c,
- 	func->function.ss_descriptors = NULL;
- 	func->function.ssp_descriptors = NULL;
- 	func->interfaces_nums = NULL;
-+	spin_unlock_irqrestore(&func->ffs->eps_lock, flags);
- 
- }
- 
-
----
-base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
-change-id: 20261126-ffs-revmap-78010561eb60
-
-Best regards,
---  
-Jaegyun Lee <dreams200260@g.skku.edu>
-
-
+On Thu, Nov 26, 2026 at 12:36=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> On Thu, Nov 26, 2026 at 07:19:47AM +0100, Jiri Slaby wrote:
+> > On 25. 11. 26, 15:28, Greg Kroah-Hartman wrote:
+> > > 7.3-stable review patch.  If anyone has any objections, please let me=
+ know.
+> > >
+> > > ------------------
+> > >
+> > > From: Rahad Bhuiya <rahadbhuiya2021@gmail.com>
+> > >
+> > > [ Upstream commit 564405c424f49d70b13debe7fe5b550234ad6b84 ]
+> > ...
+> > > --- a/kernel/sched/ext/ext.c
+> > > +++ b/kernel/sched/ext/ext.c
+> > > @@ -4198,6 +4198,7 @@ void __scx_disable_and_exit_task(struct scx_sch=
+ed *sch, struct task_struct *p)
+> > >             args.cancelled =3D true;
+> > >             break;
+> > >     case SCX_TASK_READY:
+> > > +           scx_reset_task_fields(task_rq(p), p);
+> >
+> > This fails to build:
+> > ../kernel/sched/ext/ext.c:4223:17: error: implicit declaration of funct=
+ion
+> > =E2=80=98scx_reset_task_fields=E2=80=99; did you mean =E2=80=98scx_set_=
+task_sched=E2=80=99?
+>
+> Ugh, I wonder why this code never hits my build tests...  Thanks for
+> this, and the other report, I'll fix these up after my coffee kicks in
+> and push out some -rc2 releases...
+>
+> greg k-h
