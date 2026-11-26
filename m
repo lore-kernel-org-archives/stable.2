@@ -1,72 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795654378;
-	b=C2VScD03RqBB6P74/9yq5wyKXgsBjaBWSjQfGUEZzud0x5hnvWpwRsT/F4yGrN0W8pEI
-	 jcifKBHO6vPvogIzVxjhQg+j6T2KDJz33Kbb88CGXEr4eCPW3IH+Q8eKZkVRQ+UbaE5XX
-	 SDC+INbp5GabfLI3tXfX2tiSEwvZu9sFNNorfP/hK2dHSMFe1PGMx8Nfwaja67HdzWOnM
-	 pTG7Y6sdh5vdW3YPcYgfm1QNWI6OwGScX7z5tLLxoz0Jet+/I8PIkFVoJelE7Ice8bn2t
-	 9yLnh4qXKLNLd5AkyQ9H3YMOrIcbKbIX+SyODVm67eQPk72iW19YuKJwXHv9BlLHVVQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795654378;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=AsVO6L0VXItBXY4OufcgsE+LrhkDwwft4iRAk/G8ycA=;
-	b=M/9b8Y9+d72/jLWNHJB+MOu2WGr6XBSTLkoEMzHuH6VvCrrf2oOeNHsK5ZSsrxc+K3OV
-	 /esRRHyvLvuaPWpUUfhO/h4szbW2b/6/dD0Nst1ZTO3e0bzx/N5MJDx1bUB+qSCjmaJoS
-	 G/ym4TJlihcI+ToVfOsSNv35d+vUc69tiMK+insNQ97idIhqipxYKbPT8LlfvmOLZ6/9y
-	 0+wkMlOwORaAMkZ0r/Gif5SgAGczbEG6+5y7bd5dU2bznP5G7A71VAuYAS80B9DbqK736
-	 6LyYscxfTVlk9xwA6ESAnJFWBukmco+1WZv7J1I8KM+HW8oHD6xnh/Y71rGJ3C4evuQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=IBNWCKWb;
-	arc=none smtp.remote-ip=115.124.30.130
-Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795655133;
+	b=LeJxLD5Wvy+tRdmpsxP3EJn/oymZu4o2HmOOuctCk4Jo5Z1+3royJuSPXRiJfwwryv3U
+	 mBaBd4ekExvkdgvrWGwMbTu6oPakpQOCITgdgKjaYJ2KMsE5afQDiLlHeSzpfmlf4w1Lz
+	 GOXliJdqcd+Gt2UylQPOIRJC1ynGNABhYMkoIg5YkEp68N3A09EDJTrJO8CHgYx6zk85/
+	 KAkd0wt4kztx7gyMKiz3Zd6lm8c0KxVIq0vr/N3bKIT6AkUufqixXvzyMro8rDQfTaD8D
+	 5szOSa4dUWzg9xOpo2x0tAEx1Hvyi8lMa8f0AMvOjOc6ZB22oPepFT8wFG7FJ1RxQZQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795655133;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=oZFbZu0+kSU0ykNmAfKFLTt1Nnu3oYAy3AIE96bAt98=;
+	b=Rxg0WYYzJ+QOVNyYWLFZWE4pp1aMz/XSu5wx//OmvPJCPHSygnNk4QOPaVCcCUOg0Iye
+	 BpKrG/Onbutwhw5CM/aeLlwhCl5aUz/Zwag45zF6ElhneA0Ski7MWa5AHdbWa1rA/bQ4h
+	 jq8qE1HPAS0dE5zv8gVzMWuMcMxY/ORhdQWFEjweDUljBcuQQLn1GdM2xRM3vCDosxlY8
+	 AQyBbUpqqQK4dUDEKSXicr5i9fX9LoFYXbF0MHWTnBkBhmmg0btrD60477DK0UicNojyt
+	 qrrAxf5z00fvCUVjBi92Sqn+7urhHRpS2hTHm2TfvYSJtbekhQ3l/3pOqwEc7S/tXbQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cgoyLmaJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.50
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB4B606A31E;
-	Thu, 26 Nov 2026 00:52:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECB4B606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6286B606A326
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 01:05:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6286B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=IBNWCKWb
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1795654374; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=AsVO6L0VXItBXY4OufcgsE+LrhkDwwft4iRAk/G8ycA=;
-	b=IBNWCKWbk78186Aa4mTOoE0y9lKuauJtMgwpWplBaQbx5ATHP6uf2B6QLuSgre0pvhe8o8gVE6K6ZENp8kycd82VXyK+VfC5d3mDQ8NBSUCQDxmSwZH7a073BMFGt5hVr77pcLU8QuzLtyK5ArJrvPZAodoq4XK8+qrZUiMqcXU=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=fengwei_yin@linux.alibaba.com;NM=1;PH=DS;RN=19;SR=0;TI=SMTPD_---0XFSm-aX_1795654371;
-Received: from U-V2QX163P-2032.local(mailfrom:fengwei_yin@linux.alibaba.com fp:SMTPD_---0XFSm-aX_1795654371 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 26 Nov 2026 08:52:53 +0800
-Date: Thu, 26 Nov 2026 08:52:51 +0800
-From: YinFengwei <fengwei_yin@linux.alibaba.com>
-To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	James Morse <james.morse@arm.com>,
-	Jinjie Ruan <ruanjinjie@huawei.com>,
-	Vladimir Murzin <vladimir.murzin@arm.com>,
-	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Liao Chang <liaochang1@huawei.com>,
-	Ashok Raj <ashok.raj@oss.qualcomm.com>,
-	Doug Anderson <dianders@chromium.org>,
-	Pengjie Zhang <zhangpengjie2@huawei.com>,
-	Cong Wang <cwang@multikernel.io>, kernel-team@meta.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] firmware: arm_sdei: Do not signal event 0 to a
- masked PE
-Message-ID: <aweC4_pzRjo9V0zz@U-V2QX163P-2032.local>
-References: <20261124194707.1030653-1-kas@kernel.org>
- <20261124194707.1030653-2-kas@kernel.org>
- <awavUsKX4XLRMbUq@U-V2QX163P-2032.local>
- <awblcOnI8JVhpmPK@shutemov.name>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cgoyLmaJ
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-702fd86d674so4215068eaf.2
+        for <stable@vger.kernel.org>; Wed, 25 Nov 2026 17:05:33 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795655132; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oPF8JNZD4STJquLr0SI2snP3JySops9iTNQ4t/GooQUz6kmFtdB+WW5c9E0aqdPrzZ
+         iazFNH4y/uuYXu/jTOoJUZKrTuPEGv0xuMxr12yrUsnBgyFl7U4ZsiQaPqzL21jaNI7L
+         mRYNppl7P9HaFFmkn4d1s4T6+NTRHetI8AlVuOKeqbNgROX6jOdYstTux4bt42JMNb8a
+         wwl0sL9mgLoGWlvuWBV7Z6kzcAHKHjEHAMPykt8VcKWPG2CljtlS+g/nlFOWiEByIyzt
+         olO3g951VtMrAlPZk1sDwI3VYlamB4Zzn3DDl+yjgx7Jeisk+vDLK4dghzXA3Ausy8kg
+         Lw2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=oZFbZu0+kSU0ykNmAfKFLTt1Nnu3oYAy3AIE96bAt98=;
+        fh=ngdrjtmQrfgYwHuozChl+uo1JD+9IO9TsHxT2PWUOxs=;
+        b=cROP7Bt9zGysutTstPFvu7TsjDrUaDvcRKJg1tM1NAxvfveWtspKXqfPsecx6NG62H
+         QHtZHsmevmFTc6d52Wphkk+NKPtggt3mFh6utYoA4g4cBkgi3d/clatlHSCNCojErGgi
+         SUMQuQ2rZqbeAUkDedDTx7XuPvkzwwqqRU+EFBJhX3MgZgYx421VFNjIopujLyfX5bpa
+         P+ouX011eeHcrZdS8jWR1eymI+D66SItpTIhyMHB+hEPFa1fb9a6ThTfK1W9VEMcvSqg
+         4zsZLr577WDDjUwraYu8PaMq95MZhka7cl/c1XSQSnjtNAGelftK6QI+unj2jgedr6A7
+         k8Sw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795655132; x=1796259932; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oZFbZu0+kSU0ykNmAfKFLTt1Nnu3oYAy3AIE96bAt98=;
+        b=cgoyLmaJMVDNVs+2Bkuc4Gq4+rP+DzY8TDkVwXQhjOAL+dp4qnzsQw8tWInOtDs9Mq
+         UfCGt5aDesmtR99fdlhyjGFE9kcH+meWw8pUXjFyF8a1RVQj4OBSi4+qlisTXaVaqgIl
+         MrliG4v4ek1mtcAZbQi/ZDUGtd/sOUBo42s/CcXIYbpBMonrrKUcXJLrTV1cUPei4yoV
+         snDcKqQ1TfQK5lOBKjhZFnby1iBhoWTvyUsF9NmKO5vTZYskOK8pu1aA7GCOM5k3yfAa
+         2yRXENBU1NR+BtcUWuJPXZqe/ek14dU8nj0xUic9ShVJ4x0nU3/Xr92BgafYQtw7+MG5
+         XGhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795655132; x=1796259932;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oZFbZu0+kSU0ykNmAfKFLTt1Nnu3oYAy3AIE96bAt98=;
+        b=iJtuVkwxfTh6RdRprhnsX0e2PRly9GqayMWDeGe9g49nrvsrriOQhiFGSTAXha5zuV
+         whU+11n1tb1JABvpuD1Wm7cVb3SwhmRrbsL0tlGZhMDY1XEfuA9KBjVxKcBw+qQIL7uX
+         Jsd//GTjAdSVzVPqTp+hS+KrSuwkxjYSMRmQQGL17Fdqr8nOrxXsv4XepXCP/iDFlURY
+         TbaNC5ExGxHfD6S5FBqSlNxpR0N2jPSSyjOvZTlxe42qx7dSkH3OLxWrFirR8PI8Vapc
+         NkgFKznst/h0zT3k0Lc1gMUwgWi88T6zOTWAOWlWutrcoTIlFryR116UiwT5yyTNa3ln
+         b2rw==
+X-Forwarded-Encrypted: i=1; AL+hErHxv7B4P/KNpyNTLsJDypbxakRje/JmdypWbaGiZA8/EXaPBILaATNEHlMCegholjopRpRODr4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ZPuqsZ03HB2AjHPc1SmMnVLMbukZqiWddK5YzJj0XyBBDLoil
+	ez0czGNRqcb1S1S3uh62lKIbjCdo/wbyMXYcOlm5L+cC57d2MPbtv0PNi0//j0OSbB/wFnXgK3I
+	gfRP0eVG+k5MRoWXQ1n6wi6sK2FW+eeI=
+X-Gm-Gg: AZFdTZfVtPDrVdQh20EDq7F/Cs8nW7SXRazZUcTqlOkEigDRFtRNG0BopwSuleCWdqZ
+	68Qs/1c+T/rAaQ5RpImngMEZz+ke4IT1yRmm9DXH1O+45s/c5lWZi8NFvszVymK3SualBN4aMx/
+	kRmC39quwmC9/U2BZUJBNm569cAwzfT+9bpesYyBfpjn/Cc/k7IWOuzuWZtBIiI2HSCeuyOdSuW
+	zx/Pv7pi4s+qDWeltbo7my+/rdFFo8aCIfygKWe86Xz7Xp3DwIAElj55VNPNQm/uLclxtL04nfl
+	xeusMR+cEDdQO0GXuXjLY8njki/kej9ztLGwL2RzFlYHLlsH9ktosRuMI1BeraXrSOuscsb1t7E
+	9pFAvoSy++oZt73XLhjYlcMP2WDtQ0xfq4shiZna0Sz+Wfi5QOCwdpWXcQTjNtlBZpU75G0qF4L
+	BBL81HPs0Z8LZ+PA==
+X-Received: by 2002:a05:6820:c5cf:10b0:71b:82fc:ad8c with SMTP id
+ 006d021491bc7-71b82fcb56fmr1443500eaf.44.1795655131818; Wed, 25 Nov 2026
+ 17:05:31 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,45 +104,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <awblcOnI8JVhpmPK@shutemov.name>
+References: <20261121-sp11-noturbo-v1-1-37e1083cec5b@gmail.com> <20261123-eccentric-ludicrous-roadrunner-0a7efe@sudeepholla>
+In-Reply-To: <20261123-eccentric-ludicrous-roadrunner-0a7efe@sudeepholla>
+From: Dale Whinham <daleyo@gmail.com>
+Date: Thu, 26 Nov 2026 01:04:55 +0000
+X-Gm-Features: Aa3M54oTuIZ-TKok2yilEFNywBJAakQOAVzcdKFaeMZPoEEMc6Y-VCIDW_86pZY
+Message-ID: <CAFcmK8g+Udyp9h24WSEx2RepBA=rZpEQs==1hTi83A+_zF-GOw@mail.gmail.com>
+Subject: Re: [PATCH] firmware: arm_scmi: Don't mark OPPs as turbo without a
+ sustained frequency
+To: Sudeep Holla <sudeep.holla@kernel.org>
+Cc: Cristian Marussi <cristian.marussi@arm.com>, Viresh Kumar <viresh.kumar@linaro.org>, 
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Dhruva Gole <d-gole@ti.com>, 
+	Haipeng Lin <jimmie.lin@gmail.com>, Charlie Garner <charlie@akao.au>, arm-scmi@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Nov 25, 2026 at 02:00:40PM +0000, Kiryl Shutsemau (Meta) wrote:
-> On Wed, Nov 25, 2026 at 05:50:10PM +0800, YinFengwei wrote:
-> > Hi Kirill,
-> > 
-> > On Tue, Nov 24, 2026 at 07:47:04PM +0000, Kiryl Shutsemau (Meta) wrote:
-> > > The SDEI NMI backtrace signals event 0 to every other CPU, idle ones
-> > <snip>
-> > > +static void sdei_block_signal(void)
-> > > +{
-> > > +	struct sdei_pe *pe = this_cpu_ptr(&sdei_pe);
-> > > +	unsigned long flags;
-> > > +
-> > > +	/*
-> > > +	 * A panic from an SDEI event or a pseudo-NMI may have left the lock
-> > > +	 * held by this CPU. The CPUs that could signal it are stopped by now.
-> > > +	 */
-> > > +	if (panic_on_this_cpu()) {
-> > > +		WRITE_ONCE(pe->unmasked, false);
-> > If the panic didn't take the lock, should lock be taken
-> > just like "else" path?
-> 
-> If another CPU holds it at this point, that CPU was stopped in the
-> middle of signalling this one, and it will never drop the lock. The
-> panic would hang on it.
-> 
-> If nobody holds it, there is nothing for it to keep out. This runs at
-> the end of smp_send_stop(), after the other CPUs have been stopped. A
-> sender stopped after it took the lock has either counted its signal,
-> which sdei_wait_in_flight() waits for, or never sent one.
-Ah. Yes. This is the key point. If it's panic and trying to do
-sdei_block_siganl(), it's in smp_send_stop() on panic path. Thanks a
-lot for detail explaination.
+On Mon, 23 Nov 2026 at 10:26, Sudeep Holla <sudeep.holla@kernel.org> wrote:
+> Charlie had posted a fix for this a while ago but never got back to my
+> comments.[1]
 
-Reviewed-by: Yin Fengwei <fengwei_yin@linux.alibaba.com>
+Apologies, I hadn't seen that patch, but I'm glad you are familiar
+with the issue.
 
+> I worked out something very similar as a solution. Anyways does it work
+> if we also add the check for non-zero dom->sustained_perf_level ?
 
-Regards
-Yin Fengwei
+Haipeng Lin has an X1P machine so hopefully he will be able to confirm
+soon if adding a check for non-zero sustained_perf_level into the
+chain still works.
+
+> No need to repost if you agree, I will fix it up while applying ?
+
+Absolutely fine with me, thank you.
+
+Best regards,
+Dale
