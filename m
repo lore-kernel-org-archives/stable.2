@@ -1,109 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795701980;
-	b=w/V4H8DXtDf41+oVyKW67UyQA5hqfwBQFvjhlGWWquo96qLDjAUluBHbwZd9fXhJR5/c
-	 UItYAa8vZQiOyeYouUwJLb08dtPLEIshmfU31R3+QAoI8blSnmNLICFeQRtduJ8AZxpmx
-	 LAm8UQ3b7uy7TKF/s8YNYzgsn9atA/IknEFcRo2ciQreLOrnD7J96lPadc3WiWNagF297
-	 5YWgZtnRFoPTfInGrWNl8owo/9gRT+ch2P6+QBfcPWcJkreEIK6SAarqtWXhFY1ifBsdT
-	 CKfPYFFFixDMXl4OG34vtihEuxmsdn382Q0BuNpYb4DlcX3rCOw2rC1qezASA68mbVg==
+	t=1795702009;
+	b=LE766o+vjd3s9OfQggW2IAS5W62aSm0psjUMnchNtYknG/rL5Ea5cFpRoUXquG1rxOu+
+	 MBGdjGCCX+IQVdPn9LU+P9agKcBtNZ5su15xxTwfyi46sy5rcVpNvkrnhB6jOjvj+aD9e
+	 qDWJR7XfhX6BvVhKMFycUqi6bg7+VOluGQ8ZBXJG9Q56cgZQmEgbveCyW0DygAolQ7P8l
+	 Gtu5KXjrqWKOYhNeAzvD4r/x9iOXOrm/DXcwF/yjbW/+TH9dD45rggOOWkOazakUvTezU
+	 /i4kglytE1a5mzeRRSJBrPsHXt5NAB1ZXjCnkevKjYSFFSv0ayEnMtKjOlaMY9muGUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795701980;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:
-	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=z6yDRTcU4R01ur/fecdkMQS1c66OkwJs8if54klUoSA=;
-	b=fZTyN9x5f8X6Y1R24M0ns14UuevsQKBtLkOftTgdLPepGFFRYZtuNT+eGuwDo2BvmYTC
-	 3V9hYcEAPh8KOL7Ajgp2QuDgIlH88L3jzBuvubtYvt7jkXYjBv5d8eMFKk+5XxAs3RX+o
-	 AIg6JfVJftw9i1qJQW926uGATvA8Vut+jrVGbG006HsAEQPesu6C/Jj7D8NRwAMnSkW6o
-	 isW3BM/RLfwE9xQ0Me2cS5tFSGxJrpExg/n0/hj8oZYvy3Q4ocnlb0TnlTe2yitgZNl8U
-	 H/GOOGLN1xHDknolKuIURxRcmcGhre3aUlhaBqzpAg88G08kps3yxjOA5JIyGkDLVEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795702009;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=OOfWWga3i3IweeJhS2lLSdRp47VjlukP2YJhMBAP40I=;
+	b=IHUqGo6jnRTfp8Gfv5j95b3tnujX8g02+Nul4aW6+06MEtKSlzOqsVhrZlzXWg6QOSxz
+	 bexgdH6IMjnx0sp1IcLxLQsaw5c8BSPTEVWgjuv8k8rxOPpKgALHVhzLo9u3Mnv7nWmyu
+	 +3dhC2lrqerh6RfCg9IprhXCzCBkKb+JVLeDP9sZq1ex7xd9nAMD9/iXvIAp2pAuVKxG3
+	 PaHs9qUuy6x99PMaRO6GQfJZmRMcyoyVqz4H85vjGhqHIkd2CHqWjpV3VbpL1L63cr1ia
+	 3S52hJ95NFP6BmXkPbXkIv/+AUaqDpUoaPVPoxCiqxm2y46o94aTyW9EclgpczElp7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=canonical.com;
-	spf=pass smtp.mailfrom=canonical.com;
-	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=eYRlpmqy;
-	arc=none smtp.remote-ip=185.125.188.123
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+	dmarc=none header.from=open-hieco.net;
+	spf=pass smtp.mailfrom=open-hieco.net;
+	arc=none smtp.remote-ip=115.124.28.221
+Received: from out28-221.mail.aliyun.com (out28-221.mail.aliyun.com [115.124.28.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F40606A31C
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 14:06:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65F40606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=eYRlpmqy
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id D0B113F750
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 14:06:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1795701971;
-	bh=z6yDRTcU4R01ur/fecdkMQS1c66OkwJs8if54klUoSA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
-	b=eYRlpmqyFdkfgRN1H20kNSqt4kLbXbp+n2xAz/f/dR+6pBDoe1UY0QwUc9EBXFaeE
-	 log8CucK7AoHw1d0HPtCUO4flMPMNRiBIbOF2xiL2+GFoCEXQdt/n9/XLo3pHvqjBD
-	 zi//xTS/I32yiqRGd0k7kiYBYK16E+1PGKgTJBOakLa4mnODmnxcQ+9j+uVSnCUTzu
-	 8UGye3q8GyFS6amxQY79hKtPMhKhnxechG03p6d+Jj/fxLiUze0R+C1YpZkECLcns5
-	 EfhEQ3QFgW+GCOkRkoBmNFF901k8ZQ785ArGzVcl3lN58OAfSv+OT7Sk5ZdAtyFSbD
-	 D/gSdnedIe49FoWMRI0rFaGe7L5ljOI1m1A24g7FaFdgP3UQwV/vPCOyDlqcnhr+z4
-	 O5Ovmux46kgAXKKdigvO5ejM1UovtYZxZHYBJJTzv4XAXr2rUn0WMQqdT1ttg/OM5X
-	 YZiUx+WE2qlgBC2X4Ak9un6XG7O/xFrU8Wn4ZI0G9m0ZoSoFVDqs2FNlahn4RPlTEE
-	 aNozElS0vciMwFu3TrWiMwt7Op6Gj5UiaS7AgTI/tfiN3Jja4kSK5DjU5C66JSrO0o
-	 gTXfjeg++wTu4bbh1DKUAXGAf2pU4KBcsIdPP5vNy6geDGYgpBAYl4bqJ9ELJ7yIaC
-	 vHA1/OslLE8eqviEI0AJ6ILc=
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b3f3e256e8so6744085a91.2
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 06:06:11 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795701970; x=1796306770;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z6yDRTcU4R01ur/fecdkMQS1c66OkwJs8if54klUoSA=;
-        b=sC58F/ddk5HZQLKdgFk90m/ZWrZOF8w2zwGf1cvmoTnWLXYyhvvV9fn9+BUMK5afTe
-         9eT8PEHL3BndLwYqUBSGge2zdIEuueoj+ScK2uil2HCc49BxZkBQSABHqnFG+tH2FsEI
-         l1znW2eBEZJArmM4OAKnEmrzR1MPJtpDjLgcZf7NZGm2ugCt0ch1CuxKLuXN2rmiFG6p
-         CDiJqlU1d3Kfc6fZqbNLzRFKJGpjAiA/LWvCaYO2wcPsrklq7zHKT2ZQMIQm26JVcSg6
-         oVyoaRxQnGtDPYKZSyIM50ZSl/zRPEDGQKjdLszBwvTYuNOhs+aBeQkMkmRIHPsDwf6/
-         J6/A==
-X-Forwarded-Encrypted: i=1; AL+hErEF0+kMhc0qCB9V4L3S+rfFRiNBI+UFd2SwSVQzhey23b3KCiKVK1e8mAJBfopL4fPF9RHCSr8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ksZbFKCVmDXl0xtOuMgGx95uhNeytXonMG5PtFZZHGY1ZIDlJ
-	rtKnOQ6kIEVWvC4CPW5m93L2yZ7PoQrar0W3hxdEkWSLniTiSSITU8iz90zCp67IztepdQ7I+WO
-	f+BVETevUHiey8ZbAoAWawkH5YkSnty8CmZf1uwTp69ilswUVyAXNN15lwClRsSwDVrxgVWdDLw
-	==
-X-Gm-Gg: AZFdTZfbBulzm5w1npY0g5blWMeiHI14k5UL0SUwljf8OluuVoxRTddScxZwc9c7pvX
-	NVIvamuiaXe5fTcQWWNuHewLR9jSZKfyc0L6j7FjtbcgyI3KB92fveGiUlT1jDrZcKjqi0CfFre
-	hdG7WeDNezaO2/+FhKPMuYEMnpF9xY3ZDFabb8gQPpGkuLLWJ0Z8mGr5Y5yri6CwFS3xSfXFfSZ
-	GhoCGSNQLjgxtdKB7bhdrBc/HGVhijlmJLXpe4E9yWyQCTPCDhPMl2ieVy1R/k08V/QwLzKEUrd
-	qMrL9pROOTRjxf8LxyYXBbGvnbNC1JfR3JSDXtbFo+zt8Rpotk9p3qzPxOQ3josZSAQvYYmKj6C
-	1VkgY7+6bvyzMK3BsIbwL/oEXfqtO7uSlGiUqLpMkE8TOyKAw3ICSK0cB
-X-Received: by 2002:a17:90b:554d:b0:3ad:d29c:5e64 with SMTP id 98e67ed59e1d1-3b41c9b361fmr20365717a91.65.1795701970088;
-        Thu, 26 Nov 2026 06:06:10 -0800 (PST)
-X-Received: by 2002:a17:90b:554d:b0:3ad:d29c:5e64 with SMTP id 98e67ed59e1d1-3b41c9b361fmr20365663a91.65.1795701969667;
-        Thu, 26 Nov 2026 06:06:09 -0800 (PST)
-Received: from localhost ([2001:8003:ec27:e900:9eb2:9fad:60b1:766e])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6cfc8829sm11022054a12.8.2026.11.26.06.06.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 06:06:09 -0800 (PST)
-From: Yufeng Gao <yufeng.gao@canonical.com>
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	Steen Hegelund <Steen.Hegelund@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>,
-	UNGLinuxDriver@microchip.com,
-	linux-phy@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Yufeng Gao <yufeng.gao@canonical.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] phy: microchip: build both SerDes drivers when they share a config value
-Date: Fri, 27 Nov 2026 00:05:21 +1000
-Message-ID: <20261126140521.237240-1-yufeng.gao@canonical.com>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA35606A31E;
+	Thu, 26 Nov 2026 14:06:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DA35606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1252609|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_social|0.00578009-0.000105196-0.994115;FP=7468072167885343146|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045038069;MF=zhang_wei@open-hieco.net;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.kAphqXC_1795701994;
+Received: from 192.168.43.25(mailfrom:zhang_wei@open-hieco.net fp:SMTPD_---.kAphqXC_1795701994 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 26 Nov 2026 22:06:36 +0800
+Message-ID: <e03f3be5-d012-48fa-99d4-f0610e040204@open-hieco.net>
+Date: Thu, 26 Nov 2026 22:06:33 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -113,43 +45,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] x86/cpu/hygon: Work around XSAVES Erratum 1386
+To: Borislav Petkov <bp@alien8.de>
+Cc: x86@kernel.org, puwen@hygon.cn, tglx@linutronix.de, mingo@redhat.com,
+ dave.hansen@linux.intel.com, andrew.cooper3@citrix.com,
+ david.laight.linux@gmail.com, hpa@zytor.com, linux-kernel@vger.kernel.org,
+ yangzhen@hygon.cn, dengqiming@hygon.cn, stable@vger.kernel.org
+References: <20261124142632.844105-1-zhang_wei@open-hieco.net>
+ <20261126044720.GDawe52PLY9WWihaLw@fat_crate.local>
+Content-Language: en-US
+From: Tina Zhang <zhang_wei@open-hieco.net>
+In-Reply-To: <20261126044720.GDawe52PLY9WWihaLw@fat_crate.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The Makefile adds the two drivers with ":=" instead of "+=":
 
-  obj-$(CONFIG_PHY_SPARX5_SERDES) := sparx5_serdes.o
-  obj-$(CONFIG_PHY_LAN966X_SERDES) := lan966x_serdes.o
 
-When PHY_SPARX5_SERDES and PHY_LAN966X_SERDES are both 'y' or 'm',
-both lines assign the same variable and the second replaces the first:
+On 11/26/2026 12:47 PM, Borislav Petkov wrote:
+> On Tue, Nov 24, 2026 at 10:26:32PM +0800, Tina Zhang wrote:
+>>   static void init_hygon(struct cpuinfo_x86 *c)
+>>   {
+>>   	u64 vm_cr;
+>>   
+>>   	early_init_hygon(c);
+>> +	/*
+>> +	 * Model 00h is a valid Hygon processor model, but x86_match_cpu()
+>> +	 * treats a model value of 0 as X86_MODEL_ANY. Match Model 00h
+>> +	 * explicitly.
+>> +	 */
+>> +	if ((c->x86 == 0x18 && c->x86_model == 0x00) ||
+>> +	    x86_match_cpu(erratum_1386_cpus))
+> 
+> So this can be:
+> 
+> 	if ((c->x86 == 0x18) &&
+> 	    (c->x86_model <= 0x6 || c->x86_model == 0x10))
+> 
+> and you don't need the _cpus table?
 
-  obj-y := sparx5_serdes.o
-  obj-y := lan966x_serdes.o
+Yes, that covers all affected Family 18h models, including 00h.
+I'll use that check and drop erratum_1386_cpus[] in v4.
 
-In this case, sparx5_serdes is silently not built despite enabled. To
-fix this, use "+=" (for both drivers).
+Thanks,
+Tina
 
-Fixes: 305524902a00 ("phy: Add lan966x ethernet serdes PHY driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yufeng Gao <yufeng.gao@canonical.com>
----
- drivers/phy/microchip/Makefile | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/phy/microchip/Makefile b/drivers/phy/microchip/Makefile
-index fd73b87960a5..0ea4004abf75 100644
---- a/drivers/phy/microchip/Makefile
-+++ b/drivers/phy/microchip/Makefile
-@@ -3,5 +3,5 @@
- # Makefile for the Microchip phy drivers.
- #
- 
--obj-$(CONFIG_PHY_SPARX5_SERDES) := sparx5_serdes.o
--obj-$(CONFIG_PHY_LAN966X_SERDES) := lan966x_serdes.o
-+obj-$(CONFIG_PHY_SPARX5_SERDES) += sparx5_serdes.o
-+obj-$(CONFIG_PHY_LAN966X_SERDES) += lan966x_serdes.o
 
-base-commit: e7d2f93a4426ea6b33dbca1ce585a9876e3a7344
--- 
-2.53.0
 
