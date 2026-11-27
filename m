@@ -1,122 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795749352;
-	b=NKQ5PMPpcx21ZMKI8tg+G0qx4X+zJMNRSnIUmlCZm0qD7FJOjM9gGOCN9/4HwjHZlqIB
-	 dgwW+gqBaDBhJ0phC8Vl0TBjqCPhFrCAH2RktZ4FjGqZquQSNT67vC1QOId/xlAJ9+fWh
-	 ir6hXIyHuwxvzVNPuWdwEUHdVT3Wm+v0isMucXn9rfq8yW3TCgR84l4jbiSx1PqbBaHP2
-	 EUnwp7TWkbI9C+VG0yVlZLfjujWctGG6ylBtzIFgc/94Aw11BjUdIcniao7XoakVzEOmq
-	 rLIvX1emCLudKeZPdFyZNuXHr0KmajfJKvwamFhISjjlGcrFnhjTs14+sXFk+Iec+ZQ==
+	t=1795750045;
+	b=r2RgMTzgL9/eMKZl+I67Sa4nWtf2pMubG7X5iAhCJzSb0wB3aDz5aKaSxgbbBFrK8wyH
+	 +AC0LeEEQgDT92wY1BBgjN9Md7I+t3GeLU1ZopQx1gG2XVlVa0quHo0t5gEOHVsa0SHYG
+	 aCDKa9Oj68LyW1F0KcsiAESDpLIORsGwp9JZkzSS3HA3wNVEVCZ/VyRMx02daOUwTG97n
+	 5+k68dtdXLq79xS2Z51Crwqw37lr+QsMQctUlVYQaNxHoBWVZQyOJjSwjRIGLlbpOoWGF
+	 Kz1SI0excszy0DEtYamAkG9IN2O7EZjZ7ETTNBwRWcNw9n+cFw9o5qpBJNLG1ek4gnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795749352;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=axAdrv+zRsPNCPdePNYoKf8dQmnv2l67HHhbrEvN3mM=;
-	b=1QWVVq9Qo2onldwiwmWjdPo3nJgJCRprH2X6VzTdYUlvQHtFot9ZOx7PF7hSzRUm0jZP
-	 CO5rqy/00hvOK3bnqiSgSzt/PJ8knOkLHKMkpaa8Gn6WwLV0LgJMGTTLF6kVB7EnfPpk/
-	 8K2+oIWv10mdPklbS2uP51YBVYlkn9/qKd6CcO6EgMu/1F0afdhjXopeieJW9OH9Sxm7U
-	 P/cT4UZ8z95Bh5piiJONiUPO+2W1Ba/BfVwJtwlBHAYvq0Mo1FW88Tq1kzYILjmEYP7wT
-	 6FENIVJ7gu8ge0wZ5Hl1AmUu8RP51RjUur7NDCTvkgwVm4HtI0WoZmPPNZEHQ6oZ1NA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795750045;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=zFpFLKfZVf3h8AzwNMik3TcRCLZzCju/teL1CyI01yY=;
+	b=QiQTHQGguDCp/cF/IveAuz7fLCy33tfpbHOQshwwFWgDc7RAiBaVnDxlKKwx0rkuzvXd
+	 Dgn/JLLy2silWk0geGXnUp1khgW5YC4q+sS4eE4KzHkrGvOX43VuDnpk7waVfd/ihY/Y3
+	 tktFGALlQk5+Nc3KoTJDzGpyc0YMZjvpZp2hdpp3m+V2aqv3vc/1jxLVW9fSuGGjgSpPk
+	 K/eWNJjCvutT7l1Vuhg5Aco0g03SOlyQd0kT7QZzlKISi4BMFNu6ow5a+4VarAdbkj6Fp
+	 Hmrc9/K8docEQSJ74tVwTzhzV0fnJF/TWJKRaveWGcv+p9fxpuzp0MxEYDET9hjtTqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=pZvvh0v5;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=c3r4C1mC;
-	arc=none smtp.remote-ip=103.168.172.151
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XMMH3T3n;
+	arc=none smtp.remote-ip=209.85.128.178
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A46606A31E
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 03:15:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3A46606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A62C5606A31C
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 03:27:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A62C5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=pZvvh0v5;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=c3r4C1mC
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfout.phl.internal (Postfix) with ESMTP id B3F4AEC0994
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 22:15:49 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-10.internal (MEProxy); Thu, 26 Nov 2026 22:15:49 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm3; t=1795749349; x=1795835749; bh=axAdrv+zRsPNCPdePNYoK
-	f8dQmnv2l67HHhbrEvN3mM=; b=pZvvh0v5wlIEE8WSOqu1zuSsGUyzYxSQ3Gakd
-	65St5hijB1u7tvx7AEpBsVsVLJlgN5k7ZQq98qRx/i8o/EZvA859wxBJBXk8p9R5
-	RW/GNSXtC8poA1uFDz4dZA89H2lQv/e6JNK5guAk5znzytusoZKE52eyjAsTqZY+
-	T0CsEGT5M8M4gxFiARPgNiyE3txaqcN5ka1Yypz4tTszdAuesuPpAjlzYy25AOAP
-	2HC//q6/BXs7eWpw0BdfY64HZC+Ciw/QTk71UF/vsljtYFsklKNzCGKXzj43OlF0
-	arahmARCHVegWIqXETmk4UB1d2Xv1ZlKXGdTP4jWDicU1P26Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1795749349; x=1795835749; bh=axAdrv+zRsPNCPdePNYoKf8dQmnv2l67HHh
-	brEvN3mM=; b=c3r4C1mCBAMRBzwnsGgqop5oSfSTTcWY1nhH23f3uuBvjnOgffA
-	KNn/GKUnoj4c4r+QpgRTguznEV2tNKssScfEVyIj0e7scY2+xEmCzkX3Ur81hOpi
-	mBC0hIbUzoMAiPlRtHpfQ40FSqnKZwO+XBpKl5VCHpLpJmMRglDCpKkHawcugTj7
-	hAWyvIg79Tt47B9JRP0DCghdRrO+t3oFPFrSikTJvNZlF1nwQgjsDtPLjSJfwPnX
-	UWZgP7Bkfz9sURF70xOehCfKQbrjGVwt7wZchnP0yh5jZylZZkoAkvfVPBo9RQ+5
-	hijyK81XwwukBRfKc/GrM3DPDZ5ddl3FS2w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795749349; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:AQai2C5aEobZSFz7d0Us29zs2eQbvVPtVhtfZ+e5T6pwvng
-	4vSsgxLa2bN7RRI8FVv1ROLvK4OFB/IVY5IGpyOCreh9tnAnoza+mwxeCYNSVwsX
-	NMMs0TjRj9XZQ59TQMPloqoYySQGXDNNuX/VfNDwqpZ9oqgYzD/HI0rBEP3OXBzL
-	eknkdXDEuzd9ltsEThBnVZwmCD2m/WY62wbu+k7MQp5a5PDG7iaC2O41NdWi87+1
-	DQ+tCf/dxJiDKn4TqDKbs9oIvOlTLHKKGVF7M+br4ynIUij1+38AUNen4VWS8zX7
-	5xDeCG4C1vZRcTi5dvxAlJ5VFztWxcr0obAJMwg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:gPvjH358mXvk557ugfhpaXM9XwLdOdXeLOwXO5ByvJw=:BN6oi1N/O/sumQ9WlAlspdBJzHbYFwJt7MF/04zsLDg=;
-X-ME-Sender: <xms:5fUIa5GdJ1x41kWkIjeumVnZ3DuoUrgX0Am6aDAl6rMBAhySTG36BA>
-    <xme:5fUIa6Va0rQbrwP98ez-g6ijQLluGabD9R_fojfhXHZfnu4r1M2R92yUhBjdLZtR3
-    5GQoImmM1APRswavsYwHvIAD0Rj61YeRX2wzwA0ZgZSRCCgThFMoolU>
-X-ME-Received: <xmr:5fUIa9Um4CM2gLiAVc0oqaOeGp45Wa-LPj9cJIRR78C_5W60EEAHcpWYdnSZ-KHT>
-X-ME-Proxy-Cause: dmFkZTEVB1K5zqo6vBiwbt1cra3FHQdcsEgfwD7yL4qEf5MM0e6IZAuLjLR3O7T6DsAPX2
-    Q0R6c2EJQ4T30hUpoqihRcRTvadrkO5tJ/9tJ6yqlkNTJpGY6a+xRgvC05556UwzMF1WOr
-    oKK6DuYPtFF50oPn8lvBN00JhQ3LxpykOvUEaNWOQDK14fH55184OzYc341RMlFZGM+0Ax
-    DB2gFABtHYcfLoIeaxrxEx1L4BTXbO2h7HPEesRRklG2fOPx+bVOmNZN46y+Ahg2An3EpJ
-    9F7ygFEW/WTIHoLWgXbsTg9tC66OZ1BsO+52huz7h18aOnY/WsDUba9uO1rDJ3HkXd+cM+
-    iRQIoBAbGt8kb5GHeMWcR614oEHgkwT4GivW2dg3ya4YN5mQqAoqlPHS/nHdf3MLXpxjgH
-    dF0cwYgHKcDNFDFcdt6aTwp1TMrokwOA6fSRJtmETcfpY4sT/afduUAcryqpLk8c/NUT8H
-    hUZkHXiX90krVODho5OxfkSweawhPyzbuC7Fs+MI52GBEZSe2/4Ai8iEW0v6ReqL7qQhtb
-    aqfcLY2Hg6JWFjIqqIvRfN2LB1CMguV+52sTh0gd14SKvb8cBd2TTGBxUqA3/WdsZKbGgo
-    pX3RJ5SKciuZ+fhlhH4tcdgRpY6HQLMjPYbNCEam2RhemjueVnc23dvFBwYw
-X-ME-Proxy: <xmx:5fUIawLHY15Y3ELPA961hsPryfX4rE8ZduFdIb-r-1YY-U9GQUS_xg>
-    <xmx:5fUIa9BcPY4zL-vdbBPTghTDDKTGArFOsI13_pARU_eI_3Ej3ibKbw>
-    <xmx:5fUIawca0K6gXCCdNnWUEOxgXFUua8AHu7j4hg-_g3fljYfNfOvCwQ>
-    <xmx:5fUIa82O8feP9iBGYHNJXG3hzbDNAVe6tGty-IRl_O1VTcvJIlrYCg>
-    <xmx:5fUIaxOB6cHjyhBFFN9ZrF-7zanf-xnm0Op-8EVWvlAGyroM8tdqeu89>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 26 Nov 2026 22:15:48 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: fail a non-directory delete-on-close open of a directory
-Date: Thu, 26 Nov 2026 21:15:42 -0600
-Message-ID: <20261127031542.1542831-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XMMH3T3n
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b335ef6441so54415727b3.3
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 19:27:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795750043; x=1796354843; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zFpFLKfZVf3h8AzwNMik3TcRCLZzCju/teL1CyI01yY=;
+        b=XMMH3T3n0tTGxQrmlzlR7ju69M8Bv9VInnG+3pzYjjq/ARA2hWdA96KnNog1UyVqVT
+         vjg+KieBVlXFmuldA09elUrVnW/Wz4s0DiYAo0F/GjxYIbJDOUAfl7A2w7gonovmq5vy
+         mjIHByiW5XvHW4Qy3svSw8iSpMYcC5f560Ir9Qp+7u02kDyCOuNepi2XGPHfGg5+3i/6
+         Wbpv6F+4lmY7ART67rEH1bhlq7Tl3i3MqGjuQ8aY4joSi56CkapZm+JBY8rp21/HWqHw
+         KOU9DytJ7ndo1JYUGrMgUUWUd0hVZpsO1H907irdDBqvp61MEgcurvDx/XfDrCudskz/
+         Kb7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795750043; x=1796354843;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zFpFLKfZVf3h8AzwNMik3TcRCLZzCju/teL1CyI01yY=;
+        b=ePJDzoFVadtGZG68Bcwh263Vgb4SAKIBvw9Nysd7my2qYtZ17lFQUT52KIy/JVm1cY
+         UJ4uXZ3sq1VBdFAQRJr/qf61UvYm55I7f8EjYMN0vyufw8Q6hhYpy/5DxhznurAyyAZE
+         BibKuVJAU8QePrW3aWqtTGNRtdxBRHdfsGJQIl92Je3kK5PcGfx4Ut3WlSOCa4FbcafN
+         oo3x7TZgrsDyuy6ccsck4UVOHozGthJ5D6XvMEkHHYNu/6b8mIvJWg15AuLqBICdY159
+         Mg1vq6KXMtbMeC4v3K9NTlnBYrnrZVNjoXBFi4ZbbbzDUsm6AIjaXx+YKGaiOEIB5vut
+         JACw==
+X-Forwarded-Encrypted: i=1; AL+hErH9Mqe2xt/iqjbVTPAqOrgtMPhWNfzvUCtoZQiqc+xOyk04qR1J1AHjlABfippKA5NCPCx+z5A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+7KfAGduEZ4HjB+FrQsyWXYiSEbJLb7qHbF5QXOO4mERMkh+ry
+	leuINX+Dw+jUr4Kh97koHYP9IJo5VWlN09GExkjZRNJ7aOtVMQVN/4Du
+X-Gm-Gg: AZFdTZckLjJcn4+ARLTK+lcvJhHeHv15TXRKJWa68B3vW/ymCncaGat7UtEBUxAJQT5
+	ujnmO4KMNzm32s36YgrEneMAXYYDLL5fB+/sdTIEo21BNYk8vt4KBKrvHFIOlPrFsRz/9odKRDZ
+	TzxRkrb5YaZeJauh4/drtqHuUYsZ0fx8bZPhgX0Yk77WWkfftoU7JdtfBFNwRkqrr6cr7ufFSO+
+	l1cJyeKKtOFcO4G9Kfw7ZEjO3PfiDqZsZQhelR29xq4NSYAKL+kNTkZgo+v0Hw6gz1Ymcg1rNOr
+	IQ2hZar64uTw2jTrms8R8ho248Pnv9uCvejCcNnvUnLchuPV8bnwpx2t9qoCyjGU/SE92Jc+TRn
+	/1qsuRIlqqqIGBAkL9mEmPoLp1fKtHLK682WCr9oWkeRGtsWA1VWuyldwxHHRaj3wTHInTPmByf
+	gtTjsHJufZfImgahDqjWIg0nVdJvYqQlbZ2Ochq3IjZgurGKFQpx0hhzbQWrwWLvdont3PpaHjQ
+	5JBxKOJGNl12Ei6kAy4njBKXG3MmOwuGNeiBSrScTiCg/5kxf0m33LNUEMfiYNk0YoXYvarW5AC
+	JraMp6LpAVJF8KiR/Yloq0ViurUgMTQyHq3jxmO//lEOMv4X+cQ4g3JMYQwt4Pj+hBS+xftVa5d
+	K/swdsPuoeDoS0meCNka9SwKSOlYV2Bjzxfv3bdnYygbenrTj/iHs5JJ998DkSSg=
+X-Received: by 2002:a05:690c:6801:b0:8b4:e2be:7a6c with SMTP id 00721157ae682-8b52047e157mr84897427b3.32.1795750043398;
+        Thu, 26 Nov 2026 19:27:23 -0800 (PST)
+Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b52028c802sm92239357b3.11.2026.11.26.19.27.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 19:27:21 -0800 (PST)
+From: Matt Turner <mattst88@gmail.com>
+Subject: [PATCH 0/6] parisc: fix the TOC and HPMC handlers on 64-bit SMP
+Date: Thu, 26 Nov 2026 22:27:18 -0500
+Message-Id: <20261126-parisc-hpmc-fixes-v1-0-80fb55336ac6@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -126,58 +93,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQyMz3YLEosziZN2Mgtxk3bTMitRiXRNLS2ODtDQLSxNjcyWgvoKiVLA
+ EUFt0LIRfXJqUlZpcAjJIqbYWABaZvc91AAAA
+X-Change-ID: 20261126-parisc-hpmc-fixes-49930ff89437
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>, Sven Schnelle <svens@stackframe.org>
+Cc: linux-parisc@vger.kernel.org, stable@vger.kernel.org, 
+ Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2336; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=lLlB41EVVyqD7UgfO/F63NxUcHqXCh1XpIQYwxPwtwQ=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLI5fkx7eFQqUVaCP2O+2vdFls/t/tU1rEm2+Cs2Zf/qO
+ 41CS2ICOz6yMIhxMcwUU2SJW6/IMqttx1Kf09K/YOawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
+ QyBDxygeIqfHoJFZXFyaWqSbVlDkkJdfkliSmZ9XrJdfkJpXkF6gl5aZVpKRkV9UnAo0Qi8vtcT
+ U1dHNyNDAxNLRwszJwtHUxNnZydDJzdHR2dXJyNLcxMDZ0tHE1dKcgYtTAOYaawNGhikFPyuVvf
+ 5c4d7zzSVN7srRl0mq01SKzmfZr9f+u3nxN09GhpmWYgtE973V3DydRTvDetrWiNz4TWUf+F6e2
+ j5RYZXuAhYA
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-smb2_open() fails an open with FILE_NON_DIRECTORY_FILE when the target
-is a directory, unless FILE_DELETE_ON_CLOSE is also set. With both
-options the directory opens and is marked delete-on-close. An empty
-directory is then removed at close, although the client asked for a
-non-directory. A directory that is not empty stays, and the close
-still succeeds.
+On a C8000 (two PA-8900 sockets, PDC 2.13) an HPMC never produced a
+report: the machine either reset or took a second HPMC before Linux
+printed anything. These patches fix what stood in the way, in the order
+the handler runs into them.
 
-MS-FSA requires STATUS_FILE_IS_A_DIRECTORY for a non-directory open of
-the unnamed data stream of a directory, and delete-on-close makes no
-difference. Fail that open whatever the other options are. A
-delete-on-close open of a named stream of a directory still succeeds
-and removes the stream at close.
+Patch 1 fixes the TOC handler's CPU number load (an unaligned ldd of a
+32-bit field), and patch 2 gives os_hpmc a per-CPU stack. os_hpmc has
+used the per-cpu template of toc_stack since commit e486288d116a, and
+that template is freed init memory on SMP kernels. Both are Cc'd to
+stable.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
+Patch 3 lets only the first CPU through os_hpmc; any other spins. The
+C8000 delivers an HPMC to both cores of a socket, and two CPUs running
+PDC_PIM and PDC_IO at once ended in a bus timeout inside PDC.
+
+Patches 4 and 5 deal with the wide PDC calling convention: the fifth
+argument of PDC_PIM and PDC_IO now also goes in %r22, and the IODC
+console init, which passes arguments 4 and up only on the stack and
+which the C8000 rejects, is skipped on 64-bit kernels. The report goes
+out through the kernel's own console driver anyway.
+
+Patch 6 makes parisc_terminate() enter the nbcon emergency state, so the
+report reaches an 8250 console even though interrupts are off.
+
+With all six, an HPMC on the C8000 prints the register dump and panics.
+The firmware side (monarch selection, what PDC expects of the other
+CPUs) was checked against a static analysis of the PDC 2.13 image: it
+does no rendezvous after branching to the OS, so spinning the other CPUs
+in os_hpmc is all it needs.
+
 ---
+Matt Turner (6):
+      parisc: Load the CPU number with ldw in the TOC handler
+      parisc: Fix the HPMC handler stack on SMP kernels
+      parisc: Let only one CPU run the HPMC handler
+      parisc: Pass the fifth PDC argument in a register in the HPMC handler
+      parisc: Skip the IODC console init in the HPMC handler on 64-bit
+      parisc: Print the parisc_terminate() report on nbcon consoles
 
-Tested on ksmbd-for-next 3c31349456c5 with KASAN. An open of a
-directory with FILE_NON_DIRECTORY_FILE and FILE_DELETE_ON_CLOSE now
-fails with STATUS_FILE_IS_A_DIRECTORY, and the directory stays. Before,
-an empty directory was removed at close. A directory that was not empty
-stayed, and the close returned STATUS_SUCCESS. A delete-on-close open
-of a named stream of a directory still removes the stream.
+ arch/parisc/kernel/hpmc.S    | 56 +++++++++++++++++++++++++++++++++++++-------
+ arch/parisc/kernel/toc_asm.S |  2 +-
+ arch/parisc/kernel/traps.c   |  6 +++++
+ 3 files changed, 54 insertions(+), 10 deletions(-)
+---
+base-commit: 9437ee8b6cf607e883b36e44bd755968daaebd48
+change-id: 20261126-parisc-hpmc-fixes-49930ff89437
 
-smbtorture first tries to remove a test directory with such an open. On
-the base that open succeeded, so later tests in the same run found the
-old directory and failed. Those tests now pass, and each of them gives
-the same result on the base when run alone. The other smbtorture
-results are the same as on the base.
-
-This patch was developed with LLM assistance.
-
- fs/smb/server/smb2pdu.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 5a7842264b98..28fb77bcd3dc 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -4976,7 +4976,8 @@ int smb2_open(struct ksmbd_work *work)
- 
- 	if (file_present && req->CreateOptions & FILE_NON_DIRECTORY_FILE_LE &&
- 	    S_ISDIR(d_inode(path.dentry)->i_mode) &&
--	    !(req->CreateOptions & FILE_DELETE_ON_CLOSE_LE)) {
-+	    (!stream_name ||
-+	     !(req->CreateOptions & FILE_DELETE_ON_CLOSE_LE))) {
- 		ksmbd_debug(SMB, "open() argument is a directory: %s, %x\n",
- 			    name, le32_to_cpu(req->CreateOptions));
- 		rsp->hdr.Status = STATUS_FILE_IS_A_DIRECTORY;
--- 
-2.47.3
+Best regards,
+--  
+Matt Turner <mattst88@gmail.com>
 
