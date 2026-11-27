@@ -1,60 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.128.248.237
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795779341;
-	b=QlQkNVHy+F92CzDjYaIHA2W4PG7Dp10s0jvDQofwNEi0ZEZS2mVuTlaEHgY4EXpdDjWK
-	 ClGMm0Qr7M53BHRqD1Pq9NOKQhqyzHpd4+bpZ0LqsqwdX87mO68QMvwk381RYVDVoAnJT
-	 78KT4lZQ8O6vGZEXXBLs+f3rq/OIMQiMAsJjtRSEZlNgnLDp+2g8OCzc7gUCw8as62HU9
-	 bFH0R7ZpTsyaiBWp03Ni3uh8zx/Y+vf8TfBCkGNCnr+pvL4rq4GqW3P2w8bS0MK9f7km3
-	 i9TxmCev/I8dutuNau8i7LNdm35ZnFQwuchcns6Ka6bN3Kw/b3K5lo2ved6SoF++Vdw==
+	t=1795779405;
+	b=YDmd/jNfoU0A9KwZNGZIbqOCSZwkvxQYmBc89os+n+vLACSEB14Mhx4ltdWO382/XY4S
+	 RCDM0qP7D7MLzkmubYB6AmNm5A+XXTvdZ0gtb9vbFfll9T8Hbkx14irtXNfe5bvGRRMHT
+	 0jIy/8/xrj1oCX+kT9mYw+BBz/mE/4QDiFJH/BRTqzH2V5FreOFihVXow4NoHM0ulxBcz
+	 qyQqAbEPUT5oL8z8//VpBYvSAkK3lA/wTo4bqPVMR16DeVqFOGQsv9fw6J47+jq/UDOSV
+	 MymiWAV0XmMDrA0FRYcygY7bKcRst1fnJFR05Or+SOVz0/X5rfzPboRsOSl0oZSYYDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795779341;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=0XGypaCJ7EJQifKr/qwYwdAUFvbJAWwik5NXmXNQWeA=;
-	b=MogoY+mhvBGanRfKSIOQwsSkp2Kr47aB30j2pc8cH00YPg0o2LVXVVtJ3mQ6RLAN3neL
-	 i2UgqaJXjYv30lWbxgXlY5QiTLHWY9z+Zf2bpmT8Pc0NYQCubR1tZ7tJIg4slOIIG4B5X
-	 mlk+hUVgRWq6IGUiuqsoMzzZMO4YNQ/IDUkMBk6OpJ4t1eXNHyCIX/BY3FcTzE2EzMD9G
-	 N48/GB+llebWnnKpjc8j5TIpKkYnDAQWvvtUO4rMGs8XXBIpGU5yhnd3Co6Gv8kHH9de2
-	 0Y45cWTF2RRzam7iYVkajju/GQC+InseGMt2MD0/Ul4SPUaH4NpLpIBUKncV13dpR4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795779405;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Last-TLS-Session-Version;
+	bh=HBUFziVfNSMx3ydlT4B8ObE1k22rGp9asUzUB07kF2A=;
+	b=Kt2mb+WY13FjQASqvS7fP1Jg0s/7AiZumCAA31R5MIK+Civfp8nze8iPo5o6nrCbueJp
+	 o/BpmRnPNsukGqE2pTKEKw6GYMvy6cYi3w62fmedhOMIx0sJvMZ7BhMcY7GP9uS0eF4gY
+	 TKxaKV5d64HfH40pc1wy7Tl14gjp/Yod7ksnYnICFoKq4AFTMtO4j/Yz6JmtZfV94N9/f
+	 IPMxGeU4Rp95hfpqYSoRCdwyWntH/HKMKPGG7dp/X4riLAH9RP8sUtHv1XoqLpO++88YT
+	 eX+rgEFVZG8/2k3RoW2weSXPDJ9+796+FywEmwpvsVub95+HANS5Td0sgBp5V9r7a5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cesnet.cz;
-	spf=pass smtp.mailfrom=cesnet.cz;
-	dkim=pass header.d=cesnet.cz header.i=@cesnet.cz header.a=rsa-sha256 header.s=office2-2020 header.b=id56a0B3;
-	arc=none smtp.remote-ip=78.128.248.237
-Received: from office2.cesnet.cz (office2.cesnet.cz [78.128.248.237])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=ggO6Yjs4;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 113BE606A31C
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 11:35:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 113BE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cesnet.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cesnet.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5FA606A32A;
+	Fri, 27 Nov 2026 11:36:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F5FA606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cesnet.cz header.i=@cesnet.cz header.a=rsa-sha256 header.s=office2-2020 header.b=id56a0B3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cesnet.cz;
-	s=office2-2020; t=1795779331;
-	bh=0XGypaCJ7EJQifKr/qwYwdAUFvbJAWwik5NXmXNQWeA=;
-	h=From:To:Cc:Subject:Date;
-	b=id56a0B3w7bXsaRgIS9NAglpkokOFRLdgKPr9rLjUTClBdgMJJMVklaBkXZvH03pA
-	 0+1zOVsyAseZhfLhYLV/QGqcOhTstPQPM8hcTVrR0LJYY84cL4ssBCxRAxNN0RSpAB
-	 +GIzcYflMwFFq69MtVs0wTOthXibFpyvq0emNOrIN9JMtYW08hbu6F8HJHsOAl9tpl
-	 UKHl48QjClsqqT7gwSwbs4H1QFiPMAymWMSBsWybQzj0RDVPXivd7Nv8Uu7KOLIJAN
-	 w5ypVh/oRIlitBFmiGcjQfWbdhQtZHXReJzjJY3oiRVIHfiuvBdUgruMiIjZjrgd7M
-	 wyE82KqAAPkEg==
-Received: from x670.vse.cz (unknown [85.255.90.210])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by office2.cesnet.cz (Postfix) with ESMTPSA id CAC99118007D;
-	Fri, 27 Nov 2026 12:35:31 +0100 (CET)
-From: Jaroslav Svoboda <jaroslav.svoboda@cesnet.cz>
-To: jaroslav.svoboda@cesnet.cz
-Cc: stable@vger.kernel.org
-Subject: [PATCH v1] media: rkvdec: Reject 4:0:0 HEVC streams
-Date: Fri, 27 Nov 2026 12:35:16 +0100
-Message-ID: <20261127113516.1668491-1-jaroslav.svoboda@cesnet.cz>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=ggO6Yjs4
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 428F510AE74;
+	Fri, 27 Nov 2026 12:36:27 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1795779391;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=HBUFziVfNSMx3ydlT4B8ObE1k22rGp9asUzUB07kF2A=;
+	b=ggO6Yjs4qJI2elurMaMm/zUD5Oxa6yQGhE4460tNuh5JuFYmJOXyv4IHEqeNLG5dn2whH+
+	FTuwHM/X96nIB7XSIT3Ij1tta7OB2U7t5dNleulsEs4e3icHbjn8j3XrbiMlPRLrn7LkEn
+	4azOPMccahIH0IzKdOZD/guASDb8T4hzxyZY6taw3aDCOyn53sxs9ykapLMA20U6lDler9
+	jh0FMA3uEAumijZtLlj1/ZTFdDTi3l0s3Zw2eRGwSFUpbktnOCQrnG49sBiZMTHPe2Lx5G
+	5aiWFTxO6U5x64IpOpfyxCaD/96XSDv3pR7Egv/Hc3tMZ75wwEgDS6mt6fcScA==
+Date: Fri, 27 Nov 2026 12:36:26 +0100
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 5.10 000/264] 5.10.276-rc2 review
+Message-ID: <awlrOlEJuhnf5HPb@duo.ucw.cz>
+References: <20261127052100.671985356@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,58 +67,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="0kFjwl2D0pxk0A5e"
+Content-Disposition: inline
+In-Reply-To: <20261127052100.671985356@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-The HEVC backend of the first rkvdec variant (RK3288, RK3328, RK3399)
-accepts an SPS with chroma_format_idc 0, its comment reading "Only 4:0:0
-and 4:2:0 are supported". The hardware has no monochrome HEVC: the
-RK3328 and RK3399 datasheets list HEVC Main and Main 10 only, and
-Rockchip's MPP library notes that its HEVC decoders before the RV1126B
-do not support YUV400.
 
-Given a monochrome HEVC stream (x265 fed gray or gray10le pictures),
-the RK3328 and the RK3399 decode every picture's luma as zeros, with
-IOMMU read faults at addresses near 0 and near the size of one luma
-plane. A 2160p stream hung both SoCs after a few seconds; only a power
-cycle brought them back.
+--0kFjwl2D0pxk0A5e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Reject chroma_format_idc 0, as the VDPU381 and VDPU383 backends already
-do, so that setting the SPS control fails and userspace can fall back
-to a software decoder.
+Hi!
 
-Tested with this change on v7.3.1, on an RK3328 board and on a Pinebook
-Pro (RK3399): a monochrome HEVC stream is now refused at the SPS
-control, and 8-bit and 10-bit 4:2:0 streams still decode bit-exact
-against FFmpeg. Not tested on linux-next itself, nor on the RK3288.
+> This is the start of the stable review cycle for the 5.10.276 release.
+> There are 264 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-The problem was found, and this fix and message written, with the help
-of an AI coding assistant (Claude Opus 5.5 in Claude Code) during
-hardware testing of the boards above.
+CIP testing did not find any problems here:
 
-Fixes: 3595375c2301 ("media: rkvdec: Add HEVC backend")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jaroslav Svoboda <jaroslav.svoboda@cesnet.cz>
----
- drivers/media/platform/rockchip/rkvdec/rkvdec-hevc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-5.10.y
 
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc.c b/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc.c
-index 88e90c438..97466705f 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc.c
-@@ -487,8 +487,8 @@ static void config_registers(struct rkvdec_ctx *ctx,
- static int rkvdec_hevc_validate_sps(struct rkvdec_ctx *ctx,
- 				    const struct v4l2_ctrl_hevc_sps *sps)
- {
--	if (sps->chroma_format_idc > 1)
--		/* Only 4:0:0 and 4:2:0 are supported */
-+	if (sps->chroma_format_idc != 1)
-+		/* Only 4:2:0 is supported */
- 		return -EINVAL;
- 	if (sps->bit_depth_luma_minus8 != sps->bit_depth_chroma_minus8)
- 		/* Luma and chroma bit depth mismatch */
+Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
 
-base-commit: b4e3c4b6a36fd76f57bf3e48638f68ddecc54ba4
--- 
-2.56.0
+Best regards,
+                                                                Pavel
 
+--0kFjwl2D0pxk0A5e
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCawlrOgAKCRAw5/Bqldv6
+8lfLAKC1+c2fmExtNSnNELebIwalCPTo2wCfX0bMcywvBz/Rz1ckf5pF+QzomTk=
+=Xc8p
+-----END PGP SIGNATURE-----
+
+--0kFjwl2D0pxk0A5e--
