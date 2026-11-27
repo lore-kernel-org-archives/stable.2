@@ -1,78 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795762087;
-	b=LrDc6yGpQI8rDpt9VqznhM5k+jCpQa0lZ6foWCBb14pmj1ef9qM5htQZMZPKSL1MXQRp
-	 O0N8Lf32GTEAweaqm3JmF53CrgG/PhovrtaB8KuJda4T17yXZYgMxJ9ONZs0nvx1wQ/Mt
-	 MiUXU/h1RF0KO7NdNd8zeEIO9hPLGczaZdK84QnVPP1HcfDfkk067mY1fZHds+yMHbFuU
-	 opU2NO4vqj0AE+l6LVBCYVCj3jmP8g03sMK7n9Af/UEPwmTLSmvmshEu6M+Wge4ezHLPd
-	 oUqEI6RpfgEmpbIDlnmk1+pI64e1ed2pT5h+tt2lAb8DnU3x5zEK1EbSVT2JF8tePgw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795762087;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=mFMAfJUyv5fMJSPeR0DdyM+SciuBdAnE7Ia8wiTHRnQ=;
-	b=0r20VAe1eUowZf+JwRzexRer4SPJYKdu3Ljxqzsn3o7QucWws8bY97lzOxIh+NqmFPBz
-	 wbZaixEgJliylw3A9es0mTK1quL/O3faEUvVmFhWbmZq/LEc+sqAQtR/HIB5TrLe1S00U
-	 0iiTteOXdMOZ1SNayUJphT06TYI96UXUXcHbjW72suz9MHAYwJCLu5AyKwxs/uZPZVVGw
-	 04wAbC+qbdErl9NkcEAihafMuyKG+xCWX4UP8gwTXJklfn9sdM/AuJcfG1TPpb7qMEne0
-	 moks5YpzaKnvkMyWO7xCEm5KljcP+9ZtHV/QrK+ukFhtb2y8WUBEefRubrkVgAU6sNg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SvkMOYU7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087D7606A326;
-	Fri, 27 Nov 2026 06:48:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SvkMOYU7
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795762086;
-	b=vAKrVGbewsXQvW92F6bswf7tFBUOPXJbX2YP9BYwWNU0/VLbYKrC4h4MALnyFWROHwPq
-	 9E5Zq9xcCjdU2nNZhssXiDr3rhYJ8OLCn3eYNERbHiTmhVUIzIoSs7dNbXX0hEeqAIeI7
-	 SWMmwl6cXQFRTDO/6fwO/jlrfac4rFTBvy/64FBDIjKFkVXLGmolINIpTWKjv9F+NI8Zp
-	 kHSrcnnuzyHw93VYi3BY0L4imN07qd2VH1Rr6GJEpoJwuE2XJg0TAaDBLK8vQtJVcDKxO
-	 xpJYPbAE/6Rru0bDbAb3Q+GjfXEnkd9Fi4pHO/dA7XPUbngG811hn8KNS9by5YKVe3Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795762086;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=mFMAfJUyv5fMJSPeR0DdyM+SciuBdAnE7Ia8wiTHRnQ=;
-	b=iDhqJfD6OheLIMBFQogYIkxxdCcI9U2cl0DI3vRiuZ0mvN/zf7bqjicRyTEPiHVy3R9S
-	 jvqYCd8GZ6gLr2afEzMEMHtx90562C6VmBEoEKa+aKwvETMER0BZnOZmhIAwYuwnBOiLF
-	 9SgwLLx+xReLlg6K0CGMS3aOA1MlDDmmAqBHPBeL2dTnIcZU3MrJjENPklOOTMqrUcu9Y
-	 48tQEkFlMe+FemkmIteTXwRRokBBnsSPymtw0hDqdERUq+E5YIPWPmCSXrfYjg+wdywM8
-	 wU8ZiKDSS0hd0xzEJ0Mp1EWdMS988RuOLetD8FcbfFxax7vUv9G1WsBTk9jR61RxQxg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.132
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795762227;
+	b=NNfRMXBNK0meyosn06F9xZq/ozCu/h8VkZBikL7B91kr+xrMHo3j0+3gY15dJDlk+Khp
+	 anrIJ2SkK2tnH58FPO8p/8Ci0HdlX851lRoQ5bZXQ9bJVXZnjiY8P06PizfaUATz33jO9
+	 tZ34brgz3UxWXUBSzELK5kTeew8vPlEnhJiNRgCDlCBLCy4QVANwE2JdAsjTN/TFCoCL2
+	 B6bal2XNCHfZkLuMg+DGpD8tk4wdva/tG/EypONjTqN0Z6ektdwmAx/z/v9xZSmKHbviY
+	 U7gYefU0i4zxAVNmEfRxiCg/fjO1CSYK+IfJsc93VT6Lva1n736eJ5vh0PDwxkcHhHA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795762227;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zkI3ZaCVO6DFWoIiiuuohl1A00TTUY+rHg5pk5A5ReM=;
+	b=S2fnXJUqPlbadn03yTxMRyMDVBm7r7k5mEiOWIjSOG9Q1EKsuF/0eKcNGJJhheAoriM+
+	 95UkjXuIavAOM2XWs7Y1t9F+ePxkvppnsXiGhH4dt2ov6hgc1Mq3tae4OEEDzF4ue8yrH
+	 uh/yPSZG2xwOdBEExCuVVJxmz9y6rteZ6c7QiV5/6YYnGdOS4N8NmJeAToGtREKq18Im4
+	 aGYKIGaQ2LoX/764hXxb5TsrZBVn5d074bikmvjK5ooxb/DT7h6TRi+24C3Yps31jxvUH
+	 g0iVzgNpCZmRXP63L9vTE0qx0CbESunFe+95XT3wUSCvQYUNlSZZxl5/9XukGGuB0PQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N25xEqkv;
+	arc=none smtp.remote-ip=74.125.227.132
+Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2BF691F008A0;
-	Fri, 27 Nov 2026 06:47:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795762086;
-	bh=mFMAfJUyv5fMJSPeR0DdyM+SciuBdAnE7Ia8wiTHRnQ=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=SvkMOYU79rjPmH1xuzLGx1IEyJHxjsGwALm0sjnNuPHJeGMrMgG5vgMy/gNdEpdyt
-	 trzmRIiZil5kTXg7NUYoTuraZzZot2xiH5EzEm9YWgOq/5SbZnAgrD7fqoHSFYSCHi
-	 Eb3wFKCdEa29kKp2wJouiMoQKTsqq7l0dv+R01wfJBWw2MlvkvGnGDcyfKrJesAv+H
-	 RaoFID5OFzI8jNVbZwj8BzT9Ul6DyLTfMSxWG0zUM2g2gwMCGss1XhqK4vvQslh2PF
-	 2YgqZyl8ZPeSBQsUWNUIsoc+kl5cefa1sfh6KbAJ2tojfCHJoLNAMj0K6Fco4GyR5H
-	 N8G8FR/iuG3tA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 026844B5ED;
-	Fri, 27 Nov 2026 06:47:48 +0000 (UTC)
-From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
-Date: Fri, 27 Nov 2026 06:35:09 +0000
-Subject: [PATCH 5.15.y] PCI: Free released resource after coalescing
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C2A606A323
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 06:50:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3C2A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N25xEqkv
+Received: by mail-pj2-f4.google.com with SMTP id 98e67ed59e1d1-3b497279c25so2370310a91.0
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 22:50:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795762226; x=1796367026; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zkI3ZaCVO6DFWoIiiuuohl1A00TTUY+rHg5pk5A5ReM=;
+        b=N25xEqkv5pbmWpcUYO6PxJmIBAx0vL2XhBDLVkL/YevQdZaDsWIB7SomQ43Y1NP4np
+         /ncFFwDk+/4rx+47PjGUHKBCG1F2yjNmYsSF07iVz2ZvRkjN2VcR0iQBPyHFMwmD+Esl
+         0HEtj8HXHYPGI7wRHBmG820O7YXrZCb8SLFA/1DoekGvX/Ue9xJK4/+ztcrm3krQjJVz
+         yM8CIxHEnVE0pJ5M17Sijlg/29qr1EMj7HSQLyAOOlvPGR9aSLb7Zr83QMLPW58w3Y9S
+         trstm9drg+JkEQLJ/Lph/1iQwJnUU8BLd+cdtoA7jTc57CofSrO6fVnygCVTVHwz5Lmy
+         2SZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795762226; x=1796367026;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zkI3ZaCVO6DFWoIiiuuohl1A00TTUY+rHg5pk5A5ReM=;
+        b=zp5GXl7E7YCZsXY2fcXRui4aySUCq4w8iokp8J4nFykY9q/GFlHBqJltddNrIvONq5
+         zlNglnNsvB12J5afkonBToFSwd+46sQRRqlAF4NMq29ASMg3MWY9OuIUJLXDEuJ2US9P
+         hSdQXZc8VURQ0YKEB9VI6jOfqu03EXsOcABzKkJntRHsU1PPMNpopfaNOBBB9qNI4W1j
+         uwP1y3LbKIYALCGhwilfZlAnocZJDmoXxyZ4kjdMLhX1/Mjtk6lVubTwS4Anjs46Fw8P
+         UqyllZZlBM180mpwfangBaE/eA/6ALBx+bGMroUWa22q0Hln5i08oNrWUhOGNIV4ZYSA
+         kriQ==
+X-Forwarded-Encrypted: i=1; AL+hErGVuYK48DbKeP/DYsoWtAGaycQGcHvrFv9Np8L5Bt9YrG4aXdG401eaIFxpu+9JXWJZ6b2SbBA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Dwr99aChGpJdlu2rI6vITLxoNIFgNvFdjNYqZXK91Qp6g/Trd
+	P3+KPSmfBnPqwxxRILktFq307OPu5apn0aGn5ASZPlgr7Gb8kfftS2KK
+X-Gm-Gg: AZFdTZcLBPuB5IvjTUOlpZ0QNIW6zEbbntD5Z9Rc7C+goaTJRhKTab/PXYMlDwjZTbP
+	Jefw1fTzEPievsTSlmXeeH/RlGwcTiU0QsJcdM7PMsFF4ewDTIDsZxi0a/YRZsSeImyUy19QdGY
+	18K6nCRgAV151hjNGr9jL9yH0MsC+gZir484NEpP15KmRp0ukBvcwqNE6PUkZvMrL5q1Rjfkhb/
+	McllFvQSg+mRIkJcNC1Z9FrI6PWYHckfxzV0fxzqyzWearKmk/TdfzECeSN3UPaN48DZTLviGt8
+	nxiqnH1GTjy15KJljtfG1h45nbbYqpvV89iu7G0Au9VcjScQmHxcP2AtA6A9QkZSLDD/g9bHCvQ
+	3ixELoZQ6xKJzAIsztzKGsH8pXfqIS2oKXwHTW7DRrR+yqiKfOOGVSIiit1H71TBRQ8No2JsvSf
+	i9jkk9i5u9vGh2pSLFopmqHBQZvoWN3eiS127j+6fGk9B1ZC7Wrhq1Y/cRhBdWKD1XZLSnerLI8
+	GAGjaOu8aX2TtPXixii5AAVXBUwZ94C4W6eTMEiJccBK9af3fTW8HkuuxWlD+1nK1uWkCL4+v0l
+	aJOOHBK7MomXjKjDD68ZNfuB3oTR/8pyRSKLP6Y5R8a/K6JbcJ3DYiIrrj1KtlpPbIZvjzggAdZ
+	j
+X-Received: by 2002:a17:90a:e705:b0:3a0:9640:803a with SMTP id 98e67ed59e1d1-3b41c7e118emr23007990a91.5.1795762226024;
+        Thu, 26 Nov 2026 22:50:26 -0800 (PST)
+Received: from BSDHENRYMA-PC1.localdomain ([43.132.141.11])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405d96bd3sm39498980a91.12.2026.11.26.22.50.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 22:50:25 -0800 (PST)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Xin Long <lucien.xin@gmail.com>,
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Vlad Yasevich <vladislav.yasevich@hp.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Simon Horman <horms@kernel.org>
+Cc: linux-sctp@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] sctp: don't count pending-deleted addresses as survivors on bindx del
+Date: Fri, 27 Nov 2026 14:50:17 +0800
+Message-ID: <20261127065017.2922776-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,84 +104,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-so5-pci-515-v1-1-58c7cedf2a45@certik.com>
-X-B4-Tracking: v=1; b=H4sIAJwkCWsC/02NzQ7CIBCEX6XZs1sBQ237KsYDP6vFGGjYajRN3
- 13Qi8f5MvPNCkw5EMPYrJDpGTikWILcNeAmE6+EwZcMSqhOSnVEThpnF1BLjQch/NAPvhedh7K
- YM13C62s7gW6lbt9w/nF+2Bu5papq0xomtNlEN1XEFP2S0h0r3/9dwLZ9ADz0FIOjAAAA
-X-Change-ID: 20261127-so5-pci-515-300d989d806d
-To: stable@vger.kernel.org
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795761308; l=1901;
- i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
- bh=Q3ipk5VBhPFIagCrOUrYLKD41qorDNeCk/xbTMJ0NYs=;
- b=g31RX7ICmsUEZ+CZFUWSl48NbQylBjFTR0E9pdvUexHT7lguAnw/pRaFit0c2bLmDD00pzQKA
- ZO7cswPFJrxC82GV/aHHstfGnnqpCmbQhufcf0GThnzs31Beef2+CXu
-X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
- pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
-X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
- auth_id=1647
-X-Original-From: Dickson Wu <dickson.wu@certik.com>
-Reply-To: dickson.wu@certik.com
+Content-Transfer-Encoding: 8bit
 
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
+sctp_send_asconf_del_ip() uses sctp_find_unmatch_addr() to make sure a
+bindx delete keeps at least one address in the association.  The lookup
+counts entries that are already marked SCTP_ADDR_DEL by a previous
+delete request as survivors.  With a peer that holds back the ASCONF
+acks, two sequential bindx deletes each pass the check while together
+marking every address for deletion.  Once the peer acks both deletes,
+the association's address list is empty.
 
-commit 8ec9c1d5d0a5a4744516adb483b97a238892f9d5 upstream.
+An empty address list breaks its consumers.  SCTP diag reads the list
+head as an address and returns 16 bytes of association memory in
+idiag_src.  A following bindx add builds an ASCONF from a bogus address
+taken from the empty list head, whose address family matches no sctp_af,
+and dereferences a NULL af pointer.
 
-release_resource() doesn't actually free the resource or resource list
-entry so free the resource list entry to avoid a leak.
+e.g. on mainline v7.4-rc4 (KASAN build):
 
-Closes: https://lore.kernel.org/r/878r9sga1t.fsf@kernel.org/
-Fixes: e54223275ba1 ("PCI: Release resource invalidated by coalescing")
-Link: https://lore.kernel.org/r/20230906110846.225369-1-ross.lagerwall@citrix.com
-Reported-by: Kalle Valo <kvalo@kernel.org>
-Tested-by: Kalle Valo <kvalo@kernel.org>
-Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Cc: stable@vger.kernel.org      # v5.16+
-Signed-off-by: Dickson Wu <dickson.wu@certik.com>
+ Oops: general protection fault (non-canonical 0xdffffc000000000b)
+ KASAN: null-ptr-deref in range [0x0000000000000058-0x000000000000005f]
+ CPU: 1 UID: 1000 PID: 81 Comm: poc-crash Not tainted 7.4.0-rc4 #1
+ RIP: 0010:sctp_make_asconf+0xd9/0x280
+ Call Trace:
+  sctp_make_asconf_update_ip+0x243/0x540
+  sctp_send_asconf_add_ip+0x366/0xc90
+  sctp_setsockopt+0x1986/0x9410
+  do_sock_setsockopt+0xb2/0x160
+  __sys_setsockopt+0xdd/0x140
+
+An address that is already being deleted cannot serve as the remaining
+address, so skip SCTP_ADDR_DEL entries in the survivor lookup.  The
+existing keep-last handling then holds the final address back, same as
+it already does for a single-address delete.
+
+This issue was discovered by Tencent CodeBuddy Security.
+
+Cc: stable@vger.kernel.org
+Fixes: f57d96b2e92d ("[SCTP]: Change use_as_src into a full address state")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
 ---
-6.1.y and newer already have this fix. 5.15.y has the coalescing
-prerequisite as 26277a425020.
+ net/sctp/bind_addr.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Tested on v5.15.226:
-- x86_64 allmodconfig W=1 build of drivers/pci/probe.o, base vs
-  patched, no new warnings
-- booted the patched kernel under QEMU/KVM. I didn't have a PCI
-  topology that hits the invalidated window path.
-
-The backport and the test runs were prepared with AI coding tools
-(OpenAI Codex agents, with review by Claude). I went over the result
-before signing off.
-
-drivers/pci/probe.c | 1 +
- 1 file changed, 1 insertion(+)
----
- drivers/pci/probe.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-index 1403b1e50142..d5db12f13a22 100644
---- a/drivers/pci/probe.c
-+++ b/drivers/pci/probe.c
-@@ -1001,6 +1001,7 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
- 		res = window->res;
- 		if (!res->flags && !res->start && !res->end) {
- 			release_resource(res);
-+			resource_list_destroy_entry(window);
- 			continue;
- 		}
- 
-
----
-base-commit: 4f2df9a01754521fbba3493e8ad91ef65515e68c
-change-id: 20261127-so5-pci-515-300d989d806d
-
-Best regards,
---  
-Dickson Wu <dickson.wu@certik.com>
-
+diff --git a/net/sctp/bind_addr.c b/net/sctp/bind_addr.c
+index 31737f144c7f0..e20006b9f12e4 100644
+--- a/net/sctp/bind_addr.c
++++ b/net/sctp/bind_addr.c
+@@ -445,6 +445,12 @@ union sctp_addr *sctp_find_unmatch_addr(struct sctp_bind_addr	*bp,
+ 	 * can't change.
+ 	 */
+ 	list_for_each_entry(laddr, &bp->address_list, list) {
++		/* An address already being deleted cannot serve as the
++		 * one remaining address.
++		 */
++		if (laddr->state == SCTP_ADDR_DEL)
++			continue;
++
+ 		addr_buf = (union sctp_addr *)addrs;
+ 		for (i = 0; i < addrcnt; i++) {
+ 			addr = addr_buf;
+-- 
+2.39.5
 
