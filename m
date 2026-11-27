@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795793555;
-	b=1a2tPi+DYwDO/rUJwKXN3Td1/7nDO4KhKbnHBgtSlJDVrmFKAk/tTugZH91DxYafn6tu
-	 sYHNsnUPFF3C74mI4/5dUDgAeJ8yJhCcpNd++V2hcH4Iw8qgM10gNC4SAdA1VEzvMtXp+
-	 NMma0zrYMNSUHFAF+6zA0D8pVZsA1J7zfANbEBoxDFxJnC0ThhJ45GPDLAXea2LxYiC6A
-	 KvDXP+3BvKDXkbQ3P+PEKPkwyDYCa5ht2soj4jBgLxUPIJEDY2MkHqRRpE4DdMQVMe7OV
-	 mQtn+C5gc9Bpu7oQSAF5oWvNVJIr/fM14ObtSjwo6Xj+R46GbuVAxYB/EJFHDSnDObA==
+	t=1795793561;
+	b=KwTH2ei9+5u/cYjfbxuMDY+ruGkb04mbnUjX0z6DJgQTJcQAFBj/oG1ucg3JHUMaNnRS
+	 eelMECSq78RdPLI3Gqgvy87qEhXlOGycB8g9diyzl6aHhcxpKi7H2xcd0gQ2SGVTOOwf2
+	 rhinM91JgxkaMHAV1Blg/xFrwU/Z8ktGGdAp3QZhZ2xYwsd8LhRjkzIduh+HCfPgM/GN/
+	 1ICOJBmh7YlNyTn3RThrKAfNyhbYRVlAGJhd8L/Igj3tkiDyJQ78NQ3S8nfoPFmBNPSv1
+	 q/KtRlCwsLORu2ZcGGuSIm2Yt7kSsmaQPvDPq1BGwFN6h9Ea21xe65zM7ITkuW7lTSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795793555;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795793561;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TG90mzQ8xXrz2zGDnwX1wY/HwqICkFJLKfoFfAHtjd0=;
-	b=gPILbdSIiD3H5CYtfl5yYi0wx9L09zYho68Adov8tH2Uo+Ajvj7lRlCwyybBk6tZ2keo
-	 VUymufm+WtjbkY5tdeGeyDdtSjj0ZvkBildWviIDYfLH8Lu9F5IVOAeh3n+Lup/Lj7vFl
-	 1bWDErjmAhwTmSOjw03QdTdtosnU++9v5RgJRFjPK/0pRdaNZxJySOQD0tfhxj66vQJk8
-	 zWe6pdyLvAFcGqz4jhM/r0kvdEe48SbY1h3GrY73CiYkCnMrRXY/vMD5bi1cEGuI5W6nV
-	 kjH2K4gV1kq71QO541qat8+oyxHBZgRE+JrO6dJeROb7pejqzrsMPrFzIduMnRfYDOg==
+	bh=0gIlXVQ87uO7kfJWQw74uLJzWa1rKvwJQf0oUC7TuyI=;
+	b=McoWckMIoTUIurihPCbZT2tKliCRWYQZx0oIZPridJ3UGpFFU7EIQv6h7ygmzpPZTyUF
+	 6uHSq16EtZhrHdtHgIWoi4fq4jI7tuoTcWyvVL9wQObrJiV1ZSUlMmTcPLmjKZFiVqwRp
+	 RHAdZn39zeqE6qab1dOkpWDFlMeMS79r0af57PowZaRm0cAl7JFhDklUU3y9ZeQFb4glv
+	 gHbnZUl3qdSYYW5MfduV2BmBd2n2TQN/JJAELGXdUxuZBj9pLOu4EtLUk0UfoYH9tSg6A
+	 qHirSEadgelfMkq4xSa61P/LfSmOvi0WQ9JOEn0mOS6sV1/e5jBo9izqc9IByYjwpBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gmUIwkgM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C5Mo3Nwv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF68606A31E;
-	Fri, 27 Nov 2026 15:32:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D13606A31C;
+	Fri, 27 Nov 2026 15:32:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gmUIwkgM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19FFE1F00898;
-	Fri, 27 Nov 2026 15:32:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C5Mo3Nwv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4FC51F000C1;
+	Fri, 27 Nov 2026 15:32:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795793554;
-	bh=TG90mzQ8xXrz2zGDnwX1wY/HwqICkFJLKfoFfAHtjd0=;
+	s=k20260515; t=1795793560;
+	bh=0gIlXVQ87uO7kfJWQw74uLJzWa1rKvwJQf0oUC7TuyI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gmUIwkgMFttaDODOUYyiTP+fYsZPyfyj+09dNA5B0x2OTV4Gg5I7NXkH4arg2/NzO
-	 fsJMA/TUJweGvsYv2omheDdP6/f7hmYJB15GbEe68MGEP+Pc65uQDTEH7VoEtEk3f5
-	 wgQ8NvBc3IHeUg5b9rVcNTlYQmBtYeLb5EpAfKpMvpDZ/utu2w2Y/xNDRrvt+/tlvq
-	 tfvbLmbuoHUCWDuQWOQDhL1URZgBIJK9d66M7U9agUGMDu6O06VucEzdx3GFoC8QDJ
-	 wv41xKMy3guBZ511V5HN7vK16S7Jc/AF1k2kt57nd4IGs9rG+/ZufMxHVegEHaU8xt
-	 3/KPXQQeETQdg==
+	b=C5Mo3Nwv8cVoWh1uzGDbcfOGefJYapYzDVJTdSCtlTwbHtNBUrd4jBdSzP5hn/0IJ
+	 YBs4dScZXrux7mLAiabl2W8ayLr+tqL/eUAvOjFcn/PHeWr5gDNk2lvNpzzY4JVGlS
+	 hLdllNkZ+5txf4n52Mk2PTmDWRKWFYEIKVDKCe7VnK2Rhj9FSQ0WBMUWbUHvLyUNl5
+	 AMYdjrWTsRGCJmBYwWY1BFIyGveV8I+J8P56ANJlciLqce25e/RDE9+rUi7LHvAzrZ
+	 662y7mDRSgCZ4u4OhdCnGeVm3vI7zCG9T7+Ci4IVrrMQSAKs3jHTd6G9wBi9T71FUm
+	 3vCk1N9a8NRtQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Mark Brown <broonie@kernel.org>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Felix Gu <gu_0233@qq.com>,
+	Tomoya MORINAGA <tomoya.rohm@gmail.com>,
+	Grant Likely <grant.likely@secretlab.ca>,
 	linux-spi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 04/10] spi: sprd-adi: Do not copy uninitialised data to rx_buf on read failure
-Date: Fri, 27 Nov 2026 15:31:07 +0000
-Message-ID: <20261127153158.2969573-5-lee@kernel.org>
+Subject: [PATCH v2 05/10] spi: topcliff-pch: Advance tx_buf between DMA chunks
+Date: Fri, 27 Nov 2026 15:31:08 +0000
+Message-ID: <20261127153158.2969573-6-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127153158.2969573-1-lee@kernel.org>
 References: <20261127153158.2969573-1-lee@kernel.org>
@@ -66,42 +64,76 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sprd_adi_read() returns early without writing to *read_val if it fails
-to take the hardware spinlock, if the register address is out of range,
-if the read times out or if the read-back check fails.
+In DMA mode, pch_spi_process_messages() splits transfers larger than
+PCH_BUF_SIZE into chunks and calls pch_spi_handle_dma() once per chunk.
+pch_spi_handle_dma() copies the TX data through a local pointer and
+never stores the advanced position back into the transfer, so every
+chunk after the first retransmits the data from the first chunk.
 
-sprd_adi_transfer_one() stores val into rx_buf regardless of the return
-value, so on any of those failures the caller's buffer is filled with
-uninitialised stack data.
+The RX side already writes its advanced pointer back and restores the
+original rx_buf once the transfer is complete.
 
-Only update rx_buf when the read succeeded.  The error code is still
-propagated as before.
+Do the same for tx_buf, so that each chunk sends the correct slice of
+the buffer, and restore the original tx_buf once the transfer has
+completed or failed.
 
-Fixes: 5dc349ec131c ("spi: sprd: Pass offset instead of physical address to adi_read/_write()")
-Closes: https://sashiko.dev/#/bug/linux-4e21848f-9195-4645-a277-501803f17e95
+Advancing tx_buf by the number of bytes copied relies on the following
+commit, which ensures that each chunk covers no more than the bytes
+accounted for by the loop in pch_spi_process_messages():
+
+commit 3515e312e096 ("spi: topcliff-pch: clamp DMA bpw_len by bytes
+not words")
+
+Fixes: 7d05b3e868ee ("spi-topcliff-pch: Fix issue for transmitting over 4KByte")
+Closes: https://sashiko.dev/#/bug/linux-625e2f07-fb68-446b-b1a8-b1f66aacb62e
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
 v1 => v2:
  - Rebase onto spi/for-next; no functional changes.
 
- drivers/spi/spi-sprd-adi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/spi/spi-topcliff-pch.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/spi/spi-sprd-adi.c b/drivers/spi/spi-sprd-adi.c
-index 32e445cea0d3..68c8f8b808cf 100644
---- a/drivers/spi/spi-sprd-adi.c
-+++ b/drivers/spi/spi-sprd-adi.c
-@@ -348,7 +348,8 @@ static int sprd_adi_transfer_one(struct spi_controller *ctlr,
+diff --git a/drivers/spi/spi-topcliff-pch.c b/drivers/spi/spi-topcliff-pch.c
+index 0bec3012a6bc..cbe76c4ae2e8 100644
+--- a/drivers/spi/spi-topcliff-pch.c
++++ b/drivers/spi/spi-topcliff-pch.c
+@@ -947,11 +947,13 @@ static void pch_spi_handle_dma(struct pch_spi_data *data, int *bpw)
+ 			tx_dma_buf = dma->tx_buf_virt;
+ 			for (i = 0; i < data->bpw_len; i++)
+ 				*tx_dma_buf++ = *tx_buf++;
++			data->cur_trans->tx_buf = tx_buf;
+ 		} else {
+ 			tx_sbuf = data->cur_trans->tx_buf;
+ 			tx_dma_sbuf = dma->tx_buf_virt;
+ 			for (i = 0; i < data->bpw_len; i++)
+ 				*tx_dma_sbuf++ = *tx_sbuf++;
++			data->cur_trans->tx_buf = tx_sbuf;
  		}
- 		reg = *(u32 *)t->rx_buf;
- 		ret = sprd_adi_read(sadi, reg, &val);
--		*(u32 *)t->rx_buf = val;
-+		if (!ret)
-+			*(u32 *)t->rx_buf = val;
- 	} else if (t->tx_buf) {
- 		/* ADI writes consume exactly two u32: reg and value. */
- 		if (t->len != 2 * sizeof(u32)) {
+ 	}
+ 
+@@ -1180,10 +1182,12 @@ static void pch_spi_process_messages(struct work_struct *pwork)
+ 		if (data->use_dma) {
+ 			int i;
+ 			char *save_rx_buf = data->cur_trans->rx_buf;
++			const void *save_tx_buf = data->cur_trans->tx_buf;
+ 
+ 			for (i = 0; i < cnt; i++) {
+ 				pch_spi_handle_dma(data, &bpw);
+ 				if (!pch_spi_start_transfer(data)) {
++					data->cur_trans->tx_buf = save_tx_buf;
+ 					data->transfer_complete = true;
+ 					data->current_msg->status = -EIO;
+ 					data->current_msg->complete
+@@ -1196,6 +1200,7 @@ static void pch_spi_process_messages(struct work_struct *pwork)
+ 				pch_spi_copy_rx_data_for_dma(data, bpw);
+ 			}
+ 			data->cur_trans->rx_buf = save_rx_buf;
++			data->cur_trans->tx_buf = save_tx_buf;
+ 		} else {
+ 			pch_spi_set_tx(data, &bpw);
+ 			pch_spi_set_ir(data);
 -- 
 2.56.1.839.g22a8290db9-goog
 
