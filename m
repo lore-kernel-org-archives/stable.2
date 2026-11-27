@@ -1,94 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795745669;
-	b=aj5WJ9kB8GqevZ5ygsTlAtWSZLwRMLP8u/eDskEuDP3hqgzbvoZLcmdDPQC5ShJerxCN
-	 C71nwf8fZr0YI0Af8COwbxCFBhHoT1UvjD3WyymCY7+O6L8fGCCcRkLsKPwMBGMvQgeBs
-	 OZ339z1+IjLoO/2nLK39AkMSA8MtjzmeuB8/oeZsEovYxC8J0e727UNEQsB03y5nOoqx3
-	 bywzewFBicyuNeL0385aLFmjqLMKHsgAzPqmKxvPxDRYkVznvs32o2clGvFvCzuI4Lkde
-	 tdvaTepDVfogINtXWBWC8J+IQGmLbSFbICy1MEOKywoe8lwFjE5fCKw7QVJ+qdEWVEQ==
+	t=1795745834;
+	b=XwRmyo/xx5FdYxxUupGh5Q3GAemi9XHnDOyfGz9X811iD6gLbNEdJvxlM9sVWazC+Rd4
+	 YtlZ8EyZjEt1Hx0eTHB8laHyRoIJMvxTIqFVHgeBq8RLVRC4NcUzz6IRCAT3x63C8yGw9
+	 A5NF0X5Wr1Mz5mvEwNjsNpwmYxGvEq3+cAxVRETCRNAvYXSMh0uVCi7gTkjNVM/DGl7P/
+	 x0ci73Rg7UllwrpPx8JCoQzFkCJLNThTP1ppNRe7WKked7KT+upCgzo/6ppe9jB1LTgjU
+	 chlOy8O+ITvsn7cp5EwotJbFRkdma07sKfD0bEjpE1qd2yrvXonoBa3l7Ov+D4R5xQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795745669;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=4UeH+SqQT+FD9wlg8cp1/QgsPN9k+lyc/4UIeCKdJoE=;
-	b=TciDHcGikrwYuwz6UNhm3rOktF/x9OiNMgJEUSCdqs6o/oTzZICSuZ7v/ekK44q1Sh5J
-	 9yNfkymCiWQ40oKbhBpG7Illj+Ebo4KHuJf6NgimE+7KMjUF7AkNItSDr3lTBVWjDsg51
-	 bg8nxrpqu2B0QnQ/9cwZiFG2Q9ZVQTZLgjA6Ceu8kavXvL6VTKO+THm48D3+T6mkTxsXH
-	 WoTBlLHxfGnIUO5PGGh3OApAT/5iwK7nLC7DQZQDxlM/ej8MlAyT7Xaj+oHj25eRyfWUD
-	 EC+e6DtpQPn3OrNhYoHSgi/pLkuJk0iCaPXBlsRa9ChrSy1Vp+95zOQ/W3OtxCFW4PA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795745834;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=eptb+3/EXFgZ8fNsxkLPAmXNUSDaiv1rQ2/GDYvfOYo=;
+	b=gpb0GsiAVdr9K/8JHV+OHibNfgFe4k34KzWUeTIxYpO6H+Y6f+/fFOzyASX0mP+waPdV
+	 S3sl/4N7/auA0lYnUP3Lgd13OneogQ+MHPseH/+VEPy2O77n0MRZC9WnMS7/fzVMT47Ma
+	 sTSRuV8/7nSFO4ID9tDVmkoTpw2IiFW4gw17ADTihwiyI8X0FObQWj73x6kEugLY92XFk
+	 wfXCxpCVpN7Q44l2/monsXKvGs6Fj6KH+ol2JWkE5vwavF7mq4LdP4ExuxcqaIMJSmOlm
+	 q/IM7vueeLH2vWQeblYqIB/t1aCi53rLGf3BWyS+Hwu+CvK5UZjYCkuFli5kI/5nfdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pZt1UIIs;
-	arc=none smtp.remote-ip=209.85.210.172
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cRsdNLrU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5FE4606A321
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 02:14:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5FE4606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 593AE606A31C;
+	Fri, 27 Nov 2026 02:17:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pZt1UIIs
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8b67f25e6e1so3717837b3a.0
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 18:14:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795745668; x=1796350468; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4UeH+SqQT+FD9wlg8cp1/QgsPN9k+lyc/4UIeCKdJoE=;
-        b=pZt1UIIs3XyYpJfZbWph3GHoe/PfYxb6o6lRdu4jNphswYo6syX1siGfHrMdOPpNqx
-         BaBsqZF1oO0iQHN9aj0KFlV9PxJkvxHuqoBViJD2Q2UJ5xH0ckszCX4OYQ5E3uiW2OzU
-         Hk/wcPH7GYUrfVeYtCR/8ueWiTy2P3bypN5y+uDs8WAfjuLpodUC9YPhk0mnXDcF8lug
-         5BpFz81C687p8k9ah3QrtTmcHquTBGemjEUg3j+AnxYWKuybVjnJ+TcqIb8LFCfp87Zm
-         f+1Atxb5he18hwX2gAKSg8sxV9ykuhWC9W7hkcEYLMT5JphtKFL4LKETGk3rKn0IF7qb
-         gIew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795745668; x=1796350468;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4UeH+SqQT+FD9wlg8cp1/QgsPN9k+lyc/4UIeCKdJoE=;
-        b=uex8NNBY+7YBrfFdQ7BAfIFfZy8iPbQuX+Z64h1nHJZ2WshlvVEpAlLgWuntVRzSxm
-         mBGLS9o95pPUu7VRQwokZlp0P9hp6n9usw2TMDLLXxHgR4HI+7nv8WtYZrovFmEXRsgp
-         CEKC0cVBE7ejDOQQE2B6O6OE6Lq221ayC1vIqqfz+AvMRYTaXqOMIVvnXNF7FoppEu9X
-         yKriFeDnVqLwVyRPycBefthKvuoJCGDqYE095zQs9Ge4LnRDqK90kX6cSIeeeg3cTs87
-         VNo3awHdNBCvZBeOzVXdxGzCRgZHRdGgn7i55+2WyX6LWXzv1ZLsuVZrSBmJ7GSPseBj
-         f5xA==
-X-Forwarded-Encrypted: i=1; AL+hErFTv+QWZqoUo/GlwPUH0kizIxK/CvY1O4uLwvX7kgocrr4ETCd0lq5B47GD5GT9pb2DiTPPabA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/hLtPd9fztJCGxGhHSiYshyV4Z08H8ymWrni0v1LNTOt9tGTAA
-	qRmekGx1ozn3aFc2kJ0uBpvtw0PCp2t1DWWB2y+wKgh/DuPr9C5ZOkra
-X-Gm-Gg: AZFdTZegFwD2YSldWAAisi8mS5Ky3E10y5ByNq4y2yY9jZvJj6q6yxKuOB0yFR1kHCN
-	9QpDCunilnr2YYbgjhKndtGaGj606YWmGjuHPCoOo+ndfCIIrmvwBe+ZW16zeR+GLUoWPT04D5q
-	Tkx3VjDa1Ji7KP1/Jjiyr3gDiZvAr849ijIPkkRNnhUAz2C1jpsbzjqnnzzzcVCQDZJDd99rJjz
-	nxwUtHgzCotu6lZbRFmbjPvsVNKXDmZQ1KX2159GkdWy2e+WNUOzv3qwrwHO4GwjkAnO34MzNsF
-	3uNmDRu+7akrFkL0mSuO0vajNslQV36IwS3h4wUt/sfDZcmq40PLwHhyrnU9eAj1nAfmfGAXzrs
-	fYjXDOKazXHsJfe7y1l3dQ0tg/MnpbGW0QHwksTJ/Ns2dtFSbJeCQXjg7X7ixTIGtS9uGMZCBUs
-	7OaudMv7lVC6qhZfev9qwRkxxbNu7swP3+/7TXKykjDUHJmvHKlHTSxZJa350jhRMGKh4z7ep+7
-	jN2L4Kiw++nfTMNOa58kAdtO22Lgr5lfEJ8iRfplA/5gtGPPgm7qkQjcC1Un9lboAdv9kMt4D2P
-	yTZeipFa/oOkizJystw=
-X-Received: by 2002:a05:6a21:4cc7:b0:3eb:3952:d703 with SMTP id adf61e73a8af0-4014d5625d8mr22775673637.39.1795745668234;
-        Thu, 26 Nov 2026 18:14:28 -0800 (PST)
-Received: from localhost ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87285ccf4sm11158830b3a.12.2026.11.26.18.14.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 18:14:27 -0800 (PST)
-Date: Fri, 27 Nov 2026 11:14:25 +0900
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: linkinjeon@kernel.org, ernest.borowski.git@proton.me,
-	liubaolin12138@163.com, ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v11] ntfs: trim the sizes after a short write
-Message-ID: <awjnga4nQqW-5TOM@hyunchul-PC02>
-References: <20261126015731.3254689-1-zhanxusheng1024@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cRsdNLrU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD2201F000C1;
+	Fri, 27 Nov 2026 02:17:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795745833;
+	bh=eptb+3/EXFgZ8fNsxkLPAmXNUSDaiv1rQ2/GDYvfOYo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=cRsdNLrUE3TIH7Gr+dgyRG8Zr6D8952UklD7szq0nbnCzXtNCWRkkv7BVP2taKsGc
+	 MnAAhopToZ2bzEyk5UD+3v7pYvg8eGPoLCasum3sSh3UMM6aUDaatnP3enyNR1LL3L
+	 +K5gV2ZbC3sT74xYIA3xY5fIYMTX6DerIhHsMZQ5RgOWhJEiTsoaUZP/7FzMd9x154
+	 wAQtmII2yVHPFFiw8fVCSG7+bmG0kwgtsrm1FD1y4jFwYiQZLUsvLzomDVmpagpBPe
+	 xoJN2tlWqUVnQ1xd7hAIfD9Mzqp1DKqMvY6Rg5gQb1AoSb/u/IcdL287q9lnxjYrmf
+	 3rX2QXPpHCF4Q==
+Subject: Re: [PATCH] idpf: fix vport_id used as array index in MAC filter
+ async handler
+From: netdev-bot+sashiko@kernel.org
+To: guohongyu@cmss.chinamobile.com
+Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
+ anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, alan.brady@intel.com,
+ stable@vger.kernel.org, 13057616121@163.com
+Date: Fri, 27 Nov 2026 02:17:12 +0000
+Message-ID: <179574583226.3135.4850818709708500001@kernel.org>
+In-Reply-To: <20261126020854.233971-1-guohongyu@cmss.chinamobile.com>
+References: <20261126020854.233971-1-guohongyu@cmss.chinamobile.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,20 +65,138 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261126015731.3254689-1-zhanxusheng1024@gmail.com>
 
-> -	if (ret < 0 && ret != -EIOCBQUEUED) {
-> +	/*
-> +	 * Both sizes were moved to end before the copy, so a short write,
-> +	 * like a failed one, must take back what it did not write.
-> +	 */
-> +	if (ret < count && ret != -EIOCBQUEUED) {
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-The rollback code is quite long. Could you extract it into a seperate
-fucntion?
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] Possible use-after-free introduced by the patch.
+- [Low] The commit message describes only part of what the old code did
+  wrong.
+
+--
+
+idpf: fix vport_id used as array index in MAC filter async handler
+
+This patch changes idpf_mac_filter_async_handler() so that it indexes
+adapter->vport_config[] with the software slot index of the vport
+returned by idpf_vid_to_vport(). Before, it used the raw device-side
+vport_id from the virtchnl message, which could be out of range.
+
+> vport_config[] has num_max_vports entries and vport_id is an opaque
+> device-side identifier that the protocol does not bound by it, so
+> a vport id not smaller than num_max_vports makes the handler read
+> past the end of the array and use the garbage result as a
+> struct idpf_vport_config (spinlock taken, filter list walked,
+> entries list_del()'ed through out-of-bounds pointers).
+
+[Severity: Low]
+This isn't a bug, but could the changelog also cover the in-range
+cases that the old code got wrong?
+
+idpf_add_del_mac_filters() sends the device-side vport->vport_id.
+idpf_vid_to_vport() maps it back to a slot by searching
+adapter->vport_ids[]. So the device id and vport->idx are unrelated
+values.
+
+If the device id is below num_max_vports but names a slot that belongs
+to another vport, the old code silently removed MAC filters from that
+other vport's mac_filter_list.
+
+If the device id names a slot that was never allocated, the entry is
+NULL, because idpf_vport_alloc() fills vport_config[] lazily:
+
+idpf_vport_alloc() {
+    ...
+    adapter->vport_config[idx] = vport_config;
+    ...
+}
+
+In that case spin_lock_bh(&vport_config->mac_filter_list_lock)
+dereferences NULL.
+
+The code change fixes all three cases; only the description is
+incomplete. The wrong-vport filter deletion may be the symptom stable
+backporters are most likely to recognise.
+
+> diff --git a/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c b/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c
+> index c89783966bae3..2e173d0cb7e63 100644
+> --- a/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c
+> +++ b/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c
+> @@ -3852,7 +3852,7 @@ static void idpf_mac_filter_async_handler(void *ctx,
+>  	if (!vport)
+>  		goto invalid_payload;
+>  
+> -	vport_config = adapter->vport_config[le32_to_cpu(ma_list->vport_id)];
+> +	vport_config = adapter->vport_config[vport->idx];
+
+[Severity: Medium]
+Can this read vport->idx from a freed struct idpf_vport?
+
+idpf_vid_to_vport() takes no lock, no RCU read lock and no reference:
+
+    for (i = 0; i < num_max_vports; i++)
+        if (adapter->vport_ids[i] == v_id)
+            return adapter->vports[i];
+
+This handler runs from mbx_task, through libie_ctlq_xn_process_recv()
+-> xn->resp_cb(). Only xn->xn_lock is held there, and teardown never
+takes that lock.
+
+On PCI remove, IDPF_REMOVE_IN_PROG is set. idpf_vc_core_deinit() then
+frees the vports before it shuts down the transaction manager and
+cancels mbx_task:
+
+idpf_vc_core_deinit() {
+    ...
+    idpf_deinit_task(adapter);
+    ...
+    if (remove_in_prog)
+        libie_ctlq_xn_shutdown(adapter->xnm);
+
+    cancel_delayed_work_sync(&adapter->serv_task);
+    cancel_delayed_work_sync(&adapter->mbx_task);
+    ...
+}
+
+idpf_deinit_task() -> idpf_vport_dealloc() -> idpf_vport_rel() does
+kfree(vport). idpf_vport_dealloc() clears the slot only after that:
+
+    idpf_vport_rel(vport);
+
+    adapter->vports[i] = NULL;
+
+An error response to an earlier ADD/DEL_MAC_ADDR request could arrive
+in that window. The handler could then get the vport pointer just
+before the kfree, or the stale pointer between the kfree and the NULL
+store.
+
+If that memory has been reused, idx is garbage. That gives an
+out-of-bounds read of adapter->vport_config[], followed by
+spin_lock_bh() and list_del() on wild memory.
+
+The old code never dereferenced vport here. The vport_config[] entries
+are freed only in idpf_remove(), after the workqueues are destroyed.
+
+The window is narrow. idpf_vport_rel() sends destroy_vport
+synchronously, so the race needs the control plane to answer a pending
+MAC request after the destroy_vport response. The reset path is not
+affected: there libie_ctlq_xn_shutdown() runs first and drops async
+transactions without calling resp_cb.
+
+Would it be safer to have the lookup return the slot index i instead?
+adapter->vports[i] == vport implies i == vport->idx, and i is always
+below num_max_vports. adapter->vport_config[i] could then be used
+without reading through the vport pointer.
+
+>  	ma_list_head = &vport_config->user_config.mac_filter_list;
 
 -- 
-Thanks,
-Hyunchul
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261126020854.233971-1-guohongyu%40cmss.chinamobile.com
