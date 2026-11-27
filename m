@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795752543;
-	b=JbefM6ik2YhdYW6LHeofLdow5/o7hQSAXAhpD2GQhUMLZiWS0s27T39yIdLFZsB1pkFj
-	 V2611eddONVWJTAQWE01TzkaqpgsJAr+v4Q/3up/DxC5J8KuBAHAw/u7xxqCokKjbwdpz
-	 wtrHcJZDCeEj3cOxfrAy4ICVrC3Kj+rAaG/sN0ST9pWAbPmnPbo7YNedg8gCVZ6mDOYJb
-	 TsUx1VnJdDFSazTXBc8u0I3xQu8xuGEe3p8yBC/VPWwl2FzkUCVClknbO7IReFdspygeV
-	 LMeuvCEpj7GFz/17wBV0HhiFwGoDGXIKD8xUhjQVcfCTEWEeCVBYa5UAM+yWyDPNt+w==
+	t=1795752549;
+	b=q7ITvdcO+BmCLWcG4/wpV/nGCd5H0sQKa+H3SGEeKqfMf+uA93tZrJg6qhLK1/pg+eao
+	 fp2lfXZAIqTr7SdsWjkF/h5nFA+VaaSK07K0darsC0OcGlxBJ4S13zcbCgdeToJwD4Kev
+	 HQCzii5lMOxHcS1UsdRt1laME/9rashOmT7YyLFoyFamvmi65qDyiVPgArvmxVVIXqytE
+	 1jLp84RFSBGuRu0l3SsJqgXI9uu+iHTkQfS4CPyaedRLhKDrZJUn4HJmgkXgHpUbk59bw
+	 Ya/Fd1IRF5O5qFAzbfrJwYEvKLM9re5yNAmaQ0f8JNE4PY6z+RtD+yVWkr1i5OvBe3Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795752543;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=li3JX+2Xd1AiqIgciAZ7DZSxkrw+I5jSEeNc/twiSZ4=;
-	b=OTOvMCTKpfcnwpwr7FGNu/FFqZGm9wtOaZ45TSgyhsYW9EldRFCpmXwWU+BiHc5sVbbb
-	 I3a0jmCfYzXgFmhCc6w4TZbNp1g3o89j24aUTTu6ANQFRdt8I48/vVWr9ho/0PFJWciBu
-	 j6EvQjHzFqSDMFPcovpZKeWQfsrKzqFRDOmfQp7SRszibZNPyoPsKd6GNIrINivtKmZr9
-	 +VLsnyeW8HaFwoJExrW+BiZxIMPzOIa3bhljnQhgkyZHZmzBoseuRpA/Fk+U2akDwalyy
-	 lsIaoExxqWW9szP74askdFe2+V5DX+tqyukEaEbgQpD1vcd606XKM3G7vmkHSbr4xpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795752549;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=HjpF0P5UyQ9nLom4QODoSUXMxsk2mmPrm0eKHuDGnBg=;
+	b=QigB+ZwvXtBJbK63wzFOhAsygYg7Euhz5Gbdbt0/yKxcxNgKjfEDABQgppz8O4YhdMRg
+	 Fz9WelDRysYuKe1AjrQB9i03DMo9vWFjPtgdHuI1Ya5mtiToYLt38Rmdf941xYTc7YBKJ
+	 HtI6gD6QKodINyS5Cr1Dt+DhElIQ0p7aFk0YR14UYoojtZKMxVyrzL0/+498qQS1Pp9e7
+	 13iUGt5fHOYSFRcgT0Nil5CD5rJPEnXy/qq9uQ4Y7tEAqshk4ldiKYTJ1MRTLhNjAgNTw
+	 SyaTMhKY0RzoW3U2FUoIHAPiCPqqqR67i3ZZKlp25dv5sbYGCEA3rnFK60CAOpqMv0Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M+oAXcfJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jZViEjrH;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C164B606A32C;
-	Fri, 27 Nov 2026 04:09:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442B3606A323;
+	Fri, 27 Nov 2026 04:09:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M+oAXcfJ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jZViEjrH
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795752543;
-	b=r9sfhgD1kvBWHINRmHu/cKNolX5FJFPHaKm+qEvW0worfM5HLRSzrWWYpplEjZBGAF/Y
-	 5sKG4luj9IE9jTa9b8P+mHfe3gj/5E65LrS3ODfize9AuPQftDvOMGbc7O04hgOmm9czb
-	 AsKnQEbYDjwo6X+QWCnUqTFeEOxiakN1ZosPlKukpOoFt77hbU2BXx+tvRs0ci8JdFSMm
-	 FEw2lMYCJvCLfOxDvPyYz3tQeXB9NdfT/Ivv4MDPHvm8gd0XuVqqUsQ5S5zwRrjoNoceE
-	 Rm/X6ZFWpg5dxuSDriL6FaRM/qGo5aL9EWcQjQj8VuqWkn2sJYen3JqzVfUXIvaHxRg==
+	t=1795752548;
+	b=F8gkl5dz2zeGG5mwBRtAPBVa85fTWVoyJRHI6/kjMN2mRFJGSOr1eln+qVxZt94pT2cr
+	 6XtgMgTy5ofpH152BbruRV+M8S4Ek3Hk9xoe6sO55xtG/859P8u7h1JQCpyeI32rKjhum
+	 v33kRSGCxNHsI+xaeWm5zfZqyCyuqOSf6ZxtTOfMc7qqI9hLNQfIBF9Oo5aq1AdY9ji2F
+	 bex3OtMDKFH8NgW4OyYsrWLr9DtDnI4ORXKHjh1YHdh4pVrma0ZGWryohNtLqiCvqqDTO
+	 CSva5i5UUd07eqOgKx7DbDwE4ap7MiDbINwY36RFfbrA4+LWjVIWW/g0cwMgdDuzMEA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795752543;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=li3JX+2Xd1AiqIgciAZ7DZSxkrw+I5jSEeNc/twiSZ4=;
-	b=g6TYauPgZucmoBcu5VcKLqHABTF90DekMUy+9074Tl93NHo4Je2rLOJ9gdO9ZyGz+EtH
-	 iPVLHQQplw0kBMMW8BVlam5Qgmpta/QCpkK25GIgoogtQAIF6HEhuVl3qvhKypGkO/T2v
-	 PPMYyrQkhDW9XuQ08/2tp40hELxZsLsvypyvad0PO5c/JpY+9JE2g92BNdTx3/EvsgeNY
-	 xFNW35BT/RWUkHmFQPrsisTX92Uu411cST4aVQsmhEycDzzt1vQx4a/McJhoQmqSr7KSm
-	 Z75Y3AzmuWeOnq3IZwisqnE7BmFCqMPJY9jtXP9w/JEaonMi8R6wIh1sOqMfCJmM/5Q==
+	c=relaxed/relaxed; t=1795752548;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=HjpF0P5UyQ9nLom4QODoSUXMxsk2mmPrm0eKHuDGnBg=;
+	b=GMwVXg7wlL4Eks+yB+NQdw+OnNiSVw/T2CgJp3hzGK+F8dOAhgmxINHZEtjxZOAdR04m
+	 kSx+TOkCWTZjeA5mkvmdKTbJavxKy/p61zfNd+8j45htAeGqMFkGJ8D88E2sCYB6/Mid1
+	 uUUNqncOjkVfkbcRx2pPu1pHOY936TG7kU0xLa9ZL0+l5iYCXMXz3CEJ7JAY+Facv6wf0
+	 EHwFct42tpeEt0F6aN/eMXpwSXV0yRT9bQNh1hpmkHXf5nJtJF/6EaJalhjeRkCk69YMo
+	 II1q7aFNlqVIg701BfSb+cksKDOW3vxUewi1kgZqdt/AB0FLS3/YnWJco8K9Djhdagg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 31CCA1F00923;
+	by smtp.kernel.org (Postfix) with ESMTPS id 4A2AB1F00924;
 	Fri, 27 Nov 2026 04:08:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795752543;
-	bh=li3JX+2Xd1AiqIgciAZ7DZSxkrw+I5jSEeNc/twiSZ4=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=M+oAXcfJyMhh4ui+uVN8NR+BdjjT58rZZY7NQ2xfin9m+84o46Od/4UsOV6t96hl/
-	 eMiYz8j3l3XzWMPp0XUsKAw7i3bF0RRi28/cgsRZMjW1BgNKF1CDCJnXDL+Ikv8+jB
-	 zsiiVC/cI+pyTOlH9KWj9mYOs3ba2M3ZudzUqEp7Q/I9F1uJ48d/acGxX2JcRl0jRC
-	 NTKc61WtG7BE3fHaV06+UrmB1IJRSuArcA/7311BmYelG5nT69Gh3y8LumagW7hvXO
-	 rqus8Z4YL/5XTgL6t4SIRgJnsj0v2MbFAZvzcXrkR41s+ciABXFmvdAezctLcvMIP+
-	 fY5UzPxTl+m+g==
+	s=k20260515; t=1795752548;
+	bh=HjpF0P5UyQ9nLom4QODoSUXMxsk2mmPrm0eKHuDGnBg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=jZViEjrHv7dvOmMePsATDqUzpBYEctt0Ldy+QMYHQPLrNh83CcrUuaKNva7rTo50Z
+	 ENdNGgZUwuetP2UKbzMBfyJGieqgzrjbGr/eHme5t/DydC4YaONuKfELSI+HbaGCNQ
+	 yrQjOHtYew5wmW1jQyTmv6xHFg+Lxl1fEuD8EoC42AxS8x1uYlfg0SMdSQQn79EXky
+	 RU+Rc1G/2uJhJ2BqKYPFc+8oi88yHm8E1mIDFwBt2WNfzK1CTnG79B50FZQgtaiQsx
+	 wupuDgJw7nvmEmcpvf1SwEQrToINvLy15Eh1q0uP6epiEEpwrKteIBUpvqiYDXFEuV
+	 KYO/V5A546rjg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AA5484B55B;
+	by lkml.kernel.org (Postfix) with ESMTP id D081C4B558;
 	Fri, 27 Nov 2026 04:08:51 +0000 (UTC)
 From: David Crawshaw via B4 Relay <devnull+david.exe.dev@kernel.org>
-Subject: [PATCH 0/2] fuse: fix data loss when writeback races a
- write-through extending write
-Date: Fri, 27 Nov 2026 04:08:38 +0000
-Message-Id: <20261127-b4-fuse-wt-eof-v1-0-e055e2af652d@exe.dev>
+Date: Fri, 27 Nov 2026 04:08:39 +0000
+Subject: [PATCH 1/2] fuse: update i_size before unlocking the EOF folio in
+ write-through writes
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,11 +84,9 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAEYCCWsC/yXMQQ6CMBBG4auQWTuJrdiKVzEuKP7VcQGkA2rSc
- HcKLr/Fe5kUSaB0rTIlfERl6AvMoaLu1fZPsDyKyR6tM8Z6DjXHWcHfiTFE9sGb2jWX8ymASjQ
- mRPntw9v9b53DG920XWhZVk8a8N1yAAAA
-X-Change-ID: 20261127-b4-fuse-wt-eof-7b71469853be
+Message-Id: <20261127-b4-fuse-wt-eof-v1-1-e055e2af652d@exe.dev>
+References: <20261127-b4-fuse-wt-eof-v1-0-e055e2af652d@exe.dev>
+In-Reply-To: <20261127-b4-fuse-wt-eof-v1-0-e055e2af652d@exe.dev>
 To: Miklos Szeredi <miklos@szeredi.hu>, 
  "Darrick J. Wong" <djwong@kernel.org>, 
  Christian Brauner <brauner@kernel.org>, 
@@ -98,65 +95,116 @@ Cc: fuse-devel@lists.linux.dev, linux-kselftest@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, regressions@lists.linux.dev, 
  David Crawshaw <david@exe.dev>, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795752531; l=1976;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795752531; l=3912;
  i=david@exe.dev; s=20261127; h=from:subject:message-id;
- bh=/uZwlpKJlvGvr6lTGIgh3p40tIbnOtPhD5Kl6WqbtuQ=;
- b=+7IrrOKCwsFl/f8JAosPywwOryhD5UclQsoKBCSUXZ4rKvgiQraL0C6ykQ4RX58RHmueH3z8e
- CqpLN5xraBTDsm+mvL5eAd+qJQdgfKBO6yqS8Mttj0rhY8y52FW3FR8
+ bh=aneCOpdxoK+BoX+KlAWJghFJrKt6ILqgZAIYQqmiW0I=;
+ b=pZh3gDBUojjRGzwL5hg+aYbb26zpqEM71Wd+/shQt6BrHzKj9HuOjKvTby6mb6BA9RCczfdJ0
+ lSNoakYmogFAEnBL4QI0J56eiQi7rzmRlhRFMuxLCktZNcYpBh3J7L4
 X-Developer-Key: i=david@exe.dev; a=ed25519;
  pk=eQfKiR9S2peqiHuuNGCAaWlxwP+RerhKT2wVxakCrjQ=
 X-Endpoint-Received: by B4 Relay for david@exe.dev/20261127 with
  auth_id=1661
 X-Original-From: David Crawshaw <david@exe.dev>
 Reply-To: david@exe.dev
+Content-Transfer-Encoding: 7bit
 
-Since v6.17 commit ef7e7cbb323f "fuse: use iomap for writeback",
-a write-through pwrite() that extends a file inside the folio
-holding EOF can return success and lose its data. This happens
-when that folio is dirty and writeback of it starts while the
-FUSE_WRITE is in flight.
+From: David Crawshaw <david@exe.dev>
 
-The mechanism is that fuse_perform_write() unlocks the folio before
-sending the request and only updates i_size after the reply, and
-iomap_writeback_handle_eof() zeroes the folio beyond the old i_size.
+Since FUSE writeback was converted to iomap, a write-through write
+that extends the file within the folio holding the current EOF can
+lose its data if writeback of that folio starts while the FUSE_WRITE
+request is in flight.
 
-Patch 1 keeps a folio that straddles i_size locked over the request
-when the write extends the file within it, and updates i_size before
-the folios are unlocked, like iomap_write_iter() does.
+fuse_perform_write() copies the data into the page cache folio, unlocks
+it in fuse_fill_write_pages(), sends FUSE_WRITE, and only updates
+i_size after the reply has arrived.  If the folio is dirty, writeback
+can lock it in between, and iomap_writeback_handle_eof() zeroes the
+folio from the old i_size to its end.
 
-Patch 2 adds a deterministic selftest case.
+Depending on timing:
 
-Reproduced on v6.17 and v7.4-rc4+ (9437ee8b6cf9); not on v6.16.
+ - the page cache is left with zeroes where the write's data should be,
+ - the FUSE_WRITE request itself carries zeroes, as its pages are the
+   page cache folios and are only copied when the server reads the
+   request, so the server stores zeroes,
+ - a later writeback of the zeroed folio overwrites the server data.
 
-Data lost in the reproducer:
+In each case the write returns success.  Before iomap, FUSE writeback
+never modified the folio and cropped the request to i_size at send time,
+so this window was harmless.  iomap, on the other hand, expects i_size
+to cover the data in a folio before the folio is unlocked, as
+iomap_write_iter() does for the writeback cache path.
 
-                                   unpatched        patched
-  WRITE delayed 200us/0/2ms        1428/1500        0/6000
-  8 mounts in parallel             3229/4000        0/4000
-  EOF in a large folio (THP)        811/900         0/900
-  new selftest case                 50/50 fail      50/50 pass
+Fix it the same way for write-through writes: keep a folio that
+straddles i_size locked over the request when the write extends the
+file within it and update i_size from fuse_send_write_pages() before
+the folios are unlocked.
 
-(All testing done on x86_64 KVM guests.)
+Reproducer: a thread repeatedly stores into the EOF page through a
+shared mapping and calls sync_file_range(SYNC_FILE_RANGE_WRITE) on it,
+while another thread pwrite()s a few bytes past EOF within that page;
+with a server that delays FUSE_WRITE by 200us the data was lost in
+493/500 runs (the selftest added in the next patch fails reliably), and in
+0/3000 runs with this patch.
 
-Disclosure: the bisection, and both patches were produced by an AI
-coding agent (exe.dev's Shelley, using the Opus 5.5 model).
-I reviewed the work and wrote the bulk of the prose.
+This patch written with an AI coding assistant (Shelley using Opus 5.5).
+I reviewed and tested it.
 
+Fixes: ef7e7cbb323f ("fuse: use iomap for writeback")
+Cc: stable@vger.kernel.org # v6.17+
 Signed-off-by: David Crawshaw <david@exe.dev>
 ---
-David Crawshaw (2):
-      fuse: update i_size before unlocking the EOF folio in write-through writes
-      selftests/fuse: test a write extending the file beside writeback of the EOF page
+ fs/fuse/file.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
- fs/fuse/file.c                                     | 21 ++++++-
- .../filesystems/fuse/write_extend_eof_test.c       | 71 ++++++++++++++++++++++
- 2 files changed, 91 insertions(+), 1 deletion(-)
----
-base-commit: 9437ee8b6cf607e883b36e44bd755968daaebd48
-change-id: 20261127-b4-fuse-wt-eof-7b71469853be
+diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+index 993a1d2b315..ee3bdc3cb04 100644
+--- a/fs/fuse/file.c
++++ b/fs/fuse/file.c
+@@ -1287,6 +1287,15 @@ static ssize_t fuse_send_write_pages(struct fuse_io_args *ia,
+ 	if (!err && ia->write.out.size > count)
+ 		err = -EIO;
+ 
++	/*
++	 * Extend i_size before unlocking the last folio, so that writeback
++	 * cannot see the newly written data beyond i_size and zero it.  See
++	 * fuse_fill_write_pages().
++	 */
++	if (!err)
++		fuse_write_update_attr(inode, pos + ia->write.out.size,
++				       ia->write.out.size);
++
+ 	for (i = 0; i < ap->num_folios; i++) {
+ 		struct folio *folio = ap->folios[i];
+ 
+@@ -1305,6 +1314,7 @@ static ssize_t fuse_fill_write_pages(struct fuse_io_args *ia,
+ {
+ 	struct fuse_args_pages *ap = &ia->ap;
+ 	struct fuse_conn *fc = get_fuse_conn(mapping->host);
++	loff_t isize = i_size_read(mapping->host);
+ 	size_t count = 0;
+ 	unsigned int num;
+ 	int err = 0;
+@@ -1366,7 +1376,16 @@ static ssize_t fuse_fill_write_pages(struct fuse_io_args *ia,
+ 		if (tmp == folio_size(folio))
+ 			iomap_folio_mark_uptodate(folio);
+ 
+-		if (folio_test_uptodate(folio)) {
++		/*
++		 * Keep the folio locked until the reply if it is not uptodate,
++		 * or if it straddles i_size and this write extends the file
++		 * within it: writeback zeroes a folio beyond i_size
++		 * (iomap_writeback_handle_eof()), which would wipe the data
++		 * just copied, both in the page cache and in the request,
++		 * while i_size has not yet been updated.
++		 */
++		if (folio_test_uptodate(folio) &&
++		    !(folio_pos(folio) < isize && pos > isize)) {
+ 			folio_unlock(folio);
+ 		} else {
+ 			ia->write.folio_locked = true;
 
-Best regards,
---  
-David Crawshaw <david@exe.dev>
+-- 
+2.43.0
 
 
