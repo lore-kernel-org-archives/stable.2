@@ -1,59 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795790324;
-	b=WWT0PlkF3eGgO34mReBkmYREN2Um9CEZPOc6Du77mf0/r3dXN39G4DudlE9bX/mFXnST
-	 1A7LbUsJ4zbgqvhZUlBwIq8wN/W+wsbkLHV59puz+yqrLOoAzp7bMjCna8MeO4HdVYrpc
-	 1F5O4v3xZDx1pQrOwP5u67BJJfybfyRs2Q63unMRuhBBgjGtTbjPqDMEmWm8RfbvMLlOU
-	 /xZ6uFVvoeINXdkulmyixA6c0yz0iEtX4s4Jv42VDAtQHnZaxUzlQD+Czy0kp16fEJerg
-	 B6y/ehNjeaLsaXwEmrpSJewudoXZdIH8wu/KI2KwzPHiWB8m/lD2HbJcnEK/5u5y/MQ==
+	t=1795790480;
+	b=4/lAIdydhn2j2tTGqqmMWfFat/pkAFSg/3majpLrjSBL+wVwwQqsIESJ2bJdgEBVFYbF
+	 mK/cXE1mErmKvjIU6I6UZAHH4dNTFb1CQqzuNyQR0Ewj1ikHvp/gCS/KcH3CSdS3A5u0s
+	 lT/ZeD7eCDogW710D216NyIK+GkwO76yWJDKk9jrp6Cj68eSmuZc6/FuCUNV0FuulauGF
+	 20KJ6reSks0YpHXvB77rzLGex2AVxbtqY//lMgHJnTM/bSzjlclo414Q8eY2JhUCl5yr8
+	 2ZlK0+tH/FGbjHAgVvAa8mWhMDFhsq+huPmzgtkmPpm1jYEsw/kzP6pur/8XmJ/nyFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795790324;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xJpIceYu2KxI6ncR8keKatQpZCcoR32gRrL57WMYwKo=;
-	b=yXipJa34oVl1fx9EeAU3FIJa/ezBhH5tz8t5z5E7TiuaJUYWtI9fXQ30+ZvchDhFp6fR
-	 nAX8YB0srM7wANwAHpB58bIO7ZWLDR8MbAJaDIBeZIIjursEsEtwxqqtMd78F21FQvi1Q
-	 WtLCV3JzVHaexBjZkuUlq7pDNMT7rVwqcmtGZ757G+7KXNFNl6KGYJsmD79kDbL0OvoKA
-	 a3eDnjBAIwCMLc7jABrAytvDBqs7ovoHsffJlhrBJgsmiLi3s1HABKrqBiNIBtWSoSDlS
-	 6Z2tK97B10YFE5Mb1n8un+S4MP4CA/skYjk7R2MY1Vr39Xl5YwphnjnhTr6JS1J4QRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795790480;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=5OiMqB0HFqHTXQ26F6nnKmMgWEH3gjayAZHzMcMj1aU=;
+	b=w4DcHihZz2xRtqF6prcGXJsI/nTQR5igJDe82MRBqZfXtYIsf2AhWZpvFWsnm1xt4iAr
+	 zLUgX49c2FmMATjP9CeNqFJbvvs05bKEzUtzYbz0SdphopGWwXedbsLQlE6gydfRr3xj8
+	 s5dkotKMSqbAo4VqjtbVEgLMRtj5gPU+wK9+n2o+ioObe7k48U8S8GNUtkIAMdzoY2g4+
+	 QoHxFjKGybTPMZm5I1RmlaWY+CgkPqN1IqZpQa3+cROC1ICla3l5B3I+De5SRz3EDT1gb
+	 WLO9MvkneqlfWuw1+RAvp7kReq5XlElKw+FITCUW94pYxqXVjUSFDeaYvpNjTLFTabQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I+UqYskQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=V18JV07i;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=V3WqNeUg;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=V18JV07i;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=V3WqNeUg;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74CD8606A333;
-	Fri, 27 Nov 2026 14:38:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83915606A327;
+	Fri, 27 Nov 2026 14:41:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83915606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I+UqYskQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 697601F000C1;
-	Fri, 27 Nov 2026 14:38:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795790324;
-	bh=xJpIceYu2KxI6ncR8keKatQpZCcoR32gRrL57WMYwKo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=I+UqYskQCs6jwv4Cusi7O+4pkTVlALVF1TR+b+Kgf+/PonKcfSXU00z977gQ/tBcp
-	 FGkyl4J2uQZKym3I7F+tDjiSBdEzOjUTx1xgOMfRypRpK0vzAaAHarr38o7eVYC+hA
-	 DMzW/o15vea1pYkiMi76xXQqRmInwGYUX9TKpIB6u03wJfJ9alVRvr27zZS39FD8FE
-	 0/vL3o0Xs5LyYAVK+tCdysBuzI+1oMzgIDl/Vm7t7yFKyIJZORfmBd9G9h7zNsz3ME
-	 F9vOALJ60KMrJFwgsa9Ud56Rut7MVOEYa0MLOv1wJ05559wERQgvZqNeLaKJGuq7Ip
-	 YayBJ2Zk0Aiyg==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: Jason Xing <kerneljasonxing@gmail.com>, willemb@google.com,
- magnus.karlsson@intel.com, maciej.fijalkowski@intel.com, sdf@fomichev.me,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org
-Cc: netdev@vger.kernel.org, bpf@vger.kernel.org, Jason Xing
- <kerneljasonxing@gmail.com>, stable@vger.kernel.org, Petr Oros
- <poros@redhat.com>
-Subject: Re: [PATCH net v2 1/2] net: reset the mac header in
- __dev_direct_xmit()
-In-Reply-To: <20261127105347.72997-2-kerneljasonxing@gmail.com>
-References: <20261127105347.72997-1-kerneljasonxing@gmail.com>
- <20261127105347.72997-2-kerneljasonxing@gmail.com>
-Date: Fri, 27 Nov 2026 15:38:40 +0100
-Message-ID: <87cxrqgwzz.fsf@all.your.base.are.belong.to.us>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=V18JV07i;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=V3WqNeUg;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=V18JV07i;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=V3WqNeUg
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id ABDEB22936;
+	Fri, 27 Nov 2026 14:41:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795790477; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5OiMqB0HFqHTXQ26F6nnKmMgWEH3gjayAZHzMcMj1aU=;
+	b=V18JV07iazluiBay10fP/4fd0aBvpx12c6oF3mwpxHXAz2019+WnkVqDSmKZaSvTDlMhPF
+	+XNcC7x/9xS53FynRM9dvfhEdVgtRrrJQHH2ACw69rokKv+FHXTcm7PNCnE8tEKcZQmeJF
+	hnt16LEz+mQWdpgZEpYRwU0z+1jzExc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795790477;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5OiMqB0HFqHTXQ26F6nnKmMgWEH3gjayAZHzMcMj1aU=;
+	b=V3WqNeUgkgQSxLbxSxJo8uXWKoVfkUXxcp5ohyGehBBEEMBEjZJ+8bwnYcECcgLBCveJmp
+	KHVJE0UjiSqIGoCA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795790477; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5OiMqB0HFqHTXQ26F6nnKmMgWEH3gjayAZHzMcMj1aU=;
+	b=V18JV07iazluiBay10fP/4fd0aBvpx12c6oF3mwpxHXAz2019+WnkVqDSmKZaSvTDlMhPF
+	+XNcC7x/9xS53FynRM9dvfhEdVgtRrrJQHH2ACw69rokKv+FHXTcm7PNCnE8tEKcZQmeJF
+	hnt16LEz+mQWdpgZEpYRwU0z+1jzExc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795790477;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5OiMqB0HFqHTXQ26F6nnKmMgWEH3gjayAZHzMcMj1aU=;
+	b=V3WqNeUgkgQSxLbxSxJo8uXWKoVfkUXxcp5ohyGehBBEEMBEjZJ+8bwnYcECcgLBCveJmp
+	KHVJE0UjiSqIGoCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7ECF013432;
+	Fri, 27 Nov 2026 14:41:17 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id w90gF42WCWvcXwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 27 Nov 2026 14:41:17 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 13DF251056; Fri, 27 Nov 2026 15:41:13 +0100 (CET)
+Date: Fri, 27 Nov 2026 15:41:13 +0100
+From: Jan Kara <jack@suse.cz>
+To: Zhao Gongyi <zhaogongyi@bytedance.com>
+Cc: Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+	Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>, 
+	Jinchao Wang <wangjinchao600@gmail.com>, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/readahead: read folio order limits under the
+ invalidate lock
+Message-ID: <pmv77fehocb557wy6vtcu2fank4uf54k42n22owpyuxxzxfgkj@46pvovh3r7jg>
+References: <20261127072340.73758-1-zhaogongyi@bytedance.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,39 +112,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261127072340.73758-1-zhaogongyi@bytedance.com>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[infradead.org,suse.cz,linux-foundation.org,kernel.dk,gmail.com,kvack.org,vger.kernel.org];
+	MISSING_XM_UA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,bytedance.com:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.80
 
-Jason Xing <kerneljasonxing@gmail.com> writes:
+On Fri 27-11-26 15:23:40, Zhao Gongyi wrote:
+> Block device mmap readahead can race with set_blocksize(), which updates
+> the block size and minimum folio order under the exclusive invalidate
+> lock. page_cache_ra_order() reads the minimum before taking the shared
+> lock and can allocate a folio smaller than the new block size. On the
+> buffer-head path this can cause a NULL dereference in guard_bio_eod().
+> 
+> Take the existing shared invalidate lock before computing the folio order
+> limits so they stay valid through allocation and I/O submission.
+> 
+> Fixes: 47dd67532303 ("block/bdev: lift block size restrictions to 64k")
+> Cc: stable@vger.kernel.org # 7.3+
+> Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
 
-> Compared to __dev_queue_xmit(), __dev_direct_xmit() is the only open
-> gate for skbs whose mac_header might not be initialized. A few months
-> ago commit c2707480cfbf ("net/packet: reset the MAC header on the
-> packet-socket transmit path") solves the case where AF_PACKET skb can
-> miss resetting mac header if a few conditions in packet_parse_headers()
-> are not satisified and it will cause out-of-bounds access.
->
-> Similarly, Petr reported an issue about AF_XDP path where copy mode
-> can also trigger the uninitialized mac header problem.
->
-> In reply to Petr's patch, Eric suggested to add the reset logic in a
-> general layer to stop future issues like this happening instead of
-> dealing with scattered cases one by one[1]. So anchor the mac header in
-> __dev_direct_xmit() exactly as __dev_queue_xmit() does, before
-> validate_xmit_skb_list() so that ndo_features_check() and the vlan helpers
-> see it too.
->
-> For callers that already reset the header the operation is idempotent.
->
-> [1]: https://lore.kernel.org/all/CANn89i+aacS2PfaMXnimzGgbCLz-JSnqo6QyoS1=
-22Gf+kxya3w@mail.gmail.com/
->
-> Fixes: 35fcde7f8deb ("xsk: support for Tx")
-> Cc: stable@vger.kernel.org
-> Reported-by: Petr Oros <poros@redhat.com>
-> Closes: https://lore.kernel.org/all/20260817153957.3177627-1-poros@redhat=
-.com/
-> Suggested-by: Eric Dumazet <edumazet@kernel.org>
-> Signed-off-by: Jason Xing <kerneljasonxing@gmail.com>
+Ups, this is hairy. The fix looks good. Feel free to add:
 
-Reviewed-by: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
+> ---
+> Earlier proposals:
+>   https://lkml.iu.edu/hypermail/linux/kernel/2511.3/04090.html
+>   https://lore.kernel.org/r/aUN9BFdxHQj8ThMS@ndev
+> 
+> The earlier syzbot retest hit a bug in the fallback path. Since
+> b244c89a70b3, the caller holds invalidate_lock before the fallback reads
+> min_nrpages. This patch covers the remaining mmap readahead path.
+> 
+> A/B testing on arm64/QEMU at the declared base commit gave 10/10
+> baseline hits via madvise and 6/10 via MAP_POPULATE. Both paths had
+> 0/10 hits with this patch. The 20 patched serial logs showed no kernel
+> warnings or crashes.
+> 
+>  mm/readahead.c | 12 +++++++-----
+>  1 file changed, 7 insertions(+), 5 deletions(-)
+> 
+> diff --git a/mm/readahead.c b/mm/readahead.c
+> index 6e5563290..80f3e141d 100644
+> --- a/mm/readahead.c
+> +++ b/mm/readahead.c
+> @@ -484,7 +484,7 @@ void page_cache_ra_order(struct readahead_control *ractl,
+>  	struct address_space *mapping = ractl->mapping;
+>  	pgoff_t start = readahead_index(ractl);
+>  	pgoff_t index = start;
+> -	unsigned int min_order = mapping_min_folio_order(mapping);
+> +	unsigned int min_order;
+>  	pgoff_t limit = (i_size_read(mapping->host) - 1) >> PAGE_SHIFT;
+>  	pgoff_t mark;
+>  	unsigned int nofs;
+> @@ -506,15 +506,17 @@ void page_cache_ra_order(struct readahead_control *ractl,
+>  		mark = ULONG_MAX;
+>  	}
+>  
+> +	/* See comment in page_cache_ra_unbounded() */
+> +	nofs = memalloc_nofs_save();
+> +	filemap_invalidate_lock_shared(mapping);
+> +
+> +	/* Serialize with set_blocksize() updating the minimum folio order. */
+> +	min_order = mapping_min_folio_order(mapping);
+>  	new_order = min(mapping_max_folio_order(mapping), new_order);
+>  	new_order = min_t(unsigned int, new_order, ilog2(ra->size));
+>  	new_order = max(new_order, min_order);
+> -
+>  	ra->order = new_order;
+>  
+> -	/* See comment in page_cache_ra_unbounded() */
+> -	nofs = memalloc_nofs_save();
+> -	filemap_invalidate_lock_shared(mapping);
+>  	/*
+>  	 * If the new_order is greater than min_order and index is
+>  	 * already aligned to new_order, then this will be noop as index
+> 
+> base-commit: 29378f5cd79a27718ead9717fe7b094b651a8e1e
+> -- 
+> 2.39.5 (Apple Git-154)
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
