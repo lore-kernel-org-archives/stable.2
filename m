@@ -1,97 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.133
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795762041;
-	b=XfNOMq1GNm8AjT3LLh1uCSIgyFDlEGjNVPJT3cK9STvf6NJN/k/ohy2cpGJMY8v1/MLO
-	 3aXv8haEqxjSYxLFn8JAhoK7nLmxOF82OnrTzuU0vX//fAoM8q/hH0gEqBlxucinAU27v
-	 5LoMmVcEP6+bmSFZSWcE46G0O14n25RFhE4wwSsB91bWTXAzSYpaQEcpUeXul49TxsUU8
-	 WmeRFphJC4MClk55F1aeHXGYkfmduiBMzLm/6qQDfccMZxj9Y+LPjjkZIikD4BX/SXGIO
-	 9h7PQZPx2eLOLEP4HvLiM3J34wPvZ6g3zIuYR87gAMLNYFN6THjsjgcSQFe5ukTCH9Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795762041;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/qlVD+W4EYAaz2b3JmMA2e/zNhIM7GUlB+7wqqJ0MxM=;
-	b=xmUAUjGEPkdoQVMhJLrGToTiBBB7k14pS/+V3QGLy8d1gVcR9XOiTZ3/ugM43ZYfGm0h
-	 BzhCI/xxVk56Jkvo9hwHIOmiyvFApRGsahqxIL4O4jKJHj3955RIAtAyELWOo1h2y2YNB
-	 jnS0HV7GIWzcFrQgoMArVmwTaRHBfSu0+e7Gulm6dpIZmSALMVAuTlV/0cDTXZ2hqykFx
-	 JALbZco0K7t9t+fLrYPFgtGellAlt0kFCy0+uOeEk2K4MnijCbFO8aPBeruNvKA+0oiZF
-	 DcONsB86MEeI622jimPABJYSsL8PLZ2QMHPNJHG2v6wRnZAQ86XAR2TtYb2xOiWYqiw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n8v7oi4Y;
-	arc=none smtp.remote-ip=74.125.227.133
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795762073;
+	b=cYawoHaceJYqRU3KzWRU0xogXtOED7bF2ovK4pCoyt7Hd/TIvIdzeEchGgMYU4Wf9181
+	 Z7levCZJhIwaEYoiqpWPDZGPPoZ57GdRS5RLuMqw3fnl8aNKnUFuJrIOMHNc6o+iaYsaR
+	 v7h7E+HbysFrFhL6aeQFjcUFnbx4IEkR53sUeQ+sf3b571LLQurTl0VO66U/8Qhfk4UXX
+	 B2AyC/cPN9tbGT0hl46SSDX3NjV5SNrXy5aQe2Z1CUQkvrB7k63N2PteRD+z4U+WMKB0x
+	 gT6rCGIKoTuFi1xOVWU5xUC/xI05VEstvWOVY4CY3bfNHrsWxRote8xdhEQNDmABw4g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795762073;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=TDuN97p1qoObocumuaAjgug87RFvc5TzoAa1x2CBtsM=;
+	b=K2NfqDnJRImEk4spfKQWOVCiz6MnSiUaenI42Q9fWBH8hIu3q4zinQ2ogllhvPf5vV23
+	 FPUyZF06vCGsGPKuWZiuTlvTHbsh6m1Tcf1/iyMx2FJfNVYpWF28llRE2P8bHPQG+PNke
+	 TKZfycw4FhP0iO4Trkwl/fwIZzm1UdGtbMSgzu7wXa/yQBd9YCucC/AfM3JLaVVQUsOUs
+	 W+mfuwgiW4vHjQ+ClmTZDATzneTNb9lrgtbVWj0GcOZ/t3jocX/jj5MHpEMLwKfa0m44C
+	 QfPqvebxzwE/LJ40abwrY/yB1iamKXLfKYy7tyaDl3C/iia9ggOeD2/A2zEtNYfrN5w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UWo4Tvc3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3BCF606A31E;
+	Fri, 27 Nov 2026 06:47:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UWo4Tvc3
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795762072;
+	b=a1SY+zIusWQnjUmWbiNjgrJ5Dntc46EM9jKY48UWeOGOXDqxpmfNEG/ArcUo1D6bvfM3
+	 5pmm/K7BBdUMjvp1OfEmmw2rLk5dqDUDQrw8TRCReFxyINeyu7c7n6o+MxugErOpGjnAP
+	 4B5KPcsjT9ybIoo0OiOZbKeuzx54u1sU9Sl2n6JyoL4et7n+7YXDai47oyyqXYHGbOlZh
+	 PrKdGP3BmuAS0t4idvBhGGfyP39aWUwZzrp4+NXqbJ+qHMXOC6vQj7xeTnPUTx+x4pc2l
+	 IOQa5A+u6TwXguY7iLIf6FrTw9B003w8GCobjzVy0NoTPD32AWnuFxfVUZksDnROAoA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795762072;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=TDuN97p1qoObocumuaAjgug87RFvc5TzoAa1x2CBtsM=;
+	b=u7Xk4S2TUjnrPwVdSNPI3iRNhiWi9NNHABJl9AswUT9WNC27Vddbj8uY4qwCGnu/QBX+
+	 qCg0S/FWOa+n+klOK3Ddd3p1k1oerwAG3UdErQsqototA9jq9zLM/rjmZID++zwP7OTi1
+	 QtSGkbc38xBUkL2LkgiP4t4YICgpNgM4G+Hu9S2KKfa/ZsgCoZhuhAlkKVXKaoMvrybdN
+	 k1ZQTddPHRYnaEanF3F/oZUXZa7OPjT85KT0rdQcQWSErCA4wHdG6Kwtr9ecbaxxkX1Hx
+	 rYFL9nfle0BmEWCxKHMsLlQgeUdZ59cWTDtSEeC3mMfYwflSVmciC52BTdYY4DGGi9Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B310B606A31C
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 06:47:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B310B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n8v7oi4Y
-Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2f04158d3cbso26590035ad.0
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 22:47:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795762040; x=1796366840; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/qlVD+W4EYAaz2b3JmMA2e/zNhIM7GUlB+7wqqJ0MxM=;
-        b=n8v7oi4YdBWInqnNmqQS501csZVceCsWfpRCPE1dbgQEh7QHAjCL3mQZw/fYbc/Aku
-         cv4EqtyifhjVv9I0W9l0MDJPSihD3wgu9lxmvG40i3ySfb6ybPGWMvLhapSf6v0aUjsl
-         Le0RlYQTh+1r1KsGuL0bkfcEIaVBQxQb+s2y8krZIOh500fWxtGwwgOa73u0BsF6TxvO
-         RZY22SGsb2vsXZBy7nLuE1NV6mi04yZxlXEI6q+tEpuFuYA0ZkyvbpQPWjrDfS4a1cYJ
-         J0cVhOXrZSmRQ/gqqhG+hE7MLFfOzssxuEqWkEGPZrVXCxw1Vua1vzwbpwUS6fn83UH3
-         0bSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795762040; x=1796366840;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/qlVD+W4EYAaz2b3JmMA2e/zNhIM7GUlB+7wqqJ0MxM=;
-        b=aHO3VMqmMzpA+urP5UKOwPDNgZheINlaOup0tdu6VlcXgajMXWnhtqg0rS5hYv81MO
-         pvpeea8glrQiQ262kN2HO58JLIlXFgcBp15x6MZA+sGgZRg4B4Hw2Ce+Nmf+j57QSqqk
-         ZaEtREgVyPg5rNz1F2OaZQ1A3B8v+MxQcrmJz0aZ+Ht00WtzM7wqoi5WHjdiEE04vnV2
-         noJn+ROVWgFg/ufO2/FvVDuRU9nk3w0Xpbr3aX78aLqoH4a6+koicTSArg4cfap3UovG
-         HhxFkat8dfoaE4116+SHoM7pbfWjruvzwc/9RAMNtuWIkMCB4x2XhESxUTEJdo/9Kv6K
-         Z8AA==
-X-Forwarded-Encrypted: i=1; AL+hErEsgGeIzNdPaOyM9LZXamu3Is9Qnvp7hXgIUXaXSMsG1QqgAyxnx64DzAQ1YiqclWmKYNhBZtQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9aWetWUd7ohsdiHwVecqBpp7lQNtJ7akwv0hx17ZT6OLvOQ6kB
-	iEu4aDeiw/MYeV96FQ0bCjKIJb7jxh98kRhlDw8FYgnXhBak1goqXH4h
-X-Gm-Gg: AZFdTZd9jMjbla8kqIEqGHH8L+7DWzEoAPke15gi6dot6v7kt7cg6dgkON3MuWd7Ujx
-	aFRwAJE+fqTiP1sqWg716T09GXTd8WGCRLWblOYp3srAYo+XexLV9AT6mseSbrzVCL8lvUntR3F
-	T/64j3K/Vqa9iGvZMWIuN8Tq7Ohzqwc6k93X32jn9YitI56H942/vPc9XLT9KeBh4qddqkqBSTj
-	iei+KZNZItuHJP2qaIIBM7IPHa/37psaNhXjqJwn0HWRPQq7qGaxuv44brGM2M+8C6DRulJkTs2
-	wwRQlHTet97XGBWGA/l9wPTnZ7vRTTtvnqZTFkFsfkVoLSPWWUB52qXkA1RtIjF+izAbj8FT48f
-	2rmqVbh2PkgWJl/SP0UPLmd2rlON94y1usp80j8nJFFeBlh3G6TOoTKAjEadgWP14atdOGFFClo
-	+pJk0i+KdF/iIXhknWc4xWCZV23zUQ22zTcaVcSbFkXmpftkMB1W2lKpIC13HNIpVNdmR2RE6je
-	evtMdYBX4KUDID48jww7XT0l7eMkQ6HJtITq168fwr7ctEj8dm6a7JltCbIXv6l9DfTJKJvT7Be
-	GyDyOAjC127cxIVN+5SDbbOwkl6PT5vye+d2u0ZmNbTfWKPSK/r9Sj4/JzeZF4RkzV9hAWjFiyJ
-	sCysABeCPtPnmwtbFl+KA9y8=
-X-Received: by 2002:a17:902:fc4b:b0:2ef:d82e:87ba with SMTP id d9443c01a7336-2f03ef870e9mr238228685ad.3.1795762040046;
-        Thu, 26 Nov 2026 22:47:20 -0800 (PST)
-Received: from BSDHENRYMA-PC1.localdomain ([43.132.141.11])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03ee85466sm112294185ad.4.2026.11.26.22.47.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 22:47:19 -0800 (PST)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	Pieter Jansen van Vuuren <pieter.jansenvanvuuren@netronome.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Eric Dumazet <edumazet@kernel.org>
-Cc: netdev@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] geneve: don't announce options that are not geneve options
-Date: Fri, 27 Nov 2026 14:47:06 +0800
-Message-ID: <20261127064706.2920854-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 07D971F0089F;
+	Fri, 27 Nov 2026 06:47:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795762072;
+	bh=TDuN97p1qoObocumuaAjgug87RFvc5TzoAa1x2CBtsM=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=UWo4Tvc3uTrR/sCVHejamStQQGSlwBxDepF/cMzgTnvi1BOj043Lq4KkCjHGX/Hc+
+	 gtQMMvFjSkST/OwFmF/TAyZle5F017CYsS0WTrQZld0n52Ve1kV8L6xcteg+zrqhIk
+	 qA2gpjrb8vIhxoYiJaE589mFu/eUDXGmYHeu87mIsvewqnYFdjbL6PeKNqK7KjYWKv
+	 /bwehuH+NF/XkvfyCIKF18cTOjt6wUlZ8gTglWROn2MfZc1Ril0jwho+L4PXlKqDB0
+	 qgyaP5Ir1/ODvIJVwBnYSCl/YVYhZJ6cZ5LZa231Kki/TOXCOT/1hoPP2xMAjzIkjV
+	 OBupyJrrHeu3A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 855A64B5D0;
+	Fri, 27 Nov 2026 06:47:46 +0000 (UTC)
+From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
+Date: Fri, 27 Nov 2026 06:22:13 +0000
+Subject: [PATCH 5.10.y] binfmt_misc: restore write access before closing
+ files opened by open_exec()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,82 +83,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261127-so5-binfmt-510-v1-1-c62790b381f0@certik.com>
+X-B4-Tracking: v=1; b=H4sIAJQhCWsC/1WNwQ7CIBBEf6XZs1sBi1p/xXgoZWvXKBi2Gk3Tf
+ xf05HFeZt7MIJSYBA7VDImeLBxDDnpVQT924UzIPmcwymy1NjuUaNFxGG4TWq1w8M76trF702w
+ gj+6JBn59hUewtVb1G04/Lg93oX4qttJ0nRC61IV+LEgo+CnGKxa+/n+BZfkA78i26qkAAAA=
+X-Change-ID: 20261127-so5-binfmt-510-fdb5d9458243
+To: stable@vger.kernel.org
+Cc: Zilin Guan <zilin@seu.edu.cn>, Christian Brauner <brauner@kernel.org>, 
+ linux-fsdevel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795760532; l=2237;
+ i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
+ bh=WGqX07O3Yi7vqeSiFE0eOykUyKkDkZfXWYalnmxLXzM=;
+ b=WXem5htlu0I1lz4Nrw5iKOXToGaWW7MuGffZBYGS7Q5dm/kTDOemaNJ+BtprgQxvAdkwRksYn
+ wofqhZAox0tD5Atsd+7yEfOYo4xBxt8E4lRIKo9YEL3o2mxbVRv3eGZ
+X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
+ pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
+X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
+ auth_id=1647
+X-Original-From: Dickson Wu <dickson.wu@certik.com>
+Reply-To: dickson.wu@certik.com
 
-geneve_build_header() announces info->options_len in the wire header
-unconditionally, but only copies the option bytes when the tunnel
-metadata carries the geneve option flag.  With metadata of another
-tunnel type (vxlan, erspan), set for example by a tc tunnel_key action,
-the announced option space is never written: the packet goes out with
-whatever bytes __skb_push() left in the skb headroom, and the peer can
-read 4 or 12 stale kernel bytes per packet, repeatedly.
+From: Zilin Guan <zilin@seu.edu.cn>
 
-Only announce and emit options that are actually geneve options.  Other
-metadata is dropped from the wire header instead of being replaced by
-stale headroom bytes: the option space sizing and the GRO hint offset
-now both follow the same condition as the copy.
+commit 90f601b497d76f40fa66795c3ecf625b6aced9fd upstream.
 
-This issue was discovered by Tencent CodeBuddy Security.
+bm_register_write() opens an executable file using open_exec(), which
+internally calls do_open_execat() and denies write access on the file to
+avoid modification while it is being executed.
 
-Cc: stable@vger.kernel.org
-Fixes: 256c87c17c53 ("net: check tunnel option type in tunnel flags")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+However, when an error occurs, bm_register_write() closes the file using
+filp_close() directly. This does not restore the write permission, which
+may cause subsequent write operations on the same file to fail.
+
+Fix this by calling exe_file_allow_write_access() before filp_close() to
+restore the write permission properly.
+
+Fixes: e7850f4d844e ("binfmt_misc: fix possible deadlock in bm_register_write")
+Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
+Link: https://patch.msgid.link/20251105022923.1813587-1-zilin@seu.edu.cn
+Signed-off-by: Christian Brauner <brauner@kernel.org>
+Signed-off-by: Dickson Wu <dickson.wu@certik.com>
 ---
- drivers/net/geneve.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
+5.15.y and newer already have this fix.
 
-diff --git a/drivers/net/geneve.c b/drivers/net/geneve.c
-index 0ab729f055ea0..dd1734b82af59 100644
---- a/drivers/net/geneve.c
-+++ b/drivers/net/geneve.c
-@@ -1231,7 +1231,7 @@ static void geneve_build_header(struct genevehdr *geneveh,
- 				__be16 inner_proto)
- {
- 	geneveh->ver = GENEVE_VER;
--	geneveh->opt_len = info->options_len / 4;
-+	geneveh->opt_len = 0;
- 	geneveh->oam = test_bit(IP_TUNNEL_OAM_BIT, info->key.tun_flags);
- 	geneveh->critical = test_bit(IP_TUNNEL_CRIT_OPT_BIT,
- 				     info->key.tun_flags);
-@@ -1240,8 +1240,15 @@ static void geneve_build_header(struct genevehdr *geneveh,
- 	geneveh->proto_type = inner_proto;
- 	geneveh->rsvd2 = 0;
+Tested on v5.10.275:
+- x86_64 allmodconfig W=1 build of fs/binfmt_misc.o, base vs patched,
+  no new warnings
+- under QEMU/KVM: an F-flag registration with a non-executable or
+  missing interpreter is rejected and the interpreter can be opened
+  for writing afterwards, and a normal F-flag handler registers and
+  removes cleanly. I didn't reach the error exit after open_exec().
+
+The backport and the test runs were prepared with AI coding tools
+(OpenAI Codex agents, with review by Claude). I went over the result
+before signing off.
+
+fs/binfmt_misc.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+---
+ fs/binfmt_misc.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/fs/binfmt_misc.c b/fs/binfmt_misc.c
+index ab14522dcd5b..ce6b5ab4bb84 100644
+--- a/fs/binfmt_misc.c
++++ b/fs/binfmt_misc.c
+@@ -827,8 +827,10 @@ static ssize_t bm_register_write(struct file *file, const char __user *buffer,
+ 	inode_unlock(d_inode(root));
  
--	if (test_bit(IP_TUNNEL_GENEVE_OPT_BIT, info->key.tun_flags))
-+	/* Only announce and copy options that are actually geneve
-+	 * options.  Metadata of another tunnel type (vxlan, erspan)
-+	 * must not go on the wire: there is nothing to copy it from,
-+	 * and the option space would carry stale headroom bytes.
-+	 */
-+	if (test_bit(IP_TUNNEL_GENEVE_OPT_BIT, info->key.tun_flags)) {
-+		geneveh->opt_len = info->options_len / 4;
- 		ip_tunnel_info_opts_get(geneveh->options, info);
-+	}
- }
- 
- static int geneve_build_gro_hint_opt(const struct geneve_dev *geneve,
-@@ -1336,7 +1343,10 @@ static int geneve_build_skb(struct dst_entry *dst, struct sk_buff *skb,
- 	skb_reset_mac_header(skb);
- 	skb_scrub_packet(skb, xnet);
- 
--	opt_size =  info->options_len + cb->gro_hint_len;
-+	if (test_bit(IP_TUNNEL_GENEVE_OPT_BIT, info->key.tun_flags))
-+		opt_size = info->options_len + cb->gro_hint_len;
-+	else
-+		opt_size = cb->gro_hint_len;
- 	min_headroom = LL_RESERVED_SPACE(dst->dev) + dst->header_len +
- 		       GENEVE_BASE_HLEN + opt_size + ip_hdr_len;
- 	err = skb_cow_head(skb, min_headroom);
-@@ -1353,7 +1363,8 @@ static int geneve_build_skb(struct dst_entry *dst, struct sk_buff *skb,
- 	geneve_build_header(gnvh, info, inner_proto);
- 
- 	if (cb->gro_hint_len)
--		geneve_put_gro_hint_opt(gnvh, info->options_len, &cb->gro_hint);
-+		geneve_put_gro_hint_opt(gnvh, opt_size - cb->gro_hint_len,
-+					&cb->gro_hint);
- 
- 	udp_tunnel_set_inner_protocol(skb, double_encap, inner_proto);
- 	return 0;
--- 
-2.39.5
+ 	if (err) {
+-		if (f)
++		if (f) {
++			exe_file_allow_write_access(f);
+ 			filp_close(f, NULL);
++		}
+ 		kfree(e);
+ 		return err;
+ 	}
+
+---
+base-commit: 99112ea818e35b606397c84fbc05e6fadb6ea162
+change-id: 20261127-so5-binfmt-510-fdb5d9458243
+
+Best regards,
+--  
+Dickson Wu <dickson.wu@certik.com>
+
 
