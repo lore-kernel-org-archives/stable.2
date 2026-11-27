@@ -1,62 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795815772;
-	b=UvgVobd6L0IYtYXOMTbt/bszuN2oY5j+z8NXQEnz7LWcEhkr4IO+hukIl7fcAWtbYpWz
-	 D8NIB4ydNnmLxNzKT2KyqCpxyrH3rhH5Rc+G5cd2WBsJO4EvubIRpH5MNM/PaxqM+V5AU
-	 nOWuNA2zGHpMCSiDakugmHCI1hfWMLKbPmkvy2hbiVbC/diZ9lDg1ZakhxwFtfd1d2aSp
-	 vRpRuk9EL3tHjC34kImQ8inOLNu5I314NrQ3SF/Xcukls8UZ2JqUoYEU39/xFBHyVG2Yz
-	 rf5cSaJ57oPt02IYsAKRzj8IShMzx5IGA7ppJCpMuYG4mllu8zPeoSq5zlJxuZDJXrQ==
+	t=1795816899;
+	b=LNtqe0yhBSKSmRHz22eeZYuRq3oT2ZCcNQ+kLZe9GrfU7Kqd/VByftfIL7yH2/OsMoij
+	 yQ4cPjlJVp/+CCu6wr/ygMHWISGP8VkdesAUaWYci71GKrIPQLxw3O96xbHJuLJGuul9l
+	 5iAWRUUR3vh/6PBh4AlxteNct1Qit3H5fc5punqAYD6vwPsBj1EPg/ZtYP5IcHy8Htj/A
+	 AmLfUna7D/ddptE63aTAPzpawkEXflmrkAhukv5ZgxyzRopeRlRAYoNq3V0fpajFj2NKK
+	 inVuXN0Q+mUefqfoRGfzFDKdwue2SckeWjavkvxwifFh7IHAbwTl0ohh6UQzJUwfaoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795815772;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0ZYgNUiDFfhKnL3/ciwpgFJhJOXc7waapLIK1GJZ/ZQ=;
-	b=zbvVJHUu+jL3uXeiNVQUfEQezauZp3NKqMQWywO5Zu2KZbieVOenX3Ah2g9kBgOGrMSw
-	 zhCw7jdv4Sl09gQvfkgcx8I5jN6jxv6ALtHA1TnP0PUjG+mG4m+TFrcOhEj2/eaACruDH
-	 mlnIIdr0wePseWUBk7WnmPlq8XUa4b4lu2mZ2x5X4/8ljhkja3Y3Ga8IoC0CdgPX1Q8ZB
-	 DiBImDl8OabKs7bqjQrKWxiS2klRuTt7f0PToE7TTvnhYGsLJIu1mQfVqG+Um046CdFA3
-	 A6zNzMKsSfOMPFXEAr2EmGBZRZHU5V0+0nHa8hFmapHOLlZeFkC1MQdVK527bud7MeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795816899;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=ywO5RVgPZTKCg8MxNheY4qxRslQKFNNSPc5yDKjlZEc=;
+	b=ta3X6jovfn2nLXCIFeMZN8CMe0LraDGFddjEpJUOrgi90aPwGKowFhqNbgEUiWbrXXrQ
+	 Y4gj/WIFiQhhHOsoFBOz3JLaJXT4v1pHMkBJh2gxfnlYN2NPoWE+Kz7femzCwNI812y+X
+	 DrEtZe0p9fZIEvGoyzf2mXc81bnscusQHKu36PcZWClryg58VA/2cOVz21uLnwOnjJ7aG
+	 W1+JNVI5C+K+pS/XaizdsPpmeJtNdpD/n2R5K64nyiBAb+TD+tvMfEAN73gMJHmM7s/OH
+	 tTsfRGub9ro7gRSKFlqUsOhh2khBgMiCVkw8gTNN1yUiD9GRfgi9AP9Ou7SPVohs31Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=makrotopia.org;
-	spf=pass smtp.mailfrom=makrotopia.org;
-	arc=none smtp.remote-ip=185.142.180.65
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MDBEVCRi;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TTcGdVGc;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MDBEVCRi;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TTcGdVGc;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A51B606A31E;
-	Fri, 27 Nov 2026 21:42:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A51B606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
-	 (Exim 4.100.1)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1xX3iR-0000000008m-2Kgz;
-	Fri, 27 Nov 2026 21:42:47 +0000
-Date: Fri, 27 Nov 2026 21:42:44 +0000
-From: Daniel Golle <daniel@makrotopia.org>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, bui duc phuc <phucduc.bui@gmail.com>,
-	Kees Cook <kees+treewide@kernel.org>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Ryan Walklin <ryan@testtoast.com>,
-	Andre Przywara <andre.przywara@arm.com>, linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
-	linux-sound@vger.kernel.org
-Cc: stable@vger.kernel.org, Marcus Cooper <codekipper@gmail.com>,
-	Philippe Simons <simons.philippe@gmail.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>
-Subject: [PATCH 1/1] clk: sunxi-ng: h616: fix audio PLL and codec clock rates
-Message-ID: <9b134cf8ba90d4524188d4b5977fd1d8335dc751.1795815223.git.daniel@makrotopia.org>
-References: <cover.1795815223.git.daniel@makrotopia.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BFA9606A323;
+	Fri, 27 Nov 2026 22:01:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BFA9606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MDBEVCRi;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TTcGdVGc;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MDBEVCRi;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TTcGdVGc
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 519F91FDB7;
+	Fri, 27 Nov 2026 22:01:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1795816896; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ywO5RVgPZTKCg8MxNheY4qxRslQKFNNSPc5yDKjlZEc=;
+	b=MDBEVCRiaSp9fHhRM9woN31PQjdSz4IfTk3y5gnbL/9MOPuroXczvBHTYHWq/0USYGM6UC
+	W9bLwbPhnxR1i+H9rP+0BBLXmrILGrQsZviUtmfOZsMuxRd2VDMPIfWAy3MaQkhh6lZSt+
+	WfgYps87OSn5UVbTFhdyVnfN1moj3+k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1795816896;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ywO5RVgPZTKCg8MxNheY4qxRslQKFNNSPc5yDKjlZEc=;
+	b=TTcGdVGc0NMbDymzyNA9s368M9S2y/3YJUjrxNI501rHoUp+bKGNDCnfRrEAQt6h0SbcQy
+	VUXM1+dHeNlYRyDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1795816896; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ywO5RVgPZTKCg8MxNheY4qxRslQKFNNSPc5yDKjlZEc=;
+	b=MDBEVCRiaSp9fHhRM9woN31PQjdSz4IfTk3y5gnbL/9MOPuroXczvBHTYHWq/0USYGM6UC
+	W9bLwbPhnxR1i+H9rP+0BBLXmrILGrQsZviUtmfOZsMuxRd2VDMPIfWAy3MaQkhh6lZSt+
+	WfgYps87OSn5UVbTFhdyVnfN1moj3+k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1795816896;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ywO5RVgPZTKCg8MxNheY4qxRslQKFNNSPc5yDKjlZEc=;
+	b=TTcGdVGc0NMbDymzyNA9s368M9S2y/3YJUjrxNI501rHoUp+bKGNDCnfRrEAQt6h0SbcQy
+	VUXM1+dHeNlYRyDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4836C134E8;
+	Fri, 27 Nov 2026 22:01:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id qN40Br79CWtAHQAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Fri, 27 Nov 2026 22:01:34 +0000
+Date: Fri, 27 Nov 2026 22:01:32 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu, 
+	Andrew Morton <akpm@linux-foundation.org>, David Rheinsberg <david@readahead.eu>, 
+	Hugh Dickins <hughd@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, David Hildenbrand <david@kernel.org>, 
+	Jann Horn <jannh@google.com>, Alex Shi <alexs@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, David Rientjes <rientjes@google.com>, 
+	Rik van Riel <riel@redhat.com>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Arnd Bergmann <arnd@arndb.de>, 
+	Stephen Rothwell <sfr@canb.auug.org.au>, Muhammad Usama Anjum <usama.anjum@arm.com>, 
+	codalist@coda.cs.cmu.edu, linux-mm@kvack.org, Andrei Vagin <avagin@gmail.com>, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH 1/4] coda: never point a file's f_mapping at a
+ container's mapping
+Message-ID: <awn9Qfo5LfDb5aN7@pedro-suse.tail5790ac.ts.net>
+References: <20261127-mlock-madvise-mprotect-ai-fixes-v1-0-e46b2b1eb435@kernel.org>
+ <20261127-mlock-madvise-mprotect-ai-fixes-v1-1-e46b2b1eb435@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,126 +123,103 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cover.1795815223.git.daniel@makrotopia.org>
+In-Reply-To: <20261127-mlock-madvise-mprotect-ai-fixes-v1-1-e46b2b1eb435@kernel.org>
+X-Spamd-Result: default: False [-13.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[32];
+	FREEMAIL_CC(0.00)[cs.cmu.edu,linux-foundation.org,readahead.eu,google.com,kernel.org,infradead.org,cmpxchg.org,redhat.com,suse.com,lwn.net,linuxfoundation.org,rere.qmqm.pl,arndb.de,canb.auug.org.au,arm.com,coda.cs.cmu.edu,kvack.org,gmail.com,vger.kernel.org];
+	R_RATELIMIT(0.00)[to_ip_from(RL45qnsmh45s86h1s1babgqt3g)];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
+X-Spam-Score: -13.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-The sigma-delta table of the H616 audio PLL holds the PLL_AUDIO(4X)
-rates of 90.3168 and 98.304 MHz, which already include the M0 output
-divider of 2, and ccu_nm divides the table rate by fixed_post_div once
-more. The PLL and the 4x, 2x and 1x clocks derived from it are therefore
-reported at half their real frequency: N = 40, P = 5, M0 = 2 and
-pattern 0xc001eb85 (a fractional N of 40.96) give 24 MHz * 40.96 / 5 /
-2 = 98.304 MHz for PLL_AUDIO(4X). Store the rates in front of the post
-divider.
+On Fri, Nov 27, 2026 at 07:45:40PM +0000, Lorenzo Stoakes (ARM) wrote:
+> Coda file systems stack differently from other stacked file systems.
+> 
+> On mmap(), coda_file_mmap() switches both the Coda inode's i_mapping and
+> the Coda file's f_mapping for the mapping of the container file. This
+> causes two problems.
+> 
+> Firstly, the container file may not remain pinned, at which point this may
+> result in a dangling reference in coda_file->f_mapping, and so a
+> use-after-free in mmap() or lseek().
+> 
+> This can happen when you open the same inode across two files, mmap()'ing
+> in one, which assigns the i_mapping, and open()'ing another, which assigns
+> that i_mapping to the file's f_mapping, if the cache manager gave the two
+> files different containers. Each file pins only its own container.
+> 
+> Consider (A, B = separate open files of the same inode):
+> 
+>     A, with container C1            B, with container C2
+>     ====================            ====================
+>     mmap()
+>       coda_file_mmap()
+>         i_mapping = C1's mapping
+>                                     open()
+>                                       do_dentry_open()
+>                                         f_mapping = i_mapping
+>                                         coda_open()
+>                                           cfi_container = C2
+>     munmap()
+>     close()
+>       coda_release()
+>         i_mapping = &i_data
+>         fput(C1), the last one
+>                                     mmap()
+>                                       mmap_region()
+>                                         mapping_map_writable(f_mapping)
+> 
+> Secondly, mmap_region() takes a temporary i_mmap_writable count on
+> file->f_mapping ahead of the mmap hook, and drops it on file->f_mapping
+> afterwards. As the hook changes f_mapping in between, the count is dropped
+> on the container's mapping rather than on the mapping it was taken on:
+> 
+>     i_mmap_writable of                          Coda  container
+>     mmap_region()
+>       mapping_map_writable(file->f_mapping)       1       0
+>       __mmap_region()
+>         coda_file_mmap()
+>           coda_file->f_mapping = host_file->f_mapping
+>           vma->vm_file = get_file(host_file)
+>         vma_link_file()
+>           mapping_allow_writable()                1       1
+>       mapping_unmap_writable(file->f_mapping)     1       0
+>     munmap()
+>       mapping_unmap_writable()                    1      -1
+> 
+> The container's count is negative after munmap(), so the next shared
+> mapping of that Coda file, if it is open for writing, fails with -EPERM.
+> 
+> Fix both issues by no longer updating coda_file->f_mapping in
+> coda_file_mmap(), and by having coda_open() always assign the canonical
+> mapping of the inode, as do_dentry_open() may have propagated an i_mapping
+> which coda_file_mmap() redirected.
 
-The H616 codec only played at the right speed because of this: its DAC
-needs a module clock of 49.152 MHz for the 48 kHz family and 45.1584 MHz
-for the 44.1 kHz family, and the 24.576 MHz requested by the sun4i-codec
-rate table landed on pll-audio-2x running at 49.152 MHz. Request twice
-the table rate on the H616, in the same change, as either half on its
-own leaves the codec playing at the wrong speed.
+This might be the most confusing thing I've read this year?
 
-Fixes: d0c322b6e4bf ("clk: sunxi-ng: h616: Add sigma-delta modulation settings for audio PLL")
-Fixes: 9155c321a1d0 ("ASoC: sun4i-codec: support allwinner H616 codec")
-Cc: stable@vger.kernel.org
-Cc: Ryan Walklin <ryan@testtoast.com>
-Cc: Andre Przywara <andre.przywara@arm.com>
-Cc: Marcus Cooper <codekipper@gmail.com>
-Cc: Philippe Simons <simons.philippe@gmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Signed-off-by: Daniel Golle <daniel@makrotopia.org>
----
-Measurements on an H618 (X98H TV box), DAC drain rate from AC_DAC_CNT
-and aplay run time of a 4 s 48 kHz stereo file:
+Anyway, in the sense that filesystems definitely shouldn't be poking f_mapping
+after open:
 
-  kernel           CODEC_1X_CLK  real module clock  drain    run time
-  unpatched        mux 2X        49.152 MHz         96360/s  4.06 s
-  CCU fix only     mux 1X        24.576 MHz         48160/s  8.03 s
-  CCU fix, 2X mux  mux 2X        49.152 MHz         96360/s  real time
-  this patch       mux 2X        49.152 MHz         -        4.06 s
-
-With this patch the 44.1 kHz family runs at 45.1584 MHz and also plays
-in real time. Codec streams of either family keep their rate when they
-alternate with streams of the out-of-tree Audio Hub HDMI driver, which
-retunes the PLL between the two settings. A guitar tuner held to
-headphones on the line out read 440 Hz for 60 s sines of 440 Hz at 48
-and at 44.1 kHz, and 880 Hz on the right channel only for a 60 s 880 Hz
-right-channel sine at 48 kHz.
-
-The real rates follow the PLL_AUDIO_CTRL formula of the H616 manual
-(3.3.5.12) from the register contents (0xb9042701 with pattern
-0xc001eb85 for the 48 kHz family, 0xb9021501 with 0xc001288d for 44.1
-kHz). The same halving made sun4i-spdif run at twice its rate whenever
-the codec had moved the PLL to its sigma-delta setting first (a 4 s
-file played in 2.01 s). With the fix it plays in real time whenever the
-PLL already runs in the rate family of the stream; the spdif clock
-cannot retune the PLL itself, which is a separate problem.
-
----
- drivers/clk/sunxi-ng/ccu-sun50i-h616.c | 4 ++--
- sound/soc/sunxi/sun4i-codec.c          | 8 ++++++++
- 2 files changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/clk/sunxi-ng/ccu-sun50i-h616.c b/drivers/clk/sunxi-ng/ccu-sun50i-h616.c
-index 955c614830fae..6af0c1318ccf2 100644
---- a/drivers/clk/sunxi-ng/ccu-sun50i-h616.c
-+++ b/drivers/clk/sunxi-ng/ccu-sun50i-h616.c
-@@ -223,8 +223,8 @@ static struct ccu_nkmp pll_de_clk = {
-  * frequencies with less error.
-  */
- static struct ccu_sdm_setting pll_audio_sdm_table[] = {
--	{ .rate = 90316800, .pattern = 0xc001288d, .m = 3, .n = 22 },
--	{ .rate = 98304000, .pattern = 0xc001eb85, .m = 5, .n = 40 },
-+	{ .rate = 180633600, .pattern = 0xc001288d, .m = 3, .n = 22 },
-+	{ .rate = 196608000, .pattern = 0xc001eb85, .m = 5, .n = 40 },
- };
+Acked-by: Pedro Falcato <pfalcato@suse.de>
  
- #define SUN50I_H616_PLL_AUDIO_REG	0x078
-diff --git a/sound/soc/sunxi/sun4i-codec.c b/sound/soc/sunxi/sun4i-codec.c
-index 9d5bc3d7b4dfa..759343bec42a8 100644
---- a/sound/soc/sunxi/sun4i-codec.c
-+++ b/sound/soc/sunxi/sun4i-codec.c
-@@ -333,6 +333,7 @@ struct sun4i_codec {
- 	struct reset_control *rst;
- 	struct gpio_desc *gpio_pa;
- 	struct gpio_desc *gpio_hp;
-+	bool double_mod_freq;
- 
- 	/* ADC_FIFOC register is at different offset on different SoCs */
- 	struct regmap_field *reg_adc_fifoc;
-@@ -661,6 +662,9 @@ static int sun4i_codec_hw_params(struct snd_pcm_substream *substream,
- 	if (!clk_freq)
- 		return -EINVAL;
- 
-+	if (scodec->double_mod_freq)
-+		clk_freq *= 2;
-+
- 	ret = clk_set_rate(scodec->clk_module, clk_freq);
- 	if (ret)
- 		return ret;
-@@ -2147,6 +2151,7 @@ struct sun4i_codec_quirks {
- 	unsigned int reg_adc_rxdata;	/* RX FIFO offset for DMA config */
- 	bool has_reset;
- 	bool playback_only;
-+	bool double_mod_freq;
- 	u32 dma_max_burst;
- };
- 
-@@ -2237,6 +2242,7 @@ static const struct sun4i_codec_quirks sun50i_h616_codec_quirks = {
- 	.reg_dac_txdata	= SUN8I_H3_CODEC_DAC_TXDATA,
- 	.has_reset	= true,
- 	.playback_only	= true,
-+	.double_mod_freq = true,
- 	.dma_max_burst	= SUN4I_DMA_MAX_BURST,
- };
- 
-@@ -2365,6 +2371,8 @@ static int sun4i_codec_probe(struct platform_device *pdev)
- 		return dev_err_probe(&pdev->dev, PTR_ERR(scodec->reg_dac_fifoc),
- 				     "Failed to create regmap fields\n");
- 
-+	scodec->double_mod_freq = quirks->double_mod_freq;
-+
- 	/* DMA configuration for TX FIFO */
- 	scodec->playback_dma_data.addr = res->start + quirks->reg_dac_txdata;
- 	scodec->playback_dma_data.maxburst = quirks->dma_max_burst;
+
 -- 
-2.56.1
+Pedro
