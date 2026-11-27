@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795762078;
-	b=AG9tVLnpVrWK+mnpWXbiVzJbwzRvb5eX0qf0BVd8hLx6Rr3eS1uJXT2fP+Jkpm+DF5lH
-	 CqVx/+D98tH+/fh1j8RGa5AzmvP9dNVI3knsVzjDuQUgcJNHFxUILlkiD0LJ5KqHY8UYV
-	 y1br774PaNzLGNyfYymN9nlo2/rRZPbpaCamT7cNh2/mkX412zr0Re1DYh4DVfJUh8MTv
-	 DifHFmEVljP72XK53HvK3al2zpe72sZrJBLJHzAFT4auQPkRhvVQzruGBQ4j02soSuXE9
-	 /40oYGKTBiWg47VmeLYkhM+ayWq1DFp1AM7MrU2loyTjuarhO6JVIC36glqgMHAUU1A==
+	t=1795762073;
+	b=FI2v07VvXreCaDjntmcFc2jN4OoJegnIz3uEY0NKgKQ16zBfzyTi/jNbKeM4m97xhJqg
+	 JGazbQc41mOAR5RwkuOfbCnaodLo742zVG0mAgB8dK1HKgqSElzB0t8qENItFYLtM9+2A
+	 7ryK+cZQDgAQTG6zS1wIB2BQad2BnHr3RlXVVca38JRce13i72RO6CpbAifCfjMt04+zM
+	 K0ULLkwwoM7wns+D57jmmWtsTK/PRewMnFXlbWaaRaiqgbAnzSY5pnxUnrsTSl9DLlPYH
+	 YnIopnR7wJZsQWHDtUN4oe3znLW5b8Swup4SqCBX9aM/d6XV3hrma3RW5B2JSprmdAA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795762078;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795762073;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
 	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=4kO2/TOIPNkmsIMjXm7Ah4Oz0Gps8OfI9+gvyJMp7b4=;
-	b=EuTT1BnlPBQkDWoxBkT/bl1eo/RIo8Md4iy8KiWegQOPom5a4Y4giXkDeSxtEC5vXkfe
-	 pSC8bRQIwSNzh8/R5qDCs3ZB20T2eQzqZuiTsBxSH+4kcFlBOopDcp+/URZlwu7oKHp0M
-	 atWKy1p8SUIzKRoiPyXUkSB95eKBUbgf5WhT0XPIyAquGn/RA0XZU6whelX1HltW3fVy0
-	 dWb7yo2f+/EAEaKFq4Ip/GVjqs2JOkTxaosHtd/MIy7bXG7FAPGGOA6ebSxq3D1X+Pw/m
-	 6dr4nYNG3HoK6PfLg6gO/S8YOebuCToLhKmQ2tXdZ/W3toGdAwFESSFtJGsCi2Ij6Tw==
+	bh=F6XLaD65N+3qHf5eA4zz7LWLiBf+2mF6D5WZPA9b5hQ=;
+	b=b8sEVtwKJdzkfnIUBf3XFMviGwClVv8D5YGyqwGRqg4FcjHUTQgGrcxhknApeHZ+jJ4J
+	 QJ1b1yxNJRITMKKCkSLYehqvgitn5QYxxvkIp1aC0DSbfNkaH6WeOjYnJ8c9sWEPuaJj9
+	 khjnEjKdsDJQDfi0KuJb7CC2+5AHPzzlXMI7h9DaDnpgMEKTNNXgDXnBAKGDIJwzaQsy/
+	 l2HzP4OPth6InSBfa7GvXZkI0HUiC3ALr1dgFv83C3IuKr8aWLzaAnoNJQdesorl80XHv
+	 AqM53mjZHjPf51+JWK+6mPBD3HURmX/ybQGPeVzbH+QR9DQPrJwnHIpJx8dQhLakdJA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jmjkDW8d;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I1DvQxSw;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA08606A331;
-	Fri, 27 Nov 2026 06:47:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B48606A31C;
+	Fri, 27 Nov 2026 06:47:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jmjkDW8d
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I1DvQxSw
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795762077;
-	b=hv7gyFFe+FtI+RWPve56WXCIhXG7CRmtyLpYb5TUYjSq/HQmh+J0dLq+h14AHWZ7m5G9
-	 jaC3+i5ztUAq4Y2SoK6E691vit650vrRhTCxYg0x59gK1W1PLTk0+MtHP3xFJECAcAgwl
-	 WRBe7mS+SQwden9ffS4BIm0tbV5kXrTukKM5PhuwbUM/YU9gjsWyUariQL+7koShtv4qR
-	 +Bu/QFsxpBZRx8Qm/65ePz+P7eboqYEkNOyNPAAIylaHoKtr0l/eispE+yavNB06RjiSB
-	 t1uPt5HBgkroTLJ4y9OoCjrjLhSi0C0Hp04iDGjk9P5U20AIut+cbzGQmt2kH7kt4lw==
+	t=1795762072;
+	b=K8mhJ3H3cELtj86cZMn1g5uAkgiareXJ6RpEhMZn78iEHO3q2ACbW7zHSRZw1HPmxYCC
+	 wbEdHP5Esaw0AEz7vU1sOmAMXvW/32Iuff+B4ZUoer22fvztwr/TWevDKeqXpTf/Nq3kp
+	 m3QcMFnWcVCCqPOZJO0LlOHGnj27nX+R9exyiyoWXRF2XiuVe8AXM/UELyCvCWQ1s/rwq
+	 YfvM6eyohY6XsxoR4RefOauQit3FQrRajgE3XfBC8YtIUvw1D9icBofSQk9lU/6YlZb00
+	 Noyi4yFSxggBtXZKgSKUdcy6kzGybkDfIWtSOVhgzpe/xShIUqrUORA1Wfu1Y+VdYAw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795762077;
+	c=relaxed/relaxed; t=1795762072;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=4kO2/TOIPNkmsIMjXm7Ah4Oz0Gps8OfI9+gvyJMp7b4=;
-	b=qp3itv2nnefNm0krio/vLGn7UWpqLUll4ndHL02VbYUEL2xB92LUmCmzx7UK6xwuk9gi
-	 bGbwTSiC+IXjWKzDPFXatqzXvUsqWT+5/d2WUGaO48DbM0gI6F6f6esp/9/80+qLZvUr2
-	 SI0hDCeTrROAw1F2tUkvDM8c/f/h0x+hrgGSvJWa+4fTIuoh0uRX/i7dmVHGG67+74UgR
-	 UlSkL3jfDKf6Ipt3UhkQ5jNp95Wcy8wXxo6YL4FDA/odtf/hui2cDuJqEtRWHe7KMekB5
-	 lFl9W0riTD7jkgdlC6Xsc+t9CEWBvOiWbuIExHswLQdvG/cYyRwPJUxiwxiiTovy+mg==
+	bh=F6XLaD65N+3qHf5eA4zz7LWLiBf+2mF6D5WZPA9b5hQ=;
+	b=MilKia1MLCvsik65zu2H0K8o2XuISJ0NHO/mML0rBmrM11iyJQPskGY30XbzF4kmSBrs
+	 ATSRKLoKJZtko7WpGm0gVl5bDfeSJecQtUA3OARXl6HnU4f7R2O1DfNy85cOBPqiQCMyT
+	 mrXIA5bjee9jh6DPuE0qZicJ3GG4qmaiJqB7pjx4Eui+LtJyZZ3Hln8HNQz7hHuBiFRoN
+	 wJNIjVi6jNaPU3TX8ciRYyflLksxI+2WzzoCP5LPcMXKk+HpAfENIe3uOhYP9MaH7ynVE
+	 AKafsF6b72PccAqG56Rw+TLJbYZoM1Uwbd/WLRr7NrGF2MI1fQ5NaRtnSAh5ILQdE6A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B78211F00923;
+	by smtp.kernel.org (Postfix) with ESMTPS id 5CA531F00919;
 	Fri, 27 Nov 2026 06:47:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795762077;
-	bh=4kO2/TOIPNkmsIMjXm7Ah4Oz0Gps8OfI9+gvyJMp7b4=;
+	s=k20260515; t=1795762072;
+	bh=F6XLaD65N+3qHf5eA4zz7LWLiBf+2mF6D5WZPA9b5hQ=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=jmjkDW8dLaj1Q+4Jfi74uIP0Ri7k3OuTr7ibXX9O3eN8Ru8TNoILAECh0AKlVkffW
-	 cOJyF38piMnzBUbeuy4e+HdAnnh5U2gaRzEKnfMCG9AtuJRrz3002lejdAbFBGX0Ns
-	 r9A9U1wRBVQoioR5DR65JJRXj3bXBWdvkB6SakoPvEkzKY59YiDcSBeTjHI5rISHtO
-	 KfovdR22uz2aeiWynIXAnV2siDbNDL8svrMT51xIiDpvlubfUAY1AGXUJbHma6fpbn
-	 7lnG+8hjFyNBcJRwJqmRdlF9E8XgMnrFUhALE8QRoKa36mVTdACuD1FwE0kvvo3BG5
-	 5zcG7CkaGTLDg==
+	b=I1DvQxSw96Oywc5PNLieMnpD7Oquu2Q+RiflontHZI+DRF1FWCvPdNCFuopJLLE2g
+	 5gQ2Bqfargx8sp+0eBbhWuAFUuiFnTRri45NX35YJswd8CH9pmweqrlSS8tp6Fxg68
+	 ncQYp07/665AorVT1XmDSSpxfYBv2E8eHI/bid4OjJDNiMJCAffU3maLplh9OAhW11
+	 sOTdoVkyebLmV6nl67jtFnqGzTBqvL19sm8rECvUqierXm0J6ePG9uZ3yujHHeXjOZ
+	 vVKAG664fHarEit1ZZCRQ/4xC/y9xCs4e5i1PD+nth0fvv5Ws/qyF0RhflHj2ge7BB
+	 sVHkbY3LFumLA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 425894B5DC;
-	Fri, 27 Nov 2026 06:47:47 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id DB9594B5C8;
+	Fri, 27 Nov 2026 06:47:46 +0000 (UTC)
 From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
-Date: Fri, 27 Nov 2026 06:30:27 +0000
-Subject: [PATCH 5.15.y] netfilter: flowtable_offload: fix using
- __this_cpu_add in preemptible
+Date: Fri, 27 Nov 2026 06:25:32 +0000
+Subject: [PATCH 6.6.y] media: verisilicon: Fix kernel panic due to
+ __initconst misuse
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,20 +85,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-so5-nf-515-v1-1-ce02c323f842@certik.com>
-X-B4-Tracking: v=1; b=H4sIAIIjCWsC/0WNwQ7CIBBEf6XZs1uFQG38lcYD0MViDBi2NjVN/
- 13Qg8d5mXmzAVMOxHBpNsi0BA4pliAODbjJxBthGEsGeZKdEPKMnDRGj1po7JSxSklv+p6gDJ6
- ZfFi/sgF0K3T7huuP88veyc3VVJvWMKHNJrqpIqY4zik9sPLj/wH2/QPcl1T/oQAAAA==
-X-Change-ID: 20261127-so5-nf-515-64ab442fa88e
+Message-Id: <20261127-so5-hantro-66-v1-1-aba19fe8802e@certik.com>
+X-B4-Tracking: v=1; b=H4sIAFsiCWsC/1WNyw7CIBBFf6WZtVOBKE38FdMFj8FiDBgGjabpv
+ wu6cnnPfa3AVCIxnIYVCj0jx5yakLsB3GLShTD6pkEJpaVUE3I+YjNqyag1SiWMDX4Sh6Chde6
+ FQnx9986gRz2+Yf5hftgrudq3etAaJrTFJLd0xJR8zfmGne//PmDbPkbY7DGmAAAA
+X-Change-ID: 20261127-so5-hantro-66-120abfd704f6
 To: stable@vger.kernel.org
-Cc: Xin Long <lucien.xin@gmail.com>, 
- Pablo Neira Ayuso <pablo@netfilter.org>, netfilter-devel@vger.kernel.org
+Cc: Ming Qian <ming.qian@oss.nxp.com>, linux-media@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795761026; l=3298;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795760731; l=3408;
  i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
- bh=DPEyyVIOnnhk/htjRMSlOemmYqz4g1GxjdwvS3F9YOs=;
- b=MeaNcLNv9bCcv5l7LrlZ0n/o/xYXKR9dWAyklAuUAcmIIky9a+iT6ARLq/w+v1/WChbKXDpWz
- N2d7yUEluinBOhhfRNXVbH7zgx6ZgjHsB/COR7BiqJYP2ZmqAy4HP+P
+ bh=Ad6RJTkF+6/+3vTssn3nKs2XylgDjMRr7Z2PcXcc+fQ=;
+ b=zCmTakDP5f5qErT1jAVzgJt63slLKKZE/RkO9ede/VeTk+aop/XfnX18h4CGob6/xdxSozWUt
+ Avz/YI5aDKCDNX/hXxK1nGOJLkz+G72BidAQ88FDtBcPzMHbx8jTzOS
 X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
  pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
 X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
@@ -106,86 +105,83 @@ X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
 X-Original-From: Dickson Wu <dickson.wu@certik.com>
 Reply-To: dickson.wu@certik.com
 
-From: Xin Long <lucien.xin@gmail.com>
+From: Ming Qian <ming.qian@oss.nxp.com>
 
-commit a81047154e7ce4eb8769d5d21adcbc9693542a79 upstream.
+commit e8d97c270cb46a2a88739019d0f8547adc7d97da upstream.
 
-flow_offload_queue_work() can be called in workqueue without
-bh disabled, like the call trace showed in my act_ct testing,
-calling NF_FLOW_TABLE_STAT_INC() there would cause a call
-trace:
+Fix a kernel panic when probing the driver as a module:
 
-  BUG: using __this_cpu_add() in preemptible [00000000] code: kworker/u4:0/138560
-  caller is flow_offload_queue_work+0xec/0x1b0 [nf_flow_table]
-  Workqueue: act_ct_workqueue tcf_ct_flow_table_cleanup_work [act_ct]
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x33/0x46
-   check_preemption_disabled+0xc3/0xf0
-   flow_offload_queue_work+0xec/0x1b0 [nf_flow_table]
-   nf_flow_table_iterate+0x138/0x170 [nf_flow_table]
-   nf_flow_table_free+0x140/0x1a0 [nf_flow_table]
-   tcf_ct_flow_table_cleanup_work+0x2f/0x2b0 [act_ct]
-   process_one_work+0x6a3/0x1030
-   worker_thread+0x8a/0xdf0
+  Unable to handle kernel paging request at virtual address
+  ffffd9c18eb05000
+  of_find_matching_node_and_match+0x5c/0x1a0
+  hantro_probe+0x2f4/0x7d0 [hantro_vpu]
 
-This patch fixes it by using NF_FLOW_TABLE_STAT_INC_ATOMIC()
-instead in flow_offload_queue_work().
+The imx8mq_vpu_shared_resources array is referenced by variant
+structures through their shared_devices field. When built as a
+module, __initconst causes this data to be freed after module
+init, but it's later accessed during probe, causing a page fault.
 
-Note that for FLOW_CLS_REPLACE branch in flow_offload_queue_work(),
-it may not be called in preemptible path, but it's good to use
-NF_FLOW_TABLE_STAT_INC_ATOMIC() for all cases in
-flow_offload_queue_work().
+The imx8mq_vpu_shared_resources is referenced from non-init code,
+so keeping __initconst or __initconst_or_module here is wrong.
 
-Fixes: b038177636f8 ("netfilter: nf_flow_table: count pending offload workqueue tasks")
-Signed-off-by: Xin Long <lucien.xin@gmail.com>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Drop the __initconst annotation and let it live in the normal .rodata
+section.
+
+A bug of __initconst called from regular non-init probe code
+leading to bugs during probe deferrals or during unbind-bind cycles.
+
+Reported-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Closes: https://lore.kernel.org/all/68ef934f-baa0-4bf6-93d8-834bbc441e66@kernel.org/
+Reported-by: Franz Schnyder <franz.schnyder@toradex.com>
+Closes: https://lore.kernel.org/all/n3qmcb62tepxltoskpf7ws6yiirc2so62ia23b42rj3wlmpl67@rvkbuirx7kkp/
+Fixes: e0203ddf9af7 ("media: verisilicon: Avoid G2 bus error while decoding H.264 and HEVC")
+Suggested-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Suggested-by: Marco Felsch <m.felsch@pengutronix.de>
+Reviewed-by: Marco Felsch <m.felsch@pengutronix.de>
+Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: stable@kernel.org
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Dickson Wu <dickson.wu@certik.com>
 ---
-6.1.y and newer already have this fix.
+6.12.y and newer already have this fix.
 
-Tested on v5.15.226:
-- x86_64 allmodconfig W=1 build of net/netfilter/nf_flow_table_offload.o,
-  base vs patched, no new warnings
-- booted base and patched kernels under QEMU/KVM and ran the netfilter
-  software flowtable cases, all passing on both. Hardware offload wasn't
-  available, so the offload counters weren't exercised.
+Tested on v6.6.163:
+- x86_64 allmodconfig W=1 build of imx8m_vpu_hw.o with
+  VIDEO_HANTRO_IMX8M=y, base vs patched, no new warnings; the table
+  moves from .init.rodata to .rodata
+- booted the patched kernel under QEMU/KVM. I don't have i.MX8MQ
+  hardware, so the G1/G2 probe wasn't exercised.
 
 The backport and the test runs were prepared with AI coding tools
 (OpenAI Codex agents, with review by Claude). I went over the result
 before signing off.
 
-net/netfilter/nf_flow_table_offload.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+drivers/media/platform/verisilicon/imx8m_vpu_hw.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 ---
- net/netfilter/nf_flow_table_offload.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/media/platform/verisilicon/imx8m_vpu_hw.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/netfilter/nf_flow_table_offload.c b/net/netfilter/nf_flow_table_offload.c
-index 60e9c03d697f..3400a31c7df7 100644
---- a/net/netfilter/nf_flow_table_offload.c
-+++ b/net/netfilter/nf_flow_table_offload.c
-@@ -1056,13 +1056,13 @@ static void flow_offload_queue_work(struct flow_offload_work *offload)
- 	struct net *net = read_pnet(&offload->flowtable->net);
+diff --git a/drivers/media/platform/verisilicon/imx8m_vpu_hw.c b/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
+index cdaac2f18fb5..de27c142b7fe 100644
+--- a/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
++++ b/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
+@@ -361,7 +361,7 @@ const struct hantro_variant imx8mq_vpu_variant = {
+ 	.num_regs = ARRAY_SIZE(imx8mq_reg_names)
+ };
  
- 	if (offload->cmd == FLOW_CLS_REPLACE) {
--		NF_FLOW_TABLE_STAT_INC(net, count_wq_add);
-+		NF_FLOW_TABLE_STAT_INC_ATOMIC(net, count_wq_add);
- 		queue_work(nf_flow_offload_add_wq, &offload->work);
- 	} else if (offload->cmd == FLOW_CLS_DESTROY) {
--		NF_FLOW_TABLE_STAT_INC(net, count_wq_del);
-+		NF_FLOW_TABLE_STAT_INC_ATOMIC(net, count_wq_del);
- 		queue_work(nf_flow_offload_del_wq, &offload->work);
- 	} else {
--		NF_FLOW_TABLE_STAT_INC(net, count_wq_stats);
-+		NF_FLOW_TABLE_STAT_INC_ATOMIC(net, count_wq_stats);
- 		queue_work(nf_flow_offload_stats_wq, &offload->work);
- 	}
- }
+-static const struct of_device_id imx8mq_vpu_shared_resources[] __initconst = {
++static const struct of_device_id imx8mq_vpu_shared_resources[] = {
+ 	{ .compatible = "nxp,imx8mq-vpu-g1", },
+ 	{ .compatible = "nxp,imx8mq-vpu-g2", },
+ 	{ /* sentinel */ }
 
 ---
-base-commit: 4f2df9a01754521fbba3493e8ad91ef65515e68c
-change-id: 20261127-so5-nf-515-64ab442fa88e
+base-commit: e2bb30811e063ce0db964484357973b855b06572
+change-id: 20261127-so5-hantro-66-120abfd704f6
 
 Best regards,
 --  
