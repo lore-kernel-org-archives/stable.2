@@ -1,88 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795793516;
-	b=UbCgpimx3OMTN/PPt43w2SSPFgw4ObICZU3d1u/VrsAbDEA4zJIbFHfmvDAzhSucC63d
-	 RyRij/meg9iqeiopzwkQ+mihYZhUEn/bqlHi6M0RerfYKFyMcCZISUFMZUBt+ouMxc0si
-	 EF7XOf/ei9BGn7S5uVIa4iINwp3fy1bSz98iGcHKQl3t/UaXRutoMby2srLX6V7jW8kk2
-	 uJ2k9CSx+Fl6e1n574naEAS+WE7qEDM2D/X7Bu5FYlPxXIR4e0FzLgrxwJxPfahiZk84v
-	 8x6jqKwWOh9w07/UFomLdRxDFlC1QJAFE/CtmaNMlD7+gsiQCgijBVG0C69gt4jeWFw==
+	t=1795793534;
+	b=e9V2oPbER4HI9nH6kxUEciiuzINVRPqnr50AKUCYl5OhKpBy8DwC+uwgcPX3hl4ZJfs6
+	 UmbUwkfSDdEuWRhGE4JcekVh9FZt/WEjvKAF7BkkHU+gyGz3NgCSbYjF62iVtnIMbE/6q
+	 D4ii2qWE0fhEK+f/Mnu4zdD7PTSbVONjHpGwRwKHFMVTPhE/cljXR3rVKGaxNg9nhjsvi
+	 tSqKrgtuh4jz8sDIBIomNbuKE/Mw8HBLicD0xe7CyatE3uQU5piJk6zRAGbPyiiDDOjOd
+	 e6dinedQflgaFI6AL7qkOFCtkvtgJoDzoecgxIl30uk1SYqRjTYoIw5TILdD5pYdybw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795793516;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=eJH1nUsnbixxIHEWvpIRBGng9yzgxFYLz8dPDZYEZSU=;
-	b=we4Oaz5KBAqeThjOGj/CMj8UsfFfheiiu4//zNu7wjoO6qWYSSk4huYB72/VdljsuWAa
-	 XXF7tded03hTvXWej4rUqXCAkyvUoCESf1jTapTRGQAM8DhjXo3mU/yeGBYaf3cCDozPe
-	 DvM1OJwjYo3kHBPz0EKvDSSN4xIlhpk/soPsfIKSvy7USSe+2Y8lRrY/UF6JxXI0/jTu0
-	 8B23c+0T8vTLT+LVabHZGYU9pmWXH/PqsiWMUlV22B0ikX4bpJkFm7taaD6C+yVbooLwK
-	 azSjIUxFXd4yyUqdiRrgrIKZyV3nxthN/nIT6x5rOp53OkcSI5l4MX9L49lbOxkr2eQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795793534;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=G8r4yQOrAcmX2fE4LVBER7tVbHi2beTBJHq1F+6Zxpg=;
+	b=z9BYv2bWmyGEc5savJm6CrTFu8YdEb8HUjvojfHuEYnSToCIJs1g/z+ggnnxMX75n3BC
+	 hFjh+6r4SXGjAyjrG1uy3qx6EBKhdma1fWiz60vAvFSe6pB6PI5hdxWGDFP78j+thttJd
+	 LuzqKwrsZUj04xtAsNhWzWEy06vsaw/DUMjCcYI6ILyfx0UcZf4ekvOy1vr/SX+IIGOOf
+	 OkBX04EjtSnAEaX2LSDwUZmpwW4SlasQ8vvJXERxWLFTLdhOh9ykp31zajTQ2Q9Du/Hx7
+	 A0NsvE0MkkHdYRMWEnTXeRH+pYTL8G1LP29TysH9umUF/T4QXuu5raV9ryTiAdicd2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pereq.eu;
-	spf=pass smtp.mailfrom=cryspen.com;
-	dkim=pass header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b=Pbbt4oh7;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hHwFSpnu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF2F1606A31F
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 15:31:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF2F1606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pereq.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cryspen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 727DA606A31C;
+	Fri, 27 Nov 2026 15:32:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b=Pbbt4oh7
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4a9be758734so5208388f8f.1
-        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 07:31:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=pereq.eu; s=google; t=1795793514; x=1796398314; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eJH1nUsnbixxIHEWvpIRBGng9yzgxFYLz8dPDZYEZSU=;
-        b=Pbbt4oh7brRPqcW/MWBvnSD2kmEOchOFxAoqQKBlYY2Y41+NcOD+tw+DSG1IxI1N9C
-         IXNCzwri7OrcNibVVRO61Boh0eTyQ9V/x/9B/JCGhZVejpz8zETvoksQS9WgI9SGHxOi
-         IvR8xxOLmDnxJtuU6+R/BAu/UzYULOQzn90ukJNzCSe8RmJRYoYbGBAmgwILTVXsaZgd
-         8mLJk7b7KTcAXiOu6VN/h3r1BWx+V/XmW7Lfhyzp5QI5ZzEelKcFkpCLJc13koZ7GM65
-         cMo6llN7sqbgURJMBZZTDD9Jrt9ml1kxC7BkWKZ5Nw97c43uT6roWzmEfpW6R0YJRNYz
-         iSUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795793514; x=1796398314;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eJH1nUsnbixxIHEWvpIRBGng9yzgxFYLz8dPDZYEZSU=;
-        b=2HiybNytpeQJY1THcRboFl8PrwzTWPmRfiWvwZD3cRr3shTJ3gVsvc1S9WqYS4a2Rs
-         cLMmBQoYC2nBIiSRoGTDTotg8K/Ay02HW0EgQXmKWbUJXd8IIqrKdGHDPpzfnOMfwdB8
-         XljakAQpaWUTUcMt6vPnRhch4icZPIBfu+WsIiYnfZGxiyAbWASNORakhaSGe6az+0TV
-         t8ST1sfjHPAkJKjuiIn329xIUJhcpRpvkNUH4j8Jm8BquXVHlej2MFevPuetXy/KfZV6
-         yLP+Y5taAaT99hlCQDS1Sb+Flc9Krt3aW02RT5T1UNLX2l3+I1uGeyttuPIGq38GiJbI
-         DWmQ==
-X-Forwarded-Encrypted: i=1; AL+hErHFzgY4gAv8cxdtdLDQ9Ir6i/7sz3BQIR2RX1QjW8f2i9fX+dR8BO51Agkhi1nz3EjO6XfD15Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wbK7x4VjR8+FROJ+lwutruiESHO11DvSKhgO7AD5FgC9SEMqH
-	g4eRYW5jCDepCplagOj1BneU7Ktr8AkRWedy9NcLd48Md+UzunjBm1WYTJ6TA4YO0BE=
-X-Gm-Gg: AZFdTZfmfvCH6vD4kz1iTJ9MEDYiHHiNzUStMLgKy11COIVGaZNCjwaEVQRlTt+quA/
-	9X9K+bL03shZkdLQ0OaMKMYSA2ikjIW7AbchDhluHpJOPluGib45EZrHthSqn+arNfZCQz+cfdU
-	J1Hkrldq+AE2HtrkE1j9Y/KCUMPuEsHoDOuG2va09zRjS/mLYIszKH+Hym4NqWY3Y47gfKq2I7I
-	q3cJmMi7wHVN88MbICPffMKc2dezLAze0zPO0QoCNFm2AfpyKHa/bIEeh8558sM8GBG+3qJ7zXm
-	AJfjKyisUHfOgHd90y19nOxjuQ7Fxtwx/fe51ej8X+szQAr6VEats6EweG2qSHx7moW2FfrpZjh
-	U63pr5+/eJ+WOLK/C4euI4DB0fPOjqLtXBy8TM0DAEcU8b5e2FY9IX4nsVLyjLaNBy9pDFipNDB
-	YBimVbcXWLmin21RRHZkcIjPP3sPx7gINzDEeLYuNo+2jSSuuJbBMINs3L/Pztt6W2SjNY1wu7I
-	+hVrhymrHiFor8TiruFjJijNZqNNY3+kqy33rjXAEXlZXBM3ThiLXqZFxHgep7ejvToZUsGUXEp
-	RJmjJhc+RxgQEmVmTxOLWbvKkdrTd145smfMUumM
-X-Received: by 2002:a05:6000:25ca:b0:4ac:7595:6f67 with SMTP id ffacd0b85a97d-4ac7595721cmr44357884f8f.40.1795793514001;
-        Fri, 27 Nov 2026 07:31:54 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab658e2d55sm47510901f8f.5.2026.11.27.07.31.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 07:31:53 -0800 (PST)
-From: Dan Carpenter <dan@pereq.eu>
-Date: Fri, 27 Nov 2026 18:31:40 +0300
-Subject: [PATCH 3/3] KVM: arm64: nv: Update the shadow MMU's VMID for AT
- emulation
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hHwFSpnu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831C21F00893;
+	Fri, 27 Nov 2026 15:32:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795793533;
+	bh=G8r4yQOrAcmX2fE4LVBER7tVbHi2beTBJHq1F+6Zxpg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hHwFSpnuJdKlQXvEiupk6O/Ucddiyjg6tDBvhpyD1IqVkbhsIhxOBSE4dZcQhbLY+
+	 7KHEFw7LHePd84bzkmHjeVPkTgBtvsncWoJfs8fpP0Od+Joa6o1lNz1QqJqDFdVnxq
+	 VgTMuwVFnhk+A7sS73qANSCQwXKaUsSLI2omym2XiXm4FToqfDG6m0a5g9behk7fvX
+	 SssnaBR5vyOTaU4QzPZinBZefpq0V3PWReCRtqIrKHYLkEzp1e+llWYKPSpgf9gMXz
+	 btxahPa0j1i+YihabNpETBqowW3yWq7i5KMmthF01N8NCUlyfVgHAJG+LdY+v7RcAg
+	 IiUhUbQ/cA/Yg==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Mark Brown <broonie@kernel.org>,
+	Anton Vorontsov <avorontsov@ru.mvista.com>,
+	Giulio Benetti <giulio.benetti@benettiengineering.com>,
+	linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2 01/10] spi: fsl-cpm: Map the zero page's address, not its struct page
+Date: Fri, 27 Nov 2026 15:31:04 +0000
+Message-ID: <20261127153158.2969573-2-lee@kernel.org>
+X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
+In-Reply-To: <20261127153158.2969573-1-lee@kernel.org>
+References: <20261127153158.2969573-1-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,88 +62,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-nv-tcr2-v3-v1-3-9c15c1cabe01@pereq.eu>
-References: <20261127-nv-tcr2-v3-v1-0-9c15c1cabe01@pereq.eu>
-In-Reply-To: <20261127-nv-tcr2-v3-v1-0-9c15c1cabe01@pereq.eu>
-To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
- Steffen Eiden <seiden@linux.ibm.com>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Zenghui Yu <yuzenghui@huawei.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>
-Cc: Karthik Bhargavan <karthik@pereq.eu>, 
- =?utf-8?q?Cl=C3=A9ment_Blaudeau?= <clement@cryspen.com>, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
- Dan Carpenter <dan@pereq.eu>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 
-There is a missing kvm_arm_vmid_update() before the __load_stage2()
-in __kvm_at_s1e01_fast().  The bug affects nested virtualization on
-arm64.
+fsl_spi_cpm_init() maps a dummy TX buffer which is used for transfers
+that have no tx_buf.  Since the conversion from empty_zero_page to
+ZERO_PAGE(0), the struct page pointer returned by ZERO_PAGE() has been
+handed directly to dma_map_single(), which expects a kernel virtual
+address.
 
-In KVM a "stage 2" refers to the VM's page table mappings. The
-__kvm_at_s1e01_fast() function emulates the AT instruction, which
-translates a virtual address the way the MMU would and returns the
-result.
+As a result the mapping covers a PAGE_SIZE window of the memory map
+rather than a page of zeroes, and that struct page metadata is then
+clocked out onto the SPI bus for every RX-only transfer.
 
-Each stage 2 has a VMID, which the hardware uses to tag TLB and
-walk-cache entries, so that one VM never uses another's entries.  There
-are only 2^8 or 2^16 VMIDs, which is quite limited, so vmid.c hands
-them out by generation.  When they run out, a rollover starts a new
-generation and flushes the TLBs: the VMIDs active on a CPU at that
-moment are kept, and every other VMID can be given to another VM.
+Pass page_address(ZERO_PAGE(0)) instead, so that the zero page itself is
+mapped.
 
-The kvm_arm_vmid_update() function checks the VMID's generation, takes
-a new VMID if it is from an old generation, and marks it as active on
-this CPU.  Without this, the shadow MMU's VMID could be an old one that
-now belongs to another VM, or a rollover on another CPU could hand it
-to another VM while we are using it.  Either way the AT fills TLB entries
-tagged with another VM's VMID.
-
-To fix this, call kvm_arm_vmid_update() to update the VMID before loading
-the shadow stage 2.  That marks it as active on the CPU.  Then at the end
-of the function, undo that.  Restore the original VMID as active while
-checking for and handling rollover.
-
-Fixes: 477e89cabb14 ("KVM: arm64: nv: Add basic emulation of AT S1E{0,1}{R,W}")
+Fixes: 3be6acda8241 ("spi: fsl-cpm: substitute empty_zero_page with helper ZERO_PAGE(0)")
+Closes: https://sashiko.dev/#/bug/linux-8dbfe527-3ba3-488a-a6fb-d4ee650b8ca7
 Cc: stable@vger.kernel.org
-Signed-off-by: Dan Carpenter <dan@pereq.eu>
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
-v2: Unchanged
-v3: Unchanged
----
- arch/arm64/kvm/at.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+v1 => v2:
+ - Rebase onto spi/for-next; no functional changes.
 
-diff --git a/arch/arm64/kvm/at.c b/arch/arm64/kvm/at.c
-index 893bf88f2f75..4a1767704d22 100644
---- a/arch/arm64/kvm/at.c
-+++ b/arch/arm64/kvm/at.c
-@@ -1476,6 +1476,7 @@ static u64 __kvm_at_s1e01_fast(struct kvm_vcpu *vcpu, u32 op, u64 vaddr)
- 		}
+ drivers/spi/spi-fsl-cpm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/spi/spi-fsl-cpm.c b/drivers/spi/spi-fsl-cpm.c
+index 23ad1249f121..ccdd62f3c74b 100644
+--- a/drivers/spi/spi-fsl-cpm.c
++++ b/drivers/spi/spi-fsl-cpm.c
+@@ -350,7 +350,8 @@ int fsl_spi_cpm_init(struct mpc8xxx_spi *mspi)
+ 		goto err_bds;
  	}
- 	write_sysreg_el1(vcpu_read_sys_reg(vcpu, SCTLR_EL1),	SYS_SCTLR);
-+	kvm_arm_vmid_update(&mmu->vmid);
- 	__load_stage2(mmu);
  
- skip_mmu_switch:
-@@ -1530,8 +1531,11 @@ static u64 __kvm_at_s1e01_fast(struct kvm_vcpu *vcpu, u32 op, u64 vaddr)
- 
- 	write_sysreg_hcr(HCR_HOST_VHE_FLAGS);
- 
--	if (mmu_cs)
-+	if (mmu_cs) {
-+		kvm_arm_vmid_update(&vcpu->arch.hw_mmu->vmid);
-+		config.vttbr = kvm_get_vttbr(vcpu->arch.hw_mmu);
- 		__mmu_config_restore(&config);
-+	}
- 
- 	return par;
- }
-
+-	mspi->dma_dummy_tx = dma_map_single(dev, ZERO_PAGE(0), PAGE_SIZE,
++	mspi->dma_dummy_tx = dma_map_single(dev, page_address(ZERO_PAGE(0)),
++					    PAGE_SIZE,
+ 					    DMA_TO_DEVICE);
+ 	if (dma_mapping_error(dev, mspi->dma_dummy_tx)) {
+ 		dev_err(dev, "unable to map dummy tx buffer\n");
 -- 
-2.53.0
+2.56.1.839.g22a8290db9-goog
 
