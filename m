@@ -1,55 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795798940;
-	b=P5IJbcpBeNpIwndBHABiTPsn3IRyXMxPIYFpCq89BEFoqhAuMJQlr78dn3F54jaVaxa6
-	 oVXOT7DDhlV9RebOq3ydcU/8x73qtQCr9XC/i8eFlb3SvaPoYDE5Oxw79iqc0cVUR9QuK
-	 hflhytqGvlrGISKSDpu10ycUlP47iUGg17xnyx/Zgv2VIq0z3Lk4OgX3h7c6rpz10UFVX
-	 /LPrZV9O24mF6dLnf1UGpk1lVV0pIU0Li+ZTn5gljeUgSs1I/Lt6LLWM7alq6WzRVT9JB
-	 7uWaSjQdRHlj08qUwCfRSZsYc7rm4GhENBFX+m/6YGE4JbgyHpKz5I8OBI+gQ3tmHvg==
+	t=1795798944;
+	b=CWNms0LsoQAs2xTeBaMka4brByYHZvxJgWRoMjvkXwUOcziSJvJlT8VY7jbQmuunGXQa
+	 7HNLHy2F8t1fefwnUd5eqWZMnWm99bHtjTYYZ+MiU9FHXYSDGySEgg8g1WohZ9kDnsiCw
+	 2LUp8Kx9TrxryQjwX67ZLMDqQZpcYFMmJy9iXyYuS/ShEHfNr6o2DteW54/iLkBrSehzD
+	 LMuTZ+/7t7qbgVbbr55pn12F7M/Xoel5/TEpt3eksJXciry6A5JfO09tJlJWy37eMjsc0
+	 IaErTaw+Y3Mnd7DSn6yg6KJuEjczWLsUqDfhXH2mAar6wyJMzPx+/0fwy8gLo/4wwlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795798940;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795798944;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qXQu/4k2BXjaKqQM1WzL+2EDoyyDvPqsLl+JPhwYs0s=;
-	b=d30YW7tJi0kZEqt4BCIJaklecAoeho9X7mkNdTQc6G03Vk8zY8BDGkifCcr99Y2pvXiO
-	 0/17sAdWJf2Ca2nfNnHGW4XfGiv3XkeA7OcJ2+5DhIkExW/lqjDfXBbKfgCTfdTa/CaUv
-	 95iymzePkNRWmxCbGG3HFFs9WHZ6TJ5C7Ie/0FJi7AQXFgC9dsj5P/UWhdQaMJG3pfS7e
-	 3GihCNrGu6EmCcn4z2jvelyDeW85NFjdCZ6SxaubF29mJu1lWxufh4X7Vezcivn1FQ6gU
-	 vI09+kPOeyFCT6flXohl0cUtCr46d+rJnaRDDHI54lPTz5EqjtzPAw5XeRdrjKuhVxw==
+	bh=KxLg6Gx/zGlioMjDG7k4tE06ODo1W3pNMbUCbFfp87Y=;
+	b=hqout/7AmYXK5Xef8K0ULxrjdv4ca6sqjLBDIIbCsmriY7e5lYLQnam/aiiZov9jZwm8
+	 uLUyMQPjsl/VpZaVH95jZfuCTm8Bd7iFS26RUG7f2u4bWUQcLy0+K7YbxqH1IXSgNqKsb
+	 TxOi0bf2RSkzgjI0XZhiqKp73zRtaAlHLRZXz747vhliBk3CZ/acaN1YwH3LvbaQbWidI
+	 29v9tMUGDeQLmECdV2B8sX3JCI6Ajj0E1P4AfHq0FZ9orp1hjalv5L9ajRiFptstKZAXS
+	 EnPWDLsRf6gYiAhaK4stZjCSgZvA8rimf7cHcBiyKIHH5WhpWwZGat0+WDTnDhdNSiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jrgv1f+H;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZBYG0roX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D73606A321
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 17:02:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F026606A321;
+	Fri, 27 Nov 2026 17:02:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jrgv1f+H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A19CB1F00919;
-	Fri, 27 Nov 2026 17:02:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZBYG0roX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 967F11F00936;
+	Fri, 27 Nov 2026 17:02:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795798940;
-	bh=qXQu/4k2BXjaKqQM1WzL+2EDoyyDvPqsLl+JPhwYs0s=;
+	s=k20260515; t=1795798943;
+	bh=KxLg6Gx/zGlioMjDG7k4tE06ODo1W3pNMbUCbFfp87Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jrgv1f+HITseOGYhD8zD2PtFkG06FubLVxm2gnVMS/Qm3nsHjSA2ufZm0nnCr1uSZ
-	 H5IebNBoVr47DwLyUyQrR7o2kReNwNR1t3+vT20bjf9GjyqPQJ+njfcMm4N9L5pf4c
-	 1jkSwr/NZ5ZfKxG1OB/B9i7d/KgzBI5Kveb98BqRWQ2P5VMXbiqq5OTJmoAlrAISLi
-	 s4lY1OiR7OsZHEzDu6kaaEx7fSEI+yq7PGgDbJDMPN3cYL68eSsWsVGuad3IRuI1ZC
-	 FlciPpcEOplg4ucm9qBk1FGw94NV1MaJF8XhXb4yyurRrMa1FcmfM1BLfo7alrf4L5
-	 ozIg3NzZtQG6g==
+	b=ZBYG0roXlSFQCiyazn2M6kil0iU0nWj+gXJJ8FjOwJGMNnIO4++FGk70E6LvTcGLI
+	 pbGF8iqEAGEK/zRYx21P8HMuk1c2Tab1ZU7jI9pFwuxmfEED0vAwixWew1YjHqa4cK
+	 IP6YuRLcvu7MTlSh3ubjMezkAcJwMxGA2EFqZMtKW/eNUoc1NJVvLH2LdeUBnvlWza
+	 NtRJqvjCQrUD+8EWSVlZ2mkiYbfCMszP0LR2lig+fjt9uozxiWmBYzl3qo2La8TbIA
+	 LW0ytFjitfhYIWaid4WO+Yg4jdbGmzCPKQ8AWI6boJ6d4rceYl6KkmSQlFMMY8VSNQ
+	 IsMqNhea9ZK7Q==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
-	Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [PATCH 6.12.y] watchdog: npcm: fix clock prepare leak when setting timeout on a running watchdog
-Date: Fri, 27 Nov 2026 12:01:16 -0500
-Message-ID: <2026-11-26-1-daily-reply-0028@kernel.org>
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Song Liu <song@kernel.org>,
+	Kyle Huey <me@kylehuey.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	bpf@vger.kernel.org,
+	alexander.shishkin@linux.intel.com,
+	Luo Gengkun <luogengkun@huaweicloud.com>
+Subject: Re: [PATCH stable/linux-6.6.y 0/9] perf/bpf: Fix NULL pointer dereference
+Date: Fri, 27 Nov 2026 12:01:17 -0500
+Message-ID: <2026-11-26-1-daily-reply-0029@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126032506.1227-1-zhaofeng2@cmss.chinamobile.com>
-References: <20261126032506.1227-1-zhaofeng2@cmss.chinamobile.com>
+In-Reply-To: <20261126043458.2394658-1-luogengkun@huaweicloud.com>
+References: <20261126043458.2394658-1-luogengkun@huaweicloud.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,14 +80,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
->  6.12.y backport: 6.12 retains the `if (wdt->clk)` NULL check which
->  upstream removed before this fix.
+> We hit the following problem on x86:
+>
+> 	BUG: kernel NULL pointer dereference, address: 0000000000000000
 
-Thanks, but I had already answered the 6.12 and 6.6 FAILED notices (and the 6.1
-one) with a two-patch backport: ad3746700ae2 ("watchdog: npcm: Remove
-unnecessary NULL check before clk_prepare_enable/clk_disable_unprepare")
-followed by a clean pick of the fix. That is what got queued for 6.12, 6.6 and
-6.1, so I'm not taking this one or the 6.6 version.
+Queued the series for 6.6, thanks.
 
 -- 
 Thanks,
