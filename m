@@ -1,49 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795808761;
-	b=R1GjaYrPYbRpaqhVLAGPBDKkveOQRKI/34+lW78NBHIEqziURTg64/oImPMX+pT3zxhB
-	 HP6JaZDSmyAiYAGOrf5Tiq9PDC3wiEH8cKCz/zBufBSDIFGh8UxpJ1QSakoaoID8qdMpm
-	 vbBmbTScNMPKijqBqS3/AlRwakWRo+a8mVuVyRfq7SASz3dD8eiYYKJM68MnRNjRhzNtp
-	 tRDIkfm4ehjLRyIhz48Y7E6jadDkeTkEQySRtEw5FGa7vtCR+m2nWVUSG3zWP+s7q64Lr
-	 wHqXOth3unHmex5MrAJkVOUhKNqw9/PjYu9fl1Jb8MA0mZxqOVEmswQGJd1vNzxvF+w==
+	t=1795809327;
+	b=VbYjl9bVKbQVTeydr1Bb09DBFWzXXyCEQ8DO5vT9YL+kuuz2XcmCXjGK+fNLgW5FzmC7
+	 IzIQLTtjHWe1nf9ASphcIoGzlhcE5Xa6qL+NivaxsSLX1AfrcdmN7+bVxzA+McOFpO4Mk
+	 gyKGAp1Ef6ZmZydF+sGtlVqQFD59jGwdA6Np8vBdPpJf6OCVi6mCh8vejFLv7HrXWJ6FR
+	 XckarqeLppfm3xTzX9n9KS/0YA+7o/IqaU/6SuM1ytDzspoU8ZHgss8hCOZjXXkkNvKqG
+	 lVTpVLvBg9UgOeF+kFxQJ9HK2tHz0tmh169/hsfnVyZknfro+WJHwfEa4B8a4PjWm1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795808761;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=kcerf0Wz9rGhyM09///5+pAbtctI2kJUca9cu+C4P4w=;
-	b=RLnrdHotsXX87hEWjHyAJxLifduj5oLulLQba9sLSfC4jM5osrWr9cFJ3QvK/OZEizJE
-	 WRVg6+PUW+MRKarmwhyuza67cSEevDsqgCzo1dI+j8m3VfpWzj19S/j9mKGQ99pSrDWpH
-	 PBu5bikpISKYRvbwLo7bQvvK/lIFzW01CHWrLKgK7Sw+lIcuo4/PeNhbZfVIQxxCEfWwr
-	 Z7xFj2l/KoFUDe661EKXKD3qV1zjUMbdDtqI6BgX3JK0X3pXlgaT4jb7g7CDlUEa5Xfzl
-	 ASlqDZQaY1OhsWvrhR0vVhWfNOLPThMbkojoiDUegA1p74RxRo5LSWMJu1jrBXN93Vg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795809327;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=fkQY6VZ/0h/idxvC/1WqFbQT7o0AFUBBKssnmY8TGSc=;
+	b=g+QjeAhLsr6Ti/xGl86CbImyEAd+91MftSgif54h5nItrGalO18cZbTpcrLuZKM3V34Y
+	 X6wNBYFdmFiMF0O0gTNZTFafitCgRm7hJF/4Y6PX1/r2nX5lZc1twun3qNj+gc4zSOD8s
+	 kT0WKM72nAz6GO8QXRBCmkdKXKk/l0UrrR5tX/lDaGL8SWIsSd5Gqcr4rpAoF2/W2s/64
+	 jU1JwrW0rAT1qk2sW0blVFQkIYF+XXT/sQu/S+2jqqIKOILvYhSGk/3172k8AYcSkMRn6
+	 WC7xw1o6Fm0Wgo6nrv/gm4Cj2xI55knfQkqwhAVKmxsVacjV5PVrdnexSUVzCIep7RQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HTgAYAyW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linuxtx.org;
+	spf=pass smtp.mailfrom=linuxtx.org;
+	dkim=pass header.d=linuxtx.org header.i=@linuxtx.org header.a=rsa-sha256 header.s=protonmail header.b=HJbWTEOZ;
+	arc=none smtp.remote-ip=185.70.43.23
+Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C57606A335;
-	Fri, 27 Nov 2026 19:46:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40DBE606A31E;
+	Fri, 27 Nov 2026 19:55:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40DBE606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=linuxtx.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtx.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HTgAYAyW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBE111F00929;
-	Fri, 27 Nov 2026 19:45:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795808760;
-	bh=kcerf0Wz9rGhyM09///5+pAbtctI2kJUca9cu+C4P4w=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=HTgAYAyW3IajlcDL8qw1eFE1wl5vm/PzjZDHxWlJjufp1QLj16mSEPhQK9WYrz9MF
-	 rT0VJiqS0FOdTVTaVa88eay+IjxG08jhYC6tqhhDfB7DvaPrbXdavJRFsuvMvxNtFg
-	 Yn1O2tBwXIMVeQeliX/2ygQAQIr50/F5La5TLMd9PPDN2GjEPsYKs/v7Pu/9hLnxhP
-	 ntTZOU+KwsNEyO5EuOmYORVTXaDRsOI2LEqGH2JKd21PmoW/wD9zUo3/1PSVTepzEg
-	 iNae8zT+l4JvwzYkjMfKp2GaalCHALsAcDUVuvD0vgTX/xZDMAyJ2Z1LbNCh4I+46A
-	 cheTThDHMrtlg==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 27 Nov 2026 19:45:40 +0000
-Subject: [PATCH 1/4] coda: never point a file's f_mapping at a container's
- mapping
+	dkim=pass (2048-bit key, unprotected) header.d=linuxtx.org header.i=@linuxtx.org header.a=rsa-sha256 header.s=protonmail header.b=HJbWTEOZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxtx.org;
+	s=protonmail; t=1795809323; x=1796068523;
+	bh=fkQY6VZ/0h/idxvC/1WqFbQT7o0AFUBBKssnmY8TGSc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=HJbWTEOZRJTVoRGGfDy1HPjtdY6kzwYlvPhvX9BKHOQcrKlbT1dZlQaJHyYCDC1kI
+	 NKTZMxnQ/B38GYzqb1g8jG6bXK17mPhAw6xIZdv3UvxRrt+ujM9LdRqPd4g0joN/li
+	 /gJiPjmAIuTnsA2Tb7zYz202Q9AaU+vJ0Bas0rbVBafERDvHmrI7EADP1Gwe83F5rq
+	 U8fLaNo2UJ0PCIfiW/Jcdv/W8dWHd3H6vfeGY81sB9EIUFAqqS7tKnY+YvFS6R9Ngw
+	 kbXiiQCfr9RTF+67Fp289XTrFsUbi2zUtNFjS0it/VYNySadFjuFxvK5RL21klOMlg
+	 Spsco77Yz8R0Q==
+Date: Fri, 27 Nov 2026 19:55:16 +0000
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+From: Justin Forbes <jmforbes@linuxtx.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 7.3 0000/1002] 7.3.7-rc2 review
+Message-ID: <awngG2KnDlCc8R4u@fedora64.linuxtx.org>
+In-Reply-To: <20261126105729.110697432@linuxfoundation.org>
+References: <20261126105729.110697432@linuxfoundation.org>
+Feedback-ID: 225434474:user:proton
+X-Pm-Message-ID: 93c12147b67152d10b0c16f1e4f843841e1bb3e5
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,145 +64,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-mlock-madvise-mprotect-ai-fixes-v1-1-e46b2b1eb435@kernel.org>
-References: <20261127-mlock-madvise-mprotect-ai-fixes-v1-0-e46b2b1eb435@kernel.org>
-In-Reply-To: <20261127-mlock-madvise-mprotect-ai-fixes-v1-0-e46b2b1eb435@kernel.org>
-To: Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu, 
- Andrew Morton <akpm@linux-foundation.org>, 
- David Rheinsberg <david@readahead.eu>, Hugh Dickins <hughd@google.com>, 
- Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- David Hildenbrand <david@kernel.org>, Jann Horn <jannh@google.com>, 
- Alex Shi <alexs@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
- Pedro Falcato <pfalcato@suse.de>, David Rientjes <rientjes@google.com>, 
- Rik van Riel <riel@redhat.com>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- =?utf-8?q?Micha=C5=82_Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>, 
- Arnd Bergmann <arnd@arndb.de>, Stephen Rothwell <sfr@canb.auug.org.au>, 
- Muhammad Usama Anjum <usama.anjum@arm.com>
-Cc: codalist@coda.cs.cmu.edu, linux-mm@kvack.org, 
- Andrei Vagin <avagin@gmail.com>, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Chris Mason <mason@kernel.org>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4327; i=ljs@kernel.org;
- h=from:subject:message-id; bh=QVu7fb0kBPNVCyTuJn+VTrXPJuL+aUkLVFY1Ydjy6Xw=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLI577707/3+rru83v/RwiMc3hITPB3nRWid2nnsXnH9w
- 0W1Lc+mdJSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiAr2MDO8r79aIsLUfPfH/
- eR1X/12eXR8kzL3Dayum+m5Xv/k6w4/hf5765ufqr64apv4sEH5wwutwRqu24qJWGZs3TAdqv+/
- 8zQUA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Coda file systems stack differently from other stacked file systems.
+On Thu, Nov 26, 2026 at 11:58:20AM +0100, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.3.7 release.
+> There are 1002 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>=20
+> Responses should be made by Sat, 28 Nov 2026 10:55:59 +0000.
+> Anything received after that time might be too late.
+>=20
+> The whole patch series can be found in one patch at:
+> =09https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.7=
+-rc2.gz
+> or in the git tree and branch at:
+> =09git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.g=
+it linux-7.3.y
+> and the diffstat can be found below.
+>=20
+> thanks,
+>=20
+> greg k-h
 
-On mmap(), coda_file_mmap() switches both the Coda inode's i_mapping and
-the Coda file's f_mapping for the mapping of the container file. This
-causes two problems.
+Tested rc2 against the Fedora build system (aarch64, ppc64le, s390x,
+x86_64), and boot tested x86_64. No regressions noted.
 
-Firstly, the container file may not remain pinned, at which point this may
-result in a dangling reference in coda_file->f_mapping, and so a
-use-after-free in mmap() or lseek().
-
-This can happen when you open the same inode across two files, mmap()'ing
-in one, which assigns the i_mapping, and open()'ing another, which assigns
-that i_mapping to the file's f_mapping, if the cache manager gave the two
-files different containers. Each file pins only its own container.
-
-Consider (A, B = separate open files of the same inode):
-
-    A, with container C1            B, with container C2
-    ====================            ====================
-    mmap()
-      coda_file_mmap()
-        i_mapping = C1's mapping
-                                    open()
-                                      do_dentry_open()
-                                        f_mapping = i_mapping
-                                        coda_open()
-                                          cfi_container = C2
-    munmap()
-    close()
-      coda_release()
-        i_mapping = &i_data
-        fput(C1), the last one
-                                    mmap()
-                                      mmap_region()
-                                        mapping_map_writable(f_mapping)
-
-Secondly, mmap_region() takes a temporary i_mmap_writable count on
-file->f_mapping ahead of the mmap hook, and drops it on file->f_mapping
-afterwards. As the hook changes f_mapping in between, the count is dropped
-on the container's mapping rather than on the mapping it was taken on:
-
-    i_mmap_writable of                          Coda  container
-    mmap_region()
-      mapping_map_writable(file->f_mapping)       1       0
-      __mmap_region()
-        coda_file_mmap()
-          coda_file->f_mapping = host_file->f_mapping
-          vma->vm_file = get_file(host_file)
-        vma_link_file()
-          mapping_allow_writable()                1       1
-      mapping_unmap_writable(file->f_mapping)     1       0
-    munmap()
-      mapping_unmap_writable()                    1      -1
-
-The container's count is negative after munmap(), so the next shared
-mapping of that Coda file, if it is open for writing, fails with -EPERM.
-
-Fix both issues by no longer updating coda_file->f_mapping in
-coda_file_mmap(), and by having coda_open() always assign the canonical
-mapping of the inode, as do_dentry_open() may have propagated an i_mapping
-which coda_file_mmap() redirected.
-
-Reported-by: Chris Mason <mason@kernel.org>
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Fixes: 4bb5f5d9395b ("mm: allow drivers to prevent new writable mappings")
-Fixes: 5de195060b2e ("mm: resolve faulty mmap_region() error path behaviour")
-Cc: <stable@vger.kernel.org> # 5.3.x
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- fs/coda/file.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/fs/coda/file.c b/fs/coda/file.c
-index c9fba41f7cea..64f05f2fc4b3 100644
---- a/fs/coda/file.c
-+++ b/fs/coda/file.c
-@@ -182,7 +182,6 @@ coda_file_mmap(struct file *coda_file, struct vm_area_struct *vma)
- 
- 	cii = ITOC(coda_inode);
- 	spin_lock(&cii->c_lock);
--	coda_file->f_mapping = host_file->f_mapping;
- 	if (coda_inode->i_mapping == &coda_inode->i_data)
- 		coda_inode->i_mapping = host_inode->i_mapping;
- 
-@@ -248,6 +247,19 @@ int coda_open(struct inode *coda_inode, struct file *coda_file)
- 
- 	host_file->f_flags |= coda_file->f_flags & (O_APPEND | O_SYNC);
- 
-+	/*
-+	 * On mmap coda_inode->i_mapping is updated to point at the mapping of
-+	 * the mmap()'d file's container, and do_dentry_open() propagates that
-+	 * to coda_file->f_mapping.
-+	 *
-+	 * However coda_file's container may differ, in which case the lifetime
-+	 * of that mapping may not match that of coda_file.
-+	 *
-+	 * To avoid a dangling pointer, reassign the mapping to the canonical
-+	 * one.
-+	 */
-+	coda_file->f_mapping = &coda_inode->i_data;
-+
- 	cfi->cfi_magic = CODA_MAGIC;
- 	cfi->cfi_mapcount = 0;
- 	cfi->cfi_container = host_file;
-
--- 
-2.56.1
+Tested-by: Justin M. Forbes <jforbes@fedoraproject.org>
 
