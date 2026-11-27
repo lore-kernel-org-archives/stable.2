@@ -1,45 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795787960;
-	b=4aYR4xi9lZl8ZY3wR/tbi/Cd+tYRujulixmEaNHIA85UAB3/KRBgYz8suFfezp+vlXK4
-	 iE2mX77F/rsDeM9XCWrwq6QQLgUL+5Ph9QipEhYxiyYD2bHXtryaIJ4FjsJcSmNH2wI75
-	 dUzWHkUY4HAW3AftIaZeQTKYgQJrlaYzxMFx+rr5R9M3NqPXDH804lrtfem0ZqsjVlKmD
-	 72UnG4XLTTQg/lkdk2ukVf+df6Rtv+s/3C4kBXLmhAtxC9JyTY02hTCkFzgp5ll23WEPB
-	 ewQXoJXsi3UQMbdv0BLBv3TtM+3W172ZJmL0QZLyj9CgxiAu7R8bIU1J3TQC7y1AB1w==
+	t=1795787974;
+	b=3ZGt9so1a9I7KYazX++tuwhbTohtD9l0QmE9TfVUEvnOtHF5Wk3ikDTNRMCJpntTT5u8
+	 qr2lHFmYtTjzNJm3HjEcn7Q7Pafw0UppHNfiOKRp4nSj83eY1EAiQIWhyx21LNPA/jF4Y
+	 WS8+LrGApVr38u38ZAHQLKVDmnnxPCr+LM0AVhKhAGRqhxOwBZmh88KSKXWGfPTSvoqst
+	 GxqxfJg1wL8FX3Lf7hR09tDrg1Ip3bv9+aEOyCF8eKbV2FuiKqRQzVhPzjOHSM/7wJ1yJ
+	 FR5hbt1YNbMnEnCUAicJvisPKYPhj63MO/pER+lB6HXlyyqgcW4eFYfXfMoA59i3Aug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795787960;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=XCDRmkitv6anE5VKogqW8AH2LDMw98gqCBV3wPici/o=;
-	b=QgqyBlujbDPfcGOwH1z17veDCC/STKRS5iIi8tLPY6RIRgGhcByirq7AnSPPgipVOJd9
-	 t0UMLCdgQgvDUJA5g1ak3fI/rOLAJC8HLZfYyyvHjLAjGZCkIBuKRnQVCB9nLvXLGXDJN
-	 ixi74+p6xv2RsZ7tSd1rE6iYTSay3TWzoMZVHhjmEeQnhbvGzhxaPni+mq+vXfkPhfJre
-	 LyUuUeDZFbrrDdFZaix48MYJp2unTRNABiUQeMVK99dkEvD5VRPLfiYdKitYAzUCG5P45
-	 Yp8/a2EOK8gG2uNoJBYoXCsSYFMBSmf7u6pC+Ts9Rm1UQQ10XLPRasP0QFHGwcFLCMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795787974;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=hSAGX0PlcKV7hxoSKihFcCP5vot5vWKykmT5/I1Rotw=;
+	b=ZaVTkkkKwJBKXTFz93EX0GuYzZ9AGTc2RKolhad6C/sZpD2MfUjph3dQza1XYA+/aiKi
+	 awZOEhth+7jhM5gTXE99vVYXIY530uMKRawyyAKsmqIIyMB9ui61+GEaOk3otp2js5ufR
+	 9R0CvJQGgxajjVHgCwmvcd0N0BVWpbcj/ZqBZZh3INOkQoHEDZ3z/aj8OPHz39GD5cYKq
+	 I6CdjSz25t/ihYOf7KzjkLFI5kLFcqXApAyjyEFVAZQsFS2R6P1ophplNLj3ekGkp0ntT
+	 GvMG/WTb972bpMFVW/vf+e03fSeT2dLcX100zW83BmxhQM/ctfHCQzTS8MQEC1pOKVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jqEMdzdc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=n8Sp1N6y;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=pODgPDhA;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ptBQgtrQ;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=m5UC2tpx;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D48606A324;
-	Fri, 27 Nov 2026 13:59:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED422606A323;
+	Fri, 27 Nov 2026 13:59:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED422606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jqEMdzdc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4C81F00898;
-	Fri, 27 Nov 2026 13:59:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795787959;
-	bh=XCDRmkitv6anE5VKogqW8AH2LDMw98gqCBV3wPici/o=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=jqEMdzdcdUD9uZKKpUuXz4leJnRtw6K6Pph6ng77JUjfAdTRfV+fwQUN1tggPzH9i
-	 NQfXmd1EStzlvRkRsiu6/r/xsCK/eSmrSV8IidLe5Im8wL7Jc/FI/KMibzE9oUw9jW
-	 Ji/9JRAnDvoZcG4i+GyQ/V0zRlMg3swlawdEVBIArNwVZ5Nt/6TY53vaVLAly/p6Yy
-	 vRroxsNcyBBeKF5rMqPWl1n/R/U4xjy0+v9IBCOBFNDNQNpm0RjPZ16H2fggpHV+i+
-	 BvPx3YLXRb/YerZUCxxNkN4bS1515ZQEPIyc0IGfCdRYiMMrqbBvqRLUROOP2l1+Qe
-	 MTj/sXcoou16Q==
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=n8Sp1N6y;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=pODgPDhA;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ptBQgtrQ;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=m5UC2tpx
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D311D1FBB0;
+	Fri, 27 Nov 2026 13:59:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795787972; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hSAGX0PlcKV7hxoSKihFcCP5vot5vWKykmT5/I1Rotw=;
+	b=n8Sp1N6y9Vm45Mgr7D/4hXr+E6kdClBXxiVKkx/q5AGVMNOvdcYnHgM8wgmleWTbydX/QG
+	uuMm1BMVGIR3YVzyXvB4zzhU52UBrN334F0BC6VptBLw3q8doluBTW8UzBHcb/ROoal/RZ
+	hB5Wy4ULuPz9NrLd64ks0FgbhAS6apQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795787972;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hSAGX0PlcKV7hxoSKihFcCP5vot5vWKykmT5/I1Rotw=;
+	b=pODgPDhAIxp656pvlxUrpRSk4HSBAnk2OPd6F0EmkVWwkXolg1gbpxsCUHwBLlENz3fTy+
+	vyjKYebOVwYrdiBA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795787971; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hSAGX0PlcKV7hxoSKihFcCP5vot5vWKykmT5/I1Rotw=;
+	b=ptBQgtrQ1GwX/wj0pA4/omtbuqgeHt/5dbnW0NE7ZSZb/rshDm92HW7IAbncmzCNomGHrq
+	llRGEkndrmeio+ki1sR4C5SAO30en9k2MiDmH37kCNezcAXR3p3iE8ShjAucopDXxQKZ0z
+	B+O3si4tKsoKxWqd++oRS8jajx2WrV8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795787971;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hSAGX0PlcKV7hxoSKihFcCP5vot5vWKykmT5/I1Rotw=;
+	b=m5UC2tpxZO9Yf2DSATt0pN8be86yEfoSuqxihq+0TXlJbrK4CsSDNWDf2F2CDIHK7o9gTL
+	+NVHKwwbqHEZ7dCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A703013432;
+	Fri, 27 Nov 2026 13:59:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id QDmCIMOMCWsgNQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 27 Nov 2026 13:59:31 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 2B5DF5103B; Fri, 27 Nov 2026 14:59:31 +0100 (CET)
+Date: Fri, 27 Nov 2026 14:59:31 +0100
+From: Jan Kara <jack@suse.cz>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Jan Kara <jack@suse.cz>, David Hildenbrand <david@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Michal Hocko <mhocko@kernel.org>, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 4/5] mm/vmscan: be more careful when releasing FS
+ metadata if buffer_heads_over_limit
+Message-ID: <mlu22apiuzcim6icjolifdr6wgsk5u6dpo4kwn4ppkcdgfudn7@t6sp7ck7qafd>
+References: <20261119-gup-dirty-what-v1-0-236d69f25c24@suse.de>
+ <20261119-gup-dirty-what-v1-4-236d69f25c24@suse.de>
+ <wm57zjtvdpexvbfygmdggw2ytsazelyds4rt3mtx6oy6u72mke@rhviuzp26rt6>
+ <awmGDyR4WUJrwqn1@pedro-suse.tail5790ac.ts.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -49,77 +126,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2] phy: rockchip: naneng-combphy: fix RK3588 SATA
- pipe_con1 register offset
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Ricardo Pardini <ricardo@pardini.net>
-Cc: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Lucas Tanure <tanure@linux.com>, linux-phy@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Yifeng Zhao <yifeng.zhao@rock-chips.com>, 
- stable@vger.kernel.org, Sebastian Reichel <sebastian.reichel@collabora.com>
-In-Reply-To: <20261115-rk3588-combphy-sata2-6g-v2-1-778e0e8011fe@pardini.net>
-References: <20261115-rk3588-combphy-sata2-6g-v2-1-778e0e8011fe@pardini.net>
-Date: Fri, 27 Nov 2026 19:29:11 +0530
-Message-Id: <179578795149.13164.15084635377833975036.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1828; i=mani@kernel.org;
- h=from:subject:message-id; bh=fei2KZ8hHxwdWll/UxDcgcWAumc1W/CM9dYMtiFW9PE=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBrCYyy36JOz4vBxPy+mlD2r/Ndn68OJGR1ec6Jt
- EVD7aaKLtuJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCawmMsgAKCRBVnxHm/pHO
- 9TMHCACRD8CQM4Zuum6FbyZ4wvFcFX4htMB2HCjPoLWqCi8hvdKdTijsn4B0/LxbOnumZ8RMbOc
- iB6GpGWNMq0AdZ/k/Pgsp23ssTAyydiM0zEgmeA1nwsZ73NF3nGeO+zak63H2ScV24/e8BpeMjN
- s/TSAAK6xi3C3scr26C8kgaZ1cQP+bKO6uSXrbU3LyhF+o5JX5oSXpCBTCk2MRwwb96/38K48kK
- iJ4+p7SDMKnL0Luw36eME/rJlbmxvQkLdAEoS9ahl7fI4ytXlgvIvVszVlbLPtbs/9JqiK+kGWB
- YzYpWJV8l1W6B0qX7u8Lonpm7Ek8oAMTbloToFVBjUWIo5zm
-X-Developer-Key: i=mani@kernel.org; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <awmGDyR4WUJrwqn1@pedro-suse.tail5790ac.ts.net>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-16.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	REPLY(-4.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[37];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	R_RATELIMIT(0.00)[to_ip_from(RLc5chj8mdhigtayhgqted7wkp)];
+	FROM_EQ_ENVFROM(0.00)[];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -16.80
 
-On 2026-11-15 16:48 +0100, Ricardo Pardini wrote:
-> From: Yifeng Zhao <yifeng.zhao@rock-chips.com>
+On Fri 27-11-26 13:37:15, Pedro Falcato wrote:
+> On Wed, Nov 25, 2026 at 09:45:01AM +0100, Jan Kara wrote:
+> > Just given buffer_heads_over_limit is a HIGHMEM thing and given how much we
+> > care (not) about HIGHMEM, maybe just completely ripping out the whole
+> > buffer_heads_over_limit logic is a better "solution"? I mean it's a crude
+> > heuristic anyway and for struct buffer_head to occupy significant portion
+> > of ZONE_NORMAL, you'd have to have several GB of pagecache with buffers
+> > which means the machine has to have quite some highmem which makes the
+> > setup even more dubious...
 > 
-> On RK3588, the sata2 PHY speed is selected by sata2_phy_spdmode in
-> PHP_GRF_PHP_CON1[1:0] (offset 0x0004), with sata2_phy_rx_err in bit 2.
-> rk3588_combphy_grfcfgs has pipe_con1_for_sata at offset 0x0000 though,
-> so the value 0x2 (6.0 Gb/s, rx_err cleared) ends up in PHP_GRF_PHP_CON0
-> and CON1 is never written.
-> 
-> This leaves sata2 at its 1.5 Gb/s reset value, so the link only trains
-> at 1.5 Gb/s, even with a 6 Gb/s capable disk and no SControl speed
-> limit. sata0 and sata1 are not affected: their speed fields are in
-> PHP_GRF_PHP_CON0 and are set by pipe_con0_for_sata.
-> 
-> The misplaced write also lands in PHP_GRF_PHP_CON0[2:0], which are the
-> PCIe link reset grant bits, and turns on the one for pcie3x2 whenever a
-> combphy is put in SATA mode. No effect from that is known, but this
-> stops it too.
-> 
-> The register layout is described in the RK3588 TRM V1.0 Part1, section
-> 6.17 "PHP_GRF Register Description".
-> 
-> Tested with an mSATA SSD on sata2 (combphy2_psu). Before:
-> 
->   ata2: SATA link up 1.5 Gbps (SStatus 113 SControl 300)
->   Timing O_DIRECT disk reads: 374 MB in 3.01 seconds = 124.45 MB/sec
-> 
-> After:
-> 
->   ata2: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
->   Timing O_DIRECT disk reads: 1266 MB in 3.00 seconds = 421.78 MB/sec
-> 
-> Fixes: a03c44277253 ("phy: rockchip: Add naneng combo phy support for RK3588")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yifeng Zhao <yifeng.zhao@rock-chips.com>
-> [rewrite commit message]
-> Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
+> Is it _just_ a HIGHMEM thing? I had the impression it had some effect as
+> a general buffer_head shrinker. Either way, I do think we can remove it,
+> but I chose not to do it for stable; also, I don't have technical arguments
+> as to why it's useless, I just assume it is.
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+I don't believe it can ever activate without HIGHMEM - each bh points to
+actual data in the folio it is attached to which, usless you have 512-byte
+blocks, is more than 10x larger than struct buffer_head. So buffer heads
+can never occupy more than 10% of total memory unless you are really trying
+to screw up your system... And AFAIK this mechanism was introduced as
+a HIGHMEM thing many years ago.
 
-- Mani
+> Other filesystems (iomap, XFS, btrfs) don't participate in this scheme and
+> they turn out just fine. So, unless you find something I'm missing, I will
+> probably send a (separate) patch removing this whole mechanism for next.
 
+Yes, that would be great.
 
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
