@@ -1,66 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795810281;
-	b=NB8hCxU4Q3yobv5pUd9G/Qf+kKzvSe8FSV4mU9SMYpss5/yVEc/J16OPsJq59BP3pRoa
-	 c/LnZUk3pLXVUw2gzPlQpgotC2Ftx1xGFQ4ldzzHnG7qdqfhzsJpol+aMpOY+M9IK3SQe
-	 4YoDh7oGADWC1PoQZbmjkS+PdeojnjYl65iTA3A/AGmWQUKyIW3Ub/3n4KYDAIQIPzfxn
-	 PPluezRIhMp1pN+jpGVRDrW9qazEB4x0gJca7AoRkm+JI8o0/HeEyMO4IilzYWmS6XlqZ
-	 XKqPOCCzI/ouaD5IlIGMX8g4EPgbE0OHELj8DFcuMfMVQvS2xDSbDUhuMKuOGXyMNIA==
+	t=1795810287;
+	b=5H6ljc+J8idey7rxKzSrpNW92mwJoKi0JDC8mqb/03pk20QhZpN6mCYsvxBs2LMtxwvQ
+	 xj/LlI+VzYqT4zbQAqPLsRilWU+ascsk6AIpoWKLWNF1c1qbcemMlhcLsdAfK4k5+fXQv
+	 JVCWT8yXFcxrpBxxHYjYSppTeUcv5RDVASR1EeGe3txZItTFiRnh5Q6ONHSV5PY10DPqG
+	 +4GD/KQqtSohxQPS3xJJXVdWAGKTbBUzseJDjLh39pFDBrn+w2eOK6nGS8+d346oRFtGD
+	 rxcQAXlI1xWo+8aBz0yCrSUry9XgmZJ1AVFzneRJuoj3Jy60iKehhu89ceiu/SjMgyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795810281;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795810287;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5J1bwSrn8oRKroKcTngKb1+QyB51InTUxOU/A0itlkg=;
-	b=z3EdRR8lCtc+IomqDc0MqSUuhVHQEuxTJF7zi8Z4KwK2/HGVWFNvPlFlgiBqC/vmRJeF
-	 Vrg1rzmLIiW/FyoDwMnq/X6WPRrsqYY/dG02sR86ER/zGc+T3e9WOtlHIEcJz2B7UrsVs
-	 q3reHg1PgP8OM4y+/64b55SGXG6W2b4imHd5NWqjZ8QNW/g/NTxCrFGbLnN1eg3uIs1PR
-	 IXjHBdI5/ilV539ZJtmcoJGh2OSHd+lmgeUV1krnFTKuKiAQK1mAaw3IbNWRZo2zac5A+
-	 KQ8dzNQ0VvPvy4+nCCKIXqtVbXsFaCm7DSj5iqQRgomIdslWRtMLEmyjV1BfWhnuY5w==
+	bh=Mo4WhXD7sJwoAbEmIqpXQBkgqGcghx9tZqnuJBnC6Ao=;
+	b=HiDsHdLUBgShuGBnpLd0irzHZcLK3TbsElzKvHgW6eYZiSp4v/HkG+NGv2FfNucRjbqr
+	 u6ylyxHEGNnWfRa1K9kwD3Ip/uzp8j4a4WsvjH1aUnA8+PZGo5wXvi76+xSrV+Bvla2Oa
+	 lK5pZGLRSEfvbWjDBz3P4XhQul0f7vM4X/h2Ozwd9JLnauMiaX6rEkcITXXaQgKYUJftV
+	 UsUONZlm2qArxg7KXXnYuah1Pdsm+pJiZz+QIBdZXPx5SaGsL12K5q3yHENLvjeKmcMpP
+	 wki0yifYi5wvBbcJPK4x+adJjxpJmGHAObVOXMNk6BjpRZMpvO4F+lQIbLui6lh00YA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y5BAntfy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ojvD6shL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE3C1606A321;
-	Fri, 27 Nov 2026 20:11:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672EC606A321;
+	Fri, 27 Nov 2026 20:11:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y5BAntfy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB53B1F00893;
-	Fri, 27 Nov 2026 20:11:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ojvD6shL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 318131F0089B;
+	Fri, 27 Nov 2026 20:11:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795810280;
-	bh=5J1bwSrn8oRKroKcTngKb1+QyB51InTUxOU/A0itlkg=;
+	s=k20260515; t=1795810286;
+	bh=Mo4WhXD7sJwoAbEmIqpXQBkgqGcghx9tZqnuJBnC6Ao=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y5BAntfy1aehQYk0PLAmNEM+07Mpz2BbvlQLHVYOd0j6Wh1SqR5uJdxm/wT76/zwu
-	 EiHPmdD+8kJLaEBYKxbs1106cwfiSSKDb3eHYdHaDvawIPxzn6vTPlAOnWvMWzpX5s
-	 NMivYIKVCtkVZ7ITBc0mV531O1qya0/0zLoyjWZ7uiDPFS+hfLVGztCE9qJ2yADW4n
-	 jik/s7Id0TzoXaXTIpHKQ+OCwL+HTOV5YYLFArJzI6ohmcm7OAjTrJ7jOAiUm8+Jka
-	 2xdnapns8NoNPNKkkpPluEDT0E4KSGOtqe2TucbDesJR0pOxxMXYgNvamFyva0SCz0
-	 3ihR+ivRtHCZA==
+	b=ojvD6shLMJRjsEp8CVwUxJlykpzzeKV+xPxxJiKFFx4ljuXqZ3N1XTgI9nbM3T0B6
+	 BavDcbocZ9Qvj+uMIzQ+SeE4SreCW88EvzGMP8lyeHpIpRhzqNIkg//T1+rratwrdr
+	 X+f2tR43jiPzQ+N5J+dsbtZDZ9fbHIAgY1O9d0VJG7TvrzQZIknbECh8JK0SNyQG6N
+	 hIY2IwKk6oP69bP4+WvYEbUFrXadIUElt4jG8Kou3hXaNniAEiK/NZDlRxrs3E/2fO
+	 3C3a/GyixrJOo67Q2f7xayFN8qjvpRbN6UBivkBSgzx2EK7JzBBOgnWLtB70tCmRjv
+	 tf68rxB1K1PgA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Elliot Tester <elliotctester@gmail.com>,
-	Marko Friedemann <mfr@bmx-chemnitz.de>,
-	Oliver Schwartz <Oliver.Schwartz@gmx.de>,
-	Steven Toth <steve@toth.demon.co.uk>,
-	Franz Lehner <franz@caos.at>,
-	Ivan Hawkes <blackhawk@ivanhawkes.com>,
-	Dominic Cerquetti <binary1230@yahoo.com>,
-	Adam Buchbinder <adam.buchbinder@gmail.com>,
-	Jan Kratochvil <honza@jikos.cz>,
-	Christoph Fritz <chf.fritz@googlemail.com>,
-	Pavel Rojtberg <rojtberg@gmail.com>,
-	"Pierre-Loup A. Griffais" <pgriffais@valvesoftware.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Griffin Kroah-Hartman <griffin.kroah@fairphone.com>,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 03/10] Input: xpad - cancel presence work on xpad360w_start_input() failure
-Date: Fri, 27 Nov 2026 20:09:57 +0000
-Message-ID: <20261127201050.3532488-4-lee@kernel.org>
+Subject: [PATCH 04/10] Input: aw86927 - use devm_work_autocancel() for haptics play work
+Date: Fri, 27 Nov 2026 20:09:58 +0000
+Message-ID: <20261127201050.3532488-5-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127201050.3532488-1-lee@kernel.org>
 References: <20261127201050.3532488-1-lee@kernel.org>
@@ -75,50 +63,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-xpad360w_start_input() submits xpad->irq_in before sending the presence
-inquiry.  If an incoming packet schedules xpad->work before
-xpad_inquiry_pad_presence() fails, the error path kills the URB without
-cancelling xpad->work, allowing xpad_presence_work() to run after
-xpad_probe() frees xpad or leaving any input device registered by the
-worker torn down improperly.
+aw86927_probe() initialises haptics->play_work with INIT_WORK() and
+relies solely on aw86927_close() to cancel it.  When the input device is
+inhibited at unbind time, input_unregister_device() skips
+aw86927_close() while evdev flush can still schedule play_work, allowing
+aw86927_haptics_play_work() to run after devres frees haptics.
 
-Cancel xpad->work synchronously after killing xpad->irq_in on error, and
-run xpad_deinit_input() and xpad_stop_output() on probe failure in case
-xpad_presence_work() already completed before cancellation.
+Use devm_work_autocancel() before registering the input device so devres
+cancels play_work after input_unregister_device() and before freeing
+driver resources.
 
-Fixes: 09c8b00ae3e1 ("Input: xpad - handle "present" and "gone" correctly")
-Closes: https://sashiko.dev/#/bug/linux-0c0def42-a340-45bb-860d-c99ba757f43b
+Fixes: 52e06d564ce6 ("Input: aw86927 - add driver for Awinic AW86927")
+Closes: https://sashiko.dev/#/bug/linux-819bee30-4290-430a-b9a3-7dbb99d73505
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/input/joystick/xpad.c | 6 +++++-
+ drivers/input/misc/aw86927.c | 6 +++++-
  1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
-index 86f4e756a7fc..ba0f5684f3d6 100644
---- a/drivers/input/joystick/xpad.c
-+++ b/drivers/input/joystick/xpad.c
-@@ -1880,6 +1880,7 @@ static int xpad360w_start_input(struct usb_xpad *xpad)
- 	error = xpad_inquiry_pad_presence(xpad);
- 	if (error) {
- 		usb_kill_urb(xpad->irq_in);
-+		cancel_work_sync(&xpad->work);
- 		return error;
- 	}
+diff --git a/drivers/input/misc/aw86927.c b/drivers/input/misc/aw86927.c
+index 0657c52b4c79..2d6bfb57afe1 100644
+--- a/drivers/input/misc/aw86927.c
++++ b/drivers/input/misc/aw86927.c
+@@ -10,6 +10,7 @@
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
+ #include <linux/delay.h>
++#include <linux/devm-helpers.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
+ #include <linux/input.h>
+@@ -826,7 +827,10 @@ static int aw86927_probe(struct i2c_client *client)
+ 	if (err)
+ 		return dev_err_probe(haptics->dev, err, "Failed to request threaded irq\n");
  
-@@ -2210,8 +2211,11 @@ static int xpad_probe(struct usb_interface *intf, const struct usb_device_id *id
- 		 * we're waiting for.
- 		 */
- 		error = xpad360w_start_input(xpad);
--		if (error)
-+		if (error) {
-+			xpad_deinit_input(xpad);
-+			xpad_stop_output(xpad);
- 			goto err_deinit_output;
-+		}
- 		/*
- 		 * Wireless controllers require RESET_RESUME to work properly
- 		 * after suspend. Ideally this quirk should be in usb core
+-	INIT_WORK(&haptics->play_work, aw86927_haptics_play_work);
++	err = devm_work_autocancel(haptics->dev, &haptics->play_work,
++				   aw86927_haptics_play_work);
++	if (err)
++		return err;
+ 
+ 	haptics->input_dev->name = "aw86927-haptics";
+ 	haptics->input_dev->close = aw86927_close;
 -- 
 2.56.1.839.g22a8290db9-goog
 
