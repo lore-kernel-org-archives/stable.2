@@ -1,72 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795765564;
-	b=x/Il5ZbQvvyQwb4XhANBl6FKzJVNcA9UrLH41Aqnfid44lSCj3R5rlJ9x2YJnUty3PqP
-	 AFAL2Y9MNtR/XfH4Pcbpy9MXHlzDGdqhAXDsd+ByeZH1sVY091FTbLdNizQOhIDUs0HCM
-	 P8X6CBzjPgyaddSF3btUti9ChUAuqsF//LvKowihDLOlfFkaUpPG2GTHdyMNvndPsuiyN
-	 GU2QkBaaofBGI0gv5UmJsZG46JncPzuMJaR+B9+mMyqgT2mln0CIM8tTiWkwf5kHgGpgO
-	 K7RPYxO92Fvw37AeWfmVrmCr76+HxHu1/uad7BmLRMwKkFf5bhmbfTHqqMk0T9hNGIA==
+	t=1795766000;
+	b=s84VTBgyjrcSTaR3tLDSH/QIoyFHa0X3gvzgGXuX9VdkT7IMno3nt6Tj4bMrlHg03qCS
+	 ndyk8AgTkU0wwk4z4Nw54C+8Z0eHZ3EHUFcbYZxBRKItl8tOhsm+GEj9qx22/JCq22TPX
+	 EhXEld/o1maFgCjk3crsw8XvuLPf4jehLJ2PCb1UF0bQieYzppP1qBCAB4MG+TIqQF0MK
+	 Jldx/zCbell2uhpSCPP3Bf3hCUuHVrDY+kIdqMMk/PFL6cOIZXl15pbq+NLqFr/hXq1uh
+	 vi+Zl5KJRbDEp7QSbswaD6STQlsq2HqIfqSM26iVQYWpKOMfsVqviXOd2nhnMq3rLbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795765564;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=60/T6+akL3zw9Tl0SMa78bohTXbd4Uco2RW4UlB8Nmw=;
-	b=QFlq1L2uPXQ+zttZDCchlJ/1LgfVedGQOPZVdac7t8FccGADbiC2knXksWq9oYi5Ord2
-	 nEbQxvTcIWOGiYQiKGwH+nB6jlKb71Gku2bJ7rawFFUi4tFLTR4E8j7PHB45BS+5BDiX8
-	 cd2Xuvqsl6Zx6wrhIRm/RbnioPhjKu+Fxadu43sv4artF4huO6s+F2mYfKh675wwzKlQ4
-	 hBrGMpdiQKh/dSEAHPlupZxLR9QaNRTmNF88lG05eRCQyfxao/e9QOKXhJS4njh/WomML
-	 2ncEXs8+b5oCwT/njX0w9mBig5NmKSDMv5SRIiFMIKax2Vf8UtvqLCkjnMiWt0iDUQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795766000;
+	h=Received:DKIM-Signature:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:MIME-Version:Content-Type;
+	bh=i1w9ba/K3YKpUFzRjrbjigLpN1x0pxKxnHmh33Tr1R0=;
+	b=AqDEh6zWlgVk20qn5LGARNZn3LZLUzFmsVFJg5pTjD+DkPIx4r199jRM3NfXDsci8Fb1
+	 NngZ68L07DyJ3MwqDTDQaOgcO6lh1yzMCKx7nDhoB1Bowt+6HznzuUreBr8ytEq5r045s
+	 qu0Bd/jlYeUTtrwkc8OZqWorsCdq0AzHFtAonMKKJP2LojhnukbrWBkb7v6j3uUgfYcfx
+	 5qgIpmMNwXxU3+mzN1m105JI6/T8D1wh6pZxM9OnsrxgZoeodKdT15i08uxpKIJca9eOf
+	 2P46CXC3GYnwmmgMbGPaNuhqCHJwWm9+59rxDb9Eu7+eBlynT04FdGk+uO65C1gxByA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codewreck.org;
-	spf=pass smtp.mailfrom=codewreck.org;
-	dkim=pass header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=lkg1fSGQ;
-	arc=none smtp.remote-ip=62.210.214.84
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IfDANCQp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B74606A31C;
-	Fri, 27 Nov 2026 07:46:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12B74606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B7DE606A31E;
+	Fri, 27 Nov 2026 07:53:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=lkg1fSGQ
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id 0E74D14C2D6;
-	Fri, 27 Nov 2026 08:45:57 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1795765562;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=60/T6+akL3zw9Tl0SMa78bohTXbd4Uco2RW4UlB8Nmw=;
-	b=lkg1fSGQaEiD11F4o2d9A1BE98P1ZnmYkxDCY8+bC07INXVVo2YYFxWTctLVs7n9I52aDn
-	Q03YL8QypxcVOoKseUmqC3HAcDbPZBF7PHL6T/oEPEQ33KTQKRo5BIGfDonMPXNCZVa8bf
-	vWY7uJUJr65c7zTK9/eXhqEjgePZl8vfFn0K3CSzeAR8oHtBHNX/JjpRp99CGgCcbfsf7V
-	kroHlVSUnLtlbE38bWTwpM2PMZ7oeRfa1yOFcEr/EWj+4zCIDTsI+B9RR81AnZgBfj5wxB
-	RKVTBJYZnODzqB5UN4A6rvG8aPbzAeCvGHyw/vp8rLudQWVjcM9JcJhCWE9CFA==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 9d6bf9f9;
-	Fri, 27 Nov 2026 07:45:56 +0000 (UTC)
-Date: Fri, 27 Nov 2026 16:45:41 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Edward Adam Davis <eadavis@qq.com>, Sasha Levin <sashal@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>
-Cc: linux-bluetooth@vger.kernel.org, regressions@lists.linux.dev,
-	stable@vger.kernel.org,
-	"W. John White" <whitewj-debian-bugreport@outlook.com>,
-	=?utf-8?B?UMOpdGVyIELDoXRvcmk=?= <batori.peter@gmail.com>,
-	Mael Bras <mael.bras.ext@idnow.io>, tycho673 <tycho673@gmail.com>,
-	hanta <hantahrabal@disroot.org>, skiwithme <skiwithme@optimum.net>,
-	Suvam Sen <suvamsen2004@gmail.com>, Celimar <celimarj@gmail.com>
-Subject: Re: [regression 6.1.y] 967473b1e8bb ("Bluetooth: L2CAP: Fix
- slab-use-after-free Read in l2cap_send_cmd") causes backtraces and
- non-working bluetooth
-Message-ID: <awk1JT1VMzHDecib@codewreck.org>
-References: <179567271700.947722.15185762256491350563@eldamar.lan>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IfDANCQp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B08F1F00893;
+	Fri, 27 Nov 2026 07:53:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795765999;
+	bh=i1w9ba/K3YKpUFzRjrbjigLpN1x0pxKxnHmh33Tr1R0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=IfDANCQpDYZSOBt2sgq3p3WfsshQaxDiolGJUFZ7ZA1GnafdqsaTETc+0Xn64ops8
+	 nqn4eqjUeA9K0Ipxy5L6hkC4SvXxL6TiYeO8EH2ion4+a692iXbe8vQM6mZIFu8dpi
+	 ma9ztm1EjFWKCp6qF7CqocjzelhPbe8JViYDQLERb4LtETY6jFp4GGe8jOYZk+Lkkd
+	 eggznptjOiBOjEVmv/q56IYizqW9LQdzlcd7dxbsDf3o/HZRfKYB/VPAx0DcyeTzgz
+	 mrLYob6mcJIQTjYe26Og4FqBY2jHZMAcPQFJwmaXVnmt/oFTVWzdVAAHw+zEzE2gI2
+	 Kv8yZAxD4AvSg==
+Date: Fri, 27 Nov 2026 08:53:17 +0100 (CET)
+From: Jiri Kosina <jikos@kernel.org>
+To: Jinmo Yang <jinmo44.yang@gmail.com>
+cc: bentiss@kernel.org, linux-input@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, alhouseenyousef@gmail.com, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH] HID: hidraw: fix use-after-free and double free on
+ disconnect
+In-Reply-To: <20261010230108.107272-1-jinmo44.yang@gmail.com>
+Message-ID: <n8066nr2-89s4-r290-539o-5p646n4567n5@xreary.bet>
+References: <20261010230108.107272-1-jinmo44.yang@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,34 +59,170 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <179567271700.947722.15185762256491350563@eldamar.lan>
+Content-Type: text/plain; charset=US-ASCII
 
-Salvatore Bonaccorso wrote on Thu, Nov 26, 2026 at 07:06:59AM +0100:
-> [   40.687744] list_del corruption, ffff8a27c10efe80->prev is LIST_POISON2 (dead000000000122)
-> [   40.687829] kernel BUG at lib/list_debug.c:56!
-> [   40.687865] invalid opcode: 0000 [#1] PREEMPT SMP PTI
-> [   40.687900] CPU: 2 PID: 893 Comm: bluetoothd Kdump: loaded Tainted: G           I        6.1.0-55-amd64 #1  Debian 6.1.192-1
-> [   40.687960] Hardware name: /NUC6i7KYB, BIOS KYSKLi70.86A.0051.2018.0110.1800 01/10/2018
-> [   40.688002] RIP: 0010:__list_del_entry_valid.cold+0x4b/0x6f
-> [   40.688574] Call Trace:
-> [   40.688594]  <TASK>
-> [   40.688614]  hci_chan_del+0x18/0x90 [bluetooth]
+On Sun, 11 Oct 2026, Jinmo Yang wrote:
 
+> BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0xf8/0x1c8
+> Write of size 4 at addr ffff0000ce4ffb38 by task wacom_uaf/261
+> 
+> Call trace:
+>  _raw_spin_lock_irqsave+0xf8/0x1c8
+>  hidraw_report_event+0x64/0x2a8
+>  hid_report_raw_event+0x488/0x1228
+>  __hid_input_report+0x418/0x5b8
+>  hid_safe_input_report+0x68/0x90
+>  uhid_char_write+0xb04/0xfb8
+>  vfs_write+0x2e4/0xac0
+> 
+> Allocated by task 131:
+>  hidraw_connect+0x54/0x390
+>  hid_connect+0xb80/0x13d8
+>  hid_hw_start+0xc4/0x150
+>  wacom_parse_and_register+0x2ae4/0x4d40
+>  wacom_probe+0x724/0xb18
+> 
+> Freed by task 68:
+>  kfree+0x264/0x4c8
+>  drop_ref+0x268/0x340
+>  hidraw_disconnect+0x60/0x88
+>  hid_disconnect+0x17c/0x1c8
+>  hid_hw_stop+0x70/0x100
+>  wacom_mode_change_work+0x11c/0x6b0
+> 
+> The buggy address belongs to the object at ffff0000ce4ffb00
+>  which belongs to the cache kmalloc-96 of size 96
+> The buggy address is located 56 bytes inside of
+>  freed 96-byte region [ffff0000ce4ffb00, ffff0000ce4ffb60)
+> 
+> Reproduced on mainline 7.2.0-g66498c75b4f8 (arm64, KASAN) through
+> /dev/uhid writes alone.  Offset 56 is struct hidraw::list_lock.
+> 
+> hidraw_report_event() dereferences hid->hidraw with nothing keeping the
+> object alive, and hidraw_disconnect() frees it without clearing the
+> pointer:
+> 
+> 	void hidraw_disconnect(struct hid_device *hid)
+> 	{
+> 		struct hidraw *hidraw = hid->hidraw;
+> 
+> 		down_write(&minors_rwsem);
+> 		drop_ref(hidraw, 1);		/* kfree() when !open */
+> 		up_write(&minors_rwsem);
+> 	}			/* hid->hidraw left dangling */
+> 
+> hid_disconnect() also clears the HID_CLAIMED_HIDRAW bit that guards the
+> call only after the free, so a report that passed the guard walks into
+> freed memory and the first thing it does there is take a spinlock.
+> 
+> driver_input_lock normally keeps the two apart -- hid_device_remove()
+> holds it across the callback and __hid_input_report() takes it -- but
+> hid_hw_stop() carries no such requirement and drivers call it from
+> workqueue context holding nothing, as wacom_mode_change_work() does.
+> minors_rwsem cannot be used on the reader side: hidraw_report_event()
+> also runs from softirq on real transports.
+> 
+> The same function also takes the pointer outside the lock that frees
+> it.  hid_disconnect() tests hdev->claimed & HID_CLAIMED_HIDRAW with
+> nothing excluding a second caller and clears claimed only at the end,
+> so two overlapping teardowns can both reach drop_ref() with the same
+> pointer.  I have one captured double free of this object with that
+> shape:
+> 
+>   BUG kmalloc-96: Object already free
+>    drop_ref+0x70/0x108
+>    hidraw_disconnect+0x3c/0x60
+>    hid_disconnect+0x88/0xb0
+>    hid_hw_stop+0x30/0x70
+>    wacom_remove+0x30/0x100
+> 
+> I could not isolate that branch to reproduce it on demand -- three
+> other faults on the same wacom teardown path fire first -- so I am not
+> claiming this trace proves that window.  Taking the pointer under
+> minors_rwsem is correct regardless of how often it is hit.
+> 
+> Publish the object through RCU and claim it under the lock.
+> hidraw_connect() stores the pointer with a release, so the
+> initialisation is visible to a reader that picks it up without holding
+> anything; readers take the RCU read side and load the pointer once;
+> hidraw_disconnect() now reads it under minors_rwsem, returns if another
+> teardown already took it, and detaches it before dropping the last
+> reference; drop_ref() hands the object to kfree_rcu(), so a reader that
+> already loaded the pointer is covered by the grace period.
+> 
+> Same victim object and same faulting function as the bot-reported window
+> addressed by
+> 
+>   https://lore.kernel.org/linux-input/20260628005846.31248-1-alhouseenyousef@gmail.com/
+>   ("HID: synchronize input before cleaning up a failed probe")
+> 
+> but a different window: that patch re-acquires driver_input_lock in
+> __hid_device_probe()'s failure path and leaves hid_disconnect() alone.
+> 
+> Fixes: 86166b7bcda0 ("HID: add hidraw interface")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
+> ---
+> Validated at runtime with a test-only patch that widens the window
+> between the pointer load and the spin_lock (mdelay(200) in
+> hidraw_report_event), so the report race becomes deterministic instead
+> of a few instructions wide.  arm64 QEMU/KVM guests, same reproducer,
+> 4 vCPU each:
+> 
+>   kernel                            exposure        KASAN   signature
+>   ----------------------------------------------------------------------
+>   baseline + widening               4700 binds/180s   1     yes, t+9.07s
+>   WRITE_ONCE + NULL guard only      4656 binds/180s   1     yes
+>   RCU + widening                    5718 binds/600s   0     no
+>   RCU, no widening                  7070 binds/180s   0     no
+> 
+> The second row is worth stating: clearing the pointer and adding a NULL
+> check, without RCU, does not close this.  A reader that has already
+> loaded the pointer still walks the object after kfree().  That is why
+> this patch uses a grace period rather than just a NULL guard.
+> 
+> Those rounds cover the report race only.  I also tried to reproduce the
+> disconnect-vs-disconnect window on its own, on the KASAN=n,
+> CONFIG_SLUB_DEBUG=y tree the captured double free came from, with a
+> reproducer that attaches wacom pen and touch as siblings and races
+> their teardown: 24 boots, drop_ref() never reached.  In the four of
+> those boots that also tracked the in-flight hid_device pointers, no two
+> teardowns of the same device were ever inside hidraw_disconnect()
+> together -- teardowns of the two sibling devices did overlap there, so
+> the instrumentation was live.  The teardown race itself reproduces
+> every boot, but three other faults on that path -- a wacom timer on a
+> freed object, a NULL deref in hid_hw_stop() and a usercopy fault in
+> uhid_char_read() -- end the guest before the hidraw branch is reached,
+> and serialising the two hid_hw_stop() calls closes the path altogether.
+> So that hunk rests on the captured trace plus the lock discipline, not
+> on a round of its own, and I would rather say so than overstate it.
+> 
+> On the accessors: hid_device::hidraw is a void * with no __rcu
+> annotation, and four drivers outside hidraw.c dereference it directly
+> (hid-cp2112.c, hid-u2fzero.c, hid-led.c and hid-core.c), all from
+> probe/connect paths where the pointer is stable.  Annotating the field
+> would let this use rcu_dereference()/rcu_assign_pointer() but would
+> cascade into those four, so the plain accessors are used with the same
+> ordering rcu_assign_pointer() would give: smp_store_release() is what it
+> expands to for a non-NULL store, and WRITE_ONCE() is what it expands to
+> for a constant NULL.  I am happy to do the __rcu conversion as a
+> separate patch if you would rather have the annotated form.
+> 
+> Not attempted here: clearing hdev->claimed before the *_disconnect()
+> calls in hid_disconnect().  hid_report_raw_event() has
+> 
+> 	if (hid->claimed != HID_CLAIMED_HIDRAW && report->maxfield)
+> 		hid_process_report(hid, report, cdata, interrupt);
+> 
+> so zeroing claimed makes that condition true and opens hid_process_report()
+> during teardown instead.
 
-This might be fixed by commit ab4eedb790ca ("Bluetooth: L2CAP: Fix
-corrupted list in hci_chan_del") ?
+Sorry for the delay, this took me quite some time to untangle and properly 
+understanding, but I am now convinced that your fix is indeed correct.
 
-Ah, now I see it even has
->  Fixes: b4f82f9ed43a ("Bluetooth: L2CAP: Fix slab-use-after-free Read in l2cap_send_cmd")
-and you're reporting about this very commit, so there's little doubt..!
-
-That commit got backported to 6.12 but not 6.1, there's a merge conflict
-but it's not too hard to resolve, I'll send the patch since I've done
-the work.
-(As far as I can see it's not queued at this point, sorry if someone
-else has also been doing the same)
+Applied, thanks.
 
 -- 
-Dominique Martinet | Asmadeus
+Jiri Kosina
+SUSE Labs
+
