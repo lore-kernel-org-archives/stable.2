@@ -1,62 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795776711;
-	b=lRevum720cILDvgYxBNKfdqJ3QSvCClqWN7/tctftyYjhPt5JEQDb7OFYVcC2p2x+f6c
-	 lLZmTl67/7qJc3OIv5Eg81Hq+hxjrIyTH5zZp8sQRVrNQbNB8uRCswl2++1mPlMofkz6p
-	 gUicJfOecM5LHQinkpRup4WIWwSfOPaVImxrlPlXYgU+rkleH53YA3J24CSdirbT4DVpE
-	 Wlmzx8WAMmmusJnLFxAvrenEvnub34oqKQm3zllESYbWvHWajG5ZIT/FezS/3/ysC5THy
-	 UKmpZMENMQVvZpYCX7krCepi7Fdl2XHyVpdeadsru1xykcMDD3QTPgPNeyIl/UKmFpw==
+	t=1795776853;
+	b=18PcH6NrWjCaCKtfiMhzMDsV+ozL6av3eZqFEh2LGsLM5Y728VOYo8p32bC8m5JcgtyC
+	 2zztdBXSSpa7My7r9E8gIKJAhB8gwMX0uD9n3ZOsVLRZAYzm+TEWg60NI+PRW6ZSF1oZd
+	 9HpwgSnCb4zuRRO0SCxGsraA7rvWc7Z5pU1ZfwPoLk3DHyFOpz7PDChY0XrB9Nq/jmtSS
+	 QxFEfuIWzkJfA2axAo0xz/7uQxsY8UxkiIp8Mhs3Uw0ILZzQjeJQ7TqEucC4PkKIasLN9
+	 rB5azP4Pigls704pMBI1h75YB37VHOtnPUligkHWM4LVvSebXyIy+aABnvo8fy5Cl8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795776711;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=qK4OBJuV5NQSXAniRegbhebp0FOPNEyoFinbxRFiOLE=;
-	b=myXObQshlvXRzsxcN1686nVylxr5N531U4cnRLsumXzsJgY0pF09OQy3NnxgARBG1Xfc
-	 K0FKfYU/x4VEwxuF0lonY/j6oh0wLv3z+lgaUuu+150PJ0q6ArCJ/SLsF4opfT8aWiUoO
-	 Tc9pYjZgQGyyf2uM8bM4hOotrqXHFObG0SVFtPKeYcjD0x4wkRENvhdcD3oD+typnAuGO
-	 rQeLjRB74wInkl14KchlPRNlqmQRi11ns1K51lbec2gBLHUm3FifoG0vYPqm7ZQyZU5WK
-	 y4fSUHfqZnfoX9QwRJ2q6qsDhHrsqL6e1zqKUsK8JBW5EkItTi2ENG+HuPbX8rbDejA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795776853;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6o6wwpsf6OkL2ZSFH1Jv+ohkliUZZst2ain93hx+srU=;
+	b=biPeU0GYl/DBY/C0UPdKyeFGL5X4j9GBH32FUgdnaKeu2gdtOEd2XlOQaMOvVFOlQxHa
+	 dtlyG+SA6LyaoiAgK5kMB8u7dFUVzi42tmvm/pMTZWjzt4yijy3MS7QaeU2WZXycKrZ1l
+	 /qnszPmoffiS1DVa0LBNj6Ad5pjaCqOBO6Ne+vUsgwluje8ndKO4CKVWknjNt9tOV8EIx
+	 XIafpi9RpERU7v9ajVTsJslULYawfEckv001hMk4FiYQFNW4EzSPXfmCoZiko9jBCaGLC
+	 xJPueWAqbB6A4KnNgUJag9zCWns7LC8aDEqW2LEtRTLTO41ZgMuMrLTn+xSjCyIaRnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="QNnEL/Zz";
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L0Z7gmyW;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F261606A31F;
-	Fri, 27 Nov 2026 10:51:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F261606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1789C606A31E
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 10:54:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1789C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=QNnEL/Zz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795776708;
-	bh=GrzzKgpiZ0CLEiwz4+lvImtTNjkiXNEnBTiY1cg7Qwk=;
-	h=From:Subject:Date:To:Cc:From;
-	b=QNnEL/ZzBe4Z8Az/1bgHDJcjNRzbxDmV0KlsA/cv5kYyh9O4KpxEbtaL2DNnA9sag
-	 lGiuL3B1XLiKqt2ypaI0jSNVgRMHCblwOecplgf3XwAkJZ2JSMdHjFKhwLhB34YqFx
-	 6azMyRefcBPxRrYrvz2q43+MbkNPpvvNcaYg37wKTgZt8QY6z3jF1OLaBOu3Wy41PY
-	 bhYYWFYeoSWAgwntu5zrcCRNnEEWZPyFUiargqEcfvLETNL7OOtI1BsMHYRWMFDlyK
-	 4W7hfsZ3NGrUHOIQ6gctGuH0rEAoBiZRl5qM3oPG6D5GhhfkEO71iVLBNC6N5qrUdP
-	 ndE7w133hN5hg==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4513117E010E;
-	Fri, 27 Nov 2026 11:51:48 +0100 (CET)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id 0598C48002C; Fri, 27 Nov 2026 11:51:48 +0100 (CET)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: [PATCH v2 00/11] arm64: dts: rockchip: USB-C DP AltMode support
-Date: Fri, 27 Nov 2026 11:51:37 +0100
-Message-Id: <20261127-rockchip-usb-c-dp-altmode-v2-0-77ee78869307@collabora.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L0Z7gmyW
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-18818daa3e7so4363308c88.0
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 02:54:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795776851; x=1796381651; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6o6wwpsf6OkL2ZSFH1Jv+ohkliUZZst2ain93hx+srU=;
+        b=L0Z7gmyWDD1NV0Rl0P5B5KEd730ZW3wJm61yeKjW2ZS6lcj0yg9gXasllzaa5OaXBH
+         kQCRbmMazReS0eCAnld9Omnj3RA8Cr+q1QZgKdEwSVp291EoejBacQ3Ml/I2SQREA3PT
+         ZmFbl6NF6QYBkFnR31lmaY9EjhDile36nYboZC+tM9Jz5tILRXbv8CYr4igILI/4IVOc
+         ux+B37VoEia0Nybv2HEG/KgDjXMF0d4+7Hrwf6HGykRrJt+X0mS/H+p5KE1BPmmZyweC
+         u31llk0wNY5vi/hg4ZMcDkZlQslu/wh/mspzJkdMn/XmxdGNxoGvp9PjDd/DdZruwEr5
+         zjWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795776851; x=1796381651;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6o6wwpsf6OkL2ZSFH1Jv+ohkliUZZst2ain93hx+srU=;
+        b=OwCMQuoTigHZ0VR0aRSB9Nxs+crWTZZ5e3KgeeDtlkybpt3uMipceEI9gtdgeuA5Aw
+         1BGiGi6mM6PeSXnuhVA43oFAocxElt6O/2lIvrNzeXJbYTuPXMyo5BKMiwMChHw7PkP9
+         S2fp28mOX3CsVc/uoBnXY+jdisxyQb5vxQ9hZm+fpZr/cssex3LE//jaOADmdyndFeyu
+         8NwZDtuTPHO/pQMsRqnQ36mzq+deSjTxLokJXT1ffXui5u/i5KiVJuDsAZ3DZwM9Ug8r
+         bCS+l3AtwS3n7bJutJZpwAUmQcMG6WbQxoG21lLMnRE6TcbN1y7qZjuy7um0GQkX/7Ss
+         O3GQ==
+X-Forwarded-Encrypted: i=1; AL+hErHY4PllLIRbY/0y9lp7o0EfQfzpSCgg8UkA8s+k5rBd5a/AM8ZI9Wp12o1bo7OV6lVOVwHiwk4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8KHLzezCb8J91VQ+dVZOdxonQn9olpY0Sjs71Xtd7DXBix9VzB
+	nOp6IAndEsRWGXCfl7GgZxQR/i7U4NHO144A7EOl/XBG0P1wehxNRFaX
+X-Gm-Gg: AZFdTZdXgaZBXaKlFUTybR6EJxaQu9AKvIL2luHbN6spsbYsGyiKKE1oEvvFLkQlb6n
+	I5boMz0vVjJEoUx6JU3QVbsEaxAHrEXv0uRkhUli15BZzaXL8Hk3gzsy3CuNIabBShQm3mwgU26
+	7qtSUTSbemjqPTN2uuoFBhWhlY+11W5eqxtf+usxLd3EyQydYvEW4i7X4jXO7xtgyyhDPhCjpMr
+	6b1hMnUDbDOsKIHI/bG1amEpMHw8CoFqxhBhoa3dmYmIzS8x0YL3OMlwbuhbptVpKpUNKtFrQqp
+	Ze8LkHlZ/m1wO4ZrNxDujgPihLRbOM9irWyFzaWKrAatLbyat/Y6P8HG4isIqWyKmtvhrf5OVgv
+	PsiJTkw/g2I9KpRisxUw+64PTC77l8gIsyStwFF4y4+zWLV8YMMPs6J5ywa3i4z5GwhiaFlaHaC
+	yog69oLWbUHBBSkWIdMfMXvHWXiOS/8Vz+PpynDqwXMeUaOJb96zSSp1VNgn41hCPtrxKn6p8N1
+	uwEZ2hvwGudSSdBY295/cRTa7Kvdm46MJRNdV5/d6ox9GPz/q3Rs7tIi+vdrmHVd/KVYHwYe4ct
+	iF19vmonbgh9NsbT+EtmvfDvIbHOzQTc4z5klP74KZKcVfAGMO51XD3n28h4b7/GmULFSsbebUw
+	6dEo2CS3o3dg//l6dhh+OwNZooTTN+tCrojA9dQ2oaLyZ6nJC5wvDGiTrZWSBB2NWjUxwXtwBIg
+	==
+X-Received: by 2002:a05:701a:8459:20b0:1ab:90a8:87a2 with SMTP id a92af1059eb24-1b5524b0f73mr23088055c88.11.1795776851201;
+        Fri, 27 Nov 2026 02:54:11 -0800 (PST)
+Received: from localhost.localdomain ([38.114.108.154])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5566c1142sm54992326c88.2.2026.11.27.02.54.07
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 27 Nov 2026 02:54:10 -0800 (PST)
+From: Jason Xing <kerneljasonxing@gmail.com>
+To: willemb@google.com,
+	magnus.karlsson@intel.com,
+	maciej.fijalkowski@intel.com,
+	sdf@fomichev.me,
+	bjorn@kernel.org,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org
+Cc: netdev@vger.kernel.org,
+	bpf@vger.kernel.org,
+	Jason Xing <kerneljasonxing@gmail.com>,
+	stable@vger.kernel.org,
+	Petr Oros <poros@redhat.com>
+Subject: [PATCH net v2 1/2] net: reset the mac header in __dev_direct_xmit()
+Date: Fri, 27 Nov 2026 18:53:46 +0800
+Message-ID: <20261127105347.72997-2-kerneljasonxing@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261127105347.72997-1-kerneljasonxing@gmail.com>
+References: <20261127105347.72997-1-kerneljasonxing@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,135 +111,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6CMBBFr0Jm7RhaEMSV9zAs2ukgVaCkBaIh3
- F3AuHX5kv/fmyGwtxzgEs3gebLBum4FeYiAatXdGa1ZGWQsMyFkgt7Rk2rb4xg0EpoeVTO0zjC
- qtKI8OScmTjWs/95zZV+7+1Z+OYz6wTRswm1R2zA4/97jk9h2v072pzMJjDEvCsH6pHUqsyu5p
- lHaeXUk10K5LMsHA0isf9gAAAA=
-X-Change-ID: 20261123-rockchip-usb-c-dp-altmode-a4fc7383d04b
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Cunhao Lu <1579567540@qq.com>, Chris Morgan <macromorgan@hotmail.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5239;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=GrzzKgpiZ0CLEiwz4+lvImtTNjkiXNEnBTiY1cg7Qwk=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGsJYMM2OyNFfsZ9dBlw1xz5Dj73sgJ59cKMl
- CRG7Cu1rpUezokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJrCWDDAAoJENju1/PI
- O/qaJm8QAJh+BXIB0EbBiiy44EQjXHvd6670a+K14mIeOCkeHHPuZC27t+lahzJbyi21iTSSV2a
- GsZHvyTCDtMGfushFPFggWyFLev9kWLxyyMEHOfKaw5UTP8pCc0LjkQHzvMzrGnF1DYIErT4a9r
- FlMMSHLNnXadBEs2LVCSyr80PhA1Tut9am6ydv9lkI90MDo+nrhJcj68LB34MYcMJG5SohMiUfV
- 6ixR68iPe4YH8UTQSRRXQ+7hHIAOv0KoX/wtmpbmB39Go38MBctQP8mY+i9m7IolL9Qw2BtK98j
- jJ/xOTDfEZq0tpC4GGR+QvlWwnSebrAZ3Un7UkmWBGTjgINiM5TxzCaZSu+/fSCAa3NNriJXTge
- 1Wlkowx8QruTIGpkUUTiVbpsb/OKfvo6hsOvmArZAbxYLLJiFOhPEwvzUM1vDaEIIVOP3jlW+mS
- nMYIu1QnB66Mn5syAn42TAIpCfVFCzbFk54/TEHBYSrvfwJDurZ6+CEVe/Dy4jtqnzKWUeDLA78
- FBRe4dOO3dK0aq+wdBjmOA7tbSLvWSRBCpy9n0p6wBbgXBYO77K/ddPWJYndGP2YaQW+CQSSO8q
- Db674eCRsceni9YjizJ429Q6vExwPqvmrx1NbxHPo3PqgYKDRklqWctLG8R5m3szWB21WMNAwwu
- BGpJLUKF9vvJ9wwSlFCYonw==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+Content-Transfer-Encoding: 8bit
 
-The current upstream situation for Rockchip USB-C is quite messy. Many
-boards got upstreamed using the vendor-style bindings, a missunderstood
-version of the upstream binding (before it landed upstream), or
-something weird in between. This fixes the worst offenders to properly
-describe their USB-C port incl. DP AltMode. Getting DP AltMode working
-requires three more patch series for the kernel, which do not affect the
-DT binding (so this series has no dependencies):
+Compared to __dev_queue_xmit(), __dev_direct_xmit() is the only open
+gate for skbs whose mac_header might not be initialized. A few months
+ago commit c2707480cfbf ("net/packet: reset the MAC header on the
+packet-socket transmit path") solves the case where AF_PACKET skb can
+miss resetting mac header if a few conditions in packet_parse_headers()
+are not satisified and it will cause out-of-bounds access.
 
- * https://lore.kernel.org/linux-phy/20261114-b4-rockchip-dwc3-rockchip-glue-v19-0-b79fb5f4b42a@collabora.com/
- * https://lore.kernel.org/linux-phy/20261119-b4-rockchip-usbdp-cleanup-part3-v18-0-fb325e336494@collabora.com/
- * https://lore.kernel.org/dri-devel/20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com/
+Similarly, Petr reported an issue about AF_XDP path where copy mode
+can also trigger the uninitialized mac header problem.
 
-Without these driver patches, the DP connectors will be exposed, but
-always stay in a disconnected state. This works because the existing
-upstream DP driver does not yet support any follow-up bridges.
+In reply to Petr's patch, Eric suggested to add the reset logic in a
+general layer to stop future issues like this happening instead of
+dealing with scattered cases one by one[1]. So anchor the mac header in
+__dev_direct_xmit() exactly as __dev_queue_xmit() does, before
+validate_xmit_skb_list() so that ndo_features_check() and the vlan helpers
+see it too.
 
-To have functional DP AltMode Anbernic RG Vita Pro in addition also
-needs support for generic USB Type-C DP HPD bridge from Chaoyi Chen, as
-the "richtek,rt1711h" driver does not have a manually registered one:
+For callers that already reset the header the operation is idempotent.
 
- * https://lore.kernel.org/linux-rockchip/20261020072816.180-1-kernel@airkyi.com/
+[1]: https://lore.kernel.org/all/CANn89i+aacS2PfaMXnimzGgbCLz-JSnqo6QyoS122Gf+kxya3w@mail.gmail.com/
 
-The other boards all use fusb302 and that driver registers the bridge
-manually. Having the generic patch series is not necessary for them.
-
-All patches from the series can be applied individually and the grouping
-was only done as they touch the same topic and apply to the same tree.
-
-Short summary of the different patches:
-
-patch 1: Fix VDO from 0xffffffff to 0x00001c46; the incorrect 0xffffffff
-is used by vendor kernel and has been copied by everyone.
-
-patches 2-3: LubanCat 5IO + Indiedroid Nova tried to follow the upstream
-style, but got it quite wrong as all endpoints in USBDP are routed to
-the first port instead of having one port per endpoint. I did not test
-them due to lack of boards.
-
-patches 4-6: RK3588 EVB1, ROCK 5B+ and Sige5: These boards were tested
-by me. They are the reference used during development of the previously
-mentioned driver support series.
-
-patches 7-9: These boards had DP AltMode described in DT to some degree,
-but with all kind of issues that definetly prevent them from working. I
-converted them over to a proper description instead of having the
-current half-baked upstream state. I did not test them due to lack of
-boards.
-
-patches 10-11: I had a closer look at the DT of these boards, since they
-had a orientation-switch, but no mode-switch in the USBDP PHY. I'm
-investigating, if we can make it mandatory in the binding to have either
-both or none of the properties. For these two boards, mode-switch is
-actually required for DP AltMode. Upstream never had properly working
-orientation-switch only mode either (i.e. runtime orientation switch
-change does not work). I've added proper DP AltMode for these and added
-the missing mode-switch. I did not test these either due to lack of
-boards.
-
-Changes in v2:
-- Link to v1: https://patch.msgid.link/20261126-rockchip-usb-c-dp-altmode-v1-0-7991eb5bb426@collabora.com
-- Add missing DP AltMode in RK3588s Gameforce Ace DT (Sashiko)
-- Add missing DP AltMode in RK3588 Jaguar DT (Sashiko)
-- Collect Tested-by from Cunhao Lu for LubanCat 5IO patch
-
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Fixes: 35fcde7f8deb ("xsk: support for Tx")
+Cc: stable@vger.kernel.org
+Reported-by: Petr Oros <poros@redhat.com>
+Closes: https://lore.kernel.org/all/20260817153957.3177627-1-poros@redhat.com/
+Suggested-by: Eric Dumazet <edumazet@kernel.org>
+Signed-off-by: Jason Xing <kerneljasonxing@gmail.com>
 ---
-Sebastian Reichel (11):
-      arm64: dts: rockchip: Fix USB-C DP AltMode vdo
-      arm64: dts: rockchip: Fix USBDP ports for LubanCat 5IO board
-      arm64: dts: rockchip: Fix USBDP ports for Indiedroid Nova
-      arm64: dts: rockchip: Add USB-C DP AltMode for RK3588 EVB1
-      arm64: dts: rockchip: Add USB-C DP AltMode for ROCK 5B family
-      arm64: dts: rockchip: Add USB-C DP AltMode for ArmSom Sige5
-      arm64: dts: rockchip: Add USB-C DP AltMode for Gameforce Ace
-      arm64: dts: rockchip: Add USB-C DP AltMode for RG-Vita-Pro
-      arm64: dts: rockchip: Add USB-C DP AltMode for CM5-IO
-      arm64: dts: rockchip: Add USB-C DP AltMode for Firefly ITX 3588J
-      arm64: dts: rockchip: Add USB-C DP AltMode for  RK3588 Jaguar
-
- .../dts/rockchip/rk3576-anbernic-rg-vita-pro.dts   |  80 +++++++--
- .../boot/dts/rockchip/rk3576-armsom-cm5-io.dts     |  88 ++++++++--
- .../boot/dts/rockchip/rk3576-armsom-sige5.dts      |  78 +++++++--
- arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts   |  92 +++++++++--
- .../boot/dts/rockchip/rk3588-firefly-itx-3588j.dts |  93 +++++++++--
- arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts     | 182 ++++++++++++++++++---
- .../boot/dts/rockchip/rk3588-lubancat-5io.dts      |  32 ++--
- .../boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi   |  84 ++++++++--
- .../boot/dts/rockchip/rk3588s-gameforce-ace.dts    |  94 +++++++++--
- .../boot/dts/rockchip/rk3588s-indiedroid-nova.dts  |  33 ++--
- .../arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts |   2 +-
- 11 files changed, 722 insertions(+), 136 deletions(-)
+1. this patch will be backported to stable branches to fix the xsk problem
+   and will also be merged in net-next. In the -next branch, I'm going to
+   follow Eric's thoughts to handle the mac_header 'issues' from the driver
+   side, and then finally remove the guarantee (reseting mac header in the
+   core stack layer) like this patch and that af_packet case.
+2. this patch is also a prep for the second patch in the series.
 ---
-base-commit: 0202125a80af9dad6d762dfe52572b95ca7699db
-change-id: 20261123-rockchip-usb-c-dp-altmode-a4fc7383d04b
+ net/core/dev.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Best regards,
---  
-Sebastian Reichel <sebastian.reichel@collabora.com>
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 3c58db732761..6ea2fd3506f7 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -5149,6 +5149,8 @@ int __dev_direct_xmit(struct sk_buff *skb, u16 queue_id)
+ 		     !netif_carrier_ok(dev)))
+ 		goto drop;
+ 
++	skb_reset_mac_header(skb);
++
+ 	skb = validate_xmit_skb_list(skb, dev, &again);
+ 	if (skb != orig_skb)
+ 		goto drop;
+-- 
+2.43.7
 
