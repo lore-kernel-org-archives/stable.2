@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795804963;
-	b=yGlhZ+PCPJIIGpKM/7nBaP2QQZ3ZhSt013LG7XMsB+AP/qqw9Jsvpuk9fr6/jyMGgB0F
-	 dbvNz964SkK1tRfxZGsErBLtuSwO/9jLPtU+UMi4gZSFVYk8xIfIrWC7vcXvSvoIpw7tc
-	 4WdapoR4NltpzDMqHzIOHNB6xb1lS/0aKiYXPYJVGH3DcEpSTTl6rAIfwaoBTF9E1ojEA
-	 GRAfmuFKC8AfKTgX7pRzzEn2t459PWOZgJjg9Ku4uqAY82FWzrXhXCtNqpXPTAq6ED5LT
-	 PIPj/HwQTPBQHAB4nFv1mvemjQWtDxgFzwSO5VCJr7aN8pGYwDn0if3ZsR9pvFgLg6g==
+	b=Z0InanH67Fx7AWfUyFR7CDgFMhazJPbLJHK8sAeAqHEZKZW/w/qQYLBig5ZWNDzWYrHT
+	 rcOgVsHgQ78z8i+flc2+mvemILCECLkj4SJvl90NbJYACWFcYl3u6TUZil4yWUG/DQwWR
+	 WyRmgi9zBxHtSWvY08uQKWGtfxBs3ISHySvNWTeidxXhFeoMLV8LFtC/+pYnlBAB3dHC1
+	 +j8vyTKxTD6NBHEsMbR+UTIAL2NEI0r+PxAbifO+kJktFr1D8mgfl0jf/LTbDDc7DtXDD
+	 VBD/JSHofLiPXgcdDNz1xk5qFPHYrpuVbvU6EI/HlYoP9INylSAxLXaf1lxkcqvXV5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795804963;
 	h=Received:DKIM-Signature:Received:Message-ID:User-Agent:Date:From:To:
 	 Cc:Subject:References:MIME-Version:Content-Type;
-	bh=i6vuZp5iYUjCT16EX6/ryDV5VdHO/oUi/XuED6Um3Dg=;
-	b=tlgTu+85ZdCKg/ZX0aUVThpQ5fU5veyFoje1uHH2LB6eYRp+MNi0dOqz5KPRYqKacywn
-	 /WjyIf7C/FOxOvzh/ROy2l5fifh47pYOxkRlp4Xjd8hOD0MI/Y6zcNsi9MG35cKD6ThC0
-	 K/CBKLSeggGSbi7Pj0x/DmYWR0pIVV7yG8dd9arbFvWxywZO76KdktbOHaMHR4o9sisBk
-	 K3274STuqu8qvB9elgRsEX3YJ2ljsmiPS9EKCB0jZU1ib/jWDN8S686+Rt78zD3d10FXH
-	 2SYbdlZsYcRA/uQdj1wChpbfC1SwUklFHwPYgUzqahaaqgLJFocDwihpYkqYthsKGig==
+	bh=A7Y/nzn7caR25n0KaV+D3jc/5c+H1DXCH0PNb3VMMqg=;
+	b=Lh+j5jFfreTf9yt+q5rqHP9cBEFc5nJ9UC5xj/QXMC9yb1CUZ03yX3uXR/Q4wcL/i+xf
+	 4iSekWgLwrdmxro5wp40z+xqVLj1L+ycoUujE+bGV4ms9binEagFcrSjz7aE3GYxl+l8p
+	 nKgd5Oe1yO8ZK2p5V/0SOeSUfkh5NEbcEmp06J25wCbPTf7wNo6OJ5gcI0XRQGUMtnmEP
+	 WRh4yuHo3UUZ0dBGFjxszUNVMX/NXsYvtTjJMRqfDv+qIFkC/gInCgw5W+5nn0o+mpS0l
+	 1bcEnDyLDGybE7+cP11woogky9PSiXCkaoZ6gRxa/9z1O0AUucusFsHBO3zw4+REAbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ad0hTuHo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cWloFxq4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8370C60A2617;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D1860A2619;
 	Fri, 27 Nov 2026 18:42:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ad0hTuHo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 251A21F0093A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cWloFxq4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 470C11F00A17;
 	Fri, 27 Nov 2026 18:42:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795804963;
-	bh=i6vuZp5iYUjCT16EX6/ryDV5VdHO/oUi/XuED6Um3Dg=;
+	bh=A7Y/nzn7caR25n0KaV+D3jc/5c+H1DXCH0PNb3VMMqg=;
 	h=Date:From:To:Cc:Subject:References;
-	b=ad0hTuHoj7BS20iNcGvtV060azXQp3gLUQ/rsGjxKswj0WqQUH21OgSFzUTPHN1GN
-	 k93CPL/czMO0CK0uNB33UJpcZObWtkGTOX4V27iv6Oj6N7KLRrhzVot/kPiXcDg6LV
-	 5h5nK1LvpsTbDaEFHTgedwAUHRWH0EXxWTTlpA/nCENDH0MCTj3RMfQQQZ02qRO/4Z
-	 VVaLcBhcBWwWvp5DzsBdmbBUlpXBoe8a+rODXnfuFGN/7RgRhCb9S9K1nXTa2YEhHn
-	 yPUEKooZp2BSapnGE7VZW1FLxzcV/8x8QZvLlgIRTrJLnoBPNECxV5ordr/ejDUFBo
-	 cqgKYO+thspPg==
+	b=cWloFxq41CCcpp5BF6/xePiDtxHZL+QIMcITIOFZg6LD+bIMokGYK5D+O+DWr3B3+
+	 DFFRYNNuHzRrNrzaBwykjK5C3yKJizdq9Fpwoy/4OCHbiNuNySKLktUFFl/3t8VRaX
+	 HhGhJBg1z75l5Yvs1UqwoUp7S+Ak91GQnnYPUex+eGISu+X/3Mj7Ppo+oEEwyoEaN6
+	 e2kQdgsmdM2SycTUmV6CMj2m9cDK4W0kenMPP1RoseghhiPMPswsx5JNeJuWITlgg/
+	 jV13r4vHGahBAfcvrsKcsjU1SBPstAC2q8E/ILg3qdRv6MLs5/Z+zHggVzXWu0m1Xl
+	 nLbVfQpLaokCw==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xX0uA-000000085aS-1eEM;
+	id 1xX0uA-000000085b0-2YJa;
 	Fri, 27 Nov 2026 13:42:42 -0500
-Message-ID: <20261127184242.197661244@kernel.org>
+Message-ID: <20261127184242.411375401@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 27 Nov 2026 13:42:07 -0500
+Date: Fri, 27 Nov 2026 13:42:08 -0500
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -53,8 +53,9 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- Yifan Feng <evanfengff@gmail.com>
-Subject: [for-linus][PATCH 4/5] ftrace: Reject "!!" in front of a set_ftrace_filter command
+ syzbot+1faa12be48036b80e416@syzkaller.appspotmail.com
+Subject: [for-linus][PATCH 5/5] tracing/filters: Use atomic bitops and READ_ONCE() for
+ trace_event_file::flags
 References: <20261127184203.439481361@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,50 +68,206 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Yifan Feng <evanfengff@gmail.com>
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-A command written to set_ftrace_filter with two '!' in front of the
-function glob triggers the WARN_ON() in
-unregister_ftrace_function_probe_func():
+syzbot reported a KCSAN data race on struct trace_event_file::flags
+between filter_disable() and __trace_trigger_soft_disabled():
 
-  # echo '!!vfs_read:traceoff' >> set_ftrace_filter
-  WARNING: kernel/trace/ftrace.c:5675 at unregister_ftrace_function_probe_func+0x662/0x870
+  BUG: KCSAN: data-race in __trace_trigger_soft_disabled /
+  apply_subsystem_event_filter
 
-The command callbacks strip the first '!' and pass the rest as the glob
-of the probe to remove. filter_parse_regex() then reports the second
-'!' as a negated glob, which function probes do not support.
+  write to 0xffff888100172888 of 8 bytes by task 5433 on cpu 0:
+   filter_disable [inline]
+   process_system_preds [inline]
+   create_system_filter [inline]
+   apply_subsystem_event_filter+0x28f/0xcd0
+   subsystem_filter_write+0x79/0xd0
 
-Return -EINVAL for such input in ftrace_process_regex(), before a
-command callback is called.
+  read to 0xffff888100172888 of 8 bytes by task 5440 on cpu 1:
+   __trace_trigger_soft_disabled+0x20/0x1a0
+   trace_trigger_soft_disabled [inline]
 
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261119191205.32892-1-evanfengff@gmail.com
-Fixes: 23b4ff3aa479 ("ftrace: add traceon traceoff commands to enable/disable the buffers")
-Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-Signed-off-by: Yifan Feng <evanfengff@gmail.com>
-Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+filter_disable() and event_set_filtered_flag() update
+EVENT_FILE_FL_FILTERED using non-atomic read-modify-write operations on
+file->flags and compare old_flags != file->flags to decide whether to
+call trace_buffered_event_disable() / trace_buffered_event_enable().
+
+Because other bits in file->flags (such as
+EVENT_FILE_FL_SOFT_DISABLED_BIT from event enable/disable triggers) can
+be modified concurrently without event_mutex using atomic bitops, the
+non-atomic RMW can lose concurrent bit updates or misdetect a flag
+transition and unbalance the buffered event refcount.
+
+Use test_and_clear_bit() / test_and_set_bit() on
+EVENT_FILE_FL_FILTERED_BIT in filter_disable() and
+event_set_filtered_flag(), and use READ_ONCE() / test_bit() for lockless
+readers of file->flags in the trace event fast paths.
+
+CC: stable@vger.kernel.org
+Link: https://patch.msgid.link/179533184612.139632.4029978219979965754.stgit@devnote2
+Reported-by: syzbot+1faa12be48036b80e416@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/6b0234dc.44b41460.34b83f.0019.GAE@google.com
+Fixes: 0fc1b09ff1ff ("tracing: Use temp buffer when filtering events")
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/ftrace.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ include/linux/trace_events.h        |  2 +-
+ kernel/trace/trace.c                |  7 ++++---
+ kernel/trace/trace.h                | 18 ++++++++++--------
+ kernel/trace/trace_events.c         |  2 +-
+ kernel/trace/trace_events_filter.c  | 12 ++----------
+ kernel/trace/trace_events_trigger.c |  5 +++--
+ 6 files changed, 21 insertions(+), 25 deletions(-)
 
-diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index 6654da9d1bbf..5b161959e701 100644
---- a/kernel/trace/ftrace.c
-+++ b/kernel/trace/ftrace.c
-@@ -5847,6 +5847,13 @@ static int ftrace_process_regex(struct ftrace_iterator *iter,
+diff --git a/include/linux/trace_events.h b/include/linux/trace_events.h
+index 321f2f3a6c8e..7a0aa23825de 100644
+--- a/include/linux/trace_events.h
++++ b/include/linux/trace_events.h
+@@ -764,7 +764,7 @@ bool __trace_trigger_soft_disabled(struct trace_event_file *file);
+ static __always_inline bool
+ trace_trigger_soft_disabled(struct trace_event_file *file)
+ {
+-	unsigned long eflags = file->flags;
++	unsigned long eflags = READ_ONCE(file->flags);
  
- 	/* command found */
+ 	if (likely(!(eflags & (EVENT_FILE_FL_TRIGGER_MODE |
+ 			       EVENT_FILE_FL_SOFT_DISABLED |
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index 65b9d67647e5..fa65ef8d7fbe 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -1886,7 +1886,8 @@ trace_event_buffer_lock_reserve(struct trace_buffer **current_rb,
+ 	*current_rb = tr->array_buffer.buffer;
  
-+	/*
-+	 * A double "!!" confuses the parser. This isn't a boolean operation,
-+	 * simply reject it.
-+	 */
-+	if (func[0] == '!' && func[1] == '!')
-+		return -EINVAL;
-+
- 	command = strsep(&next, ":");
+ 	if (!tr->no_filter_buffering_ref &&
+-	    (trace_file->flags & (EVENT_FILE_FL_SOFT_DISABLED | EVENT_FILE_FL_FILTERED))) {
++	    (READ_ONCE(trace_file->flags) &
++	     (EVENT_FILE_FL_SOFT_DISABLED | EVENT_FILE_FL_FILTERED))) {
+ 		preempt_disable_notrace();
+ 		/*
+ 		 * Filtering is on, so try to use the per cpu buffer first.
+@@ -1947,7 +1948,7 @@ trace_event_buffer_lock_reserve(struct trace_buffer **current_rb,
+ 	 * to store the trace event for the trigger to use. It's recursive
+ 	 * safe and will not be recorded anywhere.
+ 	 */
+-	if (!entry && trace_file->flags & EVENT_FILE_FL_TRIGGER_COND) {
++	if (!entry && (READ_ONCE(trace_file->flags) & EVENT_FILE_FL_TRIGGER_COND)) {
+ 		*current_rb = temp_buffer;
+ 		entry = __trace_buffer_lock_reserve(*current_rb, type, len,
+ 						    trace_ctx);
+@@ -1978,7 +1979,7 @@ static void output_printk(struct trace_event_buffer *fbuffer)
  
- 	guard(mutex)(&ftrace_cmd_mutex);
+ 	file = fbuffer->trace_file;
+ 	if (test_bit(EVENT_FILE_FL_SOFT_DISABLED_BIT, &file->flags) ||
+-	    (unlikely(file->flags & EVENT_FILE_FL_FILTERED) &&
++	    (unlikely(test_bit(EVENT_FILE_FL_FILTERED_BIT, &file->flags)) &&
+ 	     !filter_match_preds(file->filter, fbuffer->entry)))
+ 		return;
+ 
+diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
+index 1fec567e789e..32997b58a8a0 100644
+--- a/kernel/trace/trace.h
++++ b/kernel/trace/trace.h
+@@ -1729,24 +1729,26 @@ __event_trigger_test_discard(struct trace_event_file *file,
+ 			     void *entry,
+ 			     enum event_trigger_type *tt)
+ {
+-	unsigned long eflags = file->flags;
++	unsigned long eflags = READ_ONCE(file->flags);
+ 
+-	if (eflags & EVENT_FILE_FL_TRIGGER_COND)
++	if (eflags & EVENT_FILE_FL_TRIGGER_COND) {
+ 		*tt = event_triggers_call(file, buffer, entry, event);
++		eflags = READ_ONCE(file->flags);
++	}
+ 
+-	if (likely(!(file->flags & (EVENT_FILE_FL_SOFT_DISABLED |
+-				    EVENT_FILE_FL_FILTERED |
+-				    EVENT_FILE_FL_PID_FILTER))))
++	if (likely(!(eflags & (EVENT_FILE_FL_SOFT_DISABLED |
++			       EVENT_FILE_FL_FILTERED |
++			       EVENT_FILE_FL_PID_FILTER))))
+ 		return false;
+ 
+-	if (file->flags & EVENT_FILE_FL_SOFT_DISABLED)
++	if (eflags & EVENT_FILE_FL_SOFT_DISABLED)
+ 		goto discard;
+ 
+-	if (file->flags & EVENT_FILE_FL_FILTERED &&
++	if (eflags & EVENT_FILE_FL_FILTERED &&
+ 	    !filter_match_preds(file->filter, entry))
+ 		goto discard;
+ 
+-	if ((file->flags & EVENT_FILE_FL_PID_FILTER) &&
++	if ((eflags & EVENT_FILE_FL_PID_FILTER) &&
+ 	    trace_event_ignore_this_pid(file))
+ 		goto discard;
+ 
+diff --git a/kernel/trace/trace_events.c b/kernel/trace/trace_events.c
+index 7f89160aeff3..394d7cde1a70 100644
+--- a/kernel/trace/trace_events.c
++++ b/kernel/trace/trace_events.c
+@@ -707,7 +707,7 @@ void *trace_event_buffer_reserve(struct trace_event_buffer *fbuffer,
+ {
+ 	struct trace_event_call *event_call = trace_file->event_call;
+ 
+-	if ((trace_file->flags & EVENT_FILE_FL_PID_FILTER) &&
++	if (test_bit(EVENT_FILE_FL_PID_FILTER_BIT, &trace_file->flags) &&
+ 	    trace_event_ignore_this_pid(trace_file))
+ 		return NULL;
+ 
+diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
+index a9d77df3e19a..b3ac2519a62d 100644
+--- a/kernel/trace/trace_events_filter.c
++++ b/kernel/trace/trace_events_filter.c
+@@ -1349,11 +1349,7 @@ static void free_prog(struct event_filter *filter)
+ 
+ static void filter_disable(struct trace_event_file *file)
+ {
+-	unsigned long old_flags = file->flags;
+-
+-	file->flags &= ~EVENT_FILE_FL_FILTERED;
+-
+-	if (old_flags != file->flags)
++	if (test_and_clear_bit(EVENT_FILE_FL_FILTERED_BIT, &file->flags))
+ 		trace_buffered_event_disable();
+ }
+ 
+@@ -2331,11 +2327,7 @@ static int process_preds(struct trace_event_call *call,
+ 
+ static inline void event_set_filtered_flag(struct trace_event_file *file)
+ {
+-	unsigned long old_flags = file->flags;
+-
+-	file->flags |= EVENT_FILE_FL_FILTERED;
+-
+-	if (old_flags != file->flags)
++	if (!test_and_set_bit(EVENT_FILE_FL_FILTERED_BIT, &file->flags))
+ 		trace_buffered_event_enable();
+ }
+ 
+diff --git a/kernel/trace/trace_events_trigger.c b/kernel/trace/trace_events_trigger.c
+index a2487ad7fef8..96203ba72ab9 100644
+--- a/kernel/trace/trace_events_trigger.c
++++ b/kernel/trace/trace_events_trigger.c
+@@ -214,7 +214,7 @@ EXPORT_SYMBOL_GPL(event_triggers_call);
+ 
+ bool __trace_trigger_soft_disabled(struct trace_event_file *file)
+ {
+-	unsigned long eflags = file->flags;
++	unsigned long eflags = READ_ONCE(file->flags);
+ 
+ 	if (eflags & EVENT_FILE_FL_TRIGGER_MODE)
+ 		event_triggers_call(file, NULL, NULL, NULL);
+@@ -1692,7 +1692,8 @@ event_enable_count_func(struct event_trigger_data *data,
+ 		return false;
+ 
+ 	/* Skip if the event is in a state we want to switch to */
+-	if (enable_data->enable == !(enable_data->file->flags & EVENT_FILE_FL_SOFT_DISABLED))
++	if (enable_data->enable == !test_bit(EVENT_FILE_FL_SOFT_DISABLED_BIT,
++					     &enable_data->file->flags))
+ 		return false;
+ 
+ 	if (data->count != -1)
 -- 
 2.53.0
