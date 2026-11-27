@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795798966;
-	b=LQu5yCkTZiQ+yt912lPMeQECMmXQKfwG/+oZe6jizxTZz2x7q/DwwrvwxM5+J0IL5hzb
-	 6X2CcZehoyN9ipy61hIhlNPSA/w0Hhoo6JjU8Mp66VKZLjqGp0MpQXas+J1QPz5C7m1bR
-	 sd8VR386zfOFBxYhhNX0P3w1e7ODLGg2isvelFF1OUKyQqfIYGFEa5ot4N2sqf3xkricF
-	 EuOG3qw+i8NAFT8M0fBH4oB7E2tWw5HQ9aLc4grqFLe44DnmfbZFHJfjE33QKPcbv2znh
-	 B18FDDOvChhTrTlEJna4w+nnQOlnjU/F1Ez6NvoaNAx2zvNcn8t1vSijziuhZo8azJw==
+	t=1795798967;
+	b=xffmc1A8uz72bv+QvLCLiXs8SLZeJLM5WYpVLmWov+aqzzFDrsyGEB7wNfqK7C3H3Jfc
+	 m1rsaasMI6vb2YVGClZSzXlUzZsKcru2NUzOpOHafGAnNOrzKIA/6WLxFc6Y8hZNneaUj
+	 l4emcGrbIVEQ5qdxkQSfKOqd+pzCPRASiCxdw4Re3AZZAQw2jnbjdS4AN0YiBS46TPoNx
+	 oLM0IS6sSdNpGsdI1Yg+cANadborzdFdAfanDQ/pux3aEOo3W+1wTX51D6S8qVDmdguxx
+	 /r+Jps9VaePfk32JxC0w34Cinf2LteHDDnQ4xg3Y8L86+Hb6yaxi+zebT3nHEc8VDaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795798966;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795798967;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lWGARJAENFFmoX6d06sfLCp9JZJjCBArvjeLymZctpw=;
-	b=1Sp7ivAQzTPp3OCmXd+qZsOWDO6avBWPFve95QILpTDlfwiUuJA1ohtq4mo0FuWJDgu7
-	 nXPhfstspNPV2w/QXiAizxwmroCxK6OZu0gGyCzYwcfuJVPoPh/x9WBJeJZG2whiNuRlr
-	 7ciCKThHWSbb/I315Sxe5NeYDJkxVXnGwmzgEBETy4aOMI0RRIC6RMqRR8AfzsrIPr1ZL
-	 reBK542irjM5bB0RWExTPmfOrybgIyZNBevKtJNAf8KrJgdwpvWpZ2s90Z1mBf2HgLCCh
-	 xmE7vN1BvO2wTT8bSShr+M4JrV8mVHHiLwTwrJgBjWXRQNnRm+AWaGwthCW8jbbDgrA==
+	bh=5/s13xoXIsXecT2akWz8nUo2UwFwuYxlwqlsUDPurS8=;
+	b=T7zvnVLGvpifAA+85kdzAUTuupiGchP50yC+BNsHkgJ1AjFEeJBERLQIaVp7Fjm4yc7a
+	 2EOENYIeG/ckaj/Fb0H/rF6kMwgXCNq5Kv8VM37OC5Hm5r/PbvJ+jJdps8n7Ih37GUrUs
+	 bktlPlsJ9RyreK2eqp3psY6DEztndNzx8mAIJB7dOeiS1/cNXc1g+lXnhXnta+RmldiKF
+	 lm7Kr4zCpoqj9T0OaXiChs00D4rt5gO360FyhFZ1QunJcht2c1a2JgwpNMJz78NuEBqU6
+	 HDKZXI3Ees/w1sd4UhJYdAqmuEWTW6tAw79oXKhYzUoAf+ySih6rvyM6OsAcX2asSdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="X/2mAZAL";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QUEcF0JI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A54B9606A681
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 17:02:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9368606A327;
+	Fri, 27 Nov 2026 17:02:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X/2mAZAL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 792F71F0092B;
-	Fri, 27 Nov 2026 17:02:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QUEcF0JI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C38331F00936;
+	Fri, 27 Nov 2026 17:02:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795798966;
-	bh=lWGARJAENFFmoX6d06sfLCp9JZJjCBArvjeLymZctpw=;
+	s=k20260515; t=1795798967;
+	bh=5/s13xoXIsXecT2akWz8nUo2UwFwuYxlwqlsUDPurS8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=X/2mAZALIUbugidDY6EOzXdQIR5FHF7pwCiTWJmxEt2ksr4RJpgM3pU3UO1/ezdHZ
-	 V4UK3lZLuAUcLWQ/8wWOyVuAdYHktJ5nwg1zuOtT2jlaJMxm3pl8i9PrcAwDtpo4XD
-	 7JB6mS0Vej/IZ2UlaNfo26OJjT1Cup0OACcI9RA++rPuTY43pfHP/b07DpF5MSkNni
-	 BhUNFAdtUHO4j106Ec2VEjHxjXrdQnm1mkq2Bpfcid3QnQ5vYlxe0mrA9LyYJUvnRX
-	 0V1a0kzVAIiYiueRLtQTQD/kpKwd89nTT6fq1mrYWytTHTgYmemPCkeuDKaFCAKnfx
-	 0e2NtNV8pNoMg==
+	b=QUEcF0JIPOKAtHeqCW21NhdlLMJWCIiT9ozEPpjmccIbzlBIf4zdyYA+B7pNMMoYU
+	 nciolX8PzHtNKJ3f1sj94fup1mQ8/zYDLYrsJwvaRQOuZeWVmUfJbD+SyV6NQIxPvO
+	 K0y7S61dFXb6nrkD+zmK1dw50NTJ6GinLYMDQIrfcL+hPb/tuVxqneE+b5Wq2MM0Dp
+	 o0v7ffyKZ2VaWb80ZuP8LuHzsb4HOLdPmEo8ddlB69Bmcs54llR8aDTUyz24rZH4D5
+	 AQnxPbTH+ppjoWGuFh+78v4Ib/XR30f89D0wHF4qyluvTyifm+WI96ezjqUr/3cCg5
+	 /hI+gRyIRsLJg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	kuba@kernel.org,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>
-Subject: Re: [PATCH 5.15.y] net/smc: fix link group ownership in handshake abort
-Date: Fri, 27 Nov 2026 12:01:30 -0500
-Message-ID: <2026-11-26-1-daily-reply-0042@kernel.org>
+	Til Kaiser <mail@tk154.de>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>,
+	Dickson Wu <dickson.wu@certik.com>
+Subject: Re: [PATCH 5.10.y v2] net: mvpp2: refill RX buffers before XDP or skb use
+Date: Fri, 27 Nov 2026 12:01:31 -0500
+Message-ID: <2026-11-26-1-daily-reply-0043@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126060536.642851-1-mjambigi@linux.ibm.com>
-References: <20261126060536.642851-1-mjambigi@linux.ibm.com>
+In-Reply-To: <20261126-mvpp2-5e8e-v2-1-ef63da5e986d@certik.com>
+References: <20261126-mvpp2-5e8e-v2-1-ef63da5e986d@certik.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,22 +64,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [ 5.15 adaptation: there is no link group refcount here, so the lgr
->   hold/put around the abort is omitted.
+> Refill the BM pool before handing the current buffer to XDP or to the
+> skb. If the allocation fails there, drop the packet and return the
+> still-owned current buffer to BM, preserving the pool depth.
 
-Without that hold I don't see what keeps the lgr alive across smc_conn_abort()
-on 5.15. This makes smc_conn_free() unregister the connection unconditionally,
-and 5.15 has no conn->lgr reference either: 61f434b0280e ("net/smc: Resolve the
-race between link group access and termination") is v5.17. So far the
-connection's entry in lgr->conns_all is what keeps a link group claimed by
-another context alive, since the terminator has to lock_sock() the handshake
-socket before it can call smc_lgr_free(). With the connection unregistered
-first, terminate_work can free the lgr while the abort path still reads
-lgr->conns_num, arms lgr->free_work and terminates the group again.
-
-How does the lgr stay alive there on 5.15? If it needs a 5.15-specific pin,
-could you send a v2 with it? Please also keep the Link: and Jakub's
-Signed-off-by from the upstream commit in the v2.
+Queued for 5.10, thanks.
 
 -- 
 Thanks,
