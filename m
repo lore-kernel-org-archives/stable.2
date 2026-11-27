@@ -1,102 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795748973;
-	b=0i4uWX/0e1NbKHW5YncFUPfBY1SetYCvn8/dOrEr3ObLwuxtI0yKGoLnf2Wo4qwrOLpl
-	 lKsYQXM+RhIoAyIMjZIIbNgsiho6k3XjY6btAdg9ovwKYCYmhjnssEQRrFgiQDq09l6Ts
-	 MHpQMza3a5hfOzbJpVS90O+ZOo+FeuvyDm0EoLSKcRiA1qQ6g4s5yAKm/r8kgxN8Jsnla
-	 f9eejq9XpBietYCfbKKMB82pqEKeP6CJqUXQORE8ZKQEaOoE1lqmlhZKIlHLUExP3F9Cn
-	 nHC6l3xPZhEhUUcHL7pLVxm1Y/hCgA8Bw/xEr+Ifz3/m/lPRrdDlsdSOuvAoBAH3lzQ==
+	t=1795749047;
+	b=0mwezWBUQozHtp/4AgxX2SB0XtkpSZkAELGFSe8YwxwoKLTvCSbvyBEujpJOIdXQwxhF
+	 xR4xPAn3Dg28h7k5si4SNHjD8ZmTyARmXJICcu8iuXZqDvktrNOHK4SCgHFppc0SJNC5G
+	 1Ety9f0aV30QL0GZwr5eAMdaJT3NY0Y2xmfbfQWvTJHD6qZR65p3QoUfiN+HwiYXg7uB/
+	 mmc1Xt3OQrYxlQEIQ6d1LT3E4EcnGtdI3XzoS7Sapd/sgmGONNNATNLlf7PpY2DEbcbiA
+	 vSmSbK+lYz4UP1iyyvPCZ53o8dbcx1xvIHEl+wUPurEnaKcs4UkmLBErCEJ7CxErZtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795748973;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 X-Relaying-Domain:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lYdXgvNP0+osPYkNvp5kuJoWkPSjofQK2n2XC+K8pfo=;
-	b=UlZrQ2lad1EIZN6Yx3lD3SA9slU5L3N8tzOedBcP17VHkrUHwLuXaU4d5mbTZsRZg4lc
-	 7qxw8HmuQSPLHVyXWbtsGFAqUOERY+K7zqzdToKJYZZ0A0SltWG2HTHF4oOY4+a3ro79m
-	 C8/QcA/BKCm0x4ntk2a6LNjKOt2EMh8T29Cr3u3V2yE74gvSCus65HjaL9S/PpbXIDyV8
-	 JPp7lxvpFQYPuTjFW84m9S6PplcvlTe1NaCTRQJfQJqdJlTd1BTQKjIkYgeg54KE2NO7R
-	 s+Xnr9ddbCgjUItE9X5bbRSk0mNPOOBuZ9uH0NWG4JyLAxarm7eaglUcs6iPoiV9IbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795749047;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Nj4rrQQmWYWvulinJkPHwmpfaomfoJDtKEI30uCQvJ8=;
+	b=PlMApDFpWYCG0onXqiHnDVdJxSzwnG8SCl5RxU7Dp63ii/Fj5Dtc8HqAuL8/tSPvR1ko
+	 /ZwCRpMNaW450yOfNUck39axtyJlPmNgtwjsA1rWmYSWbFxjiIK6JqBauL6QkcVipqLjW
+	 nN7SwVdVL80Rr4pN3c6RVoU4sdcJwdVe0JpohkYlxjH5WITbJXHG/+dh95G8jOWrWW50p
+	 ewhwSDOy6gAwAC4LwY/VRsvk8f8oovyG+rAiVfHSBjYxaw4O2OPegQ/bYk10peGMz1CUb
+	 Rjvl2V54ExHEv4d9pvHkYy5BsYTe0oIcN3PSLXB3HJj7sUpxejUmIJUxhysQXmpmPFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=andrii.net;
-	spf=pass smtp.mailfrom=andrii.net;
-	dkim=pass header.d=andrii.net header.i=@andrii.net header.a=rsa-sha256 header.s=gmail-2025 header.b=KB8PH8Fw;
-	arc=none smtp.remote-ip=74.125.82.227
-Received: from mail-dy1-f227.google.com (mail-dy1-f227.google.com [74.125.82.227])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=jaeyeong.cc;
+	spf=pass smtp.mailfrom=jaeyeong.cc;
+	dkim=pass header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=CnJUBEf9;
+	arc=none smtp.remote-ip=79.135.106.105
+Received: from mail-106105.protonmail.ch (mail-106105.protonmail.ch [79.135.106.105])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB1EB606A31E
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 03:09:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB1EB606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrii.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrii.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08081606A337
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 03:10:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08081606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaeyeong.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaeyeong.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=andrii.net header.i=@andrii.net header.a=rsa-sha256 header.s=gmail-2025 header.b=KB8PH8Fw
-Received: by mail-dy1-f227.google.com with SMTP id 5a478bee46e88-385d8a00598so11132664eec.1
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 19:09:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=andrii.net; s=gmail-2025; t=1795748972; x=1796353772; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lYdXgvNP0+osPYkNvp5kuJoWkPSjofQK2n2XC+K8pfo=;
-        b=KB8PH8Fw7SgTQKHOGbHoQOc+kp9UfGQLKkah0BG5SMsl7+YyD3yfrOo1szuMxsVfgh
-         JDVvNuvpQ+hC5sYQv85XG+7NbrUnp6k7gVeH9CzWaRXyQffIAzDujsLObXfaLm1kJMYC
-         hldQSy0znLpSteuiZ09fidyzBGCnWE4JS+ZpFZCSl0Wn8z0PTDM3Z3E/XrMdsHfx47/1
-         htaN7bDRZpKdWqST/KLJObhT+GBomN0mug9S3X3cb4ALsnt01OaAMZxTEor3+iKppHmJ
-         g0nQdb7at8godzHEgTXNJxhd4BOa7PZeBIx3HCsxHNR7jM762fhqMjAKJjPTAF9qoEkh
-         fK1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795748972; x=1796353772;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lYdXgvNP0+osPYkNvp5kuJoWkPSjofQK2n2XC+K8pfo=;
-        b=Se/K6ekuCLnNXrLuW7XMP1zfQuka5WfNFMTf93RsTCPL5QEO4GvuYwvRuNyEoEpI/U
-         qXcYP0tVfpahcDrN1f+pHKxNClDUJ0dEag9bbdX3AJGF6TMpuO9ei621zMO7Xnn4m080
-         LFgxnxUoxhFXS4ap/P1OhwTgqAjAjDxTOpvBP2lBiVX88m0FdQdRS78aKAq2Dypvrb89
-         4Lew7sPNwglHPCB9hqMumBLVuBBd9zhD0XueHoYz3+BG3vp0FKAKpd/Ar2eS1vn5/e5i
-         OSJMzefpUZ5JRV8bvnCbkcSbhYAm6yjay/3gWbQ5B/V0IfRJJkaplIEAvj29jNFe65KZ
-         +qMg==
-X-Forwarded-Encrypted: i=1; AL+hErG0qIOsL09TuSbz1kU1kRu/mNVcCPgDwpX5OY6rjMOQDeFptAYnxWa6KstHtzxWT1TnNupcaYY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8voNX4JwgVJYXAfssr/E3WZ/BQ8Iyvx6z1tkGHh+HPYCywRg/e
-	4/7Sqyl4jp2DrodZxVf4iSVgbk+I2BGbgygDrBdS6Vn8p8YeSBhX9kA+0JC4EktNafOaK1Su/+b
-	4mKWcjK2ZvSPj2pAfJyX2UTbnX6vdg8W6QmkyyiYeN7Dm7/uc11c6
-X-Gm-Gg: AZFdTZdAz12Vox9jaCq+w9Ct53UupFlfoiuW1ducPEEq4nRsYkI8ljUfreIeckFEdcP
-	JN5qQqEVlAD3ygYX0+sIX2OUOinEq20C6V6nlxy31iBimr7SlluwCOo7mykZKVdTolL2C9bv/mU
-	zPueJpw105OodaAdS2flY1J8KO+yXiORPEhXyfQbDxluyJIw2KGv/2BQoeP4D6uCbQsDvHFM4+S
-	cISObMcw5IB/852VAXvgo4e8VXI85geSKXIAv80NIrgD5VyDYUpIKBzpKUiHXUYGOJ2PVHXjrF4
-	oYXhblMqLZyqxrfNuXKAnGNBZgyIjaPwzYiWKUgykbPzgCIuqdTPD2Ubs+1m7UNl4lWWeyXRWjw
-	0l+METlsiN1fXoMzort7uNghGCbE=
-X-Received: by 2002:a05:693c:65ca:b0:386:b826:407 with SMTP id 5a478bee46e88-386b826061cmr13259762eec.20.1795748971828;
-        Thu, 26 Nov 2026 19:09:31 -0800 (PST)
-Received: from andrii.ai (mac.hestia.andrii.net. [2602:f337:ed:4865:7374:6961:204d:6163])
-        by smtp-relay.gmail.com with ESMTPS id 5a478bee46e88-386c7c627b0sm1659379eec.23.2026.11.26.19.09.30
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 26 Nov 2026 19:09:31 -0800 (PST)
-X-Relaying-Domain: andrii.net
-From: Andrii Tereshchenko <opensource@andrii.net>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Christian Hopps <chopps@labn.net>,
-	netdev@vger.kernel.org,
-	ipsec@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	security@kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH ipsec 2/2] xfrm: iptfs: hold the dst while a packet waits on the output queue
-Date: Thu, 26 Nov 2026 19:09:28 -0800
-Message-ID: <47c34f93-d927-4052-acde-83a84e5ef373@mid.andrii.net>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <45f802a2-c639-44bd-aba0-5c81e2198c9e@mid.andrii.net>
-References: <b56bbced-a8b0-4ae9-80b4-1958ea36684c@mid.andrii.net> <45f802a2-c639-44bd-aba0-5c81e2198c9e@mid.andrii.net>
+	dkim=pass (2048-bit key, unprotected) header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=CnJUBEf9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaeyeong.cc;
+	s=protonmail2; t=1795749043; x=1796008243;
+	bh=Nj4rrQQmWYWvulinJkPHwmpfaomfoJDtKEI30uCQvJ8=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=CnJUBEf9iZ7yA9CfHNbo5C6anGTQUryhfWwyRO5LWMmjH2vTY+e6ddn2qPrdxLl+4
+	 +E9b0yOWZG5HmvS9/lhKLaDI13lQ20FZste+K2xuLi+owfKZEfTulMWi5/N9ndviNH
+	 Oi5miH1LFfKUJCV44lv022pM4WwiIgH+I1p+S5jF3s5350Igmeac9ajeDlISHwgSb7
+	 H0HZZYkOAGDIhjTeBvXR3wRxYuoHUC35pX5bTb1hYaMxLIWYlaSwgvMfQSPA+4mCqW
+	 XQrEln4HgtWfWAlF2PmWqEUg1Kqxl9nY6hBm4QNmyV7Sjtabmc2T1mLRzSzxRFwJYA
+	 t5WD1xzUzR+Kg==
+Date: Fri, 27 Nov 2026 03:10:38 +0000
+To: Johannes Berg <johannes@sipsolutions.net>, linux-wireless@vger.kernel.org
+From: Jaeyeong Lee <lee@jaeyeong.cc>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] wifi: cfg80211: initialize BSS nodes after failed rehash
+Message-ID: <179574903211.74080.18229639752208026871@jaeyeong.cc>
+Feedback-ID: 177356447:user:proton
+X-Pm-Message-ID: 0768a75ecc112d3e958ee5e2057917408e283ea1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,11 +61,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Please drop this one: Nguyen Ngoc Thang's same fix is already
-upstream as b88c75488ecc ("force a dst reference before queueing an
-skb", syzbot 622de7e1f18a30fc404a). v2 keeps 1/2 only and follows
-as a new thread.
+cfg80211_rehash_bss() removes the BSS from the rbtree before trying to
+insert it under its new key. If insertion fails because another BSS has
+the same key, the function removes the BSS from bss_list with
+list_del().
 
-Andrii Tereshchenko
+The list node is then poisoned rather than initialized. As a result,
+cfg80211_unlink_bss() does not recognize the BSS as already unpublished
+and calls __cfg80211_unlink_bss(), which deletes the poisoned list node
+and the already removed rbtree node again. This can corrupt both
+containers and crash the kernel.
+
+Clear the rbtree node immediately after erasing it, and use
+list_del_init() on the failure path, so later unlink attempts recognize
+that the BSS is no longer published.
+
+Fixes: 7f12e26a194d ("wifi: cfg80211: make hash table duplicates more survi=
+vable")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
+---
+ net/wireless/scan.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/net/wireless/scan.c b/net/wireless/scan.c
+index 737cf77c5d765..dff53b9b8095c 100644
+--- a/net/wireless/scan.c
++++ b/net/wireless/scan.c
+@@ -1785,8 +1785,9 @@ static void cfg80211_rehash_bss(struct cfg80211_regis=
+tered_device *rdev,
+ =09lockdep_assert_held(&rdev->bss_lock);
+=20
+ =09rb_erase(&bss->rbn, &rdev->bss_tree);
++=09RB_CLEAR_NODE(&bss->rbn);
+ =09if (!rb_insert_bss(rdev, bss)) {
+-=09=09list_del(&bss->list);
++=09=09list_del_init(&bss->list);
+ =09=09if (!list_empty(&bss->hidden_list))
+ =09=09=09list_del_init(&bss->hidden_list);
+ =09=09if (!list_empty(&bss->pub.nontrans_list))
+
+base-commit: 18d0bedbb5f0538396cb7f763ed9cd1dd69c5b23
+--=20
+2.43.0
+
+
