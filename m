@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795799254;
-	b=FvhGyd3hOwwdzWpC9WN09HRulYGQifQBCtHrTfTg1bOzNRmmNbA5vSw7yhDHcOiGL3m2
-	 kRFGOZjJmoKvghPMFwvyR/ZDueq/UsVFF754GDcRUNx368LDgDOHYC4xvRhnAjrVQXTPx
-	 mcA7puYDnUIyEb1auuQq3fd1z7EHv7sotE1ERfDm9BGp+5JQvySa9c5kb6/IraEDgIuaH
-	 Uj7sSMX1PkOIE3KNIqGTeKAJMpABwzSwR2SdP16mx6RxFd2CkxNIa+F2dlgAVRRzOnuFa
-	 m+M4KbnG72Swk0vLxYU8dWXBDtl/e7EUruhv0SlAh7hAaVQNV0URuLVO9jkcbHS/dMw==
+	t=1795799260;
+	b=kGQlLD2g5+2aZX9B2aFUK4gKDmg2HkO2ufN22USIvizOIGMksnzXBvKn6RqJEgi1PD9B
+	 Ou3BEXoQwky7mfNrKuqHAgX5fJ3KsXbexWeQ0tc/NF+to4E8sV2SwyDN+WtIDLgf9MDGN
+	 oVMcbsuwL7Adjawg12G3ikmD0RYwBquRclHX/EP2vQDGI25hmcVq2TnJ+lPzQ6oO6qrCk
+	 fiDmCj9XSuFHqeHOMUNGUE2v0LskR7tgii9Tz149VI6ZTSNyR7pXNHvM1Esa12WDD8K0i
+	 4sNTt9MPNb4uqsl1Wa2dp7jQePTpEB4J17HYlJpxvcx2S7QIHWM/OobJAWxFv1njg+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795799254;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795799260;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9cIsmCXy/BswurdunHNeIhDE0sOw2xASmIqeeV5ViAE=;
-	b=seELYmg1/ul+0viNgwNnbsE8gVTiqspijCX8hT42TV/bPbc89iAaqLU953n8KgovsOGW
-	 KkK9WaaZUE15VwxGvhOpN6Gn8oW+lkPTzAlOGyv3ZYokqmDHucdhkPK60xZLafgcj8b2T
-	 4ZN/yLS26Fyu2kgMKYnK47msYv6zkkkUdsy+gnA4I3dBMZh6IOYhRRvrgUrp08Dq+X7Mo
-	 9odsinMcR7ZNYLMxTGorf2gSC2Dxwjx4iwUfze2iLpaQ+f6/WJDAzXOe00yyD5ONEZjJd
-	 SkBFryYITs5rQYxBwJqtpGP/NCCq7fjYd/lVbIZsrn58vaWY0ffzJmjhlNIjexigW6g==
+	bh=+NRKsruszYP6cGTV2pxgiB3mv2zesdJK2UybdTLYFSc=;
+	b=aDt+S7xfUPE08CeWuiEhXMC1FYiHmSBvt5in2NbXMst2+Ga46HmmC3UAz+7RWph97Pbq
+	 Ha54PPIAfAklla5NxeANT1Z3RgEFR0kRy0UaG9nTKFJ0AipqDuVfILx8FxC9rs3JThZCj
+	 tP6rUMktQ9VL/6J0zu9I1y3oMHOv10dmgbuWV4M4iw6F/yKIMGtFcWjy+/IMFsDnoBpev
+	 Lz85vU8uo28XGJGBQczG1hBXKKbxOe6ZaNdVm7/QxfGiiWUydNth4t6icQdrezPM3j2AP
+	 mUN+VyMiI3KGlmDewH8DbpG4KSx+B3qw8r5d+ergsGDCe+ZFgHMKM/EFyrVNeF79plw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WhW34MgO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+pBHGkw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE41606A329;
-	Fri, 27 Nov 2026 17:07:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2593606A31C;
+	Fri, 27 Nov 2026 17:07:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WhW34MgO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C03EC1F00898;
-	Fri, 27 Nov 2026 17:07:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+pBHGkw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 964941F00893;
+	Fri, 27 Nov 2026 17:07:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795799253;
-	bh=9cIsmCXy/BswurdunHNeIhDE0sOw2xASmIqeeV5ViAE=;
+	s=k20260515; t=1795799260;
+	bh=+NRKsruszYP6cGTV2pxgiB3mv2zesdJK2UybdTLYFSc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WhW34MgOzb+FsG0wM5PvSveGFVqD3slV96iJv/GtHnbbsPxmId65+b2okWkSIt7ik
-	 FDzNeAfxoVUfzi567lU9ArE4BaeZytBF3YqRBOviocgbSA2qMVn2qM8KxC19OOHVcP
-	 2AvOywJMeFGIbQk6LqN4Ko9GEnpTTF0Uql5BHzN5Excg7Gop4KR9WulfpVRD0CmYkZ
-	 TFrtAXyx/JP/Zp8xhBG0plxKCf20d/Ngf3JZ+ohyvVugc19MDJ5joLsFdju5/GbDtO
-	 8FjILllHT0+/qiyL8Hr87+exOQe3ylsJhCaoUON7GiAkoO6hu2Ay8Y5l5jnB8TSEPG
-	 xCsLlmbmRd+Nw==
+	b=k+pBHGkwr06j3UAtUHpffLRHxhklJ7zn1r4FCL8ZxVXa1nJhzcfpYjUlgLG/3QYg6
+	 QGZHZOF0hPDrze1EhRX6dnFWnDbc65AOnbHVjVj5h4YsuP9Oo76Yclzdvq2GVNzeLO
+	 5+JqEDIQ9ShgXwmiQCyWf0bIkEtC12ch1dXQIY9nDrRoP8UEWbyQu6TA1goPLaFxcg
+	 OPr5RrgrKmTb2Tp6Or60a2svWAA12ExsfX19P/KJulVNrrozcRNajxznNdyoGfQfp9
+	 zFUUf0Inik7QUWCd+fvYlmBCKv+InX5JW77GdG4syDOH7FT7o8EEKE3dsz4XARNgXe
+	 w89jx8cXpbpvw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Rishi Gupta <gupt21@gmail.com>,
+	=?UTF-8?q?Filipe=20La=C3=ADns?= <lains@riseup.net>,
+	Bastien Nocera <hadess@hadess.net>,
 	Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>,
-	Jiangshan Yi <yijiangshan@kylinos.cn>,
-	linux-i2c@vger.kernel.org,
+	Lopez Casado <nlopezcasad@logitech.com>,
+	=?UTF-8?q?Beno=C3=AEt=20Sevens?= <bsevens@google.com>,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 02/10] HID: mcp2221: Synchronise rxbuf access against raw_event callback
-Date: Fri, 27 Nov 2026 17:06:20 +0000
-Message-ID: <20261127170712.3163443-3-lee@kernel.org>
+Subject: [PATCH v2 03/10] HID: logitech-hidpp: Synchronise send_receive_buf against raw events
+Date: Fri, 27 Nov 2026 17:06:21 +0000
+Message-ID: <20261127170712.3163443-4-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127170712.3163443-1-lee@kernel.org>
 References: <20261127170712.3163443-1-lee@kernel.org>
@@ -66,151 +67,180 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mcp2221_probe() enables incoming reports via hid_device_io_start(), so
-mcp2221_raw_event() runs concurrently in interrupt context without
-holding mcp->lock.  mcp_i2c_smbus_read() points mcp->rxbuf at caller
-buffers, including stack-allocated SMBus data in mcp_smbus_xfer(), and
-clears mcp->rxbuf at exit without synchronisation against
-mcp2221_raw_event().  If a transfer times out while mcp2221_raw_event()
-has already loaded mcp->rxbuf, memcpy() writes up to 60 bytes into the
-caller's destroyed stack frame or freed buffer.  In addition,
-mcp->rxbuf was published before initialising mcp->rxbuf_idx to zero.
+__do_hidpp_send_message_sync() stores a pointer to the caller's
+stack-allocated response buffer in hidpp->send_receive_buf while
+holding hidpp->send_mutex, whereas hidpp_raw_hidpp_event() runs in
+interrupt context without holding hidpp->send_mutex.  Clearing
+hidpp->send_receive_buf before releasing hidpp->send_mutex is
+insufficient: if hidpp_raw_hidpp_event() loads hidpp->send_receive_buf
+just before wait_event_timeout() expires and the caller returns,
+writing *answer = *report corrupts up to 64 bytes of the popped kernel
+stack frame.  Furthermore, hidpp->send_receive_buf was published before
+initialising *response = *message, and error paths zeroed *response
+while hidpp->send_receive_buf remained visible.
 
-Introduce a spinlock to serialise mcp->rxbuf, mcp->rxbuf_size, and
-mcp->rxbuf_idx setup and teardown in mcp_i2c_smbus_read() against
-MCP2221_I2C_GET_DATA handling in mcp2221_raw_event().
+Protect hidpp->send_receive_buf and hidpp->answer_available with a
+spinlock across setup, completion, and teardown so that
+hidpp_raw_hidpp_event() cannot access the response buffer once
+__do_hidpp_send_message_sync() finishes.
 
-Fixes: 67a95c21463d ("HID: mcp2221: add usb to i2c-smbus host bridge")
-Fixes: db2333f88729 ("HID: mcp2221: clear rxbuf after I2C/SMBus transfer completes")
-Closes: https://sashiko.dev/#/bug/linux-4983b628-f605-439f-95bb-87560531ec95
+Fixes: 2f31c5252910 ("HID: Introduce hidpp, a module to handle Logitech hid++ devices")
+Fixes: e2aaf2d3ad92 ("HID: logitech-hidpp: fix race condition when accessing stale stack pointer")
+Closes: https://sashiko.dev/#/bug/linux-fed46492-e564-402a-b7b3-8a761e52e5e7
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
 v1 => v2:
  - No changes.
 
- drivers/hid/hid-mcp2221.c | 47 ++++++++++++++++++++++-----------------
- 1 file changed, 26 insertions(+), 21 deletions(-)
+ drivers/hid/hid-logitech-hidpp.c | 58 +++++++++++++++++++++-----------
+ 1 file changed, 38 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/hid/hid-mcp2221.c b/drivers/hid/hid-mcp2221.c
-index c7e83b61b236..4f6fb75fcd01 100644
---- a/drivers/hid/hid-mcp2221.c
-+++ b/drivers/hid/hid-mcp2221.c
-@@ -19,6 +19,7 @@
- #include <linux/iio/iio.h>
- #include <linux/minmax.h>
- #include <linux/moduleparam.h>
+diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
+index 60fc6b86a085..6c95c4bcdd42 100644
+--- a/drivers/hid/hid-logitech-hidpp.c
++++ b/drivers/hid/hid-logitech-hidpp.c
+@@ -18,6 +18,7 @@
+ #include <linux/slab.h>
+ #include <linux/sched.h>
+ #include <linux/sched/clock.h>
 +#include <linux/spinlock.h>
- #include "hid-ids.h"
- 
- static bool gpio_mode_enforce;
-@@ -124,6 +125,7 @@ struct mcp2221 {
- 	struct mutex lock;
- 	struct completion wait_in_report;
- 	struct delayed_work init_work;
-+	spinlock_t rxbuf_lock; /* protects rxbuf, rxbuf_size, and rxbuf_idx */
- 	u8 *rxbuf;
- 	u8 txbuf[64];
- 	int rxbuf_idx;
-@@ -319,6 +321,7 @@ static int mcp_i2c_smbus_read(struct mcp2221 *mcp,
- 				struct i2c_msg *msg, int type, u16 smbus_addr,
- 				u8 smbus_len, u8 *smbus_buf)
+ #include <linux/kfifo.h>
+ #include <linux/input/mt.h>
+ #include <linux/workqueue.h>
+@@ -185,6 +186,8 @@ struct hidpp_device {
+ 	struct hid_device *hid_dev;
+ 	struct input_dev *input;
+ 	struct mutex send_mutex;
++	/* protects send_receive_buf and answer_available */
++	spinlock_t send_receive_lock;
+ 	void *send_receive_buf;
+ 	char *name;		/* will never be NULL and should not be freed */
+ 	wait_queue_head_t wait;
+@@ -296,39 +299,44 @@ static int __do_hidpp_send_message_sync(struct hidpp_device *hidpp,
+ 	struct hidpp_report *message,
+ 	struct hidpp_report *response)
  {
 +	unsigned long flags;
  	int ret;
- 	u16 total_len;
- 	int retries = 0;
-@@ -329,22 +332,22 @@ static int mcp_i2c_smbus_read(struct mcp2221 *mcp,
- 		mcp->txbuf[2] = msg->len >> 8;
- 		mcp->txbuf[3] = (u8)(msg->addr << 1);
- 		total_len = msg->len;
--		mcp->rxbuf = msg->buf;
--		mcp->rxbuf_size = msg->len;
- 	} else {
- 		mcp->txbuf[1] = smbus_len;
- 		mcp->txbuf[2] = 0;
- 		mcp->txbuf[3] = (u8)(smbus_addr << 1);
- 		total_len = smbus_len;
--		mcp->rxbuf = smbus_buf;
--		mcp->rxbuf_size = smbus_len;
+ 
+ 	__must_hold(&hidpp->send_mutex);
+ 
+-	hidpp->send_receive_buf = response;
+-	hidpp->answer_available = false;
+-
+ 	/*
+ 	 * So that we can later validate the answer when it arrives
+ 	 * in hidpp_raw_event
+ 	 */
+ 	*response = *message;
+ 
++	spin_lock_irqsave(&hidpp->send_receive_lock, flags);
++	hidpp->send_receive_buf = response;
++	hidpp->answer_available = false;
++	spin_unlock_irqrestore(&hidpp->send_receive_lock, flags);
++
+ 	ret = __hidpp_send_report(hidpp->hid_dev, message);
+ 	if (ret) {
+ 		dbg_hid("__hidpp_send_report returned err: %d\n", ret);
+-		memset(response, 0, sizeof(struct hidpp_report));
+-		goto out;
++		goto err_zero;
  	}
  
- 	ret = mcp_send_data_req_status(mcp, mcp->txbuf, 4);
- 	if (ret)
+-	if (!wait_event_timeout(hidpp->wait, hidpp->answer_available,
+-				5*HZ)) {
++	if (!wait_event_timeout(hidpp->wait,
++				READ_ONCE(hidpp->answer_available), 5 * HZ)) {
+ 		dbg_hid("%s:timeout waiting for response\n", __func__);
+-		memset(response, 0, sizeof(struct hidpp_report));
+ 		ret = -ETIMEDOUT;
+-		goto out;
++		goto err_zero;
+ 	}
+ 
++	spin_lock_irqsave(&hidpp->send_receive_lock, flags);
++	hidpp->send_receive_buf = NULL;
++	spin_unlock_irqrestore(&hidpp->send_receive_lock, flags);
++
+ 	if (response->report_id == REPORT_ID_HIDPP_SHORT &&
+ 	    response->rap.sub_id == HIDPP_ERROR) {
+ 		ret = response->rap.params[1];
+ 		dbg_hid("%s:got hidpp error %02X\n", __func__, ret);
 -		goto out;
 +		return ret;
- 
-+	spin_lock_irqsave(&mcp->rxbuf_lock, flags);
-+	mcp->rxbuf = msg ? msg->buf : smbus_buf;
-+	mcp->rxbuf_size = total_len;
- 	mcp->rxbuf_idx = 0;
-+	spin_unlock_irqrestore(&mcp->rxbuf_lock, flags);
- 
- 	do {
- 		/* Wait for the data to be read by the device */
-@@ -369,14 +372,17 @@ static int mcp_i2c_smbus_read(struct mcp2221 *mcp,
- 		} else {
- 			retries = 0;
- 		}
--	} while (mcp->rxbuf_idx < total_len);
-+	} while (READ_ONCE(mcp->rxbuf_idx) < total_len);
- 
- 	usleep_range(980, 1000);
- 	ret = mcp_chk_last_cmd_status_free_bus(mcp);
- 
- out:
-+	spin_lock_irqsave(&mcp->rxbuf_lock, flags);
- 	mcp->rxbuf = NULL;
- 	mcp->rxbuf_size = 0;
-+	mcp->rxbuf_idx = 0;
-+	spin_unlock_irqrestore(&mcp->rxbuf_lock, flags);
- 
- 	return ret;
- }
-@@ -924,22 +930,20 @@ static int mcp2221_raw_event(struct hid_device *hdev,
- 			}
- 			if (data[2] == MCP2221_I2C_READ_COMPL ||
- 			    data[2] == MCP2221_I2C_READ_PARTIAL) {
--				if (!mcp->rxbuf || mcp->rxbuf_idx < 0 || data[3] > 60) {
--					mcp->status = -EINVAL;
--					break;
--				}
--				if (mcp->rxbuf_idx + data[3] > mcp->rxbuf_size) {
--					mcp->status = -EINVAL;
--					break;
--				}
--				if (4 + data[3] > size) {
--					mcp->status = -EINVAL;
--					break;
--				}
-+				unsigned long flags;
-+
-+				spin_lock_irqsave(&mcp->rxbuf_lock, flags);
- 				buf = mcp->rxbuf;
--				memcpy(&buf[mcp->rxbuf_idx], &data[4], data[3]);
--				mcp->rxbuf_idx = mcp->rxbuf_idx + data[3];
--				mcp->status = 0;
-+				if (!buf || mcp->rxbuf_idx < 0 || data[3] > 60 ||
-+				    mcp->rxbuf_idx + data[3] > mcp->rxbuf_size ||
-+				    4 + data[3] > size) {
-+					mcp->status = -EINVAL;
-+				} else {
-+					memcpy(&buf[mcp->rxbuf_idx], &data[4], data[3]);
-+					WRITE_ONCE(mcp->rxbuf_idx, mcp->rxbuf_idx + data[3]);
-+					mcp->status = 0;
-+				}
-+				spin_unlock_irqrestore(&mcp->rxbuf_lock, flags);
- 				break;
- 			}
- 			mcp->status = -EIO;
-@@ -1282,6 +1286,7 @@ static int mcp2221_probe(struct hid_device *hdev,
  	}
  
- 	mutex_init(&mcp->lock);
-+	spin_lock_init(&mcp->rxbuf_lock);
- 	init_completion(&mcp->wait_in_report);
- 	hid_set_drvdata(hdev, mcp);
- 	mcp->hdev = hdev;
+ 	if ((response->report_id == REPORT_ID_HIDPP_LONG ||
+@@ -336,13 +344,16 @@ static int __do_hidpp_send_message_sync(struct hidpp_device *hidpp,
+ 	    response->fap.feature_index == HIDPP20_ERROR) {
+ 		ret = response->fap.params[1];
+ 		dbg_hid("%s:got hidpp 2.0 error %02X\n", __func__, ret);
+-		goto out;
++		return ret;
+ 	}
+ 
+-	ret = 0;
++	return 0;
+ 
+-out:
++err_zero:
++	spin_lock_irqsave(&hidpp->send_receive_lock, flags);
+ 	hidpp->send_receive_buf = NULL;
++	spin_unlock_irqrestore(&hidpp->send_receive_lock, flags);
++	memset(response, 0, sizeof(struct hidpp_report));
+ 	return ret;
+ }
+ 
+@@ -4125,27 +4136,33 @@ static int hidpp_raw_hidpp_event(struct hidpp_device *hidpp, u8 *data,
+ 	 * previously sent command.
+ 	 */
+ 	if (unlikely(mutex_is_locked(&hidpp->send_mutex))) {
++		unsigned long flags;
++		bool matched = false;
++
++		spin_lock_irqsave(&hidpp->send_receive_lock, flags);
+ 		question = hidpp->send_receive_buf;
+ 		answer = hidpp->send_receive_buf;
+ 
+-		if (!question)
+-			return 0;
+-
+ 		/*
+ 		 * Check for a correct hidpp20 answer or the corresponding
+ 		 * error
+ 		 */
+-		if (hidpp_match_answer(question, report) ||
+-				hidpp_match_error(question, report)) {
++		if (question && (hidpp_match_answer(question, report) ||
++				 hidpp_match_error(question, report))) {
+ 			*answer = *report;
+-			hidpp->answer_available = true;
++			hidpp->send_receive_buf = NULL;
++			WRITE_ONCE(hidpp->answer_available, true);
++			matched = true;
++		}
++		spin_unlock_irqrestore(&hidpp->send_receive_lock, flags);
++
++		if (matched) {
+ 			wake_up(&hidpp->wait);
+ 			/*
+ 			 * This was an answer to a command that this driver sent
+ 			 * We return 1 to hid-core to avoid forwarding the
+ 			 * command upstream as it has been treated by the driver
+ 			 */
+-
+ 			return 1;
+ 		}
+ 	}
+@@ -4723,6 +4740,7 @@ static int hidpp_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	INIT_WORK(&hidpp->work, hidpp_connect_event);
+ 	INIT_WORK(&hidpp->reset_hi_res_work, hidpp_reset_hi_res_handler);
+ 	mutex_init(&hidpp->send_mutex);
++	spin_lock_init(&hidpp->send_receive_lock);
+ 	init_waitqueue_head(&hidpp->wait);
+ 
+ 	/* indicates we are handling the battery properties in the kernel */
 -- 
 2.56.1.839.g22a8290db9-goog
 
