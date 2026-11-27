@@ -1,122 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795787974;
-	b=3ZGt9so1a9I7KYazX++tuwhbTohtD9l0QmE9TfVUEvnOtHF5Wk3ikDTNRMCJpntTT5u8
-	 qr2lHFmYtTjzNJm3HjEcn7Q7Pafw0UppHNfiOKRp4nSj83eY1EAiQIWhyx21LNPA/jF4Y
-	 WS8+LrGApVr38u38ZAHQLKVDmnnxPCr+LM0AVhKhAGRqhxOwBZmh88KSKXWGfPTSvoqst
-	 GxqxfJg1wL8FX3Lf7hR09tDrg1Ip3bv9+aEOyCF8eKbV2FuiKqRQzVhPzjOHSM/7wJ1yJ
-	 FR5hbt1YNbMnEnCUAicJvisPKYPhj63MO/pER+lB6HXlyyqgcW4eFYfXfMoA59i3Aug==
+	t=1795788002;
+	b=VI5ZmmO+JUtzRhwgZVBHtmxCGCsf63mqXguVInJDuP7H3AtFq47xP2a/lM+l6PVjPquG
+	 Dez6FD680glXb9jKVxjXVw/cK1JPciIxvoEqAJsVdueZuOplUtEhdp0x3fS4/04Gkj/ll
+	 yIELyRwFIp5Wi6PuksIN7GgVq4BitIYo2tVOQ66JNy92GiWVa28Nb5I+wT0EAEVL+fkvU
+	 BCwf4c30Z9FvGfOnomZmisty+3JqOhyZWWnDzhBj2vN9Xo25UPFTf3f2SC9FAmZ0aJyD9
+	 J8sv6fmKRUucFMqvXI+obW57KtfF0tVJ+qSTUzqSqgAwFtFCcpBpSzuOW3DFxtWsSlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795787974;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=hSAGX0PlcKV7hxoSKihFcCP5vot5vWKykmT5/I1Rotw=;
-	b=ZaVTkkkKwJBKXTFz93EX0GuYzZ9AGTc2RKolhad6C/sZpD2MfUjph3dQza1XYA+/aiKi
-	 awZOEhth+7jhM5gTXE99vVYXIY530uMKRawyyAKsmqIIyMB9ui61+GEaOk3otp2js5ufR
-	 9R0CvJQGgxajjVHgCwmvcd0N0BVWpbcj/ZqBZZh3INOkQoHEDZ3z/aj8OPHz39GD5cYKq
-	 I6CdjSz25t/ihYOf7KzjkLFI5kLFcqXApAyjyEFVAZQsFS2R6P1ophplNLj3ekGkp0ntT
-	 GvMG/WTb972bpMFVW/vf+e03fSeT2dLcX100zW83BmxhQM/ctfHCQzTS8MQEC1pOKVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795788002;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=TVJ7FGwJvzojmK8u57f7Bta3j/u3dqWpXMiIY6IlGEU=;
+	b=NnQOL4HB7DuyAQf9/RLqjdvr2pP0ry4+mceBrcrt/b9J6X/o+1IsghgYWnTLD0WCmNaU
+	 OlOPLa3jjI1nBu+hssLZ5vGVW7fc5MSPHyxEC1nlG1kR5C28zSAAhMyTIEKOVUNrpowqY
+	 JrHUvj7ZDy86a/9LuH7n+smpFXkP4Bx0MXuIvKsrijfGaT1xl5DLWl+qQEsc26rf7+K59
+	 aNmp/4tfBm19G6WHOD0FuTZK8z0NWaWKeQZae2i/LmcNcVSiDW090Z7yf+eFZaqIwLfz8
+	 zJUCZ+bj2BConA0ty6cjBMHtNUbWg3sKnMvoC74RGxTs3wSDpcp4W3IIDtJq26frP0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=n8Sp1N6y;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=pODgPDhA;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ptBQgtrQ;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=m5UC2tpx;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=m17uSs+h;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ed7OU8m7;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED422606A323;
-	Fri, 27 Nov 2026 13:59:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED422606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261BA606A321
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 14:00:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 261BA606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=n8Sp1N6y;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=pODgPDhA;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ptBQgtrQ;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=m5UC2tpx
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D311D1FBB0;
-	Fri, 27 Nov 2026 13:59:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1795787972; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hSAGX0PlcKV7hxoSKihFcCP5vot5vWKykmT5/I1Rotw=;
-	b=n8Sp1N6y9Vm45Mgr7D/4hXr+E6kdClBXxiVKkx/q5AGVMNOvdcYnHgM8wgmleWTbydX/QG
-	uuMm1BMVGIR3YVzyXvB4zzhU52UBrN334F0BC6VptBLw3q8doluBTW8UzBHcb/ROoal/RZ
-	hB5Wy4ULuPz9NrLd64ks0FgbhAS6apQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1795787972;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hSAGX0PlcKV7hxoSKihFcCP5vot5vWKykmT5/I1Rotw=;
-	b=pODgPDhAIxp656pvlxUrpRSk4HSBAnk2OPd6F0EmkVWwkXolg1gbpxsCUHwBLlENz3fTy+
-	vyjKYebOVwYrdiBA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1795787971; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hSAGX0PlcKV7hxoSKihFcCP5vot5vWKykmT5/I1Rotw=;
-	b=ptBQgtrQ1GwX/wj0pA4/omtbuqgeHt/5dbnW0NE7ZSZb/rshDm92HW7IAbncmzCNomGHrq
-	llRGEkndrmeio+ki1sR4C5SAO30en9k2MiDmH37kCNezcAXR3p3iE8ShjAucopDXxQKZ0z
-	B+O3si4tKsoKxWqd++oRS8jajx2WrV8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1795787971;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hSAGX0PlcKV7hxoSKihFcCP5vot5vWKykmT5/I1Rotw=;
-	b=m5UC2tpxZO9Yf2DSATt0pN8be86yEfoSuqxihq+0TXlJbrK4CsSDNWDf2F2CDIHK7o9gTL
-	+NVHKwwbqHEZ7dCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A703013432;
-	Fri, 27 Nov 2026 13:59:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id QDmCIMOMCWsgNQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Fri, 27 Nov 2026 13:59:31 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 2B5DF5103B; Fri, 27 Nov 2026 14:59:31 +0100 (CET)
-Date: Fri, 27 Nov 2026 14:59:31 +0100
-From: Jan Kara <jack@suse.cz>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Jan Kara <jack@suse.cz>, David Hildenbrand <david@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Michal Hocko <mhocko@kernel.org>, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 4/5] mm/vmscan: be more careful when releasing FS
- metadata if buffer_heads_over_limit
-Message-ID: <mlu22apiuzcim6icjolifdr6wgsk5u6dpo4kwn4ppkcdgfudn7@t6sp7ck7qafd>
-References: <20261119-gup-dirty-what-v1-0-236d69f25c24@suse.de>
- <20261119-gup-dirty-what-v1-4-236d69f25c24@suse.de>
- <wm57zjtvdpexvbfygmdggw2ytsazelyds4rt3mtx6oy6u72mke@rhviuzp26rt6>
- <awmGDyR4WUJrwqn1@pedro-suse.tail5790ac.ts.net>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=m17uSs+h;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ed7OU8m7
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ARDtrQV1959129
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 14:00:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	TVJ7FGwJvzojmK8u57f7Bta3j/u3dqWpXMiIY6IlGEU=; b=m17uSs+hA0uwBeDk
+	n3jh1uZfvCrEpejAAyvlQ63wlxqQ5XKm8xdCHnd3XFmt45enERsJ99BwC/IlJMw2
+	pylSEyf1DibOMz5GKQQC+Dkim/U06eg8hyFKM0gswpsYhSQX8yGmXlXrEOjclq2F
+	YJ+InFFuUXy00Dv2ky05IsODF1m9ANOuFp/GJ0Y+nbuCzcvB73BWHrmxTj6V2wm2
+	eWcxnecgKD/gP2bHYg5VRVBq4zeKgY7uuGGIXLSBuvdPSxWoFDtZzHkjymxnYnHr
+	N8hkQxtCGGO76ws/8H30acpnjbHfLNzaFMMK6LT5eim115BRu/gCIkXwDvWBXKXs
+	zYTDZg==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6u55u8t1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 13:59:59 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-386b8624cf7so7166414eec.1
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 05:59:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795787999; x=1796392799; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TVJ7FGwJvzojmK8u57f7Bta3j/u3dqWpXMiIY6IlGEU=;
+        b=Ed7OU8m7Ok1Ap60daYNVpX+Pvgb8EiMGxgN9mEvEBT6vdEsrNIDCNZlqKp3XIA90O9
+         n0qAh1HDWwXp0RKIxA5h5VimOg1VKmqJh0uu29uOWvpER/NJaeRcTdQX/oit/ouQ7U+D
+         tdBTYRVc61Ut1puD5INnbhWfOs/oL/uLbndPOCrogbNKmLfMz4LtAxm1HJ/l8TcGsKng
+         /HvSfc4Wz0B5aBOG+fMko+qH/xZ42+C5Rr2ki/qlmE7Vv3uOVhmpIFuZlpe2SRNRX8PZ
+         xd5g8vjenagAQuqYL0hhI8cG6dWOCzsWQH00k4VNnYdcERtMGs4sKMnlo+K+XD2nBvz5
+         Rm2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795787999; x=1796392799;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TVJ7FGwJvzojmK8u57f7Bta3j/u3dqWpXMiIY6IlGEU=;
+        b=V8cftafjEcZgn7x6eKA89PAlrBlk2mG5RnOjJahFmCriT5TvNGzqL/iNfrQXBzVZAV
+         ze7SR+10OkhR+Gr/tFltBabzMd4MY4rt9qj6rZgNfm3EcOnLgPPuzxsZYy3ncRJgb4k3
+         BkWh75Ajq+LUekwKv4BImvudUL1BQa1/gmJACQ6xrIIwThB5ZYmTPrAayz8Sam2D+wyG
+         mP/WKLbEdB6lFbdAA9SA9Yi0mSRchRu1wO7XQiHfZN+IAK8OiWISEGo5mnwUKuiFwyVz
+         o/4ifXxUGMVvWt7ClNCXIXbf+/yWLdjKfnkIo72SZiAvA6HUWxnVvZLWtfnxJWdBEIFF
+         ZDFg==
+X-Forwarded-Encrypted: i=1; AL+hErG6MHlFNnUpugllL4HlOG2MPIhaGzadcITv4ncMGcU2/MUUwXMN4pbuoNskXWhWxsekqSe7Ek8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8JcdawFGU1YdPBUiihfAv5rcPRZDPP/GtFcAjhm2Lc4D9evvDh
+	qX+jL9u9Zl27SeNBkR+d33potyiuRakPNCQJqm6GGYsieXWGYv3u+EtfY93vSZkw390Ml2pcW6p
+	0ut65DZI/+4ADNjAW/cK14eks+lx+Gj/wJLvfQhBHjDiYKZ5VOfBpfaVsNJc=
+X-Gm-Gg: AZFdTZfx+GT0PdDlRw4ImZ+vrrfFhy01lwXLSSUpIzJ/Wc4iOeUvHH/NpWgAAd1aQtH
+	Db50puTP5VkBXDYOlyFNa50zRTyEdxtAKPEEtKaNxN7bFk5gHu9fyARrfYhuRW1sKS9s2y4M47m
+	EaQPA9q7RNZpCDb/DpHk0I+NeiVsHNMSjz4oMxkbYYuskN9Hyvv7AhSc02PRGzlyasCdtjSLezP
+	qWcteKLv81Ns47y0uyMXRAy68t537PjhuwsARnjK55QJjSvogK1TlVVZ0bXa4P7ZZcFLpRovQiN
+	IMNn6YHnT5zBX0RMBEUGs5CvKjpoAg/9mlkw3dQx7+GhrwB14rFIdyXvvRI+pQZdcst50DjQvxC
+	4fIZZ6TRjopODEOKspmqcaso2qyvQeqVMErJR3+QS2XXX5I+Xkm2qaW5sJZluORCmaHcHU6balW
+	7ZTQAD
+X-Received: by 2002:a05:7301:fe91:b0:386:e392:5031 with SMTP id 5a478bee46e88-386e3925531mr4757474eec.14.1795787998845;
+        Fri, 27 Nov 2026 05:59:58 -0800 (PST)
+X-Received: by 2002:a05:7301:fe91:b0:386:e392:5031 with SMTP id 5a478bee46e88-386e3925531mr4757444eec.14.1795787998322;
+        Fri, 27 Nov 2026 05:59:58 -0800 (PST)
+Received: from [10.206.111.23] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e7fc3sm64939202eec.8.2026.11.27.05.59.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 27 Nov 2026 05:59:58 -0800 (PST)
+Message-ID: <72ae56fc-41ea-4088-8daf-3d9535de97f9@oss.qualcomm.com>
+Date: Fri, 27 Nov 2026 19:29:49 +0530
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -126,65 +116,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <awmGDyR4WUJrwqn1@pedro-suse.tail5790ac.ts.net>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-16.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[37];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	R_RATELIMIT(0.00)[to_ip_from(RLc5chj8mdhigtayhgqted7wkp)];
-	FROM_EQ_ENVFROM(0.00)[];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -16.80
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] media: qcom: iris: Skip register access in IRQ
+ handler after power-off
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Hungyu Lin <dennylin0707@gmail.com>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Hans Verkuil <hverkuil@kernel.org>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+References: <20261120-fix-disable-irq-safely-v3-0-82f9561394cb@oss.qualcomm.com>
+ <20261120-fix-disable-irq-safely-v3-3-82f9561394cb@oss.qualcomm.com>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <20261120-fix-disable-irq-safely-v3-3-82f9561394cb@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDA1NSBTYWx0ZWRfX8QBkq3g9mSvV
+ v9qypTgBUnNYl5yySoDr/oIGzApwL0dEcrJuOUepREmtHtNsYgNVBks+VfyaTURLoBxTLXYJeQQ
+ QRoncLNI1VbR3Y2t8BHWu2RHxcGWNx8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDA1NSBTYWx0ZWRfXwLsHNeL49lVk
+ 4JSBqdR7mLuQQ59zRzJKMX4ERfi5Q0gV3reXZnim6o8J2lQORHq8r/JhGhBSprcCFpWXNm9cgAF
+ zEDfWGB+B7qonpi7avEDX+eoZpCpyI79h9oOvLJDkrgv739Lqx4GcclHLRaVA4d8iNpSAt12L+R
+ kbZKIaCaRXE3/e2xBizUTC7pol9GNJFDWs8ok7NyT5XKK7efPaFtL8fRFnpHZSpJ4zRkzDcl44M
+ fhW4qP0cMvgYeamSkUPdrtOi+t9bAELbRuUiuZu1lQ1KDORB4ud+CK7lLYFwy6+2gc11JAw5JGK
+ GClduj1RwgV/mnbwJij7fW/+nm1IwuwI5KF6Gz8PXJVae8y2EIP9TULSb7yX5H2L+zh9WPc70Qu
+ n8EzotY/jRHCrAnSM89aj56xgLO8uvt4yV65epVwq/VdOPgTAjOKxzA+7/ElkZjpoNmOb8nnA6m
+ c5+74mW/BDbvZiPVrYA==
+X-Proofpoint-ORIG-GUID: KjI2NWWNTwpz5l_dOZdzgMOiQcDj7KV-
+X-Authority-Analysis: v=2.4 cv=Z795j3RA c=1 sm=1 tr=0 ts=6b098ce0 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=EUGQh4eoQUa4RnJZeMsA:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-GUID: KjI2NWWNTwpz5l_dOZdzgMOiQcDj7KV-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-27_02,2026-11-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 malwarescore=0 clxscore=1015 priorityscore=1501
+ adultscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270055
 
-On Fri 27-11-26 13:37:15, Pedro Falcato wrote:
-> On Wed, Nov 25, 2026 at 09:45:01AM +0100, Jan Kara wrote:
-> > Just given buffer_heads_over_limit is a HIGHMEM thing and given how much we
-> > care (not) about HIGHMEM, maybe just completely ripping out the whole
-> > buffer_heads_over_limit logic is a better "solution"? I mean it's a crude
-> > heuristic anyway and for struct buffer_head to occupy significant portion
-> > of ZONE_NORMAL, you'd have to have several GB of pagecache with buffers
-> > which means the machine has to have quite some highmem which makes the
-> > setup even more dubious...
+
+On 11/20/2026 1:12 PM, Vishnu Reddy wrote:
+> The threaded IRQ handler reads and clears the interrupt registers
+> under core->lock. Power-off disables the IRQ without waiting for a
+> queued handler. If the handler is woken and queued around the same
+> time power-off is entered, it runs after the VPU is powered down and
+> accesses the registers of powered-off hardware.
 > 
-> Is it _just_ a HIGHMEM thing? I had the impression it had some effect as
-> a general buffer_head shrinker. Either way, I do think we can remove it,
-> but I chose not to do it for stable; also, I don't have technical arguments
-> as to why it's useless, I just assume it is.
+> disable_irq() cannot be used to wait for the handler. The caller of
+> power-off holds core->lock and blocks in disable_irq() waiting for the
+> handler, while the handler blocks waiting for core->lock.
+> 
+> Track the power state in core->powered, which power-on and power-off
+> change under core->lock. The handler checks it after taking the lock
+> and returns without touching the hardware when the VPU is off.
+> 
+> Fixes: bb8a95aa038e ("media: iris: implement power management")
+> Cc:stable@vger.kernel.org
+> Signed-off-by: Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
+> ---
+>   drivers/media/platform/qcom/iris/iris_core.h       | 2 ++
+>   drivers/media/platform/qcom/iris/iris_hfi_common.c | 6 ++++++
+>   drivers/media/platform/qcom/iris/iris_vpu_common.c | 2 ++
+>   3 files changed, 10 insertions(+)
 
-I don't believe it can ever activate without HIGHMEM - each bh points to
-actual data in the folio it is attached to which, usless you have 512-byte
-blocks, is more than 10x larger than struct buffer_head. So buffer heads
-can never occupy more than 10% of total memory unless you are really trying
-to screw up your system... And AFAIK this mechanism was introduced as
-a HIGHMEM thing many years ago.
-
-> Other filesystems (iomap, XFS, btrfs) don't participate in this scheme and
-> they turn out just fine. So, unless you find something I'm missing, I will
-> probably send a (separate) patch removing this whole mechanism for next.
-
-Yes, that would be great.
-
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
