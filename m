@@ -1,78 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795784994;
-	b=x3WFzcZ3xKrTlA+6qYrLLHAqMePlPt2THN7uppAl6cX1mBiJHNb/Q5HFnRYw0GiOfUug
-	 6LPlddxT+nnGnmIQguYP9gzlko64YjUZw9CV52ZbeJhCgiXhBq3fyqYgPTWhNbtH5gC2f
-	 N73QCaUsOjK+sq84fiJKdn41/MKSOu+qsyGPnlcECENqpsAwMLT2kh2kfaUP1OIX0TdZ3
-	 jAR5BPWaoMu6sLnOyaTftZaaNu2opgLDJEi4q0d/RIJnGjLSxVZj7mR8cbB4yFM0DZm2Q
-	 lNgxuWGnd9lXVlO3b6/VcZbVL32JjeSEwvEN3i2gtWURO14EMkk4iD3SYhz3P6fEJQw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795784994;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=0ZIzM/jXseF2ZQWdwlG46mJZav9UpUjy9ipp/LnhEBQ=;
-	b=2lNBKYJ3DnRwBqQjugpYY4hVzg1W72x19mr6pfzUSSJj5euZCYwVLiV3+i3uihRQR6mS
-	 EwKDvTsZo0o8LbVhR0lPpKEVPD4oRkVoolQtIN1jcNFqHiQ9A7gS1cMTwlScwRXdqcXUG
-	 3r7S273iSSaC8jyjLjL/9vSnRWMJpTKCbzh1UbekHopQMaZ4Q8WycOPg6ooDTW2KZp0yc
-	 aGUhoGlnqYnRTXoM07pJiKbnobI6rVc3Y+9GQx6/Vxd249T+SSmWvN2mS+zvZQJ9Mn7AG
-	 WTfZBtQh62olTHfQpdoLsKFZ+LNAreGhHXC1UR6gpcssAMql+piAQ64D8h2gprNFfGw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jlOqZKSc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F64606A31C;
-	Fri, 27 Nov 2026 13:09:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jlOqZKSc
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795784993;
-	b=P11HH4882IOvX2GDwZOUxFJ38AUrBoupayx8J3jb1OwpZIhZUDWqYgBJPaCoSu5lnWH1
-	 m3Vb8StcQYQxTQ6VO7s2+IQ0GtbnyvscuE9rW31ZW4vmGtAhIpfRrc/raOaTBVl6BaKpE
-	 qQKbeonELeQH0qRtFAFHWy4gcZiIDzYHSXnsitZkz0QjDDDHlD6YYKwuRDqDOjSjtLCAH
-	 Lcau31n4is5l8hpuLV8fzfHBTsuuW/mUWqhkusplbPkv+NjRQGqBwQjQp5aKtTygk08B5
-	 8DeIBaOBG6Qcg3HXiTaMmOj5Dsfg/Iq46893bDaXpcaI45QJwc52xgG9NUqWqfVQSAw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795784993;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=0ZIzM/jXseF2ZQWdwlG46mJZav9UpUjy9ipp/LnhEBQ=;
-	b=MgTL/Dqzn9JQ/HGNaVmPdIENO/H7dVVzme19XzwTRCLIywcIH10zUOlNlQEMQWdAD8va
-	 YkVR6P1HUzqdj4ZUvOiQU+WZl0jpdjJdwhRXiLeqUnEL5UkZXLC44N7xhbMjXFxJOcI0U
-	 +PvSa7NYe9HL80vDOLd9C1XsnxbM48ucYxLLnO1HpkNrlLCaHSuy+xlIoGbVhj+yOVrQg
-	 68/C0/jAeaZIHsFZcpOsp0dwL5/PFt9PMuROMkiCCSz7+zfmC9NCqFFrGO59zM3TIgruC
-	 7KaWGapUVihTzEFYGKHLs+SeO68quBDKwvsPCerLSmyipJIjwEVPNyZ480896xg8EvQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.158
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795785008;
+	b=cG6C54jYq2M2h0f2NBUF4QnqrbUEsveZq20xeNtHulbOgPRWsu4pE2u/uKqcjHxzhxoD
+	 LAn7nXYnKztQVHiVNWERn9cFMJ7UguYk6cEiUZ8tK6lyPgis+362blYCORHoMMwLoC58Z
+	 B24PQ6li5G4sO4hji40edENW96yFkFovDJIZBJaIXoLvi03K1YWb9gZ4HHUcIQcRCc01H
+	 DSSGGGWIstKcntH3yzgNOMhWFBqS0Ud7/oIfjL8PH0OMH5a1CtkjxXvuRLPM53WWrJ0dW
+	 DChmseEWNRhtkCoB9QZ1k8Mx0jOdnHyTcfe7uWlON2qcx44/cM1BwM9YxGyIZ1YgWoA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795785008;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=KP3hyIl9nfIZ4kIlM+oZLvLEmTE3FJBTBM7sQHy4gKs=;
+	b=vP7KD3/TZgeIQvuLjNo599GjcJy4hVWAvx/U7oyQsKQDrBxhbbPJQuNhQir+ZXQUf04+
+	 SZiQ7BSfkXYBGhEBLmNxeTJLR1CeS6LvLjXqZFcvwXqv1/pRZmGYbocGVQr5jhbFvQ4kB
+	 CgHttetuLQxhlj2Qye63S1mdjr+5glOyyWHN9im9Q+qtOWODtGm34U8RkR28RuzkoiuLA
+	 98iRQTcKDc/K03PAtpWHMAQuyMBz47laao75uU/RolDznFDQQpJR5TaN1wygHNEvoBEKQ
+	 VL6yMnjRDBqKrg0dQF/AwKe+xJsVOJyQVSAiTmq7JiZr5Z9k1Ys9zOqD0EprqqzBbNg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=kroah.com;
+	spf=pass smtp.mailfrom=kroah.com;
+	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=t1tR6Olx;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=sOg59rmt;
+	arc=none smtp.remote-ip=103.168.172.158
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1690C1F00899;
-	Fri, 27 Nov 2026 13:09:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795784993;
-	bh=0ZIzM/jXseF2ZQWdwlG46mJZav9UpUjy9ipp/LnhEBQ=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=jlOqZKSccZHT7qV4m3qonLKKhrtlclPbYU/DbV5BBtfWlb14BJheE3hAHDAT/htoI
-	 vqmr0XsgT/bfhhCkAVkE4rmDOmAwUaxhB1BJaGTScZEnfQGzxsV6ACoKHPezEqXja5
-	 7uUHuzpoPkjI5XhoO/CsQDlNOFGq9w/gOf+V4bixDyJsB9loPgpfj3eMalxIobo/Fl
-	 ycuzIxP0BwRfwdk8xZJTZiwy1ypiniIxQJLuqzuXRUmWxM7RaCp/3Pwyq6gRAYMn5n
-	 folUYhbpsL+0SYjdKlhJ8UZqKZ3tTZS8TTBgVBfaaaaUYtINElv+vmy4zZePIe+iat
-	 T39RBRNx1tPVQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9C2614B7CB;
-	Fri, 27 Nov 2026 13:09:43 +0000 (UTC)
-From: Keguang Zhang via B4 Relay <devnull+keguang.zhang.gmail.com@kernel.org>
-Date: Fri, 27 Nov 2026 21:09:29 +0800
-Subject: [PATCH] clk: loongson1: Fix PLL bitfield definitions
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A99F606A31F
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 13:10:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A99F606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=t1tR6Olx;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=sOg59rmt
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 48BC5140037D
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 08:10:06 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Fri, 27 Nov 2026 08:10:06 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1795785006; x=1795871406; bh=KP3hyIl9nf
+	IZ4kIlM+oZLvLEmTE3FJBTBM7sQHy4gKs=; b=t1tR6Olx1emUWag1Mea45cwCnP
+	c+svAP2vAcMz9hkBtzpBUa+LQVo2df4BnNFk6W6KHRx3W/wtg0Gu1stkuG09iCPE
+	JbjQlrho/bsTbqEjOPn69xKp/+eh/atDUxuRcsX3nzo9nATDkfaKSZJMJd/GDF1W
+	1HwIfaptpTEovEsi2i3HkR7l5+wGtCBE34c6H7+id3D0nNcgJ9XAOYQun06qL2aM
+	Jh4yePqdl+nMXy3mmwNOXGU/ZgW6oXr8INhO811LJED/0yqxp9TkI4YREjJ/tzAe
+	N2UNAVVGRYsvMyl9KzjmRAwtbVJWkUXr2ivk+/zqGqD1SWbbjnEQtOoBnucQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1795785006; x=1795871406; bh=KP3hyIl9nfIZ4kIlM+oZLvLEmTE3FJBTBM7
+	sQHy4gKs=; b=sOg59rmtya8u+BzfDo7fN832zM+0PLvc2OmrF9894HtAJ4TdKVK
+	4k81ItUqtqH4RcyJGtcxfALh2Oh2rxgWv4Zj2eOW3Z8P14dfln0vReBfOjW4dd1h
+	PX0P7ZHsUOOn5fmtQHXJ4mQVnj631Vow7pwEMPiVm7Rk/gsnDQsfy/8qp2MnpqYS
+	vE30XbNj244QFgZYoySANB+n0SEoLQE1DyaVR0aH7UUohRvkLjssPx8uAo1EXMd3
+	4Vq4zx8VWrO7aBAQ57uuxVG+g06QQ2PBza5v8ipzPeWP1/5bf8JUFPrZ8K9GfonY
+	dBBMrANHE4IDgA1cD7muEGXkX1TdtDxtoOQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795785006; d=kroah.com;
+	mf=PGdyZWdAa3JvYWguY29tPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:ZdbgWCwssqdIkAVWjUhZgyBxwtc/5LUp4bVxggZdqPogbCw
+	G0DHbjWsRl+k9ejIs4nk/2FznYJuV+u7wVCjgWec978oLevYAkhNWQvVDBAZh8CM
+	AaFU9AQnJ/p6mhzxKqfcMVF+K0Ct13evWdVXus4+OGbMIWFPCM/b1TtoKy74wvpC
+	GOucJK2oI3e+PIatXNMCvvZol3l8bDLIaQSFa8Cd60hACU8ZxoN9mww0yyC+T/+t
+	ucfpMTjs5kvL8aPvqtQPdh8DWfPt2IiNgwrwaM93K0kO38nFt0nNA5LRnCnGvps9
+	BE5msdudttSKcwWjBzSoZJPz1ydxesosDom/YNg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:IAr/TVSBEkSRQiLiqIJVU+2cgoP6Bt/xNIm3OY1b9mY=:cBRs1vpLHwlMgryddMjyaQrf7s9vezl4Mm1me1HrSEo=;
+X-ME-Sender: <xms:LoEJa3DDcR1KebcQ3cpVncDqYOJIfFfFl3U-3Kew5gVcXGVmcpX3BQ>
+    <xme:LoEJa7XkZuNNzOmFP4p-29MdGivWxEqhuNzOVHWbGcXh4TvaHdckhjjQW7AsUyag9
+    PFrqhpltr9Z7IXBqUUVqq48X5HVj6ZyNZtWkXm_xh5loGhyXA>
+X-ME-Received: <xmr:LoEJa9A0Z77cSObSD9qnKiB7M3ZMDyw1fZC_A59b3vN2hEEhh9K6nmrhzcw3Rsn8OReWup1F9FHpBWsnG2dTi_Qa7NNkxk4>
+X-ME-Proxy-Cause: dmFkZTFcSCesdafieJv4jg2qYjBkj2DPfCzZLjUepAaY36fmD7dC5H7QGLqvRNMrnPhZan
+    EFvdD3ICsmmg5HZi8tHM563XSZHwZTjCswMb985Wk7aF/Y+Ty67ClM+DMJIaul1+D8TyMY
+    8uD7RNw/gNTSQYiIO3lDrcpyD1Kdc0LNjqHvjoYl8ZQ3glvBuY7FpmC5zVb34R/CX9WwMv
+    T3YxiHVg+LDZFduZ0eOYV4OFq5SohXZ+R1aUtMbYVyHUXPyv5fawcTt9ZpSjcuPiRmbTQh
+    rHZtrwsdZ/wLdu/gBztiOcAZPXjH6ZTJW24u/1dQTmcFvm9VaBYpRtbLzfLTO8cOXoB0CL
+    jkkT6WxM00TSLQt9wbbmT3bqZExV8WU4M0cOgp8HbuX7wu2Jekvj5V2g1cKu5PkzFn89Ye
+    yoiXe4UHB5rpgu3U4yzzfYjgESUY4Lggc3/ZbKbu5YWXC76B7ZIA9R9dBesEDqiHNH+q/w
+    pqPypoQb9v8xoO50GiRKRjYvkOzaD7uCNKUnAbqG1D5XZRu0dHMEwZhx16tw6PBDxKzRXW
+    cNGaI7PZZOC4AUwCMVn7fVDfDicLa8G/EnZAp5Vhqt1ZECYKI3yEO0S8kkzi737y+RZq6m
+    dBrMYwiZ/C4ZAApf6s6P5ipvECOvY/m/4qDdJspNUENIbz0pEOYkBYfJ9KXw
+X-ME-Proxy: <xmx:LoEJa2-quikh9u_XJTi0RTc__BAQIjuwLgvEvzZRFWcHUFpmir1-CA>
+    <xmx:LoEJa8Fe2WE1r-KcPY7ENuWiTEXEXm5nIxrSaXDV18FQxZrnGjQaSQ>
+    <xmx:LoEJa8Okx8fYZWQ9jNCOtx69FvM4Oh9l6qCXs93XSes8vBccsEu5-Q>
+    <xmx:LoEJa-fr3g65su1-PfRjMlvHlPGqPGS6Gibk17He-FWoG7Gzihytvw>
+    <xmx:LoEJa-nM3rEY9hZrkyB6qD3DKHroJT4ouMGpkyI5Hm1opVFOL5hR1ine>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 27 Nov 2026 08:10:05 -0500 (EST)
+Date: Fri, 27 Nov 2026 14:10:25 +0100
+From: Greg KH <greg@kroah.com>
+To: Dickson Wu <dickson.wu@certik.com>
+Cc: stable@vger.kernel.org
+Subject: Re: Request: security fixes for 5.10.y and 5.15.y
+Message-ID: <2026112710-wharf-playgroup-38ea@gregkh>
+References: <CAFaZ9eogwNaXVeVhOrtz9montDVg6G8zYR8rOGdpZr26nHFO-A@mail.gmail.com>
+ <2026112605-alias-passion-6781@gregkh>
+ <CAFaZ9epm3Tcuz1Fs7wSOqECzZbwdwEYmwSxwUM72jPMZKZArvA@mail.gmail.com>
+ <2026112723-jogger-splice-ce25@gregkh>
+ <CAFaZ9eqpPdQ3fiu=gO28rJY48Jh9SqiRxdpXYtBzB5hcoGH7Nw@mail.gmail.com>
+ <2026112733-gambling-twistable-dc4a@gregkh>
+ <CAFaZ9erPPdqJq-Xpys5crfAcJ4W4MCE_O24KvciLSk+nSSny=g@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,160 +126,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261127-clk-loongson1-fix-v1-1-fccdb30ae60d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MSQqAMAwAvyI5GzCxuH1FPFSNGpRWWhBB/LvF4
- wzMPBAlqETosgeCXBrVuwSUZzBt1q2COicGLrgi4hqnY8fDe7dG7wgXvbE1hkfisjG2gtSdQZL
- +n/3wvh+gs2ZKYwAAAA==
-X-Change-ID: 20261127-clk-loongson1-fix-9442b12384a6
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>
-Cc: linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
- stable@vger.kernel.org, Keguang Zhang <keguang.zhang@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795784978; l=4767;
- i=keguang.zhang@gmail.com; s=20231129; h=from:subject:message-id;
- bh=z6CT5ehMC3aRVWkMq6hQtWiXhaK42zNsoBh43sLGpGw=;
- b=mZWRGqP6O7oiRrrzYa3IaE5rfPbzUUIahiW54W2q1lOvthYiora6a+rACAgdSMMue/q1yYIv+
- ErZCqbLkIepC/F0F6uQ4fzr6NClge3xV1A4ibfqA2Mecn9Th/4FynP/
-X-Developer-Key: i=keguang.zhang@gmail.com; a=ed25519;
- pk=FMKGj/JgKll/MgClpNZ3frIIogsh5e5r8CeW2mr+WLs=
-X-Endpoint-Received: by B4 Relay for keguang.zhang@gmail.com/20231129 with
- auth_id=102
-X-Original-From: Keguang Zhang <keguang.zhang@gmail.com>
-Reply-To: keguang.zhang@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAFaZ9erPPdqJq-Xpys5crfAcJ4W4MCE_O24KvciLSk+nSSny=g@mail.gmail.com>
 
-From: Keguang Zhang <keguang.zhang@gmail.com>
+On Fri, Nov 27, 2026 at 12:10:59PM +0000, Dickson Wu wrote:
+> On Fri, Nov 27, 2026 at 09:12:18AM +0000, Greg KH wrote:
+> > Do you actually use 6.1.y? If so, why and what is your plan to get off
+> > of that kernel to a newer one as soon as possible? Same for 6.6.y and
+> > 6.12.y? Sticking with older kernels is almost never a good idea...
+> 
+> No, I don't run 6.1.y myself. I'm a security researcher, and I've been
+> looking for security fixes that made it to mainline and the newer
+> stable trees but missed the older ones downstreams still build on
+> (Debian 12 and CIP are on 6.1, for example). Totally agree people
+> should move to newer kernels, this is just for the ones that can't yet
 
-LS1X_CLK_PLL() expects the fractional field parameters before the
-integer field parameters, but the LS1B and LS1C definitions are
-written with the integer field first. In addition, ls1x_pll_rate_part()
-builds the mask with GENMASK(shift + width, shift), treating width
-as an inclusive upper bit rather than a field width.
+For Debian, yes, that is good, be even for there, users of that kernel
+should move forward "soon" as 6.1.y will only be alive for one more
+year.
 
-As a result, the extracted fields do not match the register layout:
+If you can actually test the patches, for the backports you do for the
+older kernels, that would be great.
 
- - LS1B reads bits 5:0 as the fractional field and still selects
-   bit 0 for the zero-width integer field, so bit 0 is counted
-   twice. The PLL rate is over-reported when bit 0 is set.
- - LS1C extracts bits 24:16 and 16:8, i.e. two 9-bit fields
-   overlapping at bit 16, instead of bits 23:16 and 15:8. The
-   overlap and the extra bit 24 corrupt the PLL rate whenever
-   those bits are set.
+> If it's more useful, I can focus on the "FAILED: patch ... failed to
+> apply" mails for 6.1.y and newer and send tested backports for those.
 
-Describe the fields with explicit GENMASK() values and reorder the
-LS1X_CLK_PLL() arguments to integer first and fractional second,
-matching the original order of the LS1B and LS1C definitions and the
-register layout.
+Sure, that would be great but note that Sasha has a bot that does that
+already :)
 
-Also make the field helper return 0 for an absent field instead of
-relying on callers to skip it.
+thanks,
 
-Fixes: fbdb1873656b ("clk: loongson1: Re-implement the clock driver")
-Cc: stable@vger.kernel.org # v6.4+
-Signed-off-by: Keguang Zhang <keguang.zhang@gmail.com>
----
- drivers/clk/clk-loongson1.c | 31 ++++++++++++-------------------
- 1 file changed, 12 insertions(+), 19 deletions(-)
-
-diff --git a/drivers/clk/clk-loongson1.c b/drivers/clk/clk-loongson1.c
-index 1674181a1107..5efb0bf6009f 100644
---- a/drivers/clk/clk-loongson1.c
-+++ b/drivers/clk/clk-loongson1.c
-@@ -5,6 +5,7 @@
-  * Copyright (C) 2012-2023 Keguang Zhang <keguang.zhang@gmail.com>
-  */
- 
-+#include <linux/bitops.h>
- #include <linux/bits.h>
- #include <linux/clk-provider.h>
- #include <linux/container_of.h>
-@@ -25,10 +26,8 @@ static DEFINE_SPINLOCK(ls1x_clk_div_lock);
- struct ls1x_clk_pll_data {
- 	u32 fixed;
- 	u8 shift;
--	u8 int_shift;
--	u8 int_width;
--	u8 frac_shift;
--	u8 frac_width;
-+	u32 int_field;
-+	u32 frac_field;
- };
- 
- struct ls1x_clk_div_data {
-@@ -50,11 +49,9 @@ struct ls1x_clk {
- 
- #define to_ls1x_clk(_hw) container_of(_hw, struct ls1x_clk, hw)
- 
--static inline unsigned long ls1x_pll_rate_part(unsigned int val,
--					       unsigned int shift,
--					       unsigned int width)
-+static inline u32 ls1x_pll_get_field(u32 val, u32 field)
- {
--	return (val & GENMASK(shift + width, shift)) >> shift;
-+	return field ? (val & field) >> __ffs(field) : 0;
- }
- 
- static unsigned long ls1x_pll_recalc_rate(struct clk_hw *hw,
-@@ -66,9 +63,8 @@ static unsigned long ls1x_pll_recalc_rate(struct clk_hw *hw,
- 
- 	val = readl(ls1x_clk->reg);
- 	rate = d->fixed;
--	rate += ls1x_pll_rate_part(val, d->int_shift, d->int_width);
--	if (d->frac_width)
--		rate += ls1x_pll_rate_part(val, d->frac_shift, d->frac_width);
-+	rate += ls1x_pll_get_field(val, d->int_field);
-+	rate += ls1x_pll_get_field(val, d->frac_field);
- 	rate *= parent_rate;
- 	rate >>= d->shift;
- 
-@@ -149,17 +145,14 @@ static const struct clk_ops ls1x_clk_divider_ops = {
- 	.set_rate = ls1x_divider_set_rate,
- };
- 
--#define LS1X_CLK_PLL(_name, _offset, _fixed, _shift,			\
--		     f_shift, f_width, i_shift, i_width)		\
-+#define LS1X_CLK_PLL(_name, _offset, _fixed, _shift, _i_field, _f_field) \
- struct ls1x_clk _name = {						\
- 	.offset = (_offset),						\
- 	.data = &(const struct ls1x_clk_pll_data) {			\
- 		.fixed = (_fixed),					\
- 		.shift = (_shift),					\
--		.int_shift = (i_shift),					\
--		.int_width = (i_width),					\
--		.frac_shift = (f_shift),				\
--		.frac_width = (f_width),				\
-+		.int_field = (_i_field),				\
-+		.frac_field = (_f_field),				\
- 	},								\
- 	.hw.init = &(const struct clk_init_data) {			\
- 		.name = #_name,						\
-@@ -195,7 +188,7 @@ struct ls1x_clk _name = {						\
- 	},								\
- }
- 
--static LS1X_CLK_PLL(ls1b_clk_pll, CLK_PLL_FREQ, 12, 1, 0, 5, 0, 0);
-+static LS1X_CLK_PLL(ls1b_clk_pll, CLK_PLL_FREQ, 12, 1, GENMASK(5, 0), 0);
- static LS1X_CLK_DIV(ls1b_clk_cpu, &ls1b_clk_pll.hw, CLK_PLL_DIV,
- 		    20, 4, NULL, 8, 0,
- 		    CLK_DIVIDER_ONE_BASED | CLK_DIVIDER_ROUND_CLOSEST);
-@@ -225,7 +218,7 @@ static const struct clk_div_table ls1c_ahb_div_table[] = {
- 	[4] = { /* sentinel */ }
- };
- 
--static LS1X_CLK_PLL(ls1c_clk_pll, CLK_PLL_FREQ, 0, 2, 8, 8, 16, 8);
-+static LS1X_CLK_PLL(ls1c_clk_pll, CLK_PLL_FREQ, 0, 2, GENMASK(15, 8), GENMASK(23, 16));
- static LS1X_CLK_DIV(ls1c_clk_cpu, &ls1c_clk_pll.hw, CLK_PLL_DIV,
- 		    8, 7, NULL, 0, 1,
- 		    CLK_DIVIDER_ONE_BASED | CLK_DIVIDER_ROUND_CLOSEST);
-
----
-base-commit: a9c48428cbd8d96b26f92631d0db6f8519c5fcc5
-change-id: 20261127-clk-loongson1-fix-9442b12384a6
-
-Best regards,
--- 
-Keguang Zhang <keguang.zhang@gmail.com>
-
-
+greg k-h
