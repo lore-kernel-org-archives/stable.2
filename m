@@ -1,59 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795774424;
-	b=3dBzxVWkMfr1BhyNTbsqS1aGfHFBUnKUXokgjkjq7GkVBV/8Z4pwdp+XtEb+ybNP5ElF
-	 oT2IBfZC/7GQLxxYKiOLlfPdASRQifpIE4pEUcaIBugtPGO3tGUk0LlpNc8Gxfqte6nE9
-	 z3lF779bi5eHKBEBKJVnGwA31p6sV6zAleUf0tLkwKIf5RDBk2Z+Ow3fdoPFz/cdNUknm
-	 rLYyxooEtkFpXJ707r0N6XembvWL3y0Z372yQuNU8Jun2sWKCi8XN2ihVNfVPOwFu9jS7
-	 DdjG/SKdCvpvfnHn3MLT8aUgC+HUv1LA3a4HXL4du72gEMxXt5hm0/by5D+9PVkyPHQ==
+	t=1795774492;
+	b=odQCh8l3iyBIASPPdD0gTEawxOroiSjhSYRRUeBkXR2XJMzzbjeqmsaIXuT/Km5kqqIX
+	 NnsvCMh7l6A9S+GJ5WzIJpjdO1/39UoxqxhA5+cdmFuur5tX4S3AU0BAXQw9iZqmZdiln
+	 MIgsa5ZnkrZ9uAHhmwj51YctLuIhia/xsU5PImDM7XTNE5SKUUSzzM+l35a4DxdOKsZro
+	 TaX0M4/GfsT4DmER7gEKG12FAsIMW9yujgdvrLpRNuRSV0vvTiYyGJ9a6e30yjaMZbznL
+	 zw5+LjOVOCiqFuSbvOga1qHJ/9IM0IFSiKQYffEv7xTsLbcDzNmfBFkLBdILtG2Ed0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795774424;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=3j5RK3itpNq34OmIOuVkOe088Cm5IuS4Nvic86ZYVGc=;
-	b=SnN2pNeuHkHAOX/gX46wsh9UOaktgjxl/z2JGnLpWo0YK8HFqoXKqpm6OM0p0VRHrpmE
-	 Tx4yiQSnjtPFN91355c45r9Tnk5zfN9TeT5DHfgu8yy6MdBksmYisfDTNXzLpjyvvjCI0
-	 14AL7W3TOCI7zskpTDrf7KjUvhafgf+VfhngY+1WocqvbudoUImhOtc/hje1V9+kZ+D9d
-	 kpoOrBx9K+xo9PkHKvf0natj6zoTbpqzmOpogCaOsCGSMdDcMYjLVE/RA2YWQk+qiVR6I
-	 /8E5JirdNGOjJdCdaPlLRGVuavtCMCu1zYQZK7bDx+5yu50BjnzDfoS6ZwGiCRtTpMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795774492;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=gfAz+igUaZQtqJ8U5CAAvNBQ49KsairTBI4/qgGsxOM=;
+	b=BGv/lrJ1Xs3o+au9dOyyAA/Y1PUKWFh7X+jIdZcCXfD/Y6IfyZoHvGyRUqob5qF5p13R
+	 X8CiXY/SPf3YYtMTH74+n3Ax511W8qarPCqVfjZFim8HzVK+8gPI2BCeEWo53trm9GwQz
+	 u/beGWUoF0YWwgrq4/zQ+VoKKd7pp1oFezSdH8A/87r8FwFwSXIpbRsMq5HjZIXz0xg2l
+	 jk4Qg+LxhB3R3s+JeLv97YzP1YvZQvyzHT1yAy4PcRc+n0/wqjo3uCNnbfFBIXxIuPp3P
+	 gcMV5WViKP6+LS7UcEeKX0XnwMZSimHbU8HH9nLCSB3kA9wNGkzgWgjhpYRWzl8F6GQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fL2Knwde;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jk6uF4BV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0683C606A690;
-	Fri, 27 Nov 2026 10:13:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CD3D60A260C;
+	Fri, 27 Nov 2026 10:14:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fL2Knwde
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18D651F0182B;
-	Fri, 27 Nov 2026 10:13:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jk6uF4BV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86E951F0089A;
+	Fri, 27 Nov 2026 10:14:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795774423;
-	bh=3j5RK3itpNq34OmIOuVkOe088Cm5IuS4Nvic86ZYVGc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fL2KnwdeqDE7lI+V+1UkJQsGOw3SLbctxv8XK1RREyzRIy4ilv3wnwcFlBDtKgiSB
-	 WCsDcrc1o5+r2a/YuBbtisIyW54kBOjHb0Jpwpyg+3cYHPdoDhIYdM+PC4EHhbtknu
-	 V4Qbi4TNQ5N5dzzvriGKZ+lbz/D1DbcnPlMWBRxQ5IVhkPUBEm0tJSBnFkY/SvfmsV
-	 KdQz4RkIlSKn2XjicMAtSdmD0dPOCWH6UMjVq05QgLrgtANaG4CEUOlBI8gQamWQXb
-	 c6N/tcGUyt2WEjWCjF65+xwlM3ZLGQ1t+YWifLa1ijrtguvD27Cy3wprJlLr6ctTNf
-	 PagWX2er7GIlw==
-Subject: Re: [PATCH net v3 10/10] rxrpc: Fix RACK-TLP implementation
-From: netdev-bot+sashiko@kernel.org
-To: dhowells@redhat.com
-Cc: netdev@vger.kernel.org, marc.dionne@auristor.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
- linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org,
- jaltman@auristor.com, stable@vger.kernel.org
-Date: Fri, 27 Nov 2026 10:13:42 +0000
-Message-ID: <179577442266.3135.14941327848364859850@kernel.org>
-In-Reply-To: <20261124161302.4044422-11-dhowells@redhat.com>
-References: <20261124161302.4044422-11-dhowells@redhat.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1795774491;
+	bh=gfAz+igUaZQtqJ8U5CAAvNBQ49KsairTBI4/qgGsxOM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Jk6uF4BVYxjpa7BcdvmvYO0JVlWJ7Aw+egsP7dUBAgWLZ60e6KchWnkoopl8FLOVJ
+	 GxRJ021z8UCTo+6fv8LCv4iqLRMxFHVEqCNwNTp6dCgG87r6gy0PwbLWwA/Xkd3/4N
+	 DWc2vfR7xkrqVaR0163e6i8NKA3f/eSkVI2kiIFf3XIlEGFK2rJb+4RrBL7XkaYVis
+	 QeNqtXgW257auKS8pXzNeQxa+nXikiid1YHZdL6aLi18uI+6hpHhdyP57N+cLR67ty
+	 sNfQIEZy6f6HUwojT6VaI4ri8G7N6SXk0VDNoeU52NbTR12ejOq5aPGiYaM3hg/Wpt
+	 92vc15IHZ3BxQ==
+Message-ID: <398670d0-809d-4cdc-b03f-80bc3b5faa2a@kernel.org>
+Date: Fri, 27 Nov 2026 11:14:45 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,261 +51,134 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net v4 2/3] net/sched: act_gate: refuse schedule entries
+ shorter than 10 us
+Content-Language: fr
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>,
+ Simon Horman <horms@kernel.org>, Clark Williams <clrkwllms@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>, linux-rt-devel@lists.linux.dev,
+ Victor Nogueira <victor@mojatatu.com>, Po Liu <Po.Liu@nxp.com>,
+ stable@vger.kernel.org, sashiko-bot@kernel.org
+References: <ACT-WEXM.v4.r0.20261124074514@mojatatu.com>
+ <ACT-WEXM.v4.r0.20261124074514-2@mojatatu.com>
+ <20261124161258.vLyrm8Y4@linutronix.de>
+ <CAM0EoMmMio4kotBqbcJmFtf_c3Du=rhfvp+sMiAd0fHKowv6Vg@mail.gmail.com>
+ <CAM0EoMkEjxCo6K9k3MZH0U+3na9soMNE0gouddwOTzUYXcEunA@mail.gmail.com>
+From: Matthieu Baerts <matttbe@kernel.org>
+Autocrypt: addr=matttbe@kernel.org; keydata=
+ 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
+ lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
+Organization: NGI0 Core
+In-Reply-To: <CAM0EoMkEjxCo6K9k3MZH0U+3na9soMNE0gouddwOTzUYXcEunA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+Hi Jamal,
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 3
+On 24/11/2026 18:11, Jamal Hadi Salim wrote:
+> On Tue, Nov 24, 2026 at 11:58 AM Jamal Hadi Salim <jhs@mojatatu.com> wrote:
+>>
+>> On Tue, Nov 24, 2026 at 11:13 AM Sebastian Andrzej Siewior
+>> <bigeasy@linutronix.de> wrote:
+>>>
+>>> On 2026-11-24 09:12:09 [-0500], Jamal Hadi Salim wrote:
+>>>> This is a followup of commit a51c328df310 ("net: qos: introduce a gate
+>>>> control flow action") as reported by Sashiko.
+>>>>
+>>>> The issue:
+>>>> fill_gate_entry() only rejects an interval of zero, but that interval is
+>>>> the period gate_timer_func() re-arms the hrtimer at, and a few
+>>>> nanoseconds is below the cost of servicing one expiry: the next is due
+>>>> before the current one finishes, so the action holds a CPU in the timer
+>>>> softirq for as long as it exists.
+>>>
+>>> The timer is programmed in the past, fires immediately and hogs the
+>>> CPU.
+>>>
+>>>> On a 2-vCPU guest, entries of 1 us and below hold 86% to 90% of a core,
+>>>> 2 us holds 61%, and 3 us holds 22%; from 3.5 us on the cost falls to a
+>>>> few percent and it reaches zero by 100 us.
+>>>>
+>>>> The Fix:
+>>>> Require at least 10 us per entry.  An act_gate schedule is not tied to a
+>>>> device, so unlike taprio there is no frame time to derive a bound from;
+>>>> the bound has to come from the cost of servicing one expiry, with room
+>>>> for a kernel that services it slower.
+>>>
+>>> The 10us sound sane. With enough debug (say kasan, lockdep, …) this
+>>> might become tight again.
+>>>
+>>
+>> Agreed. Unfortunately, there is no way to derive a "good value" here
+>> (it depends on workload, machine, utilization, etc, etc).
+>> poor choice of wording on my part - should probably have said all of
+>> what i said above for precisiness...
+> 
+> And now that you bring this up - this should really have been
+> targetting net-next not net.
+> I dont want to resend (unless sashikos find something sinister) - but
+> Jakub/Paolo consider applying this to net-next instead when the time
+> comes.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I'm sorry to say that, but a new version might be needed: it looks like
+the new tests you added in this series are not passing:
 
-- [Medium] rxrpc_update_rack_rto_timer() (net/rxrpc/input_rack.c) never
-  stops the RTO timer once every transmitted DATA packet has been ACK'd.
-- [Low] In the new rxrpc_update_rack_rto_timer()
-  (net/rxrpc/input_rack.c), `rto = ktime_add(earliest,…
-- [Low] The new RTO rearm in rxrpc_input_call_event()
-  (net/rxrpc/call_event.c:456-463) uses `rack_timer_mode == OFF &&…
-- [Low] The new rxrpc_call::cong_in_recovery field is commented "If we're
-  in Fast retransmit recovery", but it stays true after the call leaves…
+  https://github.com/p4tc-dev/tc-executor/blob/storage/artifacts/928799/1-tdc-sh/stdout
 
---
+It started there:
 
-rxrpc: Fix RACK-TLP implementation
+  https://netdev.bots.linux.dev/branch_deltas/net-next-2026-11-26--21-00.html
 
-This patch fixes several parts of the rxrpc RACK-TLP implementation. It
-moves the recovery flag from rxrpc_ack_summary into rxrpc_call, rearms or
-extends the RTO timer at the end of rxrpc_input_call_event(), and
-initialises the TLP state only on entry to FAST_RETRANSMIT. It also moves
-the segment_xmit_ts reset out of rxrpc_rack_mark_lost() and changes the
-flight_size check in rxrpc_tlp_calc_pto().
+Or is it due to conflicts with other WIP patches or something missing on
+the CI?
 
-> diff --git a/net/rxrpc/call_event.c b/net/rxrpc/call_event.c
-> index 62e15b03c9c2e..2b3bd5355a023 100644
-> --- a/net/rxrpc/call_event.c
-> +++ b/net/rxrpc/call_event.c
+pw-bot: cr
 
-[ ... ]
-
-> @@ -448,6 +450,24 @@ bool rxrpc_input_call_event(struct rxrpc_call *call)
->  				       rxrpc_propose_ack_input_data);
->  	}
->  
-> +	/* Need to rearm the RTO timer if we don't start the TLP-PTO
-> +	 * timer [RFC8985 7.3].
-> +	 */
-> +	if (call->rack_timer_mode == RXRPC_CALL_RACKTIMER_OFF &&
-> +	    call->tx_in_flight > 0) {
-> +		ktime_t rto = rxrpc_get_rto_backoff(call, false);
-> +
-> +		call->rack_timer_mode = RXRPC_CALL_RACKTIMER_RTO;
-> +		call->rack_timo_at = ktime_add(ktime_get_real(), rto);
-> +		trace_rxrpc_rack_timer(call, rto, false);
-> +		trace_rxrpc_timer_set(call, rto, rxrpc_timer_trace_rack_rto);
-
-[Severity: Low]
-Can tx_in_flight be non-zero here only because of a TLP probe, after the
-Tx phase has already ended?
-
-The commit message says the RTO is rearmed "if DATA packets have been sent
-but not yet ACK'd". However, tx_in_flight also counts a TLP retransmission
-of a segment that has already been soft-ACK'd:
-
-net/rxrpc/output.c:rxrpc_send_data_packet() {
-    ...
-		if (req->tlp_probe && test_bit(ix, &tq->segment_acked)) {
-			...
-			if (!call->tlp_in_flight) {
-				call->tlp_in_flight = true;
-				call->tx_in_flight++;
-			}
-    ...
-}
-
-Suppose the final ACK then hard-ACKs the whole window. tlp_seq goes
-through the soft ACK to hard ACK branch of rxrpc_rotate_tx_window(), and
-that branch doesn't call rxrpc_tlp_end_probe():
-
-		} else if (test_bit(ix, &tq->segment_acked)) {
-			/* Soft ACK -> hard ACK. */
-			call->acks_nr_sacks--;
-			trace_rxrpc_rotate(call, tq, summary, seq, rxrpc_rotate_trace_sack);
-		}
-
-rxrpc_input_ack() then calls rxrpc_end_tx_phase(), which sets
-rack_timer_mode to RXRPC_CALL_RACKTIMER_OFF. It then jumps to send_response
-and skips check_for_tlp_probe, so the probe isn't ended there either.
-
-Back in rxrpc_input_call_event(), the mode is OFF and tx_in_flight is 1.
-An RTO therefore gets armed on a call in CLIENT_AWAIT_REPLY or
-CLIENT_RECV_REPLY. When it fires, rxrpc_rack_timer_expired() calls
-rxrpc_congestion_timeout() even though nothing is outstanding.
-
-rxrpc_tlp_probe_loss() may not clear the probe if rto_us has grown since
-the probe was sent. In that case the mode goes back to OFF with
-tx_in_flight still 1, and this block arms the RTO again.
-
-Could this keep rearming the RTO on a call that has finished transmitting?
-
-[ ... ]
-
-> diff --git a/net/rxrpc/input.c b/net/rxrpc/input.c
-> index 66be37f214105..aa3af5a10c015 100644
-> --- a/net/rxrpc/input.c
-> +++ b/net/rxrpc/input.c
-
-[ ... ]
-
-> @@ -97,12 +98,12 @@ static void rxrpc_congestion_management(struct rxrpc_call *call,
->  		call->cong_extra = 0;
->  		call->cong_dup_acks = 0;
->  		summary->need_retransmit = true;
-> -		summary->in_fast_or_rto_recovery = true;
-> +		call->cong_in_recovery = true;
-> +		rxrpc_tlp_init(call);
->  		goto out;
->  
->  	case RXRPC_CA_FAST_RETRANSMIT:
-> -		rxrpc_tlp_init(call);
-> -		summary->in_fast_or_rto_recovery = true;
-> +		call->cong_in_recovery = true;
->  		if (!summary->new_low_snack) {
->  			if (summary->nr_new_sacks == 0)
->  				call->cong_cwnd += 1;
-
-[Severity: Low]
-Does cong_in_recovery stay true after the call has left recovery?
-
-The new field is commented "If we're in Fast retransmit recovery". On the
-exit ACK, though, this case sets it to true and then leaves recovery:
-
-		} else {
-			summary->change = rxrpc_cong_progress;
-			call->cong_cwnd = call->cong_ssthresh;
-			if (call->acks_nr_snacks == 0) {
-				summary->exiting_fast_or_rto_recovery = true;
-				goto resume_normality;
-			}
-		}
-
-resume_normality moves cong_ca_state to SLOW_START or CONGEST_AVOIDANCE
-but doesn't clear cong_in_recovery.
-
-The flag now outlives the ACK, so a reorder timer that fires before the
-next ACK can still see it:
-
-rxrpc_rack_timer_expired()
-  rxrpc_rack_detect_loss_and_arm_timer()
-    rxrpc_rack_update_reo_wnd()
-
-Here cong_in_recovery is true while cong_ca_state says recovery is over.
-With !rack_reordering_seen, rack_reo_wnd is set to 0, and a later RTO
-uses that value in rxrpc_rack_mark_losses_on_rto().
-
-The reorder path itself can't declare new losses, because acks_nr_snacks
-is 0 at exit.
-
-Would clearing cong_in_recovery in resume_normality keep the field
-consistent with cong_ca_state and with its comment?
-
-[ ... ]
-
-> diff --git a/net/rxrpc/input_rack.c b/net/rxrpc/input_rack.c
-> index 240362109a3b3..473046562b0bd 100644
-> --- a/net/rxrpc/input_rack.c
-> +++ b/net/rxrpc/input_rack.c
-
-[ ... ]
-
-> @@ -446,3 +447,50 @@ void rxrpc_rack_timer_expired(struct rxrpc_call *call, ktime_t overran_by)
->  		pr_warn("Unexpected rack timer %u", mode);
->  	}
->  }
-> +
-> +/*
-> + * Update the RACK RTO timer after new data is ACK'd.
-> + */
-> +void rxrpc_update_rack_rto_timer(struct rxrpc_call *call)
-> +{
-> +	struct rxrpc_txqueue *tq;
-> +	ktime_t earliest = KTIME_MAX, rto;
-> +
-> +	if (!call->tx_in_flight)
-> +		return;
-
-[Severity: Medium]
-Should the RTO be stopped here when nothing is in flight, instead of
-returning with the old deadline still set?
-
-After this early return, rack_timer_mode is still
-RXRPC_CALL_RACKTIMER_RTO and rack_timo_at keeps its old value. The new
-block in rxrpc_input_call_event() can only arm the RTO or move it later,
-so nothing cancels it.
-
-Here is one way to reach this:
-
-1. The RTO is armed when rxrpc_input_call_event() starts, so in_rto is
-   true.
-
-2. An ACK hard-ACKs everything that has been transmitted. The last packet
-   hasn't been sent yet, so rxrpc_end_tx_phase() isn't called.
-
-3. rxrpc_rotate_tx_window() drops tx_in_flight to 0, and
-   RXRPC_CALL_NEW_DATA_ACKED gets set.
-
-4. Nothing new is queued, so no TLP-PTO replaces the RTO, and this
-   function returns early.
-
-The timer is still rearmed through set(call->rack_timo_at). When it
-fires, rxrpc_rack_timer_expired() calls rxrpc_congestion_timeout():
-
-	set_bit(RXRPC_CALL_RETRANS_TIMEOUT, &call->flags);
-	call->cong_ssthresh = umax(call->tx_in_flight / 2, 2);
-	call->cong_cwnd = 1;
-
-This sets cwnd to 1 and ssthresh to 2 even though nothing was lost.
-
-RFC 6298 section 5.2, which RFC 8985 uses for the RTO, says to turn off
-the retransmission timer once all outstanding data has been acknowledged.
-
-The new arm-on-OFF code also makes this more likely. It now arms an RTO
-after RTO-driven resends and after the reorder timer fires, where
-previously no timer was set.
-
-[ ... ]
-
-> +	if (earliest != KTIME_MAX) {
-> +		rto = ktime_add(earliest, rxrpc_get_rto_backoff(call, false));
-> +		if (ktime_after(rto, call->rack_timo_at)) {
-> +			call->rack_timer_mode = RXRPC_CALL_RACKTIMER_RTO;
-> +			call->rack_timo_at = rto;
-> +			trace_rxrpc_rack_timer(call, rto, false);
-> +			trace_rxrpc_timer_set(call, rto, rxrpc_timer_trace_rack_rto);
-
-[Severity: Low]
-Is rto the right value to pass to these tracepoints?
-
-Here rto is an absolute CLOCK_REALTIME deadline, because earliest comes
-from rxrpc_get_xmit_ts(). Storing it in rack_timo_at is correct. However,
-trace_rxrpc_rack_timer() and trace_rxrpc_timer_set() take a ktime_t delay
-and print it as to=%lld via ktime_to_us().
-
-The other rack_rto trace site added by this patch, in
-rxrpc_input_call_event(), passes a relative rto:
-
-		call->rack_timo_at = ktime_add(ktime_get_real(), rto);
-		trace_rxrpc_rack_timer(call, rto, false);
-		trace_rxrpc_timer_set(call, rto, rxrpc_timer_trace_rack_rto);
-
-Traces from this path will therefore show the wall-clock time since the
-epoch in microseconds, not the time left until the RTO fires.
-
-Should a relative delay be passed here, as the other callers do?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261124161302.4044422-1-dhowells%40redhat.com
+Cheers,
+Matt
