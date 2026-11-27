@@ -1,49 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795752346;
-	b=gpvis/d+Qef8fjzXwk1sZJKgnUBpdXM4BYp0m/U4Orkq8HAbPZe55gJopnf1Vomw50J0
-	 sUOC/d3dY0sQu/FO5TdjaR/3m+ueHi4mhgacR/nyxvvjq8gxLB0UDcRqUFs9yvz12GNn2
-	 GsWa3ih9QN62bmfttOOH52Rtb/vyRg1Bw0D4AH9pRPBDTP2Q7+ABzXsYYhVOHoqqfXFyU
-	 ZMm7hSr8EIQkhVxmFCjJLpSDIEjK4lYQTS7tiWjRGb2POGKdMW+qPunX2VkaNQX9ybUmD
-	 SyfToWFroeMChuXAIs/uJXPXn2LAXefqtsioFdYe/NpKnq2ayaclykrJ1ujBAfhQ7fw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795752346;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
-	 X-Spam-Checker-Version;
-	bh=Ma+f5p80haJszFPPAIIEC1l3WLdFdBqpV7MIoNSrF48=;
-	b=YNxnj9mVSoZOHp2szQzNGUxYK5QlsbGOKBP6MNHw2La7sxopmRqV6l257NuvbC7aEJmP
-	 Egq4TnKkgug6vQkdyp70nITRAFyUBmRjJBBQUgky6vRyGG9/Fnmq+pJQG5IhKftCMI+KF
-	 Eu5VqUk/3KZym38pANVcvuoLeekUOvUYCXQ3mqo6E9nuWc4xgT9nVl11f3UwbEG7qrlZu
-	 /VAI+ccXa8osjKh581uEq5byU71q03tkYEpPG00KpMYm5hgrTXVBuW+FQlb1qPMs0PN4z
-	 UhvTPU+QBzVpiYnkRQL+c3nq7+9RYAfPqYij+SuMi2KluumMwiQ0uRkqz4lxPJBk57Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=omijfA5C;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 555EE606A31C;
-	Fri, 27 Nov 2026 04:05:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 555EE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795752543;
+	b=JbefM6ik2YhdYW6LHeofLdow5/o7hQSAXAhpD2GQhUMLZiWS0s27T39yIdLFZsB1pkFj
+	 V2611eddONVWJTAQWE01TzkaqpgsJAr+v4Q/3up/DxC5J8KuBAHAw/u7xxqCokKjbwdpz
+	 wtrHcJZDCeEj3cOxfrAy4ICVrC3Kj+rAaG/sN0ST9pWAbPmnPbo7YNedg8gCVZ6mDOYJb
+	 TsUx1VnJdDFSazTXBc8u0I3xQu8xuGEe3p8yBC/VPWwl2FzkUCVClknbO7IReFdspygeV
+	 LMeuvCEpj7GFz/17wBV0HhiFwGoDGXIKD8xUhjQVcfCTEWEeCVBYa5UAM+yWyDPNt+w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795752543;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=li3JX+2Xd1AiqIgciAZ7DZSxkrw+I5jSEeNc/twiSZ4=;
+	b=OTOvMCTKpfcnwpwr7FGNu/FFqZGm9wtOaZ45TSgyhsYW9EldRFCpmXwWU+BiHc5sVbbb
+	 I3a0jmCfYzXgFmhCc6w4TZbNp1g3o89j24aUTTu6ANQFRdt8I48/vVWr9ho/0PFJWciBu
+	 j6EvQjHzFqSDMFPcovpZKeWQfsrKzqFRDOmfQp7SRszibZNPyoPsKd6GNIrINivtKmZr9
+	 +VLsnyeW8HaFwoJExrW+BiZxIMPzOIa3bhljnQhgkyZHZmzBoseuRpA/Fk+U2akDwalyy
+	 lsIaoExxqWW9szP74askdFe2+V5DX+tqyukEaEbgQpD1vcd606XKM3G7vmkHSbr4xpw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M+oAXcfJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C164B606A32C;
+	Fri, 27 Nov 2026 04:09:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=omijfA5C
-Received: from [192.168.1.70] (unknown [52.172.102.222])
-	by linux.microsoft.com (Postfix) with ESMTPSA id B8EB620B7166;
-	Thu, 26 Nov 2026 20:05:30 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B8EB620B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1795752334;
-	bh=Ma+f5p80haJszFPPAIIEC1l3WLdFdBqpV7MIoNSrF48=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=omijfA5Cc+HumzTDcN5RSmmeizr3nKcpgIVYDhAvwS//fyO3Q0ZVB9vJcRC2PgeEF
-	 wHmv+J2D80WDkMAfjOng7PYGhhK8l6++MR12DNtgPLS4XD/KyuXdoc345KtLyBkKrL
-	 aqpWukiJnUHIJRehA/GrQzwhk3naYp9gHsqHHn9Y=
-Message-ID: <74edd490-26bd-41a4-81ee-cd18b9f28154@linux.microsoft.com>
-Date: Fri, 27 Nov 2026 09:35:34 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M+oAXcfJ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795752543;
+	b=r9sfhgD1kvBWHINRmHu/cKNolX5FJFPHaKm+qEvW0worfM5HLRSzrWWYpplEjZBGAF/Y
+	 5sKG4luj9IE9jTa9b8P+mHfe3gj/5E65LrS3ODfize9AuPQftDvOMGbc7O04hgOmm9czb
+	 AsKnQEbYDjwo6X+QWCnUqTFeEOxiakN1ZosPlKukpOoFt77hbU2BXx+tvRs0ci8JdFSMm
+	 FEw2lMYCJvCLfOxDvPyYz3tQeXB9NdfT/Ivv4MDPHvm8gd0XuVqqUsQ5S5zwRrjoNoceE
+	 Rm/X6ZFWpg5dxuSDriL6FaRM/qGo5aL9EWcQjQj8VuqWkn2sJYen3JqzVfUXIvaHxRg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795752543;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=li3JX+2Xd1AiqIgciAZ7DZSxkrw+I5jSEeNc/twiSZ4=;
+	b=g6TYauPgZucmoBcu5VcKLqHABTF90DekMUy+9074Tl93NHo4Je2rLOJ9gdO9ZyGz+EtH
+	 iPVLHQQplw0kBMMW8BVlam5Qgmpta/QCpkK25GIgoogtQAIF6HEhuVl3qvhKypGkO/T2v
+	 PPMYyrQkhDW9XuQ08/2tp40hELxZsLsvypyvad0PO5c/JpY+9JE2g92BNdTx3/EvsgeNY
+	 xFNW35BT/RWUkHmFQPrsisTX92Uu411cST4aVQsmhEycDzzt1vQx4a/McJhoQmqSr7KSm
+	 Z75Y3AzmuWeOnq3IZwisqnE7BmFCqMPJY9jtXP9w/JEaonMi8R6wIh1sOqMfCJmM/5Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 31CCA1F00923;
+	Fri, 27 Nov 2026 04:08:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795752543;
+	bh=li3JX+2Xd1AiqIgciAZ7DZSxkrw+I5jSEeNc/twiSZ4=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=M+oAXcfJyMhh4ui+uVN8NR+BdjjT58rZZY7NQ2xfin9m+84o46Od/4UsOV6t96hl/
+	 eMiYz8j3l3XzWMPp0XUsKAw7i3bF0RRi28/cgsRZMjW1BgNKF1CDCJnXDL+Ikv8+jB
+	 zsiiVC/cI+pyTOlH9KWj9mYOs3ba2M3ZudzUqEp7Q/I9F1uJ48d/acGxX2JcRl0jRC
+	 NTKc61WtG7BE3fHaV06+UrmB1IJRSuArcA/7311BmYelG5nT69Gh3y8LumagW7hvXO
+	 rqus8Z4YL/5XTgL6t4SIRgJnsj0v2MbFAZvzcXrkR41s+ciABXFmvdAezctLcvMIP+
+	 fY5UzPxTl+m+g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id AA5484B55B;
+	Fri, 27 Nov 2026 04:08:51 +0000 (UTC)
+From: David Crawshaw via B4 Relay <devnull+david.exe.dev@kernel.org>
+Subject: [PATCH 0/2] fuse: fix data loss when writeback races a
+ write-through extending write
+Date: Fri, 27 Nov 2026 04:08:38 +0000
+Message-Id: <20261127-b4-fuse-wt-eof-v1-0-e055e2af652d@exe.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,141 +84,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iov_iter: Fix direct I/O across compatible device pgmaps
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>,
- Andrew Morton <akpm@linux-foundation.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>
-Cc: Oscar Salvador <osalvador@suse.de>, Logan Gunthorpe
- <logang@deltatee.com>, Leon Romanovsky <leon@kernel.org>,
- Keith Busch <kbusch@kernel.org>, linux-block@vger.kernel.org,
- linux-mm@kvack.org, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-References: <20261126053433.88531-1-namjain@linux.microsoft.com>
- <5cc60faa-002c-4c96-97e3-46d3002718c9@kernel.org>
-Content-Language: en-US
-From: Naman Jain <namjain@linux.microsoft.com>
-In-Reply-To: <5cc60faa-002c-4c96-97e3-46d3002718c9@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEYCCWsC/yXMQQ6CMBBG4auQWTuJrdiKVzEuKP7VcQGkA2rSc
+ HcKLr/Fe5kUSaB0rTIlfERl6AvMoaLu1fZPsDyKyR6tM8Z6DjXHWcHfiTFE9sGb2jWX8ymASjQ
+ mRPntw9v9b53DG920XWhZVk8a8N1yAAAA
+X-Change-ID: 20261127-b4-fuse-wt-eof-7b71469853be
+To: Miklos Szeredi <miklos@szeredi.hu>, 
+ "Darrick J. Wong" <djwong@kernel.org>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Joanne Koong <joannelkoong@gmail.com>, Shuah Khan <shuah@kernel.org>
+Cc: fuse-devel@lists.linux.dev, linux-kselftest@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, regressions@lists.linux.dev, 
+ David Crawshaw <david@exe.dev>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795752531; l=1976;
+ i=david@exe.dev; s=20261127; h=from:subject:message-id;
+ bh=/uZwlpKJlvGvr6lTGIgh3p40tIbnOtPhD5Kl6WqbtuQ=;
+ b=+7IrrOKCwsFl/f8JAosPywwOryhD5UclQsoKBCSUXZ4rKvgiQraL0C6ykQ4RX58RHmueH3z8e
+ CqpLN5xraBTDsm+mvL5eAd+qJQdgfKBO6yqS8Mttj0rhY8y52FW3FR8
+X-Developer-Key: i=david@exe.dev; a=ed25519;
+ pk=eQfKiR9S2peqiHuuNGCAaWlxwP+RerhKT2wVxakCrjQ=
+X-Endpoint-Received: by B4 Relay for david@exe.dev/20261127 with
+ auth_id=1661
+X-Original-From: David Crawshaw <david@exe.dev>
+Reply-To: david@exe.dev
 
+Since v6.17 commit ef7e7cbb323f "fuse: use iomap for writeback",
+a write-through pwrite() that extends a file inside the folio
+holding EOF can return success and lose its data. This happens
+when that folio is dirty and writeback of it starts while the
+FUSE_WRITE is in flight.
 
+The mechanism is that fuse_perform_write() unlocks the folio before
+sending the request and only updates i_size after the reply, and
+iomap_writeback_handle_eof() zeroes the folio beyond the old i_size.
 
-On 11/26/2026 6:42 PM, David Hildenbrand (Arm) wrote:
-> On 11/26/26 06:34, Naman Jain wrote:
->> Commit 38446014648c ("block: don't merge different kinds of P2P transfers
->> in a single bio") made bio_add_page() reject pages from different
->> dev_pagemaps. This was needed for PCI P2PDMA, but also rejected pages
->> with compatible DMA mapping requirements.
->>
->> Commit 41c665aae2b5 ("block: relax pgmap check in bio_add_page for
->> compatible zone device pages") allows these pages in separate bvecs.
->> Commit 13920e4b7b784 ("block: add pgmap check to biovec_phys_mergeable")
->> prevents physically contiguous bvecs from different pgmaps from being
->> merged into one segment.
->>
->> But direct I/O now fills a bio using iov_iter_extract_bvecs(), which
->> retained the original restriction and bypasses bio_add_page().
->> For a non-atomic request handled by a single bio, only the data before
->> the pgmap boundary is submitted. The rest is not transferred, and the
->> request completes with fewer bytes than requested.
->>
->> Fix this by moving zone_device_pages_compatible() from blk.h to
->> memremap.h and using it in iov_iter_extract_bvecs(). This allows
->> compatible pages to be added as separate bvecs without relaxing the
->> same-pgmap requirement for PCI P2PDMA.
->>
->> Fixes: 38446014648c ("block: don't merge different kinds of P2P transfers in a single bio")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
->> ---
->>   block/blk.h              | 19 -------------------
->>   include/linux/memremap.h | 19 +++++++++++++++++++
->>   lib/iov_iter.c           |  3 ++-
->>   3 files changed, 21 insertions(+), 20 deletions(-)
->>
->> diff --git a/block/blk.h b/block/blk.h
->> index 50abfd9328861..460c064f1d1b0 100644
->> --- a/block/blk.h
->> +++ b/block/blk.h
->> @@ -142,25 +142,6 @@ static inline bool biovec_phys_mergeable(struct request_queue *q,
->>   	return true;
->>   }
->>   
->> -/*
->> - * Check if two pages from potentially different zone device pgmaps can
->> - * coexist as separate bvec entries in the same bio.
->> - *
->> - * The block DMA iterator (blk_dma_map_iter_start) caches the P2PDMA mapping
->> - * state from the first segment and applies it to all subsequent segments, so
->> - * P2PDMA pages from different pgmaps must not be mixed in the same bio.
->> - *
->> - * Other zone device types (FS_DAX, GENERIC) use the same dma_map_phys() path
->> - * as normal RAM.  PRIVATE and COHERENT pages never appear in bios.
->> - */
->> -static inline bool zone_device_pages_compatible(const struct page *a,
->> -						const struct page *b)
->> -{
->> -	if (is_pci_p2pdma_page(a) || is_pci_p2pdma_page(b))
->> -		return zone_device_pages_have_same_pgmap(a, b);
->> -	return true;
->> -}
->> -
->>   static inline bool __bvec_gap_to_prev(const struct queue_limits *lim,
->>   		struct bio_vec *bprv, unsigned int offset)
->>   {
->> diff --git a/include/linux/memremap.h b/include/linux/memremap.h
->> index c8a4979d4c780..a1d447a847990 100644
->> --- a/include/linux/memremap.h
->> +++ b/include/linux/memremap.h
->> @@ -202,6 +202,25 @@ static inline bool is_pci_p2pdma_page(const struct page *page)
->>   		folio_is_pci_p2pdma(page_folio(page));
->>   }
->>   
->> +/*
->> + * Check if two pages from potentially different zone device pgmaps can
->> + * coexist as separate bvec entries in the same bio.
->> + *
->> + * The block DMA iterator (blk_dma_map_iter_start) caches the P2PDMA mapping
->> + * state from the first segment and applies it to all subsequent segments, so
->> + * P2PDMA pages from different pgmaps must not be mixed in the same bio.
->> + *
->> + * Other zone device types (FS_DAX, GENERIC) use the same dma_map_phys() path
->> + * as normal RAM.  PRIVATE and COHERENT pages never appear in bios.
->> + */
->>
-> 
-> Can you convert this to proper kernel doc while at it?
-> 
-> Also this should all be working on folios instead of pages. But that will need a
-> zone_device_folios_have_same_pgmap() so we can defer it, not suitable for this fix.
-> 
+Patch 1 keeps a folio that straddles i_size locked over the request
+when the write extends the file within it, and updates i_size before
+the folios are unlocked, like iomap_write_iter() does.
 
-IIUC, you want me to change this comment to kernel doc, something like this.
+Patch 2 adds a deterministic selftest case.
 
-/**
-  * zone_device_pages_compatible() - Check if pages can share a bio
-  * @a: First page
-  * @b: Second page
-  *
-  * Check if two pages from potentially different zone device pgmaps can
-  * coexist as separate bvec entries in the same bio.
-  *
-  * The block DMA iterator (blk_dma_map_iter_start()) caches the P2PDMA
-  * mapping state from the first segment and applies it to all subsequent
-  * segments, so P2PDMA pages from different pgmaps must not be mixed in
-  * the same bio.
-  *
-  * Other zone device types (FS_DAX, GENERIC) use the same dma_map_phys()
-  * path as normal RAM.  PRIVATE and COHERENT pages never appear in bios.
-  *
-  * Return: %true if the pages can coexist as separate bvec entries in the
-  * same bio, otherwise %false.
-  */
+Reproduced on v6.17 and v7.4-rc4+ (9437ee8b6cf9); not on v6.16.
 
-I can do that in next version. Thanks.
+Data lost in the reproducer:
 
-Regards,
-Naman
+                                   unpatched        patched
+  WRITE delayed 200us/0/2ms        1428/1500        0/6000
+  8 mounts in parallel             3229/4000        0/4000
+  EOF in a large folio (THP)        811/900         0/900
+  new selftest case                 50/50 fail      50/50 pass
+
+(All testing done on x86_64 KVM guests.)
+
+Disclosure: the bisection, and both patches were produced by an AI
+coding agent (exe.dev's Shelley, using the Opus 5.5 model).
+I reviewed the work and wrote the bulk of the prose.
+
+Signed-off-by: David Crawshaw <david@exe.dev>
+---
+David Crawshaw (2):
+      fuse: update i_size before unlocking the EOF folio in write-through writes
+      selftests/fuse: test a write extending the file beside writeback of the EOF page
+
+ fs/fuse/file.c                                     | 21 ++++++-
+ .../filesystems/fuse/write_extend_eof_test.c       | 71 ++++++++++++++++++++++
+ 2 files changed, 91 insertions(+), 1 deletion(-)
+---
+base-commit: 9437ee8b6cf607e883b36e44bd755968daaebd48
+change-id: 20261127-b4-fuse-wt-eof-7b71469853be
+
+Best regards,
+--  
+David Crawshaw <david@exe.dev>
+
 
