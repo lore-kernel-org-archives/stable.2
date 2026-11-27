@@ -1,71 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795805907;
-	b=ZaQVAzVk/1lEoch10Pgffr1T8jly+AUCDXmDHHhFU7gkOlCh1/OSjFg+1QtQbhX0H2Jm
-	 Y1mzVsHY3Idf1D67NU1RqSUFSrS4hF5/dpU+zUi5qTNI2a0lkCKHqAGD0po0mSZkpRDj9
-	 xyj34aSjoOjpLfaZEssljCu2cv665oXwic7i2A8vX0fKZExwxMb7/Avv9LMe1emRiTwfU
-	 4YnomD9qVzDEpLj6M2g92o1GBWWUE2W7qfvZ23rwQCXTlMwkjhScP/dQ47/Qm0Z88eK++
-	 3QWUqvlaFrPTLBQde9x510gq+BomNrU+oNiM1fECULi2asSwR8Y/4ZecoDUWnXf2/qQ==
+	b=QKrqrx9yPVNx4T7jmBwvp279cATFxWHWc4ainDv/i9sPn78PXx7m+csdZnP/jaObCOta
+	 Fjg3WplsZMtEeAqRthr2t83iRPA+BUuGFF+IkbnmRf2AVWSsIktzP5nt4Ckw7l8K/kGPu
+	 dDsQw1XoSkGSISbzhanmK3HpxovDy9OMBIhs6kS9gql7EvZ76+iTByqE+gDDUNr40I76E
+	 Zn1dF3dUQRsfSJKWn4hlEFHfyrkje9asW8q7+hyb79Pv5kPbGoBAYFwFMZzBQZEZvDEU6
+	 4sQCMVhD2T7mRM1FzEegtUXtTE6ob1HtCnHWJHTm3bM9OnYZLrVCExH65ScDy7Sd8dQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795805907;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=V6G0bPzKPqW9y5CcOLYbTf+p7g3V14XBJCbAwz7OwwM=;
-	b=mtat4LAnbnKl4Kx4t1W5qaEnO7VUYtIY5mEARI/qpXsxscU16Ou1+lnZqWQUDnazX5pZ
-	 ONsWnpksIwXbpzYWmjaUiiJtATVXar7OaRv2MoRmQKH5jLLL+OoTQLcxIg5n5gxf1N/XR
-	 bgLG8U+MwpwpZxRqLkRKOntW5uIjNeK72l7C+wTSa0WUHz7JoQd1cKptVwp+JCrZ19cov
-	 gUIjo8a4M/H3LC4HWOqcNHWn891w4fvB9f2MwdNVsSAi7RWgpJj/vHDz7lT7EiPtjYWmk
-	 KY3KWWJkJXxCsK/DAL3BqRjj0OzcOnUUQH3znZCmSoymKlFB66EGWmeFv1uzLgNtp7g==
+	bh=WJKqb9lbHcL4EmdzdUnYQ7GHUDciH6wBpPPSXp/2ZaA=;
+	b=rlEpL+3bBdzoH61X3CkNJNjSS5wSxgk7GIcQGWuJ7e8SwdCg7hPy9ZjmHz5cDBLZvZgh
+	 w6icq3LpCLiGVt0LDY04SEHS8y42i8+JlZ0PuIOuhhyhLAgQlt9BWNnei6JKJXVfAb/6a
+	 Oop/ZL0QyI9oV9iX2tO3s92O6eR7Xw/2xKASE5DePdCfJvC+6gtbn7i1jy0Te4eKB3WQ3
+	 PkaOey5pMe0Ea08qIqR45d09qz/YHAAfYsuWiIykawjkETG7EdrpQnPGxn+AyoPGFNqq7
+	 S5XvHc56nEWXHKQzOIgWde1K+fGrB6bwqaEP16kIMbNfAxJETqeN8DnbRsxbXwfiAsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=FGolAFoD;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=vM+4BJa0;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5FD606A31F;
-	Fri, 27 Nov 2026 18:58:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC5FD606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFA2606A699;
+	Fri, 27 Nov 2026 18:58:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEFA2606A699
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=FGolAFoD
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=vM+4BJa0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1795805903;
-	bh=V6G0bPzKPqW9y5CcOLYbTf+p7g3V14XBJCbAwz7OwwM=;
+	s=smtpout1; t=1795805904;
+	bh=WJKqb9lbHcL4EmdzdUnYQ7GHUDciH6wBpPPSXp/2ZaA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=FGolAFoDgZU3DzGicV8Vc1sZFuagZFesnIEf9vV+p90etSxy2YCaTqcZwHe3ks2im
-	 pDnr8l/fR31m/VL0TFlWBUE092LQNHxqUsHgwopB3/6njtTbxJ9mIcCPE9s6r35J8f
-	 uZc3M5xrLjnPftllFAB97SK8q7axm8WCGo8YBXL+6mEKkytu6AiSe5OX5H6bu1e+SY
-	 9LL4YvJOExHU/G1OMJAbXHryZQdDmr1Ub9FhWCV+0zcyeENFvIyf7GUcAV0eMWtwiP
-	 sZI17CgT/svkJk8omXT3FJIds82N7M7WVofg6UQQ5Fp9hXuyxTSbO4IiYS47cUMSZO
-	 okbE57SGRMxbw==
+	b=vM+4BJa0IXxhOEjNMnoaK0yrLGfroaMjK+73E8nvuQzh1T038N4Q6RQRo71UN6WbY
+	 Z5lh1/iGHMEo92AO0EKNdbVuDTtd/id2K2wCC47ds6I+g7g/b6ZOWYO5UGqRFJ+tPA
+	 WNVEdNCF/ltr1HRzu6Ev8gn0IBYE3IK0wqU4imHqP+PofOadRXGWX2BJvjhyg6BgTB
+	 O/xekds9NRnux3qZNm8zm8MfjKp3ItMGRuQjvs/wguUpIc9Aj4fp+RAUZmLVFcb8Ve
+	 5WWgb/3coHwC+LVt3hSQh7SSX6FPxakR+syJ7d2oIY0zlcPvzlZOghx0CnFoyj6FSA
+	 ZW17HYle2emzg==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jbjNv6FPxzXFq;
-	Fri, 27 Nov 2026 13:58:23 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jbjNw5DLlzXWy;
+	Fri, 27 Nov 2026 13:58:24 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: Peter Zijlstra <peterz@infradead.org>,
 	Ingo Molnar <mingo@redhat.com>
 Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Helge Deller <deller@gmx.de>,
 	"Paul E. McKenney" <paulmck@kernel.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Michal Clapinski <mclapinski@google.com>,
-	Andrei Vagin <avagin@gmail.com>,
+	John David Anglin <dave.anglin@bell.net>,
+	linux-parisc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2 02/16] sched/membarrier: Report only completed registrations
-Date: Fri, 27 Nov 2026 13:58:07 -0500
-Message-ID: <20261127185822.158216-3-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v2 09/16] parisc: membarrier: Add full memory barrier in switch_mm()
+Date: Fri, 27 Nov 2026 13:58:14 -0500
+Message-ID: <20261127185822.158216-10-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261127185822.158216-1-mathieu.desnoyers@efficios.com>
 References: <20261127185822.158216-1-mathieu.desnoyers@efficios.com>
@@ -80,97 +74,133 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-MEMBARRIER_CMD_GET_REGISTRATIONS returns the registration commands
-which the process issued.
+The expedited membarrier commands need a full memory barrier after
+the scheduler stores to rq->curr, before the CPU returns to
+user-space. membarrier() skips the IPI to a CPU which it sees running
+another mm. This barrier orders the user-space accesses of the
+incoming thread after that check. See scenario (A) in
+kernel/sched/membarrier.c.
 
-Each registration has two state bits: one is set when the registration
-starts and the "ready" one when it completes. The command reports a
-registration when either bit is set.
+parisc has no dedicated barrier. It used to get it from
+smp_store_release() in finish_task() and from spin_unlock() in
+finish_lock_switch(). The first one issued a SYNC instruction. The
+second one issued an LDCW instruction, which is strongly ordered.
 
-The sync core and rseq registrations also set
-MEMBARRIER_STATE_PRIVATE_EXPEDITED, without its "ready" bit. They set
-it because their commands need the same scheduler barriers as
-MEMBARRIER_CMD_PRIVATE_EXPEDITED. So a process which only issued
-MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_RSEQ is reported as having
-issued MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED as well. Yet
-MEMBARRIER_CMD_PRIVATE_EXPEDITED returns -EPERM for that process.
+Both are ordered stores since v5.9:
 
-A registration which failed with -ENOMEM would be reported the same
-way.
+ - commit 157e9afcc4fa ("Revert "parisc: Revert "Release spinlocks
+   using ordered store"""),
+ - commit e96ebd589deb ("parisc: Implement __smp_store_release and
+   __smp_load_acquire barriers").
 
-User-space gets a wrong registration mask. The command was added for
-CRIU, which saves the registrations of a process at checkpoint. A
-restored process would carry a registration which the original
-process did not issue. A program which trusts the mask would issue
-MEMBARRIER_CMD_PRIVATE_EXPEDITED and get -EPERM.
+Linux runs with the PSW O bit clear. The PA-RISC 2.0 architecture
+then allows plain loads and stores to be weakly ordered. It orders an
+ordered store before a following ordered load, not before a following
+plain load. So an ordered store is not a full barrier.
 
-Fix this by reporting a registration only when its "ready" bit is
-set.
+Nothing else is a full barrier on a switch between two user
+processes. switch_mm_irqs_off() only writes control and space
+registers.
 
-This changes the mask which user-space reads.
-MEMBARRIER_CMD_GET_REGISTRATIONS no longer reports
-MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED for a process which only
-issued the sync core or the rseq registration. The result of every
-other command is unchanged.
+The PA-RISC 2.0 manual lists the strongly ordered accesses: I/O
+space, pages with the TLB U-bit set, LDCW, LDCD, the TLB purges and
+SYNC. MTCTL, MTSP and RFI are not among them.
 
-Fixes: 544a4f2ecd45 ("sched/membarrier: Introduce MEMBARRIER_CMD_GET_REGISTRATIONS")
+This was found by reading the code and the architecture manual. On a
+PA-RISC 2.0 SMP machine, a thread which is scheduled in would run
+user-space code without the promised barrier. User-space would see a
+memory ordering failure: the caller of an expedited membarrier command
+would miss a recent store of that thread. PA-RISC 1.1 is strongly
+ordered and not affected.
+
+Do as powerpc and riscv: add membarrier_arch_switch_mm() and call it
+from switch_mm_irqs_off() when the mm changes. It issues smp_mb()
+only when the next mm registered for an expedited command.
+
+Compile-tested only.
+
+Fixes: 157e9afcc4fa ("Revert "parisc: Revert "Release spinlocks using ordered store""")
+Fixes: e96ebd589deb ("parisc: Implement __smp_store_release and __smp_load_acquire barriers")
 Cc: stable@vger.kernel.org
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- kernel/sched/membarrier.c | 29 ++++++++++++++---------------
- 1 file changed, 14 insertions(+), 15 deletions(-)
+ arch/parisc/Kconfig                   |  1 +
+ arch/parisc/include/asm/membarrier.h  | 33 +++++++++++++++++++++++++++
+ arch/parisc/include/asm/mmu_context.h |  2 ++
+ 3 files changed, 36 insertions(+)
+ create mode 100644 arch/parisc/include/asm/membarrier.h
 
-diff --git a/kernel/sched/membarrier.c b/kernel/sched/membarrier.c
-index cb957b8f1946..46e823a3d668 100644
---- a/kernel/sched/membarrier.c
-+++ b/kernel/sched/membarrier.c
-@@ -566,15 +566,17 @@ static int membarrier_get_registrations(void)
- 	struct task_struct *p = current;
- 	struct mm_struct *mm = p->mm;
- 	int registrations_mask = 0, membarrier_state, i;
--	static const int states[] = {
--		MEMBARRIER_STATE_GLOBAL_EXPEDITED |
--			MEMBARRIER_STATE_GLOBAL_EXPEDITED_READY,
--		MEMBARRIER_STATE_PRIVATE_EXPEDITED |
--			MEMBARRIER_STATE_PRIVATE_EXPEDITED_READY,
--		MEMBARRIER_STATE_PRIVATE_EXPEDITED_SYNC_CORE |
--			MEMBARRIER_STATE_PRIVATE_EXPEDITED_SYNC_CORE_READY,
--		MEMBARRIER_STATE_PRIVATE_EXPEDITED_RSEQ |
--			MEMBARRIER_STATE_PRIVATE_EXPEDITED_RSEQ_READY
+diff --git a/arch/parisc/Kconfig b/arch/parisc/Kconfig
+index 77f67028ad89..3d6b4cc8d6a5 100644
+--- a/arch/parisc/Kconfig
++++ b/arch/parisc/Kconfig
+@@ -13,6 +13,7 @@ config PARISC
+ 	select ARCH_HAS_DMA_ALLOC if PA11
+ 	select ARCH_HAS_DMA_OPS
+ 	select ARCH_HAS_ELF_RANDOMIZE
++	select ARCH_HAS_MEMBARRIER_CALLBACKS
+ 	select ARCH_HAS_STRICT_KERNEL_RWX
+ 	select ARCH_HAS_STRICT_MODULE_RWX
+ 	select ARCH_HAS_UBSAN
+diff --git a/arch/parisc/include/asm/membarrier.h b/arch/parisc/include/asm/membarrier.h
+new file mode 100644
+index 000000000000..822dcadaf9bb
+--- /dev/null
++++ b/arch/parisc/include/asm/membarrier.h
+@@ -0,0 +1,33 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef _ASM_PARISC_MEMBARRIER_H
++#define _ASM_PARISC_MEMBARRIER_H
++
++static inline void membarrier_arch_switch_mm(struct mm_struct *prev,
++					     struct mm_struct *next,
++					     struct task_struct *tsk)
++{
 +	/*
-+	 * Only the "ready" state tells that a registration command
-+	 * completed. The other state of each pair is not specific to
-+	 * one registration command: the sync core and rseq
-+	 * registrations also set MEMBARRIER_STATE_PRIVATE_EXPEDITED.
++	 * Only need the full barrier when switching between processes.
++	 * Barrier when switching from kernel to userspace is not
++	 * required here, given that it is implied by mmdrop(). Barrier
++	 * when switching from userspace to kernel is not needed after
++	 * store to rq->curr.
 +	 */
-+	static const int ready_states[] = {
-+		MEMBARRIER_STATE_GLOBAL_EXPEDITED_READY,
-+		MEMBARRIER_STATE_PRIVATE_EXPEDITED_READY,
-+		MEMBARRIER_STATE_PRIVATE_EXPEDITED_SYNC_CORE_READY,
-+		MEMBARRIER_STATE_PRIVATE_EXPEDITED_RSEQ_READY
- 	};
- 	static const int registration_cmds[] = {
- 		MEMBARRIER_CMD_REGISTER_GLOBAL_EXPEDITED,
-@@ -582,16 +584,13 @@ static int membarrier_get_registrations(void)
- 		MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_SYNC_CORE,
- 		MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_RSEQ
- 	};
--	BUILD_BUG_ON(ARRAY_SIZE(states) != ARRAY_SIZE(registration_cmds));
-+	BUILD_BUG_ON(ARRAY_SIZE(ready_states) != ARRAY_SIZE(registration_cmds));
++	if (IS_ENABLED(CONFIG_SMP) &&
++	    likely(!(atomic_read(&next->membarrier_state) &
++		     (MEMBARRIER_STATE_PRIVATE_EXPEDITED |
++		      MEMBARRIER_STATE_GLOBAL_EXPEDITED))))
++		return;
++
++	/*
++	 * The membarrier system call requires a full memory barrier
++	 * after storing to rq->curr, before going back to user-space.
++	 *
++	 * Nothing else provides it on this path. spin_unlock() and
++	 * smp_store_release() are ordered stores. PA-RISC 2.0 does not
++	 * order an ordered store with a following weakly ordered load.
++	 */
++	smp_mb();
++}
++
++#endif /* _ASM_PARISC_MEMBARRIER_H */
+diff --git a/arch/parisc/include/asm/mmu_context.h b/arch/parisc/include/asm/mmu_context.h
+index c9187fe836a3..42ff1b9444f1 100644
+--- a/arch/parisc/include/asm/mmu_context.h
++++ b/arch/parisc/include/asm/mmu_context.h
+@@ -4,6 +4,7 @@
  
- 	membarrier_state = atomic_read(&mm->membarrier_state);
--	for (i = 0; i < ARRAY_SIZE(states); ++i) {
--		if (membarrier_state & states[i]) {
-+	for (i = 0; i < ARRAY_SIZE(ready_states); ++i) {
-+		if (membarrier_state & ready_states[i])
- 			registrations_mask |= registration_cmds[i];
--			membarrier_state &= ~states[i];
--		}
- 	}
--	WARN_ON_ONCE(membarrier_state != 0);
- 	return registrations_mask;
- }
- 
+ #include <linux/mm.h>
+ #include <linux/sched.h>
++#include <linux/sched/mm.h>
+ #include <linux/atomic.h>
+ #include <linux/spinlock.h>
+ #include <asm-generic/mm_hooks.h>
+@@ -51,6 +52,7 @@ static inline void switch_mm_irqs_off(struct mm_struct *prev,
+ 		struct mm_struct *next, struct task_struct *tsk)
+ {
+ 	if (prev != next) {
++		membarrier_arch_switch_mm(prev, next, tsk);
+ #ifdef CONFIG_TLB_PTLOCK
+ 		/* put physical address of page_table_lock in cr28 (tr4)
+ 		   for TLB faults */
 -- 
 2.47.3
 
