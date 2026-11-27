@@ -1,65 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795740818;
-	b=HrwuhvOlxRqgkqCpg0FzMQvDAO70tN9pFShwzDtjqZkWKfWvQXFqkCw9hhrMDgq69iVV
-	 wVlnCncNI0Sa4kXJ9PBqvotm0PBnGPfaiFcinWKiXWXg72IjIIgWpXBqtKDtOQZ6R1nyn
-	 BLBhKPGY+UfSIO6wzJL4TBUg5VV5oUXFHixskyLlzImXHJxTPS54aeSlr1QMrpR9ddtt2
-	 8QqQL5t/lWO+wimagL48MddrEty6htCKUNUmzHk06kpyQfqzlYvsdNxjvjIjARbC7KCYN
-	 7c8qQj5VjhxXNfEEUKBpHBZvO/ncrIbc6OhoFpTZmacPpWibF8mpmZv3JL3Q7gxEgAg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795740818;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=iSy/0O7S8ijEUnPgOjETIvR+sXgU6Nc1zbtPE0TV8d0=;
-	b=zMkChR9MhxkNdvbQwH2iB4sc2nKt7aDsJnZjR/BtUAxkspJ6LlBg3bvU9BvJMHxzaoSj
-	 CeSvoTWvtJ7uO3l9/LGV/pdY+zM5hg8LQcV3pyYhKTF/up25cZFOA8+6sK51FlIOlTdI/
-	 m+MLTznjISn3zAgBMSRWVoGV7P7L7ttIbdCBGc+FGxe5eAfl51HwQJrdSeyqI0HyhasOA
-	 f6V+kDcswmHQLJU8DcqNRNodadz/LztQ6E95jlVtVout9hGU4rTnoEFnhgT86abjt+Xcg
-	 J74ciqSxoXoQkdr8CXECkj//GxJNkEsjdh/URMXhBv3hJYfhseW5jrACV4aMTD2aTtg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ikuyo.dev;
-	spf=pass smtp.mailfrom=ikuyo.dev;
-	dkim=pass header.d=ikuyo.dev header.i=@ikuyo.dev header.a=rsa-sha256 header.s=s1 header.b=H5t2Bh27;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795740856;
+	b=4fA1puS/qsym6RmrEPVCRSh3q4dU4GSoxrzTZpT4DMajCokIh9G9e2o6XksYP+YLA9nw
+	 J8mdyksShRs2iRcYgNcqfiIkzmXYmleqhq90pM7INX9T6O8D9CuupvZDYgSs1s3FkW0KE
+	 xakD3BonHuGn7OuLshf103pjdzsLjJOpzZn8M2buOc4w7Fs6qLDaqj9UCABOPlvSGWTVi
+	 Z76uldhrB7v+KzoevGqw6J+iK1xW8xs6Mx7H1K+y5q9cIAeJxkCkcNgdPoT9zowA/vAW4
+	 kLp5GxNgHV01pVj57AJiFWKHO2j2GIy5wTlAqIobVAnBksFhWGOvv+LxGJdXH77E0lw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795740856;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=nSGdVhd2ZiTBtmXtGjLSgMbCST5by9CvVRzOAxDbcww=;
+	b=PTWxv6ZuFueD1TSIa7+aujEutRbQf2b2dHjUiDbaaTfqIU2ahacN0ZEO6LydT1gzenNI
+	 AFlSHsMoNFZ0iVlxPWRQmZMqWhGzpF4m2HUhM2ImRRWjrho6SFQGq/X4hfldzZGm4jMVr
+	 PPb60qeLvZY0uEJ2c8dhrPDGdtdINeWuYCJMzCYOX9H4ipw8e8jugmbShqOT1mesAr1FN
+	 RgSAFUwufWV23/CVyYvv5dERWfR4Kt1ikkE6zEkTMtDrfON63tHc/DzVwxlqMYAUnYJMH
+	 2RRm/3F3rWfMYYJE65dfQHQdAY0I6AB0rWYN3jDHRw9s67/AxqzjszFpiUe2wlSJs1w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="JRlrS2/3";
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B4A606A31E;
-	Fri, 27 Nov 2026 00:53:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65B4A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ikuyo.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ikuyo.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D9A606A31C;
+	Fri, 27 Nov 2026 00:54:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28D9A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ikuyo.dev header.i=@ikuyo.dev header.a=rsa-sha256 header.s=s1 header.b=H5t2Bh27
-ARC-Seal: i=1; a=rsa-sha256; t=1795740801; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=VNFOZirqG0fxj4ePEop9nibohca7oMtnRRLMteaPMm6fUshuwkvj/JDCPJxFbCtdEZQGZjzsVOKgkEr6qSeTkfOz+elW81m/P2gYHxH4KFsG/BWQ7vo7rZA3u5t960Bm2plxG2Mpn8qGH7nfDhJTCqBTdD9uwZi9BW703ZhwhR8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795740801; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=iSy/0O7S8ijEUnPgOjETIvR+sXgU6Nc1zbtPE0TV8d0=; 
-	b=lLBFlDsUHmWE2G62MupTclYnB9u/ENI/OqxoCOuMxxjG49xOKhynPc6faZr/bSKJ8OaxPvXtmD906iy9pTcRMClQXEl1/fuS1AWtOYlRPNZE5DThvgTkZKH91xL7XY0+TVD/FC6t0yQe7orMIJn5h65hhukdQRAaVaGtFbHHFI8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ikuyo.dev;
-	spf=pass  smtp.mailfrom=eritque-arcus@ikuyo.dev;
-	dmarc=pass header.from=<eritque-arcus@ikuyo.dev>
-DKIM-Signature: a=rsa-sha256; b=H5t2Bh27jQPBv8EcrnRC4V2Oq/4cP5dydW/p7MQyStoIKyt1mWJRWGpGjtHHRrHDAeOP109LA6KI562xBlPr5ABYz8X3GtA0ix/sqamVhIQtsZ6jykhrg3dxB5au7iZBRSmUi47tkQrj1xHm99mIyW5Kb9FsTtAnAlfVDFSt/CtNdINQjItwOM+O5u9mbOcCFH7YtDvGYMSFx5iKcQJn3O2X2CCmVaYRo6U0A2zjiqq0K/UWsMHnO7LP8w6+xx5rA5wst4ZSWbGWwAWHA+SriPiFKLC48cUcLoE/CNzMAedKMYFBee91PvJyNrF5XakMc3N8tvVYf/NKvPZJY/Z8OQ==; c=relaxed/relaxed; s=s1; d=ikuyo.dev; v=1; bh=iSy/0O7S8ijEUnPgOjETIvR+sXgU6Nc1zbtPE0TV8d0=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179574079924073.2582039212607;
-	Thu, 26 Nov 2026 16:53:19 -0800 (PST)
-From: Cygnus Qiu <eritque-arcus@ikuyo.dev>
-To: bernard.metzler@linux.dev,
-	jgg@ziepe.ca,
-	leon@kernel.org
-Cc: cel@kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Cygnus Qiu <eritque-arcus@ikuyo.dev>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] RDMA/siw: don't complete a fenced READ twice on flush
-Date: Thu, 26 Nov 2026 19:53:04 -0500
-Message-ID: <20261127005304.366336-1-eritque-arcus@ikuyo.dev>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=JRlrS2/3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795740854;
+	bh=nSGdVhd2ZiTBtmXtGjLSgMbCST5by9CvVRzOAxDbcww=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=JRlrS2/3ChBdrYhROYpQujwD2OGt63Nb+mjYEuPr/SAyKSUeMhVtVs0tL3tM01otY
+	 mOM/5nzxR8zOKR1FLRHNNFlhAbMsxpg+dkvnWy7CF2oMSqWlOe1SUz48WDwHxT4v+0
+	 te5E30givQVI+WE3Kw8KFhMFLXM+jgQkRN62rTlUdly/mvSKP1MJfLsK+HJ8UNkbAp
+	 g993iINvlRq+RXOntKCGcWHwkD/R13lS2K2s//3XgFHBYTpP9XnG2SQlSeEcf4z7JR
+	 z9fcoqnJhrCNuYKoIWwKdd4ZiGqTRNHrnuGSqU+Am/ACw462880HKJTYgGKjCq9J7z
+	 Gw+w/HCMwpA7A==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id AED6317E05F2;
+	Fri, 27 Nov 2026 01:54:12 +0100 (CET)
+Message-ID: <cdaa64c5c6aab0852670a15513e95baae42174c3.camel@collabora.com>
+Subject: Re: [PATCH v2 4/9] media: chips-media: wave5: ack the interrupt
+ after dispatching it
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: "Jackson.lee" <jackson.lee@chipsnmedia.com>, mchehab@kernel.org, 
+	hverkuil-cisco@xs4all.nl, bob.beckett@collabora.com
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	lafley.kim@chipsnmedia.com, b-brnich@ti.com, hverkuil@xs4all.nl, 
+	nas.chung@chipsnmedia.com, stable@vger.kernel.org
+Date: Thu, 26 Nov 2026 19:54:10 -0500
+In-Reply-To: <20261109052853.110-5-jackson.lee@chipsnmedia.com>
+References: <20261109052853.110-1-jackson.lee@chipsnmedia.com>
+	 <20261109052853.110-5-jackson.lee@chipsnmedia.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-4TLiSzZFoUFbhOqy1bE6"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,240 +89,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-siw_sq_flush() completes a QUEUED READ in the TX slot, assuming the READ
-is not in the ORQ yet. That holds only while a full ORQ fences it.
-siw_check_tx_fence() copies a fenced READ into the ORQ when a Read
-Response frees a slot, and siw_activate_tx_from_sq() copies a READ into
-a free slot. In both cases the READ stays QUEUED until the TX path sends
-it, and a flush in that window completes it twice.
+--=-4TLiSzZFoUFbhOqy1bE6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A peer can hold the window open. It advertises IRD 1, so the ORQ holds
-one READ: READ1 is in the ORQ and sent, READ2 waits fenced in the TX
-slot. The peer then sends Read Response 1 and a FIN in one TCP segment:
+Le lundi 09 novembre 2026 =C3=A0 14:28 +0900, Jackson.lee a =C3=A9crit=C2=
+=A0:
+> From: Jackson Lee <jackson.lee@chipsnmedia.com>
+>=20
+> W5_RET_QUEUE_CMD_DONE_INST is written by both the driver and the VPU:
+> the VPU sets the bit of every instance whose command completed, and the
+> driver clears the bits it has consumed. The driver does that as a
+> read-modify-write over a snapshot taken at the top of the handler, so
+> any bit the VPU adds in between is erased.
+>=20
+> The firmware does not update that register, for any reason, until the
+> host acknowledges the interrupt through W5_VPU_VINT_REASON_CLR and
+> W5_VPU_VINT_CLEAR, so leaving the interrupt unacknowledged for the whole
+> dispatch is what keeps the register still. Acknowledging first opened
+> the race instead: the firmware could rewrite the register, and the
+> write-back then dropped the instance it had just added. That instance is
+> never reported again -- its queue count stays non-zero and no further
+> completion arrives, so it stops decoding for good while the others keep
+> running.
+>=20
+> Move both acknowledge writes past the dispatch loop. The re-read of
+> W5_VPU_VINT_REASON that tried to narrow the window is no longer needed.
+>=20
+> Fixes: 9707a6254a8a ("media: chips-media: wave5: Add the v4l2 layer")
+> Cc: stable@vger.kernel.org
+> Tested-by: Brandon Brnich <b-brnich@ti.com>
+> Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
+> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
 
-  softirq (TCP receive)                 siw_cm_wq worker
-  tcp_data_queue()
-  |-tcp_fin()
-  | \-siw_cm_llp_state_change()
-  |   Sets tx_suspend and
-  |   queues the close.
-  |
-  \-tcp_data_ready()
-    \-siw_qp_llp_data_ready()
-      |-down_read_trylock(state_lock)
-      |-tcp_read_sock()
-      | \-siw_tcp_rx_data()
-      |   \-siw_rdmap_complete()
-      |     \-siw_check_tx_fence()
-      |       |-siw_read_to_orq()
-      |       | READ2 enters the ORQ.
-      |       |
-      |       \-siw_sq_start()
-      |         orq_fence is now 0.
-      |         TX is suspended:
-      |         READ2 stays QUEUED.
-      |
-      \-up_read(state_lock)
-                                        siw_cm_work_handler()
-                                        \-siw_qp_llp_close()
-                                          |-down_write(state_lock)
-                                          \-siw_sq_flush()
-                                            |-siw_sqe_complete()
-                                            | READ2 from the ORQ.
-                                            |
-                                            \-siw_sqe_complete()
-                                              READ2 again, from the
-                                              TX slot.
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
-The FIN only queues the close, so the receive path normally gets
-qp->state_lock first.
+--=-4TLiSzZFoUFbhOqy1bE6
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-nfsd's svcrdma gets two flush completions for one Read chunk:
+-----BEGIN PGP SIGNATURE-----
 
-  svc_rdma_wc_read_done()
-  \-svc_rdma_recv_ctxt_put()
-    Runs twice for the same ctxt. The second llist_add()
-    links ctxt->rc_node to itself.
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawjUsgAKCRDZQZRRKWBy
+9LJeAQDmDznB2A8veFi8n6JaivMsugmoKDDGiulJ2G/S95NN4wD/RiSSPFR7Aj2h
+m0z8jcXJdhO1GoL5+Iy+aogJN58JGAI=
+=5Qw3
+-----END PGP SIGNATURE-----
 
-  svc_rdma_free()
-  \-svc_rdma_recv_ctxts_destroy()
-    |-svc_rdma_recv_ctxt_destroy()
-    | Frees ctxt.
-    |
-    |-llist_del_first()
-    | Reads the freed ctxt and returns it again.
-    |
-    \-svc_rdma_recv_ctxt_destroy()
-      Frees ctxt a second time.
-
-svcrdma pulls the Read chunk before it decodes the RPC, so the peer
-needs no RPC credentials and no export access.
-
-Complete a QUEUED READ from the TX slot only while orq_fence is set.
-orq_fence now decides whether the TX slot completes the READ, so move
-it out of the bitfield it shared with tx_suspend:
-siw_cm_llp_state_change() sets tx_suspend without taking a QP lock,
-and a lost update could drop or duplicate the completion.
-
-Found with afb-afl, an LLM-driven kernel audit/repro pipeline; the fix
-and this changelog were also drafted with LLM assistance.
-
-Reproduced on an unmodified KASAN build of mainline. A plain TCP client
-sends nfsd's svcrdma listener on siw an RDMA_NOMSG call with a
-two-segment Read chunk and answers as above. KASAN reports the read of
-the freed ctxt; here the second destroy then faults in kfree():
-
-  BUG: KASAN: slab-use-after-free in llist_del_first+0x150/0x170
-  Read of size 8 at addr ffff8881119d9000 by task nfsd/183
-
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x5d/0x80
-   print_report+0x14b/0x4b0
-   kasan_report+0xfa/0x120
-   llist_del_first+0x150/0x170
-   svc_rdma_recv_ctxts_destroy+0xf3/0x1b0
-   svc_rdma_free+0xd8/0x2e0
-   svc_xprt_free+0x22c/0x420
-   svc_recv+0x103f/0x25b0
-   nfsd+0x35c/0xc80
-   kthread+0x34d/0x460
-   ret_from_fork+0x339/0x620
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
-
-  Allocated by task 183:
-   kasan_save_stack+0x2f/0x50
-   kasan_save_track+0x14/0x40
-   __kasan_kmalloc+0x7f/0x90
-   __kmalloc_node_noprof+0x207/0x680
-   svc_rdma_post_recvs+0x664/0xbf0
-   svc_rdma_accept+0xc27/0x1980
-   svc_recv+0x12c2/0x25b0
-   nfsd+0x35c/0xc80
-   kthread+0x34d/0x460
-   ret_from_fork+0x339/0x620
-   ret_from_fork_asm+0x1a/0x30
-
-  Freed by task 183:
-   kasan_save_stack+0x2f/0x50
-   kasan_save_track+0x14/0x40
-   kasan_save_free_info+0x3b/0x60
-   __kasan_slab_free+0x57/0x80
-   kfree+0x162/0x500
-   svc_rdma_recv_ctxts_destroy+0xe7/0x1b0
-   svc_rdma_free+0xd8/0x2e0
-   svc_xprt_free+0x22c/0x420
-   svc_recv+0x103f/0x25b0
-   nfsd+0x35c/0xc80
-   kthread+0x34d/0x460
-   ret_from_fork+0x339/0x620
-   ret_from_fork_asm+0x1a/0x30
-
-  The buggy address belongs to the object at ffff8881119d9000
-   which belongs to the cache kmalloc-2k of size 2048
-  The buggy address is located 0 bytes inside of
-   freed 2048-byte region [ffff8881119d9000, ffff8881119d9800)
-
-  BUG: unable to handle page fault for address: ffffeb860011a6c8
-  #PF: supervisor read access in kernel mode
-  #PF: error_code(0x0000) - not-present page
-  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:kfree+0x69/0x500
-  Call Trace:
-   <TASK>
-   svc_rdma_recv_ctxts_destroy+0xdf/0x1b0
-   svc_rdma_free+0xd8/0x2e0
-   svc_xprt_free+0x22c/0x420
-   svc_recv+0x103f/0x25b0
-   nfsd+0x35c/0xc80
-   kthread+0x34d/0x460
-   ret_from_fork+0x339/0x620
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
-
-Without KASAN, SLAB_FREELIST_HARDENED catches the double free as
-"kernel BUG at mm/slub.c:605" in kfree() from
-svc_rdma_recv_ctxts_destroy(). With neither KASAN nor
-SLAB_FREELIST_HARDENED, nfsd pops the freed ctxt again. If another
-kmalloc-2k allocation has overwritten it by then, nfsd faults; if not,
-nfsd frees it again and repeats, so later allocations can get that one
-object many times.
-
-With this patch the READ is flushed once and KASAN stays silent.
-
-Fixes: f29dd55b0236 ("rdma/siw: queue pair methods")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cygnus Qiu <eritque-arcus@ikuyo.dev>
----
-Changes in v2:
-- Rewrite the commit message: charts for the race and the svcrdma free
-  path, and the full KASAN report.
-- Give orq_fence its own byte, as Sashiko suggested on v1. The lost
-  update was not reproduced.
-- v1: https://lore.kernel.org/r/20261125060646.155172-1-eritque-arcus@ikuyo.dev
-
-Tested on mainline 4405c18c95d2 (v7.4-rc3+) in QEMU. Applies to rdma
-for-next 94e81a1f3ffa, wip/leon-for-next d24184a64765 and
-wip/leon-for-rc e7732ec135b5.
-
-Unpatched, the KASAN use-after-free report came in 5 of 5 runs, the
-hardened BUG in 4 of 4, and with neither, nfsd faulted or spun in
-svc_rdma_recv_ctxts_destroy() in 15 of 15; add_key() as an
-unprivileged user got three keys backed by one object in 1 of 6.
-Patched, the KASAN build flushed once in 3 of 3 runs, and the build
-with neither showed no fault, spin or shared key in 10 of 10.
-
-Controls (FIN after the second Read Request, or no Read Response)
-flush once with and without the patch. The rdma-core tests could not
-run: rdma-core 66's siw provider asserts in siw_destroy_cq() on the
-first test, on an unpatched kernel and with v1.
-
-A reproducer and the test logs are available on request.
-
- drivers/infiniband/sw/siw/siw.h    | 2 +-
- drivers/infiniband/sw/siw/siw_qp.c | 7 ++++---
- 2 files changed, 5 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/infiniband/sw/siw/siw.h b/drivers/infiniband/sw/siw/siw.h
-index dbc998248b..82dc88b6a4 100644
---- a/drivers/infiniband/sw/siw/siw.h
-+++ b/drivers/infiniband/sw/siw/siw.h
-@@ -394,12 +394,12 @@ struct siw_iwarp_tx {
- 
- 	u32 mpa_crc;
- 	bool mpa_crc_enabled;
-+	bool orq_fence; /* ORQ full or Send fenced: not a bitfield */
- 
- 	u8 do_crc : 1; /* do crc for segment */
- 	u8 use_sendpage : 1; /* send w/o copy */
- 	u8 tx_suspend : 1; /* stop sending DDP segs. */
- 	u8 pad : 2; /* # pad in current fpdu */
--	u8 orq_fence : 1; /* ORQ full or Send fenced */
- 	u8 in_syscall : 1; /* TX out of user context */
- 	u8 zcopy_tx : 1; /* Use TCP_SENDPAGE if possible */
- 	u8 gso_seg_limit; /* Maximum segments for GSO, 0 = unbound */
-diff --git a/drivers/infiniband/sw/siw/siw_qp.c b/drivers/infiniband/sw/siw/siw_qp.c
-index bb780e3904..2cc0f466e7 100644
---- a/drivers/infiniband/sw/siw/siw_qp.c
-+++ b/drivers/infiniband/sw/siw/siw_qp.c
-@@ -1188,10 +1188,11 @@ void siw_sq_flush(struct siw_qp *qp)
- 		if (tx_type(wqe) != SIW_OP_READ_RESPONSE &&
- 		    ((tx_type(wqe) != SIW_OP_READ &&
- 		      tx_type(wqe) != SIW_OP_READ_LOCAL_INV) ||
--		     wqe->wr_status == SIW_WR_QUEUED))
-+		     (wqe->wr_status == SIW_WR_QUEUED &&
-+		      qp->tx_ctx.orq_fence)))
- 			/*
--			 * An in-progress Read Request is already in
--			 * the ORQ
-+			 * A Read Request is already in the ORQ unless
-+			 * a full ORQ fenced it
- 			 */
- 			siw_sqe_complete(qp, &wqe->sqe, wqe->bytes,
- 					 SIW_WC_WR_FLUSH_ERR);
--- 
-2.56.1
-
+--=-4TLiSzZFoUFbhOqy1bE6--
