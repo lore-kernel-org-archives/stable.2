@@ -1,56 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795774192;
-	b=0k48Imdi8PDVXy++bVmCPtatm19HV4XTN85dFBU8I+iUtgqPksxqt+8kjafPPRwrmFdX
-	 jfprP9ZrQ6rrx/hN/WRARUh6ftR23dfV0slg/V2GbVjohwfe6pfg1eOQr+2foXTdiTVNv
-	 mu1XOX3jjqJB2837p3fsvUTmmdJQJuYeOTE93Qen4ECrau7v0BYv+sGSCODRK9UET7Vf8
-	 N4CDc+MxTwjRNcIMPMfJ8AifTH9mwUnzSvVCpZmgDwuIkPBFxzaev/hPzg4xbOP1r9OQP
-	 Hjue8g/4TaAkOiCvHlQ5Q6gFOS7qhXfOhLRNh5+rpqK7bWEDrn0Cy8iORpxod3boyfw==
+	t=1795774411;
+	b=tGbFIshWIEmgjCXwP2xc/QzGqU2DjbnTCBnCMN/YtcPGkMjaD9ZUFLBkqeO+rlXqByNo
+	 dnrp69EpqT6bRjyPueybF2WRd7qzl828MhbQ9WeKo/MPEUApjqUqdZ04O6MBk4pwJmuEN
+	 hFCh1ZkAg+tN8fZHnQzDn1Ms2Vqo/P4WIkLCPD1S0ig0ULGH64u+7408lEcJE3JOqcSUa
+	 +YlrwpjtQJX1lCZjetKzPakz+Hjp6XnZiBiHpQX4dFqvqXaIOBjZkx7KNixS5yZVs+aL2
+	 XZi2Jt0y9Wgb7e2iAROGVl52I5DJhfnVGr1NPGB+BM0X1FNm5kIA+VZL4apiAgVBzfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795774192;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Date:From:To:
-	 Cc:Subject:Message-ID:Reply-To:MIME-Version:Content-Type:
-	 Content-Disposition;
-	bh=d138w3OU+zMBOYeUvyha4apYKhCdiLkp01rdwAdMxgM=;
-	b=Vv0+NjTsfeKPY2cwy2rEcVBSLWEtHEc3YJDkIyw6urUCq3iRpq7qsPcPid0o8Z7DI2Tv
-	 oFurZXGQ/NqV+4lEIraacA4ANSJf/LA5DaU7pd6Bfen3WK0pfnMApwJsjmiJIEN2WxpOn
-	 oY7XgAjWkPKURkKBPmlGFOxDzGzWVjH/ojWDaRE1dFxqR+mkMONWfrxleSPRH8TCLnZYW
-	 IxES/jC+OmV1n2xGs2DzdBZHmeqFOTb+lCvRxZs5a5O/s2pULmDnB6oxxVP3T9QpD9OJQ
-	 tTcQK+DE+BfzDXYgKJcOaBg0hCLKI1nZySzBPvn08M1/xuuKSSnMzqVvnZCKWkYkjeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795774411;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=5EEtXQ2PrPKow39VsKQpKiA8DKM12Edkw0WjIixiSrM=;
+	b=aRL7PERxHCVGhUFLKkd1Ka9Hy++Wjdcwxm8sXkAAcICBbS2HaBlOIBK7G3UkIbHPaP/d
+	 Yl/U0pUtf6cH1OZ1D33CYPILUXEuieV4O7EMFqaKjPf6Y01fsIxLlHJ2zkS8aVsXfBShk
+	 fIhuADWtTX6fFB5HSbuHRoOH12Kv6D4X2vlNvji5Hw5L5b9OA+GuoVsIHefwGSKLi76nk
+	 /XecKkU43Fj/UoOfuHn7VckRJ8fSLrR2QwFz8K7azbEAD1CWODGDIs7MNF3oIVBjRhlJR
+	 XNU0SsZb67C28Ji4rdMC0MMluZ8XhXCXMhP1K1FRoY2Xt5EUBtoA6JJLe7yDXIlS9oQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=jXgcHfcy;
-	arc=none smtp.remote-ip=115.124.30.133
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=njOFpL7V;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C928606A336
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 10:09:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C928606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C12B606A31C;
+	Fri, 27 Nov 2026 10:13:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=jXgcHfcy
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1795774189; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=d138w3OU+zMBOYeUvyha4apYKhCdiLkp01rdwAdMxgM=;
-	b=jXgcHfcyTsP1VHGhlcLQ1zCdck6rlhZlgbps8UrfIdVcFGaW2TE4/EvEnFgMGxSGNqUgNSU/MTSu8FsQGuXpC50zp61FxjhEnuIezzBDxYs6ntie7i/YKp6ftbkQ7Ek/vrWBI+vI6E+M+8JwSywAU5ZpJvSrUqMG8o22QOk1hVo=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R681e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=3;SR=0;TI=SMTPD_---0XFXjgHP_1795774188;
-Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0XFXjgHP_1795774188 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 27 Nov 2026 18:09:48 +0800
-Date: Fri, 27 Nov 2026 18:09:47 +0800
-From: Dust Li <dust.li@linux.alibaba.com>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [linux-6.6.y] please pick "31d90deb653a SUNRPC: Don't retry using
- the same source port if connection failed"
-Message-ID: <awlW6x7u9T8bfG0i@linux.alibaba.com>
-Reply-To: dust.li@linux.alibaba.com
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=njOFpL7V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9531F00897;
+	Fri, 27 Nov 2026 10:13:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795774410;
+	bh=5EEtXQ2PrPKow39VsKQpKiA8DKM12Edkw0WjIixiSrM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=njOFpL7VVZGSzLW5gfrvWVnQwvafApz9JVxQQ+pxEXUZmWiEE3FJUeDF31np/+k9j
+	 /i3+gFrVuh6n/rbjKO8s995C1dh8tG0jco8QAY4hpmBeVrPSrxGJVj81FP4ilHhbL3
+	 LezGJkTPDAnItsxna6MRqAaVG8kU98zNWUwoy9YtevwV9CHlHXOnkIjF48g0NKm8Pp
+	 od2mSYlExrmWhKhilC+A74LDrSH5evptlD2h8ntMDUNWAVAsswOoeNIJoHm02HEmh3
+	 v71rTlWd4ES6sb5JoFVm66hjoEXrcAbc3erDoKJvfyp6zDCIEVTuLaZTOk0vACU4n3
+	 Zmvq2IirOdbdA==
+Subject: Re: [PATCH net v3 02/10] rxrpc: Fix time unit conversion truncation
+From: netdev-bot+sashiko@kernel.org
+To: dhowells@redhat.com
+Cc: netdev@vger.kernel.org, marc.dionne@auristor.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
+ linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org,
+ jaltman@auristor.com, stable@vger.kernel.org
+Date: Fri, 27 Nov 2026 10:13:29 +0000
+Message-ID: <179577440967.3135.13515803634362574241@kernel.org>
+In-Reply-To: <20261124161302.4044422-3-dhowells@redhat.com>
+References: <20261124161302.4044422-3-dhowells@redhat.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,19 +63,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-Hi Stable team,
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Can you please pick the following upstream patch to linux-6.6 ?
+Low priority / nit picks for your consideration:
 
-31d90deb653a5c34d8d648b8a1b459b929be1a73,
-SUNRPC: Don't retry using the same source port if connection failed
+- [Low] The Fixes tag is incomplete, so stable backports of this fix will
+  miss some LTS trees.
 
-We have encountered the bug in our production, and confirmed this patch
-fixes it. And the patch apply clean on Linux 6.6.
+--
 
-Best regards,
-Dust
+rxrpc: Fix time unit conversion truncation
 
+This commit adds u64 casts to the srtt_us conversions in
+rxrpc_propose_delay_ACK(), rxrpc_congestion_degrade() and
+rxrpc_tlp_calc_pto(). Without the cast, the multiply by an NSEC_PER_USEC
+factor truncates on 32-bit arches.
+
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020201258.290827-1-dhowells%40redhat.com
+
+> Fixes: 7c482665931b ("rxrpc: Implement RACK/TLP to deal with transmission stalls [RFC8985]")
+> Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020201258.290827-1-dhowells%40redhat.com
+> Signed-off-by: David Howells <dhowells@redhat.com>
+
+[ ... ]
+
+> cc: stable@vger.kernel.org
+
+[Severity: Low]
+Should this patch carry more Fixes tags? Of the three hunks, only the
+rxrpc_tlp_calc_pto() one in net/rxrpc/input_rack.c seems to come from
+7c482665931b:
+
+    pto = ns_to_ktime(call->srtt_us * NSEC_PER_USEC / 4);
+
+The conversion in rxrpc_congestion_degrade() in net/rxrpc/input.c seems
+to go back to 5086d9a9dfec (v6.2), where it read:
+
+    rtt = ns_to_ktime(call->peer->srtt_us * (1000 / 8));
+
+That multiply is u32 * int, so it truncates on 64-bit arches as well.
+b40ef2b85a7d ("Manage RTT per-call rather than per-peer") later changed
+it to the current form, which fixed 64-bit builds as a side effect.
+
+The conversion in rxrpc_propose_delay_ACK() in net/rxrpc/call_event.c
+seems to come from 153f90a066dd (v6.9):
+
+    delay = (call->peer->srtt_us >> 3) * NSEC_PER_USEC;
+
+The patch is marked for stable but only names 7c482665931b. Will the
+stable tooling then skip trees that have the older truncations but not
+the RACK/TLP commit? For example, 6.12 has both of the older ones. 6.6
+has the input.c one, which is broken on all arches there.
+
+Those trees also use call->peer->srtt_us, so they would need a tailored
+backport.
+
+Could Fixes tags for 5086d9a9dfec and 153f90a066dd be added? If not,
+could the commit message say what the older trees need?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261124161302.4044422-1-dhowells%40redhat.com
