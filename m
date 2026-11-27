@@ -1,45 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795779482;
-	b=ZdEoZLuDjGGacz9LeuNdz1eSQNIXtOzuTB3JwzgzMXpcZkpRNO03DwXtbIu05PtCyhtO
-	 xfSaHwGWdu06xx4GRoVvGlk+6XyKfnH03n5Vjs9vJpxJKJQtrlCkv0SaGS0fsFUcfM+ow
-	 izOZNgD8PJpUWsjPcYAe6BSWPgTsAW37Omjw8F1pfA9ioVPYCbEFoOc4MX7EYSyjN1nvk
-	 h26T5yqsf+wWWSvNKRNnmEPjyVvvz7837v+CdEjAFbECIrAZIBJPwInNmxnwoEm7T9k0l
-	 Z2kmhv5thG+fLz3HVDN21fu5rFDSrLagoPEUE4hhjz/vnHC8LTZYEmIUM3MxQHaBowQ==
+	t=1795779486;
+	b=zuxVatPQZVqN7gL2DCu7a6H4xuHi/qBQNwKmHqTbgU/hVTXA4jst6UKAPmNGTo620ew8
+	 b4DXHgCk5htO/2bBEkhEW99QqWWkE8Cr5oV+A8NLec2SWb8ypPVd/WZ+VFPUY66nnFQe1
+	 Z7Wr3oz+itQUupqBKS0W9+vaBrS8dW6q2kUZSN1Hu/6YihhFNFmXbYPPXaJbL2BD2uJEp
+	 7ea3W9BY+OWZQuOavwqvZ0h6rptHrpnxa58Dwhb0ssXg/IMKeNWccQuRJvsmf0kCxNCaY
+	 U02Xy4daolu+CHI9zNUivFy6f3eQIkk3/7CH+/VVy12IlinLO4/4wahdPbdA941IhRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795779482;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=SKvLV9gGAFbmLUUfmaY/EwUbblYGlJIfsU7Qw4vYhH0=;
-	b=p0mn9moqSQSRlHEuUD4hVDqkMTwAWkKmJce4IJT7Scn2ElvqErKuoTUUOWkSd34JtrKy
-	 TPmuTpnNxCBd9Gl7BY0U86hX14kS2yX7DNEkQ2D1yBr/hwkmgldx6vlbhvpQzk6iCr5Cb
-	 2NGYFjZZ3lqToD7Dpw4e4Nj0/bk5OYkyDcFVvodeLGVZuBzB4ESSF8xgr1He7aaPsKIWj
-	 w0DSIE2UuxnHJ9AxUMezfHPvSpscK//dIzGWVc1gtmp5ADJC/xXu1MxubCboDY7f14t7e
-	 tpq3DiLVy4JDD1nH7PXbW5/MD3FTP74SVRvo8Veuu5BT3zGoBK6Sak1VgS/ssYZW4Yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795779486;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Last-TLS-Session-Version;
+	bh=Tq4F0Eq2vjlkwyqOn3adEAVZInM3B87MkHau2yGN/+s=;
+	b=fi1H8TsCJmdFvP3KcDL68ZYFC7U9GSFtGCo0QtPqjx84ME9NGdWIuvOkJ7nr2d3WqwCB
+	 k57NLH9+Z3SHQtOhi/rHyViCPJfakFej9BKmILWXtcuq+S4bLL+l5Mec70z2KQ0W2Dj71
+	 5HEI6AxxUshijdLtmCGApsvAnlj2+/jgj1HYlzNza3YDMFC/kxFFHtMR2cWmL+sV/AMPR
+	 VDbJ+DZYvLhsSGzh+BLwNvbHG2Y0njDlJ9sxAWoPCGBvgbB7fHcdy7sffBCAuhkV3nM58
+	 xTvFcu9o3dHjtXTOYjymt5i+dd0LM9qr/k0kcvX9CxXcU9nd5PujbxVYWF6elFI+nEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ksVHr6FO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=VMOVOokW;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82606606A334;
-	Fri, 27 Nov 2026 11:38:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE7A606A326;
+	Fri, 27 Nov 2026 11:38:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CE7A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ksVHr6FO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F06691F00893;
-	Fri, 27 Nov 2026 11:37:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795779482;
-	bh=SKvLV9gGAFbmLUUfmaY/EwUbblYGlJIfsU7Qw4vYhH0=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=ksVHr6FOrjnzTw99X6BvVj0kvkAnLZtb/k30MIzf2UV5DXw3rvGcfhxMrrs8yinZZ
-	 24mImNv0ISXZXlPLZG6Yitoxn3SXe3XAuie8089wVylTmvJxP4pp4QgYgMNkoF/3PE
-	 CxM0IyW3QB9u+yaGh3AZX3ybpxu/wsbOLOgzF1e7zr5YHz8QnyM4slyvfdMTcKcKJO
-	 06vQsHb1P4YespcEYc1yGohArWj9HaT7QTfgGGOs7WScwElrfekINtvVlf+BE6ls4m
-	 Rj7tacZyPy5YAyHMnitu0SKZJB9LG7O2bCLqgBilCxRJQCD34LQlSIkXH3wum5LT/7
-	 xzUR9LpNlU9jQ==
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=VMOVOokW
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5A47710AB1B;
+	Fri, 27 Nov 2026 12:37:57 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1795779478;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=Tq4F0Eq2vjlkwyqOn3adEAVZInM3B87MkHau2yGN/+s=;
+	b=VMOVOokW/GOaK6BD59DNVzcnSiEli9UqfauMiIfsA9azAWjv83LBJKnb0+qpJ3iTHQU9g4
+	6OzNBpz8eI/b+TY+6G/BrmyMadbOXQ5Y1rCFcyJFZbFM5olxmqAZj29PSJwHddKNWMnrxH
+	Ei36yqtnPxy87GFR5YiQdZgv7zgV1+ivxeyKc0AkXEgXQzNGuKfTyJGawyT0hJh8XPKnQf
+	h0kF/92A5L3rnju7Bq/AT35juz+SFtYt0GhVmN+8DxAWkhHs7sGRs4yuo4yKIofAhXSU69
+	So1NDuWNneG6qWwXEQY3YUXAGWpv9nSbrQzXh9YgoP/aa2q5dVxDF/NnIUuBog==
+Date: Fri, 27 Nov 2026 12:37:55 +0100
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/815] 6.12.120-rc2 review
+Message-ID: <awlrk-W9w4vQ1aQU@duo.ucw.cz>
+References: <20261126105709.009001842@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -49,49 +67,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] phy: realtek: usb: fix the USB 2.0 PHY's port range
- check
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Joshua Scott <joshua.scott@alliedtelesis.co.nz>
-Cc: Vinod Koul <vkoul@kernel.org>, linux-phy@lists.infradead.org, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Stanley Chang <stanley_chang@realtek.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261103221441.1550058-1-joshua.scott@alliedtelesis.co.nz>
-References: <20261103221441.1550058-1-joshua.scott@alliedtelesis.co.nz>
-Date: Fri, 27 Nov 2026 17:07:55 +0530
-Message-Id: <179577947506.3421.11993830398629700569.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=638; i=mani@kernel.org;
- h=from:subject:message-id; bh=9vNm3HiCCMKNQqyehmMLyhBFKEwiLfnCLd7GeztsIEM=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBrCWuVmXbTvvWQmfQnxDa60Zr7MxL7+figYjcy7
- oENWz4JEXGJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCawlrlQAKCRBVnxHm/pHO
- 9X62CACokLNvKoChF5S8oU8W12pOBBYIdXu3Lydn4eWkpsrN2j7yi/Ymv+jENIaIUTBgSazWVZa
- +L1JKpFbFN4undeQv3hNkZC7zWoGsqTgW6YCBBCnedEYb50F+zlF6mvI6e1lUOzdHpT6SiJIHo2
- WIXpchCFbi+nN3NbGQMHwJGdy2L7/lJpDP9R8nBqZm294NBNqCchxZDrG8AcvKfPTAY30y2NCP5
- qHTJzCkPo1FwgTB+F5TUEU5GNi8Nv6a+e9ZO/jyYuljsdmZFIv68Q0/pgC4PigfBFiHWO/+nTlf
- GGVf8GSg00eRGS/M3q0OlIAGV+bkgFIOKg/8Xo/sKJ4hYMh1
-X-Developer-Key: i=mani@kernel.org; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
-
-On 2026-11-04 11:14 +1300, Joshua Scott wrote:
-> rtk_phy_toggle() checks the port number before using it to index the
-> phy_parameter array, which has num_phy entries. Ports are numbered from
-> zero, so the check should reject port == num_phy, but it only rejects
-> ports greater than num_phy. Fix the off-by-one.
-> 
-> Found by code inspection.
-> 
-> Fixes: eeda494542e5 ("phy: realtek: usb: add new driver for the Realtek RTD SoC USB 2.0 PHY")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Joshua Scott <joshua.scott@alliedtelesis.co.nz>
-
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-
-- Mani
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="JvoJi2FzZ8mnpaNP"
+Content-Disposition: inline
+In-Reply-To: <20261126105709.009001842@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
 
+--JvoJi2FzZ8mnpaNP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hi!
+
+> This is the start of the stable review cycle for the 6.12.120 release.
+> There are 815 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+
+CIP testing did not find any problems here:
+
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.12.y
+
+Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+
+Best regards,
+                                                                Pavel
+
+--JvoJi2FzZ8mnpaNP
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCawlrkwAKCRAw5/Bqldv6
+8kHWAJoD/ySmUF+M1R55RPGSfemykUDuTgCdEQJZpLlAIU5q6KBmA4c9lG4Istc=
+=5C5f
+-----END PGP SIGNATURE-----
+
+--JvoJi2FzZ8mnpaNP--
