@@ -1,79 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795792966;
-	b=YjXo34YWLbEBeQwMgfqhwoinojETOLOSS++ZU55vI1UWIcNW8J/+PJLQfA5GmYJHONzH
-	 Bge+mabSUYD93jVR5PzDeQbL6vYp8lCf4yg01F2AJ0h+spZHXkK/anBW+0kH4FwkQg9p1
-	 bRm57J+og/XpbPyKbb8S1BDkwY7Lz8NNTf9MZ5Ga4T6BWAD1AqqFcUtic4w8vmCmg79z1
-	 eZaVrVX/fWzY2Rr/yii29hsC3MjGdLPFyXbmr1ntdHNu3JrUOuslZdU5hqzmiECmEmrzs
-	 RTQJQpTpgyWHLINjST3+cF9xVDx1vmVCX4B3iuvxWlPSG+9yHOFif8sh4dRPiBSVatw==
+	t=1795793022;
+	b=4kGhC9IgKHmi5tXDAdwL1Zj27dJqU0uv/uqTK/qokNRl7j/f6IZgSFUGjsCaS5qkEmvC
+	 NbBkaHhGL+beV02nb2WBPh8H7kUDrqacAEsOD0FKUjj7iJKArtJwTWwAvtI96UfexNbkn
+	 lSdyAv9q3IT3EkG/pmu08j3c75cGHy3FbSebXpKsa2hdMOMRppYisy0ccpWY51joazncj
+	 KZIGQwcwb2HDX6rLuLcPrhtJFeUpZDwRnAzKZV0ddd1cjj/KyPeulaFD8tnmq77PLNKvX
+	 V7Z6azqCHegjyXXuCqX1Vvkjsz4n9Ex/ZlGA/UvFAIJTxKfS/du5pnidIjVzOyJBIEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795792966;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JqX1UC6kwIb0brNhPGfSFAacJXmA2iM0S4sE9CFXj80=;
-	b=2dKgM9makRZex41HjRZMY1U9X+9p65jWUzggDoahT3iM+7iRVlw4TrnHNrUoqY4iEtNH
-	 ypQBHD+AFanwQTdPugPxXi3U8ioqnO5Z1FpsR6fo2oAJRDBm+3GTAWvZnKlRm8UvAzCHG
-	 IWbLZqPE9ElA5dlWyg0yladGFTOG7eoEKma6cGdHgN5CnP4gAkGNernmVvwXsheOcJkeq
-	 ql3CPh5L2HXo6MyIi/JHoRtdRwHshOyYTXl/BKYTZUI8AXkc0Re0ECyyW7Gbz2GbXYd3k
-	 LOGPa2fQ+C02kBsENPgkUQ5yZ9ktYh+OUkCWKmVtHp834Gli/O5SIE3Q6Wg9w0Cjy+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795793022;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=iKnrS/b9SCofd7Qh4S8W0JsBiqq98GiWl3YeYKUJlb4=;
+	b=jD7vH0nqy9P9pTySEpTbaHR4nZ2mNVFTSyvUI4DMq+5iZF2TmImX9jIzrkA681oh2Pym
+	 QhKAwmcQZAB1Qej+lnOLPaDkeZMeRsua4pJc0QfvGZY4hVDm331wRefLO69Duf5kJlubi
+	 K5VK6Y/Q9lLhTNCacBcegVFbnRpaAPlW9u+z8eilVd1AWwjVU3NNxnWRxc4ZPCj3U10+N
+	 3QPgZHJHQ0OiJe4oKpA4onejZ1gikvfp5lwqpI4x+gfumQlaB7YzRqkDSgANXQk/neE5x
+	 v+C1aAv1vdZ3+krlFYC6UudnSL8ih/A6rDU5Kg4VCKU/hKF0S8ymtaRD06pxRCCLMnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bN5x7BYj;
-	arc=none smtp.remote-ip=95.215.58.145
-Received: from mta1.migadu.com (out-145.mta1.migadu.com [95.215.58.145])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bRGxa82A;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2CE2606A33C
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 15:22:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2CE2606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD1E606A323;
+	Fri, 27 Nov 2026 15:23:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bN5x7BYj
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jaHAG3arDq1i/w2Er13DYrLBHLaFInp5P2f0Du89gkg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795792960; v=1; x=1796397760;
- b=bN5x7BYj2oK08SzQHjqVYp64DRBjpUUZfEUYY9fjLfbpfsmSQZkZm7POVtIieOppUpkYTW4z
- 8PfEY+pgs4FA2VtgugiGGxteSv++SQqbywZa2dYsYg/Q4MK8g3FsMLI3CW6RTIJja2+4y95gZ1v
- CK7NZzmvL+TNPthyBueRtRGE=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 07c1014b8ba360ff;
-	Fri, 27 Nov 2026 15:22:40 +0000
-X-Mizu-Trace-ID: 07c1014b8ba360ff
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Christoffer Dall <christoffer.dall@linaro.org>,
-	Jintack Lim <jintack.lim@linaro.org>,
-	Leonardo Bras <leo.bras@arm.com>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] KVM: arm64: Top up the mmu memcache on user fault for NV
-Date: Fri, 27 Nov 2026 07:22:36 -0800
-Message-ID: <20261127152237.108363-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.1
-In-Reply-To: <20261126-fix-nv-cache-topup-v1-1-a22c936872fe@kernel.org>
-References: 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bRGxa82A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 670D91F00A1B;
+	Fri, 27 Nov 2026 15:23:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795793022;
+	bh=iKnrS/b9SCofd7Qh4S8W0JsBiqq98GiWl3YeYKUJlb4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=bRGxa82Ai2wtUjaOpuafmnymzlxYQJPyWfbzawbhhJgLoFwVwN7lld6zcnA2M0x45
+	 xJk12S7ymJgztJepA1oej+pWNTbIP98lrWiySt2rlQu+SmP+OikRz9UeinR1SCGttm
+	 OmI70FlOB7Mww8RtXa4haWq72FpI2fBLnB9zaRhsGCySaIYuXz2kf4siTwnMjjD7td
+	 bHd+tc/hbJw13LChClRMPCUNKllBuB1Mz5CJ8e6WIImBrlGwVAGCGzyvxlAOf82e6n
+	 7tUleuC6MSQGs+MMW0HH3nhvovEHOUrdMKnUjsz0FPB4Cjq3lz/eMWqPZunsn71csj
+	 f7qpoep0eCfCA==
+Subject: Re: [PATCH net v4] net/smc: drop the connection when the peer's
+ failover cursor is impossible
+From: netdev-bot+sashiko@kernel.org
+To: piyus@iiitd.ac.in
+Cc: wenjia@linux.ibm.com, jaka@linux.ibm.com, alibuda@linux.alibaba.com,
+ tonylu@linux.alibaba.com, guwen@linux.alibaba.com, netdev@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ kapil@presceralabs.ai, stable@vger.kernel.org
+Date: Fri, 27 Nov 2026 15:23:40 +0000
+Message-ID: <179579302091.3135.11782943757959613052@kernel.org>
+In-Reply-To: <20261126150848.2116315-1-piyus@iiitd.ac.in>
+References: <20261126150848.2116315-1-piyus@iiitd.ac.in>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,98 +65,341 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Thu, 26 Nov 2026 17:28:29 +0000 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 6 potential
+issue(s) to consider.
 
-> The S2 user fault path tops up the MMU memcache (used for page table
-> pre-allocation as the point at which page tables are installed may not
-> allocate) except when:
-> 
-> * It's a permission fault AND
-> * dirty page logging is disabled AND
-> * pKVM is disabled
-> 
-> At which point it is assumed no page table will be allocated.
-> 
-> However nested virtualisation adds another edge case - the mapping size of
-> a shadow S2 is clamped to that of the guest's own S2. If the guest
-> hypervisor replaces a block mapping with a table, a permission fault on the
-> shadow block has to be mapped at PAGE_SIZE, which requires a page table to
-> collapse the block into.
-> 
-> With the memcache empty, kvm_mmu_memory_cache_alloc() hits its
-> guest-triggerable WARN_ON(!nobjs) and falls back to a GFP_ATOMIC allocation
-> under mmu_lock, with a BUG_ON() if that fails.
-> 
-> Therefore, also top up the memcache for permission faults taken on a
-> shadow S2.
-> 
-> Note that dirty logging had a similar issue, addressed in commit
-> 56fd1fc526e6 ("KVM: arm64: Top up stage-2 memcache for dirty logging
-> faults").
-> 
-> Fixes: fd276e71d1e7 ("KVM: arm64: nv: Handle shadow stage 2 page faults")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  arch/arm64/kvm/mmu.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> index a0d4981ebb99..e09a8f2c0482 100644
-> --- a/arch/arm64/kvm/mmu.c
-> +++ b/arch/arm64/kvm/mmu.c
-> @@ -2256,16 +2256,18 @@ static int user_mem_abort(const struct kvm_s2_fault_desc *s2fd,
+Critical: 0 · High: 3 · Medium: 3 · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The patch's safety argument does not hold: the state it says the
+  early check avoids already exists before smc_switch_cursor() runs, and…
+- [High] In smc_cursor_cannot_be_honest() (net/smc/smc_core.c:1083-1084),
+  `if (smc_curs_comp(conn->peer_rmbe_size, cons, fin) >= 0) return…
+- [High] The check runs on snapshots, but the repair then modifies live
+  cursors that smc_cdc_tx_handler() can change in between, so the…
+- [Medium] The honesty test in smc_cursor_cannot_be_honest() compares two
+  distances built from separately read cursors, so an honest send…
+- [Medium] smc_cursor_cannot_be_honest() measures how far cons is ahead
+  of fin with smc_curs_diff(), which only sees whether the wraps differ,…
+- [Medium] Off-by-one in smc_cursor_cannot_be_honest(): `diff >=
+  conn->peer_rmbe_size` (smc_core.c:1092) rejects diff ==…
+
+--
+
+net/smc: drop the connection when the peer's failover cursor is impossible
+
+This commit adds smc_cursor_cannot_be_honest(), which checks the peer's
+consumer cursor before smc_switch_cursor() repairs the send cursors during
+link failover. If the cursor is judged impossible, the connection is
+marked out_of_sync, the abort flag is set, and abort_work is queued before
+any cursor is rewound.
+
+Link: https://lore.kernel.org/all/20261122053223.2497832-2-piyus@iiitd.ac.in/
+
+> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+> index a3164201c1420..e15629b4e384b 100644
+> --- a/net/smc/smc_core.c
+> +++ b/net/smc/smc_core.c
+> @@ -1050,6 +1050,48 @@ static int smc_write_space(struct smc_connection *conn)
+
+[ ... ]
+
+> +static bool smc_cursor_cannot_be_honest(struct smc_connection *conn,
+> +					union smc_host_cursor *fin,
+> +					union smc_host_cursor *cons)
+> +{
+> +	union smc_host_cursor tx_fin, tx_sent;
+> +	int diff, unconfirmed;
+> +
+> +	if (smc_curs_comp(conn->peer_rmbe_size, cons, fin) >= 0)
+> +		return false;
+
+[Severity: High]
+
+Can the cons->count bound below be reached when cons's wrap is behind
+fin's? The commit message says "Three things make the cursor impossible,
+and smc_cursor_cannot_be_honest() checks all three". However, this early
+return skips the count check whenever smc_curs_comp() is >= 0.
+
+smc_curs_comp() returns >= 0 for any cons with cons.wrap < fin.wrap,
+whatever cons.count is. At the same wrap, smc_cdc_cursor_to_host() accepts
+any count that is not smaller than the old one:
+
+	if ((old.wrap == temp.wrap) &&
+	    (old.count > temp.count))
+		return;
+	smc_curs_copy(local, &temp, conn);
+
+So a peer could install cons = (fin.wrap - 1, peer_rmbe_size + X). The
+helper returns false, prod is set to fin, and smc_switch_cursor() then
+does:
+
+	atomic_set(&smc->conn.peer_rmbe_space, smc_write_space(conn));
+
+In smc_write_space(), the unsigned arithmetic in smc_curs_diff() wraps:
+(size - (size + X)) + F gives F - X, so space becomes size - F + X. Then
+tx_work is queued. smc_tx_rdma_writes() sees prod.wrap != cons.wrap and
+takes this branch:
+
+		dst_len = len;
+
+Here dst_off = F and len can be as large as size - F + X. Would that write
+X bytes past the end of the peer RMBE?
+
+There is a second variant. If cons.wrap = fin.wrap + 1 and the count is
+huge, the max_t(int, 0, ...) in smc_curs_diff() clamps to 0, so
+smc_curs_comp() returns 0. smc_write_space() then stores a negative
+peer_rmbe_space and the connection stops sending for good. The commit
+message says a simple cap would cause exactly this.
+
+Should cons.count be checked before any comparison?
+
+> +
+> +	smc_curs_copy(&tx_fin, &conn->tx_curs_fin, conn);
+> +	smc_curs_copy(&tx_sent, &conn->tx_curs_sent, conn);
+
+[Severity: Medium]
+
+Can an honest send completion that races with these reads make a good
+connection look dishonest?
+
+smc_switch_cursor() reads fin from conn->local_tx_ctrl_fin before these
+reads of tx_curs_fin and tx_curs_sent. The only lock held is
+conn->send_lock, taken by smc_switch_conns(). smc_cdc_tx_handler() runs
+under bh_lock_sock() only and writes the cursors in the opposite order:
+
+		atomic_add(diff, &cdcpend->conn->sndbuf_space);
+		...
+		smc_curs_copy(&conn->tx_curs_fin, &cdcpend->cursor, conn);
+		smc_curs_copy(&conn->local_tx_ctrl_fin, &cdcpend->p_cursor,
+			      conn);
+
+If a completion lands between the fin read and the tx_fin read, fin is
+stale and tx_fin is fresh. diff = cons - fin_old stays large, while
+unconfirmed = tx_sent - tx_fin_new shrinks.
+
+For example, say the peer honestly consumed everything (cons == prod) and
+the last in-flight CDC completes inside that window. unconfirmed becomes
+0 and diff > unconfirmed, so the connection gets out_of_sync,
+peer_conn_abort and abort_work.
+
+Successful completions on the old link during the switch look possible.
+smc_llc_process_cli_delete_link(), smc_llc_process_srv_delete_link() and
+smc_llc_delete_asym_link() call smc_switch_conns() on a QP that still
+works, and only drain pending sends afterwards.
+
+Given this, is the v4 changelog statement "Both differences now come from
+cursor snapshots, so they are consistent with each other" accurate?
+
+> +	diff = smc_curs_diff(conn->peer_rmbe_size, fin, cons);
+
+[Severity: Medium]
+
+Does this distance handle a cons that is two or more wraps ahead of fin?
+smc_curs_diff() only checks whether the wraps differ, not by how much, and
+smc_cdc_cursor_to_host() accepts any larger wrap.
+
+Take cons = (fin.wrap + 2, c) with c < fin.count = f. smc_curs_comp() is
+negative, so the check runs, and:
+
+  diff = (size - f) + c < size
+  cons.count = c < size
+  diff <= unconfirmed, as long as size - f + c bytes are in flight
+
+All three tests pass. The repair then sets prod = (fin.wrap + 1, c), which
+is exactly one full RMBE behind cons, and smc_write_space() returns 0. The
+helper's comment says "prod lands on cons, not behind it", which this
+seems to contradict.
+
+prod.wrap would then never match cons.wrap. Would the next normal-looking
+cons advance credit peer_rmbe_space and send smc_tx_rdma_writes() down the
+unclamped dst_len = len branch past the end of the RMBE?
+
+The diff >= peer_rmbe_size test also seems wrong in the other direction.
+Once cons.count < size is known, f + diff = size + c < 2 * size, so the
+single subtraction in smc_curs_add() always keeps prod.count in range.
+What the test does reject is cons.wrap == fin.wrap + 1 with c >= f. The
+repair would handle that case exactly (prod == cons).
+
+If sndbuf_desc->len > peer_rmbe_size and send completions lag, could an
+honest connection reach that state and be aborted?
+
+> +	unconfirmed = smc_curs_diff(conn->sndbuf_desc->len, &tx_fin, &tx_sent);
+> +
+> +	return cons->count >= (u32)conn->peer_rmbe_size ||
+> +	       diff >= conn->peer_rmbe_size || diff > unconfirmed;
+
+[Severity: Medium]
+
+Is diff >= conn->peer_rmbe_size off by one? diff == peer_rmbe_size is the
+largest value an honest peer can produce, and the existing repair handles
+it exactly.
+
+This can happen in the following case:
+
+- sndbuf_desc->len >= peer_rmbe_size, for example equal buffer sizes.
+- A full peer RMBE was written after local_tx_ctrl_fin.
+- The peer consumed all of it, so cons = (fin.wrap + 1, fin.count).
+- The send CQEs for those CDCs were not processed yet, or were flushed on
+  link failure.
+
+Then unconfirmed == size, so diff > unconfirmed is false and only this
+test fires.
+
+The repair is exact in that state:
+
+- smc_curs_add(size, &prod, size) gives (fin.wrap + 1, fin.count), which
+  equals cons.
+- tx_curs_sent needs only one subtraction, since
+  tx_fin.count + size < 2 * len.
+- sndbuf_space goes from len - size back to at most len.
+
+That failover worked before this patch. With the patch, the connection is
+aborted. The helper's comment says a difference of peer_rmbe_size "would
+survive the single subtraction smc_curs_add() does", which also looks
+wrong for diff == size.
+
+Should this be diff > conn->peer_rmbe_size?
+
+> +}
+> +
+>  static int smc_switch_cursor(struct smc_sock *smc, struct smc_cdc_tx_pend *pend,
+>  			     struct smc_wr_buf *wr_buf)
+>  {
+> @@ -1058,11 +1100,33 @@ static int smc_switch_cursor(struct smc_sock *smc, struct smc_cdc_tx_pend *pend,
+>  	int rc = 0;
+>  	int diff;
 >  
->  	/*
->  	 * Permission faults just need to update the existing leaf entry,
-> -	 * and so normally don't require allocations from the memcache. The
-> -	 * only exception to this is when dirty logging is enabled at runtime
-> +	 * and so normally don't require allocations from the memcache. One
-> +	 * exception to this is when dirty logging is enabled at runtime
->  	 * and a fault needs to collapse a block entry into a table.
->  	 * Under pKVM a permission fault can also collapse pages into a block,
->  	 * which needs a fresh mapping object, and the hypervisor requires the
->  	 * min-pages memcache even when the install allocates nothing.
-> +	 * With nested, a shadow stage-2 block may also need to be collapsed
-> +	 * into a table if the guest's own stage-2 mapping has become smaller.
->  	 */
->  	memcache = get_mmu_memcache(s2fd->vcpu);
->  	if (!perm_fault || memslot_is_logging(s2fd->memslot) ||
-> -	    is_protected_kvm_enabled()) {
-> +	    is_protected_kvm_enabled() || s2fd->nested) {
->  		ret = topup_mmu_memcache(s2fd->mmu, memcache);
->  		if (ret)
->  			return ret;
-> 
+> -	smc_curs_copy(&conn->tx_curs_sent, &conn->tx_curs_fin, conn);
+> +	/* Before anything is rewound.  Returning from inside the repair below
+> +	 * would leave local_tx_ctrl.prod behind local_rx_ctrl.cons with
+> +	 * peer_rmbe_space still holding the credit the forged message made,
+> +	 * and the tx path tests conn->killed and
+> +	 * local_rx_ctrl.conn_state_flags.peer_conn_abort rather than
+> +	 * out_of_sync or the flag set here - so a send under lock_sock() could
+> +	 * reach smc_tx_rdma_writes() with prod < cons before abort_work takes
+> +	 * the socket lock, and with the wraps differing that takes the
+> +	 * dst_len = len branch without clamping to peer_rmbe_size -
+> +	 * prod.count and writes past the end of the peer RMBE.
+> +	 */
+>  	smc_curs_copy(&fin, &conn->local_tx_ctrl_fin, conn);
+> +	smc_curs_copy(&cons, &conn->local_rx_ctrl.cons, conn);
+> +	if (smc_cursor_cannot_be_honest(conn, &fin, &cons)) {
+> +		conn->out_of_sync = 1;	/* prevent any further receives */
+> +		conn->local_tx_ctrl.conn_state_flags.peer_conn_abort = 1;
+> +		smc_wr_tx_put_slot(conn->lnk,
+> +				   (struct smc_wr_tx_pend_priv *)pend);
+> +		sock_hold(&smc->sk); /* sock_put in abort_work */
+> +		if (!queue_work(smc_close_wq, &conn->abort_work))
+> +			sock_put(&smc->sk);
+> +		return 0;
+> +	}
 
-Thanks for the fix!
+[Severity: High]
 
-On the narrow condition being the smaller backport: I don't think it
-is. The hunk already conflicts on 7.3, where topup_mmu_memcache() still
-takes the vCPU, and the condition looks different on 7.2 and older, so
-every stable tree needs a small manual backport either way.
+Does checking early actually prevent the overrun described in the comment
+above and in the commit message?
 
-A permission fault can also allocate outside NV. For example, take an
-exec permission fault on a THP block, where the VMM replaces that
-memory with 64K hugetlb pages before the fault looks up the VMA:
+The normal receive path stores and credits the forged cons, with or
+without a failover. smc_cdc_msg_recv_action() does:
 
-  - the MMU notifier unmaps the block, and mmu_seq is read afterwards
-  - kvm_s2_resolve_vma_size() forces PAGE_SIZE for the CONT_PTE hugetlb
-  - PAGE_SIZE != perm_fault_granule, so kvm_pgtable_stage2_map() runs
-    and allocates a table, with no top-up
+	diff_cons = smc_curs_diff(conn->peer_rmbe_size, &cons_old,
+				  &conn->local_rx_ctrl.cons);
+	if (diff_cons) {
+		...
+		atomic_add(diff_cons, &conn->peer_rmbe_space);
 
-That one is narrow and VMM-driven, but topping up for every fault would
-cover it too, and it costs a single comparison when the cache already
-holds enough pages.
+Nothing checks that cons is at or behind local_tx_ctrl.prod, or that
+cons.count < peer_rmbe_size. smc_cdc_cursor_to_host() only rejects
+cursors that move backwards.
 
-> ---
-> base-commit: 012e4bc01e339a65dc7c59181b5efb33b171d12c
-> change-id: 20261126-fix-nv-cache-topup-9ab1fd829014
-> 
-> Cheers,
-> -- 
-> Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> 
-> 
+So a forged wrap bump or over-consumption already leaves prod < cons with
+inflated credit. The same function then starts the sender:
+
+	if ((diff_cons && smc_tx_prepared_sends(conn)) ||
+	...
+
+That reaches the unclamped dst_len = len branch with no link switch
+involved:
+
+smc_tx_pending()
+  smc_tx_sndbuf_nonempty()
+    smcr_tx_sndbuf_nonempty()
+      smc_tx_rdma_writes()
+
+When a failover does happen, this branch returns before peer_rmbe_space
+is recomputed. It sets only out_of_sync and
+local_tx_ctrl.conn_state_flags.peer_conn_abort. The tx gate in
+smc_tx_sndbuf_nonempty() checks neither of them:
+
+	if (conn->killed ||
+	    conn->local_rx_ctrl.conn_state_flags.peer_conn_abort) {
+
+Could a sender on the new link still overrun the peer RMBE until
+abort_work runs?
+
+Would it be better to validate the peer cursor where it is accepted, in
+smc_cdc_msg_recv_action() or smc_cdc_cursor_to_host()? That would cover
+every connection and make the failover-time check unnecessary.
+
+The commit message does not mention this receive path. A stable
+backporter could read it as fixing the forged-cons RMBE overrun.
+
+> +
+> +	smc_curs_copy(&conn->tx_curs_sent, &conn->tx_curs_fin, conn);
+
+[Severity: High]
+
+smc_cursor_cannot_be_honest() ran on snapshots of tx_curs_fin and
+tx_curs_sent, but the repair here works on the live cursors. Can
+smc_cdc_tx_handler() change them in between?
+
+The repair copies the live conn->tx_curs_fin into tx_curs_sent. It then
+advances tx_curs_fin and local_tx_ctrl_fin by diff and does
+atomic_add(diff, &conn->sndbuf_space), holding only send_lock.
+
+smc_cdc_tx_handler() runs under bh_lock_sock(). Between the snapshot and
+the repair it can confirm d bytes, add d to sndbuf_space, and move
+tx_curs_fin forward by d.
+
+Suppose tx_curs_prep == tx_curs_sent and diff == unconfirmed. An honest
+peer that consumed everything gets there, and so does a peer that sets
+cons to exactly that value. sndbuf_space then ends at:
+
+  len - unconfirmed + d + unconfirmed = len + d
+
+and tx_curs_sent and tx_curs_fin end at sent + d, past tx_curs_prep.
+
+smc_tx_sendmsg() then computes:
+
+		copylen = min_t(size_t, send_remaining, writespace);
+
+The second memcpy_from_msg() chunk, at offset 0, could then be up to
+prep.count + d long. Could that write user data past the end of the
+sndbuf allocation, or overwrite data that has not been sent yet?
+
+The old link can still complete sends successfully during the switch.
+smc_llc_process_srv_delete_link() does:
+
+		if (smc_switch_conns(lgr, lnk_del, false))
+			smc_wr_tx_wait_no_pending_sends(lnk_del);
+
+The underlying race existed before this patch. Still, the patch says it
+restores 0 <= sndbuf_space <= sndbuf_desc->len and discusses the
+concurrency with smc_cdc_tx_handler(), yet it applies a diff validated on
+snapshots to live state.
+
+>  	/* set prod cursor to old state, enforce tx_rdma_writes() */
+>  	smc_curs_copy(&conn->local_tx_ctrl.prod, &fin, conn);
+> -	smc_curs_copy(&cons, &conn->local_rx_ctrl.cons, conn);
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261126150848.2116315-1-piyus%40iiitd.ac.in
