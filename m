@@ -1,61 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795783638;
-	b=iP6pquek+JW2DHYBZzprsQ6IUH3RjvpDwjtIFQWNE7ircBraElQ5vQAuRp2qt3FKUHvx
-	 nbcEi7LYo1ZHVIh1vmYOPhplihA/2KbFFKBufs7nuhH72M2rO33n4itvfFXN7AhLiMZxE
-	 f0jra7d4cdPIJSh/4LlBXg8RxhzyWv9bu9uspWoGwnLXD+8+oK9W9YRy6/9MPk9iKw/Sa
-	 M6/tHGw3DX62IuSH1aXjm1XAnq9A/gooc60n7D0ilR2NbzmEb7TFtL/d7p8vSllTvHHxh
-	 SI1J4GmyKqWHi7pFFj1jMewt5Vs1sdwo61hRLVybYN6rA0kXhHwgqxg7SpgAUul6lsg==
+	t=1795784080;
+	b=VSz1w6e5LPv9TDyhoKSUoJD4GGfoQkfMBRUArqQ/oK7li+8Sg535ziSrOo7CHPCmgnXi
+	 SACC7SYlRneYf8dtL1l2ep3FNIkr0/Z3kWAnnOXcMGglby2g3jWXkYEtkACXQjnqpJBEs
+	 Vr3iCLx6RdQkVbHs0M/BxEO7K8NOiaIUTtnXRZr3B/JbMiMbzxpkZh16v+7i35rCqIDXj
+	 fVkS3bQhkKgY+ISCeoAeK3wdDmTY+m9Jyl/8PnWX1iD4Oqnitiew/wGcSkWhs6iBFUIeS
+	 rqpkCMPuyWGFPUukBrJo+BTPK4xpdeMhYkSQyB1hy6uubZ1PuObhVIfCJ7RXUfkTXWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795783638;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=uPfpI50tb7D/+LMDNaFZyv1Wo1aup2sr8aIhOr5amnQ=;
-	b=mZ9dfPgTtiwC1KtIjbx8kPzgLbmL9uS24Ie8EYrcT3+7aS2sn/6il27VUqu/eWVq5I77
-	 8obvIrCmGe/zxBigo/M5qfbQ2M0wVXlpw1yCT3vCjeIaEX6dnJGriyGD/fGbVHcKyPuMY
-	 Abule14G16wylP7Dd8BRRbF+eAPu4yRn97ADufO5Lt10RhEa5wGPQ/A8WCQ/LLowJxmE1
-	 5eTdl/vYrGOHX36DHqZMbpdgp0Q93EplYQU5OlFf3QBbpWQCMIZRSzFNwrpWsPM5sQ0dy
-	 HpiPbMLZbOdF4/BqYlD/k7XT1ZPb21Q1pzPGaoFJEjr79Oi/WkNvz/7cEm1qZeGRXxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795784080;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=TQkVH1jjDAMiibOHHeNRFPOznvXK/0Z03BJFc8UEQVY=;
+	b=nJEMM4Cd+Jkj2TZOxmx4LEMs71XyZ5Lnlnc7OaCrUTG1HKnWDRGzSbwkxf+Eeu288Omr
+	 BUdnGw4373cyjcbTgmgzOq41UFBBm4QEFuY3VLJTVmMDgfDFj0dzUVyheY5p3/bKHAd5Q
+	 HeTpKucTbCF0yFsgjZbNDYYRQqwcz8D3Pq3FGS0x6jiXFm5FmbCvjhjmHFZxUJ72uxTY8
+	 0VrvQRFdKE8jZhG5un0ZIO6n7XXkxCvaJxPDYC+WyuNcrEL897wPuqq0E93HJP2SZ+lbF
+	 +460b/iy/n820haunbDBFLvzLk1S/cMiIGcUrF8wmdXXNLYWMm3PVssARGfkPsXHpIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=1qdLnggx;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SIP3eZ2D;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62523606A31F;
-	Fri, 27 Nov 2026 12:47:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62523606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDCE606A31C
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 12:54:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FDCE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=1qdLnggx
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=uPfpI50tb7D/+LMDNaFZyv1Wo1aup2sr8aIhOr5amnQ=; b=1qdLnggxochql+Dkqhr5X4AKRD
-	ReaGpAvcLsFO9OI3C56HicPRmLbXl3eXd1/sqiVFncFWPwPKnoga/OuBeqYpiib1YBYC0RiFVLSYl
-	I5l3hyzgouu29yGPhAYXlZMW/RESMaflKOWkPOjoAW4xYw4DqAxhqEwkNe/kuRgydtL+Ht/DanSSL
-	PoGUmkpIrjIIbMR+10d8dEG5+ktRJMrh0xxWm6GS/8GhlvGL5kxni1mueOiU2LX5vbFuWwvXJC9pt
-	hMwq0Ea/rxzEdqf5IwxjvofVeZbcgRTTiBULgeJ0zPI90Fs9ynXytIv4AhuvwowlA3rFKyaTRSBnF
-	GM2u+dRw==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Andi Shyti <andi.shyti@kernel.org>, Wolfram Sang <wsa@kernel.org>,
- Jensen Huang <jensenhuang@friendlyarm.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-i2c@vger.kernel.org, kernel@collabora.com, stable@vger.kernel.org,
- Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: Re: [PATCH] i2c: rk3x: Do not sleep in atomic polling transfers
-Date: Fri, 27 Nov 2026 13:46:55 +0100
-Message-ID: <7m4BPz_aRRWlgAirQmmfoQ@sntech.de>
-In-Reply-To:
- <20261127-rk3x-atomic-transfer-fix-v1-1-076c94c07241@collabora.com>
-References:
- <20261127-rk3x-atomic-transfer-fix-v1-1-076c94c07241@collabora.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SIP3eZ2D
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso43048395e9.0
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 04:54:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795784078; x=1796388878; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TQkVH1jjDAMiibOHHeNRFPOznvXK/0Z03BJFc8UEQVY=;
+        b=SIP3eZ2DsdAMoRu4vPpjQzKjQZx9t/i9WRmXaY62bUIwbPnLOWxW3Q6lJYqWrSPQcG
+         EtdUrY4749Yzrqs1BuVP6qxHYZ20BeFyoMWUC+rGNnm969fFoZB5pKQiL/CqVL165xIJ
+         dP9GgOtWWGUS6ISVPvSYQ3z5Zh5eiMSIvJ/5IvxIxj+jLdzlJkXPNgui9YDGocQytf0M
+         5s2VGUHqVvcuw1jNWbjDg7ptd7SCws6xdjNoSHiwI4G2PcseGXEFpJjfijhbzSpHsNE0
+         ez/NsQj+w/kT2j/mXHvujRoQOALhqgcmeXVMPl5YSvoX3SVDaSPrwQJpizSqG2NcuLCf
+         Mweg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795784078; x=1796388878;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TQkVH1jjDAMiibOHHeNRFPOznvXK/0Z03BJFc8UEQVY=;
+        b=hA3V0QhiZbQGavuIEMIjYXvz9qDa+EAPO8eVi9jVWaZC2sgZdobDN4OwqToyxsZniX
+         J4ODHeaI2zjoTEVDMxi6pUPazC6LxfDoCsI8dAR1/ZqoAAUpDb923DNsFNNQv52qgClJ
+         sapzcjXm75l4HGFH7A5PZAFKx94XQ33y1IdLo/4SnAbkjommjHq6d+y0uGBQANEakoxy
+         ScCqa7lO0u+m1fchXRyyx7E/7z+TbAfhTuoEJ0G98xsDGXo4//rbMMg+eqf2U2xJZY+o
+         oFJNaoMWmI3j76qVeKBAPRQQFDGogEqjQZ9NLkyaSPpNyDcSmDyOxKtXubil72qq1D4m
+         t8NA==
+X-Forwarded-Encrypted: i=1; AL+hErGpz50vycqGRw8fdr9qk7mCQeBFo0L1Kjl3qLuuyZ5fscutdzRSFqmk0lgqzKZdsYkzisvfyfE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/N7/ooNksxhZQSgL/oKkXtfQRVFzWWqHdjTFUUVPWGBKfF3N0D
+	cRV52sOR+DajHFw7m1LciJFluJyYfFqXHV3BTEh3o+oCSGBud5ue4Q0P
+X-Gm-Gg: AZFdTZdbdzxL1FOE8NDQsPowYjNEnbgHx1D6DZpfvcCTr9Y9x8T428+IffnOgdXuv4v
+	hB5skXDb0D3xlUDWoxw6N6yk0NwTzYZ0uWUJ23SWatUGA8dMZEOoHqDDA3Qkhl4zxQppJVJaKds
+	yRD1ZXOTf6v59Uwi2BamGSdoc8YsN1TR2pXzjLwbAB54E0Vnh3reRNvOr/GtAtCjD7HF6j8n9Dl
+	qjZV7hKFzG9NfKexuMbI22KCYC5sir+JS4LMl+Yh85nXO04aPh9Yd1POorYWkOSMygDuiU0dOKB
+	+IAIjG8Ndx+cSV+Mhx/s6uSrzGkFkN1J8sYjxjBjmNBhIKF8/YeZapvI19oF+IuCgSGl7WCZtrz
+	2ZVHFMcXkyDE0Nu/f20fImKLXX8SoKa8OIbqAYBuUprEST0Qr0ZJkxlTY5iTTMj6eos4FTmAiP9
+	MxZbD4Jr/CB6W3n5mF+lFGyZt7klb7gQ4WqqjJodZzZHXqPqr4kXLx8uy0DbfPJw3I6ECK9OuHr
+	mjmKrmnCp0/qp/TJqECWxvZ9Kc4v8y73WeW+Koh5v3bTCyMvCr/6Wi69ih1TeRZK7X9zdRNErMM
+	cJFAaZK0qj+IySvEu60RsybCCbB8/WkcLQq1USr0fvS3TUJnCb5NWOb9y6U3cSK5LIrnnhjCxgQ
+	ZYa7TG94=
+X-Received: by 2002:a05:600c:5246:b0:4a7:9006:b176 with SMTP id 5b1f17b1804b1-4bb887fe892mr527018685e9.7.1795784078292;
+        Fri, 27 Nov 2026 04:54:38 -0800 (PST)
+Received: from [192.168.68.89] (host-87-4-46-207.retail.telecomitalia.it. [87.4.46.207])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab69bf630esm47880489f8f.16.2026.11.27.04.54.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 27 Nov 2026 04:54:37 -0800 (PST)
+Message-ID: <2b6444b1-c81f-4ea6-8981-9bd4bdcbab2c@gmail.com>
+Date: Fri, 27 Nov 2026 13:54:36 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,82 +91,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-
-Am Freitag, 27. November 2026, 13:33:05 Mitteleurop=C3=A4ische Normalzeit s=
-chrieb Sebastian Reichel:
-> On the RK3576 Sige5 during shutdown the following trace appears on
-> kernels with multi-core support and lockdep enabled:
->=20
-> [  167.961946] WARNING: kernel/irq_work.c:296 at irq_work_sync
-> ...
-> [  167.963902] Hardware name: ArmSoM Sige5 (DT)
-> ...
-> [  167.972228] Call trace:
-> [  167.972445]  irq_work_sync+0xe8/0xf8 (P)
-> [  167.972796]  disable_irq+0x44/0x60
-> [  167.973101]  rk3x_i2c_xfer_common.isra.0+0x254/0x708
-> [  167.973544]  rk3x_i2c_xfer_polling+0x20/0xa0
-> [  167.973925]  __i2c_transfer+0x180/0x9d8
-> [  167.974269]  i2c_transfer+0xc4/0x180
-> [  167.974589]  regmap_i2c_read+0x64/0xc0
-> [  167.974924]  _regmap_raw_read+0x120/0x468
-> [  167.975283]  _regmap_bus_read+0x4c/0xa8
-> [  167.975626]  _regmap_read+0x6c/0x260
-> [  167.975945]  _regmap_update_bits+0x104/0x160
-> [  167.976325]  regmap_update_bits_base+0x5c/0x90
-> [  167.976720]  rk808_power_off+0x70/0x110
-> ...
->=20
-> Avoid waiting for a handler from another CPU to finish to fix the
-> problem. At shutdown time this won't happen as the other CPUs are
-> already stopped. Apart from that disable_irq_nosync() still prevents new
-> invocations of the handler, which is what avoids the spinlock recursion.
-> A handler already running on another CPU is serialized against the poll
-> loop via i2c->lock.
->=20
-> Cc: stable@vger.kernel.org
-> Fixes: 19cde9c92b8d ("i2c: rk3x: fix potential spinlock recursion on poll=
-")
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
-
-With CONFIG_DEBUG_ATOMIC_SLEEP activated, this should also already
-already warn from the might_sleep() in disable_irq(), I think.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/990] 6.18.66-rc1 review
+From: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Francesco Dolcini <francesco@dolcini.it>
+Cc: sungbyeongchan <tjdqudcks0424@naver.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Nishanth Menon <nm@ti.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, stable@vger.kernel.org,
+ patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261125143822.072087159@linuxfoundation.org>
+ <20261126173920.GA180459@francesco-nb> <20261126174236.GA183126@francesco-nb>
+ <2026112702-donator-rebuff-16b2@gregkh>
+ <9e86f015-0f0e-4897-80b2-9662b96a98f8@gmail.com>
+Content-Language: en-US
+In-Reply-To: <9e86f015-0f0e-4897-80b2-9662b96a98f8@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
 
-> ---
->  drivers/i2c/busses/i2c-rk3x.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/i2c/busses/i2c-rk3x.c b/drivers/i2c/busses/i2c-rk3x.c
-> index 9ec3beced9f9..a07c60ab07b4 100644
-> --- a/drivers/i2c/busses/i2c-rk3x.c
-> +++ b/drivers/i2c/busses/i2c-rk3x.c
-> @@ -1096,7 +1096,7 @@ static int rk3x_i2c_xfer_common(struct i2c_adapter =
-*adap,
->  			time_left =3D wait_event_timeout(i2c->wait, !i2c->busy,
->  						       msecs_to_jiffies(WAIT_TIMEOUT));
->  		} else {
-> -			disable_irq(i2c->irq);
-> +			disable_irq_nosync(i2c->irq);
->  			rk3x_i2c_start(i2c);
-> =20
->  			time_left =3D rk3x_i2c_wait_xfer_poll(i2c);
->=20
-> ---
-> base-commit: eeb63983deb23d68ddc47e5d1944a7d64acdaf22
-> change-id: 20261127-rk3x-atomic-transfer-fix-23f2d43c38b6
->=20
-> Best regards,
-> -- =20
-> Sebastian Reichel <sebastian.reichel@collabora.com>
->=20
->=20
+On 11/27/26 13:13, Emanuele Ghidoli wrote:
+> Hello Greg,
+> 
+> Reverting e498eb93f961 ("virtio_ring: use shadow flags when detaching
+> split descriptors") on top of 6.18.66-rc2 fixes the issue. The tree at
+> e498eb93f961 itself works fine, so it seems to break only in combination
+> with a later patch in the queue. Still investigating.
+> 
+> The "Device Manager" is TI firmware on an R5F core that serves Linux's
+> TI-SCI power/clock requests. Linux talks to it via remoteproc/rpmsg,
+> which runs on virtio_ring. With rc2 the rpmsg channels to it are never
+> created, and I2C transfers start timing out.
+> 
+> Kind regards,
+> Emanuele
 
+Hello Greg,
 
+Correction to my previous mail: the "tree at e498eb93f961" I tested was
+mainline (v7.4-rc1+27), not the stable queue, sorry for the noise.
 
+On the stable queue:
+- 44b6e54e4a0a (patch 203): OK
+- 22944d517ff8 (patch 204, "virtio_ring: use shadow flags when detaching
+  split descriptors", upstream e498eb93f961): broken
+- 6.18.66-rc2 with 22944d517ff8 reverted: OK
+- 6.18.66-rc2 with this change: OK
 
+-       if (!indirect && vring_need_unmap_buffer(vq, &extra[prev]))
++       if (!indirect)
+                vq->split.desc_extra[prev & (vq->split.vring.num - 1)].flags &=
+                        ~VRING_DESC_F_NEXT;
+
+According to an AI-assisted analysis (Claude), not verified in depth by
+me, the patch relies on 03f05c4eeb7b ("virtio_ring: determine descriptor
+flags at one time", v7.0-rc1), which is not in 6.18.
+
+Please drop 22944d517ff8 from 6.18.
+
+Kind regards,
+Emanuele
