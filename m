@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795804604;
-	b=e/Pc/7RswH6pjaCTbQb6DZkNLJj1XWAYHc+YQQZyNGhLgrnP9ZbW5BRisQ6TyQjVQHvX
-	 KDxg9z4sOexpepQgX9P4YqJ/CzzRMpQNigphhnYmsHMCD7/LjrR1pbAhj2e/C0gz4+ojv
-	 LbGah+kNpM6k3Sx5+pptyPLt9EScwof0yrdH7Vl2nNq3dzmW4TaqPqSc4OuENdFsxkfML
-	 yTq4Cj8ghllnBPOnMK6YC8o2fUKjxY1NmZUmQpBstiPJZKLHplR0Se9GHRsp781ZirNT/
-	 5ea9o1YyPOJt4XpinjmNWIZedDmsD922qEEDUtzwadhjWrSK/qaioUatr0y661rIekg==
+	t=1795804610;
+	b=sYgGXR4dVpY/YPkfZOf0T0lI6GDMBkMV74tUM6hwL3V1dxlihyHh1vB/W2MP38UqaRAI
+	 pq0HlbrR+04ONA6FAwYrt7GCKFwfWMBAbKe2K97vxZG1VBaUi1XCExu5u6F0LNzygb8le
+	 s0pL14aJ8SL91OAurpLJavN9fvAO2w/jihvPcVJAiMR7wg/tNb9LaZsfcTo2WLz4tE+rr
+	 mwj6z45lXwoC763Rafw60VP/Px7NxccT6DeUSeX60gnM5mYA14EkG613TZijwAI9yFV5z
+	 tJV6B2D/LzFLaAsiJingOsc8kL/4fsxWI+TzbGxIeuLSpGAZAHNZyJsSWclcpJ6/t0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795804604;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795804610;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=q/DHnuShonHGs9vWHUGnG2mho9rRsXgmGDFHaiX+Sh4=;
-	b=SY0gc6qaYE8SCg8L9lxjiWAYT16nH3y2oX2t4eL8kIP7XeOIFQI4KxRnRyNgMcpHn+Qc
-	 5S2PXh3sIZDern1BYoRWM5l8XyEEZVImit57W1Y8aWo+witur0QKP8bp25+R0jf1meado
-	 L4UHL3mFeQJop4iUhu29etaYknBm7QEp6h0XRDoIle6A1Jv+93wjtVeuNJMymRUUTV6D9
-	 +6y56r1dHY81Irr1BMhLjXUgzMnLN2JU6Cg1uuzocq2YXfB6np8A33lfqj2PVB/PJHPQ6
-	 W5Lovj3oJhrHQsmIKSEeB5rTxuD7pZ8ANU4Yd3Blq8Cp+Gz8DKjB/44BVtbi4jpnZHQ==
+	bh=c9OS2azmNlSLBcd4n3RTnzdEGHNMnl37QCh2ccSxVD4=;
+	b=ZoyU0sCYB54N4JUkH1EVtEzIdlN7kxyENRFwxLfqj32itGCoA0iUNNl43bG9Q/x2NV9C
+	 SVcqtKhJlspOtsHf/Oh0ixlQ+HpOpIHIi1K0jq5icFXAcJ9g0gMeC/CszbpC5DGowmuJ9
+	 CcG/mcZH6oFUeKeyU0N1NPMmKNITE/epU3WdYY7S5Uzetnj5oeYKXOcxUibJbjSTq80FD
+	 DkViIhDgKvekDFMrk1gsRUvTrS/D8Gkcvs/SBI1XxEfoDFzXUrzf2uEQA33Ws5Y+Vp92u
+	 7v75GjnZCe6MVG5dJspaSn1VKk5+37qbVuA0Gn42WqPZl1LeJn0L9aiKD6vrYlUPaRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j0ESB5Ee;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ds20111+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A93CE606A31F;
-	Fri, 27 Nov 2026 18:36:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1320606A334;
+	Fri, 27 Nov 2026 18:36:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j0ESB5Ee
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A20751F0089A;
-	Fri, 27 Nov 2026 18:36:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ds20111+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E09581F0092C;
+	Fri, 27 Nov 2026 18:36:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795804604;
-	bh=q/DHnuShonHGs9vWHUGnG2mho9rRsXgmGDFHaiX+Sh4=;
+	s=k20260515; t=1795804610;
+	bh=c9OS2azmNlSLBcd4n3RTnzdEGHNMnl37QCh2ccSxVD4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j0ESB5EeNqlAOU2eBXcocvNl6deO85SOix6KahEA+hAbrDTJ8bBXuuhrfAAroePWW
-	 hrWU4csBnvN7I3fKhcS32MAmhZhlyoMQ8/Tmg484Wm4OEWLNGgedXreMdlyWs6TjlW
-	 vypncicDPvhq9ijEmDQaQmpBEn1BLTiwkUV9yCCO8Cws3frt2PGP1OG0+5GWhlAMd9
-	 BKxMfw4OWNqzMSxtWX2ZxRsIdF3arhNoPnR6N7fCWnbTKy+QC5dzS/82L3PmzSV7/u
-	 r+xbMhOPyiPkHoTfs9SAo7MTG4/JZNwMVaDTB8MhVowlRlE/oSftWIxiapYNtPHUJn
-	 x6Oow8NCspkaw==
+	b=Ds20111+2KN1q2dkFSUuBH4U60j093SvnLq2b8/CA+dHItrCf4DjINOje1lXgIKWp
+	 9Vi4lIDAnYt01OFbCGSXp3vXNOzTfN/HH/tl9IHO4SIFHGFsCC+bUkXaLartZ/mnJl
+	 iyI3MYbG2eJ9VOHzi7YWNUxjPwn1fTnwd77Zv6KBSUh0NYRiBESCgTbm1OxPHiFzM0
+	 CQHvZ1MnxV5vgMXsuXC1+g+T8bggC1n2FAQGbt7tH7cGAKvrKIXOcNiUKV8EtuXNLa
+	 MuS2Wga9GNkBlbswf2h08r5BZTODEKNrUSHjQ2ba9jcqpmMeQ6VdijTNCVi5gWm1LZ
+	 Taaz/uuZBxNJA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
-	Gyungoh Yoo <jack.yoo@maxim-ic.com>,
-	Graeme Gregory <gg@slimlogic.co.uk>,
-	Eduardo Candelaria <jedu@slimlogic.co.uk>,
-	Stephen Warren <swarren@nvidia.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
+	Uday Khare <udaykhare77@gmail.com>,
+	Jerome Neanne <jneanne@baylibre.com>,
+	Mal Nadar <m.nirmaladevi@ltts.com>,
+	Esteban Blanc <eblanc@baylibre.com>,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 2/8] regulator: max8907: Duplicate of_regulator_match table per device
-Date: Fri, 27 Nov 2026 18:35:42 +0000
-Message-ID: <20261127183624.3341010-3-lee@kernel.org>
+Subject: [PATCH 3/8] regulator: tps6594-regulator: Use dedicated handler for external regulator IRQs
+Date: Fri, 27 Nov 2026 18:35:43 +0000
+Message-ID: <20261127183624.3341010-4-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127183624.3341010-1-lee@kernel.org>
 References: <20261127183624.3341010-1-lee@kernel.org>
@@ -67,141 +66,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-max8907_regulator_parse_dt() passes the static global max8907_matches
-array directly to of_regulator_match(), which populates init_data and
-of_node in place and registers a devres callback holding a pointer to
-that array.  With multiple MAX8907 instances, a second probe overwrites
-the first instance's entries and subsequent unbinds invoke of_node_put()
-twice on the same device nodes, causing reference count underflow and
-use-after-free.
+External regulator and VMON interrupts are registered with a pointer to
+struct tps6594_ext_regulator_irq_data, which has no rdev member, yet
+they reuse tps6594_regulator_irq_handler().  That handler casts the
+pointer to struct tps6594_regulator_irq_data and reads irq_data->rdev
+out of bounds before passing it to regulator_notifier_call_chain().
 
-Mark max8907_matches const and duplicate it per device with
-devm_kmemdup() before calling of_regulator_match().
+Add a dedicated tps6594_ext_regulator_irq_handler() that operates on
+struct tps6594_ext_regulator_irq_data and logs the trap without calling
+regulator_notifier_call_chain().
 
-Fixes: ffee19091a4e ("regulator: add MAX8907 driver")
-Closes: https://sashiko.dev/#/bug/linux-295d0600-9849-4e47-802c-7e7a883167aa
+Fixes: f17ccc5deb4d ("regulator: tps6594-regulator: Add driver for TI TPS6594 regulators")
+Closes: https://sashiko.dev/#/bug/linux-e6806c5e-76ed-41e2-924e-7110aa9f7d58
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/regulator/max8907-regulator.c | 57 +++++++++++----------------
- 1 file changed, 24 insertions(+), 33 deletions(-)
+ drivers/regulator/tps6594-regulator.c | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/regulator/max8907-regulator.c b/drivers/regulator/max8907-regulator.c
-index fd227fd13612..7781901ed115 100644
---- a/drivers/regulator/max8907-regulator.c
-+++ b/drivers/regulator/max8907-regulator.c
-@@ -186,7 +186,7 @@ static const struct regulator_desc max8907_regulators[] = {
- 		.driver_data = (void *)&max8907_regulators[MAX8907_##_id], \
- 	}
+diff --git a/drivers/regulator/tps6594-regulator.c b/drivers/regulator/tps6594-regulator.c
+index 1bbad407acb7..66052753610f 100644
+--- a/drivers/regulator/tps6594-regulator.c
++++ b/drivers/regulator/tps6594-regulator.c
+@@ -509,6 +509,23 @@ static irqreturn_t tps6594_regulator_irq_handler(int irq, void *data)
+ 	return IRQ_HANDLED;
+ }
  
--static struct of_regulator_match max8907_matches[] = {
-+static const struct of_regulator_match max8907_matches[] = {
- 	MATCH(mbatt, MBATT),
- 	MATCH(sd1, SD1),
- 	MATCH(sd2, SD2),
-@@ -218,54 +218,44 @@ static struct of_regulator_match max8907_matches[] = {
- 	MATCH(vrtc, VRTC),
- };
- 
--static int max8907_regulator_parse_dt(struct platform_device *pdev)
-+static struct of_regulator_match *
-+max8907_regulator_parse_dt(struct platform_device *pdev)
- {
-+	struct of_regulator_match *matches;
- 	struct device_node *np, *regulators;
- 	int ret;
- 
- 	np = pdev->dev.parent->of_node;
- 	if (!np)
--		return 0;
-+		return NULL;
- 
- 	regulators = of_get_child_by_name(np, "regulators");
- 	if (!regulators) {
- 		dev_err(&pdev->dev, "regulators node not found\n");
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 	}
- 
--	ret = of_regulator_match(&pdev->dev, regulators, max8907_matches,
-+	matches = devm_kmemdup(&pdev->dev, max8907_matches,
-+			       sizeof(max8907_matches), GFP_KERNEL);
-+	if (!matches) {
-+		of_node_put(regulators);
-+		return ERR_PTR(-ENOMEM);
++static irqreturn_t tps6594_ext_regulator_irq_handler(int irq, void *data)
++{
++	struct tps6594_ext_regulator_irq_data *irq_data = data;
++
++	if (irq_data->type->event_name[0] == '\0') {
++		/* This is the timeout interrupt no specific regulator */
++		dev_err(irq_data->dev,
++			"System was put in shutdown due to timeout during an active or standby transition.\n");
++		return IRQ_HANDLED;
 +	}
 +
-+	ret = of_regulator_match(&pdev->dev, regulators, matches,
- 				 ARRAY_SIZE(max8907_matches));
- 	of_node_put(regulators);
- 	if (ret < 0) {
- 		dev_err(&pdev->dev, "Error parsing regulator init data: %d\n",
- 			ret);
--		return ret;
-+		return ERR_PTR(ret);
- 	}
++	dev_err(irq_data->dev, "Error IRQ trap %s for %s\n",
++		irq_data->type->event_name, irq_data->type->regulator_name);
++
++	return IRQ_HANDLED;
++}
++
+ static int tps6594_request_reg_irqs(struct platform_device *pdev,
+ 				    struct regulator_dev *rdev,
+ 				    struct tps6594_regulator_irq_data *irq_data,
+@@ -827,7 +844,7 @@ static int tps6594_regulator_probe(struct platform_device *pdev)
+ 		irq_ext_reg_data[i].type = irq_type;
  
--	return 0;
--}
--
--static inline struct regulator_init_data *match_init_data(int index)
--{
--	return max8907_matches[index].init_data;
--}
--
--static inline struct device_node *match_of_node(int index)
--{
--	return max8907_matches[index].of_node;
-+	return matches;
- }
- #else
--static int max8907_regulator_parse_dt(struct platform_device *pdev)
--{
--	return 0;
--}
--
--static inline struct regulator_init_data *match_init_data(int index)
--{
--	return NULL;
--}
--
--static inline struct device_node *match_of_node(int index)
-+static struct of_regulator_match *
-+max8907_regulator_parse_dt(struct platform_device *pdev)
- {
- 	return NULL;
- }
-@@ -280,12 +270,13 @@ static int max8907_regulator_probe(struct platform_device *pdev)
- 	unsigned int val;
- 	int i;
- 	struct regulator_config config = {};
-+	struct of_regulator_match *matches;
- 	struct regulator_init_data *idata;
- 	const char *mbatt_rail_name = NULL;
- 
--	ret = max8907_regulator_parse_dt(pdev);
--	if (ret)
--		return ret;
-+	matches = max8907_regulator_parse_dt(pdev);
-+	if (IS_ERR(matches))
-+		return PTR_ERR(matches);
- 
- 	pmic = devm_kzalloc_obj(&pdev->dev, *pmic);
- 	if (!pmic)
-@@ -315,11 +306,11 @@ static int max8907_regulator_probe(struct platform_device *pdev)
- 		if (pdata)
- 			idata = pdata->init_data[i];
- 		else
--			idata = match_init_data(i);
-+			idata = matches ? matches[i].init_data : NULL;
- 		config.init_data = idata;
- 		config.driver_data = pmic;
- 		config.regmap = max8907->regmap_gen;
--		config.of_node = match_of_node(i);
-+		config.of_node = matches ? matches[i].of_node : NULL;
- 
- 		switch (pmic->desc[i].id) {
- 		case MAX8907_MBATT:
+ 		error = devm_request_threaded_irq(tps->dev, irq, NULL,
+-						  tps6594_regulator_irq_handler,
++						  tps6594_ext_regulator_irq_handler,
+ 						  IRQF_ONESHOT,
+ 						  irq_type->irq_name,
+ 						  &irq_ext_reg_data[i]);
 -- 
 2.56.1.839.g22a8290db9-goog
 
