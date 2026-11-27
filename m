@@ -1,72 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795814897;
-	b=aOhHeKHJgMk7u9K3VLKGkZt2BvStBr+m5nEDTqHYcIhUxmyypAFQA9Yysbo+X9WBdpOT
-	 Nnq6w4G1NaDgBqyvgiUk3fOqNlL0r9F/oW5DnOwNxY6lbmdVszbWnl7PnqRhBzquwA6vM
-	 s1+1FHBak7AUpIVVO76qaubDzhvCIOLybsPi4xujY8mskMKzpvP4qLOTnC1HR6Uy+I3XP
-	 zewsmV1z4ez1YYnrIjQGZG3M84BGOu56uiEhCDXtDvFZmR3mA5FjlZTuwWemxGnnvMKz1
-	 twM0IvR79SIc8hlK7dG5E/7EKTT+BWDcwViHlXYonstbRnX8Ds8hCXgNncaplASj8vw==
+	t=1795815488;
+	b=HLbbZ3HLeSPMmkpuRAjH4e0z90LNrpnbuAmmkXveLCwgApqgwPHMs3kBCpcJuU0FkRFi
+	 IQkssS3pNvaKfCxLi9LJ1ZCHEIpcgzxq+iEL60sy6+BtOYUFPOXGOnQ4YwUezNH9v5C7z
+	 gZL4sQFHRJvp9PHEJ4BS7BfsrVz3/suih7cb8OWr25daESkvH0BPu+NQZT/HOx6qhF28R
+	 2ra8WoqxtKDZ26UJ17NDWzw5G9i6rOojSDmVGreaHgCYl2xEA5vIBqiVJQeDtbdUT1ss+
+	 MsUAPVJm+Ih3lUiG5tcGd8oIVBDXPpG9NEcTQriC4BXIV4/R+J87jPt0yy9eBzvFKNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795814897;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795815488;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=+mb9rF6VJRzXR4i4y89PW+yVWJyrkXOWuPHAFuVlX7c=;
-	b=BP+AmNobwkmw8DwdwO83wLq9aujEGip9+4+B1xZN8mnurwIRtQ814hVBxRVX7qz7Di90
-	 zL4VOcpCBOVCEKCOHgxH8ClI3gaVLiB8fHChdH0+7evYIq71+32hGnNc19QVCd0/cxEEJ
-	 pYQa6nDtveS0LifeUE4fgX4GBFZVuk+9gHsOED40Ai+K0p7x6WFCdt4bjtl/o5MHsZmoW
-	 KTV+iiq6I1qf7AFg1NC/8taYEzPwB3N11VJ50HYAdffHwU2/aBOBGa0o+IdUkrkbETTpQ
-	 aTUPS178Pc46W1V8lW/N3ZvNorFOtPNHvhrXPR3ZFo4MJBwIwIw+TjuBkGaUzdb0sTQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=xqtBu2Wsy0B4Kw+r7BB49KJkb1PgkF+EWLfag1zttcU=;
+	b=LikA29vq9bbX1xPkGtGcN6JWO7fygJy4fapPj0z72Lp7yCmki5Pf0uOmEzgzWK/ah7+q
+	 rLZJNbdJI8BUAK2Lpdvf6WC59kHHm311/U3ZpQIPHW6bMdj0IO00qM2MsVG4Sn1m6dJEK
+	 nA7uN5DevJuC9xcYMNl679WqvwISOprj8VJAEBntDZ78jHBNMFwMgcyiOYP32Q4vwLRqL
+	 75g13V9xEYXB0vHVp0yMuv8wZL5paRgPS6bXiI6Gnu0qfwGLYe2hPi2PzuTLe88yIj/CN
+	 JtUkb7c9hVHsHDcxN/L3H8Z/ExgoExuE5f+qvh6yiFKaDtij0fV2dFnBb7ewg2nN2+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WdnTQM0m;
-	arc=none smtp.remote-ip=209.85.218.71
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MtYU3qXW;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6B8606A31F
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 21:28:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C6B8606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F38C606A31E
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 21:38:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F38C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WdnTQM0m
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c505eecba6cso665727966b.1
-        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 13:28:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MtYU3qXW
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-15ea896ddc8so13938815c88.0
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 13:38:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795814895; x=1796419695; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+mb9rF6VJRzXR4i4y89PW+yVWJyrkXOWuPHAFuVlX7c=;
-        b=WdnTQM0m8LO+yuAjtAy0mmfS+ur+8+5LknV4Mw7UCvU9eLgcLVWZ3iOMkEuFrCgcbk
-         NR7hjGIHZ9GioNtrfRxRleS9JtbGFc4u+UXFzeYcSIl2/MCLSTBfXEQcte3k080g+D9A
-         H4FWpjW+deZRCbxbavWRsVbWQYH8ijvWp8rKQOSzwH4qxLo7a31c9Q/j03cyrvodpEE8
-         3Hk0bIgtEee8uGOs9bVCRrlUjHzdCDbwdKEF2msUbRWcHNAc48slGiXNrJlCLRoQ1GWm
-         oiRZ/PKkbOCHDklImmf037sZ4amMhrwIRDcX8G9hg/T09rUgpjRZF3CUGHW9wiaKEoeP
-         nw+Q==
+        d=gmail.com; s=20260707; t=1795815487; x=1796420287; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xqtBu2Wsy0B4Kw+r7BB49KJkb1PgkF+EWLfag1zttcU=;
+        b=MtYU3qXW0hHJ210fj7ECe+3dydOMUaRawlIjFu/Y/ubRiLjiU2TfH5VCKvOgvVPJiF
+         K4ajMgGsGVCWNXRw76MQ9Qd1mcMwPgP9njMEAz7zTwSBXTX4IdoELXbd4qjA363H18e3
+         ZlknN1nuJ3/C7JvvbEC/7YCPhOAdomQwaHqSGbRxfu++ny+pL1D70e9UEn09WmMgye8R
+         YxkcMDMdihRUvJe5voh6OcSgg9pVuJ7uxz9r0MeDUeRTZ8j183PoF/Gfw6GYr67FRbbo
+         M5PUTV0cxmg6K3iVyWX2v9XG85ikZq/NovlJMzb8Mxz9/bI5jUfOXM9M89jZCJDE6Z5f
+         Ncjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795814895; x=1796419695;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+mb9rF6VJRzXR4i4y89PW+yVWJyrkXOWuPHAFuVlX7c=;
-        b=OqeTPqYmd6Crf66DN6Td4ScATKU9C4wvqHHfVx9dXJ3waEDOld1E0xEUmJnz9DhQ+T
-         qtoTIxVLujKctb4ol8bs6cHAzkfm91ZYVJcm6yXzN1g3ATeiWGMR+D/DuqCVVRm7JD0J
-         gyEsLUMQSTt1aQI2K9XuAhQ0B4+9ERpbHM+Q8+EPsdrmQzEdOzE0fmu+iGLJNi+iF3+r
-         Bc5O1NZo9mN+uKqnm3biuJOwabbmT9O3s4//Jc0bxzemVM/Z5AcXbt3qazaBWBHPN45X
-         SsHxxNF3LlJqfyKTnHN1PhJskBfezuqK9sWvhqHfnM7iFuKC7VVKmK6D1pheBspmVgF0
-         aitw==
-X-Forwarded-Encrypted: i=1; AL+hErGFttYXvrW9xzuBlKu1GgUOXnzjVdMon0vfgbkWwL5aVkXirGQZ6TwqLuiFMI7q/h0yvrwHdXI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++jH5djTL7wUNIUJZswkgRkv/DfMsc7QAkYs3byjf+yCBqhaVr
-	6S04VkyIgiptREBUCiJwxJbvSyOgegXP8J7E51fGwVBkepQtvLIBdLzapiewniWI34gv9iIwbPV
-	goh7Pcq+R0rHaIxGh+uIU6w==
-X-Received: from ejbbx9.prod.google.com ([2002:a17:906:a1c9:b0:c50:487b:9fb8])
- (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:906:c10e:b0:c41:5e31:5184 with SMTP id a640c23a62f3a-c513a99abe6mr2130168566b.13.1795814895264;
- Fri, 27 Nov 2026 13:28:15 -0800 (PST)
-Date: Fri, 27 Nov 2026 21:27:43 +0000
+        d=1e100.net; s=20260707; t=1795815487; x=1796420287;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xqtBu2Wsy0B4Kw+r7BB49KJkb1PgkF+EWLfag1zttcU=;
+        b=MoJPLyS1lO+7eqrK320PsZ4iIXrxsGQeZRidWJRk5PPJrxy1lvoP8RBaqC03VITEsq
+         ofaDLHEi11MzrNJkcru6c25nMJu7V15NPl0Da8orRDrRfWEph7xtQkK/jaWr23uFTcya
+         7H0n+rBl9sEh7ukDeUJ/WmSGrOi2QNcS2Fj1n0RUCh5CbeygUGcxnWkAk0NlYxp1W1Si
+         hihBS/mVawP4tzHRp/swtw4bbFyK92NNC8ca0/Tau5Js5hQ6zDh/eI8on83Jm82G2xWe
+         26/fWxJAMOMu5aGKcGmdnQYOiAP9T7FvJTyjBBZmi4YY+XClUKx+ar89stCwrBr9qjCu
+         38SA==
+X-Forwarded-Encrypted: i=1; AL+hErEFDp/rWFC8u0PS8wVJ5fmMxIV2J3BPSvz4xMZ9wnnFoXE6Wf7/7pvjQzV1GsJtfTsvHZatHKU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8rQo7zM4pTVJ1tAMZZjCjklMlpYgb6mmKL4TBvHngzAw3kVVpt
+	QipMaAbM7vNG3mqtJEqhv0xi+TCuRq4/0cRtOEZP8uK9ZqJ3E9O+bKGT
+X-Gm-Gg: AZFdTZe9qVnb3A/EBFL2uK0Q/XYxcjFH4ce71tCChlIWsb0cE/wSZOYbKnT6fL5wimI
+	OTu9F0p85r7PAVYgwMhBW/FnV9MxZLZ8Cxpqs7PdyyB2NBh4fn5CeN5DXf4RCUb6XUsYWMSa+p2
+	6CtRkkT12/cVYLKyrrd7GnYx7fkYMW9gkz3v5ZWkfcKyP+5tgH0KevixfKWx04vhCZJDLadYDCQ
+	YmGbcmHP3ZPuiQ8DvM13Q6RyX5+CnnmaQ6adMFjcN7KUAdXc7fa0ZSGv+3Zr7FAd9PL6qT0AAOU
+	cqNjLLUyld7q+4WDiHox4xJsJK0mxj2sAbVnOCeSKMRAWPrBiRjC0PacYUwtjUcD9p+71mU2Epk
+	RrH7dCtE/wcWc53kZZVFOQM98OU/++0moUCItxfb7m/MKh5lqnRu1U+4WSaDwpLv2aRKZ/plgJ+
+	/IuH2y4i2KoysJKBbtWI3h0pygAm9WezURksyr5x5a2Nh3naSFzyossYYz39KxE+zoBjqrjFlTc
+	RH4iPB759Ayts++W1cncQ3kkmTItV/n0mjjQnQCxpS6WRjAzfanLPHGCc10W/q0LoujLI7Qwm7K
+	Id7946oIU6k37wBPO6Y4NGj8Xv5EAxrL/GI=
+X-Received: by 2002:a05:701b:4502:10b0:1b5:3616:5968 with SMTP id a92af1059eb24-1b556898b59mr25806584c88.14.1795815486836;
+        Fri, 27 Nov 2026 13:38:06 -0800 (PST)
+Received: from mptcp-lab.w453y.xyz ([59.164.88.43])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5567ff27bsm67825547c88.6.2026.11.27.13.38.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2026 13:38:06 -0800 (PST)
+From: Abdul Wasey <w453y.me@gmail.com>
+To: mptcp@lists.linux.dev
+Cc: Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	"Mohit P. Tahiliani" <tahiliani@nitk.edu.in>,
+	Gang Yan <gang.yan@linux.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH mptcp-net v10 1/2] mptcp: pm: in-kernel: fullmesh: skip closed subflows
+Date: Fri, 27 Nov 2026 21:37:55 +0000
+Message-ID: <20261127213756.4154872-2-w453y.me@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261127213756.4154872-1-w453y.me@gmail.com>
+References: <20261127213756.4154872-1-w453y.me@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,63 +101,98 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
-Message-ID: <20261127212743.1139739-1-vdonnefort@google.com>
-Subject: [PATCH v1] KVM: arm64: Use CNTPCT_EL0 for hyp trace clock
-From: Vincent Donnefort <vdonnefort@google.com>
-To: maz@kernel.org, oupton@kernel.org, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org
-Cc: joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, 
-	yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, 
-	kernel-team@android.com, fuad.tabba@linux.dev, 
-	Vincent Donnefort <vdonnefort@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-trace_hyp_clock() reads the virtual counter (CNTVCT_EL0). Under nVHE
-(and pKVM without hVHE), loading a guest with a non-zero offset applies
-that offset to CNTVCT_EL0, corrupting the trace timestamps. Use
-CNTPCT_EL0 instead.
+With fullmesh endpoints, if the endpoint used by the initial subflow is
+removed and then added back, no new subflow is created from it: the
+connection never uses this local address again.
 
+The initial subflow is kept in the conn_list once closed. If it was
+still established when closed, it keeps the local ID 0, which is also
+the ID used by the re-added endpoint, and
+fill_remote_addresses_fullmesh() then marks its remote ID as
+unavailable. If it was already in TCP_CLOSE, e.g. after a reset, it is
+disconnected and its context is reset: the 'closing' flag and the remote
+ID are cleared, and its destination port is zeroed. It is then picked as
+a remote address, with the port 0 and the ID 0, which also marks the
+remote ID 0 as unavailable. In both cases, when the peer has a single
+address, all subflows use the remote ID 0, and no valid remote address
+is left.
+
+Skip the subflows being closed or in TCP_CLOSE state, both when looking
+for the remote IDs already in use and when picking the remote addresses.
+__mptcp_subflow_active() cannot be used here: subflows still being
+established have to keep their remote ID marked as in use, to avoid
+creating duplicated subflows.
+
+When no subflow is left to take the remote ID 0 address from, e.g. when
+the initial subflow was the only one, use fill_remote_addr(), as for
+non-fullmesh endpoints: it takes the remote address of the MPTCP socket.
+Before, re-adding the initial endpoint created no subflow in this case
+either, and another endpoint only worked by picking the closed initial
+subflow.
+
+Without the fullmesh flag, the remote address is taken from the MPTCP
+socket, so this issue is specific to fullmesh endpoints.
+
+Fixes: 045e9d812868 ("mptcp: fix duplicate subflow creation")
 Cc: stable@vger.kernel.org
-Fixes: b22888917fa4 ("KVM: arm64: Sync boot clock with the nVHE/pKVM hyp")
-Reported-by: Fuad Tabba <fuad.tabba@linux.dev>
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+Signed-off-by: Abdul Wasey <w453y.me@gmail.com>
 ---
- arch/arm64/kvm/hyp/nvhe/clock.c | 2 +-
- arch/arm64/kvm/hyp_trace.c      | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ net/mptcp/pm_kernel.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/kvm/hyp/nvhe/clock.c b/arch/arm64/kvm/hyp/nvhe/clock.c
-index f3e2619db4e4..ea4412e6737c 100644
---- a/arch/arm64/kvm/hyp/nvhe/clock.c
-+++ b/arch/arm64/kvm/hyp/nvhe/clock.c
-@@ -54,7 +54,7 @@ u64 trace_hyp_clock(void)
- 	u64 bank = smp_load_acquire(&clock->cur);
- 	u64 cyc, ns;
+diff --git a/net/mptcp/pm_kernel.c b/net/mptcp/pm_kernel.c
+index 88610aed45a2..f1e1576fb375 100644
+--- a/net/mptcp/pm_kernel.c
++++ b/net/mptcp/pm_kernel.c
+@@ -199,6 +199,13 @@ fill_remote_addr(struct mptcp_sock *msk, struct mptcp_addr_info *local,
+ 	return 1;
+ }
  
--	cyc = __arch_counter_get_cntvct() - clock->data[bank].epoch_cyc;
-+	cyc = __arch_counter_get_cntpct() - clock->data[bank].epoch_cyc;
++static bool mptcp_subflow_is_closed(struct mptcp_subflow_context *subflow)
++{
++	struct sock *ssk = mptcp_subflow_tcp_sock(subflow);
++
++	return subflow->closing || inet_sk_state_load(ssk) == TCP_CLOSE;
++}
++
+ static unsigned int
+ fill_remote_addresses_fullmesh(struct mptcp_sock *msk,
+ 			       struct mptcp_addr_info *local,
+@@ -216,11 +223,18 @@ fill_remote_addresses_fullmesh(struct mptcp_sock *msk,
+ 	 * already created by incoming ADD_ADDR
+ 	 */
+ 	bitmap_zero(unavail_id, MPTCP_PM_MAX_ADDR_ID + 1);
+-	mptcp_for_each_subflow(msk, subflow)
++	mptcp_for_each_subflow(msk, subflow) {
++		if (mptcp_subflow_is_closed(subflow))
++			continue;
++
+ 		if (READ_ONCE(subflow->local_id) == local->id)
+ 			__set_bit(subflow->remote_id, unavail_id);
++	}
  
- 	if (likely(cyc < clock->data[bank].cyc_overflow64)) {
- 		ns = cyc * clock->data[bank].mult;
-diff --git a/arch/arm64/kvm/hyp_trace.c b/arch/arm64/kvm/hyp_trace.c
-index b9404496f977..06d6bd7aeac7 100644
---- a/arch/arm64/kvm/hyp_trace.c
-+++ b/arch/arm64/kvm/hyp_trace.c
-@@ -510,8 +510,8 @@ int __init kvm_hyp_trace_init(void)
- 			per_cpu(timer_unstable_counter_workaround, cpu);
- 
- 		if (IS_ENABLED(CONFIG_ARM_ARCH_TIMER_OOL_WORKAROUND) &&
--		    wa && wa->read_cntvct_el0) {
--			pr_warn("hyp trace can't handle CNTVCT workaround '%s'\n", wa->desc);
-+		    wa && wa->read_cntpct_el0) {
-+			pr_warn("hyp trace can't handle CNTPCT workaround '%s'\n", wa->desc);
- 			return -EOPNOTSUPP;
- 		}
+ 	mptcp_for_each_subflow(msk, subflow) {
++		if (mptcp_subflow_is_closed(subflow))
++			continue;
++
+ 		ssk = mptcp_subflow_tcp_sock(subflow);
+ 		mptcp_remote_address((struct sock_common *)ssk, &addrs[i]);
+ 		addrs[i].id = READ_ONCE(subflow->remote_id);
+@@ -243,6 +257,11 @@ fill_remote_addresses_fullmesh(struct mptcp_sock *msk,
+ 			break;
  	}
-
-base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
+ 
++	/* If the initial subflow is closed, use fill_remote_addr */
++	if (!test_bit(0, unavail_id) && i < addrs_size &&
++	    msk->pm.extra_subflows < limit_extra_subflows)
++		i += fill_remote_addr(msk, local, &addrs[i]);
++
+ 	return i;
+ }
+ 
 -- 
-2.56.1.839.g22a8290db9-goog
+2.43.0
 
