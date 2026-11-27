@@ -1,60 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795749062;
-	b=z7Z94hTejZzgJtmLfyu9D5ml5VM547VOPSjl+4FsvTf1CAKxXfPGTM+dQ7oQ3Orc7YqP
-	 nzqCK5mIYwY+by9KFqpT2WvtPF3s7nmOzuOxOKx9lmSlwlIsKWL7FQAXd18Dj9TrBOtxt
-	 Ga0QD9Z/WkZX7WWvhnYsbLSRLbxBDLB8KjO6LgXf96HxhkpftoLzWNOnVDF+dPhipZhP5
-	 sQP5G9QwIJmeVELJP0zeh3K/7VGsD+kMOrb7fFE0o/8AyoRiLH8noAuj5E0HRmI9FrQKU
-	 glUlGS7bqyOpPSEDAV8E1eO5KY1w2S0+oI3cr9eya40iS3BVto/2EOSLedqKWV+/85A==
+	t=1795749352;
+	b=NKQ5PMPpcx21ZMKI8tg+G0qx4X+zJMNRSnIUmlCZm0qD7FJOjM9gGOCN9/4HwjHZlqIB
+	 dgwW+gqBaDBhJ0phC8Vl0TBjqCPhFrCAH2RktZ4FjGqZquQSNT67vC1QOId/xlAJ9+fWh
+	 ir6hXIyHuwxvzVNPuWdwEUHdVT3Wm+v0isMucXn9rfq8yW3TCgR84l4jbiSx1PqbBaHP2
+	 EUnwp7TWkbI9C+VG0yVlZLfjujWctGG6ylBtzIFgc/94Aw11BjUdIcniao7XoakVzEOmq
+	 rLIvX1emCLudKeZPdFyZNuXHr0KmajfJKvwamFhISjjlGcrFnhjTs14+sXFk+Iec+ZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795749062;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=wHp+e3aR7rIbxlOtPRoLgM0Yx1gXW62yOBOxxAW76U4=;
-	b=SnLMn55W+4ysvbckcXTwiaYIAhFEhh9jkc38Q60+FyP7pg3N8YorizUw+dG+XUGnv9ch
-	 WsPkUljb81nrsRv9wIVeo/G0klfBQSM3wj4Vqn3XAehlaCbcuPROL1WnQ5kUlMqLyGi5q
-	 SL4kFKGdVlYkAY+/8qIv+SKjAoWOsp+tCgGElc3cChKKcvraG33CvyaN4pC2IHmYz0wo1
-	 s0wrZ5XhWiyhFM2xlqVsG3MbQddTWIfTy5AdRq8TX07IOtNuKIRM0qrlUotD4zWaf/qA7
-	 7gaAvGz/aGCNUvw2kP5c72nFbniLxbQFOJNjmZt1PeleRJSB6zOcwObylxLI1rKz/uQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795749352;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=axAdrv+zRsPNCPdePNYoKf8dQmnv2l67HHhbrEvN3mM=;
+	b=1QWVVq9Qo2onldwiwmWjdPo3nJgJCRprH2X6VzTdYUlvQHtFot9ZOx7PF7hSzRUm0jZP
+	 CO5rqy/00hvOK3bnqiSgSzt/PJ8knOkLHKMkpaa8Gn6WwLV0LgJMGTTLF6kVB7EnfPpk/
+	 8K2+oIWv10mdPklbS2uP51YBVYlkn9/qKd6CcO6EgMu/1F0afdhjXopeieJW9OH9Sxm7U
+	 P/cT4UZ8z95Bh5piiJONiUPO+2W1Ba/BfVwJtwlBHAYvq0Mo1FW88Tq1kzYILjmEYP7wT
+	 6FENIVJ7gu8ge0wZ5Hl1AmUu8RP51RjUur7NDCTvkgwVm4HtI0WoZmPPNZEHQ6oZ1NA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jaeyeong.cc;
-	spf=pass smtp.mailfrom=jaeyeong.cc;
-	dkim=pass header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=A0VohSvt;
-	arc=none smtp.remote-ip=109.224.244.22
-Received: from mail-24422.protonmail.ch (mail-24422.protonmail.ch [109.224.244.22])
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=pZvvh0v5;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=c3r4C1mC;
+	arc=none smtp.remote-ip=103.168.172.151
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4121606A331;
-	Fri, 27 Nov 2026 03:11:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4121606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaeyeong.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaeyeong.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A46606A31E
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 03:15:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3A46606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=A0VohSvt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaeyeong.cc;
-	s=protonmail2; t=1795749059; x=1796008259;
-	bh=wHp+e3aR7rIbxlOtPRoLgM0Yx1gXW62yOBOxxAW76U4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=A0VohSvtLu23ll3ZjmX5r8qh29efkxGFhyuGk5VrpwRCFslbOC+oIKWFOkfcUHsIZ
-	 ay6VJH/oZfjZ3QnwWiaQ/33u/BOTLRkIw/BFHMjzU9ulEU81RAuU3U4DVrWvFL+Ilv
-	 8PEN2QqXgAmgMlyQMljahLaEldvyMw/Aw7vtC+bB3bgUE014A9by0KvJF4qOIWDflH
-	 UcEK4ezcxtGm3UDiMe3F1qbz2hl99ZbsdzXm0Ek0OKS/ItydKNW1Xs/b0Oj9yvQaOn
-	 eqORRr91ZD2CE7zRDRxAlhg80T/BcVaqXX71xvtJBWfmAyqMtD9+J0G1DcRsKvDiZ+
-	 lWs78ky5Mw5gQ==
-Date: Fri, 27 Nov 2026 03:10:55 +0000
-To: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
-From: Jaeyeong Lee <lee@jaeyeong.cc>
-Cc: Artemy Kovalyov <artemyko@mellanox.com>, Yishai Hadas <yishaih@mellanox.com>, linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v3] RDMA/mlx5: Preserve DEVX objects after failed output copy
-Message-ID: <179574905000.68536.2524255610860968331@jaeyeong.cc>
-In-Reply-To: <20261122103715.51731-1-lee@jaeyeong.cc>
-References: <20261111105346.3220427-1-lee@jaeyeong.cc> <20261115135123.GD42525@unreal> <20261122103715.51731-1-lee@jaeyeong.cc>
-Feedback-ID: 177356447:user:proton
-X-Pm-Message-ID: f67b138fcdff37f68344eb7af0628cad44256252
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=pZvvh0v5;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=c3r4C1mC
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfout.phl.internal (Postfix) with ESMTP id B3F4AEC0994
+	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 22:15:49 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-10.internal (MEProxy); Thu, 26 Nov 2026 22:15:49 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm3; t=1795749349; x=1795835749; bh=axAdrv+zRsPNCPdePNYoK
+	f8dQmnv2l67HHhbrEvN3mM=; b=pZvvh0v5wlIEE8WSOqu1zuSsGUyzYxSQ3Gakd
+	65St5hijB1u7tvx7AEpBsVsVLJlgN5k7ZQq98qRx/i8o/EZvA859wxBJBXk8p9R5
+	RW/GNSXtC8poA1uFDz4dZA89H2lQv/e6JNK5guAk5znzytusoZKE52eyjAsTqZY+
+	T0CsEGT5M8M4gxFiARPgNiyE3txaqcN5ka1Yypz4tTszdAuesuPpAjlzYy25AOAP
+	2HC//q6/BXs7eWpw0BdfY64HZC+Ciw/QTk71UF/vsljtYFsklKNzCGKXzj43OlF0
+	arahmARCHVegWIqXETmk4UB1d2Xv1ZlKXGdTP4jWDicU1P26Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1795749349; x=1795835749; bh=axAdrv+zRsPNCPdePNYoKf8dQmnv2l67HHh
+	brEvN3mM=; b=c3r4C1mCBAMRBzwnsGgqop5oSfSTTcWY1nhH23f3uuBvjnOgffA
+	KNn/GKUnoj4c4r+QpgRTguznEV2tNKssScfEVyIj0e7scY2+xEmCzkX3Ur81hOpi
+	mBC0hIbUzoMAiPlRtHpfQ40FSqnKZwO+XBpKl5VCHpLpJmMRglDCpKkHawcugTj7
+	hAWyvIg79Tt47B9JRP0DCghdRrO+t3oFPFrSikTJvNZlF1nwQgjsDtPLjSJfwPnX
+	UWZgP7Bkfz9sURF70xOehCfKQbrjGVwt7wZchnP0yh5jZylZZkoAkvfVPBo9RQ+5
+	hijyK81XwwukBRfKc/GrM3DPDZ5ddl3FS2w==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795749349; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:AQai2C5aEobZSFz7d0Us29zs2eQbvVPtVhtfZ+e5T6pwvng
+	4vSsgxLa2bN7RRI8FVv1ROLvK4OFB/IVY5IGpyOCreh9tnAnoza+mwxeCYNSVwsX
+	NMMs0TjRj9XZQ59TQMPloqoYySQGXDNNuX/VfNDwqpZ9oqgYzD/HI0rBEP3OXBzL
+	eknkdXDEuzd9ltsEThBnVZwmCD2m/WY62wbu+k7MQp5a5PDG7iaC2O41NdWi87+1
+	DQ+tCf/dxJiDKn4TqDKbs9oIvOlTLHKKGVF7M+br4ynIUij1+38AUNen4VWS8zX7
+	5xDeCG4C1vZRcTi5dvxAlJ5VFztWxcr0obAJMwg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:gPvjH358mXvk557ugfhpaXM9XwLdOdXeLOwXO5ByvJw=:BN6oi1N/O/sumQ9WlAlspdBJzHbYFwJt7MF/04zsLDg=;
+X-ME-Sender: <xms:5fUIa5GdJ1x41kWkIjeumVnZ3DuoUrgX0Am6aDAl6rMBAhySTG36BA>
+    <xme:5fUIa6Va0rQbrwP98ez-g6ijQLluGabD9R_fojfhXHZfnu4r1M2R92yUhBjdLZtR3
+    5GQoImmM1APRswavsYwHvIAD0Rj61YeRX2wzwA0ZgZSRCCgThFMoolU>
+X-ME-Received: <xmr:5fUIa9Um4CM2gLiAVc0oqaOeGp45Wa-LPj9cJIRR78C_5W60EEAHcpWYdnSZ-KHT>
+X-ME-Proxy-Cause: dmFkZTEVB1K5zqo6vBiwbt1cra3FHQdcsEgfwD7yL4qEf5MM0e6IZAuLjLR3O7T6DsAPX2
+    Q0R6c2EJQ4T30hUpoqihRcRTvadrkO5tJ/9tJ6yqlkNTJpGY6a+xRgvC05556UwzMF1WOr
+    oKK6DuYPtFF50oPn8lvBN00JhQ3LxpykOvUEaNWOQDK14fH55184OzYc341RMlFZGM+0Ax
+    DB2gFABtHYcfLoIeaxrxEx1L4BTXbO2h7HPEesRRklG2fOPx+bVOmNZN46y+Ahg2An3EpJ
+    9F7ygFEW/WTIHoLWgXbsTg9tC66OZ1BsO+52huz7h18aOnY/WsDUba9uO1rDJ3HkXd+cM+
+    iRQIoBAbGt8kb5GHeMWcR614oEHgkwT4GivW2dg3ya4YN5mQqAoqlPHS/nHdf3MLXpxjgH
+    dF0cwYgHKcDNFDFcdt6aTwp1TMrokwOA6fSRJtmETcfpY4sT/afduUAcryqpLk8c/NUT8H
+    hUZkHXiX90krVODho5OxfkSweawhPyzbuC7Fs+MI52GBEZSe2/4Ai8iEW0v6ReqL7qQhtb
+    aqfcLY2Hg6JWFjIqqIvRfN2LB1CMguV+52sTh0gd14SKvb8cBd2TTGBxUqA3/WdsZKbGgo
+    pX3RJ5SKciuZ+fhlhH4tcdgRpY6HQLMjPYbNCEam2RhemjueVnc23dvFBwYw
+X-ME-Proxy: <xmx:5fUIawLHY15Y3ELPA961hsPryfX4rE8ZduFdIb-r-1YY-U9GQUS_xg>
+    <xmx:5fUIa9BcPY4zL-vdbBPTghTDDKTGArFOsI13_pARU_eI_3Ej3ibKbw>
+    <xmx:5fUIawca0K6gXCCdNnWUEOxgXFUua8AHu7j4hg-_g3fljYfNfOvCwQ>
+    <xmx:5fUIa82O8feP9iBGYHNJXG3hzbDNAVe6tGty-IRl_O1VTcvJIlrYCg>
+    <xmx:5fUIaxOB6cHjyhBFFN9ZrF-7zanf-xnm0Op-8EVWvlAGyroM8tdqeu89>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 26 Nov 2026 22:15:48 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] ksmbd: fail a non-directory delete-on-close open of a directory
+Date: Thu, 26 Nov 2026 21:15:42 -0600
+Message-ID: <20261127031542.1542831-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,100 +126,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-A DEVX create command can succeed before indirect mkey registration or
-copying the command output to userspace fails. The current unwind path
-destroys the hardware object directly, ignores a destroy failure, and
-frees struct devx_obj.
+smb2_open() fails an open with FILE_NON_DIRECTORY_FILE when the target
+is a directory, unless FILE_DELETE_ON_CLOSE is also set. With both
+options the directory opens and is marked delete-on-close. An empty
+directory is then removed at close, although the client asked for a
+non-directory. A directory that is not empty stays, and the close
+still succeeds.
 
-If the object cannot be destroyed, it remains live while its software
-wrapper is gone. A later event or cleanup can then access the freed
-wrapper.
+MS-FSA requires STATUS_FILE_IS_A_DIRECTORY for a non-directory open of
+the unnamed data stream of a directory, and delete-on-close makes no
+difference. Fail that open whatever the other options are. A
+delete-on-close open of a named stream of a directory still succeeds
+and removes the stream at close.
 
-Mark the uobject as containing a valid hardware object once all state
-required by devx_obj_cleanup() is initialized. Return later errors
-directly so the uverbs abort path runs devx_obj_cleanup(). If destruction
-fails, rdma_alloc_abort_uobject() commits the uobject and keeps it alive
-for another cleanup attempt at file close.
-
-This also routes indirect mkey registration failures through the same
-cleanup path and removes the duplicate manual unwind.
-
-Fixes: 7efce3691d33 ("IB/mlx5: Add obj create and destroy functionality")
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
 Cc: stable@vger.kernel.org
-Signed-off-by: Finder16 <nakamurajames123@gmail.com>
-Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
+Signed-off-by: Ian Bridges <icb@fastmail.org>
 ---
-Changes in v3:
-- Finalize the uobject before indirect mkey registration and output copy.
-- Route both failure paths through the uverbs abort cleanup.
-- Remove the manual obj_destroy unwind.
-- Describe the generic failed-destroy lifetime issue instead of relying on
-  the DCT-specific reproducer.
 
- drivers/infiniband/hw/mlx5/devx.c | 23 +++++++++--------------
- 1 file changed, 9 insertions(+), 14 deletions(-)
+Tested on ksmbd-for-next 3c31349456c5 with KASAN. An open of a
+directory with FILE_NON_DIRECTORY_FILE and FILE_DELETE_ON_CLOSE now
+fails with STATUS_FILE_IS_A_DIRECTORY, and the directory stays. Before,
+an empty directory was removed at close. A directory that was not empty
+stayed, and the close returned STATUS_SUCCESS. A delete-on-close open
+of a named stream of a directory still removes the stream.
 
-diff --git a/drivers/infiniband/hw/mlx5/devx.c b/drivers/infiniband/hw/mlx5=
-/devx.c
-index 5ba783bc7f9b7..b6ba6d7aa5c8f 100644
---- a/drivers/infiniband/hw/mlx5/devx.c
-+++ b/drivers/infiniband/hw/mlx5/devx.c
-@@ -1535,7 +1535,6 @@ static int UVERBS_HANDLER(MLX5_IB_METHOD_DEVX_OBJ_CRE=
-ATE)(
- =09struct mlx5_ib_ucontext *c =3D rdma_udata_to_drv_context(
- =09=09&attrs->driver_udata, struct mlx5_ib_ucontext, ibucontext);
- =09struct mlx5_ib_dev *dev =3D to_mdev(c->ibucontext.device);
--=09u32 out[MLX5_ST_SZ_DW(general_obj_out_cmd_hdr)];
- =09struct devx_obj *obj;
- =09u16 obj_type =3D 0;
- =09int err, err2 =3D 0;
-@@ -1614,29 +1613,25 @@ static int UVERBS_HANDLER(MLX5_IB_METHOD_DEVX_OBJ_C=
-REATE)(
- =09=09=09=09   &obj_id);
- =09WARN_ON(obj->dinlen > MLX5_MAX_DESTROY_INBOX_SIZE_DW * sizeof(u32));
-=20
--=09err =3D uverbs_copy_to(attrs, MLX5_IB_ATTR_DEVX_OBJ_CREATE_CMD_OUT, cmd=
-_out, cmd_out_len);
--=09if (err)
--=09=09goto obj_destroy;
--
- =09if (opcode =3D=3D MLX5_CMD_OP_CREATE_GENERAL_OBJECT)
- =09=09obj_type =3D MLX5_GET(general_obj_in_cmd_hdr, cmd_in, obj_type);
- =09obj->obj_id =3D get_enc_obj_id(opcode | obj_type << 16, obj_id);
-+=09uverbs_finalize_uobj_create(attrs,
-+=09=09=09=09    MLX5_IB_ATTR_DEVX_OBJ_CREATE_HANDLE);
-=20
- =09if (obj->flags & DEVX_OBJ_FLAGS_INDIRECT_MKEY) {
- =09=09err =3D devx_handle_mkey_indirect(obj, dev, cmd_in, cmd_out);
- =09=09if (err)
--=09=09=09goto obj_destroy;
-+=09=09=09return err;
- =09}
-+
-+=09err =3D uverbs_copy_to(attrs, MLX5_IB_ATTR_DEVX_OBJ_CREATE_CMD_OUT,
-+=09=09=09     cmd_out, cmd_out_len);
-+=09if (err)
-+=09=09return err;
-+
- =09return 0;
-=20
--obj_destroy:
--=09if (obj->flags & DEVX_OBJ_FLAGS_DCT)
--=09=09mlx5_core_destroy_dct(obj->ib_dev, &obj->core_dct);
--=09else if (obj->flags & DEVX_OBJ_FLAGS_CQ)
--=09=09mlx5_core_destroy_cq(obj->ib_dev->mdev, &obj->core_cq);
--=09else
--=09=09mlx5_cmd_exec(obj->ib_dev->mdev, obj->dinbox, obj->dinlen, out,
--=09=09=09      sizeof(out));
- obj_free:
- =09kfree(obj);
- =09return err2 ?: err;
+smbtorture first tries to remove a test directory with such an open. On
+the base that open succeeded, so later tests in the same run found the
+old directory and failed. Those tests now pass, and each of them gives
+the same result on the base when run alone. The other smbtorture
+results are the same as on the base.
 
-base-commit: 94e81a1f3ffabb388f7d0a9674bb1d3acc067e00
---=20
-2.43.0
+This patch was developed with LLM assistance.
 
+ fs/smb/server/smb2pdu.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 5a7842264b98..28fb77bcd3dc 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -4976,7 +4976,8 @@ int smb2_open(struct ksmbd_work *work)
+ 
+ 	if (file_present && req->CreateOptions & FILE_NON_DIRECTORY_FILE_LE &&
+ 	    S_ISDIR(d_inode(path.dentry)->i_mode) &&
+-	    !(req->CreateOptions & FILE_DELETE_ON_CLOSE_LE)) {
++	    (!stream_name ||
++	     !(req->CreateOptions & FILE_DELETE_ON_CLOSE_LE))) {
+ 		ksmbd_debug(SMB, "open() argument is a directory: %s, %x\n",
+ 			    name, le32_to_cpu(req->CreateOptions));
+ 		rsp->hdr.Status = STATUS_FILE_IS_A_DIRECTORY;
+-- 
+2.47.3
 
