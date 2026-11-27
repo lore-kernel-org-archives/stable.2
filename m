@@ -1,45 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795762698;
-	b=atXpMji5rYo9pwIyplIdKjKJCD9TQvx51mCjJ81MEPt3P0kiQNiA/Aesp7wRztv+7AYW
-	 idFSdLTz2s1MaZyxw1os9B5jKbKiISWy0jTUcTwOXEPhLYdznT29/kWa7WMj3c33fNmzt
-	 RDkn17KQOBFfP/Wza/VFBSS54eTbxovdwKhI0kPM4UTcomow714+5DFJTs3KfDFRl8XoI
-	 0neSuAxy7370JfPEe2KpdraWLHFn0CepwAgHuckKcCoKM7Ryt5QYFD95QByCx43tlvATL
-	 eyNZeKI6m9Z3tIRlHzIJPdtgh0EFqDBOt1GV/EvEaeWYv136yEGKaRtqX2j+JCuOs9Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795762698;
-	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-ID:X-B4-Tracking:
-	 X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=0YHH0z5wEvyXaDp5uYl1UGhjHY32xNYTV/Ur4hUBJF4=;
-	b=Yh8EZyR9ErOpulkT3Q0V+pFz9sfiMfeQDSPBRcRew3m4LZy8QXH9++6a7r29qB6Gm6ok
-	 oPT/0jecDR7d0MXQNAX4Ht4zIc4pOQ7dJ35TLPeAgNOAZ3Wtnkh55V5KA5mifns/nfeV+
-	 u6pMcA5YsqLcCrP8lWzRMRhNp9hY+1uwWa7LDBBNBvAtEPuyIrIOVAdvofFpIAgJAHweJ
-	 7cw/7dqiIfFrRAqbes6DHxeMK/5G2IXGA6or4KMUcHazASez7N47xASGNN/il6DL9szig
-	 qMgwj0O6r7RnBeDdIE7MInQBbAr8MaJIkiiqJmy7MhU725S/6XlM/r7wF6fUgPxeuCQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aspeedtech.com;
-	spf=pass smtp.mailfrom=aspeedtech.com;
-	arc=none smtp.remote-ip=211.20.114.72
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795762971;
+	b=lRZYT3dZhEWqr9AyibNbuNV8mQrrO7nJRj1ls1T/J8ybnDrDMeIUDago5up21GkYFhr0
+	 PHQiwSM3sVuQbfVp/F0ytxbkGUUvZ5KI1VvHFUeZRdtCq0UJOYe6v8Coiw53tOgfyDFf6
+	 YK/ju+r4kDGQFT0Kvt/hMtbyAbmbDn/jqM4cWrX+rQr0YSGJQtfe379351hR2gtMsInv1
+	 7WIu6K3zwPUF3Us4RNJ5B51ylsNMXjCn9MdL5yrnSNKfFJ1smBBFVKRGBtYq8TiFlcrgN
+	 qDLU62ek+/rCn3pOd74pUKhDc1pCRFwi+6f5fyyXf9aaG+c9cBR7h3rzYrgID392CYQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795762971;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:MIME-Version:
+	 In-Reply-To:References:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type;
+	bh=9lMQbv9vZ6o0yPgmmE160t97gqyu9qqgu6wavaxOeNk=;
+	b=AMFRoYkg3/HycUqAuZTOa6zrbdq6zlS5Z+94OOMt4NalxGIj0wLs1t9sYheuoyprfQ+q
+	 xv+61lA4keiiVVq2opkxLaEJZpQpbNtKAo1Rm+jm/Rqs35GxWOh+EjBKnjHt98nQ5UoIN
+	 AWlNhxNTffE2v2IYSXhdHTn4kcYcT01Zu28k2JQA4+t4m/mVXwRVkMM8CWk3VhFKHoPNu
+	 llSRso5fYwu8xMHP06d8x66gWCXNds7a8RHgMwxP5TWXHcHjlaZBl3p2g09Ny2YAA+Pjx
+	 P9bQl5AiXc+gAFXcl8xjdWCygTxeDw/EvBT+9++7FefkslV9cLL+wdlLJE255osDNlA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=certik.com;
+	spf=pass smtp.mailfrom=certik.com;
+	dkim=pass header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=iN5KlY9c;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.43
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706FD606A31E;
-	Fri, 27 Nov 2026 06:58:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 706FD606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Fri, 27 Nov
- 2026 14:58:16 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
- Transport; Fri, 27 Nov 2026 14:58:16 +0800
-From: Billy Tsai <billy_tsai@aspeedtech.com>
-Date: Fri, 27 Nov 2026 14:58:15 +0800
-Subject: [PATCH v2] i3c: master: mark OF bus child nodes OF_POPULATED to
- avoid legacy I2C rescan
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6BD9606A31C
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 07:02:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6BD9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=certik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=certik.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=iN5KlY9c
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-67da564d9f2so10139673d50.1
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 23:02:50 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795762970; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DwcIR6+5KtkB15+jgKsqbIUoyCOXXHN87NZuQlwyWBsVjVQHXpxjmhfTmAmD6x9x8I
+         4We6Ngjl4rbJCPcuU/OOpK5s7VsgGCbXsWiPxwWsshKodfxzUQ2UI0X+O/AFpr7XfPmv
+         7YCdFFgPvz+xAHOwCqC082+cG4Ois29M9oHoJTn2/oPg3C1DKUco6jr9FcUvDKTcKXMe
+         4EHcgILsMjTFLWJkibi2883y0huGzwIpvJXPcoOItQaoAh3xL3zqGQ5IuADSRsqADD7q
+         04qpKfIMDLnp4cSjOv+LMhaEkYt6qjZqziBLhecksMlFdew76DzyzL1gwQwR/KTFpXfO
+         MTBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:references:in-reply-to
+         :mime-version:dkim-signature;
+        bh=9lMQbv9vZ6o0yPgmmE160t97gqyu9qqgu6wavaxOeNk=;
+        fh=2mP+pJggPNCdSHANLJ91cUFqhCjso7LAPKRkrBNbUSI=;
+        b=hnh3PFBG0RYpILBajfI7tcx0FFLBoQpoUFTj/31wAckph1GfNjC3PXIEtIuTK2h0TT
+         /1LbFXzC4rIs7881VnWr0+iYEG48M9Q+ZN0ERLj5p0Uoagj2Xd8jtLRh60sZ5kRTRmGJ
+         svTChwnwBJfb9RPLWttqLElqQay/yl/CH6DcE4aiy0Sj5DM7LOE90t/FE3mCaXfYAXW5
+         HC3NaWpzwNsQ6Df4l+dzyUBKgnX5uSCX/y+VP8OZtD1ExbGZ9/h+O4Q9qjZZDitLBuSh
+         8TI1Yg6PNWwI2Ib4UzJca4E7mp1421X8C+FzNH6osRaWNL6lsZoJteL55GfNqeHWnDtu
+         SDzw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=certik.com; s=google; t=1795762970; x=1796367770; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9lMQbv9vZ6o0yPgmmE160t97gqyu9qqgu6wavaxOeNk=;
+        b=iN5KlY9cs5Zuo+ZlaG68SvObLbY/uV+5TFwZ+yJwvPgWgbJ+r4w5dGw3Vk/0ODQemv
+         WkOQhjYhuqkTRsnuZvbm3Tenkd5orCkj8EgvcH8/R0O/Xm9naa/vR7rVTigeXo54xG5i
+         nOeHi6sGSrQG1C5oHMvhcuC4d5E2K/nq1mufI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795762970; x=1796367770;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9lMQbv9vZ6o0yPgmmE160t97gqyu9qqgu6wavaxOeNk=;
+        b=tlPW0NIpCbUbTRPCSqoe3NIwynXCIgQnqbuDRcGMKjAL7gy1JE649jjBmpblSSvFLJ
+         7JNwa4ACxZkhk4H4U1JQ+i8c2qi5R5JLVDjGP1rLEIArt8C7tems/2aGcfQjiIMcYCfC
+         MDoy4/mkKZ+AAoEaGZ6/ivvNyMtEpmaIygVufOmmnlPK/qkMUvWEVh1fgoDwBtL0iAkj
+         6qOHbKQm0W+YedQYRJW2+hAKKCF+gPkc2mK+eJieIsJBM9jh9VF7j6tIyntRSx4TsmDE
+         LDUepk1wtsFeox79E4E0JwXWgYhC8UK7VaSMAyWeXRuQPExOLlQMMB1pIfIWH3zVvoQk
+         /PaQ==
+X-Gm-Message-State: APuU4Z9VcHrvNZXTxMgY2shvkddm7E4SEldz3y8j/G0/AE0BGkCaiRpH
+	CAMiOYYbyisJ14NTegMLE745KkrI3D2YbRfBErCVFsLAB6DY9zkkv1VFYqdGMfM5+VAmBFghbQ+
+	hOYQNPB1GUkpe/jKrygo76OdkxuFC2Hah2JPUi57h7PxasbITYgeXIxx6Yw==
+X-Gm-Gg: AZFdTZceUMb82s9vgBIxMbsWxFCj4/ctKVzA345BnOvfkN2Qicb28AY6n7QFk27SYcq
+	/C26tbUX8L1Cu4vrRxVQXoHEGUCM1fazPNFjvz50pUUucxH7Se6yvN53kDBqU+sJzQk6NFNR2PR
+	3GVLJJtP+EWV3kAFoEcKlVWyPnEItx83A5Z6rx866pucSh024fK5FXqr7jFJIbW7r0m7nsqtnF7
+	WRV6mDkm1SQQees6fTJ+bkrK4z6dNkzFfrQfIfsjp+/fm1DdtK10dorVBUn9J5CeLF8JAyyzVhH
+	yfgAgAChxw+yWQhXVZCYBs4oNDmEonUBevSlYgRiRddM7pN3txjxw6VADb3sIhu0GNhQ0ChHN6m
+	OlXgwHfsSGjROpiZOUxfLnGRoBd0bwNrFMYwSLyVh5dNDvAzYmogEAWoOxjISsAjq7936n3WeM5
+	SnIwuzPg+Pl+8cATSr/+R4WpU1tYBgU/JOsgjY1kvtI9Bwn8OcZLfWJGLCaQiqMp9/WpAVeH4Ww
+	ASC4KJTXd4/WphPx16+tJSn12EwF6pfOnwe
+X-Received: by 2002:a05:690e:b8e:b0:67c:c65:89b5 with SMTP id
+ 956f58d0204a3-67df448402fmr9168200d50.86.1795762969804; Thu, 26 Nov 2026
+ 23:02:49 -0800 (PST)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Fri, 27 Nov 2026 01:02:49 -0600
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -49,175 +103,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261127-i3c-master-of-populated-v2-1-c52095d00218@aspeedtech.com>
-X-B4-Tracking: v=1; b=H4sIAAYqCWsC/4WNQQ6CMBBFr0Jm7Rg6CARX3sOwKO0gkwht2ko0h
- LtbuYDL95L//gaRg3CEa7FB4FWiuCUDnQowk14ejGIzA5XUKEUtSmVw1jFxQDeid/711IktEo9
- la2gY2ksFee0Dj/I+yvc+8yQxufA5jlb1s/+bq0KF1FnSja7rsjM3HT2zTWyms3Ez9Pu+fwFG/
- VRgwwAAAA==
-X-Change-ID: 20261127-i3c-master-of-populated-2ef07c2bb743
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
-	<Frank.Li@nxp.com>, Peter Yin <peteryin.openbmc@gmail.com>
-CC: <linux-i3c@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>, Billy Tsai <billy_tsai@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795762696; l=6039;
- i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
- bh=xY5ZfoNHCn0aTxv+yky7pXKjzC/vhosSIilqhNBKimc=;
- b=2tKXCBdJQRK7HHXTH711lmTSeGEbyHLwF3LspHhh2+F5wlk8xzfkltR4bWR/mCNu5y4N7wfJp
- oni3Jk9XurNCz+nEZCJCQ90ox5tggushBOCG/V3p2mpHqcO2UNbI0yk
-X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
- pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
-
-Commit f26ecaa0f0ab ("i3c: master: dw-i3c: Fix missing of_node for
-virtual I2C adapter") made the DesignWare I3C master's virtual legacy
-I2C adapter reuse the I3C bus platform device's of_node, so consumers
-can resolve the adapter by phandle. i2c_register_adapter() reacts to
-any adapter with a non-NULL of_node by unconditionally calling
-of_i2c_register_devices(), which walks every child of that node and
-requires a "compatible" property to build a modalias.
-
-The I3C core already owns and fully parses every child of the bus node
-via fwnode_populate_i3c_bus()/i3c_master_add_of_dev(), for both native
-I3C devices (no "compatible" needed per the i3c.yaml binding) and
-legacy-I2C-under-I3C devices (registered explicitly through
-master->boardinfo.i2c in i3c_master_i2c_adapter_init()). Since neither
-path marks the node OF_POPULATED, the generic of_i2c_register_devices()
-walk that now runs afterwards treats every child as unclaimed:
-
- - native I3C-only nodes have no "compatible", so of_i2c_get_board_info()
-   fails the modalias lookup and logs "of_i2c: modalias failure" /
-   "Failed to create I2C device" noise for a device that is already
-   correctly registered on the I3C bus.
-
- - legacy-I2C nodes do have "compatible", so of_i2c_register_devices()
-   silently creates a duplicate i2c_client for the same address that
-   i3c_master_i2c_adapter_init() also registers from boardinfo.i2c.
-
-Mark each OF bus child OF_POPULATED once i3c_master_add_of_dev() has
-accounted for it. ACPI-described children are left untouched, since
-OF_POPULATED and of_i2c_register_devices() only apply to the
-devicetree case. fwnode_populate_i3c_bus() always runs before the I2C
-adapter is registered, so of_i2c_register_devices() sees the flag
-already set and skips these nodes entirely, without disturbing the
-of_node propagation from f26ecaa0f0ab.
-
-OF_POPULATED is a property of the device_node itself, which outlives
-this master's registration. fwnode_depopulate_i3c_bus() is the
-counterpart that clears the flag again, called from
-i3c_master_bus_cleanup() (shared by the registration error path and
-i3c_master_unregister()) and from fwnode_populate_i3c_bus()'s own
-error path. Without it, the nodes stay claimed after this master is
-unbound or fails to register, and a later re-probe or rebind finds
-them already marked and silently skips creating their devices.
-
-Fixes: f26ecaa0f0ab ("i3c: master: dw-i3c: Fix missing of_node for virtual I2C adapter")
+In-Reply-To: <2026112609-strep-tactless-e22d@gregkh>
+References: <CAFaZ9eqzNSgQejze-paRJ720iMQpNA=0HCXB6YOgfK+c7YBfRw@mail.gmail.com>
+ <2026112609-strep-tactless-e22d@gregkh>
+From: Dickson Wu <dickson.wu@certik.com>
+Date: Fri, 27 Nov 2026 01:02:49 -0600
+X-Gm-Features: Aa3M54r9GAiFKEwiYEEXTlSXPvusTeV3qBtgESHyrATDjgFuJezznklT27FG0mU
+Message-ID: <CAFaZ9eo3CRnD_56=Pni1BReT-S2PiJHMAOAOLd6M-9=w_BVj9g@mail.gmail.com>
+Subject: Re: Request: security fixes for 6.1.y, 6.6.y and 6.12.y
+To: Greg KH <gregkh@linuxfoundation.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
----
-Changes in v2:
-- Also clear OF_POPULATED again on teardown and on a mid-loop probe
-  failure (fwnode_depopulate_i3c_bus(), called from
-  i3c_master_bus_cleanup() and from fwnode_populate_i3c_bus()'s own
-  error path), so unregister/rebind and a failed probe do not leave OF
-  bus children permanently marked.
-- Link to v1: https://lore.kernel.org/r/20261127-i3c-master-of-populated-v1-1-29d2a6a5509c@aspeedtech.com
----
- drivers/i3c/master.c | 51 ++++++++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 44 insertions(+), 7 deletions(-)
+Content-Type: text/plain; charset="UTF-8"
 
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index 01e05bad8661..e85307678fdc 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -2667,6 +2667,8 @@ static int i3c_master_bus_init(struct i3c_master_controller *master)
- 	return ret;
- }
- 
-+static void fwnode_depopulate_i3c_bus(struct i3c_master_controller *master);
-+
- static void i3c_master_bus_cleanup(struct i3c_master_controller *master)
- {
- 	if (master->ops->bus_cleanup) {
-@@ -2681,6 +2683,7 @@ static void i3c_master_bus_cleanup(struct i3c_master_controller *master)
- 		}
- 	}
- 
-+	fwnode_depopulate_i3c_bus(master);
- 	i3c_master_detach_free_devs(master);
- }
- 
-@@ -3353,15 +3356,29 @@ static int fwnode_populate_i3c_bus(struct i3c_master_controller *master)
- 		return 0;
- 
- 	fwnode_for_each_available_child_node_scoped(fwnode, child) {
--		if (is_of_node(child))
-+		if (is_of_node(child)) {
- 			ret = i3c_master_add_of_dev(master, child);
--		else if (is_acpi_device_node(child))
--			ret = i3c_master_add_acpi_dev(master, child);
--		else
--			continue;
-+			if (ret) {
-+				fwnode_depopulate_i3c_bus(master);
-+				return ret;
-+			}
- 
--		if (ret)
--			return ret;
-+			/*
-+			 * Claim the node so that i2c_register_adapter(),
-+			 * called later for the legacy I2C adapter sharing
-+			 * this same of_node, does not also run
-+			 * of_i2c_register_devices() on it: every child here
-+			 * is already fully accounted for, whether it ends up
-+			 * I3C or legacy-I2C boardinfo.
-+			 */
-+			of_node_set_flag(to_of_node(child), OF_POPULATED);
-+		} else if (is_acpi_device_node(child)) {
-+			ret = i3c_master_add_acpi_dev(master, child);
-+			if (ret) {
-+				fwnode_depopulate_i3c_bus(master);
-+				return ret;
-+			}
-+		}
- 	}
- 
- 	/*
-@@ -3378,6 +3395,26 @@ static int fwnode_populate_i3c_bus(struct i3c_master_controller *master)
- 	return 0;
- }
- 
-+/*
-+ * Counterpart to fwnode_populate_i3c_bus(): drop the OF_POPULATED claim on
-+ * every OF bus child so a later re-probe of this master, or the legacy I2C
-+ * adapter's of_i2c_register_devices() walk on a different master sharing
-+ * the same of_node, does not find these nodes permanently locked out.
-+ * ACPI-described children were never marked, so they are skipped here too.
-+ */
-+static void fwnode_depopulate_i3c_bus(struct i3c_master_controller *master)
-+{
-+	struct fwnode_handle *fwnode = dev_fwnode(&master->dev);
-+
-+	if (!fwnode)
-+		return;
-+
-+	fwnode_for_each_available_child_node_scoped(fwnode, child) {
-+		if (is_of_node(child))
-+			of_node_clear_flag(to_of_node(child), OF_POPULATED);
-+	}
-+}
-+
- static int i3c_master_i2c_adapter_xfer(struct i2c_adapter *adap,
- 				       struct i2c_msg *xfers, int nxfers)
- {
+On Thu, Nov 26, 2026 at 02:25:22PM +0000, Greg KH wrote:
+> Please provide tested and signed-off-by patches for these.
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261127-i3c-master-of-populated-2ef07c2bb743
+Will do, thanks. The 6.6.y ones are out now as tested backports with my
+Signed-off-by:
 
-Best regards,
--- 
-Billy Tsai <billy_tsai@aspeedtech.com>
+6.6.y nfsd, c88c150a467f:
+https://lore.kernel.org/stable/20261127-so5-nfsd-66-v1-1-2ae77e2e4983@certik.com/
+6.6.y verisilicon, e8d97c270cb4:
+https://lore.kernel.org/stable/20261127-so5-hantro-66-v1-1-aba19fe8802e@certik.com/
+6.6.y rds, 167e54c703cc:
+https://lore.kernel.org/stable/20261127-so5-rds-66-v1-1-1abb4e9ce92b@certik.com/
 
+I rechecked each against v6.6.163 (SHA reference, patch-id, subject,
+and later reverts in mainline), and none of them is in yet.
+
+The rest I'm not sending for now:
+
+- Bluetooth 7a6d793e9ca8 + de4e88ec58c4 for 6.1.y: dropped. 6.1.y
+  doesn't have the devcoredump writer, and the remaining private-data
+  write is on the RTL8852C path, which the 6.1 H5 UART matches can't
+  reach. So the pair doesn't fix anything reachable there.
+- NFSv4 0460253913e5 for 6.1.y: on hold. 6.6.y doesn't have it either,
+  so it should go there first.
+- IPv6 87cd6b717e40 for 6.1.y, 6.6.y and 6.12.y: on hold until it's
+  out in a 6.18.y release.
+
+Best,
+Dickson
+
+On Thu, 26 Nov 2026 15:25:22 +0100, Greg KH <gregkh@linuxfoundation.org> wrote:
+> On Wed, Nov 25, 2026 at 12:14:19PM -0800, Dickson Wu wrote:
+> > Hi Greg and Sasha,
+> >
+> > Could you please queue these upstream commits for the trees below? They're
+> > security fixes, plus two prerequisites, that newer branches already have.
+> > Each applies cleanly to the current branch tip.
+> >
+> > 6.1.y:
+> > - 7a6d793e9ca8 ("Bluetooth: hci_h5: Add ability to allocate memory for
+> > private data")
+> > - de4e88ec58c4 ("Bluetooth: btrtl: fix out of bounds memory access")
+> >   CVE-2024-26890. The first is the prerequisite: on 6.1 the H5 device is
+> >   registered with no private area, and btrtl_initialize() writes struct
+> >   btrealtek_data through that private pointer. 6.6.y took the same pair.
+> > - 0460253913e5 ("NFSv4: nfs4_do_open() is incorrectly triggering state
+> > recovery")
+> >   6.1.y already has 7813adb38c88 ("nfs: use nfsi->rwsem to protect
+> >   traversal of the file lock list"), and the upstream message of that fix
+> >   says it relies on this commit draining the session slots before reclaim.
+> > - 87cd6b717e40 ("net: ipv6: keep room for the mac header in dst_dev_overhead()")
+> >   CVE-2026-98570.
+> >
+> > 6.6.y:
+> > - c88c150a467f ("nfsd: fix possible badness in FREE_STATEID")
+> >   CVE-2024-50043.
+> > - e8d97c270cb4 ("media: verisilicon: Fix kernel panic due to
+> > __initconst misuse")
+> >   CVE-2026-31573.
+> > - 167e54c703cc ("rds: tcp: unregister sysctl before tearing down listen socket")
+> >   CVE-2026-68290.
+> > - 87cd6b717e40 ("net: ipv6: keep room for the mac header in dst_dev_overhead()")
+> >   CVE-2026-98570.
+> >
+> > 6.12.y:
+> > - 87cd6b717e40 ("net: ipv6: keep room for the mac header in dst_dev_overhead()")
+> >   CVE-2026-98570.
+> >
+> > 87cd6b717e40 is already in queue-6.18. 5.15.y and 5.10.y also have the
+> > rpl_iptunnel commit it fixes and it applies there, but I only tested 6.1,
+> > 6.6 and 6.12.
+> >
+> > Testing, on v6.1.193, v6.6.163 and v6.12.119: cherry-picked onto the
+> > branch tip, W=1 build of the touched objects before and after with no new
+> > warnings, and x86_64 defconfig with the relevant options enabled, built and
+> > booted under QEMU/KVM. I didn't run targeted runtime tests for these paths.
+> >
+> > The list and the test runs were prepared with AI coding tools (OpenAI Codex
+> > agents, with review by Claude).
+> >
+> > Best,
+> > Dickson
+> >
+>
+> Please provide tested and signed-off-by patches for these.
+>
+> thanks,
+>
+> greg k-h
