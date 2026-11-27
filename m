@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795807609;
-	b=XZ2/lXnwpouLyntrumFrOVmObHHj+xWbTBmNATNpHcdUdULD9nWFfdYlp/kmVg7r8uB+
-	 ahoQQId4mYSqqgK4KbfQ/ssyJ0cShe2COh73X7OcJuMOl8J0nKbMmVszu8uGH0WNzduvH
-	 W1QTRSaGgyh0pLOdmKSh77QDsQ+6WzeELflsyDSf4z+Qw3LJmb+zJrNTj2fBoknypqznx
-	 FmHRLvuK1pluf6/7B3l1Aww4zwahniOgWbL3LQhOpyqR+Y8YKEhxJAg5pnddBUTuwKDXi
-	 dpVtTYhMjvul0c3rlwSEaOSyJCsO4uaUzivVskv2p8JnlPO6LdvQtMnvv3CndbVN1og==
+	t=1795807621;
+	b=rJe637Dbwtkk/F6/FYq+VSDxiiaFxL7n41FxPEj0aPX7Mh0DjHg1XNi5HQoqVQWQ67uT
+	 X+Ck65DecdIIc25/1lC1Aq16kIz+xyDJkb/y5acWsWZGzt6f+8LCsGtaVfcFK19kPAytw
+	 2VmvqsOsZYLUQyHnrlTZrKPaCuKICKB5rqrqPgbex2ZkY5lYez13GhGss5XIQvDJTI+89
+	 T++P5IAsA3xDHz5YW+Qlk4fW46355tUSs2jYpC/l1Spf/qtlyZNOBw2rV+N6MY+BvKZsM
+	 PiweTP1cI64SAzOaTBmQz8K1Qh44+VfYQFuLQpkBIqMHNeo72GYU27lg0jHN0inIGfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795807609;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795807621;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KmTpXtcBDYylw4bMy1QUBNJm5SIaR/wj97xpmFq2FM8=;
-	b=UM2I7VP9d+7EoNT96PTcEFp/kjft0amigbjVgDl4kZiRM8O+6Bc925nUS8yKggNPTK64
-	 A9AIQAfLkUhCXxS7zZr2v4ASkKkdACmaoALtk0vT0jBzgg+NHCs93GgZJF9lm+95vYvDm
-	 KZduR7wYrUt9ZSSunkOmKYclcVsuQpQjm+WIaDPFvXcpjs5GkBBqkcgPtgezhu5O5ukOz
-	 RokuJxQvZPCBn81YAM4U99+puiLsK+iNomrULOjVY9RfkoHJz6OCITyXlr7oa4TCPGlLt
-	 bA94839HotkLnXEYHcennQ6OrYF9JHRI+rRckVkO2KPNUskI622u0lQVhk5MKc9NdwQ==
+	bh=i067TMNpbiCFZjRbPWgGfWz2BpFhr8QyptRGWKajm4Y=;
+	b=h+md972gt7XyzKAR5LDlquZa3FjKzh8yxKj9QdfContQyYXWh9T6B23gH1rbu7PXUY47
+	 HU0pKmQjowvXk80pmWlNOF7FGTfXp5vt55SZPdjcKyV1A5gNdtKIkfT900rPNR6RIkft1
+	 iiLoFl/0j9EO7GS+PozseIG1iXQSf+pUo5rMRHBQPkkSBRWmiO4N7S2ykQR/98gZgLjAH
+	 7zqE2EyqbkwyYSM80jCFxo9CpgfVAWTEpm5n9lV70Q2OTvEOTXh9+8QZXejAUOEM+VD+x
+	 ZgA2yoA+IWmWCR5mij1EV/7eqEKlqMvV2c6fvDJgZzd+fTZsfzV7TIVXBHs3pha0kcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="C4aTX/Kr";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ngVGGr4A;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58F98606A31E;
-	Fri, 27 Nov 2026 19:26:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 136C0606A31E;
+	Fri, 27 Nov 2026 19:27:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C4aTX/Kr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B2B81F000C1;
-	Fri, 27 Nov 2026 19:26:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ngVGGr4A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D40D21F00898;
+	Fri, 27 Nov 2026 19:26:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795807608;
-	bh=KmTpXtcBDYylw4bMy1QUBNJm5SIaR/wj97xpmFq2FM8=;
+	s=k20260515; t=1795807620;
+	bh=i067TMNpbiCFZjRbPWgGfWz2BpFhr8QyptRGWKajm4Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C4aTX/KrS4lo0vrHheYzFPjTK8WwaqoFGm4RAe0sQJbWokgj5kmF1pprLmVo2IRal
-	 HWvD2VNFZc9u+uMgqG1F4RpOmKq+j/xYCH1NSqR1dYMVILIanpmGeJ/wSYMD0rsppc
-	 coDdARL5pgsdz2Z4d/gKhhLKtakJzPTnvjKe4LJzVKIHFgzf5NVSGJWDgm6jNQriZ9
-	 xTxJFODMCh42wcLXcgwqukdEd/LYbebgQtEQf2QHW4aWa+A7ZXWWTu5CHaH3m/dLCG
-	 W/qiElqFHPjEtyFAdlE3rzGsVVYUJ6fNKqrXBXi/+/AUYSgBlM+HIlel7RlUzs88Db
-	 XkUkwoVanOFCQ==
+	b=ngVGGr4AKLGCMjG4T3316urWRwW8furONFr6A0d/TYXhKeektVEWB46RmfMJzslIo
+	 eyRcnS9jfgdqkIL175FqnrGSMmvXWZ9VyVgPMtEChdCCOQd+HVSj3i/0nBTmHUlHRV
+	 86bta7usV0MoRvsOxCuVmbt4ZojTFr7nTp6U7bC3wKtGd0MlzNkfZgRhEmygVHsVau
+	 xKL+Qj7ESubhogHWjOzmrmZxswjfA0tYQ1K9+QSrk7GGcdD0lSzLQRrrO5X52u9vGC
+	 VH947ntDHB5fysao5IJusoaDUIX4ynQh3XmHSK54+N1PtGnRhB3IT9RktS5RMng2qN
+	 2e82GWb3ZI+Gg==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Emil Renner Berthing <kernel@esmil.dk>,
@@ -46,13 +46,19 @@ To: lee@kernel.org,
 	Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney+clk@redhat.com>,
 	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	Dominique Belhachemi <db@domibel.de>,
+	Michal Wilczynski <m.wilczynski@samsung.com>,
+	Joshua Peisach <jpeisach@ubuntu.com>,
 	Xingyu Wu <xingyu.wu@starfivetech.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Palmer Dabbelt <palmer@rivosinc.com>,
 	linux-clk@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 03/10] clk: starfive: jh7110-sys: Use devres for PLL0 clock and notifier
-Date: Fri, 27 Nov 2026 19:25:27 +0000
-Message-ID: <20261127192620.3443537-4-lee@kernel.org>
+Subject: [PATCH 04/10] clk: starfive: jh7110: Duplicate top clock bulk arrays per device
+Date: Fri, 27 Nov 2026 19:25:28 +0000
+Message-ID: <20261127192620.3443537-5-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127192620.3443537-1-lee@kernel.org>
 References: <20261127192620.3443537-1-lee@kernel.org>
@@ -67,48 +73,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-jh7110_syscrg_probe() allocates priv with devm_kzalloc_flex() but
-acquires pll0_out with clk_get() and registers &priv->pll_clk_nb with
-unmanaged clk_notifier_register().  If any subsequent step in probe
-fails, devres frees priv while the notifier stays registered on
-pll0_out, resulting in a use-after-free on the next rate change and a
-leaked clock reference.
+Both the JH7110 ISP and Video-Output clock drivers point top->top_clks
+directly at static global struct clk_bulk_data arrays and pass them to
+devm_clk_bulk_get(), mutating shared global state in place across probes
+or unbind/rebind cycles.
 
-Use devm_clk_get() and devm_clk_notifier_register() so both the notifier
-and clock reference are released automatically in LIFO order before priv
-is freed.
+Mark the template arrays const and allocate per-device copies with
+devm_kmemdup_array().
 
-Fixes: 538d5477b252 ("clk: starfive: jh7110-sys: Add notifier for PLL0 clock")
-Closes: https://sashiko.dev/#/bug/linux-43575972-eb4c-4bf9-8cfe-cef64199b7e2
+Fixes: 81279f5d0812 ("clk: starfive: Add StarFive JH7110 Image-Signal-Process clock driver")
+Fixes: dae5448a327e ("clk: starfive: Add StarFive JH7110 Video-Output clock driver")
+Closes: https://sashiko.dev/#/bug/linux-ac62c6ac-f9af-4289-9154-e1129a2f6139
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/clk/starfive/clk-starfive-jh7110-sys.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/clk/starfive/clk-starfive-jh7110-isp.c  | 9 +++++++--
+ drivers/clk/starfive/clk-starfive-jh7110-vout.c | 9 +++++++--
+ 2 files changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/clk/starfive/clk-starfive-jh7110-sys.c b/drivers/clk/starfive/clk-starfive-jh7110-sys.c
-index 44766b094b60..02ecf32fffdc 100644
---- a/drivers/clk/starfive/clk-starfive-jh7110-sys.c
-+++ b/drivers/clk/starfive/clk-starfive-jh7110-sys.c
-@@ -422,7 +422,7 @@ static int __init jh7110_syscrg_probe(struct platform_device *pdev)
+diff --git a/drivers/clk/starfive/clk-starfive-jh7110-isp.c b/drivers/clk/starfive/clk-starfive-jh7110-isp.c
+index d39ce4a2a8e9..9395de01d42b 100644
+--- a/drivers/clk/starfive/clk-starfive-jh7110-isp.c
++++ b/drivers/clk/starfive/clk-starfive-jh7110-isp.c
+@@ -23,7 +23,7 @@
+ #define JH7110_ISPCLK_DVP_CLK			(JH7110_ISPCLK_END + 3)
+ #define JH7110_ISPCLK_EXT_END			(JH7110_ISPCLK_END + 4)
+ 
+-static struct clk_bulk_data jh7110_isp_top_clks[] = {
++static const struct clk_bulk_data jh7110_isp_top_clks[] = {
+ 	{ .id = "isp_top_core" },
+ 	{ .id = "isp_top_axi" }
+ };
+@@ -119,8 +119,13 @@ static int jh7110_ispcrg_probe(struct platform_device *pdev)
+ 	if (IS_ERR(priv->base))
  		return PTR_ERR(priv->base);
  
- 	/* Use fixed factor clocks if can not get the PLL clocks from DTS */
--	pllclk = clk_get(priv->dev, "pll0_out");
-+	pllclk = devm_clk_get(priv->dev, "pll0_out");
- 	if (IS_ERR(pllclk)) {
- 		/* 24MHz -> 1000.0MHz */
- 		priv->pll[0] = devm_clk_hw_register_fixed_factor(priv->dev, "pll0_out",
-@@ -431,7 +431,8 @@ static int __init jh7110_syscrg_probe(struct platform_device *pdev)
- 			return PTR_ERR(priv->pll[0]);
- 	} else {
- 		priv->pll_clk_nb.notifier_call = jh7110_pll0_clk_notifier_cb;
--		ret = clk_notifier_register(pllclk, &priv->pll_clk_nb);
-+		ret = devm_clk_notifier_register(priv->dev, pllclk,
-+						 &priv->pll_clk_nb);
- 		if (ret)
- 			return ret;
- 		priv->pll[0] = NULL;
+-	top->top_clks = jh7110_isp_top_clks;
+ 	top->top_clks_num = ARRAY_SIZE(jh7110_isp_top_clks);
++	top->top_clks = devm_kmemdup_array(priv->dev, jh7110_isp_top_clks,
++					   top->top_clks_num,
++					   sizeof(*top->top_clks), GFP_KERNEL);
++	if (!top->top_clks)
++		return -ENOMEM;
++
+ 	ret = devm_clk_bulk_get(priv->dev, top->top_clks_num, top->top_clks);
+ 	if (ret)
+ 		return dev_err_probe(priv->dev, ret, "failed to get main clocks\n");
+diff --git a/drivers/clk/starfive/clk-starfive-jh7110-vout.c b/drivers/clk/starfive/clk-starfive-jh7110-vout.c
+index d4181cce9c15..8b4dbae372ee 100644
+--- a/drivers/clk/starfive/clk-starfive-jh7110-vout.c
++++ b/drivers/clk/starfive/clk-starfive-jh7110-vout.c
+@@ -25,7 +25,7 @@
+ #define JH7110_VOUTCLK_HDMITX0_PIXELCLK		(JH7110_VOUTCLK_END + 5)
+ #define JH7110_VOUTCLK_EXT_END			(JH7110_VOUTCLK_END + 6)
+ 
+-static struct clk_bulk_data jh7110_vout_top_clks[] = {
++static const struct clk_bulk_data jh7110_vout_top_clks[] = {
+ 	{ .id = "vout_src" },
+ 	{ .id = "vout_top_ahb" }
+ };
+@@ -126,8 +126,13 @@ static int jh7110_voutcrg_probe(struct platform_device *pdev)
+ 	if (IS_ERR(priv->base))
+ 		return PTR_ERR(priv->base);
+ 
+-	top->top_clks = jh7110_vout_top_clks;
+ 	top->top_clks_num = ARRAY_SIZE(jh7110_vout_top_clks);
++	top->top_clks = devm_kmemdup_array(priv->dev, jh7110_vout_top_clks,
++					   top->top_clks_num,
++					   sizeof(*top->top_clks), GFP_KERNEL);
++	if (!top->top_clks)
++		return -ENOMEM;
++
+ 	ret = devm_clk_bulk_get(priv->dev, top->top_clks_num, top->top_clks);
+ 	if (ret)
+ 		return dev_err_probe(priv->dev, ret, "failed to get top clocks\n");
 -- 
 2.56.1.839.g22a8290db9-goog
 
