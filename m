@@ -1,58 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795807647;
-	b=chVJT9wMimckH9JXMkLECL4jabuXZuaeOUW69fr10EQ4vxVCQ4mNkD1d+JUcJ1pxrdnC
-	 sK5Cq36kV986FFs/DRNkMagSOZHVjAEadkTS0E44VvSI/5SeThBaNCII3sjPxaVUPMymT
-	 V/nHDwo0V51QXdx0JDEVLTtMCB9Qk9ig41f2rGhResU4hU1XQ2pvyxsuE5LHd1LoNCeJL
-	 tD/zfXO/Ovsgl2DZ4Zct6NNoTQySx4CU4GTzbsdocXsxBl1gYuRuwum9yr9AIGYVOtGvK
-	 JTBnPQgE5W2/zZRUFV2lpBA3zoR8kewU+dj48SSaAgZSSPL/270TwhEw3ZT3ojkFYPQ==
+	t=1795807654;
+	b=0T6+EvKcisv2QANUd9B19Hzo7rO35eAnKZdg0FEJ823G1g0CSUSIK9zN7pwOLojsLSPl
+	 0bapUwUxCLHSI3laKUeA64JlNaCm5Wx+Gvr+kpkU/BZXwaLJN5zVxOjsdlyizqwv/uoqS
+	 AmIY/wvPTChuXnyhqmjk+jZ9IYWroC1ncSOwmUD6vm4vnCQhYYlwgjLFYoNmzBJvORJGy
+	 BkzVIbkUxWyxD9iDgp8CY2PZOxBbDwpcXhK+hhpHWkp6DcoNhwS5HkyTX+z6hKB8Gk/Ft
+	 TDRTwHEVjathuAoj7eytnz8w9UjEUDEg3W20pP46eexVGdZUvamP/wu0T1qZYPhU2yA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795807647;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795807654;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=10bVaCEGsM4jeEOParKEyBgQviJ8LhkcZZpLkWasWow=;
-	b=aGBboxDGUx11/vhEDDOFia6IS+U2ke8KMwOwW42fI/3+Eybg6mwfZkKWTnvaW7DzOdoq
-	 z7Ueheb/PA3CA2ZixPmnNls+4MRM59wmJY7+/aNyMlbKZOZGkVieYFuMXZIQUwhoPV4hc
-	 n4112GZBE0qv/nH4iSnlx3GYZ5ZtXFh3Y0sYrnTVmS1W/bKuH7IM6VRRbdqDMwH/nk7Qs
-	 HJPfIXcr90SEpc5gnjiRPHStxjyZNrL5+M1uFb1opf65AJvqqyuETsIpfe2LBl8Oy+Pct
-	 +foTcY/84LtW+jbp4DeV6FLERXpLS+x78Ecm8Z36A5aHa1YmdZFEmS7DGiQtgIIKYMw==
+	bh=r7C9yHzbT8DIhAv52A8PzBhP7Xd4zcT9yST+bFKc0ms=;
+	b=aiVvZBATjf+8M6tDI/QPzTIbA3kz8iknrdV8A47A+Y7xbo3vIfH+5NkNlW/V/JTrI8QY
+	 PAGUCa0xJ+KAHcKEOjY2XY5cl27IXfEMkmJQubUmcCn0+HahtlOofV8bZknv9p8Ik0cqT
+	 H6s0erE4RjVQuBd9/qmrVmiyw1fLw/w09/AHWGqzTuIF1mD9MD0Z9eWV2lpK1Mh0nYt4t
+	 l6GiW3pYGpFVqQg4jil/n9gSff02Q/mH819STI2nbyjOugMFK4+vbIg1x0XRC366l2V9o
+	 5+SoizfJJ6svecM+bS6ewQXOfQPG4s3OEsORmXwfuZwAgSfsIbsehxTTe8PB6Wqs7Kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kFhtSUVm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Cpf/cU+M";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 192D0606A31E;
-	Fri, 27 Nov 2026 19:27:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE89606A321;
+	Fri, 27 Nov 2026 19:27:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kFhtSUVm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06B3D1F0089A;
-	Fri, 27 Nov 2026 19:27:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cpf/cU+M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C4281F00893;
+	Fri, 27 Nov 2026 19:27:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795807646;
-	bh=10bVaCEGsM4jeEOParKEyBgQviJ8LhkcZZpLkWasWow=;
+	s=k20260515; t=1795807653;
+	bh=r7C9yHzbT8DIhAv52A8PzBhP7Xd4zcT9yST+bFKc0ms=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kFhtSUVmQojxt9ECMPMTYut1MMVZr+G3hcue4763XqNsevx8dB5z1qJG5GqRf06Yw
-	 m3nKCKXy6Uj+/P8lFF1WwToi/uSNoR9gvhYy+CRQobgerGNZfRXiOUwEeVYWFJsEtJ
-	 vb1vhFCV1voVugoNQC+lrtL5HSlCGs39wVFQpLGd1lX+57b9RhYVJM4XvDVYCzJLVg
-	 qjA3Ca9B8DjAEIJa+CdeiAYHqyu8M3LX9iuP2TDA6oteiwWo1tupa7bIS3GRS41Yx4
-	 YcFwR4jJ/tWb7XAdep7UkvTGgRdsixvCLaS24crSsk/iQhg99dAcBjI07/hOf1pg17
-	 8tK9qN0MgX3vg==
+	b=Cpf/cU+Md3N+ksXOoD0S58TSb6bqmYYw5TW3+bEdw35AP4ecWwUYTU6EqjfUtq5Ni
+	 Td0p5pygiWPiqjabPdJlqTKpOQabMNTdP2GBu+hMfMfDRoekzpozeuKFZbiUfVfd1I
+	 Awu6YkX8E8tJKxNGoa3+vWNlgKH0fPTmSjo99ckt8KIUsb7vIqJo/nP5iyJRU+wphq
+	 UHyqPOisRUrR1iz6kaCLLwddS0Tvo33NmCqeeT3PSGILlmUJS8QSfJvQ6+uJ+i4HUx
+	 Yp15+ir08+cmEtQF8G9KDQjak+vfW5Kh5xenah2+bUDc0QFVqLzEPI+dXPmeyvYebx
+	 EIpEqpcBLuFkQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Andrea della Porta <andrea.porta@suse.com>,
+	Nishanth Menon <nm@ti.com>,
+	Tero Kristo <kristo@kernel.org>,
+	Santosh Shilimkar <ssantosh@kernel.org>,
 	Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney+clk@redhat.com>,
 	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Naushir Patuck <naush@raspberrypi.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
+	"Thomas Richard (TI)" <thomas.richard@bootlin.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 08/10] clk: rp1: Reference secondary PLL divider clk_hw in parent tables
-Date: Fri, 27 Nov 2026 19:25:32 +0000
-Message-ID: <20261127192620.3443537-9-lee@kernel.org>
+Subject: [PATCH 09/10] clk: keystone: sci-clk: Check allocation failure before copying clock array
+Date: Fri, 27 Nov 2026 19:25:33 +0000
+Message-ID: <20261127192620.3443537-10-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127192620.3443537-1-lee@kernel.org>
 References: <20261127192620.3443537-1-lee@kernel.org>
@@ -67,153 +69,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rp1_register_pll_divider() registers &desc->div.hw rather than
-&desc->hw, leaving desc->hw.core NULL for the secondary PLL dividers
-pll_sys_sec_desc, pll_video_sec_desc, and pll_audio_sec_desc.  Fourteen
-clock parent table entries still reference &pll_*_sec_desc.hw instead of
-&pll_*_sec_desc.div.hw, causing parent resolution to fail for those
-clocks.
+ti_sci_scan_clocks_from_fw() calls devm_kmalloc_objs() without checking
+for NULL before passing tmp_clks into memcpy(), and invokes memcpy()
+with a NULL source pointer on the initial iteration when max_clks is
+zero.
 
-Point all fourteen parent entries at .div.hw, matching clk_eth_parents.
+Return -ENOMEM if devm_kmalloc_objs() fails, and only copy and free the
+previous array when max_clks is non-zero.
 
-Fixes: a7713a7dd159 ("clk: rp1: Implement remaining clock tree")
-Closes: https://sashiko.dev/#/bug/linux-4497e5e9-4f3a-4398-8f6a-f2d72a2b61eb
+Fixes: 3c13933c6033 ("clk: keystone: sci-clk: add support for dynamically probing clocks")
+Closes: https://sashiko.dev/#/bug/linux-4e2ecf16-17f1-4188-880c-c714a1bf588c
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/clk/clk-rp1.c | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+ drivers/clk/keystone/sci-clk.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/clk/clk-rp1.c b/drivers/clk/clk-rp1.c
-index cfa7cbefad2e..d5d94d699829 100644
---- a/drivers/clk/clk-rp1.c
-+++ b/drivers/clk/clk-rp1.c
-@@ -1419,7 +1419,7 @@ static struct rp1_clk_desc pll_video_sec_desc = REGISTER_PLL_DIV(
- 
- static const struct clk_parent_data clk_eth_tsu_parents[] = {
- 	{ .index = 0 },
--	{ .hw = &pll_video_sec_desc.hw },
-+	{ .hw = &pll_video_sec_desc.div.hw },
- 	{ .index = -1 },
- 	{ .index = -1 },
- 	{ .index = -1 },
-@@ -1450,7 +1450,7 @@ static struct rp1_clk_desc clk_eth_tsu_desc = REGISTER_CLK(
- static const struct clk_parent_data clk_eth_parents[] = {
- 	{ .hw = &pll_sys_sec_desc.div.hw },
- 	{ .hw = &pll_sys_desc.hw },
--	{ .hw = &pll_video_sec_desc.hw },
-+	{ .hw = &pll_video_sec_desc.div.hw },
- };
- 
- static struct rp1_clk_desc clk_eth_desc = REGISTER_CLK(
-@@ -1651,7 +1651,7 @@ static struct rp1_clk_desc clk_uart_desc = REGISTER_CLK(
- 
- static const struct clk_parent_data clk_pwm0_parents[] = {
- 	{ .index = -1 },
--	{ .hw = &pll_video_sec_desc.hw },
-+	{ .hw = &pll_video_sec_desc.div.hw },
- 	{ .index = 0 },
- };
- 
-@@ -1677,7 +1677,7 @@ static struct rp1_clk_desc clk_pwm0_desc = REGISTER_CLK(
- 
- static const struct clk_parent_data clk_pwm1_parents[] = {
- 	{ .index = -1 },
--	{ .hw = &pll_video_sec_desc.hw },
-+	{ .hw = &pll_video_sec_desc.div.hw },
- 	{ .index = 0 },
- };
- 
-@@ -1705,7 +1705,7 @@ static const struct clk_parent_data clk_audio_in_parents[] = {
- 	{ .index = -1 },
- 	{ .index = -1 },
- 	{ .index = -1 },
--	{ .hw = &pll_video_sec_desc.hw },
-+	{ .hw = &pll_video_sec_desc.div.hw },
- 	{ .index = 0 },
- };
- 
-@@ -1731,7 +1731,7 @@ static struct rp1_clk_desc clk_audio_in_desc = REGISTER_CLK(
- static const struct clk_parent_data clk_audio_out_parents[] = {
- 	{ .index = -1 },
- 	{ .index = -1 },
--	{ .hw = &pll_video_sec_desc.hw },
-+	{ .hw = &pll_video_sec_desc.div.hw },
- 	{ .index = 0 },
- };
- 
-@@ -1757,7 +1757,7 @@ static struct rp1_clk_desc clk_audio_out_desc = REGISTER_CLK(
- static const struct clk_parent_data clk_i2s_parents[] = {
- 	{ .index = 0 },
- 	{ .hw = &pll_audio_desc.hw },
--	{ .hw = &pll_audio_sec_desc.hw },
-+	{ .hw = &pll_audio_sec_desc.div.hw },
- };
- 
- static struct rp1_clk_desc clk_i2s_desc = REGISTER_CLK(
-@@ -1879,7 +1879,7 @@ static struct rp1_clk_desc clk_sdio_alt_src_desc = REGISTER_CLK(
- 
- static const struct clk_parent_data clk_dpi_parents[] = {
- 	{ .hw = &pll_sys_desc.hw },
--	{ .hw = &pll_video_sec_desc.hw },
-+	{ .hw = &pll_video_sec_desc.div.hw },
- 	{ .hw = &pll_video_desc.hw },
- 	{ .index = -1 },
- 	{ .index = -1 },
-@@ -2015,7 +2015,7 @@ static struct rp1_clk_desc clksrc_mipi1_dsi_byteclk_desc = REGISTER_CLK(
- 
- static const struct clk_parent_data clk_mipi0_dpi_parents[] = {
- 	{ .hw = &pll_sys_desc.hw },
--	{ .hw = &pll_video_sec_desc.hw },
-+	{ .hw = &pll_video_sec_desc.div.hw },
- 	{ .hw = &pll_video_desc.hw },
- 	{ .hw = &clksrc_mipi0_dsi_byteclk_desc.hw },
- 	{ .index = -1 },
-@@ -2046,7 +2046,7 @@ static struct rp1_clk_desc clk_mipi0_dpi_desc = REGISTER_CLK(
- 
- static const struct clk_parent_data clk_mipi1_dpi_parents[] = {
- 	{ .hw = &pll_sys_desc.hw },
--	{ .hw = &pll_video_sec_desc.hw },
-+	{ .hw = &pll_video_sec_desc.div.hw },
- 	{ .hw = &pll_video_desc.hw },
- 	{ .hw = &clksrc_mipi1_dsi_byteclk_desc.hw },
- 	{ .index = -1 },
-@@ -2082,7 +2082,7 @@ static const struct clk_parent_data clk_gp2_parents[] = {
- 	{ .index = -1 },
- 	{ .index = -1 },
- 	{ .index = -1 },
--	{ .hw = &pll_sys_sec_desc.hw },
-+	{ .hw = &pll_sys_sec_desc.div.hw },
- 	{ .index = -1 },
- 	{ .hw = &pll_video_desc.hw },
- 	{ .hw = &clk_audio_in_desc.hw },
-@@ -2163,7 +2163,7 @@ static const struct clk_parent_data clk_gp4_parents[] = {
- 	{ .index = -1 },
- 	{ .index = -1 },
- 	{ .index = -1 },
--	{ .hw = &pll_video_sec_desc.hw },
-+	{ .hw = &pll_video_sec_desc.div.hw },
- 	{ .index = -1 },
- 	{ .index = -1 },
- 	{ .index = -1 },
-@@ -2197,7 +2197,7 @@ static struct rp1_clk_desc clk_gp4_desc = REGISTER_CLK(
- 
- static const struct clk_parent_data clk_vec_parents[] = {
- 	{ .hw = &pll_sys_pri_ph_desc.hw },
--	{ .hw = &pll_video_sec_desc.hw },
-+	{ .hw = &pll_video_sec_desc.div.hw },
- 	{ .hw = &pll_video_desc.hw },
- 	{ .index = -1 },
- 	{ .index = -1 },
-@@ -2233,7 +2233,7 @@ static const struct clk_parent_data clk_gp5_parents[] = {
- 	{ .index = -1 },
- 	{ .index = -1 },
- 	{ .index = -1 },
--	{ .hw = &pll_video_sec_desc.hw },
-+	{ .hw = &pll_video_sec_desc.div.hw },
- 	{ .hw = &clk_eth_tsu_desc.hw },
- 	{ .index = -1 },
- 	{ .hw = &clk_vec_desc.hw },
+diff --git a/drivers/clk/keystone/sci-clk.c b/drivers/clk/keystone/sci-clk.c
+index 967f77900358..4cb1299cd49e 100644
+--- a/drivers/clk/keystone/sci-clk.c
++++ b/drivers/clk/keystone/sci-clk.c
+@@ -495,9 +495,13 @@ static int ti_sci_scan_clocks_from_fw(struct sci_clk_provider *provider)
+ 		if (num_clks == max_clks) {
+ 			tmp_clks = devm_kmalloc_objs(dev, sci_clk,
+ 						     max_clks + 64);
+-			memcpy(tmp_clks, clks, max_clks * sizeof(sci_clk));
+-			if (max_clks)
++			if (!tmp_clks)
++				return -ENOMEM;
++			if (max_clks) {
++				memcpy(tmp_clks, clks,
++				       max_clks * sizeof(sci_clk));
+ 				devm_kfree(dev, clks);
++			}
+ 			max_clks += 64;
+ 			clks = tmp_clks;
+ 		}
 -- 
 2.56.1.839.g22a8290db9-goog
 
