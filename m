@@ -1,102 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.127
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795744075;
-	b=bLVNLa/F5NbeL7sIJizP2wCJaGRLOBHsQz/1qwFDhpZGHPlaao4oUbJ8A1FeAL4ysj+7
-	 YhGkiFo0lFyUgEjGb342vvWReaFrX+JCrdG73HxRFXgKien56XMv5EJWqfGwXYwbr5FrG
-	 Bnx2UYpUDRauHtx+NyXgnDT2HW6RYdwuRTzSQ4fVGd28SgbESdC5J6A/R1S+RIiUwET1I
-	 CeDWt9GfAnVnlEoLnotldgUGJd+dEy6MCbXkLq1W7jKAKmFls7ncaa3XrftKwE4HmZ/wE
-	 4v+UBBb5W7vm/JTwp4fD9wuk6TH2fRF3Hf4Ps2RudE5sCtQkmoEzB0jDY1rozSxsUqA==
+	t=1795744341;
+	b=D7lUAeVrIlryv1Jnc5FkRyN1tbJw+Ve2zMxGn8RousLg1hke1345DmKIeLT/X0uip4TC
+	 DFL/HYd2zz1hG8FeNpESEOEcEADLPVAC8zbrqKU862rteKwPPkrHXuXEtPVVCpaLnSalU
+	 8r3BYUvgRBXiOoxO7Lg/iStUp5wTPZkyebisGP1ltNbC6v/HP8t0VAyJ8ns+J/64qHChu
+	 WXPjAgdAhiBvz/fvSbvDONbny+0z40MS8a0mMxa8ZRVSdk1goDHxuyZSCCajBf9JxKYEs
+	 Snmp7qrdhH2xVCqJef01r/VPObnorL29WteU5LFFXdHng8zsC+WDpMgfcZ0RBFkR4ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795744075;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 X-Relaying-Domain:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9rpdsm/VQNjI+QZyvQZysG3z/mkS8qpvjAF0HDQXOiw=;
-	b=WDI3BYLYrUp03AVw785tTCtQDDc36IKhO/T/VDApJwL879JH+nHXkStbETZXsstuqlKg
-	 LV0/CfH/mKnyDDhkMbdEbZxr5c6HBOvbOrlrZ3SjEoAfRRO9hq5ODuXmYkcGjjSSFwgJW
-	 wFjZqdijy9S9MC5Pj81ZYBatEIsddFkIIR2PiU9JBIPuL2Ca7tt1mLsbH+c9P6FI2i8NP
-	 yeQqgRCPu5t7q7igo74/jsPDcrR8LV+hqMKI7ZzZti5sYnTyrSrU0I+l+662k0I8J3ncZ
-	 ET9opLbkPFzcCgSCvKFfyiteHIdi9Yc0rrmDbhV6XvOOHwPmQL+YVX64k4k/peQNg9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795744341;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:To:Cc:
+	 Content-Transfer-Encoding:Mime-Version:X-Mailer:Received:
+	 X-Lms-Return-Path:From:Date:X-Original-From:Subject:Message-Id:
+	 Content-Type;
+	bh=egpCMpGZUF06mI6a6aM7SRvDsxIQGsgzLEBD/eo7jDM=;
+	b=5aaE36P3hX43Y/hT8VJwU0s7IkkwpylrbfQhDM5XL8CNXp0Fr541aZh67d+FZvXG3Wjg
+	 r5HW7xBWOkSoAwOS3yCB/adF8fy2G7m/RpZTTMQZUF/4tdsy79PZUnUr+sH1qU0/oeJUB
+	 ds93IEkkoGlVeyitBZA35bBK9tceavhB1aqotUREh4AP0o+la3lAx+5sDcp07Yhuc5kLl
+	 k/rHpAMFRBISh/uJPX8XcDELAbbrOF7oxoAzhXso8PDfDeTvZfgehlXp23H/6/zdZsp4x
+	 KQH89A04fXPhdV6oqFMvVaQ1jptmd8CQjbVlUnYoGR7dj5zXaBZd1UzZKo4mvDvqzzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=andrii.net;
-	spf=pass smtp.mailfrom=andrii.net;
-	dkim=pass header.d=andrii.net header.i=@andrii.net header.a=rsa-sha256 header.s=gmail-2025 header.b=W9umYR6B;
-	arc=none smtp.remote-ip=209.85.216.98
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=kaihong.com;
+	spf=pass smtp.mailfrom=kaihong.com;
+	arc=none smtp.remote-ip=115.124.28.127
+Received: from out28-127.mail.aliyun.com (out28-127.mail.aliyun.com [115.124.28.127])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 220CF606A321
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 01:47:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 220CF606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrii.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrii.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=andrii.net header.i=@andrii.net header.a=rsa-sha256 header.s=gmail-2025 header.b=W9umYR6B
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3b3a914e4c8so4298573a91.0
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 17:47:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=andrii.net; s=gmail-2025; t=1795744074; x=1796348874; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9rpdsm/VQNjI+QZyvQZysG3z/mkS8qpvjAF0HDQXOiw=;
-        b=W9umYR6Bu05MAqt8vQxTPaZuHIj8L7nkoqY7roaXz/KTOuU0vid4imCewE5ztw/rXx
-         h4KetozT0hoS7sXnuW/fq85mVt9zpfR6JRkVpxBfKZkcRQlrHikdfsoDem8IJnaM2Cj4
-         9cwe8pDu65JPoWmf0uzO1mhZztzErO6vjL9Wzp+Aj76Z945LQaXM0fNNY02GCDcU07YP
-         OuVlLLTbQtV2Z4OO5pwSCXDAwml/8Gr44oxlyeR3eoes0VA6EFJ8wE/XMGz6oap/ipfF
-         1uDzFiDy+c8Txk+tjbKX9kIFMgYRczn2nrzTPthOc0yICs2VWsF8YdjxqI1A235TPWks
-         KeoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795744074; x=1796348874;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9rpdsm/VQNjI+QZyvQZysG3z/mkS8qpvjAF0HDQXOiw=;
-        b=e0TBuAxNlxhQqv5ykXIcs/gVNQfUMnlqVTwxSO/Tk77YJWmWEpNfeJStWloFnEvjhs
-         uPjSNF87+/uFbITaEhDYOO7/qNUw0xi1L7Ucihs9Zst0ZCO94rojSjM9ZPTV4ic9mIH3
-         QusB9Wb52iCKtD+Sj0VDxILx53zyYdnwGMxudGsKDDLf6xPDnzZilsZCpVLaK5GjstFy
-         Lql5E8yliBrMJvqClg3F7z54zBRGoAYEHY4A9cDDMQKVJ72lPiovS8NIQdBz94yilXnn
-         Ojspa77odZMMNt89YMBHl+iwt1YjdBOfPBIDm/AeCZIgP74vbjlZfuo+nlDVSnzW+oY/
-         0p7A==
-X-Forwarded-Encrypted: i=1; AL+hErFa6i1fqfEu/PrBfM9+TnoxUVI/OWcJQPt8/OB/W983Msp7Z51CwCfiurkOoCkRFw9GBRU03TI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/w48hcQNPuF0j2z/vBKwStlN2NJacKMSmtzmLGrb9ZL9T80yNg
-	qBxFRjpRar+4BoS+to2bSApQa8TV1PfrKvpa8ceAoAeDiWkH+fML7v4+jwefUWx9qxGUzcGQVSX
-	yUdt3OUE4CtB06rMtpaDmPfTqBbQj+5zVybkO/vYj+/o6xnpGtWc3
-X-Gm-Gg: AZFdTZeNIFYVLNtIXoRzENFe503yVMyOgq26V/rl7NLpgcx8Iw0FjoYRB3Pf7GmPEzo
-	V+lIecDPq3+lP7rAO9zNPJSnmJojspZT2CEwqSCb/b2lb9WG/On+Zbk4nA2jjHHqvmTLrPqBcuk
-	BCBap2WEW+PKNUbpWa/SyFb5savZZgyD0iWsppr6rfthhoFfYlWXgKidHNd5eTwhjGzr37owpGC
-	hjvlPLfmCMi4wlBSJ9J/sg2whyAjLl9vwwi8iRacMnhLxsfROSasyMxvHxFonkhta+i+31QsNkn
-	njOsFOATvuLqP+QQkKtgw3tT0ohFbHDOdR14H1KTSa5GtjuRf9u+4ofskkB9lhd9WLwnmyG6Iio
-	boHffa+HDSjklofDh5yWP9EdebP8=
-X-Received: by 2002:a17:90b:288e:b0:3b3:ab75:c94f with SMTP id 98e67ed59e1d1-3b41c92a098mr21400073a91.31.1795744074328;
-        Thu, 26 Nov 2026 17:47:54 -0800 (PST)
-Received: from andrii.ai (mac.hestia.andrii.net. [2602:f337:ed:4865:7374:6961:204d:6163])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b4062a77f5sm16585106a91.6.2026.11.26.17.47.53
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 26 Nov 2026 17:47:54 -0800 (PST)
-X-Relaying-Domain: andrii.net
-From: Andrii Tereshchenko <opensource@andrii.net>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Christian Hopps <chopps@labn.net>,
-	netdev@vger.kernel.org,
-	ipsec@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	security@kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH ipsec 1/2] xfrm: iptfs: don't modify the shared info of cloned skbs on output
-Date: Thu, 26 Nov 2026 17:47:51 -0800
-Message-ID: <5ea528c8-ec02-4f2d-bc59-50700be8216a@mid.andrii.net>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <179531150722.3135.5639628464200463791@kernel.org>
-References: <c1e999b5-15ee-468d-81c5-530a560e84df@mid.andrii.net> <179531150722.3135.5639628464200463791@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057A0606A31C
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 01:52:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 057A0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kaihong.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kaihong.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.3620886|-1;BR=01201311R111S36rulernew998_84748_2000303;CH=blue;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00388624-0.000126094-0.995988;FP=7059271255388518362|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034020;MF=haoruiqiang@kaihong.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.kB6Kq.Z_1795744328;
+Received: from localhost(mailfrom:haoruiqiang@kaihong.com fp:SMTPD_---.kB6Kq.Z_1795744328 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 27 Nov 2026 09:52:09 +0800
+To: "Dongsheng Yang" <dongsheng.yang@linux.dev>, 
+	"Zheng Gu" <cengku@gmail.com>
+Cc: <dm-devel@lists.linux.dev>, "Ruiqiang Hao" <haoruiqiang@kaihong.com>, 
+	<stable@vger.kernel.org>
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,37 +48,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.43.0
+Received: from ubuntu24-dev.. ([219.142.21.190]) by smtp.feishu.cn with ESMTPS; Fri, 27 Nov 2026 09:52:05 +0800
+X-Lms-Return-Path: <lba+26b08e246+e4db54+linux.dev+haoruiqiang@kaihong.com>
+From: "Ruiqiang Hao" <haoruiqiang@kaihong.com>
+Date: Fri, 27 Nov 2026 09:51:43 +0800
+X-Original-From: Ruiqiang Hao <haoruiqiang@kaihong.com>
+Subject: [PATCH] dm-pcache: depend on FS_DAX, not just DEV_DAX
+Message-Id: <20261127015143.2350453-1-haoruiqiang@kaihong.com>
+Content-Type: text/plain; charset=UTF-8
 
-On Sun, 22 Nov 2026, Sashiko AI review wrote:
-> [Severity: High]
-> Does this guard hold the "they are never appended" rule from the comment
-> above? It only tests skb_cloned(skb). It also runs after
-> iptfs_first_skb(), which may already have uncloned the head.
+DM_PCACHE reaches persistent memory through dm_dev->dax_dev and
+dax_direct_access(). That dax_device is registered by the block driver with
+dax_add_host(), which stores it in the global dax_hosts xarray keyed by the
+gendisk pointer; fs_dax_get_by_bdev() later looks it up by
+bdev->bd_disk and drivers/md/dm.c:769 assigns the result to
+dm_dev->dax_dev. The whole registry, both dax_add_host() and
+fs_dax_get_by_bdev(), is compiled under CONFIG_BLOCK && CONFIG_FS_DAX
+(drivers/dax/super.c), so with FS_DAX=n neither side exists: pmem and
+virtio-pmem still register a dax_device for their char node, but the lookup
+can never find one and dm_dev->dax_dev stays NULL. cache_dev_dax_init()
+then fails:
 
-Yes, this is a real gap. A head that is not cloned can still share its
-frag_list members: after skb_checksum_help() as you describe, after
-pskb_copy(), and after skb_cow() of a clone. v2 tests skb_has_frag_list()
-instead of skb_cloned(): a first skb with a frag_list is sent on its own,
-aggregation stops at a following skb that has one, and
-iptfs_rehome_fraglist() is removed. That also covers a deferred skb2 that
-becomes the next first skb.
+  dm-pcache: cache_dev_dax_init:91 252:0 dax_direct_access failed: -95
+  dm-pcache: cache_dev_start:254 252:0 failed to init cache_dev 259:0 via
+  dax way: -95.
 
-I drove your route directly in a test VM: a cloned CHECKSUM_PARTIAL skb
-with a frag_list sent into an IP-TFS SA, then a small packet behind it.
-With v1 the original's frag_list was written into every time; with v2
-never.
+-EOPNOTSUPP here comes from dax_direct_access() taking a NULL dax_device;
+the message gives no hint that the kernel is simply missing FS_DAX.
+Since the target cannot work at all without it, make the dependency
+explicit so Kconfig does not offer a target that can never start.
 
-> [Severity: Low]
-> The commit message says: "ESP copies a cloned head anyway, so this
-> moves that copy earlier and does not add one." That is not true...
+Verified by Kconfig alone (defconfig, DAX=y DEV_DAX=y):
+  FS_DAX=n: DM_PCACHE is not selectable
+  FS_DAX=y: DM_PCACHE=m is selectable
+and at runtime in QEMU (virtio-pmem + virtio-blk, KASAN kernel): the same
+dmsetup table that returned -EOPNOTSUPP without FS_DAX is created
+successfully once FS_DAX=y.
 
-Agreed, with aggregation ESP can reallocate the head again. v2's
-changelog no longer says it.
+Note: DEV_DAX is not what the target uses, so it could arguably be dropped
+instead of kept; this change only adds the dependency that is missing.
 
-v2 follows as a new thread.
+Fixes: 1d57628ff95b ("dm-pcache: add persistent cache target in device-mapper")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ruiqiang Hao <haoruiqiang@kaihong.com>
+---
+ drivers/md/dm-pcache/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-Andrii Tereshchenko
-
-pw-bot: cr
+diff --git a/drivers/md/dm-pcache/Kconfig b/drivers/md/dm-pcache/Kconfig
+index 0e251eca892e..bf223eb8accd 100644
+--- a/drivers/md/dm-pcache/Kconfig
++++ b/drivers/md/dm-pcache/Kconfig
+@@ -2,6 +2,7 @@ config DM_PCACHE
+ 	tristate "Persistent cache for Block Device (Experimental)"
+ 	depends on BLK_DEV_DM
+ 	depends on DEV_DAX
++	depends on FS_DAX
+ 	help
+ 	  PCACHE provides a mechanism to use persistent memory (e.g., CXL persistent memory,
+ 	  DAX-enabled devices) as a high-performance cache layer in front of
+-- 
+2.43.0
