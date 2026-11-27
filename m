@@ -1,76 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795781906;
-	b=J77VeZo37654EozJK9f9aFw4g2Byp/EpAi+y/EECN4eqx1I86m0DrT62g2uNVxaEADUV
-	 5udpvY4CocWDDpS38a5CWNXwI6ITz58nd7zbvIMyOE6frRMtKsMp1nOABThpsfnceggoK
-	 TKOVgS9PvTtrV+dV5cNqdyfn2byfE0kjrwxkYdvuTouyfnQzEROc9/FwGmyIpx/VkYyeo
-	 co16d7+Hg670tReX7SoHDrNn69IBGiSHA8dasLqHYABRsFtwxfUQfxLqU5nLYDXbVTY8C
-	 RwzKfQ31WKP3fxyOc4licHHmRScYTY3/1MOJyPmqytFS+Wrm/ZqsNndYpvV/0QOMtbQ==
+	t=1795781903;
+	b=tvMqVtWXyITDbphmNoCKoNbIB2Wjxbi8RhQj8J0RhDhMIpjfaoATpA4JzEQ4S2tEoHc5
+	 NDyg4KCx1vVdNow3Puh+arRqJjC6MICui9Xd+uIZhexY8XJboFP5UD8v5mn7zTVJ4fhsx
+	 TQbMVfXgYmPnIs7EJcERXWbktpgCO38eq0owVqSWa0E9IosJX9kAYV3srkMa2bNjCkOVZ
+	 8HetusrziKp42ORB60hlKTsTV0MBna1OaRgJAMsbDkEcvd0YiYLfcqMbn4CehxsgonVmJ
+	 u7FWSbqzvmP47qu4P7/C/pGG3TELUKncRr5UxYECs3feHKfmIblw8Ks93R2wUiXJGMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795781906;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795781903;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=sqNEdtGk4hs/ZWDqsWosb23vxAOl654KOZRACdDrMEw=;
-	b=k0mcVexqsmL0kjEx71mdDX/dd1WiKO47os8nd6mEbIE3rxuoI8yPUQDq9795EMRhaBhT
-	 /CKJS4CqTWSySlACKMs01XD6FeegnPavJivA+Ucd3m37hDr3V+ga16QzXIFGruTAM8H9o
-	 FqcAegURx6LXHG6IUHX5YmNR76DcPIsND+23FvVQeO9UdbdkIX03n5GEYWVDC0QoRsWtY
-	 worbczWU+XJpKGxPA8iXScAQzZMxBz8RLKZvvQsnDGI03PCi2x8Q26E254VadAzPrC/9J
-	 7yAg1y2Z8HLYA5qy8ZrHgBKcVHSdnAy+MMCu03gh1Y3GcRnT1GeaC8X8wPRPlCMBklA==
+	bh=djjM0e7UYUbpa8sbuu0XymIBZ0dR4SuAPBPn91vWU0s=;
+	b=OLO3tcp9nz1QeEq4dD9D4eKQO0DSK1OjPdgMun6h9CTfbzUvi0opTf5VF/4niW0oIWna
+	 LUlL/489QMdKD7DhuXhqMODaN95si75fwZOaLlVHmfr4iViprFZvM71MI8B8TDxUs23K2
+	 PbrQwCQf1x8wLz9ehDjauEqGNCNo4Fj+GfhUuhVZcU9MeTXalBMLTzBeo4OvC6D16GR3p
+	 6ASSI/hTzOmDGC3Z5/y7W95KCryMklvjwJGNvCFu9Q68rUGJh5ttL04cykxFOjt0Mkrc9
+	 4g1CPa84Ltw1dQlKCtRP9R3X4y/dJzFt/loe9G+qdCsogV4Y746gFSfJUurh2meqp4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K1p89U9Z;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kvNIoBfP;
 	arc=none smtp.remote-ip=192.198.163.8
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E0FB606A32E;
-	Fri, 27 Nov 2026 12:18:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E0FB606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66492606A323;
+	Fri, 27 Nov 2026 12:18:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66492606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K1p89U9Z
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kvNIoBfP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795781906; x=1827317906;
+  t=1795781903; x=1827317903;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=YUdslEdpzDLGIn4P+1J5p2YaN/A3zS7nJsir0enBc44=;
-  b=K1p89U9ZEvfYjIUjZmC8IgaSi+bh16glyLZyw4eli1AnTnHDkyH2zc4o
-   M5mKfl9CvaoHhmr6RyPekz0TsntAdrN2f1/9galStYXVN/7p/iWgWq8i0
-   aBivHVvNUz3R1RwdsZ/fPLXP0Kue5mTzoCFMeKFck9KBle8DmZ8BPfYPi
-   hSEpe5AoTJkh/aCSPwwZdhpsATh8Ku6dLEdNC/2f0vNLLoqTrvrmq9E2f
-   OMVEwXqP/gMGe7/wAl3greZgKJuQH3KOAL5VlQUvThQJ8w/Qd4zn60fvN
-   HyIVEARmb6ZQOR7kuV3+gB4FNBau9C6DTcSgrnMSLNiEZc+1SDgCbdWyk
-   Q==;
-X-CSE-ConnectionGUID: QAw9WkKEQfCoeFF/hbdJKg==
-X-CSE-MsgGUID: SgcR5UJJSH+4MK2x7H5XNQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11979"; a="4577889"
+  bh=RapHwTkMePqMwUinvA9tRSskezJ18DxlHci7C9sGzOU=;
+  b=kvNIoBfPnZegz3fmYyTErrGuaf9GSfpmNVi3Lq4VOIz9DGuUfiwpxupO
+   XcI3ULE6ywbGloK5j1mi/Mh6OERasYyd5iirBvcWsSKX0e7ajKAWAiZfF
+   ibzgqH7AES6cBBaO+0M8fQDHmcpHBbrLZ+p1iMxYhzlRzrbwAgjxvCJME
+   pIUnt2MxwHpvY2zo1EgzRWXVULWKzQbM4/xXFb8GciwqdiSZs1SCneTZx
+   y5DM5O8G2XzGA+QnUDdr/7shcQEYysbea/JAi/zoG0ZXEom0D5UvPxi7Y
+   DWt/JW81OCEoa0zEeVbfwkOj5LtVvCisJfzvozYiRgcxnFbgayCvp/2oC
+   A==;
+X-CSE-ConnectionGUID: yn1A5iS3QyicCzacILnsaQ==
+X-CSE-MsgGUID: XLSpLtrpSvKTgV9Hrg/WYw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11979"; a="4577873"
 X-IronPort-AV: E=Sophos;i="6.27,236,1787036400"; 
-   d="scan'208";a="4577889"
+   d="scan'208";a="4577873"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Nov 2026 04:18:26 -0800
-X-CSE-ConnectionGUID: ElTXBUZqRtCpoJySaqB7vA==
-X-CSE-MsgGUID: mFsv6I08To2tHemaU9sA/A==
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Nov 2026 04:18:22 -0800
+X-CSE-ConnectionGUID: JFeUOcKaQ5ymBuYwv0M6Vw==
+X-CSE-MsgGUID: 29IifB6yTF6ZGp6BuNJOzQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,236,1787036400"; 
-   d="scan'208";a="12270687"
+   d="scan'208";a="12270678"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO mnyman-desk.home) ([10.245.245.45])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Nov 2026 04:18:25 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Nov 2026 04:18:21 -0800
 From: Mathias Nyman <mathias.nyman@linux.intel.com>
 To: <gregkh@linuxfoundation.org>
 Cc: <linux-usb@vger.kernel.org>,
-	Mathias Nyman <mathias.nyman@linux.intel.com>,
-	Olli Salenius <opsalenius@gmail.com>,
+	Alex Kononov <alex@albefly.com>,
+	stable@vger.kernel.org,
 	Michal Pecio <michal.pecio@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 10/10] xhci: fix NULL pointer dereference of rhub_port in xhci_urb_enqueue()
-Date: Fri, 27 Nov 2026 14:17:55 +0200
-Message-ID: <20261127121755.281420-11-mathias.nyman@linux.intel.com>
+	Mathias Nyman <mathias.nyman@linux.intel.com>
+Subject: [PATCH 08/10] usb: xhci: Demote isoch buffer overrun message to debug level
+Date: Fri, 27 Nov 2026 14:17:53 +0200
+Message-ID: <20261127121755.281420-9-mathias.nyman@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261127121755.281420-1-mathias.nyman@linux.intel.com>
 References: <20261127121755.281420-1-mathias.nyman@linux.intel.com>
@@ -85,71 +85,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-xhci_urb_enqueue() checks vdev->rhub_port->link_inactive before queueing
-a URB, but rhub_port is only set in xhci_setup_addressable_virt_dev()
-when the device is enabled or addressed.
+From: Alex Kononov <alex@albefly.com>
 
-If the virt device is freed and reallocated for an existing usb device,
-the new virt device has no rhub_port until usb core enables or addresses
-the device again. This happens for example when the xHC is reset during
-resume, and xhci_discover_or_reset_device() reallocates the virt device
-during reset-resume.
+An isochronous Buffer Overrun event means the device sent more
+data than the TD could hold.
+This is triggered by the device, not by a driver bug, and the
+error is already reported to the class driver as
+-EOVERFLOW in iso_frame_desc[].status.
 
-usb core does not send URBs to the device in this window, but a driver
-that keeps submitting I/O across system suspend does. This was reported
-with hid-steelseries-arctis, whose status polling work sends a control
-request during reset-resume after the xHC failed to restore its state:
+Logging it with xhci_warn() can flood the kernel log.
+A USB S/PDIF adapter (262a:9123) whose S/PDIF input loses its
+signal produces this event on nearly every microframe,
+about 7,200 messages per second, keeping systemd-journald
+busy at 100% of a CPU.
 
- BUG: kernel NULL pointer dereference, address: 0000000000000020
- Workqueue: events steelseries_status_timer_work_handler [hid_steelseries_arctis]
- RIP: 0010:xhci_urb_enqueue+0x1c8/0x350
- Call Trace:
-  usb_hcd_submit_urb+0x91/0x190
-  usb_start_wait_urb+0x8f/0x1d0
-  usb_control_msg+0xdd/0x150
-  usbhid_raw_request+0x11e/0x140
-  steelseries_arctis_9_request_status+0x63/0xb0 [hid_steelseries_arctis]
+Use xhci_dbg() like the other device-triggerable completion codes.
 
-Refuse to queue URBs to a device that has no root hub port yet. This
-also ensures no TDs are queued for a device without rhub_port, which the
-transfer event and halted endpoint handling code dereference as well.
+[mn: remove the "WARN" part of the debug message as well]
 
-Reported-by: Olli Salenius <opsalenius@gmail.com>
-Closes: https://lore.kernel.org/all/CACQx0bG4bvt4bHa+WG4u2UGmUc_YMUnhpWovz5+rzp76Jpb9ZA@mail.gmail.com/
-Suggested-by: Michal Pecio <michal.pecio@gmail.com>
-Fixes: e3d757dc9257 ("xhci: include all root port children in recovery prevention on link error")
 Cc: stable@vger.kernel.org
+Suggested-by: Michal Pecio <michal.pecio@gmail.com>
+Signed-off-by: Alex Kononov <alex@albefly.com>
 Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
 ---
- drivers/usb/host/xhci.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/usb/host/xhci-ring.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index fa6f8b879a18..7f0d34c465f8 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -1631,6 +1631,7 @@ static int xhci_check_ep0_maxpacket(struct xhci_hcd *xhci, struct xhci_virt_devi
- static int xhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flags)
- {
- 	struct xhci_hcd *xhci = hcd_to_xhci(hcd);
-+	struct xhci_virt_device *vdev;
- 	unsigned long flags;
- 	int ret = 0;
- 	unsigned int slot_id, ep_index;
-@@ -1683,9 +1684,11 @@ static int xhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 		goto free_priv;
- 	}
- 
--	ep_state = &xhci->devs[slot_id]->eps[ep_index].ep_state;
-+	vdev = xhci->devs[slot_id];
-+	ep_state = &vdev->eps[ep_index].ep_state;
- 
--	if (xhci->devs[slot_id]->rhub_port->link_inactive ||
-+	/* rhub_port is only set once the device is enabled or addressed */
-+	if (!vdev->rhub_port || vdev->rhub_port->link_inactive ||
- 	    *ep_state & EP_DROP_PENDING) {
- 		xhci_dbg(xhci, "Can't queue urb, port disconnect or link inactive\n");
- 		ret = -ENODEV;
+diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
+index a1fa188680f5..fca23daf6add 100644
+--- a/drivers/usb/host/xhci-ring.c
++++ b/drivers/usb/host/xhci-ring.c
+@@ -2815,9 +2815,9 @@ static int handle_tx_event(struct xhci_hcd *xhci,
+ 			  slot_id, ep_index);
+ 		break;
+ 	case COMP_ISOCH_BUFFER_OVERRUN:
+-		xhci_warn(xhci,
+-			  "WARN: buffer overrun event for slot %u ep %u on endpoint",
+-			  slot_id, ep_index);
++		xhci_dbg(xhci,
++			 "buffer overrun event for slot %u ep %u on endpoint",
++			 slot_id, ep_index);
+ 		break;
+ 	case COMP_RING_UNDERRUN:
+ 		/*
 -- 
 2.43.0
 
