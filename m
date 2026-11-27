@@ -1,79 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795803726;
-	b=sl/wGgXPuqF0rqniSkdOylnLEJrxqB8h1acLfT1S6W8Ly53bOP1ScBTxwjVQl8/8/pk0
-	 Foj2KcufYBmfasGa9bkMQ0vlDhdW9WwxzUP7tPRfAt4y5XyZ383NmPo9xabujBiBiNkkc
-	 YGzlcfe6tTiP5sZuoRoEs6wWh5cNWFhAC5B8VDzoG2OwzXRBDzRIApRgnjLmh/DaCYnm4
-	 0APgOyXUDdEtPQkFqh91eUHyZ349fNpnYD76bJK9zHFfghdgp27IthgY/4rO1030gPLfI
-	 hCRq0ehKGspbMwHdELfqL/iZyd21BqiuOtgLgR/TfmZuDDsxs+Y0tttEvBc6bUcNZng==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795803726;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VO2MI/YunwrxUfZfJWsCAxUoYcyw7ievfDccX9DC3Mo=;
-	b=IZSCIGzV8pL1VtioIJkZLym+Fx/wvr598RCzzEzRnqT14WAPmxt3IoaFtMCTC4KAWa8F
-	 PHrAc4STgewcjtB0XWx08T1TdolfKN1b/xEk2Yb2jYx9NZsO8g1IBPx1Eml3rOtSDDcJS
-	 NQyU0nMB0EB3k6+4D5k5TXkkkUYnQJUyDZHewTYiy7/qt+X0b31i9AXPpqofvAyt8emJx
-	 v67hTX/kCnLgua65nnfCA2lsU4IMSqPbdkQSZhFPvztpqSAQGhgojdglWXMyyCIyU41TT
-	 zVUJafE1exGR2d5GCLSs1HGbUuXP7OPHh+RKexOEyplAW/bQaIS0kmkYQHD8/9tltIg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m0nBNQOb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795804517;
+	b=X3Onmo/tTXlHr8pYRmGeY7YfzOcEwTodq1OPCwsgN6uZnmIVHGzfQ05zIhjA0zM0Xqd7
+	 IdaIO3gWey5pGyLMIhByiMhporCJxkERn+O5fXiG7XfF69o08yNmtoCtJKuRPsQcA/1LP
+	 Lt7NQi2ngJjgyh82L68oRs78y7voAQqig3aY7TCP6f36TRoUHPUCM3QTTpvZBKONfKezy
+	 LqKU+iBV9nOQbQud3dVFewOmnquvyE2l3pHIxK3bzc8/tKsQNLyI/YYnO+JgM4vQbNwk3
+	 FY/cw70vYVozGRcvODPkRhEH1rhfHEqMFCylxi1yUYAFnFvCPcKcxX6wtm+bj5JmE5g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795804517;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=VHzMiVyExLKNox+s2pz5emim2KQtzbhGBZ3vM7xAkk0=;
+	b=EjRmjoccvgRwtgnmjEwp5YFQHJ1osJp3Bs27iUCfuAjZ3cpZQYoF7wlzQ2LMhCvDT2Ox
+	 Mc/pwSssvZk1P9pXi4LVcx9i68r3VdzU9v5VpWO9j9Y30RNBaSW/gnPTJ2GX4+U3nqe/W
+	 FW0Ya2BByJTLDgAVxiLj1vtVtN1IfKETWziKgsbTQ6xlQOb7RzBi+7ehYFG8WTTxU2WsP
+	 tEFtgWy3PA9ixWOC2q+5GaRw7HxDDKg6EQe0KLu8T21q6G+1jriT4iggu6qRfJJ0vX8HX
+	 vqPFYkJUsvzkT0MqTb9hQZmjFY0Pp4JwWGXoDDULaNMqo6+ZRqppTqp4PZPT0sj6XFQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aE0Kqgw2;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D9A606A31C
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 18:22:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 06E25606A31F;
+	Fri, 27 Nov 2026 18:35:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m0nBNQOb
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795803725;
-	b=GzfNzhyR/28gtvbaiBTK1GLk8jxzh8dmSr0+3fB/CemrIsD5gIYhzdR0KEqfdDYhWz1U
-	 x9LwqAFFqJnGpUGVL+SO/4KjVBMf4oC0V47EjGwmsvkntt1INZxodHbbd+kAH4JKXV1kV
-	 0CObw5Y5gkp4BC0TY1/RrTjLOpjMuhgqRNCD3iu6HycI1EMS6s2g4rDgsMB3gMRZ+Tcg/
-	 BbytcAQCH7aRjnRvWngSyqUngdc6KnhZwbsFkbEJOkcWsM0UWET5gI3bAv8f1amjAF3zA
-	 JbUn+9ESlUj52+lVAsLrBlhtFF1Y+uQXhml/rCLNQeRo+RPy96hKCeiVaKvDjlgz4Uw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795803725;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VO2MI/YunwrxUfZfJWsCAxUoYcyw7ievfDccX9DC3Mo=;
-	b=VHRaBGW4dM/jfOjVf0whePhYd3dfLF6roLMWoGT7TiLlp7jNcJtAa4MP3i74/W6JAEwX
-	 ddUPFMkvgT3muFBSMl2gs9KNoR/hhvLDwwoBwv1pkG/vJ9kCFBvLx92bAx1jHGGzHxblw
-	 cKMtV76as9lfv8jjlEOP85k3RSd1djVZ68hDGQWKWIQ8EtlfVr+l2GACrpnfx4h3McbEL
-	 Jgx4sZRsQ6/ovyF72nfghk6UOVfi1+vac7sPuac4NHRiHjWK1LiA4VXu1lCySo9d2qK0y
-	 dJZk9bI42k9ffHL6ssDIfLTbh1sE31fJXo069zK/1FX7FuFgsLxq73MhZFOiphrg/UA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C2D821F00897;
-	Fri, 27 Nov 2026 18:22:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aE0Kqgw2
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E68A71F00893;
+	Fri, 27 Nov 2026 18:35:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795803725;
-	bh=VO2MI/YunwrxUfZfJWsCAxUoYcyw7ievfDccX9DC3Mo=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=m0nBNQObplJws0Ityly9un82+TYnIh4QMtuKCtBV3dYUX+FGKkdtG/QuTY0JsKUHj
-	 AAm+M0KVUNNhZYe3nzmvY5iy1fsiO4wdJa/o8kK7SyeFrCeOqhiOpcFQJeDMrSRpUd
-	 9BTWcbnU33c+MVoDefAPZFHKpQ8b0Rcv+egO/EmKnNhPQqzmO/FfO6kfZ7nkde0sLl
-	 FBhDXNCCH7xCIe7iLGPbSDTljH4iEMhto2ZvpewA5WtiXpaozWeFuIhhTPDitLh688
-	 eGJ4ZM9yT5pWHZ+Mz/YyaxrW4ilt+6N+8yk3um+1+aZMIbm9+v85Ohhp3yEWAhbXsa
-	 dS+WUpVP5bDlQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4F3CC4DD0A;
-	Fri, 27 Nov 2026 18:22:01 +0000 (UTC)
-From: Ani Aggarwal via B4 Relay <devnull+antiani100.gmail.com@kernel.org>
-Date: Fri, 27 Nov 2026 10:21:52 -0800
-Subject: [PATCH] drm/i915/psr: Add quirk to ignore PSR setup time on Dell
- XPS 15 9520
+	s=k20260515; t=1795804516;
+	bh=VHzMiVyExLKNox+s2pz5emim2KQtzbhGBZ3vM7xAkk0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aE0Kqgw2SJzqjut3kj5bht3xHrxhvGAUzV5tHRvZvlTR00qTJn38BWF4h+OoCTb9t
+	 bd9yWalblH11fl2BbrmI6fcHXUZGyoei3e+dwK+D4O1Sq1J87Z8bcJ3lr07XOXBHSG
+	 83MF4lRJEHFahf+TFYXcuT5ltwq4iTRfkCVo+gV07D9Tgpq6AydH3NqyuuQ4BUYCOT
+	 quSli1FzTOK+ybT2Ymv3ttvbbWluXForYW0+T1cO4fpZ83lCZxGCwG9dsNECIXCbc4
+	 E2kiaGoEDt6yo8yVEJV2bBksjbJ0wmWgb2RSFLWKKCFf/xSL0DOs8CShPPIwLx9GRB
+	 E7qascnNxHXtA==
+Date: Fri, 27 Nov 2026 20:35:12 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Zhenwen Liang <zhenwenliang@google.com>
+Cc: Mimi Zohar <zohar@linux.ibm.com>, David Howells <dhowells@redhat.com>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
+	linux-integrity@vger.kernel.org,
+	linux-security-module@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] KEYS: trusted: Wait for RCU callbacks before module
+ unload
+Message-ID: <awnNYPFsGQazUMXu@kernel.org>
+References: <20261126200103.2806716-1-zhenwenliang@google.com>
+ <20261126200103.2806716-2-zhenwenliang@google.com>
+ <awiZuKwNUP6mi6Yg@kernel.org>
+ <awiaH6sIiISN19Q6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,141 +64,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261127-xps9520-psr-setup-time-v1-1-692c17859301@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ6CQAxFr0K6tpGpYKJXMS6YoUCNDJN2MCSEu
- wu6fD//vRWMVdjgXqyg/BGTKe7gTgWEoYk9o7Q7A5V0dY4qXJLdaioxmaJxnhNmGRkDVe2ldhQ
- 68rDLSbmT5Rd+PP9ss39xyEftePjGGL02MQzHNKn0Es+tjigx8xsjLxm27Qum12K/ogAAAA==
-X-Change-ID: 20261124-xps9520-psr-setup-time-c24d3512cf2b
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- =?utf-8?q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, stable@vger.kernel.org, 
- Ani Aggarwal <antiani100@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795803721; l=4349;
- i=antiani100@gmail.com; s=20261125; h=from:subject:message-id;
- bh=318c4BOjroDNrkIKKte4IuzP8nHEwhcDbXg4u+A0OqA=;
- b=kke/ZkF1cQ+rI/ACJJ74rhj0beBUuKU0hWmQSckrVUM/VjiyuIVg2l/HwJXBAy/LKaNVtH5Xt
- bLBST0JCmlMDzOvTwEhm/PxeyXF4eMthSxW+/r6mphGGJ1Zh+C76PMI
-X-Developer-Key: i=antiani100@gmail.com; a=ed25519;
- pk=lKco5sHiv9Mkqd7wU58OKQWw9dm6Hv4Pe7jGlp3eSsw=
-X-Endpoint-Received: by B4 Relay for antiani100@gmail.com/20261125 with
- auth_id=1668
-X-Original-From: Ani Aggarwal <antiani100@gmail.com>
-Reply-To: antiani100@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <awiaH6sIiISN19Q6@kernel.org>
 
-From: Ani Aggarwal <antiani100@gmail.com>
+On Thu, Nov 26, 2026 at 10:44:15PM +0200, Jarkko Sakkinen wrote:
+> On Thu, Nov 26, 2026 at 10:42:36PM +0200, Jarkko Sakkinen wrote:
+> > On Thu, Nov 26, 2026 at 08:01:03PM +0000, Zhenwen Liang wrote:
+> > > trusted_update() frees the old payload with call_rcu(), and the
+> > > callback, trusted_rcu_free(), is part of trusted.ko. cleanup_trusted()
+> > > calls the trust source's exit callback, which unregisters the key type,
+> > > but nothing waits for callbacks that are already queued, so the module
+> > > can be freed while a trusted_rcu_free() callback is still pending.
+> > 
+> > +1
+> > 
+> > > 
+> > > Add an rcu_barrier() after the exit callback. As for encrypted keys, no
+> > > new callback can be queued once unregister_key_type() has returned. If
+> > > no trust source was found, the key type was never registered and
+> > > trusted_key_exit is NULL; the barrier is then harmless.
+> > > 
+> > > Tested in QEMU (x86_64, TCG) without a trust source, so only the
+> > > trusted_key_exit == NULL case ran: trusted.ko loads and unloads cleanly
+> > > with this patch (5 runs). The trusted_update() path itself was not run,
+> > > because no TPM was available.
+> > > 
+> > > The problem was found, and this patch prepared, with the help of a
+> > > formal analysis tool we are developing that uses AI assistance; I have
+> > > reviewed the analysis and the patch.
+> > > 
+> > > Fixes: d00a1c72f7f4 ("keys: add new trusted key-type")
+> > > Link: https://lore.kernel.org/all/20261126023538.4160950-1-zhenwenliang@google.com/
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Zhenwen Liang <zhenwenliang@google.com>
+> > > ---
+> > >  security/keys/trusted-keys/trusted_core.c | 1 +
+> > >  1 file changed, 1 insertion(+)
+> > > 
+> > > diff --git a/security/keys/trusted-keys/trusted_core.c b/security/keys/trusted-keys/trusted_core.c
+> > > index 0509d9955f2a..5efd1e6ef111 100644
+> > > --- a/security/keys/trusted-keys/trusted_core.c
+> > > +++ b/security/keys/trusted-keys/trusted_core.c
+> > > @@ -401,6 +401,7 @@ static void __exit cleanup_trusted(void)
+> > >  {
+> > >  	if (trusted_key_exit)
+> > >  		(*trusted_key_exit)();
+> > > +	rcu_barrier();
+> > >  }
+> > >  
+> > >  late_initcall(init_trusted);
+> > 
+> > Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+> 
+> Pushed (to master for the time being).
 
-The Samsung OLED panel (EDID SDC 0x414d, sink OUI ba:41:59) in the
-Dell XPS 15 9520 reports a PSR setup time of 330 us: DPCD 0x071 bits
-3:1 are 000b, the default encoding. Its only mode, 3456x2160@60 with a
-528.19 MHz pixel clock, htotal 4016 and vtotal 2192, has a 32 line
-vertical blank of about 243 us. intel_psr_entry_setup_frames()
-therefore rejects PSR on this display version 13 (ADL-P) platform:
+Pushed to for-next-keys i.e., I'll piggyback them to a PR next week.
 
-  PSR condition failed: PSR setup time (330 us) too long
+Thank you.
 
-so the panel never gets PSR, DC5/DC6 are never entered and the package
-does not go below PC3 with the panel on.
-
-Forcing the check to pass (a 220 us setup time, which fits the vblank)
-lets PSR1 enable. The sink enters self refresh on a static screen, no
-PSR aux or sink errors were seen, and idle package C-state residency
-moves from PC2/PC3 to PC6 and PC8.
-
-Before display version 20 the setup time is only compared with the
-vblank length and is not programmed into the hardware, so add a DPCD
-quirk for this machine and panel that skips the check.
-
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17943
-Cc: stable@vger.kernel.org
-Signed-off-by: Ani Aggarwal <antiani100@gmail.com>
----
-Tested on 6.18.64 with this backported; build-tested with W=1 on
-drm-intel-next.
-
-This is my first patch, please let me know if I need to change anything!
----
- drivers/gpu/drm/i915/display/intel_psr.c    |  9 +++++++++
- drivers/gpu/drm/i915/display/intel_quirks.c | 16 ++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
- 3 files changed, 26 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 438cb1502..5a7a35bfb 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1347,6 +1347,15 @@ static int intel_psr_entry_setup_frames(struct intel_dp *intel_dp,
- 		return -ETIME;
- 	}
- 
-+	/*
-+	 * Before display version 20 the setup time is only checked against
-+	 * the vblank length, never programmed, so a quirk can skip the check
-+	 * for panels that report a setup time they don't need.
-+	 */
-+	if (DISPLAY_VER(display) < 20 &&
-+	    intel_has_dpcd_quirk(intel_dp, QUIRK_IGNORE_PSR_SETUP_TIME))
-+		return 0;
-+
- 	if (intel_usecs_to_scanlines(adjusted_mode, psr_setup_time) >
- 	    adjusted_mode->crtc_vtotal - adjusted_mode->crtc_vdisplay - 1) {
- 		if (DISPLAY_VER(display) >= 20) {
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index ec3a79c87..cce29a9b6 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -94,6 +94,14 @@ static void quirk_disable_edp_panel_replay(struct intel_dp *intel_dp)
- 	drm_info(display->drm, "Applying disable Panel Replay quirk\n");
- }
- 
-+static void quirk_ignore_psr_setup_time(struct intel_dp *intel_dp)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+
-+	intel_set_dpcd_quirk(intel_dp, QUIRK_IGNORE_PSR_SETUP_TIME);
-+	drm_info(display->drm, "Applying ignore PSR setup time quirk\n");
-+}
-+
- static void quirk_disable_psr2(struct intel_display *display)
- {
- 	intel_set_quirk(display, QUIRK_DISABLE_PSR2);
-@@ -303,6 +311,14 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
- 		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
- 		.hook = quirk_disable_edp_panel_replay,
- 	},
-+	/* Dell XPS 15 9520 with the 3.5K OLED panel */
-+	{
-+		.device = 0x46a6,
-+		.subsystem_vendor = 0x1028,
-+		.subsystem_device = 0x0b19,
-+		.sink_oui = SINK_OUI(0xba, 0x41, 0x59),
-+		.hook = quirk_ignore_psr_setup_time,
-+	},
- 	/* Dell XPS 16 DA16260 */
- 	{
- 		.device = DEVICE_ID_ANY,
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index c64d0fc39..1d05fd439 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -25,6 +25,7 @@ enum intel_quirk_id {
- 	QUIRK_DISABLE_PSR2,
- 	QUIRK_ENABLE_DPCD_BACKLIGHT,
- 	QUIRK_ALLOW_EDP_JOINER,
-+	QUIRK_IGNORE_PSR_SETUP_TIME,
- };
- 
- void intel_init_quirks(struct intel_display *display);
-
----
-base-commit: accacc0e5e1f1446af365770e88d344b7786ac82
-change-id: 20261124-xps9520-psr-setup-time-c24d3512cf2b
-
-Best regards,
---  
-Ani Aggarwal <antiani100@gmail.com>
-
-
+Br, Jarkko
