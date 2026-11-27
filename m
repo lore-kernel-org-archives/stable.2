@@ -1,63 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795814510;
-	b=1pfH9gBeHEBSiHTF9SJ4FfN7TOIbbOgEppSRAt7dZzaU4oUf5S6t+v18+BJC3br1Dfx7
-	 wXgl+cPejS5+IXqOIlOFUS8PPA1VXo3642fPHrTCPJAJOtFKu5N8ezU1CagEvytHcgoE1
-	 D6SInQpfAV6svfhZGWM1Jdgi3EAGN+7FLWW4OouXcqvHOIx/xL9J/Vn9aJZsxP+1LORvi
-	 Tr4W+rbgcjm38cz5f8zcVGooCZDT3FK6irtSuP1th2vb7lBK1J1dg0Al7dSgU/FjzVNHc
-	 zQjRo+IDAm4rX4PVe20nK+5JUyMxb32iIcAaL0i5QgpIr8pr/zm8AfKbjTq2Gb6elXQ==
+	t=1795814897;
+	b=aOhHeKHJgMk7u9K3VLKGkZt2BvStBr+m5nEDTqHYcIhUxmyypAFQA9Yysbo+X9WBdpOT
+	 Nnq6w4G1NaDgBqyvgiUk3fOqNlL0r9F/oW5DnOwNxY6lbmdVszbWnl7PnqRhBzquwA6vM
+	 s1+1FHBak7AUpIVVO76qaubDzhvCIOLybsPi4xujY8mskMKzpvP4qLOTnC1HR6Uy+I3XP
+	 zewsmV1z4ez1YYnrIjQGZG3M84BGOu56uiEhCDXtDvFZmR3mA5FjlZTuwWemxGnnvMKz1
+	 twM0IvR79SIc8hlK7dG5E/7EKTT+BWDcwViHlXYonstbRnX8Ds8hCXgNncaplASj8vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795814510;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=wctQaa4+oug07SAylojzJ054zlJWMzb1RewZ5KzRtMM=;
-	b=niojBkin54vIMAVLDp2p/xI76JX7M2pHChat0xsAtQTvV8ymyF8dAr9yGGS9vgqZjoUp
-	 GARV2+DErQkAP5YTl2Tcp0jbMoVkvWA++E/2lgFr0tfZsjLzDvXUm80zcRHJWiLRl4xjf
-	 5IqrFtHtxOnZd8D2TF7N0o4cKrvLHbZ+Gs2gL3a6Vb+htOhRu1eIwrGCF0lqJgEuqbXmS
-	 ZP8Dc9IYsSrTktkgdJGOQ99gz/FJ7dMSmSStA2nDesJC2D82k+DJwq7JtAIhpzhsCc0X8
-	 DusiWtbzE7/4bqAHAOFlMjL3eyeC6k352IVYmtCXJj7r/AYhRV/eWo29WkWVqW0hKOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795814897;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=+mb9rF6VJRzXR4i4y89PW+yVWJyrkXOWuPHAFuVlX7c=;
+	b=BP+AmNobwkmw8DwdwO83wLq9aujEGip9+4+B1xZN8mnurwIRtQ814hVBxRVX7qz7Di90
+	 zL4VOcpCBOVCEKCOHgxH8ClI3gaVLiB8fHChdH0+7evYIq71+32hGnNc19QVCd0/cxEEJ
+	 pYQa6nDtveS0LifeUE4fgX4GBFZVuk+9gHsOED40Ai+K0p7x6WFCdt4bjtl/o5MHsZmoW
+	 KTV+iiq6I1qf7AFg1NC/8taYEzPwB3N11VJ50HYAdffHwU2/aBOBGa0o+IdUkrkbETTpQ
+	 aTUPS178Pc46W1V8lW/N3ZvNorFOtPNHvhrXPR3ZFo4MJBwIwIw+TjuBkGaUzdb0sTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hRXebOuc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WdnTQM0m;
+	arc=none smtp.remote-ip=209.85.218.71
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C04D606A31C;
-	Fri, 27 Nov 2026 21:21:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6B8606A31F
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 21:28:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C6B8606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hRXebOuc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C866E1F000C1;
-	Fri, 27 Nov 2026 21:21:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795814510;
-	bh=wctQaa4+oug07SAylojzJ054zlJWMzb1RewZ5KzRtMM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=hRXebOucKI08nPo50le2NMBN0BGP0AOzDoAaNNdAVq/25QRPg/rw23aHbEoViCREm
-	 /NZCQ3uhllGjJK+ZRwnDUjC/ZtK9mMiih/hHP5rRAOzgkgmkhFg3T/EC5lVCo8Qo0W
-	 pq630FIjzLNkW2UHfHSC6rFXS8cmRUtgYXJU5Yehn0kLMV7MuZjmpr78JT6ZHJvSDp
-	 o0FXXLVX9qDdZ6neEI4fd/tDmEMuQ7NTkJb2D0BIxO56sKN8QZB0/ECB0C1+LRI8MC
-	 zU5zv1o103+rmQt5IHgcE7paB8sUha2P4oLZiLf5h06eDI/pfATOxWHJGVgC2U3fvD
-	 0OWuxDUgrGFiA==
-Subject: Re: [PATCH net v2 1/4] net: skbuff: limit folio refcount when copying
- skb frag references
-From: netdev-bot+sashiko@kernel.org
-To: david@kernel.org
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, sdf.kernel@gmail.com, willemb@google.com, horms@kernel.org,
- akpm@linux-foundation.org, kas@kernel.org, songliubraving@fb.com,
- hannes@cmpxchg.org, riel@surriel.com, willy@infradead.org,
- ncardwell@google.com, kuniyu@google.com, pfalcato@suse.de, cel@kernel.org,
- jlayton@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, stable@vger.kernel.org
-Date: Fri, 27 Nov 2026 21:21:48 +0000
-Message-ID: <179581450836.3135.326843222571201832@kernel.org>
-In-Reply-To: <20261126-skb_refcount_overflow-v2-1-a6f600a5634a@kernel.org>
-References: <20261126-skb_refcount_overflow-v2-1-a6f600a5634a@kernel.org>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WdnTQM0m
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c505eecba6cso665727966b.1
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 13:28:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1795814895; x=1796419695; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+mb9rF6VJRzXR4i4y89PW+yVWJyrkXOWuPHAFuVlX7c=;
+        b=WdnTQM0m8LO+yuAjtAy0mmfS+ur+8+5LknV4Mw7UCvU9eLgcLVWZ3iOMkEuFrCgcbk
+         NR7hjGIHZ9GioNtrfRxRleS9JtbGFc4u+UXFzeYcSIl2/MCLSTBfXEQcte3k080g+D9A
+         H4FWpjW+deZRCbxbavWRsVbWQYH8ijvWp8rKQOSzwH4qxLo7a31c9Q/j03cyrvodpEE8
+         3Hk0bIgtEee8uGOs9bVCRrlUjHzdCDbwdKEF2msUbRWcHNAc48slGiXNrJlCLRoQ1GWm
+         oiRZ/PKkbOCHDklImmf037sZ4amMhrwIRDcX8G9hg/T09rUgpjRZF3CUGHW9wiaKEoeP
+         nw+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795814895; x=1796419695;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+mb9rF6VJRzXR4i4y89PW+yVWJyrkXOWuPHAFuVlX7c=;
+        b=OqeTPqYmd6Crf66DN6Td4ScATKU9C4wvqHHfVx9dXJ3waEDOld1E0xEUmJnz9DhQ+T
+         qtoTIxVLujKctb4ol8bs6cHAzkfm91ZYVJcm6yXzN1g3ATeiWGMR+D/DuqCVVRm7JD0J
+         gyEsLUMQSTt1aQI2K9XuAhQ0B4+9ERpbHM+Q8+EPsdrmQzEdOzE0fmu+iGLJNi+iF3+r
+         Bc5O1NZo9mN+uKqnm3biuJOwabbmT9O3s4//Jc0bxzemVM/Z5AcXbt3qazaBWBHPN45X
+         SsHxxNF3LlJqfyKTnHN1PhJskBfezuqK9sWvhqHfnM7iFuKC7VVKmK6D1pheBspmVgF0
+         aitw==
+X-Forwarded-Encrypted: i=1; AL+hErGFttYXvrW9xzuBlKu1GgUOXnzjVdMon0vfgbkWwL5aVkXirGQZ6TwqLuiFMI7q/h0yvrwHdXI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++jH5djTL7wUNIUJZswkgRkv/DfMsc7QAkYs3byjf+yCBqhaVr
+	6S04VkyIgiptREBUCiJwxJbvSyOgegXP8J7E51fGwVBkepQtvLIBdLzapiewniWI34gv9iIwbPV
+	goh7Pcq+R0rHaIxGh+uIU6w==
+X-Received: from ejbbx9.prod.google.com ([2002:a17:906:a1c9:b0:c50:487b:9fb8])
+ (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:906:c10e:b0:c41:5e31:5184 with SMTP id a640c23a62f3a-c513a99abe6mr2130168566b.13.1795814895264;
+ Fri, 27 Nov 2026 13:28:15 -0800 (PST)
+Date: Fri, 27 Nov 2026 21:27:43 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,68 +75,63 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
+Message-ID: <20261127212743.1139739-1-vdonnefort@google.com>
+Subject: [PATCH v1] KVM: arm64: Use CNTPCT_EL0 for hyp trace clock
+From: Vincent Donnefort <vdonnefort@google.com>
+To: maz@kernel.org, oupton@kernel.org, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
+Cc: joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, 
+	yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, 
+	kernel-team@android.com, fuad.tabba@linux.dev, 
+	Vincent Donnefort <vdonnefort@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+trace_hyp_clock() reads the virtual counter (CNTVCT_EL0). Under nVHE
+(and pKVM without hVHE), loading a guest with a non-zero offset applies
+that offset to CNTVCT_EL0, corrupting the trace timestamps. Use
+CNTPCT_EL0 instead.
 
-Low priority / nit picks for your consideration:
+Cc: stable@vger.kernel.org
+Fixes: b22888917fa4 ("KVM: arm64: Sync boot clock with the nVHE/pKVM hyp")
+Reported-by: Fuad Tabba <fuad.tabba@linux.dev>
+Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+---
+ arch/arm64/kvm/hyp/nvhe/clock.c | 2 +-
+ arch/arm64/kvm/hyp_trace.c      | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-- [Low] Concern: this commit converts only pskb_expand_head(),
-  __pskb_copy_fclone(), skb_zerocopy() and pskb_carve_inside_*() to the…
+diff --git a/arch/arm64/kvm/hyp/nvhe/clock.c b/arch/arm64/kvm/hyp/nvhe/clock.c
+index f3e2619db4e4..ea4412e6737c 100644
+--- a/arch/arm64/kvm/hyp/nvhe/clock.c
++++ b/arch/arm64/kvm/hyp/nvhe/clock.c
+@@ -54,7 +54,7 @@ u64 trace_hyp_clock(void)
+ 	u64 bank = smp_load_acquire(&clock->cur);
+ 	u64 cyc, ns;
+ 
+-	cyc = __arch_counter_get_cntvct() - clock->data[bank].epoch_cyc;
++	cyc = __arch_counter_get_cntpct() - clock->data[bank].epoch_cyc;
+ 
+ 	if (likely(cyc < clock->data[bank].cyc_overflow64)) {
+ 		ns = cyc * clock->data[bank].mult;
+diff --git a/arch/arm64/kvm/hyp_trace.c b/arch/arm64/kvm/hyp_trace.c
+index b9404496f977..06d6bd7aeac7 100644
+--- a/arch/arm64/kvm/hyp_trace.c
++++ b/arch/arm64/kvm/hyp_trace.c
+@@ -510,8 +510,8 @@ int __init kvm_hyp_trace_init(void)
+ 			per_cpu(timer_unstable_counter_workaround, cpu);
+ 
+ 		if (IS_ENABLED(CONFIG_ARM_ARCH_TIMER_OOL_WORKAROUND) &&
+-		    wa && wa->read_cntvct_el0) {
+-			pr_warn("hyp trace can't handle CNTVCT workaround '%s'\n", wa->desc);
++		    wa && wa->read_cntpct_el0) {
++			pr_warn("hyp trace can't handle CNTPCT workaround '%s'\n", wa->desc);
+ 			return -EOPNOTSUPP;
+ 		}
+ 	}
 
---
-
-net: skbuff: limit folio refcount when copying skb frag references
-
-This commit adds skb_frag_try_ref() and skb_frags_try_ref(). Both take
-frag page references with try_get_page(), so they refuse a new reference
-when the folio refcount is at its limit. The commit converts
-pskb_expand_head(), __pskb_copy_fclone(), skb_zerocopy() and
-pskb_carve_inside_*() to these helpers, and those functions now fail when
-a reference can't be taken.
-
-> Let's introduce skb_frag_try_ref() and skb_frags_try_ref(), which use
-> try_get_page(), and use them in pskb_expand_head(), __pskb_copy_fclone(),
-> skb_zerocopy() and pskb_carve_inside_*(). All of these can already fail,
-> and their callers handle that.
-
-[Severity: Low]
-This isn't a bug, but could the commit message mention the frag reference
-sites that still use plain skb_frag_ref() at this point in the series?
-
-In net/core/skbuff.c, these still take unchecked references:
-
-skb_segment():
-    skb_frag_ref(nskb, skb_shinfo(nskb)->nr_frags);
-
-skb_try_coalesce():
-    skb_frag_ref(from, i);
-
-skb_shift():
-    skb_frag_ref(tgt, to);
-
-skb_split_no_header():
-    skb_frag_ref(skb1, k);
-
-Outside skbuff.c, the same applies to tcp_clone_payload() in
-net/ipv4/tcp_output.c, and to iptfs_skb_add_frags() and
-iptfs_consume_frags() in net/xfrm/xfrm_iptfs.c.
-
-The next patch in the series, "net: skbuff: limit folio refcount when
-rearranging skb frags", converts skb_segment(), skb_try_coalesce(),
-skb_shift() and tcp_clone_payload().
-
-That patch also explains why skb_split() is left unchanged. Each split
-allocates a new skb that is charged to the socket, and the references are
-dropped once the data is acked.
-
-The cover letter (merge 25f5c92e1ac0) leaves IP-TFS reassembly out on
-purpose, because it needs one new inner skb per additional reference.
-
-Would a short note saying that the remaining callers are converted, or
-skipped on purpose, in the follow-up patch be worth adding here?
-
+base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261126-skb_refcount_overflow-v2-0-a6f600a5634a%40kernel.org
+2.56.1.839.g22a8290db9-goog
+
