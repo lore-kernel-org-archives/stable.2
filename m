@@ -1,57 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795802638;
-	b=znkKqUHEN1poBNBC9epOB/DA1k6UwGWTk8rtdxYzcwNJWyjIvM+YsKpSst9wekL7N0L6
-	 ctqQ9HzlrAsUe1NylGnM0XY2yiandoAXbSsV9qoctIQvpqeMncUwXAZCQtnlpaw/dWdR8
-	 fMBahM1jU+ZJMwlaGF6HPhMl3iD2Ha/f3rmTSwkSzPd7lLqI7e0r2zrT4xznr45yctyHa
-	 J92MwfgWonZLmBVLT4ah70fUEFdXqNgabSsdvYfLKYVddaSCdcl15SXokeYHfIGtQgu3C
-	 7VENKAaKuQSThMz4gz0v8bWBzgD6tj7ZQ3CHSrcgWDyU75iL4mMU0rg7hwf3XprptpQ==
+	t=1795802673;
+	b=JcFsYrpJVsT4y3cVgai+f3LMKWwm3dfXs5FJ6Tv8wQsLNVHgjn2SWkZNDyLpeHvG9g8T
+	 9pZmH2QWB4Iw6yFCcutXMJKt6ChmMRIUpvVeQaHtnXEOU2kZVz6KeUk2zwCX8k19wD4ul
+	 jGgTabIoSlmZgpkvHH+AtQsyNbK/qV+EHCve73h8zeFPIFzvobDt0kdiQpLNh+RKKY3DY
+	 6POk8OTCLRcMgrRc/N5a6gBw3ru9O4CZ8HT2dfaCMFoUuTid2xueCMoQcJHm3U5CL158g
+	 smB3FpaXI3HNrL6ptFzeb0QH3MHRyioP75/xTN/WX7Yx2jqOa9eBv7WM+fiC3xhzjSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795802638;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=9pWZ3EWTAvBpk0cahRb0lTVvvb814awtr8WKr44+mVA=;
-	b=tfAG8lrbTFH9B/at2R9otu376p1MRV71Q7yr2gelf0LEA8a2fDyuukOiYP+YvwMn7K4t
-	 o78DUDXcCp5siaMGWDRRwhvEFxrksYZQqrGZ5MlOpDqLc9f+kGAe9oBHhDej6KO07bo/v
-	 XA53oqIhGHbvErU2/nOIMPMIqj7ujdbnV5rgzoUP8OjlqQMc0OcU44e9A9ia5a5yAENS/
-	 R1W/Gv3vR0fWc91QyNeKyKWgsZN8HOpv4Z4tnpV4nGmjDDTY+B504XDogT3FfsY43uelU
-	 LzkXveS5nlhWfBd3yNHn4aucLyBpKMAlXIYYnCgn3SKvxIyXD2ZKhQgtlMNxX9W/U7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795802673;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Qe14tgxTCMfnyxp7bch1qUtRx5SdNgj5ROLZ22SbLsw=;
+	b=fRDV331+Hq310f9L9P/JXbtpFjk/Az5fdqf/B1+bSSH6tW8YG/5BU2pf84xz1JW3EsQ9
+	 J3aiGRPaUzZPyVm593i85Nx9qqwkLeFaXFyqcUuPcVarsh8D9FsCIDzTshYLDowRbonki
+	 u9aZYLVVfedwLxxv/ihgdKN/rSnkxXIx8bqfPsa1IheCDZDHdrEz+a2Tla4gVVq04etji
+	 yIydCK+KJ9t4cfY9aQPHEbIClaXedwY/nX71arCILYU9pWUeh4AVU+IGucI3/5LJdqXFm
+	 AOiWmbdoM09X24MV1jZKWCTWgnfU1TI4MBTiyuhckJBRgCwv1mpaVNH0ntZRw1I76/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=kaldtiCF;
-	arc=none smtp.remote-ip=216.40.44.17
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ne+u+HRj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02FE6606A31C;
-	Fri, 27 Nov 2026 18:03:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02FE6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1349E606A326;
+	Fri, 27 Nov 2026 18:04:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=kaldtiCF
-Received: from omf06.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id 8EDB4A77F5;
-	Fri, 27 Nov 2026 18:03:49 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf06.hostedemail.com (Postfix) with ESMTPA id A7BB82000E;
-	Fri, 27 Nov 2026 18:03:47 +0000 (UTC)
-Date: Fri, 27 Nov 2026 13:03:46 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Jaeyeong Lee <lee@jaeyeong.cc>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, linux-trace-kernel@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] tracing: Reject filter commands in perf function event
- filters
-Message-ID: <20261127130346.2caf63af@gandalf.local.home>
-In-Reply-To: <20261125060411.445-1-lee@jaeyeong.cc>
-References: <20261125060411.445-1-lee@jaeyeong.cc>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ne+u+HRj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6636C1F00893;
+	Fri, 27 Nov 2026 18:04:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795802672;
+	bh=Qe14tgxTCMfnyxp7bch1qUtRx5SdNgj5ROLZ22SbLsw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ne+u+HRj00++BdWk3T7wUB6ThytNoyacf0tNpaP9od9pUDdyZ+Vqi9d8Rqv6QZFc6
+	 +tnx40B9oeYkM9E+dvOCx8KrvJ+AAO18LrWIweb4WOUhJTAz44bwa6K+cGK/RpvZla
+	 MDQpC8B6jKPz22CLFsTA8DZiGXoXY0s/V1aB9yk0NGiq54gFP+eTHHpBDyAe4Y/5KI
+	 Mk5ToF0hZXrODsbw3zwtG7sWIqpL4yIfy34IbybbgHSbjEiq4enbf5sHvTTZpTanGV
+	 +VB4aYE9HDboJ9T1/cmmQpJZFYzjN8x4J2LC8mqgs1m360jkCEeFZGznLZ1j8lFY6o
+	 LJ/fsuw/Ldb1w==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	linux-samsung-soc@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 01/12] clk: samsung: exynos5-subcmu: Detach power domain on add failure
+Date: Fri, 27 Nov 2026 18:03:09 +0000
+Message-ID: <20261127180416.3277544-2-lee@kernel.org>
+X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
+In-Reply-To: <20261127180416.3277544-1-lee@kernel.org>
+References: <20261127180416.3277544-1-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,132 +74,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout06
-X-Rspamd-Queue-Id: A7BB82000E
-X-Stat-Signature: aa3ku49etq5heib8116fmey8957jchin
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19ESAvDAcOS6rFJ3VY0F2ntNB+MKBfNvUw=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=9pWZ3EWTAvBpk0cahRb0lTVvvb814awtr8WKr44+mVA=; b=kaldtiCFQc6lwivJefi+IYI2OOVftvy9gAcFSinswzJ0jdqAHM099Oyz+uWDPheshnkKK5Uih4yttVPJv4SxBmGRFvRIT3s35DW8CoOYkqcNQACuEHmDHrJGjJTZJIlOHlDjqhDkPJHNaAH6ZwWsXSqovVx/vp1SEOcITxVnME8=
-X-HE-Tag: 1795802627-954037
-X-HE-Meta: U2FsdGVkX19IbsaVSUwUxngVcYthpSe6DD2fir3oDKhubmjRVl5vCa33k0aM9IerwPuvs5J8rP7CdVH5zwCFxlplNVhZxXZ/xdbho9zlH/nwgyDc5Dvn9dPBZbm/yZe2c5kZ6FIDZFfiuhlEXQBU8kJDkWw1AWOD7bSv5JrWHSVc2kad9nIAEkcrRtnOmkTOcCGIDpTMv5oME+Iqp6Klh/ywoOO33PBnoLOcwGbNJKb9+AWA6KVIHmExfORylHnfTWRvCDxFz4n7vOTnUTdAa+R44BGHmvJyRaZpzVzn1KThqz2rJFdfXCrLnKRZG5QiRn/WIy8C2nPjXKw/q/IfIw3a27Ly8zIZ
+Content-Transfer-Encoding: 8bit
 
-On Wed, 25 Nov 2026 06:04:44 +0000
-Jaeyeong Lee <lee@jaeyeong.cc> wrote:
+exynos5_clk_register_subcmu() attaches &pdev->dev to its generic power
+domain via of_genpd_add_device().  If platform_device_add() then fails,
+it frees pdev via platform_device_put() without detaching it from the
+power domain, leaving a dangling device pointer in the genpd device
+list.
 
-> The perf function event (ftrace:function) keeps a CPU number in
-> event->ftrace_ops.private: perf_ftrace_function_register() stores
-> nr_cpu_ids there, and the TRACE_REG_PERF_ADD/DEL callbacks store
-> smp_processor_id() and nr_cpu_ids.
-> 
-> Since commit 31f505dc7033 ("ftrace: Implement :mod: cache filtering on
-> kernel command line"), ftrace_set_regex() treats ops->private as a
-> struct trace_array when the pattern contains a ":mod:" command. The
-> "ip" filter of a perf function event is passed unchanged to
-> ftrace_set_filter() and ftrace_set_notrace(), so a filter such as
-> 
->   ip == foo:mod:bar
+Record the return value of of_genpd_add_device() (keeping attachment
+non-fatal when power domains are disabled) and call
+pm_genpd_remove_device() before putting pdev if platform_device_add()
+fails.
 
-Hmm, I think this should be allowed to filter only on modules.
-Just not cache the module if it doesn't exist.
+Fixes: b06a532bf1fa ("clk: samsung: Add Exynos5 sub-CMU clock driver")
+Closes: https://sashiko.dev/#/bug/linux-0f461223-0d95-4e2c-b3d1-eac8e585e532
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+ drivers/clk/samsung/clk-exynos5-subcmu.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-> 
-> makes ftrace_set_regex() use the CPU number as a trace_array pointer.
-> When the module is not loaded, ftrace_set_hash() sets
-> FTRACE_HASH_FL_MOD on the filter hash of the new perf event, which is
-> still NULL. If an earlier pattern in the same filter created the hash
-> (for example "ip == vfs_read foo:mod:bar"), cache_mod() then
-> dereferences &tr->mod_trace at a small address instead:
-> 
->   BUG: kernel NULL pointer dereference, address: 0000000000000018
->   RIP: 0010:ftrace_set_hash+0x210/0x260
->   Call Trace:
->    ftrace_set_regex+0xc0/0x160
->    ftrace_profile_set_filter+0x24f/0x340
->    _perf_ioctl+0x531/0xb20
->    perf_ioctl+0x42/0x70
->    __x64_sys_ioctl+0x96/0xe0
->    do_syscall_64+0xf9/0x540
-> 
->   BUG: kernel NULL pointer dereference, address: 00000000000001f2
->   RIP: 0010:cache_mod+0xb7/0x1f0
->   Call Trace:
->    ftrace_set_regex+0x121/0x160
->    ftrace_profile_set_filter+0x24f/0x340
->    _perf_ioctl+0x531/0xb20
-> 
-> Perf function filters only take function name patterns, and the perf
-> ops has no trace_array to cache module filters in. Reject patterns
-> that contain the ':' command separator before they reach
-> ftrace_set_regex(). This is the result ftrace_set_regex() already
-> returns for such patterns when ops->private is NULL.
-> 
-> Both crashes were reproduced on v7.4-rc4 (8d7fe9885c62) in QEMU/KVM
-> with x86_64_defconfig plus CONFIG_FUNCTION_TRACER, using a test that
-> opens ftrace:function with perf_event_open() and sets the filters above
-> with PERF_EVENT_IOC_SET_FILTER as root. With this change both filters
-> return -EINVAL without a crash, and plain filters such as
-> "ip == vfs_read", "ip != vfs_write" and
-> "ip == vfs_read || ip == vfs_write" are still accepted.
-> 
-> This bug was found by static analysis.
-> 
-> Fixes: 31f505dc7033 ("ftrace: Implement :mod: cache filtering on kernel command line")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
-> ---
->  kernel/trace/trace_events_filter.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-> index a9d77df3e..da48210a6 100644
-> --- a/kernel/trace/trace_events_filter.c
-> +++ b/kernel/trace/trace_events_filter.c
-> @@ -2669,6 +2669,9 @@ static int ftrace_function_set_regexp(struct ftrace_ops *ops, int filter,
->  {
->  	int ret;
->  
-> +	if (strnchr(re, len, ':'))
-> +		return -EINVAL;
-> +
->  	if (filter)
->  		ret = ftrace_set_filter(ops, re, len, reset);
->  	else
-
-
-Does this work to fix the problem?
-
-diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index 5b161959e701..6e82941ee2e9 100644
---- a/kernel/trace/ftrace.c
-+++ b/kernel/trace/ftrace.c
-@@ -6808,9 +6808,6 @@ ftrace_set_regex(struct ftrace_ops *ops, unsigned char *buf, int len,
- 
- 	/* This can also handle :mod: parsing */
- 	if (next) {
--		if (!tr)
--			return -EINVAL;
--
- 		command = strsep(&next, ":");
- 		if (strcmp(command, "mod") != 0)
- 			return -EINVAL;
-@@ -6850,8 +6847,15 @@ ftrace_set_regex(struct ftrace_ops *ops, unsigned char *buf, int len,
- int ftrace_set_filter(struct ftrace_ops *ops, unsigned char *buf,
- 		       int len, int reset)
+diff --git a/drivers/clk/samsung/clk-exynos5-subcmu.c b/drivers/clk/samsung/clk-exynos5-subcmu.c
+index 373129847301..b0781e9f5640 100644
+--- a/drivers/clk/samsung/clk-exynos5-subcmu.c
++++ b/drivers/clk/samsung/clk-exynos5-subcmu.c
+@@ -137,7 +137,7 @@ static int __init exynos5_clk_register_subcmu(struct device *parent,
  {
-+	void *private = ops->private;
-+	int ret;
-+
- 	ftrace_ops_init(ops);
--	return ftrace_set_regex(ops, buf, len, reset, 1);
-+	/* ftrace_set_regex expects private to be a trace_array or NULL */
-+	ops->private = NULL;
-+	ret = ftrace_set_regex(ops, buf, len, reset, 1);
-+	ops->private = private;
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(ftrace_set_filter);
+ 	struct of_phandle_args genpdspec = { .np = pd_node };
+ 	struct platform_device *pdev;
+-	int ret;
++	int genpd_ret, ret;
  
+ 	pdev = platform_device_alloc("exynos5-subcmu", PLATFORM_DEVID_AUTO);
+ 	if (!pdev)
+@@ -145,10 +145,13 @@ static int __init exynos5_clk_register_subcmu(struct device *parent,
+ 
+ 	pdev->dev.parent = parent;
+ 	platform_set_drvdata(pdev, (void *)info);
+-	of_genpd_add_device(&genpdspec, &pdev->dev);
++	genpd_ret = of_genpd_add_device(&genpdspec, &pdev->dev);
+ 	ret = platform_device_add(pdev);
+-	if (ret)
++	if (ret) {
++		if (!genpd_ret)
++			pm_genpd_remove_device(&pdev->dev);
+ 		platform_device_put(pdev);
++	}
+ 
+ 	return ret;
+ }
+-- 
+2.56.1.839.g22a8290db9-goog
 
--- Steve
