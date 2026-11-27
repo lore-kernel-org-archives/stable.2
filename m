@@ -1,102 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795789558;
-	b=dHTp2HqhxZL1K6+tANF2FIHPG6liRHf92ryiGbFSNU1RKNir0IalcmyQyEIKW57XrUmd
-	 WfTTMz9RbS5NtzbiqMSoQzosqA5o+5kaYwvv8KRUQ58d8t/UFvSTVNAqFkHNF8LjqbzZi
-	 ucywg3bv7uDE1Mq3WskCTeTLJDbWPxIlj2d6LEr37D5cEstWuEx2kCmJOXYyMUAbRniKM
-	 KHXqJRmwkI/qWHyx6Sj8xKvEAkZdbJaor57k0BN8861lmpYeHk7T0IDidg3qkmdiHBltO
-	 esyKIAY5faQc8hjvn4zEnsq87fMcDtRwfc4ntGYJOhrtYMiHVOgaP8b2SgAqD//2IPQ==
+	t=1795789672;
+	b=H6au50w1pIktOII2ieVrxn61huv1IkRyp0l69LwIeCypLbDeJp0Hn7PttXgy3rX6RvgI
+	 SgCCU204bLmXpptf5jwNapiGAqBlPBSd1WI0ylE9uG9SpMxXimMVXzH1EDnKjTWQQH0wl
+	 ZQGI+EWNvZPOeK3BAa69/Dh68YQgoz9qrU1naN5dMNblxSXP8kND6IaTdAZYRaQv6PzKr
+	 92q7gRDHa1MhXyA1HftOPb3zCOcli+UlTtyrBZAGadXD5iFGZK0bpo2HrL1ylTRi2twSs
+	 mratJYCnh037d+S6q23d73t75SEiGq7ffKpbTSVbfQC4L5donNLs2TWAnhmarnFAycg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795789558;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795789672;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=CUYUcZ8zVrccdQp8eylc+qilfxVX7jnZyDSPYCH5vsQ=;
-	b=4VqVdjzsyYTefFW75AMsyvUFF/yUM1C8mugvKuzmmapzAQXvLjLaF9G7zvN7ZQZyonIi
-	 WemRzGrJAMD1fIJuElDu8nUiN5+fd5W8tOHyEiKDjdnt47DAFy10fbGpbOTL1bRKpMRqc
-	 pdmQdupmNF/iDIeQGEby33I9f0NqLDCSmegvP6BZ4bd7gGdxdYGAOjg6gDLhVy5Urd8Lr
-	 6kbGHf6lC41Wqdo/eMxFJ9vVc/YrR9v0VzntcwKYj2rQQ7yqrNaEln8klR5DVbuBIfk9G
-	 M4CdU6PUC8v6dyyQrf63s40Xun7ZAer54v1Zpm1xMiwL3xvTc1Bv5WbGDGS7QpzZBPg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=fmwxBbYiNPEFRVig1qeC7kHZSiWSAH+dmCLjzHg5iBo=;
+	b=t6zrMGuoumnmEKPqhM9qYFB+HQgORlqzxW1vYSECSCCbWMMEvfJcPStMTr45XaCP2e9K
+	 xC3o0IaVJbkus6GQoQFN7h3Knh1nUM9WqdHRjW+fwQdivNzdjCMkndYgM2hv95T3sobxH
+	 TUHTcA2GrwS/EVnT9LuvmubLO5az6z8DuN25FdwQdOsHMp2Nl83gz3gTWVpaitxRmn28e
+	 Iel55bzs9mR7a4QEpV4cFri+gIdOMEZMjlIQyW0XdTBd7hcpEsG2/Ph9d3ONn6R2QXKQf
+	 KzAagyTkL06klIl4/KGS9Hkv0avBCxfkTlKxRqqftVA3GVl7cO+D7ypSMErxEL08DtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cloudlinux.com;
-	spf=pass smtp.mailfrom=cloudlinux.com;
-	dkim=pass header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b=PNoPGUYd;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KhAvzGst;
+	arc=none smtp.remote-ip=209.85.221.71
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C51A606C73A
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 14:25:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C51A606C73A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cloudlinux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudlinux.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E04A6606A721
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 14:27:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E04A6606A721
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b=PNoPGUYd
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3b51a9606e8so1137539a91.3
-        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 06:25:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KhAvzGst
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48e4d1e29f3so6727155f8f.3
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 06:27:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudlinux.com; s=google; t=1795789557; x=1796394357; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CUYUcZ8zVrccdQp8eylc+qilfxVX7jnZyDSPYCH5vsQ=;
-        b=PNoPGUYd72bdVRNz6j5xAK9fj1N/kgvqWgnVi+dggqk/FcbIEE3jmb3pEonFHHWsQI
-         7TjQT8NVt2gY+sd52p5CjR07Wt8Mw7WRm5WiIUoT3i9eLTw5wYHp8ZxvOxbDJkBwi/8d
-         cF/urv3guhCw71osZosrgSwWuTHFwLD8s9sqb404M+SqyeGfnPfShOlb1XHsskrjbCAZ
-         xTE94+issUodeM8Ea44WxzBe8LFNVXPIqZxL6zyUP4BoIYW2Mom7a3rdjVDtjpcCo4Eu
-         OWovmwPB/T1z3kVlKyWj0BGfl9hYXgekn3omCY8LR3ZM7tJ1dRq/OO2v4mtrXma8jfel
-         Rh3g==
+        d=google.com; s=20260707; t=1795789670; x=1796394470; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fmwxBbYiNPEFRVig1qeC7kHZSiWSAH+dmCLjzHg5iBo=;
+        b=KhAvzGstpDXMZRfcStx9CvVCbkFHRYldWEODlqycEfI2+y47e7mxX2zpAPqbZ66Dov
+         8HL/HOTbAdfVCrChbMSyA3OWeHTaLkCtnwaUThAUTuOfWeEB7D2V/UnVboSR6zywIesr
+         +KFjPTF2vP1kvObXUDCnUjr4RZ0Xj9Pf7UMCKYVqr3UTlvL9/6niuop7i/YnnVQWXIoH
+         jIN/leia+g8GIHyglhzUyZSFmCV3b/gq2/auS4EdN+AZ4LH8ftZ71mBD6P6HD6gHXsRY
+         v593/ZvN9Au5rVsZF0/57Zrur8m/wYRTG+lDv0ny6FXFiKgjSgJdxNm7RhI5JYaEYZil
+         Sdww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795789557; x=1796394357;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1795789670; x=1796394470;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CUYUcZ8zVrccdQp8eylc+qilfxVX7jnZyDSPYCH5vsQ=;
-        b=IMeD+ZE4sINoMXtwX/tH2Po02f19rmNujLY/JpubDftrKQXdtyp6Y8KfhYq0LNxD3C
-         667VuYnSnNqQXYmir6qOrio3LApM72FeCO+U7Ttq+LxDrVIRzmFWTeBIboIgDDLCLPww
-         c5Sr6tcro1iXP18LzihE1nHbJMRjbQiaWnW8fT1onHlGKPbnO3ypUyYWwyDNh02brzbF
-         ggnNdYKg+lXjE7uDLq3cLphHXTsOKG1n8iNRy58YqWLDsli480lziCW77Xff0u9grDdA
-         cFLjJa+JBjWfuW/nt42xcXEQL0cesjg99hXpww0UqTP83m3GSDTJsixGUkhD28JMUyhN
-         qlOQ==
-X-Forwarded-Encrypted: i=1; AL+hErENMVrmJsC3hCu4dR8414Yw8ETMiORhUgjryQIdAysdTZTSShN8DCZnOzosAziDehEg2RLTMC4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Z9kM68K76X+LApjfVjQ15FtuQBEA9/B2bVDvIPbbyGjY8cgGV
-	9FAz/NZGrh6t/WCINiW3q05iNZD5W4f3k971zBFir9FbcGT1xwFBJk5vxqfO0ohi15k=
-X-Gm-Gg: AZFdTZfnFc3n0woJ/SbXifKC4qWTzY6RvzO8od5tP2lbetWLXVy3S4mQbzAze0hIHPI
-	8lHFcQPRAOxBTQKLYOXRVYWuMiTLe2T7VAIaL38Gd+t6uBxS+Xh++84peWxFq52g+CKNBqhsqeV
-	FULLmL88uh5p+kyL/KnCLZ0Zi8KUR16vKAepjNarHEjLDoorEBMBAwEABB4QBeoZoTDeBFfTfFM
-	j+Vjly4qc8hEfOVYOK5Zfy2a0odmG9UZymCuqVfM1Cnl/LSQEx5wzcrSCjADhOx/ayFWk3n1XVT
-	wGmY7p5BH8bmbl+HJAE+FyAg0K+g0rS7ptSygZXMbng034AWtTZBRhtAyV3IMyog4fhLWyYe11U
-	tPRgOtgZUtyVtMQm9ewTKoNbTr3ITNY6t4cQ8HhvkvwRJpIBOfYNVhpEyWTRzBhnE8J/cflkvG7
-	wYZ4me/oTwbvL8NEEQuHYw04siEuCXkTe/ZC9y2xA6d19Tg30NQdXM4oCdLR7wIIthRMUNLjyFA
-	4dLuzFO5ylsqXGOyai/deOJklHeb60LV+dKlXUYRaRwcqOEpcObGMA9b4+UofYpyehN5cCxlqnG
-	YmJfZUa7FDnGvwp/vbH/gh0ulivfUqigB9C6j35jEe0JGPgPYL70CulFdg==
-X-Received: by 2002:a17:90b:4b86:b0:3b5:35eb:5e94 with SMTP id 98e67ed59e1d1-3b535eb5ff2mr2981408a91.41.1795789556690;
-        Fri, 27 Nov 2026 06:25:56 -0800 (PST)
-Received: from rmustafin-laptop ([27.79.41.63])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b4dfbe54a2sm18324629a91.17.2026.11.27.06.25.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 06:25:56 -0800 (PST)
-From: Rustam Mustafin <rmustafin@cloudlinux.com>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Simon Horman <horms@kernel.org>,
-	Christian Hopps <chopps@labn.net>,
-	netdev@vger.kernel.org,
-	ipsec@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Rustam Mustafin <rmustafin@cloudlinux.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH ipsec] xfrm: iptfs: report the too big error to the frame's own socket
-Date: Fri, 27 Nov 2026 21:25:50 +0700
-Message-ID: <20261127142550.66326-1-rmustafin@cloudlinux.com>
-X-Mailer: git-send-email 2.52.0
+        bh=fmwxBbYiNPEFRVig1qeC7kHZSiWSAH+dmCLjzHg5iBo=;
+        b=uWffTrk5LVuVBLrCitbRbeAkoGEoD59TuVm+ysUkNcFeGD4IcRTApsvP+VSaWe8fc7
+         gwUVIOJEKBvdkZROcwtbShsG2VPFNjwiKGEoh6Ia7EjQwuTCASHizfVfIu9cjFi68Fzs
+         Wi6pRcB06ClwtVaflZEVLs7IqxlB4NkAkih9YYAYX0X41lRqiTgz4Iop7xGnfjqJd+wc
+         q+0iAJKF8zHxdq31Ix5bMZLy5NTqYeKtpEB+yU3kFkSiTaWyXs5+D+DP7NTitimUyzNf
+         HX76XcCsV9siDhYadAkjAu0t1NNw/u1bKluNQaz9Rt34R/e+fou7lWy4ioJltMEVSGFm
+         CTrw==
+X-Forwarded-Encrypted: i=1; AL+hErGIxi5MxIoERM/UwCNWXO/ag6+HG5R+Srk8Edz7UQvklLNbN0PNOSF5tJ62+uErEwN7InecZqs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9zMDFOxnvk/rdruqf0C/zD6u7HSAfXSaaAPcyXupSxWgA6YKfZ
+	JWC0vykWAHZT8oYsDwP1ymELGmzNj7Rnenl6BgiYALXI+tArgpS6yCfJhEkqQVjmPETIOFNNA0R
+	NLpsEgQPqRCw2wbxXAg==
+X-Received: from wrqv17.prod.google.com ([2002:a5d:4b11:0:b0:48d:efd3:32b4])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:8210:b0:4a2:1a:a116 with SMTP id 5b1f17b1804b1-4bb887865b5mr500739915e9.0.1795789669930;
+ Fri, 27 Nov 2026 06:27:49 -0800 (PST)
+Date: Fri, 27 Nov 2026 14:27:48 +0000
+In-Reply-To: <20261127102232.74796-1-adhyanshverma2010@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,78 +78,31 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261127102232.74796-1-adhyanshverma2010@gmail.com>
+X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
+Message-ID: <20261127142748.1874983-1-aliceryhl@google.com>
+Subject: Re: [PATCH] rust_binder: retry ready threads or fallback to proc
+ queue on dead thread
+From: Alice Ryhl <aliceryhl@google.com>
+To: Adhyansh Verma <adhyanshverma2010@gmail.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Carlos Llamas <cmllamas@google.com>, 
+	"=?UTF-8?q?Arve=20Hj=C3=B8nnev=C3=A5g?=" <arve@android.com>, Todd Kjos <tkjos@android.com>, 
+	Christian Brauner <brauner@kernel.org>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-iptfs_is_too_big() calls xfrm_local_error() when its sk argument is set,
-but xfrm_local_error() reports to skb->sk and dereferences it. vxlan
-passes its tunnel socket as sk for a forwarded frame that has no
-skb->sk, so an oversized forwarded frame on an IP-TFS SA with dont-frag
-oopses:
+On Fri, Nov 27, 2026 at 03:52:32PM +0530, Adhyansh Verma wrote:
+> When ProcessInner::push_work() attempts to deliver work to a waiting
+> thread from ready_threads, it previously checked only the first thread
+> with an 'if let'. If that thread has exited while waiting in the pool,
+> thread.push_work_inner() returns PushWorkRes::FailedDead(work).
 
-  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
-  RIP: 0010:xfrm_local_error+0x92/0x190
-  Call Trace:
-   iptfs_output_collect+0x2c2/0x1170
-   udp_tunnel6_xmit_skb+0x713/0xd90
-   vxlan_xmit_one+0x1ebc/0x3490
-   ip6_forward+0x1573/0x35c0
+A thread in `ready_threads` can never be dead: `Thread::release()` is
+only called from `BINDER_THREAD_EXIT` on `current` (which cannot be
+sleeping in `Thread::get_work()` with a `Registration` active) or from
+`Process::deferred_release()` after `ready_threads` is already emptied.
 
-Check the frame's own full socket instead, as xfrm4_tunnel_check_size()
-does, so a forwarded frame gets the ICMP error. Drop the now unused sk
-argument.
+So this case is unreachable, and I don't think we need this change.
 
-Reproduced on a KASAN kernel with vxlan forwarding over an IP-TFS SA;
-with the fix the oops is gone and an ICMPv6 Packet Too Big is sent. The
-xfrm_state.sh, xfrm_policy.sh, xfrm_policy_add_speed.sh,
-vrf-xfrm-tests.sh, pmtu.sh and ipsec selftests pass with and without the
-fix.
-
-Fixes: 0e4fbf013fa5 ("xfrm: iptfs: add user packet (tunnel ingress) handling")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/179551712630.3135.52212996809224784@kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Rustam Mustafin <rmustafin@cloudlinux.com>
----
-Assisted by Claude Opus 5.5 (claude-opus-5-5).
-
-A KASAN reproducer (single VM, vxlan forwarding over an IP-TFS SA) is
-available on request.
-
- net/xfrm/xfrm_iptfs.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
-index 0313a43aa8a9..ccdde630a825 100644
---- a/net/xfrm/xfrm_iptfs.c
-+++ b/net/xfrm/xfrm_iptfs.c
-@@ -1813,7 +1813,7 @@ static int iptfs_get_cur_pmtu(struct xfrm_state *x, struct xfrm_iptfs_data *xtfs
- 	return pmtu;
- }
- 
--static int iptfs_is_too_big(struct sock *sk, struct sk_buff *skb, u32 pmtu)
-+static int iptfs_is_too_big(struct sk_buff *skb, u32 pmtu)
- {
- 	if (skb->len <= pmtu)
- 		return 0;
-@@ -1824,7 +1824,7 @@ static int iptfs_is_too_big(struct sock *sk, struct sk_buff *skb, u32 pmtu)
- 	if (skb->dev)
- 		XFRM_INC_STATS(dev_net(skb->dev), LINUX_MIB_XFRMOUTERROR);
- 
--	if (sk)
-+	if (skb_to_full_sk(skb))
- 		xfrm_local_error(skb, pmtu);
- 	else if (ip_hdr(skb)->version == 4)
- 		icmp_send(skb, ICMP_DEST_UNREACH, ICMP_FRAG_NEEDED, htonl(pmtu));
-@@ -1908,7 +1908,7 @@ static int iptfs_output_collect(struct net *net, struct sock *sk, struct sk_buff
- 		/* If the user indicated no iptfs fragmenting check before
- 		 * enqueue.
- 		 */
--		if (xtfs->cfg.dont_frag && iptfs_is_too_big(sk, skb, pmtu)) {
-+		if (xtfs->cfg.dont_frag && iptfs_is_too_big(skb, pmtu)) {
- 			trace_iptfs_too_big(skb, xtfs, pmtu, was_gso);
- 			kfree_skb_reason(skb, SKB_DROP_REASON_PKT_TOO_BIG);
- 			continue;
--- 
-2.52.0
-
+Alice
