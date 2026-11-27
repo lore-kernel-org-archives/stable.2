@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795763319;
-	b=by9OLqfQyTY+bxP2uSlM+1O5K1NeoTIzuCLR7I8XLSCkc1gEWuWJlU88xar16tPVdGY3
-	 PPoK4aq7lMaUrv5QiiNplzsbx+EaYTYF4hgKBCG7rkA1iGliBXY9YNE6XjrL9qe3XiK3E
-	 YPN25E41Ax0/Y0JGn8PDNZdhUpeHxUh1MPHZcyZYQ+7F4JzwXGtuN5j7i8Dn7YrpwHqQX
-	 +eBCr3m+3ut1iCyDqEGJv3r90gNE7BbIILLKmmxef9nxEx+yl7d5nGtlSKfkN0asyNeXp
-	 Q3ne9nEMljPT7dAWhh8D4JxXPv8spuiNDfb539YhDhSCJtDeXoNMCsrXb54hpWDpFyA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795763319;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=uTud52MSv5zlX5vzr0q2e7lP5nMrrTTxhkLocH5qEKA=;
-	b=2d7HBxP3q42RpRCLkdZhD25qIEEwt79uqPKZlHMAChL6rSG+Lp/hfGi3bURxiR8WMgEf
-	 Nb7eoz5oNQxIUiSx0l71H5Zg2BIUeITqhdcT6AeBr8LSRYtRQYrvIIDMKNL8NXwyZp9BA
-	 bMzGlliaNeayCU9nuArABm8r7zW6yrE8l6VZn+39KDnOEaA+Aj9duioWirq1N4Fm/SPLn
-	 dP8uyCqyECW6fesXrZf+Ely0irTSmS1UDuyPySiSqrsCK6l3C8mYA8Og0mffe9/QI+haS
-	 Axo2iAt/h6rX/yVq1Y/JowXW26E9NknQoy16mod1/ZRI7n6TKJ0mVBl+vz6vHSqGr3A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=p6WLV8RV;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795763705;
+	b=XKzsdJIg7bf6Wsg4kqHMK+RO/K+ISfNBD+Jil2ecc8XBri7Yjz84wgHpxrRMN+FWn1Hs
+	 TepXvohdCjw8dYJEQW0zVibgNkByqsAAqSPOjJKZ4d8AWTa7vEGL0uX97rkAcExFspL7B
+	 YLLEPpMAE6fkrXFQLtfHsqelo0YITrwc1osDrXcAY1hKO8BuZdq70aykvRnR2NhUg3yaq
+	 aTIWq6JFsPDdWLjAU0/fMLKjYEMkvsXXDL3mNlHS7RQfZlBZtGC6jwqj9C0nSDyutjC7g
+	 hp90BagDgtCvOTdpx3S3k0xawh5GDPu3rjqAQcdiVy4N6cEE3WUfKSrVpvyJxDv2xVQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795763705;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=3eIOEhxcWvtndKWJeehNeph5ty9/sMNyztCMs1CgwKs=;
+	b=CyVw4TxHLyAiz+AnvRsQ/eVHpS2xsus0YmL5FIAx7UXELHzqoU3dgwv+c/RRTTzzO7/+
+	 GqW/RxcNx65G+vY52dlGTdBq6stlPqJGG+JJN+zY7ESyYjwWa160Ygu9fj0W2NpOoxsNO
+	 hyd+y8dduynsei/sWplBceL17sIFvZf4AJTMumLh6L47N32CWxWt3B8RBcsKNh7b/MUQl
+	 TSLe+KTcooNDtWthqRINjjxLYDXxyp6xiB1tqUK1wtU14QF3ba1ClUzHCAAdd5F1NCHC/
+	 O64Jqp4mYld7fC4MFAVk6QYQyA/oSrpWUXVak/Mzqxp7NRKrRwG8gJHpRuzL2T+ZzRQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQaL75C1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD49606A329;
+	Fri, 27 Nov 2026 07:15:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQaL75C1
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795763705;
+	b=TCyARde5+IiAns8oCWlG2MdVOZC3SXLiWTfbMyYesCGL6+AJGD+ILXO5qOrgsSL5pXoE
+	 qvpH5a7tz/Cah20GLSfu4xYsIkDBpa9yQcGtXwK1izK/9R5HQzjVu7suxqMujNnv+0LBx
+	 A+j0+a4veNJ9oexMaqYfogf/WoEK+mPmD+g/E1ObG+WCMfeDuvxzF6jzFHKKNJJwFejEY
+	 zX8qFBUVQLf7+cmRt18IR3t8TTn6i01A2B+WzCow5M9U9Mrfny4hk7/out6CzYt5Zq3Zg
+	 tGFXzffibEg3eOFHfvpjbvdFN9xkHxsQOSqe1FOFc/wSusKpzkRAsi6JS84gOSjcFtQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795763705;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=3eIOEhxcWvtndKWJeehNeph5ty9/sMNyztCMs1CgwKs=;
+	b=S90p26Uq1x4W+UUSjcMqlztqZnH0PkqZ08wY+asgUEmwDnEQO6cQHEqig+muq01HPsR8
+	 v0QHd9MTNCI0fkYI+ZBWTnXEp5uFby1wXoyes9AubyVNxpKcdAX7aFw3p5y0hrLoMKM42
+	 oG4lSDDS2gJHpm3mFwV4BcMgqgmT9eBd9gii3li6YQJwnAEhF/yQl4qy76cKBW2+PMWPL
+	 C3jvII7PwKJSpDAKI4Tnt0VHd98K91Vh07tW1RHvJhHn24oixCynOCRhqPZsxMNZjLuLU
+	 r7AGpWqKXGDIh+KR+V2dPARHpWeoj0eb25PYbReLJKKNckfFaZvPs/x6zHUootqQQXA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A96D606A31C;
-	Fri, 27 Nov 2026 07:08:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A96D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=p6WLV8RV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=uT
-	ud52MSv5zlX5vzr0q2e7lP5nMrrTTxhkLocH5qEKA=; b=p6WLV8RVcCkTGo0TNp
-	r+jDu02gG8TWbIMVghQ4nD3sQri96VKP+0cecT2i1k1zBVkwU/Ao5QwOz+3CpdxN
-	xlqypjrsUduhdMwmKRjpN2scHmTC88ObHOjhsu9D8xAqeicAUBC39RODnAMZZgts
-	HwmVhR83ecx9LeXIdDotYLMWw=
-Received: from liumingshu.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD33wVdLAlr0sYrLQ--.54228S2;
-	Fri, 27 Nov 2026 15:08:28 +0800 (CST)
-From: 17868388227@163.com
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	linux-bluetooth@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: virtio_bt: fix skb double-free when send fails
-Date: Fri, 27 Nov 2026 15:08:13 +0800
-Message-Id: <20261127070813.662250-1-17868388227@163.com>
-X-Mailer: git-send-email 2.34.1
+	by smtp.kernel.org (Postfix) with ESMTPS id 0EA5F1F00898;
+	Fri, 27 Nov 2026 07:15:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795763705;
+	bh=3eIOEhxcWvtndKWJeehNeph5ty9/sMNyztCMs1CgwKs=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=mQaL75C1RBB4KzkKmzaQctOSJpeoUbsKxtenhj7YWeJl+/8X6r+gXnPFGLItM5fmo
+	 vxXyLHSUlRWsh87lK2Yv8EnBEQdH2HHtTV2ZiCp1LP5UguAD9WkZfz4x41IUNlx8Ld
+	 nRFL4hPcDnxhwZHywZOIKlImJs24AAD3oBb10Vf9J6yeytmWBg8dR/yRuTD8j8qnUB
+	 R07pRAhM2g5pRIeDPaGW0vc8UnSaZ4TkGe5HGHQ7lval2yO6mcQv7kbgtishxNPbK1
+	 Xg8UatX0ClUefyu2VBiBUMto5RNnEIbUGxM7gvQl84n7+x3SBymjFFLInkDXQ3cBnQ
+	 AeF2FQZA/p1ow==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 95CB34B5F5;
+	Fri, 27 Nov 2026 07:15:00 +0000 (UTC)
+From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
+Date: Fri, 27 Nov 2026 07:12:14 +0000
+Subject: [PATCH 5.10.y] hfsplus: fix slab-out-of-bounds read in
+ hfsplus_uni2asc()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,94 +83,230 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD33wVdLAlr0sYrLQ--.54228S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAFyfWr1DXF1kAFy3GrWxJFb_yoW5Ar4UpF
-	4Ykr9xArWDJF10vFW7Jr48ury5Awsrury3KrZ2gw1Y9r43JrWUWryIya4jq3WUCr93Ca17
-	XF4vqryDCFs09aDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07bb5lnUUUUU=
-X-CM-SenderInfo: bprxmlaytymjisx6il2tof0z/xtbC6gxDK2sJLGwHKwAA3A
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261127-so5-hfsplus-510-v1-1-7bce0139b35d@certik.com>
+X-B4-Tracking: v=1; b=H4sIAE0tCWsC/12NwQ6CMBBEf4Xs2UXaSKv8ivHQlq3UkJZ0wWgI/
+ y7Vm8d5mXmzAlMOxNBVK2R6Bg4p7kEcKnCDiXfC0O8ZZCOVEFIjpxYHz9O4MLaiwV65k1Rea30
+ 5w76aMvnw+hqv0Naiqd9w+3Fe7IPcXHSlaQ0T2myiGwpiiv2c0oiFH/9uYNs+imkmB6sAAAA=
+X-Change-ID: 20261127-so5-hfsplus-510-d6c426f77798
+To: stable@vger.kernel.org
+Cc: Kang Chen <k.chen@smail.nju.edu.cn>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>, linux-fsdevel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795763533; l=8506;
+ i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
+ bh=r08xme+LJmtE2virVQX+u476Saf7nmCbrMz6FfBhGhY=;
+ b=VcZVh6DfYRoi3iYcb1JrS8XrSPEgA4lAfooUmwbF3a+1EM3HG6Z2OS1T7JwPtEJkurc/wAwqO
+ BrZRpXr5iaQB32DjfyhjzfFa4N3GbAwo699My5D4JHCGXtd4FhUtds0
+X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
+ pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
+X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
+ auth_id=1647
+X-Original-From: Dickson Wu <dickson.wu@certik.com>
+Reply-To: dickson.wu@certik.com
 
-From: Mingshu Liu <26031212613@stu.xidian.edu.cn>
+From: Kang Chen <k.chen@smail.nju.edu.cn>
 
-A double-free of struct sk_buff and a subsequent use-after-free were
-observed in virtbt_send_frame() when virtqueue_add_outbuf() fails.
-hci_send_frame() frees the same skb again after hdev->send() returns
-an error.
+commit bea3e1d4467bcf292c8e54f080353d556d355e26 upstream.
 
-This issue was triggered by our custom device emulation and fuzzing
-framework on Linux 7.3 (7.3.0-00001-g0aef6eb5c859-dirty).
-The extra local commit only adds kcov and does not touch virtio_bt.c.
-The same error path is still present on mainline. The failure depends
-on a broken TX virtqueue: the device first completes a buffer whose
-used-ring id is not a head, the queue is marked broken, and the next
-virtqueue_add_outbuf() returns -EIO.
+BUG: KASAN: slab-out-of-bounds in hfsplus_uni2asc+0xa71/0xb90 fs/hfsplus/unicode.c:186
+Read of size 2 at addr ffff8880289ef218 by task syz.6.248/14290
 
-The crash trace is as follows:
+CPU: 0 UID: 0 PID: 14290 Comm: syz.6.248 Not tainted 6.16.4 #1 PREEMPT(full)
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x116/0x1b0 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0xca/0x5f0 mm/kasan/report.c:482
+ kasan_report+0xca/0x100 mm/kasan/report.c:595
+ hfsplus_uni2asc+0xa71/0xb90 fs/hfsplus/unicode.c:186
+ hfsplus_listxattr+0x5b6/0xbd0 fs/hfsplus/xattr.c:738
+ vfs_listxattr+0xbe/0x140 fs/xattr.c:493
+ listxattr+0xee/0x190 fs/xattr.c:924
+ filename_listxattr fs/xattr.c:958 [inline]
+ path_listxattrat+0x143/0x360 fs/xattr.c:988
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0xcb/0x4c0 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fe0e9fae16d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fe0eae67f98 EFLAGS: 00000246 ORIG_RAX: 00000000000000c3
+RAX: ffffffffffffffda RBX: 00007fe0ea205fa0 RCX: 00007fe0e9fae16d
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000200000000000
+RBP: 00007fe0ea0480f0 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fe0ea206038 R14: 00007fe0ea205fa0 R15: 00007fe0eae48000
+ </TASK>
 
-  virtio_bt virtio0: tx:id 3 is not a head!
-  Bluetooth: hci0: sending frame failed (-5)
-  BUG: KASAN: slab-use-after-free in sk_skb_reason_drop+0x3c/0x1b0
-  Read of size 4 at addr ffff88800ae5bee4 by task kworker/u17:0/71
-  Workqueue: hci0 hci_tx_work
-  Call Trace:
-   <TASK>
-   sk_skb_reason_drop+0x3c/0x1b0
-   hci_send_frame+0x34a/0x420
-   hci_tx_work+0x87a/0xcd0
-   process_one_work+0x8cd/0x1900
-   worker_thread+0x5a1/0xd10
-   kthread+0x325/0x410
-   ret_from_fork+0x566/0x7f0
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
+Allocated by task 14290:
+ kasan_save_stack+0x24/0x50 mm/kasan/common.c:47
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:68
+ poison_kmalloc_redzone mm/kasan/common.c:377 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:394
+ kasan_kmalloc include/linux/kasan.h:260 [inline]
+ __do_kmalloc_node mm/slub.c:4333 [inline]
+ __kmalloc_noprof+0x219/0x540 mm/slub.c:4345
+ kmalloc_noprof include/linux/slab.h:909 [inline]
+ hfsplus_find_init+0x95/0x1f0 fs/hfsplus/bfind.c:21
+ hfsplus_listxattr+0x331/0xbd0 fs/hfsplus/xattr.c:697
+ vfs_listxattr+0xbe/0x140 fs/xattr.c:493
+ listxattr+0xee/0x190 fs/xattr.c:924
+ filename_listxattr fs/xattr.c:958 [inline]
+ path_listxattrat+0x143/0x360 fs/xattr.c:988
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0xcb/0x4c0 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-  Allocated by task 50:
-   __alloc_skb+0x14c/0x6e0
-   l2cap_send_cmd+0x96/0xbf0
-   l2cap_conn_start+0x33c/0x9e0
-   l2cap_info_timeout+0x82/0xa0
+When hfsplus_uni2asc is called from hfsplus_listxattr,
+it actually passes in a struct hfsplus_attr_unistr*.
+The size of the corresponding structure is different from that of hfsplus_unistr,
+so the previous fix (94458781aee6) is insufficient.
+The pointer on the unicode buffer is still going beyond the allocated memory.
 
-  Freed by task 71:
-   kfree_skbmem+0x18a/0x1f0
-   sk_skb_reason_drop+0x10e/0x1b0
-   virtbt_send_frame+0x1bc/0x210
-   hci_send_frame+0x26a/0x420
-   hci_tx_work+0x87a/0xcd0
+This patch introduces two warpper functions hfsplus_uni2asc_xattr_str and
+hfsplus_uni2asc_str to process two unicode buffers,
+struct hfsplus_attr_unistr* and struct hfsplus_unistr* respectively.
+When ustrlen value is bigger than the allocated memory size,
+the ustrlen value is limited to an safe size.
 
-The object belongs to skbuff_head_cache and is 240 bytes. The 4-byte
-read is skb->users.
-
-The issue arises because virtbt_send_frame() calls kfree_skb(skb) when
-virtqueue_add_outbuf() fails and still returns that error.
-hci_send_frame() treats a negative return as "the caller still owns
-the skb" and frees it a second time. Both calls run in the same
-hci_tx_work. The skb was never queued to the device.
-
-Fix this by leaving the skb to hci_send_frame() on the error path.
-Undo the preceding skb_push() so the buffer handed back matches the
-one the caller passed in.
-
-Fixes: afd2daa26c7a ("Bluetooth: Add support for virtio transport driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mingshu Liu <26031212613@stu.xidian.edu.cn>
+Fixes: 94458781aee6 ("hfsplus: fix slab-out-of-bounds read in hfsplus_uni2asc()")
+Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
+Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Link: https://lore.kernel.org/r/20250909031316.1647094-1-k.chen@smail.nju.edu.cn
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Signed-off-by: Dickson Wu <dickson.wu@certik.com>
 ---
- drivers/bluetooth/virtio_bt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+5.15.y and newer already have this fix. 5.10.y already has
+76a4c6636a69, the backport of 94458781aee6 with the same subject; this
+is its follow-up (Fixes: 94458781aee6).
 
-diff --git a/drivers/bluetooth/virtio_bt.c b/drivers/bluetooth/virtio_bt.c
-index c20d54088..c6bb602b4 100644
---- a/drivers/bluetooth/virtio_bt.c
-+++ b/drivers/bluetooth/virtio_bt.c
-@@ -103,7 +103,7 @@ static int virtbt_send_frame(struct hci_dev *hdev, struct sk_buff *skb)
- 	err = virtqueue_add_outbuf(vbt->vqs[VIRTBT_VQ_TX], sg, 1, skb,
- 				   GFP_KERNEL);
- 	if (err) {
--		kfree_skb(skb);
-+		skb_pull(skb, 1);
- 		return err;
- 	}
+Tested on v5.10.275:
+- x86_64 allmodconfig W=1 build of the 21 fs/hfsplus objects, base vs
+  patched, no new warnings
+- booted the patched kernel under QEMU/KVM. I didn't mount an HFS+
+  volume.
+
+The backport and the test runs were prepared with AI coding tools
+(OpenAI Codex agents, with review by Claude). I went over the result
+before signing off.
+
+fs/hfsplus/dir.c        |  2 +-
+---
+ fs/hfsplus/dir.c        |  2 +-
+ fs/hfsplus/hfsplus_fs.h |  8 ++++++--
+ fs/hfsplus/unicode.c    | 24 +++++++++++++++++++-----
+ fs/hfsplus/xattr.c      |  6 +++---
+ 4 files changed, 29 insertions(+), 11 deletions(-)
+
+diff --git a/fs/hfsplus/dir.c b/fs/hfsplus/dir.c
+index 4f3ef53b95d9..797bf045b2f7 100644
+--- a/fs/hfsplus/dir.c
++++ b/fs/hfsplus/dir.c
+@@ -212,7 +212,7 @@ static int hfsplus_readdir(struct file *file, struct dir_context *ctx)
+ 			fd.entrylength);
+ 		type = be16_to_cpu(entry.type);
+ 		len = NLS_MAX_CHARSET_SIZE * HFSPLUS_MAX_STRLEN;
+-		err = hfsplus_uni2asc(sb, &fd.key->cat.name, strbuf, &len);
++		err = hfsplus_uni2asc_str(sb, &fd.key->cat.name, strbuf, &len);
+ 		if (err)
+ 			goto out;
+ 		if (type == HFSPLUS_FOLDER) {
+diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
+index ae4e8f304116..b0e3e743046d 100644
+--- a/fs/hfsplus/hfsplus_fs.h
++++ b/fs/hfsplus/hfsplus_fs.h
+@@ -520,8 +520,12 @@ int hfsplus_strcasecmp(const struct hfsplus_unistr *s1,
+ 		       const struct hfsplus_unistr *s2);
+ int hfsplus_strcmp(const struct hfsplus_unistr *s1,
+ 		   const struct hfsplus_unistr *s2);
+-int hfsplus_uni2asc(struct super_block *sb, const struct hfsplus_unistr *ustr,
+-		    char *astr, int *len_p);
++int hfsplus_uni2asc_str(struct super_block *sb,
++			const struct hfsplus_unistr *ustr, char *astr,
++			int *len_p);
++int hfsplus_uni2asc_xattr_str(struct super_block *sb,
++			      const struct hfsplus_attr_unistr *ustr,
++			      char *astr, int *len_p);
+ int hfsplus_asc2uni(struct super_block *sb, struct hfsplus_unistr *ustr,
+ 		    int max_unistr_len, const char *astr, int len);
+ int hfsplus_hash_dentry(const struct dentry *dentry, struct qstr *str);
+diff --git a/fs/hfsplus/unicode.c b/fs/hfsplus/unicode.c
+index ebd326799f35..11e08a4a18b2 100644
+--- a/fs/hfsplus/unicode.c
++++ b/fs/hfsplus/unicode.c
+@@ -143,9 +143,8 @@ static u16 *hfsplus_compose_lookup(u16 *p, u16 cc)
+ 	return NULL;
+ }
  
--- 
-2.34.1
+-int hfsplus_uni2asc(struct super_block *sb,
+-		const struct hfsplus_unistr *ustr,
+-		char *astr, int *len_p)
++static int hfsplus_uni2asc(struct super_block *sb, const struct hfsplus_unistr *ustr,
++		    int max_len, char *astr, int *len_p)
+ {
+ 	const hfsplus_unichr *ip;
+ 	struct nls_table *nls = HFSPLUS_SB(sb)->nls;
+@@ -158,8 +157,8 @@ int hfsplus_uni2asc(struct super_block *sb,
+ 	ip = ustr->unicode;
+ 
+ 	ustrlen = be16_to_cpu(ustr->length);
+-	if (ustrlen > HFSPLUS_MAX_STRLEN) {
+-		ustrlen = HFSPLUS_MAX_STRLEN;
++	if (ustrlen > max_len) {
++		ustrlen = max_len;
+ 		pr_err("invalid length %u has been corrected to %d\n",
+ 			be16_to_cpu(ustr->length), ustrlen);
+ 	}
+@@ -280,6 +279,21 @@ int hfsplus_uni2asc(struct super_block *sb,
+ 	return res;
+ }
+ 
++inline int hfsplus_uni2asc_str(struct super_block *sb,
++			       const struct hfsplus_unistr *ustr, char *astr,
++			       int *len_p)
++{
++	return hfsplus_uni2asc(sb, ustr, HFSPLUS_MAX_STRLEN, astr, len_p);
++}
++
++inline int hfsplus_uni2asc_xattr_str(struct super_block *sb,
++				     const struct hfsplus_attr_unistr *ustr,
++				     char *astr, int *len_p)
++{
++	return hfsplus_uni2asc(sb, (const struct hfsplus_unistr *)ustr,
++			       HFSPLUS_ATTR_MAX_STRLEN, astr, len_p);
++}
++
+ /*
+  * Convert one or more ASCII characters into a single unicode character.
+  * Returns the number of ASCII characters corresponding to the unicode char.
+diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
+index 2438cd759620..644b3cd5fe52 100644
+--- a/fs/hfsplus/xattr.c
++++ b/fs/hfsplus/xattr.c
+@@ -738,9 +738,9 @@ ssize_t hfsplus_listxattr(struct dentry *dentry, char *buffer, size_t size)
+ 			goto end_listxattr;
+ 
+ 		xattr_name_len = NLS_MAX_CHARSET_SIZE * HFSPLUS_ATTR_MAX_STRLEN;
+-		if (hfsplus_uni2asc(inode->i_sb,
+-			(const struct hfsplus_unistr *)&fd.key->attr.key_name,
+-					strbuf, &xattr_name_len)) {
++		if (hfsplus_uni2asc_xattr_str(inode->i_sb,
++					      &fd.key->attr.key_name, strbuf,
++					      &xattr_name_len)) {
+ 			pr_err("unicode conversion failed\n");
+ 			res = -EIO;
+ 			goto end_listxattr;
+
+---
+base-commit: 99112ea818e35b606397c84fbc05e6fadb6ea162
+change-id: 20261127-so5-hfsplus-510-d6c426f77798
+
+Best regards,
+--  
+Dickson Wu <dickson.wu@certik.com>
+
 
