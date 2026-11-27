@@ -1,72 +1,189 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.104.111.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795771138;
-	b=1XJtDaQLPFMU9SPPlsT/+Uzc8pxfYecqVRI99qWamhxcVo3cYSrU3nQBGi7fmXg0jD8d
-	 qvdIq27RWsPccIYuZUquxZAIDXm0WmtvIDguTYKrS0fbPdEOKcgJbi8OVXsNvsWDD+uN6
-	 RULyJ/ffHinYZgJ6SS+/lt+5JdTQiJKJYyUzHdVwD2TbvDDd1h5DmDU0FVmA6K0lPfhze
-	 OauC/M+eL82T/eK1qUFKoz4VEXQgEfF6ktmD0y1sNp1kZ3WEu1UyPPjKcp7CDzCivwF55
-	 AS9bOkPrGdVkSqRoJfQ+h0idFnXNtsoL+3KtBSFRr17yOEvsju6n8mElkVL0TRvF7WQ==
+	t=1795771290;
+	b=a3CvMrv7YWxxRFA5dXcDD/pP8G4spY1/XnodPCsCcNvVskLdK+xfBWdhAsrKyiK6FAfQ
+	 tLNOnaKo3FFLmfjAz1IdWdN2REkCft7H7Ii4sJfCmlOLpsWWB8CSlOZRT0fypLY6m6OIy
+	 x0AvUbeaS7LeM3nNToXThF0B0FGHBuY9dobxl1mMGkS9x3thch7B5fvWREJm59/rBvJGU
+	 Ge1dC0PcT6qKwlVWCo1g/qO+WIRWaUSD1SQS++wmdBysj2qoc/OlFTYLyM0zbxI3zA1I7
+	 OkhhmC7MybhirlA6DY8iDCF9pnm/VkWN+iaurWDwwinsD9f3RwkzSbrcPCAcpu1J5Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795771138;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=O76IIwZpAm8NpBXKtN94VyTUYktRHuJ9UogySv+TxgE=;
-	b=Ka8PUIXXklOyfa9FUmTTKQjsKZ2VWml96hePD9AehCvAqXN+DR6a1+53KTykZlPh0pGm
-	 WFQeW2SIAgM8QKlALarTwhHFKwbgiNjUkIy4RvVVv4K47QMyRa9DpXhTjRxZKy7pGRXJL
-	 T/CU7oiF4cVj6fEBJrYMmltZR07traXHb3QDT6khBiCLnfeaNciM0RsS3oVSLDn1ug6rP
-	 rZxLLUIErpZ0l956rQ28rvOow71F6P/tdFpSPNwRnEjLxrR9qonbCjS8HU/Amm2zhIqzu
-	 HGFRge0E6ddlgCJNAo1aYg5BCWSsfHKk0xpG3owjfag0ZtyiTFkA8sBwIaOky8l603w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795771290;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:DKIM-Signature:Received:
+	 X-MC-Unique:X-Mimecast-MFC-AGG-ID:Received:Received:Received:Received:
+	 From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:X-MS-Has-Attach:
+	 X-MS-TNEF-Correlator:msip_labels:x-ms-publictraffictype:
+	 x-ms-traffictypediagnostic:x-ms-office365-filtering-correlation-id:
+	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
+	 x-microsoft-antispam:x-microsoft-antispam-message-info:
+	 x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg:
+	 X-Mimecast-Spam-Score:X-Mimecast-MFC-PROC-ID:X-Mimecast-Originator:
+	 Content-Language:Content-Type:Content-Transfer-Encoding:
+	 X-SM-outgoing;
+	bh=PPtIKqp5j9sJI1gUInXCnCFQMW0C4T7bBTkq3va+/MU=;
+	b=Vp2fixPEzkUNHrAsPar1o6zjQthxap/cmGXJGdwRc/P9fGvEEhaDZAQbhmnJOwezgEyY
+	 GNetS0fzVgKyvpzEoUKjvD23wcJ8JNK5WPCcEiX6cdGkR2NxDTOUsAaDk+e3pOd5h+hwt
+	 dhcvc2rJG3dJqClKlyJ1Sf9deM0mGfQUm9+u2lJxKBx7KtE7/AoUKqywRB/um9nBpFAFx
+	 Pd5Et69m7w1Q2lwgfCnZi55nUXWqtIBlZnUIvgFY/fM68+Kb3fk3FApToW0yczVCeNFks
+	 BvZiGvAKmvsmskr4iIqPb7ff+jJFwCd8hUgI+/S0T4ewpO9BJGvdNlZQOQjLeIY0N0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=q+P8Z+VF;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dmarc=pass header.from=rosenberger.com;
+	spf=pass smtp.mailfrom=rosenberger.com;
+	dkim=pass header.d=rosenberger.com header.i=@rosenberger.com header.a=rsa-sha256 header.s=mimecast20250212 header.b=ULbyjdmT;
+	dkim=pass header.d=rosenberger.com header.i=@rosenberger.com header.a=rsa-sha256 header.s=mimecast20250212 header.b=DaDiF5h2;
+	arc=none smtp.remote-ip=194.104.111.116
+Received: from de-smtp-delivery-116.mimecast.com (de-smtp-delivery-116.mimecast.com [194.104.111.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C367606A31C;
-	Fri, 27 Nov 2026 09:18:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C367606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D43BB606A326
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 09:21:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D43BB606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rosenberger.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rosenberger.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=q+P8Z+VF
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=O76IIwZpAm8NpBXKtN94VyTUYktRHuJ9UogySv+TxgE=; b=q+P8Z+VFvcXOYcSsAQUUKdha9A
-	G0JnWTshf2VqEs1N0M1XnEtiC5lRjVs73Mz+IgnC1cOkOb6aFxF3ZzgdxDCEewLlIeb9EmKc5Rg6e
-	sfwiaF44IVMsmeI9AFm59NLM3hJyQLzmbuZmMGlqgW+InkS3imPOr6A1oU4kRbWDpse4wqwPQ6B40
-	h0Gg2m9PHl0Z8QlWWZyq9OI1A+eXY1FHVI8GjGpseiNEVkigkH1Z+tDjdqdU8ePUwYJoD/RcBKxEY
-	KcjE6N0W01wkSJGeVuq3V+fNaGplx33ZN3K6xkyLT2axYOwH3Skhv763gFTVnN4jjYAH+yEF9Acpz
-	ciUf+WTw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xWs6Y-00000007VNz-0X3X;
-	Fri, 27 Nov 2026 09:18:54 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 655D530316A; Fri, 27 Nov 2026 10:18:52 +0100 (CET)
-Date: Fri, 27 Nov 2026 10:18:52 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-perf-users@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Jann Horn <jannh@google.com>, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, adrian.hunter@intel.com,
-	alexander.shishkin@linux.intel.com, dapeng1.mi@linux.intel.com
-Subject: Re: [PATCH 1/2] perf: look up address filter files without
- ctx->mutex held
-Message-ID: <20261127091852.GD83911@noisy.programming.kicks-ass.net>
-References: <20261126-work-exec-update_lock-leftovers-v1-0-1024b26792bc@kernel.org>
- <20261126-work-exec-update_lock-leftovers-v1-1-1024b26792bc@kernel.org>
- <20261126152414.GH49833@noisy.programming.kicks-ass.net>
- <20261126-gedruckt-gastarbeiter-vorsorgen-5fea7cea1877@brauner>
- <20261126-erlogen-bedrucken-dementieren-5de5e5460481@brauner>
- <20261127081303.GN49833@noisy.programming.kicks-ass.net>
+	dkim=pass (1024-bit key) header.d=rosenberger.com header.i=@rosenberger.com header.a=rsa-sha256 header.s=mimecast20250212 header.b=ULbyjdmT;
+	dkim=pass (1024-bit key) header.d=rosenberger.com header.i=@rosenberger.com header.a=rsa-sha256 header.s=mimecast20250212 header.b=DaDiF5h2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rosenberger.com;
+	s=mimecast20250212; t=1795771279;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PPtIKqp5j9sJI1gUInXCnCFQMW0C4T7bBTkq3va+/MU=;
+	b=ULbyjdmTd93ozPleQc+NAfTCdQ8U5pyTyb6PecHGPDAjAtF4gdXLTXPMtUahJ38xQJvnGk
+	nYUcm7XN2FdY2DfYqy6bqQHQKz4C9xylyqrDo+0KDRW4zQ+oN0VsWRQnqrIVTR5QAc8q2+
+	hHEvbQN8i4R8JnTW8O8lYTga5Y2VxbY=
+Received: from rt21-61v.rosenberger.com
+ (ltea-178-013-127-133.pools.arcor-ip.net [178.13.127.133]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id de-mta-34-aQqIDA5eOaSHBra_fCXTGQ-1; Fri,
+ 27 Nov 2026 09:21:17 +0000
+X-MC-Unique: aQqIDA5eOaSHBra_fCXTGQ-1
+X-Mimecast-MFC-AGG-ID: aQqIDA5eOaSHBra_fCXTGQ_1795771277
+Received: from rt21-61v (localhost [127.0.0.1])
+	by rt21-61v.rosenberger.com (Postfix) with SMTP id 4jbSb11PfDz4g8n
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 09:21:17 +0000 (UTC)
+Received: from de-smtp-inbound-delivery-1.mimecast.com (de-smtp-delivery-1.mimecast.com [194.104.110.241])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by rt21-61v.rosenberger.com (Postfix) with ESMTPS
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 09:21:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rosenberger.com;
+	s=mimecast20250212; t=1795771276;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PPtIKqp5j9sJI1gUInXCnCFQMW0C4T7bBTkq3va+/MU=;
+	b=DaDiF5h2cBT2BDPUqhs3c5I+ZFTJaQkDBspXn+ZDl8ZH/69mmO+pbycv7dsJj9rs1ROI5t
+	fN0idnnapkJPYwPOX+tsyZOx0iTOCZ1qxKUQ3HnJzhoUtKKMMCf84JRFiNIAo3ujxIFXTN
+	h72aOoS8rqKNEc/yxVzM3kNX8l/uD80=
+Received: from RT21-12P.rosenberger.local
+ (ltea-178-013-127-130.pools.arcor-ip.net [178.13.127.130]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-134-iJ2-G3B-PVeswyf-mE6ZIw-4; Fri, 27 Nov 2026 09:21:13 +0000
+X-MC-Unique: iJ2-G3B-PVeswyf-mE6ZIw-4
+X-Mimecast-MFC-AGG-ID: iJ2-G3B-PVeswyf-mE6ZIw_1795771273
+Received: from RT21-32V.rosenberger.local (10.206.32.32) by
+ RT21-12P.rosenberger.local (10.206.32.12) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57; Fri, 27 Nov 2026 10:21:06 +0100
+Received: from FR6P281CU001.outbound.protection.outlook.com (40.93.78.20) by
+ RT21-32V.rosenberger.local (10.206.32.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57 via Frontend Transport; Fri, 27 Nov 2026 10:21:06 +0100
+Received: from FR4P281MB4840.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:146::7)
+ by FR5P281MB5077.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:18e::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.9; Fri, 27 Nov
+ 2026 09:20:59 +0000
+Received: from FR4P281MB4840.DEUP281.PROD.OUTLOOK.COM
+ ([fe80::880b:63e1:7649:f879]) by FR4P281MB4840.DEUP281.PROD.OUTLOOK.COM
+ ([fe80::880b:63e1:7649:f879%7]) with mapi id 15.21.0662.007; Fri, 27 Nov 2026
+ 09:20:59 +0000
+From: "Haberlander, Markus" <Markus.Haberlander@rosenberger.com>
+To: Thomas Richard <thomas.richard@bootlin.com>, Andi Shyti
+	<andi.shyti@kernel.org>
+CC: Lee Jones <lee@kernel.org>, "mfd@lists.linux.dev" <mfd@lists.linux.dev>,
+	"linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH] i2c: cgbc: Fetch the status of a write transfer
+Thread-Topic: [PATCH] i2c: cgbc: Fetch the status of a write transfer
+Thread-Index: AQHdflCdHfa0mnd/zkGtec0zAEzvWQ==
+Date: Fri, 27 Nov 2026 09:20:59 +0000
+Message-ID: <FR4P281MB4840894892BD79C05D844CEC84412@FR4P281MB4840.DEUP281.PROD.OUTLOOK.COM>
+References: <20261123-cgbc-i2c-write-status-v1-1-5b0fa0322b57@rosenberger.com>
+ <179568834099.302193.16315749597111506309.b4-review@b4>
+ <awgwO98qx3zX4MaY@zenone.zhora.eu>
+ <b0d32861-c123-4f4f-8bac-aa0e7e48c719@bootlin.com>
+In-Reply-To: <b0d32861-c123-4f4f-8bac-aa0e7e48c719@bootlin.com>
+Accept-Language: de-DE, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: =?iso-8859-1?Q?MSIP=5FLabel=5Fdc23a535-3dbe-411f-b447-26a71d90608f=5FEnab?=
+ =?iso-8859-1?Q?led=3DTrue;MSIP=5FLabel=5Fdc23a535-3dbe-411f-b447-26a71d90?=
+ =?iso-8859-1?Q?608f=5FSiteId=3De57e7749-9b21-4cf2-a972-bb95d4afd826;MSIP?=
+ =?iso-8859-1?Q?=5FLabel=5Fdc23a535-3dbe-411f-b447-26a71d90608f=5FSetDate?=
+ =?iso-8859-1?Q?=3D2026-11-27T09:20:58.832Z;MSIP=5FLabel=5Fdc23a535-3dbe-4?=
+ =?iso-8859-1?Q?11f-b447-26a71d90608f=5FName=3D=F6ffentlich;MSIP=5FLabel?=
+ =?iso-8859-1?Q?=5Fdc23a535-3dbe-411f-b447-26a71d90608f=5FContentBits=3D1;?=
+ =?iso-8859-1?Q?MSIP=5FLabel=5Fdc23a535-3dbe-411f-b447-26a71d90608f=5FMeth?=
+ =?iso-8859-1?Q?od=3DPrivileged;?=
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: FR4P281MB4840:EE_|FR5P281MB5077:EE_
+x-ms-office365-filtering-correlation-id: 7c9e21c5-d8b1-4946-92e9-08df4c67bfc4
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|4143699003|11063799006|18002099003|22082099003|10067099003|56012099006|261028144727099003|261026140227099003|261026121527099003|261022105027099003|38070700021
+x-microsoft-antispam-message-info: JPccDsYcyTjbbqGt9iopvSnvZCJTzHKOoi0cKq9QcxGFV3ST7etVW32mf02m2PMfRuBg/HUfZgL9dvLDLBQxsCOT7hUeCSkY9uM55Mr8TFonwtAAOyCuu58rExb2UK963q0GG/q61sZhYXPVs2RbOMzd4ihfYEVSSAMJVJNClSNgobyE2T6YrNnhBllVksjjwzpyCchZv4QMyXqJ3ea+PAA0ELr+QVDwI4/nyBm5/TvK5cN5S4y8NbTPYR/ZbjHcue/fguyEk0OzeBG2JM05Rm4Onhb06EejnQRSkJ3NPGhiyv5vR8IpO0vOqZ1VxwDU6CARC6rvVCxXbzWDWGaKZNFbItrvkzngm4A5FmjhI/Myf10hhVQ7wWlBPGTXrNlYEBZ6mgjggwh26Q/6iMBf2OEPdm3J4xQA+WjP2oCSyOwtq5w6mdQt1UEt4NNYgXEFUrVHu/319h0XflFeFjX3poeqoPVopOU2FHMZx+s7v3DRveGhXhhkMQhTyZW4MiIbh3l7i4O/3X6pkbWCHLXhj1Dd50mEL04PshAO4XtxXX+deGs2Maxnvuu/0t3bEcm9sFphc4mUGFuM1zWWrBDZBnDNPoRooOtZEwYlpJYjzCEjbdG/IE+9e1Bx3ZlPMlJQ4HzRr3eDb2qqurCixlxVzC0ucwY5eEV6OGZcQFXasbi3OEKudF/WLUIox0SjLA+ttx1dhbZ22+qXaT9IDbSEtQ==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:FR4P281MB4840.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(4143699003)(11063799006)(18002099003)(22082099003)(10067099003)(56012099006)(261028144727099003)(261026140227099003)(261026121527099003)(261022105027099003)(38070700021);DIR:OUT;SFP:1102
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?G6tXDUVn5b7v9hbHNgChaAJtYgleBVhVH91XpPH2UJ2/soE39bmguoAs0l?=
+ =?iso-8859-1?Q?41nSLmgX5tiHXwaCj1fV/iObMyseUmQTh717Xt6YveR/KJiXYLMYhmCJSU?=
+ =?iso-8859-1?Q?2BMDn2bxdpN3j5ZMhWFdH8FojcBEXlgABm3qR0VhxpIIZ+FQlpt7uQ3CM6?=
+ =?iso-8859-1?Q?j34mtZ+5DYOahmjgYRdoTNSByBofgjBG+6Q+3a/VmlQ8uqAsMdUuktGanH?=
+ =?iso-8859-1?Q?AciVYCjsqIohtVTs40aWA6CVvF7BqHXpuhRbtYwDX9FNxA48eSKaTsRRpt?=
+ =?iso-8859-1?Q?FqjaDsS5QQSnD8fqDfBu/PCCtnSlLX3LKkdi/ZALOYbtvqSZ5n1lVqvHhE?=
+ =?iso-8859-1?Q?Uf831pguZhMe0jc3Yi6a1GzoGNf6TuyA3eblPYymIPcZsmaMaArH4Sir2A?=
+ =?iso-8859-1?Q?8MebMMfsmVJo60IF7epl9V26Nv1nSUpKrsVbzzXmn50nVxXJc5oA9putcd?=
+ =?iso-8859-1?Q?reDz7SpioOl2wZfnirC0icltmITSHNNfutT06SP+5HTdploBqP9gRXDvNv?=
+ =?iso-8859-1?Q?+h7BHzJYepdBH8iNgpfol5kFwWjdc1nP1j/ynTV0RsXCtWhNx+Rq7mZfSG?=
+ =?iso-8859-1?Q?fh5WB6SaKqK3OJKPhD5zrrQXXpqbEGw1dlHD/d8jqJlEp+7NAgcxfQwQVJ?=
+ =?iso-8859-1?Q?B45LOzPbzEiujfwYXburdtQ9PHegSeVr0tdu86atsG9Y029RWTJrLvw/TK?=
+ =?iso-8859-1?Q?Fax/n8flfnE0aL9Z6SfsZaSsZ6eMsOfY7Uf9dJEjZPrN2oFpP6bCNmyix7?=
+ =?iso-8859-1?Q?0EBSK9Ja9Xd9nr1g2JqDJN/C1Rgr36k2feZzt4Mit62GXs3QLCkIINVa3/?=
+ =?iso-8859-1?Q?AKq7kBJt8gS3c673hG/U5pHVMX1xc32Qp6JCjdimrmWLD5tBEOgeTCqLmc?=
+ =?iso-8859-1?Q?U1OYm1OD3zLCkHvPaP1RNcZ6NWOB5YsiZQ2PmaH9JBF1plr0rv/F7WgJbE?=
+ =?iso-8859-1?Q?EjjaXXvOdmsMANGJmUJJwSxVxNm1HaG+iVq9bdKFhB+8U5pikuuo2rQ8Ov?=
+ =?iso-8859-1?Q?7lxzuwD0TDcYpixZmmXaKqhK7OXVJ5n82+juv+1Mp2EKbJ//otMGxhZB7F?=
+ =?iso-8859-1?Q?x2VmCbiQq1X67CFPHsl29+O+3VYGie2Jl1IETOil6JyvGNiZ0+o4LDZKIC?=
+ =?iso-8859-1?Q?eGHupiB1Rxfujh/cXsQR1UZB6+Mo7sE2wVm/prUUV8wLAlVG8h5JHY8+eK?=
+ =?iso-8859-1?Q?iIfJyPGJe8GBFU1T+PoDm4V4dyZ77Y4Cvjav6hDXgB9fYYKB/bM0RM6C/4?=
+ =?iso-8859-1?Q?4qtfp+V/uLU5RvHFYacjxmKBo/TxA3VII0xXSbgS4VfSWPvwm+hEAunpLr?=
+ =?iso-8859-1?Q?wdZdHd+lMZM+9DLIrd9RVzgmBagcyQlBTWWn+fSj2LqIb7qU94zvwNOlRl?=
+ =?iso-8859-1?Q?wuH22btIM2rriVX20WihyfNfXOXWktvPhmzoJ0u1xxzoxFneAugLiN4ipl?=
+ =?iso-8859-1?Q?iLZs2TiYHXiO/BB1omUmbMv7qrJe4a+fvBXPmEMg2Ygrh9Ntg+4JIH2VmE?=
+ =?iso-8859-1?Q?pZFNCa69oGu+0XtfW0iTB0dAwkkLnudmghpxZdHLI23fQaFsH1htIU9aIK?=
+ =?iso-8859-1?Q?fHiA/56ZARsXNdle+P893PmxXtOnFOAveP4CbF+eTxJ+R4vAHCf0fZuT2d?=
+ =?iso-8859-1?Q?iG2qVQRt5WzmrLFW1Jpl9iSRSAV6j+dCUEEoD/4MAYi2+Bal3YHgW4Av6O?=
+ =?iso-8859-1?Q?clDpFe/cs38WYb/prohVx81Af/TXwVnNhwHUj+eDMTUn+kAYABsRtqO7Xj?=
+ =?iso-8859-1?Q?IR4aMOBfTUdcd1x9j4/JdOBXKQLMfPghVaWoaiCHVD1l6lGwim4dhaw5LA?=
+ =?iso-8859-1?Q?LHsZ/m3crIAhPvJGwKXUXeKnNtz7XPU=3D?=
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,291 +193,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261127081303.GN49833@noisy.programming.kicks-ass.net>
+X-Exchange-RoutingPolicyChecked: J2Ra8PhMBa7c9VsbtR1BOc+YeXLXrlMUPvlry/+izMSwCQtW3Qcs3KSuMI6RvhDza40S3+MnAX3KHiIr5jvlDGZyXurJpNhQytgh8vpniXjfBslrpY+XfBh+WJpxVgLvTcA5HwOUqJTKOV7wW5v9aNeM+41nevmOyRLRqaVsE5OcDVE2fGfp+pu90nZMlvzFxMLOGKMQmj8QffIG0l0RxcVC4fOi8/pukib03xUD86vbKWPfYhM3s5DgHAYxS5ny2ODocSxnGyU/zY3aGZ7Efj5I5W7i4D9irtBqKMunJIQ4KJEHC49YIJwqwLl3upPfcqUTVkyZxjmNbfdmX59HyQ==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: FR4P281MB4840.DEUP281.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c9e21c5-d8b1-4946-92e9-08df4c67bfc4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Nov 2026 09:20:59.2360
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: e57e7749-9b21-4cf2-a972-bb95d4afd826
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: RjeZQFXcWWucWBuoXCNu+tapK64DyZiUMA2IgDAC8s/+6xfjOEGIjSVFrCGaKX6wsP6RGFq2TJkTxltnWGZwPP2SEfeLjev1x+0eb6rfVkOEfp7nvVCMmQy41HySl/2T
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR5P281MB5077
+X-OriginatorOrg: rosenberger.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: TchxXitSEyVbT1XjcbQ0hw4ZHScquYjnrHBj2ZXMZ9A_1795771273
+X-Mimecast-Originator: rosenberger.com
+Content-Language: de-DE
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
+X-SM-outgoing: yes
 
-On Fri, Nov 27, 2026 at 09:13:03AM +0100, Peter Zijlstra wrote:
-> On Thu, Nov 26, 2026 at 10:26:02PM +0100, Christian Brauner wrote:
-> > So ok, if we can't drop ctx->mutex in the middle of the ioctl then how
-> > about we don't hold ctx->mutex during parsing to begin with?
-> > We let perf_ioctl() hand PERF_EVENT_IOC_SET_FILTER off before it takes
-> > the mutex:
-> > 
-> > ioctl(PERF_EVENT_IOC_SET_FILTER)
-> > -> perf_ioctl()
-> >    -> perf_event_set_filter()                // no ctx->mutex
-> >       -> perf_event_set_addr_filter()
-> >          -> perf_event_parse_addr_filter()   // kern_path(), own list
-> >          -> perf_event_ctx_lock()
-> >             // revoked? has_addr_filter()? ->addr_filters_validate()
-> >             -> perf_addr_filters_splice()
-> >             -> perf_event_addr_filters_apply() on each child
-> >          -> perf_event_ctx_unlock()
-> > 
-> > The parser fills its own list and counts the file filters in locals.
-> > Everything that needs ctx->mutex then happens in one go under
-> > perf_event_ctx_lock().
-> > 
-> > So ctx->mutex is never dropped in the middle of an ioctl, a migrated
-> > event is handled by perf_event_ctx_lock() like everywhere else and no
-> > ctx is carried across the lookup?
-> 
-> Let me try this.
+Hi Thomas, Andi,
 
-Compile tested only; Alexander, Adrian; could any of you take a hard
-look at this and actually test?
+On 11/26/26 9:18 PM, Thomas Richard wrote:
+> If I'm not mistaken, USEC_PER_SEC is only used if master_xfer returns
+> -EGAIN (arbitration loss), else __i2c_transfer() directly returns so no
+> 1s timeout. And we never return -EAGAIN.
+>
+> So why should we wait 1s?
 
----
- kernel/events/core.c | 135 +++++++++++++++++++++++++--------------------------
- 1 file changed, 67 insertions(+), 68 deletions(-)
+Thanks for looking into this! I think Andi means the one-second loop in
+cgbc_i2c_xfer(). Before my patch, when the controller was still busy
+with a write, the next call returned -EBUSY and that loop simply tried
+again, for up to a second.
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 77c501005143..c019e4faf655 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -6632,16 +6632,24 @@ static inline bool is_perf_file(struct fd f)
- 
- static int perf_event_set_output(struct perf_event *event,
- 				 struct perf_event *output_event);
--static int perf_event_set_filter(struct perf_event *event, void __user *arg);
-+static int perf_event_set_filter(struct perf_event *event, struct list_head *filters);
- static int perf_copy_attr(struct perf_event_attr __user *uattr,
- 			  struct perf_event_attr *attr);
- static int __perf_event_set_bpf_prog(struct perf_event *event,
- 				     struct bpf_prog *prog,
- 				     u64 bpf_cookie);
- 
--static long _perf_ioctl(struct perf_event *event, unsigned int cmd, unsigned long arg)
-+struct perf_ioctl_ctx {
-+	unsigned int cmd;
-+	unsigned long arg;
-+	struct list_head filters;
-+};
-+
-+static long _perf_ioctl(struct perf_event *event, struct perf_ioctl_ctx *ctx)
- {
- 	void (*func)(struct perf_event *);
-+	unsigned long arg = ctx->arg;
-+	unsigned int cmd = ctx->cmd;
- 	u32 flags = arg;
- 
- 	if (event->state <= PERF_EVENT_STATE_REVOKED)
-@@ -6692,7 +6700,7 @@ static long _perf_ioctl(struct perf_event *event, unsigned int cmd, unsigned lon
- 	}
- 
- 	case PERF_EVENT_IOC_SET_FILTER:
--		return perf_event_set_filter(event, (void __user *)arg);
-+		return perf_event_set_filter(event, &ctx->filters);
- 
- 	case PERF_EVENT_IOC_SET_BPF:
- 	{
-@@ -6751,10 +6759,21 @@ static long _perf_ioctl(struct perf_event *event, unsigned int cmd, unsigned lon
- 	return 0;
- }
- 
-+static inline bool perf_event_is_tracing(struct perf_event *event);
-+static void free_filters_list(struct list_head *filters);
-+static int
-+perf_event_parse_addr_filter(int event_node, bool event_task, char *fstr,
-+			     struct list_head *filters);
-+
- static long perf_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
- {
- 	struct perf_event *event = file->private_data;
- 	struct perf_event_context *ctx;
-+	struct perf_ioctl_ctx ic = {
-+		.cmd = cmd,
-+		.arg = arg,
-+		.filters = LIST_HEAD_INIT(ic.filters),
-+	};
- 	long ret;
- 
- 	/* Treat ioctl like writes as it is likely a mutating operation. */
-@@ -6762,10 +6781,34 @@ static long perf_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
- 	if (ret)
- 		return ret;
- 
-+	if (cmd == PERF_EVENT_IOC_SET_FILTER) {
-+		int cpu = READ_ONCE(event->cpu);
-+		int node = cpu == -1 ? NUMA_NO_NODE : cpu_to_node(cpu);
-+		bool task = event->attach_state & PERF_ATTACH_TASK;
-+		char *filter_str __free(kfree) =
-+			strndup_user((void __user *)arg, PAGE_SIZE);
-+
-+		if (IS_ERR(filter_str))
-+			return PTR_ERR(filter_str);
-+
-+#ifdef CONFIG_EVENT_TRACING
-+		if (perf_event_is_tracing(event)) {
-+			return ftrace_profile_set_filter(event, event->attr.config,
-+							filter_str);
-+		}
-+#endif
-+		ret = perf_event_parse_addr_filter(node, task, filter_str,
-+						   &ic.filters);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	ctx = perf_event_ctx_lock(event);
--	ret = _perf_ioctl(event, cmd, arg);
-+	ret = _perf_ioctl(event, &ic);
- 	perf_event_ctx_unlock(event, ctx);
- 
-+	free_filters_list(&ic.filters);
-+
- 	return ret;
- }
- 
-@@ -11990,9 +12033,8 @@ void perf_bp_event(struct perf_event *bp, void *data)
-  * Allocate a new address filter
-  */
- static struct perf_addr_filter *
--perf_addr_filter_new(struct perf_event *event, struct list_head *filters)
-+perf_addr_filter_new(int node, struct list_head *filters)
- {
--	int node = cpu_to_node(event->cpu == -1 ? 0 : event->cpu);
- 	struct perf_addr_filter *filter;
- 
- 	filter = kzalloc_node(sizeof(*filter), GFP_KERNEL, node);
-@@ -12035,8 +12077,17 @@ static void perf_addr_filters_splice(struct perf_event *event,
- 	raw_spin_lock_irqsave(&event->addr_filters.lock, flags);
- 
- 	list_splice_init(&event->addr_filters.list, &list);
--	if (head)
-+	event->addr_filters.nr_file_filters = 0;
-+
-+	if (head) {
-+		struct perf_addr_filter *filter;
-+
- 		list_splice(head, &event->addr_filters.list);
-+		list_for_each_entry(filter, &event->addr_filters.list, entry) {
-+			if (filter->path.dentry)
-+				event->addr_filters.nr_file_filters++;
-+		}
-+	}
- 
- 	raw_spin_unlock_irqrestore(&event->addr_filters.lock, flags);
- 
-@@ -12186,7 +12237,7 @@ static const match_table_t if_tokens = {
-  * Address filter string parser
-  */
- static int
--perf_event_parse_addr_filter(struct perf_event *event, char *fstr,
-+perf_event_parse_addr_filter(int event_node, bool event_task, char *fstr,
- 			     struct list_head *filters)
- {
- 	struct perf_addr_filter *filter = NULL;
-@@ -12213,7 +12264,7 @@ perf_event_parse_addr_filter(struct perf_event *event, char *fstr,
- 
- 		/* filter definition begins */
- 		if (state == IF_STATE_ACTION) {
--			filter = perf_addr_filter_new(event, filters);
-+			filter = perf_addr_filter_new(event_node, filters);
- 			if (!filter)
- 				goto fail;
- 		}
-@@ -12299,7 +12350,7 @@ perf_event_parse_addr_filter(struct perf_event *event, char *fstr,
- 				 * different processes.
- 				 */
- 				ret = -EOPNOTSUPP;
--				if (!event->ctx->task)
-+				if (!event_task)
- 					goto fail;
- 
- 				/* look up the path and grab its inode */
-@@ -12310,11 +12361,8 @@ perf_event_parse_addr_filter(struct perf_event *event, char *fstr,
- 
- 				ret = -EINVAL;
- 				if (!filter->path.dentry ||
--				    !S_ISREG(d_inode(filter->path.dentry)
--					     ->i_mode))
-+				    !S_ISREG(d_inode(filter->path.dentry)->i_mode))
- 					goto fail;
--
--				event->addr_filters.nr_file_filters++;
- 			}
- 
- 			/* ready to consume more filters */
-@@ -12343,9 +12391,8 @@ perf_event_parse_addr_filter(struct perf_event *event, char *fstr,
- }
- 
- static int
--perf_event_set_addr_filter(struct perf_event *event, char *filter_str)
-+perf_event_set_filter(struct perf_event *event, struct list_head *filters)
- {
--	LIST_HEAD(filters);
- 	int ret;
- 
- 	/*
-@@ -12357,65 +12404,17 @@ perf_event_set_addr_filter(struct perf_event *event, char *filter_str)
- 	if (WARN_ON_ONCE(event->parent))
- 		return -EINVAL;
- 
--	ret = perf_event_parse_addr_filter(event, filter_str, &filters);
-+	ret = event->pmu->addr_filters_validate(filters);
- 	if (ret)
--		goto fail_clear_files;
--
--	ret = event->pmu->addr_filters_validate(&filters);
--	if (ret)
--		goto fail_free_filters;
-+		return ret;
- 
- 	/* remove existing filters, if any */
--	perf_addr_filters_splice(event, &filters);
-+	perf_addr_filters_splice(event, filters);
- 
- 	/* install new filters */
- 	perf_event_for_each_child(event, perf_event_addr_filters_apply);
- 
--	return ret;
--
--fail_free_filters:
--	free_filters_list(&filters);
--
--fail_clear_files:
--	event->addr_filters.nr_file_filters = 0;
--
--	return ret;
--}
--
--static int perf_event_set_filter(struct perf_event *event, void __user *arg)
--{
--	int ret = -EINVAL;
--	char *filter_str;
--
--	filter_str = strndup_user(arg, PAGE_SIZE);
--	if (IS_ERR(filter_str))
--		return PTR_ERR(filter_str);
--
--#ifdef CONFIG_EVENT_TRACING
--	if (perf_event_is_tracing(event)) {
--		struct perf_event_context *ctx = event->ctx;
--
--		/*
--		 * Beware, here be dragons!!
--		 *
--		 * the tracepoint muck will deadlock against ctx->mutex, but
--		 * the tracepoint stuff does not actually need it. So
--		 * temporarily drop ctx->mutex. As per perf_event_ctx_lock() we
--		 * already have a reference on ctx.
--		 *
--		 * This can result in event getting moved to a different ctx,
--		 * but that does not affect the tracepoint state.
--		 */
--		mutex_unlock(&ctx->mutex);
--		ret = ftrace_profile_set_filter(event, event->attr.config, filter_str);
--		mutex_lock(&ctx->mutex);
--	} else
--#endif
--	if (has_addr_filter(event))
--		ret = perf_event_set_addr_filter(event, filter_str);
--
--	kfree(filter_str);
--	return ret;
-+	return 0;
- }
- 
- /*
+My patch now waits only 2 * read_maxtime_us for a write to finish. That
+is enough for the transfer itself. But if a device stretches the clock,
+the controller might stay busy for longer, and the write would fail
+where it used to succeed. That's why USEC_PER_SEC sounds like the safer
+choice to me. I'm happy with either, though - you know this hardware
+much better than I do.
+
+If you go with USEC_PER_SEC, could you simply change the timeout when
+picking up the patch? I can also send an updated patch on top of your
+series, tested on our conga-PA7, if you prefer that.
+
+And could you keep it right after 2/10, with its Fixes and Cc: stable
+tags? Then both can go to stable together.
+
+Thanks,
+Markus
+The information contained in this message is confidential or protected by l=
+aw. If you are not the intended recipient, please contact the sender and de=
+lete this message. Any unauthorised copying of this message or unauthorised=
+ distribution of the information contained herein is prohibited.
+Diese E-Mail enth=E4lt vertrauliche oder rechtlich gesch=FCtzte Information=
+en. Wenn Sie nicht der beabsichtigte Empf=E4nger sind, informieren Sie bitt=
+e sofort den Absender und l=F6schen Sie diese E-Mail. Das unbefugte Kopiere=
+n dieser E-Mail oder die unbefugte Weitergabe der enthaltenen Informationen=
+ ist nicht gestattet.
+
+Data security advice: Please be aware, that data exchange via Internet or E=
+-Mail is not 100% safe. Therefore, please handle sensitive or confidential =
+(bank) data with care. Please take note, that Rosenberger is not asking you=
+ for bank data or providing you such data via E-Mail, in principle. In case=
+ of deviations or questions please contact us immediately.
+
+Rosenberger Hochfrequenztechnik GmbH & Co. KG, Registergericht: Amtsgericht=
+ Traunstein, HRA 5566
+Pers=F6nlich haftender Gesellschafter: Rosenberger Hochfrequenztechnik GmbH=
+, Registergericht: Amtsgericht Traunstein, HRB 4405
+Gesch=E4ftsf=FChrer: Josef Rottenaicher, Jochen Ehrenberg, Hauke Sch=FCtt
+
+Please consider our data policy: https://www.rosenberger.com/data-policy
+
