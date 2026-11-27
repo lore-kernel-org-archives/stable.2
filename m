@@ -1,115 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795767948;
-	b=SkP/gdRtyouRPu9bC08btwcLUtDt3a/TxK7QvAtFMHfRCHW+7GKWFeXGjB4MlOy55oud
-	 ZeyY7xgm7dDQC47+v9804QRabT28/OocyIH5ijQgxsRRfZ0nWx5cj4hrimaeT+Z5MwwU3
-	 asftVd4nSTTeMF9AICjZg66TaMPDSkxqDnMtAC4Oo2a4UJZnhi4msqELXtgTPNY8GGHDc
-	 AjDklzoIjX7JZHPtZlQyYXout4wU9gcptdHNAeA+IN/z+d0191oSUjoG5VAD+UQuA/4as
-	 r2NHEIK3yZ7HlJluSIgErtqUhEp5KvLStkcGCl1DcBHf0gqrZELwPYAesfc0XrkTrSA==
+	t=1795768250;
+	b=nN/IFeGaWvWFkYK/21cJ+qZopaKE4ADPLOI0SBnFerDrN6RIhXc8t1pddWz/90t24S/F
+	 pZHDoIc1hDC3ZgciWulZ8VOkNliN5VeDFVYbptFk5hA3DU3fSrd+l6tpILedxS0hd8hJh
+	 c3BaIe41nMg+KppAmCsU9y2eRAe8yVGP/Ic88XZw2fKIJuTYNFhQGnELsAALxx4L0O6qM
+	 3F9Kykklhna4YXnebN5gXxlu1K5awkMUtF7k0//AvDa6VFc35HGZS151Q0LI45s5X0VZV
+	 C8wFtnQmMRBcwBjl6TTtysbtFDek86u7Nl2nosT4SpgpZ31wnNChrdG4rSbTnEp1rTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795767948;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=zDmzXu0NFQj2oA+T/NCkwzTX7oOI4zb62sgTL/zr73Y=;
-	b=LUCFSTTaRrHekBbr/BHanwkTPRW22zPAhDLFVLr3CK1/Sjo/KFGHd8BODVuo619pXkao
-	 feua1FhY6Q+dfSR/gEc6GgZTe0aOGSKDWPHcbWFh1MfExiZ+IyZQsORpe5TRfV/M2gzLd
-	 JZG4Eh+ESfU1QCzcGA9ohefnjw16+NJT2a17VYqAOddQvOIf+8WyHaNgdastHiC7JZ4lK
-	 xVw6akj+17O2FnTuofobriP6rWoVt/pCVOfLS98ZNa/xWMls8j3jxhbDCjVad3Ay+Vkey
-	 l0adSwfucM2ctbjIbc4+D1AsS3ey1Wv8hp0NnTCLZYlQCQTSkDQ0VD2QIu0IBRfRp+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795768250;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=SKhezHpydXqIPJNJm+VGSWCrhsoJDu4hJDPwIDrJ9Lg=;
+	b=T40KLIlT7LRUtM/8aTQ1MDYahBfEZ06vdnD66yf46j/jFIY3ZnmMV6m5ImVRAqtVqPNs
+	 ehoPcgMkYb4meOEsX0ywPMD34UmH/SnK6e/IdEeuLn1In3J9Vlyh2krwu6t5DL4th1zGj
+	 pn8F1jjRXtndmGxTXqIFij6t65IxuANEI+DkTNlUS56oG3HwILh6ebseGXQAwn6FmfjQb
+	 P1uDCtwfFUfJLSRp2jrhIYHJdS7kyJCsapia1qrLDdMXhsgGcWLkcSVGDuS12bWwjxoBX
+	 unngsZy0uejyzENO17XHOj4VxxVdEq/jAPOaPLpYupzeta+WHU70ao9E8g7e7NBrphA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=P28Pzs3r;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=ZoDbpXC6;
-	arc=none smtp.remote-ip=103.168.172.148
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BTPx2S+E;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10AE5606A321
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 08:25:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10AE5606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA71A606A31E;
+	Fri, 27 Nov 2026 08:30:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=P28Pzs3r;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=ZoDbpXC6
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.phl.internal (Postfix) with ESMTP id 29097EC0B95
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 03:25:47 -0500 (EST)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-06.internal (MEProxy); Fri, 27 Nov 2026 03:25:47 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1795767947;
-	 x=1795854347; bh=zDmzXu0NFQj2oA+T/NCkwzTX7oOI4zb62sgTL/zr73Y=; b=
-	P28Pzs3rG/Ql+Z/3b/AIRZOsnLghSC+HjbSaKzpQtrOa1MzT8DRedIMrKasnR/3B
-	Q4aTLcACx8iq6evN0dug0yPDk1ltbgskOo1ZskUnKLzOXULqWhuwrnsanqDVvafg
-	iluXxCg0NBjV2OW486MG46W078EuBJqyLI3O1/Iz81OlI8nS0lNagUF3pRBj6vZf
-	SDb4IWS1b8i+OSpYlyCJm+weYLgjeNAqxfMvdbyCjAuSNgUd4of5zCb1/lhQ8y8Q
-	qldwp6GG/QR6Xm2nPKv/gHN8aDcWIkrxizyS74JhM0hkuuH/nc85IVyjrct3bA9g
-	HtCdzgskDkFi2y+ReKdOpQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1795767947; x=
-	1795854347; bh=zDmzXu0NFQj2oA+T/NCkwzTX7oOI4zb62sgTL/zr73Y=; b=Z
-	oDbpXC6OiG1UZVGZ8opCisBRPFRGBaZibG0dvp/7Qrmrzm/Du6h+2YDE2uY9DZNF
-	/HVoVMHFw7MMoJfSjnj0ROBP5chvdZlElOFQp5FxtpsJRGcSb8gOCUg0/7QUNkNO
-	2JnE9LFzOAFqlJvvK0qq2uqkl7weYG62iwmHMMA3Iiz+e+qF8UcMaoI3UcONq+tl
-	O1qHlyWrrSMiHhXKRe689eV83w7hqxICXoaqxi0g/v2fX41ai92lHMoreF4ijtY/
-	U5Afu7xh2f0ObD2XEaW3tjl2nZ572miuvPWjOR6GNSN8VoVLRi1n8Ot+D+efM3YA
-	EqYDN1sOg7BylKqd6cCjA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795767947; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:RlmgwSBqefn5z+UCUH+yJ0eIkJbPPk+XOQ+rvj4TzBUZ4vO
-	6LWbyuhvrYtM60wtSzEE519yNpgi/aZuBwSSHlCxAav34AOZASvmxSR9C9kemLIG
-	10nds3ZYljbGV8fc80TxyEL4Bde81PmR2r5qq0tBKQhkrugwhedIDbd4aB2z/8pr
-	qxj5tQf6NpZ4Ynf64Ls64aqbQEmU5x1IXCMDGowzupBqBXWph4QcARPYfQmaHzD3
-	Vf3Ewswx3vFRR7YXBWLZvC+Tc/h6hlVgkWhIaUrU+arUlFtji2+PC3GQkRhBNGlr
-	WcJoyArbZJQHoilJD9YJfjGOMePtBXYaniFYmng==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:IN3N6R8aKo1aFDIDyk6mt1B3VNjp10IaXnV/s+rW0Og=:kH/9QYKA3sqNfHu1Ipc5Bgi+YdEDMsdF9GaXc3tTQO8=;
-X-ME-Sender: <xms:ij4Ja5YMjI6XpBTk5sueWesmvFBSeVPNGigXXjv5mqW7bizYcYVtqw>
-    <xme:ij4Ja-EGTDxmu9NNBv-i0pRL9mV1Q_ydYTqma6JxOZWXNPtGGnzIV3OkSgKPX6Es4
-    BD6T20jjBLYQCizsTe4oOMfZvwBeaPUGUBN8dJCXLKioBnbetAZZ74W>
-X-ME-Received: <xmr:ij4Ja9v9a8NOW5V45ANLEtSK4dJZ8rX8cbGbEfYpkPLymCVcmbjH4YNLIrrUW4PrWImrv5gEHwB6vn27fyytQUNyVtW7IZ4K>
-X-ME-Proxy-Cause: dmFkZTFADugZRovXfKmbemIN3QJamIXdr1KouCfBULZu1xG/dabUyzXYu/3Fjgo0prw1Z3
-    NkoY6lKMsK0mdAbMleCV83Y+2I7K/j6eMG9p1Cdv2VCVj7QJU5+9VZSwh32ZmM3OghVfWF
-    hsJ46d3mOvU+7+0anWZtn15nbpAFuouItvFvl9eyJhl1BpX3Gw8CbqhMnWTAqkmRhIjfCC
-    V/U+MmWOcVZHvgipZ2YwRcokhmPG74Kbe2AAU2rBABQmldd3J/ZKMryXHO6BWolbNdwMo5
-    tRF0joSK7HAgnrvhU698riohYqRzauKnG5EFtyABeXEWcdp/Cgi1BaDAIpKtWJ+BlmkXfD
-    xeHWo4mI/4B0LCoSXHZAS9hbqYQ3NOzL9G+eX3Flb2Kx1YL233oUK/UPlCKtFOh2G8Zq8O
-    4baWHESL3rDdJ1kWrzNJQ0o3yH67JZGz9NO4zUO5kpOCH7208P+7JnUDY71yDXIh/XI01L
-    kV23FLFlxuThWO75Mj+Fn0g1XXJ7M5EHT/sj387c+KeuhDP3DX/RQyPBHFPAPuYOS4MWwp
-    xzMQ7rgMVEGVmABmpUYF45JpXztK2RzKSCcqPbmvLhcA2vx9DpFTnfu2a9DHXN5CVwyqT/
-    hoSf4RqrV5WFK4ZjjMCHHBKVytQelZOkkdbezCj7SmqdJRohQ1xq28HkcK1w
-X-ME-Proxy: <xmx:ij4Ja0KRXab81tRTtbDn8PwF_r_NN8KUz2UikYQNxk3Dw9ZRyEF3pA>
-    <xmx:ij4Ja7O7i8uMZspfFb2tKwY38-dn4sAYZkEMHA75WcvQd-invLdYUQ>
-    <xmx:ij4Ja8be74G6GsnY73ybe9AUXFpCfUThyBvWP31eCISn8XFd3IV0kA>
-    <xmx:ij4Ja3xy3rGanqnq3uVWO5yp8-fcD95OqXILX0Z-bjfwI6JElE21cQ>
-    <xmx:iz4Ja8CdWAWxgt5yeoSR-GX1SwfD1Ku2Yju6qt7nswO5ro9j4KMqtziH>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 27 Nov 2026 03:25:44 -0500 (EST)
-Message-ID: <0b8e15dc-bd02-4fd8-87ab-198851769707@pobox.com>
-Date: Fri, 27 Nov 2026 00:25:43 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BTPx2S+E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3922E1F000C1;
+	Fri, 27 Nov 2026 08:30:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795768249;
+	bh=SKhezHpydXqIPJNJm+VGSWCrhsoJDu4hJDPwIDrJ9Lg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=BTPx2S+EGlZjm3KfcLpfIEgmE6e43JbEtkrOnX+whJH+UDx1OKqadCEs4PIcqpCEQ
+	 3pStgyQzrCAFYdIDESQgPNVsXcDG5D0D60+XS2DzRr9vR4imD9m0uBYpf0cTDfnXfn
+	 TeiNSU5BEFUUq5eKuBrYeiO/xwRP5nNB8Jl84ZZ6WiADu4BroSQXZPRe6gD6+vDy4I
+	 BGwT2cRAKlUKsn08b6lLeyAwC3wwn4yVZQTIHBExi75gvmME0bBMt+MbTURY1YcAaM
+	 tBeO//vvYes9C4Ok52o4ZhXHL5ip0YH8v0bwvNU2bTdh5YZAe5elM++jHY9718xNI7
+	 DfHo4vwJ6rDXA==
+Subject:
+ Re: [PATCH v3] net: ethtool: do not call get_regs() for zero-length dumps
+From: netdev-bot+sashiko@kernel.org
+To: 25031212351@stu.xidian.edu.cn
+Cc: andrew@lunn.ch, kuba@kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, horms@kernel.org, byu@xidian.edu.cn,
+ wencheng@xidian.edu.cn
+Date: Fri, 27 Nov 2026 08:30:48 +0000
+Message-ID: <179576824874.3135.15886004303093318921@kernel.org>
+In-Reply-To: <20261126082748.2798-1-25031212351@stu.xidian.edu.cn>
+References: <20261126082748.2798-1-25031212351@stu.xidian.edu.cn>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,46 +64,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 0000/1002] 7.3.7-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261126105729.110697432@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261126105729.110697432@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 11/26/26 2:58 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.3.7 release.
-> There are 1002 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 28 Nov 2026 10:55:59 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.7-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Tested on 2 amd64 systems and an arm64 virtual machine. Working well,
-no regressions observed.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The patch adds an early `if (!regs.len) return 0;` in
+  ethtool_get_regs() (net/ethtool/ioctl.c:1782-1784).
+
+--
+
+net: ethtool: do not call get_regs() for zero-length dumps
+
+This patch adds an early return in ethtool_get_regs() when the
+user-supplied regs.len is zero, so the driver's get_regs() callback is
+never called for zero-length dumps. The commit message says this does
+not remove a way to query the dump size, because the size comes from
+ETHTOOL_GDRVINFO.regdump_len.
+
+> diff --git a/net/ethtool/ioctl.c b/net/ethtool/ioctl.c
+> index 80b7930b3fe0d..e8af861ee5de3 100644
+> --- a/net/ethtool/ioctl.c
+> +++ b/net/ethtool/ioctl.c
+> @@ -1779,6 +1779,10 @@ static int ethtool_get_regs(struct net_device *dev, char __user *useraddr)
+>  	if (copy_from_user(&regs, useraddr, sizeof(regs)))
+>  		return -EFAULT;
+>  
+> +	/* A zero-length dump has nothing to fill in. */
+> +	if (!regs.len)
+> +		return 0;
+> +
+>  	reglen = ops->get_regs_len(dev);
+>  	if (reglen <= 0)
+>  		return reglen;
+
+[Severity: Medium]
+The early return sits before ops->get_regs_len() and its error check.
+It also comes before the copy_to_user() of the struct ethtool_regs
+header. For a request with len == 0, this seems to change
+ETHTOOL_GREGS in a few ways userspace can see.
+
+First, is a negative errno from get_regs_len() now reported as success?
+ethtool_get_drvinfo() only fills in regdump_len when the driver
+returns a positive length:
+
+net/ethtool/ioctl.c:ethtool_get_drvinfo() {
+    ...
+	if (ops->get_regs_len) {
+		int ret = ops->get_regs_len(dev);
+
+		if (ret > 0)
+			rsp->info.regdump_len = ret;
+	}
+    ...
+}
+
+So when get_regs_len() fails, ethtool(8) sends GREGS with
+len = regdump_len = 0. One example is bnxt_get_regs_len(), which does
+this on a VF:
+
+	if (!BNXT_PF(bp))
+		return -EOPNOTSUPP;
+
+Before this patch, "ethtool -d" on a bnxt VF failed with "Operation not
+supported". With the early return, the ioctl succeeds and ethtool(8)
+prints an empty dump. dsa_conduit_get_regs_len() passes on negative
+errors from the conduit in the same way.
+
+Second, the header is no longer written back for len == 0. Several
+get_regs() implementations set regs->version, and some also overwrite
+regs->len with the full dump size. lan743x_get_regs() is one:
+
+	regs->version = LAN743X_ETH_REG_VERSION;
+	regs->len = regs_len;
+
+emac_get_regs(), axienet_ethtools_get_regs() and
+dsa_conduit_get_regs() do something similar. mcs7830_get_regs(), the
+driver named in the changelog, sets regs->version.
+
+On those devices, a GREGS call with len == 0 used to return the
+version and the full length in the header, because the data
+copy_to_user() moved 0 bytes. Does that conflict with this part of
+the commit message?
+
+    This does not remove a way to query the dump size: the
+    uAPI tells users to obtain it from ETHTOOL_GDRVINFO.regdump_len,
+
+The struct ethtool_regs kernel-doc in include/uapi/linux/ethtool.h
+also describes @version as a driver-supplied output, with no
+exception for len == 0. The new comment says there is "nothing to fill
+in", but the header still has fields to fill.
+
+Could the zero-length check go after the get_regs_len() call and its
+"reglen <= 0" check, so errors still reach userspace? Copying the
+header back to userspace, or documenting the new behaviour in the uAPI
+header, would cover the version and len cases. Since this is tagged for
+stable, the commit message could also mention the change in behaviour.
 
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261126082748.2798-1-25031212351%40stu.xidian.edu.cn
