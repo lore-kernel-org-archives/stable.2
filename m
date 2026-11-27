@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795798924;
-	b=z8CSZdcytkhccIe7ItuvuyjR+XtjB9yolWn7k4tKo6C778NEIFzOjwyXxvbyiS8rbKTi
-	 IDXoSjZ2TUx2PZt0Q857K7aZRyuCmsiz/t4sUy/Ixu6wiS+rAF1ilhkWMWIlFtdiwq6tG
-	 jTADvLIvkafVM//tNc0yxtzCikTNJ4yx2H5TG+7uokQPV4RlJKJrcpcuoWvy8SGg6LSdo
-	 v7ZsaFOA+CsE3rPrBCoSjGbKTsmXdeErY/s5uBN9U9KhKj9LiHbx8FIrPn0qZPl/NepDz
-	 F1vZjHMASDmGy9CI6+NieO+O6Mrxt2aqS21uyfhKEzCKpGMZlSQqUaYXkjq+lafCTIA==
+	t=1795798925;
+	b=QnLnXtxufSAAFATtwjomD9T7x8xrmEYMTwALAehDO8PJIHfq40V7e4rI3ksjk98v+CGK
+	 FJdG0WqBwmSfh9BQVpJ9lrq7wZy6oLm6zgmtUuQ949ha5xJ23FNsjdB0IfHGc+y9W3b4g
+	 iFfttNeriHOUexjq4iwntOBOWiMh5N9HTfRy65EHMFIWswSfhsTQOjwgkt+RVHCuE2PTU
+	 44uuZkGyRnpAurxJrgoNNoysV6bowjI0GIQF+NWMsPqVUOXBCLkHMhGLWR4Ek+iQvh3rJ
+	 1mEL5+lGzG3qBU0BmpK+6u1bIU8slNW7uwUVmZ/Xig0pNnJTVtK4IQdeMndGC6I+lWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795798924;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795798925;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=MVvyKGMvOKzE2CuBk59Lsk+xEyeLYE5n4YW+JOlSJxo=;
-	b=WNnCZ4cCwtlzFcTqOo2JXdF840N85shPSVOYex6F8APKnaOzJMK/Yrs+n6UPi1w/BndM
-	 1uhX0d9tfP0Ekdgl3Bd9zmuGspSW+uwA4MsyQnxXTuSj7fUC9cZ4Am+rVnGznBRT2zfYh
-	 Y47fzcz9QQHd2lcI4MoUlDkmnZmvsZ0AMHEuEZxSP6swjZvihy3z5wHMompyAgiOwJDUc
-	 EF3uarip/NHOk9RDiH59A+tVchuOEBrHAYOMxftL5Byo/REMiNz9A9TcTMT4Sax5F7DEt
-	 K/i+iiTAgz/6cJibCbczkiR2IbXT1iOcR0P+czmisRQnvYeidTCjY+ra3WADr5m2rHA==
+	bh=qIRW8614WFZ32dH8ORYZs1XPb5XhyQAJ5Kw7sf5zXNY=;
+	b=CWSdIdM2YqCRPBEnrXkuriJQ1sBdPPk8x6F9hx3U9Ni91eaPmE4R3TojPH5VRzWw0zrB
+	 lgk0qWt5WY9QZxdJwlYD+YtGQfnhOUd3lN6R2Iqv/PEiLMF4Bf47JBzenygEi/Dr75h1s
+	 S7fzYiqpTyNtvk68P3ryTYFNpTMycUefGjeEKRWZd5G/0XNxQFzLkyMi3Z8f9mjt+BAx3
+	 pqzhSXtIUCQIESDCMyNbTjTd0EaGUy+eqUKCb+8G9WpqW/Hklkgq++0E05SeF3jn5MmmR
+	 g5+WuxjPxzqoK5njSwHCAy5pSbUI8jXIcTXTXY2KmJh/X5otkT/4IbcRQVO1xffLqlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l08M6sf1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OoEp3KcC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B67D606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42124606A331
 	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 17:02:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l08M6sf1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43ED61F00897;
-	Fri, 27 Nov 2026 17:02:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OoEp3KcC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6141B1F0089C;
+	Fri, 27 Nov 2026 17:02:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795798923;
-	bh=MVvyKGMvOKzE2CuBk59Lsk+xEyeLYE5n4YW+JOlSJxo=;
+	s=k20260515; t=1795798924;
+	bh=qIRW8614WFZ32dH8ORYZs1XPb5XhyQAJ5Kw7sf5zXNY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l08M6sf1NAhnZzH2szGuFNy8TtOmlHl8K9m3GcMHBHuEbFSZijkxVPqYRW+fFIBTf
-	 TZA4Rk3u+r6xHAo6d2wcgBaF1wqZMBMrAkVSYdLF1gn8Zj8jhA6ixeCrZYCUA8PqbC
-	 nXWkKhwg7S+xWWJQ89/iYOzhlKH5q0WR3MtkFEzu9GnBgz2F9lqKs71poi/OhsJ6Ep
-	 nYao05pbWGtNqsS3tt8Mz9+tGnmlc+VY9xRTj1X4BjexrQzkB0/dAYH3SKuK7SxBlb
-	 xmLlNtFodR7u72LI7IFKkYFrl/ro2B8heJnLSl0xYoNjb4j9rVizJZtmcc7IBfBU01
-	 AVJRUfHjEvO3g==
+	b=OoEp3KcC6Ibcg0jUP8yNBl2NmDHT8n5QkN0M5HBST4glYs4G+UwetBUaRGXwGg5eA
+	 gq6F5Gjo7damcjbtvmupobrZOqyeEEMorVpDnVMc1aKjRwCJtKg73DEPct3xJH9qvs
+	 yomITioggTGBeRddPHnDk8cvKpqq3TRPAbnhcv/SckqqmM7RLBJBIEiPv12xPzL5Nv
+	 xVjlwhza1aoN2UIZzWd4Amg9I72egBoHhbxXCwXe7/rRC4OKH2BTmOBZeVHBMx/9bt
+	 kUJJxv+XVVIhS0h6ZLc+4Yvy65JMvflZM+CajN/4+pUXXMQw5p3dqMfhOoc5pIRtpW
+	 r9PMXVInU+pTw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Subject: Re: [PATCH 6.18.y] Bluetooth: btusb: fix use-after-free in force_poll_sync
-Date: Fri, 27 Nov 2026 12:01:06 -0500
-Message-ID: <2026-11-26-1-daily-reply-0018@kernel.org>
+	Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
+Subject: Re: [PATCH 6.18.y] tools/bootconfig: Close only opened braces in compact output
+Date: Fri, 27 Nov 2026 12:01:07 -0500
+Message-ID: <2026-11-26-1-daily-reply-0019@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125095450.19095-1-25031212351@stu.xidian.edu.cn>
-References: <20261125095450.19095-1-25031212351@stu.xidian.edu.cn>
+In-Reply-To: <89e26475cf9f34274a05eb3d79b91efdaf088b83.1795602749.git.edumucelli@gmail.com>
+References: <89e26475cf9f34274a05eb3d79b91efdaf088b83.1795602749.git.edumucelli@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,12 +60,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The force_poll_sync debugfs file uses the driver's struct btusb_data as
-> its private data. The file is created under hdev->debugfs and is removed
-> only when the HCI device is released, while btusb_disconnect() frees
-> btusb_data unconditionally.
+> For example, a.b=v, a.b.c=w and a.z=q are printed with the brace for a
+> closed before z. Reading that output back changes a.z into the root key
+> z, silently changing the configuration.
 
-Queued for 6.18, 6.12, 6.6 and 6.1, thanks.
+Queued for 6.18, 6.12, 6.6, 6.1 and 5.15, thanks.
 
 -- 
 Thanks,
