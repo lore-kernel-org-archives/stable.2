@@ -1,61 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795798912;
-	b=oaP3PqiNHtpkR5GTvCAMRGJlHGCvhn1hfLxGWp0RoQuZjtkWg40sThGyFOB03uBsJkMl
-	 LhL5qBHuqNX1vZTphWNNgHXOH4kojbVX0zbUMtH8/+o50gYyMDWLl39lCE9Ie2jGdKG7B
-	 6b96sNBO/56rLaDmqv/Rm8jp5EZ7eDrjYAOl2e7XrZBPfziBAkEcGfs0Vht87Q3FeUEh8
-	 In+DaRc6vsyhOUX0pV6MwGv6IDi397jINpiq7B7Xua6plDNzZe89M5BaOAvafAjKfCjnB
-	 ICUamBoWuD2wmb832p8ULdXHKYp5Euh+r/wxzFbET26pfpCUp9iQs+dw1lxW6pkONZQ==
+	t=1795798920;
+	b=NHlQ74aare7YM/D/vscSNA1W8ifRSGjzUIsVcyPcbkS21TfN2ZJxDKva0kqvOKviPpbO
+	 JOswCOKasxJw9WQfTS/S7+BPa3yYRW9tMxVqemjdXcQhwz6zj7B86aerks0nBlNWvGZTq
+	 xj+QcoH9iCXlIm9GQdqAbqdKgRwz98gKykrxlovuMMOq6b6a4HnKF1VIOK5vnk0JHYyT0
+	 wdIKTdPwZIsRMK/vi5eNmAF2pFoWxW2jLOGQYJUfsDmZ5E3MUBdWNyETSIjJz8kGBDI5P
+	 Ba3QOCjSUVwUyK5Xnr19A9IQOi0qNgQ/mCp9da6ZVhhjYZSJIV+gqnPurztnEjvaISA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795798912;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795798920;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=dkOAlSpJ13qp8zArQdi1gUZpIrrZBO7sgnEDeAfz3dk=;
-	b=EbDZXlWcd4DXPYLTRPtJFAk0YnRKpJwqNqi6GNH8IwJCIkDfSBmKWQCqa5+/mfq9OPPN
-	 sshbmRUvrvI5orgrb2O0+7RSQ70gOq/+5nDH8io+x985yRTvZf1VbKsvZ0jaB0Br4mICA
-	 0fCOqvkUFYomW/zRTfYkLxvyGqjgSiXA+rhXD8jLoyI08DxhcyODluw+0iHs45oq5ADaf
-	 Q/05JFYMFVoohHDd2OIhFewesFs5S4/nbaprrwu0Ep5gXGSGD/yeHF8CuivKOLrs8bBy5
-	 rU5HvnENwIZyCi+/AqQ/eGNXuVfqbcBjgtfgnHEpRCYTHDPx94kjIfJC0AaqsajGsPg==
+	bh=CusP5iuHTQw5y390mYkZWLQu5qzJlFufNmxP7wYDVQ4=;
+	b=oiE7oc7jlIS+OgC7N//iDITwBjLcGuDX4ufLPu00S+nr2kDB54wHuNMKYok+wxAt/sG7
+	 33F2teltBKVYcVp5pDrx/NTi2ji11DnRy+mKh1pI34NzMbv6netrgc5kJAxY08hkap7J6
+	 FPhvJodbrEihJAUaQY3jfyUAmFqafsR/5Y4qaYJxl5W32l3yH50E3rDQo7psvJtLe7lA/
+	 xrlQBivooZWk1dKDXrrgshlyQ5NXfaeJZnvdhYaKXLNlY/Dmbak1PCzIHJUeLoo3FXNnC
+	 kVrd/uLxv4y8TsJ6DI3hzEiFFJZs2sjlmnXO0xaFpDvYBC/xfSE6rowbXuKSrL0IZ7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9wmfB3Y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XeYi0OkW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B75606A31C;
-	Fri, 27 Nov 2026 17:01:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 263F1606A32A
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 17:01:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9wmfB3Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 882801F00898;
-	Fri, 27 Nov 2026 17:01:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XeYi0OkW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A33D1F0089F;
+	Fri, 27 Nov 2026 17:01:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795798912;
-	bh=dkOAlSpJ13qp8zArQdi1gUZpIrrZBO7sgnEDeAfz3dk=;
+	s=k20260515; t=1795798919;
+	bh=CusP5iuHTQw5y390mYkZWLQu5qzJlFufNmxP7wYDVQ4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d9wmfB3YLJyUgwpAL0FnVujnsG8/dyqYIY1LMYxwfLEr40DMBMAGKv2fxgq7gfmqp
-	 TA3yWUW78a8YvaTYYSYBkwzg0KKw32V5aS7o4Qmsp1GDGw/2R8FUDu8toO9T8xLufG
-	 CyWh1JbFpsptCG5y+T+8ErtH9/YaHPdGtPrhJonhkA9wbsJkAZZnhtP0kqcUMvjIlb
-	 nd7mA6bqPx9YSNTsXrpFeCw6XRbx2PEcfr05LRY6PrrcE72mQtUQq7vhf9Df2x0VHS
-	 /DrEjMpTxqWgUsQANSknhwHulZjhPztQTsibeXpBU3E2e9winglABTEN2aFroqvSIG
-	 SBD9TxyYPDXaQ==
+	b=XeYi0OkWN5ppbTaXrUv6iFcz5Nx1Xkz5a49XfqbZ2mkuahsqVuuU0z8dtjXmvhDyp
+	 UxNo3dc9+cX62dZDYoV5nOUvaf10qRNm14cqRCZ2aroVwtVcy2+nmirmHShiaNq/nI
+	 IuW1SoGiMOD998LMyrdjj3a73YieNle0AqAp7Kf/HKIqTUG6nuBeUKUSfoNpGoO+cR
+	 GvqoJUUaTkCwO//xhVjyvbhw4eZ8f5jpjGBKACDiPbpcpoCLQa5V7LihZvTOvPyh1F
+	 2NKiqEcj+s2bqkvXr6QURZVVOskQqBFcX4Wenk+ENjDf7Mp1U5eyTxoSVdNQAHc+dt
+	 qYgibniac2nIg==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Salvatore Dipietro <dipiets@amazon.it>,
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	horms@kernel.org,
-	kris.pan@intel.com,
-	kuba@kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	Artem Dinaburg <artem@trailofbits.com>
-Subject: Re: [PATCH 6.18.y] net: flush skb_defer_nodes in dev_cpu_dead()
-Date: Fri, 27 Nov 2026 12:00:59 -0500
-Message-ID: <2026-11-26-1-daily-reply-0011@kernel.org>
+	dipietro.salvatore@gmail.com,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	linux-mm@kvack.org,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Subject: Re: [PATCH 6.18.y v2 0/2] mm/page_alloc: fix iomap buffered write regression from 5d8edfb900d5
+Date: Fri, 27 Nov 2026 12:01:03 -0500
+Message-ID: <2026-11-26-1-daily-reply-0015@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125205653.75303-1-artem@trailofbits.com>
-References: <20261125205653.75303-1-artem@trailofbits.com>
+In-Reply-To: <5b47ee1e-0b0c-4b0c-9db9-43c9fbaaec96@kernel.org>
+References: <5b47ee1e-0b0c-4b0c-9db9-43c9fbaaec96@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,11 +65,13 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> When a CPU goes offline, dev_cpu_dead() drains its softnet queues
-> (completion_queue, output_queue, poll_list, process_queue, and
-> input_pkt_queue), but leaves net_hotdata.skb_defer_nodes untouched.
+> Oops, while checking that I realized I don't like that this was backported
+> without also b480cbb071020bd590a0dc0166635b448e9fc46b and especially
+> 9f2fd03c9bde366c928c9242fc9b2e2c5111a134. We didn't initially thought those
+> worth backporting, but now they should, otherwise we have a weird
+> combination of behavior for highatomic pageblocks in the stable kernels.
 
-Queued for 6.18, thanks.
+Queued both for 6.18 and 6.12, thanks.
 
 -- 
 Thanks,
