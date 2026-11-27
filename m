@@ -1,114 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.134.164.83
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795774928;
-	b=svS5+HYNdTkXroL07/j4LxqsZ3QC1EkUs0/H/aVP+oI8xbkLKEB6L1j64nVhD4XZYMT2
-	 p8Zf4WV8E8LLvCDOZJ5RkKRg6OBlmxYf9hXTDeWViQHBn1tgWG5FnGhxdDRZEz9KZ5EnZ
-	 /mQRVONt177fWGW+PbNy8W7PqGjMIur1XTqVUEfWeKthT70+6wR1xKokJCZhasGZnvCUM
-	 LPSWbd5i4EN0TqADSwxORqo9LgScdGm1vJnkqNUodmVvwJVlKkAENHadQrgwWbf9BXgMA
-	 ZSzH7WI8KVPBARrc0u2emFEiOWxDxa5npo/OPbdYP/HNDG85qHsLo3B468aWwhmAekw==
+	t=1795774968;
+	b=jwqkrXd+n9KMnkwAbca3s2mi6/dlYecuIY8Bj3dAa8bTwvEh5Fj2vY33EMA00jkiG/n4
+	 tFRdDVQ5x69A/Db6JSgDohpXFJBt6wBRmpkdnEt8aFpQM/1CsjReClnUP+x4jOdrC7XxA
+	 69VB8PfTKdgAaES+49R4clKxstGF8awSh9STwBz5614R8RZB+gvvkqq85JoobM82NiX9z
+	 Ss1iSZO6gngckwyl6iMxigqc0rLdIzuue9irMSUVOckSrmx6nHHmEOceHLsMq1zu2K4xB
+	 aTpjUTPBA5D2e6m9A5JLwNivkwSDcjDN/yyey/sTe1DNOtelSSp4igZhGIxLEs0A20Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795774928;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 Received-SPF:Received-SPF:X-ThreatScanner-Verdict:IronPort-Data:
-	 IronPort-HdrOrdr:X-Talos-CUID:X-Talos-MUID:X-IronPort-AV:
-	 X-IronPort-Outbreak-Status:X-MGA-submission:Received:Date:From:To:Cc:
-	 Message-ID:In-Reply-To:References:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-Mailer:
-	 X-Zimbra-Message-Verification:Thread-Topic:Thread-Index;
-	bh=NurK4ezqIA5BMNZvLSuYVrqVn3HcqufrAtyykoVqoFg=;
-	b=M34SLeZaw9PbcMIHTab3F5wUkSrwkgpn2eJK2nA5WW471BOpo3j2IU6Adbnm+q5iXgD4
-	 6erBXm4dFoZ7tWcoWSSFRhBcjZpmp8kMIjvO2mWNn3J2Gz/SwpoaEbOEo1Y50siNR+la3
-	 SDZOEZIIhRDCJQkehxNCqtmH5uMHZfJhwPXVxv2OdjpnjvAMHF3WCzn6ASAJbmhkjHDXv
-	 4WnYJMIUp44zhEQNJnIhh+W8WuunOIzDP9+TofZw4IBwneMJeKK2N4WF9xXMLnGNTdVlr
-	 25BFLOIpymJPWJVlxIusfR8I+p+lZgNmusEzcDN74A8cz8WiqRLbjiW5IofpL6ytc+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795774968;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6/jX12W92VjHvQwsqs/WyP2fOtVu/lPYryGB5gVljG0=;
+	b=nxWsHpeJQib8AGv1khh/+SdgpRaIgXOcL/D7LVF9QoCKU16o2UfF28fvPC0ZSnurRwm6
+	 Ml+ypsw0Bk9osjIvUP48ERuKyeaoBFypjPQV/rQaZdqfzBBzHZhXs/l9g+wFoHFYJY+YF
+	 OmPAqwjf9Ni0DdroG1Mdn6qxKhbeuhrvwNL5AX64Bqp1T93kMuc9TSaKogoX0Ws7CasCU
+	 ZkSoX8ziTiIk7Mne/8u/dwqTNaxhtzWe0FbYidl+fob/27SLvQxSi02irJsJMh74cWN2x
+	 wZlZniAJh2I1/TA6xVcrEvEOjG87kBhZhEMiUA8bAHkqfQBvu7Hek4H0B1v9cOoqVrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=inria.fr;
-	spf=pass smtp.mailfrom=inria.fr;
-	dkim=pass header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b="SQb/luYY";
-	arc=none smtp.remote-ip=192.134.164.83
-Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Vd8ozl5M;
+	arc=none smtp.remote-ip=74.125.82.66
+Received: from mail-dl1-f66.google.com (mail-dl1-f66.google.com [74.125.82.66])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB172606A324
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 10:22:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB172606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC25606A69B
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 10:22:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBC25606A69B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=SQb/luYY
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Vd8ozl5M
+Received: by mail-dl1-f66.google.com with SMTP id a92af1059eb24-1b24f4b15c4so3717651c88.1
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 02:22:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:cc:message-id:in-reply-to:references:
-   subject:mime-version:content-transfer-encoding;
-  bh=NurK4ezqIA5BMNZvLSuYVrqVn3HcqufrAtyykoVqoFg=;
-  b=SQb/luYY0pPZDVTxSTGdNqm/YSVk8H5vywG5oMalf4Hu9euI3VszTQKW
-   A/tTaPNKVe0tMEZfhcOeTQvSxwc8M2ohZGF5v1cQJ3wWL+Trt3a5AvbKq
-   9UDUWtIKQIR142/HS2b2kpJDezh9YEXu0kGPIzlvEDGrJKPrzHxoHDXwi
-   k=;
-X-CSE-ConnectionGUID: J+g7Vi3sTrCv9HUzQfsyZQ==
-X-CSE-MsgGUID: u54VmC5gRTuPFSfwE1XCNg==
-Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=Pass smtp.mailfrom=zakaria.belkadi@inria.fr; spf=None smtp.helo=postmaster@zcs2-store8.inria.fr
-Received-SPF: Pass (mail2-relais-roc.national.inria.fr: domain of
-  zakaria.belkadi@inria.fr designates 128.93.142.6 as permitted
-  sender) identity=mailfrom; client-ip=128.93.142.6;
-  receiver=mail2-relais-roc.national.inria.fr;
-  envelope-from="zakaria.belkadi@inria.fr";
-  x-sender="zakaria.belkadi@inria.fr"; x-conformance=spf_only;
-  x-record-type="v=spf1"; x-record-text="v=spf1
-  ip4:128.93.142.0/24 ip4:192.134.164.0/24 ip4:128.93.162.160
-  ip4:128.93.162.3 ip4:128.93.162.88 ip4:128.93.162.27 mx ~all"
-Received-SPF: None (mail2-relais-roc.national.inria.fr: no sender
-  authenticity information available from domain of
-  postmaster@zcs2-store8.inria.fr) identity=helo;
-  client-ip=128.93.142.6;
-  receiver=mail2-relais-roc.national.inria.fr;
-  envelope-from="zakaria.belkadi@inria.fr";
-  x-sender="postmaster@zcs2-store8.inria.fr";
-  x-conformance=spf_only
-X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:0BBDm6haq6CTHGIdaQLeZGTZX161DRAKZh0ujC45NGQN5FlHY01je
- htvCGDXaK3Za2r8eIoiOYzn9UpQ6MDVy4VjSARl+C1gFykW8JqUDtmncnv9bniYRiHhZBI+v
- p9GMrEsD+htEySC/k/1WlTFhSMhvU1dbuOkUIYoAggoG0k8Dntn0ko58wIAqtYAqcCjBA+Qs
- s/FrcTaOVu0sxZ5KWt8B5ir8XuDh9ys/mlH1rACTaoT5gGHziNKVMt3yZyZdBMUfKEERoZWe
- M6YlNlVzkuBlz8xB9WslKrMc0Fiatb6IQiUh3NKbLOpix5EqzZa+v5T2C00NC+7Ix3Q9zxA4
- I0lWa6YEG/FDYWV8AgpaCS0JgkiVUFw0O+ecCLn6aR/+GWdG5fk660G4EjbpuT08M4vaY1F3
- aVwxDzg8nlvLg95qV62YrAEuygtECXkFKFctS5ezGrCMewNX8Hjfrfz68RJ7g5l06iiHd6GD
- yYYQShkd06FeAFIIFpHTpM4huahwHflG9FagAvP9exmuC6KkFY3jtABM/KNEjCObddcnU+Cp
- 2uA9Wn9ARgWNfSezyCE+zSinIcjmAugAN1MS+Dpqq4CbFu72zFPNhg9CFSBneSBpHWwRP8GG
- 2cy9X97xUQ13AnxJjXnZDWkvWSfoxodXfJNCfYn7ACLjKzZ/26xBG8DSDdaLtgvtNM3QzEs/
- luImc75Qz1prLCRD3ma89+8rDWuNCxQImESTSsFVhcepdf5rYw/gwnMUtF7VqmvgbXdAi35y
- TSHhDYxiq9VjsMR0ai/u1fdjFqEo5HVUg44+UPIX2ah7wp8Ioe4Y4CA5l3S7PIGJ4GcJnGDt
- X4F3c6f7/0KBLmJlSqQUKMMGq2k47CONzi0qURoE4Mg+DPr5X+9fKhR5i1zIAFiNcNsRNPyS
- F3YolkU/4NUJnb6K65xeYO4TcowpUT9KenYujnvRoImSvBMmMWvpUmCuWb4M6HRfEkQfWUXK
- 5yAK4O3EXEABPQhzTysRu5b36VDKuXSA4/MbciT8vhl+eL2iL2ppXMtMV2Ub+l/4rnsTMD97
- YNEL8XTo/lAeLSWXxQ7OrL/4bzHwbbXyHw2RwFqmja/Hzdb
-IronPort-HdrOrdr: A9a23:boDHiK+VW83yy+0vtLBuk+D2I+orL9Y04lQ7vn2ZhyY4TiX4ra
- CTdZsgviMc5Ax6ZJhCo7G90cu7Lk80nKQdibX5Vo3NYOCSghrNEGgU1/qE/9SPIUDDH5ZmpM
- Vdmv9Feb7NJGk/vsb/6xKxV/It2sOO/qztuuvEz3hsRwl2a6dmhj0JbzqmLg==
-X-Talos-CUID: 9a23:TdAk1m7/g+BPU8UZadss1g0bRf4kKWbh1lzOcm+FG19nU6yncArF
-X-Talos-MUID: 9a23:FGFoJwtzhtQj3Juggs2nmWw+CsJDvquUNF01v64IpOTdBQdWNGLI
-X-IronPort-AV: E=Sophos;i="6.27,236,1787004000"; 
-   d="scan'208";a="307675948"
-X-IronPort-Outbreak-Status: No, level 0, Unknown - Unknown
-X-MGA-submission: =?us-ascii?q?MDGSaIjKpjkDMm021PAEHsPTC2TmPdkTx0h02O?=
- =?us-ascii?q?3JSkt1ynYKqOz9awmbwMoR92Qd+AkHladWVMWplmDBqzlj21pt6npWn3?=
- =?us-ascii?q?+Ae5yk2VsOzXAUPEgssENhdtL2O1+mhH7K+QveiSeuppSgtfwoXONdLJ?=
- =?us-ascii?q?SjfAJYDGIVL6LvMe9PNBs4dQ=3D=3D?=
-Received: from zcs2-store8.inria.fr ([128.93.142.6])
-  by mail2-relais-roc.national.inria.fr with ESMTP; 27 Nov 2026 11:22:00 +0100
-Date: Fri, 27 Nov 2026 11:21:59 +0100 (CET)
-From: Zakaria Belkadi <zakaria.belkadi@inria.fr>
-To: Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
-	Intel graphics driver community testing & development <intel-gfx@lists.freedesktop.org>, 
-	stable <stable@vger.kernel.org>, 
-	Matthew Auld <matthew.william.auld@gmail.com>, 
-	Jani Nikula <jani.nikula@linux.intel.com>, 
-	Rodrigo Vivi <rodrigo.vivi@intel.com>
-Message-ID: <1885002349.1698785.1795774919927.JavaMail.zimbra@inria.fr>
-In-Reply-To: <31feca61-7439-4006-91f3-2dedb3dca27a@ursulin.net>
-References: <20261126094444.52858-1-joonas.lahtinen@linux.intel.com> <31feca61-7439-4006-91f3-2dedb3dca27a@ursulin.net>
-Subject: Re: [PATCH] drm/i915: Reject relocation writes to RO userptr
+        d=gmail.com; s=20260707; t=1795774962; x=1796379762; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6/jX12W92VjHvQwsqs/WyP2fOtVu/lPYryGB5gVljG0=;
+        b=Vd8ozl5MitepFsW7Er+FwXLuVm0MJdJtqddltqXG5nWpwZu4iiIRch7xRVi0DpSGmC
+         yHapwfJ73TnQdklxw7yM+rr67SCp9hMcyOwm2B9t7rr6JytBt0PvoiAEvdtCKFKJDkR9
+         /R8nLbmT1RHyOzlbtJE+dCjGnXAjkDCXscPthCTj7XqAgL5ey6o69GrP4kEjy9FTEHVK
+         EaRPGP7T8msETD1V0+8n7QFF8boJnrZKgOb4Nknv7gYO2kTzHnbHCNs2q1TKnb93dz+g
+         5O/ECvJHbXKcqwzLs4FFxG9mebxwWB+FYTvalltaw3FKgJxrK4kYerHX9xsB/0/e1i58
+         zmqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795774962; x=1796379762;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6/jX12W92VjHvQwsqs/WyP2fOtVu/lPYryGB5gVljG0=;
+        b=LTPDgBdaaV+Mr/eMu0gRBM7yj2B9dbRlg6RBouPzvW4bzcFKsOlQ0QT6/1aBsmlUl5
+         i3U0Hean1E4jvTNQchyXJqDiIS0/qt6WzG8LeahEpAtTDWNQa3xyyPhDQ9hxStzAckxm
+         xQzdW8sF8pxJrqK41i9YK93nH1z3eS0VcE8zWCV6qqKj0USTnHrzAN58u8DqA566WcJs
+         WHfI7CDOgUf69CH8DACk2hy3TdCMgd2sHNKPWiJtHqsv+vK8ymo5eLwQR9GAV5wt8y2F
+         rYgkJb92bRdLUb1awaNRwb8TCnNn6G1K4uyC8AYPLaAlzrVh+0VoR5Py8o/U7e4SXkg0
+         +ouQ==
+X-Forwarded-Encrypted: i=1; AL+hErHSTa5SIOgmQRceK8MAaYHLz5+AXXPxY7XTLpJ/cG1zyhk28RAAGfl3Eu8gDjQUEVoO1+jhGE0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9IHGdd7EGk+PfhJLyvPaqMH/XAHAkqoYhhHD2LUNguA5ZBT+bN
+	5eSfO6x1fcqf3LmQxGYXUyFEVMkfhwTKIEyCU8Q3TD/QsRoCejdlqscg
+X-Gm-Gg: AZFdTZckv+pLguzpF+700q/yrrWWz1bAdRe5eN4BTFDS+YeKsrjgLarKcYzwM1ZtG8/
+	rMysKZIp8SIUX6nUa0Dk0P7hAJe/dRRzUu2WgMclgkBfJG8YGXPnnzCa68EmIlCiH62rAqAB3/T
+	Dcp9LyZjChTSBxSzRCpQw3Ns6h9FJ3qh7mqxJC6iDeBAQ8Zi2dmHT4/7TFknUuvwHLXH4Kao/v/
+	RAali9eGCnFYvvNkRqbbjktHbg/QOd5Mvst75eL2upsBy0L+FESH0TDyiPfGYwY1oHKPi2rnBI/
+	dTun/Tzg38aUHHhctRFu5z7swtc8/+MQn/sMUq9mgaJAf9cBqwWzI13wyECCtmDbmx+SrQ3l5QA
+	7DiyQ8iQZ9AmCh8mU2JjbVcdGeeeR6iPcKhFQhRvXT+y/TQNk5ChE3jU5Bdz2CskkbDTyVjE4M4
+	3B08nsp7ZlYbFpheZj9Bi4m+5sYRNY71sy/ft4PgPMPLXadIeeqp9RJ3BoPI2Pl3htoPm08CnYg
+	I4bhlBneOqFfa64/cUvc2wCIqlILYX2KHtnHGX4eZQ4qOTFnLpZFz3F2TbTXQRZMVroE4dXBLqp
+	6fyVOU2Kbe2GL3s8zQp6Bqs1V3RYkCaDCCSqkHQ=
+X-Received: by 2002:a05:7022:3f0d:b0:1b5:32d6:6784 with SMTP id a92af1059eb24-1b5525f1012mr24325367c88.20.1795774961922;
+        Fri, 27 Nov 2026 02:22:41 -0800 (PST)
+Received: from WannaCry ([2405:201:a418:c1d0:90a2:f39d:9eab:aa4d])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b556847fdasm62987251c88.13.2026.11.27.02.22.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2026 02:22:41 -0800 (PST)
+From: Adhyansh Verma <adhyanshverma2010@gmail.com>
+To: Alice Ryhl <aliceryhl@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Carlos Llamas <cmllamas@google.com>
+Cc: =?UTF-8?q?Arve=20Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
+	Todd Kjos <tkjos@android.com>,
+	Christian Brauner <brauner@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Adhyansh Verma <adhyanshverma2010@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] rust_binder: retry ready threads or fallback to proc queue on dead thread
+Date: Fri, 27 Nov 2026 15:52:32 +0530
+Message-ID: <20261127102232.74796-1-adhyanshverma2010@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -118,11 +100,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
-X-Mailer: Zimbra 10.1.21_GA_4899 (ZimbraWebClient - FF153 (Linux)/10.1.21_GA_4899)
-X-Zimbra-Message-Verification: hash=SHA256;guid=YzZhNWU0NzFhNjI2YjAyZjZkMWNmOGVkZjQ4MzFiMzdmY2RhNGVhM2JmYTRlNzcwMGZmOTI2OWFmMDY2NjFkNA==
-Thread-Topic: drm/i915: Reject relocation writes to RO userptr
-Thread-Index: /XCWHdHDaXBGJkoVJBUU4SBbdnDnEQ==
+Content-Transfer-Encoding: 8bit
 
-Tested-by: Zakaria Belkadi <zakaria.belkadi@inria.fr>
+When ProcessInner::push_work() attempts to deliver work to a waiting
+thread from ready_threads, it previously checked only the first thread
+with an 'if let'. If that thread has exited while waiting in the pool,
+thread.push_work_inner() returns PushWorkRes::FailedDead(work).
+
+Matching on FailedDead immediately returned Err(BinderError::new_dead()),
+aborting the delivery and dropping the work item. This incorrectly
+treated the entire process as dead, even though the process itself was
+alive, other live worker threads might be available in ready_threads,
+and the process work queue (self.work) was ready to accept the work.
+
+Change the lookup to a 'while let' loop so that if a popped thread is
+dead, push_work() continues checking any remaining ready threads. If no
+ready threads remain, fall back to queuing the work on self.work, only
+returning an error if self.is_dead is actually true.
+
+Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
+Cc: stable@vger.kernel.org
+---
+ drivers/android/binder/process.rs | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/android/binder/process.rs b/drivers/android/binder/process.rs
+index 1f4cb43f1de..b7b53b99689 100644
+--- a/drivers/android/binder/process.rs
++++ b/drivers/android/binder/process.rs
+@@ -184,23 +184,27 @@ fn new() -> Self {
+     pub(crate) fn push_work(
+         &mut self,
+         proc: &Process,
+-        work: DLArc<dyn DeliverToRead>,
++        mut work: DLArc<dyn DeliverToRead>,
+     ) -> Result<(), (BinderError, DLArc<dyn DeliverToRead>)> {
+         let sync = work.should_sync_wakeup();
+ 
+         // Try to find a ready thread to which to push the work.
+-        if let Some(thread) = self.ready_threads.pop_front() {
++        while let Some(thread) = self.ready_threads.pop_front() {
+             // Push to thread while holding state lock. This prevents the thread from giving up
+             // (for example, because of a signal) when we're about to deliver work.
+             match thread.push_work_inner(work, sync) {
+-                PushWorkRes::Ok => Ok(()),
++                PushWorkRes::Ok => return Ok(()),
+                 PushWorkRes::OkNotifyPoll => {
+                     proc.notify_poll(sync);
+-                    Ok(())
++                    return Ok(());
++                }
++                PushWorkRes::FailedDead(dead_work) => {
++                    work = dead_work;
+                 }
+-                PushWorkRes::FailedDead(work) => Err((BinderError::new_dead(), work)),
+             }
+-        } else if self.is_dead {
++        }
++
++        if self.is_dead {
+             Err((BinderError::new_dead(), work))
+         } else {
+             // Didn't find a thread waiting for proc work; this can happen
+-- 
+2.56.1
+
