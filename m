@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795774411;
-	b=tGbFIshWIEmgjCXwP2xc/QzGqU2DjbnTCBnCMN/YtcPGkMjaD9ZUFLBkqeO+rlXqByNo
-	 dnrp69EpqT6bRjyPueybF2WRd7qzl828MhbQ9WeKo/MPEUApjqUqdZ04O6MBk4pwJmuEN
-	 hFCh1ZkAg+tN8fZHnQzDn1Ms2Vqo/P4WIkLCPD1S0ig0ULGH64u+7408lEcJE3JOqcSUa
-	 +YlrwpjtQJX1lCZjetKzPakz+Hjp6XnZiBiHpQX4dFqvqXaIOBjZkx7KNixS5yZVs+aL2
-	 XZi2Jt0y9Wgb7e2iAROGVl52I5DJhfnVGr1NPGB+BM0X1FNm5kIA+VZL4apiAgVBzfQ==
+	t=1795774412;
+	b=t8OzIWHRNF1afKIeOcw94S13TG/dcer14lel1wAhCOSfJnPxQ5UwoG3nq4pMR3T81QIZ
+	 rhgyWsO+p5179dTfl5Wy/0n2FUH34k3I4TbqPRH+zDLV2PFpwIp9f6R+PUJb41lAMlZ3Q
+	 xUUMRgbln6r23z5ScYqyK+WMw0xx9T++ufFIzQw8Mrze40WC+JrWw0DLuvvhe9NYW4wEe
+	 B24p920t8v/tsV+a8Uozbulb09jDB/3qmzSC7CST2SCH7LZWtOc0KuY/Be7sXhXIRuxuY
+	 54dB5wnd2PlX5SCMkg+k1QJ/3kR7STQm09Egm2sGdaT+4XzoUJPVqHtcenA3oLJRNXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795774411;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795774412;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=5EEtXQ2PrPKow39VsKQpKiA8DKM12Edkw0WjIixiSrM=;
-	b=aRL7PERxHCVGhUFLKkd1Ka9Hy++Wjdcwxm8sXkAAcICBbS2HaBlOIBK7G3UkIbHPaP/d
-	 Yl/U0pUtf6cH1OZ1D33CYPILUXEuieV4O7EMFqaKjPf6Y01fsIxLlHJ2zkS8aVsXfBShk
-	 fIhuADWtTX6fFB5HSbuHRoOH12Kv6D4X2vlNvji5Hw5L5b9OA+GuoVsIHefwGSKLi76nk
-	 /XecKkU43Fj/UoOfuHn7VckRJ8fSLrR2QwFz8K7azbEAD1CWODGDIs7MNF3oIVBjRhlJR
-	 XNU0SsZb67C28Ji4rdMC0MMluZ8XhXCXMhP1K1FRoY2Xt5EUBtoA6JJLe7yDXIlS9oQ==
+	bh=Cdp4y+NU/kVwGHCxRbY2Msr2auB6YOWOh/0ZbWxjaPM=;
+	b=zKHR5y16O+fQ6UWW5rzZs12X97NPxq0+BAQ3/eTztF9jsdz9LTcO7KovbxwJfQY3j9SZ
+	 vknpSGxW+FPlJTNqC/DfuxwKSEyLsFJ2fuIVYSTahrVOnU/m+iriyEhHjH9Q2fe13umpv
+	 BzbvywkiXomDRB/8sMNiFPYeEDUjwGSdHWBJd6VUaBKXdLJSmXM5f4g1Z/9KSNO+zUgx7
+	 44cn8iB6uvrYjbdi4yQiLvv64V/OiEsWLVdjZh6G0OwoyQmnoCQkXwhkKnmxkfu52rnp6
+	 Q8o1KBXEKBjk9oza1DwHKUinZQh8g6ssqjRqbBdUNJPAzrGYYhG5ZVDKvvpFZmolQWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=njOFpL7V;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MtN5IqiK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C12B606A31C;
-	Fri, 27 Nov 2026 10:13:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A376A606A331;
+	Fri, 27 Nov 2026 10:13:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=njOFpL7V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9531F00897;
-	Fri, 27 Nov 2026 10:13:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MtN5IqiK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B6D1F00897;
+	Fri, 27 Nov 2026 10:13:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795774410;
-	bh=5EEtXQ2PrPKow39VsKQpKiA8DKM12Edkw0WjIixiSrM=;
+	s=k20260515; t=1795774412;
+	bh=Cdp4y+NU/kVwGHCxRbY2Msr2auB6YOWOh/0ZbWxjaPM=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=njOFpL7VVZGSzLW5gfrvWVnQwvafApz9JVxQQ+pxEXUZmWiEE3FJUeDF31np/+k9j
-	 /i3+gFrVuh6n/rbjKO8s995C1dh8tG0jco8QAY4hpmBeVrPSrxGJVj81FP4ilHhbL3
-	 LezGJkTPDAnItsxna6MRqAaVG8kU98zNWUwoy9YtevwV9CHlHXOnkIjF48g0NKm8Pp
-	 od2mSYlExrmWhKhilC+A74LDrSH5evptlD2h8ntMDUNWAVAsswOoeNIJoHm02HEmh3
-	 v71rTlWd4ES6sb5JoFVm66hjoEXrcAbc3erDoKJvfyp6zDCIEVTuLaZTOk0vACU4n3
-	 Zmvq2IirOdbdA==
-Subject: Re: [PATCH net v3 02/10] rxrpc: Fix time unit conversion truncation
+	b=MtN5IqiK0Le+qSmGizqREknUJkOENsWEDWxcFrWTgvyCt7Ar/tZRIJZZWnIxrk9G0
+	 mpj2gfkRZvD97s4yMnStIWxgfGDoDXKk8gS8aX1qAHqrisMSgdLb4AgwvhPTmGm26G
+	 StPTMRpsCHNm357pcD7Yduj2wvH3f/zxNXfVEg6zJDgtg7r8rZd+naCLKXLRC+XdO6
+	 wPMuCFYHQnn6qIdZi6RQZVGFqJb1KcrFcIkevYZvBMAeA56qxZpN4eUQv1DhFxIItk
+	 7TkNR5J1GAjOs2kXV0TrUHmjTzl2/+LI4h5fuUBW2/xK2o28w+vrXNiCjYvThaq0IH
+	 fjTqEoC35U1fA==
+Subject: Re: [PATCH net v3 03/10] rxrpc: Fix carrying of in-flight calc over
+ retransmission
 From: netdev-bot+sashiko@kernel.org
 To: dhowells@redhat.com
 Cc: netdev@vger.kernel.org, marc.dionne@auristor.com, kuba@kernel.org,
  davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
  linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org,
  jaltman@auristor.com, stable@vger.kernel.org
-Date: Fri, 27 Nov 2026 10:13:29 +0000
-Message-ID: <179577440967.3135.13515803634362574241@kernel.org>
-In-Reply-To: <20261124161302.4044422-3-dhowells@redhat.com>
-References: <20261124161302.4044422-3-dhowells@redhat.com>
+Date: Fri, 27 Nov 2026 10:13:31 +0000
+Message-ID: <179577441120.3135.18228727853946391641@kernel.org>
+In-Reply-To: <20261124161302.4044422-4-dhowells@redhat.com>
+References: <20261124161302.4044422-4-dhowells@redhat.com>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -70,59 +71,68 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The Fixes tag is incomplete, so stable backports of this fix will
-  miss some LTS trees.
+- [Low] The commit message for "rxrpc: Fix carrying of in-flight calc
+  over retransmission" explains the mechanism: in_flight was computed at…
 
 --
 
-rxrpc: Fix time unit conversion truncation
+rxrpc: Fix carrying of in-flight calc over retransmission
 
-This commit adds u64 casts to the srtt_us conversions in
-rxrpc_propose_delay_ACK(), rxrpc_congestion_degrade() and
-rxrpc_tlp_calc_pto(). Without the cast, the multiply by an NSEC_PER_USEC
-factor truncates on 32-bit arches.
+In rxrpc_tlp_send_probe(), this commit moves the rxrpc_tx_in_flight()
+calculation to the point where the value is used. The value then reflects
+any (re-)transmission done by the TLP probe. Before this patch it was only
+refreshed after new data was sent, and not after the rxrpc_resend_tlp()
+retransmit path.
 
 Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020201258.290827-1-dhowells%40redhat.com
 
-> Fixes: 7c482665931b ("rxrpc: Implement RACK/TLP to deal with transmission stalls [RFC8985]")
-> Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020201258.290827-1-dhowells%40redhat.com
-> Signed-off-by: David Howells <dhowells@redhat.com>
-
-[ ... ]
-
-> cc: stable@vger.kernel.org
+> rxrpc_tlp_send_probe() calculates the in_flight value at the top of the
+> function and then doesn't use it till the bottom of the function - after it
+> may have done (re-)transmission, which would change the value (though it is
+> recalculated in one place).
+>
+> Fix this by calculating that value at the point it is needed.
 
 [Severity: Low]
-Should this patch carry more Fixes tags? Of the three hunks, only the
-rxrpc_tlp_calc_pto() one in net/rxrpc/input_rack.c seems to come from
-7c482665931b:
+This isn't a bug, but could the commit message also say what goes wrong
+because of the stale value? The patch is Cc'd to stable, and backporters
+would find the user-visible impact useful.
 
-    pto = ns_to_ktime(call->srtt_us * NSEC_PER_USEC / 4);
+In rxrpc_rack_timer_expired(), the timer mode is cleared before the probe
+is sent:
 
-The conversion in rxrpc_congestion_degrade() in net/rxrpc/input.c seems
-to go back to 5086d9a9dfec (v6.2), where it read:
+net/rxrpc/input_rack.c:rxrpc_rack_timer_expired() {
+    ...
+	call->rack_timer_mode = RXRPC_CALL_RACKTIMER_OFF;
 
-    rtt = ns_to_ktime(call->peer->srtt_us * (1000 / 8));
+	switch (mode) {
+	...
+	case RXRPC_CALL_RACKTIMER_TLP_PTO:
+		rxrpc_tlp_send_probe(call);
+		break;
+    ...
+}
 
-That multiply is u32 * int, so it truncates on 64-bit arches as well.
-b40ef2b85a7d ("Manage RTT per-call rather than per-peer") later changed
-it to the current form, which fixed 64-bit builds as a side effect.
+In the retransmit branch of rxrpc_tlp_send_probe(), the call to
+rxrpc_resend_tlp() increments tx_nr_resent and may decrement tx_nr_lost.
+Both raise rxrpc_tx_in_flight(), but that branch never refreshed
+in_flight.
 
-The conversion in rxrpc_propose_delay_ACK() in net/rxrpc/call_event.c
-seems to come from 153f90a066dd (v6.9):
+Suppose in_flight was 0 on entry: every outstanding segment had been
+SACKed or marked lost, but acks_hard_ack was still before tx_transmitted.
+After the retransmission, the old code then skipped this block:
 
-    delay = (call->peer->srtt_us >> 3) * NSEC_PER_USEC;
+	if (in_flight != 0) {
+		ktime_t rto = rxrpc_get_rto_backoff(call, false);
 
-The patch is marked for stable but only names 7c482665931b. Will the
-stable tooling then skip trees that have the older truncations but not
-the RACK/TLP commit? For example, 6.12 has both of the older ones. 6.6
-has the input.c one, which is broken on all arches there.
+		call->rack_timer_mode = RXRPC_CALL_RACKTIMER_RTO;
 
-Those trees also use call->peer->srtt_us, so they would need a tailored
-backport.
+That left the RACK timer at RXRPC_CALL_RACKTIMER_OFF with no RTO armed
+behind the probe.
 
-Could Fixes tags for 5086d9a9dfec and 153f90a066dd be added? If not,
-could the commit message say what the older trees need?
+Could the message add something like "no RTO was armed after a TLP
+retransmission, so the call could stall until another timer fired or an
+ACK arrived"?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261124161302.4044422-1-dhowells%40redhat.com
