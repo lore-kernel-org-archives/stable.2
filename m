@@ -1,61 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795770839;
-	b=PNIdyFhtWvk7Kb5E2VklpawMVSWAayU3T6v5O4BIlhewoA478HxxxxH3eOskftsJ46kn
-	 oGbDqPATUj0aNMW9eGEvEnJAnVzlIkWM8esdG/7y2IgdwdComGWuC5HF1j5owto3WMeLS
-	 38teUnLSXvInbvKRWACkpOzs1ffXa+X6hS5kNsvhl9E2hjL2/woRY0OjKIhQIYH1Gmnig
-	 /ZUcs5NvLLM1iVNcsPtbP+BIK6dFKWfIJe7Q/9415hV9y/CWbBFji9E0cP3WBwfiw6t/8
-	 eUl46vmR80XZnD07DdNW+vDWoKjvF3gyxwfF4M0YqHIWR+67VRGsWwkNHrQ3+fH6lWQ==
+	t=1795770842;
+	b=B4BVjcxN+6MblxJ3ihg/iPVrs6ncNd6HeYjdIWBPHLUPOExjsXzYE4LTBAouceXGrIoz
+	 sn/H18EJs5lGkzjfKShj5PA5mavY/S1lvOlHz8iFpVacWcMTjG4QeoH68+QsbeSZoqE8X
+	 zOVUcEiAYpwid1AaWYrlRxCs68+rKQf/QOJBDvXxb/jIirCu7r0exUs7W3jPtKbfqFZGH
+	 sS6y0PuxJhcz1ahED0ZVgS5etn93mkwDCIn6TCiLEz+lvEHHQgCcRpBZML8VkuuH0xeae
+	 fdr4GNcsTRXF4MnsM8fqnnqARaBcD2vH15Q4XnLrEa8gRWTNZgiVxWRyQXEkWZMUsDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795770839;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=x2Rh4c/4J+pnoNGHPrrKjUF2LgrC1+eSfFkYwdsOQ7w=;
-	b=LFsCYg8NEl+moI36HPemlMIXhs8a5PPHtwy/rO33nsNgJXMRqrtsxV1mKgHAbKV0WfXM
-	 tp7tZeuFOQ41cpW+r34fiuN01ss1JKXwcaL4nABT9P5MRV0ljS+dhgTPWyFd45YWxhIQQ
-	 cDyTYPKIxtXICrOh3Is+Tcd8K4sJKo9w9e1eLkze/48ZXG3CBlcP+rvwEF+2hEPf3dXOp
-	 txIqMKVtLh//sn4Arqft1W5xad/fvPdn5/qZ0cgKGFTu4YP90Zj0xvavaNxzOLag3zR8V
-	 wiTUyzAhtif9MFrTwwJYOw3SDG6zEhOsVjry1pIjri7fAd/NncLzs4HW6Njjdk9cjwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795770842;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=2kjuxamo+ARDPfXgOKJZvTzyyERo8tzr4IQwkyrTwCo=;
+	b=oJR1X1SPfOIZ5hCT9S94+GoEZRoJ/kWPaV3IS6BydUWDSrAbo9gjrZbKbnmPUGlfbOiH
+	 4bqdfLEqJWUkzLvGmuAETAKHMaxUurabXZ6iHYY8AVNLojFY0S4vmrD8kzHz/vQz21aYT
+	 fYmMaRwqtFw/BUNu5KAh3hgz0lEQkOlz6gluLqnW0h3fQPOxxMtngsCWbSgQQZcCgxVUo
+	 GAXmXba8W4F7w1zzbye1XFosMjKvnC0BlwdWcp+Fi2X5tH5crTi1nTyY2cYGiKuJhV8xK
+	 ZDwjpHyJNBrtPGh0GWgOFgy3oQ6RNn//COYjzQHcXi64t79Pabqr5Uoq+/crXyEfa2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GEFeoT2C;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HfxsMBdy;
+	arc=none smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF47606A327;
-	Fri, 27 Nov 2026 09:13:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307F2606A31E
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 09:14:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 307F2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GEFeoT2C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 924071F00932;
-	Fri, 27 Nov 2026 09:13:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795770839;
-	bh=x2Rh4c/4J+pnoNGHPrrKjUF2LgrC1+eSfFkYwdsOQ7w=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=GEFeoT2COrZyGbCVQTlFdXm9TrXUaWKdtRXAPtFCaVHRcE6wHTf8uAM4dRxuNBULn
-	 HSSCVWU0m+9vCyFqzRkHYtu5aQ+dzhXn+QiNCyjEhjg1V1zb7w8PXNgrqlAmXeih5L
-	 mnu4spdwTpEQy7cb7Qaa+tcKbJ3Zcqj57os94wnj+dX6ldmVXTWEfIfQdwlVUv1f/1
-	 3/mawGTpreEXcL3CP9ZW6FQE3mgmkGoLfhmkvDQpmmCruTxuFQBt3BTqBSIbwUukUU
-	 IuBLgGkW2PkLx1/IBsHvEN7QumjxmZKRe9eJwv/MGeuyCXfSjZjxxqnJDksjVAPEtG
-	 TyL81e4FxNuNA==
-Subject:
- Re: [PATCH net] openvswitch: reject negative L2 length in ovs_fragment()
-From: netdev-bot+sashiko@kernel.org
-To: ljp1205831794@gmail.com
-Cc: aconole@redhat.com, echaudro@redhat.com, i.maximets@ovn.org,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, jbenc@redhat.com, netdev@vger.kernel.org,
- dev@openvswitch.org, jiapenglin@tencent.com, stable@vger.kernel.org,
- corvus@tencent.com
-Date: Fri, 27 Nov 2026 09:13:58 +0000
-Message-ID: <179577083811.3135.5534472542080696587@kernel.org>
-In-Reply-To: <20261126083218.55429-1-ljp1205831794@gmail.com>
-References: <20261126083218.55429-1-ljp1205831794@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HfxsMBdy
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c5118deebcfso1169959966b.1
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 01:14:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795770840; x=1796375640; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2kjuxamo+ARDPfXgOKJZvTzyyERo8tzr4IQwkyrTwCo=;
+        b=HfxsMBdy4mrgWCcKqetQG/kIRtdA9cbqj5a3Sz06/WOdhPJpjdWqsxWbcDEUCMIath
+         1XRerBbusZo3mRQ+iVvG4DRY2fOtgumpQmF9W76P8onXqeGmUksb4dKXgUf6PcUukK10
+         WVuWqITSBIMNAOaDqcSfZ6WYDuIbv3j2L/4hpqmNxnxxyvJ6AMgygXKPafUrN/7paQXw
+         gju4o4YsghpaJ2xdrJ5chVYhlWJgMzzYYJ1LUGRN0x8Jhts2MyJz1C6DTKAv26FMsEkD
+         KnTP5+J/gr3sb0TVJ9T6iIiP3AidVcNYLZpMl6VGX4Pkocr2gmiQ+8iHtpgV8tFxcPDH
+         qZQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795770840; x=1796375640;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2kjuxamo+ARDPfXgOKJZvTzyyERo8tzr4IQwkyrTwCo=;
+        b=YEsL2IJxlpAcUCbYheB7nE6tDgWg1JJ8yjaYjpQfzOZw+HWufAc4QSJCrBX1SaMrN+
+         8p+yyaGKaj7QVqDWb7Y/wIZAfWFB2941E2lT0pKlyyEil/RCQdo1sp+0JYJlRRfOTorg
+         J59wUU3fEUGWWNFbSZFNgO+SWBBEVkEGWN6WOV4wK6eTD60tBCPnUs/BxykXxcf0NbiF
+         7cPYsgANg0JuiQodC6ELk4deXxKLTaCIaGCTp69z9p60+Y6EWzGa4cTksAdJXjKgd8cA
+         jNLtLZUMSRZHn50FR7e+rO2b/38Cn4H5eoproP2Ncrer6cFDckqwEizfoBjwqjWFQ4c4
+         9A0g==
+X-Forwarded-Encrypted: i=1; AL+hErHz61GVweykAPJqHHd8mQLLubs0qCoz6KJn/pNJCc6LaOIHy63q/gyMyJCUX9XeMfxNkBmphYw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9NtJtisEaM8qK4qJQvA6AmeGtQZMf+F3RS5AuJdxw/lY2Ms2jc
+	2a7g1nQ1NRnZDM8ehcgySQAfjYSQeHFyfkQleOGvQRrgpCE66P9ZQ8Kv
+X-Gm-Gg: AZFdTZdgRmkJDvc0vmgr0aN3+tkQl/hR7YuTLDnMYW14gfECztjNvCbpzeEcsY0AkwO
+	dzyj7DEjaN4vtXwR9Fd7LGyRF68p9UhBgNcjJRK1pDzpQUWyjYgZGgvAQNowUGIxqfLU+w9WTvC
+	5xkg7+hl5IHwqVGMxJWjbxLwuVXGHveq6u+92drCRqmXiAdYl6oACbLy4r6cmJtJSmqJaCGF4HK
+	On3+be9eCJSZeVMw9qWq6M/3bHLb20VZgiok2Eals1Jtb28U1jopZJSNOGSostg/+KaNCR5uVhq
+	zS4x6SbPGbWKHtT4lO4X7SbU+wek8Wl3Rdfewc3RaDx1gL/UqIv6UilaShlIcwy3w7G6nxETN0v
+	Uoy2xSvVW6GHGAPnkSqnmfewk2qTWKcksgKTyzOuJqMpifiuKbjeUVTxnU8GXOcp2SKDpHV76fx
+	345zn/P+T7a26WRZSYJrpjGAeClpxRJs8Zep8dieKEQzOfKFx2ZRDZvS84VFxx6fRalgw2zbN/B
+	IkDtmT0pUVZDwey/G0+5zM3wf+sPndzxP7HumDzb8//JC6sNTgcMflcPQubmtOrYPYHwmxIJwPY
+	w377XVpSSdR9jA==
+X-Received: by 2002:a17:906:f5a5:b0:c36:7579:fe6d with SMTP id a640c23a62f3a-c513a88a87cmr2056869566b.11.1795770840460;
+        Fri, 27 Nov 2026 01:14:00 -0800 (PST)
+Received: from nobara ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4b1ed8b6a05sm26067087f8f.43.2026.11.27.01.13.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2026 01:14:00 -0800 (PST)
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+To: David Hildenbrand <david@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Zach O'Keefe" <zokeefe@google.com>,
+	Hugh Dickins <hughd@google.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Dev Jain <dev.jain@arm.com>
+Cc: "Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	linux-mm@kvack.org,
+	Matthew Wilcox <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Rik van Riel <riel@surriel.com>,
+	Song Liu <songliubraving@fb.com>,
+	linux-fsdevel@vger.kernel.org,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 3/3] mm/memory: don't allocate in finish_fault() with the folio locked
+Date: Fri, 27 Nov 2026 10:12:16 +0100
+Message-ID: <20261127091344.113688-4-azpijr@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261127091344.113688-1-azpijr@gmail.com>
+References: <20261127091344.113688-1-azpijr@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,138 +121,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+__do_fault() preallocates a page table only when the PMD is empty, so
+that finish_fault() does not have to allocate one with the folio locked.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Since retract_page_tables() no longer takes the mmap and VMA locks, the
+page table can be removed while the fault waits in ->fault().
+finish_fault() then finds an empty PMD without a preallocated table, and
+calls pte_alloc() with the folio locked.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Allocating with __GFP_FS while holding a folio lock can deadlock in
+reclaim, for example the memcg reclaim deadlock on cgroup v1 described
+in commit 63f3655f9501 ("mm, memcg: fix reclaim deadlock with
+writeback").
 
-- [Medium] The patch makes ovs_fragment()
-  (net/openvswitch/actions.c:791-792) reject only…
-- [Low] The new `skb_network_offset(skb) < 0` case in ovs_fragment()
-  (actions.c:791-795) reuses OVS_DROP_FRAG_L2_TOO_LONG and the log text…
+If the folio can't be mapped with a PMD, return VM_FAULT_NOPAGE instead,
+as we already do when pte_offset_map_lock() fails. The retried fault
+preallocates the page table before locking the folio.
 
---
+Fixes: 1d65b771bc08 ("mm/khugepaged: retract_page_tables() without mmap or vma lock")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+---
+Changes in v2:
+- return VM_FAULT_NOPAGE after trying do_set_pmd() (David)
+- drop the ppc64 sentence, do_set_pmd() is handled on its own now
 
-openvswitch: reject negative L2 length in ovs_fragment()
+v1: https://lore.kernel.org/20261125100058.15200-3-azpijr@gmail.com
 
-This patch makes ovs_fragment() drop MPLS packets whose inner network
-header sits before skb->data. Before the patch, a negative offset passed
-the MAX_L2_LEN check and reached a huge memcpy() in prepare_frag(). Such
-packets are now dropped with OVS_DROP_FRAG_L2_TOO_LONG.
+ mm/memory.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-> diff --git a/net/openvswitch/actions.c b/net/openvswitch/actions.c
-> index 12e339cbf7912..9c19fe8676a7a 100644
-> --- a/net/openvswitch/actions.c
-> +++ b/net/openvswitch/actions.c
-> @@ -788,7 +788,8 @@ static void ovs_fragment(struct net *net, struct vport *vport,
->  		skb->network_header = skb->inner_network_header;
->  	}
->  
-> -	if (skb_network_offset(skb) > MAX_L2_LEN) {
-> +	if (skb_network_offset(skb) > MAX_L2_LEN ||
-> +	    skb_network_offset(skb) < 0) {
-
-[Severity: Medium]
-Is a lower bound of 0 strong enough here?
-
-In the eth_p_mpls() branch, orig_network_offset is where the label stack
-starts. A real inner network header is always at least
-orig_network_offset + MPLS_HLEN past skb->data. So any offset in
-[0, orig_network_offset) would come from the same stale
-inner_network_header that the commit message blames on POP_MPLS.
-
-Each excess skb_mpls_pop() moves skb->data forward but does not touch
-inner_network_header:
-
-net/core/skbuff.c:skb_mpls_pop() {
-    ...
-	__skb_pull(skb, MPLS_HLEN);
-	skb_reset_mac_header(skb);
-	skb_set_network_header(skb, mac_len);
-    ...
-}
-
-On an L3 port (mac_len 0), one excess pop gives -4. That matches the
-0xfffffffc in the KASAN report, and the new check catches it.
-
-On an Ethernet port (mac_len 14), the same pops would give 10, then 6,
-then 2. The offset only goes negative after the fourth pop. Offsets 10,
-6 and 2 all pass the new check.
-
-With an offset of 10, prepare_frag() saves a short L2 header and pulls
-10 bytes:
-
-	data->network_offset = orig_network_offset;
-	...
-	data->l2_len = hlen;
-	memcpy(&data->l2_data, skb->data, hlen);
-
-ip_do_fragment() or ip6_fragment() would then parse a fake L3 header
-from the bytes that the memmove() in skb_mpls_pop() left behind. For
-IPv4 those bytes are the last two bytes of the source MAC followed by
-the 0x8847 ethertype, so iph->ihl would come from the source MAC.
-
-ip_frag_next() then copies iph->ihl * 4 bytes with
-skb_copy_from_linear_data() and does not check skb_headlen(). Stale
-buffer bytes might leak if the fake ihl is larger than the linear area.
-That part is speculative.
-
-On output, ovs_vport_output() pushes back only data->l2_len (10) bytes
-but sets the network header at data->network_offset (14):
-
-	skb_push(skb, data->l2_len);
-	memcpy(skb->data, &data->l2_data, data->l2_len);
-	...
-	if (eth_p_mpls(skb->protocol)) {
-		skb->inner_network_header = skb->network_header;
-		skb_set_network_header(skb, data->network_offset);
-		skb_reset_mac_len(skb);
-	}
-
-It isn't clear whether this over-pop vector can actually be reached in
-this tree. The commit message does not describe it.
-
-__ovs_nla_copy_actions() resets eth_type when mpls_label_count reaches
-0, which rejects a simple push_mpls followed by two pop_mpls(0x8847)
-under an IPv4 flow key.
-
-An MPLS flow key with a masked label count can over-pop through the
-u32 underflow. However, key->eth.type is then MPLS at runtime, so
-ovs_fragment() takes the WARN branch instead of reaching
-prepare_frag().
-
-A path that carries the stale state across recirculation looks blocked
-by the skb_mpls_pop() change that clears inner_protocol when popping to
-a non-MPLS ethertype (commit 78a86d75a70e1e).
-
-If the vector the commit relies on does exist for Ethernet ports, would
-it be safer to check this inside the eth_p_mpls() branch instead:
-
-	skb_network_offset(skb) < orig_network_offset + MPLS_HLEN
-
-using signed offsets? Valid traffic would not be affected.
-
->  		OVS_NLERR(1, "L2 header too long to fragment");
->  		reason = OVS_DROP_FRAG_L2_TOO_LONG;
-
-[Severity: Low]
-This isn't a bug, but the new negative offset case reuses the "L2 header
-too long to fragment" message and OVS_DROP_FRAG_L2_TOO_LONG. A negative
-offset means the L2 length is invalid, not too long.
-
-Drop monitor and the kfree_skb tracepoint will show the
-OVS_DROP_FRAG_L2_TOO_LONG name from net/openvswitch/drop.h for this
-case. Reusing the reason makes sense for a stable fix. Could the log
-text say something like "invalid L2 header length" instead?
-
->  		goto err;
-
+diff --git a/mm/memory.c b/mm/memory.c
+index 05d03b32ce52..dd0cb09ba7ef 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -6000,10 +6000,14 @@ vm_fault_t finish_fault(struct vm_fault *vmf)
+ 				return ret;
+ 		}
+ 
+-		if (vmf->prealloc_pte)
+-			pmd_install(vma->vm_mm, vmf->pmd, &vmf->prealloc_pte);
+-		else if (unlikely(pte_alloc(vma->vm_mm, vmf->pmd)))
+-			return VM_FAULT_OOM;
++		/*
++		 * The page table was removed after __do_fault() found it, so
++		 * nothing was preallocated. Allocating with the folio locked
++		 * can deadlock in reclaim, so retry the fault instead.
++		 */
++		if (!vmf->prealloc_pte)
++			return VM_FAULT_NOPAGE;
++		pmd_install(vma->vm_mm, vmf->pmd, &vmf->prealloc_pte);
+ 	}
+ 
+ 	nr_pages = folio_nr_pages(folio);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261126083218.55429-1-ljp1205831794%40gmail.com
+2.56.1
+
