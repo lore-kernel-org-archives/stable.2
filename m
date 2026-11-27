@@ -1,59 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795798920;
-	b=NHlQ74aare7YM/D/vscSNA1W8ifRSGjzUIsVcyPcbkS21TfN2ZJxDKva0kqvOKviPpbO
-	 JOswCOKasxJw9WQfTS/S7+BPa3yYRW9tMxVqemjdXcQhwz6zj7B86aerks0nBlNWvGZTq
-	 xj+QcoH9iCXlIm9GQdqAbqdKgRwz98gKykrxlovuMMOq6b6a4HnKF1VIOK5vnk0JHYyT0
-	 wdIKTdPwZIsRMK/vi5eNmAF2pFoWxW2jLOGQYJUfsDmZ5E3MUBdWNyETSIjJz8kGBDI5P
-	 Ba3QOCjSUVwUyK5Xnr19A9IQOi0qNgQ/mCp9da6ZVhhjYZSJIV+gqnPurztnEjvaISA==
+	t=1795798921;
+	b=uo7iQeUkHRSM7DI2nnEhY6rCuXfH8d7uHpXyS6shAP9tcKBhUPcVhrFqENqE4AUMKMpU
+	 6IgZ8gX29ntZYyH08BVIrVcb04ooGeHrfvb/52MMARdgWHIJdQ22SN2FBw8XG42/BN6TJ
+	 sEBZSRwuwJHlJs6iqs1tVu7Edxic2hG4elM5zUHTPSnni/liM1qRg3Pcp+z/wbn/j9Cs8
+	 6g2bo/whzvvm3ewcJo6v4I6OAAxgI3rL1g0+SwInGFyyfNHuN3/nYaXlce3dQawFm5lbn
+	 77QrVyOXTZxBIWCScMmmHzWjVWMSofiwP61Mh4zlGQSsUuUCtasQ+hi1LbAk5yrCrrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795798920;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795798921;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=CusP5iuHTQw5y390mYkZWLQu5qzJlFufNmxP7wYDVQ4=;
-	b=oiE7oc7jlIS+OgC7N//iDITwBjLcGuDX4ufLPu00S+nr2kDB54wHuNMKYok+wxAt/sG7
-	 33F2teltBKVYcVp5pDrx/NTi2ji11DnRy+mKh1pI34NzMbv6netrgc5kJAxY08hkap7J6
-	 FPhvJodbrEihJAUaQY3jfyUAmFqafsR/5Y4qaYJxl5W32l3yH50E3rDQo7psvJtLe7lA/
-	 xrlQBivooZWk1dKDXrrgshlyQ5NXfaeJZnvdhYaKXLNlY/Dmbak1PCzIHJUeLoo3FXNnC
-	 kVrd/uLxv4y8TsJ6DI3hzEiFFJZs2sjlmnXO0xaFpDvYBC/xfSE6rowbXuKSrL0IZ7w==
+	bh=MC0ZOrLDH4fTK8u/4XFXAJb6CALxPf5Qbceq2GSaxAM=;
+	b=gBrSrwp4eo1ID/0nGRJzEmJ/hL8nCvUcFf4dUPA6zTsRVMua49qz64XeAHGTWzj2nzHc
+	 ChqjcWSz0EIEDmfTuhV5Pwom5NbuckFKtnV+AZGs3C/DMjIJG53xsYXwGvQDIJskw+Gk/
+	 DUZts5tLurDO2DWyNIDlVMN8py+rBHuFNQuHUhL2TwDbS8AXR1hclDprg4e5SwanLp5P1
+	 iKlrMcesut+HOUu2k8vYb7vT2tq6CxpB7kv9L9XNO6VLyjmKnpjWJGLTscNhBzJVaPZH8
+	 hE0vrVpHJjzJquty3mXTQi6mCjD4PgMrBTyxcuE3AZ6oa9HwBJdwO3XfQ59W8vO8cLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XeYi0OkW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZkstVbq1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 263F1606A32A
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 17:01:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9570D606A31C;
+	Fri, 27 Nov 2026 17:02:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XeYi0OkW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A33D1F0089F;
-	Fri, 27 Nov 2026 17:01:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZkstVbq1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33E8E1F00897;
+	Fri, 27 Nov 2026 17:02:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795798919;
-	bh=CusP5iuHTQw5y390mYkZWLQu5qzJlFufNmxP7wYDVQ4=;
+	s=k20260515; t=1795798921;
+	bh=MC0ZOrLDH4fTK8u/4XFXAJb6CALxPf5Qbceq2GSaxAM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XeYi0OkWN5ppbTaXrUv6iFcz5Nx1Xkz5a49XfqbZ2mkuahsqVuuU0z8dtjXmvhDyp
-	 UxNo3dc9+cX62dZDYoV5nOUvaf10qRNm14cqRCZ2aroVwtVcy2+nmirmHShiaNq/nI
-	 IuW1SoGiMOD998LMyrdjj3a73YieNle0AqAp7Kf/HKIqTUG6nuBeUKUSfoNpGoO+cR
-	 GvqoJUUaTkCwO//xhVjyvbhw4eZ8f5jpjGBKACDiPbpcpoCLQa5V7LihZvTOvPyh1F
-	 2NKiqEcj+s2bqkvXr6QURZVVOskQqBFcX4Wenk+ENjDf7Mp1U5eyTxoSVdNQAHc+dt
-	 qYgibniac2nIg==
+	b=ZkstVbq1dDX42iHvaob/roKuZQoYRKqnnSnBpPEByQBf8G77Fr6HFdiopnEN1Wpdm
+	 hVg1IGOArp/DlJQnkOoq6DBlH7cQMmS3lOCcQZHGNpgbpeEwEKysPxujO7ET8p/Wm1
+	 /821Ji7wy8lGW+ZprYo9otQhrBLmKvg+O9hv+DKCDzbdzdwgKP0A4w2pau9PZjcdp5
+	 yATzxPCqa8A4U6F6RYezv5Ps4zvyZ5EFkTp8d/L9ARfsvaBk8Pu/Xf5WH6/b/zDcJn
+	 CCRIelqYNfys/F9wm83CDXZRKM4/qqqb2M7j8erjgHq9uujIfv3KRLk1Wp2AblOxtS
+	 3SYR/LKlY0L/w==
 From: Sasha Levin <sashal@kernel.org>
-To: Salvatore Dipietro <dipiets@amazon.it>,
-	stable@vger.kernel.org
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	dipietro.salvatore@gmail.com,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	linux-mm@kvack.org,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Subject: Re: [PATCH 6.18.y v2 0/2] mm/page_alloc: fix iomap buffered write regression from 5d8edfb900d5
-Date: Fri, 27 Nov 2026 12:01:03 -0500
-Message-ID: <2026-11-26-1-daily-reply-0015@kernel.org>
+	Kuba Piecuch <jpiecuch@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 6.18.y] sched_ext: Read exit_kind before flushing in scx_flush_disable_work()
+Date: Fri, 27 Nov 2026 12:01:04 -0500
+Message-ID: <2026-11-26-1-daily-reply-0016@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <5b47ee1e-0b0c-4b0c-9db9-43c9fbaaec96@kernel.org>
-References: <5b47ee1e-0b0c-4b0c-9db9-43c9fbaaec96@kernel.org>
+In-Reply-To: <20261125134541.3432982-1-jpiecuch@google.com>
+References: <20261125134541.3432982-1-jpiecuch@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,13 +68,13 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Oops, while checking that I realized I don't like that this was backported
-> without also b480cbb071020bd590a0dc0166635b448e9fc46b and especially
-> 9f2fd03c9bde366c928c9242fc9b2e2c5111a134. We didn't initially thought those
-> worth backporting, but now they should, otherwise we have a weird
-> combination of behavior for highatomic pageblocks in the stable kernels.
+> scx_disable_workfn() sets exit_kind to SCX_EXIT_DONE before it tears the
+> scheduler down. scx_flush_disable_work() reads exit_kind after syncing
+> disable_irq_work and flushing disable_work, so it can observe DONE from
+> a disable_work that was queued after its flush and return while the
+> teardown is still running:
 
-Queued both for 6.18 and 6.12, thanks.
+Queued for 6.18, thanks.
 
 -- 
 Thanks,
