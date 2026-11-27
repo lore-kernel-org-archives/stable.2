@@ -1,61 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795798931;
-	b=pbv+5EBfGCjuxusdpbiNafrCyPi22dwH6Zv2LcP87xUEKEpv/MxcvA68uY+MjIouvE0A
-	 WXUBSmqFuf51LnVF/YcT+JVhSbwg+l3nfTMi4b7fxB0BKJEFIF07k9T2211SKEAbqFkxC
-	 plIiGJAY7EorOJeBKyZnXcUrN55F7AHLP/JLH6d4LlD7mg+86d7Z8RVDR5fuPFs5Ob0t+
-	 6/G+bhXJiSiVpSk+uwhKKIiNtcO7QKWuenwk43iuOXkNQQrZMDTf9M7cbxFEBmwhqeE1n
-	 r/z51HeQc3CfyqT4iiYH6wSyuMK8oebs1rpW2mGyXL7sJSvRUXmTvFNEjLqAFkq00XA==
+	t=1795798935;
+	b=4qC3puo4bF6skHeiAYVLgHFH9GQmvtsXMyBTe9O5aI2k/11gC9YPMMSxvBJJLwD/xy/Y
+	 0V5RWKzNmOlgeIF7ID2ttJ7e7pjNAYQKUhTscv38SirnfBJ4isPzhgFBqY0l0AW0RumD5
+	 vKtJCHN09hOTJmB58bxjNptDCSmggDNFS6wQ+4oDxMHL9yhcbfwtifPRmTYppXFGvnwGI
+	 cz+eZpuSsq6Wz3ewjshYWDGPjcu/1cBUQuYC55LhqJ6YIMZ8yWc67FmaoZ/f0bvngsJmp
+	 Pd8m2GD6wgeMj3lanhIw3ecmEFPrJjAIBpTmSS++lYUm386HfBLUQTdrlkeef5W0QZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795798931;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795798935;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=fBOQ8bcz894+s0OfOxgXJhS5ssbK9PxKSOd26HM3S8Q=;
-	b=5i9UCzbXs75gQ8oghRrSmYVWlUzi2I/u0dt8zO4ozscdLccoav8DIC39eOfILuFpt50X
-	 hEw+FadL6xS5VTKBaMFMbWKyk9wwyijTdt3XDDR8dHQGyVvb/dhes5Ki7zZ2bhJ0NJz92
-	 Bm5Jxvb7B5DSQIsclld2Kn5mQ7IVySYSc8OFE8dax9KKPdWgMeZJu48Scrkx7yitc0pU7
-	 zYUHMV/kbfASSvKd33Y6JZiSlWzIFAJo60S66+YkWpYJMiTDeyBapQpHuj8XiKiS6ZZWN
-	 3hIfeRu0wN2RI3xTgvgdu87fXjkpuwerkams3ZbfWN5lJ0nYuMAzelsCuiLHEe01O5A==
+	bh=FZpAunXJ0cmmYacjL5dn4R49Yj4BqxThYEfcEHgP5Dk=;
+	b=1MQg+ig1iXljgHcwLnUJ+ONjeHGp8/8dmmeLWKfwrIbAyuBniQlHIFhcnGfU1HnuX+OK
+	 MkcGeni5PGU1gbuika3Xixd2I+vzFrE3NZAqL4DnYfujZ7NzfZTFtBdgVTZ6vRk8MNSDu
+	 Lpo30+eZF/8zhFOnxI57CbR9lq3KzZqf6WCAdUw55qA/Q6f5ShnktzoHf/R0RTNGOzW6t
+	 Kr3+iZrYVPyfvPlSu2UXDzSbN0VDwAZ9IOifU5yICzgRxpnKrkqg+RhzAjP/h0luiZ0oJ
+	 CEA9gT9biMR2GBfqALbGH2bq7cW1WQFMYEwOgpBfZi5cWJjd3Ebk6Zc7fhYGVs4/VZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUYGGJR+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vgan3g6A;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8575C606A684;
-	Fri, 27 Nov 2026 17:02:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F6F606A691
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 17:02:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUYGGJR+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 236A71F00A1C;
-	Fri, 27 Nov 2026 17:02:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vgan3g6A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20A971F0092C;
+	Fri, 27 Nov 2026 17:02:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795798931;
-	bh=fBOQ8bcz894+s0OfOxgXJhS5ssbK9PxKSOd26HM3S8Q=;
+	s=k20260515; t=1795798934;
+	bh=FZpAunXJ0cmmYacjL5dn4R49Yj4BqxThYEfcEHgP5Dk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cUYGGJR+/0H5jxODAar/rMsEEg14BX6AwKp1phQTmIn0Y4zpR89jOm4LYFgT9i+KM
-	 NOtlQCuxy/HB6Y7n0xYyulJC0MPm4jfpJwMl2uD7SKY0Awi+cFgarU6i1Kp9XKYSfK
-	 fcVUaktBzonAPwnH9E/TOsSfIUkdFetq4O4FM68LhbKql9IZwmGqro/4+Fvk087mTI
-	 mXeHiJfyvaHk66a9Z67B/gSaY2E7ZNYoPGdhqfNDn+ZKOiLQZsAQ6ArFzHvmaUD4EW
-	 snbS14Tvg6F/eLFuaJI3rfQ0wgHRj6FDuZOXbBszq7okNPQb7wuPTpNz8Qhj73sagz
-	 fxeaDLDI8Z2ww==
+	b=Vgan3g6AinB6TV70/WQm9TkqPv+aX7XacROoh2QpFj2ipSjzudkuS8tQB6CaxeoOu
+	 BqpXFLKYRPz6NbWR5whqy37fcWpBVSDcWWE7bAKH0VDfpIyLCTKAIq9q+15e3NBI8i
+	 D5USKeDk2mdm2VFGFzL4U5QUR5MXN6ysvT+sffJ1Fz3HSOjtE/Lvy9G3cWu5jFbtzU
+	 JJZ1zNAOa1698/Q3lHMH28kuVKONMLGmB2i0fny7TiYJ7tRouy6LlL6JktIPYIagw3
+	 v88pnkj3irwD9m8PDji5xe+AHWL33XG/pW4tDwWiQW48vttWXbHXaKfDzh3k/1oOkP
+	 /+c/PKcuSSevQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	"Denis V. Lunev" <den@openvz.org>,
-	David Hildenbrand <david@kernel.org>,
-	Eric Auger <eric.auger@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	virtualization@lists.linux.dev,
-	Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>,
-	Dickson Wu <dickson.wu@certik.com>
-Subject: Re: [PATCH 6.12.y v2 0/4] virtio_balloon: quiesce balloon work before device shutdown
-Date: Fri, 27 Nov 2026 12:01:10 -0500
-Message-ID: <2026-11-26-1-daily-reply-0022@kernel.org>
+	Mark Bundschuh <mkbund@amazon.com>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Damien Le Moal <dlemoal@kernel.org>
+Subject: Re: [PATCH 6.12.y] dm: fix infinite loop in dm_blk_do_report_zones()
+Date: Fri, 27 Nov 2026 12:01:12 -0500
+Message-ID: <2026-11-26-1-daily-reply-0024@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126-virtio-final-v2-0-4cfd5590e924@certik.com>
-References: <20261126-virtio-final-v2-0-4cfd5590e924@certik.com>
+In-Reply-To: <20261125212602.1324983-1-mkbund@amazon.com>
+References: <20261125212602.1324983-1-mkbund@amazon.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,10 +62,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> This backports the fix for CVE-2026-90129 to 6.12.y, the same four
-> commits 6.18.y has:
+> If the device underlying a zoned target is removed, its capacity is set
+> to 0 and blkdev_report_zones() returns 0 without reporting any zones.
 
-Queued the series for 6.12, thanks.
+Queued for 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
 
 -- 
 Thanks,
