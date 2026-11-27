@@ -1,80 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795754093;
-	b=lBLzYaps6UKeRtGeT93BQNA4Guu3IXKeoGwbmRiRdmZ/W3coatF2Y0jbTgYbJzYSAy3n
-	 hykmFfYuob6hgW7Bu+qWFrQllws94LIhETjPqbp4btqEyal/wMLYIEz9cKJ5t7wVzmp9a
-	 dmEdKgVrgPfrUeWjfAeBUoYmgIwpCfrgifFCoxZlUiD0CT9Oz3zCwlx2hZYNtVd7wEOAl
-	 bXerXedLObiJD5JEH5gWD976BTh4QyJKRjSBgVVncj4nN4C1lOqAmy3CkzAc9mgS6sMdB
-	 VFQjdnpJ86/UGcD6eBf6JDLxs2GvjQVFNv1nQzf7w6DNnraE4VusO9V8Jp2H1MQfIGA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795754093;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=zcFjPmw9eptUqHUJABnzMf/G6iqaLqV4Cgs4sKoC2BY=;
-	b=Yfr8G+P8552jFmAc1y7pElYMDMY6Xx59C/ZVy1hr2wr2CAuQbEgvpUD+cIOIMgAFPJ2l
-	 fSodSSS/Hnf3qTqmMruqZ9kF3MdTU39tyGIZwgKhEvdBUlCxMQzk8CdfuNdRcN2ffPQf8
-	 FYkP7hN8FxkfssNNQ2BRPNv0vOtMZwEfkLYvJXEvYqWTHQbPIwT5s7NEw1janIwqSy2Ro
-	 xrqSp+jsArgL8kXdVTanU42LUA22VbE9vIq3q0+sA3r/g4n7bjRjFejv8MsQbe3nYluzb
-	 wsUTCtOd7N0b065o/qmEaiKZLic/A4s3JYZqpqp5DZLOydZdvv8HCOChxVenLTQr87A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TdxEa1no;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE2BB606A321;
-	Fri, 27 Nov 2026 04:34:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TdxEa1no
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795754092;
-	b=MjGkyAvBp+Zjl+/H3p+M/7ql2014oaW9tRhvFUo9h4UiZiAC3O8eAJXnfy5gn4VOJpLR
-	 prHUV9mE57TOqDqdZMIFLxX3E3kZzAU/jWTg+nG5cC+Vi6lODT7GdKOjD5aqtVnlmAsL6
-	 M+C5ceT8dhR54PBmbgF5FDJC9R0klAr5FBb8/WQQGSIIJbKUa7tkrmjB/9WVBmXSy6s26
-	 XmDIFuN26FERlAepANtnFTT9lFtwTUxN93b2m6QbKQ55AvvZ5LfI0ejglyVPdT6qdORqD
-	 GhuuTxZ9d01p6mKQog65WXhw9viRojxfIyXoMC7L+0U2KSwHLQVPQLxhGQZOxPU23aQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795754092;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=zcFjPmw9eptUqHUJABnzMf/G6iqaLqV4Cgs4sKoC2BY=;
-	b=y0hyjJKxA+oN4HIUNlWLWw4/ToPdEhXwSK9XyPBm7nlKNCp9M5i8z1rEuEfDTPzlgw7u
-	 +jGcacbDLxmWyHwH2mdd03sHu7AnY+mP7F9nCdbZqhKWswMwOd49inIbm8rl/fwKubQas
-	 PQvLP/IvvWxO341HzM3zKYFQAUM7IlkLz8HS7KXknQJqKQjncWFZuk3p/IoQNnYdLqyFS
-	 gvZqJW3NAkf/dKqxOj2POVFtDnYKCdvMDISDp8ePaj1iS2eJI91wg+QaSFXfNXKHmelPa
-	 edN1cH7SnJ2y0uoKXUZjV1ZOyU7sVySM9S7Xi8nTsXv7lZCkEGGC0jQW8fjDjFNAPdw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795754702;
+	b=2EuF+wHDx3SKp4vLvko9/0Pvqub+A6LS41EU8HyR4ZRFT1SPhtKdSMp7SJMwYSMOhEu0
+	 6i3ZwARk1jjmySuM7M3wLbpiE9LnBn7frNJTEO3pl0anStMo77fQQ5+3lb33/VfONZUxA
+	 z21lvOr/6txdFnvDcXq69r9ow02BUB6mDRrQSx8hAgggo+1mQ3wyUACYQXMjrc4LpEao/
+	 xdPkomxmg1bTeacoMmR01le1uUWdC35vzLZ2YHWPQKDjzujla9XFC7xQMQHUg5FFGFjFv
+	 bYdaaqpAsmOthvWcFtvkaUGJv59jh4KxSXHdCArf5A7ImjkftGFKfguhsurpalhggcg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795754702;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=up2JUVBVe7IxMJqAJpnFfm9YSUDx0gfYrWA7gUrFC20=;
+	b=i2X5kj4TFrjzmWB0AmQIOrnhKkQ33IRnDCojN0F9MXg0uJm4MBAS06EmIXFKeD1sEtsd
+	 Eu+9aZ4q9e0C0jEzs3Srqz7uPTpabB/WU9U0+0GKUcxGxVLVcFlDnCmcpGddnFlPJcmqx
+	 qQsIi2G59DQNTAK5h7Xwq1XCyKT+jV//tn4safcOtEp7prgES6PNHydFlTlhMD4J50RJB
+	 3EQiAhenVQK2leLOTesEriQRvkSYfQ+X9X91MYXG6CzFu46SurvaYr4f5zWPml2GmLwwa
+	 BvD0KFnTLNKY8oVnJLPFYygb4sZRF/rHMZoMfq0aoT7B3UgDa6iHH7CW3YblSla3IyQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=O5Bz3vNk;
+	arc=none smtp.remote-ip=209.85.216.70
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1A1061F000C1;
-	Fri, 27 Nov 2026 04:34:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795754092;
-	bh=zcFjPmw9eptUqHUJABnzMf/G6iqaLqV4Cgs4sKoC2BY=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=TdxEa1noeOfWiF9pMboEuhu+wlzjcGed4gKPEP4dG4l7VdbUZmSMg6UnZ4S33MNUG
-	 R090z7rfRC4DhWnshiYR9Xaj7G1ugzMhy8ofMitBJ6imH1weDkJP8rd5qdTlIEPZzR
-	 wFk1gtK3B9lZe14sn7eBnRw/HS2xJukYQwihPyhsgYKi8Ne9GDnm2Jr1DcPLi+fmF5
-	 A6m08rZVAHFm3MRCPAJGQGTMjHBc/CHHdYjJ56w3eEdURsz3thvqQX6G/ggx4vldUT
-	 zuuGIigqEtAc9gSyHmB9OULteL1gcaSsrDXeV8dkEj9UYS6HORpdpdknM0EBUDOhyn
-	 Y7u/IfNCmgKJg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 91F844B56A;
-	Fri, 27 Nov 2026 04:34:45 +0000 (UTC)
-From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
-Subject: [PATCH 0/2] ceph: tell the MDS when a closed file no longer wants
- Fr or Fw
-Date: Fri, 27 Nov 2026 05:34:37 +0100
-Message-Id: <20261127-ceph-drop-stale-wanted-v1-0-763882859c5f@clyso.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F2D606A31E
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 04:45:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64F2D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=O5Bz3vNk
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b45655b428so6667498a91.0
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 20:45:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1795754701; x=1796359501; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=up2JUVBVe7IxMJqAJpnFfm9YSUDx0gfYrWA7gUrFC20=;
+        b=O5Bz3vNkQhd/sRzDiaSbLoeBk9Qm9UZFhKjlP0p0uS5g0CknVx4S/Zmw+RnfRQv7lm
+         3xXs4JZxv/nLBoFeNwIqyjm2GnV78olgulj5mRshrWiuyVvDfWU5vqSX+I6vXqvuZE++
+         wg/pEV+BjkTMBU6qkRuciObZmzK/IrIPo/PYsy3yFqASF7jU37Qk3m7pkAgAP32jApP0
+         IB1Dt9wIhprQk3hlWixTG+Dai6qg/Bb8N3LI1Qci0E1Q2WvZ4yFSzwrHEQLVrfE6V8CH
+         frM0FZbeYcmvc/AyvPH6VDcLjDtjKKtgmtDdp2hJLhvpnQV3ftPKt17bzGFjUxDMJkva
+         Jh1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795754701; x=1796359501;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=up2JUVBVe7IxMJqAJpnFfm9YSUDx0gfYrWA7gUrFC20=;
+        b=jfppjGuMltHQILSV1Aqmwi/mMglvjE1+GlTQ9+1Og3BhtMsYe7PblxO0dBkSTM1E7+
+         M2o0wbLHvcpa3/Mj8ZkbguxuG+1TVVFFsMqda0LKIVITRAuLGGAJeP8Wl2KQHlwyI6eq
+         100jKsWYD0Rz5i1YiWMH44vE6fKcw6WeB92oxTJqXN+rOGEKtF1BhyMer6Zj8l451b5y
+         d+SYOhE4GlxYwon1KpybsPFEFJcsKtWT/50qfR8AeplI/Trl+GFl5jHK34NcJ+B3oIlg
+         ivDw5fAWlK3Jz2OUONRGmVhVG8VFeXebSjCPnqS5kdWlOO/rLgQXmPQYHC2wttrSkalO
+         8ZQw==
+X-Forwarded-Encrypted: i=1; AL+hErFaB2fv54Gk+suAuJsWQIpvU5J9ja6UfQt55I1xMg9GNtivsSRz9/30N7SgQ29x0+08DOLdS7M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/68lKPOXjZHX2ygPoKGCB9cyJQrU9vq0uYCKzRS43+2AIhn7Je
+	iT2coXm3RWzaTI56idC5oEFwLac2fwZXhu4+CgXaEtvU7kWcQ7gkbp6v8HS6njcbiP00k+CYDbJ
+	qwcItW3fkBxOrYA==
+X-Received: from pjbpc5.prod.google.com ([2002:a17:90b:3b85:b0:3b5:361e:87b9])
+ (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:2e8c:b0:3b3:b373:6a6a with SMTP id 98e67ed59e1d1-3b41c9e45c3mr23219110a91.28.1795754700474;
+ Thu, 26 Nov 2026 20:45:00 -0800 (PST)
+Date: Fri, 27 Nov 2026 04:44:58 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,71 +75,53 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBG4auUWTvQxGKLVxEXafJrRyQNmaiF0
- rs36vJbvLeSIguUzs1KGW9RmWOFOTTkJxfvYAnVZFt7Msb27JEmDnlOrMU9wR8XCwJ3nRt9i+H
- Y24FqnDJusvzGl+vf+hof8OV7o23bAS7Z8N16AAAA
-X-Change-ID: 20261127-ceph-drop-stale-wanted-44abc0e83728
-To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
- Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- =?utf-8?q?PATRICK_B=C3=89GOU?= <patrick.begou@univ-grenoble-alpes.fr>, 
- Xiubo Li <xiubo.li@clyso.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795754083; l=1836;
- i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
- bh=VHzb9ucE/pcleIt29IQpj4E990WPVnr2Hv/I0H5tNQU=;
- b=Skdr36wzJ2bP/RlBqANnT9or3k4xlUlkhf93YKc8H8PXvkXpIxi7jxxEV06ykgdruOcr/5QDv
- mZ5zhkANx9YDwAm2pD5MNyoZpkCFZBY3G/aGJiYZfoLItckPYhEdCQk
-X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
- pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
-X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
- auth_id=840
-X-Original-From: Xiubo Li <xiubo.li@clyso.com>
-Reply-To: xiubo.li@clyso.com
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
+Message-ID: <20261127044458.2757857-1-skhawaja@google.com>
+Subject: [PATCH] PCI: Don't reset a VF through its hotplug slot
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Lukas Wunner <lukas@wunner.de>, Alex Williamson <alex@shazbot.org>, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Samiullah Khawaja <skhawaja@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-A single "tail" of a log file from one client can make the writer of
-that file on another client over 1000 times slower, for as long as the
-reader keeps the inode cached.  This was reported on ceph-users: a
-simulation that runs in 38 s took about 15 minutes after one "tail" of
-its log from the cluster front end.
+pci_dev_reset_slot_function() doesn't do a slot reset of a multifunction
+device, because the reset would also reset the other functions. A VF is
+not marked as multifunction, so this check doesn't catch it.
 
-After a file opened for reading is closed, we often keep the inode with
-only Fr and shared caps issued.  These are all caps we retain, and since
-commit fdac94fab799 ("ceph: skip updating 'wanted' caps if caps are
-already issued") nothing tells the MDS that we no longer want Fr.  The
-MDS counts us as a user of the file, chooses no loner, and keeps the
-filelock in MIX; the writer has no Fb and every write() goes to the
-OSDs synchronously.  Nothing in MIX revokes our Fr, so it never ends
-until the inode is dropped.
+A VF on the same bus as its PF gets the PF's hotplug slot, so behind a
+pciehp port the VF has the "bus" reset method. A slot reset of the VF
+also resets the PF and all other VFs, and only the VF's state is
+restored afterwards.
 
-Patch 1 sends the cap message when the MDS still has Fr or a write cap
-in the 'wanted' mask of a regular file we no longer want.  Patch 2
-checks such a closed file at caps_wanted_delay_min, like a closed file
-holding write caps, instead of at caps_wanted_delay_max.  The writer
-is back to full speed 60 s after the "tail" with patch 1, and about
-10 s after it with both.
-
-The same bug is in libcephfs; its fix and a qa test that fails on both
-clients without the fixes are in a ceph pull request.
-
-Link: https://tracker.ceph.com/issues/83627
+Fixes: 10791141a6cf ("PCI: Simplify pci_dev_reset_slot_function()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
 ---
-Xiubo Li (2):
-      ceph: tell the MDS when a closed file no longer wants Fr or Fw
-      ceph: check the caps of a closed file the MDS thinks we read sooner
-
- fs/ceph/caps.c | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+Tested in QEMU with an igb PF behind a pciehp root port, bound to
+vfio-pci with two VFs. Without this patch the VFs have "flr bus" in
+reset_method, and a bus reset of one VF also resets the PF and the other
+VF. With it the VFs only have "flr".
 ---
-base-commit: 3f90412e989cb381d4bf96260468f5c7b2d08655
-change-id: 20261127-ceph-drop-stale-wanted-44abc0e83728
+ drivers/pci/pci.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Best regards,
---  
-Xiubo Li <xiubo.li@clyso.com>
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index 7c6f2aba8144..16e970d26b51 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -4994,7 +4994,8 @@ static int pci_dev_reset_slot_function(struct pci_dev *dev, bool probe)
+ {
+ 	if (dev->subordinate || !dev->slot ||
+ 	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET ||
+-	    (dev->multifunction && !dev->slot->per_func_slot))
++	    ((dev->multifunction || dev->is_virtfn) &&
++	     !dev->slot->per_func_slot))
+ 		return -ENOTTY;
+ 
+ 	return pci_reset_hotplug_slot(dev->slot->hotplug, probe);
 
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.56.1.839.g22a8290db9-goog
 
