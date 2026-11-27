@@ -1,112 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.82.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795782596;
-	b=nwZfEnMLcGud8CjSBE85e/g7J2yuQPg3W2wl4xUjdTHmHletuTletgwvFRgwUb5bIbgm
-	 c9+44eo8yOCQcVs7cb2/6Oof9KhODNU1LmNSDuLs/TzvWcBcfUjYRf+J+ocExoqz/q9iP
-	 ZeQwS0DbVsVsIUQbR9fBA49jW4LVAKVtut5te2NxDbajjU61TUG/IECO6DoPnejUNqTkJ
-	 /+evF53t3IuFY/QDUWkyV3y5mg+YR9NMPoV4X1YULHi4Xh0j3qGCg1mTVLXOQsX9oVxLt
-	 xIIN81OiMUaRcNadKDW3C99OHJskPBhIybyPvlmqk31TZ2Asbc7+aobroqRW7+U9s9w==
+	b=KCdjlTd4VI1OMpy7Svf7P9N8c/wcbVw91cK8M5+nCKndF/iOaWvv/LF85NsnxjbTeCbZ
+	 /u6p5RanpevZofxKDiHexCWIVEhe4r9KmTGMWDR3+JO5hM4T+aKrUrWLYT7pYI7OAxIlg
+	 AhQFHS4HAlJr+jzB8D9+25XvHkQaA6UdVXriaPQDdKSHSw/BJD/pzsj1/m1ttIY+9hUpF
+	 xxCTBfQbn6LzFE9DQA7CKD8PcANPWjmmG6PkX6S1/H2F4ABgx074Un06quiqXcKOCI8fj
+	 lB6gy1JAIzPNHDv7slXSwyX8Fv2NZ+mphl4lhtmQsWlKYP3Is1iqUbBru+0UlhZs8Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795782596;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Ti4eSTBDmZFdm+uBFFei0a74Hc85Zmg8P5LMfNCYnHg=;
-	b=HcMloSLcCAbmMTxeKsdtMWQPUbqzSdYAcwqiQW57ccGXr0vg39WYu65pu2HJ/lXx5p+5
-	 BjHZ5WABkASp35B/JwAp8e3t6ewYEdzSb4W7ikvfTZnf1ZYjP3iF+lxkRu7/6jrxTGdra
-	 U7JVCxp/9KR+Q1ASJWi2FzSlGXeZM3iPZ0OnfWnkmVbiILfHmamdlNiIrO0adgv8YVmj9
-	 o7ElF5/4SR37nkBFQwK0VyJacD72e1NVN3xzI19YVEEWXa8CVYTz8FtNTC4F6SKUe4WM6
-	 uFkILsILge8WKUfJ75l5RSpJ6hlSDk4Str7qsUG4MHJeLUzGlsmtpNaTdlv3gvBYY3A==
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=uuTZ+xT7/OX3wJ5mUNtdwe827wVJ1UalULCywQdXd2U=;
+	b=EL+hS7sbF2586osOalK7MKRTXI2pzuw8/1QmBMe/04tNk5oaVSHJOwuAId6hUg07kmPf
+	 LApsYcmJbnpzpdutAONgCDdQjFEGBzG75mX+ThpDwvBWyqWIA2WYYaGp40QyjxOIeYEm+
+	 hrj+ehQ0klgPasYx2fV11J5KuBIC99jLUzIoPR54DVgu1RIg4JNe3kN7ECleiNF//tV8l
+	 KxkZBfnbW+EZaRpw10Bw1CQKP1qsKR3MYRJPF/SL+w3xEPlkqaryfj22t00TSEXF6qJi9
+	 N4MIiqceHpMWX72ntrUwnn4SOsieJEkFkVFuEny7X7XcrIUsM4yxZsS86XFogEqQdAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Kn+9XV1y;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EppFsVea;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samba.org;
+	spf=pass smtp.mailfrom=samba.org;
+	dkim=pass header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=rhKVCwvs;
+	arc=none smtp.remote-ip=144.76.82.148
+Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
+	(using TLSv1.3 with cipher TLS_CHACHA20_POLY1305_SHA256 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA3EC606A321
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 12:29:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA3EC606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39DF9606A327;
+	Fri, 27 Nov 2026 12:29:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39DF9606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samba.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Kn+9XV1y;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EppFsVea
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ARApDLJ1377029
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 12:29:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Ti4eSTBDmZFdm+uBFFei0a74Hc85Zmg8P5LMfNCYnHg=; b=Kn+9XV1yfjnhjYAM
-	m5dYVj+P/eXoYNTYmNSJH1qNZWewfhkm0SM3xTcVKOtag+RrHL9id8l3DRyn8Q7O
-	2ONwELDprTsYla/i9ui+1TVLcWQFbzjO3C68qFgbHOcXBUhdy0SBMATrvTZUSCat
-	CTaF3by6QkmdyMSPq6b0f9hJL5lUDTgvcJODsXNUuGaL/iDqEjdFjI4l4mnwK2nm
-	92kOtxtb+2P48G7jk4CXiEccoPlQVaiXwduyk4wLe6LabqRTFVIaEid4GDF/WSSI
-	eXPRh0CAwhZI5q+LuVJtNKN5rM5P7CZuyrTI8MTdLChjDt0Rv9YbLG0a138evwZC
-	Zp0qIQ==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6ru3agtv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 12:29:54 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3869865a304so4094091eec.0
-        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 04:29:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795782593; x=1796387393; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ti4eSTBDmZFdm+uBFFei0a74Hc85Zmg8P5LMfNCYnHg=;
-        b=EppFsVeaV6N0nyrh8SmbFWlD92Twq6ri8bcseH1Hw0ClUXbUdIDXnx/zhICNljjxhn
-         IA21YypzKDFON5Zp6zfX1ouDiQ8pqNO6Hjtf2vbYPTmDOjnuxThEJ45u2JtaSqxlhd7C
-         dS/VtGZI5KK93maBCqh9fWx8UNk/y0XK/EUhg7wP6bBPFQlAYglAenmT08JEqbzPXYT7
-         cKkpvwBDM3g1rlqRU9sosv93CovAQd86dJdaaG2npd12uSl2HE4snBQzawPdmeerHNCa
-         xLX96uvF5pNFchbYqxa0A8KL88t/2g+ZmoN17EG+7HrocVlGY6FkOqYxC6WuAyntVF/S
-         k51w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795782593; x=1796387393;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ti4eSTBDmZFdm+uBFFei0a74Hc85Zmg8P5LMfNCYnHg=;
-        b=H5MnrsJeGVgafhpR8DdZDCn/09iPpjImkMQx0VZhA9FqoIeSjlyfVhg2mErtEzzPnS
-         C5vzHii4463hB646RZ2DeZEkfnBQndauRA2r1Y4o9n8zyp5M9bBcZsSvZ8OUWz2gqtXO
-         g3/JlDLwiBdE52ZivhKXjz5fEc/HvxB9UPgHDpF4gbQ7EsmrfirogjHK8zF0zNz/BdVw
-         4SnCV7krEwx0ZyAY8WJCXN+VDWu0ZNxRzYs0KNnwpAI7hJwTH7e2iSfGp/gtjClZN7s2
-         s2e+iOFrEvB+yUk0KiVTGf9JTF+9JzXyCvPrltdeykSx7ZO5vEpcgksm5DbFYODq/5L5
-         HYww==
-X-Forwarded-Encrypted: i=1; AL+hErEIiklf/gL0vxNWSAVy5m/5ckEilQbYRrZL4B/8wqgeX5D8EdgZfZr5FEC3+WWEz4ygRGhbFd0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/b8/ILy1hetfG6RnKFiYLx3IEN2bNJN0tcA+q67Ygn2U9y6Hxw
-	X5tqHTJ16UJYv0qHZCWyuGTR9RJvV9nh+sy7QRsuFW0/LlALbnB3iUe8tHXnB+tUW7vKWll2T5+
-	tWDisqNVnwLY2Khapqyul5bwpRvdt7Z7khisoASIXB0P7rjPMF48T57PZAf8=
-X-Gm-Gg: AZFdTZcxfHOOvfVRJHmP0zZ1wsDPsA4JVfbNH6htV7AhFArpfAY/IazVfwoIc3AIp6p
-	Gz4VVC0vVrbviLhPgpaLnEUsfmZZXRMXVo9Myh030QDEEdPN+2hDyNXj8kIXB1mJY76UFOofZO5
-	txYOzkjwSNKfbyi/3V80G44CRbvMcN0rpovNm1GBY/8yVVypNFXDsNlvkjIfmMFzfXCErvbxkhQ
-	8SXXTqCGRUdKfyVlxnecXAOFzEWJAlAr++8wpvOBS5rfLKLk9wZh3SvQTHYoXhGWoQQv9lwc6fS
-	z3+BDxE+sJ9jUWOYZWDUc4iV2TNDF58lqBtw6A6DduwGkSFIZuJq7k95NRSsYfJ0Pw58+8aRHcM
-	VQUH8b4trJn75NjTRdF3/N4gQyfEKjcLxpb9w6zCkoNEw51ML7rdxrbnZUOtX+pXAQqTO7wwXlq
-	HPIPT1Uw==
-X-Received: by 2002:a05:7300:2156:b0:386:42f5:37c4 with SMTP id 5a478bee46e88-38642f53d72mr31457732eec.6.1795782593330;
-        Fri, 27 Nov 2026 04:29:53 -0800 (PST)
-X-Received: by 2002:a05:7300:2156:b0:386:42f5:37c4 with SMTP id 5a478bee46e88-38642f53d72mr31457692eec.6.1795782592750;
-        Fri, 27 Nov 2026 04:29:52 -0800 (PST)
-Received: from [10.206.111.23] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38567abb870sm60695792eec.25.2026.11.27.04.29.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 27 Nov 2026 04:29:52 -0800 (PST)
-Message-ID: <042b79ad-6036-43de-8157-752db5d7734b@oss.qualcomm.com>
-Date: Fri, 27 Nov 2026 17:59:46 +0530
+	dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=rhKVCwvs
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=samba.org;
+	s=42; h=Message-ID:Date:Cc:To:From;
+	bh=uuTZ+xT7/OX3wJ5mUNtdwe827wVJ1UalULCywQdXd2U=; b=rhKVCwvsNhLPv0X+kHa3Ji+V+a
+	DsKv/9JH7CK+bqC0x9piO+DpunSQY08//AZwV0ZylY6sT7sD2EAd2aq6F2y3C9da2s/BEYbnJXptx
+	xKduwV7hMfhIxK2reHZ3f6QHaYlKW8uv5zPcVoREgncz8bLc+7xfrzmABFHAGpeCP5gP258olmSnU
+	OT8HWmHoJ/ham3hvJ86k+U8PkjV+qOtFWoLlxRUCQpyk19HVtgBr8cnGCvNu2VR6wTowbrU0pl106
+	7WKPVCEpwhf7txLKG+p7Xg3tmrwLhdbQOdTF3w5JXHypVr2pv599fc/S8ZHdyHt8aDE6bRnw1jvB3
+	H5XKGDmh00ZFKi1Ym5W0QF6i7T/WywUNTwGLdEgwx/c17WvAGa9s2eokcMcphmVyoPi1RxNOG4gps
+	u0Wxpg7bKfhufmyUoPHQGLQDBbY3reBA7k97bwq/0daEzRGWA1Dod0nj40Ggj03e/bqUFUiRbdQyo
+	dSuVRcyfSIsZ+9ETkL9jwib7;
+Received: from [127.0.0.2] (localhost [127.0.0.1])
+	by hr2.samba.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__ECDSA_SECP256R1_SHA256__CHACHA20_POLY1305:256)
+	(Exim)
+	id 1xWv5I-00000001Lbh-3XsG;
+	Fri, 27 Nov 2026 12:29:48 +0000
+From: Stefan Metzmacher <metze@samba.org>
+To: linux-cifs@vger.kernel.org,
+	samba-technical@lists.samba.org
+Cc: metze@samba.org,
+	stable@vger.kernel.org,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Tom Talpey <tom@talpey.com>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Bharath SM <bharathsm@microsoft.com>
+Subject: [PATCH 05/10] smb: smbdirect: don't post a partial PDU after a send error
+Date: Fri, 27 Nov 2026 13:29:02 +0100
+Message-ID: <fb5cdee4de5adcfae25a7eeadb607836651d07d0.1795781300.git.metze@samba.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1795781300.git.metze@samba.org>
+References: <cover.1795781300.git.metze@samba.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -116,75 +74,207 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] media: iris: Wake up blocked clients when the
- driver is removed
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Hungyu Lin <dennylin0707@gmail.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>, stable@vger.kernel.org
-References: <20261119-iris-handle-unbind-v3-0-52d467a13907@oss.qualcomm.com>
- <20261119-iris-handle-unbind-v3-4-52d467a13907@oss.qualcomm.com>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20261119-iris-handle-unbind-v3-4-52d467a13907@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=cOF1IVeN c=1 sm=1 tr=0 ts=6b0977c2 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=oO3DLwcLetx5d5aH5KEA:9 a=QEXdDO2ut3YA:10
- a=ZXulRonScM0A:10 a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-GUID: hsJBpP7fqsSfGW1Xz2E8GkbhbWhVNnNL
-X-Proofpoint-ORIG-GUID: hsJBpP7fqsSfGW1Xz2E8GkbhbWhVNnNL
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDA0OSBTYWx0ZWRfX0LD1TUxLL2Ef
- VgC3nh6Wd+DSc4iTYcV5lS0Ki673EQ3jb7mqxr9mwnL8rjqVXiTlqQA40X38NnReipi9qhLSP/W
- cTrbcsp+0syXEedl5Kl2n7fgROvVKCHJK2+xTyr9Dss+Up97SUapmUoxceJomYi2DLqJZOGU/Rv
- 5a8EZimAr57lrvJWk10kBY64ZOkvnvd7JyoX6I0e3eSC0Wt7TStuUkUCjx7RPbdtBE+2qGLOz9k
- oNPs8HDzL2CVlxP/ETWxCD9SCxz+rd3vZj1kdET3LvvEGMAcacghAXqXufa6wZutNqgHX3Sp18s
- YSWwEARKK0KayClfwLWf5G1Vj9rx62iUIDEAGAYiactFFT+a/PkdQYYC+YXQGxOcy02n0wDGrGT
- R1wkQ3Q3hLkQAEsFqvUJEY3hhJp06LVnJkVSJKy0Ma4utT37W98DmQXF7CHNRwEFEXhGAw+rRJm
- acBT3Vx4ptV5/7bthgg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDA0OSBTYWx0ZWRfXxh4NL9TQczin
- ZPg7KlQ/v8y0jWA/VzqKZt91ijqt6UzTgThrYHUwDE7Dp9HepvI2QKbRr4DtqcQk664RVZo5bJk
- +znN4yY3DuJWG1A1qyjq9wkaPnnz8Xc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-27_02,2026-11-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0 bulkscore=0
- adultscore=0 spamscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270049
+Content-Transfer-Encoding: 8bit
 
+All fragments of a PDU are built into the same smbdirect_send_batch
+by smbdirect_connection_send_single_iter(). If building a fragment
+failed, e.g. because a credit wait was interrupted by a fatal signal
+or a DMA mapping failed, smbdirect_connection_send_iter() and the
+smbd_send() of the client still flushed the batch with is_last=true.
 
-On 11/19/2026 5:15 PM, Vishnu Reddy wrote:
-> iris_remove() does not wake up a client that is blocked in
-> VIDIOC_DQBUF or poll() on an open session. The client stays blocked and
-> keeps its file descriptor open.
-> 
-> Flag the vb2 queues of all open instances as errored after the core is
-> shut down. This wakes up the blocked clients, which fail with an error
-> and can close the file descriptor. Skip the instances that are already
-> closing, as iris_close() releases their queues.
-> 
-> Fixes: 38506cb7e8d2 ("media: iris: add platform driver for iris video device")
-> Cc:stable@vger.kernel.org
-> Signed-off-by: Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/iris/iris_instance.h |  2 ++
->   drivers/media/platform/qcom/iris/iris_probe.c    | 16 ++++++++++++++++
->   drivers/media/platform/qcom/iris/iris_vidc.c     |  5 +++++
->   3 files changed, 23 insertions(+)
+That posts the fragments built so far, the last of them with a
+remaining_data_length that is never satisfied, fragments may also
+have been posted already by a flush with is_last=false. The peer
+then appends the next PDU to the incomplete one: cifs reconnects
+asynchronously, ksmbd keeps the connection and its next response
+continues the truncated one.
 
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Add smbdirect_connection_send_batch_abort() and use it instead of
+the final flush after an error: if nothing of the PDU was built yet,
+it only gives back the batch credit, otherwise it frees the messages
+not posted yet and tears down the connection, as the peer can no
+longer get a consistent stream.
+
+Fixes: 2c1ac39ce9cd ("smb: client: use smbdirect_send_batch processing")
+Fixes: 54abc694ebb8 ("smb: smbdirect: introduce smbdirect_connection_send_iter() and related functions")
+Cc: stable@vger.kernel.org
+Cc: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Paulo Alcantara <pc@manguebit.org>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
+Cc: linux-cifs@vger.kernel.org
+Cc: samba-technical@lists.samba.org
+Signed-off-by: Stefan Metzmacher <metze@samba.org>
+---
+ fs/smb/client/smbdirect.c     | 14 ++++++-
+ fs/smb/smbdirect/connection.c | 71 +++++++++++++++++++++++++++++++++--
+ fs/smb/smbdirect/socket.h     |  7 ++++
+ include/linux/smbdirect.h     |  3 ++
+ 4 files changed, 90 insertions(+), 5 deletions(-)
+
+diff --git a/fs/smb/client/smbdirect.c b/fs/smb/client/smbdirect.c
+index 563ef488a225..64d27d00079d 100644
+--- a/fs/smb/client/smbdirect.c
++++ b/fs/smb/client/smbdirect.c
+@@ -485,9 +485,19 @@ int smbd_send(struct TCP_Server_Info *server,
+ 
+ 	} while (++rqst_idx < num_rqst);
+ 
+-	rc = smbdirect_connection_send_batch_flush(sc, batch, true);
+-	if (unlikely(!rc && error))
++	if (unlikely(error)) {
++		/*
++		 * Don't post a partial PDU, if some of it was
++		 * already built, this tears down the connection.
++		 * Fragments may have been posted already, so we
++		 * still wait for them below, they may use the
++		 * pages of the request.
++		 */
++		smbdirect_connection_send_batch_abort(sc, batch);
+ 		rc = error;
++	} else {
++		rc = smbdirect_connection_send_batch_flush(sc, batch, true);
++	}
+ 
+ 	/*
+ 	 * As an optimization, we don't wait for individual I/O to finish
+diff --git a/fs/smb/smbdirect/connection.c b/fs/smb/smbdirect/connection.c
+index c50096e605ee..3494189f41ee 100644
+--- a/fs/smb/smbdirect/connection.c
++++ b/fs/smb/smbdirect/connection.c
+@@ -925,6 +925,7 @@ static void smbdirect_connection_send_batch_init(struct smbdirect_send_batch *ba
+ 	batch->need_invalidate_rkey = need_invalidate_rkey;
+ 	batch->remote_key = remote_key;
+ 	batch->credit = 0;
++	batch->msg_cnt = 0;
+ }
+ 
+ int smbdirect_connection_send_batch_flush(struct smbdirect_socket *sc,
+@@ -988,6 +989,58 @@ int smbdirect_connection_send_batch_flush(struct smbdirect_socket *sc,
+ }
+ EXPORT_SYMBOL_GPL(smbdirect_connection_send_batch_flush);
+ 
++/*
++ * Abort the PDU of a batch after an error, instead of flushing it with
++ * is_last=true.
++ *
++ * All fragments of a PDU use the same batch. If some of them were
++ * already added to the batch, possibly posted by a flush with
++ * is_last=false, the peer can no longer get a complete PDU, its
++ * remaining_data_length would just continue with the next PDU. So the
++ * messages not posted yet are freed and the connection is torn down.
++ *
++ * If nothing of the PDU was built yet, e.g. the wait for the first
++ * credit failed, only the batch credit is given back.
++ */
++void smbdirect_connection_send_batch_abort(struct smbdirect_socket *sc,
++					   struct smbdirect_send_batch *batch)
++{
++	struct smbdirect_send_io *msg, *next;
++	u32 freed = 0;
++
++	list_for_each_entry_safe(msg, next, &batch->msg_list, sibling_list) {
++		list_del_init(&msg->sibling_list);
++		smbdirect_connection_free_send_io(msg);
++		freed++;
++	}
++	batch->wr_cnt = 0;
++
++	/*
++	 * Each message took a local and a send credit,
++	 * see smbdirect_connection_send_single_iter().
++	 */
++	if (freed) {
++		atomic_add(freed, &sc->send_io.credits.count);
++		wake_up(&sc->send_io.credits.wait_queue);
++		atomic_add(freed, &sc->send_io.lcredits.count);
++		wake_up(&sc->send_io.lcredits.wait_queue);
++	}
++
++	if (batch->credit) {
++		atomic_add(batch->credit, &sc->send_io.bcredits.count);
++		batch->credit = 0;
++		wake_up(&sc->send_io.bcredits.wait_queue);
++	}
++
++	if (batch->msg_cnt) {
++		smbdirect_log_write(sc, SMBDIRECT_LOG_ERR,
++			"aborting a partial PDU after %u message(s)\n",
++			batch->msg_cnt);
++		smbdirect_socket_schedule_cleanup(sc, -ECONNABORTED);
++	}
++}
++EXPORT_SYMBOL_GPL(smbdirect_connection_send_batch_abort);
++
+ struct smbdirect_send_batch *
+ smbdirect_init_send_batch_storage(struct smbdirect_send_batch_storage *storage,
+ 				  bool need_invalidate_rkey,
+@@ -1097,6 +1150,7 @@ static int smbdirect_connection_post_send_io(struct smbdirect_socket *sc,
+ 		}
+ 		list_add_tail(&msg->sibling_list, &batch->msg_list);
+ 		batch->wr_cnt++;
++		batch->msg_cnt++;
+ 		return 0;
+ 	}
+ 
+@@ -1382,9 +1436,20 @@ int smbdirect_connection_send_iter(struct smbdirect_socket *sc,
+ 		}
+ 	}
+ 
+-	ret = smbdirect_connection_send_batch_flush(sc, &batch, true);
+-	if (unlikely(ret && !error))
+-		error = ret;
++	if (unlikely(error)) {
++		/*
++		 * Don't post a partial PDU, see
++		 * smbdirect_connection_send_batch_abort().
++		 * Fragments may have been posted already, so we
++		 * still wait for them below, they may use the
++		 * pages of the caller.
++		 */
++		smbdirect_connection_send_batch_abort(sc, &batch);
++	} else {
++		ret = smbdirect_connection_send_batch_flush(sc, &batch, true);
++		if (unlikely(ret))
++			error = ret;
++	}
+ 
+ 	/*
+ 	 * As an optimization, we don't wait for individual I/O to finish
+diff --git a/fs/smb/smbdirect/socket.h b/fs/smb/smbdirect/socket.h
+index 14114a2567a2..dc1e906316ff 100644
+--- a/fs/smb/smbdirect/socket.h
++++ b/fs/smb/smbdirect/socket.h
+@@ -783,6 +783,13 @@ struct smbdirect_send_batch {
+ 	u32 remote_key;
+ 
+ 	int credit;
++
++	/*
++	 * Number of messages added to the batch,
++	 * unlike wr_cnt not reset by a flush, see
++	 * smbdirect_connection_send_batch_abort().
++	 */
++	u32 msg_cnt;
+ };
+ 
+ struct smbdirect_recv_io {
+diff --git a/include/linux/smbdirect.h b/include/linux/smbdirect.h
+index 97f5ba730fa7..74fff00cdf88 100644
+--- a/include/linux/smbdirect.h
++++ b/include/linux/smbdirect.h
+@@ -115,6 +115,9 @@ int smbdirect_connection_send_batch_flush(struct smbdirect_socket *sc,
+ 					  struct smbdirect_send_batch *batch,
+ 					  bool is_last);
+ 
++void smbdirect_connection_send_batch_abort(struct smbdirect_socket *sc,
++					   struct smbdirect_send_batch *batch);
++
+ /*
+  * This is only temporary and only needed
+  * as long as the client still requires
+-- 
+2.43.0
 
