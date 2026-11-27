@@ -1,99 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795781461;
-	b=ybkiIDvlGzBzUWFDe+SV2JO4UhUIUvX2nzj39a/gyOVRWHp9zJQ78dSsIVlcPuzNcSIz
-	 HmeIvJZBOC8coPqDJO5Pmocbnh5KQlFrZ4o6fRl7z1U7lh5fHghiXsSgYlCX9F1DwVSe0
-	 ShoJgjxVrIwJtg9aL9hUQJ31xYGe6QDlegEJlPJQypeyk8qcphI5GXNROwlau21uRyEQP
-	 iA2+8qBCU+7sJKlIMVI2wOjySV9Cm83lr5w7tCUKa07xOMa0JwnZgZaTY3Jku/a2d13X+
-	 /GhVMU1rpodiyRqAk82vEc1vQwwQ7TjLpa2xr1xBG2fLCpL6TuCouybAohNdFTvb9ew==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795781461;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795781615;
+	b=1SMJdX1EzVSvTE8aUpBqWh/VsG6kDVrEwlJKYxhihBqMbDvOeH52EY0hO+2ntV8zQ40S
+	 qERC4aDeIzMgeVxih6MDvU0ZwfCAOb5tzFK6Q/fIxglsvPRQqkH7cLfigN8VlV6LhjAn9
+	 CJwI66epYjOHeBZnlLSnZn23POAZb6e0cmM/sRChdbJzozn7d8VC+pWWa//WONAIKnCGv
+	 2QDXwoV+TwEPA3Gd8CU64KXtyf5N8M0a6WfeBvdI60pRhsFyuVaP6nzrgx7SBioVhSRMj
+	 OLOBrOej6YiL3T8RXitYHcV/d9ol/AZkQ2fZ5+9haECID25XGShZEXi/zbbBCv0MI4g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795781615;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:MIME-Version:
-	 In-Reply-To:References:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type;
-	bh=V2qzoUjVUqzpzoyGHn3ke9ADcsFIc+4DOftfXyKXY9Q=;
-	b=REvxMGd9hVoAxZ3bKyNGlnAYouXD/tVSlIl8UlDOYb70PDEO1rKRzAruGsjdwLUVFPoA
-	 ZBO47gcyiszc2IOSVhRLlQtuIhSqF0kRW+DQ3heBNdwjunB3z/KIEkxW1Ftr2p+6MhcBM
-	 s+vjTcNjljB8MT0mKrkZAGhyJV5FFxzEaHxaSXZeOD0aCAKZOUBSoOSlpIrJv+1L5M/XT
-	 ZUfchJQPXUc+VlTzYnvjAR/QpdSxoLEukjrBHFadpDcYiR4Lgu6HoF9uUykCCo7jt0Xn6
-	 OWhjdHnntOTDUcTwa7IZyTBYC2NNZrEBZw5AjrvT6htM+VQI6CRlDmDACAc+lebaTIg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=certik.com;
-	spf=pass smtp.mailfrom=certik.com;
-	dkim=pass header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=FV8LsGLa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=mjC6FgNIVsXbCg4Aumv/+ieJ0D89Y+p0kgQ3j3ncaCE=;
+	b=KZjVH1hpII3T4q38KjCrUQwtN8XfFruw8pJiDjHeQjKdlYwE8o8VqB49MHU2Ij/cLJTT
+	 SUUqMz1p6kuQIwJvcLhkIfOSf25qB+/fpB0zYT6kjLhSPhr8lsIq6rWalm2OO7WF4vkmN
+	 KywbnY1BOQpMZ45UmzZdFujtYzu+gRFgtg40EnKzJogAA1uYv8LntsrzPP4FsUQWlAYbN
+	 QIctV2lzxRbbdO4Z9QRTnOmGfwtZpn5JE0LJSgn5zYCg4kJ/V4Ey2c+MBi6BxvWR1vzVc
+	 Cv4zE/4/jYlq/YCbkvJ4DVnHauaFzrLLbYGqHhZ/bS/JnhIf2zWnroD1bVwdJC+PrHA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DDtrKGHS;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0923B606A324
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 12:11:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0923B606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=certik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=certik.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDB2606A31E
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 12:13:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEDB2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=FV8LsGLa
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b503e2a87bso81780257b3.3
-        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 04:11:00 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795781460; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BK+D6YubhWby8nLm3qllULAWKS7PvbVn+8AQ+gro7ALlHodYs0Y3SDWO4CA9+f2pAE
-         9OYQzUI+PpCXK4eSmIzOj61OAlHY+jqweusiZpteYGdfUVjY85bR0DKitlnHBR5CXuFV
-         r8cSEiS2Ut5QTcswQT/2xK7Nso+u/VOfywu/vi3pS5WA+EBwIa7Ac5Ad4pwgPXyKY+M+
-         DouTr0gcw85KQLhyeaGC/q8kuyJpWyDa9oFEPEze0KFpF+RqRLJIlbIP5dWSG0++lsgZ
-         h+SQA2h1LawIRI5gSdiS1IAfUfQRSlZDw7vKY98T48FF357vaK5SQzn1q7qi4tqsKhty
-         HT0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:references:in-reply-to
-         :mime-version:dkim-signature;
-        bh=V2qzoUjVUqzpzoyGHn3ke9ADcsFIc+4DOftfXyKXY9Q=;
-        fh=jQFHF6sZb7lePkUMHOV2HGjT1sGUBL5aHicLHIgGdX0=;
-        b=Aowa5n0wr/mAQFKLfruRfWh0y3MsxM4yq3HssvIqxFszHzl7U4bE3LgWlfDQfvwLvC
-         Ab1Pfz7p+0nE+7QYXhTIg4+/fIpJSKVN0+O6xvmDRxWjpd927V/h2yCSHs6RCgz4uaSB
-         vo8EYLiCQLey8W13+0BKZZZ+HnNMWcKumquyqN5DDufNyJFEKrKpr8G35Nk4k2Oawo6I
-         WpzL8n4KYpFg+6ZXox2HDS4ovnaG11oIbcxeksthuC4nKWdDWdqkwys23vknxs6AL1rA
-         HH/uXdBkgHXxSAslTV+uHJ/qRrVFLrmVgbUUkDucfH1lRedCYKDmL64qj8lp7bGneIZI
-         8MUA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DDtrKGHS
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-4a32576da88so4652417f8f.3
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 04:13:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=certik.com; s=google; t=1795781460; x=1796386260; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=V2qzoUjVUqzpzoyGHn3ke9ADcsFIc+4DOftfXyKXY9Q=;
-        b=FV8LsGLaMNXNDsotcFxJJNGsJsPirnu2CKrW0cZTZY+xUvADghu2VysOlupQ6p4U5w
-         BwdvVoT08fTgSOEFcGXhUlm7BVYe7lS7E2aC8CfPpu6BUQhjSHQJzO9l1/jFMP4vffTP
-         6vr6gWPaKLlnoUFZd0dLrC5D78z7exRtewoOg=
+        d=gmail.com; s=20260707; t=1795781613; x=1796386413; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mjC6FgNIVsXbCg4Aumv/+ieJ0D89Y+p0kgQ3j3ncaCE=;
+        b=DDtrKGHS6tTqnBkHJtDIsUNqxeCUOPQ/MUtdxid6v4umieY7WgS+aDrpHFEFhI4hAN
+         8rtrMSpbv7iUlW6Cw/nfs2AS+2WDcdfgVf6Sfoo+NsRs6IcgpJAMQmlYDmQpiZU/6vY7
+         JRUzKJcWQs7X85oOPaYxkrjxE7nxhsvDWhchTTjkIGZ0j+DzBOH/Z4M+HMxq7fwTQzRJ
+         KzFgThhPRBTlH+UUEJp14xU1zRYkR3ZX9YGzrauCGla7R+uvrW34OEnXamprJDgtsn1i
+         EAAky3lnEuVWdjVIf7vfrmLXJTZETw6P5iKNpKAmfN+WRkT33Mnu/lqIsf/CsTBJda2W
+         HXwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795781460; x=1796386260;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=V2qzoUjVUqzpzoyGHn3ke9ADcsFIc+4DOftfXyKXY9Q=;
-        b=vgGl90bIAOV6H10Cx3YD2OSd1F7XCyViFfTl1lKeUGpTelOUPm1q0SA1LsdvtEhE9M
-         HcOQuYBCltdrHj3zhCxHY30S/o6WalUgm9nVSqd1gm9C/jlCul+caJOLehiTlw+Aedh9
-         DmYXvJMKQrMexhG1O/fcH3zOmvLzzo3vcCeTzHqlq6D/L4XwUkd1H2BdPoGD+s3b2fRM
-         j1L6jx+6NJT/xOA4NiPvPeMefDPGGo5vBCv25Z9JFYk6Cwd7Ai+odwiAMbMbr03Us6Xe
-         xIzc3EPelEuTbgeMrjJgty2HIxjgjzqhQzG16DW2bVysY8SiU8nruQeXriW/jfJ3Otg+
-         xSfA==
-X-Gm-Message-State: APuU4Z+lekIxGl9hbuFPVV4Fds5+RPp911HLZ/h2stpeRuE89haRBtDB
-	LaypkQphYD1DwQDnXSmL8NXMRRlJUsYn5chbJQ4rv+n8OEsVgltyXjG8HOKpJIGpibzqLCRr3gB
-	5KU6E7dePIh8urcZ2nWk/hieBW8kLcFzMQI1fMbzNN8OatSIqGLJT7Nd8BQ==
-X-Gm-Gg: AZFdTZfb8itB6r+OM8BmyNvbWFLzkENa0HJaNScq9bnwXdYNFhyBiwCGiF8MuXVOmWa
-	OWlWoJAM50aPTMP040AsvQzPhC4X449vqmTK/+HEqj03r19w537vs2/CjdsrGE/Unr976peRK1S
-	jGG5j2NB1DiaZWNAcDkgxjtJ+jWLAJg+rvfLrIqB0MBP0G/ROKO0XKLmQVfquy/usldDeCGM2tO
-	/6XMWb0PuuZ0nnLjIo6MOZkOm6YSKIL1CAA8zO4rgPc7HJAAtP0jQRNYr96iGvimWRKCngc8gtb
-	FRehv8pEgiUMyKe3TMZl9JVmJOqjBLP7gNxoPlwD2JVgDT4Tp5mcuLdL7x5nfg6AD7xOk1YEl8s
-	r739hpfKjz8DkolC6Aw1eXgyYWE/7g499uKARh/vvwgdffZLWES6u/u0YNopQ36Q6xBdY6C9wcX
-	o7uWYJWfwaj+89JwTOIJsBHe1Z7LYu+IeDSsmZqsoxjw6Sebt+Bu0Wejt4BlSBXPfbUfkbcYw0N
-	zmVZ/GdOooWMHfcoV5CuuuQQ98pJiiYj4MFhA==
-X-Received: by 2002:a05:690e:5d1:b0:67d:bdcc:4236 with SMTP id
- 956f58d0204a3-67df449a6a6mr7050574d50.75.1795781459909; Fri, 27 Nov 2026
- 04:10:59 -0800 (PST)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 27 Nov 2026 12:10:59 +0000
+        d=1e100.net; s=20260707; t=1795781613; x=1796386413;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mjC6FgNIVsXbCg4Aumv/+ieJ0D89Y+p0kgQ3j3ncaCE=;
+        b=HxD41mo+NOj9vFCpvZmAccaLB24pAXfhU3z0/fuZjRAv1giawLD7BvSNQc4gRFnay2
+         M3Jf4cDmnOygzkPxcAYgSNUX1tN2Zzn/I+qxLOF+X2GTT5L5OC/I2MPQFxfQEOgKvPX4
+         U+b13aa6nr2gJXxb1WKw18V5kyY/motS+XP/d6IQ//VuJG8GeRaL/Kn+cW7OwCu6Suzu
+         HS7WB76NXNxrnfYU/PDDTEt8/XkB9kCPdz35KNkM860ewxw3HzKbMhVp6HVoqFTNejWA
+         xmUV/bHmDkZTBCtvam+ydtES8Ad3oqyOytXWrQ3ytFODrH/CRa6V1kFsnIWjVduT/EJN
+         +rsA==
+X-Forwarded-Encrypted: i=1; AL+hErEVOpwofhgZZ/an5cyRy/QyPPxDs0pvJFCAkR/C99HLF3xLuJ4L/fPX2EljYy3Pe0OSmtT7T3Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8c9UJJS1Is4HXzWAJ/x9p1obfQkzQY7gOMLryw24vucSIcHr6S
+	FG03GMcnWA7XJkhZfoJEvRbUYp8PZNY8F7eZjo9QqrIdmPoRNJVwewmUu/9m1NlB1mo=
+X-Gm-Gg: AZFdTZeDbU2H4r4Kp++AX2x/QOSxRN/HwfOCwlyF57hDP0z3O3tnGfo8+PDX9GPMqUX
+	Vx08PW8hdWC71FtkaPOEFHRuGfl52O0+OaTlwMORI1V8N1POZCd98Nlb8lQOv1WejwsTlzaog3U
+	pMgXWe54yIAUI98p9RW0HpWU5r5qbNHswg+rpslTGLdZcsas6u38WkgQ7/FBhZSH6F3AYdnNyPW
+	pSsgJUWovOVBgN7imbbCNjf8KPhD6yhOQYCrjS473GUZs1AD+CXGv2dMiBRKCSNkhxoN4bw821E
+	QrOCZ5wKBEcgLWtQocqZJWgHk7k5xNVQCrIRYkfI60+4Gy4CvZ60Lg2wKOuABuLWDkA9nGW3tgH
+	6i1+q7u92R3aYptaOM/7YUwxBD+dysLecmGNUQpaN0o0WGVX9hjHtymmqyGXVOo7NuOSH8rxIC4
+	YAxYbCLrW9P2ZhiSd8w7EjgSCMnzNnykO313SpqqyQ3szGXFzD0vYrOCyD4Wsob7GIvuho1tt7Z
+	wHCUMwJYebzPEv7UinQC56kZafOV0chosevXLc2XJmbQRQROiK9gISeP753S5W2AJFBw2LRxsMb
+	k+Hh3rox3ZkDJm2fThbbIBXDoGZqnSRCnCEZo7M2uL89dW72lTB4taJDQjMwkprLe1JkgFtyFC3
+	J9q+gEmgw6Tw6xdPzZvLjZYsVALey
+X-Received: by 2002:a5d:5c89:0:b0:4b8:6c3e:95e9 with SMTP id ffacd0b85a97d-4b86c3e97a1mr21394747f8f.28.1795781612726;
+        Fri, 27 Nov 2026 04:13:32 -0800 (PST)
+Received: from [192.168.68.89] (host-87-4-46-207.retail.telecomitalia.it. [87.4.46.207])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a680355sm38572390f8f.27.2026.11.27.04.13.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 27 Nov 2026 04:13:32 -0800 (PST)
+Message-ID: <9e86f015-0f0e-4897-80b2-9662b96a98f8@gmail.com>
+Date: Fri, 27 Nov 2026 13:13:31 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,53 +93,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <2026112733-gambling-twistable-dc4a@gregkh>
-References: <CAFaZ9eogwNaXVeVhOrtz9montDVg6G8zYR8rOGdpZr26nHFO-A@mail.gmail.com>
- <2026112605-alias-passion-6781@gregkh> <CAFaZ9epm3Tcuz1Fs7wSOqECzZbwdwEYmwSxwUM72jPMZKZArvA@mail.gmail.com>
- <2026112723-jogger-splice-ce25@gregkh> <CAFaZ9eqpPdQ3fiu=gO28rJY48Jh9SqiRxdpXYtBzB5hcoGH7Nw@mail.gmail.com>
- <2026112733-gambling-twistable-dc4a@gregkh>
-From: Dickson Wu <dickson.wu@certik.com>
-Date: Fri, 27 Nov 2026 12:10:59 +0000
-X-Gm-Features: Aa3M54qaTkkD5EzqfmRqYsUuvse6m8MIzbYh2ql68DMvdruHAKaAXipyaZG2YoM
-Message-ID: <CAFaZ9erPPdqJq-Xpys5crfAcJ4W4MCE_O24KvciLSk+nSSny=g@mail.gmail.com>
-Subject: Re: Request: security fixes for 5.10.y and 5.15.y
-To: Greg KH <greg@kroah.com>
-Cc: stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-
-On Fri, Nov 27, 2026 at 09:12:18AM +0000, Greg KH wrote:
-> Do you actually use 6.1.y? If so, why and what is your plan to get off
-> of that kernel to a newer one as soon as possible? Same for 6.6.y and
-> 6.12.y? Sticking with older kernels is almost never a good idea...
-
-No, I don't run 6.1.y myself. I'm a security researcher, and I've been
-looking for security fixes that made it to mainline and the newer
-stable trees but missed the older ones downstreams still build on
-(Debian 12 and CIP are on 6.1, for example). Totally agree people
-should move to newer kernels, this is just for the ones that can't yet
-
-If it's more useful, I can focus on the "FAILED: patch ... failed to
-apply" mails for 6.1.y and newer and send tested backports for those.
-
-Best,
-Dickson
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/990] 6.18.66-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Francesco Dolcini <francesco@dolcini.it>
+Cc: sungbyeongchan <tjdqudcks0424@naver.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Nishanth Menon <nm@ti.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, stable@vger.kernel.org,
+ patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261125143822.072087159@linuxfoundation.org>
+ <20261126173920.GA180459@francesco-nb> <20261126174236.GA183126@francesco-nb>
+ <2026112702-donator-rebuff-16b2@gregkh>
+Content-Language: en-US
+From: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
+In-Reply-To: <2026112702-donator-rebuff-16b2@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
-On Fri, 27 Nov 2026 10:12:18 +0100, Greg KH <greg@kroah.com> wrote:
-> On Fri, Nov 27, 2026 at 02:50:16AM -0600, Dickson Wu wrote:
-> > On Fri, Nov 27, 2026 at 08:05:12AM +0000, Greg KH wrote:
-> > > Thanks, but as both of these are going end-of-life in a few days, and
-> > > the final -rc releases have been sent out for them, they are not going
-> > > to get merged. Anyone still running these kernels should move on to
-> > > newer ones now.
-> >
-> > Ah got it, thanks for the heads-up. I'll stop sending for 5.10.y and
-> > 5.15.y and stick to 6.1.y and newer
->
-> Do you actually use 6.1.y?  If so, why and what is your plan to get off
-> of that kernel to a newer one as soon as possible?  Same for 6.6.y and
-> 6.12.y?  Sticking with older kernels is almost never a good idea...
->
-> thanks,
->
+
+On 11/27/26 10:02, Greg Kroah-Hartman wrote:
+> On Thu, Nov 26, 2026 at 06:42:36PM +0100, Francesco Dolcini wrote:
+>> On Thu, Nov 26, 2026 at 06:39:33PM +0100, Francesco Dolcini wrote:
+>>> +Nishanth, Vignesh, Michael and sungbyeongchan
+>>>
+>>> Hello Greg,
+>>>
+>>> On Wed, Nov 25, 2026 at 03:22:47PM +0100, Greg Kroah-Hartman wrote:
+>>>> This is the start of the stable review cycle for the 6.18.66 release.
+>>>> There are 990 patches in this series, all will be posted as a response
+>>>> to this one.  If anyone has any issues with these being applied, please
+>>>> let me know.
+>>>
+>>> Failure on various TI K3 boards (AM62, AM62P and AM69), during our CI/CD tests
+>>>
+>>> [  477.440292] rtc-ds1307 0-0032: write error -110
+>>> [  478.374406] wm8904 1-001a: ASoC error (-110): at snd_soc_component_update_bits() on wm8904.1-001a for register: [0x00000043]
+>>> [  478.464258] rtc-ds1307 0-0032: read error -110
+>>> [  479.520264] rtc-ds1307 0-0032: write error -110
+>>> [  480.342404] wm8904 1-001a: ASoC error (-110): at snd_soc_component_update_bits() on wm8904.1-001a for register: [0x0000005a]
+>>> [  480.576282] rtc-ds1307 0-0032: read error -110
+>>> [  481.600274] rtc-ds1307 0-0032: write error -110
+>>> [  482.310409] wm8904 1-001a: ASoC error (-110): at snd_soc_component_update_bits() on wm8904.1-001a for register: [0x0000000e]
+>>> [  482.624288] rtc-ds1307 0-0032: read error -110
+>>> [  483.680291] rtc-ds1307 0-0032: write error -110
+>>> [  484.278402] wm8904 1-001a: ASoC error (-110): at soc_component_read_no_lock() on wm8904.1-001a for register: [0x0000004a]
+>>> [  484.320383] INFO: task kworker/1:5:66 blocked for more than 362 seconds.
+>>> [  484.330368]       Not tainted 6.18.66-rc2-8.1-devel #1
+>>> [  484.338741] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+>>> [  484.350050] INFO: task weston-simple-e:783 blocked for more than 241 seconds.
+>>> [  484.360452]       Not tainted 6.18.66-rc2-8.1-devel #1
+>>>
+>>> According to claude the issue is
+>>>
+>>> commit e498eb93f961 ("virtio_ring: use shadow flags when detaching split descriptors")
+>>>
+>>> and those commits should be dropped
+>>>
+>>>   e498eb93f961 ("virtio_ring: use shadow flags when detaching split descriptors") [22944d517ff8]
+>>>   9dc6b944f16c ("virtio_ring: factor out split indirect detaching logic") [44b6e54e4a0a]
+>>>   4b7bf8d55032 ("virtio_ring: code cleanup in detach_buf_split") [032159f85f3f]
+>>>
+>>> I am not able to do any test now or tomorrow, unfortunately. And the
+>>> above analysis is just claude. Might be correct, might be wrong.
+>>
+>> 2 more cents on this, it seems that the issue is the communication with
+>> the device manager. 
+> 
+> What do you mean by this?  What "device manager" and why does virtio
+> have anything to do with that?
+> 
+> confused,
+> 
 > greg k-h
+Hello Greg,
+
+Reverting e498eb93f961 ("virtio_ring: use shadow flags when detaching
+split descriptors") on top of 6.18.66-rc2 fixes the issue. The tree at
+e498eb93f961 itself works fine, so it seems to break only in combination
+with a later patch in the queue. Still investigating.
+
+The "Device Manager" is TI firmware on an R5F core that serves Linux's
+TI-SCI power/clock requests. Linux talks to it via remoteproc/rpmsg,
+which runs on virtio_ring. With rc2 the rpmsg channels to it are never
+created, and I2C transfers start timing out.
+
+Kind regards,
+Emanuele
