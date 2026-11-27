@@ -1,97 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795799586;
-	b=UrPSmmhRPBi4Q3DG+dJC2EEgaLfM7kvGzuiMAUKq1sW+EhhTWFovh9yDwhUhea40MyzH
-	 C/u4ZCETaV59IW7Qt+kUsUGEUshFSnQv7E7PCYBif+9dUMya1IKfaonmc8ycKNFh9kHf6
-	 +Vu5Ex2j81DtZo8elGyAiEUpQrJ0wfAkkK0jknA62K/Yuo48VdewkeF73T39WXdQ18m34
-	 wy5dMwe69VT9TgMYwd0GIteMwvbAQoP5teBVGYgHQjKhh6WPtBkIiPR54OMxBrR4zJLPu
-	 HBxJomjoBV5ARLkM0+WC+3QmjfgTvg4t0p0aZ+lKCWyr8+PfH/mlGa4xW27H7/7W67g==
+	t=1795799739;
+	b=cHzUcOUoSzYljwISnK6zJF0EPhHaDFEtWMorV+eTXZ5+W7GzTOf+Nn3rWmzy/h4Frk2Y
+	 ehpofcTb86VVZVeKMChVupV/f2paINvWT5kx3EGje/OTGYNFxxUmeTRY+R7ixDjXwkwuF
+	 SA3RgjWuKkZIGRhSEk8mFJ4d3E0iqSCjvQC/FgDHvsu6DpRvfAD6Hg/ZzJrXMLsH62TbQ
+	 SUh6OnJ/0ewuymY4/zxrcpOwNoZVFyMmJhmMZX+q8Lke/IvxIkyDk66q05KaDzoen3zNH
+	 LT05wKOUE7DNRtJoshnGGqd0DUNdcJdVcIwNYk02X+iYTq9roiO20JDhQD4s0rzFRkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795799586;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795799739;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=7S4J0Oj3sYJi1UqXP5r2+N/vXgyTszyUgul/cChtfHk=;
-	b=saNuEsNfLC+D+1IYSYkjTRDoPgk1MCjju2meXVcO2RNsRO6lPIGIMfb8yAp42sAGdGi0
-	 GUabN5rsJQHSFGQzhOLq/ZbIseVOYNrbcJ1fLU1xgNOQfsIetucs9qcPbVlcnSejryuva
-	 El99FrsQ5CqDLwYvogyQnqgY5vDPtnui0BkTjnHD+JrQDHZEC/fzf5mj7KI2CSvFBVJ8d
-	 PctYkUAu3rCjre0obM6nOCb88lfYY9Nyoo3ukLO5c2wbWTNe5rFCPKhv/mofAkVIRp1Wl
-	 3rnxrg6vESz5jwdmkAq6FgjiOAPCWOEvjbcusTnBQB9TZQEmzkfgETQSNt4IWapASFA==
+	 Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:Content-Type:
+	 X-RootMTR:X-EPHeader:X-CMS-RootMailID:References;
+	bh=KytjIuTnNAUcC2+yr4qMHng6hLmZHKp8pJkTxpSN+lw=;
+	b=OeXnqIY04qDF3azXLoLT/r8zEBj+Gw+/dcTZyKtQ5YN7Gak8Wuq+/1QmqIM+wnzo+Pna
+	 hvDr3WV3v175pirSuwpyNkl2cZXS4RkE2h/c6NGLFvrh4WAXH+s71BkqKkcjuDVYdRXOx
+	 lW4Id+bDAdFQXQrERR73U5jvGruyViSriBpIJSFbwfRFKmFSaKLf5M0vzwwJ/7ngtICTc
+	 CYI5KDGaLGApA4MSZp8JTnb1z3VrEMaDSnV0pYQNmLI6MavmQDMnBZrJzuJfg1cCeWs6T
+	 PZZZvxuGXvtMAWbn+iKu6Ld4UwL8tCSMAzoXAApn5gHV51qsgkSFgKwLD8C3yiw4H6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fj7vH0m4;
-	arc=none smtp.remote-ip=209.85.215.170
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=gtolZfOu;
+	arc=none smtp.remote-ip=210.118.77.11
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6AEE606A31C
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 17:13:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6AEE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3E5606A31E
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 17:15:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C3E5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fj7vH0m4
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cde5a7d7849so3635903a12.0
-        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 09:13:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795799585; x=1796404385; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7S4J0Oj3sYJi1UqXP5r2+N/vXgyTszyUgul/cChtfHk=;
-        b=fj7vH0m4TeZVxSK8k5+Sz0uxrzg3f6k4UyMgACqdlY8cjUZo/6Vw64dAY+cCj8p6hp
-         qJZMFHzUaWj11QpZHmyemfspjyUsV7SdGByfZPfNZ9pBVG0bEaCUp7j2xw0/KPrFXFTg
-         JW9CWgxe4r+7O3oJbMpJT6sUt6Q/Hwzyur5mTQog7A6MM6zTF5Mhx6a9Etxm1eSZPzxY
-         t/hi9LFoM9gFcRHYScoOsEZUlw5OWsUnc+WRVeQwBQHwB6lxQPmKtNgZ6mRoh/CqVkXi
-         mWywp6E5Cd45e1sw3kU65/IWYgRbTYfUr5iSk9LULtwBEyvJHKhpWBtxpF64Af1+JfTs
-         W0Ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795799585; x=1796404385;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7S4J0Oj3sYJi1UqXP5r2+N/vXgyTszyUgul/cChtfHk=;
-        b=rSJr3Nrp3nvEKYBPTjgRqX4KvMhJBJmghmI6vj4uiSF1pOrq3sEFZitHtyPXpwfMLu
-         YngDI4z3gFvPh247dvClpY3wnaMuX182qSCom6YSdNr6QGo5q+NYnddjb5bT9FtLLX2Z
-         SOhdJRbPDkgxbROlElviW90pV4gSGtyKWFSW1K5Cr4EK71IVnHRveofy2Y8QVzQyGeIv
-         RoWP4Tfc1k5FU02RlkCtGD4yDwURuF/hmTEv0T4C0Ecjeua3M8KxaTuIHpEbDoodNq8G
-         fBHQg5gxgK155x5GvuSoJCpq2pwRQy1UH0Eos/JgXKGyOkwb3yMFGykksgkVa5O8u2Wu
-         m+Hw==
-X-Forwarded-Encrypted: i=1; AL+hErE4VDRKzZn5GS8Q9DI0bKThhvYAszVv6QOejDgKZbEe/1BJQcPErc7ei/GaRaGzDUvqixi1EhE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/6EsBaisxnVul+uoLR196B8AdtvBWPIbszmlFRkpiRlqsY/1hn
-	uHI/j1JTgL7+OkG61HG27wphh5E0lGcg8XFYF3JG4ipUzFvYGwWaX+GO+MagItN9
-X-Gm-Gg: AZFdTZcPhM/gRHg18skHflsouTTa/NWsRoEsN4NoDR+vO1dYJcA+1EQAloSa4tokZtG
-	+wUABaP8kl4V08aPnJQOOQI511mVC+Ctq1cWaG91hB2at2KuKjzuU82uwnwiKAQ2jsHPsoU+3wT
-	aHHtl4FyEeNknZfxH7Bdm1nV9MjQ+akQT60zDQHQZcH5W3QEfaPzVbQIHePxKvRo9gfTBqrj4Ck
-	eoAwWy2T3ydiXvgrGP4F5+cFtHqk7D5fJMv3OidcTII1l0fOdPz5nqyjlPKdg9td0LJQp/8I9/r
-	9uyL72+bsdi3zLcMkJbmfAhMnHzGkTKWTN2WEPjjCDspkMtcLmvLhefE5vNTSD+GoEmXGhoUDaj
-	nk65APj0lFEFOkTJSNya3L9RjFIlAu0BfopO3XZtzn+5JoywrAd9USHZ6edE8VxXgahwhzO0dr3
-	80TqSjN3imp0dd7AoAC5FwWwW7xpSs/tYDOEflgWBbgK+7m8x1VcQ/0laGvVt8clqzsVWlKqmqP
-	RIu/RkyhjLdzWXlcOjXC/8Yyq0giHlXwj+xa4NUpiLsHiVWmZXaqRi1cDSLvI7Th8+VxgzOI/BR
-	rm1EEtsUNsaNmQaiz1kDmYSx+mVfoLtb0H/KviLNjhA2ojkkjRvvhbnrOM4kZg0PXQhtBe+0eW7
-	6Jcb3xMGiSxgCqmIr2VMxhqINtMLIO8iOu0qMNTntO8MmvSWaxhK9ahzBE7IC7wU8IMh59mMpOe
-	aeKukyN6OgV93YPKJvvWnV
-X-Received: by 2002:a17:90b:2e49:b0:3ac:80dc:f419 with SMTP id 98e67ed59e1d1-3b41c90811fmr24324820a91.25.1795799584854;
-        Fri, 27 Nov 2026 09:13:04 -0800 (PST)
-Received: from fangorn.. (97-120-153-124.ptld.qwest.net. [97.120.153.124])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad0a34asm38643445a91.3.2026.11.27.09.13.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 09:13:04 -0800 (PST)
-From: Carl Egbert <egbertcarl@gmail.com>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Cc: Eric Naim <dnaim@cachyos.org>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	Carl Egbert <egbertcarl@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ALSA: hda/realtek: Fix mute LED regression on ThinkPad T440/T450 family
-Date: Fri, 27 Nov 2026 09:12:41 -0800
-Message-ID: <20261127171241.1619113-1-egbertcarl@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=gtolZfOu
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261127171535euoutp01fc04c31c14d9e95a60e4107185cb8ed9~r9lhU_ESO1497914979euoutp01G
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 17:15:35 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261127171535euoutp01fc04c31c14d9e95a60e4107185cb8ed9~r9lhU_ESO1497914979euoutp01G
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1795799735;
+	bh=KytjIuTnNAUcC2+yr4qMHng6hLmZHKp8pJkTxpSN+lw=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=gtolZfOubwLZRgg/GZ8r5+fTpi841x+AGvezlU/9xBxz8ZwMGMcK+0Evfw8WJ49NB
+	 QD1kipBM+bSNaQzGhEvcpGKOYQcrpEnYmaLGfWkkdyygwmYh/ePc0iWwMkuxwA1TUr
+	 wgiMDt+lHHC6V1V/pzdOCksg4Ai3X9BiJseKii44=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261127171534eucas1p1adc65490fcfb09b573d27aaa834f2912~r9lf2IqVo1591815918eucas1p1H;
+	Fri, 27 Nov 2026 17:15:34 +0000 (GMT)
+Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261127171533eusmtip233350304d37e3b8d712d3f184b49b3da~r9lfRYG2J2536825368eusmtip2I;
+	Fri, 27 Nov 2026 17:15:33 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
+	<robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, Will Deacon
+	<will@kernel.org>, Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe
+	<jgg@nvidia.com>, Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Honglei Huang
+	<honghuan@amd.com>, prakash.gupta@oss.qualcomm.com, stable@vger.kernel.org
+Subject: [PATCH v2] iommu/dma: restore flush queue use in dma_iova_destroy()
+Date: Fri, 27 Nov 2026 18:15:28 +0100
+Message-ID: <20261127171529.2917893-1-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,82 +73,240 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261127171534eucas1p1adc65490fcfb09b573d27aaa834f2912
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261127171534eucas1p1adc65490fcfb09b573d27aaa834f2912
+X-EPHeader: CA
+X-CMS-RootMailID: 20261127171534eucas1p1adc65490fcfb09b573d27aaa834f2912
+References: <CGME20261127171534eucas1p1adc65490fcfb09b573d27aaa834f2912@eucas1p1.samsung.com>
 
-Since commit 8a889cce1c6d ("ALSA: hda/realtek: Unchain
-ALC269_FIXUP_THINKPAD_ACPI from ALC269_FIXUP_LIMIT_INT_MIC_BOOST"),
-ThinkPads whose fixup chain goes through ALC292_FIXUP_TPT440_DOCK or
-ALC283_FIXUP_INT_MIC no longer get their mute LEDs set up. On a ThinkPad
-T450 (SSID 17aa:5034), the speaker mute LED no longer follows the mute
-state: no mixer control gets the speaker LED access flag, so snd-ctl-led
-is not loaded automatically and
-/sys/class/sound/ctl-led/speaker/card1/list stays empty.
+Commit 1acce29926d9 ("iommu/dma: simplify dma_iova_destroy() and drop
+the free_iova helper") turned dma_iova_destroy() into dma_iova_unlink()
+followed by dma_iova_free(). Before it, the destroy path marked its
+IOTLB gather as queued for DMA-FQ domains, skipped iommu_iotlb_sync()
+and handed the IOVA over to the flush queue, exactly like
+__iommu_dma_unmap(). After it:
 
-Commit b2d447288fa7 ("ALSA: hda/realtek: Add
-ALC269_FIXUP_THINKPAD_LIMIT_INT_MIC_BOOST quirk") added a ThinkPad
-variant of ALC269_FIXUP_LIMIT_INT_MIC_BOOST and switched the quirk table
-entries that selected the plain fixup directly. Then
-commit 8a889cce1c6d ("ALSA: hda/realtek: Unchain
-ALC269_FIXUP_THINKPAD_ACPI from ALC269_FIXUP_LIMIT_INT_MIC_BOOST")
-removed the chain to ALC269_FIXUP_THINKPAD_ACPI from the plain fixup.
-However, two fixups reach the plain fixup through their own chain_id and
-were not converted:
+  - dma_iova_unlink() never queues its gather and always calls
+    iommu_iotlb_sync() after iommu_unmap_fast(),
+  - dma_iova_free() passes a NULL gather to iommu_dma_free_iova(), so
+    the IOVA goes straight back to the allocator via free_iova_fast().
 
-  - ALC292_FIXUP_TPT440_DOCK, used by the ThinkPad T440, T440p, T440s
-    (via ALC292_FIXUP_TPT440), T540p, W541, X240, X1 Carbon 2nd, T550,
-    X250, L440, T450, T450s, L450 and X260
-  - ALC283_FIXUP_INT_MIC, used by a ThinkPad (17aa:501a), the IdeaPad
-    S210 and the Lenovo 145 (via ALC236_FIXUP_LENOVO_INV_DMIC)
+DMA-FQ domains therefore get strict invalidation on this path. This
+includes blk_rq_dma_map(), which NVMe uses for all data transfers, so
+iommu.strict=0 has no effect on NVMe I/O. On a Qualcomm Glymur CRD
+(SMMUv3 without RANGE_INV, 4K pages, NVMe on PCIe Gen5 x4) sequential
+fio throughput drops from 10.6/11.9 GiB/s (write/read) to the strict
+mode level of ~2.7 GiB/s.
 
-Their chains now end before alc_fixup_thinkpad_acpi(), so these machines
-no longer get the mute LED setup for thinkpad_acpi, nor no_shutup_pins.
+Fix this by letting dma_iova_destroy() unmap the linked range into its
+own gather, queued for flush queue domains like in __iommu_dma_unmap(),
+and retire that gather together with the IOVA free: either by
+iommu_iotlb_sync(), or by handing the IOVA space (and any page table
+pages released by the unmap) over to the flush queue via queue_iova().
+The whole reservation is still freed, keeping the size fix of the
+mentioned commit.
 
-Point both fixups at ALC269_FIXUP_THINKPAD_LIMIT_INT_MIC_BOOST, which
-restores the fixup chains these machines had before 8a889cce1c6d. On
-the IdeaPad S210 and Lenovo 145, is_thinkpad() is false, so they only
-get no_shutup_pins back, as before the regression.
+A gather must always be retired, either by iommu_iotlb_sync() or by
+handing it to the flush queue together with the IOVA, and the IOVA must
+never be returned to the allocator while a queued invalidation for it is
+still pending. To keep that obvious, the internal unlink helper only
+unmaps into a gather supplied by its caller, and each caller retires it
+right away: dma_iova_destroy() syncs or queues it together with the IOVA
+free, while dma_iova_unlink() always uses a never queued gather and
+syncs it, as the unlinked range remains owned by the caller and may be
+linked again immediately.
 
-Tested on a ThinkPad T450 on top of sound.git for-linus (e79163b531ec):
-with this patch, snd-ctl-led is loaded automatically at boot, and the
-speaker and mic mute LEDs follow the playback and capture mute state
-again. Not tested on the machines using ALC283_FIXUP_INT_MIC.
+Consequently dma_iova_free(), and dma_iova_destroy() with nothing
+mapped, keep returning the IOVA directly to the allocator: no queued
+gather was ever created for it, so there is no deferred invalidation to
+wait for.
 
-The regression was bisected on the affected T450. An AI assistant
-(Claude Code, using Claude Opus 5.5) was used throughout: it helped
-diagnose the problem, plan the bisection and write the scripts used for
-it, identify the cause, and drafted this patch and changelog. I ran the
-bisection and the tests on the hardware and reviewed the change.
-
-Fixes: 8a889cce1c6d ("ALSA: hda/realtek: Unchain ALC269_FIXUP_THINKPAD_ACPI from ALC269_FIXUP_LIMIT_INT_MIC_BOOST")
-Cc: stable@vger.kernel.org
-Signed-off-by: Carl Egbert <egbertcarl@gmail.com>
+Fixes: 1acce29926d9 ("iommu/dma: simplify dma_iova_destroy() and drop the free_iova helper")
+Reported-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+Closes: https://lore.kernel.org/all/20261125135120.1126571-1-sibi.sankar@oss.qualcomm.com/
+Cc: stable@vger.kernel.org # v7.3+
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
 ---
- sound/hda/codecs/realtek/alc269.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+The series has been developped with an aid of LLM, build tested on arm64
+and x86_64. Sibi, it would be great if you could rerun your fio test on
+top of it.
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 5c3b383bb618..003f5052a842 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -5246,7 +5246,7 @@ static const struct hda_fixup alc269_fixups[] = {
- 			{ }
- 		},
- 		.chained = true,
--		.chain_id = ALC269_FIXUP_LIMIT_INT_MIC_BOOST
-+		.chain_id = ALC269_FIXUP_THINKPAD_LIMIT_INT_MIC_BOOST
- 	},
- 	[ALC290_FIXUP_SUBWOOFER_HSJACK] = {
- 		.type = HDA_FIXUP_PINS,
-@@ -5361,7 +5361,7 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc_fixup_tpt440_dock,
- 		.chained = true,
--		.chain_id = ALC269_FIXUP_LIMIT_INT_MIC_BOOST
-+		.chain_id = ALC269_FIXUP_THINKPAD_LIMIT_INT_MIC_BOOST
- 	},
- 	[ALC292_FIXUP_TPT440] = {
- 		.type = HDA_FIXUP_FUNC,
+Best regards
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
-base-commit: e79163b531eca7f3fdc05031f4b43b6f7c51d3bc
+
+Changelog:
+v2:
+- dma_iova_free() and dma_iova_destroy() with nothing mapped return the
+  IOVA directly to the allocator instead of the flush queue, as there is
+  no deferred invalidation to wait for (pointed out by Sashiko review)
+- dropped DMA_IOVA_USE_FQ flag and flags related rework (pointed out by
+  Jason)
+
+v1: https://lore.kernel.org/all/20261127115849.2780625-1-m.szyprowski@samsung.com/
+---
+ drivers/iommu/dma-iommu.c | 100 +++++++++++++++++++++++++++-----------
+ 1 file changed, 72 insertions(+), 28 deletions(-)
+
+diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+index 78742aeba932..44fa02c35bad 100644
+--- a/drivers/iommu/dma-iommu.c
++++ b/drivers/iommu/dma-iommu.c
+@@ -1857,6 +1857,19 @@ bool dma_iova_try_alloc(struct device *dev, struct dma_iova_state *state,
+ }
+ EXPORT_SYMBOL_GPL(dma_iova_try_alloc);
+ 
++static void __dma_iova_free(struct device *dev, struct dma_iova_state *state,
++		struct iommu_iotlb_gather *gather)
++{
++	struct iommu_domain *domain = iommu_get_dma_domain(dev);
++	struct iommu_dma_cookie *cookie = domain->iova_cookie;
++	struct iova_domain *iovad = &cookie->iovad;
++	size_t iova_start_pad = iova_offset(iovad, state->addr);
++	size_t size = dma_iova_size(state);
++
++	iommu_dma_free_iova(domain, state->addr - iova_start_pad,
++			iova_align(iovad, size + iova_start_pad), gather);
++}
++
+ /**
+  * dma_iova_free - Free an IOVA space
+  * @dev: Device to free the IOVA space for
+@@ -1871,14 +1884,12 @@ EXPORT_SYMBOL_GPL(dma_iova_try_alloc);
+  */
+ void dma_iova_free(struct device *dev, struct dma_iova_state *state)
+ {
+-	struct iommu_domain *domain = iommu_get_dma_domain(dev);
+-	struct iommu_dma_cookie *cookie = domain->iova_cookie;
+-	struct iova_domain *iovad = &cookie->iovad;
+-	size_t iova_start_pad = iova_offset(iovad, state->addr);
+-	size_t size = dma_iova_size(state);
+-
+-	iommu_dma_free_iova(domain, state->addr - iova_start_pad,
+-			iova_align(iovad, size + iova_start_pad), NULL);
++	/*
++	 * Nothing is linked anymore and every dma_iova_unlink() has already
++	 * invalidated the IOTLB synchronously, so there is no deferred
++	 * invalidation to wait for and the IOVA can be reused right away.
++	 */
++	__dma_iova_free(dev, state, NULL);
+ }
+ EXPORT_SYMBOL_GPL(dma_iova_free);
+ 
+@@ -2097,27 +2108,20 @@ static void iommu_dma_iova_unlink_range_slow(struct device *dev,
+ 		arch_sync_dma_flush();
+ }
+ 
+-/**
+- * dma_iova_unlink - Unlink a range of IOVA space
+- * @dev: DMA device
+- * @state: IOVA state
+- * @offset: offset into the IOVA state to unlink
+- * @size: size of the buffer
+- * @dir: DMA direction
+- * @attrs: attributes of mapping properties
+- *
+- * Unlink a range of IOVA space for the given IOVA state.
++/*
++ * Unmap a range of IOVA space into @gather. The caller owns @gather and must
++ * retire it, either by iommu_iotlb_sync() or, for a queued gather, by handing
++ * it over to the flush queue together with the IOVA via iommu_dma_free_iova().
+  */
+-void dma_iova_unlink(struct device *dev, struct dma_iova_state *state,
++static void __dma_iova_unlink(struct device *dev, struct dma_iova_state *state,
+ 		size_t offset, size_t size, enum dma_data_direction dir,
+-		unsigned long attrs)
++		unsigned long attrs, struct iommu_iotlb_gather *gather)
+ {
+ 	struct iommu_domain *domain = iommu_get_dma_domain(dev);
+ 	struct iommu_dma_cookie *cookie = domain->iova_cookie;
+ 	struct iova_domain *iovad = &cookie->iovad;
+ 	dma_addr_t addr = state->addr + offset;
+ 	size_t iova_start_pad = iova_offset(iovad, addr);
+-	struct iommu_iotlb_gather iotlb_gather;
+ 	size_t unmapped;
+ 
+ 	if ((state->__size & DMA_IOVA_USE_SWIOTLB) ||
+@@ -2125,14 +2129,38 @@ void dma_iova_unlink(struct device *dev, struct dma_iova_state *state,
+ 	     !(attrs & (DMA_ATTR_SKIP_CPU_SYNC | DMA_ATTR_MMIO))))
+ 		iommu_dma_iova_unlink_range_slow(dev, addr, size, dir, attrs);
+ 
+-	iommu_iotlb_gather_init(&iotlb_gather);
+-
+ 	size = iova_align(iovad, size + iova_start_pad);
+ 	addr -= iova_start_pad;
+-	unmapped = iommu_unmap_fast(domain, addr, size, &iotlb_gather);
++	unmapped = iommu_unmap_fast(domain, addr, size, gather);
+ 	WARN_ON(unmapped != size);
++}
+ 
+-	iommu_iotlb_sync(domain, &iotlb_gather);
++/**
++ * dma_iova_unlink - Unlink a range of IOVA space
++ * @dev: DMA device
++ * @state: IOVA state
++ * @offset: offset into the IOVA state to unlink
++ * @size: size of the buffer
++ * @dir: DMA direction
++ * @attrs: attributes of mapping properties
++ *
++ * Unlink a range of IOVA space for the given IOVA state.
++ */
++void dma_iova_unlink(struct device *dev, struct dma_iova_state *state,
++		size_t offset, size_t size, enum dma_data_direction dir,
++		unsigned long attrs)
++{
++	struct iommu_iotlb_gather iotlb_gather;
++
++	/*
++	 * The IOVA range stays owned by the caller and may be linked again
++	 * right away, so the IOTLB has to be invalidated synchronously even
++	 * for flush queue domains. The gather is therefore never queued and
++	 * is retired right here.
++	 */
++	iommu_iotlb_gather_init(&iotlb_gather);
++	__dma_iova_unlink(dev, state, offset, size, dir, attrs, &iotlb_gather);
++	iommu_iotlb_sync(iommu_get_dma_domain(dev), &iotlb_gather);
+ }
+ EXPORT_SYMBOL_GPL(dma_iova_unlink);
+ 
+@@ -2152,14 +2180,30 @@ void dma_iova_destroy(struct device *dev, struct dma_iova_state *state,
+ 		size_t mapped_len, enum dma_data_direction dir,
+ 		unsigned long attrs)
+ {
+-	if (mapped_len)
+-		dma_iova_unlink(dev, state, 0, mapped_len, dir, attrs);
++	struct iommu_domain *domain = iommu_get_dma_domain(dev);
++	struct iommu_iotlb_gather iotlb_gather;
++
++	iommu_iotlb_gather_init(&iotlb_gather);
+ 
+ 	/*
+ 	 * We can be here if the first call to dma_iova_link() failed and
+ 	 * there is nothing to unlink, so let's be more clear.
+ 	 */
+-	dma_iova_free(dev, state);
++	if (mapped_len) {
++		iotlb_gather.queued = READ_ONCE(domain->iova_cookie->fq_domain);
++		__dma_iova_unlink(dev, state, 0, mapped_len, dir, attrs,
++				&iotlb_gather);
++	}
++
++	/*
++	 * Retire the gather together with the IOVA, like __iommu_dma_unmap()
++	 * does: either invalidate the IOTLB now, or hand the IOVA space and
++	 * any page table pages released by the unmap over to the flush queue,
++	 * so the IOVA cannot be reused before the deferred invalidation.
++	 */
++	if (!iotlb_gather.queued)
++		iommu_iotlb_sync(domain, &iotlb_gather);
++	__dma_iova_free(dev, state, &iotlb_gather);
+ }
+ EXPORT_SYMBOL_GPL(dma_iova_destroy);
+ 
 -- 
-2.48.1
+2.43.0
 
