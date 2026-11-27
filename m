@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795804598;
-	b=AS+s83VkIq5sPErGoA8PhwzGVUf2YwSD0qiSHMwEaLyxPahTTb2eNDwl8CKRB8B+HqT+
-	 wDX3lz49IAHPEqDEwIRuERlFmRXHZ3iLf4TlncCn+Q1WdkTPIe4GBjqa2L4rur6Sq9QCG
-	 iEH7yNZiuJ5qbc/hJKq0Wxsn24C8SFbQaaW9ZvK8WsVGTl6qRCBgBzyfyVQ0VM/72oABZ
-	 ypulcJJWDN6uPrYuD4btcRCA3DdQS1sM4VLwxzLK68+pRNNICcHvfkhFDxI4XkkLM8t59
-	 YtpUTrrEYNmEy4J9UKdX0WLv0XBlrb7g5q7jlKB2eWkdG+VaJIXE6/fv+A2uqOvdt5g==
+	t=1795804604;
+	b=e/Pc/7RswH6pjaCTbQb6DZkNLJj1XWAYHc+YQQZyNGhLgrnP9ZbW5BRisQ6TyQjVQHvX
+	 KDxg9z4sOexpepQgX9P4YqJ/CzzRMpQNigphhnYmsHMCD7/LjrR1pbAhj2e/C0gz4+ojv
+	 LbGah+kNpM6k3Sx5+pptyPLt9EScwof0yrdH7Vl2nNq3dzmW4TaqPqSc4OuENdFsxkfML
+	 yTq4Cj8ghllnBPOnMK6YC8o2fUKjxY1NmZUmQpBstiPJZKLHplR0Se9GHRsp781ZirNT/
+	 5ea9o1YyPOJt4XpinjmNWIZedDmsD922qEEDUtzwadhjWrSK/qaioUatr0y661rIekg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795804598;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795804604;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wMIKscvgJyz6s31NMv0NlSVP0vJydCQ+WGHxYrw4eIE=;
-	b=unpYvu3K2Oo65V6g1aq58FgjWxlioCBIT5ThU1LqgYQxlSrkq7QWEok/byvCyL2obL5Z
-	 X9lNQXMjIhbD0as+Tc6Bf8iPRBSouQL/6cT0Ky5MScqR+4ctAI/ctz+u9geWavMCuwy7O
-	 7jnKD8JpyP6256LgrZ3Y1O2uKgvmG4vchb60FZbeLscJGv5Wjvhosn9fBQS1cH/nV6jFA
-	 ml9myanpgH9gJfyY6SfzTYSJqN5vRzC7/hN6tcBLYqGHLDwsPeT7SQGZ+fctHPRv/lq9v
-	 oey4VLjxOAfFruL8Y2feF+BrclcCmcYPgZW91O8kHTtdOvk5+e2bJ7TDw61Gv1xkNSA==
+	bh=q/DHnuShonHGs9vWHUGnG2mho9rRsXgmGDFHaiX+Sh4=;
+	b=SY0gc6qaYE8SCg8L9lxjiWAYT16nH3y2oX2t4eL8kIP7XeOIFQI4KxRnRyNgMcpHn+Qc
+	 5S2PXh3sIZDern1BYoRWM5l8XyEEZVImit57W1Y8aWo+witur0QKP8bp25+R0jf1meado
+	 L4UHL3mFeQJop4iUhu29etaYknBm7QEp6h0XRDoIle6A1Jv+93wjtVeuNJMymRUUTV6D9
+	 +6y56r1dHY81Irr1BMhLjXUgzMnLN2JU6Cg1uuzocq2YXfB6np8A33lfqj2PVB/PJHPQ6
+	 W5Lovj3oJhrHQsmIKSEeB5rTxuD7pZ8ANU4Yd3Blq8Cp+Gz8DKjB/44BVtbi4jpnZHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cNtMRNpF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j0ESB5Ee;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74237606A31E;
-	Fri, 27 Nov 2026 18:36:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A93CE606A31F;
+	Fri, 27 Nov 2026 18:36:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cNtMRNpF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8913A1F00898;
-	Fri, 27 Nov 2026 18:36:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j0ESB5Ee
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A20751F0089A;
+	Fri, 27 Nov 2026 18:36:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795804597;
-	bh=wMIKscvgJyz6s31NMv0NlSVP0vJydCQ+WGHxYrw4eIE=;
+	s=k20260515; t=1795804604;
+	bh=q/DHnuShonHGs9vWHUGnG2mho9rRsXgmGDFHaiX+Sh4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cNtMRNpFvvcZK99vRCDQlXdIBHzeEBU9UV/yIBq92vUQwEcgn1CSCFDN52YRRXjlc
-	 HGmY8D+iTJSW3sWjo7zHyZ+CvVRnlQBSNzNWSsd/Dt2VwV4akyUtFAynv98QJ283Xn
-	 gSRgkUG/ZlC2aeEVgI8dj6STb3qdNCNxpZstJmGhoXsGk4kLYufnbYDxl79lCrTSru
-	 UDbwz6RhLtgC6E/RjS3pi4e+BxNMUc5j1j/cSe+xlctArHLPbeqbGFVHim568ZP+aM
-	 q6fxtn+NhMoCeitnracA6HQa4Z/g6r+HH20TPntf6b0rV6v+p4yaS7LKmNDPXyt/kd
-	 5RtSXpd5NNvdw==
+	b=j0ESB5EeNqlAOU2eBXcocvNl6deO85SOix6KahEA+hAbrDTJ8bBXuuhrfAAroePWW
+	 hrWU4csBnvN7I3fKhcS32MAmhZhlyoMQ8/Tmg484Wm4OEWLNGgedXreMdlyWs6TjlW
+	 vypncicDPvhq9ijEmDQaQmpBEn1BLTiwkUV9yCCO8Cws3frt2PGP1OG0+5GWhlAMd9
+	 BKxMfw4OWNqzMSxtWX2ZxRsIdF3arhNoPnR6N7fCWnbTKy+QC5dzS/82L3PmzSV7/u
+	 r+xbMhOPyiPkHoTfs9SAo7MTG4/JZNwMVaDTB8MhVowlRlE/oSftWIxiapYNtPHUJn
+	 x6Oow8NCspkaw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
-	Douglas Anderson <dianders@chromium.org>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
+	Gyungoh Yoo <jack.yoo@maxim-ic.com>,
+	Graeme Gregory <gg@slimlogic.co.uk>,
+	Eduardo Candelaria <jedu@slimlogic.co.uk>,
+	Stephen Warren <swarren@nvidia.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 1/8] regulator: core: Defer supply cleanup and unregister event forwarding on error
-Date: Fri, 27 Nov 2026 18:35:41 +0000
-Message-ID: <20261127183624.3341010-2-lee@kernel.org>
+Subject: [PATCH 2/8] regulator: max8907: Duplicate of_regulator_match table per device
+Date: Fri, 27 Nov 2026 18:35:42 +0000
+Message-ID: <20261127183624.3341010-3-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127183624.3341010-1-lee@kernel.org>
 References: <20261127183624.3341010-1-lee@kernel.org>
@@ -65,64 +67,141 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When enabling rdev->supply fails in set_machine_constraints(), the error
-path calls _regulator_put(rdev->supply) without holding
-regulator_list_mutex and clears rdev->supply to NULL.  Neither
-regulator_register() nor regulator_resolve_supply() holds
-regulator_list_mutex here, and when called from
-regulator_resolve_supply() under regulator_lock_dependent(), clearing
-rdev->supply prevents regulator_unlock_dependent() from unlocking the
-supply chain and skips unregister_regulator_event_forwarding().
+max8907_regulator_parse_dt() passes the static global max8907_matches
+array directly to of_regulator_match(), which populates init_data and
+of_node in place and registers a devres callback holding a pointer to
+that array.  With multiple MAX8907 instances, a second probe overwrites
+the first instance's entries and subsequent unbinds invoke of_node_put()
+twice on the same device nodes, causing reference count underflow and
+use-after-free.
 
-In addition, the wash error label in regulator_register() releases
-rdev->supply and drops the device reference without calling
-unregister_regulator_event_forwarding(), leaving a dangling notifier on
-the supply chain after rdev is freed.
+Mark max8907_matches const and duplicate it per device with
+devm_kmemdup() before calling of_regulator_match().
 
-Leave supply teardown in set_machine_constraints() to its callers, which
-already handle cleanup with proper locking, and unregister event
-forwarding before putting rdev->supply on the regulator_register() error
-path.
-
-Fixes: 05f224ca6693 ("regulator: core: Clean enabling always-on regulators + their supplies")
-Fixes: 433e294c3c5b ("regulator: core: forward undervoltage events downstream by default")
-Fixes: 8d38423d9dea ("regulator: core: don't fail regulator_register() with missing required supply")
-Closes: https://sashiko.dev/#/bug/linux-f6e93cf6-c907-4a0b-b748-617186aee410
+Fixes: ffee19091a4e ("regulator: add MAX8907 driver")
+Closes: https://sashiko.dev/#/bug/linux-295d0600-9849-4e47-802c-7e7a883167aa
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/regulator/core.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/regulator/max8907-regulator.c | 57 +++++++++++----------------
+ 1 file changed, 24 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-index 8bb1ae4e03ea..18ec8b77e620 100644
---- a/drivers/regulator/core.c
-+++ b/drivers/regulator/core.c
-@@ -1680,11 +1680,8 @@ static int set_machine_constraints(struct regulator_dev *rdev,
- 			ret = (is_locked
- 			       ? _regulator_enable(rdev->supply, NULL)
- 			       : regulator_enable(rdev->supply));
--			if (ret < 0) {
--				_regulator_put(rdev->supply);
--				rdev->supply = NULL;
-+			if (ret < 0)
- 				return ret;
--			}
- 			supply_enabled = true;
- 		}
+diff --git a/drivers/regulator/max8907-regulator.c b/drivers/regulator/max8907-regulator.c
+index fd227fd13612..7781901ed115 100644
+--- a/drivers/regulator/max8907-regulator.c
++++ b/drivers/regulator/max8907-regulator.c
+@@ -186,7 +186,7 @@ static const struct regulator_desc max8907_regulators[] = {
+ 		.driver_data = (void *)&max8907_regulators[MAX8907_##_id], \
+ 	}
  
-@@ -6392,7 +6389,10 @@ regulator_register(struct device *dev,
- 	regulator_remove_coupling(rdev);
- 	mutex_unlock(&regulator_list_mutex);
- wash:
--	regulator_put(rdev->supply);
-+	if (rdev->supply) {
-+		unregister_regulator_event_forwarding(rdev);
-+		regulator_put(rdev->supply);
+-static struct of_regulator_match max8907_matches[] = {
++static const struct of_regulator_match max8907_matches[] = {
+ 	MATCH(mbatt, MBATT),
+ 	MATCH(sd1, SD1),
+ 	MATCH(sd2, SD2),
+@@ -218,54 +218,44 @@ static struct of_regulator_match max8907_matches[] = {
+ 	MATCH(vrtc, VRTC),
+ };
+ 
+-static int max8907_regulator_parse_dt(struct platform_device *pdev)
++static struct of_regulator_match *
++max8907_regulator_parse_dt(struct platform_device *pdev)
+ {
++	struct of_regulator_match *matches;
+ 	struct device_node *np, *regulators;
+ 	int ret;
+ 
+ 	np = pdev->dev.parent->of_node;
+ 	if (!np)
+-		return 0;
++		return NULL;
+ 
+ 	regulators = of_get_child_by_name(np, "regulators");
+ 	if (!regulators) {
+ 		dev_err(&pdev->dev, "regulators node not found\n");
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 	}
+ 
+-	ret = of_regulator_match(&pdev->dev, regulators, max8907_matches,
++	matches = devm_kmemdup(&pdev->dev, max8907_matches,
++			       sizeof(max8907_matches), GFP_KERNEL);
++	if (!matches) {
++		of_node_put(regulators);
++		return ERR_PTR(-ENOMEM);
 +	}
- 	kfree(rdev->coupling_desc.coupled_rdevs);
- 	mutex_lock(&regulator_list_mutex);
- 	regulator_ena_gpio_free(rdev);
++
++	ret = of_regulator_match(&pdev->dev, regulators, matches,
+ 				 ARRAY_SIZE(max8907_matches));
+ 	of_node_put(regulators);
+ 	if (ret < 0) {
+ 		dev_err(&pdev->dev, "Error parsing regulator init data: %d\n",
+ 			ret);
+-		return ret;
++		return ERR_PTR(ret);
+ 	}
+ 
+-	return 0;
+-}
+-
+-static inline struct regulator_init_data *match_init_data(int index)
+-{
+-	return max8907_matches[index].init_data;
+-}
+-
+-static inline struct device_node *match_of_node(int index)
+-{
+-	return max8907_matches[index].of_node;
++	return matches;
+ }
+ #else
+-static int max8907_regulator_parse_dt(struct platform_device *pdev)
+-{
+-	return 0;
+-}
+-
+-static inline struct regulator_init_data *match_init_data(int index)
+-{
+-	return NULL;
+-}
+-
+-static inline struct device_node *match_of_node(int index)
++static struct of_regulator_match *
++max8907_regulator_parse_dt(struct platform_device *pdev)
+ {
+ 	return NULL;
+ }
+@@ -280,12 +270,13 @@ static int max8907_regulator_probe(struct platform_device *pdev)
+ 	unsigned int val;
+ 	int i;
+ 	struct regulator_config config = {};
++	struct of_regulator_match *matches;
+ 	struct regulator_init_data *idata;
+ 	const char *mbatt_rail_name = NULL;
+ 
+-	ret = max8907_regulator_parse_dt(pdev);
+-	if (ret)
+-		return ret;
++	matches = max8907_regulator_parse_dt(pdev);
++	if (IS_ERR(matches))
++		return PTR_ERR(matches);
+ 
+ 	pmic = devm_kzalloc_obj(&pdev->dev, *pmic);
+ 	if (!pmic)
+@@ -315,11 +306,11 @@ static int max8907_regulator_probe(struct platform_device *pdev)
+ 		if (pdata)
+ 			idata = pdata->init_data[i];
+ 		else
+-			idata = match_init_data(i);
++			idata = matches ? matches[i].init_data : NULL;
+ 		config.init_data = idata;
+ 		config.driver_data = pmic;
+ 		config.regmap = max8907->regmap_gen;
+-		config.of_node = match_of_node(i);
++		config.of_node = matches ? matches[i].of_node : NULL;
+ 
+ 		switch (pmic->desc[i].id) {
+ 		case MAX8907_MBATT:
 -- 
 2.56.1.839.g22a8290db9-goog
 
