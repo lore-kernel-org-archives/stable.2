@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795762077;
-	b=R6QxCTKl3hniQDA9wtWsuFleO1rJUwatk1stqXXeGO5rlkjadm4GoVSa3+atBEJ0j7Mc
-	 1AS4hkyFqCCcEsdnk01gTyPM6N6Eo0l2swhJwNOszx/mtTL50w7I3mjsz8Vwfs3MzF6DJ
-	 J10bfv/+uDSF4jTlI93Jcs3BmtFm9h1QkVppDtLuSMWMDsFMU3a1jcN5fX1Eq1jhjcSel
-	 dWzA8JBxHKG2NUbsNGRBatZYN9TVNEgHkti3zAaamU5tv+WcHnSiONNK0z8tcDLrfysnw
-	 jnwsydoK1uOgf7B3cOjX+wvM2PNxcqmFAKIgkb5R3IfRDgN+ch1mmmZGfbFT4ZjERng==
+	t=1795762078;
+	b=AG9tVLnpVrWK+mnpWXbiVzJbwzRvb5eX0qf0BVd8hLx6Rr3eS1uJXT2fP+Jkpm+DF5lH
+	 CqVx/+D98tH+/fh1j8RGa5AzmvP9dNVI3knsVzjDuQUgcJNHFxUILlkiD0LJ5KqHY8UYV
+	 y1br774PaNzLGNyfYymN9nlo2/rRZPbpaCamT7cNh2/mkX412zr0Re1DYh4DVfJUh8MTv
+	 DifHFmEVljP72XK53HvK3al2zpe72sZrJBLJHzAFT4auQPkRhvVQzruGBQ4j02soSuXE9
+	 /40oYGKTBiWg47VmeLYkhM+ayWq1DFp1AM7MrU2loyTjuarhO6JVIC36glqgMHAUU1A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795762077;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795762078;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
 	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=j6m7R+QoZXf0daSNyypH1YTXx+y64p+sMjzGTV/IfP8=;
-	b=GhuvA6Jtqv/oQy0TioGoC+9meNbdvzT/WpiUdSSOooa4rkSL4Nyhp0vT7HqDSMCCYbJj
-	 KULIXSQNo6eEMYB3JfTsiAguR4A7TCs/WizcTi96YUProFzmpq1FUWVtG4lsxHkPrsvNy
-	 bfmfOuZmwOKWFR32RwvkHL+T/SP3IMc8HepMWKQBWTcMCs9bDtLr8xiDz4Q/YnqhNrah/
-	 jryU5tM/I1Ni1H3bekLut49PUCsW+dQJeR0KFn2uXKv4LJMLygx6ICjT+xmbAdqPdkCup
-	 uNKyTQxk/X+k5HxixFwZHLTGhJyEag2JBeKXwnZYdbKifbzq00WLbU6JhMmfv5bekJA==
+	bh=4kO2/TOIPNkmsIMjXm7Ah4Oz0Gps8OfI9+gvyJMp7b4=;
+	b=EuTT1BnlPBQkDWoxBkT/bl1eo/RIo8Md4iy8KiWegQOPom5a4Y4giXkDeSxtEC5vXkfe
+	 pSC8bRQIwSNzh8/R5qDCs3ZB20T2eQzqZuiTsBxSH+4kcFlBOopDcp+/URZlwu7oKHp0M
+	 atWKy1p8SUIzKRoiPyXUkSB95eKBUbgf5WhT0XPIyAquGn/RA0XZU6whelX1HltW3fVy0
+	 dWb7yo2f+/EAEaKFq4Ip/GVjqs2JOkTxaosHtd/MIy7bXG7FAPGGOA6ebSxq3D1X+Pw/m
+	 6dr4nYNG3HoK6PfLg6gO/S8YOebuCToLhKmQ2tXdZ/W3toGdAwFESSFtJGsCi2Ij6Tw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYnp0l8s;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jmjkDW8d;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4AFA606A326;
-	Fri, 27 Nov 2026 06:47:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA08606A331;
+	Fri, 27 Nov 2026 06:47:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYnp0l8s
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jmjkDW8d
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795762076;
-	b=eWFOBye8/oJsvsPmR5hWgVR8nw115YJHygavyFovXEue1zBlkIsWh61M5TK1DtvEppc5
-	 RJohAjGBVHoQLbEGX7OeiMzhFNLPCf48djoiut32Za9wsB0bwz3Y82tB0/TxO4Oli3mub
-	 PmgDSUwq902ywGUblzY/SGvPKIDhFcBVnl7XKGGOC9fmQaBwVa1T5zHYzbfIdxgX5BkiL
-	 finruOrvnyxXzT1o1fuKkSC6t9knMCPaLpcPb7iIi8DZaetFKV3ooZrdsqlZWh8UEOox6
-	 mPPzlfRjwezteQ5l5jJX50HmvSHqiHJlJxK+9l03K+q8S0ZOERxfiqwviJglaFqUy2g==
+	t=1795762077;
+	b=hv7gyFFe+FtI+RWPve56WXCIhXG7CRmtyLpYb5TUYjSq/HQmh+J0dLq+h14AHWZ7m5G9
+	 jaC3+i5ztUAq4Y2SoK6E691vit650vrRhTCxYg0x59gK1W1PLTk0+MtHP3xFJECAcAgwl
+	 WRBe7mS+SQwden9ffS4BIm0tbV5kXrTukKM5PhuwbUM/YU9gjsWyUariQL+7koShtv4qR
+	 +Bu/QFsxpBZRx8Qm/65ePz+P7eboqYEkNOyNPAAIylaHoKtr0l/eispE+yavNB06RjiSB
+	 t1uPt5HBgkroTLJ4y9OoCjrjLhSi0C0Hp04iDGjk9P5U20AIut+cbzGQmt2kH7kt4lw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795762076;
+	c=relaxed/relaxed; t=1795762077;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=j6m7R+QoZXf0daSNyypH1YTXx+y64p+sMjzGTV/IfP8=;
-	b=xi+nnviyZhGerAwDJOZQ5SYI0/vyBx7rk/8YQjMzRBeniPoN2ZOVJesXWR4P8CaEsaHf
-	 izSvuPgpkBMx0p+cJdcDboAEC/gznK+vcGt64XIsmYGSAA+a37KIA5GVcv7K9FNMWmxKe
-	 e5jJqyi4Z+4zzdnxhjyjJxE7+eHAwHTA3O6jL8kN2SaBqsAgwrZLUkPw2PW8uYhFqCK2s
-	 AAwdUafh37c5reknGJgRhb+owoQksZpGEskRmUuidkklwUEl0YF+h3gyXavTtZJFyWR0V
-	 wDoaWb5T+47dp0TUO3uN92krepggrJ65OEaUYsG4XvUEJoYpH2olR/rrSYXglMVvsLg==
+	bh=4kO2/TOIPNkmsIMjXm7Ah4Oz0Gps8OfI9+gvyJMp7b4=;
+	b=qp3itv2nnefNm0krio/vLGn7UWpqLUll4ndHL02VbYUEL2xB92LUmCmzx7UK6xwuk9gi
+	 bGbwTSiC+IXjWKzDPFXatqzXvUsqWT+5/d2WUGaO48DbM0gI6F6f6esp/9/80+qLZvUr2
+	 SI0hDCeTrROAw1F2tUkvDM8c/f/h0x+hrgGSvJWa+4fTIuoh0uRX/i7dmVHGG67+74UgR
+	 UlSkL3jfDKf6Ipt3UhkQ5jNp95Wcy8wXxo6YL4FDA/odtf/hui2cDuJqEtRWHe7KMekB5
+	 lFl9W0riTD7jkgdlC6Xsc+t9CEWBvOiWbuIExHswLQdvG/cYyRwPJUxiwxiiTovy+mg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id AD3B51F0089B;
-	Fri, 27 Nov 2026 06:47:46 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id B78211F00923;
+	Fri, 27 Nov 2026 06:47:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795762076;
-	bh=j6m7R+QoZXf0daSNyypH1YTXx+y64p+sMjzGTV/IfP8=;
+	s=k20260515; t=1795762077;
+	bh=4kO2/TOIPNkmsIMjXm7Ah4Oz0Gps8OfI9+gvyJMp7b4=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=PYnp0l8syBeYyhAbju9tLXeOj7CD/KPcKIJcUeBAxCBFF4/NOuMnf5YIxoM1O9bAp
-	 tmOFE5cZG/jM6uL/6CEE+C6MqwoIuUeYMnJdMPcNt3aJ4FVgpZa+4ROw3nAspo3il/
-	 RvpLxfnPfemHRtv02mSXJnX1eU3cAEAKOxbFDvdyxsft01f4weRzm0JD9g1MM6wkZO
-	 reSjls8E+w9PnQW7bsmbUArS/YCFguvAbsofjMbHT0Xy1g/aJOu2oPjjsoJ8Fc17Cx
-	 9q+RbDYPh7exNcoVU/GeCXP7OB6jssPjqNpHxhbLbdeuZLjO7EYGEFCtpstyGqPuwo
-	 JawQ8pR+oMS6g==
+	b=jmjkDW8dLaj1Q+4Jfi74uIP0Ri7k3OuTr7ibXX9O3eN8Ru8TNoILAECh0AKlVkffW
+	 cOJyF38piMnzBUbeuy4e+HdAnnh5U2gaRzEKnfMCG9AtuJRrz3002lejdAbFBGX0Ns
+	 r9A9U1wRBVQoioR5DR65JJRXj3bXBWdvkB6SakoPvEkzKY59YiDcSBeTjHI5rISHtO
+	 KfovdR22uz2aeiWynIXAnV2siDbNDL8svrMT51xIiDpvlubfUAY1AGXUJbHma6fpbn
+	 7lnG+8hjFyNBcJRwJqmRdlF9E8XgMnrFUhALE8QRoKa36mVTdACuD1FwE0kvvo3BG5
+	 5zcG7CkaGTLDg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2B5584B5B4;
-	Fri, 27 Nov 2026 06:47:46 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 425894B5DC;
+	Fri, 27 Nov 2026 06:47:47 +0000 (UTC)
 From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
-Date: Fri, 27 Nov 2026 05:35:37 +0000
-Subject: [PATCH 6.6.y] ALSA: seq: Don't leak the extension cell pointer in
- the bounce payload
+Date: Fri, 27 Nov 2026 06:30:27 +0000
+Subject: [PATCH 5.15.y] netfilter: flowtable_offload: fix using
+ __this_cpu_add in preemptible
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,20 +85,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-so5-alsa-66-v1-1-e6baeea4106a@certik.com>
-X-B4-Tracking: v=1; b=H4sIAKgWCWsC/02NSw7CMAxEr1J5jQsJJQiugljk41KjKqnigkBV7
- 04CG5bzNPNmAaHMJHBuFsj0ZOEUS1CbBvxg442QQ8mgd9oopY8o6YB2FIvGIPWOgjrtfUcdlMW
- UqefX13YB05r2Ddcfloe7k5+rqRadFUKXbfRDRUIxzCmNWPn27wHW9QPWIRLiogAAAA==
-X-Change-ID: 20261127-so5-alsa-66-efbed193c4e4
+Message-Id: <20261127-so5-nf-515-v1-1-ce02c323f842@certik.com>
+X-B4-Tracking: v=1; b=H4sIAIIjCWsC/0WNwQ7CIBBEf6XZs1uFQG38lcYD0MViDBi2NjVN/
+ 13Qg8d5mXmzAVMOxHBpNsi0BA4pliAODbjJxBthGEsGeZKdEPKMnDRGj1po7JSxSklv+p6gDJ6
+ ZfFi/sgF0K3T7huuP88veyc3VVJvWMKHNJrqpIqY4zik9sPLj/wH2/QPcl1T/oQAAAA==
+X-Change-ID: 20261127-so5-nf-515-64ab442fa88e
 To: stable@vger.kernel.org
-Cc: HyeongJun An <sammiee5311@gmail.com>, Takashi Iwai <tiwai@suse.de>, 
- linux-sound@vger.kernel.org
+Cc: Xin Long <lucien.xin@gmail.com>, 
+ Pablo Neira Ayuso <pablo@netfilter.org>, netfilter-devel@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795757736; l=4003;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795761026; l=3298;
  i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
- bh=nGJ91NaFovr+BISLWd06H/MX3/Mv38Fa6V8EKicAbJ4=;
- b=ZlYd1JYkTfkU4c4meREjx9iDEgpue9uA7XF0TuuIpDNQqouvJ9FY8KlhMqzT3mr0baCEvwwUT
- xswXe7PBP8ADbGbuuSQBvqgKWCS3TzxPWNTf6kuDYeuqNpd/l9m3lX+
+ bh=DPEyyVIOnnhk/htjRMSlOemmYqz4g1GxjdwvS3F9YOs=;
+ b=MeaNcLNv9bCcv5l7LrlZ0n/o/xYXKR9dWAyklAuUAcmIIky9a+iT6ARLq/w+v1/WChbKXDpWz
+ N2d7yUEluinBOhhfRNXVbH7zgx6ZgjHsB/COR7BiqJYP2ZmqAy4HP+P
 X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
  pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
 X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
@@ -106,98 +106,86 @@ X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
 X-Original-From: Dickson Wu <dickson.wu@certik.com>
 Reply-To: dickson.wu@certik.com
 
-From: HyeongJun An <sammiee5311@gmail.com>
+From: Xin Long <lucien.xin@gmail.com>
 
-commit 59e1592d3c270ff4642d5d6dc55c545306eb0693 upstream.
+commit a81047154e7ce4eb8769d5d21adcbc9693542a79 upstream.
 
-The bounce_error_event() embeds the failed event in the bounce payload
-by pointing data.ext.ptr at it.  When that event is a queued
-variable-length event, its own data.ext.ptr holds the address of its
-first extension cell, put there by snd_seq_event_dup().  The payload
-goes out verbatim through snd_seq_expand_var_event(), so the address
-reaches userspace.
+flow_offload_queue_work() can be called in workqueue without
+bh disabled, like the call trace showed in my act_ct testing,
+calling NF_FLOW_TABLE_STAT_INC() there would cause a call
+trace:
 
-That is the same address commit 705dd6dcbc0e ("ALSA: seq: Clear
-variable event pointer on read") removed from the event header.  The
-read path still clears it there, just above the call that expands the
-payload.
+  BUG: using __this_cpu_add() in preemptible [00000000] code: kworker/u4:0/138560
+  caller is flow_offload_queue_work+0xec/0x1b0 [nf_flow_table]
+  Workqueue: act_ct_workqueue tcf_ct_flow_table_cleanup_work [act_ct]
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x33/0x46
+   check_preemption_disabled+0xc3/0xf0
+   flow_offload_queue_work+0xec/0x1b0 [nf_flow_table]
+   nf_flow_table_iterate+0x138/0x170 [nf_flow_table]
+   nf_flow_table_free+0x140/0x1a0 [nf_flow_table]
+   tcf_ct_flow_table_cleanup_work+0x2f/0x2b0 [act_ct]
+   process_one_work+0x6a3/0x1030
+   worker_thread+0x8a/0xdf0
 
-Embed a sanitised copy instead, treated exactly as snd_seq_read()
-treats the header.  A stack copy is enough because delivery is
-synchronous and snd_seq_event_dup() copies before returning.
+This patch fixes it by using NF_FLOW_TABLE_STAT_INC_ATOMIC()
+instead in flow_offload_queue_work().
 
-An unprivileged client reaches this by setting SNDRV_SEQ_FILTER_BOUNCE,
-queueing a variable-length event to a port that does not exist and
-reading the bounce back.  Eight bytes on 64-bit, from its own pool.
+Note that for FLOW_CLS_REPLACE branch in flow_offload_queue_work(),
+it may not be called in preemptible path, but it's good to use
+NF_FLOW_TABLE_STAT_INC_ATOMIC() for all cases in
+flow_offload_queue_work().
 
-Fixes: efc86691e4d8 ("ALSA: seq: Fix kernel heap address leak in bounce_error_event()")
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
-Link: https://patch.msgid.link/20260811131835.3837024-1-sammiee5311@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Fixes: b038177636f8 ("netfilter: nf_flow_table: count pending offload workqueue tasks")
+Signed-off-by: Xin Long <lucien.xin@gmail.com>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
 Signed-off-by: Dickson Wu <dickson.wu@certik.com>
 ---
-6.1.y, 6.12.y and newer already have this fix.
+6.1.y and newer already have this fix.
 
-Tested on v6.6.163:
-- x86_64 allmodconfig W=1 build of sound/core/seq/seq_clientmgr.o,
+Tested on v5.15.226:
+- x86_64 allmodconfig W=1 build of net/netfilter/nf_flow_table_offload.o,
   base vs patched, no new warnings
-- booted the patched kernel under QEMU/KVM with snd-seq-dummy, passed a
-  note between two ports and checked the error bounce for a rejected
-  fixed-length event. I didn't run a variable-length bounce.
+- booted base and patched kernels under QEMU/KVM and ran the netfilter
+  software flowtable cases, all passing on both. Hardware offload wasn't
+  available, so the offload counters weren't exercised.
 
 The backport and the test runs were prepared with AI coding tools
 (OpenAI Codex agents, with review by Claude). I went over the result
 before signing off.
 
-sound/core/seq/seq_clientmgr.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+net/netfilter/nf_flow_table_offload.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 ---
- sound/core/seq/seq_clientmgr.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ net/netfilter/nf_flow_table_offload.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
-index f039fd6ee3a7..de17b66cd16b 100644
---- a/sound/core/seq/seq_clientmgr.c
-+++ b/sound/core/seq/seq_clientmgr.c
-@@ -578,7 +578,7 @@ static int bounce_error_event(struct snd_seq_client *client,
- 			      struct snd_seq_event *event,
- 			      int err, int atomic, int hop)
- {
--	struct snd_seq_event bounce_ev;
-+	struct snd_seq_event bounce_ev, quoted;
- 	int result;
+diff --git a/net/netfilter/nf_flow_table_offload.c b/net/netfilter/nf_flow_table_offload.c
+index 60e9c03d697f..3400a31c7df7 100644
+--- a/net/netfilter/nf_flow_table_offload.c
++++ b/net/netfilter/nf_flow_table_offload.c
+@@ -1056,13 +1056,13 @@ static void flow_offload_queue_work(struct flow_offload_work *offload)
+ 	struct net *net = read_pnet(&offload->flowtable->net);
  
- 	if (client == NULL ||
-@@ -594,15 +594,19 @@ static int bounce_error_event(struct snd_seq_client *client,
- 		 * For user clients, send SNDRV_SEQ_EVENT_BOUNCE with the
- 		 * original event embedded as variable-length data.  This
- 		 * avoids exposing data.quote.event (a kernel pointer) to
--		 * userspace.  The variable-length path in snd_seq_event_dup()
--		 * copies the event data from data.ext.ptr into chained cells,
--		 * and snd_seq_expand_var_event() copies only the data content
--		 * -- never the pointer -- to userspace.
-+		 * userspace.  Sanitise the embedded copy too - a queued
-+		 * variable-length event carries the address of its own
-+		 * extension cell, and the payload goes out verbatim.
- 		 */
-+		quoted = *event;
-+		if (snd_seq_ev_is_variable(&quoted)) {
-+			quoted.data.ext.len &= ~SNDRV_SEQ_EXT_MASK;
-+			quoted.data.ext.ptr = NULL;
-+		}
- 		bounce_ev.type = SNDRV_SEQ_EVENT_BOUNCE;
- 		bounce_ev.flags = SNDRV_SEQ_EVENT_LENGTH_VARIABLE;
- 		bounce_ev.data.ext.len = sizeof(struct snd_seq_event);
--		bounce_ev.data.ext.ptr = (char *)event;
-+		bounce_ev.data.ext.ptr = (char *)&quoted;
+ 	if (offload->cmd == FLOW_CLS_REPLACE) {
+-		NF_FLOW_TABLE_STAT_INC(net, count_wq_add);
++		NF_FLOW_TABLE_STAT_INC_ATOMIC(net, count_wq_add);
+ 		queue_work(nf_flow_offload_add_wq, &offload->work);
+ 	} else if (offload->cmd == FLOW_CLS_DESTROY) {
+-		NF_FLOW_TABLE_STAT_INC(net, count_wq_del);
++		NF_FLOW_TABLE_STAT_INC_ATOMIC(net, count_wq_del);
+ 		queue_work(nf_flow_offload_del_wq, &offload->work);
  	} else {
- 		/*
- 		 * For kernel clients, quote the event pointer directly.
+-		NF_FLOW_TABLE_STAT_INC(net, count_wq_stats);
++		NF_FLOW_TABLE_STAT_INC_ATOMIC(net, count_wq_stats);
+ 		queue_work(nf_flow_offload_stats_wq, &offload->work);
+ 	}
+ }
 
 ---
-base-commit: e2bb30811e063ce0db964484357973b855b06572
-change-id: 20261127-so5-alsa-66-efbed193c4e4
+base-commit: 4f2df9a01754521fbba3493e8ad91ef65515e68c
+change-id: 20261127-so5-nf-515-64ab442fa88e
 
 Best regards,
 --  
