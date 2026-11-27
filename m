@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795774420;
-	b=bjNCK3AUB9fFhsykJaX7QLhdRH+26SavGCoHlcUDJ4v+PTOlXvkGtFuKBOcoD4qd3rT2
-	 qdD7sjt2AP/00wZ9WSu5oVTYySC0TNU6pPlabHNoKKSDUqEBabyQPEWzSnsmYGWdKAyRo
-	 5JzJQ6mAmagEcuF6Dc3Q52s1yadyNOGimVRn1V+cFG14YAHU5Sg0W5DwBMLQWX5V58zDn
-	 2qJiNMHzw3TZsoZpv5hLA5KdZ6kCCcNyOpFPEAO9rG5+gi4vuA91LcJkUCxKNHnD9zImF
-	 WdL9s4kFZ7uRa3XQyQyo/J5VuPdSe/LHk7maHn9TJ5bQOp8g5oAumpUaWxwzx1ZV4NA==
+	t=1795774422;
+	b=fQoxiiFgqhjEvoH4IX8dmIxL0H578+GgB6ofXwiFqyxGxkePI010hkiItjJVRDDqEAXB
+	 WpVS/I2SpghVfSxhMQvpjtjFtmZfdkL0yqEPhDectuervBfyzwFfRAMvLrOHLOwLVG5aX
+	 sEOD5iymSb5hVPELf61OQiYNH5rOmzoMsnqCpMg9SPRE3QlT4cCJvID9mHQXv3G/wRh8k
+	 BnqlT37kz+8rpX5s/08ccJuJKC9pDrsSUvBIyWEJMvvefWr/cy/prqGzkJofyLdMA9Bx3
+	 nXi5Qda3c0gsfysqV8ra/XyO9C2pvEE6xu1EngxR00XwybC50SPitUsnK2fvFFIwKug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795774420;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795774422;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=guoy1C++ARIXgbYKAlzD0wHiB3wfAoYXWV+G/twXV8U=;
-	b=mbukj3KPH0TmygXiOxGKzbGrorqotWAJhr+Zj9r4VGozisCWe+Dx3kE35My/YAAcmnEJ
-	 25eybDJLXwTYZNW2DuTKYyYkwk1N5sTxKOhHyjFndccxbKaXMWinR68oTcmGRNqia2H9w
-	 QNuROy7a6IRdLJULyZ13IIkmzA3GbTt5GbwnhRsBS2y9VYZ6Yj7rGQ5NPSRBWBdi1DIW8
-	 8370q1InQF0RdGkjwEdTMC8Q02HVAAzrNZMLQztC5ePvN/pLokRsY5B6r4Bz9Kcyl3l/y
-	 uaSanofN60c9VVbOxrpQ0rUM6Zi/GyL+NdHSrnqcQOPuvAAK3O7cCF6nFT8DzyHzl9g==
+	bh=XGdmHFNjY89EEeZRDw1GOEvXLMVlv2DgLY3EiKvFCow=;
+	b=ENNrckKl3S09G5YtoBd8TBvWAqb3by/+4Zr+VTqnhVBfXH/kZeRh2ST2t6PqQNP0B/+D
+	 nk0ZhnBNSICBTYgSX3+M2elfkYhF1xnNQMuTa484QZpKjsWalTJAx8Xo0anmBBGCaFotb
+	 X3Kp5Rf7ZphItckit4Y+TppNdw/2XbuB8k932bZ1ewrXbCkT3OQ9/MSPlW9YRywCaEXPO
+	 Gi/DzHEc865/auVpXiZN6QUb+MgQoU/3tJzpmPzxKXuvITlTKz42bcsgNwC8dSBXxYWHX
+	 Kwwn2JU8SErmRKD4rsMxczP5x+rWgJRnaT0dAcSQqL3F9tigDZ50z24MLCz7aybpGQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNI7gdW3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J1dPYliL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E17D60A261E;
-	Fri, 27 Nov 2026 10:13:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9071D606A6A8;
+	Fri, 27 Nov 2026 10:13:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNI7gdW3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5A531F00923;
-	Fri, 27 Nov 2026 10:13:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J1dPYliL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BECE1F00933;
+	Fri, 27 Nov 2026 10:13:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795774420;
-	bh=guoy1C++ARIXgbYKAlzD0wHiB3wfAoYXWV+G/twXV8U=;
+	s=k20260515; t=1795774421;
+	bh=XGdmHFNjY89EEeZRDw1GOEvXLMVlv2DgLY3EiKvFCow=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=JNI7gdW3fwbmkhuSsdhnVa0GwXGiM1V8fCzxV5GPMkTmj2KhhmvoO3LMqaLIF4B8G
-	 dvYcCc1yKtDMm+SDrYRUV/bP3/r3KPnLFBosfvvf2o/1RIEifvZRNZJa5InTxgIlQT
-	 /kfT0DgjuejeHfiZELJsgUcaw0UBlXF63EXPIzhv+Ti2XR8ay/yWxS6Ish2rWa2iB/
-	 NNml7LwiCqQAQr0da1RwQg8gT3bQR6SwJTKSHaW8n2YN4mQV5WPybLlgGRG98Q/uiZ
-	 4kQ0kMwYFlaz81vjIwEubG9Qkfcb+WL2Ce3N45AtglTdFzZMq2KgqPDjfeGbqDGCVh
-	 z9b+o/C8Kpisg==
-Subject: Re: [PATCH net v3 08/10] rxrpc: Fix detection of TLP probe response
+	b=J1dPYliLHm1wffT8lzZls0esySofXIgQyWg1jm4vHf/QSykMq74hd0PXrXZKRYMQB
+	 kg7Px6vc4MM8f1X5YNfrOFbsH/2tpBvgOsK5vMM+jDFFTMVCoaMrZPmTxSd4/EOEqI
+	 05tTxPTtmJTi9w+VgYJI+BjRdNmxIQngeP0r4CKLS4nCDjnBctlWNMIQEucBeN9UNU
+	 I5uWzuEFpirLJ4ZfPqA1UC1aETzdyplWqFsByjDStAsmulyUP8LNskQ1ZOYXk3R+zU
+	 VN6omIxzlCRg5LgIVBikvNIZhqR1YFgc1vr3iKHyc5o9ejsHTvYcf6ruFpfi0P9Mfn
+	 83XMCAVv1kaRQ==
+Subject:
+ Re: [PATCH net v3 09/10] rxrpc: Fix counting of in-flight transmitted packets
 From: netdev-bot+sashiko@kernel.org
 To: dhowells@redhat.com
 Cc: netdev@vger.kernel.org, marc.dionne@auristor.com, kuba@kernel.org,
  davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
  linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org,
  jaltman@auristor.com, stable@vger.kernel.org
-Date: Fri, 27 Nov 2026 10:13:39 +0000
-Message-ID: <179577441933.3135.16643898652433850053@kernel.org>
-In-Reply-To: <20261124161302.4044422-9-dhowells@redhat.com>
-References: <20261124161302.4044422-9-dhowells@redhat.com>
+Date: Fri, 27 Nov 2026 10:13:40 +0000
+Message-ID: <179577442085.3135.14809535451796847192@kernel.org>
+In-Reply-To: <20261124161302.4044422-10-dhowells@redhat.com>
+References: <20261124161302.4044422-10-dhowells@redhat.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -64,10 +65,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Critical: 0 · High: 0 · Medium: 4 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -75,151 +76,273 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The probe-completion test in rxrpc_input_ack(), `if
-  (after_eq(summary.acked_serial, call->tlp_serial)) call->tlp_serial =…
-- [Low] The first paragraph of the commit message says the patch fixes a
-  bug: without a ->tlp_serial check, an ACK of a packet matching a stale…
+- [Medium] rxrpc_rotate_tx_window() (net/rxrpc/input.c) now calls
+  rxrpc_tlp_end_probe() as soon as the probed sequence is hard-ACKed in…
+- [Medium] The 'Soft ACK -> hard ACK' branch of rxrpc_rotate_tx_window()
+  (net/rxrpc/input.c:286-289) does not call rxrpc_tlp_end_probe().
+- [Medium] rxrpc: tx_in_flight double-counted when soft-ACKed TLP probe
+  is reneged
+- [Medium] rxrpc: TLP probe state not cleared on RTO in
+  rxrpc_tlp_probe_loss()
 
 --
 
-rxrpc: Fix detection of TLP probe response
+rxrpc: Fix counting of in-flight transmitted packets
 
-This commit adds a ->tlp_serial check before setting
-summary->tlp_probe_acked in rxrpc_rotate_tx_window(), and moves the
-->tlp_serial check out of rxrpc_tlp_process_ack() into its caller. It also
-makes rxrpc_input_ack() check for a TLP probe response on ACKs that
-rxrpc_is_ack_valid() discards as out of order or duplicate.
+This commit drops the derived FlightSize approximation. In its place it
+tracks in-flight packets directly, using a per-txqueue in_flight bitmap
+and a call->tx_in_flight counter. TLP probes that retransmit an
+already-ACKed packet get separate accounting (tlp_in_flight), and RTO
+expiry now also checks whether the TLP probe was lost.
+
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260925191520.2206700-1-dhowells%40redhat.com
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020201258.290827-1-dhowells%40redhat.com
 
 > diff --git a/net/rxrpc/input.c b/net/rxrpc/input.c
-> index 63a0feae2081d..d01a8d95dc6db 100644
+> index d01a8d95dc6db..66be37f214105 100644
 > --- a/net/rxrpc/input.c
 > +++ b/net/rxrpc/input.c
-> @@ -275,7 +275,8 @@ static bool rxrpc_rotate_tx_window(struct rxrpc_call *call, rxrpc_seq_t to,
->  			/* Packet directly hard ACK'd. */
+
+[ ... ]
+
+> @@ -276,8 +276,10 @@ static bool rxrpc_rotate_tx_window(struct rxrpc_call *call, rxrpc_seq_t to,
 >  			tq->nr_reported_acks++;
 >  			rxrpc_input_rack_one(call, summary, tq, ix);
-> -			if (seq == call->tlp_seq)
-> +			if (call->tlp_serial &&
-> +			    seq == call->tlp_seq)
+>  			if (call->tlp_serial &&
+> -			    seq == call->tlp_seq)
+> +			    seq == call->tlp_seq) {
 >  				summary->tlp_probe_acked = true;
-
-[Severity: Low]
-
-The commit message says:
-
-  Fix detection of the TLP probe response to include a check that
-  ->tlp_serial is valid, otherwise it's possible to see an ACK of a packet
-  that matches an old value of ->tlp_seq as a probe response.
-
-Does this part of the patch change behaviour at this commit?
-
-Only rxrpc_tlp_process_ack() reads summary->tlp_probe_acked. Before this
-patch, that function already returned early when no probe was
-outstanding:
-
-    if (!call->tlp_serial || after(call->tlp_seq, call->acks_hard_ack))
-        return;
-
-Within one rxrpc_input_ack() call, call->tlp_serial can't go from zero to
-non-zero between the rotation and rxrpc_tlp_process_ack(). Only
-rxrpc_tlp_send_probe() and rxrpc_prepare_data_packet() set it, and both
-run from the rack timer path. The summary is local to each ACK, and no
-tracepoint records tlp_probe_acked.
-
-So a stale tlp_probe_acked was already being ignored. The new guards here
-and in the soft NAK branch look like they only move the existing check
-into the callers.
-
-The guard starts to matter with the later commit "rxrpc: Fix counting of
-in-flight transmitted packets", which adds rxrpc_tlp_end_probe() to this
-block. Could the commit message describe this part as preparation for that
-change? Otherwise stable backporters may think they are getting two fixes.
-
-[ ... ]
-
-> @@ -1139,7 +1141,7 @@ static void rxrpc_input_ack(struct rxrpc_call *call, struct sk_buff *skb)
->  	/* Discard any out-of-order or duplicate ACKs (outside lock). */
->  	if (!rxrpc_is_ack_valid(call, hard_ack, prev_pkt)) {
->  		trace_rxrpc_rx_discard_ack(call, summary.ack_serial, hard_ack, prev_pkt);
-> -		goto send_response; /* Still respond if requested. */
-> +		goto check_for_tlp_probe; /* Still respond if requested. */
->  	}
->  
->  	trailer.maxMTU = 0;
-> @@ -1217,9 +1219,16 @@ static void rxrpc_input_ack(struct rxrpc_call *call, struct sk_buff *skb)
->  	 */
->  	rxrpc_congestion_management(call, &summary);
->  	rxrpc_rack_detect_loss_and_arm_timer(call, &summary);
-> -	rxrpc_tlp_process_ack(call, &summary);
-> -	if (call->tlp_serial && after_eq(summary.acked_serial, call->tlp_serial))
-> -		call->tlp_serial = 0;
-> +
-> +check_for_tlp_probe:
-> +	if (call->tlp_serial) {
-> +		/* Need to check to see if the ACK is a TLP probe response,
-> +		 * even if the ACKs may have come out of order.
-> +		 */
-> +		rxrpc_tlp_process_ack(call, &summary);
-> +		if (after_eq(summary.acked_serial, call->tlp_serial))
-> +			call->tlp_serial = 0;
-                    ^^^^
+> +				rxrpc_tlp_end_probe(call);
+> +			}
+>  			summary->nr_new_hacks++;
+>  			__set_bit(ix, &tq->segment_acked);
+>  			trace_rxrpc_rotate(call, tq, summary, seq, rxrpc_rotate_trace_hack);
 
 [Severity: Medium]
+Is the probe meant to be ended here, during rotation? The commit message
+doesn't mention this change.
 
-Can this end an outstanding TLP probe because of an ACK that doesn't
-respond to any packet?
+rxrpc_tlp_end_probe() sets call->tlp_serial to 0. rxrpc_rotate_tx_window()
+runs before this check in rxrpc_input_ack():
 
-An acked_serial of 0 means the ACK wasn't sent in reply to a particular
-packet. Elsewhere, rxrpc_input_ack() checks if (summary.acked_serial)
-before it uses the value, but after_eq() here treats 0 as a normal serial.
+check_for_tlp_probe:
+	if (call->tlp_serial) {
+		...
+		rxrpc_tlp_process_ack(call, &summary);
 
-rxrpc_get_next_serial() hands out connection serials starting at 1 and
-skips only 0:
+So whenever an ACK hard-ACKs call->tlp_seq, rxrpc_tlp_process_ack() is now
+skipped. On the normal hard-ACK path, doesn't that bypass the RFC 8985
+section 7.4 classification (new_data, dup_acked, hard_beyond, acked) and
+every trace_rxrpc_tlp_ack() event?
 
-    serial = conn->tx_serial;
-    if (serial == 0)
-        serial = 1;
-    conn->tx_serial = serial + 1;
+summary->tlp_probe_acked is set just before rxrpc_tlp_end_probe(). Its
+only consumer is this branch in rxrpc_tlp_process_ack():
 
-After a long-lived connection has used more than 2^31 serials, tlp_serial
-will be above 0x80000000. At that point after_eq(0, tlp_serial) is true,
-and any ACK with acked_serial == 0 clears tlp_serial.
+	} else if (summary->tlp_probe_acked) {
+		trace_rxrpc_tlp_ack(call, summary, rxrpc_tlp_ack_trace_acked);
 
-Linux peers send these ACKs routinely. For example,
-rxrpc_input_call_event() does:
+The other place that sets it, rxrpc_input_soft_ack_tq(), only does so when
+tlp_seq is beyond hard_ack. In that case rxrpc_tlp_process_ack() returns
+early.
 
-    rxrpc_send_ACK(call, RXRPC_ACK_DELAY, 0,
-                   rxrpc_propose_ack_delayed_ack);
+Does that make the 7.4.2 special case unreachable? It would also remove the
+hook that the existing "TODO: Invoke congestion control to react to the
+loss event the probe has repaired" comment depends on.
 
-and it sends IDLE and PING ACKs with serial 0 as well.
+The soft-NAK -> hard-ACK branch gets the same change. The last patch in the
+series, "rxrpc: Fix RACK-TLP implementation", doesn't seem to change any of
+this.
 
-The in-order ACK path had this problem before this patch. The new goto
-check_for_tlp_probe on the rxrpc_is_ack_valid() failure path means that
-discarded out-of-order and duplicate ACKs, including serial-0 ones, now
-reach the same comparison.
-
-If tlp_serial is cleared early, a later ACK that really covers tlp_seq
-fails the call->tlp_serial tests in rxrpc_rotate_tx_window(). It also
-skips rxrpc_tlp_process_ack(), so the RFC 8985 section 7.4 handling never
-runs. rxrpc_tlp_send_probe() only checks !call->tlp_serial, so it can send
-another probe on the next PTO.
-
-The problem is still there at the end of the series. After the later
-commit "rxrpc: Fix counting of in-flight transmitted packets", this line
-calls rxrpc_tlp_end_probe(). That also clears tlp_in_flight and
-decrements tx_in_flight while the probe packet is still unacknowledged.
-
-Would requiring a non-zero acked_serial here help, something like:
-
-    if (summary.acked_serial &&
-        after_eq(summary.acked_serial, call->tlp_serial))
-
-> +	}
->  
->  send_response:
->  	if (summary.ack_reason == RXRPC_ACK_PING)
+These calls also don't cover the soft-ACK -> hard-ACK branch, which is the
+case tlp_in_flight needs most. That is covered in the next comment.
 
 [ ... ]
+
+> diff --git a/net/rxrpc/output.c b/net/rxrpc/output.c
+> index 88cad087f13bf..e053db0c22e6e 100644
+> --- a/net/rxrpc/output.c
+> +++ b/net/rxrpc/output.c
+
+[ ... ]
+
+> @@ -571,15 +570,26 @@ static size_t rxrpc_prepare_data_packet(struct rxrpc_call *call,
+>  
+>  		_debug("prep[%u] tq=%x q=%x", i, tq->qbase, seq);
+>  
+> +		if (req->tlp_probe && test_bit(ix, &tq->segment_acked)) {
+> +			/* Account re-transmission of an already ACK'd packet
+> +			 * separately as the ACK parser ignores re-ACKs of
+> +			 * already ACK'd packets.
+> +			 */
+> +			if (!call->tlp_in_flight) {
+> +				call->tlp_in_flight = true;
+> +				call->tx_in_flight++;
+> +			}
+> +		} else if (!__test_and_set_bit(ix, &tq->in_flight)) {
+> +			call->tx_in_flight++;
+> +		}
+
+[Severity: Medium]
+Doesn't this miss the TLP probe's in-flight count when a soft-ACK is
+reneged?
+
+When rxrpc_resend_tlp() retransmits call->tx_transmitted after it has
+been soft-ACKed, rxrpc_prepare_data_packet() counts the probe only
+through call->tlp_in_flight. The segment's bit in tq->in_flight was
+already cleared by rxrpc_input_soft_ack_tq() when the soft-ACK
+arrived.
+
+Rx soft-ACKs are not binding, so a later ACK can turn that segment
+back into a NAK. rxrpc_input_soft_ack_tq() then puts it in a_to_n and
+rxrpc_input_rack() passes it here. The tq->in_flight bit is already
+clear, so tx_in_flight is left alone, and call->tlp_in_flight stays
+set.
+
+Nothing else in rxrpc_input_ack() ends the probe either. tlp_seq is
+still above the hard-ACK point, so rxrpc_tlp_process_ack() returns
+early. If that ACK's acked_serial is below call->tlp_serial, the
+check after it doesn't fire.
+
+Because tx_nr_lost is now non-zero, rxrpc_input_call_event() calls
+rxrpc_resend(). That retransmission has tlp_probe false and
+segment_acked clear, so rxrpc_prepare_data_packet() sets the
+tq->in_flight bit and increments tx_in_flight a second time. The one
+segment is then counted twice, once in the bitmap and once through
+tlp_in_flight.
+
+The extra count stays until something calls rxrpc_tlp_end_probe().
+Until then, these all see one more packet than is outstanding:
+summary->in_flight in rxrpc_congestion_management(), cong_ssthresh in
+rxrpc_congestion_timeout() and flight_size in rxrpc_tlp_calc_pto().
+
+Should rxrpc_rack_mark_lost() end the probe, or at least drop the
+tlp_in_flight count, when the segment being marked lost is
+call->tlp_seq and tlp_in_flight is set?
+
+[Severity: Medium]
+Where is this extra count released once the probed segment is hard-ACKed?
+
+tlp_in_flight is only set when the TLP retransmits a segment that is
+already soft-ACKed. rxrpc_resend_tlp() does this when call->tx_transmitted
+has been soft-ACKed.
+
+When that segment is rotated later, rxrpc_rotate_tx_window() takes the
+soft-ACK branch, which has no rxrpc_tlp_end_probe() call:
+
+		} else if (test_bit(ix, &tq->segment_acked)) {
+			/* Soft ACK -> hard ACK. */
+			call->acks_nr_sacks--;
+			trace_rxrpc_rotate(call, tq, summary, seq, rxrpc_rotate_trace_sack);
+
+The in_flight bitmap can't drop the count either, because the probe never
+set the segment's in_flight bit.
+
+If that segment carries RXRPC_LAST_PACKET, rxrpc_input_ack() skips
+check_for_tlp_probe entirely:
+
+	if (after(hard_ack, call->tx_bottom)) {
+		if (rxrpc_rotate_tx_window(call, hard_ack, &summary)) {
+			rxrpc_end_tx_phase(call, false, rxrpc_eproto_unexpected_ack);
+			goto send_response;
+		}
+	}
+
+rxrpc_receiving_reply() also rotates the window and ends the tx phase with
+no TLP cleanup.
+
+Wouldn't this leave tlp_serial non-zero, tlp_in_flight true and
+tx_in_flight at 1 with nothing outstanding?
+
+After the final series patch ("rxrpc: Fix RACK-TLP implementation"),
+rxrpc_input_call_event() re-arms the RTO whenever rack_timer_mode is OFF
+and tx_in_flight > 0. Could the stale count arm a spurious RTO after
+rxrpc_end_tx_phase()? That RTO would run rxrpc_congestion_timeout() and RTO
+loss marking before rxrpc_tlp_probe_loss() clears the probe.
+
+Without rot_last, the probe can still be classed as "incomplete" in
+rxrpc_tlp_process_ack() when hard_ack == tlp_seq and acked_serial is below
+tlp_serial. Until the probe's own ACK arrives, FlightSize is one too high
+for rxrpc_tlp_calc_pto() and rxrpc_congestion_timeout(), and no new TLP
+probe can be sent.
+
+Would it close the gap to call rxrpc_tlp_end_probe() when
+seq == call->tlp_seq in the soft-ACK branch, or on the rot_last path?
+
+[ ... ]
+
+> diff --git a/net/rxrpc/input_rack.c b/net/rxrpc/input_rack.c
+> --- a/net/rxrpc/input_rack.c
+> +++ b/net/rxrpc/input_rack.c
+> @@ -396,12 +392,32 @@ void rxrpc_tlp_process_ack(struct rxrpc_call *call, struct rxrpc_ack_summary *su
+>  		/* Special Case: Detected a single loss repaired by the loss
+>  		 * probe [7.4.2]
+>  		 */
+> -		call->tlp_serial = 0;
+> +		rxrpc_tlp_end_probe(call);
+>  	} else {
+>  		trace_rxrpc_tlp_ack(call, summary, rxrpc_tlp_ack_trace_incomplete);
+>  	}
+>  }
+>  
+> +/*
+> + * Handle TLP probe loss.
+> + */
+> +static void rxrpc_tlp_probe_loss(struct rxrpc_call *call)
+> +{
+> +	ktime_t lost_at, now;
+> +
+> +	if (!call->tlp_serial)
+> +		return;
+> +
+> +	lost_at = ktime_add(call->tlp_xmit_ts, rxrpc_get_rto_backoff(call, false));
+> +	now = ktime_get_real();
+> +
+> +	if (ktime_before(now, lost_at))
+> +		return;
+> +
+> +	/* Presume the probe to be lost.  Cancel it so we can have a new one. */
+> +	rxrpc_tlp_end_probe(call);
+> +}
+> +
+>  /*
+>   * Handle RACK timer expiration; returns true to request a resend.
+>   */
+
+[Severity: Medium]
+Can this miss a lost probe because the RTO grew after the probe was
+sent?
+
+call->tlp_xmit_ts is recorded when the probe goes out, and
+rxrpc_tlp_send_probe() arms the RTO using the rxrpc_get_rto_backoff()
+value in effect at that time. Here, though, lost_at is rebuilt from
+whatever backoff and rto_us are current when the timer fires.
+
+In between, rxrpc_resend() can call rxrpc_get_rto_backoff(call, true)
+and bump call->backoff. For example, an ACK for an earlier serial can
+let RACK mark an earlier segment lost, and rxrpc_input_call_event()
+then resends it. A new RTT sample can also raise call->rto_us.
+Neither of these moves call->rack_timo_at.
+
+When the RTO fires, rxrpc_rack_timer_expired() turns the RACK timer
+off and runs rxrpc_congestion_timeout() and
+rxrpc_rack_mark_losses_on_rto() before calling this function. If the
+backoff has doubled, lost_at is roughly tlp_xmit_ts plus twice the
+original RTO. Now is still before it, so the function returns without
+calling rxrpc_tlp_end_probe().
+
+call->tlp_serial then stays set, so rxrpc_tlp_send_probe() keeps
+taking the busy path and no new probe can be sent. If the probe
+retransmitted an already soft-ACKed segment, tlp_in_flight stays set
+too and tx_in_flight remains one too high.
+
+If the RTO is re-armed, the losses it marks lead to another
+rxrpc_resend(). That raises the backoff again, so the next check can
+fail the same way. The probe is only cleaned up once an ACK happens
+to cover it.
+
+Would it be safer to fix the probe's loss deadline when the probe is
+sent, using the RTO in effect then, instead of recomputing it here
+from the current backoff?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261124161302.4044422-1-dhowells%40redhat.com
