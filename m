@@ -1,60 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795804517;
-	b=X3Onmo/tTXlHr8pYRmGeY7YfzOcEwTodq1OPCwsgN6uZnmIVHGzfQ05zIhjA0zM0Xqd7
-	 IdaIO3gWey5pGyLMIhByiMhporCJxkERn+O5fXiG7XfF69o08yNmtoCtJKuRPsQcA/1LP
-	 Lt7NQi2ngJjgyh82L68oRs78y7voAQqig3aY7TCP6f36TRoUHPUCM3QTTpvZBKONfKezy
-	 LqKU+iBV9nOQbQud3dVFewOmnquvyE2l3pHIxK3bzc8/tKsQNLyI/YYnO+JgM4vQbNwk3
-	 FY/cw70vYVozGRcvODPkRhEH1rhfHEqMFCylxi1yUYAFnFvCPcKcxX6wtm+bj5JmE5g==
+	t=1795804598;
+	b=AS+s83VkIq5sPErGoA8PhwzGVUf2YwSD0qiSHMwEaLyxPahTTb2eNDwl8CKRB8B+HqT+
+	 wDX3lz49IAHPEqDEwIRuERlFmRXHZ3iLf4TlncCn+Q1WdkTPIe4GBjqa2L4rur6Sq9QCG
+	 iEH7yNZiuJ5qbc/hJKq0Wxsn24C8SFbQaaW9ZvK8WsVGTl6qRCBgBzyfyVQ0VM/72oABZ
+	 ypulcJJWDN6uPrYuD4btcRCA3DdQS1sM4VLwxzLK68+pRNNICcHvfkhFDxI4XkkLM8t59
+	 YtpUTrrEYNmEy4J9UKdX0WLv0XBlrb7g5q7jlKB2eWkdG+VaJIXE6/fv+A2uqOvdt5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795804517;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VHzMiVyExLKNox+s2pz5emim2KQtzbhGBZ3vM7xAkk0=;
-	b=EjRmjoccvgRwtgnmjEwp5YFQHJ1osJp3Bs27iUCfuAjZ3cpZQYoF7wlzQ2LMhCvDT2Ox
-	 Mc/pwSssvZk1P9pXi4LVcx9i68r3VdzU9v5VpWO9j9Y30RNBaSW/gnPTJ2GX4+U3nqe/W
-	 FW0Ya2BByJTLDgAVxiLj1vtVtN1IfKETWziKgsbTQ6xlQOb7RzBi+7ehYFG8WTTxU2WsP
-	 tEFtgWy3PA9ixWOC2q+5GaRw7HxDDKg6EQe0KLu8T21q6G+1jriT4iggu6qRfJJ0vX8HX
-	 vqPFYkJUsvzkT0MqTb9hQZmjFY0Pp4JwWGXoDDULaNMqo6+ZRqppTqp4PZPT0sj6XFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795804598;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=wMIKscvgJyz6s31NMv0NlSVP0vJydCQ+WGHxYrw4eIE=;
+	b=unpYvu3K2Oo65V6g1aq58FgjWxlioCBIT5ThU1LqgYQxlSrkq7QWEok/byvCyL2obL5Z
+	 X9lNQXMjIhbD0as+Tc6Bf8iPRBSouQL/6cT0Ky5MScqR+4ctAI/ctz+u9geWavMCuwy7O
+	 7jnKD8JpyP6256LgrZ3Y1O2uKgvmG4vchb60FZbeLscJGv5Wjvhosn9fBQS1cH/nV6jFA
+	 ml9myanpgH9gJfyY6SfzTYSJqN5vRzC7/hN6tcBLYqGHLDwsPeT7SQGZ+fctHPRv/lq9v
+	 oey4VLjxOAfFruL8Y2feF+BrclcCmcYPgZW91O8kHTtdOvk5+e2bJ7TDw61Gv1xkNSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aE0Kqgw2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cNtMRNpF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 06E25606A31F;
-	Fri, 27 Nov 2026 18:35:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74237606A31E;
+	Fri, 27 Nov 2026 18:36:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aE0Kqgw2
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E68A71F00893;
-	Fri, 27 Nov 2026 18:35:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cNtMRNpF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8913A1F00898;
+	Fri, 27 Nov 2026 18:36:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795804516;
-	bh=VHzMiVyExLKNox+s2pz5emim2KQtzbhGBZ3vM7xAkk0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aE0Kqgw2SJzqjut3kj5bht3xHrxhvGAUzV5tHRvZvlTR00qTJn38BWF4h+OoCTb9t
-	 bd9yWalblH11fl2BbrmI6fcHXUZGyoei3e+dwK+D4O1Sq1J87Z8bcJ3lr07XOXBHSG
-	 83MF4lRJEHFahf+TFYXcuT5ltwq4iTRfkCVo+gV07D9Tgpq6AydH3NqyuuQ4BUYCOT
-	 quSli1FzTOK+ybT2Ymv3ttvbbWluXForYW0+T1cO4fpZ83lCZxGCwG9dsNECIXCbc4
-	 E2kiaGoEDt6yo8yVEJV2bBksjbJ0wmWgb2RSFLWKKCFf/xSL0DOs8CShPPIwLx9GRB
-	 E7qascnNxHXtA==
-Date: Fri, 27 Nov 2026 20:35:12 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Zhenwen Liang <zhenwenliang@google.com>
-Cc: Mimi Zohar <zohar@linux.ibm.com>, David Howells <dhowells@redhat.com>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
-	linux-integrity@vger.kernel.org,
-	linux-security-module@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] KEYS: trusted: Wait for RCU callbacks before module
- unload
-Message-ID: <awnNYPFsGQazUMXu@kernel.org>
-References: <20261126200103.2806716-1-zhenwenliang@google.com>
- <20261126200103.2806716-2-zhenwenliang@google.com>
- <awiZuKwNUP6mi6Yg@kernel.org>
- <awiaH6sIiISN19Q6@kernel.org>
+	s=k20260515; t=1795804597;
+	bh=wMIKscvgJyz6s31NMv0NlSVP0vJydCQ+WGHxYrw4eIE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cNtMRNpFvvcZK99vRCDQlXdIBHzeEBU9UV/yIBq92vUQwEcgn1CSCFDN52YRRXjlc
+	 HGmY8D+iTJSW3sWjo7zHyZ+CvVRnlQBSNzNWSsd/Dt2VwV4akyUtFAynv98QJ283Xn
+	 gSRgkUG/ZlC2aeEVgI8dj6STb3qdNCNxpZstJmGhoXsGk4kLYufnbYDxl79lCrTSru
+	 UDbwz6RhLtgC6E/RjS3pi4e+BxNMUc5j1j/cSe+xlctArHLPbeqbGFVHim568ZP+aM
+	 q6fxtn+NhMoCeitnracA6HQa4Z/g6r+HH20TPntf6b0rV6v+p4yaS7LKmNDPXyt/kd
+	 5RtSXpd5NNvdw==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Douglas Anderson <dianders@chromium.org>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 1/8] regulator: core: Defer supply cleanup and unregister event forwarding on error
+Date: Fri, 27 Nov 2026 18:35:41 +0000
+Message-ID: <20261127183624.3341010-2-lee@kernel.org>
+X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
+In-Reply-To: <20261127183624.3341010-1-lee@kernel.org>
+References: <20261127183624.3341010-1-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,63 +63,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <awiaH6sIiISN19Q6@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 26, 2026 at 10:44:15PM +0200, Jarkko Sakkinen wrote:
-> On Thu, Nov 26, 2026 at 10:42:36PM +0200, Jarkko Sakkinen wrote:
-> > On Thu, Nov 26, 2026 at 08:01:03PM +0000, Zhenwen Liang wrote:
-> > > trusted_update() frees the old payload with call_rcu(), and the
-> > > callback, trusted_rcu_free(), is part of trusted.ko. cleanup_trusted()
-> > > calls the trust source's exit callback, which unregisters the key type,
-> > > but nothing waits for callbacks that are already queued, so the module
-> > > can be freed while a trusted_rcu_free() callback is still pending.
-> > 
-> > +1
-> > 
-> > > 
-> > > Add an rcu_barrier() after the exit callback. As for encrypted keys, no
-> > > new callback can be queued once unregister_key_type() has returned. If
-> > > no trust source was found, the key type was never registered and
-> > > trusted_key_exit is NULL; the barrier is then harmless.
-> > > 
-> > > Tested in QEMU (x86_64, TCG) without a trust source, so only the
-> > > trusted_key_exit == NULL case ran: trusted.ko loads and unloads cleanly
-> > > with this patch (5 runs). The trusted_update() path itself was not run,
-> > > because no TPM was available.
-> > > 
-> > > The problem was found, and this patch prepared, with the help of a
-> > > formal analysis tool we are developing that uses AI assistance; I have
-> > > reviewed the analysis and the patch.
-> > > 
-> > > Fixes: d00a1c72f7f4 ("keys: add new trusted key-type")
-> > > Link: https://lore.kernel.org/all/20261126023538.4160950-1-zhenwenliang@google.com/
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Zhenwen Liang <zhenwenliang@google.com>
-> > > ---
-> > >  security/keys/trusted-keys/trusted_core.c | 1 +
-> > >  1 file changed, 1 insertion(+)
-> > > 
-> > > diff --git a/security/keys/trusted-keys/trusted_core.c b/security/keys/trusted-keys/trusted_core.c
-> > > index 0509d9955f2a..5efd1e6ef111 100644
-> > > --- a/security/keys/trusted-keys/trusted_core.c
-> > > +++ b/security/keys/trusted-keys/trusted_core.c
-> > > @@ -401,6 +401,7 @@ static void __exit cleanup_trusted(void)
-> > >  {
-> > >  	if (trusted_key_exit)
-> > >  		(*trusted_key_exit)();
-> > > +	rcu_barrier();
-> > >  }
-> > >  
-> > >  late_initcall(init_trusted);
-> > 
-> > Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-> 
-> Pushed (to master for the time being).
+When enabling rdev->supply fails in set_machine_constraints(), the error
+path calls _regulator_put(rdev->supply) without holding
+regulator_list_mutex and clears rdev->supply to NULL.  Neither
+regulator_register() nor regulator_resolve_supply() holds
+regulator_list_mutex here, and when called from
+regulator_resolve_supply() under regulator_lock_dependent(), clearing
+rdev->supply prevents regulator_unlock_dependent() from unlocking the
+supply chain and skips unregister_regulator_event_forwarding().
 
-Pushed to for-next-keys i.e., I'll piggyback them to a PR next week.
+In addition, the wash error label in regulator_register() releases
+rdev->supply and drops the device reference without calling
+unregister_regulator_event_forwarding(), leaving a dangling notifier on
+the supply chain after rdev is freed.
 
-Thank you.
+Leave supply teardown in set_machine_constraints() to its callers, which
+already handle cleanup with proper locking, and unregister event
+forwarding before putting rdev->supply on the regulator_register() error
+path.
 
-Br, Jarkko
+Fixes: 05f224ca6693 ("regulator: core: Clean enabling always-on regulators + their supplies")
+Fixes: 433e294c3c5b ("regulator: core: forward undervoltage events downstream by default")
+Fixes: 8d38423d9dea ("regulator: core: don't fail regulator_register() with missing required supply")
+Closes: https://sashiko.dev/#/bug/linux-f6e93cf6-c907-4a0b-b748-617186aee410
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+ drivers/regulator/core.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
+index 8bb1ae4e03ea..18ec8b77e620 100644
+--- a/drivers/regulator/core.c
++++ b/drivers/regulator/core.c
+@@ -1680,11 +1680,8 @@ static int set_machine_constraints(struct regulator_dev *rdev,
+ 			ret = (is_locked
+ 			       ? _regulator_enable(rdev->supply, NULL)
+ 			       : regulator_enable(rdev->supply));
+-			if (ret < 0) {
+-				_regulator_put(rdev->supply);
+-				rdev->supply = NULL;
++			if (ret < 0)
+ 				return ret;
+-			}
+ 			supply_enabled = true;
+ 		}
+ 
+@@ -6392,7 +6389,10 @@ regulator_register(struct device *dev,
+ 	regulator_remove_coupling(rdev);
+ 	mutex_unlock(&regulator_list_mutex);
+ wash:
+-	regulator_put(rdev->supply);
++	if (rdev->supply) {
++		unregister_regulator_event_forwarding(rdev);
++		regulator_put(rdev->supply);
++	}
+ 	kfree(rdev->coupling_desc.coupled_rdevs);
+ 	mutex_lock(&regulator_list_mutex);
+ 	regulator_ena_gpio_free(rdev);
+-- 
+2.56.1.839.g22a8290db9-goog
+
