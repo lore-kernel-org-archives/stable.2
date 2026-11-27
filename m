@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795788442;
-	b=2w6kXCTgeCObVdVQ1mUnhvkerDGc20Adp68oYdYEUU8rZJATWfAnIrG95NGXDPvH4Y42
-	 A6GIYQeYt/6Tj7JzlDsT73nnIu1MLrAYZ5WxiaT/GB87K2/rX2asDuqrL/u+DKDtupMJl
-	 6EradefQjIQdrDTigO5H9PNkA837Sewu99INk3GwrUXZixvuc/pFw64EYpRkIkOGOViuH
-	 RTNB0Hf4H4WJsjEcijvYlm+CHQ1OaO4hOjHqObGatVJyH3rrKL9ntqqZSXGQpu3y3UN+b
-	 D83yRI7GPgM0xcQgRnYhsgSqPlFNQ5VE6ZDRVN/MxVLRBpcCxT3KI14ZfNAX1JiXBcQ==
+	t=1795788448;
+	b=VGyy3FjDDSe1dh46bSzLw/B2LC4Jtm9s60v3oLnrIrEdKhHsgtJckY1/G88WouqHbv5S
+	 P4aGaQtVSZhE5Faphj7y1xOmEChHqpGYmHf85N0QeNE+NjPr9NHH5vfulKkF6Fbq+GYkn
+	 Q/OmO/SKux4Uxb1WU+tb1DB0zHYGLTqZ2+EFDZvFO4YzXtLzCT01cNIrYfeiOJfuYJD04
+	 fwlGyW5jHjtgtS4lKLzHfpj9fhHe5yhdAR1BHTRikPVF2Nx2FPyvIZpMA6n0QATX6o6rD
+	 2G8Epq8rdJXeUPpgTNajZeZO1XGfT+tCODOcsIXbOJuGLVDMGZ2dA1os2QRMKSW0mVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795788442;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795788448;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Ghbq/dDyFSCGSMQHs0AQ8pCT6MelXMSKRDi+1C0qWLM=;
-	b=HX/1+akIitxo6fmRDa6lAflrWQWtS7JzkmVxHYlYGrdH+ztgQ4M0WE/G2Z2N+37YDR7V
-	 EqV3SPCQyv6x7d3Ojqw7VfXcfTuoYNwTqCyNFl2+4ROlUfCZ0rEQWV03A4wRsDdlnebwl
-	 rfkPLbi0QOko9lQ28hWx4drdwqW3f8YUkzSVkltXZge+rk3RichjBYAhUKMQ/APVgq/Zx
-	 j00KsplRIFvH1/v3lbGs1E/C46gkPZj+VZJSqW15iaORBXudKCRzt9v2sHCOynu0DDttD
-	 h4celj5DP5tqvK0yIlfI/5BE4/orCrArHoiT7cq5L8B4jrrCGRXMx+8CiUdSwKocC/g==
+	bh=bK/XsYMUPQ8SxDCiyg661SpI+UmAnvDiubWVw3wX2Y0=;
+	b=jeQIoBbmW9LdmeTJk9qBbJG7dAl15iWoF9o4HGv5XuVPrGtIXSYlJHxE/EaS4BZZCj0g
+	 97Q7uyMymUXSCZ3H6xlcW33WlTUKb3WP5VOT/mOM4lOjY2APYki4AlNSFJeFpRJxhdgFF
+	 lWwSIrzR/QYEAGgDle+wDu/7HIrXqOBQqLm3nA6SZOHo/v1vj8rcTwgX7oxf/nEpLlZ74
+	 tg2/Yn4O1Bx8lYoucuGZlMdu/e5gyz7MHzZiWy74lL9W6kBCwkeUmtEAf6d9aEg1q9SAv
+	 ZqSIf84j2732CwYYYx1Hk0LVXjKQbovqgBq5w9sA8onh8wO6fFn3/F6jt4+g7msIhQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2vOVVIJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F2mAoHdf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F271A606A338;
-	Fri, 27 Nov 2026 14:07:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C28B606A31E;
+	Fri, 27 Nov 2026 14:07:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2vOVVIJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF8B61F000C1;
-	Fri, 27 Nov 2026 14:07:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F2mAoHdf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84C5F1F00898;
+	Fri, 27 Nov 2026 14:07:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795788441;
-	bh=Ghbq/dDyFSCGSMQHs0AQ8pCT6MelXMSKRDi+1C0qWLM=;
+	s=k20260515; t=1795788448;
+	bh=bK/XsYMUPQ8SxDCiyg661SpI+UmAnvDiubWVw3wX2Y0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E2vOVVIJvQMatkBo7AQIG795loKV0qTCVJgg8V2SmJOguJ5ESWwnUb8TscuWaDU49
-	 dT0md96xtQM2pfAGw+tygc17DnusriitvJBLuJGb1Nt88uFe4YMeRTysm2xw3aHYCe
-	 mRYYsEMwTaKrvU/b6itZPY+wyKNpx+N0YxOvE4tYGi85n2SYpqFjHLx2eHBSyNCkfS
-	 BoNrFbYDGVxb394mleOiCRyi1FZd+hKaJXti635q3sIwo1Zaqv9pcbLo52QujIERBX
-	 MpMaWuIoq32aM4Dpxo9Gkkkc4HK9he9ZXVicDUNRiFzKQI1DltY575EdBN37EWLfhb
-	 q1BcdK0cvVOZQ==
+	b=F2mAoHdfCj/D3495JJuezXFoFjme1SXD3pYBFMzhk42DTpbvp8+YoyTtjSK+1KDxM
+	 Tx+MkHZvAvJHc06NmJ/VOBRDaMkVOXOYKudvzonv4Hveahf48FiUnk1dmFzvKOzcVe
+	 6rc9f1LSyWzHuc5laAHZDDTsRYneNdiKymtV8msquYaXohz6uE4D0Ax2LdJASjZjUz
+	 qDtwe2P5oh7v83nSJZLTA2o5zN5eTSXuJhzNZHEW8UxmutfLShQph89Se3qzggCo6X
+	 y7PQz4YxK/cw9U7tggspJh6Z6rbp6eWXCOax/FXihcfVqwZsF9JRYhMZ4vx+eKdBYe
+	 +g/5/s218CJ3Q==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Tony Lindgren <tony@atomide.com>,
-	Haojian Zhuang <haojian.zhuang@linaro.org>,
+	Dvorkin Dmitry <dvorkin@tibbo.com>,
+	Wells Lu <wellslutw@gmail.com>,
 	Linus Walleij <linusw@kernel.org>,
-	Dan Carpenter <error27@gmail.com>,
-	Yang Yingliang <yangyingliang@huawei.com>,
+	Andrew Gaylard <ag@ffroot.co.za>,
 	linux-arm-kernel@lists.infradead.org,
-	linux-omap@vger.kernel.org,
 	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v3 10/12] pinctrl: single: Free pinconf settings array with pinctrl_utils_free_map()
-Date: Fri, 27 Nov 2026 14:04:58 +0000
-Message-ID: <20261127140602.2790001-11-lee@kernel.org>
+Subject: [PATCH v3 11/12] pinctrl: sunplus: Validate pin_func index in sppctl_dt_node_to_map()
+Date: Fri, 27 Nov 2026 14:04:59 +0000
+Message-ID: <20261127140602.2790001-12-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127140602.2790001-1-lee@kernel.org>
 References: <20261127140602.2790001-1-lee@kernel.org>
@@ -68,98 +66,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-pcs_parse_pinconf() allocates a per-map settings array and attaches it
-to map[i].data.configs.configs, while pcs_dt_node_to_map() allocates
-*map itself, both via devm_kzalloc_objs() on pcs->dev.
+In sppctl_dt_node_to_map(), the validation loop checks that pin_num is
+within sppctl_pins_all_sz, but does not validate pin_func (bits 15:8)
+before indexing sppctl_list_funcs[pin_func] for fully-pinmuxed pins.
+Check that pin_func is less than sppctl_list_funcs_sz when pin_type
+selects a mux function.
 
-When a consumer device unbinds and re-probes, pcs_dt_free_map() only
-frees map and leaks the settings array on pcs->dev.  Moreover, because
-pcs_probe() registers the pinctrl device with devres before pinctrl
-hogs or consumers call pcs_dt_node_to_map(), devres teardown on
-pcs->dev unbind frees *map and settings before
-devm_pinctrl_dev_release() invokes .dt_free_map().
-
-Allocate *map and settings with unmanaged kzalloc_objs() and wire
-.dt_free_map directly to pinctrl_utils_free_map(), dropping the custom
-pcs_dt_free_map() callback.
-
-Fixes: 8f773bfbdd42 ("pinctrl: single: fix possible memory leak when pinctrl_enable() fails")
-Fixes: 9dddb4df90d1 ("pinctrl: single: support generic pinconf")
-Closes: https://sashiko.dev/#/bug/linux-fcedec46-4487-4392-a882-3d3bef07e56f
+Fixes: aa74c44be19c ("pinctrl: Add driver for Sunplus SP7021")
+Closes: https://sashiko.dev/#/bug/linux-977252d6-b0cc-4d3a-ae2d-59d1e2f8a649
 Cc: stable@vger.kernel.org
+Reviewed-by: Andrew Gaylard <ag@ffroot.co.za>
+Tested-by: Andrew Gaylard <ag@ffroot.co.za>
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
 v2 => v3:
- - Allocate the pinconf settings array with kzalloc_objs() and wire .dt_free_map directly to pinctrl_utils_free_map(), dropping pcs_dt_free_map(), per Alexander Sverdlin's review.
- - Update the first Fixes tag to commit 8f773bfbdd42 ("pinctrl: single: fix possible memory leak when pinctrl_enable() fails").
+ - Rebase onto pinctrl/for-next; no functional changes.
 
- drivers/pinctrl/pinctrl-single.c | 18 +++++-------------
- 1 file changed, 5 insertions(+), 13 deletions(-)
+ drivers/pinctrl/sunplus/sppctl.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/pinctrl/pinctrl-single.c b/drivers/pinctrl/pinctrl-single.c
-index 6f5113dcdb4b..3f756796c792 100644
---- a/drivers/pinctrl/pinctrl-single.c
-+++ b/drivers/pinctrl/pinctrl-single.c
-@@ -32,6 +32,7 @@
- #include "core.h"
- #include "devicetree.h"
- #include "pinconf.h"
-+#include "pinctrl-utils.h"
- #include "pinmux.h"
+diff --git a/drivers/pinctrl/sunplus/sppctl.c b/drivers/pinctrl/sunplus/sppctl.c
+index 68ff6d8451bb..cadaf16ab358 100644
+--- a/drivers/pinctrl/sunplus/sppctl.c
++++ b/drivers/pinctrl/sunplus/sppctl.c
+@@ -867,8 +867,13 @@ static int sppctl_dt_node_to_map(struct pinctrl_dev *pctldev, struct device_node
+ 	for (i = 0; i < (*num_maps); i++) {
+ 		dt_pin = be32_to_cpu(list[i]);
+ 		pin_num = FIELD_GET(GENMASK(31, 24), dt_pin);
++		pin_type = FIELD_GET(GENMASK(23, 16), dt_pin);
++		pin_func = FIELD_GET(GENMASK(15, 8), dt_pin);
  
- #define DRIVER_NAME			"pinctrl-single"
-@@ -308,15 +309,6 @@ static void pcs_pin_dbg_show(struct pinctrl_dev *pctldev,
- 	seq_printf(s, "%zx %08x %s ", pa, val, DRIVER_NAME);
- }
- 
--static void pcs_dt_free_map(struct pinctrl_dev *pctldev,
--				struct pinctrl_map *map, unsigned num_maps)
--{
--	struct pcs_device *pcs;
--
--	pcs = pinctrl_dev_get_drvdata(pctldev);
--	devm_kfree(pcs->dev, map);
--}
--
- static int pcs_dt_node_to_map(struct pinctrl_dev *pctldev,
- 				struct device_node *np_config,
- 				struct pinctrl_map **map, unsigned *num_maps);
-@@ -327,7 +319,7 @@ static const struct pinctrl_ops pcs_pinctrl_ops = {
- 	.get_group_pins = pinctrl_generic_get_group_pins,
- 	.pin_dbg_show = pcs_pin_dbg_show,
- 	.dt_node_to_map = pcs_dt_node_to_map,
--	.dt_free_map = pcs_dt_free_map,
-+	.dt_free_map = pinctrl_utils_free_map,
- };
- 
- static int pcs_get_function(struct pinctrl_dev *pctldev, unsigned pin,
-@@ -960,7 +952,7 @@ static int pcs_parse_pinconf(struct pcs_device *pcs, struct device_node *np,
- 	func->nconfs = nconfs;
- 	conf = &(func->conf[0]);
- 	m++;
--	settings = devm_kzalloc_objs(pcs->dev, unsigned long, nconfs);
-+	settings = kzalloc_objs(unsigned long, nconfs);
- 	if (!settings)
- 		return -ENOMEM;
- 	s = &settings[0];
-@@ -1284,7 +1276,7 @@ static int pcs_dt_node_to_map(struct pinctrl_dev *pctldev,
- 	pcs = pinctrl_dev_get_drvdata(pctldev);
- 
- 	/* create 2 maps. One is for pinmux, and the other is for pinconf. */
--	*map = devm_kzalloc_objs(pcs->dev, **map, 2);
-+	*map = kzalloc_objs(**map, 2);
- 	if (!*map)
- 		return -ENOMEM;
- 
-@@ -1319,7 +1311,7 @@ static int pcs_dt_node_to_map(struct pinctrl_dev *pctldev,
- free_pgnames:
- 	devm_kfree(pcs->dev, pgnames);
- free_map:
--	devm_kfree(pcs->dev, *map);
-+	kfree(*map);
- 
- 	return ret;
- }
+-		if (pin_num >= sppctl_pins_all_sz) {
++		if (pin_num >= sppctl_pins_all_sz ||
++		    (pin_type != SPPCTL_PCTL_G_GPIO &&
++		     pin_type != SPPCTL_PCTL_G_IOPP &&
++		     pin_func >= sppctl_list_funcs_sz)) {
+ 			dev_err(pctldev->dev, "Invalid pin property at index %d (0x%08x)\n",
+ 				i, dt_pin);
+ 			return -EINVAL;
 -- 
 2.56.1.839.g22a8290db9-goog
 
