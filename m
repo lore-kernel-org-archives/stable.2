@@ -1,79 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795752549;
-	b=q7ITvdcO+BmCLWcG4/wpV/nGCd5H0sQKa+H3SGEeKqfMf+uA93tZrJg6qhLK1/pg+eao
-	 fp2lfXZAIqTr7SdsWjkF/h5nFA+VaaSK07K0darsC0OcGlxBJ4S13zcbCgdeToJwD4Kev
-	 HQCzii5lMOxHcS1UsdRt1laME/9rashOmT7YyLFoyFamvmi65qDyiVPgArvmxVVIXqytE
-	 1jLp84RFSBGuRu0l3SsJqgXI9uu+iHTkQfS4CPyaedRLhKDrZJUn4HJmgkXgHpUbk59bw
-	 Ya/Fd1IRF5O5qFAzbfrJwYEvKLM9re5yNAmaQ0f8JNE4PY6z+RtD+yVWkr1i5OvBe3Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795752549;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=HjpF0P5UyQ9nLom4QODoSUXMxsk2mmPrm0eKHuDGnBg=;
-	b=QigB+ZwvXtBJbK63wzFOhAsygYg7Euhz5Gbdbt0/yKxcxNgKjfEDABQgppz8O4YhdMRg
-	 Fz9WelDRysYuKe1AjrQB9i03DMo9vWFjPtgdHuI1Ya5mtiToYLt38Rmdf941xYTc7YBKJ
-	 HtI6gD6QKodINyS5Cr1Dt+DhElIQ0p7aFk0YR14UYoojtZKMxVyrzL0/+498qQS1Pp9e7
-	 13iUGt5fHOYSFRcgT0Nil5CD5rJPEnXy/qq9uQ4Y7tEAqshk4ldiKYTJ1MRTLhNjAgNTw
-	 SyaTMhKY0RzoW3U2FUoIHAPiCPqqqR67i3ZZKlp25dv5sbYGCEA3rnFK60CAOpqMv0Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jZViEjrH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795753585;
+	b=zsj83DfO9THl766xgo1EH31OdleZbXcKnYqwljElJDMtAoR/ijBRGXk3oJ8SNorhlTpa
+	 iMGFjqd/Cu8T/F7tR68Mz5XKj/OFwnNrAuLC0QnkkY21lMFv+jORFqXGATHFm5pE1DXMP
+	 f0VWQqZH3v5uNFYuMe03DhV8CQFfWEiVXuSlmUI/DoO6mUGVuZ1k1VyNR+vkQPo78NQiX
+	 sabZasKKHsu8lG0Ty2wXrKkfgAVP4noKtmWG19Zd8DmKLw2if/0Mzbi27gqECv2LfRLJc
+	 syXPsb5crAHVDgJOZ4XNf5akYcCNu6bItA/kaEMb0urP1kqlTtUBwHb05bOp7Ogu1PA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795753585;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=wroQkwyUmImSby60FSSEA23WGTsljWCUGSUqmlr+5fs=;
+	b=QtjmF6AWiQlfy6STKTv5+U9yzVfTORJhXiWkvKC8dMHdNPJoqdmE7g88rIhNfUBFryJN
+	 t1ZBfz1xaAnWIi/+HCAkWQxS85vfBnJNrwWJpb+4SuTakNLZb8j15FFb6xRGsrxXNWWQ9
+	 e2DOov0grkRA/qAoXqUDI6auMYlvoK/3Mkypp4o2xMhEhAqHTUPvFEcBCPZ0VTJgKsZCT
+	 wmL0gQVA/0wkVAP7WyNxjpv5nBcj2nll6mHeXdpbin1t9iJytKUV8qpW/nvd2uqend6a4
+	 bw4ekUu+0Ak4v01fEBnrSxehLN05kaJyGeFzBAeXcwQX5W5jeJ60B+n9f4cH237xdlg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=T+aOBZEX;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442B3606A323;
-	Fri, 27 Nov 2026 04:09:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC9A606A31E;
+	Fri, 27 Nov 2026 04:26:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BC9A606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jZViEjrH
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795752548;
-	b=F8gkl5dz2zeGG5mwBRtAPBVa85fTWVoyJRHI6/kjMN2mRFJGSOr1eln+qVxZt94pT2cr
-	 6XtgMgTy5ofpH152BbruRV+M8S4Ek3Hk9xoe6sO55xtG/859P8u7h1JQCpyeI32rKjhum
-	 v33kRSGCxNHsI+xaeWm5zfZqyCyuqOSf6ZxtTOfMc7qqI9hLNQfIBF9Oo5aq1AdY9ji2F
-	 bex3OtMDKFH8NgW4OyYsrWLr9DtDnI4ORXKHjh1YHdh4pVrma0ZGWryohNtLqiCvqqDTO
-	 CSva5i5UUd07eqOgKx7DbDwE4ap7MiDbINwY36RFfbrA4+LWjVIWW/g0cwMgdDuzMEA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795752548;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=HjpF0P5UyQ9nLom4QODoSUXMxsk2mmPrm0eKHuDGnBg=;
-	b=GMwVXg7wlL4Eks+yB+NQdw+OnNiSVw/T2CgJp3hzGK+F8dOAhgmxINHZEtjxZOAdR04m
-	 kSx+TOkCWTZjeA5mkvmdKTbJavxKy/p61zfNd+8j45htAeGqMFkGJ8D88E2sCYB6/Mid1
-	 uUUNqncOjkVfkbcRx2pPu1pHOY936TG7kU0xLa9ZL0+l5iYCXMXz3CEJ7JAY+Facv6wf0
-	 EHwFct42tpeEt0F6aN/eMXpwSXV0yRT9bQNh1hpmkHXf5nJtJF/6EaJalhjeRkCk69YMo
-	 II1q7aFNlqVIg701BfSb+cksKDOW3vxUewi1kgZqdt/AB0FLS3/YnWJco8K9Djhdagg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4A2AB1F00924;
-	Fri, 27 Nov 2026 04:08:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795752548;
-	bh=HjpF0P5UyQ9nLom4QODoSUXMxsk2mmPrm0eKHuDGnBg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=jZViEjrHv7dvOmMePsATDqUzpBYEctt0Ldy+QMYHQPLrNh83CcrUuaKNva7rTo50Z
-	 ENdNGgZUwuetP2UKbzMBfyJGieqgzrjbGr/eHme5t/DydC4YaONuKfELSI+HbaGCNQ
-	 yrQjOHtYew5wmW1jQyTmv6xHFg+Lxl1fEuD8EoC42AxS8x1uYlfg0SMdSQQn79EXky
-	 RU+Rc1G/2uJhJ2BqKYPFc+8oi88yHm8E1mIDFwBt2WNfzK1CTnG79B50FZQgtaiQsx
-	 wupuDgJw7nvmEmcpvf1SwEQrToINvLy15Eh1q0uP6epiEEpwrKteIBUpvqiYDXFEuV
-	 KYO/V5A546rjg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D081C4B558;
-	Fri, 27 Nov 2026 04:08:51 +0000 (UTC)
-From: David Crawshaw via B4 Relay <devnull+david.exe.dev@kernel.org>
-Date: Fri, 27 Nov 2026 04:08:39 +0000
-Subject: [PATCH 1/2] fuse: update i_size before unlocking the EOF folio in
- write-through writes
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=T+aOBZEX
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=wroQkwyUmImSby60FSSEA23WGTsljWCUGSUqmlr+5fs=; 
+	b=T+aOBZEX6uzmlDxlpiKDB9TunL9hzXwiHnKJ1On1QOse0ZeS/h3+Wb+Qgqb7EoVtcaQa/jbi9rR
+	0FFPOw3G5FfEuNYwz4rBR/oIsIplpf76eoqHuvJw2NckcqnjLNNYRO/tEnF9bT8D3ooCjHyl3mira
+	eDHz6AY1Geefx5nSl+Qrx68RxA/E86hQ3chi/oHU/UnMZ6sQq9S9pTvGrvC3VosQkM+e5ELB5VpGj
+	AWsEw0uYYsbniJvHhAQE5RK5AsJHVkNKPGcewZUGROL4sWi8bnn1Wo2CXpTHwKcIHDuEWWUhjWQ60
+	kv6SvYjF41mSKwKfT7Q2pv5XjhHi/GCAHjiw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xWnXH-00000002Utb-1xXi;
+	Fri, 27 Nov 2026 12:26:12 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 27 Nov 2026 12:26:11 +0800
+Date: Fri, 27 Nov 2026 12:26:11 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Guicai Ma <maguicai@kylinos.cn>
+Cc: "David S . Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] crypto: af_alg - Fix data-race in af_alg_wait_for_data()
+ and af_alg_wait_for_wmem()
+Message-ID: <awkGY8QdvNxzTVHG@gondor.apana.org.au>
+References: <20261118154815.607879-1-maguicai@kylinos.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,128 +65,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261127-b4-fuse-wt-eof-v1-1-e055e2af652d@exe.dev>
-References: <20261127-b4-fuse-wt-eof-v1-0-e055e2af652d@exe.dev>
-In-Reply-To: <20261127-b4-fuse-wt-eof-v1-0-e055e2af652d@exe.dev>
-To: Miklos Szeredi <miklos@szeredi.hu>, 
- "Darrick J. Wong" <djwong@kernel.org>, 
- Christian Brauner <brauner@kernel.org>, 
- Joanne Koong <joannelkoong@gmail.com>, Shuah Khan <shuah@kernel.org>
-Cc: fuse-devel@lists.linux.dev, linux-kselftest@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, regressions@lists.linux.dev, 
- David Crawshaw <david@exe.dev>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795752531; l=3912;
- i=david@exe.dev; s=20261127; h=from:subject:message-id;
- bh=aneCOpdxoK+BoX+KlAWJghFJrKt6ILqgZAIYQqmiW0I=;
- b=pZh3gDBUojjRGzwL5hg+aYbb26zpqEM71Wd+/shQt6BrHzKj9HuOjKvTby6mb6BA9RCczfdJ0
- lSNoakYmogFAEnBL4QI0J56eiQi7rzmRlhRFMuxLCktZNcYpBh3J7L4
-X-Developer-Key: i=david@exe.dev; a=ed25519;
- pk=eQfKiR9S2peqiHuuNGCAaWlxwP+RerhKT2wVxakCrjQ=
-X-Endpoint-Received: by B4 Relay for david@exe.dev/20261127 with
- auth_id=1661
-X-Original-From: David Crawshaw <david@exe.dev>
-Reply-To: david@exe.dev
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261118154815.607879-1-maguicai@kylinos.cn>
 
-From: David Crawshaw <david@exe.dev>
+On Wed, Nov 18, 2026 at 10:48:15AM -0500, Guicai Ma wrote:
+> KCSAN reported a data-race between af_alg_sendmsg() and
+> af_alg_wait_for_data():
+> 
+>   BUG: KCSAN: data-race in af_alg_sendmsg / af_alg_wait_for_data
+> 
+>   write to 0xffff8eec18118fa4 of 1 bytes by task 17152 on cpu 17:
+>    af_alg_sendmsg+0x1c7/0xfa0 crypto/af_alg.c:949
+>    skcipher_sendmsg+0x78/0x90 crypto/algif_skcipher.c:47
+>    ...
+> 
+>   read to 0xffff8eec18118fa4 of 1 bytes by task 17143 on cpu 1:
+>    af_alg_wait_for_data+0x1f9/0x3c0 crypto/af_alg.c:854
+>    _skcipher_recvmsg+0x52f/0x720 crypto/algif_skcipher.c:65
+>    ...
+> 
+>   value changed: 0x13 -> 0x1b
+> 
+> Both af_alg_wait_for_data() and af_alg_wait_for_wmem() are called with
+> the socket lock held and use sk_wait_event() to wait for the condition.
+> However, sk_wait_event() calls release_sock() before evaluating the
+> condition expression for the first time, which reads ctx->init,
+> ctx->more, and ctx->used without the socket lock. Meanwhile,
+> af_alg_sendmsg() acquires the socket lock and modifies ctx->write (which
+> shares the same 1-byte bitfield as ctx->more and ctx->init), as well as
+> ctx->init, ctx->more, and ctx->used.
+> 
+> Unlike TCP/UDP sockets, af_alg updates these context fields only in
+> process context under lock_sock(sk). Since add_wait_queue() with
+> woken_wake_function is already done while holding the socket lock, check
+> the wait condition under lock_sock(sk) before calling release_sock(sk)
+> and wait_woken(), avoiding the lockless read entirely.
+> 
+> Fixes: 2d97591ef43d ("crypto: af_alg - consolidation of duplicate code")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guicai Ma <maguicai@kylinos.cn>
+> ---
+> Testing:
+> Verified with a concurrent AF_ALG skcipher (ecb(aes)) send/recv stress
+> test under CONFIG_KCSAN=y (QEMU arm64, 8 vCPUs, 60s per run, ~470k rounds):
+> - Baseline (6.6.156): 51 af_alg KCSAN data-race reports (both the 1-byte
+>   bitfield race and the 8-byte ctx->used race).
+> - Patched (6.6.156, 2 runs): 0 af_alg KCSAN reports; roundtrip
+>   functional check passed and unrelated KCSAN reports remained active.
+> - Upstream (20eef29b7c84, arm64 defconfig + KCSAN): compile-tested
+>   crypto/af_alg.o, crypto/algif_skcipher.o, and crypto/algif_aead.o
+>   with W=1 cleanly (0 warnings/errors).
+> 
+>  crypto/af_alg.c | 22 ++++++++++++----------
+>  1 file changed, 12 insertions(+), 10 deletions(-)
 
-Since FUSE writeback was converted to iomap, a write-through write
-that extends the file within the folio holding the current EOF can
-lose its data if writeback of that folio starts while the FUSE_WRITE
-request is in flight.
+This looks like a false-positive because sk_wait_event evaluates
+__condition twice, once without locks before the wait and once with
+locks.
 
-fuse_perform_write() copies the data into the page cache folio, unlocks
-it in fuse_fill_write_pages(), sends FUSE_WRITE, and only updates
-i_size after the reply has arrived.  If the folio is dirty, writeback
-can lock it in between, and iomap_writeback_handle_eof() zeroes the
-folio from the old i_size to its end.
+It's the evaluation within locks that is final so everything should
+be correct.
 
-Depending on timing:
-
- - the page cache is left with zeroes where the write's data should be,
- - the FUSE_WRITE request itself carries zeroes, as its pages are the
-   page cache folios and are only copied when the server reads the
-   request, so the server stores zeroes,
- - a later writeback of the zeroed folio overwrites the server data.
-
-In each case the write returns success.  Before iomap, FUSE writeback
-never modified the folio and cropped the request to i_size at send time,
-so this window was harmless.  iomap, on the other hand, expects i_size
-to cover the data in a folio before the folio is unlocked, as
-iomap_write_iter() does for the writeback cache path.
-
-Fix it the same way for write-through writes: keep a folio that
-straddles i_size locked over the request when the write extends the
-file within it and update i_size from fuse_send_write_pages() before
-the folios are unlocked.
-
-Reproducer: a thread repeatedly stores into the EOF page through a
-shared mapping and calls sync_file_range(SYNC_FILE_RANGE_WRITE) on it,
-while another thread pwrite()s a few bytes past EOF within that page;
-with a server that delays FUSE_WRITE by 200us the data was lost in
-493/500 runs (the selftest added in the next patch fails reliably), and in
-0/3000 runs with this patch.
-
-This patch written with an AI coding assistant (Shelley using Opus 5.5).
-I reviewed and tested it.
-
-Fixes: ef7e7cbb323f ("fuse: use iomap for writeback")
-Cc: stable@vger.kernel.org # v6.17+
-Signed-off-by: David Crawshaw <david@exe.dev>
----
- fs/fuse/file.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
-
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index 993a1d2b315..ee3bdc3cb04 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -1287,6 +1287,15 @@ static ssize_t fuse_send_write_pages(struct fuse_io_args *ia,
- 	if (!err && ia->write.out.size > count)
- 		err = -EIO;
- 
-+	/*
-+	 * Extend i_size before unlocking the last folio, so that writeback
-+	 * cannot see the newly written data beyond i_size and zero it.  See
-+	 * fuse_fill_write_pages().
-+	 */
-+	if (!err)
-+		fuse_write_update_attr(inode, pos + ia->write.out.size,
-+				       ia->write.out.size);
-+
- 	for (i = 0; i < ap->num_folios; i++) {
- 		struct folio *folio = ap->folios[i];
- 
-@@ -1305,6 +1314,7 @@ static ssize_t fuse_fill_write_pages(struct fuse_io_args *ia,
- {
- 	struct fuse_args_pages *ap = &ia->ap;
- 	struct fuse_conn *fc = get_fuse_conn(mapping->host);
-+	loff_t isize = i_size_read(mapping->host);
- 	size_t count = 0;
- 	unsigned int num;
- 	int err = 0;
-@@ -1366,7 +1376,16 @@ static ssize_t fuse_fill_write_pages(struct fuse_io_args *ia,
- 		if (tmp == folio_size(folio))
- 			iomap_folio_mark_uptodate(folio);
- 
--		if (folio_test_uptodate(folio)) {
-+		/*
-+		 * Keep the folio locked until the reply if it is not uptodate,
-+		 * or if it straddles i_size and this write extends the file
-+		 * within it: writeback zeroes a folio beyond i_size
-+		 * (iomap_writeback_handle_eof()), which would wipe the data
-+		 * just copied, both in the page cache and in the request,
-+		 * while i_size has not yet been updated.
-+		 */
-+		if (folio_test_uptodate(folio) &&
-+		    !(folio_pos(folio) < isize && pos > isize)) {
- 			folio_unlock(folio);
- 		} else {
- 			ia->write.folio_locked = true;
-
+Thanks,
 -- 
-2.43.0
-
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
