@@ -1,123 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.148
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795768814;
-	b=LaqKZwVDrUG+taJf9HTuu1VRjKdxYrZVRYh/4ZMUf1GR7ibz0SxZJ8KdSWdkT8tWUA9q
-	 91lhs9sUAqEDgIp1Iv2i+kouF8lhqmD0HAr5aeGUb2JSLB89kkAgaUSNUVdTZfFXxaS/6
-	 na/cyavQ7LUVqfKpdd1frbhqVhNaDFVPiZyI8YzueFopPeScRDsQbRV9w2lkFBv4mgwsc
-	 +EYggaDSvRJw9OUy53ONbh6/VtfBmQEoc0F4U/2gysKgp91O47Yo1qieKp8XhPY9tHubp
-	 S3Zi1CsfjQk8BTirV/bAPKGOVoYZHisbMTPeeQ+AsWU5IUSVC2OotO9FXWQcvBv+DqQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795768814;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=yaJz6FgV4+RxM7rCm8e/oS0ygwQ36wh1oGLON6H5U6k=;
-	b=kpyFvIRU9anBW1ye2PK2gdc8+nhP4/XmOrNiP2Eei3FIi9E/jREnR9EoS/Ivz52a53l4
-	 8E1ArZb2elT7+9liLs5T4NQEv9hNnLGfrIySVgkyjdfkWdfh6lsWiR8jWxsJqJg3jXzv8
-	 KKec7FY8CoGGZvYkqCeNypHujNWLjS7dCrvIohN4UN5VE4d1d2M73jqnYhvL3nEy0k/EK
-	 NF7JWjP5m76ky+Zhb0QxxXJe11Iy4yqg0LVjfqZtJzj6nABgfWoVgn0iuiJNBonPARyTA
-	 QC3NARL2+Nux5Js64FhKeC3mgP1PpzHu+1ai41LsVyw5gb9cnJqQb6FlGl3Puq2Ez2w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=seanlyon.dev;
-	spf=pass smtp.mailfrom=seanlyon.dev;
-	dkim=pass header.d=seanlyon.dev header.i=@seanlyon.dev header.a=rsa-sha256 header.s=fm2 header.b=qa8DBmLB;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Fdgv5lYP;
-	arc=none smtp.remote-ip=103.168.172.148
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795769060;
+	b=xyKY1cnxnElNY2xBnTMrM9uAtzMliK3S6gScdUGsaA41V6gEetJpVCRu3PVElHFOsjCW
+	 7Wf9lwZtB3jcv5R9WS1MptpDcffWpfdMY59HxGSv0UYs4Dy1OclqTS9O8pcONpdWW4dlt
+	 behjAFFiW2Q/ZfR8od1pQxOEYza8vzm7jH0SZa7xYMl+VOsMP5RIu/vOA5qFb9pFQf/1d
+	 yyWBGtmww3bByqQwokZb/zIPvNYYB/Zv5sfduvB3yv0eM8p9lw7ySGVB1wQmXghtBQ3xK
+	 Lu/3lDUqnYmTkcL4EAeU/mQlBIzAp8EuHx0DgbJaQsdVH5FhHzdRhKcMznrGRVJ5GwA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795769060;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ft75ArHu5r34Kk5GxNfYciluJYRTvCnqrrb0D3xZQgQ=;
+	b=WSC6kpHfKSoAQjRhK49CM5o7UJ0mjED3u3z93pdKSJEPFbYdBQ/iYhrfee7jQvP7cbdY
+	 UBPu7g1MSNcqHIE+Sgw7GMa4c9DINlx4PxFA/oZe2aQtz+PbZP7scHNykJp1LTXyPaOd3
+	 4NgaYXfM3QLQ6GaSeUvCeZZN2+KweH7LbvTzZFWnqgPa4DBh9kZaW+RvXep2PJdSvFdeL
+	 5TzSlxOpfAqBEvJCt3k6xnsXrpSYHCgrrMk/gh+U3jmcuK71MGTmV8lPCTrW6DYWoiPy2
+	 jgcY/Xn/ttRu6DKPDWpkYu/RXT2utnYkaODfsgM0psOSDsrpBNP6IuScGLbW+LDOn9g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hWW1WySc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B87E0606A31C
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 08:40:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B87E0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=seanlyon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seanlyon.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 482AD606A31C;
+	Fri, 27 Nov 2026 08:44:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=seanlyon.dev header.i=@seanlyon.dev header.a=rsa-sha256 header.s=fm2 header.b=qa8DBmLB;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Fdgv5lYP
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.phl.internal (Postfix) with ESMTP id E2B83EC0B79
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 03:40:12 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Fri, 27 Nov 2026 03:40:12 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seanlyon.dev; h=
-	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1795768812; x=1795855212; bh=yaJz6FgV4+
-	RxM7rCm8e/oS0ygwQ36wh1oGLON6H5U6k=; b=qa8DBmLB3CeuWfvCBvVdv3ONBK
-	4ydoYYMK4rCVrOTl8ZZzwdP/lOQukgggfXFyDlyqXivJ52oHHhkiS+48+OH1RmNS
-	oMT2IqLTcPPgiPwlIynMEyB/ECtRuhuakwQy4Qbmhy1v3E/imtQdB/9vabI2LLA0
-	b306EIL1u2G+69s56FUkOQwBEOWiaxxy3fqZqrpO5oqmDNxtTVAQodKX1nwJ0hzi
-	znCb1kXDZWQJYL6kr2siS1GvZxmdLmzHa6KN15sV/YbgWGle2OL9MYOFUyk9eMvy
-	9SCe/Mp0dDK1Rqu/stD4BZvwQuhdODER1Yp15IF3linkucqSYeshJit/rm4w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1795768812; x=1795855212; bh=yaJz6FgV4+RxM7rCm8e/oS0ygwQ36wh1oGL
-	ON6H5U6k=; b=Fdgv5lYPSIx1OFelTCtHshZpYGuiFJoyY3FppCb+j96Za8DEgaa
-	MlD3K60+DsR0yJGXjEMhpNxQ9vw6ZgJleMXONzZ9Dpagh/26uOPpvhFdlNkGHRrm
-	c2hUqmLQMU5WK1PCRGs2Uew2xWvuDnVceJyUiXQKv6xcSq9A4ycIjOmeMJBAczfB
-	wEwQU6tTsaSWutq7a8XvQqp32/CLU5JjfY2ikVqLmsvlyGlZi+KBxiDNK9MvobUM
-	1vTVI1kSWw+YPTre2mAOjbkdntiJh6Jl9XjhusM6de+sfQiFQqS7UjqoLcNSkIE0
-	nRcRxCVFGtgd/wqcGfQvcBMTkbbFZvuTOSg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=seanlyon.dev a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795768812; d=seanlyon.dev;
-	mf=PHNlYW5Ac2Vhbmx5b24uZGV2Pg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:Bq1zS+ZMfybQdQjHFSwD8ViKBDfo67CzQB9dXSZvYTcnkRZ
-	qHqhKmrdr1NtHbhZjh+fag8n/0zXr7TtjaKf2HOBQHczD3gzQMr4lxQWlCYS6kef
-	fhtOO/NzIt7+Fun5ZdbxDgxqV5fveRhejX3UWmeT/xAexFMioAybx/04xmyGy8dJ
-	JX5nMpXBqjEuDfUfgRyeDcfjs9ewN5YBEP9+hgp0zvt7v2hwUYse2sF2DzYkSMFt
-	KJr+SF/zStJGBp7fJiQKU6Ag9jPwHzFl49CYTUXQZlZYp1uY3DA6qIHGkArBB0kx
-	s6fSy7QhB2VgUb8DsBGra2E92wWn20Q71yekj5Q==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:V/E7wY1yhKBpNHmMKFyvR7GGIJC1MEvzdkYpHA99B1M=:hD3q/YTHLezd+UKPMVESboYVR1eMspmooxvS/oeak5w=;
-X-ME-Sender: <xms:7EEJa9ziOIXc7lIYs-Ald4gg_WMVL5_11zkgj_WHMbNcp5Z_ZfycAw>
-    <xme:7EEJa5KO3ZvVlR32YCCiMZH9Zc1Jo0z35ObsLcSpvPikrUCJVCd-s-363dm0VYriW
-    JEDm_PrfDMo1VAxE9BH76lImTc9b3goztvpwIl1ePWges9p2gZVMX2Q>
-X-ME-Received: <xmr:7EEJay3HGH8eGGYKQFl00KSMcZMgBpMDBHxOJcEo1LOIrgGkLfqbsac12RsyTY6P_QNOJKIRuQVsMz94GhyKcOdhXA4>
-X-ME-Proxy-Cause: dmFkZTFUAqjxBOVIr+bv8avIB7td/xHveOqH4ySc9wDqn4hdvIcKD/FcOb8O9dRNkFeBpQ
-    QDWBA/1x7NjOg7hFwg34KOkgNj9c84lCaKsuWGsS97km8YYX0FOmUQ29iUsW04xBYpnaU7
-    9KbcKwF9h14JrRDuNMPEVz8jPKhCQou0c47i9ZTzFjGBat267NtK4rxVQfA9AHPhcPpKKZ
-    txOxTiAhoJpbIb28jsadgqq8Pn1UeIxI0BEuIgodl0b/i1f6636L2d8YaL84gspECfoWGc
-    VwwAV2sxj712/PQjkvmyZyiiXtDMja8ehL2SZB5ZbfwrBYR1jM9ZT1nKzT9rQd4geelspU
-    7N784+Wp2GzOW5s4vb1RBLYd+ROyrHZ15cErGTxkdl6nG0rnUpKMbSxTJ1FcBNm5xLkOvm
-    NfW9lRH9eVLi6pak52jgQuaKz1n7woPNaz1YcgBbD+6IfU4mngP2QbxV7JyTCjkny3VhSJ
-    VbzwCgv29xyiESsfAU9aTGE9mB22NDpaekmWvn8JXJ9Yvich3j/ECkhOwPeQ37NItMI+pA
-    eCjMp++Z38mEKeGNrwO/EC+MkdEDpbthj2D7Wz+dx7LyqQqEwJGy82AOwfwQ8YtDTkcywW
-    oEtHHtdHofLKIwewitRNcedFkHx+ybEnju80+X9tqaoBx/fyaXqi5xJodI3Q
-X-ME-Proxy: <xmx:7EEJazcmblfBCvZgNlFaL6gezCwNT-1BIKBCSZqgOet6ugIznmIuQg>
-    <xmx:7EEJa25oW5gB2kl3RoG2SauX2oDBBchZWgPBB6oJMTrzGBupcHBe5w>
-    <xmx:7EEJa2_hgWi7Zti-Mxn7lgdgNzJmt_tg21xBrsTK_j_5ewcPvn_beQ>
-    <xmx:7EEJa9LX9E1XW20c6X4KF9zpiFx0G2KS9N0ncMTo-M9DqO2yn86GoQ>
-    <xmx:7EEJaylFTrZHRCtQoME1HH_3T1drJwuJPuLCpuzuGxBGUOwW2oq1PHW8>
-Feedback-ID: i07c64b5b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 27 Nov 2026 03:40:12 -0500 (EST)
-Date: Fri, 27 Nov 2026 03:40:11 -0500
-From: Sean Lyon <sean@seanlyon.dev>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.18 000/990] 6.18.66-rc2 review
-Message-ID: <awlB6zSZqHpYCF8P@ncase>
-References: <20261126105725.767748294@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hWW1WySc
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795769059;
+	b=qjqomTrFyJCzy8s+H2UzCi7Y7vpjJ1jwY/ZUw2EZgKO04LHthOJtV/fjHl+ZqINrpd13
+	 z78GjYuWs77eKsPSfQIu1fjyAJ35gzUt6w9jJdMWOj5UhnVP5JA/wf844Rd3PRg8Jf3kb
+	 GoyrFKAb0sRmQGEON26QX8LQr1yHWmLYOyHYxKDpxrgnJWyJqEE4MsyT4Qu9nKp44tgxC
+	 fDilbBvCPgLJT20Ce79D1/nY4gzSEvoWKRPKFaCblh1Ru/xIIun+FQcFyKXu6ZbCvGfR/
+	 /yitkU9YQ7ulDw8328PF11rSeetbV0I7i+e690nLaF7+t7JQIEJk1sBIPMCjfrG6MkQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795769059;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ft75ArHu5r34Kk5GxNfYciluJYRTvCnqrrb0D3xZQgQ=;
+	b=gbkA4baXupFTA7OBWKXCBocxtdH5PNZlpJJR24qs7VoHQMxQ7Oq4Zm7Pc8CH/B/Nvdvf
+	 2A7i/zzzx0gRNkWlRA2jqEInC6g4KUupwmnzfASyc+CPqW7mLQcw36SqWfU29AnsYxDKu
+	 qttGud7T3NJkgBfxYFj6gdQzWUP+zEQSEt3YNTIfhbVEJvcQOKYn28EXzb2LfZ8lOaJux
+	 TZvWcEsf82pwrosTwzbWz89PL7gE+P7DUPF1GZhP1+aDqL8/Tb3A4hi2SSwhnek6hENaZ
+	 1BDCgBzbcMyx3rP9AKqTXl47//k7GIke7HRYVOhT6tO9JPUcpPP3hCBpzW+FzGnfZ3g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 903BC1F00899;
+	Fri, 27 Nov 2026 08:44:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795769059;
+	bh=ft75ArHu5r34Kk5GxNfYciluJYRTvCnqrrb0D3xZQgQ=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=hWW1WySc7+j/cSN/syzUfzn2F355NkIJXfTkO3SuE0Aje7YWwmBkdq0NnutSuqKl6
+	 Zw7tApTdHPJ5mUy4yQftBai5I9PzC9xKtdxuSb5FLGERPMw5MBzBjWKVpK1c/PjnjO
+	 8RJB/BQPPsGwpfx6XIBvYngn1yHs0cdH7hc+Qo28H/sA7qW9NZUtY6PaJBScMssTCT
+	 jccOOasYeSq1usd+eUokPUF4E4qXGrXFwYiEkyxNtCTJg29uB7QSl21IXXbDTU4Da7
+	 91Scwmdn0l1UTQjEtVW9AC8Yi38LX2ru+uE0mv50xUb9UUy5yn2iXrYsPQ3lk9eP7e
+	 xUWpItORdzzEw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1CD6B4B63D;
+	Fri, 27 Nov 2026 08:44:03 +0000 (UTC)
+From: Tjerk Kusters via B4 Relay <devnull+tkusters.aweta.nl@kernel.org>
+Date: Fri, 27 Nov 2026 09:43:59 +0100
+Subject: [PATCH net] igb: leave room for the Rx timestamp header in 2 KiB
+ build_skb buffers
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -127,23 +83,191 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261126105725.767748294@linuxfoundation.org>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261127-igb-skb-pad-v1-1-7e069eaf16d7@aweta.nl>
+X-B4-Tracking: v=1; b=H4sIAM5CCWsC/yWMwQrCMBAFf6W8cxeSgFH7K+Ihada6FmLJVhFK/
+ 72xPc7AzALlIqzomgWFv6LyzhVs26B/hjwwSaoMZ5y31p1Jhkg6RppCoku6eg4meDYn1GIq/JD
+ ffrsh84z7IfUTX9zP/w/WdQMLR1Z2dAAAAA==
+X-Change-ID: 20261127-igb-skb-pad-8d96ea0a6e05
+To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, 
+ Sven Auhagen <sven.auhagen@voleatech.de>
+Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
+ bpf@vger.kernel.org, stable@vger.kernel.org, 
+ Tjerk Kusters <tkusters@aweta.nl>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795769042; l=7109;
+ i=tkusters@aweta.nl; s=20260619; h=from:subject:message-id;
+ bh=LHZjkEOidXK7kx+tT6vj/G3tkhiPxIUoim+0JCqFf24=;
+ b=AEkgnroG0gFyvAxAf2gDtHDf0wW2hJiBZV8LFjagw2b1mNptyxATLN3Htuf4uOhCZNK1fOU1e
+ ipDBqw2GDHqAhCAz9ML1zYapEPSHFJVzaKpQXXJQtNZE9v4CGCfgbmN
+X-Developer-Key: i=tkusters@aweta.nl; a=ed25519;
+ pk=JYRpYQ3+LrphEabgnxcbiOUpwvNP8WDDMcLzz+cwKsk=
+X-Endpoint-Received: by B4 Relay for tkusters@aweta.nl/20260619 with
+ auth_id=831
+X-Original-From: Tjerk Kusters <tkusters@aweta.nl>
+Reply-To: tkusters@aweta.nl
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 26, 2026 at 11:58:43AM +0100, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.66 release.
-> There are 990 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+From: Tjerk Kusters <tkusters@aweta.nl>
 
-Built, booted, and tested on hardware for x86_64:
+On 2 KiB build_skb Rx rings (PAGE_SIZE < 8192, legacy-rx off),
+igb_skb_pad() places the DMA start so that exactly
+IGB_MAX_FRAME_BUILD_SKB bytes (1536 on x86_64) are left before
+skb_shared_info, and RLPML, or the PF pool limit in VMOLR when VFs are
+allocated, is set to the same value. With Rx timestamping on, 82580 and
+later MACs write a 16-byte timestamp header in front of the frame, so a
+frame of more than 1520 bytes (without FCS) runs into skb_shared_info.
+napi_build_skb() then zeroes the start of skb_shared_info, which holds
+the last bytes of the frame, and __skb_put() moves skb->tail past
+skb->end.
 
-- Intel N100
+The MAC has checked the TCP or UDP checksum before that, so the payload
+is delivered with its last bytes zeroed and without an error. Any
+sender on the link can trigger this with frames of 1525 to 1536 bytes on
+the wire, for example double-tagged frames or a peer with a larger MTU.
+Any Rx timestamp filter is enough, as these MACs then timestamp all
+packets. With XDP_TX, or XDP_REDIRECT to a device or CPU map,
+xdp_update_frame_from_buff() hits the "missing reserved tailroom" WARN
+for each such frame and drops it.
 
-No regressions found.
+Before commit 9cbc948b5a20 ("igb: add XDP support"),
+IGB_MAX_FRAME_BUILD_SKB left room for the header. That commit fixed the
+frame size at 1536 bytes and gave the rest of the 2 KiB buffer to the
+headroom. Reserve the header again in igb_skb_pad(). IGB_SKB_PAD is the
+same for all build_skb rings, so the headroom goes from 192 to 176 bytes
+on x86_64 for 2 KiB and for 3 KiB rings, and XDP programs have 16 bytes
+less for bpf_xdp_adjust_head() and metadata. It was already below
+XDP_PACKET_HEADROOM. The frame limit, the buffer size selection and the
+MTU range for XDP do not change. IGB_2K_TOO_SMALL_WITH_PADDING already
+counts the header, so the headroom stays at least NET_SKB_PAD.
 
-Tested-by: Sean Lyon <sean@seanlyon.dev>
+That commit also took the header out of igb_rx_bufsz(), which is the
+length of the DMA sync when a buffer goes to the hardware. Add
+igb_rx_dma_len() for the two syncs. igb_rx_bufsz() itself stays as it
+is, because it is also the frame size limit for XDP.
 
-Thanks!
-Sean
+Tested on an I350 with kernel 7.3.1 (igb in net is the same apart from
+the treewide kmalloc_obj conversions) at MTU 1500, with the Rx timestamp
+filter set to ALL. A peer sent UDP datagrams of 0xff bytes in frames of
+1521 to 1532 bytes (without FCS). Before this patch they were delivered
+with their last 1 to 12 bytes zeroed, starting 1520 bytes into the
+frame, and pings with a 0xff pattern of those sizes failed. With this
+patch all of them arrive intact, also with an XDP program attached.
+Frames of 1533 bytes and more are dropped by the MAC, as before. With
+the timestamp filter off, and at MTU 3000 (3 KiB rings), nothing
+changes. Frames that a VF sends to the PF, of up to 1536 bytes, arrive
+intact with and without this patch; the MAC does not put the header in
+front of them.
+
+This was found by the Sashiko AI review of another igb series.
+
+Link: https://lore.kernel.org/all/179551973551.3135.7270095499525377709@kernel.org/
+Fixes: 9cbc948b5a20 ("igb: add XDP support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tjerk Kusters <tkusters@aweta.nl>
+---
+The Sashiko AI review reported this on v4 to v7 of my igb Rx timestamp
+series; it is older than that series. Most recently:
+https://lore.kernel.org/all/179551973551.3135.7270095499525377709@kernel.org/
+
+This patch is independent of that series and applies on its own.
+
+At MTU 1500, iperf3 TCP and UDP from a peer run at line rate (938 and
+950 Mbit/s) with and without this patch, with the Rx timestamp filter
+off and on, and the receiver's CPU load does not change measurably
+(6 runs of 10 s per case, the differences are within the spread).
+
+The patch and its description were prepared with the help of an AI
+coding assistant (Claude). I reviewed them and ran the tests described in
+the commit message on my test bench.
+---
+ drivers/net/ethernet/intel/igb/igb.h      | 21 +++++++++++++++++----
+ drivers/net/ethernet/intel/igb/igb_main.c |  4 ++--
+ 2 files changed, 19 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/ethernet/intel/igb/igb.h b/drivers/net/ethernet/intel/igb/igb.h
+index 8c9b02058cec..74e441a140c1 100644
+--- a/drivers/net/ethernet/intel/igb/igb.h
++++ b/drivers/net/ethernet/intel/igb/igb.h
+@@ -153,9 +153,9 @@ struct vf_mac_filter {
+ 
+ /* Attempt to maximize the headroom available for incoming frames.  We
+  * use a 2K buffer for receives and need 1536/1534 to store the data for
+- * the frame.  This leaves us with 512 bytes of room.  From that we need
+- * to deduct the space needed for the shared info and the padding needed
+- * to IP align the frame.
++ * the frame, plus IGB_TS_HDR_LEN for the timestamp the hardware can place
++ * in front of it.  From the rest we need to deduct the space needed for
++ * the shared info and the padding needed to IP align the frame.
+  *
+  * Note: For cache line sizes 256 or larger this value is going to end
+  *	 up negative.  In these cases we should fall back to the 3K
+@@ -190,7 +190,7 @@ static inline int igb_skb_pad(void)
+ 	if (IGB_2K_TOO_SMALL_WITH_PADDING)
+ 		rx_buf_len = IGB_RXBUFFER_3072 + SKB_DATA_ALIGN(NET_IP_ALIGN);
+ 	else
+-		rx_buf_len = IGB_RXBUFFER_1536;
++		rx_buf_len = IGB_RXBUFFER_1536 + IGB_TS_HDR_LEN;
+ 
+ 	/* if needed make room for NET_IP_ALIGN */
+ 	rx_buf_len -= NET_IP_ALIGN;
+@@ -421,6 +421,19 @@ static inline unsigned int igb_rx_bufsz(struct igb_ring *ring)
+ 	return IGB_RXBUFFER_2048;
+ }
+ 
++/* Number of bytes the hardware can write to an Rx buffer. On 2K build_skb
++ * rings the frame is limited to IGB_MAX_FRAME_BUILD_SKB, and the timestamp
++ * header comes in front of it.
++ */
++static inline unsigned int igb_rx_dma_len(struct igb_ring *ring)
++{
++#if (PAGE_SIZE < 8192)
++	if (ring_uses_build_skb(ring) && !ring_uses_large_buffer(ring))
++		return IGB_MAX_FRAME_BUILD_SKB + IGB_TS_HDR_LEN;
++#endif
++	return igb_rx_bufsz(ring);
++}
++
+ static inline unsigned int igb_rx_pg_order(struct igb_ring *ring)
+ {
+ #if (PAGE_SIZE < 8192)
+diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
+index 131df3e09ba1..67fd24d71746 100644
+--- a/drivers/net/ethernet/intel/igb/igb_main.c
++++ b/drivers/net/ethernet/intel/igb/igb_main.c
+@@ -5084,7 +5084,7 @@ void igb_clean_rx_ring(struct igb_ring *rx_ring)
+ 		dma_sync_single_range_for_cpu(rx_ring->dev,
+ 					      buffer_info->dma,
+ 					      buffer_info->page_offset,
+-					      igb_rx_bufsz(rx_ring),
++					      igb_rx_dma_len(rx_ring),
+ 					      DMA_FROM_DEVICE);
+ 
+ 		/* free resources associated with mapping */
+@@ -9225,7 +9225,7 @@ void igb_alloc_rx_buffers(struct igb_ring *rx_ring, u16 cleaned_count)
+ 	bi = &rx_ring->rx_buffer_info[i];
+ 	i -= rx_ring->count;
+ 
+-	bufsz = igb_rx_bufsz(rx_ring);
++	bufsz = igb_rx_dma_len(rx_ring);
+ 
+ 	do {
+ 		if (!igb_alloc_mapped_page(rx_ring, bi))
+
+---
+base-commit: cc7fe6e741730fef549e484379281736d32746f0
+change-id: 20261127-igb-skb-pad-8d96ea0a6e05
+
+Best regards,
+--  
+Tjerk Kusters <tkusters@aweta.nl>
+
+
