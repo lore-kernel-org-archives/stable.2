@@ -1,64 +1,71 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795805906;
-	b=f7U20rDtaIEt9ZSkZQrVw7zVr7tYn6ytwxP6uj0NsLiVeX9t1qqHHQ/sDt3E2j8cmjxQ
-	 qO4uduoDUmy4HpQEDABpcy/OiX0/Y+Yy48P2aTMo+a2ALuucoTxBA6dEL+tZqwRoydkzu
-	 XnFownEmghcltcO5b/TEBTcrhxJddLksSWV6fw9zYM1BEKKsHm8X7x1FtV89iJEQSW7uT
-	 PHoo4jNzAVKMxBLHZe/jQoopO4B9qGPCEsXsMsImRSurCLucmxJk5VxCVIZZebsE1BbsI
-	 ZTI3axjUGe4yvwpgrNqkeUxK+5rwjjOoLB9TiSHr+jZa/X96oYWwQIXZq2S4+uNEpPA==
+	t=1795805907;
+	b=ZaQVAzVk/1lEoch10Pgffr1T8jly+AUCDXmDHHhFU7gkOlCh1/OSjFg+1QtQbhX0H2Jm
+	 Y1mzVsHY3Idf1D67NU1RqSUFSrS4hF5/dpU+zUi5qTNI2a0lkCKHqAGD0po0mSZkpRDj9
+	 xyj34aSjoOjpLfaZEssljCu2cv665oXwic7i2A8vX0fKZExwxMb7/Avv9LMe1emRiTwfU
+	 4YnomD9qVzDEpLj6M2g92o1GBWWUE2W7qfvZ23rwQCXTlMwkjhScP/dQ47/Qm0Z88eK++
+	 3QWUqvlaFrPTLBQde9x510gq+BomNrU+oNiM1fECULi2asSwR8Y/4ZecoDUWnXf2/qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795805906;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795805907;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=MfSMwXSAWBd4ItZsKrFa1iXIKNYRq7JCuBaisKgh7Hs=;
-	b=i11IbIUVrc/ZYopA9af2wqVh6dZmCio89peLuAwO5sJgsHIu5kYVq+3VVtmhJ1ZrnZgD
-	 AUkcBUWlfMcCXDMlm+aEziF+OrbGdx2LQ+YVxjr5K4OZ8ga8D2mAyvvGgyfME0lDiQ2LZ
-	 Zkh8lZuSD1hzdB9ol66HVyRW5p4A4xkfIWvNWzI0BSqyesN74TnMYM52jQRp0QnJgPkp1
-	 T+pt9RGkOisMyCBv1ec6xtZivQ/Gbo5BxxMn6RUQvsgx0RLefgWxbtN3yfPC9VqjndqJl
-	 RbEPJS1FswTlWG4BZtFzY6/PFX5X4ZL7fC6sHkjnl8TKyNE6r/83PR7wOc9CdouFuPA==
+	bh=V6G0bPzKPqW9y5CcOLYbTf+p7g3V14XBJCbAwz7OwwM=;
+	b=mtat4LAnbnKl4Kx4t1W5qaEnO7VUYtIY5mEARI/qpXsxscU16Ou1+lnZqWQUDnazX5pZ
+	 ONsWnpksIwXbpzYWmjaUiiJtATVXar7OaRv2MoRmQKH5jLLL+OoTQLcxIg5n5gxf1N/XR
+	 bgLG8U+MwpwpZxRqLkRKOntW5uIjNeK72l7C+wTSa0WUHz7JoQd1cKptVwp+JCrZ19cov
+	 gUIjo8a4M/H3LC4HWOqcNHWn891w4fvB9f2MwdNVsSAi7RWgpJj/vHDz7lT7EiPtjYWmk
+	 KY3KWWJkJXxCsK/DAL3BqRjj0OzcOnUUQH3znZCmSoymKlFB66EGWmeFv1uzLgNtp7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=OPlFvYzz;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=FGolAFoD;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481F9606A33F;
-	Fri, 27 Nov 2026 18:58:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 481F9606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5FD606A31F;
+	Fri, 27 Nov 2026 18:58:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC5FD606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=OPlFvYzz
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=FGolAFoD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1795805904;
-	bh=MfSMwXSAWBd4ItZsKrFa1iXIKNYRq7JCuBaisKgh7Hs=;
+	s=smtpout1; t=1795805903;
+	bh=V6G0bPzKPqW9y5CcOLYbTf+p7g3V14XBJCbAwz7OwwM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=OPlFvYzzl3RmkV8UMP+tCuHl/Mi7Vj3h4K72V4BBi8JAUkJj+qnDr5SZL0md5zT1X
-	 e2vF0H7dHrA2TeAUNQHK6xQupxtCFdsspq4XbF13ymRy3qwaLR8JtCEIxM/H9G8RUQ
-	 R7gfEP3HPdhLkJJnZOYVhbGdO4Sa7srSKOjtG8sjJIjzfa9yidQk4oVIIse5sEpW9a
-	 xVCjB00i08USYHQnXLG4/PMm8EqYubua7yhlvBswwNcO3J9UfDVnOjMz2lEvFZQLXx
-	 ezW6PVhhstByCqxnPj/yyVepBgZFqvHDyxSZ0AmOkah+JpXhpXyXF1vuOMOEI94hUc
-	 2CJ5Wo4650h6w==
+	b=FGolAFoDgZU3DzGicV8Vc1sZFuagZFesnIEf9vV+p90etSxy2YCaTqcZwHe3ks2im
+	 pDnr8l/fR31m/VL0TFlWBUE092LQNHxqUsHgwopB3/6njtTbxJ9mIcCPE9s6r35J8f
+	 uZc3M5xrLjnPftllFAB97SK8q7axm8WCGo8YBXL+6mEKkytu6AiSe5OX5H6bu1e+SY
+	 9LL4YvJOExHU/G1OMJAbXHryZQdDmr1Ub9FhWCV+0zcyeENFvIyf7GUcAV0eMWtwiP
+	 sZI17CgT/svkJk8omXT3FJIds82N7M7WVofg6UQQ5Fp9hXuyxTSbO4IiYS47cUMSZO
+	 okbE57SGRMxbw==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jbjNw4MTyzXWx;
-	Fri, 27 Nov 2026 13:58:24 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jbjNv6FPxzXFq;
+	Fri, 27 Nov 2026 13:58:23 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: Peter Zijlstra <peterz@infradead.org>,
 	Ingo Molnar <mingo@redhat.com>
 Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
 	"Paul E. McKenney" <paulmck@kernel.org>,
-	loongarch@lists.linux.dev,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Michal Clapinski <mclapinski@google.com>,
+	Andrei Vagin <avagin@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2 08/16] LoongArch: membarrier: Add full memory barrier in switch_mm()
-Date: Fri, 27 Nov 2026 13:58:13 -0500
-Message-ID: <20261127185822.158216-9-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v2 02/16] sched/membarrier: Report only completed registrations
+Date: Fri, 27 Nov 2026 13:58:07 -0500
+Message-ID: <20261127185822.158216-3-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261127185822.158216-1-mathieu.desnoyers@efficios.com>
 References: <20261127185822.158216-1-mathieu.desnoyers@efficios.com>
@@ -73,129 +80,97 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The expedited membarrier commands need a full memory barrier after
-the scheduler stores to rq->curr, before the CPU returns to
-user-space. membarrier() skips the IPI to a CPU which it sees running
-another mm. This barrier orders the user-space accesses of the
-incoming thread after that check. See scenario (A) in
-kernel/sched/membarrier.c.
+MEMBARRIER_CMD_GET_REGISTRATIONS returns the registration commands
+which the process issued.
 
-LoongArch has no dedicated barrier. It used to get it from
-spin_unlock() in finish_lock_switch(), which was a full barrier
-("dbar 0").
+Each registration has two state bits: one is set when the registration
+starts and the "ready" one when it completes. The command reports a
+registration when either bit is set.
 
-This is no longer true. Commit e031a5f3f1ed ("LoongArch: Support dbar
-with different hints") made smp_store_release() an ordering barrier
-("dbar 0b10010"). It does not order a previous store with a following
-load. That commit kept a full barrier in queued_spin_unlock(). Commit
-9c68ece8b2a5 ("LoongArch: Define the __io_aw() hook as mmiowb()") then
-removed it.
+The sync core and rseq registrations also set
+MEMBARRIER_STATE_PRIVATE_EXPEDITED, without its "ready" bit. They set
+it because their commands need the same scheduler barriers as
+MEMBARRIER_CMD_PRIVATE_EXPEDITED. So a process which only issued
+MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_RSEQ is reported as having
+issued MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED as well. Yet
+MEMBARRIER_CMD_PRIVATE_EXPEDITED returns -EPERM for that process.
 
-Nothing else is a full barrier on a switch between two user
-processes. switch_mm_irqs_off() writes CSRs and sets a bit in the mm
-cpumask with a plain "amor". finish_task() uses smp_store_release().
+A registration which failed with -ENOMEM would be reported the same
+way.
 
-The LoongArch manual lists the instructions which order memory
-accesses: DBAR, IBAR, the AM*_DB instructions and LL/SC pairs. A CSR
-write and ERTN are not among them.
+User-space gets a wrong registration mask. The command was added for
+CRIU, which saves the registrations of a process at checkpoint. A
+restored process would carry a registration which the original
+process did not issue. A program which trusts the mask would issue
+MEMBARRIER_CMD_PRIVATE_EXPEDITED and get -EPERM.
 
-This was found by reading the code and the architecture manual. On
-Loongson-3A6000 or newer, a thread which is scheduled in would run
-user-space code without the barrier which membarrier promised to the
-caller. User-space would see a memory ordering failure: the caller of
-an expedited membarrier command would miss a recent store of that
-thread. Older processors treat every dbar hint as "dbar 0" and are not
-affected.
+Fix this by reporting a registration only when its "ready" bit is
+set.
 
-Do as powerpc and riscv: add membarrier_arch_switch_mm() and call it
-from switch_mm_irqs_off() when the mm changes. It issues smp_mb()
-only when the next mm registered for an expedited command.
+This changes the mask which user-space reads.
+MEMBARRIER_CMD_GET_REGISTRATIONS no longer reports
+MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED for a process which only
+issued the sync core or the rseq registration. The result of every
+other command is unchanged.
 
-Compile-tested only.
-
-Fixes: 9c68ece8b2a5 ("LoongArch: Define the __io_aw() hook as mmiowb()")
+Fixes: 544a4f2ecd45 ("sched/membarrier: Introduce MEMBARRIER_CMD_GET_REGISTRATIONS")
 Cc: stable@vger.kernel.org
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- arch/loongarch/Kconfig                   |  1 +
- arch/loongarch/include/asm/membarrier.h  | 33 ++++++++++++++++++++++++
- arch/loongarch/include/asm/mmu_context.h |  4 +++
- 3 files changed, 38 insertions(+)
- create mode 100644 arch/loongarch/include/asm/membarrier.h
+ kernel/sched/membarrier.c | 29 ++++++++++++++---------------
+ 1 file changed, 14 insertions(+), 15 deletions(-)
 
-diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
-index b5ed4881d3c0..be6e7545d646 100644
---- a/arch/loongarch/Kconfig
-+++ b/arch/loongarch/Kconfig
-@@ -22,6 +22,7 @@ config LOONGARCH
- 	select ARCH_HAS_FORTIFY_SOURCE
- 	select ARCH_HAS_KCOV
- 	select ARCH_HAS_KERNEL_FPU_SUPPORT if 64BIT && CPU_HAS_FPU
-+	select ARCH_HAS_MEMBARRIER_CALLBACKS
- 	select ARCH_HAS_NMI_SAFE_THIS_CPU_OPS
- 	select ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE
- 	select ARCH_HAS_PREEMPT_LAZY
-diff --git a/arch/loongarch/include/asm/membarrier.h b/arch/loongarch/include/asm/membarrier.h
-new file mode 100644
-index 000000000000..1789f878821f
---- /dev/null
-+++ b/arch/loongarch/include/asm/membarrier.h
-@@ -0,0 +1,33 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef _ASM_LOONGARCH_MEMBARRIER_H
-+#define _ASM_LOONGARCH_MEMBARRIER_H
-+
-+static inline void membarrier_arch_switch_mm(struct mm_struct *prev,
-+					     struct mm_struct *next,
-+					     struct task_struct *tsk)
-+{
+diff --git a/kernel/sched/membarrier.c b/kernel/sched/membarrier.c
+index cb957b8f1946..46e823a3d668 100644
+--- a/kernel/sched/membarrier.c
++++ b/kernel/sched/membarrier.c
+@@ -566,15 +566,17 @@ static int membarrier_get_registrations(void)
+ 	struct task_struct *p = current;
+ 	struct mm_struct *mm = p->mm;
+ 	int registrations_mask = 0, membarrier_state, i;
+-	static const int states[] = {
+-		MEMBARRIER_STATE_GLOBAL_EXPEDITED |
+-			MEMBARRIER_STATE_GLOBAL_EXPEDITED_READY,
+-		MEMBARRIER_STATE_PRIVATE_EXPEDITED |
+-			MEMBARRIER_STATE_PRIVATE_EXPEDITED_READY,
+-		MEMBARRIER_STATE_PRIVATE_EXPEDITED_SYNC_CORE |
+-			MEMBARRIER_STATE_PRIVATE_EXPEDITED_SYNC_CORE_READY,
+-		MEMBARRIER_STATE_PRIVATE_EXPEDITED_RSEQ |
+-			MEMBARRIER_STATE_PRIVATE_EXPEDITED_RSEQ_READY
 +	/*
-+	 * Only need the full barrier when switching between processes.
-+	 * Barrier when switching from kernel to userspace is not
-+	 * required here, given that it is implied by mmdrop(). Barrier
-+	 * when switching from userspace to kernel is not needed after
-+	 * store to rq->curr.
++	 * Only the "ready" state tells that a registration command
++	 * completed. The other state of each pair is not specific to
++	 * one registration command: the sync core and rseq
++	 * registrations also set MEMBARRIER_STATE_PRIVATE_EXPEDITED.
 +	 */
-+	if (IS_ENABLED(CONFIG_SMP) &&
-+	    likely(!(atomic_read(&next->membarrier_state) &
-+		     (MEMBARRIER_STATE_PRIVATE_EXPEDITED |
-+		      MEMBARRIER_STATE_GLOBAL_EXPEDITED))))
-+		return;
-+
-+	/*
-+	 * The membarrier system call requires a full memory barrier
-+	 * after storing to rq->curr, before going back to user-space.
-+	 *
-+	 * Nothing else provides it on this path. spin_unlock() and
-+	 * smp_store_release() are ordering barriers ("dbar 0b10010"):
-+	 * they do not order a previous store with a following load.
-+	 */
-+	smp_mb();
-+}
-+
-+#endif /* _ASM_LOONGARCH_MEMBARRIER_H */
-diff --git a/arch/loongarch/include/asm/mmu_context.h b/arch/loongarch/include/asm/mmu_context.h
-index 304363bd3935..dba62dd7a131 100644
---- a/arch/loongarch/include/asm/mmu_context.h
-+++ b/arch/loongarch/include/asm/mmu_context.h
-@@ -9,6 +9,7 @@
++	static const int ready_states[] = {
++		MEMBARRIER_STATE_GLOBAL_EXPEDITED_READY,
++		MEMBARRIER_STATE_PRIVATE_EXPEDITED_READY,
++		MEMBARRIER_STATE_PRIVATE_EXPEDITED_SYNC_CORE_READY,
++		MEMBARRIER_STATE_PRIVATE_EXPEDITED_RSEQ_READY
+ 	};
+ 	static const int registration_cmds[] = {
+ 		MEMBARRIER_CMD_REGISTER_GLOBAL_EXPEDITED,
+@@ -582,16 +584,13 @@ static int membarrier_get_registrations(void)
+ 		MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_SYNC_CORE,
+ 		MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_RSEQ
+ 	};
+-	BUILD_BUG_ON(ARRAY_SIZE(states) != ARRAY_SIZE(registration_cmds));
++	BUILD_BUG_ON(ARRAY_SIZE(ready_states) != ARRAY_SIZE(registration_cmds));
  
- #include <linux/errno.h>
- #include <linux/sched.h>
-+#include <linux/sched/mm.h>
- #include <linux/mm_types.h>
- #include <linux/smp.h>
- #include <linux/slab.h>
-@@ -91,6 +92,9 @@ static inline void switch_mm_irqs_off(struct mm_struct *prev, struct mm_struct *
- 	bool need_flush = false;
- 	unsigned int cpu = smp_processor_id();
+ 	membarrier_state = atomic_read(&mm->membarrier_state);
+-	for (i = 0; i < ARRAY_SIZE(states); ++i) {
+-		if (membarrier_state & states[i]) {
++	for (i = 0; i < ARRAY_SIZE(ready_states); ++i) {
++		if (membarrier_state & ready_states[i])
+ 			registrations_mask |= registration_cmds[i];
+-			membarrier_state &= ~states[i];
+-		}
+ 	}
+-	WARN_ON_ONCE(membarrier_state != 0);
+ 	return registrations_mask;
+ }
  
-+	if (prev != next)
-+		membarrier_arch_switch_mm(prev, next, tsk);
-+
- 	/* Check if our ASID is of an older version and thus invalid */
- 	if (!asid_valid(next, cpu))
- 		get_new_mmu_context(next, cpu, &need_flush);
 -- 
 2.47.3
 
