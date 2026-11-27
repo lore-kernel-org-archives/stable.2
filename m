@@ -1,49 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795769407;
-	b=2Zong9IOj3tWNGyHZNLbpGl/VDhGWWSzwHDNEWd6o3q0Vpa53sjafrlY58236qHu6EQF
-	 BxxyCk/cbiaJRvB6pdM2c9LI9nSpCwvpFU8xNRkZ3TWPLHXKsDkbrDZThSBr0zVoBs6cA
-	 zg467YU6Ox7Snm77EV5vf3f4n85HhV0TBqFghvCz9JlinyKPLjy0nDu/DZpPlPkRfoKn0
-	 eyiW3w1vq1EjmJ5SXshHRLrzj4rDXPh36Pe3pHaPHDYuJIZYeBzNwr0iI7YSKYgoPmPK7
-	 zPeHoTECqEJvlfebKAoViTzo+Vf90Gc96ZAZoaBueZeafQKUkF78wq2Wn7xwEMbuTSw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795769407;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=FwpufZCw+Xn7S9e1kafrdEzrsvtMwbuoxI1+UTWoOug=;
-	b=5mG6c+lqWC2EmP+LCSR94sqdw0TgIrti7v1e4ht2nVsWlKCY3Zr80KEr794uOEnNSFnW
-	 yypAR9kfeCRk7ESRh6CXen4nRK+xrHuqRzTGtan9Q7cgrckmGaRf3R326rH7RQLKC0r10
-	 avfKpmgJETQ21UOpp8JKT0/nsHbMVbdnpUCAj2MnCny7oqoBJ19DwRqcwy9w14XoOKsb3
-	 2XU5Hb4fzm8femP0gP8PkasCaxo456sAlQqwAsBBcm/cLjeR95ojpENkZnln5159dQ2g0
-	 lCOsa1QV9zm7zt/MwOoPeZUX+z0dYmrBbYatmLIo9keTGMIFvjBtCv8c5cVrMyZnTcQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HMsmkA6X;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795769418;
+	b=X2wMxuiO0ntZDh6b3lVi12Bc3SmDa3Oh/nnJ1G4FgYH+9t2gddnYLiIryIsgcfvbdOUv
+	 RX6wvVo9F5sGb/DrmXJt8eInD4jnzj1qoiq8zHm1eedEmvb0FKz7bdX7Owr+dUArM5LGe
+	 uNG0k8+AVuE/tSq7S2isZFOLVY5fbVGwri0s9e29RFoSMExfVihkwYR1ai9iMayyAQAMX
+	 uyE834y2iWrkM44q2gXmGyxjnlPWzhVE8OW3mANlopAXD9v04A1uE3Hrf/NGVzjwJGzW8
+	 kzCWA5oRxsZLgzmr3+Xsk8nJ/Y4Zzle5x2v/47EXyakkAar1pLAeDW0TG+xC0MT/6OQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795769418;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:MIME-Version:
+	 In-Reply-To:References:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type;
+	bh=1nkmCbt89mOXVsYZ+bIViUrNgUgYNTWpmaoubmDL04k=;
+	b=nxtBVdB287PMYAt/lnBLstgi/WAWqox9z0dfhHUPYb+Tvyn2GQimmmrJiUlxLGXyU7J8
+	 r6pxoleusothTvG+pePJ+qj1grhm+SH3KE8uUuVXo6oaQrexz39Vlf/C1Ckk8sKF0Vro2
+	 bZkFdf2/2PFe8cMfw5b3I96xcpU0BWvd+326qRrNBk05yORTgiGm34PxK+RMhXuwCCWmS
+	 dkuRXI/csU91LCb1Biv3MDUhydGCdHDSm5RERUhwBMzynsO7nlwWB3vzipzS/ZdYdtVY4
+	 LUeTpxbY8szsuTIH5OKUqJEkcBQCLslfO9C9PgMftzOtyf/LWHPcbYqM9eDUqjQjILQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=certik.com;
+	spf=pass smtp.mailfrom=certik.com;
+	dkim=pass header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=hFaLEwnM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.42
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79534606A324;
-	Fri, 27 Nov 2026 08:50:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F88606A688
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 08:50:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38F88606A688
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=certik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=certik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HMsmkA6X
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5E21F00898;
-	Fri, 27 Nov 2026 08:50:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795769406;
-	bh=FwpufZCw+Xn7S9e1kafrdEzrsvtMwbuoxI1+UTWoOug=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=HMsmkA6XbVmrn2kxU+d+0yAtYT0iKjQD6V8KS8PcsYgFSoDUkrTEx+em15W/0qX8D
-	 uDjccSRcLp14MyJDJcSWiLMd93pEgWMYcsDFudalrBWOt3x/o2yZYbsfLNu9sNBu8j
-	 bL8F2mTLesXQ0uTC1VidPClAHvYfnd9R5qWgMNvBXxKL/MEktT9vY8rO1zWYvjzvkD
-	 astlmh2QgHSDEAvbKz5Z6V9MECZQrTYhD5cEnG/3A0Gv5qDv06IE/a6w585kfqqC57
-	 A8FUAlqiJcDxypkIuvPwU5TIKrLkbpQqcKMAoH3YHXe/2RWIkI39vXJxwMcexixfJP
-	 bXKJcKzTaZhMg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 718E5380044F;
-	Fri, 27 Nov 2026 08:50:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key, unprotected) header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=hFaLEwnM
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-67da69e7c31so8530285d50.3
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 00:50:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795769417; cv=none;
+        d=google.com; s=arc-20260327;
+        b=G7xGPbuQ36a64ZaYhkvQqB2uKaIJ1dvT8/ISnN4NJBms80lpnRl4JizTpKUYmmlN1D
+         +dygEh/UZiWXTSIE6dQnHe608hABeD2txRV0nYHIDSgWhxPlsJVfR279XqGyajfRZdY3
+         kkks16wLuI2hFGwyiTOdVNe613aYPWVuw0DqcXx3GvVM62SAdE0gZUeVvW9yF64DswSy
+         hTWJzmEP3Ir4lNbLDZpv29yg/Qp2TPS4b9VYcPTKm6gSJqkqvMVH47IRFumPhW4c6/Uy
+         sWUWr2LZ5xHlD7lT+iQ3hOmzc1xf+Gnj33oUN7kYZT+ZTu0Mf/PED9znkKLXzvNQVlUC
+         ++aA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:references:in-reply-to
+         :mime-version:dkim-signature;
+        bh=1nkmCbt89mOXVsYZ+bIViUrNgUgYNTWpmaoubmDL04k=;
+        fh=jQFHF6sZb7lePkUMHOV2HGjT1sGUBL5aHicLHIgGdX0=;
+        b=ipOa36d5jk6tx7PxC4pJiaX0nQR5KJxINjZZ3wskixY4T3s753LAIDhgR0Q/TjukpJ
+         AJnb6o0fbbtFXhwt5kJthmdhaGJ5aGyXvOEyQ3bF6UlkztKizKiTCE33oYO0AcbeqTO5
+         G26+rAGuk1egSBozaC7sbVs0dm6VCJmeQiOrWPnyG/qRPh+ROjkmTpAQkEZb51D19dKE
+         xe2I0/if1C6eV0SecHAn9V89sBCxOM0xJ6LUbmX/8McSYRC4KPFyLDdWcRYboaUIT/5I
+         tht81/Cw02nxeN03x7ZuU9MKL9q1V1n/tKWTI9LDowBT4mF0Mg9624aAfLwE/DqM+qkt
+         GOxA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=certik.com; s=google; t=1795769417; x=1796374217; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1nkmCbt89mOXVsYZ+bIViUrNgUgYNTWpmaoubmDL04k=;
+        b=hFaLEwnMzhXcGovvL0mg+lbdY9/lem7uqjl8y7WuF8N4rduwhcD1s2bXEq05mmniKL
+         1a9imE84VVSqBBqQQL/wCKixAU1LL3TQFqgOIkkwGa61usurF0HKwngfzmm0jCeeaPk8
+         OBF2r4ZwDxLLrTe//+fwuEx1tSI9+BLRcCCns=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795769417; x=1796374217;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1nkmCbt89mOXVsYZ+bIViUrNgUgYNTWpmaoubmDL04k=;
+        b=qRMIu8gCi/WqctFaWAp8+lMI0NKAW5RrYue+g3JAMU+fe993QpCpmXW/T9ggLrwcrq
+         E3NGLrWVraVhbDNNXKIfh2ATQ1WeU+gphbAYZNFxZWzb0u5RmwVdtIIRwAuhEgXlVUst
+         +b7vq1kab0oqJVLcRTeb7mGPHCRoDhgq7pRUSZrvgmkollOC2oZnTSN1OH4+CW5ZZWuh
+         095vsutZbTucxffELqwkIfxFotuJJ7WoFSEAAt59dPdv3VTUs+MSG5eJqiTiRiTzAfye
+         fWMOalXed/xowdLI+BnhqaBmuziw42dyVzRKmjjTgEighgu0Ak76xfL7R38Y0nUL8z1K
+         wfWw==
+X-Gm-Message-State: APuU4Z/u3CsfrJaCOB7PsTUgQkexdQkwbt4tMN3n5QNSoeuFRpnOuuKa
+	Y4xSuYmUqA04IlfkCHMrlT22gY43TaGn+L/WiMgi+AwSDob22uKLKl4BsKqC0W/0seABvWaLyfb
+	/D8I2wQQ7SKU+py8AUCRy9hcjTDRn+gUipLV+0kRrwCvBO2RTMt2X6RPpXQ==
+X-Gm-Gg: AZFdTZe0jKWMrqQcq7zNrbqyJ9HiCMOCuxhVflFFwnx8M7g8PD8fxJ2/JqHaRE1oeWZ
+	o0DAlShkxetYys/ulJtct+DG4due31IFFc8ay756txT09DX1XlCWLhrEQDKjRbzIsx2hNlDT/g2
+	+DDyFrXGIulyhCQepXBFKftabXOCLFIxLttolgUN3ykaex3TK8n1IdTJe4Y1bGRUomruGXMGSBz
+	JC4ECkF0HtsvPqll58qBaayA2QW5oI1XOj7L5ap2FRt2PjrHC/Eu9c3GJYyPHH+2UlVOir0iJWl
+	xDP2Mby4E7g1cF4l94D47YwkGnNzym19zw9loCVE/+YjCvxZawDU/SCqjRIy5foNYKdhE79Ja7x
+	IPCVn3wXPvUM+RH2iJL3Zls7D7GvPzpVRlmK4lhUasyRn+rgmhki5dLX3ake71YyfM8mSBWj/cF
+	9N9SVZ2PP3zYud31AI9NF1n2Bef7dUxG3BUGP/fflAvUyggugoS5Zt5/YEESdaDuBY6ymQFFQkx
+	CTZd1+6dq4hXnZnoQO8s1mTLdzHCZfl/9iR
+X-Received: by 2002:a05:690e:4002:b0:67d:e75f:1219 with SMTP id
+ 956f58d0204a3-67df44d750dmr10295274d50.87.1795769417217; Fri, 27 Nov 2026
+ 00:50:17 -0800 (PST)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Fri, 27 Nov 2026 02:50:16 -0600
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,49 +103,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net 0/2] ipv6: fix IPv6 scope check of the source address
- in a VRF
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179576940525.841859.12748371355867383566.git-patchwork-notify@kernel.org>
-Date: Fri, 27 Nov 2026 08:50:05 +0000
-References: 
- <20261123-for-upstream-ipv6-vrf-saddr-scope-v1-v1-0-f667ab150ade@free.fr>
-In-Reply-To: 
- <20261123-for-upstream-ipv6-vrf-saddr-scope-v1-v1-0-f667ab150ade@free.fr>
-To: Vincent Jardin <vjardin@free.fr>
-Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, willemb@google.com,
- horms@kernel.org, nicolas.dichtel@6wind.com, shuah@kernel.org,
- netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- stable@vger.kernel.org
+In-Reply-To: <2026112723-jogger-splice-ce25@gregkh>
+References: <CAFaZ9eogwNaXVeVhOrtz9montDVg6G8zYR8rOGdpZr26nHFO-A@mail.gmail.com>
+ <2026112605-alias-passion-6781@gregkh> <CAFaZ9epm3Tcuz1Fs7wSOqECzZbwdwEYmwSxwUM72jPMZKZArvA@mail.gmail.com>
+ <2026112723-jogger-splice-ce25@gregkh>
+From: Dickson Wu <dickson.wu@certik.com>
+Date: Fri, 27 Nov 2026 02:50:16 -0600
+X-Gm-Features: Aa3M54pQVGXii3tmxYaC79h27nvtIxMZ-_g64TL1BA38Z4_z863HNZvJOTVri2E
+Message-ID: <CAFaZ9eqpPdQ3fiu=gO28rJY48Jh9SqiRxdpXYtBzB5hcoGH7Nw@mail.gmail.com>
+Subject: Re: Request: security fixes for 5.10.y and 5.15.y
+To: Greg KH <greg@kroah.com>
+Cc: stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hello:
+On Fri, Nov 27, 2026 at 08:05:12AM +0000, Greg KH wrote:
+> Thanks, but as both of these are going end-of-life in a few days, and
+> the final -rc releases have been sent out for them, they are not going
+> to get merged. Anyone still running these kernels should move on to
+> newer ones now.
 
-This series was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+Ah got it, thanks for the heads-up. I'll stop sending for 5.10.y and
+5.15.y and stick to 6.1.y and newer
 
-On Mon, 23 Nov 2026 15:30:42 +0100 you wrote:
-> When a packet is sent through a device of a VRF, ipv6_dev_get_saddr()
-> first checks the addresses of that device and of the VRF device,
-> and stops when the best of them has a scope that fits the destination.
-> 
-> Since the commit abb9a68d2c64 ("ipv6: take care of scope when
-> choosing the src addr"), the check reads the scopedist of the best
-> candidate, which is an issue:
-> 
-> [...]
-
-Here is the summary with links:
-  - [net,1/2] ipv6: check the scope of the best source address candidate in a VRF
-    https://git.kernel.org/netdev/net/c/b026cc5ce2f1
-  - [net,2/2] selftests: fib_tests: test IPv6 source address of a VRF
-    https://git.kernel.org/netdev/net/c/c83fc88d628f
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Best,
+Dickson
 
 
+On Fri, 27 Nov 2026 09:05:12 +0100, Greg KH <greg@kroah.com> wrote:
+> On Thu, Nov 26, 2026 at 10:57:03PM -0800, Dickson Wu wrote:
+> > On Thu, Nov 26, 2026 at 12:59:23PM +0000, Greg KH wrote:
+> > > Same with these, please provide backports that you have properly tested
+> > > and signed-off-by on.
+> >
+> > Will do, thanks. The netfilter one is out now as a tested backport with
+> > my Signed-off-by:
+> >
+> > 5.15.y netfilter, a81047154e7c:
+> > https://lore.kernel.org/stable/20261127-so5-nf-515-v1-1-ce02c323f842@certik.com/
+> >
+> > I rechecked it against v5.15.226 the same way (SHA reference, patch-id,
+> > subject, and later reverts in mainline), and it isn't in yet.
+> >
+> > The other two:
+> >
+> > - dmi-sysfs 18e126e97c96 for 5.10.y: dropped. Getting it right on 5.10
+> >   needed new lifetime handling that mainline doesn't have, which is too
+> >   much for a stable backport.
+> > - arm64 ptrace pair 88b839ce497c + 5306f124f317: on hold. 5306f124f317
+> >   was only queued for the newer trees this week, so I'll send 5.10.y
+> >   and 5.15.y once 6.1.y and newer have it in a releasea
+>
+> Thanks, but as both of these are going end-of-life in a few days, and
+> the final -rc releases have been sent out for them, they are not going
+> to get merged.  Anyone still running these kernels should move on to
+> newer ones now.
+>
+> greg k-h
