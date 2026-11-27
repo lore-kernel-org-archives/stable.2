@@ -1,55 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795775134;
-	b=CYugLaeMjYFcj2HUfzOYS+r4oZi1e90Ifn5Ivzmkalz51sp4N9aJOPvlfp4bhiqAzqxP
-	 TgA7/0ff1Ov/FsN+Ir75QJutY9MDwhUVpKW8nXd1crpBa+zGlIfUbJCSL+odmo//agUYj
-	 hdHh3N6SjLDh5JNXvJ/0MA6D5v8H4cH3ArWZRLs5V47W+kIQRa4KLHCprFoM8RuG3ZKwe
-	 7M0ui3VymWuPDGaxJPeYJQcnXSrZgVQ7qzNv45aUgGMOZB4ZS8aM9rangcrcT8J9dhQrQ
-	 U0yBqMVelbmIffzg9XWzw3I01rINBh/C406wnjFYsT/M+gkKzcQWMEQSwkHDygiU9YA==
+	t=1795775443;
+	b=s1ZaZKtjcyKuOQ0VZaz9nHgF5h/7aCYYNBbOfTO/EI7H5VWgUW8gwJs72JmuxN+zDv5s
+	 pp7jPIDseu9Dm1ayaTQ1CV4TLd+cGpZXnLhZ6N8fodtUSW2YBD784NCBlhoIoPI8BPxsA
+	 YppELl6Zu1GsRSsiP5l4OXdPWZ725UgnbZ115RApcOc7VxtBf5A6tnIHJ/Eexuz7HvWDA
+	 lYAYJfo3XhIpPBzgl2yTt0BFMY1l55YDQykfc7ogw02D2iFJBl/yeD0NaXbnbBM9FlT3Q
+	 3g19Gtb8RKHFZbptqw0U4oOoPZXGwGa3apxNKcEdciWiIULzx3ybr8wYPVoXwGObWyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795775134;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=cqrCtQ+crZqq5Hl0OWUmOQl8evhsbaMGP9KCXVs5fc8=;
-	b=ZYGDcvJtSky2o4CkxOB+H7Ov17VJRv7h2yRdYM6J0POI2llbynFNxLqI1QWvg8mQcRXx
-	 Z6Hd/2dymeoavZUchtAn3argRXD88jHu1C30Zdi0vSfi0ELAyY7a8z5kg4Lab+YfQ7g0T
-	 pNxof9a6O9q/y6Vn473b5JoqAuGMrfcWtPMIp1YkwqPergCILio/XooEVNxZbKNhCSPaA
-	 lUVsRiHzUWFGLq0qgozK1d+NeN5D1doNejOAGSxB6dIdYixdASJNbRyHc1Uo1KH6k/cOh
-	 ZKZBYx5sm+SmLRiB9mEjxv+eKiZzUjrmUt0cudW7+6aJsR8I7Aysa1WIN8p7hWIVyWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795775443;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
+	 X-MBO-RS-META;
+	bh=R1bwRJul72ZLviTaCPZunjtVUaFqJfdRWa3psjhNQOw=;
+	b=MpmAVwhBZWvdHOpklGnhwfV6i6BRDQLU1mS/m6tnbBTZ67pDVjuqEaTb/9Smk6dcXbNu
+	 p9Jtlf6p9HE22ZEIsODpALrm7IlhluVNkcSoQVV30BjpSq0K5P+Ao4exY7o20L7/VZmHf
+	 0K0BR6Um9aJE0fiJ3Yn23ThQkRCf7V05DiEOPwMA1qdxuHIQze0JWX8thHaFAwTjQzGdb
+	 ky8tU8GoI6GDoK3B61qB41OYtviwsfR10TDnBjC6P26tTwO1TO4C80rVwLbEvLz4UWBNl
+	 ODtf7y6Sqz1W2vYkgjFKoLkrbVpJjNWBZ84ElorEMKbIsMDyjVV3d4ytox4QWh1JIPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gqClurjm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=EI0Z9TmD;
+	arc=none smtp.remote-ip=80.241.56.151
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF43606A31C;
-	Fri, 27 Nov 2026 10:25:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA24606A338;
+	Fri, 27 Nov 2026 10:30:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BA24606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gqClurjm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 778471F00897;
-	Fri, 27 Nov 2026 10:25:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795775133;
-	bh=cqrCtQ+crZqq5Hl0OWUmOQl8evhsbaMGP9KCXVs5fc8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=gqClurjml9seBU1xNL1zqZ4uzDStIMLehmpB+cej0+4cKs82+vSC9/C8tY7OQp5Tj
-	 NgpCAtm2ai8FJ+WQvovJBFlLLlcQg+lAZbyE+/9O+reVV7ENvKO9c3qivCaMB6sfw2
-	 ddElOIehHuX8t2aUZjWpRXICBlq0g3dUKc0RdvJzQdHNo6ZFDR2ep4Gatb43Ilt+qi
-	 f5d9JTWHN6my3TfO8Lsso3nEmgJKo7niHutFwhzpwqC/WWvRWSuUvjMl5JQPrw6nqv
-	 5JPAxN4PPPRMZr2+bILO2+Rl+ktGmfqfkMI0DvgHKITomcCuPc5mn2aIdqiMlLXy/a
-	 6EAluObFoESyw==
-From: Niklas Cassel <cassel@kernel.org>
-To: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>
-Cc: Mohammad Harsij Sani <mohammadsaniac@gmail.com>, stable@vger.kernel.org, 
- linux-ide@vger.kernel.org
-In-Reply-To: <20261126142406.2753290-2-cassel@kernel.org>
-References: <20261126142406.2753290-2-cassel@kernel.org>
-Subject: Re: [PATCH] ata: libata-core: Disable LPM on ADATA SU650 with
- firmware XD0R3C0F
-Message-Id: <179577513220.3002126.6665251692747732688.b4-ty@kernel.org>
-Date: Fri, 27 Nov 2026 11:25:32 +0100
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=EI0Z9TmD
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jbV6q2vQrz8vhc;
+	Fri, 27 Nov 2026 11:30:27 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1795775431; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=R1bwRJul72ZLviTaCPZunjtVUaFqJfdRWa3psjhNQOw=;
+	b=EI0Z9TmDP8tgkkM57uthb7S46C7I+kQkQguRgJExpjhlwr6/Q+UK/kAUoJ+0qqIWwOEQx2
+	H4g/xJ2XHFSjo2LVgri8aJU6epGehYpsSKHm2Wf+OinDBwdLsfcOYTAoQ5hhb9qHeNmFgb
+	eaT9/tz2Dn1qg8xuRhHJa7Xb4zRHbWUmF2IsttmEy3sHLXpmG6LzchcggJCFhjOBVPjB4X
+	WXQh+CHjziPsJUKzZyX6ejvYy7a9RNQRae4DUZ7FCoG7AHaifIJOyW3MGESIC+6Tdjakro
+	tV4nZ6l3X1ydgRfICoxLC/ypDUwBFwlD7jUEjZOhtHXKVoHlHhCsNOer+6jGEg==
+Message-ID: <69845631bb184d86b4af8b4143b3b7adf726e0ca.camel@mailbox.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu: Hot-fix timestamp misordering
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Philipp Stanner	
+ <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Matthew Brost	 <matthew.brost@intel.com>, Danilo
+ Krummrich <dakr@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann	 <tzimmermann@suse.de>, "Mario Limonciello (AMD)"
+ <superm1@kernel.org>,  Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,  Gustavo
+ Padovan <gustavo.padovan@collabora.com>, Chris Wilson
+ <chris@chris-wilson.co.uk>, Luben Tuikov	 <ltuikov89@gmail.com>, Shashank
+ Sharma <shashank.sharma@amd.com>, "Paul E . McKenney" <paulmck@kernel.org>,
+ Gary Guo <gary@garyguo.net>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+	stable@vger.kernel.org
+Date: Fri, 27 Nov 2026 11:30:18 +0100
+In-Reply-To: <71b2506f-8534-468e-881d-1abf8f8224d9@igalia.com>
+References: <20261126172046.2473303-2-phasta@kernel.org>
+	 <20261126172046.2473303-5-phasta@kernel.org>
+	 <71b2506f-8534-468e-881d-1abf8f8224d9@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,22 +90,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+X-MBO-RS-ID: 74d278230c8cbc92940
+X-MBO-RS-META: 6gy6o1iytwz9kk1ncbnnpkypaffiyik5
 
-On Thu, 26 Nov 2026 15:24:07 +0100, Niklas Cassel wrote:
-> ADATA SU650 SSDs with firmware XD0R3C0F drop off the bus with NCQ command
-> timeouts when LPM is enabled. Disable LPM for this firmware only, as the
-> SU650 has shipped with several different controllers.
-> 
-> 
+On Fri, 2026-11-27 at 09:57 +0000, Tvrtko Ursulin wrote:
 
-Applied to libata/linux.git (for-7.4-fixes), thanks!
+> Not sure the fixes target is strictly correct since timestamp access=20
+> goes even further back, but I guess it is good enough for GPU stats.
+>=20
+> Please just add some sort of an impact assessment and bug description to=
+=20
+> the commit text. With that:
+>=20
+> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-[1/1] ata: libata-core: Disable LPM on ADATA SU650 with firmware XD0R3C0F
-      https://git.kernel.org/libata/linux/c/eca06bf5
+Thx for your review
 
-Kind regards,
-Niklas
+I was considering, though, to minimize churn by not fixing amdgpu for
+old kernels and simply take it aboard with the misc-next series.
 
+Reason would be that amdgpu only ever runs on x86, which doesn't
+reorder loads with loads, so this should in practice never be broken -
+right @AMD?
+
+
+P.
