@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.227
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795751009;
-	b=Lc7bAeraDfo+xsOVvcnQLIdqAoRynM/FE2hRZIh8f65f+UXI/76v81l3KLFKWWhKXXjO
-	 Mgm2OECiCY44tL89BdwrIYWuArae3x9Xragx45QSoFgr4ULgA4BMcLQ3du74KHm4RuS0n
-	 heqf1eQx/YMwVUKEakOAD23AZzAVzmRA7YiGSi76Pyg7nF22MsKgPwwxg2OqAwyzvtnzV
-	 68Btz9+QQJFg0ael5mVsb5qryF7sIGCrx8+/FBdnMq6HRQD/dMjl9QaxBFXvBj+rx4mBx
-	 nH2IxBo78XL1u4TymNxa4dyzyUH3ZOawzLclyK6jk1gQKnyCgdhf7U0PwoQ1HHATDmw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795751009;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 X-Relaying-Domain:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Xv9HoU11wg50uyramdQYfq7Umn1TYxplpQtca+BOSaU=;
-	b=zEiTRlienTxwGfs19rSjf13e+Z/Cvc1v9RXgWey1ZqocE1GSmu3tLsYP+7CUn/rk0jGg
-	 r88zvj+WYzyHGaEAH8CfUvWKAjJPFujZisc6resFq5CBhu6T9x4Qj+IsvlevJPkSXUXaq
-	 uNKqMmGHztlg/y/5NsFxwYgV/UGrA58sV8G2chbRihh+Unoh3V0gjt5hljG0Nd7yN1+rU
-	 wN/UrzhwEv10Qk9s7wXNk+/oEM8ugscF1BybLHYRxVAhQIgT48KLljS3EdBhhqqsmnFqP
-	 9qgqTy8UNaKwXxWDGF63LGwm24ISJWXPNUTHn6trLnKtjzyfPnxVFGOIFBQqPDgy1/Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=andrii.net;
-	spf=pass smtp.mailfrom=andrii.net;
-	dkim=pass header.d=andrii.net header.i=@andrii.net header.a=rsa-sha256 header.s=gmail-2025 header.b=Ybc9KqKC;
-	arc=none smtp.remote-ip=209.85.215.227
-Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795751312;
+	b=MBO5yewtChNxgsGRSs07ixcyqx0OGnrwNrLM0+bYm0D4gE8S0tn80dOkLHtAAIXtE/We
+	 JlmXlSOjC3SM4WqY9Bf1Orc2AVjSN3YjXdfdTwxCvr6Wf3ob5TjnvMZh03y/2QhzQvUAx
+	 CJUG6DGsoahw8bkbmDBnhbWiTH9CpNURrcne6yURryz6pipLL4FFG2bmmolCElg+DXZMc
+	 cjCc7gJfZo6hzkFwcyDorRK8xX7TJoD2JGT2zXKc4wi94y2V4JFcGUB+JGNkxxUBzX3QR
+	 qdtmenxGxCGpNEeh5tMaEdCUCxCyGVnl27nZA+mxD05LzONQn0WutmyCFRiCG+7x4oQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795751312;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=JfYvPMJByIBM8Lq5c+t11jSf5YhCsrh9TwTWSxwZ8ZA=;
+	b=mPmzg2+9E920GA28RYvD/SLQu0zMFamNJcJCvttqLpwHWgc+OqpbeweFAWdPzdPNlKld
+	 ZkdfxBCp3PAFoL90JTFcd+4+Q3vREFNGdvSuk8E03jSLJEL+cIBQQq+gK7uMfLD1TfS1w
+	 1B3UAEW+GBS/dvAAK070Q+vGzoLxcf6leZURENdyOVnA22bHhxlS53wguBI+I6wAEtu+Y
+	 dqL/K/J4wIdCKihuYMDkXVDh39arkqRUphex+ZlJ2x2FFLFHQsM3JiGRXvhCjRBg6TjeL
+	 6Q79HcY2/kt6mCcunrlVpke3gGImYVukynZh29ZOX3Nu2qeUef7jBl7tNvdHRstj8UA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aaOKV2qd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A95D606A324;
+	Fri, 27 Nov 2026 03:48:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aaOKV2qd
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795751312;
+	b=N6q+9Vz3uZxNf/Q3iapcWzpqEbRQKcSqqRJSHVUQ+tN8j9XwPSkFYQxfaYNVkzkQlEHP
+	 8fqDA6HoTLesOf7LMUrFB26gwVDW6gRyneO6z75ANDbtzQBIh9TB+qjLMDlyW/zDQ/JXD
+	 dGMxTNeqWqwj1ptJ1O3dq9YHUloTUsBVLUOfKYFy5zlAX/vxQf0L6df2ZSG08yG0GxQRN
+	 NVE18pccLah1x8O5jV3OQjmnRtjhP4/woYxpO3N2pEOgZv5zOvyWXC/xxOt6OCZOjTdB6
+	 IcmqsXYz9uNzQYVCwXjkIM1wq3VaQDzY3jDG1hW6a756NXHSuUoEQqJni/SYG4f381A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795751312;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=JfYvPMJByIBM8Lq5c+t11jSf5YhCsrh9TwTWSxwZ8ZA=;
+	b=sZPd2ZYcTLn5a/uCYTh2h/6xldqAQ0UgKBmt93NyNFe+Kh2NCpnAiWz0ycKupLd56qbH
+	 WtkFiMmZsGQDnj+/BA6LPKQUiucWKE6twhmzB8Cl7dgiP4g5KlNO6kDxHtpk1crBkTDd1
+	 Ran6+dy4+nL7ypDO7kl5h5Dh78wY5gAufAtK2hasvVF1F8Hdj3gnyTs/5C1pVFl06FUlt
+	 TSdP9UEid3qxeCW2VImwOzmkcgC4L3ZtGgHu28TTJhE7XSqY44DoiR52f6CfQKcHbuE4v
+	 axMcsavt4sa5HiTf8H18Sk9EENqju0fX0+afw8u3wgaKO8ufwXxtkM9kMqkers/9Ecw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC52606A338
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 03:43:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BC52606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrii.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrii.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=andrii.net header.i=@andrii.net header.a=rsa-sha256 header.s=gmail-2025 header.b=Ybc9KqKC
-Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cdab938dc83so2993728a12.3
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 19:43:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=andrii.net; s=gmail-2025; t=1795751008; x=1796355808; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Xv9HoU11wg50uyramdQYfq7Umn1TYxplpQtca+BOSaU=;
-        b=Ybc9KqKCk7jo1UVGtMcMSXNl5D6Iv5/l8sju3YXqeQTNRm/5YodH9ulL687tR8jX9J
-         RNcbHN7JcHIc3/B27m1Vq0ZcMXTQHkvlJ/qXBwVqMtd3ALUhgu3PFg9z4UJezju4fJU6
-         do6AJWIbPOExmoybQVwMGQEQuxgwRdTdC9JT64QmtTw9kN5XrqcV3/9JyaUV2beswWZO
-         9C/AscZ/PTtG3dhO+Hv5wLG5QW536vKo9KWytOH6SDoH0TbTA2nhK2z4Nsrt1qHYD9iy
-         F28n4k94kejdNesvFVX0O88DQyhFpJXp9pv5YrhLbh0e89lFhQSKA/WzMlo2XkuzmYWR
-         WEtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795751008; x=1796355808;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xv9HoU11wg50uyramdQYfq7Umn1TYxplpQtca+BOSaU=;
-        b=Y91SR9besel8tqpvFYp3MHxQytMmSGfVuWWApKTns0gDPjb/VPUBX0nONa8pBHxaDT
-         5Rz0MfkNwJdP19YW5qw4NTs06ZOnB/ffJdYvYMUpjWwHJsqxeowNI/63O6Ck0lcs0sTA
-         cfUB8NezAG4Ywo6/xmhw+BaPDdJPRyfUo0WJKJZ/Pw++IX2lTJIGG5DgeFcnyyiN0wSt
-         lYSSEZ0nPledTrgaRL2FbKFQ+DB3PmORP/fWl3jRC6/K0X+p7GLPRIR+QYguwL4MMCO8
-         SzsRsDNKtjFYTgk+Tuiv6kLphEaTjXvajCiZkqYNI9LuhQ0AMdjWVD5qCpPHedmUYiQU
-         cbfw==
-X-Forwarded-Encrypted: i=1; AL+hErFboE+14/YpQjF9Tv4j+MfRSb/ZfhNOTJ3DdMQz8/A2Yho6qIMD1IRAFK8N0tYv7yGjcHWBmkU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+M1XqUioJaSqpWuvDZOVJ+16aGwAWnIpqqkHADFLRFKprIxfEx
-	HMb/hIbOX+/CvtYxpbVKQp0qT6FXqG6/pWdyg2SIVuAB6WObWwJUBzGTk7ZlhOSNQOd3YTnXZG4
-	d2eGwdQ2SyOakBF3/9b7TRsdyD5Hvuap6WHl85hSCARbKb7QiT6y9
-X-Gm-Gg: AZFdTZdLTzAW/YTy1SrRN7Tku8u+4/1/EDoF8cdcSl//5qRypbgGwn+QQgNbdKPpW+g
-	KCsygXDsBFb48sIBLG1O6DVvfpP1Ta6JuIZKIBfGb7VgwIcUhAewmf9ky7Cza0sz0RwplPkj1iY
-	XRTc6wk/IJb4K316FcsSyXIzSGZK9YeK6NBrxw/DpnyuTfbfcOliD0xANz/oTgTIx4+WbMowG8S
-	sQ+I+3vx8r7HzNqR4FsxaC9KgNwJzxee4uu0N0iUA14EAMnEX+NPvlamEZaN9pDAJgvZFIDfQkK
-	Z5PM4rsSypW7E+dF6MZUHebd3Ynal9FNZRoM0P4z+dalxeNgRq7BppXWJe01GS63BJ990OCLSZ+
-	Ax08pM87Pddg2NEFjrKq+XwskIIU=
-X-Received: by 2002:a17:90a:e705:b0:3b4:fa3:36de with SMTP id 98e67ed59e1d1-3b41c9750e2mr20734881a91.51.1795751007623;
-        Thu, 26 Nov 2026 19:43:27 -0800 (PST)
-Received: from andrii.ai (mac.hestia.andrii.net. [2602:f337:ed:4865:7374:6961:204d:6163])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b405960cd1sm16387485a91.2.2026.11.26.19.43.27
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 26 Nov 2026 19:43:27 -0800 (PST)
-X-Relaying-Domain: andrii.net
-From: Andrii Tereshchenko <opensource@andrii.net>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Simon Horman <horms@kernel.org>,
-	Christian Hopps <chopps@labn.net>,
-	netdev@vger.kernel.org,
-	ipsec@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	security@kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH ipsec v2] xfrm: iptfs: don't modify skbs it doesn't own when aggregating
-Date: Thu, 26 Nov 2026 19:43:24 -0800
-Message-ID: <d6f4d771-7235-460b-9a6d-dc2348a24f83@mid.andrii.net>
-X-Mailer: git-send-email 2.56.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 39F281F00897;
+	Fri, 27 Nov 2026 03:48:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795751312;
+	bh=JfYvPMJByIBM8Lq5c+t11jSf5YhCsrh9TwTWSxwZ8ZA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=aaOKV2qdsHBH8JlGBoHB4Oyj4kWCoqS+nZ6tbBvYw94eerblgQNnizAzEODYU0M9f
+	 t18kYnekr79ve2t88fP8T7L+nmFUkmMVIUx9i3z2j+fthSqpek4aahq8vcVXMQ757w
+	 PZKkz1WBkgmuFIIcAcQnQrhSzpSJ71+0wfINLVoY8S3loHJwq5U9ZTVtui5oFOsu+2
+	 jFvhW3oZMq1GrnwfAFNxIfMxvataurZ5s13qsgmFPV0LrhS0kQd915Ik/TZUO2Xgol
+	 zUvVJBMy4f6I6dX23DE9G73zRX9qG/U0oBcxC4n8kFg9vPz8IpFGB0ygPcQvFswRul
+	 JVHnM+8sSSK+A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C19BA4B54C;
+	Fri, 27 Nov 2026 03:48:27 +0000 (UTC)
+From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
+Date: Fri, 27 Nov 2026 03:45:34 +0000
+Subject: [PATCH 5.15.y 2/3] sctp: validate embedded INIT chunk and address
+ list lengths in cookie
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,178 +83,137 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261127-so4-sctp-515-v1-2-bbee1a6af200@certik.com>
+References: <20261127-so4-sctp-515-v1-0-bbee1a6af200@certik.com>
+In-Reply-To: <20261127-so4-sctp-515-v1-0-bbee1a6af200@certik.com>
+To: stable@vger.kernel.org
+Cc: Xin Long <lucien.xin@gmail.com>, 
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
+ linux-sctp@vger.kernel.org, netdev@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795751132; l=4074;
+ i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
+ bh=wvTRasiLPbjXwX1WPHxv3KXHDg2v2+K2wZdKmJkhqbo=;
+ b=ffOdLZIDlNZG4UxoINJtXJyPtwNZr2BLpR5+cD+KAW5mZo4hzv7GS8EykS0vya80WUV7McYXx
+ zwLhbLb2VeKAwXL+G+160nV3Veb6Ocp/+vqErJYMC3uagdsZTIuX7p1
+X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
+ pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
+X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
+ auth_id=1647
+X-Original-From: Dickson Wu <dickson.wu@certik.com>
+Reply-To: dickson.wu@certik.com
 
-iptfs_output_queued() aggregates inner packets into the first skb,
-writing to its shared info and relinking frag_lists. But a first skb
-can share those with someone else: a clone (the original TCP keeps
-for retransmission), a frag_list shared without cloning (skb_cow(),
-pskb_copy()), or a nested frag_list (conntrack). The result is memory
-corruption, a CPU-hanging list cycle, or leaked skbs:
+From: Xin Long <lucien.xin@gmail.com>
 
-  skbuff: skb_over_panic: ... len:-340 put:-340 ...
-   skb_copy+0xfc/0x180
-   esp_output_head+0x38a/0xb40
+commit 6f4c80a2a7e6d06753b89a578b710a2499a5e62b upstream.
 
-Aggregate only into what IP-TFS owns: unclone the first skb, send a
-first skb that has a frag_list on its own, and stop at a following
-skb that has one. Nothing is un-nested any more, so
-iptfs_rehome_fraglist() goes.
+sctp_unpack_cookie() only checked that the embedded INIT chunk length
+did not exceed the remaining cookie payload, but did not ensure that the
+INIT chunk is large enough to contain a complete INIT header.
 
-The two frag_list cases were found by an AI code review agent after
-v1 was posted. The patch was written with an AI coding assistant and
-reviewed by the submitter.
+A malformed COOKIE_ECHO can therefore carry a truncated INIT chunk whose
+length field is smaller than sizeof(struct sctp_init_chunk).  Later,
+sctp_process_init() accesses INIT parameters unconditionally, which may
+lead to out-of-bounds reads.
 
-Fixes: 0e4fbf013fa5 ("xfrm: iptfs: add user packet (tunnel ingress) handling")
-Link: https://lore.kernel.org/all/179171627713.434549.11629734394381610294@kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Andrii Tereshchenko <opensource@andrii.net>
+In addition, raw_addr_list_len is not fully validated against the
+remaining cookie payload. When cookie authentication is disabled, an
+attacker can supply an oversized raw_addr_list_len and cause
+sctp_raw_to_bind_addrs() to read beyond the end of the cookie. The
+address parser also lacks sufficient bounds checks for parameter headers
+and lengths, allowing malformed address parameters to trigger
+out-of-bounds reads.
+
+Fix this by:
+
+- requiring the embedded INIT chunk length to be at least sizeof(struct
+  sctp_init_chunk);
+- validating that the INIT chunk and raw address list together fit
+  within the cookie payload;
+- verifying sufficient data exists for each address parameter header and
+  payload before parsing it.
+
+Note that sctp_verify_init() must be called after sctp_unpack_cookie()
+and before sctp_process_init() when cookie authentication is disabled.
+This will be addressed in a separate patch.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Xin Long <lucien.xin@gmail.com>
+Link: https://patch.msgid.link/75af23a89adf881a0895d511775e4770da367cbf.1780873427.git.lucien.xin@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ adapted to 5.15.y: extend the existing bounds check ]
+Signed-off-by: Dickson Wu <dickson.wu@certik.com>
 ---
-v2:
-- Apply the frag_list rule to every skb that has one, not only to
-  clones. v1 missed lists shared through skb_cow() or pskb_copy() and
-  nested ones from conntrack. iptfs_rehome_fraglist() and the
-  un-nesting loop are removed.
-- The netdev AI review of v1 [1] reported the same gap and one more way
-  into it: skb_checksum_help() in iptfs_first_skb() unclones the first
-  skb before v1's check. Testing skb_has_frag_list() covers that too.
-- v1 said that uncloning the first skb adds no copy. As that review
-  showed, this was wrong when packets are aggregated: ESP's
-  skb_cow_data() can then reallocate the head again. v2 does not change
-  that cost.
-- Drop v1's 2/2: Nguyen Ngoc Thang's same fix is upstream as
-  b88c75488ecc ("xfrm: iptfs: force a dst reference before queueing
-  an skb").
-v1: https://lore.kernel.org/all/c1e999b5-15ee-468d-81c5-530a560e84df@mid.andrii.net/
-[1] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/b56bbced-a8b0-4ae9-80b4-1958ea36684c%40mid.andrii.net
-Affected: v6.14 and later (0e4fbf013fa5 first shipped in v6.14-rc1);
-needs CONFIG_XFRM_IPTFS and an IP-TFS SA carrying aggregated traffic.
-Mitigation until the fix lands: no IP-TFS SAs, or the xfrm_iptfs
-module left unloaded (it is tristate).
-Found: a production panic (the cloned head), then an AI coding
-assistant review after v1 (the frag_list cases). Validated: a test
-module driving the CHECKSUM_PARTIAL route, 50 of 50 rounds. Tested:
-the private selftest (nested FAIL to PASS, shared hang to PASS) on
-ipsec master 2803867cf3de, two boots each, panic_on_warn=1 on the
-fixed kernel.
+The backport and the test runs were prepared with AI coding tools
+(OpenAI Codex agents, with review by Claude). I went over the result
+before signing off.
 
- net/xfrm/xfrm_iptfs.c | 61 ++++++++++++++++++-------------------------
- 1 file changed, 26 insertions(+), 35 deletions(-)
+ net/sctp/bind_addr.c     | 11 ++++++++++-
+ net/sctp/sm_make_chunk.c |  9 +++++++--
+ 2 files changed, 17 insertions(+), 3 deletions(-)
 
-diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
-index 0313a43aa8a97..c6bdfbd9a1a8b 100644
---- a/net/xfrm/xfrm_iptfs.c
-+++ b/net/xfrm/xfrm_iptfs.c
-@@ -2139,27 +2139,6 @@ static int iptfs_first_skb(struct sk_buff **skbp, struct xfrm_iptfs_data *xtfs,
- 	return iptfs_copy_create_frags(skbp, xtfs, mtu);
- }
+diff --git a/net/sctp/bind_addr.c b/net/sctp/bind_addr.c
+index 6b95d3ba8fe1c..0947b276d1e08 100644
+--- a/net/sctp/bind_addr.c
++++ b/net/sctp/bind_addr.c
+@@ -275,6 +275,16 @@ int sctp_raw_to_bind_addrs(struct sctp_bind_addr *bp, __u8 *raw_addr_list,
+ 		param = (struct sctp_paramhdr *)raw_addr_list;
+ 		rawaddr = (union sctp_addr_param *)raw_addr_list;
  
--static struct sk_buff **iptfs_rehome_fraglist(struct sk_buff **nextp, struct sk_buff *child)
--{
--	u32 fllen = 0;
--
--	/* It might be possible to account for a frag list in addition to page
--	 * fragment if it's a valid state to be in. The page fragments size
--	 * should be kept as data_len so only the frag_list size is removed,
--	 * this must be done above as well.
--	 */
--	*nextp = skb_shinfo(child)->frag_list;
--	while (*nextp) {
--		fllen += (*nextp)->len;
--		nextp = &(*nextp)->next;
--	}
--	skb_frag_list_init(child);
--	child->len -= fllen;
--	child->data_len -= fllen;
--
--	return nextp;
--}
--
- static void iptfs_consume_frags(struct sk_buff *to, struct sk_buff *from)
- {
- 	struct skb_shared_info *fromi = skb_shinfo(from);
-@@ -2234,6 +2213,21 @@ static void iptfs_output_queued(struct xfrm_state *x, struct sk_buff_head *list)
- 		if (iptfs_first_skb(&skb, xtfs, mtu))
- 			continue;
- 
-+		/* Aggregating writes to the first skb's shared info and, when
-+		 * it has a frag_list, to the skbs on that list. A clone shares
-+		 * its shared info with the original, e.g. the skb TCP keeps
-+		 * for retransmission, so unclone it first. The skbs on a
-+		 * frag_list can be shared with another skb whatever the first
-+		 * skb is: pskb_copy() and uncloning share them, and the list
-+		 * of a datagram that conntrack reassembled can nest. Send a
-+		 * first skb that has a frag_list, or that we cannot unclone,
-+		 * on its own.
-+		 */
-+		if (skb_has_frag_list(skb) || skb_unclone(skb, GFP_ATOMIC)) {
-+			xfrm_output(NULL, skb);
-+			continue;
++		if (addrs_len < sizeof(*param)) {
++			retval = -EINVAL;
++			goto out_err;
++		}
++		len = ntohs(param->length);
++		if (addrs_len < len) {
++			retval = -EINVAL;
++			goto out_err;
 +		}
 +
- 		/* If fragmentation was required the returned skb is the last
- 		 * IPTFS fragment in the chain, and it's IPTFS header blkoff has
- 		 * been set just past the end of the fragment data.
-@@ -2246,18 +2240,8 @@ static void iptfs_output_queued(struct xfrm_state *x, struct sk_buff_head *list)
- 		 */
- 		remaining = mtu - (skb->len - sizeof(struct ip_iptfs_hdr));
+ 		af = sctp_get_af_specific(param_type2af(param->type));
+ 		if (unlikely(!af) ||
+ 		    !af->from_addr_param(&addr, rawaddr, htons(port), 0)) {
+@@ -291,7 +301,6 @@ int sctp_raw_to_bind_addrs(struct sctp_bind_addr *bp, __u8 *raw_addr_list,
+ 			goto out_err;
  
--		/* Re-home (un-nest) nested fragment lists. We need to do this
--		 * b/c we will simply be appending any following aggregated
--		 * inner packets using the frag list.
--		 */
- 		shi = skb_shinfo(skb);
- 		nextp = &shi->frag_list;
--		while (*nextp) {
--			if (skb_has_frag_list(*nextp))
--				nextp = iptfs_rehome_fraglist(&(*nextp)->next, *nextp);
--			else
--				nextp = &(*nextp)->next;
--		}
+ next:
+-		len = ntohs(param->length);
+ 		addrs_len -= len;
+ 		raw_addr_list += len;
+ 	}
+diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+index b599dd2c15bd4..79d2c2b179c35 100644
+--- a/net/sctp/sm_make_chunk.c
++++ b/net/sctp/sm_make_chunk.c
+@@ -1759,8 +1759,8 @@ struct sctp_association *sctp_unpack_cookie(
+ 	struct sctp_cookie *bear_cookie;
+ 	struct sctp_chunkhdr *ch;
+ 	__u8 *digest = ep->digest;
++	unsigned int len, chlen;
+ 	enum sctp_scope scope;
+-	unsigned int len;
+ 	ktime_t kt;
  
- 		if (shi->frag_list || skb_cloned(skb) || skb_shared(skb))
- 			share_ok = false;
-@@ -2273,6 +2257,13 @@ static void iptfs_output_queued(struct xfrm_state *x, struct sk_buff_head *list)
- 			if (skb2->len > remaining)
- 				break;
+ 	/* Header size is static data prior to the actual cookie, including
+@@ -1789,7 +1789,12 @@ struct sctp_association *sctp_unpack_cookie(
+ 	bear_cookie = &cookie->c;
  
-+			/* Appending would relink skb2's frag_list, which may
-+			 * be shared. Leave skb2 to be sent on its own as the
-+			 * next first skb.
-+			 */
-+			if (skb_has_frag_list(skb2))
-+				break;
-+
- 			__skb_unlink(skb2, list);
+ 	ch = (struct sctp_chunkhdr *)&bear_cookie->peer_init[0];
+-	if (ntohs(ch->length) > len - fixed_size)
++	chlen = ntohs(ch->length);
++	if (chlen < sizeof(struct sctp_init_chunk))
++		goto malformed;
++	if (chlen > len - fixed_size)
++		goto malformed;
++	if (bear_cookie->raw_addr_list_len > len - fixed_size - chlen)
+ 		goto malformed;
  
- 			/* Consider the buffer Tx'd and no longer owned */
-@@ -2292,10 +2283,13 @@ static void iptfs_output_queued(struct xfrm_state *x, struct sk_buff_head *list)
- 			/* skb->pp_recycle is passed to __skb_flag_unref for all
- 			 * frag pages so we can only share pages with skb's who
- 			 * match ourselves.
-+			 *
-+			 * iptfs_consume_frags() empties skb2's frags, which a
-+			 * clone shares with its original.
- 			 */
- 			shi2 = skb_shinfo(skb2);
- 			if (share_ok &&
--			    (shi2->frag_list ||
-+			    (skb_cloned(skb2) ||
- 			     (!skb2->head_frag && skb_headlen(skb)) ||
- 			     skb->pp_recycle != skb2->pp_recycle ||
- 			     skb_zcopy(skb2) ||
-@@ -2315,9 +2309,6 @@ static void iptfs_output_queued(struct xfrm_state *x, struct sk_buff_head *list)
- 				/* Append to the frag_list */
- 				*nextp = skb2;
- 				nextp = &skb2->next;
--				if (skb_has_frag_list(skb2))
--					nextp = iptfs_rehome_fraglist(nextp,
--								      skb2);
- 				skb->truesize += skb2->truesize;
- 			}
- 		}
+ 	if (!sctp_sk(ep->base.sk)->hmac)
 
-base-commit: 2803867cf3defa294710088a4663b434e12b5e93
 -- 
-2.53.0
+2.43.0
+
 
