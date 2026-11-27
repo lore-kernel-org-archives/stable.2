@@ -1,79 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795812838;
-	b=uK6fROpODhu65P6lLxoMqlzSKgLPpmBqH4GLP7F2RB2yTa2BSw4qLJce2W6uDmyUpej/
-	 t2MvT6jSMSl3FBxn02esG2E1OEki0w9vyjbSf12vQTkIvQ6f4/D7EPEzSo2xhc8UnIbvk
-	 pPMOkHSsos9FxeWFVvxBS8fAge7jPb3d4kcTIJFDTCzYEkyO9oEXoLyMSAIYZqeRak5jn
-	 9Kad1URwHaQZzcxpnkSwoJG2/WaGHt36EnpOq6mzgUdoW5olLen+29oR09zLCya32Xg6V
-	 U0E3vsOXACzUwwbGt7SQirawXpsDZJc0SSCWHxc+6KTk/Fy3VaYvd5VNTYBNpJhse+g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795812838;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:In-Reply-To:
-	 References:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=8a0jvKYMEi2X5ZMKqw8TIBpn8gvuieErgynCPu6/Kac=;
-	b=qFGTlpnuq485Lzva9yZZfAQvWN0oGptYgrIwEUhoTKN9PQqXYmyr11Fq+3Bfuq5jIK9l
-	 Q5y2bl/mbPraLs0hUXuBJ95VncJa7V54v84kc7UNesUPeWk+wdREwIn+ptryvGCFwC/pH
-	 Vq99E4R5UYyWluuEOLcYOWniVF4jz3VeZ2XIO24OUlsHniA9VFYtFWSKId2PnFSz9QCOs
-	 /KfqVskgHyoJusIEl9nFelywCpFec3xzFCxW8kmUm+35qkoAn5cCFFDYbgQluHfqzilMK
-	 XJpjFsRrZVp3ihbkAPnWK7L4h4pilqq+lFKFEtwmZEHeuFKUrIQnSEPT/qwUIHpnp1Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e9nySGlT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E168C606A32D;
-	Fri, 27 Nov 2026 20:53:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e9nySGlT
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795812837;
-	b=yxTP/CwkOr4T3htoYQtGlMODxYU+gw+XTQfDFSuAfF8VDvuswpqvev7ulERSwkrPcF2e
-	 kHccAW7BJCS+D46ViRN4S7/zb4+h7uQMARLLovTfdxsnv0Gm0cveW46AtcngWyqtv+m8N
-	 ogdtCNQiKnwQAfYIiQz5HRLiuJWh23mJkFfYicGNqvQrysAEhcVLnyE4WtXkFfzHD3OTR
-	 Qi/OYSkDxxh01mWAKDRYz5P02yD4SPOPp7fJvsEzrWGIQL/4I5A4tGvFpp6kTLZFtYu6k
-	 d2kcRh27t1zzQaUyDBnLv6ThzDhEjEKyAW9oVbGDfscT6MvdGFy9NB5zUbqlPYu0YpA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795812837;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:In-Reply-To:References:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=8a0jvKYMEi2X5ZMKqw8TIBpn8gvuieErgynCPu6/Kac=;
-	b=YAbyP/EqlphoYpLc6ScjWqxvyGTBuk0BlUpwR85FBg42VfCJVqUDnzxpT8vRvbB6T9OV
-	 jswip/BOcZfSjJ/I5rB/NHRFwj59wrrNWDPSoVoWgz2S5fUGIJvZXAlpk4g4oFZl1VCmW
-	 4tkbu4h/fFy0jKL9FzSHH3dPgirMagbQ5BZ90TdMjynJleSCKtMsm5EpSZdsPM08vWC9P
-	 iC2PXN0YtZz/0LcPvm3QBuELMPjsCiTDnVqS5VYcHT/s3tYYnwAHAz8EQp2LWnve7L1BB
-	 3RNHbcbljz1aQOKWJ3Shv9F1IrEZTmO8EScLXRHX5icjK9dfTU9cp5HIFQZZGxFcwyw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795813753;
+	b=jELfJ6vCcz5Q202L/9EaIQRoUQ7guz02YVyq6dxzFAjKjHRpJVDZexvcAhlrZzsRXgd6
+	 G2v/Khec3Zll3AW1C4lofsD6+bdQMG8DzCc1PKAAppLWzyRsoeqzNPh5l1stXUsRP5cjL
+	 GZDjQVBR7o6UhABeBNl2cRqhs0y3tEmAYdzQc1ifHSbdunxBOTgQ04fuoNJOcFwfowUhA
+	 sFsvnWQfND6IO9IZ8UFNvBHlMATAIHkL+bhx2qUvkJL3q6+hD/EwJ57zYsTlmHkqPMej/
+	 BhlQIkP2yFDC8bPnZBgxd7HElPeyW2DABEVE/VGL2m9TrbuTB4Ekw/SlfDJGfE/EG8w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795813753;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=XIvy0mpNH25dJka9yiHVSc+lFF3CQmZ8/QH30h3M4Z8=;
+	b=P/emB8E9cCwnQirjo7xLMSaFGa2T4D8I7Ru7RfeTQGoLpBbObHE7FF4dHbR3LYDkcdRW
+	 q6bU4Apw0K10TicLFsUk07gjiu/fNUt7jK8ayeMRqE3zvFynn9M+3egA6/OwcAgGYSoYQ
+	 d8DaXj/9QR0xm67MEKmO1MPtg9F2N7/Hp15/sIlwmlmc3+HUk0oc7D6WM/EoCtbxjFVJt
+	 IPZtFyoH9qcdSxcJRuLP1Y/nFV0s/Is414gEwhTmFYxpUfYe/5VRjwHR95LKuhx2dw6Zr
+	 V4mIzJEDWwt1YTNrJS+1p1wH/IdYCUfHaeo2O49BD/OvKrhz9VJ1FmbRlTWT+Vu0zbg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sxCEb+7z;
+	arc=none smtp.remote-ip=209.85.160.182
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0C7A21F00899;
-	Fri, 27 Nov 2026 20:53:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795812837;
-	bh=8a0jvKYMEi2X5ZMKqw8TIBpn8gvuieErgynCPu6/Kac=;
-	h=From:Date:Subject:In-Reply-To:References:To:Cc:Reply-To;
-	b=e9nySGlTTEPXkQDn0Dh7u3MPn1+soYnFgcPIqVVQNC3ywaGUd9BnrvCWuw2uucRdi
-	 yb06sjT7cP9RoPQqFiqP4xgzprxQY6dMvvHq4jMFiEBXzO7b1qVYtAcCoRhE0h11Ea
-	 QqCwLTPVd+GK3xiSW7Yra7PR8RlcXSn6R+L+LYtE/mPdNWgidtS5SsxY2lkzE8zBUh
-	 hkDDF1IN+YLmfcOvQLXYVugTxotXw2ELai1OMTjjsz46qGAlYdrCmwJ2twY+BmGnhW
-	 k/k8BfFTshsjGxX6G7cLbaamtU8kP5kb5GU4lVIvKniiSsafJqIuY08NgigOZikkL1
-	 ASpUTEh1s+jrA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8918E4DDF4;
-	Fri, 27 Nov 2026 20:53:56 +0000 (UTC)
-From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
-Date: Fri, 27 Nov 2026 20:47:03 +0000
-Subject: [PATCH 6.6.y 3/3] usb: typec: qcom-pmic-typec: drain
- cc_debounce_dwork if port_start() fails
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD52D606A31F
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 21:09:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD52D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sxCEb+7z
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-5365d725440so74993261cf.0
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 13:09:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795813751; x=1796418551; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XIvy0mpNH25dJka9yiHVSc+lFF3CQmZ8/QH30h3M4Z8=;
+        b=sxCEb+7zA+wFTPzdrar6GAaO3t7CBZTNjXIZfaB2FTtT5vTG997JcNdHGjN2KirZy/
+         eqLILNLSuus1tGchZzG8TuV7IlqZeNA7LMxqICsaaiFAYlHISVzhBG0kVtAb7a7yszGI
+         V+pcEFopGxbc1bIc83BxedgG2fe49+YS7PHmIyge52rb0W16DDtO7wB0LMeAXgVIt/ra
+         ImHbZfvAbvMi3sZs4FVS8/nL/5o7zTBigtOnF59wGdKzD1MwSii9ZvcTU2caWHWxeY5O
+         Pd5PAUCbf8JDUEg2tqfjdF84qf4ksqT1yyYSqpErHWwsYUHD8HT1KCGlMpwqZBhiZEul
+         /RLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795813751; x=1796418551;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XIvy0mpNH25dJka9yiHVSc+lFF3CQmZ8/QH30h3M4Z8=;
+        b=TGwhXxk36o6cDRSFlOX7l3fpt6K9Cwlcc05AKXt2AkHHwFA0fo2rYrvng5jqhwz6r+
+         dZYOVg6R3/6tN45cLUd0Ee6vnoEOltIJFlWpF0XJaRLx5INx/taHSSjfkLCzZKneuCS1
+         xm/7CAypjK+kbPjw7BBIUFXBsFR0ZO/iQBwUV8HlGwHLMlCAu8dzjgtA7qKPxCY29kxQ
+         AeJRgTZOIPOkqWeTET30JNgUMOkhCADsqcPP/Lu+JPq+cS11xSSpgwP9WkNVqEPhZSNw
+         s1Q64h6f1BWoA4SFLfvnvkmYv+PohO6lH2TxDVywgkbQVOUUnTrlHjLgAHNo3y6kjqNr
+         Wmaw==
+X-Forwarded-Encrypted: i=1; AL+hErF4yTf1G8U4OLB0+zXlgaop316prWT95FJyTU4YzOUXiFb9AhKWrZ2vV3VwErSi9gQVmf4ApFk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+cB2n4cuQkroeJ/IuIjDf6Kr89vupVWxqbh/h+GmctOKdgSUoG
+	zLqBbppb4AoP86zE1HH00aV1jzkAQ3k1CjnnoBNXcgMAYiJXlFsTqbbcarnPCDIvBE4HnT7v
+X-Gm-Gg: AZFdTZfIbcA+uGevZBFM+0niXDq8X5K87mZNmUI9s28dq0df0jmi66IrlkJ7Mj73xtf
+	uyL3LrhaAJ7sTwV6xwUODrITNYwA9u4V+yNL1zDVgU1UCo89IhGeR6elLoR8sG/tbI0EVA2cOW3
+	LMkU3k2fHJCf53mTiG1JY1EWXlc9RivN0x28nGmUAzPH7ObIrO3qNTaAQbiPNeolPn1VxqtdQrX
+	zvAWhseBOvB9KOaygu1MZ4jSz+CHnrC8WWi9XaPFJR5uoDPG9zY0GBwWUAbWDCjC/xzf0L5yrct
+	nDfw1SerXjuck9+TuQG4OGuRuqwARgzDaSIKvZKarR+9QCQ1eFbFgcLI1HKNTSQd9C7VyN5pF+b
+	qWyf+bkZkXo0Tq0mf/R+Xa/2p7JlvX6CpWutr/MjpHU/RBpfHvPv94wVpKeeZaUTTX8ODfqcLtD
+	YbdobIT958LiGUjgQBm19RbB5ypjYCzE1Gn85kI/HOucS5LGRLGGL7w39uS7Wy88RpQ68z3L2sw
+	/0SzdKH+hmBysqsSmh7YiOf8YJ0ET/M6JDO4ZyYDn0X2FPkYbae+hQa0t6/4cRZmqqUhvn7jc2i
+	9wQ2DwnjqAFoCzUEAuMMT43eHtLc2YOnUr2gq0FH/XkdQTtlBRPS3PLuPnmEu4fGjeDzPfDDG31
+	XSP2xphUBXdVSPwO05C0YYKrCYmIpI4vJjGZuvGrQ39wZeJnyOP6Wczrd9gI8WGpvrb0GUPo/H6
+	Mw6CVh25qS9t27xO8TiUZVQVitVrGCRokDdGdxjqhHZBWEjbf2GaJ1ExEUAmyRmfVvOtlBHz6Zu
+	ff462gO7deoq3FLaeqvFhlPhjXHlxb9+OTiT88r6DF4kQ==
+X-Received: by 2002:a05:622a:a10:b0:55d:17e:f87 with SMTP id d75a77b69052e-55d769374d6mr471770991cf.1.1795813739524;
+        Fri, 27 Nov 2026 13:08:59 -0800 (PST)
+Received: from LRMS.tailf8556c.ts.net ([2600:4041:5046:1a00:2403:c7fc:983f:c934])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d7882e32dsm219584681cf.13.2026.11.27.13.08.57
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 27 Nov 2026 13:08:58 -0800 (PST)
+From: Jesse Casco <jesse.casco@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Jesse Casco <jesse.casco@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/msm/dpu: link Glymur layer mixers 4-7 to DSPPs 4-7
+Date: Fri, 27 Nov 2026 16:08:57 -0500
+Message-ID: <20261127210857.65336-1-jesse.casco@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,81 +108,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-typec-66b-v1-3-6fe3a0983e5e@certik.com>
-In-Reply-To: <2026090807-unbalance-starlet-1c55@gregkh>
-References: <2026090807-unbalance-starlet-1c55@gregkh>
-To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>, Johan Hovold <johan+linaro@kernel.org>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- linux-usb@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795812420; l=2076;
- i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
- bh=nBrPMxZDVb3jytbfrX3GVoE3b8fZwhurQBLseC2gUPM=;
- b=tRYhHn/o7+N91YSWuBhi2UyWTbZP9B7LfUTlRwvh3yA0bUcnfoM+Nh7UlM7nmLC/NY5EivA4r
- bEWhIfmsx3pDOT/hk4QPDVT7aCsmRPqOiVARZhhRL7D+iDMOUi9sORH
-X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
- pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
-X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
- auth_id=1647
-X-Original-From: Dickson Wu <dickson.wu@certik.com>
-Reply-To: dickson.wu@certik.com
+Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+The Glymur DPU catalog defines eight DSPP blocks (DSPP_0..DSPP_7), but
+only LM_0..LM_3 set .dspp. When a CRTC requests a DSPP per mixer (e.g.
+for a CTM or gamma LUT), any third display assigned to LM_4..LM_7 fails
+resource reservation:
 
-commit c9273c83885835dbd1e8835d5665dfb8503d65e0 upstream.
+  LM_4, invalid DSPP_-1
+  failed to reserve hw resources: -119
 
-cc_debounce_dwork can be queued before port_start() fails:
-tcpm_register_port() runs first, and its state machine may invoke
-set_cc() or start_toggling() from the TCPM worker.  The error path then
-calls tcpm_unregister_port(), whose worker flush may queue the delayed
-work before devres frees pmic_typec_port.
+Set .dspp = DSPP_4..DSPP_7 on LM_4..LM_7 to match the declared DSPP
+blocks. Tested on an ASUS Zenbook A16 (UX3607OA) with eDP, HDMI, and
+USB-C DP active simultaneously.
 
-Disable and drain the delayed work directly at port_start()'s error
-exit.  Do not use port_stop() for this path: its IRQs use IRQF_NO_AUTOEN
-and are enabled only after a successful port_start().
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: a4422ff22142 ("usb: typec: qcom: Add Qualcomm PMIC Type-C driver")
-Cc: stable <stable@kernel.org>  # v6.10+
-Suggested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Link: https://patch.msgid.link/20260820135307.153773-3-fanwu01@zju.edu.cn
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ adapted to 6.6.y: call the port's debounce shutdown helper ]
-Signed-off-by: Dickson Wu <dickson.wu@certik.com>
+Fixes: e2aeb8deddae ("drm/msm/dpu: Add support for Glymur")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jesse Casco <jesse.casco@gmail.com>
 ---
-This reuses the helper from patch 2 at port_start()'s error exit.
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-The backport and the test runs were prepared with AI coding tools
-(OpenAI Codex agents, with review by Claude). I went over the result
-before signing off.
-
- drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
-index f0e5e8ab06c0..8e6507ce895f 100644
---- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
-+++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
-@@ -502,6 +502,9 @@ int qcom_pmic_typec_port_start(struct pmic_typec_port *pmic_typec_port,
- 		enable_irq(pmic_typec_port->irq_data[i].irq);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h
+index 4eb4a0e..280df25 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h
+@@ -175,6 +175,7 @@ static const struct dpu_lm_cfg glymur_lm[] = {
+ 		.sblk = &sm8750_lm_sblk,
+ 		.lm_pair = LM_5,
+ 		.pingpong = PINGPONG_4,
++		.dspp = DSPP_4,
+ 	}, {
+ 		.name = "lm_5", .id = LM_5,
+ 		.base = 0x49000, .len = 0x400,
+@@ -182,6 +183,7 @@ static const struct dpu_lm_cfg glymur_lm[] = {
+ 		.sblk = &sm8750_lm_sblk,
+ 		.lm_pair = LM_4,
+ 		.pingpong = PINGPONG_5,
++		.dspp = DSPP_5,
+ 	}, {
+ 		.name = "lm_6", .id = LM_6,
+ 		.base = 0x4a000, .len = 0x400,
+@@ -189,6 +191,7 @@ static const struct dpu_lm_cfg glymur_lm[] = {
+ 		.sblk = &sm8750_lm_sblk,
+ 		.lm_pair = LM_7,
+ 		.pingpong = PINGPONG_6,
++		.dspp = DSPP_6,
+ 	}, {
+ 		.name = "lm_7", .id = LM_7,
+ 		.base = 0x4b000, .len = 0x400,
+@@ -196,6 +199,7 @@ static const struct dpu_lm_cfg glymur_lm[] = {
+ 		.sblk = &sm8750_lm_sblk,
+ 		.lm_pair = LM_6,
+ 		.pingpong = PINGPONG_7,
++		.dspp = DSPP_7,
+ 	},
+ };
  
- done:
-+	if (ret)
-+		qcom_pmic_typec_port_disable_debounce(pmic_typec_port);
-+
- 	return ret;
- }
- 
-
 -- 
-2.43.0
-
+2.56.0
 
