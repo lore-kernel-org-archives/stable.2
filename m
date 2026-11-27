@@ -1,49 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.124.121.40
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795784417;
-	b=wHwSVZs1JrV1sFmSjrzyGN2vHyo06g40V4HE01R7mkUiiFru/yD/+QZ7xwMuKAkfKUCG
-	 n1r+P2c3rlqfA+aFzvuZHRqHMA1I9ZLcKORrYgk29hlMY4kt2iqpM4/95weXZbq5o7UF/
-	 ZvLUmmnRY58LbEr3lXEYk3atRRWnaA0i392hCT7oGXY+K1dSF21T603xyzgNQ0X1oRPtK
-	 MeyMfwo8WNZh0RYTmIH2EskmHfxasFcs14D8OcmoFDoTfu3EZJ8EoeBwlzfVS5GQ9OFhL
-	 FWcfs3uKRwgNsq01G9lrcUaZ94kJoYZ3oEk4PJ6EiqL0dlhRQbO9FQtM4WI5LulkhdA==
+	t=1795784545;
+	b=WE6+rYSC/A7QfEsZdzLVSiOMvYtoE9t495VMfxuAzQgZpXSpDqju8OM4/osTd55iy4uE
+	 erMX0i1+AmpJXTARFNFWKultar+7M3ux8crjh0JUNA7fDL5dFsU4lePMvoKlFhK7UWAqw
+	 Dwq6i7r+IPtPP6CFlSrF+rULlZBHktkqVeGp6+uix/qctld6QiUp80RL2eXJp88g7JjWZ
+	 YuqtXQLvK5ZDiIPCNDhM2SnHs+oQNNMPLsoLomgQ1PcuTtJCT3WeNS9/sFu4p5RqxSMCH
+	 WfT5k3Pr2O9bKJpfYUqiUqJGRKN7jTdgMnWskgtvPmUgoaTPsCf983toP+XRnr/0oXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795784417;
-	h=DMARC-Filter:DKIM-Signature:X-MSG-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=osCZa1wC+Zvu9D8Dq/xApsZMIP//8BE/s4RirJrsI2Q=;
-	b=NtGRVC0b/D3uyFp6DRxzlD9mDU5whOL83mMoxdtgsM/9HMQ7zBQsmHIKxOzh17Yik7wo
-	 azd2MEVDSHaOzxJAOy9JV9CbSmWb5JwsP7RMO+0ccTgptU9WsiL5VCKRhDHVW5TXZnHPY
-	 65xIHfz5ePGaf+dpxC+w2b9Bttpz9wRV8fX+ClVgnCgL+tw5h7OKh5rbTQANaEXOhidTG
-	 P93fCEKe3m+1/b3JhKP3djZ8ZL4AugTwSCBn466QCGJ8Ucx65TnEbvbrOAnlfKug3Wc0x
-	 2w+V5MqvLcHsqDHXI2HzXX3d39/zZRw2lz4M7F5bpEIPTMK2QSKoVhHUmUjm6JXkvSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795784545;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=LtJEEQG4iK+tOAIiGdDHJtxrocD8+I8V0KWp8R71igo=;
+	b=KlnYA/JhoBcKWaegmjHk8+sKwViB8FcdonXpBvsrK2d8YmRhpBWRHVSnxH9AaDRZN281
+	 MfVjFn/E9KMaTVywZOrw+AFY+Btp2VL97zy0w5nb3HsZq1336eGqVaVFHtPux3Xy6SP5k
+	 RsBg2hzOyi7FCx3AzL9qdwsEeVal8BJ1vuB1V2ued1NTIa7ci/3V4YEEkwJoTjj2Ko/bf
+	 WiF0OS7JkAmUptOcPEkCw4/Mw45JLUW/7KYXwHBML3MxhgC1HA/0+Ym7cPOPWWjDULkue
+	 FvHaLziXz6Oz5vzy8oq+pKs6ghb+wGH2jVdNb9QNodxPu7L8sY9jy+xX+/h+H7pg/pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=zanders.be;
-	spf=pass smtp.mailfrom=zanders.be;
-	dkim=pass header.d=zanders.be header.i=@zanders.be header.a=rsa-sha256 header.s=202002 header.b=RuJ9kj5Y;
-	arc=none smtp.remote-ip=94.124.121.40
-Received: from smtp28.bhosted.nl (smtp28.bhosted.nl [94.124.121.40])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0672D606A323
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 13:00:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0672D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zanders.be
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zanders.be
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JXbB92Su;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 42852606A31E;
+	Fri, 27 Nov 2026 13:02:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42852606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zanders.be header.i=@zanders.be header.a=rsa-sha256 header.s=202002 header.b=RuJ9kj5Y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=zanders.be; s=202002;
-	h=message-id:date:references:in-reply-to:cc:to:from:subject:
-	 content-transfer-encoding:content-type:mime-version:from;
-	bh=osCZa1wC+Zvu9D8Dq/xApsZMIP//8BE/s4RirJrsI2Q=;
-	b=RuJ9kj5Y2L6gy8CzNDv5KC21f0vdqzHAs+tLCQ9bvNOA7E7s+P3WKWTAJxKgVM5IWT/C1q2tXB16F
-	 wxSScPDQxhX9eTDfH8OPDLJbnidzJ+Ys7SUmyG4HG03hz4FLo2yTVG6Qjo0IY2YPJDPlxGd1qY+wNf
-	 A5VOBgIwPp2Ho9czxEv4fYxzCOxlzrx09r8OrlQ9+07oyMgqNSwykbAw+ZpS8Gi0K4/A4B6OKvpFx8
-	 nMGJGHR8N31/B/ipx6NcOOfDQmo9RuChqPOLiQRLRe35MV8GgIrkGRvqElRUUILuWPsu3vB7oSEBb7
-	 +gsDhClb3t4qAi/Dzd6drO1NpoYahFg==
-X-MSG-ID: 665eb1ad-ea62-11f1-be32-0050568164d1
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JXbB92Su
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9198C1570;
+	Fri, 27 Nov 2026 05:02:21 -0800 (PST)
+Received: from [10.0.154.42] (e121487-lin.cambridge.arm.com [10.0.154.42])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E46513F86C;
+	Fri, 27 Nov 2026 05:02:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795784544; bh=QeFOK6g8h2iQ2txNI2mx0B0PPeSALxkLl0Q5BbCVDmk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=JXbB92SunCgR+kVz71rmMiUis52LA1z+gix44AySQQhACoDyc0LdD7F+RFyIqqgN2
+	 BGftvxnt09g4GhWHRASIwOxPtgey38xSjx5/hu1Ay7j+RDY/Ifx2fPDgpSoz3UEbZ2
+	 2pCGVjA4EEaDZgJEFaYNECT83+NmviaX6/uZyfpo=
+Message-ID: <6fe998dd-cb41-49ee-8018-26071d347db5@arm.com>
+Date: Fri, 27 Nov 2026 13:02:20 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,34 +53,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] mtd: rawnand: gpmi: fix probe error path when
- CONFIG_PM=N
-From: Maarten Zanders <maarten@zanders.be>
-To: Yige Jiang <yigejiang86@gmail.com>
-Cc: Han Xu <han.xu@nxp.com>, Miquel Raynal <miquel.raynal@bootlin.com>, 
- Vignesh Raghavendra <vigneshr@ti.com>, Richard Weinberger <richard@nod.at>, 
- Maarten Zanders <maarten@zanders.be>, imx@lists.linux.dev, 
- linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Revert "irqchip: nvic: Fix offset for Interrupt Priority
+ Offsets"
+To: Yoshifumi SHU <envzhu@gmail.com>, Thomas Gleixner <tglx@kernel.org>
+Cc: Radu Rendec <radu@rendec.net>, Brad Hawthorne <brad@sim.vu>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  stable@vger.kernel.org
-In-Reply-To: <rc-b1-20261110-vc-170-6561daaaf6bd@gmail.com>
-References: <rc-b1-20261110-vc-170-6561daaaf6bd@gmail.com>
-Date: Fri, 27 Nov 2026 13:59:30 +0100
-Message-Id: <179578437089.42564.6953197767312597216.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795784406; l=238;
- i=maarten@zanders.be; s=20261117; h=from:subject:message-id;
- bh=59DQD1G1iSgtJQdIAgk4d9+k79+O6x9lxm3IYgwvoOo=;
- b=e3D19xOOtoV2U718Mz3lwuPTVFovPhvY4KEDtNZeLW3iio1fbftSSU1cuK6NptmQs54s5MxUU
- z9GsWJ5AbhVB35PSMvVvKXGDoeAYyKrtynrwXKswgN0UH5OVRyVc7XF
-X-Developer-Key: i=maarten@zanders.be; a=ed25519;
- pk=9vkWF6gtn9DS+97n+W487XUEhrI3+9cvA7Fdon8T1uI=
+References: <20261127122801.4189591-1-envzhu@gmail.com>
+Content-Language: en-GB
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+In-Reply-To: <20261127122801.4189591-1-envzhu@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, 26 Nov 2026 21:32:39 +0800, Yige Jiang <yigejiang86@gmail.com> wrote:
-> mtd: rawnand: gpmi: fix probe error path when CONFIG_PM=N
+On 11/27/26 12:28, Yoshifumi SHU wrote:
+> This reverts commit c5e0cbe2858d278a27d5b3fe31890aea5be064c4.
+> 
+> nvic_base is mapped to 0xe000e100 (NVIC_ISER0). Thus, the Interrupt
+> Priority Registers (NVIC_IPRx, at 0xe000e400) are offset by 0x300 from
+> nvic_base, not 0x400. The reverted commit overlooked that nvic_base is
+> already offset by 0x100 from 0xe000e000 and incorrectly changed
+> NVIC_IPR.
+> 
+> Link: https://lore.kernel.org/linux-arm-kernel/b0be3be5-3a7d-469e-9166-a3414a52cbea@arm.com/
+> Fixes: c5e0cbe2858d ("irqchip: nvic: Fix offset for Interrupt Priority Offsets")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yoshifumi SHU <envzhu@gmail.com>
+> ---
+> Vladimir asked for this revert (see Link:).
+> 
+> Tested on MPS3-AN547 (Cortex-M55) and EK-RA8P1 (Cortex-M85) hardware
+> against v7.4-rc4. On EK-RA8P1, confirmed that the driver now writes to
+> the correct addresses for NVIC_IPR registers.
+> ---
+>  drivers/irqchip/irq-nvic.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/irqchip/irq-nvic.c b/drivers/irqchip/irq-nvic.c
+> index 2191a2b79578..9438891e66f2 100644
+> --- a/drivers/irqchip/irq-nvic.c
+> +++ b/drivers/irqchip/irq-nvic.c
+> @@ -26,7 +26,7 @@
+>  
+>  #define NVIC_ISER		0x000
+>  #define NVIC_ICER		0x080
+> -#define NVIC_IPR		0x400
+> +#define NVIC_IPR		0x300
+>  
+>  #define NVIC_MAX_BANKS		16
+>  /*
+> 
+> base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
+> -- 2.53.0
+> 
 
-Reviewed-by: Maarten Zanders <maarten@zanders.be>
+FWIW,
 
--- 
-Maarten Zanders <maarten@zanders.be>
+Acked-by: Vladimir Murzin <vladimir.murzin@arm.com>
+
+Sorry for such silly mistake!
+
+Cheers
+Vladimir
