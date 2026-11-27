@@ -1,102 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795794558;
-	b=IB7l6vUbuhsMfVnX6c+lSPMTJ/e9Wdp+0WlPf/zhZkCig2/4NHSu+0fCMRIzBqLKl3xX
-	 FdlcSjE2OsqafUlJl1aQzdGzNXCLjPbioEOQFZ8GK05c7hGIVEuy6CKSBJuKopUkuNClC
-	 zrgXXHzJicvlNv9nzJitbChxJopyyn5Q/F7gvTVaEeSP8byRimGZ9sfW7K9aK2lT3S2rg
-	 SJiuOguiHWBrVcBxvp3f4cKn1zWy4tA0kMU5+YIki8/gR4wmj5p9JoR7N8jOQuCp4WVWD
-	 YUisdV+FOLV3sEelqHhzJV1h7kYnxyLvUg+03UOGmBCuFRzTBrZL2r3N5D4/R9CAsGw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795794558;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=pm/8tep73L9V4TMW2Ch55CTSshK2JxETa/tNsbYXksY=;
-	b=VROgmyb1KHKTwv6RwjMFiEQBWzsrxwXGy/3n+iSis8LgcN+hv0Oh284vqughH14DCyS6
-	 MOrIjInfukgXjBNUzLTbdxlPmxS+f3bpFudrQRqu9/rroqde/J4VEcLqz4DtCpOwRMwJl
-	 Vx4OQwtKxl4geMfzU3L+jl1MHjAQCibl8xVZK5Sfj3bIhhHKCfVzflhYcAGnvNgsj6xOs
-	 4lNDr3Upw+4rob+8BGrocDeNJTGoeLKKnRY1AvsSMbFqjtR/Oz1mqWg55HiKDPIbCXbd+
-	 0JjhJ2iEYdI2jlbawv0raGlouFRO96kwspZmhSE5cwvqkhJkB6XibDX9y2ZcKbhveJA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="r7/DC2ns";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795794878;
+	b=AnuwfSPv3pKaHLcrab0BFNFAZMOx/c9TWmqP/ZirbB20MufrHRERUMhGkPzanVDOR8vT
+	 T57VTcYgA+q99JvZw77ErkJvrCwiVV36e7N6RSfb3JeNB1/mkVQOd8UmS/JrtaIZHE9Di
+	 DU+wY3M+a15R/JQOXRQo5NMZKxo2fEn1/WIwjBXmQrCPyJ83jZbXSGL2vHzXJ7E9Eg3XI
+	 Bl9bZIS/TAu4LK49VZiAcBsZK5W4jn+Dj9R6L2BPbQut1C4+2dOJPLAgJgtsaenlQt4BK
+	 BGA5C6BvVD+cO98XXbSJotlwahq2KhMB0bsBbpKxrddur1B3Zt+AOUxsf4ymZ9xwi+Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795794878;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=qT2SmpKT42/60ZCfaDo5yzFJNJBXnuaeiR7un/Ksq+A=;
+	b=PKATDjZDFkYtwAnehrGeMFjTelpLgU4F7wgU8D9bg+MY8dmMv42l1xMOkwoZUVY+5aeb
+	 ITAPFkkiSDBRpzGmFjXV5HFZa1K5BM7wVKBckX2mFcrkRHNwKileBfyQIEPKy2iM7/xuK
+	 U3TxLih4Eo+i46kYN8UShZJk11Ar1u1kJkIFQb8IdpeNOyymplspCC34sKKVT12jLksf+
+	 gmzwOEclspRDMg4qpAcZAriy9FcjPDak2E8WDm7Se63D3BYmNmXDOt/IMOjvx2/ln1cfu
+	 qGXh/S8WM8p6eqOJXXJBvmVfkKB6rM0tYtB0CVJNEDHYYpLGCDpvDi/9TETcHd75QhQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J5ZJTfSG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67063606A31F
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 15:49:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67063606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ACAF606A321;
+	Fri, 27 Nov 2026 15:54:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r7/DC2ns
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-55c35262674so60669101cf.0
-        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 07:49:18 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795794557; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SW0/o0nt59pzaGCOP3qUHIBOESWk51YWfyEp6c5YWTMRyyN0TeOj8EmhtWwlrc/nY0
-         feTevdvJiyDQDdxDOiT77hjOY1sRwQhjo9Q0VE3uCqKrU3nF8p8gIuvMvgVrh7C9Wity
-         edy1qrnDmRRWh+7ivrRx067Uh5+gk5lBLqF2wtLfp7T0mSYPXMsdp+dSoNsQ4bEf0/3B
-         JK8Qp3giDSguvrB9APo8w2vXtppX+2pb81ujV8FDiXtXnbwzUG+mb4/5MJ4RloHOkRbP
-         9iFvkq3aLSaXAUvfb6BBf32wawIXFcKcmHwJ+dbNbgBPQlSBLmxn+3AsIynjF7VWkTSH
-         1T0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pm/8tep73L9V4TMW2Ch55CTSshK2JxETa/tNsbYXksY=;
-        fh=uic+RrpRzSqETJrG6DepirveWk8UDgnExhNU/zLk/K0=;
-        b=qAdr6EILntA6k2GzcAmIaGNXxKjPJCBS+/0d7JDOjs2bpXsjo+oRI81fKadyoHjl/t
-         sJodu5x56UUHEfUGoQf/0WEtZ8EzII5UE88t7TpQuCcj/6ghqeK9jQhLs776rBV0R7bv
-         rNfyV0f9JpU0ZAvJdQgiFiBio4HkRmAvaQUdeu7nRuL1bozFZFcVCOsT7mvaySciLQiV
-         X+rjxsRjbdc66FAjn0rGG5qLcKItpqv9VnQd+T06ZaRozt1b5C8DFSgxRF8J8VoqiRFF
-         Ill8JqIiCRXDwBcFeofIYXGwF4bthSrc4e6Kf3r+1rsxWQ6e8reKMYPz/3WduIXSi3Gu
-         FThA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795794557; x=1796399357; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pm/8tep73L9V4TMW2Ch55CTSshK2JxETa/tNsbYXksY=;
-        b=r7/DC2nsFPcFfujXShUyJum92nAAXkR0SPOC0ulHRZV7FF+2KOagqIU8llcBM/1sWW
-         HYzyUhkof0c/LZk5o5X3JnEQKrn3MUj5T1ypXIw/5hWZmTHABodP102dd5j1T+V2b7gP
-         uU56XPDlh5ZFSTI35HOlaxOXnUIs0Bq2gQxx49Ngr/1l/H+LtZEYC7Eq+3wXVagvXjei
-         zv+r/9ePDQbmXnLvvT8OhCZj4Svf+Fd/hJlVd8jNwy65xC5Jl0wbhcweHGLgF7t63Kdo
-         wUNQIrBPNig40zlbv0oC2Bw+Pi3AYT+5OnLLzteFop3u7hLGUeT16D85qVO3NjtWaIph
-         Fn2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795794557; x=1796399357;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pm/8tep73L9V4TMW2Ch55CTSshK2JxETa/tNsbYXksY=;
-        b=RQZV/w8wn1Wrux1BDjdfkKlP0Df8nh2q4sXev6dr4zE2W4FKbgMvkMuEBLEqPYDczl
-         o8Z22VFCKXsh/G+97FeICVdHs4Dr5eLSXWKSa6qwlYJpNwT6OlswCUOPA8iVm19iEZ/R
-         pL+HJlEsrhdeGSf93UJxOXfcLdvv7qRcy/Sv8byo6ng0E58DPqE0sGFyomCO6ORH5mCP
-         OFQ383joD6XsORXcQ+mw4/ow/7ZCbjT0Yf6RUVJ0gxY2n2sO/0UuPCpaVvUHvUEXbMF7
-         UParhQpa/X1ykIMw0VkW+doDiC//gSG10tszxMI5G/2e3FJZnOjTGSoBZGJamk6GFb5U
-         D0rg==
-X-Forwarded-Encrypted: i=1; AL+hErFAeb7xA8CW29dsqKxmHJqs7RlO1XK6ZC3keeT0mPZNa+pu8qIwmMqPYBF9dIGueRnB4jpx1ms=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/1X9B1+Q463kecRTYybcGcIq/rNjs1VxrEZYhqmQtDbY4GH97s
-	DyK9RUx78KQJaBshIA+PVQ5Se6wM5Qnl60KFQM+4OYHA4wNQOnYHvs7xXJ/ci3drQiC+g562+sU
-	1D8pzjeXARIgKLc2tjfM1dH0/qT0ilf8=
-X-Gm-Gg: AZFdTZd+/8/lOXMSMtO4eJj4uXbRo70jDCjhsThTLMcEs76JsMlCsqyrbtpteeP9FNa
-	Hw75xWl1yI4wA2qMqskigt+AmSqGqV9Ev0wUtpBh7cJJut7ypuUIGRq9VHHzyqjYk1gz0/JjiHG
-	TEjz1dOohs4+9WFozWfoDOIon5wFAmdJlL7BW01j7/Qtb4ABDm4p1Hi7KLk+nEatJg52X7im+VP
-	rA4to6hz7IH/L2uJy039UBdEDjnfyxe+BIYljIZT9y2/Etzccq/IdkUQp+SxGj6i1zML9L0p5iv
-	nn/+VE4ql6K1lvLsMImCN2M8yL+euIIxnuOdWKJLnHqz8XLrmXPXDP9nrjcxMKb2mRMSwKszDnI
-	cvZ16asFnv2NLb6Tu/WLly5d6LIq0g760+srdgVP62gmYYFeUvDTNAprskEnv37X0DwDO3v4IBR
-	d1aFZhzhMH7OX/L2PCmKg07loQg5PNf8FQZ9PHu0VSVza/VVSH9T4nkqsFK+sETJ4Bj8wPSYS7F
-	Mj4mB0sB5eFDfZP0MskWluZ+gMx3pHX6g==
-X-Received: by 2002:ac8:5754:0:b0:535:a5fa:edff with SMTP id
- d75a77b69052e-55d76a59807mr476389711cf.63.1795794557235; Fri, 27 Nov 2026
- 07:49:17 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J5ZJTfSG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 436F61F00935;
+	Fri, 27 Nov 2026 15:54:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795794877;
+	bh=qT2SmpKT42/60ZCfaDo5yzFJNJBXnuaeiR7un/Ksq+A=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=J5ZJTfSGwyx7YP//jUdN0TD8TP+nVbpyO3+54YaVPHZoVlgYeQL7XshMdgm9nkZ7U
+	 MvaBjId+eZjehUOUGY9mLJ7DEmj9YpVyJDnKtTZ5DhR838Z39vjDlrzqsSbo/WcdX+
+	 /UyXE9Q+yGZ8flHpV7tkCQsd0kOr0jraNL+CnCTik9uJ+PMcPOjopRqFG9g+qYGkC+
+	 zVg4sMXLrWgEhOsXEnbNqY4RKJFztkt7qFfpMk7UqYKiUa63HtJ76BdAep6/pxP5KA
+	 UnCnh0s8wxbavMjIaNIXtAZsCJWRxiuIXGJpCPlH09t+P5yDq+1OBgGhWt4Xw+fUyG
+	 8VTAfjwyIMjrw==
+Subject: Re: [PATCH net v4] net/smc: bound the DMB-nocopy send-buffer credit
+ by what was sent
+From: netdev-bot+sashiko@kernel.org
+To: piyus@iiitd.ac.in
+Cc: wenjia@linux.ibm.com, jaka@linux.ibm.com, alibuda@linux.alibaba.com,
+ tonylu@linux.alibaba.com, guwen@linux.alibaba.com, netdev@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ kapil@presceralabs.ai, stable@vger.kernel.org
+Date: Fri, 27 Nov 2026 15:54:35 +0000
+Message-ID: <179579487576.3135.5925577471148632436@kernel.org>
+In-Reply-To: <20261126150617.2113159-1-piyus@iiitd.ac.in>
+References: <20261126150617.2113159-1-piyus@iiitd.ac.in>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,52 +65,241 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261126031506.165973-1-kaynak.oguzhan0@gmail.com> <awkzEjrVEz2jB1Ma@z790sl>
-In-Reply-To: <awkzEjrVEz2jB1Ma@z790sl>
-From: =?UTF-8?Q?O=C4=9Fuzhan_Kaynak?= <kaynak.oguzhan0@gmail.com>
-Date: Fri, 27 Nov 2026 18:49:05 +0300
-X-Gm-Features: Aa3M54oG8qNSkma9SYEe5bEWuLV762AYfcjKVO9GWl8LUMyf097tEckGvgVUriY
-Message-ID: <CAAKAQ7KpM5hT-Q0mdJr-0VnHy1DeFBoODjYM-FCoXiS+5DW+cA@mail.gmail.com>
-Subject: Re: [PATCH] ntb: ntb_tool: accept hexadecimal addresses in
- peer_mw_trans again
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>, 
-	Allen Hubbe <allenbh@gmail.com>, ntb@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, regressions@lists.linux.dev, 
-	yangqixiao <yangqixiao@inspur.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Koichiro Den <den@valinux.co.jp>, 27 Kas 2026 Cum, 11:01 tarihinde =C5=9Fun=
-u yazd=C4=B1:
->
-> On Thu, Nov 26, 2026 at 06:15:06AM +0300, Oguzhan KAYNAK wrote:
-> > -     n =3D sscanf(buf, "%llu:%zu", &addr, &wsize);
-> > +     n =3D sscanf(buf, "%lli:%zu", &addr, &wsize);
->
-> Just to clarify, do we have any rule about negative values for the addres=
-s part,
-> like in "-1:4096"? 21fbdc4d0b1e mentions "-1" as a possible input for the=
- size
-> part, but doesn't mention it for the address part. (For either part, "-1"=
- is
-> really odd, but that's not the point.) As you mention, your patch starts
-> accepting it for the address part again. Perhaps we should keep rejecting=
- it
-> there?
->
-> If so, to cover the cases broguht up so far, perhaps it would be an optio=
-n to
-> split the input at ":" with strsep() and use kstrtou64() with base 0 for =
-the
-> address?
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Good point, thanks. A negative address was rejected before my patch,
-so it should stay that way. v2 does what you suggested: strsep() at ':'
-and kstrtou64() with base 0 for the address. I did not carry your
-Reviewed-by over, since the code changed.
+Critical: 0 (1) · High: 0 · Medium: 1 · Low: 2
 
-v2: https://lore.kernel.org/all/20261127154157.3541-1-kaynak.oguzhan0@gmail=
-.com/
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Oguzhan
+- [Medium] The new clamp makes the sndbuf_space credit depend on the
+  tasklet seeing a tx_curs_sent at least as new as every prod the peer…
+- [Low] The commit message treats the DMB-nocopy consumer cursor as
+  untrusted remote input that "nothing bounds", and the Fixes: tag sends…
+- [Low] The new comment in smc_cdc_msg_recv_action()
+  (net/smc/smc_cdc.c:392-393) says the bound preserves "the fin <= sent…
+
+Pre-existing issues:
+- [Critical] This problem wasn't introduced by this patch, but the
+  producer cursor (prod) from the same CDC message, handled in the same…
+
+--
+
+net/smc: bound the DMB-nocopy send-buffer credit by what was sent
+
+This patch changes the SMC-D DMB-nocopy path in smc_cdc_msg_recv_action().
+The sndbuf_space credit is now bounded by the bytes between tx_curs_fin and
+tx_curs_sent, and tx_curs_fin is advanced by that bounded amount instead of
+being assigned the consumer cursor the peer reported. Both cursors are
+snapshotted with smc_curs_copy() before use.
+
+Link: https://lore.kernel.org/all/179552966151.3135.8162716126718648323@kernel.org/
+
+> The peer writes that cursor into the DMB itself, so under DMB-nocopy the
+> value is remote input and nothing bounds it.  A cursor reporting more
+> consumed than this side ever sent raises sndbuf_space past
+> sndbuf_desc->len, and the assignment moves tx_curs_fin past tx_curs_sent,
+> breaking the fin <= sent <= prep order the three cursors are documented
+> with.
+
+[Severity: Low]
+Does "remote input" describe where this cursor comes from accurately?
+
+smc_ism_support_dmb_nocopy() is only true when the dibs device implements
+ops->support_mmapped_rdmb:
+
+net/smc/smc_ism.c:smc_ism_support_dmb_nocopy() {
+	/* for now only loopback-ism supports
+	 * merging sndbuf with peer DMB to avoid
+	 * data copies between them.
+	 */
+	return (smcd->dibs->ops->support_mmapped_rdmb &&
+		smcd->dibs->ops->support_mmapped_rdmb(smcd->dibs));
+}
+
+The only in-tree provider is in drivers/dibs/dibs_loopback.c:
+
+	.support_mmapped_rdmb = dibs_lo_support_dmb_nocopy,
+
+So the peer that writes the cursor is the same kernel's SMC stack. It goes
+through smcd_cdc_msg_send()->smcd_tx_ism_write()->dibs_lo_move_data().
+
+The CDC header sits at offset 0 of the DMB. smcd_buf_attach() places the
+ghost sndbuf after sizeof(struct smcd_cdc_msg), so user data written through
+sendmsg cannot overwrite the header.
+
+The peer only advances cons through recvmsg. recvmsg is limited by
+bytes_to_rcv, which comes from the prod the peer received, and that prod is
+at or behind our tx_curs_sent.
+
+As a result, diff_tx <= unconfirmed always holds and the new min_t() never
+clamps. smc_curs_add(fin, diff_tx) gives the same tx_curs_fin as the old
+assignment from local_rx_ctrl.cons. Producing the forged CDC stream
+mentioned in the notes would need kernel-level injection.
+
+Could the changelog say that this path is only reachable with loopback-ism,
+and call the change hardening? If so, is the Fixes: tag still appropriate,
+since it sends this to stable as a bug fix?
+
+> diff --git a/net/smc/smc_cdc.c b/net/smc/smc_cdc.c
+> index 32d6d03df3214..8f4351e1d4adc 100644
+> --- a/net/smc/smc_cdc.c
+> +++ b/net/smc/smc_cdc.c
+> @@ -333,6 +333,8 @@ static void smc_cdc_msg_recv_action(struct smc_sock *smc,
+>  	union smc_host_cursor cons_old, prod_old;
+>  	struct smc_connection *conn = &smc->conn;
+>  	int diff_cons, diff_prod, diff_tx;
+> +	union smc_host_cursor fin, sent;
+> +	int unconfirmed;
+>  
+>  	smc_curs_copy(&prod_old, &conn->local_rx_ctrl.prod, conn);
+>  	smc_curs_copy(&cons_old, &conn->local_rx_ctrl.cons, conn);
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but the producer cursor from the
+same CDC message is never range-checked. It is handled a few lines further
+down in smc_cdc_msg_recv_action(). Can a remote peer use it to read past
+the end of the RMB?
+
+smcd_cdc_msg_to_host() copies peer->prod.wrap and count straight from the
+DMB. On SMC-R, smc_cdc_cursor_to_host() is reached from
+smc_cdc_rx_handler(), and it only rejects backward moves:
+
+	if ((old.wrap > temp.wrap) && temp.wrap)
+		return;
+	if ((old.wrap == temp.wrap) &&
+	    (old.count > temp.count))
+		return;
+	smc_curs_copy(local, &temp, conn);
+
+Any forward prod is accepted, for example the same wrap with
+count = 0x70000000. diff_prod then approaches INT_MAX and is added to
+bytes_to_rcv without a check, even though the comment says:
+
+	atomic_add(diff_prod, &conn->bytes_to_rcv);
+	/* guarantee 0 <= bytes_to_rcv <= rmb_desc->len */
+
+If the peer also sets prod_flags.urg_data_present,
+smc_cdc_handle_urg_data_arrival() does this:
+
+	base = (char *)conn->rmb_desc->cpu_addr + conn->rx_off;
+	if (conn->urg_curs.count)
+		conn->urg_rx_byte = *(base + conn->urg_curs.count - 1);
+
+urg_curs.count is never compared against rmb_desc->len. The read happens in
+softirq context and can land up to about 2 GiB past the RMB. It either oopses
+or leaks one byte to user space through recv(MSG_OOB) in smc_rx_recv_urg().
+
+There is a second path in smc_rx_recvmsg(). There, copylen is bounded only
+by the inflated bytes_to_rcv. When copylen > rmb_desc->len, the second
+chunk is:
+
+	chunk_len = copylen - chunk_len; /* remainder */
+	chunk_len_sum += chunk_len;
+	chunk_off = 0; /* modulo offset in recv ring buffer */
+
+memcpy_to_msg() or smc_rx_splice() copies it from the start of the RMB, and
+the copy runs past the end of the buffer.
+
+Should prod be checked against rmb_desc->len, and diff_prod against the
+free space in the RMB, before either is used here?
+
+> @@ -358,16 +360,55 @@ static void smc_cdc_msg_recv_action(struct smc_sock *smc,
+>  			/* Calculate consumed data and
+>  			 * increment free send buffer space.
+>  			 */
+
+[ ... ]
+
+> +			smc_curs_copy(&fin, &conn->tx_curs_fin, conn);
+> +			smc_curs_copy(&sent, &conn->tx_curs_sent, conn);
+>  			diff_tx = smc_curs_diff(conn->sndbuf_desc->len,
+> -						&conn->tx_curs_fin,
+> +						&fin,
+>  						&conn->local_rx_ctrl.cons);
+> +			/* This difference comes from the cursor the peer
+
+[ ... ]
+
+> +			 * would move tx_curs_fin past tx_curs_sent and break
+> +			 * the fin <= sent <= prep order the three cursors are
+> +			 * documented with.
+> +			 */
+
+[Severity: Low]
+Where is the fin <= sent <= prep ordering documented? Under net/smc/, this
+new comment is the only place the phrase appears.
+
+The field comments in struct smc_connection in net/smc/smc.h only give loose
+TCP analogies and state no invariant:
+
+	union smc_host_cursor	tx_curs_prep;	/* tx - prepared data
+						 * snd_max..wmem_alloc
+						 */
+	union smc_host_cursor	tx_curs_sent;	/* tx - sent data
+						 * snd_nxt ?
+						 */
+	union smc_host_cursor	tx_curs_fin;	/* tx - confirmed by peer
+						 * snd-wnd-begin ?
+						 */
+
+Could the invariant be written down next to these fields? Otherwise, could
+this comment and the matching sentence in the changelog be reworded so they
+don't say it is documented?
+
+> +			unconfirmed = smc_curs_diff(conn->sndbuf_desc->len,
+> +						    &fin, &sent);
+> +			diff_tx = min_t(int, diff_tx, unconfirmed);
+
+[Severity: Medium]
+Can this clamp drop a legitimate credit when the sent snapshot is stale?
+
+The bound assumes this tasklet sees a tx_curs_sent at least as new as any
+prod the peer has seen. On the writer side, nothing orders those two
+stores:
+
+smcd_tx_sndbuf_nonempty()        /* holds conn->send_lock */
+  smc_tx_rdma_writes()
+    smc_curs_copy(&conn->tx_curs_sent, &sent, conn);
+      /* relaxed atomic64_set() on 64-bit */
+  smcd_cdc_msg_send()
+    smcd_tx_ism_write()
+      dibs_lo_move_data()
+        read_lock_bh(&ldev->dmb_ht_lock);    /* acquire only */
+        memcpy((char *)rmb_node->cpu_addr + offset, data, size);
+          /* publishes prod into the peer DMB */
+
+On weakly ordered architectures such as arm64, ppc and riscv, the prod store
+can become visible before the tx_curs_sent store.
+
+Suppose the peer's rx tasklet is already running on another CPU. It reads
+the new prod in smcd_cdc_rx_tsklet(), consumes the data and reports cons
+back, all before the tx_curs_sent store has propagated. The sent snapshot is
+then behind, so unconfirmed < diff_tx and min_t() drops part of the credit.
+
+local_rx_ctrl.cons has already moved, and this block only runs when
+diff_cons is non-zero. The dropped part is only credited when the peer moves
+cons again.
+
+Take a sender that fills the whole sndbuf (sndbuf_space == 0), sends it in
+one smc_tx_rdma_writes() call and blocks in smc_tx_wait(). If the snapshot
+is a full write behind, unconfirmed is 0 and nothing is credited. The peer
+has nothing more to consume, so it sends no further cons update. Does the
+sender then stall for good?
+
+The old code assigned cons directly and never read tx_curs_sent here. The
+changelog covers tearing but not the order in which other CPUs see the
+stores. The timing is very tight and this hasn't been shown on real
+hardware, but LKMM allows it.
+
+Is an smp_wmb() or a store-release needed between the tx_curs_sent update
+and publishing the CDC? Alternatively, could the bound avoid depending on
+tx_curs_sent?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261126150617.2113159-1-piyus%40iiitd.ac.in
