@@ -1,81 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.96.220.36
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795771442;
-	b=Hoc1sxURhDyWZTNvzaKMbp83A82Cj2xH6zYS3XqbCQ6sDUQNIj7PBuXeksG3meQT5fIR
-	 Zjrwg69L39axHPOnhhZiLq+e7mG9L8D391SOpJOIEyvKctHGnnyp1d9omxjHwtOSEh/f5
-	 LNGQSncbbf4lDEIXlQtRLIrbC0tdnSykdijWUmdWunJRibRC8u9cnVv15lH26Ye4fHinB
-	 eAxi4p9X/f+9IZUJtHtPSJWgsElYVTPM+RsPeqUMLpL/7souxyKH6aB6mIlRrjXUAnV7g
-	 3VyteAkBeqZjQbfW/EARHwXSMYiQQzv0HpEWFWkLo+OtFwGvCTUlRfmHr5487974ydg==
+	t=1795771495;
+	b=4gC4wPhO9Z1YNWgmfSVeun+MgWl+VpdWvNfgKSiO3rYJqAmC5Isblvsks0TFC/mzuK+2
+	 0IBGWT9ubCV58LZ0JRt3UHfgxLi9UX9B9cbiQDuIJpw7D/W8XipHobiuY7n0LeIvnvt0X
+	 hOMfrzQ6LtN6ME44K97pxFSuNhaQvqIdY9nsCsf+UJmoCC5hVAdK22VorO+QKYmROc3Ie
+	 Cnw712pOvyjI3RFHXoJeDWV4ZPy4NOhDbVB5jvhBL4AX+kyEcfkLvyGo9DjNVkLH1zz6z
+	 4rBaTp7lGbxzr7YeGDvObJcgZuaJuuPaKrZ7Hl4tYuEorcWbGTGxsaKC077me5veXcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795771442;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795771495;
 	h=DMARC-Filter:Received:X-Virus-Scanned:Received:Received:DKIM-Filter:
 	 DKIM-Signature:Received:Received:Date:From:To:CC:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
 	 X-ClientProxiedBy;
-	bh=dcm3vEaafSdM/C5J8kdxevbXyamY5QJ7Qrldbj24bk8=;
-	b=b622evEGguf5bmzbUUljpqrvnU6/UOb+MRgJPw8GEBqumy1JATm2f7nuYwPfuZylTkqO
-	 QUh6AfJ2O+TqFSO6v57KLFzkvOgHVjpMjeDFsONls6hQy77kRF6rWddYru95mfei0XbGh
-	 nwSs6OkxUJcEFiJJunDI9x1alJ/cOmOdmi26ujL3rrqP7S8VvMS+DwGvKrs4X46L0rBg8
-	 4hCjvEyeK95U7FDgQOOO9iGR3Dp4J77gLhBvXuXqgghCsm1mI1gVO3FziPMg/ZFPRm4eE
-	 GDgXxCsEIvJ3cPQxmEobFmX+Nb8bOSsmOE7ULXbJxzA3/IGHEqFcSuGHukiYcDVOFZA==
+	bh=ffjaXrQgekHgaiAXYlHWxAd1hg/vdm54u7R2y3uB1e8=;
+	b=mty0H+aKDcmbIhQSHdI3qZ+SKhBNRyVOvgOlO5LL37T70Jxe3xqW+s81Z8elEpm7hl8P
+	 7Gy+qUaK9V7OzJ9nOwzsxfNfsjHbA1CeKXhcc5B2EbYhRklmT9ZYejKvEbOmrpgUo0JMv
+	 AtoU908+Pg4qE8hfip+/So/At+ACmuG1yxu/hDTrYqtY69qoupZIACh6jqAhKV1CUftW/
+	 f2W5eCEEe7G4irhIdKXyeDO1QF+EWl5NaWaRAhzhGLGhTYolFnlrUXz4F//KoNyeT9qCZ
+	 2WlsiBSUkANdp3Iqzsw8UTbS4mwlfU+UIGZs7u3iX/OT/81b576SvxdFiAR3rU2vc5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=secunet.com;
 	spf=pass smtp.mailfrom=secunet.com;
-	dkim=pass header.d=secunet.com header.i=@secunet.com header.a=rsa-sha256 header.s=202301 header.b=cF1aTWG+;
+	dkim=pass header.d=secunet.com header.i=@secunet.com header.a=rsa-sha256 header.s=202301 header.b=GtuuVy1j;
 	arc=none smtp.remote-ip=62.96.220.36
 Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4DEC606A31E;
-	Fri, 27 Nov 2026 09:24:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4DEC606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B00CF606A321;
+	Fri, 27 Nov 2026 09:24:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B00CF606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.a=rsa-sha256 header.s=202301 header.b=cF1aTWG+
+	dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.a=rsa-sha256 header.s=202301 header.b=GtuuVy1j
 Received: from localhost (localhost [127.0.0.1])
-	by mx1.secunet.com (Postfix) with ESMTP id 2EFB720854;
-	Fri, 27 Nov 2026 10:24:00 +0100 (CET)
+	by mx1.secunet.com (Postfix) with ESMTP id 5E1FC208A6;
+	Fri, 27 Nov 2026 10:24:53 +0100 (CET)
 X-Virus-Scanned: by secunet
 Received: from mx1.secunet.com ([127.0.0.1])
  by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id X0G047dj0qH4; Fri, 27 Nov 2026 10:23:56 +0100 (CET)
+ with ESMTP id UrWwbOnHPHgB; Fri, 27 Nov 2026 10:24:52 +0100 (CET)
 Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.secunet.com (Postfix) with ESMTPS id EDAE120839;
-	Fri, 27 Nov 2026 10:23:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com EDAE120839
+	by mx1.secunet.com (Postfix) with ESMTPS id D500120894;
+	Fri, 27 Nov 2026 10:24:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com D500120894
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
-	s=202301; t=1795771436;
-	bh=dcm3vEaafSdM/C5J8kdxevbXyamY5QJ7Qrldbj24bk8=;
+	s=202301; t=1795771492;
+	bh=ffjaXrQgekHgaiAXYlHWxAd1hg/vdm54u7R2y3uB1e8=;
 	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
-	b=cF1aTWG+3V4v29+SEEMfMv9E5crQnBDJI+uKpUmTQ4XutlW20uU/LPWcGFLyUwCJo
-	 uvlWN1wpvUqCbIog9C2Epm9zBBXiH7v8dyiqhhzLqMvSBUAxluJNZy89XE4yBdc3hY
-	 35pkRdopPK54hs34a09bq/7e+dOnl21rDyxG9SKRpvk394K+SUUL6juhKvOe9HgFKk
-	 CFTNz0iCxH8mrHW5uR6wGMWRwl7TzlgPEMRDWRgUIn2SSoghmKU5b3Vy3B8h3wqB/B
-	 6dX7Ezw6vslH95QHdfqt9dhsb8guiKqGHzZP19AcCDBfaqvEZwrppLmcDHsKn41eJb
-	 /yMrbon3eMPHA==
+	b=GtuuVy1jYqkTjFISKIRbvwGvu4BScdqaj10HE6PHMbaUe02lCFRgQzaoo2cZFlDdX
+	 lypl3Y3ZJ6oybq1sp5bBH3/UkZv40suipixwn3ZPLWRzl0OMYz9fJx9W7qebpH8Q2D
+	 V3eY+TP8StHFO645IWuEN8DY0WrvuUBWNaxrVvThK0hpZgICoE7YxYIjGCxRpBsIRt
+	 J+mi0H4/603PexmVaTH+VSyGM24npjUtrYIPX4Du/4eu06mD1cN2o4jtTBj7NLhfWe
+	 QfhWV0PaOosm8Yam9GrBMfSV72gA/tvYKVi5SO2Fqh+A58A7+ZF7qkcpNTRVTW+jNv
+	 CF/VHq0iOz4tg==
 Received: from gauss4 (10.182.7.102) by EXCH-01.secunet.de (10.32.0.171) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 27 Nov
- 2026 10:23:54 +0100
-Received: (nullmailer pid 3467634 invoked by uid 1000);
-	Fri, 27 Nov 2026 09:23:53 -0000
-Date: Fri, 27 Nov 2026 10:23:53 +0100
+ 2026 10:24:52 +0100
+Received: (nullmailer pid 3468826 invoked by uid 1000);
+	Fri, 27 Nov 2026 09:24:52 -0000
+Date: Fri, 27 Nov 2026 10:24:51 +0100
 From: Steffen Klassert <steffen.klassert@secunet.com>
 To: Andrii Tereshchenko <opensource@andrii.net>
 CC: Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller"
 	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
 	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
-	<horms@kernel.org>, Christian Hopps <chopps@labn.net>, Fernando Fernandez
- Mancera <fmancera@suse.de>, Willem de Bruijn <willemb@google.com>, Piyus
- Kedia <piyus@iiitd.ac.in>, <netdev@vger.kernel.org>, <ipsec@lists.linux.dev>,
+	<horms@kernel.org>, Dmitry Safonov <0x7f454c46@gmail.com>, Sabrina Dubroca
+	<sd@queasysnail.net>, <netdev@vger.kernel.org>, <ipsec@lists.linux.dev>,
 	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH ipsec v2] xfrm: iptfs: make room before copying a
- continuation in reassembly
-Message-ID: <awlMKdcVSQEShHlw@gauss4>
-References: <e417c7f2-eaee-4fb0-b365-65cd521efd6b@mid.andrii.net>
+Subject: Re: [PATCH ipsec] xfrm/compat: pass on the translated length of a
+ socket policy
+Message-ID: <awlMY_jXPtnF8D2W@gauss4>
+References: <5249741d-fa84-4d54-bf77-45f48dbbb169@mid.andrii.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,37 +86,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <e417c7f2-eaee-4fb0-b365-65cd521efd6b@mid.andrii.net>
-X-ClientProxiedBy: EXCH-03.secunet.de (10.32.0.183) To EXCH-01.secunet.de
+In-Reply-To: <5249741d-fa84-4d54-bf77-45f48dbbb169@mid.andrii.net>
+X-ClientProxiedBy: EXCH-02.secunet.de (10.32.0.172) To EXCH-01.secunet.de
  (10.32.0.171)
 
-On Sun, Nov 22, 2026 at 05:09:25AM -0800, Andrii Tereshchenko wrote:
-> When iptfs_reassem_cont() cannot share a continuation as page frags, it
-> linearizes the in-progress skb and copies the data in with skb_put(),
-> without checking the tailroom. An skb started by iptfs_pskb_add_frags()
-> has little room after linearizing, so a larger continuation panics the
-> kernel in softirq:
-> 
->   skbuff: skb_over_panic: ... len:2884 put:1442 ... end:0x6c0 dev:eth1
->   kernel BUG at net/core/skbuff.c:215!
->   Call Trace:
->    <IRQ>
->    skb_put.cold+0x1f/0x1f
->    iptfs_reassem_cont+0x242/0x760
->    iptfs_input_ordered+0x382/0x3e0
->    iptfs_input+0x24d/0x630
->    xfrm_input+0x12a5/0x29f0
-> 
-> After linearizing, grow the head if the rest of the inner packet does
-> not fit, and abandon the reassembly if that fails.
+On Mon, Nov 23, 2026 at 07:29:46PM -0800, Andrii Tereshchenko wrote:
+> xfrm_user_policy() compiles a 32-bit task's translated socket policy
+> with the untranslated length, 4 bytes short, so the policy loses its
+> last template: an ESP-required socket policy then sends in clear
+> text. Have the translator return the translated length.
 > 
 > Made with an AI coding assistant, reviewed by the submitter.
 > 
-> Fixes: 5f2b6a909574 ("xfrm: iptfs: add skb-fragment sharing code")
-> Fixes: 0b352f83cabf ("xfrm: iptfs: fix skb_put() panic on non-linear skb during reassembly")
-> Reported-by: Piyus Kedia <piyus@iiitd.ac.in>
-> Closes: https://lore.kernel.org/all/20261119142308.3272570-1-piyus@iiitd.ac.in/
-> Link: https://lore.kernel.org/all/20260908224855.1591147-1-kuba@kernel.org/
+> Fixes: 96392ee5a13b ("xfrm/compat: Translate 32-bit user_policy from sockptr")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Andrii Tereshchenko <opensource@andrii.net>
 
