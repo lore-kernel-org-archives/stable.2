@@ -1,58 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.124.121.26
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795785261;
-	b=PXM0CblLivVimtoYKd/GGI5ueuJudOlRzRPmwsIaezoi5tV6TLIuWHpuoBQpnQ4PL9sz
-	 nC26SrCdcTiQIkITc6XVuREthdAHbpNtMbg7FeyKqJ2qSYqE5b7/u/oHyNs9U1xDKy/q6
-	 PgK5F6namfk6yQ5ubeIr/lOB6qGA8JUmUP/nlXJuNi3IH5io73n7JV+VZZG+6lVbCYEfo
-	 TKDdo86lu+FV6kiZR5bsp9zu6saviA8fTcpUoMSxqzyQ+g2VOoMDCO99iEuCCb4Vzzsbw
-	 rVXZCVdkNpsl4E/pRwjQx/5BVHTFAUaqvrqbIU+znvejVqmZSBYaLh3kMmdt5gFJFtQ==
+	t=1795785359;
+	b=yiubrnz8KVju3asAd54QTCb6m8F6zmUp8GNRvbfBqRrvlHZgS8IyUtT6WMXahXWiUsON
+	 jaDrpwXQNPRoR7H3A6wmx5cNsOddKn0QzTMBNcicuT9emnkSOysGhVjc1nO6eZgfw0SdV
+	 Amk6fCqjgBmB6zl6Z7Y9X8ilfxRNnqnH+/416lPumLfiLD7uXULtvIbzaQ2JBo6lkMtDh
+	 bOTc7rf06C0FhyL8129Wu3LkEpyeRa0QmOVle5uC7HbaArFlihcRqrs0qHkTJCslBfbAA
+	 Ux9zkZWpFvBkv0NZl6fvUgPVwB4Nx1ZyD66bjjf3R+XVMdc86AZyqaMbwuVxajE44Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795785261;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=opKcnubl27drJR5MynPgskxgraLdng2dtGTp3OwZnpU=;
-	b=UWubF4hIl76g4zj8tf+1PlkB29Zkw8xx/aVRWEZYjuO1wk7YYHinMd+BNInvXUG5koZK
-	 YDMA7afDgl3I207MlTqJaHBRvppE2RdhUxSFEJlLWvaPa7IHv1fj4gSxbptbcKceJHjsm
-	 tp7r4hLnm8Y0c3uLvlWVD8n6F/Qr86tgcFciAT3QRErOd2XnVQVWtNz1xGVEj17wnTAxV
-	 +EYwwOTkKk7eH0t1BMnFeKEnWb6jj4YCJCfgAmbv2QO2bOnRkV5fj3eRJa6e+aZkciPjX
-	 Nb23oS03QXHFOiZDHkgM5CzgO6kSsZLLx84O4ym+Al0Covu48xg0hsUFuUP8xS5Pmwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795785359;
+	h=DMARC-Filter:DKIM-Signature:X-MSG-ID:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=aCFTVSVXG6wB77a8PDQDLAYBUxPyj3OUMGSVgEGZX8A=;
+	b=RxPhlwr9HZHOfCGfgRqPS4s638BBrp7vZkKUvOaRu/wEuynQ8X2csUCjypL9c4kOVWeb
+	 HRal/je6C9cKglRw3DG/gyhxOcgTWI0ZTvyAURNTYSbiGyExuW5l1yIza+TsRisSB1GQ3
+	 sXgYGCRwUPsWAbeN45SW11kpqqUiTcG338AS9/+IsHrB/P8MnqObFVLFa2xqCu0tbWAsq
+	 3okCru6RN5M8uRuKivaeb3zduct//NL1Axf3iyVQdfhEUKMpHShB2wC8kJovLBj9Pug/u
+	 cw3EvUdt7nPuGzfemVt8tmMDGQR71MgfYhdfEx2D1n2RaUdi6GN5orH2HrWVbdBlx3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hLAPQUWY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=zanders.be;
+	spf=pass smtp.mailfrom=zanders.be;
+	dkim=pass header.d=zanders.be header.i=@zanders.be header.a=rsa-sha256 header.s=202002 header.b=U3nrn1TM;
+	arc=none smtp.remote-ip=94.124.121.26
+Received: from smtp15.bhosted.nl (smtp15.bhosted.nl [94.124.121.26])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D50A606A31C;
-	Fri, 27 Nov 2026 13:14:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C37B5606A323
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 13:15:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C37B5606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zanders.be
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zanders.be
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hLAPQUWY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 055491F0089A;
-	Fri, 27 Nov 2026 13:14:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795785260;
-	bh=opKcnubl27drJR5MynPgskxgraLdng2dtGTp3OwZnpU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=hLAPQUWYkFM/KZOrTNUnsaiXz5u7Kf314rFLomEz7CYaDKFnNLXyy28tFd6oDLii2
-	 90HfAxQ//Fw6ARfZzHBplLpeIpuE5RD30rNnWkAdnVEnS1h9z5F21FkiX2EG+F62oi
-	 fINOvHt6mfDEG6cFTDVPJRCRnmWBT3QYI3PKGPhz5lZGyDs4gzuvWAgsttX3BASSrp
-	 02VTUrES5vbhcfQW6c0lLhw2YJYU/T1drlR3+m/f3rLpb1k5NrelIRIOHAtymVjdCR
-	 S+JqBlYOnSAsdpFJLYe6C0h2bsxGEit68/UV1tXanOv4ywPKUvNEKpYP0yuJAgh1/e
-	 XeW9E6CbLhh9g==
-Subject: Re: [PATCH net] net/sched: enforce the FQ-PIE memory limit
-From: netdev-bot+sashiko@kernel.org
-To: shawnq1@163.com
-Cc: jhs@mojatatu.com, jiri@resnulli.us, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Fri, 27 Nov 2026 13:14:19 +0000
-Message-ID: <179578525954.3135.976273510614457459@kernel.org>
-In-Reply-To: <20261126122902.1504968-1-shawnq1@163.com>
-References: <20261126122902.1504968-1-shawnq1@163.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=zanders.be header.i=@zanders.be header.a=rsa-sha256 header.s=202002 header.b=U3nrn1TM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=zanders.be; s=202002;
+	h=cc:to:in-reply-to:references:message-id:content-transfer-encoding:
+	 content-type:mime-version:subject:date:from:from;
+	bh=aCFTVSVXG6wB77a8PDQDLAYBUxPyj3OUMGSVgEGZX8A=;
+	b=U3nrn1TMXWL8RX8Yae4iIAaIUF9CKip7Ejz9rEzZs+PtXY9ebAIiLtVdNBPcGcU7NRlooiyOz7+mQ
+	 MGqMUgngD9n8ODjRgbeyFEiqZ13tWeIxeq5WFHymxJQEl6l0gcSTSLH82w3htRayPWTLso6vtvtFcA
+	 1ebBrNhFfeyJb+mdceyUbTA2dGeHiGMmuIkaNEivo/fpIoxjUNGzJazpkARwIsbpauO/r7GnSXkRWr
+	 ZqbHAxVUIok0t59W5s9ZgaGYt4JXd2l5Zlh4traBd27GTFj4i4i1kd/5sOPYpsUqt3SzWSYHMO1Ki3
+	 l0UsXzSl3flRVJYDgSOTCmdrOo3rg3A==
+X-MSG-ID: aac02d20-ea64-11f1-8642-00505681446f
+From: Maarten Zanders <maarten@zanders.be>
+Date: Fri, 27 Nov 2026 14:15:31 +0100
+Subject: [PATCH v2 1/2] clk: vc5: Enable PFD frequency doubler for
+ 5P49V6965
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,174 +57,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261127-vc5-6975-dbl-v2-1-5a05581902c1@zanders.be>
+References: <20261127-vc5-6975-dbl-v2-0-5a05581902c1@zanders.be>
+In-Reply-To: <20261127-vc5-6975-dbl-v2-0-5a05581902c1@zanders.be>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Matthias Fend <matthias.fend@emfend.at>, Adam Ford <aford173@gmail.com>
+Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>, 
+ Maarten Zanders <maarten@zanders.be>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795785348; l=1089;
+ i=maarten@zanders.be; s=20261117; h=from:subject:message-id;
+ bh=kd89PotW/xzgMsI9YP0phLrL9nJkd11Q+dQOl+MrkK4=;
+ b=jGmOSPVID50W9Bk+ui5uXjOvD4qdyODo9dinxEbnOtGZsBVHMH+7wFz7mkfzidmWo2R/IoAdJ
+ UMA/ukOqCRbD7sa6bMw5vzDaHc15nP0frNo36DgstP6QuRK+pf/J/GW
+X-Developer-Key: i=maarten@zanders.be; a=ed25519;
+ pk=9vkWF6gtn9DS+97n+W487XUEhrI3+9cvA7Fdon8T1uI=
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+The 5P49V6965 supports the reference frequency doubler, but
+VC5_HAS_PFD_FREQ_DBL is not set for this device. As a result, the
+doubler setting is ignored and all PLL and output rates are reported at
+half their actual value when it is enabled.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 2
+Set VC5_HAS_PFD_FREQ_DBL for the 5P49V6965.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Fixes: 2bda748e6ad8 ("clk: vc5: Add support for IDT VersaClock 5P49V6965")
+Cc: stable@vger.kernel.org
+Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+Signed-off-by: Maarten Zanders <maarten@zanders.be>
+---
+ drivers/clk/clk-versaclock5.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-- [High] fq_pie_reset() (net/sched/sch_fq_pie.c:539-556) frees every
-  queued skb with rtnl_kfree_skbs() but never clears q->memory_usage.
-- [Medium] Before this patch, fq_pie never dropped packets because of
-  memory_limit (since ec97ecf1ebe4).
-- [Low] fq_pie now enforces memory_limit at enqueue, but fq_pie_change()
-  still trims the queue only with `while (sch->q.qlen > sch->limit)`…
-- [Low] The commit message is written as an email or bug report, not a
-  changelog.
-
---
-
-net/sched: enforce the FQ-PIE memory limit
-
-This patch makes fq_pie_qdisc_enqueue() drop an skb when its truesize
-exceeds the remaining memory_limit budget. Previously the memory_limited
-branch only incremented the overmemory counter. The patch also rewrites
-the check with subtraction so that memory_limit + truesize cannot
-overflow.
-
-> Hello,
->
-> [ ... ]
->
-> HEAD commit:    8d7fe9885c62fc9a95bf55d9db244d9672a8aadc
-> git tree:       fe970b05333fb8e41da21e9e289f652abcc7cba7
-> source version: Linux 7.4.0-rc4-g8d7fe9885c62
-> compiler:       gcc 11.4.0, GNU ld 2.38
->
-> The Gist contains the complete console output, kernel configuration,
-> sender source, and initramfs/QEMU helpers:
-
-[ ... ]
-
-[Severity: Low]
-This isn't a bug, but several parts of the commit message would end up
-in git history permanently:
-
-  - the greeting
-  - the build metadata
-  - the seven gist URLs
-  - the QEMU/initramfs reproduction steps
-
-Could these move below the --- line or into a cover letter?
-
-> diff --git a/net/sched/sch_fq_pie.c b/net/sched/sch_fq_pie.c
-> index 5982847df8f85..2e14467ae6585 100644
-> --- a/net/sched/sch_fq_pie.c
-> +++ b/net/sched/sch_fq_pie.c
-
-[ ... ]
-
-> @@ -152,7 +152,8 @@ static int fq_pie_qdisc_enqueue(struct sk_buff *skb, struct Qdisc *sch,
->  	sel_flow = &q->flows[idx];
->  	/* Checks whether adding a new packet would exceed memory limit */
->  	get_pie_cb(skb)->mem_usage = skb->truesize;
-> -	memory_limited = q->memory_usage > q->memory_limit + skb->truesize;
-> +	memory_limited = skb->truesize > q->memory_limit ||
-> +		q->memory_usage > q->memory_limit - skb->truesize;
-
-[Severity: Medium]
-This still charges the full skb->truesize for every skb, including skbs
-owned by local sockets. With the new goto out, that accounting now causes
-drops under the unchanged default from fq_pie_init():
-
-	q->memory_limit = SZ_32M;
-
-fq_codel has the same 32 MiB default. Commit 150061a20651 ("net/sched:
-fq_codel: local packets no longer count against memory limit") found that
-default was not reasonable in practice. fq_codel_enqueue() now does:
-
-	get_codel_cb(skb)->mem_usage = is_skb_wmem(skb) ? 0 : skb->truesize;
-
-Consider a busy host with fq_pie as root and many local TCP/GSO bulk
-flows. Once usage passes 32 MiB, could this tail-drop whatever packet
-arrives next, including packets from thin flows? Those hosts previously
-only saw overmemory increase. fq_codel drops from the fattest flow
-instead.
-
-Since this is tagged Cc: stable, should the commit message mention this
-change in behaviour? And should fq_pie follow the fq_codel accounting?
-
->  
->  	/* Checks if the qdisc is full */
->  	if (unlikely(qdisc_qlen(sch) >= sch->limit)) {
-> @@ -160,6 +161,7 @@ static int fq_pie_qdisc_enqueue(struct sk_buff *skb, struct Qdisc *sch,
->  		goto out;
->  	} else if (unlikely(memory_limited)) {
->  		q->overmemory++;
-> +		goto out;
->  	}
-
-[Severity: High]
-Can fq_pie end up dropping every packet after a reset? fq_pie_reset()
-frees all queued skbs but leaves q->memory_usage unchanged:
-
-net/sched/sch_fq_pie.c:fq_pie_reset() {
-    ...
-	for (idx = 0; idx < q->flows_cnt; idx++) {
-		struct fq_pie_flow *flow = q->flows + idx;
-
-		/* Removes all packets from flow */
-		rtnl_kfree_skbs(flow->head, flow->tail);
-		flow->head = NULL;
-    ...
-}
-
-The generic qdisc_reset() only zeroes q.qlen and qstats.backlog. The only
-place that lowers memory_usage is fq_pie_qdisc_dequeue():
-
-	q->memory_usage -= get_pie_cb(skb)->mem_usage;
-
-Before this patch, a stale memory_usage only made the overmemory and
-memory_usage stats wrong. Now suppose the queue is close to memory_limit
-when a reset happens. The leftover memory_usage sends every later enqueue
-down this goto out path. Nothing gets enqueued, so nothing is dequeued,
-and memory_usage never comes back down. The interface keeps dropping
-traffic until the qdisc is replaced or memory_limit is raised.
-
-qdisc_reset() is reached in three ways:
-
-  - dev_deactivate() via dev_reset_queue(), on link down or carrier loss
-  - a parent reset such as tbf_reset()->qdisc_reset(q->qdisc)
-  - graft
-
-The sibling qdiscs clear their counter on reset. fq_codel_reset() does:
-
-	q->memory_usage = 0;
-
-and dualpi2_reset() does WRITE_ONCE(q->memory_used, 0).
-
-Should fq_pie_reset() also clear q->memory_usage now that enqueue depends
-on it being accurate?
-
-[Severity: Low]
-Now that enqueue enforces memory_limit, should fq_pie_change() also trim
-the queue when memory_limit is lowered? It updates q->memory_limit from
-TCA_FQ_PIE_MEMORY_LIMIT, but the trim loop only checks qlen:
-
-net/sched/sch_fq_pie.c:fq_pie_change() {
-    ...
-	/* Drop excess packets if new limit is lower */
-	while (sch->q.qlen > sch->limit) {
-    ...
-}
-
-fq_codel_change() also trims on memory:
-
-	while (sch->q.qlen > sch->limit ||
-	       q->memory_usage > q->memory_limit) {
-
-dualpi2_change() does the same with q->memory_used.
-
-If tc qdisc change sets memory_limit below the current memory_usage,
-fq_pie keeps the excess until the queue drains on its own. That can take
-a long time if dequeue is stalled, for example behind a slow TBF parent
-or a stopped txq.
+diff --git a/drivers/clk/clk-versaclock5.c b/drivers/clk/clk-versaclock5.c
+index 1cf8526975eb..ffa9e1c74fcd 100644
+--- a/drivers/clk/clk-versaclock5.c
++++ b/drivers/clk/clk-versaclock5.c
+@@ -1299,7 +1299,7 @@ static const struct vc5_chip_info idt_5p49v6965_info = {
+ 	.model = IDT_VC6_5P49V6965,
+ 	.clk_fod_cnt = 4,
+ 	.clk_out_cnt = 5,
+-	.flags = VC5_HAS_BYPASS_SYNC_BIT,
++	.flags = VC5_HAS_PFD_FREQ_DBL | VC5_HAS_BYPASS_SYNC_BIT,
+ 	.vco_max = 3000000000UL,
+ };
+ 
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261126122902.1504968-1-shawnq1%40163.com
+2.55.0
+
