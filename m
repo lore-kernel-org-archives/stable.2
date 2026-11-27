@@ -1,62 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795798919;
-	b=42eF6BxfaHsiKvax0Qd1iwZpizR5zZz78Q8RVFo48/pHk6J9GqBhDzG4qnC6BVG/ZZ/w
-	 1QHRseNxgGBPXNe7gw8AaSg62AzPF1LpTd/wzCbXXWHb9ymYc42O7pzfh+coyjzjMLRe1
-	 FKMYRgn2wxr99NnIYg6pMgmj9iSTxfh51Qs+mr8e16chpknypj42A1y7bxwf0asGVt0TQ
-	 MueIOlS0sB17A0cUg6oTXDYPBOo50WfM8Eq5sItnP4hkjN9hN31/b7wg+zdFrZqb2KhF2
-	 zrb0EiNMVu26J9ynAgs92BapYgo7SUv3jAuIrRWBkOyXbru6+FVebM0Gk1TIOKuWe7A==
+	t=1795798924;
+	b=z8CSZdcytkhccIe7ItuvuyjR+XtjB9yolWn7k4tKo6C778NEIFzOjwyXxvbyiS8rbKTi
+	 IDXoSjZ2TUx2PZt0Q857K7aZRyuCmsiz/t4sUy/Ixu6wiS+rAF1ilhkWMWIlFtdiwq6tG
+	 jTADvLIvkafVM//tNc0yxtzCikTNJ4yx2H5TG+7uokQPV4RlJKJrcpcuoWvy8SGg6LSdo
+	 v7ZsaFOA+CsE3rPrBCoSjGbKTsmXdeErY/s5uBN9U9KhKj9LiHbx8FIrPn0qZPl/NepDz
+	 F1vZjHMASDmGy9CI6+NieO+O6Mrxt2aqS21uyfhKEzCKpGMZlSQqUaYXkjq+lafCTIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795798919;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795798924;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ztBR1ptgh7GQqiuo/qRymv4crCTasz2wMBF4Htfs+/4=;
-	b=knxDUCBdJiP1T+hckFRxTcWdJEOU2nEGHH+QboWAyq52r2g0SEa5bDcDUMJuBIvQaQxk
-	 3kaGCu2FkxwLOKvMCL+OyCHm0+ifoZxxg67nceNpX/IohHTCtRYoAWzfZ8cblWjcyJyY7
-	 OakgnT2e/FAoi/WMMt7ebueIYEb7Guuu4NT3oR6lwx93KtFOiVD3uM9lpgKHjX6HqGU04
-	 Rq7y5ciCegZsroyHADrLvce7AJjMUGaJDIQIA1yk+9N8ZFiW3FZyQfmXUzD7iiG4coCrq
-	 uvesfF88hSTXUkdEeGujXVcG0m31YpKJXGDZZZbnHojPFRlB0LXkFmHJVey+M4dLSkw==
+	bh=MVvyKGMvOKzE2CuBk59Lsk+xEyeLYE5n4YW+JOlSJxo=;
+	b=WNnCZ4cCwtlzFcTqOo2JXdF840N85shPSVOYex6F8APKnaOzJMK/Yrs+n6UPi1w/BndM
+	 1uhX0d9tfP0Ekdgl3Bd9zmuGspSW+uwA4MsyQnxXTuSj7fUC9cZ4Am+rVnGznBRT2zfYh
+	 Y47fzcz9QQHd2lcI4MoUlDkmnZmvsZ0AMHEuEZxSP6swjZvihy3z5wHMompyAgiOwJDUc
+	 EF3uarip/NHOk9RDiH59A+tVchuOEBrHAYOMxftL5Byo/REMiNz9A9TcTMT4Sax5F7DEt
+	 K/i+iiTAgz/6cJibCbczkiR2IbXT1iOcR0P+czmisRQnvYeidTCjY+ra3WADr5m2rHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lWPqVjR6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l08M6sf1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E77F9606A337;
-	Fri, 27 Nov 2026 17:01:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B67D606A323
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 17:02:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lWPqVjR6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AF111F00931;
-	Fri, 27 Nov 2026 17:01:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l08M6sf1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43ED61F00897;
+	Fri, 27 Nov 2026 17:02:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795798918;
-	bh=ztBR1ptgh7GQqiuo/qRymv4crCTasz2wMBF4Htfs+/4=;
+	s=k20260515; t=1795798923;
+	bh=MVvyKGMvOKzE2CuBk59Lsk+xEyeLYE5n4YW+JOlSJxo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lWPqVjR6NHcqtv+sS2sXcxvrSbmvUBRXDby5wdNYM2MzAEqTudoth59t+W2ad8ROT
-	 UPFHuddXurPALabNszTMOZWEAcNgZjha5LUN9hn6as3OPxZgawD0QT6/jGNBTuy35q
-	 lL9I+ZRP+BKs4RGucp2MPPbLgKzZbziDd2LrlC8ENgQe904G4JR5ITTSVFENRa/J7V
-	 tAwkaQL7qYCZslmNJ8e/LZLOPjET2pAKyUPTza93km+TWOfp77phB9Tf4cF0+WbPUj
-	 rwhL3/pTGQ5tA+UEpgtCj575dMaliTWyoJxflUxqoEqvKqg3DyYw4O5gQI/s1YCMVc
-	 mnTrqefnTchvg==
+	b=l08M6sf1NAhnZzH2szGuFNy8TtOmlHl8K9m3GcMHBHuEbFSZijkxVPqYRW+fFIBTf
+	 TZA4Rk3u+r6xHAo6d2wcgBaF1wqZMBMrAkVSYdLF1gn8Zj8jhA6ixeCrZYCUA8PqbC
+	 nXWkKhwg7S+xWWJQ89/iYOzhlKH5q0WR3MtkFEzu9GnBgz2F9lqKs71poi/OhsJ6Ep
+	 nYao05pbWGtNqsS3tt8Mz9+tGnmlc+VY9xRTj1X4BjexrQzkB0/dAYH3SKuK7SxBlb
+	 xmLlNtFodR7u72LI7IFKkYFrl/ro2B8heJnLSl0xYoNjb4j9rVizJZtmcc7IBfBU01
+	 AVJRUfHjEvO3g==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Guillaume Laporte <glapt.pro@outlook.com>,
-	Vincent Thiberville <vincent@harfanglab.fr>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Leon Hwang <leon.hwang@linux.dev>
-Subject: Re: [PATCH 6.18.y 0/4] bpf: Fix interpreter-unsupported insns
-Date: Fri, 27 Nov 2026 12:01:02 -0500
-Message-ID: <2026-11-26-1-daily-reply-0014@kernel.org>
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Subject: Re: [PATCH 6.18.y] Bluetooth: btusb: fix use-after-free in force_poll_sync
+Date: Fri, 27 Nov 2026 12:01:06 -0500
+Message-ID: <2026-11-26-1-daily-reply-0018@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126154714.169698-1-leon.hwang@linux.dev>
-References: <20261126154714.169698-1-leon.hwang@linux.dev>
+In-Reply-To: <20261125095450.19095-1-25031212351@stu.xidian.edu.cn>
+References: <20261125095450.19095-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,10 +60,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Request from Guillaume and Vincent [1][2], backport the following commits to
-> linux-6.18.y with editing the commits manually, excluding patch 3.
+> The force_poll_sync debugfs file uses the driver's struct btusb_data as
+> its private data. The file is created under hdev->debugfs and is removed
+> only when the HCI device is released, while btusb_disconnect() frees
+> btusb_data unconditionally.
 
-Queued this series for 6.18 and your 6.12 series for 6.12, thanks.
+Queued for 6.18, 6.12, 6.6 and 6.1, thanks.
 
 -- 
 Thanks,
