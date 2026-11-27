@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795774419;
-	b=e+vNfKbPWBeOWLZEFra5B4KZBMQFEG8ne3STXffICFXhQcXlL5lRKxu/6Ft9jphjnz5T
-	 tyDtKE1622PjyAyh7Dhby5GzHWTHMVCpTFML0cn4Xa2pAAfQdT6AqNWFkfIHgOUPOkY8z
-	 jIRRRDFY8EZyi1N/QdUv5yjIqTqNNvDc7MR/H5YglZBXVhjhFll2Ma86lXgk4C89Pp9A5
-	 HtU6rNQhpJ4FtgsQ8sn5TRr4K+hvAWmapnj0YXvc/z6HHBpuDmnY54wmipxRigolK6sOL
-	 8uci6SZ/Y0zh9h5m4Cfj6lE02nWAU3iIG7JAoovETz3VcHcQgVnfKxPkE0xdyh0NBjA==
+	t=1795774420;
+	b=bjNCK3AUB9fFhsykJaX7QLhdRH+26SavGCoHlcUDJ4v+PTOlXvkGtFuKBOcoD4qd3rT2
+	 qdD7sjt2AP/00wZ9WSu5oVTYySC0TNU6pPlabHNoKKSDUqEBabyQPEWzSnsmYGWdKAyRo
+	 5JzJQ6mAmagEcuF6Dc3Q52s1yadyNOGimVRn1V+cFG14YAHU5Sg0W5DwBMLQWX5V58zDn
+	 2qJiNMHzw3TZsoZpv5hLA5KdZ6kCCcNyOpFPEAO9rG5+gi4vuA91LcJkUCxKNHnD9zImF
+	 WdL9s4kFZ7uRa3XQyQyo/J5VuPdSe/LHk7maHn9TJ5bQOp8g5oAumpUaWxwzx1ZV4NA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795774419;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795774420;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=Sg2B25w2A9gqNOobPy0gY9riAv1YrthUMRv2K9cH/Rg=;
-	b=GU4sLfMtlWv35pa1UmwjWU2IcuuKURnerqkRkp+lHEfPXEWqSh+XzS05BAnH3vMCApcC
-	 nFw75YptF1ohS6dYiijFHgLhF5vDcT9i4JUFf+w4acCMv+nXKiFY+AMYr4bXrWaCzihL7
-	 Bn8QbN6/KgFUh2MGXPUXeDKZjF7puxbBD+iHD0Mp5C7zmL6BtOgWOo645shhLyb02QUL/
-	 ToEKzeZ1GQhQ1sgHhM7+apQSQuGIlRB7W0h1caBoadAzGRuIni36KReLwvBm7qq/N+oSp
-	 HzlwoGA+1hOe4Lcgfe6iKvkEc0Li4svfaz3CiuAyQbLiSbX68QwGSc3Gs1rLqOUPMbA==
+	bh=guoy1C++ARIXgbYKAlzD0wHiB3wfAoYXWV+G/twXV8U=;
+	b=mbukj3KPH0TmygXiOxGKzbGrorqotWAJhr+Zj9r4VGozisCWe+Dx3kE35My/YAAcmnEJ
+	 25eybDJLXwTYZNW2DuTKYyYkwk1N5sTxKOhHyjFndccxbKaXMWinR68oTcmGRNqia2H9w
+	 QNuROy7a6IRdLJULyZ13IIkmzA3GbTt5GbwnhRsBS2y9VYZ6Yj7rGQ5NPSRBWBdi1DIW8
+	 8370q1InQF0RdGkjwEdTMC8Q02HVAAzrNZMLQztC5ePvN/pLokRsY5B6r4Bz9Kcyl3l/y
+	 uaSanofN60c9VVbOxrpQ0rUM6Zi/GyL+NdHSrnqcQOPuvAAK3O7cCF6nFT8DzyHzl9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HGiv9SeW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNI7gdW3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D696606A6B7;
-	Fri, 27 Nov 2026 10:13:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E17D60A261E;
+	Fri, 27 Nov 2026 10:13:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HGiv9SeW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 302BF1F00923;
-	Fri, 27 Nov 2026 10:13:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNI7gdW3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5A531F00923;
+	Fri, 27 Nov 2026 10:13:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795774418;
-	bh=Sg2B25w2A9gqNOobPy0gY9riAv1YrthUMRv2K9cH/Rg=;
+	s=k20260515; t=1795774420;
+	bh=guoy1C++ARIXgbYKAlzD0wHiB3wfAoYXWV+G/twXV8U=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=HGiv9SeWvGB4FaTAK9Q+5bgT5ZORzC54Mv+Dai5kcFholPEUugzfj7eJyxO1l5hYH
-	 ltsDwKmje13mBeIYV/3miAcyuGdTKScCfpa5h7vKwGGNxjO4+//n4SSVprlEOeKmPZ
-	 JO33YjmKtsJaPeDiiMDofST9iQp9xBz/dAKfP42sx8P0a4VcwdM6/INbtNej2S/n+p
-	 uz8Yom+b1OfMGf8VGiVXVt3UqSm1NmpSfJ/FQOPkAHKwP4OuYp+9SMbH0MWyITrz5c
-	 6ENmwhwOwFnEW6D+K664hTgHGwf1dLqhFuJhaB1uTjs6gU0Wu4XwxVqUseua5oN4BM
-	 uZ2aMto1ysm2w==
-Subject: Re: [PATCH net v3 07/10] rxrpc: Fix limit on packets to be
- transmitted in one go
+	b=JNI7gdW3fwbmkhuSsdhnVa0GwXGiM1V8fCzxV5GPMkTmj2KhhmvoO3LMqaLIF4B8G
+	 dvYcCc1yKtDMm+SDrYRUV/bP3/r3KPnLFBosfvvf2o/1RIEifvZRNZJa5InTxgIlQT
+	 /kfT0DgjuejeHfiZELJsgUcaw0UBlXF63EXPIzhv+Ti2XR8ay/yWxS6Ish2rWa2iB/
+	 NNml7LwiCqQAQr0da1RwQg8gT3bQR6SwJTKSHaW8n2YN4mQV5WPybLlgGRG98Q/uiZ
+	 4kQ0kMwYFlaz81vjIwEubG9Qkfcb+WL2Ce3N45AtglTdFzZMq2KgqPDjfeGbqDGCVh
+	 z9b+o/C8Kpisg==
+Subject: Re: [PATCH net v3 08/10] rxrpc: Fix detection of TLP probe response
 From: netdev-bot+sashiko@kernel.org
 To: dhowells@redhat.com
 Cc: netdev@vger.kernel.org, marc.dionne@auristor.com, kuba@kernel.org,
  davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
  linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org,
  jaltman@auristor.com, stable@vger.kernel.org
-Date: Fri, 27 Nov 2026 10:13:37 +0000
-Message-ID: <179577441777.3135.5399617853281173175@kernel.org>
-In-Reply-To: <20261124161302.4044422-8-dhowells@redhat.com>
-References: <20261124161302.4044422-8-dhowells@redhat.com>
-X-sashiko-severity: Low
+Date: Fri, 27 Nov 2026 10:13:39 +0000
+Message-ID: <179577441933.3135.16643898652433850053@kernel.org>
+In-Reply-To: <20261124161302.4044422-9-dhowells@redhat.com>
+References: <20261124161302.4044422-9-dhowells@redhat.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -65,68 +64,162 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-- [Low] The commit message for "rxrpc: Fix limit on packets to be
-  transmitted in one go" describes the mechanism correctly: the inner…
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The probe-completion test in rxrpc_input_ack(), `if
+  (after_eq(summary.acked_serial, call->tlp_serial)) call->tlp_serial =…
+- [Low] The first paragraph of the commit message says the patch fixes a
+  bug: without a ->tlp_serial check, an ACK of a packet matching a stale…
 
 --
 
-rxrpc: Fix limit on packets to be transmitted in one go
+rxrpc: Fix detection of TLP probe response
 
-This commit makes rxrpc_transmit_fresh_data() honour its limit parameter.
-A local variable of the same name, used for the jumbo packet limit, had
-been shadowing it. The local is renamed to jlimit and clamped to limit.
-The remaining limit is then decremented after each send, and the loop
-breaks out once it reaches zero.
+This commit adds a ->tlp_serial check before setting
+summary->tlp_probe_acked in rxrpc_rotate_tx_window(), and moves the
+->tlp_serial check out of rxrpc_tlp_process_ack() into its caller. It also
+makes rxrpc_input_ack() check for a TLP probe response on ACKs that
+rxrpc_is_ack_valid() discards as out of order or duplicate.
 
-> rxrpc: Fix limit on packets to be transmitted in one go
->
-> Fix rxrpc_transmit_fresh_data() to honour the limit set on the number of
-> packets it can transmit in one go.  The 'limit' variable is accidentally
-> shadowed by another variable calculating the limit dynamically.
+> diff --git a/net/rxrpc/input.c b/net/rxrpc/input.c
+> index 63a0feae2081d..d01a8d95dc6db 100644
+> --- a/net/rxrpc/input.c
+> +++ b/net/rxrpc/input.c
+> @@ -275,7 +275,8 @@ static bool rxrpc_rotate_tx_window(struct rxrpc_call *call, rxrpc_seq_t to,
+>  			/* Packet directly hard ACK'd. */
+>  			tq->nr_reported_acks++;
+>  			rxrpc_input_rack_one(call, summary, tq, ix);
+> -			if (seq == call->tlp_seq)
+> +			if (call->tlp_serial &&
+> +			    seq == call->tlp_seq)
+>  				summary->tlp_probe_acked = true;
 
 [Severity: Low]
-This isn't a bug, but could the commit message also say what went wrong
-because of the shadowing? The patch is Cc'd to stable, so the user-visible
-impact would help backporters.
 
-There are two callers of rxrpc_transmit_some_data().
-rxrpc_input_call_event() passes UINT_MAX, so it was never affected. The
-other caller is rxrpc_tlp_send_probe() in net/rxrpc/input_rack.c, which
-asks for a single new-data loss probe:
+The commit message says:
 
-net/rxrpc/input_rack.c:rxrpc_tlp_send_probe() {
-    ...
-			/* Transmit the lowest-sequence unsent DATA */
-			call->tx_last_serial = 0;
-			rxrpc_transmit_some_data(call, 1, rxrpc_txdata_tlp_new_data);
-			call->tlp_serial = call->tx_last_serial;
-			call->tlp_seq = call->tx_transmitted;
-    ...
-}
+  Fix detection of the TLP probe response to include a check that
+  ->tlp_serial is valid, otherwise it's possible to see an ACK of a packet
+  that matches an old value of ->tlp_seq as a probe response.
 
-Since the limit of 1 was ignored, a TLP new-data probe could send every
-unsent packet that fit in rxrpc_tx_window_space(). It sent them in jumbo
-groups of up to pmtud_jumbo, over several loop iterations.
+Does this part of the patch change behaviour at this commit?
 
-rxrpc_prepare_data_packet() sets the serial of the last packet sent:
+Only rxrpc_tlp_process_ack() reads summary->tlp_probe_acked. Before this
+patch, that function already returned early when no probe was
+outstanding:
 
-	call->tx_last_serial = serial + req->n - 1;
+    if (!call->tlp_serial || after(call->tlp_seq, call->acks_hard_ack))
+        return;
 
-As a result, tlp_serial and tlp_seq ended up pointing at the last packet
-of the burst rather than at a single probe packet.
+Within one rxrpc_input_ack() call, call->tlp_serial can't go from zero to
+non-zero between the rotation and rxrpc_tlp_process_ack(). Only
+rxrpc_tlp_send_probe() and rxrpc_prepare_data_packet() set it, and both
+run from the rack timer path. The summary is local to each ACK, and no
+tracepoint records tlp_probe_acked.
 
-Would it be worth adding a sentence along the lines of "the TLP new-data
-probe could send a burst of up to the whole Tx window instead of a single
-packet"?
+So a stale tlp_probe_acked was already being ignored. The new guards here
+and in the soft NAK branch look like they only move the existing check
+into the callers.
 
-The code change itself looks correct. With limit == 1, jlimit becomes 1,
-req.n becomes 1, limit drops to 0 and the loop breaks.
+The guard starts to matter with the later commit "rxrpc: Fix counting of
+in-flight transmitted packets", which adds rxrpc_tlp_end_probe() to this
+block. Could the commit message describe this part as preparation for that
+change? Otherwise stable backporters may think they are getting two fixes.
+
+[ ... ]
+
+> @@ -1139,7 +1141,7 @@ static void rxrpc_input_ack(struct rxrpc_call *call, struct sk_buff *skb)
+>  	/* Discard any out-of-order or duplicate ACKs (outside lock). */
+>  	if (!rxrpc_is_ack_valid(call, hard_ack, prev_pkt)) {
+>  		trace_rxrpc_rx_discard_ack(call, summary.ack_serial, hard_ack, prev_pkt);
+> -		goto send_response; /* Still respond if requested. */
+> +		goto check_for_tlp_probe; /* Still respond if requested. */
+>  	}
+>  
+>  	trailer.maxMTU = 0;
+> @@ -1217,9 +1219,16 @@ static void rxrpc_input_ack(struct rxrpc_call *call, struct sk_buff *skb)
+>  	 */
+>  	rxrpc_congestion_management(call, &summary);
+>  	rxrpc_rack_detect_loss_and_arm_timer(call, &summary);
+> -	rxrpc_tlp_process_ack(call, &summary);
+> -	if (call->tlp_serial && after_eq(summary.acked_serial, call->tlp_serial))
+> -		call->tlp_serial = 0;
+> +
+> +check_for_tlp_probe:
+> +	if (call->tlp_serial) {
+> +		/* Need to check to see if the ACK is a TLP probe response,
+> +		 * even if the ACKs may have come out of order.
+> +		 */
+> +		rxrpc_tlp_process_ack(call, &summary);
+> +		if (after_eq(summary.acked_serial, call->tlp_serial))
+> +			call->tlp_serial = 0;
+                    ^^^^
+
+[Severity: Medium]
+
+Can this end an outstanding TLP probe because of an ACK that doesn't
+respond to any packet?
+
+An acked_serial of 0 means the ACK wasn't sent in reply to a particular
+packet. Elsewhere, rxrpc_input_ack() checks if (summary.acked_serial)
+before it uses the value, but after_eq() here treats 0 as a normal serial.
+
+rxrpc_get_next_serial() hands out connection serials starting at 1 and
+skips only 0:
+
+    serial = conn->tx_serial;
+    if (serial == 0)
+        serial = 1;
+    conn->tx_serial = serial + 1;
+
+After a long-lived connection has used more than 2^31 serials, tlp_serial
+will be above 0x80000000. At that point after_eq(0, tlp_serial) is true,
+and any ACK with acked_serial == 0 clears tlp_serial.
+
+Linux peers send these ACKs routinely. For example,
+rxrpc_input_call_event() does:
+
+    rxrpc_send_ACK(call, RXRPC_ACK_DELAY, 0,
+                   rxrpc_propose_ack_delayed_ack);
+
+and it sends IDLE and PING ACKs with serial 0 as well.
+
+The in-order ACK path had this problem before this patch. The new goto
+check_for_tlp_probe on the rxrpc_is_ack_valid() failure path means that
+discarded out-of-order and duplicate ACKs, including serial-0 ones, now
+reach the same comparison.
+
+If tlp_serial is cleared early, a later ACK that really covers tlp_seq
+fails the call->tlp_serial tests in rxrpc_rotate_tx_window(). It also
+skips rxrpc_tlp_process_ack(), so the RFC 8985 section 7.4 handling never
+runs. rxrpc_tlp_send_probe() only checks !call->tlp_serial, so it can send
+another probe on the next PTO.
+
+The problem is still there at the end of the series. After the later
+commit "rxrpc: Fix counting of in-flight transmitted packets", this line
+calls rxrpc_tlp_end_probe(). That also clears tlp_in_flight and
+decrements tx_in_flight while the probe packet is still unacknowledged.
+
+Would requiring a non-zero acked_serial here help, something like:
+
+    if (summary.acked_serial &&
+        after_eq(summary.acked_serial, call->tlp_serial))
+
+> +	}
+>  
+>  send_response:
+>  	if (summary.ack_reason == RXRPC_ACK_PING)
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261124161302.4044422-1-dhowells%40redhat.com
