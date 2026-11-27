@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795800416;
-	b=IJZUUsJJVnw2sT0CXMsPonah/LspkyIvRTY10syqngKx/nav3E7y5dxABPWfMdqgTZCM
-	 ZWLxiSus/xLV1AWDkElg3GSnt4VApGBUeEAm1E8rFaIRKfTd0lhfJbTXNGNEeRv6ZkQXU
-	 sza2vVZNVp/LfRQPbl+TC27lN77j0IVL52AXuG7kOyCuGgKmiwrl9oNvp/nkF3xZzAtF1
-	 e4dbVkd4jL/KEtqpYJDpSTbYDgpw1TZZV6pksHN+5qQgvfS64ofw3PztOK00K00DC+JQ4
-	 dbQaccgfCJ4f6mM7gTkZnOURbd/8iGXFLmS0cCReWrt6P8v6shYdcBNROa2d5PaXTww==
+	t=1795800683;
+	b=XiV6qKjAYmexEVpp1qMwqT8677KsJG67ERFWGxlXmIkg2InEbQnwvRpzeNAxIg1flVVs
+	 wPMYmNJVb9i1qx1x+haOD433eMJwMwoTSZRDiHH6BzjwbpgYbputi2U7hLc2FPwLn/wFN
+	 uo8qQ9k1kUollVxw6sUE8Lq8gbpsgDbJphO4uLG43K0+rmb0sF0380rQ6OjCoXvoKUv/X
+	 W0ebi0+myP6D2NtGu5SV/PLBc94qYc6YE0tp6UfxSMqEZGLIj66FUl8C2S8ydMRIOMLBn
+	 Y7a/kDy94haiRPonXkOVf+AKXbyDVc3Ij+ncrCVEizWGikBn5e8MhadB+4JXbOGUchw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795800416;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0XmBI/vsqTPBFjciFZ00jSFFbSfcYJDZA86bCCNbmx4=;
-	b=hzCA+/orQXi+pKPklQtyJRVmBoIJB36p58pXW+vkHpYLYvfMKaDDPUteqROwfiNQxexg
-	 fq20A4RZIlLH450usiajBYiL1hhaPUbSsla1zudHTumnAgYfH0HBRd/7mE7gPAjwwg+pB
-	 dMTNWowz0H2CZLsWpsVcsZH8Eu/HsXF7bybvdzibSnyVlyk4WA63DlR4dru1SY7ZKsTdn
-	 odGKOqz9D9/afzv0gtZtcuOd9nUeUPT1+u028zdG5SzVlSTKc6j/FLBHZhDz/I2ezJgz5
-	 n/RYY3+F70UA87JRPn8Jp4YjxO1R/5P5AbEf03LWMP+UyqfjBbmLhG6kA+rGE5TwWXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795800683;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=SxkB79JyZNOqq6boAXrI7iGSPmjXeTsVjygSTJZm0lY=;
+	b=sax4a8QeaJCYGQH719ts8BD6JZz+aSm2asxecJnJLU2Whs8ngJg7dpTuxTKgDWew0JVj
+	 vam/8hGzPz+wnBeftu+58TDXrLilhTTi+jmPe1A/HvGXPGCVaE4+9RHDyVGPYOfGY+m/d
+	 fgiCVBGK55udlYTFS/8L9ZMNt7MJA5Y6u+/xglu1LPsfD4ojgt9kolM64f5v656cpT60a
+	 sYzPNspH59C/95NY9Yvsvl+V2jcCjxaX5p7aMW8MRkwq8JoZRNPJrqvWJOBt4JqX9erN0
+	 mszVoUbVeXG4NB7IvWcc1Kl2gjqHbF535gQKqrZ7Wl+r8DTwNGYMvX92O+ypih8zMFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hAeX8wcz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3DD5606A31F;
-	Fri, 27 Nov 2026 17:26:55 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=K9VyL0zE;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D9333606A32A;
+	Fri, 27 Nov 2026 17:31:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9333606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hAeX8wcz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 996B61F00899;
-	Fri, 27 Nov 2026 17:26:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795800415;
-	bh=0XmBI/vsqTPBFjciFZ00jSFFbSfcYJDZA86bCCNbmx4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hAeX8wczzScMlEi3kseFTivVf002FWoibXkMKuLG6apA2bRnJyiRirF5XbENTHJDp
-	 0x6ugFO3kD0HQzi3PtEw7kD20tOU2MDWYPDxSjhTAD2gZ8EqsSR2g9EAk+FsL2kiDy
-	 TZ1heB+nrzY+3cwOvy0TCS0afFYTdANPqm7LIu//Z1TZaK5oUXQ+ippkqyqynlQKRO
-	 PGQXOjOCEE1GkIQEiIyfpBvA5w4PolyCkmXNCsTfNj6edRzylITYCv5tBdxU5EYxOn
-	 B8bP4MOti4xv6qTcxcx/QnFGAKuL1NkuxFnkgsFMWDdRss1C4TXJnY+oCJ0T+I2Mt5
-	 J6lEthLHAmaGA==
-Date: Fri, 27 Nov 2026 17:26:47 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Christoffer Dall <christoffer.dall@linaro.org>, Jintack Lim <jintack.lim@linaro.org>, 
-	Leonardo Bras <leo.bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] KVM: arm64: Top up the mmu memcache on user fault for NV
-Message-ID: <awm5PZYWxVOXdBfm@gremlin>
-References: <20261126-fix-nv-cache-topup-v1-1-a22c936872fe@kernel.org>
- <20261127152237.108363-1-usama.arif@linux.dev>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=K9VyL0zE
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4AEB21575;
+	Fri, 27 Nov 2026 09:31:18 -0800 (PST)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 86F813F632;
+	Fri, 27 Nov 2026 09:31:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795800681; bh=v/QQr5Xygwvu0X+fk+OheKspcIMS+nrdnWZiEPrhFKU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=K9VyL0zEaOqHsldNZIXPVjh1yqRkTaFcer7ctevcR0vW0TJJK4vuYx2M/dOFot1z5
+	 eE75zKNBEaYQU4atk4gKR3Kfa9Ygj82Tni80JCSMEsqVoBokADhFCMVkg/aXoAcgxT
+	 MSN3mv0rI43Z8+euwmgPQQwPyjd0mlDEF1gjDjeU=
+Message-ID: <90e159b3-ef50-4d03-937a-ced5896b152a@arm.com>
+Date: Fri, 27 Nov 2026 17:30:26 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,102 +53,255 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261127152237.108363-1-usama.arif@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] iommu/dma: restore flush queue use in
+ dma_iova_destroy()
+To: Marek Szyprowski <m.szyprowski@samsung.com>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Honglei Huang
+ <honghuan@amd.com>, prakash.gupta@oss.qualcomm.com, stable@vger.kernel.org
+References: <CGME20261127171534eucas1p1adc65490fcfb09b573d27aaa834f2912@eucas1p1.samsung.com>
+ <20261127171529.2917893-1-m.szyprowski@samsung.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261127171529.2917893-1-m.szyprowski@samsung.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 27, 2026 at 07:22:36AM -0800, Usama Arif wrote:
-> On Thu, 26 Nov 2026 17:28:29 +0000 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
->
-> > The S2 user fault path tops up the MMU memcache (used for page table
-> > pre-allocation as the point at which page tables are installed may not
-> > allocate) except when:
-> >
-> > * It's a permission fault AND
-> > * dirty page logging is disabled AND
-> > * pKVM is disabled
-> >
-> > At which point it is assumed no page table will be allocated.
-> >
-> > However nested virtualisation adds another edge case - the mapping size of
-> > a shadow S2 is clamped to that of the guest's own S2. If the guest
-> > hypervisor replaces a block mapping with a table, a permission fault on the
-> > shadow block has to be mapped at PAGE_SIZE, which requires a page table to
-> > collapse the block into.
-> >
-> > With the memcache empty, kvm_mmu_memory_cache_alloc() hits its
-> > guest-triggerable WARN_ON(!nobjs) and falls back to a GFP_ATOMIC allocation
-> > under mmu_lock, with a BUG_ON() if that fails.
-> >
-> > Therefore, also top up the memcache for permission faults taken on a
-> > shadow S2.
-> >
-> > Note that dirty logging had a similar issue, addressed in commit
-> > 56fd1fc526e6 ("KVM: arm64: Top up stage-2 memcache for dirty logging
-> > faults").
-> >
-> > Fixes: fd276e71d1e7 ("KVM: arm64: nv: Handle shadow stage 2 page faults")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> >  arch/arm64/kvm/mmu.c | 8 +++++---
-> >  1 file changed, 5 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> > index a0d4981ebb99..e09a8f2c0482 100644
-> > --- a/arch/arm64/kvm/mmu.c
-> > +++ b/arch/arm64/kvm/mmu.c
-> > @@ -2256,16 +2256,18 @@ static int user_mem_abort(const struct kvm_s2_fault_desc *s2fd,
-> >
-> >  	/*
-> >  	 * Permission faults just need to update the existing leaf entry,
-> > -	 * and so normally don't require allocations from the memcache. The
-> > -	 * only exception to this is when dirty logging is enabled at runtime
-> > +	 * and so normally don't require allocations from the memcache. One
-> > +	 * exception to this is when dirty logging is enabled at runtime
-> >  	 * and a fault needs to collapse a block entry into a table.
-> >  	 * Under pKVM a permission fault can also collapse pages into a block,
-> >  	 * which needs a fresh mapping object, and the hypervisor requires the
-> >  	 * min-pages memcache even when the install allocates nothing.
-> > +	 * With nested, a shadow stage-2 block may also need to be collapsed
-> > +	 * into a table if the guest's own stage-2 mapping has become smaller.
-> >  	 */
-> >  	memcache = get_mmu_memcache(s2fd->vcpu);
-> >  	if (!perm_fault || memslot_is_logging(s2fd->memslot) ||
-> > -	    is_protected_kvm_enabled()) {
-> > +	    is_protected_kvm_enabled() || s2fd->nested) {
-> >  		ret = topup_mmu_memcache(s2fd->mmu, memcache);
-> >  		if (ret)
-> >  			return ret;
-> >
->
-> Thanks for the fix!
->
-> On the narrow condition being the smaller backport: I don't think it
-> is. The hunk already conflicts on 7.3, where topup_mmu_memcache() still
-> takes the vCPU, and the condition looks different on 7.2 and older, so
-> every stable tree needs a small manual backport either way.
->
-> A permission fault can also allocate outside NV. For example, take an
-> exec permission fault on a THP block, where the VMM replaces that
-> memory with 64K hugetlb pages before the fault looks up the VMA:
->
->   - the MMU notifier unmaps the block, and mmu_seq is read afterwards
->   - kvm_s2_resolve_vma_size() forces PAGE_SIZE for the CONT_PTE hugetlb
->   - PAGE_SIZE != perm_fault_granule, so kvm_pgtable_stage2_map() runs
->     and allocates a table, with no top-up
->
-> That one is narrow and VMM-driven, but topping up for every fault would
-> cover it too, and it costs a single comparison when the cache already
-> holds enough pages.
->
+On 27/11/2026 5:15 pm, Marek Szyprowski wrote:
+> Commit 1acce29926d9 ("iommu/dma: simplify dma_iova_destroy() and drop
+> the free_iova helper") turned dma_iova_destroy() into dma_iova_unlink()
+> followed by dma_iova_free(). Before it, the destroy path marked its
+> IOTLB gather as queued for DMA-FQ domains, skipped iommu_iotlb_sync()
+> and handed the IOVA over to the flush queue, exactly like
+> __iommu_dma_unmap(). After it:
+> 
+>    - dma_iova_unlink() never queues its gather and always calls
+>      iommu_iotlb_sync() after iommu_unmap_fast(),
+>    - dma_iova_free() passes a NULL gather to iommu_dma_free_iova(), so
+>      the IOVA goes straight back to the allocator via free_iova_fast().
+> 
+> DMA-FQ domains therefore get strict invalidation on this path. This
+> includes blk_rq_dma_map(), which NVMe uses for all data transfers, so
+> iommu.strict=0 has no effect on NVMe I/O. On a Qualcomm Glymur CRD
+> (SMMUv3 without RANGE_INV, 4K pages, NVMe on PCIe Gen5 x4) sequential
+> fio throughput drops from 10.6/11.9 GiB/s (write/read) to the strict
+> mode level of ~2.7 GiB/s.
+> 
+> Fix this by letting dma_iova_destroy() unmap the linked range into its
+> own gather, queued for flush queue domains like in __iommu_dma_unmap(),
+> and retire that gather together with the IOVA free: either by
+> iommu_iotlb_sync(), or by handing the IOVA space (and any page table
+> pages released by the unmap) over to the flush queue via queue_iova().
+> The whole reservation is still freed, keeping the size fix of the
+> mentioned commit.
+> 
+> A gather must always be retired, either by iommu_iotlb_sync() or by
+> handing it to the flush queue together with the IOVA, and the IOVA must
+> never be returned to the allocator while a queued invalidation for it is
+> still pending. To keep that obvious, the internal unlink helper only
+> unmaps into a gather supplied by its caller, and each caller retires it
+> right away: dma_iova_destroy() syncs or queues it together with the IOVA
+> free, while dma_iova_unlink() always uses a never queued gather and
+> syncs it, as the unlinked range remains owned by the caller and may be
+> linked again immediately.
+> 
+> Consequently dma_iova_free(), and dma_iova_destroy() with nothing
+> mapped, keep returning the IOVA directly to the allocator: no queued
+> gather was ever created for it, so there is no deferred invalidation to
+> wait for.
 
-Reads a little schloppy ;) But I think you're right yeah.
+ From a quick skim, this looks about right to me. Note that a single 
+gather in the dma_iova_state itself would never work anyway, as multiple 
+threads are still free to unlink non-overlapping parts of the range 
+simultaneously, so gathering always has to be per-call.
 
-Good bloody lord @ 64 KiB hugetlb pages being a thing... obscene :)
+Acked-by: Robin Murphy <reobin.murphy@arm.com>
 
-Anyway, I'll send an unconditional v2, it's really not that much delta in
-general.
+> Fixes: 1acce29926d9 ("iommu/dma: simplify dma_iova_destroy() and drop the free_iova helper")
+> Reported-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+> Closes: https://lore.kernel.org/all/20261125135120.1126571-1-sibi.sankar@oss.qualcomm.com/
+> Cc: stable@vger.kernel.org # v7.3+
+> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> ---
+> The series has been developped with an aid of LLM, build tested on arm64
+> and x86_64. Sibi, it would be great if you could rerun your fio test on
+> top of it.
+> 
+> Best regards
+> Marek Szyprowski, PhD
+> Samsung R&D Institute Poland
+> 
+> 
+> Changelog:
+> v2:
+> - dma_iova_free() and dma_iova_destroy() with nothing mapped return the
+>    IOVA directly to the allocator instead of the flush queue, as there is
+>    no deferred invalidation to wait for (pointed out by Sashiko review)
+> - dropped DMA_IOVA_USE_FQ flag and flags related rework (pointed out by
+>    Jason)
+> 
+> v1: https://lore.kernel.org/all/20261127115849.2780625-1-m.szyprowski@samsung.com/
+> ---
+>   drivers/iommu/dma-iommu.c | 100 +++++++++++++++++++++++++++-----------
+>   1 file changed, 72 insertions(+), 28 deletions(-)
+> 
+> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+> index 78742aeba932..44fa02c35bad 100644
+> --- a/drivers/iommu/dma-iommu.c
+> +++ b/drivers/iommu/dma-iommu.c
+> @@ -1857,6 +1857,19 @@ bool dma_iova_try_alloc(struct device *dev, struct dma_iova_state *state,
+>   }
+>   EXPORT_SYMBOL_GPL(dma_iova_try_alloc);
+>   
+> +static void __dma_iova_free(struct device *dev, struct dma_iova_state *state,
+> +		struct iommu_iotlb_gather *gather)
+> +{
+> +	struct iommu_domain *domain = iommu_get_dma_domain(dev);
+> +	struct iommu_dma_cookie *cookie = domain->iova_cookie;
+> +	struct iova_domain *iovad = &cookie->iovad;
+> +	size_t iova_start_pad = iova_offset(iovad, state->addr);
+> +	size_t size = dma_iova_size(state);
+> +
+> +	iommu_dma_free_iova(domain, state->addr - iova_start_pad,
+> +			iova_align(iovad, size + iova_start_pad), gather);
+> +}
+> +
+>   /**
+>    * dma_iova_free - Free an IOVA space
+>    * @dev: Device to free the IOVA space for
+> @@ -1871,14 +1884,12 @@ EXPORT_SYMBOL_GPL(dma_iova_try_alloc);
+>    */
+>   void dma_iova_free(struct device *dev, struct dma_iova_state *state)
+>   {
+> -	struct iommu_domain *domain = iommu_get_dma_domain(dev);
+> -	struct iommu_dma_cookie *cookie = domain->iova_cookie;
+> -	struct iova_domain *iovad = &cookie->iovad;
+> -	size_t iova_start_pad = iova_offset(iovad, state->addr);
+> -	size_t size = dma_iova_size(state);
+> -
+> -	iommu_dma_free_iova(domain, state->addr - iova_start_pad,
+> -			iova_align(iovad, size + iova_start_pad), NULL);
+> +	/*
+> +	 * Nothing is linked anymore and every dma_iova_unlink() has already
+> +	 * invalidated the IOTLB synchronously, so there is no deferred
+> +	 * invalidation to wait for and the IOVA can be reused right away.
+> +	 */
+> +	__dma_iova_free(dev, state, NULL);
+>   }
+>   EXPORT_SYMBOL_GPL(dma_iova_free);
+>   
+> @@ -2097,27 +2108,20 @@ static void iommu_dma_iova_unlink_range_slow(struct device *dev,
+>   		arch_sync_dma_flush();
+>   }
+>   
+> -/**
+> - * dma_iova_unlink - Unlink a range of IOVA space
+> - * @dev: DMA device
+> - * @state: IOVA state
+> - * @offset: offset into the IOVA state to unlink
+> - * @size: size of the buffer
+> - * @dir: DMA direction
+> - * @attrs: attributes of mapping properties
+> - *
+> - * Unlink a range of IOVA space for the given IOVA state.
+> +/*
+> + * Unmap a range of IOVA space into @gather. The caller owns @gather and must
+> + * retire it, either by iommu_iotlb_sync() or, for a queued gather, by handing
+> + * it over to the flush queue together with the IOVA via iommu_dma_free_iova().
+>    */
+> -void dma_iova_unlink(struct device *dev, struct dma_iova_state *state,
+> +static void __dma_iova_unlink(struct device *dev, struct dma_iova_state *state,
+>   		size_t offset, size_t size, enum dma_data_direction dir,
+> -		unsigned long attrs)
+> +		unsigned long attrs, struct iommu_iotlb_gather *gather)
+>   {
+>   	struct iommu_domain *domain = iommu_get_dma_domain(dev);
+>   	struct iommu_dma_cookie *cookie = domain->iova_cookie;
+>   	struct iova_domain *iovad = &cookie->iovad;
+>   	dma_addr_t addr = state->addr + offset;
+>   	size_t iova_start_pad = iova_offset(iovad, addr);
+> -	struct iommu_iotlb_gather iotlb_gather;
+>   	size_t unmapped;
+>   
+>   	if ((state->__size & DMA_IOVA_USE_SWIOTLB) ||
+> @@ -2125,14 +2129,38 @@ void dma_iova_unlink(struct device *dev, struct dma_iova_state *state,
+>   	     !(attrs & (DMA_ATTR_SKIP_CPU_SYNC | DMA_ATTR_MMIO))))
+>   		iommu_dma_iova_unlink_range_slow(dev, addr, size, dir, attrs);
+>   
+> -	iommu_iotlb_gather_init(&iotlb_gather);
+> -
+>   	size = iova_align(iovad, size + iova_start_pad);
+>   	addr -= iova_start_pad;
+> -	unmapped = iommu_unmap_fast(domain, addr, size, &iotlb_gather);
+> +	unmapped = iommu_unmap_fast(domain, addr, size, gather);
+>   	WARN_ON(unmapped != size);
+> +}
+>   
+> -	iommu_iotlb_sync(domain, &iotlb_gather);
+> +/**
+> + * dma_iova_unlink - Unlink a range of IOVA space
+> + * @dev: DMA device
+> + * @state: IOVA state
+> + * @offset: offset into the IOVA state to unlink
+> + * @size: size of the buffer
+> + * @dir: DMA direction
+> + * @attrs: attributes of mapping properties
+> + *
+> + * Unlink a range of IOVA space for the given IOVA state.
+> + */
+> +void dma_iova_unlink(struct device *dev, struct dma_iova_state *state,
+> +		size_t offset, size_t size, enum dma_data_direction dir,
+> +		unsigned long attrs)
+> +{
+> +	struct iommu_iotlb_gather iotlb_gather;
+> +
+> +	/*
+> +	 * The IOVA range stays owned by the caller and may be linked again
+> +	 * right away, so the IOTLB has to be invalidated synchronously even
+> +	 * for flush queue domains. The gather is therefore never queued and
+> +	 * is retired right here.
+> +	 */
+> +	iommu_iotlb_gather_init(&iotlb_gather);
+> +	__dma_iova_unlink(dev, state, offset, size, dir, attrs, &iotlb_gather);
+> +	iommu_iotlb_sync(iommu_get_dma_domain(dev), &iotlb_gather);
+>   }
+>   EXPORT_SYMBOL_GPL(dma_iova_unlink);
+>   
+> @@ -2152,14 +2180,30 @@ void dma_iova_destroy(struct device *dev, struct dma_iova_state *state,
+>   		size_t mapped_len, enum dma_data_direction dir,
+>   		unsigned long attrs)
+>   {
+> -	if (mapped_len)
+> -		dma_iova_unlink(dev, state, 0, mapped_len, dir, attrs);
+> +	struct iommu_domain *domain = iommu_get_dma_domain(dev);
+> +	struct iommu_iotlb_gather iotlb_gather;
+> +
+> +	iommu_iotlb_gather_init(&iotlb_gather);
+>   
+>   	/*
+>   	 * We can be here if the first call to dma_iova_link() failed and
+>   	 * there is nothing to unlink, so let's be more clear.
+>   	 */
+> -	dma_iova_free(dev, state);
+> +	if (mapped_len) {
+> +		iotlb_gather.queued = READ_ONCE(domain->iova_cookie->fq_domain);
+> +		__dma_iova_unlink(dev, state, 0, mapped_len, dir, attrs,
+> +				&iotlb_gather);
+> +	}
+> +
+> +	/*
+> +	 * Retire the gather together with the IOVA, like __iommu_dma_unmap()
+> +	 * does: either invalidate the IOTLB now, or hand the IOVA space and
+> +	 * any page table pages released by the unmap over to the flush queue,
+> +	 * so the IOVA cannot be reused before the deferred invalidation.
+> +	 */
+> +	if (!iotlb_gather.queued)
+> +		iommu_iotlb_sync(domain, &iotlb_gather);
+> +	__dma_iova_free(dev, state, &iotlb_gather);
+>   }
+>   EXPORT_SYMBOL_GPL(dma_iova_destroy);
+>   
 
---
-Cheers, Lorenzo
