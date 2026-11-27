@@ -1,64 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.130.202.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=99.33.87.210
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795737231;
-	b=bakPRSZT1nvlvHfzbjXsyGa3BRYUm1Ql+kLnAWzIojVSEtY5yW20/ZS9cyt6lSEDBweE
-	 gg5wRh0uVkz3YUov9+xuM/BnQujXBwsduJE6OjZ2dFoYc38Y8kCpwHVsBzM3SlcGBGcw5
-	 IOqwpPQ0bzUZ0Pe3JUSwkXyYZ2HxD0pPsyf6ZkGSgOhx89gdU/CC6njrGVDNi0oZyCX9c
-	 uZZhtN4AvWylVFoedzxC2OchvS5uRVX9AENz+651Q8ESaqgC4d4odH4XxbGwu2U8a/vhm
-	 xMJg3za5c6d9ekBGKWNLVYELC5Yd8/+qH24xDajQemTDwGYoOFdrjxJ5Mkejg/SUrZw==
+	t=1795737996;
+	b=lNEdb1aG4N0ExafqbC7o7Zl1q+jbkHKnTYeIIZ2sQ+HoagIpxNFB//INtbcuo4wv6dTa
+	 co+lHxrMlvRB9b6mBCRE8KCQoAIKMTq3R+zwnmBYxcbSRkAdIBJq7hFKHYBrS8lO+IHNo
+	 b6tyk5rPQ/MuQLSOqGgfBH4FcmQzanaHyn3U3cvljO4bBFWNAv1weECteUD29TYLwN63p
+	 EEIlH+w67Ew9LDJ86aJXZqOxRjzp2TRU7E7Yjjgur0ZnrUMdKMixXntjeF3AbiMCXDD9H
+	 NqFcFC+VuVYEI73YrltsMlbEBHvIRg2SvklkoFT8ZbJBS6kRH4tx1a6sUEfbNgsdhLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795737231;
-	h=DMARC-Filter:DKIM-Signature:Received:X-Iguazu-Qid:X-Iguazu-QSIG:
-	 Received:From:To:Cc:Subject:Date:X-TSB-HOP2:Message-Id:X-Mailer;
-	bh=OcM2LULAOi6qxaM87NYAThKYLj+/GA1+gZYocPXXOdY=;
-	b=C36R59ySEcDaxpS/o6/E0QWRF0laWSi9UnRn1ztro/6R2WCeW7oZ910SN5Z4dukQbXrE
-	 /KBqlnI/WFakRkX0s+UkYWABifj1+R2g9XgdY5D+YzqfT+j0X6eIoRlnQDo/LogsGVYKu
-	 tVt1g+1OkhDIGPa80yVmJvVv/ihO8W4NiuTrDh8H2OT+hlVaVaYsu6l4DSy6JK58vnjlK
-	 X9wdpuCu683l3lZnoOnWC9rua9pYekrnwtKoNEtMNg3ETueLbb+f+ADdT6WYgyK8si9Dx
-	 8l7A+2KcrKeP0L7FVxEGrlwjEn0whF6/Rhh6UXSGUByyLY5AmfjmAHnYplnnA23OvPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795737996;
+	h=DMARC-Filter:Received:Date:From:X-X-Sender:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:MIME-Version:Content-Type;
+	bh=g/UJ7v0tCb57TrFBa4mDGQ10gY4hp1sR90rabdB2JT4=;
+	b=IEKoYoRORNxY2XCE7ihPXK5JIfzKLhJsBTF3diJ7z0cv4BUmIz1fAstfpX+aRVI1gupZ
+	 KzffL2qN4OghxRCQv1sxQ+wEOYUGr7UnqPlTukDvkmLH+Zez1OjJcF3q+0weKN9Qvrp1B
+	 Up1zbMK0C6nihnjCQRVlwayUgLbCrXf9wuRNAmkL7yNY/Z/HUcHlQFjgKv2NO9WyjLYR+
+	 vLI/Gjivb+U6oin3LKI7nbOW9mmsEDZos12TnHNmWJDtGQV44e8CAhD/dkldDpgqkYpik
+	 E/JAUs1XZ2D0jFjWJEJl1y9LyAEKEAq8+p/B/bPmKvJWgJfkJ522dSRwu8hNtzvtZ1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.toshiba;
-	spf=pass smtp.mailfrom=mail.toshiba;
-	dkim=pass header.d=mail.toshiba header.i=nobuhiro.iwamatsu.x90@mail.toshiba header.a=rsa-sha256 header.s=key2.smx header.b=W7BUSGxe;
-	arc=none smtp.remote-ip=210.130.202.131
-Received: from mo-csw.securemx.jp (mo-csw1120.securemx.jp [210.130.202.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=aaazen.com;
+	spf=pass smtp.mailfrom=aaazen.com;
+	arc=none smtp.remote-ip=99.33.87.210
+Received: from mail.aaazen.com (99-33-87-210.lightspeed.sntcca.sbcglobal.net [99.33.87.210])
+	(using TLSv1.3 with cipher TLS_CHACHA20_POLY1305_SHA256 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9318606A31E
-	for <stable@vger.kernel.org>; Thu, 26 Nov 2026 23:53:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9318606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.toshiba
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.toshiba
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mail.toshiba header.i=nobuhiro.iwamatsu.x90@mail.toshiba header.a=rsa-sha256 header.s=key2.smx header.b=W7BUSGxe
-DKIM-Signature: v=1;a=rsa-sha256;c=relaxed/simple;d=mail.toshiba;h=From:To:Cc:
-	Subject:Date:Message-Id;i=nobuhiro.iwamatsu.x90@mail.toshiba;s=key2.smx;t=
-	1795737198;x=1796946798;bh=uzN4QuyX6KxfZniptxkRWNJLwVPH2EvasOuIIEvC1SU=;b=W7B
-	USGxeVyN0epMsJz2hV8Q11ctq4QnXozhGhWD5jpOZzp09RiNrRKXzbkKjJG7aRB4b+QQsbenwY1Rg
-	+ahO8VaUdYiRt6FaAlLi7eLedlKbV7Oq1dWqzeFOA50g0h6m2oriJpNxxF6wJGxSBVrRbsjh14qma
-	aK48dLK8K1p9X2GK6I1xAbx0NTqBBG3paghWWI5kPmdWcdxqQ7XHIdCqZXAzatRoK8Eo3KGCKvU0n
-	YbulIr4aLxoQnxZKs5OKh7i6v3Dc31d4Wz8xxZZYViCbUlG/bK8whiuy4pBoDfh+OQ37dq8F7Cept
-	00mT3f/Ozxgh/67sMSyhvjHXxT63tsQ==;
-Received: by mo-csw.securemx.jp (mx-mo-csw1120) id 6AQNrHSR3007845; Fri, 27 Nov 2026 08:53:17 +0900
-X-Iguazu-Qid: 2rWhnX7phepKAsthlK
-X-Iguazu-QSIG: v=2; s=1; t=1795737197; q=2rWhnX7phepKAsthlK; m=ERKqjAa3UUtY9sPUH23TWuLBUiyLkpkv3P1G0f9uzag=
-Received: from imx12-a.toshiba.co.jp (unknown [38.106.60.135])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	 id 4jbCzd1mVxz4vym; Fri, 27 Nov 2026 08:53:17 +0900 (JST)
-From: Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
-To: stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org, sashal@kernel.org,
-        Shang XiaoJing <shangxiaojing@huawei.com>,
-        Sebastian Reichel <sebastian.reichel@collabora.com>,
-        Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
-Subject: [PATCH 5.10.y, 5.15.y] power: supply: cw2015: Fix potential null-ptr-deref in cw_bat_probe()
-Date: Fri, 27 Nov 2026 08:52:54 +0900
-X-TSB-HOP2: ON
-Message-Id: <1795737174-18670-1-git-send-email-nobuhiro.iwamatsu.x90@mail.toshiba>
-X-Mailer: git-send-email 2.7.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA720606A31C;
+	Fri, 27 Nov 2026 00:06:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA720606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aaazen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aaazen.com
+Received: from localhost (localhost [127.0.0.1])
+	by thursday.test (OpenSMTPD) with ESMTP id 2572856b;
+	Thu, 26 Nov 2026 16:06:29 -0800 (PST)
+Date: Thu, 26 Nov 2026 16:06:29 -0800 (PST)
+From: Richard Narron <richard@aaazen.com>
+X-X-Sender: richard@thursday.test
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+    linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+    akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+    patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+    jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+    rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+    achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/815] 6.12.120-rc2 review
+In-Reply-To: <20261126105709.009001842@linuxfoundation.org>
+Message-ID: <207e54f7-cecf-1322-73d8-595c2b676148@aaazen.com>
+References: <20261126105709.009001842@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,46 +55,28 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-From: Shang XiaoJing <shangxiaojing@huawei.com>
+On Thu, 26 Nov 2026, Greg Kroah-Hartman wrote:
 
-commit 97f2b4ddb0aa700d673691a7d5e44d226d22bab7 u pstream.
+> This is the start of the stable review cycle for the 6.12.120 release.
+> There are 815 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sat, 28 Nov 2026 10:55:59 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.120-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+>
 
-cw_bat_probe() calls create_singlethread_workqueue() and not checked the
-ret value, which may return NULL. And a null-ptr-deref may happen:
+Tested on   AMD  amd64 12-core and     4-core systems
+and    on Intel x86-64  4-core and x86 1-core systems
 
-cw_bat_probe()
-    create_singlethread_workqueue() # failed, cw_bat->wq is NULL
-    queue_delayed_work()
-        queue_delayed_work_on()
-            __queue_delayed_work()  # warning here, but continue
-                __queue_work()      # access wq->flags, null-ptr-deref
-
-Check the ret value and return -ENOMEM if it is NULL.
-
-Fixes: b4c7715c10c1 ("power: supply: add CellWise cw2015 fuel gauge driver")
-Signed-off-by: Shang XiaoJing <shangxiaojing@huawei.com>
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Signed-off-by: Nobuhiro Iwamatsu (CIP) <nobuhiro.iwamatsu.x90@mail.toshiba>
----
- drivers/power/supply/cw2015_battery.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/power/supply/cw2015_battery.c b/drivers/power/supply/cw2015_battery.c
-index d1071dbb904e..616d481f834e 100644
---- a/drivers/power/supply/cw2015_battery.c
-+++ b/drivers/power/supply/cw2015_battery.c
-@@ -686,6 +686,9 @@ static int cw_bat_probe(struct i2c_client *client)
- 	}
- 
- 	cw_bat->battery_workqueue = create_singlethread_workqueue("rk_battery");
-+	if (!cw_bat->battery_workqueue)
-+		return -ENOMEM;
-+
- 	INIT_DELAYED_WORK(&cw_bat->battery_delay_work, cw_bat_work);
- 	queue_delayed_work(cw_bat->battery_workqueue,
- 			   &cw_bat->battery_delay_work, msecs_to_jiffies(10));
--- 
-2.55.0
-
+Tested-by: Richard Narron <richard@aaazen.com>
 
