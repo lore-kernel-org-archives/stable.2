@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795791147;
-	b=dwsnMjltbPrPpBdv0cRC9mABCYMjGxty7f6KmwHdvgsqxAKUpu5n3lPO8WxFCPRJlRVU
-	 loT8m1fML09pYTFVyMLklL15n5iT/JQ9U4BG4qYAWD527HlqPkmJG3X7ZGdrg636nCn3Y
-	 iBddxHrXh2Tkoqr7dqNrkrdNU7eNdWvOeg61W5lFjyAKt6LqXyta6xowCmtlqOvwavplb
-	 MGBhkE5AV+6olcG8bbW8JgP7ydK9hEp7+D34b4Eb4MTEVgwGp79ZL4ExxZZuW9upazH/p
-	 LSXpOnzGPOVRFtFPwjbVve0A/tr9pHIWh10gqqfNeEox7q45qlyxEgekm9hymdcbJ7Q==
+	t=1795791153;
+	b=c5XrFSysA6lk2N7bIgf3xknOk4Qdp8JQqgUDqN0T8sL31sbWy8DCjsIOc/FRu6a/DulP
+	 zxJZF318ZSCGWHnO9CsI5qxHLmNsSOe+XGVsF4Lhi459nXAq89ubWS2ShoqqJ/RSW055p
+	 V7CKoVjzV+07m3apnCDHK7rUzSfigt002TyQvhie33pEpnrjUGbcrpZm7r/eBDzHM1PVI
+	 shugHK0xailW7z+5ZXz7kJKfdctT/p0OYKvHyp5lqSZ/Ot/g39I3mLkC5P7/YwSQW06MX
+	 QN+UaTDjmyyOqVOItZBznpXnj9oo113QViMKToJ+fQ4gRLoj5jZMDOVvkkQfaNqIukA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795791147;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795791153;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=s1BZfvVutIxlUpcCiKJC2UenceNXJLwyD6jsVdX7YhQ=;
-	b=4HwM39vgYUcQcIQsb+8bFVsJzb23Sk1JKLoLJRiB+o9z7KfXsezB9INbBXwQHkg+7w74
-	 3Mx93CWWDTDIKvhzGgHIhjBzf2mvObreeyHCPgxBwTR39IVoKjo2RRKyfbIKGbAZLpmI/
-	 Yh+H0Zi/EH03LYm//iuxfWvvuhmbafE0kQZRwcMXi3ZvzOaxMZm1WEm4octxr0c/9pu/W
-	 hybU+NPVCT3wmIrv5WiaAz5IU9P1J/npL2B5Om/E9+K0UCjIZrKtjqpeg3Q65fUmLDGl2
-	 NK04EFAFtOs6oOCG2vXU7AEJ3nISjDpQeiUvryWuj4OA4QyKqDJKbPc/jF7z4AqvagA==
+	bh=TI+JLkq35PD/7jmEqoWqvfXhE2Ug1oyIciBP2hglf3I=;
+	b=ziyefp5wWw3mIgRmVB16fY0K7HJr3W2EspAmVbOb641h+RjWQhZCZiy+iMmDc8hL8i5u
+	 e62wzrMHQ0CddVT5c6VqQPujYYxGCHMmCjC28lEP41AVmlDjX/DTFjZg3fkSuOQN38h/Q
+	 NYvyWDAXva8TwgdtJR6bV8RVns9GQUbUbN1+U2cRefsXgMdi/0SczU8RyfQu4LC3rjMHP
+	 KGdnAX05iocBvU/BRP1qtjW5y5WxRoQgk4y3Ecewa6KD4FZ663nRnGlLaXsMG1SDetZ7u
+	 FaK8JLg+ykf5tWD5cUSSzQRGxPnhhqRVznfk9w8ZY4hWkmCn3O1uga9dQYh47qV+0Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+r02Qyt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IELTKO+K;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A67606A31C;
-	Fri, 27 Nov 2026 14:52:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3B7606A31E;
+	Fri, 27 Nov 2026 14:52:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+r02Qyt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BFF61F00893;
-	Fri, 27 Nov 2026 14:52:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IELTKO+K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA5821F0089B;
+	Fri, 27 Nov 2026 14:52:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795791146;
-	bh=s1BZfvVutIxlUpcCiKJC2UenceNXJLwyD6jsVdX7YhQ=;
+	s=k20260515; t=1795791153;
+	bh=TI+JLkq35PD/7jmEqoWqvfXhE2Ug1oyIciBP2hglf3I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i+r02Qyt+/gqb6NJ52iQwDLXOfXm4i8ZKtQlQ5mViOQL2kzq+tgReqz2aX2u/opk1
-	 Gqf1xTpJ0Px/BRqQuOrRLdoBWk/rKE+v+LXrl48MA5r8mPOItaznBhCgNpdKj+pmMC
-	 Q//1EWDo3KwMwTg/Utq3l+l0J9+bgTrurvMrT4uOf0twjrvvrJM/KJdfLnJOC5ZRcd
-	 LJGjr3zGhOnTxkc/0Zp+W1hDbQNXYFwCbChTHIIL1VajpKNuzMRofUGjg9HxdgczJF
-	 OMNiVlvkb4PbN9nsuOYKf8S9fU/8enA4vHIjvUL7KS6oIvONUht+U98e1DINrlA3rb
-	 VeHAS/5ETOWDQ==
+	b=IELTKO+KhBDgZw83AHHGNyEvCPJ5W+mSxiEtQ0AE7IWHeQje/3sptqGrtItjJVKjB
+	 6HVTL+0zoRLvCmHB7lGRCJDpdYQ8KpfarakL7VWVpMy3LThyTci/JsEMRjJ7sNxofr
+	 zLW1Gfr9saiwlQ+R69Wq0+p/M5GKg39BRuh2CqbjVF7peu4f9Obss3p1uicUQtcmm8
+	 7MDeACAn/R7cRlPDf1w2mwWbGAHPxtKeSYqySas4sAeP3JqjhtOhbSq5kBXC1b6UTx
+	 ZyhfXseA7QttGmP69zopTPkIs8ePkEDoWNFm6pNetRl7qqUZuie5PrCRlKdOK9OoWP
+	 ROAgB7FPoCSWw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	=?UTF-8?q?Ronald=20Tschal=C3=A4r?= <ronald@innovation.ch>,
+	Marek Vasut <marek.vasut@gmail.com>,
+	Russell King <linux@arm.linux.org.uk>,
+	Uli Luckas <u.luckas@road.de>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 2/3] Input: applespi - disable touchpad registration work on removal
-Date: Fri, 27 Nov 2026 14:51:55 +0000
-Message-ID: <20261127145209.2884170-3-lee@kernel.org>
+Subject: [PATCH v2 3/3] Input: matrix_keypad - only stop and start active device across sleep
+Date: Fri, 27 Nov 2026 14:51:56 +0000
+Message-ID: <20261127145209.2884170-4-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127145209.2884170-1-lee@kernel.org>
 References: <20261127145209.2884170-1-lee@kernel.org>
@@ -65,43 +66,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-applespi_probe() allocates its driver state with devm_kzalloc_obj() and
-initiates an asynchronous touchpad information query whose completion
-schedules applespi->work to allocate and register the managed touchpad
-input device in applespi_worker().
+matrix_keypad_suspend() and matrix_keypad_resume() unconditionally call
+matrix_keypad_stop() and matrix_keypad_start() without holding
+input_dev->mutex or checking whether the input device is active.
 
-applespi_remove() disables the ACPI GPE and drains in-flight SPI writes
-and reads, but never disables applespi->work.  If a touchpad info
-response scheduled applespi->work just before applespi_drain_reads()
-completed, applespi_worker() can run during or after devres teardown,
-corrupting the device resource list via devm_input_allocate_device() and
-dereferencing freed driver data.
+When the keypad has no open users (or is inhibited), row interrupts are
+already disabled and keypad->stopped is true.  Suspending calls
+disable_row_irqs() a second time, unbalancing the IRQ disable depth, and
+resuming clears keypad->stopped and schedules keypad->work.  If the
+device is subsequently unbound while still unopened, Input core skips
+the close callback (matrix_keypad_stop()) during unregistration, leaving
+keypad->work pending or running after devres frees struct matrix_keypad.
 
-Disable applespi->work synchronously after applespi_drain_reads(), once
-no further SPI responses can schedule it.
+Acquire input_dev->mutex in both sleep callbacks and only stop or start
+scanning when input_device_enabled() is true.
 
-Fixes: 038b1a05eae6 ("Input: add Apple SPI keyboard and trackpad driver")
-Closes: https://sashiko.dev/#/bug/linux-bb2fd773-6c20-468c-a092-6814f008077f
+Fixes: bab7614d6d1b ("Input: add support for generic GPIO-based matrix keypad")
+Closes: https://sashiko.dev/#/bug/linux-340f2a74-becb-415d-b1c2-6da8f05a8bd8
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
 v1 => v2:
- - Use disable_work_sync() instead of cancel_work_sync() in applespi_remove(), per Dmitry Torokhov's review.
+ - Update the Fixes tag to commit bab7614d6d1b ("Input: add support for generic GPIO-based matrix keypad").
 
- drivers/input/keyboard/applespi.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/input/keyboard/matrix_keypad.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/input/keyboard/applespi.c b/drivers/input/keyboard/applespi.c
-index 1d059aff1f1b..1e63719dec4b 100644
---- a/drivers/input/keyboard/applespi.c
-+++ b/drivers/input/keyboard/applespi.c
-@@ -1822,6 +1822,7 @@ static void applespi_remove(struct spi_device *spi)
- 	device_wakeup_disable(&spi->dev);
+diff --git a/drivers/input/keyboard/matrix_keypad.c b/drivers/input/keyboard/matrix_keypad.c
+index 21c7df4e2e7b..370c08e6e264 100644
+--- a/drivers/input/keyboard/matrix_keypad.c
++++ b/drivers/input/keyboard/matrix_keypad.c
+@@ -268,7 +268,10 @@ static int matrix_keypad_suspend(struct device *dev)
+ 	struct platform_device *pdev = to_platform_device(dev);
+ 	struct matrix_keypad *keypad = platform_get_drvdata(pdev);
  
- 	applespi_drain_reads(applespi);
-+	disable_work_sync(&applespi->work);
+-	matrix_keypad_stop(keypad->input_dev);
++	guard(mutex)(&keypad->input_dev->mutex);
++
++	if (input_device_enabled(keypad->input_dev))
++		matrix_keypad_stop(keypad->input_dev);
  
- 	debugfs_remove_recursive(applespi->debugfs_root);
+ 	if (device_may_wakeup(&pdev->dev))
+ 		matrix_keypad_enable_wakeup(keypad);
+@@ -281,10 +284,13 @@ static int matrix_keypad_resume(struct device *dev)
+ 	struct platform_device *pdev = to_platform_device(dev);
+ 	struct matrix_keypad *keypad = platform_get_drvdata(pdev);
+ 
++	guard(mutex)(&keypad->input_dev->mutex);
++
+ 	if (device_may_wakeup(&pdev->dev))
+ 		matrix_keypad_disable_wakeup(keypad);
+ 
+-	matrix_keypad_start(keypad->input_dev);
++	if (input_device_enabled(keypad->input_dev))
++		matrix_keypad_start(keypad->input_dev);
+ 
+ 	return 0;
  }
 -- 
 2.56.1.839.g22a8290db9-goog
