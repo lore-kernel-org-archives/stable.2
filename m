@@ -1,79 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795781903;
-	b=tvMqVtWXyITDbphmNoCKoNbIB2Wjxbi8RhQj8J0RhDhMIpjfaoATpA4JzEQ4S2tEoHc5
-	 NDyg4KCx1vVdNow3Puh+arRqJjC6MICui9Xd+uIZhexY8XJboFP5UD8v5mn7zTVJ4fhsx
-	 TQbMVfXgYmPnIs7EJcERXWbktpgCO38eq0owVqSWa0E9IosJX9kAYV3srkMa2bNjCkOVZ
-	 8HetusrziKp42ORB60hlKTsTV0MBna1OaRgJAMsbDkEcvd0YiYLfcqMbn4CehxsgonVmJ
-	 u7FWSbqzvmP47qu4P7/C/pGG3TELUKncRr5UxYECs3feHKfmIblw8Ks93R2wUiXJGMg==
+	t=1795782284;
+	b=3luWHdxbVe7QWMLvqTb89H7/Og175v0zXJ6DFv2Ve3dsvxgrcJ7U3f4WlQChOccdVQc7
+	 w+J/y+BxputW3qP3Ru/VMxO3L6ofIF4ZIvjp7CxcFjB3hj9PAG2R4VqVes3wwtfpv2VCF
+	 g7QMGAXI4GiQhQqa/FJ9znSBj0k8KWKX6YhvxSZqpfzFD389GHY7/v8jZ7z838JkArTv+
+	 GU3/zh6autu3dO3QTXlpcLrhSeb8OKLBHaG2qQlAFvTS37OWCfWJ/cgCAKDDSfs6M49bG
+	 x/yhSwCsTtZz/RZckGsdwyGwB5ZKAqzX38FMn5i2V7mzLuMaUkTvwW6EgwDggFik8ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795781903;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=djjM0e7UYUbpa8sbuu0XymIBZ0dR4SuAPBPn91vWU0s=;
-	b=OLO3tcp9nz1QeEq4dD9D4eKQO0DSK1OjPdgMun6h9CTfbzUvi0opTf5VF/4niW0oIWna
-	 LUlL/489QMdKD7DhuXhqMODaN95si75fwZOaLlVHmfr4iViprFZvM71MI8B8TDxUs23K2
-	 PbrQwCQf1x8wLz9ehDjauEqGNCNo4Fj+GfhUuhVZcU9MeTXalBMLTzBeo4OvC6D16GR3p
-	 6ASSI/hTzOmDGC3Z5/y7W95KCryMklvjwJGNvCFu9Q68rUGJh5ttL04cykxFOjt0Mkrc9
-	 4g1CPa84Ltw1dQlKCtRP9R3X4y/dJzFt/loe9G+qdCsogV4Y746gFSfJUurh2meqp4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795782284;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=rO7Sh9Nwb089btROzycFmyyXQeMnRKtY6cufHupqrJo=;
+	b=m9fAJqp0Dw9UMxqjuUG0Z2UFF4vB7NsM1KBWn9wL6GFFMTjmbNlzHMgzJNPrHJJaQXQ8
+	 aeysBT77RWo5JRn94oYPLfzksobrkIwtJiQ1f8TIQrjfO5dLfgJ7w+UXa8TsVOoPv89B1
+	 Jmsndi/99dP9u5Jf3JTh7VXJdQjbQI5i5OD/Fwb7rxa354TZHmboUGnOE6Gcu1WsZFObX
+	 /cSj4z3yWdLSOW1g/8MsECFRGyZXFKFj4lGrfkQqQBTFK32vRh8ZH2NQ7SikiFQRvcDL6
+	 dJV63NqvV2mC7TObxaBcsvaZJrIIz+zlh5ws9AW2doU6LTwXWWeNbLLdNU+apk/o4tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kvNIoBfP;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=STe9x2iW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66492606A323;
-	Fri, 27 Nov 2026 12:18:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66492606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D74C606A31F;
+	Fri, 27 Nov 2026 12:24:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kvNIoBfP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795781903; x=1827317903;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=RapHwTkMePqMwUinvA9tRSskezJ18DxlHci7C9sGzOU=;
-  b=kvNIoBfPnZegz3fmYyTErrGuaf9GSfpmNVi3Lq4VOIz9DGuUfiwpxupO
-   XcI3ULE6ywbGloK5j1mi/Mh6OERasYyd5iirBvcWsSKX0e7ajKAWAiZfF
-   ibzgqH7AES6cBBaO+0M8fQDHmcpHBbrLZ+p1iMxYhzlRzrbwAgjxvCJME
-   pIUnt2MxwHpvY2zo1EgzRWXVULWKzQbM4/xXFb8GciwqdiSZs1SCneTZx
-   y5DM5O8G2XzGA+QnUDdr/7shcQEYysbea/JAi/zoG0ZXEom0D5UvPxi7Y
-   DWt/JW81OCEoa0zEeVbfwkOj5LtVvCisJfzvozYiRgcxnFbgayCvp/2oC
-   A==;
-X-CSE-ConnectionGUID: yn1A5iS3QyicCzacILnsaQ==
-X-CSE-MsgGUID: XLSpLtrpSvKTgV9Hrg/WYw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11979"; a="4577873"
-X-IronPort-AV: E=Sophos;i="6.27,236,1787036400"; 
-   d="scan'208";a="4577873"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Nov 2026 04:18:22 -0800
-X-CSE-ConnectionGUID: JFeUOcKaQ5ymBuYwv0M6Vw==
-X-CSE-MsgGUID: 29IifB6yTF6ZGp6BuNJOzQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,236,1787036400"; 
-   d="scan'208";a="12270678"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO mnyman-desk.home) ([10.245.245.45])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Nov 2026 04:18:21 -0800
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-To: <gregkh@linuxfoundation.org>
-Cc: <linux-usb@vger.kernel.org>,
-	Alex Kononov <alex@albefly.com>,
-	stable@vger.kernel.org,
-	Michal Pecio <michal.pecio@gmail.com>,
-	Mathias Nyman <mathias.nyman@linux.intel.com>
-Subject: [PATCH 08/10] usb: xhci: Demote isoch buffer overrun message to debug level
-Date: Fri, 27 Nov 2026 14:17:53 +0200
-Message-ID: <20261127121755.281420-9-mathias.nyman@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261127121755.281420-1-mathias.nyman@linux.intel.com>
-References: <20261127121755.281420-1-mathias.nyman@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=STe9x2iW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1B0F1F00897;
+	Fri, 27 Nov 2026 12:24:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795782283;
+	bh=rO7Sh9Nwb089btROzycFmyyXQeMnRKtY6cufHupqrJo=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=STe9x2iWOACvB+dvu+Cu3B7IGRYtpvofxEWZMvZV2FF3GzQ5CHK2uwRGRfdZjv4OA
+	 xs0PIG9Jp76jGf4KERgqY0uE+WKpOlMGeJPF+j7WYGX6dTw2Z/bcom5CgC0EvpLKeM
+	 UPTwBkuK6lKtGj54oZgT10alF9JEWhHRXL7KvCLJ1wJuUI6yT710nm7atbcRPk4B4q
+	 veWirquSo1O+1DRSONtsJtNLGvDMV0SQYTeiltACd1YY+yPP7pEj/NjnuBu/WDO4+d
+	 ScsC6439ejO6sGx07FNmDNfq69I8uHYFCV1xwbOk6lkSIVxG+Ks3keF5S+yE70xVs9
+	 1h7eXJU4oW2+w==
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,51 +49,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] phy: hisilicon: fix UTMI reset leaks in INNO USB2 PHY
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Xia Yan <yanxia@cmss.chinamobile.com>
+Cc: Vinod Koul <vkoul@kernel.org>, linux-phy@lists.infradead.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Pengcheng Li <lpc.li@hisilicon.com>, 
+ Jiancheng Xue <xuejiancheng@hisilicon.com>, 
+ Shawn Guo <shawn.guo@linaro.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, yana06070@163.com
+In-Reply-To: <20261111085942.159625-1-yanxia@cmss.chinamobile.com>
+References: <20261111085942.159625-1-yanxia@cmss.chinamobile.com>
+Date: Fri, 27 Nov 2026 17:54:34 +0530
+Message-Id: <179578227492.13164.6236523920077624562.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=969; i=mani@kernel.org;
+ h=from:subject:message-id; bh=+STIkYRXLCv5THBHdorJX8rgjNT3hXEWJxeBya+QsqU=;
+ b=kA0DAAoBVZ8R5v6RzvUByyZiAGsJdoWhugC4bbe9SHBil0DqtCM4wqjomPLeYum8iu90MTeaq
+ 4kBMwQAAQoAHRYhBGelQyqBSMvYpFgnl1WfEeb+kc71BQJrCXaFAAoJEFWfEeb+kc71rYIH/11T
+ yEn3uKdwP6sBo9+AHgmy75BcWCVtq++YOXhfJUSIRnBhpjRjUs+11OSp3p7CINmj9g6unsqrk2L
+ PLEB7RssR35FYv/Ol3qlJ3eTGdsMUJCMdOCuqZe2QSJ+UZZaxtPmmjf/toDnR1t87Lira9O/i5t
+ BfDWtmy1Lua14bS/vnK6MYJOuh9NIjXb85ET+3Z+o1YrO39vNXa99vWrZpqT8U97/ftmRQkcpHG
+ R95BEjsLSqvsR0Hdj0Z/V9j7mgDHqRMOmZzsrBMYbLMbeQ0uQWjF4+yk7YxaQ0Qkxzv7Xmi87vr
+ pQSC95PUHjBpDh00hRUQVumISKzGyR/AszAFUJE=
+X-Developer-Key: i=mani@kernel.org; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-From: Alex Kononov <alex@albefly.com>
+On 2026-11-11 16:59 +0800, Xia Yan wrote:
+> hisi_inno_phy_probe() acquires an exclusive UTMI reset control for each
+> child node but never releases it on probe failure or driver detach.
+> The leaked controls remain acquired, so a later probe can fail with
+> -EBUSY when requesting the same resets.
+> 
+> Register a devres action after each successful lookup to release the
+> control on probe failure and detach.
+> 
+> Found during source review of reset-control lifetimes.
+> 
+> Build-tested the driver object on x86_64 with W=1 and reset support
+> enabled. No hardware testing.
+> 
+> Fixes: ba8b0ee81fbb ("phy: add inno-usb2-phy driver for hi3798cv200 SoC")
+> Cc: stable@vger.kernel.org # needs of_node_put(child) on <= 6.6
 
-An isochronous Buffer Overrun event means the device sent more
-data than the TD could hold.
-This is triggered by the device, not by a driver bug, and the
-error is already reported to the class driver as
--EOVERFLOW in iso_frame_desc[].status.
+This is not a critical fix to backport. Please drop the tag.
 
-Logging it with xhci_warn() can flood the kernel log.
-A USB S/PDIF adapter (262a:9123) whose S/PDIF input loses its
-signal produces this event on nearly every microframe,
-about 7,200 messages per second, keeping systemd-journald
-busy at 100% of a CPU.
+> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
 
-Use xhci_dbg() like the other device-triggerable completion codes.
+With tag dropped,
 
-[mn: remove the "WARN" part of the debug message as well]
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Cc: stable@vger.kernel.org
-Suggested-by: Michal Pecio <michal.pecio@gmail.com>
-Signed-off-by: Alex Kononov <alex@albefly.com>
-Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
----
- drivers/usb/host/xhci-ring.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+- Mani
 
-diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index a1fa188680f5..fca23daf6add 100644
---- a/drivers/usb/host/xhci-ring.c
-+++ b/drivers/usb/host/xhci-ring.c
-@@ -2815,9 +2815,9 @@ static int handle_tx_event(struct xhci_hcd *xhci,
- 			  slot_id, ep_index);
- 		break;
- 	case COMP_ISOCH_BUFFER_OVERRUN:
--		xhci_warn(xhci,
--			  "WARN: buffer overrun event for slot %u ep %u on endpoint",
--			  slot_id, ep_index);
-+		xhci_dbg(xhci,
-+			 "buffer overrun event for slot %u ep %u on endpoint",
-+			 slot_id, ep_index);
- 		break;
- 	case COMP_RING_UNDERRUN:
- 		/*
--- 
-2.43.0
 
