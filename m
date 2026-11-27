@@ -1,64 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795763767;
-	b=grMtWvJCtq/cCLnJWuD8HV4ie+8UK31OtRzn5AqHAd40gAfR9454qPeWaLjnRV8fYnYZ
-	 4dxuqLpCtrXjcdl+rP5xA05E6XPIk0AQRz4kOFFKzVSNm5myjSTNd2x7av0Bm2udrTWNQ
-	 ZtqeDTEu6NdySQF6o8OsjhPRwKavyeoBcUHDujJUsTifzVJmqwE5EW8G1u1jZZHwonWfj
-	 ik/4/YPjraZZ8qITELakKU6bPHEpzeEU1woaicQvlFjUBX9fIWVb6oMj6TQN+S3EtEUXg
-	 8ahsrRRwxcCEcZUScG3nuAVEvC6bPkGF25XLmNdZXiyLBdwqUPHQL+LqWeHANjddd0w==
+	t=1795764252;
+	b=n732AqTjY1o1wzT2uMJoa7kkGezZ7OxogvCmSswhsnKLNwa6J7OBdR2VELdtBvCRH4TL
+	 aQI5qpFirVhcrDys5ZVzZf8kMPeYiWQXuyyW+iYQGvRIhYVD/Z39Ju4xNoUtqcRxpD58A
+	 Bvj/VbtrKiQvyf/CU9m2bU/jCM4Bt+hWGWtOkheh+nUv4GVCJNQIxLOLvDwTwJLt9P3Z/
+	 lWYP9IrNiUi0OyxNDb1kE8d1BNE1EhhOsEIRaWK9JfBS2xNfSqRw7x/XVHpL2V+bnb6dp
+	 oPFCuw0tQuBReqjZLnFy9wwqP7hZkfSVeDtS9NnJFDOEw/a38eTWKd4+gIzRQQrK72A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795763767;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=WlyVMIf+w2EK4kCSEt6kaV0RPIZEQmXW1mV3dcuujUQ=;
-	b=Tyiddm6xjel1d5UO8D1RWJQRIo8/UJOhm+LFdtB9PXP6BqkPdGl0KxX/U2/HsOSuq084
-	 wSu2DZTacezymbScozDju8nKVzsGIaXcrl+3+fWHCegrflRj5vjQBzlUD3bOvw8Gy2s05
-	 h1IRzymxcQr5Y4Y6oR+YREHHgPM6Q4P4Up8hn1EAw89n9G/8MVos3lB44HHtJIbvMhKbQ
-	 fDgb5V1gNs+fwMfMYgwUcH9c+CSLFvUvAj2vAbYL3NlzxYG/DPAp2Loe7dmmmFMDpSBTq
-	 Ng3KdTUrMUEGwXnnu/9kT/l/OFlAfnEqggoEFJ0lQ/ETi14JQ6J7MmW4w+EwP0nw5Rg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795764252;
+	h=DMARC-Filter:DKIM-Signature:Subject:Message-Id:
+	 Content-Transfer-Encoding:X-Original-From:X-Lms-Return-Path:
+	 Content-Type:From:Mime-Version:Date:X-Mailer:Cc:To;
+	bh=6Q8n/+0yzOS8zRUOgySzo3szziagZeOEeZ2s5FzRuXA=;
+	b=LfJUhEujxBCF7TaT2V19uscqEykY9mNz1NtHnTWKJrGEjk8TrpOievjVxbWhAciFId0Q
+	 FDQ3qAWiAGRBHDpru80ioerpwCJsqCL69KqSRUWcro9WpcedyFxAJAks6L1UPdta3VhFn
+	 Bx44BwCXfwfkEtqBrg/GGVPpnemm5OA89Vo4d0/W36G1G9APU1pyQrKIa+PIdKQTgJ2vA
+	 ovnhGpvqAKyr9oOqqwp4XqE7Fx8zJEFAgAEcTxtOUrLI/wzfx71YlE2cHGotOJZUNzMzn
+	 OYMV+Y2McIog0L0JhwoYjxKwGoru73pfSUTlImjTFL3O0lmkZHURdN0bf5FTQYh9C5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BAmhBnEC;
-	arc=none smtp.remote-ip=91.218.175.228
-Received: from mta0.migadu.com (out-228.mta0.migadu.com [91.218.175.228])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=ipFr4Whr;
+	arc=none smtp.remote-ip=209.127.230.111
+Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B617606A321
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 07:16:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B617606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DDF8606A321
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 07:24:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DDF8606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BAmhBnEC
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=UZ9O/NjNPc2csaBXueC5lS/m897rTjKX3GK+oQ+Naos=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795763764; v=1; x=1796368564;
- b=BAmhBnECdHQLGTcuEm4vGzReBW93g4dgWBXd7QcUMyF0AFNUozbGBfV9qHhBcfA87gNHDZOc
- PU1XVxeU1FbAwofaKCY/EpLz2qekhQbM64e0pDDnh1qPVJo4j1Pk0/++IBl8ZMYAbgns2S5coj4
- MSUf5vvUqqxDNcnOo4PBZKyM=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 094f7b84a20c887f;
-	Fri, 27 Nov 2026 07:16:04 +0000
-X-Mizu-Trace-ID: 094f7b84a20c887f
-X-Migadu-Flow: FLOW_OUT
-From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-To: printk@lists.linux.dev
-Cc: Petr Mladek <pmladek@suse.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	linux-kernel@vger.kernel.org,
-	Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v1] printk: clear saved_console_loglevel on /proc/sys/kernel/printk writes
-Date: Fri, 27 Nov 2026 16:15:48 +0900
-Message-ID: <20261127071548.333115-1-xuanqiang.luo@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=ipFr4Whr
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1795764242; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=6Q8n/+0yzOS8zRUOgySzo3szziagZeOEeZ2s5FzRuXA=;
+ b=ipFr4WhrIKSWDXWwamevVqpXU1lnOUkO6qAfltgOeDtDTRmyfzNj5kaoiy+Z85vCEi2d0V
+ ohNrTMQqSr3KI4j4PLVMvJBuSenuJs3CTd+6l5ir1WYfOkxVXVDWSbFrvUbe5UeUvs6Tx/
+ 7anRgRtnfNGnNw7QcawIwLPjs3lSatnBU9PrJPs40oAzg3KPS1uzcehbi0+XCYTp6qH7az
+ yHP9E+SeVSq4+7Er4+vZipLg+odSeRaMCehM1PAwUKlv1poyy8V8eJg6Ux3Y/+GRU6Gy2s
+ SQfwASnnv4S+UTRcjbS90hYT4gnMcpcfSetxvVESGwDlmivLy39L3V8yoQnpmQ==
+Subject: [PATCH] mm/readahead: read folio order limits under the invalidate lock
+Message-Id: <20261127072340.73758-1-zhaogongyi@bytedance.com>
+Content-Transfer-Encoding: 7bit
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+X-Lms-Return-Path: <lba+26b093010+be7b16+vger.kernel.org+zhaogongyi@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,177 +58,81 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Date: Fri, 27 Nov 2026 15:23:40 +0800
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Cc: "Jens Axboe" <axboe@kernel.dk>, 
+	"Jinchao Wang" <wangjinchao600@gmail.com>, <linux-mm@kvack.org>, 
+	<linux-fsdevel@vger.kernel.org>, <linux-block@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+To: "Matthew Wilcox" <willy@infradead.org>, "Jan Kara" <jack@suse.cz>, 
+	"Andrew Morton" <akpm@linux-foundation.org>
 
-From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Block device mmap readahead can race with set_blocksize(), which updates
+the block size and minimum folio order under the exclusive invalidate
+lock. page_cache_ra_order() reads the minimum before taking the shared
+lock and can allocate a folio smaller than the new block size. On the
+buffer-head path this can cause a NULL dereference in guard_bio_eod().
 
-When console logging is temporarily disabled via syslog(2)
-SYSLOG_ACTION_CONSOLE_OFF (e.g., "dmesg -D" or Plymouth during boot),
-do_syslog() stores console_loglevel in saved_console_loglevel and later
-restores it on SYSLOG_ACTION_CONSOLE_ON (e.g., "dmesg -E" or
-plymouth-quit).
+Take the existing shared invalidate lock before computing the folio order
+limits so they stay valid through allocation and I/O submission.
 
-Commit 1aaad49e856c ("printk: Restore previous console_loglevel when
-re-enabling logging") clears saved_console_loglevel on
-SYSLOG_ACTION_CONSOLE_LEVEL ("dmesg -n") so an explicit loglevel update
-implicitly re-enables console logging. However, /proc/sys/kernel/printk
-uses proc_dointvec() directly and leaves saved_console_loglevel stale.
-If systemd-sysctl sets kernel.printk (e.g., "4 4 1 7") while console
-logging is disabled during boot, a later SYSLOG_ACTION_CONSOLE_ON
-silently overwrites console_loglevel back to the old saved value (e.g.,
-7), flooding slow serial consoles with notice/info messages.
-
-Move saved_console_loglevel to file scope and wrap proc_dointvec() in
-printk_sysctl_set_loglvl() to reset saved_console_loglevel to
-LOGLEVEL_DEFAULT on successful writes, while leaving it intact on reads,
-empty/invalid writes, and non-zero-offset writes ignored under
-SYSCTL_WRITES_STRICT. Because /proc/sys/kernel/printk always writes
-starting at console_loglevel, valid offset-0 writes clear
-saved_console_loglevel even when re-writing the current loglevel (e.g.,
-kernel.printk = "1 4 1 7"), matching SYSLOG_ACTION_CONSOLE_LEVEL
-semantics (at the cost of also clearing it if a caller rewrites
-console_loglevel solely to adjust later fields).
-
-Serialize saved_console_loglevel and console_printk[] updates across
-do_syslog() and /proc/sys/kernel/printk with a dedicated
-console_loglevel_lock mutex (using READ_ONCE/WRITE_ONCE for
-console_loglevel to match proc_dointvec()), keeping syslog_lock scoped
-to ringbuffer reader state and avoiding contention or lock-ordering
-dependencies with syslog readers and console registration.
-
-Fixes: 1aaad49e856c ("printk: Restore previous console_loglevel when re-enabling logging")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Fixes: 47dd67532303 ("block/bdev: lift block size restrictions to 64k")
+Cc: stable@vger.kernel.org # 7.3+
+Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
 ---
- kernel/printk/internal.h |  2 ++
- kernel/printk/printk.c   | 50 ++++++++++++++++++++++++++++++++++++----
- kernel/printk/sysctl.c   |  2 +-
- 3 files changed, 48 insertions(+), 6 deletions(-)
+Earlier proposals:
+  https://lkml.iu.edu/hypermail/linux/kernel/2511.3/04090.html
+  https://lore.kernel.org/r/aUN9BFdxHQj8ThMS@ndev
 
-diff --git a/kernel/printk/internal.h b/kernel/printk/internal.h
-index 85fbf1801cbe..8bae853c64b7 100644
---- a/kernel/printk/internal.h
-+++ b/kernel/printk/internal.h
-@@ -10,6 +10,8 @@
- void __init printk_sysctl_init(void);
- int devkmsg_sysctl_set_loglvl(const struct ctl_table *table, int write,
- 			      void *buffer, size_t *lenp, loff_t *ppos);
-+int printk_sysctl_set_loglvl(const struct ctl_table *table, int write,
-+			     void *buffer, size_t *lenp, loff_t *ppos);
- #else
- #define printk_sysctl_init() do { } while (0)
- #endif
-diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-index 5dbcf8a9909b..c6d2bec573b6 100644
---- a/kernel/printk/printk.c
-+++ b/kernel/printk/printk.c
-@@ -1737,11 +1737,17 @@ static void syslog_clear(void)
- 	mutex_unlock(&syslog_lock);
- }
- 
-+/*
-+ * Protects @saved_console_loglevel and serializes syslog(2) and
-+ * /proc/sys/kernel/printk updates to console_printk[].
-+ */
-+static DEFINE_MUTEX(console_loglevel_lock);
-+static int saved_console_loglevel = LOGLEVEL_DEFAULT;
-+
- int do_syslog(int type, char __user *buf, int len, int source)
- {
- 	struct printk_info info;
- 	bool clear = false;
--	static int saved_console_loglevel = LOGLEVEL_DEFAULT;
- 	int error;
- 
- 	error = check_syslog_permissions(type, source);
-@@ -1782,26 +1788,32 @@ int do_syslog(int type, char __user *buf, int len, int source)
- 		break;
- 	/* Disable logging to console */
- 	case SYSLOG_ACTION_CONSOLE_OFF:
-+		mutex_lock(&console_loglevel_lock);
- 		if (saved_console_loglevel == LOGLEVEL_DEFAULT)
--			saved_console_loglevel = console_loglevel;
--		console_loglevel = minimum_console_loglevel;
-+			saved_console_loglevel = READ_ONCE(console_loglevel);
-+		WRITE_ONCE(console_loglevel, minimum_console_loglevel);
-+		mutex_unlock(&console_loglevel_lock);
- 		break;
- 	/* Enable logging to console */
- 	case SYSLOG_ACTION_CONSOLE_ON:
-+		mutex_lock(&console_loglevel_lock);
- 		if (saved_console_loglevel != LOGLEVEL_DEFAULT) {
--			console_loglevel = saved_console_loglevel;
-+			WRITE_ONCE(console_loglevel, saved_console_loglevel);
- 			saved_console_loglevel = LOGLEVEL_DEFAULT;
- 		}
-+		mutex_unlock(&console_loglevel_lock);
- 		break;
- 	/* Set level of messages printed to console */
- 	case SYSLOG_ACTION_CONSOLE_LEVEL:
- 		if (len < 1 || len > 8)
- 			return -EINVAL;
-+		mutex_lock(&console_loglevel_lock);
- 		if (len < minimum_console_loglevel)
- 			len = minimum_console_loglevel;
--		console_loglevel = len;
-+		WRITE_ONCE(console_loglevel, len);
- 		/* Implicitly re-enable logging to console */
- 		saved_console_loglevel = LOGLEVEL_DEFAULT;
-+		mutex_unlock(&console_loglevel_lock);
- 		break;
- 	/* Number of chars in the log buffer */
- 	case SYSLOG_ACTION_SIZE_UNREAD:
-@@ -1855,6 +1867,34 @@ SYSCALL_DEFINE3(syslog, int, type, char __user *, buf, int, len)
- 	return do_syslog(type, buf, len, SYSLOG_FROM_READER);
- }
- 
-+#ifdef CONFIG_SYSCTL
-+int printk_sysctl_set_loglvl(const struct ctl_table *table, int write,
-+			     void *buffer, size_t *lenp, loff_t *ppos)
-+{
-+	loff_t pos = *ppos;
-+	int old_loglevel;
-+	int err;
-+
-+	if (!write)
-+		return proc_dointvec(table, write, buffer, lenp, ppos);
-+
-+	mutex_lock(&console_loglevel_lock);
-+	old_loglevel = READ_ONCE(console_loglevel);
-+	err = proc_dointvec(table, write, buffer, lenp, ppos);
-+	/*
-+	 * Implicitly re-enable logging to console. Under SYSCTL_WRITES_STRICT,
-+	 * non-zero-offset writes return 0 without updating table->data, so
-+	 * require either offset 0 or an observed console_loglevel change.
-+	 */
-+	if (!err && *lenp &&
-+	    (!pos || READ_ONCE(console_loglevel) != old_loglevel))
-+		saved_console_loglevel = LOGLEVEL_DEFAULT;
-+	mutex_unlock(&console_loglevel_lock);
-+
-+	return err;
-+}
-+#endif /* CONFIG_SYSCTL */
-+
- /*
-  * Special console_lock variants that help to reduce the risk of soft-lockups.
-  * They allow to pass console_lock to another printk() call using a busy wait.
-diff --git a/kernel/printk/sysctl.c b/kernel/printk/sysctl.c
-index f15732e93c2e..a2c204320898 100644
---- a/kernel/printk/sysctl.c
-+++ b/kernel/printk/sysctl.c
-@@ -25,7 +25,7 @@ static const struct ctl_table printk_sysctls[] = {
- 		.data		= &console_loglevel,
- 		.maxlen		= 4*sizeof(int),
- 		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
-+		.proc_handler	= printk_sysctl_set_loglvl,
- 	},
- 	{
- 		.procname	= "printk_ratelimit",
+The earlier syzbot retest hit a bug in the fallback path. Since
+b244c89a70b3, the caller holds invalidate_lock before the fallback reads
+min_nrpages. This patch covers the remaining mmap readahead path.
 
-base-commit: 9437ee8b6cf607e883b36e44bd755968daaebd48
+A/B testing on arm64/QEMU at the declared base commit gave 10/10
+baseline hits via madvise and 6/10 via MAP_POPULATE. Both paths had
+0/10 hits with this patch. The 20 patched serial logs showed no kernel
+warnings or crashes.
+
+ mm/readahead.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/mm/readahead.c b/mm/readahead.c
+index 6e5563290..80f3e141d 100644
+--- a/mm/readahead.c
++++ b/mm/readahead.c
+@@ -484,7 +484,7 @@ void page_cache_ra_order(struct readahead_control *ractl,
+ 	struct address_space *mapping = ractl->mapping;
+ 	pgoff_t start = readahead_index(ractl);
+ 	pgoff_t index = start;
+-	unsigned int min_order = mapping_min_folio_order(mapping);
++	unsigned int min_order;
+ 	pgoff_t limit = (i_size_read(mapping->host) - 1) >> PAGE_SHIFT;
+ 	pgoff_t mark;
+ 	unsigned int nofs;
+@@ -506,15 +506,17 @@ void page_cache_ra_order(struct readahead_control *ractl,
+ 		mark = ULONG_MAX;
+ 	}
+ 
++	/* See comment in page_cache_ra_unbounded() */
++	nofs = memalloc_nofs_save();
++	filemap_invalidate_lock_shared(mapping);
++
++	/* Serialize with set_blocksize() updating the minimum folio order. */
++	min_order = mapping_min_folio_order(mapping);
+ 	new_order = min(mapping_max_folio_order(mapping), new_order);
+ 	new_order = min_t(unsigned int, new_order, ilog2(ra->size));
+ 	new_order = max(new_order, min_order);
+-
+ 	ra->order = new_order;
+ 
+-	/* See comment in page_cache_ra_unbounded() */
+-	nofs = memalloc_nofs_save();
+-	filemap_invalidate_lock_shared(mapping);
+ 	/*
+ 	 * If the new_order is greater than min_order and index is
+ 	 * already aligned to new_order, then this will be noop as index
+
+base-commit: 29378f5cd79a27718ead9717fe7b094b651a8e1e
 -- 
-2.43.0
-
+2.39.5 (Apple Git-154)
