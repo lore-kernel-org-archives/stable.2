@@ -1,70 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795798907;
-	b=yV0iaQPOTGoOLmohLBGyC/51bQPZ60MRTUB0Khs+n6T3rmdTsuXdES+Vuq/bFo7muDjL
-	 iukwf08B8sDAN7Aa4tI0jibD606aIRRN2T59cAMoqQ6Gexs2QZXks6GuX0BjzkNuqY+dq
-	 /iRJnat19QVtcMBlb2yMSAVb2cXtGwz6EdViuAKdNCG6D/YVCud4ZAhELlISbT1YeVgXd
-	 Cqw2clW3GYhRDMrbIHTdtxsKEtXB69eUbTgZoAAY5Ofc91w9f8OWRQqsT/2Ffk2Xm5t/w
-	 OsJJJGGwHUy1XG3Sent31Dn+C5ghtbgNtMeH+6PKBbIOgxOIfI75SctvOZ6eaMp4Y5g==
+	t=1795798909;
+	b=hVp072r1UfIVtzYlT1MhFCy0U93OEx9cZ21OsGPRXwtaHjHU/ZnOm+fOyOhtLXnJMaHu
+	 AtiJF+B2D1rEoj9RGoQzBNmJVSd6zbsCJp2JtIjU9/DGCJ+Pw5NSWXAwIN9uqwIa0wkci
+	 vSaxHaKoOxLhBDw/XpVxhWapbs+d6Q9pLFsF+GlOiji1fkBDHICysLRu0lBRFuMnuaUIK
+	 pgsknHP4VMAyd5TM1DWv3IRwT4ZdRgbC5SYPjePtmAHJDRn5bHtaQqHIrSAXtRuJekc+f
+	 5KsOXJyVohmzskMS5bzQ6MsuzdzmBDgZS3CQmyy6R5X2+HvYNU9CB/7NaFQEJopil8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795798907;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795798909;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vVsVRgy0gzJIVDd0T7YDpsF3P6XzAm9x5p8uBrrFcdc=;
-	b=krudM9+KhQ2nHNeY3SP1x0SPZ4KCHrONIHZydcZ90AOJKkuaMPEtqykYIMViZUttOZ/4
-	 kfmwoOMuY4Djurdj4SjXVAKKqb72cdTwkGu556jPdSzN7leXnTH2XNKXki8eujsG15uVJ
-	 mh1kBvLEiJkYvJ1RH+y6Feie2GQ4/CjNfeP2sQjdMnJyh8dxUXDu9MKhuMmI05e5rAdYh
-	 9uFfANuYA3yTM/NYVfTzyKr9XakPTKTb5Ayb8UeDNfUe04ShVd6yuv8QVJi90t80vJjfB
-	 G/4rEfMdEWaQgUFEAM0FC0jm/IUL1F0mjDWh3AE+B7O7AYt5gbWxHMrxWo2FOQ60oKg==
+	bh=+6RompY1HbfgtQmh1megrHiasfsgs35Bk9+9yv4xJ6E=;
+	b=LCCowecUclJKfat4i4YsIZw1XZEFLdwMg1ocmYb+Fy0GP6hVwpikCb4SUXHLSnXOktJw
+	 A+eXJySfAnPVqf9KNK35Ar9VNZP6cS6zABrUeBl8dRZvcaFS0ATnC6k36PkAdM3BdGnlt
+	 k46VSMY2w34Px9kqErRsqvLmE7ZNqoZKwPiORngJCi62Eb4YNm+CSKYeX0l7z/SVK+Pro
+	 zRcEEA8DXztIi1FNGySOW8T0O9cC1hXPjBupInCyCwUBCSmLfkq2yYA4qeuL5dvS8fHSy
+	 LkVOvF5jD7M4WskKTj5NaeSmEiw8A+xlu8dm+9WhVGmw1WzpuduRxJAJsdWsYfrBjWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j1lnJqeD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gFOAijA0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBBB6606A31E;
-	Fri, 27 Nov 2026 17:01:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D007F606A31E;
+	Fri, 27 Nov 2026 17:01:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j1lnJqeD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 480461F00929;
-	Fri, 27 Nov 2026 17:01:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gFOAijA0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E884A1F00898;
+	Fri, 27 Nov 2026 17:01:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795798907;
-	bh=vVsVRgy0gzJIVDd0T7YDpsF3P6XzAm9x5p8uBrrFcdc=;
+	s=k20260515; t=1795798909;
+	bh=+6RompY1HbfgtQmh1megrHiasfsgs35Bk9+9yv4xJ6E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j1lnJqeDQcN3bSQX8EgH6876QrL/pyyQu/V3KVMH9zUpD2SKisPEK3vOI2+heZwSy
-	 ttoqJuPMJa2zSQ7HwI5tcg++bo+BovgbdjfYo2ed+z8LWwbEhyhZYfz6DJChsMl6z4
-	 v1zXmV032pnbEp4ReDBCS6yFF18GB2qR0GSqXiWh12I6LPaM1kOvPyX7zekxV6AUhg
-	 uTGugYY6Esjk+rfagoJnqXKslXDRlGzYASwlrjCK+JONFXKQnpGcPHQ1oqkh11Tliu
-	 kzc9NDwppkYzr/FEtBvr/x64YYdhbSnNWLHkyHliWitufWHFNCY44R40dLUwKjlWpc
-	 syX/CYtviEBNA==
+	b=gFOAijA0FIlCXTbAhXaPZVJW6xu6TtDJad3csTL508rWHHp6grVpHxPApRudvRz7J
+	 XY9ufnAZKCdSXDsfCtReIWAeRe//4vStcxYsByTHlW/OPLqr6Jp7gt+5BsvF1gY2C4
+	 WhSnMupiC2BkYrpXTP2qz3QMXCzm9dScOGicFoYIhvrIDDM2Or3x7Jhwx3Zmkdh6qE
+	 eL5xx3z0MxqCH78eKgE5fr3COhTWnKNqR+vMZ87rK5/HG+sRe6TXmzYvWleN0HcuDu
+	 3CY1JemFvMPkUbupFABmcKFius1EFDK+thn2vw4KBsUaH0Pmy+FV6jFEYVnUg6+KAP
+	 50uw62ci1nxFw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	ast@kernel.org,
-	cratiu@nvidia.com,
 	davem@davemloft.net,
 	edumazet@kernel.org,
-	herbert@gondor.apana.org.au,
 	horms@kernel.org,
-	ipsec@lists.linux.dev,
-	jhs@mojatatu.com,
-	joe@dama.to,
+	jeremy.jean@oss.cyber.gouv.fr,
 	kuba@kernel.org,
-	mst@redhat.com,
+	linux-sctp@vger.kernel.org,
+	lucien.xin@gmail.com,
+	marcelo.leitner@gmail.com,
 	netdev@vger.kernel.org,
 	pabeni@redhat.com,
-	shawnq1@163.com,
-	steffen.klassert@secunet.com,
-	willemb@google.com,
 	Artem Dinaburg <artem@trailofbits.com>
-Subject: Re: [PATCH 6.18.y 0/5] net: validate GSO headers and preserve XFRM inner offsets
-Date: Fri, 27 Nov 2026 12:00:56 -0500
-Message-ID: <2026-11-26-1-daily-reply-0008@kernel.org>
+Subject: Re: [PATCH 6.18.y] sctp: validate cookie AUTH state before use
+Date: Fri, 27 Nov 2026 12:00:57 -0500
+Message-ID: <2026-11-26-1-daily-reply-0009@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125195735.57472-1-artem@trailofbits.com>
-References: <20261125195735.57472-1-artem@trailofbits.com>
+In-Reply-To: <20261125203010.67858-1-artem@trailofbits.com>
+References: <20261125203010.67858-1-artem@trailofbits.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,16 +70,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Please apply these five patches to 6.18.y. Patch 2 fixes CVE-2026-53091;
-> the others are its prerequisite and the upstream fixes that followed it.
+> Validate the cookie's RANDOM, HMACS, and CHUNKS parameters at the cookie
+> trust boundary before copying them into the association.
 
-Queued the series for 6.18, thanks.
-
-> 3/5 fa90a3145c03 stops xfrm from overwriting inner header offsets set
->     by a tunnel. Without it, patch 2 drops VXLAN-over-IPsec GSO traffic.
-
-6.12 and 6.6 already carry patch 2 without this one, so I queued it
-for those two as well.
+Queued for 6.18, thanks.
 
 -- 
 Thanks,
