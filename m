@@ -1,60 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795790724;
-	b=QxvJJxxkcp0JLlYS64oSozATRQYj9nR+V4JG3FqEo9oW4fRjbLTgib0bxH1noiJrujkd
-	 T4LbTQ9XK1V7t7mfQL1kTeV62Zvi6HW8/g8VL+KIh53D0A3YKRyQ9pakOgbVJu4lKTp6z
-	 xfkii8pjvL1GuNFdOPV0EK2hna4eTl6T26226ZNnfyO47WUcINquxZ3rCuRpiQ4oBBDIV
-	 hM7ZG25GAA/22z5WsRZ2ux9rZ++aVQ3kf3+Fil8XlRldYQ7iKuAUNGtsF4iquK6Wv3AW6
-	 AcAfcR/P8BZ7BGx/JBz3oO1K6aCG/Tw6qCxTl2RXMyLBXCO4WnUvqKaJb7uifpsADbQ==
+	t=1795790759;
+	b=cMBYefpMa3kNO3qQrRrqjfzA0MmHtJmvuRJNg8T8adzNC06zpwyUG3KhvzlV7lmQRhgu
+	 2jkXjjoip1c/9Xz+b3M4PTbWOmrQtf+ajEHnM7+8KJkZIFtaloxLnBzdKptVb4PU25j00
+	 ijEYCtzxGBy9tdyO9jvKsmsPMXJWHYLf6jmXeDgvUTqPN8XD4a5ZaY0i0/IhZt6LNWReB
+	 /VoaR+eA+JaN4C/GBnzHHFckSTeem4psLbyDI2iAVvazBXn/iv3bO/KRqO2EtmP+K5owo
+	 EMl+PR1Ba6fJ9D4twbtsSsDByJM4aTEWlSSqdx2Mke/4j/32rAnJfzkGf96PcNCJ1IQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795790724;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=LO23VuR8oz1He3kunSDVbm/R/AJdXLqeSuquj/Un54I=;
-	b=30DKjxDPIpaNCBVquBEgYtJc0bivEbXWEjIDKG6IxtCwKbXAAHZC6EJkHQahUmK81hJY
-	 1vn7bcl4Qha64K0c00hYlmrPnMlUrS9Pjy7I5kqgBQKo0XEJyatsS6rqSsct+fdFowjew
-	 mpArS2yOq8VX7eR8KAPd4lxyx1+HFWZslC3e9HCtwv4WJNg/R4CDRAcC6hEYwTKCqreRi
-	 go0PUe+IJrE7AVqiT9rmDTVM5VG12mIjQdMIVKRzz1Pkcs9MN4PIEco4W9W207iTaO7cC
-	 WiOFcU3aP4yZ5mQktXHOnntc0BgQEMBN1MdWhPWu6ucbjzzIBFE2uXjzNptoELwh5rQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795790759;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ALvyzdIFixfKHJ2qzeSOm/bjJPNlu/WA/9jITs5VP6Q=;
+	b=zK55x3zOhl8xUCRQhl8C2xLqaL2MezZ+fvlRjzYVOfOB01OH8+/NA8RamMRJTNqbkTU6
+	 afXB2jnfbI4zmQVt1SZZ5bsObcdKuwX6WTiaKSzgNknsZTbWKIvMnXcodHOlhpJjYvIp8
+	 +uxQgLnlGDHtzdpvbUe33eVtMuMlQViG7RxJ4WIuvuZXb9AD3XPbhceIV9XoxGtZNy0x1
+	 GN7wJiICnTKSjBVuc6txQqu1OGFqfQt5h/86BOyk0wtEM+vn+mxMup/k5rU7Z/ij7M4jr
+	 6nVD33qWhCj6hqHhRHok/Y+OQHIDiYbIvJXFa2vmYkGq/bOjdWrmoCjNLT6Lkwbgwtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=tH0WWuAW;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=pqshield.com;
+	spf=pass smtp.mailfrom=pqshield.com;
+	dkim=pass header.d=pqshield.com header.i=@pqshield.com header.a=rsa-sha256 header.s=google header.b=Qm+GDqqy;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FADC606A683
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 14:45:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FADC606A683
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C31FA606A31F
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 14:45:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C31FA606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=pqshield.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pqshield.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=tH0WWuAW
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261127144518euoutp02752562c22e6c63ed7a19ad9ac81e3c03~r7iTZrJBv0488604886euoutp02h
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 14:45:18 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261127144518euoutp02752562c22e6c63ed7a19ad9ac81e3c03~r7iTZrJBv0488604886euoutp02h
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1795790718;
-	bh=LO23VuR8oz1He3kunSDVbm/R/AJdXLqeSuquj/Un54I=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=tH0WWuAWuzPYHQm+soNKBsCky89aAJhBeNMAl+NLBMauK5hFl+uh1UAcu8tbLdEG8
-	 nfJHn+PQMz0l0380GnH9tpUphr2qR24lltrW+TLLa0SnHNNvRebMYggDeIzGPDKUTM
-	 7619QSF/iwix+iDn0+A0kvV6ZYYjAB+a2KaAoYZs=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261127144518eucas1p22cf8f824453316c6bfb1f0a0066453b3~r7iTA2KY93155031550eucas1p2D;
-	Fri, 27 Nov 2026 14:45:18 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261127144515eusmtip242d75ac11ad94c4e4ca4316ca179bbe6~r7iQ-8K-m1223712237eusmtip2d;
-	Fri, 27 Nov 2026 14:45:15 +0000 (GMT)
-Message-ID: <feec2436-ad15-4aa6-a53f-800869bfac21@samsung.com>
-Date: Fri, 27 Nov 2026 15:45:15 +0100
+	dkim=pass (2048-bit key) header.d=pqshield.com header.i=@pqshield.com header.a=rsa-sha256 header.s=google header.b=Qm+GDqqy
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4bb6ba3b244so83962105e9.3
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 06:45:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=pqshield.com; s=google; t=1795790756; x=1796395556; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ALvyzdIFixfKHJ2qzeSOm/bjJPNlu/WA/9jITs5VP6Q=;
+        b=Qm+GDqqyozVQmEXcbQaHYGtSMG3e07KVs2j8jmDxXyk7NDkoO9TPPVXUSRoziF6Q1q
+         wfMj4jioA3SY2KpGxD8AfZ/I+Afp7e9NjZv0eXciTnsDB+H3OOQJ2ZhAuHnxfQpgPnop
+         +bMqLW336b2iPLK9nCKwwg8GD/k+GerdlttzHrT9iiTJUj8P8lhuDXnnajs09Cvnr4KE
+         ZHyKCaVgX9FB7/nN22yeijhL9CGV9c6yAPOZbIlkaKsQfoT3mjxI0RQokirZ7gGihs/M
+         cJWJn6/bXGTQ1YVDBs0Z9WhBT1/Ao0fB+nceIvysc8SkK84rBjBpR/FBD50GTWo7xacM
+         hISg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795790756; x=1796395556;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ALvyzdIFixfKHJ2qzeSOm/bjJPNlu/WA/9jITs5VP6Q=;
+        b=d05gh9K9Y8tvtJC2CO8/hA3KsACr6de47b22XsUNlsp7bdiWLrZiGcnl27X6LPeUbt
+         63DvNluTe7z/3ACugJ3bRkvJgWf9MEU0UZvzze5DDvhx6iLlbxOvWkmlDHymq5EPgqJw
+         TbTCAuH7gKIe0oRbVvCZ3ES2/8obrBqEgkXOeyrb/dngIWccQswFrLCMcP7PhXknx4Tx
+         1+a085qG+MW3iVeHwqHCL3nmdormP4eNg0QKesZMeFKoNWqffHPGQFEUT5kCzOiKL54O
+         e2qut1HPtfzauRh+ai45Xs1dMl+3D5CGSrwXBr4CO4lmyVKLUzkME0ErKkOPpmEz80PY
+         rZqw==
+X-Forwarded-Encrypted: i=1; AL+hErG2stMcg8vLdOduAt0uwaP5gYu/zDCghm2fGvVYe0IMimYF/BlFnQikXwjMtbJPSPoLwbybTe4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9As1p1NTqmaeeXSL8A/4fayt+iteL/UPodFsyXcdVjBQXmj06p
+	OCUi5T9xkWsIMFCYbknHEd92QtNt+gtrIKZIBVHH31ex2dnuFmQFoNzda7K8/1HNCb4=
+X-Gm-Gg: AZFdTZfXjTExcb3AnoFMHdFPkgCavDeUUQW0f2/pbe6FWABefjpRObfPdR0tcLstixR
+	M+DLbXnOGeRJ53zEEJOfig/esaxtqReszFi2VTch+qUEHmGmbFFQsFRol3EaChA76LiVv4Jz6F+
+	toiWhMCM4V9l+tQh3Prur2ykQyXLBHwDCKC5Sz/+J1WB6BLB6JwDYDB8uLKE963HLroZVJMxEba
+	CmcLWEo2rtef5ObDsVfJotT12JFIzKnnByg/Nkh2H2rBZPP1/Nqr89POoXOoXHlfQXcUaZFH5bx
+	6gQSh9z29b6xa6LW83r55I5ryBJzK7cyfSAYyvWCPbhVFOP7iMhfF07CMsfR+mDU7vZh3DM6D6Q
+	aPh+uSVM4nEW7zhD+6ivTGYaYY6rZPi3JyrlL5dF1QyNcPBvpvdsdP0vvphHnGoI68zkS/qskmY
+	ak5YwL9y43R1KkhODFBTa8zF0PpR3IXp+iks3eXABglt1IrfpLjUfF6QLGU5nvzBRMFC17mTRYK
+	Q9F4F9j47xnSpSK4XGZsx5BuBrqLZdGSPQj260jvxH6yLBrDVDG/YTaFduonPVO0MWgoAwejIpC
+	+qosuSA3EvSsStGOhBkxphRRS1/VsLOzKPPQRAwSvoviF/yUo2dEXOI6Yr/wxOstd5eEz4h5w44
+	/GtgKwPRldzqFiLXjR4I0FFkYF50=
+X-Received: by 2002:a05:600c:1115:b0:4bb:a602:6c8b with SMTP id 5b1f17b1804b1-4bba60271damr135352625e9.14.1795790756034;
+        Fri, 27 Nov 2026 06:45:56 -0800 (PST)
+Received: from lucas-pascal-pqshield.wework.com (host.178.94.68.195.rev.coltfrance.com. [195.68.94.178])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a67fe75sm54650190f8f.24.2026.11.27.06.45.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2026 06:45:55 -0800 (PST)
+From: Lucas Pascal <lucas.pascal@pqshield.com>
+To: valentina.manea.m@gmail.com,
+	shuah@kernel.org,
+	i@zenithal.me,
+	gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jeffin Philip <jeffinphilip14@gmail.com>,
+	Lucas Pascal <lucas.pascal@pqshield.com>,
+	stable@vger.kernel.org,
+	syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com
+Subject: [PATCH] usbip: usbip_host: fix invalid device pointer use in do_rebind()
+Date: Fri, 27 Nov 2026 15:45:51 +0100
+Message-ID: <20261127144551.350348-1-lucas.pascal@pqshield.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,139 +102,187 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 4/4] iommu/dma: restore flush queue use in
- dma_iova_destroy()
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: iommu@lists.linux.dev, linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>, Joerg
-	Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Leon Romanovsky
-	<leon@kernel.org>, Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Honglei Huang
-	<honghuan@amd.com>, prakash.gupta@oss.qualcomm.com, Alex Williamson
-	<alex@shazbot.org>, Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar
-	<abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho
-	Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>,
-	stable@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20261127143740.GM114472@nvidia.com>
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261127144518eucas1p22cf8f824453316c6bfb1f0a0066453b3
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261127115903eucas1p27ccc4cddb7f705d6afa5c2603597b97a
-X-EPHeader: CA
-X-CMS-RootMailID: 20261127115903eucas1p27ccc4cddb7f705d6afa5c2603597b97a
-References: <20261127115849.2780625-1-m.szyprowski@samsung.com>
-	<CGME20261127115903eucas1p27ccc4cddb7f705d6afa5c2603597b97a@eucas1p2.samsung.com>
-	<20261127115849.2780625-5-m.szyprowski@samsung.com>
-	<20261127143740.GM114472@nvidia.com>
 
-On 27.11.2026 15:37, Jason Gunthorpe wrote:
-> On Fri, Nov 27, 2026 at 12:58:48PM +0100, Marek Szyprowski wrote:
->> Commit 1acce29926d9 ("iommu/dma: simplify dma_iova_destroy() and drop
->> the free_iova helper") turned dma_iova_destroy() into dma_iova_unlink()
->> followed by dma_iova_free(). Before it, the destroy path marked its
->> IOTLB gather as queued for DMA-FQ domains, skipped iommu_iotlb_sync()
->> and handed the IOVA over to the flush queue, exactly like
->> __iommu_dma_unmap(). After it:
->>
->>   - dma_iova_unlink() never queues its gather and always calls
->>     iommu_iotlb_sync() after iommu_unmap_fast(),
->>   - dma_iova_free() passes a NULL gather to iommu_dma_free_iova(), so
->>     the IOVA goes straight back to the allocator via free_iova_fast().
->>
->> DMA-FQ domains therefore get strict invalidation on this path. This
->> includes blk_rq_dma_map(), which NVMe uses for all data transfers, so
->> iommu.strict=0 has no effect on NVMe I/O. On a Qualcomm Glymur CRD
->> (SMMUv3 without RANGE_INV, 4K pages, NVMe on PCIe Gen5 x4) sequential
->> fio throughput drops from 10.6/11.9 GiB/s (write/read) to the strict
->> mode level of ~2.7 GiB/s.
->>
->> Instead of reverting, decide once in dma_iova_try_alloc() whether the
->> IOVA space is going to be released through the flush queue and record
->> it in a new DMA_IOVA_USE_FQ flag in dma_iova_state::__size, next to
->> DMA_IOVA_USE_SWIOTLB, so struct dma_iova_state does not grow.
->> dma_iova_destroy() then unmaps with a gather queued according to that
->> flag, skipping the sync for flush queue domains, and passes the same
->> gather to the IOVA free, so the IOVA space (and any page table pages
->> released by the unmap) goes through queue_iova() again. dma_iova_free()
->> honours the flag as well. The whole reservation is still freed, keeping
->> the size fix of the reverted commit.
->>
->> A gather must always be retired, either by iommu_iotlb_sync() or by
->> handing it to the flush queue together with the IOVA, and the IOVA must
->> never be returned to the allocator while a queued invalidation for it is
->> still pending. To keep that obvious, the internal unlink helper only
->> unmaps into a gather supplied by its caller, and each caller retires it
->> right away: dma_iova_destroy() syncs or queues it together with the IOVA
->> free, exactly like __iommu_dma_unmap(), while dma_iova_unlink() always
->> uses a never queued gather and syncs it, as the unlinked range remains
->> owned by the caller and may be linked again immediately.
->>
->> Fixes: 1acce29926d9 ("iommu/dma: simplify dma_iova_destroy() and drop the free_iova helper")
->> Reported-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
->> Closes: https://lore.kernel.org/all/20261125135120.1126571-1-sibi.sankar@oss.qualcomm.com/
->> Suggested-by: Leon Romanovsky <leon@kernel.org>
->> Cc: stable@vger.kernel.org # v7.3+
->> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
->> ---
->>  drivers/iommu/dma-iommu.c   | 103 ++++++++++++++++++++++++++----------
->>  include/linux/dma-mapping.h |   8 ++-
->>  2 files changed, 83 insertions(+), 28 deletions(-)
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+stub_probe() saves the usb_device in the busid table without taking a
+reference, and nothing clears it when the device goes away. Writing the
+busid to the "rebind" attribute, the last step of "usbip unbind", passes
+that pointer to device_attach() to give the device back to its original
+driver; so does stub_device_rebind() when the module is removed.
 
-Thanks!
+That pointer is invalid in two cases:
 
+- The device was disconnected since it was bound to usbip-host, and
+  do_rebind() uses a freed usb_device. This happens when a device stops
+  responding while exported: closing its usbip connection makes
+  usbip-host reset it, the reset fails and the hub driver disconnects
+  it. The following "usbip unbind" oopses:
 
-What about the issue pointed by sashiko.dev? My LLM said that this will fix it:
+    BUG: kernel NULL pointer dereference, address: 00000000000000e0
+    RIP: 0010:__device_attach+0x3b/0x1e0
+    Call Trace:
+     device_attach+0x10/0x20
+     do_rebind.isra.0+0x3b/0xa0 [usbip_host]
+     rebind_store+0x99/0x140 [usbip_host]
+     drv_attr_store+0x24/0x50
+     sysfs_kf_write+0x72/0x90
+     kernfs_fop_write_iter+0x161/0x1f0
+     vfs_write+0x29e/0x480
+     ksys_write+0x71/0xf0
 
+  do_rebind() holds the parent hub's device lock at that point, which is
+  never released: every later operation on that hub blocks (hub_event(),
+  usbdev_open(), driver unbinds), and only a reboot recovers.
 
-diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-index 0e329ecd7dfa..106da975bf0f 100644
---- a/drivers/iommu/dma-iommu.c
-+++ b/drivers/iommu/dma-iommu.c
-@@ -1892,11 +1892,12 @@ static void __dma_iova_free(struct device *dev, struct dma_iova_state *state,
-  */
- void dma_iova_free(struct device *dev, struct dma_iova_state *state)
- {
--       struct iommu_iotlb_gather iotlb_gather;
--
--       iommu_iotlb_gather_init(&iotlb_gather);
--       iotlb_gather.queued = state->__size & DMA_IOVA_USE_FQ;
--       __dma_iova_free(dev, state, &iotlb_gather);
-+       /*
-+        * Nothing is linked any more and every dma_iova_unlink() has already
-+        * invalidated the IOTLB synchronously, so there is no deferred
-+        * invalidation to wait for and the IOVA can be reused right away.
-+        */
-+       __dma_iova_free(dev, state, NULL);
- }
- EXPORT_SYMBOL_GPL(dma_iova_free);
+- The busid was added to match_busid but never bound to usbip-host, and
+  the pointer is NULL, as found by syzbot:
 
-@@ -2190,12 +2191,13 @@ void dma_iova_destroy(struct device *dev, struct dma_iova_state *state,
-        struct iommu_iotlb_gather iotlb_gather;
+    KASAN: null-ptr-deref in range [0x00000000000000f0-0x00000000000000f7]
+    RIP: 0010:do_rebind drivers/usb/usbip/stub_main.c:204 [inline]
+    RIP: 0010:rebind_store+0x147/0x2d0 drivers/usb/usbip/stub_main.c:264
 
-        iommu_iotlb_gather_init(&iotlb_gather);
--       iotlb_gather.queued = state->__size & DMA_IOVA_USE_FQ;
+Look the device up by its name instead, and hold a reference while it is
+used, as the driver core's bind, unbind and drivers_probe attributes do.
+When there is no such device there is nothing to rebind:
+rebind_store() still removes the busid from the table, so that
+usbip-host can claim the device again once it comes back.
 
-        /*
-         * We can be here if the first call to dma_iova_link() failed and
--        * there is nothing to unlink, so let's be more clear.
-+        * there is nothing to unlink, so let's be more clear. Only queue the
-+        * gather if there is an unmap whose invalidation can be deferred.
-         */
-+       iotlb_gather.queued = mapped_len && (state->__size & DMA_IOVA_USE_FQ);
-        if (mapped_len)
-                __dma_iova_unlink(dev, state, 0, mapped_len, dir, attrs,
-                                &iotlb_gather);
+Fixes: a46034ca57ed ("staging: usbip: trigger driver probing after unbinding from usbip-host")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=af76b01c9a0f0ab60fb0
+Signed-off-by: Lucas Pascal <lucas.pascal@pqshield.com>
+---
 
+Notes:
+    Developed with an AI coding assistant (Claude Code, Claude Opus 5.5),
+    which traced the production oops to the pointer saved by stub_probe(),
+    wrote the fix, the reproducer and most of this changelog. I reviewed
+    and tested the result.
+    
+    Seen twice on production servers (v7.0 distribution kernels), where the
+    oops left the hub lock held and the server needed a SysRq reboot.
+    
+    Reproduced on v7.4-rc4 (9437ee8b6cf6) with KASAN, in a QEMU VM with a
+    g_zero gadget on dummy_hcd, unplugged by unloading g_zero:
+    - bind to usbip-host, unbind, unplug, "match_busid del", rebind (the
+      "usbip unbind" sequence): slab-use-after-free in do_rebind(), on the
+      usb_device freed by usb_disconnect();
+    - bind to usbip-host, unplug, rmmod usbip_host: same;
+    - "match_busid add", then rebind, never bound: the syzbot
+      null-ptr-deref, with and without a device of that name.
+    With this patch all three run without KASAN reports, and in the first
+    one the device can be bound to usbip-host again once replugged.
+    
+    Not tested by syzbot: #syz test is disabled for now (syzkaller issue
+    8122). The third case above gives the same crash as its report.
+    
+    Jeffin Philip's series [1] addresses the syzbot report by turning
+    "rebind" into a no-op and making the usbip tool write drivers_probe
+    instead. This patch only changes the driver: it keeps "rebind" working,
+    for the usbip binaries and scripts already in use, and also fixes the
+    module removal path. bus_find_device_by_name() only runs on a write to
+    "rebind" and at module removal.
+    
+    Not addressed here: "rebind" of a device still bound to usbip-host
+    removes its busid entry, and the following unbind hits the BUG() in
+    stub_disconnect() (reproduced, unchanged by this patch).
+    
+    [1] https://lore.kernel.org/all/20260811160541.29461-1-jeffinphilip14@gmail.com/
 
+ drivers/usb/usbip/stub.h      |  1 -
+ drivers/usb/usbip/stub_dev.c  |  1 -
+ drivers/usb/usbip/stub_main.c | 32 +++++++++++++++++++++-----------
+ 3 files changed, 21 insertions(+), 13 deletions(-)
 
-Best regards
+diff --git a/drivers/usb/usbip/stub.h b/drivers/usb/usbip/stub.h
+index d11270560c24..ab5726eeed29 100644
+--- a/drivers/usb/usbip/stub.h
++++ b/drivers/usb/usbip/stub.h
+@@ -75,7 +75,6 @@ struct bus_id_priv {
+ 	char status;
+ 	int interf_count;
+ 	struct stub_device *sdev;
+-	struct usb_device *udev;
+ 	char shutdown_busid;
+ 	spinlock_t busid_lock;
+ };
+diff --git a/drivers/usb/usbip/stub_dev.c b/drivers/usb/usbip/stub_dev.c
+index abfa11d6bde7..b03c77d598e8 100644
+--- a/drivers/usb/usbip/stub_dev.c
++++ b/drivers/usb/usbip/stub_dev.c
+@@ -371,7 +371,6 @@ static int stub_probe(struct usb_device *udev)
+ 	dev_set_drvdata(&udev->dev, sdev);
+ 
+ 	busid_priv->sdev = sdev;
+-	busid_priv->udev = udev;
+ 
+ 	save_status = busid_priv->status;
+ 	busid_priv->status = STUB_BUSID_ALLOC;
+diff --git a/drivers/usb/usbip/stub_main.c b/drivers/usb/usbip/stub_main.c
+index 01452f7bdabb..563c92ab88e7 100644
+--- a/drivers/usb/usbip/stub_main.c
++++ b/drivers/usb/usbip/stub_main.c
+@@ -196,18 +196,28 @@ static ssize_t match_busid_store(struct device_driver *dev, const char *buf,
+ }
+ static DRIVER_ATTR_RW(match_busid);
+ 
+-static int do_rebind(char *busid, struct bus_id_priv *busid_priv)
++static int do_rebind(char *busid)
+ {
++	struct device *dev;
+ 	int ret = 0;
+ 
++	/*
++	 * Look the device up by name: it may have been disconnected and
++	 * freed since it was bound to usbip-host.
++	 */
++	dev = bus_find_device_by_name(stub_driver.driver.bus, NULL, busid);
++	if (!dev)
++		return -ENODEV;
++
+ 	/* device_attach() callers should hold parent lock for USB */
+-	if (busid_priv->udev->dev.parent)
+-		device_lock(busid_priv->udev->dev.parent);
+-	ret = device_attach(&busid_priv->udev->dev);
+-	if (busid_priv->udev->dev.parent)
+-		device_unlock(busid_priv->udev->dev.parent);
++	if (dev->parent)
++		device_lock(dev->parent);
++	ret = device_attach(dev);
++	if (dev->parent)
++		device_unlock(dev->parent);
+ 	if (ret < 0)
+-		dev_err(&busid_priv->udev->dev, "rebind failed\n");
++		dev_err(dev, "rebind failed\n");
++	put_device(dev);
+ 	return ret;
+ }
+ 
+@@ -232,8 +242,7 @@ static void stub_device_rebind(void)
+ 	for (i = 0; i < MAX_BUSID; i++) {
+ 		if (busid_table[i].name[0] &&
+ 		    busid_table[i].shutdown_busid) {
+-			busid_priv = &(busid_table[i]);
+-			do_rebind(busid_table[i].name, busid_priv);
++			do_rebind(busid_table[i].name);
+ 		}
+ 	}
+ #endif
+@@ -261,8 +270,9 @@ static ssize_t rebind_store(struct device_driver *dev, const char *buf,
+ 	/* release the busid lock */
+ 	put_busid_priv(bid);
+ 
+-	ret = do_rebind((char *) buf, bid);
+-	if (ret < 0)
++	ret = do_rebind((char *) buf);
++	/* a device disconnected meanwhile has nothing to rebind */
++	if (ret < 0 && ret != -ENODEV)
+ 		return ret;
+ 
+ 	/* delete device from busid_table */
+
+base-commit: 9437ee8b6cf607e883b36e44bd755968daaebd48
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+2.43.0
 
