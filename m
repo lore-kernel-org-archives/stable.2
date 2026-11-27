@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795806596;
-	b=qfUViPQh2tvjgTlCJJbrSztwiwE1RRcQkfCFuTh1bhbdhOR2UysJh/e6WvLoZJxeCqhD
-	 OcdbPGh27mmMoDWyIJ9lfxpJlHUDysKLp3vMWC2WL9fU55HV8RnKhqVVTCFgcqgLFmoJO
-	 ET7VEbXTP6PH4lzcv7NNL06kXjwqdMkwOwuoFx+trTgYtyIR4kCLKXUiqa36pu5Sh3COP
-	 9o/QagJ/XfhWC/7gmfRCwENI2VoxhBTGoksb50JiHzg3HqAp3sxaj554Ow20Ni1pQC6K9
-	 SK2Lbj3v2mcOyqDHGDPOxDRf/askKmNtQBfjLa7nZF8gSWJfYiv4s4aFREdMrbok6Kg==
+	t=1795806598;
+	b=lzNdoZc3HnsDQiDBYbwHfdQbq3tq4n3pp+yu/nWyBwGdaCrwd59dBlu7mWrokfuldn1x
+	 GyclD21/OqoWrGZTVGa0MrwYpANXXPWi3/wWumP6iIymUyA/FNw0b2w0kIZ+cm6vnr3yy
+	 06NC29swaF5PmBDRhFv96HlXhG555Z5itRJG3bl4tRJkX+Kjw8lkccIczrSzULimdggUN
+	 82CUnAk81sUSdIjNRu2QnelLFcSyAM9pSoTxGbCY/VyLiyIkiVK+ob4Mux14mnWXionPs
+	 h7DTzmVfhyyDGrbYJdGwvc1Rxnnnd5W9HdtYz1Oq3R59BJObU/JEjl9Wri1Z9GQFCug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795806596;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795806598;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=Tu6aU5M+2skw7CfMYibCOfN2VIrKMUr0DGrXBqKQg/o=;
-	b=yTm/R67mlS0hSH30q2WqN++pxow9hymvcg12z+IVFjDqq+3B1GH+FmZNGjet/WN3x9Ss
-	 DK1cS6BuTskdrhMHGH3WibEvPqGbF23vTruCisCcjJlMNblfgLAcxS2gS4jJSDyZlOw4x
-	 3+1VstWflQ/DuPjFewqLvJYzNqJ7lciitH3ef9hk9EHzAKGa6iWQwgxVOLLsv7P/x3D96
-	 kWRkbPVerG4kNY6rUkqychWG4DyyQI/jzV83465adu0b3XS3jgYdsgRfrMx3SSHxjPtx9
-	 InFUAIagLmNBZFi63zvtv+k5LYth5eFUlhXws+pw1KO3/yy/7WNE+tj2MsNMJDSFRfw==
+	bh=U0mDUtMC+UWGZUbp+/6kngYQYdcHCcyFlHG1lR13jwk=;
+	b=x/7l22dQ1QvnqNEc90wrnWNSZ1g68LS7ka6OtXe3Mqy1X4/KlRXISWWwnSN9ouJVdYRO
+	 +v4qcX4MuwUtRvddCs4uVVs+00Lny26Arsc7twXZM5duaMvTGhI85mXqO6d3gxzOPvlXI
+	 +vAte8zT5v5cTyMWYPhtx7gQhJtiqmwUBVL8lVPhejpaFcsfdmcTvWhQhX0LDJKbnoc7y
+	 ZcBARJjgmYmfaUHZ8nYJirf+55u01FjE2kucGsEcsVoQrpr40/FBeEj7rz1dyR3/245ih
+	 F90XWA3/1ktKktgzbKN7cCZaH2Jh743VcGho2X+bPu2nCOhQ7uVPfJAXoGQ2V6eX/0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=KuHLCcON;
-	arc=none smtp.remote-ip=209.85.218.52
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=t1IeGCRZ;
+	arc=none smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D6C606A321
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 19:09:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88D6C606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353C4606A324
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 19:09:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 353C4606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=KuHLCcON
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c4d427836e9so1110782866b.1
-        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 11:09:56 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=t1IeGCRZ
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c5127c7abd5so1286944066b.3
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 11:09:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795806595; x=1796411395; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1795806597; x=1796411397; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Tu6aU5M+2skw7CfMYibCOfN2VIrKMUr0DGrXBqKQg/o=;
-        b=KuHLCcONKN/HVhsBI9TzyEi5Mg9Hq3SCuUlQlJ79BrOlTnZklbpObXySoxYMduP4Z0
-         ijRMm1JehwT/dvpBiNKTqYY2VYRE1RMUEB/3QAJbBEkoaLbVn+3WbVhFaPZ3Rv9QgEgS
-         GtuStUWfebq0CM2RF1shYKfHry5QmOreDOAKNbz6ccJGegteTode191u1yJ4Tnjnh+Yl
-         K9LgTInPnq+2E4tzlMHKxQttEwyUvE1u9rtO4elaqL8Pq664+79udIBBG0orbYRzVV3v
-         Z8+/0VWiVm+kcpKYqWz1+mubXEoVCmIMIR7FddYfSdiVf2tHL/BhBi1oKilFp1sFJLvN
-         I4Fw==
+        bh=U0mDUtMC+UWGZUbp+/6kngYQYdcHCcyFlHG1lR13jwk=;
+        b=t1IeGCRZ/lvgaOLnwNNmsq9E3E1xueXDnAYLXr3+EurSjEscFyEs2gqVIggnq+Z958
+         B8f1/UN6PbxLTVQEjgGK2N1xqr/AQSU99qs6UvT9rBD7VjKbzUA/jGHs/hs0GhbC0Dsj
+         ek0gaok5GZNKll1aM7IrpHYay2ELOEE5YzGO9pKfVDkt1nWr264eDXPMWS2FQY7yqvsk
+         mZvHe/yqaW7qD+s19/FCHOsATOIl0JSVMiOAs2TVgECrSiD+B7o5rhV39VodsXOofsYi
+         40WhxVCWZ0YmechQxer0l+QWYQJl3/Y3Iv6/kIatP6ddHTUQousOlyG8de29NuDy9cg0
+         PGEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795806595; x=1796411395;
+        d=1e100.net; s=20260707; t=1795806597; x=1796411397;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Tu6aU5M+2skw7CfMYibCOfN2VIrKMUr0DGrXBqKQg/o=;
-        b=icbJ0oeVgzfLv3BMXsvIgXfDkJlIDkbzK/vQtxouxNIwXqigmtfXJK0dvocHE8ECg+
-         O73JyH5yPQmu5XjRyttchgCMzdYIkq2GGkRTEx/CoQUmhVwtW28tEEe1dc0W8aPMnMWi
-         du6pan0b4Xjm5Mx2MpkhsZomlNIqNMSMyWxG79yh27d9mrTB8RBN0e1gSb6pSdpzwwIX
-         fwXWAJkstga2oF1M2dt/P0N22ZFA+Hsvgt9uWjGfINs/IyJjxH2INg7DZgBgHiMA44bB
-         UIBbVLaL7ec35ihj79esKHEx5m5eEAQrvd8q2+Wrz9M+SsgzGT+TZxE4S8OgIkJ9Pnfc
-         ia7Q==
-X-Forwarded-Encrypted: i=1; AL+hErFoE4bJnQkk+hqnz/8Aw3PIWjnnWmegIjB67WEAIrjQltG3PMnKP2aiWGruJM9nZwI062aQhVE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8em4949wGaYv1tI0Gx1eNtEcsxHSzOF7F8uEy7GRKYXuxWf/gN
-	M8cdtk1wzSGaKaQwO01qYy8Yzvgs9yhaPUrKhbNlv978MG07ruPJP8XE+H/Omwy1g2Q=
-X-Gm-Gg: AZFdTZcMY40CmUN1VXNRGsZG7ABoOqcI/zAQZpVm4ufEBCb++CCDQI9zvyOTF5KVNbt
-	fJs7rtgoi2edYyjxyjnPcJzuG5SWk2mWjqNxKoBDcf8GuJHahlr89LUHqa4FHzWXJVmDlEtKiVo
-	Tcv5F2paRtjfcsVQi34IE+A20d41TGukXbesnYNUfkJ6cPtjy7fLxrnYyyR1OZKjNNUn7HhsgBh
-	0kya/lM8rKgwMrLfAWF/5UyXgAc8n/qYGqXFb8aO0hUsaBNLhRs7f0OPGFaxst6pV/4pNR31+2E
-	HDaDm9hCouL8KxGGy+iv/0m7vejjHjSYFAfjcvXxhFZWcRus1QJoQryLaDtwBVuY7vWbBes2U+N
-	35wo9LWKdQQKhbCUg2ejomDekFh1KgZfQ80vCiselwoodi2KmZGIID1HKIdnm98Q6+pqp0OBWRe
-	RDhFiN4KXSy+QpUtIxfKfw9UwHt0kYx3EnxgpBSl8AV9nuPygVTM6ui6bVEnqVs68r2MD0wv8T/
-	kuDabZiZFn6UxDEVrtYD0aMpIbDojVfIzKv9PzMyp0tiu8O61pT3lhOKBF8Jr99EJnwU+Roid8i
-	qeZSxtEbgBtA/TFdqVoqoQdblQUeuI+SXI5OlEnAajdvaySh/YV+9odDyN/ou0D2RiNwLKCXvGd
-	j6ewwpyIBAkYZy+jjbw==
-X-Received: by 2002:a17:907:c612:20b0:c51:2583:78b9 with SMTP id a640c23a62f3a-c513ab477e2mr1558459766b.34.1795806594992;
-        Fri, 27 Nov 2026 11:09:54 -0800 (PST)
+        bh=U0mDUtMC+UWGZUbp+/6kngYQYdcHCcyFlHG1lR13jwk=;
+        b=Xmixc2ZGjlV5CgtLzshrJI+EH0KK+5KgifeojgE8+g+zxRtWGbwCgGPirvDeNFVlWW
+         H5KvW5qty9jeq/8+Mvxk68oFadbhku7XmOCJ1VwF6aCVAGLU/hqJOW0etpSTZMFRXZT4
+         cnT/nZob8mHjkQSr4K89n9Tdc9nY8W0XCD6miv7VjkY523JqYy2dlcAUa2tDEIPQz0uF
+         wWK0IBmZkLdndza8kNkbsi9fYdq0TRc8QcFwvsgpM8eMchQM12PsWnLTT7/JGMbTuhkX
+         SMHGZlizYjkI+mPVv2APn5cD54N2aizkkQI7I9nYfeT1LzUP5gp3RxXqf907/yVRbAVy
+         H2Hg==
+X-Forwarded-Encrypted: i=1; AL+hErFf6pCDSAqAxSgHSVm/8eJgNoY/zK/P9PlxmZyE8dy6C50tljTbah6PMC4SDKOyZkZF6o3aFtk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/y7ExvagOgM5qS/ocU8Q2HPAXiir0PHzBIAYcxeJN+k7C3ISXX
+	FtJbDUc19xzkPSWi2ik8QfKkr1d1YZ3482MwtspHQqD+66FOW6ta3fnWjBZFSoWjsow=
+X-Gm-Gg: AZFdTZcnBNO5hiFOISMNoWlhyp7nhuygCnotzOHdhme1hNsdJ4RllAkBtN+2U1UW4Ou
+	E39zxvb18sIn0meM/qfuGRF1mAfCvk5cfSAqAAVydVPlxA0ugPcFQIwM0TKbLVR273oEkuGHzIT
+	B287g4xhOWAYnX0n5jsE5pd/h7zwT0z9H2a4W4WmU25XrXMRGgKzIJfZgUzqHDHDjBGfJHr4hPm
+	jXs67eYPYzPQBtzJ4CBed1NeQF1GvbC545etij0oc/mHgDWvioRgsgt1Tpf6Pc8hN/IPlqrB9JS
+	aelh0XBXEf3D3ghBcS77/ZCC+5jg4Hqog3GHT/vBzEmLAPv+kJr+w0drLRnREgEw9PYKdRl34bs
+	Lj81dFhNTJ0CjrVno1PzgSSq+fMfoe+AAvMHxJcz+pfIX/sc7nWVzxFeeDJrOGhxBcgDN+9ji9Y
+	dlnXhDvaU9Wng5j1E6e/fydQGdVO6MS0AOLrTolKOU6carw6BRUb39fIavHiPHEFIDuft3Kpfbe
+	4fB0jAy043Pe97UCsNYCsLXjurApUsBZLE8miPYh4gJOEO1ZC9PbyFF+FzMix3+kcArc1aRxkPi
+	kdj0InijiBvIE8QNOFhJfzl9zgdZhRhCZiVyMj2EKQc/45nV0hfeBterQ9yioGDvvjBsH/qESC+
+	tSR3aHxG82hsHKxxHFg==
+X-Received: by 2002:a17:907:a890:b0:c50:9432:b7e3 with SMTP id a640c23a62f3a-c513aace654mr2369091766b.42.1795806596623;
+        Fri, 27 Nov 2026 11:09:56 -0800 (PST)
 Received: from puffmais2.c.googlers.com (226.124.90.34.bc.googleusercontent.com. [34.90.124.226])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513afe85fdsm909175266b.69.2026.11.27.11.09.53
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513afe85fdsm909175266b.69.2026.11.27.11.09.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 11:09:54 -0800 (PST)
+        Fri, 27 Nov 2026 11:09:56 -0800 (PST)
 From: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Date: Fri, 27 Nov 2026 19:09:52 +0000
-Subject: [PATCH 1/6] power: supply: max77759: fix use-after-free of
- tcpm_psy
+Date: Fri, 27 Nov 2026 19:09:54 +0000
+Subject: [PATCH 3/6] power: supply: max77759: disable AUTOIBUS for
+ CHGIN_ILIM
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261127-max77759-charger-fixes-v1-1-b364a0862d72@linaro.org>
+Message-Id: <20261127-max77759-charger-fixes-v1-3-b364a0862d72@linaro.org>
 References: <20261127-max77759-charger-fixes-v1-0-b364a0862d72@linaro.org>
 In-Reply-To: <20261127-max77759-charger-fixes-v1-0-b364a0862d72@linaro.org>
 To: Amit Sunil Dhamne <amitsd@google.com>, 
@@ -109,132 +109,57 @@ Cc: Peter Griffin <peter.griffin@linaro.org>,
  stable@vger.kernel.org
 X-Mailer: b4 0.14.3
 
-Unbinding the TCPM supplier triggers a use-after-free oops in
-psy_work_item():
+Programming CHGIN_ILIM in CHG_CNFG_09 leaves hardware automatic input
+current limit selection (AUTOIBUS) in whatever state earlier firmware
+left it, so the programmed input current limit depends on bootloader
+setup. On Pixel 6 the bootloader already leaves CHG_CNFG_09 at 0xbb
+with bit 7 set, so there is no behavioural change on the only in-tree
+board, but boards whose firmware leaves AUTOIBUS enabled are not
+guaranteed to honour CHGIN_ILIM.
 
-    max77759-charger max77759-charger.1.auto: Failed to get
-     CURRENT_MAX psy property, ret=-19
-    Internal error: Oops - BRK: 00000000f20003e8 [#1]  SMP
-    CPU: 6 UID: 0 PID: 96 Comm: kworker/6:2 Tainted: G     U
-    Hardware name: Oriole (DT)
-    Workqueue: events psy_work_item [max77759_charger]
-    pc : queued_spin_lock_slowpath+0x388/0x3c0
-    lr : queued_spin_lock_slowpath+0x120/0x3c0
+set_input_current_limit() updates only CHGIN_ILIM (bits [6:0]) in
+CHG_CNFG_09 and never sets bit 7 (NO_AUTOIBUS).
 
-psy_changed() caches the raw struct power_supply * in chg->tcpm_psy
-without holding a reference. When the TCPM supply unbinds,
-psy_work_item() gets -ENODEV, schedules a 10 ms retry, and dereferences
-the freed chg->tcpm_psy pointer.
-
-Read ONLINE and CURRENT_MAX directly inside psy_changed() where that's
-safe and store the plain integer values for psy_work_item() while
-dropping max77759_charger::tcpm_psy.
-
-On read error, fall back to offline (0) so psy_work_item() disables
-charging without retrying against a disappearing supply. This is fine,
-because the only in-tree provider matching "tcpm-source" is tcpm, which
-returns cached fields from memory. Charger I2C retries on write error
-remain unchanged.
+Define MAX77759_CHGR_REG_CHG_CNFG_09_NO_AUTOIBUS (BIT(7)) and set it
+together with CHGIN_ILIM whenever programming the input current limit.
 
 Fixes: 70d7dd27f6dc ("power: supply: max77759: add charger driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: André Draszik <andre.draszik@linaro.org>
 ---
- drivers/power/supply/max77759_charger.c | 55 ++++++++++++++++++---------------
- 1 file changed, 30 insertions(+), 25 deletions(-)
+ drivers/power/supply/max77759_charger.c | 5 ++++-
+ include/linux/mfd/max77759.h            | 1 +
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/power/supply/max77759_charger.c b/drivers/power/supply/max77759_charger.c
-index e792327ff14f..a75005c0b582 100644
+index 6876ae0a8188..49ab1766cc5d 100644
 --- a/drivers/power/supply/max77759_charger.c
 +++ b/drivers/power/supply/max77759_charger.c
-@@ -77,9 +77,10 @@ struct max77759_charger {
- 	struct power_supply *psy;
- 	struct regulator_dev *chgin_otg_rdev;
- 	struct notifier_block nb;
--	struct power_supply *tcpm_psy;
- 	struct delayed_work psy_work;
--	struct mutex retry_lock; /* Protects psy_work_retry_cnt */
-+	struct mutex retry_lock; /* Protects psy_work state below */
-+	int tcpm_current_limit;
-+	int tcpm_online;
- 	u32 psy_work_retry_cnt;
- 	int irqs[NUM_IRQS];
- 	struct mutex lock; /* protects the state below */
-@@ -595,30 +596,15 @@ static void psy_work_item(struct work_struct *work)
- {
- 	struct max77759_charger *chg =
- 		container_of(work, struct max77759_charger, psy_work.work);
--	union power_supply_propval current_limit, online;
--	int ret;
--
--	ret = power_supply_get_property(chg->tcpm_psy,
--					POWER_SUPPLY_PROP_CURRENT_MAX,
--					&current_limit);
--	if (ret) {
--		dev_err(chg->dev,
--			"Failed to get CURRENT_MAX psy property, ret=%d\n",
--			ret);
--		goto err;
--	}
-+	int current_limit, online, ret;
+@@ -355,8 +355,11 @@ static int set_input_current_limit(struct max77759_charger *chg, int ilim_ua)
+ 	linear_range_get_selector_within(chgin_ilim_ranges, ilim_ua, &regval);
  
--	ret = power_supply_get_property(chg->tcpm_psy, POWER_SUPPLY_PROP_ONLINE,
--					&online);
--	if (ret) {
--		dev_err(chg->dev,
--			"Failed to get ONLINE psy property, ret=%d\n",
--			ret);
--		goto err;
-+	scoped_guard(mutex, &chg->retry_lock) {
-+		current_limit = chg->tcpm_current_limit;
-+		online = chg->tcpm_online;
- 	}
+ 	return regmap_update_bits(chg->regmap, MAX77759_CHGR_REG_CHG_CNFG_09,
++				  MAX77759_CHGR_REG_CHG_CNFG_09_NO_AUTOIBUS |
+ 				  MAX77759_CHGR_REG_CHG_CNFG_09_CHGIN_ILIM,
+-				  regval);
++				  MAX77759_CHGR_REG_CHG_CNFG_09_NO_AUTOIBUS |
++				  FIELD_PREP(MAX77759_CHGR_REG_CHG_CNFG_09_CHGIN_ILIM,
++					     regval));
+ }
  
--	if (online.intval && current_limit.intval) {
--		ret = set_input_current_limit(chg, current_limit.intval);
-+	if (online && current_limit) {
-+		ret = set_input_current_limit(chg, current_limit);
- 		if (ret) {
- 			dev_err(chg->dev,
- 				"Unable to set current limit, ret=%d\n", ret);
-@@ -660,16 +646,35 @@ static int psy_changed(struct notifier_block *nb, unsigned long evt, void *data)
- {
- 	struct max77759_charger *chg = container_of(nb, struct max77759_charger,
- 						    nb);
-+	union power_supply_propval current_limit, online;
- 	static const char *psy_name = "tcpm-source";
- 	struct power_supply *psy = data;
-+	int ret;
- 
- 	if (!strnstr(psy->desc->name, psy_name, strlen(psy_name)) ||
- 	    evt != PSY_EVENT_PROP_CHANGED)
- 		return NOTIFY_OK;
- 
--	chg->tcpm_psy = psy;
--	scoped_guard(mutex, &chg->retry_lock)
-+	ret = power_supply_get_property(psy, POWER_SUPPLY_PROP_ONLINE,
-+					&online);
-+	if (!ret && online.intval)
-+		ret = power_supply_get_property(psy,
-+						POWER_SUPPLY_PROP_CURRENT_MAX,
-+						&current_limit);
-+	if (ret) {
-+		if (ret != -ENODEV)
-+			dev_err(chg->dev,
-+				"Failed to get supplier psy property: %d\n",
-+				ret);
-+		online.intval = 0;
-+	}
-+
-+	scoped_guard(mutex, &chg->retry_lock) {
-+		chg->tcpm_online = online.intval;
-+		chg->tcpm_current_limit = online.intval ?
-+					  current_limit.intval : 0;
- 		chg->psy_work_retry_cnt = 0;
-+	}
- 
- 	schedule_delayed_work(&chg->psy_work, 0);
- 
+ static const enum power_supply_property max77759_charger_props[] = {
+diff --git a/include/linux/mfd/max77759.h b/include/linux/mfd/max77759.h
+index 7c0b13219d51..79d248df4c9f 100644
+--- a/include/linux/mfd/max77759.h
++++ b/include/linux/mfd/max77759.h
+@@ -102,6 +102,7 @@
+ #define MAX77759_CHGR_REG_CHG_CNFG_07                  0xc0
+ #define MAX77759_CHGR_REG_CHG_CNFG_08                  0xc1
+ #define MAX77759_CHGR_REG_CHG_CNFG_09                  0xc2
++#define   MAX77759_CHGR_REG_CHG_CNFG_09_NO_AUTOIBUS    BIT(7)
+ #define   MAX77759_CHGR_REG_CHG_CNFG_09_CHGIN_ILIM     GENMASK(6, 0)
+ #define MAX77759_CHGR_REG_CHG_CNFG_10                  0xc3
+ #define MAX77759_CHGR_REG_CHG_CNFG_11                  0xc4
 
 -- 
 2.56.1.839.g22a8290db9-goog
