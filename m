@@ -1,58 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795798952;
-	b=jK4BNTKlY2sJIa6PBxAb50s+0zb0dOxGgQ5MJMMhTkUUr6ia/LUEHz5+A37x2mebExoE
-	 h4Ye4iZmn4tjUXyn8V05OFKnzcuBpfWS6YULzvNk2pG5la/5jiQzMfuO+bZjqpS15sdQc
-	 QC0Y8GKT/jl28QFdOgcxGUNZMh7gvDvlu1IQ0g2KV7L+HNk2FFeGWCcmZS9PhaoDqsl5Z
-	 LbQfEp83lEC5BqVUv9iA/IeFIrbGXm2nc03tHwijoNdtxjre3HEJCl1GkI25gZCpodvFA
-	 NLPaPxZfoVcbFXdWcXyR838UejFNbO6EZZfNoozzRKH+LEfu+xshOYdvsgLVNOs7BKQ==
+	t=1795798953;
+	b=T9MM5bNCX9LTUc/4xauAjYoK0EgohmH+rH2ifuJ5OESzd/xOQqkvzOmiEZVAPGH8iqNz
+	 5G36v790Q1/hTH2yc9hhCmcIk7LJMhu2qpKKveYGA0App4bukE/8ui5RrqyAn2CO/v0Q8
+	 HSHoXwXt84bw4CECBvZys5eoM6h7l5Sam5+/7rXCxhcr5ljo2/RrU1tmNNJ6BYooqN4Xx
+	 0jX6sAP+4HticYRYMjuif2dNxYns1XCmPOBLK5TNhrQwNV9T9BTJ06ABFKz20/usEKJ7q
+	 tNBu52VVX6ZNO20rhavqQI2Mkv6wAAOHpj7VhhWVrrpfsY9JG3kjUkH0p95Pvx3EwBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795798952;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795798953;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hxH3SKoTtlYhP+9zufXpBuANDSaQYvVrNJsWpk6XohY=;
-	b=CA2OSOt1arUPWPtRUCVGDq04CDm+emaffO1BljT2EUWmqlIEuLQRagL/o94fqWo2QB4R
-	 L2PGcyaG8y2k+xQA/BmSUhGtknH9PZpJVDwKecS7ma6ntyQcuhXm/xHSJsw/kkddIcxF1
-	 cTSjac2q3L34BRh2GIC3aginL05Vi2AWDezIacNyXyBMQvjo/HP5kkOU+lbFWfJ1tcCVr
-	 F8WUGwRDYCMjqGWIRRKmUfx/MYJudoXJ5vxvo8jvg2XJlvbjfSGtYPeEvFCmTLG9yXFNV
-	 WlhqV+4oEpkHRgNA7+DiFc0x3tMJx6SHB9Scu25GCDDRBEDySKeMeuaTSOSOX4GzFrA==
+	bh=WbZ7nuhz+8LuV+BglDOHHp/e/0zfCfr5SGcNiwr9ZP0=;
+	b=0nxHMqCpMZz3tzjqUSnVQwtgwokONKwEDLwZ5FmDsoUiqRlI/3atxHYUTCPyEI5dOfQs
+	 YkejoNxYrmbEvaLIF9exX7DbiNrE+nNJJprSG/dKzDfJZo7LQaa7PLy+ihRa3mH85E7Ll
+	 ACwVzNrjNmuBx78+1m2T4E/QWLifwGg+7zSSUC6WkiVMI5wJCQEofsczAF7oIsAuLhASc
+	 4bLr+kCdPYY+o8/1Q4cz8HrtpOJWkDY+V8G2xkmNhqRkt5aBzBMUlYzPw/yLHTnQ4G7c6
+	 XKmfzZXjMQktREwMZiw7x2yGdFvzIt/Pt5Pm6uLxL3tDzfjSYvIJ3pdhba4CMb0OrmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HBVyBRi8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UAeKVWUF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CAE4606A326
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 17:02:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64215606A689
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 17:02:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HBVyBRi8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2113A1F00927;
-	Fri, 27 Nov 2026 17:02:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UAeKVWUF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71B0F1F00925;
+	Fri, 27 Nov 2026 17:02:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795798952;
-	bh=hxH3SKoTtlYhP+9zufXpBuANDSaQYvVrNJsWpk6XohY=;
+	bh=WbZ7nuhz+8LuV+BglDOHHp/e/0zfCfr5SGcNiwr9ZP0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HBVyBRi8xc1xoiTcmZt7YRxAxSEUpP4TK3AbbjQBo4NZkVh6wTvcdgrnwQ/NhiGVX
-	 tg/moF1U3KySpXfluSOANAj4xvPM5v1pIzYGhrWSf8E0HCZI70HPYsKUCWukltxt1Q
-	 DQmeqAa7U5lXLgdLVCP2hzauanzk6v6d1A2EK51kBSa9nuU3+Z5x9gqrPkw0MCO0tV
-	 0IuLsT7p4r7Ol5sJzVrClntRPnZZmPMx44DHV9W4OEZKxZhCNUOJMXuJCJ5wfMQKfm
-	 c1bVKEwMiRqibX3zOfHbkR6TQPGrbtLHUJPaPnViLQSzcfvlawYDVOAvPVYC5gSip8
-	 uG8etJ0ZCY3og==
+	b=UAeKVWUFRYN4lJNQ4ZHHdc3g4ZI9kXIB0JqikTh+MpcnLdn0waIXSgyPJGGvLwfVl
+	 NJbTZwQyXYzT8oisSHWYGZl+iyeVzgeR1cx04vieOHmOqIoR20XtGEzSXLzVdDOs3Y
+	 XYCiGSSXpVONyKrTY0KomhPVOuMe5+ejY7XsVfYi7NK2stqKz6ZxuRX4Sz+Sr8YXm0
+	 HxbQOBRV1NWQ8wM1hOia0ND+ZNEZItvJOajvmrWzKgIhcExj0cDHTem2XQn4aH/t+j
+	 nFurJnLAOwHG+EsOpGvwy2QjlLd/LXlwaHvzzHP2qYSww30AQVNAEabU1tsoSNvqpz
+	 xDzECnQzsVzEw==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: "stable@vger.kernel.org" <stable@vger.kernel.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	imv4bel@gmail.com
-Subject: Re: [PATCH 7.3.y 1/2] tcp: Do not allow buggy transitions between ehash and lhash2.
-Date: Fri, 27 Nov 2026 12:01:21 -0500
-Message-ID: <2026-11-26-1-daily-reply-0033@kernel.org>
+	claudiu beznea <claudiu.beznea@tuxon.dev>
+Subject: Re: Backport commit c3ca8a0aac83 ("serial: sh-sci: Check that the DMA cookie is valid")
+Date: Fri, 27 Nov 2026 12:01:22 -0500
+Message-ID: <2026-11-26-1-daily-reply-0034@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125130843.3343543-1-imv4bel@gmail.com>
-References: <20261125130843.3343543-1-imv4bel@gmail.com>
+In-Reply-To: <aab6f82a-2dcb-448b-bebd-ce5376280de7@tuxon.dev>
+References: <aab6f82a-2dcb-448b-bebd-ce5376280de7@tuxon.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,15 +60,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The following state transitions have long been a playground for
-> syzbot, and recently AI joined in, reporting a lot more bugs.
+> Please backport commit c3ca8a0aac83 ("serial: sh-sci: Check that the DMA
+> cookie is valid") to the 5.10, 5.15, 6.1 and 6.6 stable trees.
 
-Queued for 7.3, 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
-
-7.3, 6.18 and 6.12 already had patch 1 queued, so only patch 2 went there.
-On 6.6, 6.1, 5.15 and 5.10 I added 404381b4f105 ("tcp: Set unhashed_state
-in inet_twsk_hashdance_schedule().") between the two, since it fixes
-patch 1.
+Queued for 6.6, 6.1, 5.15 and 5.10, thanks.
 
 -- 
 Thanks,
