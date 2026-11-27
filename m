@@ -1,58 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795798929;
-	b=WhlxDaSv0Mp+14S8LbA8aAPDDkmufLmgnqYmuU6e5/sa7jTbgdR6ujuAp528/l94rkzg
-	 cBrCreVk0K+r5jtkyr4RBqhJYpP1XkQOR6OJHfGKmkz9P4+cpyosC0ipkOxkVGXBc/0Ks
-	 YHCH1xCyoRTLU7ycih8OsNHN5e8CqL2VjQxrQ192mfhF+6urHuo9KUBcaIxgF+ZN2vaIP
-	 gme0UgvO4GxH2z7uzul5yYT+tQaJz2F2gInXzKN3smvsriEQYcs4aGggZ1Jxs+tLL/1x9
-	 sJcBMSPobHTu6AmgxfFpwfct+OCJ4dy/B6fdb22UHOHwVfw/gnu4xoDVKf9H4+PYnEA==
+	t=1795798931;
+	b=pbv+5EBfGCjuxusdpbiNafrCyPi22dwH6Zv2LcP87xUEKEpv/MxcvA68uY+MjIouvE0A
+	 WXUBSmqFuf51LnVF/YcT+JVhSbwg+l3nfTMi4b7fxB0BKJEFIF07k9T2211SKEAbqFkxC
+	 plIiGJAY7EorOJeBKyZnXcUrN55F7AHLP/JLH6d4LlD7mg+86d7Z8RVDR5fuPFs5Ob0t+
+	 6/G+bhXJiSiVpSk+uwhKKIiNtcO7QKWuenwk43iuOXkNQQrZMDTf9M7cbxFEBmwhqeE1n
+	 r/z51HeQc3CfyqT4iiYH6wSyuMK8oebs1rpW2mGyXL7sJSvRUXmTvFNEjLqAFkq00XA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795798929;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795798931;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=0NpcS2oW6nvPxFck76SHtDkLZbI4PkMHqiSgzCL0FUU=;
-	b=IVfbqIoMbe31f43ZsNgeEzyzMQx8mAxHvuoPIIu5DdyYwJMOIV7F+mMBS1hUOhT+08A1
-	 7vLTcIXxXapQ+dQGpBBOZ7Lo/vGZk0BaafZGxRIBujwYPiuhnlaMqqnNfqTIJ/qXGMQm4
-	 aSv+agu3pNSyG3LY9Ytdanddvr9pSPu/5REIfQHYT9BCE96VDSZREkLu6hoOjfGg/TiF8
-	 EMZjVQIt9uU05rlBrqqwySSxyCLBzQHg2AjXe94IBZWpcbrjjAh6asHf/SlfNVKyK6osh
-	 BmTGJGRP1BOyLv8uc9EPuXO4VDvM+1TQOsDOTQg58gbGlelISiNPCdH5iEqUqG7v7Ng==
+	bh=fBOQ8bcz894+s0OfOxgXJhS5ssbK9PxKSOd26HM3S8Q=;
+	b=5i9UCzbXs75gQ8oghRrSmYVWlUzi2I/u0dt8zO4ozscdLccoav8DIC39eOfILuFpt50X
+	 hEw+FadL6xS5VTKBaMFMbWKyk9wwyijTdt3XDDR8dHQGyVvb/dhes5Ki7zZ2bhJ0NJz92
+	 Bm5Jxvb7B5DSQIsclld2Kn5mQ7IVySYSc8OFE8dax9KKPdWgMeZJu48Scrkx7yitc0pU7
+	 zYUHMV/kbfASSvKd33Y6JZiSlWzIFAJo60S66+YkWpYJMiTDeyBapQpHuj8XiKiS6ZZWN
+	 3hIfeRu0wN2RI3xTgvgdu87fXjkpuwerkams3ZbfWN5lJ0nYuMAzelsCuiLHEe01O5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YRybg9qx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUYGGJR+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D5D6606A321;
-	Fri, 27 Nov 2026 17:02:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8575C606A684;
+	Fri, 27 Nov 2026 17:02:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YRybg9qx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D6031F0089B;
-	Fri, 27 Nov 2026 17:02:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUYGGJR+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 236A71F00A1C;
+	Fri, 27 Nov 2026 17:02:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795798929;
-	bh=0NpcS2oW6nvPxFck76SHtDkLZbI4PkMHqiSgzCL0FUU=;
+	s=k20260515; t=1795798931;
+	bh=fBOQ8bcz894+s0OfOxgXJhS5ssbK9PxKSOd26HM3S8Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YRybg9qxMwxEw7Ij/+K6+orVM1fDkeUocwXtv7yMd2Q2ImlGfAQ3laH1lzSjA93bU
-	 XZYqc+BrDsKBHL1MEgS9HlHBDyIfTSrimtRqYhe6GmnXb3aTH4eTgfPk1pJlsXRc0u
-	 bMGHEC8v6RWMPGuWDj6ca/IPwpO1+cFBsmPeKj7MimOo1FY0LxeR8oyeIwjVEKuqvm
-	 OiwexbODR8TTPD4gwujesAD9VJYtQT83Xqt5NTUaj/y04/BnFuLCXdKG6EEA8xOhTm
-	 e0S6TnImZf4DYt0lMO5f7roDyD1yFEh96J+E3KJSxkktviUBy7SL+SjdHZdjgH53oA
-	 G5MLcRx/f96lg==
+	b=cUYGGJR+/0H5jxODAar/rMsEEg14BX6AwKp1phQTmIn0Y4zpR89jOm4LYFgT9i+KM
+	 NOtlQCuxy/HB6Y7n0xYyulJC0MPm4jfpJwMl2uD7SKY0Awi+cFgarU6i1Kp9XKYSfK
+	 fcVUaktBzonAPwnH9E/TOsSfIUkdFetq4O4FM68LhbKql9IZwmGqro/4+Fvk087mTI
+	 mXeHiJfyvaHk66a9Z67B/gSaY2E7ZNYoPGdhqfNDn+ZKOiLQZsAQ6ArFzHvmaUD4EW
+	 snbS14Tvg6F/eLFuaJI3rfQ0wgHRj6FDuZOXbBszq7okNPQb7wuPTpNz8Qhj73sagz
+	 fxeaDLDI8Z2ww==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	kai.vehmanen@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	broonie@kernel.org,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH stable 6.18.y backport] ASoC: SOF: Intel: lnl: Enable offload for UAOL link
-Date: Fri, 27 Nov 2026 12:01:09 -0500
-Message-ID: <2026-11-26-1-daily-reply-0021@kernel.org>
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	"Denis V. Lunev" <den@openvz.org>,
+	David Hildenbrand <david@kernel.org>,
+	Eric Auger <eric.auger@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	virtualization@lists.linux.dev,
+	Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>,
+	Dickson Wu <dickson.wu@certik.com>
+Subject: Re: [PATCH 6.12.y v2 0/4] virtio_balloon: quiesce balloon work before device shutdown
+Date: Fri, 27 Nov 2026 12:01:10 -0500
+Message-ID: <2026-11-26-1-daily-reply-0022@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125152602.22513-1-peter.ujfalusi@linux.intel.com>
-References: <20261125152602.22513-1-peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20261126-virtio-final-v2-0-4cfd5590e924@certik.com>
+References: <20261126-virtio-final-v2-0-4cfd5590e924@certik.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,19 +67,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> -	return 0;
-> +	return hdac_bus_eml_enable_offload(bus, true,
-> +					   AZX_REG_ML_LEPTR_ID_INTEL_UAOL, enable);
+> This backports the fix for CVE-2026-90129 to 6.12.y, the same four
+> commits 6.18.y has:
 
-On 6.18 and 6.12 hdac_bus_eml_enable_offload() returns -ENODEV when no UAOL
-link is found, and this passes it up, so lnl_hda_dsp_probe(), resume and
-runtime_resume fail on a part that doesn't enumerate one. Upstream doesn't hit
-that because 978152b2cab5 ("ASoC: SOF: Intel: hda-mlink/lnl: Convert offload
-enable functions to void") goes in first and skips absent links.
-
-Is a UAOL link always enumerated on LNL, PTL and WCL with these trees? If not,
-could you send a v2 for both trees that ignores -ENODEV from the UAOL call, or
-one that brings 978152b2cab5 along?
+Queued the series for 6.12, thanks.
 
 -- 
 Thanks,
