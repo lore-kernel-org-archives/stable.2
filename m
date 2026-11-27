@@ -1,64 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795793541;
-	b=lY76UspW4I9Ckgyw1qnbjO4+6BMXKClisclnLvqLaT5Di0vu66PEI+iGWaFrrZ9EWkWT
-	 S0xDncqxDGg6+AEFpnMxYvPn9S6qwxhVJYGlRKIIN4jFpXZoMXNWeyQhgu7IWuTULnwoG
-	 hyv0ZIrjKVymSruxjkf3yIdae3YufsJ1PkoFMjqapL8Miw2C7GfpnHXgrBb9vjuBKVakC
-	 J1rna1JjXMfAo61URE7RU6kvzPFs9D0CDno4URvBQCrYXC50P4gjwigtqdaTNkB5EUDLR
-	 QKlcRW5edYruI3Mps7dBaCvcCjL5FxZWAKnmYWZS4+CVRMD2jxUfMEoiz6QcKKEcgQA==
+	t=1795793548;
+	b=JQY1b9EYvz1LeG3Pzo21J4NY1q07kgyHX6BvuBgXxJ2B2ixQHT/YbT027fzECMzZ/jtI
+	 zxekAIYcAGsmlsI8/awRNlqk9myr3+b6N4Jkk4z2tti+S4xmJEfi++ZSShZcIEkgRF6Fk
+	 UdsBKNW3k/mWMxg4tqnl+mVqXm2BWKiqvJ/rLj5yteroDbAnxxBreaTeJ1EcPExBvUg1N
+	 aF2JOtSVT7e8zW5+cPKDVYIIrtSEhMtALOhKHcf0DGvtEbHhBqHq3GMcOU2+ICB6fxNoy
+	 tC0er8shCe82Rl03s4DkIQzuXK5ml08VdpD8fKS1SnuIeVBHe/20hqkWLodMsS9Ntjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795793541;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795793548;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=aq2r0Ffmwu3p+JgLMYzEbEU7vmESDcoZR//lkCTLuLU=;
-	b=r5NgrhMOMXNvsScczx/6SY7lrgO12raJqkqRSP6EdXV7KgM1MivaH2qc2g4xTd9FMDDA
-	 FBhaow+1nOMjKcfPEW0wWObYtRbFKAZX87M483jNdpIRfrjS4OAygH6rCb7PsLrRcbicf
-	 ngslUyuUmgMR5KwNKSJ3VXSWFfyMkqa5Yi+futwsKHO3uWp9DI3WC9+S5r+tSrpccW+wz
-	 NBP4KhUhBbM4wYSFHm0WYTYkPVb6uJlmZP48j37bqe/8ycrswgkEFSUxi6bgRkCga0ZRR
-	 4qoa92G7joeDZV23HQ1+iNwOSKcC9FOKUz4QHCSdEEXZmFHQiOx1cXJO0VlCA23XVhA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ReJpU7l2I7/goLcuKAs//JuOo5i7inhbve69UWfTunU=;
+	b=Xu9nR3FdJGDb7DGl0L/sm+cyWKKAWJL8qFtCGc83f1U8B2JJBieZShHoYMCgFTZmErMQ
+	 Z5tZEvYcu4M1l9seBvCN0tc8mRB0/dXMxI2OdQODtOQ92FGdnFkOtMhXR8bigeNgFdGpT
+	 /soIRCC6/WEqFOxPTzZqW95vT4/Q717mlPxNQgXXS1zyjCh/f3TUOBoHkuyUEWZniYABA
+	 Bpeh8BFMVqwkpZVC7Mon4n0q/UlfymJYMhyBNhhnKKqMbPrglrsj8SHlpGdZ36e/FDPaN
+	 n23loZEx0T1QDqvASz+tmhXvRaQF5qcZAE2d/RBQ7EfwQb6lPmU9fQGfy/uPM9JgsWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=msYLhiSH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gO1ExOJe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACED2606A31E;
-	Fri, 27 Nov 2026 15:32:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540F9606A330;
+	Fri, 27 Nov 2026 15:32:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=msYLhiSH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5D101F00898;
-	Fri, 27 Nov 2026 15:32:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gO1ExOJe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76F271F0089B;
+	Fri, 27 Nov 2026 15:32:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795793541;
-	bh=aq2r0Ffmwu3p+JgLMYzEbEU7vmESDcoZR//lkCTLuLU=;
+	s=k20260515; t=1795793547;
+	bh=ReJpU7l2I7/goLcuKAs//JuOo5i7inhbve69UWfTunU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=msYLhiSHOoNma/GjslvAP/iqKTk2Ttm7HCdRdUdWhz3VnnwhYZhSKDP7Nmj4lAV5e
-	 KSBIDnFac7+eUfV6GXiJpn495oTZW6yuOWy3PB9vvhbGJ7lY+ofTAZFIwYui8DK1N4
-	 F8QtXtcHjFNYqwIZ/8ciZXz4xfmPH+L3vLmS6WJc+jKE0WrnSD6nhbDr/BLDYwxrGv
-	 gqSsOc8/wdhupYESwe4SAUMxXRtg0oLoVywCMlozSjLeGwOLkp4Ck7hjLNAzeJzdXF
-	 0xo2y8k9Ed5OmS0BVp+fahReaVpf6cCnfzlseanREJjMDv0k9GkS9leRl2LKZmSo97
-	 pPnE13fi6uupg==
+	b=gO1ExOJembFManR2Y5GIYaNorzfLn9fadBJ57aopK8Awur6RLUyrrF0DYL+moFgMm
+	 ZwsEBbgMBuxrAym/c2LFFpOtFCejvPi76YfsfyuEb7fGbNAIon8CFYLFEvVfRYvd28
+	 QF5MVIiq7mIaQgSRR77u/Gtndn0XvpPUjNRru7pkb/ZpyektSuEPI1YHat2v60Nkvt
+	 G1hpfCGetf4tFK0i7ZtrAErVHmaC2hBlEM/ODIjDS2iR12A3KWy+riN9QK3aH6Xt8F
+	 lRt2XoULTjriU3F4K9GK7JzTM2N9zXzivFKQMx36MfTZGf8XJCDGCJzSFuvoo5IffE
+	 ktRuYU8rHqh7w==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Mark Brown <broonie@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	Gabor Juhos <juhosg@openwrt.org>,
-	Chris Boot <bootc@bootc.net>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Johan Hovold <johan@kernel.org>,
+	Johannes Thumshirn <jth@kernel.org>,
 	linux-spi@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 02/10] spi: bcm2835: Store native chip-select GPIO descriptor per device
-Date: Fri, 27 Nov 2026 15:31:05 +0000
-Message-ID: <20261127153158.2969573-3-lee@kernel.org>
+Subject: [PATCH v2 03/10] spi: ch341: Limit transfers to the hardware packet size
+Date: Fri, 27 Nov 2026 15:31:06 +0000
+Message-ID: <20261127153158.2969573-4-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127153158.2969573-1-lee@kernel.org>
 References: <20261127153158.2969573-1-lee@kernel.org>
@@ -71,117 +62,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When a device uses a native chip-select, bcm2835_spi_setup() requests a
-GPIO descriptor for it and stores the result in the controller-wide
-bs->cs_gpio.  A second device using a native chip-select overwrites the
-first device's descriptor, which is then leaked.
+ch341_transfer_one() clamps each transfer to CH341_PACKET_LENGTH bytes,
+of which the first is the command byte, so at most 31 data bytes are
+moved.  It nevertheless reports success for the whole transfer.
 
-bcm2835_spi_cleanup() subsequently calls gpiod_put(bs->cs_gpio) for
-every device, including devices whose chip-select was requested by the
-SPI core from the cs-gpios property.  The same descriptor can therefore
-be released several times, and the descriptor released is not
-necessarily the one which belongs to the device being cleaned up.
+The driver does not provide a max_transfer_size() callback, so the SPI
+core never splits longer transfers.  The remainder of the data is
+silently dropped, and on the receive side the caller sees whatever was
+already in its buffer.  For spidev this means stale or uninitialised
+kernel heap from its bounce buffer is copied out to user space.
 
-Move the descriptor into the per-device struct bcm2835_spidev, which is
-zero-initialised, so that each device releases only the descriptor it
-requested itself.
+Report the real limit through max_transfer_size() so that the SPI core
+splits long transfers into chunks the hardware can handle.
 
-Fixes: 21f252cd29f0 ("spi: bcm2835: reduce the abuse of the GPIO API")
-Closes: https://sashiko.dev/#/bug/linux-677b4cdb-2c6c-4cad-8a5a-45a24dc5cbab
+Fixes: 8846739f52af ("spi: add ch341a usb2spi driver")
+Closes: https://sashiko.dev/#/bug/linux-a21e23dc-14b5-4ed1-bfba-f508132e11a0
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
 v1 => v2:
  - Rebase onto spi/for-next; no functional changes.
 
- drivers/spi/spi-bcm2835.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ drivers/spi/spi-ch341.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/spi/spi-bcm2835.c b/drivers/spi/spi-bcm2835.c
-index 9d589df90933..af118cccee1b 100644
---- a/drivers/spi/spi-bcm2835.c
-+++ b/drivers/spi/spi-bcm2835.c
-@@ -85,7 +85,6 @@ MODULE_PARM_DESC(polling_limit_us,
-  * struct bcm2835_spi - BCM2835 SPI controller
-  * @regs: base address of register map
-  * @clk: core clock, divided to calculate serial clock
-- * @cs_gpio: chip-select GPIO descriptor
-  * @clk_hz: core clock cached speed
-  * @irq: interrupt, signals TX FIFO empty or RX FIFO ¾ full
-  * @tfr: SPI transfer currently processed
-@@ -120,7 +119,6 @@ MODULE_PARM_DESC(polling_limit_us,
- struct bcm2835_spi {
- 	void __iomem *regs;
- 	struct clk *clk;
--	struct gpio_desc *cs_gpio;
- 	unsigned long clk_hz;
- 	int irq;
- 	struct spi_transfer *tfr;
-@@ -153,6 +151,7 @@ struct bcm2835_spi {
-  * @clear_rx_desc: preallocated RX DMA descriptor used for TX-only transfers
-  *	(cyclically clears RX FIFO by writing @clear_rx_cs to CS register)
-  * @clear_rx_addr: bus address of @clear_rx_cs
-+ * @cs_gpio: native chip-select GPIO descriptor requested by the driver
-  * @clear_rx_cs: precalculated CS register value to clear RX FIFO
-  *	(uses target-specific clock polarity and phase settings)
-  */
-@@ -160,6 +159,7 @@ struct bcm2835_spidev {
- 	u32 prepare_cs;
- 	struct dma_async_tx_descriptor *clear_rx_desc;
- 	dma_addr_t clear_rx_addr;
-+	struct gpio_desc *cs_gpio;
- 	u32 clear_rx_cs ____cacheline_aligned;
- };
+diff --git a/drivers/spi/spi-ch341.c b/drivers/spi/spi-ch341.c
+index 56a5caa5975a..0783a2d39a61 100644
+--- a/drivers/spi/spi-ch341.c
++++ b/drivers/spi/spi-ch341.c
+@@ -63,6 +63,11 @@ static void ch341_set_cs(struct spi_device *spi, bool is_high)
+ 			"error sending USB message for setting CS (%d)\n", err);
+ }
  
-@@ -1157,7 +1157,6 @@ static void bcm2835_spi_cleanup(struct spi_device *spi)
- {
- 	struct bcm2835_spidev *target = spi_get_ctldata(spi);
- 	struct spi_controller *ctlr = spi->controller;
--	struct bcm2835_spi *bs = spi_controller_get_devdata(ctlr);
- 
- 	if (target->clear_rx_desc)
- 		dmaengine_desc_free(target->clear_rx_desc);
-@@ -1168,8 +1167,7 @@ static void bcm2835_spi_cleanup(struct spi_device *spi)
- 				 sizeof(u32),
- 				 DMA_TO_DEVICE);
- 
--	if (!IS_ERR(bs->cs_gpio))
--		gpiod_put(bs->cs_gpio);
-+	gpiod_put(target->cs_gpio);
- 	spi_set_csgpiod(spi, 0, NULL);
- 
- 	kfree(target);
-@@ -1232,6 +1230,7 @@ static int bcm2835_spi_setup(struct spi_device *spi)
- 	struct bcm2835_spi *bs = spi_controller_get_devdata(ctlr);
- 	struct bcm2835_spidev *target = spi_get_ctldata(spi);
- 	struct gpiod_lookup_table *lookup __free(kfree) = NULL;
-+	struct gpio_desc *cs_gpio;
- 	static const char * const pinctrl_compats[] = {
- 		"brcm,bcm2835-gpio",
- 		"brcm,bcm2711-gpio",
-@@ -1334,14 +1333,15 @@ static int bcm2835_spi_setup(struct spi_device *spi)
- 
- 	gpiod_add_lookup_table(lookup);
- 
--	bs->cs_gpio = gpiod_get(&spi->dev, "cs", GPIOD_OUT_LOW);
-+	cs_gpio = gpiod_get(&spi->dev, "cs", GPIOD_OUT_LOW);
- 	gpiod_remove_lookup_table(lookup);
--	if (IS_ERR(bs->cs_gpio)) {
--		ret = PTR_ERR(bs->cs_gpio);
-+	if (IS_ERR(cs_gpio)) {
-+		ret = PTR_ERR(cs_gpio);
- 		goto err_cleanup;
- 	}
- 
--	spi_set_csgpiod(spi, 0, bs->cs_gpio);
-+	target->cs_gpio = cs_gpio;
-+	spi_set_csgpiod(spi, 0, cs_gpio);
- 
- 	/* and set up the "mode" and level */
- 	dev_info(&spi->dev, "setting up native-CS%i to use GPIO\n",
++static size_t ch341_max_transfer_size(struct spi_device *spi)
++{
++	return CH341_PACKET_LENGTH - 1;
++}
++
+ static int ch341_transfer_one(struct spi_controller *host,
+ 			      struct spi_device *spi,
+ 			      struct spi_transfer *trans)
+@@ -187,6 +192,7 @@ static int ch341_probe(struct usb_interface *intf,
+ 	ctrl->bus_num = -1;
+ 	ctrl->mode_bits = SPI_CPHA;
+ 	ctrl->transfer_one = ch341_transfer_one;
++	ctrl->max_transfer_size = ch341_max_transfer_size;
+ 	ctrl->set_cs = ch341_set_cs;
+ 	ctrl->auto_runtime_pm = false;
+ 	/*
 -- 
 2.56.1.839.g22a8290db9-goog
 
