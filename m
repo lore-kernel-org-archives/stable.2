@@ -1,103 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.17
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795777667;
-	b=rxj2TPJ4V18P8E6MQaifru5JGu7aRYWaPX5R1D6Q+pVa8yzamAycVgJznhsFdrA6IzQl
-	 /nSJMoTVhfOHhM24rcpAqvW3PDPVjG0+ZFOxpdunhaojyZLcluSrJ0ih0eTF/r4SgGIpM
-	 TCOlbf89cF+TRecjDvwFv+lwDU3R84NylqAX47ecXULz/RSESadHcCy8uZes6sNvAXrJM
-	 dKwWf5l3aVR8YCb4z/M/eQtEyO+PbJ+QK24MR9NS4EuJ9jENDoPXPxP7PhbtUW4A0dzYY
-	 7DwhLd+a2FsEGGE77DyROTMmyJ5RLc/Cg/sMOrhLj8ohiw7/kWSlYwECPpbmLah8kQg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795777667;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=4wWF4FyvaptKVhKFbMJRvuGahmeExT72/GRYEhTfjGY=;
-	b=GZVYPkFJ3v/nTsaainfYFnlLCwerCgcRlZEBZThsdYSoDHmMAeuXdQZBA2AWuHfAcFzK
-	 LnLt01x/W9jpCasquzIYkrWQzN5KiD7ROr0erroQDranNTpfjaSJBkCedbDAl4Y6V8H0v
-	 PlN3EIFBUyHhbeRX7PLO3esuFLoKjOKdVL4I40QeoxxKu0Th9KhuvCBLZuKqX2l2opiwp
-	 Iu9eUUGZ7RJGIzO47CGwAF9/HgHOED7QM8/Rz3Tz23fkgRYv8F9h9et58eNi7s3Hbh1OA
-	 7HThlXu11ijwmanTMjvOIGTsbMtk93AoeayfJjt4rNOI3Fo20w+Di8WcTOdx4NIFcAQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=oYdgGUls;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.17
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013017.outbound.protection.outlook.com [52.101.83.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.198
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795777816;
+	b=1tFgU+Hn54J3NCDqzOvroCIBodvydXLsBnsFWVQ8TDZkS6pkftcLJV2kYt5qH3CdIo8s
+	 VrW5gK+E+Lp9CJew7wn2XouIp8raOUOQVMIi7dIxmRQEbmAAV50xjXNBDZ3UlTaa+E8lW
+	 j6Z0NorUaM0GFRFVqRzIBA9OxZYupckqTmQVvkuLodcEwiDUEKRqbUJs8aj//z5kAS/6P
+	 3vxX7hvS04E/+7XBEXKWYPf8RPvFpsZZCxwn+QvU76aDurlWaynaG82L79zl90F3D9Twb
+	 Z7UNo5rSlyEgsgbXXCz/7OT46pkTg9XlEm9aIqk01ARgzVGfpG8xf/C8LIoIObycPbw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795777816;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=yAseJCXCkp3H58r0OVANX+f+65Cd2MGF7drdzRohz2Q=;
+	b=RmAVmZDEvJD2zMhODrvwRlXkaRVIXVOz8yVPRWG3Lryqh0yqIv5yr6C8sL3+1EC/gVMt
+	 rNAe3gNKLlQD/RYv+kd+ZqG0G3v4pW4WUIYVBTmF4oeGSvoiiolLKBxtymrASJUddWHUG
+	 OZguUyROXCXrgJ/KZ1RMQ5gBbLyNyhyT1Dm6r5SErQGvp2vmaqENSug6y/lornFZwAUMh
+	 luGd8BlgQAxI02wySg+oZHi+yimYVgGVyraI/LyQ/bMtvEtI4OFJZnUlhC7SJN34N7veZ
+	 Nn//I03Qn1UKVdYhABCZmoHJrq11XRD8DspKx+q4RZfQnBL/+mfvHU98Ia2AM4pvqPw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JvhWZiNV;
+	arc=none smtp.remote-ip=95.215.58.198
+Received: from mta1.migadu.com (out-198.mta1.migadu.com [95.215.58.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BEAA606A31E;
-	Fri, 27 Nov 2026 11:07:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BEAA606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C35606A31F
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 11:10:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9C35606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=oYdgGUls
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zPUQfyN8Tbas3kAyf//DLosxIrsdYkq2VS4UZ1wMi6lONOOyRrWbzeBpGX4nonSgp60w+BTvI7I6ROhr0sxzo2HKArfiZDerygQqMwUNiQYZOOS7e6UW4E2Yp98OWRTIh+Ak4TfBsTYSqrxRYHKIpRItKv1iT6BP6v0CNUDOOPzi6bZrJNN9e6uLKOR1Ji0y3991dAtKDTA193yiOWOj4L+7oR0wu3MR4nsMmbhL5EynHVR0/Vpgr/D+VJkXsOfpgaRh9JNxBnwWL9t7COji36jx1MnDr2WPb2aKDGhdeEfxa3+XZssMlBMN14OQjdRodqFXYMEgUVGiEnF1bRGWmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4wWF4FyvaptKVhKFbMJRvuGahmeExT72/GRYEhTfjGY=;
- b=BjXZ5J+TYLXx3xX8tfazkxujVTBnzf4FUGgzqEDNzmwZADPOFBUg1mNynEjUZ9PKkVZ6Brg7Zx8+tM5Sgl0+mJP8y1SPf3TW1MXAFVZs0lZGa2iwY19eBEn/bJQsRqGO0BXOOLlnkix+CK/cfkZV7zaCkGmnwi45fgZ5Lxkp9/Ne116rwe0TCwkqvT4W5fDncA+n0Il5HESgG7IjB2zPhjKw4PIs2Tg5K8K68B9N9cYyK7HAWFaSudjSrgbU0L6ZpkmFj0F29o34mgJkWWpLRkD3MyvTm5uFUFFFYoU2zy2A7W2itCFXuP/wLDokOoFanT87uojPeFeM6M+j6Iocmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4wWF4FyvaptKVhKFbMJRvuGahmeExT72/GRYEhTfjGY=;
- b=oYdgGUlsQ/h5v4RPeX9q/3Cp9KbfLLIiLGpN8/eEEAaiUdpAh2KUO3J9n/rF26VR4RvBjxDByboo65ZGgTuMiD9GJToqurL5VnikccjOeXzf/4m3myhp9HtAywKEno6VLrqBjTrHBu51wdOOZkK5rcbbTpqfQoK39u98Lp4+Sr78j9qnN3bF+Amayx3AJI91ti7K3b/OpveW+VUCGxcNq+rAqRK8oBIea11AFg/fpJRC7j5XMZ6n4o7YtSGRaFJr0j1qbSDOwYG4LO6H9kMtQ/WkP+iy5D4CoWnPDfdBWmnGCW5MuH+rugPxTqwf1+r9lmdNQ2KHZXFLAR+v3/nySg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GVXPR04MB12316.eurprd04.prod.outlook.com (2603:10a6:150:2c6::8)
- by MA9PR04MB056375.eurprd04.prod.outlook.com (2603:10a6:250:110::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.9; Fri, 27 Nov
- 2026 11:07:43 +0000
-Received: from GVXPR04MB12316.eurprd04.prod.outlook.com
- ([fe80::fc6e:ca22:f065:def4]) by GVXPR04MB12316.eurprd04.prod.outlook.com
- ([fe80::fc6e:ca22:f065:def4%5]) with mapi id 15.21.0662.004; Fri, 27 Nov 2026
- 11:07:43 +0000
-Message-ID: <38a63ce1-be42-4445-b3d4-17bc9b559119@oss.nxp.com>
-Date: Fri, 27 Nov 2026 13:11:19 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: imx93-11x11-frdm: fix ethernet PHY reset
- GPIOs
-To: Joseph Guo <qijian.guo@oss.nxp.com>, Frank Li <Frank.li@oss.nxp.com>,
- Daniel Baluta <daniel.baluta@nxp.com>
-Cc: Frank.Li@nxp.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
- festevam@gmail.com, lei.xu@nxp.com, haidong.zheng@nxp.com,
- francesco@valla.it, devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org,
- Steven Yang <steven.yang@nxp.com>
-References: <20261126160835.1811145-1-daniel.baluta@nxp.com>
- <awhiRigXGZ50RoDo@SMW015318>
- <7652e6ad-a34c-453b-a461-6105d9c86813@oss.nxp.com>
-Content-Language: en-US
-From: Daniel Baluta <daniel.baluta@oss.nxp.com>
-In-Reply-To: <7652e6ad-a34c-453b-a461-6105d9c86813@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM9P193CA0020.EURP193.PROD.OUTLOOK.COM
- (2603:10a6:20b:21e::25) To GVXPR04MB12316.eurprd04.prod.outlook.com
- (2603:10a6:150:2c6::8)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JvhWZiNV
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=N8t62i7CUa3ZOxo+eFaX+w6ClZWF5P21IBj52O6aWrk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795777814; v=1; x=1796382614;
+ b=JvhWZiNV4UtpPEstZuQFbQgfMJCbWsCIZazyWrKiRij/2Ta1dvq1SbkJj7ABMY/Q4LIPyWC7
+ Ya1Nyar4cjr+RqDhySbAsbyJTNhYMr5hkCz2O3CyItm5Lo+pkSWHv1L+nOB5yOT7tYVFoILTnxc
+ HjUKxgpnBLasnYLpNJ5Rd9Rc=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b147367c39aa5312;
+	Fri, 27 Nov 2026 11:10:10 +0000
+X-Mizu-Trace-ID: b147367c39aa5312
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <da0323dd-441a-46a6-ad9a-39def5fc08dc@linux.dev>
+Date: Fri, 27 Nov 2026 19:10:01 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,100 +58,124 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GVXPR04MB12316:EE_|MA9PR04MB056375:EE_
-X-MS-Office365-Filtering-Correlation-Id: 19669887-6f4c-4141-7458-08df4c76a887
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|19092799006|7416014|10067099003|56012099006|11063799006|22082099003|18002099003|4143699003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	3Rqj7oIXfLxXNZscK6SD1xUONm1TxwZmfOM38hMfWZYgIW0zZ0CnduviFJYKg5IkNBBNIP36eWUVJUim+GPcENMuBEvMDFSaeLP3FNEdjgG84jW6zAmWGctGXXUkw2pjbpTCsY0pDfI/Yq9NGmfQobrYc0Npf/fEWovCvclGZVWaR1PhsA5f3Ymp3WkbDEYu0MaR6Ly4+PHM8ix8SVZmfr8WmwxIWVO4r1WWCxhA+eI5evuDM55ooYbvlgVPlmO5YeqxZNSsWvNCYy9uGiBY0B17z3/F0JO1DjaAxMYn/G/q3J0p5vyIq9QxJtLTV6relAx6+0XwTCue1SjLcD08Z5iB2qc3XqjekqtHs03pa02FHEDiJAO375SNfP01zxBNawCPoN9zTDceL5HseTUHrd0WD+xL6WVVK1klt+sM0mXKvynEkCSyeRbsCN4pEugymV6V9EBvxdp7Kml/0ciJX1GifYczQjBcPfUPiKuXnc5pn5PJ4o3Byb648HR2Bkm9p8g8vd7ggetrM60XOGgnkUXrgXW59rMVhxLMqFARGv/MmYtlHsLeNZMPqoMtF3zPZ1V+YFPgCk6gk0lyqW1N0wumWtXmVo7vk7jIv2L/F3+RPkktvQPBsAtnUafUEW2MCAicQxtNOqum6x2TcU+zt/4Wft0iLRNCO+L4PAT/qbE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12316.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(19092799006)(7416014)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003)(4143699003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q1NtZ0xSUE5ONG9JakZPekVyMFRKdEo4R0dwd1VkNHZEVTczcFdMbVo2bHZF?=
- =?utf-8?B?UHROcXpzbHJSRUVtYVlIQzF1NHUyNUQ3WEs2dU1EbUc5aEF6S0FHb1lOb2xO?=
- =?utf-8?B?dW01b0RtR242MmdqVGFtTU9wV3Fxb3RKZmhHTjZJL0RHRWkvZWUzck1CK2V6?=
- =?utf-8?B?cFFSeU93c0hjcjBHZjUvUUoyTEhpWXkvbzFOZzc3WmFwbVg4OXdyM1JIbmh6?=
- =?utf-8?B?VU5zMGRkSDJCbEd4a1pjeHovUVJIdDdxSDh2L1czbVJVeXczZ2o0dFB3MFgx?=
- =?utf-8?B?c1JWdFpVb2hQQStvZzVpcmxicFY0anJmbUgxV1Z5NXdJZnpKL3Z3UW5ia2RI?=
- =?utf-8?B?bzBzKzcrZTZ4Y1FHb3dEazBKOXc5NXZMamo0aUpuTXg3SWxhc3pyYmQyQ2di?=
- =?utf-8?B?YTF6RTlCS2lva1RuUjdHL3kwdFVHUGluSjhNTE9wcllMMElSdk9hVjgzOUJ5?=
- =?utf-8?B?QjFhcWJ6bDBZVXhUVTF2NG9UVGYrZFR5dy9FcS9WdmFIcWJqdnZtZW96U0k0?=
- =?utf-8?B?VEtXREY0NHFtTHlSMjNuY0JvcTIvREwrOHZWZDNkY2l6THN5ckE4MUZxOVVi?=
- =?utf-8?B?MUxhNkliWUlsbjh1bEs3TmxOb3lFblVOVU54ckgydHRpdG5lZGF1R2Vna1Zh?=
- =?utf-8?B?R0Nwb3NFaEhnK0Z1UHgrTmxYZi84QkpZU20ycWJ6RnZqRW93WENZbThzL1Ax?=
- =?utf-8?B?K3JlR1JreE9iRXZzamhIc29DNXJVdGp1RlZNVlNYaEp4MzhlTmg2d05JYTdp?=
- =?utf-8?B?Z254dGp3OHRlaHhNYWVQeEpBQS9zbE8wQjZXcDVsU1ZpNm51eUVxSEtmSTJu?=
- =?utf-8?B?WWxFc0lqeHNnV2NwUk44VWxDZy9Ua3dSRTRnRURkczdwbncweXZ5UzE3VDBW?=
- =?utf-8?B?MXRRVXVNUVNvUjg1d3orMGlHT21jbk9acjVpWmpMUUR1TW9CRE9rbEUvazBt?=
- =?utf-8?B?TUNnZVA2ejFWdGY3b09XSGNCT0xLczdRc0ptRDlZZHprNnU2KzVCa1JyQjFN?=
- =?utf-8?B?RkphMm5NeGc5VTI2c0ptMWc5ODVtVGlNVml0bHZzWjRJek5VNzRrNThQNm1p?=
- =?utf-8?B?dFFRaWZscGR3cVk2MndQQVJaVTF2UUN6eTNHNW0yZDZ5VkYrRGtHV2VXMktC?=
- =?utf-8?B?b3VjazliSHdFdjhyM1pjTWNJOXJ0V3I4ZGdsK0lVQWVaZUJaUjNaYTYrSDhy?=
- =?utf-8?B?WkVkalptTDBNdWZjVjRHZDVDZXJEWkxOZ0VGNG8yUHN1VWFyblVYUkx1ZnRq?=
- =?utf-8?B?bXZsTDRCalRHMFQ1SE1jMlcyLytBTlBJbUl2aW1vdnpKZUUrcEhOeGw3UFhW?=
- =?utf-8?B?RVZXcW1nRVNBa1k3NDhEWVhOSlVVRXVsb0NldUkxeWtWajgybitldm55YVRI?=
- =?utf-8?B?Q09lOHFhaFhtcHpCdUV0Q0NXMGthRzR0TXFTNE5leksweWFPUXYwTlRMbE9I?=
- =?utf-8?B?elRTMVoweHhmU2Q1eFRnZFMyRHo4Rk9QQnlLMjMwNEFwVjI1cSsyYTFLQnJO?=
- =?utf-8?B?ZS81UWs0bHRhR09nb3UwbDZ2cHhFOUtGL2NBOG9hdms1dEl6aVZBbGtGMGR6?=
- =?utf-8?B?R2c2cVlCT0I1VGRBckQ4UFhsUXlBcEJLMFdmRGZCQU10NnJ4YzNmd3JSQ0RQ?=
- =?utf-8?B?bEpLSEwwTXJhcFNzUkpDcVdBT2VFYjNTc0MvcUVmK2Y1N0M4eDVBMzAxd3RZ?=
- =?utf-8?B?MkE1SXN4Um4yWEtzeldDb1B2ZHRGSVcvTnJvUnUxZXA3aE0zUlRxUGFML3U4?=
- =?utf-8?B?YnJHazllc1cwdGRNLzVQdGVIZGgvbWJBZ1BxOGw1STlaNGVJUTBsODFCOHl2?=
- =?utf-8?B?RFhhaEFSTmhwUjBkbXc4NE1vakhNUWVSa1ZLZnhEVCtNVEtaT2FxTHo2VXhO?=
- =?utf-8?B?UWxxN1l0bUVpWHlTOUVRSktqSGtQR3Z1Sm1nbG5XTG5kd0ZwL1RKUEU5YVBI?=
- =?utf-8?B?b2dDWCtuS0plSkpXNXlnaDIvTURlbE94MzRvM05UekNCUmJidG43aFlsK1BT?=
- =?utf-8?B?dUlvVXppRVZQSCtuNWFNOWFXUjY5d2loZm5UTlNJUXlaQTFtZGZDVFFCekRR?=
- =?utf-8?B?U3hLTEhRNTR3dExrdDVvblRna0RDRVFHSldzclhjYjlSQUo3ZlVVSFI2a3Vn?=
- =?utf-8?B?bnBnTTBJTHVrRmhzR0FrbnVia0Y4NUlGbGQ2ZmxQSGpOVGwwWXliM3FvWEor?=
- =?utf-8?B?dnpRbE1QK094WlNtQVFyLy9VVHlOMGZKemEvYks4YkU4ZjhMMnlJOE5VM0s4?=
- =?utf-8?B?cU9VMzdQN0Z1VWJxVEpyWjhCNXdxcFgyYVoreElZUXZzWEVzUlp6VVVlRFBQ?=
- =?utf-8?B?WHVtUTIyRXd6a29kS0I2eXYwSkdjTWxjY1VDMkpURWptU1gwV09SUT09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19669887-6f4c-4141-7458-08df4c76a887
-X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12316.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 11:07:43.0608
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /C6vtB3CUZLfUbdHIpoWbP26Krt3LEtXA9MB9Fbc7QDsbDyboqwn1lLuT0TRPel8yAJvOMJ2RTxAJ3dNWTFp+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA9PR04MB056375
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 10/10] tcp: do not pass a BPF reqsk to an MPTCP
+ listener
+To: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+ Eric Dumazet <edumazet@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Willem de Bruijn <willemb@google.com>, Simon Horman <horms@kernel.org>,
+ Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
+ Christoph Paasch <cpaasch@openai.com>, Florian Westphal <fw@strlen.de>
+Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev,
+ Davide Caratti <dcaratti@redhat.com>, Chris Mason <mason@kernel.org>,
+ stable@vger.kernel.org, Neal Cardwell <ncardwell@google.com>,
+ Kuniyuki Iwashima <kuniyu@google.com>, Martin KaFai Lau <kafai@fb.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, Alexei Starovoitov <ast@kernel.org>,
+ Martin KaFai Lau <martin.lau@kernel.org>, bpf@vger.kernel.org
+References: <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-0-278042217e8d@kernel.org>
+ <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-10-278042217e8d@kernel.org>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <20261123-net-mptcp-misc-fixes-7-4-rc5-v1-10-278042217e8d@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 11/27/26 04:43, Joseph Guo wrote:
-> 
-> 
-> On 11/27/2026 12:45 AM, Frank Li wrote:
->> On Thu, Nov 26, 2026 at 06:08:34PM +0200, Daniel Baluta wrote:
->>> From: Steven Yang <steven.yang@nxp.com>
->>>
->>> The reset-gpios of both ethernet PHYs point to the PHY interrupt lines
->>> instead of the PHY reset lines.
->>>
->>> On the FRDM-IMX93 board (schematic SPF-94611 rev B2), the PCAL6524 GPIO
->>> expander lines going to each PHY are labelled:
->>>
->>>    P0_4 (line 4)  ENET1_nINT
->>>    P1_1 (line 9)  ENET2_nINT
->>>    P1_7 (line 15) ENET1_nRST
->>>    P2_0 (line 16) ENET2_nRST
->>
->> schematic error? Should fix schematic also?
->>
->> Frank
->>
-> 
-> The rev B3 schematic already fix it.
 
-Thanks Frank and Joseph for review.
-Indeed looking at B3 schematic, the ENETx_nRST/ENETx_nINT net names are now swapped
-and much intuitive but the wiring is the same as B2, 
-so lines 4 and 9 are the PHY resets on all board revisions so the fix still applies.
 
-Will send v2 with a proper explanation. 
+On 11/23/26 9:24 PM, Matthieu Baerts (NGI0) wrote:
+> From: Chris Mason <mason@kernel.org>
+> 
+> A slab-out-of-bounds write and a panic can occur if a tc BPF program
+> that validates SYN cookies assigns an ACK to a TCP listener, and the ACK
+> then goes to an MPTCP listener of the same SO_REUSEPORT group.
+> 
+> bpf_sk_assign_tcp_reqsk() attaches a plain TCP request sock to the skb,
+> and returns -EINVAL if the program passes in an MPTCP listener. But
+> inet_steal_sock() and inet6_steal_sock() select a listener again from
+> the SO_REUSEPORT group of the listener that was passed in, and the
+> result can be an MPTCP listener. cookie_bpf_check() then passes the
+> request sock to mptcp_subflow_init_cookie_req(), which writes to members
+> of the larger struct mptcp_subflow_request_sock, so the writes can land
+> in the next object of the slab.
+> 
+> The fix used here is to drop the segment in cookie_bpf_check() if the
+> listener is an MPTCP listener. The connection then fails, instead of
+> corrupting the memory.
+> 
+> This issue has been found with the help of an LLM, and reproduced in a
+> VM, with the reproducer shared with the original version of this patch:
+> a tc BPF program validating SYN cookies -- the one from the BPF
+> selftests -- and an SO_REUSEPORT group with a TCP listener and an MPTCP
+> one, the latter being selected. With KASAN, the original version of this
+> patch reported:
+> 
+>   BUG: KASAN: slab-out-of-bounds in mptcp_subflow_init_cookie_req
+>   Write of size 1 at addr ... by task python3
+>    mptcp_subflow_init_cookie_req
+>    cookie_bpf_check
+>    cookie_v4_check
+>    tcp_v4_do_rcv
+>    tcp_v4_rcv
+> 
+> Without debug options, and with request sockets of half-open connections
+> next to the corrupted one, the kernel panicked a second later, when the
+> timer of a request socket fired:
+> 
+>   BUG: kernel NULL pointer dereference, address: 000000000000058f
+>   #PF: supervisor read access in kernel mode
+>   #PF: error_code(0x0000) - not-present page
+>   Oops: Oops: 0000 [#1] SMP NOPTI
+>   CPU: 3 UID: 0 PID: 0 Comm: swapper/3 Not tainted 7.4.0-rc1+ #1 PREEMPT(lazy)
+>   RIP: 0010:tcp_syn_ack_timeout+0xd/0x30
+>   Call Trace:
+>    <IRQ>
+>    reqsk_timer_handler+0x22e/0x500
+>    call_timer_fn+0x2a/0x140
+>    __run_timers+0x1f7/0x280
+>    run_timer_softirq+0x49/0xf0
+>    handle_softirqs+0xfa/0x300
+>    __irq_exit_rcu+0xb5/0xf0
+>    sysvec_apic_timer_interrupt+0x73/0x80
+>    </IRQ>
+>   Kernel panic - not syncing: Fatal exception in interrupt
+> 
+> Fixes: e472f88891ab ("bpf: tcp: Support arbitrary SYN Cookie.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ Shorter comment. Commit message: how the issue was found, its
+>   symptoms, and that the connection then fails. ]
+> Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+
+
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+
+
+Actually, we still have a few issues with bpf_sk_assign semantics...
+
+> ---
+> Cc: Neal Cardwell <ncardwell@google.com>
+> Cc: Kuniyuki Iwashima <kuniyu@google.com>
+> Cc: Martin KaFai Lau <kafai@fb.com>
+> Cc: Daniel Borkmann <daniel@iogearbox.net>
+> Cc: Alexei Starovoitov <ast@kernel.org>
+> Cc: Martin KaFai Lau <martin.lau@kernel.org>
+> Cc: bpf@vger.kernel.org
+> ---
+>  net/ipv4/syncookies.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/ipv4/syncookies.c b/net/ipv4/syncookies.c
+> index 89169c82431c..f39600ee3f17 100644
+> --- a/net/ipv4/syncookies.c
+> +++ b/net/ipv4/syncookies.c
+> @@ -312,7 +312,8 @@ struct request_sock *cookie_bpf_check(struct sock *sk, struct sk_buff *skb)
+>  	skb->sk = NULL;
+>  	skb->destructor = NULL;
+>  
+> -	if (cookie_tcp_reqsk_init(sk, skb, req)) {
+> +	/* reuseport can pick an MPTCP listener: req is too small for it */
+> +	if (sk_is_mptcp(sk) || cookie_tcp_reqsk_init(sk, skb, req)) {
+>  		reqsk_free(req);
+>  		req = NULL;
+>  	}
+
