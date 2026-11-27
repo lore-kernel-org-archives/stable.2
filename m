@@ -1,74 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795745217;
-	b=Gwx6OshJQNfVhVGp5+FT/bbg0StU4kjIoSCk/UeE1cQ5Myapz2yR4MRvWmkcJ/fD0MRp
-	 VMBWeQlfTpmcwbekiN2vg0XPWKcB1K+nb3O4QlnaT3+LNF4aWqkWkRVMrsJKRB8c74WMK
-	 0f9cZ7kxGIHAVcTobrbP/oVG3TSb7mG1iyoY8MBRx/K1MGDGQPGsmJ7EATi2u5B5P7rFr
-	 LkDgCrCZ+RDG59LXKt5srqNtL6XNKV1jmYgTxMKMxmekXEWDR6b7RCgF5q6kTRv/eVGJT
-	 R4/gRTOGANdoAcCLUO/Pr444C9GQuaFeWyfq/8IEpkUkdV+iq2NEP9EfTc22iTENVSQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795745217;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=YLKuwFmn5et2WB30Vt1Z089OBLtt75KOTkLy3vZE0Vo=;
-	b=VO7oodR6QZMquF4eb+FeE1tu36qJLXbHCBWFh4ltOhGDzqlYGfOCqMz5D4X5nKoGmA1f
-	 FehqqSwvyMreKDT3jmqzNwnNw/iIesgYVkBRw2InPzQWyN182JzAO3UFzpf32RIB+tsZD
-	 zDYGHPII0Smlk23bP47jNkMZl3nIbd+X6eEh4Wwq5nPYhN86swgNTLGPByzKD73+pzGhk
-	 YD7P195xx9oJGvlxz/D70TRZQXyO+TSfAyiSG7LtEeNM6OK4qq+ZDuc/UU2A9fhQI99MX
-	 RBeXy1uzAbBIP2+1rZq3ozRM5ajOI/hG/nIqisGsY3kXF9KY17XENnsnpn2ZuFdTfHg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=N6h2Hr+p;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795745599;
+	b=X1xTkL9P4+ihHMQmrW1TROJiy2bvOVdbImQFhU/Lz9iH1c0vtd1mLnkZcH3D9MCOhNRf
+	 GHGJ6BUu47knwYwtBjIy8Q2CAcVYiQxFtDDcFxzi1m2hKz7kfSSbGUKUwW0O5sKA75QXO
+	 1TRo0uFDu4QJA3QVwLKDoymfB3dA1YX7Ob3ProWLmxTjCBblJGdb2FzINVWEX7e3jTqmo
+	 KjSk+AA0xuc6MhckC+qTuslSKRD+6ox3E9MOOpF9AC4G85Rc2ljNGx7FpBxk+Okx8MpJR
+	 j/M3+3QtrJH/SQ/0Cw0JxNbrmAecEqhx2g4BvOEIzSYc/YJtCybfYYycIQ05Y7hmYTg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795745599;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=wU8cZ8sbVXV6PQ367vq32gJ/yQ/1Tf8RXR1g3yzyRXY=;
+	b=CwSbhCDVDfb8EgcyyGULmTgCSFgN5Vm/i4+I4fZkwmbClnwcxxXZ39QzDFv2TrcxvmeC
+	 LIC4h7DS7feuSprX+3QkIkjwiBJcP7R0HRD9EeuBmBl1GoVGUZxEda6E0WXotFeBIzpsi
+	 feW+gbXoMuYvEASAWOTSbb0LNLPWCsz05gQ/Yzbz+xIVoWA2qNaoS6dRqDZGogo3VDHW+
+	 H1z6VwcGj7P3TkEqBD5IfvUeHCvm9B7POXTxg+2Hi2QA7fVkr6ZInX/V4MzaHYIKB7RuB
+	 6sU3+4v8K/rCDIO70wTLtpV4xgJJO2s7RrekhmuDh000nplWQDeFHz9XX2M03cms+KQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ij4JUjgh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D51C606A323;
+	Fri, 27 Nov 2026 02:13:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ij4JUjgh
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795745598;
+	b=LTiuFpXGPI7GrYRnrXGP81U51uD7TOiX7FnQ/ddxnC+Cw/cgsZsUuUP5LAY4DA51ax/L
+	 XzlO5dg5gDJ5nH6rR9O2nBHZ+d2tyh76M1BeMrD0JJhMmKbMRG1jT1htQ2zwLW/AsXrmx
+	 fpxyo0qdb1xl8YVJo3R28pm/YVK//dA7x75Plb+2xRyMw7ALt7EE6w2DWcV31/N+ZW5dj
+	 Cf6OwSu1c32auW8gFsW23hwBwe2Frw+GjduFMCZJFvYDaOitVdYwyhdlorkNNQNjSEfeA
+	 qbmTCgmu+9ENXssPs8McsMhkuuYWeKt+q1fTIIozkdEPRi0NN1ihSZ3fb1UUdpwceaQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795745598;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=wU8cZ8sbVXV6PQ367vq32gJ/yQ/1Tf8RXR1g3yzyRXY=;
+	b=q5chXfNqlEtUJusjrK2BtcPw1kCpIniefRQHRF03oseJn6lgCeXM4LFYdjLmU1HW1QJT
+	 wBD9zddOyiOtDhAWQPmzHB/2NyLy0tRXrOrlnSetjgVflob6MyarfwWUQiEAwFYFexZ9c
+	 Gt3ijZY5jtHHb21Qp0iIHIgT/lBB99xx7UgD/hCejO98FlpO1vT+MLcLLMfcm/g2Qzan7
+	 cbzhzm8exWYAqdaDcxeZhvAgeDG9bRl5ou6mePjRuuuqs2ei9kCe5P7DsN57sN9volz/K
+	 SiuzxsfVg9QzQXy1uYiXqlFPpuxBEDOv2tB7ZgrskrxYTDIDfkI9tVZJ3/QTOM31bNg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44DB4606A31C
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 02:06:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44DB4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=N6h2Hr+p
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795745217;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YLKuwFmn5et2WB30Vt1Z089OBLtt75KOTkLy3vZE0Vo=;
-	b=N6h2Hr+puR/q0EHlJRGhJFS0YX3SToNFonxvOO2TANkpja+uueHGExCq7jM12Vf+AEu1D1
-	UMEJdCfl5ZiyRPeaFqc87/c+d+s9OJTVRYL1CtNeuCyEr/PPtEw9eC8SjUfVmCCgI8skmH
-	oKrpHvDG/v4rndsAQD/nZ0Y09Tdte/U=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-45-Ul9Lm5d_PlOcSE2G6NbGqg-1; Fri,
- 27 Nov 2026 02:06:50 +0000
-X-MC-Unique: Ul9Lm5d_PlOcSE2G6NbGqg-1
-X-Mimecast-MFC-AGG-ID: Ul9Lm5d_PlOcSE2G6NbGqg_1795745210
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 107AD18005A4;
-	Fri, 27 Nov 2026 02:06:50 +0000 (UTC)
-Received: from localhost (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5300C195605A;
-	Fri, 27 Nov 2026 02:06:49 +0000 (UTC)
-From: Bruno Meneguele <bmeneg@redhat.com>
-To: bmeneguele@gmail.com
-Cc: Bruno Meneguele <bmeneg@redhat.com>,
-	stable@vger.kernel.org
-Subject: [RFC PATCH 2/8] pkcs7: return the content digest from pkcs7_get_digest()
-Date: Thu, 26 Nov 2026 23:06:30 -0300
-Message-ID: <20261127020636.1296460-3-bmeneg@redhat.com>
-In-Reply-To: <20261127020636.1296460-1-bmeneg@redhat.com>
-References: <20261127020636.1296460-1-bmeneg@redhat.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 4BD151F008A0;
+	Fri, 27 Nov 2026 02:13:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795745598;
+	bh=wU8cZ8sbVXV6PQ367vq32gJ/yQ/1Tf8RXR1g3yzyRXY=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Ij4JUjghsEmelrrFAp7pFHJGjEc03V/mzK02msQTeIO3p4VFnePFZcfy2Qoug+RdO
+	 iHTbvcDHRPlWr0diPQhdPUbGDEkE9TYYbsYUG4QYmxfrRsz2iTzGwrEkpM7LU9p/IR
+	 KAotZP6z/Y2UNn8/ksXhXVRNYqIBc1UieWWBzXcmlDVDXtQKlnG+8uOxLSihPU8IgA
+	 xvCxNYTK5UI49W14Y9TwJEQ/PZYZYrvxoh4MeEESRv+XmNrA6463pmOAoV3Dtuq1ui
+	 vS4nI7WZTQAmcT4twg4bjZITwAD+HTwr0cZKqGHo2eUJ2f1/EFr99NCaSjRt789OO+
+	 +h95qPJQwlE9A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D6B424B4F8;
+	Fri, 27 Nov 2026 02:13:07 +0000 (UTC)
+From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
+Date: Fri, 27 Nov 2026 02:10:12 +0000
+Subject: [PATCH 5.15.y] ipvlan: inherit needed_headroom and needed_tailroom
+ from phy_dev
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,59 +83,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261127-so4-ipvlan-515-v1-1-b8cbc7c7d37a@certik.com>
+X-B4-Tracking: v=1; b=H4sIAIPmCGsC/1WNwQ6CMBBEf4Xs2UVaXUV/xXhoyyo1pCVdJBrCv
+ 9vqyeO8zLxZQDh5FjhXCySevfgYclCbClxvwp3RdzmDbvRBKX1EiXv04zyYgKQIdyey1DYtMRP
+ k0Zj45l9f4QWoVlS/4frj8rQPdlOxlaY1wmiTCa4vSDh0U4wDFr79f4F1/QAd4xrXqQAAAA==
+X-Change-ID: 20261127-so4-ipvlan-515-395b58085ee5
+To: stable@vger.kernel.org
+Cc: Eric Dumazet <edumazet@google.com>, Hangbin Liu <liuhangbin@kylinos.cn>, 
+ netdev@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795745411; l=3601;
+ i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
+ bh=GYY8CNKD4Vhjb/fIaxt5s/tjtVosIUaiFaM2oQ7VzIM=;
+ b=tKTy0AN2eUJGg5vBTnjHo9d7J41zM8UTuKCppWpapAux50zL7AuTf2NqqYmepuRgw43zLAoub
+ xkutM8LIvBlDA7iq0r7J9W8N2ruEfEVnMXgCmpOmTE2v2csNyCxfJrl
+X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
+ pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
+X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
+ auth_id=1647
+X-Original-From: Dickson Wu <dickson.wu@certik.com>
+Reply-To: dickson.wu@certik.com
 
-When generating an appended module signature with authenticated attributes,
-allowed only for ML-DSA with OpenSSL v3.x, pkcs7_digest() stores the file
-content digest in sig->m and then check it against the messageDigest
-attribute, later on it overwrites sig->m with a copy of the whole
-attributes set, setting sig->m_size to its length and returning it to the
-caller.
+From: Eric Dumazet <edumazet@google.com>
 
-As consequence, a caller like IMA always fails on its binary blacklist
-check because it's, possibly, comparing a file digest (blacklisted digest)
-against the authenticated attributes data (computed and stored at sig->m).
-On such case, return the messageDigest attribute instead.
+commit e16e960d55a40d36bd7c2494cc005e757dc9a1ef upstream.
 
-Fixes: f3eccecd782d ("pkcs7: Allow the signing algo to do whatever digestion it wants itself")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bruno Meneguele <bmeneg@redhat.com>
+ipvlan devices inherit hard_header_len from phy_dev during ipvlan_init(),
+but leave needed_headroom and needed_tailroom set to 0.
+
+When the underlying phy_dev (or stacked lower device) requires extra headroom
+or tailroom for headers/trailers (e.g. macsec, ipsec, wireguard, tunnels, or
+veth with rx headroom), upper layers calculating packet headroom and tailroom
+fail to reserve sufficient space.
+
+This can result in reallocation overhead, skb headroom underflows, or KASAN
+slab-use-after-free crashes when dev_hard_header() / ipvlan_hard_header()
+prepends header data or when lower devices append tailroom.
+
+Fix this by:
+1. Inheriting needed_headroom and needed_tailroom from phy_dev in ipvlan_init().
+2. Propagating needed_headroom and needed_tailroom updates to attached ipvlans
+   in ipvlan_device_event() when receiving NETDEV_FEAT_CHANGE events.
+
+Fixes: 2ad7bf363841 ("ipvlan: Initial check-in of the IPVLAN driver.")
+Reported-by: syzbot+1f9fd0f4b601cf88d6e6@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/netdev/6a720a21.40259c87.584f4.04bb.GAE@google.com/T/#u
+Reported-by: Tangxin Xie <xietangxin@h-partners.com>
+Closes: https://lore.kernel.org/netdev/CANn89i+1EW-sFNK8xoq98gMbPCeLS7e=+rs9gHfLg5Wj+4x0sw@mail.gmail.com/T/#mcc6307f115e500df23ea2980d5669fe95f20b6b4
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Link: https://patch.msgid.link/20260806103857.115541-1-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ adapted to 5.15.y: keep this branch's direct GSO limit assignments ]
+Signed-off-by: Dickson Wu <dickson.wu@certik.com>
 ---
- crypto/asymmetric_keys/pkcs7_verify.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+6.1.y and newer already have this fix. 5.15.y sets gso_max_size and
+gso_max_segs directly instead of calling netif_inherit_tso_max(), so
+the two new assignments sit next to those lines; the added lines are
+the same as upstream.
 
-diff --git a/crypto/asymmetric_keys/pkcs7_verify.c b/crypto/asymmetric_keys/pkcs7_verify.c
-index 356570b6d6aa..db3f6d080ccf 100644
---- a/crypto/asymmetric_keys/pkcs7_verify.c
-+++ b/crypto/asymmetric_keys/pkcs7_verify.c
-@@ -155,15 +155,22 @@ int pkcs7_get_digest(struct pkcs7_message *pkcs7, const u8 **buf, u32 *len,
- 	ret = pkcs7_digest(pkcs7, sinfo);
- 	if (ret)
- 		return ret;
--	if (!sinfo->sig->m_free) {
-+
-+	/* 'm' holds the digest or a copy of authattr, if the algorithm signs
-+	 * the data directly.
-+	 */
-+	if (sinfo->authattrs) {
-+		*buf = sinfo->msgdigest;
-+		*len = sinfo->msgdigest_len;
-+	} else if (sinfo->sig->m_free) {
-+		*buf = sinfo->sig->m;
-+		*len = sinfo->sig->m_size;
-+	} else {
- 		pr_notice_once("%s: No digest available\n", __func__);
- 		return -EINVAL; /* TODO: MLDSA doesn't necessarily calculate an
- 				 * intermediate digest. */
- 	}
+Tested on v5.15.226:
+- x86_64 allmodconfig W=1 build of drivers/net/ipvlan/ipvlan_main.o,
+  base vs patched, no new warnings
+- booted the patched kernel under QEMU/KVM. I didn't run a test that
+  stacks ipvlan on a device needing extra headroom.
+
+The backport and the test runs were prepared with AI coding tools
+(OpenAI Codex agents, with review by Claude). I went over the result
+before signing off.
+---
+ drivers/net/ipvlan/ipvlan_main.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/net/ipvlan/ipvlan_main.c b/drivers/net/ipvlan/ipvlan_main.c
+index fe4399af8eea..ca97d1de6a9a 100644
+--- a/drivers/net/ipvlan/ipvlan_main.c
++++ b/drivers/net/ipvlan/ipvlan_main.c
+@@ -144,6 +144,8 @@ static int ipvlan_init(struct net_device *dev)
+ 	dev->gso_max_size = phy_dev->gso_max_size;
+ 	dev->gso_max_segs = phy_dev->gso_max_segs;
+ 	dev->hard_header_len = phy_dev->hard_header_len;
++	dev->needed_headroom = phy_dev->needed_headroom;
++	dev->needed_tailroom = phy_dev->needed_tailroom;
  
--	*buf = sinfo->sig->m;
--	*len = sinfo->sig->m_size;
--
- 	i = match_string(hash_algo_name, HASH_ALGO__LAST,
- 			 sinfo->sig->hash_algo);
- 	if (i >= 0)
--- 
-2.55.0
+ 	netdev_lockdep_set_classes(dev);
+ 
+@@ -768,6 +770,8 @@ static int ipvlan_device_event(struct notifier_block *unused,
+ 		list_for_each_entry(ipvlan, &port->ipvlans, pnode) {
+ 			ipvlan->dev->gso_max_size = dev->gso_max_size;
+ 			ipvlan->dev->gso_max_segs = dev->gso_max_segs;
++			ipvlan->dev->needed_headroom = dev->needed_headroom;
++			ipvlan->dev->needed_tailroom = dev->needed_tailroom;
+ 			netdev_update_features(ipvlan->dev);
+ 		}
+ 		break;
+
+---
+base-commit: 4f2df9a01754521fbba3493e8ad91ef65515e68c
+change-id: 20261127-so4-ipvlan-515-395b58085ee5
+
+Best regards,
+--  
+Dickson Wu <dickson.wu@certik.com>
+
 
