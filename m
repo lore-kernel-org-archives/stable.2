@@ -1,61 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795782792;
-	b=HfdBz04S8q9tfEnQd65xC6LXKs2C7AiYBLVyg7r0TiGhv1sUkiKrVI9/b5M9tY1XIsLD
-	 SN7+jY8fhxew/Y+ks9GwAvfe8wvM4UUSE/utvA5cWMeRZr3v8piGGT7UmalOiWDgLgXLa
-	 wVxacq9IKtYPxxA7Oq9Nf+NJ0RuozSjVCwiPpUypOD1wHvQoTF0NTqPiJis49d7+NKj5x
-	 a47G/mL/aXfafrFn6IsZpMfSfwb2O+b/pCFv9oqJwtjwKaH0vXvxqWzsszbdjpFwsSzC3
-	 mV4SS1FfsYigSYK7Cya13y0iNE2itxlv8/l3eEjmrRRpNv1dWA2VUxrwjf36GCKOIjQ==
+	t=1795782891;
+	b=5Dqd8d3xfYDZS6EZBwG7TnLdV7aHMvcNKHFP448YkwxmpS5bdsSUt0X6uIDLVByECDak
+	 Anh/z8uembvdaH0x0rp3erHzkImARP+O0NxRFmZKFNzk+jerlNGhJDEYfJwqV3bf1PsAn
+	 Ce/yoVx8GCcoYF3M7LeIFCSYLb42cfr6Qn87lMJcNyjeaKCS4sNOIizAmaiTopSos9CFa
+	 T6UPFZOTjYJoKln7HQI6JyER2YIEuEdNXnVfZkCxp1oCobcZ4TTBwJXJGnkjkP+NR2ToG
+	 OtRcuyre5DhnID03OPRJ8kew7EUvTs1QT9IaAwmc659fqBXPhXqeKOy6VvVHqNWJ3Lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795782792;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=kSsUCaLZ9bVQ2uOWL80HT8hcdiTZ+0aFaPaxxN/Xts4=;
-	b=nVSHC5ppUAsM5mPsGFye9l2m08mOSRJa5g8B8X4qbf/OTTyUY8ykaypBKDydMqP9H99C
-	 RbyguqjbTA8WxXZVb7hjvyFMtTzVa7DwwxWNPo8QxFh8O61Y0uZyzl9SifQcAmitmPZgm
-	 izZV2pPZXNtZUnA5giOevxXxCJNlQwON1chG4YKHQHoUOx2DIX3cZL8FPaOBWxCrCkU/V
-	 rYQWMumAH2Xo2FevRmgFRWNozs6ntyShu/tlkUMXmQ0sLMJcCN60FkIYsx9oGBxmhhcIg
-	 8/GL3ej54U8xFibK38ugn2znZb2bDBCW4eExYctr4rJhQUhs3CLsFfOLqO9aJPvrTyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795782891;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=ReptZUc4V2l1GFcHM1MI8g5CyAssfcev0pq0Ob8If/Y=;
+	b=kh9ZuvHXqp6k5xQ9Nm4Dm1HjqNBHoJcTB72aIgfFHiS71ysMRusGl3nB9frjqdeou5ET
+	 wdnlsQi4wkR75qAJbiVx0ltOofVDFGDJwLLuLCWNFug/Lso/2rmWD/efy1g4uC57H645e
+	 27co2RK1U3MFtQrJ2dgjU1FXzq2+pM0/41M6NapM9odLBs6QkjbiptSM3sRy/oCpoRIA8
+	 rIOG6Sr27CX+shagJaQ71l4JCjGUS/2inIHX1ubqa8pR+149VWRnrBYtzfjrGbHjT/ASf
+	 fAnLjRvTp/rrzpY3xr2xwypWHYGY5Y/wgJ9d5xSWFwzef6LWCR7bfo5LHMG+An9s/zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VlN+Etd1;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=let742wp;
+	arc=none smtp.remote-ip=209.85.210.177
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 423E7606A31C;
-	Fri, 27 Nov 2026 12:33:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 423E7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D501E606A338
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 12:34:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D501E606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VlN+Etd1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795782790;
-	bh=q166kriLKS6CORHZZDg+sMZmVP8DXDf5ky8McMb5LKQ=;
-	h=From:Date:Subject:To:Cc:From;
-	b=VlN+Etd18ovPPNvMaasrohQwwDwPeivz72CkqUPpOWMhp48lzZ3AIPVuYpkawS4ZV
-	 FDkEjJG33Pd4R9fS5hdeANsj/rOA/UDAjR5ypxlUtfcNUT8oRYOWZTo4MagLXr/m5H
-	 CB5G6P557pHATgQ7RpBNQte/kW+4vojTlxiuBHeLrqAbDbSqdH+VuV1q3rJVvigW+n
-	 pBa9GKJgtqXeATywjieCeLJAjsEt15+vvUw+Tumftgiz/oeJRcQyVnnlhIHgCmUXhJ
-	 1REwvNX/gdHgrv0DqX+8hU+yAxBKIGLyuOTueSyiWwlzIHjmcEY1sEYfH4bbozLZ2J
-	 rJd3ednioZGzw==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 6253717E0311;
-	Fri, 27 Nov 2026 13:33:10 +0100 (CET)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id 26C7F48002C; Fri, 27 Nov 2026 13:33:10 +0100 (CET)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 27 Nov 2026 13:33:05 +0100
-Subject: [PATCH] i2c: rk3x: Do not sleep in atomic polling transfers
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=let742wp
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-89d6bd67045so3697061b3a.0
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 04:34:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795782889; x=1796387689; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ReptZUc4V2l1GFcHM1MI8g5CyAssfcev0pq0Ob8If/Y=;
+        b=let742wpcDgfOnXcOMM6MOkFvcK4OUFW9yT6bndSU8zBSrh9m7EhLYaiwV39Lo5cLW
+         s0cw/VzzmIMaLlDx40tuBl+yyLn3kksCD+3R/i84dQB6zGPrJZGJvmaqDbTquNx6iASa
+         g+8We2W/+CLce6bmDrD6Egn+6wQm06HlxD918jHwzmzOBDhH5b2rPvJu39YEMFy3DcE5
+         lB4828IVsz48grxLR+D15tK6FFVnITUmA2TGbcxx0/DOVwp9dSdcLmWtkNuGP+jsxwVz
+         kSVry0FvW9uiSl+VJmjiF39Er2oZHhS+yJced9qCyyovZNL6ZPHfGLCfm1oIO5sm3HEj
+         KBhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795782889; x=1796387689;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ReptZUc4V2l1GFcHM1MI8g5CyAssfcev0pq0Ob8If/Y=;
+        b=UrtxfnC3mLUUIsmWH8Ex0z3F2tr+2pZ8zX5+ikaP4SNX6YQWD99axDX00OWhAdkcL7
+         zIJZNoQse9dRI5lBQYFJ/MIkD7YA76cSMsVrCKWI2d4Kq1pHcp51DSCk8yqaTPW8b8Am
+         PXpcU23FhvoifYqOBCv0XSWwu0HjwAaZgUhVu/KTKISXkaMk4tOjxhhvfwq0WL4pp1S+
+         1PWv1l1eQG+E7AAzB2/WKhthbIUrpF7QJKOSjkmS8Koik/zKuskOVY2Fl7d+bYxn7vP5
+         6Z20GwxdBThdaiHOMlZumYrieKJ6CaMSDQuEGaEJ7AjyRwV/bduE9wLl9WxBw+X0Przq
+         EiJA==
+X-Forwarded-Encrypted: i=1; AL+hErFkTOxVfiWTWkSDI8Da4meceeLpDL9oYGoQ3BF7AMrJPw+X1nSZJYT9nDF+aAZwUq038NRPS5U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9tCF1vo6cbpHIlu6zLpFRvG5U1J9rfqhclPz/DOLnK58ZhGbFE
+	Om61q6uYwjmblQ4QHTPX7q7QXd/Kv7NUJ+LrdPeCzasXSSd5Nr0pnG48
+X-Gm-Gg: AZFdTZefxOxVLhsxiT6rfXZ7DHbcfKRE4shPxtzOPT4KTgYrUWLTg7LrMRXukHpcHIj
+	GdrYLj2pSBVsc1V85VwC9QMt3B3qCuTBfi1Tk6S6l6StIjbahfDA37BuzXmp5O9fxIH2446ezau
+	9x4gLrGpmzcxtB3ZJjjvuu2T7biAaIyxsVLXsveo0wF7eY/0fasqVL2OQcS2mBHGay3snuxznRU
+	RzQlPWUbP6o6AaXB2Mt0C5Pd2SmSVJKzZOSdRPJOKOn+RYUdd5/muGPOkyC1KsTLK6GDDOhiRx2
+	sm1iUbetdkCNRgl0v9DSzbAjHpwigwu3i1+TZMoOtNyCbqgnTPZ+7bcHUONefG+9V9cX2KIgetx
+	ylY7HZ/oHM6HiQqH8jkvPNVaJNOYPKdOy54oQps4kRZ/2JGMviXVmfJZH6jXjJuXAmyvTOZXVhd
+	Tf4JGR3IgxkElYYkwmOXmZx7RpC8Q5Upt0aZfaJ+z8/POMQ1smaqoHR0j+rJDBwrzMZI1/NoFDH
+	CLPPGOBXMrbJ6sfnXg43IO8cwtUYg0nXqaB3psjSQHzjpjcSW9vbKCkmb/2dX4OtnBn1ImOBYnx
+	rOReoQnZmWXz7RBJWBW2dH3sgVYKXII79upOSc0YhPptkHf+Uts8kmccWnWH0YTP
+X-Received: by 2002:a05:6a00:4a89:b0:8bd:5539:5984 with SMTP id d2e1a72fcca58-8c7dd9d6834mr12527922b3a.25.1795782889218;
+        Fri, 27 Nov 2026 04:34:49 -0800 (PST)
+Received: from [192.168.1.102] (59-127-145-64.hinet-ip.hinet.net. [59.127.145.64])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c872951febsm12282669b3a.14.2026.11.27.04.34.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2026 04:34:48 -0800 (PST)
+From: Zhi-Jun You <hujy652@gmail.com>
+Date: Fri, 27 Nov 2026 20:34:35 +0800
+Subject: [PATCH net v2] net: ethernet: mtk_wed: fix double free in
+ mtk_wed_rx_reset
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,92 +94,100 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-rk3x-atomic-transfer-fix-v1-1-076c94c07241@collabora.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QrCMAyF4VcZuTZgU9nEVxEvui7dothJUmUw9
- u5Wd/kdOP8KxipscGlWUP6IyZwr3KGBOIU8MspQDXSk1jnqUB9+wVDmp0QsGrIlVkyyIPlEw8l
- Hf+5bqPeXcp3/6ettt737O8fy68G2fQGOKBRCfAAAAA==
-X-Change-ID: 20261127-rk3x-atomic-transfer-fix-23f2d43c38b6
-To: Heiko Stuebner <heiko@sntech.de>, Andi Shyti <andi.shyti@kernel.org>, 
- Wolfram Sang <wsa@kernel.org>, Jensen Huang <jensenhuang@friendlyarm.com>
-Cc: linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-i2c@vger.kernel.org, 
- kernel@collabora.com, stable@vger.kernel.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
+Message-Id: <20261127-doublefree-v2-1-c0c6d3da3b52@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5XOTQ6CMBAF4KuQWVvTKT9GV97DsChlCjVATVuIh
+ nB3aXXh1uWbzPtmVvDkDHm4ZCs4Wow3dtqDOGSgejl1xEy7ZxBcVIhYstbOzUDaETFV5LIirjg
+ WZ9gLD0faPBN2g4kC1J+hn5s7qRCZuKadHVnoHckfmRdfmSV6QYaMtCxFLqoTF/rajdIMR2XHS
+ PTGB+te6esF072/mXrbtjesSyyO/wAAAA==
+X-Change-ID: 20261115-doublefree-c43a6e0c0149
+To: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Sujuan Chen <sujuan.chen@mediatek.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org, 
+ Zhi-Jun You <hujy652@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2248;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=q166kriLKS6CORHZZDg+sMZmVP8DXDf5ky8McMb5LKQ=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGsJeIa/V5Hl9WBHf0N1YEN/JDo1tFPLHv9zp
- XnKYs9HmM+ZR4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJrCXiGAAoJENju1/PI
- O/qa508QAIofKch0DG1tyORZxxxBZgFty5nwWRPb/mn+cTNBPxLktrC2smPHbRsJT3qw1S54mCW
- h9fGboJlZzeKYRXWrmjZJusbjSJjr/zz5kZL27+RXZr3udjNKIQuR6G7IOsQTlVMhT71rJ0QwjN
- VZnDaGFwKEV/Tx9laN6ufZVYFqDs9AeH2G8qy/TGdNMxefEO9Qce9RGnkspWNJded5Lbx0TiUm2
- 792ALubNoFwwXNmklPGEH46gHB+/zyZRWMyYAPqx/Deev9Z8/O2bGOYfkYoxlUuvQ7GbMiPseQj
- 4uLBSFcZmJgJ+FK47h7UGfLDj8YiObJXs7jaqwPcmWEnsPz+M1ETALPbDKz6k3YirUyXC8gCVnx
- LzZ8cv+oStPjlxA2QAi5gDscjaQzQygAIrdiRfC4EoemdnOjLOR7RV3pms93mnihaKy19XtUsZ9
- WfSuuPwTH0/hR2m+ZA5bmZ33l1BRkqp4Gr9N+mGm1JPUjCChyNQfzQzIRZQ4pe04vH7IfOz2zFI
- 5ZKN2qcKI8dHjCEEePG7z/5QSZ6JhqNyfrQMbjoIQT4bFgDugYcKrhgOJ9ioANBo0QzFLQWKXMc
- A/efFtUsRj+QaTqgURIEbN4wyUkB1SRH8I3+4DK6q5UsOxm2RYue/ILlDUsxz2XZ6FENS0TUyBr
- p0IGtJ9CYfbv7Kqq+5UgsSw==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795782889; l=2322;
+ i=hujy652@gmail.com; s=20261123; h=from:subject:message-id;
+ bh=RN2yLGJnyx5H7no7hudUjpQ4FMkUtmVh8Gq3EY48fGk=;
+ b=9t/lmpz6QbAGKctOeVKWPpQPH1bvAJ5wQ4FMZxDbEoDdPv7wfjAmeh/TzUHRRG4+C+FIxuuW/
+ AXqZ1kH9OjwDPoXIVJy8IAzDz/DB3X1yxqZZj1aEH1raasz9PmVXmWm
+X-Developer-Key: i=hujy652@gmail.com; a=ed25519;
+ pk=MXiVj6rTyQLjK+RN0A0WiriSkqHj/WJPKnbDVaSWdgU=
 
-On the RK3576 Sige5 during shutdown the following trace appears on
-kernels with multi-core support and lockdep enabled:
+mtk_wed_free_rx_buffer already calls mtk_wed_hwrro_free_buffer but
+mtk_wed_rx_reset calls both subsequently. This would cause double free
+because dma_free_coherent doesn't set freed desc to NULL.
 
-[  167.961946] WARNING: kernel/irq_work.c:296 at irq_work_sync
-...
-[  167.963902] Hardware name: ArmSoM Sige5 (DT)
-...
-[  167.972228] Call trace:
-[  167.972445]  irq_work_sync+0xe8/0xf8 (P)
-[  167.972796]  disable_irq+0x44/0x60
-[  167.973101]  rk3x_i2c_xfer_common.isra.0+0x254/0x708
-[  167.973544]  rk3x_i2c_xfer_polling+0x20/0xa0
-[  167.973925]  __i2c_transfer+0x180/0x9d8
-[  167.974269]  i2c_transfer+0xc4/0x180
-[  167.974589]  regmap_i2c_read+0x64/0xc0
-[  167.974924]  _regmap_raw_read+0x120/0x468
-[  167.975283]  _regmap_bus_read+0x4c/0xa8
-[  167.975626]  _regmap_read+0x6c/0x260
-[  167.975945]  _regmap_update_bits+0x104/0x160
-[  167.976325]  regmap_update_bits_base+0x5c/0x90
-[  167.976720]  rk808_power_off+0x70/0x110
-...
+Fix this by setting dev->rx_buf_ring.desc, dev->hw_rro.page and
+dev->hw_rro.desc to NULL after freeing so the NULL check can work.
 
-Avoid waiting for a handler from another CPU to finish to fix the
-problem. At shutdown time this won't happen as the other CPUs are
-already stopped. Apart from that disable_irq_nosync() still prevents new
-invocations of the handler, which is what avoids the spinlock recursion.
-A handler already running on another CPU is serialized against the poll
-loop via i2c->lock.
+Also remove the duplicated mtk_wed_hwrro_free_buffer call.
 
+hwrro path is compile tested only because I don't own v3 hardware.
+
+Fixes: 1543b8ff02f0 ("net: ethernet: mtk_wed: add wed 3.0 reset support")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/map/216156
 Cc: stable@vger.kernel.org
-Fixes: 19cde9c92b8d ("i2c: rk3x: fix potential spinlock recursion on poll")
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Signed-off-by: Zhi-Jun You <hujy652@gmail.com>
 ---
- drivers/i2c/busses/i2c-rk3x.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v2:
+- set dev->rx_buf_ring.desc, dev->hw_rro.page and dev->hw_rro.desc
+  to NULL after freeing
+- update commit message
+- link to v1: https://patch.msgid.link/20261104-double-free-v1-1-efa52326702f@gmail.com
+---
+Hi Lorenzo, sorry I decided to update this patch instead of adding
+another patch.
+Hope this is okay.
+---
+ drivers/net/ethernet/mediatek/mtk_wed.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/i2c/busses/i2c-rk3x.c b/drivers/i2c/busses/i2c-rk3x.c
-index 9ec3beced9f9..a07c60ab07b4 100644
---- a/drivers/i2c/busses/i2c-rk3x.c
-+++ b/drivers/i2c/busses/i2c-rk3x.c
-@@ -1096,7 +1096,7 @@ static int rk3x_i2c_xfer_common(struct i2c_adapter *adap,
- 			time_left = wait_event_timeout(i2c->wait, !i2c->busy,
- 						       msecs_to_jiffies(WAIT_TIMEOUT));
- 		} else {
--			disable_irq(i2c->irq);
-+			disable_irq_nosync(i2c->irq);
- 			rk3x_i2c_start(i2c);
+diff --git a/drivers/net/ethernet/mediatek/mtk_wed.c b/drivers/net/ethernet/mediatek/mtk_wed.c
+index 0bae25247798..0f215dd3d2d4 100644
+--- a/drivers/net/ethernet/mediatek/mtk_wed.c
++++ b/drivers/net/ethernet/mediatek/mtk_wed.c
+@@ -880,9 +880,11 @@ mtk_wed_hwrro_free_buffer(struct mtk_wed_device *dev)
  
- 			time_left = rk3x_i2c_wait_xfer_poll(i2c);
+ 	dma_free_coherent(dev->hw->dev, dev->hw_rro.size * sizeof(*desc),
+ 			  desc, dev->hw_rro.desc_phys);
++	dev->hw_rro.desc = NULL;
+ 
+ free_pagelist:
+ 	kfree(page_list);
++	dev->hw_rro.pages = NULL;
+ }
+ 
+ static void
+@@ -896,6 +898,7 @@ mtk_wed_free_rx_buffer(struct mtk_wed_device *dev)
+ 	dev->wlan.release_rx_buf(dev);
+ 	dma_free_coherent(dev->hw->dev, dev->rx_buf_ring.size * sizeof(*desc),
+ 			  desc, dev->rx_buf_ring.desc_phys);
++	dev->rx_buf_ring.desc = NULL;
+ 
+ 	mtk_wed_hwrro_free_buffer(dev);
+ }
+@@ -1722,7 +1725,6 @@ mtk_wed_rx_reset(struct mtk_wed_device *dev)
+ 				   false);
+ 	}
+ 	mtk_wed_free_rx_buffer(dev);
+-	mtk_wed_hwrro_free_buffer(dev);
+ 
+ 	return 0;
+ }
 
 ---
-base-commit: eeb63983deb23d68ddc47e5d1944a7d64acdaf22
-change-id: 20261127-rk3x-atomic-transfer-fix-23f2d43c38b6
+base-commit: 28a371228d4eb4857cc31eeb1a0d7d01e9c3ea2f
+change-id: 20261115-doublefree-c43a6e0c0149
 
 Best regards,
 --  
-Sebastian Reichel <sebastian.reichel@collabora.com>
+Zhi-Jun You <hujy652@gmail.com>
 
