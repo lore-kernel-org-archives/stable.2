@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795767371;
-	b=zf8bBjp3Pu7uqNiZEhrf37bPMqzBdZ7l/t1oQq91353wm/ps+l0/fLyuu9ST8t7sfEWo
-	 gg8W+fLGNLi9qBgjvEhw/OBUWhM7QzqoPnSw1GcBJ/S0Cm/xPhmFXkNi+wQEjOwqrVG7O
-	 0Crk4rUUYPD57rf1OVxNZ6A2FH5MTKyUwpyjC4gHk0doamzA7TLFxdRMsuO0/Pqqz/eWB
-	 jZkffXNsL+/A9tI8EmDFsxUD0Oo2ppnxTwni6QMr0mPV7w+oiFPiTrwKqqvnKzWP/VsuK
-	 JRfAOKLZ9qz7X+DokbGGgq8H6LbPkRmymgFMBMVnPxfkBMgQjXUhMapfruTtWFLascg==
+	t=1795767388;
+	b=YNJ8fm0O4eABphLbN3XHVLnrdB4S5gfFaxZ68fcGOMqVZs3MVmYE9dcp9RFLk2Zv7h+b
+	 EXja7kKihyLqeAXlUqUiEXkeqWCmGYuDwWjT48v7X6x0/M5en3jzvt1ePTdK1V6z0FKkP
+	 LlL4gV4GaNJXo1nvag3z/rpxAVLRThoGkN3xnfxvdbLqrORnUJL9JKZpSLxx9iXKI2uZ6
+	 hgHsqMJ/uf5P7HeJFx31BEb62xIKo09gun+cpfWWDECrawyDq0Au9ZLfVHrIjUCL4Ve8a
+	 ZqbEoeDIM1BpAK/aC6tLVNj6xq5Qs/QPuEdDBIEO/ca5QsvkqbLK5/TgTcsyv0EifeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795767371;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795767388;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=aEaw6zXYAnbzSN5FvjsyXr4Fz++GceZvdQNsG6RfKog=;
-	b=B4aGV8uDDC67XLNTISojT50KmDiqqJxpZ0TxwOeOyV5oyuevB6zQtFb1bd1FnTtnoChe
-	 YhYdx+xvoqmGNj8M7XqzF+K4WSNZWhoyEP5O13kM+ZY9HT/l/ola38q8LK/1e9g5hgGLM
-	 P2PkHeT4+lF1UT7z5YxmpxddJjSPSzEr/aCa7K+QtJ5/eq0cKapzJ8INjw9PiT5AaY8r7
-	 LM1xNazBiOZfwGd15wP+ziBYdypMzKGLkwXKvbi1cs67O7A9cgMOcop3H0h4FPFsLBl84
-	 ftCW05scbbc9XQch6gx6WK1JG57uXnARGUGVADnosE/77BLR1TBYUsnA/vLVK7Yw6+g==
+	bh=U3kEF0HwRaHzA0wfE1McDGZbTTwDPKseW0SYRoDT/vI=;
+	b=bfes5CvMFycL4tHmqV9aeY8Gv+kXHa0opbvZ/qegStncGrSafraOtxUbK9TY+grKy9db
+	 RWlsdkCSXsFOse0GV3EwZASHvcB5NTDRPJ2z6bB2C0Cd4b/yOF6M4k/VHrvZty+sT5wTN
+	 LQmKj+XfsTPtTqejW6iD342y10Yd9fk3g6eQacQY4M1Lj35MidVTYe8k3bkeTvX87lrxB
+	 KCfVfA7FTXThHua48edkXewrI+LU9su/U9+77RDg/8Lexvmdz1eEQWlHvb88SmctsvLoD
+	 2fLqcxt+I/6p8eGrvOYLyhroMJ4JYWomiFatv8zpox0cDWjtdkZS54fLM/kc57o1hQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KCk6CGko;
-	arc=none smtp.remote-ip=91.218.175.199
-Received: from mta0.migadu.com (out-199.mta0.migadu.com [91.218.175.199])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=G2F3pm4z;
+	arc=none smtp.remote-ip=95.215.58.161
+Received: from mta1.migadu.com (out-161.mta1.migadu.com [95.215.58.161])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76915606A323
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 08:16:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76915606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA5C606A31C
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 08:16:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AA5C606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KCk6CGko
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=G2F3pm4z
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=u4DU1GOy75OmGkFTohhNH7HUoBsqLv1pDAQQCubbGDE=;
+DKIM-Signature: a=rsa-sha256; bh=hx0atzyzVkdZcDn41H5uI/1WEnpp5t6ZUupr9IoEQ7s=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795767368; v=1; x=1796372168;
- b=KCk6CGkolYnMQ3VVCL3qG3JQAoDUmIJ4yNhiV0PP3C/6f0ZeoB6PGb1CGcTrMt9MIpOqDIX9
- AmoYU5Hp5VXzavyDhDb7ZEYSfjxoIkT1sMCa9do96O4YsASGTNn8ki3x/OiK6YBU551f0/IAPpS
- 8kiFkXpfa7Hz6zcKF20uf6No=
+ t=1795767385; v=1; x=1796372185;
+ b=G2F3pm4z26ZUpfZDCYcQVOVNGvQzQMkHUNn4c0vxl+EleY7PtmTzDyIHcHwU5DKQWSp4ZQh7
+ noh4txAXEm/st/Ergb4IzKZAUMcNm92CU1vYSR9aLzIL1DUtQr4/RlQyxvZ9wzdoGb04F1eLg4q
+ iNCRgRp6ci1Gmd1O19BAnbvM=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ddd24e0855af21a5;
-	Fri, 27 Nov 2026 08:16:08 +0000
-X-Mizu-Trace-ID: ddd24e0855af21a5
+Received: by smtp.migadu.com with ESMTPS id 40b379b951d1b627;
+	Fri, 27 Nov 2026 08:16:25 +0000
+X-Mizu-Trace-ID: 40b379b951d1b627
 X-Migadu-Flow: FLOW_OUT
 From: Lance Yang <lance.yang@linux.dev>
 To: stable@vger.kernel.org
@@ -55,12 +55,12 @@ Cc: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com,
 	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Zi Yan <ziy@nvidia.com>,
 	Baolin Wang <baolin.wang@linux.alibaba.com>
-Subject: [PATCH 6.1.y v2] khugepaged: fix readahead lock inversion in collapse_file()
-Date: Fri, 27 Nov 2026 16:15:56 +0800
-Message-ID: <20261127081556.31348-1-lance.yang@linux.dev>
+Subject: [PATCH 5.15.y v2] khugepaged: fix readahead lock inversion in collapse_file()
+Date: Fri, 27 Nov 2026 16:16:18 +0800
+Message-ID: <20261127081618.31491-1-lance.yang@linux.dev>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261109201858-failed-6.1-eadce52a9ef6@kernel.org>
-References: <20261109201858-failed-6.1-eadce52a9ef6@kernel.org>
+In-Reply-To: <20261109202404-failed-5.15-eadce52a9ef6@kernel.org>
+References: <20261109202404-failed-5.15-eadce52a9ef6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,22 +104,22 @@ Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
 (cherry picked from commit eadce52a9ef657d561b3e76c9b5f178bd99735f5)
 ---
-Backport to 6.1:
+Backport to 5.15:
 - Use find_lock_page(), unlock_page() and put_page() for the existing
   page-based collapse code.
 
 v1 -> v2:
 - Refresh context after the shmem_mapping() update.
-- https://lore.kernel.org/all/20261111132506.88827-1-lance.yang@linux.dev/
+- https://lore.kernel.org/all/20261111132424.88744-1-lance.yang@linux.dev/
 
  mm/khugepaged.c | 43 ++++++++++++++++++++++++++++++++-----------
  1 file changed, 32 insertions(+), 11 deletions(-)
 
 diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index c9ee735a2b1d..35f2a66c6eb2 100644
+index bd909aa4b8fe..33a67a88a105 100644
 --- a/mm/khugepaged.c
 +++ b/mm/khugepaged.c
-@@ -1780,6 +1780,8 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+@@ -1701,6 +1701,8 @@ static void collapse_file(struct mm_struct *mm,
  	LIST_HEAD(pagelist);
  	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
  	int nr_none = 0, result = SCAN_SUCCEED;
@@ -128,18 +128,18 @@ index c9ee735a2b1d..35f2a66c6eb2 100644
  	int nr;
  
  	VM_BUG_ON(!IS_ENABLED(CONFIG_READ_ONLY_THP_FOR_FS) && !is_shmem);
-@@ -1791,6 +1793,10 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
- 
- 	mapping_set_update(&xas, mapping);
+@@ -1721,6 +1723,10 @@ static void collapse_file(struct mm_struct *mm,
+ 	}
+ 	count_memcg_page_event(new_page, THP_COLLAPSE_ALLOC);
  
 +retry:
 +	result = SCAN_SUCCEED;
 +	do_readahead = false;
 +	xas_set_order(&xas, start, HPAGE_PMD_ORDER);
- 	/*
- 	 * Ensure we have slots for all the pages in the range.  This is
- 	 * almost certainly a no-op because most of the pages must be present
-@@ -1875,17 +1881,9 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+ 	/* This will be less messy when we use multi-index entries */
+ 	do {
+ 		xas_lock_irq(&xas);
+@@ -1791,17 +1797,9 @@ static void collapse_file(struct mm_struct *mm,
  			}
  		} else {	/* !is_shmem */
  			if (!page || xa_is_value(page)) {
@@ -160,10 +160,10 @@ index c9ee735a2b1d..35f2a66c6eb2 100644
  			} else if (PageDirty(page)) {
  				/*
  				 * khugepaged only works on read-only fd,
-@@ -2151,6 +2149,29 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+@@ -2034,6 +2032,29 @@ static void collapse_file(struct mm_struct *mm,
+ 	}
  
- 	if (hpage)
- 		unlock_page(hpage);
+ 	unlock_page(new_page);
 +
 +	/* Readahead may take invalidate_lock; source pages are unlocked. */
 +	if (do_readahead) {
@@ -189,7 +189,7 @@ index c9ee735a2b1d..35f2a66c6eb2 100644
 +	}
  out:
  	VM_BUG_ON(!list_empty(&pagelist));
- 	if (hpage) {
+ 	if (!IS_ERR_OR_NULL(*hpage))
 -- 
 2.49.0
 
