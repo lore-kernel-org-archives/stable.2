@@ -1,102 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.132
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795762519;
-	b=j8D+95Id/e5SbJIdWBoYHeyhI6tMtnEppD/vc7MiuoGyVK8HaCMUIKBUWOZPOSXv3ZHy
-	 4kIcHZ5tUQqvRP+grg02vxrroPptn/LHsB00GAO2/kKaEDC+Z0KlwXEShQ7Zs0wFx70oT
-	 tSNkng1G2HKYcWqAAas3mD8myM0C9MjUWhSE2QqgMWy+GkWji9n6CabNLvTLO3hrCNmby
-	 lniglzHcgEJ6BWp6+91YmG3P94F8LBOAZmnBZJj7II+WEPOB9rR45v18CCNJSZP0a8uZn
-	 9T5b0+sPJD8MoIJOof73HumMs+tEq1F+VFCQXXnk3/KCrMZLnuJ2AG9ayfBGaA59/MA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795762519;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.172
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795762625;
+	b=qaU7s6w8ahZn/psFdUoZaW2rq/L3EZqeR1UweKidXeDaBeyeA8fSa3WYTUqhTB3kBtCT
+	 7jZsdlpVqGtRagdKSHJCg/ZIedNYhpPZfi+JH15htE3KdTk0ER9M3QdcGsZR7FxCEre9m
+	 M2vGVhRjWP+mexcQX8/ucoI+EmawbS047E0UAZx1XNDUG1J8lL0DtSxAiZFDRzyd+sh1d
+	 5M0a5GrlLXmAxVQuR7X9XOsmW5hRljrRB1hdFhtVwWAsCQIuu40uJHzqe2W2NgI2S1kq5
+	 Cmf2f8dnBJPqGPcufNjl5WWmxIs/fNO/LyxzG3H+Uk0NYkAvVrHKcIzDFCeyv+o97bQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795762625;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=erNRx/pa4ybfvht61Cy5QMsfcLY/xQhwXhQlf25RgsI=;
-	b=sJtOYF4oRN78t/lh13mdNLE3PYgQUkJOLxDe9CQxi4/7zXlebE68xVCBbMsKIwrwGQnl
-	 dUP5wQU7n+icgMYV5/zx2nvou4KmbsKjzsoj0P9xBRURqE0yiLmWGbqOfTGd8BHEtZrZ9
-	 SXRMqRbBUd4+maTS6XH29gIo01hh9TZLNCKiHF8sYyOZJxWzWDZ1fX10DeNKmb8eSi/xv
-	 HmY6B5bmdOaY1qeETAsPbIP4mfDAq9tzzgT7sPB6XmnK78Rid3bi6RGKpaH7mP+1nwTRS
-	 hiR7wF/uBzB/nGYElcaQiLLSSbYoB/M+cSBN65dnXLFnynxNsjE+rT4vt+3Yi9mq/8w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xw6a4Wdb;
-	arc=none smtp.remote-ip=74.125.227.132
-Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:MIME-Version:
+	 In-Reply-To:References:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type;
+	bh=xtP74/91kssCH0Qff0HXkuEOoBFjw5vBR+dpj+fyRmg=;
+	b=TCUSbAP/zljAtPIEZtAirK/E30+gA+oWI9sThU0XEvxLIQHMenrL2jN3tZV+PqIW4+Z2
+	 lfDd2XS2XCrPKXcmbsmWlXqE1JTGbHtMP6zZ1VzdL2vcg0z6R7h8KkgZpmbsQxjyounz0
+	 CtNAOznTfvTZmHPIgy+u4xUZjZp8S3c/hLnwDo4JZoNdnC2+Q2Y4GKjUo/nqtKFsGHLjj
+	 VoaAXcGLc8YneFrplX1RfAq59xN2YRrY6uRrdurdE3ejisZpk5C/Xm+ru2AhWdPqX6pB3
+	 8RvAdCG/gnAcGt8LAOezLeFQCnKkS08qNW1cs4NQytvDOXcMGCB2dYC1BKCNuG19HMg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=certik.com;
+	spf=pass smtp.mailfrom=certik.com;
+	dkim=pass header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=As7hWfBp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.172
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B5F8606A31C
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 06:55:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B5F8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B137606A334
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 06:57:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B137606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=certik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=certik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xw6a4Wdb
-Received: by mail-pj2-f4.google.com with SMTP id d9443c01a7336-2f0440f49f4so52811955ad.0
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 22:55:19 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=As7hWfBp
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b4f4095a7aso67350377b3.0
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 22:57:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795762624; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Mko82QHaCym7Ttk4+cgsS5lFBO6ya8g3oGz19YJHfxuxlPgNIkWIVhyYVqqpXRmWZ/
+         025xhhSwjOmrc+ezuyLpxdXxzlgBz0XUlVhZcsIddvfrjr6Efb652l3CLz49x1qjeXJ5
+         GMr7lC6H68cJ2FYhDGRbyAxzpSw1d/GQtFsi6RfxLAvVYoqmx4juAACNE2kv4RorgzpC
+         4xWC6R4yXgjbSZWnyhMZOkGIzsPTy6g7rDsYrQGzJWBLE7cjLsWsZDrEAskdJ4yRmB+k
+         AeIKPS9dmgXY4aAWwcvABNajdp/yAZq4m5CmPduVHaXFlyP6mIeM3hAU9gHWPD75FC1R
+         zjYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:references:in-reply-to
+         :mime-version:dkim-signature;
+        bh=xtP74/91kssCH0Qff0HXkuEOoBFjw5vBR+dpj+fyRmg=;
+        fh=jQFHF6sZb7lePkUMHOV2HGjT1sGUBL5aHicLHIgGdX0=;
+        b=OwccUqrFMVXkI7llWdPWECKDaoyY0+OHGHukmUfTfKM2aKAJHxLOKJ9LOXvqPgCUF0
+         3gscooOuG6uyDI15F9M1pYgP/85ZbJ6XcB9fPzf+EAukLj9dTJ+rPNh3u0uoy3wJ1EFv
+         OkV+xz3O9HVSdbJgH7RNdwjcXa7pCrKBji/HMZzH68biyM52Q9dEFaHBik4+HLBGEEEh
+         emwhGkXP6AQ9QAiUpyAVz+cRc0NAsHvpmlqBWAxMxUA0mYXpZpvjP5hG0+W0+H42IB66
+         t1F1t1fZxN2JanTuz5sEN85ZUtLtMnxoIPqibjdFxsXumwFSk9osJgH9eEvymU2KTCtK
+         mFBA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795762519; x=1796367319; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=erNRx/pa4ybfvht61Cy5QMsfcLY/xQhwXhQlf25RgsI=;
-        b=Xw6a4WdbBuEohq4yjyZKoO3Y1qKNC6rBR2ZO+XR5X6FRoZhnMgDRDKVx1a+BQp4RHj
-         Yy9SJixfy91qcMTmAQVIZTKHvG5A72rknRFllvO5+Zdi3rHQmLcbQciJE9CzpU1AJ0hO
-         dyun41/ut8Njp4vByLSGE6fE+8sNxKbOnJgwcffLCkUqIdbc5ENGp2sFWI0L1KUjO+w3
-         QBbNqQuHP1GTIL90KSnMaJ4PEkWcbWusKPqxvuCxI0taO/uWECcDfIq20lJ5guSi/muP
-         iwwaJiQDPH5AolyhtfATtNPfkFASCQ2ROi9XRq1vgAlKkJLL8tkCMmAIM7JG2nFuvVUT
-         fjFA==
+        d=certik.com; s=google; t=1795762624; x=1796367424; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xtP74/91kssCH0Qff0HXkuEOoBFjw5vBR+dpj+fyRmg=;
+        b=As7hWfBpQsZfqp5tFNochpVJmdJJmcOkohP82M+4BMWJabf3g+XOrmmWzGb+eoEjqg
+         ptNLgbdzNRH+uZ3n/6ClH2WanP4zRz0eeG0Oft7pYWw+6tn0j3Lj1CDKQqey/43OeCOE
+         tWXWypStJSUpajRjFoUwUgZ1DnkAjBmLZPfpA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795762519; x=1796367319;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=erNRx/pa4ybfvht61Cy5QMsfcLY/xQhwXhQlf25RgsI=;
-        b=Xu8DuDIvzEJ/5geN1CRkdha6QohvlC/zUM6tfRVJBLx3ZSz3t/BWdPh8HxeFV3MdcB
-         okXXZ7Nix/PLWTWrGl9VCQzngheajU8ne7eEJQdXI1o0Qz2GJQ0tem4ZUSJ+DozRI8LT
-         HV+U9afEpVaJWg4NMZTUR/Hot00w0FEHkl9QSHSmxUm34z4xfpWQFfAUr0aVuptMe+U3
-         W1a0Wz0noIOw4SJ0kNatDnJxe/+95YJps4p4/QUvuwHdi0SKNc07RE7SvHW5+zOoWGfe
-         F9wVfQD/u0U4ic/HqGtn901fulo5K09gR3ct2rqJe3pXg5cBrvulIbNn7Vn5VZm9hGpQ
-         Qv+A==
-X-Forwarded-Encrypted: i=1; AL+hErFaUdsw5ItmAcbsNp1rKIYaQT7eWIeHd4Guu4ezvIYuH7xm5bqpP19dG0gSsOwE1xNLCHqYdP0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9NeRF2sV+hsddg29cLkb6eRfoftm2XmLJ1qW7QnNW8eEwE1F2M
-	A5JOan9hXgRfWAVlLgFD0ljj9wQwABIbJ4uZWWGXRibQ7RaWfK/wWQmh
-X-Gm-Gg: AZFdTZdNaCkrMFTlxwKoiznUiY7So4BetM35Y558tWm4RxSAHj4p9kXUIPOqMShVucX
-	lTSVGINicR8rYMMSVNOUTbshHfIeo31I6Lj4y7eIo4hBCCa/YbX2CZuZX+pfMn7x4NjO/NiCIJv
-	ElmqiLZZEmB+ieS4YJw4JrgzSjzRPRAqr+2d8M+8ySeX/oVJVj3FNDkaMaNxZ2VTeQyIRBH+NsB
-	iLk3AKSxtZeVqtF8QzuGZvbyYL0tRxn+vCks4WTopKgJzEUHAnVWLSmCEDuig0fte+I6KHi0LVF
-	un52t1oGiGTKJ6eYfSNdzNR6uxEK/qo6YfZv0wPJKu24XUNp9l6nhuX7HTnMekn1Xe9Sifc4pEo
-	mWI3+L2TJbEJI6fv2I3L3xEl7edh5B5ucqaWMpbofAZkSwQ+fGp95Vri5zmlKaotCf8z/sJjvEJ
-	92xuGxkxSih26r/GckvdTEvbPc4tn4A0vlSPP0Ep14SDjpJZgv7kmKPhsePIJRfxGls0S/7txPe
-	PNa+8YreDNx0Dse3lY7Ififzo0NVWIqBUZu7BtK3vXu06k73adMSNahYQgqQ1EJRt3a1KykSJQO
-	tD1x5GIY8DeTEurKJ0gcivVNatHGMSxopU+KoGP1+ndLydqnZg6j0MQnarfGYElJUpfzGo6JcvB
-	G
-X-Received: by 2002:a05:6a21:32a6:b0:3fb:3a56:e41b with SMTP id adf61e73a8af0-4014db62821mr29894274637.48.1795762518648;
-        Thu, 26 Nov 2026 22:55:18 -0800 (PST)
-Received: from BSDHENRYMA-PC1.localdomain ([43.132.141.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87353b333sm11793302b3a.40.2026.11.26.22.55.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 22:55:18 -0800 (PST)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Patrick McHardy <kaber@trash.net>
-Cc: netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH nf] netfilter: nf_nat_h323: fix UDP mangle offset in set_addr()
-Date: Fri, 27 Nov 2026 14:55:09 +0800
-Message-ID: <20261127065509.2925843-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1795762624; x=1796367424;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xtP74/91kssCH0Qff0HXkuEOoBFjw5vBR+dpj+fyRmg=;
+        b=BtIWXme8RRk6cv5Wok6U9GYSnDdkxFmf8E3/QF54HqtjwcpsIglXJwLu5AaeOgoGLu
+         LbE/OVOcSUHPl8fxvRiVB3t7ONJSxQAYK+fJjQpvExMGHvCeCOu1+KbW3SY+j4xHVTZs
+         IYVlB61DAyrak4kdXh9LRJYUOSFoRR85EGy+Q9VCp5LX9EK8cz2rt2Q5FRfWH/iImwu4
+         ItBXeaS0bMt7xo6rt3lUSvjJnOPPT4SPqa1/v9h49sqNB11a8UYLdxO6Ee7wFIHeraQg
+         Pffoj/fu1XBSLKLQjUd49tVuFUq5UBzXDJI+XinGfTVQ+tdhMaWvidraaBlPITy6ieXU
+         dtzA==
+X-Gm-Message-State: APuU4Z/ad2BiKy3vVIny13YmTvmtIDc+4V+p4ktM9ztbBcsg2Fipi7iP
+	WRAiiVkHQE2n/5i+MflOryCfaZDhEe3F+xdaZisfbl04HEgg5ufZ335ijIyQ66CQ+eTr62+rjHP
+	/sSzRYM7OCUve79TSJPYca6Ro46FwExSeByNNTGIANc6vsyvqQNx6wiiE/A==
+X-Gm-Gg: AZFdTZeduaRvnUDurLLEiBKQL1KSr5obvrJcetjp0k1v1XmQwj0bZoehvduvEddCuT+
+	Vg/nYYFs8Q1JOt16BLf9RYbw/BSBFCOlYZ+1MsAzV6QmJ2Ibr0bk66NpY2ry0kdYK5DCPODOhbl
+	DnRdzvNt48Cy2OAtw2nRkD45SNpi30QJIa9VPoKbb4et8u9J1yl2GBJNO5qpmeNhKpqTQBJKBvL
+	2LbCNqhQ26herLnqtcoBYxI0DHwm/EXnUk+x6a6pdw3bcMRLNky36mL60Ncq7YRMui+/hCWc5+k
+	KFTw5t3RTA4Icd3yb0pN1gJnSk6iNkapTxru+3LRSNbb+Myju6pQjoGPK5sQpu1Oqp3PAnGo5a5
+	19CmWeJ1IWTCenHnUU1IHquu/VLH7hHIvz9MZqtoOUCsT2Mz3zriT2uLeidpPfQCm3B8qfSEK1B
+	Y6qzdOS8uA6uFVZYDuyoFZNYoW8hz1MkrjEAeItPOqzbXW9xJZrVfXzcKqCU4ULOl6FnW096C2b
+	LgCCib30c53VhzDAinOvJ/GAfnRNbsFN8Ja
+X-Received: by 2002:a05:690e:450f:10b0:67c:1dca:80d with SMTP id
+ 956f58d0204a3-67df445ed83mr7805240d50.69.1795762624118; Thu, 26 Nov 2026
+ 22:57:04 -0800 (PST)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Thu, 26 Nov 2026 22:57:03 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,66 +103,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-set_addr() unconditionally adds dataoff to the embedded-address offset
-before mangling the packet.  That is correct for TCP, where
-nf_nat_mangle_tcp_packet() counts match_offset from the TCP header and
-dataoff carries the TPKT header length.  For UDP,
-nf_nat_mangle_udp_packet() already counts from the UDP payload, which
-is where the decoded H.245 data starts, so the extra dataoff shifts the
-write past the address.  When the decoded address sits at the end of
-the payload, the shifted match_end runs past the skb tail and the
-memmove() length in mangle_contents() underflows, turning into a huge
-copy that runs off the mapped pages:
-
-e.g. on mainline v7.4-rc4 (KASAN build):
-
- BUG: unable to handle page fault for address: ffff888140000000
- CPU: 1 UID: 1000 PID: 82 Comm: poc Tainted: G O 7.4.0-rc4 #2
- RIP: 0010:memmove+0x91/0x1c0
- RDX: fffffffffffffffe RSI: ffff88813ffffffe RDI: ffff88813ffffffe
- Call Trace:
-  nf_nat_mangle_udp_packet+0x13f/0x420
-  set_addr+0x18a/0x830
-  nat_rtp_rtcp+0x50e/0x910
-  h245_help+0x1eb/0x240
-  nf_confirm+0x481/0x8c0
-  raw_sendmsg+0x203d/0x2630
-
-Only add dataoff on the TCP path.
-
-This issue was discovered by Tencent CodeBuddy Security.
-
+In-Reply-To: <2026112605-alias-passion-6781@gregkh>
+References: <CAFaZ9eogwNaXVeVhOrtz9montDVg6G8zYR8rOGdpZr26nHFO-A@mail.gmail.com>
+ <2026112605-alias-passion-6781@gregkh>
+From: Dickson Wu <dickson.wu@certik.com>
+Date: Thu, 26 Nov 2026 22:57:03 -0800
+X-Gm-Features: Aa3M54rSGaUSu2OHIwJL_2sgdmjpVHJpxrDM4HPMSwXHzj_4cvsrUs665rIZ2iU
+Message-ID: <CAFaZ9epm3Tcuz1Fs7wSOqECzZbwdwEYmwSxwUM72jPMZKZArvA@mail.gmail.com>
+Subject: Re: Request: security fixes for 5.10.y and 5.15.y
+To: Greg KH <greg@kroah.com>
 Cc: stable@vger.kernel.org
-Fixes: f587de0e2feb ("[NETFILTER]: nf_conntrack/nf_nat: add H.323 helper port")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
----
- net/ipv4/netfilter/nf_nat_h323.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+Content-Type: text/plain; charset="UTF-8"
 
-diff --git a/net/ipv4/netfilter/nf_nat_h323.c b/net/ipv4/netfilter/nf_nat_h323.c
-index 6bcd6734769b5..764bfc89027f6 100644
---- a/net/ipv4/netfilter/nf_nat_h323.c
-+++ b/net/ipv4/netfilter/nf_nat_h323.c
-@@ -35,9 +35,16 @@ static int set_addr(struct sk_buff *skb, unsigned int protoff,
- 
- 	buf.ip = ip;
- 	buf.port = port;
--	addroff += dataoff;
- 
- 	if (ip_hdr(skb)->protocol == IPPROTO_TCP) {
-+		/* nf_nat_mangle_tcp_packet() counts match_offset from the
-+		 * TCP header, so move the offset past the TPKT header.
-+		 * nf_nat_mangle_udp_packet() already counts from the UDP
-+		 * payload, where the decoded data starts; adding dataoff
-+		 * there writes past the address and can underflow the
-+		 * memmove() length in mangle_contents().
-+		 */
-+		addroff += dataoff;
- 		if (!nf_nat_mangle_tcp_packet(skb, ct, ctinfo,
- 					      protoff, addroff, sizeof(buf),
- 					      (char *) &buf, sizeof(buf))) {
--- 
-2.39.5
+On Thu, Nov 26, 2026 at 12:59:23PM +0000, Greg KH wrote:
+> Same with these, please provide backports that you have properly tested
+> and signed-off-by on.
 
+Will do, thanks. The netfilter one is out now as a tested backport with
+my Signed-off-by:
+
+5.15.y netfilter, a81047154e7c:
+https://lore.kernel.org/stable/20261127-so5-nf-515-v1-1-ce02c323f842@certik.com/
+
+I rechecked it against v5.15.226 the same way (SHA reference, patch-id,
+subject, and later reverts in mainline), and it isn't in yet.
+
+The other two:
+
+- dmi-sysfs 18e126e97c96 for 5.10.y: dropped. Getting it right on 5.10
+  needed new lifetime handling that mainline doesn't have, which is too
+  much for a stable backport.
+- arm64 ptrace pair 88b839ce497c + 5306f124f317: on hold. 5306f124f317
+  was only queued for the newer trees this week, so I'll send 5.10.y
+  and 5.15.y once 6.1.y and newer have it in a release.
+
+Best,
+Dickson
+
+
+On Thu, 26 Nov 2026 13:59:23 +0100, Greg KH <greg@kroah.com> wrote:
+> On Thu, Nov 26, 2026 at 02:41:22AM -0800, Dickson Wu wrote:
+> > Hi Greg and Sasha,
+> >
+> > Could you please queue these upstream commits for the trees below?
+> > They're security fixes that newer stable branches already have or have
+> > queued, and each one cherry-picks cleanly onto the current branch tip.
+> >
+> > 5.10.y:
+> > - 18e126e97c96 ("firmware: dmi-sysfs: Fix null-ptr-deref in
+> >   dmi_sysfs_register_handle")
+> >   CVE-2023-53250. 5.10.y has the commit it fixes as 985706bd3bbe, and
+> >   5.15.y already took this one.
+> > - 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0 on
+> >   syscall entry")
+> > - 5306f124f317 ("arm64: ptrace: don't warn on missing siginfo in a
+> >   group-stop")
+> >   CVE-2026-90347. 5.10.y took e057b9477232 and then reverted it
+> >   (ba8b9a906d80), same as the newer branches, but it never got the
+> >   replacement fix that 6.1.y and newer have. The second commit fixes a
+> >   warning the first one adds and is queued for 6.1.y, 6.6.y, 6.12.y,
+> >   6.18.y and 7.3.y.
+> >
+> > 5.15.y:
+> > - a81047154e7c ("netfilter: flowtable_offload: fix using __this_cpu_add
+> >   in preemptible")
+> >   CVE-2022-48976. 5.15.y has the counter change it fixes as
+> >   5345d78ae64d. 6.1.y and newer have it from v6.1.
+> > - 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0 on
+> >   syscall entry")
+> > - 5306f124f317 ("arm64: ptrace: don't warn on missing siginfo in a
+> >   group-stop")
+> >   CVE-2026-90347. Same situation as 5.10.y: e057b9477232 was taken and
+> >   reverted (7ec6eebb438b), and the replacement is missing.
+> >
+> > Testing, on v5.10.275 and v5.15.226: cherry-picked onto the branch
+> > tip, W=1 build of the touched objects before and after with no new
+> > warnings. The dmi-sysfs and netfilter picks were built and booted with
+> > x86_64 defconfig plus the relevant options under QEMU/KVM. The arm64
+> > pair was built with an aarch64 cross compiler and booted with seccomp
+> > enabled under qemu-system-aarch64. I didn't run targeted runtime tests
+> > for these paths.
+> >
+> > The list and the test runs were prepared with AI coding tools (OpenAI
+> > Codex agents, with review by Claude).
+>
+> Same with these, please provide backports that you have properly tested
+> and signed-off-by on.
+>
+> thanks,
+>
+> greg k-h
