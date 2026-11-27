@@ -1,99 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795769940;
-	b=V6+/7FSrWbN2t3NTR9pkpof6tu7Yb7ODhJc7w8y29lhYhTPL85WjVAFRzPZIxk1q9j7d
-	 51VEBr48YtAQpVsUP9uymRy+5c0l5RuebMJAZK0Kof7YplFwRCcLbpz/+xBxhNi9Kn/HI
-	 ZKX/wBe7PGwamotkHeusWPaFnBhWGb9/+vHQvD+zRIB0/lpmbrCCMibW98RrdoiVa/5ST
-	 73Qg8DfkxTu4f1UDG58mhjZzitceYpVoVLJotTwO49Uw9IptjeopskOJQotUGuY4zHUJi
-	 9raNs/v8Kk/4fBlBwnEh+TPqxRE+DeLc1l7XK0w7ra9bY4enSj72vcGFvjzJO4x2NMA==
+	t=1795770033;
+	b=G/vK7Jaiqo+PBpP1D2DC3atCB3+81hE76aMS5IoAHTArt+Auuug/uytHobEsLCDJL0s+
+	 7rUY7f2LuQeVwYcFJXxyCRxkXqD2eirNs8sIg8g8I606j2JxgGrjWaseI/B674V67eIVA
+	 xOZJs8lI74mg7YPqeVZNKJ93ufyXeFxa6BCtgwvm41GUtAkOQm+f3yFb768yog3iiIFBs
+	 emyEvWrU3PrSVdFRfBd5krUYiU+X47K243ncMCy5nzREk0PSniNpTozcC5tSKrBe8T7CL
+	 4Q+xp15tukqK6LQXwBPO+sKGhft1pSqkZK9cWFiJD1eyjI49m2vS0l4op+tnqVIyrug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795769940;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=g58b3SLE2EWJpKRt/jVtxSJonlTryZjWNcM+t1Wmi/c=;
-	b=udeeiL0qU+pq1SfCePUohIXqHWuaRAL56cubvIzZ+V2mBa9ZKbc0ZqIBHV0JvZ9pcoJ+
-	 WykDAOUntkgFLZrmyvlpx/BGfTkerohRsk8FcZL0ZL6SIPUopn/8cKMAbUhCpGIHB0CIZ
-	 KjmOW8mZYMx03yV+2AURSjLSqDQUY5sUPqU6e/zEknQtcEKwEQIwaXDJ4UKImcy+PAKA9
-	 2YtVd6DwOF7LNWw30vgO7nfazqNQjbZpdGwVZds0hIM+vg5V4Kvq3Kcvxfu1mIEkt1yMu
-	 seXZD+tnWWDtCdEKeV97HVAW0+NGWeCyPlqXF8Na/dzrQqvpCHjPAEUUrZkub4LiCsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795770033;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=rOPZg4MvcQV19PSyH//5nx2RfgdbxY+varkZNiQRKts=;
+	b=Vk7x7Vc4pEpbJV+zlsQah/BaLTYiYeRBoUQz5FJRyV4RcV/gsCAIjE3gTkKIFM3s5LbK
+	 uLfityqp8wJK3AFfvHRnoHXvoScnakr+eItD9ZqH9tMC2uYne3DrlfrDOwjtxLdBdGCWr
+	 xFGo9JeiIYIcJr4zz5aByKB3OEnwAKB35D1nldJxJ2z+UD7W+pithsSatQQfLwvSjtS/m
+	 cHU1ZgZFqKkBxl2Fpae8K/08UMuwffRSmBCMHbB/Pzli2544B7ier55JEBuyvHBWn5VyN
+	 oszodzI7f2TclXwK/EPLGQCKLypTPjjSVpeh1TjcujDtE8TACFy9uJIiEOIgkPJwSlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=amutable.com;
-	spf=pass smtp.mailfrom=amutable.com;
-	dkim=pass header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=SwnHo+eU;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.214.174
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6454606A31E
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 08:58:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6454606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=SwnHo+eU
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4cb6834eaaso406703166b.2
-        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 00:58:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amutable-com.20260707.gappssmtp.com; s=20260707; t=1795769938; x=1796374738; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=g58b3SLE2EWJpKRt/jVtxSJonlTryZjWNcM+t1Wmi/c=;
-        b=SwnHo+eUoEz7etL1l6BRKcZ26/wJTbUbULuHh9q7XREOFWaR04m7gXaY7+zOHsys9j
-         xFuyA+Hp6yuwYKIZsOWPzShIBisVZ4xORJJmG/B9saQof2d2hoCfHb4ZpA6yWZx7Jh0o
-         Ue7ktzm0Z+Iz1jjtjyF14eYwfb9auMqUS12t7Z8vwkfW9zb/3MuJF0oCFwNymSaLTHtc
-         /xkNC5Sbj0dxGCmtUkmbSr69v7sO2VwUrJIiYP/Mtatz7TjGYinhRl3G+G6Pm1ZGjxp/
-         CcBjWI6js7zF7K7mKxFYcWGqW9r4KjaXGDMsYP2cIiH+GTCoWmF4SwYCi42m1gWidYK8
-         k9oQ==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C37606A334
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 09:00:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88C37606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2f03920c477so65850745ad.2
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 01:00:33 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795769938; x=1796374738;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g58b3SLE2EWJpKRt/jVtxSJonlTryZjWNcM+t1Wmi/c=;
-        b=KptU2iyWSv7r6rHfrQq4sr8cmYJt5eicKfkcPNEREbMgnn8PS550mI6XTf6fKB/q4f
-         cJJdqN73kLgzfzxvjsjJ/e6uZdFmHZZ35JCHVxdzFtGMZNkyTifWtuvRu8hpY6JkJahz
-         Ni31DdfLEdpRhMqklL3C2GcdT/xto/Z0OVMqofzzWdsOwZHxh8UpN4t2donnqmLPF/8z
-         7X84jtN8w29P+/7CQHM5GaWFsfRV1zRaTXQprAMjm4AnjW7Bcq3pl5PfIE4DP+Kab4B8
-         hTcjhkMHPJByo7kU5B/AQ2H+aotHs/Q8HzODLiNXpNqaGFi9x+UyzvDJYXfi0mSItCFm
-         OgOw==
-X-Forwarded-Encrypted: i=1; AL+hErHUAZpRBzrNBfIADM/8yBsfdwR+5hdFn5O0ItWgKDx3ki7cN0kjaBbNcP8a69QpFzaDiNGhTMM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8+MX8RWFrCIWVqXy5YssOdb+rSGO/0/Ng1Zf2NfCplaID9ZCYP
-	M3zTzkvjVdFIOsAGrgC59hD738q7N1255ECZf+T8pxTz16zM3m20z+6tCqrBInbCkGmN
-X-Gm-Gg: AZFdTZed6jXlTce6H2//iSkDSwwFWaqVnYnwzAPef142D2wUvLbtxzrerqy1aQ3gWcl
-	ZVM9FVBpnEdhLiX73agHDIiQY5znUDdm+djxO+td6wnV0PlhEI3Pj522/Se9y3bd0Rh7e+1Q7ZD
-	lpjjxRkRSZDijO64PccldthDuKqxWJ0LuJWtQiAmKsepFbpZGcWcCdrdU+XUCWY70/EL2Tkw4nN
-	peZyUqq1AgWcsrr8XC1KAK9v7ClH/3azaXkWCHEbu4z/Yi9xI2DObuIhXiop8DaSlMAawE9kXGy
-	r1bS21lEnBjVRHahKuSb8pyTbKpvCCF+SZlVUWe88UcJfx8q1JYmJR81WPiug90Au0d6tV3Sq4P
-	ZgN5W0kiekj186p6QkUbk83d2zOxSP9zTL9lGN/Lbl0720RdardAlRDHZWK4/hJxa2+itD3ZUeY
-	SHuNQ3J4/w4sQSgQOuegl0oOSrqyGG/juvDdhv4SruwAe6qf8c3SVzmsLx/WvQ+jM+ytioZHwWs
-	4TpIOUsvk3mXsZEJrmY3hSSjQQkC+u+Dr3AeKDhunnB+SnbtUmBLO+P+/0lIrO+AzPHvrmet4Ih
-	oO1fFCKs9LIXKuH8WTP+1Ye/VJrAYXL5e2BAOJVGEFmPHonsSViu3jKBarz2h9AuLmUaUW7+aQW
-	zCfjCpClMo9mZ
-X-Received: by 2002:a17:906:140f:b0:c49:bc1f:fe2d with SMTP id a640c23a62f3a-c513a880a2emr1586623566b.28.1795769938110;
-        Fri, 27 Nov 2026 00:58:58 -0800 (PST)
-Received: from [10.0.0.233] (tmo-084-240.customers.d1-online.com. [80.187.84.240])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c51beef91efsm204872566b.14.2026.11.27.00.58.57
+        d=1e100.net; s=20260707; t=1795770033; x=1796374833;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rOPZg4MvcQV19PSyH//5nx2RfgdbxY+varkZNiQRKts=;
+        b=Z3GBlDBgxgXMiabHNRRlZOEeLF0fenQMR8Gsj/KeoXmAKdJESygLRz/TJo928Kzvz+
+         +ivYTIXEOxU8r1bNn1aY7HYtDmd/noeevXIY9y5XkcaA6ZMbfenNtOgpP3ouW6rx3qeu
+         Hfg8DryaVX6kUy/f29KFEw4X3K77ZEEEAaOzSFGTzqvdX1fFJ5rp7ewYj5tTUm06JAZq
+         Lvukt+dObWP9SaRLt6S4pyVHpqfmJvF0YStqQIqLaE9gJSJHTswNtTkROyzkPCFi9P07
+         kNfOvrqAkGkhAu0DcSvAhjtKxlwAeYNYm5mddrrHnqqaUQ+ENNWmbMTYlfLZtRuS0qVx
+         V6yA==
+X-Forwarded-Encrypted: i=1; AL+hErEopTrxt8JtvCLPDqKrg8u+ad24reWo5jTYEnwTJKnJPTgb5eq36UPQPcwqJkaDRJsZUXWUKeY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ERxCOHb7nEoP8pgioflJKF//B8qNB0X447xEfc7ziDEOJtbxo
+	RsBbs7jZb86b+iw9Bv5iN5Z71vRhyKsye5+tGrfud1QIfD2SGRGaL+MkN8tKC/6HNpRjZQ==
+X-Gm-Gg: AZFdTZduvD3q6Lx4LPWsQU9WeZOj/+HQFbuoe1Vk2hCcOfpZvFdqm8+VQsjJ0LQGdLk
+	n2U8hGgt+bRjckXoIarM2iHVNxtHh9mGqjwY1ZWJvjRZpNvU91TIYuQgWOcrchx085lFBEUbNIC
+	L4X/BXJlDlrOhslhvw1QOMq0Lou0GhRILm8fpWP4rJI80JN9voX/VcHoRjTuzuQEWG0koFSJnC7
+	bJYV5/w9c5vm7163PBL5g90gcLv3HXn1DZWZD/CeYPjacRrX5tUNUL77219LUJp6XJuuIBgWJzr
+	k9O9WpD9uZnkJ0Eyl/9aSgjpVvFllw/If3pcn5fMBL+SA/QTZJSg1lYvDi+FlcBqzBBQHqjaqlx
+	gdpmmQLevWLhEo89TnhcN1ixZ0UtWjKjXJSbTGJsJW5pjEtFXPey32UEAWtN3UtmjuXpSXAIAHC
+	Ps5YgPmuujAJpIk8oxlBoReLACXlfKmwEuTHdB0krI9CEzaSZRoud9SIgFrJ0DlmumXWappWdxT
+	BumQIKa5ZLx7PFp/u9XQy6msy/6R+4pseWZXn0xMk3NrBF5S26gAQs1IaCPI6zANYaoIXvoce2C
+	K5zYfzG1pfYb4gkdI30/oNRyslXL3RQEv3gzpVdkTr4Or7xRpaXg6DpA8d+sqXiCbYPkZMStOjp
+	NAmEnQpU7OUqV6Mya7b0FG5SPRZAqc7kifhjRlQ37hPVljg==
+X-Received: by 2002:a17:903:1c2:b0:2f0:5bc6:6bc8 with SMTP id d9443c01a7336-2f05bc66da3mr214174955ad.25.1795770032437;
+        Fri, 27 Nov 2026 01:00:32 -0800 (PST)
+Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([216.236.36.151])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f120769sm117050725ad.57.2026.11.27.01.00.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 00:58:57 -0800 (PST)
-Message-ID: <df0012048defc0f646155d0a164da1d9e8b823d3.camel@amutable.com>
-Subject: Re: [PATCH 1/2] namespace: allow bind mounts of ephemeral procfs
- files again
-From: Alexander Mikhalitsyn <alex@amutable.com>
-To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Aleksa Sarai <cyphar@cyphar.com>, stable@vger.kernel.org
-Date: Fri, 27 Nov 2026 09:58:56 +0100
-In-Reply-To: <20261126-work-mount-cant_mount-v1-1-781d911a32e1@kernel.org>
-References: <20261126-work-mount-cant_mount-v1-0-781d911a32e1@kernel.org>
-	 <20261126-work-mount-cant_mount-v1-1-781d911a32e1@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+        Fri, 27 Nov 2026 01:00:32 -0800 (PST)
+From: Hongyu Xie <xiehongyu1@kylinos.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>
+Cc: speakup@linux-speakup.org, linux-kernel@vger.kernel.org,
+ chris@the-brannons.com, kirk@reisers.ca, w.d.hubbs@gmail.com,
+ stable@vger.kernel.org
+Subject: [PATCH RESEND v3 0/4] speakup: fix hang and use-after-free around
+ synth removal
+Date: Fri, 27 Nov 2026 17:00:28 +0800
+Message-ID: <179577002884.23588.802785530849276690@kylinos.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,156 +85,158 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-On Thu, 2026-11-26 at 12:40 +0100, Christian Brauner wrote:
-> Commit 75f4197f1e11 ("dcache: don't put a mountpoint on a dentry
-> that's
-> being removed") made d_set_mounted() refuse dentries that
-> dont_mount()
-> was called on. I overlooked that procfs calls dont_mount() on the
-> files
-> in /proc/<pid>/{fd,fdinfo,map_files} and below /proc/<pid>/net when
-> it
-> creates them and that attach_recursive_mnt() makes a mountpoint out
-> of
-> the root of every source in case it goes beneath a mount. So
-> bind-mounting one of these files fails with ENOENT now. libpathrs
-> does
-> that in its tests, e.g., by bind-mounting /proc/1/fd/0 over
-> /proc/self/exe.
->=20
-> Nothing may be mounted on top of these files but they can be the
-> source
-> of a mount. So drop the check from d_set_mounted() again and refuse
-> such
-> a root only if the source or one of its copies would go beneath a
-> mount
-> that is already there. attach_recursive_mnt() checks the source and
-> propagate_mnt() checks each copy right after making it. The root is a
-> mountpoint by then so either we see the flag or detach_mounts() finds
-> the mount, same as before.
->=20
-> Fixes: 75f4197f1e11 ("dcache: don't put a mountpoint on a dentry
-> that's being removed")
-> Cc: stable@vger.kernel.org
-> Reported-by: Aleksa Sarai <cyphar@cyphar.com>
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+This series fixes a speakup hang reported when a speakup synth module
+is unloaded while its output cannot make progress (e.g. a serial
+synth whose port has no consumer on the other end, so the tty write
+keeps returning 0).  rmmod then stays stuck in D state forever, and
+while the loop holds spk_mutex, any synth module load or sysfs synth
+switch hangs the same way.
 
-Reviewed-by: Alexander Mikhalitsyn <alex@amutable.com>
+Patch 1 stops the catch-up loops when the synth is not alive anymore.
+Patch 2 takes spk_mutex off the catch_up() call path, and makes
+synth_release() drain any in-flight catch_up() before releasing the
+synth resources, so loading, unloading and switching are no longer
+blocked by speech output, while the synth structures stay valid for
+the whole call.  It also guards the wake_up_process(speakup_task)
+sites against the kthread not being up (or having failed to be
+created) yet, pinning the task_struct with rcu_read_lock() so a
+concurrent module exit cannot free it mid-wakeup, and closes the
+SPEECH_KILL revival hole: spk_synth_is_alive_restart() could set
+synth->alive back to 1 from the unguarded key handler after
+synth_release() cleared it, which would make the drain wait forever;
+the revival is now serialized against the clearing under
+speakup_info.spinlock and skipped for a synth being released.
 
-> ---
-> =C2=A0fs/dcache.c=C2=A0=C2=A0=C2=A0 |=C2=A0 5 ++---
-> =C2=A0fs/namespace.c | 25 +++++++++++++++++++++++++
-> =C2=A0fs/pnode.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 6 ++++++
-> =C2=A0fs/pnode.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 ++
-> =C2=A04 files changed, 35 insertions(+), 3 deletions(-)
->=20
-> diff --git a/fs/dcache.c b/fs/dcache.c
-> index ba17f49f8a636..b734ce65e6377 100644
-> --- a/fs/dcache.c
-> +++ b/fs/dcache.c
-> @@ -1628,8 +1628,7 @@ static __cacheline_aligned_in_smp
-> DEFINE_SEQLOCK(d_set_mounted_lock);
-> =C2=A0 *
-> =C2=A0 * Only one of d_invalidate() and d_set_mounted() must succeed.=C2=
-=A0 For
-> =C2=A0 * this reason take rename_lock, d_set_mounted_lock and d_lock on
-> dentry
-> - * and ancestors.=C2=A0 Likewise for dont_mount() which marks a dentry
-> that
-> - * is being removed under d_lock.
-> + * and ancestors.
-> =C2=A0 */
-> =C2=A0int d_set_mounted(struct dentry *dentry)
-> =C2=A0{
-> @@ -1647,7 +1646,7 @@ int d_set_mounted(struct dentry *dentry)
-> =C2=A0		spin_unlock(&p->d_lock);
-> =C2=A0	}
-> =C2=A0	spin_lock(&dentry->d_lock);
-> -	if (!d_unlinked(dentry) && !cant_mount(dentry)) {
-> +	if (!d_unlinked(dentry)) {
-> =C2=A0		ret =3D -EBUSY;
-> =C2=A0		if (!d_mountpoint(dentry)) {
-> =C2=A0			dentry->d_flags |=3D DCACHE_MOUNTED;
-> diff --git a/fs/namespace.c b/fs/namespace.c
-> index aecd05ac01705..443a8e3b74f9b 100644
-> --- a/fs/namespace.c
-> +++ b/fs/namespace.c
-> @@ -2561,6 +2561,21 @@ int count_mounts(struct mnt_namespace *ns,
-> struct mount *mnt)
-> =C2=A0	return 0;
-> =C2=A0}
-> =C2=A0
-> +/*
-> + * Would @source_mnt or a copy of it go beneath a mount that is
-> already at
-> + * @mp on @parent? Call under namespace_sem, without mount_lock.
-> + */
-> +bool mount_goes_beneath(struct mount *parent, struct mountpoint *mp,
-> +			struct mount *source_mnt)
-> +{
-> +	struct mount *q;
-> +
-> +	guard(mount_locked_reader)();
-> +	q =3D __lookup_mnt(&parent->mnt, mp->m_dentry);
-> +	/* a moved @source_mnt is gone from there by then */
-> +	return q && q !=3D source_mnt;
-> +}
-> +
-> =C2=A0enum mnt_tree_flags_t {
-> =C2=A0	MNT_TREE_BENEATH =3D BIT(0),
-> =C2=A0	MNT_TREE_PROPAGATION =3D BIT(1),
-> @@ -2677,6 +2692,16 @@ static int attach_recursive_mnt(struct mount
-> *source_mnt,
-> =C2=A0	if (err)
-> =C2=A0		return err;
-> =C2=A0
-> +	/*
-> +	 * Don't mount on top of a root that dont_mount() was called
-> on. It's
-> +	 * a mountpoint now so a later detach_mounts() will find it.
-> +	 */
-> +	if (cant_mount(root.mp->m_dentry) &&
-> +	=C2=A0=C2=A0=C2=A0 mount_goes_beneath(dest_mnt, dest_mp, source_mnt)) {
-> +		err =3D -ENOENT;
-> +		goto out;
-> +	}
-> +
-> =C2=A0	/* Is there space to add these mounts to the mount
-> namespace? */
-> =C2=A0	if (!moving) {
-> =C2=A0		err =3D count_mounts(ns, source_mnt);
-> diff --git a/fs/pnode.c b/fs/pnode.c
-> index 5f07fa14099bf..4514e75311972 100644
-> --- a/fs/pnode.c
-> +++ b/fs/pnode.c
-> @@ -351,6 +351,12 @@ int propagate_mnt(struct mount *dest_mnt, struct
-> mountpoint *dest_mp,
-> =C2=A0			err =3D count_mounts(n->mnt_ns, this);
-> =C2=A0			if (err)
-> =C2=A0				break;
-> +			/* what is already there would end up on
-> this root */
-> +			if (cant_mount(topmost_overmount(this)-
-> >mnt.mnt_root) &&
-> +			=C2=A0=C2=A0=C2=A0 mount_goes_beneath(n, dest_mp,
-> source_mnt)) {
-> +				err =3D -ENOENT;
-> +				break;
-> +			}
-> =C2=A0			type =3D CL_MAKE_SHARED;
-> =C2=A0		} while ((n =3D next_peer(n)) !=3D m);
-> =C2=A0	}
-> diff --git a/fs/pnode.h b/fs/pnode.h
-> index b029db225f33c..0fb217c48f17a 100644
-> --- a/fs/pnode.h
-> +++ b/fs/pnode.h
-> @@ -59,6 +59,8 @@ struct mount *copy_tree(struct mount *, struct
-> dentry *, int);
-> =C2=A0bool is_path_reachable(struct mount *, struct dentry *,
-> =C2=A0			 const struct path *root);
-> =C2=A0int count_mounts(struct mnt_namespace *ns, struct mount *mnt);
-> +bool mount_goes_beneath(struct mount *parent, struct mountpoint *mp,
-> +			struct mount *source_mnt);
-> =C2=A0bool propagation_would_overmount(const struct mount *from,
-> =C2=A0				 const struct mount *to,
-> =C2=A0				 const struct mountpoint *mp);
+Patch 3 clears the global speakup_kobj after kobject_put() in both
+speakup_kobj_init()'s error path and speakup_kobj_exit(): after a
+late failure of a built-in speakup_init() the dangling pointer used
+to stay behind, and a later insmod of a synth driver would feed it
+to sysfs_create_group(); it now fails cleanly on the NULL check.
+The removal side gets the same guard: a synth left set by a failed
+do_synth_init() makes a later load go through synth_release(), whose
+sysfs_remove_group() would now meet a NULL speakup_kobj and crash;
+the group removal is skipped when the kobject is gone.
+
+Patch 4 closes a related hole in the keyboard path:
+speakup_key() checks the global synth before taking
+speakup_info.spinlock, but do_spkup() and its handlers dereference
+it inside the lock while synth_release() clears it under spk_mutex;
+a speakup key pressed while the synth is being removed could pass
+the unlocked check and oops.  The clear is now serialized against
+the locked readers: both NULL clears take speakup_info.spinlock,
+and every reader that dereferences synth inside that lock now
+rechecks it after acquiring it - do_spkup() at entry, the console
+notifier paths after their trylock, do_handle_shift(),
+do_handle_spec(), the speakup_key() special-handler dispatch, the
+synth_direct sysfs store, and the /dev/synth and /dev/synthu write
+paths - so a clear can no longer land between a reader's check
+and its dereference.
+
+The races the series covers, and the patch that closes each (the
+patches show the CPU0/CPU1 interleavings, before and after):
+
+  R1  SPEECH_KILL revival vs. the release drain          patch 2
+  R2  wakeup of a not-yet-created or gone kthread        patch 2
+  R3  sysfs_create_group() on a freed kobject            patch 3
+  R3' sysfs_remove_group() on a NULL kobject             patch 3
+  R4  key path check vs. synth clearing                  patch 4
+  R5  console path check vs. synth clearing              patch 4
+  R6  catch_up() lifetime during unload/switch           patch 2
+
+Patches 1 and 2 are both needed for the no-room hang: patch 1
+provides the loop exit but nothing clears synth->alive in that case,
+patch 2 provides the deactivation and the drain.  The drain of
+patch 2 relies on the loop exit of patch 1 to terminate, so the
+order is required, not merely convenient: without patch 1 first,
+patch 2 would trade the spk_mutex hang for a new one inside
+wait_event().  Patches 3 and 4 are independent fixes found while
+reviewing the init/exit and key paths.
+
+Tested on x86_64 (qemu, speakup + speakup_acntsa on a backpressured
+serial port): unload, second synth load and sysfs switch all hang on
+the unpatched kernel and complete on the patched one; soft synth
+operation and a 30-round insmod/write/rmmod stress loop with
+interleaved switches show no regression.  The whole series was also
+re-verified with an automated base/fix A/B boot test in QEMU: with a
+synth wedged on a stalled tty, rmmod never returns on the unpatched
+kernel (hung task reports with the stack pinned in synth_remove),
+and returns in all six trials with the series applied, with no oops.
+
+While testing the series I noticed a few preexisting issues that are
+NOT addressed here (kept out to keep the series focused, can be
+follow-ups if wanted):
+
+- the cursor_done timer callback still dereferences synth inside
+  speakup_info.spinlock with no synth check at all; closing it
+  needs the cursor_timer lifetime handled against synth teardown
+  and is left as a follow-up.
+
+- the serial read buffer handler (synth_readbuf_handler) also
+  dereferences synth inside the lock unchecked, but cannot run
+  in this tree: its only registration chain goes through
+  spk_serial_synth_probe(), which has no callers, and any
+  out-of-tree registration is serialized by the free_irq() in
+  the serial synth release path, which runs before the in-lock
+  clear.  Patch 4 discloses this in its commit message.
+
+- speakup_dtlk.c: synth_flush() and synth_read_tts() spin on
+  synth_writable()/synth_readable() with no timeout, so the catch-up
+  drain of patch 2 could still wait unboundedly if the DoubleTalk
+  hardware stops responding mid-flush.
+
+- do_synth_init() does not roll back on a sysfs_create_group()
+  failure (the global synth pointer stays set).  Patch 3 keeps that
+  dangling synth from crashing on the kobject side, but the synth is
+  still not cleaned up; the follow-up should make that error path
+  unwind like the probe failure path does.
+
+Changes in v2 (patch 4 only):
+
+- patch 4: per review, the unlocked synth checks that only
+  duplicated the in-lock rechecks are dropped; the only behavior
+  difference is that an empty write to /dev/synth or /dev/synthu
+  with no synth loaded now returns 0 instead of -ENODEV.  This was
+  sent earlier as a single [PATCH v2] reply on the subthread.
+
+Changes in v3:
+
+- no code change; the Reviewed-by tags received from Samuel for all
+  four patches are now carried in the commits.
+
+- commit messages trimmed throughout.
+
+RESEND note:
+
+- Resending v3 (originally posted on Nov 3 during the 7.4 merge window:
+  https://lore.kernel.org/r/179366847311.70545.1738521378158835923@kylinos.cn)
+  now that 7.4-rc is underway.  All four patches carry Samuel Thibault's
+  Reviewed-by tags with no further comments, and apply cleanly to
+  current mainline.
+
+Hongyu Xie (4):
+  speakup: Stop catch_up when the synth is not alive
+  speakup: Do not hold spk_mutex across catch_up()
+  speakup: Guard late sysfs operations on speakup_kobj
+  speakup: Serialize synth clearing against locked readers
+
+ drivers/accessibility/speakup/devsynth.c      | 13 ++--
+ drivers/accessibility/speakup/kobjects.c      | 10 ++-
+ drivers/accessibility/speakup/main.c          | 31 +++++++--
+ .../accessibility/speakup/speakup_acntpc.c    |  4 ++
+ .../accessibility/speakup/speakup_apollo.c    |  4 ++
+ .../accessibility/speakup/speakup_decext.c    |  4 ++
+ drivers/accessibility/speakup/speakup_decpc.c |  4 ++
+ .../accessibility/speakup/speakup_dectlk.c    |  4 ++
+ drivers/accessibility/speakup/speakup_dtlk.c  |  4 ++
+ drivers/accessibility/speakup/speakup_keypc.c |  4 ++
+ drivers/accessibility/speakup/spk_priv.h      |  3 +
+ drivers/accessibility/speakup/spk_types.h     |  1 +
+ drivers/accessibility/speakup/synth.c         | 69 +++++++++++++++++--
+ drivers/accessibility/speakup/thread.c        | 11 ++-
+ 14 files changed, 146 insertions(+), 20 deletions(-)
+
+
+base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
+-- 
+2.32.0
+
