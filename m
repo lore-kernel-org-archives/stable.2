@@ -1,108 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795800393;
-	b=p2+F8QC0VmV7RdGZkQVjGaAlsPZWHqWjsjtBwQzOLyuLZbEJAt5jTyJVXpTw7+jfW3pi
-	 Fe2h4IUxDxKrpbPdMzVNubWZkSeRsfgjY7SU6eLI/8Y2yyY5SdCOaBth1goHikwQND59v
-	 ZNDmGOnzkq59Tn8lv+RPzT0xMyf1z5WtO9sGJXaqAdGaAhmGMWmIQ9BQynNVYQ7HxSrHt
-	 fGItljgUekxDASkB+m7lnly57NAaPvqQojlM5teN6ryZqGcI5wNdfyS5LVMTErNaRg1XQ
-	 fpAwsRqawM4ckt5P/hRjohxgiAM6bOQg5JUUx8L40UqfUxIdrtyWuVg5OnXv28xKTUQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795800393;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=gnytq53uEZOsNxelO5CL/IM1UaRZgDtTKviuNah2VDs=;
-	b=UlQJCO4mOhxxalmHWjeQJTYh12wMG1e9cQxMK3Hr/WvOdC6T6YpJR+GasImqrBLiLoC2
-	 vy9FVI5Tn4oJnX3OPzu+lPdTyebXo9cxaNk9r/xkHbX/Jpk7Eh+LDHr3ExT/ZKbl8B7au
-	 RFotJ1A65yO4wn/Tmo66wfgO//y9TOFB5/Odot01Iqr2Y7ukAgSeNlG7zK04P3OYj8RpO
-	 hjizBCA+Q72Ks1aO9GImMNKJCA5RykPxC7iAogWcr72mkBnsMDsdLLEtRy0xbeC26Sg/c
-	 Zhgxo1vhcyIwM5iJans4cEA7IIMOU6K/qMndCPbhK5deJp4XPcIrS9NLzlC6yqG6rnA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=RYReudYV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.46
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010046.outbound.protection.outlook.com [52.101.201.46])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795800416;
+	b=IJZUUsJJVnw2sT0CXMsPonah/LspkyIvRTY10syqngKx/nav3E7y5dxABPWfMdqgTZCM
+	 ZWLxiSus/xLV1AWDkElg3GSnt4VApGBUeEAm1E8rFaIRKfTd0lhfJbTXNGNEeRv6ZkQXU
+	 sza2vVZNVp/LfRQPbl+TC27lN77j0IVL52AXuG7kOyCuGgKmiwrl9oNvp/nkF3xZzAtF1
+	 e4dbVkd4jL/KEtqpYJDpSTbYDgpw1TZZV6pksHN+5qQgvfS64ofw3PztOK00K00DC+JQ4
+	 dbQaccgfCJ4f6mM7gTkZnOURbd/8iGXFLmS0cCReWrt6P8v6shYdcBNROa2d5PaXTww==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795800416;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=0XmBI/vsqTPBFjciFZ00jSFFbSfcYJDZA86bCCNbmx4=;
+	b=hzCA+/orQXi+pKPklQtyJRVmBoIJB36p58pXW+vkHpYLYvfMKaDDPUteqROwfiNQxexg
+	 fq20A4RZIlLH450usiajBYiL1hhaPUbSsla1zudHTumnAgYfH0HBRd/7mE7gPAjwwg+pB
+	 dMTNWowz0H2CZLsWpsVcsZH8Eu/HsXF7bybvdzibSnyVlyk4WA63DlR4dru1SY7ZKsTdn
+	 odGKOqz9D9/afzv0gtZtcuOd9nUeUPT1+u028zdG5SzVlSTKc6j/FLBHZhDz/I2ezJgz5
+	 n/RYY3+F70UA87JRPn8Jp4YjxO1R/5P5AbEf03LWMP+UyqfjBbmLhG6kA+rGE5TwWXw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hAeX8wcz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA22606A31C;
-	Fri, 27 Nov 2026 17:26:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EA22606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3DD5606A31F;
+	Fri, 27 Nov 2026 17:26:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=RYReudYV
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ue4Ybh+a/NetfTYijsDB4GfhY69CaEX7xSFXdOVkFLNAqsV+V7CqnIJ7ESQudFZTSLBXcwEA9qq17q6L96pcaIbY9Oc6Bt92nCsGxkYK2G+RQPE4S3cKGxG/x7MXDIBshg6RlMRFvBVJ1yA/2+0S92piwJHnWh/6JAdZF75Zqa7hx8EztreaFcaGDYVQTqhBJqt+aH/toJGD5QaqQ+MaX2GV/yVJFrhuDLAL5COAfob0b2D35cfPvqDYaqs28KOZEuEjfU3nDcFV0tbXLTKEkxeofzeeBxNUXaNr8phVtLTuZRY5vH5J7O+m4BX9tadykJmY5gbk7g9diMfPRt3sJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gnytq53uEZOsNxelO5CL/IM1UaRZgDtTKviuNah2VDs=;
- b=iFz+ircg56I7G84Dc5YYt8ZRLZmGcB2U0e7gUT49E3q0+nJ55hsp7UbidC7Tf035fks6PKlwD1/7p1Dly1cvNMRrxKYeux+aFLNhBLERC2DvWoeDLUM1fMaxM0jZ4Cq7EwqiHvUkMT4WKJiW2NqtzSCWpg6vl5UOGRvk733FVkMm8nQzyPlR0V0z4uhEvT2mix5rKggtfpjVoMRgCYDns5plAotCjI+x897gkFCfMYcMYv6ZdYzn13Co6pdo1CB+pVLaDQKXlO79SDZObzDPO9qnRla9scX6+eB+gzuQ5jR/IdgsD/Uggl7bVasznaVuRXlGyIejAsd+1yFs6FIwGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gnytq53uEZOsNxelO5CL/IM1UaRZgDtTKviuNah2VDs=;
- b=RYReudYVO5AVH0i7Dvc70+F7nQTrMYGw3kRXORCc2mkshe30s3gTx6AUFGTGn2RiE0STQdBjbNfgpgy0HRe3ABBFV7utfV8sYE31dqIwAOL+F3FX2o4FQiezuZAMC1lFqI0cQd+bJrAHLuZq7VuEL5KoyxbqnqmHdruqcLe/wWMcpF7CQakmrVxImvwQphvd2zgpCPv044fFt5Elncf2RavnquoEsx8NRzOEfum4xJgzBFWOggRUO+r1ZKf0uEq3Pi8C6uBNTKBXcPiFVvN2s3tYABjaNoyOp2iaQeu8jZr7C0EcYu/VH7s+GpOx3Y6hbodG706uCcMiY1vil3p2Tw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by LV8PR12MB9230.namprd12.prod.outlook.com
- (2603:10b6:408:186::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.7; Fri, 27 Nov
- 2026 17:26:28 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0662.007; Fri, 27 Nov 2026
- 17:26:27 +0000
-Date: Fri, 27 Nov 2026 13:26:26 -0400
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Bryan O'Donoghue <bod@kernel.org>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, iommu@lists.linux.dev,
-	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Leon Romanovsky <leon@kernel.org>,
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-	Honglei Huang <honghuan@amd.com>, prakash.gupta@oss.qualcomm.com,
-	Alex Williamson <alex@shazbot.org>,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/4] media: venus: use dma_iova_size() to check the
- reserved IOVA size
-Message-ID: <20261127172626.GQ114472@nvidia.com>
-References: <20261127115849.2780625-1-m.szyprowski@samsung.com>
- <CGME20261127115859eucas1p1ae20b01eec39080daf19dbd71aba10e9@eucas1p1.samsung.com>
- <20261127115849.2780625-2-m.szyprowski@samsung.com>
- <nohVXMHveO5nQuD8sOn0QoENkIUC-GQzMCh8HTX6v2eezbtW6OM5gX5JwJ7_MSwfWj3bC4Zmfz1CrxTDKJeFGg==@protonmail.internalid>
- <20261127142912.GK114472@nvidia.com>
- <dcc8689e-41bc-4a18-87fc-2fa76e11eab1@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <dcc8689e-41bc-4a18-87fc-2fa76e11eab1@kernel.org>
-X-ClientProxiedBy: YT4P288CA0034.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d3::20) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hAeX8wcz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 996B61F00899;
+	Fri, 27 Nov 2026 17:26:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795800415;
+	bh=0XmBI/vsqTPBFjciFZ00jSFFbSfcYJDZA86bCCNbmx4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hAeX8wczzScMlEi3kseFTivVf002FWoibXkMKuLG6apA2bRnJyiRirF5XbENTHJDp
+	 0x6ugFO3kD0HQzi3PtEw7kD20tOU2MDWYPDxSjhTAD2gZ8EqsSR2g9EAk+FsL2kiDy
+	 TZ1heB+nrzY+3cwOvy0TCS0afFYTdANPqm7LIu//Z1TZaK5oUXQ+ippkqyqynlQKRO
+	 PGQXOjOCEE1GkIQEiIyfpBvA5w4PolyCkmXNCsTfNj6edRzylITYCv5tBdxU5EYxOn
+	 B8bP4MOti4xv6qTcxcx/QnFGAKuL1NkuxFnkgsFMWDdRss1C4TXJnY+oCJ0T+I2Mt5
+	 J6lEthLHAmaGA==
+Date: Fri, 27 Nov 2026 17:26:47 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Christoffer Dall <christoffer.dall@linaro.org>, Jintack Lim <jintack.lim@linaro.org>, 
+	Leonardo Bras <leo.bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] KVM: arm64: Top up the mmu memcache on user fault for NV
+Message-ID: <awm5PZYWxVOXdBfm@gremlin>
+References: <20261126-fix-nv-cache-topup-v1-1-a22c936872fe@kernel.org>
+ <20261127152237.108363-1-usama.arif@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,96 +64,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|LV8PR12MB9230:EE_
-X-MS-Office365-Filtering-Correlation-Id: c9934a91-bce5-426b-a35d-08df4cab91b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|6133799003|22082099003|18002099003|56012099006|4143699003|11063799006|261022115727099003|261022105027099003|261026121527099003|261022113327099003|261102123227099003|261022075727099003|261026140227099003|261026130827099003|261028144727099003|261021121427099003|261021123027099003|261021130227099003|10067099003|261021135927099003;
-X-Microsoft-Antispam-Message-Info:
-	TQjVdIGEgmptAO5XLhFdw5iiqQlnwi4AMJZXhiaktSq3YI9KxHDVz6/6aVLrqVTk/+6c881dLQqDyOtiiGWFjDMDsjH3+6lz3wrU0O5/uts4KKi3DixgyeBeBOmWhdFuD5SaXiB1XfdIpWRuJUEF+Jbvwqyu9BhJX6JnkoGbJJgtI0ruUk2NjqotqflDjbiMwLBmzpnhCnfv/6A5bCFIli3sYefpQHGih0PL+Y8cXavHUPb3CW/Ye4igdv2nMqtzJPY+T1cvYs1lWezmG7FlV9MQbUw3THO2+TQ31NWX9pFn+PLzyCKG8FFqtcb7VJ/LyHjYdB0pv84izOL+U4+aRaaqPXvGWPk1dplHaVGW4YUbzvPkQmWTYXBhXBytG/Xj7QVZ3uCnppwY5OI41tn5LT3UZQ72xV1SPdZfi5RSUoHXhUrdnH8KWJCRQEaZ890rjGl7WQu8DfZkFssougvYhzDtWWutNdmAMTZuhMEjFk+g09r519lIY3b7SjwQ2w2G17Y2kkpGbMOiz20RwtRalSmdQ+yumICgGEbf3TCU+zh5PUCCehoopWTvYi/3PdzqCTxiJxnSCQJ3TOqKIoc9ztxfJynoJPHhRLExPu6WmrDoMzYVXcaSdEh3ol62WJIoOs4qaaalWsr/zCtSBQdxJ8pBJWLQgmxkWboIC9jeshw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(6133799003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(261022115727099003)(261022105027099003)(261026121527099003)(261022113327099003)(261102123227099003)(261022075727099003)(261026140227099003)(261026130827099003)(261028144727099003)(261021121427099003)(261021123027099003)(261021130227099003)(10067099003)(261021135927099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?gfA0zpd5iUjimVxT2SKaNDPqB8dZU0715ejLvavD5UNhnjHqBUJy/CHvwHh+?=
- =?us-ascii?Q?5C8XUXy7mAM5ezS+ceBda5Lt6LpiC29pPfRvn7IPgnmeUK1CbWtsBGjOTCIr?=
- =?us-ascii?Q?7ULLQQ1sLhUTP1f02Tgy8wFomsK7GdnYTv250pm/PWzPXSK7T8Maid0vKBtv?=
- =?us-ascii?Q?wHux7Aa9XJ4qUaodIxkCx7xIoHpbs81QemoAUPslaCfeL42ROJj8SKa1yrW/?=
- =?us-ascii?Q?Clt2ZRW9JJ2HlrAnpj9pshGEMGK/J0q0S7kmoFmieTCo/8LqXdgs3w5DIlDZ?=
- =?us-ascii?Q?j84tMXC43PWVcyRxQTgj4mHHAneiPoVsdumFksDa3T1VPJIz9tSvWJgEghaP?=
- =?us-ascii?Q?HeQBK0Z2udmpvTQ3JpgYXxrf5MzetwvjLtojLQTwiEhLEmjskDeAy1lUZlV8?=
- =?us-ascii?Q?UrDOpray+ZlZiKa9yIQAwetTv0ZLnJO4FNUEu5L5gw7MnLaTyEgdL+Ra8O12?=
- =?us-ascii?Q?QG8OYhUCzVeWHHPKxfqzwr3c7yum+PbG4/kForbfO3Wm2ZBMx1fnE3y2KoqO?=
- =?us-ascii?Q?Yrd6kbiBrSy3usAgc46JHcqyRVHiVsbud6C9otavvXzK9XLIFo376tSYSilc?=
- =?us-ascii?Q?VBfUsrLA66PeUeak/KHqriarMmQ5VTyPeo6CaIk0QWHrG4OJRiGHjddyS40Z?=
- =?us-ascii?Q?nySEUMRNNxmAIiBoPK/J8qZyqGb8gJFDA+YaNoGchgRi3tsatrlFo2djLzCO?=
- =?us-ascii?Q?xC3ju2RH2t2F94GxZ+wt9BIN32sySGdNrXZRF2VJxhfkcX02zqfl9C3PyEuO?=
- =?us-ascii?Q?SXlO9J9pgwEUUICs4us1fhxBtqBjDrX7txjl4fCfYzZCrISr6amsUxaba0/m?=
- =?us-ascii?Q?JQckcIZ9k12xP+tbRweI4DtpcGpzS3HeKa9kuWuF7Zcg0gXM8R/47IDpWieh?=
- =?us-ascii?Q?rqDLbRjMt6JMBAO/bS8pl2PfXfJCoNaahxXck6ebLl+TRhUgE/rY4+BEQ8XS?=
- =?us-ascii?Q?knyaMeQwYRQaYfrn3Kto/9nyfIDiL/tdJoEKKUngiBO506F/XtshdrwSNH4q?=
- =?us-ascii?Q?5Q+pVCGsWEiSupNUDqad5EyGqrIl3LnUP6ZCE/rjBHGoglnfDSBw/80qpAm5?=
- =?us-ascii?Q?u62urB3cfSWuZ52EBEfNBW4hyuVDCM4S9T63V9TL5o/MGf672ic/r2Le8OpF?=
- =?us-ascii?Q?eHKVRB5uGagPELhyfZzjFF1LTw6J1CP+I5IRM9KuVlDppKyK3V+dhioASLeN?=
- =?us-ascii?Q?8TzkJcssZOlzZ58beI3iuuBqImR+bLzLrFCYORQ7YJGqtgNKRt75K413u6t2?=
- =?us-ascii?Q?V/RJ3/+xV089csJROo/oDalcdPN5qNgp/LxtbewNZAc1wT6a9gRWzGLo1Ynw?=
- =?us-ascii?Q?V/Z6TXZkdV+phNyjz0y84rG9GPNPbweV28Z6t4ykksLuEhOYPSVCDlUgJkVb?=
- =?us-ascii?Q?QZoZ0EjuLX8ozeTGwYWe98et25f1IGpC02NxiZPO7v9CehaysHvzTAQtKg1d?=
- =?us-ascii?Q?4sLj6JigeMYFk9DX5x8lQ7pGSi46HkCZ5Net4VTaHJ0tkz7BwGKP1iXHeBBJ?=
- =?us-ascii?Q?r3Hb1oknIlr+d1L+JMvvtGR4uxgbespoqGaKf683Zwb7FqK5NciC/JooYuPY?=
- =?us-ascii?Q?Mnp2WaruLwFeMJLKLje0a2o1ImeMR8Jq/RhII7mLYKldRYmGQf0GgWo4Nc4F?=
- =?us-ascii?Q?HfYjiZrOFeDozn2sXDchSpd55L9ucq1IjzVVxkQzQ4XpYEmcgEa35/KKRz1r?=
- =?us-ascii?Q?PxfeCWEixx6sDMiSimY9LDiipDNGbRR+7gJzaIYWSvz1Vpj1?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9934a91-bce5-426b-a35d-08df4cab91b2
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 17:26:27.8392
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dM4D+aT6u2LHdOKEfLNKfVl7rDR5FjNRUSU9XW/sfDkzYsTyIVrMfGZghNzV/wpy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9230
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261127152237.108363-1-usama.arif@linux.dev>
 
-On Fri, Nov 27, 2026 at 05:21:35PM +0000, Bryan O'Donoghue wrote:
-> On 27/11/2026 14:29, Jason Gunthorpe wrote:
-> > On Fri, Nov 27, 2026 at 12:58:45PM +0100, Marek Szyprowski wrote:
-> > > The IOVA reservation code compares dma_iova_state::__size directly with
-> > > the requested chunk size. __size is internal to the DMA IOVA API and may
-> > > carry flags in its upper bits, so use the dma_iova_size() accessor
-> > > instead.
-> > 
-> > WTF is this even doing?
-> > 
-> >      Fix this by reserving the 0-600MB range, below the boundary the
-> >      non-pixel stream cannot address, using dma_iova_try_alloc() so the
-> >      IOMMU-DMA core never hands that range out to a real DMA mapping. This
-> >      reserves only IOVA space, it does not allocate any physical memory.
-> > 
-> > That isn't what this API is for, and it isn't how it even works! It is
-> > pure luck that the first call to it happens to take out the lower
-> > address space.
-> > 
-> > We even had a long discussion about this driver and this need in
-> > another thread and this is the hack job you guys merged?
-> 
-> Have to say I wasn't aware of an objection from you, I don't think I was on
-> that thread.
+On Fri, Nov 27, 2026 at 07:22:36AM -0800, Usama Arif wrote:
+> On Thu, 26 Nov 2026 17:28:29 +0000 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+>
+> > The S2 user fault path tops up the MMU memcache (used for page table
+> > pre-allocation as the point at which page tables are installed may not
+> > allocate) except when:
+> >
+> > * It's a permission fault AND
+> > * dirty page logging is disabled AND
+> > * pKVM is disabled
+> >
+> > At which point it is assumed no page table will be allocated.
+> >
+> > However nested virtualisation adds another edge case - the mapping size of
+> > a shadow S2 is clamped to that of the guest's own S2. If the guest
+> > hypervisor replaces a block mapping with a table, a permission fault on the
+> > shadow block has to be mapped at PAGE_SIZE, which requires a page table to
+> > collapse the block into.
+> >
+> > With the memcache empty, kvm_mmu_memory_cache_alloc() hits its
+> > guest-triggerable WARN_ON(!nobjs) and falls back to a GFP_ATOMIC allocation
+> > under mmu_lock, with a BUG_ON() if that fails.
+> >
+> > Therefore, also top up the memcache for permission faults taken on a
+> > shadow S2.
+> >
+> > Note that dirty logging had a similar issue, addressed in commit
+> > 56fd1fc526e6 ("KVM: arm64: Top up stage-2 memcache for dirty logging
+> > faults").
+> >
+> > Fixes: fd276e71d1e7 ("KVM: arm64: nv: Handle shadow stage 2 page faults")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  arch/arm64/kvm/mmu.c | 8 +++++---
+> >  1 file changed, 5 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> > index a0d4981ebb99..e09a8f2c0482 100644
+> > --- a/arch/arm64/kvm/mmu.c
+> > +++ b/arch/arm64/kvm/mmu.c
+> > @@ -2256,16 +2256,18 @@ static int user_mem_abort(const struct kvm_s2_fault_desc *s2fd,
+> >
+> >  	/*
+> >  	 * Permission faults just need to update the existing leaf entry,
+> > -	 * and so normally don't require allocations from the memcache. The
+> > -	 * only exception to this is when dirty logging is enabled at runtime
+> > +	 * and so normally don't require allocations from the memcache. One
+> > +	 * exception to this is when dirty logging is enabled at runtime
+> >  	 * and a fault needs to collapse a block entry into a table.
+> >  	 * Under pKVM a permission fault can also collapse pages into a block,
+> >  	 * which needs a fresh mapping object, and the hypervisor requires the
+> >  	 * min-pages memcache even when the install allocates nothing.
+> > +	 * With nested, a shadow stage-2 block may also need to be collapsed
+> > +	 * into a table if the guest's own stage-2 mapping has become smaller.
+> >  	 */
+> >  	memcache = get_mmu_memcache(s2fd->vcpu);
+> >  	if (!perm_fault || memslot_is_logging(s2fd->memslot) ||
+> > -	    is_protected_kvm_enabled()) {
+> > +	    is_protected_kvm_enabled() || s2fd->nested) {
+> >  		ret = topup_mmu_memcache(s2fd->mmu, memcache);
+> >  		if (ret)
+> >  			return ret;
+> >
+>
+> Thanks for the fix!
+>
+> On the narrow condition being the smaller backport: I don't think it
+> is. The hunk already conflicts on 7.3, where topup_mmu_memcache() still
+> takes the vCPU, and the condition looks different on 7.2 and older, so
+> every stable tree needs a small manual backport either way.
+>
+> A permission fault can also allocate outside NV. For example, take an
+> exec permission fault on a THP block, where the VMM replaces that
+> memory with 64K hugetlb pages before the fault looks up the VMA:
+>
+>   - the MMU notifier unmaps the block, and mmu_seq is read afterwards
+>   - kvm_s2_resolve_vma_size() forces PAGE_SIZE for the CONT_PTE hugetlb
+>   - PAGE_SIZE != perm_fault_granule, so kvm_pgtable_stage2_map() runs
+>     and allocates a table, with no top-up
+>
+> That one is narrow and VMM-driven, but topping up for every fault would
+> cover it too, and it costs a single comparison when the cache already
+> holds enough pages.
+>
 
-Nobody ever shared this insane thing with us. Seriously, this isn't
-even remotely using these APIs for what they are for. Nobody thought
-"hey this seems like a creative use of APIs, lets ask someone" ?
+Reads a little schloppy ;) But I think you're right yeah.
 
-> It would be possible to reserve this IOVA range in DT so given what you've
-> highlighted I think this and the Iris commit should be reverted and the DT
-> constraint implemented.
+Good bloody lord @ 64 KiB hugetlb pages being a thing... obscene :)
 
-That was the other thread, obviously using DT to describe a hardware
-issue is the correct choice. But there was some problem where they
-also wanted to split the SID space using DT and then the DT mechansim
-doesn't work because the whole thing becomes too hacky :\
+Anyway, I'll send an unconditional v2, it's really not that much delta in
+general.
 
-Jason
+--
+Cheers, Lorenzo
