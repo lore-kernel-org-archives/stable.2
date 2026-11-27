@@ -1,79 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795778308;
-	b=W0liet+AJQT/2E6IzqvKsDLY4LoT/eXAFfHO2Zk2A/2GekBW8J2UHIVQKybskkuYU8Qe
-	 SLFxjEYFZ6uBxqv9R9xCq9RensW/zEqq7Y46l4UI5wbsrW/8ry1xVKlOWsOshbhceSqSt
-	 6ZxjK9UNEcDtNDIk75LSH9kkMRXtssh4eKhtTfW1cNRNa5Xp/n/4RxTO1GuMg4/Cl/7FU
-	 g6jmaMzZfwDyQvFkOmGQ2qe7mEk7yOa90WsGqtvxniGVCAq6IuoKjpFLmHJAnnAcoK1sX
-	 hRRKnVyjwKQGeJmIxViUugOXrrM8RaemtQdgIum+OYh8nx+ZBAF8CskQvhrfEMLfK9w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795778308;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=pMaDmV59y5HN6BOJ5Fbh0sBG11xi6Yr+tOoZt6COCJk=;
-	b=Xm4oV9kO6V5TVpFM2tPNHSenHEco+fcQK6WOW5gDnzEy4wwDNUGN8o65Cbdo6UgtKmEu
-	 URzBST+ivSf9sgx3JTfYRETgSlWP8jt7R0NzwkMrNuolxi3RqvuonX4Sc731z+eaWrZpP
-	 peOiX4sTCOmyy0aAamxAY27x3zeRgMHoFqONY4alvOvCKDHUJBDKhKiTFCeSjkbgKf4qr
-	 ZfVbL/AudddYIaYZR7PkIagqo8r5hLNRpQwkbqzN0yCgozE0qo/+wvHgjZrQfIt7RyIwa
-	 csEMOu942KEh3Ocu4IVxQn9SXgAJoWO3nq0viYp94nXt3FgFbRLvkk3mSBp4resAWjw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6p0xaoR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795778761;
+	b=HlR7zbiBpHAaaEmRLNXbscGYxrCMUMQbEeW7wdqEfbiphqUiPI3uI+SXFDcfxGAERSen
+	 dLqlbr3SwcWtE/20z7PlLkx+njjVILLfbGVQDi7IL60LEzUxMuKQxuvhLAEqJNmNP6Mox
+	 7u8QNmHly9b6VZfyhdx5XuDUp01+q5BDIyCyNjpuXo8Bhh6icLHXaqdF2ICYEDmbv4EgZ
+	 nDRLGvMzRp+7591Ng/iVrHG5H06WW0mOmDzuKoj2nBELcCEF5yd08x6FUB6MFjG26N7Z9
+	 JcIUuzGqjGEO3YW9K+rBwyXoYbbwts5MOvvuEuy4jD3H+jttlkdUK06FJF8kuJwvP/g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795778761;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Spam;
+	bh=eLVQ+rkEWlZh9OyBCVyIy4A0a648+SPumOag+z0r0ZU=;
+	b=fx5DuRwZTfEVmtnyZn9ElAGdcsyuXE3HrCepB+upc+rDd98Auea+G1K2U6Tp8a3Q0jnj
+	 eUPFjMWeEn6wbumJfNGC0WkgCjSPeAbPDB0v2LX4BP6eA2H2sknNnWsOKdNiJm2ACt50h
+	 RNc1UvpuhSF53kxC30Szu3mB+zcHkw7ZuUgxhEN8EqCBrhOqz38ucNFknSGy1bij36kRo
+	 Su6ELB2wPPnq49CVMcVC9GKvPib3kZsUKlQbupim/N7+AUcknkRwc0P9sfk2QLUgWlxIb
+	 WwGx5rZbVkKCibEyacwrrGDtuQ4aOTgxDugHzrQ9qKx1Nl+FbHwxGsPLlHl6n+cohlA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=d-silva.org;
+	spf=pass smtp.mailfrom=d-silva.org;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=UYyPlg8i;
+	arc=none smtp.remote-ip=119.15.109.137
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A89AB606A31E;
-	Fri, 27 Nov 2026 11:18:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14DCC606A693;
+	Fri, 27 Nov 2026 11:25:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14DCC606A693
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6p0xaoR
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795778308;
-	b=KqGHPMAGl6jrFzrlcK+tyOeN1S0arzS8p4uVjJs+qCy+PZFYQLXw18nV1IFjDYrAyADV
-	 /ZXuJLXdzzcRDic7SyOPY7BOepNrmR8qtNkuiRAp2RqFcIL+SWcUmgZF3fAx6sM6Q25UU
-	 jB0IJfelJHHnpbiRe5R3eXZh6bMkzUCjF/fbwAjSGqusiM/hDqWo1RE64+8ScPaW2NxaC
-	 VAxSaVMeJK3y5OmhTdnXCfxmUhhmpK/7vkyBGbLBkyn3iPfHlcHw/aL0SlvTLm2ZGiqRZ
-	 XTdm86uVRfnseVU6hULOBp6OVmd9kDZ1HdWpNXjqTBEfHSvRgXvadrY+xo/PcVmGh8A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795778308;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=pMaDmV59y5HN6BOJ5Fbh0sBG11xi6Yr+tOoZt6COCJk=;
-	b=E6L/GJ5e17W9vieIVbhA4s9k8IHUMeZtAui1cXEOkB16KDLNzWvdTZoLKqZffPHDK5+a
-	 9uUHQSuG7qyQbvElff+tXljbMYtkgSran2dKzlZQnzSGRUeSMdeo5LgvQ0iw/+mqpyBjm
-	 iiIHWTYH/L2yCAAdBBTaLgorpe9k74UffdSl0mor9KgxUxuFvAI/HjMidHS2sH9g/0I7O
-	 FPySlSalP00ssbIpWGB1EdYkQoMJZNIHgwZ8qwiX96v7whASJuzer5bkYAvNipNBIW0Ot
-	 BUMI0fq8VZUl6gcYQhCisSSm4n2aqYBg1Z+pQMjKd8i/sMdK/LgubBCic51FW7zoy8w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 40A991F000C1;
-	Fri, 27 Nov 2026 11:18:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795778308;
-	bh=pMaDmV59y5HN6BOJ5Fbh0sBG11xi6Yr+tOoZt6COCJk=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=n6p0xaoRDpeCcQx+Le28ao8JfINxEqfs2bzJ5D9FhOtAjzKI5QIAWVU/f0Bqg1FCz
-	 GrnOXopZnmpO9+3q4hzLSUDkVsLAOUyZlgcJKGvolBR5RqS6zkb9gqGFvSNj4A1d4o
-	 ByGdEvVyYZW4LtZIN/agCHScT7EW3k+ORFXMS64EUzuxUYPUwSrmqTwnYHrKPFq5sC
-	 thXddOEszHq/VDdCkb8Jzi3p2ZrhVGsnKWAIx6XVsvch6TZ4kOjqSviTpU9EYK+Z+B
-	 n02NvAsHUr7m4MPrfYmqPHJQyguRZc404nWg5An6dsAdoKbCd3Muo30BkZyHdcbTFk
-	 9LLQWDg0+qpDQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B940B4B76A;
-	Fri, 27 Nov 2026 11:18:22 +0000 (UTC)
-From: Manuel Janocha via B4 Relay <devnull+manuel.janocha.amperfied.com@kernel.org>
-Date: Fri, 27 Nov 2026 11:17:43 +0000
-Subject: [PATCH net] net: ethernet: ti: cpsw_ale: serialize ALE table
- accesses
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=UYyPlg8i
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id 721CF4C992;
+	Fri, 27 Nov 2026 22:25:55 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1795778755;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eLVQ+rkEWlZh9OyBCVyIy4A0a648+SPumOag+z0r0ZU=;
+	b=UYyPlg8itGP4fgTqP1IOg40UGBkdIEotSRL9E2JWfB6RSDVB6bw+wuVTP+5eQok4rwuI+P
+	Q2v+Iz1cBATc6+scYKX8e0tJoimITPQmvR41gYqk4s3XhewD1wQ29Tj/FNi32tPLSyAEtm
+	wV8OLBPxuoWAj2aSp0Unmk8p8Qnm8o9XAA62TNUjaATgOL2aXI+ZoKFyiFFSiTwEzJ9xYJ
+	gRTejQpOWrc1Pz0DoQYL56/uUd0PDhcJxbV6ooxGTVsWYjZNqC6NGqzpuJ1tQze1ut3S43
+	3D4beU+A/ihQjxivrgvBNwjIW8AFLKJjo8qho5KS6uO9pnLnDz0cv7TmPQbSww==
+From: Alastair D'Silva <alastair@d-silva.org>
+To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+Cc: linux-serial@vger.kernel.org,
+	gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andriy.shevchenko@linux.intel.com,
+	ilpo.jarvinen@linux.intel.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	Andre Przywara <andre.przywara@arm.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	stable@vger.kernel.org,
+	Alastair D'Silva <alastair@d-silva.org>
+Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook when DLF is present
+Date: Fri, 27 Nov 2026 22:25:55 +1100
+Message-ID: <20261127112555.2585439-1-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,412 +83,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261127-cpsw-ale-lock-v1-1-a72772d9a5ae@amperfied.com>
-X-B4-Tracking: v=1; b=H4sIANZmCWsC/yWMzQqDMBAGX0X23IUkoIKvUnqI69d2VaJk7Q+I7
- 960Pc7AzE6GrDDqqp0ynmq6pAL+VJHcY7qBdShMwYXG+9CwrPbiOIPnRSYWcfVQ94htdFSaNeO
- q79/vTAkbXf7SHv0I2b4nOo4P+xfzpHYAAAA=
-X-Change-ID: 20261126-cpsw-ale-lock-cc05d5bea7a0
-To: Siddharth Vadapalli <s-vadapalli@ti.com>, 
- Roger Quadros <rogerq@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: linux-omap@vger.kernel.org, netdev@vger.kernel.org, 
- Kuniyuki Iwashima <kuniyu@google.com>, stable@vger.kernel.org, 
- Manuel Janocha <manuel.janocha@amperfied.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795778302; l=13871;
- i=manuel.janocha@amperfied.com; s=20261127; h=from:subject:message-id;
- bh=F/gBDDRHH022ptqUxUqYe92QVqSBo1huapUmHvbf6Ow=;
- b=jAif4U7n5mT3PmUzmxwIy+smyiQNPSCkEhvOuWM9FVB4rAF88o2l+JDv/9ZYDPKAH2UylxOWM
- iROq1LyBwUSC397bydinsaRqn2OBTXWQ3XedLHGqrLMHziwsw2EhT+8
-X-Developer-Key: i=manuel.janocha@amperfied.com; a=ed25519;
- pk=DEqXiAa78UfHuuvMWJsylc0F41gl8N+i7WtqrDb4xCQ=
-X-Endpoint-Received: by B4 Relay for manuel.janocha@amperfied.com/20261127
- with auth_id=1666
-X-Original-From: Manuel Janocha <manuel.janocha@amperfied.com>
-Reply-To: manuel.janocha@amperfied.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spam: Yes
 
-From: Manuel Janocha <manuel.janocha@amperfied.com>
+On Mon, 19 Oct 2026 17:06:10 -0300, Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com> wrote:
+> dw8250_probe() installs dw8250_set_divisor(), which brackets the
+> DLAB/DLL/DLH sequence with dw8250_idle_enter() and dw8250_idle_exit()
+> so a BUSY UART cannot drop the divisor LCR write.
+>
+> dw8250_setup_port() runs afterwards and replaces that hook with the
+> dwlib divisor hook whenever it detects DLF. The dwlib hook programs the
+> divisor through serial8250_do_set_divisor() without entering idle,
+> leaving the LCR|DLAB write exposed to BUSY.
+>
+> When termios changes while the UART is transmitting, that LCR|DLAB
+> write can be ignored and dw8250_check_lcr() retries it between
+> dw8250_idle_enter() and dw8250_idle_exit(). dw8250_idle_exit() then
+> restores IER while DLAB is still set, so the value lands in DLH. The
+> real IER stays at the zero written by dw8250_idle_enter(), and the port
+> gets no further TX or RX interrupts while up->ier says they're enabled.
+>
+> Do not replace a divisor hook the driver has already installed. Program
+> DLF from the BUSY-safe hook, inside the idle section, through a dwlib
+> helper that checks dlf_size.
+>
+> Observed on an Allwinner A733 (Radxa Cubie A7Z), where
+> dw8250_setup_port() mistakes the RS485 control register for DLF (see the
+> next patch): the first interactive tcsetattr() during console output
+> left hardware IER at 0 and up->ier at 0x07. The shell never printed its
+> prompt or read input. With this change alone the same boot reached the
+> prompt and echoed input, and hardware IER matched up->ier afterwards.
+>
+> Fixes: a7b9ce39fbe4 ("serial: 8250_dw: Ensure BUSY is deasserted")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+> ---
+>  drivers/tty/serial/8250/8250_dw.c    |  2 ++
+>  drivers/tty/serial/8250/8250_dwlib.c | 16 ++++++++++++++--
+>  drivers/tty/serial/8250/8250_dwlib.h |  1 +
+>  3 files changed, 17 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+> index eca02e8bd6d1..4c86aaf9c121 100644
+> --- a/drivers/tty/serial/8250/8250_dw.c
+> +++ b/drivers/tty/serial/8250/8250_dw.c
+> @@ -197,6 +197,8 @@ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+>  	if (ret < 0)
+>  		return;
+>  
+> +	__dw8250_set_divisor(p, quot_frac);
+> +
+>  	serial_port_out(p, UART_LCR, up->lcr | UART_LCR_DLAB);
+>  	if (!(serial_port_in(p, UART_LCR) & UART_LCR_DLAB))
+>  		goto idle_failed;
+> diff --git a/drivers/tty/serial/8250/8250_dwlib.c b/drivers/tty/serial/8250/8250_dwlib.c
+> index 9bb02a4ab11f..325793f20256 100644
+> --- a/drivers/tty/serial/8250/8250_dwlib.c
+> +++ b/drivers/tty/serial/8250/8250_dwlib.c
+> @@ -36,10 +36,20 @@ static unsigned int dw8250_get_divisor(struct uart_port *p, unsigned int baud,
+>  	return quot;
+>  }
+>  
+> +/* Program the fractional part of the divisor, if the UART has one */
+> +void __dw8250_set_divisor(struct uart_port *p, unsigned int quot_frac)
+> +{
+> +	struct dw8250_port_data *d = p->private_data;
+> +
+> +	if (d->dlf_size)
+> +		dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
+> +}
+> +EXPORT_SYMBOL_GPL(__dw8250_set_divisor);
+> +
+>  static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+>  			       unsigned int quot, unsigned int quot_frac)
+>  {
+> -	dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
+> +	__dw8250_set_divisor(p, quot_frac);
+>  	serial8250_do_set_divisor(p, baud, quot);
+>  }
+>  
+> @@ -218,7 +228,9 @@ void dw8250_setup_port(struct uart_port *p)
+>  	if (reg) {
+>  		pd->dlf_size = fls(reg);
+>  		p->get_divisor = dw8250_get_divisor;
+> -		p->set_divisor = dw8250_set_divisor;
+> +		/* Keep a hook the driver has already installed */
+> +		if (!p->set_divisor)
+> +			p->set_divisor = dw8250_set_divisor;
+>  	}
+>  
+>  	reg = dw8250_readl_ext(p, DW_UART_UCV);
+> diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
+> index 39fcb1b323ad..4bb0ccb3e8ef 100644
+> --- a/drivers/tty/serial/8250/8250_dwlib.h
+> +++ b/drivers/tty/serial/8250/8250_dwlib.h
+> @@ -99,6 +99,7 @@ struct dw8250_port_data {
+>  
+>  void dw8250_do_set_termios(struct uart_port *p, struct ktermios *termios, const struct ktermios *old);
+>  void dw8250_setup_port(struct uart_port *p);
+> +void __dw8250_set_divisor(struct uart_port *p, unsigned int quot_frac);
+>  
+>  static inline u32 dw8250_readl_ext(struct uart_port *p, int offset)
+>  {
 
-The ALE table is accessed through a single index register
-(ALE_TABLE_CONTROL) and three data registers (ALE_TABLE). Reading an
-entry writes the index and then reads the data registers; writing an
-entry fills the data registers and then writes the index with
-ALE_TABLE_WRITE. Most operations (add/del ucast/mcast/vlan,
-vlan_add_modify, flush_multicast, set_allmulti, set_unreg_mcast) are
-read-modify-write sequences over several entries. The driver has no
-lock around any of this.
+Tested on Xunlong OrangePi 4 Pro (Allwinner A733):
+- UART0 (2500000.serial, ttyS0, base_baud = 1500000) boots to shell and
+  echoes interactive console input at 115200 baud.
 
-This did not matter as long as the callers were serialized by someone
-else. Both ports of a CPSW switch share one ALE, but the port VLAN
-and address operations run under RTNL, while ndo_set_rx_mode() runs
-under netif_addr_lock_bh() of one port only and never took RTNL. Since
-IPV6_ADD_MEMBERSHIP and friends no longer hold RTNL, joining an IPv6
-multicast group (igmp6_group_added() -> dev_mc_add() ->
-ndo_set_rx_mode()) can run concurrently with a VLAN or address
-operation on the other port, or on the same port.
-
-For example, on two CPUs:
-
-  CPU0 (eth0 rx_mode, flush)     CPU1 (eth1 add_vid)
-  cpsw_ale_read(A):
-    writel(A, TABLE_CONTROL)
-                                 cpsw_ale_read(B):
-                                   writel(B, TABLE_CONTROL)
-    readl(ALE_TABLE + 0..2)
-      -> returns entry B
-  cpsw_ale_write(A):
-    entry B is written to index A
-
-Entry A is lost and entry B exists twice. Interleaved writes can
-equally mix the data words of two entries in one table slot. The same
-happens inside the multi-entry loops, so entries are written back with
-foreign data or are dropped.
-
-Observed on an AM625 board with two am65-cpsw-nuss ports in dual EMAC
-mode and seven VLANs on the second port: after boot the port VLAN
-entry (VID 0), the unicast entry of the first port and two VLAN
-entries were gone, copies of the unicast and of the broadcast entry
-showed up at two other indexes. The switch then dropped every frame
-received on the first port (p0_ale_vid_ingress_drop kept rising) while
-the port could still transmit, and the board was unreachable.
-
-Add a spinlock to struct cpsw_ale and take it in all exported
-functions that access the table. spin_lock_bh() is used because
-ndo_set_rx_mode() runs with bottom halves disabled
-(netif_addr_lock_bh()) and the dev_mc_add()/dev_uc_add() family is not
-restricted to process context, while the other callers run in process
-context (RTNL, workqueue, ethtool, system suspend). None of them runs
-in hard interrupt context, and a sleeping lock cannot be used because
-of the atomic callers. The register accesses under the lock are plain
-readl()/writel(); the regmap of the ALE is only used for the version,
-feature and policer fields and is not touched under the lock.
-
-cpsw_ale_vlan_add_modify() calls cpsw_ale_add_vlan() with the lock
-held, so the body of the latter moves into a static helper that does
-not take the lock. The loops over all entries run with the lock held
-for the number of table entries; that is the same amount of MMIO as
-before, just not preemptible by the other port.
-
-The lock covers the table (index and data registers) only. The
-read-modify-write of the ALE control registers and the policer index
-registers are separate and left alone.
-
-Discovery: observed on a test system and reproduced on the same board.
-The reproducer joins IPv6 multicast groups in parallel on eth0, eth1
-and a VLAN interface of eth1 while adding and deleting a VLAN on eth1.
-It needs no kernel modification and no error injection. Without this
-change eth0 stops receiving after about 30 seconds.
-
-Testing: hardware test on an AM625 board (two CPSW ports,
-am65-cpsw-nuss) with net at v7.4-rc3 (ef3e21c61baa) plus an
-out-of-tree board device tree, built with PROVE_LOCKING,
-DEBUG_SPINLOCK and DEBUG_ATOMIC_SLEEP. Without this patch the
-reproducer kills reception within 120 seconds
-(p0_ale_vid_ingress_drop 0 -> 2366 and rising; link down/up
-recovers). With this patch it ran for 120 and for 300 seconds
-(about 23000 joins, 88 VLAN add/delete cycles of three VLANs): eth0
-and the VLANs kept receiving and lockdep stayed silent. The same
-result was seen earlier with a backport to the TI vendor kernel
-6.18.59. The legacy cpsw, cpsw_new and netcp users of the ALE were
-only compile-tested (arm64, W=1).
-
-Tooling: the port to net, the locking analysis and this changelog were
-prepared with an AI coding assistant (Claude).
-
-Fixes: 1767bb2d47b7 ("ipv6: mcast: Don't hold RTNL for IPV6_ADD_MEMBERSHIP and MCAST_JOIN_GROUP.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Manuel Janocha <manuel.janocha@amperfied.com>
----
- drivers/net/ethernet/ti/cpsw_ale.c | 70 ++++++++++++++++++++++++++++++++------
- drivers/net/ethernet/ti/cpsw_ale.h |  2 ++
- 2 files changed, 62 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/net/ethernet/ti/cpsw_ale.c b/drivers/net/ethernet/ti/cpsw_ale.c
-index 9304405c9581..dc550142ed82 100644
---- a/drivers/net/ethernet/ti/cpsw_ale.c
-+++ b/drivers/net/ethernet/ti/cpsw_ale.c
-@@ -464,6 +464,7 @@ int cpsw_ale_flush_multicast(struct cpsw_ale *ale, int port_mask, int vid)
- 	u32 ale_entry[ALE_ENTRY_WORDS];
- 	int ret, idx;
- 
-+	spin_lock_bh(&ale->lock);
- 	for (idx = 0; idx < ale->params.ale_entries; idx++) {
- 		cpsw_ale_read(ale, idx, ale_entry);
- 		ret = cpsw_ale_get_entry_type(ale_entry);
-@@ -491,6 +492,7 @@ int cpsw_ale_flush_multicast(struct cpsw_ale *ale, int port_mask, int vid)
- 
- 		cpsw_ale_write(ale, idx, ale_entry);
- 	}
-+	spin_unlock_bh(&ale->lock);
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(cpsw_ale_flush_multicast);
-@@ -520,15 +522,19 @@ int cpsw_ale_add_ucast(struct cpsw_ale *ale, const u8 *addr, int port,
- 	cpsw_ale_set_blocked(ale_entry, (flags & ALE_BLOCKED) ? 1 : 0);
- 	cpsw_ale_set_port_num(ale_entry, port, ale->port_num_bits);
- 
-+	spin_lock_bh(&ale->lock);
- 	idx = cpsw_ale_match_addr(ale, addr, (flags & ALE_VLAN) ? vid : 0);
- 	if (idx < 0)
- 		idx = cpsw_ale_match_free(ale);
- 	if (idx < 0)
- 		idx = cpsw_ale_find_ageable(ale);
--	if (idx < 0)
-+	if (idx < 0) {
-+		spin_unlock_bh(&ale->lock);
- 		return -ENOMEM;
-+	}
- 
- 	cpsw_ale_write(ale, idx, ale_entry);
-+	spin_unlock_bh(&ale->lock);
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(cpsw_ale_add_ucast);
-@@ -539,12 +545,16 @@ int cpsw_ale_del_ucast(struct cpsw_ale *ale, const u8 *addr, int port,
- 	u32 ale_entry[ALE_ENTRY_WORDS] = {0, 0, 0};
- 	int idx;
- 
-+	spin_lock_bh(&ale->lock);
- 	idx = cpsw_ale_match_addr(ale, addr, (flags & ALE_VLAN) ? vid : 0);
--	if (idx < 0)
-+	if (idx < 0) {
-+		spin_unlock_bh(&ale->lock);
- 		return -ENOENT;
-+	}
- 
- 	cpsw_ale_set_entry_type(ale_entry, ALE_TYPE_FREE);
- 	cpsw_ale_write(ale, idx, ale_entry);
-+	spin_unlock_bh(&ale->lock);
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(cpsw_ale_del_ucast);
-@@ -555,6 +565,7 @@ int cpsw_ale_add_mcast(struct cpsw_ale *ale, const u8 *addr, int port_mask,
- 	u32 ale_entry[ALE_ENTRY_WORDS] = {0, 0, 0};
- 	int idx, mask;
- 
-+	spin_lock_bh(&ale->lock);
- 	idx = cpsw_ale_match_addr(ale, addr, (flags & ALE_VLAN) ? vid : 0);
- 	if (idx >= 0)
- 		cpsw_ale_read(ale, idx, ale_entry);
-@@ -575,10 +586,13 @@ int cpsw_ale_add_mcast(struct cpsw_ale *ale, const u8 *addr, int port_mask,
- 		idx = cpsw_ale_match_free(ale);
- 	if (idx < 0)
- 		idx = cpsw_ale_find_ageable(ale);
--	if (idx < 0)
-+	if (idx < 0) {
-+		spin_unlock_bh(&ale->lock);
- 		return -ENOMEM;
-+	}
- 
- 	cpsw_ale_write(ale, idx, ale_entry);
-+	spin_unlock_bh(&ale->lock);
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(cpsw_ale_add_mcast);
-@@ -590,9 +604,12 @@ int cpsw_ale_del_mcast(struct cpsw_ale *ale, const u8 *addr, int port_mask,
- 	int mcast_members = 0;
- 	int idx;
- 
-+	spin_lock_bh(&ale->lock);
- 	idx = cpsw_ale_match_addr(ale, addr, (flags & ALE_VLAN) ? vid : 0);
--	if (idx < 0)
-+	if (idx < 0) {
-+		spin_unlock_bh(&ale->lock);
- 		return -ENOENT;
-+	}
- 
- 	cpsw_ale_read(ale, idx, ale_entry);
- 
-@@ -609,6 +626,7 @@ int cpsw_ale_del_mcast(struct cpsw_ale *ale, const u8 *addr, int port_mask,
- 		cpsw_ale_set_entry_type(ale_entry, ALE_TYPE_FREE);
- 
- 	cpsw_ale_write(ale, idx, ale_entry);
-+	spin_unlock_bh(&ale->lock);
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(cpsw_ale_del_mcast);
-@@ -642,8 +660,8 @@ static void cpsw_ale_set_vlan_untag(struct cpsw_ale *ale, u32 *ale_entry,
- 		bitmap_clear(ale->p0_untag_vid_mask, vid, 1);
- }
- 
--int cpsw_ale_add_vlan(struct cpsw_ale *ale, u16 vid, int port_mask, int untag,
--		      int reg_mcast, int unreg_mcast)
-+static int __cpsw_ale_add_vlan(struct cpsw_ale *ale, u16 vid, int port_mask,
-+			       int untag, int reg_mcast, int unreg_mcast)
- {
- 	u32 ale_entry[ALE_ENTRY_WORDS] = {0, 0, 0};
- 	int idx;
-@@ -681,6 +699,19 @@ int cpsw_ale_add_vlan(struct cpsw_ale *ale, u16 vid, int port_mask, int untag,
- 	cpsw_ale_write(ale, idx, ale_entry);
- 	return 0;
- }
-+
-+int cpsw_ale_add_vlan(struct cpsw_ale *ale, u16 vid, int port_mask, int untag,
-+		      int reg_mcast, int unreg_mcast)
-+{
-+	int ret;
-+
-+	spin_lock_bh(&ale->lock);
-+	ret = __cpsw_ale_add_vlan(ale, vid, port_mask, untag, reg_mcast,
-+				  unreg_mcast);
-+	spin_unlock_bh(&ale->lock);
-+
-+	return ret;
-+}
- EXPORT_SYMBOL_GPL(cpsw_ale_add_vlan);
- 
- static void cpsw_ale_vlan_del_modify_int(struct cpsw_ale *ale,  u32 *ale_entry,
-@@ -728,14 +759,18 @@ int cpsw_ale_vlan_del_modify(struct cpsw_ale *ale, u16 vid, int port_mask)
- 	u32 ale_entry[ALE_ENTRY_WORDS] = {0, 0, 0};
- 	int idx;
- 
-+	spin_lock_bh(&ale->lock);
- 	idx = cpsw_ale_match_vlan(ale, vid);
--	if (idx < 0)
-+	if (idx < 0) {
-+		spin_unlock_bh(&ale->lock);
- 		return -ENOENT;
-+	}
- 
- 	cpsw_ale_read(ale, idx, ale_entry);
- 
- 	cpsw_ale_vlan_del_modify_int(ale, ale_entry, vid, port_mask);
- 	cpsw_ale_write(ale, idx, ale_entry);
-+	spin_unlock_bh(&ale->lock);
- 
- 	return 0;
- }
-@@ -746,9 +781,12 @@ int cpsw_ale_del_vlan(struct cpsw_ale *ale, u16 vid, int port_mask)
- 	u32 ale_entry[ALE_ENTRY_WORDS] = {0, 0, 0};
- 	int members, idx;
- 
-+	spin_lock_bh(&ale->lock);
- 	idx = cpsw_ale_match_vlan(ale, vid);
--	if (idx < 0)
-+	if (idx < 0) {
-+		spin_unlock_bh(&ale->lock);
- 		return -ENOENT;
-+	}
- 
- 	cpsw_ale_read(ale, idx, ale_entry);
- 
-@@ -771,6 +809,7 @@ int cpsw_ale_del_vlan(struct cpsw_ale *ale, u16 vid, int port_mask)
- 	}
- 
- 	cpsw_ale_write(ale, idx, ale_entry);
-+	spin_unlock_bh(&ale->lock);
- 
- 	return 0;
- }
-@@ -784,6 +823,7 @@ int cpsw_ale_vlan_add_modify(struct cpsw_ale *ale, u16 vid, int port_mask,
- 	int vlan_members, untag_members;
- 	int idx, ret = 0;
- 
-+	spin_lock_bh(&ale->lock);
- 	idx = cpsw_ale_match_vlan(ale, vid);
- 	if (idx >= 0)
- 		cpsw_ale_read(ale, idx, ale_entry);
-@@ -803,8 +843,9 @@ int cpsw_ale_vlan_add_modify(struct cpsw_ale *ale, u16 vid, int port_mask,
- 	reg_mcast_members = (reg_mcast_members & ~port_mask) | reg_mask;
- 	unreg_mcast_members = (unreg_mcast_members & ~port_mask) | unreg_mask;
- 
--	ret = cpsw_ale_add_vlan(ale, vid, vlan_members, untag_members,
--				reg_mcast_members, unreg_mcast_members);
-+	ret = __cpsw_ale_add_vlan(ale, vid, vlan_members, untag_members,
-+				  reg_mcast_members, unreg_mcast_members);
-+	spin_unlock_bh(&ale->lock);
- 	if (ret) {
- 		dev_err(ale->params.dev, "Unable to add vlan\n");
- 		return ret;
-@@ -823,6 +864,7 @@ void cpsw_ale_set_unreg_mcast(struct cpsw_ale *ale, int unreg_mcast_mask,
- 	int unreg_members = 0;
- 	int type, idx;
- 
-+	spin_lock_bh(&ale->lock);
- 	for (idx = 0; idx < ale->params.ale_entries; idx++) {
- 		cpsw_ale_read(ale, idx, ale_entry);
- 		type = cpsw_ale_get_entry_type(ale_entry);
-@@ -841,6 +883,7 @@ void cpsw_ale_set_unreg_mcast(struct cpsw_ale *ale, int unreg_mcast_mask,
- 				      unreg_members);
- 		cpsw_ale_write(ale, idx, ale_entry);
- 	}
-+	spin_unlock_bh(&ale->lock);
- }
- EXPORT_SYMBOL_GPL(cpsw_ale_set_unreg_mcast);
- 
-@@ -885,6 +928,7 @@ void cpsw_ale_set_allmulti(struct cpsw_ale *ale, int allmulti, int port)
- 	u32 ale_entry[ALE_ENTRY_WORDS];
- 	int type, idx;
- 
-+	spin_lock_bh(&ale->lock);
- 	for (idx = 0; idx < ale->params.ale_entries; idx++) {
- 		int vlan_members;
- 
-@@ -907,6 +951,7 @@ void cpsw_ale_set_allmulti(struct cpsw_ale *ale, int allmulti, int port)
- 
- 		cpsw_ale_write(ale, idx, ale_entry);
- 	}
-+	spin_unlock_bh(&ale->lock);
- }
- EXPORT_SYMBOL_GPL(cpsw_ale_set_allmulti);
- 
-@@ -1540,6 +1585,7 @@ struct cpsw_ale *cpsw_ale_create(struct cpsw_ale_params *params)
- 	ale = devm_kzalloc_obj(params->dev, *ale);
- 	if (!ale)
- 		return ERR_PTR(-ENOMEM);
-+	spin_lock_init(&ale->lock);
- 	ale->regmap = devm_regmap_init_mmio(params->dev, params->ale_regs,
- 					    &ale_regmap_cfg);
- 	if (IS_ERR(ale->regmap)) {
-@@ -1641,10 +1687,12 @@ void cpsw_ale_dump(struct cpsw_ale *ale, u32 *data)
- {
- 	int i;
- 
-+	spin_lock_bh(&ale->lock);
- 	for (i = 0; i < ale->params.ale_entries; i++) {
- 		cpsw_ale_read(ale, i, data);
- 		data += ALE_ENTRY_WORDS;
- 	}
-+	spin_unlock_bh(&ale->lock);
- }
- EXPORT_SYMBOL_GPL(cpsw_ale_dump);
- 
-@@ -1652,10 +1700,12 @@ void cpsw_ale_restore(struct cpsw_ale *ale, u32 *data)
- {
- 	int i;
- 
-+	spin_lock_bh(&ale->lock);
- 	for (i = 0; i < ale->params.ale_entries; i++) {
- 		cpsw_ale_write(ale, i, data);
- 		data += ALE_ENTRY_WORDS;
- 	}
-+	spin_unlock_bh(&ale->lock);
- }
- EXPORT_SYMBOL_GPL(cpsw_ale_restore);
- 
-diff --git a/drivers/net/ethernet/ti/cpsw_ale.h b/drivers/net/ethernet/ti/cpsw_ale.h
-index 87b7d1b3a34a..8e47261161fe 100644
---- a/drivers/net/ethernet/ti/cpsw_ale.h
-+++ b/drivers/net/ethernet/ti/cpsw_ale.h
-@@ -96,6 +96,8 @@ struct cpsw_ale {
- 	u32			vlan_field_bits;
- 	unsigned long		*p0_untag_vid_mask;
- 	const struct ale_entry_fld *vlan_entry_tbl;
-+	/* serializes access to the ALE table registers */
-+	spinlock_t		lock;
- };
- 
- enum cpsw_ale_control {
-
----
-base-commit: ef3e21c61baa74e39a49b75318bd4541562ec43f
-change-id: 20261126-cpsw-ale-lock-cc05d5bea7a0
-
-Best regards,
---  
-Manuel Janocha <manuel.janocha@amperfied.com>
-
-
+Reviewed-by: Alastair D'Silva <alastair@d-silva.org>
+Tested-by: Alastair D'Silva <alastair@d-silva.org> # OrangePi 4 Pro
