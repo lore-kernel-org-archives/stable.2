@@ -1,112 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795787736;
-	b=W5OX/YE0etLpKkzYIcGNLLv5OCkO/05JXfClRnD+cOm70QjqEp7ux+F5b4Q5YjX/idwL
-	 blEkSz/crKS3SHLW8gVIDuJcsYTu+DLkLqGX5s8GcnD9UoVzczXfxbBBBVkgQFFJUDEiM
-	 kndEpg8xF7qq3DTCRJurBhXR3pZDHiC4FkEep6YhxccePduJZQMhkL6Gp3zyai1IcPPmd
-	 zuMU/QRr3mDoKjmrUtR1g3pql6C/6DTzCRH1Y/5JwGGCf0m2UMQo/M718fn+4nuf291qy
-	 FafFfaNfawJhqTChwV3/fRIE59gPGTK35pmFIp15jRZgjvlBXdRoYdiz31THIWWkKTg==
+	t=1795787896;
+	b=QaEPzSYxFtpQia3VWemcZzhkbeD4jJxk08XJB0IHzeRX/jWLtU+zsCWlWdqxfSmdKjmD
+	 eP0IZFOpZIv2HFu2fpgR5YqsC4vQrG0oeksDE77uBpqwKLcELH/lvQoDHGZWsb1K6TOjs
+	 ttuuZ6T2CLqAtM65uykeOsY1E9G+APDQ2kchsZZw2jjM++L70wwGH0capPM+qJ7Z991IU
+	 pvx0NNi9jcqcMHu7EhFVGB4m114vI4cUCE0z/3fmoFo8SIfHuceCkmrWbvzNuSvGBrKX8
+	 70bqd/MSrUaFwS6t+m2cWjOHyqu0b0lKORucPf4NfXZjCbjDsmSjdTEzgBKjsuiPnDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795787736;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=+xGIJ8DGOyu2gbCTh1FSGJE7fE4QKip4VB8iOYWUKQI=;
-	b=N9eh8Sj36ynUF4OoRBFxjuZJ6aBZbpEgzZ2qi9syi4z1re0rlPNiLno871d0CF3DZ88p
-	 Qwer46QZKiImuQr0c7pd2yk0tVXB5mgCGLsgavn/5ky6+eMlMQ/nfWOECPptCyhIvrxSv
-	 jTyAewGGYQ4qObLY31iO6pIEBzcSW06fZdjjBFAGcOvqrdNsFAVF638yULN6ay9GPiH/A
-	 jPG97sYqcGkQ7f3bM1und4x1WP13Y7J81BvykQ5zmHfpvt6i5leig/OxF3Q8AEs9AaF0R
-	 aeONOA5RAEQoLaV8dhcWnDVjWFqfepuNPm0hr6IRkegyaVZmqEEwtEkY8Oph347eUsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795787896;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=f1cpR8UC2K9Hh290rl3zoXoR37d6lYjg5P7GDWf+Pv4=;
+	b=RHjtkf1/dqDWJFM5EZil/QZT/UDxspR+8dRWaxsT8a+BPOvZuKFq4CFJH0SMoskWhol2
+	 5vM0CsNh+jcpVGXfnQLOE9HhBuEweuWx/gGXk399J0+1zEdJZwkuH/D8CD+wFWNREArXY
+	 Bx84oMjxab4lDIGZ8gZA2jIZOMAbG2/8haX/oTNP4fLIvmg8x6fJ5vFdM5QHrRtAyH5iR
+	 kcFtmmmf+68ecgzihnLWmsnyx/YB7jucodCLA5vJDR4e5W4Eho4hKnxfqksjYSSX+pkKu
+	 iRoMhHM3cF18JstRIwG1PzMba8FC9PIaPtdY8QGSbgJLvJOlRp9B0K9GJq2xvvliD+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fCIsiBj1;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gRJmt72H;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mwr1txn7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC575606A32D
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 13:55:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC575606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D553606A31C;
+	Fri, 27 Nov 2026 13:58:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fCIsiBj1;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gRJmt72H
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ARChA3u2205041
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 13:55:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+xGIJ8DGOyu2gbCTh1FSGJE7fE4QKip4VB8iOYWUKQI=; b=fCIsiBj1dAFnx17q
-	0e8g4pAsQFToDktVqgqG28sY150BG7zfC1/mAMWa/OfpcVsCKi8GWH4/UiNKE4R4
-	d21XuPqo1OsnKNtfDnX4vhl+IqnMtPFHgTg5sRH/wwL3GHV6CVOJH3GDgFoU/zDs
-	4KSuRCxK0OVGXPnkNjmVkZHL+t3fdtROE0B/WuenYTUKWfi31CDAF7bi3hmfHNkh
-	cPr6dzwAo353SC+yxCt9P5XG/X1oVC9/RLvLdkFnaeuczxrKXz6RqbIZ5H6tNpqn
-	A9q/GNLUdN4WWgum/VLcYT3GZKWxIsiqjPyEtGk/6/dOIqEonFIgEbYCeCCBES0g
-	KsR2Ug==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6u4huamc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 13:55:35 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-38355b03cb8so7392460eec.0
-        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 05:55:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795787734; x=1796392534; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+xGIJ8DGOyu2gbCTh1FSGJE7fE4QKip4VB8iOYWUKQI=;
-        b=gRJmt72HW4N3xXsOyjnqc4tAn0wZKKReRN9M2WZ8acOtS/+cwoy+QHx4NFOgluGCkd
-         agov2uhR1sOfmn3mdV6xThnQWZ4WC/qx0sgmHCWSf1u6x+1SKC9bTffoiAVRxbMjDC/N
-         6MGN59hW3B+g5VBV9C0FInIgfASsEp4gcLjCrDSOk19Xxm+sUyOAMPHmYxBqq3eDTvFA
-         f6T/soT6t1JWW6a5aOwzwBzBIMF1gF9sRgkgTroqCNA/N9hYQZ5lOpUFyjXqJPiH+1Sp
-         O7nGgpDVEx+5accm/PpN0XDm1IGfFwXJJWYCwOwdgF3SQxIJvN5dThDnfdMxyNBYTwf9
-         avSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795787734; x=1796392534;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+xGIJ8DGOyu2gbCTh1FSGJE7fE4QKip4VB8iOYWUKQI=;
-        b=yHBTtC+2mIxbEFkzk8jw+RrrFiO+84unmtiNzOnLPnh7s70sjMR2GDi2wrQMU1qrhw
-         S4xi7mjxJPYNcu5ndeZMIKOTmzwZHO8QBDvslGUkDQqQCrgt47Oxna/CPVG0mbJ2D8fw
-         P6L2goIRSYZDLzKej7jzIkb9syJMHQkuofQZTHi2lmd+fDERwHqzT4KdAHUStd81dqAh
-         DftOJbmhmYIBQnvdiB9+K7kdJj3o/aXGJdxRaKuMPuWXPnjT5chFPxclqVmpIHyMjtQd
-         spQj9bhgj9+7mjhrG4ohDPiMAyPFE84kY+6VgGQqSDQhzCBrLDt+hzrlyKoNKNdIOJq9
-         BmcA==
-X-Forwarded-Encrypted: i=1; AL+hErFa6tJtpp4fxH0tPvi5Bwwz0/ES438Wg7mBl9Ot/+H3oG8GCzUdahJQHhn2MFhvFKL/xh1LY6U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z806uwrZ4JkfTWKE+C9y93q3RbxKSjTbYulAW14o/4u0dXt8br+
-	Xe6W/832LP9G6LX8F8ScHD5AR6IDTAYE5k70GM5WidsJ7WAlgGQdk8dtkW/7+wbuEZ7FuiF2rcS
-	xC3INSNQUG2XM4KeGQp90BnC0dz9n5m+wcEw9ty0PFAu97+MhqWGv52SyJ1s=
-X-Gm-Gg: AZFdTZdnNdoXTYqQDkwdHOgLpwoFN+vIZ0ezVGziI/sjK1m/tOk1MN2NSzMul3+dZU9
-	ET9Jy19Yq2ZWeMwEuJECJSWbav7lnDUR4PDk/9yZnBwZ1WYSI2fyPTFkOOMCPV9+XMQrMfoKPVK
-	7VD3NY7lxJKiAaUTihLyR6eIO8iRx8B3DQP11g1s087HE4k3LyX39GBGL7q10m36OB92E1ffd6H
-	UkRSuBWDuaj8iRcGiaRcwc+xkoI4F8DKvoLjp2PMa9zmk0ssKO5OFtEl5WgSUBdbiYxdpvBSUXy
-	hc2P5f33nELASrWD1GgJfiWy+FHRbqxszgs/vPaNKn5lkCurYUZ+z+wSDIUM+Vh6Ha3GGA2CZEq
-	vAhNel0dPfG80i1grYXpFuhJGjGe3T1Ky5Zx528Qzhq8ux3kP8VvSuL/jUIn74orjlAxEEEqqay
-	kGgblB
-X-Received: by 2002:a05:693c:62d4:b0:386:ad86:21a9 with SMTP id 5a478bee46e88-386ad862c8emr15267653eec.13.1795787734074;
-        Fri, 27 Nov 2026 05:55:34 -0800 (PST)
-X-Received: by 2002:a05:693c:62d4:b0:386:ad86:21a9 with SMTP id 5a478bee46e88-386ad862c8emr15267622eec.13.1795787733548;
-        Fri, 27 Nov 2026 05:55:33 -0800 (PST)
-Received: from [10.206.111.23] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-386c7c62a91sm32534281eec.17.2026.11.27.05.55.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 27 Nov 2026 05:55:33 -0800 (PST)
-Message-ID: <fdb8d9d2-3478-4257-8a61-1e8de6274352@oss.qualcomm.com>
-Date: Fri, 27 Nov 2026 19:25:25 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mwr1txn7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E9461F00897;
+	Fri, 27 Nov 2026 13:58:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795787895;
+	bh=f1cpR8UC2K9Hh290rl3zoXoR37d6lYjg5P7GDWf+Pv4=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=Mwr1txn7jxQbejBY5GLGQ0t+lgUPqvLYv6L9blRBfMR7VxoKA4rZm6Dmm7ILpH1gW
+	 o/Dm9uuaxFmgpPqYLRGdXbE2hghbvSsphBP3k6S6pYnyQYKvK/VC1O6W0wAjj2o8jK
+	 BFSOXBhJiocESx7bjUz8XyD8Xki1y7dymQIHMlb+vuMhNaRdSsuMc+vzs+Vy/7OMYC
+	 dQYhtmcIw8YGWicI2iUJx4ezMLQHA8B4/KsNKLH7a/6QjZJa896fOK/0ATMJR4uVt5
+	 AdnISnq9i30+Teum8o+Jeh9iDXUXGYqjlzsV016HNoS/+ceXxqDGpmfxzv23X+0FUh
+	 rAGob45wrO+Pg==
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -116,74 +49,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] Revert "media: qcom: iris: use disable_irq()
- during power-off"
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Hungyu Lin <dennylin0707@gmail.com>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Hans Verkuil <hverkuil@kernel.org>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-References: <20261120-fix-disable-irq-safely-v3-0-82f9561394cb@oss.qualcomm.com>
- <20261120-fix-disable-irq-safely-v3-1-82f9561394cb@oss.qualcomm.com>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20261120-fix-disable-irq-safely-v3-1-82f9561394cb@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDA1NSBTYWx0ZWRfX0ZiDLi1y7Il+
- c/DrJsLY5Rq910EIJ47hJXIiTCLYbkeMwbDANCQkOFV0Ol3ss7mSizrTnmZ0UskJfaCxyBP2k8J
- Et4uZm3FZu0iyvGmyiXb0Q5OH2BwuSk=
-X-Proofpoint-GUID: MgD2p_vXcr6Gb9Xw0VLNQ3v95BaCEDuI
-X-Proofpoint-ORIG-GUID: MgD2p_vXcr6Gb9Xw0VLNQ3v95BaCEDuI
-X-Authority-Analysis: v=2.4 cv=M9fYuCws c=1 sm=1 tr=0 ts=6b098bd7 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=O1gZ55P4O49W-73hC6wA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDA1NSBTYWx0ZWRfX4VWR3YJ5zjNy
- BBf3tE5A0YlspuD4Ybs+B94dUaS4uu8misXIY07lk88ewIRi+Z46QFq6Qg/qKigbjiYez4NW9qR
- Lo+voHzAim1Bm7q8jimqbOLMWuQN0z/7GZl3GlAA7hCji3TvPe5AK3y9qZFAvtNImIHHM2FezFP
- SCNGd4HHbQNTzpHGEAridpkw0vB9cmFkjqWVGMN2ujeVmBJi7ftUhyBDToKYJsrlfwQ1nasnRpd
- MfX1Z+l2/95xx/lVtn2YHejG3GXoGFJ2Ebe+jiWbyI7dD83wG0J+74KksKmeK65M5zucVaC4auj
- OLjqNvezdUQANKVVAgRxh4Pn3qtKilkoefN9YBsTdsp4uI0McrB1aCsaDPFIm3y2wTG/xVYgkEi
- LcP3STqQPDAIiZ+lqUxD22w+Gj00D39APGsLUAiAMPlzPb3Df4UTQQR2F18MTtPXL2zPDETy1VF
- diDHRf4DqVsuLQ9dgYQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-27_02,2026-11-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 impostorscore=0 suspectscore=0 malwarescore=0
- spamscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270055
+Subject: Re: [PATCH] phy: rockchip-usb: fix reset control leak
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Xia Yan <yanxia@cmss.chinamobile.com>
+Cc: vkoul@kernel.org, linux-phy@lists.infradead.org, 
+ neil.armstrong@linaro.org, mani@kernel.org, heiko@sntech.de, 
+ p.zabel@pengutronix.de, ayaka@soulik.info, kishon@kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, yana06070@163.com
+In-Reply-To: <20261115042640.426517-1-yanxia@cmss.chinamobile.com>
+References: <20261115042640.426517-1-yanxia@cmss.chinamobile.com>
+Date: Fri, 27 Nov 2026 19:28:07 +0530
+Message-Id: <179578788741.13164.8538367481844332594.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2030; i=mani@kernel.org;
+ h=from:subject:message-id; bh=2LC0gv6PbFQzQ2shw21mBeIjq7U/AJqmn3yIRLpECSI=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBrCYxy/tnNAqKySBaZmAGd4rkFqYGz3dced8FzB
+ MTfEoh13lWJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCawmMcgAKCRBVnxHm/pHO
+ 9VN+B/98sdGMuznYvCHZlcxI085NqcsaU/rEbhG5UbvhGEpYFkj6/u8oKd3mooQvZlX2tGjFKdV
+ PgcK55C6Fo0i/ducIa1zXTckPf1O7vvQvzY0EgqgyWHs2PKM8GAzMU5vZ+34tmkjZRdtNGHZz40
+ 9aWNyUo26t4Ww9pu+b9GUPYPWWZiU+Yl2/5s53mBHmYoJP2R0Y8KJxoqIt3WMBJKEIXUa8bYSuE
+ LC6txnqr4S9bB/hm0prdJI1G3U+1qWV+oTNJEgt7Yit7OlshzUtFgRgKPMi+3gmeRP8rhOueZf0
+ Ak4FJMjVf2PMxwknn5y1NRgYRiapdx6ymbozXFKFnU5DH/d1
+X-Developer-Key: i=mani@kernel.org; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
+On 2026-11-15 12:26 +0800, Xia Yan wrote:
+> rockchip_usb_phy_init() acquires a reset control from each PHY child
+> node but never releases it on probe failure or driver detach.
+> 
+> The leaked exclusive control prevents a later probe from acquiring
+> the same reset. Since lookup errors are converted to NULL, subsequent
+> PHY reset calls silently skip the hardware reset.
+> 
+> Register a devres action after a successful lookup to release the
+> control on probe failure and detach. Keep the child-node lookup and
+> the existing handling of lookup errors.
+> 
+> Found during review of reset-control lifetimes.
+> 
+> Fixes: 0f74ab59ce87 ("phy: rockchip-usb: use rockchip_usb_phy_reset to reset phy during wakeup")
+> Cc: stable@vger.kernel.org
 
-On 11/20/2026 1:12 PM, Vishnu Reddy wrote:
-> iris_vpu_power_off() is always called with core->lock held. Its callers
-> are core init, core deinit and the runtime PM suspend and resume
-> callbacks, and each of them takes core->lock before calling it.
-> 
-> The threaded IRQ handler also requires core->lock to proceed. If the
-> handler is woken and queued around the same time power-off is entered,
-> it cannot acquire core->lock because it is held by the power-off caller.
-> disable_irq() waits for the handler to complete, resulting in a
-> deadlock.
-> 
-> Fixes: b9c2215bdedc9c ("media: qcom: iris: use disable_irq() during power-off")
-> Cc:stable@vger.kernel.org
-> Signed-off-by: Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
+Stop CCing stable list for these minor fixes, please.
+
+> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
 > ---
->   drivers/media/platform/qcom/iris/iris_vpu_common.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/phy/rockchip/phy-rockchip-usb.c | 14 +++++++++++++-
+>  1 file changed, 13 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/phy/rockchip/phy-rockchip-usb.c b/drivers/phy/rockchip/phy-rockchip-usb.c
+> index c5a2853a63d3..79b3315b6590 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-usb.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-usb.c
+> @@ -183,6 +183,11 @@ static const struct phy_ops ops = {
+>  	.owner		= THIS_MODULE,
+>  };
+>  
+> +static void rockchip_usb_phy_reset_put(void *data)
+> +{
+> +	reset_control_put(data);
+> +}
+> +
+>  static void rockchip_usb_phy_action(void *data)
+>  {
+>  	struct rockchip_usb_phy *rk_phy = data;
+> @@ -219,8 +224,15 @@ static int rockchip_usb_phy_init(struct rockchip_usb_phy_base *base,
+>  	}
+>  
+>  	rk_phy->reset = of_reset_control_get(child, "phy-reset");
+> -	if (IS_ERR(rk_phy->reset))
+> +	if (IS_ERR(rk_phy->reset)) {
+>  		rk_phy->reset = NULL;
+> +	} else {
+> +		err = devm_add_action_or_reset(base->dev,
+> +					       rockchip_usb_phy_reset_put,
+> +					       rk_phy->reset);
+> +		if (err)
+> +			return err;
+> +	}
 
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Why not devm_reset_control_get()?
+
+- Mani
+
+
