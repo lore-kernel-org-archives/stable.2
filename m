@@ -1,78 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795770913;
-	b=GNNZwsfGHiINVUwymkO3xQLmnbOOn38DdN9vMmrGhERgv66tlgMy66ZbUEwfFd41BInd
-	 RGZrx+ur7R03TUyWrVibUgBN3IWgOoNguXcWky9NSL2VaTi8gXNeq026xrfAuRSQpcUIU
-	 fcCZmpBWZPUnQQ3z1sviGeF81EpgsZQLKlAVrClVt6C+P3YoW/PjEt29GZPaQgn0zSIoY
-	 H5av6M2vaqooxEfraVPxbXvl2cVl37JjgqP0JO2zTHNtzZj0FhlFOOg8ZL+DCG5mpHbhn
-	 GCTTYBn6ZZjxRkJbx830k2g99tfMMKi3GNd7vIbI52yCFgQ4OMtgOndmbuGxt0Iq1mw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795770913;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=r4tf2BfxDN+nidvh3c/c73rJuBoTBoakfoPdafRUpy4=;
-	b=0Ca9QXUs2eBQyeKFtYSoTm34mYasDNo4gjRQU92YefBkEoaozuO9Rc0BweTK9lgC4y8K
-	 OQzw1MzKBR2e3HH6I7SuMNExPylXuXf78AqklG+VYCp+0xGd4oyHdtw0bhFZhTWCVeA9Z
-	 Msi2a5iV1EEa7JRnEls8X9XS8CONxgvhForkha2Uc7V3Udn389n4CPKqiGUuDeAyWrLiZ
-	 7Ub6QL6r+OUOa8yN3xjUcijmodYkPnJzZmyp3TtsGtNoicRxkSJr/g/dSW3ERqfX23kNS
-	 bYE0dv4xaAlqHmYnnlt/9dtYqA4BU3bNhFM0RciapL56wm2gymo0IDEZyXtuuGYbFjg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=juovWTzc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ECFC606A31C;
-	Fri, 27 Nov 2026 09:15:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=juovWTzc
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795770912;
-	b=LVSbMZGiILtDLcnmlv12oO8iDHH7XkQ0jFhpgEgbXxQROvtkLWzBcRFTAhJGlxIvbsWf
-	 MXPKxStBVTO/SvVsk6vf4lCYVz9VWRFv1/tb1X/t9YZSIroWJB8Ei6suIatSjuA5EvMiF
-	 Ot8Uh6lUyVqVRtxKYIoyf/VzD8Lqiwpvhy8lLzrqSbT29Z+/hm/pbDbRh+rGU4JJus0en
-	 ErFBSq488jdqNs5g7o7W2ZI1EmZnRok0euEGlcOkcVuBBIIxeUAkWQ92huDrkrRSJqIUJ
-	 HzfNpXpdAMZO3tPec/sdmODM7SX4RGKnqjXvEZhZS58cybEiBv8jFwZ4SK8jfeDhV/w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795770912;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=r4tf2BfxDN+nidvh3c/c73rJuBoTBoakfoPdafRUpy4=;
-	b=cj5anc6qwmbK7PD6mpsj8IQp3TLO7+zV9nGyx2LEg706LG9kC+PpAFdNSuPtY6djCguY
-	 xsJ7qothtZzvE+YNt143bjEwAWLk8puhHax9wlal6o82RMT0WzusyuwEYc7nx8yNhPZV8
-	 qSvkv2N3w3WnbVz6/HKbYal2ePxW6rmflHALZDR84mrXYq0TyQdMpJ4VLpXVkXMUREv33
-	 chopgRwDKLJNZujXNYnMVVaNnSRvO8ICTRIxcY4Sy+NtJeXwM+C4cvCeP9DEzccdKVphg
-	 +6zP4yC6aU/qK8EdC6VZTS5RzDagyjRIU0xxZx4idLptO8Ih+YTXi6mX4SPT/B94/VQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795771138;
+	b=1XJtDaQLPFMU9SPPlsT/+Uzc8pxfYecqVRI99qWamhxcVo3cYSrU3nQBGi7fmXg0jD8d
+	 qvdIq27RWsPccIYuZUquxZAIDXm0WmtvIDguTYKrS0fbPdEOKcgJbi8OVXsNvsWDD+uN6
+	 RULyJ/ffHinYZgJ6SS+/lt+5JdTQiJKJYyUzHdVwD2TbvDDd1h5DmDU0FVmA6K0lPfhze
+	 OauC/M+eL82T/eK1qUFKoz4VEXQgEfF6ktmD0y1sNp1kZ3WEu1UyPPjKcp7CDzCivwF55
+	 AS9bOkPrGdVkSqRoJfQ+h0idFnXNtsoL+3KtBSFRr17yOEvsju6n8mElkVL0TRvF7WQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795771138;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=O76IIwZpAm8NpBXKtN94VyTUYktRHuJ9UogySv+TxgE=;
+	b=Ka8PUIXXklOyfa9FUmTTKQjsKZ2VWml96hePD9AehCvAqXN+DR6a1+53KTykZlPh0pGm
+	 WFQeW2SIAgM8QKlALarTwhHFKwbgiNjUkIy4RvVVv4K47QMyRa9DpXhTjRxZKy7pGRXJL
+	 T/CU7oiF4cVj6fEBJrYMmltZR07traXHb3QDT6khBiCLnfeaNciM0RsS3oVSLDn1ug6rP
+	 rZxLLUIErpZ0l956rQ28rvOow71F6P/tdFpSPNwRnEjLxrR9qonbCjS8HU/Amm2zhIqzu
+	 HGFRge0E6ddlgCJNAo1aYg5BCWSsfHKk0xpG3owjfag0ZtyiTFkA8sBwIaOky8l603w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=q+P8Z+VF;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A03751F00924;
-	Fri, 27 Nov 2026 09:15:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795770912;
-	bh=r4tf2BfxDN+nidvh3c/c73rJuBoTBoakfoPdafRUpy4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=juovWTzcXvSqaHomL4DCwxUgb0iY9n+VFvOEyku6il1yNMzCh55YsXphTM6xICBdn
-	 lbOyaE2ixJDIDvZr01SagS5wrIdBkMiujDR2R/bvdkEG7hEugIuC7O0CjXQBD+6a0U
-	 MqpS490rWot7HaxjPQr9+PyHqGNv2jAQzwxjFLMGGommu5mz85hzgSM7sgkZ79Jh2S
-	 2bK+X5JIbBP09jlScRECtRLXTlaWdy0M4j20L+5Owhip4A+e2A6TvcxBWUXccm/9jL
-	 Ef493RIoJbGMd0Dtk/p8TAgyIL1/LPW5AaUYz3JkgzyzoG4KZzNHj4h+lrrzeyLnOU
-	 hQDv96KP5QowQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1BFA54B690;
-	Fri, 27 Nov 2026 09:15:00 +0000 (UTC)
-From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
-Date: Fri, 27 Nov 2026 10:14:56 +0100
-Subject: [PATCH] libceph: re-target OSD requests on PG merges
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C367606A31C;
+	Fri, 27 Nov 2026 09:18:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C367606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=q+P8Z+VF
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=O76IIwZpAm8NpBXKtN94VyTUYktRHuJ9UogySv+TxgE=; b=q+P8Z+VFvcXOYcSsAQUUKdha9A
+	G0JnWTshf2VqEs1N0M1XnEtiC5lRjVs73Mz+IgnC1cOkOb6aFxF3ZzgdxDCEewLlIeb9EmKc5Rg6e
+	sfwiaF44IVMsmeI9AFm59NLM3hJyQLzmbuZmMGlqgW+InkS3imPOr6A1oU4kRbWDpse4wqwPQ6B40
+	h0Gg2m9PHl0Z8QlWWZyq9OI1A+eXY1FHVI8GjGpseiNEVkigkH1Z+tDjdqdU8ePUwYJoD/RcBKxEY
+	KcjE6N0W01wkSJGeVuq3V+fNaGplx33ZN3K6xkyLT2axYOwH3Skhv763gFTVnN4jjYAH+yEF9Acpz
+	ciUf+WTw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xWs6Y-00000007VNz-0X3X;
+	Fri, 27 Nov 2026 09:18:54 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 655D530316A; Fri, 27 Nov 2026 10:18:52 +0100 (CET)
+Date: Fri, 27 Nov 2026 10:18:52 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-perf-users@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Jann Horn <jannh@google.com>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, adrian.hunter@intel.com,
+	alexander.shishkin@linux.intel.com, dapeng1.mi@linux.intel.com
+Subject: Re: [PATCH 1/2] perf: look up address filter files without
+ ctx->mutex held
+Message-ID: <20261127091852.GD83911@noisy.programming.kicks-ass.net>
+References: <20261126-work-exec-update_lock-leftovers-v1-0-1024b26792bc@kernel.org>
+ <20261126-work-exec-update_lock-leftovers-v1-1-1024b26792bc@kernel.org>
+ <20261126152414.GH49833@noisy.programming.kicks-ass.net>
+ <20261126-gedruckt-gastarbeiter-vorsorgen-5fea7cea1877@brauner>
+ <20261126-erlogen-bedrucken-dementieren-5de5e5460481@brauner>
+ <20261127081303.GN49833@noisy.programming.kicks-ass.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,204 +76,291 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261127-libceph-pg-merge-retarget-v1-1-2427758cdd1c@clyso.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QrCMBAEf6XcswfJgUb9FfGhTbftidZwSUUo/
- XejPi3DMrNShikynZuVDC/N+pwr+F1DcWrnEax9ZRInB+8l8F27iDRxGvkBq7+htHULh/3p6MQ
- NoRdQ9ZNh0Pevfbn+OS/dDbF8g7RtH/2TqJl9AAAA
-X-Change-ID: 20261127-libceph-pg-merge-retarget-7598020f7d2e
-To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
- Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: =?utf-8?q?Niclas_M=C3=BCller?= <n.mueller@mueller-it.de>, 
- ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Xiubo Li <xiubo.li@clyso.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795770898; l=7315;
- i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
- bh=Zado0TAGrUK3dd3ptM/7zluOKnbbQeVWAwqIQJArbzQ=;
- b=2yIneOIi09i31RVhpoWGU9jt4sbVo/gZAE5X8/UvhOs2icbE+g7wuQr6JKl3O+YWyw9AI5rwQ
- 0jaC4HgyYf7CQdm/5Vl8YG2bnYf5zaaQEk03hv4digM9UhsmiLLNk63
-X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
- pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
-X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
- auth_id=840
-X-Original-From: Xiubo Li <xiubo.li@clyso.com>
-Reply-To: xiubo.li@clyso.com
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261127081303.GN49833@noisy.programming.kicks-ass.net>
 
-From: Xiubo Li <xiubo.li@clyso.com>
+On Fri, Nov 27, 2026 at 09:13:03AM +0100, Peter Zijlstra wrote:
+> On Thu, Nov 26, 2026 at 10:26:02PM +0100, Christian Brauner wrote:
+> > So ok, if we can't drop ctx->mutex in the middle of the ioctl then how
+> > about we don't hold ctx->mutex during parsing to begin with?
+> > We let perf_ioctl() hand PERF_EVENT_IOC_SET_FILTER off before it takes
+> > the mutex:
+> > 
+> > ioctl(PERF_EVENT_IOC_SET_FILTER)
+> > -> perf_ioctl()
+> >    -> perf_event_set_filter()                // no ctx->mutex
+> >       -> perf_event_set_addr_filter()
+> >          -> perf_event_parse_addr_filter()   // kern_path(), own list
+> >          -> perf_event_ctx_lock()
+> >             // revoked? has_addr_filter()? ->addr_filters_validate()
+> >             -> perf_addr_filters_splice()
+> >             -> perf_event_addr_filters_apply() on each child
+> >          -> perf_event_ctx_unlock()
+> > 
+> > The parser fills its own list and counts the file filters in locals.
+> > Everything that needs ctx->mutex then happens in one go under
+> > perf_event_ctx_lock().
+> > 
+> > So ctx->mutex is never dropped in the middle of an ioctl, a migrated
+> > event is handled by perf_event_ctx_lock() like everywhere else and no
+> > ctx is carried across the lookup?
+> 
+> Let me try this.
 
-calc_target() only recomputes t->spgid for a regular request when the
-primary changes, when the epoch being processed is the pool's
-last_force_request_resend epoch, or when the request's PG is split.
-A PG merge (pg_num decrease) is not detected at all:
-ceph_pg_is_split() returns false when the new pg_num is not larger,
-and ceph_is_new_interval(), which compares pg_num, is only evaluated
-for linger requests.
+Compile tested only; Alexander, Adrian; could any of you take a hard
+look at this and actually test?
 
-The monitor bumps last_force_op_resend_prenautilus, which is what the
-client decodes into last_force_request_resend, on every merge step, so
-most of the time force_resend covers the merge.  But it only fires on
-that exact epoch, and it is easily lost:
-
-- When one MOSDMap carries several incrementals, a request that is
-  re-targeted on an earlier epoch is moved to need_resend and is not
-  scanned again for the later epochs of the same message.
-  kick_requests() then calls calc_target() once more against the
-  newest map, which is past the force resend epoch of the last merge
-  step, so the merge goes unnoticed.
-
-- A client that falls far behind, e.g. an idle mount, may get a full
-  map and never process the force resend epoch at all.
-
-If the merge target has the same primary as the merged-away source
-PG, the request keeps the spgid of a PG that no longer exists.  The
-OSD drops such ops, as it expects the client to resend them to the
-merge target, and the request is resent to the same OSD with the same
-stale spgid forever:
-
-  REQUESTS 3 homeless 0
-  260  osd1  4.173fada4  4.24  [1,2,0]/1  [1,2,0]/1  e451
-       10000000231.00000000  0x40001c  12  read
-
-while pool 4 has pg_num 32 and 4.24 has been merged into 4.4.  This is
-easy to hit with a mount that stays idle while pg_num goes from 128 to
-32, and then reads.
-
-Do what the userspace Objecter has been doing since the merge support
-was added: treat the request's PG being a merge source or a merge
-target like a split, recompute the target and resend.  Also count
-merges as a new interval in ceph_is_new_interval(), matching
-PastIntervals::is_new_interval().
-
-Cc: stable@vger.kernel.org
-Fixes: 7de030d6b10a ("libceph: resend on PG splits if OSD has RESEND_ON_SPLIT")
-Reported-by: Niclas Müller <n.mueller@mueller-it.de>
-Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
 ---
-A kernel client never re-targets an in-flight OSD request after a PG
-merge if the merge target has the same primary, so the request is
-resent forever to a PG that no longer exists and the read hangs.
+ kernel/events/core.c | 135 +++++++++++++++++++++++++--------------------------
+ 1 file changed, 67 insertions(+), 68 deletions(-)
 
-Reproduced on a vstart cluster with a mount left idle while the data
-pool went from 128 to 32 PGs: before the patch 2-3 of 200 reads hang
-(both when the client applies every incremental map and when it jumps
-to a full map), after it 200/200 complete.
----
- include/linux/ceph/osdmap.h |  4 ++++
- net/ceph/osd_client.c       | 13 ++++++++-----
- net/ceph/osdmap.c           | 24 ++++++++++++++++++++++++
- 3 files changed, 36 insertions(+), 5 deletions(-)
-
-diff --git a/include/linux/ceph/osdmap.h b/include/linux/ceph/osdmap.h
-index 5553019c3f07..0644a410b4c0 100644
---- a/include/linux/ceph/osdmap.h
-+++ b/include/linux/ceph/osdmap.h
-@@ -272,6 +272,10 @@ void ceph_osds_copy(struct ceph_osds *dest, const struct ceph_osds *src);
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 77c501005143..c019e4faf655 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -6632,16 +6632,24 @@ static inline bool is_perf_file(struct fd f)
  
- bool ceph_pg_is_split(const struct ceph_pg *pgid, u32 old_pg_num,
- 		      u32 new_pg_num);
-+bool ceph_pg_is_merge_source(const struct ceph_pg *pgid, u32 old_pg_num,
-+			     u32 new_pg_num);
-+bool ceph_pg_is_merge_target(const struct ceph_pg *pgid, u32 old_pg_num,
-+			     u32 new_pg_num);
- bool ceph_is_new_interval(const struct ceph_osds *old_acting,
- 			  const struct ceph_osds *new_acting,
- 			  const struct ceph_osds *old_up,
-diff --git a/net/ceph/osd_client.c b/net/ceph/osd_client.c
-index 22a793a4bdc8..3adb9e6394eb 100644
---- a/net/ceph/osd_client.c
-+++ b/net/ceph/osd_client.c
-@@ -1595,7 +1595,7 @@ static enum calc_target_result calc_target(struct ceph_osd_client *osdc,
- 	bool force_resend = false;
- 	bool unpaused = false;
- 	bool legacy_change = false;
--	bool split = false;
-+	bool split_or_merge = false;
- 	bool sort_bitwise = ceph_osdmap_flag(osdc, CEPH_OSDMAP_SORTBITWISE);
- 	bool recovery_deletes = ceph_osdmap_flag(osdc,
- 						 CEPH_OSDMAP_RECOVERY_DELETES);
-@@ -1672,9 +1672,12 @@ static enum calc_target_result calc_target(struct ceph_osd_client *osdc,
- 			ceph_osds_changed(&t->acting, &acting,
- 					  t->used_replica || any_change);
- 	if (t->pg_num)
--		split = ceph_pg_is_split(&last_pgid, t->pg_num, pi->pg_num);
-+		split_or_merge =
-+		    ceph_pg_is_split(&last_pgid, t->pg_num, pi->pg_num) ||
-+		    ceph_pg_is_merge_source(&last_pgid, t->pg_num, pi->pg_num) ||
-+		    ceph_pg_is_merge_target(&last_pgid, t->pg_num, pi->pg_num);
+ static int perf_event_set_output(struct perf_event *event,
+ 				 struct perf_event *output_event);
+-static int perf_event_set_filter(struct perf_event *event, void __user *arg);
++static int perf_event_set_filter(struct perf_event *event, struct list_head *filters);
+ static int perf_copy_attr(struct perf_event_attr __user *uattr,
+ 			  struct perf_event_attr *attr);
+ static int __perf_event_set_bpf_prog(struct perf_event *event,
+ 				     struct bpf_prog *prog,
+ 				     u64 bpf_cookie);
  
--	if (legacy_change || force_resend || split) {
-+	if (legacy_change || force_resend || split_or_merge) {
- 		t->pgid = pgid; /* struct */
- 		ceph_pg_to_primary_shard(osdc->osdmap, pi, &pgid, &t->spgid);
- 		ceph_osds_copy(&t->acting, &acting);
-@@ -1706,14 +1709,14 @@ static enum calc_target_result calc_target(struct ceph_osd_client *osdc,
- 		}
+-static long _perf_ioctl(struct perf_event *event, unsigned int cmd, unsigned long arg)
++struct perf_ioctl_ctx {
++	unsigned int cmd;
++	unsigned long arg;
++	struct list_head filters;
++};
++
++static long _perf_ioctl(struct perf_event *event, struct perf_ioctl_ctx *ctx)
+ {
+ 	void (*func)(struct perf_event *);
++	unsigned long arg = ctx->arg;
++	unsigned int cmd = ctx->cmd;
+ 	u32 flags = arg;
+ 
+ 	if (event->state <= PERF_EVENT_STATE_REVOKED)
+@@ -6692,7 +6700,7 @@ static long _perf_ioctl(struct perf_event *event, unsigned int cmd, unsigned lon
  	}
  
--	if (unpaused || legacy_change || force_resend || split)
-+	if (unpaused || legacy_change || force_resend || split_or_merge)
- 		ct_res = CALC_TARGET_NEED_RESEND;
- 	else
- 		ct_res = CALC_TARGET_NO_ACTION;
+ 	case PERF_EVENT_IOC_SET_FILTER:
+-		return perf_event_set_filter(event, (void __user *)arg);
++		return perf_event_set_filter(event, &ctx->filters);
  
- out:
- 	dout("%s t %p -> %d%d%d%d ct_res %d osd%d\n", __func__, t, unpaused,
--	     legacy_change, force_resend, split, ct_res, t->osd);
-+	     legacy_change, force_resend, split_or_merge, ct_res, t->osd);
- 	return ct_res;
+ 	case PERF_EVENT_IOC_SET_BPF:
+ 	{
+@@ -6751,10 +6759,21 @@ static long _perf_ioctl(struct perf_event *event, unsigned int cmd, unsigned lon
+ 	return 0;
  }
  
-diff --git a/net/ceph/osdmap.c b/net/ceph/osdmap.c
-index a946724d4ef7..0d418af9c5f6 100644
---- a/net/ceph/osdmap.c
-+++ b/net/ceph/osdmap.c
-@@ -2358,6 +2358,28 @@ bool ceph_pg_is_split(const struct ceph_pg *pgid, u32 old_pg_num,
- 	return false;
- }
- 
-+/*
-+ * Returns true if @pgid is a merge source going from @old_pg_num to
-+ * @new_pg_num, i.e. it doesn't exist anymore and its objects now live
-+ * in one of its ancestors.
-+ */
-+bool ceph_pg_is_merge_source(const struct ceph_pg *pgid, u32 old_pg_num,
-+			     u32 new_pg_num)
-+{
-+	return pgid->seed < old_pg_num && pgid->seed >= new_pg_num;
-+}
++static inline bool perf_event_is_tracing(struct perf_event *event);
++static void free_filters_list(struct list_head *filters);
++static int
++perf_event_parse_addr_filter(int event_node, bool event_task, char *fstr,
++			     struct list_head *filters);
 +
-+/*
-+ * Returns true if @pgid is a merge target going from @old_pg_num to
-+ * @new_pg_num, i.e. one or more of its children were merged into it.
-+ */
-+bool ceph_pg_is_merge_target(const struct ceph_pg *pgid, u32 old_pg_num,
-+			     u32 new_pg_num)
-+{
-+	return pgid->seed < new_pg_num &&
-+	       ceph_pg_is_split(pgid, new_pg_num, old_pg_num);
-+}
+ static long perf_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ {
+ 	struct perf_event *event = file->private_data;
+ 	struct perf_event_context *ctx;
++	struct perf_ioctl_ctx ic = {
++		.cmd = cmd,
++		.arg = arg,
++		.filters = LIST_HEAD_INIT(ic.filters),
++	};
+ 	long ret;
+ 
+ 	/* Treat ioctl like writes as it is likely a mutating operation. */
+@@ -6762,10 +6781,34 @@ static long perf_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ 	if (ret)
+ 		return ret;
+ 
++	if (cmd == PERF_EVENT_IOC_SET_FILTER) {
++		int cpu = READ_ONCE(event->cpu);
++		int node = cpu == -1 ? NUMA_NO_NODE : cpu_to_node(cpu);
++		bool task = event->attach_state & PERF_ATTACH_TASK;
++		char *filter_str __free(kfree) =
++			strndup_user((void __user *)arg, PAGE_SIZE);
 +
- bool ceph_is_new_interval(const struct ceph_osds *old_acting,
- 			  const struct ceph_osds *new_acting,
- 			  const struct ceph_osds *old_up,
-@@ -2379,6 +2401,8 @@ bool ceph_is_new_interval(const struct ceph_osds *old_acting,
- 	       old_size != new_size ||
- 	       old_min_size != new_min_size ||
- 	       ceph_pg_is_split(pgid, old_pg_num, new_pg_num) ||
-+	       ceph_pg_is_merge_source(pgid, old_pg_num, new_pg_num) ||
-+	       ceph_pg_is_merge_target(pgid, old_pg_num, new_pg_num) ||
- 	       old_sort_bitwise != new_sort_bitwise ||
- 	       old_recovery_deletes != new_recovery_deletes;
++		if (IS_ERR(filter_str))
++			return PTR_ERR(filter_str);
++
++#ifdef CONFIG_EVENT_TRACING
++		if (perf_event_is_tracing(event)) {
++			return ftrace_profile_set_filter(event, event->attr.config,
++							filter_str);
++		}
++#endif
++		ret = perf_event_parse_addr_filter(node, task, filter_str,
++						   &ic.filters);
++		if (ret)
++			return ret;
++	}
++
+ 	ctx = perf_event_ctx_lock(event);
+-	ret = _perf_ioctl(event, cmd, arg);
++	ret = _perf_ioctl(event, &ic);
+ 	perf_event_ctx_unlock(event, ctx);
+ 
++	free_filters_list(&ic.filters);
++
+ 	return ret;
  }
-
----
-base-commit: 3f90412e989cb381d4bf96260468f5c7b2d08655
-change-id: 20261127-libceph-pg-merge-retarget-7598020f7d2e
-
-Best regards,
---  
-Xiubo Li <xiubo.li@clyso.com>
-
-
+ 
+@@ -11990,9 +12033,8 @@ void perf_bp_event(struct perf_event *bp, void *data)
+  * Allocate a new address filter
+  */
+ static struct perf_addr_filter *
+-perf_addr_filter_new(struct perf_event *event, struct list_head *filters)
++perf_addr_filter_new(int node, struct list_head *filters)
+ {
+-	int node = cpu_to_node(event->cpu == -1 ? 0 : event->cpu);
+ 	struct perf_addr_filter *filter;
+ 
+ 	filter = kzalloc_node(sizeof(*filter), GFP_KERNEL, node);
+@@ -12035,8 +12077,17 @@ static void perf_addr_filters_splice(struct perf_event *event,
+ 	raw_spin_lock_irqsave(&event->addr_filters.lock, flags);
+ 
+ 	list_splice_init(&event->addr_filters.list, &list);
+-	if (head)
++	event->addr_filters.nr_file_filters = 0;
++
++	if (head) {
++		struct perf_addr_filter *filter;
++
+ 		list_splice(head, &event->addr_filters.list);
++		list_for_each_entry(filter, &event->addr_filters.list, entry) {
++			if (filter->path.dentry)
++				event->addr_filters.nr_file_filters++;
++		}
++	}
+ 
+ 	raw_spin_unlock_irqrestore(&event->addr_filters.lock, flags);
+ 
+@@ -12186,7 +12237,7 @@ static const match_table_t if_tokens = {
+  * Address filter string parser
+  */
+ static int
+-perf_event_parse_addr_filter(struct perf_event *event, char *fstr,
++perf_event_parse_addr_filter(int event_node, bool event_task, char *fstr,
+ 			     struct list_head *filters)
+ {
+ 	struct perf_addr_filter *filter = NULL;
+@@ -12213,7 +12264,7 @@ perf_event_parse_addr_filter(struct perf_event *event, char *fstr,
+ 
+ 		/* filter definition begins */
+ 		if (state == IF_STATE_ACTION) {
+-			filter = perf_addr_filter_new(event, filters);
++			filter = perf_addr_filter_new(event_node, filters);
+ 			if (!filter)
+ 				goto fail;
+ 		}
+@@ -12299,7 +12350,7 @@ perf_event_parse_addr_filter(struct perf_event *event, char *fstr,
+ 				 * different processes.
+ 				 */
+ 				ret = -EOPNOTSUPP;
+-				if (!event->ctx->task)
++				if (!event_task)
+ 					goto fail;
+ 
+ 				/* look up the path and grab its inode */
+@@ -12310,11 +12361,8 @@ perf_event_parse_addr_filter(struct perf_event *event, char *fstr,
+ 
+ 				ret = -EINVAL;
+ 				if (!filter->path.dentry ||
+-				    !S_ISREG(d_inode(filter->path.dentry)
+-					     ->i_mode))
++				    !S_ISREG(d_inode(filter->path.dentry)->i_mode))
+ 					goto fail;
+-
+-				event->addr_filters.nr_file_filters++;
+ 			}
+ 
+ 			/* ready to consume more filters */
+@@ -12343,9 +12391,8 @@ perf_event_parse_addr_filter(struct perf_event *event, char *fstr,
+ }
+ 
+ static int
+-perf_event_set_addr_filter(struct perf_event *event, char *filter_str)
++perf_event_set_filter(struct perf_event *event, struct list_head *filters)
+ {
+-	LIST_HEAD(filters);
+ 	int ret;
+ 
+ 	/*
+@@ -12357,65 +12404,17 @@ perf_event_set_addr_filter(struct perf_event *event, char *filter_str)
+ 	if (WARN_ON_ONCE(event->parent))
+ 		return -EINVAL;
+ 
+-	ret = perf_event_parse_addr_filter(event, filter_str, &filters);
++	ret = event->pmu->addr_filters_validate(filters);
+ 	if (ret)
+-		goto fail_clear_files;
+-
+-	ret = event->pmu->addr_filters_validate(&filters);
+-	if (ret)
+-		goto fail_free_filters;
++		return ret;
+ 
+ 	/* remove existing filters, if any */
+-	perf_addr_filters_splice(event, &filters);
++	perf_addr_filters_splice(event, filters);
+ 
+ 	/* install new filters */
+ 	perf_event_for_each_child(event, perf_event_addr_filters_apply);
+ 
+-	return ret;
+-
+-fail_free_filters:
+-	free_filters_list(&filters);
+-
+-fail_clear_files:
+-	event->addr_filters.nr_file_filters = 0;
+-
+-	return ret;
+-}
+-
+-static int perf_event_set_filter(struct perf_event *event, void __user *arg)
+-{
+-	int ret = -EINVAL;
+-	char *filter_str;
+-
+-	filter_str = strndup_user(arg, PAGE_SIZE);
+-	if (IS_ERR(filter_str))
+-		return PTR_ERR(filter_str);
+-
+-#ifdef CONFIG_EVENT_TRACING
+-	if (perf_event_is_tracing(event)) {
+-		struct perf_event_context *ctx = event->ctx;
+-
+-		/*
+-		 * Beware, here be dragons!!
+-		 *
+-		 * the tracepoint muck will deadlock against ctx->mutex, but
+-		 * the tracepoint stuff does not actually need it. So
+-		 * temporarily drop ctx->mutex. As per perf_event_ctx_lock() we
+-		 * already have a reference on ctx.
+-		 *
+-		 * This can result in event getting moved to a different ctx,
+-		 * but that does not affect the tracepoint state.
+-		 */
+-		mutex_unlock(&ctx->mutex);
+-		ret = ftrace_profile_set_filter(event, event->attr.config, filter_str);
+-		mutex_lock(&ctx->mutex);
+-	} else
+-#endif
+-	if (has_addr_filter(event))
+-		ret = perf_event_set_addr_filter(event, filter_str);
+-
+-	kfree(filter_str);
+-	return ret;
++	return 0;
+ }
+ 
+ /*
