@@ -1,76 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795750768;
-	b=c4DMP8x1YC11Bp79r0WuJwchzGUnDh6uN+K1g36VLw2KiVjTJ4VJyQOBlLc9hqVBhaqq
-	 djfLsQwlF1NP8ioM21POlYz1n7q4EWLea7QCnEto1vHvSigV3DIo4BnHwst73V62C5d4R
-	 CILgF+STBC+vQ/YQ6/8VJwaYM5P1Q/CKnaUSObTZhGG93jeXnJI4eDTOIU0U93Kk0EWe0
-	 voHmOxAG5RCcX/2xFuuUgPql3VHKJNTXyvdvfhY1W/OnH5pSvp5NiZQflgSv/gy1IElc4
-	 MAMGqbYos97VL0dWwd7stqgGbry1DUlZKxErrRnNNEvhNRpg48ctpQAZFUfixzfvBbQ==
+	t=1795750838;
+	b=hafrZBCjRMM8Yzd6a2w7JH0mv/unIMK45QqHKdPPJr8S743xYLohOcT3MYMYFMe8OalC
+	 JsZyYq324c6DUr7NCpLxUFQ8IhtZSB23uFclvrGFyWBU8sXNA/B9WvEzKZ2kgYF2iSwCx
+	 H31QQ/TqpofUk5vjplSZpwjN13ASJYafDAk9pvJ65pBNHU+o1NnODvsRdDwICPa7nVYwD
+	 yFx06VoL5u+uEE42ihHXGdInA4LSAOzUolijXzc9FTI+d+JRPAZ7yX9JgyQbwTb8YkuuL
+	 xBeedSQKelmNoDT7taonWgZYgRvfTEQi1Awi844GCOmXCKFHg3QftnU4eqVRL5xLaJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795750768;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
-	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
-	 Content-Type:Content-Language:Content-Transfer-Encoding:
-	 X-Originating-IP:X-ClientProxiedBy;
-	bh=IHm+FzKE36SnVI1ZswFKXcG12/LjELz3/7Uez7uAtfw=;
-	b=jPsruzMh6DgUxBjIGuJ8zKyphyegrGWFNPbCriP3UUcWomFEoMfb7IC5bpfzsdYt2cv4
-	 Pt2a2lEWi3DTuM8TfhUgePVon7WxHS6Ok/D+nOkK22b2AMGCI41stcXMxCmclZ2W44BsV
-	 Hp9wgWaXuEUWFiK+UJDx7SfWNi/aByIZGx1sYz5uDEcCHuhnglJLRVWjYuvNQOF1PQgcc
-	 AN4peunNDBdFQ7+VLN0ZP5gLjKWWd5nfO1YhIhoGCLnx+rcIHshS8N8OGAoDGzY4wBanq
-	 f8u91ppf507/Ps36QzXnj4hggcc2NoGMy7GhtidRM5o+/7mTa4+E9pSWnghcedzGVJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795750838;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=8/qQkcae65QKdmEUw9cyp/yjiIcf3CtxelHf3pV2GhU=;
+	b=0tKnfwuLQ7dFai20c905L4wz2G7zyogdGDyh67SY7ZZH8JjTbGc0AMMV7fos5FnHH+r1
+	 8vbIFKxc/wHX4ZKz6/ygkn0O0JCbt8kpg76/OW+TQmyV36dUBnPIdsLIR2r2gS8bsEi7u
+	 eud9ox6WV3OBBYXL2rIdNTTR8R1NycpMw9DR51xztahzONW2MzSOii6epRiUPwhGJ9LtS
+	 DD/DsxIA8mjPId7HsOJgqXWZKXla9hrgcI0S3e5Ts3MHgZ4VLzSG6WhYz0Ukre1fQBNiD
+	 iGyFWofYLdKkM9kWoH5JEDe4pYTlta9/bEJUXQhelz4sid/yYEVF6T8Ef23o1BEGh8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Hn0vhtFS;
-	arc=none smtp.remote-ip=113.46.200.219
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=orESze8m;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2EB4606A31C;
-	Fri, 27 Nov 2026 03:39:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2EB4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF35606A31C;
+	Fri, 27 Nov 2026 03:40:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Hn0vhtFS
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=IHm+FzKE36SnVI1ZswFKXcG12/LjELz3/7Uez7uAtfw=;
-	b=Hn0vhtFSl58AK7IVHA/YiEIzohLqbCLCGUmSwjcbzQy2l2GmeVkpwjZIyIAR4RzvvNyUb3BWB
-	Gc+l5mOP5/i2dfAGiSxUkFrHLW25kC2TE/l9+bZ/MaPNKH0ZtFnZBMes/LQRuyrebWgfrhZbUxu
-	+LCKQ/Kw8BIhUy0nwOjinzU=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jbK0B5kz2z1prMP;
-	Fri, 27 Nov 2026 11:39:06 +0800 (CST)
-Received: from whupemk100004.china.huawei.com (unknown [7.152.185.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id D12D540575;
-	Fri, 27 Nov 2026 11:39:24 +0800 (CST)
-Received: from [10.173.98.163] (10.173.98.163) by
- whupemk100004.china.huawei.com (7.152.185.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 27 Nov 2026 11:39:23 +0800
-Subject: Re: [PATCH v2] mm/memory_hotplug: don't offline a hwpoisoned page
- still in the page cache
-To: "Oscar Salvador (SUSE)" <osalvador@kernel.org>, "David Hildenbrand (Arm)"
-	<david@kernel.org>
-CC: Mani Tofigh <mt4022@columbia.edu>, Oscar Salvador <osalvador@suse.de>,
-	Andrew Morton <akpm@linux-foundation.org>, Naoya Horiguchi
-	<nao.horiguchi@gmail.com>, Vlastimil Babka <vbabka@kernel.org>, Gregory Price
-	<gourry@gourry.net>, <linux-mm@kvack.org>, <linux-cxl@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <tz2294@columbia.edu>,
-	<stable@vger.kernel.org>
-References: <20261105-memhp-hwpoison-pagecache-v2-1-029d35634d42@columbia.edu>
- <d4812513-6cfb-4865-8636-b83dd92c23a0@kernel.org>
- <2e11ba52-b5c6-463e-a5ea-c165ba935704@columbia.edu>
- <89037847-8875-4d8b-a8f3-d77a59aaddea@kernel.org>
- <awf6RghUETgb41pr@localhost.localdomain>
-From: Miaohe Lin <linmiaohe@huawei.com>
-Message-ID: <0b947b66-81d8-e921-ec57-76bad1ae1202@huawei.com>
-Date: Fri, 27 Nov 2026 11:39:22 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=orESze8m
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCD3C1F000C1;
+	Fri, 27 Nov 2026 03:40:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795750838;
+	bh=8/qQkcae65QKdmEUw9cyp/yjiIcf3CtxelHf3pV2GhU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=orESze8mqEofav3l7R19Sv4/btDUWEWOypOTmQ/g2jKWZTVlzbKqlVvY9p68bJUCH
+	 RFZiUo8W8e4EPJ0siaXMvKlk7fKpP2+blPFQALlcAuzsY2VZm/3GC4QsC7zR29wgDb
+	 DFViYlToNj0AbaMEBfBaJx9OW6lQV2KkdSjlStec4dNQEqqeoIwo+zVOjm5NmbvcbM
+	 +BdMSu/NM6eKUpSC1qaYe9edZ0ehtjmaaR9TbXb9Dki53KjjBRJ44DgrY9M/tO4V0k
+	 2CxkfaSTTsGR1T7SRwvavnSlgv8UGnvapbcCyMuZ11o40FonaKgbRqx5jy0OoStY3W
+	 /cYlBPncFO79g==
+Subject: Re: [PATCH net v2] net/rds: tcp: bound the message length announced
+ by the peer
+From: netdev-bot+sashiko@kernel.org
+To: weidongw@illinois.edu
+Cc: achender@kernel.org, andy.grover@oracle.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, linux-rdma@vger.kernel.org, rds-devel@oss.oracle.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, zijie4@illinois.edu
+Date: Fri, 27 Nov 2026 03:40:37 +0000
+Message-ID: <179575083740.3135.167711549334185146@kernel.org>
+In-Reply-To: <20261125-h047-send-v2-1-b29031cf6b93@illinois.edu>
+References: <20261125-h047-send-v2-1-b29031cf6b93@illinois.edu>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,49 +64,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <awf6RghUETgb41pr@localhost.localdomain>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- whupemk100004.china.huawei.com (7.152.185.74)
 
-On 2026/11/26 17:22, Oscar Salvador (SUSE) wrote:
-> On Mon, Nov 23, 2026 at 08:45:37PM +0100, David Hildenbrand (Arm) wrote:
->> We'll have to find a way to make that reliable. Everything else is just hacking
->> around it.
->>
->> Why can we block concurrent offlining through get_online_mems/put_online_mems?
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-I once tried to fix the race between memory_failure and memory offlining [1],
-but ultimately failed.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
->> But I hate these functions.
->>
->> Or alternatively (better?), have a memory notifier that block concurrent
->> memory_failure() by grabbing the mf_mutex when MEM_GOING_OFFLINE and releasing
->> it when MEM_CANCEL_OFFLINE/MEM_OFFLINE.
-> 
-> I think this is the way to go.
-> memory-failure is a shaky operation and over the years we have seen how challenging
-> was to interact with other parts of the kernel without crashing.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-I'd also prefer making memory_failure() and memory offlining mutually
-exclusive instead of adding more ad-hoc synchronization or spreading
-get_online_mems()/put_online_mems() into another path.
+- [High] The new check in rds_tcp_data_recv() (net/rds/tcp_recv.c:219-220
+  and 230-234) limits the number of payload bytes a peer can announce…
 
-> 
-> IMHO, we can try to be clever and try to workaround those issues
-> (memhotplug vs memfailure) or just make the two exclusive.
-> 
-> @Miaohe: Thoughts?
+--
 
-We've already run into quite a few race conditions, and there will likely be
-more in the future. memory_failure and memory offlining happen very infrequently,
-so it's not really worth adding all sorts of code just for them. Therefore, I feel
-that making the two mutually exclusive is a better, more permanent fix.
+net/rds: tcp: bound the message length announced by the peer
 
-[1] https://lore.kernel.org/all/20220226094034.23938-1-linmiaohe@huawei.com/
+This patch limits the h_len announced in an incoming RDS/TCP header to
+RDS_MAX_MSG_SIZE in rds_tcp_data_recv(). If a header is larger, the
+connection is dropped. The rest of the stream is then consumed and
+discarded until shutdown, so the receive queue keeps draining.
 
-Thanks.
-.
+> diff --git a/net/rds/tcp_recv.c b/net/rds/tcp_recv.c
+> index ffe843ca219c7..4ca25b9d25d40 100644
+> --- a/net/rds/tcp_recv.c
+> +++ b/net/rds/tcp_recv.c
+> @@ -210,9 +210,29 @@ static int rds_tcp_data_recv(read_descriptor_t *desc, struct sk_buff *skb,
+>  					be32_to_cpu(tinc->ti_inc.i_hdr.h_len);
+>  				tinc->ti_inc.i_rx_lat_trace[RDS_MSG_RX_START] =
+>  					local_clock();
+> +				/*
+> +				 * The payload is queued on tinc until the
+> +				 * whole message has arrived, so a peer must
+> +				 * not announce more than a sender is allowed
+> +				 * to send.
+> +				 */
+> +				if (tc->t_tinc_data_rem > RDS_MAX_MSG_SIZE)
+> +					rds_conn_path_drop(cp, false);
+
+[Severity: High]
+
+Does this check bound the memory held for a partially received message,
+or only the announced length?
+
+A peer can announce h_len = RDS_MAX_MSG_SIZE, which passes this check.
+It can then send the payload as roughly one million 1-byte segments.
+Each segment goes through:
+
+rds_tcp_data_ready()
+  rds_tcp_read_sock(cp, GFP_ATOMIC)
+    tcp_read_sock()
+      rds_tcp_data_recv()
+        pskb_extract()
+
+Each one ends up as its own clone on tinc->ti_skb_list, further down in
+rds_tcp_data_recv():
+
+	clone = pskb_extract(skb, offset, to_copy, arg->gfp);
+	...
+	skb_queue_tail(&tinc->ti_skb_list, clone);
+
+pskb_extract() calls skb_clone(). The clone has no sk and no destructor,
+so nothing is charged to the socket.
+
+It then calls pskb_carve(). For linear data, pskb_carve_inside_header()
+allocates a new head of skb_end_offset(skb) bytes with kmalloc_reserve().
+For nonlinear data, pskb_carve_inside_nonlinear() also takes
+skb_frag_ref() on the rx page frags. Either way, the allocation does not
+depend on how few bytes are extracted.
+
+rds_tcp_data_ready() drains sk_receive_queue on every data_ready. That
+means tcp_try_coalesce() never has a tail skb to merge small segments
+into, so every segment becomes a separate clone.
+
+Wouldn't that leave on the order of 1M uncharged clones per connection
+path? Each has an sk_buff plus a new head or pinned page, so the total
+is roughly 1 GiB or more, and the receive window stays open.
+
+rds_recv_incoming() later charges only h_len to rs_rcv_bytes, so the
+actual truesize is never accounted.
+
+The commit message describes the problem as the receiver holding large
+amounts of memory that is not charged to the socket. To close that
+fully, could this bound the total truesize on ti_skb_list, or copy or
+coalesce small chunks, rather than only check h_len?
+
+>  			}
+>  		}
+>  
+> +		/*
+> +		 * After an oversized header the connection is being dropped:
+> +		 * consume and discard the rest of the stream until it is shut
+> +		 * down, so that the receive queue drains and the shutdown is
+> +		 * not held up.
+> +		 */
+> +		if (!tc->t_tinc_hdr_rem &&
+> +		    tc->t_tinc_data_rem > RDS_MAX_MSG_SIZE) {
+> +			left = 0;
+> +			break;
+> +		}
+> +
+>  		if (left && tc->t_tinc_data_rem) {
+>  			to_copy = min(tc->t_tinc_data_rem, left);
+>
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261125-h047-send-v2-1-b29031cf6b93%40illinois.edu
