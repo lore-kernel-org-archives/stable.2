@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795793561;
-	b=KwTH2ei9+5u/cYjfbxuMDY+ruGkb04mbnUjX0z6DJgQTJcQAFBj/oG1ucg3JHUMaNnRS
-	 eelMECSq78RdPLI3Gqgvy87qEhXlOGycB8g9diyzl6aHhcxpKi7H2xcd0gQ2SGVTOOwf2
-	 rhinM91JgxkaMHAV1Blg/xFrwU/Z8ktGGdAp3QZhZ2xYwsd8LhRjkzIduh+HCfPgM/GN/
-	 1ICOJBmh7YlNyTn3RThrKAfNyhbYRVlAGJhd8L/Igj3tkiDyJQ78NQ3S8nfoPFmBNPSv1
-	 q/KtRlCwsLORu2ZcGGuSIm2Yt7kSsmaQPvDPq1BGwFN6h9Ea21xe65zM7ITkuW7lTSw==
+	t=1795793583;
+	b=CYNQmoZ9vBAN8MH56VCIBlMFw9c9z6leUt/RX+1BVfwwlA9OS3kAaTn9YLdxxT/CRkS2
+	 3GCfUcDGkKSuFxlb12G5MpcRnko9w91OCETKtERxkiWsev36RLZ6RpnUOJXx9RTRtgj+N
+	 eWG13LiKOgI0aFjuIznXCEWOF920WVwrx+cDORdvQvq+rpZUpBd1MEOYU/rhKG9KQLIWH
+	 IbaMz9GEFkepX98uNStrz5uE3FPnTR2/VQswyhjKXfYI6jVkl/0mjoOBcxGjQDlxN70Ev
+	 NtAP/yQMQdtqlGDf8dbfecxT5+zMnLzws0U3NG2sf5ckXz2LXvT7vLogzLjXRFBYD0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795793561;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795793583;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=0gIlXVQ87uO7kfJWQw74uLJzWa1rKvwJQf0oUC7TuyI=;
-	b=McoWckMIoTUIurihPCbZT2tKliCRWYQZx0oIZPridJ3UGpFFU7EIQv6h7ygmzpPZTyUF
-	 6uHSq16EtZhrHdtHgIWoi4fq4jI7tuoTcWyvVL9wQObrJiV1ZSUlMmTcPLmjKZFiVqwRp
-	 RHAdZn39zeqE6qab1dOkpWDFlMeMS79r0af57PowZaRm0cAl7JFhDklUU3y9ZeQFb4glv
-	 gHbnZUl3qdSYYW5MfduV2BmBd2n2TQN/JJAELGXdUxuZBj9pLOu4EtLUk0UfoYH9tSg6A
-	 qHirSEadgelfMkq4xSa61P/LfSmOvi0WQ9JOEn0mOS6sV1/e5jBo9izqc9IByYjwpBw==
+	bh=tCnEaPC2oCmP7Q+rm55UHdpXHqDiq1e0RzF0qFlhbB0=;
+	b=pnYcL2EWy5c8TXE2FhCgAi6erQ1DciSVrMXpnreCdfE55bsDEsI6p5MfeISOw62TIrQr
+	 R/FgjfiDHPAYTMzT3mEOqZ/T4nPkpjD8PQXb5Tky++WdP4v16nsEXb0yGr5UYZ6rAs/kr
+	 DKsXExKF3kA0+BXQzDnZtgMLzWawOHtRoGxWXYrA5AveOoaxwxk0pzFShUwgvSBJfm0P9
+	 nh3x0IT1IsGqHZDOXRG1vqckhAZzeftY//0CoFQZzUYHv6ENmrB3VOlA/eTMiCgKhYi2b
+	 dpsHIUdXXgzJiWcrvPDjDMMY/JupFwwxIZUjp7LwiAhjCDP1PELAqxqOlSxX8kQTFNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C5Mo3Nwv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=USxW0i1I;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D13606A31C;
-	Fri, 27 Nov 2026 15:32:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C5BC606A31C;
+	Fri, 27 Nov 2026 15:33:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C5Mo3Nwv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4FC51F000C1;
-	Fri, 27 Nov 2026 15:32:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=USxW0i1I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EB831F000C1;
+	Fri, 27 Nov 2026 15:33:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795793560;
-	bh=0gIlXVQ87uO7kfJWQw74uLJzWa1rKvwJQf0oUC7TuyI=;
+	s=k20260515; t=1795793582;
+	bh=tCnEaPC2oCmP7Q+rm55UHdpXHqDiq1e0RzF0qFlhbB0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C5Mo3Nwv8cVoWh1uzGDbcfOGefJYapYzDVJTdSCtlTwbHtNBUrd4jBdSzP5hn/0IJ
-	 YBs4dScZXrux7mLAiabl2W8ayLr+tqL/eUAvOjFcn/PHeWr5gDNk2lvNpzzY4JVGlS
-	 hLdllNkZ+5txf4n52Mk2PTmDWRKWFYEIKVDKCe7VnK2Rhj9FSQ0WBMUWbUHvLyUNl5
-	 AMYdjrWTsRGCJmBYwWY1BFIyGveV8I+J8P56ANJlciLqce25e/RDE9+rUi7LHvAzrZ
-	 662y7mDRSgCZ4u4OhdCnGeVm3vI7zCG9T7+Ci4IVrrMQSAKs3jHTd6G9wBi9T71FUm
-	 3vCk1N9a8NRtQ==
+	b=USxW0i1IrI4otxPLbvI6FHvE9E2nTlyVgtvgfnKGo/Hq9ZYo9RNJKxYxWYLnNsFpV
+	 8UQp1VuJZ4Ls/2rV2QTnIX8CAuru44AiKocbiqz7n1MFTtDwnMR3jTE3pB313Mxsn+
+	 CcQdeMEmtnt1a+zLugnfLDkimsGtJvjxuqMTSChlqzzVsewles+3xnt/piy3ub+eK/
+	 msAGi+7wDZAwXFIoG40MOjOEz6ADl5tlusn6hIsaCGdm5jlvB3gg4rpuEnbvfAF3ew
+	 WvR+G8cyoOVbbVb/+FUY6cUOrIfj7GXb+RNE/mwYpi7ydMZ5ur7hIVUFk6CBxnHp6C
+	 iBYBeFxrhk4mQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
+	Han Xu <han.xu@nxp.com>,
 	Mark Brown <broonie@kernel.org>,
-	Tomoya MORINAGA <tomoya.rohm@gmail.com>,
-	Grant Likely <grant.likely@secretlab.ca>,
+	Boris Brezillon <bbrezillon@kernel.org>,
+	Frieder Schrempf <frieder.schrempf@kontron.de>,
+	Yogesh Gaur <yogeshnarayan.gaur@nxp.com>,
+	Suresh Gupta <suresh.gupta@nxp.com>,
 	linux-spi@vger.kernel.org,
+	imx@lists.linux.dev,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 05/10] spi: topcliff-pch: Advance tx_buf between DMA chunks
-Date: Fri, 27 Nov 2026 15:31:08 +0000
-Message-ID: <20261127153158.2969573-6-lee@kernel.org>
+Subject: [PATCH v2 08/10] spi: fsl-qspi: Propagate clock errors from fsl_qspi_select_mem()
+Date: Fri, 27 Nov 2026 15:31:11 +0000
+Message-ID: <20261127153158.2969573-9-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127153158.2969573-1-lee@kernel.org>
 References: <20261127153158.2969573-1-lee@kernel.org>
@@ -64,76 +68,106 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In DMA mode, pch_spi_process_messages() splits transfers larger than
-PCH_BUF_SIZE into chunks and calls pch_spi_handle_dma() once per chunk.
-pch_spi_handle_dma() copies the TX data through a local pointer and
-never stores the advanced position back into the transfer, so every
-chunk after the first retransmits the data from the first chunk.
+fsl_qspi_select_mem() returns void and silently gives up if either
+clk_set_rate() or fsl_qspi_clk_prep_enable() fails.  fsl_qspi_exec_op()
+then carries on with the operation regardless.
 
-The RX side already writes its advanced pointer back and restores the
-original rx_buf once the transfer is complete.
+When switching between devices, a failed rate change leaves q->selected
+pointing at the previously selected chip, so the operation is issued
+through the previous device's SFAR and AHB window.  If the failure
+happens on the first operation, q->selected is still -1 from probe, so
+those offsets are derived from a negative chip select.  On controllers
+which need the clocks disabled while the rate is changed, a
+clk_set_rate() failure also leaves the clocks off while registers
+continue to be accessed.
 
-Do the same for tx_buf, so that each chunk sends the correct slice of
-the buffer, and restore the original tx_buf once the transfer has
-completed or failed.
+Re-enable the clocks even when setting the rate failed, return any error
+to the caller, and have fsl_qspi_exec_op() abort the operation when
+selecting the device fails.
 
-Advancing tx_buf by the number of bytes copied relies on the following
-commit, which ensures that each chunk covers no more than the bytes
-accounted for by the loop in pch_spi_process_messages():
-
-commit 3515e312e096 ("spi: topcliff-pch: clamp DMA bpw_len by bytes
-not words")
-
-Fixes: 7d05b3e868ee ("spi-topcliff-pch: Fix issue for transmitting over 4KByte")
-Closes: https://sashiko.dev/#/bug/linux-625e2f07-fb68-446b-b1a8-b1f66aacb62e
+Fixes: 84d043185dbe ("spi: Add a driver for the Freescale/NXP QuadSPI controller")
+Closes: https://sashiko.dev/#/bug/linux-719261ef-312e-4a94-9a84-fd42a411bee0
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
 v1 => v2:
  - Rebase onto spi/for-next; no functional changes.
 
- drivers/spi/spi-topcliff-pch.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/spi/spi-fsl-qspi.c | 26 +++++++++++++++++---------
+ 1 file changed, 17 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/spi/spi-topcliff-pch.c b/drivers/spi/spi-topcliff-pch.c
-index 0bec3012a6bc..cbe76c4ae2e8 100644
---- a/drivers/spi/spi-topcliff-pch.c
-+++ b/drivers/spi/spi-topcliff-pch.c
-@@ -947,11 +947,13 @@ static void pch_spi_handle_dma(struct pch_spi_data *data, int *bpw)
- 			tx_dma_buf = dma->tx_buf_virt;
- 			for (i = 0; i < data->bpw_len; i++)
- 				*tx_dma_buf++ = *tx_buf++;
-+			data->cur_trans->tx_buf = tx_buf;
- 		} else {
- 			tx_sbuf = data->cur_trans->tx_buf;
- 			tx_dma_sbuf = dma->tx_buf_virt;
- 			for (i = 0; i < data->bpw_len; i++)
- 				*tx_dma_sbuf++ = *tx_sbuf++;
-+			data->cur_trans->tx_buf = tx_sbuf;
- 		}
+diff --git a/drivers/spi/spi-fsl-qspi.c b/drivers/spi/spi-fsl-qspi.c
+index d2c2090442f8..30f39adb5a6b 100644
+--- a/drivers/spi/spi-fsl-qspi.c
++++ b/drivers/spi/spi-fsl-qspi.c
+@@ -546,15 +546,15 @@ static void fsl_qspi_invalidate(struct fsl_qspi *q)
+ 	qspi_writel(q, reg, q->iobase + QUADSPI_MCR);
+ }
+ 
+-static void fsl_qspi_select_mem(struct fsl_qspi *q, struct spi_device *spi,
+-				const struct spi_mem_op *op)
++static int fsl_qspi_select_mem(struct fsl_qspi *q, struct spi_device *spi,
++			       const struct spi_mem_op *op)
+ {
+ 	unsigned long rate = op->max_freq;
+ 	int ret;
+ 
+ 	if (q->selected == spi_get_chipselect(spi, 0) &&
+ 	    q->selected_freq == op->max_freq)
+-		return;
++		return 0;
+ 
+ 	if (needs_4x_clock(q))
+ 		rate *= 4;
+@@ -563,19 +563,24 @@ static void fsl_qspi_select_mem(struct fsl_qspi *q, struct spi_device *spi,
+ 		fsl_qspi_clk_disable_unprep(q);
+ 
+ 	ret = clk_set_rate(q->clk, rate);
+-	if (ret)
+-		return;
+ 
+ 	if (needs_clk_disable(q)) {
+-		ret = fsl_qspi_clk_prep_enable(q);
+-		if (ret)
+-			return;
++		int err;
++
++		err = fsl_qspi_clk_prep_enable(q);
++		if (!ret)
++			ret = err;
  	}
  
-@@ -1180,10 +1182,12 @@ static void pch_spi_process_messages(struct work_struct *pwork)
- 		if (data->use_dma) {
- 			int i;
- 			char *save_rx_buf = data->cur_trans->rx_buf;
-+			const void *save_tx_buf = data->cur_trans->tx_buf;
++	if (ret)
++		return ret;
++
+ 	q->selected = spi_get_chipselect(spi, 0);
+ 	q->selected_freq = op->max_freq;
  
- 			for (i = 0; i < cnt; i++) {
- 				pch_spi_handle_dma(data, &bpw);
- 				if (!pch_spi_start_transfer(data)) {
-+					data->cur_trans->tx_buf = save_tx_buf;
- 					data->transfer_complete = true;
- 					data->current_msg->status = -EIO;
- 					data->current_msg->complete
-@@ -1196,6 +1200,7 @@ static void pch_spi_process_messages(struct work_struct *pwork)
- 				pch_spi_copy_rx_data_for_dma(data, bpw);
- 			}
- 			data->cur_trans->rx_buf = save_rx_buf;
-+			data->cur_trans->tx_buf = save_tx_buf;
- 		} else {
- 			pch_spi_set_tx(data, &bpw);
- 			pch_spi_set_ir(data);
+ 	fsl_qspi_invalidate(q);
++
++	return 0;
+ }
+ 
+ static void fsl_qspi_read_ahb(struct fsl_qspi *q, const struct spi_mem_op *op)
+@@ -682,7 +687,9 @@ static int fsl_qspi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
+ 	fsl_qspi_readl_poll_tout(q, base + QUADSPI_SR, (QUADSPI_SR_IP_ACC_MASK |
+ 				 QUADSPI_SR_AHB_ACC_MASK), 10, 1000);
+ 
+-	fsl_qspi_select_mem(q, mem->spi, op);
++	err = fsl_qspi_select_mem(q, mem->spi, op);
++	if (err)
++		goto out_unlock;
+ 
+ 	if (needs_amba_base_offset(q))
+ 		addr_offset = q->memmap_phy;
+@@ -725,6 +732,7 @@ static int fsl_qspi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
+ 	/* Invalidate the data in the AHB buffer. */
+ 	fsl_qspi_invalidate(q);
+ 
++out_unlock:
+ 	mutex_unlock(&q->lock);
+ 
+ 	return err;
 -- 
 2.56.1.839.g22a8290db9-goog
 
