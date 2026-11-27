@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795799267;
-	b=WaAXY0LBcvBwWwz4/bnhoT+IXbUAm+7/V8pFP+II9aOI7SYtz0kloIWuUd2EVc/q5s/x
-	 fVtFfEW45VkiNhfWMJEw8U66dE3uVqNx/C0yBY+9xVlDs4k1H5Jg4JSXDmk2AJhMBKwoc
-	 dWS3Psqi9SpfOMJfb8fa2/KUlinqsslV4B93V98eeuBwP/gAGBosfge0rCZjySGj85QDa
-	 eEXDgIjcPJcrNbuQoHJnIjNOvho0ZbAbNS3p78lfB1iVWGQQomAIglh167vBTOfycM0FO
-	 PRPzUupNUVn9bxN6E32HA8H8lMgj+8rVX4ebqgfDWuarzOm7PSUQ/V34ukOjJrSaMFQ==
+	t=1795799273;
+	b=eQ2jUOgqvPe1QnSpJly9YjdhQ3jPC3h574HfOllYpfM/wh9cKaNfzEf5DwnF18n7jT0y
+	 ISLV0Bd5/RyyaqeQ0x59gkUNFBUfoHpjV1J83CR/537MT+EZYbGm8/V6yNm060LtM4SuD
+	 GbeQzWN6UH2nzk8lRiI8hlqnd4471LqQfiyaAk4+l78gFeKKRZYXubvz1xrlkxR5CWXbK
+	 lKzWWd7+A85gkjSkTeJURMBxBh6iPRqUSqXSps7bGmXtaBZigkJLpYVk1l0lA3XYr1Kng
+	 q4rCsxl+LdLG3QhGI7YR2cSVCyVN738aV6TUjJzbQJhIkxglpaIUSSvSXYYr/21RrNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795799267;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795799273;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=msSbCQmeBHYz8rK/XqH+Cb7QpYH+bKJSEe53EOPrG9M=;
-	b=oc9Be8RLgm6px+TTcKTAs4thw9e20a3mf4c/poGEFLviur5XFT2wdzLJFYEt4ifrrcNd
-	 BCJOfY9nR7bGmNp7B27lHnG7TJ3sNZJ7K1PxdcNH5WGb80JcLq3V+pss5OjIvGQ1OS2ZO
-	 Cd3lpe8pekLCOcJummucrmONqf45cigfCyQn6HzgeARqmW33aK+BhmC9e0kI8tQq0LGKk
-	 2/XLNAZf3PSIf33Oa3atlbvwUBxDYUBOWnR6Zqz/GEWX5ewfbrQrLK09KYGjFvhNFBjW6
-	 M4mEca+uEKpqzev0WfHSJKHm+8OaA/kBXp9PFi2Eo0lHKA07II0nD+qIZNmNhd3P2VQ==
+	bh=YlVR+QecR+FrLV2jd0FQNdTpJ4JnlqZ+YNRXhVNLA+U=;
+	b=QcKVETi/7bYHrlBfOczvTVoGeN4rWdsOKaXUo9TZAIsYGYTBVDwydv1xMeOkYegTMh0N
+	 t5SdmdZbLchAzYa7GyPp9oaujAtlrGpitSkVvolLSZyW0YB5gpdnjvpev+esXxckukB1+
+	 CB/rEPxNu4lIILhwFEIBARjVGOa2ohLC33oZFd3yO/8QUys3nBbM53DQZsrIb9nP/d8mb
+	 1KhUqA7Cyf9w6Gq5/ieGl/Y50VhgB3dw/QQf/wSUEjhjTt9J91yWiClwJW6YfVkvyUj9y
+	 uS3Q+1010iiO1LMUJBPM7bRLN2R5IrSUmQGW1MZRcRVUN/nNnsLuA8DDJVEtDf5wZFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SX27KAQV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WgmTEGQu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA671606A31E;
-	Fri, 27 Nov 2026 17:07:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDD0606A324;
+	Fri, 27 Nov 2026 17:07:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SX27KAQV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D3301F00893;
-	Fri, 27 Nov 2026 17:07:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WgmTEGQu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3109A1F0089A;
+	Fri, 27 Nov 2026 17:07:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795799267;
-	bh=msSbCQmeBHYz8rK/XqH+Cb7QpYH+bKJSEe53EOPrG9M=;
+	s=k20260515; t=1795799273;
+	bh=YlVR+QecR+FrLV2jd0FQNdTpJ4JnlqZ+YNRXhVNLA+U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SX27KAQVrxmWVJqSY3/sDJ8RfyVz0pJpWUlJr7gLoW+eNMD+5DhYO559vqU+/NFvQ
-	 MvYLQUf+qUCECdHcFSRhrfX8pwn0Pom3KVzRNdgdk2TMM5DtXEha7L4J82uaM5+jvi
-	 ENKo6SDAMxXOohjwRpu7MaHYp8wqyB8kEcOs8hCTR7A9mltOfP7LiwXLhfnipCuChG
-	 Cfbp/50greY3yXyI1kQ6LhA+Fc7vVV+X3ZpgEe35qLVo0Rqrx5KGB0+rutgyvcT7Wr
-	 MU8QQTmceQp6Wt8hnZ/TlDPS8JpD7tkg5shspJnF5BacTcwuEeyf97B8Crsk7yD94M
-	 4hz4jApKIqacQ==
+	b=WgmTEGQuAbammPMNShu+DwUdSNPku8WAJX9VlhIIDkgyTAn8W2RxTXAgqEZvmd+TT
+	 AvU32W/L/ZNQKk6mbf9lpVX69OweUc4osE4FH1fhx5YJ1QMjkg+Iik7d9jdvZPMRNG
+	 6c0I/fDdxBbunTDUZImm0J7SQUp53oPBbcn7LirVgWWXFrFvLj2ZcO0AURe29JUB/j
+	 3jJqEisfAFCMbdJywF0gxpkrFBWtl4fxZcU/l8pN3M2/T7dh5ESk4CjLumr2Pz7V8C
+	 LG2ZcubbdV6z6VDJxlx97rA1GakMk3XgyZJyNMvvqph0qt1sptuFFErF+Gt/RbxPdB
+	 qSZvjjIygW+jA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
+	Stefan Achatz <erazor_de@users.sourceforge.net>,
 	Jiri Kosina <jikos@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
 	Benjamin Tissoires <bentiss@kernel.org>,
-	Zhang Lixu <lixu.zhang@intel.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
 	linux-input@vger.kernel.org,
-	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 04/10] HID: sensor-hub: Serialise synchronous read teardown under data->lock
-Date: Fri, 27 Nov 2026 17:06:22 +0000
-Message-ID: <20261127170712.3163443-5-lee@kernel.org>
+Subject: [PATCH v2 05/10] HID: roccat: pyra: Resolve USB device from parent in actual_profile
+Date: Fri, 27 Nov 2026 17:06:23 +0000
+Message-ID: <20261127170712.3163443-6-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127170712.3163443-1-lee@kernel.org>
 References: <20261127170712.3163443-1-lee@kernel.org>
@@ -68,119 +64,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sensor_hub_input_attr_read_values() and
-sensor_hub_input_attr_get_raw_value() set hsdev->pending.status under
-data->lock, sleep in wait_for_completion_interruptible_timeout(), and
-then clear hsdev->pending.status and consume or free
-hsdev->pending.raw_data without acquiring data->lock.  When a wait is
-interrupted by a signal or times out while sensor_hub_raw_event() holds
-the same spinlock, sensor_hub_raw_event() can memcpy() into the
-caller's popped stack buffer in sensor_hub_input_attr_read_values() or
-race with kfree() and leak kmemdup() allocations in
-sensor_hub_input_attr_get_raw_value().
+pyra_sysfs_show_actual_profile() is a sysfs attribute callback on the
+roccat pyra class device, whose parent is the HID device and
+grandparent is the USB interface.  While it resolves pyra via
+dev->parent->parent, it passes dev directly to to_usb_interface(),
+casting the HID device to a USB device and passing the corrupted
+pointer into roccat_common2_receive() and usb_control_msg().
 
-Hold data->lock when clearing hsdev->pending.status and detaching
-hsdev->pending.raw_data in both helpers, and clear
-hsdev->pending.status in sensor_hub_raw_event() when completing the
-request so only the first matching report is consumed.
+Walk up to dev->parent->parent first, matching
+pyra_sysfs_show_firmware_version().
 
-Fixes: 401ca24fb34a ("HID: sensors: introduce sensor framework")
-Fixes: f784fcea4506 ("HID: sensor-hub: Add sensor_hub_input_attr_read_values() for multi-byte reads")
-Closes: https://sashiko.dev/#/bug/linux-5bd5ea7c-72f9-4f22-ae1d-00915390f085
+Fixes: be34380ef818 ("HID: roccat: cleanup of pyra module")
+Closes: https://sashiko.dev/#/bug/linux-070d5d7b-29ab-4451-90bf-175ada0a81e9
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
 v1 => v2:
- - Remove kfree() from sensor_hub_raw_event() and clear hsdev->pending.status before complete() under data->lock, per Srinivas Pandruvada's review.
+ - No changes.
 
- drivers/hid/hid-sensor-hub.c | 29 ++++++++++++++++++++++-------
- 1 file changed, 22 insertions(+), 7 deletions(-)
+ drivers/hid/hid-roccat-pyra.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/hid/hid-sensor-hub.c b/drivers/hid/hid-sensor-hub.c
-index 2a7f2475171f..180a913888a4 100644
---- a/drivers/hid/hid-sensor-hub.c
-+++ b/drivers/hid/hid-sensor-hub.c
-@@ -310,6 +310,9 @@ int sensor_hub_input_attr_read_values(struct hid_sensor_hub_device *hsdev,
- 	long cycles;
- 	int ret;
+diff --git a/drivers/hid/hid-roccat-pyra.c b/drivers/hid/hid-roccat-pyra.c
+index 44c2b416f2db..b3dde2998850 100644
+--- a/drivers/hid/hid-roccat-pyra.c
++++ b/drivers/hid/hid-roccat-pyra.c
+@@ -290,11 +290,14 @@ static DEVICE_ATTR(actual_cpi, 0440, pyra_sysfs_show_actual_cpi, NULL);
+ static ssize_t pyra_sysfs_show_actual_profile(struct device *dev,
+ 		struct device_attribute *attr, char *buf)
+ {
+-	struct pyra_device *pyra =
+-			hid_get_drvdata(dev_get_drvdata(dev->parent->parent));
+-	struct usb_device *usb_dev = interface_to_usbdev(to_usb_interface(dev));
++	struct pyra_device *pyra;
++	struct usb_device *usb_dev;
+ 	struct pyra_settings settings;
  
-+	if (flag == SENSOR_HUB_SYNC && (!buffer || !buffer_size))
-+		return -EINVAL;
++	dev = dev->parent->parent;
++	pyra = hid_get_drvdata(dev_get_drvdata(dev));
++	usb_dev = interface_to_usbdev(to_usb_interface(dev));
 +
- 	report = sensor_hub_report(report_id, hsdev->hdev, HID_INPUT_REPORT);
- 	if (!report)
- 		return -EINVAL;
-@@ -339,7 +342,10 @@ int sensor_hub_input_attr_read_values(struct hid_sensor_hub_device *hsdev,
- 		else if (cycles < 0)
- 			ret = cycles;
- 
-+		spin_lock_irqsave(&data->lock, flags);
- 		hsdev->pending.status = false;
-+		hsdev->pending.raw_data = NULL;
-+		spin_unlock_irqrestore(&data->lock, flags);
- 	}
- 	mutex_unlock(hsdev->mutex_ptr);
- 
-@@ -379,29 +385,36 @@ int sensor_hub_input_attr_get_raw_value(struct hid_sensor_hub_device *hsdev,
- 	hid_hw_request(hsdev->hdev, report, HID_REQ_GET_REPORT);
- 	mutex_unlock(&data->mutex);
- 	if (flag == SENSOR_HUB_SYNC) {
-+		u8 *raw_data;
-+
- 		wait_for_completion_interruptible_timeout(
- 						&hsdev->pending.ready, HZ*5);
--		switch (hsdev->pending.raw_size) {
-+		spin_lock_irqsave(&data->lock, flags);
-+		raw_data = hsdev->pending.raw_data;
-+		switch (raw_data ? hsdev->pending.raw_size : 0) {
- 		case 1:
- 			if (is_signed)
--				ret_val = *(s8 *)hsdev->pending.raw_data;
-+				ret_val = *(s8 *)raw_data;
- 			else
--				ret_val = *(u8 *)hsdev->pending.raw_data;
-+				ret_val = *(u8 *)raw_data;
- 			break;
- 		case 2:
- 			if (is_signed)
--				ret_val = *(s16 *)hsdev->pending.raw_data;
-+				ret_val = *(s16 *)raw_data;
- 			else
--				ret_val = *(u16 *)hsdev->pending.raw_data;
-+				ret_val = *(u16 *)raw_data;
- 			break;
- 		case 4:
--			ret_val = *(u32 *)hsdev->pending.raw_data;
-+			ret_val = *(u32 *)raw_data;
- 			break;
- 		default:
- 			ret_val = 0;
- 		}
--		kfree(hsdev->pending.raw_data);
-+		hsdev->pending.raw_data = NULL;
-+		hsdev->pending.raw_size = 0;
- 		hsdev->pending.status = false;
-+		spin_unlock_irqrestore(&data->lock, flags);
-+		kfree(raw_data);
- 	}
- 	mutex_unlock(hsdev->mutex_ptr);
- 
-@@ -590,6 +603,7 @@ static int sensor_hub_raw_event(struct hid_device *hdev,
- 					hsdev->pending.index += copy_size;
- 					if (hsdev->pending.index >= hsdev->pending.max_raw_size) {
- 						hsdev->pending.raw_size = hsdev->pending.index;
-+						hsdev->pending.status = false;
- 						complete(&hsdev->pending.ready);
- 					}
- 				}
-@@ -599,6 +613,7 @@ static int sensor_hub_raw_event(struct hid_device *hdev,
- 					hsdev->pending.raw_size = sz;
- 				else
- 					hsdev->pending.raw_size = 0;
-+				hsdev->pending.status = false;
- 				complete(&hsdev->pending.ready);
- 			}
- 		}
+ 	mutex_lock(&pyra->pyra_lock);
+ 	roccat_common2_receive(usb_dev, PYRA_COMMAND_SETTINGS,
+ 			&settings, PYRA_SIZE_SETTINGS);
 -- 
 2.56.1.839.g22a8290db9-goog
 
