@@ -1,120 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795817126;
-	b=hNJ0nig1yNAiw8KPWr/7re6fLkuBO+37zPbNqiVg3JHGwM+kmE1SIU5msugOgT7jyA/6
-	 M90E1KD8XRvTSYYwZa+UUaUAquSLgw75XtATFWG4FWONJEgkMjO6q+mAemD24iyzx5nJA
-	 HTaIZ2MKBtgpHW8R5J8FwmJk/p4vG2UMApmICL1s6XNr1NjpSAIs0Cc96k6C2h2gKav6p
-	 ZUdBzpLH2hmo0Vei7lxDPBX3a4AUvwzJOiuvenkwUgDV+K3NyBTFyuYdLRWMHwCfGsobM
-	 nSI2jblye+0YoJoKuSoKBPQ0yB1b3TZHdFbEQU6DJmRRViCHbs8KVXL5dh+HP/L+syw==
+	t=1795821516;
+	b=rvTUy3use84WzAW6Pbb5tvdoDuRNxhbFqCPhKECLpzUrlFF/glfcdsq7JFkqT62VTbhk
+	 +whycn65g8kzpWpDTKx58qoEU+BVvWJ0VG6/Ma8qwlhxcuN2s16BTntHkmAoXARj6p3yx
+	 2Zq3PWx+C77vVbQY7Xr7wgMhZ2+gIX2bmNuD2nIkBWGrm/UB9xo9tfUMHYRD1DqTqzPsF
+	 w+6/l7K6JpMoQo3u8g8By7ad0HPutp7cvdAlzMB0BTE61sOoPLQ3HI9q6ylwM/4LH1vAj
+	 QNL3Si6bUwQHLB/yDqb4iIsfSvx5FhSOUq80pzFgFt4GVX70G5JCYY4uYvH4CsA7A4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795817126;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=cS1qBES1VuLe2M/hg/1JmxoAVCdTAa567ydVE58sAFc=;
-	b=Od2Md8M5YME2POfPc+V0uB0i/3EFhMWjnUHUnzxeHATqGot7uMfAI9K2EW1h7nU6jIWE
-	 pC8kNP5tPNchScxAIv3oDniw50nHuzYS4w76yXxjeHfRST4dS2HcBHOO+oKvQl9JBXCC3
-	 VWIKq4U2NM7w1N+pYM7K7cs5C3zFUF0ui3LEou4p98ftqAMFf82yYQzvFBQcHmq6hiTo+
-	 +8pb6FUG2Wm2pbfTaR5yrqvjWw9Jm9F+XcDXrEfNa8LMWLit6ld6BmeVDCU5TtZl0Q8Fj
-	 x/UUJ+S1vHSeC/DJ5OS+E52yCcFVMIJ3OqZjUnWSo93AdDNMOxMw5qB4aYgCNT88GXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795821516;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=L68NfkLh2sSnkPajUSfsYj9MfFaavbba0O0y/vWyU0c=;
+	b=GPE8XCe/R/Y71WBLD+RbCCtY+aKLabS9Ga7rc82OTnZ4DFeOH3N++2AoWejT1+lURbmm
+	 Ynfd4gyhOi9q2bj+8tGfDij+c0WW5Iukd1SGKgb22JWai7BYt+YkZ+qNov6UXuEkNtl6a
+	 9+rgX00dq7rbgWfWvjO2PVkZ+IpXFvk92Qo9sMzW05/MTOKfsPCStIuPUeZSnkUPLNrjc
+	 gpFPtBiIR03KUNcoACdi+rg05fcBzj/FMBHwA/ukHA0p3zjhmAO4YVERizP81CGNPRPIM
+	 KtqHjL+gh30imbCKpshCPUqSoF5d5LkEZRfjL/iXCvPaQIfAXfJiAsSAmMfphHqdWPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FbTcjs8L;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZzPHVtN3;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FbTcjs8L;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZzPHVtN3;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=gE2gqa1H;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B481606A334;
-	Fri, 27 Nov 2026 22:05:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B481606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91426606A31E
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 23:18:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91426606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FbTcjs8L;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZzPHVtN3;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FbTcjs8L;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZzPHVtN3
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 874DE22A2C;
-	Fri, 27 Nov 2026 22:05:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1795817123; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cS1qBES1VuLe2M/hg/1JmxoAVCdTAa567ydVE58sAFc=;
-	b=FbTcjs8LvvXAB9Ongw+Qi71nreN/kKlpgxFckFaDvMRrl/OI/DU5AOoGOPVO66uEPe0hp8
-	bZpdpNWlffmfCNUUC4NCa/1zwSXjdkXmke61tw70dToD/tkD4SqwpPBd3MqWsistyTh2Pe
-	Up2ZmS484gQ/GTcNpv155H3u3Lqi5+o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1795817123;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cS1qBES1VuLe2M/hg/1JmxoAVCdTAa567ydVE58sAFc=;
-	b=ZzPHVtN3zcptr6CJ2gr/McwDyEAZP73QxOp9iWITyPWJ6/PJ5zYUcbgcLr0AAZ85uIxnMs
-	8nuElFGm/PiJKzBw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=FbTcjs8L;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ZzPHVtN3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1795817123; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cS1qBES1VuLe2M/hg/1JmxoAVCdTAa567ydVE58sAFc=;
-	b=FbTcjs8LvvXAB9Ongw+Qi71nreN/kKlpgxFckFaDvMRrl/OI/DU5AOoGOPVO66uEPe0hp8
-	bZpdpNWlffmfCNUUC4NCa/1zwSXjdkXmke61tw70dToD/tkD4SqwpPBd3MqWsistyTh2Pe
-	Up2ZmS484gQ/GTcNpv155H3u3Lqi5+o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1795817123;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cS1qBES1VuLe2M/hg/1JmxoAVCdTAa567ydVE58sAFc=;
-	b=ZzPHVtN3zcptr6CJ2gr/McwDyEAZP73QxOp9iWITyPWJ6/PJ5zYUcbgcLr0AAZ85uIxnMs
-	8nuElFGm/PiJKzBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7D93D134E8;
-	Fri, 27 Nov 2026 22:05:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id yNJJE6H+CWvTIAAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Fri, 27 Nov 2026 22:05:21 +0000
-Date: Fri, 27 Nov 2026 22:05:19 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
-	Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu, David Rheinsberg <david@readahead.eu>, 
-	Hugh Dickins <hughd@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, David Hildenbrand <david@kernel.org>, 
-	Jann Horn <jannh@google.com>, Alex Shi <alexs@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, David Rientjes <rientjes@google.com>, 
-	Rik van Riel <riel@redhat.com>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Arnd Bergmann <arnd@arndb.de>, 
-	Stephen Rothwell <sfr@canb.auug.org.au>, Muhammad Usama Anjum <usama.anjum@arm.com>, 
-	codalist@coda.cs.cmu.edu, linux-mm@kvack.org, Andrei Vagin <avagin@gmail.com>, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/4] coda: never point a file's f_mapping at a
- container's mapping
-Message-ID: <awn9xtkK5k_dB2r_@pedro-suse.tail5790ac.ts.net>
-References: <20261127-mlock-madvise-mprotect-ai-fixes-v1-0-e46b2b1eb435@kernel.org>
- <20261127-mlock-madvise-mprotect-ai-fixes-v1-1-e46b2b1eb435@kernel.org>
- <20261127124428.f1f66c6244d3e5c2811f56de@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=gE2gqa1H
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-491971ac844so7552647f8f.2
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 15:18:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1795821514; x=1796426314; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=L68NfkLh2sSnkPajUSfsYj9MfFaavbba0O0y/vWyU0c=;
+        b=gE2gqa1HASDlw4HLZWgBBQWSdvUizr9GH8J6QVL8nNPedx6uB61BV+HUrF6Wuyw/BB
+         PcA6z+0Uj48zloEWvjEtcqzJ6IyjLWGQdrBFlb9TfOIALwBJmsi9FopHkiOS+kS0Zkuq
+         lXR9jkjMff8XjBdzfe9l+t1Ajy7tytED3MNkSNa5U+qORRIxgJl/MZxYtBhsyHaL+hu2
+         rfA67xg5fPpRqOtfSCJbWRjoq1vy3/2eACqpJWjP/ndPBC0iOXPGzPDFNi+qvLOYCeIM
+         TnX4kg0P9GQQjDzUxH9rCeI2O8r7iWh5FFSvfJ2RcZf1Az9ApjNXvlcgLK5AyXr+P9B/
+         WR+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795821514; x=1796426314;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L68NfkLh2sSnkPajUSfsYj9MfFaavbba0O0y/vWyU0c=;
+        b=pDiH79s/zYCUBYN83n/ch/SPSDhoGEyOHpaZq1LidbFKomnlHQuBsKt+WFor92kzas
+         FvfurFH9+Uw138WMA24mS96dJVIr5LgPZB0HiNfUrFb+d1NxBPRGsXX6eykZRqJH0SDc
+         FE4gWh4p4DBUmqKYdVuSaGhdokmEFrxzFBvH3yLni+kYwxajpB0dHht3U2VL+YUAIfed
+         4yX50Yv1EO8isyR0NQ5f93neR/mVaobvv3Z+SwtgZ+VfBwSuf9Rsm7Exqrk/9ZtWBtlg
+         DhxU9c+0pIC3TKYL510W9MVoTDijLQ3/VWNHJyRV3A+rG/Rdcnyr54lPKXtJaJb4fLuy
+         HgXA==
+X-Forwarded-Encrypted: i=1; AL+hErEFxeRkrJL52cfFAiCsQvoQIIqRiR8413h4DrDRsSu1CsU2Us9ce22Gk/BYI2q3jkgMzrrbkOQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+DoKi2OegxDJbq49ZZRBYeSzBkhnkEN17416yjtR/V1FXHtdGV
+	3c8X6lsNU6x3vssGH5fqcJuvMwMpXwmNpRbVCEzKOLqhu7bFlEkTr9KUZV4PMOgsCdE=
+X-Gm-Gg: AZFdTZd91CGn9tQ9O6OpOZ1BedHNKYf1EPlSHc97yWSbiav4nLeQ0Or4o/Y/LjtcrZJ
+	7X3lF//tkiVpuRiLnnsKUz9EtWH+8wtGCm4D3X5ggvVLSpOHtgI1DAkqr+5FroYMXJzVoqKvtxT
+	q7hFwVUbBjTHPQDI4Ydaruaf1cwojJMutAmZ+EnCrl1Qr3KyrynmOj+RNpg7rRyItCv/Cb5xT/p
+	Pg55ZD3yM0X4sWc02v/sqEIO8ymQ+eHpJV0fxhoPYfrc66cRIfb14tjOTOVTxXJ+YY+IB+wX0Mk
+	yn6Hecpk6yzZOYuIyZZRVk1faqMmcygATHjDaRofs58Rkh0NVnNLQsokQas+Sb8NUZX7xyA52Cf
+	UWQKbxyTqpZ2nDSt5hEKIob1YjGq7hIAJMsl00cUbWuVPG3QCDZqaZ78MSUvvoAJj1/emKRul1c
+	6xNhSVC1pbpc8urbTiJkokBTUlGjwoq0ImfDABH/oL8az/FHO4ZoEqcP7HZOiuJLEq1oc8QwXfV
+	+HhyU4Bdo1Yzdjk/epfZeySwDIn+ZKpnVsl/YPfzr5qzQVBKC2QC5tiYYOoCGyZBtVdFl5BVFLT
+	5BH1UlfRHiKuWc6GhbNTL742puM=
+X-Received: by 2002:a05:6000:2b8e:b0:491:45bc:d69a with SMTP id ffacd0b85a97d-4abb3f158c5mr33838415f8f.44.1795821513578;
+        Fri, 27 Nov 2026 15:18:33 -0800 (PST)
+Received: from [127.0.1.1] ([151.42.79.162])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b2052c8sm49822762f8f.41.2026.11.27.15.18.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2026 15:18:33 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -124,121 +89,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261127124428.f1f66c6244d3e5c2811f56de@linux-foundation.org>
-X-Spamd-Result: default: False [-13.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[32];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[kernel.org,cs.cmu.edu,readahead.eu,google.com,infradead.org,cmpxchg.org,redhat.com,suse.com,lwn.net,linuxfoundation.org,rere.qmqm.pl,arndb.de,canb.auug.org.au,arm.com,coda.cs.cmu.edu,kvack.org,gmail.com,vger.kernel.org];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	R_RATELIMIT(0.00)[to_ip_from(RLrsmib7z51yjcgqxjkjha4j4m)];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 874DE22A2C
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 04/13] mmc: meson-gx: Fail request when descriptor
+ chain DMA mapping fails
+From: Valerio Setti <vsetti@baylibre.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Ulf Hansson <ulfh@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, linux-mmc@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20261123191703.179283-5-lee@kernel.org>
+References: <20261123191703.179283-1-lee@kernel.org>
+ <20261123191703.179283-5-lee@kernel.org>
+Date: Sat, 28 Nov 2026 00:18:21 +0100
+Message-Id: <179582150150.1958718.8445295799895434689.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=784; i=vsetti@baylibre.com;
+ h=from:subject:message-id; bh=8BHON/4l5h6q1xjm/WKKH4SM6biaPJLVHJzVeZlzOuU=;
+ b=owGbwMvMwCV2z3ty7kUrRgbG02pJDNlc/Ef1ln9ojoqOfGmv63j0Za3rE67Ytoe1i3aea+zbk
+ Xl4U/HOjlIWBjEuBlkxRRaW6fd+F5SqPTROOFkAM4eVCWQIAxenAEykKpHhv/skRnH3ZWsKxTbM
+ FxcprJMXFZi7cAO3n97ixSuES+q0PzAyPN0r92Wbun/44eYT/FZf7qt8Piy7m+G/VFx8vqJM/Qc
+ PNgA=
+X-Developer-Key: i=vsetti@baylibre.com; a=openpgp;
+ fpr=0497DEFB707526E13360C970DE4B936DD13A0100
 
-On Fri, Nov 27, 2026 at 12:44:28PM -0800, Andrew Morton wrote:
-> On Fri, 27 Nov 2026 19:45:40 +0000 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+On Mon, 23 Nov 2026 19:15:48 +0000, Lee Jones <lee@kernel.org> wrote:
+> meson_mmc_pre_req() flags eligible transfers with
+> SD_EMMC_DESC_CHAIN_MODE before mapping the scatterlist with
+> dma_map_sg().  If dma_map_sg() fails and returns 0, meson_mmc_pre_req()
+> logs an error but leaves SD_EMMC_DESC_CHAIN_MODE set with
+> data->sg_count equal to 0.  When meson_mmc_request() subsequently
+> dispatches the transfer to meson_mmc_desc_chain_transfer(), the
+> for_each_sg() loop executes zero iterations and
+> desc[data->sg_count - 1].cmd_cfg writes to desc[-1], corrupting memory
+> immediately preceding the coherent descriptor buffer before starting the
+> DMA engine.
 > 
-> > Coda file systems stack differently from other stacked file systems.
-> > 
-> > On mmap(), coda_file_mmap() switches both the Coda inode's i_mapping and
-> > the Coda file's f_mapping for the mapping of the container file. This
-> > causes two problems.
-> > 
-> > Firstly, the container file may not remain pinned, at which point this may
-> > result in a dangling reference in coda_file->f_mapping, and so a
-> > use-after-free in mmap() or lseek().
-> > 
-> > This can happen when you open the same inode across two files, mmap()'ing
-> > in one, which assigns the i_mapping, and open()'ing another, which assigns
-> > that i_mapping to the file's f_mapping, if the cache manager gave the two
-> > files different containers. Each file pins only its own container.
-> 
-> Yeah, I hit this while getting
-> tools/testing/selftests/mm/memory-failure.c to work on all Linux
-> filesystems.
-> 
-> > --- a/fs/coda/file.c
-> > +++ b/fs/coda/file.c
-> > @@ -182,7 +182,6 @@ coda_file_mmap(struct file *coda_file, struct vm_area_struct *vma)
-> >  
-> >  	cii = ITOC(coda_inode);
-> >  	spin_lock(&cii->c_lock);
-> > -	coda_file->f_mapping = host_file->f_mapping;
-> >  	if (coda_inode->i_mapping == &coda_inode->i_data)
-> >  		coda_inode->i_mapping = host_inode->i_mapping;
-> >  
-> 
-> I had this change.
-> 
-> > @@ -248,6 +247,19 @@ int coda_open(struct inode *coda_inode, struct file *coda_file)
-> >  
-> >  	host_file->f_flags |= coda_file->f_flags & (O_APPEND | O_SYNC);
-> >  
-> > +	/*
-> > +	 * On mmap coda_inode->i_mapping is updated to point at the mapping of
-> > +	 * the mmap()'d file's container, and do_dentry_open() propagates that
-> > +	 * to coda_file->f_mapping.
-> > +	 *
-> > +	 * However coda_file's container may differ, in which case the lifetime
-> > +	 * of that mapping may not match that of coda_file.
-> > +	 *
-> > +	 * To avoid a dangling pointer, reassign the mapping to the canonical
-> > +	 * one.
-> > +	 */
-> > +	coda_file->f_mapping = &coda_inode->i_data;
-> > +
-> >  	cfi->cfi_magic = CODA_MAGIC;
-> >  	cfi->cfi_mapcount = 0;
-> >  	cfi->cfi_container = host_file;
-> 
-> But not this one.
-> 
-> Is it truly needed, or is it a future-safe defensive thing?
-> 
-> If the latter, Tested-by-me:.  If the former, Mostly-tested-by:me. 
-> Either way, Acked-by:me.
-> 
-> 
-> It's always seemed a big wart that file->f_mapping even exists.  We
-> should get that via file->f_inode->i_mapping!  But you-know-what tells
-> me that "/dev/mem sets the opened file's f_mapping to the shared
-> I/O-memory mapping; /proc/bus/pci does the same.  Their f_inode still
-> identifies the device or proc entry" so sigh.
+> [...]
 
-FWIW, I think it's a rather nice part of the Linux VFS design: "file" and
-"inode" are separated well enough to allow for these kinds of shenanigans
-without awful hacks (and, yes, this is also present for something standard
-like a block device on /dev; /dev is a tmpfs mount, so the inode is tmpfs, but
-the mapping and fops cleanly point to block).
-
-But stacked filesystems, admittedly, do give me motion sickness.
+Reviewed-by: Valerio Setti <vsetti@baylibre.com>
 
 -- 
-Pedro
+Valerio Setti <vsetti@baylibre.com>
