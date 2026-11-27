@@ -1,60 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795809327;
-	b=VbYjl9bVKbQVTeydr1Bb09DBFWzXXyCEQ8DO5vT9YL+kuuz2XcmCXjGK+fNLgW5FzmC7
-	 IzIQLTtjHWe1nf9ASphcIoGzlhcE5Xa6qL+NivaxsSLX1AfrcdmN7+bVxzA+McOFpO4Mk
-	 gyKGAp1Ef6ZmZydF+sGtlVqQFD59jGwdA6Np8vBdPpJf6OCVi6mCh8vejFLv7HrXWJ6FR
-	 XckarqeLppfm3xTzX9n9KS/0YA+7o/IqaU/6SuM1ytDzspoU8ZHgss8hCOZjXXkkNvKqG
-	 lVTpVLvBg9UgOeF+kFxQJ9HK2tHz0tmh169/hsfnVyZknfro+WJHwfEa4B8a4PjWm1Q==
+	t=1795809514;
+	b=z5yot0XcKb9bVf43bwHpEiX7AI6GSgtZyFHNc9A3/3kvN8M+Nt/v5BP5JRxh/SyAjnMx
+	 8fuBf7UWZvzLnWCi+ltaemsfMFRTlXv00TZuj4f+tKxwiOk7uGlZAzpjZi+/7wrpsq2o/
+	 5DJpmWOuR4zLEv8i0L7lVjwEC8piIQUn4q35GocKDJnNQvMIrYxBEGxAQ2nukDKW1lNsg
+	 TWXz9ubIVNZmgXW2NfreNJenmhavs1nfitQltnYfa6cPsyqAmIW2lXfYzl1Y3dOzBjzdz
+	 IL/+XneXwi602duVna6ErnFgAzPr7Kap2JDZK47z9dnmCGh5N45IJNZJArHn1FR/25g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795809327;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=fkQY6VZ/0h/idxvC/1WqFbQT7o0AFUBBKssnmY8TGSc=;
-	b=g+QjeAhLsr6Ti/xGl86CbImyEAd+91MftSgif54h5nItrGalO18cZbTpcrLuZKM3V34Y
-	 X6wNBYFdmFiMF0O0gTNZTFafitCgRm7hJF/4Y6PX1/r2nX5lZc1twun3qNj+gc4zSOD8s
-	 kT0WKM72nAz6GO8QXRBCmkdKXKk/l0UrrR5tX/lDaGL8SWIsSd5Gqcr4rpAoF2/W2s/64
-	 jU1JwrW0rAT1qk2sW0blVFQkIYF+XXT/sQu/S+2jqqIKOILvYhSGk/3172k8AYcSkMRn6
-	 WC7xw1o6Fm0Wgo6nrv/gm4Cj2xI55knfQkqwhAVKmxsVacjV5PVrdnexSUVzCIep7RQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795809514;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=+XTNWIgi9ID8EoeN/DwyL/tKJe5joumzVvmrChys3j4=;
+	b=DK1rMbszor2rku9YmGI10pmzyTZ8xr2cpVeSLFR80F6n75JNCYhEW4rWzoRfsIZtp/RW
+	 GgnDLHE2BjZAHCy00+6w7POcdJZcdYj0kZpAIzaGEI+gSUaLx+aYdFf/8wTnq1ktjWkEg
+	 +kKkqXPdokzbWpDpAIQ2UHE1yVzdbaYB7G8L/83mILny3kfH+uEUEiUWK1H0ASUpFHNYW
+	 LWjmlzUeJ5/pYL4Z+bddMf1HwGPli1LEoKzU2SL1CMAyHTfK3iM/L1QfODut1xVt9HwOP
+	 +6WFviAg0zXGejzEh3dYcWoIuZUKsZjy1ECxwBMl2Qlqza3WGUXAk6hrnpYQI9iKeJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxtx.org;
-	spf=pass smtp.mailfrom=linuxtx.org;
-	dkim=pass header.d=linuxtx.org header.i=@linuxtx.org header.a=rsa-sha256 header.s=protonmail header.b=HJbWTEOZ;
-	arc=none smtp.remote-ip=185.70.43.23
-Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g3FX8NKb;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OsX3jgu6;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40DBE606A31E;
-	Fri, 27 Nov 2026 19:55:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40DBE606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=linuxtx.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtx.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A56606A31F
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 19:58:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3A56606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linuxtx.org header.i=@linuxtx.org header.a=rsa-sha256 header.s=protonmail header.b=HJbWTEOZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxtx.org;
-	s=protonmail; t=1795809323; x=1796068523;
-	bh=fkQY6VZ/0h/idxvC/1WqFbQT7o0AFUBBKssnmY8TGSc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=HJbWTEOZRJTVoRGGfDy1HPjtdY6kzwYlvPhvX9BKHOQcrKlbT1dZlQaJHyYCDC1kI
-	 NKTZMxnQ/B38GYzqb1g8jG6bXK17mPhAw6xIZdv3UvxRrt+ujM9LdRqPd4g0joN/li
-	 /gJiPjmAIuTnsA2Tb7zYz202Q9AaU+vJ0Bas0rbVBafERDvHmrI7EADP1Gwe83F5rq
-	 U8fLaNo2UJ0PCIfiW/Jcdv/W8dWHd3H6vfeGY81sB9EIUFAqqS7tKnY+YvFS6R9Ngw
-	 kbXiiQCfr9RTF+67Fp289XTrFsUbi2zUtNFjS0it/VYNySadFjuFxvK5RL21klOMlg
-	 Spsco77Yz8R0Q==
-Date: Fri, 27 Nov 2026 19:55:16 +0000
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-From: Justin Forbes <jmforbes@linuxtx.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
-Subject: Re: [PATCH 7.3 0000/1002] 7.3.7-rc2 review
-Message-ID: <awngG2KnDlCc8R4u@fedora64.linuxtx.org>
-In-Reply-To: <20261126105729.110697432@linuxfoundation.org>
-References: <20261126105729.110697432@linuxfoundation.org>
-Feedback-ID: 225434474:user:proton
-X-Pm-Message-ID: 93c12147b67152d10b0c16f1e4f843841e1bb3e5
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g3FX8NKb;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OsX3jgu6
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ARJRK4p2668932
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 19:58:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=+XTNWIgi9ID8EoeN/DwyL/tK
+	Je5joumzVvmrChys3j4=; b=g3FX8NKb7bzFF9rqGgqaeJGhFiOFZPYid3kFU+dw
+	H4wUAAiqNfq2dOJU4uEG35zZVPR/mjCoWWOLltGW8MYRPw1ewdCbr+fW0r+ktYT9
+	R7bGvYPtkknaZ+X3X4TUds3mvDYcrh+BtQVvOYed45LCnUHK9GIcPR7EXthKW+pO
+	uxc2GME/0mZ/7Fdh6tiD1/BJ0lmxSspyf0B6m4UzCz+SyiF4OO8teYoQcaGzcMMp
+	F37MTtK/umQfmwA1mP7CWtb52gXC2rLRLIjk+gdBCN60h9/32UPAhICCW9zqN07F
+	pAgk3wOA983UtygjFUiDJHDfKpwkHPWgbmjlz65gKdE2uw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j7g1jg2ak-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 19:58:32 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-934963b2bc0so1445757985a.3
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 11:58:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795809512; x=1796414312; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+XTNWIgi9ID8EoeN/DwyL/tKJe5joumzVvmrChys3j4=;
+        b=OsX3jgu6YYt5dJBvCs9pxRgp2DWcvrW6syOkodpEhu/97WRdeFoA0fZ0Y3Ei5lfpjE
+         L+oefhX2rt6CBO9iqGNBIGvSF1ItoqU2NQIzznBiBFMnWbaz1AGQHgSr3dmWbdJSXkd9
+         ppSA1/jW3qB8cHBjVXG+6/R7Lb/Ib+k1+Tj8iWhgfOj1wR7hDb1WzTM1z1Ib1wsZ+sLO
+         bhp2vygwxYJvhHPLB5sNKJRyfEDWRouZdhBM7F+Ll8CJ1ksOXmyHVpZuR7zxyM7Ivr0O
+         0m2R4R0HTl7fkP50gN3YZP7wWih47DyQ0+VckQn+qrECu9+kJP3JaVsdxB3z4WyVukZk
+         g5qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795809512; x=1796414312;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+XTNWIgi9ID8EoeN/DwyL/tKJe5joumzVvmrChys3j4=;
+        b=ahfa2JTq8Iy9ZJGGgJE4ipE6RV29/YgxmyDC9YtiVzsYlKOZGmyfsr3PqjWMXRyamL
+         YwmKEiYOwfg49bplteC14bI8Uuwc3+n/GPBPWQDKybQ9edIUNENInhLHUVi74a40Rst5
+         AcdaleABcgy0mpjCyf77PAdRz8Pe6s9dwozpYmvwpSAI28u/zW4V25ZPBK+QMTbI3gPj
+         N+LMHOWqUgFlS5GCz8lN05eX7cl11fmMv40TNS914h8ZypaDMevIXcZXB8xiZVZHiAb0
+         f+/ZFena1phYl8vIsAEqJSEOgd/LcpSKa6b+XVX9O/1el/Hyr2x4Nx0uQaUkX3wnesG/
+         Wd0Q==
+X-Forwarded-Encrypted: i=1; AL+hErG6jDryjcG239fFJQUDbJy7Q7YxvlYWiY3iLrTnAYqS9c4p4dTYrs123UokFy8M3b2+b9Op4W8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8IEHyqW3l5iEcTSADdZC1Py9IZDUigPqzmfogZLVTnrt+gMBye
+	mibJl88qVB3HEvbt1blvgJPWDODoRwbzniPijis87XbhFztoOLgrU6RKCGQDfIxIsk8vHH1jKkp
+	S+8ZQ/ah/dw/xL9bFZoMBMGn3oTvCMQFkPWIhxSbr6lGyvRs/2OVJDyswvdg=
+X-Gm-Gg: AZFdTZfLjsw+BHhmFXrhoq3lxdtJEW6637JOVjrNFu/4T4LgDUavgftdtzjCZ3qfbfz
+	PqdUrXieUBGtWN6AI9LIbHnl9Ms8twBpaD8D89/B9WnQ48MYMWd3TYfi5krHZoUapwUVGdaFHZu
+	3Jmz3ELEMNs+v+gdT4b6vnb+gfB2eegm+w2rWbr7Dfbh7L71ax4cONK7AYbuP0kiWl54hQ/AEhb
+	3zIulDfDzgHCFldDDM1154Fq+53cJr2I+x6nwvSkSMTXthZT6w3jkhujKwEl24co9QwhyyG4zkG
+	1gL9LGp2fFixz+1hRou7AidmvP5Y/Mpz1Uuz0djpubpA7MvbPQ1TwIHrn95dsVj1C+VgzCMLsaJ
+	yo4JN+ygxTrXeULmLHbI7zBIOclovgyTvwVdu+B5Phhgn4VM5+FEI8JWAhBKUqd7q+Xviahtihp
+	zqL3o6sO1z4RNxdq700UCmPDUAbKIZjG39pu0QpM7jUZwooHelEuk+CqSAVEB+Bw==
+X-Received: by 2002:a05:620a:8005:b0:949:3066:5569 with SMTP id af79cd13be357-949bab2f113mr4792665085a.46.1795809511942;
+        Fri, 27 Nov 2026 11:58:31 -0800 (PST)
+X-Received: by 2002:a05:620a:8005:b0:949:3066:5569 with SMTP id af79cd13be357-949bab2f113mr4792660685a.46.1795809511466;
+        Fri, 27 Nov 2026 11:58:31 -0800 (PST)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd041813sm6192040e87.53.2026.11.27.11.58.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2026 11:58:30 -0800 (PST)
+Date: Fri, 27 Nov 2026 21:58:28 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Michael McAllister <me@michaelmcallister.org>
+Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+        jesszhan0024@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
+        airlied@gmail.com, simona@ffwll.ch, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dsi: clear the DMA buffer pointer after freeing
+ it
+Message-ID: <o7iv6phsonvuruw7oufoj3d3glo6hpknpuwedue77wnprum2gz@ws2ux4bckblw>
+References: <179422752570.88190.13452031230666113805.msm-dsi-pin-leak@michaelmcallister.org>
+ <6m4cssgagnpvm2wawyj62veoqbglxv62rcqgxzaxvjynhn3dts@tlkaxvd6ph3n>
+ <179458248277.51880.11276326781897812340.msm-dsi-double-free@michaelmcallister.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,32 +125,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179458248277.51880.11276326781897812340.msm-dsi-double-free@michaelmcallister.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDA3OSBTYWx0ZWRfX7Nu+EcA97uDo
+ uMGACePNisNhO1TiadS4W8Wp4Me/4LAfh+gcr2ekxYJOqoj3vrhqxeauhW/Bs8oK3L78XmWOXah
+ itxJhOmpOBb6GoXjkXkFjeg7QxBBLvmjxpCmOteA6dCwAt0Ik0gSy9dKv7VoelXrDmi3dNqFI3h
+ fTTT7xIFsquJ5j5/NUUS/myvs+qyWNv9LrwFGHTxweOLrwFMu6sIXhF8IiqCSzNupdc7N4Np4bL
+ czBKUygoW76VAWVKO9NJnNRiwm+42MjCfGUf/tG/1/U3vW1d0WKNSAbXjyLjqRMR1upHHwMHcYB
+ QnFTSivqmZldB45vliccgnRaN3myFkmhfcszWUlPCoc4rrFmQnF0JRWkcNYamdTXFvX1h8+ufef
+ Frbzkay3L6s0kYGiKj6zFwzEntJGjh9/luJWiCu/qxKaipyMyaYQTrt/tz9P+0g3sRUo0w+0nWd
+ +OJW5Um1rfF9+Ah/Jvw==
+X-Proofpoint-ORIG-GUID: hJZ4fS41OlXGCKRrw9g0xYUlByDGQtMe
+X-Authority-Analysis: v=2.4 cv=QpzLTlyd c=1 sm=1 tr=0 ts=6b09e0e8 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=c92rfblmAAAA:8
+ a=VwQbUJbxAAAA:8 a=JwJ85b4fAAAA:8 a=EUspDBNiAAAA:8 a=hKRTAnW6OJ533CQEYPgA:9
+ a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=GvGzcOZaWPEFPQC_NcjD:22
+ a=qg2vb7sgHZQYDKbllo_a:22
+X-Proofpoint-GUID: hJZ4fS41OlXGCKRrw9g0xYUlByDGQtMe
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDA3OSBTYWx0ZWRfX+PfWPW7ObPH3
+ 6jqiCoasIHog5k2fnYhcVxH3k0X9w0tq6Lb+azvaU3KUVBjQj2o+GexqC126KQ9oZj0+ruwEM7u
+ jh9jLDaPzBazDN1ZhqkeTZ3AQ43kVT4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-27_04,2026-11-27_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
+ suspectscore=0 bulkscore=0 spamscore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270079
 
-On Thu, Nov 26, 2026 at 11:58:20AM +0100, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.3.7 release.
-> There are 1002 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->=20
-> Responses should be made by Sat, 28 Nov 2026 10:55:59 +0000.
-> Anything received after that time might be too late.
->=20
-> The whole patch series can be found in one patch at:
-> =09https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.7=
--rc2.gz
-> or in the git tree and branch at:
-> =09git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.g=
-it linux-7.3.y
-> and the diffstat can be found below.
->=20
-> thanks,
->=20
-> greg k-h
+On Fri, Nov 13, 2026 at 03:08:02PM +0000, Michael McAllister wrote:
+> The DSI host survives component unbind. On DSI v2, freeing the command
+> buffer leaves tx_buf pointing at freed memory. If a later bind fails
+> before allocating a new buffer, another unbind can free it again.
+> 
+> Clear tx_buf after freeing it, as we already do for tx_gem_obj.
+> 
+> Fixes: 5e05be782645 ("drm/msm/dsi: free TX buffer in unbind")
+> Cc: stable@vger.kernel.org
+> Link: https://sashiko.dev/#/bug/linux-6f5085d3-ef49-482c-86e4-a2438bc1b91f
+> Signed-off-by: Michael McAllister <me@michaelmcallister.org>
+> ---
 
-Tested rc2 against the Fedora build system (aarch64, ppc64le, s390x,
-x86_64), and boot tested x86_64. No regressions noted.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Tested-by: Justin M. Forbes <jforbes@fedoraproject.org>
 
+-- 
+With best wishes
+Dmitry
