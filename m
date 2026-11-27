@@ -1,98 +1,135 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795802849;
-	b=XdgtV1cXXdXp2oMffUrCJmcT1/jnxakaaaa06PaY8DUI5QWsE87UvtIDa3I5/Z3egrXU
-	 /hckzcLw6CP/notG1YWGy7n0P09VtAabBvYPN9BjrrgamFUcLYgt/MLQxXLz4vgMUm5hh
-	 fFckoH0HtA2Cu/9ts5eUb7cdBL/K4GpB31CgKLCEneaR0c8QIpMn1PRaWF1UsdT3XuPY8
-	 VfmtoUp6twxKPDIWDbc57tfYLfouUZn7BNAB9LIh2INHu865eyo/iTpHwf1c4uC0+VW4G
-	 wF0mKUxkMDeaWTt/R8bL8IPdX9XsjX3k48bBXlSLnjxlq+dEkDEoDGavB+mjV13jCYg==
+	t=1795803242;
+	b=1iXn3LZJ899MT6Lwtb1mK6axfH+XeiPrkRxjk4iVDcczPT5q2ZJuTaY52SyEzpQ0B5bU
+	 sC0TlztJlZn860GM45zu++a8T1jhIgnWDolOfYm+pgGXWcngefRLQcDyPbdTlQ161VFCQ
+	 gklsIb8ew3jBXmnfq347BFrRsG9VNZTCXhkuPZcubHwDcd6mxT687i3OrbXevor+OXPty
+	 6zIcussTCSuGyQYwD6ZteYp75u9RFVvlKae7t4IMPTalOMm9QCfiXo5lkrV/qlnhxI8i0
+	 9FJ5hHQgB0uTo5iSsHgzLmwoIiT0EWw79RPq08xLuwWJLG6EReu6JUnGYNQaWbaPkpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795802849;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795803242;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=OtMQI3rbDDr6jRF5D2DnQGsaHSlp3vrbRUub7i+6kDM=;
-	b=JaIh5kgjBUBY9F31lqFm2YHuWSYxzHfkR7RFzjHVOLDN/VRWgmJiLsfxH96NVC6ifGwm
-	 n+kYzudwF65scG+cSSaBuyPUILZTSR5dvQW5MlFwLV2KQhYbByvNRYOKnVYS2O5FzCdWn
-	 37TmQ0I8uHOkQcuC7wgPcRwywmpHqhJUIjpHldQU0AObKSH+/HG4ol7F1EGpYsMhaPM4c
-	 JMTKdafSlDBvHhmc1T/iCp7Z1SKmKiviwoZzYvDhWhGI8nyjRfuhpaSHSPQJDZpyoz+g4
-	 2laqgUa1TB+MS8YfaY+RFQT/ANaNrSkWGslLQ14mwLJOQTfnKCJAO3Cw75qSgZGVAEg==
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=Dp22K9bKOYXXjs3exfzs1IQnJAohVNLTUP9UcCkazyQ=;
+	b=imjhDWIrait6cvaJkNUtsAI150bGJG2b3byRyl29BONk9srLqYn54k02RvLzPpXd8sLF
+	 5LkRmxfde8oUJ+z83HBCbzX6mUXaasB14V8ZomM241cml/IIyNK/M9w6oOyF+0KKuKaVs
+	 MLdgbBF4aZy6eu1VsynUBExXAzXpLi+H0aDOvPDsdf/T8lpLnPPfuqm3yN7ZNxUKSoXMF
+	 mBry1Gg1eh5SbLaC5vPMTe53EqTZbGpDyee5oIv7lz1HD6s1WsdQovxXwQFAuNOyvyYit
+	 zUMyBIOTzQ3DhulrgqIepORn2uYWoOFOSe7BmMUWK1wuX+sB/MknkSOXAUHE9Cs5YVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Oe05IH8K;
-	arc=none smtp.remote-ip=209.85.217.42
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
+	dmarc=none header.from=dubeyko.com;
+	spf=pass smtp.mailfrom=dubeyko.com;
+	dkim=pass header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Z2Lbj8U1;
+	arc=none smtp.remote-ip=209.85.128.175
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5EDD606A31E
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 18:07:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5EDD606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C31E606A31F
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 18:14:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C31E606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Oe05IH8K
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7d2e14babc8so4927101137.2
-        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 10:07:28 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Z2Lbj8U1
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b315dd057bso52568417b3.1
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 10:14:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795802847; x=1796407647; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OtMQI3rbDDr6jRF5D2DnQGsaHSlp3vrbRUub7i+6kDM=;
-        b=Oe05IH8Koy5pSn/IZZGQBQhjqx9CCvhx6m+FuKPeWWg0ZP+UzHYhmsEhY2WJV7fP9/
-         WvYAx50o6+X9dsXzO6Yh6LC3fyObaP9sSPvk6HH40Ih0Wxh20Om8/Vq7sfaDf/rXpeDm
-         pAPacD+aWiRLx5fbaiaG9kDxgl1iQ3GuuXUdzAVY/qEGwNE+M+qRUcpx6W17T5+enB0/
-         5Un1BkoQjujPN2x/wy19hkI95/zBnbGwj2Y6b7/r8DfgpIikE44dVoQuRV09ckDshcsh
-         AtKBlbGyeXlkXvz/J7bjT5zinhVKUpfSVHgZiWyZqhpvwMVks+SzV9Cpqz3ENZ6lVidU
-         q9eA==
+        d=dubeyko-com.20260707.gappssmtp.com; s=20260707; t=1795803240; x=1796408040; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Dp22K9bKOYXXjs3exfzs1IQnJAohVNLTUP9UcCkazyQ=;
+        b=Z2Lbj8U15SWAY6zrHWEcjbA0K74iTng9jPYk0hAjv1VFVxnFnKBqsdfZTcp7zlBEwj
+         rhhbBR8dMt6lFzQMqWGQYEPJJO20utSEbdfJr7Ec4MyrKE3l0tAFPMuzJ/o/UCVEmCVJ
+         OQSIuJSmJ3I4qzVKAp5Ec6DgeBpvmdtMIDELYOnXsSyTioLyCUBOm122HLM5ItWEL78Q
+         jk8Ayqagg1Vp27/YrXTzz6UQ6GXsDfJX4cN2X5e9whv9nxyLMkY8vsmxa2fMnWU01au3
+         aFF4BUrpKFZ3jaHFEGSZyArH4KgufStnsrw31mKRlBx/ltN+AQjLqFMN8Sa0FqakNZwz
+         zxNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795802847; x=1796407647;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OtMQI3rbDDr6jRF5D2DnQGsaHSlp3vrbRUub7i+6kDM=;
-        b=zVbOA6EqxwPW/lyf+u8aVn9Dt7Ab9FENu9xXzoNQ/bfCQu6Z1AMhJU2rGYVtZVWNwJ
-         0u6R9p0Y/cleNrV5ta5wXGIEJ8Vh47nIXuDCn+AaY4Degy1DYQ5x7iYqM0znqrSG6d3i
-         Y+Wt+LQyniAX9BBgAorlb8rqE+5BeNtaOMNzwS1+lSo0LyYotFqZhAHYTSMwdixqTzGA
-         D6zbbCQg4imU39wtx3E7p89I111u4UcOPPCY/NHqoD+x8fuPva5VNoRaMMxwiD2oacTZ
-         X2LeY0g+xP9uXcRC6pt0xK12NcEgsIKIp019DwQUzw0ftMNSfnLH8G8x1Lgl738okeMY
-         auvw==
-X-Forwarded-Encrypted: i=1; AL+hErGh0bAo6yRGwTsdJfGbUPKtXj7NUsCsi9qwFdyu+2o4CU+luL6/V9GH+gRJlo5RJWugQ4BVol0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9d0PxJZ6w7zEhF8xviLJ8wmnhCYWjECvz+9RpiHXtg3dx40WNW
-	yz+/majtvyn84l2P78V9WwgfaI4vBS0An14r7A6tLMSzoc1947qvlobw
-X-Gm-Gg: AZFdTZfhYpvdpo0sdmGZ8MmCdYtlaYRL/ILskvORCJeelPArmYbNpAg8Xfypvno0Hfd
-	exwfcmRMi66eysqVrVXiNNzaP0QGlCp0mvck+iV4x0s9nTq93RIGIk4+envYRU3Vlz1I08Y3zWH
-	LPbubEX6iVoOvMuhCgS70J4ZHnaaY4BILlVgBeRoGiA8QyUQw4LpRaZSEcBfAambnJW3DxIFHMq
-	RNzCutAKpx+e6yhfr/N5YUYXcZxoYtWsL8qc056e5odg5az/10yvH6760GgADfzPNezmuG6/iZW
-	5G/qTM8uczoqz+7xm93bu2AykX5Puaog+fS17pvDUGhiwwB4qsGbB6Z8win7CDMK896ZYinbZe8
-	Hxsgwdk6Zl4soPDQzqOfW3Q8LZCmusp0uuuJeRWGQF10hL15xu748PBY/bJMzRQwnbchAMrwWv8
-	nwyOltYlYKjA+WDcyiBae4t7tROlt966ggRAi23bGbmFMAfBMgUdWUelr1VfGsJdW8ROr2DdZMR
-	d13qCcDLPV64IG8HjiaK+fUM9em729flQOjJrk/OLRjicraxkIQHSZdLJOXrwrquAZ8xMA6+uSA
-	UCFTW20kdzovLJIvrQfTRlv+9hixJxQaXIE82vVRLW6atfSQVXW4cKOHfs10QDaEw2y3gTvLXjU
-	8cG5yssnapwOdha1Q2WZXczsVdcd6tdui+KJezghBB7me
-X-Received: by 2002:a05:6102:14a3:b0:7d2:c903:515d with SMTP id ada2fe7eead31-7d7393ae1e1mr18159731137.7.1795802847468;
-        Fri, 27 Nov 2026 10:07:27 -0800 (PST)
-Received: from fabio-X870-EAGLE-WIFI7.tail2bb604.ts.net ([2804:1b3:a800:1256:3c75:eb0d:7d97:e4f8])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d6e8219b2esm26087020137.9.2026.11.27.10.07.23
+        d=1e100.net; s=20260707; t=1795803240; x=1796408040;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Dp22K9bKOYXXjs3exfzs1IQnJAohVNLTUP9UcCkazyQ=;
+        b=rKrhRpsCDLVbFHsRq7VHq1GJFstumYELS2zatfxi+XGhleaWmCbf2lZoKV/Vo7iS+K
+         GJBuzJQu3cW1BNkCD2zOpiXmwYZzxs34saCs2ORKvqeqx6Ehm5nzVs6eC+9pY8kB6pwM
+         Z2usGWa7bDjauLyAOGbh/62Vy0K4PWe6qzMxiR7Xl8DJBfc9C4qi9wK9+sLNGHatI3EQ
+         Nw6TiV2FSZUM0kX0v6V/3zPZbnh7HZYCc0KV1rXJ0C0HY5GMq1VmW+MjreQcn/R5k5r7
+         YDYO6kyXqBqu92mM2tdfaDex2LOHFaGHNMYmQxWGzoKPib/esYWPO4XNfzljtCmqIcfe
+         ui4A==
+X-Forwarded-Encrypted: i=1; AL+hErFo9da2auR55lplKLe0MufElHplR2JVeuVq2wRbEbofpJFy4EjC2vAH5CoRsF35lAeLStDJnLc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8pzcND5ydoR8hBRmgL1UzejnpEm69qfesLc1dkAm+gFyBDYVkL
+	yvCDO4o48KWCdmNFYcPyv79z3UkE+AAUClm6kAdDIS3sAW/YM0gzMk9zxavTYzrRuRs=
+X-Gm-Gg: AZFdTZffWpDfARNtCZttNvBjIE/ryDkSyUC4DW2vWHNVWdYZyffT1+tcGuxJ0OmWpjn
+	IRp9IiitE5T6y98O+kTwbXvLtA0j4C8mSsbfA6cNbOp16mMQc7fdHAi5i2ffMhdvwp7jUe63NJE
+	1iGrkt5e6RRemsuSXcTejX6CEawXDL3ezqD2UXh8PFHnkNeE2vWk/yUy4msOCCPoxOTuBKdBX1U
+	d/C45jKKgXXFLGxvdC9eUly8/ymoHEWka8EMbqSc4vBkSOZ2soXjsd/cS1J+E2mk5iAqWdTiGZr
+	F/cvwR/r9IfJWTmrdXEvbwonx4fdCDV0H8+onx8STBpa77LcSMQAzXb8WS3BzfgxhqmwTNWH6Yt
+	DGKrxeaMpWHXQlDNvucFZ2i8wyC58a3+zEnyU17GvQOIzcLeAF5TA70LoltbZXnQTOqgX9/tr5d
+	vL/+NoU+nQcz2d9yr4GMD7xUMmGccatBRU7tcb/NUR+lis6Al3zxlzsutKHvTlNXK2UL/W/o/YE
+	q7un6U3FdF4cP45zw5WUc5clNkQ42uOn358m0/iB2qiLtuVZMXOAVgVHjd0UJzva2Gq39kuKwlt
+	q3pSlxi3Paptlepsi58o9VAyfA1lKFh9w50Z7yqZmmBg2FxG4ydy/pxlx+rLb3v958Wnu5TBJO/
+	tRzxvMK1uoQL5YBeXwV0znbQsjDdhub2SAg6ZV8eTZE4ig3/TSkLw2SHUdNXMhKf+Ae6LVxBkJP
+	jyX5D85F5n3IREwtjFj4iyURSnllb2ZwGYR08PXMzE
+X-Received: by 2002:a05:690c:950c:b0:8b5:94b7:2c47 with SMTP id 00721157ae682-8b594b77e98mr11435267b3.41.1795803240112;
+        Fri, 27 Nov 2026 10:14:00 -0800 (PST)
+Received: from ?IPv6:2600:1700:6476:1430:1a5a:d5f7:70f5:514b? ([2600:1700:6476:1430:1a5a:d5f7:70f5:514b])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b52030d5c3sm98029017b3.32.2026.11.27.10.13.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 10:07:26 -0800 (PST)
-From: Fabio Estevam <festevam@gmail.com>
-To: lee@kernel.org
-Cc: jic23@kernel.org,
-	andy@kernel.org,
-	mfd@lists.linux.dev,
-	imx@lists.linux.dev,
-	Frank.Li@nxp.com,
-	Fabio Estevam <festevam@gmail.com>,
-	stable@vger.kernel.org,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH v6 1/2] mfd: mxs-lradc: Pass parent IRQs to child drivers
-Date: Fri, 27 Nov 2026 15:07:08 -0300
-Message-ID: <20261127180709.315826-1-festevam@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 27 Nov 2026 10:13:58 -0800 (PST)
+Message-ID: <f6dc488e8bfc7a536bcc8ae227ab5013d29691ad.camel@dubeyko.com>
+Subject: Re: [PATCH v2] nilfs2: count new blocks that a short copy leaves
+ dirty
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Ryusuke Konishi <konishi.ryusuke@gmail.com>, Hengyu Liang
+	 <hengyul@cs.unc.edu>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>, Andrew Morton
+	 <akpm@linux-foundation.org>, linux-nilfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Fri, 27 Nov 2026 10:13:57 -0800
+In-Reply-To: <CAKFNMo=7jdKJ=yZ5PMUfDk3GPW=KFD2GrmgqZJzN9z7q4p+sRg@mail.gmail.com>
+References: <20261127095449.1379289-1-hengyul@cs.unc.edu>
+	 <CAKFNMo=7jdKJ=yZ5PMUfDk3GPW=KFD2GrmgqZJzN9z7q4p+sRg@mail.gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+ NFdvziOa4FgUBC4X71upsZIoZJeii2V/Jtc3B4g==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.56.2-9 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,565 +139,174 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The MFD driver stores raw DT interrupt indices in IRQ resources but
-registers its child devices without an IRQ domain or IRQ base. The child
-drivers consequently receive the indices as if they were mapped Linux
-IRQ numbers. IRQ index 0 triggers the platform_get_irq_byname() warning:
-
-  0 is an invalid IRQ number
-
-The children then try to recover the indices from their resources and
-map them against the parent OF node. Besides duplicating IRQ names in
-the parent and children, this relies on invalid platform IRQ resources
-and fails when IRQ 0 is rejected.
-
-Resolve the interrupts with platform_get_irq() in the MFD parent and
-store the mapped IRQs in the shared LRADC data. Drop the child IRQ
-resources and duplicated name arrays, and have both child drivers
-request the mapped IRQs directly. Map the MMIO region once in the
-parent and share the mapping with both child drivers through
-struct mxs_lradc, removing the child memory resources.
-
-Tested on an i.MX28 EVK. The mxs-lradc-ts driver probes successfully,
-touch events are reported, and the touch-detect and LRADC channel 7
-interrupt counters increase as expected.
-
-Cc: stable@vger.kernel.org
-Suggested-by: Lee Jones <lee@kernel.org>
-Closes: https://lore.kernel.org/linux-input/CAOMZO5CgTzo6GuXptD4mFTN=UsJJqpkixDW1Q64gqZGrij8+uQ@mail.gmail.com/
-Fixes: a85a6c86c25b ("driver core: platform: Clarify that IRQ 0 is invalid")
-Signed-off-by: Fabio Estevam <festevam@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
----
-Changes since v5:
-- Rebased against linux-next 20261127.
-- Added Frank Li's Reviewed-by tag.
-- Submitted as a 2 patch series as Jonathan Cameron has already applies the
-previous first two patches.
-
-KASAN is happy now after unbind/bind:
-
-echo 80050000.lradc > /sys/bus/platform/drivers/mxs-lradc/unbind
-echo 80050000.lradc > /sys/bus/platform/drivers/mxs-lradc/bind
-echo 80050000.lradc > /sys/bus/platform/drivers/mxs-lradc/unbind
-
-This is a long-standing bug that I reported in 2020:
-https://lore.kernel.org/linux-input/CAOMZO5CgTzo6GuXptD4mFTN=UsJJqpkixDW1Q64gqZGrij8+uQ@mail.gmail.com/
-
-This patch touches MFD, IIO, and Input. Since the IRQ mapping is moved
-into the MFD parent, I suggest merging it through the MFD tree, with
-acks from the IIO and Input maintainers.
-
-The full backtrace:
-
-[   10.540505] WARNING: drivers/base/platform.c:492 at __platform_get_irq_byname+0xb4/0xcc, CPU#0: swapper/0/1
-[   10.555516] 0 is an invalid IRQ number
-[   10.559627] Modules linked in:
-[   10.562849] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.3.0-rc7-next-20261016-00003-g36062817a968 #17 VOLUNTARY
-[   10.573732] Hardware name: Freescale MXS (Device Tree)
-[   10.578934] Call trace:
-[   10.578992]  unwind_backtrace from show_stack+0x10/0x14
-[   10.586955]  show_stack from dump_stack_lvl+0x48/0x64
-[   10.592170]  dump_stack_lvl from __warn+0x8c/0x190
-[   10.597114]  __warn from warn_slowpath_fmt+0x94/0xcc
-[   10.602232]  warn_slowpath_fmt from __platform_get_irq_byname+0xb4/0xcc
-[   10.609027]  __platform_get_irq_byname from platform_get_irq_byname+0x10/0x30
-[   10.616337]  platform_get_irq_byname from mxs_lradc_ts_probe+0x18c/0x378
-[   10.623247]  mxs_lradc_ts_probe from platform_probe+0x58/0x90
-[   10.629174]  platform_probe from really_probe+0xc4/0x2cc
-[   10.634649]  really_probe from __driver_probe_device+0xa0/0x1e0
-[   10.640721]  __driver_probe_device from driver_probe_device+0x30/0xc0
-[   10.647315]  driver_probe_device from __driver_attach+0x94/0x158
-[   10.653466]  __driver_attach from bus_for_each_dev+0x7c/0xd0
-[   10.659280]  bus_for_each_dev from bus_add_driver+0x158/0x1fc
-[   10.665169]  bus_add_driver from driver_register+0x7c/0x114
-[   10.670901]  driver_register from do_one_initcall+0x60/0x294
-[   10.676721]  do_one_initcall from kernel_init_freeable+0x19c/0x24c
-[   10.683073]  kernel_init_freeable from kernel_init+0x14/0x10c
-[   10.688997]  kernel_init from ret_from_fork+0x14/0x38
-[   10.694200] Exception stack(0xc8819fb0 to 0xc8819ff8)
-[   10.699335] 9fa0:                                     00000000 00000000 00000000 00000000
-[   10.707591] 9fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
-[   10.715843] 9fe0: 00000000 00000000 00000000 00000000 00000013 00000000
-[   10.723117] irq event stamp: 146363
-[   10.726729] hardirqs last  enabled at (146367): [<c00adbd8>] __nbcon_atomic_flush_pending_con+0x120/0x1c0
-[   10.736770] hardirqs last disabled at (146372): [<c0008f38>] __irq_svc+0x58/0xb0
-[   10.744618] softirqs last  enabled at (146362): [<c0032c20>] __irq_exit_rcu+0x148/0x1d4
-[   10.753153] softirqs last disabled at (146385): [<c0032c20>] __irq_exit_rcu+0x148/0x1d4
-[   10.761603] ---[ end trace 0000000000000000 ]---
-[   10.766374] mxs-lradc-ts mxs-lradc-ts: error -EINVAL: IRQ mxs-lradc-touchscreen not found
-[   10.766456] mxs-lradc-ts mxs-lradc-ts: probe with driver mxs-lradc-ts failed with error -22
-
- drivers/iio/adc/mxs-lradc-adc.c          |  53 +------
- drivers/input/touchscreen/mxs-lradc-ts.c |  35 ++---
- drivers/mfd/mxs-lradc.c                  | 184 +++++++++++------------
- include/linux/mfd/mxs-lradc.h            |  12 ++
- 4 files changed, 115 insertions(+), 169 deletions(-)
-
-diff --git a/drivers/iio/adc/mxs-lradc-adc.c b/drivers/iio/adc/mxs-lradc-adc.c
-index 170cb47f5807..efc775c36113 100644
---- a/drivers/iio/adc/mxs-lradc-adc.c
-+++ b/drivers/iio/adc/mxs-lradc-adc.c
-@@ -17,7 +17,6 @@
- #include <linux/mfd/core.h>
- #include <linux/mfd/mxs-lradc.h>
- #include <linux/module.h>
--#include <linux/of_irq.h>
- #include <linux/platform_device.h>
- #include <linux/sysfs.h>
- 
-@@ -39,28 +38,6 @@
- 
- #define VREF_MV_BASE 1850
- 
--static const char *mx23_lradc_adc_irq_names[] = {
--	"mxs-lradc-channel0",
--	"mxs-lradc-channel1",
--	"mxs-lradc-channel2",
--	"mxs-lradc-channel3",
--	"mxs-lradc-channel4",
--	"mxs-lradc-channel5",
--};
--
--static const char *mx28_lradc_adc_irq_names[] = {
--	"mxs-lradc-thresh0",
--	"mxs-lradc-thresh1",
--	"mxs-lradc-channel0",
--	"mxs-lradc-channel1",
--	"mxs-lradc-channel2",
--	"mxs-lradc-channel3",
--	"mxs-lradc-channel4",
--	"mxs-lradc-channel5",
--	"mxs-lradc-button0",
--	"mxs-lradc-button1",
--};
--
- static const u32 mxs_lradc_adc_vref_mv[][LRADC_MAX_TOTAL_CHANS] = {
- 	[IMX23_LRADC] = {
- 		VREF_MV_BASE,		/* CH0 */
-@@ -690,10 +667,8 @@ static int mxs_lradc_adc_probe(struct platform_device *pdev)
- 	struct mxs_lradc *lradc = dev_get_drvdata(dev->parent);
- 	struct mxs_lradc_adc *adc;
- 	struct iio_dev *iio;
--	struct resource *iores;
--	int ret, irq, virq, i, s, n;
-+	int ret, i, s;
- 	u64 scale_uv;
--	const char **irq_name;
- 
- 	/* Allocate the IIO device. */
- 	iio = devm_iio_device_alloc(dev, sizeof(*adc));
-@@ -703,14 +678,7 @@ static int mxs_lradc_adc_probe(struct platform_device *pdev)
- 	adc = iio_priv(iio);
- 	adc->lradc = lradc;
- 	adc->dev = dev;
--
--	iores = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	if (!iores)
--		return -EINVAL;
--
--	adc->base = devm_ioremap(dev, iores->start, resource_size(iores));
--	if (!adc->base)
--		return -ENOMEM;
-+	adc->base = lradc->base;
- 
- 	init_completion(&adc->completion);
- 	spin_lock_init(&adc->lock);
-@@ -725,28 +693,19 @@ static int mxs_lradc_adc_probe(struct platform_device *pdev)
- 	if (lradc->soc == IMX23_LRADC) {
- 		iio->channels = mx23_lradc_chan_spec;
- 		iio->num_channels = ARRAY_SIZE(mx23_lradc_chan_spec);
--		irq_name = mx23_lradc_adc_irq_names;
--		n = ARRAY_SIZE(mx23_lradc_adc_irq_names);
- 	} else {
- 		iio->channels = mx28_lradc_chan_spec;
- 		iio->num_channels = ARRAY_SIZE(mx28_lradc_chan_spec);
--		irq_name = mx28_lradc_adc_irq_names;
--		n = ARRAY_SIZE(mx28_lradc_adc_irq_names);
- 	}
- 
- 	ret = stmp_reset_block(adc->base);
- 	if (ret)
- 		return ret;
- 
--	for (i = 0; i < n; i++) {
--		irq = platform_get_irq_byname(pdev, irq_name[i]);
--		if (irq < 0)
--			return irq;
--
--		virq = irq_of_parse_and_map(dev->parent->of_node, irq);
--
--		ret = devm_request_irq(dev, virq, mxs_lradc_adc_handle_irq,
--				       0, irq_name[i], iio);
-+	for (i = 0; i < lradc->num_adc_irqs; i++) {
-+		ret = devm_request_irq(dev, lradc->adc_irq[i],
-+				       mxs_lradc_adc_handle_irq, 0,
-+				       dev_name(dev), iio);
- 		if (ret)
- 			return ret;
- 	}
-diff --git a/drivers/input/touchscreen/mxs-lradc-ts.c b/drivers/input/touchscreen/mxs-lradc-ts.c
-index 2970d9eb9c2b..25280f056fc7 100644
---- a/drivers/input/touchscreen/mxs-lradc-ts.c
-+++ b/drivers/input/touchscreen/mxs-lradc-ts.c
-@@ -18,15 +18,8 @@
- #include <linux/mfd/core.h>
- #include <linux/mfd/mxs-lradc.h>
- #include <linux/of.h>
--#include <linux/of_irq.h>
- #include <linux/platform_device.h>
- 
--static const char * const mxs_lradc_ts_irq_names[] = {
--	"mxs-lradc-touchscreen",
--	"mxs-lradc-channel6",
--	"mxs-lradc-channel7",
--};
--
- /*
-  * Touchscreen handling
-  */
-@@ -601,12 +594,12 @@ static int mxs_lradc_ts_register(struct mxs_lradc_ts *ts)
- 
- static int mxs_lradc_ts_probe(struct platform_device *pdev)
- {
--	struct device *dev = &pdev->dev;
--	struct device_node *node = dev->parent->of_node;
--	struct mxs_lradc *lradc = dev_get_drvdata(dev->parent);
- 	struct mxs_lradc_ts *ts;
--	int ret, irq, virq, i;
-+	struct device_node *node = pdev->dev.parent->of_node;
-+	struct mxs_lradc *lradc = dev_get_drvdata(pdev->dev.parent);
-+	struct device *dev = &pdev->dev;
- 	u32 ts_wires = 0, adapt;
-+	int ret, i;
- 
- 	ts = devm_kzalloc_obj(dev, *ts);
- 	if (!ts)
-@@ -616,12 +609,9 @@ static int mxs_lradc_ts_probe(struct platform_device *pdev)
- 
- 	ts->lradc = lradc;
- 	ts->dev = dev;
-+	ts->base = lradc->base;
- 	spin_lock_init(&ts->lock);
- 
--	ts->base = devm_platform_ioremap_resource(pdev, 0);
--	if (IS_ERR(ts->base))
--		return PTR_ERR(ts->base);
--
- 	ret = of_property_read_u32(node, "fsl,lradc-touchscreen-wires",
- 				   &ts_wires);
- 	if (ret)
-@@ -668,19 +658,12 @@ static int mxs_lradc_ts_probe(struct platform_device *pdev)
- 		return ret;
- 
- 	mxs_lradc_ts_hw_init(ts);
-+	mxs_lradc_ts_stop(ts);
- 
--	for (i = 0; i < 3; i++) {
--		irq = platform_get_irq_byname(pdev, mxs_lradc_ts_irq_names[i]);
--		if (irq < 0)
--			return irq;
--
--		virq = irq_of_parse_and_map(node, irq);
--
--		mxs_lradc_ts_stop(ts);
--
--		ret = devm_request_irq(dev, virq,
-+	for (i = 0; i < ARRAY_SIZE(lradc->ts_irq); i++) {
-+		ret = devm_request_irq(dev, lradc->ts_irq[i],
- 				       mxs_lradc_ts_handle_irq,
--				       0, mxs_lradc_ts_irq_names[i], ts);
-+				       0, dev_name(dev), ts);
- 		if (ret)
- 			return ret;
- 	}
-diff --git a/drivers/mfd/mxs-lradc.c b/drivers/mfd/mxs-lradc.c
-index 6be18c188fe6..aa55f88399ef 100644
---- a/drivers/mfd/mxs-lradc.c
-+++ b/drivers/mfd/mxs-lradc.c
-@@ -20,10 +20,6 @@
- #include <linux/property.h>
- #include <linux/slab.h>
- 
--#define ADC_CELL		0
--#define TSC_CELL		1
--#define RES_MEM			0
--
- enum mx23_lradc_irqs {
- 	MX23_LRADC_TS_IRQ = 0,
- 	MX23_LRADC_CH0_IRQ,
-@@ -52,92 +48,117 @@ enum mx28_lradc_irqs {
- 	MX28_LRADC_BUTTON1_IRQ,
- };
- 
--static struct resource mx23_adc_resources[] = {
--	DEFINE_RES_MEM(0x0, 0x0),
--	DEFINE_RES_IRQ_NAMED(MX23_LRADC_CH0_IRQ, "mxs-lradc-channel0"),
--	DEFINE_RES_IRQ_NAMED(MX23_LRADC_CH1_IRQ, "mxs-lradc-channel1"),
--	DEFINE_RES_IRQ_NAMED(MX23_LRADC_CH2_IRQ, "mxs-lradc-channel2"),
--	DEFINE_RES_IRQ_NAMED(MX23_LRADC_CH3_IRQ, "mxs-lradc-channel3"),
--	DEFINE_RES_IRQ_NAMED(MX23_LRADC_CH4_IRQ, "mxs-lradc-channel4"),
--	DEFINE_RES_IRQ_NAMED(MX23_LRADC_CH5_IRQ, "mxs-lradc-channel5"),
--};
--
--static struct resource mx23_touchscreen_resources[] = {
--	DEFINE_RES_MEM(0x0, 0x0),
--	DEFINE_RES_IRQ_NAMED(MX23_LRADC_TS_IRQ, "mxs-lradc-touchscreen"),
--	DEFINE_RES_IRQ_NAMED(MX23_LRADC_CH6_IRQ, "mxs-lradc-channel6"),
--	DEFINE_RES_IRQ_NAMED(MX23_LRADC_CH7_IRQ, "mxs-lradc-channel7"),
--};
--
--static struct resource mx28_adc_resources[] = {
--	DEFINE_RES_MEM(0x0, 0x0),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_TRESH0_IRQ, "mxs-lradc-thresh0"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_TRESH1_IRQ, "mxs-lradc-thresh1"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_CH0_IRQ, "mxs-lradc-channel0"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_CH1_IRQ, "mxs-lradc-channel1"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_CH2_IRQ, "mxs-lradc-channel2"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_CH3_IRQ, "mxs-lradc-channel3"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_CH4_IRQ, "mxs-lradc-channel4"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_CH5_IRQ, "mxs-lradc-channel5"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_BUTTON0_IRQ, "mxs-lradc-button0"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_BUTTON1_IRQ, "mxs-lradc-button1"),
-+struct mxs_lradc_soc_data {
-+	enum mxs_lradc_id soc;
-+	unsigned int num_adc_irqs;
-+	u8 adc_irq[MXS_LRADC_MAX_ADC_IRQS];
-+	u8 ts_irq[MXS_LRADC_NUM_TS_IRQS];
- };
- 
--static struct resource mx28_touchscreen_resources[] = {
--	DEFINE_RES_MEM(0x0, 0x0),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_TS_IRQ, "mxs-lradc-touchscreen"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_CH6_IRQ, "mxs-lradc-channel6"),
--	DEFINE_RES_IRQ_NAMED(MX28_LRADC_CH7_IRQ, "mxs-lradc-channel7"),
-+static const struct mxs_lradc_soc_data mx23_lradc_data = {
-+	.soc = IMX23_LRADC,
-+	.num_adc_irqs = 6,
-+	.adc_irq = {
-+		MX23_LRADC_CH0_IRQ,
-+		MX23_LRADC_CH1_IRQ,
-+		MX23_LRADC_CH2_IRQ,
-+		MX23_LRADC_CH3_IRQ,
-+		MX23_LRADC_CH4_IRQ,
-+		MX23_LRADC_CH5_IRQ,
-+	},
-+	.ts_irq = {
-+		MX23_LRADC_TS_IRQ,
-+		MX23_LRADC_CH6_IRQ,
-+		MX23_LRADC_CH7_IRQ,
-+	},
- };
- 
--static const struct mfd_cell mx23_cells[] = {
--	{
--		.name = "mxs-lradc-adc",
--		.resources = mx23_adc_resources,
--		.num_resources = ARRAY_SIZE(mx23_adc_resources),
-+static const struct mxs_lradc_soc_data mx28_lradc_data = {
-+	.soc = IMX28_LRADC,
-+	.num_adc_irqs = 10,
-+	.adc_irq = {
-+		MX28_LRADC_TRESH0_IRQ,
-+		MX28_LRADC_TRESH1_IRQ,
-+		MX28_LRADC_CH0_IRQ,
-+		MX28_LRADC_CH1_IRQ,
-+		MX28_LRADC_CH2_IRQ,
-+		MX28_LRADC_CH3_IRQ,
-+		MX28_LRADC_CH4_IRQ,
-+		MX28_LRADC_CH5_IRQ,
-+		MX28_LRADC_BUTTON0_IRQ,
-+		MX28_LRADC_BUTTON1_IRQ,
- 	},
--	{
--		.name = "mxs-lradc-ts",
--		.resources = mx23_touchscreen_resources,
--		.num_resources = ARRAY_SIZE(mx23_touchscreen_resources),
-+	.ts_irq = {
-+		MX28_LRADC_TS_IRQ,
-+		MX28_LRADC_CH6_IRQ,
-+		MX28_LRADC_CH7_IRQ,
- 	},
- };
- 
--static const struct mfd_cell mx28_cells[] = {
-+static const struct mfd_cell mxs_lradc_cells[] = {
- 	{
- 		.name = "mxs-lradc-adc",
--		.resources = mx28_adc_resources,
--		.num_resources = ARRAY_SIZE(mx28_adc_resources),
- 	},
- 	{
- 		.name = "mxs-lradc-ts",
--		.resources = mx28_touchscreen_resources,
--		.num_resources = ARRAY_SIZE(mx28_touchscreen_resources),
--	}
-+	},
- };
- 
- static const struct of_device_id mxs_lradc_dt_ids[] = {
--	{ .compatible = "fsl,imx23-lradc", .data = (void *)IMX23_LRADC, },
--	{ .compatible = "fsl,imx28-lradc", .data = (void *)IMX28_LRADC, },
-+	{ .compatible = "fsl,imx23-lradc", .data = &mx23_lradc_data, },
-+	{ .compatible = "fsl,imx28-lradc", .data = &mx28_lradc_data, },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, mxs_lradc_dt_ids);
- 
-+static int mxs_lradc_get_irqs(struct platform_device *pdev,
-+			      struct mxs_lradc *lradc,
-+			      const struct mxs_lradc_soc_data *data)
-+{
-+	int i, irq;
-+
-+	for (i = 0; i < data->num_adc_irqs; i++) {
-+		irq = platform_get_irq(pdev, data->adc_irq[i]);
-+		if (irq < 0)
-+			return irq;
-+
-+		lradc->adc_irq[i] = irq;
-+	}
-+	lradc->num_adc_irqs = data->num_adc_irqs;
-+
-+	for (i = 0; i < ARRAY_SIZE(data->ts_irq); i++) {
-+		irq = platform_get_irq(pdev, data->ts_irq[i]);
-+		if (irq < 0)
-+			return irq;
-+
-+		lradc->ts_irq[i] = irq;
-+	}
-+
-+	return 0;
-+}
-+
- static int mxs_lradc_probe(struct platform_device *pdev)
- {
--	struct device *dev = &pdev->dev;
--	struct device_node *node = dev->of_node;
-+	const struct mxs_lradc_soc_data *data;
-+	struct device_node *node = pdev->dev.of_node;
- 	struct mxs_lradc *lradc;
--	const struct mfd_cell *cells = NULL;
--	struct resource *res;
--	int ret = 0;
-+	struct device *dev = &pdev->dev;
-+	unsigned int num_cells;
- 	u32 ts_wires = 0;
-+	int ret = 0;
- 
- 	lradc = devm_kzalloc_obj(&pdev->dev, *lradc);
- 	if (!lradc)
- 		return -ENOMEM;
- 
--	lradc->soc = (kernel_ulong_t)device_get_match_data(&pdev->dev);
-+	data = device_get_match_data(dev);
-+	if (!data)
-+		return -ENODATA;
-+
-+	lradc->soc = data->soc;
-+	lradc->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(lradc->base))
-+		return PTR_ERR(lradc->base);
- 
- 	lradc->clk = devm_clk_get(&pdev->dev, NULL);
- 	if (IS_ERR(lradc->clk)) {
-@@ -181,44 +202,15 @@ static int mxs_lradc_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, lradc);
- 
--	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	if (!res) {
--		ret = -ENOMEM;
-+	ret = mxs_lradc_get_irqs(pdev, lradc, data);
-+	if (ret)
- 		goto err_clk;
--	}
--
--	switch (lradc->soc) {
--	case IMX23_LRADC:
--		mx23_adc_resources[RES_MEM] = *res;
--		mx23_touchscreen_resources[RES_MEM] = *res;
--		cells = mx23_cells;
--		break;
--	case IMX28_LRADC:
--		mx28_adc_resources[RES_MEM] = *res;
--		mx28_touchscreen_resources[RES_MEM] = *res;
--		cells = mx28_cells;
--		break;
--	default:
--		dev_err(dev, "Unsupported SoC\n");
--		ret = -ENODEV;
--		goto err_clk;
--	}
--
--	ret = devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_NONE,
--				   &cells[ADC_CELL], 1, NULL, 0, NULL);
--	if (ret) {
--		dev_err(&pdev->dev, "Failed to add the ADC subdevice\n");
--		goto err_clk;
--	}
--
--	if (!lradc->touchscreen_wire)
--		return 0;
- 
--	ret = devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_NONE,
--				   &cells[TSC_CELL], 1, NULL, 0, NULL);
-+	num_cells = lradc->touchscreen_wire ? ARRAY_SIZE(mxs_lradc_cells) : 1;
-+	ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
-+				   mxs_lradc_cells, num_cells, NULL, 0, NULL);
- 	if (ret) {
--		dev_err(&pdev->dev,
--			"Failed to add the touchscreen subdevice\n");
-+		dev_err(dev, "Failed to add subdevices\n");
- 		goto err_clk;
- 	}
- 
-diff --git a/include/linux/mfd/mxs-lradc.h b/include/linux/mfd/mxs-lradc.h
-index ada3d81ee277..ba90bf174ee8 100644
---- a/include/linux/mfd/mxs-lradc.h
-+++ b/include/linux/mfd/mxs-lradc.h
-@@ -19,6 +19,9 @@
- #define LRADC_MAX_MAPPED_CHANS	8
- #define LRADC_MAX_TOTAL_CHANS	16
- 
-+#define MXS_LRADC_MAX_ADC_IRQS	10
-+#define MXS_LRADC_NUM_TS_IRQS	3
-+
- #define LRADC_DELAY_TIMER_HZ	2000
- 
- #define LRADC_CTRL0				0x00
-@@ -149,18 +152,27 @@ enum mxs_lradc_ts_wires {
- /**
-  * struct mxs_lradc
-  * @soc: soc type (IMX23 or IMX28)
-+ * @base: mapped LRADC register base
-  * @clk: 2 kHz clock for delay units
-  * @buffer_vchans: channels that can be used during buffered capture
-  * @touchscreen_wire: touchscreen type (4-wire or 5-wire)
-  * @use_touchbutton: button state (on or off)
-+ * @num_adc_irqs: number of ADC interrupts
-+ * @adc_irq: ADC interrupts
-+ * @ts_irq: touchscreen interrupts
-  */
- struct mxs_lradc {
- 	enum mxs_lradc_id	soc;
-+	void __iomem		*base;
- 	struct clk		*clk;
- 	u8			buffer_vchans;
- 
- 	enum mxs_lradc_ts_wires	touchscreen_wire;
- 	bool			use_touchbutton;
-+
-+	unsigned int		num_adc_irqs;
-+	int			adc_irq[MXS_LRADC_MAX_ADC_IRQS];
-+	int			ts_irq[MXS_LRADC_NUM_TS_IRQS];
- };
- 
- static inline u32 mxs_lradc_irq_mask(struct mxs_lradc *lradc)
--- 
-2.43.0
+T24gRnJpLCAyMDI2LTExLTI3IGF0IDIyOjUwICswOTAwLCBSeXVzdWtlIEtvbmlzaGkgd3JvdGU6
+Cj4gT24gRnJpLCBOb3YgMjcsIDIwMjYgYXQgNjo1NOKAr1BNIEhlbmd5dSBMaWFuZyB3cm90ZToK
+PiA+IAo+ID4gbmlsZnNfd3JpdGVfZW5kKCkgYWRkcyBvbmx5IHRoZSBjbGVhbiBidWZmZXJzIG9m
+IHRoZSBjb3BpZWQgcmFuZ2UKPiA+IHRvCj4gPiB0aGUgY291bnQgb2YgZGlydHkgYmxvY2tzLsKg
+IEFmdGVyIGEgc2hvcnQgY29weSwgaG93ZXZlciwKPiA+IGJsb2NrX3dyaXRlX2VuZCgpIGFsc28g
+emVyby1maWxscyBhbmQgZGlydGllcyB0aGUgbmV3bHkgYWxsb2NhdGVkCj4gPiBidWZmZXJzIG9m
+IHRoZSBwYXJ0IHRoYXQgd2FzIG5vdCBjb3BpZWQsIHdoaWNoIGlzIHRoZSB3aG9sZSByYW5nZQo+
+ID4gd2hlbgo+ID4gdGhlIGZvbGlvIGlzIG5vdCB1cHRvZGF0ZS7CoCBUaGUgd3JpdGUgaXMgdGhl
+biByZXRyaWVkLCBmaW5kcyB0aGVzZQo+ID4gYnVmZmVycyBkaXJ0eSwgYW5kIGRvZXMgbm90IGNv
+dW50IHRoZW0gZWl0aGVyLsKgIFRoaXMgc2tld3MgdGhlIGZyZWUKPiA+IHNwYWNlIGNhbGN1bGF0
+aW9uOiBuaWxmc19uZWFyX2Rpc2tfZnVsbCgpIGRvZXMgbm90IHN0b3AgdGhlIHdyaXRlcgo+ID4g
+aW4KPiA+IHRpbWUsIGFuZCB0aGUgcmVzZXJ2ZWQgc2VnbWVudHMgYXJlIGNvbnN1bWVkLgo+ID4g
+Cj4gPiBUaGlzIGhhcyBiZWVuIHRoZSBjYXNlIHNpbmNlIG5pbGZzMiB3YXMgbWVyZ2VkLCBidXQg
+aXQgdXNlZCB0byB0YWtlCj4gPiBhbgo+ID4gdW51c3VhbCBzaG9ydCBjb3B5LCBmb3IgZXhhbXBs
+ZSBmcm9tIGEgc291cmNlIGJ1ZmZlciB0aGF0IHJ1bnMgaW50bwo+ID4gYW4KPiA+IHVucmVhZGFi
+bGUgcGFnZS7CoCBDb21taXQgNjY1NTc1Y2ZmMDk4ICgiZmlsZW1hcDogbW92ZSBwcmVmYXVsdGlu
+Zwo+ID4gb3V0Cj4gPiBvZiBob3Qgd3JpdGUgcGF0aCIpIG1hZGUgaXQgbXVjaCBlYXNpZXIgdG8g
+aGl0Ogo+ID4gZ2VuZXJpY19wZXJmb3JtX3dyaXRlKCkKPiA+IG5vdyBmYXVsdHMgaW4gdGhlIHNv
+dXJjZSBidWZmZXIgb25seSBhZnRlciBhIGNvcHkgaW50byB0aGUgcGFnZQo+ID4gY2FjaGUKPiA+
+IGhhcyBtYWRlIG5vIHByb2dyZXNzLCBzbyBhIHdyaXRlIGZyb20gbWVtb3J5IHRoYXQgaXMgbm90
+IHByZXNlbnQKPiA+IHlldAo+ID4gZmlyc3QgY2FsbHMgLT53cml0ZV9lbmQoKSB3aXRoIGNvcGll
+ZCA9PSAwIGZvciBlYWNoIHBhZ2UuwqAgQXMgb2YKPiA+IG5vdywgYQo+ID4gd3JpdGUgZnJvbSBh
+IGZyZXNoIGFub255bW91cyBtYXBwaW5nIGlzIGFjY2VwdGVkIGZhciBiZXlvbmQgdGhlCj4gPiBm
+cmVlCj4gPiBzcGFjZSwgZnN5bmMoKSBmYWlscyB3aXRoIEVOT1NQQywgYW5kIHRoZSBmaWxlIGlz
+IGdvbmUgYWZ0ZXIgYQo+ID4gcmVtb3VudCwKPiA+IHRvZ2V0aGVyIHdpdGggdGhlIG90aGVyIGNo
+YW5nZXMgbWFkZSBzaW5jZSB0aGUgbGFzdCBsb2cgd2FzCj4gPiB3cml0dGVuLgo+ID4gT24gYSB2
+b2x1bWUgc2hhcmVkIHdpdGggYW5vdGhlciB1c2VyLCB0aGF0IHVzZXIncyBmc3luYygpIGZhaWxz
+Cj4gPiB3aXRoCj4gPiBFTk9TUEMgdG9vLCBhbmQgdGhlIGZpbGVzIGFuZCBkaXJlY3RvcmllcyB0
+aGF0IHVzZXIgY3JlYXRlZCBhZnRlcgo+ID4gdGhlCj4gPiB3cml0ZSBhcmUgbG9zdCB0aGUgc2Ft
+ZSB3YXkuCj4gPiAKPiA+IFRoZSBpc3N1ZSBjYW4gYmUgcmVwcm9kdWNlZCBvbiBhIDE2MCBNaUIg
+ZGlzayB3aXRoIHRoaXMgcHJvZ3JhbToKPiA+IAo+ID4gwqDCoMKgICNpbmNsdWRlIDxlcnJuby5o
+Pgo+ID4gwqDCoMKgICNpbmNsdWRlIDxmY250bC5oPgo+ID4gwqDCoMKgICNpbmNsdWRlIDxzdGRp
+by5oPgo+ID4gwqDCoMKgICNpbmNsdWRlIDxzdGRsaWIuaD4KPiA+IMKgwqDCoCAjaW5jbHVkZSA8
+c3RyaW5nLmg+Cj4gPiDCoMKgwqAgI2luY2x1ZGUgPHN5cy9tbWFuLmg+Cj4gPiDCoMKgwqAgI2lu
+Y2x1ZGUgPHVuaXN0ZC5oPgo+ID4gCj4gPiDCoMKgwqAgaW50IG1haW4oaW50IGFyZ2MsIGNoYXIg
+KmFyZ3ZbXSkKPiA+IMKgwqDCoCB7Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNpemVfdCBs
+ZW4gPSBhdG9sKGFyZ3ZbMl0pIDw8IDIwOwo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvKiBm
+cmVzaCBhbm9ueW1vdXMgbWVtb3J5OiBub25lIG9mIGl0cyBwYWdlcyBpcyBwcmVzZW50Cj4gPiB5
+ZXQgKi8KPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY2hhciAqYnVmID0gbW1hcChOVUxMLCBs
+ZW4sIFBST1RfUkVBRCwKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIE1BUF9QUklWQVRFIHwgTUFQX0FOT05ZTU9VUywgLTEsIDApOwo+
+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpbnQgZmQgPSBvcGVuKGFyZ3ZbMV0sIE9fV1JPTkxZ
+IHwgT19DUkVBVCB8IE9fVFJVTkMsCj4gPiAwNjQ0KTsKPiA+IAo+ID4gwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCBwcmludGYoIndyaXRlOiAlemRcbiIsIHdyaXRlKGZkLCBidWYsIGxlbikpOwo+ID4g
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwcmludGYoImZzeW5jOiAlc1xuIiwgZnN5bmMoZmQpID8g
+c3RyZXJyb3IoZXJybm8pIDoKPiA+ICJvayIpOwo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBy
+ZXR1cm4gMDsKPiA+IMKgwqDCoCB9Cj4gPiAKPiA+IGFuZCB0aGVzZSBjb21tYW5kczoKPiA+IAo+
+ID4gwqDCoMKgIG1rZnMubmlsZnMyIC1xIC9kZXYvdmRhCj4gPiDCoMKgwqAgbW91bnQgLXQgbmls
+ZnMyIC9kZXYvdmRhIC9tbnQKPiA+IMKgwqDCoCAuL2NvbGQgL21udC9mIDI1Ngo+ID4gwqDCoMKg
+IHVtb3VudCAvbW50Cj4gPiDCoMKgwqAgbW91bnQgLXQgbmlsZnMyIC9kZXYvdmRhIC9tbnQKPiA+
+IMKgwqDCoCB3YyAtYyAvbW50L2YKPiA+IAo+ID4gQmVmb3JlIGNvbW1pdCA2NjU1NzVjZmYwOTgg
+KCJmaWxlbWFwOiBtb3ZlIHByZWZhdWx0aW5nIG91dCBvZiBob3QKPiA+IHdyaXRlCj4gPiBwYXRo
+IiksIHRoZSByZXN1bHQgaXM6Cj4gPiAKPiA+IMKgwqDCoCB3cml0ZTogNjc1MTg0NjQKPiA+IMKg
+wqDCoCBmc3luYzogb2sKPiA+IMKgwqDCoCA2NzUxODQ2NCAvbW50L2YKPiA+IAo+ID4gQWZ0ZXIg
+dGhhdCBjb21taXQsIHRoZSByZXN1bHQgaXM6Cj4gPiAKPiA+IMKgwqDCoCB3cml0ZTogMjY4NDM1
+NDU2Cj4gPiDCoMKgwqAgZnN5bmM6IE5vIHNwYWNlIGxlZnQgb24gZGV2aWNlCj4gPiDCoMKgwqAg
+d2M6IC9tbnQvZjogTm8gc3VjaCBmaWxlIG9yIGRpcmVjdG9yeQo+ID4gCj4gPiBXaXRoIHRoaXMg
+Y2hhbmdlLCB0aGUgcmVzdWx0IGlzOgo+ID4gCj4gPiDCoMKgwqAgd3JpdGU6IDcwMjE3NzI4Cj4g
+PiDCoMKgwqAgZnN5bmM6IG9rCj4gPiDCoMKgwqAgNzAyMTc3MjggL21udC9mCj4gPiAKPiA+IENv
+dW50IHRoZSBidWZmZXJzIHRoYXQgYmxvY2tfd3JpdGVfZW5kKCkgaXMgZ29pbmcgdG8gZGlydHks
+Cj4gPiBpbmNsdWRpbmcKPiA+IHRoZSB6ZXJvLWZpbGxlZCBuZXcgb25lcywgYmVmb3JlIGNhbGxp
+bmcgZ2VuZXJpY193cml0ZV9lbmQoKS4KPiA+IAo+ID4gRml4ZXM6IDA1ZmU1OGZkYzEwZCAoIm5p
+bGZzMjogaW5vZGUgb3BlcmF0aW9ucyIpCj4gPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwo+
+ID4gU2lnbmVkLW9mZi1ieTogSGVuZ3l1IExpYW5nIDxoZW5neXVsQGNzLnVuYy5lZHU+Cj4gPiAt
+LS0KPiA+IEkgZm91bmQgdGhpcyB3aGlsZSBjb21wYXJpbmcgdGhlIGJlaGF2aW9yIG9mIGRpZmZl
+cmVudCBrZXJuZWwKPiA+IHZlcnNpb25zLgo+ID4gSSB1c2VkIGFuIExMTSB0byBhbmFseXplIHRo
+ZSBwcm9ibGVtIGFuZCB0byBkcmFmdCB0aGUgcGF0Y2ggYW5kCj4gPiB0aGlzCj4gPiBtZXNzYWdl
+LCBhbmQgSSBhbmFseXplZCB0aGUgcmVzdWx0IG15c2VsZi4KPiA+IAo+ID4gdjI6IGFzIFJ5dXN1
+a2UgYXNrZWQsIHRoZSBGaXhlcyB0YWcgbm93IG5hbWVzIHRoZSBvcmlnaW5hbAo+ID4gaW1wbGVt
+ZW50YXRpb24sIHRoZSBzdGFibGUgQ2MgaGFzIG5vIHZlcnNpb24sIGFuZCB0aGUgbWVzc2FnZSBz
+YXlzCj4gPiB0aGUKPiA+IGJ1ZyBpcyBvbGQgYW5kIDY2NTU3NWNmZjA5OCBtYWRlIGl0IGVhc2ll
+ciB0byBoaXQuIE5vIGNvZGUgY2hhbmdlLgo+ID4gdjE6Cj4gPiBodHRwczovL2xvcmUua2VybmVs
+Lm9yZy9saW51eC1uaWxmcy8yMDI2MTEyMjEzMDI0Ny4yMDY5MDA3LTEtaGVuZ3l1bEBjcy51bmMu
+ZWR1Lwo+ID4gCj4gPiBUZXN0ZWQgb24gbmlsZnMyIGZvci1uZXh0IHdpdGggS0FTQU4gYW5kIGxv
+Y2tkZXAsIGFsc28gd2l0aCB0aGUKPiA+IHNob3J0Cj4gPiBjb3B5IGZyb20gUnl1c3VrZSdzIHJl
+cGx5ICgxIEtpQiBibG9ja3MsIHNvdXJjZSBydW5uaW5nIGludG8gYQo+ID4gUFJPVF9OT05FIHBh
+Z2UpOiB0aGUgZGlydHkgYmxvY2sgY291bnQgaXMgcmlnaHQsIGFuZCBhIG5lYXJseSBmdWxsCj4g
+PiB2b2x1bWUgcmV0dXJucyBFTk9TUEMgaW5zdGVhZCBvZiBhY2NlcHRpbmcgbW9yZSB0aGFuIHRo
+ZSBmcmVlCj4gPiBzcGFjZS4KPiAKPiBIaSBWaWFjaGVzbGF2LAo+IAo+IFRoaXMgdjIgcGF0Y2gg
+bG9va3MgZ29vZCB0byBtZS7CoCBDb3VsZCB5b3UgcGxlYXNlIGFwcGx5IGl0IGRpcmVjdGx5Cj4g
+dG8KPiB5b3VyIHRyZWU/Cj4gCj4gQWNrZWQtYnk6IFJ5dXN1a2UgS29uaXNoaSA8a29uaXNoaS5y
+eXVzdWtlQGdtYWlsLmNvbT4KPiAKPiBUaGFua3MsCj4gUnl1c3VrZSBLb25pc2hpCj4gCj4gPiAK
+PiA+IMKgZnMvbmlsZnMyL2lub2RlLmMgfMKgIDMgKy0tCj4gPiDCoGZzL25pbGZzMi9wYWdlLmPC
+oCB8IDQxICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCj4gPiDCoGZz
+L25pbGZzMi9wYWdlLmjCoCB8wqAgNCArKysrCj4gPiDCoDMgZmlsZXMgY2hhbmdlZCwgNDYgaW5z
+ZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPiA+IAo+ID4gZGlmZiAtLWdpdCBhL2ZzL25pbGZz
+Mi9pbm9kZS5jIGIvZnMvbmlsZnMyL2lub2RlLmMKPiA+IGluZGV4IGIyMTdlZWU1N2MzNi4uZGQw
+YmVkMjQ5NzJhIDEwMDY0NAo+ID4gLS0tIGEvZnMvbmlsZnMyL2lub2RlLmMKPiA+ICsrKyBiL2Zz
+L25pbGZzMi9pbm9kZS5jCj4gPiBAQCAtMjQ5LDggKzI0OSw3IEBAIHN0YXRpYyBpbnQgbmlsZnNf
+d3JpdGVfZW5kKGNvbnN0IHN0cnVjdCBraW9jYgo+ID4gKmlvY2IsCj4gPiDCoMKgwqDCoMKgwqDC
+oCB1bnNpZ25lZCBpbnQgbnJfZGlydHk7Cj4gPiDCoMKgwqDCoMKgwqDCoCBpbnQgZXJyOwo+ID4g
+Cj4gPiAtwqDCoMKgwqDCoMKgIG5yX2RpcnR5ID0gbmlsZnNfcGFnZV9jb3VudF9jbGVhbl9idWZm
+ZXJzKGZvbGlvLCBzdGFydCwKPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgc3RhcnQgKyBjb3BpZWQpOwo+ID4gK8KgwqDCoMKgwqDCoCBucl9kaXJ0eSA9IG5pbGZz
+X3BhZ2VfY291bnRfYnVmZmVyc190b19kaXJ0eShmb2xpbywgc3RhcnQsCj4gPiBsZW4sIGNvcGll
+ZCk7Cj4gPiDCoMKgwqDCoMKgwqDCoCBjb3BpZWQgPSBnZW5lcmljX3dyaXRlX2VuZChpb2NiLCBt
+YXBwaW5nLCBwb3MsIGxlbiwgY29waWVkLAo+ID4gZm9saW8sCj4gPiDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBmc2Rh
+dGEpOwo+ID4gwqDCoMKgwqDCoMKgwqAgbmlsZnNfc2V0X2ZpbGVfZGlydHkoaW5vZGUsIG5yX2Rp
+cnR5KTsKPiA+IGRpZmYgLS1naXQgYS9mcy9uaWxmczIvcGFnZS5jIGIvZnMvbmlsZnMyL3BhZ2Uu
+Ywo+ID4gaW5kZXggODU3OTI2ZGE5ZjIxLi4wZGVjN2I1YjI3YzQgMTAwNjQ0Cj4gPiAtLS0gYS9m
+cy9uaWxmczIvcGFnZS5jCj4gPiArKysgYi9mcy9uaWxmczIvcGFnZS5jCj4gPiBAQCAtNDgxLDYg
+KzQ4MSw0NyBAQCB1bnNpZ25lZCBpbnQKPiA+IG5pbGZzX3BhZ2VfY291bnRfY2xlYW5fYnVmZmVy
+cyhzdHJ1Y3QgZm9saW8gKmZvbGlvLAo+ID4gwqDCoMKgwqDCoMKgwqAgcmV0dXJuIG5jOwo+ID4g
+wqB9Cj4gPiAKPiA+ICsvKioKPiA+ICsgKiBuaWxmc19wYWdlX2NvdW50X2J1ZmZlcnNfdG9fZGly
+dHkgLSBjb3VudCBidWZmZXJzIGEgd3JpdGUgd2lsbAo+ID4gZGlydHkKPiA+ICsgKiBAZm9saW86
+wqAgZm9saW8gYmVpbmcgd3JpdHRlbiB0bwo+ID4gKyAqIEBmcm9tOsKgwqAgb2Zmc2V0IG9mIHRo
+ZSB3cml0ZSBpbiBAZm9saW8KPiA+ICsgKiBAbGVuOsKgwqDCoCBudW1iZXIgb2YgYnl0ZXMgdG8g
+YmUgd3JpdHRlbgo+ID4gKyAqIEBjb3BpZWQ6IG51bWJlciBvZiBieXRlcyBjb3BpZWQgaW50byBA
+Zm9saW8KPiA+ICsgKgo+ID4gKyAqIENvdW50IHRoZSBjbGVhbiBidWZmZXJzIG9mIEBmb2xpbyB0
+aGF0IGJsb2NrX3dyaXRlX2VuZCgpIGlzCj4gPiBnb2luZyB0byBtYXJrCj4gPiArICogZGlydHk6
+IHRob3NlIG92ZXJsYXBwaW5nIHRoZSBjb3BpZWQgcmFuZ2UgYW5kLCBhZnRlciBhIHNob3J0Cj4g
+PiBjb3B5LCB0aGUKPiA+ICsgKiBuZXdseSBhbGxvY2F0ZWQgb25lcyBpbiB0aGUgcmVzdCBvZiB0
+aGUgcmFuZ2UsIHdoaWNoIGl0IHplcm8tCj4gPiBmaWxscy7CoCBBcwo+ID4gKyAqIHRoZXJlLCBh
+IHNob3J0IGNvcHkgaW50byBhIGZvbGlvIHRoYXQgaXMgbm90IHVwdG9kYXRlIGNvdW50cyBhcwo+
+ID4gYQo+ID4gKyAqIHplcm8tbGVuZ3RoIHdyaXRlLgo+ID4gKyAqCj4gPiArICogUmV0dXJuOiBO
+dW1iZXIgb2YgYnVmZmVycyB0aGF0IHRoZSB3cml0ZSBjaGFuZ2VzIGZyb20gY2xlYW4gdG8KPiA+
+IGRpcnR5Lgo+ID4gKyAqLwo+ID4gK3Vuc2lnbmVkIGludCBuaWxmc19wYWdlX2NvdW50X2J1ZmZl
+cnNfdG9fZGlydHkoc3RydWN0IGZvbGlvCj4gPiAqZm9saW8sCj4gPiArwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGludCBmcm9tLAo+ID4gK8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBpbnQgbGVuLAo+ID4gK8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBpbnQgY29waWVkKQo+ID4gK3sKPiA+ICvCoMKg
+wqDCoMKgwqAgdW5zaWduZWQgaW50IHRvID0gZnJvbSArIGxlbiwgZW5kID0gZnJvbSArIGNvcGll
+ZDsKPiA+ICvCoMKgwqDCoMKgwqAgdW5zaWduZWQgaW50IGJsb2NrX3N0YXJ0LCBibG9ja19lbmQ7
+Cj4gPiArwqDCoMKgwqDCoMKgIHN0cnVjdCBidWZmZXJfaGVhZCAqYmgsICpoZWFkOwo+ID4gK8Kg
+wqDCoMKgwqDCoCB1bnNpZ25lZCBpbnQgbmMgPSAwOwo+ID4gKwo+ID4gK8KgwqDCoMKgwqDCoCBp
+ZiAoY29waWVkIDwgbGVuICYmICFmb2xpb190ZXN0X3VwdG9kYXRlKGZvbGlvKSkKPiA+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGVuZCA9IGZyb207Cj4gPiArCj4gPiArwqDCoMKgwqDC
+oMKgIGZvciAoYmggPSBoZWFkID0gZm9saW9fYnVmZmVycyhmb2xpbyksIGJsb2NrX3N0YXJ0ID0g
+MDsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJoICE9IGhlYWQgfHwgIWJsb2NrX3N0YXJ0
+Owo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYmxvY2tfc3RhcnQgPSBibG9ja19lbmQsIGJo
+ID0gYmgtPmJfdGhpc19wYWdlKSB7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBi
+bG9ja19lbmQgPSBibG9ja19zdGFydCArIGJoLT5iX3NpemU7Cj4gPiArwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBpZiAoYnVmZmVyX2RpcnR5KGJoKSkKPiA+ICvCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb250aW51ZTsKPiA+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIGlmICgoYmxvY2tfZW5kID4gZnJvbSAmJiBibG9ja19zdGFydCA8IGVu
+ZCkgfHwKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKGJ1ZmZlcl9u
+ZXcoYmgpICYmIGJsb2NrX2VuZCA+IGVuZCAmJgo+ID4gYmxvY2tfc3RhcnQgPCB0bykpCj4gPiAr
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbmMrKzsKPiA+ICvC
+oMKgwqDCoMKgwqAgfQo+ID4gK8KgwqDCoMKgwqDCoCByZXR1cm4gbmM7Cj4gPiArfQo+ID4gKwo+
+ID4gwqAvKgo+ID4gwqAgKiBOSUxGUzIgbmVlZHMgY2xlYXJfcGFnZV9kaXJ0eSgpIGluIHRoZSBm
+b2xsb3dpbmcgdHdvIGNhc2VzOgo+ID4gwqAgKgo+ID4gZGlmZiAtLWdpdCBhL2ZzL25pbGZzMi9w
+YWdlLmggYi9mcy9uaWxmczIvcGFnZS5oCj4gPiBpbmRleCBjM2JhMzQ2OGFmNWMuLjRjY2Q3NDA5
+NjZlYyAxMDA2NDQKPiA+IC0tLSBhL2ZzL25pbGZzMi9wYWdlLmgKPiA+ICsrKyBiL2ZzL25pbGZz
+Mi9wYWdlLmgKPiA+IEBAIC00NSw2ICs0NSwxMCBAQCB2b2lkIG5pbGZzX2NsZWFyX2ZvbGlvX2Rp
+cnR5KHN0cnVjdCBmb2xpbwo+ID4gKmZvbGlvLCBib29sIGZvcmNlKTsKPiA+IMKgdm9pZCBuaWxm
+c19jbGVhcl9kaXJ0eV9wYWdlcyhzdHJ1Y3QgYWRkcmVzc19zcGFjZSAqbWFwcGluZywgYm9vbAo+
+ID4gZm9yY2UpOwo+ID4gwqB1bnNpZ25lZCBpbnQgbmlsZnNfcGFnZV9jb3VudF9jbGVhbl9idWZm
+ZXJzKHN0cnVjdCBmb2xpbyAqZm9saW8sCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgdW5zaWduZWQgaW50IGZyb20sIHVuc2lnbmVkIGludCB0byk7Cj4gPiArdW5zaWduZWQgaW50
+IG5pbGZzX3BhZ2VfY291bnRfYnVmZmVyc190b19kaXJ0eShzdHJ1Y3QgZm9saW8KPiA+ICpmb2xp
+bywKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdW5zaWduZWQgaW50IGZy
+b20sCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGludCBs
+ZW4sCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGludAo+
+ID4gY29waWVkKTsKPiA+IMKgdW5zaWduZWQgbG9uZyBuaWxmc19maW5kX3VuY29tbWl0dGVkX2V4
+dGVudChzdHJ1Y3QgaW5vZGUgKmlub2RlLAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgc2VjdG9yX3Qgc3RhcnRfYmxrLAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+c2VjdG9yX3QgKmJsa29mZik7Cj4gPiAKPiA+IGJhc2UtY29tbWl0OiA4ZmVmMWE5ZGVjN2JmNThh
+MjliYzhhN2VlNjkwOWFiNjI5NDAxY2QzCj4gPiAtLQo+ID4gMi41My4wCj4gPiAKCkFwcGxpZWQu
+CgpUaGFua3MsClNsYXZhLgo=
 
