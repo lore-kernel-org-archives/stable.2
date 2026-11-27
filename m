@@ -1,56 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795776256;
-	b=DqLQbZRMNNMriZdVwDMWWpQG04rHN34MsXWrEJUq3nwoo/CwSsTa55RZmEOOHp8XBvjj
-	 iMcnRoiHyml2mmOSJFXmHfNZIFRgf7Mmp8zQZtLSutZwSxgfdkGUYV7+ckgFxObqshVa+
-	 XhpC+hN18q4DJCFZ5SaeOTaPYe4Ip9VXzrcFsHZJllIY0UjtNqM0YzKRTOu8rHg8PXR97
-	 hqHDEQFyu3vxnJBBK6DzAmazp9QtTJ7XMEIn61vZdf4wfnhZ0KZKvlKyjefk9vZ9XmEqn
-	 NItcfRN/XbAfcvbdqjQ3evs30bF8mZj7/Msf/yI8KvXdgSz+rLNqI1WyHBydjV8xMgg==
+	t=1795776710;
+	b=JpaHh8CP4R+2qr1S2/xWtCvjQM4QLHHoyW0VYSaOuRDrfPIoYpJiYDQQI3tUU++iz49C
+	 Ysw6I28pTP9SY9YB2hYdZ9430LdlrwCEWenXfVk5mVnbJK0SeUiQUSHjeIJk/DoF/hRpe
+	 GtK/0m5XHupQXUYPDupFIHvCQb5RMO4ZwN08PLb+lPhzjpT9P7VyQpZ34m97hgG7bBUFj
+	 /FaZ3i3Zz6WvN4yrt0XIFE6bOYteIxXKo1US6Jqi1213QpcOd+Atlc3lYswvygDhwg0yM
+	 BF9zfRkzsNTa+Yvzh7rqUK7bt+C2HjpWybLC44BPADT7iv/eosKVInjJreDss9wgQkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795776256;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=GYXXt1yWKRxyNdi2dBUzd5be8BlTojWbeAnjOQUw8rs=;
-	b=zQGTaOixPXBX4kLi8cNiC+2rak+MhIZ9I5ZPsGXWntJrfh1EGUqyaPfbAmffAujVW6K6
-	 IvPCt9np0RK7/n9fFCHiQ/qNCwmn9K8mRIvIFP4LXG6gb3oW8/ONUqC0XljzH9moSRBPH
-	 QhEYb4Kk763EYPNktNo5OiUCfiH6b0xgWW+IGTVRkyoBY1eOugPs69oqCgBs7bdCAzKq8
-	 YkryPkQpnA5+3GYLalJrQhMneKsn2ooTXaIE6/oanK2GU1uyBDVx5ONqvO7jVOShBmNgX
-	 v6x/uVrlGig1t0bZcratPEgceHLTijTdJ3EtSssCuLS8aG76yC617GsFFEB/slMvUKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795776710;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=l7FztdzFHxqU1nbusRsPYGsX/uBT6CT4nw2wRBYgCtw=;
+	b=5DvN0EIDFGrMZH7o/mUibneGCysRuXgoQvCo8qftVfYIw2ZkoCmdRp1N+U/Z+vqCcqkt
+	 lXwu27MkFl1N4TJp6TJzkjXM72YqfB74vFWISMDwBnvLlwd6bHl7VLZGyrP68X5sme9Ke
+	 SYQ0Hpmj5f0uPQ/7uXcpGSqNw6Xaa2bISHww1ESdb5+jHAdoWcuA/OnKVRMZu/fpaRwWm
+	 M9zY0T6xUNaeMczX7HzzVWuFPx+BF9GdvfIu117qRjwloRWPWGu+I6jYFjbvtpjq2OWNf
+	 aKe0tUw1F84sgUX3WDOAZxUWAxtme3dW7jrMVzquX0OQuotY5SjUaj8fTcPj/7sEuUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsvUifvQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=J8xHpXZ0;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070B4606A329;
-	Fri, 27 Nov 2026 10:44:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F465606A323;
+	Fri, 27 Nov 2026 10:51:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F465606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsvUifvQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A834A1F000C1;
-	Fri, 27 Nov 2026 10:44:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795776255;
-	bh=GYXXt1yWKRxyNdi2dBUzd5be8BlTojWbeAnjOQUw8rs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lsvUifvQBFOZld/Y4IvlDWD56Qu95H2Xtn/HijyaSc8ZsCFqDPoW9BaDxyhJhzysS
-	 855toMrOaPAmEeSEBhDyYo84P7726CsLCmbMoWPA1yF6fzJzX1ya7XNeDExK85FbA2
-	 vDQfVJJsdrE7tVIucmy2i+uU2Q9oWLivjfATBWKBnBAQLDIMh7TtuqZZzVFnmY3Zfu
-	 8AN9tNo2TFntvyZnYbul4fSgjROFxFlrx5rFCUPR6iZgIqgu1TyX+GlGzEqNCDefi3
-	 uCMR7S7w0qMIJkU0USwbK+5Vq5Ip2+QSsIBKPCIoQmYftWr5FTEXQP/rOTgF2OIfcn
-	 +aq8/9kspkjBw==
-From: srini@kernel.org
-To: gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org,
-	Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
-	stable@vger.kernel.org,
-	Srinivas Kandagatla <srini@kernel.org>
-Subject: [PATCH 2/6] misc: fastrpc: fix init ordering race in rpmsg probe
-Date: Fri, 27 Nov 2026 10:43:50 +0000
-Message-ID: <20261127104354.8452-3-srini@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261127104354.8452-1-srini@kernel.org>
-References: <20261127104354.8452-1-srini@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=J8xHpXZ0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795776708;
+	bh=9E2x1LUH3yCRqvxf0O4/U2wLcXTXtQpAgPUIDrh2sUg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=J8xHpXZ07C0EH81jSHkxTEOWU39MvqudlKMRNzJtw5RQX7ZfNbuS/5JFLTAQAG3Is
+	 WWyJN7h9iSN1ZrfXbHenJS9HQhYpGCA9hPn5f40UfIQnGO4KnaOw9eHWgIi2aMyzmF
+	 eEMQoOfQN4forrrm/r0xdboFG/fwCDogeFSRhPl7DW7XKfhktCaupZEMKMHflsq2Mz
+	 lYUepct5erRZva2q5+yXTzNgpDFfR+fbTc7SMuHXmYcviLfjuPjmddk0UDM6V04cGq
+	 0Cn7B70YOYzmM3ll55vAr4wVA3TYBC8PVM7orj+jV0InvWmIsXZFA0N68Z7CnRI2ID
+	 0BptI52wUVgog==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 48AB817E07B5;
+	Fri, 27 Nov 2026 11:51:48 +0100 (CET)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 0A284480031; Fri, 27 Nov 2026 11:51:48 +0100 (CET)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Fri, 27 Nov 2026 11:51:40 +0100
+Subject: [PATCH v2 03/11] arm64: dts: rockchip: Fix USBDP ports for
+ Indiedroid Nova
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,215 +66,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261127-rockchip-usb-c-dp-altmode-v2-3-77ee78869307@collabora.com>
+References: <20261127-rockchip-usb-c-dp-altmode-v2-0-77ee78869307@collabora.com>
+In-Reply-To: <20261127-rockchip-usb-c-dp-altmode-v2-0-77ee78869307@collabora.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Cunhao Lu <1579567540@qq.com>, Chris Morgan <macromorgan@hotmail.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2088;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=9E2x1LUH3yCRqvxf0O4/U2wLcXTXtQpAgPUIDrh2sUg=;
+ b=kA0DAAoB2O7X88g7+poByyZiAGsJYMOhJfaTz3Pp47KI4dijSWdtJ8llGgPXsoX2I3sZeK/xJ
+ 4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJrCWDDAAoJENju1/PIO/qa5bQQAJ5f
+ 5H5HK9xA7sR3Q0u3ZLebGMxNQ8d9gMVBsCX+UyHg3cluJpLFJs0GJ3Cqr57lwAXl9mfzq+WGSh3
+ ke5MzfAIwl3lTFHVOqZPss5QURm2zCnFtoOzftaqv8tCfCHdxL92tW9GsODFegDpjOL8pTS5YwJ
+ IJoA8+jwGAkXftJfVc2qDcKBoweV9AUEExkQGGLlcwIUfwp9O5is1Iw057iPFrv4Fa0qmV9D7QF
+ 1NRyRZ6l7t1JzWJR0ryLzGsGE3CswFAyqakgPC4bsIsiak/Wm/L4KnDzsRVCzVm0E/EPrwp2nJl
+ HF8qkcOUT8wy7fjzY3+nJ2y53Wa249/EU+yBhZ/UlOoImDmGub0RjH9eWQ/nlp0QiNU77HD2Z20
+ ZoAuv/h8L7B8bNFuZfKOgaSqt/ysGqttaRbKRDBgmtHCN5JdtzFh9edZcGv1gb2Wl7OnFaDssDp
+ IdxlDq6gGC9sPVSODlZ+xn571sz1kJ6rpi12JeiCkQ3ykNJmdHM+6tzjBPNIbS4Qv7GdIX15ls3
+ V6ge8lNCxwRx1ZpGBrxQgEEQoWU7NeeE6cnD7a0MldDsSMxVPlKAlcL+4n22BbJYuiE7sTcm+K9
+ jEV32ciSjpbXJL2MKdRZyHvc9oY/dpjm0bgoJ/Xsq/SK47cBciN3IIAJfKU9oIbMwAojxYd9XOs
+ BaoOA
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+Fix the USBDP PHY ports description for the Indiedroid Nova, so that it
+follows the documented ABI. The current binding confuses endpoints with
+ports and makes no sense at all.
 
-fastrpc_device_register() calls misc_register() which makes the device
-node visible to userspace. However, kref_init(), spin_lock_init(),
-INIT_LIST_HEAD(), dev_set_drvdata() and of_platform_populate()
-were all called after the switch/misc_register block, leaving a window
-where userspace can open the device and call fastrpc_device_open() on
-a partially initialised channel context.
+While at it drop the rockchip,dp-lane-mux property, which makes no sense
+for USB-C as the DP lanes are routed dynamically based on negotiation
+via the USB-PD protocol.
 
-On a concurrent open(), fastrpc_channel_ctx_get() calls kref_get() on
-a kzalloc-zeroed, never kref_init()'d refcount of 0, triggering:
-
-  refcount_t: addition on 0; use-after-free.
-  Call trace:
-   refcount_warn_saturate+0x120/0x148 (P)
-   fastrpc_device_open+0x204/0x258 [fastrpc]
-   misc_open+0xd8/0x1a0
-
-Additionally, of_platform_populate() not having run means
-sesscount is still 0, so fastrpc_session_alloc() returns NULL and
-fastrpc_device_open() hits the error path which calls
-fastrpc_channel_ctx_put() on the already-bogus refcount. This
-triggers the free callback, kfree()-ing the channel context. A
-subsequent IRQ-path fastrpc_rpmsg_callback() then dereferences the
-freed spinlock:
-
-  Unable to handle kernel paging request at virtual address ffffcd5841510ca0
-  Internal error: Oops: 0000000096000047 [#1] SMP
-  Call trace:
-   queued_spin_lock_slowpath+0x414/0x5e0 (P)
-   _raw_spin_lock_irqsave+0x74/0x90
-   fastrpc_rpmsg_callback+0x4c/0xf0 [fastrpc]
-   qcom_glink_native_rx+0x6c4/0xf10
-   qcom_glink_smem_intr+0x1c/0x38 [qcom_glink_smem]
-  Kernel panic - not syncing: Oops: Fatal exception in interrupt
-
-Fix by moving all channel context initialisation (kref_init,
-spin_lock_init, INIT_LIST_HEAD, idr_init, dev_set_drvdata) and
-of_platform_populate() before fastrpc_device_register(), ensuring
-the struct is fully ready before the device node is visible to
-userspace.
-
-Add err_depopulate label in the error path since
-of_platform_populate() now runs before misc_register(); a
-fastrpc_device_register() failure must call of_platform_depopulate()
-to clean up the compute-cb children.
-
-On CDSP/GDSP the secure node is registered before the non-secure one, so
-an application may already have opened the first node and hold a channel
-context reference when the second registration fails. Freeing the
-context with kfree() there would leave that user with a dangling
-pointer. Handle it like fastrpc_rpmsg_remove(): after the nodes are
-deregistered, clear rpdev, wake pending invocations with -EPIPE and drop
-only the probe reference with fastrpc_channel_ctx_put(), so the last
-holder frees the context. Move fastrpc_notify_users() above probe so it
-can be used there.
-
-Fixes: 965602eabb57 ("misc: fastrpc: separate fastrpc device from channel context")
 Cc: stable@vger.kernel.org
-Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
+Fixes: 7230cdc1fc3c ("arm64: dts: rockchip: Enable USB-C DP Alt for Indiedroid Nova")
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/misc/fastrpc.c | 82 +++++++++++++++++++++++++-----------------
- 1 file changed, 50 insertions(+), 32 deletions(-)
+ .../boot/dts/rockchip/rk3588s-indiedroid-nova.dts  | 31 +++++++++++++++-------
+ 1 file changed, 21 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 4f1c6ff8054c..70b5642f5fbc 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -2542,6 +2542,18 @@ static int fastrpc_init_reserved_mem(struct fastrpc_channel_ctx *cctx,
- 				  cctx->vmperms, cctx->vmcount);
- }
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-indiedroid-nova.dts b/arch/arm64/boot/dts/rockchip/rk3588s-indiedroid-nova.dts
+index c775f82c0624..59b95461df57 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-indiedroid-nova.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-indiedroid-nova.dts
+@@ -1059,31 +1059,42 @@ &usbdp_phy0 {
+ 	mode-switch;
+ 	sbu1-dc-gpios = <&gpio4 RK_PA0 GPIO_ACTIVE_HIGH>;
+ 	sbu2-dc-gpios = <&gpio4 RK_PA1 GPIO_ACTIVE_HIGH>;
+-	rockchip,dp-lane-mux = <2 3>;
+ 	status = "okay";
  
-+static void fastrpc_notify_users(struct fastrpc_user *user)
-+{
-+	struct fastrpc_invoke_ctx *ctx;
+-	port {
++	ports {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 
+-		usbdp_phy0_ss_out: endpoint@0 {
++		port@0 {
+ 			reg = <0>;
+-			remote-endpoint = <&usbc0_ss>;
 +
-+	spin_lock(&user->lock);
-+	list_for_each_entry(ctx, &user->pending, node) {
-+		ctx->retval = -EPIPE;
-+		complete(&ctx->work);
-+	}
-+	spin_unlock(&user->lock);
-+}
++			usbdp_phy0_ss_out: endpoint {
++				remote-endpoint = <&usbc0_ss>;
++			};
+ 		};
+ 
+-		usbdp_phy0_ss_in: endpoint@1 {
++		port@1 {
+ 			reg = <1>;
+-			remote-endpoint = <&usb_host0_xhci_ss>;
 +
- static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- {
- 	struct device *rdev = &rpdev->dev;
-@@ -2551,6 +2563,8 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	bool secure_dsp;
- 	unsigned int vmids[FASTRPC_MAX_VMIDS];
- 	const struct fastrpc_soc_data *soc_data;
-+	struct fastrpc_user *user;
-+	unsigned long flags;
++			usbdp_phy0_ss_in: endpoint {
++				remote-endpoint = <&usb_host0_xhci_ss>;
++			};
+ 		};
  
- 	soc_data = device_get_match_data(rdev);
- 
-@@ -2599,6 +2613,23 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	data->poll_mode_supported = soc_data->poll_mode_supported ||
- 		of_machine_get_match(fastrpc_poll_supported_machines);
- 
-+	kref_init(&data->refcount);
-+	atomic_set(&data->ctx_seq, 0);
+-		usbdp_phy0_dp_in: endpoint@2 {
++		port@2 {
+ 			reg = <2>;
+-			remote-endpoint = <&dp0_out_con>;
 +
-+	rdev->dma_mask = &data->dma_mask;
-+	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
-+	INIT_LIST_HEAD(&data->users);
-+	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
-+	spin_lock_init(&data->lock);
-+	idr_init(&data->ctx_idr);
-+	data->domain_id = domain_id;
-+	data->rpdev = rpdev;
-+	dev_set_drvdata(&rpdev->dev, data);
++			usbdp_phy0_dp_in: endpoint {
++				remote-endpoint = <&dp0_out_con>;
++			};
+ 		};
+ 
+-		usbdp_phy0_dp_out: endpoint@3 {
++		port@3 {
+ 			reg = <3>;
+-			remote-endpoint = <&usbc0_sbu>;
 +
-+	err = of_platform_populate(rdev->of_node, NULL, NULL, rdev);
-+	if (err)
-+		goto err_free_data;
-+
- 	switch (domain_id) {
- 	case ADSP_DOMAIN_ID:
- 	case MDSP_DOMAIN_ID:
-@@ -2607,7 +2638,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 		data->unsigned_support = false;
- 		err = fastrpc_device_register(rdev, data, secure_dsp, domain);
- 		if (err)
--			goto err_free_data;
-+			goto err_depopulate;
- 		break;
- 	case CDSP_DOMAIN_ID:
- 	case GDSP_DOMAIN_ID:
-@@ -2615,7 +2646,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 		/* Create both device nodes so that we can allow both Signed and Unsigned PD */
- 		err = fastrpc_device_register(rdev, data, true, domain);
- 		if (err)
--			goto err_free_data;
-+			goto err_depopulate;
- 
- 		err = fastrpc_device_register(rdev, data, false, domain);
- 		if (err)
-@@ -2623,26 +2654,9 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 		break;
- 	default:
- 		err = -EINVAL;
--		goto err_free_data;
-+		goto err_depopulate;
- 	}
- 
--	kref_init(&data->refcount);
--	atomic_set(&data->ctx_seq, 0);
--
--	rdev->dma_mask = &data->dma_mask;
--	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
--	INIT_LIST_HEAD(&data->users);
--	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
--	spin_lock_init(&data->lock);
--	idr_init(&data->ctx_idr);
--	data->domain_id = domain_id;
--	data->rpdev = rpdev;
--	dev_set_drvdata(&rpdev->dev, data);
--
--	err = of_platform_populate(rdev->of_node, NULL, NULL, rdev);
--	if (err)
--		goto err_deregister_fdev;
--
- 	return 0;
- 
- err_deregister_fdev:
-@@ -2651,23 +2665,27 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	if (data->secure_fdevice)
- 		misc_deregister(&data->secure_fdevice->miscdev);
- 
-+err_depopulate:
-+	/*
-+	 * A registered device node may already have been opened, so a user
-+	 * can hold a cctx reference. Drop only our reference instead of
-+	 * freeing the context directly.
-+	 */
-+	spin_lock_irqsave(&data->lock, flags);
-+	data->rpdev = NULL;
-+	list_for_each_entry(user, &data->users, user)
-+		fastrpc_notify_users(user);
-+	spin_unlock_irqrestore(&data->lock, flags);
-+
-+	of_platform_depopulate(rdev);
-+	fastrpc_channel_ctx_put(data);
-+	return err;
-+
- err_free_data:
- 	kfree(data);
- 	return err;
- }
- 
--static void fastrpc_notify_users(struct fastrpc_user *user)
--{
--	struct fastrpc_invoke_ctx *ctx;
--
--	spin_lock(&user->lock);
--	list_for_each_entry(ctx, &user->pending, node) {
--		ctx->retval = -EPIPE;
--		complete(&ctx->work);
--	}
--	spin_unlock(&user->lock);
--}
--
- static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
- {
- 	struct fastrpc_channel_ctx *cctx = dev_get_drvdata(&rpdev->dev);
++			usbdp_phy0_dp_out: endpoint {
++				remote-endpoint = <&usbc0_sbu>;
++			};
+ 		};
+ 	};
+ };
+
 -- 
 2.53.0
 
