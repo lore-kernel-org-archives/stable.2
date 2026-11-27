@@ -1,61 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795753585;
-	b=zsj83DfO9THl766xgo1EH31OdleZbXcKnYqwljElJDMtAoR/ijBRGXk3oJ8SNorhlTpa
-	 iMGFjqd/Cu8T/F7tR68Mz5XKj/OFwnNrAuLC0QnkkY21lMFv+jORFqXGATHFm5pE1DXMP
-	 f0VWQqZH3v5uNFYuMe03DhV8CQFfWEiVXuSlmUI/DoO6mUGVuZ1k1VyNR+vkQPo78NQiX
-	 sabZasKKHsu8lG0Ty2wXrKkfgAVP4noKtmWG19Zd8DmKLw2if/0Mzbi27gqECv2LfRLJc
-	 syXPsb5crAHVDgJOZ4XNf5akYcCNu6bItA/kaEMb0urP1kqlTtUBwHb05bOp7Ogu1PA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795753585;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=wroQkwyUmImSby60FSSEA23WGTsljWCUGSUqmlr+5fs=;
-	b=QtjmF6AWiQlfy6STKTv5+U9yzVfTORJhXiWkvKC8dMHdNPJoqdmE7g88rIhNfUBFryJN
-	 t1ZBfz1xaAnWIi/+HCAkWQxS85vfBnJNrwWJpb+4SuTakNLZb8j15FFb6xRGsrxXNWWQ9
-	 e2DOov0grkRA/qAoXqUDI6auMYlvoK/3Mkypp4o2xMhEhAqHTUPvFEcBCPZ0VTJgKsZCT
-	 wmL0gQVA/0wkVAP7WyNxjpv5nBcj2nll6mHeXdpbin1t9iJytKUV8qpW/nvd2uqend6a4
-	 bw4ekUu+0Ak4v01fEBnrSxehLN05kaJyGeFzBAeXcwQX5W5jeJ60B+n9f4cH237xdlg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=T+aOBZEX;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795754091;
+	b=C9R0vqEEBuxi7t0rrkKPOReuqyPmq2i0QDW4v/PWN1QSL5W9rSGh2FgDR1MZxIjV4xjq
+	 IV5zaW4sKaWStAXGJC/keoGgM+S4hwVdPAuAK6zSOapQ30mLa2EacHL6dFzDRrtDJXJDP
+	 dHDVMar5iJ6iGxlFRBhsHsblFsb0guW/QSZLqzxIJtQMNUOfubyOpM6xRVFM2Bp045m0y
+	 8+t4LT0nWDD5IPidjxJbzkVk6XYloINo5I/3PqNJaMj6zJxp1ugrUU/tg6n/XshM1X1V0
+	 5X9lbgt/3iRmDSHCYgzDp0nSgR8TFFMVGwVFm67IPoL/DWy5ot+Ut3uLBPkS/UfL83Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795754091;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=5LMiR0I8eERcmOiHEs3fH0wY7Z7NXwv2db/BnsDj8zw=;
+	b=sCVspc3kbti08+9lWKi+qMs01rgWXpc99n076gWsxqnIXNVujdNnY1q8KC1q287Qka2W
+	 caimRGVjOgV2Z7WGpo9uAucLyU44tw3ro2ldDRDP+grkaIJ05Tx2TPKQWa8XmlP47ZEBE
+	 I2mk9He7TpkCEt2ldFlqPywiaXZGHg6P0AZnB5fkl/Kj+hFsjd/P5ZhqHFpqCLpQ1k7EP
+	 yIMGQEZlGIUZ8ZYscIUDytWhcyG3/yVb2kJUdvteFEirBLlpyN/5ffbAvsndpV6zRKCob
+	 UrRvoBPBNBTST4ZJcT29KIcL2lB4SN1VqWB7bpK8K+kb3ilVhyhIeYvA0C4LId5R1Ww==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W34LQhWv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC9A606A31E;
-	Fri, 27 Nov 2026 04:26:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BC9A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE7FD606A31C;
+	Fri, 27 Nov 2026 04:34:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=T+aOBZEX
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=wroQkwyUmImSby60FSSEA23WGTsljWCUGSUqmlr+5fs=; 
-	b=T+aOBZEX6uzmlDxlpiKDB9TunL9hzXwiHnKJ1On1QOse0ZeS/h3+Wb+Qgqb7EoVtcaQa/jbi9rR
-	0FFPOw3G5FfEuNYwz4rBR/oIsIplpf76eoqHuvJw2NckcqnjLNNYRO/tEnF9bT8D3ooCjHyl3mira
-	eDHz6AY1Geefx5nSl+Qrx68RxA/E86hQ3chi/oHU/UnMZ6sQq9S9pTvGrvC3VosQkM+e5ELB5VpGj
-	AWsEw0uYYsbniJvHhAQE5RK5AsJHVkNKPGcewZUGROL4sWi8bnn1Wo2CXpTHwKcIHDuEWWUhjWQ60
-	kv6SvYjF41mSKwKfT7Q2pv5XjhHi/GCAHjiw==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xWnXH-00000002Utb-1xXi;
-	Fri, 27 Nov 2026 12:26:12 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 27 Nov 2026 12:26:11 +0800
-Date: Fri, 27 Nov 2026 12:26:11 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Guicai Ma <maguicai@kylinos.cn>
-Cc: "David S . Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] crypto: af_alg - Fix data-race in af_alg_wait_for_data()
- and af_alg_wait_for_wmem()
-Message-ID: <awkGY8QdvNxzTVHG@gondor.apana.org.au>
-References: <20261118154815.607879-1-maguicai@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W34LQhWv
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795754090;
+	b=xOxq0hg1j2OEp0Lzv7xK3oWoXo/ae2wU1qyBW63tVEtWRUKJ7igTLsxuuvbfBdn41kUu
+	 UhcdiuTPCL4xqmqyqK3PTXr3QcD8pEHa/Z6oWExp2+ybFIaFjRoRVhnRLVW05BIZ1kAuU
+	 f6dgJo+pHWHEYVX+QIHWxWT23BgkIFZ2EbhPsUKY3a+/zypuip6ZTm5j9f+cKKbWrRyA/
+	 lzZsd5HBTaxI+DzABSK5dm9wtujyKQZ69uyO5c7GQ7gPQjrwXPtTBBXt6OrjVYt/n9MMx
+	 qkMNV7IZbiCW23BUBcpLcuPWkOJb1Y03ausYRtE6v/vGBkJQEb/QpN65JwEIPV/OloQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795754090;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=5LMiR0I8eERcmOiHEs3fH0wY7Z7NXwv2db/BnsDj8zw=;
+	b=hSN6CVKddd16xNHQLcRyAczkaQHT12Ogr2pQ08eIiN3f3tmS4Sr3Dnx1Y20VgcNWW/FL
+	 tr7wflZFxE/25M2Kqp/UKLxUx/5QjW7+0Zhs2oPx9roqTT7zWYqArr7nibc38y0lqnNeP
+	 CFnVgp9usrxOZbFX9C+6fvuFRsotQy6A2rm7DxeFL/33dANxGp3N9c2nqkd0cCACADmHR
+	 UeaAtANcZcYdA7ivsVcRYDg8rVVnO8YRKPXCavPVDJ17osUdImJMi5d2iR1sxNzuv3JrD
+	 /pt6UgUe6dyegm2N143lkPIAWB40ksr8rIS2ear5ukCewd+CDvxpkj/6iXm+mD/TDsQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 2F1191F00897;
+	Fri, 27 Nov 2026 04:34:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795754090;
+	bh=5LMiR0I8eERcmOiHEs3fH0wY7Z7NXwv2db/BnsDj8zw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=W34LQhWvNnfC+06P84Z/0yM333S62BFDc9Flw8CJ64drI48BbrxzLubsWg5L03lla
+	 4MLbdypweOfrDhDQ0cuNed/CFwMeBaHZTTCJlcxwbgktk8vR25FamtgDjXFGk5xyOM
+	 h0yEBhAq6CtCOh33fTJGhXja9ygmzOySNnNK6jd4Gc1iRExwSi1pIZMjq8kFN805Mw
+	 2Kme0FHcvwm7PQ81MCUdwqA440/868tOahiDfR4oSjqC3kj2D+RF0uRYgmTEvIqAo/
+	 rBevYRziPUobGRsVIKwCcp9Z45yDnT32Ol9CLd5GuBlbTEDq5RwhYOa8pLMZ1Ly2dL
+	 anzMIn+N6Dlow==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B53194B569;
+	Fri, 27 Nov 2026 04:34:45 +0000 (UTC)
+From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
+Date: Fri, 27 Nov 2026 05:34:38 +0100
+Subject: [PATCH 1/2] ceph: tell the MDS when a closed file no longer wants
+ Fr or Fw
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,70 +83,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261118154815.607879-1-maguicai@kylinos.cn>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261127-ceph-drop-stale-wanted-v1-1-763882859c5f@clyso.com>
+References: <20261127-ceph-drop-stale-wanted-v1-0-763882859c5f@clyso.com>
+In-Reply-To: <20261127-ceph-drop-stale-wanted-v1-0-763882859c5f@clyso.com>
+To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ =?utf-8?q?PATRICK_B=C3=89GOU?= <patrick.begou@univ-grenoble-alpes.fr>, 
+ Xiubo Li <xiubo.li@clyso.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795754083; l=3161;
+ i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
+ bh=pffS/mCkZJh6WEF7XHRVXxBboLfbNbLy63vgUyCni1U=;
+ b=alo+dUHgRrOS5eTXfRsfrcUDJUXRjDegf4XMdgQuFH4qMkEdtJtj1icVFCYn7qVnxUQUx5TH0
+ 8TlVKHRe+H2AvjoDyUYLtCTzQ3VpDlJOI5jteQT7eHb+ZUtk0rN4COW
+X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
+ pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
+X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
+ auth_id=840
+X-Original-From: Xiubo Li <xiubo.li@clyso.com>
+Reply-To: xiubo.li@clyso.com
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 18, 2026 at 10:48:15AM -0500, Guicai Ma wrote:
-> KCSAN reported a data-race between af_alg_sendmsg() and
-> af_alg_wait_for_data():
-> 
->   BUG: KCSAN: data-race in af_alg_sendmsg / af_alg_wait_for_data
-> 
->   write to 0xffff8eec18118fa4 of 1 bytes by task 17152 on cpu 17:
->    af_alg_sendmsg+0x1c7/0xfa0 crypto/af_alg.c:949
->    skcipher_sendmsg+0x78/0x90 crypto/algif_skcipher.c:47
->    ...
-> 
->   read to 0xffff8eec18118fa4 of 1 bytes by task 17143 on cpu 1:
->    af_alg_wait_for_data+0x1f9/0x3c0 crypto/af_alg.c:854
->    _skcipher_recvmsg+0x52f/0x720 crypto/algif_skcipher.c:65
->    ...
-> 
->   value changed: 0x13 -> 0x1b
-> 
-> Both af_alg_wait_for_data() and af_alg_wait_for_wmem() are called with
-> the socket lock held and use sk_wait_event() to wait for the condition.
-> However, sk_wait_event() calls release_sock() before evaluating the
-> condition expression for the first time, which reads ctx->init,
-> ctx->more, and ctx->used without the socket lock. Meanwhile,
-> af_alg_sendmsg() acquires the socket lock and modifies ctx->write (which
-> shares the same 1-byte bitfield as ctx->more and ctx->init), as well as
-> ctx->init, ctx->more, and ctx->used.
-> 
-> Unlike TCP/UDP sockets, af_alg updates these context fields only in
-> process context under lock_sock(sk). Since add_wait_queue() with
-> woken_wake_function is already done while holding the socket lock, check
-> the wait condition under lock_sock(sk) before calling release_sock(sk)
-> and wait_woken(), avoiding the lockless read entirely.
-> 
-> Fixes: 2d97591ef43d ("crypto: af_alg - consolidation of duplicate code")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guicai Ma <maguicai@kylinos.cn>
-> ---
-> Testing:
-> Verified with a concurrent AF_ALG skcipher (ecb(aes)) send/recv stress
-> test under CONFIG_KCSAN=y (QEMU arm64, 8 vCPUs, 60s per run, ~470k rounds):
-> - Baseline (6.6.156): 51 af_alg KCSAN data-race reports (both the 1-byte
->   bitfield race and the 8-byte ctx->used race).
-> - Patched (6.6.156, 2 runs): 0 af_alg KCSAN reports; roundtrip
->   functional check passed and unrelated KCSAN reports remained active.
-> - Upstream (20eef29b7c84, arm64 defconfig + KCSAN): compile-tested
->   crypto/af_alg.o, crypto/algif_skcipher.o, and crypto/algif_aead.o
->   with W=1 cleanly (0 warnings/errors).
-> 
->  crypto/af_alg.c | 22 ++++++++++++----------
->  1 file changed, 12 insertions(+), 10 deletions(-)
+From: Xiubo Li <xiubo.li@clyso.com>
 
-This looks like a false-positive because sk_wait_event evaluates
-__condition twice, once without locks before the wait and once with
-locks.
+ceph_check_caps() skips a cap whose issued caps are all ones we retain.
+Since commit fdac94fab799 ("ceph: skip updating 'wanted' caps if caps
+are already issued") this holds even when the MDS still has a 'wanted'
+mask we dropped long ago.  After a file opened for reading is closed,
+we may keep the inode with only Fr and shared caps issued, and then
+never tell the MDS that we no longer want Fr.
 
-It's the evaluation within locks that is final so everything should
-be correct.
+The MDS counts every client wanting Fr or a write cap as a user of the
+file.  If another client keeps the file open for writing, no loner is
+chosen and the filelock stays in MIX for as long as we keep the inode
+cached.  The writer has no Fb, so every write() goes to the OSDs
+synchronously.  A single "tail" of a log file from a second mount made
+the writer of that file over 1000 times slower until the reader
+dropped its caches.
 
-Thanks,
+Send the cap message when the MDS still has Fr or a write cap in the
+'wanted' mask of a regular file that we no longer want.  Reopening an
+inode whose caps are still issued tells the MDS nothing, as before, so
+this does not bring back the two messages the commit above avoided.
+
+The closed file is only checked again at caps_wanted_delay_max, so the
+writer gets Fb back about 60 s after the "tail".  Two noshare mounts
+on one VM, 1 MDS, 3 OSDs, 64 byte writes on mount A, one "tail" of the
+file on mount B:
+
+  +--------+---------------+-----------------------------------+
+  |        | before "tail" | after "tail"                      |
+  | kernel | ops/s         | ops/s                             |
+  +--------+---------------+-----------------------------------+
+  | before | ~120,000      | ~85, as long as the test ran      |
+  | after  | ~120,000      | ~110,000, from 60 s after "tail"  |
+  +--------+---------------+-----------------------------------+
+
+Fixes: fdac94fab799 ("ceph: skip updating 'wanted' caps if caps are already issued")
+Cc: stable@vger.kernel.org
+Reported-by: PATRICK BÉGOU <patrick.begou@univ-grenoble-alpes.fr>
+Link: https://tracker.ceph.com/issues/83627
+Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
+---
+ fs/ceph/caps.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
+index cc8748f7e0bd..add63a8f6212 100644
+--- a/fs/ceph/caps.c
++++ b/fs/ceph/caps.c
+@@ -2418,6 +2418,21 @@ void ceph_check_caps(struct ceph_inode_info *ci, int flags)
+ 				goto ack;
+ 		}
+ 
++		/*
++		 * Does the mds still think we want to read or write a
++		 * file that is no longer open here?  It counts every
++		 * client wanting Fr or a write cap as a user of the
++		 * file, so it keeps the filelock in MIX and no other
++		 * client gets Fb or Fc back.  The caps we hold may all
++		 * be ones we retain, so tell it now.  This only fires
++		 * for bits the mds was told about, so reopening an
++		 * inode whose caps are still issued sends no update.
++		 */
++		if (!S_ISDIR(inode->i_mode) &&
++		    (cap->mds_wanted & ~want &
++		     (CEPH_CAP_ANY_WR | CEPH_CAP_FILE_RD)))
++			goto ack;
++
+ 		/* things we might delay */
+ 		if ((cap->issued & ~retain) == 0)
+ 			continue;     /* nope, all good */
+
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.53.0
+
+
