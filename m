@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795799287;
-	b=r3ffo+wF+h3XCKoZcrCyf7SMveC1YYMZl5HwFfNCoapYguxpGaefg6v1aLPvpLb2bPpp
-	 ynq0SIrsoYTIPQtUD9g//TslmUhaFd0k5sxaR43RUHlBSzUVVWfDFrG05uKjYY6ViQxyc
-	 F4jZCXgowtEwZ1OC+uEPa3TPxr86rHt7r8wYsns3+D+nXiIXhNIXhJSm9pOVPOYefmVOB
-	 btrNn85oEOiMkGX2sGK9hOt8Jx6fpRv8jEUnGfmDeKUv04DroPksGpGCuX8EW2PZiXpNB
-	 SidFcFpyq3W/gxKZXhVctqnefQfCLIXGHU1ABnXfyZVS6gNdqPgckuMXkLH89SVlZYA==
+	t=1795799293;
+	b=TvKweL0av99rLTD+4yWVMpEvN6gse7eFWxlIQxCfGeMmRrGjNO5mFody0f3IaRVtpcsl
+	 4Sn7LZklnKy69SODBq3fvgl21WBci/DhZGfQISP5YC7542Q317x68DwlboDo3tPdAJMZP
+	 cIzQLdhNr/J7soEUcdt5NJh80Y0wtUTPD7OoKEaXWSB9fUmoEfOdMznoabWFXsiGJu2SX
+	 hL6YRmzU4/5EBET2A4zOptxAi7mElxcdKeXzEuUOCbg9DxAVyjC9c/uat07DLLmLvcW5v
+	 2vreizBKhHr8sZL/VVTQe+ycVD09Di1WZLQFmdYsXXjPPdsFn0WgXuhbiJnaehm7nFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795799287;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795799293;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1o3dKC1ZiIA6DYeQV6iPkESo7g9RbTvvHtdK7xyzfEY=;
-	b=1FU7CwTZsZ7fmP+t7Ks4aUfPCFZEuvlWz460rC/WSh4PvwGsf9uotMtXl2Vv2zb8ZSe1
-	 O8494jT2f0aTRCa1ufFB8IN2+exVZgkffgBA82SFdZ/VSg8IUuTDCldS2QaqJsJuusdHi
-	 /InkaP+bxXkxfV2PnxY6hFuBUxgbpnqJEmlqgFSpMTJDij1w92lsJ6kt28t3123U4Fgr4
-	 T10G7fDzVGnAmJ4K5fK6/wgcDzgZ805UupehMCtciWcAp2OxENo5B/6cPMZ4ryOQ5ecIw
-	 RhMRcrK0aam4GJg908wWLxVniSchtuROaKgPrgXacdwN3opOQZEN2bmmCpQBobDYryA==
+	bh=uDkX0blzb3c3DaHz8+BDDCXmBzy3/6GBFnnOUYBXO+M=;
+	b=QyonWIrya6rzOhWwyH9g5JQv/iS50eiTPYTCnie6QFh1/Ykm7m5+wgMaJvHK+6N5O/b9
+	 miHpC6osuGcOFH409E8TE8VRz7xmLVVYxLIj7od0+nqFiNeytAZInthxsIKcGAnObTcB7
+	 gOhzkDYvZ+MIoOT/1HKBEbSXBAJWaBXoaynQ9gzBbLmlzyhwwAQhEcY7GvD8EPVvxYW9R
+	 qI6NYcxgBuQkNU3GqHxSucplZd9OYqyiQ0wjSkvhXuxMSTLJiakmSfPSo/hDreLvCdjfl
+	 /NnPMluXBnbG0K+lY+1fJwH62c7PBhszTF9Y84ISMzDPIC/B8eDDVknt18Io00WGzrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DMTKoOd7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cAQUHT2w;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 938C8606A323;
-	Fri, 27 Nov 2026 17:08:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B48606A31E;
+	Fri, 27 Nov 2026 17:08:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DMTKoOd7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 450421F0089A;
-	Fri, 27 Nov 2026 17:08:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cAQUHT2w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1BE91F00893;
+	Fri, 27 Nov 2026 17:08:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795799286;
-	bh=1o3dKC1ZiIA6DYeQV6iPkESo7g9RbTvvHtdK7xyzfEY=;
+	s=k20260515; t=1795799293;
+	bh=uDkX0blzb3c3DaHz8+BDDCXmBzy3/6GBFnnOUYBXO+M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DMTKoOd70m9njn22QTAGUBUjhV1JtoFG+C85tGKSyYTXmFMdI7j/kdkojuc/OsZdT
-	 +l4D8EjifUUwG3JbdmJ2+LV/eFezcoZ87vJxsxrSZ96OhVOm2q4hx8yCJDt2ZRq1Zf
-	 Mp/NXscGkL87P59DWKI6vHCLXC+W07v98FBncUGL0Nd+1bHoPYVtdAMe0jmfc9NRNv
-	 gLqGEeePlj96A1ecjInMB/zd9jYXmTN3hsA1pOQidv/R9zdXIGGEJ4D0bUuWMnG0F3
-	 QiI3ewyWX8vrm5iH7JZiwWVc7KC1VuYtKdorKTMeX/eBdM19N9kBug465WgGJC/sx9
-	 QkP9iu46YMtSA==
+	b=cAQUHT2wEzZD7W+Bn23DX5a1OR77ecP4VG5rrthc9hOR/dATZb6tnjBaQ5Um6Xzwr
+	 lFBdWoSee7MyshZCMsa6bNMdauMR+bui6NXGjcyKWZCE92otPhTb3DWjhOh6g9sNaT
+	 P+7oqHaDOyDXKLGD3MesV1k+59N0wnQzqb1sf65LsklOahLgQg1bIk89Wh79r3fLUi
+	 I+lWT1+gPILdQGXbZbI6kerHtYt0WD2rMMd0INDPiur2ES7KujPlupEIvMzH6H9h+0
+	 c6Xi5QzaenizqGAtJd+akefJtpmYyV+c3riArlPqgvmYVBDcTJukFIZdfvcuplh8rA
+	 45zIad5+cJ11Q==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
+	Ping Cheng <ping.cheng@wacom.com>,
+	Jason Gerecke <jason.gerecke@wacom.com>,
 	Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>,
-	Tianchu Chen <flynnnchen@tencent.com>,
-	Pan Chuang <panchuang@vivo.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Charles Wang <charles.goodix@gmail.com>,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 07/10] HID: hid-goodix-spi: Validate package sizes in goodix_hid_irq()
-Date: Fri, 27 Nov 2026 17:06:25 +0000
-Message-ID: <20261127170712.3163443-8-lee@kernel.org>
+Subject: [PATCH v2 08/10] HID: wacom: Stop HID hardware before releasing resources on mode change
+Date: Fri, 27 Nov 2026 17:06:26 +0000
+Message-ID: <20261127170712.3163443-9-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127170712.3163443-1-lee@kernel.org>
 References: <20261127170712.3163443-1-lee@kernel.org>
@@ -67,105 +65,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-goodix_hid_irq() reads incoming SPI reports into the 95-byte
-ts->event_buf heap buffer.  For the coordinate package, pkg->size is
-only checked against the 2-byte minimum header size with no upper bound
-check against GOODIX_HID_COOR_PKG_LEN (84 bytes), allowing an
-out-of-bounds read of up to 65533 bytes via hid_input_report().  For
-the trailing attachment package, neither the minimum header size nor
-the remaining report byte count is checked, allowing both a 32-bit
-unsigned length underflow when pkg->size < 2 and an out-of-bounds read
-past ts->event_buf.
+wacom_mode_change_work() runs asynchronously on the system workqueue
+without holding driver_input_lock and calls wacom_release_resources()
+before hid_hw_stop() on both the pen and touch interfaces.  Because
+wacom_release_resources() releases the devres group containing
+pen_fifo, input devices, and shared tablet state while USB URBs and HID
+transport remain active, a concurrent wacom_raw_event() triggers a
+use-after-free.
 
-Validate that the coordinate package size does not exceed
-GOODIX_HID_COOR_PKG_LEN, that the remaining report bytes hold a full
-package header before reading the attachment, and that the attachment
-package size lies within [GOODIX_HID_PKG_LEN_SIZE, rem_size].
+Call hid_hw_stop() before wacom_release_resources() for both interfaces
+to match the teardown order in wacom_remove().
 
-Fixes: 75e16c8ce283 ("HID: hid-goodix: Add Goodix HID-over-SPI driver")
-Closes: https://sashiko.dev/#/bug/linux-07f163f5-b48d-4fd5-addc-ba577c30fc6e
+Fixes: 4082da80f46a ("HID: wacom: generic: add mode change touch key")
+Closes: https://sashiko.dev/#/bug/linux-e62a8e78-c17f-491a-849b-0690087100f2
 Cc: stable@vger.kernel.org
+Reviewed-by: Ping Cheng <ping.cheng@wacom.com>
+Tested-by: Ping Cheng <ping.cheng@wacom.com>
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
 v1 => v2:
- - No changes.
+ - Add Reviewed-by and Tested-by tags from Ping Cheng.
 
- drivers/hid/hid-goodix-spi.c | 34 ++++++++++++++++++++++++----------
- 1 file changed, 24 insertions(+), 10 deletions(-)
+ drivers/hid/wacom_sys.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hid/hid-goodix-spi.c b/drivers/hid/hid-goodix-spi.c
-index a2c6b92f74ee..c8c158a74235 100644
---- a/drivers/hid/hid-goodix-spi.c
-+++ b/drivers/hid/hid-goodix-spi.c
-@@ -574,7 +574,7 @@ static irqreturn_t goodix_hid_irq(int irq, void *data)
- 	struct goodix_ts_data *ts = data;
- 	struct goodix_hid_report_event *event;
- 	struct goodix_hid_report_package *pkg;
--	u16 report_size;
-+	u16 report_size, pkg_size, rem_size;
+diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
+index 2e3ce9b63d7a..5bacd016c686 100644
+--- a/drivers/hid/wacom_sys.c
++++ b/drivers/hid/wacom_sys.c
+@@ -2890,16 +2890,16 @@ static void wacom_mode_change_work(struct work_struct *work)
  
- 	if (!test_bit(GOODIX_HID_STARTED, &ts->flags))
- 		return IRQ_HANDLED;
-@@ -600,13 +600,15 @@ static irqreturn_t goodix_hid_irq(int irq, void *data)
- 		return IRQ_HANDLED;
- 
- 	pkg = (struct goodix_hid_report_package *)event->data;
--	if (le16_to_cpu(pkg->size) < GOODIX_HID_PKG_LEN_SIZE) {
--		dev_err(ts->dev, "invalid coordinate event package size, %d",
--			le16_to_cpu(pkg->size));
-+	pkg_size = le16_to_cpu(pkg->size);
-+	if (pkg_size < GOODIX_HID_PKG_LEN_SIZE ||
-+	    pkg_size > GOODIX_HID_COOR_PKG_LEN) {
-+		dev_err(ts->dev, "invalid coordinate event package size, %u\n",
-+			pkg_size);
- 		return IRQ_HANDLED;
- 	}
- 	hid_input_report(ts->hid, HID_INPUT_REPORT, pkg->data,
--			 le16_to_cpu(pkg->size) - GOODIX_HID_PKG_LEN_SIZE, 1);
-+			 pkg_size - GOODIX_HID_PKG_LEN_SIZE, 1);
- 
- 	report_size = le16_to_cpu(event->hdr.size);
- 	/* Check if there are other packages */
-@@ -614,22 +616,34 @@ static irqreturn_t goodix_hid_irq(int irq, void *data)
- 		return IRQ_HANDLED;
- 
- 	if (report_size >= ts->hid_max_event_sz) {
--		dev_err(ts->dev, "package size exceed limit %d vs %d",
-+		dev_err(ts->dev, "package size exceed limit %d vs %d\n",
- 			report_size, ts->hid_max_event_sz);
- 		return IRQ_HANDLED;
+ 	if (pen) {
+ 		wacom1 = hid_get_drvdata(pen);
+-		wacom_release_resources(wacom1);
+ 		hid_hw_stop(wacom1->hdev);
++		wacom_release_resources(wacom1);
+ 		wacom1->wacom_wac.has_mode_change = true;
+ 		wacom1->wacom_wac.is_direct_mode = is_direct;
  	}
  
-+	rem_size = report_size - GOODIX_HID_COOR_PKG_LEN;
-+	if (rem_size < GOODIX_HID_PKG_LEN_SIZE) {
-+		dev_err(ts->dev, "invalid attachment data length, %u\n", rem_size);
-+		return IRQ_HANDLED;
-+	}
-+
- 	/* Read the package behind the coordinate data */
- 	pkg = goodix_get_event_report(ts, ts->hid_report_addr + sizeof(*event),
--				      ts->event_buf,
--				      report_size - GOODIX_HID_COOR_PKG_LEN);
-+				      ts->event_buf, rem_size);
- 	if (!pkg) {
--		dev_err(ts->dev, "failed read attachment data content");
-+		dev_err(ts->dev, "failed read attachment data content\n");
-+		return IRQ_HANDLED;
-+	}
-+
-+	pkg_size = le16_to_cpu(pkg->size);
-+	if (pkg_size < GOODIX_HID_PKG_LEN_SIZE || pkg_size > rem_size) {
-+		dev_err(ts->dev, "invalid attachment package size, %u vs %u\n",
-+			pkg_size, rem_size);
- 		return IRQ_HANDLED;
+ 	if (touch) {
+ 		wacom2 = hid_get_drvdata(touch);
+-		wacom_release_resources(wacom2);
+ 		hid_hw_stop(wacom2->hdev);
++		wacom_release_resources(wacom2);
+ 		wacom2->wacom_wac.has_mode_change = true;
+ 		wacom2->wacom_wac.is_direct_mode = is_direct;
  	}
- 
- 	hid_input_report(ts->hid, HID_INPUT_REPORT, pkg->data,
--			 le16_to_cpu(pkg->size) - GOODIX_HID_PKG_LEN_SIZE, 1);
-+			 pkg_size - GOODIX_HID_PKG_LEN_SIZE, 1);
- 
- 	return IRQ_HANDLED;
- }
 -- 
 2.56.1.839.g22a8290db9-goog
 
