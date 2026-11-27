@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795762085;
-	b=puXr58865Wi1mc53+uChCkT+Vn+s+7zxwHNiuhGSjKjuKRwwMZeVJEEXWyI5hVPBdatV
-	 kDydu/Np84CE+EEnU+IiNreq7qNN+HzHu2yaWpZjYGR0EvZj3tLrquRWKYKt8cQAquBmS
-	 z9Lzqq8CAUF5Qa5zDtZU9s78b2y9ew/03vudQfYMASIxZQJyT9MSOXS+bEckGp04lle8z
-	 BDty8ksWj799nodvSsAx72KiiN26ovAc0P4ot3XKt6DtyKpVaMOOtsZXzP4aNZwnSl0cM
-	 SoY+19xJNkfQ0gnRJqKcyvcI8bgmmb3XplMFDjG0yNEvjSTgqTYXbIO3DIaVp1yO4rw==
+	t=1795762087;
+	b=LrDc6yGpQI8rDpt9VqznhM5k+jCpQa0lZ6foWCBb14pmj1ef9qM5htQZMZPKSL1MXQRp
+	 O0N8Lf32GTEAweaqm3JmF53CrgG/PhovrtaB8KuJda4T17yXZYgMxJ9ONZs0nvx1wQ/Mt
+	 MiUXU/h1RF0KO7NdNd8zeEIO9hPLGczaZdK84QnVPP1HcfDfkk067mY1fZHds+yMHbFuU
+	 opU2NO4vqj0AE+l6LVBCYVCj3jmP8g03sMK7n9Af/UEPwmTLSmvmshEu6M+Wge4ezHLPd
+	 oUqEI6RpfgEmpbIDlnmk1+pI64e1ed2pT5h+tt2lAb8DnU3x5zEK1EbSVT2JF8tePgw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795762085;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795762087;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
 	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=mnRsxiP5CDXvJyBOhMK61M5i51SmpFcieZV2SE2HJd8=;
-	b=NfLF06u1bYn8KIQJyDMWZZbblSi2+zCB/y+I6m0ieGyx1G0kbKJ63fUWoky6ClcXKvqY
-	 hBtm/5asyvw2vVj3KfiO7R48oDjQ/29187500Mj29maJBZmWRn4ukPEmNTrFGJxGLAcH2
-	 SnFBGk1ySbtBH+NsZkIOLdUJu2LS4Y6HwnExr8FnIoQW1FCYcV+UxwaIxJ78u/MeZZ6Fa
-	 QwS+W80JOBiYCcjke1MTG5a80Vj5KxtoBwqVuSSnJ+R6Ec90UM46rEju0YtEGrbJrkKJy
-	 sY6fj/SU58QN/OYwBef9+DcYKYRgcObzF95LGJusmUjVZGRMvuXa7pyRrMsd2NBGcNA==
+	bh=mFMAfJUyv5fMJSPeR0DdyM+SciuBdAnE7Ia8wiTHRnQ=;
+	b=0r20VAe1eUowZf+JwRzexRer4SPJYKdu3Ljxqzsn3o7QucWws8bY97lzOxIh+NqmFPBz
+	 wbZaixEgJliylw3A9es0mTK1quL/O3faEUvVmFhWbmZq/LEc+sqAQtR/HIB5TrLe1S00U
+	 0iiTteOXdMOZ1SNayUJphT06TYI96UXUXcHbjW72suz9MHAYwJCLu5AyKwxs/uZPZVVGw
+	 04wAbC+qbdErl9NkcEAihafMuyKG+xCWX4UP8gwTXJklfn9sdM/AuJcfG1TPpb7qMEne0
+	 moks5YpzaKnvkMyWO7xCEm5KljcP+9ZtHV/QrK+ukFhtb2y8WUBEefRubrkVgAU6sNg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IHkYorXc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SvkMOYU7;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CEF9606A31C;
-	Fri, 27 Nov 2026 06:48:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087D7606A326;
+	Fri, 27 Nov 2026 06:48:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IHkYorXc
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SvkMOYU7
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795762085;
-	b=MUAu9nOJz156un4yaQ2/E7rcrUplGOhsndUSDxRXxxHJnl0S0Xaez4iuw7cEcSiUSpyw
-	 HH+3OhUKiYI5fBCRYmjYUZsWNO01/7SMjD/NISIcEUGL7ZbM8Lc6CCXDJKNEmfTLGiZji
-	 vMuAX0TWoNF04apAItg5N1Ba3WQbJHoWMhc2s9YC9vnrybtzL+dogRlw2898m0hB8NXLe
-	 JjFBQGcA6QURAzdWVh0e90CrPcY+/gZ8QXkaMejYMMTkMGptifBUmEY6kGK5VC5F5HLUP
-	 cd5M5txmm+L2LJnji+2R06jxv38ODsDENbIU75v03oDggBJYHfKnDdUX3oaPfJCPDAg==
+	t=1795762086;
+	b=vAKrVGbewsXQvW92F6bswf7tFBUOPXJbX2YP9BYwWNU0/VLbYKrC4h4MALnyFWROHwPq
+	 9E5Zq9xcCjdU2nNZhssXiDr3rhYJ8OLCn3eYNERbHiTmhVUIzIoSs7dNbXX0hEeqAIeI7
+	 SWMmwl6cXQFRTDO/6fwO/jlrfac4rFTBvy/64FBDIjKFkVXLGmolINIpTWKjv9F+NI8Zp
+	 kHSrcnnuzyHw93VYi3BY0L4imN07qd2VH1Rr6GJEpoJwuE2XJg0TAaDBLK8vQtJVcDKxO
+	 xpJYPbAE/6Rru0bDbAb3Q+GjfXEnkd9Fi4pHO/dA7XPUbngG811hn8KNS9by5YKVe3Q==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795762085;
+	c=relaxed/relaxed; t=1795762086;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=mnRsxiP5CDXvJyBOhMK61M5i51SmpFcieZV2SE2HJd8=;
-	b=nxqxp2h6PkwSSGR6b+J6OHdbr9F63OAIaQxfBqTDzA+JR7tIfsnkF7fT3y7AKF/24Hgg
-	 oAepvDLyBGXNT2jy0aQf4itei1ooN97BGIhKbgmJ5mW90mJfAn7MTD1dTujOblNGyNILJ
-	 CxIZVeaAQywwpwMjPo4bo5JsV1gmLxzF5BeU8fxFZQiCMoC0qN0A1Zwc0xKYQzmqIiFU7
-	 i93TpmOWJKueyxWM78d5BIy04O+zWzko8ZjtBFILBkBKVLNc92RubQYRVv5Q7c/G8b2Sc
-	 oxDzLgZu7KtDocCnrK2HD9S2sqXtgOTjcLtWEqPzZLpBtQleGl2GSXWua4a9ZaDme4Q==
+	bh=mFMAfJUyv5fMJSPeR0DdyM+SciuBdAnE7Ia8wiTHRnQ=;
+	b=iDhqJfD6OheLIMBFQogYIkxxdCcI9U2cl0DI3vRiuZ0mvN/zf7bqjicRyTEPiHVy3R9S
+	 jvqYCd8GZ6gLr2afEzMEMHtx90562C6VmBEoEKa+aKwvETMER0BZnOZmhIAwYuwnBOiLF
+	 9SgwLLx+xReLlg6K0CGMS3aOA1MlDDmmAqBHPBeL2dTnIcZU3MrJjENPklOOTMqrUcu9Y
+	 48tQEkFlMe+FemkmIteTXwRRokBBnsSPymtw0hDqdERUq+E5YIPWPmCSXrfYjg+wdywM8
+	 wU8ZiKDSS0hd0xzEJ0Mp1EWdMS988RuOLetD8FcbfFxax7vUv9G1WsBTk9jR61RxQxg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 827A21F0089F;
+	by smtp.kernel.org (Postfix) with ESMTPS id 2BF691F008A0;
 	Fri, 27 Nov 2026 06:47:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795762085;
-	bh=mnRsxiP5CDXvJyBOhMK61M5i51SmpFcieZV2SE2HJd8=;
+	s=k20260515; t=1795762086;
+	bh=mFMAfJUyv5fMJSPeR0DdyM+SciuBdAnE7Ia8wiTHRnQ=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=IHkYorXc7nz0LBJdg4GIznzuGYcFTJBN29Mn3zR+c6Vc5EPcnFseXAnbeCeVd3uBj
-	 aIN8ggjKQ6MWwpbL25udG2HTEMo1yVO9fZAhAf7K3QpnZdyRI04nBM8aHf658+hBau
-	 zqr1oMMdqKf+HAlNe4V/bOoVoKbHmN0PAU4vPBxxT3QQBwSPIYhs8htKKo7HOkYFAv
-	 eKjIRXhK5dXYc5ZLgYWW1dMxvjcHmt3i1osUIoWd6QZJOnvnJHenTKFspI+ZhjdVEg
-	 w9G1oReVqNw2/+8FCPv1vX6WwYXJI0kdtd3M0acfL5W4Y7KxDqRiHp4fBUh/4nXFjJ
-	 7xs+fRBDkFbAQ==
+	b=SvkMOYU79rjPmH1xuzLGx1IEyJHxjsGwALm0sjnNuPHJeGMrMgG5vgMy/gNdEpdyt
+	 trzmRIiZil5kTXg7NUYoTuraZzZot2xiH5EzEm9YWgOq/5SbZnAgrD7fqoHSFYSCHi
+	 Eb3wFKCdEa29kKp2wJouiMoQKTsqq7l0dv+R01wfJBWw2MlvkvGnGDcyfKrJesAv+H
+	 RaoFID5OFzI8jNVbZwj8BzT9Ul6DyLTfMSxWG0zUM2g2gwMCGss1XhqK4vvQslh2PF
+	 2YgqZyl8ZPeSBQsUWNUIsoc+kl5cefa1sfh6KbAJ2tojfCHJoLNAMj0K6Fco4GyR5H
+	 N8G8FR/iuG3tA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AB83D4B5F5;
+	by lkml.kernel.org (Postfix) with ESMTP id 026844B5ED;
 	Fri, 27 Nov 2026 06:47:48 +0000 (UTC)
 From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
-Date: Fri, 27 Nov 2026 06:37:47 +0000
-Subject: [PATCH 6.6.y] rds: tcp: unregister sysctl before tearing down
- listen socket
+Date: Fri, 27 Nov 2026 06:35:09 +0000
+Subject: [PATCH 5.15.y] PCI: Free released resource after coalescing
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,19 +84,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-so5-rds-66-v1-1-1abb4e9ce92b@certik.com>
-X-B4-Tracking: v=1; b=H4sIADolCWsC/0WNSw7CMAxEr1J5jUsTwKhcBXWRj6FBKEFxqUBV7
- 04CC5bzNPNmAeEcWODULJB5DhJSLEFtGnCjiVfG4EsG3WlSSh9R0gGzFyTC3rne7vZkvO+gDB6
- ZL+H1lZ2BWmrfMPywPO2N3VRFtWiNMNpsohsrEo5+SumOlW//B7CuH844CQqgAAAA
-X-Change-ID: 20261127-so5-rds-66-9cc9b346add0
+Message-Id: <20261127-so5-pci-515-v1-1-58c7cedf2a45@certik.com>
+X-B4-Tracking: v=1; b=H4sIAJwkCWsC/02NzQ7CIBCEX6XZs1sBQ237KsYDP6vFGGjYajRN3
+ 13Qi8f5MvPNCkw5EMPYrJDpGTikWILcNeAmE6+EwZcMSqhOSnVEThpnF1BLjQch/NAPvhedh7K
+ YM13C62s7gW6lbt9w/nF+2Bu5papq0xomtNlEN1XEFP2S0h0r3/9dwLZ9ADz0FIOjAAAA
+X-Change-ID: 20261127-so5-pci-515-300d989d806d
 To: stable@vger.kernel.org
-Cc: Cen Zhang <blbllhy@gmail.com>, netdev@vger.kernel.org
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795761466; l=2888;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795761308; l=1901;
  i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
- bh=eX75dksd+0Eq/c6Duq5vPiGvUbIGB0rYF3qmdTVxvX8=;
- b=BLV0tpHTjpwxzWlawloS8nPZzByn15w+p/yUa9RcglQDfGguxqgH0yPyz2x/FuI4GXYh4kywc
- i71OQrCJHG1DgqyX9MeUJZbA9yS1hu1Jxn6eIGtXSHNxfo6V+R8TIqX
+ bh=Q3ipk5VBhPFIagCrOUrYLKD41qorDNeCk/xbTMJ0NYs=;
+ b=g31RX7ICmsUEZ+CZFUWSl48NbQylBjFTR0E9pdvUexHT7lguAnw/pRaFit0c2bLmDD00pzQKA
+ ZO7cswPFJrxC82GV/aHHstfGnnqpCmbQhufcf0GThnzs31Beef2+CXu
 X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
  pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
 X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
@@ -105,82 +105,58 @@ X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
 X-Original-From: Dickson Wu <dickson.wu@certik.com>
 Reply-To: dickson.wu@certik.com
 
-From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
 
-commit 167e54c703ccd4fa028feb568b0d1002020cff86 upstream.
+commit 8ec9c1d5d0a5a4744516adb483b97a238892f9d5 upstream.
 
-rds_tcp_exit_net() frees the per-netns RDS TCP listen socket via
-rds_tcp_kill_sock() before unregistering the per-netns sysctl table.  Since
-rds_tcp_skbuf_handler() derives the netns from
-rtn->rds_tcp_listen_sock->sk, a concurrent sysctl write can race with
-netns teardown and dereference the freed socket/sk.
+release_resource() doesn't actually free the resource or resource list
+entry so free the resource list entry to avoid a leak.
 
-KASAN reports the race as:
-
-  BUG: KASAN: slab-use-after-free in rds_tcp_skbuf_handler+0x2aa/0x2e0
-  rds_tcp_skbuf_handler              net/rds/tcp.c:721
-  proc_sys_call_handler              fs/proc/proc_sysctl.c
-  vfs_write                          fs/read_write.c
-  __x64_sys_pwrite64                 fs/read_write.c
-
-Fix this by unregistering the RDS TCP sysctl table before calling
-rds_tcp_kill_sock().  unregister_net_sysctl_table() prevents new sysctl
-handlers from starting and waits for in-flight handlers to finish, so
-the listen socket can then be released safely. The fix was tested
-against the linked reproducer.
-
-Fixes: 7f5611cbc487 ("rds: sysctl: rds_tcp_{rcv,snd}buf: avoid using current->nsproxy")
-Reported-by: AutonomousCodeSecurity@microsoft.com
-Link: https://lore.kernel.org/all/20260719203718.9680-1-blbllhy@gmail.com
-Reviewed-by: Allison Henderson <achender@kernel.org>
-Signed-off-by: Cen Zhang (Microsoft) <blbllhy@gmail.com>
-Link: https://patch.msgid.link/20260719210357.10179-1-blbllhy@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Closes: https://lore.kernel.org/r/878r9sga1t.fsf@kernel.org/
+Fixes: e54223275ba1 ("PCI: Release resource invalidated by coalescing")
+Link: https://lore.kernel.org/r/20230906110846.225369-1-ross.lagerwall@citrix.com
+Reported-by: Kalle Valo <kvalo@kernel.org>
+Tested-by: Kalle Valo <kvalo@kernel.org>
+Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Cc: stable@vger.kernel.org      # v5.16+
 Signed-off-by: Dickson Wu <dickson.wu@certik.com>
 ---
-6.12.y and newer already have this fix.
+6.1.y and newer already have this fix. 5.15.y has the coalescing
+prerequisite as 26277a425020.
 
-Tested on v6.6.163:
-- x86_64 allmodconfig W=1 build of net/rds/tcp.o, base vs patched, no
-  new warnings
-- under QEMU/KVM, base and patched: loaded rds_tcp, read both TCP buffer
-  sysctls in a new network namespace and tore the namespace down with
-  no warnings in dmesg. I didn't run a race test.
+Tested on v5.15.226:
+- x86_64 allmodconfig W=1 build of drivers/pci/probe.o, base vs
+  patched, no new warnings
+- booted the patched kernel under QEMU/KVM. I didn't have a PCI
+  topology that hits the invalidated window path.
 
 The backport and the test runs were prepared with AI coding tools
 (OpenAI Codex agents, with review by Claude). I went over the result
 before signing off.
 
-net/rds/tcp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+drivers/pci/probe.c | 1 +
+ 1 file changed, 1 insertion(+)
 ---
- net/rds/tcp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/pci/probe.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/rds/tcp.c b/net/rds/tcp.c
-index 80d0e4c5b6aa..76cdea73a906 100644
---- a/net/rds/tcp.c
-+++ b/net/rds/tcp.c
-@@ -711,13 +711,13 @@ static void __net_exit rds_tcp_exit_net(struct net *net)
- {
- 	struct rds_tcp_net *rtn = net_generic(net, rds_tcp_netid);
+diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+index 1403b1e50142..d5db12f13a22 100644
+--- a/drivers/pci/probe.c
++++ b/drivers/pci/probe.c
+@@ -1001,6 +1001,7 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
+ 		res = window->res;
+ 		if (!res->flags && !res->start && !res->end) {
+ 			release_resource(res);
++			resource_list_destroy_entry(window);
+ 			continue;
+ 		}
  
--	rds_tcp_kill_sock(net);
--
- 	if (rtn->rds_tcp_sysctl)
- 		unregister_net_sysctl_table(rtn->rds_tcp_sysctl);
- 
- 	if (net != &init_net)
- 		kfree(rtn->ctl_table);
-+
-+	rds_tcp_kill_sock(net);
- }
- 
- static struct pernet_operations rds_tcp_net_ops = {
 
 ---
-base-commit: e2bb30811e063ce0db964484357973b855b06572
-change-id: 20261127-so5-rds-66-9cc9b346add0
+base-commit: 4f2df9a01754521fbba3493e8ad91ef65515e68c
+change-id: 20261127-so5-pci-515-300d989d806d
 
 Best regards,
 --  
