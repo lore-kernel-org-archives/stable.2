@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795786851;
-	b=pdNvm9JksJvUcBJZ+MqCyJA41rFLsx4/WHf9JsYo1Z21enxZRAjt3FoU0O9fhRA6QGf/
-	 cB/BVWJkLs+tOiGScOo3DH6w/wiPkzi0FuvBIXz6ORre1MO8eLuwPvnjhhk/qrOEoJh5B
-	 Zcjdpknyx0eyzPisjmk0zeMnzDtKxbCJixttwvj6m5QZsQgQWhVbZj4XGMfjP+2SFUKov
-	 XXeZRe3Qi02K6xyoX2bFhBny43Jt5focxeOmW1cDRfF8InlJfTDP9MyEUthT0AJE/CWRF
-	 r67kBapoRND36xsVEI7RH1imT98tf8Ponid2jJChHmQNVGyIZb8jQe0HBPpWvdRK0YQ==
+	t=1795786855;
+	b=T4r84sd7GK9qQ5ZTPgjlynRLvm0oMyW11KFYhgp+5Fld0lgBho+xxwwMAJkKnTo2h6I2
+	 Rj8ljlQGLe9Jg9M+GERDXYa6rFSEYCxqjUHWa3YGquJnfPrmYUA2vhhN7ykUUlpo4nrmf
+	 6/swcOwfzq7epO1hAzI6Z9L0X14Iu0CesVkkmuEUg4G9hBYWaq42xnzLx2Bucp0CQvPut
+	 sm3W6uuRkU+dtnnuszM13jRkLfRjj5vHUcns3+fmgG8WggzGZ1Jkirnj8VrQYhFQBPOKf
+	 wCMX4y+XBuz9AHBkdR1z2wwVu7bOZ9V+NePizHypDWSSaUFBEI1sGz5OyHfIfWOUZaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795786851;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795786855;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=0AJWIA7czH9GdbmE5y7jSRhzHXqcVcwTzc1B62BZZmE=;
-	b=YSkrnMvS2+9JJQn32K6upRBeZQHfjMgQApJIxxlkjBH1mXuOOGIHwcEMHiJVcSsJRfxa
-	 SLOuTrh/HfvI2OOwQcKnjySHYitqgne5UlJH5H5nRuKWyz3rPSyR7VO2IZlG8oytbquI6
-	 A8i7qTUq/MieqHbzzMlMxxMUJRUbntp0GAbKsRxQBX6HbTKLzenJjlxz/6Pq/D3Z5fV0P
-	 ScU/Wygz0pYEkU04Ev//ktdmzLMAta1n9Kuu56Z49YBINAdvddNCy0KcMSC+lyX5cF97h
-	 rVtBzlbvUH7A2fSVNWP0jRpqxt/PPBBQUyCxWU77hPzzWjFHI3nL7PePDoubA1FxCFw==
+	bh=pdEAarPZNKEUfPhFhzlR8v9qpw9OvFlO1VgxWcD8/G0=;
+	b=LnDT5wwPjn9Uar+BpVX7NaUS/Rehu8cE5GjwyP+TUMkJ1ywx/aCmRazVzUVzwH8yVwsu
+	 sG76dcb1Yspmmnxv46wTpYI1C7klIr7ZKNdgd8i6ujnrAnyAjRdPgCYlSjxwYy5cTLQiH
+	 XDIBv+o5cdVddAKr+o4dYp4n/kbvQHsD3w/xheks8K0OMwOkz5mX5fMUe+6sfcZDe1CQI
+	 yRLXMU2zSKsdL62MlYlfr3/7t86MMM8P0QDtHCUQ+lxcyDW6P0iWis43cX0TU6o0h3mXT
+	 obZL6agO+DRwF2Ut3fZUGSkdLojTh/yjWQg9xfAxnKd4doxsjZfaPqKBr64oEEH6OhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="P+cj/vaT";
-	arc=none smtp.remote-ip=209.85.210.178
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aPWTT7UM;
+	arc=none smtp.remote-ip=209.85.210.175
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8531D606A31F
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 13:40:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8531D606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 955D6606A324
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 13:40:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 955D6606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P+cj/vaT
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8a4c72951b8so5209330b3a.3
-        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 05:40:51 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aPWTT7UM
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8b29b83fdf1so4200682b3a.2
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 05:40:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795786851; x=1796391651; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795786854; x=1796391654; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0AJWIA7czH9GdbmE5y7jSRhzHXqcVcwTzc1B62BZZmE=;
-        b=P+cj/vaT4MxktNnHPB4CKcI+P9/VHrGG0lfL2rwmQGr4IksHqVcr4rlAA+2RidCGym
-         yZITa1CA5fDDLcbbB+j6B5Wq1u04uP4dihS6DbikUMYlG6VJklsP0q+1FWpl0s4zXaq1
-         KMs2DWdnpXj7t/swjPPR1yzPl1i3e4GJr6fEm2d6tiAkVIX9ETMoSOU2B0fzmkVL1wJc
-         KZq+83Z15V7DqFCmf/lcJIBPt+f91jUvT8aIHWwfivbX1nL6jAjkWJ2hvnpZUnRf8vA2
-         rqdgN0I0RPBwrVi9FPJTKHI0P5FnPeGU9soPSU0mtLjqV1Ch30ZtAdmrkg1jIoWAS6hS
-         hdpw==
+        bh=pdEAarPZNKEUfPhFhzlR8v9qpw9OvFlO1VgxWcD8/G0=;
+        b=aPWTT7UMQOIf5lsZVeOWdCskwAJZO+4/C51339LK0ATtZ/D/z5KWJjHtV0IzyhJC3h
+         HDFRk97heztJV6zVvyO8OMwjNkJb3ryNrVZ202S1X1JAE36oPzrV3dVCRI2uEP2tVVTb
+         cj4HsSP0OUKDRrlQo9DGBS0DysV5pEqshdeerIojoJawkIbGxYiK9ZGFibApzjTmshRI
+         DnWIhjc7E+JyXTHeo/nnnGpIdr1w0ika//Eczy0tgTiDYZ7amv1VtB+bNfLblAQHgdI2
+         GJ6Qow+UCjRVXq91SyKtuRHPxriFYzAK1oYCoyoL2H5kT6GU0CsahDKtxuh/SV5tf9QG
+         3VAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795786851; x=1796391651;
+        d=1e100.net; s=20260707; t=1795786854; x=1796391654;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0AJWIA7czH9GdbmE5y7jSRhzHXqcVcwTzc1B62BZZmE=;
-        b=Htu8cSiQRPXiSrdFv9CFRaq/uBazwlF4WkyEdlw8lbax1IMFrtWcVMSvrAzjij869I
-         e0AfwTWq/C1lP21O54jfplsRufO6UjA64bAjX5S6aAmK+uZMCvgn7PM/aDk0MvlCV4YL
-         ibwhNpliyFbxXn38HPHE0a9RJHfUzaQwCHRk7b9ofxw7/krtLjfqvC2yYYFQSPCedfD2
-         bne6GXjrBLo4wX79DsIRNJgazTrQ+8J7v1VBmkZNNIkdxJgUMENJ10+MpvpoRVtFr/Ry
-         vIDmu0XidubQAwZ8ePQH11QkI/9COLmKgXScIyzp4IwzZYkxHxEhCZfRTG0ykcOKe+Ob
-         u5EA==
-X-Forwarded-Encrypted: i=1; AL+hErHB/s5IBSj7IwrBEv1tjUnR2IlSt5I8vlojbmZGrtTSbzhIqy2T1RnJ+RHY2i9pH3pAmI2ELWQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/DBHrzfk9bK22qkCdHWwcJLJ3V2fgMS+9Y1QkIjrWny29bzYsa
-	MukkG/p5+shuZmW7GPsKMpxt8Nuyc+dzvC1wRzDRUP+w2X8V8PPPj76L
-X-Gm-Gg: AZFdTZej2esxQUWWk7vhwEzFG2kWTd8WuiEAY5zXLmGjlksO7Jnv3uDM5jRnEjwXQRk
-	/252Ilv1chrWdFTCiBy57/tAV7Qu8uRGej+uN9WoeNzrZXOe1CF2n56ix0FC4ArvBc7kMxv27Ad
-	xtcWiaIljcRrSJn87zhQ8vjNnQyJ0gRo+QB4+5+0caK0YY17/XAZTOz1U1KXyfbis9okFn12TxH
-	4c1/B9xls+dHb3XSb1wKhDg2YMigMEp900J8PP+nBlwT05teMYvI3a4iQif2VhVFmtzXa8YLbED
-	tbSGQmaVNiRVmEmbVDsWwbFew4lIPLiQDD08jpTbFdi6xsoSwVmK+ad2DUayubej2DGODyg1BuE
-	rrrbC2fGQUupRpbksinBKFgmHZ+cmjZglWzafOw5YhoZDn9WElS45a/TPE/7HC0kL7MEkUr5MxY
-	xoPkeV7mEMElO05EgkRELJKWlClhRgtlTLOE/d9mEkGrtwZqHDFT28I6bJl6VK2idLXeeLh4voa
-	NNmDeKD4sMIPvxxqDzK4hyaR/JI3Z3x/UhNwuiuuabOC5K2wPhOmE9PqXe2KYAkajSrYjmxAGe0
-	YgddsKBHossEVNKfhujC1NkhrfkgkpLztUH8MOw7akVzsn47IQ/sfXkuIZqbcbdcCdvNOTIs/X3
-	L4KVE6/Onz0uhf6+OATsIMJSO/1x+Pf2JxUa1jMS65pkOHydlJBnj49G4HGDbQJqJcZis/8I/RR
-	W+eBg3OjzKGyYyt2EL6K/DMcOuz7tZGI2Zfzw2zmQ=
-X-Received: by 2002:a05:6a00:414e:b0:8bd:281a:5cb0 with SMTP id d2e1a72fcca58-8c8796a7bb0mr21771676b3a.6.1795786850971;
-        Fri, 27 Nov 2026 05:40:50 -0800 (PST)
+        bh=pdEAarPZNKEUfPhFhzlR8v9qpw9OvFlO1VgxWcD8/G0=;
+        b=l8+EXWvuvTPFxUcGJMMmg0+dC24+iGBEztMix7msHPer3t0lnuwE7GQwt5z+el1JpH
+         HKNk1bLGYgZsQTSm9QjXUztGaDfc/fif1MceLJnWqmo28VJ3car1XjWmfTY7dmo19NrV
+         Oj6y7ZeTSTPpExybJv9mvWnx1bX2HsbqNUBsOjmW/l9nmeX4KTZrP3inQ4P2u//V4aBK
+         0jVszuTggYgrwEqvMtRWmEG3HnYuSxp7Ydf/wIh1eGbzS6BFIff3Lsy3882QSdaG2n9/
+         Jo27IyL/ucoKygSOnXQFpgmbjwRBd/lJPuvmQHgqDM58FjGCGwxzPGLoZeFyQPXmMx+6
+         b4qA==
+X-Forwarded-Encrypted: i=1; AL+hErG6q6eTi+ylzg32YHkUCFlz2zWtaKp8vA8nn6g+jm2RoBOFLjqB/djIXFh7mR5iLbG6KbsYS9s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Bg5BB4aU3fWEGPfa48PC6qwwcyjECflp79pbttc30aJLqCoBD
+	sWOBAFyIU5GZg0kiFnweSfdNh4EpGx0rPzoE6uT+a1dlRHBRmZ1rMjbzQ5rTJmXfvg1QrE2r
+X-Gm-Gg: AZFdTZdRIu31ohy83hrP31PtUSvNpY2NTeYcHlBZo2+K1acOT4+/fsYDIZwX63XnKu0
+	VN8F0fOvkBdoETf/IWzIZ/P4cjazktIpYx+TkodldjNiliMGwpuQoB78pebDoX6+lb649uMHfeM
+	tszg0wt83vkBJGPU15/FuTEhmh7L9ayZgoaGO3eTgK6hjgNgxmzhNSLGqaYdWBWV5u+f4L7FbvQ
+	J3Aeqyxzij6SbRJgozRltkuyFJaLNfFji3kWan+/i6JjfjzsgLSWVmg7kA1w6PXOWG+vlevnQYF
+	q5fEjCyPrcowWG5r38itcnwfRcT3h1WShSIEU6Ihx9ESpRJs29QQel0tHQvEE8OOLAoJAdsWFZF
+	pPFDeSfoTLKr31BQtIi6d46YOcrEjCcYwa0uGriuhIlVX7bomP7OCRFwhTFRlPu2ub4Rx78qRb3
+	UJwZqexkiM/jTMK678ymlpJH8E3bVx+Vygf7cgebXR04RFdzJxaHCH/bZNApAh5z5zwXa6Fpk+a
+	ldG3ZsJVNYwm416hC4L+S4NVyuCbxbLQ6WjQt2EWw2mzBTRinYDs5+ylyKrQfqFk9a2hjo7BO9h
+	MbIW5rNBmNba2QS7eKQGNcBcP1RjS3H2iwjv2ziG//wi356rATDHc3Z1A3RJF2ro7Ivc+LB8NnB
+	1ERa8blnHdbIU/rSsFAJK3VHyVuPkFTVVbjssWHoBadIifcxcdLjwrVhnIn1CojNWI3aJn9yxdj
+	KDoLnnSZY/rYyIu+iXI2UW1BxPM5pw1w6bh1+NUqE=
+X-Received: by 2002:a05:6a00:928c:b0:8a0:20e0:b131 with SMTP id d2e1a72fcca58-8c87bac50eamr22456811b3a.19.1795786853961;
+        Fri, 27 Nov 2026 05:40:53 -0800 (PST)
 Received: from LAPTOP-3B99V33A (ec2-18-138-229-8.ap-southeast-1.compute.amazonaws.com. [18.138.229.8])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87285b60csm12705838b3a.9.2026.11.27.05.40.48
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87285b60csm12705838b3a.9.2026.11.27.05.40.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 05:40:50 -0800 (PST)
+        Fri, 27 Nov 2026 05:40:53 -0800 (PST)
 From: "Bin Luo (University of Electronic Science and Technology of China)" <luob87709@gmail.com>
 To: oe-linux-nfc@lists.linux.dev
 Cc: johan@kernel.org,
@@ -87,9 +87,9 @@ Cc: johan@kernel.org,
 	kuba@kernel.org,
 	netdev@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v5 4/5] nfc: nci: drop stale rx_data_reassembly on errors, timeout, and close
-Date: Fri, 27 Nov 2026 21:40:28 +0800
-Message-ID: <20261127134029.1813-5-luob87709@gmail.com>
+Subject: [PATCH v5 5/5] nfc: preserve NCI data status error codes
+Date: Fri, 27 Nov 2026 21:40:29 +0800
+Message-ID: <20261127134029.1813-6-luob87709@gmail.com>
 X-Mailer: git-send-email 2.51.0.windows.1
 In-Reply-To: <20261127134029.1813-1-luob87709@gmail.com>
 References: <20261127134029.1813-1-luob87709@gmail.com>
@@ -104,111 +104,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When an NCI data exchange receives a partial NCI_PBF_CONT fragment into
-ndev->rx_data_reassembly and then terminates due to a data-status error,
-CORE_INTERFACE_ERROR_NTF, data-exchange timeout, or device close, the
-buffered fragment is left behind. On subsequent packets or after a
-close/reopen cycle (including listen/target mode, where
-NCI_DATA_EXCHANGE is never set), stale bytes are prepended to later
-responses or leaked until device free.
+nci_to_errno() returns negative errno values for nonzero data-status
+bytes. Passing that value to nci_add_rx_data_frag() through a __u8
+parameter truncates the signed errno into an unrelated positive value
+before the completion callback receives it.
 
-Drop and clear ndev->rx_data_reassembly on all four paths:
-- In nci_add_rx_data_frag() when a nonzero data status is received.
-- Unconditionally in nci_core_conn_intf_error_ntf_packet() before the
-  NCI_DATA_EXCHANGE check, matching nci_rf_deactivate_ntf_packet() so
-  target mode is covered too.
-- In nci_rx_work() when handling a data-exchange timeout.
-- In nci_close_device() after flush_workqueue(ndev->rx_wq) on both
-  close paths, guarded by req_lock and !NCI_UP.
+For userspace AF_NFC raw sockets, this corrupts the reported error: for
+example, an NCI status error mapped to -EBUSY (-16) is truncated to
+240 and negated to SO_ERROR=-240 instead of reporting EBUSY (16).
 
-Found by static call-chain audit and code inspection.
+Keep the error parameter as int so the original errno reaches the
+completion path and userspace unchanged.
 
-Fixes: 6a2968aaf50c ("NFC: basic NCI protocol implementation")
-Fixes: 004161cb52ac ("NFC: Handle error during NCI data exchange")
-Fixes: c4bf98b220cb ("NFC: Add NCI data exchange timer")
+Found by static call-chain audit and reproduced under QEMU with
+virtual_ncidev and KASAN/kmemleak.
+
 Fixes: 98ff416f97c5 ("NFC: nci: Add status byte management in case of error.")
 Cc: stable@vger.kernel.org
 Signed-off-by: Bin Luo (University of Electronic Science and Technology of China) <luob87709@gmail.com>
 ---
- net/nfc/nci/core.c | 15 +++++++++++++--
- net/nfc/nci/data.c |  2 ++
- net/nfc/nci/ntf.c  |  4 ++++
- 3 files changed, 19 insertions(+), 2 deletions(-)
+ net/nfc/nci/data.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/net/nfc/nci/core.c b/net/nfc/nci/core.c
-index efd4e5e..f832251 100644
---- a/net/nfc/nci/core.c
-+++ b/net/nfc/nci/core.c
-@@ -582,7 +582,7 @@ static int nci_close_device(struct nci_dev *ndev)
- 						   ndev->cur_conn_id,
- 						   -ENODEV);
- 		mutex_unlock(&ndev->req_lock);
--		return 0;
-+		goto flush_rx;
- 	}
- 
- 	/* Drop RX and TX queues */
-@@ -622,9 +622,17 @@ static int nci_close_device(struct nci_dev *ndev)
- 
- 	mutex_unlock(&ndev->req_lock);
- 
-+flush_rx:
- 	/* rx_work may take req_lock via nci_deactivate_target */
- 	flush_workqueue(ndev->rx_wq);
- 
-+	mutex_lock(&ndev->req_lock);
-+	if (!test_bit(NCI_UP, &ndev->flags)) {
-+		kfree_skb(ndev->rx_data_reassembly);
-+		ndev->rx_data_reassembly = NULL;
-+	}
-+	mutex_unlock(&ndev->req_lock);
-+
- 	return 0;
- }
- 
-@@ -1607,10 +1615,13 @@ static void nci_rx_work(struct work_struct *work)
- 	/* check if a data exchange timeout has occurred */
- 	if (test_bit(NCI_DATA_EXCHANGE_TO, &ndev->flags)) {
- 		/* complete the data exchange transaction, if exists */
--		if (test_bit(NCI_DATA_EXCHANGE, &ndev->flags))
-+		if (test_bit(NCI_DATA_EXCHANGE, &ndev->flags)) {
-+			kfree_skb(ndev->rx_data_reassembly);
-+			ndev->rx_data_reassembly = NULL;
- 			nci_data_exchange_complete(ndev, NULL,
- 						   ndev->cur_conn_id,
- 						   -ETIMEDOUT);
-+		}
- 
- 		clear_bit(NCI_DATA_EXCHANGE_TO, &ndev->flags);
- 	}
 diff --git a/net/nfc/nci/data.c b/net/nfc/nci/data.c
-index 4253ede..3bbebb9 100644
+index 3bbebb9..4a2326a 100644
 --- a/net/nfc/nci/data.c
 +++ b/net/nfc/nci/data.c
-@@ -220,6 +220,8 @@ static void nci_add_rx_data_frag(struct nci_dev *ndev,
+@@ -213,13 +213,11 @@ EXPORT_SYMBOL(nci_send_data);
  
- 	if (status) {
- 		err = status;
-+		kfree_skb(ndev->rx_data_reassembly);
-+		ndev->rx_data_reassembly = NULL;
+ static void nci_add_rx_data_frag(struct nci_dev *ndev,
+ 				 struct sk_buff *skb,
+-				 __u8 pbf, __u8 conn_id, __u8 status)
++				 __u8 pbf, __u8 conn_id, int err)
+ {
+ 	int reassembly_len;
+-	int err = 0;
+ 
+-	if (status) {
+-		err = status;
++	if (err) {
+ 		kfree_skb(ndev->rx_data_reassembly);
+ 		ndev->rx_data_reassembly = NULL;
  		goto exit;
- 	}
- 
-diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
-index f5c9a8a..3ca1009 100644
---- a/net/nfc/nci/ntf.c
-+++ b/net/nfc/nci/ntf.c
-@@ -132,6 +132,10 @@ static int nci_core_conn_intf_error_ntf_packet(struct nci_dev *ndev,
- 
- 	pr_debug("status 0x%x, conn_id %d\n", ntf->status, ntf->conn_id);
- 
-+	/* drop partial rx data packet */
-+	kfree_skb(ndev->rx_data_reassembly);
-+	ndev->rx_data_reassembly = NULL;
-+
- 	/* complete the data exchange transaction, if exists */
- 	if (test_bit(NCI_DATA_EXCHANGE, &ndev->flags))
- 		nci_data_exchange_complete(ndev, NULL, ntf->conn_id, -EIO);
 -- 
 2.51.0.windows.1
 
