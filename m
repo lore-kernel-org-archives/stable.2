@@ -1,57 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795804623;
-	b=mg6I2r9ci9E2zJ6eBRFnv7cLkBKmdDZZePdP9zRx4zZ8JZdtwKYEVFvjed68fhtAOMGl
-	 eVDZjTUQ5KCFvBc3tjqZH585BOVHdXWjFM27zhBZEPhrZ6NaWkKufHhqMoian5chLFUaK
-	 tvh9VwT1fe8oDiGEpO+89GE9heT2sXi47TokZ49a8fmf2DC5H+6kQOtWQF5Z62SYyOWYS
-	 wwv38/W8CscXyQ9qOrcQx8pgDvYE4fnHQXsF+xIuUpV4V+u34oNo1GCsWpLjReLu2douD
-	 sSR3IFv7ybUcRUwnjqIH8tgwiRo9vEAzK6gC3uVgzFEzl2lXo7btqEIemYA9cTaSdBw==
+	t=1795804630;
+	b=jjaU1eI+zwO/3Z3969aRrAa+WWRhzrcbvJ963uFYsNXweyzS1bn39BcyPyE3a1XUw/qu
+	 XyPLFn67GRgGjab53Vjt4o1HeK/QA1DF1K6BAlCJq/cd3nGCNcr88RLXiJzcUOZSfQT4L
+	 Rg3T1Niri6c5o7QPaRCByF5QKlG99eo1uLLW/TQnrJy6PMxTOqDrH7Z1hRhcKXG51/iJ8
+	 I7NaXaprK1xga+qtKu0PYsvJSTo5aHVP23IYxyodM3DkJW18L8UKWBnf1whqXq0r3hckU
+	 A0PsnzOdCHa0gEKFJttcLn5jk8/fd3VKYigaZOb19LVE6JugaXvA8PYEmjnApYis25A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795804623;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795804630;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7wNO/2SAjk2HWGew8OVcyB8LY1h3AHDSFTLuG0VTk3Q=;
-	b=dJvXAB+O9EQkYzPdQaxmKOs5zTt3vKV6poFydua8S90wQnC57azRFxulgVi43s+8hh1/
-	 3dwShiLXTupeUhcwX0XDU8Ov4tas2DzdECuv9K98/nqUPC2zib9/4Y5/m2NH/zNPFPLz7
-	 T8P9Lm0Y/2U0e7zOCt9AGoXBbgDdJyzCSUeieWoATOaeNVr2OENk46pAG6B7EwLyRblsE
-	 x1u14mGgokDOVvqcGDOevQjut3pemzDlWaLggn7ASuO3WgfZn2L0gKQGxkdRdtyAERRCR
-	 M/s3wSAbKvJHt3Ax7Su9BrolaQnT/SKJyOxaqAVLolnfikAU6dmcZ7bsLSPSm8DtFPQ==
+	bh=Kb/ec86qmdWlooR732Jz5Qk9ECZxpCxg4zmp2LPbsY4=;
+	b=llBh235Td1gAEl6YElq9LFW5lv0rvCkj1KVAd+kCTzAPUb+swchdmNsEpZQro4lm2TfU
+	 qKuxgD8wpjVR+NQkK2LTKjG26S8qHIfD3Co9TTsTsbgiWrk0x7g8AvLvl7DroiLav32nl
+	 PULlFsY2jd7ODzd+mu//OAMJezcZzbAFTF3P8tdh0yQIHduY7piobrv9SuWgi1bYFI+Ex
+	 NTqXKU2NUNrXBlppYAJhMiulsAHc/GysZTJX/7MiByUlQ/+8I5RE7A3WA4/ishzRwpjBV
+	 o4girw7Tld/AMMVmtCSLlxOUvtI6XmxyDAtFwxs0XxtZpiR8B2IK8CGM98fcNJOFkNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WnID26PE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PiOqfKgU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23E9606A32E;
-	Fri, 27 Nov 2026 18:37:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 332D9606A32A;
+	Fri, 27 Nov 2026 18:37:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WnID26PE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5771F0089A;
-	Fri, 27 Nov 2026 18:37:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PiOqfKgU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E08551F000C1;
+	Fri, 27 Nov 2026 18:37:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795804623;
-	bh=7wNO/2SAjk2HWGew8OVcyB8LY1h3AHDSFTLuG0VTk3Q=;
+	s=k20260515; t=1795804629;
+	bh=Kb/ec86qmdWlooR732Jz5Qk9ECZxpCxg4zmp2LPbsY4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WnID26PE3CPZbfOBOkKR6pAAqV2OIkdg9Aw8BeAmMP/2l0FFYdJ2r2zgDTTeKvn6i
-	 X+USlQBmjCIIj9t7lzGvNdaDfZRLJJN4QPQ88JU31/Ops6MGKWzTWYqkaZ6L1m91jR
-	 C8h1iIZwiCei4x6QABgEi18GyMuMlTDCBeMx4U81W8gDphtoA2i5gVXxAgA8YInM4J
-	 H2ax74k+iB1PGjo3ET9TuWjpzZYF1yAhl6qGOrnRBjqPKeBUjcF6jLCCbXmn83jYp1
-	 8dg+INg7ZaaZw0LGB6icVVvWAcmMHIDb6mPARx82kz5ZxK8yFqyIlQS0P503nkUxJ5
-	 mbo1O7eq6F3DQ==
+	b=PiOqfKgUqAxi4ecaH1yEfqOUNBrEuPa0NtUXSc621gM41RRd1szIjbsHspd5Qqcx6
+	 iUhV7mst4J74n6+lMBpPSJ22SAuTZFBXsnrXvCm4+NZGFVSj/IMGHs6gGaVylVFwDx
+	 5+ReHkEchC2U4xRKx+buUpATBfnmaS4dwXhlxcid+/oaycsGmyu9KdjRJKO+Z0klhc
+	 SowEBn4hSEA0ylxP6ktAx+TFpVo2CN+Dgjt5HiPao9GwjMjB/sIcWgVxe61DK2B2Do
+	 z5OUMmLKQuPrEltsbIZda840uuWga+4L8jqwgh95gGFZ4O2qTYw4o+N+BZG6PBXH8y
+	 Gj78gRJw1IoNg==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
-	Uday Khare <udaykhare77@gmail.com>,
-	Jerome Neanne <jneanne@baylibre.com>,
-	Mal Nadar <m.nirmaladevi@ltts.com>,
-	Esteban Blanc <eblanc@baylibre.com>,
+	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 5/8] regulator: tps6594-regulator: Bind IRQ resources to child platform device
-Date: Fri, 27 Nov 2026 18:35:45 +0000
-Message-ID: <20261127183624.3341010-6-lee@kernel.org>
+Subject: [PATCH 6/8] regulator: core: Respect is_locked when disabling supply on enable failure
+Date: Fri, 27 Nov 2026 18:35:46 +0000
+Message-ID: <20261127183624.3341010-7-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127183624.3341010-1-lee@kernel.org>
 References: <20261127183624.3341010-1-lee@kernel.org>
@@ -66,65 +63,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tps6594_regulator_probe() and tps6594_request_reg_irqs() allocate IRQ
-data and request threaded IRQs using devres attached to the parent MFD
-device tps->dev, while registering the regulators with &pdev->dev.  If
-probe fails partway through or the regulator platform device is unbound,
-the regulators are unregistered and freed while the threaded IRQs remain
-active with dangling rdev pointers and block subsequent probes.
+When set_machine_constraints() is called with is_locked set from
+regulator_resolve_supply(), it already holds regulator_lock_dependent()
+and uses _regulator_enable() to enable rdev->supply.  If
+_regulator_do_enable() then fails, however, the error path calls
+regulator_disable() unconditionally, re-entering
+regulator_lock_dependent() and inverting regulator_list_mutex against
+the held ww_mutex locks.
 
-Attach the devm_kmalloc_objs() allocations and devm_request_threaded_irq()
-handlers to &pdev->dev so LIFO devres teardown frees the IRQs before
-unregistering the regulators and freeing the IRQ data.
+Use _regulator_disable() when is_locked is true, matching the enable
+path above.
 
-Fixes: f17ccc5deb4d ("regulator: tps6594-regulator: Add driver for TI TPS6594 regulators")
-Closes: https://sashiko.dev/#/bug/linux-5557312d-1058-44ee-a8e4-cb48dab3566f
+Fixes: 8d38423d9dea ("regulator: core: don't fail regulator_register() with missing required supply")
+Closes: https://sashiko.dev/#/bug/linux-e745c649-52f1-4f96-966d-49c3f8addf7a
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/regulator/tps6594-regulator.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/regulator/core.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/regulator/tps6594-regulator.c b/drivers/regulator/tps6594-regulator.c
-index 66052753610f..dab4bd6b0282 100644
---- a/drivers/regulator/tps6594-regulator.c
-+++ b/drivers/regulator/tps6594-regulator.c
-@@ -549,7 +549,7 @@ static int tps6594_request_reg_irqs(struct platform_device *pdev,
- 		irq_data[*irq_idx].type = irq_type;
- 		irq_data[*irq_idx].rdev = rdev;
+diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
+index 18ec8b77e620..121b0b49b8df 100644
+--- a/drivers/regulator/core.c
++++ b/drivers/regulator/core.c
+@@ -1688,8 +1688,12 @@ static int set_machine_constraints(struct regulator_dev *rdev,
+ 		ret = _regulator_do_enable(rdev);
+ 		if (ret < 0 && ret != -EINVAL) {
+ 			rdev_err(rdev, "failed to enable: %pe\n", ERR_PTR(ret));
+-			if (supply_enabled)
+-				regulator_disable(rdev->supply);
++			if (supply_enabled) {
++				if (is_locked)
++					_regulator_disable(rdev->supply);
++				else
++					regulator_disable(rdev->supply);
++			}
+ 			return ret;
+ 		}
  
--		error = devm_request_threaded_irq(tps->dev, irq, NULL,
-+		error = devm_request_threaded_irq(&pdev->dev, irq, NULL,
- 						  tps6594_regulator_irq_handler, IRQF_ONESHOT,
- 						  irq_type->irq_name, &irq_data[*irq_idx]);
- 		if (error) {
-@@ -738,7 +738,7 @@ static int tps6594_regulator_probe(struct platform_device *pdev)
- 
- 	reg_irq_nb = desc->num_irq_types * (desc->num_buck_regs + desc->num_ldo_regs);
- 
--	irq_data = devm_kmalloc_objs(tps->dev,
-+	irq_data = devm_kmalloc_objs(&pdev->dev,
- 				     struct tps6594_regulator_irq_data,
- 				     reg_irq_nb);
- 	if (!irq_data)
-@@ -828,7 +828,7 @@ static int tps6594_regulator_probe(struct platform_device *pdev)
- 			return error;
- 	}
- 
--	irq_ext_reg_data = devm_kmalloc_objs(tps->dev,
-+	irq_ext_reg_data = devm_kmalloc_objs(&pdev->dev,
- 					     struct tps6594_ext_regulator_irq_data,
- 					     desc->num_ext_irqs);
- 	if (!irq_ext_reg_data)
-@@ -843,7 +843,7 @@ static int tps6594_regulator_probe(struct platform_device *pdev)
- 		irq_ext_reg_data[i].dev = tps->dev;
- 		irq_ext_reg_data[i].type = irq_type;
- 
--		error = devm_request_threaded_irq(tps->dev, irq, NULL,
-+		error = devm_request_threaded_irq(&pdev->dev, irq, NULL,
- 						  tps6594_ext_regulator_irq_handler,
- 						  IRQF_ONESHOT,
- 						  irq_type->irq_name,
 -- 
 2.56.1.839.g22a8290db9-goog
 
