@@ -1,99 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.202
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795762687;
-	b=OdSaKKXUiGqVRz8O9UuJ0JflSpsXqkggjqyJ9njjj98UehcTW+hoD3+Ld4brbocqNPkT
-	 NOTbXpaKfWgoqjsbTEy8UPyhYO88GXHpHye9N7YIkUnMVWuWetyh0sYNMyalJhh2nZOA+
-	 q9qAGiRgj2zvY0NVK05UTxyNrv1TQmuP5MtJRSmywst8mqbKp6at1aUmBtSLE88rFrzcv
-	 KD6wTdUoPglH0oOJ8/xPef2n9S3mi+AKDJtJhO0M6QFftSUWYwJkTiGzFric6A8gYYXxm
-	 yrnkz3ZAtifkn0kq+R4EkAvzZMMm+5Z5NPvt6uBZVaUHFj36AXJ4W+9xiIjjuub9f2A==
+	t=1795762698;
+	b=atXpMji5rYo9pwIyplIdKjKJCD9TQvx51mCjJ81MEPt3P0kiQNiA/Aesp7wRztv+7AYW
+	 idFSdLTz2s1MaZyxw1os9B5jKbKiISWy0jTUcTwOXEPhLYdznT29/kWa7WMj3c33fNmzt
+	 RDkn17KQOBFfP/Wza/VFBSS54eTbxovdwKhI0kPM4UTcomow714+5DFJTs3KfDFRl8XoI
+	 0neSuAxy7370JfPEe2KpdraWLHFn0CepwAgHuckKcCoKM7Ryt5QYFD95QByCx43tlvATL
+	 eyNZeKI6m9Z3tIRlHzIJPdtgh0EFqDBOt1GV/EvEaeWYv136yEGKaRtqX2j+JCuOs9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795762687;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=rw/R6ybt1QcdjNXidw02ubcIKo06kOfp72MwTKAEG3k=;
-	b=PeNjRcgRsaAhqcrq/dzOcHXNmMsZoCClvZ2lQ18NjukwUrr2Wj2vCanfts5b0Peh6p9U
-	 0POVaSFgpvM65XnVhg9ZWAPa/jdnb4+skbG9baU3PdRz40pFEhGzuYyKmcM7GLki2zj1E
-	 Mvmsi6Givj0DI2aWOll6mWpLwjTUcDTT2RrOMabX/15en/Ep5QxIWLpGBdp0JKBI5yjZ0
-	 sw1tSrbjXYpDuGKHqTsqnIL50LubkoYpwcMSpLXo+Bqw1Cp4dA5s3+uRSSf1o94IV1z7H
-	 Knq56qmHaqNsIDDcPDJtrXjZ6idqtyieGIAp9/GmEm7zInVLEitaLMful2CTE1ZyNww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795762698;
+	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-ID:X-B4-Tracking:
+	 X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=0YHH0z5wEvyXaDp5uYl1UGhjHY32xNYTV/Ur4hUBJF4=;
+	b=Yh8EZyR9ErOpulkT3Q0V+pFz9sfiMfeQDSPBRcRew3m4LZy8QXH9++6a7r29qB6Gm6ok
+	 oPT/0jecDR7d0MXQNAX4Ht4zIc4pOQ7dJ35TLPeAgNOAZ3Wtnkh55V5KA5mifns/nfeV+
+	 u6pMcA5YsqLcCrP8lWzRMRhNp9hY+1uwWa7LDBBNBvAtEPuyIrIOVAdvofFpIAgJAHweJ
+	 7cw/7dqiIfFrRAqbes6DHxeMK/5G2IXGA6or4KMUcHazASez7N47xASGNN/il6DL9szig
+	 qMgwj0O6r7RnBeDdIE7MInQBbAr8MaJIkiiqJmy7MhU725S/6XlM/r7wF6fUgPxeuCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=COZN6MOj;
-	arc=none smtp.remote-ip=74.125.227.202
-Received: from mail-pi2-f10.google.com (mail-pi2-f10.google.com [74.125.227.202])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=aspeedtech.com;
+	spf=pass smtp.mailfrom=aspeedtech.com;
+	arc=none smtp.remote-ip=211.20.114.72
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8205606A327
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 06:58:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8205606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=COZN6MOj
-Received: by mail-pi2-f10.google.com with SMTP id 41be03b00d2f7-cdac0ac5f19so3800697a12.1
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 22:58:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795762686; x=1796367486; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rw/R6ybt1QcdjNXidw02ubcIKo06kOfp72MwTKAEG3k=;
-        b=COZN6MOjsPcFVoEeaiGgsF+/e6tTcTZQS9iRwunz8SIJCHdPJcBNTnk5TjH4KXx7DW
-         w2SRIJzKtvud7uFtk7g5lKf2J8CIo7oPBvqwPyCrMMpHIJ9uhv4momkzYxzNwz7MRyYT
-         XBqPOLxFU6An8CjL1rcCift2PtL4/F5xHSZs0wlA+WCFb/6BE42czIGVK6Zwmmoe7RoN
-         SOaqabns2twyFyOdfjukt0TRzn1syR8rxe5ftrwweUoLbZpk0I3M+jQ2fDvnosfEIIb5
-         pWdw0X3vITHsA2RM+PL2X4YTY1PrZT210gySkcP1W4Lx5DNEVpdcclcIbaKKZN8FpC6d
-         Cqow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795762686; x=1796367486;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rw/R6ybt1QcdjNXidw02ubcIKo06kOfp72MwTKAEG3k=;
-        b=1lvYTHeIrOyF+5A8gp/4+6CJqK/9xLCFXZGqtFBTzY2oAqh8MG2jeWKQlvUYlGxBC1
-         LTKoGSwnWU7IiM5UzwKBHdh8wUBjVoGEx3vUDUR8YugQTK22ANGg02rpCWRvxnt8Q7uV
-         ZR/T9BJc3cEnmBaPtTEoC8r4F0CMdllM32JCT08Md9wQ0Rpu93TC9CTCXeTAHWyX7HD/
-         TRjRLWU8E3XZe2BVr+2KRvmrbPJ/dSAq4RerjhxuO2gx6gE5ZH9RZKbmQJ7x1Y2+bA+5
-         5xel7ge93YOY/c1QgFmVf1ihHUcbOheO8vvdjjy/viTnWVAXJJTxIdZuVdFaL3E1oSJv
-         cHZA==
-X-Forwarded-Encrypted: i=1; AL+hErGrMCKrx/DxZ1ZNrTPFeOIcOaqWoEJqSvDBIO4e6eAJ4X0iltLzq1JW/KzMdtksqAG10xVmrVQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/TRNm5ukKIB3q72ee497h0R+qiXf/YFwutsNqJv/nbUkLY52ov
-	elHlb8xfBsS19gcPiFBcSngewmMhk3T773GeLSSFEI4z7L6SonzLewZk
-X-Gm-Gg: AZFdTZd6EgYsIXMg8dL/R9IJP2WklfXJsKNdtu0ARIPIaUm9Vb56uwLlqmv4dpa606V
-	nBgRoX++KyD+oiuCS4lPEqCexiAre9qzUYk4kS3KXWkFvIks2bKKelnOyWwQNBuTOmUxsqw0TrK
-	ODfp8W2HJ7eKnaMdF3CYAIfoY72+Jka89uFMVzQDqxHnPt/4Kzoz7ARzA7vJtT/mLxqwVz1+iqn
-	sf0MfntsBVIURG7S7R/EY2TMevCeTrcKCZA8KEPlVY86l41uRwDCF+G+CH4JpBULmOiRIdabslv
-	WwsaZeiWO8XUx7OyhhVZUQho7OEegXG0qex6qpOBDYj2evuqK7qE5cPoH0IWvXQxK+UnOJf/mp6
-	DumqtsGt1EeOdy5ixZMjrpJbxV4/L5hIWJBTG15LxsFWf/81y+iYM/ECLyTbJcks2RblZkywsdp
-	Y5pknfrY/tDpE6i4es30iKb8A2P/qEul2Q1f3w2WT8VvKOdaJyDsIrdL07SBfvBcKeWUNStj4Ov
-	zI3SAnh+AZj0q6Ys60Ax6WcYDpRN3vrkjUHC/ufkESUnmfdw+IpjhhUdfdTpZVq7dTnBmoptHuP
-	P7QH6xdmUzAMYTJAg/3HU2PKm0NNZWMP9rzROdNIXpBTCUmoUxFQHXG+G+hkV9qVt1Q/hOc/jLM
-	KXdON9CDWBpe2AaUM997uvg==
-X-Received: by 2002:a05:6a00:10d3:b0:89f:6989:cb9b with SMTP id d2e1a72fcca58-8c87bfa1ebemr20969839b3a.27.1795762686230;
-        Thu, 26 Nov 2026 22:58:06 -0800 (PST)
-Received: from BSDHENRYMA-PC1.localdomain ([43.132.141.11])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87285c228sm11839098b3a.10.2026.11.26.22.58.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 22:58:05 -0800 (PST)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Pedro Tammela <pctammela@mojatatu.com>
-Cc: netdev@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] net_sched: hfsc: clear el_node linkage in hfsc_reset_class()
-Date: Fri, 27 Nov 2026 14:57:56 +0800
-Message-ID: <20261127065756.2927925-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706FD606A31E;
+	Fri, 27 Nov 2026 06:58:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 706FD606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Fri, 27 Nov
+ 2026 14:58:16 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
+ Transport; Fri, 27 Nov 2026 14:58:16 +0800
+From: Billy Tsai <billy_tsai@aspeedtech.com>
+Date: Fri, 27 Nov 2026 14:58:15 +0800
+Subject: [PATCH v2] i3c: master: mark OF bus child nodes OF_POPULATED to
+ avoid legacy I2C rescan
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,49 +49,175 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261127-i3c-master-of-populated-v2-1-c52095d00218@aspeedtech.com>
+X-B4-Tracking: v=1; b=H4sIAAYqCWsC/4WNQQ6CMBBFr0Jm7Rg6CARX3sOwKO0gkwht2ko0h
+ LtbuYDL95L//gaRg3CEa7FB4FWiuCUDnQowk14ejGIzA5XUKEUtSmVw1jFxQDeid/711IktEo9
+ la2gY2ksFee0Dj/I+yvc+8yQxufA5jlb1s/+bq0KF1FnSja7rsjM3HT2zTWyms3Ez9Pu+fwFG/
+ VRgwwAAAA==
+X-Change-ID: 20261127-i3c-master-of-populated-2ef07c2bb743
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
+	<Frank.Li@nxp.com>, Peter Yin <peteryin.openbmc@gmail.com>
+CC: <linux-i3c@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, Billy Tsai <billy_tsai@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795762696; l=6039;
+ i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
+ bh=xY5ZfoNHCn0aTxv+yky7pXKjzC/vhosSIilqhNBKimc=;
+ b=2tKXCBdJQRK7HHXTH711lmTSeGEbyHLwF3LspHhh2+F5wlk8xzfkltR4bWR/mCNu5y4N7wfJp
+ oni3Jk9XurNCz+nEZCJCQ90ox5tggushBOCG/V3p2mpHqcO2UNbI0yk
+X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
+ pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
 
-hfsc_reset_qdisc() drops the eligible tree root, but hfsc_reset_class()
-never resets the linkage state of cl->el_node.  A class that sits in the
-eligible tree at reset time keeps a stale linked node while the tree is
-gone.  This breaks the invariant that the linkage state of el_node
-matches the membership, which hfsc_change_class() establishes for new
-classes.
+Commit f26ecaa0f0ab ("i3c: master: dw-i3c: Fix missing of_node for
+virtual I2C adapter") made the DesignWare I3C master's virtual legacy
+I2C adapter reuse the I3C bus platform device's of_node, so consumers
+can resolve the adapter by phandle. i2c_register_adapter() reacts to
+any adapter with a non-NULL of_node by unconditionally calling
+of_i2c_register_devices(), which walks every child of that node and
+requires a "compatible" property to build a modalias.
 
-Two consumers trip over the stale node.  cl_in_el_or_vttree() reads it
-as "class is in the tree", so hfsc_enqueue() never calls init_ed() for
-the class again and the class is starved permanently.  eltree_remove()
-later runs rb_erase() on the stale node against the reset root, which
-splices a stale sibling back into q->eligible.rb_node and revives a
-class the scheduler should have forgotten.
+The I3C core already owns and fully parses every child of the bus node
+via fwnode_populate_i3c_bus()/i3c_master_add_of_dev(), for both native
+I3C devices (no "compatible" needed per the i3c.yaml binding) and
+legacy-I2C-under-I3C devices (registered explicitly through
+master->boardinfo.i2c in i3c_master_i2c_adapter_init()). Since neither
+path marks the node OF_POPULATED, the generic of_i2c_register_devices()
+walk that now runs afterwards treats every child as unclaimed:
 
-Clear the linkage state where the rest of the scheduling state is
-reset.
+ - native I3C-only nodes have no "compatible", so of_i2c_get_board_info()
+   fails the modalias lookup and logs "of_i2c: modalias failure" /
+   "Failed to create I2C device" noise for a device that is already
+   correctly registered on the I3C bus.
 
-This issue was discovered by Tencent CodeBuddy Security.
+ - legacy-I2C nodes do have "compatible", so of_i2c_register_devices()
+   silently creates a duplicate i2c_client for the same address that
+   i3c_master_i2c_adapter_init() also registers from boardinfo.i2c.
 
+Mark each OF bus child OF_POPULATED once i3c_master_add_of_dev() has
+accounted for it. ACPI-described children are left untouched, since
+OF_POPULATED and of_i2c_register_devices() only apply to the
+devicetree case. fwnode_populate_i3c_bus() always runs before the I2C
+adapter is registered, so of_i2c_register_devices() sees the flag
+already set and skips these nodes entirely, without disturbing the
+of_node propagation from f26ecaa0f0ab.
+
+OF_POPULATED is a property of the device_node itself, which outlives
+this master's registration. fwnode_depopulate_i3c_bus() is the
+counterpart that clears the flag again, called from
+i3c_master_bus_cleanup() (shared by the registration error path and
+i3c_master_unregister()) and from fwnode_populate_i3c_bus()'s own
+error path. Without it, the nodes stay claimed after this master is
+unbound or fails to register, and a later re-probe or rebind finds
+them already marked and silently skips creating their devices.
+
+Fixes: f26ecaa0f0ab ("i3c: master: dw-i3c: Fix missing of_node for virtual I2C adapter")
 Cc: stable@vger.kernel.org
-Fixes: ac9fe7dd8e73 ("net_sched: hfsc: Address reentrant enqueue adding class to eltree twice")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
 ---
- net/sched/sch_hfsc.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Changes in v2:
+- Also clear OF_POPULATED again on teardown and on a mid-loop probe
+  failure (fwnode_depopulate_i3c_bus(), called from
+  i3c_master_bus_cleanup() and from fwnode_populate_i3c_bus()'s own
+  error path), so unregister/rebind and a failed probe do not leave OF
+  bus children permanently marked.
+- Link to v1: https://lore.kernel.org/r/20261127-i3c-master-of-populated-v1-1-29d2a6a5509c@aspeedtech.com
+---
+ drivers/i3c/master.c | 51 ++++++++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 44 insertions(+), 7 deletions(-)
 
-diff --git a/net/sched/sch_hfsc.c b/net/sched/sch_hfsc.c
-index 284490fd6ca91..e64df06429239 100644
---- a/net/sched/sch_hfsc.c
-+++ b/net/sched/sch_hfsc.c
-@@ -1491,6 +1491,10 @@ hfsc_reset_class(struct hfsc_class *cl)
+diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+index 01e05bad8661..e85307678fdc 100644
+--- a/drivers/i3c/master.c
++++ b/drivers/i3c/master.c
+@@ -2667,6 +2667,8 @@ static int i3c_master_bus_init(struct i3c_master_controller *master)
+ 	return ret;
+ }
  
- 	cl->vt_tree = RB_ROOT;
- 	cl->cf_tree = RB_ROOT;
-+	/* hfsc_reset_qdisc() drops the eligible tree root; the
-+	 * linkage state of el_node must match the membership.
-+	 */
-+	RB_CLEAR_NODE(&cl->el_node);
- 	qdisc_reset(cl->qdisc);
++static void fwnode_depopulate_i3c_bus(struct i3c_master_controller *master);
++
+ static void i3c_master_bus_cleanup(struct i3c_master_controller *master)
+ {
+ 	if (master->ops->bus_cleanup) {
+@@ -2681,6 +2683,7 @@ static void i3c_master_bus_cleanup(struct i3c_master_controller *master)
+ 		}
+ 	}
  
- 	if (cl->cl_flags & HFSC_RSC)
++	fwnode_depopulate_i3c_bus(master);
+ 	i3c_master_detach_free_devs(master);
+ }
+ 
+@@ -3353,15 +3356,29 @@ static int fwnode_populate_i3c_bus(struct i3c_master_controller *master)
+ 		return 0;
+ 
+ 	fwnode_for_each_available_child_node_scoped(fwnode, child) {
+-		if (is_of_node(child))
++		if (is_of_node(child)) {
+ 			ret = i3c_master_add_of_dev(master, child);
+-		else if (is_acpi_device_node(child))
+-			ret = i3c_master_add_acpi_dev(master, child);
+-		else
+-			continue;
++			if (ret) {
++				fwnode_depopulate_i3c_bus(master);
++				return ret;
++			}
+ 
+-		if (ret)
+-			return ret;
++			/*
++			 * Claim the node so that i2c_register_adapter(),
++			 * called later for the legacy I2C adapter sharing
++			 * this same of_node, does not also run
++			 * of_i2c_register_devices() on it: every child here
++			 * is already fully accounted for, whether it ends up
++			 * I3C or legacy-I2C boardinfo.
++			 */
++			of_node_set_flag(to_of_node(child), OF_POPULATED);
++		} else if (is_acpi_device_node(child)) {
++			ret = i3c_master_add_acpi_dev(master, child);
++			if (ret) {
++				fwnode_depopulate_i3c_bus(master);
++				return ret;
++			}
++		}
+ 	}
+ 
+ 	/*
+@@ -3378,6 +3395,26 @@ static int fwnode_populate_i3c_bus(struct i3c_master_controller *master)
+ 	return 0;
+ }
+ 
++/*
++ * Counterpart to fwnode_populate_i3c_bus(): drop the OF_POPULATED claim on
++ * every OF bus child so a later re-probe of this master, or the legacy I2C
++ * adapter's of_i2c_register_devices() walk on a different master sharing
++ * the same of_node, does not find these nodes permanently locked out.
++ * ACPI-described children were never marked, so they are skipped here too.
++ */
++static void fwnode_depopulate_i3c_bus(struct i3c_master_controller *master)
++{
++	struct fwnode_handle *fwnode = dev_fwnode(&master->dev);
++
++	if (!fwnode)
++		return;
++
++	fwnode_for_each_available_child_node_scoped(fwnode, child) {
++		if (is_of_node(child))
++			of_node_clear_flag(to_of_node(child), OF_POPULATED);
++	}
++}
++
+ static int i3c_master_i2c_adapter_xfer(struct i2c_adapter *adap,
+ 				       struct i2c_msg *xfers, int nxfers)
+ {
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261127-i3c-master-of-populated-2ef07c2bb743
+
+Best regards,
 -- 
-2.39.5
+Billy Tsai <billy_tsai@aspeedtech.com>
 
