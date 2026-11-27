@@ -1,54 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795777004;
-	b=gJ0gy6lZHiaEWwRZkO7iNm9n0P3uL8KMqXgKKBZ62tPVTVg5AwbzkZ2HHvJ1kwyOiU2T
-	 pkLNF5JDuhjugoemXoreACwhgdvaHSIiIRjXLOix/CnyKaMzZhM8Hr6gu3DH3lPragIWZ
-	 Kly2NuzdAzhjj7Dws3NHQcia0MOR5WeqE9Mk+35+vGPI7QrxE0XgI3nO4hK+EiIJBZUl0
-	 Fn5orVxmrOeJf/2gcvOH79m132aA5NDhF3MyZXVaaJG7a+tqPAbrzNwegvRqtKHpOZSpm
-	 N7p4ZwuoxZ9NrwBNaEZBzIcTkBSTCmG2stcoDIcQL4Tc8jidJPelHGeF1MKamL/LkwQ==
+	t=1795777499;
+	b=HKW0NYIkyOeM81tGhdhF2RjpPHbXx5Mdyg/HHt0DTgxtKZFfqESuUcHKTlDYdp6tAoUW
+	 MKIhFUW3VlpAT42TXFXMVHM5AROnuS9aJK71uVHicUGVFLWtvEg0gO3cEAMKXqDTpdLFl
+	 C77XhDWtfacIccergyM/zDdBUTdr+jkxCyS4dAvdt63r7e2EUZyUc/I1qEjylVDDCoIJl
+	 9nHX+NHKjyE0Wh2PC22xGx8f/p2jYxz121PDTm7yIObxMIqvIkgx83ZL5MyZchzbptKMh
+	 KEDUpW/HKnD9ocRh8snZTRgtVJt844uUemBzOCHhunMq/qe0Wdw2NNn4NVPgwraL0eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795777004;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ixpJ8FVsaUtzbYGvKZMv3iePyio0tQ1UpoRhwVro58s=;
-	b=I3cbhl2IIleW68M6KqPUcifeXFrfAsBQQ+udM63toZLd+y+otcGpjoQn7cp8iJMCfoJp
-	 XwBwLp4jgO6k55ayzNYHROcFm6EbV536t+DOd7MwlbEjaKBEvSp2UA+W9wJIj+P9ivbGO
-	 oiqk74gu77Pmdq+D1PKt59jwbAbwB9TNCgYGj7kFjtXw5lMuHFXf6gHMFaVEik2g9/90q
-	 j7amZid6ep1VZWN6OpuEyR4mGoMcYrtPMkgriYff/6rUgpzWAZjpPfeb0zIxpsDBZtkYH
-	 jE4WmE/qFCS6M7b1aLc3I027e6yLe3nrMRr0bLoOLqN7lBDw4JiWLP4HVbUIgL0AHtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795777499;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=ER8jZocxPLPmILHQgyoN9JTV0B3dXhV6CyXeBPGIICQ=;
+	b=bFGs4YWuRMcJIMRYw26C9HhUeStGAqG4ftrpjeVbpmARO4f0xVoBOWB7rkHRDjFHqwN/
+	 GjfU/JiIgEXeODor/RACmwtwu11tdXmxTHFZ01mantzgmHaRe4mAqpTltlBso1AZfr4O/
+	 VE/X3Ze2HX4GnO6VOWUtVpwpjt2n5NzZTkuFF64i90RQMle2WrFMFfFUbusxAxBpyQEMc
+	 kB3/WO0VIc6oT/EzsdsYmqIoDOiZSU4bsCNxlvvRgQxbwtPPXuDeNS08490XrdiMhHPA4
+	 ZwuxHlC32FJjbMD8K9EdTS1Rj7FjnMOqILHCedQYdeGgeuP1+17I/OIWMqJvD2yj7qA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dV7E1/xo";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=w1wiWbX3;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04C11606A327;
-	Fri, 27 Nov 2026 10:56:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1680606A321;
+	Fri, 27 Nov 2026 11:04:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1680606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dV7E1/xo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC6BB1F00898;
-	Fri, 27 Nov 2026 10:56:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795777003;
-	bh=ixpJ8FVsaUtzbYGvKZMv3iePyio0tQ1UpoRhwVro58s=;
-	h=From:To:Cc:Subject:Date;
-	b=dV7E1/xohDKd6dZZp3jQtSYpClT4BgLczWrsqp2uTk90zW4T9rl7RjRRbdBWS3dbb
-	 foptU5l3/U2XrmTRXAM2VWlN8LLDFQGfBkRxzlZ1RthW2PGE8oWXXhtQaFJ8LeSBuq
-	 wiq89m6iKeoql26dWs8Kz+CxfWTCCGHMMf9tHfbsFp4/zhaVVTxAufKEE2x8po9MyJ
-	 AxhYnLOsZFDVFHCpnkLdMm+kg39NWhUGtA1/lsuZ4YFhvjSjHtcHEs+1nKQ2ptpRbN
-	 x6Y+uBqBpt/ux2Vvj9tGAWBhVT9xPG0wQBuj1PfCotveI2I/FY39Gt5cvYrCKSMzFL
-	 QzZlE60psmvAw==
-From: Chao Yu <chao@kernel.org>
-To: jaegeuk@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Chao Yu <chao@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/3] f2fs: fix to account entry_cnt for all write bios
-Date: Fri, 27 Nov 2026 10:56:41 +0000
-Message-ID: <20261127105640.537608-4-chao@kernel.org>
-X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=w1wiWbX3
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 5B4514E417C1;
+	Fri, 27 Nov 2026 11:04:57 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 285C46049C;
+	Fri, 27 Nov 2026 11:04:57 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D76CF11E69318;
+	Fri, 27 Nov 2026 12:04:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795777496; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=ER8jZocxPLPmILHQgyoN9JTV0B3dXhV6CyXeBPGIICQ=;
+	b=w1wiWbX32tVw8kVzORE+NyhFnc9+sPl6VK1ZAnUJAAVJsuHcZthfxIjEhb3bmLTh7FDam7
+	RKcH5N/wVN1JAYOLPPohourLcH4EfACdnOG7OOMnup35NtnCxME9ijH4UXATFCZw5izwXD
+	kLmzg6TpvIEHE1UgsPQIHhEEgPnEpPb88MIYWDkAJBbSIHrW6+yZwIEpUO6SRl/irvOUu1
+	K/7KqrW5/2MY1ZCimY77RBPExVh1crhKIKTr58OGqMByHz/fP3WXwzSTzzOlRQ+luESnbL
+	sg5i/qp3WWL6pM2NynT0bW16jBs8cNjuONX3QlzVDJnfmlTHi/3iLtWEOrHhvg==
+Message-ID: <67f6aa99-c625-437a-bae8-ea7a1637afe1@bootlin.com>
+Date: Fri, 27 Nov 2026 12:04:53 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,77 +62,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] i2c: cgbc: Fetch the status of a write transfer
+To: "Haberlander, Markus" <Markus.Haberlander@rosenberger.com>,
+ Andi Shyti <andi.shyti@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, "mfd@lists.linux.dev" <mfd@lists.linux.dev>,
+ "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <20261123-cgbc-i2c-write-status-v1-1-5b0fa0322b57@rosenberger.com>
+ <179568834099.302193.16315749597111506309.b4-review@b4>
+ <awgwO98qx3zX4MaY@zenone.zhora.eu>
+ <b0d32861-c123-4f4f-8bac-aa0e7e48c719@bootlin.com>
+ <FR4P281MB4840894892BD79C05D844CEC84412@FR4P281MB4840.DEUP281.PROD.OUTLOOK.COM>
+Content-Language: en-US
+From: Thomas Richard <thomas.richard@bootlin.com>
+In-Reply-To: <FR4P281MB4840894892BD79C05D844CEC84412@FR4P281MB4840.DEUP281.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Chao Yu <chao@kernel.org>
+On 11/27/26 10:20 AM, Haberlander, Markus wrote:
+> Hi Thomas, Andi,
+> 
+> On 11/26/26 9:18 PM, Thomas Richard wrote:
+>> If I'm not mistaken, USEC_PER_SEC is only used if master_xfer returns
+>> -EGAIN (arbitration loss), else __i2c_transfer() directly returns so no
+>> 1s timeout. And we never return -EAGAIN.
+>>
+>> So why should we wait 1s?
+> 
+> Thanks for looking into this! I think Andi means the one-second loop in
+> cgbc_i2c_xfer(). Before my patch, when the controller was still busy
+> with a write, the next call returned -EBUSY and that loop simply tried
+> again, for up to a second.
+> 
+> My patch now waits only 2 * read_maxtime_us for a write to finish. That
+> is enough for the transfer itself. But if a device stretches the clock,
+> the controller might stay busy for longer, and the write would fail
+> where it used to succeed. That's why USEC_PER_SEC sounds like the safer
+> choice to me. I'm happy with either, though - you know this hardware
+> much better than I do.
 
-Commit f32744a8b83d ("f2fs: introduce max_atc_write_bio_entry_cnt")
-tracks the number of entries queued to a write bio via entry_cnt, so
-that f2fs_write_end_io() can offload the completion of a write bio with
-too many entries to sbi->wq if it is called in atomic context.
+Ah yes clock stretching, makes sense. So it is also valid for read
+operation. So we could drop read_maxtime_us. But it's an other story, I
+want my series to be merged, I'll send a patch later.
 
-However, entry_cnt is only increased in f2fs_submit_page_write() and
-f2fs_submit_cache_write(), it misses below write paths:
-- f2fs_submit_page_bio(): single folio write bio.
-- add_bio_entry(): the first folio of an IPU write bio.
-- add_ipu_page(): folios merged into an IPU write bio.
+Markus I'll add your patch in my series, and make the USEC_PER_SEC
+modification. Thanks for your contribution.
 
-So entry_cnt of these bios is less than the actual number of folios,
-and a merged IPU write bio, which may contain up to BIO_MAX_VECS folios,
-will never be offloaded to sbi->wq, then it may be completed in atomic
-context with high latency. Let's fix to account entry_cnt in all above
-paths.
+Best Regards,
+Thomas Richard
 
-Cc: stable@vger.kernel.org
-Fixes: f32744a8b83d ("f2fs: introduce max_atc_write_bio_entry_cnt")
-Signed-off-by: Chao Yu <chao@kernel.org>
----
-v2:
-- rebase to the latest dev-test branch, which supports subpage block,
-  no logic change.
 
- fs/f2fs/data.c | 5 +++++
- 1 file changed, 5 insertions(+)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index cdc9e6e8633c..6be0cadc511e 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -959,6 +959,9 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
- 			fio_lblk, fio, GFP_NOIO);
- 	bio_add_folio_nofail(bio, data_folio, bio_len, bio_offset);
- 
-+	if (!is_read_io(fio->op))
-+		F2FS_BIO(bio)->entry_cnt++;
-+
- 	if (fio->io_wbc && !is_read_io(fio->op))
- 		wbc_account_cgroup_owner(fio->io_wbc, fio_folio, bio_len);
- 
-@@ -1030,6 +1033,7 @@ static void add_bio_entry(struct f2fs_sb_info *sbi, struct bio *bio,
- 	bio_get(bio);
- 
- 	bio_add_folio_nofail(bio, folio, len, offset);
-+	F2FS_BIO(bio)->entry_cnt++;
- 
- 	f2fs_down_write(&io->bio_list_lock);
- 	list_add_tail(&be->list, &io->bio_list);
-@@ -1077,6 +1081,7 @@ static int add_ipu_page(struct f2fs_io_info *fio, struct bio **bio,
- 					fio_folio->mapping->host,
- 					fio_lblk, fio) &&
- 			    bio_add_folio(*bio, folio, bio_len, bio_offset)) {
-+				F2FS_BIO(*bio)->entry_cnt++;
- 				ret = 0;
- 				break;
- 			}
 
-base-commit: 9ad6c58bfbe5882b1aa0cbe2393dbfca89d2c199
-prerequisite-patch-id: 23bb28339e4f35a111279d46493ac1e04fc66d58
-prerequisite-patch-id: aaf2ca8ae4a7422c58daa02714ad9a5b4578bccc
-prerequisite-patch-id: 207a76a8bede95d1b0ec30dc2323963da5f6ff3f
-prerequisite-patch-id: baa9eb03ece0f1f0155a2226b99946327ceb3e33
-prerequisite-patch-id: 1eca125a4d02fba284eaad33e37de978ec89a7d0
-prerequisite-patch-id: b4566514d95142b9291270f2b64205f69c9b6edc
-prerequisite-patch-id: b8f7552919f622aedea1b119674eec9cc93d8671
--- 
-2.49.0
 
