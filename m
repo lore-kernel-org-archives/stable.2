@@ -1,61 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795810293;
-	b=c3yNyakAdPobUN8vBdXKBttWEj4H6ZWQEzYhBoP1N365SObuxcmeT0INi5h0QVc2U2xg
-	 MpK7Or1aKpC/QeBDwfo8egEBRWhyHxM226GZ3CJnY/HCTpKEWOnlvnLbIjlwdM4kpTVCC
-	 OGfsCEiy+Bpf4ETtUYTBtEXux0Zdh+0y3LKVd+rCdNQeKRtYSCge06Kv4uUQVTGRFBnxS
-	 uP1Eb9mKz7OEoxszt7DeRIRRc/crDz5UM6HgBoj8CMMSsDhJvESQ23QGTkSkHKWwk/bAr
-	 GApGOrNBqDwrJNSnLO+jcMU94EF86Ohiw9W+ai85uZjyzAzYigGuHlgvUO5urleqn/A==
+	t=1795810300;
+	b=iXozx/2a4iAZIYd4PIlZlo0PHD412hAP46KIEEE+OLiT4zsj5ksSjsEToUQmiHsO0aaS
+	 4L4zpJl8Sj1j7P1t/2a3uNYTUuwgxneJe2iD4+5u7YqNmnR7mwVUGiIvv6hvSaRNqy/zF
+	 XgSSRHVcefnEfsJHUwQnTHqJFEFNdNi76q/frX3DCdPnDI9uUGzy/HpPeEl1OORk4JEvv
+	 8QcY0gtqZ7pG2OAnM7MtGA3KUsHG06FdPUEE26Lsx4zLjXQ5qivQyGbmuS362dZA/u3Fs
+	 5FIECeY+1LxCQEzNj12FCww5xRNogEoAurYT3gjlI3OjOhWM1AJR8nsIQ1ehmmANSzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795810293;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795810300;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Wb5sLgyTJ9ciByxdIv0xU7QJ6xtgseRf/O5NmmuNpEI=;
-	b=0PfuJcCbG2FXsyxpz3jyTLTZFluR1PQA1IRjuuzUfATlPhk009MvJkitafjTux0pOEyL
-	 Ddu9Lykxw0tkemSgiAu5Pd8qXag7jeewlptin5sXl3botedNdSvuFNmqMGtkGg+/MUi9W
-	 yhEqUiupOPKOHzxSHwlFd9WVypcT04PRfwbKLPur8DWNe2GeLMwbWdCZgimQoucfP7btI
-	 3RsVSwsrFK505NKuEjy3Ww5oXUVQRvCTT2BXbrzcOZiBcoNpHmMhBSGN+biWkFkLEsf+Y
-	 cwGiMDLVu5oQyzTXSJS95Vet9zyJcRcG39PnO4JUppmmR00SDsfXqHs1n7+JCSba1WA==
+	bh=6i3qlWtr8ju8uMonL9duKT6B53tyoPmH9qmKQuiPpdw=;
+	b=kMNWkB7dEiF3vhkpJ80IifbHDR/bLz479xiFpQ4M4DyHKtC7wCYki64XVfjQGnmUiaqW
+	 xzT15iz6Qeil0wcwCnxCJdJcPuT9luxWqBYLkZmC8OL32QME+TP+B1/RrxPiXIVZIAEvD
+	 azWUJfsLN0CkFDP4zPA5cjDXZcQTGvDIwJhVw0v1LqRHaxiUXii2yNazkN1SCPkYlPdDx
+	 bxEEs+XtpEbyOp+C6DNeWqsabNRz4AcYTY5uhhgqT5ciisTZmDZqb2/yu1yrSKnQ229zk
+	 1R9cLZr7U1X6VGa55tx/89SMat+HEsf1YVPi9Ix2NMyuT6cCTjwbDT+gQeavmwleX2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABzQGIpr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KVU7asea;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6C6606A31C;
-	Fri, 27 Nov 2026 20:11:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FADE606A33A;
+	Fri, 27 Nov 2026 20:11:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABzQGIpr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FE381F00899;
-	Fri, 27 Nov 2026 20:11:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KVU7asea
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A4081F00893;
+	Fri, 27 Nov 2026 20:11:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795810293;
-	bh=Wb5sLgyTJ9ciByxdIv0xU7QJ6xtgseRf/O5NmmuNpEI=;
+	s=k20260515; t=1795810299;
+	bh=6i3qlWtr8ju8uMonL9duKT6B53tyoPmH9qmKQuiPpdw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ABzQGIprL1UtFlBfzIhPYycookg6YVp9jM53YfxK6OdpGVYSO0CcYRMK9aW5ETyW/
-	 u9p6r+pcwrj43udHBImlUVoVUZlyeuBPZvmKl9PTUGqoMPYUa+z5FKAjpEwDZUAXhQ
-	 PzFgJDiR1tI08BIJlX/4BMb9PuYDuct5TMjHx24oE1AmO6dwMYmCprh+38Nw9Alejc
-	 9jDvv9n1va57awVo4reFUQgHAdTge0qQWcbSDrL+VOk2tU+1TCfpLtsLgGl/q14s7n
-	 RRjmT1p/+i/SEtmTI9eIW7YVm1qqz8OngRRed4kdb5tBEJUiUoi9iUPzpZ32XL9BAE
-	 SYrVJ+UCief+w==
+	b=KVU7asea4oI6mTwJM5m8ug00A4yrB0YvJ+Dxu3sy9jHmJJ0feqkRwlhzghaxY2X48
+	 k9nxSgQ/WjbY/cKom+BgDDFGEz0lM5GRx4pWJ4EMnVQRq98kKxrIkgMZ+tnfPYfynn
+	 RLuqCy7pXIYlnd1pqni3VLpAfJtGs+yuG4GYIWghd6cxzfHERUlBPQ6nMDeNShnmH9
+	 XvjBMnM7xKMPDqb4tTqO04/Pcj2qJUBS1vb5+PGBtSDMwmAe0EBRN8Bwds/28yeL8g
+	 LVHy1vVz/Axv3LvLQAHUQwphXOp01Au9+VBovQuKqZeVf6k6pn6+5dpEm9T4wfLUAQ
+	 2svdNTUEclABw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	David Heidelberg <david@ixit.cz>,
-	Andi Shyti <andi@etezian.org>,
-	Rob Herring <robh@kernel.org>,
-	Javier Martinez Canillas <javier@osg.samsung.com>,
+	Anthony Liguori <aliguori@us.ibm.com>,
+	Markus Armbruster <armbru@redhat.com>,
+	Juergen Gross <jgross@suse.com>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
 	linux-input@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 05/10] Input: stmfts - fix i2c_smbus_read_i2c_block_data() check in status sysfs
-Date: Fri, 27 Nov 2026 20:09:59 +0000
-Message-ID: <20261127201050.3532488-6-lee@kernel.org>
+Subject: [PATCH 06/10] Input: xen-kbdfront - check info->ptr and info->kbd before dereferencing
+Date: Fri, 27 Nov 2026 20:10:00 +0000
+Message-ID: <20261127201050.3532488-7-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127201050.3532488-1-lee@kernel.org>
 References: <20261127201050.3532488-1-lee@kernel.org>
@@ -70,41 +66,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-i2c_smbus_read_i2c_block_data() returns the positive byte count on
-success or a negative error code on failure.  stmfts_sysfs_read_status()
-checks if (err) and returns err directly, so a normal 4-byte read
-returns 4 without formatting buf (exposing unpopulated sysfs buffer
-bytes), while a 0-byte read formats uninitialised stack memory.
+When XenStore disables either the pointer or keyboard device,
+xenkbd_probe() leaves info->ptr or info->kbd as NULL.
+xenkbd_handle_key_event() dereferences info->ptr->keybit and
+info->kbd->keybit before checking whether those pointers are valid,
+causing a NULL pointer dereference in interrupt context on key events.
 
-Return negative errors immediately and require sizeof(status) bytes to
-be read, matching stmfts_read_system_info().
+Check info->ptr and info->kbd before testing their keybit masks and
+remove the unreachable NULL check below.
 
-Fixes: 78bcac7b2ae1 ("Input: add support for the STMicroelectronics FingerTip touchscreen")
-Closes: https://sashiko.dev/#/bug/linux-bd87edf0-6f79-4318-8780-d69205787e7d
+Fixes: 3ef8a2eeb6dc ("Input: xen-kbdfront - allow better run-time configuration")
+Closes: https://sashiko.dev/#/bug/linux-9e0f9c2c-45ab-4045-80b4-47629154e917
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/input/touchscreen/stmfts.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/input/misc/xen-kbdfront.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
-index 2054c2254947..aada03f96940 100644
---- a/drivers/input/touchscreen/stmfts.c
-+++ b/drivers/input/touchscreen/stmfts.c
-@@ -699,9 +699,12 @@ static ssize_t stmfts_sysfs_read_status(struct device *dev,
+diff --git a/drivers/input/misc/xen-kbdfront.c b/drivers/input/misc/xen-kbdfront.c
+index 6471d836f6fe..4e0bd4480f83 100644
+--- a/drivers/input/misc/xen-kbdfront.c
++++ b/drivers/input/misc/xen-kbdfront.c
+@@ -92,9 +92,9 @@ static void xenkbd_handle_key_event(struct xenkbd_info *info,
+ 	struct input_dev *dev;
+ 	int value = key->pressed;
  
- 	err = i2c_smbus_read_i2c_block_data(sdata->client, STMFTS_READ_STATUS,
- 					    sizeof(status), status);
--	if (err)
-+	if (err < 0)
- 		return err;
+-	if (test_bit(key->keycode, info->ptr->keybit)) {
++	if (info->ptr && test_bit(key->keycode, info->ptr->keybit)) {
+ 		dev = info->ptr;
+-	} else if (test_bit(key->keycode, info->kbd->keybit)) {
++	} else if (info->kbd && test_bit(key->keycode, info->kbd->keybit)) {
+ 		dev = info->kbd;
+ 		if (key->pressed && test_bit(key->keycode, info->kbd->key))
+ 			value = 2; /* Mark as autorepeat */
+@@ -103,9 +103,6 @@ static void xenkbd_handle_key_event(struct xenkbd_info *info,
+ 		return;
+ 	}
  
-+	if (err != sizeof(status))
-+		return -EIO;
-+
- 	return sysfs_emit(buf, "%#02x\n", status[0]);
+-	if (unlikely(!dev))
+-		return;
+-
+ 	input_event(dev, EV_KEY, key->keycode, value);
+ 	input_sync(dev);
  }
- 
 -- 
 2.56.1.839.g22a8290db9-goog
 
