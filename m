@@ -1,58 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.82.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795797639;
-	b=JtO/nxJ1xvZdigjq3cwwRTxHUeDUq6ETEYFIKj2rSicSkhimuyWyFDed88PrIYY8xUF0
-	 l7bktcxygLKXeozZN/Fk9u+zbSdKZPgZ1Bj29UzdnCB84tTXItjf9vtsd5xKZs63XleMN
-	 lWFmt3Bqxr9wl97745o43LfxDb8op49DZJJR3Qfek3qUMys2OV324Sb3kxTN5TcgPLcY8
-	 Nh4WV76yGK6IbZRSSbUm7eTNnMYmHTJm8BTUa1XM4Ol6fdxDHEqWEyfCks8DzE5ofWrcE
-	 zLWjwA2Ix8c0ytQaZ1UtEvQvVHjKzS9mGJhst2EU4xbxlSk0xfyrTD77fZyeYR27MNA==
+	t=1795797650;
+	b=ShqN2ERC+GJ0bPp9YLerBnfCcBxz9mtFLnYj/7rQppkqp4w6FgisQvADc1oS2yTMeqm0
+	 bNe8fQd2rucPxfgTpqMh3fQ8UsmnvjMooHUDEY5K0r33w98ym7OPx0eZXgiNYglJ8gqSM
+	 XAME1cQXdB/jvSZ9jIeRXRVGZ1Uw/KYHZHEMsDl8xNM2Iu6mpVBNH4byiLmnUoCflPvXr
+	 D/WFfxb3xVIoBPqysKYaMTfOyXRoTfGBAhqNPNha8K+Tkgt0vz9dLHKxBkvtpvzFL2hhB
+	 VEknQOtptX/QpL2R5/YN1hD3rnikiGBfnWqwynVoNKV2YLSL8lcU4DhoAgzLUhMQ4kQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795797639;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=TVFvA1dgSL+XD2JMzZVnBxKBpaFEsJ9tuGw9vzqbiyc=;
-	b=sYDtMKWZ31Q7ylO3oe9pLzjWUiWzBorCFhmpCfeTQE+AoKZxbXryphbWgn+qEWkPHPEA
-	 9YJDHzi3sETDQLxGPlMbHxICKqLLDHF/9qkHuJBfznCGSyvJNpRmmz9TTYm9ahpSTR8M1
-	 fAXlTz45OP58T4f2w2k+BFj0RMzhhwDJpOv+OBW22o++kX5YKG0b2/M//jlnM12vr7CdF
-	 07X4i48vl9Ggn+/GS56g6QSfsKJWw29fdmBi2thjKxT7FrHwm3GagoHK9qPcgKb10p0sK
-	 fSvjowuVVzYvQeHak2SSF4keddGfV1vAhisEAQ7zGIsUzc6s7HQ4hLtO1Lp5BPW1CDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795797650;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=gO1amLFICKE2WSedMd5rkghZaJ5DeTXXa/aoHnoVbE8=;
+	b=O9bmU2yeyiCnKvJM63QTTYw2M9Q8XUk7JM5UfZANU+JykPAxMbSCG4apW856KBdjrZ/C
+	 Xqwknzly/gbWSLYaVj5WvEX8CWmuW1XJCG6vnn4CLkA9VZzXlXAUYnMfaUtQnA7wQx3aD
+	 NZXCwsuovi6FAONO5gjty+cbXtTYugDLS4sIkC4tHW/R+FrX5Sh2fg5xJpv6BMI3pb5zS
+	 arYEB1ZWOqSAEkK/0roD6VXCEWM6V9PuNBHrL6ZBm9f/w6CSEJsWrzeJpjsJSQEzhuWeO
+	 WThHp+6lm2j9Q9/ZE7Xm1K84OW0veqZ+CaAo+VY9nbHXhIxMo8+jBxbHavDgB5btiWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ObYa/8P2";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samba.org;
+	spf=pass smtp.mailfrom=samba.org;
+	dkim=pass header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=H2S9Uvwv;
+	arc=none smtp.remote-ip=144.76.82.148
+Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
+	(using TLSv1.3 with cipher TLS_CHACHA20_POLY1305_SHA256 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A76D606A688;
-	Fri, 27 Nov 2026 16:40:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42003606A33E;
+	Fri, 27 Nov 2026 16:40:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42003606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samba.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ObYa/8P2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 830A71F00919;
-	Fri, 27 Nov 2026 16:40:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795797639;
-	bh=TVFvA1dgSL+XD2JMzZVnBxKBpaFEsJ9tuGw9vzqbiyc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=ObYa/8P2f5oLD15V3N0ExvIZ0m0P1nSoywvPSAn62G5VKx9xnOIa44UNeqzC18m+5
-	 22uw6irg5FU13bOCWiqv1nSy9CW1Aq5vXa0zX7C/X5J8ZKCvnKYdVre3+XarSmI0XB
-	 Hjou5pychNvD4w8x73CB3uy9Po+H8KZeOc9HbfylEZXkbF4mltGnz1pBSqx+9iPAEb
-	 eTs+hb33NyKn1P3a1INRRECPXxU7Uh7UVxW0wZSEnaFvc07BG1e1uCBlXgW2u01VZg
-	 5qev5HC22cdtu0+iclWEcUYxEQubgKNry+9kKFSm0mR3QBVpwFI0bBgpF0Fh+lHTAV
-	 MzjGAh0JXWvVA==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: Jason Xing <kerneljasonxing@gmail.com>, willemb@google.com,
- magnus.karlsson@intel.com, maciej.fijalkowski@intel.com, sdf@fomichev.me,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org
-Cc: netdev@vger.kernel.org, bpf@vger.kernel.org, Jason Xing
- <kerneljasonxing@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH net v2 2/2] xsk: fill in header offsets for TX checksum
- offload
-In-Reply-To: <20261127105347.72997-3-kerneljasonxing@gmail.com>
-References: <20261127105347.72997-1-kerneljasonxing@gmail.com>
- <20261127105347.72997-3-kerneljasonxing@gmail.com>
-Date: Fri, 27 Nov 2026 17:40:36 +0100
-Message-ID: <87y0aefcsb.fsf@all.your.base.are.belong.to.us>
+	dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=H2S9Uvwv
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=samba.org;
+	s=42; h=Message-ID:Date:Cc:To:From;
+	bh=gO1amLFICKE2WSedMd5rkghZaJ5DeTXXa/aoHnoVbE8=; b=H2S9Uvwv3QKXLkNoo7Uqe/cx+w
+	hRG1vX2e1bdaTcIc8IwLcPeDOt4C3gmeK19I5A/MGS3JpX4NYHTBKmbx1DyYieMTlXjd+WMB4gObx
+	/jFAuU6bF3FiVKW8z3FrEpXxh5ALGl/BSR3TYJPew3lWdoGhRdU0AaiEjyBnk+EFvD2jJ5Xa9bw5x
+	t5GNB5lAngyqcBSeOpmYyiipwuzvdFp1sZCr39+eZ8iJN2XNTCPGszaf8o1haRDy5YmMrfEG+6qKw
+	Tnr3QO6HKcHxUMsTcr4iJf8FIdVUsznMCOxkH1aEmKlpoRgryBmfFtPso6lKAsyVYQXVxQDmadUdJ
+	Cg25TJiKP12qlvSTN2ZgN6cEwVNTzXPx1YWJN78KgA60d9CVvcnWnsTwdV3wHtLxsvwFmECT8M50/
+	vGX1DhAzrbAkikzuFEP+Wkfli/bLQwyfE615YpP2JGIkwjuQuyR3DWuHZ8/UK0pUfWntxcUtTGphv
+	tkfVB/gtPPRCxCIP9kSl9+a8;
+Received: from [127.0.0.2] (localhost [127.0.0.1])
+	by hr2.samba.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__ECDSA_SECP256R1_SHA256__CHACHA20_POLY1305:256)
+	(Exim)
+	id 1xWz08-00000001Pv4-1Obg;
+	Fri, 27 Nov 2026 16:40:44 +0000
+From: Stefan Metzmacher <metze@samba.org>
+To: linux-cifs@vger.kernel.org,
+	samba-technical@lists.samba.org
+Cc: metze@samba.org,
+	stable@vger.kernel.org,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Tom Talpey <tom@talpey.com>,
+	Sashiko <sashiko-bot+sashiko@kernel.org>
+Subject: [PATCH v2 01/13] smb: smbdirect: don't register MRs on a torn-down connection
+Date: Fri, 27 Nov 2026 17:40:20 +0100
+Message-ID: <fa09dd8d61bf840afa0ee56368c16eb0731afef2.1795794871.git.metze@samba.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1795794871.git.metze@samba.org>
+References: <cover.1795794871.git.metze@samba.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,142 +72,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Jason Xing <kerneljasonxing@gmail.com> writes:
+smbdirect_connection_register_mr_io() took an mr from
+smbdirect_connection_get_mr_io() (which checks the status while the
+connection is still connected), then dropped out to acquire mr->mutex
+and only afterwards touched mr->mr and sc->ib.qp via ib_map_mr_sg()
+and ib_post_send().
 
-> An XDP_TXMD_FLAGS_CHECKSUM request is turned into an skb carrying
-> CHECKSUM_PARTIAL by xsk_skb_metadata() where csum_start/csum_offset/
-> ip_summed are set.
->
-> However skb->protocol stays 0, the offload never actually reaches
-> the hardware and checksum ends up being computed in software every time
-> (please see skb_checksum_help() in xsk path):
-> 1. harmonize_features() strips the checksum features on devices.
-> 2. ice_features_check() rejects the frame on NETIF_F_HW_CSUM capable ice.
->
-> The frame layout comes from user space, and request.csum_start is
-> already the offset of the L4 header from the start of the frame, so the
-> transport header is known exactly.
->
-> Only the L2 length has to be found, by parsing the Ethernet header and,
-> when present, the VLAN tag stack. skb_header_pointer() is used for that,
-> so it works for frames whose data is not in the linear part of the skb.
->
-> skb->protocol is set to the outer ethertype, as the rest of the stack does
-> for in-band VLAN tags, so skb_vlan_tagged() and vlan_features_check()
-> keep seeing the tags. can_checksum_protocol() and the drivers get the L3
-> type through vlan_get_protocol(). The mac header is anchored by
-> __dev_direct_xmit() in the previous patch.
->
-> A frame whose L2 header cannot be parsed, whose L3 type is not IPv4 or
-> IPv6, or whose csum_start does not leave room for an L3 header cannot be
-> described to the hardware, so it keeps being checksummed in software
-> exactly as before.
->
-> The patch is based on Maciej suggestion: 1) do not rely on mac header that
-> probe in AF_PACKET uses, 2) use skb_header_pointer and walk vlan tags to
-> inspect the accurate location of each field that existing drivers
-> possibly use.
->
-> [1]: https://lore.kernel.org/all/arKm5gCaERk6MaGA@boxer/
->
-> Fixes: 48eb03dd2630 ("xsk: Add TX timestamp and TX checksum offload suppo=
-rt")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-> Signed-off-by: Jason Xing <kerneljasonxing@gmail.com>
-> ---
->  net/xdp/xsk.c | 47 +++++++++++++++++++++++++++++++++++++++++++++--
->  1 file changed, 45 insertions(+), 2 deletions(-)
->
-> diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
-> index 52d538160e0a..8f566996a6dd 100644
-> --- a/net/xdp/xsk.c
-> +++ b/net/xdp/xsk.c
-> @@ -11,8 +11,12 @@
->=20=20
->  #define pr_fmt(fmt) "AF_XDP: %s: " fmt, __func__
->=20=20
-> +#include <linux/if_arp.h>
-> +#include <linux/if_vlan.h>
->  #include <linux/if_xdp.h>
->  #include <linux/init.h>
-> +#include <linux/ip.h>
-> +#include <linux/ipv6.h>
->  #include <linux/sched/mm.h>
->  #include <linux/sched/signal.h>
->  #include <linux/sched/task.h>
-> @@ -1027,9 +1031,48 @@ static int xsk_skb_metadata(struct sk_buff *skb, v=
-oid *buffer,
->=20=20
->  static int xsk_skb_sw_csum(struct sk_buff *skb, struct xsk_buff_pool *po=
-ol)
+A concurrent smbdirect_socket_release() can tear the connection down in
+that window: smbdirect_connection_destroy_mr_list() disables the mr
+(mr->mr = NULL) and smbdirect_connection_destroy_qp() zeroes
+sc->ib.qp. The I/O thread would then dereference the NULL mr->mr /
+sc->ib.qp. Keeping the memory of the socket alive doesn't keep the
+connection connected, so this race is reachable.
 
-nit: Name! Now this helper has a second job; parse the Ethernet/VLAN
-headers and set up the skb for hardware offload, even though the
-application didn't ask to force software.
+Re-check sc->status under mr->mutex before using the mr. While we hold
+mr->mutex and the status is still CONNECTED,
+smbdirect_connection_destroy_mr_list() - which runs before
+smbdirect_connection_destroy_qp() - blocks on this mutex, so the QP
+can't be destroyed under the ib_post_send() below; if the teardown got
+there first, the status is no longer CONNECTED and we bail out via the
+existing error path.
 
->  {
-> -	if (unlikely(pool->tx_sw_csum &&
-> -		     skb->ip_summed =3D=3D CHECKSUM_PARTIAL))
-> +	struct ethhdr eth_buf, *eth;
-> +	int nhoff =3D ETH_HLEN;
-> +	unsigned int l3_min;
-> +	__be16 proto;
-> +
-> +	if (unlikely(skb->ip_summed !=3D CHECKSUM_PARTIAL))
-> +		return 0;
-> +
-> +	if (unlikely(pool->tx_sw_csum))
-> +		return skb_checksum_help(skb);
-> +
-> +	if (unlikely(skb->dev->type !=3D ARPHRD_ETHER))
-> +		return 0;
-> +
-> +	eth =3D skb_header_pointer(skb, 0, sizeof(*eth), &eth_buf);
-> +	if (unlikely(!eth))
-> +		return skb_checksum_help(skb);
-> +
-> +	proto =3D eth->h_proto;
-> +	if (eth_type_vlan(proto)) {
-> +		proto =3D __vlan_get_protocol(skb, proto, &nhoff);
-> +		if (unlikely(!proto))
-> +			return skb_checksum_help(skb);
-> +	}
-> +
-> +	switch (proto) {
-> +	case htons(ETH_P_IP):
-> +		l3_min =3D sizeof(struct iphdr);
-> +		break;
-> +	case htons(ETH_P_IPV6):
-> +		l3_min =3D sizeof(struct ipv6hdr);
-> +		break;
-> +	default:
->  		return skb_checksum_help(skb);
-> +	}
-> +
-> +	if (unlikely(skb_checksum_start_offset(skb) < nhoff + l3_min))
-> +		return skb_checksum_help(skb);
-> +
+The similar unlocked sc->ib.qp access in
+smbdirect_connection_post_send_wr() is fixed by "smb: smbdirect: don't
+post sends on a torn-down connection".
 
-Forcing software csum when parsing fails seems wrong. Can we return 0
-and leave the skb unchanged instead?
+If smbdirect_connection_destroy_mr_list() got mr->mutex first, it
+already disabled the mr, detached it from the socket and dropped its
+reference. Then only our reference is dropped, without setting
+mr->state to SMBDIRECT_MR_ERROR, otherwise the final kref_put() would
+call smbdirect_mr_io_disable_locked() again with mr->socket == NULL.
 
-Take Ethernet/MPLS/IPv4/UDP with one MPLS label. UDP starts at byte 38
-and its checksum field is at byte 44. The parser stops at MPLS, but with
-TX checksum offload enabled, virtio can still pass csum_start=3D38 and
-csum_offset=3D6 to the backend.
+An IB_WR_REG_MR posted after smbdirect_socket_destroy() drained the QP
+can still complete after smbdirect_connection_destroy_mr_list(), that
+is fixed by "smb: smbdirect: don't let MR work requests miss the QP
+drain".
 
-skb_checksum_help() can sum bytes in fragments, but it requires the
-checksum start and the result field to be in the linear head. Virtio
-sets IFF_TX_SKB_NO_LINEAR, so AF_XDP puts all packet bytes in fragments.
-The helper returns -EINVAL and AF_XDP drops the packet.
+Fixes: de5ef8ec3c46 ("smb: smbdirect: introduce smbdirect_mr.c with client mr code")
+Cc: stable@vger.kernel.org
+Cc: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Paulo Alcantara <pc@manguebit.org>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: linux-cifs@vger.kernel.org
+Cc: samba-technical@lists.samba.org
+Reported-by: Sashiko <sashiko-bot+sashiko@kernel.org>
+Closes: https://sashiko.dev/#/patchset/cover.1791225453.git.metze%40samba.org
+Signed-off-by: Stefan Metzmacher <metze@samba.org>
+---
+ fs/smb/smbdirect/mr.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
-Returning 0 leaves CHECKSUM_PARTIAL and both offsets intact, so the
-normal TX path can handle the request as before. The old
-XDP_UMEM_TX_SW_CSUM should case is ok!
+diff --git a/fs/smb/smbdirect/mr.c b/fs/smb/smbdirect/mr.c
+index 15c6363a2f97..af613a7405e7 100644
+--- a/fs/smb/smbdirect/mr.c
++++ b/fs/smb/smbdirect/mr.c
+@@ -295,6 +295,31 @@ smbdirect_connection_register_mr_io(struct smbdirect_socket *sc,
+ 	mr->sgt.nents = 0;
+ 	mr->sgt.orig_nents = 0;
+ 
++	/*
++	 * smbdirect_connection_get_mr_io() returned this mr while the
++	 * connection was still connected, but smbdirect_socket_release()
++	 * may have started tearing it down since then. Re-check under
++	 * mr->mutex before touching mr->mr and sc->ib.qp below.
++	 *
++	 * While we hold mr->mutex and the status is still CONNECTED,
++	 * smbdirect_connection_destroy_mr_list() (which runs before
++	 * smbdirect_connection_destroy_qp() zeroes sc->ib.qp) blocks on
++	 * this mutex, so the QP can't be destroyed under the
++	 * ib_post_send() below.
++	 *
++	 * If the teardown already disabled this mr, it also detached it
++	 * from the socket and dropped its reference, so we only drop
++	 * ours, without changing mr->state or touching sc. Otherwise the
++	 * status is no longer CONNECTED once the teardown started, so
++	 * bail out.
++	 */
++	if (mr->state == SMBDIRECT_MR_DISABLED)
++		goto put_kref;
++	if (sc->status != SMBDIRECT_SOCKET_CONNECTED) {
++		ret = -ECONNABORTED;
++		goto dma_map_error;
++	}
++
+ 	smbdirect_log_rdma_mr(sc, SMBDIRECT_LOG_INFO,
+ 		"num_pages=%u count=%zu depth=%u\n",
+ 		num_pages, iov_iter_count(iter), sp->max_frmr_depth);
+@@ -363,6 +388,7 @@ smbdirect_connection_register_mr_io(struct smbdirect_socket *sc,
+ 
+ 	smbdirect_socket_schedule_cleanup(sc, ret);
+ 
++put_kref:
+ 	/*
+ 	 * smbdirect_connection_get_mr_io() gave us a reference
+ 	 * via kref_get(&mr->kref), we need to remove it again
+-- 
+2.43.0
 
-
-Bj=C3=B6rn
