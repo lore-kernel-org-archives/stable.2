@@ -1,95 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795769498;
-	b=hW/T3A6gJM/aCjHJkGdTPfeRcG57h6hxtSkCjcYhT2Lfwm+bG+VsXW1WAgBoLwQAAWUa
-	 VLLf3GSQFHnq91/CsaS4SYh90I9RLn9jbu10ddYUxRJENuKRZy2oVIfoSwl0X+9jNBxtK
-	 b10hUNahKLeNkxZ/tw/zyJ+KvuUtPDx/Podhit89kMuFxTQelFxSxTaRICDM/FmXAI2B9
-	 oZ6lNhLnOdJK+Ni52fBZoF3Dd+cTBe3JIqBnvIKX7T6TnJlBY4Q8a6V0NxluOjvK3injq
-	 Bp4HojrDVTq0BfbE3CPscxETaAJCLwQmBUL2BJzeA670FlolnpDU0boe36rthL+9Tcw==
+	t=1795769598;
+	b=zCChF2l4HEwnXMtD+z3QfF/mr65q54LeWOoWCflSQ/RQKLK+wiufebnB5OBoq+QEZDJm
+	 ILxgD2ujO348OrOe061LL4+EknKyFHS8P9Q1II+ytn+7aDlSMJwYBfxqdwBTN3HA5xa6S
+	 XHbeLpfKR6Z6eGrTYqsgb3rT22YFWbwv7KlnRvUpgEpa3tA+mux63ZH9CJTgsAQZ8iUFt
+	 eEEAqZD7/34J3EhGgQ6GSJKBfVoRx58yIU/EfRkRUZHAF91zj+bd6Nnew9WbJioOge2Xl
+	 1ArOejEU9JhuYvuKAdHOO/ObWDGxre9fszZXj3o0GWbv+ynOIgjTB9lLFDkk/eaLYCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795769498;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ROnGks4KYpRui41sSEQf6LMRfROe8Og9QvbvYoT1JlE=;
-	b=XOe2VHmZtLfblVPP3hM5IWe/poVTcsuszP6lS9yA/Q+T+Z9MpZ+/hHdWFOk5bIVB53yr
-	 OiMKAfhPWsUE5zvkit1jmsRuza1q/cTBNo6o1q+UCZLDR7mLUi8uSB8qXfs4QL3IyngkZ
-	 IP2GczXNQOfQDYseyufDPhztqiE7NI1OVAHwWaiDT3EB7lEjhUGslkDq3PNtvJOdiI+Vc
-	 MgJ5sE6RCq1qu175VwYxC4Z8Jt96Wf00ENdMliNM9BL1vtzXuFe7MbmmlGynt9XWroqcr
-	 SXKqlC9Q5NblRiTjUWH/rAH6/cgj1/fIPXyJnXyXean9kj/+gGnovg7DyUFhbi68Kyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795769598;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=J+jjduiNzCh5NUzPz3l6XXi61ckpOF03RHt8aLGC0fg=;
+	b=tYOtKdI0/lGXpcClWd/pLXWuJ6gRRqYmyPA9moddBVo9pEmt5W8Eq4UkHdYEpOiP3Rds
+	 m6kQljDfkm+2U9Lo5L6PSUmX8LweM8rP48z2vJHnv6oM89K3S4t1ND/pCdbd7sRzL1mi8
+	 4PRV78LYxMIlnbehKmqwkcq/tmoWyiJ3ZrUnn/m/xScjNVqdPjFSoMFgjaZw6ojrri9Go
+	 PQ7qVjYVL5f94Il+88H70b9CeyG6nahL2E58CCMF783xKvkcTMnr2jXWusS0YDjky+MAM
+	 C6Nv8WRh+kuQmr44IOifXn8K5y0rUb+wumfISlukssN2ff6RKRwUmdVFxuD8ob5vEGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jycF48jN;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ef8On+gG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277F3606A321
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 08:51:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 277F3606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42FE0606A31C;
+	Fri, 27 Nov 2026 08:53:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jycF48jN
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4acb44dcd7bso7039762f8f.0
-        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 00:51:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795769496; x=1796374296; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ROnGks4KYpRui41sSEQf6LMRfROe8Og9QvbvYoT1JlE=;
-        b=jycF48jNPsUQ9iQ4obcMgC4D8lLeeiJlBONFTHKNm+rSfBrnk3kngtKHacobMiedZj
-         G4vkv+ubR0FS+aaIOC9RmkxVGA7BTztW80RI32AEtjUckdj7P19myLljSxbK9nELbQpc
-         NKTZ1U+muo+j2ahqLG6P4PThjMoGJv8fcYOgRmdTA/OUYQYCTwLFdENaPf6fWRvO/N91
-         UzBjIqdlCmkWuwuubiYJY0yJIihNztfAqAf89Zzh7cg+aYSyabCN/l6qkz5hkOVkwRKW
-         Ba0a41rYsNvf2AwVnVddv0PHN2ejbJVmWhzkL58m/VsWpx5QTaMHqUUrN5WvHTP1NI+x
-         t2SQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795769496; x=1796374296;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ROnGks4KYpRui41sSEQf6LMRfROe8Og9QvbvYoT1JlE=;
-        b=cXEuut8fGxKNq0hX6Qfp/h0cKGRmWuyBZFlUN2EpZJj/8CGLjJO0GGRcKKVtC5HbIL
-         houvcdlSTap2XUd46jtFKAkwRaZxdC0gLKFp669taUL7N3p2UDJwEP0cOSmJCw7GQ/DO
-         cpnizm6HnT4WOD5tZ2rx99NskFmJm7T1U8kqEIdgv3DmuqMlqw5EW5REXgJf+2QrNlb2
-         2RMwzs5ph3N8td1kl5KI+EBiqujMiEz6+Wgp310LgbVHEF7b3R5eeJ+7eOYSjpa+UUBc
-         GP4WKZey6CMfmtiJSeWp71Y6cNCrTGCS2FdRJgtu8SfBNa+K3gJ2nsmk91zd9W518zHD
-         mRmg==
-X-Forwarded-Encrypted: i=1; AL+hErEP7LkBvzc28RnrbxU/Xv/dTGBNwadT1uZdLf0hyUm1txUib1adl2xMuG9d9GAN4E2tO7CdcPo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/g62TNWItR+Fej/WQ6BypnlR2BAPWduSUulkyXNP7rUT/fSeyq
-	2eGJIznrqD9/HpVNeXXoSGyAFXCRk8DzHD1uLkp/eoHqKIp9GOtdB50su53WizxP
-X-Gm-Gg: AZFdTZcNz7gWxxB1QebS5taUkTrGuEAscY8m3CxIl38xr81ovmyt+20B8A0KKSjgzqI
-	VXuUUwf5Mu0KaqcoemWswBe5i3WBskRlPXgf6jI15ZJxmkYwRh00PMNCcsqG9KUnmSdZadZGoG8
-	2fYsczg8L9brTt2U9265aGtdq82+U5QN5o+q2OTInxxQZI5c7ZQpgHd5lHiMGA7IgN2Xc7xHnOK
-	4z5NrPFgSjyMDkA4RSzdIGs/D/KWT6hAElZ0Te5mSffed388vEQwrQSsYZXKCQzePED754vaNAN
-	amj8kaJL1BgVR/f/XDDGKdEWDSKX/gjBMR6Bz8SzkZAw7eYteWJhCWgQxtgrbdXhxP9ozCf8SMQ
-	Z9wupiScW3BxjBpe+jgpjvsEfezhLNVrxzhOnbihjjAsxYNdJOW6eD7CWrkucI8aD9HG0vLVDZO
-	ag5w3fqXYZXcpj9B3WpFq4q72g7vrYo0Ojmv4xYtnBOn9n/n21YET82R46TtzSLK36ssSrzNqvy
-	TuIGk6iP0LJcdIDHYbIvEgF3Z0nKEczC7iS+765X0mnhN2rNlP0sGLoeSFD3S/oM1Q21roJcJ4I
-	BcyvoKrC0aZ31JmGWy7exCPSOhLezLvyp5mfcRVKGYBgJQEY4DusgGHwbxH66VVh54V7TEGaAOd
-	a5MiE9wLAD9c=
-X-Received: by 2002:a5d:4b49:0:b0:4a4:c39a:1d4d with SMTP id ffacd0b85a97d-4abb4d70005mr34452186f8f.52.1795769496428;
-        Fri, 27 Nov 2026 00:51:36 -0800 (PST)
-Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab65cb41f4sm44244528f8f.7.2026.11.27.00.51.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 00:51:35 -0800 (PST)
-From: Amir Goldstein <amir73il@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	Long Li <leo.lilong@huawei.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>
-Subject: [PATCH 6.12] xfs: only assert new size for datafork during truncate extents
-Date: Fri, 27 Nov 2026 09:51:35 +0100
-Message-ID: <20261127085135.2341177-1-amir73il@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ef8On+gG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 688651F00897;
+	Fri, 27 Nov 2026 08:53:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795769598;
+	bh=J+jjduiNzCh5NUzPz3l6XXi61ckpOF03RHt8aLGC0fg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ef8On+gG1QPOhcfPF6FyNy9lar9ir/Zw/CKgQBYO0aK0lIkLGcjrvaMR5N7jb+TFM
+	 R/v1+C3TYbIkfl72rpwPsuKeP5NHvxIt57nifZq8gTgRQNILZHehRkeA6lBIws4kI8
+	 HOK/IHZBKRutCrXyXILomUFJ13Sp/JuvtzWUlfq0ZapQRh/5Qo0dVhJ/g92bUFigtH
+	 Iai7sW3q2bMCXueBVcZDJQ2Pu4OgqIMQGaCBjwjLgmd8ArpleBRdv/w1YJCM/L4Pbk
+	 arIFfBEnd5nKb7ArauJvqGBTiLPDa/4IkjLlJDqYC263QPkb1F83+wD+h79cqBsZCU
+	 ikzOLN0zBV9iQ==
+Date: Fri, 27 Nov 2026 09:53:13 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Alexander Mikhalitsyn <alex@amutable.com>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Aleksa Sarai <cyphar@cyphar.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] namespace: allow bind mounts of ephemeral procfs
+ files again
+Message-ID: <20261127-pfauenauge-aussortieren-werft-b4cae52a8feb@brauner>
+References: <20261126-work-mount-cant_mount-v1-0-781d911a32e1@kernel.org>
+ <20261126-work-mount-cant_mount-v1-1-781d911a32e1@kernel.org>
+ <2b0198ff605e865fa1b17df354511949bce70038.camel@amutable.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,43 +61,151 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <2b0198ff605e865fa1b17df354511949bce70038.camel@amutable.com>
 
-From: Long Li <leo.lilong@huawei.com>
+On Fri, Nov 27, 2026 at 09:22:03AM +0100, Alexander Mikhalitsyn wrote:
+> On Thu, 2026-11-26 at 12:40 +0100, Christian Brauner wrote:
+> > Commit 75f4197f1e11 ("dcache: don't put a mountpoint on a dentry
+> > that's
+> > being removed") made d_set_mounted() refuse dentries that
+> > dont_mount()
+> > was called on. I overlooked that procfs calls dont_mount() on the
+> > files
+> > in /proc/<pid>/{fd,fdinfo,map_files} and below /proc/<pid>/net when
+> > it
+> > creates them and that attach_recursive_mnt() makes a mountpoint out
+> > of
+> > the root of every source in case it goes beneath a mount. So
+> > bind-mounting one of these files fails with ENOENT now. libpathrs
+> > does
+> > that in its tests, e.g., by bind-mounting /proc/1/fd/0 over
+> > /proc/self/exe.
+> > 
+> > Nothing may be mounted on top of these files but they can be the
+> > source
+> > of a mount. So drop the check from d_set_mounted() again and refuse
+> > such
+> > a root only if the source or one of its copies would go beneath a
+> > mount
+> > that is already there. attach_recursive_mnt() checks the source and
+> > propagate_mnt() checks each copy right after making it. The root is a
+> > mountpoint by then so either we see the flag or detach_mounts() finds
+> > the mount, same as before.
+> > 
+> > Fixes: 75f4197f1e11 ("dcache: don't put a mountpoint on a dentry
+> > that's being removed")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Aleksa Sarai <cyphar@cyphar.com>
+> > Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> > ---
+> >  fs/dcache.c    |  5 ++---
+> >  fs/namespace.c | 25 +++++++++++++++++++++++++
+> >  fs/pnode.c     |  6 ++++++
+> >  fs/pnode.h     |  2 ++
+> >  4 files changed, 35 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/fs/dcache.c b/fs/dcache.c
+> > index ba17f49f8a636..b734ce65e6377 100644
+> > --- a/fs/dcache.c
+> > +++ b/fs/dcache.c
+> > @@ -1628,8 +1628,7 @@ static __cacheline_aligned_in_smp
+> > DEFINE_SEQLOCK(d_set_mounted_lock);
+> >   *
+> >   * Only one of d_invalidate() and d_set_mounted() must succeed.  For
+> >   * this reason take rename_lock, d_set_mounted_lock and d_lock on
+> > dentry
+> > - * and ancestors.  Likewise for dont_mount() which marks a dentry
+> > that
+> > - * is being removed under d_lock.
+> > + * and ancestors.
+> >   */
+> >  int d_set_mounted(struct dentry *dentry)
+> >  {
+> > @@ -1647,7 +1646,7 @@ int d_set_mounted(struct dentry *dentry)
+> >  		spin_unlock(&p->d_lock);
+> >  	}
+> >  	spin_lock(&dentry->d_lock);
+> > -	if (!d_unlinked(dentry) && !cant_mount(dentry)) {
+> > +	if (!d_unlinked(dentry)) {
+> >  		ret = -EBUSY;
+> >  		if (!d_mountpoint(dentry)) {
+> >  			dentry->d_flags |= DCACHE_MOUNTED;
+> > diff --git a/fs/namespace.c b/fs/namespace.c
+> > index aecd05ac01705..443a8e3b74f9b 100644
+> > --- a/fs/namespace.c
+> > +++ b/fs/namespace.c
+> > @@ -2561,6 +2561,21 @@ int count_mounts(struct mnt_namespace *ns,
+> > struct mount *mnt)
+> >  	return 0;
+> >  }
+> >  
+> > +/*
+> > + * Would @source_mnt or a copy of it go beneath a mount that is
+> > already at
+> > + * @mp on @parent? Call under namespace_sem, without mount_lock.
+> > + */
+> > +bool mount_goes_beneath(struct mount *parent, struct mountpoint *mp,
+> > +			struct mount *source_mnt)
+> > +{
+> > +	struct mount *q;
+> > +
+> > +	guard(mount_locked_reader)();
+> > +	q = __lookup_mnt(&parent->mnt, mp->m_dentry);
+> > +	/* a moved @source_mnt is gone from there by then */
+> > +	return q && q != source_mnt;
+> > +}
+> > +
+> >  enum mnt_tree_flags_t {
+> >  	MNT_TREE_BENEATH = BIT(0),
+> >  	MNT_TREE_PROPAGATION = BIT(1),
+> > @@ -2677,6 +2692,16 @@ static int attach_recursive_mnt(struct mount
+> > *source_mnt,
+> >  	if (err)
+> >  		return err;
+> >  
+> > +	/*
+> > +	 * Don't mount on top of a root that dont_mount() was called
+> > on. It's
+> > +	 * a mountpoint now so a later detach_mounts() will find it.
+> > +	 */
+> > +	if (cant_mount(root.mp->m_dentry) &&
+> > +	    mount_goes_beneath(dest_mnt, dest_mp, source_mnt)) {
+> > +		err = -ENOENT;
+> > +		goto out;
+> > +	}
+> > +
+> >  	/* Is there space to add these mounts to the mount
+> > namespace? */
+> >  	if (!moving) {
+> >  		err = count_mounts(ns, source_mnt);
+> > diff --git a/fs/pnode.c b/fs/pnode.c
+> > index 5f07fa14099bf..4514e75311972 100644
+> > --- a/fs/pnode.c
+> > +++ b/fs/pnode.c
+> 
+> Hi Christian,
+> 
+> > @@ -351,6 +351,12 @@ int propagate_mnt(struct mount *dest_mnt, struct
+> > mountpoint *dest_mp,
+> >  			err = count_mounts(n->mnt_ns, this);
+> >  			if (err)
+> >  				break;
+> > +			/* what is already there would end up on
+> > this root */
+> > +			if (cant_mount(topmost_overmount(this)-
+> > >mnt.mnt_root) &&
+> > +			    mount_goes_beneath(n, dest_mp,
+> > source_mnt)) {
+> > +				err = -ENOENT;
+> > +				break;
+> > +			}
+> 
+> Please correct me if I'm wrong, but shouldn't we do this check before
+> count_mounts()? AFAIU, it changes ns->pending_mounts and then I can't
+> see where we clean it up on the error path.
 
-commit e942498385bf80f4d6d075b47174035545eb6a2e upstream.
-
-The assertion functions properly because we currently only truncate the
-attr to a zero size. Any other new size of the attr is not preempted.
-Make this assertion is specific to the datafork, preparing for
-subsequent patches to truncate the attribute to a non-zero size.
-
-Reviewed-by: Darrick J. Wong <djwong@kernel.org>
-Signed-off-by: Long Li <leo.lilong@huawei.com>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-Stable-dep-of: b854e1c4eff3 ("xfs: close crash window in attr dabtree inactivation")
-[amir: without this patch, the backport of b854e1c4eff3 trips
- this assertion from xfs_attr_inactive() in fstests generic/013, generic/070,
- generic/103, generic/117, generic/417 and xfs/181 with CONFIG_XFS_WARN=y]
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
----
- fs/xfs/xfs_inode.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/fs/xfs/xfs_inode.c b/fs/xfs/xfs_inode.c
-index 3b487341348a..5abdcf1f46c9 100644
---- a/fs/xfs/xfs_inode.c
-+++ b/fs/xfs/xfs_inode.c
-@@ -1025,7 +1025,8 @@ xfs_itruncate_extents_flags(
- 	xfs_assert_ilocked(ip, XFS_ILOCK_EXCL);
- 	if (atomic_read(&VFS_I(ip)->i_count))
- 		xfs_assert_ilocked(ip, XFS_IOLOCK_EXCL);
--	ASSERT(new_size <= XFS_ISIZE(ip));
-+	if (whichfork == XFS_DATA_FORK)
-+		ASSERT(new_size <= XFS_ISIZE(ip));
- 	ASSERT(tp->t_flags & XFS_TRANS_PERM_LOG_RES);
- 	ASSERT(ip->i_itemp != NULL);
- 	ASSERT(ip->i_itemp->ili_lock_flags == 0);
--- 
-2.47.1
-
+ns->pending_mounts is reset in the error path of
+attach_recursive_mounts().
