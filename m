@@ -1,76 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.134.164.83
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795774814;
-	b=bpySgLxKnG0c7UVe72phbLF8Ul4Tk2CAl5lIdDOS369rBY0I4M7Kz1mkBb/sYx5wW+Ak
-	 laYycNnSkuzUaUWsjfs+oQAuC+GW3hpPOCkANCJzKorxRAK8ym1j2zN1OUlca50WKPKha
-	 8TsvZU1sXYA/r/4bZ0olNazRrjG634cCq1QJ+YkXc8rx8HrL8y8CyJ8X1KRc0FJbntdZQ
-	 GZpPNmdbshSCYELyg9srQqJPAG8G1yERjCmXbL0ANvPjpyEU4veFsE4rTlPmYatJYVvCE
-	 271tRAcRwzf4Q1lvIuH/QGoJfX6ERkacddb4lUMdiE096i8UiXTpENRcAbV1g6YVaKQ==
+	t=1795774928;
+	b=svS5+HYNdTkXroL07/j4LxqsZ3QC1EkUs0/H/aVP+oI8xbkLKEB6L1j64nVhD4XZYMT2
+	 p8Zf4WV8E8LLvCDOZJ5RkKRg6OBlmxYf9hXTDeWViQHBn1tgWG5FnGhxdDRZEz9KZ5EnZ
+	 /mQRVONt177fWGW+PbNy8W7PqGjMIur1XTqVUEfWeKthT70+6wR1xKokJCZhasGZnvCUM
+	 LPSWbd5i4EN0TqADSwxORqo9LgScdGm1vJnkqNUodmVvwJVlKkAENHadQrgwWbf9BXgMA
+	 ZSzH7WI8KVPBARrc0u2emFEiOWxDxa5npo/OPbdYP/HNDG85qHsLo3B468aWwhmAekw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795774814;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=XI3Ciojegmg/QsrFpxinInDHofGcD7fIKLbZkFqR/PQ=;
-	b=lt94j2ZeQj1n61A1WRndMp0WzWvlmjxYB4Gs2saev/CmVZtZjj/GL/n/DIxloHDGS1AB
-	 MpIqwSNpzeDoBDk5Re1ii8V/FVLqwfGUoODPoGvpgovhK4f1lowSBmjHoDXv4D+M5giw/
-	 ibJH12xBktM3c/R6cUNzoEELWBgkmU/G5n+Xt9D33QlIKX/l3uPcCIgNuHKmfW2E/m83e
-	 BLOeXiRNfgZy4mJaoEXf8mU8zBFRBLN41DuiZmQdECRfLm6jf4H9FLc3pWp3tLZgpF+Az
-	 zU8l4uCXp0NbBmsK0fLauiVN89EV3sk3Gq8326ufb3nHvZn1TY9dLo0Z2ueSA0pMZhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795774928;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 Received-SPF:Received-SPF:X-ThreatScanner-Verdict:IronPort-Data:
+	 IronPort-HdrOrdr:X-Talos-CUID:X-Talos-MUID:X-IronPort-AV:
+	 X-IronPort-Outbreak-Status:X-MGA-submission:Received:Date:From:To:Cc:
+	 Message-ID:In-Reply-To:References:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-Mailer:
+	 X-Zimbra-Message-Verification:Thread-Topic:Thread-Index;
+	bh=NurK4ezqIA5BMNZvLSuYVrqVn3HcqufrAtyykoVqoFg=;
+	b=M34SLeZaw9PbcMIHTab3F5wUkSrwkgpn2eJK2nA5WW471BOpo3j2IU6Adbnm+q5iXgD4
+	 6erBXm4dFoZ7tWcoWSSFRhBcjZpmp8kMIjvO2mWNn3J2Gz/SwpoaEbOEo1Y50siNR+la3
+	 SDZOEZIIhRDCJQkehxNCqtmH5uMHZfJhwPXVxv2OdjpnjvAMHF3WCzn6ASAJbmhkjHDXv
+	 4WnYJMIUp44zhEQNJnIhh+W8WuunOIzDP9+TofZw4IBwneMJeKK2N4WF9xXMLnGNTdVlr
+	 25BFLOIpymJPWJVlxIusfR8I+p+lZgNmusEzcDN74A8cz8WiqRLbjiW5IofpL6ytc+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MmervoqU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=inria.fr;
+	spf=pass smtp.mailfrom=inria.fr;
+	dkim=pass header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b="SQb/luYY";
+	arc=none smtp.remote-ip=192.134.164.83
+Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1976B606A333;
-	Fri, 27 Nov 2026 10:20:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB172606A324
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 10:22:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB172606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MmervoqU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 275C71F0089C;
-	Fri, 27 Nov 2026 10:20:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795774813;
-	bh=XI3Ciojegmg/QsrFpxinInDHofGcD7fIKLbZkFqR/PQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MmervoqUHQk0VUJjxSYhBuuxIjh9jrBirotCelf3jTtksXovAh69mywN9cYOGvUIu
-	 xLEh6swQxxHQT0E+PgC5PohVoROJ5pa0JMx3+UDm434gGgNEe53FbZOwNloNccAhu4
-	 McRiZRnq/2ZUI8mGGaROetEEh2dCVmuCIof6g0FiWxDwR2+P4AgwyEmhD6/jQCHjqv
-	 etFFCrDJNZtQCldlnE3MgINssosYZdOl/y08MBIheHEh191csDK2BJC51jSVKmC4DA
-	 awesNlhphz0ISq4+6W/uNHFoL9g9stY+sP3AIohY9wL36Y3bpANgU6UOTl75b0wMXA
-	 +TFG56Y2nBSug==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	"Mario Limonciello (AMD)" <superm1@kernel.org>,
-	Ruslan Vagner <rusya92266@gmail.com>,
-	Gustavo Padovan <gustavo.padovan@collabora.com>,
-	Chris Wilson <chris@chris-wilson.co.uk>
-Cc: linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	amd-gfx@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org,
-	stable@vger.kernel.org
-Subject: [RFC PATCH 2/8] drm/sched: Hot-fix timestamp misordering
-Date: Fri, 27 Nov 2026 11:18:07 +0100
-Message-ID: <20261127101812.2706432-4-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261127101812.2706432-2-phasta@kernel.org>
-References: <20261127101812.2706432-2-phasta@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=SQb/luYY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:message-id:in-reply-to:references:
+   subject:mime-version:content-transfer-encoding;
+  bh=NurK4ezqIA5BMNZvLSuYVrqVn3HcqufrAtyykoVqoFg=;
+  b=SQb/luYY0pPZDVTxSTGdNqm/YSVk8H5vywG5oMalf4Hu9euI3VszTQKW
+   A/tTaPNKVe0tMEZfhcOeTQvSxwc8M2ohZGF5v1cQJ3wWL+Trt3a5AvbKq
+   9UDUWtIKQIR142/HS2b2kpJDezh9YEXu0kGPIzlvEDGrJKPrzHxoHDXwi
+   k=;
+X-CSE-ConnectionGUID: J+g7Vi3sTrCv9HUzQfsyZQ==
+X-CSE-MsgGUID: u54VmC5gRTuPFSfwE1XCNg==
+Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=Pass smtp.mailfrom=zakaria.belkadi@inria.fr; spf=None smtp.helo=postmaster@zcs2-store8.inria.fr
+Received-SPF: Pass (mail2-relais-roc.national.inria.fr: domain of
+  zakaria.belkadi@inria.fr designates 128.93.142.6 as permitted
+  sender) identity=mailfrom; client-ip=128.93.142.6;
+  receiver=mail2-relais-roc.national.inria.fr;
+  envelope-from="zakaria.belkadi@inria.fr";
+  x-sender="zakaria.belkadi@inria.fr"; x-conformance=spf_only;
+  x-record-type="v=spf1"; x-record-text="v=spf1
+  ip4:128.93.142.0/24 ip4:192.134.164.0/24 ip4:128.93.162.160
+  ip4:128.93.162.3 ip4:128.93.162.88 ip4:128.93.162.27 mx ~all"
+Received-SPF: None (mail2-relais-roc.national.inria.fr: no sender
+  authenticity information available from domain of
+  postmaster@zcs2-store8.inria.fr) identity=helo;
+  client-ip=128.93.142.6;
+  receiver=mail2-relais-roc.national.inria.fr;
+  envelope-from="zakaria.belkadi@inria.fr";
+  x-sender="postmaster@zcs2-store8.inria.fr";
+  x-conformance=spf_only
+X-ThreatScanner-Verdict: Negative
+IronPort-Data: A9a23:0BBDm6haq6CTHGIdaQLeZGTZX161DRAKZh0ujC45NGQN5FlHY01je
+ htvCGDXaK3Za2r8eIoiOYzn9UpQ6MDVy4VjSARl+C1gFykW8JqUDtmncnv9bniYRiHhZBI+v
+ p9GMrEsD+htEySC/k/1WlTFhSMhvU1dbuOkUIYoAggoG0k8Dntn0ko58wIAqtYAqcCjBA+Qs
+ s/FrcTaOVu0sxZ5KWt8B5ir8XuDh9ys/mlH1rACTaoT5gGHziNKVMt3yZyZdBMUfKEERoZWe
+ M6YlNlVzkuBlz8xB9WslKrMc0Fiatb6IQiUh3NKbLOpix5EqzZa+v5T2C00NC+7Ix3Q9zxA4
+ I0lWa6YEG/FDYWV8AgpaCS0JgkiVUFw0O+ecCLn6aR/+GWdG5fk660G4EjbpuT08M4vaY1F3
+ aVwxDzg8nlvLg95qV62YrAEuygtECXkFKFctS5ezGrCMewNX8Hjfrfz68RJ7g5l06iiHd6GD
+ yYYQShkd06FeAFIIFpHTpM4huahwHflG9FagAvP9exmuC6KkFY3jtABM/KNEjCObddcnU+Cp
+ 2uA9Wn9ARgWNfSezyCE+zSinIcjmAugAN1MS+Dpqq4CbFu72zFPNhg9CFSBneSBpHWwRP8GG
+ 2cy9X97xUQ13AnxJjXnZDWkvWSfoxodXfJNCfYn7ACLjKzZ/26xBG8DSDdaLtgvtNM3QzEs/
+ luImc75Qz1prLCRD3ma89+8rDWuNCxQImESTSsFVhcepdf5rYw/gwnMUtF7VqmvgbXdAi35y
+ TSHhDYxiq9VjsMR0ai/u1fdjFqEo5HVUg44+UPIX2ah7wp8Ioe4Y4CA5l3S7PIGJ4GcJnGDt
+ X4F3c6f7/0KBLmJlSqQUKMMGq2k47CONzi0qURoE4Mg+DPr5X+9fKhR5i1zIAFiNcNsRNPyS
+ F3YolkU/4NUJnb6K65xeYO4TcowpUT9KenYujnvRoImSvBMmMWvpUmCuWb4M6HRfEkQfWUXK
+ 5yAK4O3EXEABPQhzTysRu5b36VDKuXSA4/MbciT8vhl+eL2iL2ppXMtMV2Ub+l/4rnsTMD97
+ YNEL8XTo/lAeLSWXxQ7OrL/4bzHwbbXyHw2RwFqmja/Hzdb
+IronPort-HdrOrdr: A9a23:boDHiK+VW83yy+0vtLBuk+D2I+orL9Y04lQ7vn2ZhyY4TiX4ra
+ CTdZsgviMc5Ax6ZJhCo7G90cu7Lk80nKQdibX5Vo3NYOCSghrNEGgU1/qE/9SPIUDDH5ZmpM
+ Vdmv9Feb7NJGk/vsb/6xKxV/It2sOO/qztuuvEz3hsRwl2a6dmhj0JbzqmLg==
+X-Talos-CUID: 9a23:TdAk1m7/g+BPU8UZadss1g0bRf4kKWbh1lzOcm+FG19nU6yncArF
+X-Talos-MUID: 9a23:FGFoJwtzhtQj3Juggs2nmWw+CsJDvquUNF01v64IpOTdBQdWNGLI
+X-IronPort-AV: E=Sophos;i="6.27,236,1787004000"; 
+   d="scan'208";a="307675948"
+X-IronPort-Outbreak-Status: No, level 0, Unknown - Unknown
+X-MGA-submission: =?us-ascii?q?MDGSaIjKpjkDMm021PAEHsPTC2TmPdkTx0h02O?=
+ =?us-ascii?q?3JSkt1ynYKqOz9awmbwMoR92Qd+AkHladWVMWplmDBqzlj21pt6npWn3?=
+ =?us-ascii?q?+Ae5yk2VsOzXAUPEgssENhdtL2O1+mhH7K+QveiSeuppSgtfwoXONdLJ?=
+ =?us-ascii?q?SjfAJYDGIVL6LvMe9PNBs4dQ=3D=3D?=
+Received: from zcs2-store8.inria.fr ([128.93.142.6])
+  by mail2-relais-roc.national.inria.fr with ESMTP; 27 Nov 2026 11:22:00 +0100
+Date: Fri, 27 Nov 2026 11:21:59 +0100 (CET)
+From: Zakaria Belkadi <zakaria.belkadi@inria.fr>
+To: Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+	Intel graphics driver community testing & development <intel-gfx@lists.freedesktop.org>, 
+	stable <stable@vger.kernel.org>, 
+	Matthew Auld <matthew.william.auld@gmail.com>, 
+	Jani Nikula <jani.nikula@linux.intel.com>, 
+	Rodrigo Vivi <rodrigo.vivi@intel.com>
+Message-ID: <1885002349.1698785.1795774919927.JavaMail.zimbra@inria.fr>
+In-Reply-To: <31feca61-7439-4006-91f3-2dedb3dca27a@ursulin.net>
+References: <20261126094444.52858-1-joonas.lahtinen@linux.intel.com> <31feca61-7439-4006-91f3-2dedb3dca27a@ursulin.net>
+Subject: Re: [PATCH] drm/i915: Reject relocation writes to RO userptr
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,45 +118,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+X-Mailer: Zimbra 10.1.21_GA_4899 (ZimbraWebClient - FF153 (Linux)/10.1.21_GA_4899)
+X-Zimbra-Message-Verification: hash=SHA256;guid=YzZhNWU0NzFhNjI2YjAyZjZkMWNmOGVkZjQ4MzFiMzdmY2RhNGVhM2JmYTRlNzcwMGZmOTI2OWFmMDY2NjFkNA==
+Thread-Topic: drm/i915: Reject relocation writes to RO userptr
+Thread-Index: /XCWHdHDaXBGJkoVJBUU4SBbdnDnEQ==
 
-dma_fence timestamps could so far be written and read without any memory
-ordering, a bug that presumably got overlooked because x86 is strongly
-ordered.
-
-Hot-fix the scheduler's manual timestamp evaluation until we found a
-more suitable solution for mainline linux.
-
-Cc: stable@vger.kernel.org
-Fixes: f7fe64ad0f22 ("drm/sched: Split free_job into own work item")
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- drivers/gpu/drm/scheduler/sched_main.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 85a49e219837..44553db9b04c 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -928,8 +928,16 @@ drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
- 		next = list_first_entry_or_null(&sched->pending_list,
- 						typeof(*next), list);
- 		if (next) {
--			/* make the scheduled timestamp more accurate */
--			if (test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,
-+			/* Make the scheduled timestamp more accurate.
-+			 *
-+			 * TODO
-+			 * The test_bit_acquire() is a hotfix against timestamp
-+			 * misordering. Replace it with something better.
-+			 *
-+			 * The counter-part of the barrier is located in
-+			 * dma_fence_signal_timestamp_locked().
-+			 */
-+			if (test_bit_acquire(DMA_FENCE_FLAG_TIMESTAMP_BIT,
- 				     &next->s_fence->scheduled.flags))
- 				next->s_fence->scheduled.timestamp =
- 					dma_fence_timestamp(&job->s_fence->finished);
--- 
-2.56.0
-
+Tested-by: Zakaria Belkadi <zakaria.belkadi@inria.fr>
