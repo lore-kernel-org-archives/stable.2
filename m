@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795762084;
-	b=sXtdaRyZFuj4cwzrsKBJ3DVqDwPtRedVDAMvRDZ7bicD5Q2mtiuFyeAULOZ/FH6ZRtx+
-	 9PCoapWaT+Hm1OHlZAONYh4V+JqAGXr+gaB432FrfJc5Vj5Gl8do4yB1tns0QkNV7dhZH
-	 wnZCbCNB4TlmCNQpiM4lxOfzLEdakQ2gSNiQk7J0Jprg75W2ZOXeAMrIMTnKwwNtpJO78
-	 89QvERQUESfYLH/6Rr81gn0RL25rxcIAcTU4+ZYS369Djtj93dAtSld8UKKJvq6NI2uX/
-	 Ej6LDTtb5LVIg1obTMhPDTdNULnfW8gYqsIfwPQqqWNjyxeMa/DWvLqeSCxrCv0ZHsQ==
+	t=1795762085;
+	b=puXr58865Wi1mc53+uChCkT+Vn+s+7zxwHNiuhGSjKjuKRwwMZeVJEEXWyI5hVPBdatV
+	 kDydu/Np84CE+EEnU+IiNreq7qNN+HzHu2yaWpZjYGR0EvZj3tLrquRWKYKt8cQAquBmS
+	 z9Lzqq8CAUF5Qa5zDtZU9s78b2y9ew/03vudQfYMASIxZQJyT9MSOXS+bEckGp04lle8z
+	 BDty8ksWj799nodvSsAx72KiiN26ovAc0P4ot3XKt6DtyKpVaMOOtsZXzP4aNZwnSl0cM
+	 SoY+19xJNkfQ0gnRJqKcyvcI8bgmmb3XplMFDjG0yNEvjSTgqTYXbIO3DIaVp1yO4rw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795762084;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795762085;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
 	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=PV6Y8JKnkqnpS1bBH7JpIi0ELz5RHOcA0o9CAVIi+MM=;
-	b=q7CB2D58sztusKf+TvMhEMxhHp3Lhq6dW50mMcZ3dQ9yeAtLDt46VXmm3pLZRum92EL/
-	 z85DPqNYDkT9BQpJocHOH2AygBB5hwnJ2SgMkGdUFOB9xFeGwM/gMQ0APofgwr4qHZac/
-	 Wv0LTo04ukH6jOWi0lXhfqRRgVC3iZe3cavYqn4tdBw1D08O3C0bekIrDvr3kOjgYZz8s
-	 zJSAVyYFctPaul2PaInLqWbiEcr7cp80qeKS/WfsU0IoNVJ48tGtAUHt83nY0hswCQ8SE
-	 ctSPzCXVAmv8YVihswI2jduv8p1+bQCoJTV5AEvraTxUVRICeRNFdftQTG4k+enHjaQ==
+	bh=mnRsxiP5CDXvJyBOhMK61M5i51SmpFcieZV2SE2HJd8=;
+	b=NfLF06u1bYn8KIQJyDMWZZbblSi2+zCB/y+I6m0ieGyx1G0kbKJ63fUWoky6ClcXKvqY
+	 hBtm/5asyvw2vVj3KfiO7R48oDjQ/29187500Mj29maJBZmWRn4ukPEmNTrFGJxGLAcH2
+	 SnFBGk1ySbtBH+NsZkIOLdUJu2LS4Y6HwnExr8FnIoQW1FCYcV+UxwaIxJ78u/MeZZ6Fa
+	 QwS+W80JOBiYCcjke1MTG5a80Vj5KxtoBwqVuSSnJ+R6Ec90UM46rEju0YtEGrbJrkKJy
+	 sY6fj/SU58QN/OYwBef9+DcYKYRgcObzF95LGJusmUjVZGRMvuXa7pyRrMsd2NBGcNA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kbfDWcqx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IHkYorXc;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17AB606A32A;
-	Fri, 27 Nov 2026 06:48:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CEF9606A31C;
+	Fri, 27 Nov 2026 06:48:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kbfDWcqx
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IHkYorXc
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795762084;
-	b=vGpl2ooK0TnFgxbr4XG1aBmF1ssJXMbpz5oa88RYh7cSuVD5meRTcnOS9n4YnWrp32G1
-	 JiAgxYItEv4hJY/5v8TB2QdhL8qNtE7q9U+vRZlEiSrxhUiLOr+XcreAaldXmTH9EBBYc
-	 L4hyCZkGYJQNtK0LnSGVrKbcz1T3meADzLBi1HlVu/Fm2nADgTGa7zPG/XoLAdHk+7Icg
-	 uIozKzBZO64DktM9CkAHyHRXH2ync1keNQj1+NS201Q+UgZvyhqErMURGCwqR5whc+hLe
-	 UcQ8Xx6Ue8uAYTXpSK5OXcYyHellaCyMTjBFysa1pne8dhffOiSW2bTQxgZzD1vFRUQ==
+	t=1795762085;
+	b=MUAu9nOJz156un4yaQ2/E7rcrUplGOhsndUSDxRXxxHJnl0S0Xaez4iuw7cEcSiUSpyw
+	 HH+3OhUKiYI5fBCRYmjYUZsWNO01/7SMjD/NISIcEUGL7ZbM8Lc6CCXDJKNEmfTLGiZji
+	 vMuAX0TWoNF04apAItg5N1Ba3WQbJHoWMhc2s9YC9vnrybtzL+dogRlw2898m0hB8NXLe
+	 JjFBQGcA6QURAzdWVh0e90CrPcY+/gZ8QXkaMejYMMTkMGptifBUmEY6kGK5VC5F5HLUP
+	 cd5M5txmm+L2LJnji+2R06jxv38ODsDENbIU75v03oDggBJYHfKnDdUX3oaPfJCPDAg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795762084;
+	c=relaxed/relaxed; t=1795762085;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=PV6Y8JKnkqnpS1bBH7JpIi0ELz5RHOcA0o9CAVIi+MM=;
-	b=1L9I9E0w5r3APIvn7A6SUHXKh7J2DIUQ/xF53rY/4cNJXHgDWUuWyNjD7l/3nkJCrNZP
-	 zO1Q8YQo2uxymoKL2Z0JebVKynIhRAFmmEJ87vFP3lKkj9OyytOifJ+0GLPks2BHVsYag
-	 wN04YLAZ6P9jL9aVbV6L4GaFXF0TvgsO61ZEemCN+HMin0Vtx0xl79XktQbc+kR/ttbrT
-	 /GhgfOn37/aVpVpBS/wd9FqkXhUWGpm+kGPEyrcWYqHDRip0ogKPdV9CyxRxw+NaReHBz
-	 QEucMNEifWTI3xVPovztxMZBmaZIf/WapKqwR7EGBRQGGcGKaTj8R+gBmovVBpw5HJg==
+	bh=mnRsxiP5CDXvJyBOhMK61M5i51SmpFcieZV2SE2HJd8=;
+	b=nxqxp2h6PkwSSGR6b+J6OHdbr9F63OAIaQxfBqTDzA+JR7tIfsnkF7fT3y7AKF/24Hgg
+	 oAepvDLyBGXNT2jy0aQf4itei1ooN97BGIhKbgmJ5mW90mJfAn7MTD1dTujOblNGyNILJ
+	 CxIZVeaAQywwpwMjPo4bo5JsV1gmLxzF5BeU8fxFZQiCMoC0qN0A1Zwc0xKYQzmqIiFU7
+	 i93TpmOWJKueyxWM78d5BIy04O+zWzko8ZjtBFILBkBKVLNc92RubQYRVv5Q7c/G8b2Sc
+	 oxDzLgZu7KtDocCnrK2HD9S2sqXtgOTjcLtWEqPzZLpBtQleGl2GSXWua4a9ZaDme4Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2DF431F00919;
+	by smtp.kernel.org (Postfix) with ESMTPS id 827A21F0089F;
 	Fri, 27 Nov 2026 06:47:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795762084;
-	bh=PV6Y8JKnkqnpS1bBH7JpIi0ELz5RHOcA0o9CAVIi+MM=;
+	s=k20260515; t=1795762085;
+	bh=mnRsxiP5CDXvJyBOhMK61M5i51SmpFcieZV2SE2HJd8=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=kbfDWcqxiZtw8NLZJEF29tYOrZEv5HHis/2QA+JtytI/WRQ8HsSpSBVZXzUz5y3Lx
-	 mecLGOaP33AymDzdiXX6dP0zy21321/tH0SkH2vifa9QlWzUzj8VHJPEDrmu9o1bUC
-	 HSMVpOsIOfYzOBxt6jxoY8ctsyxsYDbQNHopXyh/M+pvcihxDucndeysC0Ve5Iato6
-	 1bJDRXVgsx0SgHSDd5NlZZJ/+jpdDUz0++iwA3CXfBQOAM6RGTM8mCEmwiYGaLfU85
-	 g6SmIKvs5EdBS5hoZFe9bC8WOMPlmqOCDTdQ395xvx73nxlfgfpuh/GOM8J68gOVyH
-	 cM35ph7u23h/Q==
+	b=IHkYorXc7nz0LBJdg4GIznzuGYcFTJBN29Mn3zR+c6Vc5EPcnFseXAnbeCeVd3uBj
+	 aIN8ggjKQ6MWwpbL25udG2HTEMo1yVO9fZAhAf7K3QpnZdyRI04nBM8aHf658+hBau
+	 zqr1oMMdqKf+HAlNe4V/bOoVoKbHmN0PAU4vPBxxT3QQBwSPIYhs8htKKo7HOkYFAv
+	 eKjIRXhK5dXYc5ZLgYWW1dMxvjcHmt3i1osUIoWd6QZJOnvnJHenTKFspI+ZhjdVEg
+	 w9G1oReVqNw2/+8FCPv1vX6WwYXJI0kdtd3M0acfL5W4Y7KxDqRiHp4fBUh/4nXFjJ
+	 7xs+fRBDkFbAQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 557B84B5F1;
+	by lkml.kernel.org (Postfix) with ESMTP id AB83D4B5F5;
 	Fri, 27 Nov 2026 06:47:48 +0000 (UTC)
 From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
-Date: Fri, 27 Nov 2026 06:39:32 +0000
-Subject: [PATCH 5.15.y] scsi: qla2xxx: Completely fix fcport double free
+Date: Fri, 27 Nov 2026 06:37:47 +0000
+Subject: [PATCH 6.6.y] rds: tcp: unregister sysctl before tearing down
+ listen socket
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,21 +85,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-so5-qla-515-v1-1-fc31e58ffd78@certik.com>
-X-B4-Tracking: v=1; b=H4sIAKMlCWsC/02NSw7CMAxEr1J5jUsSYZC4CmKRj0uDqgTigkBV7
- 04CG5bzNPNmAeESWeDYLVD4GSXmVIPedOBHmy6MMdQMRpm91uaAkgnvk0XShE6TUd6rXVAD1MW
- t8BBfX9sJqNfUv+H84/JwV/ZzU7Wms8Loik1+bEg4hTnnCRvf/l3Aun4A8fPAd6MAAAA=
-X-Change-ID: 20261127-so5-qla-515-b1520cc04d0f
+Message-Id: <20261127-so5-rds-66-v1-1-1abb4e9ce92b@certik.com>
+X-B4-Tracking: v=1; b=H4sIADolCWsC/0WNSw7CMAxEr1J5jUsTwKhcBXWRj6FBKEFxqUBV7
+ 04CC5bzNPNmAeEcWODULJB5DhJSLEFtGnCjiVfG4EsG3WlSSh9R0gGzFyTC3rne7vZkvO+gDB6
+ ZL+H1lZ2BWmrfMPywPO2N3VRFtWiNMNpsohsrEo5+SumOlW//B7CuH844CQqgAAAA
+X-Change-ID: 20261127-so5-rds-66-9cc9b346add0
 To: stable@vger.kernel.org
-Cc: Vladimir Riabchun <ferr.lambarginio@gmail.com>, 
- "Martin K. Petersen" <martin.petersen@oracle.com>, 
- linux-scsi@vger.kernel.org
+Cc: Cen Zhang <blbllhy@gmail.com>, netdev@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795761571; l=2352;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795761466; l=2888;
  i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
- bh=5PFq0t+9kyJ3bNqaWKXqN6KsLjWHosGjNZwrSng1BcI=;
- b=t81OAqjPnvuQC/yzrIuJo2vhHiIKCcAVPY/P8neWlpn4bBBH/XV03XQD0SPIHjwY4h1OfO49l
- wJGliHubiwnBDwNHJakqtP5jdaDneDOMwgaGXarIUxokRkShICiB+Ws
+ bh=eX75dksd+0Eq/c6Duq5vPiGvUbIGB0rYF3qmdTVxvX8=;
+ b=BLV0tpHTjpwxzWlawloS8nPZzByn15w+p/yUa9RcglQDfGguxqgH0yPyz2x/FuI4GXYh4kywc
+ i71OQrCJHG1DgqyX9MeUJZbA9yS1hu1Jxn6eIGtXSHNxfo6V+R8TIqX
 X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
  pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
 X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
@@ -106,67 +105,82 @@ X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
 X-Original-From: Dickson Wu <dickson.wu@certik.com>
 Reply-To: dickson.wu@certik.com
 
-From: Vladimir Riabchun <ferr.lambarginio@gmail.com>
+From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
 
-commit c0b7da13a04bd70ef6070bfb9ea85f582294560a upstream.
+commit 167e54c703ccd4fa028feb568b0d1002020cff86 upstream.
 
-In qla24xx_els_dcmd_iocb() sp->free is set to qla2x00_els_dcmd_sp_free().
-When an error happens, this function is called by qla2x00_sp_release(),
-when kref_put() releases the first and the last reference.
+rds_tcp_exit_net() frees the per-netns RDS TCP listen socket via
+rds_tcp_kill_sock() before unregistering the per-netns sysctl table.  Since
+rds_tcp_skbuf_handler() derives the netns from
+rtn->rds_tcp_listen_sock->sk, a concurrent sysctl write can race with
+netns teardown and dereference the freed socket/sk.
 
-qla2x00_els_dcmd_sp_free() frees fcport by calling qla2x00_free_fcport().
-Doing it one more time after kref_put() is a bad idea.
+KASAN reports the race as:
 
-Fixes: 82f522ae0d97 ("scsi: qla2xxx: Fix double free of fcport")
-Fixes: 4895009c4bb7 ("scsi: qla2xxx: Prevent command send on chip reset")
-Signed-off-by: Vladimir Riabchun <ferr.lambarginio@gmail.com>
-Signed-off-by: Farhat Abbas <fabbas@cloudlinux.com>
-Link: https://patch.msgid.link/aYsDln9NFQQsPDgg@vova-pc
-Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
+  BUG: KASAN: slab-use-after-free in rds_tcp_skbuf_handler+0x2aa/0x2e0
+  rds_tcp_skbuf_handler              net/rds/tcp.c:721
+  proc_sys_call_handler              fs/proc/proc_sysctl.c
+  vfs_write                          fs/read_write.c
+  __x64_sys_pwrite64                 fs/read_write.c
+
+Fix this by unregistering the RDS TCP sysctl table before calling
+rds_tcp_kill_sock().  unregister_net_sysctl_table() prevents new sysctl
+handlers from starting and waits for in-flight handlers to finish, so
+the listen socket can then be released safely. The fix was tested
+against the linked reproducer.
+
+Fixes: 7f5611cbc487 ("rds: sysctl: rds_tcp_{rcv,snd}buf: avoid using current->nsproxy")
+Reported-by: AutonomousCodeSecurity@microsoft.com
+Link: https://lore.kernel.org/all/20260719203718.9680-1-blbllhy@gmail.com
+Reviewed-by: Allison Henderson <achender@kernel.org>
+Signed-off-by: Cen Zhang (Microsoft) <blbllhy@gmail.com>
+Link: https://patch.msgid.link/20260719210357.10179-1-blbllhy@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Dickson Wu <dickson.wu@certik.com>
 ---
-6.1.y and newer already have this fix.
+6.12.y and newer already have this fix.
 
-Tested on v5.15.226:
-- x86_64 allmodconfig W=1 build of the qla2xxx driver and target objects,
-  base vs patched, no new warnings
-- booted the patched kernel under QEMU/KVM. I don't have QLogic Fibre
-  Channel hardware, so the ELS error paths weren't exercised.
+Tested on v6.6.163:
+- x86_64 allmodconfig W=1 build of net/rds/tcp.o, base vs patched, no
+  new warnings
+- under QEMU/KVM, base and patched: loaded rds_tcp, read both TCP buffer
+  sysctls in a new network namespace and tore the namespace down with
+  no warnings in dmesg. I didn't run a race test.
 
 The backport and the test runs were prepared with AI coding tools
 (OpenAI Codex agents, with review by Claude). I went over the result
 before signing off.
 
-drivers/scsi/qla2xxx/qla_iocb.c | 2 --
- 1 file changed, 2 deletions(-)
+net/rds/tcp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 ---
- drivers/scsi/qla2xxx/qla_iocb.c | 2 --
- 1 file changed, 2 deletions(-)
+ net/rds/tcp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/scsi/qla2xxx/qla_iocb.c b/drivers/scsi/qla2xxx/qla_iocb.c
-index f080e1952927..3984b42fe0dd 100644
---- a/drivers/scsi/qla2xxx/qla_iocb.c
-+++ b/drivers/scsi/qla2xxx/qla_iocb.c
-@@ -2754,7 +2754,6 @@ qla24xx_els_dcmd_iocb(scsi_qla_host_t *vha, int els_opcode,
- 	if (!elsio->u.els_logo.els_logo_pyld) {
- 		/* ref: INIT */
- 		kref_put(&sp->cmd_kref, qla2x00_sp_release);
--		qla2x00_free_fcport(fcport);
- 		return QLA_FUNCTION_FAILED;
- 	}
+diff --git a/net/rds/tcp.c b/net/rds/tcp.c
+index 80d0e4c5b6aa..76cdea73a906 100644
+--- a/net/rds/tcp.c
++++ b/net/rds/tcp.c
+@@ -711,13 +711,13 @@ static void __net_exit rds_tcp_exit_net(struct net *net)
+ {
+ 	struct rds_tcp_net *rtn = net_generic(net, rds_tcp_netid);
  
-@@ -2779,7 +2778,6 @@ qla24xx_els_dcmd_iocb(scsi_qla_host_t *vha, int els_opcode,
- 	if (rval != QLA_SUCCESS) {
- 		/* ref: INIT */
- 		kref_put(&sp->cmd_kref, qla2x00_sp_release);
--		qla2x00_free_fcport(fcport);
- 		return QLA_FUNCTION_FAILED;
- 	}
+-	rds_tcp_kill_sock(net);
+-
+ 	if (rtn->rds_tcp_sysctl)
+ 		unregister_net_sysctl_table(rtn->rds_tcp_sysctl);
  
+ 	if (net != &init_net)
+ 		kfree(rtn->ctl_table);
++
++	rds_tcp_kill_sock(net);
+ }
+ 
+ static struct pernet_operations rds_tcp_net_ops = {
 
 ---
-base-commit: 4f2df9a01754521fbba3493e8ad91ef65515e68c
-change-id: 20261127-so5-qla-515-b1520cc04d0f
+base-commit: e2bb30811e063ce0db964484357973b855b06572
+change-id: 20261127-so5-rds-66-9cc9b346add0
 
 Best regards,
 --  
