@@ -1,79 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795751312;
-	b=gKADmavTOHtG5s+QRjCsQ/kvpeaanflu5OewCCewCR/jbKPA06IghkY0aTkqQA42J9Kd
-	 ZHNM6wg9g3r6ixP9/v3gZk+CVJxhO4nSiMYQLCfd6zP66xILvD5tQ70a0rdJGtCG3mIz2
-	 ai5mjcx0Yv1Nszy3hMgFtDMyNV/kVZ4V43pSjT07GUdr2FKZOBDWBnZ+UVj1lIXiSvGn9
-	 Br//vVxjsQFBiLq+DEOOzGyNlwMy8uFVeXwKI+BBKh/yyv3pd05lEEnPfPYVv1JFD77yL
-	 tY4iGLzYL8W0rCNXgJHVER84s7pVyh06qKNocsL/edULSAQ57G9nSoX1IyoNufagF/A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795751312;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=FFULFMRi0g2MjR/jOtVLsaDC9eiHigJbqcP2I7sEFy0=;
-	b=xgtTNsVn2B9gfaebYzjVOTD2ObVnnqtGfuL1jTGTiLCFvhj2ZMuhDdevmzZ/COwNJMH5
-	 s7kEYpRpqWVfkt23DFZryWM+aDfdNtDAgy0infxrMTCcFMxlzngRuzbD0FYGX8EDe6Vga
-	 Sw8duJ7uJ0KKTNWW9AAGR6LERt7tKDrfKu7849S7KEGiUFjPozkJAlNZCxObTGKZl5gC7
-	 w8CexkoZvZa40fDGQVEB2paqKUD6sXF6BxrwgUJfTfzjNRMd+ZwoogJFrhdmJbOwsF2FX
-	 R2W9ixfYEGDqGX0aCNqPaxX9iC+LgVPZRqhLNHurynVuXAdphiU1XH13okW8Ruzyk9Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gE4OlIoe;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795751765;
+	b=nMIU95NiTlLd1U4U5RBrueMEomFqEogMtYAuMJ1bybIAlHvkA7QDtwoxbmfrEHL5+LwT
+	 qLAJtaS1dlkkleDatFVOf7WD5ijFX5F0UpC7ciqrAgrG1qCgi1ojfqZglO8sUtRK+Ixbt
+	 rTwikc2EshFMX0gO/EaJE6FQL1ey4Jxz6XyFawHyL+GZg3rKz+v65QFh6TEjFMCgnemfD
+	 J2IXhMxfjJu3pJmA/hXPJh6C/lt0YDnqxPU40hf76PzZPwc3W2w6308DaTKhkFOHWDvwz
+	 CsONmaqMCzq+lSWPuVVEZRTctW1bfNN3jWIf4uentRMLgUFSKxoUugFl9kmbmYXCEbA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795751765;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=ecV1Mn61d4C7zbWXxRrySVT5Vwg0HwNlFGUl3ZjUNAI=;
+	b=i5y+pRbZtG6/FQI6EqN9u0q9oL/ZvQMQX1L7SVxeb5Uy73Q6jLoVU4wg8heIAarcFFmm
+	 4exgSKaJUzfXZw06HpqR5x+PILUoGzixnK4Ie4EsiX8JXbUURVOXfc4XpcjyTSYJVIKF0
+	 WyFmPfIn+6uGhSRBPo4SbThxpfc0BWfCqo1uq/DvWoirC/qAITXYVfxwJoR42N62O6RV4
+	 BDfcZ+L9vAShuDvdNGlGwmcZkevOSM1S8+S9umgkXrVAdnAjikVIO5lZvq8RuxXD6LfhE
+	 Lv2e+B7hv/roaA1Dj0L1CWw4POZZiMP7KHGZ1rej3CAIMgTHQO3WiqYdnHct+3Gq9Wg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XtbyiyGc;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E816606A326;
-	Fri, 27 Nov 2026 03:48:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D23606A31C;
+	Fri, 27 Nov 2026 03:56:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gE4OlIoe
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795751312;
-	b=BOXtQ1MR9F3cEfEwp+JvcsEAlLW21xAUEUBD3EnjpwGYRl+3x891prz9qeKOlX1X6Lee
-	 m+w7hLfNZ2UVPpA1FjpjFrRyQe/joRLzzVRi8gJDAVnOSZmKOLOIaeppuGiM1aaxr6VKi
-	 hkcyLFq1oV9DzLB5JM/eyCaYq4OHGHBDpu6FeZeplQ+SoR04fj7nJoxXR1WV3aTS5Vl8O
-	 O4ZLyK6xL7mnh7LWmDjHyenwqQlI4k0qxgiRl619kqYn3iv/jp0dPIm22UdTD1QWiH104
-	 hddA+x2lg3vbTO3EA6nl78peNGi9MItWKmr94iSksxC5/ik5iK+uR0zRo2DG0sfemdw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795751312;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=FFULFMRi0g2MjR/jOtVLsaDC9eiHigJbqcP2I7sEFy0=;
-	b=ZHl78rE2fPM1lkTBjEf4O2DXoQq2l18GUAhw8ykF6Y417dS0kFP6gH/NJbfEUO2A/9Dd
-	 wkUmi1CnIFZ7efXlZ8ekMy30J4YwPvxrtkCEg2k3YVQnB6KG3guwdFeqycS2Ab07gzKcr
-	 /OeII+gozh65YnjDDXZDymTYd2p8cPIVJ47Z714w2BlyGBD9SEtZqd5rEd5ETP7zaA53f
-	 ZxIYyhY+Eh9wRKqYHlKAYyIcvA/aLD5QQCvbEO5iROjzWJjqc80q14v2cvSj2D0DdYa9r
-	 fzW1hVhg9lg1EqrYMKDQHWcuNcZ7rc7f2uqf3sCoSGmHteDPPQc9KOM4/um2BLeedow==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5984A1F00899;
-	Fri, 27 Nov 2026 03:48:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XtbyiyGc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E9551F00893;
+	Fri, 27 Nov 2026 03:56:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795751312;
-	bh=FFULFMRi0g2MjR/jOtVLsaDC9eiHigJbqcP2I7sEFy0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=gE4OlIoeDXew4QGZbUIXYSCIYITGbOjhGgitD9FaEOS7fu8Wii136Lok9gQprKA3S
-	 ypDZQnRIDK802bkT2VPZjnB+5mYP/bZrMzDfn3bEXBK7MJcbNpLGfBT+VlxMJQQtfH
-	 j+Go6LAGVc4692cwRg7wBybzKd5VXqvoj070UP0u5fWFtGfVFL0VnaTnc2+mWhG11k
-	 iFGvjVKyhjPclmRqZ5JgBIMXxcIzelmp7wJMEotbiUpMJR0r6QcF/xv1gNh9L8K7Vy
-	 qnuvpDktqzEttFP95S2AJslcJ35QN7YKTvQvdc7xR3p1U9JljvQgSuC/SW1fevABdC
-	 pTKFFIHvt93kQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E11C24B550;
-	Fri, 27 Nov 2026 03:48:27 +0000 (UTC)
-From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
-Date: Fri, 27 Nov 2026 03:45:35 +0000
-Subject: [PATCH 5.15.y 3/3] sctp: add INIT verification after cookie
- unpacking
+	s=k20260515; t=1795751764;
+	bh=ecV1Mn61d4C7zbWXxRrySVT5Vwg0HwNlFGUl3ZjUNAI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=XtbyiyGcsAelw8bsNqIBiXSTLCzw4/yWjsJkSTfRKPf2JqsO4o8qAjOqIaHjdo0cN
+	 RAqQnAnz6yuuZsfiw0xZDzVfM1qVmLf3s4GDi3bdou7whaNXL8pqzY6018FYQ1L85k
+	 RoMgUNbKt0N2Qo/Gc0XiVh6Fewtq5lVp/KquB/myo04fQfD6O1BhD/rUI6VaN5bSVR
+	 KuSwQXBhKerT0hSvOtDGiR+LfP40Q6OxK6spm0sJpRDm+NfLQ0gv5AAdIllpF0E+29
+	 c/56kA+JrU930/zsftYIvfFYal8DtKepXa9GoPKo0JrPXdD9k0japov3IheVDwowW4
+	 7WlMal4iBdkBw==
+Subject:
+ Re: [PATCH net v4] net: fix stale header length after erspan version change
+From: netdev-bot+sashiko@kernel.org
+To: bsdhenrymartin@gmail.com
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ yanhaishuang@cmss.chinamobile.com, horms@kernel.org, netdev@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Fri, 27 Nov 2026 03:56:03 +0000
+Message-ID: <179575176385.3135.13634272345163080513@kernel.org>
+In-Reply-To: <20261126031224.430850-1-bsdhenrymartin@gmail.com>
+References: <20261126031224.430850-1-bsdhenrymartin@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,194 +64,323 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-so4-sctp-515-v1-3-bbee1a6af200@certik.com>
-References: <20261127-so4-sctp-515-v1-0-bbee1a6af200@certik.com>
-In-Reply-To: <20261127-so4-sctp-515-v1-0-bbee1a6af200@certik.com>
-To: stable@vger.kernel.org
-Cc: Xin Long <lucien.xin@gmail.com>, 
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
- linux-sctp@vger.kernel.org, netdev@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795751132; l=6211;
- i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
- bh=qXqnyULAbuD8Z1Occ9g1Uf0P7lOgRPzrN8/ffBOP464=;
- b=5FXFgJSL78sQALBLfrcjOwdst3WQw4/gS3PbaOrxEyuRogjkE8iiyCW63jq0NV5H8Kmc1NOYm
- ylugdcJKm6iDMIxxKotCuWhGjFRXduB2QjulU4HkkPBrjS68AWMhdJ7
-X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
- pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
-X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
- auth_id=1647
-X-Original-From: Dickson Wu <dickson.wu@certik.com>
-Reply-To: dickson.wu@certik.com
 
-From: Xin Long <lucien.xin@gmail.com>
+Thank you for your contribution! Sashiko AI review found 5 potential
+issue(s) to consider.
 
-commit 414c5447fe6a200613dd46d7fdc8454622076cb1 upstream.
+Critical: 0 · High: 3 · Medium: 1 · Low: 1
 
-In SCTP handshake, the INIT chunk is initially processed by the server
-and embedded into the cookie carried in INIT-ACK. The client then
-returns this cookie via COOKIE-ECHO, where the server unpacks it and
-reconstructs the original INIT chunk.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-When cookie authentication is enabled, the cookie contents are protected
-against tampering, so reusing the unpacked INIT without re-verification
-is safe.
+- [High] A failed erspan_changelink() now leaves the tunnel with a header
+  length for the new version but o_flags from the old configuration.
+- [High] erspan_calc_hlen() sets tun_hlen=8 for every ERSPAN v1/v2
+  tunnel, which assumes a GRE sequence word is always emitted.
+- [High] erspan_changelink() updates the fields the transmit path depends
+  on as separate plain stores, holding only RTNL, while erspan_xmit()…
+- [Medium] The commit message says the patch mirrors the IPv6 side, but
+  the IPv4 and IPv6 changelinks now behave differently when a request is…
+- [Low] The new `dev->needed_headroom += hlen;` in erspan_changelink() is
+  a plain, unannotated read-modify-write of dev->needed_headroom.
 
-However, when cookie authentication is disabled, the reconstructed INIT
-can no longer be trusted. In this case, the INIT must be explicitly
-validated after unpacking to avoid processing potentially tampered data.
+--
 
-Add sctp_verify_init() checks after cookie unpacking in COOKIE-ECHO
-processing paths (sctp_sf_do_5_1D_ce() and sctp_sf_do_5_2_4_dupcook())
-when cookie_auth_enable is disabled. On failure, the new association is
-freed and the packet is discarded.
+net: fix stale header length after erspan version change
 
-Also tighten cookie validation in sctp_unpack_cookie() by verifying the
-embedded chunk type is SCTP_CID_INIT before treating it as an INIT
-chunk.
+This commit moves the ERSPAN header length calculation out of
+erspan_tunnel_init() into a new erspan_calc_hlen() helper. The helper is
+then called from erspan_changelink() right after erspan_netlink_parms(),
+before its error is checked. needed_headroom and mtu are adjusted by the
+difference.
 
-Finally, update sctp_verify_init() to validate parameter bounds using
-the actual embedded INIT length instead of chunk->chunk_end, since the
-INIT stored in COOKIE-ECHO may not span the entire chunk buffer.
+Link: https://lore.kernel.org/netdev/20261123062752.27920-1-yanhaishuang@cmss.chinamobile.com/
+Link: https://lore.kernel.org/netdev/20261124014646.7954-1-yanhaishuang@cmss.chinamobile.com/
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Xin Long <lucien.xin@gmail.com>
-Link: https://patch.msgid.link/ebcbbac574815b0850f371b4bdb02f2e602b94d3.1782341592.git.lucien.xin@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ adapted to 5.15.y: use ->hmac and peer_init[]; verify A/B before the security hook ]
-Signed-off-by: Dickson Wu <dickson.wu@certik.com>
----
-The backport and the test runs were prepared with AI coding tools
-(OpenAI Codex agents, with review by Claude). I went over the result
-before signing off.
+> diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
+> index 5485586fa0e62..16f52b9e77b35 100644
+> --- a/net/ipv4/ip_gre.c
+> +++ b/net/ipv4/ip_gre.c
+> @@ -1351,7 +1351,7 @@ static const struct net_device_ops gre_tap_netdev_ops = {
+>  	.ndo_fill_metadata_dst	= gre_fill_metadata_dst,
+>  };
+>  
+> -static int erspan_tunnel_init(struct net_device *dev)
+> +static void erspan_calc_hlen(struct net_device *dev)
+>  {
+>  	struct ip_tunnel *tunnel = netdev_priv(dev);
+>  
+> @@ -1360,9 +1360,16 @@ static int erspan_tunnel_init(struct net_device *dev)
+>  	else
+>  		tunnel->tun_hlen = 8; /* 8-byte GRE hdr. */
 
- net/sctp/sm_make_chunk.c |  5 ++++-
- net/sctp/sm_statefuns.c  | 46 +++++++++++++++++++++++++++++++++++++---------
- 2 files changed, 41 insertions(+), 10 deletions(-)
+[Severity: High]
 
-diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
-index 79d2c2b179c35..669b94d9db620 100644
---- a/net/sctp/sm_make_chunk.c
-+++ b/net/sctp/sm_make_chunk.c
-@@ -1789,6 +1789,8 @@ struct sctp_association *sctp_unpack_cookie(
- 	bear_cookie = &cookie->c;
- 
- 	ch = (struct sctp_chunkhdr *)&bear_cookie->peer_init[0];
-+	if (ch->type != SCTP_CID_INIT)
-+		goto malformed;
- 	chlen = ntohs(ch->length);
- 	if (chlen < sizeof(struct sctp_init_chunk))
- 		goto malformed;
-@@ -2346,7 +2348,8 @@ int sctp_verify_init(struct net *net, const struct sctp_endpoint *ep,
- 	 * VIOLATION error.  We build the ERROR chunk here and let the normal
- 	 * error handling code build and send the packet.
- 	 */
--	if (param.v != (void *)chunk->chunk_end)
-+	if (param.v != (void *)peer_init +
-+		       SCTP_PAD4(ntohs(peer_init->chunk_hdr.length)))
- 		return sctp_process_inv_paramlength(asoc, param.p, chunk, errp);
- 
- 	/* The only missing mandatory param possible today is
-diff --git a/net/sctp/sm_statefuns.c b/net/sctp/sm_statefuns.c
-index aec07ab9b9513..2990a3d7c5780 100644
---- a/net/sctp/sm_statefuns.c
-+++ b/net/sctp/sm_statefuns.c
-@@ -707,8 +707,9 @@ enum sctp_disposition sctp_sf_do_5_1D_ce(struct net *net,
- 	struct sctp_association *new_asoc;
- 	struct sctp_init_chunk *peer_init;
- 	struct sctp_chunk *chunk = arg;
--	struct sctp_chunk *err_chk_p;
-+	struct sctp_chunk *err_chk_p = NULL;
- 	struct sctp_chunk *repl;
-+	enum sctp_cid cid;
- 	struct sock *sk;
- 	int error = 0;
- 
-@@ -782,6 +783,18 @@ enum sctp_disposition sctp_sf_do_5_1D_ce(struct net *net,
- 		}
- 	}
- 
-+	peer_init = &chunk->subh.cookie_hdr->c.peer_init[0];
-+	cid = peer_init->chunk_hdr.type;
-+	if (!sctp_sk(sk)->hmac &&
-+	    !sctp_verify_init(net, ep, asoc, cid, peer_init, chunk,
-+			      &err_chk_p)) {
-+		sctp_association_free(new_asoc);
-+		if (err_chk_p)
-+			sctp_chunk_free(err_chk_p);
-+		return sctp_sf_pdiscard(net, ep, asoc, type, arg, commands);
-+	}
-+	if (err_chk_p)
-+		sctp_chunk_free(err_chk_p);
- 
- 	/* Delay state machine commands until later.
- 	 *
-@@ -791,8 +804,6 @@ enum sctp_disposition sctp_sf_do_5_1D_ce(struct net *net,
- 	/* This is a brand-new association, so these are not yet side
- 	 * effects--it is safe to run them here.
- 	 */
--	peer_init = &chunk->subh.cookie_hdr->c.peer_init[0];
--
- 	if (!sctp_process_init(new_asoc, chunk,
- 			       &chunk->subh.cookie_hdr->c.peer_addr,
- 			       peer_init, GFP_ATOMIC))
-@@ -2205,10 +2216,12 @@ enum sctp_disposition sctp_sf_do_5_2_4_dupcook(
- 					void *arg,
- 					struct sctp_cmd_seq *commands)
- {
-+	struct sctp_chunk *err_chk_p = NULL;
- 	struct sctp_association *new_asoc;
-+	struct sctp_init_chunk *peer_init;
- 	struct sctp_chunk *chunk = arg;
- 	enum sctp_disposition retval;
--	struct sctp_chunk *err_chk_p;
-+	enum sctp_cid cid;
- 	int error = 0;
- 	char action;
- 
-@@ -2263,6 +2276,26 @@ enum sctp_disposition sctp_sf_do_5_2_4_dupcook(
- 		}
- 	}
- 
-+	/* Compare the tie_tag in cookie with the verification tag of
-+	 * current association.
-+	 */
-+	action = sctp_tietags_compare(new_asoc, asoc);
-+
-+	if ((action == 'A' || action == 'B') && !sctp_sk(ep->base.sk)->hmac) {
-+		peer_init = &chunk->subh.cookie_hdr->c.peer_init[0];
-+		cid = peer_init->chunk_hdr.type;
-+		if (!sctp_verify_init(net, ep, asoc, cid, peer_init, chunk,
-+				      &err_chk_p)) {
-+			sctp_association_free(new_asoc);
-+			if (err_chk_p)
-+				sctp_chunk_free(err_chk_p);
-+			return sctp_sf_pdiscard(net, ep, asoc, type, arg,
-+						commands);
-+		}
-+		if (err_chk_p)
-+			sctp_chunk_free(err_chk_p);
-+	}
-+
- 	/* Update socket peer label if first association. */
- 	if (security_sctp_assoc_request((struct sctp_endpoint *)ep,
- 					chunk->skb)) {
-@@ -2273,11 +2306,6 @@ enum sctp_disposition sctp_sf_do_5_2_4_dupcook(
- 	/* Set temp so that it won't be added into hashtable */
- 	new_asoc->temp = 1;
- 
--	/* Compare the tie_tag in cookie with the verification tag of
--	 * current association.
--	 */
--	action = sctp_tietags_compare(new_asoc, asoc);
--
- 	switch (action) {
- 	case 'A': /* Association restart. */
- 		retval = sctp_sf_do_dupcook_a(net, ep, asoc, chunk, commands,
+tun_hlen is now picked from erspan_ver alone on every changelink. That
+assumes a GRE sequence word is always emitted for v1/v2. Does the
+non-collect_md transmit path guarantee that?
+
+erspan_xmit() copies tunnel->parms.o_flags and clears KEY for v1/v2. It
+never sets IP_TUNNEL_SEQ_BIT. gre_build_header() pushes tun_hlen bytes,
+but it only fills the trailing word when SEQ (or KEY/CSUM) is set.
+
+erspan_validate() only checks the OR of the two flag attributes:
+
+net/ipv4/ip_gre.c:erspan_validate() {
+    ...
+	if (data[IFLA_GRE_OFLAGS])
+		flags |= nla_get_be16(data[IFLA_GRE_OFLAGS]);
+	if (data[IFLA_GRE_IFLAGS])
+		flags |= nla_get_be16(data[IFLA_GRE_IFLAGS]);
+	if (!data[IFLA_GRE_COLLECT_METADATA] &&
+	    flags != (GRE_SEQ | GRE_KEY))
+		return -EINVAL;
+    ...
+}
+
+So a v0 tunnel changed to v1 with IFLAGS=SEQ|KEY and no OFLAGS is
+accepted. ipgre_netlink_parms() memsets parms, so p.o_flags has no SEQ,
+and erspan_changelink() commits it at the end.
+
+With this patch, that device gets tun_hlen == 8 and o_flags without SEQ:
+
+erspan_xmit()
+  __gre_xmit()
+    gre_build_header(skb, tunnel->tun_hlen /* 8 */, flags /* no SEQ/KEY */, ...)
+
+Would bytes 4..7 of every GRE header then go to the peer as unwritten
+skb headroom? That is the leak the commit message describes. A v1/v2
+device created the same way through newlink has the same gap.
+
+erspan_fb_xmit() and ip6erspan_tunnel_xmit() both force SEQ before an
+8-byte gre_build_header():
+
+	__set_bit(IP_TUNNEL_SEQ_BIT, flags);
+	gre_build_header(skb, 8, flags, proto, 0,
+			 htonl(atomic_fetch_inc(&t->o_seqno)));
+
+Should erspan_xmit() also set IP_TUNNEL_SEQ_BIT for v1/v2? Or should
+tun_hlen be derived from the flags that are actually emitted?
+
+>  
+> -	tunnel->parms.iph.protocol = IPPROTO_GRE;
+>  	tunnel->hlen = tunnel->tun_hlen + tunnel->encap_hlen +
+>  		       erspan_hdr_len(tunnel->erspan_ver);
+> +}
+
+[ ... ]
+
+> @@ -1509,11 +1517,28 @@ static int erspan_changelink(struct net_device *dev, struct nlattr *tb[],
+>  		return -EOPNOTSUPP;
+>  	}
+>  
+> +	hlen = t->hlen;
+> +
+>  	err = ipgre_newlink_encap_setup(dev, data);
+>  	if (err)
+>  		return err;
+>  
+>  	err = erspan_netlink_parms(dev, data, tb, &p, &fwmark);
+> +
+> +	/*
+> +	 * ipgre_newlink_encap_setup() reset t->hlen without the ERSPAN part.
+> +	 * Restore it before ip_tunnel_changelink() (and its
+> +	 * ip_tunnel_bind_dev()) consumes it, and even when the parms above
+> +	 * failed, so a failed changelink leaves no stale value for the next
+> +	 * one to sample.
+> +	 */
+> +	erspan_calc_hlen(dev);
+
+[Severity: High]
+
+Can a failed changelink now leave the new version's tun_hlen paired with
+the old o_flags?
+
+erspan_netlink_parms() writes t->erspan_ver into the live tunnel before
+its own checks run:
+
+net/ipv4/ip_gre.c:erspan_netlink_parms() {
+    ...
+	if (data[IFLA_GRE_ERSPAN_VER]) {
+		t->erspan_ver = nla_get_u8(data[IFLA_GRE_ERSPAN_VER]);
+
+		if (t->erspan_ver > 2)
+			return -EINVAL;
+	}
+
+	if (t->erspan_ver == 1) {
+		if (data[IFLA_GRE_ERSPAN_INDEX]) {
+			t->index = nla_get_u32(data[IFLA_GRE_ERSPAN_INDEX]);
+			if (t->index & ~INDEX_MASK)
+				return -EINVAL;
+		}
+    ...
+}
+
+erspan_calc_hlen() then runs before err is checked.
+ip_tunnel_changelink() can also fail after it, with -EEXIST, -EINVAL or
+-ENODEV. Every one of these returns skips the o_flags commit at the end
+of erspan_changelink():
+
+	ip_tunnel_flags_copy(t->parms.o_flags, p.o_flags);
+
+A v0 device can have o_flags without SEQ, because erspan_validate()
+returns 0 early for version 0. Take a changelink on such a device with
+ERSPAN_VER=1, IFLAGS=OFLAGS=SEQ|KEY and ERSPAN_INDEX=0x100000:
+
+erspan_netlink_parms()
+  t->erspan_ver = 1, returns -EINVAL
+erspan_calc_hlen()
+  tun_hlen = 8, hlen = 20
+needed_headroom and mtu adjusted
+return -EINVAL
+  t->parms.o_flags still 0
+
+erspan_xmit() then takes the v1 branch with flags copied from o_flags
+(0). __gre_xmit() calls gre_build_header() with tun_hlen == 8 and no
+SEQ/KEY/CSUM. gre_build_header() pushes 8 bytes but only writes
+greh->flags and greh->protocol.
+
+Would bytes 4..7 of every GRE header then reach the peer as
+uninitialized skb headroom? Before this patch, the same failure path
+left tun_hlen at 4.
+
+The commit message says "a failed changelink must not leave the reset
+value for the next call to sample". It doesn't mention that a failed
+request now changes tun_hlen, needed_headroom and mtu.
+
+Could the ERSPAN attributes be validated before any tunnel state is
+written? Alternatively, erspan_ver/index/dir/hwid and the hlen values
+could be saved and restored on every error return.
+
+> +	hlen = t->hlen - hlen;
+> +	if (hlen) {
+> +		dev->needed_headroom += hlen;
+
+[Severity: Low]
+
+This is a plain read-modify-write of dev->needed_headroom, while the mtu
+store next to it uses WRITE_ONCE(). Can it race with the datapath?
+
+ip_tunnel_xmit() updates the same field locklessly:
+
+include/net/ip_tunnels.h:ip_tunnel_adj_headroom() {
+	headroom = ip_tunnel_limit_headroom(headroom);
+
+	if (headroom > READ_ONCE(dev->needed_headroom))
+		WRITE_ONCE(dev->needed_headroom, headroom);
+}
+
+Say changelink loads H0, xmit raises the value to H1, and changelink
+then stores H0 + hlen. The datapath raise is lost. With a negative hlen,
+the field can also drop below a value the datapath just set.
+
+In practice this means extra skb reallocations and a KCSAN report.
+ipgre_link_update() has the same unannotated pattern.
+
+Would this work better here:
+
+	WRITE_ONCE(dev->needed_headroom, READ_ONCE(dev->needed_headroom) + hlen)
+
+ideally clamped with ip_tunnel_limit_headroom() as ip_tunnel_bind_dev()
+does?
+
+> +		if (!tb[IFLA_MTU])
+> +			WRITE_ONCE(dev->mtu, max_t(int, dev->mtu - hlen, 68));
+> +	}
+>  	if (err < 0)
+>  		return err;
+
+[Severity: Medium]
+
+The commit message says this mirrors ip6erspan_tnl_change(). Does the
+IPv4 failure path actually behave like the IPv6 one?
+
+ip6erspan_changelink() parses into a local struct __ip6_tnl_parm. It
+only applies the version and header length on success:
+
+net/ipv6/ip6_gre.c:ip6erspan_changelink() {
+    ...
+	t = ip6gre_changelink_common(dev, tb, data, &p, extack);
+	if (IS_ERR(t)) {
+		err = PTR_ERR(t);
+		goto unlock;
+	}
+
+	ip6erspan_set_version(data, &p);
+	...
+	ip6erspan_tnl_change(t, &p, !tb[IFLA_MTU]);
+    ...
+}
+
+Here, needed_headroom and mtu are adjusted before err is checked, based
+on whatever erspan_netlink_parms() already wrote into the live tunnel.
+IFLA_GRE_ERSPAN_VER also has no range policy in ipgre_policy:
+
+	[IFLA_GRE_ERSPAN_VER]	= { .type = NLA_U8 },
+
+For example, take a changelink on a v1 device with ERSPAN_VER=3 and
+SEQ|KEY flags. It sets t->erspan_ver to 3 and returns -EINVAL.
+
+erspan_calc_hlen() then calls erspan_hdr_len(3), which returns the v2
+size. needed_headroom grows and mtu shrinks by 4 before -EINVAL is
+returned. From then on, erspan_xmit() drops every packet because
+erspan_ver is 3.
+
+A v1->v2 change with an invalid hwid likewise switches the version,
+header length, headroom and mtu while reporting failure.
+
+Doesn't this contradict the new comment's claim that "a failed
+changelink leaves no stale value"?
+
+Would it match the IPv6 behavior better to parse the ERSPAN attributes
+into locals, and to commit them (plus the hlen/mtu/headroom update) only
+on success? NLA_POLICY_MAX(NLA_U8, 2) for IFLA_GRE_ERSPAN_VER might also
+help.
+
+[Severity: High]
+
+Is anything ordering these updates against the transmit path?
+
+erspan_tunnel_init() sets dev->lltx, so erspan_xmit() runs without a
+lock, while erspan_changelink() holds only RTNL. The fields are updated
+as separate plain stores, in this order:
+
+erspan_netlink_parms()
+  t->erspan_ver = ...
+erspan_calc_hlen()
+  t->tun_hlen = ..., t->hlen = ...
+ip_tunnel_changelink()
+  ip_tunnel_update()
+    netdev_state_change()
+ip_tunnel_flags_copy(t->parms.o_flags, p.o_flags)
+
+erspan_xmit() reads tunnel->erspan_ver to pick the header and clear SEQ,
+then reads o_flags. __gre_xmit() reads tunnel->tun_hlen separately for
+gre_build_header().
+
+On a v1->v0 change, xmit can see erspan_ver == 0 (SEQ and KEY cleared)
+together with the old tun_hlen == 8. Four bytes of uninitialized
+headroom then go out.
+
+On a v0->v1 change where the old o_flags lack SEQ, xmit sees
+erspan_ver == 1 and tun_hlen == 8 with the old o_flags for the whole
+ip_tunnel_changelink() window. Every packet sent in that window has the
+same 4-byte leak.
+
+The opposite interleaving (new erspan_ver, old tun_hlen == 4, o_flags
+with SEQ) writes the sequence number over the GRE base header.
+
+The caller controls both the version toggling and the traffic. Doesn't
+that turn the permanent leak into a repeatable race rather than remove
+it?
+
+Could erspan_xmit() compute the GRE header length locally from a single
+READ_ONCE() of erspan_ver, and force SEQ for v1/v2? Or could version
+changes be refused while the device is up?
 
 -- 
-2.43.0
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261126031224.430850-1-bsdhenrymartin%40gmail.com
