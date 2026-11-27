@@ -1,64 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.128.248.237
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795779692;
-	b=xn1BtiY84dP52twe6Jon7AQurKD97fGS2dRHhEg4cGyILZvjw4VcW+JA2XYSaShPh0zN
-	 QSswK6jsGYiN/Ro7eQHACDFE9aK4tnr2RNrL7ccZm3xMvJwELj85Dp9pKW6DszpY3RPIO
-	 VjC3inxp9Og+IFLOT3rJIQ5bt0di8OhciXKt8zPbKIl66G0mM8iOacxrgAbJKA3l/6BTq
-	 MXVT5LKOogLF3Gof5mB0C7dL7WZkgW+yUH0zWzQXP8UIawEHcls3opcpK80X+GQKq2PRn
-	 cTk+tuUOz10SDfPBz1Zn6fvaTW9jIFJmujiXq8eRotId/SBfenRs75PN5RZbyxJPmbA==
+	t=1795779707;
+	b=Bdw/ij3VNCucHE3u7Py9kt++cHGPvuIzD8hkqNtGbZkcl0EqsZIhpe+oOFqIxgbTGIRP
+	 XUQajQbkcb9DBavLI9+dNqa+sELKXSXGOqpYMYMnX73kyDHax3jGLih5iq/5axs7TQE9u
+	 HIaREUiXH678vrYdIUyqqr9gO6RGUzb6/h8iGrNDcd4qfxdYWMcZLSBzWqAlV5w2aHC5l
+	 KVVTpriPY54ljgN1xYPZoIFcY3RakqxrvMW5rTrD6CMBMJWd3sGq3/KasOebD4X8S1BPr
+	 de/mbf4Rned1xy9xOvHvh66LpFChliTlARSskvt6r6MIgGcPaEzELup3sV/myMv3NhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795779692;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Last-TLS-Session-Version;
-	bh=PEwKN57fXayam7QpW3+EgVkiTYhAsGK1PdQ9117BmoU=;
-	b=T/r5RecDNrr/NK2TnPYIm4fSwAvO9nns3SyaNmaPGv8JorO3Qi/1z7vnVx3fvZckjz+t
-	 WBTCvIAWRbklb3Y2jn5SCDkVfcoNKtP4/Xkb5YQwGRH2LI/Ti0jHpOpxsj7KJOEgTqTaJ
-	 MzJNEyHjUCwtSq4yULQzHdode5K4KHNnqsWKCR87kfDsOOscgW0TSE/yjBMNkacV+bUbe
-	 x1oZB1uB24hdvzvYg2RId2neWYalXmVxU75vrLk7p58f3+CWdgJ4DnS0WpmmdEPItqqih
-	 eDIo2JK4+rVhbzCCQklR3KR53PdHBLykyiihYlUrq/FTMtcdNTbzb2y7MNIpLhDsBFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795779707;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=0XGypaCJ7EJQifKr/qwYwdAUFvbJAWwik5NXmXNQWeA=;
+	b=tYv6PiaBuS+bjCkAe8c6ywbNWcwUBtnFdoGM6P+I76J3vPeNZURI/R4Sl0yz2RCeAWsG
+	 9Azg/Dr2zFAYCO4iMN+2oprplmESKcW/yWkPDU0g7mGIVKnmJfxtUSVummAI7Has1QY2q
+	 rKlS22WQytKRO7xFFYbz3W9HsZ9ZOmcN+rUrgenXOCCWgdFC3hIvZe08Idb5OtsE3aeuz
+	 6LBDEYQvnvUSCRsPe9cWCU66SDGSoi2RHF+d4sv3SqHcUg0qtK+nJ3izCifea6kOWzkNM
+	 tOWzDWBuRvORnuk5M4gku7oGfB0at3xhS8PEI8XR8UyEc+vVcfguZkI9jyJ6ZZC/mig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Tqfejkq1;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	dmarc=pass header.from=cesnet.cz;
+	spf=pass smtp.mailfrom=cesnet.cz;
+	dkim=pass header.d=cesnet.cz header.i=@cesnet.cz header.a=rsa-sha256 header.s=office2-2020 header.b=La4Cgz56;
+	arc=none smtp.remote-ip=78.128.248.237
+Received: from office2.cesnet.cz (office2.cesnet.cz [78.128.248.237])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 947E6606A32C;
-	Fri, 27 Nov 2026 11:41:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 947E6606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B989A606A6A6;
+	Fri, 27 Nov 2026 11:41:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B989A606A6A6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cesnet.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cesnet.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Tqfejkq1
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0632310A1AA;
-	Fri, 27 Nov 2026 12:41:23 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1795779685;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=PEwKN57fXayam7QpW3+EgVkiTYhAsGK1PdQ9117BmoU=;
-	b=Tqfejkq19wigcjRH6gjMuhO4L0VIBxD16LbNHeiTki+f82dupBnGP6aWuhI081emropPS9
-	VOwdD/4tnWduEmwflZy3eAtrJT5W8ZyHdWI7mxQGf4IijyZ+X8ESPhZoicB86Ayccgnjze
-	xksoXnz8Zliak8hqX1r7pmrrLUcyGdE1rX74mKIg4+w0OFbBQcOMygp7hayjipFZhp99Rd
-	ctvculvpFu0q3QzKXTJ0TgZlJ2cz+DeAOoSqWo04wPVo9KnVVEnGV0ptiQ57I/+E0793f0
-	GL3uabhwP9/TsmqwxquzrAC9PU4FBUH4aORB5Qknx+1XrJwA7MJoitad3/0XDg==
-Date: Fri, 27 Nov 2026 12:41:22 +0100
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Chris.Paterson2@renesas.com
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.18 000/990] 6.18.66-rc1 review
-Message-ID: <awlsYiN0boZsl_Ag@duo.ucw.cz>
-References: <20261125143822.072087159@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=cesnet.cz header.i=@cesnet.cz header.a=rsa-sha256 header.s=office2-2020 header.b=La4Cgz56
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cesnet.cz;
+	s=office2-2020; t=1795779704;
+	bh=0XGypaCJ7EJQifKr/qwYwdAUFvbJAWwik5NXmXNQWeA=;
+	h=From:To:Cc:Subject:Date;
+	b=La4Cgz560/hs2fK1204gQgoWc7x5S+YHF5BOLQvwmEqDXVHMojdu5d8dn8MXsh/Pa
+	 xnC3K8aDavr6nnLbiSagymIADfBNu5w0+aCr2C12JPmiGprqHz/tgowpYC9z2KYf9u
+	 I3M0DazwcRDJvQhZ7bUxm2UIGiao5Kcl8Jx89AsbY430kdH9uRn8R7PZ5jIrgG459g
+	 GLYGVgOxBMDYMXwe7yaLRbxZfY9OIOEu5fN5bMMQPLMI6Gl+G+k+FO5SpTxujoyxu9
+	 D9EqEnhrc4dBg6bn9JFODq/GmlrBxPruaHKohYccXn8yF6k3CAjgBmkIFrCl9W6gBv
+	 +F792sd0dPl7Q==
+Received: from localhost.localdomain (unknown [85.255.90.210])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by office2.cesnet.cz (Postfix) with ESMTPSA id B3501118007D;
+	Fri, 27 Nov 2026 12:41:43 +0100 (CET)
+From: Jaroslav Svoboda <jaroslav.svoboda@cesnet.cz>
+To: linux-media@vger.kernel.org,
+	Detlev Casanova <detlev.casanova@collabora.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Heiko Stuebner <heiko@sntech.de>,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Jaroslav Svoboda <jaroslav.svoboda@cesnet.cz>
+Subject: [PATCH] media: rkvdec: Reject 4:0:0 HEVC streams
+Date: Fri, 27 Nov 2026 12:41:30 +0100
+Message-ID: <20261127114130.1680888-1-jaroslav.svoboda@cesnet.cz>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,44 +75,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="A5yVwwMuwHiZwh2Z"
-Content-Disposition: inline
-In-Reply-To: <20261125143822.072087159@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
+The HEVC backend of the first rkvdec variant (RK3288, RK3328, RK3399)
+accepts an SPS with chroma_format_idc 0, its comment reading "Only 4:0:0
+and 4:2:0 are supported". The hardware has no monochrome HEVC: the
+RK3328 and RK3399 datasheets list HEVC Main and Main 10 only, and
+Rockchip's MPP library notes that its HEVC decoders before the RV1126B
+do not support YUV400.
 
---A5yVwwMuwHiZwh2Z
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Given a monochrome HEVC stream (x265 fed gray or gray10le pictures),
+the RK3328 and the RK3399 decode every picture's luma as zeros, with
+IOMMU read faults at addresses near 0 and near the size of one luma
+plane. A 2160p stream hung both SoCs after a few seconds; only a power
+cycle brought them back.
 
-Hi!
+Reject chroma_format_idc 0, as the VDPU381 and VDPU383 backends already
+do, so that setting the SPS control fails and userspace can fall back
+to a software decoder.
 
-> This is the start of the stable review cycle for the 6.18.66 release.
-> There are 990 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+Tested with this change on v7.3.1, on an RK3328 board and on a Pinebook
+Pro (RK3399): a monochrome HEVC stream is now refused at the SPS
+control, and 8-bit and 10-bit 4:2:0 streams still decode bit-exact
+against FFmpeg. Not tested on linux-next itself, nor on the RK3288.
 
-I need help here.
+The problem was found, and this fix and message written, with the help
+of an AI coding assistant (Claude Opus 5.5 in Claude Code) during
+hardware testing of the boards above.
 
-I'm getting failure on qemu/arm here:
+Fixes: 3595375c2301 ("media: rkvdec: Add HEVC backend")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jaroslav Svoboda <jaroslav.svoboda@cesnet.cz>
+---
+ drivers/media/platform/rockchip/rkvdec/rkvdec-hevc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/3118612432
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc.c b/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc.c
+index 88e90c438..97466705f 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc.c
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc.c
+@@ -487,8 +487,8 @@ static void config_registers(struct rkvdec_ctx *ctx,
+ static int rkvdec_hevc_validate_sps(struct rkvdec_ctx *ctx,
+ 				    const struct v4l2_ctrl_hevc_sps *sps)
+ {
+-	if (sps->chroma_format_idc > 1)
+-		/* Only 4:0:0 and 4:2:0 are supported */
++	if (sps->chroma_format_idc != 1)
++		/* Only 4:2:0 is supported */
+ 		return -EINVAL;
+ 	if (sps->bit_depth_luma_minus8 != sps->bit_depth_chroma_minus8)
+ 		/* Luma and chroma bit depth mismatch */
 
-It does not go away with retries. I got similar failure with other
-trees, but there it went away with retries, so I assumed it was some
-kind of testing problem.
+base-commit: b4e3c4b6a36fd76f57bf3e48638f68ddecc54ba4
+-- 
+2.56.0
 
-Best regards,
-								Pavel
---A5yVwwMuwHiZwh2Z
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCawlsYgAKCRAw5/Bqldv6
-8hNDAKCxjTAij5oIiRAHPisDwnO1v3dX0gCgwEX4MCtxHDEJxoqQ2NSSjl9lWyo=
-=QbE3
------END PGP SIGNATURE-----
-
---A5yVwwMuwHiZwh2Z--
