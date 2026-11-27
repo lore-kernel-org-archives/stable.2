@@ -1,49 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795784545;
-	b=WE6+rYSC/A7QfEsZdzLVSiOMvYtoE9t495VMfxuAzQgZpXSpDqju8OM4/osTd55iy4uE
-	 erMX0i1+AmpJXTARFNFWKultar+7M3ux8crjh0JUNA7fDL5dFsU4lePMvoKlFhK7UWAqw
-	 Dwq6i7r+IPtPP6CFlSrF+rULlZBHktkqVeGp6+uix/qctld6QiUp80RL2eXJp88g7JjWZ
-	 YuqtXQLvK5ZDiIPCNDhM2SnHs+oQNNMPLsoLomgQ1PcuTtJCT3WeNS9/sFu4p5RqxSMCH
-	 WfT5k3Pr2O9bKJpfYUqiUqJGRKN7jTdgMnWskgtvPmUgoaTPsCf983toP+XRnr/0oXQ==
+	t=1795784959;
+	b=y5xtFNJxe5nGcj6zY6XAPxTTZ4wC7DX9xynIpFWOEUy4ldUi5xd2YOKOzHIYKbbAFIW2
+	 ldjnq+1YUPo0ujPnBw+m02XNboN6icxmKpshUSw3JnhvV2R9tnb6oO6qH82l970chrqNC
+	 O6UfqK1Tk4by5FYT4Ft4wzlDdNhB/WeQfJ/1nUDNZxZpq4E/YiTQ2X5fuVU3Oc2r8SQ6a
+	 uJzLjC02E9fuFGAtUHHRqc/oQE1Xv9h2h/K6d25gRJ9yusIrNcjMCkR/yb6AVmFQXB+cf
+	 WDkBTRvu0A7dcWGB7DCvmtMMu88GQpSoNiWuRsEvqy/IQZTPlpIazIgQtfOyk1dT/zA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795784545;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=LtJEEQG4iK+tOAIiGdDHJtxrocD8+I8V0KWp8R71igo=;
-	b=KlnYA/JhoBcKWaegmjHk8+sKwViB8FcdonXpBvsrK2d8YmRhpBWRHVSnxH9AaDRZN281
-	 MfVjFn/E9KMaTVywZOrw+AFY+Btp2VL97zy0w5nb3HsZq1336eGqVaVFHtPux3Xy6SP5k
-	 RsBg2hzOyi7FCx3AzL9qdwsEeVal8BJ1vuB1V2ued1NTIa7ci/3V4YEEkwJoTjj2Ko/bf
-	 WiF0OS7JkAmUptOcPEkCw4/Mw45JLUW/7KYXwHBML3MxhgC1HA/0+Ym7cPOPWWjDULkue
-	 FvHaLziXz6Oz5vzy8oq+pKs6ghb+wGH2jVdNb9QNodxPu7L8sY9jy+xX+/h+H7pg/pg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795784959;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qHbHYz43YWfZNtecSxmfo42fT9cp3l2S8acs9GzZ4jY=;
+	b=JJ3s8jqSBEeiUpU+nbyydIzvMTwI/IuQXNDVU8cMukCxV8tNtmLsNHWBEUiTL0HnEcEo
+	 Wa1hb/zai/wAc+oJXFbDY4c02m3N3sjw6mh7xMfKSvrlIeHuPnOoW56ZpamAAKYab9FX/
+	 TjOQV7kQorMf9NWsDDWu3JogNAn6fFXu5l+r43opE8HVADc6/T4z2ys1idWbL+//GBh+Y
+	 BUkSw3ezhvzkMDAfItpbE1HezFq+Fq6Ao/wQF59LnD9qj7EhJexqJCDp1ZsGS4G5bPXsz
+	 iFUyoNLzY9XJj14ErbELyESLuPmoMQ/xyFLXsyfMycHUc6uOEVGLt/aIyAeYlHlLSpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JXbB92Su;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 42852606A31E;
-	Fri, 27 Nov 2026 13:02:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42852606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cSQRCE9r;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C299C606A31C;
+	Fri, 27 Nov 2026 13:09:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JXbB92Su
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9198C1570;
-	Fri, 27 Nov 2026 05:02:21 -0800 (PST)
-Received: from [10.0.154.42] (e121487-lin.cambridge.arm.com [10.0.154.42])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E46513F86C;
-	Fri, 27 Nov 2026 05:02:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795784544; bh=QeFOK6g8h2iQ2txNI2mx0B0PPeSALxkLl0Q5BbCVDmk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=JXbB92SunCgR+kVz71rmMiUis52LA1z+gix44AySQQhACoDyc0LdD7F+RFyIqqgN2
-	 BGftvxnt09g4GhWHRASIwOxPtgey38xSjx5/hu1Ay7j+RDY/Ifx2fPDgpSoz3UEbZ2
-	 2pCGVjA4EEaDZgJEFaYNECT83+NmviaX6/uZyfpo=
-Message-ID: <6fe998dd-cb41-49ee-8018-26071d347db5@arm.com>
-Date: Fri, 27 Nov 2026 13:02:20 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cSQRCE9r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EC701F000C1;
+	Fri, 27 Nov 2026 13:09:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795784959;
+	bh=qHbHYz43YWfZNtecSxmfo42fT9cp3l2S8acs9GzZ4jY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cSQRCE9rtZWbqs8BskTfYhaLYnl4o3V65Leu8Y3BSZ23IXSzi6NNdUvEAN83FudU1
+	 vpbuBzm6ryzEC5VP26oO/V/MsRfa+53D5YLRl+Mr14crccXQuDiutKKWxUz2hrOO4N
+	 3rPKL4eBBwSmCjTWhp48fdnr5sYNI1Og/nmPLnAJ/2fbSjhirmN0fDJZd7Am//+wJE
+	 k16dOvqA2pfGde6rTks4Ctm+wVdJbl2YfqsVXfbyDT548hRwUTdmB/RR4IExxOS6lf
+	 FThf1XFd8RW2zn4MF94XF8wW65TXPTINu2xDyZGiO3AXU6T2mGw0SIIQC8QkIdlIcy
+	 x8CoGvHq9idhg==
+Date: Fri, 27 Nov 2026 13:09:11 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Leonardo Bras <leo.bras@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Christoffer Dall <christoffer.dall@linaro.org>, Jintack Lim <jintack.lim@linaro.org>, 
+	Wei-Lin Chang <weilin.chang@arm.com>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Usama Arif <usama.arif@linux.dev>, stable@vger.kernel.org
+Subject: Re: [PATCH] KVM: arm64: Top up the mmu memcache on user fault for NV
+Message-ID: <awl76RV-OOU7i0xm@gremlin>
+References: <20261126-fix-nv-cache-topup-v1-1-a22c936872fe@kernel.org>
+ <awlwTGHVjoO72YFw@LeoBrasDK>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,66 +63,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert "irqchip: nvic: Fix offset for Interrupt Priority
- Offsets"
-To: Yoshifumi SHU <envzhu@gmail.com>, Thomas Gleixner <tglx@kernel.org>
-Cc: Radu Rendec <radu@rendec.net>, Brad Hawthorne <brad@sim.vu>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- stable@vger.kernel.org
-References: <20261127122801.4189591-1-envzhu@gmail.com>
-Content-Language: en-GB
-From: Vladimir Murzin <vladimir.murzin@arm.com>
-In-Reply-To: <20261127122801.4189591-1-envzhu@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <awlwTGHVjoO72YFw@LeoBrasDK>
 
-On 11/27/26 12:28, Yoshifumi SHU wrote:
-> This reverts commit c5e0cbe2858d278a27d5b3fe31890aea5be064c4.
-> 
-> nvic_base is mapped to 0xe000e100 (NVIC_ISER0). Thus, the Interrupt
-> Priority Registers (NVIC_IPRx, at 0xe000e400) are offset by 0x300 from
-> nvic_base, not 0x400. The reverted commit overlooked that nvic_base is
-> already offset by 0x100 from 0xe000e000 and incorrectly changed
-> NVIC_IPR.
-> 
-> Link: https://lore.kernel.org/linux-arm-kernel/b0be3be5-3a7d-469e-9166-a3414a52cbea@arm.com/
-> Fixes: c5e0cbe2858d ("irqchip: nvic: Fix offset for Interrupt Priority Offsets")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yoshifumi SHU <envzhu@gmail.com>
-> ---
-> Vladimir asked for this revert (see Link:).
-> 
-> Tested on MPS3-AN547 (Cortex-M55) and EK-RA8P1 (Cortex-M85) hardware
-> against v7.4-rc4. On EK-RA8P1, confirmed that the driver now writes to
-> the correct addresses for NVIC_IPR registers.
-> ---
->  drivers/irqchip/irq-nvic.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/irqchip/irq-nvic.c b/drivers/irqchip/irq-nvic.c
-> index 2191a2b79578..9438891e66f2 100644
-> --- a/drivers/irqchip/irq-nvic.c
-> +++ b/drivers/irqchip/irq-nvic.c
-> @@ -26,7 +26,7 @@
->  
->  #define NVIC_ISER		0x000
->  #define NVIC_ICER		0x080
-> -#define NVIC_IPR		0x400
-> +#define NVIC_IPR		0x300
->  
->  #define NVIC_MAX_BANKS		16
->  /*
-> 
-> base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
-> -- 2.53.0
-> 
+On Fri, Nov 27, 2026 at 11:58:04AM +0000, Leonardo Bras wrote:
+> On Thu, Nov 26, 2026 at 05:28:29PM +0000, Lorenzo Stoakes (ARM) wrote:
+> > The S2 user fault path tops up the MMU memcache (used for page table
+> > pre-allocation as the point at which page tables are installed may not
+> > allocate) except when:
+> >
+> > * It's a permission fault AND
+> > * dirty page logging is disabled AND
+> > * pKVM is disabled
+> >
+> > At which point it is assumed no page table will be allocated.
+> >
+> > However nested virtualisation adds another edge case - the mapping size of
+> > a shadow S2 is clamped to that of the guest's own S2. If the guest
+> > hypervisor replaces a block mapping with a table, a permission fault on the
+> > shadow block has to be mapped at PAGE_SIZE, which requires a page table to
+> > collapse the block into.
+>
+> Can you please expand on how would that happen?
+>
+> IIUC when a guest hypervisor replaces a block mapping with a table, it
+> calls a tlbi in the range, and L0 will trap and remove the Shadow S2 entry,
+> then next access shouldn't be a permission but a translation fault.
+>
+> What am I missing?
 
-FWIW,
+That's a great point, actually :)
 
-Acked-by: Vladimir Murzin <vladimir.murzin@arm.com>
+But nothing really enforces that L1 does that for sure, even a bug could produce
+that, and you really want to avoid the host getting in bother in that case.
 
-Sorry for such silly mistake!
+(The host kernel has to behave properly no matter what guests do).
 
-Cheers
-Vladimir
+I was able to (get claude to) repro this easily.
+
+But actually I think there's another case too, even assuming everything's
+well-behaved:
+
+* vCPU B: Writes to a read-only shadow block -> permission fault, exits
+  to the host.
+
+* vCPU A: Concurrently does its break/TLBI/make on the L1 S2, replacing
+  the block with writable pages. The TLBI clears the shadow block.
+
+* vCPU B: Now handles the fault. It's still a permission fault as far as
+  the ESR is concerned so we skip the top-up, but the L1 S2 now says
+  page rather than block, so we go to map a page and have to allocate
+  page table(s) for it.
+
+This needs the mapping size to have changed (otherwise we just try to relax
+permissions, which doesn't allocate) which can happen when splitting,
+replacing pages with a THP page, etc.
+
+In general I think just topping up regardless is the better route, but for
+a backport this is the least big change to fix this.
+
+>
+> Thanks!
+> Leo
+
+--
+Cheers, Lorenzo
