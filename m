@@ -1,88 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.156
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795770731;
-	b=V9/GUoSOKDWUg8ZFbmEvU5zzy2tPuUdY8Rpaltj3n3XqpKtmyjg6RZsc6x9EHxjN51j5
-	 crha7j2eEO2L9WEPQHQKAO5EXDz/UTWL0hZ9HL1pzvlzVaYjq7s2e3EpWDflnjOhBSG9a
-	 NW5LsHYU7gS2bpWKIqWLgbX3vwAfw2dC5A+8mtNE9togs+FASiBUNL1ClYk1vVpAxk3jN
-	 laQ0HovsiCHajWksHgRQXelGQZvlOO8NGLcnIkxgFIip7v+HnMePSbzLgCi+V8Ey20kIh
-	 ljq2ZX4OKaURaEGe70jnu4Ka8PatMJNL5/ylFkcjZfXyGb1o7XHjVFBfstJRB6Nwhtw==
+	t=1795770745;
+	b=ZqfWqITSJ4ApRktXsCSMckt6I5XSXniLSpxD6/oNljQGR7HlIrrzF1HmnoeYaBAiJRPJ
+	 mxTyvtapQMZdCPUp4qHFPNl6B1KY3J1nj2dupYMF6GcnmVTxUiMHuRxOJcMfEbXvgFgnI
+	 kj13ylb4xoMzbPvzJwRRUDD/EzKFNezzrtbNg1kbpn83u47tO2PCxXlRI55TU44kgyH1q
+	 QF+sJzIa8J+aPSo3X+uE7GFPDLtgeE3Xi6+KMd5VNJDuC62YSzS4zrBp2d3FeD8TcPM5h
+	 yBM1jK2SYoUOytTWQGwIjvtRR2oqtWZ7ePhVcN/gVGvjMoM4DP8sEhIJRYPMIrLu0hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795770731;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=7BmBlqkLTRWPnM/PyPREkTVAoRCehz9jfOuEcWz3kOo=;
-	b=GaLlpXL1TqztjqD2cOnOHx6LXtnYYu4VDivjIF7bpApYNc+9yLXLr2zptXdYtT7V3SB6
-	 Gv6p5iT2iff1TH1VrMNFCo4Nn97cKzLMkvqlpJqeplEqntllupZNKM4mv7nNvvZO3C2Z4
-	 Mwg2IEZf9st17G9J0TUwYu1rD7DK4v4EF75ezu29JQ9ZlyGKA/GhJzGjTHTpFd3luYUEQ
-	 6faFp0WhUJ+mS9rv3ZtjpDBOc7vfcwcMs2a1wzGEfGddt1MXy8Wbh85Q/ycP+D3S3jmzh
-	 9DDilF1EFTWgkqEJMfPrfrAFNO2bQKx+Xcqs4PwgkOez7CkG/TAvHZyIVSxr072j6vQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795770745;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ETOKvQ/TjInfLOX83E4AxZ4c49LkeJoAzUkyf0rB/VU=;
+	b=Q1az8OkIDDrXIaSlN1peW68va1aFtXdU0iiGHiRCj6/WboDXqsNxmn1vABmQPwD4mH2P
+	 i4J8O3zljKla8Mi3CD5UEaG9ZNV2LFiXoxYUT7OHZGstW1AGrIOTYVNl7r46H7/Bfhjaz
+	 4aVwSZhMD1/tg7aMQqc+Q28C7q5VsOBswBOXBBJxGKc++K7a+ZO/hxho9rcfT2EIZ0mp3
+	 7YYmIEr1gfqyENRh2xXeWt2cgysX47v//9WMW5cwYDcXo/zFXk+VRccAmGbpCegc5bBpI
+	 dlp/9e6i8IntI1vHViyMRszkQa3+vbZ3uozgc0emyxQMaRPWFkMkXA6jbyfpf2dF8EQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tuxon.dev;
-	spf=pass smtp.mailfrom=tuxon.dev;
-	dkim=pass header.d=tuxon.dev header.i=@tuxon.dev header.a=rsa-sha256 header.s=google header.b=oUQtFPfH;
-	arc=none smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=kroah.com;
+	spf=pass smtp.mailfrom=kroah.com;
+	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=n0arh5iz;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=5e+Oxowr;
+	arc=none smtp.remote-ip=103.168.172.156
+Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE692606A334
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 09:12:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE692606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CCA4606A31C
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 09:12:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CCA4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tuxon.dev header.i=@tuxon.dev header.a=rsa-sha256 header.s=google header.b=oUQtFPfH
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b8b20b2538so9095143a12.3
-        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 01:12:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1795770729; x=1796375529; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7BmBlqkLTRWPnM/PyPREkTVAoRCehz9jfOuEcWz3kOo=;
-        b=oUQtFPfHi1S6G+Lki3MzTQU86GQHUmr/a7X4kCX27BKxweK2JCwd1auoyJbq2h0HbQ
-         3X39h5pwxHW+tWps2o0RFgepURXxk1OguFJljOt010jDjXDrOO1KYqKijW6maJ4sEbev
-         tUnLjv2oaxOPj3/4XJIxCN0BsmJHLBj3y498UFTgEG+GUR1NLsWSZv1YE2jdesVVwF2X
-         tcMiitjnx+V+w25x/IEB2KldSyjntkjyw5NTnEXwkCcJzqLKfdDj+NAhE7Drx6lWOcw3
-         ySVBQGUMXO/Ai3k88g/5bXwZVH8M+9vRrj+4D6Ai4t+p1be1gvN2P7nhEJebNOBW/HX0
-         0cbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795770729; x=1796375529;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7BmBlqkLTRWPnM/PyPREkTVAoRCehz9jfOuEcWz3kOo=;
-        b=MY1i2ljN79z9oj6lDpCo0ErHpDehF90nW8MmzMJc7LDDeSQGR2K+VuV44fE3wYqrVI
-         ydVGwqdSxTgYq8/n0WV+KJIHViMBhVkMGuW8D8pDW5lV6PxDjK1IqlZi3cURf93O4il+
-         B2DGhrLQeUMioC/PBcTtdvyj4MNU19vDw75CYrm4kwrfWzfXGcod+kriv4kObpeUVFLc
-         Ggc0dJEykrLwue+jPPguD+U3HVecCbQQQw07E2uggXWHyaxBzKBRN3b8/MKk6sKjxOrI
-         o4LHLNfRe34SKEbVe6s+3Jy1vKMgTznruBhmeqZfVEN4uWG3hwtNto7RbcSAR700+NVT
-         g5ew==
-X-Forwarded-Encrypted: i=1; AL+hErGMSAB+HcREzS7xy8bMLRjiGbMKyjy1aEraN6Y9Cshi1Ylx4gq8Y9s78E4jAIz5rsWp4VhrsAg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8+/eU/7D103+5B6g4k6Buks2IhMTEy12HRFGIVsqxQw9rWA3zO
-	UseUaWKnPlgGIcLeGaWIwNtw9dkD7TsTeFtk5gnHNELgzAPZfMYSskeI0ciOdq7JeJI=
-X-Gm-Gg: AZFdTZejL4J+vbtMK1jUJU/DX4gDjS7tYe9llkXDI4PBQpMwHj5gE7uWhINy5DePImI
-	ZP89Ryf06SjUysb9HmdlIEFfkIHvhkW07Mnvd+CgmYEYD5jLOy9KzrZiC31Ap+s6beq1G54XrB2
-	zFGOA8C+lTFpyMh2AOpehzfsGWY29XggidNmmOBbMv1PbQetwP5tWeyhhlVqrd4zWdRfC6eEhYx
-	RtuSJ924Ea52T3VsPW7oalaI3YoQqK74tjCby9ChdTdJXelEyzgfWWCrMMBQcS3VyQMziw0U9HM
-	J57BvfZisz4Z+e+8hNwQQJr0ANyDYRdroXP+wCwNPH4QcB6lEZfsszqEobfhLFHNVeNrnJkYakP
-	dairVzpE3bxTVOaKO70HX5ueLoJbleTGiq1BTRU8G9MmneQOap1r9QutwBGAzNf5QGKsnSPpz1t
-	TXkC8Phla8J3yeXnnQIaYZVQv/ULvdhfzs3nPAb7mk///wGybbmR9R2GCx0dTTxUv33D2PrAlqw
-	IOZdwhdPlFRB7Jfz00AUZUrIXjmVAtVRXQWJExd9mVvhojnKvLQvoTxGru0zo9MbigkedETI2gy
-	Tdodwsqt02esvc97kbxnsE8+kdOqyelw4DYd
-X-Received: by 2002:a05:6402:13cb:b0:6ba:4bf3:4a2 with SMTP id 4fb4d7f45d1cf-6ba4bf305c0mr15740801a12.17.1795770728948;
-        Fri, 27 Nov 2026 01:12:08 -0800 (PST)
-Received: from [192.168.50.4] ([82.78.167.114])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4abbd84e661sm43017556f8f.18.2026.11.27.01.12.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 27 Nov 2026 01:12:08 -0800 (PST)
-Message-ID: <bd8014fe-6a77-445d-b73d-e87404638593@tuxon.dev>
-Date: Fri, 27 Nov 2026 11:12:06 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=n0arh5iz;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=5e+Oxowr
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 1ED2A14002B9
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 04:12:24 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Fri, 27 Nov 2026 04:12:24 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1795770744; x=1795857144; bh=ETOKvQ/TjI
+	nfLOX83E4AxZ4c49LkeJoAzUkyf0rB/VU=; b=n0arh5izrZKi9/VgIFmL7e2oL1
+	bID4UWmI37YUyeeT60ApyJnJ6AtLxLSW+zQ3b5Gzd6hf9+Rc6aX+NUlOXVg255BJ
+	JSq60jivpLkKKOHkNuxc98WJjMWOA59GpThmLxKOBPvTmStZMGtomsP3Xts485FX
+	XdJyxD29xKrFHrvLVS8BU1kIjUqC5ECUdUDiw7ZpdKKAgPrgVUf7Yxl2eqRWyHe7
+	4KwHzKroBBpcVTuV30t9dAVp3ZrmLY4hjrZE3rWzYZMpQldVbmU0RYMAet2BAtuq
+	8lqnsHgjtSptKxYi91HSx9m25GQEFNI3ZCvedH6djVdbRz6SSB7XhvQZ7Ibw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1795770744; x=1795857144; bh=ETOKvQ/TjInfLOX83E4AxZ4c49LkeJoAzUk
+	yf0rB/VU=; b=5e+OxowrTHxG4pjnAzc6o1gY4Xdb0pDRuArQjyudbYboi9pKuyg
+	AS8bPi3bE9NHh8Tg/ajMBaoYWxN5h2aB1+mgAhX+vTtLD6k4iQrLLKZvVwB1PwLx
+	aN3RFAS5sWFBJ2UeyG23AsG+gl0IaUtFAOTxnsWjGHobLeDxXpbLVudBMfyu1aI+
+	kKvySes4Hu0PX/iHMl92z+5eHo6KJlwx4F+lbXWTu+1gdI+eJMtGOXCQa0rJWDVY
+	yFBOKc6O/q/uUBHvAE3Sjolho7L2ewvROgObX6jRC6yHwhRERPGse+to+RujcALA
+	Ruvzh9Wc92Hq2T9qz02tnsUNI/bwKz7Av6A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795770744; d=kroah.com;
+	mf=PGdyZWdAa3JvYWguY29tPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:Zc6u3cFRRFDhINsN0IY8+wgjfHVQX++41zW9EWa4KqDvgK7
+	1fwipQjuxRNd1/w6qOMmyKJauJZSxd0JTSOGn5t+sNni9Ad0AMk9pHd7U97f495Y
+	iSLcuJQ4tsuAmFmN5aK00POkhcqoNIRGsS2Q71BRmi47ipm1knbNnUr2fnAbp+jF
+	0958oKUGcQRDV51oSBSMo5+F2U5e1TpbTUQOT2qmUoM1O6A/WS7svoMg7DrThJ7G
+	YXZ4Q1LfqHZvtPywD88Zt+mjqTz8zw5Jf+qpsHMPmov9xBGMm6uwhxvN+/s7CBzV
+	Q0euXGKXRETsVXuS70iSG6a3fWX6G/p4KYxA0VQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:qf9XJBJZ7KPvSkCwzr5y9Gy4tkyiGoIB65SSF/wP64U=:Bp1io4GlRTO+xbvmqZxo0PDKCvejoZ81oxBesPJEhKk=;
+X-ME-Sender: <xms:d0kJawBJ1Jt3VemxQ2IuVUUGWJsZ5sjFiNmRW7DFAyZFPWXAEykSow>
+    <xme:d0kJawUjGTinxiMCEz1weFBxamrnOkcYNu5Y8MziKQbz_SUdoIhD5bRdoiCZ7ESF3
+    MaytXNsVnVzrrAi17a3E6uoPabImizV7f_8Ej9X-gSXkUfby14>
+X-ME-Received: <xmr:d0kJa-CcB8SBVUTvMsQMcaj0XjXWPQVteeM9DJuiQ3PQyf6d79Zhph4BeoKO-9G1-5--XMWJNVmrxo4KlpPjQTxfAlII-hs>
+X-ME-Proxy-Cause: dmFkZTGmbOa8stGUEaXppJOy4ztoIxiV/RYZxHpOhZw1e8Hn5oAgdgwuu+j0rlHeUE1Lsh
+    YihYyOYDi+z+iBVmUmBR2l9uuZIJQsPihwJ3D2SopJ5zq0CEAxBq9OJecZHZKB6+QDNUBF
+    xmQKxxzeZc1FylFmFzt9F4ViHREOPGBn87m/TzE0SgF4ET4S43gPq8XZFBt80Bt4JfAxJz
+    OytNLFdVvfSTu4Es86ZAbEO/NXnVnunEEB7WV39PoiTC+MOXIau1WJczxMIIGZVAVkU07l
+    f10jr5BDqDq6tfU3WjzrGtckI61BboOre4he0cTNRik9A87KGy8r3q6ND4pYdmdL6uxwVt
+    KjEKwaw/5Cx4qXvQAFhhz196ITJeloUHy7i3tINockB6rbuf6ayy8HXaOGgHr7aXDYHyRi
+    ulMWpW8wAq0ZUyQyft57wRYMOovBrxpOV1M2O+AYSpTGwr+gKD9Rtua9Pt5Fg+6G2u6oKp
+    nJU5/jqKVTCmV8NIatjdEtZWzgPslr+bxDTzeOj9cms2eE5DlzfB2IdSpkltwN0XVLiaKa
+    0JH+YE99BvQVIoyRIUzUMBAuR3hU5kmmR3P64A7G9S4iCEvronLO9ytvjHNdrwVbcv/isv
+    hc0ioIZy4CqLKJ/IspdQApCZ2SsGwbvv8qL/WZMw6hpcidDQx9yCs9pTwroA
+X-ME-Proxy: <xmx:d0kJaz9ZRXuUxHMI1AdQao2t3SD_XsFOoyMcoDb4PXz_B0EaiogzgQ>
+    <xmx:d0kJa1GttDpyMMZaubLmc3XfbSi01ma_TNcG8si-l4kw-az7KhM7rQ>
+    <xmx:d0kJaxN4fXJ4aD3CENJUzZxL1r5UumRZux5SxS6ArgxNMl6_cf4wpA>
+    <xmx:d0kJa_fE40dVNzsI0YGMuHoq6C4BnvENcbC_Zebyi-srsrQenVP6dQ>
+    <xmx:eEkJa2xruJkckIOYAfZoANF6QlwVoIwpr-A6zmMHE_2mZgro1vFbmbAh>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 27 Nov 2026 04:12:23 -0500 (EST)
+Date: Fri, 27 Nov 2026 10:12:18 +0100
+From: Greg KH <greg@kroah.com>
+To: Dickson Wu <dickson.wu@certik.com>
+Cc: stable@vger.kernel.org
+Subject: Re: Request: security fixes for 5.10.y and 5.15.y
+Message-ID: <2026112733-gambling-twistable-dc4a@gregkh>
+References: <CAFaZ9eogwNaXVeVhOrtz9montDVg6G8zYR8rOGdpZr26nHFO-A@mail.gmail.com>
+ <2026112605-alias-passion-6781@gregkh>
+ <CAFaZ9epm3Tcuz1Fs7wSOqECzZbwdwEYmwSxwUM72jPMZKZArvA@mail.gmail.com>
+ <2026112723-jogger-splice-ce25@gregkh>
+ <CAFaZ9eqpPdQ3fiu=gO28rJY48Jh9SqiRxdpXYtBzB5hcoGH7Nw@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,84 +124,24 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/7] i3c: renesas: Fix zero I2C SCL rate on pure I3C
- buses
-To: Diogo Ivo <diogo.ivo.sx@renesas.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>
-Cc: linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, stable@vger.kernel.org
-References: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-0-2e76b87209bb@renesas.com>
- <20261026-divo-ssgrlpcsrc-2966-i3c-v2-1-2e76b87209bb@renesas.com>
-Content-Language: en-US
-From: claudiu beznea <claudiu.beznea@tuxon.dev>
-In-Reply-To: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-1-2e76b87209bb@renesas.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAFaZ9eqpPdQ3fiu=gO28rJY48Jh9SqiRxdpXYtBzB5hcoGH7Nw@mail.gmail.com>
 
-Hi, Diogo,
-
-On 10/26/26 13:35, Diogo Ivo wrote:
-> On a pure I3C bus there are no I2C devices, so the I3C core leaves
-> bus->scl_rate.i2c at zero if i2c-scl-hz is not specified in DT.
-> Deriving i2c_total_ticks from that zero rate programs a zero-width
-> open-drain SCL into the STDBR open-drain fields, which are still used
-> in pure I3C mode for example in DAA.
+On Fri, Nov 27, 2026 at 02:50:16AM -0600, Dickson Wu wrote:
+> On Fri, Nov 27, 2026 at 08:05:12AM +0000, Greg KH wrote:
+> > Thanks, but as both of these are going end-of-life in a few days, and
+> > the final -rc releases have been sent out for them, they are not going
+> > to get merged. Anyone still running these kernels should move on to
+> > newer ones now.
 > 
-> Fall back to the 1 MHz FM+ limit instead, the fastest rate an I2C
-> device could have, so that a sane open-drain timing is programmed.
-> 
-> Fixes: d028219a9f14 ("i3c: master: Add basic driver for the Renesas I3C controller")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
-> ---
-> Changes in v2:
->   - Substituted if/else with ternary operator
->   - Picked up R-b from Wolfram Sang
-> ---
->   drivers/i3c/master/renesas-i3c.c | 10 +++++++++-
->   1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/i3c/master/renesas-i3c.c b/drivers/i3c/master/renesas-i3c.c
-> index 8b264f72e55c..78d0a2c4a19e 100644
-> --- a/drivers/i3c/master/renesas-i3c.c
-> +++ b/drivers/i3c/master/renesas-i3c.c
-> @@ -579,7 +579,15 @@ static int renesas_i3c_bus_init(struct i3c_master_controller *m)
->   	if (!i3c->rate)
->   		return -EINVAL;
->   
-> -	i2c_total_ticks = DIV_ROUND_UP(i3c->rate, bus->scl_rate.i2c);
-> +	/*
-> +	 * A pure I3C bus has no I2C devices, so the I3C core leaves
-> +	 * scl_rate.i2c at zero if not explicitly defined in DT. The
-> +	 * open-drain SCL fields of STDBR, which are used for the DAA
-> +	 * pending read, are derived from it though, so fall back to
-> +	 * the 1 MHz FM+ limit instead of programming a zero-width clock.
-> +	 */
-> +	i2c_total_ticks = DIV_ROUND_UP(i3c->rate,
-> +				       bus->scl_rate.i2c ?: I3C_BUS_I2C_FM_PLUS_SCL_MAX_RATE);
+> Ah got it, thanks for the heads-up. I'll stop sending for 5.10.y and
+> 5.15.y and stick to 6.1.y and newer
 
-The manual (at lest the RZ/G3S, Rev.1.30) mentions on the documentation of 
-BFCTL.FMPE bit:
+Do you actually use 6.1.y?  If so, why and what is your plan to get off
+of that kernel to a newer one as soon as possible?  Same for 6.6.y and
+6.12.y?  Sticking with older kernels is almost never a good idea...
 
-Set this bit to 1 when using the transmission rate within a range up to 1 Mbps 
-(Fast-mode Plus [Fm+]) of the I3C-bus specification. Set this bit to 0 when 
-using the transmission rate at other rates (up to 100 kbps [Sm], up to 400 kbps
-[Fm]).
+thanks,
 
-In case the i2c_total_ticks = I3C_BUS_I2C_FM_PLUS_SCL_MAX_RATE should the 
-BFCTL.FMPE bit also be set for the operation you mentioned? If so, maybe set the 
-default to I3C_BUS_I2C_FM_SCL_MAX_RATE to avoid any further changes?
-
-Thank you,
-Claudiu
+greg k-h
