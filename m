@@ -1,99 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795762625;
-	b=qaU7s6w8ahZn/psFdUoZaW2rq/L3EZqeR1UweKidXeDaBeyeA8fSa3WYTUqhTB3kBtCT
-	 7jZsdlpVqGtRagdKSHJCg/ZIedNYhpPZfi+JH15htE3KdTk0ER9M3QdcGsZR7FxCEre9m
-	 M2vGVhRjWP+mexcQX8/ucoI+EmawbS047E0UAZx1XNDUG1J8lL0DtSxAiZFDRzyd+sh1d
-	 5M0a5GrlLXmAxVQuR7X9XOsmW5hRljrRB1hdFhtVwWAsCQIuu40uJHzqe2W2NgI2S1kq5
-	 Cmf2f8dnBJPqGPcufNjl5WWmxIs/fNO/LyxzG3H+Uk0NYkAvVrHKcIzDFCeyv+o97bQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795762625;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.202
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795762687;
+	b=OdSaKKXUiGqVRz8O9UuJ0JflSpsXqkggjqyJ9njjj98UehcTW+hoD3+Ld4brbocqNPkT
+	 NOTbXpaKfWgoqjsbTEy8UPyhYO88GXHpHye9N7YIkUnMVWuWetyh0sYNMyalJhh2nZOA+
+	 q9qAGiRgj2zvY0NVK05UTxyNrv1TQmuP5MtJRSmywst8mqbKp6at1aUmBtSLE88rFrzcv
+	 KD6wTdUoPglH0oOJ8/xPef2n9S3mi+AKDJtJhO0M6QFftSUWYwJkTiGzFric6A8gYYXxm
+	 yrnkz3ZAtifkn0kq+R4EkAvzZMMm+5Z5NPvt6uBZVaUHFj36AXJ4W+9xiIjjuub9f2A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795762687;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:MIME-Version:
-	 In-Reply-To:References:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type;
-	bh=xtP74/91kssCH0Qff0HXkuEOoBFjw5vBR+dpj+fyRmg=;
-	b=TCUSbAP/zljAtPIEZtAirK/E30+gA+oWI9sThU0XEvxLIQHMenrL2jN3tZV+PqIW4+Z2
-	 lfDd2XS2XCrPKXcmbsmWlXqE1JTGbHtMP6zZ1VzdL2vcg0z6R7h8KkgZpmbsQxjyounz0
-	 CtNAOznTfvTZmHPIgy+u4xUZjZp8S3c/hLnwDo4JZoNdnC2+Q2Y4GKjUo/nqtKFsGHLjj
-	 VoaAXcGLc8YneFrplX1RfAq59xN2YRrY6uRrdurdE3ejisZpk5C/Xm+ru2AhWdPqX6pB3
-	 8RvAdCG/gnAcGt8LAOezLeFQCnKkS08qNW1cs4NQytvDOXcMGCB2dYC1BKCNuG19HMg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=certik.com;
-	spf=pass smtp.mailfrom=certik.com;
-	dkim=pass header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=As7hWfBp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.172
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rw/R6ybt1QcdjNXidw02ubcIKo06kOfp72MwTKAEG3k=;
+	b=PeNjRcgRsaAhqcrq/dzOcHXNmMsZoCClvZ2lQ18NjukwUrr2Wj2vCanfts5b0Peh6p9U
+	 0POVaSFgpvM65XnVhg9ZWAPa/jdnb4+skbG9baU3PdRz40pFEhGzuYyKmcM7GLki2zj1E
+	 Mvmsi6Givj0DI2aWOll6mWpLwjTUcDTT2RrOMabX/15en/Ep5QxIWLpGBdp0JKBI5yjZ0
+	 sw1tSrbjXYpDuGKHqTsqnIL50LubkoYpwcMSpLXo+Bqw1Cp4dA5s3+uRSSf1o94IV1z7H
+	 Knq56qmHaqNsIDDcPDJtrXjZ6idqtyieGIAp9/GmEm7zInVLEitaLMful2CTE1ZyNww==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=COZN6MOj;
+	arc=none smtp.remote-ip=74.125.227.202
+Received: from mail-pi2-f10.google.com (mail-pi2-f10.google.com [74.125.227.202])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B137606A334
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 06:57:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B137606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=certik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=certik.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8205606A327
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 06:58:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8205606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=As7hWfBp
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b4f4095a7aso67350377b3.0
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 22:57:05 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795762624; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Mko82QHaCym7Ttk4+cgsS5lFBO6ya8g3oGz19YJHfxuxlPgNIkWIVhyYVqqpXRmWZ/
-         025xhhSwjOmrc+ezuyLpxdXxzlgBz0XUlVhZcsIddvfrjr6Efb652l3CLz49x1qjeXJ5
-         GMr7lC6H68cJ2FYhDGRbyAxzpSw1d/GQtFsi6RfxLAvVYoqmx4juAACNE2kv4RorgzpC
-         4xWC6R4yXgjbSZWnyhMZOkGIzsPTy6g7rDsYrQGzJWBLE7cjLsWsZDrEAskdJ4yRmB+k
-         AeIKPS9dmgXY4aAWwcvABNajdp/yAZq4m5CmPduVHaXFlyP6mIeM3hAU9gHWPD75FC1R
-         zjYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:references:in-reply-to
-         :mime-version:dkim-signature;
-        bh=xtP74/91kssCH0Qff0HXkuEOoBFjw5vBR+dpj+fyRmg=;
-        fh=jQFHF6sZb7lePkUMHOV2HGjT1sGUBL5aHicLHIgGdX0=;
-        b=OwccUqrFMVXkI7llWdPWECKDaoyY0+OHGHukmUfTfKM2aKAJHxLOKJ9LOXvqPgCUF0
-         3gscooOuG6uyDI15F9M1pYgP/85ZbJ6XcB9fPzf+EAukLj9dTJ+rPNh3u0uoy3wJ1EFv
-         OkV+xz3O9HVSdbJgH7RNdwjcXa7pCrKBji/HMZzH68biyM52Q9dEFaHBik4+HLBGEEEh
-         emwhGkXP6AQ9QAiUpyAVz+cRc0NAsHvpmlqBWAxMxUA0mYXpZpvjP5hG0+W0+H42IB66
-         t1F1t1fZxN2JanTuz5sEN85ZUtLtMnxoIPqibjdFxsXumwFSk9osJgH9eEvymU2KTCtK
-         mFBA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=COZN6MOj
+Received: by mail-pi2-f10.google.com with SMTP id 41be03b00d2f7-cdac0ac5f19so3800697a12.1
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 22:58:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=certik.com; s=google; t=1795762624; x=1796367424; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xtP74/91kssCH0Qff0HXkuEOoBFjw5vBR+dpj+fyRmg=;
-        b=As7hWfBpQsZfqp5tFNochpVJmdJJmcOkohP82M+4BMWJabf3g+XOrmmWzGb+eoEjqg
-         ptNLgbdzNRH+uZ3n/6ClH2WanP4zRz0eeG0Oft7pYWw+6tn0j3Lj1CDKQqey/43OeCOE
-         tWXWypStJSUpajRjFoUwUgZ1DnkAjBmLZPfpA=
+        d=gmail.com; s=20260707; t=1795762686; x=1796367486; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rw/R6ybt1QcdjNXidw02ubcIKo06kOfp72MwTKAEG3k=;
+        b=COZN6MOjsPcFVoEeaiGgsF+/e6tTcTZQS9iRwunz8SIJCHdPJcBNTnk5TjH4KXx7DW
+         w2SRIJzKtvud7uFtk7g5lKf2J8CIo7oPBvqwPyCrMMpHIJ9uhv4momkzYxzNwz7MRyYT
+         XBqPOLxFU6An8CjL1rcCift2PtL4/F5xHSZs0wlA+WCFb/6BE42czIGVK6Zwmmoe7RoN
+         SOaqabns2twyFyOdfjukt0TRzn1syR8rxe5ftrwweUoLbZpk0I3M+jQ2fDvnosfEIIb5
+         pWdw0X3vITHsA2RM+PL2X4YTY1PrZT210gySkcP1W4Lx5DNEVpdcclcIbaKKZN8FpC6d
+         Cqow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795762624; x=1796367424;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xtP74/91kssCH0Qff0HXkuEOoBFjw5vBR+dpj+fyRmg=;
-        b=BtIWXme8RRk6cv5Wok6U9GYSnDdkxFmf8E3/QF54HqtjwcpsIglXJwLu5AaeOgoGLu
-         LbE/OVOcSUHPl8fxvRiVB3t7ONJSxQAYK+fJjQpvExMGHvCeCOu1+KbW3SY+j4xHVTZs
-         IYVlB61DAyrak4kdXh9LRJYUOSFoRR85EGy+Q9VCp5LX9EK8cz2rt2Q5FRfWH/iImwu4
-         ItBXeaS0bMt7xo6rt3lUSvjJnOPPT4SPqa1/v9h49sqNB11a8UYLdxO6Ee7wFIHeraQg
-         Pffoj/fu1XBSLKLQjUd49tVuFUq5UBzXDJI+XinGfTVQ+tdhMaWvidraaBlPITy6ieXU
-         dtzA==
-X-Gm-Message-State: APuU4Z/ad2BiKy3vVIny13YmTvmtIDc+4V+p4ktM9ztbBcsg2Fipi7iP
-	WRAiiVkHQE2n/5i+MflOryCfaZDhEe3F+xdaZisfbl04HEgg5ufZ335ijIyQ66CQ+eTr62+rjHP
-	/sSzRYM7OCUve79TSJPYca6Ro46FwExSeByNNTGIANc6vsyvqQNx6wiiE/A==
-X-Gm-Gg: AZFdTZeduaRvnUDurLLEiBKQL1KSr5obvrJcetjp0k1v1XmQwj0bZoehvduvEddCuT+
-	Vg/nYYFs8Q1JOt16BLf9RYbw/BSBFCOlYZ+1MsAzV6QmJ2Ibr0bk66NpY2ry0kdYK5DCPODOhbl
-	DnRdzvNt48Cy2OAtw2nRkD45SNpi30QJIa9VPoKbb4et8u9J1yl2GBJNO5qpmeNhKpqTQBJKBvL
-	2LbCNqhQ26herLnqtcoBYxI0DHwm/EXnUk+x6a6pdw3bcMRLNky36mL60Ncq7YRMui+/hCWc5+k
-	KFTw5t3RTA4Icd3yb0pN1gJnSk6iNkapTxru+3LRSNbb+Myju6pQjoGPK5sQpu1Oqp3PAnGo5a5
-	19CmWeJ1IWTCenHnUU1IHquu/VLH7hHIvz9MZqtoOUCsT2Mz3zriT2uLeidpPfQCm3B8qfSEK1B
-	Y6qzdOS8uA6uFVZYDuyoFZNYoW8hz1MkrjEAeItPOqzbXW9xJZrVfXzcKqCU4ULOl6FnW096C2b
-	LgCCib30c53VhzDAinOvJ/GAfnRNbsFN8Ja
-X-Received: by 2002:a05:690e:450f:10b0:67c:1dca:80d with SMTP id
- 956f58d0204a3-67df445ed83mr7805240d50.69.1795762624118; Thu, 26 Nov 2026
- 22:57:04 -0800 (PST)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Thu, 26 Nov 2026 22:57:03 -0800
+        d=1e100.net; s=20260707; t=1795762686; x=1796367486;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rw/R6ybt1QcdjNXidw02ubcIKo06kOfp72MwTKAEG3k=;
+        b=1lvYTHeIrOyF+5A8gp/4+6CJqK/9xLCFXZGqtFBTzY2oAqh8MG2jeWKQlvUYlGxBC1
+         LTKoGSwnWU7IiM5UzwKBHdh8wUBjVoGEx3vUDUR8YugQTK22ANGg02rpCWRvxnt8Q7uV
+         ZR/T9BJc3cEnmBaPtTEoC8r4F0CMdllM32JCT08Md9wQ0Rpu93TC9CTCXeTAHWyX7HD/
+         TRjRLWU8E3XZe2BVr+2KRvmrbPJ/dSAq4RerjhxuO2gx6gE5ZH9RZKbmQJ7x1Y2+bA+5
+         5xel7ge93YOY/c1QgFmVf1ihHUcbOheO8vvdjjy/viTnWVAXJJTxIdZuVdFaL3E1oSJv
+         cHZA==
+X-Forwarded-Encrypted: i=1; AL+hErGrMCKrx/DxZ1ZNrTPFeOIcOaqWoEJqSvDBIO4e6eAJ4X0iltLzq1JW/KzMdtksqAG10xVmrVQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/TRNm5ukKIB3q72ee497h0R+qiXf/YFwutsNqJv/nbUkLY52ov
+	elHlb8xfBsS19gcPiFBcSngewmMhk3T773GeLSSFEI4z7L6SonzLewZk
+X-Gm-Gg: AZFdTZd6EgYsIXMg8dL/R9IJP2WklfXJsKNdtu0ARIPIaUm9Vb56uwLlqmv4dpa606V
+	nBgRoX++KyD+oiuCS4lPEqCexiAre9qzUYk4kS3KXWkFvIks2bKKelnOyWwQNBuTOmUxsqw0TrK
+	ODfp8W2HJ7eKnaMdF3CYAIfoY72+Jka89uFMVzQDqxHnPt/4Kzoz7ARzA7vJtT/mLxqwVz1+iqn
+	sf0MfntsBVIURG7S7R/EY2TMevCeTrcKCZA8KEPlVY86l41uRwDCF+G+CH4JpBULmOiRIdabslv
+	WwsaZeiWO8XUx7OyhhVZUQho7OEegXG0qex6qpOBDYj2evuqK7qE5cPoH0IWvXQxK+UnOJf/mp6
+	DumqtsGt1EeOdy5ixZMjrpJbxV4/L5hIWJBTG15LxsFWf/81y+iYM/ECLyTbJcks2RblZkywsdp
+	Y5pknfrY/tDpE6i4es30iKb8A2P/qEul2Q1f3w2WT8VvKOdaJyDsIrdL07SBfvBcKeWUNStj4Ov
+	zI3SAnh+AZj0q6Ys60Ax6WcYDpRN3vrkjUHC/ufkESUnmfdw+IpjhhUdfdTpZVq7dTnBmoptHuP
+	P7QH6xdmUzAMYTJAg/3HU2PKm0NNZWMP9rzROdNIXpBTCUmoUxFQHXG+G+hkV9qVt1Q/hOc/jLM
+	KXdON9CDWBpe2AaUM997uvg==
+X-Received: by 2002:a05:6a00:10d3:b0:89f:6989:cb9b with SMTP id d2e1a72fcca58-8c87bfa1ebemr20969839b3a.27.1795762686230;
+        Thu, 26 Nov 2026 22:58:06 -0800 (PST)
+Received: from BSDHENRYMA-PC1.localdomain ([43.132.141.11])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87285c228sm11839098b3a.10.2026.11.26.22.58.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 22:58:05 -0800 (PST)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Pedro Tammela <pctammela@mojatatu.com>
+Cc: netdev@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] net_sched: hfsc: clear el_node linkage in hfsc_reset_class()
+Date: Fri, 27 Nov 2026 14:57:56 +0800
+Message-ID: <20261127065756.2927925-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,93 +103,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <2026112605-alias-passion-6781@gregkh>
-References: <CAFaZ9eogwNaXVeVhOrtz9montDVg6G8zYR8rOGdpZr26nHFO-A@mail.gmail.com>
- <2026112605-alias-passion-6781@gregkh>
-From: Dickson Wu <dickson.wu@certik.com>
-Date: Thu, 26 Nov 2026 22:57:03 -0800
-X-Gm-Features: Aa3M54rSGaUSu2OHIwJL_2sgdmjpVHJpxrDM4HPMSwXHzj_4cvsrUs665rIZ2iU
-Message-ID: <CAFaZ9epm3Tcuz1Fs7wSOqECzZbwdwEYmwSxwUM72jPMZKZArvA@mail.gmail.com>
-Subject: Re: Request: security fixes for 5.10.y and 5.15.y
-To: Greg KH <greg@kroah.com>
+Content-Transfer-Encoding: 8bit
+
+hfsc_reset_qdisc() drops the eligible tree root, but hfsc_reset_class()
+never resets the linkage state of cl->el_node.  A class that sits in the
+eligible tree at reset time keeps a stale linked node while the tree is
+gone.  This breaks the invariant that the linkage state of el_node
+matches the membership, which hfsc_change_class() establishes for new
+classes.
+
+Two consumers trip over the stale node.  cl_in_el_or_vttree() reads it
+as "class is in the tree", so hfsc_enqueue() never calls init_ed() for
+the class again and the class is starved permanently.  eltree_remove()
+later runs rb_erase() on the stale node against the reset root, which
+splices a stale sibling back into q->eligible.rb_node and revives a
+class the scheduler should have forgotten.
+
+Clear the linkage state where the rest of the scheduling state is
+reset.
+
+This issue was discovered by Tencent CodeBuddy Security.
+
 Cc: stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Fixes: ac9fe7dd8e73 ("net_sched: hfsc: Address reentrant enqueue adding class to eltree twice")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+---
+ net/sched/sch_hfsc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-On Thu, Nov 26, 2026 at 12:59:23PM +0000, Greg KH wrote:
-> Same with these, please provide backports that you have properly tested
-> and signed-off-by on.
+diff --git a/net/sched/sch_hfsc.c b/net/sched/sch_hfsc.c
+index 284490fd6ca91..e64df06429239 100644
+--- a/net/sched/sch_hfsc.c
++++ b/net/sched/sch_hfsc.c
+@@ -1491,6 +1491,10 @@ hfsc_reset_class(struct hfsc_class *cl)
+ 
+ 	cl->vt_tree = RB_ROOT;
+ 	cl->cf_tree = RB_ROOT;
++	/* hfsc_reset_qdisc() drops the eligible tree root; the
++	 * linkage state of el_node must match the membership.
++	 */
++	RB_CLEAR_NODE(&cl->el_node);
+ 	qdisc_reset(cl->qdisc);
+ 
+ 	if (cl->cl_flags & HFSC_RSC)
+-- 
+2.39.5
 
-Will do, thanks. The netfilter one is out now as a tested backport with
-my Signed-off-by:
-
-5.15.y netfilter, a81047154e7c:
-https://lore.kernel.org/stable/20261127-so5-nf-515-v1-1-ce02c323f842@certik.com/
-
-I rechecked it against v5.15.226 the same way (SHA reference, patch-id,
-subject, and later reverts in mainline), and it isn't in yet.
-
-The other two:
-
-- dmi-sysfs 18e126e97c96 for 5.10.y: dropped. Getting it right on 5.10
-  needed new lifetime handling that mainline doesn't have, which is too
-  much for a stable backport.
-- arm64 ptrace pair 88b839ce497c + 5306f124f317: on hold. 5306f124f317
-  was only queued for the newer trees this week, so I'll send 5.10.y
-  and 5.15.y once 6.1.y and newer have it in a release.
-
-Best,
-Dickson
-
-
-On Thu, 26 Nov 2026 13:59:23 +0100, Greg KH <greg@kroah.com> wrote:
-> On Thu, Nov 26, 2026 at 02:41:22AM -0800, Dickson Wu wrote:
-> > Hi Greg and Sasha,
-> >
-> > Could you please queue these upstream commits for the trees below?
-> > They're security fixes that newer stable branches already have or have
-> > queued, and each one cherry-picks cleanly onto the current branch tip.
-> >
-> > 5.10.y:
-> > - 18e126e97c96 ("firmware: dmi-sysfs: Fix null-ptr-deref in
-> >   dmi_sysfs_register_handle")
-> >   CVE-2023-53250. 5.10.y has the commit it fixes as 985706bd3bbe, and
-> >   5.15.y already took this one.
-> > - 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0 on
-> >   syscall entry")
-> > - 5306f124f317 ("arm64: ptrace: don't warn on missing siginfo in a
-> >   group-stop")
-> >   CVE-2026-90347. 5.10.y took e057b9477232 and then reverted it
-> >   (ba8b9a906d80), same as the newer branches, but it never got the
-> >   replacement fix that 6.1.y and newer have. The second commit fixes a
-> >   warning the first one adds and is queued for 6.1.y, 6.6.y, 6.12.y,
-> >   6.18.y and 7.3.y.
-> >
-> > 5.15.y:
-> > - a81047154e7c ("netfilter: flowtable_offload: fix using __this_cpu_add
-> >   in preemptible")
-> >   CVE-2022-48976. 5.15.y has the counter change it fixes as
-> >   5345d78ae64d. 6.1.y and newer have it from v6.1.
-> > - 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0 on
-> >   syscall entry")
-> > - 5306f124f317 ("arm64: ptrace: don't warn on missing siginfo in a
-> >   group-stop")
-> >   CVE-2026-90347. Same situation as 5.10.y: e057b9477232 was taken and
-> >   reverted (7ec6eebb438b), and the replacement is missing.
-> >
-> > Testing, on v5.10.275 and v5.15.226: cherry-picked onto the branch
-> > tip, W=1 build of the touched objects before and after with no new
-> > warnings. The dmi-sysfs and netfilter picks were built and booted with
-> > x86_64 defconfig plus the relevant options under QEMU/KVM. The arm64
-> > pair was built with an aarch64 cross compiler and booted with seccomp
-> > enabled under qemu-system-aarch64. I didn't run targeted runtime tests
-> > for these paths.
-> >
-> > The list and the test runs were prepared with AI coding tools (OpenAI
-> > Codex agents, with review by Claude).
->
-> Same with these, please provide backports that you have properly tested
-> and signed-off-by on.
->
-> thanks,
->
-> greg k-h
