@@ -1,60 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795750838;
-	b=hafrZBCjRMM8Yzd6a2w7JH0mv/unIMK45QqHKdPPJr8S743xYLohOcT3MYMYFMe8OalC
-	 JsZyYq324c6DUr7NCpLxUFQ8IhtZSB23uFclvrGFyWBU8sXNA/B9WvEzKZ2kgYF2iSwCx
-	 H31QQ/TqpofUk5vjplSZpwjN13ASJYafDAk9pvJ65pBNHU+o1NnODvsRdDwICPa7nVYwD
-	 yFx06VoL5u+uEE42ihHXGdInA4LSAOzUolijXzc9FTI+d+JRPAZ7yX9JgyQbwTb8YkuuL
-	 xBeedSQKelmNoDT7taonWgZYgRvfTEQi1Awi844GCOmXCKFHg3QftnU4eqVRL5xLaJA==
+	t=1795751009;
+	b=Lc7bAeraDfo+xsOVvcnQLIdqAoRynM/FE2hRZIh8f65f+UXI/76v81l3KLFKWWhKXXjO
+	 Mgm2OECiCY44tL89BdwrIYWuArae3x9Xragx45QSoFgr4ULgA4BMcLQ3du74KHm4RuS0n
+	 heqf1eQx/YMwVUKEakOAD23AZzAVzmRA7YiGSi76Pyg7nF22MsKgPwwxg2OqAwyzvtnzV
+	 68Btz9+QQJFg0ael5mVsb5qryF7sIGCrx8+/FBdnMq6HRQD/dMjl9QaxBFXvBj+rx4mBx
+	 nH2IxBo78XL1u4TymNxa4dyzyUH3ZOawzLclyK6jk1gQKnyCgdhf7U0PwoQ1HHATDmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795750838;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=8/qQkcae65QKdmEUw9cyp/yjiIcf3CtxelHf3pV2GhU=;
-	b=0tKnfwuLQ7dFai20c905L4wz2G7zyogdGDyh67SY7ZZH8JjTbGc0AMMV7fos5FnHH+r1
-	 8vbIFKxc/wHX4ZKz6/ygkn0O0JCbt8kpg76/OW+TQmyV36dUBnPIdsLIR2r2gS8bsEi7u
-	 eud9ox6WV3OBBYXL2rIdNTTR8R1NycpMw9DR51xztahzONW2MzSOii6epRiUPwhGJ9LtS
-	 DD/DsxIA8mjPId7HsOJgqXWZKXla9hrgcI0S3e5Ts3MHgZ4VLzSG6WhYz0Ukre1fQBNiD
-	 iGyFWofYLdKkM9kWoH5JEDe4pYTlta9/bEJUXQhelz4sid/yYEVF6T8Ef23o1BEGh8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795751009;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 X-Relaying-Domain:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Xv9HoU11wg50uyramdQYfq7Umn1TYxplpQtca+BOSaU=;
+	b=zEiTRlienTxwGfs19rSjf13e+Z/Cvc1v9RXgWey1ZqocE1GSmu3tLsYP+7CUn/rk0jGg
+	 r88zvj+WYzyHGaEAH8CfUvWKAjJPFujZisc6resFq5CBhu6T9x4Qj+IsvlevJPkSXUXaq
+	 uNKqMmGHztlg/y/5NsFxwYgV/UGrA58sV8G2chbRihh+Unoh3V0gjt5hljG0Nd7yN1+rU
+	 wN/UrzhwEv10Qk9s7wXNk+/oEM8ugscF1BybLHYRxVAhQIgT48KLljS3EdBhhqqsmnFqP
+	 9qgqTy8UNaKwXxWDGF63LGwm24ISJWXPNUTHn6trLnKtjzyfPnxVFGOIFBQqPDgy1/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=orESze8m;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=andrii.net;
+	spf=pass smtp.mailfrom=andrii.net;
+	dkim=pass header.d=andrii.net header.i=@andrii.net header.a=rsa-sha256 header.s=gmail-2025 header.b=Ybc9KqKC;
+	arc=none smtp.remote-ip=209.85.215.227
+Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF35606A31C;
-	Fri, 27 Nov 2026 03:40:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC52606A338
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 03:43:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BC52606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrii.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrii.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=orESze8m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCD3C1F000C1;
-	Fri, 27 Nov 2026 03:40:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795750838;
-	bh=8/qQkcae65QKdmEUw9cyp/yjiIcf3CtxelHf3pV2GhU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=orESze8mqEofav3l7R19Sv4/btDUWEWOypOTmQ/g2jKWZTVlzbKqlVvY9p68bJUCH
-	 RFZiUo8W8e4EPJ0siaXMvKlk7fKpP2+blPFQALlcAuzsY2VZm/3GC4QsC7zR29wgDb
-	 DFViYlToNj0AbaMEBfBaJx9OW6lQV2KkdSjlStec4dNQEqqeoIwo+zVOjm5NmbvcbM
-	 +BdMSu/NM6eKUpSC1qaYe9edZ0ehtjmaaR9TbXb9Dki53KjjBRJ44DgrY9M/tO4V0k
-	 2CxkfaSTTsGR1T7SRwvavnSlgv8UGnvapbcCyMuZ11o40FonaKgbRqx5jy0OoStY3W
-	 /cYlBPncFO79g==
-Subject: Re: [PATCH net v2] net/rds: tcp: bound the message length announced
- by the peer
-From: netdev-bot+sashiko@kernel.org
-To: weidongw@illinois.edu
-Cc: achender@kernel.org, andy.grover@oracle.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-rdma@vger.kernel.org, rds-devel@oss.oracle.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, zijie4@illinois.edu
-Date: Fri, 27 Nov 2026 03:40:37 +0000
-Message-ID: <179575083740.3135.167711549334185146@kernel.org>
-In-Reply-To: <20261125-h047-send-v2-1-b29031cf6b93@illinois.edu>
-References: <20261125-h047-send-v2-1-b29031cf6b93@illinois.edu>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=andrii.net header.i=@andrii.net header.a=rsa-sha256 header.s=gmail-2025 header.b=Ybc9KqKC
+Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cdab938dc83so2993728a12.3
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 19:43:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=andrii.net; s=gmail-2025; t=1795751008; x=1796355808; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xv9HoU11wg50uyramdQYfq7Umn1TYxplpQtca+BOSaU=;
+        b=Ybc9KqKCk7jo1UVGtMcMSXNl5D6Iv5/l8sju3YXqeQTNRm/5YodH9ulL687tR8jX9J
+         RNcbHN7JcHIc3/B27m1Vq0ZcMXTQHkvlJ/qXBwVqMtd3ALUhgu3PFg9z4UJezju4fJU6
+         do6AJWIbPOExmoybQVwMGQEQuxgwRdTdC9JT64QmtTw9kN5XrqcV3/9JyaUV2beswWZO
+         9C/AscZ/PTtG3dhO+Hv5wLG5QW536vKo9KWytOH6SDoH0TbTA2nhK2z4Nsrt1qHYD9iy
+         F28n4k94kejdNesvFVX0O88DQyhFpJXp9pv5YrhLbh0e89lFhQSKA/WzMlo2XkuzmYWR
+         WEtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795751008; x=1796355808;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xv9HoU11wg50uyramdQYfq7Umn1TYxplpQtca+BOSaU=;
+        b=Y91SR9besel8tqpvFYp3MHxQytMmSGfVuWWApKTns0gDPjb/VPUBX0nONa8pBHxaDT
+         5Rz0MfkNwJdP19YW5qw4NTs06ZOnB/ffJdYvYMUpjWwHJsqxeowNI/63O6Ck0lcs0sTA
+         cfUB8NezAG4Ywo6/xmhw+BaPDdJPRyfUo0WJKJZ/Pw++IX2lTJIGG5DgeFcnyyiN0wSt
+         lYSSEZ0nPledTrgaRL2FbKFQ+DB3PmORP/fWl3jRC6/K0X+p7GLPRIR+QYguwL4MMCO8
+         SzsRsDNKtjFYTgk+Tuiv6kLphEaTjXvajCiZkqYNI9LuhQ0AMdjWVD5qCpPHedmUYiQU
+         cbfw==
+X-Forwarded-Encrypted: i=1; AL+hErFboE+14/YpQjF9Tv4j+MfRSb/ZfhNOTJ3DdMQz8/A2Yho6qIMD1IRAFK8N0tYv7yGjcHWBmkU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+M1XqUioJaSqpWuvDZOVJ+16aGwAWnIpqqkHADFLRFKprIxfEx
+	HMb/hIbOX+/CvtYxpbVKQp0qT6FXqG6/pWdyg2SIVuAB6WObWwJUBzGTk7ZlhOSNQOd3YTnXZG4
+	d2eGwdQ2SyOakBF3/9b7TRsdyD5Hvuap6WHl85hSCARbKb7QiT6y9
+X-Gm-Gg: AZFdTZdLTzAW/YTy1SrRN7Tku8u+4/1/EDoF8cdcSl//5qRypbgGwn+QQgNbdKPpW+g
+	KCsygXDsBFb48sIBLG1O6DVvfpP1Ta6JuIZKIBfGb7VgwIcUhAewmf9ky7Cza0sz0RwplPkj1iY
+	XRTc6wk/IJb4K316FcsSyXIzSGZK9YeK6NBrxw/DpnyuTfbfcOliD0xANz/oTgTIx4+WbMowG8S
+	sQ+I+3vx8r7HzNqR4FsxaC9KgNwJzxee4uu0N0iUA14EAMnEX+NPvlamEZaN9pDAJgvZFIDfQkK
+	Z5PM4rsSypW7E+dF6MZUHebd3Ynal9FNZRoM0P4z+dalxeNgRq7BppXWJe01GS63BJ990OCLSZ+
+	Ax08pM87Pddg2NEFjrKq+XwskIIU=
+X-Received: by 2002:a17:90a:e705:b0:3b4:fa3:36de with SMTP id 98e67ed59e1d1-3b41c9750e2mr20734881a91.51.1795751007623;
+        Thu, 26 Nov 2026 19:43:27 -0800 (PST)
+Received: from andrii.ai (mac.hestia.andrii.net. [2602:f337:ed:4865:7374:6961:204d:6163])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b405960cd1sm16387485a91.2.2026.11.26.19.43.27
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 26 Nov 2026 19:43:27 -0800 (PST)
+X-Relaying-Domain: andrii.net
+From: Andrii Tereshchenko <opensource@andrii.net>
+To: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S . Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Simon Horman <horms@kernel.org>,
+	Christian Hopps <chopps@labn.net>,
+	netdev@vger.kernel.org,
+	ipsec@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	security@kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH ipsec v2] xfrm: iptfs: don't modify skbs it doesn't own when aggregating
+Date: Thu, 26 Nov 2026 19:43:24 -0800
+Message-ID: <d6f4d771-7235-460b-9a6d-dc2348a24f83@mid.andrii.net>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,112 +104,178 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+iptfs_output_queued() aggregates inner packets into the first skb,
+writing to its shared info and relinking frag_lists. But a first skb
+can share those with someone else: a clone (the original TCP keeps
+for retransmission), a frag_list shared without cloning (skb_cow(),
+pskb_copy()), or a nested frag_list (conntrack). The result is memory
+corruption, a CPU-hanging list cycle, or leaked skbs:
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+  skbuff: skb_over_panic: ... len:-340 put:-340 ...
+   skb_copy+0xfc/0x180
+   esp_output_head+0x38a/0xb40
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Aggregate only into what IP-TFS owns: unclone the first skb, send a
+first skb that has a frag_list on its own, and stop at a following
+skb that has one. Nothing is un-nested any more, so
+iptfs_rehome_fraglist() goes.
 
-- [High] The new check in rds_tcp_data_recv() (net/rds/tcp_recv.c:219-220
-  and 230-234) limits the number of payload bytes a peer can announce…
+The two frag_list cases were found by an AI code review agent after
+v1 was posted. The patch was written with an AI coding assistant and
+reviewed by the submitter.
 
---
+Fixes: 0e4fbf013fa5 ("xfrm: iptfs: add user packet (tunnel ingress) handling")
+Link: https://lore.kernel.org/all/179171627713.434549.11629734394381610294@kernel.org/
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrii Tereshchenko <opensource@andrii.net>
+---
+v2:
+- Apply the frag_list rule to every skb that has one, not only to
+  clones. v1 missed lists shared through skb_cow() or pskb_copy() and
+  nested ones from conntrack. iptfs_rehome_fraglist() and the
+  un-nesting loop are removed.
+- The netdev AI review of v1 [1] reported the same gap and one more way
+  into it: skb_checksum_help() in iptfs_first_skb() unclones the first
+  skb before v1's check. Testing skb_has_frag_list() covers that too.
+- v1 said that uncloning the first skb adds no copy. As that review
+  showed, this was wrong when packets are aggregated: ESP's
+  skb_cow_data() can then reallocate the head again. v2 does not change
+  that cost.
+- Drop v1's 2/2: Nguyen Ngoc Thang's same fix is upstream as
+  b88c75488ecc ("xfrm: iptfs: force a dst reference before queueing
+  an skb").
+v1: https://lore.kernel.org/all/c1e999b5-15ee-468d-81c5-530a560e84df@mid.andrii.net/
+[1] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/b56bbced-a8b0-4ae9-80b4-1958ea36684c%40mid.andrii.net
+Affected: v6.14 and later (0e4fbf013fa5 first shipped in v6.14-rc1);
+needs CONFIG_XFRM_IPTFS and an IP-TFS SA carrying aggregated traffic.
+Mitigation until the fix lands: no IP-TFS SAs, or the xfrm_iptfs
+module left unloaded (it is tristate).
+Found: a production panic (the cloned head), then an AI coding
+assistant review after v1 (the frag_list cases). Validated: a test
+module driving the CHECKSUM_PARTIAL route, 50 of 50 rounds. Tested:
+the private selftest (nested FAIL to PASS, shared hang to PASS) on
+ipsec master 2803867cf3de, two boots each, panic_on_warn=1 on the
+fixed kernel.
 
-net/rds: tcp: bound the message length announced by the peer
+ net/xfrm/xfrm_iptfs.c | 61 ++++++++++++++++++-------------------------
+ 1 file changed, 26 insertions(+), 35 deletions(-)
 
-This patch limits the h_len announced in an incoming RDS/TCP header to
-RDS_MAX_MSG_SIZE in rds_tcp_data_recv(). If a header is larger, the
-connection is dropped. The rest of the stream is then consumed and
-discarded until shutdown, so the receive queue keeps draining.
+diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
+index 0313a43aa8a97..c6bdfbd9a1a8b 100644
+--- a/net/xfrm/xfrm_iptfs.c
++++ b/net/xfrm/xfrm_iptfs.c
+@@ -2139,27 +2139,6 @@ static int iptfs_first_skb(struct sk_buff **skbp, struct xfrm_iptfs_data *xtfs,
+ 	return iptfs_copy_create_frags(skbp, xtfs, mtu);
+ }
+ 
+-static struct sk_buff **iptfs_rehome_fraglist(struct sk_buff **nextp, struct sk_buff *child)
+-{
+-	u32 fllen = 0;
+-
+-	/* It might be possible to account for a frag list in addition to page
+-	 * fragment if it's a valid state to be in. The page fragments size
+-	 * should be kept as data_len so only the frag_list size is removed,
+-	 * this must be done above as well.
+-	 */
+-	*nextp = skb_shinfo(child)->frag_list;
+-	while (*nextp) {
+-		fllen += (*nextp)->len;
+-		nextp = &(*nextp)->next;
+-	}
+-	skb_frag_list_init(child);
+-	child->len -= fllen;
+-	child->data_len -= fllen;
+-
+-	return nextp;
+-}
+-
+ static void iptfs_consume_frags(struct sk_buff *to, struct sk_buff *from)
+ {
+ 	struct skb_shared_info *fromi = skb_shinfo(from);
+@@ -2234,6 +2213,21 @@ static void iptfs_output_queued(struct xfrm_state *x, struct sk_buff_head *list)
+ 		if (iptfs_first_skb(&skb, xtfs, mtu))
+ 			continue;
+ 
++		/* Aggregating writes to the first skb's shared info and, when
++		 * it has a frag_list, to the skbs on that list. A clone shares
++		 * its shared info with the original, e.g. the skb TCP keeps
++		 * for retransmission, so unclone it first. The skbs on a
++		 * frag_list can be shared with another skb whatever the first
++		 * skb is: pskb_copy() and uncloning share them, and the list
++		 * of a datagram that conntrack reassembled can nest. Send a
++		 * first skb that has a frag_list, or that we cannot unclone,
++		 * on its own.
++		 */
++		if (skb_has_frag_list(skb) || skb_unclone(skb, GFP_ATOMIC)) {
++			xfrm_output(NULL, skb);
++			continue;
++		}
++
+ 		/* If fragmentation was required the returned skb is the last
+ 		 * IPTFS fragment in the chain, and it's IPTFS header blkoff has
+ 		 * been set just past the end of the fragment data.
+@@ -2246,18 +2240,8 @@ static void iptfs_output_queued(struct xfrm_state *x, struct sk_buff_head *list)
+ 		 */
+ 		remaining = mtu - (skb->len - sizeof(struct ip_iptfs_hdr));
+ 
+-		/* Re-home (un-nest) nested fragment lists. We need to do this
+-		 * b/c we will simply be appending any following aggregated
+-		 * inner packets using the frag list.
+-		 */
+ 		shi = skb_shinfo(skb);
+ 		nextp = &shi->frag_list;
+-		while (*nextp) {
+-			if (skb_has_frag_list(*nextp))
+-				nextp = iptfs_rehome_fraglist(&(*nextp)->next, *nextp);
+-			else
+-				nextp = &(*nextp)->next;
+-		}
+ 
+ 		if (shi->frag_list || skb_cloned(skb) || skb_shared(skb))
+ 			share_ok = false;
+@@ -2273,6 +2257,13 @@ static void iptfs_output_queued(struct xfrm_state *x, struct sk_buff_head *list)
+ 			if (skb2->len > remaining)
+ 				break;
+ 
++			/* Appending would relink skb2's frag_list, which may
++			 * be shared. Leave skb2 to be sent on its own as the
++			 * next first skb.
++			 */
++			if (skb_has_frag_list(skb2))
++				break;
++
+ 			__skb_unlink(skb2, list);
+ 
+ 			/* Consider the buffer Tx'd and no longer owned */
+@@ -2292,10 +2283,13 @@ static void iptfs_output_queued(struct xfrm_state *x, struct sk_buff_head *list)
+ 			/* skb->pp_recycle is passed to __skb_flag_unref for all
+ 			 * frag pages so we can only share pages with skb's who
+ 			 * match ourselves.
++			 *
++			 * iptfs_consume_frags() empties skb2's frags, which a
++			 * clone shares with its original.
+ 			 */
+ 			shi2 = skb_shinfo(skb2);
+ 			if (share_ok &&
+-			    (shi2->frag_list ||
++			    (skb_cloned(skb2) ||
+ 			     (!skb2->head_frag && skb_headlen(skb)) ||
+ 			     skb->pp_recycle != skb2->pp_recycle ||
+ 			     skb_zcopy(skb2) ||
+@@ -2315,9 +2309,6 @@ static void iptfs_output_queued(struct xfrm_state *x, struct sk_buff_head *list)
+ 				/* Append to the frag_list */
+ 				*nextp = skb2;
+ 				nextp = &skb2->next;
+-				if (skb_has_frag_list(skb2))
+-					nextp = iptfs_rehome_fraglist(nextp,
+-								      skb2);
+ 				skb->truesize += skb2->truesize;
+ 			}
+ 		}
 
-> diff --git a/net/rds/tcp_recv.c b/net/rds/tcp_recv.c
-> index ffe843ca219c7..4ca25b9d25d40 100644
-> --- a/net/rds/tcp_recv.c
-> +++ b/net/rds/tcp_recv.c
-> @@ -210,9 +210,29 @@ static int rds_tcp_data_recv(read_descriptor_t *desc, struct sk_buff *skb,
->  					be32_to_cpu(tinc->ti_inc.i_hdr.h_len);
->  				tinc->ti_inc.i_rx_lat_trace[RDS_MSG_RX_START] =
->  					local_clock();
-> +				/*
-> +				 * The payload is queued on tinc until the
-> +				 * whole message has arrived, so a peer must
-> +				 * not announce more than a sender is allowed
-> +				 * to send.
-> +				 */
-> +				if (tc->t_tinc_data_rem > RDS_MAX_MSG_SIZE)
-> +					rds_conn_path_drop(cp, false);
-
-[Severity: High]
-
-Does this check bound the memory held for a partially received message,
-or only the announced length?
-
-A peer can announce h_len = RDS_MAX_MSG_SIZE, which passes this check.
-It can then send the payload as roughly one million 1-byte segments.
-Each segment goes through:
-
-rds_tcp_data_ready()
-  rds_tcp_read_sock(cp, GFP_ATOMIC)
-    tcp_read_sock()
-      rds_tcp_data_recv()
-        pskb_extract()
-
-Each one ends up as its own clone on tinc->ti_skb_list, further down in
-rds_tcp_data_recv():
-
-	clone = pskb_extract(skb, offset, to_copy, arg->gfp);
-	...
-	skb_queue_tail(&tinc->ti_skb_list, clone);
-
-pskb_extract() calls skb_clone(). The clone has no sk and no destructor,
-so nothing is charged to the socket.
-
-It then calls pskb_carve(). For linear data, pskb_carve_inside_header()
-allocates a new head of skb_end_offset(skb) bytes with kmalloc_reserve().
-For nonlinear data, pskb_carve_inside_nonlinear() also takes
-skb_frag_ref() on the rx page frags. Either way, the allocation does not
-depend on how few bytes are extracted.
-
-rds_tcp_data_ready() drains sk_receive_queue on every data_ready. That
-means tcp_try_coalesce() never has a tail skb to merge small segments
-into, so every segment becomes a separate clone.
-
-Wouldn't that leave on the order of 1M uncharged clones per connection
-path? Each has an sk_buff plus a new head or pinned page, so the total
-is roughly 1 GiB or more, and the receive window stays open.
-
-rds_recv_incoming() later charges only h_len to rs_rcv_bytes, so the
-actual truesize is never accounted.
-
-The commit message describes the problem as the receiver holding large
-amounts of memory that is not charged to the socket. To close that
-fully, could this bound the total truesize on ti_skb_list, or copy or
-coalesce small chunks, rather than only check h_len?
-
->  			}
->  		}
->  
-> +		/*
-> +		 * After an oversized header the connection is being dropped:
-> +		 * consume and discard the rest of the stream until it is shut
-> +		 * down, so that the receive queue drains and the shutdown is
-> +		 * not held up.
-> +		 */
-> +		if (!tc->t_tinc_hdr_rem &&
-> +		    tc->t_tinc_data_rem > RDS_MAX_MSG_SIZE) {
-> +			left = 0;
-> +			break;
-> +		}
-> +
->  		if (left && tc->t_tinc_data_rem) {
->  			to_copy = min(tc->t_tinc_data_rem, left);
->
-
+base-commit: 2803867cf3defa294710088a4663b434e12b5e93
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261125-h047-send-v2-1-b29031cf6b93%40illinois.edu
+2.53.0
+
