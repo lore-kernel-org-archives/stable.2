@@ -1,63 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795779523;
-	b=KtuJgB7169OLquBX9k6tWyi9gejwXdGNXf6ONXDPPjbgYJtB8O0djwJPVyNv3fUoDuAE
-	 odKsVRdEC2+q1fkQwfavgPFOJbPSLbXbrjPthq37l/siwZS6eo15JUSOSru/yytWBDYrC
-	 NE6ccqe9UWeF3KnGsLM8Tn+gnk+hVycj4gPXnps+02EMO/E80QUw/d5k/1zSbupaCWMFy
-	 D/8k8inuMkbNQoxZBVixn5c4GNVXGgooV5Hv/IS3p8QaywOuxgJWiJAlQNTcyfFemEJzZ
-	 1D1lygsLDMZ4mjNWKemSa09sa3sH18ZZdaoVTjCFEYN83lhyPYLVjjqjvfL/MPUPqGA==
+	t=1795779530;
+	b=v66yMk4QFA3aURPnRJ3SeSmU7MFh54flzpjqWLLIBECTYCC6pOC9SGbRKti2mZGb1ybl
+	 I3SHtk15VWJcfsZdIsJMZUYOEJvT1GE8X3x1ROxeqZOzNigEZbq5vSoc/VpHsRQ6gzlVv
+	 RLZ9h06WPSfYr3J6iKbxLoU/gU6R8U2q3y1Jij7zZoVD/HneGI3hzl6qZqukEIvsA+koB
+	 tN+C0g1ZdnN9WahX1KttOgj8AU0hP6q++S9eQyamo82FDFe2BvCc+M+gEQ7CqH45GQtU1
+	 Gx/dbdxpXMzJvRP8e3JFjI4iGjXhSB4IgJ1ZhopfoS9Ly164jjXZnDopzOA9mm/kPuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795779523;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Last-TLS-Session-Version;
-	bh=mZfNTWYCycrADgGpy9HuwGJctAflXk9FoQ4TF35AKCI=;
-	b=l5+p2nwKLtlpkLEIRkPLwWYRKic5j/0IVVrBAOfys86xU0H+UU0TRBDWbSAWLL1mDdFG
-	 FtG9BO8LJPAZa0E0pS1gy3Wp/Dj8XDp1sycpqY+sgLpNoPzsovmqKpfktcRnmQPMyj6AH
-	 tzRYHCald+YeJpKL58WFOTewMamg+NE6CPTCpzpn/rEfKToq4ZKgTB53gDiCasO46vtIE
-	 l2BKC2qk3Yxl+6rtq/r69m3QKwY3wcQFS3yiyTru/ELxuLjOp0t6JDiIaRJwWcpsWacnn
-	 27BRf7qSZt0NT/ObCo1KZjEIe/b+ukunY4CvMDDhZTJBuu5UBnFjejtttVCiofuQ3KQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795779530;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=6GRLSB0LkFDh3Az2ScuINldyMH7GHPJZtPzhv3mBq9g=;
+	b=5kOKc57xDOSHrNhkWVTqeRUHApwfns5DamK9SNovLg33vZ7aLqyh08t5LhqlAYu9u8aJ
+	 tcc/OGSsJGCFIPD1d6b0BF9gZDN1a1ISMvdMLijFs/IwbKitTbkcJpm6SThAgzE4ZD0vD
+	 u1fSu/IqV9VnnlOBgaOxhS5bkdw8Hi1zAn/EOhCV+fKOZBWMwtqg/hZlWyL+z2ZPJVAAC
+	 jKAnN5evnwNMPbpZdksgTJUxAKxjj9AMI+6WEaUSW7SgjulZMj+Xz0BBzghxCH2tVmmwE
+	 U0V9iI6tss/7I8M8u8JSUrUvfqkV8jXLfhBo9orH5yNirpyqZLdEy5gsPGfXUM4UFVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=NiwvYkwp;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EN6sq60q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA88606A31E;
-	Fri, 27 Nov 2026 11:38:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAA88606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19F2606A31C;
+	Fri, 27 Nov 2026 11:38:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=NiwvYkwp
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 844DD10AF96;
-	Fri, 27 Nov 2026 12:38:35 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1795779516;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=mZfNTWYCycrADgGpy9HuwGJctAflXk9FoQ4TF35AKCI=;
-	b=NiwvYkwpeodkk50rJ+BVyGeo5xDDXdTjo0H/lUu1mzZXOag6bZRalAJfrk6SzgnEcHN7nk
-	7UQKcCexxhJx1q7kpE0ZMIcr190EUtR0sB9sABtSOYN/3ELFwinuTeXQ1TPdknuc6LrwM9
-	Lo9YXhd5zsNEJw7GctaOrsZWBqzUBuq0jYWbZtquQvM5udTeZIx46YYbiVu/flnK4PUwMG
-	5StqzJQuusjpRkZRMK/WFLEtZJCmDxSGGNNgxG4ZxCRLyzPMEAFWoWeVrSLDxdKwhE3gWC
-	d7fBrk0omOBNN6eV68V8Jc+PCgtShVaNyAGJzUChd5wOmuTxMep7i6icu+lreA==
-Date: Fri, 27 Nov 2026 12:38:34 +0100
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 7.3 0000/1002] 7.3.7-rc2 review
-Message-ID: <awlruog3l9codBvA@duo.ucw.cz>
-References: <20261126105729.110697432@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EN6sq60q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 568381F000C1;
+	Fri, 27 Nov 2026 11:38:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795779530;
+	bh=6GRLSB0LkFDh3Az2ScuINldyMH7GHPJZtPzhv3mBq9g=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=EN6sq60qKpx6cdKF+R79n+z5qwzaTKzvrcMvZzx+FKU6GBn2eC8+hm67fVNei3TQO
+	 +ttGoxmqoregBZkwucAJ6Ey8WDnLmpLANL76xyY0a7v1bQfrsy3xvk/joA8eB0Ed0C
+	 gIErMq/LjNOwX/1LRI1yKjn6O4Sr+TDieO7KNT7/mmws4jIebbYPAYAGY93AOMXQBF
+	 IL7XMKJA47EtW11xsn+5VEor490XF+HwRykPTjra/RQ8SGJnD8n1S1PU0cUsqa2TCz
+	 EtJmJhGwe8+jwKmZT6muAR6KvnGXRKQWU36E557J5sYLcPGIw52i6TU2jGQbHsoSZV
+	 Cb7dE6bXAVsLg==
+From: Srinivas Kandagatla <srini@kernel.org>
+To: Stefan Ghetu <stefan.ghetu@nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ kernel@pengutronix.de, Fabio Estevam <festevam@gmail.com>, 
+ Peng Fan <peng.fan@nxp.com>, Christian Eggers <ceggers@arri.de>, 
+ stable@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261125123222.839732-1-stefan.ghetu@nxp.com>
+References: <20261125072736.769516-1-stefan.ghetu@nxp.com>
+ <20261125123222.839732-1-stefan.ghetu@nxp.com>
+Subject: Re: [PATCH v2] nvmem: imx-ocotp-scu: assign
+ nvmem_cell_info::raw_len
+Message-Id: <179577952810.26171.4681620361153963106.b4-ty@kernel.org>
+Date: Fri, 27 Nov 2026 11:38:48 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,41 +63,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="T6wGGn4Yvx6i7iqC"
-Content-Disposition: inline
-In-Reply-To: <20261126105729.110697432@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
 
---T6wGGn4Yvx6i7iqC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Wed, 25 Nov 2026 14:32:22 +0200, Stefan Ghetu wrote:
+> Avoid getting error messages at startup like the following on i.MX8QXP,
+> i.MX8QM and i.MX8DXL, printed once for each MAC address cell:
+> 
+> nvmem imx-scu-ocotp0: cell mac raw len 6 unaligned to nvmem word size 4
+> 
+> The same was already done for imx-ocotp and imx-ocotp-ele by commit
+> 48b5163c9575 ("nvmem: imx: assign nvmem_cell_info::raw_len"), but the
+> SCU based driver was not covered.
+> 
+> [...]
 
-Hi!
+Applied, thanks!
 
-> This is the start of the stable review cycle for the 7.3.7 release.
-> There are 1002 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-
-CIP testing did not find any problems here:
-
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-7.3.y
-
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+[1/1] nvmem: imx-ocotp-scu: assign nvmem_cell_info::raw_len
+      commit: 710ea17029b60738ffe6c93e6da3ef6970727d0a
 
 Best regards,
-                                                                Pavel
+-- 
+Srinivas Kandagatla <srini@kernel.org>
 
---T6wGGn4Yvx6i7iqC
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCawlrugAKCRAw5/Bqldv6
-8ljlAJ9LfcT2768SVC58kVgBBWhyLSC4WACdFb2Q5FF0pOd3W6jXMYl2bUo2wjY=
-=cIOz
------END PGP SIGNATURE-----
-
---T6wGGn4Yvx6i7iqC--
