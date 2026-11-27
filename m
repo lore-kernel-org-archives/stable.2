@@ -1,94 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795794167;
-	b=RYhMeVwFgyqQWA8QDj8G39ekXejPkI80rQMnyNzU2S6w65O2er2v8enQA4AYzX2BK87L
-	 i4Y2G9FnaGV4xV/rWz3KD8C/85n/fdphdVL2w9v7l8yHwstw/ugYML2/3yCBIxsl8mx13
-	 fTykdFG3WEvEskz+WUgNLUFbVmJSIHJdrl44x/i/1DkNG/P/b4aurT0YDofWyt7h6Sa5h
-	 98w+hA5eYcQMc15Vpv3vG0YjLIDoCPqzlvW6mz4tWqYwWQAfmvVvCjXRrZpJLTI5RX6A6
-	 Fpdq5BWDrcM2iz0E5VEurgKP0Ou6qYUY9UCCjcL3See2fAv0V9GDsrbBxFFeBz+ue2g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795794167;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:X-Spam-Level:
-	 X-Spam-Flag;
-	bh=ecZdHBCCTAPsfnJCfwhM/cgtRShTHrDKKf57XOoxtbY=;
-	b=gZO0v0E2KS2yn+oKfokfe0bZyhhCFC7eWoZkPPwU1CdX8huZ33VD7ReGBYbSVWtjjFNK
-	 ux9EV7Erhmufjc1Zoz4KRu36I/VqjWMHI+S2NGVME5BMROwYoYJLlIiLIQg5S/Z1BDX02
-	 3Oab7MDstj8Ii46mr3zQgtQPIYLHcrPlOZ202l1eehvrGWMjw4HEvOzVvJeNPtNxoZ4w1
-	 Rs+mccidO4y0W5E70p6pvvpTFXD3eFCos3UC8f0VnQt1qlvNm0OFjryyROdL1+uHyC8iy
-	 gTRMLBExTHkZE/Ors3MjuZtsqEM/WN816tBjTI4PedNjZ2LkvHheEBegXoRlhh+N/FA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=Ruw3WlOL;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b="k0/uIzxQ";
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795794558;
+	b=IB7l6vUbuhsMfVnX6c+lSPMTJ/e9Wdp+0WlPf/zhZkCig2/4NHSu+0fCMRIzBqLKl3xX
+	 FdlcSjE2OsqafUlJl1aQzdGzNXCLjPbioEOQFZ8GK05c7hGIVEuy6CKSBJuKopUkuNClC
+	 zrgXXHzJicvlNv9nzJitbChxJopyyn5Q/F7gvTVaEeSP8byRimGZ9sfW7K9aK2lT3S2rg
+	 SJiuOguiHWBrVcBxvp3f4cKn1zWy4tA0kMU5+YIki8/gR4wmj5p9JoR7N8jOQuCp4WVWD
+	 YUisdV+FOLV3sEelqHhzJV1h7kYnxyLvUg+03UOGmBCuFRzTBrZL2r3N5D4/R9CAsGw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795794558;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=pm/8tep73L9V4TMW2Ch55CTSshK2JxETa/tNsbYXksY=;
+	b=VROgmyb1KHKTwv6RwjMFiEQBWzsrxwXGy/3n+iSis8LgcN+hv0Oh284vqughH14DCyS6
+	 MOrIjInfukgXjBNUzLTbdxlPmxS+f3bpFudrQRqu9/rroqde/J4VEcLqz4DtCpOwRMwJl
+	 Vx4OQwtKxl4geMfzU3L+jl1MHjAQCibl8xVZK5Sfj3bIhhHKCfVzflhYcAGnvNgsj6xOs
+	 4lNDr3Upw+4rob+8BGrocDeNJTGoeLKKnRY1AvsSMbFqjtR/Oz1mqWg55HiKDPIbCXbd+
+	 0JjhJ2iEYdI2jlbawv0raGlouFRO96kwspZmhSE5cwvqkhJkB6XibDX9y2ZcKbhveJA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="r7/DC2ns";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABC6606A31C;
-	Fri, 27 Nov 2026 15:42:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1ABC6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67063606A31F
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 15:49:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67063606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=Ruw3WlOL;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=k0/uIzxQ
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 2054D1FE20;
-	Fri, 27 Nov 2026 15:42:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1795794165; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=ecZdHBCCTAPsfnJCfwhM/cgtRShTHrDKKf57XOoxtbY=;
-	b=Ruw3WlOLeTi4R9iaT882GnTIBzAajzwk25GoPa3nGOlB5QKultAD7DvKGgYUSyFIDRiLCY
-	iuunlhV3WJJasAVjGvMMavpkp797nxEm+kXP85mDwSwz5cq+ACNz8uhWjDE0DUcXf+uDdT
-	ij2M8gaZ4AvpsGVH5IPuJ+uPOZvf9zU=
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1795794164; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=ecZdHBCCTAPsfnJCfwhM/cgtRShTHrDKKf57XOoxtbY=;
-	b=k0/uIzxQe8NrlxUye48KCMH8JhPUsN8HG+/7+ZDeD3b0CgGJVWlnPEUie9CKanDgpIzI3w
-	LbSYn0jniesNcQNGVYCijEE90AMsIXYe0qcNb5+r0Yg9VcTQkOBKhFRb0oK2TI57GSsst8
-	4Fda9sZdEdBY+VXXwFN3sy2BayBDQAI=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 05ECA134E8;
-	Fri, 27 Nov 2026 15:42:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id jFUGMvKkCWtvIQAAD6G6ig
-	(envelope-from <nik.borisov@suse.com>); Fri, 27 Nov 2026 15:42:42 +0000
-From: Nikolay Borisov <nik.borisov@suse.com>
-To: x86@kernel.org
-Cc: mhocko@suse.com,
-	kas@kernel.org,
-	naveen@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Dan Williams <dan.j.williams@intel.com>,
-	Kees Cook <kees@kernel.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	Vishal Annapurve <vannapurve@google.com>,
-	Kirill Shutemov <kirill.shutemov@linux.intel.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Nikolay Borisov <nik.borisov@suse.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] x86/devmem: Drop /dev/mem access for confidential guests
-Date: Fri, 27 Nov 2026 17:42:12 +0200
-Message-ID: <20261127154211.21360-2-nik.borisov@suse.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r7/DC2ns
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-55c35262674so60669101cf.0
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 07:49:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795794557; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SW0/o0nt59pzaGCOP3qUHIBOESWk51YWfyEp6c5YWTMRyyN0TeOj8EmhtWwlrc/nY0
+         feTevdvJiyDQDdxDOiT77hjOY1sRwQhjo9Q0VE3uCqKrU3nF8p8gIuvMvgVrh7C9Wity
+         edy1qrnDmRRWh+7ivrRx067Uh5+gk5lBLqF2wtLfp7T0mSYPXMsdp+dSoNsQ4bEf0/3B
+         JK8Qp3giDSguvrB9APo8w2vXtppX+2pb81ujV8FDiXtXnbwzUG+mb4/5MJ4RloHOkRbP
+         9iFvkq3aLSaXAUvfb6BBf32wawIXFcKcmHwJ+dbNbgBPQlSBLmxn+3AsIynjF7VWkTSH
+         1T0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pm/8tep73L9V4TMW2Ch55CTSshK2JxETa/tNsbYXksY=;
+        fh=uic+RrpRzSqETJrG6DepirveWk8UDgnExhNU/zLk/K0=;
+        b=qAdr6EILntA6k2GzcAmIaGNXxKjPJCBS+/0d7JDOjs2bpXsjo+oRI81fKadyoHjl/t
+         sJodu5x56UUHEfUGoQf/0WEtZ8EzII5UE88t7TpQuCcj/6ghqeK9jQhLs776rBV0R7bv
+         rNfyV0f9JpU0ZAvJdQgiFiBio4HkRmAvaQUdeu7nRuL1bozFZFcVCOsT7mvaySciLQiV
+         X+rjxsRjbdc66FAjn0rGG5qLcKItpqv9VnQd+T06ZaRozt1b5C8DFSgxRF8J8VoqiRFF
+         Ill8JqIiCRXDwBcFeofIYXGwF4bthSrc4e6Kf3r+1rsxWQ6e8reKMYPz/3WduIXSi3Gu
+         FThA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795794557; x=1796399357; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pm/8tep73L9V4TMW2Ch55CTSshK2JxETa/tNsbYXksY=;
+        b=r7/DC2nsFPcFfujXShUyJum92nAAXkR0SPOC0ulHRZV7FF+2KOagqIU8llcBM/1sWW
+         HYzyUhkof0c/LZk5o5X3JnEQKrn3MUj5T1ypXIw/5hWZmTHABodP102dd5j1T+V2b7gP
+         uU56XPDlh5ZFSTI35HOlaxOXnUIs0Bq2gQxx49Ngr/1l/H+LtZEYC7Eq+3wXVagvXjei
+         zv+r/9ePDQbmXnLvvT8OhCZj4Svf+Fd/hJlVd8jNwy65xC5Jl0wbhcweHGLgF7t63Kdo
+         wUNQIrBPNig40zlbv0oC2Bw+Pi3AYT+5OnLLzteFop3u7hLGUeT16D85qVO3NjtWaIph
+         Fn2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795794557; x=1796399357;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pm/8tep73L9V4TMW2Ch55CTSshK2JxETa/tNsbYXksY=;
+        b=RQZV/w8wn1Wrux1BDjdfkKlP0Df8nh2q4sXev6dr4zE2W4FKbgMvkMuEBLEqPYDczl
+         o8Z22VFCKXsh/G+97FeICVdHs4Dr5eLSXWKSa6qwlYJpNwT6OlswCUOPA8iVm19iEZ/R
+         pL+HJlEsrhdeGSf93UJxOXfcLdvv7qRcy/Sv8byo6ng0E58DPqE0sGFyomCO6ORH5mCP
+         OFQ383joD6XsORXcQ+mw4/ow/7ZCbjT0Yf6RUVJ0gxY2n2sO/0UuPCpaVvUHvUEXbMF7
+         UParhQpa/X1ykIMw0VkW+doDiC//gSG10tszxMI5G/2e3FJZnOjTGSoBZGJamk6GFb5U
+         D0rg==
+X-Forwarded-Encrypted: i=1; AL+hErFAeb7xA8CW29dsqKxmHJqs7RlO1XK6ZC3keeT0mPZNa+pu8qIwmMqPYBF9dIGueRnB4jpx1ms=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/1X9B1+Q463kecRTYybcGcIq/rNjs1VxrEZYhqmQtDbY4GH97s
+	DyK9RUx78KQJaBshIA+PVQ5Se6wM5Qnl60KFQM+4OYHA4wNQOnYHvs7xXJ/ci3drQiC+g562+sU
+	1D8pzjeXARIgKLc2tjfM1dH0/qT0ilf8=
+X-Gm-Gg: AZFdTZd+/8/lOXMSMtO4eJj4uXbRo70jDCjhsThTLMcEs76JsMlCsqyrbtpteeP9FNa
+	Hw75xWl1yI4wA2qMqskigt+AmSqGqV9Ev0wUtpBh7cJJut7ypuUIGRq9VHHzyqjYk1gz0/JjiHG
+	TEjz1dOohs4+9WFozWfoDOIon5wFAmdJlL7BW01j7/Qtb4ABDm4p1Hi7KLk+nEatJg52X7im+VP
+	rA4to6hz7IH/L2uJy039UBdEDjnfyxe+BIYljIZT9y2/Etzccq/IdkUQp+SxGj6i1zML9L0p5iv
+	nn/+VE4ql6K1lvLsMImCN2M8yL+euIIxnuOdWKJLnHqz8XLrmXPXDP9nrjcxMKb2mRMSwKszDnI
+	cvZ16asFnv2NLb6Tu/WLly5d6LIq0g760+srdgVP62gmYYFeUvDTNAprskEnv37X0DwDO3v4IBR
+	d1aFZhzhMH7OX/L2PCmKg07loQg5PNf8FQZ9PHu0VSVza/VVSH9T4nkqsFK+sETJ4Bj8wPSYS7F
+	Mj4mB0sB5eFDfZP0MskWluZ+gMx3pHX6g==
+X-Received: by 2002:ac8:5754:0:b0:535:a5fa:edff with SMTP id
+ d75a77b69052e-55d76a59807mr476389711cf.63.1795794557235; Fri, 27 Nov 2026
+ 07:49:17 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,150 +106,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-11.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.998];
-	MIME_GOOD(-0.10)[text/plain];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,arndb.de:email,arm.com:email,intel.com:email,imap1.dmz-prg2.suse.org:helo];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -11.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+References: <20261126031506.165973-1-kaynak.oguzhan0@gmail.com> <awkzEjrVEz2jB1Ma@z790sl>
+In-Reply-To: <awkzEjrVEz2jB1Ma@z790sl>
+From: =?UTF-8?Q?O=C4=9Fuzhan_Kaynak?= <kaynak.oguzhan0@gmail.com>
+Date: Fri, 27 Nov 2026 18:49:05 +0300
+X-Gm-Features: Aa3M54oG8qNSkma9SYEe5bEWuLV762AYfcjKVO9GWl8LUMyf097tEckGvgVUriY
+Message-ID: <CAAKAQ7KpM5hT-Q0mdJr-0VnHy1DeFBoODjYM-FCoXiS+5DW+cA@mail.gmail.com>
+Subject: Re: [PATCH] ntb: ntb_tool: accept hexadecimal addresses in
+ peer_mw_trans again
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>, 
+	Allen Hubbe <allenbh@gmail.com>, ntb@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, regressions@lists.linux.dev, 
+	yangqixiao <yangqixiao@inspur.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Dan Williams <dan.j.williams@intel.com>
+Koichiro Den <den@valinux.co.jp>, 27 Kas 2026 Cum, 11:01 tarihinde =C5=9Fun=
+u yazd=C4=B1:
+>
+> On Thu, Nov 26, 2026 at 06:15:06AM +0300, Oguzhan KAYNAK wrote:
+> > -     n =3D sscanf(buf, "%llu:%zu", &addr, &wsize);
+> > +     n =3D sscanf(buf, "%lli:%zu", &addr, &wsize);
+>
+> Just to clarify, do we have any rule about negative values for the addres=
+s part,
+> like in "-1:4096"? 21fbdc4d0b1e mentions "-1" as a possible input for the=
+ size
+> part, but doesn't mention it for the address part. (For either part, "-1"=
+ is
+> really odd, but that's not the point.) As you mention, your patch starts
+> accepting it for the address part again. Perhaps we should keep rejecting=
+ it
+> there?
+>
+> If so, to cover the cases broguht up so far, perhaps it would be an optio=
+n to
+> split the input at ":" with strsep() and use kstrtou64() with base 0 for =
+the
+> address?
 
-Nikolay reports that accessing BIOS data (first 1MB of the physical
-address space) via /dev/mem results in a "crash" / terminated VM
-(unhandled SEPT violation). See report [1] for details.
+Good point, thanks. A negative address was rejected before my patch,
+so it should stay that way. v2 does what you suggested: strsep() at ':'
+and kstrtou64() with base 0 for the address. I did not carry your
+Reviewed-by over, since the code changed.
 
-The cause is ioremap() (via xlate_dev_mem_ptr()) establishes an
-unencrypted mapping where the kernel had established an encrypted
-mapping previously. The CPU enforces mapping consistency with a fault
-upon detecting a mismatch. A similar situation arises with devmem access
-to "unaccepted" confidential memory. In summary, it is fraught to allow
-uncoordinated userspace mapping of confidential memory.
+v2: https://lore.kernel.org/all/20261127154157.3541-1-kaynak.oguzhan0@gmail=
+.com/
 
-While there is an existing mitigation to simulate and redirect access to
-the BIOS data area with STRICT_DEVMEM=y, it is insufficient.
-Specifically, STRICT_DEVMEM=y traps read(2) access to the BIOS data
-area, and returns a zeroed buffer.  However, it turns out the kernel
-fails to enforce the same via mmap(2), and a direct mapping is
-established. This is a hole, and unfortunately userspace has learned to
-exploit it [2].
-
-This means the kernel either needs: a mechanism to ensure consistent
-plus accepted "encrypted" mappings of this /dev/mem mmap() hole, close
-the hole by mapping the zero page in the mmap(2) path, block only BIOS
-data access and let typical STRICT_DEVMEM protect the rest, or disable
-/dev/mem altogether.
-
-The simplest option for now is to disallow access to /dev/mem via devmem_is_allowed.
-Require confidential guest userspace to jettison legacy dependencies on
-/dev/mem similar to how other legacy mechanisms are jettisoned for
-confidential operation. Recall that modern methods for BIOS data access are
-available like /sys/firmware/dmi/tables.
-
-Now, this begs the question what to do with PCI sysfs which allows
-userspace mappings of confidential MMIO with similar mapping consistency
-and acceptance expectations? Here, the existing mitigation of
-IO_STRICT_DEVMEM is likely sufficient. The kernel is expected to use
-request_mem_region() when toggling the state of MMIO. With
-IO_STRICT_DEVMEM that enforces kernel-exclusive access until
-release_mem_region(), i.e. mapping conflicts are prevented.
-
-Cc: x86@kernel.org
-Cc: Kees Cook <kees@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>
-Cc: Vishal Annapurve <vannapurve@google.com>
-Cc: Kirill Shutemov <kirill.shutemov@linux.intel.com>
-Cc: Arnd Bergmann <arnd@arndb.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Michael Ellerman <mpe@ellerman.id.au>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
-Link: https://sources.debian.org/src/libdebian-installer/0.125/src/system/subarch-x86-linux.c/?hl=113#L93 [2]
-Reported-by: Nikolay Borisov <nik.borisov@suse.com>
-Closes: http://lore.kernel.org/20250318113604.297726-1-nik.borisov@suse.com [1]
-Fixes: 9aa6ea69852c ("x86/tdx: Make pages shared in ioremap()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dan Williams <dan.j.williams@intel.com>
-Signed-off-by: Nikolay Borisov <nik.borisov@suse.com>
----
-
-V2:
- * Move the check to x86's devmem_is_allowed implementation to avoid touching
- generic code
-
- * Very slightly reword the 1st sentence of the 5th paragraph to not mention "lockdown",
-
- arch/x86/Kconfig   |  4 ++++
- arch/x86/mm/init.c | 10 ++++++++++
- 2 files changed, 14 insertions(+)
-
-diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-index 3159852fd6b3..1490e0019c71 100644
---- a/arch/x86/Kconfig
-+++ b/arch/x86/Kconfig
-@@ -901,6 +901,8 @@ config INTEL_TDX_GUEST
- 	depends on X86_X2APIC
- 	depends on EFI_STUB
- 	depends on PARAVIRT
-+	select STRICT_DEVMEM
-+	select IO_STRICT_DEVMEM
- 	select ARCH_HAS_CC_PLATFORM
- 	select X86_MEM_ENCRYPT
- 	select X86_MCE
-@@ -1490,6 +1492,8 @@ config AMD_MEM_ENCRYPT
- 	bool "AMD Secure Memory Encryption (SME) support"
- 	depends on X86_64 && CPU_SUP_AMD
- 	depends on EFI_STUB
-+	select STRICT_DEVMEM
-+	select IO_STRICT_DEVMEM
- 	select DMA_COHERENT_POOL
- 	select ARCH_USE_MEMREMAP_PROT
- 	select INSTRUCTION_DECODER
-diff --git a/arch/x86/mm/init.c b/arch/x86/mm/init.c
-index 079f8c7e9e3c..8768508f3c6d 100644
---- a/arch/x86/mm/init.c
-+++ b/arch/x86/mm/init.c
-@@ -8,6 +8,7 @@
- #include <linux/kmemleak.h>
- #include <linux/sched/task.h>
- #include <linux/execmem.h>
-+#include <linux/cc_platform.h>
- 
- #include <asm/set_memory.h>
- #include <asm/cpu_device_id.h>
-@@ -866,6 +867,15 @@ void __init poking_init(void)
-  */
- int devmem_is_allowed(unsigned long pagenr)
- {
-+	/*
-+	 * Enforce encrypted mapping consistency and avoid unaccepted
-+	 * memory conflicts, "lockdown" /dev/mem for confidential
-+	 * guests.
-+	 */
-+	if (IS_ENABLED(CONFIG_STRICT_DEVMEM) &&
-+	    cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT))
-+		return 0;
-+
- 	if (region_intersects(PFN_PHYS(pagenr), PAGE_SIZE,
- 				IORESOURCE_SYSTEM_RAM, IORES_DESC_NONE)
- 			!= REGION_DISJOINT) {
---
-2.56.0
-
+Oguzhan
