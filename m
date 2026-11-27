@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795762073;
-	b=cYawoHaceJYqRU3KzWRU0xogXtOED7bF2ovK4pCoyt7Hd/TIvIdzeEchGgMYU4Wf9181
-	 Z7levCZJhIwaEYoiqpWPDZGPPoZ57GdRS5RLuMqw3fnl8aNKnUFuJrIOMHNc6o+iaYsaR
-	 v7h7E+HbysFrFhL6aeQFjcUFnbx4IEkR53sUeQ+sf3b571LLQurTl0VO66U/8Qhfk4UXX
-	 B2AyC/cPN9tbGT0hl46SSDX3NjV5SNrXy5aQe2Z1CUQkvrB7k63N2PteRD+z4U+WMKB0x
-	 gT6rCGIKoTuFi1xOVWU5xUC/xI05VEstvWOVY4CY3bfNHrsWxRote8xdhEQNDmABw4g==
+	t=1795762077;
+	b=R6QxCTKl3hniQDA9wtWsuFleO1rJUwatk1stqXXeGO5rlkjadm4GoVSa3+atBEJ0j7Mc
+	 1AS4hkyFqCCcEsdnk01gTyPM6N6Eo0l2swhJwNOszx/mtTL50w7I3mjsz8Vwfs3MzF6DJ
+	 J10bfv/+uDSF4jTlI93Jcs3BmtFm9h1QkVppDtLuSMWMDsFMU3a1jcN5fX1Eq1jhjcSel
+	 dWzA8JBxHKG2NUbsNGRBatZYN9TVNEgHkti3zAaamU5tv+WcHnSiONNK0z8tcDLrfysnw
+	 jnwsydoK1uOgf7B3cOjX+wvM2PNxcqmFAKIgkb5R3IfRDgN+ch1mmmZGfbFT4ZjERng==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795762073;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795762077;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
 	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=TDuN97p1qoObocumuaAjgug87RFvc5TzoAa1x2CBtsM=;
-	b=K2NfqDnJRImEk4spfKQWOVCiz6MnSiUaenI42Q9fWBH8hIu3q4zinQ2ogllhvPf5vV23
-	 FPUyZF06vCGsGPKuWZiuTlvTHbsh6m1Tcf1/iyMx2FJfNVYpWF28llRE2P8bHPQG+PNke
-	 TKZfycw4FhP0iO4Trkwl/fwIZzm1UdGtbMSgzu7wXa/yQBd9YCucC/AfM3JLaVVQUsOUs
-	 W+mfuwgiW4vHjQ+ClmTZDATzneTNb9lrgtbVWj0GcOZ/t3jocX/jj5MHpEMLwKfa0m44C
-	 QfPqvebxzwE/LJ40abwrY/yB1iamKXLfKYy7tyaDl3C/iia9ggOeD2/A2zEtNYfrN5w==
+	bh=j6m7R+QoZXf0daSNyypH1YTXx+y64p+sMjzGTV/IfP8=;
+	b=GhuvA6Jtqv/oQy0TioGoC+9meNbdvzT/WpiUdSSOooa4rkSL4Nyhp0vT7HqDSMCCYbJj
+	 KULIXSQNo6eEMYB3JfTsiAguR4A7TCs/WizcTi96YUProFzmpq1FUWVtG4lsxHkPrsvNy
+	 bfmfOuZmwOKWFR32RwvkHL+T/SP3IMc8HepMWKQBWTcMCs9bDtLr8xiDz4Q/YnqhNrah/
+	 jryU5tM/I1Ni1H3bekLut49PUCsW+dQJeR0KFn2uXKv4LJMLygx6ICjT+xmbAdqPdkCup
+	 uNKyTQxk/X+k5HxixFwZHLTGhJyEag2JBeKXwnZYdbKifbzq00WLbU6JhMmfv5bekJA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UWo4Tvc3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYnp0l8s;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3BCF606A31E;
-	Fri, 27 Nov 2026 06:47:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4AFA606A326;
+	Fri, 27 Nov 2026 06:47:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UWo4Tvc3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYnp0l8s
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795762072;
-	b=a1SY+zIusWQnjUmWbiNjgrJ5Dntc46EM9jKY48UWeOGOXDqxpmfNEG/ArcUo1D6bvfM3
-	 5pmm/K7BBdUMjvp1OfEmmw2rLk5dqDUDQrw8TRCReFxyINeyu7c7n6o+MxugErOpGjnAP
-	 4B5KPcsjT9ybIoo0OiOZbKeuzx54u1sU9Sl2n6JyoL4et7n+7YXDai47oyyqXYHGbOlZh
-	 PrKdGP3BmuAS0t4idvBhGGfyP39aWUwZzrp4+NXqbJ+qHMXOC6vQj7xeTnPUTx+x4pc2l
-	 IOQa5A+u6TwXguY7iLIf6FrTw9B003w8GCobjzVy0NoTPD32AWnuFxfVUZksDnROAoA==
+	t=1795762076;
+	b=eWFOBye8/oJsvsPmR5hWgVR8nw115YJHygavyFovXEue1zBlkIsWh61M5TK1DtvEppc5
+	 RJohAjGBVHoQLbEGX7OeiMzhFNLPCf48djoiut32Za9wsB0bwz3Y82tB0/TxO4Oli3mub
+	 PmgDSUwq902ywGUblzY/SGvPKIDhFcBVnl7XKGGOC9fmQaBwVa1T5zHYzbfIdxgX5BkiL
+	 finruOrvnyxXzT1o1fuKkSC6t9knMCPaLpcPb7iIi8DZaetFKV3ooZrdsqlZWh8UEOox6
+	 mPPzlfRjwezteQ5l5jJX50HmvSHqiHJlJxK+9l03K+q8S0ZOERxfiqwviJglaFqUy2g==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795762072;
+	c=relaxed/relaxed; t=1795762076;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=TDuN97p1qoObocumuaAjgug87RFvc5TzoAa1x2CBtsM=;
-	b=u7Xk4S2TUjnrPwVdSNPI3iRNhiWi9NNHABJl9AswUT9WNC27Vddbj8uY4qwCGnu/QBX+
-	 qCg0S/FWOa+n+klOK3Ddd3p1k1oerwAG3UdErQsqototA9jq9zLM/rjmZID++zwP7OTi1
-	 QtSGkbc38xBUkL2LkgiP4t4YICgpNgM4G+Hu9S2KKfa/ZsgCoZhuhAlkKVXKaoMvrybdN
-	 k1ZQTddPHRYnaEanF3F/oZUXZa7OPjT85KT0rdQcQWSErCA4wHdG6Kwtr9ecbaxxkX1Hx
-	 rYFL9nfle0BmEWCxKHMsLlQgeUdZ59cWTDtSEeC3mMfYwflSVmciC52BTdYY4DGGi9Q==
+	bh=j6m7R+QoZXf0daSNyypH1YTXx+y64p+sMjzGTV/IfP8=;
+	b=xi+nnviyZhGerAwDJOZQ5SYI0/vyBx7rk/8YQjMzRBeniPoN2ZOVJesXWR4P8CaEsaHf
+	 izSvuPgpkBMx0p+cJdcDboAEC/gznK+vcGt64XIsmYGSAA+a37KIA5GVcv7K9FNMWmxKe
+	 e5jJqyi4Z+4zzdnxhjyjJxE7+eHAwHTA3O6jL8kN2SaBqsAgwrZLUkPw2PW8uYhFqCK2s
+	 AAwdUafh37c5reknGJgRhb+owoQksZpGEskRmUuidkklwUEl0YF+h3gyXavTtZJFyWR0V
+	 wDoaWb5T+47dp0TUO3uN92krepggrJ65OEaUYsG4XvUEJoYpH2olR/rrSYXglMVvsLg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 07D971F0089F;
-	Fri, 27 Nov 2026 06:47:47 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id AD3B51F0089B;
+	Fri, 27 Nov 2026 06:47:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795762072;
-	bh=TDuN97p1qoObocumuaAjgug87RFvc5TzoAa1x2CBtsM=;
+	s=k20260515; t=1795762076;
+	bh=j6m7R+QoZXf0daSNyypH1YTXx+y64p+sMjzGTV/IfP8=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=UWo4Tvc3uTrR/sCVHejamStQQGSlwBxDepF/cMzgTnvi1BOj043Lq4KkCjHGX/Hc+
-	 gtQMMvFjSkST/OwFmF/TAyZle5F017CYsS0WTrQZld0n52Ve1kV8L6xcteg+zrqhIk
-	 qA2gpjrb8vIhxoYiJaE589mFu/eUDXGmYHeu87mIsvewqnYFdjbL6PeKNqK7KjYWKv
-	 /bwehuH+NF/XkvfyCIKF18cTOjt6wUlZ8gTglWROn2MfZc1Ril0jwho+L4PXlKqDB0
-	 qgyaP5Ir1/ODvIJVwBnYSCl/YVYhZJ6cZ5LZa231Kki/TOXCOT/1hoPP2xMAjzIkjV
-	 OBupyJrrHeu3A==
+	b=PYnp0l8syBeYyhAbju9tLXeOj7CD/KPcKIJcUeBAxCBFF4/NOuMnf5YIxoM1O9bAp
+	 tmOFE5cZG/jM6uL/6CEE+C6MqwoIuUeYMnJdMPcNt3aJ4FVgpZa+4ROw3nAspo3il/
+	 RvpLxfnPfemHRtv02mSXJnX1eU3cAEAKOxbFDvdyxsft01f4weRzm0JD9g1MM6wkZO
+	 reSjls8E+w9PnQW7bsmbUArS/YCFguvAbsofjMbHT0Xy1g/aJOu2oPjjsoJ8Fc17Cx
+	 9q+RbDYPh7exNcoVU/GeCXP7OB6jssPjqNpHxhbLbdeuZLjO7EYGEFCtpstyGqPuwo
+	 JawQ8pR+oMS6g==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 855A64B5D0;
+	by lkml.kernel.org (Postfix) with ESMTP id 2B5584B5B4;
 	Fri, 27 Nov 2026 06:47:46 +0000 (UTC)
 From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
-Date: Fri, 27 Nov 2026 06:22:13 +0000
-Subject: [PATCH 5.10.y] binfmt_misc: restore write access before closing
- files opened by open_exec()
+Date: Fri, 27 Nov 2026 05:35:37 +0000
+Subject: [PATCH 6.6.y] ALSA: seq: Don't leak the extension cell pointer in
+ the bounce payload
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,20 +85,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-so5-binfmt-510-v1-1-c62790b381f0@certik.com>
-X-B4-Tracking: v=1; b=H4sIAJQhCWsC/1WNwQ7CIBBEf6XZs1sBi1p/xXgoZWvXKBi2Gk3Tf
- xf05HFeZt7MIJSYBA7VDImeLBxDDnpVQT924UzIPmcwymy1NjuUaNFxGG4TWq1w8M76trF702w
- gj+6JBn59hUewtVb1G04/Lg93oX4qttJ0nRC61IV+LEgo+CnGKxa+/n+BZfkA78i26qkAAAA=
-X-Change-ID: 20261127-so5-binfmt-510-fdb5d9458243
+Message-Id: <20261127-so5-alsa-66-v1-1-e6baeea4106a@certik.com>
+X-B4-Tracking: v=1; b=H4sIAKgWCWsC/02NSw7CMAxEr1J5jQsJJQiugljk41KjKqnigkBV7
+ 04CG5bzNPNmAaHMJHBuFsj0ZOEUS1CbBvxg442QQ8mgd9oopY8o6YB2FIvGIPWOgjrtfUcdlMW
+ UqefX13YB05r2Ddcfloe7k5+rqRadFUKXbfRDRUIxzCmNWPn27wHW9QPWIRLiogAAAA==
+X-Change-ID: 20261127-so5-alsa-66-efbed193c4e4
 To: stable@vger.kernel.org
-Cc: Zilin Guan <zilin@seu.edu.cn>, Christian Brauner <brauner@kernel.org>, 
- linux-fsdevel@vger.kernel.org
+Cc: HyeongJun An <sammiee5311@gmail.com>, Takashi Iwai <tiwai@suse.de>, 
+ linux-sound@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795760532; l=2237;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795757736; l=4003;
  i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
- bh=WGqX07O3Yi7vqeSiFE0eOykUyKkDkZfXWYalnmxLXzM=;
- b=WXem5htlu0I1lz4Nrw5iKOXToGaWW7MuGffZBYGS7Q5dm/kTDOemaNJ+BtprgQxvAdkwRksYn
- wofqhZAox0tD5Atsd+7yEfOYo4xBxt8E4lRIKo9YEL3o2mxbVRv3eGZ
+ bh=nGJ91NaFovr+BISLWd06H/MX3/Mv38Fa6V8EKicAbJ4=;
+ b=ZlYd1JYkTfkU4c4meREjx9iDEgpue9uA7XF0TuuIpDNQqouvJ9FY8KlhMqzT3mr0baCEvwwUT
+ xswXe7PBP8ADbGbuuSQBvqgKWCS3TzxPWNTf6kuDYeuqNpd/l9m3lX+
 X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
  pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
 X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
@@ -106,67 +106,98 @@ X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
 X-Original-From: Dickson Wu <dickson.wu@certik.com>
 Reply-To: dickson.wu@certik.com
 
-From: Zilin Guan <zilin@seu.edu.cn>
+From: HyeongJun An <sammiee5311@gmail.com>
 
-commit 90f601b497d76f40fa66795c3ecf625b6aced9fd upstream.
+commit 59e1592d3c270ff4642d5d6dc55c545306eb0693 upstream.
 
-bm_register_write() opens an executable file using open_exec(), which
-internally calls do_open_execat() and denies write access on the file to
-avoid modification while it is being executed.
+The bounce_error_event() embeds the failed event in the bounce payload
+by pointing data.ext.ptr at it.  When that event is a queued
+variable-length event, its own data.ext.ptr holds the address of its
+first extension cell, put there by snd_seq_event_dup().  The payload
+goes out verbatim through snd_seq_expand_var_event(), so the address
+reaches userspace.
 
-However, when an error occurs, bm_register_write() closes the file using
-filp_close() directly. This does not restore the write permission, which
-may cause subsequent write operations on the same file to fail.
+That is the same address commit 705dd6dcbc0e ("ALSA: seq: Clear
+variable event pointer on read") removed from the event header.  The
+read path still clears it there, just above the call that expands the
+payload.
 
-Fix this by calling exe_file_allow_write_access() before filp_close() to
-restore the write permission properly.
+Embed a sanitised copy instead, treated exactly as snd_seq_read()
+treats the header.  A stack copy is enough because delivery is
+synchronous and snd_seq_event_dup() copies before returning.
 
-Fixes: e7850f4d844e ("binfmt_misc: fix possible deadlock in bm_register_write")
-Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
-Link: https://patch.msgid.link/20251105022923.1813587-1-zilin@seu.edu.cn
-Signed-off-by: Christian Brauner <brauner@kernel.org>
+An unprivileged client reaches this by setting SNDRV_SEQ_FILTER_BOUNCE,
+queueing a variable-length event to a port that does not exist and
+reading the bounce back.  Eight bytes on 64-bit, from its own pool.
+
+Fixes: efc86691e4d8 ("ALSA: seq: Fix kernel heap address leak in bounce_error_event()")
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+Link: https://patch.msgid.link/20260811131835.3837024-1-sammiee5311@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Dickson Wu <dickson.wu@certik.com>
 ---
-5.15.y and newer already have this fix.
+6.1.y, 6.12.y and newer already have this fix.
 
-Tested on v5.10.275:
-- x86_64 allmodconfig W=1 build of fs/binfmt_misc.o, base vs patched,
-  no new warnings
-- under QEMU/KVM: an F-flag registration with a non-executable or
-  missing interpreter is rejected and the interpreter can be opened
-  for writing afterwards, and a normal F-flag handler registers and
-  removes cleanly. I didn't reach the error exit after open_exec().
+Tested on v6.6.163:
+- x86_64 allmodconfig W=1 build of sound/core/seq/seq_clientmgr.o,
+  base vs patched, no new warnings
+- booted the patched kernel under QEMU/KVM with snd-seq-dummy, passed a
+  note between two ports and checked the error bounce for a rejected
+  fixed-length event. I didn't run a variable-length bounce.
 
 The backport and the test runs were prepared with AI coding tools
 (OpenAI Codex agents, with review by Claude). I went over the result
 before signing off.
 
-fs/binfmt_misc.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+sound/core/seq/seq_clientmgr.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 ---
- fs/binfmt_misc.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/core/seq/seq_clientmgr.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/fs/binfmt_misc.c b/fs/binfmt_misc.c
-index ab14522dcd5b..ce6b5ab4bb84 100644
---- a/fs/binfmt_misc.c
-+++ b/fs/binfmt_misc.c
-@@ -827,8 +827,10 @@ static ssize_t bm_register_write(struct file *file, const char __user *buffer,
- 	inode_unlock(d_inode(root));
+diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
+index f039fd6ee3a7..de17b66cd16b 100644
+--- a/sound/core/seq/seq_clientmgr.c
++++ b/sound/core/seq/seq_clientmgr.c
+@@ -578,7 +578,7 @@ static int bounce_error_event(struct snd_seq_client *client,
+ 			      struct snd_seq_event *event,
+ 			      int err, int atomic, int hop)
+ {
+-	struct snd_seq_event bounce_ev;
++	struct snd_seq_event bounce_ev, quoted;
+ 	int result;
  
- 	if (err) {
--		if (f)
-+		if (f) {
-+			exe_file_allow_write_access(f);
- 			filp_close(f, NULL);
+ 	if (client == NULL ||
+@@ -594,15 +594,19 @@ static int bounce_error_event(struct snd_seq_client *client,
+ 		 * For user clients, send SNDRV_SEQ_EVENT_BOUNCE with the
+ 		 * original event embedded as variable-length data.  This
+ 		 * avoids exposing data.quote.event (a kernel pointer) to
+-		 * userspace.  The variable-length path in snd_seq_event_dup()
+-		 * copies the event data from data.ext.ptr into chained cells,
+-		 * and snd_seq_expand_var_event() copies only the data content
+-		 * -- never the pointer -- to userspace.
++		 * userspace.  Sanitise the embedded copy too - a queued
++		 * variable-length event carries the address of its own
++		 * extension cell, and the payload goes out verbatim.
+ 		 */
++		quoted = *event;
++		if (snd_seq_ev_is_variable(&quoted)) {
++			quoted.data.ext.len &= ~SNDRV_SEQ_EXT_MASK;
++			quoted.data.ext.ptr = NULL;
 +		}
- 		kfree(e);
- 		return err;
- 	}
+ 		bounce_ev.type = SNDRV_SEQ_EVENT_BOUNCE;
+ 		bounce_ev.flags = SNDRV_SEQ_EVENT_LENGTH_VARIABLE;
+ 		bounce_ev.data.ext.len = sizeof(struct snd_seq_event);
+-		bounce_ev.data.ext.ptr = (char *)event;
++		bounce_ev.data.ext.ptr = (char *)&quoted;
+ 	} else {
+ 		/*
+ 		 * For kernel clients, quote the event pointer directly.
 
 ---
-base-commit: 99112ea818e35b606397c84fbc05e6fadb6ea162
-change-id: 20261127-so5-binfmt-510-fdb5d9458243
+base-commit: e2bb30811e063ce0db964484357973b855b06572
+change-id: 20261127-so5-alsa-66-efbed193c4e4
 
 Best regards,
 --  
