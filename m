@@ -1,48 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.210.214.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795764928;
-	b=xVKZdlLZlVlYVzkMITTPe7rfOEXLZS/i3vhl7FHVoSgYyQkpitg7tN3MBUh5oZKW632a
-	 fN9CuzXtikJrkp79Bz+2tuyLojQK0r1Rc2CaK2AbVwKBYze9V3uku5j6iiCKo2eFQHKzz
-	 emfMFHsSC3Q2XDl/1gX6kRLoLnd4VwKtAlpYN5amJefnXAYmmW8uVSwnbsS0u9HlarelH
-	 NXC6oc4zUoWXB87V9caZcBQOsCAaN1aZPJJ9Pxyw1SRpPpqhwTsHG+qM5FaMLXnBXeGjI
-	 1ZwWDckpu/xfP3e8cSVabTud8TZ76V6ImvzESB3/MGhwb2s4TuZowoC1VzzxiXMkaBw==
+	t=1795765564;
+	b=x/Il5ZbQvvyQwb4XhANBl6FKzJVNcA9UrLH41Aqnfid44lSCj3R5rlJ9x2YJnUty3PqP
+	 AFAL2Y9MNtR/XfH4Pcbpy9MXHlzDGdqhAXDsd+ByeZH1sVY091FTbLdNizQOhIDUs0HCM
+	 P8X6CBzjPgyaddSF3btUti9ChUAuqsF//LvKowihDLOlfFkaUpPG2GTHdyMNvndPsuiyN
+	 GU2QkBaaofBGI0gv5UmJsZG46JncPzuMJaR+B9+mMyqgT2mln0CIM8tTiWkwf5kHgGpgO
+	 K7RPYxO92Fvw37AeWfmVrmCr76+HxHu1/uad7BmLRMwKkFf5bhmbfTHqqMk0T9hNGIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795764928;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Date:X-Mailer:To:From:
-	 X-Lms-Return-Path:Content-Transfer-Encoding:Subject:Message-Id:
-	 Mime-Version:Received:Cc:X-Original-From:Content-Type;
-	bh=exRdp/EX4S1XNnmQ0lxYZW46n7JXagdYqiAU1dNsEJg=;
-	b=de6Ct7JpRx1XuHXiODJkruQ6rQNwFE7wUmVhwiblHUsQQKfAAI4lcpn0G4siID8sGnAH
-	 W0N7111W8etS/ilWWdKBU0lovFeP2Ovax5Nu+Fe6iESTk7bUCJRhyrm+UFY0bOd++NzP+
-	 duN5jO0vfLEJxr54ouk0fTDCIguhjqn5o2EW/6FXlDP34U3hS2UBFb/nGNk+IzGjBuPjW
-	 PDehL69TkP+uxbKwVZFQVBMIHOyJGhp/YAZGwJSoZ8ZJgcAUXjXADtQ8hmvsdun9Y4fZj
-	 V8zTPhe/eebHM6WzFn+8cjaqorugVGlYI1SqqDqVlY6rotNQ9oD3aAqY5E1FIIRdITQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795765564;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=60/T6+akL3zw9Tl0SMa78bohTXbd4Uco2RW4UlB8Nmw=;
+	b=QFlq1L2uPXQ+zttZDCchlJ/1LgfVedGQOPZVdac7t8FccGADbiC2knXksWq9oYi5Ord2
+	 nEbQxvTcIWOGiYQiKGwH+nB6jlKb71Gku2bJ7rawFFUi4tFLTR4E8j7PHB45BS+5BDiX8
+	 cd2Xuvqsl6Zx6wrhIRm/RbnioPhjKu+Fxadu43sv4artF4huO6s+F2mYfKh675wwzKlQ4
+	 hBrGMpdiQKh/dSEAHPlupZxLR9QaNRTmNF88lG05eRCQyfxao/e9QOKXhJS4njh/WomML
+	 2ncEXs8+b5oCwT/njX0w9mBig5NmKSDMv5SRIiFMIKax2Vf8UtvqLCkjnMiWt0iDUQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kaihong.com;
-	spf=pass smtp.mailfrom=kaihong.com;
-	arc=none smtp.remote-ip=115.124.28.112
-Received: from out28-112.mail.aliyun.com (out28-112.mail.aliyun.com [115.124.28.112])
+	dmarc=pass header.from=codewreck.org;
+	spf=pass smtp.mailfrom=codewreck.org;
+	dkim=pass header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=lkg1fSGQ;
+	arc=none smtp.remote-ip=62.210.214.84
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504DD606A31C
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 07:35:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 504DD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kaihong.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kaihong.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08067833|-1;BR=01201311R261S10rulernew998_84748_2000303;CH=blue;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00554454-0.000711638-0.993744;FP=14394826012851074287|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034017;MF=haoruiqiang@kaihong.com;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.kBFopdZ_1795764914;
-Received: from localhost(mailfrom:haoruiqiang@kaihong.com fp:SMTPD_---.kBFopdZ_1795764914 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 27 Nov 2026 15:35:15 +0800
-Date: Fri, 27 Nov 2026 15:35:08 +0800
-X-Mailer: git-send-email 2.43.0
-To: <agk@redhat.com>, <snitzer@kernel.org>, <mpatocka@redhat.com>, 
-	<bmarzins@redhat.com>
-From: "Ruiqiang Hao" <haoruiqiang@kaihong.com>
-X-Lms-Return-Path: <lba+26b0932b0+4b12d6+kernel.org+haoruiqiang@kaihong.com>
-Content-Transfer-Encoding: 7bit
-Subject: [PATCH] dm snapshot: fix double vfree on partial alloc_area failure
-Message-Id: <20261127073508.2506240-1-haoruiqiang@kaihong.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B74606A31C;
+	Fri, 27 Nov 2026 07:46:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12B74606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=lkg1fSGQ
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 0E74D14C2D6;
+	Fri, 27 Nov 2026 08:45:57 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1795765562;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=60/T6+akL3zw9Tl0SMa78bohTXbd4Uco2RW4UlB8Nmw=;
+	b=lkg1fSGQaEiD11F4o2d9A1BE98P1ZnmYkxDCY8+bC07INXVVo2YYFxWTctLVs7n9I52aDn
+	Q03YL8QypxcVOoKseUmqC3HAcDbPZBF7PHL6T/oEPEQ33KTQKRo5BIGfDonMPXNCZVa8bf
+	vWY7uJUJr65c7zTK9/eXhqEjgePZl8vfFn0K3CSzeAR8oHtBHNX/JjpRp99CGgCcbfsf7V
+	kroHlVSUnLtlbE38bWTwpM2PMZ7oeRfa1yOFcEr/EWj+4zCIDTsI+B9RR81AnZgBfj5wxB
+	RKVTBJYZnODzqB5UN4A6rvG8aPbzAeCvGHyw/vp8rLudQWVjcM9JcJhCWE9CFA==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 9d6bf9f9;
+	Fri, 27 Nov 2026 07:45:56 +0000 (UTC)
+Date: Fri, 27 Nov 2026 16:45:41 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Edward Adam Davis <eadavis@qq.com>, Sasha Levin <sashal@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>
+Cc: linux-bluetooth@vger.kernel.org, regressions@lists.linux.dev,
+	stable@vger.kernel.org,
+	"W. John White" <whitewj-debian-bugreport@outlook.com>,
+	=?utf-8?B?UMOpdGVyIELDoXRvcmk=?= <batori.peter@gmail.com>,
+	Mael Bras <mael.bras.ext@idnow.io>, tycho673 <tycho673@gmail.com>,
+	hanta <hantahrabal@disroot.org>, skiwithme <skiwithme@optimum.net>,
+	Suvam Sen <suvamsen2004@gmail.com>, Celimar <celimarj@gmail.com>
+Subject: Re: [regression 6.1.y] 967473b1e8bb ("Bluetooth: L2CAP: Fix
+ slab-use-after-free Read in l2cap_send_cmd") causes backtraces and
+ non-working bluetooth
+Message-ID: <awk1JT1VMzHDecib@codewreck.org>
+References: <179567271700.947722.15185762256491350563@eldamar.lan>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,50 +75,35 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Received: from ubuntu24-dev.. ([219.142.21.190]) by smtp.feishu.cn with ESMTPS; Fri, 27 Nov 2026 15:35:11 +0800
-Cc: <dm-devel@lists.linux.dev>, "Ruiqiang Hao" <haoruiqiang@kaihong.com>, 
-	<syzbot+1eda626824b6334f5ad3@syzkaller.appspotmail.com>, 
-	<stable@vger.kernel.org>
-X-Original-From: Ruiqiang Hao <haoruiqiang@kaihong.com>
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <179567271700.947722.15185762256491350563@eldamar.lan>
 
-alloc_area() frees ps->area and ps->zero_area when a later allocation
-fails, but leaves the pointers set.  persistent_read_metadata() then
-returns -ENOMEM, snapshot_ctr() aborts and dm_exception_store_destroy()
-calls persistent_dtr() -> free_area(), which vfree()s the same areas
-again:
+Salvatore Bonaccorso wrote on Thu, Nov 26, 2026 at 07:06:59AM +0100:
+> [   40.687744] list_del corruption, ffff8a27c10efe80->prev is LIST_POISON2 (dead000000000122)
+> [   40.687829] kernel BUG at lib/list_debug.c:56!
+> [   40.687865] invalid opcode: 0000 [#1] PREEMPT SMP PTI
+> [   40.687900] CPU: 2 PID: 893 Comm: bluetoothd Kdump: loaded Tainted: G           I        6.1.0-55-amd64 #1  Debian 6.1.192-1
+> [   40.687960] Hardware name: /NUC6i7KYB, BIOS KYSKLi70.86A.0051.2018.0110.1800 01/10/2018
+> [   40.688002] RIP: 0010:__list_del_entry_valid.cold+0x4b/0x6f
+> [   40.688574] Call Trace:
+> [   40.688594]  <TASK>
+> [   40.688614]  hci_chan_del+0x18/0x90 [bluetooth]
 
-  Trying to vfree() nonexistent vm area (ffffc90024410000)
-  WARNING: mm/vmalloc.c:3539 at vfree+0x463/0x490
 
-Clear each pointer after freeing it so free_area() is safe on the
-partial-allocation error path.
+This might be fixed by commit ab4eedb790ca ("Bluetooth: L2CAP: Fix
+corrupted list in hci_chan_del") ?
 
-Fixes: 7c9e6c17325f ("dm exception store: refactor zero_area")
-Reported-by: syzbot+1eda626824b6334f5ad3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1eda626824b6334f5ad3
-Cc: stable@vger.kernel.org
-Signed-off-by: Ruiqiang Hao <haoruiqiang@kaihong.com>
----
- drivers/md/dm-snap-persistent.c | 2 ++
- 1 file changed, 2 insertions(+)
+Ah, now I see it even has
+>  Fixes: b4f82f9ed43a ("Bluetooth: L2CAP: Fix slab-use-after-free Read in l2cap_send_cmd")
+and you're reporting about this very commit, so there's little doubt..!
 
-diff --git a/drivers/md/dm-snap-persistent.c b/drivers/md/dm-snap-persistent.c
-index b587ee733056..9f5ade4f51ce 100644
---- a/drivers/md/dm-snap-persistent.c
-+++ b/drivers/md/dm-snap-persistent.c
-@@ -194,9 +194,11 @@ static int alloc_area(struct pstore *ps)
- 
- err_header_area:
- 	vfree(ps->zero_area);
-+	ps->zero_area = NULL;
- 
- err_zero_area:
- 	vfree(ps->area);
-+	ps->area = NULL;
- 
- err_area:
- 	return r;
+That commit got backported to 6.12 but not 6.1, there's a merge conflict
+but it's not too hard to resolve, I'll send the patch since I've done
+the work.
+(As far as I can see it's not queued at this point, sorry if someone
+else has also been doing the same)
+
 -- 
-2.43.0
+Dominique Martinet | Asmadeus
