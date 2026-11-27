@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795806600;
-	b=WhIg/aGWOR/+60Q+iIU+MGBWRAvFLyXBCTPPTH25xw+C8Z8of+k9ERKjqjfPvYfYSrTM
-	 62ytBBved9gMdan5sv5quMm2T3d+JRND3xDFp2zeWddeHK79p6MHXOrMUsr4LeJibIwyv
-	 GNL2epo1zAEVqiCBTAHB4NWusPT3pbXs5h8+J/Qnua7fJLz/7HVhoeNmVwOO4zp6jjHO0
-	 Mwe+c/XPF960+zZjxyo98cu7F9RaeMyKkEIuWe1EYN12AtA9aC+LWMJYhFbshx1DOOhlE
-	 4x/8O0N2sdpjtiDh23J+RO6VPH5HiQ0KsE6pkPXpojwLLUTBek7kmCPmA64SJtXCang==
+	t=1795806598;
+	b=rRKL8FwvVIjfyAu7ofg6qzuoO8AwzkprxYpyvMcYTgo4n94o7flehPvIcPcGdpPQwLMM
+	 xvX1pHs+PJ6Ki9EoMBKCz92AgsYVmw92yNrz+cvfvMAyxscFW3IQXnjasRhFCiIwOU9c5
+	 alYU0oC/NJ0INIJoY1FdrA8jqK5m+Hzb3s7xszxXXpRzJjVK5hXjUDoxbYbrHbsLyFQDD
+	 3mIFCezp4s730BF7XHgv2xlG5lHwjMv6eHstfL/eJDcSgMgjK8xToiiborDUmqtbxYqGq
+	 4OEYxbm7JqgfKbVV8VY/YGZdczSst9gijQsOeX6G8OieKqRhmOG8LpUHbiA9FgsWC0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795806600;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795806598;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=gMUEHr5+RLy5VN9K88In7HKPCt0PQK7KPkn/dGa+2MI=;
-	b=bY3EX7ZcU1WFcQMwKIfa6jC2TzynAeodUzr1hm30OVyfPjA9XuRd3cojDmjXv0jr1wXG
-	 8mFxaMCRfBExVEHDEsEaWv50zvb1qCb6EQRc7FVcUTsB3TthURBkTX6omgViwEH/7n2YA
-	 ey6BkpFv7PsnHtCW5iGXve7o0PgTr8reStOdjItLdV3/EUU9DBMKlZXstK37W7EYlOrp8
-	 UM3nBSh4rXugON3mv9IcZ1gz91dLaSRDhC0ppVRLNvgS4imvU9W+6VPG9TPhkxZs8KJfI
-	 4FJnKSwoC4/Qh2eXmdW+q4a78wat1bGJcXEFDE6UfjUjnl7q6q5owAI2xlsuAnEUIkw==
+	bh=jnEBKmIjlMDJzz7/vlO75PN6QRpLxAhezHtALAyCDMU=;
+	b=0WvYkRFUigOB4FKBZcqgsp2D/Ip0lK4dLP8MyXWEuwPEwoqVwg/fCpsnSViRU35onBRf
+	 YKF1HZBf3P8gemBh313dqDwXUblU1b47ZsFVokdDOQkWxcOO7bS37zkflnKczFeNzAYQY
+	 b+hd1/1/8tLycIIOgGO4HM1JKyWOxe949fV2NcyqL5JmE8rY0Vapo04xOgAs8njItTba8
+	 m64nPY9EKbi3PFxP/19RPb9gSctv4NJH/ZyQL8Lq0cqxj7py0jCI0CXHmei+yKwII0ASQ
+	 DNyQXjR0Khi8A81FKT7Qheww/4dCn4tURbp+SMprja3uCNVEsEyqEg+3ZdBHmMec3ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=NHAqD3p4;
-	arc=none smtp.remote-ip=209.85.218.52
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Q6nMvkMS;
+	arc=none smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7387606A6B4
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 19:09:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7387606A6B4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC100606A33A
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 19:09:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC100606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=NHAqD3p4
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c4d581da0aaso1156489366b.2
-        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 11:09:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Q6nMvkMS
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c516a194350so362883166b.3
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 11:09:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795806598; x=1796411398; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1795806596; x=1796411396; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gMUEHr5+RLy5VN9K88In7HKPCt0PQK7KPkn/dGa+2MI=;
-        b=NHAqD3p4/CgaMMToaEN7P74q0g/caivQ/b+ti0c0fLLKp1cZi98di9wkKw4rsBvdSq
-         h7itirNf7U2rBjiZmNVVPGwLRRYw73tIUZ+7vcsgvTU/DDiMPaJe07UeC7r8ah+kNTqw
-         0tx4AebCuvY+IhRAa1Pu0StyO8OCUlZHh24CiOhfL4sTELqBXSaW8O3FYibSmOG9LUhP
-         4MXKggtPIJ2d+mxDYuMHDOfx+A4UBzZp1iStQUAMGf89UihTdMNAlCddox66SUEgxJh8
-         LLR42ozQSaIPi/nGbrf3smVKtcHT8ysYFrgNxGE1DwkOjFKWIONr4zh1kdBI4GDOo2Dy
-         J9hQ==
+        bh=jnEBKmIjlMDJzz7/vlO75PN6QRpLxAhezHtALAyCDMU=;
+        b=Q6nMvkMS/6xOHo8tE/uE7YyMfPdgwFb3iQHYfy7BS9+nniOwVyvXwLl7Gc+Y8gOBEp
+         0xEWlBwnjHE1USHlsTzxhx1IVyxw8fN6u/S5+m/LVu3nkAFdbjnNP/macFHfBr1XHPJp
+         DRqz7Y/njOVaLTmYQwOxAqzDAjOqV8+9JSJ/D5Y9F567spN+79C3nBx78HIl4iO4BHZe
+         smXyOxA1OjQ37FA6Oj2ObUtFNBLWWOqyJTROPMq6v9lfnfYX2jvGP5vVOG/yUCgbIjn1
+         hM0EN3tkLvA4ftyqUk4PF2f8H+cLRRuHqQSlGHEa1tb3KOInDPPxBm7xXGf2rYFGbB61
+         whlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795806598; x=1796411398;
+        d=1e100.net; s=20260707; t=1795806596; x=1796411396;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gMUEHr5+RLy5VN9K88In7HKPCt0PQK7KPkn/dGa+2MI=;
-        b=W5VN2elUajhaS/Fl5nfYWWH0Q1VbrthGK2+lS7JmM1IFr3dPHIkAVNdG6dYegmm9dx
-         bPyRxq1Xz+WAku71E0PRUwL3bnUZTo+KRznvE+aRdV69YbyLDPPmcWtqxPMVUT5s8ZFJ
-         4Sbvmf/w96tFK9HGsmIfSE8eQnhFlDz+DOGuAe3ze1JezoIkez8aiFtoKXTE4drzJmth
-         JuqFKcX+RVl8r8/rgaDrJAwgle0DZCEJmow2gNBZSNtNuyPXKewRgVYMitfgXTTtHyY0
-         1kCRmRLrTc9tK23+HKrGKyjHHzbPqPcjTaCV/6LknVHZlo5YXnyeBbmbYvokJblmL/34
-         Q9yg==
-X-Forwarded-Encrypted: i=1; AL+hErGmz8Z8ukulU/Q/DfzXnMv1SYfUFJecDWvynrAWYI7+/vZcNI+uvjqYKP+JupCNT8zPC/ywKWE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+iEc8B5G91Dc0cf4c1Oq5cz4cNbNzrg50NlP14WgcmI0VvuyH7
-	bX6Q5r6XVZaB06ZX8ZNmQS80HZkb4ONgVzl5n8bOeWO5wV1DUAibYHZBSsEWRV2e7E8=
-X-Gm-Gg: AZFdTZevz8U52uxS3RARvQrus/gcAwNxIdGKETw/Rk09z2Bx9qjkkyKEZKTFNPoYR+g
-	VIkGzBWVyxtwQxc632TV0vsZbHt20ts97TsDp5ELTeEazqMmYwHEDpqG8qz80QjFYfHTKuXJUUP
-	W+TFbtHJFK7PxIHbamRqX902rBuSIFXhopPxB8I7THwfXQyvforeWyuAdJTj5QKpFmD4xVpoJ60
-	wYdz/dimcCesRMq3C4UipdBAM/4CllHQmBRK5xhYKgKV5/4JEbiYRv0r3F4UlQIquDeTKyjkg+g
-	Q0iafDebm5bzcIjYRs5r6LPbUKZHD8/lqw/Y3PH8eHQg1ByyV+JJdHKSVdeEiQBKa/tLh0DZ6qX
-	dubhJ4tGBMnapjGvGH3fUPw2bRflxehPWnrblYv0odsbEiHvnxQleyvtTNKfjUtGDjoxprIiT2h
-	XqaGkXGldpJZVze+QPqJr+8wqIPfZ7NrHjhA7xlL+pOPauaGr9g4A93cRejoPMMzTbHqx0a8Jr8
-	TpqzIbwY+sokg/vd6HLcp24QIgC2pUx2+2lVIq7VVwPddYBnPoQFW+4kRc5m78QlorRAjHFNPwa
-	Qx7L6ANMhb9GSdFsG8p6+yLFoBfeVulIdKVzy7/OxKTJFJhWYpXnPAMD/Elt5PDKP8h/HtFivAn
-	LiVR4ofGu/a3mPl0lSA==
-X-Received: by 2002:a17:907:7f91:b0:c50:c747:a4ce with SMTP id a640c23a62f3a-c513a4b083bmr2229259766b.4.1795806598370;
-        Fri, 27 Nov 2026 11:09:58 -0800 (PST)
+        bh=jnEBKmIjlMDJzz7/vlO75PN6QRpLxAhezHtALAyCDMU=;
+        b=bM7AfvNo3kj0KSGTPIsJtx/nSWBDL3Buixk7G3Q39fEhdzLFv6zZ2XfaZaWb8E8r4o
+         3nsoetjAiRD3JtjikqvS8CtKhNanit5JrscgYchOwQIqujypiWoDeLg1R7Zljz4RQ7hA
+         74iAbVWkaDtOAPu6TgHbe3XajsDjAFCk7xjLjpaCCDhWKQE93yHuBmTnrxRHwp7ZwB8P
+         6d56HfrF5u1y9Xj1nLJYKZg15R3iUaszlCdnk7oM4hZotUnKlYH8eIrQ67WLFi/9Afgu
+         zUGo56kfKqNGA2uDUNIPjk9gNv4bPkC0SbOJVeXdhoz8Cqqmu1jbrm80tBUnyq9XbMVS
+         zzXA==
+X-Forwarded-Encrypted: i=1; AL+hErHosweJPMbyUEv4PojOjCbPiCqNYEyrXnhVjs1ZwSPq8dMX2kBZ1tL6zGpE0B1mqtLqITqnjUA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9vacQdGw2VQZwwPAMZu87M0eeF5aWd5Pdm7aV/tTqT+ttnqCjS
+	ZaLAz7D2XrXtEHtciyz0XbjJzsrumMqVe9aI1oumYzz8Qkn7vSKsMxYJxAQ6gUFJHGc=
+X-Gm-Gg: AZFdTZf/JrbkHww2OItcLAi4V6WQesmxz4uE9fF7b8WKruWUSxsvPqaYcZnOJRlnp+J
+	q07P4h/oh4fmgFG2dqbslTk4j/5xq05Ll2WO0FVwlvtJI4Jbh1kOnC+yeMeBHMCwqA0ORMwMrwd
+	pVVAtAOYRZ5s7T+oU2Qd5JLxEzbN4DA/BJ59lOM2tfqNJ/XaB5ctme51e7sCvH+8X3p7KQLzbKQ
+	r1i6XCsMw4pWpuKXQDPLCvPsTAJ41H8UDpg0PzRfga9RYNJIMEj+6IsHVoehaKMz0cv9RDuk2ZR
+	dmO47uX9R/ml7ksf4SIAvdxX0ndRo0eh8rxL6iAOj0mCKRkf4ey3gaqZXv+XX8TtGb3/BDrl9u5
+	g4FhhiJr0YTdU9gHf7WjDhy/XTPklt+22v7YVWEH+VTNW8Vl9X2tqgdScvA5CQD5QnJnvCkPDmr
+	yQP9V8Pie2P/5WauL0qIwlC3XlmhOToAPZQOI8ow2slm8oCpGbMXtcOWCAcfZT4SZ7lRckvlWnu
+	SGmnO9KR63Jqo5rb6q3AE4aKSZwwZBFDGkCwbi0uXemMLcGcTcBvpRleB2CzsDDrHtVT7sstXYJ
+	Ls+qQxRPcVZvxkWgPV1jXiHeb6kvjV5YtoWxtihtRLN62v3SCazpx0k3hepN47Ji1LaOEBTTHRO
+	MDMxIF+sIXPK5BKjzkA==
+X-Received: by 2002:a17:907:1187:b0:c49:903e:1e19 with SMTP id a640c23a62f3a-c513a8595d0mr1656720366b.26.1795806596148;
+        Fri, 27 Nov 2026 11:09:56 -0800 (PST)
 Received: from puffmais2.c.googlers.com (226.124.90.34.bc.googleusercontent.com. [34.90.124.226])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513afe85fdsm909175266b.69.2026.11.27.11.09.57
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513afe85fdsm909175266b.69.2026.11.27.11.09.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 11:09:58 -0800 (PST)
+        Fri, 27 Nov 2026 11:09:55 -0800 (PST)
 From: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Date: Fri, 27 Nov 2026 19:09:56 +0000
-Subject: [PATCH 5/6] power: supply: max77759: sync supplier state at probe
+Date: Fri, 27 Nov 2026 19:09:53 +0000
+Subject: [PATCH 2/6] power: supply: max77759: report charge voltage in uV
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261127-max77759-charger-fixes-v1-5-b364a0862d72@linaro.org>
+Message-Id: <20261127-max77759-charger-fixes-v1-2-b364a0862d72@linaro.org>
 References: <20261127-max77759-charger-fixes-v1-0-b364a0862d72@linaro.org>
 In-Reply-To: <20261127-max77759-charger-fixes-v1-0-b364a0862d72@linaro.org>
 To: Amit Sunil Dhamne <amitsd@google.com>, 
@@ -108,120 +108,83 @@ Cc: Peter Griffin <peter.griffin@linaro.org>,
  stable@vger.kernel.org
 X-Mailer: b4 0.14.3
 
-Supplier events emitted before max77759_charger finishes probing (or
-before reloading the charger module) are missed, leaving charging off
-until the next supplier event.
+The max77759 charger power supply reports constant_charge_voltage_max
+in millivolts instead of microvolts (for example
+POWER_SUPPLY_CONSTANT_CHARGE_VOLTAGE_MAX=4300 instead of 4300000 in
+sysfs), violating the power_supply ABI.
 
-max77759_charger_probe() calls max77759_charger_init(), which forces
-MODE_OFF, and then registers the power_supply notifier without reading
-the supplier's current state.
+POWER_SUPPLY_PROP_CONSTANT_CHARGE_VOLTAGE_MAX is defined in microvolts,
+but chg_cv_prm_ranges, CHG_FV_DEFAULT_MV, get_float_voltage(), and
+set_float_voltage_limit() operate in millivolts, and
+max77759_charger_init() divides constant_charge_voltage_max_uv by 1000.
 
-Extract the supplier read and work scheduling from psy_changed() into
-max77759_sync_tcpm_psy() and run it via power_supply_for_each_psy() at
-the end of probe. Hold chg->retry_lock across the property reads and
-state update so the initial scan cannot overwrite a concurrent notifier
-event with stale values.
+Convert chg_cv_prm_ranges and the float-voltage helpers to microvolts
+so the driver reports and programs CONSTANT_CHARGE_VOLTAGE_MAX in uV.
 
 Fixes: 70d7dd27f6dc ("power: supply: max77759: add charger driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: André Draszik <andre.draszik@linaro.org>
 ---
- drivers/power/supply/max77759_charger.c | 61 +++++++++++++++++++++------------
- 1 file changed, 39 insertions(+), 22 deletions(-)
+ drivers/power/supply/max77759_charger.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/power/supply/max77759_charger.c b/drivers/power/supply/max77759_charger.c
-index 7a7d9a54d888..fe71e8143954 100644
+index a75005c0b582..6876ae0a8188 100644
 --- a/drivers/power/supply/max77759_charger.c
 +++ b/drivers/power/supply/max77759_charger.c
-@@ -663,34 +663,31 @@ static void psy_work_item(struct work_struct *work)
- 	}
+@@ -25,7 +25,7 @@
+ 
+ /* Default values for Fast Charge Current & Float Voltage */
+ #define CHG_CC_DEFAULT_UA			2266770
+-#define CHG_FV_DEFAULT_MV			4300
++#define CHG_FV_DEFAULT_UV			4300000
+ 
+ #define MAX_NUM_RETRIES				3
+ #define PSY_WORK_RETRY_DELAY_MS			10
+@@ -60,10 +60,10 @@ static const struct linear_range chgcc_limit_ranges[] = {
+ 	LINEAR_RANGE(200000, 0x3, 0x3C, 66670),
+ };
+ 
+-/* Charge Termination Voltage Limits (in mV) */
++/* Charge Termination Voltage Limits (in uV) */
+ static const struct linear_range chg_cv_prm_ranges[] = {
+-	LINEAR_RANGE(3800, 0x38, 0x39, 100),
+-	LINEAR_RANGE(4000, 0x0, 0x32, 10),
++	LINEAR_RANGE(3800000, 0x38, 0x39, 100000),
++	LINEAR_RANGE(4000000, 0x0, 0x32, 10000),
+ };
+ 
+ /* USB input current limits (in uA) */
+@@ -310,14 +310,14 @@ static int get_float_voltage(struct max77759_charger *chg)
+ 	return ret ? ret : val;
  }
  
--static int psy_changed(struct notifier_block *nb, unsigned long evt, void *data)
-+static int max77759_sync_tcpm_psy(struct power_supply *psy, void *data)
+-static int set_float_voltage_limit(struct max77759_charger *chg, u32 fv_mv)
++static int set_float_voltage_limit(struct max77759_charger *chg, u32 fv_uv)
  {
--	struct max77759_charger *chg = container_of(nb, struct max77759_charger,
--						    nb);
- 	union power_supply_propval current_limit, online;
- 	static const char *psy_name = "tcpm-source";
--	struct power_supply *psy = data;
-+	struct max77759_charger *chg = data;
- 	int ret;
+ 	u32 regval;
+ 	bool found;
  
--	if (!strnstr(psy->desc->name, psy_name, strlen(psy_name)) ||
--	    evt != PSY_EVENT_PROP_CHANGED)
--		return NOTIFY_OK;
--
--	ret = power_supply_get_property(psy, POWER_SUPPLY_PROP_ONLINE,
--					&online);
--	if (!ret && online.intval)
--		ret = power_supply_get_property(psy,
--						POWER_SUPPLY_PROP_CURRENT_MAX,
--						&current_limit);
--	if (ret) {
--		if (ret != -ENODEV)
--			dev_err(chg->dev,
--				"Failed to get supplier psy property: %d\n",
--				ret);
--		online.intval = 0;
--	}
-+	if (!strnstr(psy->desc->name, psy_name, strlen(psy_name)))
-+		return 0;
+ 	linear_range_get_selector_high_array(chg_cv_prm_ranges,
+ 					     ARRAY_SIZE(chg_cv_prm_ranges),
+-					     fv_mv, &regval, &found);
++					     fv_uv, &regval, &found);
+ 	if (!found)
+ 		return -EINVAL;
  
- 	scoped_guard(mutex, &chg->retry_lock) {
-+		ret = power_supply_get_property(psy, POWER_SUPPLY_PROP_ONLINE,
-+						&online);
-+		if (!ret && online.intval)
-+			ret = power_supply_get_property(psy,
-+							POWER_SUPPLY_PROP_CURRENT_MAX,
-+							&current_limit);
-+		if (ret) {
-+			if (ret != -ENODEV)
-+				dev_err(chg->dev,
-+					"Failed to get supplier psy property: %d\n",
-+					ret);
-+			online.intval = 0;
-+		}
-+
- 		chg->tcpm_online = online.intval;
- 		chg->tcpm_current_limit = online.intval ?
- 					  current_limit.intval : 0;
-@@ -699,6 +696,20 @@ static int psy_changed(struct notifier_block *nb, unsigned long evt, void *data)
+@@ -555,10 +555,10 @@ static int max77759_charger_init(struct max77759_charger *chg)
+ 		return ret;
  
- 	schedule_delayed_work(&chg->psy_work, 0);
+ 	if (power_supply_get_battery_info(chg->psy, &info)) {
+-		fv = CHG_FV_DEFAULT_MV;
++		fv = CHG_FV_DEFAULT_UV;
+ 		fast_chg_curr = CHG_CC_DEFAULT_UA;
+ 	} else {
+-		fv = info->constant_charge_voltage_max_uv / 1000;
++		fv = info->constant_charge_voltage_max_uv;
+ 		fast_chg_curr = info->constant_charge_current_max_ua;
+ 	}
  
-+	return 1;
-+}
-+
-+static int psy_changed(struct notifier_block *nb, unsigned long evt, void *data)
-+{
-+	struct max77759_charger *chg = container_of(nb, struct max77759_charger,
-+						    nb);
-+	struct power_supply *psy = data;
-+
-+	if (evt != PSY_EVENT_PROP_CHANGED)
-+		return NOTIFY_OK;
-+
-+	max77759_sync_tcpm_psy(psy, chg);
-+
- 	return NOTIFY_OK;
- }
- 
-@@ -773,7 +784,13 @@ static int max77759_charger_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, ret,
- 				     "Failed to add devm action to unregister psy notifier\n");
- 
--	return max77759_init_irqhandler(chg);
-+	ret = max77759_init_irqhandler(chg);
-+	if (ret)
-+		return ret;
-+
-+	power_supply_for_each_psy(chg, max77759_sync_tcpm_psy);
-+
-+	return 0;
- }
- 
- static const struct platform_device_id max77759_charger_id[] = {
 
 -- 
 2.56.1.839.g22a8290db9-goog
