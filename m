@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795802716;
-	b=KpiaiAc8s7YALRDgEYud1ULlCLwG69jkA7bbeFfdFtv4o2fQhAckVVPMSb3NEZSjFht+
-	 kLjv6hREAX9398bitrn3TWnUxT/rSgvnnDYPg6dOOnwYzCOT6Qb0jZf4U5XWfhZurQ86U
-	 pEVk+usYWa3j6sS9MBW4ReFFoXmGyT2g5RX+WeaVO38TvoH8Yb/p2W1vaAjy6qftOI4YG
-	 EVwwdGw+3SSIUoBvvyA+ikpp2qfQMGOK+7OH3T9g4aUUm52tKKjo9kE0Cw/yZ5XvUQvKV
-	 XZj75FAQ/XgC2CdFsybgY0iBKFsu/YPys/e02Qq7L/CdJYF/6WZPxtCA7gFlrZ4GcNQ==
+	t=1795802724;
+	b=RfMeEtiFZS4eT+M6p/ItDnZYo+BWDIaYrcxHSTg8mz9M74Jr6iDUd8E76H2jkkt4KFTe
+	 lTtFtposw0jejI5golKAEgqh/TUpHVmRCjXk/SEeLSctlp28vzMOQ1CeSl3LOWirvlKJd
+	 ZeeultVlSmj1LJn3mo5tAGg3ZE22AWXssFFMYjxwcEs63UXgsI6dBMxuWOa2wmRp9fPHs
+	 asc3u1iuKdU/P0JExQPCrQag7y738tb5fj4iUz/5CYh6aPHtT2Sn3Lc2d4d5vVJy7L6bW
+	 oZqeNCy5EnefeNW3VH1khwpN4sSFDrBp2KuVtRzOnwpJ4+MLo5tuEBOqCv1gPTLO2AQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795802716;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795802724;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WtO56VJdoJ8x71AZKpomoEjXKBrkJ9C3gxPN3Oka1fs=;
-	b=HCARX+ZwMICpkx0ofnWskz+vsDbUWXmSxPtGTl1BAQUCtTBQb8wyQAG08g6d8Wh+qSTq
-	 f1U0eBL1MuzOgq1cyZvvWW5GOIJDvF28bErScDKEVdn62dVisva0vVTkQbb3LoHKvCwJS
-	 C8R2Rkit6k/AIS/cVxG76cz06zjqO6Y0YRWOunOgwi2cLko9JT9MGxwcAmyDgemqJSmIi
-	 SK/ac7x4ECTAczhzOv3yllfKsRhQeYayJLsgXMGyXtIvBsTus/cKUSK5BGopwZstE1uel
-	 EXLrAwCV22YyLaHVngJrakOfAYPcaH7/5kIJ3CW3ZLa24a0giwx9sxENYI4hRFFsT8A==
+	bh=ogOm0dTzKvWGc75iWT1FdWl5GoOSduyc+CkcidfPAIM=;
+	b=kFo0JR24pPDK+fMP+DHy7SJH3204sFYrRsI5DFYdYRTUdacixl/ADUJHfeWFHdQiaphq
+	 yEwXOQqIMOz9huEoh4flQnylHOC+eKYJSaVU/VviIey+qHABAt31X0QFqpq8VuVrJM15v
+	 Hl5MEZJ9nWtTeHFthhjIL7N04Hv5cS7qj/9xLlLHoCgwimK+LYGHB2PYtYawepiSWbv+X
+	 TxvoHkXLIZ6d2mzg1DJ8K2xdCY0J6aFrfiznHvWILfqJRe4yzo5CMLQh3H+ReIhAscaeI
+	 yAnloiANdV4DQdJ6fO8vdFpfFMdE8zbIpevSxpSlPtKLJ1YoUM98u0q6NGffpc4AeBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PqNIOC6N;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQSYVL36;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDBA606A31C;
-	Fri, 27 Nov 2026 18:05:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E979606A31E;
+	Fri, 27 Nov 2026 18:05:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PqNIOC6N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 848691F00897;
-	Fri, 27 Nov 2026 18:05:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQSYVL36
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FB321F00897;
+	Fri, 27 Nov 2026 18:05:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795802716;
-	bh=WtO56VJdoJ8x71AZKpomoEjXKBrkJ9C3gxPN3Oka1fs=;
+	s=k20260515; t=1795802723;
+	bh=ogOm0dTzKvWGc75iWT1FdWl5GoOSduyc+CkcidfPAIM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PqNIOC6N48n6D/aVTXmPI3lG4b4TpwVT39vIKcnyP54a16Wvk2Jr3Q+lFRWkn9CuY
-	 snFTbMBQ8JRW/TEX3JsI7bl/vImMetuvBwKWnDcGwK3gfS7HqdrPn3fV86ktCv3a96
-	 RF3wjW3KOVq+3PUdib6btOOTVVhVbqJvjuKiMk9gatNnX6QigFB4a9WgPa/0Ko/+e5
-	 ju8uMeQ0JWBOy6gN2EB2FbjNm5vfQ0FHhggIVqRNgiW05FZOHxNtAjV2MfVycDsPtj
-	 M8496tJ9pLuPbRDAjRjqsL3XFoA0406sYkbZqo8L+Plgu+U92E1xTAFx+FQO2DPp2j
-	 XaUvjcpzzDK6g==
+	b=AQSYVL36g41pMfcwv5SlMiR46FzH41SWgrK9y16//xq3m05ArY78TsLqVHfcafmvj
+	 kKoCRkzBYUWnVNq+RW0j4EB39W28Ibv6qJNm+5IDLs/kIrcIC7qNwgPtsNTwU17AyG
+	 ExN/frQJmEuGR4jb1sjdiBkfCtxAxmi6/o1prglIgt3cBnK/295FU9o/12RozKokJN
+	 ZapNM8C3rhbxvCepYGNEYOe74xIERDNG4GVnEH8JdMbmjzlr1oVrPcF3rpiqz9UQUj
+	 BUfOGJOhZk8yKipTzEqzf6VvoQiit1IEwnBK/oCSFF+yt7FwsRTeAQ6EaRRDVbZViP
+	 vz1k12jbGSTjw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Krzysztof Kozlowski <krzk@kernel.org>,
@@ -49,17 +49,15 @@ To: lee@kernel.org,
 	Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney+clk@redhat.com>,
 	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rahul Sharma <rahul.sharma@samsung.com>,
-	Pankaj Dubey <pankaj.dubey@samsung.com>,
-	Tomasz Figa <t.figa@samsung.com>,
+	Tarek Dakhran <t.dakhran@samsung.com>,
 	linux-samsung-soc@vger.kernel.org,
 	linux-clk@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 06/12] clk: samsung: exynos5260: Terminate PLL rate tables with sentinels
-Date: Fri, 27 Nov 2026 18:03:14 +0000
-Message-ID: <20261127180416.3277544-7-lee@kernel.org>
+Subject: [PATCH 07/12] clk: samsung: exynos5410: Terminate PLL rate table with sentinel
+Date: Fri, 27 Nov 2026 18:03:15 +0000
+Message-ID: <20261127180416.3277544-8-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127180416.3277544-1-lee@kernel.org>
 References: <20261127180416.3277544-1-lee@kernel.org>
@@ -76,40 +74,31 @@ Content-Transfer-Encoding: 8bit
 
 _samsung_clk_register_pll() sizes each PLL rate table by scanning until
 it encounters an entry with .rate == 0, then copies the counted entries
-into pll->rate_table.  However, pll2550_24mhz_tbl and pll2650_24mhz_tbl
-both omit a terminating zero sentinel, causing out-of-bounds reads into
-adjacent read-only data and populating pll->rate_table with bogus
-entries.
+into pll->rate_table.  However, exynos5410_pll2550x_24mhz_tbl omits a
+terminating zero sentinel, causing out-of-bounds reads into adjacent
+read-only data and populating pll->rate_table with bogus entries.
 
-Append a sentinel entry to both PLL rate tables.
+Append a sentinel entry to exynos5410_pll2550x_24mhz_tbl.
 
-Fixes: d39e55e06371 ("clk/exynos5260: add clock file for exynos5260")
+Fixes: be95d2c7d918 ("clk: samsung: Add support for EPLL on exynos5410")
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/clk/samsung/clk-exynos5260.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/clk/samsung/clk-exynos5410.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/clk/samsung/clk-exynos5260.c b/drivers/clk/samsung/clk-exynos5260.c
-index 0a5959823370..8417321c1202 100644
---- a/drivers/clk/samsung/clk-exynos5260.c
-+++ b/drivers/clk/samsung/clk-exynos5260.c
-@@ -59,6 +59,7 @@ static const struct samsung_pll_rate_table pll2550_24mhz_tbl[] __initconst = {
- 	PLL_35XX_RATE(24 * MHZ, 266000000, 266, 3, 3),
- 	PLL_35XX_RATE(24 * MHZ, 200000000, 200, 3, 3),
- 	PLL_35XX_RATE(24 * MHZ, 160000000, 160, 3, 3),
+diff --git a/drivers/clk/samsung/clk-exynos5410.c b/drivers/clk/samsung/clk-exynos5410.c
+index baa9988c7bb7..0036544bd77d 100644
+--- a/drivers/clk/samsung/clk-exynos5410.c
++++ b/drivers/clk/samsung/clk-exynos5410.c
+@@ -235,6 +235,7 @@ static const struct samsung_pll_rate_table exynos5410_pll2550x_24mhz_tbl[] __ini
+ 	PLL_36XX_RATE(24 * MHZ, 133000000U, 266, 3, 4, 0),
+ 	PLL_36XX_RATE(24 * MHZ, 100000000U, 200, 3, 4, 0),
+ 	PLL_36XX_RATE(24 * MHZ, 66000000U,  176, 2, 5, 0),
 +	{ /* sentinel */ }
  };
  
- /*
-@@ -83,6 +84,7 @@ static const struct samsung_pll_rate_table pll2650_24mhz_tbl[] __initconst = {
- 	PLL_36XX_RATE(24 * MHZ, 133000000, 266, 3, 4, 0),
- 	PLL_36XX_RATE(24 * MHZ, 100000000, 200, 3, 4, 0),
- 	PLL_36XX_RATE(24 * MHZ, 66000000, 176, 2, 5, 0),
-+	{ /* sentinel */ }
- };
- 
- /* CMU_AUD */
+ static struct samsung_pll_clock exynos5410_plls[nr_plls] __initdata = {
 -- 
 2.56.1.839.g22a8290db9-goog
 
