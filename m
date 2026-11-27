@@ -1,57 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795798896;
-	b=pKyRRkiyh/nYOWivoj3+0IPUQjboSsT1I0s1zUUKCts8AwrE9w1soWvDEXfiWBnV1M+t
-	 dTfvdmo2LKtqE93mm9tJ6fJ3RDVeITChtdaDf6bFvXgoSnRWA25pG/M3C2BFmQsQOkVV4
-	 eRVSL1ksBqfhn5gIFeZl8+09igKi+KDCblZ8c4DgCgZk1yxuSDe6F0dlR80MZ++COYYXE
-	 rpajwY8vUD92FU6ExtDb5H0Rn0AHwuiXe9R2xHfws8WCOykXBEMkF3q5v10hOMLQt7pU0
-	 NltFg48w6U9zrkR+w3heQQyrpJFdB8udeMYO7yDYZvkKIzjvoZBy5WloYvhFU1f0Y6Q==
+	t=1795798898;
+	b=eEOLDWgRoQQvJorv/6iCg9yvTwB9HnryMTh5M7oX0v6VDZcp/k32TZWxxb2b9S8IyjJm
+	 F4kBkZtPf4bA+DkIAgV+FvA2jZz8PeURn36Ziw6GkBnfoLgjiplNTYKJec7HM4sG4vLS+
+	 OZ63Mj/xC+ZNw9i/qPu/xBSoywQRz54sQgBTT0oatvMi2mQKL1L0z1I4ndy/g2V1TLICJ
+	 1K51o5JuEPL2FV0nhr25jfHbitpCiLiqBANat8AFV7snLiBBuhHZzm+LMArry0ugnNMdT
+	 c3n+nlvXvR1FSDzl0LhPIbjHw+eB198G/PWK1Gbpou87ydqeeYiPe+kx/8v6EYQ6Q5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795798896;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795798898;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3EH6D9Ak8+Ti5XDHlSsRjKAE21BJ42aXHGgAK+PsQ2s=;
-	b=OgoFUm8vrsJXs2ltsctUGbdkE5qbGeqUzuCuERE6Kf/CESDQSm9aoH6INAi1GwfyoBs2
-	 8KbDhm4yOqiAsP1QyaVbGxR+TWm1UtMJLb8Mle4wdmCNt62jqwaZQ2Exu5AFvYlvtXov6
-	 +D+AZACMQEPrAs+P+bEi017zVYFKx4KTIYti9NNge5BGG+/Y+8dOceUTVv71axoPsN4NW
-	 paTqta6cBrj2+Rs3mAJ/ASHsreSqo75nEDpNWoVnwNXanmMTmOxd1wM/aYs1m7AZZsILA
-	 wXWcTIpROE+bzJO9j5j9P+tNQMBJIzt6qYLm5IEyRr0rvEHofKyLiIkw4SxdzbN52hw==
+	bh=fnICLWlEpr8hKNV++Wh8sUclv+RkfltPKWrdO8+U1kM=;
+	b=eYI19hVy8ZH1R6Vt0hqmtuc1rCcNLmzhtb/vKX6kamywAO2YdDkUe/TguRMqHt3EN/y5
+	 HqsnYUnl+Y0QjwqS41ktymewgjH4/7Crh1Sb53TemGRv7VNuQNUd+hreAlC0fbIbYnJ+r
+	 FTbXKdF52RG2hPCMQd4jpzhd/Y3TJSQIJ/rbx9uaY2nN/C1LrVnqbmdR5L9p+mdG18jCB
+	 kZNsJNq1wM6ySRzSF9rz0Z8pENU/fExQGSZtpua79LE16gXyUYTE08bflq5TPXDhe2Lcr
+	 o5SAYDUPA6/xuDTNAi22rJ1P5qON/WqN1v32dsjHYSPegxfQPqNDbT507Q2Iglzj6pA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GcpmqqnX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TiFIYGHX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC7B606A31E
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 17:01:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B650606A31C;
+	Fri, 27 Nov 2026 17:01:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GcpmqqnX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9B811F000C1;
-	Fri, 27 Nov 2026 17:01:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TiFIYGHX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC14D1F00898;
+	Fri, 27 Nov 2026 17:01:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795798895;
-	bh=3EH6D9Ak8+Ti5XDHlSsRjKAE21BJ42aXHGgAK+PsQ2s=;
+	s=k20260515; t=1795798897;
+	bh=fnICLWlEpr8hKNV++Wh8sUclv+RkfltPKWrdO8+U1kM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GcpmqqnX4czvCqO9O+S/AkvGNaaCJ/LWREMN/b05JzFod0MkzZex4+DMOotFjlv5g
-	 iiP4U0SRf0rjym+beF2v12D9cYjCSr4JrvQG+Co9X9p1fd5YMwnZ7qmBbJKzHKRihY
-	 aDfOzG4aDBACS6CAyyNa8862KpftyfqobLx8wldn/Ivcx/P3BXC3D1t228+V/30A3Q
-	 GBnV8coOEZZpG4r+5dNIr48uVXXJE3hHtMQmA9QQkPUhCJHNbejcjpqk1dVCKGk1cj
-	 uSR6r+Jeqgs/Zc8SI1ZCCx1NkUku42yrNJsTPZIKD+T09zLAWOyLVMeXVoiwpJa4SC
-	 qNJwnhIUUIJxw==
+	b=TiFIYGHX4jnneuyPztjYqi0ETsOX0JMxwEDuxXhqMof/Quk8qGNsxasuJaTHbqgAy
+	 alCY2zsNacms4Rza3julcOqRjPSyvh4+F0Qq5EOUXMRGbEiOwL9ULRrre2ZItACidd
+	 irXat+sOq4jtXd9O3QhqwdJF94MmcDk+76JFmfTu4jYucwHmfqWaZNGM+7iFrHjvpk
+	 oRskpG3tC1KJhkBKHMtbGyvMDgsp8YRPLmt0iXXnhnNFO0/rQNdk4LIHMe/zvyn9X1
+	 EmHWPDvYbR1rSzin3m34X4sBLkbwr5MFcL4Yluhvl9Pk7itg290KtsRsfVn1fqjI2q
+	 qwvwllyCxwf6w==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: stable@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Josh Don <joshdon@google.com>,
-	=?UTF-8?q?Jakub=20Oko=C5=84ski?= <jakub@okonski.org>
-Subject: Re: [7.3.y] sched/fair: cgroup::idle preemption fix
-Date: Fri, 27 Nov 2026 12:00:49 -0500
-Message-ID: <2026-11-26-1-daily-reply-0001@kernel.org>
+	Cheng-Yang Chou <yphbchou0911@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Rahad Bhuiya <rahadbhuiya2021@gmail.com>,
+	Kang Chen <k.chen@smail.nju.edu.cn>,
+	Ching-Chun Huang <jserv@ccns.ncku.edu.tw>,
+	Chia-Ping Tsai <chia7712@gmail.com>,
+	sched-ext@lists.linux.dev
+Subject: Re: [PATCH 7.3.y 0/2] sched_ext: Backport two fixes dropped from 7.3.7-rc1
+Date: Fri, 27 Nov 2026 12:00:50 -0500
+Message-ID: <2026-11-26-1-daily-reply-0002@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <DN4MT9L8BQH8.VY2522F55XYK@okonski.org>
-References: <DN4MT9L8BQH8.VY2522F55XYK@okonski.org>
+In-Reply-To: <20261126162700.22257-1-yphbchou0911@gmail.com>
+References: <20261126162700.22257-1-yphbchou0911@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,12 +71,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> I'd like to see these two mainline commits backported to 7.3.y:
->
->   9a92f776dfa6 ("sched/fair: Use guard in sched_group_set_idle()")
->   75545668ae0f ("sched/fair: Make cfs_rq::idle the sum of ancestor tg::idle")
+> These are 7.3 backports of two sched_ext fixes dropped from 7.3.7-rc2
+> because their rc1 versions failed to build [1][2].
 
-Queued both for 7.3, thanks.
+Queued the series for 7.3, thanks.
 
 -- 
 Thanks,
