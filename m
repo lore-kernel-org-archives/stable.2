@@ -1,123 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795781193;
-	b=JOurcom7SQpQ3XAbsIrUu7J0xX4PYhJdhweENTQi1W103IAv4DtRSzoyVSnuKnO1YR11
-	 /BTNtqxo6l90xqNFaJeKQq9Xf4ni1dhycRoAI1ViDpUyA3sEQxSjbcvNLru3rMkXYBZBp
-	 ckAeIPpVe41GAfB/z08H4Ywq55DkIXqFBsTFfdC00IredOoMDIc7P7G3+AxarI5P4HvF8
-	 xwnHJrzMY/JhFWcQ4Bdr91nCv4Tv1Ycwaj5l4YyoFAxiV3lAAjtjMkEx10cjZo2rpcC+y
-	 7pu5ncG23muYBgbIhigWkME1XVTvPTS+sYCCsFyo/x1ESp9dmjBc+pujMWh8D4/VIIw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795781193;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=FELi3FLt/Pi/OkzOMRJ8+hRRlAJ733i1PeWjERVJCog=;
-	b=f3FLEI4Q6R/gDux8GHaVYvN4zH0x/LGACOpiA+ltdVs6FOEtgq8KwwNSV5ftRfz83snq
-	 wKBHhWJQ8kcSSZkiRbTDKSQCjJH1eLWXtdvW4Ape1+t4gS8vQbk7/WvyxOQLkEK8QQITg
-	 FxRbR2j1qpFZJfBPw2DsypVGaBIL0hhP1PzuPmQILb1uQLbLURsk751u3SWYQsZ+vSZ8I
-	 h12d5CyIwKeOQK8VhxpjyIK4FzVux9Kj9ahiHSUymNdNYq/vXLmPZRwPACAGq3jp4CFkd
-	 H7WZ9PENP2oGNdWyXMWAImfE+c8fVAQAdjVp3iYdTpnflAKQonYFbydibN8fZwAgIFA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=E+Wy2cEE;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=biOFgqye;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795781461;
+	b=ybkiIDvlGzBzUWFDe+SV2JO4UhUIUvX2nzj39a/gyOVRWHp9zJQ78dSsIVlcPuzNcSIz
+	 HmeIvJZBOC8coPqDJO5Pmocbnh5KQlFrZ4o6fRl7z1U7lh5fHghiXsSgYlCX9F1DwVSe0
+	 ShoJgjxVrIwJtg9aL9hUQJ31xYGe6QDlegEJlPJQypeyk8qcphI5GXNROwlau21uRyEQP
+	 iA2+8qBCU+7sJKlIMVI2wOjySV9Cm83lr5w7tCUKa07xOMa0JwnZgZaTY3Jku/a2d13X+
+	 /GhVMU1rpodiyRqAk82vEc1vQwwQ7TjLpa2xr1xBG2fLCpL6TuCouybAohNdFTvb9ew==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795781461;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:MIME-Version:
+	 In-Reply-To:References:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type;
+	bh=V2qzoUjVUqzpzoyGHn3ke9ADcsFIc+4DOftfXyKXY9Q=;
+	b=REvxMGd9hVoAxZ3bKyNGlnAYouXD/tVSlIl8UlDOYb70PDEO1rKRzAruGsjdwLUVFPoA
+	 ZBO47gcyiszc2IOSVhRLlQtuIhSqF0kRW+DQ3heBNdwjunB3z/KIEkxW1Ftr2p+6MhcBM
+	 s+vjTcNjljB8MT0mKrkZAGhyJV5FFxzEaHxaSXZeOD0aCAKZOUBSoOSlpIrJv+1L5M/XT
+	 ZUfchJQPXUc+VlTzYnvjAR/QpdSxoLEukjrBHFadpDcYiR4Lgu6HoF9uUykCCo7jt0Xn6
+	 OWhjdHnntOTDUcTwa7IZyTBYC2NNZrEBZw5AjrvT6htM+VQI6CRlDmDACAc+lebaTIg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=certik.com;
+	spf=pass smtp.mailfrom=certik.com;
+	dkim=pass header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=FV8LsGLa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7A2606A335
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 12:06:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC7A2606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0923B606A324
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 12:11:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0923B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=certik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=certik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=E+Wy2cEE;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=biOFgqye
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ARApMp7273519
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 12:06:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=FELi3FLt/Pi/OkzOMRJ8+hRR
-	lAJ733i1PeWjERVJCog=; b=E+Wy2cEEGp8cp9ec8ULDVVwt6zaET6LAMFhORq3/
-	yfd67peeBurtHEtZgo52TiKmrOvoe6BVCBInWBPoKwApmXdisvXsEXYYW6rq/jMd
-	kx6KQKyWZnD02QTRElFZgRnP5ubMkMFDepJawLPNrPemza5H4qunjxIvs8J/59Y3
-	bTftW9LSA4ftxYqXvm3c74OQ1dXzYWD+RX6Wn7Yje1lCIjZX3rSvdpkRArqYump4
-	Q1qnk5H6VHzoVwyM79CYICdIpcoQRlH3QrSWDtEsRfqnV7qX+nAnvC6olcMMJyCN
-	JNe/jbVgU7HxNAf1lB0u4HwNHavdJFz5g7BQF42HHSvS8g==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6u49aw3n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 12:06:31 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5ece5510b79so5259500e0c.1
-        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 04:06:31 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=certik.com header.i=@certik.com header.a=rsa-sha256 header.s=google header.b=FV8LsGLa
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b503e2a87bso81780257b3.3
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 04:11:00 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795781460; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BK+D6YubhWby8nLm3qllULAWKS7PvbVn+8AQ+gro7ALlHodYs0Y3SDWO4CA9+f2pAE
+         9OYQzUI+PpCXK4eSmIzOj61OAlHY+jqweusiZpteYGdfUVjY85bR0DKitlnHBR5CXuFV
+         r8cSEiS2Ut5QTcswQT/2xK7Nso+u/VOfywu/vi3pS5WA+EBwIa7Ac5Ad4pwgPXyKY+M+
+         DouTr0gcw85KQLhyeaGC/q8kuyJpWyDa9oFEPEze0KFpF+RqRLJIlbIP5dWSG0++lsgZ
+         h+SQA2h1LawIRI5gSdiS1IAfUfQRSlZDw7vKY98T48FF357vaK5SQzn1q7qi4tqsKhty
+         HT0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:references:in-reply-to
+         :mime-version:dkim-signature;
+        bh=V2qzoUjVUqzpzoyGHn3ke9ADcsFIc+4DOftfXyKXY9Q=;
+        fh=jQFHF6sZb7lePkUMHOV2HGjT1sGUBL5aHicLHIgGdX0=;
+        b=Aowa5n0wr/mAQFKLfruRfWh0y3MsxM4yq3HssvIqxFszHzl7U4bE3LgWlfDQfvwLvC
+         Ab1Pfz7p+0nE+7QYXhTIg4+/fIpJSKVN0+O6xvmDRxWjpd927V/h2yCSHs6RCgz4uaSB
+         vo8EYLiCQLey8W13+0BKZZZ+HnNMWcKumquyqN5DDufNyJFEKrKpr8G35Nk4k2Oawo6I
+         WpzL8n4KYpFg+6ZXox2HDS4ovnaG11oIbcxeksthuC4nKWdDWdqkwys23vknxs6AL1rA
+         HH/uXdBkgHXxSAslTV+uHJ/qRrVFLrmVgbUUkDucfH1lRedCYKDmL64qj8lp7bGneIZI
+         8MUA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795781191; x=1796385991; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FELi3FLt/Pi/OkzOMRJ8+hRRlAJ733i1PeWjERVJCog=;
-        b=biOFgqyes6rdNtNL+EX3DLscZYqZEeElPupO9KqIN7mhBjdQ0Civ8C/Z/pDlNh3t+5
-         0N/tAfVB1UFbQ9jjBPlP4zD30tOh/zkzH3usDaNhUvDL5qOgwfkDVGMLcSaR8pMP7sKV
-         LlVSbndPqSOkyx3Pbtd51wEsJKG3KsrlepRWXMN7GWSFFSur9sKFYt34Hud2MfW2xVac
-         afBwZDFTq+oR87Px8Pv2hFQG9/m8O0fjE8EbJLo689ZsuGAtwa7uE69Av2tVD/0YowBg
-         e4RHKYMO7rnkkjlyesEMqnEoHa/yrWJeOM4paMYrM3crgGkEUtQk1z7BvMHleHOSyj8x
-         jPQw==
+        d=certik.com; s=google; t=1795781460; x=1796386260; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=V2qzoUjVUqzpzoyGHn3ke9ADcsFIc+4DOftfXyKXY9Q=;
+        b=FV8LsGLaMNXNDsotcFxJJNGsJsPirnu2CKrW0cZTZY+xUvADghu2VysOlupQ6p4U5w
+         BwdvVoT08fTgSOEFcGXhUlm7BVYe7lS7E2aC8CfPpu6BUQhjSHQJzO9l1/jFMP4vffTP
+         6vr6gWPaKLlnoUFZd0dLrC5D78z7exRtewoOg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795781191; x=1796385991;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FELi3FLt/Pi/OkzOMRJ8+hRRlAJ733i1PeWjERVJCog=;
-        b=VYvmFrc/Ha0Uxzg1NyqNl2EuOEXM9zsKkCNxzk9mNrFGZ6Tcsfdm4d7xwvGpj0QiZL
-         WEul3IbgzE/AMDCCIo6fufi57uDsHDIvkivzlDUXewLSgh1BD/fPLTBtSPr4MaxH/rp9
-         oS2psc/Kx38HT5EhalnoDigNfowKGiXpAW6ls/u6DDUBsG2f5iwyH+1eh8eUFd+HZkuI
-         IowUddB+8+OiBUZY63Q5s7MYwp+vOphC1/LIfr47+XXeV7Zxnr1NI754ARuQ66rknNPh
-         InwJcYGj136AzlJyNwxlje//x834sj4OaDEMx4FPjcM2pR+CXeAkQGdvekbqJTzdjavr
-         Rt7A==
-X-Forwarded-Encrypted: i=1; AL+hErHp7hEgh21tcwbgdopX/ksxoVFPc0tibBgdwV3P7lhDZoFnn/kd+GjJyBONfk82szZQkJoDloY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/KDMjcq3OckR7DySiWTocMo56vntPif1NhjX9pia8oHHrHt5Ih
-	9yEvMMh+cB4OlJlW+0YMjVa8aBfUSDttzrRRhnw+UrKnPr3F6cA0qJnpqJlQGoh83685k4Cny2q
-	nC3gi7HwOCTugMsfSbiH8DqeOUVF3rpuU42TwzrUOqt/4M1e9z6DVa6CGMFZsKE4CmDC5VQ==
-X-Gm-Gg: AZFdTZdLUikWQeMZUHezKIHzxBWv4LI1yIKDDQMQ+9XtCVFPGSu9D/tWKnbfrnxsNsY
-	ThJVcvn9rQAmyqBrZaeb53RzgLkLEN+5ReEcBzOlV7kSEAxbiQMv/sN2w0bVbCgkB8F2EyVKMGT
-	wvHWbgCwwXeldGg9Dr9RWrg1PHb57nlR8cdW+9KkyIe/VKvsLfFq3lS5JAmXvqUV/vyUHMCN9OB
-	CjJ532KTU9++TNI2XZ/4Rp7iqTAkRqCMy9wmYipNbVAQGi7pEJauceLJXfg3c5apXoGBomy80DX
-	ePt61spk5P+Ycqvya88eVjRU6DUcw2Ne5hzB2rV4+/BMFoZ53+z1ttguyii+UylGiq+cj2mu4+0
-	vxnNsaNGSPZ5wj3JVfMN45DT+laMuWz0ULEFrfKojBWT9uknupS2eXdVbMlWPWDGxZztYta2omI
-	6CH4x37YNHR/zYDOmvoeWjxpCyn8gC9rdPsYEHXU0WSAZfJL3sxZY0+4WkRQYiaA==
-X-Received: by 2002:a05:6122:32c8:b0:5eb:7686:48f5 with SMTP id 71dfb90a1353d-5ee8af0af4bmr14128019e0c.8.1795781190765;
-        Fri, 27 Nov 2026 04:06:30 -0800 (PST)
-X-Received: by 2002:a05:6122:32c8:b0:5eb:7686:48f5 with SMTP id 71dfb90a1353d-5ee8af0af4bmr14127954e0c.8.1795781190044;
-        Fri, 27 Nov 2026 04:06:30 -0800 (PST)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd04451csm5860852e87.59.2026.11.27.04.06.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 04:06:28 -0800 (PST)
-Date: Fri, 27 Nov 2026 14:06:27 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Michael Burch <me@michaelburch.net>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Jun Nie <jun.nie@linaro.org>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] drm/msm/dpu: count the pending frame before kicking
- it off
-Message-ID: <kcjghu2lpoijzanqtdvd3zid6g4onyesvsouqnehepo6q7liws@af36abycxzzh>
-References: <20261013172703.12273-1-me@michaelburch.net>
+        d=1e100.net; s=20260707; t=1795781460; x=1796386260;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=V2qzoUjVUqzpzoyGHn3ke9ADcsFIc+4DOftfXyKXY9Q=;
+        b=vgGl90bIAOV6H10Cx3YD2OSd1F7XCyViFfTl1lKeUGpTelOUPm1q0SA1LsdvtEhE9M
+         HcOQuYBCltdrHj3zhCxHY30S/o6WalUgm9nVSqd1gm9C/jlCul+caJOLehiTlw+Aedh9
+         DmYXvJMKQrMexhG1O/fcH3zOmvLzzo3vcCeTzHqlq6D/L4XwUkd1H2BdPoGD+s3b2fRM
+         j1L6jx+6NJT/xOA4NiPvPeMefDPGGo5vBCv25Z9JFYk6Cwd7Ai+odwiAMbMbr03Us6Xe
+         xIzc3EPelEuTbgeMrjJgty2HIxjgjzqhQzG16DW2bVysY8SiU8nruQeXriW/jfJ3Otg+
+         xSfA==
+X-Gm-Message-State: APuU4Z+lekIxGl9hbuFPVV4Fds5+RPp911HLZ/h2stpeRuE89haRBtDB
+	LaypkQphYD1DwQDnXSmL8NXMRRlJUsYn5chbJQ4rv+n8OEsVgltyXjG8HOKpJIGpibzqLCRr3gB
+	5KU6E7dePIh8urcZ2nWk/hieBW8kLcFzMQI1fMbzNN8OatSIqGLJT7Nd8BQ==
+X-Gm-Gg: AZFdTZfb8itB6r+OM8BmyNvbWFLzkENa0HJaNScq9bnwXdYNFhyBiwCGiF8MuXVOmWa
+	OWlWoJAM50aPTMP040AsvQzPhC4X449vqmTK/+HEqj03r19w537vs2/CjdsrGE/Unr976peRK1S
+	jGG5j2NB1DiaZWNAcDkgxjtJ+jWLAJg+rvfLrIqB0MBP0G/ROKO0XKLmQVfquy/usldDeCGM2tO
+	/6XMWb0PuuZ0nnLjIo6MOZkOm6YSKIL1CAA8zO4rgPc7HJAAtP0jQRNYr96iGvimWRKCngc8gtb
+	FRehv8pEgiUMyKe3TMZl9JVmJOqjBLP7gNxoPlwD2JVgDT4Tp5mcuLdL7x5nfg6AD7xOk1YEl8s
+	r739hpfKjz8DkolC6Aw1eXgyYWE/7g499uKARh/vvwgdffZLWES6u/u0YNopQ36Q6xBdY6C9wcX
+	o7uWYJWfwaj+89JwTOIJsBHe1Z7LYu+IeDSsmZqsoxjw6Sebt+Bu0Wejt4BlSBXPfbUfkbcYw0N
+	zmVZ/GdOooWMHfcoV5CuuuQQ98pJiiYj4MFhA==
+X-Received: by 2002:a05:690e:5d1:b0:67d:bdcc:4236 with SMTP id
+ 956f58d0204a3-67df449a6a6mr7050574d50.75.1795781459909; Fri, 27 Nov 2026
+ 04:10:59 -0800 (PST)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Fri, 27 Nov 2026 12:10:59 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -127,76 +103,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013172703.12273-1-me@michaelburch.net>
-X-Proofpoint-GUID: AKvQIwlfcnVe1tzH0kJaE5ZJ-CvPHUKp
-X-Proofpoint-ORIG-GUID: AKvQIwlfcnVe1tzH0kJaE5ZJ-CvPHUKp
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDA0OCBTYWx0ZWRfX7aUdjnWwkLe5
- 0K23g5FwiSpjFiHxP+/x+JLU1oKH7PBr2rU51rpEtq0p8E9DbfeulAI8bwNGGXjgDk/2qB+QJ6K
- Fgax3EuK6ONCy9hgs3msaLIqflyML1I=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDA0OCBTYWx0ZWRfX052SrpEvVsB8
- T8tNBAzNJiaOUg2IUvVzL84hZNsNOehqEtDuQc+WKurqw1lXWhtELql7vbfzrSB6oGgaODkCIra
- HyW90Jxm2myByL5+dDPzCaMPO1sKfhnc9Ef36n8tSMDLx2rHQMvJU0YsOB5GLedhjfkXfgManBP
- hF5QLbPoPrbbMqtf/F941/SHSmjMqBZbjzXymbYBGFO8GMIlzWe9/s2YMz+PMsHavc3dFyM8CZq
- FtGmrolSqg2wROsFBSkxULFLlxX7Z7YIHjWuo8z4o8cRxHs7WIXJy48Ko9xPz0LFiGROJG3Gd2w
- DCWc+ZQ4S0+NJV7Gm1cawJxv8wDMsKPWNCPUfAiTdy8rCP2SdB5f1MicK6O6wGi/NUhFTW20Ehc
- dH3Kl07SEgzUg4ZglD16NWJuUCYJ88V8yp1xcYwDBwaOTst1pv/JZG9kjaBiqkX8r0BidkDUo/E
- gDhtbaAXFlhlRe0ziuw==
-X-Authority-Analysis: v=2.4 cv=A875rKWG c=1 sm=1 tr=0 ts=6b097247 cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
- a=OZ7Xlw-yAAAA:8 a=EUspDBNiAAAA:8 a=o7I13pbtrd0snOxpb2YA:9 a=CjuIK1q_8ugA:10
- a=hhpmQAJR8DioWGSBphRh:22 a=qwMvOfr3u-Fs83Rmfh-C:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-27_02,2026-11-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- priorityscore=1501 adultscore=0 clxscore=1015 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270048
+In-Reply-To: <2026112733-gambling-twistable-dc4a@gregkh>
+References: <CAFaZ9eogwNaXVeVhOrtz9montDVg6G8zYR8rOGdpZr26nHFO-A@mail.gmail.com>
+ <2026112605-alias-passion-6781@gregkh> <CAFaZ9epm3Tcuz1Fs7wSOqECzZbwdwEYmwSxwUM72jPMZKZArvA@mail.gmail.com>
+ <2026112723-jogger-splice-ce25@gregkh> <CAFaZ9eqpPdQ3fiu=gO28rJY48Jh9SqiRxdpXYtBzB5hcoGH7Nw@mail.gmail.com>
+ <2026112733-gambling-twistable-dc4a@gregkh>
+From: Dickson Wu <dickson.wu@certik.com>
+Date: Fri, 27 Nov 2026 12:10:59 +0000
+X-Gm-Features: Aa3M54qaTkkD5EzqfmRqYsUuvse6m8MIzbYh2ql68DMvdruHAKaAXipyaZG2YoM
+Message-ID: <CAFaZ9erPPdqJq-Xpys5crfAcJ4W4MCE_O24KvciLSk+nSSny=g@mail.gmail.com>
+Subject: Re: Request: security fixes for 5.10.y and 5.15.y
+To: Greg KH <greg@kroah.com>
+Cc: stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 13, 2026 at 12:27:00PM -0500, Michael Burch wrote:
-> dpu_crtc_commit_kickoff() increments frame_pending only after
-> dpu_encoder_kickoff() has sent the frame to the hardware. If the frame
-> completes before the increment, dpu_crtc_frame_event_work() sees
-> frame_pending == 0 and ignores the frame-done event. The increment that
-> follows is never matched, so the count stays one too high until
-> dpu_crtc_disable() resets it.
-> 
-> With frame_pending stuck at 1 or more:
-> 
-> - dpu_encoder_resource_control(FRAME_DONE) sees a pending count above 1
->   on every frame and never queues delayed_off_work. A video-mode encoder
->   therefore never reaches ENTER_IDLE and keeps its vsync interrupt
->   registered for as long as the display is on.
-> - dpu_crtc_frame_event_work() never sees the count drop to zero, so
->   dpu_core_perf_crtc_release_bw() is never called.
-> 
-> On an X1E80100 laptop with a 120 Hz eDP panel this left the vsync
-> interrupt firing 120 times a second on an idle desktop: 14,407 vblank
-> callbacks against 21 commits in 120 s, with no vblank events requested
-> by userspace. Every frame-done took the frame_event_more_pending path
-> (591 of 591 in one trace) and the encoder never entered idle. After a
-> suspend cycle reset the count, the same desktop showed 3 commits, 3
-> frame_event_done, 3 encoder idle transitions and 25 MDSS interrupts in
-> 60 s.
-> 
-> Until commit ad06972d5365 ("drm/msm/dpu: Reorder encoder kickoff for
-> CWB") the increment came before the kickoff. Move it back: count the
-> frame in each kickoff path just before its encoders are kicked off. A
-> clone-mode commit that fails its encoder lookup is then never counted.
-> 
-> Fixes: ad06972d5365 ("drm/msm/dpu: Reorder encoder kickoff for CWB")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Copilot:claude-opus-5.5
-> Signed-off-by: Michael Burch <me@michaelburch.net>
+On Fri, Nov 27, 2026 at 09:12:18AM +0000, Greg KH wrote:
+> Do you actually use 6.1.y? If so, why and what is your plan to get off
+> of that kernel to a newer one as soon as possible? Same for 6.6.y and
+> 6.12.y? Sticking with older kernels is almost never a good idea...
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+No, I don't run 6.1.y myself. I'm a security researcher, and I've been
+looking for security fixes that made it to mainline and the newer
+stable trees but missed the older ones downstreams still build on
+(Debian 12 and CIP are on 6.1, for example). Totally agree people
+should move to newer kernels, this is just for the ones that can't yet
+
+If it's more useful, I can focus on the "FAILED: patch ... failed to
+apply" mails for 6.1.y and newer and send tested backports for those.
+
+Best,
+Dickson
 
 
--- 
-With best wishes
-Dmitry
+On Fri, 27 Nov 2026 10:12:18 +0100, Greg KH <greg@kroah.com> wrote:
+> On Fri, Nov 27, 2026 at 02:50:16AM -0600, Dickson Wu wrote:
+> > On Fri, Nov 27, 2026 at 08:05:12AM +0000, Greg KH wrote:
+> > > Thanks, but as both of these are going end-of-life in a few days, and
+> > > the final -rc releases have been sent out for them, they are not going
+> > > to get merged. Anyone still running these kernels should move on to
+> > > newer ones now.
+> >
+> > Ah got it, thanks for the heads-up. I'll stop sending for 5.10.y and
+> > 5.15.y and stick to 6.1.y and newer
+>
+> Do you actually use 6.1.y?  If so, why and what is your plan to get off
+> of that kernel to a newer one as soon as possible?  Same for 6.6.y and
+> 6.12.y?  Sticking with older kernels is almost never a good idea...
+>
+> thanks,
+>
+> greg k-h
