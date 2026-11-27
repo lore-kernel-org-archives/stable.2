@@ -1,88 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795747138;
-	b=yp4rbmIL+/7Z59rWk3kpSmnTf5Inqvv3KWvaiLk99tU5s1YHhAyp+hAsZNQezbfNfqkq
-	 T7ec3COoy4OjVBkngwbnoH//MCVnunsliYPZ/jOeZ3Awr4p1q3bzUpE8tgBbRvhzdDRE6
-	 CfDeXajC+eAtFilNLIvLUXZ0m764SJr99E6xxBMphY0UQPbKzjhjVJfND3x65/Cx4pY2d
-	 25VJ6u0yKPQed6bpGAI25ileh/z6TX9+tcj1KrVQou5KvEaYRRMCMI/PL75eLlPblDvoi
-	 obospHlPAKMCYVvdClHVMZ7FYQz20Kdh+z9p/iv/DpuJCXsiaHthQpO/zawOclVKjQQ==
+	t=1795747309;
+	b=UmOMK7j1OZg4W1Mz4Xlwyenx2JaSyexQCDceiJeZ0YGzS5HbtSnQHA43NfyeXvCTIF+n
+	 PLsALQWTVoBBmIFC/epZkfRIxFz+mTW66uDLtKjIoax/H2AsRoeDio8veCli86nRVea48
+	 B23mzSCUsVvgqPjw4p/Sf2TS4SRvrF36ZB9DsHG7K1xDrDmVecPIoDIlLN2YoYI6vkKzM
+	 jL0QWMhKg0LvoqdUn5WdCwtMsRUFWOIVgmny4l//sJYovbUuNczsZDS3dafGQYY7G3Iar
+	 9nkVbD4v9S3WupXVlCn8RPLyz2PSuegTQdK+UVGLL0gWTRlVw+fVkD7ZI+hTa3Ts+bA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795747138;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=YfuOTmof2gsRmvim2eXfKzstnIYN97rqaWOcrpsbpsw=;
-	b=qs1WGNARMqarMMCk0kFi0T70Qao5+mPORmzlU68r9QZm6UhzxSS5TSDBVhJvNRrRxouK
-	 3NiZzXxvigKHEdspTlgtEf0PIL0M+XJJqA5w9ER3lawYkckkl6qoWOXNJJ96YLMkzU8Vm
-	 V2z8/KkOCWdiTPkgdS5tlej/9hfuEqmL/wAMsWQoxXT9TafSp7XzkYH7VWtS1XRa+zkhn
-	 4pFpfeKFTV+kwO8acOGVYdOZi4yTA1vjRMi6kq8be3+t4ZHt5Cyz2ToPIHg2A1dLjpzOP
-	 vniqbe+0uXXN+D5BIXjQaNoE1D5ejqpYQ+NMbS0IvAhgNiWenVcAO8oAU2bxeK6R+FA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795747309;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=VAR2rz8eXDLkPjCKjfmnvh48//s9d1yIgXhNth07Doc=;
+	b=vcdtmrobslrD114mM0wB0/o/sAuj9jA7tpAaluqtQrI/yGyz4ixoQTbCuwxjLqfDSGM7
+	 7V8YoGRK2eJGnUOAUlCNg7X4qaZYsfigTGVvHOlaBk9KhHvzOqFPAMdWL3fe6z+f6SMuX
+	 vIq4Z9E9fBYKA+NGO01ciNUkqXASzfHB5jeclevGBc/IYyweASMRTgEW8l/Kgu+QEXIq4
+	 0QpSJ+u8K2GOAKXu6JXP8lQWixwxr8KHu2Z7Jiwd0u1BQ/Lta+TBeQ7lbMVTHC4yLpDM6
+	 kSgLFMJzXv/XjdCQo03Fp9AA7+92Y5796g94jVGYvW/7XAH+uBbC5PglAJCZ/w7utZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sygmKrOD;
-	arc=none smtp.remote-ip=74.125.224.43
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c0fyoVmX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5553D606A31C
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 02:38:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5553D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A6E606A31E;
+	Fri, 27 Nov 2026 02:41:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sygmKrOD
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-679a2b5fe87so6997815d50.3
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 18:38:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795747137; x=1796351937; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=YfuOTmof2gsRmvim2eXfKzstnIYN97rqaWOcrpsbpsw=;
-        b=sygmKrODaACAkAAGV3Wb+E0VIB1YGKLOS+rXSXqA2u6b4VVRGZXDQVOPKOF7sSlBdy
-         oLojVZhwv9ZcstTV+uvW01uass1hJMz61MocsK6DceNXiAssf8tm3wmbEE/W9CJ2bSw0
-         ypssy2dRrC1/kbI22YRfJdwGzSG6+KxjNVWW+sNvita95vO1d25dKAZH0LUCJFq/Wk1d
-         zzSFumpt7baQSKwkxCPQxtidPyyb0rc1NtOnLY/EEQcxfuF6zpznf6rEcxYVSIfYLeiY
-         s5pn7dEVlPW3KrPAWU6mVOVwl9KXzQ+j8YN/hqLl2bZNJPMkN7TgcSBkEd5SIRGOowPg
-         /+/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795747137; x=1796351937;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=YfuOTmof2gsRmvim2eXfKzstnIYN97rqaWOcrpsbpsw=;
-        b=0nCLP1nSUJxHo/5PjrzJqHIyehx6eZ3+45MBv+KjwtyTWhdkHtRIi9hTjQNgzTEvB6
-         ZAULsb0V1d53oc8rXjPf9/5XPMBGB/HENX/M3TkymloXeWDJnYa8c0ua1cEU49z0Q0NA
-         6U0YQuat1Y2Nj2VWENkrRwFkvID03DRLvGHTca61BnoZKv4LeDw+H7CloDI6JOM2z5iN
-         CqgEFcv02ftVrnR0HLr+tbXHA8NCbUuE0WVU28zxvpSGbMpE9AMtR9RMjgRq8PHqiRis
-         n+joxndksL1tAWtslLM8U11eVI/KRZkuoqFjYgp9F+fjdmqfeZAxXV5bfdZDGaw+1jil
-         48lQ==
-X-Forwarded-Encrypted: i=1; AL+hErEnBfeCgul3H4R3YPU5QLA7xk4Yb7t1BJQpHwUX1z5rijOpCTjGz31Lv6/VvXTuP5fLYm3T7RY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8uOKU6xfgS3bxnF0+JJayodNK7dO/NjUGbeRBSLFwj7/ZfSKE7
-	5G+wMwOwcrIxSP77gCBbBZ7BU7w4VOSfhHkgIimzifSgzEken31VuqA8
-X-Gm-Gg: AZFdTZdoJJDeOMY2LS72ymOvnaaJBPphv1T/gprhiQL0E9JJ6Uq1Ya5Rrf1YA6dhNie
-	TIjDVNtFCaCHhN7e4sUCg2ZlUyMPtoXBfgJ1OfiIdLzoBkEFjRfOcjP94LE1/EdY1YlH8ejhkgo
-	mwmvThqPYIuIhtD93d89DKXUREVuIhuBUsF8n93QVPNKvv8sXRWshNwTYO3YEFVVZuvcyetnoD3
-	f7hai6xWQElKMo8gmsGShwz9NYAIf93y/7dyJIPY2pC7swmWzxy9L3ZXBvNR1Pn+5dQy4v7/1Bo
-	9ITLXfo7kGHFq/y/gcwjoMnHVZGIKhCMQhDk3BM1QTtoPcCR8/lqCBzvkzKW8CPIMS/qiJB2Ku8
-	WdhMw4BBCMhzRmiHiu4c3MO7/S7c8TDhhvNqBtwOITUYYGlbITh/sxL1zm/670kp3LKreE3Dviv
-	edvHjhlLKR3YWOknAjJAVm0a93ZHjvytO4Pl4hln4FHQYWdq2fm3DKE6qd3MXIeljZ7byZ6S0vX
-	reTcT3jwhDKA4IWR3siQPTjterfNiQaBKdKErxHDnDw3HtEwjvnKV9WyD/EToQxKKBR1DDHaMwZ
-	47vAhvOkjGr06RAKX7vLIszVwKvw+xKWCGPwbgocm0Pc2MFUcFxmJLtWtPP5k6ux4QeDdcwrY4y
-	grPDKAPYkveVuDvMspf6xySpdFpNSXMUyaNeQCMgnWIg=
-X-Received: by 2002:a05:690e:812:10b0:67d:ea5e:e50a with SMTP id 956f58d0204a3-67df442605amr5491951d50.46.1795747137114;
-        Thu, 26 Nov 2026 18:38:57 -0800 (PST)
-Received: from localhost ([2600:1702:7a90:6f9f:66f3:d5d6:2d12:d460])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67df3354fe3sm10610891d50.10.2026.11.26.18.38.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 18:38:55 -0800 (PST)
-From: Matt Turner <mattst88@gmail.com>
-Date: Thu, 26 Nov 2026 21:38:54 -0500
-Subject: [PATCH] parisc: Mark cr16 clocksource unstable on SMP again
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c0fyoVmX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AE131F000C1;
+	Fri, 27 Nov 2026 02:41:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795747308;
+	bh=VAR2rz8eXDLkPjCKjfmnvh48//s9d1yIgXhNth07Doc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=c0fyoVmXK60ROx38e7J/XKeMSPpRHy+ayOjW/uc+Rzp0silZ0W0jW/ycmbFx9DRSu
+	 RpCFRNZ0hKJkVSaqnTJJboOnqQRUrCHa1n3pNkYN/HBUJf2RkeOTOcKuyoIzY4fFJn
+	 FXKUN33u8uUXeSiGe8Od+RRHCH58DCWtpP7wWmHy8L7zV1zAHfwqNc1oVrXp0RQMxL
+	 xSzkSTCsMZZB7QYZs7DbAczm9y5qUc6iKBJCye2u2l/CW564qmPIFs2wjPEIw4v/Nw
+	 YC6cvMosL/kOgoP/f8XTIIBq85UvDT+O6/iN03xh0S87ytisuJJtlsj0btHqh//yuR
+	 Ob9aktQN50ipg==
+Subject:
+ Re: [PATCH v2] net: ethtool: do not call get_regs() for zero-length dumps
+From: netdev-bot+sashiko@kernel.org
+To: 25031212351@stu.xidian.edu.cn
+Cc: andrew@lunn.ch, kuba@kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, horms@kernel.org, byu@xidian.edu.cn,
+ wencheng@xidian.edu.cn
+Date: Fri, 27 Nov 2026 02:41:47 +0000
+Message-ID: <179574730769.3135.6060942775562840087@kernel.org>
+In-Reply-To: <20261126015239.6038-1-25031212351@stu.xidian.edu.cn>
+References: <20261126015239.6038-1-25031212351@stu.xidian.edu.cn>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,89 +64,150 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-parisc-cr16-smp-v1-1-fb8e1f730eca@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDQAxA0atI1gbMKKP0KsWFxrSNoB2SVgri3
- Z22y7f4fwcXU3G4FDuYbOr6XDOoLIAfw3oX1CkbQhUiUYiYBlNnZKOIviTkWIeWG6a2E8hVMrn
- p53e89n/7e5yFX98NHMcJOCSLqXMAAAA=
-X-Change-ID: 20261126-parisc-cr16-smp-c6327c4c178e
-To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- Helge Deller <deller@gmx.de>
-Cc: linux-parisc@vger.kernel.org, stable@vger.kernel.org, 
- Matt Turner <mattst88@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2312; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=cteIzx29elWlpjr9bUBZsIRGIRHKEBsTO5rCfT6X+o0=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLI53trusOqPC5U7w9Ky4sKvVq2d6xtemZxIzqt7/6Yxa
- NrzvyeEOj6yMIhxMcwUU2SJW6/IMqttx1Kf09K/YOawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
- QyBDxygeIqfHoJFZXFyaWqSbVlDkkJdfkliSmZ9XrJdfkJpXkF6gl5aZVpKRkV9UnAo0Qi8vtcT
- U1dHNyNDAxNLRwszJwtHUxNnZydDJzdHR2dXJyNLcxMDZ0tHE1dKcgYtTAOYa47+MDP8UHzrPe/
- Fy6QMR3zu5T734PNO0HTIWb3R+zRw4P5g98Qsjw4mH6z7xzEqwWfon5LZqbmrIB312h8Qk9a8ya
- Vr3S7n2MgAA
-X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
- fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-Commit 340233dcc016 ("parisc: Mark cr16 clock unstable on all SMP
-machines") stopped the kernel from using cr16 as its clocksource on SMP,
-because the cr16 interval timers of different CPUs are not synchronized.
-Commit b5ff52be8913 ("parisc: Convert to generic clockevents") moved the
-clocksource registration into time_init() and dropped that check, so
-SMP machines use cr16 for timekeeping again.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-On a C8000 with two PA-8900s, the cr16 timers of all four CPUs differ,
-by 0.5 seconds between the cores of one processor and by almost 3
-seconds across processors. With cr16 as the clocksource, time jumps
-backwards whenever a task moves to another CPU, and systemd-journald
-keeps rotating its journal with "Time jumped backwards".
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-Register the clocksource from a device_initcall() again, once the
-secondary CPUs are online, and mark it unstable on SMP as before.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: b5ff52be8913 ("parisc: Convert to generic clockevents")
-Cc: stable@vger.kernel.org # v6.12+
-Signed-off-by: Matt Turner <mattst88@gmail.com>
----
- arch/parisc/kernel/time.c | 22 +++++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
+- [Medium] In ethtool_get_regs() (net/ethtool/ioctl.c), the new `if
+  (!regs.len) return 0;` check runs before `ops->get_regs_len()` and its…
+- [Low] In ethtool_get_regs() (net/ethtool/ioctl.c), ETHTOOL_GREGS with
+  regs.len == 0 now returns success without calling ops->get_regs() and…
 
-diff --git a/arch/parisc/kernel/time.c b/arch/parisc/kernel/time.c
-index 71c9d5426995..c14fb9002cdd 100644
---- a/arch/parisc/kernel/time.c
-+++ b/arch/parisc/kernel/time.c
-@@ -229,7 +229,23 @@ void __init time_init(void)
- 
- 	/* check for free-running 64-bit platform counter */
- 	parisc_find_64bit_counter();
--
--	/* register at clocksource framework */
--	clocksource_register_hz(&clocksource_cr16, cr16_clock_freq);
- }
-+
-+/*
-+ * Registered once the secondary CPUs are up: time_init() runs before that,
-+ * when num_online_cpus() is still 1.
-+ */
-+static int __init init_cr16_clocksource(void)
-+{
-+	/* The cr16 interval timers are not synchronized across CPUs. */
-+	if (num_online_cpus() > 1 && !running_on_qemu) {
-+		clocksource_cr16.name = "cr16_unstable";
-+		clocksource_cr16.flags = CLOCK_SOURCE_UNSTABLE;
-+		clocksource_cr16.rating = 0;
-+	}
-+
-+	clocksource_register_hz(&clocksource_cr16, cr16_clock_freq);
-+
-+	return 0;
-+}
-+device_initcall(init_cr16_clocksource);
+--
 
----
-base-commit: 9437ee8b6cf607e883b36e44bd755968daaebd48
-change-id: 20261126-parisc-cr16-smp-c6327c4c178e
+net: ethtool: do not call get_regs() for zero-length dumps
 
-Best regards,
---  
-Matt Turner <mattst88@gmail.com>
+This patch adds an early return to ethtool_get_regs() when the
+user-supplied regs.len is zero, so the driver's get_regs() is no longer
+called for a zero-length dump. The goal is to stop drivers such as mcs7830
+from issuing zero-length USB control transfers on the receive pipe. Those
+transfers trip a WARN in usb_submit_urb().
 
+> diff --git a/net/ethtool/ioctl.c b/net/ethtool/ioctl.c
+> index 80b7930b3fe0d..e8af861ee5de3 100644
+> --- a/net/ethtool/ioctl.c
+> +++ b/net/ethtool/ioctl.c
+> @@ -1779,6 +1779,10 @@ static int ethtool_get_regs(struct net_device *dev, char __user *useraddr)
+>  	if (copy_from_user(&regs, useraddr, sizeof(regs)))
+>  		return -EFAULT;
+>  
+> +	/* A zero-length dump has nothing to fill in. */
+> +	if (!regs.len)
+> +		return 0;
+> +
+>  	reglen = ops->get_regs_len(dev);
+>  	if (reglen <= 0)
+>  		return reglen;
+
+[Severity: Medium]
+Can this early return hide errors from get_regs_len()?
+
+The new check runs before ops->get_regs_len(). So when regs.len is 0, a
+negative return such as -EOPNOTSUPP is never passed back. The ioctl
+reports success and copies nothing back.
+
+A GREGS request with len == 0 is what a normal ethtool -d sends when
+get_regs_len() fails. That happens because ethtool_get_drvinfo() only sets
+regdump_len for positive values:
+
+net/ethtool/ioctl.c:ethtool_get_drvinfo() {
+    ...
+	if (ops->get_regs_len) {
+		int ret = ops->get_regs_len(dev);
+
+		if (ret > 0)
+			rsp->info.regdump_len = ret;
+	}
+    ...
+}
+
+Userspace then sees regdump_len == 0 and sends ETHTOOL_GREGS with
+regs.len == 0.
+
+There are two in-tree examples. DSA user ports always install
+dsa_user_get_regs(), so the !ops->get_regs check does not catch them, but:
+
+net/dsa/user.c:dsa_user_get_regs_len() {
+    ...
+	if (ds->ops->get_regs_len)
+		return ds->ops->get_regs_len(ds, dp->index);
+
+	return -EOPNOTSUPP;
+}
+
+And hns3:
+
+drivers/net/ethernet/hisilicon/hns3/hns3_ethtool.c:hns3_get_regs_len() {
+    ...
+	if (!h->ae_algo->ops->get_regs_len)
+		return -EOPNOTSUPP;
+
+	return h->ae_algo->ops->get_regs_len(h);
+}
+
+Before this patch, ethtool -d on these devices printed an error such as
+"Cannot get register dump: Operation not supported". With this patch,
+ethtool -d appears to succeed with an empty dump.
+
+In the standard ethtool flow, this seems to undo the error reporting that
+commit f9fc54d313fa ("ethtool: check the return value of get_regs_len")
+added for hns3. The commit message does not mention this.
+
+Would moving the zero-length check after the "if (reglen <= 0) return
+reglen;" check keep the error codes? It would still avoid calling
+get_regs() with len == 0.
+
+[Severity: Low]
+For drivers whose get_regs_len() returns a positive value, does this
+change what a len == 0 query returns in regs.version?
+
+Before this patch, such a request skipped the clamp and set reglen to 0.
+It then called ops->get_regs() and copied the ethtool_regs header back.
+For example, mcs7830 fills in the version:
+
+drivers/net/usb/mcs7830.c:mcs7830_get_regs() {
+    ...
+	regs->version = mcs7830_get_rev(dev);
+	mcs7830_get_reg(dev, 0, regs->len, data);
+}
+
+Now the ioctl returns success without calling get_regs() and without
+copying the header back. regs.version keeps whatever userspace passed in.
+
+The uAPI kernel-doc for struct ethtool_regs in
+include/uapi/linux/ethtool.h still describes @version as driver-specific
+output.
+
+Stock ethtool sends len = regdump_len, so it is not affected. This only
+affects callers that send len == 0 to read the version alone.
+
+The commit message says:
+
+    A zero-length dump cannot return any data, so there is nothing for the
+    driver to do.
+
+and:
+
+    Zero-length register dumps used to be issued so that drivers which only
+    report a revision ID could fill regs->version.  Those drivers return
+    zero from get_regs_len(), and the core has returned early for them
+    since commit f9fc54d313fa ("ethtool: check the return value of
+    get_regs_len").
+
+That covers the case where get_regs_len() returns 0. It does not cover
+the reglen > 0 case that this patch changes.
+
+Should the commit message or the uAPI documentation describe this change?
+Alternatively, should a len == 0 request fail instead of reporting success
+with the header left unfilled?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261126015239.6038-1-25031212351%40stu.xidian.edu.cn
