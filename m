@@ -1,62 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795804617;
-	b=BpXMOFrWvPVJQldn8DpN7b0Z5QQwk/3m1XufTg17QWGK5i/JEmmJx7PGcXJKsVtbVLbG
-	 UK5+kprtq1cTesQMuOmJmAfVsj7se5Ca62zLPfgXRNA8J8tmtvkpBkHHNWLNIYFsVi8/P
-	 jXqrEpsaV7QQit5Snerqr0iBWEU+/SUGinyYFN3G0GfaHmJ25Emen6Y9VDge1njFd2qNt
-	 8pBe1hRjh7Y14lpTZ0pquHCzjBgc6Hd+VUnCgcolqpMV8D2Dxfihd7BsO04vh2sIZCC2t
-	 8KI9zS1k/lDhkbbmk+eCW9zWsYRb8ImVUvkfMlOcKt4T/C927ZhY6bgr8SAWr2/s8gQ==
+	t=1795804623;
+	b=mg6I2r9ci9E2zJ6eBRFnv7cLkBKmdDZZePdP9zRx4zZ8JZdtwKYEVFvjed68fhtAOMGl
+	 eVDZjTUQ5KCFvBc3tjqZH585BOVHdXWjFM27zhBZEPhrZ6NaWkKufHhqMoian5chLFUaK
+	 tvh9VwT1fe8oDiGEpO+89GE9heT2sXi47TokZ49a8fmf2DC5H+6kQOtWQF5Z62SYyOWYS
+	 wwv38/W8CscXyQ9qOrcQx8pgDvYE4fnHQXsF+xIuUpV4V+u34oNo1GCsWpLjReLu2douD
+	 sSR3IFv7ybUcRUwnjqIH8tgwiRo9vEAzK6gC3uVgzFEzl2lXo7btqEIemYA9cTaSdBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795804617;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795804623;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9+/JLOm6t3ePC4KR4UQzDZNsuXPLcaUwcUQv+WyJLd4=;
-	b=2VH2P1xCuuMaMBzIg35yiGNPS1hwS/gQNKSYM4+9W15GJXFI5jfGhMK9M+NFdiP19wFs
-	 YYR2d4YyidW9K2NMA34L6zCvyC6WBC1nCGhYPjvYGeAXwDw9OD0BGIXsHTr6sDOakFHwR
-	 /mTHzsD9fyvU4sfvw2gGUDQnk966Z3lZyE6YxQY9CoelZc860i0dik35c/NeSsPNV7rbJ
-	 xTosBGCMq70yuuBtPzTi8462DimcvJNj022VLJi5IPxfSlT2nJs/uAh5GMHUoY/thSdJU
-	 sTyJVeLuIPAJkz3J+hsINPspJg6m7KGyqswTztLcz75TUqsrQpyohnUDo3LiPJ/J6Cg==
+	bh=7wNO/2SAjk2HWGew8OVcyB8LY1h3AHDSFTLuG0VTk3Q=;
+	b=dJvXAB+O9EQkYzPdQaxmKOs5zTt3vKV6poFydua8S90wQnC57azRFxulgVi43s+8hh1/
+	 3dwShiLXTupeUhcwX0XDU8Ov4tas2DzdECuv9K98/nqUPC2zib9/4Y5/m2NH/zNPFPLz7
+	 T8P9Lm0Y/2U0e7zOCt9AGoXBbgDdJyzCSUeieWoATOaeNVr2OENk46pAG6B7EwLyRblsE
+	 x1u14mGgokDOVvqcGDOevQjut3pemzDlWaLggn7ASuO3WgfZn2L0gKQGxkdRdtyAERRCR
+	 M/s3wSAbKvJHt3Ax7Su9BrolaQnT/SKJyOxaqAVLolnfikAU6dmcZ7bsLSPSm8DtFPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dzGa5oCG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WnID26PE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DC4B606A33C;
-	Fri, 27 Nov 2026 18:36:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23E9606A32E;
+	Fri, 27 Nov 2026 18:37:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dzGa5oCG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F18E31F000C1;
-	Fri, 27 Nov 2026 18:36:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WnID26PE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5771F0089A;
+	Fri, 27 Nov 2026 18:37:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795804617;
-	bh=9+/JLOm6t3ePC4KR4UQzDZNsuXPLcaUwcUQv+WyJLd4=;
+	s=k20260515; t=1795804623;
+	bh=7wNO/2SAjk2HWGew8OVcyB8LY1h3AHDSFTLuG0VTk3Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dzGa5oCGLgeAx5PjXJ79y03M5s26YauS+eKULGRUVtiFkT3Qg3nUl6N1XB4TqHePV
-	 wq5HAzS8xxGsuJtVbhpsA3kCH5KNYve1jw3bxDSA5Fnucna90A+6gGs4HqAdkvsJJx
-	 0EgcA681VBCMrj1pmw70t4z6lE9AeVGcs/cDj7KkqdBB51QCa0viuQeQ7GzLWcV4+g
-	 IhRx1zAYNmAHVNw/iRxqWiJk96A3ryCv6o8gG7ykr7DkyXpse3RYFrq51e3NRQPkr7
-	 KA5CQlLjAPGQ2/3PAtqvitD34KR8KNbdSZsni+w5INLYDNHSi5RdNCOJ6R5IPtTif4
-	 DZxPEc5Dpjd5g==
+	b=WnID26PE3CPZbfOBOkKR6pAAqV2OIkdg9Aw8BeAmMP/2l0FFYdJ2r2zgDTTeKvn6i
+	 X+USlQBmjCIIj9t7lzGvNdaDfZRLJJN4QPQ88JU31/Ops6MGKWzTWYqkaZ6L1m91jR
+	 C8h1iIZwiCei4x6QABgEi18GyMuMlTDCBeMx4U81W8gDphtoA2i5gVXxAgA8YInM4J
+	 H2ax74k+iB1PGjo3ET9TuWjpzZYF1yAhl6qGOrnRBjqPKeBUjcF6jLCCbXmn83jYp1
+	 8dg+INg7ZaaZw0LGB6icVVvWAcmMHIDb6mPARx82kz5ZxK8yFqyIlQS0P503nkUxJ5
+	 mbo1O7eq6F3DQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
-	Graeme Gregory <gg@slimlogic.co.uk>,
-	Eduardo Candelaria <jedu@slimlogic.co.uk>,
-	Markus Schneider-Pargmann <msp@baylibre.com>,
-	linux-omap@vger.kernel.org,
+	Uday Khare <udaykhare77@gmail.com>,
+	Jerome Neanne <jneanne@baylibre.com>,
+	Mal Nadar <m.nirmaladevi@ltts.com>,
+	Esteban Blanc <eblanc@baylibre.com>,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 4/8] regulator: tps65910: Fix OOB read and bit shift in external sleep config
-Date: Fri, 27 Nov 2026 18:35:44 +0000
-Message-ID: <20261127183624.3341010-5-lee@kernel.org>
+Subject: [PATCH 5/8] regulator: tps6594-regulator: Bind IRQ resources to child platform device
+Date: Fri, 27 Nov 2026 18:35:45 +0000
+Message-ID: <20261127183624.3341010-6-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127183624.3341010-1-lee@kernel.org>
 References: <20261127183624.3341010-1-lee@kernel.org>
@@ -71,95 +66,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tps65910_regs contains 14 regulators including VBB at index 13, whereas
-tps65910_ext_sleep_control has only 13 elements.  Both tps65910_probe()
-and tps65910_shutdown() iterate up to pmic->num_regulators and index
-pmic->ext_sleep_control[id] out of bounds for VBB.
+tps6594_regulator_probe() and tps6594_request_reg_irqs() allocate IRQ
+data and request threaded IRQs using devres attached to the parent MFD
+device tps->dev, while registering the regulators with &pdev->dev.  If
+probe fails partway through or the regulator platform device is unbound,
+the regulators are unregistered and freed while the threaded IRQs remain
+active with dangling rdev pointers and block subsequent probes.
 
-In addition, unsupported rails such as VRTC use 0, which collides with
-VMMC and LDO6 (offset 0, bit 0), and computing
-(1 << pmic->ext_sleep_control[id] & 0xFF) shifts by more than 31 bits
-whenever regs_offs is non-zero because << binds tighter than &.
+Attach the devm_kmalloc_objs() allocations and devm_request_threaded_irq()
+handlers to &pdev->dev so LIFO devres teardown frees the IRQs before
+unregistering the regulators and freeing the IRQ data.
 
-Introduce EXT_CONTROL_REG_NONE as a distinct sentinel for rails without
-external sleep control (VRTC and VBB), add BUILD_BUG_ON() array-size
-checks, return early in tps65910_set_ext_sleep_config() for unsupported
-rails, and use BIT(pmic->ext_sleep_control[id] & 0xFF) for bit_pos.
-
-Fixes: 03746dcbde75 ("regulator: tps65910: Add backup battery regulator")
-Closes: https://sashiko.dev/#/bug/linux-ed3bcc60-149e-497b-93aa-50138953c49a
+Fixes: f17ccc5deb4d ("regulator: tps6594-regulator: Add driver for TI TPS6594 regulators")
+Closes: https://sashiko.dev/#/bug/linux-5557312d-1058-44ee-a8e4-cb48dab3566f
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/regulator/tps65910-regulator.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ drivers/regulator/tps6594-regulator.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/regulator/tps65910-regulator.c b/drivers/regulator/tps65910-regulator.c
-index b99923773701..d42ffc237bf4 100644
---- a/drivers/regulator/tps65910-regulator.c
-+++ b/drivers/regulator/tps65910-regulator.c
-@@ -271,9 +271,10 @@ static struct tps_info tps65911_regs[] = {
- 	},
- };
+diff --git a/drivers/regulator/tps6594-regulator.c b/drivers/regulator/tps6594-regulator.c
+index 66052753610f..dab4bd6b0282 100644
+--- a/drivers/regulator/tps6594-regulator.c
++++ b/drivers/regulator/tps6594-regulator.c
+@@ -549,7 +549,7 @@ static int tps6594_request_reg_irqs(struct platform_device *pdev,
+ 		irq_data[*irq_idx].type = irq_type;
+ 		irq_data[*irq_idx].rdev = rdev;
  
-+#define EXT_CONTROL_REG_NONE			(~0U)
- #define EXT_CONTROL_REG_BITS(id, regs_offs, bits) (((regs_offs) << 8) | (bits))
- static unsigned int tps65910_ext_sleep_control[] = {
--	0,
-+	EXT_CONTROL_REG_NONE,
- 	EXT_CONTROL_REG_BITS(VIO,    1, 0),
- 	EXT_CONTROL_REG_BITS(VDD1,   1, 1),
- 	EXT_CONTROL_REG_BITS(VDD2,   1, 2),
-@@ -286,10 +287,11 @@ static unsigned int tps65910_ext_sleep_control[] = {
- 	EXT_CONTROL_REG_BITS(VAUX2,  0, 4),
- 	EXT_CONTROL_REG_BITS(VAUX33, 0, 5),
- 	EXT_CONTROL_REG_BITS(VMMC,   0, 0),
-+	EXT_CONTROL_REG_NONE,
- };
+-		error = devm_request_threaded_irq(tps->dev, irq, NULL,
++		error = devm_request_threaded_irq(&pdev->dev, irq, NULL,
+ 						  tps6594_regulator_irq_handler, IRQF_ONESHOT,
+ 						  irq_type->irq_name, &irq_data[*irq_idx]);
+ 		if (error) {
+@@ -738,7 +738,7 @@ static int tps6594_regulator_probe(struct platform_device *pdev)
  
- static unsigned int tps65911_ext_sleep_control[] = {
--	0,
-+	EXT_CONTROL_REG_NONE,
- 	EXT_CONTROL_REG_BITS(VIO,     1, 0),
- 	EXT_CONTROL_REG_BITS(VDD1,    1, 1),
- 	EXT_CONTROL_REG_BITS(VDD2,    1, 2),
-@@ -822,10 +824,16 @@ static int tps65910_set_ext_sleep_config(struct tps65910_reg *pmic,
- 		int id, int ext_sleep_config)
- {
- 	struct tps65910 *mfd = pmic->mfd;
--	u8 regoffs = (pmic->ext_sleep_control[id] >> 8) & 0xFF;
--	u8 bit_pos = (1 << pmic->ext_sleep_control[id] & 0xFF);
-+	u8 regoffs;
-+	u8 bit_pos;
- 	int ret;
+ 	reg_irq_nb = desc->num_irq_types * (desc->num_buck_regs + desc->num_ldo_regs);
  
-+	if (pmic->ext_sleep_control[id] == EXT_CONTROL_REG_NONE)
-+		return 0;
-+
-+	regoffs = (pmic->ext_sleep_control[id] >> 8) & 0xFF;
-+	bit_pos = BIT(pmic->ext_sleep_control[id] & 0xFF);
-+
- 	/*
- 	 * Regulator can not be control from multiple external input EN1, EN2
- 	 * and EN3 together.
-@@ -1104,6 +1112,8 @@ static int tps65910_probe(struct platform_device *pdev)
- 	switch (tps65910_chip_id(tps65910)) {
- 	case TPS65910:
- 		BUILD_BUG_ON(TPS65910_NUM_REGS < ARRAY_SIZE(tps65910_regs));
-+		BUILD_BUG_ON(ARRAY_SIZE(tps65910_regs) !=
-+			     ARRAY_SIZE(tps65910_ext_sleep_control));
- 		pmic->get_ctrl_reg = &tps65910_get_ctrl_register;
- 		pmic->num_regulators = ARRAY_SIZE(tps65910_regs);
- 		pmic->ext_sleep_control = tps65910_ext_sleep_control;
-@@ -1117,6 +1127,8 @@ static int tps65910_probe(struct platform_device *pdev)
- 		break;
- 	case TPS65911:
- 		BUILD_BUG_ON(TPS65910_NUM_REGS < ARRAY_SIZE(tps65911_regs));
-+		BUILD_BUG_ON(ARRAY_SIZE(tps65911_regs) !=
-+			     ARRAY_SIZE(tps65911_ext_sleep_control));
- 		pmic->get_ctrl_reg = &tps65911_get_ctrl_register;
- 		pmic->num_regulators = ARRAY_SIZE(tps65911_regs);
- 		pmic->ext_sleep_control = tps65911_ext_sleep_control;
+-	irq_data = devm_kmalloc_objs(tps->dev,
++	irq_data = devm_kmalloc_objs(&pdev->dev,
+ 				     struct tps6594_regulator_irq_data,
+ 				     reg_irq_nb);
+ 	if (!irq_data)
+@@ -828,7 +828,7 @@ static int tps6594_regulator_probe(struct platform_device *pdev)
+ 			return error;
+ 	}
+ 
+-	irq_ext_reg_data = devm_kmalloc_objs(tps->dev,
++	irq_ext_reg_data = devm_kmalloc_objs(&pdev->dev,
+ 					     struct tps6594_ext_regulator_irq_data,
+ 					     desc->num_ext_irqs);
+ 	if (!irq_ext_reg_data)
+@@ -843,7 +843,7 @@ static int tps6594_regulator_probe(struct platform_device *pdev)
+ 		irq_ext_reg_data[i].dev = tps->dev;
+ 		irq_ext_reg_data[i].type = irq_type;
+ 
+-		error = devm_request_threaded_irq(tps->dev, irq, NULL,
++		error = devm_request_threaded_irq(&pdev->dev, irq, NULL,
+ 						  tps6594_ext_regulator_irq_handler,
+ 						  IRQF_ONESHOT,
+ 						  irq_type->irq_name,
 -- 
 2.56.1.839.g22a8290db9-goog
 
