@@ -1,61 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795772734;
-	b=lYC2ZsxabBap6z7AW3CyYr8mZZ/oX6BIGZ2usps/ye92dB8ZPN+oA0hH+eIvyna0uKoO
-	 skkNCnd9pK6CYDxmcFtSWWDdVXm7UUOMB17BwOS9BKD/ONMPRPdWGb6PGWN5DrX4Zv9zy
-	 /d/ZYMUPY189m7/LSJ2MzlSqwB64rRoijOAI+ir7FJq4c9vmU37C2MjQOpw6J6nJwaBOW
-	 Y+QPrstHIsMTxN+afWPTXuA7topKQsFoq+OwatByjbExKB3so5LKjDLLxxjhl2aczti3O
-	 G8zMVRLr5riSa4REGg7tRuQgiDoKP7zccqZ74uIDlNNRjtQCqe7RNEyfCp1B0T1CmMA==
+	t=1795772901;
+	b=E+4dym49HziLTO9XUEW+tTvApRmy5DdfVxYHEu5JlF4gX8hhoSj5y5LY+UchqJZxJQKi
+	 z1fht7Jszlj9bo9zSvfHkpbjRuBKwjAOlewnsV8wF19y6wF5n/g1mhO0kgHlmKfnnvC+S
+	 AeGEx33JrVgJ4pBCSMBIs5EM83ZsBDt52awCrNK6GJfMfJwumH3jtb+FTUn8AcF1XPEHL
+	 PFAKJ6IuTDTE+u1HgsYx2C/VhgKXZ4+oJE2+TYLMNUV+8dydMco/WqpXOXfUSd1l6lHlv
+	 chqSh9kPQtb+iyq84fnMJ8jQsS9QTUEKma46X/sZ2Jju/8blcZjys5qfwGbVzznyd3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795772734;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=RczoZg2Epk8iTLi3BcJGcft1wIDv/G28fsZ43jaIlC8=;
-	b=WeX8FxXPFiY6wn5LGs4dywZT4/ZhdEzJNB4nv1FiluZbsjEfRMuSSA+azFOiJeywxxNu
-	 ZREY1vRdXGiuiNkbQO82zCVJnWdynHVTtkfNP59gbYkANQoo1s7oyB98GBXuggv3PooJ1
-	 vExVMBuCqPGZQ/VzD3247zK467YfJy2JDR/53rzH9egm/EeyDH/SvWtrUy7i3fsonjfE/
-	 Dq/VdHqC+d7px44AOfrV5szhnpEAr/18ilbRqHjTgUq7NkrwQVmwdoIEFW5PCm9yZoPxn
-	 O7dSjNNSsV3qtXngHvde5NAdTi3sdZViIOplLkIdm0gi/cl5oCCznrStyhUuRRapo1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795772901;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ab35YM3lnptTqwtYOc9MLi1LtF4BDA/SuR6VP3OwrRw=;
+	b=c1Jy42IBtix6X09Tu2yERQY7pVToj07iFey1eI3ypKiVxGUPYDaL959XAWw4jvYcs5vT
+	 GfdZETNnIyq0NuBMYVFWNJ1V1uxfiIzdD21L2T5GQWXUVAM799FLH6EMcmE9roO3I0oPP
+	 GxmDAZGQK1o+rEaWVbbPLCyOYXoGy1iG1vFvROTq7q+Tyr1fvRLslvVV7jc0owhqoVcNU
+	 XzGEP4NXqbwI768Ozjc+FXB+p5HIWhcu8VrJGWUNFvRMLqitHmus8SR5pG+JFcH7ljb2j
+	 KoWF41AkWwmIh5Vrx9WQovLGWv6x7zskRiP9MKa+PNXMW5arnU/P37dB1Wx2Etkyj1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g+Jybfkf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fZjyaOow;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=C5oSXALr;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E5B606A31E;
-	Fri, 27 Nov 2026 09:45:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8340606A32A
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 09:48:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8340606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g+Jybfkf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45A231F000C1;
-	Fri, 27 Nov 2026 09:45:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795772734;
-	bh=RczoZg2Epk8iTLi3BcJGcft1wIDv/G28fsZ43jaIlC8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=g+Jybfkf+uM2Z4Bz7gFkrAEcGEmsYF6TNblOKK2JEe0WjTZxM52r/8xMXxHMyrl13
-	 WbvM4gLObGcyluRttsE8TrMm1k0fOFCvc6SwUmmNL91SIx2Tjd9JiBkRj3zOyQxztH
-	 XHSbf08rhGb4NJFAjZKXKjy8lle7uzN3/JYV6DWv2arg+rdYHeASta7eOofoXNOsUX
-	 y1FJxtxQSxf7aaVLX0lYo+KIRP7GQYDOGMH0vbMC7GU88U5Ua8P49syEi7XLrTjHGb
-	 yZs4k9bDrqSm8vi1Z4ehGHm7xScKJv/4Kyiyl+6tC3sZJwzbMG//kbYhwbLiKOMGYd
-	 9BZ7xA21VRt8w==
-Date: Fri, 27 Nov 2026 10:45:28 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: linux-perf-users@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
-	Jann Horn <jannh@google.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	adrian.hunter@intel.com, alexander.shishkin@linux.intel.com, dapeng1.mi@linux.intel.com
-Subject: Re: [PATCH 1/2] perf: look up address filter files without
- ctx->mutex held
-Message-ID: <20261127-tonlage-pilze-demolieren-5948f82f401c@brauner>
-References: <20261126-work-exec-update_lock-leftovers-v1-0-1024b26792bc@kernel.org>
- <20261126-work-exec-update_lock-leftovers-v1-1-1024b26792bc@kernel.org>
- <20261126152414.GH49833@noisy.programming.kicks-ass.net>
- <20261126-gedruckt-gastarbeiter-vorsorgen-5fea7cea1877@brauner>
- <20261126-erlogen-bedrucken-dementieren-5de5e5460481@brauner>
- <20261127081303.GN49833@noisy.programming.kicks-ass.net>
- <20261127091852.GD83911@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fZjyaOow;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=C5oSXALr
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AR7GlO23759296
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 09:48:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ab35YM3lnptTqwtYOc9MLi1LtF4BDA/SuR6VP3OwrRw=; b=fZjyaOowGea9OJ+y
+	GAEOqSDBMxGhKNfGZx7uZPHCGvgTGF7cYDktJ+48vi0QJ7n71fVLFWEaKm9b+J36
+	eT8sSyaaZRkpnhur2FlvWo8rHMP7Eox8SSN3kHpbE9FxDWHIcCoeiLe9jV5HiEme
+	3lywV8yDlxISOy4jsX/okmkRd79yf67B7IYkYTeeJBB0wInDq/jl9kw3yppHYZgu
+	7uxSXwLFc+rfsFryUSRXbQV0ITAgQLapuEO3ftV2qg05zibPwYGSBacn9q4x87UV
+	OXMzaeEAz/vZ6cF0QsbYIhFUh2BVyh8Qx3zbTtVI7shX8BkTH4/blmAOlp/Gkkhg
+	U5LfyA==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j74g6rsjn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 09:48:19 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2f040c6e0ceso73764165ad.1
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 01:48:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795772899; x=1796377699; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ab35YM3lnptTqwtYOc9MLi1LtF4BDA/SuR6VP3OwrRw=;
+        b=C5oSXALre9byhG3JOjtRwFsImfkdKz+YfBXja4OhHljw9Sy/3w1onxdywOe/IRCqvW
+         pCBCwuBb8GW0mBXYjj4S3mwOTfrll0/BScDexAXBHR1vETIpsZXAZXkpuqDmQo67Jmq6
+         kQZFxZoKeeYe/2CossTflYtiQ3u/rDYjgr6Y7SeYckUd1fqu/dSdbSyldFQBLK6CFddi
+         +mmEGt3VRzurMegvOrqsnwqiAzLQ0rPGdFCUwQfS99bFn/O9AkvdkcRz73G96gxQ5bmd
+         oYSqxK8LgYANIBHkkUxqqs+8yv7vgLhMy9+7H8vAP6Y7vv1/mv5odsRN+Ktu9+SuSryr
+         1Epw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795772899; x=1796377699;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ab35YM3lnptTqwtYOc9MLi1LtF4BDA/SuR6VP3OwrRw=;
+        b=yYv1xKhGNjw0jZDlrZnfakmGJS1zx2sB08q+uFCuDbTRfYKgBDZG2R0aj2LVRKu9n5
+         6+q4R9R9CEah9nAacqjJIoA7qzcnn9OuoUrorMrO20blQ0mM/Ms3TharwN98dNE7CWYB
+         tJUKRWENrGmEFnG1ULgz2AoNPY4aKIJlLCUevH6k/2wNObSM2pXAHxw+HfOtfE4JO5zt
+         ecwOb/Aq98JsscPLdJl+JNQ+Ie+ity/2PP04oPy4lN5l38MxiTyJ5t17xsj0PsjGbn9J
+         IwyngGQFvl+h3vjWUgNTy6L7D0jPSz/woEDPu6rsyM03JvZ/nE4fx1e22iYt9D+uB60O
+         k6WA==
+X-Forwarded-Encrypted: i=1; AL+hErF1PR1mM38J2I7ami00XXQJUG1fiaJosI2iJBhAoLHtklgINj4fs8A0ammxJotK+L3AqZvSO+4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z90J/72DQz827hOipiQfHp1cIq5tQT0qA6KAxbQHkDkh1mq5aJj
+	Ngt6QUBf5MZspmKsVdPFgQ0rrs9WwtlatJv/e1i/ljcAhcqzua/3sJGqgkvnqTlzR4+5IOUZsWH
+	Ka4RBFyGF6MvfLDYBPUGa737jJEg8FOI3mHkIH1TPFfAd/uxVp0H7FKPNfPg=
+X-Gm-Gg: AZFdTZfYGKNNGCJo9rM+3eis5MFErKmTC6IgVGS4xaM96t2FXLpzudTZvoTxVKoKpwy
+	farsfctuCSB7/myK3vcJPd19/dT6v7HvkepP5zQllYf8LF5EvM2t4AW+eW72D2qs2semCud8tCy
+	gM/K3pSvvwkUCL+LqwUYmpg74btKEH0G49wyzQ0hN5FT9isDx6sqrVjSZj3Pfgu1r7YZpcFTPld
+	rwLpWTU/P+ia2o3Jc14cRxa+VtMjmBKtU2GcYFp9A0TP4WcKlWHWuVDxj+v10a4XT8Mtz6X3ha5
+	7LmbbOQWW5cBjkJQ0/3S9tgL1b7P3dqjv3IIRF3nZdBHuxy0VIVG9Z5L+aD6guxddUvfSd6yrhV
+	NireYEw+H1Q01XT3MwHgCVxhVeFaM8tWv+AUdwSUDZhWFa0ZHtlB54rALw5/a05VQFYW7HIu0+R
+	2gcFnCPruNwvQWaBbns62tF5XbWSFjWy8Xk8D9Bw3Kq5uInUOc4Uj6ip/MWYKu0JIOaOQDhsleI
+	DI6
+X-Received: by 2002:a17:903:94b:b0:2f0:3618:f170 with SMTP id d9443c01a7336-2f03f1acb10mr233462855ad.66.1795772898761;
+        Fri, 27 Nov 2026 01:48:18 -0800 (PST)
+X-Received: by 2002:a17:903:94b:b0:2f0:3618:f170 with SMTP id d9443c01a7336-2f03f1acb10mr233462675ad.66.1795772898346;
+        Fri, 27 Nov 2026 01:48:18 -0800 (PST)
+Received: from [10.149.108.218] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f0dbe86sm117153235ad.32.2026.11.27.01.48.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 27 Nov 2026 01:48:18 -0800 (PST)
+Message-ID: <7a77f62b-7ea3-43e3-963b-e01b86e14e62@oss.qualcomm.com>
+Date: Fri, 27 Nov 2026 15:18:13 +0530
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,293 +117,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261127091852.GD83911@noisy.programming.kicks-ass.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] remoteproc: qcom: Fix bounds check in adsp_da_to_va()
+To: Atul Akella <atul.akella@gmail.com>, andersson@kernel.org,
+        mathieu.poirier@linaro.org, sibi.sankar@oss.qualcomm.com,
+        quic_srichara@quicinc.com
+Cc: linux-remoteproc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261106184312.100-1-atul.akella@gmail.com>
+ <20261106184312.100-2-atul.akella@gmail.com>
+Content-Language: en-US
+From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+In-Reply-To: <20261106184312.100-2-atul.akella@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: WFc2AXkhw8ztOuiYALea_KSV97EN63vY
+X-Authority-Analysis: v=2.4 cv=U5kHnuru c=1 sm=1 tr=0 ts=6b0951e3 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=E4ycadI1TCjYcBWHacUA:9
+ a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDAzOCBTYWx0ZWRfX0mxJR+fep3xy
+ Me1De2czxFLa/a81kPUjgMIH71SKb0fD6yVeSXNH4qV2E8XtifV7lJYsozF7eFxCtmgGMUnsBqC
+ QAmpCNd0ggWfWlbvtDnmW/ZBNB1jRk4=
+X-Proofpoint-GUID: WFc2AXkhw8ztOuiYALea_KSV97EN63vY
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDAzOCBTYWx0ZWRfX3d1CfbRFohvE
+ pUZZUX8xaQAigM25CrNVEvN6lI1fjwM9OdNSXsIJlapRICEwvdBfqU+/5ZM19EQvY+B4LrCR/iZ
+ QnygN3qURCfdYzprqE+zOBaZ1K1K39GJF9rWJK8Fxd3aF4UTwl1NrOY3ccSZ8aeTGHajpqRWAiQ
+ 1wRSnUZlCpBDAry0Zeuw++ehNLre/i/d1KI7GhTtu2oBZtHaHIzc6ty85J0K0OeY15C8PBOGllb
+ j4mkRPmdZu0q8ZNJJH1o5AyrrFcEk75j9fqBZ2QjC3uGGbgmfpMIl0QcWSQFT7cQTSFB38J7I1J
+ AuD6RSJCS9/dgec/Dy6qWB1YfAIf3PnVVVBB/IlxtfRhHNZPBWU7YDiZyp1Jha+UUCU6WMwyFb3
+ PdWbrCntqjBhGBHD27HsZRnJ9dBOhsa6/BWwhqeTHX3oakeLxDk9o/Yu4uOOFMGGnQIqS9it213
+ U+yyezZRvAnGnJ+KKOQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-27_01,2026-11-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0 impostorscore=0
+ adultscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 clxscore=1011
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270038
 
-On Fri, Nov 27, 2026 at 10:18:52AM +0100, Peter Zijlstra wrote:
-> On Fri, Nov 27, 2026 at 09:13:03AM +0100, Peter Zijlstra wrote:
-> > On Thu, Nov 26, 2026 at 10:26:02PM +0100, Christian Brauner wrote:
-> > > So ok, if we can't drop ctx->mutex in the middle of the ioctl then how
-> > > about we don't hold ctx->mutex during parsing to begin with?
-> > > We let perf_ioctl() hand PERF_EVENT_IOC_SET_FILTER off before it takes
-> > > the mutex:
-> > > 
-> > > ioctl(PERF_EVENT_IOC_SET_FILTER)
-> > > -> perf_ioctl()
-> > >    -> perf_event_set_filter()                // no ctx->mutex
-> > >       -> perf_event_set_addr_filter()
-> > >          -> perf_event_parse_addr_filter()   // kern_path(), own list
-> > >          -> perf_event_ctx_lock()
-> > >             // revoked? has_addr_filter()? ->addr_filters_validate()
-> > >             -> perf_addr_filters_splice()
-> > >             -> perf_event_addr_filters_apply() on each child
-> > >          -> perf_event_ctx_unlock()
-> > > 
-> > > The parser fills its own list and counts the file filters in locals.
-> > > Everything that needs ctx->mutex then happens in one go under
-> > > perf_event_ctx_lock().
-> > > 
-> > > So ctx->mutex is never dropped in the middle of an ioctl, a migrated
-> > > event is handled by perf_event_ctx_lock() like everywhere else and no
-> > > ctx is carried across the lookup?
-> > 
-> > Let me try this.
+
+
+On 11/7/2026 12:13 AM, Atul Akella wrote:
+> offset is calculated as da - adsp->mem_reloc and stored in a
+> 32 bit signed int, while da and adsp->mem_reloc are both u64.
+> For a sufficiently small da, the 64bit difference is truncated
+> into the 32 bit int, bypassing the offset < 0 underflow check
+> with a small positive value. Additionally, offset + len >
+> adsp->mem_size can itself overflow when offset and len are both
+> large, providing a second bypass.
 > 
-> Compile tested only; Alexander, Adrian; could any of you take a hard
-> look at this and actually test?
+> da and len come from firmware's ELF program headers via
+> rproc_da_to_va(), and the result is used by the ELF loader
+> to write firmware segments, so a malformed firmware image can
+> cause writes outside the carveout.
 > 
+> Rewrite the bounds check entirely in u64 arithmetic. Reject
+> underflow before computing offset (da < adsp->mem_reloc).
+> Replace the addition based overflow check with a
+> subtraction based one (len > adsp->mem_size - offset) so no
+> intermediate sum can wrap.
+> 
+> Fixes: dc160e449122 ("remoteproc: qcom: Introduce Non-PAS ADSP PIL driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Atul Akella <atul.akella@gmail.com>
 > ---
->  kernel/events/core.c | 135 +++++++++++++++++++++++++--------------------------
->  1 file changed, 67 insertions(+), 68 deletions(-)
-> 
-> diff --git a/kernel/events/core.c b/kernel/events/core.c
-> index 77c501005143..c019e4faf655 100644
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ -6632,16 +6632,24 @@ static inline bool is_perf_file(struct fd f)
->  
->  static int perf_event_set_output(struct perf_event *event,
->  				 struct perf_event *output_event);
-> -static int perf_event_set_filter(struct perf_event *event, void __user *arg);
-> +static int perf_event_set_filter(struct perf_event *event, struct list_head *filters);
->  static int perf_copy_attr(struct perf_event_attr __user *uattr,
->  			  struct perf_event_attr *attr);
->  static int __perf_event_set_bpf_prog(struct perf_event *event,
->  				     struct bpf_prog *prog,
->  				     u64 bpf_cookie);
->  
-> -static long _perf_ioctl(struct perf_event *event, unsigned int cmd, unsigned long arg)
-> +struct perf_ioctl_ctx {
-> +	unsigned int cmd;
-> +	unsigned long arg;
-> +	struct list_head filters;
-> +};
-> +
-> +static long _perf_ioctl(struct perf_event *event, struct perf_ioctl_ctx *ctx)
->  {
->  	void (*func)(struct perf_event *);
-> +	unsigned long arg = ctx->arg;
-> +	unsigned int cmd = ctx->cmd;
->  	u32 flags = arg;
->  
->  	if (event->state <= PERF_EVENT_STATE_REVOKED)
-> @@ -6692,7 +6700,7 @@ static long _perf_ioctl(struct perf_event *event, unsigned int cmd, unsigned lon
->  	}
->  
->  	case PERF_EVENT_IOC_SET_FILTER:
-> -		return perf_event_set_filter(event, (void __user *)arg);
-> +		return perf_event_set_filter(event, &ctx->filters);
->  
->  	case PERF_EVENT_IOC_SET_BPF:
->  	{
-> @@ -6751,10 +6759,21 @@ static long _perf_ioctl(struct perf_event *event, unsigned int cmd, unsigned lon
->  	return 0;
->  }
->  
-> +static inline bool perf_event_is_tracing(struct perf_event *event);
-> +static void free_filters_list(struct list_head *filters);
-> +static int
-> +perf_event_parse_addr_filter(int event_node, bool event_task, char *fstr,
-> +			     struct list_head *filters);
-> +
->  static long perf_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
->  {
->  	struct perf_event *event = file->private_data;
->  	struct perf_event_context *ctx;
-> +	struct perf_ioctl_ctx ic = {
-> +		.cmd = cmd,
-> +		.arg = arg,
-> +		.filters = LIST_HEAD_INIT(ic.filters),
-> +	};
->  	long ret;
->  
->  	/* Treat ioctl like writes as it is likely a mutating operation. */
-> @@ -6762,10 +6781,34 @@ static long perf_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
->  	if (ret)
->  		return ret;
->  
-> +	if (cmd == PERF_EVENT_IOC_SET_FILTER) {
-> +		int cpu = READ_ONCE(event->cpu);
-> +		int node = cpu == -1 ? NUMA_NO_NODE : cpu_to_node(cpu);
-> +		bool task = event->attach_state & PERF_ATTACH_TASK;
-> +		char *filter_str __free(kfree) =
-> +			strndup_user((void __user *)arg, PAGE_SIZE);
-> +
-> +		if (IS_ERR(filter_str))
-> +			return PTR_ERR(filter_str);
-> +
-> +#ifdef CONFIG_EVENT_TRACING
-> +		if (perf_event_is_tracing(event)) {
-> +			return ftrace_profile_set_filter(event, event->attr.config,
-> +							filter_str);
-> +		}
-> +#endif
-> +		ret = perf_event_parse_addr_filter(node, task, filter_str,
-> +						   &ic.filters);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->  	ctx = perf_event_ctx_lock(event);
-> -	ret = _perf_ioctl(event, cmd, arg);
-> +	ret = _perf_ioctl(event, &ic);
->  	perf_event_ctx_unlock(event, ctx);
->  
-> +	free_filters_list(&ic.filters);
-> +
->  	return ret;
->  }
->  
-> @@ -11990,9 +12033,8 @@ void perf_bp_event(struct perf_event *bp, void *data)
->   * Allocate a new address filter
->   */
->  static struct perf_addr_filter *
-> -perf_addr_filter_new(struct perf_event *event, struct list_head *filters)
-> +perf_addr_filter_new(int node, struct list_head *filters)
->  {
-> -	int node = cpu_to_node(event->cpu == -1 ? 0 : event->cpu);
->  	struct perf_addr_filter *filter;
->  
->  	filter = kzalloc_node(sizeof(*filter), GFP_KERNEL, node);
-> @@ -12035,8 +12077,17 @@ static void perf_addr_filters_splice(struct perf_event *event,
->  	raw_spin_lock_irqsave(&event->addr_filters.lock, flags);
->  
->  	list_splice_init(&event->addr_filters.list, &list);
-> -	if (head)
-> +	event->addr_filters.nr_file_filters = 0;
-> +
-> +	if (head) {
-> +		struct perf_addr_filter *filter;
-> +
->  		list_splice(head, &event->addr_filters.list);
-> +		list_for_each_entry(filter, &event->addr_filters.list, entry) {
-> +			if (filter->path.dentry)
-> +				event->addr_filters.nr_file_filters++;
-> +		}
-> +	}
->  
->  	raw_spin_unlock_irqrestore(&event->addr_filters.lock, flags);
->  
-> @@ -12186,7 +12237,7 @@ static const match_table_t if_tokens = {
->   * Address filter string parser
->   */
->  static int
-> -perf_event_parse_addr_filter(struct perf_event *event, char *fstr,
-> +perf_event_parse_addr_filter(int event_node, bool event_task, char *fstr,
->  			     struct list_head *filters)
->  {
->  	struct perf_addr_filter *filter = NULL;
-> @@ -12213,7 +12264,7 @@ perf_event_parse_addr_filter(struct perf_event *event, char *fstr,
->  
->  		/* filter definition begins */
->  		if (state == IF_STATE_ACTION) {
-> -			filter = perf_addr_filter_new(event, filters);
-> +			filter = perf_addr_filter_new(event_node, filters);
->  			if (!filter)
->  				goto fail;
->  		}
-> @@ -12299,7 +12350,7 @@ perf_event_parse_addr_filter(struct perf_event *event, char *fstr,
->  				 * different processes.
->  				 */
->  				ret = -EOPNOTSUPP;
-> -				if (!event->ctx->task)
-> +				if (!event_task)
->  					goto fail;
->  
->  				/* look up the path and grab its inode */
-> @@ -12310,11 +12361,8 @@ perf_event_parse_addr_filter(struct perf_event *event, char *fstr,
->  
->  				ret = -EINVAL;
->  				if (!filter->path.dentry ||
-> -				    !S_ISREG(d_inode(filter->path.dentry)
-> -					     ->i_mode))
-> +				    !S_ISREG(d_inode(filter->path.dentry)->i_mode))
->  					goto fail;
+Looks good to me.
 
-Just a thought on this. In vfs-7.5.lookup I have:
+Reviewed-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
 
-file_check_backing() which is the new default way to figure out whether
-something can be a backing file for a given subsystem. Its checks are:
-
-int file_check_backing(const struct file *file, fmode_t mode, umode_t type)
-{
-	fmode_t io = mode & (FMODE_READ | FMODE_WRITE);
-	/* Drivers may point ->f_mapping at something else. */
-	umode_t fmt = file_inode(file)->i_mode & S_IFMT;
-	struct inode *real_inode;
-
-	/* O_PATH files are only fine for callers that just use the path. */
-	if ((file->f_mode & FMODE_PATH) && !(mode & FMODE_PATH))
-		return -EBADF;
-
-	if ((file->f_mode & io) != io)
-		return -EBADF;
-
-	if (fmt != S_IFREG && !(type == S_IFBLK && fmt == S_IFBLK))
-		return -EINVAL;
-
-	/* Look through stacking filesystems at the inode with the data. */
-	real_inode = d_real_data_inode(file->f_path.dentry);
-	if (IS_ERR(real_inode))
-		return PTR_ERR(real_inode);
-	if (real_inode->i_sb->s_iflags & SB_I_PSEUDO)
-		return -EINVAL;
-
-	if ((mode & FMODE_READ) &&
-	    (!(file->f_mode & FMODE_CAN_READ) || !file->f_op->read_iter))
-		return -EINVAL;
-
-	if ((mode & FMODE_WRITE) &&
-	    (!(file->f_mode & FMODE_CAN_WRITE) || !file->f_op->write_iter))
-		return -EINVAL;
-
-	return 0;
-}
-
-It excludes anything that is a pseudo filesystem:
-
-arch/powerpc/platforms/cell/spufs/inode.c:      fc_init_pseudo(fc);
-arch/s390/hypfs/inode.c:        fc_init_pseudo(fc);
-drivers/android/binder/rust_binderfs.c: fc_init_pseudo(fc);
-drivers/usb/gadget/function/f_fs.c:     fc_init_pseudo(fc);
-drivers/usb/gadget/legacy/inode.c:      fc_init_pseudo(fc);
-drivers/xen/xenfs/super.c:      fc_init_pseudo(fc);
-fs/binfmt_misc.c:       fc_init_pseudo(fc);
-fs/configfs/mount.c:    fc_init_pseudo(fc);
-fs/debugfs/inode.c:     fc_init_pseudo(fc);
-fs/devpts/inode.c:      fc_init_pseudo(fc);
-fs/efivarfs/super.c:    fc_init_pseudo(fc);
-fs/failfs.c:    fc_init_pseudo(fc);
-fs/fuse/control.c:      fc_init_pseudo(fsc);
-fs/kernfs/mount.c:      fc_init_pseudo(fc);
-fs/libfs.c:             fc_init_pseudo(fc);
-fs/nfsd/nfsctl.c:       fc_init_pseudo(fc);
-fs/nullfs.c:    fc_init_pseudo(fc);
-fs/ocfs2/dlmfs/dlmfs.c: fc_init_pseudo(fc);
-fs/openpromfs/inode.c:  fc_init_pseudo(fc);
-fs/proc/root.c: fc_init_pseudo(fc);
-fs/pstore/inode.c:      fc_init_pseudo(fc);
-fs/tracefs/inode.c:     fc_init_pseudo(fc);
-include/linux/pseudo_fs.h:static inline void fc_init_pseudo(struct fs_context *fc)
-ipc/mqueue.c:   fc_init_pseudo(fc);
-kernel/bpf/inode.c:     fc_init_pseudo(fc);
-net/sunrpc/rpc_pipe.c:  fc_init_pseudo(fc);
-security/apparmor/apparmorfs.c: fc_init_pseudo(fc);
-security/inode.c:       fc_init_pseudo(fc);
-security/selinux/selinuxfs.c:   fc_init_pseudo(fc);
-security/smack/smackfs.c:       fc_init_pseudo(fc);
-
-I don't think anything on this list is something that you would ever
-want to use as an object file?
-
-I think we should do an O_PATH open of the target file and then you
-call:
-
-file = filp_open(filename, O_PATH | O_REGULAR, 0)
-
-if (file_check_backing(file, FMODE_PATH, 0))
-	return -EINVAL;
-
-We had a whole bug class where various subsystems that used backing
-files just allowed arbitrary files to be used.
+Thanks,
+Gopikrishna
