@@ -1,70 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.82.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795783370;
-	b=rYSv+mXZsDNrOuighaizCuYLw2oOf7gTBVQdTJ7iBeoikWxqKE/6oFohWE7n0l0BlvMR
-	 Sd6Dvez2yfy8u24KfC+kRP97LzFULH8c2Qn25RcDw/txK7o2a5sh3kTTLAmCVY0Ne/xS+
-	 dy6BBUXcOhZ5W+tL/bRY/pflP2Z7O3uHApytxrYX4IXJnNctpALZVou9Wxiu0ByxaeZyq
-	 I0CEjtatkv21ASpn2cC1ov2/kLsw+4VTlGHIxUNB+a8CFPk+XB9jWbgBgNBH3ByG98E5c
-	 teiKfafUIDt6WElHvwf32veEO26FN25ZbQ2h99xU2VsaJxooQWNHoBUrUwRcFBQwDcw==
+	t=1795783638;
+	b=iP6pquek+JW2DHYBZzprsQ6IUH3RjvpDwjtIFQWNE7ircBraElQ5vQAuRp2qt3FKUHvx
+	 nbcEi7LYo1ZHVIh1vmYOPhplihA/2KbFFKBufs7nuhH72M2rO33n4itvfFXN7AhLiMZxE
+	 f0jra7d4cdPIJSh/4LlBXg8RxhzyWv9bu9uspWoGwnLXD+8+oK9W9YRy6/9MPk9iKw/Sa
+	 M6/tHGw3DX62IuSH1aXjm1XAnq9A/gooc60n7D0ilR2NbzmEb7TFtL/d7p8vSllTvHHxh
+	 SI1J4GmyKqWHi7pFFj1jMewt5Vs1sdwo61hRLVybYN6rA0kXhHwgqxg7SpgAUul6lsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795783370;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=03JmSX6sI3RNKde6B5WgCq8SZTe81/LSF+p5iVblNtM=;
-	b=T94W4k+XwcmALOhs5lMUBqyZ5ycSQd3Uq3OLEG0VNeA1H++jNELZKN9gUXOOpLkPDJGQ
-	 5LT2nMYKciybatQ9DuiDsujviOanKz8AcCXhTgNPwfOhsJN5ZO+vIGvY/I84tgTm61WcM
-	 PoHdVQpAjGHERqVnkLzY/D5LuQKgmPtrJJaPbSWWz5YsDPJSxUjX3YkESPXvwPB3MstsV
-	 XMyLo1eFHylFhOWK/gRak/QyJeruqglXgzcisDLV+9EelzVNLrEbwdJZsfG4kVdtH/ens
-	 pufLhWbANjT0hyyzAbxj92dl7+NOV1+BYZ6+cwC3/x0MaVy7j7r54az3AuQRs8Ghy1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795783638;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=uPfpI50tb7D/+LMDNaFZyv1Wo1aup2sr8aIhOr5amnQ=;
+	b=mZ9dfPgTtiwC1KtIjbx8kPzgLbmL9uS24Ie8EYrcT3+7aS2sn/6il27VUqu/eWVq5I77
+	 8obvIrCmGe/zxBigo/M5qfbQ2M0wVXlpw1yCT3vCjeIaEX6dnJGriyGD/fGbVHcKyPuMY
+	 Abule14G16wylP7Dd8BRRbF+eAPu4yRn97ADufO5Lt10RhEa5wGPQ/A8WCQ/LLowJxmE1
+	 5eTdl/vYrGOHX36DHqZMbpdgp0Q93EplYQU5OlFf3QBbpWQCMIZRSzFNwrpWsPM5sQ0dy
+	 HpiPbMLZbOdF4/BqYlD/k7XT1ZPb21Q1pzPGaoFJEjr79Oi/WkNvz/7cEm1qZeGRXxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samba.org;
-	spf=pass smtp.mailfrom=samba.org;
-	dkim=pass header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=DzE1wHTt;
-	arc=none smtp.remote-ip=144.76.82.148
-Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
-	(using TLSv1.3 with cipher TLS_CHACHA20_POLY1305_SHA256 (256/256 bits)
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=1qdLnggx;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A209606A31F;
-	Fri, 27 Nov 2026 12:42:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A209606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samba.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62523606A31F;
+	Fri, 27 Nov 2026 12:47:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62523606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=DzE1wHTt
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=samba.org;
-	s=42; h=Message-ID:Date:Cc:To:From;
-	bh=03JmSX6sI3RNKde6B5WgCq8SZTe81/LSF+p5iVblNtM=; b=DzE1wHTtMazhirZiEbogKGcFl/
-	u+WTSjW3ZNwDMhxDXP3SZVtyQNuFpn06KGJKra5+FZmvHQRcJzFvbvd6NzMKWIrqQAafExVRKwBbY
-	ywFcYRxAoU/ZXbT51BE/IvqOQsQ1nI+IYmFco4YULL8LiBGO3qjeogS6kUt5W9xotS9JGf1GU3Xxw
-	pjgpGRgLfNzw24jR9a8Z/oYwPREHAtDEmdeKcERLTt+OI6j9eH4ROresT8e5+nU+pRkeM/A3NNXcG
-	j42bSW8xLlEZoyP7BoUvjSVGvj66CpTsCF8etQcvQCLF/GnuJYw7ewS2PV0povaqw+yKuheje8MvY
-	t8v4cDpgMCVrOMWsAF3Ypv+4Vei5chIXaMw5KIIXjlPW1w7wY2P8E2rmE0DOvV2dZjBlfkbuOhrxp
-	1WEUjxX1RwJcr+nl4Mz/l+fEMESeOXQ9V9TGTDsO7Ngcdf18rxzIT+9nL7X2aUCHo2wtyAHU4pYxl
-	0oM0UdQqiHKwp+1QIhXIv1F3;
-Received: from [127.0.0.2] (localhost [127.0.0.1])
-	by hr2.samba.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__ECDSA_SECP256R1_SHA256__CHACHA20_POLY1305:256)
-	(Exim)
-	id 1xWvHo-00000001MEd-14yo;
-	Fri, 27 Nov 2026 12:42:44 +0000
-From: Stefan Metzmacher <metze@samba.org>
-To: linux-cifs@vger.kernel.org,
-	samba-technical@lists.samba.org
-Cc: metze@samba.org,
-	stable@vger.kernel.org,
-	Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>
-Subject: [PATCH 8/8] smb: client: use a counter for the nonce of encrypted messages
-Date: Fri, 27 Nov 2026 13:41:41 +0100
-Message-ID: <0631e4011e68763c1e4523c9275642410e9f7bb5.1795782695.git.metze@samba.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1795782695.git.metze@samba.org>
-References: <cover.1795782695.git.metze@samba.org>
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=1qdLnggx
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=uPfpI50tb7D/+LMDNaFZyv1Wo1aup2sr8aIhOr5amnQ=; b=1qdLnggxochql+Dkqhr5X4AKRD
+	ReaGpAvcLsFO9OI3C56HicPRmLbXl3eXd1/sqiVFncFWPwPKnoga/OuBeqYpiib1YBYC0RiFVLSYl
+	I5l3hyzgouu29yGPhAYXlZMW/RESMaflKOWkPOjoAW4xYw4DqAxhqEwkNe/kuRgydtL+Ht/DanSSL
+	PoGUmkpIrjIIbMR+10d8dEG5+ktRJMrh0xxWm6GS/8GhlvGL5kxni1mueOiU2LX5vbFuWwvXJC9pt
+	hMwq0Ea/rxzEdqf5IwxjvofVeZbcgRTTiBULgeJ0zPI90Fs9ynXytIv4AhuvwowlA3rFKyaTRSBnF
+	GM2u+dRw==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Andi Shyti <andi.shyti@kernel.org>, Wolfram Sang <wsa@kernel.org>,
+ Jensen Huang <jensenhuang@friendlyarm.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-i2c@vger.kernel.org, kernel@collabora.com, stable@vger.kernel.org,
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: Re: [PATCH] i2c: rk3x: Do not sleep in atomic polling transfers
+Date: Fri, 27 Nov 2026 13:46:55 +0100
+Message-ID: <7m4BPz_aRRWlgAirQmmfoQ@sntech.de>
+In-Reply-To:
+ <20261127-rk3x-atomic-transfer-fix-v1-1-076c94c07241@collabora.com>
+References:
+ <20261127-rk3x-atomic-transfer-fix-v1-1-076c94c07241@collabora.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,171 +65,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-The nonce of an encrypted message must not be used for any other
-encrypted message within the session (MS-SMB2 3.1.4.3).
-fill_transform_hdr() filled it with random bytes, which only makes a
-collision unlikely: with 11 random bytes for AES-CCM and 12 for AES-GCM
-the probability of a collision after n messages is about n^2 / 2^89 or
-n^2 / 2^97. But with AES-CCM and AES-GCM a reused nonce reveals the XOR
-of the two plaintexts and, for AES-GCM, the authentication key, which
-allows forging messages.
+Am Freitag, 27. November 2026, 13:33:05 Mitteleurop=C3=A4ische Normalzeit s=
+chrieb Sebastian Reichel:
+> On the RK3576 Sige5 during shutdown the following trace appears on
+> kernels with multi-core support and lockdep enabled:
+>=20
+> [  167.961946] WARNING: kernel/irq_work.c:296 at irq_work_sync
+> ...
+> [  167.963902] Hardware name: ArmSoM Sige5 (DT)
+> ...
+> [  167.972228] Call trace:
+> [  167.972445]  irq_work_sync+0xe8/0xf8 (P)
+> [  167.972796]  disable_irq+0x44/0x60
+> [  167.973101]  rk3x_i2c_xfer_common.isra.0+0x254/0x708
+> [  167.973544]  rk3x_i2c_xfer_polling+0x20/0xa0
+> [  167.973925]  __i2c_transfer+0x180/0x9d8
+> [  167.974269]  i2c_transfer+0xc4/0x180
+> [  167.974589]  regmap_i2c_read+0x64/0xc0
+> [  167.974924]  _regmap_raw_read+0x120/0x468
+> [  167.975283]  _regmap_bus_read+0x4c/0xa8
+> [  167.975626]  _regmap_read+0x6c/0x260
+> [  167.975945]  _regmap_update_bits+0x104/0x160
+> [  167.976325]  regmap_update_bits_base+0x5c/0x90
+> [  167.976720]  rk808_power_off+0x70/0x110
+> ...
+>=20
+> Avoid waiting for a handler from another CPU to finish to fix the
+> problem. At shutdown time this won't happen as the other CPUs are
+> already stopped. Apart from that disable_irq_nosync() still prevents new
+> invocations of the handler, which is what avoids the spinlock recursion.
+> A handler already running on another CPU is serialized against the poll
+> loop via i2c->lock.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: 19cde9c92b8d ("i2c: rk3x: fix potential spinlock recursion on poll=
+")
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-Like Samba, use a 64-bit counter of the session for the first 8 bytes
-of the nonce, followed by random bits chosen when the session is
-allocated, 32 bits for AES-GCM and 24 bits for AES-CCM. This makes the
-nonce unique for the session, also
-when several channels encrypt in parallel, see smb3_new_enc_nonce().
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 
-fill_transform_hdr() now fails if the session isn't found, like
-crypt_message() does when it looks up the encryption key.
+With CONFIG_DEBUG_ATOMIC_SLEEP activated, this should also already
+already warn from the might_sleep() in disable_irq(), I think.
 
-Fixes: 026e93dc0a3e ("CIFS: Encrypt SMB3 requests before sending")
-Cc: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>
-Cc: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
-Cc: linux-cifs@vger.kernel.org
-Cc: samba-technical@lists.samba.org
-Signed-off-by: Stefan Metzmacher <metze@samba.org>
----
- fs/smb/client/cifsglob.h |  3 ++
- fs/smb/client/misc.c     |  2 ++
- fs/smb/client/smb2ops.c  | 75 +++++++++++++++++++++++++++++++++++-----
- 3 files changed, 71 insertions(+), 9 deletions(-)
 
-diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
-index 4e16347886ed..3bfa9b1bacf5 100644
---- a/fs/smb/client/cifsglob.h
-+++ b/fs/smb/client/cifsglob.h
-@@ -1100,6 +1100,9 @@ struct cifs_ses {
- 	__u16 session_flags;
- 	__u8 smb3signingkey[SMB3_SIGN_KEY_SIZE];
- 	__u8 smb3encryptionkey[SMB3_ENC_DEC_KEY_SIZE];
-+	/* see smb3_new_enc_nonce() */
-+	atomic64_t enc_nonce_low;
-+	u32 enc_nonce_high;
- 	__u8 smb3decryptionkey[SMB3_ENC_DEC_KEY_SIZE];
- 	__u8 preauth_sha_hash[SMB2_PREAUTH_HASH_SIZE];
- 
-diff --git a/fs/smb/client/misc.c b/fs/smb/client/misc.c
-index a8f4c8644562..355b35f5fc63 100644
---- a/fs/smb/client/misc.c
-+++ b/fs/smb/client/misc.c
-@@ -84,6 +84,8 @@ sesInfoAlloc(void)
- 		spin_lock_init(&ret_buf->iface_lock);
- 		INIT_LIST_HEAD(&ret_buf->iface_list);
- 		spin_lock_init(&ret_buf->chan_lock);
-+		get_random_bytes(&ret_buf->enc_nonce_high,
-+				 sizeof(ret_buf->enc_nonce_high));
- 	}
- 	return ret_buf;
- }
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 0f82fba40b64..15f559787068 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -4720,9 +4720,66 @@ smb2_dir_needs_close(struct cifsFileInfo *cfile)
- 	return !cfile->invalidHandle;
- }
- 
--static void
--fill_transform_hdr(struct smb2_transform_hdr *tr_hdr, unsigned int orig_len,
--		   struct smb_rqst *old_rq, __le16 cipher_type)
-+/*
-+ * The nonce of an encrypted message must not be used for any other encrypted
-+ * message within the session (MS-SMB2 3.1.4.3), a random nonce only makes a
-+ * collision unlikely, but with AES-GCM and AES-CCM a reused nonce reveals the
-+ * XOR of the plaintexts and allows forgeries.
-+ *
-+ * So, like Samba, the nonce is a 64-bit counter of the session followed by
-+ * random bits chosen when the session is allocated, 32 bits for AES-GCM and
-+ * 24 bits for AES-CCM.
-+ */
-+static int
-+smb3_new_enc_nonce(struct TCP_Server_Info *server, __u64 ses_id,
-+		   __le16 cipher_type, u8 *nonce)
-+{
-+	struct TCP_Server_Info *pserver;
-+	struct cifs_ses *ses;
-+	bool found = false;
-+	u64 low = 0;
-+	u32 high = 0;
-+
-+	/* If server is a channel, select the primary channel */
-+	pserver = SERVER_IS_CHAN(server) ? server->primary_server : server;
-+
-+	spin_lock(&cifs_tcp_ses_lock);
-+	list_for_each_entry(ses, &pserver->smb_ses_list, smb_ses_list) {
-+		if (ses->Suid == ses_id) {
-+			low = atomic64_inc_return(&ses->enc_nonce_low);
-+			high = ses->enc_nonce_high;
-+			found = true;
-+			break;
-+		}
-+	}
-+	spin_unlock(&cifs_tcp_ses_lock);
-+
-+	if (!found) {
-+		trace_smb3_ses_not_found(ses_id);
-+		return -EAGAIN;
-+	}
-+
-+	/* the counter can't wrap in practice, but never reuse a nonce */
-+	if (WARN_ON_ONCE(low == 0))
-+		return -EIO;
-+
-+	put_unaligned_le64(low, nonce);
-+	if ((cipher_type == SMB2_ENCRYPTION_AES128_GCM) ||
-+	    (cipher_type == SMB2_ENCRYPTION_AES256_GCM)) {
-+		put_unaligned_le32(high, nonce + 8);
-+	} else {
-+		nonce[8] = high;
-+		nonce[9] = high >> 8;
-+		nonce[10] = high >> 16;
-+	}
-+
-+	return 0;
-+}
-+
-+static int
-+fill_transform_hdr(struct TCP_Server_Info *server,
-+		   struct smb2_transform_hdr *tr_hdr, unsigned int orig_len,
-+		   struct smb_rqst *old_rq)
- {
- 	struct smb2_hdr *shdr =
- 			(struct smb2_hdr *)old_rq->rq_iov[0].iov_base;
-@@ -4731,12 +4788,10 @@ fill_transform_hdr(struct smb2_transform_hdr *tr_hdr, unsigned int orig_len,
- 	tr_hdr->ProtocolId = SMB2_TRANSFORM_PROTO_NUM;
- 	tr_hdr->OriginalMessageSize = cpu_to_le32(orig_len);
- 	tr_hdr->Flags = cpu_to_le16(0x01);
--	if ((cipher_type == SMB2_ENCRYPTION_AES128_GCM) ||
--	    (cipher_type == SMB2_ENCRYPTION_AES256_GCM))
--		get_random_bytes(&tr_hdr->Nonce, SMB3_AES_GCM_NONCE);
--	else
--		get_random_bytes(&tr_hdr->Nonce, SMB3_AES_CCM_NONCE);
- 	memcpy(&tr_hdr->SessionId, &shdr->SessionId, 8);
-+
-+	return smb3_new_enc_nonce(server, le64_to_cpu(shdr->SessionId),
-+				  server->cipher_type, tr_hdr->Nonce);
- }
- 
- static void *smb2_aead_req_alloc(struct crypto_aead *tfm, const struct smb_rqst *rqst,
-@@ -5009,7 +5064,9 @@ smb3_init_transform_rq(struct TCP_Server_Info *server, int num_rqst,
- 	}
- 
- 	/* fill the 1st iov with a transform header */
--	fill_transform_hdr(tr_hdr, orig_len, old_rq, server->cipher_type);
-+	rc = fill_transform_hdr(server, tr_hdr, orig_len, old_rq);
-+	if (rc)
-+		goto err_free;
- 
- 	rc = crypt_message(server, num_rqst, new_rq, 1, server->secmech.enc);
- 	cifs_dbg(FYI, "Encrypt message returned %d\n", rc);
--- 
-2.43.0
+
+> ---
+>  drivers/i2c/busses/i2c-rk3x.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/i2c/busses/i2c-rk3x.c b/drivers/i2c/busses/i2c-rk3x.c
+> index 9ec3beced9f9..a07c60ab07b4 100644
+> --- a/drivers/i2c/busses/i2c-rk3x.c
+> +++ b/drivers/i2c/busses/i2c-rk3x.c
+> @@ -1096,7 +1096,7 @@ static int rk3x_i2c_xfer_common(struct i2c_adapter =
+*adap,
+>  			time_left =3D wait_event_timeout(i2c->wait, !i2c->busy,
+>  						       msecs_to_jiffies(WAIT_TIMEOUT));
+>  		} else {
+> -			disable_irq(i2c->irq);
+> +			disable_irq_nosync(i2c->irq);
+>  			rk3x_i2c_start(i2c);
+> =20
+>  			time_left =3D rk3x_i2c_wait_xfer_poll(i2c);
+>=20
+> ---
+> base-commit: eeb63983deb23d68ddc47e5d1944a7d64acdaf22
+> change-id: 20261127-rk3x-atomic-transfer-fix-23f2d43c38b6
+>=20
+> Best regards,
+> -- =20
+> Sebastian Reichel <sebastian.reichel@collabora.com>
+>=20
+>=20
+
+
+
 
