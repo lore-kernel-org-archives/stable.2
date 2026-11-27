@@ -1,43 +1,43 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.74.67.63
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.74.67.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795773709;
-	b=bIY8pL6YyM9xgyoMpxCEtYoBNumcsT+sshPh4DNRoo+gokRkQUsMMXpuDv1cmyjab18f
-	 qW+Zf1YDev7SoJ257ztxIUbghWVBCJcMue+Z7oplC62C0SBDluZsnMSBTsv5tditXd4Fb
-	 aRe2JhQmtAQ3TK+EMYnbh7Ujmv6TgmYtQaA+8zw6SBGb0DC+oS/tGhavtchfga3e/D6or
-	 f4sr/GqhbOKcNdtTubgUh1ayFSiAfwsceY5D1mfExIAkN34HMUf8qTs2wZZ9Z/G3CWoM4
-	 40Q2ONbgCrSSm0mI8PvqFhed9GNup3NT2IcNBlUHWHoFNdCyzFp55VHUZApEpTre7xA==
+	t=1795773713;
+	b=IrL32H7aHXtI1gmfbggLKL76tZjYOEvVhNIAZqkOFOxNtg3JGOYZJLpnjHjib7S2U5To
+	 e7QYz1eDkoF6tX27K2E5Ui/ftcj1VRMPfIOHq/yNFJW34aDMN18DZyFwP0AatwHne6FSa
+	 Aumjea9x3lBzaMaZmTlDWG9b0/ALzYEIkz6+3ymSyguXCdLzCFcKZ90w0nu2ObIGBP4bt
+	 Rn7eDQgL7D3PuNSDvx6vFsHAj+XxV9y+xu6T2N4/jbRoepCoRAB51LzMOaRanK3QEncYT
+	 bBn+zObxlbNoKM8MPSEiUMp6tWOCjmvptWz1Q/VjWnDYAoBOTCGfCOFTZz4tsfag6kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795773709;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795773713;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
 	 DKIM-Signature;
-	bh=6LuUG7F3kfFmRHIylqR3PfTCOEnYN6Az7QPeQQLrxUc=;
-	b=cyrkCMfXtI0bf8kkiJcHe3oASGW3wwtFC0G8+0QwbP74Hi2mr14akndS324gTRHjHneY
-	 iPKFfudOAjWgz/taQhnkDM/WPXptGAbJ8qiZJUpv09/5z3eHg1jP3lWHyvOS8+RJwsWVu
-	 d/wibloA1GkgyQIQB2pQJp01F1KtRl1pttfQUB5uuY4kxlIs66bXwS2wk7icMrinm/Gou
-	 0EkG+z/Q/vQCuaPDjIb0F1Q8BT7mb6g5QxY9EaVqYlgnrApUUb2D+eczVj/AOahhv937s
-	 0bXw4ijDhkySsyi+ZNmbqC5xKI3B4kO1SvEp4oaYici5wHNY9bofyfUIuDjouqRHXdA==
+	bh=Zr4yKurBbJelpOngPtC+67Rtv8zo+CQ9Rq0c+P0wYE8=;
+	b=dr9ikw47bvaghMbWc92pYqZ17j20hL29xvC0Km7/IOImJf5+158+/xoTsqLKswoQzDw3
+	 NAKPj30VD/S0WV5bzu2Yw/kAzj+vUqpmYG9MaexsEunGZTYtHahhIBMKXivxP8sQJMCr9
+	 7jzNmE64Mfr2gI2iVR4FA/Ec78N1lLuK00NeOYTF4dWZwYtvBjT7q3ylPy1dTDYOEAAvs
+	 dnP5bkKL7EqsrvnOW7bgMlV3QXJVOgspF/4I5q8x+N+h7dspIJ/EaNNDPgOliHALVv/6J
+	 gWQQwlRLP0TuUr1ELdRsQ4v6FxSoh0vcQ/Eo8JRF+wTaT0aofxXYgrQeQT8BCMG6Ilw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=poczta.fm;
 	spf=pass smtp.mailfrom=poczta.fm;
-	dkim=pass header.d=poczta.fm header.i=@poczta.fm header.a=rsa-sha256 header.s=dk header.b=Tp7kirp7;
-	arc=none smtp.remote-ip=217.74.67.63
-Received: from smtpo63.interia.pl (smtpo63.interia.pl [217.74.67.63])
+	dkim=pass header.d=poczta.fm header.i=@poczta.fm header.a=rsa-sha256 header.s=dk header.b=qwE3di27;
+	arc=none smtp.remote-ip=217.74.67.49
+Received: from smtpo49.interia.pl (smtpo49.interia.pl [217.74.67.49])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4360606A330
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 10:01:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4360606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF8A606A337
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 10:01:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEF8A606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=poczta.fm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.a=rsa-sha256 header.s=dk header.b=Tp7kirp7
+	dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.a=rsa-sha256 header.s=dk header.b=qwE3di27
 Received: from localhost (unknown [80.68.231.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
 	(No client certificate requested)
 	by poczta.interia.pl (INTERIA.PL) with ESMTPSA;
-	Fri, 27 Nov 2026 11:01:45 +0100 (CET)
+	Fri, 27 Nov 2026 11:01:48 +0100 (CET)
 From: Slawomir Stepien <sst@poczta.fm>
 To: "David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
@@ -75,9 +75,9 @@ Cc: bpf@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	Slawomir Stepien <sst@poczta.fm>,
 	stable@vger.kernel.org
-Subject: [PATCH net v9 2/6] bpf: test_run: Set frag_size on a copy of the rxq info
-Date: Fri, 27 Nov 2026 11:01:28 +0100
-Message-ID: <20261127100132.1977890-3-sst@poczta.fm>
+Subject: [PATCH net v9 3/6] veth: use the frame mem type when running XDP on an xdp_frame
+Date: Fri, 27 Nov 2026 11:01:29 +0100
+Message-ID: <20261127100132.1977890-4-sst@poczta.fm>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261127100132.1977890-1-sst@poczta.fm>
 References: <20261127100132.1977890-1-sst@poczta.fm>
@@ -92,73 +92,95 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poczta.fm; s=dk;
-	t=1795773707; bh=6LuUG7F3kfFmRHIylqR3PfTCOEnYN6Az7QPeQQLrxUc=;
+	t=1795773710; bh=Zr4yKurBbJelpOngPtC+67Rtv8zo+CQ9Rq0c+P0wYE8=;
 	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=Tp7kirp7OWsDLIgbEILwAeUR2vkvkDHXcbwF2yPOHkOEpoKeFzcQZbxdJ2WaOLGLh
-	 zMerJCAoFQEko6vkwwfa+ueY+p+MuSbu2uianuWBBd2dK8WymdXhQOTnlqbKeWPpGh
-	 BMoGaEc9tb+JL6wt4BXO9gE2B3pRRH5nyOCeWCFw=
+	b=qwE3di27p5b1zSI/KDwAibwb+r/tgHoOqM/ufJMl9oSdEcVXIQQ8J7rSvMvOIumPP
+	 zXbmDrySu4BdGqoubQsSk7IqMi6quq0M3dV/Z7MNV9vrPI9lla12WV94PM0VNSjkho
+	 FNw+BHEt5D9ZTm0lSWZz+mLpWLl4ZYbgdWP2GAYc=
 
-bpf_prog_test_run_xdp() runs the program with the rxq info of lo's
-queue 0 and stores frag_size = PAGE_SIZE into it, because the frags it
-allocates are full pages. That rxq info is shared with generic XDP on
-lo, whose frags come from skb_pp_cow_data() and can be a part of a
-page_pool page. After a test run, a generic XDP program on lo can grow
-such a frag with bpf_xdp_adjust_tail() up to the end of the page, over
-the data of the next frag in that page.
+veth_xdp_rcv_one() runs the program on an xdp_frame with rq->xdp_rxq,
+whose mem type is MEM_TYPE_PAGE_SHARED, and copies the frame's mem type
+into it only for XDP_TX and XDP_REDIRECT, after the program ran. That is
+too late: the program itself can free frags, and bpf_xdp_shrink_data()
+frees them according to xdp->rxq->mem.type. When the program shrinks a
+frag of a page_pool frame away, bpf_xdp_shrink_data() frees the
+page_pool page with page_frag_free(). The mem type stored for XDP_TX and
+XDP_REDIRECT also stays in rq->xdp_rxq, so later packets on the queue,
+skbs and frames, run with the mem type of that frame.
 
-The store also comes too early when the test run picks the rxq info of
-another device with ingress_ifindex: xdp_convert_md_to_buff() replaces
-xdp->rxq after it, the frag_size of that rxq info is 0, and growing a
-frag of the test run fails with -EOPNOTSUPP.
+Do not store into rq->xdp_rxq. Run the program with an rxq info on the
+stack of veth_xdp_rcv(), and set its mem type to the frame's one before
+the program runs. The queue index is the one veth_enable_xdp_range()
+registers rq->xdp_rxq with.
 
-Keep lo's rxq info as it is. Once xdp_convert_md_to_buff() has chosen
-the rxq info, run the program with a copy of it on the stack that has
-frag_size = PAGE_SIZE.
-
-Fixes: 1c1949982524 ("bpf: introduce frags support to bpf_prog_test_run_xdp()")
+Fixes: 718a18a0c8a6 ("veth: Rework veth_xdp_rcv_skb in order to accept non-linear skb")
 Suggested-by: Alexei Starovoitov <ast@kernel.org>
-Link: https://lore.kernel.org/all/sashiko-outbox-223211@kernel.org/
 Link: https://lore.kernel.org/all/DN3QVHST3PUQ.3NINFUW0FL9IW@gmail.com/
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Slawomir Stepien <sst@poczta.fm>
 ---
- net/bpf/test_run.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/net/veth.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/net/bpf/test_run.c b/net/bpf/test_run.c
-index d6c9dc62182e..1d89b6f71a48 100644
---- a/net/bpf/test_run.c
-+++ b/net/bpf/test_run.c
-@@ -1349,6 +1349,7 @@ int bpf_prog_test_run_xdp(struct bpf_prog *prog, const union bpf_attr *kattr,
- 	struct netdev_rx_queue *rxqueue;
- 	struct skb_shared_info *sinfo;
- 	struct xdp_buff xdp = {};
-+	struct xdp_rxq_info rxq;
- 	int i, ret = -EINVAL;
- 	struct xdp_md *ctx;
- 	void *data;
-@@ -1417,8 +1418,7 @@ int bpf_prog_test_run_xdp(struct bpf_prog *prog, const union bpf_attr *kattr,
- 	}
+diff --git a/drivers/net/veth.c b/drivers/net/veth.c
+index faa837acea7b..cce253b58c2b 100644
+--- a/drivers/net/veth.c
++++ b/drivers/net/veth.c
+@@ -642,6 +642,7 @@ static int veth_xdp_tx(struct veth_rq *rq, struct xdp_buff *xdp,
+ }
  
- 	rxqueue = __netif_get_rx_queue(current->nsproxy->net_ns->loopback_dev, 0);
--	rxqueue->xdp_rxq.frag_size = PAGE_SIZE;
--	xdp_init_buff(&xdp, rxqueue->xdp_rxq.frag_size, &rxqueue->xdp_rxq);
-+	xdp_init_buff(&xdp, PAGE_SIZE, &rxqueue->xdp_rxq);
- 	xdp_prepare_buff(&xdp, data, headroom, linear_sz, true);
- 	sinfo = xdp_get_shared_info_from_buff(&xdp);
+ static struct xdp_frame *veth_xdp_rcv_one(struct veth_rq *rq,
++					  struct xdp_rxq_info *rxq,
+ 					  struct xdp_frame *frame,
+ 					  struct veth_xdp_tx_bq *bq,
+ 					  struct veth_stats *stats)
+@@ -657,7 +658,8 @@ static struct xdp_frame *veth_xdp_rcv_one(struct veth_rq *rq,
+ 		u32 act;
  
-@@ -1426,6 +1426,11 @@ int bpf_prog_test_run_xdp(struct bpf_prog *prog, const union bpf_attr *kattr,
- 	if (ret)
- 		goto free_data;
+ 		xdp_convert_frame_to_buff(frame, xdp);
+-		xdp->rxq = &rq->xdp_rxq;
++		rxq->mem.type = frame->mem_type;
++		xdp->rxq = rxq;
+ 		vxbuf.skb = NULL;
  
-+	/* generic XDP uses the same rxq and its frags can be smaller */
-+	rxq = *xdp.rxq;
-+	rxq.frag_size = PAGE_SIZE;
-+	xdp.rxq = &rxq;
-+
- 	size = linear_sz;
- 	if (unlikely(kattr->test.data_size_in > size)) {
- 		void __user *data_in = u64_to_user_ptr(kattr->test.data_in);
+ 		act = bpf_prog_run_xdp(xdp_prog, xdp);
+@@ -669,7 +671,6 @@ static struct xdp_frame *veth_xdp_rcv_one(struct veth_rq *rq,
+ 			break;
+ 		case XDP_TX:
+ 			orig_frame = *frame;
+-			xdp->rxq->mem.type = frame->mem_type;
+ 			if (unlikely(veth_xdp_tx(rq, xdp, bq) < 0)) {
+ 				trace_xdp_exception(rq->dev, xdp_prog, act);
+ 				frame = &orig_frame;
+@@ -681,7 +682,6 @@ static struct xdp_frame *veth_xdp_rcv_one(struct veth_rq *rq,
+ 			goto xdp_xmit;
+ 		case XDP_REDIRECT:
+ 			orig_frame = *frame;
+-			xdp->rxq->mem.type = frame->mem_type;
+ 			if (xdp_do_redirect(rq->dev, xdp, xdp_prog)) {
+ 				frame = &orig_frame;
+ 				stats->rx_drops++;
+@@ -914,6 +914,11 @@ static int veth_xdp_rcv(struct veth_rq *rq, int budget,
+ 			struct veth_xdp_tx_bq *bq,
+ 			struct veth_stats *stats)
+ {
++	struct veth_priv *priv = netdev_priv(rq->dev);
++	struct xdp_rxq_info rxq = {
++		.dev = rq->dev,
++		.queue_index = rq - priv->rq,
++	};
+ 	int i, done = 0, n_xdpf = 0;
+ 	void *xdpf[VETH_XDP_BATCH];
+ 
+@@ -928,7 +933,7 @@ static int veth_xdp_rcv(struct veth_rq *rq, int budget,
+ 			struct xdp_frame *frame = veth_ptr_to_xdp(ptr);
+ 
+ 			stats->xdp_bytes += xdp_get_frame_len(frame);
+-			frame = veth_xdp_rcv_one(rq, frame, bq, stats);
++			frame = veth_xdp_rcv_one(rq, &rxq, frame, bq, stats);
+ 			if (frame) {
+ 				/* XDP_PASS */
+ 				xdpf[n_xdpf++] = frame;
 -- 
 2.56.0
 
