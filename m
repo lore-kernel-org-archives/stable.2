@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795810319;
-	b=yn6OGJ16K0XzziKZQegGo3nz4NsuNeNsF1WRijrPFlZIQGqbZ5cKLYpcpWkMLkBxfB8T
-	 zilTcO45LW4peKuigHVwzxRI7IBsQ6fTKFU6IwbAXxXRADRbCatHLC+0zOBoCU7Ra75Hi
-	 P2Epb39pfAMB0C7PI1v8jIZA78+OSDAegk0JYtjZOTjEXW2KVjjPvK+Cz2j0t9NHYMD9t
-	 VFVQdhqd4XCNvB7vYLjt9sKjfrodxlxkTeHDUM/fpuqi9a6gXZ+WH/yzHm6hmGrTd9te1
-	 w1BtIAMSZIlhAiV8tGaY0fL0QFGDcAyg8VieDE1UarLouoqHJE4tySKBY6Xn2DqJRzg==
+	t=1795810325;
+	b=4IvKpjwDF3A3BsWwLjp3DqH2K+BG4QolRr8wIMGA7USxvOrUFb7zVpTgLJ2wNiCTSrhb
+	 vYIBGoLBQ9NPRlW6BCgZygec8BG1BdHxiLZkm65oW9xgVp06J+5xxZwP8UN+vrIuLTxbw
+	 A/an46r2JMmyfUS8YCkkiE+IbBUm+DYm12xgtMwhPQNfB0zd1gUP70078dlHC53s5Q1Vz
+	 dZ7tPAojnbWgOawMQerwXdISU8qMGdxuYoROtz7TDL3GRjVIz7fvYU3LfhZSLotW+QtIQ
+	 wcZMrQWq+oFHi/wIMyX4XnfD6pgybcsIrogN8JHpZvKYleJn2qqzN/yc4TNIZVNRVdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795810319;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795810325;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TGdaHVzy/TUk/mIBc2ElvcqkeMlmv5/KahQqahLiwJs=;
-	b=AbVbrFzIVoBa5tvmNShMWn9175qa/+uA1jkMlAtE/mZ51yE0kI0565HOHqUN6GtOeYpZ
-	 idYHznNmjw980WxQGKNG1F5KvCxV3LT5EeHnZTnm4gPhJ0OrQrsXjs4Pw3cZDdBFgXPoL
-	 srz2xlHV1eFxbhckj+nSwE6SManpR5feKYv2MCUCBjXaUznXJ1cyNXF3jeXysH6qyOMnC
-	 0OHjh3iI/QbcVQ3z7pm4l6ov+j4ta6jSmMwBvC6NaIuOnwcBNXlisYhkc4hZ9Xp/J3PqP
-	 I8z2h46/91hnLImOyCwJmkirZy/3weortvRE2uXQwh04uK+MG+VxVJIUh4XY1/pGDQg==
+	bh=CCly3rZMe1dgoSUn0QwNJDq5FBoYCOT3mQ2g/MvPn10=;
+	b=Xatqo5WEg9WYIbvuC82Lxcu+Q65y50Pr2KRBe41ivBZbnKV3tBLStt55gcLOt5xGsHzj
+	 Tce4Ez0bzNWd7f6LFVJJY45ZKjL1aVZeuHO4DxzGvtXYO/J2p0p452QaZVz9Ok/jqWXUZ
+	 Lsnr87bgmP6Z5uMZC16p/DMLGOdZSbyQhuIz+N7Sz8dSl/nOTNoPWEWVViOkPT+tSE6/6
+	 /pon/x1yfYAbABmUr2wkmtvUwCZCuUb0zRl/trOFl7KmAZC0nEdp70eyhTz12eveuMFw/
+	 pHtaI+1b5ZxZGcqS9GSb+KQ3oq2Ho6AxCpDx4Ll1tdSGXskIM/c+0o6N8gO/SqPHGnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=no4FcMFw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mjS/MOyG";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F0E606A31C;
-	Fri, 27 Nov 2026 20:11:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2E7606A31F;
+	Fri, 27 Nov 2026 20:12:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=no4FcMFw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8669C1F000C1;
-	Fri, 27 Nov 2026 20:11:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mjS/MOyG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9A7E1F0092C;
+	Fri, 27 Nov 2026 20:12:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795810318;
-	bh=TGdaHVzy/TUk/mIBc2ElvcqkeMlmv5/KahQqahLiwJs=;
+	s=k20260515; t=1795810325;
+	bh=CCly3rZMe1dgoSUn0QwNJDq5FBoYCOT3mQ2g/MvPn10=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=no4FcMFwJ3XaH7YHgu8/4rby4BpZeLRm/4WPmcCCGuITCOEnnrNo6V8I/9mE27eyb
-	 +r8zB83Ex3nlZ4qVXPHPRycs8J4uwLgNIQ6dTPmCukrOivH5nsPDxPmKZmnDKif8V1
-	 kpFINygNNBT3GMiEv2QVYkV3mPlXV5mHKUOfCV114PLNgfAYDZZ9YLuOQddA+clhPM
-	 43jDw4kdv/+7wLuAXwl0oqAcgwjGzeFpz/q4S7FZ5U6uF+a9pnLPQbNdrnJYQ5SPgs
-	 rn7YVSeJZzAFG8n9Hhdts05LTjFLtjlWrYjVuzUU5KxKfJX4tYiHYs3cyYNFFliZRp
-	 4ZWk/2A4aYB9w==
+	b=mjS/MOyGrMjZbznHRUaRqvRxvzE2u4zNX9QYjRFyAuo1GV6/fyi0wEa83zCZ4ywYu
+	 R7JvmLRAZ/r631Y3C4OdvWzuMG/pCJ7Ky0C6UXyzIx/qVD3EZNlIbscorzxEnbB6Pv
+	 sYT7Nkc5wOaXih+DoBS5I45rgK/E1nkRk3jS8qZYh8+WfjLfH5OEwQAVnBVr5FyNh+
+	 GUK3bZ8od8sjbOSCBHhzCTPdzp05XSEtHaxkgmZaPgJBa+fp9P0foCBTMG6+1cieFM
+	 PZP+uY3yk9fRVsEf5jhL69fpNumngHfew4YyNsHsobgBxlPii1fIk+9VVHkPYt4e1Z
+	 xULAyPW+Umzhw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Hans de Goede <hansg@kernel.org>,
 	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jeff LaBundy <jeff@labundy.com>,
 	Jens Reidel <adrian@mainlining.org>,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 09/10] Input: goodix_berlin_i2c - check i2c_get_match_data() for NULL
-Date: Fri, 27 Nov 2026 20:10:03 +0000
-Message-ID: <20261127201050.3532488-10-lee@kernel.org>
+Subject: [PATCH 10/10] Input: goodix_berlin_spi - validate ic_data and SPI max transfer size
+Date: Fri, 27 Nov 2026 20:10:04 +0000
+Message-ID: <20261127201050.3532488-11-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127201050.3532488-1-lee@kernel.org>
 References: <20261127201050.3532488-1-lee@kernel.org>
@@ -65,36 +66,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-goodix_berlin_i2c_probe() passes the pointer returned by
-i2c_get_match_data() straight to goodix_berlin_probe(), which
-unconditionally dereferences ic_data.  If the driver is bound via sysfs
-new_device without matching OF or I2C match data, i2c_get_match_data()
-returns NULL and causes a NULL pointer dereference.
+goodix_berlin_spi_probe() dereferences ic_data without checking
+spi_get_device_match_data() for NULL, and subtracts the SPI read and
+write prefix lengths from spi_max_transfer_size() without checking that
+max_size exceeds both prefix lengths.  A controller reporting a small
+maximum transfer size causes an unsigned size_t underflow (or zero
+max_raw_read/write), bypassing regmap transfer chunking.
 
-Return -EINVAL when i2c_get_match_data() returns NULL.
+Return -EINVAL if ic_data is NULL or if max_size is not strictly greater
+than both the read and write prefix lengths.
 
+Fixes: 3aa182bbc5b6 ("Input: goodix-berlin - add SPI support for Goodix Berlin Touchscreen IC")
 Fixes: 4d395cb071a3 ("Input: goodix_berlin - add support for Berlin-A series")
-Closes: https://sashiko.dev/#/bug/linux-59243248-bebc-4f35-8608-d25e5ec38f26
+Closes: https://sashiko.dev/#/bug/linux-a8b8e506-08b4-44c4-bf67-3c8ef31c6da7
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/input/touchscreen/goodix_berlin_i2c.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/input/touchscreen/goodix_berlin_spi.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/input/touchscreen/goodix_berlin_i2c.c b/drivers/input/touchscreen/goodix_berlin_i2c.c
-index 929090a094bf..7c85415ea409 100644
---- a/drivers/input/touchscreen/goodix_berlin_i2c.c
-+++ b/drivers/input/touchscreen/goodix_berlin_i2c.c
-@@ -36,6 +36,9 @@ static int goodix_berlin_i2c_probe(struct i2c_client *client)
- 	struct regmap *regmap;
- 	int error;
+diff --git a/drivers/input/touchscreen/goodix_berlin_spi.c b/drivers/input/touchscreen/goodix_berlin_spi.c
+index 01f850f484c2..377c81a3e3c5 100644
+--- a/drivers/input/touchscreen/goodix_berlin_spi.c
++++ b/drivers/input/touchscreen/goodix_berlin_spi.c
+@@ -133,6 +133,9 @@ static int goodix_berlin_spi_probe(struct spi_device *spi)
+ 	size_t max_size;
+ 	int error = 0;
  
 +	if (!ic_data)
 +		return -EINVAL;
 +
- 	regmap = devm_regmap_init_i2c(client, &goodix_berlin_i2c_regmap_conf);
- 	if (IS_ERR(regmap))
- 		return PTR_ERR(regmap);
+ 	spi->mode = SPI_MODE_0;
+ 	spi->bits_per_word = 8;
+ 	error = spi_setup(spi);
+@@ -140,6 +143,9 @@ static int goodix_berlin_spi_probe(struct spi_device *spi)
+ 		return error;
+ 
+ 	max_size = spi_max_transfer_size(spi);
++	if (max_size <= max_t(size_t, ic_data->read_prefix_len,
++			      GOODIX_BERLIN_SPI_WRITE_PREFIX_LEN))
++		return -EINVAL;
+ 
+ 	regmap_config = goodix_berlin_spi_regmap_conf;
+ 	regmap_config.max_raw_read = max_size - ic_data->read_prefix_len;
 -- 
 2.56.1.839.g22a8290db9-goog
 
