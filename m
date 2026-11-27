@@ -1,55 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795798923;
-	b=hx+zR5JfHR+rrcAK8SZLy4x5gDy/h++/uRqkR2j8kPhIEb0A4Yl1kZfgCieWjTu/HsIV
-	 u36+vvSUJtiI8Xv1mD6n9bBScnZ7zLtUUt11Czb8AYGcOSPHCvBwC2ImQYZB1IsSdG/BD
-	 XQjn0Y3wOG0ZYUOV0Aq1voN2BSm6mN99K7ng78ZRiFkZbeJV9vqgd4QaTIMkgQZDLGJZ4
-	 Vw3hhitl7AxfNe/UL0PL8+aSaJgST+xdW4Z+PvkpRJZrWRXeyR/YCpdNKVObzu7o4gSZ/
-	 JFBVMvZefuhQtaV29z4xSH3pHKWp1IFpgpp6D1nzZaXdgtE4TdenwB1JvO2oVYdpmwQ==
+	t=1795798919;
+	b=42eF6BxfaHsiKvax0Qd1iwZpizR5zZz78Q8RVFo48/pHk6J9GqBhDzG4qnC6BVG/ZZ/w
+	 1QHRseNxgGBPXNe7gw8AaSg62AzPF1LpTd/wzCbXXWHb9ymYc42O7pzfh+coyjzjMLRe1
+	 FKMYRgn2wxr99NnIYg6pMgmj9iSTxfh51Qs+mr8e16chpknypj42A1y7bxwf0asGVt0TQ
+	 MueIOlS0sB17A0cUg6oTXDYPBOo50WfM8Eq5sItnP4hkjN9hN31/b7wg+zdFrZqb2KhF2
+	 zrb0EiNMVu26J9ynAgs92BapYgo7SUv3jAuIrRWBkOyXbru6+FVebM0Gk1TIOKuWe7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795798923;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795798919;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=p/tdZN05GP9dAjCct5j+JwM9cgoPvAvp68wrEQEWYio=;
-	b=yILwFE6FSKoncLEoIO+DfwF2JnH6sa9eEqDx0W5XYfizev31Uamxg6+VEL6odX/WeuDc
-	 AafFJPHTOE5X18vzt/peEzzeCX6hKGjIMl8PIKPFfxLPAxy7JZCF8rVO3AHJh8Uotxsrl
-	 jcBTUFQ5GzuYBroF/95n3ETi6QAGapIoYEcS5SeBUko0RZntWZ/ZAgI/qj0p+Vv/kA9ku
-	 HBXHI4eDN0xO6gWwFbaeMRBb5tbeXarF4XW6dVOVgfLigR5DW8jP1aqd51EZjCYiTF/z2
-	 lBaxYiZ7NuBwnisgFdau9FqF05fIxP8uwI4x35o2Ic9j2E5vQbVJUfNOoKExr1LtrFA==
+	bh=ztBR1ptgh7GQqiuo/qRymv4crCTasz2wMBF4Htfs+/4=;
+	b=knxDUCBdJiP1T+hckFRxTcWdJEOU2nEGHH+QboWAyq52r2g0SEa5bDcDUMJuBIvQaQxk
+	 3kaGCu2FkxwLOKvMCL+OyCHm0+ifoZxxg67nceNpX/IohHTCtRYoAWzfZ8cblWjcyJyY7
+	 OakgnT2e/FAoi/WMMt7ebueIYEb7Guuu4NT3oR6lwx93KtFOiVD3uM9lpgKHjX6HqGU04
+	 Rq7y5ciCegZsroyHADrLvce7AJjMUGaJDIQIA1yk+9N8ZFiW3FZyQfmXUzD7iiG4coCrq
+	 uvesfF88hSTXUkdEeGujXVcG0m31YpKJXGDZZZbnHojPFRlB0LXkFmHJVey+M4dLSkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A8DmxH7R;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lWPqVjR6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD20606A31E
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 17:02:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E77F9606A337;
+	Fri, 27 Nov 2026 17:01:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A8DmxH7R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02FE11F00897;
-	Fri, 27 Nov 2026 17:02:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lWPqVjR6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AF111F00931;
+	Fri, 27 Nov 2026 17:01:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795798922;
-	bh=p/tdZN05GP9dAjCct5j+JwM9cgoPvAvp68wrEQEWYio=;
+	s=k20260515; t=1795798918;
+	bh=ztBR1ptgh7GQqiuo/qRymv4crCTasz2wMBF4Htfs+/4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A8DmxH7RZSSYvXJlF1U9FaAReNcEdI8zsjLs4ZKonaOI27qjpfeKbGXdBxPle45Nx
-	 H2iCYTp2IWEPMvhJ+9NaDK7LbMffuFBUDtSY9diPrSDB70G9/xvggpwWaqmpbQAGZo
-	 je3+zL6FVuN1attxGMg6GQNZLvVgI9fUQet2X/Tb3Oe9hSp2lEmnbrcyMCRr/8GlvC
-	 5L9vHZreXLZnreMBkvwdYCAeMKos7HERj0iLLOnnfxykpM3hCvpu525YZ6DUrCbaAF
-	 nINsBJutsTfGTI+7JmJue7gC6gAovWLZCjPzZ2mUFMO7GsztiV5e6i0neASL6rGsjM
-	 k3839gXi67qyg==
+	b=lWPqVjR6NHcqtv+sS2sXcxvrSbmvUBRXDby5wdNYM2MzAEqTudoth59t+W2ad8ROT
+	 UPFHuddXurPALabNszTMOZWEAcNgZjha5LUN9hn6as3OPxZgawD0QT6/jGNBTuy35q
+	 lL9I+ZRP+BKs4RGucp2MPPbLgKzZbziDd2LrlC8ENgQe904G4JR5ITTSVFENRa/J7V
+	 tAwkaQL7qYCZslmNJ8e/LZLOPjET2pAKyUPTza93km+TWOfp77phB9Tf4cF0+WbPUj
+	 rwhL3/pTGQ5tA+UEpgtCj575dMaliTWyoJxflUxqoEqvKqg3DyYw4O5gQI/s1YCMVc
+	 mnTrqefnTchvg==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Arnav Kapoor <kapoorarnav43@gmail.com>
-Subject: Re: [PATCH 6.18.y] iio: proximity: sx9360: fix sampling frequency write and available range
-Date: Fri, 27 Nov 2026 12:01:05 -0500
-Message-ID: <2026-11-26-1-daily-reply-0017@kernel.org>
+	Guillaume Laporte <glapt.pro@outlook.com>,
+	Vincent Thiberville <vincent@harfanglab.fr>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Leon Hwang <leon.hwang@linux.dev>
+Subject: Re: [PATCH 6.18.y 0/4] bpf: Fix interpreter-unsupported insns
+Date: Fri, 27 Nov 2026 12:01:02 -0500
+Message-ID: <2026-11-26-1-daily-reply-0014@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125150833.340764-1-kapoorarnav43@gmail.com>
-References: <20261125150833.340764-1-kapoorarnav43@gmail.com>
+In-Reply-To: <20261126154714.169698-1-leon.hwang@linux.dev>
+References: <20261126154714.169698-1-leon.hwang@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,11 +68,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> GNRL_CTRL1/2 hold the scan period in units of 8192 / FOSC, but
-> sx9360_set_samp_freq() computes freq * 8192 / FOSC and mis-scales val2,
-> which is in micro units.
+> Request from Guillaume and Vincent [1][2], backport the following commits to
+> linux-6.18.y with editing the commits manually, excluding patch 3.
 
-Queued for 6.18, 6.12, 6.6 and 6.1, thanks.
+Queued this series for 6.18 and your 6.12 series for 6.12, thanks.
 
 -- 
 Thanks,
