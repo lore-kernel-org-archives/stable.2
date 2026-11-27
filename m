@@ -1,56 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.154.239.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.199.235.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795779016;
-	b=10JTAFidQUT9A2pjNSGqv3nJNmDrhsxfYvp2R6mWpRzc1/0UOcETefO9CaZZ/ED6yM6c
-	 wbyo+jcV41+Q3pQgWLSern9GECw+pFCHcudkNiVw4Vl8WJFq4EXqLo+C2/uqAWW22Dniy
-	 /9X4C/4ujLN89nZ4cfdSAaxRnA8Kw1+Yylre6rSorQjHGE/VbIIYE/jS+kHf4aqjL2xRe
-	 2nj6jpGXZW6h3z2DH3Byv4C+9YWANU6EXH32Qnbs1phI/pFjI7KzvTutz4sNLUrq1rKRa
-	 3SpxgtLstxN9rRfIkz/DnbQPM3axHSG2enlzOHKZ3Q6Uikr39Qm+ZcRvnIsyT29l3dA==
+	t=1795779024;
+	b=wXzU1Ptiw9hhVLJjKI6YgtJlVp32vp6BdfXJal0CfBpXBiOgBv2AgQGf5mWfICg/hAib
+	 FjwA5473fBuAHkZjjQslNFJbz2M45gJL6tRtd7SqB6KJoVk/QaexldDQWYhPr+KdYx8b5
+	 u32ktQstF9Q31WL/yXMULewW5UplY4/5YqpchHuebbvrUuluacpK4T/0MNWMftPK5miDN
+	 mX52LxtuqGmjFAQ5nqVa/Fg68dcm00isF2gsOv1+lQ9wrsW3qdcXbyf73YZcpFVLNzTkn
+	 kmkRQBPe+mPnHm4u4D4mIvDOBkYrt+uoNBG53CWVkwH8KYSSNoDdV6rxBtzYzLtmYMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795779016;
-	h=DMARC-Filter:Received:Received:X-Yandex-Fwd:DKIM-Signature:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=gereHGF8JJoi5rZwMI0qXVJBdf0r6OrNt29PH2qqFg4=;
-	b=bn+tU88mV6eFUV3acDy+wjKpBFVluU2t/lctMIInSMdTcWJOsBHd9FPn9A9OI+DaXODC
-	 16h5HzGYwe0xal8xsSul8Un8wDe1zcLsTh0QDa+xSMn9e8YYJkJRkdkh7msGQRkcIsYtg
-	 A9qG8rrNyVvbIHnVxcvQrVBHLU+9LStGn95f+9O9fwlUlH1f0OEVSczF/2nHTZcysXGt2
-	 t1pmoa4clxMfvgSdg36RLvF7ux8ayAZv9wUgUoTHNldd01MTJWJVDhQME/XH2+4gQPJMC
-	 0N3rqO1gLopb95IgXmG3NJNZGbFq82OrCHu3+k7kcOOvJP53R2BUUR71NQnOzQRNn1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795779024;
+	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:
+	 X-Virus-Scanned:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=K5Swrz1cA4/FZhj9LgmmqfX1toxT4yNd5HBltxE7hfU=;
+	b=PG/VFX1XJKbEz0j3iDeA5UF7dwlz3XXtI74xAc0y081UgP4yyXw1I6VaP/W5jXI3ELsv
+	 sj/KeK3BYImio3a62OmTHglWpXoZbhXu2dcrz4acDP/N6veAzrOSzUbUl4fJmvh1fsNcV
+	 l5u6vmjWnMDpbtvG6YQoTCwz7eO4fII5l1MTvOzyeSZx6oIWGI7kCXnpIxcnVXvRVtFXm
+	 OEjk/7rXmA67kav/XRgVFbRYHG0fIPlnNyyaMR4XIdNVLrNriFMT0GFZ5ThUevu0t1PHL
+	 YtDCjSDiW3ZUk/ugDA1nyDLuOY/hcX+kSrKc54LPRig4oTKx8mfdZ+k97WxNfDLeuiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yandex-team.ru;
-	spf=pass smtp.mailfrom=yandex-team.ru;
-	dkim=pass header.d=yandex-team.ru header.i=@yandex-team.ru header.a=rsa-sha256 header.s=default header.b="0ijb7/A/";
-	arc=none smtp.remote-ip=178.154.239.200
-Received: from forwardcorp1d.mail.yandex.net (forwardcorp1d.mail.yandex.net [178.154.239.200])
+	dmarc=pass header.from=cirad.fr;
+	spf=pass smtp.mailfrom=cirad.fr;
+	dkim=pass header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=XuFVFQdE;
+	arc=none smtp.remote-ip=194.199.235.221
+Received: from retz.cirad.fr (retz.cirad.fr [194.199.235.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9D1606A321
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 11:30:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C9D1606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex-team.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex-team.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B5E606A31C
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 11:30:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6B5E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cirad.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cirad.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=yandex-team.ru header.i=@yandex-team.ru header.a=rsa-sha256 header.s=default header.b=0ijb7/A/
-Received: from mail-nwsmtp-smtp-corp-main-68 (mail-nwsmtp-smtp-corp-main-68.yp-c.yandex.net)
-	by forwardcorp1d.mail.yandex.net (postfix) with ESMTPS id 599D980739;
-	Fri, 27 Nov 2026 14:30:05 +0300 (MSK)
-Received: from [IPV6:2a02:6bf:8080:31::1:1e]
-	by mail-nwsmtp-smtp-corp-main-68 with ESMTPSA id 3UhaXO9WRSw0-8IfutJsT;
-	Fri, 27 Nov 2026 14:30:04 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
-	s=default; t=1795779004;
-	bh=gereHGF8JJoi5rZwMI0qXVJBdf0r6OrNt29PH2qqFg4=;
-	h=From:In-Reply-To:Cc:Date:References:To:Subject:Message-ID;
-	b=0ijb7/A/qzL8ed5dTeWBa1c7LWSb/qewsouh6/Hriauyj0Y/9ubg8Mi4080ORytrZ
-	 g1pIUKsOjTEUbjliib00vk72tSnQKmVYtYqw0doVluX10QXfGw4i/1y5nVxsExBbZ1
-	 hQ6vMo25/LserW6gOpfgRyh/JeLgk0yLK9dwTSyM=
-Authentication-Results: mail-nwsmtp-smtp-corp-main-68; dkim=pass header.i=@yandex-team.ru
-Message-ID: <1e035d4c-3eb0-402c-afaf-ff0affb9a5e6@yandex-team.ru>
-Date: Fri, 27 Nov 2026 14:30:03 +0300
+	dkim=pass (2048-bit key) header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=XuFVFQdE
+Received: from retz.cirad.fr (localhost [127.0.0.1])
+	by retz.cirad.fr (Postfix) with ESMTPS id 653A520DC832;
+	Fri, 27 Nov 2026 12:30:21 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by retz.cirad.fr (Postfix) with ESMTP id 3FF9320DC64F;
+	Fri, 27 Nov 2026 12:30:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.10.3 retz.cirad.fr 3FF9320DC64F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirad.fr;
+	s=573E3878-7916-11F1-BF4B-F68474317960; t=1795779021;
+	bh=K5Swrz1cA4/FZhj9LgmmqfX1toxT4yNd5HBltxE7hfU=;
+	h=From:To:Date:Message-ID:MIME-Version;
+	b=XuFVFQdETYRurfvSIC5qxXpI0J3JWM1KxGu6CKVm8B24p0OzAIO4CdmfHuEo2cG47
+	 pCzshr0OSXqA1ZyiJ2sxQN1Vd993ZrcSox0RH+ktSSqS4lfOKn8XTqhb6n/O2zbCbu
+	 Vgd9fUCz84SrmPBgFRL8aX0roGhygn/xqFbaD7xyspPEJhhqnSJIV2hM9uODeGWQ/L
+	 OWVimU2+Ind7OPjyHfRXvbXcDNHT2uzfiih0s3HVgotlNNbwik5btXfaxNNT0jVrAi
+	 /EBFv5rGEPJH5L9k1t4E/tPtzUFAbXZWNii2EHrO4WzpUSCZxJ5VfnXszCufLc9AFl
+	 krk5ytvI4MSyA==
+X-Virus-Scanned: amavis at retz.cirad.fr
+Received: from retz.cirad.fr ([127.0.0.1])
+ by localhost (retz.cirad.fr [127.0.0.1]) (amavis, port 10026) with ESMTP
+ id Fz9y9CjViu0B; Fri, 27 Nov 2026 12:30:21 +0100 (CET)
+Received: from localhost.localdomain (78-196-243-100.subs.proxad.net [78.196.243.100])
+	by retz.cirad.fr (Postfix) with ESMTPSA id D751920DC832;
+	Fri, 27 Nov 2026 12:30:20 +0100 (CET)
+From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
+To: nouveau@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+	Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	=?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] drm/nouveau/fifo/gf100-: reset the faulting engine even if it switched channels
+Date: Fri, 27 Nov 2026 12:30:05 +0100
+Message-ID: <20261127113005.981725-1-frederic.mahe@cirad.fr>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,255 +77,202 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 2333/3318] bpftool: Add support to display
- uprobe_multi links
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Jiri Olsa <jolsa@kernel.org>,
- Andrii Nakryiko <andrii@kernel.org>, Quentin Monnet <quentin@isovalent.com>,
- Song Liu <song@kernel.org>, Sasha Levin <sashal@kernel.org>
-References: <20261118150313.527275416@linuxfoundation.org>
- <20261118150431.639921252@linuxfoundation.org>
-Content-Language: en-US
-From: Maksim Davydov <davydov-max@yandex-team.ru>
-In-Reply-To: <20261118150431.639921252@linuxfoundation.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-Hi!
-It seems that necessary e56fdbfb06e2 ("bpf: Add link_info support for
-uprobe multi link") was omitted from v6.6.163 because a7795698f8b6
-("bpftool: Add support to display uprobe_multi links") depends on it. I
-encountered a build error while compiling bpftool.
+When an engine reports an MMU fault, recovery flags the faulting
+channel group and nvkm_runl_rc() resets only the engines whose current
+context (cxid) belongs to a flagged group.  On Fermi the fault can be
+reported after GR has started switching to another channel: the engine
+status then reads e.g. 0x01140003 (not busy, chid 3) while channel 4
+faulted, so GR is not reset, stays stalled on the fault, and the
+runlist update never completes:
 
-The build error:
-link.c:307:11: error: ‘struct bpf_link_info’ has no member named
-‘uprobe_multi’; did you mean ‘kprobe_multi’?
+  fifo: fault 01 [WRITE] at 0 engine 00 [PGRAPH] client 0f [GPC0/PROP] re=
+ason 02 [PAGE_NOT_PRESENT] on channel 4
+  object-namespac[1768]: channel 4 killed!
+  fifo:000000:00[      gr]: 01140003: busy 0 save 1 unk0 0 unk1 0 chid 3
+  fifo:000000:00[      gr]: cxid not valid
+  WARNING: drivers/gpu/drm/nouveau/nvkm/engine/fifo/nv50.c:228 at nv50_ru=
+nl_wait+0xe8/0x100 [nouveau]
+  fifo: SCHED_ERROR 0d []
+  WARNING: drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c:251 at nvkm_ru=
+nl_preempt_wait+0xf7/0x110 [nouveau]
 
-On 11/18/26 17:49, Greg Kroah-Hartman wrote:
-> 6.6-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Jiri Olsa <jolsa@kernel.org>
-> 
-> [ Upstream commit a7795698f8b6c48283fa4334eb313bc1350b2864 ]
-> 
-> Adding support to display details for uprobe_multi links,
-> both plain:
-> 
->   # bpftool link -p
->   ...
->   24: uprobe_multi  prog 126
->           uprobe.multi  path /home/jolsa/bpf/test_progs  func_cnt 3  pid 4143
->           offset             ref_ctr_offset     cookies
->           0xd1f88            0xf5d5a8           0xdead
->           0xd1f8f            0xf5d5aa           0xbeef
->           0xd1f96            0xf5d5ac           0xcafe
-> 
-> and json:
-> 
->   # bpftool link -p
->   [{
->   ...
->       },{
->           "id": 24,
->           "type": "uprobe_multi",
->           "prog_id": 126,
->           "retprobe": false,
->           "path": "/home/jolsa/bpf/test_progs",
->           "func_cnt": 3,
->           "pid": 4143,
->           "funcs": [{
->                   "offset": 860040,
->                   "ref_ctr_offset": 16111016,
->                   "cookie": 57005
->               },{
->                   "offset": 860047,
->                   "ref_ctr_offset": 16111018,
->                   "cookie": 48879
->               },{
->                   "offset": 860054,
->                   "ref_ctr_offset": 16111020,
->                   "cookie": 51966
->               }
->           ]
->       }
->   ]
-> 
-> Signed-off-by: Jiri Olsa <jolsa@kernel.org>
-> Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
-> Reviewed-by: Quentin Monnet <quentin@isovalent.com>
-> Acked-by: Song Liu <song@kernel.org>
-> Link: https://lore.kernel.org/bpf/20231125193130.834322-7-jolsa@kernel.org
-> Stable-dep-of: dbf8cef936c7 ("bpftool: Fix CPU IDs in per-CPU map output")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  tools/bpf/bpftool/link.c | 105 ++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 103 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tools/bpf/bpftool/link.c b/tools/bpf/bpftool/link.c
-> index 2e5c231e08ac7..00ecc67b54712 100644
-> --- a/tools/bpf/bpftool/link.c
-> +++ b/tools/bpf/bpftool/link.c
-> @@ -293,6 +293,37 @@ show_kprobe_multi_json(struct bpf_link_info *info, json_writer_t *wtr)
->  	jsonw_end_array(json_wtr);
->  }
->  
-> +static __u64 *u64_to_arr(__u64 val)
-> +{
-> +	return (__u64 *) u64_to_ptr(val);
-> +}
-> +
-> +static void
-> +show_uprobe_multi_json(struct bpf_link_info *info, json_writer_t *wtr)
-> +{
-> +	__u32 i;
-> +
-> +	jsonw_bool_field(json_wtr, "retprobe",
-> +			 info->uprobe_multi.flags & BPF_F_UPROBE_MULTI_RETURN);
-> +	jsonw_string_field(json_wtr, "path", (char *) u64_to_ptr(info->uprobe_multi.path));
-> +	jsonw_uint_field(json_wtr, "func_cnt", info->uprobe_multi.count);
-> +	jsonw_int_field(json_wtr, "pid", (int) info->uprobe_multi.pid);
-> +	jsonw_name(json_wtr, "funcs");
-> +	jsonw_start_array(json_wtr);
-> +
-> +	for (i = 0; i < info->uprobe_multi.count; i++) {
-> +		jsonw_start_object(json_wtr);
-> +		jsonw_uint_field(json_wtr, "offset",
-> +				 u64_to_arr(info->uprobe_multi.offsets)[i]);
-> +		jsonw_uint_field(json_wtr, "ref_ctr_offset",
-> +				 u64_to_arr(info->uprobe_multi.ref_ctr_offsets)[i]);
-> +		jsonw_uint_field(json_wtr, "cookie",
-> +				 u64_to_arr(info->uprobe_multi.cookies)[i]);
-> +		jsonw_end_object(json_wtr);
-> +	}
-> +	jsonw_end_array(json_wtr);
-> +}
-> +
->  static void
->  show_perf_event_kprobe_json(struct bpf_link_info *info, json_writer_t *wtr)
->  {
-> @@ -459,6 +490,9 @@ static int show_link_close_json(int fd, struct bpf_link_info *info)
->  	case BPF_LINK_TYPE_KPROBE_MULTI:
->  		show_kprobe_multi_json(info, json_wtr);
->  		break;
-> +	case BPF_LINK_TYPE_UPROBE_MULTI:
-> +		show_uprobe_multi_json(info, json_wtr);
-> +		break;
->  	case BPF_LINK_TYPE_PERF_EVENT:
->  		switch (info->perf_event.type) {
->  		case BPF_PERF_EVENT_EVENT:
-> @@ -666,6 +700,33 @@ static void show_kprobe_multi_plain(struct bpf_link_info *info)
->  	}
->  }
->  
-> +static void show_uprobe_multi_plain(struct bpf_link_info *info)
-> +{
-> +	__u32 i;
-> +
-> +	if (!info->uprobe_multi.count)
-> +		return;
-> +
-> +	if (info->uprobe_multi.flags & BPF_F_UPROBE_MULTI_RETURN)
-> +		printf("\n\turetprobe.multi  ");
-> +	else
-> +		printf("\n\tuprobe.multi  ");
-> +
-> +	printf("path %s  ", (char *) u64_to_ptr(info->uprobe_multi.path));
-> +	printf("func_cnt %u  ", info->uprobe_multi.count);
-> +
-> +	if (info->uprobe_multi.pid)
-> +		printf("pid %d  ", info->uprobe_multi.pid);
-> +
-> +	printf("\n\t%-16s   %-16s   %-16s", "offset", "ref_ctr_offset", "cookies");
-> +	for (i = 0; i < info->uprobe_multi.count; i++) {
-> +		printf("\n\t0x%-16llx 0x%-16llx 0x%-16llx",
-> +			u64_to_arr(info->uprobe_multi.offsets)[i],
-> +			u64_to_arr(info->uprobe_multi.ref_ctr_offsets)[i],
-> +			u64_to_arr(info->uprobe_multi.cookies)[i]);
-> +	}
-> +}
-> +
->  static void show_perf_event_kprobe_plain(struct bpf_link_info *info)
->  {
->  	const char *buf;
-> @@ -792,6 +853,9 @@ static int show_link_close_plain(int fd, struct bpf_link_info *info)
->  	case BPF_LINK_TYPE_KPROBE_MULTI:
->  		show_kprobe_multi_plain(info);
->  		break;
-> +	case BPF_LINK_TYPE_UPROBE_MULTI:
-> +		show_uprobe_multi_plain(info);
-> +		break;
->  	case BPF_LINK_TYPE_PERF_EVENT:
->  		switch (info->perf_event.type) {
->  		case BPF_PERF_EVENT_EVENT:
-> @@ -831,8 +895,10 @@ static int show_link_close_plain(int fd, struct bpf_link_info *info)
->  
->  static int do_show_link(int fd)
->  {
-> +	__u64 *ref_ctr_offsets = NULL, *offsets = NULL, *cookies = NULL;
->  	struct bpf_link_info info;
->  	__u32 len = sizeof(info);
-> +	char path_buf[PATH_MAX];
->  	__u64 *addrs = NULL;
->  	char buf[PATH_MAX];
->  	int count;
-> @@ -874,6 +940,39 @@ static int do_show_link(int fd)
->  			goto again;
->  		}
->  	}
-> +	if (info.type == BPF_LINK_TYPE_UPROBE_MULTI &&
-> +	    !info.uprobe_multi.offsets) {
-> +		count = info.uprobe_multi.count;
-> +		if (count) {
-> +			offsets = calloc(count, sizeof(__u64));
-> +			if (!offsets) {
-> +				p_err("mem alloc failed");
-> +				close(fd);
-> +				return -ENOMEM;
-> +			}
-> +			info.uprobe_multi.offsets = ptr_to_u64(offsets);
-> +			ref_ctr_offsets = calloc(count, sizeof(__u64));
-> +			if (!ref_ctr_offsets) {
-> +				p_err("mem alloc failed");
-> +				free(offsets);
-> +				close(fd);
-> +				return -ENOMEM;
-> +			}
-> +			info.uprobe_multi.ref_ctr_offsets = ptr_to_u64(ref_ctr_offsets);
-> +			cookies = calloc(count, sizeof(__u64));
-> +			if (!cookies) {
-> +				p_err("mem alloc failed");
-> +				free(cookies);
-> +				free(offsets);
-> +				close(fd);
-> +				return -ENOMEM;
-> +			}
-> +			info.uprobe_multi.cookies = ptr_to_u64(cookies);
-> +			info.uprobe_multi.path = ptr_to_u64(path_buf);
-> +			info.uprobe_multi.path_size = sizeof(path_buf);
-> +			goto again;
-> +		}
-> +	}
->  	if (info.type == BPF_LINK_TYPE_PERF_EVENT) {
->  		switch (info.perf_event.type) {
->  		case BPF_PERF_EVENT_TRACEPOINT:
-> @@ -909,8 +1008,10 @@ static int do_show_link(int fd)
->  	else
->  		show_link_close_plain(fd, &info);
->  
-> -	if (addrs)
-> -		free(addrs);
-> +	free(ref_ctr_offsets);
-> +	free(cookies);
-> +	free(offsets);
-> +	free(addrs);
->  	close(fd);
->  	return 0;
->  }
+After that no channel makes progress: the whole GPU is dead until a
+reboot, and processes using it hang in D state.
 
--- 
-Best regards,
-Maksim Davydov
+Record in the channel group which engines reported a fault for it.  The
+recovery pass that takes the group from pending to running collects
+that mask, and resets those engines regardless of what their status
+says.  Resetting GR may discard the context being switched in, but that
+is far better than losing the GPU.
+
+Faults reported for a group whose recovery is already running are
+recorded but never acted on: as before, such a group is not recovered
+again, and keeping the mask with the group means a later recovery of
+another group cannot reset an engine on its behalf.
+
+Tested on a Quadro 600 (GF108): a program that faults (piglit
+"object-namespace-pollution glClearTexSubImage texture") while three
+other processes keep GR busy hangs the GPU within one to three faults
+without this patch.  With it, 20 of 20 faults recovered (17 of them hit
+the state above), with no runlist timeouts, and the GPU kept working.
+On an NVS 315 (GF119) the same test hangs the GPU at the first fault
+without this patch; with it, 20 of 20 rounds completed, every fault was
+recovered, and the GPU kept working.
+
+Written with help from Claude (Anthropic); reviewed and tested on hardwar=
+e.
+
+Fixes: 4d60100a23ec ("drm/nouveau/fifo: add common channel recovery")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fr=C3=A9d=C3=A9ric Mah=C3=A9 <frederic.mahe@cirad.fr>
+---
+v2: keep the faulting engines in the channel group (cgrp->rc_engm)
+instead of a per-engine flag, and consume them only in the recovery
+pass that takes that group into recovery.  v1 could leave the flag set
+when a second fault arrived for a group already in recovery, so that a
+later recovery of another group would reset the engine; it could also
+let a pass already in progress reset an engine for a group whose
+channels it had not removed yet.  Both reported by the Sashiko review of
+v1.  rc_engm is initialised explicitly, as nvkm_cgrp_new() uses kmalloc.
+v2 was tested again on the Quadro 600 (GF108): the piglit test above
+recovered 20 of 20 faults (17 in the state above); "nv-mmu-fault -e
+noctx" (below) recovered 60 of 60 runs, plus 20 of 20 with fifo debug
+output, where GR was reset every time through the new mask (its status
+held no valid context); "-e gr" under load recovered 2 x 40 of 40.  No
+runlist timeouts.  The NVS 315 numbers are from v1.
+v1: https://lore.kernel.org/nouveau/20261126175531.916097-1-frederic.mahe=
+@cirad.fr/
+
+Tested on GF108 and GF119 only. gf100_fifo_mmu_fault_recover() is also us=
+ed by
+gk104, gm107, gv100 and tu102 (non-GSP), so the change applies to those
+too; feedback from such hardware is welcome.
+
+A small libdrm program reproduces this without Mesa or piglit
+(nv-mmu-fault.c, available on request):
+
+  nv-mmu-fault -e noctx
+
+sends one graphics method on a channel that has no graphics object.
+PGRAPH's context-switch unit then faults (READ at 0, HUB/CTXCTL)
+while the engine status no longer names the channel. On an NVS 315
+(GF119), without this patch the GPU is dead after the first run;
+with it, 60 of 60 runs recovered. "nv-mmu-fault -e gr" in a loop
+with three processes keeping PGRAPH busy gives the WRITE fault of
+the log above: dead at the 4th fault without the patch, 40 of 40
+recovered with it.
+
+ drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.c  |  1 +
+ drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.h  |  1 +
+ drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c | 11 +++++++++--
+ drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c  | 15 ++++++++++++---
+ 4 files changed, 23 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.c b/drivers/gp=
+u/drm/nouveau/nvkm/engine/fifo/cgrp.c
+index 7e2d5711a..93b79bcaf 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.c
+@@ -241,6 +241,7 @@ nvkm_cgrp_new(struct nvkm_runl *runl, const char *nam=
+e, struct nvkm_vmm *vmm, bo
+ 	INIT_LIST_HEAD(&cgrp->vctxs);
+ 	mutex_init(&cgrp->mutex);
+ 	atomic_set(&cgrp->rc, NVKM_CGRP_RC_NONE);
++	atomic_set(&cgrp->rc_engm, 0);
+=20
+ 	if (runl->cgid) {
+ 		cgrp->id =3D nvkm_chid_get(runl->cgid, cgrp);
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.h b/drivers/gp=
+u/drm/nouveau/nvkm/engine/fifo/cgrp.h
+index 5f6abd59a..e7e6abe9e 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.h
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.h
+@@ -50,6 +50,7 @@ struct nvkm_cgrp {
+ #define NVKM_CGRP_RC_PENDING 1
+ #define NVKM_CGRP_RC_RUNNING 2
+ 	atomic_t rc;
++	atomic_t rc_engm; /* engines that faulted on the group, reset during it=
+s RC */
+=20
+ 	struct list_head head;
+ };
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c b/drivers/g=
+pu/drm/nouveau/nvkm/engine/fifo/gf100.c
+index e4a4fad2e..b12f7d396 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c
+@@ -597,9 +597,16 @@ gf100_fifo_mmu_fault_recover(struct nvkm_fifo *fifo,=
+ struct nvkm_fault_data *inf
+ 		   info->reason, er ? er->name : "",
+ 		   chan ? chan->id : -1, info->inst, chan ? chan->name : "unknown");
+=20
+-	/* Handle host/engine faults. */
+-	if (chan)
++	/* Handle host/engine faults.  The engine that reported the fault must
++	 * be reset even if it has already switched to another channel (its
++	 * status then no longer points at the faulting channel), otherwise it
++	 * stays stalled and the runlist update never completes.
++	 */
++	if (chan) {
++		if (engine && engn->runl =3D=3D chan->cgrp->runl && !WARN_ON(engn->id =
+>=3D 32))
++			atomic_or(BIT(engn->id), &chan->cgrp->rc_engm);
+ 		nvkm_runl_rc_cgrp(chan->cgrp);
++	}
+=20
+ 	nvkm_chan_put(&chan, flags);
+ }
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c b/drivers/gp=
+u/drm/nouveau/nvkm/engine/fifo/runl.c
+index 209252105..daddc2080 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c
+@@ -63,6 +63,7 @@ nvkm_runl_rc(struct nvkm_runl *runl)
+ 	struct nvkm_engn *engn;
+ 	unsigned long flags;
+ 	int rc, state, i;
++	u32 engm =3D 0;
+ 	bool reset;
+=20
+ 	/* Runlist is blocked before scheduling recovery - fetch count. */
+@@ -75,6 +76,9 @@ nvkm_runl_rc(struct nvkm_runl *runl)
+ 	nvkm_runl_foreach_cgrp_safe(cgrp, gtmp, runl) {
+ 		state =3D atomic_cmpxchg(&cgrp->rc, NVKM_CGRP_RC_PENDING, NVKM_CGRP_RC=
+_RUNNING);
+ 		if (state =3D=3D NVKM_CGRP_RC_PENDING) {
++			/* Collect the engines that reported a fault for the group. */
++			engm |=3D atomic_xchg(&cgrp->rc_engm, 0);
++
+ 			/* Disable all channels in them, and remove from runlist. */
+ 			nvkm_cgrp_foreach_chan_safe(chan, ctmp, cgrp) {
+ 				nvkm_chan_error(chan, false);
+@@ -99,14 +103,19 @@ nvkm_runl_rc(struct nvkm_runl *runl)
+=20
+ 	/* Look for engines that are still on flagged channel groups - reset th=
+em. */
+ 	nvkm_runl_foreach_engn_cond(engn, runl, engn->func->cxid) {
++		bool faulted =3D engn->id < 32 && (engm & BIT(engn->id));
++
+ 		cgrp =3D nvkm_engn_cgrp_get(engn, &flags);
+-		if (!cgrp) {
++		if (!cgrp && !faulted) {
+ 			ENGN_DEBUG(engn, "cxid not valid");
+ 			continue;
+ 		}
+=20
+-		reset =3D atomic_read(&cgrp->rc) =3D=3D NVKM_CGRP_RC_RUNNING;
+-		nvkm_cgrp_put(&cgrp, flags);
++		reset =3D faulted;
++		if (cgrp) {
++			reset |=3D atomic_read(&cgrp->rc) =3D=3D NVKM_CGRP_RC_RUNNING;
++			nvkm_cgrp_put(&cgrp, flags);
++		}
+ 		if (!reset) {
+ 			ENGN_DEBUG(engn, "cxid not in recovery");
+ 			continue;
+--=20
+2.53.0
 
