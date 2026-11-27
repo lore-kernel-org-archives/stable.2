@@ -1,72 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795754702;
-	b=2EuF+wHDx3SKp4vLvko9/0Pvqub+A6LS41EU8HyR4ZRFT1SPhtKdSMp7SJMwYSMOhEu0
-	 6i3ZwARk1jjmySuM7M3wLbpiE9LnBn7frNJTEO3pl0anStMo77fQQ5+3lb33/VfONZUxA
-	 z21lvOr/6txdFnvDcXq69r9ow02BUB6mDRrQSx8hAgggo+1mQ3wyUACYQXMjrc4LpEao/
-	 xdPkomxmg1bTeacoMmR01le1uUWdC35vzLZ2YHWPQKDjzujla9XFC7xQMQHUg5FFGFjFv
-	 bYdaaqpAsmOthvWcFtvkaUGJv59jh4KxSXHdCArf5A7ImjkftGFKfguhsurpalhggcg==
+	t=1795754849;
+	b=lBdLfVZcK0Dnb0HsLI9SBUaaCrAU8L/XradJKiTG5FgT1Sg6d0CL/rNfPyWNgvOKpvRg
+	 T+W2JBgmdqF5jf2zydTPOLSRuE/rPnuee2kyCfnNGCmWxfpZakn4nU9SM3ZfImJ/AfrGr
+	 VAP/MZG2Svd6DXt5b52qJNWAtYz94hdJo70nigh74l1GujN+zBk+livGwYGhZkMH84skN
+	 epoOMn9UpVoMhB80iTKPlCF9uLJ10n9H+L0Mxnzx0eJFIec7Aakt4AO+rD87UUhSb5Psf
+	 ueZ8bRv4kWYpvBdmmUKpHWPy+xL2bl7XTxrXoX2RWEvx04KYWUkJ17uxogfW+8cRqWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795754702;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795754849;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=up2JUVBVe7IxMJqAJpnFfm9YSUDx0gfYrWA7gUrFC20=;
-	b=i2X5kj4TFrjzmWB0AmQIOrnhKkQ33IRnDCojN0F9MXg0uJm4MBAS06EmIXFKeD1sEtsd
-	 Eu+9aZ4q9e0C0jEzs3Srqz7uPTpabB/WU9U0+0GKUcxGxVLVcFlDnCmcpGddnFlPJcmqx
-	 qQsIi2G59DQNTAK5h7Xwq1XCyKT+jV//tn4safcOtEp7prgES6PNHydFlTlhMD4J50RJB
-	 3EQiAhenVQK2leLOTesEriQRvkSYfQ+X9X91MYXG6CzFu46SurvaYr4f5zWPml2GmLwwa
-	 BvD0KFnTLNKY8oVnJLPFYygb4sZRF/rHMZoMfq0aoT7B3UgDa6iHH7CW3YblSla3IyQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=hhWbnd1GeIVZ9hq0Bu34JgMJF0xS6SzA2+sYatBHwFs=;
+	b=4UC07GYdbxwy1byyB2H/6Pa26QPy8DgNsgUuxBXq94TPupdKDFlswenBSgeendcyZfuI
+	 DzFnTgoRQDEE1svA6nGP+yTVxcgilILbmhg5Hca0xwnw4ilOVYb1Xnd3CynYfuDB126AI
+	 ZEhw+j2BLrbt19TufCY++3nkJufuLPp3dORRzMuiJNJtozu7lcetwtc6svAs7WVQa9oNZ
+	 e/ylI6wVYwHKMKy/8KWRpWFrIxUOkwqUmlyEy7rseWr/9DmNVPOUSdOi5k+Qa/nWjSt10
+	 R72tqGPeYdcYdKcpkU6hxP1ZwrEHCo5DxSSDjHWFhuhFUc1JK6EtW91n7LV4cAesltQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=O5Bz3vNk;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AMG77+b2;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F2D606A31E
-	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 04:45:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64F2D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F14606A32D
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 04:47:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99F14606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=O5Bz3vNk
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b45655b428so6667498a91.0
-        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 20:45:01 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AMG77+b2
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-386ab9ab619so10414433eec.1
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 20:47:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795754701; x=1796359501; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=up2JUVBVe7IxMJqAJpnFfm9YSUDx0gfYrWA7gUrFC20=;
-        b=O5Bz3vNkQhd/sRzDiaSbLoeBk9Qm9UZFhKjlP0p0uS5g0CknVx4S/Zmw+RnfRQv7lm
-         3xXs4JZxv/nLBoFeNwIqyjm2GnV78olgulj5mRshrWiuyVvDfWU5vqSX+I6vXqvuZE++
-         wg/pEV+BjkTMBU6qkRuciObZmzK/IrIPo/PYsy3yFqASF7jU37Qk3m7pkAgAP32jApP0
-         IB1Dt9wIhprQk3hlWixTG+Dai6qg/Bb8N3LI1Qci0E1Q2WvZ4yFSzwrHEQLVrfE6V8CH
-         frM0FZbeYcmvc/AyvPH6VDcLjDtjKKtgmtDdp2hJLhvpnQV3ftPKt17bzGFjUxDMJkva
-         Jh1Q==
+        d=gmail.com; s=20260707; t=1795754848; x=1796359648; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hhWbnd1GeIVZ9hq0Bu34JgMJF0xS6SzA2+sYatBHwFs=;
+        b=AMG77+b22JuIdGerH9kErHw+7ek4I23A2vLZan8A+0NggyvcIxby4Tg8V6DMuEOkzh
+         QtT835xYS4w5Mt5xmRwcrbosW+/E3hW77ZNASyEn+0x3nsWmFAgiWh6aF3UFj2uAnhkH
+         hf6k5JiOyqRvUoBTjzBLPgdtEIYrpXm24q1m4fqptOeV6KOmRjDCQ6nuBtlfuh+2hoJs
+         iIZIYWiADDbAK46bGZe7RYt2mtxWipnFtQ80+mcPcM0zwFLohV610QHbLYAWJ99RioiW
+         YNxrRRj439oYxpDSTBIc47QJTYVuq+VVu3yCKzyKvByYwsxjyuheD6+YUKDtlveYqtJJ
+         /OVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795754701; x=1796359501;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=up2JUVBVe7IxMJqAJpnFfm9YSUDx0gfYrWA7gUrFC20=;
-        b=jfppjGuMltHQILSV1Aqmwi/mMglvjE1+GlTQ9+1Og3BhtMsYe7PblxO0dBkSTM1E7+
-         M2o0wbLHvcpa3/Mj8ZkbguxuG+1TVVFFsMqda0LKIVITRAuLGGAJeP8Wl2KQHlwyI6eq
-         100jKsWYD0Rz5i1YiWMH44vE6fKcw6WeB92oxTJqXN+rOGEKtF1BhyMer6Zj8l451b5y
-         d+SYOhE4GlxYwon1KpybsPFEFJcsKtWT/50qfR8AeplI/Trl+GFl5jHK34NcJ+B3oIlg
-         ivDw5fAWlK3Jz2OUONRGmVhVG8VFeXebSjCPnqS5kdWlOO/rLgQXmPQYHC2wttrSkalO
-         8ZQw==
-X-Forwarded-Encrypted: i=1; AL+hErFaB2fv54Gk+suAuJsWQIpvU5J9ja6UfQt55I1xMg9GNtivsSRz9/30N7SgQ29x0+08DOLdS7M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/68lKPOXjZHX2ygPoKGCB9cyJQrU9vq0uYCKzRS43+2AIhn7Je
-	iT2coXm3RWzaTI56idC5oEFwLac2fwZXhu4+CgXaEtvU7kWcQ7gkbp6v8HS6njcbiP00k+CYDbJ
-	qwcItW3fkBxOrYA==
-X-Received: from pjbpc5.prod.google.com ([2002:a17:90b:3b85:b0:3b5:361e:87b9])
- (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:2e8c:b0:3b3:b373:6a6a with SMTP id 98e67ed59e1d1-3b41c9e45c3mr23219110a91.28.1795754700474;
- Thu, 26 Nov 2026 20:45:00 -0800 (PST)
-Date: Fri, 27 Nov 2026 04:44:58 +0000
+        d=1e100.net; s=20260707; t=1795754848; x=1796359648;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hhWbnd1GeIVZ9hq0Bu34JgMJF0xS6SzA2+sYatBHwFs=;
+        b=26rULW7zz/OZxlZI4vm4+5VAnCxjv5Nww12vy/eSg+dhhQ3lu77AznF9K1wYeCkWzJ
+         1picLJTp0CpuC92AK5JhgsE+GGwcP6t4wiAP5nPCD/9gZjseiSyZVTDQwAyzIjdlYLqX
+         4XF7h0eZpKpzh4GBPoTUtWUSf42z75/twRhhzWzprqfI0vTHzoK3tTek7jyO2ObmQzTk
+         MukTLAH8/AsBl0RYBiyTjofDg5yoJlY+9LVNR+f4h9+HSXWnUetjSNH/cigVKv5UAzzF
+         L9ba9Nka4o4dNcreDvVt4xBe5Wx/eldDS0JGU6kpVAH0SRw7npntLtswN8hygfrOy+XC
+         jGJQ==
+X-Forwarded-Encrypted: i=1; AL+hErHwGsGpnoy7k6PjL/z33qbwO/in7NzAIn+t+hJIKubC4Y/bG1Ay8VLifx+HKr4DuNLGT0b5N94=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+fuLQdH3GtwzlA1s52mla4DOUqT/MnnJ4X58skN/kehnq5ajKk
+	e5vyCKLgEXrYO1PyXjUoh5RMWPDaPyAPhYQhgCnn8rp5ovn/O6u/PXL+
+X-Gm-Gg: AZFdTZcEftAOmQ1pVks0h61F4oJl/IwxF67QA7xakOKxPkyXIz6zl/bRdp2rM6E+uue
+	qIeqtxPPpIU/m1Okj7Al8SbW33SVTIH9GXTIWL2FUCkVlxJRm4Ki/FjAWveL8YCxuygYx+TExp1
+	oZoRXN5gPHwrCFKtdu+sFSyV+84pRiwVd6/OR0DPC/MoeGlhDBjqHWuwqkk/B3xe/bJ3TJzF6n5
+	WkP/NqvrD5P8KtataJELrrRUE/teQ05mem1dg5CXy3yLZ9P9/6W22UW9pvDnidHnYT7wAKHkaLO
+	SIsRyyYHi/10cyrnuidruek5LQ+NMZx7frcKFWinWyjcrhdYj+T5fm6wuN/Jdqk2BsPw5JEB7jR
+	wn+P6SIeMUBU5D11fcO0UUc+AsZso4m3s1OpCmmrWtwfOKzmXTKqPf81lHrzhVPORAZ40YbAFWE
+	al5p1OelCCGAeex6QFE+NMZ8fkabX2jEGlagx8xFiCox5mCLtSEpSyvu/7YBRAdXZf+S5gpBLYu
+	ByPyl4SdF5VmKQ9aCgPmWbx5kjlAp6YNgLeGMqt9G1MlRG2IWagDU84RWiQAQGsmaViMK5IhF4p
+	Wu8YGDfV4DwQr8XHntU/5osqPQWwbkQp
+X-Received: by 2002:a05:7301:d809:20b0:386:b070:6f1c with SMTP id 5a478bee46e88-386b0707151mr14752841eec.21.1795754847629;
+        Thu, 26 Nov 2026 20:47:27 -0800 (PST)
+Received: from archlinux ([114.79.176.131])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38567cafec4sm77084648eec.26.2026.11.26.20.47.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 20:47:27 -0800 (PST)
+From: Gururaj Naik <gururajnaik166@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Basavaraj Natikar <basavaraj.natikar@amd.com>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] HID: amd_sfh: Limit DMA mask to 32 bits on pre-SFH1.1 MP2
+Date: Fri, 27 Nov 2026 10:17:16 +0530
+Message-ID: <20261127044717.129941-2-gururajnaik166@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261127044717.129941-1-gururajnaik166@gmail.com>
+References: <20261127044717.129941-1-gururajnaik166@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,53 +99,55 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
-Message-ID: <20261127044458.2757857-1-skhawaja@google.com>
-Subject: [PATCH] PCI: Don't reset a VF through its hotplug slot
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Lukas Wunner <lukas@wunner.de>, Alex Williamson <alex@shazbot.org>, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Samiullah Khawaja <skhawaja@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-pci_dev_reset_slot_function() doesn't do a slot reset of a multifunction
-device, because the reset would also reset the other functions. A VF is
-not marked as multifunction, so this check doesn't catch it.
+Commit c45d2b54cc73 ("HID: amd_sfh: Use dma_set_mask_and_coherent()")
+switched from dma_set_mask() to dma_set_mask_and_coherent() with a
+64-bit mask, allowing dmam_alloc_coherent() to return sensor DMA
+buffers above 4 GiB.
 
-A VF on the same bus as its PF gets the PF's hotplug slot, so behind a
-pciehp port the VF has the "bus" reset method. A slot reset of the VF
-also resets the PF and all other VFs, and only the VF's state is
-restored afterwards.
+On a Dell Inspiron 7405 2n1 (Ryzen 7 4700U Renoir, PCI ID 1022:15e4),
+enabling sensors with a coherent DMA buffer above 4 GiB (e.g.
+0x110ff9000) causes MCE hardware memory corruption faults in active
+memory. Limiting the DMA mask to DMA_BIT_MASK(32) ensures buffers are
+allocated below 4 GiB and eliminates the MCE faults.
 
-Fixes: 10791141a6cf ("PCI: Simplify pci_dev_reset_slot_function()")
+Set the 32-bit DMA mask only for pre-SFH1.1 MP2 devices (mp2_ver <
+MP2_VER_1_1), leaving 64-bit DMA unchanged for SFH 1.1 and newer.
+
+Fixes: c45d2b54cc73 ("HID: amd_sfh: Use dma_set_mask_and_coherent()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+Signed-off-by: Gururaj Naik <gururajnaik166@gmail.com>
 ---
-Tested in QEMU with an igb PF behind a pciehp root port, bound to
-vfio-pci with two VFs. Without this patch the VFs have "flr bus" in
-reset_method, and a bus reset of one VF also resets the PF and the other
-VF. With it the VFs only have "flr".
----
- drivers/pci/pci.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/hid/amd-sfh-hid/amd_sfh_pcie.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index 7c6f2aba8144..16e970d26b51 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -4994,7 +4994,8 @@ static int pci_dev_reset_slot_function(struct pci_dev *dev, bool probe)
- {
- 	if (dev->subordinate || !dev->slot ||
- 	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET ||
--	    (dev->multifunction && !dev->slot->per_func_slot))
-+	    ((dev->multifunction || dev->is_virtfn) &&
-+	     !dev->slot->per_func_slot))
- 		return -ENOTTY;
+diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
+index 1d129f30b48a..fafba3ec9ced 100644
+--- a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
++++ b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
+@@ -484,7 +484,11 @@ static int amd_mp2_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
  
- 	return pci_reset_hotplug_slot(dev->slot->hotplug, probe);
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+ 	privdata->mmio = pcim_iomap_table(pdev)[2];
+ 	pci_set_master(pdev);
+-	rc = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
++
++	privdata->mp2_ver = (enum amd_mp2_version)id->driver_data;
++	rc = dma_set_mask_and_coherent(&pdev->dev,
++				       privdata->mp2_ver >= MP2_VER_1_1 ?
++				       DMA_BIT_MASK(64) : DMA_BIT_MASK(32));
+ 	if (rc) {
+ 		dev_err(&pdev->dev, "failed to set DMA mask\n");
+ 		return rc;
+@@ -498,7 +502,6 @@ static int amd_mp2_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
+ 	if (rc)
+ 		return rc;
+ 
+-	privdata->mp2_ver = (enum amd_mp2_version)id->driver_data;
+ 	if (privdata->mp2_ver >= MP2_VER_1_1) {
+ 		privdata->sfh1_1_ops = &sfh1_1_ops;
+ 		if (boot_cpu_data.x86 >= 0x1A)
 -- 
-2.56.1.839.g22a8290db9-goog
+2.56.0
 
