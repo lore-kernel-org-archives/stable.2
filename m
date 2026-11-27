@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.76
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795745154;
-	b=POiuUXCN7Jbus+zRWuZ+dlVoZlT4b/nC6iQwR2BS7jr+rGr7q9eXZwdHLMvQ9UBHpDzf
-	 naVs3/DzlRQ7jMcuoZUpTzZBtWN1x5XCxfa/7cn6lbuPBOsgF3sdePSlqSysOZpnlp11V
-	 y79EW6ZuVKPiJ3n15w32zvAmur4GvQlCRUyGZFit/UnX9nUxWAtLh/XoXSF63IS8gUNXP
-	 73LtaFiuMoHef2HB0WmsYPcOEpSHfyDH/8KpwVCDd2uy4y28LKBWKAt02Ll8mUosZkq00
-	 JSHcbUZUwu93unYyL5iQ4Gk+Rj7FMCzAYJ05X7oJ3tigYNP96Bu3xIgV6yzk9GohYsw==
+	t=1795745155;
+	b=dfrhuUwJIb3Rzo+gosTtipyonvlObFGPR4nwU3ZF1K5b+sbDYx93zQm1KmwEYGP4aUmZ
+	 m49wQXLN5hfXxUjfUmFFhGbcOVFMNfYpDJfRTM7t3xQ9oPoGqYcL20A+3WpjvDmX9wjsp
+	 GKNnHQeVf+M+Rhj60myvbRKbF3eJinFyiiYJ/LdxwtUlxxCiMFggs+CvqcnFzJhe4YURW
+	 lU29PuONa0P0ldvAZ6zRUw6dF9BRO8AUV1kYopLXQnWMjktOQFxFuUpR0NfsVaHvZPL/M
+	 QoelU/4BozKXyCiTYsVMly0cDCT+AqDeyHR7WDjRk7LFXqqBEiD+FVOXkjmYHjF5VxA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795745154;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795745155;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
@@ -24,54 +24,54 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=hFnuR4cwFoy+sqkHyHHAttRq+ADEvpSyhL16ShZEGyI=;
-	b=ocuhkCQ+CB95lUs6mRXP91TtUoVBnDxAv1qWLxNbT7DeBM9hqqzZ8+gKi8kG8ssyBMdY
-	 LarIc1hRnWfT+FXnqM+DAOTbhmR+Dnclm7E2GFINQUlErMPXHym8+gjDtEGw8efjF/0UL
-	 SxvDpD1x0acKBF8/QeQFLSyop/nQlsOxdeYGQjOXCVcIRQJzno9spKvinQ5sDYHfbaC+2
-	 Gpz/8K8/1BXAw0MYXYNq+EKnVtqqjw5+eyW5460TQtMAV3gBj8qryPwiOzzk6HfLUJ/m/
-	 BaQwvbyg8Dk9zbhRphaySex2UFqvk1CHiUdX7+SxTKw8qIJYUA5OVmZhfMPWMnMQtjA==
+	bh=j6CCUGlCyzK4gHVoT8L0O6LtOjmTJVzY5X+P6QymeWE=;
+	b=hahuJ1QFULHG0vjhIxGLMsjtMUAbT49QZmevjQXPCnG4bWgeI9vHm0RsNLdKZ+5MDJCQ
+	 Nis/8Q49c4gbcMNGPSteeUbcp+DjIuTTE/z/yFyxggHpZghpD2vsSmW6FYzbQTDpNChpQ
+	 cQGeXZv5yh58APJdOOhfr0gybhcSG9ATGihO41qPz7ZukrDAGXoY4jcVQwkfakV3+CbbX
+	 LDAd1lKvO5t4Jff2xLWkLTv+RXpJrYcXUlTX3NjXHG2ZanLlUS+Tu+iobovrl4/zifWc4
+	 bdyPYm5dcUHa+1e5lhrMozK2NpKwFgQh81u3W/OggCTqhZ5QWp5SttwPQUsXZeTRCrQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=valinux.co.jp;
 	spf=pass smtp.mailfrom=valinux.co.jp;
-	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=VrF1m2mo;
+	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=meNnvaqF;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.76
 Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11020076.outbound.protection.outlook.com [52.101.228.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C91A606A33D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AECDD606A332;
 	Fri, 27 Nov 2026 02:05:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C91A606A33D
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AECDD606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=VrF1m2mo
+	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=meNnvaqF
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Do4hM+8ek6bBV0GvaMlRASXttzl4hzyXtJq3zx4qn1k+XcgpU3rtbdxMdZuL/TA7XVVb2mSUqHpH6wYXBKzWWkFZmZyTFYk3TZLUXYnptKizqCgd/+cdbEoUjr6VpEM4ITylrnxOQeHVt8+/nQ2lsqOq0TbZTvmzgorsf2kzyK6ipjvPdfu+k8FkKXeixJpECF/zbMo+0JF+3ZVQY8qPnQEewfX9ecrJtok+Mcsw4YOMLOe7Qi50VvgoSruvTc2qJ1fZohA0wEcapsNeuej/NahyWMxBVE26gA0EsZz5kbgBxFM/1sOj1fv7UkDx6cFB5sGMi8Yf0hw1LQiWgQydCA==
+ b=TW3Iffn5hdaz54TRVLWQ17GxuNZmx0JmsUsfYFBH1ubCP0GiTBUwztc8RNtpsd3OqIP7UcgKU76srng32Ac+2/6W1FaCPuMmIvxJ0avHM+vQ0KdMSlviNiHai4bYvUzQeUjFo0KJsEklHGL+ZoDankdrF/jmuuOh6+YHQzVCMFn06rDwQhJnLwiZcNrEAtb0r7vRZyEZ5eRh6WcMGGtObUjJO3asgGmz6QAsBK9Qgu1s5QubiaeniBHSaqyHflY16A2zbyNT27L9tAae+ditLsHyJrvs9JidibGp5z40RSjHooGXQH80/iYxp1r08NuEOclntPEZm3ks/+HotOlC/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hFnuR4cwFoy+sqkHyHHAttRq+ADEvpSyhL16ShZEGyI=;
- b=DIrZFB/ntQ/ojOEc4lyj/x91s5pTugGZosWsGfHWwvEyKmA3vCZoaYl7g2d5Ki2uLso9p9GXV5HCoD8Yq7Ce1N1+yIulMylHe+U7ViYDBsJGK8J6MAAz07wuw5NfFCg0tOo7yEMA23Gc3GA2pU02ZjbEB95PEJdOVLTzgkgSGDfK9jSxHYb+4zbEkA3863k5/Ahvw9UoEW2lorXgHF3yeYtLx96XH+DTNqe1ZEJUEwskEvg5aK2/zqIO+fhBHQpPDkSDDIJDrqGuyPyD8FnGZcAcRQVorLrS1LQStJZc1oAeKABbUfXL0UdIbxqCI0Nmr/bUm5TklNSkUmXxFG+O4w==
+ bh=j6CCUGlCyzK4gHVoT8L0O6LtOjmTJVzY5X+P6QymeWE=;
+ b=BzniT1nRUWvRBr5FuJvnq577AUnx1XpdZwDkcuwY/FK0OTsG1j+L3K1yjrTDnpWZhM/S+Ad2O35ekg+V6TmriAzqbTkgb7RMEUHzi2cClqKJAL79wiKpyW1klzsZofNR2+RXAmtWBchMlW/0boVobSEbHxwoIdLvjZUQwLOtTyOsUSfmlLAP60tdBhigqcwB80LmlwzPzqww37oCaM5TWI2eZWhA4akLrB40guCfXBrPFjaBExjArxkfNDPwFfHC94wiN/ONbeBYnsaQzFbU8Wh6EQlTIltxXDvIYx+R765d/deIAo4/zqKisMmUCq8Eb2Vl9rB8Dtmw2RpZhIDdFQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
  header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hFnuR4cwFoy+sqkHyHHAttRq+ADEvpSyhL16ShZEGyI=;
- b=VrF1m2moFEkXjKJdYSTiSlYC6UxUyQEeAVU6KRO8IfVSb5O5sCC6rnt+8/ZcuR91x1BDRxwingFgGr54fJqXM/new347ui+BBWSL9OMVoUZXgpPdnyJ/01PKo5m89ajWcmnYclxj3WWzBeEBiowLVXrklQKGwFo2aeucVN0KVFo=
+ bh=j6CCUGlCyzK4gHVoT8L0O6LtOjmTJVzY5X+P6QymeWE=;
+ b=meNnvaqFRdxf8ew6DejDi+ZN4XjCkXrLCD4kZUl27uKyTU1uw5qf8RBdwk2Mn8RlcuY4torpX5Kr2Xy1OrLsaltgTmypzUhoyeT8vW75MpJ2OlaDl5S5acSwl0xVEiG8jhCBZORhRwj3IJstYpvQzTBcph2Hqv1KHCMp5+lxpec=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=valinux.co.jp;
 Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
  by OSBP286MB5984.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:3f8::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.9; Fri, 27 Nov
- 2026 02:05:51 +0000
+ 2026 02:05:52 +0000
 Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
  ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
  ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0662.007; Fri, 27 Nov 2026
- 02:05:51 +0000
+ 02:05:52 +0000
 From: Koichiro Den <den@valinux.co.jp>
 To: Jon Mason <jdmason@kudzu.us>,
 	Dave Jiang <dave.jiang@intel.com>,
@@ -85,16 +85,16 @@ Cc: fuyuanli <fuyuanli0722@gmail.com>,
 	ntb@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v4 05/15] NTB: ntb_transport: Publish link state after QP setup
-Date: Fri, 27 Nov 2026 11:05:23 +0900
-Message-ID: <20261127020533.2481725-6-den@valinux.co.jp>
+Subject: [PATCH v4 06/15] NTB: ntb_transport: Avoid losing QP link-up requests
+Date: Fri, 27 Nov 2026 11:05:24 +0900
+Message-ID: <20261127020533.2481725-7-den@valinux.co.jp>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261127020533.2481725-1-den@valinux.co.jp>
 References: <20261127020533.2481725-1-den@valinux.co.jp>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: TYCP301CA0083.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:7b::13) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-ClientProxiedBy: TYCPR01CA0146.jpnprd01.prod.outlook.com
+ (2603:1096:400:2b7::14) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
  (2603:1096:405:325::11)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -107,169 +107,114 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OSBP286MB5984:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6baad18a-eec1-4be5-79c2-08df4c2af650
+X-MS-Office365-Filtering-Correlation-Id: 42ce18b6-c65f-4df1-165a-08df4c2af6ff
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|10070799003|376014|7416014|56012099006|10067099003|261102123227099003|261026121527099003|261028144727099003|261026140227099003|261026135527099003|261022075727099003|261021123027099003|261022105027099003|261021121427099003|261102130727099003|261009223027099003|22082099003|18002099003;
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|10070799003|376014|7416014|56012099006|10067099003|261102123227099003|261026121527099003|261028144727099003|261026140227099003|261026135527099003|261022075727099003|261021123027099003|261022105027099003|261021121427099003|261102130727099003|261009223027099003|22082099003|18002099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	fMl7uIoGQ4nzorm+LsxuEp7xmdk9ngomWvo9PtJhFQ8fsQJNyziN6GFrJJSSHQVI/bMG1WusxCGFzNOrg4JkGrpGp40c3CDqZn3nCNnGal11VWLgu5EvLzTnbTBz0tLMi6KEfYq4pPIDDvuLQbNsFE1EAbyS+Z72IEQE9M9ZeyFOfcvaCJXo3nUTjyk3xQ+qLVSv9ANfWK2EB6wDamIrSvU37uy/dVsT4dcOd40uyqmmv0lxpYCNWBzJVpNHZs9TMHEb6F06XWYl2zVB9eDNIXRG+rfHTF3tn6GEUHcbiZeVq99qrvpqZpUOXaOmY0LXJ4PmHbBUYi5FOASgk78bsr1MrZCTkE+Cyza9lSX1vFTRC8Hh5wYWBlz4bVj6V52qTWuaLabRicrtfOE8TbhMnboAU4qNctTYgtG3QRXFCPa4wjLQ+mLzXQ6gIoodngVTLjs9gJYzWjfBp4c48yS8+DWhQDbFN0+4aYX86nea6LxqCAp0FFl0BOfVY28wr4hN65/JT53dhbZ0VpkOm0KJSFcKZHE8Bs6QK7J302psBqRyHGMa4IXv2vubTCcwoUhRzXpuVOEn/Q23bPAoBJKUFfq5CZWJJZ1Zhs2eUZtZiUGPCX7XPsASLH13GySHem2B
+	/9pcPlNJN/B+Q97ceY5SSGBHYVAYE2aYvTcZ6FVw8Fx8WLg3Jm+S/hYndCBe2Gm12jK2BCVhknZX4Nv5W5eOwdPXh3p2SPz/pFk/lHo3c8GiLgk/uGoBhZyeBwEy6/f1yztjJs4Xu/pGsaVdWCMI0GEU36WoxRONooOt5wHBKjEVr5GP9QVYtZD9LzkuK0AcKJKEFOUvrE5A70LbAEko9wfzDx8OF2hZr220ZQ/KFUFxb8siOAdefEvnbGlwpZKhNOsHIPeUpdXWzYwWfiaA7lte77zIq4YIBd01RdgQipuEkLEnk9MWpGVX/pLqarfWheDzevXpTPGzbNelm1RQtQ60XEqsuExNXpulrojN+HCp39WKv6hB4zWAPIIyOCq6wfomw+boomb0HH0qIo90Gzhed7SzcTYWhLXIplui8AmCojPcUtLrCtRa3WYBn/YPC3mv5MgEm4fE2Vleuw/yYCU5kan6JsI68BU9I8Hfs+v7t0JgmNiws80p0g26Yf1fUZq+18DW40xFRdKfki4SZ09GlW39EmNBnItHJ6g+fe6tj1mSDQ4DmxuCLWKeiMo/pd35sYK/J3No2D2Ak4toU0e4GkIsNnQfuhCQZIAUjCY=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(10070799003)(376014)(7416014)(56012099006)(10067099003)(261102123227099003)(261026121527099003)(261028144727099003)(261026140227099003)(261026135527099003)(261022075727099003)(261021123027099003)(261022105027099003)(261021121427099003)(261102130727099003)(261009223027099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(10070799003)(376014)(7416014)(56012099006)(10067099003)(261102123227099003)(261026121527099003)(261028144727099003)(261026140227099003)(261026135527099003)(261022075727099003)(261021123027099003)(261022105027099003)(261021121427099003)(261102130727099003)(261009223027099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?buK2nl28fhTgfreCGW2qFYpwyoCS9H1B/HnnvwePAPnDVnA1fh38IWANZ6II?=
- =?us-ascii?Q?KK1f2Yo+mh4tCODlJUIr5T4z8UN+racF/wLCFMdJnnwMcZTKd45HTSzvB5js?=
- =?us-ascii?Q?ZRo/IXFuGk7Rr4tVvuJhBJi2yky0W9lLLK22Q0jT3rlG1Y99J4hP/gtH2Msk?=
- =?us-ascii?Q?4bmgXpK5N2BmjdSnH5EduYmWUZ04QvGzJCbBEQp7vbk4rYvOpmTEtPYhzPi2?=
- =?us-ascii?Q?Pm1EgH+fiPT+A0mSuCoALxBB4DdkVltMNWAFDtF5gSMd1lHdZmtWg2OKjcu+?=
- =?us-ascii?Q?jmltcG3YFrzyl4YIzjlotgQV8GVQ3XyZv71KAINl/s229lveDwGEEn9icbcE?=
- =?us-ascii?Q?Xjr4kOjxD3pGJqhimf5J4xsGPdTylY/HTYascDlc9O7Nnv+35WsoPRxhAa7g?=
- =?us-ascii?Q?v89D6zkRX8uVibh3/0yXEeaOuQTYaFuSbB0OpYY6XQUOX/vf/RlSbfFdeszG?=
- =?us-ascii?Q?o0kt8l3y/fS1Sit+WLu2Oy4XITwLosH9Fy94t1vu3WK/4fbH0w9rLpldCpod?=
- =?us-ascii?Q?tfdBEIOLWcpK7Cu5qLvUGveeADzhn9vuen9Ot6nikcVjN8+bf0X1J74dHjfN?=
- =?us-ascii?Q?kNypOHlFdNDLxgHN1KmZhwTzBBmOT2+a4GP+BHm7d0QTsow1R6jxKSWL6++v?=
- =?us-ascii?Q?NC2HGduxbRpLF8HNB8dBCG7o3yNeOJgO1vi+TwpZW3UJSBFhYNP6TTvq2r77?=
- =?us-ascii?Q?tgrIo1REivmzpGdxDkWOtQDqzqrZNOmtkdaT+pmb7Dn9qVR2gTQ1LS5yaVFu?=
- =?us-ascii?Q?vnedy9rBfrvQXtaFem9kED7nzETVV70r6xpDeUDWSAbFNhg6tMCcFeWsudwh?=
- =?us-ascii?Q?gSGbo1LmZ3UDd/bs6lzpCleKNkNDgUKaecJovX+QUhE7U3a1R3fJCzjGZC+l?=
- =?us-ascii?Q?7hKWqpPiEUGbJe3q8dl1LABQAyr+8+DTABjxeSUuKfpJr57LU5EcdFkBi7/M?=
- =?us-ascii?Q?/acHjKpZrXzkZWj29W7aEOPA97EnWSeuEprT8eIDRFvK1U3a7sDL1F4pS77Y?=
- =?us-ascii?Q?waO25Z0k0CMsZu9cSjaaaA8iWwBpsYIdzLamCfNzubDq0eC0tS0yHk6b+r36?=
- =?us-ascii?Q?9j8Ugf+wSY33Ur46N4PPR9OthOfPRFn/rIbpcV/rJeHdyuItU66v04C9ULwE?=
- =?us-ascii?Q?gp77S2Hjt3+XMx8qVI2VeGoAO8d995uwzctpOrEdWKBIUCPk2luNmz7m2LJP?=
- =?us-ascii?Q?tLM+xf/sJlUhlPcbMdDsxVnGWhr0tkoHY8zbpv/ShMASMg3Rtls0RAsoVZpm?=
- =?us-ascii?Q?lHITOBK7CUjVPGOw6bncx4VTpvwsdn+QSpuG83ekui7kUIDf6Psy7Klr8JOa?=
- =?us-ascii?Q?Swg3FKlGcYEtRiHDIf3UpUVsuVJlUDFwlEcgOcJCLlYfvCfEcoU3SVOZrOoZ?=
- =?us-ascii?Q?A0b1zqOmPHx/7CsgKmWeIM+fGVpegd7JUgmibV4RDp9PkwbIDwfKMZwSAZVH?=
- =?us-ascii?Q?E4HtHYBEMHH13K3Qv2FeIjXocEVoEse3jLprDFTlRI23ACAFHWidAo6WpBfK?=
- =?us-ascii?Q?7ISk/k1aAsE1R58Wgq3+9iNB92oTbcCHIhy+f7fjsInHBv2GHGH5XCxtkfTW?=
- =?us-ascii?Q?W/Y7PfqiUWjA54/icGAb2/GMjYBW9yKvANWMbhvw8phvUkmYQClNiKBZug+v?=
- =?us-ascii?Q?2k8KjFIqVqwjd2yoDib9jWU2ZpKnFGqefd7F00MwruMKAIP2E805uQFz0nPo?=
- =?us-ascii?Q?Quy5qHljHdzSWHu2hJUNnbqMu/C6EVgp30ZoknUY4/kmeIaydCSBn1WOLhz4?=
- =?us-ascii?Q?ySCM/u6H/BCpBUK4rjQA0J9jVJDABSpDvrHu5ulHJxlkA/iQ1H/j?=
+	=?us-ascii?Q?NMunbPl0lLMO6JgwA+2lm0ibiYBox2Pd3HSA+QZgqrOHJr+vOrCun+CaREcV?=
+ =?us-ascii?Q?Fq/oglvq7nDXqejdaZLbTLCLOXplf4epT/n2GecsK4BVw1SAxT4ivXAfLiTA?=
+ =?us-ascii?Q?eByg2SU8E+MAHt4RwEK+S2clVcDwxpp1AgjmCGZlCOV+1WT0dNskmOuNy63/?=
+ =?us-ascii?Q?UArthlxpXxxlVwGVdBRzAK/bpdRLQGoRYYL3b0jylp8CHWL6c+mtEhgPmb4t?=
+ =?us-ascii?Q?SpuuYyFRdMTPx6Y9YXcGZqv3RtOVWNG7aPUKXsYkPkWX6TgHQVHkINyO87T7?=
+ =?us-ascii?Q?l6Ju7Bujy8UpcF1MMFlTYVGYi8Ie/CVgQAhLiRmiM8UMM+x2EUZ3CGWLUexf?=
+ =?us-ascii?Q?XmJ8jEkdX61VDwqObNhyplHaeFeUxuGji5buS8c2S85BWdpxjg6OqpXn/J24?=
+ =?us-ascii?Q?ZUXFLjLIzdZqCfkBWCOIGzuaaBDpWDRv/sl+AmDrA8h8y48wK+iWMZ71nQJV?=
+ =?us-ascii?Q?3S+uWwVgPEy2NhHyUU8aD0EpV+YSxj/axow/67n9Nu+T0meM++Jj7mpiFRgN?=
+ =?us-ascii?Q?JBkHOE0Q+n3CSylVrUc4Oq9fqVgPshZpU9AB71m9EoUAW5qmUIJ0WbIYj81C?=
+ =?us-ascii?Q?2ci4qzecmyd+jIBZaYGTqBxqyO5CU2Z3UcaWGQBE+S7VzLd4hwbh05CeYG5t?=
+ =?us-ascii?Q?zXaeQfUAOGpfxRW/8Ru/NlhMrmTDLYDYB2H06CqMTOE9ZpNTxnB1bs+qcdiR?=
+ =?us-ascii?Q?ZQA+khbfqZNeC2kH3+cf0dYgpBV7Dr6CIl8OSHqcf/izbKPpy0mhB3XE/QVJ?=
+ =?us-ascii?Q?vbtpgadirwSfAtgM6f4i0zGVzCYLYPNkt9YKbQ0mNdI+upAAQmvs/LTWw4RZ?=
+ =?us-ascii?Q?YautNSYtW3vjvLKMuK0AYtl1t03eQAHLGYdtBoUv1Z/fkpUdfb7aOmC/2Xj8?=
+ =?us-ascii?Q?Jb7FMPcq84luVkgj5M6vvhAvtYvnWvG29pWASNd16Tt4QhdmvWPJ6WYl4FY8?=
+ =?us-ascii?Q?4xD+97cRPkI8GPq1hX92c+GBMhzkidFMzvv4KZTLN+pi2n3wJaFZUHhKcECI?=
+ =?us-ascii?Q?Axq7gyX+7EdZ60nfXR6jW3/l8aFheFnbsIEOnc4auxpcXFwgT8eGBO3WxIOo?=
+ =?us-ascii?Q?/wRwVheT6ooWYlwH/BcTCN67huvRvef8zU2NkQRQ2+LXfwnOMpoiOw/FNVr0?=
+ =?us-ascii?Q?snGVCh4XcrWXeeCzWM5CVsNOndOaPoTMjxN5//WtQ3jomB0jpOyNXolrW8UC?=
+ =?us-ascii?Q?9V8BhQkyCtSYeGp/urMfsFfl4Hd9eSg97veD5PZKkUHLbbXhrrken7gGgEKE?=
+ =?us-ascii?Q?ALzxTKK1NaEfZoFZ9B28KKz3jXa2k+xKumgV6LFsGKTFzZf2U8YtljvUONha?=
+ =?us-ascii?Q?4AqK8Fkjy8nZ2T2aO9AyNspWjLxcHFkkwr+rzemARR51PBjQfzI1EwNhef8k?=
+ =?us-ascii?Q?ojyiIPdJ9AO+2+MwtxQGFSL7TcQSmD1Ms16B095zLwSiFuMa0Pcf6JaVscSd?=
+ =?us-ascii?Q?mpUuDvni/qhGxK1g3vXAYbpxTS1XCYkG+L1znfRFXPjQv3mQ72StRqkOAfvF?=
+ =?us-ascii?Q?H3oegik8/BWBMWmQnKa2EV3fguMz6acLqzON5IC0cjUAqAa9y85O7ykPBWMy?=
+ =?us-ascii?Q?f1/DqfpnU0LlZ+pvxR6nGz8ZuFE8eMs4eIncp/19Qpj4r25ESg9PticaUke3?=
+ =?us-ascii?Q?b1Cjc5Hryg3dyoSR1z1vRFW6hP+4kdJgX7H0aXsV+IEfAGZuITYQafNv2tYu?=
+ =?us-ascii?Q?zXuUaMrxyP6zYOCmaQ+rO5XXzoxQb5qU7jqHWgSOq5ajKn23LiuvAxw0PQE5?=
+ =?us-ascii?Q?phgMYky94GCBimMXXVGDfj8HnD1vxuqcD3o75taJ6/MMT5ustnwO?=
 X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6baad18a-eec1-4be5-79c2-08df4c2af650
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42ce18b6-c65f-4df1-165a-08df4c2af6ff
 X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 02:05:51.5870
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 02:05:52.7183
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 16hwwXkQiy3zQnG+ZXxISDCXH1DRbtsTVsKbKJb0zRLEWCRY24hDwFwK48+GjZ9Pk2SVi5oq+cgzU2ROTREekA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5+USf6GSLIR6pAm4opNamkzta6Qq5Q4hJaxFMIaOhhut3aJTHSQun33szEqFRwVXOaFFXw7nRRVNbaW1qh2nSQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSBP286MB5984
 
-ntb_transport_link_work() marks the transport link up before setting
-up the QPs' MW and peer MSI state. A concurrent ntb_transport_link_up()
-can then queue QP link work, which may enable RX and notify the client
-before setup finishes.
+ntb_netdev_open() can call ntb_transport_link_up() while the transport
+worker is completing setup on another CPU. Concurrent transport setup
+and a client link-up request can both read the other's flag as false and
+leave QP link work unqueued. The QP then stays down until another link
+event or client link-up request.
 
-Publish link_is_up with a release store after setting up all QPs,
-and use acquire loads before queuing QP link work.
+This is the store-buffering pattern described in
+tools/memory-model/Documentation/recipes.txt ("Store buffering").
+
+Add a full barrier between the store and load on each side.
 
 Fixes: fce8a7bb5b4b ("PCI-Express Non-Transparent Bridge Support")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/anyKbq3mpLG4y7rb@SMW015318
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/r/20260907144701.702E41F00A3A@smtp.kernel.org/
 Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
 Reviewed-by: Dave Jiang <dave.jiang@intel.com>
 Signed-off-by: Koichiro Den <den@valinux.co.jp>
 ---
 Changes in v4:
-  - None.
+  - Clarify the memory-barrier comment. (Logan)
 
-v3: https://lore.kernel.org/r/20260928152550.3354675-6-den@valinux.co.jp/
+v3: https://lore.kernel.org/r/20260928152550.3354675-7-den@valinux.co.jp/
 
- drivers/ntb/ntb_transport.c | 40 +++++++++++++++++++++++--------------
- 1 file changed, 25 insertions(+), 15 deletions(-)
+ drivers/ntb/ntb_transport.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
 diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
-index 0822f92d24b2..a8d0c6465c12 100644
+index a8d0c6465c12..5e9418422b3f 100644
 --- a/drivers/ntb/ntb_transport.c
 +++ b/drivers/ntb/ntb_transport.c
-@@ -923,6 +923,16 @@ static void ntb_qp_link_down_reset(struct ntb_transport_qp *qp)
- 		qp->remote_rx_info->entry = qp->rx_max_entry - 1;
- }
+@@ -1101,6 +1101,13 @@ static void ntb_transport_link_work(struct work_struct *work)
+ 	/* Publish the link only after every QP has been set up. */
+ 	atomic_set_release(&nt->link_is_up, true);
  
-+static void ntb_transport_schedule_qp_link(struct ntb_transport_qp *qp,
-+					   unsigned long delay)
-+{
-+	struct ntb_transport_ctx *nt = qp->transport;
++	/*
++	 * Order the link_is_up store before the client_ready loads below, so
++	 * that this path or ntb_transport_link_up() is guaranteed to see the
++	 * other's flag. Pairs with smp_mb() in ntb_transport_link_up().
++	 */
++	smp_mb();
 +
-+	/* Pair with the link publication in ntb_transport_link_work(). */
-+	if (atomic_read_acquire(&nt->link_is_up))
-+		schedule_delayed_work(&qp->link_work, delay);
-+}
-+
- static void ntb_qp_link_cleanup(struct ntb_transport_qp *qp)
- {
- 	struct ntb_transport_ctx *nt = qp->transport;
-@@ -942,13 +952,10 @@ static void ntb_qp_link_cleanup_work(struct work_struct *work)
- 	struct ntb_transport_qp *qp = container_of(work,
- 						   struct ntb_transport_qp,
- 						   link_cleanup);
--	struct ntb_transport_ctx *nt = qp->transport;
- 
- 	ntb_qp_link_cleanup(qp);
--
--	if (atomic_read(&nt->link_is_up))
--		schedule_delayed_work(&qp->link_work,
--				      msecs_to_jiffies(NTB_LINK_DOWN_TIMEOUT));
-+	ntb_transport_schedule_qp_link(qp,
-+				       msecs_to_jiffies(NTB_LINK_DOWN_TIMEOUT));
- }
- 
- static void ntb_qp_link_down(struct ntb_transport_qp *qp)
-@@ -1086,16 +1093,19 @@ static void ntb_transport_link_work(struct work_struct *work)
- 			goto out1;
- 	}
- 
--	atomic_set(&nt->link_is_up, true);
--
  	for (i = 0; i < nt->qp_count; i++) {
--		struct ntb_transport_qp *qp = &nt->qp_vec[i];
--
- 		ntb_transport_setup_qp_mw(nt, i);
- 		ntb_transport_setup_qp_peer_msi(nt, i);
-+	}
-+
-+	/* Publish the link only after every QP has been set up. */
-+	atomic_set_release(&nt->link_is_up, true);
-+
-+	for (i = 0; i < nt->qp_count; i++) {
-+		struct ntb_transport_qp *qp = &nt->qp_vec[i];
+ 		struct ntb_transport_qp *qp = &nt->qp_vec[i];
  
- 		if (atomic_read(&qp->client_ready))
--			schedule_delayed_work(&qp->link_work, 0);
-+			ntb_transport_schedule_qp_link(qp, 0);
- 	}
- 
- 	return;
-@@ -1143,9 +1153,10 @@ static void ntb_qp_link_work(struct work_struct *work)
- 
- 		if (qp->active)
- 			tasklet_schedule(&qp->rxc_db_work);
--	} else if (atomic_read(&nt->link_is_up))
--		schedule_delayed_work(&qp->link_work,
--				      msecs_to_jiffies(NTB_LINK_DOWN_TIMEOUT));
-+	} else {
-+		ntb_transport_schedule_qp_link(qp,
-+					       msecs_to_jiffies(NTB_LINK_DOWN_TIMEOUT));
-+	}
- }
- 
- static int ntb_transport_init_queue(struct ntb_transport_ctx *nt,
-@@ -2392,8 +2403,7 @@ void ntb_transport_link_up(struct ntb_transport_qp *qp)
+@@ -2403,6 +2410,9 @@ void ntb_transport_link_up(struct ntb_transport_qp *qp)
  
  	atomic_set(&qp->client_ready, true);
  
--	if (atomic_read(&qp->transport->link_is_up))
--		schedule_delayed_work(&qp->link_work, 0);
-+	ntb_transport_schedule_qp_link(qp, 0);
++	/* Pairs with the barrier in ntb_transport_link_work(). */
++	smp_mb();
++
+ 	ntb_transport_schedule_qp_link(qp, 0);
  }
  EXPORT_SYMBOL_GPL(ntb_transport_link_up);
- 
 -- 
 2.54.0
 
