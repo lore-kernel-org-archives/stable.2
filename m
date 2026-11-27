@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795776978;
-	b=t4zW3oRQlqAsa5Y3lW+yIAa2jkYnK2DceeSQ4FpRjqX6F5Z1vKfBds4G//diHV3q5+VF
-	 b/oWPyTJbuISUyPux0TnXClcH7DhArIxsooLLf/CoeM0hPrsMUaqdr+T1TyYbEL3t3jd2
-	 DPnYuAz/0xj+rgIC5QUOQvYP5Tx9wTuUWdWx1DdWnb0aEeEiMZbsiFZ3t0Z2JBSryS/S+
-	 qpIQqyCxQldnpMOzszPRlyJ9QUdIgNIJZEC0XfD4HNiqA9/WoG8SOHW6xpAYJI+On3jwq
-	 APG7C9UIM68Vp0wbJZvOiX+n9KkIKQ1KAKEU3q98o/6JHT4cLdNfO88H7g6YZ3JreKA==
+	t=1795776976;
+	b=p69GqU4NgrHfgKqfvm1HVNnFZkinLfUpljKVSNY4UJcerm4mgzGzIVTU/UDNxTtaH07C
+	 agvuLjPMpKEohVGgX9ioQH68k7fpVEDskvaGb+zYfY+pKi5l85mgYBBhDnCUQ8Es3zm3F
+	 t2vlSe5FfwxO8T5iYlW45hY177sQm8v27LhebRe0L7O0oV5m5v0EuoSmkvrmESNQQBNRk
+	 FNKJnQffCS7BMtH0DpHNJKASzjpoK/f59FGlLc/vTX7SsAVO2OkhDqDqv2xSpO6R8u1zC
+	 0WsEttq6sDUo2HGmi5urHRm2EDOEKXfrIcYS8yDyE2YNRDrvSPbozf4F3SO9qH2+hOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795776978;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795776976;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1Csl98uTqktOParQt31V+Vk9bWjMzRE/Hizj4IlxonY=;
-	b=WrhLegmNFO5Csgwa3ipDGpAprnHDgTdGJtWGu/MOU8s4TDCa5BbL2GrKHWDdpSqeP7va
-	 7yZdse5EnYzw3VpPKSs57yWz94V91jKlpF6MQIkaftDy4qOrXXv3t18vn//4qh2BgjPeA
-	 SJjrjawU/bH0BXJZJoxqa2UklkW+Zroo0+O0dun7FR3yJEznVCcNlAUrB7yUVArSoVj5U
-	 bmi+I+S4GiYdxVH78Xk+1mLrZDLprVYNWVGhbTHyvzknCi/uOt83o+IBHC59WPIEws0m0
-	 NdC6xuxNTcewdnGJK+Jb70pnKID+LjVQk3Joiks7f+VezJufn55w3VPC0VK3w+MvLaA==
+	bh=PcIDSrMX4GfRswyhZ8Mr5fmEaIdp0nKGVydna+0B8qU=;
+	b=xapiv91fUZVuDZWM+OHjOM27/fy0zwvDQw/qG0bVo/5F1zf2VDYbM3DW0/+Uvx500QG7
+	 2LIR4MPCy9328MSZUzdJ8C7Jdms3BBaBbaZzBtEn89l7ghB9FNYE7cbPlrchwfrk8SuWE
+	 wA10gjIUsZdJKxwH6lidzk35TsTJ/s7A5b6c8o1lH4q3ViD9mLyZjymsDvaLqMAvHqZM7
+	 MxM7V1LQKWsAjGVGN+3qLeR431rbtXsRMMFXNj4Ywf0kPw0NVj87ZzT3ecyriJkS2L/DA
+	 J0k9VtA/J5SH/iIRAKl1EIDI1cMkIQNx/VM+AQaeT8YRcPrcNBz0e+9IZssNXVKYWdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lJXmwguW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i6Wa8Ysr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0609606A31F;
-	Fri, 27 Nov 2026 10:56:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D402C606A32E;
+	Fri, 27 Nov 2026 10:56:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lJXmwguW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48DB11F0089F;
-	Fri, 27 Nov 2026 10:56:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i6Wa8Ysr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B64DC1F0089B;
+	Fri, 27 Nov 2026 10:56:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795776978;
-	bh=1Csl98uTqktOParQt31V+Vk9bWjMzRE/Hizj4IlxonY=;
+	s=k20260515; t=1795776976;
+	bh=PcIDSrMX4GfRswyhZ8Mr5fmEaIdp0nKGVydna+0B8qU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lJXmwguWiFNMdKuBrR3+HdSlFRwkKGQvl5Rat++CYNR/qYAj5W29G88XdUu2tuaTy
-	 1iotMw86/uYtwMEX1Bvdv7x2tYr2W7HkwGRmRl4OUlAtm2bsBwL/SacFB3us6igum4
-	 D6OwROAH/7BGtGSZDfB02FKo1vj4qTqxyQjIM0PJXec0JM16cRvmvve5tiMKx2aukZ
-	 uso4uUTiITNLFJCuIaPl4IxxZ6NbYYwEUDG17Yt2sV3LWgr4wmeQk8i4Wu5Wnmy9/B
-	 Cwcx73ww9J/FniuB2BS1UU2xqYEg9/dwJOlTeSh5zV/qrbAOsE58/VTw+QOa0ItMx3
-	 ZsXMWAjbd7xXw==
+	b=i6Wa8YsrXOYlquO8VqjYTWal3vnNjX8cX+bD198l0isO1KAAP5XYTKyKsLYPA/Sqs
+	 ZEPkm9FoI1xUv40386Dg9hcjD+tADctA6ZbBDDm6Og2QH21VFoiBCPJ21AcNg5MxXK
+	 7MSzBMtPK1ypOQdbQtvI31PnKnza3cyY6sz973Ujr/cJ3EQHLb4U2vweT7hQVe8SXp
+	 GTMtaRWcF7EaAYYmw0ZD9a6Xds7ztu4gK8NYn8uIvQFR/4Sr0XhByEtVcjMI/UpBqz
+	 OfIJaRU4h1FD1o5YpDUsT4EItzMJoyO7FrjFNSA6pQk2zA3ph6rBsynkCv5hnwbH4i
+	 FEFdTCNc8lzXw==
 From: Chao Yu <chao@kernel.org>
 To: jaegeuk@kernel.org
 Cc: linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
 	Chao Yu <chao@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 3/7] f2fs: fix to return -EIO from f2fs_write_checkpoint() once cp_error is set
-Date: Fri, 27 Nov 2026 10:56:10 +0000
-Message-ID: <20261127105608.537148-10-chao@kernel.org>
+Subject: [PATCH v2 2/7] f2fs: fix to return -EIO from f2fs_sync_fs() if cp_error is set
+Date: Fri, 27 Nov 2026 10:56:09 +0000
+Message-ID: <20261127105608.537148-9-chao@kernel.org>
 X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
 In-Reply-To: <20261127105608.537148-8-chao@kernel.org>
 References: <20261127105608.537148-8-chao@kernel.org>
@@ -64,113 +64,143 @@ Content-Transfer-Encoding: 8bit
 
 From: Chao Yu <chao@kernel.org>
 
-f2fs_write_checkpoint() skips a CP_SYNC/CP_FASTBOOT/CP_DISCARD request
-w/ err = 0 if the superblock is not dirty, and this check is done before
-the f2fs_cp_error() check.
+f2fs_sync_fs() returns 0 w/o doing checkpoint once cp_error is set, so
+its callers can not tell whether checkpoint was done or not.
 
-However, do_checkpoint() clears SBI_IS_DIRTY unconditionally, even when
-the checkpoint fails due to cp_error (e.g. shutdown), and only returns
--EIO at the end. So a checkpoint request which was queued before cp_error
-was set, and waits on cp_global_sem or in the checkpoint merge queue, will
-see a clean superblock once the previous checkpoint failed, and returns 0
-w/o doing checkpoint.
+For a file which needs a checkpoint to persist its fsynced data, e.g. a
+compressed file (CP_COMPRESSED), f2fs_do_sync_file() calls
+f2fs_sync_fs(). So if shutdown (e.g. F2FS_GOING_DOWN_NOSYNC) races w/
+fsync, after f2fs_sync_file() passed its cp_error check, fsync() returns
+0 while neither checkpoint nor fsync node blocks were written: after
+recovery, the fsynced data of the compressed file is rolled back to an
+old version or lost.
 
-For a file which relies on checkpoint to persist its fsynced data, e.g. a
-compressed file (CP_COMPRESSED), f2fs_do_sync_file() -> f2fs_sync_fs()
-then returns 0, and fsync() reports false success, whereas its data was
-neither covered by a checkpoint nor by fsync node blocks: after recovery,
-the fsynced data is rolled back to an old version.
+In addition, syncfs(2) and F2FS_IOC_WRITE_CHECKPOINT report false
+success on a stopped filesystem as well, whereas other filesystems
+return -EIO from ->sync_fs after shutdown.
 
-Note that the previous patch "f2fs: fix to return -EIO from f2fs_sync_fs()
-if cp_error is set" only covers the case cp_error is set before
-f2fs_sync_fs() is called, not the case it is set while the request is
-pending.
+Note that f2fs_write_checkpoint() already returns -EIO if cp_error is
+set, so callers of f2fs_sync_fs() have to handle -EIO anyway.
 
-This was reproduced by the f2fs consistency test (verify_consistency.sh
---init zoned -S 64 --mode consistency, w/ compress_algorithm=lz4 and
-default checkpoint_merge, under fault injection): fsync_verify.py randomly
-overwrites 4K blocks w/ a generation number and fsyncs them, the test
-injects "f2fs_io shutdown 2" in the middle, then verifies the fsynced
-generation after fsck and remount:
+So let's return -EIO from f2fs_sync_fs() if cp_error is set, and in
+f2fs_do_sync_file(), bail out w/o clearing FI_APPEND_WRITE and
+FI_UPDATE_WRITE if f2fs_sync_fs() fails, as the non-checkpoint path
+already does after f2fs_fsync_node_caches().
 
-  FAIL: file 2 block 510: rolled back: gen 17 < durable gen 18
-  FAIL: file 2 block 561: rolled back: gen 22 < durable gen 23
-  FAIL: file 2 block 955: rolled back: gen 12 < durable gen 13
-  FAIL: file 2 block 3986: rolled back: gen 23 < durable gen 24
+For shutdown, F2FS_GOING_DOWN_METASYNC and F2FS_GOING_DOWN_NEED_FSCK
+have already converted -EIO from f2fs_sync_fs() to 0, however,
+F2FS_GOING_DOWN_FULLSYNC fails w/ -EIO once cp_error is set, e.g. when
+the filesystem is shutdown again, because:
 
-w/ debug logs (trace_printk) added in f2fs, the ftrace log of the
-failing compressed file (ino 438) shows:
+- f2fs_do_shutdown
+ - bdev_freeze
+  - fs_bdev_freeze
+   - freeze_super
+    - sync_filesystem
+     - f2fs_sync_fs_super
+      - f2fs_sync_fs
+      : return -EIO due to cp_error
+    - f2fs_freeze
+    : return -EIO due to cp_error as well
 
-  python3-346519  2267.558508: FSV SYNC-BEGIN f=2 fdatasync n=4
-  python3-346519  2267.558519: ino=438 FSYNC enter datasync=1 dirty=4 cpver=14c8edcb
-  f2fs_ckpt       2267.559876: CP end reason=4 err=0 cpver=14c8edcb
-  python3-346519  2267.570549: ino=438 DOWRITE OPU idx=510 old=a21bc1 new=ae4af3 hdr[f=2 b=510 g=18]
-  python3-346519  2267.571478: ino=438 WCACHE exit ret=0 nwritten=4 dirty_left=0
-  bash            2267.571810: iteration 4: injecting shutdown 2
-  f2fs_ckpt       2267.573403: CP start reason=4 cpver=14c8edcb dirty=1
-  python3-346519  2267.579576: ino=438 FSYNC wait_range ret=0 dirty_left=0 append=1
-  f2fs_ckpt       2267.589393: CP end reason=4 err=-5 cpver=14c8edcc cp_error=1
-  f2fs_ckpt       2267.589413: CP start reason=4 cpver=14c8edcc dirty=0
-  f2fs_ckpt       2267.589414: CP SKIPPED (sb not dirty) reason=4
-  f2fs_ckpt       2267.589415: CP end reason=4 err=0 cpver=14c8edcc cp_error=1
-  python3-346516  2267.589431: SYNC_FS sync=1 err=-5
-  python3-346519  2267.589503: SYNC_FS sync=1 err=0          <--- false success
-  python3-346519  2267.589507: ino=438 FSYNC cp_reason=2 sync_fs ret=0
-  python3-346519  2267.589510: ino=438 FSYNC exit ret=0
-  python3-346519  2267.589567: FSV SYNC-OK f=2 D=510:18,561:23,955:13,3986:24
-  [shutdown -> umount -> fsck -> remount, recovery from cpver 14c8edcb]
-  kworker         2370.028185: ino=438 READ-END idx=510 hdr[f=2 b=510 g=17]
-
-- the checkpoint which should cover the data written at 2267.570549
-failed w/ -EIO due to shutdown, and cleared SBI_IS_DIRTY.
-- the next merged checkpoint request was skipped as the superblock looked
-clean, and returned 0, so fdatasync() of ino 438 returned 0.
-- after recovery from the last valid checkpoint (14c8edcb), block 510
-has gen 17 instead of the fsynced gen 18.
-
-Let's check cp_error before the "superblock is not dirty" check in
-f2fs_write_checkpoint(), so that a pending checkpoint request returns
--EIO once cp_error is set.
+whereas other filesystems return 0 in this case. So let's do the
+conversion for all shutdown modes at the end of f2fs_do_shutdown(), and
+only if cp_error is set, so that the error is still returned to the
+caller if the filesystem was not stopped, e.g. bdev_freeze() fails due
+to other reasons.
 
 Cc: stable@vger.kernel.org
-Fixes: c34f42e2cb2d ("f2fs: report error of do_checkpoint")
+Fixes: 1f227a3e215d ("f2fs: stop all the operations by cp_error flag")
 Signed-off-by: Chao Yu <chao@kernel.org>
 ---
 v2:
-- commit message: refer to the previous patch rather than a commit id
-  which is not in upstream.
+- f2fs_do_shutdown(): if filesystem has stopped already, i.e.
+  bdev_freeze() of F2FS_GOING_DOWN_FULLSYNC or f2fs_sync_fs() of
+  F2FS_GOING_DOWN_METASYNC fails w/ -EIO and cp_error is set, still call
+  f2fs_stop_checkpoint() and do the rest of shutdown, i.e. stop gc and
+  discard threads and drop discard commands, rather than jumping to out.
 - rebase to the latest dev-test branch.
 
- fs/f2fs/checkpoint.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ fs/f2fs/file.c  | 25 +++++++++++++++++--------
+ fs/f2fs/super.c |  2 +-
+ 2 files changed, 18 insertions(+), 9 deletions(-)
 
-diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-index c059022413be..a8c98a2acc53 100644
---- a/fs/f2fs/checkpoint.c
-+++ b/fs/f2fs/checkpoint.c
-@@ -1975,14 +1975,19 @@ int f2fs_write_checkpoint(struct f2fs_sb_info *sbi, struct cp_control *cpc)
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index 3caa6ceea554..f1fc0177df1a 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -468,6 +468,8 @@ static int f2fs_do_sync_file(struct file *file, loff_t start, loff_t end,
+ 	if (cp_reason) {
+ 		/* all the dirty node pages should be flushed for POR */
+ 		ret = f2fs_sync_fs(inode->i_sb, 1);
++		if (ret)
++			goto out;
  
- 	stat_cp_time(cpc, CP_TIME_LOCK);
- 
--	if (!is_sbi_flag_set(sbi, SBI_IS_DIRTY) &&
--		((cpc->reason & CP_FASTBOOT) || (cpc->reason & CP_SYNC) ||
--		((cpc->reason & CP_DISCARD) && !sbi->discard_blks)))
--		goto out;
-+	/*
-+	 * Check cp_error first: a failed checkpoint has cleared SBI_IS_DIRTY
-+	 * in do_checkpoint(), so a following request would be skipped below
-+	 * and report false success.
-+	 */
- 	if (unlikely(f2fs_cp_error(sbi))) {
- 		err = -EIO;
+ 		/*
+ 		 * We've secured consistency through sync_fs. Following pino
+@@ -2764,19 +2766,21 @@ int f2fs_do_shutdown(struct f2fs_sb_info *sbi, unsigned int flag,
+ 	switch (flag) {
+ 	case F2FS_GOING_DOWN_FULLSYNC:
+ 		ret = bdev_freeze(sb->s_bdev);
+-		if (ret)
+-			goto out;
++		if (ret) {
++			if (ret != -EIO || !f2fs_cp_error(sbi))
++				goto out;
++			/* fs has stopped already, shutdown it anyway */
++			f2fs_stop_checkpoint(sbi, false, STOP_CP_REASON_SHUTDOWN);
++			break;
++		}
+ 		f2fs_stop_checkpoint(sbi, false, STOP_CP_REASON_SHUTDOWN);
+ 		bdev_thaw(sb->s_bdev);
+ 		break;
+ 	case F2FS_GOING_DOWN_METASYNC:
+ 		/* do checkpoint only */
+ 		ret = f2fs_sync_fs(sb, 1);
+-		if (ret) {
+-			if (ret == -EIO)
+-				ret = 0;
++		if (ret && (ret != -EIO || !f2fs_cp_error(sbi)))
+ 			goto out;
+-		}
+ 		f2fs_stop_checkpoint(sbi, false, STOP_CP_REASON_SHUTDOWN);
+ 		break;
+ 	case F2FS_GOING_DOWN_NOSYNC:
+@@ -2792,8 +2796,6 @@ int f2fs_do_shutdown(struct f2fs_sb_info *sbi, unsigned int flag,
+ 		set_sbi_flag(sbi, SBI_IS_DIRTY);
+ 		/* do checkpoint only */
+ 		ret = f2fs_sync_fs(sb, 1);
+-		if (ret == -EIO)
+-			ret = 0;
  		goto out;
- 	}
-+	if (!is_sbi_flag_set(sbi, SBI_IS_DIRTY) &&
-+		((cpc->reason & CP_FASTBOOT) || (cpc->reason & CP_SYNC) ||
-+		((cpc->reason & CP_DISCARD) && !sbi->discard_blks)))
-+		goto out;
+ 	default:
+ 		ret = -EINVAL;
+@@ -2821,6 +2823,13 @@ int f2fs_do_shutdown(struct f2fs_sb_info *sbi, unsigned int flag,
  
- 	trace_f2fs_write_checkpoint(sbi->sb, cpc->reason, CP_PHASE_START_BLOCK_OPS);
+ 	f2fs_update_time(sbi, REQ_TIME);
+ out:
++	/*
++	 * If filesystem has already stopped, e.g. it was shutdown before,
++	 * bdev_freeze() or f2fs_sync_fs() will fail w/ -EIO, let's return
++	 * 0 for such case, as other filesystems did.
++	 */
++	if (ret == -EIO && f2fs_cp_error(sbi))
++		ret = 0;
+ 
+ 	trace_f2fs_shutdown(sbi, flag, ret);
+ 
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index b73fc6e75c7a..43ef7a4ac219 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -2138,7 +2138,7 @@ int f2fs_sync_fs(struct super_block *sb, int sync)
+ 	int err = 0;
+ 
+ 	if (unlikely(f2fs_cp_error(sbi)))
+-		return 0;
++		return -EIO;
+ 	if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED)))
+ 		return 0;
  
 -- 
 2.49.0
