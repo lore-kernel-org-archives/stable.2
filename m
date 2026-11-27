@@ -1,47 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795755361;
-	b=UTjsJjnjH4uVT/cg5MWCfcV2hepUKusDYl9/0JmuNndUkbkVOQnKOQcgRJGwc0qiy3im
-	 KzciUgHXwgZp3oARb3matMEPqd8Qmb/yeh0njof5GmyaJZK8rlGD1rUYFGgOH6EBFUmZg
-	 ziiGtI1DZSbRYZ0EmufwWB7gPf1ld1W84pZJJMBQLdftDLgte+aZwfADGPRX4DLVfagQA
-	 mcW9HVDLp/1OCEOeCXDOHKAa81rYrm4OlpRmRGqpSiyUqmGwGziYbINp0PWdc9zTN68tU
-	 DSIrvt8RGPcpi2HeRMYyauySYVok3nI8Id233ag9daZCK8oOkDvOSFQy7xpAszXjYDQ==
+	t=1795756184;
+	b=A800KZtPN+oMRXsX2YLCkGkYahIXq86SlMu92z5wkupn8UAQcgYCKLnomyHIXbdrSByC
+	 y/xAO6+A87xkAKHesgvP/YD9epa7WNeqdaDhBW57m1By3Dnp5HJKfW1yMRr6Ylh/Bewa3
+	 9TH4SPeras2nm7i//7VvB4if69OPcFfa/9dwP2vtzjeyjDtfT/RmhLiFJ023SelRNW0sX
+	 pPe719LmvVPX2cPr8f1+X7iLoKGBVqHhAIbG/9ruXTH98Xh+t3EJ0SBbNR9loMf155nCO
+	 5KOEmbqk6yIv8RjZPLkOFOa9DmHa7x+A9p/4NzvzO+hWYfRnA4tCOIUrVfrCIZntwrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795755361;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=YktmMxH0HB2xEuGy1iPd+pNCryqr6cfRSM7tW5CcM7w=;
-	b=RI3R6QcsD8IjFF4w81iUCxGIbVYwn24Dlt089EZ20k+RxxsQsXtGBXnKe3UkcjL/8Ny7
-	 5fDPU7g/gaLZAG1fjwOm6o+1IxmDV6ZQxi5sy+TrU1xeIzP8E1zPHj67gaVKT3iElMA+c
-	 9T2fU7JVpgPAycyEeE9SFZ+aBb876XeTT9fjbjcLFNHAku7518uGfUeYVHTSIzbhzcfAN
-	 wH8R/uCnOE5/GwQsLIh6qBR+ExDD24nM6uCaPk7TUYwdP9xRY3Me4F8HQwao7HrRs74ZV
-	 JINhwgeNn1VbaE0VTOv2WlRqcE0ORnWMYtfX7uk9qROYPAGGAWk1MO8XlJx350Qp3tQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795756184;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=F3iJsoOA8LR3I1iVxCQSl+sH/70ZE2dj3acrGl06Vjg=;
+	b=iXxe5qLd9MN4q5ToYXpB7/N0K5pIoENAorfbwLkOv9gTgrA+irExyy/Xu0rVejORpL1a
+	 jJ65SYZP7/Mogd/hK2xgx4pkL3NWWxdPsgQBLWWKkdW5OxsYNWIhlxwmLt4LYc91b7ovQ
+	 yG5TtoRUCnf97wXLbEpOX82AapwHR2pljz9V02CJc3sZfdlRBupQyn9aaL5pdEqxMOLxa
+	 fIV421F1FOnmOLofiFphij/KG4FfZBE8NeaLHtVLYwJUAkeFOzIu/9TsIPQYBRcYDr22T
+	 FKtxFOaWB8pSc8LxDVvYAh2m7SnNf8vCP+59UVwTuxWt14r31Uy+7RZ+vTWaVJeAz2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a2ylGTye;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mXKPaBn9;
+	arc=none smtp.remote-ip=209.85.219.46
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8843F606A31C;
-	Fri, 27 Nov 2026 04:56:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D2D6606A31E
+	for <stable@vger.kernel.org>; Fri, 27 Nov 2026 05:09:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D2D6606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a2ylGTye
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 948A41F00893;
-	Fri, 27 Nov 2026 04:56:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795755361;
-	bh=YktmMxH0HB2xEuGy1iPd+pNCryqr6cfRSM7tW5CcM7w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=a2ylGTyehjgJ/Uui7Rqd/AoGOUXn9T7OumV5NAucmXoIXSnHRaXhDpX3AvodjfEn3
-	 QYXWYhwEh7RNhhUBcu/MMDsM2lgnwWr9OstP5HKbsXMRssTHVtcy7RL+lWk+pd9FP8
-	 EVtFpVdcvZ14yw1MpzoXF7Ej4iIbSG4pHH9FA+qw1GIMM4IiTDTPVkA9TBun38j1WQ
-	 jMPw3k70Gb8CHRG9Zxo1XyhfQZoewWge8JKYdPnj8TIT/uFaf6wLE9voJLw+pG/Z3m
-	 Hevey4RzUJKO90wE4R160cgszi9hTBDkE+4qJdWlznsGDig6BIcRhda8g0sxLDhx7Z
-	 oiP9ZE8iwekRw==
-Message-ID: <9b1e64e4-873d-4743-96c4-0f893e8cc506@kernel.org>
-Date: Fri, 27 Nov 2026 13:55:59 +0900
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mXKPaBn9
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-9215934a14cso54951216d6.0
+        for <stable@vger.kernel.org>; Thu, 26 Nov 2026 21:09:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795756183; x=1796360983; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F3iJsoOA8LR3I1iVxCQSl+sH/70ZE2dj3acrGl06Vjg=;
+        b=mXKPaBn9BMNng2HLY0raCRf2NRFDUHWhLZ88tNUmL6gvA6gGLLmFpU7cJzeWBJDFGO
+         TJZbbbVMvB6cdysB5SwUjR2lDm4619PZUm6VZy3XNLmoOFMmQ6ohG3rI9SKTUbcqX10z
+         jKON6mQPE15FcowEaupElflRcHdPYLeQ1VsL17dlGhBxyIZjLhoIEdN3clXatACSoSZ1
+         Qk62/4O8HQ6b2/JczpCAsGBV+qbYmLw5bi2eS18y30q2uei5+hIRIcKqK0YXdn82vDC8
+         SY7/l82jJyT7Wdp7cBQfDULkQXcbGulxB+id2EczOVCDnDnaKYtj8R/YhF+biibB4TID
+         2HTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795756183; x=1796360983;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F3iJsoOA8LR3I1iVxCQSl+sH/70ZE2dj3acrGl06Vjg=;
+        b=2zjUrD8eK0L/+PokDp/Py2Rg2UIr9BjvYprFJUEWVPLXbj+1NV3mJwYK93QTTQ21C/
+         4Uv/fNd46fi4hjgFkVtY08vYYOzWIU9rLuS3Kk1hEjlr/gzhkKWGV/XERl7yBHFv7jSl
+         Of+v0TWVAK9ZThAHP3nWvHwy34+XYICU2vmvEEeKd6HXGR/1tl4fRX7LODZcj1HqAd0w
+         Y1S/OVrGutXOHOx7F0Wq8IvmzR3i3tSnFz+N7VHWufRkozPg+qlVLRrasjfkUGKuFxIB
+         +9pBQSEb8lTORMvJY4KuOGXUDftKB1GXxeEFVtSul9Iha+04ILVZJrtE7eoX7k00D4j0
+         cMsw==
+X-Forwarded-Encrypted: i=1; AL+hErHUayO8Pu9xyE/edUcP1aNif59diBqbMJc/kKCljyuEpiJeZWaeCfz3Xj7U6g27N9MCXXZq7Nw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8tIBPA+ahV+MbYnGNwBPDWaA5FU7nWJQNaYyaMGdYGkBjxpe80
+	DteSEtttYVrhboJSd20v1uGVJc5C8G2vj0IGpn1hxgz4Nz8um056m6w3
+X-Gm-Gg: AZFdTZeYPR+/ltQdH3gSNUtg6Z7GkTg5vKNICqNWYjwb27Ll6z+9i1l4/r6qmiawaJ4
+	czSo+YvHoolW7rWOb0L6JzneHnzqD5hh8JgHEbj313HigNfmzlvZO8wnhMx2D+8QiyY5Vfn1uu3
+	XjDRRr2suHV5DdkSIui9dF3EYZEuJZ65JlVNBkBZn1mZxOwS9MbaT7C4Ihf66m81YQ0rQggYAnH
+	Ae4HwMoMKYZCyGBd0xLmC2G7Vx2jS5LPewf1icHTR3ymYTxtIIcve42PIQ3jp2IkzPzfNRSAwiI
+	uZepundkleYVY59J+XaxxzcWP4yFxM08sapdXc7eKQ6D3hbkH36lU2IjSX9RRKwKbNRMmzed/1B
+	YfiqlNbJIPO4CMzlRaxeb09ASvk4fJXithtixdqp1CvDHqq/RNv+hTiFNEzE0J0J3SEXfkbDHCF
+	GhfE8BoG4EGKnB4H3jertyjOOxmp5ccloCP7xF8uBPj16poqgWA7Qk/JHsh2K3H+bxONs1oBEft
+	/wEK4myCGuE+MTSf3DQRf3WLYREkX9H171r8zX7DVcBwd+DwUZ7wy7fKUKzMq30YmU6otlPeV2T
+	pW5LchPdRejob9GCWz5COpwPmFlIsmQFhweu3rqTvqb3dTVCo68QtfYwm5Uuxj+0o+Mr+CUcMFb
+	Znm7V1+zEz9eeOTvObYYyrTZ3/Rl+qaD3Baf+jp0P1l7bbko=
+X-Received: by 2002:a0c:f012:0:b0:91c:988c:6df6 with SMTP id 6a1803df08f44-92134afdf51mr377852396d6.56.1795756183091;
+        Thu, 26 Nov 2026 21:09:43 -0800 (PST)
+Received: from zeppelin-x.sky (dhcp-9-244-177-183.gobrightspeed.net. [9.244.177.183])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-92134a1d948sm206309376d6.40.2026.11.26.21.09.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 21:09:42 -0800 (PST)
+From: Felipe Infante de Castro <felipe.infante.de.castro@gmail.com>
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Peter Chen <peter.chen@oss.qualcomm.com>,
+	linux-usb@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Felipe Infante de Castro <felipe.infante.de.castro@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] usb: dwc3: qcom: Restore DP/DM wake IRQ trigger types on unbind
+Date: Fri, 27 Nov 2026 00:09:38 -0500
+Message-ID: <20261127050938.2150497-1-felipe.infante.de.castro@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,42 +100,124 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] null_blk: reject device size overflow
-To: Yingjie Wang <x-professor@outlook.com>, "axboe@kernel.dk"
- <axboe@kernel.dk>
-Cc: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <20261126074748.1076774-1-x-professor@outlook.com>
- <20261126074748.1076774-2-x-professor@outlook.com>
- <fa532123-2fcf-4236-90c1-a47d5438502c@kernel.org>
- <20261127024601.1465996-1-x-professor@outlook.com>
-Content-Language: en-US
-From: Damien Le Moal <dlemoal@kernel.org>
-Organization: Western Digital Research
-In-Reply-To: <20261127024601.1465996-1-x-professor@outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/27/26 11:46, Yingjie Wang wrote:
-> On 11/26/26 16:56, Damien Le Moal wrote:
->>> Reject sizes above LLONG_MAX / SZ_1M in null_validate_conf(), before
->>
->> Why not ULLONG_MAX / SZ_1M ?
->> Any particular reason?
-> 
-> ULLONG_MAX / SZ_1M would avoid the wrap, but the block layer cannot
-> represent a disk that large. A block device's size in bytes is a loff_t,
-> and set_capacity() truncates anything above BLK_DEV_MAX_SECTORS
-> (LLONG_MAX >> SECTOR_SHIFT) with a warning. With a ULLONG_MAX / SZ_1M
-> limit, null_blk would register a disk smaller than the configured size.
-> LLONG_MAX / SZ_1M is the largest size in MiB that fits.
+On suspend, dwc3_qcom_enable_wakeup_irq() sets the DP and DM high-speed
+PHY interrupts to a single edge, chosen from the speed of the attached
+device. The IRQ mapping outlives the driver, so after an unbind the
+mapping keeps that single-edge type.
 
-Then compare everything as a number of sectors against BLK_DEV_MAX_SECTORS.
-That will avoid using directly LLONG_MAX. BLK_DEV_MAX_SECTORS is ever changed,
-the code will still work.
+On the next probe the interrupt is looked up again from the device tree,
+which describes it as IRQ_TYPE_EDGE_BOTH. The lookup fails with a
+trigger type mismatch against the existing mapping. Because the wake
+interrupts are optional, probe still succeeds, but without the DP/DM
+wake handlers, and USB wakeup is lost until the next boot.
 
+Record the trigger type of each DP/DM interrupt when it is requested and
+restore it from a devres action. The action is registered after the
+interrupts, so it runs while the driver still owns them. Unmapped
+interrupts, unspecified types and types that already match are left
+alone.
 
+Seen on a Microsoft Surface Laptop 7 (x1e80100-microsoft-romulus15) on a
+7.3 kernel: after unbinding and rebinding a controller the dp_hs_phy_irq
+and dm_hs_phy_irq handlers were absent from /proc/interrupts. With this
+change they return on every rebind.
+
+Fixes: 6895ea55c385 ("usb: dwc3: qcom: Configure wakeup interrupts during suspend")
+Cc: stable@vger.kernel.org
+Signed-off-by: Felipe Infante de Castro <felipe.infante.de.castro@gmail.com>
+---
+Changes in v3:
+- Renamed the new fields to dp_hs_phy_irq_type and dm_hs_phy_irq_type,
+  to match the existing dp_hs_phy_irq and dm_hs_phy_irq (Peter Chen).
+- Added Cc: stable (Peter Chen).
+- Sent inline; v1 and v2 went out as attachments.
+
+Changes in v2:
+- Resent with an empty mail body.
+- Added the Fixes tag suggested by the Sashiko review.
+
+ drivers/usb/dwc3/dwc3-qcom.c | 38 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 37 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
+index a260841..548d69b 100644
+--- a/drivers/usb/dwc3/dwc3-qcom.c
++++ b/drivers/usb/dwc3/dwc3-qcom.c
+@@ -65,6 +65,8 @@ struct dwc3_qcom_port {
+ 	int			dp_hs_phy_irq;
+ 	int			dm_hs_phy_irq;
+ 	int			ss_phy_irq;
++	unsigned int		dp_hs_phy_irq_type;
++	unsigned int		dm_hs_phy_irq_type;
+ 	enum usb_device_speed	usb2_speed;
+ };
+ 
+@@ -473,6 +475,7 @@ static int dwc3_qcom_setup_port_irq(struct dwc3_qcom *qcom,
+ 		if (ret)
+ 			return ret;
+ 		qcom->ports[port_index].dp_hs_phy_irq = irq;
++		qcom->ports[port_index].dp_hs_phy_irq_type = irq_get_trigger_type(irq);
+ 	}
+ 
+ 	if (is_multiport)
+@@ -488,6 +491,7 @@ static int dwc3_qcom_setup_port_irq(struct dwc3_qcom *qcom,
+ 		if (ret)
+ 			return ret;
+ 		qcom->ports[port_index].dm_hs_phy_irq = irq;
++		qcom->ports[port_index].dm_hs_phy_irq_type = irq_get_trigger_type(irq);
+ 	}
+ 
+ 	if (is_multiport)
+@@ -540,6 +544,38 @@ static int dwc3_qcom_find_num_ports(struct platform_device *pdev)
+ 	return DWC3_QCOM_MAX_PORTS;
+ }
+ 
++static void dwc3_qcom_restore_irq_type(struct device *dev, int irq, unsigned int type)
++{
++	int ret;
++
++	if (!irq || !type || irq_get_trigger_type(irq) == type)
++		return;
++
++	ret = irq_set_irq_type(irq, type);
++	if (ret)
++		dev_warn(dev, "failed to restore IRQ %d trigger type %#x: %d\n",
++			 irq, type, ret);
++}
++
++static void dwc3_qcom_restore_wake_irq_types(void *data)
++{
++	struct dwc3_qcom *qcom = data;
++	int i;
++
++	/*
++	 * The IRQ mappings survive unbind. Put their firmware triggers back
++	 * before devres frees the handlers or the next probe can lose them.
++	 */
++	for (i = 0; i < qcom->num_ports; i++) {
++		struct dwc3_qcom_port *port = &qcom->ports[i];
++
++		dwc3_qcom_restore_irq_type(qcom->dev, port->dp_hs_phy_irq,
++					   port->dp_hs_phy_irq_type);
++		dwc3_qcom_restore_irq_type(qcom->dev, port->dm_hs_phy_irq,
++					   port->dm_hs_phy_irq_type);
++	}
++}
++
+ static int dwc3_qcom_setup_irq(struct dwc3_qcom *qcom, struct platform_device *pdev)
+ {
+ 	bool is_multiport;
+@@ -555,7 +591,7 @@ static int dwc3_qcom_setup_irq(struct dwc3_qcom *qcom, struct platform_device *p
+ 			return ret;
+ 	}
+ 
+-	return 0;
++	return devm_add_action_or_reset(qcom->dev, dwc3_qcom_restore_wake_irq_types, qcom);
+ }
+ 
+ static void dwc3_qcom_set_role_notifier(struct dwc3 *dwc, enum usb_role next_role)
 -- 
-Damien Le Moal
-Western Digital Research
+2.56.1
+
