@@ -1,63 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795833406;
-	b=EK9wSnQQpbPZamc4uXZtFOmuyzg+Hwg3muV5mMUb60MUfjM8T7K0dOgaIinQYMai84WS
-	 0Fqd9dFhg2zd9b7yxU28uU1O4M7QWOcSYM7ADXxdW6BC8pJrfXB7i2d8Cs5ez7kd+yLjr
-	 lXKQLRnVhEMUnHGEQ1arCKfPfChn3WKFey79EPVUoF8WJCu6NScW1w+XJIi3C/hc863UW
-	 /TDQByEAlTqhrZI94padDluKQlbQaU4ilhCqiSH4SYK0NV0F0OJxzl/ODmt8C6umEWY+B
-	 ZZlz8V/lyr0REUNNiRWDQMtlYObXxmKgU1C5Vv13Ap44c1tWfMnWtskuUKHl0jMzYJg==
+	t=1795834039;
+	b=o5jP6u+e5vjg/v1A4wkdG8D6HeHTlfndZedYnIEY/lluI2fcCzXm02Jg9cYOzdHGgbXS
+	 yof2jTKGzDexejdoHMPSKesz8JshnXCns3AuVmxecUjW0ZzRCrRzWe3/NG7CPqwjIs5yq
+	 XQQlLq8C8Y6HD8db5+HX2u/ab0Jh93XQeJn9fUhBMilWEwmL8pe5QehdeX4AkceCVC1uW
+	 JiRUXG1fPN+c5Rvx1IsACI+zXtXfIjtNj71SpemNbS5eOPKbjqa8BqpOZZVMasBzIFhqv
+	 0OE0QdiurlAjNINAp1Gqq6CTaEAXhh30bnfb3sRsgu8rC0ShVOHfqk9V7XrPRZQnnwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795833406;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=MTrl40wuvNgA7pyYqP5WH0Tjsk6yd2f8SAlFn28+DFY=;
-	b=a65RcX9nO3uPGUvZboiKcfdw3FE5YbZ9mDYUiHC2kNpM2iFiNC7EBbNJwb+dMtBTdmDL
-	 wtwYqlAUfwSHRl6AmMDrt5i+urRkYUJ00LBJh9TIhXpQ8nd7xEKNYbnC5zI8zDiSEozDj
-	 vJIisIyOYY5MFqvA7VSKkUXTF7jukj1f/Gx3/WYaOWQFrh4O5jf2/KxqmmKZoB0oald/6
-	 wXmBCHnze7Q8ZPMWJfOeIf6N0I71klJPzCmP9zAldYbqntOBd0XXUjk05iqkVthl1OIvv
-	 Tl8cKA/NihdSvd9Y70xMi5EVsRfum3ps+PIptwMFZ95mpXQRQQjcbxga9IiiViy5PoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795834039;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=6WKT27fdX/tFqhewESdRPtk5HTiyQzUxICUqNBuVX0M=;
+	b=h30uLGnzXiQgrjoFKnWjxOkpSSydFsVl/PAxVjZj84ZzP46AFDXWwJ3K+tEvUtJ1rFav
+	 nUL9mSNA4fJsnyZfN+03FUWAK5GiDK/9lCg4BFmiTNFzSje24Pl05Wyy9nBRwfCyDxQSx
+	 M2YpzRnI1rdhsBfyqP9TNqLJnjUAYZkNXx4k1eSnJ5lMLKRB0FwbMcjAc+qkMUAg/JaGL
+	 2xrAqyllbMEzD4f5qFbYAuy79yMReoi4MKNIeU2IZbbxhAsIihOmptbH8rUMYB/mg3Z6U
+	 7ckkmyjiXKChhy6HYSqBD5lOFCyfZZgGn5S7IY+W7o4wctl/tmya5GpFzf+xrioO1vQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=FTzmWO+p;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BCE0E606A31C;
-	Sat, 28 Nov 2026 02:36:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCE0E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dmarc=pass header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=FiuhkhtQ;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BFB8606A321
+	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 02:47:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BFB8606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=FTzmWO+p
+	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=FiuhkhtQ
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3869f03af6aso7742003eec.1
+        for <stable@vger.kernel.org>; Fri, 27 Nov 2026 18:47:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=MTrl40wuvNgA7pyYqP5WH0Tjsk6yd2f8SA
-	lFn28+DFY=; b=FTzmWO+pB+EIJ75xxyhoB19Sn7CzWdd80Xpd55uT1L2YjJqDL8
-	bwCYSvOfZRHnrOpx+vtJDASGokqqqdm6WAaPRRP6bpZ4n6s2C9Soo03MXIc6V5TV
-	1L7rmMZXeuMs9eVtv70Iw2iu27dsScZWMlydvzhbzgjDXM6hmnB+cjEDQ=
-Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.184.233])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgBH1EgsPgprzkoFAQ--.3888S2;
-	Sat, 28 Nov 2026 10:36:29 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: linux-media@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Stefan Schmidt <stefan.schmidt@linaro.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] media: iris: fill in a default colorspace for decoded formats
-Date: Sat, 28 Nov 2026 10:36:28 +0800
-Message-ID: <20261128023628.24408-1-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261127152024.2149804-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261127152024.2149804-1-xiaqinghuan@mail.ustc.edu.cn>
+        d=kernel.dk; s=google; t=1795834037; x=1796438837; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6WKT27fdX/tFqhewESdRPtk5HTiyQzUxICUqNBuVX0M=;
+        b=FiuhkhtQpTj02YUL2JydJxu7pP80ao7UIcx71q2j7NDWqv8zjwSqfHsgdYc/vNm9uZ
+         OwV4iQpfm60T48BM7zkX30KHYk8NM75Q6QpM3dWv8XQvpRIyXqzZ9SFzsEIx9wgE9mp9
+         gbnHoXfhWqG9nzd1ItBNVhu3rrmCjBYaAc0Jk+TW1ufAbAe//L/36bk2jNkDRQQXdJec
+         Inf/Fj2kKa3TtaMFUbRAbCfsa+qypmduCT+3CZpkFVDNn6KnVRSBoTqqqYQh7oFQ9q1p
+         nHgQJ3LwwMoHLHOJ3j4nVjJkhWMaov75Zvp1GyPiFADc942jmTe3Z3EwST7PFtLDNbDr
+         S4Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795834037; x=1796438837;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6WKT27fdX/tFqhewESdRPtk5HTiyQzUxICUqNBuVX0M=;
+        b=ryQ4VNOAr65kspbS3Mc91+uvfdUi5yv/ANq7trFAqm/6/a0TP2h4Zx4wU3aqKQI4DH
+         78jN3B0i2sOM/bXBmproLKhghprFrbaLe0cBc83EgLs7uZ+33xwlvEKr0VyPnZvxI4z3
+         21RCXLzNqvrKoNOulKg6/XW05sKARQrA1b5oVlVO5jLVx1C+Jv6SY1Hoxg8XUeiwtDA8
+         iYoOyHJ74LZ0hrbf7g8d5Pw49LtjzRWJbw+oAQMw1XYUNNyDebNm4xdweYs4akvwDieB
+         ZAT49xFoIA0D4R6KZ0Ncf8cUQagkkDEHPpqi6WMmgQekCPwjOWF2w5jwxz2Vybkozs9Q
+         WBrg==
+X-Forwarded-Encrypted: i=1; AL+hErHOZq+I36eBwZGT9z/FYu+L+w0bfwfWG1so49nYc3k3V0BWU+iMts7uujd5sqvx5lB4w9ZsfQ8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Ae6wi/Ow/krGocuEv98PH8XVF7KzM46JCGlee/tkxtlAK72Dw
+	uOiPL+gD0MWzSgghYw+f6E0Dvk/elrIiiqD+dc3lbRhjuZ8fWuycJbtbOU2M6y8ZcMbLi0CK3fD
+	gQYql0aM=
+X-Gm-Gg: AZFdTZchn7Ii+ETzJJV9GM2O/WJNIVsBETIcdol4LQTO8A7h/rt4+M1fs7V3hcvqwTI
+	QIjgbDUbxzRNh5lC/TcoM//86/L5Rui8Ox9ddBEDxWQ77P4L6HK60l1pFSus8Pou56tMcgNSGLq
+	Mxdzfg3lDvQ31EHw7xF6lQDnQX20+x+3FM0YoA6mn2zA4fq4ge90y4pIt0L5DM4rlkzSSrE2A+O
+	vdeBRF7ow1sJoFm9ML9FlzgdTI2TOxnWODr2Qx4ikLkSjSvjm0o2gNwp0UoL8n5D2L5nkrcZflT
+	hYk6XqeIaSc6lUhHP0qmTFSzRn7CQWxRxzhd7rTAz6vtHA8F9oFyUrnQOL1J0uTKBVIg9Oo0zqf
+	9dqV1lb4nXRNnNd56GnacS69bRY8d1JnIpJJwQVLbrSgdehBP7NiS64G7/Tjtb0T6zC62Kumdmj
+	ngOep/XwlxpzPIxiR+R9Lga7crQE1aGx3tEzxhlS7yG/7CntZafNCdK6s27FPSIiEgWl7bNK+Xp
+	HDXyqg1dtdxRSgFsbXDMa4/i5J92DtcCmi7nL6U4P8T96PE3zk37G4mc0Uto6DgAey19SO4y1oe
+	ecoWx5nkD52Te6+5WO5cnNO43n/ADCFWk3zKpGcmFp1VxynhqKlUuRfCz3I7AxcMmEd0q7vr8/r
+	91eQ+Tod0Sfnyw5YiZlGUDL4ielrF5lRD287QYiuWYja1V4eV
+X-Received: by 2002:a05:693c:88d5:10b0:386:9e9c:867 with SMTP id 5a478bee46e88-3869e9c2df2mr21137020eec.10.1795834037229;
+        Fri, 27 Nov 2026 18:47:17 -0800 (PST)
+Received: from [192.168.1.142] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385646633d0sm134059672eec.3.2026.11.27.18.47.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2026 18:47:16 -0800 (PST)
+From: Jens Axboe <axboe@kernel.dk>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: hch@infradead.org, linux-block@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dm-devel@lists.linux.dev, mtsai@redhat.com, 
+ stable@vger.kernel.org, hch@lst.de
+In-Reply-To: <20261120101758.45513-1-dennylin0707@gmail.com>
+References: <20261120101758.45513-1-dennylin0707@gmail.com>
+Subject: Re: [PATCH v4] block: fix discard alignment for non-power-of-two
+ granularities
+Message-Id: <179583403624.86956.1820367114895807728.b4-ty@b4>
+Date: Fri, 27 Nov 2026 19:47:16 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,134 +101,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgBH1EgsPgprzkoFAQ--.3888S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3JrW5XF1UCrWDJrW3CFyfJFb_yoW7AFyrpr
-	1Fkrs8AF4UJr17AwsrJw40q3ZavayFgrya9rZrGrWUCFs8u3WfWr4vkF13uayUJrnxZ34Y
-	vF1jyrZ8Can8Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvKb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
-	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
-	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACI402YVCY1x02628vn2kI
-	c2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbV
-	WUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF
-	67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42
-	IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF
-	0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxh
-	VjvjDU0xZFpf9x07betCcUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2sHyZtdggA9sI
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-v4l2-compliance fails the format ioctls on the decoder because the capture
-and output colour fields are left at V4L2_COLORSPACE_DEFAULT:
 
-  fail: v4l2-test-formats.cpp(414): !colorspace
-  fail: v4l2-test-formats.cpp(537): testColorspace(...)
+On Fri, 20 Nov 2026 10:17:58 +0000, Hungyu Lin wrote:
+> bio_discard_limit() uses round_up() and round_down(), which require a
+> power-of-two alignment. However, discard_granularity need not be a power
+> of two. For example, dm-thin supports data block sizes that are arbitrary
+> multiples of 64 KiB and advertises the block size as its granularity.
+> 
+> With a 192 KiB granularity, discarding one complete block at offset
+> 384 KiB is split into 128 KiB and 64 KiB bios. Neither covers a complete
+> thin block, so dm-thin ignores both and the mapping remains allocated.
+> 
+> [...]
 
-A decoder cannot know the stream's colours before it parses a frame, but
-the format still has to round-trip a valid, self-consistent set.  Default
-to BT.709 limited range and keep the value when the client passes
-V4L2_COLORSPACE_DEFAULT back on S_FMT/TRY_FMT, so G_FMT -> S_FMT stays
-idempotent.  The description parsed from the bitstream is still reported
-through the source-change path once it is known.
+Applied, thanks!
 
-Tested on a Snapdragon 8 Elite (SM8750) tablet with vpu35 firmware:
-v4l2-compliance -d /dev/video17 loses the eight format/colour failures
-and decoding is unchanged (H.264 and HEVC both decode with framemd5
-identical to the software decoder).
+[1/1] block: fix discard alignment for non-power-of-two granularities
+      commit: f6ce3d09d6480b56e357336ac080952f9525eab0
 
-v3 only rewrites this commit message: the diff below is byte-for-byte the
-v2 diff, so the code was neither rebased nor retested for v3.
-
-Two of the three patches are withdrawn.
-
-1/3, "media: iris: report a platform bus_info prefix", duplicates a fix
-that is already in mainline:
-
-commit 1facae9bc3c1 ("media: iris: Fix bus_info prefix in VIDIOC_QUERYCAP")
-
-That is Vishnu Reddy's, from 2026-09-29, and it already carries its own
-Fixes tag and a stable Cc.  My tree predates it, which is why I still saw
-the failure; sorry for the noise, please drop 1/3.  Bryan asked for a
-Fixes tag and a stable Cc on that patch - there is nothing left to tag
-there now that the fix is upstream, so the Fixes tag below is for 2/3.
-
-3/3, "media: iris: seed the crop rectangle when only CAPTURE is
-formatted", does not apply to mainline anymore: in v7.4-rc3
-iris_vdec_s_fmt() seeds inst->crop from the user format in both switch
-branches (iris_vdec.c:271-274 and :309-312), so a CAPTURE-only S_FMT no
-longer leaves a 0x0 crop.  Dropped.
-
-The *_DEFAULT initialisers themselves predate this series: they came in
-with the reqbuf ioctl commit that created iris_vdec.c, which is the Link
-tag below.  The ioctl path that stores and returns them untouched is the
-s_fmt/g_fmt/try_fmt commit, which is the Fixes tag.
-
-AI assistance was used to prepare this change; I reviewed every line, and
-all measurements above are mine.
-
-Fixes: b530b95de22c ("media: iris: implement s_fmt, g_fmt and try_fmt ioctls")
-Link: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=38fc8beaba55
-Cc: stable@vger.kernel.org
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
-
- drivers/media/platform/qcom/iris/iris_vdec.c | 25 +++++++++++++++++++++----
- 1 file changed, 21 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/media/platform/qcom/iris/iris_vdec.c b/drivers/media/platform/qcom/iris/iris_vdec.c
-index 0dd33ff447bb..2238ef1a2794 100644
---- a/drivers/media/platform/qcom/iris/iris_vdec.c
-+++ b/drivers/media/platform/qcom/iris/iris_vdec.c
-@@ -37,6 +37,10 @@ int iris_vdec_inst_init(struct iris_inst *inst)
- 	f->fmt.pix_mp.plane_fmt[0].bytesperline = 0;
- 	f->fmt.pix_mp.plane_fmt[0].sizeimage = iris_get_buffer_size(inst, BUF_INPUT);
- 	f->fmt.pix_mp.field = V4L2_FIELD_NONE;
-+	f->fmt.pix_mp.colorspace = V4L2_COLORSPACE_REC709;
-+	f->fmt.pix_mp.xfer_func = V4L2_XFER_FUNC_709;
-+	f->fmt.pix_mp.ycbcr_enc = V4L2_YCBCR_ENC_709;
-+	f->fmt.pix_mp.quantization = V4L2_QUANTIZATION_LIM_RANGE;
- 	inst->buffers[BUF_INPUT].min_count = iris_vpu_buf_count(inst, BUF_INPUT);
- 	inst->buffers[BUF_INPUT].size = f->fmt.pix_mp.plane_fmt[0].sizeimage;
- 
-@@ -49,10 +53,10 @@ int iris_vdec_inst_init(struct iris_inst *inst)
- 	f->fmt.pix_mp.plane_fmt[0].bytesperline = ALIGN(DEFAULT_WIDTH, 128);
- 	f->fmt.pix_mp.plane_fmt[0].sizeimage = iris_get_buffer_size(inst, BUF_OUTPUT);
- 	f->fmt.pix_mp.field = V4L2_FIELD_NONE;
--	f->fmt.pix_mp.colorspace = V4L2_COLORSPACE_DEFAULT;
--	f->fmt.pix_mp.xfer_func = V4L2_XFER_FUNC_DEFAULT;
--	f->fmt.pix_mp.ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT;
--	f->fmt.pix_mp.quantization = V4L2_QUANTIZATION_DEFAULT;
-+	f->fmt.pix_mp.colorspace = V4L2_COLORSPACE_REC709;
-+	f->fmt.pix_mp.xfer_func = V4L2_XFER_FUNC_709;
-+	f->fmt.pix_mp.ycbcr_enc = V4L2_YCBCR_ENC_709;
-+	f->fmt.pix_mp.quantization = V4L2_QUANTIZATION_LIM_RANGE;
- 	inst->buffers[BUF_OUTPUT].min_count = iris_vpu_buf_count(inst, BUF_OUTPUT);
- 	inst->buffers[BUF_OUTPUT].size = f->fmt.pix_mp.plane_fmt[0].sizeimage;
- 	inst->frame_rate = MAXIMUM_FPS;
-@@ -207,6 +211,19 @@ int iris_vdec_try_fmt(struct iris_inst *inst, struct v4l2_format *f)
- 	if (pixmp->field == V4L2_FIELD_ANY)
- 		pixmp->field = V4L2_FIELD_NONE;
- 
-+	/*
-+	 * A decoder cannot know the colour description of the stream before it
-+	 * has parsed a frame, but the format has to be self-consistent and
-+	 * must round-trip: keep the defaults when the client passes
-+	 * V4L2_COLORSPACE_DEFAULT back instead of clearing them.
-+	 */
-+	if (pixmp->colorspace == V4L2_COLORSPACE_DEFAULT) {
-+		pixmp->colorspace = V4L2_COLORSPACE_REC709;
-+		pixmp->xfer_func = V4L2_XFER_FUNC_709;
-+		pixmp->ycbcr_enc = V4L2_YCBCR_ENC_709;
-+		pixmp->quantization = V4L2_QUANTIZATION_LIM_RANGE;
-+	}
-+
- 	pixmp->num_planes = 1;
- 
- 	return 0;
-
+Best regards,
 -- 
-2.53.0
+Jens Axboe
+
+
 
