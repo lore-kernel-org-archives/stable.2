@@ -1,78 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795825920;
-	b=F7jc6bA+C3OZ2GaJNAmYTnM9ARt/w6GWjVgz5HsyngmDofbkBtxufGGCL6T8UO2b0qX3
-	 2af0AF/g73LAqsyFER3vC9Lg5wEfFyUUKRMO/wWn/4O8uC0QBj2qgrBe1T+kBif9gvl5C
-	 buG7MLXHtOhfmUphPfO6NZoNJCWgyIXoeBQccBujiAyQZzE/n08IpSTjZBawHLZA2o5E3
-	 KbvSiVwJ//G1YxhbFEiA0l4vlZFaq2DWx/iCpKgZ5q0SfZv0Gn9JJ4FpK7x9QFeuLTu1Y
-	 5Ao3iL3cX0hvOOQvxCtVa86Fv0pzWvWNGO70tMoJ7+drIT5l0x6Jq2IBhq7DaXduheg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795825920;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=A4LVjkTnpkyF5klIB/NNrOOh7DHYEeRfyp9lDj+74Og=;
-	b=qFcLuZGMX/4lGGG6g532uDy47S+lS9f6NBoSiMVubmlw5pnO94W0KwFyNnZN/7o88zZE
-	 zXTlSZPkrJ9WRUd5NR6MZg07era6sGYOwzHO9ExAGkpHhq6rd13oS34HX/U+EBaNovrYi
-	 nSvm4UdxLAgs0Pfyui0jskbtw23CBmrDWERIEvLJAmKNytY8YrpiG266K/uYfZgGouIpX
-	 OPQtl751WF+p92VphzFJ1UQwef7wgNZNGILdWdoC5aPAwqcZG8GJYLfRSQJh5svBw/kfA
-	 zq+LW52OPQuPFSdexZwGmOddHAcyADCSb7fsp4zoAQncacNknINqD07EoRq3S8Ke+IA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AsPetNWL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DD3A606A31C;
-	Sat, 28 Nov 2026 00:32:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795826271;
+	b=EfqBadBxOfUpNZgAg5RHBuofR55P79W85NrUv9eOPJmuLw02jQCxMeYV4F1x0nqCybTF
+	 Ad8mE9ifnue01KcTKUmfUFarw+3GFzZL91zrCJn/n/YWokjkouCiRCLLWaFLJCzJKs1D6
+	 sWU7dE8C1ygzfVn/1EdZncdycmW3gU15NnZ0WGf8j7DEpIRDu3E1WLffark2M2HStPFgi
+	 OTDojBtpC6o4ZO0P1LTSsmr+D8/PZxQNlfzwMW4MJOGDBhLqiNLDMsw7g7URGr/jsYkbP
+	 ngBk6SAM0Eck29QBp6Ug+n7HeQqn2DyPlo5xc5yiXpTRF1FOnF9OmsxyKhlSH8wpV1g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795826271;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=XHNSyP9vXiUABekrjWdiq3Cv7yHc1OpTTdfPh3CIO9c=;
+	b=hFpun7QtcLY26026x2A4CqWLJtTyqYhsNCFfkybz2Blvnyhz0S4mlAuXgZpgE+9jJyuL
+	 XXiU1hhODDBKCF0B1ruqvZWJsRe4Of3GWlBb6o0fGxdrTTy/nbcxuLdcpF7x4S3CQ3945
+	 /XxGc17d23qSfbYunt+VJ1FKC0+MDds5RlIwNZdytXvBY5eaOz4aFmwaz19Fi4LDk3B2s
+	 rEA1J7Hb8573Va9SLYZWnhuAuzBe9RbzGWd6qmkh4sDSl1k9Zkpa+y5VBXAWLfRk6vpBA
+	 0twDIBgpbsOvwk0g+C4tyoZDGh3osZlbUNBzwXLvn3EwAu0F3VkUiyDDY+O2z7gvYrQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=vO02KLo7;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 86698606A31C;
+	Sat, 28 Nov 2026 00:37:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86698606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AsPetNWL
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795825919;
-	b=e7gkghA+LqbaSmAKZBuYsiiYPnHncXNAKJ5tTERESuI260PIBHsqQTKQZbVQj75MSKIi
-	 uD6shptzXVMGgdBsdFMrmCDv8CdF80ZfG0yRN30dHwp1N8He6Eb/DIxsChtTBlybn0Od4
-	 YesS6KnhTRdftY000ot+8BAq5Fo1o5D/bwp4dUMfn+4Ie5nA9UFDYyhg1U7KzwKxYKX4B
-	 4yJC+H/KqQuzuXixOfQXJJs7KNkqD7gV0NZ5Koqd4CDObn8ZhpTA3mUgsEBOfRee+5koq
-	 Ii1utOoBaTCyguNBdz15H+XIUdOWPDt+SmD571RAsKfu+uXEYxzcsHIhkIP0uAz9rtA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795825919;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=A4LVjkTnpkyF5klIB/NNrOOh7DHYEeRfyp9lDj+74Og=;
-	b=i+yMb09Ez7r5musSFH6tE9B6AoQov1Ko+VlfshWJTSs89GyRvvmE++lah2xCq/dEXu1C
-	 ZKsufdi+NLoO0QmUXK+1HPPX/Y0B/JOm++63oDd9aUiyORFJ1DfHQR7D+3Nnqh1oW8Ifo
-	 c/Kg6kzuStFEnmBSNCU5JCtoMhAxgWsZ1UhIL2YF6MBt/rq0hheyR7a1JSRLimypuQewa
-	 14ylwpJHCKTX9Ejo3XhAaEkSyySjfuA/Oj1GiJVKDX7VKpTloHaFVOWPxF9GKzcuw1zx+
-	 KTVfUVJcIQ1H+GxgwQWUaCBTIFz5mlRlKw+bHTHcs8uXZ8suc3mCG5UvMIqRQbUD0QQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5B21C1F000C1;
-	Sat, 28 Nov 2026 00:31:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795825919;
-	bh=A4LVjkTnpkyF5klIB/NNrOOh7DHYEeRfyp9lDj+74Og=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=AsPetNWLG14jQKA0/tSWWM2jnBVzQE+uUyDzygTgZ+nn0UL3+0o5CRo0FoI3/ZhOi
-	 CMOwky4/Qxf7svJ3k4n8z7qsywTVx2jZMFJ+xNOnMR8PnzBTOMSarNW3+GXgm8+xko
-	 9CuUl4nV0gOTn9R3/ejZEf38QDl5j8oKNIcriq3DfezXaQfssXWpAx4DUSj+GU9ENI
-	 xGfSdCtxGOEpe/PVRYCEyrlVrktmVOnmHShEwTJmZPUc5hiW2o9uGNqirDDe59+u2S
-	 85bz0Ja8SiZkWuaBEh/4TRGd/8j6GV+7ecY2fszZMLzvI0SH2KMoTlwOkMiBLSMpSf
-	 k5i393u91GHuA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D0F4C4DEB5;
-	Sat, 28 Nov 2026 00:31:58 +0000 (UTC)
-From: =?utf-8?q?Petr_Krac=C3=ADk_via_B4_Relay?= <devnull+petrkr.petrkr.net@kernel.org>
-Date: Sat, 28 Nov 2026 01:31:53 +0100
-Subject: [PATCH] media: i2c: imx415: Use the new VBLANK value for SHR0
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=vO02KLo7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=XHNSyP9vXiUABekrjWdiq3Cv7yHc1OpTTd
+	fPh3CIO9c=; b=vO02KLo7+e+v+hjpY1cqyiw6dzDCUArVlscqsVWwmXNTKBk1EQ
+	PmlvB4qyWlW6kAYLe+XSAvPOxpttprGInX5B8ks89WBmk2qT4OMatf7HyX8KwuNv
+	Xm34wLahJklqQDKYIvWu1JkEDmco+W7K44PBxeasX315wxYtjzA9ohmwk=
+Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.184.233])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgAXkTVRIgprEugEAQ--.1728S2;
+	Sat, 28 Nov 2026 08:37:39 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: linux-media@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Stefan Schmidt <stefan.schmidt@linaro.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: iris: fill in a default colorspace for decoded formats
+Date: Sat, 28 Nov 2026 08:37:37 +0800
+Message-ID: <20261128003737.1300698-1-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261127152024.2149804-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261127152024.2149804-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,100 +67,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261128-imx415-vblank-fix-v1-1-0878e9928fd6@petrkr.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQyML3czcChNDU92ypJzEvGzdtMwKXWOjFAvjRBPjlEQTMyWgvoKiVKA
- w2MzoWAi/uDQpKzW5BGSQUm0tAKoNT511AAAA
-X-Change-ID: 20261128-imx415-vblank-fix-32d83a43da46
-To: Michael Riesch <michael.riesch@collabora.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, =?utf-8?q?Petr_Krac=C3=ADk?= <petrkr@petrkr.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2315; i=petrkr@petrkr.net;
- h=from:subject:message-id;
- bh=YzHOjfOlYrYJXjwaPQuJDeigg1JsB6+2ebe+BLz+vpg=;
- b=owGbwMvMwCGcmL3AsYG1kZfxtFoSQzaXwl8hq411cRNXLw24ceZYpLh6g9ul/kfChrwHDjwOu
- /TVMUmgo5SFQZiDQVZMkWXbDs1pu7qc58++XmMEM4eVCWQIAxenAEykPYXhr/yTvP4PSUdXCTxw
- cyh5U5eTGLn999OX5tF+gTMqs1L0fjH8r3zx/gGT2rI3pj/EEg8JsV3xD9ugm6owzXD1xHsfw3b
- eFgUA
-X-Developer-Key: i=petrkr@petrkr.net; a=openpgp;
- fpr=B6B82996BA8A439F9BD77C32616BA0418005810D
-X-Endpoint-Received: by B4 Relay for petrkr@petrkr.net/default with
- auth_id=1672
-X-Original-From: =?utf-8?q?Petr_Krac=C3=ADk?= <petrkr@petrkr.net>
-Reply-To: petrkr@petrkr.net
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgAXkTVRIgprEugEAQ--.1728S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3JrW5XF1UCryxCw47GFWUtwb_yoW7GrWfpr
+	1Fk395ZF4UXr17AwsxJw4Fq3Z3ZayrWry3CrZrG3yUCFs8uw1rWryvkF13uayUJrnxA345
+	AF12yrZ8Can8A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvKb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
+	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJV
+	W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka
+	0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
+	v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
+	1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
+	AIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI
+	42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxh
+	VjvjDU0xZFpf9x07betCcUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2sHyZtdggA7sO
 
-From: Petr Kracík <petrkr@petrkr.net>
+v4l2-compliance fails the format ioctls on the decoder because the capture
+and output colour fields are left at V4L2_COLORSPACE_DEFAULT:
 
-When V4L2_CID_VBLANK is set, imx415_s_ctrl() writes the new VMAX and then
-falls through to the exposure case to program SHR0 = VMAX - exposure.
-The exposure case computes VMAX from sensor->vblank->cur.val, which still
-holds the old value at this point, because the control core updates
-cur.val only after s_ctrl() has returned. SHR0 is therefore calculated
-for the previous frame length. If the exposure control is not written
-afterwards, SHR0 stays wrong and the actual exposure differs from the
-requested one (for example when the frame rate is changed).
+  fail: v4l2-test-formats.cpp(414): !colorspace
+  fail: v4l2-test-formats.cpp(537): testColorspace(...)
 
-Take the VBLANK value from the control being set instead.
+A decoder cannot know the stream's colours before it parses a frame, but the
+format still has to round-trip a valid, self-consistent set. Default to
+BT.709 limited range and keep the value when the client passes
+V4L2_COLORSPACE_DEFAULT back on S_FMT/TRY_FMT, so G_FMT -> S_FMT stays
+idempotent. The description parsed from the bitstream is still reported
+through the source-change path once it is known.
 
-Fixes: 3bcae55ab96a ("media: i2c: imx415: Add read/write control of VBLANK")
+Tested on a Snapdragon 8 Elite (SM8750) tablet with vpu35 firmware:
+v4l2-compliance -d /dev/video17 loses the eight format/colour failures and
+decoding is unchanged (H.264 and HEVC both decode with framemd5 identical to
+the software decoder).
+
+This is v2 of 2/3 of the series. Two patches are withdrawn:
+
+- 1/3 "media: iris: report a platform bus_info prefix" is a duplicate of
+  commit 1facae9bc3c1 ("media: iris: Fix bus_info prefix in
+  VIDIOC_QUERYCAP", Vishnu Reddy, 2026-09-29, Fixes: 94ef75095d5e,
+  Cc: stable@vger.kernel.org), which is already in mainline. My tree predates
+  it, which is why I still saw the failure; sorry for the noise, please drop
+  1/3.
+
+- 3/3 "media: iris: seed the crop rectangle when only CAPTURE is formatted"
+  does not apply to mainline anymore: in v7.4-rc3 iris_vdec_s_fmt() seeds
+  inst->crop from the user format in both switch branches
+  (iris_vdec.c:271-274 and :309-312), so a CAPTURE-only S_FMT no longer
+  leaves a 0x0 crop. Dropped.
+
+AI assistance was used to prepare this change; I reviewed every line, and all
+measurements above are mine.
+
+The *_DEFAULT initialisers themselves predate this: they came with
+38fc8beaba55 ("media: iris: implement reqbuf ioctl with vb2_queue_setup"), which
+brought iris_vdec.c in.  The ioctl path that stores and returns them untouched
+is b530b95de22c, so that is the tag below.
+
+Fixes: b530b95de22c ("media: iris: implement s_fmt, g_fmt and try_fmt ioctls")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Petr Kracík <petrkr@petrkr.net>
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
- drivers/media/i2c/imx415.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/i2c/imx415.c b/drivers/media/i2c/imx415.c
-index 7bb27bdf1446..282dc0c3e021 100644
---- a/drivers/media/i2c/imx415.c
-+++ b/drivers/media/i2c/imx415.c
-@@ -697,6 +697,7 @@ static int imx415_s_ctrl(struct v4l2_ctrl *ctrl)
- 	struct v4l2_subdev_state *state;
- 	u32 exposure_max;
- 	unsigned int vmax;
-+	unsigned int vblank;
- 	unsigned int flip;
- 	int ret;
+ drivers/media/platform/qcom/iris/iris_vdec.c | 25 +++++++++++++++++++++----
+ 1 file changed, 21 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/media/platform/qcom/iris/iris_vdec.c b/drivers/media/platform/qcom/iris/iris_vdec.c
+index 0dd33ff447bb..2238ef1a2794 100644
+--- a/drivers/media/platform/qcom/iris/iris_vdec.c
++++ b/drivers/media/platform/qcom/iris/iris_vdec.c
+@@ -37,6 +37,10 @@ int iris_vdec_inst_init(struct iris_inst *inst)
+ 	f->fmt.pix_mp.plane_fmt[0].bytesperline = 0;
+ 	f->fmt.pix_mp.plane_fmt[0].sizeimage = iris_get_buffer_size(inst, BUF_INPUT);
+ 	f->fmt.pix_mp.field = V4L2_FIELD_NONE;
++	f->fmt.pix_mp.colorspace = V4L2_COLORSPACE_REC709;
++	f->fmt.pix_mp.xfer_func = V4L2_XFER_FUNC_709;
++	f->fmt.pix_mp.ycbcr_enc = V4L2_YCBCR_ENC_709;
++	f->fmt.pix_mp.quantization = V4L2_QUANTIZATION_LIM_RANGE;
+ 	inst->buffers[BUF_INPUT].min_count = iris_vpu_buf_count(inst, BUF_INPUT);
+ 	inst->buffers[BUF_INPUT].size = f->fmt.pix_mp.plane_fmt[0].sizeimage;
  
-@@ -715,10 +716,14 @@ static int imx415_s_ctrl(struct v4l2_ctrl *ctrl)
- 	if (!pm_runtime_get_if_in_use(sensor->dev))
- 		return 0;
+@@ -49,10 +53,10 @@ int iris_vdec_inst_init(struct iris_inst *inst)
+ 	f->fmt.pix_mp.plane_fmt[0].bytesperline = ALIGN(DEFAULT_WIDTH, 128);
+ 	f->fmt.pix_mp.plane_fmt[0].sizeimage = iris_get_buffer_size(inst, BUF_OUTPUT);
+ 	f->fmt.pix_mp.field = V4L2_FIELD_NONE;
+-	f->fmt.pix_mp.colorspace = V4L2_COLORSPACE_DEFAULT;
+-	f->fmt.pix_mp.xfer_func = V4L2_XFER_FUNC_DEFAULT;
+-	f->fmt.pix_mp.ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT;
+-	f->fmt.pix_mp.quantization = V4L2_QUANTIZATION_DEFAULT;
++	f->fmt.pix_mp.colorspace = V4L2_COLORSPACE_REC709;
++	f->fmt.pix_mp.xfer_func = V4L2_XFER_FUNC_709;
++	f->fmt.pix_mp.ycbcr_enc = V4L2_YCBCR_ENC_709;
++	f->fmt.pix_mp.quantization = V4L2_QUANTIZATION_LIM_RANGE;
+ 	inst->buffers[BUF_OUTPUT].min_count = iris_vpu_buf_count(inst, BUF_OUTPUT);
+ 	inst->buffers[BUF_OUTPUT].size = f->fmt.pix_mp.plane_fmt[0].sizeimage;
+ 	inst->frame_rate = MAXIMUM_FPS;
+@@ -207,6 +211,19 @@ int iris_vdec_try_fmt(struct iris_inst *inst, struct v4l2_format *f)
+ 	if (pixmp->field == V4L2_FIELD_ANY)
+ 		pixmp->field = V4L2_FIELD_NONE;
  
-+	vblank = sensor->vblank->cur.val;
++	/*
++	 * A decoder cannot know the colour description of the stream before it
++	 * has parsed a frame, but the format has to be self-consistent and
++	 * must round-trip: keep the defaults when the client passes
++	 * V4L2_COLORSPACE_DEFAULT back instead of clearing them.
++	 */
++	if (pixmp->colorspace == V4L2_COLORSPACE_DEFAULT) {
++		pixmp->colorspace = V4L2_COLORSPACE_REC709;
++		pixmp->xfer_func = V4L2_XFER_FUNC_709;
++		pixmp->ycbcr_enc = V4L2_YCBCR_ENC_709;
++		pixmp->quantization = V4L2_QUANTIZATION_LIM_RANGE;
++	}
 +
- 	switch (ctrl->id) {
- 	case V4L2_CID_VBLANK:
-+		/* cur.val is updated only after s_ctrl returns */
-+		vblank = ctrl->val;
- 		ret = cci_write(sensor->regmap, IMX415_VMAX,
--				format->height + ctrl->val, NULL);
-+				format->height + vblank, NULL);
- 		if (ret)
- 			break;
- 		/*
-@@ -729,7 +734,7 @@ static int imx415_s_ctrl(struct v4l2_ctrl *ctrl)
- 		fallthrough;
- 	case V4L2_CID_EXPOSURE:
- 		/* clamp the exposure value to VMAX. */
--		vmax = format->height + sensor->vblank->cur.val;
-+		vmax = format->height + vblank;
- 		ctrl->val = min_t(int, ctrl->val, vmax);
- 		ret = cci_write(sensor->regmap, IMX415_SHR0,
- 				vmax - ctrl->val, NULL);
+ 	pixmp->num_planes = 1;
+ 
+ 	return 0;
 
----
-base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
-change-id: 20261128-imx415-vblank-fix-32d83a43da46
-
-Best regards,
---  
-Petr Kracík <petrkr@petrkr.net>
-
+-- 
+2.53.0
 
