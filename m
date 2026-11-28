@@ -1,86 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795873134;
-	b=QvQ1NSwheHFDqdNWBM7FwoAI6vMo8AsQ9EOZSymObjgxwohem2+nqAn7+VKNq7lT5OEO
-	 5D7GttG1XrTfaH/W+Vw9Gf/cRcLcI/gO/Z7OiDiveBbM0ZcsFrm7VKgVBWIbCo6CFf3gc
-	 PhelzgoE6klPc9TcumQBmQL//t8MvBtFSl/ucmeJ/fxiWuDHiPcRabQNLxk990rhw9Iwg
-	 a1/bNdKa7+NC49QlCOyGfyMv6aBxWUQnSFIFSbn6GP+5pZKHGFJnese4dBiAazddNkmLs
-	 uRU117D535S7A+zWzJ6px7mZbsxqoQ3pLZXVmQdWFrRqlgbnyrU76y2g6lTyzw73aIw==
+	t=1795873228;
+	b=TDRg6HtlkIU9THh2qTMtOqkx/Re6ayyvQgCLg6RVx/WGdjA+r/gI/AM8qElRCO/y3Jj9
+	 zhdxwmp7tyb26omQ4ohGjcL3SubCkaVQXZfxdC24FCCMeFy0kHtD9JiSInNQm4PA8+jP2
+	 Pq66QzeByU8RCV3ekFbxqPYMIzE8e/S3t+Nhn+CMsvkStduIf+rvWQYe3iHXnbT4oIPdk
+	 9MQrfBonAlFkE/Kp1DHu+F5sqFBg5TTixU+B3XiDeFcPUx2Mbu82nUwBV375CVJDr9Uas
+	 5byXYN+kUDzNonxBZHpN83jgWW9jdCIy+dqfpl6sDt/LR4pKRS9cU8oezbkYpsaC18w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795873134;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795873228;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=dCmAGX2Omd/g9y7jDZCpeWTJ9I+W1z7gL0oCYL7gw10=;
-	b=yUYmUBxY43GgdrmavVPBEsBr0Ri5OqHsnlHQyBAYR9yICCA4q7OzQqnfHbduCQx9KAQC
-	 iS0PG7DUbAShAVhBqtr57O6sSksjqmfn2Q9PsvMqprEiOJeVwJANrrVxGqd8ZoL+vroO3
-	 aSV4k4WKkMJSI8KKJLSdVSqYHFSMpb01gUwZO0Dxbivw1R04jcd50uQSmUReHfxjs4dV1
-	 fySiJR5MszSAXGj3W3yB+OZA37Dqq0V06CK2HkpBXVyh5ZBeHCCLdDmBKmBojUHTCWfIr
-	 ASTICgrXKSfVkuD4iky3/XQQuTzZv7rtX+H2eni4GNOAgXnH30f4YnYW2nBwt6F3AfA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=QyFV4pisqndkw4NPxkRB4pgaLfPMNmkrYfYabK5Jawo=;
+	b=bNjomG8iaUEq3gSswzt4FCWDg9VVXWvqU/wnj1bD0vVJvN1Lr3vV4tHs3TtTN+iqzTFS
+	 UTBzxeQOtBXMYFwgZWzLnCSH6qMrbF3vlkMKuUsKo+jlMon6CWcBdC6sjYuZ6DMNBXquL
+	 YbpQ2c3Ft24tpSA2lMXqXRFrjldXSys1F7dC2OZEHcXfsZaOnZtrepBnF133CbkHAXbpB
+	 YAuYIO+XJS+LYJZpZZ0lcsvcemIeCWiLqOwgYMwBwWtOllu96HWp4xKkRpDL3jhH++78e
+	 4OP5FYQuP6xc+b/I6MRDnJbwxj27Ia5R+zuNNBT9J4KOSAUlymYMEs6WIu1t30IyTPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wTyeE1UY;
-	arc=none smtp.remote-ip=209.85.167.50
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Hyy8BE7T;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F82606A321
-	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 13:38:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12F82606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C75606A321
+	for <stable@vger.kernel.org>; Sat, 28 Nov 2026 13:40:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27C75606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wTyeE1UY
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5c10dc41270so9383835e87.2
-        for <stable@vger.kernel.org>; Sat, 28 Nov 2026 05:38:53 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Hyy8BE7T
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4ac08f4a0b2so6338483f8f.3
+        for <stable@vger.kernel.org>; Sat, 28 Nov 2026 05:40:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795873132; x=1796477932; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dCmAGX2Omd/g9y7jDZCpeWTJ9I+W1z7gL0oCYL7gw10=;
-        b=wTyeE1UYXKFFlRlLAUJLkr9C9/Brmuh5IhKjiX+lPzzs+/9twKhj5S3a4LKPpGRO1R
-         Z2KoeptxVlTXvErSql4Wy15JF/SLVpFMKE3Tj9EUe6EQhCTaBdAZKXYuA6NVcvs/TPa0
-         Qonbh/BnIA+78Piovo5I7+tHAke7nbjedz8z0p8bN8hdosjDNMQR9HylVUq+qa6g9rxE
-         hp2CX8u+SswX1VCZhDsVuBkYmC5Sh4ktO4nsAWbzXUuBQKmjxmqnJHPn5cEQB9AlR/ZP
-         vDK9sEvN9TUdDS84TIyfSlMdsXwGKBS2IG8Jh7QSnZPqoFUCIk77zqz4WPa+L0yWaCgr
-         0XBw==
+        d=gmail.com; s=20260707; t=1795873226; x=1796478026; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QyFV4pisqndkw4NPxkRB4pgaLfPMNmkrYfYabK5Jawo=;
+        b=Hyy8BE7ThnPiEgCqVkJoKTCxCsy9TFJLNY9Xbv5dw5e02Rrpqietxr4bgIIee3ira5
+         rGlIml89ZGFsNTqero2ajm+P+6KFgWdpvWDgVIFUsHkWV0YSOmP9p5IOi2uSFZzhWhVm
+         4nkF3R9OtX/3U/3Ihmmu5ZB/MyM1gM5FkALLdcX3396e+lJnBqGDreoTxX+tG6rBwIS+
+         TfZwdzqLM8QkLn++l+YSRlYqIIHk3mE16+ggxqn9QxL9vyuEw5m5IiM6gtjF2c3eNVJo
+         LDE53a/PCBf71+FrgEJlYOD5cQ+dDSMbgoMdK+qcEWZC9FXSeY+U4q8+AD4eeWjhEjHK
+         oN1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795873132; x=1796477932;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dCmAGX2Omd/g9y7jDZCpeWTJ9I+W1z7gL0oCYL7gw10=;
-        b=KbdEgbWn5GBXbhd+q2LR9GtbeJFPq4EdRJ4NsYYwlGgIjt+Byg4fFcAIzc1sDforz5
-         oL4StjR5PDTqJ8g5uptCSN35PdIAdJIlxzv0jahDmhvgICJ8mkX0BeLdJTzlH9iACga4
-         g/wuyX5wO0kML3fb+BYzbkjkOdqFGVWcIJpdu9lO7nH8mp4cTZXgYBfxNIMDnlGRn02y
-         cBgY1Eh5YlTWkkQcwir4JhlehRlSJa/t28OHsDD71vsDiJHyAgCMItFh7M3/G0Dpl9QB
-         w+hz90uqgCSU1ZYjtGlCJGblgYekBp+3CwnK3y8ZrOV7obidrXwsCxPuVLUYd5whVcKJ
-         sTOw==
-X-Gm-Message-State: APuU4Z9A57gB4DU48S2CHRewSHvyoZ+MAFkAZp1/Bd0llrvE/W9+Fbz5
-	NwBOBQDVv547MyE0/owm9WLyNJVJYewjXMYtbwc9nOw8BMa4omKAhKnz
-X-Gm-Gg: AZFdTZdPdBPcW6a8jEKNJYON9yKFDqDq33EBKicJ7V80hsoXRAp4CUekfCCkhFux3lk
-	l9GCF/i+gagswJTOpRNmLvK8RU0as6RI1W3KeTiJRIo4HPanR54LXul7o65oq/Zorh1+BdHRS65
-	yCswkSB0TGV2OqRbfCB4Pj/KrIbt2Itw1M+NnZpWKusYzwXhFjxJRZzwTK2UGnnEcbKlTYSsMVI
-	ZLxaKxQsHG2dbrgozc90oyLXnmMZHxhqeM9d8zAoxo8896ZOjjJRPKhzh3L4ShgTpxdD97jKOu5
-	pBZElV6yyU5CzeeK0Lmj3Q6ZqVXmQDadeVFQfAGf8ITAaEH2lM9HanB6ScF4YpiHof3ZJV9Sns+
-	OrMrsnfLH0ExVrZDkK9VKq2ZHuirWgYf3hwiI5ijILr3YsBzrXQbG8XsaTSzeDY9oVAPOFdPrSd
-	By8UI0z4PkhmgUxhcv/Y/nWVR6C2zP5MCiGx55bom4aMpwtOwP+oGkuDtgjwAEssG5QopF7HDNg
-	boVyJUvgpwAN/XJ/jJIneYesGyxK9LnIU8id18bomxX9v1FFrOJ0t0ivCNWyljuiA1+KXFHcdfE
-	FlQde1PO/GzJDFSuNq1z8mZcaEmirWhUUrbxQQDhH93I
-X-Received: by 2002:a05:6512:3b89:b0:5c3:3dfd:c4e8 with SMTP id 2adb3069b0e04-5c33dfdc807mr1617419e87.2.1795873131953;
-        Sat, 28 Nov 2026 05:38:51 -0800 (PST)
-Received: from [10.127.127.83] ([5.195.0.145])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bcff8b82sm6968991e87.16.2026.11.28.05.38.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 28 Nov 2026 05:38:50 -0800 (PST)
-Message-ID: <2528005e-67b5-4e23-a357-fbf853c2ff38@gmail.com>
-Date: Sat, 28 Nov 2026 17:38:44 +0400
+        d=1e100.net; s=20260707; t=1795873226; x=1796478026;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QyFV4pisqndkw4NPxkRB4pgaLfPMNmkrYfYabK5Jawo=;
+        b=V8RA1XLmcIaXlGogppUz8TeiWnAkpUZ/ynAy1U2lEt7S6yWHh2DHEBD5zu3xOdYNpj
+         +do5dmxnSsXfi6KshFq7z63SgWvb+HJQ933c5Qw5fRZy9XRRaaWtOpz5hnoAjGe13508
+         1DAsb3sPpY6M+QvvbQLzFlw976IR5LGI9bAC8DNqrzqrNnsQgjndRcLbUPEWqfBiRmTK
+         r8vU9yfqk4y7o09a1lpksjtBqn/+A0ESH6h5cUHjnbDfpUooFezVZ+Ar6ZoYBMgbZClM
+         tZTcNkw5lDUY713rdqF7tqYJ1kNc1LO2rDzHkYATBE2TmD3P/FFg7nRtdQIwXy4dAKbo
+         3VBg==
+X-Forwarded-Encrypted: i=1; AL+hErHKeegZCY3dnwpU3ZPQMvVV7n++13B2rI09n8sXiRsL68KvTzvaT1jUUWpvWpxPfieRRPmBPUM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z95VsySMQx3IUxpfwafX1sqnYUBhbZBourlUsNx/rY8Mpzc6i/T
+	ictKnpxP+Sb1cSkVWpCU5R8s7u+2DMeDzhI4SfHyLNQXVsEaqY3ChLRS
+X-Gm-Gg: AZFdTZcPJ7y062sPz8yiNOnb+PmI2EOsqyacXmtDgQpRiENX2ecn8XzUn29CshMCnUA
+	lFIC2++f58gf7K4V/VF/HKRMniVhOQxks/u7Qt+UkRWiEYJl2YjdvfoS7b7yijCxUjIsdfGnLXO
+	+0cq5EXVz8wmF6CWgq8Q5dU0OQBrFk6CcZki7K3q7TevzYcx+l8BkTmbXL+S1I0O3A+nmsOgLGb
+	RurTahTDvety3rcrQ2qWCG41zvGtNDgCeJOfJBUXcI4LIc+U0K7L8foY3l8AfEuwvhzN63aioof
+	lrY20C+zwCP8k22hPoUThdZxC+650cYecLIeo6AvP/t8tupbmuY+eIhddRdDl7okkw9as4bEuQj
+	gL9HTD9deO15IB697+W7tz3L+ZineqEJzRFZWX/BsRmWPot5JqLblp7uEx4o1oIbWJnxN2z+7SE
+	xrMm4zt29wBKA00OtRnVvqYSIQ4N8+S4Nq18zSIYiFX7l6FwhQOuQobQncM1BtMUXo0BVPa3zSz
+	it+F9vm8dsjEeG2VunH9qUSL1K/W1dhug2QMnsuXLCIK9iHvyxZ5IgTVuNU1K+lRLa7/IdHrXNV
+	W/CMKVMBxdxdqFx+NzdABC369dfPvfbh8CMvTu/us9N/sXAmjh8/Quj7IuK3W+AlN6vPGcSvQ74
+	8LiWHQlvCjSDq0XgrwQBSTBNoBM2re2wcElk=
+X-Received: by 2002:a05:600c:4e16:b0:4bb:69b2:d3df with SMTP id 5b1f17b1804b1-4bb88813024mr568205445e9.25.1795873226378;
+        Sat, 28 Nov 2026 05:40:26 -0800 (PST)
+Received: from pc.tail250202.ts.net ([87.110.86.243])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8538b09bsm1404838525e9.4.2026.11.28.05.40.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 28 Nov 2026 05:40:25 -0800 (PST)
+Date: Sat, 28 Nov 2026 15:40:24 +0200
+From: Janis Edvarts Lacis <janislacis06@gmail.com>
+To: Antonio Quartulli <antonio@mandelbit.com>
+Cc: intel-wired-lan@lists.osuosl.org, 
+	Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v5 6/6] igb: only allow runtime PM if the device can
+ wake up
+Message-ID: <ri6pk2cv4qsc3lyumnpskogyadfhhk2aybgwyvbpdfoetkrbjf@efy5saiqmdzy>
+References: <20261124235723.1135808-1-antonio@mandelbit.com>
+ <20261124235723.1135808-7-antonio@mandelbit.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,67 +103,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/12] clk: samsung: exynos8895: Terminate PLL rate tables
- with sentinels
-To: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- Danilo Krummrich <dakr@kernel.org>, linux-samsung-soc@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20261127180416.3277544-1-lee@kernel.org>
- <20261127180416.3277544-11-lee@kernel.org>
-Content-Language: en-US
-From: ivaylo ivanov <ivo.ivanov.ivanov1@gmail.com>
-In-Reply-To: <20261127180416.3277544-11-lee@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261124235723.1135808-7-antonio@mandelbit.com>
 
-On 11/27/26 22:03, Lee Jones wrote:
-> _samsung_clk_register_pll() sizes each PLL rate table by scanning until
-> it encounters an entry with .rate == 0, then copies the counted entries
-> into pll->rate_table.  However, pll_shared0_rate_table,
-> pll_shared1_rate_table, pll_shared2_rate_table, pll_shared3_rate_table,
-> and pll_shared4_rate_table all omit a terminating zero sentinel, causing
-> out-of-bounds reads into adjacent read-only data and populating
-> pll->rate_table with bogus entries.
+On 25 Nov 00:57, Antonio Quartulli wrote:
+>igb lets the device be runtime suspended even if it can't signal a
+>wake-up from D3. Such a device doesn't notice the link coming back, so
+>the port stays down until it is resumed from user space.
 >
-> Append a sentinel entry to each of the 5 PLL rate tables.
+>Only schedule a runtime suspend if pci_dev_run_wake() is true. Devices
+>that can't wake up no longer runtime suspend, even with power/control
+>set to auto. Checking it when scheduling the suspend, rather than at
+>probe and remove as e1000e and r8169 do, keeps the runtime PM usage
+>count balanced if the result changes while the driver is bound.
 >
-> Fixes: 9174fac3b302 ("clk: samsung: Introduce Exynos8895 clock driver")
-
-Looks good to me. Thanks, nice catch!
-
-Reviewed-by: Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>
-
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
-> ---
->   drivers/clk/samsung/clk-exynos8895.c | 5 +++++
->   1 file changed, 5 insertions(+)
+>Tested with the 82576 emulated by QEMU.
 >
-> diff --git a/drivers/clk/samsung/clk-exynos8895.c b/drivers/clk/samsung/clk-exynos8895.c
-> index 259481c4276e..daf337f47e4f 100644
-> --- a/drivers/clk/samsung/clk-exynos8895.c
-> +++ b/drivers/clk/samsung/clk-exynos8895.c
-> @@ -478,22 +478,27 @@ static const unsigned long top_clk_regs[] __initconst = {
->   
->   static const struct samsung_pll_rate_table pll_shared0_rate_table[] __initconst = {
->   	PLL_35XX_RATE(26 * MHZ, 2132000000U, 328, 4, 0),
-> +	{ /* sentinel */ }
->   };
->   
-
-...
-
-Best regards,
-Ivaylo
+>Fixes: 749ab2cd1270 ("igb: add basic runtime PM support")
+>Cc: stable@vger.kernel.org
+>Closes: https://bugzilla.ipfire.org/show_bug.cgi?id=13562
+>Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
+>---
+>v5: check pci_dev_run_wake() when scheduling the suspend rather than
+>at probe and remove, which keeps the usage count balanced (Sashiko)
+>v4: no changes
+>v3: no changes
+>v2: no code changes; mention the tested hardware
+>
+>Note: igc has the same issue: igc_probe() also allows runtime PM
+>regardless of pci_dev_run_wake().
+>
+> drivers/net/ethernet/intel/igb/igb_main.c | 14 +++++++++++---
+> 1 file changed, 11 insertions(+), 3 deletions(-)
+>
+>diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
+>index 80ae03d..853bdf4 100644
+>--- a/drivers/net/ethernet/intel/igb/igb_main.c
+>+++ b/drivers/net/ethernet/intel/igb/igb_main.c
+>@@ -5625,6 +5625,15 @@ static void igb_watchdog(struct timer_list *t)
+> 	schedule_work(&adapter->watchdog_task);
+> }
+>
+>+/* A device that can't wake up wouldn't notice the link coming back while
+>+ * runtime suspended
+>+ */
+>+static void igb_schedule_runtime_suspend(struct igb_adapter *adapter)
+>+{
+>+	if (pci_dev_run_wake(adapter->pdev))
+>+		pm_schedule_suspend(&adapter->pdev->dev, MSEC_PER_SEC * 5);
+>+}
+>+
+> static void igb_watchdog_task(struct work_struct *work)
+> {
+> 	struct igb_adapter *adapter = container_of(work,
+>@@ -5777,8 +5786,7 @@ no_wait:
+> 					return;
+> 				}
+> 			}
+>-			pm_schedule_suspend(netdev->dev.parent,
+>-					    MSEC_PER_SEC * 5);
+>+			igb_schedule_runtime_suspend(adapter);
+>
+> 		/* also check for alternate media here */
+> 		} else if (!netif_carrier_ok(netdev) &&
+>@@ -9741,7 +9749,7 @@ static int igb_runtime_idle(struct device *dev)
+> 	struct igb_adapter *adapter = netdev_priv(netdev);
+>
+> 	if (!igb_has_link(adapter))
+>-		pm_schedule_suspend(dev, MSEC_PER_SEC * 5);
+>+		igb_schedule_runtime_suspend(adapter);
+>
+> 	return -EBUSY;
+> }
+>-- 
+>2.56.1
+>
+Reviewed-by: Janis Edvarts Lacis <janislacis06@gmail.com>
